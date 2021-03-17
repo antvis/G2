@@ -196,7 +196,7 @@ export interface IInteractionContext {
 
 ### 所有的交互列表
 
-G2 种的所有的交互都是通过  registerInteraction 方法注册的:
+G2 中的所有的交互都是通过 registerInteraction 方法注册的:
 
 ```javascript
 G2.registerInteraction(name, cfg);

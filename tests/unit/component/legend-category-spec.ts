@@ -1,5 +1,7 @@
 import { Chart } from '../../../src/';
 import { COMPONENT_TYPE } from '../../../src/constant';
+import { antvLight } from '../../../src/theme/style-sheet/light';
+import { antvDark } from '../../../src/theme/style-sheet/dark';
 import { GroupComponent, GroupComponentCfg } from '../../../src/dependents';
 import { DIAMOND } from '../../util/data';
 import { createDiv, removeDom } from '../../util/dom';
@@ -41,6 +43,72 @@ describe('Legend category navigation', () => {
     // text
     expect(children[1].get('type')).toBe('text');
     expect(children[1].attr('text')).toEqual('1/2');
+  });
+
+  it('navigation style', () => {
+    const legends = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND);
+    const legend = legends[0].component as GroupComponent<GroupComponentCfg>;
+    const navigation = legend.getElementById(`${legendId}-legend-navigation-group`);
+    let children = navigation ? navigation.getChildren() : [];
+
+    expect(children[0].attr('fill')).toBe(antvLight.legendPageNavigatorMarkerInactiveFillColor);
+    expect(children[0].attr('opacity')).toBe(antvLight.legendPageNavigatorMarkerInactiveFillOpacity);
+    expect(children[0].attr('cursor')).toBe('not-allowed');
+    expect(children[1].attr('fontSize')).toBe(antvLight.legendPageNavigatorTextFontSize);
+    expect(children[2].attr('cursor')).toBe('pointer');
+    expect(children[2].attr('fill')).toBe(antvLight.legendPageNavigatorMarkerFillColor);
+    expect(children[2].attr('opacity')).toBe(antvLight.legendPageNavigatorMarkerFillOpacity);
+  });
+
+  it('change navigation style by theme', () => {
+    chart.theme('dark');
+    chart.render();
+
+    const legends = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND);
+    const legend = legends[0].component as GroupComponent<GroupComponentCfg>;
+    const navigation = legend.getElementById(`${legendId}-legend-navigation-group`);
+    let children = navigation ? navigation.getChildren() : [];
+
+    expect(children[0].attr('fill')).toBe(antvDark.legendPageNavigatorMarkerInactiveFillColor);
+    expect(children[0].attr('opacity')).toBe(antvDark.legendPageNavigatorMarkerInactiveFillOpacity);
+    expect(children[0].attr('cursor')).toBe('not-allowed');
+    expect(children[1].attr('fontSize')).toBe(antvDark.legendPageNavigatorTextFontSize);
+    expect(children[2].attr('cursor')).toBe('pointer');
+    expect(children[2].attr('fill')).toBe(antvDark.legendPageNavigatorMarkerFillColor);
+    expect(children[2].attr('opacity')).toBe(antvDark.legendPageNavigatorMarkerFillOpacity);
+  });
+
+  it('change navigation style by legend config', () => {
+    chart.legend('clarity', {
+      position: 'bottom',
+      pageNavigator: {
+        marker: {
+          style: {
+            inactiveFill: 'pink',
+            inactiveOpacity: 0.3,
+            fill: 'red',
+            opacity: 0.8,
+          },
+        },
+        text: {
+          style: {
+            fontSize: 8,
+          },
+        },
+      },
+    });
+    chart.render();
+
+    const legends = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND);
+    const legend = legends[0].component as GroupComponent<GroupComponentCfg>;
+    const navigation = legend.getElementById(`${legendId}-legend-navigation-group`);
+    let children = navigation ? navigation.getChildren() : [];
+
+    expect(children[0].attr('fill')).toBe('pink');
+    expect(children[0].attr('opacity')).toBe(0.3);
+    expect(children[1].attr('fontSize')).toBe(8);
+    expect(children[2].attr('fill')).toBe('red');
+    expect(children[2].attr('opacity')).toBe(0.8);
   });
 
   it('navigation off', () => {

@@ -54,6 +54,7 @@ export {
   LegendBackgroundCfg,
   LegendItemNameCfg,
   LegendItemValueCfg,
+  LegendPageNavigatorCfg,
   ContinueLegendCfg,
   ContinueLegendTrackCfg,
   ContinueLegendRailCfg,

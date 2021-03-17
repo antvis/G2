@@ -25,6 +25,7 @@ import {
   LegendItemValueCfg,
   LegendMarkerCfg,
   LegendTitleCfg,
+  LegendPageNavigatorCfg,
   PathCommand,
   Scale,
   ScaleConfig,
@@ -1034,6 +1035,10 @@ export interface LegendCfg {
    */
   flipPage?: boolean;
   /**
+   *  **适用于分类图例**，图例分页器的样式设置。
+   */
+  pageNavigator?: LegendPageNavigatorCfg;
+  /**
    * **分类图例适用**，用户自己配置图例项的内容。
    */
   items?: LegendItem[];
@@ -1891,6 +1896,21 @@ export interface StyleSheet {
   legendHorizontalPadding?: number[];
   /** 垂直布局的图例与绘图区域偏移距离 */
   legendVerticalPadding?: number[];
+
+  /** 图例分页器 marker 大小 */
+  legendPageNavigatorMarkerSize: number;
+  /** 图例分页器 marker 非激活状态填充色 */
+  legendPageNavigatorMarkerInactiveFillColor: string;
+  /** 图例分页器 marker 非激活状态填充色透明度 */
+  legendPageNavigatorMarkerInactiveFillOpacity: number;
+  /** 图例分页器 marker 填充色 */
+  legendPageNavigatorMarkerFillColor: string;
+  /** 图例分页器 marker 填充色透明度 */
+  legendPageNavigatorMarkerFillOpacity: number;
+  /** 图例分页器文本颜色 */
+  legendPageNavigatorTextFillColor: string;
+  /** 图例分页器文本字体大小 */
+  legendPageNavigatorTextFontSize: number;
 
   /** 连续图例滑块填充色 */
   sliderRailFillColor?: string;

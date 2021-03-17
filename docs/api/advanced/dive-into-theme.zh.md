@@ -37,7 +37,7 @@ order: 7
 
 所有的图表组件样式，定义在 `components`  属性下。
 
-### 坐标轴
+### 坐标轴 - Axis
 
 G2 的坐标轴根据坐标系类型的不同进行了类型划分，但是每种类型下的配置属性是相同的。
 
@@ -55,7 +55,7 @@ G2 的坐标轴根据坐标系类型的不同进行了类型划分，但是每�
 | tickLine    | 坐标轴刻度线，可以控制：1. 是否展示 1. 刻度线的长度 1. 刻度线的样式 1. 刻度线是否和文本对齐 |
 | subTickLine | 坐标轴自刻度线，可以控制：1. 是否展示 1. 刻度线的样式                                       |
 
-### 图例
+### 图例 - Legend
 
 G2 中图例分为连续图例和分类图例两种，同样主题中也为这两种类型的图例提供了配置。
 
@@ -65,9 +65,11 @@ G2 中图例分为连续图例和分类图例两种，同样主题中也为这�
 
 | 属性名   | 描述                                              |
 | -------- | ------------------------------------------------- |
-| title    | 图例标题，可以控制：1. 是否展示 1. 标题文本的样式 |
-| marker   | 图例项 marker，可以控制：1. 形状 1. 样式          |
-| itemName | 图例项文本，可以控制：1. 文本样式 1. 间距         |
+| title    | 图例标题，可以控制：1. 是否展示 2. 标题文本的样式 |
+| marker   | 图例项 marker，可以控制：1. 形状 2. 样式          |
+| itemName | 图例项文本，可以控制：1. 文本样式 2. 间距         |
+| itemValue | 图例项文本值，可以控制：1. 文本样式 2. 间距（同 itemName） |
+| pageNavigator | 图例分页器，可以控制：1. 分页器箭头 marker 2. 分页器指示文本 |
 
 - 连续图例，针对连续图例，可以配置一下属性：
 
@@ -81,7 +83,7 @@ G2 中图例分为连续图例和分类图例两种，同样主题中也为这�
 | label   | _文本的样式配置_                                  |
 | handler | _滑块的样式配置_                                  |
 
-### Tooltip
+### 提示信息 - Tooltip
 
 针对 tooltip，主题开放的配置为：
 
@@ -91,7 +93,7 @@ G2 中图例分为连续图例和分类图例两种，同样主题中也为这�
 
 ![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*HW-WRqzZT3MAAAAAAAAAAABkARQnAQ)
 
-### Annotation 
+### 图形标注 - Annotation 
 
 G2 在主题中提供了以下 7 种 Annotation 的样式配置：
 
@@ -104,7 +106,7 @@ G2 在主题中提供了以下 7 种 Annotation 的样式配置：
 | dataMarker      | 带点、线及文本的图形标记 | ![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*ycZ0R4cueL0AAAAAAAAAAABkARQnAQ) |
 | dataRegion      | 带区域及文本的图形标记   | ![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*9qcrRp5rWdcAAAAAAAAAAABkARQnAQ) |
 
-### Labels
+### 文本标签 - Labels
 
 图形标签，在 G2 主题中，分为以下三类：
 

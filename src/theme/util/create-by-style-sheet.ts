@@ -100,6 +100,23 @@ function createLegendStyles(styleSheet: StyleSheet): LooseObject {
       },
     },
     flipPage: true,
+    pageNavigator: {
+      marker: {
+        style: {
+          size: styleSheet.legendPageNavigatorMarkerSize,
+          inactiveFill: styleSheet.legendPageNavigatorMarkerInactiveFillColor,
+          inactiveOpacity: styleSheet.legendPageNavigatorMarkerInactiveFillOpacity,
+          fill: styleSheet.legendPageNavigatorMarkerFillColor,
+          opacity: styleSheet.legendPageNavigatorMarkerFillOpacity,
+        },
+      },
+      text: {
+        style: {
+          fill: styleSheet.legendPageNavigatorTextFillColor,
+          fontSize: styleSheet.legendPageNavigatorTextFontSize,
+        },
+      },
+    },
     animate: false,
     maxItemWidth: 200,
     itemSpacing: styleSheet.legendItemSpacing,

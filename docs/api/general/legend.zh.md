@@ -65,10 +65,10 @@ _legendOption_ 配置如下：
 
 背景框配置项。_LegendBackgroundCfg_ 配置如下：
 
-| 参数名  | 类型                | 默认值 | 描述           |
-| ------- | ------------------- | ------ | -------------- |
-| padding | number \| number[]  | -      | 背景的留白     |
-| style   | [ShapeAttrs](/zh/docs/api/shape/shape-attrs)| -      | 背景样式配置项 |
+| 参数名  | 类型                                         | 默认值 | 描述           |
+| ------- | -------------------------------------------- | ------ | -------------- |
+| padding | number \| number[]                           | -      | 背景的留白     |
+| style   | [ShapeAttrs](/zh/docs/api/shape/shape-attrs) | -      | 背景样式配置项 |
 
 ### legendOption.flipPage
 
@@ -76,16 +76,51 @@ _legendOption_ 配置如下：
 
 适用于 <tag color="green" text="分类图例">分类图例</tag>，当图例项过多时是否进行分页。
 
+### legendOption.pageNavigator
+
+<description> _LegendPageNavigatorCfg_ **optional** </description>
+
+适用于 <tag color="green" text="分类图例">分类图例</tag>，对图例分页器进行主题样式设置。_LegendPageNavigatorCfg_ 配置如下：
+
+| 参数名 | 类型                  | 默认值 | 描述           |
+| ------ | --------------------- | ------ | -------------- |
+| marker | _PageNavigatorMarker_ | -      | 分页器指示箭头配置项    |
+| text   | _PageNavigatorText_   | -      | 分页器指示文本配置项    |
+
+示例：
+
+```ts
+pageNavigator: {
+  marker: {
+    style: {
+      // 非激活，不可点击态时的填充色设置
+      inactiveFill: '#000',
+      inactiveOpacity: 0.45,
+      // 默认填充色设置
+      fill: '#000',
+      opacity: 0.8,
+      size: 12,
+    },
+  },
+  text: {
+    style: {
+      fill: '#ccc',
+      fontSize: 8,
+    },
+  },
+},
+```
+
 ### legendOption.handler
 
 <description> _ContinueLegendHandlerCfg_ **optional** </description>
 
 适用于 <tag color="cyan" text="连续图例">连续图例</tag>，滑块的配置项。_ContinueLegendHandlerCfg_ 配置如下：
 
-| 参数名 | 类型                | 默认值 | 描述           |
-| ------ | ------------------- | ------ | -------------- |
-| size   | number              | -      | 滑块的大小     |
-| style  | [ShapeAttrs](/zh/docs/api/shape/shape-attrs)| -      | 滑块的样式设置 |
+| 参数名 | 类型                                         | 默认值 | 描述           |
+| ------ | -------------------------------------------- | ------ | -------------- |
+| size   | number                                       | -      | 滑块的大小     |
+| style  | [ShapeAttrs](/zh/docs/api/shape/shape-attrs) | -      | 滑块的样式设置 |
 
 ### legendOption.itemHeight
 
@@ -107,7 +142,7 @@ _legendOption_ 配置如下：
 
 | 参数名    | 类型                                                    | 是否必选 | 默认值 | 描述                             |
 | --------- | ------------------------------------------------------- | -------- | ------ | -------------------------------- |
-| style     | [ShapeAttrs](/zh/docs/api/shape/shape-attrs)                                     |          | -      | 文本样式配置项                   |
+| style     | [ShapeAttrs](/zh/docs/api/shape/shape-attrs)            |          | -      | 文本样式配置项                   |
 | spacing   | number                                                  |          | -      | 图例项 marker 同后面 name 的间距 |
 | formatter | `(text: string, item: ListItem, index: number) => any;` |          |        | 格式化函数                       |
 
@@ -125,7 +160,7 @@ _legendOption_ 配置如下：
 
 | 参数名     | 类型                                                    | 是否必选 | 默认值  | 描述                                               |
 | ---------- | ------------------------------------------------------- | -------- | ------- | -------------------------------------------------- |
-| style      | [ShapeAttrs](/zh/docs/api/shape/shape-attrs)                                    |          | -       | 文本样式配置项                                     |
+| style      | [ShapeAttrs](/zh/docs/api/shape/shape-attrs)            |          | -       | 文本样式配置项                                     |
 | alignRight | boolean                                                 |          | `false` | 是否右对齐，默认为 false，仅当设置图例项宽度时生效 |
 | formatter  | `(text: string, item: ListItem, index: number) => any;` |          |         | 格式化函数                                         |
 
@@ -149,11 +184,11 @@ _legendOption_ 配置如下：
 
 适用于 <tag color="cyan" text="连续图例">连续图例</tag>，文本的配置项。_ContinueLegendLabelCfg_ 配置如下：
 
-| 参数名  | 类型                | 是否必选 | 默认值 | 描述                                                                                                                                          |
-| ------- | ------------------- | -------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| align   | string              |          | -      | 文本同滑轨的对齐方式 <br/> - rail ： 同滑轨对齐，在滑轨的两端 <br/> - top, bottom: 图例水平布局时有效 <br/> - left, right: 图例垂直布局时有效 |
-| style   | [ShapeAttrs](/zh/docs/api/shape/shape-attrs)|          | -      | 文本样式配置项                                                                                                                                |
-| spacing | number              |          | -      | 文本同滑轨的距离                                                                                                                              |
+| 参数名  | 类型                                         | 是否必选 | 默认值 | 描述                                                                                                                                          |
+| ------- | -------------------------------------------- | -------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| align   | string                                       |          | -      | 文本同滑轨的对齐方式 <br/> - rail ： 同滑轨对齐，在滑轨的两端 <br/> - top, bottom: 图例水平布局时有效 <br/> - left, right: 图例垂直布局时有效 |
+| style   | [ShapeAttrs](/zh/docs/api/shape/shape-attrs) |          | -      | 文本样式配置项                                                                                                                                |
+| spacing | number                                       |          | -      | 文本同滑轨的距离                                                                                                                              |
 
 ### legendOption.marker
 
@@ -205,12 +240,12 @@ _legendOption_ 配置如下：
 
 适用于 <tag color="green" text="分类图例">分类图例</tag>，图例滑轨（背景）的样式配置项。_ContinueLegendRailCfg_ 配置如下：
 
-| 参数名        | 类型                | 是否必选 | 默认值 | 描述                                                                             |
-| ------------- | ------------------- | -------- | ------ | -------------------------------------------------------------------------------- |
-| type          | string              |          | -      | rail 的类型，color, size                                                         |
-| size          | number              |          | -      | 滑轨的宽度                                                                       |
-| defaultLength | number              |          | -      | 滑轨的默认长度，，当限制了 maxWidth,maxHeight 时，不会使用这个属性会自动计算长度 |
-| style         | [ShapeAttrs](/zh/docs/api/shape/shape-attrs)|          | -      | 滑轨的样式                                                                       |
+| 参数名        | 类型                                         | 是否必选 | 默认值 | 描述                                                                             |
+| ------------- | -------------------------------------------- | -------- | ------ | -------------------------------------------------------------------------------- |
+| type          | string                                       |          | -      | rail 的类型，color, size                                                         |
+| size          | number                                       |          | -      | 滑轨的宽度                                                                       |
+| defaultLength | number                                       |          | -      | 滑轨的默认长度，，当限制了 maxWidth,maxHeight 时，不会使用这个属性会自动计算长度 |
+| style         | [ShapeAttrs](/zh/docs/api/shape/shape-attrs) |          | -      | 滑轨的样式                                                                       |
 
 ### legendOption.reversed
 
@@ -230,10 +265,10 @@ _legendOption_ 配置如下：
 
 图例标题配置，默认不展示。_G2LegendTitleCfg_ 配置如下：
 
-| 参数名  | 类型                | 是否必选 | 默认值 | 描述               |
-| ------- | ------------------- | -------- | ------ | ------------------ |
-| spacing | number              |          | -      | 标题同图例项的间距 |
-| style   | [ShapeAttrs](/zh/docs/api/shape/shape-attrs)|          | -      | 文本样式配置项     |
+| 参数名  | 类型                                         | 是否必选 | 默认值 | 描述               |
+| ------- | -------------------------------------------- | -------- | ------ | ------------------ |
+| spacing | number                                       |          | -      | 标题同图例项的间距 |
+| style   | [ShapeAttrs](/zh/docs/api/shape/shape-attrs) |          | -      | 文本样式配置项     |
 
 ### legendOption.track
 
@@ -241,9 +276,9 @@ _legendOption_ 配置如下：
 
 适用于 <tag color="cyan" text="连续图例">连续图例</tag>，选择范围的色块样式配置项。_ContinueLegendTrackCfg_ 配置如下：
 
-| 参数名 | 类型                | 是否必选 | 默认值 | 描述           |
-| ------ | ------------------- | -------- | ------ | -------------- |
-| style  | [ShapeAttrs](/zh/docs/api/shape/shape-attrs)|          | -      | 选定范围的样式 |
+| 参数名 | 类型                                         | 是否必选 | 默认值 | 描述           |
+| ------ | -------------------------------------------- | -------- | ------ | -------------- |
+| style  | [ShapeAttrs](/zh/docs/api/shape/shape-attrs) |          | -      | 选定范围的样式 |
 
 ### legendOption.values
 
