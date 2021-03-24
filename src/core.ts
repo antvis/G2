@@ -48,7 +48,7 @@ export { registerAnimation, getAnimation } from './animate/animation';
 export { LAYER, DIRECTION } from './constant';
 
 // 因为 typescript 部分版本不支持 export * as 语法。
-import * as Types from './interface';
+import type * as Types from './interface';
 export { Types };
 
 export { IGroup, ShapeAttrs, Coordinate, Scale, ScaleConfig } from './dependents';
