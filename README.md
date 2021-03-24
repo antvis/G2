@@ -114,6 +114,8 @@ Please let us know how can we help. Do check out [issues](https://github.com/ant
 
 To become a contributor, please follow our [contributing guide](https://github.com/antvis/g2/blob/master/CONTRIBUTING.md).
 
+<a href="https://issuehunt.io/r/antvis/G2" rel="nofollow" target="_blank"><img src="https://camo.githubusercontent.com/fcf6ed4dcbd95ccadfe62647fc93194b7262c862de38406e5dae68aa682c85c3/68747470733a2f2f697373756568756e742e696f2f7374617469632f656d6265642f697373756568756e742d627574746f6e2d76312e737667" alt="Let's fund issues in this repository" data-canonical-src="https://issuehunt.io/static/embed/issuehunt-button-v1.svg" style="max-width:100%;"></a>
+
 ## Contact us
 
 DingTalk Group: 30233731
