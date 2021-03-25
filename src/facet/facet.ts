@@ -31,6 +31,8 @@ import { getAxisOption } from '../util/axis';
  * 3. 清除 group
  */
 export abstract class Facet<C extends FacetCfg<FacetData> = FacetCfg<FacetData>, F extends FacetData = FacetData> {
+  /** 标识当前分面是否已经完成了初始化 */
+  private inited = false;
   /** 分面所在的 view */
   public view: View;
   /** 分面容器 */
@@ -46,6 +48,7 @@ export abstract class Facet<C extends FacetCfg<FacetData> = FacetCfg<FacetData>,
   constructor(view: View, cfg: C) {
     this.view = view;
     this.cfg = deepMix({}, this.getDefaultCfg(), cfg);
+    this.inited = false;
   }
 
   /**
@@ -60,6 +63,14 @@ export abstract class Facet<C extends FacetCfg<FacetData> = FacetCfg<FacetData>,
     // 生成分面布局信息
     const data = this.view.getData();
     this.facets = this.generateFacets(data);
+    this.inited = true;
+  }
+
+  /**
+   * 获取当前初始化的状态标志
+   */
+  public isInited() {
+    return this.inited;
   }
 
   /**

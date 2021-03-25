@@ -1916,7 +1916,8 @@ export class View extends Base {
    */
   private renderFacet(isUpdate: boolean) {
     if (this.facetInstance) {
-      if (isUpdate) {
+      /** 更新的情况下 需要同时确定分面是否已经完成了初始化 */
+      if (isUpdate && this.facetInstance.isInited()) {
         this.facetInstance.update();
       } else {
         this.facetInstance.clear();
