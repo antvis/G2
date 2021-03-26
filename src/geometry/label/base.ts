@@ -310,7 +310,7 @@ export default class GeometryLabel {
    * 获取每一个 label 的唯一 id
    * @param mappingData label 对应的图形的绘制数据
    */
-  protected getLabelId(mappingData: MappingDatum) {
+  protected getLabelId(mappingData: MappingDatum, index?: number) {
     const geometry = this.geometry;
     const type = geometry.type;
     const xScale = geometry.getXScale();
@@ -375,7 +375,7 @@ export default class GeometryLabel {
       }
 
       let labelCfg = {
-        id: this.getLabelId(mappingData), // 进行 ID 标记
+        id: this.getLabelId(mappingData, index), // 进行 ID 标记
         elementId: this.geometry.getElementId(mappingData), // label 对应 Element 的 ID
         data: origin, // 存储原始数据
         mappingData, // 存储映射后的数据,

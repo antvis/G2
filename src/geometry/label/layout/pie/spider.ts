@@ -112,7 +112,9 @@ export function pieSpiderLabelLayout(items: LabelItem[], labels: IGroup[], shape
 
   // step 1: adjust items to spider
   each(items, (item) => {
-    const label = get(labelsMap, item.id);
+    // 在标签的id中可能会包“.”,如果使用get方法，会被解析成paths路径
+    // const label = get(labelsMap, item.id);
+    const label = labelsMap[item.id];
     if (!label) {
       return;
     }
@@ -177,7 +179,9 @@ export function pieSpiderLabelLayout(items: LabelItem[], labels: IGroup[], shape
     const inRight = key === RIGHT_HALF_KEY;
 
     each(half, (item) => {
-      const label: IGroup = get(labelsMap, item && item.id);
+      // 在标签的id中可能会包“.”,如果使用get方法，会被解析成paths路径
+      // const label: IGroup = get(labelsMap, item && item.id);
+      const label: IGroup = labelsMap[item && item.id];
       if (!label) {
         return;
       }

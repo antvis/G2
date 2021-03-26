@@ -265,8 +265,8 @@ describe('LabelsRenderer', () => {
 
     const labelsContainer = interval.labelsContainer;
     expect(labelsContainer.getCount()).toBe(2);
-    const femaleLabel = labelsContainer.findById('1-女');
-    const maleLabel = labelsContainer.findById('1-男');
+    const femaleLabel = labelsContainer.findById('1-女-1');
+    const maleLabel = labelsContainer.findById('1-男-0');
     // @ts-ignore
     expect(femaleLabel.getFirst().get('type')).toBe('text');
     // @ts-ignore

@@ -1,6 +1,7 @@
 import { deepMix, get, isArray } from '@antv/util';
 import { getAngleByPoint } from '../../util/coordinate';
 import { polarToCartesian } from '../../util/graphics';
+import { MappingDatum } from '../../interface';
 import { LabelItem } from './interface';
 import PolarLabel from './polar';
 
@@ -9,6 +10,14 @@ import PolarLabel from './polar';
  */
 export default class PieLabel extends PolarLabel {
   public defaultLayout = 'distribute';
+
+  // 饼图类型标签的唯一码改写。如果颜色配置使用连续性字段，导致所有的标签id都是1，在后面label的render的过程中，只生产一个标签
+  /** @override */
+  protected getLabelId(mappingData: MappingDatum, index: number) {
+    let labelId = super.getLabelId(mappingData, index);
+    labelId += `-${index}`;
+    return labelId;
+  }
 
   protected getDefaultLabelCfg(offset?: number, position?: string) {
     const cfg = super.getDefaultLabelCfg(offset, position);

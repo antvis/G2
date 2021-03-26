@@ -65,6 +65,7 @@
     "babel-loader": "^8.2.2",
     "conventional-changelog-cli": "^2.0.28",
     "core-js": "^2.5.7",
+    "cz-conventional-changelog": "^3.3.0",
     "gatsby": "^2.20.23",
     "generate-changelog": "^1.8.0",
     "gh-pages": "^2.1.1",
@@ -150,5 +151,10 @@
   "resolutions": {
     "monaco-editor": "0.21.3",
     "@babel/plugin-transform-spread": "7.12.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
