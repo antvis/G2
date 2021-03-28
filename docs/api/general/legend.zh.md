@@ -111,6 +111,26 @@ pageNavigator: {
 },
 ```
 
+### legendOption.selected ✨ 🆕
+
+<description> _object_ **optional** </description>
+
+图例高亮状态，false 表示默认置灰，默认不设置 或 true 表示高亮，会同步进行数据的筛选展示。
+
+示例：
+
+```ts
+chart.legend('type', {
+  selected: {
+    '分类一': true,
+    '分类二': false,
+    '分类三': false,
+  }
+})
+```
+
+<playground path='interaction/component/demo/legend-focus.ts' rid='legend-selected'></playground>
+
 ### legendOption.handler
 
 <description> _ContinueLegendHandlerCfg_ **optional** </description>

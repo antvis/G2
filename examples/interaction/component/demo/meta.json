@@ -53,6 +53,14 @@
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/PEeJCZPerb/legend-focus.gif"
     },
     {
+      "filename": "legend-unselected.ts",
+      "title": {
+        "zh": "图例设置默认不选中",
+        "en": "Legend default unselected"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/KiJnvIsSW2/5c59deb6-c8c6-4d47-81d1-97498bad9521.png"
+    },
+    {
       "filename": "continue-legend-filter.ts",
       "title": {
         "zh": "连续图例数据过滤",
