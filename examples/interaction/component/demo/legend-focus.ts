@@ -27,6 +27,7 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/C34i0tIT1U/linedata.json')
     chart.line().adjust('stack').position('year*value').color('country');
 
     chart.interaction('element-highlight');
+    // 复写 图例筛选 交互。1、点击图例名称 进行 unchecked 状态的切换 2、点击图例 marker，进行 checked 状态的切换（进行聚焦）3、双击 重置状态
     chart.interaction('legend-filter', {
       start: [
         { trigger: 'legend-item-name:click', action: ['list-unchecked:toggle', 'data-filter:filter'] },
