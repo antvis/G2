@@ -58,6 +58,19 @@ const QUALITATIVE_20 = [
   '#FFE0ED',
 ];
 
+/** 单色顺序色板 */
+const SINGLE_SEQUENCE = [
+  '#B8E1FF',
+  '#9AC5FF',
+  '#7DAAFF',
+  '#5B8FF9',
+  '#3D76DD',
+  '#085EC0',
+  '#0047A5',
+  '#00318A',
+  '#001D70',
+];
+
 export const createLightStyleSheet = (cfg: StyleSheetCfg = {}) => {
   const {
     backgroundColor = 'transparent',
@@ -66,6 +79,7 @@ export const createLightStyleSheet = (cfg: StyleSheetCfg = {}) => {
     paletteSemanticRed = '#F4664A',
     paletteSemanticGreen = '#30BF78',
     paletteSemanticYellow = '#FAAD14',
+    paletteSequence = SINGLE_SEQUENCE,
     fontFamily = `"-apple-system", "Segoe UI", Roboto, "Helvetica Neue", Arial,
     "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
     "Noto Color Emoji"`,
@@ -87,6 +101,8 @@ export const createLightStyleSheet = (cfg: StyleSheetCfg = {}) => {
     paletteSemanticGreen,
     /** 语义色 */
     paletteSemanticYellow,
+    /** (单色)顺序色板 */
+    paletteSequence,
     /** 字体 */
     fontFamily,
 

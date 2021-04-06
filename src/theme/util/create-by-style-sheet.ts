@@ -291,6 +291,7 @@ export function createThemeByStyleSheet(styleSheet: StyleSheet): LooseObject {
     multiplePieWidthRatio: 1 / 1.3,
     colors10: styleSheet.paletteQualitative10,
     colors20: styleSheet.paletteQualitative20,
+    sequenceColors: styleSheet.paletteSequence,
     shapes: {
       point: [
         'hollow-circle',

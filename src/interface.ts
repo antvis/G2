@@ -1807,6 +1807,8 @@ export interface StyleSheet {
   paletteSemanticGreen?: string;
   /** 语义色 */
   paletteSemanticYellow?: string;
+  /** (单色)顺序色板 */
+  paletteSequence?: string[];
   /** 字体 */
   fontFamily?: string;
 
@@ -2348,6 +2350,7 @@ export type StyleSheetCfg = Pick<
   | 'paletteSemanticRed'
   | 'paletteSemanticGreen'
   | 'paletteSemanticYellow'
+  | 'paletteSequence'
   | 'fontFamily'
 >;
 
