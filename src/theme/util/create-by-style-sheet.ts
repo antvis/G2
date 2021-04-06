@@ -1101,7 +1101,7 @@ export function createThemeByStyleSheet(styleSheet: StyleSheet): LooseObject {
           stroke: '#fff',
           shadowBlur: 10,
           shadowOffsetX: 0,
-          shadowOffSetY: 0,
+          shadowOffsetY: 0,
           shadowColor: 'rgba(0,0,0,0.09)',
           lineWidth: 2,
           r: 4,
