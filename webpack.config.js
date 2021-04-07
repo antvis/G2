@@ -19,6 +19,16 @@ module.exports = {
         use: [
           {
             loader: 'babel-loader',
+            options: {
+              presets: [
+                '@babel/preset-env',
+                {
+                  targets: {
+                    browsers: ['> 1%', 'last 2 versions'],
+                  },
+                },
+              ],
+            },
           },
           {
             loader: 'ts-loader',
@@ -31,7 +41,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.ts', '.js'],
+    extensions: ['.jsx', '.tsx', '.ts', '.js'],
   },
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),

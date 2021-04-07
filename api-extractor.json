@@ -11,5 +11,38 @@
   },
   "tsdocMetadata": {
     "enabled": false
+  },
+  "messages": {
+    "extractorMessageReporting": {
+      "ae-missing-release-tag": {
+        "logLevel": "none"
+      },
+      "ae-forgotten-export": {
+        "logLevel": "none"
+      }
+    },
+    "tsdocMessageReporting": {
+      "tsdoc-escape-right-brace": {
+        "logLevel": "none"
+      },
+      "tsdoc-escape-greater-than": {
+        "logLevel": "none"
+      },
+      "tsdoc-param-tag-missing-hyphen": {
+        "logLevel": "none"
+      },
+      "tsdoc-reference-hash-syntax": {
+        "logLevel": "none"
+      },
+      "tsdoc-malformed-inline-tag": {
+        "logLevel": "none"
+      },
+      "tsdoc-undefined-tag": {
+        "logLevel": "none"
+      },
+      "tsdoc-param-tag-with-invalid-optional-name": {
+        "logLevel": "none"
+      }
+    }
   }
 }
