@@ -35,11 +35,10 @@ describe('createTheme', () => {
     expect(theme.fontFamily).toBe('roboto-regular');
     /** 组件 */
     // 图例
-    expect(theme.components.legend.top.itemName.style.fontFamily).toBe('roboto-regular');
-    expect(theme.components.legend.left.itemName.style.fontFamily).toBe('roboto-regular');
-    expect(theme.components.legend.right.itemName.style.fontFamily).toBe('roboto-regular');
-    expect(theme.components.legend.bottom.itemName.style.fontFamily).toBe('roboto-regular');
-    expect(theme.components.legend.continuous.label.style.fontFamily).toBe('roboto-regular');
+    expect(theme.components.legend.common.itemName.style.fontFamily).toBe('roboto-regular');
+    expect(theme.components.legend.left.layout).toBe('vertical');
+    expect(theme.components.legend.right.layout).toBe('vertical');
+    expect(theme.components.legend.bottom.layout).toBe('horizontal');
     // annotation 文本标注
     expect(theme.components.annotation.text.style.fontFamily).toBe('roboto-regular');
     // annotation dataMarker标注
