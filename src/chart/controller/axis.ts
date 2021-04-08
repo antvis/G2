@@ -10,6 +10,7 @@ import {
   getAxisFactorByRegion,
   getAxisRegion,
   getAxisThemeCfg,
+  getAxisTitleOptions,
   getAxisTitleText,
   getCircleAxisCenterRadius,
   isVertical,
@@ -541,9 +542,7 @@ export default class Axis extends Controller<Option> {
     const optionWithTitle = get(axisOption, ['title'])
       ? deepMix(
           { title: { style: { text: titleText } } },
-          {
-            title: get(getAxisThemeCfg(this.view.getTheme(), 'common'), 'title'),
-          },
+          { title: getAxisTitleOptions(this.view.getTheme(), direction, axisOption.title) },
           axisOption
         )
       : axisOption;
@@ -630,9 +629,7 @@ export default class Axis extends Controller<Option> {
     const optionWithTitle = get(axisOption, ['title'])
       ? deepMix(
           { title: { style: { text: titleText } } },
-          {
-            title: get(getAxisThemeCfg(this.view.getTheme(), 'common'), 'title'),
-          },
+          { title: getAxisTitleOptions(this.view.getTheme(), direction, axisOption.title) },
           axisOption
         )
       : axisOption;

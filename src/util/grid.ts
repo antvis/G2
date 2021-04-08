@@ -1,16 +1,21 @@
-import { get, map } from '@antv/util';
+import { deepMix, get, map } from '@antv/util';
 import { DIRECTION } from '../constant';
 import { Coordinate, Scale, Tick } from '../dependents';
 
 /**
  * @ignore
- * get the grid theme by type
+ * get the grid theme by type, will mix the common cfg of axis
  * @param theme
  * @param direction
  * @returns theme object
  */
-export function getGridThemeCfg(theme: object, direction: DIRECTION): object {
-  return get(theme, ['components', 'axis', direction, 'grid'], {});
+export function getGridThemeCfg(theme: object, direction: DIRECTION | 'common'): object {
+  const axisTheme = deepMix(
+    {},
+    get(theme, ['components', 'axis', 'common']),
+    get(theme, ['components', 'axis', direction])
+  );
+  return get(axisTheme, ['grid'], {});
 }
 
 /**

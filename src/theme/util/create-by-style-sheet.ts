@@ -998,59 +998,59 @@ export function createThemeByStyleSheet(styleSheet: StyleSheet): LooseObject {
     components: {
       axis: {
         common: axisStyles,
-        top: deepMix({}, axisStyles, {
+        top: {
           position: 'top',
           grid: null,
           title: null,
           verticalLimitLength: 1 / 2,
-        }),
-        bottom: deepMix({}, axisStyles, {
+        },
+        bottom: {
           position: 'bottom',
           grid: null,
           title: null,
           verticalLimitLength: 1 / 2,
-        }),
-        left: deepMix({}, axisStyles, {
+        },
+        left: {
           position: 'left',
           title: null,
           line: null,
           tickLine: null,
           verticalLimitLength: 1 / 3,
-        }),
-        right: deepMix({}, axisStyles, {
+        },
+        right: {
           position: 'right',
           title: null,
           line: null,
           tickLine: null,
           verticalLimitLength: 1 / 3,
-        }),
-        circle: deepMix({}, axisStyles, {
+        },
+        circle: {
           title: null,
           grid: deepMix({}, axisStyles.grid, { line: { type: 'line' } }),
-        }),
-        radius: deepMix({}, axisStyles, {
+        },
+        radius: {
           title: null,
           grid: deepMix({}, axisStyles.grid, { line: { type: 'circle' } }),
-        }),
+        },
       },
       legend: {
         common: legendStyles,
-        right: deepMix({}, legendStyles, {
+        right: {
           layout: 'vertical',
           padding: styleSheet.legendVerticalPadding,
-        }),
-        left: deepMix({}, legendStyles, {
+        },
+        left: {
           layout: 'vertical',
           padding: styleSheet.legendVerticalPadding,
-        }),
-        top: deepMix({}, legendStyles, {
+        },
+        top: {
           layout: 'horizontal',
           padding: styleSheet.legendHorizontalPadding,
-        }),
-        bottom: deepMix({}, legendStyles, {
+        },
+        bottom: {
           layout: 'horizontal',
           padding: styleSheet.legendHorizontalPadding,
-        }),
+        },
         continuous: {
           title: null,
           background: null,

@@ -1,4 +1,4 @@
-import { get, isBoolean } from '@antv/util';
+import { deepMix, get, isBoolean } from '@antv/util';
 import { DIRECTION } from '../constant';
 import { Coordinate, Scale } from '../dependents';
 import { AxisCfg, AxisOption, Point, Region } from '../interface';
@@ -165,13 +165,27 @@ export function getAxisFactorByRegion(region: Region, center: Point): number {
 
 /**
  * @ignore
- * get the axis cfg from theme
+ * get the axis cfg from theme, will mix the common cfg of legend theme
+ *
  * @param theme view theme object
  * @param direction axis direction
  * @returns axis theme cfg
  */
 export function getAxisThemeCfg(theme: object, direction: string): object {
-  return get(theme, ['components', 'axis', direction], {});
+  const axisTheme = get(theme, ['components', 'axis'], {});
+  return deepMix({}, get(axisTheme, ['common'], {}), deepMix({}, get(axisTheme, [direction], {})));
+}
+
+/**
+ * get the options of axis title，mix the cfg from theme, avoid common themeCfg not work
+ * @param theme 
+ * @param direction 
+ * @param axisOptions 
+ * @returns axis title options
+ */
+export function getAxisTitleOptions(theme: object, direction: string, axisOptions?: object): object {
+  const axisTheme = get(theme, ['components', 'axis'], {});
+  return deepMix({}, get(axisTheme, ['common', 'title'], {}), deepMix({}, get(axisTheme, [direction, 'title'], {})), axisOptions);
 }
 
 /**
