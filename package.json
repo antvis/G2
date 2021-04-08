@@ -1,0 +1,146 @@
+{
+  "name": "@antv/g2",
+  "version": "5.0.0-beta.1",
+  "description": "the Grammar of Graphics in Javascript",
+  "main": "lib/index.js",
+  "module": "esm/index.js",
+  "types": "lib/index.d.ts",
+  "unpkg": "dist/g2.min.js",
+  "files": [
+    "src",
+    "lib",
+    "esm",
+    "dist"
+  ],
+  "scripts": {
+    "clean": "rimraf lib esm dist",
+    "lint-staged": "lint-staged",
+    "size": "limit-size",
+    "lint:ts": "eslint ./src/**/*.ts ./__tests__/**/*.ts && prettier ./src ./__tests__ --check ",
+    "lint": "run-p lint:*",
+    "fix": "eslint ./src/**/*.ts ./__tests__/**/*.ts --fix && prettier ./src ./__tests__ --write ",
+    "test": "jest",
+    "test-live": "DEBUG_MODE=1 jest --watch tests/unit",
+    "coverage": "jest --coverage",
+    "build:umd": "rimraf ./dist && webpack --config webpack.config.js --mode production && npm run size",
+    "build:cjs": "rimraf ./lib && tsc --module commonjs --outDir lib",
+    "build:esm": "rimraf ./esm && tsc --module ESNext --outDir esm",
+    "build": "run-p build:*",
+    "ci": "run-s lint build coverage",
+    "prepublishOnly": "npm run ci",
+    "prepare": "husky install",
+    "changelog": "generate-changelog"
+  },
+  "dependencies": {
+    "@antv/adjust": "^0.2.3",
+    "@antv/attr": "^0.3.2",
+    "@antv/color-util": "^2.0.6",
+    "@antv/component": "^0.8.11",
+    "@antv/coord": "^0.3.1",
+    "@antv/dom-util": "^2.0.3",
+    "@antv/event-emitter": "~0.1.2",
+    "@antv/g-base": "0.5.7",
+    "@antv/g-canvas": "0.5.7",
+    "@antv/g-svg": "0.5.6",
+    "@antv/matrix-util": "^3.1.0-beta.1",
+    "@antv/path-util": "^2.0.9",
+    "@antv/scale": "^0.3.9",
+    "@antv/util": "~2.0.13",
+    "tslib": "^2.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.13.14",
+    "@babel/preset-env": "^7.13.12",
+    "@commitlint/cli": "^12.1.1",
+    "@commitlint/config-angular": "^12.1.1",
+    "@types/jest": "^24.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.21.0",
+    "@typescript-eslint/parser": "^4.21.0",
+    "babel-loader": "^8.2.2",
+    "conventional-changelog-cli": "^2.1.1",
+    "eslint": "^7.23.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-import-resolver-typescript": "^2.4.0",
+    "eslint-plugin-import": "^2.22.1",
+    "generate-changelog": "^1.8.0",
+    "gh-pages": "^3.1.0",
+    "husky": "^6.0.0",
+    "jest": "^24.0.0",
+    "jest-electron": "^0.1.11",
+    "lint-staged": "^10.5.4",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.2.1",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^26.5.4",
+    "ts-loader": "^8.1.0",
+    "typescript": "^4.2.4",
+    "webpack": "^5.31.0",
+    "webpack-bundle-analyzer": "^4.4.0",
+    "webpack-cli": "^4.6.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && run-s lint test",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "lint-staged": {
+    "*.{js,css,json,md}": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.{ts}": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "jest": {
+    "runner": "jest-electron/runner",
+    "testEnvironment": "jest-electron/environment",
+    "testTimeout": 30000,
+    "preset": "ts-jest",
+    "collectCoverage": false,
+    "collectCoverageFrom": [
+      "src/**/*.{js,ts}",
+      "!**/node_modules/**",
+      "!**/vendor/**"
+    ],
+    "testRegex": "/__tests__/.*-spec\\.ts?$",
+    "moduleFileExtensions": [
+      "js",
+      "ts",
+      "json"
+    ]
+  },
+  "limit-size": [
+    {
+      "path": "dist/g2.min.js",
+      "limit": "400 Kb",
+      "gzip": true
+    },
+    {
+      "path": "dist/g2.min.js",
+      "limit": "700 Kb"
+    }
+  ],
+  "homepage": "https://g2.antv.vision",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/antvis/g2"
+  },
+  "bugs": {
+    "url": "https://github.com/antvis/g2/issues"
+  },
+  "keywords": [
+    "antv",
+    "g2",
+    "visualization",
+    "chart",
+    "grammar",
+    "graphics",
+    "interaction"
+  ],
+  "author": "https://github.com/orgs/antvis/people",
+  "license": "MIT"
+}

@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "sourceMap": true,
+    "inlineSources": true,
+    "target": "es5",
+    "outDir": "lib",
+    "importHelpers": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "lib": ["esnext", "dom"],
+    "types": ["jest"],
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "jsx": "preserve",
+    "paths": {
+      "@antv/g2": ["src"]
+    }
+  },
+  "include": ["src"]
+}
