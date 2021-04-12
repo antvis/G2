@@ -1188,7 +1188,11 @@ export default class Geometry extends Base {
       id = `${xVal}-${yVal}`;
     }
 
-    const groupScales = this.groupScales;
+    let groupScales = this.groupScales;
+    if (isEmpty(groupScales)) {
+      groupScales = get(this.getAttribute('color'), 'scales', []);
+    }
+
     for (let index = 0, length = groupScales.length; index < length; index++) {
       const groupScale = groupScales[index];
       const field = groupScale.field;

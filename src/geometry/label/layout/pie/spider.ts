@@ -112,7 +112,7 @@ export function pieSpiderLabelLayout(items: LabelItem[], labels: IGroup[], shape
 
   // step 1: adjust items to spider
   each(items, (item) => {
-    const label = get(labelsMap, item.id);
+    const label = get(labelsMap, [item.id]);
     if (!label) {
       return;
     }
@@ -177,7 +177,7 @@ export function pieSpiderLabelLayout(items: LabelItem[], labels: IGroup[], shape
     const inRight = key === RIGHT_HALF_KEY;
 
     each(half, (item) => {
-      const label: IGroup = get(labelsMap, item && item.id);
+      const label: IGroup = get(labelsMap, item && [item.id]);
       if (!label) {
         return;
       }
