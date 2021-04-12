@@ -1188,7 +1188,7 @@ export default class Geometry extends Base {
       id = `${xVal}-${yVal}`;
     }
 
-    let groupScales = [...this.groupScales];
+    let groupScales = this.groupScales;
     if (isEmpty(groupScales)) {
       groupScales = get(this.getAttribute('color'), 'scales', []);
     }
