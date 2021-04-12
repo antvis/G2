@@ -1,3 +1,28 @@
+#### 4.1.14 (2021-04-12)
+
+##### Chores
+
+*  解决本地开发控制台warning & babel 解析 tsx、jsx 语法 ([#3360](https://github.com/antvis/g2/pull/3360)) ([e63fa397](https://github.com/antvis/g2/commit/e63fa397f9e52483e34cf50ba06a4efa91ecd17e))
+*  添加 release create to trigger publish site ([#3355](https://github.com/antvis/g2/pull/3355)) ([857c5d06](https://github.com/antvis/g2/commit/857c5d06f8afdbc03c42feb45c623d596241a977))
+*  修复 import type 导致网站无法启动，更新为 export type ([#3350](https://github.com/antvis/g2/pull/3350)) ([35e37bd1](https://github.com/antvis/g2/commit/35e37bd1d209982aef0e8375af733ce71979fca8))
+
+##### Continuous Integration
+
+*  remove surge preview ([#3357](https://github.com/antvis/g2/pull/3357)) ([7d29b28b](https://github.com/antvis/g2/commit/7d29b28b04e8c4297e6a2c53a128d0aa1975d5b1))
+
+##### Documentation Changes
+
+* **legend:**  图例完善默认不选中以及点击选中交互的文档 & 增加 demo ([#3351](https://github.com/antvis/g2/pull/3351)) ([2841641a](https://github.com/antvis/g2/commit/2841641aa4e12eaa8f1061062c0dba39a263b7c0))
+
+##### New Features
+
+*  补充兼容性文档&修改webpack配置 ([#3346](https://github.com/antvis/g2/pull/3346)) ([292a7b02](https://github.com/antvis/g2/commit/292a7b0292dd0aa4f2865d6b37d233c6f6991a81))
+
+##### Bug Fixes
+
+* **issue-3160:**  修复饼图使用连续型图例，标签无法展示 ([#3366](https://github.com/antvis/g2/pull/3366)) ([a392a8b4](https://github.com/antvis/g2/commit/a392a8b45d68ecaec73b4346afe5c6486dcfb53e))
+*  修复主题相关的错误拼写 ([#3358](https://github.com/antvis/g2/pull/3358)) ([804dbc69](https://github.com/antvis/g2/commit/804dbc694ad58ebb2ddaedc0c717d248d86d87d5))
+
 #### 4.1.13 (2021-03-17)
 
 ##### Documentation Changes
