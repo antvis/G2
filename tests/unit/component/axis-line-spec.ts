@@ -2,6 +2,7 @@ import { get } from '@antv/util';
 
 import { Chart } from '../../../src/';
 import { COMPONENT_TYPE } from '../../../src/constant';
+import { getAxisThemeCfg, getAxisTitleOptions } from '../../../src/util/axis';
 import { CITY_SALE } from '../../util/data';
 import { createDiv } from '../../util/dom';
 
@@ -29,12 +30,17 @@ describe('Component', () => {
     // test the component theme config
     const [x, y] = axes;
     // @ts-ignore
-    expect(x.component.get('label').offset).toBe(get(chart.getTheme(), ['components', 'axis', 'bottom', 'label', 'offset']));
+    expect(x.component.get('label').offset).toBe(get(getAxisThemeCfg(chart.getTheme(), 'bottom'), ['label', 'offset']));
     // @ts-ignore
-    expect(y.component.get('title').offset).toBeCloseTo(46.0159912109375);
-    expect(y.component.get('title').spacing).toBe(get(chart.getTheme(), ['components', 'axis', 'common', 'title', 'spacing']));
+    expect(y.component.get('title').offset).toBeCloseTo(
+      39.0159912109375 + 7 /** component 内置 spacing 为 5，而 G2 主题为 12 */
+    );
+
+    expect(y.component.get('title').spacing).toBe(
+      get(getAxisTitleOptions(chart.getTheme(), 'bottom', {}), ['spacing'])
+    );
     // @ts-ignore
-    expect(y.component.get('label').offset).toBe(get(chart.getTheme(), ['components', 'axis', 'bottom', 'label', 'offset']));
+    expect(y.component.get('label').offset).toBe(get(getAxisThemeCfg(chart.getTheme(), 'bottom'), ['label', 'offset']));
   });
 });
 

@@ -145,3 +145,15 @@ export function getCustomLegendItems(themeMarker: object, userMarker: object, cu
     return item;
   });
 }
+
+/**
+ * get the legend cfg from theme, will mix the common cfg of legend theme
+ *
+ * @param theme view theme object
+ * @param direction legend direction
+ * @returns legend theme cfg
+ */
+export function getLegendThemeCfg(theme: object, direction: string): object {
+  const legendTheme = get(theme, ['components', 'legend'], {});
+  return deepMix({}, get(legendTheme, ['common'], {}), deepMix({}, get(legendTheme, [direction], {})));
+}
