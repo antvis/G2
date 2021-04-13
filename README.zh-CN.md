@@ -106,7 +106,7 @@ $ npm start
 - v3.5.x: https://github.com/antvis/G2/tree/v3.5.x
 - v4.0.x: https://github.com/antvis/G2/tree/v4.0.x
 
-> 你也可以在业务中使用基于 G2 封装的常规统计图表 **[G2Plot](https://github.com/antvis/G2Plot)**，可以使用配置是的方式快速生成一个通用图表，降低开发者的使用成本。
+> 你也可以在业务中使用基于 G2 封装的常规统计图表 **[G2Plot](https://github.com/antvis/G2Plot)**，可以使用配置的方式快速生成一个通用图表，降低开发者的使用成本。
 
 ## 🤝 如何贡献
 
