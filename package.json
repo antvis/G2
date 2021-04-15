@@ -38,7 +38,7 @@
     "@antv/component": "^0.8.11",
     "@antv/coord": "^0.3.1",
     "@antv/dom-util": "^2.0.3",
-    "@antv/event-emitter": "~0.1.2",
+    "@antv/event-emitter": "^0.1.2",
     "@antv/g-base": "0.5.7",
     "@antv/g-canvas": "0.5.7",
     "@antv/g-svg": "0.5.6",

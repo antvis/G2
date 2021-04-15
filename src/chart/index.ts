@@ -6,3 +6,6 @@
  * 3. 交互（Interaction）的生命周期管理
  * 4. 提供 API
  */
+
+ export { Chart } from './chart';
+ export { View } from './view';
