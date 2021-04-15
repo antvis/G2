@@ -5,3 +5,6 @@
  * 3. Geometry，Element 及 API
  * 4. 各种内置的 Geometry
  */
+
+export { Geometry } from './geometry';
+export { Element } from './element';
