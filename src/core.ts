@@ -4,11 +4,11 @@ export const VERSION = '5.0.0-beta.1';
 export { Datum, Data } from './types';
 
 /**
- * 
+ *
  */
 export { Chart, View } from './chart';
 
 /**
- * 
+ *
  */
 export { Geometry, Element } from './geometry';

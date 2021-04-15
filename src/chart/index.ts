@@ -7,5 +7,5 @@
  * 4. 提供 API
  */
 
- export { Chart } from './chart';
- export { View } from './view';
+export { Chart } from './chart';
+export { View } from './view';

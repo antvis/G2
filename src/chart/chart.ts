@@ -16,9 +16,7 @@ export class Chart extends View {
   /**
    * 初始化 G 的容器
    */
-  private initGCanvas() {
-
-  }
+  private initGCanvas() {}
 
   /**
    * 绑定 window.resize 事件，用于做 autoFit
@@ -29,16 +27,14 @@ export class Chart extends View {
 
   private onDocumentResize = () => {
     this.forceFit();
-  }
+  };
 
   /**
    * 重新设置画布的大小
-   * @param width 
-   * @param height 
+   * @param width
+   * @param height
    */
-  public resize(width: number, height: number) {
-    
-  }
+  public resize(width: number, height: number) {}
 
   /**
    * 强制触发一次 Fit，让图表大小和容器保持一致

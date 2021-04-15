@@ -6,6 +6,5 @@
  * 4. 各种内置的 Geometry
  */
 
- export { Geometry } from './geometry';
- export { Element } from './element';
- 
+export { Geometry } from './geometry';
+export { Element } from './element';

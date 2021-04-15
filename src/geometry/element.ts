@@ -4,7 +4,6 @@ import EE from '@antv/event-emitter';
  */
 
 export class Element extends EE {
-  
   /**
    * 绘制图形 Element 对应的数据层模型
    */
@@ -24,14 +23,10 @@ export class Element extends EE {
   /**
    * 显示
    */
-  public show() {
-
-  }
+  public show() {}
 
   /**
    * 隐藏
    */
-  public hide() {
-
-  }
+  public hide() {}
 }

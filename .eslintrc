@@ -17,16 +17,6 @@
     "@typescript-eslint",
     "import"
   ],
-  "rules": {
-    "semi": "error",
-    "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": [
-      "error"
-    ],
-    "import/extensions": "off",
-    "import/prefer-default-export": "off",
-    "object-curly-newline": "off"
-  },
   "settings": {
     "import/parsers": {
       "@typescript-eslint/parser": [
@@ -39,5 +29,17 @@
         "alwaysTryTypes": true
       }
     }
+  },
+  "rules": {
+    "semi": "error",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "warn"
+    ],
+    "import/extensions": "off",
+    "import/prefer-default-export": "off",
+    "object-curly-newline": "off",
+    "class-methods-use-this": "off",
+    "no-useless-constructor": "warn"
   }
 }
