@@ -22,7 +22,6 @@ describe('574', () => {
 
     chart.interval().adjust('stack').position('value').color('type', ['blue', 'green', 'yellow']);
     chart.render();
-    console.log(chart.geometries[0].elements[0].shape);
     const fn = jest.fn();
     chart.geometries[0].elements[2].shape.animate = fn;
     chart.changeData([
