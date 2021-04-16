@@ -128,6 +128,11 @@ export function sectorPathUpdate(shape: IShape, animateCfg: GAnimateCfg, cfg: An
   const center = coordinate.getCenter();
   const diffStartAngle = curStartAngle - preStartAngle;
   const diffEndAngle = curEndAngle - preEndAngle;
+  // 没有 diff 时直接返回最终 attrs，不需要额外动画
+  if (diffStartAngle === 0 && diffEndAngle === 0) {
+    shape.attr('path', path);
+    return;
+  }
 
   shape.animate(
     (ratio) => {
