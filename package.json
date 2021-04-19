@@ -56,7 +56,7 @@
   },
   "devDependencies": {
     "@antv/data-set": "^0.11.2",
-    "@antv/gatsby-theme-antv": "^1.0.4",
+    "@antv/gatsby-theme-antv": "^1.1.2",
     "@babel/core": "^7.13.1",
     "@babel/preset-env": "^7.13.0",
     "@commitlint/cli": "^8.2.0",
