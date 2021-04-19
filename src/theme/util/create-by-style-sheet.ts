@@ -1283,6 +1283,34 @@ export function createThemeByStyleSheet(styleSheet: StyleSheet): LooseObject {
       slider: {
         common: {
           padding: [8, 8, 8, 8],
+          backgroundStyle: {
+            fill: styleSheet.cSliderBackgroundFillColor,
+            opacity: styleSheet.cSliderBackgroundFillOpacity,
+          },
+          foregroundStyle: {
+            fill: styleSheet.cSliderForegroundFillColor,
+            opacity: styleSheet.cSliderForegroundFillOpacity,
+          },
+          handlerStyle: {
+            width: styleSheet.cSliderHandlerWidth,
+            height: styleSheet.cSliderHandlerHeight,
+            fill: styleSheet.cSliderHandlerFillColor,
+            opacity: styleSheet.cSliderHandlerFillOpacity,
+            stroke: styleSheet.cSliderHandlerBorderColor,
+            lineWidth: styleSheet.cSliderHandlerBorder,
+            radius: styleSheet.cSliderHandlerBorderRadius,
+            // 高亮的颜色
+            highLightFill: styleSheet.cSliderHandlerHighlightFillColor,
+          },
+          textStyle: {
+            fill: styleSheet.cSliderTextFillColor,
+            opacity: styleSheet.cSliderTextFillOpacity,
+            fontSize: styleSheet.cSliderTextFontSize,
+            lineHeight: styleSheet.cSliderTextLineHeight,
+            fontWeight: styleSheet.cSliderTextFontWeight,
+            stroke: styleSheet.cSliderTextBorderColor,
+            lineWidth: styleSheet.cSliderTextBorder,
+          },
         },
       },
       scrollbar: {
