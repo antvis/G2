@@ -74,6 +74,7 @@ const SINGLE_SEQUENCE = [
 export const createLightStyleSheet = (cfg: StyleSheetCfg = {}) => {
   const {
     backgroundColor = 'transparent',
+    subColor = 'rgba(0,0,0,0.05)',
     paletteQualitative10 = QUALITATIVE_10,
     paletteQualitative20 = QUALITATIVE_20,
     paletteSemanticRed = '#F4664A',
@@ -91,6 +92,8 @@ export const createLightStyleSheet = (cfg: StyleSheetCfg = {}) => {
     backgroundColor,
     /** 主题色 */
     brandColor,
+    /** 图表辅助色 */
+    subColor,
     /** 分类色板 1，在数据量小于等于 10 时使用 */
     paletteQualitative10,
     /** 分类色板 2，在数据量大于 10 时使用 */

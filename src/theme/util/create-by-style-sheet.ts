@@ -276,6 +276,9 @@ export function createThemeByStyleSheet(styleSheet: StyleSheet): LooseObject {
   return {
     background: styleSheet.backgroundColor,
     defaultColor: styleSheet.brandColor,
+    subColor: styleSheet.subColor,
+    semanticRed: styleSheet.paletteSemanticRed,
+    semanticGreen: styleSheet.paletteSemanticGreen,
     padding: 'auto',
     fontFamily: styleSheet.fontFamily,
     // 兼容Theme配置

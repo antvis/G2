@@ -1797,6 +1797,8 @@ export interface StyleSheet {
   backgroundColor?: string;
   /** 主题色 */
   brandColor?: string;
+  /** 辅助色 */
+  subColor?: string;
   /** 分类色板 1，在数据量小于等于 10 时使用 */
   paletteQualitative10?: string[];
   /** 分类色板 2，在数据量大于 10 时使用 */
@@ -2344,6 +2346,7 @@ export interface StyleSheet {
 export type StyleSheetCfg = Pick<
   StyleSheet,
   | 'backgroundColor'
+  | 'subColor'
   | 'brandColor'
   | 'paletteQualitative10'
   | 'paletteQualitative20'

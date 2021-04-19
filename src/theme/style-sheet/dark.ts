@@ -74,6 +74,7 @@ const SINGLE_SEQUENCE = [
 export const createDarkStyleSheet = (cfg: StyleSheetCfg = {}) => {
   const {
     backgroundColor = '#141414',
+    subColor = 'rgba(255,255,255,0.05)',
     paletteQualitative10 = QUALITATIVE_10,
     paletteQualitative20 = QUALITATIVE_20,
     paletteSemanticRed = '#F4664A',
@@ -91,6 +92,8 @@ export const createDarkStyleSheet = (cfg: StyleSheetCfg = {}) => {
     backgroundColor,
     /** 主题色 */
     brandColor,
+    /** 图表辅助色 */
+    subColor,
     /** 分类色板 1，在数据量小于等于 10 时使用 */
     paletteQualitative10,
     /** 分类色板 2，在数据量大于 10 时使用 */
