@@ -1,5 +1,5 @@
 import EE from '@antv/event-emitter';
-import { Geometry } from '../geometry/geometry';
+import { Geometry } from '../geometry';
 import { Data } from '../types';
 
 /**
