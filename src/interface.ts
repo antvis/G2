@@ -2111,7 +2111,7 @@ export interface StyleSheet {
   /** Slider 字体标签行高 */
   cSliderTextLineHeight?: number;
   /** Slider 字体标签字重 */
-  cSliderTextFontWeight?: number;
+  cSliderTextFontWeight?: number | string;
   /** Slider 字体标签描边色 */
   cSliderTextBorderColor?: string;
   /** Slider 字体标签描边粗细 */
