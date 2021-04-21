@@ -1797,6 +1797,8 @@ export interface StyleSheet {
   backgroundColor?: string;
   /** 主题色 */
   brandColor?: string;
+  /** 辅助色 */
+  subColor?: string;
   /** 分类色板 1，在数据量小于等于 10 时使用 */
   paletteQualitative10?: string[];
   /** 分类色板 2，在数据量大于 10 时使用 */
@@ -1807,6 +1809,8 @@ export interface StyleSheet {
   paletteSemanticGreen?: string;
   /** 语义色 */
   paletteSemanticYellow?: string;
+  /** (单色)顺序色板 */
+  paletteSequence?: string[];
   /** 字体 */
   fontFamily?: string;
 
@@ -2066,6 +2070,52 @@ export interface StyleSheet {
   labelLineBorder?: number;
   /** Geometry label 文本连接线颜色 */
   labelLineBorderColor?: string;
+
+  // -------------------- Slider 组件样式--------------------
+  /** slider 滑道高度 */
+  cSliderRailHieght?: number;
+  /** slider 滑道背景色 */
+  cSliderBackgroundFillColor?: string;
+  /** slider 滑道背景色透明度 */
+  cSliderBackgroundFillOpacity?: number;
+  /** slider 滑道前景色 */
+  cSliderForegroundFillColor?: string;
+  /** slider 滑道前景色透明度 */
+  cSliderForegroundFillOpacity?: number;
+
+  // slider handlerStyle 手柄样式
+  /** slider 手柄高度 */
+  cSliderHandlerHeight?: number;
+  /** Slider 手柄宽度 */
+  cSliderHandlerWidth?: number;
+  /** Slider 手柄背景色 */
+  cSliderHandlerFillColor?: string;
+  /** Slider 手柄背景色透明度 */
+  cSliderHandlerFillOpacity?: number;
+  /** Slider 手柄高亮背景色 */
+  cSliderHandlerHighlightFillColor?: string;
+  /** Slider 手柄边框色 */
+  cSliderHandlerBorderColor?: string;
+  /** Slider 手柄边框粗细 */
+  cSliderHandlerBorder?: number;
+  /** Slider 手柄边框圆角 */
+  cSliderHandlerBorderRadius?: number;
+
+  // slider textStyle 字体标签样式
+  /** Slider 字体标签颜色 */
+  cSliderTextFillColor?: string;
+  /** Slider 字体标签透明度 */
+  cSliderTextFillOpacity?: number;
+  /** Slider 字体标签大小 */
+  cSliderTextFontSize?: number;
+  /** Slider 字体标签行高 */
+  cSliderTextLineHeight?: number;
+  /** Slider 字体标签字重 */
+  cSliderTextFontWeight?: number | string;
+  /** Slider 字体标签描边色 */
+  cSliderTextBorderColor?: string;
+  /** Slider 字体标签描边粗细 */
+  cSliderTextBorder?: number;
 
   // -------------------- Geometry 图形样式--------------------
   /** 点图的大小范围 */
@@ -2342,12 +2392,14 @@ export interface StyleSheet {
 export type StyleSheetCfg = Pick<
   StyleSheet,
   | 'backgroundColor'
+  | 'subColor'
   | 'brandColor'
   | 'paletteQualitative10'
   | 'paletteQualitative20'
   | 'paletteSemanticRed'
   | 'paletteSemanticGreen'
   | 'paletteSemanticYellow'
+  | 'paletteSequence'
   | 'fontFamily'
 >;
 

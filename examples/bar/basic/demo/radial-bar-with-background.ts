@@ -14,6 +14,7 @@ const chart = new Chart({
   container: 'container',
   autoFit: true,
   height: 500,
+  theme: 'dark',
 });
 chart.data(data);
 
@@ -21,15 +22,16 @@ chart.axis(false);
 chart.tooltip({
   showMarkers: false,
 });
-chart.coordinate('theta', { innerRadius: 0.35 });
+chart.coordinate('theta', { innerRadius: 0.35, radius: 0.75 });
 chart.legend(false);
+const { colors10, subColor } = chart.getTheme();
+
 chart
   .interval({
-    background: { style: { fill: '#F0F0F0', fillOpacity: 1 }},
+    background: { style: { fill: subColor, fillOpacity: 1 } },
   })
   .position('type*value')
   .color('type', (val) => {
-    const { colors10 } = chart.getTheme();
     if (val === '10-30分' || val === '30+分') {
       return '#ff4d4f';
     }
@@ -37,19 +39,15 @@ chart
   })
   .style({
     lineCap: 'round',
-    
   });
-chart.theme({
-  maxColumnWidth: 12,
-  minColumnWidth: 12,
-})
-chart.interaction('element-active')
+
+chart.interaction('element-active');
 chart.annotation().html({
   position: ['50%', '50%'],
   html: () => {
     return `<div style="transform:translate(-50%,-50%)">
       <img alt="" width="100" height="80" src="https://gw.alipayobjects.com/mdn/rms_ef85c6/afts/img/A*0DYiQKP08cQAAAAAAAAAAAAAARQnAQ">
-    </div>`
-  }
-})
+    </div>`;
+  },
+});
 chart.render();

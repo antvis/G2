@@ -276,6 +276,9 @@ export function createThemeByStyleSheet(styleSheet: StyleSheet): LooseObject {
   return {
     background: styleSheet.backgroundColor,
     defaultColor: styleSheet.brandColor,
+    subColor: styleSheet.subColor,
+    semanticRed: styleSheet.paletteSemanticRed,
+    semanticGreen: styleSheet.paletteSemanticGreen,
     padding: 'auto',
     fontFamily: styleSheet.fontFamily,
     // 兼容Theme配置
@@ -291,6 +294,7 @@ export function createThemeByStyleSheet(styleSheet: StyleSheet): LooseObject {
     multiplePieWidthRatio: 1 / 1.3,
     colors10: styleSheet.paletteQualitative10,
     colors20: styleSheet.paletteQualitative20,
+    sequenceColors: styleSheet.paletteSequence,
     shapes: {
       point: [
         'hollow-circle',
@@ -1279,6 +1283,34 @@ export function createThemeByStyleSheet(styleSheet: StyleSheet): LooseObject {
       slider: {
         common: {
           padding: [8, 8, 8, 8],
+          backgroundStyle: {
+            fill: styleSheet.cSliderBackgroundFillColor,
+            opacity: styleSheet.cSliderBackgroundFillOpacity,
+          },
+          foregroundStyle: {
+            fill: styleSheet.cSliderForegroundFillColor,
+            opacity: styleSheet.cSliderForegroundFillOpacity,
+          },
+          handlerStyle: {
+            width: styleSheet.cSliderHandlerWidth,
+            height: styleSheet.cSliderHandlerHeight,
+            fill: styleSheet.cSliderHandlerFillColor,
+            opacity: styleSheet.cSliderHandlerFillOpacity,
+            stroke: styleSheet.cSliderHandlerBorderColor,
+            lineWidth: styleSheet.cSliderHandlerBorder,
+            radius: styleSheet.cSliderHandlerBorderRadius,
+            // 高亮的颜色
+            highLightFill: styleSheet.cSliderHandlerHighlightFillColor,
+          },
+          textStyle: {
+            fill: styleSheet.cSliderTextFillColor,
+            opacity: styleSheet.cSliderTextFillOpacity,
+            fontSize: styleSheet.cSliderTextFontSize,
+            lineHeight: styleSheet.cSliderTextLineHeight,
+            fontWeight: styleSheet.cSliderTextFontWeight,
+            stroke: styleSheet.cSliderTextBorderColor,
+            lineWidth: styleSheet.cSliderTextBorder,
+          },
         },
       },
       scrollbar: {

@@ -57,4 +57,12 @@ describe('createTheme', () => {
     expect(theme.components.legend.right.padding).toEqual([0, 8, 0, 8]);
     expect(theme.components.legend.continuous.padding).toEqual([8, 8, 8, 8]);
   });
+
+  it('styleSheet paletteSequence', () => {
+    let theme = createTheme({ styleSheet: { paletteSequence: ['red', 'blue'] }});
+    expect(theme.sequenceColors).toEqual(['red', 'blue']);
+
+    theme = createTheme({ sequenceColors: ['red', 'yellow'] });
+    expect(theme.sequenceColors).toEqual(['red', 'yellow']);
+  })
 });

@@ -27,25 +27,26 @@ chart.render();
 
 下表列出了组成主题的大配置项上的具体属性：
 
-|      **主题属性**       | **类型** |                                **描述**                                 |
-| :---------------------: | :------: | :---------------------------------------------------------------------: |
-|     `defaultColor`      |  string  |                                 主题色                                  |
-|        `padding`        |  number  |                                number[]                                 | 'auto' | chart padding 配置，默认为 'auto' |
-|      `fontFamily`       |  string  |                                图表字体                                 |
-|       `colors10`        | string[] |                  分类颜色色板，分类个数小于 10 时使用                   |
-|       `colors20`        | string[] |                  分类颜色色板，分类个数大于 10 时使用                   |
-|   `columnWidthRatio`    |  number  |                   一般柱状图宽度占比，0 - 1 范围数值                    |
-|    `maxColumnWidth`     |  number  |                         柱状图最大宽度，像素值                          |
-|    `minColumnWidth`     |  number  |                         柱状图最小宽度，像素值                          |
-|    `roseWidthRatio`     |  number  |                     \_玫瑰图占比，\_0 - 1 范围数值                      |
-| `multiplePieWidthRatio` |  number  |                  \_多层饼图/环图占比，\_0 - 1 范围数值                  |
-|        `shapes`         |  object  |                   配置每个 geometry 映射的 shape 类型                   |
-|         `sizes`         |  number  |                      配置 geometry 映射 size 范围                       |
-|      `geometries`       |  object  | 配置每个 Geometry 下每个 shape 的样式，包括默认样式以及各个状态下的样式 |
-|      `components`       |  object  |            配置坐标轴，图例，tooltip, annotation 的主题样式             |
-|        `labels`         | object   |                    配置 Geometry 下 label 的主题样式                    |
-|      `innerLabels`      |  object  |           配置 Geometry 下展示在图形内部的 labels 的主题样式            |
-|       `pieLabels`       |  object  |                       配置饼图 labels 的主题样式                        |
+|      **主题属性**       |      **类型**      |                                **描述**                                 |
+| :---------------------: | :----------------: | :---------------------------------------------------------------------: |
+|     `defaultColor`      |       string       |                                 主题色                                  |
+|        `padding`        | number \| number[] |                    chart padding 配置，默认为 'auto'                    |
+|      `fontFamily`       |       string       |                                图表字体                                 |
+|       `colors10`        |      string[]      |                  分类颜色色板，分类个数小于 10 时使用                   |
+|       `colors20`        |      string[]      |                  分类颜色色板，分类个数大于 10 时使用                   |
+|    `sequenceColors`     |      string[]      |                              单色连续色板                               |
+|   `columnWidthRatio`    |       number       |                   一般柱状图宽度占比，0 - 1 范围数值                    |
+|    `maxColumnWidth`     |       number       |                         柱状图最大宽度，像素值                          |
+|    `minColumnWidth`     |       number       |                         柱状图最小宽度，像素值                          |
+|    `roseWidthRatio`     |       number       |                     \_玫瑰图占比，\_0 - 1 范围数值                      |
+| `multiplePieWidthRatio` |       number       |                  \_多层饼图/环图占比，\_0 - 1 范围数值                  |
+|        `shapes`         |       object       |                   配置每个 geometry 映射的 shape 类型                   |
+|         `sizes`         |       number       |                      配置 geometry 映射 size 范围                       |
+|      `geometries`       |       object       | 配置每个 Geometry 下每个 shape 的样式，包括默认样式以及各个状态下的样式 |
+|      `components`       |       object       |            配置坐标轴，图例，tooltip, annotation 的主题样式             |
+|        `labels`         |      object        |                    配置 Geometry 下 label 的主题样式                    |
+|      `innerLabels`      |       object       |           配置 Geometry 下展示在图形内部的 labels 的主题样式            |
+|       `pieLabels`       |       object       |                       配置饼图 labels 的主题样式                        |
 
 关于以上每个属性的结构及内容，详见[G2 主题配置项详解](./dive-into-theme)。
 
@@ -77,16 +78,17 @@ chart.theme({
 
 支持的样式表属性：
 
-| **属性**                | **类型** | **描述**      |
-| ----------------------- | -------- | ------------- |
-| `backgroundColor`       | _string_ | 背景色        |
-| `brandColor`            | _string_ | 主题色，默认取 10 色分类颜色色板的第一个颜色 |
-| `paletteQualitative10`  | _string_ | 分类颜色色板，分类个数小于 10 时使用 |
-| `paletteQualitative20`  | _string_ | 分类颜色色板，分类个数大于 10 时使用 |
-| `paletteSemanticRed`    | _string_ | 语义红色      |
-| `paletteSemanticGreen`  | _string_ | 语义绿色      |
-| `paletteSemanticYellow` | _string_ | 语义黄色      |
-| `fontFamily`            | _string_ | 字体          |
+| **属性**                | **类型**   | **描述**                                     |
+| ----------------------- | ---------- | -------------------------------------------- |
+| `backgroundColor`       | _string_   | 背景色                                       |
+| `brandColor`            | _string_   | 主题色，默认取 10 色分类颜色色板的第一个颜色 |
+| `paletteQualitative10`  | _string[]_ | 分类颜色色板，分类个数小于 10 时使用         |
+| `paletteQualitative20`  | _string[]_ | 分类颜色色板，分类个数大于 10 时使用         |
+| `paletteSemanticRed`    | _string_   | 语义红色                                     |
+| `paletteSemanticGreen`  | _string_   | 语义绿色                                     |
+| `paletteSemanticYellow` | _string_   | 语义黄色                                     |
+| `paletteSequence`       | _string[]_ | 单色连续色板                                 |
+| `fontFamily`            | _string_   | 字体                                         |
 
 ## 内置暗黑主题
 

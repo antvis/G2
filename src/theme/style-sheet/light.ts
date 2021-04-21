@@ -58,14 +58,29 @@ const QUALITATIVE_20 = [
   '#FFE0ED',
 ];
 
+/** 单色顺序色板 */
+const SINGLE_SEQUENCE = [
+  '#B8E1FF',
+  '#9AC5FF',
+  '#7DAAFF',
+  '#5B8FF9',
+  '#3D76DD',
+  '#085EC0',
+  '#0047A5',
+  '#00318A',
+  '#001D70',
+];
+
 export const createLightStyleSheet = (cfg: StyleSheetCfg = {}) => {
   const {
     backgroundColor = 'transparent',
+    subColor = 'rgba(0,0,0,0.05)',
     paletteQualitative10 = QUALITATIVE_10,
     paletteQualitative20 = QUALITATIVE_20,
     paletteSemanticRed = '#F4664A',
     paletteSemanticGreen = '#30BF78',
     paletteSemanticYellow = '#FAAD14',
+    paletteSequence = SINGLE_SEQUENCE,
     fontFamily = `"-apple-system", "Segoe UI", Roboto, "Helvetica Neue", Arial,
     "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
     "Noto Color Emoji"`,
@@ -77,6 +92,8 @@ export const createLightStyleSheet = (cfg: StyleSheetCfg = {}) => {
     backgroundColor,
     /** 主题色 */
     brandColor,
+    /** 图表辅助色 */
+    subColor,
     /** 分类色板 1，在数据量小于等于 10 时使用 */
     paletteQualitative10,
     /** 分类色板 2，在数据量大于 10 时使用 */
@@ -87,6 +104,8 @@ export const createLightStyleSheet = (cfg: StyleSheetCfg = {}) => {
     paletteSemanticGreen,
     /** 语义色 */
     paletteSemanticYellow,
+    /** (单色)顺序色板 */
+    paletteSequence,
     /** 字体 */
     fontFamily,
 
@@ -339,6 +358,50 @@ export const createLightStyleSheet = (cfg: StyleSheetCfg = {}) => {
     labelLineBorder: 1,
     /** Geometry label 文本连接线颜色 */
     labelLineBorderColor: BLACK_COLORS[25],
+
+    // -------------------- Slider 组件样式--------------------
+    /** slider 滑道高度 */
+    cSliderRailHieght: 16,
+    /** slider 滑道背景色 */
+    cSliderBackgroundFillColor: '#416180',
+    /** slider 滑道背景色透明度 */
+    cSliderBackgroundFillOpacity: 0.05,
+    /** slider 滑道前景色 */
+    cSliderForegroundFillColor: '#5B8FF9',
+    /** slider 滑道前景色透明度 */
+    cSliderForegroundFillOpacity: 0.15,
+    // slider handlerStyle 手柄样式
+    /** slider 手柄高度 */
+    cSliderHandlerHeight: 24,
+    /** Slider 手柄宽度 */
+    cSliderHandlerWidth: 10,
+    /** Slider 手柄背景色 */
+    cSliderHandlerFillColor: '#F7F7F7',
+    /** Slider 手柄背景色透明度 */
+    cSliderHandlerFillOpacity: 1,
+    /** Slider 手柄高亮背景色 */
+    cSliderHandlerHighlightFillColor: '#FFF',
+    /** Slider 手柄边框色 */
+    cSliderHandlerBorderColor: '#BFBFBF',
+    /** Slider 手柄边框粗细 */
+    cSliderHandlerBorder: 1,
+    /** Slider 手柄边框圆角 */
+    cSliderHandlerBorderRadius: 2,
+    // slider textStyle 字体标签样式
+    /** Slider 字体标签颜色 */
+    cSliderTextFillColor: '#000',
+    /** Slider 字体标签透明度 */
+    cSliderTextFillOpacity: 0.45,
+    /** Slider 字体标签大小 */
+    cSliderTextFontSize: 12,
+    /** Slider 字体标签行高 */
+    cSliderTextLineHeight: 12,
+    /** Slider 字体标签字重 */
+    cSliderTextFontWeight: 'normal',
+    /** Slider 字体标签描边色 */
+    cSliderTextBorderColor: null,
+    /** Slider 字体标签描边粗细 */
+    cSliderTextBorder: 0,
 
     // -------------------- Geometry 图形样式--------------------
     /** 点图填充颜色 */
