@@ -14,5 +14,5 @@ export class Attribute {
   /**
    * 映射数据
    */
-  public mapping() {}
+  public mapping(...params: any) {}
 }

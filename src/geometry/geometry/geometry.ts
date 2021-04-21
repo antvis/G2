@@ -7,11 +7,18 @@ import {
   AttributeOption,
   Data,
   Datum,
+  Scale,
+  Adjust,
+  Func,
+  ShapePoint,
 } from '../../types';
 import { GROUP_ATTR_KEYS, ORIGINAL_FIELD } from '../../constant';
 import { createAttribute } from '../../util/attribute';
 import { groupData } from '../../util/data';
+import { getScaleUpdateOptionsAfterStack } from '../../util/scale';
 import { Attribute } from '../attribute/attribute';
+import { Element } from '../element';
+import { isArray } from '@antv/util';
 
 /**
  * 所有 Geometry 的基类
@@ -29,7 +36,7 @@ export class Geometry extends EE {
   /**
    * 生成的 attributes 实例
    */
-  private attributes;
+  private attributes: Map<string, Attribute>;
   /**
    * 设置的 adjust 配置
    */
@@ -37,7 +44,7 @@ export class Geometry extends EE {
   /**
    * 生成的 adjusts 实例
    */
-  private adjusts;
+  private adjusts: Map<string, Adjust>;
 
   /**
    * 设置的 animate 动画配置
@@ -50,17 +57,25 @@ export class Geometry extends EE {
    */
   private beforeMappingData: Data[];
 
-  constructor() {
+  /**
+   * 生成的所有绘图元素 Element
+   */
+  private elements: Element[];
+
+  constructor(option: GeometryOption) {
     super();
 
     // 初始化一些值
     this.options = {
       data: [],
       scales: new Map(),
+      generatePoints: true,
+      ...option,
     };
 
     this.attriubteOptios = new Map();
     this.attributes = new Map();
+    this.elements = [];
   }
 
   /**
@@ -95,6 +110,7 @@ export class Geometry extends EE {
       const scales = fields.map((f: string) => this.options.scales.get(f));
 
       // 创建，并缓存起来
+      // TODO 如果一直 update，且变更数据字段，可能导致内存泄露风险
       this.attributes.set(attributeKey, createAttribute(attributeKey, scales));
     });
   }
@@ -118,7 +134,7 @@ export class Geometry extends EE {
           ...datum,
         };
 
-        // 2. 将分类数据翻译成数据, 仅对位置相关的度量进行数字化处理
+        // 2. 将分类数据翻译成数子, 仅对位置相关的度量进行数字化处理
         // TODO 为什么要在分组的时候对位置中分类数字化
         return categoryPositionScales.map((scale) => {
           const field = scale.field;
@@ -129,7 +145,24 @@ export class Geometry extends EE {
 
     // 3. 进行数据调整
     // TODO 处理 adjust 实例
+
     this.beforeMappingData = scaledData;
+  }
+
+  /**
+   * 调整度量范围。主要针对发生层叠以及一些特殊需求的 Geometry，比如:
+   * - interval 下的柱状图 Y 轴默认从 0 开始
+   * - interval 的 range 范围
+   */
+  private adjustScales() {
+    const yScale = this.getYScale();
+
+    // 1. 对于 stack 类型的 adjust。需要将数据进行一个调整
+    if (yScale && this.getAdjust('stack')) {
+      yScale.update(getScaleUpdateOptionsAfterStack(yScale, this.beforeMappingData));
+    }
+
+    // 2. ??? 还有什么
   }
 
   /** 生命周期函数       ************************************* */
@@ -143,17 +176,125 @@ export class Geometry extends EE {
       ...options,
     };
 
-    // 创建或者更新 attribute
+    // 1. 创建或者更新 attribute
     this.updateAttributes();
 
-    // 处理数据，依赖 attribute，所以一定在 updateAttributes 之后
+    // 2. 处理数据，依赖 attribute，所以一定在 updateAttributes 之后
     this.processData();
+
+    // 3. 调整 scale
+    this.adjustScales();
   }
 
   /**
-   * 渲染
+   * 在映射数据之前，做的一些事情
+   * @param beforeMappingData 
    */
-  public render() {}
+  private beforeMapping(beforeMappingData: Data[]) {
+    if (this.options.generatePoints) {
+      beforeMappingData.reduce((prev: Data, curr: Data) => {
+        // 1. 生成关键点信息，用于绘图
+        this.generateShapePoints(curr);
+
+        // 2. 形成 prev ---> next 单向链表
+        if (prev) {
+          prev[0].nextPoints = curr[0].points;
+        }
+        return curr;
+      });
+    }
+  }
+
+  /**
+   * 生成 shape 的关键点
+   * @param data 
+   */
+  private generateShapePoints(data: Data) {
+    const shapeFactory = this.getShapeFactory();
+    const shapeAttr = this.getAttribute('shape');
+    for (let index = 0; index < data.length; index++) {
+      const obj = data[index];
+      const cfg = this.createShapePointsCfg(obj);
+      const shape = shapeAttr ? this.getAttributeValues(shapeAttr, obj) : null;
+      const points = shapeFactory.getShapePoints(shape, cfg);
+      obj.points = points;
+    }
+  }
+
+  /**
+   * 获取图形对应的 shapeFactory
+   * // TODO 接入 shapeFactory
+   */
+  private getShapeFactory() {
+    return {
+      getShapePoints: (shapeType, cfg) => {}
+    }
+  }
+
+  /**
+   * 获取每个 Shape 对应的关键点数据。
+   * @param obj 经过分组 -> 数字化 -> adjust 调整后的数据记录
+   * @returns
+   */
+  protected createShapePointsCfg(datum: Datum): ShapePoint {
+    const xScale = this.getXScale();
+    const yScale = this.getYScale();
+
+    const x = this.normalizeValues(datum[xScale.field], xScale);
+    let y; // 存在没有 y 的情况
+
+    if (yScale) {
+      y = this.normalizeValues(datum[yScale.field], yScale);
+    } else {
+      y = datum.y ? datum.y : 0.1;
+    }
+
+    return {
+      x,
+      y,
+      y0: yScale ? yScale.scale(this.getYMinValue()) : undefined,
+    };
+  }
+
+  /**
+   * 获取 Y 轴上的最小值。
+   */
+  protected getYMinValue(): number {
+    const yScale = this.getYScale();
+    const { min, max } = yScale;
+    let value: number;
+
+    return min >= 0 ? min : // 当值全位于正区间时
+            max <= 0 ? max : // 当值全位于负区间时
+            0;  // 其他
+  }
+
+  /**
+   * 将数据归一化
+   * @param values 
+   * @param scale 
+   */
+  protected normalizeValues(values: any, scale: Scale): number | number[] {
+    if (isArray(values)) {
+      const rst = [];
+      for (let i = 0; i < values.length; i ++) {
+        const value = values[i];
+        rst.push(scale.mapping(value));
+      }
+      return rst;
+    }
+    return scale.mapping(values);
+  }
+
+
+  /**
+   * 绘制：将数据最终转化成 G 的 Shape
+   */
+  public paint() {
+    const beforeMappingData = this.beforeMappingData;
+    // 1. 生成关键点
+    const dataArray = this.beforeMapping(beforeMappingData);
+  }
 
   /**
    * 销毁
@@ -254,6 +395,15 @@ export class Geometry extends EE {
     return this;
   }
 
+  /**
+   * 设置动画配置
+   * @param animateOption 
+   */
+  public animate(animateOption: any) {
+    this.animateOption = animateOption;
+    return this;
+  }
+
   /** 获取信息的 API         **************************************************************** */
 
   /**
@@ -300,22 +450,75 @@ export class Geometry extends EE {
   }
 
   /**
-   * 获取当前 Geometry 对应的 elements 绘图元素
+   * 返回 attribute 映射之后的数据
+   * @param attr Attribute 图形属性实例。
+   * @param obj 需要进行映射的原始数据。
+   * @returns
    */
-  public getElements() {}
+  public getAttributeValues(attr: Attribute, datum: Datum) {
+    const params = [];
+    const scales = attr.scales;
+    for (let i = 0; i < scales.length; i ++) {
+      const scale = scales[i];
+      const field = scale.field;
+      if (scale.isIdentity) {
+        params.push(scale.values);
+      } else {
+        params.push(datum[field]);
+      }
+    }
+
+    return attr.mapping(...params);
+  }
 
   /**
-   * 通过条件获取 element
+   * 获取当前 Geometry 对应的 elements 绘图元素
    */
-  public getElementsBy() {}
+  public getElements() {
+    return this.elements;
+  }
+
+  /**
+   * 根据一定的规则查找 Geometry 的 Elements。
+   *
+   * ```typescript
+   * getElementsBy((element) => {
+   *   const data = element.getData();
+   *
+   *   return data.a === 'a';
+   * });
+   * ```
+   *
+   * @param condition 定义查找规则的回调函数。
+   * @returns
+   */
+  public getElementsBy(condition: (element: Element) => boolean): Element[] {
+    return this.elements.filter((element) => {
+      return condition(element);
+    });
+  }
 
   /**
    * 获取 adjust 实例
    */
-  public getAdjust() {}
+  public getAdjust(type: string): Adjust {
+    return this.adjusts.get(type);
+  }
 
   /**
    * 获取坐标系实例
    */
-  public getCoordinate() {}
+  public getCoordinate() {
+    return this.options.coordinate;
+  }
+
+  /** 获取 x 轴对应的 scale 实例。 */
+  public getXScale(): Scale {
+    return this.options.scales.get(this.getXYFields()[0]);
+  }
+
+  /** 获取 y 轴对应的 scale 实例。 */
+  public getYScale(): Scale {
+    return this.options.scales.get(this.getXYFields()[1]);
+  }
 }
