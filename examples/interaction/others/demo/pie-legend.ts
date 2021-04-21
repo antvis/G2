@@ -13,7 +13,8 @@ const chart = new Chart({
   autoFit: true,
   height: 500,
 });
-
+// 新建一个 view 用来单独渲染Annotation
+const innerView = chart.createView();
 chart.coordinate('theta', {
   radius: 0.75,
   innerRadius: 0.5,
@@ -103,8 +104,8 @@ chart.on('element:statechange', (ev) => {
 let lastItem;
 function updateAnnotation(data) {
   if (data.item !== lastItem) {
-    chart.annotation().clear(true);
-    chart
+    innerView.annotation().clear(true);
+    innerView
       .annotation()
       .text({
         position: ['50%', '50%'],
@@ -138,14 +139,14 @@ function updateAnnotation(data) {
         offsetY: 20,
         offsetX: 20,
       });
-    chart.render(true);
+    innerView.render(true);
     lastItem = data.item;
   }
 }
 
 // 清空 annotation
 function clearAnnotation() {
-  chart.annotation().clear(true);
-  chart.render(true);
+  innerView.annotation().clear(true);
+  innerView.render(true);
   lastItem = null;
 }
