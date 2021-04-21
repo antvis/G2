@@ -99,6 +99,30 @@ function createLegendStyles(styleSheet: StyleSheet): LooseObject {
         textBaseline: 'middle',
       },
     },
+    itemStates: {
+      active: {
+        nameStyle: {
+          opacity: 0.8,
+        },
+      },
+      unchecked: {
+        nameStyle: {
+          fill: '#D8D8D8',
+        },
+        markerStyle: {
+          fill: '#D8D8D8',
+          stroke: '#D8D8D8',
+        },
+      },
+      inactive: {
+        nameStyle: {
+          fill: '#D8D8D8',
+        },
+        markerStyle: {
+          opacity: 0.2,
+        },
+      },
+    },
     flipPage: true,
     pageNavigator: {
       marker: {
