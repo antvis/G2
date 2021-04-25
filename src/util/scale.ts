@@ -1,23 +1,22 @@
-
 import { isNil, max, min } from '@antv/util';
 import { Data, Scale, ScaleOptions } from '../types';
 
 /**
  * 对于 stack 的数据进行修改 scale min max 值
- * @param scale 
- * @param beforeMappingData 
+ * @param scale
+ * @param beforeMappingData
  */
 export function getScaleUpdateOptionsAfterStack(scale: Scale, beforeMappingData: Data[]): Partial<ScaleOptions> {
-  const field = scale.field;
-  
+  const { field } = scale;
+
   // 所有的数据
   const values = [];
   let dataGroup;
   let datum;
 
-  for (let i = 0; i < beforeMappingData.length; i ++) {
+  for (let i = 0; i < beforeMappingData.length; i += 1) {
     dataGroup = beforeMappingData[i];
-    for (let j = 0; j < dataGroup.length; j ++) {
+    for (let j = 0; j < dataGroup.length; j += 1) {
       datum = dataGroup[j];
       // 经过 stack adjust 之后的数据，变成了数组方式
       values.push(...datum[field]);

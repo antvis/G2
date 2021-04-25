@@ -188,26 +188,26 @@ export class Geometry extends EE {
 
   /**
    * 在映射数据之前，做的一些事情
-   * @param beforeMappingData 
+   * @param beforeMappingData
    */
   private beforeMapping(beforeMappingData: Data[]) {
-    if (this.options.generatePoints) {
-      beforeMappingData.reduce((prev: Data, curr: Data) => {
-        // 1. 生成关键点信息，用于绘图
-        this.generateShapePoints(curr);
+    beforeMappingData.reduce((prev: Data, curr: Data) => {
+      // 1. 生成关键点信息，用于绘图
+      this.generateShapePoints(curr);
 
-        // 2. 形成 prev ---> next 单向链表
-        if (prev) {
-          prev[0].nextPoints = curr[0].points;
-        }
-        return curr;
-      });
-    }
+      // 2. 形成 prev ---> next 单向链表
+      if (prev) {
+        prev[0].nextPoints = curr[0].points;
+      }
+      return curr;
+    });
+
+    return beforeMappingData;
   }
 
   /**
    * 生成 shape 的关键点
-   * @param data 
+   * @param data
    */
   private generateShapePoints(data: Data) {
     const shapeFactory = this.getShapeFactory();
@@ -227,8 +227,8 @@ export class Geometry extends EE {
    */
   private getShapeFactory() {
     return {
-      getShapePoints: (shapeType, cfg) => {}
-    }
+      getShapePoints: (shapeType, cfg) => {},
+    };
   }
 
   /**
@@ -264,20 +264,22 @@ export class Geometry extends EE {
     const { min, max } = yScale;
     let value: number;
 
-    return min >= 0 ? min : // 当值全位于正区间时
-            max <= 0 ? max : // 当值全位于负区间时
-            0;  // 其他
+    return min >= 0
+      ? min // 当值全位于正区间时
+      : max <= 0
+      ? max // 当值全位于负区间时
+      : 0; // 其他
   }
 
   /**
    * 将数据归一化
-   * @param values 
-   * @param scale 
+   * @param values
+   * @param scale
    */
   protected normalizeValues(values: any, scale: Scale): number | number[] {
     if (isArray(values)) {
       const rst = [];
-      for (let i = 0; i < values.length; i ++) {
+      for (let i = 0; i < values.length; i++) {
         const value = values[i];
         rst.push(scale.mapping(value));
       }
@@ -286,6 +288,23 @@ export class Geometry extends EE {
     return scale.mapping(values);
   }
 
+  /**
+   * 进行映射，主要做两个事情，一个是：
+   * 1. 属性的映射
+   * 2. 位置属性额外进行坐标系的转换
+   */
+  private mapping(data: Data) {
+    let attribute;
+    let datum;
+
+    for (let i = 0; i < data.length; i++) {
+      datum = data[i];
+
+      for (const k in this.attributes) {
+        attribute = this.attributes[k];
+      }
+    }
+  }
 
   /**
    * 绘制：将数据最终转化成 G 的 Shape
@@ -294,6 +313,12 @@ export class Geometry extends EE {
     const beforeMappingData = this.beforeMappingData;
     // 1. 生成关键点
     const dataArray = this.beforeMapping(beforeMappingData);
+
+    let data;
+    for (let i = 0; i < dataArray.length; i++) {
+      data = dataArray[i];
+      const mappingData = this.mapping(data);
+    }
   }
 
   /**
@@ -397,7 +422,7 @@ export class Geometry extends EE {
 
   /**
    * 设置动画配置
-   * @param animateOption 
+   * @param animateOption
    */
   public animate(animateOption: any) {
     this.animateOption = animateOption;
@@ -458,7 +483,7 @@ export class Geometry extends EE {
   public getAttributeValues(attr: Attribute, datum: Datum) {
     const params = [];
     const scales = attr.scales;
-    for (let i = 0; i < scales.length; i ++) {
+    for (let i = 0; i < scales.length; i++) {
       const scale = scales[i];
       const field = scale.field;
       if (scale.isIdentity) {

@@ -57,4 +57,4 @@ export type ShapePoint = {
   y0?: number;
   /** 大小 */
   size?: number;
-}
+};

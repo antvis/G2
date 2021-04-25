@@ -1,5 +1,3 @@
 export class Adjust {
-  public process() {
-
-  }
+  public process() {}
 }
