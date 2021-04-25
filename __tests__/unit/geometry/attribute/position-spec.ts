@@ -1,6 +1,4 @@
-import {
-  Position,
-} from '../../../../src/geometry/attribute';
+import { Position } from '../../../../src/geometry/attribute';
 
 describe('attribute position', () => {
   it('value', () => {
