@@ -120,7 +120,9 @@ export class Geometry extends EE {
    * 数据加工：分组 -> 数字化 -> adjust
    */
   private processData() {
-    const categoryPositionScales = this.getAttribute('position').scales.filter((s) => s.isCategory());
+    const categoryPositionScales = this.getAttribute('position').scales.filter((s) =>
+      s.isCategory(),
+    );
 
     // 1. 数据根据分组字段，分组
     const groupedData = groupData(this.options.data, this.getGroupFields());

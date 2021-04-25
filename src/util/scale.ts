@@ -6,7 +6,10 @@ import { Data, Scale, ScaleOptions } from '../types';
  * @param scale
  * @param beforeMappingData
  */
-export function getScaleUpdateOptionsAfterStack(scale: Scale, beforeMappingData: Data[]): Partial<ScaleOptions> {
+export function getScaleUpdateOptionsAfterStack(
+  scale: Scale,
+  beforeMappingData: Data[],
+): Partial<ScaleOptions> {
   const { field } = scale;
 
   // 所有的数据
