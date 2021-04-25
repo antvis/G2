@@ -1,3 +1,15 @@
+#### 4.1.15 (2021-04-25)
+
+##### New Features
+
+*  主题中增加图例样式的配置，便于用户了解怎么修改 ([#3376](https://github.com/antvis/g2/pull/3376)) ([5d3fac4c](https://github.com/antvis/g2/commit/5d3fac4ca49245fbfdb09adf39d385512ff21b41))
+* **theme:**  主题 Token ([#3361](https://github.com/antvis/g2/pull/3361)) ([182c68a6](https://github.com/antvis/g2/commit/182c68a6c1f67121758fd90084f50186c789b320))
+
+##### Bug Fixes
+
+*  修复数据为 0 时动画更新出错 ([#3378](https://github.com/antvis/g2/pull/3378)) ([e132a303](https://github.com/antvis/g2/commit/e132a303c3b09f224371a8286d5592f3f3fbe356))
+*  修复 babel 配置 ([#3371](https://github.com/antvis/g2/pull/3371)) ([2d1ef8d4](https://github.com/antvis/g2/commit/2d1ef8d4df6e68da71a8399c53991b8becc04771))
+
 #### 4.1.14 (2021-04-12)
 
 ##### Chores
