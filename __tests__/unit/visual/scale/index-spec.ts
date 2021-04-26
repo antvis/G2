@@ -12,7 +12,8 @@ describe('scale', () => {
     });
 
     expect(scale.type).toBe('identity');
-    expect(scale.getFieldName()).toBe('test');
+    expect(scale.field).toBe('test');
+    expect(scale.fieldName).toBe('test');
     expect(scale.map(1)).toBe(1);
     expect(scale.invert(1)).toBe(1);
 
@@ -21,7 +22,8 @@ describe('scale', () => {
     });
 
     expect(scale.type).toBe('identity');
-    expect(scale.getFieldName()).toBe('测试');
+    expect(scale.field).toBe('test');
+    expect(scale.fieldName).toBe('测试');
     expect(scale.map(1)).toBe(1);
     expect(scale.invert(1)).toBe(1);
   });

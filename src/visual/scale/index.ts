@@ -72,10 +72,24 @@ export class ScaleDef {
   }
 
   /**
-   * scale 的类型
+   * 字段的类型
    */
   public get type() {
     return this.cfg.type;
+  }
+
+  /**
+   * 对应的列字段
+   */
+  public get field() {
+    return this.cfg.field;
+  }
+
+  /**
+   * 获取字段名字，考虑别名
+   */
+  public get fieldName() {
+    return this.cfg.alias || this.field;
   }
 
   /**
@@ -97,13 +111,6 @@ export class ScaleDef {
    */
   public isIndentity() {
     return this.type === 'identity';
-  }
-
-  /**
-   * 获取字段名字，考虑别名
-   */
-  public getFieldName() {
-    return this.cfg.alias || this.cfg.field;
   }
 
   /**
