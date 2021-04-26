@@ -16,7 +16,7 @@ import { GROUP_ATTR_KEYS, ORIGINAL_FIELD } from '../../constant';
 import { createAttribute } from '../../util/attribute';
 import { groupData } from '../../util/data';
 import { getScaleUpdateOptionsAfterStack } from '../../util/scale';
-import { Attribute } from '../attribute/attribute';
+import { Attribute } from '../../visual/attribute';
 import { Element } from '../element';
 import { isArray } from '@antv/util';
 

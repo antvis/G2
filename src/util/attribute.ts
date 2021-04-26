@@ -1,4 +1,4 @@
-import { Color, Indentity, Position, Shape, Size } from '../geometry/attribute';
+import { Color, Indentity, Position, Shape, Size } from '../visual/attribute';
 
 /**
  * 创建一个 attribute 类型的实例
@@ -9,14 +9,14 @@ import { Color, Indentity, Position, Shape, Size } from '../geometry/attribute';
 export function createAttribute(type: string, cfg: any) {
   switch (type) {
     case 'color':
-      return new Color();
+      return new Color(cfg);
     case 'position':
-      return new Position();
+      return new Position(cfg);
     case 'shape':
-      return new Shape();
+      return new Shape(cfg);
     case 'size':
-      return new Size();
+      return new Size(cfg);
     default:
-      return new Indentity();
+      return new Indentity(cfg);
   }
 }
