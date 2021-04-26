@@ -1,4 +1,4 @@
-import { Color } from '../../../../src/geometry/attribute';
+import { Color } from '../../../../src/visual/attribute';
 
 describe('attribute color', () => {
   it('value', () => {

@@ -1,4 +1,4 @@
-import { isArray, isNil, isString } from '@antv/util';
+import { isNil } from '@antv/util';
 
 export type CallbackFunc = (...args: any[]) => any[];
 

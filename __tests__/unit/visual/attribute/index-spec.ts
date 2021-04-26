@@ -1,4 +1,4 @@
-import { Attribute, Color, Position, Shape, Size } from '../../../../src/geometry/attribute';
+import { Attribute, Color, Position, Shape, Size } from '../../../../src/visual/attribute';
 
 // TODO 单测 100%
 describe('attribute', () => {

@@ -1,4 +1,4 @@
-import { Shape } from '../../../../src/geometry/attribute';
+import { Shape } from '../../../../src/visual/attribute';
 
 describe('attribute shape', () => {
   it('value', () => {

@@ -1,4 +1,4 @@
-import { Color, Indentity, Position, Shape, Size } from '../geometry/attribute';
+import { Color, Indentity, Position, Shape, Size } from '../visual/attribute';
 
 /**
  * 创建一个 attribute 类型的实例
