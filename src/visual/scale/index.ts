@@ -39,7 +39,6 @@ export type ScaleDefCfg = {
  * 其实名字叫 FieldMeta 更好，但是考虑到 G2 旧版本的概念兼容，所以还是用重名的 Scale 命名，它的内部会包含一个真正的 scale 示例
  */
 export class ScaleDef {
-
   /**
    * 包含的 antv/scale 实例
    */
