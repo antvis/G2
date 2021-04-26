@@ -138,7 +138,10 @@ export class ScaleDef {
   private getAntVScaleCfg(cfg: Partial<ScaleDefCfg>): ScaleCfg {
     // todo 抽出配置
     return {
-      domain: [isNil(cfg.min) ? min(cfg.values) : cfg.min, isNil(cfg.max) ? max(cfg.values) : cfg.max],
+      domain: [
+        isNil(cfg.min) ? min(cfg.values) : cfg.min,
+        isNil(cfg.max) ? max(cfg.values) : cfg.max,
+      ],
       ...cfg,
     };
   }

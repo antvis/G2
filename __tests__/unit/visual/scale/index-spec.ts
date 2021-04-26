@@ -55,23 +55,13 @@ describe('scale', () => {
     expect(scale.invert(0.8)).toBe(180);
   });
 
-  it('log', () => {
+  it('log', () => {});
 
-  });
+  it('pow', () => {});
 
-  it('pow', () => {
+  it('cat / category', () => {});
 
-  });
+  it('time', () => {});
 
-  it('cat / category', () => {
-
-  });
-
-  it('time', () => {
-
-  });
-
-  it('timeCat', () => {
-
-  });
+  it('timeCat', () => {});
 });
