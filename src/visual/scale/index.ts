@@ -1,5 +1,5 @@
 import { Linear, Band, Time, Ordinal, Log, Pow, Identity } from '@antv/scale';
-import { Indentity } from '../attribute';
+import { min, max, isNil } from '@antv/util';
 
 type Scale = any;
 type ScaleCfg = any;
@@ -15,7 +15,7 @@ export type ScaleDefCfg = {
   /**
    * 字段名称
    */
-  field: string;
+  field?: string;
   /**
    * 字段别名
    */
@@ -29,9 +29,17 @@ export type ScaleDefCfg = {
    */
   max?: number;
   /**
+   * 映射的定义域范围，默认为是 [0, 1]
+   */
+  range?: number[];
+  /**
    * 字段的格式化方法
    */
   formatter?: (v: any) => string;
+  /**
+   * field 对应的枚举值
+   */
+  values?: any[];
 };
 
 /**
@@ -54,6 +62,11 @@ export class ScaleDef {
    * @param cfg
    */
   constructor(cfg: ScaleDefCfg) {
+    // 设置默认值
+    this.cfg = {
+      range: [0, 1],
+      ...cfg,
+    };
     // create scale by type
     this.scale = this.createScale(cfg);
   }
@@ -87,6 +100,13 @@ export class ScaleDef {
   }
 
   /**
+   * 获取字段名字，考虑别名
+   */
+  public getFieldName() {
+    return this.cfg.alias || this.cfg.field;
+  }
+
+  /**
    * 将值映射到值域
    * @param v
    */
@@ -106,7 +126,9 @@ export class ScaleDef {
    * 更新 antv/scale 配置和实例
    */
   public update(cfg: Partial<ScaleDefCfg>) {
-    this.scale.update(this.getAntVScaleCfg(cfg));
+    // merge 配置，然后更新 scale
+    this.cfg = { ...this.cfg, ...cfg };
+    this.scale.update(this.getAntVScaleCfg(this.cfg));
   }
 
   /**
@@ -115,7 +137,10 @@ export class ScaleDef {
    */
   private getAntVScaleCfg(cfg: Partial<ScaleDefCfg>): ScaleCfg {
     // todo 抽出配置
-    return cfg;
+    return {
+      domain: [isNil(cfg.min) ? min(cfg.values) : cfg.min, isNil(cfg.max) ? max(cfg.values) : cfg.max],
+      ...cfg,
+    };
   }
 
   /**
@@ -142,7 +167,7 @@ export class ScaleDef {
       case 'time':
         return new Time(scaleCfg);
       case 'identity':
-        return new Indentity(scaleCfg);
+        return new Identity(scaleCfg);
       default:
         return new Band(scaleCfg);
     }
