@@ -403,6 +403,14 @@ export const createLightStyleSheet = (cfg: StyleSheetCfg = {}) => {
     /** Slider 字体标签描边粗细 */
     cSliderTextBorder: 0,
 
+    // -------------------- Scrollbar 组件样式--------------------
+    /** 滚动条 滚道填充色 */
+    scrollbarTrackFillColor: 'rgba(0,0,0,0)',
+    /** 滚动条 滑块填充色 */
+    scrollbarThumbFillColor: 'rgba(0,0,0,0.15)',
+    /** 滚动条 滑块高亮填充色 */
+    scrollbarThumbHighlightFillColor: 'rgba(0,0,0,0.2)',
+
     // -------------------- Geometry 图形样式--------------------
     /** 点图填充颜色 */
     pointFillColor: brandColor,

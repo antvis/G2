@@ -1343,13 +1343,13 @@ export function createThemeByStyleSheet(styleSheet: StyleSheet): LooseObject {
         },
         default: {
           style: {
-            trackColor: 'rgba(0,0,0,0)',
-            thumbColor: 'rgba(0,0,0,0.15)',
+            trackColor: styleSheet.scrollbarTrackFillColor,
+            thumbColor: styleSheet.scrollbarThumbFillColor,
           },
         },
         hover: {
           style: {
-            thumbColor: 'rgba(0,0,0,0.2)',
+            thumbColor: styleSheet.scrollbarThumbHighlightFillColor,
           },
         },
       },

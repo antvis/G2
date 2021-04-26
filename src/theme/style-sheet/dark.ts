@@ -393,7 +393,7 @@ export const createDarkStyleSheet = (cfg: StyleSheetCfg = {}) => {
     cSliderHandlerBorderRadius: 2,
     // slider textStyle 字体标签样式
     /** Slider 字体标签颜色 */
-    cSliderTextFillColor: '#000',
+    cSliderTextFillColor: '#fff',
     /** Slider 字体标签透明度 */
     cSliderTextFillOpacity: 0.45,
     /** Slider 字体标签大小 */
@@ -406,6 +406,14 @@ export const createDarkStyleSheet = (cfg: StyleSheetCfg = {}) => {
     cSliderTextBorderColor: null,
     /** Slider 字体标签描边粗细 */
     cSliderTextBorder: 0,
+
+    // -------------------- Scrollbar 组件样式--------------------
+    /** 滚动条 滚道填充色 */
+    scrollbarTrackFillColor: 'rgba(255,255,255,0.65)',
+    /** 滚动条 滑块填充色 */
+    scrollbarThumbFillColor: 'rgba(0,0,0,0.35)',
+    /** 滚动条 滑块高亮填充色 */
+    scrollbarThumbHighlightFillColor: 'rgba(0,0,0,0.45)',
 
     // -------------------- Geometry 图形样式--------------------
     /** 点图填充颜色 */

@@ -2117,6 +2117,14 @@ export interface StyleSheet {
   /** Slider 字体标签描边粗细 */
   cSliderTextBorder?: number;
 
+  // -------------------- Scrollbar 组件样式--------------------
+  /** 滚动条 滚道填充色 */
+  scrollbarTrackFillColor?: string;
+  /** 滚动条 滑块填充色 */
+  scrollbarThumbFillColor?: string;
+  /** 滚动条 滑块高亮填充色 */
+  scrollbarThumbHighlightFillColor?: string;
+
   // -------------------- Geometry 图形样式--------------------
   /** 点图的大小范围 */
   pointSizeRange?: [number, number];
