@@ -1,4 +1,4 @@
-import { Base } from "@antv/scale/lib/scales/base";
+import { Base } from '@antv/scale/lib/scales/base';
 
 export type CallBack = (...args: any[]) => any[];
 
@@ -32,7 +32,7 @@ export abstract class Attribute {
   /**
    * attribute 的类型
    */
-  public type: string = "base";
+  public type: string = 'base';
 
   /**
    * 字段信息
@@ -59,7 +59,6 @@ export abstract class Attribute {
    */
   public isLinear: boolean = false;
 
-
   protected constructor(cfg: AttributeCfg) {
     this.update(cfg);
   }
@@ -77,12 +76,7 @@ export abstract class Attribute {
    * @param cfg attribute 配置
    */
   public update(cfg: AttributeCfg) {
-    const {
-      fields = [],
-      scales = [],
-      value = [],
-      callback
-    } = cfg;
+    const { fields = [], scales = [], value = [], callback } = cfg;
 
     this.fields = fields;
     this.value = value;

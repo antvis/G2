@@ -3,5 +3,5 @@
  * 视觉属性映射的实例
  */
 
-export { Attribute, AttributeCfg } from "./attribute";
-export { Position } from "./position";
+export { Attribute, AttributeCfg } from './attribute';
+export { Position } from './position';

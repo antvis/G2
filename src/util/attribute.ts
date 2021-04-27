@@ -1,4 +1,4 @@
-import { Position } from "../visual/attribute";
+import { Position } from '../visual/attribute';
 
 /**
  * 创建一个 attribute 类型的实例
@@ -8,7 +8,7 @@ import { Position } from "../visual/attribute";
  */
 export function createAttribute(type: string, cfg: any) {
   switch (type) {
-    case "position":
+    case 'position':
       return new Position(cfg);
     default:
       return new Position(cfg);

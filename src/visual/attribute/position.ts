@@ -1,5 +1,5 @@
-import { Attribute, AttributeCfg } from "./attribute";
-import { isArray, isNil } from "@antv/util";
+import { Attribute, AttributeCfg } from './attribute';
+import { isArray, isNil } from '@antv/util';
 
 export type Value = number | string;
 export type MappingValue = Value[] | Value;
@@ -8,8 +8,8 @@ export class Position extends Attribute {
   constructor(config: AttributeCfg) {
     super(config);
 
-    this.fields = ["x", "y"];
-    this.type = "position";
+    this.fields = ['x', 'y'];
+    this.type = 'position';
   }
 
   public mapping(...params: MappingValue[]) {
@@ -22,8 +22,8 @@ export class Position extends Attribute {
     }
 
     // 对两项进行 map
-    const mappedX = this.mapValue(x, "x");
-    const mappedY = this.mapValue(y, "y");
+    const mappedX = this.mapValue(x, 'x');
+    const mappedY = this.mapValue(y, 'y');
 
     return [mappedX, mappedY];
   }
@@ -35,8 +35,8 @@ export class Position extends Attribute {
    * @param coordinate 映射的坐标
    * @returns {any | any[]} 映射的结果
    */
-  private mapValue(val: MappingValue, coordinate: "x" | "y") {
-    const scale = coordinate === "x" ? this.scales[0] : this.scales[1];
+  private mapValue(val: MappingValue, coordinate: 'x' | 'y') {
+    const scale = coordinate === 'x' ? this.scales[0] : this.scales[1];
     const v = val;
     if (isArray(v)) {
       // 数组类型，逐一 map 即可
