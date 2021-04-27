@@ -5,6 +5,7 @@ type Scale = any;
 type ScaleCfg = any;
 
 /**
+ * // TODO @万木 增加 Scale 包装，需要对于 G2 来实现无感！代码整洁、架构上是否 OK？
  * G2.Scale 列定义的类型配置
  */
 export type ScaleDefCfg = {
