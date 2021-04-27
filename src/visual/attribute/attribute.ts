@@ -1,4 +1,4 @@
-import { Base } from "../../../../scale/lib/scales/base";
+import { Base } from "@antv/scale/lib/scales/base";
 
 export type CallBack = (...args: any[]) => any[];
 
