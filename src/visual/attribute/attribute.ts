@@ -1,7 +1,6 @@
-import { isNil } from "@antv/util";
 import { Base } from "../../../../scale/lib/scales/base";
 
-export type CallbackFunc = (...args: any[]) => any[];
+export type CallBack = (...args: any[]) => any[];
 
 export type AttributeCfg = {
   /**
@@ -19,16 +18,17 @@ export type AttributeCfg = {
   /**
    * 属性映射的 function，和 value 2 选 1
    */
-  readonly callback?: CallbackFunc;
+  readonly callback?: CallBack;
 };
 
 type Scale = Base<any>;
 
 /**
  * 所有视觉通道属性的基类
+ *
  * @class Base
  */
-export class Attribute {
+export abstract class Attribute {
   /**
    * attribute 的类型
    */
@@ -47,7 +47,7 @@ export class Attribute {
   /**
    * 属性映射的 callback 函数
    */
-  public callback: CallbackFunc;
+  public callback: CallBack;
 
   /**
    * 属性映射对应的字段 scale
@@ -59,7 +59,8 @@ export class Attribute {
    */
   public isLinear: boolean = false;
 
-  constructor(cfg: AttributeCfg) {
+
+  protected constructor(cfg: AttributeCfg) {
     this.update(cfg);
   }
 
@@ -68,42 +69,10 @@ export class Attribute {
    *
    * @param params 对应 scale 顺序的值传入
    */
-  public mapping(...params: any[]): any[] {
-    // 1. 使用 callback 进行自定义映射
-    if (this.callback) {
-      // 当用户设置的 callback 返回 null 时, 应该返回默认 callback 中的值
-      const ret = this.callback(...params);
-      if (!isNil(ret)) {
-        return [ret];
-      }
-    }
-
-    // 2. 没有 callback 或者用户 callback 返回值为空,根据 value 来进行映射
-
-    // 没有 params 的情况，是指没有指定 fields，直接返回配置的 values 常量
-    if (this.fields.length === 0) {
-      return this.value;
-    }
-
-    return params.map((param, idx) => {
-      const scale = this.scales[idx];
-
-      // 线性的，则使用 linear value
-      if (this.isLinear) {
-        // 线性则使用线性值
-        const percent = scale.map(param);
-        return this.getLinearValue(percent);
-      }
-
-      // 如果是非线性的字段，直接从 values 中取值即可
-      // 离散 scale 变换成索引
-      const scaleValue = scale.map(param) as number;
-      return this.value[scaleValue % this.value.length];
-    });
-  }
+  public abstract mapping(...params: any[]);
 
   /**
-   * 更新配置
+   * 更新 Attribute 配置
    *
    * @param cfg attribute 配置
    */
@@ -119,24 +88,5 @@ export class Attribute {
     this.value = value;
     this.callback = callback;
     this.scales = scales;
-  }
-
-  /**
-   * 如果进行线性映射，返回对应的映射值
-   * @param percent
-   */
-  protected getLinearValue(percent: number): number | string {
-    // 分段数量
-    const steps = this.value.length - 1;
-
-    const step = Math.floor(steps * percent);
-    const leftPercent = steps * percent - step;
-
-    // todo 不懂这个逻辑
-    const start = this.value[step];
-    const end = step === steps ? start : this.value[step + 1];
-
-    // 线性方程
-    return start + (end - start) * leftPercent;
   }
 }
