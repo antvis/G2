@@ -1,4 +1,4 @@
-import { Color, Indentity, Position, Shape, Size } from '../visual/attribute';
+import { Position } from "../visual/attribute";
 
 /**
  * 创建一个 attribute 类型的实例
@@ -8,15 +8,9 @@ import { Color, Indentity, Position, Shape, Size } from '../visual/attribute';
  */
 export function createAttribute(type: string, cfg: any) {
   switch (type) {
-    case 'color':
-      return new Color(cfg);
-    case 'position':
+    case "position":
       return new Position(cfg);
-    case 'shape':
-      return new Shape(cfg);
-    case 'size':
-      return new Size(cfg);
     default:
-      return new Indentity(cfg);
+      return new Position(cfg);
   }
 }
