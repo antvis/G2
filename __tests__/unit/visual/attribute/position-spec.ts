@@ -40,4 +40,10 @@ describe("attribute position", () => {
       [0.4, 0.6, 1]
     ]);
   });
+
+  test("the args is small than 2", () => {
+    expect(mapper(undefined, undefined)).toStrictEqual([]);
+    expect(mapper(undefined)).toStrictEqual([]);
+    expect(mapper()).toStrictEqual([]);
+  });
 });
