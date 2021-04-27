@@ -28,6 +28,13 @@ export class Position extends Attribute {
     return [mappedX, mappedY];
   }
 
+  /**
+   * 映射一个或者多个值
+   *
+   * @param val 要映射的值或数组
+   * @param coordinate 映射的坐标
+   * @returns {any | any[]} 映射的结果
+   */
   private mapValue(val: MappingValue, coordinate: "x" | "y") {
     const scale = coordinate === "x" ? this.scales[0] : this.scales[1];
     const v = val;
