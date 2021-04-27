@@ -1,6 +1,6 @@
-import colorUtil from '@antv/color-util';
-import { isString } from '@antv/util';
-import { Attribute, AttributeCfg } from './attribute';
+import colorUtil from "@antv/color-util";
+import { isString } from "@antv/util";
+import { Attribute, AttributeCfg } from "./attribute";
 
 /**
  * 映射的映射，可以根据索引映射，也可以根据渐变连续映射
@@ -9,7 +9,7 @@ export class Color extends Attribute {
   /**
    * @override attribute 类型
    */
-  public type: string = 'color';
+  public type: string = "color";
 
   /**
    * 用于缓存，提升性能

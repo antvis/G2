@@ -1,5 +1,5 @@
-import { isArray, isNil } from '@antv/util';
-import { Attribute } from './attribute';
+import { isArray, isNil } from "@antv/util";
+import { Attribute } from "./attribute";
 
 type PositionValue = number | string;
 
@@ -10,7 +10,7 @@ export class Position extends Attribute {
   /**
    * @override attribute 类型
    */
-  public type: string = 'position';
+  public type: string = "position";
 
   /**
    * @override 重写映射函数，直接使用 scale 记性转换
@@ -26,7 +26,7 @@ export class Position extends Attribute {
 
     return [
       isArray(x) ? x.map((xi) => scaleX.scale(xi)) : scaleX.scale(x),
-      isArray(y) ? y.map((yi) => scaleY.scale(yi)) : scaleY.scale(y),
+      isArray(y) ? y.map((yi) => scaleY.scale(yi)) : scaleY.scale(y)
     ];
   }
 }

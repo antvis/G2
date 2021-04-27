@@ -1,10 +1,10 @@
-import { Attribute } from './attribute';
+import { Attribute } from "./attribute";
 
 export class Shape extends Attribute {
   /**
    * @override attribute 类型
    */
-  public type: string = 'shape';
+  public type: string = "shape";
 
   /**
    * @override
