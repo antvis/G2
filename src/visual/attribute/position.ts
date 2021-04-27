@@ -32,6 +32,7 @@ export class Position extends Attribute {
     const scale = coordinate === "x" ? this.scales[0] : this.scales[1];
     const v = val;
     if (isArray(v)) {
+      // 数组类型，逐一 map 即可
       const len = v.length;
       let mappedArr = new Array(len);
       for (let i = 0; i < len; i++) {
