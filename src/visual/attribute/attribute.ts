@@ -1,6 +1,6 @@
 import { Base } from '@antv/scale/lib/scales/base';
 
-export type CallBack = (...args: any[]) => any[];
+export type Callback = (...args: any[]) => any[];
 
 export type AttributeCfg = {
   /**
@@ -18,7 +18,7 @@ export type AttributeCfg = {
   /**
    * 属性映射的 function，和 value 2 选 1
    */
-  readonly callback?: CallBack;
+  readonly callback?: Callback;
 };
 
 type Scale = Base<any>;
@@ -47,7 +47,7 @@ export abstract class Attribute {
   /**
    * 属性映射的 callback 函数
    */
-  public callback: CallBack;
+  public callback: Callback;
 
   /**
    * 属性映射对应的字段 scale
@@ -59,16 +59,18 @@ export abstract class Attribute {
    */
   public isLinear: boolean = false;
 
+
   protected constructor(cfg: AttributeCfg) {
     this.update(cfg);
   }
 
   /**
-   * 映射的值组成的数组
+   * 执行映射
    *
-   * @param params 对应 scale 顺序的值传入
+   * @param params 需要映射的值（对应 scale 顺序的值传入）
+   * @return {any[]} 映射结果
    */
-  public abstract mapping(...params: any[]);
+  public abstract mapping(...params: any[]): any[];
 
   /**
    * 更新 Attribute 配置
