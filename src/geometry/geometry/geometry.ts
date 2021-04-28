@@ -140,7 +140,7 @@ export class Geometry extends EE {
         // TODO 为什么要在分组的时候对位置中分类数字化
         return categoryPositionScales.map((scale) => {
           const field = scale.field;
-          mappingDatum[field] = scale.mapping(field);
+          mappingDatum[field] = scale.map(field);
         });
       });
     });
@@ -479,7 +479,7 @@ export class Geometry extends EE {
   /**
    * 返回 attribute 映射之后的数据
    * @param attr Attribute 图形属性实例。
-   * @param obj 需要进行映射的原始数据。
+   * @param datum
    * @returns
    */
   public getAttributeValues(attr: Attribute, datum: Datum) {
@@ -488,7 +488,8 @@ export class Geometry extends EE {
     for (let i = 0; i < scales.length; i++) {
       const scale = scales[i];
       const field = scale.field;
-      if (scale.isIdentity) {
+      if (scale.isIdentity()) {
+        // @ts-ignore, yuzhanglong: 暂时不清楚作用，先用 ts-ignore 解决报错问题
         params.push(scale.values);
       } else {
         params.push(datum[field]);

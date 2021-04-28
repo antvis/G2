@@ -1,4 +1,5 @@
 import { Base } from '@antv/scale/lib/scales/base';
+import { ScaleDef } from '../scale';
 
 export type Callback = (...args: any[]) => any[];
 
@@ -21,7 +22,7 @@ export type AttributeCfg = {
   readonly callback?: Callback;
 };
 
-type Scale = Base<any>;
+type Scale = ScaleDef;
 
 /**
  * 所有视觉通道属性的基类
@@ -32,7 +33,7 @@ export abstract class Attribute {
   /**
    * attribute 的类型
    */
-  public type: string = 'base';
+  public type: 'base' | 'position';
 
   /**
    * 字段信息

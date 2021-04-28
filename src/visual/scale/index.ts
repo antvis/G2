@@ -69,7 +69,7 @@ export class ScaleDef {
       ...cfg,
     };
     // create scale by type
-    this.scale = this.createScale(cfg);
+    this.scale = ScaleDef.createScale(cfg);
   }
 
   /**
@@ -110,7 +110,7 @@ export class ScaleDef {
   /**
    * 是否是常量的 scale
    */
-  public isIndentity() {
+  public isIdentity() {
     return this.type === 'identity';
   }
 
@@ -136,14 +136,14 @@ export class ScaleDef {
   public update(cfg: Partial<ScaleDefCfg>) {
     // merge 配置，然后更新 scale
     this.cfg = { ...this.cfg, ...cfg };
-    this.scale.update(this.getAntVScaleCfg(this.cfg));
+    this.scale.update(ScaleDef.getAntVScaleCfg(this.cfg));
   }
 
   /**
    * 从配置中，生成 antv scale 的配置！
    * @param cfg
    */
-  private getAntVScaleCfg(cfg: Partial<ScaleDefCfg>): ScaleCfg {
+  private static getAntVScaleCfg(cfg: Partial<ScaleDefCfg>): ScaleCfg {
     // todo 抽出配置
     return {
       domain: [
@@ -158,9 +158,9 @@ export class ScaleDef {
    * 创建具体的 scale 类型
    * @param cfg
    */
-  private createScale(cfg: ScaleDefCfg) {
+  private static createScale(cfg: ScaleDefCfg) {
     const { type } = cfg;
-    const scaleCfg = this.getAntVScaleCfg(cfg);
+    const scaleCfg = ScaleDef.getAntVScaleCfg(cfg);
 
     // 针对不同的类型，创建不同的 scale
     switch (type) {
