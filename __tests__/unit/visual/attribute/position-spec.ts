@@ -1,10 +1,21 @@
 import { Position } from '../../../../src/visual/attribute';
 import { Linear, Ordinal } from '@antv/scale';
+import { ScaleDef } from '../../../../src/visual/scale';
 
 describe('attribute position', () => {
   const scaleCat = new Ordinal({
     domain: ['Jim', 'Tom', 'Tony', 'Frank'],
     range: [1, 2, 3, 4],
+  });
+
+  const scaleCatDef = new ScaleDef({
+    alias: '',
+    field: '',
+    max: 0,
+    min: 0,
+    range: [1, 2, 3, 4],
+    type: undefined,
+    values: []
   });
 
   const scaleLinear = new Linear({

@@ -1,6 +1,9 @@
 import { Linear, Band, Time, Ordinal, Log, Pow, Identity } from '@antv/scale';
 import { min, max, isNil } from '@antv/util';
 
+// TODO: 在下一次 scale 发包之后修改为无 lib 的导入
+import { Base } from '../../../../scale/lib/scales/base';
+
 type Scale = any;
 type ScaleCfg = any;
 
@@ -26,7 +29,7 @@ export type ScaleDefCfg = {
    */
   min?: number;
   /**
-   * 映射的定义域 min
+   * 映射的定义域 max
    */
   max?: number;
   /**
@@ -51,7 +54,7 @@ export class ScaleDef {
   /**
    * 包含的 antv/scale 实例
    */
-  private scale: Scale;
+  private scale: Base<any>;
 
   /**
    * 传入的配置
