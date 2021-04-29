@@ -1,5 +1,4 @@
 import { isNil, max, min } from '@antv/util';
-import { Data, ScaleDefCfg, ScaleTypes } from '../types';
 import {
   Band,
   BaseOptions,
@@ -11,8 +10,9 @@ import {
   Pow, Quantile, Quantize,
   Sqrt, Threshold,
   Time,
-} from '../../../scale';
-import { Base } from '../../../scale/lib/scales/base';
+} from '@antv/scale';
+import { Base } from '@antv/scale/lib/scales/base';
+import { Data, ScaleDefCfg, ScaleTypes } from '../types';
 
 /**
  * 对于 stack 的数据进行修改 scale min max 值
