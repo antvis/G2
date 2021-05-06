@@ -17,12 +17,6 @@ import { createScaleFactory } from '../../util/scale';
  * @see {Base} in @antv/scale scale 的基类
  */
 export class ScaleDef {
-  // 线性类型
-  public static LINEAR_TYPES = ['linear', 'log', 'pow', 'sqrt', 'time'];
-
-  // 离散类型
-  public static CATEGORY_TYPES = ['ordinal', 'band', 'point'];
-
   /**
    * 包含的 antv/scale 实例
    */
@@ -88,14 +82,16 @@ export class ScaleDef {
    * 是否是线性连续 scale
    */
   public isLinear() {
-    return ScaleDef.LINEAR_TYPES.includes(this.getType());
+    const LINEAR_TYPES = ['linear', 'log', 'pow', 'sqrt', 'time'];
+    return LINEAR_TYPES.includes(this.getType());
   }
 
   /**
    * 是否是离散的分类 scale
    */
   public isCategory() {
-    return ScaleDef.CATEGORY_TYPES.includes(this.getType());
+    const CATEGORY_TYPES = ['ordinal', 'band', 'point'];
+    return CATEGORY_TYPES.includes(this.getType());
   }
 
   /**
