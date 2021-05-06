@@ -109,3 +109,19 @@ export function createScaleFactory(type: ScaleTypes, cfg: BaseOptions): Base<any
       return new Ordinal(cfg);
   }
 }
+
+/**
+ * 将 G2 scale 配置转换成下层的 @antv/scale 配置
+ *
+ * @param cfg G2 scale 配置
+ * @return {BaseOptions} 下层的 @antv/scale 配置
+ */
+export function g2ToAntvScaleCfg(cfg: Partial<ScaleDefCfg>): BaseOptions {
+  return {
+    domain: [
+      isNil(cfg.min) ? min(cfg.values) : cfg.min,
+      isNil(cfg.max) ? max(cfg.values) : cfg.max,
+    ],
+    ...cfg,
+  };
+}

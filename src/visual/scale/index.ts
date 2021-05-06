@@ -1,9 +1,9 @@
 import { BaseOptions } from '@antv/scale';
-import { min, max, isNil } from '@antv/util';
+import { isNil } from '@antv/util';
 // TODO: 在下一个 scale 版本中 base 会从 index 中导出，无需 lib
 import { Base } from '@antv/scale/lib/scales/base';
 import { ScaleDefCfg } from '../../types';
-import { createScaleFactory } from '../../util/scale';
+import { createScaleFactory, g2ToAntvScaleCfg } from '../../util/scale';
 
 /**
  * 将 @antv/scale 进行针对于 G2 的二次包装，让使用更加容易方便
@@ -20,7 +20,7 @@ export class ScaleDef {
   /**
    * 包含的 antv/scale 实例
    */
-  private scale: Base<any>;
+  private scale: Base<BaseOptions>;
 
   /**
    * 传入的配置
@@ -134,26 +134,11 @@ export class ScaleDef {
       this.initScale(cfg as ScaleDefCfg);
     } else {
       // 配置转换
-      const antvScaleCfg = ScaleDef.g2ToAntvScaleCfg(this.cfg);
+      const antvScaleCfg = g2ToAntvScaleCfg(this.cfg);
 
       // 执行 antv/scale 更新
       this.scale.update(antvScaleCfg);
     }
-  }
-
-  /**
-   * 将 G2 scale 配置转换成下层的 @antv/scale 配置
-   *
-   * @param cfg G2 scale 配置
-   */
-  public static g2ToAntvScaleCfg(cfg: Partial<ScaleDefCfg>): BaseOptions {
-    return {
-      domain: [
-        isNil(cfg.min) ? min(cfg.values) : cfg.min,
-        isNil(cfg.max) ? max(cfg.values) : cfg.max,
-      ],
-      ...cfg,
-    };
   }
 
   /**
@@ -163,7 +148,7 @@ export class ScaleDef {
    */
   private initScale(cfg: ScaleDefCfg) {
     // 将 G2 配置转换为 antv 配置
-    const antvConfig = ScaleDef.g2ToAntvScaleCfg(cfg);
+    const antvConfig = g2ToAntvScaleCfg(cfg);
 
     // 通过类型创建 scale
     this.scale = createScaleFactory(this.cfg.type, antvConfig);
