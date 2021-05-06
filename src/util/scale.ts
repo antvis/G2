@@ -7,13 +7,16 @@ import {
   Log,
   Ordinal,
   Point,
-  Pow, Quantile, Quantize,
-  Sqrt, Threshold,
+  Pow,
+  Quantile,
+  Quantize,
+  Sqrt,
+  Threshold,
   Time,
 } from '@antv/scale';
 // TODO: 在下一个 scale 版本中 base 会从 index 中导出，无需 lib
 import { Base } from '@antv/scale/lib/scales/base';
-import { Data, ScaleDefCfg, ScaleTypes } from '../types';
+import { Constructable, Data, ScaleDefCfg, ScaleTypes } from '../types';
 
 /**
  * 对于 stack 的数据进行修改 scale min max 值
@@ -67,61 +70,24 @@ export function getScaleUpdateOptionsAfterStack(
  */
 export function createScaleFactory(type: ScaleTypes, cfg: BaseOptions): Base<any> {
   // 针对不同的类型，创建不同的 scale
-  switch (type) {
+  const scaleMap = {
     // ordinal cases
-    case 'ordinal':
-      return new Ordinal(cfg);
-    case 'cat':
-      return new Point(cfg);
-    case 'category':
-      return new Point(cfg);
-    case 'band':
-      return new Band(cfg);
-    case 'point':
-      return new Point(cfg);
-
-    // linear cases
-    case 'linear':
-      return new Linear(cfg);
-    case 'log':
-      return new Log(cfg);
-    case 'pow':
-      return new Pow(cfg);
-    case 'sqrt':
-      return new Sqrt(cfg);
-    case 'time':
-      return new Time(cfg);
-    case 'timeCat':
-      return new Time(cfg);
-    case 'identity':
-      return new Identity(cfg);
-
-    // threshold cases
-    case 'threshold':
-      return new Threshold(cfg);
-    case 'quantize':
-      return new Quantize(cfg);
-    case 'quantile':
-      return new Quantile(cfg);
-
-    // default case
-    default:
-      return new Ordinal(cfg);
-  }
-}
-
-/**
- * 将 G2 scale 配置转换成下层的 @antv/scale 配置
- *
- * @param cfg G2 scale 配置
- * @return {BaseOptions} 下层的 @antv/scale 配置
- */
-export function g2ToAntvScaleCfg(cfg: Partial<ScaleDefCfg>): BaseOptions {
-  return {
-    domain: [
-      isNil(cfg.min) ? min(cfg.values) : cfg.min,
-      isNil(cfg.max) ? max(cfg.values) : cfg.max,
-    ],
-    ...cfg,
+    ordinal: Ordinal,
+    cat: Ordinal,
+    category: Ordinal,
+    band: Band,
+    point: Point,
+    linear: Linear,
+    log: Log,
+    pow: Pow,
+    sqrt: Sqrt,
+    time: Time,
+    timeCat: Time,
+    identity: Identity,
+    threshold: Threshold,
+    quantize: Quantize,
+    quantile: Quantile,
   };
+  const TargetScaleClass = scaleMap[type] as Constructable;
+  return TargetScaleClass ? new TargetScaleClass(cfg) : new Ordinal(cfg);
 }

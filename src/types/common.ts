@@ -5,3 +5,7 @@ export type Datum = PlainObject;
 export type Data = Datum[];
 
 export type Func = (...args: any[]) => any;
+
+export type Constructable = {
+  new(...args: any[]): any;
+}
