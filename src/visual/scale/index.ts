@@ -47,7 +47,7 @@ export class ScaleDef {
    *
    * @return 字段的类型
    */
-  public getType() {
+  public get type() {
     return this.cfg.type;
   }
 
@@ -56,17 +56,8 @@ export class ScaleDef {
    *
    * @return 对应的列字段
    */
-  public getField() {
+  public get field() {
     return this.cfg.field;
-  }
-
-  /**
-   * 获取配置
-   *
-   * @return 配置
-   */
-  public getCfg() {
-    return this.cfg;
   }
 
   /**
@@ -74,8 +65,8 @@ export class ScaleDef {
    *
    * @return {string} 字段名称，如果配置了别名，则优先返回别名
    */
-  public getFieldName() {
-    return this.cfg.alias || this.getField();
+  public get fieldName() {
+    return this.cfg.alias || this.field;
   }
 
   /**
@@ -83,7 +74,7 @@ export class ScaleDef {
    */
   public isLinear() {
     const LINEAR_TYPES = ['linear', 'log', 'pow', 'sqrt', 'time'];
-    return LINEAR_TYPES.includes(this.getType());
+    return LINEAR_TYPES.includes(this.type);
   }
 
   /**
@@ -91,14 +82,14 @@ export class ScaleDef {
    */
   public isCategory() {
     const CATEGORY_TYPES = ['ordinal', 'band', 'point'];
-    return CATEGORY_TYPES.includes(this.getType());
+    return CATEGORY_TYPES.includes(this.type);
   }
 
   /**
    * 是否是常量的 scale
    */
   public isIdentity() {
-    return this.getType() === 'identity';
+    return this.type === 'identity';
   }
 
   /**
