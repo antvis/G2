@@ -16,7 +16,7 @@ import { createScaleFactory } from '../../util/scale';
  * @see {BaseOptions} in @antv/scale, scale 的基础配置
  * @see {Base} in @antv/scale scale 的基类
  */
-export class ScaleDef<T extends Base<any>, O extends BaseOptions> {
+export class ScaleDef {
   // 线性类型
   public static LINEAR_TYPES = ['linear', 'log', 'pow', 'sqrt', 'time'];
 
@@ -26,7 +26,7 @@ export class ScaleDef<T extends Base<any>, O extends BaseOptions> {
   /**
    * 包含的 antv/scale 实例
    */
-  private scale: T;
+  private scale: Base<any>;
 
   /**
    * 传入的配置
@@ -134,11 +134,11 @@ export class ScaleDef<T extends Base<any>, O extends BaseOptions> {
 
     // 如果参数中有 type，那么我们会重新初始化新的 scale 实例
     if (!isNil(cfg.type)) {
-      this.scale = createScaleFactory(this.cfg.type, cfg) as T;
+      this.scale = createScaleFactory(this.cfg.type, cfg);
       this.initScale(cfg as ScaleDefCfg);
     } else {
       // 配置转换
-      const antvScaleCfg = ScaleDef.g2ToAntvScaleCfg(this.cfg) as O;
+      const antvScaleCfg = ScaleDef.g2ToAntvScaleCfg(this.cfg);
 
       // 执行 antv/scale 更新
       this.scale.update(antvScaleCfg);
@@ -170,6 +170,6 @@ export class ScaleDef<T extends Base<any>, O extends BaseOptions> {
     const antvConfig = ScaleDef.g2ToAntvScaleCfg(cfg);
 
     // 通过类型创建 scale
-    this.scale = createScaleFactory(this.cfg.type, antvConfig) as T;
+    this.scale = createScaleFactory(this.cfg.type, antvConfig);
   }
 }

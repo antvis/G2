@@ -11,6 +11,7 @@ import {
   Sqrt, Threshold,
   Time,
 } from '@antv/scale';
+// TODO: 在下一个 scale 版本中 base 会从 index 中导出，无需 lib
 import { Base } from '@antv/scale/lib/scales/base';
 import { Data, ScaleDefCfg, ScaleTypes } from '../types';
 
