@@ -78,4 +78,4 @@ chart
 G2 支持分别在 chart, view 以及 geometry 上配置主题，这三者的优先顺序为：geometry > view > chart。
 
 `registerTheme`、`chart.theme` 和 `chart.getTheme` 是 G2 主题相关的三个核心 API，详细的使用方法请参考[自定义主题 - Theme
-](../advanced/register-theme)。
+](/zh/docs/api/advanced/register-theme)。
