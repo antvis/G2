@@ -1,3 +1,5 @@
+import { BBox } from '../../util/bbox';
+
 /**
  * 约束规则求解器：
  *
@@ -13,4 +15,17 @@
  */
 export class Solver {
 
+  /**
+   * 添加约束规则
+   */
+  public addRule() {
+
+  }
+
+  /**
+   * 计算求解，最后给出所有节点的位置 BBox
+   */
+  public calc(): Record<string, BBox> {
+    return {};
+  }
 }
