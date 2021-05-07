@@ -116,11 +116,15 @@ export class ScaleDef {
    * @param cfg G2 scale 配置
    */
   public update(cfg: Partial<ScaleDefCfg>) {
+    const { type } = cfg;
+    // scale 是否需要改变 -- 传入的新配置的 type 有值，并且 type 发生了改变
+    const shouldScaleUpdate = !isNil(type) && this.cfg.type !== type;
+
     // merge 配置，然后更新 scale
     this.cfg = { ...this.cfg, ...cfg };
 
-    // 如果参数中有 type，那么我们会重新初始化新的 scale 实例
-    if (!isNil(cfg.type)) {
+    // 如果 type 发生了改变，我们更新 scale
+    if (shouldScaleUpdate) {
       this.scale = createScaleFactory(this.cfg.type, cfg);
       this.initScale();
     } else {
