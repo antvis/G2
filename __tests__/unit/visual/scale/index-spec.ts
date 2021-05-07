@@ -108,9 +108,18 @@ describe('scale', () => {
     });
 
     const acceptTypes = [
-      'ordinal', 'band', 'point', 'linear',
-      'log', 'pow', 'sqrt', 'time', 'identity',
-      'threshold', 'quantize', 'quantile',
+      'ordinal',
+      'band',
+      'point',
+      'linear',
+      'log',
+      'pow',
+      'sqrt',
+      'time',
+      'identity',
+      'threshold',
+      'quantize',
+      'quantile',
     ];
 
     acceptTypes.forEach((item) => {
