@@ -1,8 +1,6 @@
 import { BaseOptions } from '@antv/scale';
 import { isNil, max, min } from '@antv/util';
-// TODO: 在下一个 scale 版本中 base 会从 index 中导出，无需 lib
-import { Base } from '@antv/scale/lib/scales/base';
-import { ScaleDefCfg } from '../../types';
+import { Scale, ScaleDefCfg } from '../../types';
 import { createScaleFactory } from '../../util/scale';
 
 /**
@@ -20,7 +18,7 @@ export class ScaleDef {
   /**
    * 包含的 antv/scale 实例
    */
-  private scale: Base<BaseOptions>;
+  private scale: Scale;
 
   /**
    * 传入的配置

@@ -14,9 +14,7 @@ import {
   Threshold,
   Time,
 } from '@antv/scale';
-// TODO: 在下一个 scale 版本中 base 会从 index 中导出，无需 lib
-import { Base } from '@antv/scale/lib/scales/base';
-import { Constructable, Data, ScaleDefCfg, ScaleTypes } from '../types';
+import { Constructable, Data, Scale, ScaleDefCfg, ScaleTypes } from '../types';
 
 /**
  * 对于 stack 的数据进行修改 scale min max 值
@@ -68,7 +66,7 @@ export function getScaleUpdateOptionsAfterStack(
  * @param type 一个字符串，
  * @param cfg @antv/scale 的配置
  */
-export function createScaleFactory(type: ScaleTypes, cfg: BaseOptions): Base<any> {
+export function createScaleFactory(type: ScaleTypes, cfg: BaseOptions): Scale {
   // 针对不同的类型，创建不同的 scale
   const scaleMap = {
     // ordinal cases

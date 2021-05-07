@@ -1,6 +1,5 @@
-import { Base } from '@antv/scale/lib/scales/base';
-
-export type Scale = Base<any>;
+// TODO: scale 下个版本暴露 base 接口后修改为Base<any>;
+export type Scale = any;
 
 // 支持的 scale 类型
 export type ScaleTypes =
