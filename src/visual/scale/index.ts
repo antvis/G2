@@ -1,51 +1,17 @@
-import { Linear, Band, Time, Ordinal, Log, Pow, Identity } from '@antv/scale';
-import { min, max, isNil } from '@antv/util';
-
-type Scale = any;
-type ScaleCfg = any;
+import { isNil, max, min } from '@antv/util';
+import { BaseOptions, Scale, ScaleDefCfg } from '../../types';
+import { createScaleFactory } from '../../util/scale';
 
 /**
- * // TODO @万木 增加 Scale 包装，需要对于 G2 来实现无感！代码整洁、架构上是否 OK？
- * G2.Scale 列定义的类型配置
- */
-export type ScaleDefCfg = {
-  /**
-   * 字段类型区分
-   */
-  type: 'identity' | 'linear' | 'log' | 'pow' | 'cat' | 'category' | 'time' | 'timeCat';
-  /**
-   * 字段名称
-   */
-  field?: string;
-  /**
-   * 字段别名
-   */
-  alias?: string;
-  /**
-   * 映射的定义域 min
-   */
-  min?: number;
-  /**
-   * 映射的定义域 min
-   */
-  max?: number;
-  /**
-   * 映射的定义域范围，默认为是 [0, 1]
-   */
-  range?: number[];
-  /**
-   * 字段的格式化方法
-   */
-  formatter?: (v: any) => string;
-  /**
-   * field 对应的枚举值
-   */
-  values?: any[];
-};
-
-/**
- * 将 @antv/scale 进行针对于 G2 的二次包装，让使用更加容易方便！
- * 其实名字叫 FieldMeta 更好，但是考虑到 G2 旧版本的概念兼容，所以还是用重名的 Scale 命名，它的内部会包含一个真正的 scale 示例
+ * 将 @antv/scale 进行针对于 G2 的二次包装，让使用更加容易方便
+ *
+ * 其实名字叫 FieldMeta 更好，但是考虑到 G2 旧版本的概念兼容
+ * 所以还是用重名的 Scale 命名，它的内部会包含一个真正的 scale 实例
+ *
+ * @param T scale 类型，默认为 Base
+ * @param O scale 选项，默认为 BaseOption
+ * @see {BaseOptions} in @antv/scale, scale 的基础配置
+ * @see {Base} in @antv/scale scale 的基类
  */
 export class ScaleDef {
   /**
@@ -60,7 +26,8 @@ export class ScaleDef {
 
   /**
    * 构造函数
-   * @param cfg
+   *
+   * @param cfg G2 Scale 配置
    */
   constructor(cfg: ScaleDefCfg) {
     // 设置默认值
@@ -68,19 +35,23 @@ export class ScaleDef {
       range: [0, 1],
       ...cfg,
     };
-    // create scale by type
-    this.scale = this.createScale(cfg);
+
+    this.initScale();
   }
 
   /**
-   * 字段的类型
+   * 获取字段的类型
+   *
+   * @return 字段的类型
    */
   public get type() {
     return this.cfg.type;
   }
 
   /**
-   * 对应的列字段
+   * 获取对应的列字段
+   *
+   * @return 对应的列字段
    */
   public get field() {
     return this.cfg.field;
@@ -88,6 +59,8 @@ export class ScaleDef {
 
   /**
    * 获取字段名字，考虑别名
+   *
+   * @return {string} 字段名称，如果配置了别名，则优先返回别名
    */
   public get fieldName() {
     return this.cfg.alias || this.field;
@@ -97,26 +70,29 @@ export class ScaleDef {
    * 是否是线性连续 scale
    */
   public isLinear() {
-    return ['linear', 'log', 'pow'].includes(this.type);
+    const LINEAR_TYPES = ['linear', 'log', 'pow', 'sqrt', 'time'];
+    return LINEAR_TYPES.includes(this.type);
   }
 
   /**
    * 是否是离散的分类 scale
    */
   public isCategory() {
-    return ['cat', 'category', 'time', 'timeCat'].includes(this.type);
+    const CATEGORY_TYPES = ['ordinal', 'band', 'point'];
+    return CATEGORY_TYPES.includes(this.type);
   }
 
   /**
    * 是否是常量的 scale
    */
-  public isIndentity() {
+  public isIdentity() {
     return this.type === 'identity';
   }
 
   /**
    * 将值映射到值域
-   * @param v
+   *
+   * @param v 需要映射的值
    */
   public map(v: any): any {
     return this.scale.map(v);
@@ -124,27 +100,58 @@ export class ScaleDef {
 
   /**
    * 将数据逆向映射会原始数据
-   * @param v
+   *
+   * @param v 需要逆向映射的值
    */
   public invert(v: any): any {
     return this.scale.invert(v);
   }
 
   /**
-   * 更新 antv/scale 配置和实例
+   * 更新 antv/scale 配置和实例，注意：如果参数中有 type，那么我们会重新初始化新的 scale 实例
+   *
+   * @param cfg G2 scale 配置
    */
   public update(cfg: Partial<ScaleDefCfg>) {
+    const { type } = cfg;
+    // scale 是否需要改变 -- 传入的新配置的 type 有值，并且 type 发生了改变
+    const shouldScaleUpdate = !isNil(type) && this.cfg.type !== type;
+
     // merge 配置，然后更新 scale
     this.cfg = { ...this.cfg, ...cfg };
-    this.scale.update(this.getAntVScaleCfg(this.cfg));
+
+    // 如果 type 发生了改变，我们更新 scale
+    if (shouldScaleUpdate) {
+      this.scale = createScaleFactory(this.cfg.type, cfg);
+      this.initScale();
+    } else {
+      // 配置转换
+      const antvScaleCfg = this.toAntvScaleCfg();
+
+      // 执行 antv/scale 更新
+      this.scale.update(antvScaleCfg);
+    }
   }
 
   /**
-   * 从配置中，生成 antv scale 的配置！
-   * @param cfg
+   * 初始化 inner scale
+   *
    */
-  private getAntVScaleCfg(cfg: Partial<ScaleDefCfg>): ScaleCfg {
-    // todo 抽出配置
+  private initScale() {
+    // 将 G2 配置转换为 antv 配置
+    const antvConfig = this.toAntvScaleCfg();
+
+    // 通过类型创建 scale
+    this.scale = createScaleFactory(this.cfg.type, antvConfig);
+  }
+
+  /**
+   * 转换成下层的 @antv/scale 配置
+   *
+   * @return {BaseOptions} 下层的 @antv/scale 配置
+   */
+  private toAntvScaleCfg(): BaseOptions {
+    const { cfg } = this;
     return {
       domain: [
         isNil(cfg.min) ? min(cfg.values) : cfg.min,
@@ -152,35 +159,5 @@ export class ScaleDef {
       ],
       ...cfg,
     };
-  }
-
-  /**
-   * 创建具体的 scale 类型
-   * @param cfg
-   */
-  private createScale(cfg: ScaleDefCfg) {
-    const { type } = cfg;
-    const scaleCfg = this.getAntVScaleCfg(cfg);
-
-    // 针对不同的类型，创建不同的 scale
-    switch (type) {
-      case 'cat':
-      case 'category':
-        return new Band(scaleCfg);
-      case 'linear':
-        return new Linear(scaleCfg);
-      case 'log':
-        return new Log(scaleCfg);
-      case 'pow':
-        return new Pow(scaleCfg);
-      case 'timeCat':
-        return new Ordinal(scaleCfg);
-      case 'time':
-        return new Time(scaleCfg);
-      case 'identity':
-        return new Identity(scaleCfg);
-      default:
-        return new Band(scaleCfg);
-    }
   }
 }

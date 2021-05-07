@@ -1,34 +1,77 @@
 import { ScaleDef } from '../../../../src/visual/scale';
+import { ScaleTypes } from '../../../../src/types';
 
 describe('scale', () => {
-  it('ScaleDef', () => {
+  test('ScaleDef meta data', () => {
     expect(ScaleDef).toBeDefined();
-  });
-
-  it('identity', () => {
     const scale = new ScaleDef({
-      type: 'identity',
-      field: 'test',
+      type: 'linear',
+      range: [0, 1],
+      field: 'a',
+      values: [0, 1, 2, 50],
     });
 
-    expect(scale.type).toBe('identity');
-    expect(scale.field).toBe('test');
-    expect(scale.fieldName).toBe('test');
-    expect(scale.map(1)).toBe(1);
-    expect(scale.invert(1)).toBe(1);
+    expect(scale.field).toStrictEqual('a');
+    expect(scale.fieldName).toStrictEqual('a');
 
     scale.update({
-      alias: '测试',
+      alias: 'foo',
     });
 
-    expect(scale.type).toBe('identity');
-    expect(scale.field).toBe('test');
-    expect(scale.fieldName).toBe('测试');
-    expect(scale.map(1)).toBe(1);
-    expect(scale.invert(1)).toBe(1);
+    expect(scale.field).toStrictEqual('a');
+    expect(scale.fieldName).toStrictEqual('foo');
+    expect(scale.isLinear()).toBeTruthy();
+    expect(scale.isCategory()).toBeFalsy();
+    expect(scale.isIdentity()).toBeFalsy();
   });
 
-  it('linear', () => {
+  test('test update options', () => {
+    const scale = new ScaleDef({
+      type: 'linear',
+      range: [0, 1],
+      values: [0, 1, 2, 50],
+    });
+
+    // @ts-ignore
+    expect(scale.cfg).toStrictEqual({
+      range: [0, 1],
+      type: 'linear',
+      values: [0, 1, 2, 50],
+    });
+
+    scale.update({
+      values: [0, 1, 2],
+    });
+
+    // @ts-ignore
+    expect(scale.cfg).toStrictEqual({
+      range: [0, 1],
+      type: 'linear',
+      values: [0, 1, 2],
+    });
+  });
+
+  test('if user update scale type, we should renew inner scale', () => {
+    const scale = new ScaleDef({
+      type: 'linear',
+      range: [0, 1],
+      values: [0, 1],
+    });
+
+    // @ts-ignore
+    const p = Object.getPrototypeOf(scale.scale);
+    expect(p.constructor.name).toStrictEqual('Linear');
+
+    scale.update({
+      type: 'ordinal',
+    });
+
+    // @ts-ignore
+    const p2 = Object.getPrototypeOf(scale.scale);
+    expect(p2.constructor.name).toStrictEqual('Ordinal');
+  });
+
+  test('test map and invert API', () => {
     const scale = new ScaleDef({
       type: 'linear',
       range: [0, 1],
@@ -57,13 +100,44 @@ describe('scale', () => {
     expect(scale.invert(0.8)).toBe(180);
   });
 
-  it('log', () => {});
+  test('enum all accepted types', () => {
+    const scale = new ScaleDef({
+      type: 'linear',
+      range: [0, 1],
+      values: [0, 1, 2, 50],
+    });
 
-  it('pow', () => {});
+    const acceptTypes = [
+      'ordinal', 'band', 'point', 'linear',
+      'log', 'pow', 'sqrt', 'time', 'identity',
+      'threshold', 'quantize', 'quantile',
+    ];
 
-  it('cat / category', () => {});
+    acceptTypes.forEach((item) => {
+      scale.update({
+        type: item as ScaleTypes,
+      });
 
-  it('time', () => {});
+      // @ts-ignore
+      const p = Object.getPrototypeOf(scale.scale);
+      expect(p.constructor.name.toLowerCase()).toStrictEqual(item);
+    });
+  });
 
-  it('timeCat', () => {});
+  test('if user pass types that not support, we return Ordinal', () => {
+    const scale = new ScaleDef({
+      type: 'linear',
+      range: [0, 1],
+      values: [0, 1, 2, 50],
+    });
+
+    scale.update({
+      // @ts-ignore
+      type: 'hello world~',
+    });
+
+    // @ts-ignore
+    const p = Object.getPrototypeOf(scale.scale);
+    expect(p.constructor.name).toStrictEqual('Ordinal');
+  });
 });
