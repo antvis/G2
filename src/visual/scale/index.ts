@@ -1,6 +1,5 @@
-import { BaseOptions } from '@antv/scale';
 import { isNil, max, min } from '@antv/util';
-import { Scale, ScaleDefCfg } from '../../types';
+import { BaseOptions, Scale, ScaleDefCfg } from '../../types';
 import { createScaleFactory } from '../../util/scale';
 
 /**

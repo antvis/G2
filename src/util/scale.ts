@@ -1,7 +1,6 @@
 import { isNil, max, min } from '@antv/util';
 import {
   Band,
-  BaseOptions,
   Identity,
   Linear,
   Log,
@@ -14,7 +13,7 @@ import {
   Threshold,
   Time,
 } from '@antv/scale';
-import { Constructable, Data, Scale, ScaleDefCfg, ScaleTypes } from '../types';
+import { BaseOptions, Constructable, Data, Scale, ScaleDefCfg, ScaleTypes } from '../types';
 
 /**
  * 对于 stack 的数据进行修改 scale min max 值
