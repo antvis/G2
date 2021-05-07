@@ -6,10 +6,12 @@ import { Point, BBoxObject } from '../types';
  * @yuzhanglong 可以从 G2 master 分支抽离出来（代码和单测，可以参考一下社区其他的命名）
  */
 export class BBox {
-  
   public x: number;
+
   public y: number;
+
   public width: number;
+
   public height: number;
 
   constructor(x: number, y: number, width: number, height: number) {
@@ -26,7 +28,7 @@ export class BBox {
     return {
       x: this.x + this.width / 2,
       y: this.y + this.height / 2,
-    }
+    };
   }
 
   /**

@@ -13,11 +13,11 @@ export type Constructable = {
 export type Point = {
   x: number;
   y: number;
-}
+};
 
 export type BBoxObject = {
   x: number;
   y: number;
   width: number;
   height: number;
-}
+};
