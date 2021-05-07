@@ -85,6 +85,6 @@ export function createScaleFactory(type: ScaleTypes, cfg: BaseOptions): Scale {
     quantize: Quantize,
     quantile: Quantile,
   };
-  const TargetScaleClass = scaleMap[type] || Ordinal as Constructable;
+  const TargetScaleClass = scaleMap[type] || (Ordinal as Constructable);
   return new TargetScaleClass(cfg);
 }
