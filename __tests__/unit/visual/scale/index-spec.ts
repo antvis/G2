@@ -11,15 +11,15 @@ describe('scale', () => {
       values: [0, 1, 2, 50],
     });
 
-    expect(scale.getField()).toStrictEqual('a');
-    expect(scale.getFieldName()).toStrictEqual('a');
+    expect(scale.field).toStrictEqual('a');
+    expect(scale.fieldName).toStrictEqual('a');
 
     scale.update({
       alias: 'foo',
     });
 
-    expect(scale.getField()).toStrictEqual('a');
-    expect(scale.getFieldName()).toStrictEqual('foo');
+    expect(scale.field).toStrictEqual('a');
+    expect(scale.fieldName).toStrictEqual('foo');
     expect(scale.isLinear()).toBeTruthy();
     expect(scale.isCategory()).toBeFalsy();
     expect(scale.isIdentity()).toBeFalsy();
@@ -32,7 +32,8 @@ describe('scale', () => {
       values: [0, 1, 2, 50],
     });
 
-    expect(scale.getCfg()).toStrictEqual({
+    // @ts-ignore
+    expect(scale.cfg).toStrictEqual({
       range: [0, 1],
       type: 'linear',
       values: [0, 1, 2, 50],
@@ -42,7 +43,8 @@ describe('scale', () => {
       values: [0, 1, 2],
     });
 
-    expect(scale.getCfg()).toStrictEqual({
+    // @ts-ignore
+    expect(scale.cfg).toStrictEqual({
       range: [0, 1],
       type: 'linear',
       values: [0, 1, 2],
@@ -76,7 +78,7 @@ describe('scale', () => {
       values: [0, 1, 2, 50],
     });
 
-    expect(scale.getType()).toBe('linear');
+    expect(scale.type).toBe('linear');
     expect(scale.map(25)).toBe(0.5);
     expect(scale.invert(0.5)).toBe(25);
 
@@ -85,7 +87,7 @@ describe('scale', () => {
       max: 100,
     });
 
-    expect(scale.getType()).toBe('linear');
+    expect(scale.type).toBe('linear');
     expect(scale.map(50)).toBe(0.5);
     expect(scale.invert(0.5)).toBe(50);
 
@@ -106,9 +108,18 @@ describe('scale', () => {
     });
 
     const acceptTypes = [
-      'ordinal', 'band', 'point', 'linear',
-      'log', 'pow', 'sqrt', 'time', 'identity',
-      'threshold', 'quantize', 'quantile',
+      'ordinal',
+      'band',
+      'point',
+      'linear',
+      'log',
+      'pow',
+      'sqrt',
+      'time',
+      'identity',
+      'threshold',
+      'quantize',
+      'quantile',
     ];
 
     acceptTypes.forEach((item) => {

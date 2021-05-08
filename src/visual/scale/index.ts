@@ -1,8 +1,5 @@
-import { BaseOptions } from '@antv/scale';
-import { min, max, isNil } from '@antv/util';
-// TODO: 在下一个 scale 版本中 base 会从 index 中导出，无需 lib
-import { Base } from '@antv/scale/lib/scales/base';
-import { ScaleDefCfg } from '../../types';
+import { isNil, max, min } from '@antv/util';
+import { BaseOptions, Scale, ScaleDefCfg } from '../../types';
 import { createScaleFactory } from '../../util/scale';
 
 /**
@@ -16,17 +13,11 @@ import { createScaleFactory } from '../../util/scale';
  * @see {BaseOptions} in @antv/scale, scale 的基础配置
  * @see {Base} in @antv/scale scale 的基类
  */
-export class ScaleDef<T extends Base<any>, O extends BaseOptions> {
-  // 线性类型
-  public static LINEAR_TYPES = ['linear', 'log', 'pow', 'sqrt', 'time'];
-
-  // 离散类型
-  public static CATEGORY_TYPES = ['ordinal', 'band', 'point'];
-
+export class ScaleDef {
   /**
    * 包含的 antv/scale 实例
    */
-  private scale: T;
+  private scale: Scale;
 
   /**
    * 传入的配置
@@ -45,7 +36,7 @@ export class ScaleDef<T extends Base<any>, O extends BaseOptions> {
       ...cfg,
     };
 
-    this.initScale(cfg);
+    this.initScale();
   }
 
   /**
@@ -53,7 +44,7 @@ export class ScaleDef<T extends Base<any>, O extends BaseOptions> {
    *
    * @return 字段的类型
    */
-  public getType() {
+  public get type() {
     return this.cfg.type;
   }
 
@@ -62,17 +53,8 @@ export class ScaleDef<T extends Base<any>, O extends BaseOptions> {
    *
    * @return 对应的列字段
    */
-  public getField() {
+  public get field() {
     return this.cfg.field;
-  }
-
-  /**
-   * 获取配置
-   *
-   * @return 配置
-   */
-  public getCfg() {
-    return this.cfg;
   }
 
   /**
@@ -80,29 +62,31 @@ export class ScaleDef<T extends Base<any>, O extends BaseOptions> {
    *
    * @return {string} 字段名称，如果配置了别名，则优先返回别名
    */
-  public getFieldName() {
-    return this.cfg.alias || this.getField();
+  public get fieldName() {
+    return this.cfg.alias || this.field;
   }
 
   /**
    * 是否是线性连续 scale
    */
   public isLinear() {
-    return ScaleDef.LINEAR_TYPES.includes(this.getType());
+    const LINEAR_TYPES = ['linear', 'log', 'pow', 'sqrt', 'time'];
+    return LINEAR_TYPES.includes(this.type);
   }
 
   /**
    * 是否是离散的分类 scale
    */
   public isCategory() {
-    return ScaleDef.CATEGORY_TYPES.includes(this.getType());
+    const CATEGORY_TYPES = ['ordinal', 'band', 'point'];
+    return CATEGORY_TYPES.includes(this.type);
   }
 
   /**
    * 是否是常量的 scale
    */
   public isIdentity() {
-    return this.getType() === 'identity';
+    return this.type === 'identity';
   }
 
   /**
@@ -129,16 +113,20 @@ export class ScaleDef<T extends Base<any>, O extends BaseOptions> {
    * @param cfg G2 scale 配置
    */
   public update(cfg: Partial<ScaleDefCfg>) {
+    const { type } = cfg;
+    // scale 是否需要改变 -- 传入的新配置的 type 有值，并且 type 发生了改变
+    const shouldScaleUpdate = !isNil(type) && this.cfg.type !== type;
+
     // merge 配置，然后更新 scale
     this.cfg = { ...this.cfg, ...cfg };
 
-    // 如果参数中有 type，那么我们会重新初始化新的 scale 实例
-    if (!isNil(cfg.type)) {
-      this.scale = createScaleFactory(this.cfg.type, cfg) as T;
-      this.initScale(cfg as ScaleDefCfg);
+    // 如果 type 发生了改变，我们更新 scale
+    if (shouldScaleUpdate) {
+      this.scale = createScaleFactory(this.cfg.type, cfg);
+      this.initScale();
     } else {
       // 配置转换
-      const antvScaleCfg = ScaleDef.g2ToAntvScaleCfg(this.cfg) as O;
+      const antvScaleCfg = this.toAntvScaleCfg();
 
       // 执行 antv/scale 更新
       this.scale.update(antvScaleCfg);
@@ -146,11 +134,24 @@ export class ScaleDef<T extends Base<any>, O extends BaseOptions> {
   }
 
   /**
-   * 将 G2 scale 配置转换成下层的 @antv/scale 配置
+   * 初始化 inner scale
    *
-   * @param cfg G2 scale 配置
    */
-  public static g2ToAntvScaleCfg(cfg: Partial<ScaleDefCfg>): BaseOptions {
+  private initScale() {
+    // 将 G2 配置转换为 antv 配置
+    const antvConfig = this.toAntvScaleCfg();
+
+    // 通过类型创建 scale
+    this.scale = createScaleFactory(this.cfg.type, antvConfig);
+  }
+
+  /**
+   * 转换成下层的 @antv/scale 配置
+   *
+   * @return {BaseOptions} 下层的 @antv/scale 配置
+   */
+  private toAntvScaleCfg(): BaseOptions {
+    const { cfg } = this;
     return {
       domain: [
         isNil(cfg.min) ? min(cfg.values) : cfg.min,
@@ -158,18 +159,5 @@ export class ScaleDef<T extends Base<any>, O extends BaseOptions> {
       ],
       ...cfg,
     };
-  }
-
-  /**
-   * 初始化 inner scale
-   *
-   * @param cfg G2 scale 配置
-   */
-  private initScale(cfg: ScaleDefCfg) {
-    // 将 G2 配置转换为 antv 配置
-    const antvConfig = ScaleDef.g2ToAntvScaleCfg(cfg);
-
-    // 通过类型创建 scale
-    this.scale = createScaleFactory(this.cfg.type, antvConfig) as T;
   }
 }

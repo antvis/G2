@@ -1,10 +1,12 @@
-import { Base } from '@antv/scale/lib/scales/base';
+// TODO: scale 下个版本暴露 base 接口后修改为Base<any>;
+export type Scale = any;
 
-export type Scale = Base<any>;
+// TODO: scale 下个版本暴露 base 接口后修改为BaseOptions;
+export type BaseOptions = any;
 
 // 支持的 scale 类型
 export type ScaleTypes =
-  'ordinal'
+  | 'ordinal'
   | 'band'
   | 'point'
   | 'linear'
@@ -18,7 +20,7 @@ export type ScaleTypes =
   | 'quantile'
   | 'timeCat'
   | 'cat'
-  | 'category'
+  | 'category';
 
 /**
  * G2.Scale 列定义的类型配置
@@ -65,4 +67,4 @@ export type ScaleDefCfg = {
    * field 对应的枚举值
    */
   values?: any[];
-}
+};
