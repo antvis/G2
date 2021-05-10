@@ -35,3 +35,13 @@ export type Region = {
   readonly start: Point;
   readonly end: Point;
 };
+
+/**
+ * 边距的定义
+ */
+export type Padding = number | number[];
+
+/**
+ * view 的 auto padding 定义
+ */
+export type AutoPadding = Padding | 'auto';

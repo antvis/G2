@@ -1,5 +1,6 @@
 import EE from '@antv/event-emitter';
-import { deepMix, each, isBoolean, isObject, isString, set } from '@antv/util';
+import { deepMix, each, isBoolean, isObject, isString, set, uniqueId } from '@antv/util';
+import { getTheme } from '../theme';
 import { Facet } from '../facet';
 import { BBox } from '../util/bbox';
 import { getFacet } from '../util/facet';
@@ -15,6 +16,9 @@ import {
   TooltipOption,
   CoordinateOption,
   ScaleOption,
+  ViewCfg,
+  AutoPadding,
+  Padding,
 } from '../types';
 import { ScalePool } from '../visual/scale/pool';
 
@@ -34,6 +38,16 @@ export class View extends EE {
    * 父节点
    */
   public parent: View;
+
+  /**
+   * auto padding 配置
+   */
+  public padding: AutoPadding;
+
+  /**
+   * 在 auto padding 的基础上，额外追加的边距 padding
+   */
+  public appendPadding: Padding;
 
   /**
    * 所有的子 views
@@ -69,6 +83,11 @@ export class View extends EE {
    * view.coordinate 对饮的矩形位置范围
    */
   public coordinateBBox: BBox;
+
+  /**
+   * G.Canvas 画布对象
+   */
+  public canvas: any;
 
   /** 三层 Group 图形中的背景层 */
   public backgroundGroup: any;
@@ -119,8 +138,41 @@ export class View extends EE {
    */
   private originalData: Data;
 
-  constructor() {
+  constructor(cfg: ViewCfg) {
     super();
+
+    const {
+      id = uniqueId('view'),
+      parent,
+      canvas,
+      backgroundGroup,
+      middleGroup,
+      foregroundGroup,
+      region = { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+      padding,
+      appendPadding,
+      options,
+      theme,
+      limitInPlot,
+      syncViewPadding,
+    } = cfg;
+
+    this.parent = parent;
+    this.canvas = canvas;
+    this.backgroundGroup = backgroundGroup;
+    this.middleGroup = middleGroup;
+    this.foregroundGroup = foregroundGroup;
+    this.region = region;
+    this.padding = padding;
+    this.appendPadding = appendPadding;
+    // 接受父 view 传入的参数
+    this.options = { ...this.options, ...options };
+    this.limitInPlot = limitInPlot;
+    this.id = id;
+    this.syncViewPadding = syncViewPadding;
+
+    // 初始化 theme
+    this.themeObject = isObject(theme) ? deepMix({}, getTheme('default'), theme) : getTheme(theme);
   }
 
   /** 初始化 View 配置 API    **************************************************** */
@@ -448,8 +500,8 @@ export class View extends EE {
    * @returns View
    */
   public theme(theme: string | PlainObject): View {
-    // todo 从字符串获取主题的 object 配置
-    this.themeObject = isObject(theme) ? deepMix({}, this.themeObject, {}) : {};
+    // 从字符串获取主题的 object 配置
+    this.themeObject = deepMix({}, this.themeObject, isObject(theme) ? theme : getTheme(theme));
 
     return this;
   }
