@@ -449,13 +449,7 @@ export class View extends EE {
    */
   public theme(theme: string | PlainObject): View {
     // todo 从字符串获取主题的 object 配置
-    this.themeObject = isObject(theme)
-      ? deepMix({}, this.themeObject, {
-          /* ... */
-        })
-      : {
-          /* ... */
-        };
+    this.themeObject = isObject(theme) ? deepMix({}, this.themeObject, {}) : {};
 
     return this;
   }

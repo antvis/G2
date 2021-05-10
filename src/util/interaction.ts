@@ -5,4 +5,6 @@ import { Interaction } from '../interaction';
  * // todo
  * @returns
  */
-export function createInteraction(): Interaction {}
+export function createInteraction(): Interaction {
+  return undefined;
+}
