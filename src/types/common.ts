@@ -6,8 +6,8 @@ export type Data = Datum[];
 
 export type Func = (...args: any[]) => any;
 
-export type Constructable = {
-  new (...args: any[]): any;
+export type Constructable<R = any> = {
+  new (...args: any[]): R;
 };
 
 /**
