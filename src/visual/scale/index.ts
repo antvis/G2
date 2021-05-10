@@ -152,12 +152,21 @@ export class ScaleDef {
    */
   private toAntvScaleCfg(): BaseOptions {
     const { cfg } = this;
+    let finalDomain: any[];
+    // 如果是线性的，尝试使用 min 和 max 构造 domain 如果没有，我们从 传入的 domain 中寻找
+    if (this.isLinear()) {
+      finalDomain = [
+        isNil(cfg.min) ? min(cfg.domain) : cfg.min,
+        isNil(cfg.max) ? max(cfg.domain) : cfg.max,
+      ];
+    } else {
+      // 非线性，直接赋值
+      finalDomain = cfg.domain;
+    }
+
     return {
-      domain: [
-        isNil(cfg.min) ? min(cfg.values) : cfg.min,
-        isNil(cfg.max) ? max(cfg.values) : cfg.max,
-      ],
       ...cfg,
+      domain: finalDomain,
     };
   }
 }

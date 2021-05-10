@@ -8,7 +8,7 @@ describe('scale', () => {
       type: 'linear',
       range: [0, 1],
       field: 'a',
-      values: [0, 1, 2, 50],
+      domain: [0, 1, 2, 50],
     });
 
     expect(scale.field).toStrictEqual('a');
@@ -29,25 +29,25 @@ describe('scale', () => {
     const scale = new ScaleDef({
       type: 'linear',
       range: [0, 1],
-      values: [0, 1, 2, 50],
+      domain: [0, 1, 2, 50],
     });
 
     // @ts-ignore
     expect(scale.cfg).toStrictEqual({
       range: [0, 1],
       type: 'linear',
-      values: [0, 1, 2, 50],
+      domain: [0, 1, 2, 50],
     });
 
     scale.update({
-      values: [0, 1, 2],
+      domain: [0, 1, 2],
     });
 
     // @ts-ignore
     expect(scale.cfg).toStrictEqual({
       range: [0, 1],
       type: 'linear',
-      values: [0, 1, 2],
+      domain: [0, 1, 2],
     });
   });
 
@@ -55,7 +55,7 @@ describe('scale', () => {
     const scale = new ScaleDef({
       type: 'linear',
       range: [0, 1],
-      values: [0, 1],
+      domain: [0, 1],
     });
 
     // @ts-ignore
@@ -75,7 +75,7 @@ describe('scale', () => {
     const scale = new ScaleDef({
       type: 'linear',
       range: [0, 1],
-      values: [0, 1, 2, 50],
+      domain: [0, 1, 2, 50],
     });
 
     expect(scale.type).toBe('linear');
@@ -104,7 +104,7 @@ describe('scale', () => {
     const scale = new ScaleDef({
       type: 'linear',
       range: [0, 1],
-      values: [0, 1, 2, 50],
+      domain: [0, 1, 2, 50],
     });
 
     const acceptTypes = [
@@ -137,7 +137,7 @@ describe('scale', () => {
     const scale = new ScaleDef({
       type: 'linear',
       range: [0, 1],
-      values: [0, 1, 2, 50],
+      domain: [0, 1, 2, 50],
     });
 
     scale.update({
