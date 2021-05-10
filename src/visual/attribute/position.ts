@@ -1,8 +1,8 @@
-import { Attribute, AttributeCfg } from './attribute';
 import { isArray, isNil } from '@antv/util';
+import { Attribute, AttributeCfg } from './attribute';
 
-export type Value = number | string;
-export type MappingValue = Value[] | Value;
+type Value = number | string;
+type MappingValue = Value[] | Value;
 
 export class Position extends Attribute {
   constructor(cfg: AttributeCfg) {
@@ -41,13 +41,12 @@ export class Position extends Attribute {
     if (isArray(v)) {
       // 数组类型，逐一 map 即可
       const len = v.length;
-      let mappedArr = new Array(len);
-      for (let i = 0; i < len; i++) {
+      const mappedArr = new Array(len);
+      for (let i = 0; i < len; i += 1) {
         mappedArr[i] = scale.map(v[i]);
       }
       return mappedArr;
-    } else {
-      return scale.map(v);
     }
+    return scale.map(v);
   }
 }

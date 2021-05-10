@@ -1,4 +1,3 @@
-import { Base } from '@antv/scale/lib/scales/base';
 import { ScaleDef } from '../scale';
 
 export type Callback = (...args: any[]) => any[];
@@ -11,7 +10,7 @@ export type AttributeCfg = {
   /**
    * 对应字段的 scales
    */
-  readonly scales: Scale[];
+  readonly scales: ScaleDef[];
   /**
    * 属性映射的 value
    */
@@ -21,8 +20,6 @@ export type AttributeCfg = {
    */
   readonly callback?: Callback;
 };
-
-type Scale = ScaleDef;
 
 /**
  * 所有视觉通道属性的基类
@@ -53,13 +50,12 @@ export abstract class Attribute {
   /**
    * 属性映射对应的字段 scale
    */
-  public scales: Scale[];
+  public scales: ScaleDef[];
 
   /**
    * 是否是 linear 线性映射
    */
   public isLinear: boolean = false;
-
 
   protected constructor(cfg: AttributeCfg) {
     this.update(cfg);
@@ -79,7 +75,12 @@ export abstract class Attribute {
    * @param cfg attribute 配置
    */
   public update(cfg: AttributeCfg) {
-    const { fields = [], scales = [], value = [], callback } = cfg;
+    const {
+      fields = [],
+      scales = [],
+      value = [],
+      callback,
+    } = cfg;
 
     this.fields = fields;
     this.value = value;
