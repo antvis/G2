@@ -49,7 +49,7 @@ export type ScaleDefCfg = {
   min?: number;
 
   /**
-   * 映射的定义域 min
+   * 映射的定义域 max
    */
   max?: number;
 
@@ -64,7 +64,7 @@ export type ScaleDefCfg = {
   formatter?: (v: any) => string;
 
   /**
-   * field 对应的枚举值
+   * 定义域，如果没有配置 min && max，则将定义域设为它
    */
-  values?: any[];
+  domain?: any[];
 };
