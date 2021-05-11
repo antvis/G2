@@ -7,7 +7,8 @@ import { View } from './view';
  */
 export class Chart extends View {
   constructor() {
-    super();
+    // todo 创建处理的 view
+    super({} as any);
 
     this.initGCanvas();
     this.bindResizeEvent();
