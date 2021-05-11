@@ -1,4 +1,3 @@
-import { Identity } from '@antv/scale';
 import { Position } from '../visual/attribute';
 
 /**
@@ -12,6 +11,7 @@ export function createAttribute(type: string, cfg: any) {
     case 'position':
       return new Position(cfg);
     default:
-      return new Identity(cfg);
+      // TODO: 后面再修改, Identity 还没有
+      return new Position(cfg);
   }
 }
