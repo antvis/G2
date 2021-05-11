@@ -31,6 +31,7 @@ module.exports = {
     'no-plusplus': 'warn',
     'no-dupe-class-members': 'off',
     '@typescript-eslint/no-dupe-class-members': ['error'],
+    'prefer-destructuring': 'off',
   },
   settings: {
     'import/parsers': {

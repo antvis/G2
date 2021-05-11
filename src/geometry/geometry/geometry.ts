@@ -10,7 +10,6 @@ import {
   Datum,
   Scale,
   Adjust,
-  Func,
   ShapePoint,
 } from '../../types';
 import { GROUP_ATTR_KEYS, ORIGINAL_FIELD } from '../../constant';
@@ -91,7 +90,11 @@ export class Geometry extends EE {
         return;
       }
 
-      const { fields = [], value, callback } = attributeOption;
+      const {
+        fields = [],
+        value,
+        callback,
+      } = attributeOption;
       const scales = fields.map((f: string) => this.options.scales.get(f));
 
       // 创建，并缓存起来
@@ -109,7 +112,11 @@ export class Geometry extends EE {
         return;
       }
 
-      const { fields = [], value, callback } = attributeOption;
+      const {
+        fields = [],
+        value,
+        callback,
+      } = attributeOption;
       const scales = fields.map((f: string) => this.options.scales.get(f));
 
       // 创建，并缓存起来
@@ -123,9 +130,11 @@ export class Geometry extends EE {
    * 数据加工：分组 -> 数字化 -> adjust
    */
   private processData() {
-    const categoryPositionScales = this.getAttribute('position').scales.filter((s) =>
-      s.isCategory(),
-    );
+    const categoryPositionScales = this.getAttribute('position')
+      .scales
+      .filter((s) =>
+        s.isCategory(),
+      );
 
     // 1. 数据根据分组字段，分组
     const groupedData = groupData(this.options.data, this.getGroupFields());
@@ -142,8 +151,9 @@ export class Geometry extends EE {
         // 2. 将分类数据翻译成数子, 仅对位置相关的度量进行数字化处理
         // TODO 为什么要在分组的时候对位置中分类数字化
         return categoryPositionScales.map((scale) => {
-          const { field } = scale;
-          mappingDatum[field] = scale.map(field);
+          const field = scale.field;
+          // @ts-ignore
+          mappingDatum[field] = scale.mapping(field);
         });
       });
     });
@@ -232,7 +242,8 @@ export class Geometry extends EE {
    */
   private getShapeFactory() {
     return {
-      getShapePoints: (shapeType, cfg) => {},
+      getShapePoints: (shapeType, cfg) => {
+      },
     };
   }
 
@@ -266,14 +277,17 @@ export class Geometry extends EE {
    */
   protected getYMinValue(): number {
     const yScale = this.getYScale();
-    const { min, max } = yScale;
+    const {
+      min,
+      max,
+    } = yScale;
     let value: number;
 
     return min >= 0
       ? min // 当值全位于正区间时
       : max <= 0
-      ? max // 当值全位于负区间时
-      : 0; // 其他
+        ? max // 当值全位于负区间时
+        : 0; // 其他
   }
 
   /**
@@ -329,7 +343,8 @@ export class Geometry extends EE {
   /**
    * 销毁
    */
-  public destroy() {}
+  public destroy() {
+  }
 
   /** 设置图形的视觉通道字段和配置       ************************************* */
 
@@ -399,7 +414,8 @@ export class Geometry extends EE {
    * sequence 序列通道：sequence
    * TODO: 扩展 timeline 组件 + 时序图
    */
-  public sequence() {}
+  public sequence() {
+  }
 
   /**
    * custom 信息：custom
@@ -445,7 +461,7 @@ export class Geometry extends EE {
     // 去重，且考虑性能
     const uniqMap = new Map<string, boolean>();
 
-    for (let i = 0, { length } = GROUP_ATTR_KEYS; i < length; i++) {
+    for (let i = 0, length = GROUP_ATTR_KEYS.length; i < length; i++) {
       const groupAttrKey = GROUP_ATTR_KEYS[i];
       // 获取所有通道中的 fields，谨防空值
       const fields = this.attriubteOptios.get(groupAttrKey)?.fields || [];
@@ -487,7 +503,7 @@ export class Geometry extends EE {
    */
   public getAttributeValues(attr: Attribute, datum: Datum) {
     const params = [];
-    const { scales } = attr;
+    const scales = attr.scales;
     for (let i = 0; i < scales.length; i++) {
       const scale = scales[i];
       const { field } = scale;
