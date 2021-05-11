@@ -1,6 +1,9 @@
-import * as FacetObject from '../facet';
-import { Facet } from '../facet';
+import { Facet, Rect } from '../facet';
 import { Constructable } from '../types/common';
+
+const FacetMap = {
+  rect: Rect,
+};
 
 /**
  * 根据类型获取分面的 class 类
@@ -8,5 +11,5 @@ import { Constructable } from '../types/common';
  * @returns
  */
 export function getFacet(type: string): Constructable<Facet> {
-  return FacetObject[type];
+  return FacetMap[type.toLowerCase()];
 }

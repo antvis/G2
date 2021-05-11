@@ -6,5 +6,5 @@ import { Interaction } from '../interaction';
  * @returns
  */
 export function createInteraction(): Interaction {
-  return undefined;
+  return new Interaction();
 }
