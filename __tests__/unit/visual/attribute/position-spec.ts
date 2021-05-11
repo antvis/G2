@@ -47,4 +47,10 @@ describe('attribute position', () => {
     expect(posAttr.mapping(undefined)).toStrictEqual([]);
     expect(posAttr.mapping()).toStrictEqual([]);
   });
+
+  test('invalid data', () => {
+    expect(posAttr.mapping(null, null)).toStrictEqual([]);
+    expect(posAttr.mapping(undefined, undefined)).toStrictEqual([]);
+    expect(posAttr.mapping(NaN, NaN)).toStrictEqual([]);
+  });
 });

@@ -17,7 +17,7 @@ export class Position extends Attribute {
     const [x, y] = params;
 
     // 有一个为空则返回 []
-    if (isNil(x) || isNil(y)) {
+    if (isNil(x) || isNil(y) || Number.isNaN(x) || Number.isNaN(y)) {
       return [];
     }
 
