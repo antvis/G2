@@ -1,5 +1,7 @@
 import { isArray } from '@antv/util';
+import { PathCommand } from '../../../dependents';
 import { Point, RangePoint, ShapeVertices } from '../../../interface';
+import { getSplinePath } from './path';
 
 function isValueEmpty(value) {
   if (value) {
@@ -79,4 +81,56 @@ export function getPathPoints(points: ShapeVertices, connectNulls: boolean = fal
     result.push(tmp);
   }
   return result;
+}
+
+/**
+ * 获取小提琴图的边界 path
+ * @param points
+ * @returns
+ */
+export function getViolinPath(points: ShapeVertices): PathCommand[] {
+  const path = [];
+  for (let i = 0; i < points.length; i++) {
+    const point = points[i] as Point;
+    if (point) {
+      const action = i === 0 ? 'M' : 'L';
+      path.push([action, point.x, point.y]);
+    }
+  }
+  const first = points[0] as Point;
+  if (first) {
+    path.push(['L', first.x, first.y]);
+    path.push(['z']);
+  }
+  return path;
+}
+
+/**
+ * 获取小提琴图 平滑的边界 path
+ * @param points
+ * @returns
+ */
+export function getSmoothViolinPath(points: ShapeVertices): PathCommand[] {
+  const half = points.length / 2;
+  const leftPoints = [];
+  const rightPoints = [];
+  for (let i = 0; i < points.length; i++) {
+    if (i < half) {
+      leftPoints.push(points[i]);
+    } else {
+      rightPoints.push(points[i]);
+    }
+  }
+  const leftPath = getSplinePath(leftPoints, false);
+  const rightPath = getSplinePath(rightPoints, false);
+  if (rightPoints.length) {
+    leftPath.push(['L', rightPoints[0].x, rightPoints[0].y]);
+  }
+  rightPath.shift();
+  const path = leftPath.concat(rightPath);
+  if (leftPoints.length) {
+    path.push(['L', leftPoints[0].x, leftPoints[0].y]);
+  }
+  path.push(['z']);
+  return path;
 }

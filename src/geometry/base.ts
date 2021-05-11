@@ -1582,7 +1582,7 @@ export default class Geometry extends Base {
     }
   }
 
-  private initAttributes() {
+  protected initAttributes() {
     const { attributes, attributeOption, theme, shapeType } = this;
     this.groupScales = [];
     const tmpMap = {};
