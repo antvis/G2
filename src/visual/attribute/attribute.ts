@@ -75,12 +75,7 @@ export abstract class Attribute {
    * @param cfg attribute 配置
    */
   public update(cfg: AttributeCfg) {
-    const {
-      fields = [],
-      scales = [],
-      value = [],
-      callback,
-    } = cfg;
+    const { fields = [], scales = [], value = [], callback } = cfg;
 
     this.fields = fields;
     this.value = value;

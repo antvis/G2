@@ -1,4 +1,5 @@
 import EE from '@antv/event-emitter';
+import { isArray } from '@antv/util';
 import {
   AttributeKey,
   AttributeOptions,
@@ -18,7 +19,6 @@ import { groupData } from '../../util/data';
 import { getScaleUpdateOptionsAfterStack } from '../../util/scale';
 import { Attribute } from '../../visual/attribute';
 import { Element } from '../element';
-import { isArray } from '@antv/util';
 
 /**
  * 所有 Geometry 的基类
@@ -33,14 +33,17 @@ export class Geometry extends EE {
    * 视觉通道映射配置 Key Value 结构
    */
   private attriubteOptios: AttributeOptions;
+
   /**
    * 生成的 attributes 实例
    */
   private attributes: Map<string, Attribute>;
+
   /**
    * 设置的 adjust 配置
    */
   private adjustOptions: AdjustOption[];
+
   /**
    * 生成的 adjusts 实例
    */
@@ -139,7 +142,7 @@ export class Geometry extends EE {
         // 2. 将分类数据翻译成数子, 仅对位置相关的度量进行数字化处理
         // TODO 为什么要在分组的时候对位置中分类数字化
         return categoryPositionScales.map((scale) => {
-          const field = scale.field;
+          const { field } = scale;
           mappingDatum[field] = scale.map(field);
         });
       });
@@ -312,7 +315,7 @@ export class Geometry extends EE {
    * 绘制：将数据最终转化成 G 的 Shape
    */
   public paint() {
-    const beforeMappingData = this.beforeMappingData;
+    const { beforeMappingData } = this;
     // 1. 生成关键点
     const dataArray = this.beforeMapping(beforeMappingData);
 
@@ -333,7 +336,7 @@ export class Geometry extends EE {
   private setAttributeOption(attr: AttributeKey, fields: string, value?: any) {
     this.attriubteOptios.set(attr, {
       fields: fields.split('*'),
-      value: value,
+      value,
     });
   }
 
@@ -442,7 +445,7 @@ export class Geometry extends EE {
     // 去重，且考虑性能
     const uniqMap = new Map<string, boolean>();
 
-    for (let i = 0, length = GROUP_ATTR_KEYS.length; i < length; i++) {
+    for (let i = 0, { length } = GROUP_ATTR_KEYS; i < length; i++) {
       const groupAttrKey = GROUP_ATTR_KEYS[i];
       // 获取所有通道中的 fields，谨防空值
       const fields = this.attriubteOptios.get(groupAttrKey)?.fields || [];
@@ -484,10 +487,10 @@ export class Geometry extends EE {
    */
   public getAttributeValues(attr: Attribute, datum: Datum) {
     const params = [];
-    const scales = attr.scales;
+    const { scales } = attr;
     for (let i = 0; i < scales.length; i++) {
       const scale = scales[i];
-      const field = scale.field;
+      const { field } = scale;
       if (scale.isIdentity()) {
         // @ts-ignore, yuzhanglong: 暂时不清楚作用，先用 ts-ignore 解决报错问题
         params.push(scale.values);
