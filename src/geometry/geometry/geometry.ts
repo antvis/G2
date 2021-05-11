@@ -90,11 +90,7 @@ export class Geometry extends EE {
         return;
       }
 
-      const {
-        fields = [],
-        value,
-        callback,
-      } = attributeOption;
+      const { fields = [], value, callback } = attributeOption;
       const scales = fields.map((f: string) => this.options.scales.get(f));
 
       // 创建，并缓存起来
@@ -112,11 +108,7 @@ export class Geometry extends EE {
         return;
       }
 
-      const {
-        fields = [],
-        value,
-        callback,
-      } = attributeOption;
+      const { fields = [], value, callback } = attributeOption;
       const scales = fields.map((f: string) => this.options.scales.get(f));
 
       // 创建，并缓存起来
@@ -130,11 +122,9 @@ export class Geometry extends EE {
    * 数据加工：分组 -> 数字化 -> adjust
    */
   private processData() {
-    const categoryPositionScales = this.getAttribute('position')
-      .scales
-      .filter((s) =>
-        s.isCategory(),
-      );
+    const categoryPositionScales = this.getAttribute('position').scales.filter((s) =>
+      s.isCategory(),
+    );
 
     // 1. 数据根据分组字段，分组
     const groupedData = groupData(this.options.data, this.getGroupFields());
@@ -242,8 +232,7 @@ export class Geometry extends EE {
    */
   private getShapeFactory() {
     return {
-      getShapePoints: (shapeType, cfg) => {
-      },
+      getShapePoints: (shapeType, cfg) => {},
     };
   }
 
@@ -277,17 +266,14 @@ export class Geometry extends EE {
    */
   protected getYMinValue(): number {
     const yScale = this.getYScale();
-    const {
-      min,
-      max,
-    } = yScale;
+    const { min, max } = yScale;
     let value: number;
 
     return min >= 0
       ? min // 当值全位于正区间时
       : max <= 0
-        ? max // 当值全位于负区间时
-        : 0; // 其他
+      ? max // 当值全位于负区间时
+      : 0; // 其他
   }
 
   /**
@@ -343,8 +329,7 @@ export class Geometry extends EE {
   /**
    * 销毁
    */
-  public destroy() {
-  }
+  public destroy() {}
 
   /** 设置图形的视觉通道字段和配置       ************************************* */
 
@@ -414,8 +399,7 @@ export class Geometry extends EE {
    * sequence 序列通道：sequence
    * TODO: 扩展 timeline 组件 + 时序图
    */
-  public sequence() {
-  }
+  public sequence() {}
 
   /**
    * custom 信息：custom
