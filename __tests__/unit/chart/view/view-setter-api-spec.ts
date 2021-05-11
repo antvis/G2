@@ -1,4 +1,4 @@
-import { View } from '../../../../src';
+import { View } from '@g2';
 
 describe('view setter api', () => {
   const v = new View({

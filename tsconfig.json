@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "jsx": "preserve",
     "paths": {
-      "@antv/g2": ["src"]
+      "@g2": ["src"],
+      "@g2/*": ["src/*"]
     }
   },
   "include": ["src"]

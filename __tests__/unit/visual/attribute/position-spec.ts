@@ -1,4 +1,4 @@
-import { Position } from '../../../../src/visual/attribute';
+import { Position } from '@g2/visual/attribute';
 
 describe('attribute position', () => {
   it('value', () => {

@@ -1,4 +1,4 @@
-import { Attribute, Color, Position, Shape, Size } from '../../../../src/visual/attribute';
+import { Attribute, Color, Position, Shape, Size } from '@g2/visual/attribute';
 
 // TODO 单测 100%
 describe('attribute', () => {

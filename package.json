@@ -112,7 +112,10 @@
       "js",
       "ts",
       "json"
-    ]
+    ],
+    "moduleNameMapper": {
+      "^@g2(.*)$": "<rootDir>/src$1"
+    }
   },
   "limit-size": [
     {
