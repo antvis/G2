@@ -29,6 +29,8 @@ module.exports = {
     'linebreak-style': 'off',
     '@typescript-eslint/no-unused-vars': 'warn',
     'no-plusplus': 'warn',
+    'no-dupe-class-members': 'off',
+    '@typescript-eslint/no-dupe-class-members': ['error'],
   },
   settings: {
     'import/parsers': {

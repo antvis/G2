@@ -4,3 +4,5 @@
  * 2. 4.x 的交互语法
  * 3. 内置的交互
  */
+
+export { Interaction } from './interaction';
