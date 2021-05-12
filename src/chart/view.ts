@@ -72,7 +72,10 @@ export class View extends EE {
   /**
    * 加载的交互实例
    */
-  public interactions: Record<string, any>;
+  public interactions: Record<string, any> = {};
+
+  /** 分面类实例 */
+  public facetInstance: Facet;
 
   /**
    * view 视图的矩形位置范围
@@ -124,19 +127,11 @@ export class View extends EE {
   /** 生成的坐标系实例，{@link https://github.com/antvis/coord/blob/master/src/coord/base.ts|Coordinate} */
   protected coordinateInstance: any;
 
-  /** 分面类实例 */
-  protected facetInstance: Facet;
-
   /** 背景色样式的 shape */
   private backgroundStyleRectShape;
 
   /** 是否同步子 view 的 padding */
   private syncViewPadding;
-
-  /**
-   * 加入的数据
-   */
-  private originalData: Data;
 
   constructor(cfg: ViewCfg) {
     super();
@@ -182,7 +177,7 @@ export class View extends EE {
    * @param data 明细数据数组
    */
   public data(data: Data) {
-    this.originalData = data;
+    set(this.options, 'originalData', data);
 
     return this;
   }
@@ -216,7 +211,6 @@ export class View extends EE {
    * @returns View
    */
   public scale(field: string, scaleOption: ScaleOption): View;
-
   public scale(field: string | Record<string, ScaleOption>, scaleOption?: ScaleOption): View {
     if (isString(field)) {
       set(this.options, ['scales', field], scaleOption);
@@ -361,9 +355,8 @@ export class View extends EE {
    * @param axisOption 坐标轴具体配置，更详细的配置项可以参考：https://github.com/antvis/component#axis
    */
   public axis(field: string, axisOption: AxisOption): View;
-
   public axis(field: string | boolean, axisOption?: AxisOption) {
-    if (isBoolean) {
+    if (isBoolean(field)) {
       set(this.options, ['axes'], field);
     } else {
       set(this.options, ['axes', field], axisOption);
@@ -560,12 +553,23 @@ export class View extends EE {
   /**
    * 获取实际展示在画布中的数据（经过过滤后的）
    */
-  public getData() {}
+  public getData() {
+    return this.options.data;
+  }
 
   /**
    * 获取原始传入的数据
    */
-  public getOriginalData() {}
+  public getOriginalData() {
+    return this.options.originalData;
+  }
+
+  /**
+   * 返回所有的配置项信息
+   */
+  public getOptions() {
+    return this.options;
+  }
 
   /** 数据操作的一些 API  **************************************** */
 

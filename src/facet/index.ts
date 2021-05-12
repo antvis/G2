@@ -4,3 +4,4 @@
  */
 
 export { Facet } from './facet';
+export { Rect } from './rect';

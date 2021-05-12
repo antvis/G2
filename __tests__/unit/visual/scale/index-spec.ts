@@ -1,5 +1,5 @@
-import { ScaleDef } from '../../../../src/visual/scale';
-import { ScaleTypes } from '../../../../src/types';
+import { ScaleDef } from '@g2/visual/scale';
+import { ScaleTypes } from '@g2/types';
 
 describe('scale', () => {
   test('ScaleDef meta data', () => {

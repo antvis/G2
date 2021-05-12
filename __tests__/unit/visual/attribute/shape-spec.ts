@@ -1,4 +1,4 @@
-import { Shape } from '../../../../src/visual/attribute';
+import { Shape } from '@g2/visual/attribute';
 
 describe('attribute shape', () => {
   it('value', () => {

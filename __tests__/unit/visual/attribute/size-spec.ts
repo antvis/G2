@@ -1,4 +1,4 @@
-import { Size } from '../../../../src/visual/attribute';
+import { Size } from '@g2/visual/attribute';
 
 describe('attribute color', () => {
   it('value', () => {
