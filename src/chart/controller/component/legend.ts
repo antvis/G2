@@ -1,6 +1,6 @@
-import { Controller } from './controller';
+import { CC } from './conponent';
 
-export class Timeline extends Controller<any> {
+export class Legend extends CC<any> {
   public init() {
     throw new Error('Method not implemented.');
   }

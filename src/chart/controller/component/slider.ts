@@ -1,6 +1,6 @@
-import { Controller } from './controller';
+import { CC } from './conponent';
 
-export class Axis extends Controller<any> {
+export class Slider extends CC<any> {
   public init() {
     throw new Error('Method not implemented.');
   }
@@ -16,5 +16,4 @@ export class Axis extends Controller<any> {
   public clear() {
     throw new Error('Method not implemented.');
   }
-
 }

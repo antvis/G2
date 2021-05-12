@@ -1,17 +1,17 @@
-import type { View } from '../view';
+import type { View } from '../../view';
 
 /**
  * 所有 component & extention 的基类
  * - 规范生命周期
  */
-export abstract class Controller<O> {
+export abstract class CC<O> {
   /**
    * 依赖的 view
    */
   public view: View;
 
   /**
-   * controller 对应的 component & extention 的配置
+   * CC 对应的 component & extention 的配置
    */
   public option: O;
 
