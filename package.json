@@ -1,12 +1,13 @@
 {
   "name": "@antv/g2",
-  "version": "4.1.1",
+  "version": "4.1.16",
   "description": "the Grammar of Graphics in Javascript",
   "main": "lib/index.js",
   "module": "esm/index.js",
   "types": "lib/index.d.ts",
   "unpkg": "dist/g2.min.js",
   "files": [
+    "src",
     "lib",
     "esm",
     "dist"
@@ -40,26 +41,30 @@
     "@antv/adjust": "^0.2.1",
     "@antv/attr": "^0.3.1",
     "@antv/color-util": "^2.0.2",
-    "@antv/component": "^0.8.0",
+    "@antv/component": "^0.8.7",
     "@antv/coord": "^0.3.0",
     "@antv/dom-util": "^2.0.2",
     "@antv/event-emitter": "~0.1.0",
-    "@antv/g-base": "^0.5.0",
-    "@antv/g-canvas": "^0.5.0",
-    "@antv/g-svg": "^0.5.0",
+    "@antv/g-base": "~0.5.6",
+    "@antv/g-canvas": "~0.5.10",
+    "@antv/g-svg": "~0.5.6",
     "@antv/matrix-util": "^3.1.0-beta.1",
     "@antv/path-util": "^2.0.3",
-    "@antv/scale": "^0.3.1",
+    "@antv/scale": "^0.3.7",
     "@antv/util": "~2.0.5",
     "tslib": "^2.0.0"
   },
   "devDependencies": {
     "@antv/data-set": "^0.11.2",
-    "@antv/gatsby-theme-antv": "^1.0.0-beta.19",
+    "@antv/gatsby-theme-antv": "^1.1.2",
+    "@babel/core": "^7.13.1",
+    "@babel/preset-env": "^7.13.0",
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-angular": "^8.2.0",
     "@types/jest": "^25.2.1",
+    "babel-loader": "^8.2.2",
     "conventional-changelog-cli": "^2.0.28",
+    "core-js": "^2.5.7",
     "gatsby": "^2.20.23",
     "generate-changelog": "^1.8.0",
     "gh-pages": "^2.1.1",
@@ -70,6 +75,7 @@
     "lint-md-cli": "^0.1.2",
     "lint-staged": "^10.2.2",
     "lodash": "^4.17.15",
+    "mock-variable": "^0.0.2",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.0.5",
     "react-i18next": "^11.1.0",
@@ -108,6 +114,7 @@
   "jest": {
     "runner": "jest-electron/runner",
     "testEnvironment": "jest-electron/environment",
+    "testTimeout": 30000,
     "preset": "ts-jest",
     "collectCoverage": false,
     "collectCoverageFrom": [
@@ -140,5 +147,9 @@
     "interaction"
   ],
   "author": "https://github.com/orgs/antvis/people",
-  "license": "MIT"
+  "license": "MIT",
+  "resolutions": {
+    "monaco-editor": "0.21.3",
+    "@babel/plugin-transform-spread": "7.12.1"
+  }
 }

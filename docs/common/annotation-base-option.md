@@ -14,7 +14,9 @@
 
 <description> _ComponentAnimateOption_ **optional**</description>
 
-动画参数配置，当且仅当 `animate` 属性为 true，即动画开启时生效。动画配置详情点击 [ComponentAnimateOption](animate-option) 查看。
+动画参数配置，当且仅当 `animate` 属性为 true，即动画开启时生效。动画配置：
+
+`markdown:docs/common/component-animate-option.md`
 
 #### option.offsetX
 

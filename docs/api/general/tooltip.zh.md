@@ -70,10 +70,10 @@ interface TooltipCrosshairs {
 
 辅助线文本背景配置。_CrosshairTextBackgroundCfg_ 配置如下：
 
-| 参数名  | 类型                | 是否必选 | 默认值 | 描述               |
-| ------- | ------------------- | -------- | ------ | ------------------ |
-| padding | number \| number[]; |          | -      | 文本背景周围的留白 |
-| style   | [ShapeAttrs](shape) |          | -      | 文本背景的样式     |
+| 参数名  | 类型                                         | 是否必选 | 默认值 | 描述               |
+| ------- | -------------------------------------------- | -------- | ------ | ------------------ |
+| padding | number \| number[];                          |          | -      | 文本背景周围的留白 |
+| style   | [ShapeAttrs](/zh/docs/api/shape/shape-attrs) |          | -      | 文本背景的样式     |
 
 #### TooltipCfg.crosshairs.line
 
@@ -81,9 +81,9 @@ interface TooltipCrosshairs {
 
 辅助线的样式配置。_CrosshairLineCfg_ 配置如下：
 
-| 参数名 | 类型                | 是否必选 | 默认值 | 描述         |
-| ------ | ------------------- | -------- | ------ | ------------ |
-| style  | [ShapeAttrs](shape) |          | -      | 辅助线的样式 |
+| 参数名 | 类型                                         | 是否必选 | 默认值 | 描述         |
+| ------ | -------------------------------------------- | -------- | ------ | ------------ |
+| style  | [ShapeAttrs](/zh/docs/api/shape/shape-attrs) |          | -      | 辅助线的样式 |
 
 #### TooltipCfg.crosshairs.text
 
@@ -104,29 +104,29 @@ type TooltipCrosshairsTextCallback = (
 
 _TooltipCrosshairsText_ 配置如下：
 
-| 参数名     | 类型                | 是否必选 | 默认值 | 描述                |
-| ---------- | ------------------- | -------- | ------ | ------------------- |
-| content    | string              |          | -      | crosshairs 文本内容 |
-| autoRotate | boolean             |          | -      | 是否自动旋转        |
-| style      | [ShapeAttrs](shape) |          | -      | 文本的配置项        |
-| position   | 'start' \| 'end'    |          | -      | 文本位置            |
-| offset     | number              |          | -      | 距离线的距离        |
+| 参数名     | 类型                                         | 是否必选 | 默认值 | 描述                |
+| ---------- | -------------------------------------------- | -------- | ------ | ------------------- |
+| content    | string                                       |          | -      | crosshairs 文本内容 |
+| autoRotate | boolean                                      |          | -      | 是否自动旋转        |
+| style      | [ShapeAttrs](/zh/docs/api/shape/shape-attrs) |          | -      | 文本的配置项        |
+| position   | 'start' \| 'end'                             |          | -      | 文本位置            |
+| offset     | number                                       |          | -      | 距离线的距离        |
 
 ### TooltipCfg.domStyles
 
 <description> _TooltipDomStyles_ **optional** </description>
 
-_TooltipDomStyles_ 是以 dom 节点的 class 为 key 的对象，_ShapeAttrs_ 为 value 的对象。点击 [ShapeAttrs](shape) 查看详细样式配置。
+_TooltipDomStyles_ 是以 dom 节点的 class 为 key 的对象，_CSSProperties_ 为 value 的对象。
 
 ```ts
 interface TooltipDomStyles {
-  'g2-tooltip'?: ShapeAttrs;
-  'g2-tooltip-title'?: ShapeAttrs;
-  'g2-tooltip-list'?: ShapeAttrs;
-  'g2-tooltip-list-item'?: ShapeAttrs;
-  'g2-tooltip-marker'?: ShapeAttrs;
-  'g2-tooltip-value'?: ShapeAttrs;
-  'g2-tooltip-name'?: ShapeAttrs;
+  'g2-tooltip'?: CSSProperties;
+  'g2-tooltip-title'?: CSSProperties;
+  'g2-tooltip-list'?: CSSProperties;
+  'g2-tooltip-list-item'?: CSSProperties;
+  'g2-tooltip-marker'?: CSSProperties;
+  'g2-tooltip-value'?: CSSProperties;
+  'g2-tooltip-name'?: CSSProperties;
 }
 ```
 
@@ -156,7 +156,7 @@ tooltip 是否允许鼠标滑入，默认为 false，不允许。
 
 <description> _ShapeAttrs_ **optional** </description>
 
-tooltipMarker 的样式配置。点击 [ShapeAttrs](shape) 查看详细样式配置。
+tooltipMarker 的样式配置。点击 [ShapeAttrs](/zh/docs/api/shape/shape-attrs) 查看详细样式配置。
 
 ### TooltipCfg.offset
 
@@ -196,14 +196,43 @@ true 表示合并当前点对应的所有数据并展示，false 表示只展示
 
 是否渲染 tooltipMarkers。
 
+### TooltipCfg.showNil
+
+<description> _boolean_ **optional** </description>
+
+是否显示 tooltip 列表项目中的空值，默认为 `false`，如果设置为 `true`，则会将 null、undefine 显示为空。
+
 ### TooltipCfg.showTitle
 
 <description> _boolean_ **optional** </description>
 
 是否展示 tooltip 标题。
 
-### TooltipCfg.title? : string
+### TooltipCfg.title? : string | (title: string, datum: Datum) => string
 
-<description> _string_ **optional** </description>
+<description> _string | Function_ **optional** </description>
 
-设置 tooltip 的标题内容：如果值为数据字段名，则会展示数据中对应该字段的数值，如果数据中不存在该字段，则直接展示 title 值。
+设置 tooltip 的标题内容：
+
+1. 字符串的时候，如果值为数据字段名，则会展示数据中对应该字段的数值，如果数据中不存在该字段，则直接展示 title 值。
+2. 回调方法的时候，第一个参数为默认的 title 字符串，第二个参数为当前的数据记录
+
+```ts
+chart.tooltip({
+  title: (title, datum) => datum['value'],
+});
+```
+
+### TooltipCfg.customItems? : (items: TooltipItem[]) => TooltipItem[]
+
+<description> _Function_ **optional** </description>
+
+在渲染 tooltip 之前，对 G2 的 tooltip items 列表项目进行用户自定义处理，默认不做任何处理。可以用来对 tooltip 列表进行过滤、排序、格式化等操作
+
+```ts
+chart.tooltip({
+  customItems: (items) => {
+    return processTooltipItems(items);
+  },
+});
+```

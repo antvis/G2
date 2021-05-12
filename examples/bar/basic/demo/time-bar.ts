@@ -30,10 +30,12 @@ const chart = new Chart({
 
 chart.data(data);
 
-chart
-  .coordinate()
-  .transpose()
-  .scale(1, -1);
+chart.coordinate().transpose().scale(1, -1);
+
+chart.scale('range', {
+  type: 'time',
+  nice: true,
+});
 
 chart.tooltip({
   showMarkers: false,

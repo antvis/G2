@@ -1,8 +1,8 @@
-import { contains, filter, find, hasKey, isArray, isNil, isNumberEqual, isObject, memoize, values } from '@antv/util';
+import { contains, filter, find, hasKey, isArray, isFunction, isNil, isNumberEqual, isObject, memoize, values } from '@antv/util';
 import { FIELD_ORIGIN, GROUP_ATTRS } from '../constant';
 import { Attribute, Scale } from '../dependents';
 import Geometry from '../geometry/base';
-import { Data, Datum, MappingDatum, Point } from '../interface';
+import { Data, Datum, MappingDatum, Point, TooltipTitle } from '../interface';
 import { getName } from './scale';
 
 function snapEqual(v1: any, v2: any, scale: Scale) {
@@ -65,20 +65,25 @@ const getXDistance = memoize((scale: Scale) => {
   return (max - min) / (length - 1);
 });
 
-function getTooltipTitle(originData: Datum, geometry: Geometry, title: string) {
-  let titleField = title;
-  if (!title) {
-    const positionAttr = geometry.getAttribute('position');
-    const fields = positionAttr.getFields();
-    titleField = fields[0];
-  }
+/**
+ * 获得 tooltip 的 title
+ * @param originData
+ * @param geometry
+ * @param title
+ */
+function getTooltipTitle(originData: Datum, geometry: Geometry, title: TooltipTitle): string {
+  const positionAttr = geometry.getAttribute('position');
+  const fields = positionAttr.getFields();
   const scales = geometry.scales;
-  if (scales[titleField]) {
-    // 如果创建了该字段对应的 scale，则通过 scale.getText() 方式取值，因为用户可能对数据进行了格式化
-    return scales[titleField].getText(originData[titleField]);
-  }
+
+  const titleField = isFunction(title) || !title ? fields[0] : title;
+  const titleScale = scales[titleField];
+
+  // 如果创建了该字段对应的 scale，则通过 scale.getText() 方式取值，因为用户可能对数据进行了格式化
   // 如果没有对应的 scale，则从原始数据中取值，如果原始数据中仍不存在，则直接放回 title 值
-  return hasKey(originData, titleField) ? originData[titleField] : titleField;
+  const tooltipTitle = titleScale ? titleScale.getText(originData[titleField]) : originData[titleField] || titleField;
+
+  return isFunction(title) ? title(tooltipTitle, originData) : tooltipTitle;
 }
 
 function getAttributesForLegend(geometry: Geometry) {
@@ -295,7 +300,7 @@ export function findDataByPoint(point: Point, data: MappingDatum[], geometry: Ge
  * @param [title]
  * @returns
  */
-export function getTooltipItems(data: MappingDatum, geometry: Geometry, title: string = '') {
+export function getTooltipItems(data: MappingDatum, geometry: Geometry, title: TooltipTitle = '', showNil: boolean = false) {
   const originData = data[FIELD_ORIGIN];
   const tooltipTitle = getTooltipTitle(originData, geometry, title);
   const tooltipOption = geometry.tooltipOption;
@@ -305,7 +310,7 @@ export function getTooltipItems(data: MappingDatum, geometry: Geometry, title: s
   let value;
 
   function addItem(itemName, itemValue) {
-    if (!isNil(itemValue) && itemValue !== '') {
+    if (showNil || (!isNil(itemValue) && itemValue !== '')) {
       // 值为 null的时候，忽视
       const item = {
         title: tooltipTitle,
@@ -353,12 +358,10 @@ export function getTooltipItems(data: MappingDatum, geometry: Geometry, title: s
     }
   } else {
     const valueScale = getTooltipValueScale(geometry);
-    if (!isNil(originData[valueScale.field])) {
-      // 字段数据为null ,undefined时不显示
-      value = getTooltipValue(originData, valueScale);
-      name = getTooltipName(originData, geometry);
-      addItem(name, value);
-    }
+    // 字段数据为null ,undefined时不显示
+    value = getTooltipValue(originData, valueScale);
+    name = getTooltipName(originData, geometry);
+    addItem(name, value);
   }
   return items;
 }

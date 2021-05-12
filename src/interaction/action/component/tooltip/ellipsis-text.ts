@@ -1,4 +1,5 @@
-import { isEqual, get } from '@antv/util';
+import { isEqual, get, deepMix } from '@antv/util';
+import { TOOLTIP_CSS_CONST } from '@antv/component';
 import { Point } from '../../../../interface';
 import Action from '../../base';
 import { HtmlTooltip } from '../../../../dependents';
@@ -86,7 +87,13 @@ export default class EllipsisText extends Action {
       region,
       visible: false,
       crosshairs: null,
-      domStyles: tooltipStyles,
+      domStyles: {
+        ...deepMix({}, tooltipStyles, {
+          // 超长的时候，tooltip tip 最大宽度为 50%，然后可以换行
+          [TOOLTIP_CSS_CONST.CONTAINER_CLASS]: { 'max-width': '50%' },
+          [TOOLTIP_CSS_CONST.TITLE_CLASS]: { 'word-break': 'break-all' },
+        }),
+      },
     });
     tooltip.init();
     tooltip.setCapture(false); // 不允许捕获事件

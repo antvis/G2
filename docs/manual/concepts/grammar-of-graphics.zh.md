@@ -138,7 +138,7 @@ G2 中的视觉通道作为标记的属性存在，需要支持以下功能：
 chart.<geomType>().<attrType>(dims, [callback]);
 ```
 
-- geom，[图表类型](./geometry)，在后面的章节中介绍。
+- geom，[图表类型](/zh/docs/manual/concepts/geometry/overview)，在后面的章节中介绍。
 - attr，图表类型的属性，对应视觉通道。
 - dims，参与单个视觉通道映射的字段。
 - callback，如何解析视觉通道，可以不提供，G2 提供了默认的视觉通道解析方式。

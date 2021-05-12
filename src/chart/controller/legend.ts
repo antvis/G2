@@ -7,7 +7,7 @@ import Geometry from '../../geometry/base';
 import { BBox } from '../../util/bbox';
 import { directionToPosition } from '../../util/direction';
 import { omit } from '../../util/helper';
-import { getCustomLegendItems, getLegendItems, getLegendLayout } from '../../util/legend';
+import { getCustomLegendItems, getLegendItems, getLegendLayout, getLegendThemeCfg } from '../../util/legend';
 import { getName } from '../../util/scale';
 import View from '../view';
 import { Controller } from './base';
@@ -465,10 +465,14 @@ export default class Legend extends Controller<AllLegendsOptions> {
     // if position is not set, use top as default
     const direction = get(legendOption, 'position', DIRECTION.BOTTOM);
 
+    const legendTheme = getLegendThemeCfg(this.view.getTheme(), direction);
+
     // the default marker style
-    const themeMarker = get(this.view.getTheme(), ['components', 'legend', direction, 'marker']);
+    const themeMarker = get(legendTheme, ['marker']);
     const userMarker = get(legendOption, 'marker');
     const layout = getLegendLayout(direction);
+    const themePageNavigator = get(legendTheme, ['pageNavigator']);
+    const userPageNavigator = get(legendOption, 'pageNavigator');
 
     const items = custom
       ? getCustomLegendItems(themeMarker, userMarker, legendOption.items)
@@ -490,6 +494,7 @@ export default class Legend extends Controller<AllLegendsOptions> {
     baseCfg.items = items;
     baseCfg.title = title;
     baseCfg.animateOption = DEFAULT_ANIMATE_CFG;
+    baseCfg.pageNavigator = deepMix({}, themePageNavigator, userPageNavigator);
 
     const categoryCfg = this.mergeLegendCfg(baseCfg, legendOption, direction);
     if (categoryCfg.reversed) {
@@ -514,7 +519,7 @@ export default class Legend extends Controller<AllLegendsOptions> {
    */
   private mergeLegendCfg(baseCfg: object, legendOption: LegendOption, direction: DIRECTION) {
     const position = direction.split('-')[0];
-    const themeObject = get(this.view.getTheme(), ['components', 'legend', position], {});
+    const themeObject = getLegendThemeCfg(this.view.getTheme(), position);
 
     return deepMix({}, themeObject, baseCfg, legendOption);
   }

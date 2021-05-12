@@ -25,6 +25,7 @@ import {
   LegendItemValueCfg,
   LegendMarkerCfg,
   LegendTitleCfg,
+  LegendPageNavigatorCfg,
   PathCommand,
   Scale,
   ScaleConfig,
@@ -118,6 +119,10 @@ export interface ShapeInfo {
   isStack?: boolean;
   /** 是否连接空值，只对 Path Line Area 这三种 Geometry 生效。 */
   connectNulls?: boolean;
+  /** shape 背景，只对 Interval Geometry 生效，目前只对 interval-rect shape 生效。 */
+  background?: {
+    style?: ShapeAttrs;
+  };
   /** 是否展示单个孤立的数据点，只对 Path Line Area 这三种 Geometry 生效。 */
   showSinglePoint?: boolean;
   /** 默认的 shape 样式 */
@@ -138,6 +143,8 @@ export interface AnimateCfg {
   readonly delay?: number | AnimateDelayCallback;
   /** 动画执行结束后的回调函数 */
   readonly callback?: () => any;
+  /** 动画是否重复 */
+  readonly repeat?: boolean;
 }
 
 /** 传递给 G 的动画配置，duration 必须提供 */
@@ -152,6 +159,8 @@ export interface GAnimateCfg {
   readonly delay?: number;
   /** 动画执行结束后的回调函数 */
   readonly callback?: () => any;
+  /** 动画是否重复 */
+  readonly repeat?: boolean;
 }
 
 // ============================ Geometry 接口相关的类型定义 ============================
@@ -873,6 +882,7 @@ export interface ComponentOption {
 export interface MarkerCfg extends LegendMarkerCfg {
   /** 配置图例 marker 的 symbol 形状。 */
   symbol?: Marker | MarkerCallback;
+  style?: ShapeAttrs | ((style: ShapeAttrs) => ShapeAttrs);
 }
 
 /** Legend item 各个图例项的数据结构 */
@@ -1025,6 +1035,10 @@ export interface LegendCfg {
    */
   flipPage?: boolean;
   /**
+   *  **适用于分类图例**，图例分页器的样式设置。
+   */
+  pageNavigator?: LegendPageNavigatorCfg;
+  /**
    * **分类图例适用**，用户自己配置图例项的内容。
    */
   items?: LegendItem[];
@@ -1117,6 +1131,12 @@ export interface LegendCfg {
   offsetY?: number;
   /** 图例在四个方向的偏移量 */
   padding?: number[];
+  /**
+   * 图例高亮状态，false 表示默认置灰，无或 true 表示高亮
+   */
+  selected?: {
+    [key: string]: boolean;
+  };
 }
 
 /**
@@ -1188,6 +1208,23 @@ export interface TooltipCrosshairs {
   follow?: boolean;
 }
 
+export type TooltipTitle = string | ((title: string, datum: Datum) => string);
+
+export type TooltipItem = {
+  /** 原始数据 */
+  readonly data: Datum; // 原始数据
+  /** 映射之后的数据 */
+  readonly mappingData: Datum; // 映射后的数据
+  /** tooltip item 中名称 */
+  readonly name: string;
+  /** tooltip item 中值 */
+  readonly value: string | number;
+  /** tooltip item 中颜色 */
+  readonly color: string;
+  /** tooltip item 中图标类型 */
+  readonly marker: string;
+};
+
 /** chart.tooltip() 接口配置属性 */
 export interface TooltipCfg {
   /**
@@ -1203,8 +1240,9 @@ export interface TooltipCfg {
   showTitle?: boolean;
   /**
    * 设置 tooltip 的标题内容：如果值为数据字段名，则会展示数据中对应该字段的数值，如果数据中不存在该字段，则直接展示 title 值。
+   * 同时支持传入方法，回调的方式返回字符串
    */
-  title?: string;
+  title?: TooltipTitle;
   /** 设置 tooltip 的固定展示位置，相对于数据点。 */
   position?: 'top' | 'bottom' | 'left' | 'right';
   /** true 表示合并当前点对应的所有数据并展示，false 表示只展示离当前点最逼近的数据内容。 */
@@ -1218,7 +1256,7 @@ export interface TooltipCfg {
   /** tooltipMarker 的样式配置。 */
   marker?: object;
   /** 是否展示 tooltip 内容框 */
-  showContent?: boolean;
+  showContent?: boolean | ((datum: Datum) => boolean);
   /** 自定义 tooltip 的容器。 */
   container?: string | HTMLElement;
   /** 用于指定图例容器的模板，自定义模板时必须包含各个 dom 节点的 class。 */
@@ -1231,6 +1269,10 @@ export interface TooltipCfg {
   offset?: number;
   /** 是否将 tooltip items 逆序 */
   reversed?: boolean;
+  /** 是否显示空值的 tooltip 项目 */
+  showNil?: boolean;
+  /** 在 tooltip 渲染之前，对最终的 items 进行自定义处理（比如排序、过滤、格式化等） */
+  customItems?: (originalItems: TooltipItem[]) => TooltipItem[];
   /** 支持自定义模板 */
   customContent?: (title: string, data: any[]) => string | HTMLElement;
 }
@@ -1304,6 +1346,10 @@ export interface AxisGridCfg {
 
 /** 坐标轴配置属性，chart.axis() */
 export interface AxisCfg {
+  /**
+   * 是否渲染在画布顶层，防止部分图形中，需要将 axis 显示在图形上面，避免被图形遮挡
+   */
+  top?: boolean;
   /**
    * 适用于直角坐标系，设置坐标轴的位置。
    */
@@ -1380,9 +1426,9 @@ export interface AxisCfg {
    *   rotate?: number;
    *   // 格式化函数
    *   formatter?: (text: string, item: ListItem, index: number) => any;
-   *   // 是否自动旋转，默认 true
+   *   // 是否自动旋转，默认 false
    *   autoRotate?: boolean | (isVertical: boolean, labelGroup: IGroup, limitLength?: number) => boolean; | string;
-   *   // 是否自动隐藏，默认 false
+   *   // 是否自动隐藏，默认 true
    *   autoHide?: boolean | (isVertical: boolean, labelGroup: IGroup, limitLength?: number) => boolean; | string;
    *   // 是否自动省略，默认 false
    *   autoEllipsis?: boolean | (isVertical: boolean, labelGroup: IGroup, limitLength?: number) => boolean; | string;
@@ -1466,6 +1512,17 @@ export interface ScrollbarCfg {
   categorySize?: number;
   /** 滚动的时候是否开启动画，默认跟随 view 中 animate 配置 */
   animate?: boolean;
+  /** 主题样式设置, 暂不提供 hover 高亮滑块样式配置 */
+  style?: {
+    /** 滑道颜色 */
+    trackColor?: string;
+    /** 滑块颜色 */
+    thumbColor?: string;
+    /** 滑块高亮样式，对应主题的 hover.style.thumbColor */
+    thumbHighlightColor?: string;
+    // 是否圆角，'round'
+    lineCap?: string;
+  };
 }
 
 /** 滚动条配置 */
@@ -1529,7 +1586,7 @@ export type Marker =
   | 'square'
   | 'diamond'
   | 'triangle'
-  | 'triangleDown'
+  | 'triangle-down'
   | 'hexagon'
   | 'bowtie'
   | 'cross'
@@ -1740,6 +1797,8 @@ export interface StyleSheet {
   backgroundColor?: string;
   /** 主题色 */
   brandColor?: string;
+  /** 辅助色 */
+  subColor?: string;
   /** 分类色板 1，在数据量小于等于 10 时使用 */
   paletteQualitative10?: string[];
   /** 分类色板 2，在数据量大于 10 时使用 */
@@ -1750,6 +1809,8 @@ export interface StyleSheet {
   paletteSemanticGreen?: string;
   /** 语义色 */
   paletteSemanticYellow?: string;
+  /** (单色)顺序色板 */
+  paletteSequence?: string[];
   /** 字体 */
   fontFamily?: string;
 
@@ -1841,6 +1902,25 @@ export interface StyleSheet {
   legendItemMarginBottom?: number;
   /** 图例与图表绘图区域的偏移距离  */
   legendPadding?: number[];
+  /** 水平布局的图例与绘图区域偏移距离 */
+  legendHorizontalPadding?: number[];
+  /** 垂直布局的图例与绘图区域偏移距离 */
+  legendVerticalPadding?: number[];
+
+  /** 图例分页器 marker 大小 */
+  legendPageNavigatorMarkerSize: number;
+  /** 图例分页器 marker 非激活状态填充色 */
+  legendPageNavigatorMarkerInactiveFillColor: string;
+  /** 图例分页器 marker 非激活状态填充色透明度 */
+  legendPageNavigatorMarkerInactiveFillOpacity: number;
+  /** 图例分页器 marker 填充色 */
+  legendPageNavigatorMarkerFillColor: string;
+  /** 图例分页器 marker 填充色透明度 */
+  legendPageNavigatorMarkerFillOpacity: number;
+  /** 图例分页器文本颜色 */
+  legendPageNavigatorTextFillColor: string;
+  /** 图例分页器文本字体大小 */
+  legendPageNavigatorTextFontSize: number;
 
   /** 连续图例滑块填充色 */
   sliderRailFillColor?: string;
@@ -1990,6 +2070,60 @@ export interface StyleSheet {
   labelLineBorder?: number;
   /** Geometry label 文本连接线颜色 */
   labelLineBorderColor?: string;
+
+  // -------------------- Slider 组件样式--------------------
+  /** slider 滑道高度 */
+  cSliderRailHieght?: number;
+  /** slider 滑道背景色 */
+  cSliderBackgroundFillColor?: string;
+  /** slider 滑道背景色透明度 */
+  cSliderBackgroundFillOpacity?: number;
+  /** slider 滑道前景色 */
+  cSliderForegroundFillColor?: string;
+  /** slider 滑道前景色透明度 */
+  cSliderForegroundFillOpacity?: number;
+
+  // slider handlerStyle 手柄样式
+  /** slider 手柄高度 */
+  cSliderHandlerHeight?: number;
+  /** Slider 手柄宽度 */
+  cSliderHandlerWidth?: number;
+  /** Slider 手柄背景色 */
+  cSliderHandlerFillColor?: string;
+  /** Slider 手柄背景色透明度 */
+  cSliderHandlerFillOpacity?: number;
+  /** Slider 手柄高亮背景色 */
+  cSliderHandlerHighlightFillColor?: string;
+  /** Slider 手柄边框色 */
+  cSliderHandlerBorderColor?: string;
+  /** Slider 手柄边框粗细 */
+  cSliderHandlerBorder?: number;
+  /** Slider 手柄边框圆角 */
+  cSliderHandlerBorderRadius?: number;
+
+  // slider textStyle 字体标签样式
+  /** Slider 字体标签颜色 */
+  cSliderTextFillColor?: string;
+  /** Slider 字体标签透明度 */
+  cSliderTextFillOpacity?: number;
+  /** Slider 字体标签大小 */
+  cSliderTextFontSize?: number;
+  /** Slider 字体标签行高 */
+  cSliderTextLineHeight?: number;
+  /** Slider 字体标签字重 */
+  cSliderTextFontWeight?: number | string;
+  /** Slider 字体标签描边色 */
+  cSliderTextBorderColor?: string;
+  /** Slider 字体标签描边粗细 */
+  cSliderTextBorder?: number;
+
+  // -------------------- Scrollbar 组件样式--------------------
+  /** 滚动条 滚道填充色 */
+  scrollbarTrackFillColor?: string;
+  /** 滚动条 滑块填充色 */
+  scrollbarThumbFillColor?: string;
+  /** 滚动条 滑块高亮填充色 */
+  scrollbarThumbHighlightFillColor?: string;
 
   // -------------------- Geometry 图形样式--------------------
   /** 点图的大小范围 */
@@ -2266,12 +2400,14 @@ export interface StyleSheet {
 export type StyleSheetCfg = Pick<
   StyleSheet,
   | 'backgroundColor'
+  | 'subColor'
   | 'brandColor'
   | 'paletteQualitative10'
   | 'paletteQualitative20'
   | 'paletteSemanticRed'
   | 'paletteSemanticGreen'
   | 'paletteSemanticYellow'
+  | 'paletteSequence'
   | 'fontFamily'
 >;
 

@@ -1,5 +1,4 @@
 import { GeometryCfg } from './geometry/base';
-import { PathCfg } from './geometry/path';
 import { IInteractionContext } from './interface';
 
 // 注册黑暗主题
@@ -21,9 +20,9 @@ import { registerGeometry } from './core';
 import Area, { AreaCfg } from './geometry/area';
 import Edge from './geometry/edge';
 import Heatmap from './geometry/heatmap';
-import Interval from './geometry/interval';
+import Interval, { IntervalCfg } from './geometry/interval';
 import Line from './geometry/line';
-import Path from './geometry/path';
+import Path, { PathCfg } from './geometry/path';
 import Point from './geometry/point';
 import Polygon from './geometry/polygon';
 import Schema from './geometry/schema';
@@ -193,6 +192,7 @@ import ListActive from './interaction/action/component/list-active';
 import ListHighlight from './interaction/action/component/list-highlight';
 import ListSelected from './interaction/action/component/list-selected';
 import ListUnchecked from './interaction/action/component/list-unchecked';
+import ListChecked from './interaction/action/component/list-checked';
 
 import CircleMask from './interaction/action/mask/circle';
 import DimMask from './interaction/action/mask/dim-rect';
@@ -241,6 +241,7 @@ registerAction('list-active', ListActive);
 registerAction('list-selected', ListSelected);
 registerAction('list-highlight', ListHighlight);
 registerAction('list-unchecked', ListUnchecked);
+registerAction('list-checked', ListChecked);
 
 registerAction('legend-item-highlight', ListHighlight, {
   componentNames: ['legend'],
@@ -637,7 +638,7 @@ declare module './chart/view' {
      * @param [cfg] 传入 Interval 构造函数的配置。
      * @returns interval 返回 Interval 实例。
      */
-    interval(cfg?: Partial<GeometryCfg>): Interval;
+    interval(cfg?: Partial<IntervalCfg>): Interval;
     /**
      * 创建 Schema 几何标记。
      * @param [cfg] 传入 Schema 构造函数的配置。
@@ -677,15 +678,7 @@ declare module './chart/view' {
   }
 }
 
+// 暴露一些常量
+export { VIEW_LIFE_CIRCLE } from './constant';
+
 export * from './core';
-// 一些工具方法导出
-import { getAngle, polarToCartesian } from './util/graphics';
-import { rotate, transform, translate, zoom } from './util/transform';
-export const Util = {
-  translate,
-  rotate,
-  zoom,
-  transform,
-  getAngle,
-  polarToCartesian,
-};

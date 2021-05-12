@@ -46,6 +46,6 @@ describe('#2173', () => {
 
   it('legend should not be overlap', () => {
     const [l1, l2] = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND);
-    expect(Math.abs(l1.component.getBBox().y - l2.component.getBBox().y)).toBe(13);
+    expect(Math.abs(l1.component.getBBox().y - l2.component.getBBox().y)).toBe(14);
   });
 });

@@ -1,8 +1,8 @@
 import { deepMix, get, isArray } from '@antv/util';
-import { getAngleByPoint } from '../../../util/coordinate';
-import { polarToCartesian } from '../../../util/graphics';
-import { LabelItem } from '../interface';
-import PolarLabel from '../polar';
+import { getAngleByPoint } from '../../util/coordinate';
+import { polarToCartesian } from '../../util/graphics';
+import { LabelItem } from './interface';
+import PolarLabel from './polar';
 
 /**
  * 饼图 label

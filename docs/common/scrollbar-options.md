@@ -14,7 +14,7 @@
 
 <description> _number_ **optional**</description>
 
-滚动条高度，仅在 vertical 下生效
+滚动条高度，仅在 horizontal 下生效
 
 ### options.padding
 
@@ -28,7 +28,20 @@
 
 对应水平滚动条，为 X 轴每个分类字段的宽度；对于垂直滚动条，为 X 轴每个分类字段的高度
 
-### animate
+### options.style
+
+<description> _object_ **optional**</description>
+
+滚动条的样式设置。
+
+| 参数名              | 类型     | 描述                                                        |
+| ------------------- | -------- | ----------------------------------------------------------- |
+| trackColor          | _string_ | 滑道颜色                                                    |
+| thumbColor          | _string_ | 滑块颜色                                                    |
+| thumbHighlightColor | _string_ | 滑块高亮样式，对应主题的 `scrollbar.hover.style.thumbColor` |
+| lineCap             | _string_ | 是否圆角                                                    |
+
+### options.animate
 
 <description> _boolean_ **optional**</description>
 

@@ -201,15 +201,19 @@ export default class GeometryLabel {
     const coordinate = this.getCoordinate();
     const total = labelCfg.content.length;
 
-    function getDimValue(value, idx) {
+    function getDimValue(value: number | number[], idx: number, isAvg = false) {
       let v = value;
       if (isArray(v)) {
         if (labelCfg.content.length === 1) {
-          // 如果仅一个 label，多个 y, 取最后一个 y
-          if (v.length <= 2) {
-            v = v[value.length - 1];
-          } else {
+          if (isAvg) {
             v = avg(v);
+          } else {
+            // 如果仅一个 label，多个 y, 取最后一个 y
+            if (v.length <= 2) {
+              v = v[(value as number[]).length - 1];
+            } else {
+              v = avg(v);
+            }
           }
         } else {
           v = v[idx];
@@ -225,19 +229,25 @@ export default class GeometryLabel {
       start: { x: 0, y: 0 },
       color: '#fff',
     };
+    const shape = isArray(mappingData.shape) ? mappingData.shape[0] : mappingData.shape;
+    const isFunnel = shape === 'funnel' || shape === 'pyramid';
+
     // 多边形场景，多用于地图
-    if (mappingData && this.geometry.type === 'polygon') {
+    if (this.geometry.type === 'polygon') {
       const centroid = getPolygonCentroid(mappingData.x, mappingData.y);
       label.x = centroid[0];
       label.y = centroid[1];
+    } else if (this.geometry.type === 'interval' && !isFunnel) {
+      // 对直方图的label X 方向的位置居中
+      label.x = getDimValue(mappingData.x, index, true);
+      label.y = getDimValue(mappingData.y, index);
     } else {
       label.x = getDimValue(mappingData.x, index);
       label.y = getDimValue(mappingData.y, index);
     }
 
     // 处理漏斗图文本位置
-    const shape = isArray(mappingData.shape) ? mappingData.shape[0] : mappingData.shape;
-    if (shape === 'funnel' || shape === 'pyramid') {
+    if (isFunnel) {
       const nextPoints = get(mappingData, 'nextPoints');
       const points = get(mappingData, 'points');
       if (nextPoints) {

@@ -18,6 +18,7 @@ import {
   size,
   uniqueId,
   isEqual,
+  isPlainObject,
 } from '@antv/util';
 import { Attribute, Coordinate, Event as GEvent, GroupComponent, ICanvas, IGroup, IShape, Scale } from '../dependents';
 import {
@@ -59,7 +60,12 @@ import { getComponentController, getComponentControllerNames } from './controlle
 import Annotation from './controller/annotation';
 import { Controller } from './controller/base';
 import CoordinateController from './controller/coordinate';
-import TooltipComponent from './controller/tooltip';
+import Tooltip from './controller/tooltip';
+import Slider from './controller/slider';
+import Scrollbar from './controller/scrollbar';
+import Axis from './controller/axis';
+import Gesture from './controller/gesture';
+import Legend from './controller/legend';
 import Event from './event';
 import defaultLayout, { Layout } from './layout';
 import { ScalePool } from './util/scale-pool';
@@ -467,6 +473,11 @@ export class View extends Base {
       set(this.options, ['legends'], field);
     } else if (isString(field)) {
       set(this.options, ['legends', field], legendOption);
+      if (isPlainObject(legendOption) && legendOption?.selected) {
+        set(this.options, ['filters', field], (name: string) => {
+          return legendOption?.selected[name] ?? true;
+        });
+      }
     } else {
       // 设置全局的 legend 配置
       set(this.options, ['legends'], field);
@@ -553,7 +564,7 @@ export class View extends Base {
    * @returns [[Annotation]]
    */
   public annotation(): Annotation {
-    return this.getController('annotation') as Annotation;
+    return this.getController('annotation');
   }
 
   /**
@@ -738,7 +749,7 @@ export class View extends Base {
    * ```ts
    * view.interaction('my-interaction', { extra: 'hello world' });
    * ```
-   * 详细文档可以参考：https://g2.antv.vision/zh/docs/manual/tutorial/interaction
+   * 详细文档可以参考：https://g2.antv.vision/zh/docs/api/general/interaction
    * @param name interaction name
    * @param cfg interaction config
    * @returns
@@ -787,7 +798,7 @@ export class View extends Base {
    */
   public changeData(data: Data) {
     this.isDataChanged = true;
-    this.emit(VIEW_LIFE_CIRCLE.BEFORE_CHANGE_DATA);
+    this.emit(VIEW_LIFE_CIRCLE.BEFORE_CHANGE_DATA, Event.fromData(this, VIEW_LIFE_CIRCLE.BEFORE_CHANGE_DATA, null));
     // 1. 保存数据
     this.data(data);
 
@@ -802,7 +813,7 @@ export class View extends Base {
       view.changeData(data);
     }
 
-    this.emit(VIEW_LIFE_CIRCLE.AFTER_CHANGE_DATA);
+    this.emit(VIEW_LIFE_CIRCLE.AFTER_CHANGE_DATA, Event.fromData(this, VIEW_LIFE_CIRCLE.AFTER_CHANGE_DATA, null));
   }
 
   /* View 管理相关的 API */
@@ -1071,6 +1082,14 @@ export class View extends Base {
     }
   }
 
+  public getController(name: 'tooltip'): Tooltip;
+  public getController(name: 'axis'): Axis;
+  public getController(name: 'legend'): Legend;
+  public getController(name: 'scrollbar'): Scrollbar;
+  public getController(name: 'slider'): Slider;
+  public getController(name: 'annotation'): Annotation;
+  public getController(name: 'gestucre'): Gesture;
+  public getController(name: string): Controller;
   /**
    * 获取 name 对应的 controller 实例
    * @param name
@@ -1085,7 +1104,7 @@ export class View extends Base {
    * @returns View
    */
   public showTooltip(point: Point): View {
-    const tooltip = this.getController('tooltip') as TooltipComponent;
+    const tooltip = this.getController('tooltip');
     if (tooltip) {
       tooltip.showTooltip(point);
     }
@@ -1097,7 +1116,7 @@ export class View extends Base {
    * @returns View
    */
   public hideTooltip(): View {
-    const tooltip = this.getController('tooltip') as TooltipComponent;
+    const tooltip = this.getController('tooltip');
     if (tooltip) {
       tooltip.hideTooltip();
     }
@@ -1109,7 +1128,7 @@ export class View extends Base {
    * @returns View
    */
   public lockTooltip(): View {
-    const tooltip = this.getController('tooltip') as TooltipComponent;
+    const tooltip = this.getController('tooltip');
     if (tooltip) {
       tooltip.lockTooltip();
     }
@@ -1121,7 +1140,7 @@ export class View extends Base {
    * @returns View
    */
   public unlockTooltip(): View {
-    const tooltip = this.getController('tooltip') as TooltipComponent;
+    const tooltip = this.getController('tooltip');
     if (tooltip) {
       tooltip.unlockTooltip();
     }
@@ -1133,7 +1152,7 @@ export class View extends Base {
    * @returns 是否锁定
    */
   public isTooltipLocked() {
-    const tooltip = this.getController('tooltip') as TooltipComponent;
+    const tooltip = this.getController('tooltip');
     return tooltip && tooltip.isTooltipLocked();
   }
 
@@ -1143,7 +1162,7 @@ export class View extends Base {
    * @returns tooltip 数据项
    */
   public getTooltipItems(point: Point) {
-    const tooltip = this.getController('tooltip') as TooltipComponent;
+    const tooltip = this.getController('tooltip');
 
     return tooltip ? tooltip.getTooltipItems(point) : [];
   }
@@ -1610,11 +1629,12 @@ export class View extends Base {
 
     if (ALL_EVENTS.includes(type)) {
       const currentInPlot = this.isPointInPlot(point);
+      const newEvent = e.clone();
 
       if (currentInPlot) {
         const TYPE = `plot:${type}`; // 组合 plot 事件
-        e.type = TYPE;
-        this.emit(TYPE, e);
+        newEvent.type = TYPE;
+        this.emit(TYPE, newEvent);
         if (type === 'mouseleave' || type === 'touchend') {
           // 在plot 内部却离开画布
           this.isPreMouseInPlot = false;
@@ -1625,18 +1645,18 @@ export class View extends Base {
       if (type === 'mousemove' || type === 'touchmove') {
         if (this.isPreMouseInPlot && !currentInPlot) {
           if (type === 'mousemove') {
-            e.type = PLOT_EVENTS.MOUSE_LEAVE;
-            this.emit(PLOT_EVENTS.MOUSE_LEAVE, e);
+            newEvent.type = PLOT_EVENTS.MOUSE_LEAVE;
+            this.emit(PLOT_EVENTS.MOUSE_LEAVE, newEvent);
           }
-          e.type = PLOT_EVENTS.LEAVE;
-          this.emit(PLOT_EVENTS.LEAVE, e);
+          newEvent.type = PLOT_EVENTS.LEAVE;
+          this.emit(PLOT_EVENTS.LEAVE, newEvent);
         } else if (!this.isPreMouseInPlot && currentInPlot) {
           if (type === 'mousemove') {
-            e.type = PLOT_EVENTS.MOUSE_ENTER;
-            this.emit(PLOT_EVENTS.MOUSE_ENTER, e);
+            newEvent.type = PLOT_EVENTS.MOUSE_ENTER;
+            this.emit(PLOT_EVENTS.MOUSE_ENTER, newEvent);
           }
-          e.type = PLOT_EVENTS.ENTER;
-          this.emit(PLOT_EVENTS.ENTER, e);
+          newEvent.type = PLOT_EVENTS.ENTER;
+          this.emit(PLOT_EVENTS.ENTER, newEvent);
         }
         // 赋新的状态值
         this.isPreMouseInPlot = currentInPlot;
@@ -1644,11 +1664,11 @@ export class View extends Base {
         // 可能不在 currentInPlot 中
         if (this.isPreMouseInPlot) {
           if (type === 'mouseleave') {
-            e.type = PLOT_EVENTS.MOUSE_LEAVE;
-            this.emit(PLOT_EVENTS.MOUSE_LEAVE, e);
+            newEvent.type = PLOT_EVENTS.MOUSE_LEAVE;
+            this.emit(PLOT_EVENTS.MOUSE_LEAVE, newEvent);
           }
-          e.type = PLOT_EVENTS.LEAVE;
-          this.emit(PLOT_EVENTS.LEAVE, e);
+          newEvent.type = PLOT_EVENTS.LEAVE;
+          this.emit(PLOT_EVENTS.LEAVE, newEvent);
 
           this.isPreMouseInPlot = false;
         }
@@ -1948,7 +1968,7 @@ export class View extends Base {
     }
 
     // 设置 annotation
-    const annotationComponent = this.getController('annotation') as Annotation;
+    const annotationComponent = this.getController('annotation');
     for (let l = 0; l < annotations.length; l++) {
       const annotationOption = annotations[l];
       annotationComponent.annotation(annotationOption);

@@ -1,6 +1,6 @@
 ## new Chart()
 
-`markdown:docs/api/general/chart.zh.md`
+`markdown:docs/common/new-chart.md`
 
 ## chart.data()
 
@@ -54,14 +54,6 @@
 
 `markdown:docs/api/general/facet.zh.md`
 
-## Event
-
-`markdown:docs/api/general/event.zh.md`
-
-## Theme
-
-`markdown:docs/api/general/theme.zh.md`
-
 ## chart.interaction()
 
 `markdown:docs/api/general/interaction.zh.md`
@@ -69,3 +61,11 @@
 ## geometry.animate()
 
 `markdown:docs/api/general/animate.zh.md`
+
+## Event
+
+`markdown:docs/api/general/event.zh.md`
+
+## Theme
+
+`markdown:docs/api/general/theme.zh.md`

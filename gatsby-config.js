@@ -50,6 +50,22 @@ module.exports = {
         order: 0,
       },
     ],
+    ecosystems: [
+      {
+        name: {
+          zh: 'G2Plot（开箱即用的图表库）',
+          en: 'G2Plot (A charting library)',
+        },
+        url: 'https://g2plot.antv.vision',
+      },
+      {
+        name: {
+          zh: 'AntV ThemeSet（主题构建器）',
+          en: 'AntV ThemeSet',
+        },
+        url: 'https://theme-set.antv.vision',
+      },
+    ],
     docs: [
       {
         slug: 'manual/concepts',
@@ -68,11 +84,12 @@ module.exports = {
         order: 3,
       },
       {
-        slug: 'manual/concepts/geometry',
+        slug: 'manual/dataset',
         title: {
-          zh: '几何图形',
-          en: 'Geometry',
+          zh: 'DataSet',
+          en: 'DataSet',
         },
+        order: 4,
       },
       {
         slug: 'manual/concepts/component',
@@ -80,6 +97,15 @@ module.exports = {
           zh: '图形组件',
           en: 'Components',
         },
+        order: 1,
+      },
+      {
+        slug: 'manual/concepts/geometry',
+        title: {
+          zh: '几何图形',
+          en: 'Geometry',
+        },
+        order: 2,
       },
       {
         slug: 'api/general',

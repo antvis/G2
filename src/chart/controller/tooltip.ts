@@ -13,7 +13,7 @@ import {
 } from '@antv/util';
 import { Crosshair, HtmlTooltip, IGroup } from '../../dependents';
 import Geometry from '../../geometry/base';
-import { Point, TooltipOption } from '../../interface';
+import { Point, TooltipItem, TooltipOption } from '../../interface';
 import { getAngleByPoint, getDistanceToCenter, isPointInCoordinate } from '../../util/coordinate';
 import { polarToCartesian } from '../../util/graphics';
 import { findDataByPoint, getTooltipItems } from '../../util/tooltip';
@@ -115,7 +115,7 @@ export default class Tooltip extends Controller<TooltipOption> {
         })
       );
 
-      if (showContent) {
+      if (isFunction(showContent) ? showContent(items) : showContent) {
         // 展示 tooltip 内容框才渲染 tooltip
         if (!this.tooltip) {
           // 延迟生成
@@ -126,7 +126,7 @@ export default class Tooltip extends Controller<TooltipOption> {
             {},
             cfg,
             {
-              items,
+              items: this.getItemsAfterProcess(items),
               title,
             },
             follow ? point : {}
@@ -694,12 +694,13 @@ export default class Tooltip extends Controller<TooltipOption> {
   }
 
   private getTooltipItemsByHitShape(geometry, point, title) {
+    const { showNil } = this.getTooltipCfg();
     const result = [];
     const container = geometry.container;
     const shape = container.getShape(point.x, point.y);
     if (shape && shape.get('visible') && shape.get('origin')) {
       const mappingData = shape.get('origin').mappingData;
-      const items = getTooltipItems(mappingData, geometry, title);
+      const items = getTooltipItems(mappingData, geometry, title, showNil);
       if (items.length) {
         result.push(items);
       }
@@ -709,6 +710,7 @@ export default class Tooltip extends Controller<TooltipOption> {
   }
 
   private getTooltipItemsByFindData(geometry: Geometry, point, title) {
+    const { showNil } = this.getTooltipCfg();
     const result = [];
     const dataArray = geometry.dataArray;
     if (!isEmpty(dataArray)) {
@@ -721,7 +723,7 @@ export default class Tooltip extends Controller<TooltipOption> {
           if (geometry.type === 'heatmap' || element.visible) {
             // Heatmap 没有 Element
             // 如果图形元素隐藏了，怎不再 tooltip 上展示相关数据
-            const items = getTooltipItems(record, geometry, title);
+            const items = getTooltipItems(record, geometry, title, showNil);
             if (items.length) {
               result.push(items);
             }
@@ -787,5 +789,16 @@ export default class Tooltip extends Controller<TooltipOption> {
     }
 
     return find(view.views, (childView) => this.getViewWithGeometry(childView));
+  }
+
+  /**
+   * 根据用户配置的 items 配置，来进行用户自定义的处理，并返回最终的 items
+   * 默认不做任何处理
+   */
+  private getItemsAfterProcess(originalItems: TooltipItem[]): TooltipItem[] {
+    const { customItems } = this.getTooltipCfg();
+    const fn = customItems ? customItems : (v) => v;
+
+    return fn(originalItems);
   }
 }

@@ -2,6 +2,7 @@ import { Chart } from '../../../../src';
 import { createDiv, removeDom } from '../../../util/dom';
 import { salesBySubCategory, subSalesBySubCategory, subSalesByArea } from '../../../data/sales';
 import { COMPONENT_TYPE } from '../../../../src/constant';
+import { Scrollbar as ScrollbarComponent } from '../../../../src/dependents';
 import { BBox } from '../../../../src/util/bbox';
 import { delay } from '../../../util/delay';
 import { near } from '../../../util/math';
@@ -48,6 +49,7 @@ describe('Scrollbar', () => {
     expect(scrollbar.component.get('trackLen')).toBe(coordinateBBox.width);
     // @ts-ignore
     expect(chart.filteredData.length).toBe(14);
+    chart.destroy();
   });
 
   it('scrollbar /w interval vertical', async () => {
@@ -252,6 +254,7 @@ describe('Scrollbar', () => {
 
     // 没有重叠
     expect(legendBBox.collide(scrollbarBBox)).toBe(false);
+    chart.destroy();
   });
 
   it('scrollbar update after changeData', async () => {
@@ -295,6 +298,8 @@ describe('Scrollbar', () => {
     expect(scrollbar.component.get('trackLen')).toBe(coordinateBBox.width);
     // @ts-ignore
     expect(chart.filteredData.length).toBe(9);
+
+    chart.destroy();
   });
 
   it('scrollbar update after changeSize', async () => {
@@ -335,9 +340,83 @@ describe('Scrollbar', () => {
     expect(scrollbar.component.get('trackLen')).toBe(coordinateBBox.width);
     // @ts-ignore
     expect(chart.filteredData.length).toBe(9);
+
+    chart.destroy();
   });
 
   afterAll(() => {
-    // removeDom(container);
+    removeDom(container);
+  });
+});
+
+describe('scrollbar theme', () => {
+  const container = createDiv();
+
+  const chart = new Chart({
+    container,
+    height: 400,
+    width: 500,
+    theme: {
+      components: {
+        scrollbar: {
+          default: {
+            style: {
+              trackColor: 'red',
+              thumbColor: 'green',
+            },
+          },
+          hover: {
+            style: {
+              thumbColor: 'yellow',
+            },
+          },
+        },
+      },
+    },
+  });
+  chart.animate(false);
+  chart.data(salesBySubCategory);
+  chart.option('scrollbar', {
+    type: 'horizontal',
+  });
+  chart.interval().position('subCategory*sales').label('sales');
+  chart.render();
+
+  it('by G2 theme', async () => {
+    await delay(1);
+
+    const [scrollbar] = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.SCROLLBAR);
+
+    expect((scrollbar.component as ScrollbarComponent).getElementByLocalId('track').attr('stroke')).toBe('red');
+    const thumb = (scrollbar.component as ScrollbarComponent).getElementByLocalId('thumb');
+    expect(thumb.attr('stroke')).toBe('green');
+
+    thumb.emit('mouseover');
+    expect(thumb.attr('stroke')).toBe('yellow');
+  });
+
+  it('by scrollbar cfg', async () => {
+    chart.option('scrollbar', {
+      type: 'horizontal',
+      style: {
+        trackColor: 'lightblue',
+        thumbColor: 'lightgreen',
+        thumbHighlightColor: 'red',
+      },
+    });
+    chart.render();
+
+    await delay(1);
+
+    const [scrollbar] = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.SCROLLBAR);
+
+    expect((scrollbar.component as ScrollbarComponent).getElementByLocalId('track').attr('stroke')).toBe('lightblue');
+    const thumb = (scrollbar.component as ScrollbarComponent).getElementByLocalId('thumb');
+    expect(thumb.attr('stroke')).toBe('lightgreen');
+
+    thumb.emit('mouseover');
+    expect(thumb.attr('stroke')).toBe('red');
+
+    chart.destroy();
   });
 });

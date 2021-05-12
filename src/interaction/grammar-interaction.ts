@@ -6,7 +6,7 @@ import InteractionContext from './context';
 import Interaction from './interaction';
 
 // 将字符串转换成 action
-function parseAction(actionStr: string, context: IInteractionContext): ActionObject {
+export function parseAction(actionStr: string, context: IInteractionContext, arg?: any): ActionObject {
   const arr = actionStr.split(':');
   const actionName = arr[0];
   // 如果已经初始化过 action ，则直接引用之前的 action
@@ -18,14 +18,15 @@ function parseAction(actionStr: string, context: IInteractionContext): ActionObj
   return {
     action,
     methodName,
+    arg,
   };
 }
 
 // 执行 Action
 function executeAction(actionObject: ActionObject) {
-  const { action, methodName } = actionObject;
+  const { action, methodName, arg } = actionObject;
   if (action[methodName]) {
-    action[methodName]();
+    action[methodName](arg);
   } else {
     throw new Error(`Action(${action.name}) doesn't have a method called ${methodName}`);
   }
@@ -57,6 +58,11 @@ export interface InteractionStep {
    * - ActionCallback: 回调函数
    */
   action: string | string[] | ActionCallback;
+  /**
+   * 反馈，具体 action method 的参数：
+   * - 当传递多个 action 时，args 必须是一个数组
+   */
+  arg?: any | any[];
   /**
    * 回调函数，action 执行后执行
    */
@@ -123,6 +129,10 @@ interface ActionObject {
    * action 的方法
    */
   methodName: string;
+  /**
+   * 用户传递的 action 方法的参数
+   */
+  arg?: any;
 }
 
 /** 交互的所有环节 */
@@ -230,8 +240,8 @@ export default class GrammarInteraction extends Interaction {
     this.context = context;
     const steps = this.steps;
     // 生成具体的 Action
-    each(steps, (subSteps) => {
-      each(subSteps, (step) => {
+    each(steps, (subSteps: InteractionStep[]) => {
+      each(subSteps, (step: InteractionStep) => {
         if (isFunction(step.action)) {
           // 如果传入回调函数，则直接生成 CallbackAction
           step.actionObject = {
@@ -240,13 +250,14 @@ export default class GrammarInteraction extends Interaction {
           };
         } else if (isString(step.action)) {
           // 如果是字符串
-          step.actionObject = parseAction(step.action, context);
+          step.actionObject = parseAction(step.action, context, step.arg);
         } else if (isArray(step.action)) {
           // 如果是数组
           const actionArr = step.action;
+          const argArr = isArray(step.arg) ? step.arg : [step.arg];
           step.actionObject = [];
-          each(actionArr, (actionStr) => {
-            step.actionObject.push(parseAction(actionStr, context));
+          each(actionArr, (actionStr, idx) => {
+            (step.actionObject as ActionObject[]).push(parseAction(actionStr, context, argArr[idx]));
           });
         }
         // 如果 action 既不是字符串，也不是函数，则不会生成 actionObject

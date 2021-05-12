@@ -16,7 +16,7 @@ order: 15
 // 配置更新时的入场动画，其他动画类型相同
 geom.animate({
   enter: {
-    animation: 'fadeIn', // 动画名称
+    animation: 'fade-in', // 动画名称
     easing: 'easeQuadIn', // 动画缓动效果
     delay: 100, // 动画延迟执行时间
     duration: 600 // 动画执行时间
@@ -34,7 +34,7 @@ geom.animate({
 delay(index, id) {}
 ```
 
-参数 animation 为对应执行的动画名称，G2 默认内置了如下几种动画：
+参数 animation 为对应执行的动画名称，G2 默认内置了如下几种动画：(注意：这里的动画名称需要使用 '-' 连接符的形式，如：fadeIn -> 'fade-in')
 
 ```js
 {

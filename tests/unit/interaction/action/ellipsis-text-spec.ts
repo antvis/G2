@@ -19,6 +19,13 @@ describe('test component tooltip', () => {
   ]);
   chart.animate(false);
   chart.interval().position('year*value').color('year');
+  chart.axis('year', {
+    label: {
+      autoRotate: true,
+      autoEllipsis: true,
+      autoHide: true,
+    },
+  });
   chart.render();
 
   const interaction = createInteraction('ellipsis-text', chart);
@@ -61,6 +68,6 @@ describe('test component tooltip', () => {
   });
 
   afterAll(() => {
-    chart.destroy();
+    // chart.destroy();
   });
 });

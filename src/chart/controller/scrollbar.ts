@@ -5,7 +5,7 @@ import View from '../view';
 import { BBox } from '../../util/bbox';
 import { directionToPosition } from '../../util/direction';
 import { COMPONENT_TYPE, DIRECTION, LAYER, VIEW_LIFE_CIRCLE } from '../../constant';
-import { isObject, clamp, size, throttle, noop, get, valuesOfKey } from '@antv/util';
+import { isObject, clamp, size, throttle, noop, get, valuesOfKey, deepMix } from '@antv/util';
 import { isBetween } from '../../util/helper';
 
 const DEFAULT_PADDING: number = 0;
@@ -174,7 +174,19 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
    */
   private getThemeOptions() {
     const theme = this.view.getTheme();
-    return get(theme, ['components', 'slider', 'common'], {});
+    return get(theme, ['components', 'scrollbar', 'common'], {});
+  }
+
+  /**
+   * 获取 scrollbar 组件的主题样式
+   */
+  private getScrollbarTheme(style?: ScrollbarCfg['style']) {
+    const theme = get(this.view.getTheme(), ['components', 'scrollbar']);
+    const { thumbHighlightColor, ...restStyles } = style || {};
+    return {
+      default: deepMix({}, get(theme, ['default', 'style'], {}), restStyles),
+      hover: deepMix({}, get(theme, ['hover', 'style'], {}), { thumbColor: thumbHighlightColor }),
+    };
   }
 
   private resetMeasure = () => {
@@ -292,8 +304,7 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
 
   private getScrollbarComponentCfg() {
     const { coordinateBBox, viewBBox } = this.view;
-    const xScale = this.view.getXScale();
-    const { type, padding, width, height } = this.getValidScrollbarCfg();
+    const { type, padding, width, height, style } = this.getValidScrollbarCfg();
     const isHorizontal = type !== 'vertical';
     const [paddingTop, paddingRight, paddingBottom, paddingLeft] = padding;
     const position = isHorizontal
@@ -321,6 +332,7 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
       trackLen,
       thumbLen,
       thumbOffset: 0,
+      theme: this.getScrollbarTheme(style),
     };
   }
 
@@ -335,6 +347,7 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
       height: DEFAULT_SIZE,
       padding: [0, 0, 0, 0],
       animate: true,
+      style: {},
     };
     if (isObject(this.option)) {
       cfg = { ...cfg, ...this.option };

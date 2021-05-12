@@ -1,4 +1,4 @@
-import { Chart } from '../../../../src/index';
+import { Chart, registerInteraction } from '../../../../src/index';
 import { isPointInCoordinate } from '../../../../src/util/coordinate';
 import { createDiv } from '../../../util/dom';
 
@@ -65,6 +65,65 @@ describe('test active region', () => {
     expect(regionShape.get('visible')).toBe(true);
     chart.emit('plot:mouseleave', {});
     expect(regionShape.get('visible')).toBe(false);
+  });
+
+  it('region-path style', () => {
+    const point = chart.getXY({ year: '1999', value: 3 });
+    chart.emit('plot:mousemove', point);
+    expect(regionShape.get('visible')).toBe(true);
+    expect(regionShape.attr('fill')).toBe('#CCD6EC');
+    chart.emit('plot:mouseleave', {});
+
+    // 方式1: 覆盖注册, 且需要 chart 重新绑定交互
+    registerInteraction('active-region', {
+      start: [
+        { trigger: 'plot:mousemove', action: 'active-region:show', arg: { style: { fill: 'rgba(255,0,0,0.25)' } } },
+      ],
+      end: [{ trigger: 'plot:mouseleave', action: 'active-region:hide' }],
+    });
+    chart.interaction('active-region');
+    chart.emit('plot:mousemove', point);
+    const regionShape2 = chart.backgroundGroup.findAll((el) => {
+      return el.get('name') === 'active-region';
+    })[0];
+    expect(regionShape2.get('visible')).toBe(true);
+    expect(regionShape2.attr('fill')).toBe('rgba(255,0,0,0.25)');
+    chart.emit('plot:mouseleave', {});
+    expect(regionShape2.get('visible')).toBe(false);
+
+    chart.removeInteraction('active-region');
+    // multiple actions with args
+    registerInteraction('custom', {
+      start: [{ trigger: 'plot:mousemove', action: ['tooltip:show', 'active-region:show'] }],
+      end: [{ trigger: 'plot:mouseleave', action: 'active-region:hide' }],
+    });
+
+    chart.interaction('custom', {
+      start: [
+        {
+          trigger: 'plot:mousemove',
+          action: ['tooltip:show', 'active-region:show'],
+          arg: [null, { style: { fill: 'blue' } }],
+        },
+      ],
+    });
+    chart.emit('plot:mousemove', point);
+    const regionShape3 = chart.backgroundGroup.findAll((el) => {
+      return el.get('name') === 'active-region';
+    })[0];
+    // @ts-ignore
+    expect(chart.getController('tooltip').isVisible()).toBe(true);
+    expect(regionShape3.attr('fill')).toBe('blue');
+    chart.emit('plot:mouseleave', {});
+    chart.removeInteraction('custom');
+
+    // 方式2: 重新绑定交互，且传入参数
+    chart.interaction('active-region', {
+      start: [{ trigger: 'plot:mousemove', action: 'active-region:show', arg: { style: { fill: 'pink' } } }],
+    });
+    chart.emit('plot:mousemove', point);
+    expect(chart.backgroundGroup.findAll((el) => el.get('name') === 'active-region')[0].attr('fill')).toBe('pink');
+    chart.emit('plot:mouseleave', {});
   });
 
   it('change trigger', () => {

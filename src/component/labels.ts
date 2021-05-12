@@ -1,4 +1,4 @@
-import { deepMix, each, get, isArray } from '@antv/util';
+import { deepMix, each, get, isArray, isNull } from '@antv/util';
 import { BBox, Coordinate, IGroup, IShape } from '../dependents';
 import { LabelItem } from '../geometry/label/interface';
 import { AnimateOption, GeometryLabelLayoutCfg } from '../interface';
@@ -128,7 +128,7 @@ export default class Labels {
     offscreenGroup.destroy();
   }
 
-  /** 清楚当前 labels */
+  /** 清除当前 labels */
   public clear() {
     this.container.clear();
     this.shapesMap = {};
@@ -180,6 +180,7 @@ export default class Labels {
       labelShape = content;
       labelGroup.add(content);
     } else {
+      const fill = get(cfg, ['style', 'fill']);
       labelShape = labelGroup.addShape('text', {
         attrs: {
           x: cfg.x,
@@ -188,6 +189,7 @@ export default class Labels {
           textBaseline: get(cfg, 'textBaseline', 'middle'),
           text: cfg.content,
           ...cfg.style,
+          fill: isNull(fill) ? cfg.color : fill,
         },
         ...shapeAppendCfg,
       });

@@ -1,5 +1,7 @@
 import { deepMix, each, get, isArray, isEmpty, isEqual, isFunction, isString } from '@antv/util';
-import { propagationDelegate } from '@antv/component/lib/util/event';
+// 暂未发包
+// @ts-ignore
+import { propagationDelegate } from '@antv/component';
 import { doAnimate } from '../../animate';
 import Base from '../../base';
 import { BBox, IGroup, IShape } from '../../dependents';
@@ -7,6 +9,7 @@ import { AnimateOption, Datum, ShapeFactory, ShapeInfo, StateCfg } from '../../i
 import { getReplaceAttrs } from '../../util/graphics';
 import Geometry from '../base';
 import { GEOMETRY_LIFE_CIRCLE } from '../../constant';
+import { BACKGROUND_SHAPE } from '../shape/constant';
 
 /** Element 构造函数传入参数类型 */
 interface ElementCfg {
@@ -369,7 +372,7 @@ export default class Element extends Base {
             isFunction(cfg.callback) && cfg.callback();
             this.geometry?.emit(GEOMETRY_LIFE_CIRCLE.AFTER_DRAW_ANIMATE);
           },
-        }
+        };
       }
       return cfg;
     }
@@ -446,13 +449,14 @@ export default class Element extends Base {
     animateCfg,
     index: number = 0
   ) {
+    if (!sourceShape || !targetShape) {
+      return;
+    }
     // 所有的 shape 都需要同步 clip
     const clip = sourceShape.get('clipShape');
     const newClip = targetShape.get('clipShape');
 
-    if (clip && newClip) {
-      this.syncShapeStyle(clip, newClip, states, animateCfg);
-    }
+    this.syncShapeStyle(clip, newClip, states, animateCfg);
 
     if (sourceShape.isGroup()) {
       const children = sourceShape.get('children');
@@ -469,9 +473,12 @@ export default class Element extends Base {
         }
 
         each(states, (state) => {
-          const style = this.getStateStyle(state, name || index); // 如果用户没有设置 name，则默认根据索引值
-          targetShape.attr(style);
-        })
+          // background shape 不进行状态样式设置
+          if (targetShape.get('name') !== BACKGROUND_SHAPE) {
+            const style = this.getStateStyle(state, name || index); // 如果用户没有设置 name，则默认根据索引值
+            targetShape.attr(style);
+          }
+        });
       }
       const newAttrs = getReplaceAttrs(sourceShape as IShape, targetShape as IShape);
 

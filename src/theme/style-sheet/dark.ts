@@ -58,14 +58,29 @@ const QUALITATIVE_20 = [
   '#FFE0ED',
 ];
 
+/** 单色顺序色板 */
+const SINGLE_SEQUENCE = [
+  '#B8E1FF',
+  '#9AC5FF',
+  '#7DAAFF',
+  '#5B8FF9',
+  '#3D76DD',
+  '#085EC0',
+  '#0047A5',
+  '#00318A',
+  '#001D70',
+];
+
 export const createDarkStyleSheet = (cfg: StyleSheetCfg = {}) => {
   const {
     backgroundColor = '#141414',
+    subColor = 'rgba(255,255,255,0.05)',
     paletteQualitative10 = QUALITATIVE_10,
     paletteQualitative20 = QUALITATIVE_20,
     paletteSemanticRed = '#F4664A',
     paletteSemanticGreen = '#30BF78',
     paletteSemanticYellow = '#FAAD14',
+    paletteSequence = SINGLE_SEQUENCE,
     fontFamily = `"-apple-system", "Segoe UI", Roboto, "Helvetica Neue", Arial,
     "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
     "Noto Color Emoji"`,
@@ -77,6 +92,8 @@ export const createDarkStyleSheet = (cfg: StyleSheetCfg = {}) => {
     backgroundColor,
     /** 主题色 */
     brandColor,
+    /** 图表辅助色 */
+    subColor,
     /** 分类色板 1，在数据量小于等于 10 时使用 */
     paletteQualitative10,
     /** 分类色板 2，在数据量大于 10 时使用 */
@@ -87,6 +104,8 @@ export const createDarkStyleSheet = (cfg: StyleSheetCfg = {}) => {
     paletteSemanticGreen,
     /** 语义色 */
     paletteSemanticYellow,
+    /** (单色)顺序色板 */
+    paletteSequence,
     /** 字体 */
     fontFamily,
 
@@ -176,8 +195,30 @@ export const createDarkStyleSheet = (cfg: StyleSheetCfg = {}) => {
     legendItemSpacing: 24,
     /** 图例项垂直方向的间隔 */
     legendItemMarginBottom: 12,
-    /** 图例与图表绘图区域的便宜距离  */
+    /** 图例与图表绘图区域的偏移距离  */
     legendSpacing: 16,
+    /** 图例与图表绘图区域的偏移距离  */
+    legendPadding: [8, 8, 8, 8],
+    /** 水平布局的图例与绘图区域偏移距离 */
+    legendHorizontalPadding: [8, 0, 8, 0],
+    /** 垂直布局的图例与绘图区域偏移距离 */
+    legendVerticalPadding: [0, 8, 0, 8],
+
+    // 图例分页器
+    /** 图例分页器 marker 大小 */
+    legendPageNavigatorMarkerSize: 12,
+    /** 图例分页器 marker 填充色 */
+    legendPageNavigatorMarkerInactiveFillColor: BLACK_COLORS[45],
+    /** 图例分页器 marker 填充色透明度 */
+    legendPageNavigatorMarkerInactiveFillOpacity: 0.45,
+    /** 图例分页器 marker 激活状态填充色 */
+    legendPageNavigatorMarkerFillColor: BLACK_COLORS[45],
+    /** 图例分页器 marker 激活状态填充色透明度 */
+    legendPageNavigatorMarkerFillOpacity: 1,
+    /** 图例分页器文本颜色 */
+    legendPageNavigatorTextFillColor: BLACK_COLORS[65],
+    /** 图例分页器文本字体大小 */
+    legendPageNavigatorTextFontSize: 12,
 
     /** 连续图例滑块填充色 */
     sliderRailFillColor: BLACK_COLORS[15],
@@ -321,6 +362,58 @@ export const createDarkStyleSheet = (cfg: StyleSheetCfg = {}) => {
     labelLineBorder: 1,
     /** Geometry label 文本连接线颜色 */
     labelLineBorderColor: BLACK_COLORS[25],
+
+    // -------------------- Slider 组件样式--------------------
+    /** slider 滑道高度 */
+    cSliderRailHieght: 16,
+    /** slider 滑道背景色 */
+    cSliderBackgroundFillColor: '#416180',
+    /** slider 滑道背景色透明度 */
+    cSliderBackgroundFillOpacity: 0.05,
+    /** slider 滑道前景色 */
+    cSliderForegroundFillColor: '#5B8FF9',
+    /** slider 滑道前景色透明度 */
+    cSliderForegroundFillOpacity: 0.15,
+    // slider handlerStyle 手柄样式
+    /** slider 手柄高度 */
+    cSliderHandlerHeight: 24,
+    /** Slider 手柄宽度 */
+    cSliderHandlerWidth: 10,
+    /** Slider 手柄背景色 */
+    cSliderHandlerFillColor: '#F7F7F7',
+    /** Slider 手柄背景色透明度 */
+    cSliderHandlerFillOpacity: 1,
+    /** Slider 手柄高亮背景色 */
+    cSliderHandlerHighlightFillColor: '#FFF',
+    /** Slider 手柄边框色 */
+    cSliderHandlerBorderColor: '#BFBFBF',
+    /** Slider 手柄边框粗细 */
+    cSliderHandlerBorder: 1,
+    /** Slider 手柄边框圆角 */
+    cSliderHandlerBorderRadius: 2,
+    // slider textStyle 字体标签样式
+    /** Slider 字体标签颜色 */
+    cSliderTextFillColor: '#fff',
+    /** Slider 字体标签透明度 */
+    cSliderTextFillOpacity: 0.45,
+    /** Slider 字体标签大小 */
+    cSliderTextFontSize: 12,
+    /** Slider 字体标签行高 */
+    cSliderTextLineHeight: 12,
+    /** Slider 字体标签字重 */
+    cSliderTextFontWeight: 'normal',
+    /** Slider 字体标签描边色 */
+    cSliderTextBorderColor: null,
+    /** Slider 字体标签描边粗细 */
+    cSliderTextBorder: 0,
+
+    // -------------------- Scrollbar 组件样式--------------------
+    /** 滚动条 滚道填充色 */
+    scrollbarTrackFillColor: 'rgba(255,255,255,0.65)',
+    /** 滚动条 滑块填充色 */
+    scrollbarThumbFillColor: 'rgba(0,0,0,0.35)',
+    /** 滚动条 滑块高亮填充色 */
+    scrollbarThumbHighlightFillColor: 'rgba(0,0,0,0.45)',
 
     // -------------------- Geometry 图形样式--------------------
     /** 点图填充颜色 */

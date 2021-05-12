@@ -56,7 +56,6 @@ const ANNOTATIONS_AFTER_RENDER = ['regionFilter', 'shape'];
 export default class Annotation extends Controller<BaseOption[]> {
   private foregroundContainer: IGroup;
   private backgroundContainer: IGroup;
-  private htmlContainer: HTMLDivElement;
 
   /* 组件更新的 cache，组件配置 object : 组件 */
   private cache = new Map<BaseOption, ComponentOption>();
@@ -66,7 +65,6 @@ export default class Annotation extends Controller<BaseOption[]> {
 
     this.foregroundContainer = this.view.getLayer(LAYER.FORE).addGroup();
     this.backgroundContainer = this.view.getLayer(LAYER.BG).addGroup();
-    this.initHTMLContainer();
 
     this.option = [];
   }
@@ -131,10 +129,9 @@ export default class Annotation extends Controller<BaseOption[]> {
   public clear(includeOption = false) {
     super.clear();
 
-    this.cache.clear();
+    this.clearComponents();
     this.foregroundContainer.clear();
     this.backgroundContainer.clear();
-    this.clearHTMLContainer();
 
     // clear all option
     if (includeOption) {
@@ -147,7 +144,6 @@ export default class Annotation extends Controller<BaseOption[]> {
 
     this.foregroundContainer.remove(true);
     this.backgroundContainer.remove(true);
-    this.clearHTMLContainer(true);
   }
 
   /**
@@ -161,6 +157,17 @@ export default class Annotation extends Controller<BaseOption[]> {
     });
 
     return co;
+  }
+
+  /**
+   * 清除当前的组件
+   */
+  private clearComponents() {
+    this.getComponents().forEach((co) => {
+      co.component.destroy();
+    });
+
+    this.cache.clear();
   }
 
   /**
@@ -200,19 +207,6 @@ export default class Annotation extends Controller<BaseOption[]> {
         type: COMPONENT_TYPE.ANNOTATION,
         extra: option,
       };
-    }
-  }
-
-  private initHTMLContainer() {
-    this.htmlContainer = (this.view.getCanvas().get('el').parentNode as HTMLDivElement).appendChild(
-      document.createElement('div')
-    );
-  }
-
-  private clearHTMLContainer(destroyed = false) {
-    this.htmlContainer.remove();
-    if (!destroyed) {
-      this.initHTMLContainer();
     }
   }
 
@@ -618,7 +612,7 @@ export default class Annotation extends Controller<BaseOption[]> {
         ...restOptions,
         ...this.parsePosition(position),
         // html 组件需要指定 parent
-        parent: this.htmlContainer,
+        parent: canvas.get('el').parentNode,
         html: wrappedHtml,
       };
     }

@@ -1,6 +1,6 @@
 ---
 title: 度量 - Scale
-order: 2
+order: 4
 ---
 
 `markdown:docs/common/style.md`
@@ -222,4 +222,4 @@ tick 格式化函数，会影响数据在坐标轴 axis、图例 legend、toolti
 
 <description> _string_ **optional**</description>
 
-时间度量 time, timeCat 时有效。
+时间度量 time, timeCat 时有效。底层使用 [fecha](https://github.com/taylorhakes/fecha#formatting-tokens) 进行日期的格式，所以对于 mask 的字符串可以直接参考其写法。

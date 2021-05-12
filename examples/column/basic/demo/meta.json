@@ -10,7 +10,15 @@
         "zh": "基础柱状图",
         "en": "Column chart"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*4JDKS4I7MvcAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/e%24NnUtHbjm/a9632163-6aa8-4d53-8a2a-c1878426a51b.png"
+    },
+    {
+      "filename": "corner-radius.ts",
+      "title": {
+        "zh": "带倒角的柱状图",
+        "en": "Column chart with corner radius"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/7asolORz4s/2781b4e3-3d12-43c7-8646-124e400d5182.png"
     },
     {
       "filename": "ranged.ts",

@@ -128,4 +128,34 @@ describe('Event', () => {
     expect(mousemoveEvent).toBeCalled();
     expect(mousedownEvent).toBeCalled();
   });
+
+  it('fix: not trigger same event twice', () => {
+    let plotClick = 0;
+    let plotClick2 = 0;
+    let dblClick = 0;
+
+    chart.on('*', (e) => {
+      if (e.type === 'plot:dblclick') {
+        plotClick += 1;
+      }
+    });
+
+    chart.on('dblclick', (e) => {
+      if (e.type === 'plot:dblclick') {
+        plotClick2 += 1;
+      }
+      if (e.type === 'dblclick') {
+        dblClick += 1;
+      }
+    });
+
+    simulateMouseEvent(chart.canvas.get('el'), 'dblclick', getClientPoint(chart.canvas, 134, 410));
+    expect(plotClick).toBe(1);
+    expect(plotClick2).toBe(0);
+    expect(dblClick).toBe(1);
+  });
+
+  afterAll(() => {
+    chart.destroy();
+  });
 });

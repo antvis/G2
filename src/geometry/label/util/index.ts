@@ -28,7 +28,7 @@ export function getlLabelBackgroundInfo(
     const labelShape = content.clone();
 
     // revert rotate
-    if (labelItem.rotate) {
+    if (labelItem?.rotate) {
       rotate(labelShape as IGroup, -labelItem.rotate);
     }
 
@@ -49,7 +49,7 @@ export function getlLabelBackgroundInfo(
       y: y - boxPadding[0],
       width: width + boxPadding[1] + boxPadding[3],
       height: height + boxPadding[0] + boxPadding[2],
-      rotation: labelItem.rotate || 0,
+      rotation: labelItem?.rotate || 0,
     };
   }
 }

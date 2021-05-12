@@ -1,4 +1,4 @@
-import getArcParams from '@antv/g-canvas/lib/util/arc-params';
+import { getArcParams } from '@antv/g-canvas';
 import { isNumberEqual, isEqual } from '@antv/util';
 
 import { IShape, PathCommand } from '../../dependents';
@@ -40,7 +40,7 @@ function getArcStartPoint(path: PathCommand) {
   let startPoint;
   if (path[0] === 'M' || path[0] === 'L') {
     startPoint = [path[1], path[2]];
-  } else if (path[0] === 'a' || path[0] === 'A') {
+  } else if (path[0] === 'a' || path[0] === 'A' || path[0] === 'C') {
     startPoint = [path[path.length - 2], path[path.length - 1]];
   }
 
@@ -64,6 +64,15 @@ function getArcInfo(path: PathCommand[]) {
   const arcPaths = path.filter((command) => {
     return command[0] === 'A' || command[0] === 'a';
   });
+
+  if (arcPaths.length === 0) {
+    return {
+      startAngle: 0,
+      endAngle: 0,
+      radius: 0,
+      innerRadius: 0,
+    };
+  }
 
   const firstArcPathCommand = arcPaths[0];
   const lastArcPathCommand = arcPaths.length > 1 ? arcPaths[1] : arcPaths[0];
@@ -119,6 +128,11 @@ export function sectorPathUpdate(shape: IShape, animateCfg: GAnimateCfg, cfg: An
   const center = coordinate.getCenter();
   const diffStartAngle = curStartAngle - preStartAngle;
   const diffEndAngle = curEndAngle - preEndAngle;
+  // 没有 diff 时直接返回最终 attrs，不需要额外动画
+  if (diffStartAngle === 0 && diffEndAngle === 0) {
+    shape.attr('path', path);
+    return;
+  }
 
   shape.animate(
     (ratio) => {

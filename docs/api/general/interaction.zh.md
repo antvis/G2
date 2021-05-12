@@ -376,9 +376,10 @@ registerInteraction('legend-filter', {
 ```
 
 - 触发的对象：图例项 legend-item
-- action 有 3 个
+- action 有 4 个
   - 鼠标 cursor
   - 列表取消选中：list-unchecked
+  - 列表选中：list-checked (✨ 新增)
   - 数据过滤：data-filter
 
 <img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*6RfZTr4ytVYAAAAAAAAAAABkARQnAQ" style="width: 339px;">

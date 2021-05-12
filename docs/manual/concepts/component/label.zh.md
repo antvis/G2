@@ -17,7 +17,7 @@ order: 4
 geometry.label();
 ```
 
-关于该接口的详细使用以及属性配置，可以翻阅 [API 文档](../../api/label)。
+关于该接口的详细使用以及属性配置，可以翻阅 [API 文档](../../../api/general/label)。
 
 下面以折线图文本标签为例，我们想要在折线上显示 'value' 字段的值，我们只需要添加如下声明：
 
@@ -113,4 +113,4 @@ chart
   });
 ```
 
-对于文本布局，有多种解决方案，为了更大的灵活，G2 提供了自定义 label 布局的机制，用户可以根据需求自定义 label 布局，具体使用请阅读[自定义 label 布局](../developer/registerlabel/#自定义-label-布局函数)。
+对于文本布局，有多种解决方案，为了更大的灵活，G2 提供了自定义 label 布局的机制，用户可以根据需求自定义 label 布局，具体使用请阅读[自定义 label 布局](../developer/register-label/#自定义-label-布局函数)。

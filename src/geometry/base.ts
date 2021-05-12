@@ -129,6 +129,8 @@ export interface GeometryCfg {
   labelsContainer?: IGroup;
   /** 是否对数据进行排序 */
   sortable?: boolean;
+  /** elements 的 zIndex 默认按顺序提升，通过 zIndexReversed 可以反序，从而数据越前，层级越高 */
+  zIndexReversed?: boolean;
   /** 是否可见 */
   visible?: boolean;
   /** 主题配置 */
@@ -255,6 +257,8 @@ export default class Geometry extends Base {
   protected roseWidthRatio: number;
   /** 多层饼图/环图占比 */
   protected multiplePieWidthRatio: number;
+  /** elements 的 zIndex 默认按顺序提升，通过 zIndexReversed 可以反序，从而数据越前，层级越高 */
+  protected zIndexReversed?: boolean;
 
   /** 虚拟 Group，用于图形更新 */
   private offscreenGroup: IGroup;
@@ -287,6 +291,7 @@ export default class Geometry extends Base {
       columnWidthRatio,
       roseWidthRatio,
       multiplePieWidthRatio,
+      zIndexReversed,
     } = cfg;
 
     this.container = container;
@@ -306,6 +311,7 @@ export default class Geometry extends Base {
     this.columnWidthRatio = columnWidthRatio;
     this.roseWidthRatio = roseWidthRatio;
     this.multiplePieWidthRatio = multiplePieWidthRatio;
+    this.zIndexReversed = zIndexReversed;
   }
 
   /**
@@ -898,6 +904,7 @@ export default class Geometry extends Base {
     } else if (data && (isDataChanged || !isEqual(data, this.data))) {
       // 数据发生变化
       this.setCfg(cfg);
+      this.initAttributes(); // 创建图形属性
       this.processData(data); // 数据加工：分组 -> 数字化 -> adjust
     } else {
       // 有可能 coordinate 变化
@@ -1181,7 +1188,11 @@ export default class Geometry extends Base {
       id = `${xVal}-${yVal}`;
     }
 
-    const groupScales = this.groupScales;
+    let groupScales = this.groupScales;
+    if (isEmpty(groupScales)) {
+      groupScales = get(this.getAttribute('color'), 'scales', []);
+    }
+
     for (let index = 0, length = groupScales.length; index < length; index++) {
       const groupScale = groupScales[index];
       const field = groupScale.field;
@@ -1482,6 +1493,14 @@ export default class Geometry extends Base {
 
       elements.push(result);
       elementsMap[id] = result;
+    }
+
+    // 对 elements 的 zIndex 进行反序
+    if (this.zIndexReversed) {
+      const length = elements.length;
+      elements.forEach((ele, idx) => {
+        ele.shape.setZIndex(length - idx);
+      });
     }
 
     return elements;

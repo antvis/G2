@@ -95,6 +95,61 @@ describe('pie-spider-label layout', () => {
     expect(label1.getBBox().y + label1.getBBox().height / 2).toEqual(center.y);
   });
 
+  it('异常情况', () => {
+    chart.clear();
+
+    let data = [
+      { item: '事例一', count: 35 },
+      { item: '事例二', count: 25 },
+      { item: '事例三', count: 20 },
+      { item: '事例四', count: 20 },
+      { item: '事例五', count: 20 },
+    ];
+    chart.data(data);
+
+    chart.coordinate({
+      type: 'theta',
+      cfg: {
+        radius: 0.5,
+      },
+    });
+
+    chart
+      .interval()
+      .adjust('stack')
+      .position('count')
+      .color('item')
+      .label('item', {
+        layout: { type: 'pie-spider' },
+      });
+
+    chart.render();
+    let labels = chart.geometries[0].labelsContainer.getChildren();
+    expect(labels.length).toBe(5);
+
+    let label1 = labels.find((l) => l.get('id') === `1-${data[0].item}`);
+    let label2 = labels.find((l) => l.get('id') === `1-${data[1].item}`);
+
+    // @ts-ignore
+    expect(label1.getChildren()[0].getCanvasBBox().minX).toEqual(label2.getChildren()[0].getCanvasBBox().minX);
+
+    data = [
+      { item: '事例.一', count: 35 },
+      { item: '事例.二', count: 25 },
+      { item: '事例三', count: 20 },
+      { item: '事例四', count: 20 },
+      { item: '事例五', count: 20 },
+    ];
+    chart.changeData(data);
+
+    labels = chart.geometries[0].labelsContainer.getChildren();
+
+    label1 = labels.find((l) => l.get('id') === `1-${data[0].item}`);
+    label2 = labels.find((l) => l.get('id') === `1-${data[1].item}`);
+    // @ts-ignore
+    expect(label1.getChildren()[0].getCanvasBBox().minX).toEqual(label2.getChildren()[0].getCanvasBBox().minX);
+  });
+
   afterAll(() => {
     chart.destroy();
     removeDom(div);

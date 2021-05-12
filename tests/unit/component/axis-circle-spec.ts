@@ -59,7 +59,7 @@ describe('Component', () => {
 
     const grids = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.GRID);
     // circle grid 需要传入 coordinate 的 center
-    expect(grids[0].component.get('center')).toEqual({ x: 400, y: 285.5 });
+    expect(grids[0].component.get('center')).toEqual({ x: 400, y: 285 });
   });
 
   it('linear x axis ticks', () => {
