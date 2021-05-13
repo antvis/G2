@@ -1,5 +1,5 @@
-import { Position } from '../../../../src/visual/attribute';
-import { ScaleDef } from '../../../../src/visual/scale';
+import { Position } from '@g2/visual/attribute';
+import { ScaleDef } from '@g2/visual/scale';
 
 describe('attribute position', () => {
   const scaleCat = new ScaleDef({

@@ -28,6 +28,10 @@ export type SyncViewPaddingFn = (chart: View, views: View[], PC: any) => void;
  */
 export type Options = Partial<{
   /**
+   * 载入的原始数据
+   */
+  originalData: Data;
+  /**
    * 数据源配置
    */
   data: Data;
