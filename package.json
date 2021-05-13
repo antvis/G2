@@ -101,7 +101,7 @@
     "testEnvironment": "jest-electron/environment",
     "testTimeout": 30000,
     "preset": "ts-jest",
-    "collectCoverage": false,
+    "collectCoverage": true,
     "collectCoverageFrom": [
       "src/**/*.{js,ts}",
       "!**/node_modules/**",
