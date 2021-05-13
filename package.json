@@ -26,7 +26,7 @@
     "build:cjs": "rimraf ./lib && tsc --module commonjs --outDir lib",
     "build:esm": "rimraf ./esm && tsc --module ESNext --outDir esm",
     "build": "run-p build:*",
-    "ci": "run-s lint build coverage",
+    "ci": "run-s lint test build",
     "prepublishOnly": "npm run ci",
     "prepare": "husky install",
     "changelog": "generate-changelog"
