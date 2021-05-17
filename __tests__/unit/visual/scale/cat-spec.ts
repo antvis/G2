@@ -82,7 +82,7 @@ describe.skip('category scale', function () {
   });
 });
 
-describe('category scale with specified range', function () {
+describe.skip('category scale with specified range', function () {
   const scale = new ScaleDef({
     type: 'cat',
     domain: ['一月', '二月', '三月', '四月', '五月'],
@@ -109,7 +109,7 @@ describe('category scale with specified range', function () {
   });
 });
 
-describe('category scale multiple times', () => {
+describe.skip('category scale multiple times', () => {
   const scale = new ScaleDef({
     type: 'cat',
     domain: ['A', 'B', 'C'],
@@ -127,7 +127,7 @@ describe('category scale multiple times', () => {
   });
 });
 
-describe('category min, max', () => {
+describe.skip('category min, max', () => {
   it('0 value', () => {
     const scale = new ScaleDef({ type: 'cat', domain: [] });
     expect(scale.getOptions().range).toEqual([0, 0]);
