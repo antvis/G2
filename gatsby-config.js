@@ -299,6 +299,9 @@ module.exports = {
       indexName: 'antv_g2',
     },
     playground: {
+      devDependencies: {
+        typescript: 'latest',
+      },
       htmlCodeTemplate: `<!DOCTYPE html>
         <html>
           <head>
