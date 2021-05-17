@@ -64,7 +64,7 @@ export type ScaleDefCfg = {
   formatter?: (v: any) => string;
 
   /**
-   * 定义域，如果没有配置 min && max，则将定义域设为它
+   * 定义域，如果没有配置 min && max，则将定义域设为它。从之前的 values 改名过来。
    */
   domain?: any[];
 };

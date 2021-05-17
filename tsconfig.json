@@ -16,8 +16,6 @@
     "baseUrl": ".",
     "jsx": "preserve",
     "paths": {
-      "@g2": ["src"],
-      "@g2/*": ["src/*"]
     }
   },
   "include": ["src"]

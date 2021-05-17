@@ -1,4 +1,4 @@
-import { Dodge, Jitter, Stack, Symmetric } from '@g2/visual/adjust';
+import { Dodge, Jitter, Stack, Symmetric } from '../../../../src/visual/adjust';
 
 describe('adjust', () => {
   it('export', () => {
