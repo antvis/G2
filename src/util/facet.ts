@@ -1,5 +1,5 @@
+import { Constructable } from '@g2/types';
 import { Facet, Rect } from '../facet';
-import { Constructable } from '../types/common';
 
 const FacetMap = {
   rect: Rect,

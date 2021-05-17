@@ -1,6 +1,6 @@
+import { isNil } from '@antv/util';
+import { Callback } from '@g2/types';
 import { ScaleDef } from '../scale';
-
-export type Callback = (...args: any[]) => any[];
 
 export type AttributeCfg = {
   /**
@@ -12,7 +12,7 @@ export type AttributeCfg = {
    */
   readonly scales: ScaleDef[];
   /**
-   * 属性映射的 value
+   * 用户传参, 用于辅助映射的 value，比如 color，可以传一个色板数组
    */
   readonly value?: any;
   /**
@@ -26,7 +26,7 @@ export type AttributeCfg = {
  *
  * @class Base
  */
-export abstract class Attribute {
+export class Attribute {
   /**
    * attribute 的类型
    */
@@ -38,7 +38,7 @@ export abstract class Attribute {
   public fields: string[];
 
   /**
-   * 映射的值范围
+   * 用户传参, 用于辅助映射的 value，比如 color，可以传一个色板数组
    */
   public value: any[] = [];
 
@@ -52,13 +52,9 @@ export abstract class Attribute {
    */
   public scales: ScaleDef[];
 
-  /**
-   * 是否是 linear 线性映射
-   */
-  public isLinear: boolean = false;
-
-  protected constructor(cfg: AttributeCfg) {
+  constructor(cfg: Partial<AttributeCfg>) {
     this.update(cfg);
+    this.type = 'base';
   }
 
   /**
@@ -67,14 +63,59 @@ export abstract class Attribute {
    * @param params 需要映射的值（对应 scale 顺序的值传入）
    * @return {any[]} 映射结果
    */
-  public abstract mapping(...params: any[]): any[];
+  public mapping(...params: any[]) {
+    if (this.callback) {
+      const ret = this.callback(...params);
+      if (!isNil(ret)) {
+        return [ret];
+      }
+    }
+    // 没有 params 的情况，即没有指定 fields，直接返回配置的 values 常量
+    if (params.length === 0) {
+      return this.value;
+    }
+    return this.defaultCallback(...params);
+  }
+
+  /**
+   * attr 的默认回调函数，获取每一个参数和对应的 scale，然后调用 performUnitOfScale 进行映射
+   *
+   * @param params 需要映射的值（对应 scale 顺序的值传入）
+   * @return {any[]} 映射结果
+   */
+  protected defaultCallback(...params: any[]): any[] {
+    const results = [];
+    const len = params.length;
+    for (let i = 0; i < len; i += 1) {
+      const targetScale = this.scales[i];
+      const param = params[i];
+      results.push(this.performUnitOfScale(param, targetScale, i));
+    }
+
+    return results;
+  }
+
+  /**
+   * 开始处理一个参数，子类可以通过覆写此方法来自定义处理策略
+   * 我们的默认行为：直接映射
+   *
+   * @return {any[]} 映射结果
+   * @param param 需要映射的参数(用户传参)
+   * @param scale 本次对应的 scale 值
+   * @param index 当前参数基于所有参数的下标
+   */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected performUnitOfScale(param: any, scale: ScaleDef, index: number) {
+    // 默认行为 -- 直接映射
+    return scale.map(param);
+  }
 
   /**
    * 更新 Attribute 配置
    *
    * @param cfg attribute 配置
    */
-  public update(cfg: AttributeCfg) {
+  public update(cfg: Partial<AttributeCfg>) {
     const { fields = [], scales = [], value = [], callback } = cfg;
 
     this.fields = fields;
