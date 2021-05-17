@@ -20,6 +20,7 @@ export class ScalePool {
    * 所有的 scale 信息，k-v 存储
    */
   private scaleMap = new Map<string, ScaleMeta>();
+
   private syncScaleKeys = new Map<string, string[]>();
 
   /**

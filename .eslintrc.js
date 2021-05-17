@@ -5,6 +5,9 @@ module.exports = {
     node: true,
     jest: true,
   },
+  ignorePatterns: [
+    '.eslintrc.js'
+  ],
   extends: ['airbnb-base'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -16,7 +19,7 @@ module.exports = {
     'import',
   ],
   rules: {
-    semi: 'error',
+    'semi': 'error',
     'no-unused-vars': 'off',
     'import/extensions': 'off',
     'import/prefer-default-export': 'off',
@@ -33,6 +36,7 @@ module.exports = {
     '@typescript-eslint/no-dupe-class-members': ['error'],
     'lines-between-class-members': 'off',
     '@typescript-eslint/lines-between-class-members': ['error'],
+    'import/no-cycle': 'off',
   },
   settings: {
     'import/parsers': {

@@ -1,4 +1,5 @@
 import EE from '@antv/event-emitter';
+import { isArray } from '@antv/util';
 import {
   AttributeKey,
   AttributeOptions,
@@ -9,7 +10,6 @@ import {
   Datum,
   Scale,
   Adjust,
-  Func,
   ShapePoint,
 } from '../../types';
 import { GROUP_ATTR_KEYS, ORIGINAL_FIELD } from '../../constant';
@@ -18,7 +18,6 @@ import { groupData } from '../../util/data';
 import { getScaleUpdateOptionsAfterStack } from '../../util/scale';
 import { Attribute } from '../../visual/attribute';
 import { Element } from '../element';
-import { isArray } from '@antv/util';
 
 /**
  * 所有 Geometry 的基类
@@ -33,14 +32,17 @@ export class Geometry extends EE {
    * 视觉通道映射配置 Key Value 结构
    */
   private attriubteOptios: AttributeOptions;
+
   /**
    * 生成的 attributes 实例
    */
   private attributes: Map<string, Attribute>;
+
   /**
    * 设置的 adjust 配置
    */
   private adjustOptions: AdjustOption[];
+
   /**
    * 生成的 adjusts 实例
    */
@@ -140,6 +142,7 @@ export class Geometry extends EE {
         // TODO 为什么要在分组的时候对位置中分类数字化
         return categoryPositionScales.map((scale) => {
           const field = scale.field;
+          // @ts-ignore
           mappingDatum[field] = scale.mapping(field);
         });
       });
@@ -312,7 +315,7 @@ export class Geometry extends EE {
    * 绘制：将数据最终转化成 G 的 Shape
    */
   public paint() {
-    const beforeMappingData = this.beforeMappingData;
+    const { beforeMappingData } = this;
     // 1. 生成关键点
     const dataArray = this.beforeMapping(beforeMappingData);
 
@@ -333,7 +336,7 @@ export class Geometry extends EE {
   private setAttributeOption(attr: AttributeKey, fields: string, value?: any) {
     this.attriubteOptios.set(attr, {
       fields: fields.split('*'),
-      value: value,
+      value,
     });
   }
 
@@ -479,7 +482,7 @@ export class Geometry extends EE {
   /**
    * 返回 attribute 映射之后的数据
    * @param attr Attribute 图形属性实例。
-   * @param obj 需要进行映射的原始数据。
+   * @param datum
    * @returns
    */
   public getAttributeValues(attr: Attribute, datum: Datum) {
@@ -487,8 +490,9 @@ export class Geometry extends EE {
     const scales = attr.scales;
     for (let i = 0; i < scales.length; i++) {
       const scale = scales[i];
-      const field = scale.field;
-      if (scale.isIdentity) {
+      const { field } = scale;
+      if (scale.isIdentity()) {
+        // @ts-ignore, yuzhanglong: 暂时不清楚作用，先用 ts-ignore 解决报错问题
         params.push(scale.values);
       } else {
         params.push(datum[field]);
