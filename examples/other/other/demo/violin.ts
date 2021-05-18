@@ -26,7 +26,7 @@ fetch('../data/iris.json')
       field: 'value',
       as: 'y',
       groupBy: ['key', 'Species'],
-      p: [0.025, 0.975],
+      p: [0.05, 0.95],
     });
     // 计算 Q1 和 Q3 分位值，用于画分位线
     const dv4 = new DataView().source(dv2).transform({
@@ -51,7 +51,7 @@ fetch('../data/iris.json')
       syncViewPadding: true,
     });
     chart.scale({
-      key: { sync: true }, // key 字段在其中一个 view 映射到 color 了，在其他所以需要同步，否则
+      key: { sync: true },
       y: { sync: true },
     });
     chart.tooltip({ showMarkers: false, shared: true });
@@ -70,9 +70,9 @@ fetch('../data/iris.json')
       .position('key*y')
       .color('Species')
       .adjust(adjustCfg)
-      // 小提琴图还支持 smooth，smoothHollow 两种 shape
+      // 小提琴图还支持 smooth，smooth-hollow 两种 shape
       // .shape('smooth')
-      // .shape('smoothHollow')
+      // .shape('smooth-hollow')
       .size('size')
       .style({
         lineWidth: 1,
