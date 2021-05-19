@@ -122,7 +122,7 @@ describe.skip('category scale multiple times', () => {
   it('2nd time', () => {
     scale.update({
       range: [0.15, 0.85],
-    })
+    });
     expect(scale.map('A')).toBe(0.15);
   });
 });

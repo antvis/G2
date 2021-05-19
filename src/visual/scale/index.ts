@@ -68,8 +68,8 @@ export class ScaleDef {
 
   /**
    * 获取值对应的内容，处理 formatter
-   * @param v 
-   * @returns 
+   * @param v
+   * @returns
    */
   public getText(v: any) {
     const text = this.scale.invert(v);
