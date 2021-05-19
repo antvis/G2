@@ -1,4 +1,4 @@
-import { Attribute } from '@g2/visual/attribute';
+import { Attribute } from '../../../../src/visual/attribute';
 import { ScaleDef } from '../../../../src/visual/scale';
 
 describe('attribute base', () => {

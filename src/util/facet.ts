@@ -1,4 +1,4 @@
-import { Constructable } from '@g2/types';
+import { Constructable } from '../types';
 import { Facet, Rect } from '../facet';
 
 const FacetMap = {
