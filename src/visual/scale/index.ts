@@ -1,4 +1,4 @@
-import { isNil, max, min } from '@antv/util';
+import { isNil, map, max, min } from '@antv/util';
 import { BaseOptions, Scale, ScaleDefCfg } from '../../types';
 import { createScaleFactory } from '../../util/scale';
 
@@ -67,6 +67,26 @@ export class ScaleDef {
   }
 
   /**
+   * 获取值对应的内容，处理 formatter
+   * @param v
+   * @returns
+   */
+  public getText(v: any) {
+    const text = this.scale.invert(v);
+    return this.cfg.formatter ? this.cfg.formatter(text) : `${text}`;
+  }
+
+  /**
+   * 获取 ticks，处理过 formatter 的
+   */
+  public getTicks() {
+    return map(this.scale.getTicks(), (value) => ({
+      text: this.getText(value),
+      value,
+    }));
+  }
+
+  /**
    * 是否是线性连续 scale
    */
   public isLinear() {
@@ -87,6 +107,14 @@ export class ScaleDef {
    */
   public isIdentity() {
     return this.type === 'identity';
+  }
+
+  /**
+   * 获取 scale 的配置
+   * @returns
+   */
+  public getOptions() {
+    return this.scale.getOptions();
   }
 
   /**
@@ -131,6 +159,13 @@ export class ScaleDef {
       // 执行 antv/scale 更新
       this.scale.update(antvScaleCfg);
     }
+  }
+
+  /**
+   * 复制一个新的 scale
+   */
+  public clone() {
+    return new ScaleDef(this.cfg);
   }
 
   /**

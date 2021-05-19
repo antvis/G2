@@ -1,5 +1,5 @@
 import { isNil } from '@antv/util';
-import { Callback } from '@g2/types';
+import { Callback } from '../../types';
 import { ScaleDef } from '../scale';
 
 export type AttributeCfg = {
