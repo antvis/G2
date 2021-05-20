@@ -1,5 +1,5 @@
 import { isNil, map, max, min } from '@antv/util';
-import { BaseOptions, Scale, ScaleDefCfg } from '../../types';
+import { ScaleBaseOptions, Scale, ScaleDefCfg } from '../../types';
 import { createScaleFactory } from '../../util/scale';
 
 /**
@@ -10,7 +10,7 @@ import { createScaleFactory } from '../../util/scale';
  *
  * @param T scale 类型，默认为 Base
  * @param O scale 选项，默认为 BaseOption
- * @see {BaseOptions} in @antv/scale, scale 的基础配置
+ * @see {ScaleBaseOptions} in @antv/scale, scale 的基础配置
  * @see {Base} in @antv/scale scale 的基类
  */
 export class ScaleDef {
@@ -98,7 +98,7 @@ export class ScaleDef {
    * 是否是离散的分类 scale
    */
   public isCategory() {
-    const CATEGORY_TYPES = ['ordinal', 'band', 'point'];
+    const CATEGORY_TYPES = ['ordinal', 'band', 'point', 'cat', 'category'];
     return CATEGORY_TYPES.includes(this.type);
   }
 
@@ -183,9 +183,9 @@ export class ScaleDef {
   /**
    * 转换成下层的 @antv/scale 配置
    *
-   * @return {BaseOptions} 下层的 @antv/scale 配置
+   * @return {ScaleBaseOptions} 下层的 @antv/scale 配置
    */
-  private toAntvScaleCfg(): BaseOptions {
+  private toAntvScaleCfg(): ScaleBaseOptions {
     const { cfg } = this;
     let finalDomain: any[];
     // 如果是线性的，尝试使用 min 和 max 构造 domain 如果没有，我们从 传入的 domain 中寻找
