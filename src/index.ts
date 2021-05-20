@@ -680,6 +680,12 @@ declare module './chart/view' {
      * @returns heatmap 返回 Heatmap 实例。
      */
     heatmap(cfg?: Partial<GeometryCfg>): Heatmap;
+    /**
+     * 创建 Violin 几何标记。
+     * @param [cfg] 传入 Violin 构造函数的配置。
+     * @returns violin 返回 Violin 实例。
+     */
+    violin(cfg?: Partial<GeometryCfg>): Violin;
   }
 }
 
