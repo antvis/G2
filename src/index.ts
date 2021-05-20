@@ -26,7 +26,7 @@ import Path, { PathCfg } from './geometry/path';
 import Point from './geometry/point';
 import Polygon from './geometry/polygon';
 import Schema from './geometry/schema';
-import Violin from './geometry/voilin';
+import Violin from './geometry/violin';
 
 registerGeometry('Polygon', Polygon);
 registerGeometry('Interval', Interval);

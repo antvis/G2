@@ -1,6 +1,6 @@
 import { get } from '@antv/util';
 import { FIELD_ORIGIN } from '../constant';
-import { Datum } from '../interface';
+import { Datum, ViolinShapePoint } from '../interface';
 import { getXDimensionLength } from '../util/coordinate';
 import { getDefaultSize } from './util/shape-size';
 import Geometry from './base';
@@ -11,7 +11,7 @@ import './shape/violin';
  * Violin 几何标记。
  * 用于绘制小提琴图。
  */
-export default class Violin extends Geometry {
+export default class Violin extends Geometry<ViolinShapePoint> {
   public readonly type: string = 'violin';
   public readonly shapeType: string = 'violin';
   protected generatePoints: boolean = true;
@@ -42,7 +42,6 @@ export default class Violin extends Geometry {
       size = this.defaultSize;
     }
     cfg.size = size;
-    // @ts-ignore
     cfg._size = get(record[FIELD_ORIGIN], [this._sizeField]);
     return cfg;
   }

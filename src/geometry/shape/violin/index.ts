@@ -1,6 +1,6 @@
 import { each, max, map, isArray } from '@antv/util';
 import { IGroup } from '../../../dependents';
-import { ShapeInfo, ShapeMarkerCfg, ShapePoint } from '../../../interface';
+import { ShapeInfo, ShapeMarkerCfg, ViolinShapePoint } from '../../../interface';
 import { registerShape, registerShapeFactory } from '../base';
 import { getViolinPath } from '../util/get-path-points';
 import { getStyle } from '../util/get-style';
@@ -15,10 +15,9 @@ function normalizeSize(arr: number[]){
 
 const ViolinShapeFactory = registerShapeFactory('violin', {
   defaultShapeType: 'violin',
-  getDefaultPoints(pointInfo: ShapePoint) {
+  getDefaultPoints(pointInfo: ViolinShapePoint) {
     const radius = pointInfo.size / 2;
     const points = [];
-    // @ts-ignore
     const sizeArr = normalizeSize(pointInfo._size);
     
     each(pointInfo.y as number[], (y, index) => {

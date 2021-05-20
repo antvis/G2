@@ -444,6 +444,9 @@ export interface ShapePoint {
   size?: number;
 }
 
+/** 小提琴图 shape 关键点信息 */
+export type ViolinShapePoint = ShapePoint & { _size?: number[] };
+
 /** 注册 ShapeFactory 需要实现的接口。 */
 export interface RegisterShapeFactory {
   /** 默认的 shape 类型。 */

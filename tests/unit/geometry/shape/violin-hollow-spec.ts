@@ -1,9 +1,9 @@
 import { getCoordinate } from '../../../../src/dependents';
-import Element from '../../../../src/geometry/element/index';
+import Element from '../../../../src/geometry/element';
 import ViolinShapeFactory from '../../../../src/geometry/shape/violin';
-import '../../../../src/geometry/shape/violin/hollow';
 import { getTheme } from '../../../../src/theme/';
 import { createCanvas, createDiv } from '../../../util/dom';
+import '../../../../src/geometry/shape/violin/hollow';
 
 const Theme = getTheme('default');
 const Rect = getCoordinate('rect');
