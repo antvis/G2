@@ -85,6 +85,7 @@ ${componentName}:${eventName}
   - point
   - polygon
   - schema
+  - voilin
   - path
   - ...
 

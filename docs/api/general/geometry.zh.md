@@ -84,6 +84,12 @@ options:
 
 `markdown:docs/common/geom-base-cfg.md`
 
+#### chart.violin(options)
+
+用于绘制小提琴图。
+
+`markdown:docs/common/geom-base-cfg.md`
+
 #### chart.schema(options)
 
 用于绘制 k 线图，箱型图。
