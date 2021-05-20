@@ -27,6 +27,7 @@ order: 7
 |     interval      |                                                                                                  - 'rect'- 'hollow-rect'- 'line'- 'tick'- 'funnel'- 'pyramid'                                                                                                  |                  'hollow-rect' 是空心的矩形，'line' 和 'tick' 都是线段，'funnel' 用于绘制漏斗图；'pyramid' 用于绘制金字塔图。![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*0H-zQrrV7YcAAAAAAAAAAABkARQnAQ)                  |
 |      polygon      |                                                                                                                          - 'polygon'                                                                                                                           |                                                               polygon：多边形。![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*QgsPTLQ3eLUAAAAAAAAAAABkARQnAQ)                                                                |
 |      schema       |                                                                                                                       - 'box'- 'candle'                                                                                                                        | 目前仅支持箱须图('box')、K 线图('candle')。![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*olU9QYwnMgMAAAAAAAAAAABkARQnAQ)![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*JX_ISqY-UIAAAAAAAAAAAABkARQnAQ) |
+|      violin       |                                                                                                        - 'violin'- 'smooth'- 'hollow'- 'hollow-smooth'                                                                                                         |                                          小提琴图，'smooth' 和 'hollow' 分别表示是否平滑和是否空心。![image.png](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*mWmERpjuSn0AAAAAAAAAAAAAARQnAQ)                                           |
 |       edge        |                                                                                                                - 'line'- 'vhv'- 'smooth'- 'arc'                                                                                                                |                                vhv：直角折线，arc：弧线，分为笛卡尔坐标系、极坐标系、带权重和不带权重四种情况。![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*UOxHSKuGsBwAAAAAAAAAAABkARQnAQ)                                |
 
 所以在配置图形样式时，需要以 Geometry 名称 + Shape 名称为 token，进行样式定义，目前主题开放的配置可用于定义图形的默认显示样式，active 的样式，inactive 的样式以及 selected 的样式。
@@ -63,12 +64,12 @@ G2 中图例分为连续图例和分类图例两种，同样主题中也为这�
 
 ![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*7ka8SLG1io8AAAAAAAAAAABkARQnAQ)
 
-| 属性名   | 描述                                              |
-| -------- | ------------------------------------------------- |
-| title    | 图例标题，可以控制：1. 是否展示 2. 标题文本的样式 |
-| marker   | 图例项 marker，可以控制：1. 形状 2. 样式          |
-| itemName | 图例项文本，可以控制：1. 文本样式 2. 间距         |
-| itemValue | 图例项文本值，可以控制：1. 文本样式 2. 间距（同 itemName） |
+| 属性名        | 描述                                                         |
+| ------------- | ------------------------------------------------------------ |
+| title         | 图例标题，可以控制：1. 是否展示 2. 标题文本的样式            |
+| marker        | 图例项 marker，可以控制：1. 形状 2. 样式                     |
+| itemName      | 图例项文本，可以控制：1. 文本样式 2. 间距                    |
+| itemValue     | 图例项文本值，可以控制：1. 文本样式 2. 间距（同 itemName）   |
 | pageNavigator | 图例分页器，可以控制：1. 分页器箭头 marker 2. 分页器指示文本 |
 
 - 连续图例，针对连续图例，可以配置一下属性：
