@@ -9,7 +9,8 @@ function normalizeSize(arr: number[]){
   if (!isArray(arr)) {
     return [];
   }
-  return map(arr, (num) => num / max(arr));
+  const maxValue = max(arr);
+  return map(arr, (num) => num / maxValue);
 }
 
 const ViolinShapeFactory = registerShapeFactory('violin', {
