@@ -1,5 +1,5 @@
 import { isNil, map, max, min } from '@antv/util';
-import { ScaleBaseOptions, Scale, ScaleDefCfg } from '../../types';
+import { ScaleBaseOptions, Scale, ScaleOption } from '../../types';
 import { createScaleFactory } from '../../util/scale';
 
 /**
@@ -22,18 +22,18 @@ export class ScaleDef {
   /**
    * 传入的配置
    */
-  private cfg: ScaleDefCfg;
+  private option: ScaleOption;
 
   /**
    * 构造函数
    *
    * @param cfg G2 Scale 配置
    */
-  constructor(cfg: ScaleDefCfg) {
+  constructor(option: ScaleOption) {
     // 设置默认值
-    this.cfg = {
+    this.option = {
       range: [0, 1],
-      ...cfg,
+      ...option,
     };
 
     this.initScale();
@@ -45,7 +45,7 @@ export class ScaleDef {
    * @return 字段的类型
    */
   public get type() {
-    return this.cfg.type;
+    return this.option.type;
   }
 
   /**
@@ -54,7 +54,7 @@ export class ScaleDef {
    * @return 对应的列字段
    */
   public get field() {
-    return this.cfg.field;
+    return this.option.field;
   }
 
   /**
@@ -63,7 +63,7 @@ export class ScaleDef {
    * @return {string} 字段名称，如果配置了别名，则优先返回别名
    */
   public get fieldName() {
-    return this.cfg.alias || this.field;
+    return this.option.alias || this.field;
   }
 
   /**
@@ -73,7 +73,7 @@ export class ScaleDef {
    */
   public getText(v: any) {
     const text = this.scale.invert(v);
-    return this.cfg.formatter ? this.cfg.formatter(text) : `${text}`;
+    return this.option.formatter ? this.option.formatter(text) : `${text}`;
   }
 
   /**
@@ -118,6 +118,15 @@ export class ScaleDef {
   }
 
   /**
+   * 获取某一项配置
+   * @param k
+   * @returns
+   */
+  public getOption(k: string) {
+    return this.scale.getOption()[k];
+  }
+
+  /**
    * 将值映射到值域
    *
    * @param v 需要映射的值
@@ -140,17 +149,17 @@ export class ScaleDef {
    *
    * @param cfg G2 scale 配置
    */
-  public update(cfg: Partial<ScaleDefCfg>) {
+  public update(cfg: Partial<ScaleOption>) {
     const { type } = cfg;
     // scale 是否需要改变 -- 传入的新配置的 type 有值，并且 type 发生了改变
-    const shouldScaleUpdate = !isNil(type) && this.cfg.type !== type;
+    const shouldScaleUpdate = !isNil(type) && this.option.type !== type;
 
     // merge 配置，然后更新 scale
-    this.cfg = { ...this.cfg, ...cfg };
+    this.option = { ...this.option, ...cfg };
 
     // 如果 type 发生了改变，我们更新 scale
     if (shouldScaleUpdate) {
-      this.scale = createScaleFactory(this.cfg.type, cfg);
+      this.scale = createScaleFactory(this.option.type, cfg);
       this.initScale();
     } else {
       // 配置转换
@@ -165,7 +174,7 @@ export class ScaleDef {
    * 复制一个新的 scale
    */
   public clone() {
-    return new ScaleDef(this.cfg);
+    return new ScaleDef(this.option);
   }
 
   /**
@@ -177,7 +186,7 @@ export class ScaleDef {
     const antvConfig = this.toAntvScaleCfg();
 
     // 通过类型创建 scale
-    this.scale = createScaleFactory(this.cfg.type, antvConfig);
+    this.scale = createScaleFactory(this.option.type, antvConfig);
   }
 
   /**
@@ -186,21 +195,21 @@ export class ScaleDef {
    * @return {ScaleBaseOptions} 下层的 @antv/scale 配置
    */
   private toAntvScaleCfg(): ScaleBaseOptions {
-    const { cfg } = this;
+    const option = this.option;
     let finalDomain: any[];
     // 如果是线性的，尝试使用 min 和 max 构造 domain 如果没有，我们从 传入的 domain 中寻找
     if (this.isLinear()) {
       finalDomain = [
-        isNil(cfg.min) ? min(cfg.domain) : cfg.min,
-        isNil(cfg.max) ? max(cfg.domain) : cfg.max,
+        isNil(option.min) ? min(option.domain) : option.min,
+        isNil(option.max) ? max(option.domain) : option.max,
       ];
     } else {
       // 非线性，直接赋值
-      finalDomain = cfg.domain;
+      finalDomain = option.domain;
     }
 
     return {
-      ...cfg,
+      ...option,
       domain: finalDomain,
     };
   }

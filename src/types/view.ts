@@ -1,5 +1,6 @@
 import type { View } from '../chart';
 import type { AutoPadding, Data, Datum, Padding, PlainObject, Region } from './common';
+import { ScaleOption } from './scale';
 import type { GeometryOption } from './geometry';
 
 export type FilterCondition = (value: any, datum: Datum, idx?: number) => boolean;
@@ -11,7 +12,6 @@ export type SliderOption = any;
 export type ScrollbarOption = any;
 export type TimelineOption = any;
 
-export type ScaleOption = any;
 export type CoordinateOption = any;
 export type ArcOption = any;
 export type RegionFilterOption = any;
