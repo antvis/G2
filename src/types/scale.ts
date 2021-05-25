@@ -1,4 +1,4 @@
-import { ScaleBaseOptions } from '@antv/scale';
+import { BaseOptions as ScaleBaseOptions } from '@antv/scale';
 
 export type Scale = any;
 export { ScaleBaseOptions };
