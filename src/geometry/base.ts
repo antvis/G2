@@ -169,7 +169,7 @@ function filterLabelsById(id: string, labelsMap: Record<string, IGroup>) {
 /**
  * Geometry 几何标记基类，主要负责数据到图形属性的映射以及绘制逻辑。
  */
-export default class Geometry extends Base {
+export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
   /** Geometry 几何标记类型。 */
   public readonly type: string = 'base';
   /** ShapeFactory 对应的类型。 */
@@ -1373,7 +1373,7 @@ export default class Geometry extends Base {
    * @param obj 经过分组 -> 数字化 -> adjust 调整后的数据记录
    * @returns
    */
-  protected createShapePointsCfg(obj: Datum): ShapePoint {
+  protected createShapePointsCfg(obj: Datum): S {
     const xScale = this.getXScale();
     const yScale = this.getYScale();
     const x = this.normalizeValues(obj[xScale.field], xScale);
@@ -1389,7 +1389,7 @@ export default class Geometry extends Base {
       x,
       y,
       y0: yScale ? yScale.scale(this.getYMinValue()) : undefined,
-    };
+    } as S;
   }
 
   /**
@@ -1582,7 +1582,7 @@ export default class Geometry extends Base {
     }
   }
 
-  private initAttributes() {
+  protected initAttributes() {
     const { attributes, attributeOption, theme, shapeType } = this;
     this.groupScales = [];
     const tmpMap = {};

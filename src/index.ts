@@ -26,6 +26,7 @@ import Path, { PathCfg } from './geometry/path';
 import Point from './geometry/point';
 import Polygon from './geometry/polygon';
 import Schema from './geometry/schema';
+import Violin from './geometry/violin';
 
 registerGeometry('Polygon', Polygon);
 registerGeometry('Interval', Interval);
@@ -36,6 +37,7 @@ registerGeometry('Line', Line);
 registerGeometry('Area', Area);
 registerGeometry('Edge', Edge);
 registerGeometry('Heatmap', Heatmap);
+registerGeometry('Violin', Violin);
 
 // 引入所有内置的 shapes
 import './geometry/shape/area/line';
@@ -62,6 +64,9 @@ import './geometry/shape/schema/box';
 import './geometry/shape/schema/candle';
 
 import './geometry/shape/polygon/square';
+
+import './geometry/shape/violin/smooth';
+import './geometry/shape/violin/hollow';
 
 // 注册 Geometry 内置的 label
 import { registerGeometryLabel } from './core';
@@ -675,6 +680,12 @@ declare module './chart/view' {
      * @returns heatmap 返回 Heatmap 实例。
      */
     heatmap(cfg?: Partial<GeometryCfg>): Heatmap;
+    /**
+     * 创建 Violin 几何标记。
+     * @param [cfg] 传入 Violin 构造函数的配置。
+     * @returns violin 返回 Violin 实例。
+     */
+    violin(cfg?: Partial<GeometryCfg>): Violin;
   }
 }
 

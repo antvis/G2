@@ -1022,6 +1022,64 @@ export function createThemeByStyleSheet(styleSheet: StyleSheet): LooseObject {
           },
         },
       },
+      violin: {
+        violin: {
+          default: {
+            style: shapeStyles.line.default,
+          },
+          active: {
+            style: shapeStyles.line.active,
+          },
+          inactive: {
+            style: shapeStyles.line.inactive,
+          },
+          selected: {
+            style: shapeStyles.line.selected,
+          },
+        },
+        smooth: {
+          default: {
+            style: shapeStyles.line.default,
+          },
+          active: {
+            style: shapeStyles.line.active,
+          },
+          inactive: {
+            style: shapeStyles.line.inactive,
+          },
+          selected: {
+            style: shapeStyles.line.selected,
+          },
+        },
+        hollow: {
+          default: {
+            style: shapeStyles.hollowArea.default,
+          },
+          active: {
+            style: shapeStyles.hollowArea.active,
+          },
+          inactive: {
+            style: shapeStyles.hollowArea.inactive,
+          },
+          selected: {
+            style: shapeStyles.hollowArea.selected,
+          },
+        },
+        'hollow-smooth': {
+          default: {
+            style: shapeStyles.hollowArea.default,
+          },
+          active: {
+            style: shapeStyles.hollowArea.active,
+          },
+          inactive: {
+            style: shapeStyles.hollowArea.inactive,
+          },
+          selected: {
+            style: shapeStyles.hollowArea.selected,
+          },
+        },
+      },
     },
     components: {
       axis: {
