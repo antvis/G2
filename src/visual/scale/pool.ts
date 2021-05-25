@@ -35,7 +35,7 @@ export class ScalePool {
   /**
    * 通过 key 获取 scale
    */
-  public get(key: string) {
+  public get(key: string): ScaleDef {
     let scaleMeta = this.getScaleMeta(key);
     if (!scaleMeta) {
       // 这里耦合有 key 的生成规则

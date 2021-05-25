@@ -123,7 +123,7 @@ export class ScaleDef {
    * @returns
    */
   public getOption(k: string) {
-    return this.scale.getOption()[k];
+    return this.scale.getOptions()[k];
   }
 
   /**

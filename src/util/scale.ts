@@ -1,4 +1,4 @@
-import { isNil, isString, max, min, valuesOfKey } from '@antv/util';
+import { isNil, isString, max, min, valuesOfKey, isNumber, get } from '@antv/util';
 import {
   Band,
   Identity,
@@ -109,8 +109,8 @@ export function createScaleByField(
 
     return new ScaleDef({
       // 优先使用开发者的配置，如果没有设置，则全部默认使用 cat 类型
-      type: 'cat',
-      field,
+      type: isNumber(get(values, [0])) ? 'linear' : 'cat',
+      field: field.toString(),
       domain: values,
       ...scaleOption,
     });
