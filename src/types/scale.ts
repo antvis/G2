@@ -1,8 +1,7 @@
-import { BaseOptions } from '@antv/scale';
+import { ScaleBaseOptions } from '@antv/scale';
 
 export type Scale = any;
-
-export type ScaleBaseOptions = BaseOptions;
+export { ScaleBaseOptions };
 
 // 支持的 scale 类型
 export type ScaleTypes =
