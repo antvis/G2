@@ -1,0 +1,25 @@
+name: 🔂 Auto Inspection
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get branch name (pull request)
+        run: echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF})" >> $GITHUB_ENV
+      - uses: lxfu1/surge-preview@v2
+        id: preview_step
+        with:
+          project_name: 'G2'
+          project_branch: ${{ env.BRANCH_NAME }}
+          surge_token: ${{ secrets.SURGE_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          build: |
+            npm install
+      - name: Get the preview url
+        run: echo "url => ${{ steps.preview_step.outputs.preview_url }}"
