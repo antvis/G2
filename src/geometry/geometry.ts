@@ -8,7 +8,6 @@ import {
   AttributeOption,
   Data,
   Datum,
-  Scale,
   Adjust,
   ShapePoint,
 } from '../types';
@@ -17,16 +16,25 @@ import { createAttribute } from '../util/attribute';
 import { groupData } from '../util/data';
 import { getScaleUpdateOptionsAfterStack } from '../util/scale';
 import { Attribute } from '../visual/attribute';
+import { ScaleDef } from '../visual/scale';
 import { Element } from './element';
 
 /**
  * 所有 Geometry 的基类
+ * ```ts
+ * const g = new Geometry({});
+ *
+ * g.update({});
+ *
+ * g.paint();
+ * ```
  */
 export class Geometry extends Visibility {
   /**
    * geometry 的类型
    */
   public type: string = 'geometry';
+
   /**
    * 传入到 Geometry 的配置信息（更新时候的配置）
    */
@@ -85,40 +93,31 @@ export class Geometry extends Visibility {
   }
 
   /**
-   * 初始化或者更新 adjust 实例
-   */
-  private updateAdjust() {
-    // 遍历每一个 attrOption，各自创建 Attribute 实例
-    this.attriubteOptions.forEach((attributeOption: AttributeOption, attributeKey: AttributeKey) => {
-      if (!attributeOption) {
-        return;
-      }
-
-      const { fields = [], value, callback } = attributeOption;
-      const scales = fields.map((f: string) => this.options.scales.get(f));
-
-      // 创建，并缓存起来
-      this.attributes.set(attributeKey, createAttribute(attributeKey, scales));
-    });
-  }
-
-  /**
    * 初始化或者更新 attribute 实例，在其中会利用创建的 scale
    */
   private updateAttributes() {
     // 遍历每一个 attrOption，各自创建 Attribute 实例
-    this.attriubteOptions.forEach((attributeOption: AttributeOption, attributeKey: AttributeKey) => {
-      if (!attributeOption) {
-        return;
-      }
+    this.attriubteOptions.forEach(
+      (attributeOption: AttributeOption, attributeKey: AttributeKey) => {
+        if (!attributeOption) {
+          return;
+        }
 
-      const { fields = [], value, callback } = attributeOption;
-      const scales = fields.map((f: string) => this.options.scales.get(f));
+        const { fields = [], value, callback } = attributeOption;
+        const scales = fields.map((f: string) => this.options.scales.get(f));
 
-      // 创建，并缓存起来
-      // TODO 如果一直 update，且变更数据字段，可能导致内存泄露风险
-      this.attributes.set(attributeKey, createAttribute(attributeKey, scales));
-    });
+        // 创建，并缓存起来
+        // TODO 如果一直 update，且变更数据字段，可能导致内存泄露风险
+        this.attributes.set(
+          attributeKey,
+          createAttribute(attributeKey, {
+            scales,
+            value,
+            callback,
+          }),
+        );
+      },
+    );
   }
 
   /**
@@ -144,11 +143,12 @@ export class Geometry extends Visibility {
 
         // 2. 将分类数据翻译成数子, 仅对位置相关的度量进行数字化处理
         // TODO 为什么要在分组的时候对位置中分类数字化
-        return categoryPositionScales.map((scale) => {
-          const field = scale.field;
-          // @ts-ignore
-          mappingDatum[field] = scale.mapping(field);
+        categoryPositionScales.forEach((scale) => {
+          const { field } = scale;
+          mappingDatum[field] = scale.map(mappingDatum[field]);
         });
+
+        return mappingDatum;
       });
     });
 
@@ -179,7 +179,7 @@ export class Geometry extends Visibility {
   /**
    * 更新数据和配置
    */
-  public update(options: GeometryOption) {
+  public update(options: Partial<GeometryOption>) {
     this.options = {
       ...this.options,
       ...options,
@@ -261,7 +261,7 @@ export class Geometry extends Visibility {
     return {
       x,
       y,
-      y0: yScale ? yScale.scale(this.getYMinValue()) : undefined,
+      y0: yScale ? yScale.map(this.getYMinValue()) : undefined,
     };
   }
 
@@ -270,13 +270,17 @@ export class Geometry extends Visibility {
    */
   protected getYMinValue(): number {
     const yScale = this.getYScale();
-    const { min, max } = yScale;
+    const { min, max } = yScale.getOption('domain');
 
-    return min >= 0
-      ? min // 当值全位于正区间时
-      : max <= 0
-      ? max // 当值全位于负区间时
-      : 0; // 其他
+    if (min > 0) {
+      // 当值全位于正区间时
+      return min;
+    }
+    if (max <= 0) {
+      // 当值全位于负区间时
+      return max;
+    }
+    return 0;
   }
 
   /**
@@ -284,16 +288,16 @@ export class Geometry extends Visibility {
    * @param values
    * @param scale
    */
-  protected normalizeValues(values: any, scale: Scale): number | number[] {
+  protected normalizeValues(values: any, scale: ScaleDef): number | number[] {
     if (isArray(values)) {
       const rst = [];
       for (let i = 0; i < values.length; i++) {
         const value = values[i];
-        rst.push(scale.mapping(value));
+        rst.push(scale.map(value));
       }
       return rst;
     }
-    return scale.mapping(values);
+    return scale.map(values);
   }
 
   /**
@@ -302,15 +306,12 @@ export class Geometry extends Visibility {
    * 2. 位置属性额外进行坐标系的转换
    */
   private mapping(data: Data) {
-    let attribute;
     let datum;
 
     for (let i = 0; i < data.length; i++) {
       datum = data[i];
 
-      for (const k in this.attributes) {
-        attribute = this.attributes[k];
-      }
+      this.attributes.forEach((attr, key) => {});
     }
   }
 
@@ -454,7 +455,7 @@ export class Geometry extends Visibility {
     // 去重，且考虑性能
     const uniqMap = new Map<string, boolean>();
 
-    for (let i = 0, length = GROUP_ATTR_KEYS.length; i < length; i++) {
+    for (let i = 0, { length } = GROUP_ATTR_KEYS; i < length; i++) {
       const groupAttrKey = GROUP_ATTR_KEYS[i];
       // 获取所有通道中的 fields，谨防空值
       const fields = this.attriubteOptions.get(groupAttrKey)?.fields || [];
@@ -500,7 +501,7 @@ export class Geometry extends Visibility {
    */
   public getAttributeValues(attr: Attribute, datum: Datum) {
     const params = [];
-    const scales = attr.scales;
+    const { scales } = attr;
     for (let i = 0; i < scales.length; i++) {
       const scale = scales[i];
       const { field } = scale;
@@ -546,7 +547,7 @@ export class Geometry extends Visibility {
    * 获取 adjust 实例
    */
   public getAdjust(type: string): Adjust {
-    return this.adjusts.get(type);
+    return this.adjusts?.get(type);
   }
 
   /**
@@ -556,13 +557,22 @@ export class Geometry extends Visibility {
     return this.options.coordinate;
   }
 
+  /**
+   * 获取某个字段的 scale 定义
+   * @param field
+   * @returns
+   */
+  public getScale(field: string): ScaleDef {
+    return this.options.scales.get(field);
+  }
+
   /** 获取 x 轴对应的 scale 实例。 */
-  public getXScale(): Scale {
+  public getXScale(): ScaleDef {
     return this.options.scales.get(this.getXYFields()[0]);
   }
 
   /** 获取 y 轴对应的 scale 实例。 */
-  public getYScale(): Scale {
+  public getYScale(): ScaleDef {
     return this.options.scales.get(this.getXYFields()[1]);
   }
 }

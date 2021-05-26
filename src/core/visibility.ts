@@ -2,7 +2,7 @@ import EE from '@antv/event-emitter';
 
 export type VisibilityCfg = {
   visible?: boolean;
-}
+};
 
 /**
  * G2 Chart、View、Geometry、Element 等的基类，提供：
@@ -12,6 +12,7 @@ export type VisibilityCfg = {
 export class Visibility extends EE {
   /** 是否可见 */
   public visible: boolean;
+
   /** 标识对象是否已销毁 */
   public destroyed: boolean = false;
 

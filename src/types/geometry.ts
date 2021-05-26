@@ -1,10 +1,18 @@
-import { Scale } from './scale';
+import type { ScaleDef } from '../visual/scale';
 import { Data, Func } from './common';
 
 /**
  * 视觉通道的 key
  */
-export type AttributeKey = 'position' | 'color' | 'shape' | 'size' | 'label' | 'tooltip' | 'sequence' | 'custom';
+export type AttributeKey =
+  | 'position'
+  | 'color'
+  | 'shape'
+  | 'size'
+  | 'label'
+  | 'tooltip'
+  | 'sequence'
+  | 'custom';
 
 /**
  * 视觉通道映射的配置
@@ -28,7 +36,7 @@ export type GeometryOption = {
   /**
    * 对应字段的 scale 信息
    */
-  scales: Map<string, Scale>;
+  scales: Map<string, ScaleDef>;
   /**
    * 当前坐标系
    */

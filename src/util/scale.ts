@@ -1,5 +1,6 @@
 import { isNil, isString, max, min, valuesOfKey, isNumber, get } from '@antv/util';
 import {
+  Base,
   Band,
   Identity,
   Linear,
@@ -13,7 +14,7 @@ import {
   Threshold,
   Time,
 } from '@antv/scale';
-import { ScaleBaseOptions, Constructable, Data, Scale, ScaleOption, ScaleTypes } from '../types';
+import { ScaleBaseOptions, Constructable, Data, ScaleOption, ScaleTypes } from '../types';
 import { ScaleDef } from '../visual/scale';
 
 /**
@@ -66,7 +67,7 @@ export function getScaleUpdateOptionsAfterStack(
  * @param type 一个字符串，
  * @param cfg @antv/scale 的配置
  */
-export function createScaleFactory(type: ScaleTypes, cfg: ScaleBaseOptions): Scale {
+export function createScaleFactory(type: ScaleTypes, cfg: ScaleBaseOptions): Base {
   // 针对不同的类型，创建不同的 scale
   const scaleMap = {
     // ordinal cases
