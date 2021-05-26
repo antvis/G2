@@ -11,13 +11,13 @@ import {
   Scale,
   Adjust,
   ShapePoint,
-} from '../../types';
-import { GROUP_ATTR_KEYS, ORIGINAL_FIELD } from '../../constant';
-import { createAttribute } from '../../util/attribute';
-import { groupData } from '../../util/data';
-import { getScaleUpdateOptionsAfterStack } from '../../util/scale';
-import { Attribute } from '../../visual/attribute';
-import { Element } from '../element';
+} from '../types';
+import { GROUP_ATTR_KEYS, ORIGINAL_FIELD } from '../constant';
+import { createAttribute } from '../util/attribute';
+import { groupData } from '../util/data';
+import { getScaleUpdateOptionsAfterStack } from '../util/scale';
+import { Attribute } from '../visual/attribute';
+import { Element } from './element';
 
 /**
  * 所有 Geometry 的基类
