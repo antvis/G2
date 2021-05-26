@@ -30,7 +30,7 @@ export class Attribute {
   /**
    * attribute 的类型
    */
-  public type: 'base' | 'position' | 'color';
+  public type: 'base' | 'position' | 'color' | 'size';
 
   /**
    * 字段信息
@@ -107,7 +107,7 @@ export class Attribute {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected performUnitOfScale(param: any, scale: ScaleDef, index: number) {
     // 默认行为 -- 直接映射
-    return scale.map(param);
+    return scale.isIdentity() ? this.value[0] : scale.map(param);
   }
 
   /**
