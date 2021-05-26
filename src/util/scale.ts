@@ -1,6 +1,5 @@
 import { isNil, isString, max, min, valuesOfKey, isNumber, get } from '@antv/util';
 import {
-  Base,
   Band,
   Identity,
   Linear,
@@ -67,7 +66,7 @@ export function getScaleUpdateOptionsAfterStack(
  * @param type 一个字符串，
  * @param cfg @antv/scale 的配置
  */
-export function createScaleFactory(type: ScaleTypes, cfg: ScaleBaseOptions): Base {
+export function createScaleFactory(type: ScaleTypes, cfg: ScaleBaseOptions): any {
   // 针对不同的类型，创建不同的 scale
   const scaleMap = {
     // ordinal cases

@@ -1,5 +1,5 @@
 import { isNil, map, max, min } from '@antv/util';
-import { ScaleBaseOptions, Scale, ScaleOption } from '../../types';
+import { ScaleBaseOptions, ScaleOption } from '../../types';
 import { createScaleFactory } from '../../util/scale';
 
 /**
@@ -17,7 +17,7 @@ export class ScaleDef {
   /**
    * 包含的 antv/scale 实例
    */
-  private scale: Scale;
+  private scale: any;
 
   /**
    * 传入的配置
