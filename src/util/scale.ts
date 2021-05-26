@@ -1,4 +1,4 @@
-import { isNil, max, min } from '@antv/util';
+import { isNil, isString, max, min, valuesOfKey, isNumber, get } from '@antv/util';
 import {
   Band,
   Identity,
@@ -13,7 +13,8 @@ import {
   Threshold,
   Time,
 } from '@antv/scale';
-import { ScaleBaseOptions, Constructable, Data, Scale, ScaleDefCfg, ScaleTypes } from '../types';
+import { ScaleBaseOptions, Constructable, Data, Scale, ScaleOption, ScaleTypes } from '../types';
+import { ScaleDef } from '../visual/scale';
 
 /**
  * 对于 stack 的数据进行修改 scale min max 值
@@ -21,9 +22,9 @@ import { ScaleBaseOptions, Constructable, Data, Scale, ScaleDefCfg, ScaleTypes }
  * @param beforeMappingData
  */
 export function getScaleUpdateOptionsAfterStack(
-  scale: ScaleDefCfg,
+  scale: ScaleOption,
   beforeMappingData: Data[],
-): Partial<ScaleDefCfg> {
+): ScaleOption {
   const { field } = scale;
 
   // 所有的数据
@@ -85,6 +86,39 @@ export function createScaleFactory(type: ScaleTypes, cfg: ScaleBaseOptions): Sca
     quantize: Quantize,
     quantile: Quantile,
   };
-  const TargetScaleClass = scaleMap[type] || (Ordinal as Constructable);
+  const TargetScaleClass = scaleMap[type.toLowerCase()] || (Ordinal as Constructable);
   return new TargetScaleClass(cfg);
+}
+
+/**
+ * 为指定的 `field` 字段数据创建 scale
+ * @param field 字段名
+ * @param [data] 数据集，可为空
+ * @param [scaleDef] 列定义，可为空
+ * @returns scale 返回创建的 Scale 实例
+ */
+export function createScaleByField(
+  field: string | number,
+  data?: Data,
+  scaleOption?: ScaleOption,
+): ScaleDef {
+  const validData = data || [];
+
+  if (isString(field)) {
+    const values = valuesOfKey(validData, field);
+
+    return new ScaleDef({
+      // 优先使用开发者的配置，如果没有设置，则全部默认使用 cat 类型
+      type: isNumber(get(values, [0])) ? 'linear' : 'cat',
+      field: field.toString(),
+      domain: values,
+      ...scaleOption,
+    });
+  }
+  // 其他情况，均为非法，全部使用 identity/constant
+  return new ScaleDef({
+    type: 'identity',
+    field: field.toString(),
+    domain: [field],
+  });
 }

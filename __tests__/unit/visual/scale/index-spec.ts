@@ -33,7 +33,7 @@ describe('scale', () => {
     });
 
     // @ts-ignore
-    expect(scale.cfg).toStrictEqual({
+    expect(scale.option).toStrictEqual({
       range: [0, 1],
       type: 'linear',
       domain: [0, 1, 2, 50],
@@ -44,7 +44,7 @@ describe('scale', () => {
     });
 
     // @ts-ignore
-    expect(scale.cfg).toStrictEqual({
+    expect(scale.option).toStrictEqual({
       range: [0, 1],
       type: 'linear',
       domain: [0, 1, 2],
