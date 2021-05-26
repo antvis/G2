@@ -7,6 +7,7 @@ module.exports = {
   },
   ignorePatterns: [
     '.eslintrc.js',
+    // 暂时屏蔽 geometry
     'geometry.ts'
   ],
   extends: ['airbnb-base'],
