@@ -4,7 +4,7 @@ import { Data, Func } from './common';
 /**
  * 视觉通道的 key
  */
-export type AttributeKey = 'position' | 'color' | 'shape' | 'size' | 'label' | 'tooltip' | 'custom';
+export type AttributeKey = 'position' | 'color' | 'shape' | 'size' | 'label' | 'tooltip' | 'sequence' | 'custom';
 
 /**
  * 视觉通道映射的配置

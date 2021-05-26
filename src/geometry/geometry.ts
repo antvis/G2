@@ -1,5 +1,5 @@
-import EE from '@antv/event-emitter';
 import { isArray } from '@antv/util';
+import { Visibility } from '../core';
 import {
   AttributeKey,
   AttributeOptions,
@@ -22,7 +22,11 @@ import { Element } from './element';
 /**
  * 所有 Geometry 的基类
  */
-export class Geometry extends EE {
+export class Geometry extends Visibility {
+  /**
+   * geometry 的类型
+   */
+  public type: string = 'geometry';
   /**
    * 传入到 Geometry 的配置信息（更新时候的配置）
    */
@@ -31,7 +35,7 @@ export class Geometry extends EE {
   /**
    * 视觉通道映射配置 Key Value 结构
    */
-  private attriubteOptios: AttributeOptions;
+  private attriubteOptions: AttributeOptions;
 
   /**
    * 生成的 attributes 实例
@@ -75,7 +79,7 @@ export class Geometry extends EE {
       ...option,
     };
 
-    this.attriubteOptios = new Map();
+    this.attriubteOptions = new Map();
     this.attributes = new Map();
     this.elements = [];
   }
@@ -85,7 +89,7 @@ export class Geometry extends EE {
    */
   private updateAdjust() {
     // 遍历每一个 attrOption，各自创建 Attribute 实例
-    this.attriubteOptios.forEach((attributeOption: AttributeOption, attributeKey: AttributeKey) => {
+    this.attriubteOptions.forEach((attributeOption: AttributeOption, attributeKey: AttributeKey) => {
       if (!attributeOption) {
         return;
       }
@@ -103,7 +107,7 @@ export class Geometry extends EE {
    */
   private updateAttributes() {
     // 遍历每一个 attrOption，各自创建 Attribute 实例
-    this.attriubteOptios.forEach((attributeOption: AttributeOption, attributeKey: AttributeKey) => {
+    this.attriubteOptions.forEach((attributeOption: AttributeOption, attributeKey: AttributeKey) => {
       if (!attributeOption) {
         return;
       }
@@ -267,7 +271,6 @@ export class Geometry extends EE {
   protected getYMinValue(): number {
     const yScale = this.getYScale();
     const { min, max } = yScale;
-    let value: number;
 
     return min >= 0
       ? min // 当值全位于正区间时
@@ -329,13 +332,15 @@ export class Geometry extends EE {
   /**
    * 销毁
    */
-  public destroy() {}
+  public destroy() {
+    super.destroy();
+  }
 
   /** 设置图形的视觉通道字段和配置       ************************************* */
 
   private setAttributeOption(attr: AttributeKey, fields: string, value?: any) {
-    this.attriubteOptios.set(attr, {
-      fields: fields.split('*'),
+    this.attriubteOptions.set(attr, {
+      fields: fields ? fields.split('*') : [],
       value,
     });
   }
@@ -399,14 +404,18 @@ export class Geometry extends EE {
    * sequence 序列通道：sequence
    * TODO: 扩展 timeline 组件 + 时序图
    */
-  public sequence() {}
+  public sequence(fields: string, value: any) {
+    this.setAttributeOption('sequence', fields, value);
+
+    return this;
+  }
 
   /**
    * custom 信息：custom
    * 用于做自定义 shape 中传入自定义信息
    */
   public custom(value: any) {
-    this.setAttributeOption('custom', '', value);
+    this.setAttributeOption('custom', null, value);
 
     return this;
   }
@@ -448,7 +457,7 @@ export class Geometry extends EE {
     for (let i = 0, length = GROUP_ATTR_KEYS.length; i < length; i++) {
       const groupAttrKey = GROUP_ATTR_KEYS[i];
       // 获取所有通道中的 fields，谨防空值
-      const fields = this.attriubteOptios.get(groupAttrKey)?.fields || [];
+      const fields = this.attriubteOptions.get(groupAttrKey)?.fields || [];
 
       for (let j = 0; j < fields.length; j++) {
         const f = fields[j];
@@ -467,8 +476,12 @@ export class Geometry extends EE {
    * 获取 x y 字段
    */
   public getXYFields(): string[] {
-    const [x, y] = this.attriubteOptios.get('position').fields;
+    const [x, y] = this.attriubteOptions.get('position').fields;
     return [x, y];
+  }
+
+  public getAttriubteOptions() {
+    return this.attriubteOptions;
   }
 
   /**
