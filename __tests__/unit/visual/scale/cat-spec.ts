@@ -3,13 +3,13 @@ import { ScaleDef } from '../../../../src/visual/scale';
 
 // TODO 万木
 
-describe.skip('category scale', function () {
+describe.skip('category scale', () => {
   const scale = new ScaleDef({
     type: 'cat',
     domain: ['一月', '二月', 3, '四月', 5],
   });
 
-  it('config', function () {
+  it('config', () => {
     expect(scale.type).toEqual('cat');
     expect(scale.isCategory).toBeTruthy();
     expect(scale.getOptions().domain).toEqual(['一月', '二月', 3, '四月', 5]);
@@ -18,14 +18,14 @@ describe.skip('category scale', function () {
     expect(scale.getOptions().range[1]).toEqual(4);
   });
 
-  it('translate func', function () {
+  it('translate func', () => {
     expect(scale.map('二月')).toEqual(1);
     expect(scale.map(1)).toEqual(1);
     expect(scale.map(3)).toEqual(2);
     expect(scale.map('六月')).toBeNaN();
   });
 
-  it('map func', function () {
+  it('map func', () => {
     expect(scale.map('二月')).toEqual(0.25);
     expect(scale.map(1)).toEqual(0.25);
     expect(scale.map(3)).toEqual(0.5);
@@ -33,7 +33,7 @@ describe.skip('category scale', function () {
     expect(scale.map('六月')).toBeNaN();
   });
 
-  it('getText func', function () {
+  it('getText func', () => {
     expect(scale.getText('二月')).toEqual('二月');
     scale.update({
       formatter: (text) => `${text}_1`,
@@ -42,7 +42,7 @@ describe.skip('category scale', function () {
     expect(scale.getText(1)).toEqual('二月_1');
   });
 
-  it('invert func', function () {
+  it('invert func', () => {
     expect(scale.invert(0)).toEqual('一月');
     expect(scale.invert(0.5)).toEqual(3);
     expect(scale.invert(1)).toEqual(5);
@@ -50,7 +50,7 @@ describe.skip('category scale', function () {
     expect(scale.invert(-1)).toEqual(NaN);
   });
 
-  it('getTicks func', function () {
+  it('getTicks func', () => {
     const ticks = scale.getTicks();
     expect(ticks.length).toEqual(scale.getOptions().domain.length);
 
@@ -58,7 +58,7 @@ describe.skip('category scale', function () {
     expect(ticks[ticks.length - 1].value).toEqual(1);
   });
 
-  it('clone func', function () {
+  it('clone func', () => {
     const n1 = scale.clone();
     expect(n1.map('一月')).toEqual(0);
     expect(n1.map(3)).toEqual(0.5);
@@ -71,7 +71,7 @@ describe.skip('category scale', function () {
     expect(n1.type).toEqual('cat');
   });
 
-  it('change func', function () {
+  it('change func', () => {
     scale.update({
       domain: ['一', '二', '三', '四', '五', '六'],
     });
@@ -82,18 +82,18 @@ describe.skip('category scale', function () {
   });
 });
 
-describe.skip('category scale with specified range', function () {
+describe.skip('category scale with specified range', () => {
   const scale = new ScaleDef({
     type: 'cat',
     domain: ['一月', '二月', '三月', '四月', '五月'],
     range: [0.1, 0.9],
   });
 
-  it('config', function () {
+  it('config', () => {
     expect(scale.getOptions().range).toEqual([0.1, 0.9]);
   });
 
-  it('map func', function () {
+  it('map func', () => {
     const val = scale.map('二月');
     // 精度问题，计算结果是0.30000000000000004
     expect(parseFloat(val.toFixed(1))).toEqual(0.3);
@@ -101,7 +101,7 @@ describe.skip('category scale with specified range', function () {
     expect(scale.map('五月')).toEqual(0.9);
   });
 
-  it('invert func', function () {
+  it('invert func', () => {
     expect(scale.invert(0.1)).toEqual('一月');
     expect(scale.invert(0.5)).toEqual('三月');
     expect(scale.invert(0.6)).toEqual('四月');

@@ -6,7 +6,8 @@ module.exports = {
     jest: true,
   },
   ignorePatterns: [
-    '.eslintrc.js'
+    '.eslintrc.js',
+    'geometry.ts'
   ],
   extends: ['airbnb-base'],
   parser: '@typescript-eslint/parser',
