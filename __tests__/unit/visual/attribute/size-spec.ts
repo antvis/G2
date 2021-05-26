@@ -2,6 +2,16 @@ import { ScaleDef } from '../../../../src/visual/scale';
 import { Size } from '../../../../src/visual/attribute/size';
 
 describe('size attribute', () => {
+  test('test default options', () => {
+    const sizeAttr = new Size({
+      scales: [],
+      value: [0, 100],
+    });
+
+    expect(sizeAttr.fields).toStrictEqual(['size']);
+    expect(sizeAttr.type).toStrictEqual('size');
+  });
+
   test('test for linear', () => {
     const scaleLinear = new ScaleDef({
       type: 'linear',
