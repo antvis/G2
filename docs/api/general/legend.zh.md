@@ -82,10 +82,10 @@ _legendOption_ 配置如下：
 
 适用于 <tag color="green" text="分类图例">分类图例</tag>，对图例分页器进行主题样式设置。_LegendPageNavigatorCfg_ 配置如下：
 
-| 参数名 | 类型                  | 默认值 | 描述           |
-| ------ | --------------------- | ------ | -------------- |
-| marker | _PageNavigatorMarker_ | -      | 分页器指示箭头配置项    |
-| text   | _PageNavigatorText_   | -      | 分页器指示文本配置项    |
+| 参数名 | 类型                  | 默认值 | 描述                 |
+| ------ | --------------------- | ------ | -------------------- |
+| marker | _PageNavigatorMarker_ | -      | 分页器指示箭头配置项 |
+| text   | _PageNavigatorText_   | -      | 分页器指示文本配置项 |
 
 示例：
 
@@ -122,11 +122,11 @@ pageNavigator: {
 ```ts
 chart.legend('type', {
   selected: {
-    '分类一': true,
-    '分类二': false,
-    '分类三': false,
-  }
-})
+    分类一: true,
+    分类二: false,
+    分类三: false,
+  },
+});
 ```
 
 <playground path='interaction/component/demo/legend-focus.ts' rid='legend-selected'></playground>
@@ -212,11 +212,19 @@ chart.legend('type', {
 
 ### legendOption.marker
 
-<description> _MarkerCfg_ **optional** </description>
+<description> _MarkerCfg | MarkerCfgCallback_ **optional** </description>
 
-适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项的 marker 图标的配置。
+适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项的 marker 图标配置，也支持通过回调的方式设置。
 
 `markdown:docs/common/marker-cfg.md`
+
+```sign
+type LegendItem = { name: string; value: string; } & MarkerCfg;
+
+type MarkerCfgCallback = (name: string, index: number, item: LegendItem) => MarkerCfg;
+```
+
+<playground path="component/legend/demo/marker-callback.ts" rid="legend-marker-callback"></playground>
 
 ### legendOption.min
 
