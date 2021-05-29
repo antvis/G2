@@ -4,7 +4,7 @@ import View from '../chart/view';
 import { DIRECTION } from '../constant';
 import { Attribute, ShapeAttrs, Tick } from '../dependents';
 import Geometry from '../geometry/base';
-import { LegendItem, MarkerCfg } from '../interface';
+import { LegendCfg, LegendItem, MarkerCfg } from '../interface';
 import { getMappingValue } from './attr';
 import { omit } from './helper';
 import { MarkerSymbols } from './marker';
@@ -74,7 +74,7 @@ type ComponentLegendItem = Omit<LegendItem, 'marker'> & {
  * @param geometry
  * @param attr
  * @param themeMarker
- * @param userMarker
+ * @param markerCfg
  * @returns legend items
  */
 export function getLegendItems(
@@ -82,7 +82,7 @@ export function getLegendItems(
   geometry: Geometry,
   attr: Attribute,
   themeMarker: object,
-  userMarker
+  userMarker: LegendCfg['marker'],
 ): ComponentLegendItem[] {
   const scale = attr.getScale(attr.type);
   if (scale.isCategory) {
@@ -92,7 +92,7 @@ export function getLegendItems(
     const defaultColor = view.getTheme().defaultColor;
     const isInPolar = geometry.coordinate.isPolar;
 
-    return scale.getTicks().map((tick: Tick) => {
+    return scale.getTicks().map((tick: Tick, index: number) => {
       const { text, value: scaleValue } = tick;
       const name = text;
       const value = scale.invert(scaleValue);
@@ -112,12 +112,18 @@ export function getLegendItems(
         color,
         isInPolar,
       });
+
+      let markerCfg = userMarker;
+      if (isFunction(markerCfg)) {
+        markerCfg = markerCfg(name, index, { name, value, ...deepMix({}, themeMarker, marker) })
+      }
+
       // the marker configure order should be ensure
-      marker = deepMix({}, themeMarker, marker, omit({ ...userMarker }, ['style']));
+      marker = deepMix({}, themeMarker, marker, omit({ ...markerCfg }, ['style']));
       adpatorMarkerStyle(marker, color);
-      if (userMarker && userMarker.style) {
+      if (markerCfg && markerCfg.style) {
         // handle user's style settings
-        marker.style = handleUserMarkerStyle(marker.style, userMarker.style);
+        marker.style = handleUserMarkerStyle(marker.style, markerCfg.style);
       }
       setMarkerSymbol(marker);
 
@@ -137,8 +143,12 @@ export function getLegendItems(
  */
 export function getCustomLegendItems(themeMarker: object, userMarker: object, customItems: LegendItem[]) {
   // 如果有自定义的 item，那么就直接使用，并合并主题的 marker 配置
-  return customItems.map((item: LegendItem) => {
-    const marker = deepMix({}, themeMarker, userMarker, item.marker);
+  return customItems.map((item: LegendItem, index: number) => {
+    let markerCfg = userMarker;
+      if (isFunction(markerCfg)) {
+        markerCfg = markerCfg(item.name, index, deepMix({}, themeMarker, item))
+      }
+    const marker = deepMix({}, themeMarker, markerCfg, item.marker);
     setMarkerSymbol(marker);
 
     item.marker = marker;

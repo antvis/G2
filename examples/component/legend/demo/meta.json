@@ -1,0 +1,24 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "marker-callback.ts",
+      "title": {
+        "zh": "通过回调设置 legend marker",
+        "en": "Legend marker with callback"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/XYbSi6Ztbo/f5bd6aff-61fa-41ff-ab3b-8de9be14d053.png"
+    },
+    {
+      "filename": "custom-items.ts",
+      "title": {
+        "zh": "自定义图例 items",
+        "en": "Custom legend items"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/PgYlI9hB3Z/c50fffd5-5db0-49f2-ba16-ee3f523905bc.png"
+    }
+  ]
+}

@@ -1032,7 +1032,7 @@ export interface LegendCfg {
   /**
    * **分类图例适用**，图例项的 marker 图标的配置。
    */
-  marker?: MarkerCfg;
+  marker?: MarkerCfg | ((name: string, index: number, item: { name: string; value: string } & MarkerCfg) => MarkerCfg);
   /**
    * **适用于分类图例**，当图例项过多时是否进行分页。
    */
