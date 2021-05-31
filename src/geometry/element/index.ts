@@ -215,7 +215,7 @@ export default class Element extends Base {
       }
       states.push(stateName);
       if (stateName === 'active' || stateName === 'selected') {
-        shape.toFront();
+        shape?.toFront();
       }
     } else {
       if (index === -1) {
@@ -224,7 +224,7 @@ export default class Element extends Base {
       }
       states.splice(index, 1);
       if (stateName === 'active' || stateName === 'selected') {
-        shape.toBack();
+        shape?.toBack();
       }
     }
 
