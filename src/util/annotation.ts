@@ -7,6 +7,9 @@ import { Scale } from '../dependents';
  * @param scale
  */
 export function getNormalizedValue(val: number | string, scale: Scale) {
+  if (!scale) {
+    return null;
+  }
   let scaled: number;
 
   switch (val) {
