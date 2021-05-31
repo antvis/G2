@@ -19,6 +19,11 @@ describe('attribute position', () => {
     fields: ['x', 'y'],
   });
 
+  test('test default options', () => {
+    expect(posAttr.fields).toStrictEqual(['x', 'y']);
+    expect(posAttr.type).toStrictEqual('position');
+  });
+
   test('map for (x, y)', () => {
     expect(posAttr.mapping('Jim', 3)).toStrictEqual([1, 0.3]);
     expect(posAttr.mapping('Tom', 6)).toStrictEqual([2, 0.6]);

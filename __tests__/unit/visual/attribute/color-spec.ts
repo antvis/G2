@@ -2,6 +2,16 @@ import { ScaleDef } from '../../../../src/visual/scale';
 import { Color } from '../../../../src/visual/attribute/color';
 
 describe('color attribute', () => {
+  test('test default options', () => {
+    const colorAttr = new Color({
+      value: [],
+      scales: [],
+    });
+
+    expect(colorAttr.fields).toStrictEqual(['color']);
+    expect(colorAttr.type).toStrictEqual('color');
+  });
+
   test('test for category scale', () => {
     const scaleCat = new ScaleDef({
       type: 'cat',

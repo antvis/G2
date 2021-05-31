@@ -26,7 +26,8 @@ export class ScalePool {
 
   /**
    * scale 同步的数据结构
-   * scale 同步的意思是，不同字段的 scale 对应的 scale 映射采用相同的配置。比如双轴图中，左边成本，右边利润，虽然数据量级是不同，到时需要放到一个坐标系大小中去对比，所以需要进行 scale 的同步
+   * scale 同步的意思是，不同字段的 scale 对应的 scale 映射采用相同的配置。
+   * 比如双轴图中，左边成本，右边利润，虽然数据量级是不同，到时需要放到一个坐标系大小中去对比，所以需要进行 scale 的同步
    * 主要处理的逻辑是将 scale 的 min max domain 保持一致
    * 数据结构：syncKey ----> scaleKey
    */
@@ -237,6 +238,7 @@ export class ScalePool {
    * @param key
    */
   private removeFromSyncScales(key: string) {
+    // eslint-disable-next-line consistent-return
     this.syncScaleKeys.forEach((scaleKeys: string[], syncKey: string) => {
       const idx = scaleKeys.indexOf(key);
 
