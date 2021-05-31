@@ -16,7 +16,7 @@
     "clean": "rimraf lib esm dist",
     "lint-staged": "lint-staged",
     "size": "limit-size",
-    "lint:ts": "eslint ./src/**/*.ts ./__tests__/**/*.ts && prettier ./src ./__tests__ --check ",
+    "lint:ts": "eslint ./src/**/*.ts ./__tests__/**/*.ts",
     "lint": "run-p lint:*",
     "fix": "eslint ./src/**/*.ts ./__tests__/**/*.ts --fix && prettier ./src ./__tests__ --write ",
     "test": "jest",
