@@ -40,6 +40,7 @@ module.exports = {
     '@typescript-eslint/lines-between-class-members': ['error'],
     'import/no-cycle': 'off',
     'prefer-destructuring': 'off',
+    'no-param-reassign': 'warn',
   },
   settings: {
     'import/parsers': {
