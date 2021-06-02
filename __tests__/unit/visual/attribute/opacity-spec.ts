@@ -21,8 +21,8 @@ describe('test opacity attr', () => {
       value: [0, 1],
     });
 
-    expect(opacity.mapping(0)[0]).toBe(0);
-    expect(opacity.mapping(10)[0]).toBe(1);
-    expect(opacity.mapping(5)[0]).toBe(0.5);
+    expect(opacity.mapping(0)[0]).toStrictEqual(0);
+    expect(opacity.mapping(10)[0]).toStrictEqual(1);
+    expect(opacity.mapping(5)[0]).toStrictEqual(0.5);
   });
 });
