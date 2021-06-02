@@ -3,7 +3,6 @@ import { OrdinalOptions } from '@antv/scale';
 import { Attribute, AttributeCfg } from './attribute';
 import { ScaleDef } from '../scale';
 
-// @ts-ignore
 export class Color extends Attribute {
   public gradient: (percent: number) => string;
 

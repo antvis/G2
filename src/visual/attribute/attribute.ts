@@ -30,7 +30,7 @@ export class Attribute {
   /**
    * attribute 的类型
    */
-  public type: 'base' | 'position' | 'color' | 'size';
+  public type: 'base' | 'position' | 'color' | 'size' | 'opacity';
 
   /**
    * 字段信息
