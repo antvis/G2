@@ -150,6 +150,7 @@
   "license": "MIT",
   "resolutions": {
     "monaco-editor": "0.21.3",
-    "@babel/plugin-transform-spread": "7.12.1"
+    "@babel/plugin-transform-spread": "7.12.1",
+    "d3-array": "2.12.1"
   }
 }
