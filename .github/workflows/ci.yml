@@ -43,7 +43,7 @@ jobs:
           node-version: 12.x
       - name: npm install
         run: |
-          npm install
+          yarn install
       - name: test
         run: |
           npm run coverage

@@ -1,3 +1,17 @@
+#### 4.1.18 (2021-06-07)
+
+##### New Features
+
+- **legend:** 图例支持回调设置 marker ([#3448](https://github.com/antvis/g2/pull/3448)) ([ed3047e7](https://github.com/antvis/g2/commit/ed3047e7823470de135a24ad854597316af8a7cc))
+
+##### Bug Fixes
+
+- 修复 view 上没有正确的 scale 时，绘制 annotation 出错 ([#3450](https://github.com/antvis/g2/pull/3450)) ([d0af4095](https://github.com/antvis/g2/commit/d0af40954a574948e34d6132f852ffb4e9bc0bd0))
+
+##### Other Changes
+
+- 修复 view.changeData 在重新渲染的时候 报 toFront 为 underfind 的错误 ([#3438](https://github.com/antvis/g2/pull/3438)) ([76e08d06](https://github.com/antvis/g2/commit/76e08d066a932c402e0acc57c22d8aed4bc9b3b4))
+
 #### 4.1.17 (2021-05-26)
 
 ##### Chores
