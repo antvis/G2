@@ -195,7 +195,7 @@ export class ScaleDef {
    * @return {ScaleBaseOptions} 下层的 @antv/scale 配置
    */
   private toAntvScaleCfg(): ScaleBaseOptions {
-    const option = this.option;
+    const { option } = this;
     let finalDomain: any[];
     // 如果是线性的，尝试使用 min 和 max 构造 domain 如果没有，我们从 传入的 domain 中寻找
     if (this.isLinear()) {
