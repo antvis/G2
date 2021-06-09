@@ -41,6 +41,7 @@ module.exports = {
     'import/no-cycle': 'off',
     'prefer-destructuring': 'off',
     'no-param-reassign': 'warn',
+    'no-underscore-dangle': 'off',
   },
   settings: {
     'import/parsers': {

@@ -12,12 +12,20 @@ export type Constructable<R = any> = {
 
 export type Callback = (...args: any[]) => any;
 
+export type Position = [number, number];
+
 /**
  * 一个点的定义
  */
 export type Point = {
   x: number;
   y: number;
+};
+
+/** 带范围的点结构 */
+export type RangePoint = {
+  readonly x?: number | number[];
+  readonly y?: number | number[];
 };
 
 /**
