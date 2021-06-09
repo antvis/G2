@@ -1464,7 +1464,7 @@ export interface SliderCfg {
   readonly height?: number;
 
   /** 滑块背景区域配置 */
-  readonly trendCfg?: TrendCfg;
+  readonly trendCfg?: Omit<TrendCfg, 'data'> & { data?: number[] };
   /** 滑块背景样式 */
   readonly backgroundStyle?: any;
   /** 滑块前景样式 */
