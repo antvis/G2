@@ -5,8 +5,6 @@ export { ScaleBaseOptions };
 // 支持的 scale 类型
 export type ScaleTypes =
   | 'ordinal'
-  | 'band'
-  | 'point'
   | 'linear'
   | 'log'
   | 'pow'
@@ -18,122 +16,141 @@ export type ScaleTypes =
   | 'quantile'
   | 'timeCat'
   | 'cat'
-  | 'category';
+  | 'category'
+  | 'point'
+  | 'band';
+
+export type BuiltinTickMethod =
+  | 'wilkinson-extended'
+  | 'r-pretty'
+  | 'd3-ticks'
+  | 'strict-count'
+  | 'd3-time'
+  | 'd3-log';
+
+export type Input = ScaleOptions['domain'][number];
+
+export type Output = ScaleOptions['range'][number];
+
+export type Tick = {
+  /** 展示名 */
+  text: string;
+  /** 值域值 */
+  value: Input;
+  /** 定义域值 */
+  tickValue: Output;
+};
 
 /**
  * G2.Scale 列定义的类型配置
  */
-export type ScaleOption = Partial<{
+export type ScaleDefOptions = Partial<{
   /**
-   * 字段类型区分
+   * 比例尺的种类
    */
   type: ScaleTypes;
 
   /**
-   * 同步 scale。
-   *
-   * @example
-   * ```ts
-   * chart.scale({
-   *   x: { sync: true },
-   *   y: { sync: true },
-   *   x1: { sync: 'x1' },
-   *   x2: { sync: 'x1' },
-   * });
-   * ```
-   *
-   * 通过以上配置，我们会分别对 x 和 y 两个字段，x1 和 x2 两个字段进行同步度量操作。
+   * 是否同步比例尺的定义域
    */
   sync: boolean | string;
 
   /**
-   * 字段 id
-   */
-  field: string;
-
-  /**
-   * 字段别名
+   * 字段别名，用于坐标轴和图例等的展示
    */
   alias: string;
 
   /**
-   * 映射的定义域 min
+   * 映射的定义域 min，优先级比 domain[0] 更高
    */
   min: number;
 
   /**
-   * 映射的定义域 max
+   * 映射的定义域 max，优先级比 domain[1] 更高
    */
   max: number;
 
   /**
-   * 严格模式下的定义域最小值，设置后会强制 ticks 从最小值开始
+   * 映射的定义域，如果没有配置 min && max，则将定义域设为它。从之前的 values 改名过来。
    */
-  minLimit: any;
-
-  /**
-   * 严格模式下的定义域最大值，设置后会强制 ticks 已最大值结束
-   */
-  maxLimit: any;
-
-  /**
-   * 定义域，如果没有配置 min && max，则将定义域设为它。从之前的 values 改名过来。
-   */
-  domain: any[];
+  domain: Input[];
 
   /**
    * 映射的输出范围，默认为是 [0, 1]
    */
-  range: number[];
+  range: Output[];
 
   /**
-   * 只对 type: 'time' 的 scale 生效，强制显示最后的日期 tick。
-   */
-  showLast: boolean;
-
-  /**
-   * 用于声明使用数据记录中的哪些字段来组成一条数据的唯一 id（如有多个字段，则使用 '-' 连接）。
-   * 数据 id 用于标识 Element 图形元素，应用于 Geometry 中的图形元素 Element 更新。
-   * 默认 G2 内部会有一套 ID 生成规则，如果不能满足用户需求，用户既可以使用该属性配置 id。
-   * @example
-   *
-   * 下面的例子中，声明了将 'x' 和 'y' 字段的数值来作为每条数据记录的 id，即下面数据两条数据的 id 分别为：'1-23' 和 '2-2'。
-   * ```ts
-   * const data = [
-   *   { x: 1, y: 23, z: 'a' },
-   *   { x: 2, y: 2, z: 'b' },
-   * ];
-   *
-   * chart.scale({
-   *   x: { key: true },
-   *   y: { key: true },
-   * });
-   * ```
+   * 是否用该字段的作为数据 id 的一部分
    */
   key: boolean;
 
   /**
-   * Log 类型有效，底数
+   * 底数，log 类型有效，
    */
   base: number;
   /**
-   * Pow 类型有效，指数
+   * 指数，pow 类型有效，
    */
   exponent: number;
 
-  // tick相关配置
   /**
-   *自动调整min、max
+   * 是否限制输出在值域的范围里面，对 Continuous 比例尺有效
+   */
+  clamp: boolean;
+
+  /**
+   * 数据预处理器，在映射之前对每一个数据进行转换
+   */
+  transform: (x: any) => Input;
+
+  /**
+   * 差值器，对 continuous 比例尺有效
+   */
+  interpolate: Interpolate;
+
+  /*
+   * 比较器，对 ordinal 比例尺有效
+   */
+  compare: Comparator;
+
+  /**
+   * 同时设置 paddingInner 和 paddingOuter，优先级最高，只对 Band 和 Point 比例尺有效
+   */
+  padding: number;
+
+  /**
+   * 条的对其方式，范围是: [0, 1]，默认是 0.5，只对 band 比例尺有效
+   */
+  align: number;
+
+  /**
+   * 条之间的间隔，范围是: [0, 1]，只对 band 和 point 比例尺有效
+   */
+  paddingInner: number;
+
+  /**
+   * 条和画布左右之间的间隔，范围是: [0, 1]，只对 band 和 point 比例尺有效
+   */
+  paddingOuter: number;
+
+  /**
+   * 是否是 UTC 时间，对 time 和 timeCat 比例尺有效
+   */
+  utc: boolean;
+
+  /**
+   * 是否对定义域进行 nice 操作，会改变 min 和 max
    */
   nice: boolean;
 
   /**
-   * 用于指定tick，优先级最高
+   * 用于显示指定生成的 ticks ，优先级最高
    */
-  ticks: any[];
+  ticks: Input[];
 
   /**
-   * tick 间隔，只对分类型和时间型适用，优先级高于 tickCount
+   * tick 间隔，只对 time 比例尺有效，优先级高于 tickCount
    */
   tickInterval: number;
 
@@ -143,23 +160,14 @@ export type ScaleOption = Partial<{
   tickCount: number;
 
   /**
-   * tick最小间隔，只对线型适用
-   */
-  minTickInterval: number;
-
-  /**
-   * ticks最大值，默认值为10
-   */
-  maxTickCount: number;
-  /**
    * tick 格式化函数，会影响数据在坐标轴 axis、图例 legend、tooltip 上的显示
    */
-  formatter: (v: any, k?: number) => any;
+  formatter: (value: Input, index?: number) => any;
 
   /**
-   * 计算 ticks 的算法
+   * 计算 ticks 的方法
    */
-  tickMethod: string;
+  tickMethod: BuiltinTickMethod | ((options: ScaleDefOptions) => number[]);
 
   /**
    * 时间度量 time, timeCat 时有效

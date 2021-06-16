@@ -1,112 +1,116 @@
-import { isNil, map, max, min } from '@antv/util';
-import { ScaleBaseOptions, ScaleOption } from '../../types';
-import { createScaleFactory } from '../../util/scale';
+import { isFunction, isString } from '@antv/util';
+import { Time, rPretty, wilkinsonExtended, d3Ticks, d3Log, d3Time } from '@antv/scale';
+import { Input, Output, Scale, ScaleDefOptions, ScaleTypes, Tick } from '../../types';
+import { createScaleByType, strickCount } from '../../util/scale';
 
 /**
- * 将 @antv/scale 进行针对于 G2 的二次包装，让使用更加容易方便
+ * 该类有两个作用：
+ * 1. 存储一些绘制坐标轴需要的参数
+ * 2. 增加 @antv/scale 的能力：getText，getTicks 等
  *
  * 其实名字叫 FieldMeta 更好，但是考虑到 G2 旧版本的概念兼容
  * 所以还是用重名的 Scale 命名，它的内部会包含一个真正的 scale 实例
- *
- * @param T scale 类型，默认为 Base
- * @param O scale 选项，默认为 BaseOption
- * @see {ScaleBaseOptions} in @antv/scale, scale 的基础配置
- * @see {Base} in @antv/scale scale 的基类
  */
 export class ScaleDef {
   /**
-   * 包含的 antv/scale 实例
+   * 真正的做数据映射的 scale 的实例
    */
   private scale: any;
 
   /**
-   * 传入的配置
+   * 当前的 options
    */
-  private option: ScaleOption;
+  private options: ScaleDefOptions;
+
+  /**
+   * 缓存的 ticks
+   */
+  private ticks: Tick[];
+
+  /**
+   * 对应的字段
+   */
+  private field: string;
+
+  private defaultOptions: ScaleDefOptions = {
+    min: 0,
+    max: 0,
+  };
 
   /**
    * 构造函数
-   *
-   * @param cfg G2 Scale 配置
+   * @param options 选项
+   * @param field 对应的字段
    */
-  constructor(option: ScaleOption) {
-    // 设置默认值
-    this.option = {
-      range: [0, 1],
-      ...option,
-    };
-
-    this.initScale();
+  constructor(options: ScaleDefOptions, field?: string) {
+    const initOptions = { ...this.defaultOptions, ...options };
+    this.update(initOptions);
+    this.field = field;
   }
 
   /**
-   * 获取字段的类型
+   * 更新 options
+   * 注意：如果参数中有 type，那么我们会重新初始化新的 scale 实例
    *
-   * @return 字段的类型
+   * @param options 更新的配置
    */
-  public get type() {
-    return this.option.type;
+  public update(updateOptions: Partial<ScaleDefOptions>) {
+    this.updateScaleType(updateOptions);
+    this.updateOptions(updateOptions);
+    this.updateScaleOptions();
+    this.updateTicks();
   }
 
   /**
-   * 获取对应的列字段
-   *
-   * @return 对应的列字段
-   */
-  public get field() {
-    return this.option.field;
-  }
-
-  /**
-   * 获取字段名字，考虑别名
-   *
-   * @return {string} 字段名称，如果配置了别名，则优先返回别名
-   */
-  public get fieldName() {
-    return this.option.alias || this.field;
-  }
-
-  /**
-   * 获取值对应的内容，处理 formatter
+   * 返回输入值进过映射和格式化之后的内容
    * @param v
    * @returns
    */
-  public getText(v: any) {
-    const text = this.scale.invert(v);
-    return this.option.formatter ? this.option.formatter(text) : `${text}`;
+  public getText(value: Input, index?: number) {
+    if (this.options.formatter) return this.options.formatter(value, index);
+    if (!(this.scale instanceof Time)) return `${value}`;
+    const formatter = this.scale.getFormatter();
+    return formatter(value as Date);
   }
 
   /**
-   * 获取 ticks，处理过 formatter 的
+   * 获取 ticks，返回原始值，映射之后以及格式化之后的值
    */
   public getTicks() {
-    return map(this.scale.getTicks(), (value) => ({
-      text: this.getText(value),
-      value,
-    }));
+    return this.ticks;
   }
 
   /**
    * 是否是线性连续 scale
    */
+  public isContinuous() {
+    return this.belongTo('linear', 'log', 'pow', 'sqrt', 'time');
+  }
+
   public isLinear() {
-    const LINEAR_TYPES = ['linear', 'log', 'pow', 'sqrt', 'time'];
-    return LINEAR_TYPES.includes(this.type);
+    return this.belongTo('linear');
   }
 
   /**
    * 是否是离散的分类 scale
    */
   public isCategory() {
-    const CATEGORY_TYPES = ['ordinal', 'band', 'point', 'cat', 'category'];
-    return CATEGORY_TYPES.includes(this.type);
+    return this.belongTo('ordinal', 'band', 'point', 'cat', 'category', 'timeCat');
   }
 
   /**
    * 是否是常量的 scale
    */
   public isIdentity() {
-    return this.type === 'identity';
+    return this.belongTo('identity');
+  }
+
+  /**
+   * 获取 scale 对应的字段
+   * @returns
+   */
+  public getField() {
+    return this.field;
   }
 
   /**
@@ -114,7 +118,7 @@ export class ScaleDef {
    * @returns
    */
   public getOptions() {
-    return this.scale.getOptions();
+    return this.options;
   }
 
   /**
@@ -123,7 +127,7 @@ export class ScaleDef {
    * @returns
    */
   public getOption(k: string) {
-    return this.scale.getOptions()[k];
+    return this.getOptions()[k];
   }
 
   /**
@@ -131,86 +135,91 @@ export class ScaleDef {
    *
    * @param v 需要映射的值
    */
-  public map(v: any): any {
-    return this.scale.map(v);
+  public map(v: any) {
+    const transform = this.options.transform || ((x) => x);
+    const input = transform(v);
+    return this.scale.map(input);
   }
 
   /**
-   * 将数据逆向映射会原始数据
+   * 将数据逆向映射为原始数据
    *
    * @param v 需要逆向映射的值
    */
-  public invert(v: any): any {
+  public invert(v: Output) {
     return this.scale.invert(v);
   }
 
   /**
-   * 更新 antv/scale 配置和实例，注意：如果参数中有 type，那么我们会重新初始化新的 scale 实例
-   *
-   * @param cfg G2 scale 配置
-   */
-  public update(cfg: Partial<ScaleOption>) {
-    const { type } = cfg;
-    // scale 是否需要改变 -- 传入的新配置的 type 有值，并且 type 发生了改变
-    const shouldScaleUpdate = !isNil(type) && this.option.type !== type;
-
-    // merge 配置，然后更新 scale
-    this.option = { ...this.option, ...cfg };
-
-    // 如果 type 发生了改变，我们更新 scale
-    if (shouldScaleUpdate) {
-      this.scale = createScaleFactory(this.option.type, cfg);
-      this.initScale();
-    } else {
-      // 配置转换
-      const antvScaleCfg = this.toAntvScaleCfg();
-
-      // 执行 antv/scale 更新
-      this.scale.update(antvScaleCfg);
-    }
-  }
-
-  /**
-   * 复制一个新的 scale
+   * 克隆一个新的 scale
    */
   public clone() {
-    return new ScaleDef(this.option);
+    return new ScaleDef(this.options);
   }
 
-  /**
-   * 初始化 inner scale
-   *
-   */
-  private initScale() {
-    // 将 G2 配置转换为 antv 配置
-    const antvConfig = this.toAntvScaleCfg();
-
-    // 通过类型创建 scale
-    this.scale = createScaleFactory(this.option.type, antvConfig);
-  }
-
-  /**
-   * 转换成下层的 @antv/scale 配置
-   *
-   * @return {ScaleBaseOptions} 下层的 @antv/scale 配置
-   */
-  private toAntvScaleCfg(): ScaleBaseOptions {
-    const { option } = this;
-    let finalDomain: any[];
-    // 如果是线性的，尝试使用 min 和 max 构造 domain 如果没有，我们从 传入的 domain 中寻找
-    if (this.isLinear()) {
-      finalDomain = [
-        isNil(option.min) ? min(option.domain) : option.min,
-        isNil(option.max) ? max(option.domain) : option.max,
-      ];
-    } else {
-      // 非线性，直接赋值
-      finalDomain = option.domain;
+  private updateScaleType(updateOptions: Partial<ScaleDefOptions>) {
+    const { type } = updateOptions;
+    if (type !== this.options.type) {
+      this.scale = createScaleByType(type);
     }
+  }
 
-    return {
-      ...option,
-      domain: finalDomain,
+  private updateOptions(updateOptions: Partial<ScaleDefOptions>) {
+    this.options = { ...this.options, ...updateOptions };
+  }
+
+  private updateScaleOptions() {
+    const options = {
+      ...this.options,
+      domain: this.generateDomain(),
+      tickMethod: this.generateTickMethod(),
+    } as any;
+    this.scale.update(options);
+  }
+
+  private updateTicks() {
+    this.ticks = this.calculateTicks() as Tick[];
+  }
+
+  private calculateTicks() {
+    const { domain } = this.scale.getOptions();
+    const tickValues = 'getTicks' in this.scale ? this.scale.getTicks() : domain;
+    return tickValues.map((value, index) => ({
+      text: this.getText(value, index),
+      tickValue: value,
+      value: this.map(value),
+    }));
+  }
+
+  private generateDomain() {
+    const { min, max, domain } = this.options;
+    const d0 = min === undefined ? domain[0] : min;
+    const d1 = max === undefined ? domain[1] : max;
+    return [d0, d1];
+  }
+
+  private generateTickMethod() {
+    const { tickMethod, ticks, type } = this.options;
+    const typeTickMethod = {
+      log: d3Log,
+      time: d3Time,
     };
+    const nameTickMethod = {
+      'd3-ticks': d3Ticks,
+      'wilkinson-extended': wilkinsonExtended,
+      'r-pretty': rPretty,
+      'strick-count': strickCount,
+      'd3-log': d3Log,
+      'd3-time': d3Time,
+    };
+
+    if (ticks) return () => ticks;
+    if (isFunction(tickMethod)) return tickMethod;
+    if (isString(tickMethod) && nameTickMethod[tickMethod]) return nameTickMethod[tickMethod];
+    return typeTickMethod[type] || d3Ticks;
+  }
+
+  private belongTo(...args: ScaleTypes[]) {
+    return args.includes(this.options.type);
   }
 }
