@@ -38,9 +38,9 @@ registerShape('point', 'pointer', {
 
 
 const data = [
-  { type: '新注册', value: 0.42 },
-  { type: '老用户', value: 0.68 },
-  { type: '新订单用户', value: 0.21 }
+  { type: '驿站', value: 0.42 },
+  { type: '代收点', value: 0.68 },
+  { type: '智能柜', value: 0.21 }
 ];
 const chart = new Chart({
   container: 'container',
