@@ -1,6 +1,6 @@
 import { isFunction, isString } from '@antv/util';
 import { Time, rPretty, wilkinsonExtended, d3Ticks, d3Log, d3Time } from '@antv/scale';
-import { Input, Output, Scale, ScaleDefOptions, ScaleTypes, Tick } from '../../types';
+import { Input, Output, Scale, ScaleDefOptions, ScaleTypes } from '../../types';
 import { createScaleByType, strickCount } from '../../util/scale';
 
 /**
@@ -20,12 +20,12 @@ export class ScaleDef {
   /**
    * 当前的 options
    */
-  private options: ScaleDefOptions;
+  private options: ScaleDefOptions = {};
 
   /**
-   * 缓存的 ticks
+   * 映射之前的 ticks
    */
-  private ticks: Tick[];
+  private tickValues: Input[];
 
   /**
    * 对应的字段
@@ -33,8 +33,7 @@ export class ScaleDef {
   private field: string;
 
   private defaultOptions: ScaleDefOptions = {
-    min: 0,
-    max: 0,
+    type: 'identity',
   };
 
   /**
@@ -58,6 +57,7 @@ export class ScaleDef {
     this.updateScaleType(updateOptions);
     this.updateOptions(updateOptions);
     this.updateScaleOptions();
+    this.updateExtent();
     this.updateTicks();
   }
 
@@ -77,7 +77,15 @@ export class ScaleDef {
    * 获取 ticks，返回原始值，映射之后以及格式化之后的值
    */
   public getTicks() {
-    return this.ticks;
+    return this.tickValues.map((value, index) => ({
+      text: this.getText(value, index),
+      tickValue: value,
+      value: this.map(value),
+    }));
+  }
+
+  public getTickValues() {
+    return this.tickValues;
   }
 
   /**
@@ -118,7 +126,8 @@ export class ScaleDef {
    * @returns
    */
   public getOptions() {
-    return this.options;
+    const scaleOptions = this.scale.getOptions();
+    return { ...scaleOptions, ...this.options };
   }
 
   /**
@@ -157,8 +166,9 @@ export class ScaleDef {
     return new ScaleDef(this.options);
   }
 
-  private updateScaleType(updateOptions: Partial<ScaleDefOptions>) {
+  private updateScaleType(updateOptions: Partial<ScaleDefOptions> = {}) {
     const { type } = updateOptions;
+    if (!type) return;
     if (type !== this.options.type) {
       this.scale = createScaleByType(type);
     }
@@ -177,18 +187,20 @@ export class ScaleDef {
     this.scale.update(options);
   }
 
-  private updateTicks() {
-    this.ticks = this.calculateTicks() as Tick[];
+  private updateExtent() {
+    const [min, max] = this.scale.getOptions().domain;
+    if (typeof min === 'string' || typeof max === 'string') return;
+    if (this.options.max) this.options.max = max;
+    if (this.options.min) this.options.min = min;
   }
 
-  private calculateTicks() {
+  private updateTicks() {
+    this.tickValues = this.calculateTickValues();
+  }
+
+  private calculateTickValues() {
     const { domain } = this.scale.getOptions();
-    const tickValues = 'getTicks' in this.scale ? this.scale.getTicks() : domain;
-    return tickValues.map((value, index) => ({
-      text: this.getText(value, index),
-      tickValue: value,
-      value: this.map(value),
-    }));
+    return 'getTicks' in this.scale ? this.scale.getTicks() : domain;
   }
 
   private generateDomain() {
