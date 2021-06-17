@@ -135,7 +135,7 @@ export class ScaleDef {
    * @param k
    * @returns
    */
-  public getOption(k: string) {
+  public getOption(k: keyof ScaleDefOptions) {
     return this.getOptions()[k];
   }
 
@@ -188,8 +188,11 @@ export class ScaleDef {
   }
 
   private updateExtent() {
-    const [min, max] = this.scale.getOptions().domain;
-    if (typeof min === 'string' || typeof max === 'string') return;
+    if (!this.isContinuous() && !this.belongTo('quantize')) return;
+    if (!this.getOption('nice')) return;
+    const domain = this.getOption('domain') as (number | Date)[];
+    const min = domain[0];
+    const max = domain[domain.length - 1];
     if (this.options.max) this.options.max = max;
     if (this.options.min) this.options.min = min;
   }
@@ -205,9 +208,10 @@ export class ScaleDef {
 
   private generateDomain() {
     const { min, max, domain = [] } = this.getOptions();
-    const d0 = min === undefined ? domain[0] : min;
-    const d1 = max === undefined ? domain[1] : max;
-    return [d0, d1];
+    const last = domain.length - 1;
+    if (min) domain[0] = min;
+    if (max) domain[last] = max;
+    return domain;
   }
 
   private generateTickMethod() {
