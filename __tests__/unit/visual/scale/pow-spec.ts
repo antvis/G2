@@ -1,4 +1,4 @@
-import { Pow } from '@antv/scale';
+import { Pow, d3Ticks } from '@antv/scale';
 import { ScaleDef } from '../../../../src/visual/scale/index';
 
 describe('pow scale', () => {
@@ -13,6 +13,10 @@ describe('pow scale', () => {
     expect(scale.getOption('type')).toEqual('pow');
     // @ts-ignore
     expect(scale.scale).toBeInstanceOf(Pow);
+    expect(scale.isContinuous()).toBeTruthy();
+    expect(scale.isCategory()).toBeFalsy();
+    expect(scale.isIdentity()).toBeFalsy();
+    expect(scale.getOption('tickMethod')).toBe(d3Ticks);
   });
 
   it('should have expected defaults', () => {

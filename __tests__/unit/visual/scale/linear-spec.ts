@@ -1,4 +1,4 @@
-import { Linear } from '@antv/scale';
+import { d3Ticks, Linear } from '@antv/scale';
 import { ScaleDef } from '../../../../src/visual/scale/index';
 
 describe('linear scale', () => {
@@ -16,6 +16,10 @@ describe('linear scale', () => {
     expect(scale.isLinear()).toBeTruthy();
     // @ts-ignore
     expect(scale.scale).toBeInstanceOf(Linear);
+    expect(scale.isContinuous()).toBeTruthy();
+    expect(scale.isCategory()).toBeFalsy();
+    expect(scale.isIdentity()).toBeFalsy();
+    expect(scale.getOption('tickMethod')).toBe(d3Ticks);
   });
 
   it('should has expected min and max', () => {

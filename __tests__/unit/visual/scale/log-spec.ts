@@ -1,4 +1,4 @@
-import { Log } from '@antv/scale';
+import { Log, d3Ticks } from '@antv/scale';
 import { ScaleDef } from '../../../../src/visual/scale/index';
 
 describe('log scale', () => {
@@ -12,6 +12,10 @@ describe('log scale', () => {
     expect(scale.getOption('type')).toEqual('log');
     // @ts-ignore
     expect(scale.scale).toBeInstanceOf(Log);
+    expect(scale.isContinuous()).toBeTruthy();
+    expect(scale.isCategory()).toBeFalsy();
+    expect(scale.isIdentity()).toBeFalsy();
+    expect(scale.getOption('tickMethod')).toBe(d3Ticks);
   });
 
   it('should have expected defaults', () => {
