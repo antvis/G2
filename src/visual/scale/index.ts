@@ -41,7 +41,7 @@ export class ScaleDef {
    * @param options 选项
    * @param field 对应的字段
    */
-  constructor(options: ScaleDefOptions, field?: string) {
+  constructor(options?: ScaleDefOptions, field?: string) {
     const initOptions = { ...this.defaultOptions, ...options };
     this.update(initOptions);
     this.field = field;
