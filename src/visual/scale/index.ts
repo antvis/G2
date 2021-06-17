@@ -1,6 +1,6 @@
 import { isFunction, isString } from '@antv/util';
 import { Time, rPretty, wilkinsonExtended, d3Ticks, d3Log, d3Time } from '@antv/scale';
-import { Input, Output, Scale, ScaleDefOptions, ScaleTypes } from '../../types';
+import { Input, Output, Scale, ScaleDefOptions, ScaleTypes } from '../../types/scale';
 import { createScaleByType, strickCount } from '../../util/scale';
 
 /**
@@ -204,7 +204,7 @@ export class ScaleDef {
   }
 
   private generateDomain() {
-    const { min, max, domain } = this.options;
+    const { min, max, domain = [] } = this.getOptions();
     const d0 = min === undefined ? domain[0] : min;
     const d1 = max === undefined ? domain[1] : max;
     return [d0, d1];
