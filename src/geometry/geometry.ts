@@ -1,4 +1,4 @@
-import { isArray } from '@antv/util';
+import { deepMix, each, get, isArray, remove } from '@antv/util';
 import { Visibility } from '../core';
 import {
   AttributeKey,
@@ -10,14 +10,24 @@ import {
   Datum,
   Adjust,
   ShapePoint,
+  MappingDatum,
+  PlainObject,
+  ShapeMarkerCfg,
+  ShapeMarkerAttrs,
+  ShapeInfo,
 } from '../types';
 import { GROUP_ATTR_KEYS, ORIGINAL_FIELD } from '../constant';
 import { createAttribute } from '../util/attribute';
 import { groupData } from '../util/data';
+import { diff } from '../util/diff';
 import { getScaleUpdateOptionsAfterStack } from '../util/scale';
 import { Attribute } from '../visual/attribute';
+import { Coordinate } from '../types/coordinate';
 import { ScaleDef } from '../visual/scale';
 import { Element } from './element';
+import { Shape } from 'src/types/g';
+import { ShapeRenderer } from 'src/types/factory';
+import { getShape } from './factory';
 
 /**
  * 所有 Geometry 的基类
@@ -29,11 +39,18 @@ import { Element } from './element';
  * g.paint();
  * ```
  */
-export class Geometry extends Visibility {
+export abstract class Geometry extends Visibility {
   /**
    * geometry 的类型
+   * @override
    */
-  public type: string = 'geometry';
+  public abstract type: string;
+
+  /**
+   * 默认的 shape type
+   * @override
+   */
+  public abstract defaultShapeType: string;
 
   /**
    * 传入到 Geometry 的配置信息（更新时候的配置）
@@ -72,9 +89,19 @@ export class Geometry extends Visibility {
   private beforeMappingData: Data[];
 
   /**
+   * 对应 shape type 的 shape renderer
+   */
+  private shapeRenderer: ShapeRenderer;
+
+  /**
    * 生成的所有绘图元素 Element
    */
   private elements: Element[];
+
+  /**
+   * 缓存 map 形式的 element
+   */
+  private elementsMap: Map<string, Element>;
 
   constructor(option: GeometryOption) {
     super();
@@ -84,12 +111,14 @@ export class Geometry extends Visibility {
       data: [],
       scales: new Map(),
       generatePoints: true,
+      theme: {},
       ...option,
     };
 
     this.attriubteOptions = new Map();
     this.attributes = new Map();
     this.elements = [];
+    this.elementsMap = new Map();
   }
 
   /**
@@ -142,7 +171,7 @@ export class Geometry extends Visibility {
         };
 
         // 2. 将分类数据翻译成数子, 仅对位置相关的度量进行数字化处理
-        // TODO 为什么要在分组的时候对位置中分类数字化
+        // TODO 为什么要在分组的时候对位置中分类数字化（数组索引值）
         categoryPositionScales.forEach((scale) => {
           const { field } = scale;
           mappingDatum[field] = scale.map(mappingDatum[field]);
@@ -206,6 +235,8 @@ export class Geometry extends Visibility {
 
       // 2. 形成 prev ---> next 单向链表
       if (prev) {
+        // 每个分组中的第一个元素保留链表信息
+        // todo nextPoints 到底有啥用，如确确定需要，他应该和关键点信息一样，都属于抽象的绘图信息
         prev[0].nextPoints = curr[0].points;
       }
       return curr;
@@ -219,25 +250,16 @@ export class Geometry extends Visibility {
    * @param data
    */
   private generateShapePoints(data: Data) {
-    const shapeFactory = this.getShapeFactory();
     const shapeAttr = this.getAttribute('shape');
-    for (let index = 0; index < data.length; index++) {
-      const obj = data[index];
-      const cfg = this.createShapePointsCfg(obj);
-      const shape = shapeAttr ? this.getAttributeValues(shapeAttr, obj) : null;
-      const points = shapeFactory.getShapePoints(shape, cfg);
-      obj.points = points;
+    for (let i = 0; i < data.length; i++) {
+      const datum = data[i];
+      const cfg = this.createShapePointsCfg(datum);
+      const shape = shapeAttr ? this.getAttributeValues(shapeAttr, datum) : this.defaultShapeType;
+      // 不同的图形 shape，会有不同的关键点信息，所以需要拿到 shapeAttr 获得渲染的 shape type string
+      // todo 之前的 mapping 会返回多种数据格式
+      const points = this.getShapePoints(shape as unknown as string, cfg);
+      datum.points = points;
     }
-  }
-
-  /**
-   * 获取图形对应的 shapeFactory
-   * // TODO 接入 shapeFactory
-   */
-  private getShapeFactory() {
-    return {
-      getShapePoints: (shapeType, cfg) => {},
-    };
   }
 
   /**
@@ -308,11 +330,107 @@ export class Geometry extends Visibility {
   private mapping(data: Data) {
     let datum;
 
+    const mappingData = new Array(data.length);
+
     for (let i = 0; i < data.length; i++) {
       datum = data[i];
 
-      this.attributes.forEach((attr, key) => {});
+      // 使用 attribute 进行数据的映射
+      this.attributes.forEach((attr, key) => {
+        const { fields } = attr;
+
+        const values = this.getAttributeValues(attr, datum);
+
+        if (fields.length > 1) {
+            // position 之类的生成多个字段的属性
+            for (let i = 0; i < values.length; i += 1) {
+              const val = values[i];
+              const name = fields[i];
+              datum[name] = isArray(val) && val.length === 1 ? val[0] : val; // 只有一个值时返回第一个属性值
+            }
+          } else {
+            // values.length === 1 的判断是以下情况，获取用户设置的图形属性值
+            // shape('a', ['dot', 'dash']), color('a', ['red', 'yellow'])
+            datum[fields[0]] = values.length === 1 ? values[0] : values;
+          }
+      });
+
+      // 使用 coordinate 进行坐标的转换（将 x、y 转换成画布坐标）
+      this.convertPoint(datum);
+
+      mappingData[i] = datum;
     }
+
+    return mappingData;
+  }
+  /**
+   * 将 attr 处理之后，归一化的坐标值转换成画布坐标
+   * @param mappingRecord 
+   */
+  private convertPoint(mappingDatum: MappingDatum) {
+    const { x, y } = mappingDatum;
+
+    let rstX;
+    let rstY;
+    let obj;
+    const { coordinate } = this.options;
+    if (isArray(x) && isArray(y)) {
+      rstX = [];
+      rstY = [];
+      for (let i = 0, j = 0, xLen = x.length, yLen = y.length; i < xLen && j < yLen; i += 1, j += 1) {
+        obj = coordinate.convert({
+          x: x[i],
+          y: y[j],
+        });
+        rstX.push(obj.x);
+        rstY.push(obj.y);
+      }
+    } else if (isArray(y)) {
+      rstY = [];
+      for (let index = 0; index < y.length; index++) {
+        const yVal = y[index];
+        obj = coordinate.convert({
+          x: x as number,
+          y: yVal,
+        });
+        if (rstX && rstX !== obj.x) {
+          if (!isArray(rstX)) {
+            rstX = [rstX];
+          }
+          rstX.push(obj.x);
+        } else {
+          rstX = obj.x;
+        }
+        rstY.push(obj.y);
+      }
+    } else if (isArray(x)) {
+      rstX = [];
+      for (let index = 0; index < x.length; index++) {
+        const xVal = x[index];
+        obj = coordinate.convert({
+          x: xVal,
+          y,
+        });
+        if (rstY && rstY !== obj.y) {
+          if (!isArray(rstY)) {
+            rstY = [rstY];
+          }
+          rstY.push(obj.y);
+        } else {
+          rstY = obj.y;
+        }
+        rstX.push(obj.x);
+      }
+    } else {
+      const point = coordinate.convert({
+        x,
+        y,
+      });
+      rstX = point.x;
+      rstY = point.y;
+    }
+    mappingDatum.x = rstX;
+    mappingDatum.y = rstY;
   }
 
   /**
@@ -327,7 +445,142 @@ export class Geometry extends Visibility {
     for (let i = 0; i < dataArray.length; i++) {
       data = dataArray[i];
       const mappingData = this.mapping(data);
+
+      // 生成/更新 Element
+      this.createElements(mappingData, i);
     }
+  }
+
+  /**
+   * 每一个分组一个 Element
+   * 存在则更新，不存在则创建，最后全部更新到 elementsMap 中
+   * @param mappingData
+   * @param idx
+   */
+  private createElements(mappingData: MappingDatum[], idx: number) {
+    // 根据需要生成的 elements 和当前已有的 elements，做一个 diff
+    // 1. 更新已有的
+    // 2. 创建新增的
+    // 3. 销毁删除的
+    const newElementIds = new Array(mappingData.length);
+    const datumMap = new Map<string, MappingDatum>();
+
+    for (let i = 0; i < mappingData.length; i++) {
+      const mappingDatum = mappingData[i];
+      const key = this.getElementId(mappingDatum);
+      newElementIds[i] = key;
+
+      datumMap.set(key, mappingDatum);
+    }
+
+    const { added, removed, updated } = diff(newElementIds, this.elementsMap);
+
+    // 新增的
+    added.forEach((key: string) => {
+      const { container } = this.options;
+
+      const mappingDatum = datumMap.get(key);
+
+      const shapeInfo = this.getElementShapeInfo(mappingDatum); // 获取绘制图形的配置信息
+
+      const element = new Element({
+        geometry: this,
+        container,
+        animate: this.animateOption,
+      });
+
+      element.draw(shapeInfo); // 绘制
+
+      this.elementsMap.set(key, element);
+    });
+
+    // 删除的
+    removed.forEach((key: string) => {
+      const el = this.elementsMap.get(key);
+      el.destroy();
+
+      this.elementsMap.delete(key);
+    });
+
+    //  todo 更新的
+    updated.forEach((key: string) => {
+      const el = this.elementsMap.get(key);
+      const mappingDatum = datumMap.get(key);
+      const shapeInfo = this.getElementShapeInfo(mappingDatum); // 获取绘制图形的配置信息
+
+      el.update(shapeInfo);
+    });
+  }
+
+  // 用于创建 Element 组件的配置
+  private getElementShapeInfo(mappingDatum: MappingDatum): ShapeInfo {
+    const originData = mappingDatum[ORIGINAL_FIELD]; // 原始数据
+    const cfg: ShapeInfo = {
+      mappingData: mappingDatum, // 映射后的数据
+      data: originData, // 原始数据
+      // 通道数据
+      x: mappingDatum.x,
+      y: mappingDatum.y,
+      color: mappingDatum.color,
+      size: mappingDatum.size,
+      custom: this.attriubteOptions.get('custom'),
+      // 其他数据
+      isInCircle: this.options.coordinate.isPolar,
+    };
+
+    let shapeName = mappingDatum.shape;
+    if (!shapeName) {
+      shapeName = this.defaultShapeType;
+    }
+    cfg.shape = shapeName;
+    // 获取默认样式
+    const theme = get(this.options.theme, ['geometries', this.type]);
+    cfg.defaultStyle = get(theme, [shapeName, 'default'], {}).style;
+    if (!cfg.defaultStyle) {
+      cfg.defaultStyle = this.getDefaultStyle(theme);
+    }
+
+    const styleOption = this.attriubteOptions.get('style');
+    if (styleOption) {
+      cfg.style = this.getStyleCfg(styleOption, originData);
+    }
+
+    // todo 是否需要这个配置
+    if (this.options.generatePoints) {
+      cfg.points = mappingDatum.points;
+      cfg.nextPoints = mappingDatum.nextPoints;
+    }
+
+    return cfg;
+  }
+
+  // 获取 style 配置
+  // todo 为啥不直接用 attr 做？
+  private getStyleCfg(styleOption: AttributeOption, originData: Datum) {
+    const { fields = [], callback, value } = styleOption;
+    if (value) {
+      // 用户直接配置样式属性
+      return value;
+    }
+
+    const params = fields.map((field) => {
+      return originData[field];
+    });
+
+    return callback(...params);
+  }
+
+  /**
+   * 不同的 geometry 有不同的 id 规则
+   * @param mappingDatum 
+   */
+  private getElementId(mappingDatum: MappingDatum): string {
+    const originalData = mappingDatum[ORIGINAL_FIELD];
+    // todo 不同的 element id 生成逻辑
+    const xScale = this.getXScale();
+    const yScale = this.getYScale();
+
+    return `${originalData[xScale.field]}-${originalData[yScale.field]}`;
   }
 
   /**
@@ -379,6 +632,15 @@ export class Geometry extends Visibility {
    */
   public size(fields: string, value: any) {
     this.setAttributeOption('size', fields, value);
+
+    return this;
+  }
+
+  /**
+   * 样式通道：style
+   */
+  public style(fields: string, value: any) {
+    this.setAttributeOption('style', fields, value);
 
     return this;
   }
@@ -574,5 +836,91 @@ export class Geometry extends Visibility {
   /** 获取 y 轴对应的 scale 实例。 */
   public getYScale(): ScaleDef {
     return this.options.scales.get(this.getXYFields()[1]);
+  }
+
+  /** 获取渲染信息的 API，原 factory 中的内容，子 geometry 需要对其进行重写    **************************************************************** */
+  /**
+   * 获取 shape 绘制需要的关键点
+   * @param shapeType shape 类型
+   * @param shapePoint 每条数据映射后的坐标点以及 size 数值
+   * @returns 图形关键点信息
+   */
+  public getShapePoints(shapeType: string, shapePoint: ShapePoint) {
+    const shape = this.getShapeRenderer(shapeType);
+    if (shape.getPoints) {
+      return shape.getPoints(shapePoint);
+    }
+
+    return this.getDefaultPoints(shapePoint);
+  }
+
+  /**
+   * 根据 shape 类型获取具体的 shape 实例
+   * @param shapeType string shape 的类型
+   * @returns
+   */
+  public getShapeRenderer(shapeType: string): Shape {
+    const shapeRenderer = getShape(this.type, shapeType);
+
+    // 如果以下，则更新
+    // 1. 不存在
+    // 2. 存在但是相同不匹配
+    if (!this.shapeRenderer || this.shapeRenderer.shapeType !== shapeRenderer.shapeType) {
+      this.shapeRenderer = getShape(this.type, shapeType);
+    }
+
+    // 追加 coordinate 实例
+    this.shapeRenderer.coordinate = this.options.coordinate;
+
+    return this.shapeRenderer;
+  }
+
+  /**
+   * 获取 shape 的默认关键点
+   * @override
+   */
+  public getDefaultPoints(shapePoint: ShapePoint) {
+    return [];
+  }
+
+  /**
+   * 获取 shape 的默认绘制样式 (内置的 shapeFactory 均有注册默认样式)
+   */
+  public getDefaultStyle(geometryTheme: PlainObject): PlainObject {
+    return get(geometryTheme, [this.defaultShapeType, 'default', 'style'], {});
+  }
+  /**
+   * 获取 shape 对应的缩略图配置信息。
+   * @param shapeType shape 类型
+   * @param color 颜色
+   * @param isInPolar 是否在极坐标系下
+   * @returns 返回缩略图 marker 配置。
+   */
+  public getShapeMarker(shapeType: string, markerCfg: ShapeMarkerCfg): ShapeMarkerAttrs {
+    let shape = this.getShapeRenderer(shapeType);
+
+    if (!shape.getMarker) {
+      const defaultShapeType = this.defaultShapeType;
+      shape = this.getShapeRenderer(defaultShapeType);
+    }
+
+    const theme = this.options.theme;
+    const shapeStyle = get(theme, [shapeType, 'default'], {});
+    const markerStyle = shape.getMarker(markerCfg);
+
+    return deepMix({}, shapeStyle, markerStyle);
+  }
+
+  /**
+   * 绘制 shape
+   * @override
+   * @param shapeType 绘制的 shape 类型
+   * @param cfg 绘制 shape 需要的信息
+   * @param element Element 实例
+   * @returns
+   */
+  public drawShape(shapeType: string, cfg: ShapeInfo, container: Shape): Shape {
+    const shape = this.getShapeRenderer(shapeType);
+    return shape.draw(cfg, container);
   }
 }

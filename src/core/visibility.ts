@@ -21,18 +21,22 @@ export class Visibility extends EE {
     this.visible = cfg?.visible || true;
   }
 
+  public changeVisible(visible: boolean) {
+    this.visible = visible;;
+  }
+
   /**
    * 显示。
    */
   public show() {
-    this.visible = true;
+    this.changeVisible(true);
   }
 
   /**
    * 隐藏。
    */
   public hide() {
-    this.visible = false;
+    this.changeVisible(false);
   }
 
   /**

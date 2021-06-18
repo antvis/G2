@@ -1,4 +1,8 @@
+import { ElementOptions } from '../types/element';
 import { Visibility } from '../core';
+import { ShapeInfo } from 'src/types';
+import { get, isArray } from '_@antv_util@2.0.13@@antv/util';
+import { Group } from 'src/types/g';
 
 /**
  * Element 图形元素。
@@ -15,8 +19,68 @@ export class Element extends Visibility {
    */
   private model: any;
 
-  constructor() {
+  /**
+   * 通过构造方法传入的配置项
+   */
+  private options: ElementOptions;
+
+  /**
+   * 绘制之后，产生的 G 元素
+   */
+  private shape: any;
+
+  constructor(options: ElementOptions) {
     super();
+
+    this.options = options;
+  }
+
+  /**
+   * 更新渲染
+   * @param model 
+   */
+  public update(model: ShapeInfo) {
+    // 如果 shape 不存在，那么必然不是更新，也无法更新
+    if (!this.shape) {
+      return;
+    }
+
+    this.model = model;
+
+    const { geometry } = this.options;
+    const shapeType = this.getShapeType();
+
+    // todo 使用 G 场景树构造一个！
+    const offscreenGroup = {};
+
+    const newShape = geometry.drawShape(shapeType, this.model, offscreenGroup);
+
+    // 最后新旧 shape 进行同步
+    this.syncShape(this.shape, newShape);
+
+  }
+
+  /**
+   * 初次渲染
+   * @param model 
+   */
+  public draw(model: ShapeInfo) {
+    // 更新 model
+    this.model = model;
+
+    // 绘制图形
+    this.drawShape();
+
+    if (this.visible === false) {
+      this.hide();
+    }
+  }
+
+  public destroy() {
+    // 销毁动画
+
+    // 重置属性
+
   }
 
   /**
@@ -27,12 +91,39 @@ export class Element extends Visibility {
   }
 
   /**
-   * 显示
+   * 获取对应的数据
    */
-  public show() {}
+  public getData() {
+    return this.model.data;
+  }
 
   /**
-   * 隐藏
+   * 具体根据 shape 类型，绘制对应的 ui
    */
-  public hide() {}
+  private drawShape() {
+    const shapeType = this.getShapeType();
+    const { geometry, container } = this.options;
+
+    this.shape = geometry.drawShape(shapeType, this.model, container);
+
+    // todo
+    // 添加 shape 的 name 属性，用于 element 事件
+   
+    // 执行动画
+  }
+
+  /**
+   * 当前的 shape 名称
+   */
+  private getShapeType() {
+    const shape = get(this.model, 'shape');
+    return isArray(shape) ? shape[0] : shape;
+  }
+
+  /**
+   * element 更新的时候，新旧 shape 进行同步
+   */
+  private syncShape(shape: Group, newShape: Group) {
+
+  }
 }

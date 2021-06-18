@@ -1,7 +1,22 @@
-export type ShapeFactory = {};
-export type RegisterShapeFactory = {};
+import type { Coordinate } from '../types/coordinate';
+import { Point } from './common';
+import { PathCommand, Shape } from './g';
+import { ShapeInfo } from './geometry';
 
-export type ShapeRenderer = {};
-export type RegisterShape = {};
+/**
+ * shape renderer 的信息
+ */
+export type ShapeRenderer = {
+  geometry: string;
+  shapeType: string;
+  coordinate: Coordinate;
+  parsePath: (path: string) => PathCommand[];
+  parsePoint: (point: Point) => Point;
+  parsePoints: (points: Point[]) => Point[];
+  draw: (cfg: ShapeInfo, container: Shape) => void;
+};
 
-export type ShapeMap = Map<string, Map<string, ShapeRenderer>>;
+/**
+ * 自定义 shape 的参数信息
+ */
+export type RegisterShapeRenderer = Partial<ShapeRenderer>;

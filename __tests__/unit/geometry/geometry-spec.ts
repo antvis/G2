@@ -112,8 +112,5 @@ describe('geometry', () => {
       { city: 1, price: 150, type: 'b', [ORIGINAL_FIELD]: { city: 'sh', price: 150, type: 'b' } },
       { city: 0, price: 175, type: 'b', [ORIGINAL_FIELD]: { city: 'bj', price: 175, type: 'b' } },
     ]);
-
-    // @ts-ignore
-    window.g = g;
   });
 });
