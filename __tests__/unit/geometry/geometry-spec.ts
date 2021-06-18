@@ -12,6 +12,7 @@ const data = [
 ];
 
 describe('geometry', () => {
+  // @ts-ignore
   const g = new Geometry({
     data,
     scales: new Map(),
@@ -19,7 +20,7 @@ describe('geometry', () => {
   });
 
   it('geometry constructor', () => {
-    expect(g.type).toEqual('geometry');
+    expect(g.type).toEqual(undefined);
   });
 
   it('geometry api', () => {
@@ -78,8 +79,10 @@ describe('geometry', () => {
     scales.set('price', new ScaleDef({ type: 'linear', field: 'price', domain: [50, 1100] }));
     scales.set('type', new ScaleDef({ type: 'cat', field: 'type', domain: ['red', 'green'] }));
 
+    // @ts-ignore
     const g = new Geometry({
       data,
+      container: {},
       scales,
       coordinate: null,
     });

@@ -22,6 +22,7 @@ describe('interval geometry', () => {
 
     const g = new Interval({
       data,
+      container: {},
       scales,
       coordinate: new Rect({
         start: { x: 0, y: 0 }, end: { x: 500, y: 400 },
