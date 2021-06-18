@@ -56,7 +56,7 @@ export class ScaleDef {
   public update(updateOptions: Partial<ScaleDefOptions>) {
     this.updateScaleType(updateOptions);
     this.updateOptions(updateOptions);
-    this.updateScaleOptions();
+    this.updateScaleOptions(updateOptions);
     this.updateExtent();
     this.updateTicks();
   }
@@ -178,10 +178,10 @@ export class ScaleDef {
     this.options = { ...this.options, ...updateOptions };
   }
 
-  private updateScaleOptions() {
+  private updateScaleOptions(updateOptions: Partial<ScaleDefOptions>) {
     const options = {
       ...this.options,
-      domain: this.generateDomain(),
+      domain: this.generateDomain(updateOptions),
       tickMethod: this.generateTickMethod(),
     } as any;
     this.scale.update(options);
@@ -189,12 +189,11 @@ export class ScaleDef {
 
   private updateExtent() {
     if (!this.isContinuous() && !this.belongTo('quantize')) return;
-    if (!this.getOption('nice')) return;
     const domain = this.getOption('domain') as (number | Date)[];
     const min = domain[0];
     const max = domain[domain.length - 1];
-    if (this.options.max) this.options.max = max;
-    if (this.options.min) this.options.min = min;
+    this.options.max = max;
+    this.options.min = min;
   }
 
   private updateTicks() {
@@ -206,8 +205,9 @@ export class ScaleDef {
     return 'getTicks' in this.scale ? this.scale.getTicks() : domain;
   }
 
-  private generateDomain() {
-    const { min, max, domain = [] } = this.getOptions();
+  private generateDomain(updateOptions: Partial<ScaleDefOptions>) {
+    const { min, max } = updateOptions;
+    const { domain = [] } = this.getOptions();
     const last = domain.length - 1;
     if (min) domain[0] = min;
     if (max) domain[last] = max;
