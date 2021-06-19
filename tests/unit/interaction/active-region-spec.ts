@@ -73,6 +73,39 @@ describe('interaction: active-region', () => {
     expect(activeRegion.get('visible')).toBe(false);
   });
 
+  it('custom appendRatio & appendWidth',async () => {
+    let point = chart.getXY(data[0]);
+    chart.emit('plot:mousemove', point);
+    let activeRegion = chart.backgroundGroup.findAllByName('active-region')[0];
+    // 默认 appendRatio: 0.25
+    expect(activeRegion.getBBox().width).toBe(chart.geometries[0].elements[0].shape.getBBox().width * (1 + 0.25 * 2));
+    chart.emit('plot:mouseleave', point);
+
+    chart.interaction('active-region', {
+      start: [{ trigger: 'plot:mousemove', action: 'active-region:show', arg: { appendRatio: 0.1 }}]
+    }); 
+    chart.emit('plot:mousemove', point);
+    activeRegion = chart.backgroundGroup.findAllByName('active-region')[0];
+    expect(activeRegion.getBBox().width).toBe(chart.geometries[0].elements[0].shape.getBBox().width * (1 + 0.1 * 2));
+    chart.emit('plot:mouseleave', point);
+
+    chart.interaction('active-region', {
+      start: [{ trigger: 'plot:mousemove', action: 'active-region:show', arg: { appendRatio: 0 }}]
+    }); 
+    chart.emit('plot:mousemove', point);
+    activeRegion = chart.backgroundGroup.findAllByName('active-region')[0];
+    expect(activeRegion.getBBox().width).toBe(chart.geometries[0].elements[0].shape.getBBox().width);
+    chart.emit('plot:mouseleave', point);
+
+    chart.interaction('active-region', {
+      start: [{ trigger: 'plot:mousemove', action: 'active-region:show', arg: { appendRatio: 0.4, appendWidth: 4 }}]
+    }); 
+    chart.emit('plot:mousemove', point);
+    activeRegion = chart.backgroundGroup.findAllByName('active-region')[0];
+    expect(activeRegion.getBBox().width).toBe(chart.geometries[0].elements[0].shape.getBBox().width + 4 * 2);
+    chart.emit('plot:mouseleave', point);
+  })
+
   it('remove interaction', () => {
     let activeRegion = chart.backgroundGroup.findAllByName('active-region')[0];
     expect(activeRegion).not.toBeUndefined();

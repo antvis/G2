@@ -1,4 +1,4 @@
-import { each, head, isEqual, last, get, flatten, isArray, uniq } from '@antv/util';
+import { each, head, isEqual, last, get, flatten, isArray, uniq, isNil } from '@antv/util';
 import { View } from 'src/chart';
 import { findItemsFromViewRecurisive } from '../../util/tooltip';
 import { IShape, Point, ShapeAttrs } from '../../dependents';
@@ -56,8 +56,10 @@ class ActiveRegion extends Action {
   /**
    * 显示
    * @param {ShapeAttrs} style region-path 的样式
+   * @param {number} appendRatio 适用于笛卡尔坐标系. 对于 x 轴非 linear 类型: 默认：0.25, x 轴 linear 类型: 默认 0
+   * @param {number} appendWidth  适用于笛卡尔坐标系. 像素级别，优先级 > appendRatio
    */
-  public show(args?: { style: ShapeAttrs }) {
+  public show(args?: { style: ShapeAttrs; appendRatio?: number; appendWidth?: number }) {
     const view = this.context.view;
     const ev = this.context.event;
 
@@ -129,21 +131,27 @@ class ActiveRegion extends Action {
         let path;
         if (coordinate.isRect) {
           const xScale = view.getXScale();
-          const appendRatio = xScale.isLinear ? 0 : 0.25; // 如果 x 轴是数值类型，如直方图，不需要家额外的宽度
+
+          let { appendRatio, appendWidth } = args || {};
+          if (isNil(appendWidth)) {
+            appendRatio = isNil(appendRatio) ? (xScale.isLinear ? 0 : 0.25) : appendRatio; // 如果 x 轴是数值类型，如直方图，默认不需要加额外的宽度
+            appendWidth = coordinate.isTransposed ? appendRatio * lastBBox.height : appendRatio * firstBBox.width;
+          }
+
           let minX: number;
           let minY: number;
           let width: number;
           let height: number;
           if (coordinate.isTransposed) {
             minX = coordinateBBox.minX;
-            minY = Math.min(lastBBox.minY, firstBBox.minY) - appendRatio * lastBBox.height;
+            minY = Math.min(lastBBox.minY, firstBBox.minY) - appendWidth;
             width = coordinateBBox.width;
-            height = groupBBox.height + appendRatio * 2 * lastBBox.height;
+            height = groupBBox.height + appendWidth * 2;
           } else {
-            minX = Math.min(firstBBox.minX, lastBBox.minX) - appendRatio * firstBBox.width;
+            minX = Math.min(firstBBox.minX, lastBBox.minX) - appendWidth;
             // 直角坐标系 非转置：最小值直接取 坐标系 minY
             minY = coordinateBBox.minY;
-            width = groupBBox.width + appendRatio * 2 * firstBBox.width;
+            width = groupBBox.width + appendWidth * 2;
             height = coordinateBBox.height;
           }
 
