@@ -141,7 +141,8 @@ class ActiveRegion extends Action {
             height = groupBBox.height + appendRatio * 2 * lastBBox.height;
           } else {
             minX = Math.min(firstBBox.minX, lastBBox.minX) - appendRatio * firstBBox.width;
-            minY = Math.min(coordinateBBox.minY, firstBBox.minY);
+            // 直角坐标系 非转置：最小值直接取 坐标系 minY
+            minY = coordinateBBox.minY;
             width = groupBBox.width + appendRatio * 2 * firstBBox.width;
             height = coordinateBBox.height;
           }
