@@ -98,31 +98,20 @@ class LinkByColor extends Action {
 
   /**
    * 连接 elements
-   * 
+   *
    * @usage
    * registerInteraction('xxx', {
-        start: [
-          {
-            trigger: 'interval:mouseenter',
-            action: 'element-link-by-color:link',
-            arg: {
-              style: { fill: 'red' }
-            },
-          },
-        ],
-      });
-
-    registerInteraction('xxx', {
-        start: [
-          {
-            trigger: 'interval:mouseenter',
-            action: 'element-link-by-color:link',
-            arg: {
-              style: (style, element) => ({ fill: 'red' })
-            },
-          },
-        ],
-      });
+   *   start: [
+   *    {
+   *      trigger: 'interval:mouseenter',
+   *      action: 'element-link-by-color:link',
+   *      arg: {
+   *        // style: { fill: 'red' }
+   *        style: (style, element) => ({ fill: 'red' })
+   *     },
+   *   },
+   *  ],
+   * });
    */
   public link(args?: { style: LinkActiveStyle }) {
     const context = this.context;
