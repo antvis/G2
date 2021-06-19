@@ -1,8 +1,22 @@
-import { contains, filter, find, hasKey, isArray, isFunction, isNil, isNumberEqual, isObject, memoize, values } from '@antv/util';
+import {
+  contains,
+  filter,
+  find,
+  isArray,
+  isEmpty,
+  isFunction,
+  isNil,
+  isNumberEqual,
+  isObject,
+  memoize,
+  uniq,
+  values,
+} from '@antv/util';
+import { View } from '../chart';
 import { FIELD_ORIGIN, GROUP_ATTRS } from '../constant';
 import { Attribute, Scale } from '../dependents';
 import Geometry from '../geometry/base';
-import { Data, Datum, MappingDatum, Point, TooltipTitle } from '../interface';
+import { Data, Datum, MappingDatum, Point, TooltipCfg, TooltipTitle } from '../interface';
 import { getName } from './scale';
 
 function snapEqual(v1: any, v2: any, scale: Scale) {
@@ -300,7 +314,12 @@ export function findDataByPoint(point: Point, data: MappingDatum[], geometry: Ge
  * @param [title]
  * @returns
  */
-export function getTooltipItems(data: MappingDatum, geometry: Geometry, title: TooltipTitle = '', showNil: boolean = false) {
+export function getTooltipItems(
+  data: MappingDatum,
+  geometry: Geometry,
+  title: TooltipTitle = '',
+  showNil: boolean = false
+) {
   const originData = data[FIELD_ORIGIN];
   const tooltipTitle = getTooltipTitle(originData, geometry, title);
   const tooltipOption = geometry.tooltipOption;
@@ -364,4 +383,96 @@ export function getTooltipItems(data: MappingDatum, geometry: Geometry, title: T
     addItem(name, value);
   }
   return items;
+}
+
+function getTooltipItemsByFindData(geometry: Geometry, point, title, tooltipCfg: TooltipCfg) {
+  const { showNil } = tooltipCfg;
+  const result = [];
+  const dataArray = geometry.dataArray;
+  if (!isEmpty(dataArray)) {
+    geometry.sort(dataArray); // 先进行排序，便于 tooltip 查找
+    for (const data of dataArray) {
+      const record = findDataByPoint(point, data, geometry);
+      if (record) {
+        const elementId = geometry.getElementId(record);
+        const element = geometry.elementsMap[elementId];
+        if (geometry.type === 'heatmap' || element.visible) {
+          // Heatmap 没有 Element
+          // 如果图形元素隐藏了，怎不再 tooltip 上展示相关数据
+          const items = getTooltipItems(record, geometry, title, showNil);
+          if (items.length) {
+            result.push(items);
+          }
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+function getTooltipItemsByHitShape(geometry, point, title, tooltipCfg: TooltipCfg) {
+  const { showNil } = tooltipCfg;
+  const result = [];
+  const container = geometry.container;
+  const shape = container.getShape(point.x, point.y);
+  if (shape && shape.get('visible') && shape.get('origin')) {
+    const mappingData = shape.get('origin').mappingData;
+    const items = getTooltipItems(mappingData, geometry, title, showNil);
+    if (items.length) {
+      result.push(items);
+    }
+  }
+
+  return result;
+}
+
+/**
+ * 不进行递归查找
+ */
+export function findItemsFromView(view: View, point: Point, tooltipCfg: TooltipCfg) {
+  const result = [];
+  // 先从 view 本身查找
+  const geometries = view.geometries;
+  const { shared, title, reversed } = tooltipCfg;
+  for (const geometry of geometries) {
+    if (geometry.visible && geometry.tooltipOption !== false) {
+      // geometry 可见同时未关闭 tooltip
+      const geometryType = geometry.type;
+      let tooltipItems;
+      if (['point', 'edge', 'polygon'].includes(geometryType)) {
+        // 始终通过图形拾取
+        tooltipItems = getTooltipItemsByHitShape(geometry, point, title, tooltipCfg);
+      } else if (['area', 'line', 'path', 'heatmap'].includes(geometryType)) {
+        // 如果是 'area', 'line', 'path'，始终通过数据查找方法查找 tooltip
+        tooltipItems = getTooltipItemsByFindData(geometry, point, title, tooltipCfg);
+      } else {
+        if (shared !== false) {
+          tooltipItems = getTooltipItemsByFindData(geometry, point, title, tooltipCfg);
+        } else {
+          tooltipItems = getTooltipItemsByHitShape(geometry, point, title, tooltipCfg);
+        }
+      }
+      if (tooltipItems.length) {
+        if (reversed) {
+          tooltipItems.reverse();
+        }
+        // geometry 有可能会有多个 item，因为用户可以设置 geometry.tooltip('x*y*z')
+        result.push(tooltipItems);
+      }
+    }
+  }
+
+  return result;
+}
+
+export function findItemsFromViewRecurisive(view: View, point: Point, tooltipCfg: TooltipCfg) {
+  let result = findItemsFromView(view, point, tooltipCfg);
+
+  // 递归查找，并合并结果
+  for (const childView of view.views) {
+    result = result.concat(findItemsFromView(childView, point, tooltipCfg));
+  }
+
+  return result;
 }

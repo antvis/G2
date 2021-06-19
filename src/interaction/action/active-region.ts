@@ -1,7 +1,9 @@
-import { each, head, isEqual, last, get } from '@antv/util';
-import { IShape, ShapeAttrs } from '../../dependents';
-import Element from '../../geometry/element/';
-import { LooseObject } from '../../interface';
+import { each, head, isEqual, last, get, flatten, isArray, uniq } from '@antv/util';
+import { View } from 'src/chart';
+import { findItemsFromViewRecurisive } from '../../util/tooltip';
+import { IShape, Point, ShapeAttrs } from '../../dependents';
+import Element from '../../geometry/element';
+import { LooseObject, TooltipCfg } from '../../interface';
 import { getAngle, getSectorPath } from '../../util/graphics';
 import Action from './base';
 
@@ -10,8 +12,42 @@ const DEFAULT_REGION_PATH_STYLE = {
   opacity: 0.3,
 };
 
+export function getItemsOfView(view: View, point: Point, tooltipCfg: TooltipCfg) {
+  let items = findItemsFromViewRecurisive(view, point, tooltipCfg);
+  if (items.length) {
+    // 三层
+    items = flatten(items);
+    for (const itemArr of items) {
+      for (const item of itemArr) {
+        const { x, y } = item.mappingData;
+        item.x = isArray(x) ? x[x.length - 1] : x;
+        item.y = isArray(y) ? y[y.length - 1] : y;
+      }
+    }
+
+    const { shared } = tooltipCfg;
+    // shared: false 代表只显示当前拾取到的 shape 的数据，但是一个 view 会有多个 Geometry，所以有可能会拾取到多个 shape
+    if (shared === false && items.length > 1) {
+      let snapItem = items[0];
+      let min = Math.abs(point.y - snapItem[0].y);
+      for (const aItem of items) {
+        const yDistance = Math.abs(point.y - aItem[0].y);
+        if (yDistance <= min) {
+          snapItem = aItem;
+          min = yDistance;
+        }
+      }
+      items = [snapItem];
+    }
+
+    return uniq(flatten(items));
+  }
+
+  return [];
+}
+
 /**
- * 背景框的 Action
+ * 背景框的 Action. 只作用于 interval 和 schema geometry
  * @ignore
  */
 class ActiveRegion extends Action {
@@ -24,10 +60,16 @@ class ActiveRegion extends Action {
   public show(args?: { style: ShapeAttrs }) {
     const view = this.context.view;
     const ev = this.context.event;
-    const tooltipItems = view.getTooltipItems({
-      x: ev.x,
-      y: ev.y,
-    });
+
+    const tooltipCfg = view.getController('tooltip').getTooltipCfg();
+    const tooltipItems = getItemsOfView(
+      view,
+      {
+        x: ev.x,
+        y: ev.y,
+      },
+      tooltipCfg
+    );
 
     if (isEqual(tooltipItems, this.items)) {
       // 如果拾取数据同上次相同，则不重复绘制
@@ -103,6 +145,7 @@ class ActiveRegion extends Action {
             width = groupBBox.width + appendRatio * 2 * firstBBox.width;
             height = coordinateBBox.height;
           }
+
           path = [
             ['M', minX, minY],
             ['L', minX + width, minY],
