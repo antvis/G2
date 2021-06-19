@@ -71,12 +71,37 @@ describe('list highlight test', () => {
     expect(linkGroup.getCount()).toBe(2);
   });
 
+  it('custom link active-style', () => {
+    context.event = {};
+    link.unlink();
+    link.clear(); // 事先调用，保证不出错
+    context.event = {
+      target: elements[0].shape,
+    };
+    link.link();
+    //@ts-ignore
+    linkGroup = link.linkGroup;
+    expect(linkGroup.getCount()).toBe(1);
+    // @ts-ignore
+    expect(linkGroup.getChildren()[0].getChildren()[0].attr('fill')).toBe(elements[0].shape.attr('fill'));
+
+    link.unlink();
+    link.clear(); // 事先调用，保证不出错
+    context.event = {
+      target: elements[0].shape,
+    };
+    link.link({ style: { fill: 'red' } });
+    // @ts-ignore
+    expect(linkGroup.getChildren()[0].getChildren()[0].attr('fill')).toBe('red');
+  });
+
   it('clear', () => {
     link.clear();
     expect(linkGroup.getCount()).toBe(0);
     // @ts-ignore
     expect(link.cache).toBeEmpty();
   });
+
   it('link null', () => {
     context.event = {
       target: null,
