@@ -1736,7 +1736,7 @@ export interface ListCfg extends FacetCfg<ListData> {
 }
 
 export interface ListData extends FacetData {
-  readonly total: number;
+  readonly total?: number;
 }
 
 // ===================== matrix 相关类型定义 =====================
