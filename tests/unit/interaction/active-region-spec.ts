@@ -60,11 +60,11 @@ describe('interaction: active-region', () => {
   it('tooltip: false, not effect actvie-region', async () => {
     chart.tooltip(false);
 
-    await delay(500);
+    await delay(100);
     let point = chart.getXY(data[2]);
     chart.emit('plot:mousemove', point);
 
-    await delay(1000);
+    await delay(100);
     activeRegion = chart.backgroundGroup.findAllByName('active-region')[0];
     expect(activeRegion).not.toBeNull();
     expect(activeRegion.get('visible')).toBe(true);
