@@ -41,6 +41,7 @@ import {
   ViewCfg,
   ViewPadding,
   ViewAppendPadding,
+  EventPayload,
 } from '../interface';
 import { GROUP_Z_INDEX, LAYER, PLOT_EVENTS, VIEW_LIFE_CIRCLE } from '../constant';
 import Base from '../base';
@@ -72,10 +73,6 @@ import { ScalePool } from './util/scale-pool';
 import { PaddingCal } from './layout/padding-cal';
 import { calculatePadding } from './layout/auto';
 import { defaultSyncViewPadding } from './util/sync-view-padding';
-
-export type ViewLifeCircleEventsParams = {
-  source?: string; /** 来源 */
-};
 
 /**
  * G2 视图 View 类
@@ -230,12 +227,12 @@ export class View extends Base {
    * @param isUpdate 是否触发更新流程。
    * @param params render 事件参数
    */
-  public render(isUpdate: boolean = false, params?: ViewLifeCircleEventsParams) {
-    this.emit(VIEW_LIFE_CIRCLE.BEFORE_RENDER, Event.fromData(this, VIEW_LIFE_CIRCLE.BEFORE_RENDER, params));
+  public render(isUpdate: boolean = false, payload?: EventPayload) {
+    this.emit(VIEW_LIFE_CIRCLE.BEFORE_RENDER, Event.fromData(this, VIEW_LIFE_CIRCLE.BEFORE_RENDER, payload));
     // 递归渲染
     this.paint(isUpdate);
 
-    this.emit(VIEW_LIFE_CIRCLE.AFTER_RENDER, Event.fromData(this, VIEW_LIFE_CIRCLE.AFTER_RENDER, params));
+    this.emit(VIEW_LIFE_CIRCLE.AFTER_RENDER, Event.fromData(this, VIEW_LIFE_CIRCLE.AFTER_RENDER, payload));
 
     if (this.visible === false) {
       // 用户在初始化的时候声明 visible: false

@@ -1,7 +1,6 @@
 import { Point, Scale } from '../../../dependents';
-import { FilterCondition } from '../../../interface';
+import { FilterCondition, EventPayload } from '../../../interface';
 import { View } from '../../../chart';
-import { ViewLifeCircleEventsParams } from '../../../chart/view';
 import Action from '../base';
 import { isMask } from '../util';
 
@@ -150,8 +149,8 @@ class RangeFilter extends Action {
    * 重新渲染
    * @param view
    */
-  protected reRender(view: View, params?: ViewLifeCircleEventsParams) {
-    view.render(true, params);
+  protected reRender(view: View, payload?: EventPayload) {
+    view.render(true, payload);
   }
 }
 
