@@ -36,7 +36,7 @@ G2 is a visualization grammar, a data-driven visual language with a high level o
 - 🦍Advanced View module: with the ability to develop customized multi-dimension data analysis graphics.
 - 👬Dual-engine rendering: with the ability to switch Canvas and SVG freely.
 - 💄Visual components: interaction-oriented, elegant experience.
-- 🛡Fully embrace Typescript: Complete type definition files are provided.
+- 🛡Fully embrace TypeScript: Complete type definition files are provided.
 
 ## 📦 Installation
 
