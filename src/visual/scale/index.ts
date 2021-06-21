@@ -2,7 +2,7 @@ import { isFunction, isString } from '@antv/util';
 import { format } from 'fecha';
 import { Time, rPretty, wilkinsonExtended, d3Ticks, d3Log, d3Time } from '@antv/scale';
 import { Input, Output, Scale, ScaleDefOptions, ScaleTypes } from '../../types/scale';
-import { createScaleByType, strickCount } from '../../util/scale';
+import { createScaleByType, strictCount } from '../../util/scale';
 
 /**
  * 该类有两个作用：
@@ -63,6 +63,10 @@ export class ScaleDef {
    * @returns
    */
   public getText(value: Input, index?: number) {
+    if (this.options.mask) {
+      const formatter = (d: Date) => format(d, this.options.mask);
+      return formatter(value as Date);
+    }
     if (this.options.formatter) return this.options.formatter(value, index);
     return `${value}`;
   }
@@ -139,9 +143,8 @@ export class ScaleDef {
    * @param v 需要映射的值
    */
   public map(v: any) {
-    const transform = this.options.transform || ((x) => x);
-    const input = transform(v);
-    return this.scale.map(input);
+    const input = this.options.transform(v);
+    return this.scale.map(input as any);
   }
 
   /**
@@ -182,7 +185,7 @@ export class ScaleDef {
   }
 
   private updateExtent() {
-    if (!this.isContinuous()) return;
+    if (!this.isContinuous() && !this.belongTo('quantize')) return;
     const domain = this.getOption('domain') as (number | Date)[];
     const min = domain[0];
     const max = domain[domain.length - 1];
@@ -191,9 +194,7 @@ export class ScaleDef {
   }
 
   private updateTicks() {
-    const { transform } = this.getOptions();
-    const tickValues = this.calculateTickValues();
-    this.tickValues = tickValues.map(transform);
+    this.tickValues = this.calculateTickValues();
   }
 
   private getDefaultOptions(): ScaleDefOptions {
@@ -206,12 +207,9 @@ export class ScaleDef {
     }
 
     if (this.belongTo('timeCat')) {
-      const { mask } = this.options;
-      const formatter = mask ? (d: Date) => format(d, mask) : (d: Date) => `${d}`;
       const compare = (a: Date, b: Date) => +a - +b;
       return {
         transform: (d: string | Date) => (typeof d === 'string' ? new Date(d) : d),
-        formatter,
         compare,
       };
     }
@@ -227,9 +225,11 @@ export class ScaleDef {
   }
 
   private generateDomain(updateOptions: Partial<ScaleDefOptions>) {
-    const { min, max, domain } = updateOptions;
-    const { transform } = this.getOptions();
-    const transformedDomain = domain ? domain.map(transform) : (this.getOption('domain') as []);
+    const { min, max, domain: d, transform: t } = updateOptions;
+    const domain = d || (this.getOption('domain') as ScaleDefOptions['domain']);
+    const transform = t || (this.getOption('transform') as ScaleDefOptions['transform']);
+    const shouldTransformed = d || t;
+    const transformedDomain = shouldTransformed ? domain.map(transform) : domain;
     const last = transformedDomain.length - 1;
     if (min) transformedDomain[0] = transform(min);
     if (max) transformedDomain[last] = transform(max);
@@ -246,7 +246,7 @@ export class ScaleDef {
       'd3-ticks': d3Ticks,
       'wilkinson-extended': wilkinsonExtended,
       'r-pretty': rPretty,
-      'strick-count': strickCount,
+      'strict-count': strictCount,
       'd3-log': d3Log,
       'd3-time': d3Time,
     };
