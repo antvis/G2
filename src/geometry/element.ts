@@ -37,7 +37,7 @@ export class Element extends Visibility {
 
   /**
    * 更新渲染
-   * @param model 
+   * @param model
    */
   public update(model: ShapeInfo) {
     // 如果 shape 不存在，那么必然不是更新，也无法更新
@@ -57,12 +57,11 @@ export class Element extends Visibility {
 
     // 最后新旧 shape 进行同步
     this.syncShape(this.shape, newShape);
-
   }
 
   /**
    * 初次渲染
-   * @param model 
+   * @param model
    */
   public draw(model: ShapeInfo) {
     // 更新 model
@@ -108,7 +107,6 @@ export class Element extends Visibility {
 
     // todo
     // 添加 shape 的 name 属性，用于 element 事件
-   
     // 执行动画
   }
 

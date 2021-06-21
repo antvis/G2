@@ -19,4 +19,3 @@ export type ElementOptions = {
    */
   visible?: boolean;
 }
-

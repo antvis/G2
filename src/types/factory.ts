@@ -1,4 +1,4 @@
-import type { Coordinate } from '../types/coordinate';
+import type { Coordinate } from './coordinate';
 import { Point } from './common';
 import { PathCommand, Shape } from './g';
 import { ShapeInfo } from './geometry';

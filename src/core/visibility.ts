@@ -22,7 +22,7 @@ export class Visibility extends EE {
   }
 
   public changeVisible(visible: boolean) {
-    this.visible = visible;;
+    this.visible = visible;
   }
 
   /**
