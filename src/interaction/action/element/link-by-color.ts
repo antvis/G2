@@ -1,13 +1,16 @@
 import Action from '../base';
 import { getCurrentElement, getElementValue, getElementsByField } from '../util';
 import Element from '../../../geometry/element/';
-import { each } from '@antv/util';
+import { deepMix, each, isFunction } from '@antv/util';
 import { LooseObject } from '../../../interface';
-import { IGroup } from '../../../dependents';
+import { IGroup, ShapeAttrs } from '../../../dependents';
+
+type LinkActiveStyle = ShapeAttrs | ((style: ShapeAttrs, Element: Element) => ShapeAttrs);
 
 /**
  * Link Elements by color
- * @ignore
+ *
+ * public 方法是对外可用的反馈交互。使用方式，如：element-link-by-color:link, element-link-by-color:unlink, element-link-by-color:clear
  */
 class LinkByColor extends Action {
   private linkGroup: IGroup;
@@ -45,18 +48,21 @@ class LinkByColor extends Action {
     return path;
   }
   // 添加连接的图形
-  private addLinkShape(group, element: Element, nextElement: Element) {
+  private addLinkShape(group: IGroup, element: Element, nextElement: Element, activeStyle?: LinkActiveStyle) {
+    const style = {
+      opacity: 0.4,
+      fill: element.shape.attr('fill'),
+    };
     group.addShape({
       type: 'path',
       attrs: {
-        opacity: 0.4,
-        fill: element.shape.attr('fill'),
+        ...deepMix({}, style, isFunction(activeStyle) ? activeStyle(style, element) : activeStyle),
         path: this.getLinkPath(element, nextElement),
       },
     });
   }
   // 使用图形连接
-  private linkByElement(element: Element) {
+  private linkByElement(element: Element, activeStyle?: LinkActiveStyle) {
     const view = this.context.view;
     const scale = this.getColorScale(view, element);
     if (!scale) {
@@ -72,7 +78,7 @@ class LinkByColor extends Action {
       each(elements, (el, index) => {
         if (index < count - 1) {
           const nextEl = elements[index + 1];
-          this.addLinkShape(group, el, nextEl);
+          this.addLinkShape(group, el, nextEl, activeStyle);
         }
       });
     }
@@ -92,25 +98,40 @@ class LinkByColor extends Action {
 
   /**
    * 连接 elements
+   *
+   * @usage
+   * registerInteraction('xxx', {
+   *   start: [
+   *    {
+   *      trigger: 'interval:mouseenter',
+   *      action: 'element-link-by-color:link',
+   *      arg: {
+   *        // style: { fill: 'red' }
+   *        style: (style, element) => ({ fill: 'red' })
+   *     },
+   *   },
+   *  ],
+   * });
    */
-  public link() {
+  public link(args?: { style: LinkActiveStyle }) {
     const context = this.context;
     if (!this.linkGroup) {
       // 不允许被拾取
       this.linkGroup = context.view.foregroundGroup.addGroup({
+        id: 'link-by-color-group',
         capture: false,
       });
     }
     const element = getCurrentElement(context);
     if (element) {
-      this.linkByElement(element);
+      this.linkByElement(element, args?.style);
     }
   }
 
   /**
    * 取消连接 elements
    */
-  unlink() {
+  public unlink() {
     const element = getCurrentElement(this.context);
     if (element) {
       this.removeLink(element);
@@ -120,7 +141,7 @@ class LinkByColor extends Action {
   /**
    * 清除所有连接
    */
-  clear() {
+  public clear() {
     if (this.linkGroup) {
       this.linkGroup.clear();
     }
