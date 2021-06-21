@@ -1,7 +1,7 @@
 import { isFunction, isString } from '@antv/util';
 import { format } from 'fecha';
 import { Time, rPretty, wilkinsonExtended, d3Ticks, d3Log, d3Time } from '@antv/scale';
-import { Input, Output, Scale, ScaleDefOptions, ScaleTypes } from '../../types/scale';
+import { Input, Output, Scale, ScaleDefOptions, ScaleTypes } from '../../types';
 import { createScaleByType, strictCount } from '../../util/scale';
 
 /**

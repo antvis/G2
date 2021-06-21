@@ -1,8 +1,67 @@
-import { BaseOptions as ScaleBaseOptions } from '@antv/scale';
+import {
+  Identity,
+  Linear,
+  Log,
+  Sqrt,
+  Pow,
+  Quantize,
+  Quantile,
+  Threshold,
+  Ordinal,
+  Time,
+  Band,
+  Point,
+  Constant,
+  ConstantOptions,
+  IdentityOptions,
+  LinearOptions,
+  LogOptions,
+  SqrtOptions,
+  PowOptions,
+  QuantileOptions,
+  QuantizeOptions,
+  ThresholdOptions,
+  OrdinalOptions,
+  TimeOptions,
+  BandOptions,
+  PointOptions,
+  Interpolate,
+  TickMethod,
+} from '@antv/scale';
 
-export { ScaleBaseOptions };
+// 暴露出去的 scale
+export type Scale =
+  | Identity
+  | Linear
+  | Log
+  | Sqrt
+  | Pow
+  | Quantile
+  | Quantize
+  | Threshold
+  | Ordinal
+  | Band
+  | Point
+  | Time
+  | Constant;
 
-// 支持的 scale 类型
+// 暴露出去的 scale 的配置
+export type ScaleOptions =
+  | IdentityOptions
+  | LinearOptions
+  | LogOptions
+  | SqrtOptions
+  | PowOptions
+  | QuantizeOptions
+  | QuantileOptions
+  | ThresholdOptions
+  | OrdinalOptions
+  | TimeOptions
+  | BandOptions
+  | PointOptions
+  | ConstantOptions;
+
+// 暴露出去的 scale 的类型
 export type ScaleTypes =
   | 'ordinal'
   | 'linear'
@@ -18,7 +77,8 @@ export type ScaleTypes =
   | 'cat'
   | 'category'
   | 'point'
-  | 'band';
+  | 'band'
+  | 'constant';
 
 export type BuiltinTickMethod =
   | 'wilkinson-extended'
@@ -63,12 +123,12 @@ export type ScaleDefOptions = Partial<{
   /**
    * 映射的定义域 min，优先级比 domain[0] 更高
    */
-  min: number;
+  min: number | Date;
 
   /**
    * 映射的定义域 max，优先级比 domain[1] 更高
    */
-  max: number;
+  max: number | Date;
 
   /**
    * 映射的定义域，如果没有配置 min && max，则将定义域设为它。从之前的 values 改名过来。
@@ -110,9 +170,9 @@ export type ScaleDefOptions = Partial<{
   interpolate: Interpolate;
 
   /*
-   * 比较器，对 ordinal 比例尺有效
+   * 比较器，对 ordinal, band, point比例尺有效
    */
-  compare: Comparator;
+  compare: (a: string | number | Date, b: string | number | Date) => number;
 
   /**
    * 同时设置 paddingInner 和 paddingOuter，优先级最高，只对 Band 和 Point 比例尺有效
@@ -167,7 +227,7 @@ export type ScaleDefOptions = Partial<{
   /**
    * 计算 ticks 的方法
    */
-  tickMethod: BuiltinTickMethod | ((options: ScaleDefOptions) => number[]);
+  tickMethod: BuiltinTickMethod | TickMethod;
 
   /**
    * 时间度量 time, timeCat 时有效

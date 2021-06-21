@@ -15,7 +15,8 @@ import {
   Time,
 } from '@antv/scale';
 
-import { Constructable, Data, Scale, ScaleTypes, ScaleOptions, ScaleDefOptions } from '../types';
+import { Scale, ScaleTypes, ScaleOptions, ScaleDefOptions, Constructable, Data } from '../types';
+
 import { ScaleDef } from '../visual/scale';
 
 /**
@@ -35,7 +36,7 @@ const scaleByType = {
   threshold: Threshold,
   quantize: Quantize,
   quantile: Quantile,
-  timeCat: Ordinal,
+  timeCat: Band,
   cat: Ordinal,
   category: Ordinal,
 };
@@ -77,10 +78,8 @@ export function getScaleUpdateOptionsAfterStack(
  * @param cfg @antv/scale 的配置
  */
 export function createScaleByType(type: ScaleTypes, options?: ScaleOptions): Scale {
-  const compare = (a: Date, b: Date) => +a - +b;
-  const defaultOptions = type === 'timeCat' ? { compare } : {};
   const ScaleCtor = (scaleByType[type] || Identity) as Constructable;
-  return new ScaleCtor({ ...defaultOptions, options });
+  return new ScaleCtor(options);
 }
 
 /**
@@ -122,7 +121,7 @@ export function createScaleByField(
  * @param count 生成 ticks 范围的数量
  * @returns ticks
  */
-export function strickCount(min: number, max: number, count: number) {
+export function strictCount(min: number, max: number, count: number) {
   const step = (max - min) / count;
   return new Array(count).fill(0).map((_, index) => min + index * step);
 }
