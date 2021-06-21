@@ -1487,6 +1487,14 @@ export interface SliderCfg {
   formatter?: (val: any, datum: Datum, idx: number) => any;
 }
 
+/**
+ * 事件 payload
+ */
+export type EventPayload = LooseObject & {
+  /** 触发事件的来源 */
+  source?: string;
+}
+
 export type EventCallback = (event: LooseObject) => void;
 /**
  * todo: 事件名可穷举，后续需要补充

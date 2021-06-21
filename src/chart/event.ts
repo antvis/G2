@@ -9,7 +9,7 @@ import View from './view';
 export default class Event {
   /** 当前 target 归属的 view 实例 */
   public view: View;
-  /** 被包装的原声 G 事件 */
+  /** 被包装的原生 G 事件 */
   public gEvent: GEvent;
   /** 原始数据 */
   public data?: Datum;

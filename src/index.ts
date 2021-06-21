@@ -207,7 +207,7 @@ import SmoothPathMask from './interaction/action/mask/smooth-path';
 
 import CursorAction from './interaction/action/cursor';
 import DataFilter from './interaction/action/data/filter';
-import DataRangeFilter from './interaction/action/data/range-filter';
+import DataRangeFilter, { BRUSH_FILTER_EVENTS } from './interaction/action/data/range-filter';
 import SiblingFilter from './interaction/action/data/sibling-filter';
 
 import ElementFilter from './interaction/action/element/filter';
@@ -691,5 +691,7 @@ declare module './chart/view' {
 
 // 暴露一些常量
 export { VIEW_LIFE_CIRCLE } from './constant';
+/** brush 范围筛选的一些事件常量 */
+export { BRUSH_FILTER_EVENTS };
 
 export * from './core';

@@ -41,6 +41,7 @@ import {
   ViewCfg,
   ViewPadding,
   ViewAppendPadding,
+  EventPayload,
 } from '../interface';
 import { GROUP_Z_INDEX, LAYER, PLOT_EVENTS, VIEW_LIFE_CIRCLE } from '../constant';
 import Base from '../base';
@@ -224,13 +225,14 @@ export class View extends Base {
    * 生命周期：渲染流程，渲染过程需要处理数据更新的情况。
    * render 函数仅仅会处理 view 和子 view。
    * @param isUpdate 是否触发更新流程。
+   * @param params render 事件参数
    */
-  public render(isUpdate: boolean = false) {
-    this.emit(VIEW_LIFE_CIRCLE.BEFORE_RENDER);
+  public render(isUpdate: boolean = false, payload?: EventPayload) {
+    this.emit(VIEW_LIFE_CIRCLE.BEFORE_RENDER, Event.fromData(this, VIEW_LIFE_CIRCLE.BEFORE_RENDER, payload));
     // 递归渲染
     this.paint(isUpdate);
 
-    this.emit(VIEW_LIFE_CIRCLE.AFTER_RENDER);
+    this.emit(VIEW_LIFE_CIRCLE.AFTER_RENDER, Event.fromData(this, VIEW_LIFE_CIRCLE.AFTER_RENDER, payload));
 
     if (this.visible === false) {
       // 用户在初始化的时候声明 visible: false
