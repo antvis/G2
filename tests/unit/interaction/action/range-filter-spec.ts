@@ -1,5 +1,5 @@
-import { Chart } from '../../../../src/index';
-import RangeFilter from '../../../../src/interaction/action/data/range-filter';
+import { Chart, VIEW_LIFE_CIRCLE } from '../../../../src/index';
+import RangeFilter, { BRUSH_FILTER_EVENTS } from '../../../../src/interaction/action/data/range-filter';
 import Context from '../../../../src/interaction/context';
 import { createDiv } from '../../../util/dom';
 
@@ -45,6 +45,20 @@ describe('active test', () => {
   });
 
   it('test x filter', () => {
+    let count = 0;
+
+    chart.on(VIEW_LIFE_CIRCLE.BEFORE_RENDER, (evt) => {
+      if (evt.data?.source === BRUSH_FILTER_EVENTS.RESET) {
+        expect(count).toBe(2);
+      }
+    });
+
+    chart.on(VIEW_LIFE_CIRCLE.AFTER_RENDER, (evt) => {
+      if (evt.data?.source === BRUSH_FILTER_EVENTS.FILTER) {
+        count = 2;
+      }
+    });
+
     // @ts-ignore
     action.dims = ['x'];
     context.event = {
