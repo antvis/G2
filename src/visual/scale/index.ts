@@ -1,4 +1,5 @@
 import { isFunction, isString } from '@antv/util';
+import { format } from 'fecha';
 import { Time, rPretty, wilkinsonExtended, d3Ticks, d3Log, d3Time } from '@antv/scale';
 import { Input, Output, Scale, ScaleDefOptions, ScaleTypes } from '../../types/scale';
 import { createScaleByType, strickCount } from '../../util/scale';
@@ -32,18 +33,13 @@ export class ScaleDef {
    */
   private field: string;
 
-  private defaultOptions: ScaleDefOptions = {
-    type: 'identity',
-  };
-
   /**
    * 构造函数
    * @param options 选项
    * @param field 对应的字段
    */
   constructor(options?: ScaleDefOptions, field?: string) {
-    const initOptions = { ...this.defaultOptions, ...options };
-    this.update(initOptions);
+    this.update({ type: 'identity', ...options });
     this.field = field;
   }
 
@@ -68,9 +64,7 @@ export class ScaleDef {
    */
   public getText(value: Input, index?: number) {
     if (this.options.formatter) return this.options.formatter(value, index);
-    if (!(this.scale instanceof Time)) return `${value}`;
-    const formatter = this.scale.getFormatter();
-    return formatter(value as Date);
+    return `${value}`;
   }
 
   /**
@@ -169,13 +163,13 @@ export class ScaleDef {
   private updateScaleType(updateOptions: Partial<ScaleDefOptions> = {}) {
     const { type } = updateOptions;
     if (!type) return;
-    if (type !== this.options.type) {
-      this.scale = createScaleByType(type);
-    }
+    if (type !== this.options.type) this.scale = createScaleByType(type);
   }
 
   private updateOptions(updateOptions: Partial<ScaleDefOptions>) {
     this.options = { ...this.options, ...updateOptions };
+    const defaultOptions = this.getDefaultOptions();
+    this.options = { ...defaultOptions, ...this.options };
   }
 
   private updateScaleOptions(updateOptions: Partial<ScaleDefOptions>) {
@@ -188,7 +182,7 @@ export class ScaleDef {
   }
 
   private updateExtent() {
-    if (!this.isContinuous() && !this.belongTo('quantize')) return;
+    if (!this.isContinuous()) return;
     const domain = this.getOption('domain') as (number | Date)[];
     const min = domain[0];
     const max = domain[domain.length - 1];
@@ -197,7 +191,34 @@ export class ScaleDef {
   }
 
   private updateTicks() {
-    this.tickValues = this.calculateTickValues();
+    const { transform } = this.getOptions();
+    const tickValues = this.calculateTickValues();
+    this.tickValues = tickValues.map(transform);
+  }
+
+  private getDefaultOptions(): ScaleDefOptions {
+    if (this.belongTo('time')) {
+      const formatter = (this.scale as Time).getFormatter();
+      return {
+        transform: (d: string | Date) => (typeof d === 'string' ? new Date(d) : d),
+        formatter,
+      };
+    }
+
+    if (this.belongTo('timeCat')) {
+      const { mask } = this.options;
+      const formatter = mask ? (d: Date) => format(d, mask) : (d: Date) => `${d}`;
+      const compare = (a: Date, b: Date) => +a - +b;
+      return {
+        transform: (d: string | Date) => (typeof d === 'string' ? new Date(d) : d),
+        formatter,
+        compare,
+      };
+    }
+
+    return {
+      transform: (d) => d,
+    };
   }
 
   private calculateTickValues() {
@@ -206,12 +227,13 @@ export class ScaleDef {
   }
 
   private generateDomain(updateOptions: Partial<ScaleDefOptions>) {
-    const { min, max } = updateOptions;
-    const { domain = [] } = this.getOptions();
-    const last = domain.length - 1;
-    if (min) domain[0] = min;
-    if (max) domain[last] = max;
-    return domain;
+    const { min, max, domain } = updateOptions;
+    const { transform } = this.getOptions();
+    const transformedDomain = domain ? domain.map(transform) : (this.getOption('domain') as []);
+    const last = transformedDomain.length - 1;
+    if (min) transformedDomain[0] = transform(min);
+    if (max) transformedDomain[last] = transform(max);
+    return transformedDomain;
   }
 
   private generateTickMethod() {
