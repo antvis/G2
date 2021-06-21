@@ -1,8 +1,8 @@
+import { get, isArray } from '@antv/util';
 import { ElementOptions } from '../types/element';
 import { Visibility } from '../core';
-import { ShapeInfo } from 'src/types';
-import { get, isArray } from '_@antv_util@2.0.13@@antv/util';
-import { Group } from 'src/types/g';
+import { ShapeInfo } from '../types';
+import { Group } from '../types/g';
 
 /**
  * Element 图形元素。
