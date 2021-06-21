@@ -9,9 +9,10 @@ describe('time scale', () => {
   });
 
   it('should have expected defaults', () => {
-    expect(scale.getOption('type')).toEqual('time');
+    expect(scale.getOption('type')).toBe('time');
     expect(scale.getOption('min')).toEqual(new Date('2011-01-01'));
     expect(scale.getOption('max')).toEqual(new Date('2011-01-02'));
+    expect(scale.getOption('tickMethod')).toBe(d3Time);
 
     expect(scale.isLinear()).toBeFalsy();
     // @ts-ignore

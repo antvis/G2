@@ -13,6 +13,7 @@ describe('quantile scale', () => {
     expect(scale.isContinuous()).toBeFalsy();
     expect(scale.isCategory()).toBeFalsy();
     expect(scale.isIdentity()).toBeFalsy();
+    expect(scale.getOption('tickMethod')).toBe(d3Ticks);
 
     // @ts-ignore
     expect(scale.scale).toBeInstanceOf(Quantile);
@@ -25,6 +26,5 @@ describe('quantile scale', () => {
     });
 
     expect(scale.getTickValues()).toEqual([0, 2, 4, 6, 8, 10]);
-    expect(scale.getOption('tickMethod')).toBe(d3Ticks);
   });
 });

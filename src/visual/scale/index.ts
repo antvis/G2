@@ -163,7 +163,7 @@ export class ScaleDef {
     return new ScaleDef(this.options);
   }
 
-  private updateScaleType(updateOptions: Partial<ScaleDefOptions> = {}) {
+  private updateScaleType(updateOptions: Partial<ScaleDefOptions>) {
     const { type } = updateOptions;
     if (!type) return;
     if (type !== this.options.type) this.scale = createScaleByType(type);

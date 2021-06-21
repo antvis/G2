@@ -2,11 +2,10 @@ import { Sqrt } from '@antv/scale';
 import { ScaleDef } from '../../../../src/visual/scale/index';
 
 describe('sqrt scale', () => {
-  const scale = new ScaleDef({
-    type: 'sqrt',
-  });
-
   it('should have sqrt instance', () => {
+    const scale = new ScaleDef({
+      type: 'sqrt',
+    });
     expect(scale.getOption('type')).toBe('sqrt');
 
     // @ts-ignore

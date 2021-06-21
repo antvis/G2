@@ -12,7 +12,6 @@ describe('category scale', () => {
     expect(scale.isContinuous()).toBeFalsy();
     expect(scale.isIdentity()).toBeFalsy();
     expect(scale.isLinear()).toBeFalsy();
-    expect(scale.getOption('domain')).toEqual(['一月', '二月', 3, '四月', 5]);
 
     // @ts-ignore
     expect(scale.scale).toBeInstanceOf(Ordinal);
@@ -28,7 +27,6 @@ describe('category scale', () => {
     expect(scale.isContinuous()).toBeFalsy();
     expect(scale.isIdentity()).toBeFalsy();
     expect(scale.isLinear()).toBeFalsy();
-    expect(scale.getOption('domain')).toEqual(['一月', '二月', 3, '四月', 5]);
 
     // @ts-ignore
     expect(scale.scale).toBeInstanceOf(Ordinal);

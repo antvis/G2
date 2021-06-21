@@ -60,4 +60,17 @@ describe('time category scale', () => {
 
     expect(scale.getText(new Date('2010-01-01'))).toBe('Hello 2010');
   });
+
+  it('should get domain by getTickValues', () => {
+    const scale = new ScaleDef({
+      type: 'timeCat',
+      domain: [
+        new Date('2012-02-02'),
+        new Date('2012-02-01'),
+        new Date('2012-02-04'),
+        new Date('2012-02-03'),
+      ],
+    });
+    expect(scale.getTickValues()).toEqual(scale.getOption('domain'));
+  });
 });

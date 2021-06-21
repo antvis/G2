@@ -2,11 +2,10 @@ import { Band } from '@antv/scale';
 import { ScaleDef } from '../../../../src/visual/scale/index';
 
 describe('band scale', () => {
-  const scale = new ScaleDef({
-    type: 'band',
-  });
-
   it('should have band instance', () => {
+    const scale = new ScaleDef({
+      type: 'band',
+    });
     expect(scale.getOption('type')).toBe('band');
 
     // @ts-ignore
@@ -15,6 +14,5 @@ describe('band scale', () => {
     expect(scale.isContinuous()).toBeFalsy();
     expect(scale.isIdentity()).toBeFalsy();
     expect(scale.isLinear()).toBeFalsy();
-    expect(scale.isIdentity()).toBeFalsy();
   });
 });

@@ -1,4 +1,4 @@
-import { Identity, Log, rPretty, wilkinsonExtended, d3Ticks } from '@antv/scale';
+import { Identity, Log, rPretty, wilkinsonExtended, d3Ticks, Pow } from '@antv/scale';
 import { ScaleDef } from '../../../../src/visual/scale/index';
 import { ScaleDefOptions } from '../../../../src/types/scale';
 import { strictCount } from '../../../../src/util/scale';
@@ -45,6 +45,18 @@ describe('linear scale', () => {
 
     // @ts-ignore
     expect(scale.scale).toBeInstanceOf(Log);
+
+    scale.update({
+      type: 'pow',
+    });
+    // @ts-ignore
+    expect(scale.scale).toBeInstanceOf(Pow);
+
+    scale.update({
+      type: 'pow',
+    });
+    // @ts-ignore
+    expect(scale.scale).toBeInstanceOf(Pow);
   });
 
   it('should ignore undefined type by update()', () => {
@@ -132,7 +144,7 @@ describe('linear scale', () => {
 
   it('should use specified custom formatter by getText()', () => {
     const scale = new ScaleDef({
-      formatter: (d: number) => `${d * 2}`,
+      formatter: (d) => `${(d as number) * 2}`,
     });
 
     expect(scale.getText(1)).toBe('2');
