@@ -1,6 +1,7 @@
-import { isNil, isString, max, min, valuesOfKey, isNumber, get } from '@antv/util';
+import { isString, max, min, valuesOfKey, isNumber, get, isNil } from '@antv/util';
 import {
   Band,
+  Constant,
   Identity,
   Linear,
   Log,
@@ -13,8 +14,32 @@ import {
   Threshold,
   Time,
 } from '@antv/scale';
-import { ScaleBaseOptions, Constructable, Data, ScaleOption, ScaleTypes } from '../types';
+
+import { Scale, ScaleTypes, ScaleOptions, ScaleDefOptions, Constructable, Data } from '../types';
+
 import { ScaleDef } from '../visual/scale';
+
+/**
+ * 每种比例尺实际上使用的比例尺
+ */
+const scaleByType = {
+  ordinal: Ordinal,
+  linear: Linear,
+  log: Log,
+  pow: Pow,
+  sqrt: Sqrt,
+  time: Time,
+  band: Band,
+  point: Point,
+  constant: Constant,
+  identity: Identity,
+  threshold: Threshold,
+  quantize: Quantize,
+  quantile: Quantile,
+  timeCat: Band,
+  cat: Ordinal,
+  category: Ordinal,
+};
 
 /**
  * 对于 stack 的数据进行修改 scale min max 值
@@ -22,41 +47,27 @@ import { ScaleDef } from '../visual/scale';
  * @param beforeMappingData
  */
 export function getScaleUpdateOptionsAfterStack(
-  scale: ScaleOption,
+  scaleDef: ScaleDef,
   beforeMappingData: Data[],
-): ScaleOption {
-  const { field } = scale;
-
+): ScaleDefOptions {
   // 所有的数据
   const values = [];
-  let dataGroup;
-  let datum;
+  const field = scaleDef.getField();
+  const { min: minValue, max: maxValue } = scaleDef.getOptions();
 
   for (let i = 0; i < beforeMappingData.length; i += 1) {
-    dataGroup = beforeMappingData[i];
+    const dataGroup = beforeMappingData[i];
     for (let j = 0; j < dataGroup.length; j += 1) {
-      datum = dataGroup[j];
+      const datum = dataGroup[j];
       // 经过 stack adjust 之后的数据，变成了数组方式
       values.push(...datum[field]);
     }
   }
 
-  // 最终计算的 min max
-  let minValue = scale.min;
-  let maxValue = scale.max;
-
-  if (isNil(minValue)) {
-    minValue = min([minValue, ...values]);
-  }
-
-  if (isNil(maxValue)) {
-    maxValue = max([maxValue, ...values]);
-  }
-
   // 返回最新的配置
   return {
-    min: minValue,
-    max: maxValue,
+    min: isNil(minValue) ? min(values) : minValue,
+    max: isNil(maxValue) ? max(values) : maxValue,
   };
 }
 
@@ -66,28 +77,9 @@ export function getScaleUpdateOptionsAfterStack(
  * @param type 一个字符串，
  * @param cfg @antv/scale 的配置
  */
-export function createScaleFactory(type: ScaleTypes, cfg: ScaleBaseOptions): any {
-  // 针对不同的类型，创建不同的 scale
-  const scaleMap = {
-    // ordinal cases
-    ordinal: Ordinal,
-    cat: Ordinal,
-    category: Ordinal,
-    band: Band,
-    point: Point,
-    linear: Linear,
-    log: Log,
-    pow: Pow,
-    sqrt: Sqrt,
-    time: Time,
-    timeCat: Time,
-    identity: Identity,
-    threshold: Threshold,
-    quantize: Quantize,
-    quantile: Quantile,
-  };
-  const TargetScaleClass = scaleMap[type.toLowerCase()] || (Ordinal as Constructable);
-  return new TargetScaleClass(cfg);
+export function createScaleByType(type: ScaleTypes, options?: ScaleOptions): Scale {
+  const ScaleCtor = (scaleByType[type] || Identity) as Constructable;
+  return new ScaleCtor(options);
 }
 
 /**
@@ -99,26 +91,37 @@ export function createScaleFactory(type: ScaleTypes, cfg: ScaleBaseOptions): any
  */
 export function createScaleByField(
   field: string | number,
-  data?: Data,
-  scaleOption?: ScaleOption,
+  data: Data = [],
+  scaleDefOptions?: ScaleDefOptions,
 ): ScaleDef {
-  const validData = data || [];
-
-  if (isString(field)) {
-    const values = valuesOfKey(validData, field);
-
-    return new ScaleDef({
-      // 优先使用开发者的配置，如果没有设置，则全部默认使用 cat 类型
-      type: isNumber(get(values, [0])) ? 'linear' : 'cat',
-      field: field.toString(),
-      domain: values,
-      ...scaleOption,
-    });
+  // 非法情况，全部使用 identity/constant
+  if (!isString(field)) {
+    const options = {
+      type: 'identity' as ScaleTypes,
+      domain: [field],
+    };
+    return new ScaleDef(options, field.toString());
   }
-  // 其他情况，均为非法，全部使用 identity/constant
-  return new ScaleDef({
-    type: 'identity',
-    field: field.toString(),
-    domain: [field],
-  });
+
+  const values = valuesOfKey(data, field);
+  // 优先使用开发者的配置，如果没有设置，则全部默认使用 cat 类型
+  const type: ScaleTypes = isNumber(get(values, [0])) ? 'linear' : 'cat';
+  const options = {
+    type,
+    domain: values,
+    ...scaleDefOptions,
+  };
+  return new ScaleDef(options, field.toString());
+}
+
+/**
+ * 内置的 tickMethod：保证生成 ticks 的数量和 count 相等
+ * @param min 生成 ticks 范围的最小值
+ * @param max 生成 ticks 范围的最大值
+ * @param count 生成 ticks 范围的数量
+ * @returns ticks
+ */
+export function strictCount(min: number, max: number, count: number) {
+  const step = (max - min) / count;
+  return new Array(count).fill(0).map((_, index) => min + index * step);
 }

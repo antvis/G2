@@ -238,8 +238,11 @@ export class ScalePool {
    * @param key
    */
   private removeFromSyncScales(key: string) {
-    // eslint-disable-next-line consistent-return
-    this.syncScaleKeys.forEach((scaleKeys: string[], syncKey: string) => {
+    const syncKeys = Object.keys(this.syncScaleKeys);
+
+    for (let i = 0; i < syncKeys.length; i += 1) {
+      const syncKey = syncKeys[i];
+      const scaleKeys = this.syncScaleKeys.get(syncKey);
       const idx = scaleKeys.indexOf(key);
 
       if (idx !== -1) {
@@ -249,8 +252,8 @@ export class ScalePool {
         if (scaleKeys.length === 0) {
           this.scaleMap.delete(syncKey);
         }
-        return false; // 跳出循环
+        return; // 跳出循环
       }
-    });
+    }
   }
 }
