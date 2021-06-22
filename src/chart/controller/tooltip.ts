@@ -1,25 +1,13 @@
-import {
-  deepMix,
-  find,
-  flatten,
-  get,
-  isArray,
-  isEqual,
-  isFunction,
-  mix,
-  isString,
-  isEmpty,
-  isBoolean,
-} from '@antv/util';
+import { deepMix, find, get, isEqual, isFunction, mix, isString, isBoolean, flatten, isArray } from '@antv/util';
 import { Crosshair, HtmlTooltip, IGroup } from '../../dependents';
-import Geometry from '../../geometry/base';
 import { Point, TooltipItem, TooltipOption } from '../../interface';
 import { getAngleByPoint, getDistanceToCenter, isPointInCoordinate } from '../../util/coordinate';
 import { polarToCartesian } from '../../util/graphics';
-import { findDataByPoint, getTooltipItems } from '../../util/tooltip';
+import { findItemsFromView } from '../../util/tooltip';
 import { BBox } from '../../util/bbox';
 import { Controller } from './base';
 import Event from '../event';
+import View from '../view';
 
 // Filter duplicates, use `name`, `color`, `value` and `title` property values as condition
 function uniq(items) {
@@ -384,7 +372,7 @@ export default class Tooltip extends Controller<TooltipOption> {
   }
 
   // 获取 tooltip 配置，因为用户可能会通过 view.tooltip() 重新配置 tooltip，所以就不做缓存，每次直接读取
-  protected getTooltipCfg() {
+  public getTooltipCfg() {
     const view = this.view;
     const option = view.getOptions().tooltip;
     const processOption = this.processCustomContent(option);
@@ -693,86 +681,14 @@ export default class Tooltip extends Controller<TooltipOption> {
     return tooltipCrosshairsGroup;
   }
 
-  private getTooltipItemsByHitShape(geometry, point, title) {
-    const { showNil } = this.getTooltipCfg();
-    const result = [];
-    const container = geometry.container;
-    const shape = container.getShape(point.x, point.y);
-    if (shape && shape.get('visible') && shape.get('origin')) {
-      const mappingData = shape.get('origin').mappingData;
-      const items = getTooltipItems(mappingData, geometry, title, showNil);
-      if (items.length) {
-        result.push(items);
-      }
-    }
-
-    return result;
-  }
-
-  private getTooltipItemsByFindData(geometry: Geometry, point, title) {
-    const { showNil } = this.getTooltipCfg();
-    const result = [];
-    const dataArray = geometry.dataArray;
-    if (!isEmpty(dataArray)) {
-      geometry.sort(dataArray); // 先进行排序，便于 tooltip 查找
-      for (const data of dataArray) {
-        const record = findDataByPoint(point, data, geometry);
-        if (record) {
-          const elementId = geometry.getElementId(record);
-          const element = geometry.elementsMap[elementId];
-          if (geometry.type === 'heatmap' || element.visible) {
-            // Heatmap 没有 Element
-            // 如果图形元素隐藏了，怎不再 tooltip 上展示相关数据
-            const items = getTooltipItems(record, geometry, title, showNil);
-            if (items.length) {
-              result.push(items);
-            }
-          }
-        }
-      }
-    }
-
-    return result;
-  }
-
-  private findItemsFromView(view, point) {
+  private findItemsFromView(view: View, point: Point) {
     if (view.getOptions().tooltip === false) {
       // 如果 view 关闭了 tooltip
       return [];
     }
 
-    let result = [];
-    // 先从 view 本身查找
-    const geometries = view.geometries;
-    const { shared, title, reversed } = this.getTooltipCfg();
-    for (const geometry of geometries) {
-      if (geometry.visible && geometry.tooltipOption !== false) {
-        // geometry 可见同时未关闭 tooltip
-        const geometryType = geometry.type;
-        let tooltipItems;
-        if (['point', 'edge', 'polygon'].includes(geometryType)) {
-          // 始终通过图形拾取
-          tooltipItems = this.getTooltipItemsByHitShape(geometry, point, title);
-        } else if (['area', 'line', 'path', 'heatmap'].includes(geometryType)) {
-          // 如果是 'area', 'line', 'path'，始终通过数据查找方法查找 tooltip
-          tooltipItems = this.getTooltipItemsByFindData(geometry, point, title);
-        } else {
-          if (shared !== false) {
-            tooltipItems = this.getTooltipItemsByFindData(geometry, point, title);
-          } else {
-            tooltipItems = this.getTooltipItemsByHitShape(geometry, point, title);
-          }
-        }
-        if (tooltipItems.length) {
-          if (reversed) {
-            tooltipItems.reverse();
-          }
-          // geometry 有可能会有多个 item，因为用户可以设置 geometry.tooltip('x*y*z')
-          result.push(tooltipItems);
-        }
-      }
-    }
-
+    const tooltipCfg = this.getTooltipCfg();
+    let result = findItemsFromView(view, point, tooltipCfg);
     // 递归查找，并合并结果
     for (const childView of view.views) {
       result = result.concat(this.findItemsFromView(childView, point));
