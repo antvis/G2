@@ -1,3 +1,20 @@
+#### 4.1.18 (2021-06-22)
+
+##### Documentation Changes
+
+- **readme:** change Typescript to TypeScript ([#3488](https://github.com/antvis/g2/pull/3488)) ([69eaea5a](https://github.com/antvis/g2/commit/69eaea5a56dbe2aa5a48662e3430c73f22c8359f))
+
+##### New Features
+
+- **events:** 暴露 brush 交互的生命周期，便于在 G2Plot 层可以监听 ([#3485](https://github.com/antvis/g2/pull/3485)) ([a8690cd9](https://github.com/antvis/g2/commit/a8690cd922102012c8001ac8ad8a5ed6a86ff600))
+- **interaction/link-by-color:** element-link 交互反馈增加参数配置 ([#3483](https://github.com/antvis/g2/pull/3483)) ([3ddbbd31](https://github.com/antvis/g2/commit/3ddbbd3138d558526e829cd41eaf4eaa4ad19a32))
+
+##### Bug Fixes
+
+- active-region 若干问题 ([#3484](https://github.com/antvis/g2/pull/3484)) ([2e62682a](https://github.com/antvis/g2/commit/2e62682a1f06f87c26ec197d0ca56addb8837c86))
+- fix trendCfg type definition of SliderCfg ([#3410](https://github.com/antvis/g2/pull/3410)) ([9ef59440](https://github.com/antvis/g2/commit/9ef5944051ed89486fdb659df158fcd496e7239e))
+- **types:** 修复类型定义，设置为可选项 ([#3482](https://github.com/antvis/g2/pull/3482)) ([5b3535aa](https://github.com/antvis/g2/commit/5b3535aa106012d4a3b91aa77e0db57f983bf06e))
+
 #### 4.1.18 (2021-06-07)
 
 ##### New Features
