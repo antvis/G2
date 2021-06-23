@@ -18,4 +18,4 @@ export type ElementOptions = {
    * 是否可见
    */
   visible?: boolean;
-}
+};

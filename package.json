@@ -18,7 +18,7 @@
     "size": "limit-size",
     "lint:ts": "eslint ./src/**/*.ts ./__tests__/**/*.ts",
     "lint": "run-p lint:*",
-    "fix": "eslint ./src/**/*.ts ./__tests__/**/*.ts --fix && prettier ./src ./__tests__ --write ",
+    "fix": "eslint ./src/**/*.ts ./__tests__/**/*.ts --fix",
     "test": "jest",
     "test-live": "DEBUG_MODE=1 jest --watch tests/unit",
     "coverage": "jest --coverage",
@@ -82,8 +82,7 @@
   },
   "lint-staged": {
     "*.{ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
+      "eslint --fix"
     ]
   },
   "jest": {

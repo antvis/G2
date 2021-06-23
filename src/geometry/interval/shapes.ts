@@ -1,5 +1,3 @@
 import { registerShape } from '../factory';
 
-registerShape('interval', 'interval', {
-  
-});
+registerShape('interval', 'interval', {});

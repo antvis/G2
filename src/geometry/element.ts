@@ -77,9 +77,7 @@ export class Element extends Visibility {
 
   public destroy() {
     // 销毁动画
-
     // 重置属性
-
   }
 
   /**
@@ -121,7 +119,5 @@ export class Element extends Visibility {
   /**
    * element 更新的时候，新旧 shape 进行同步
    */
-  private syncShape(shape: Group, newShape: Group) {
-
-  }
+  private syncShape(shape: Group, newShape: Group) {}
 }

@@ -25,7 +25,8 @@ describe('interval geometry', () => {
       container: {},
       scales,
       coordinate: new Rect({
-        start: { x: 0, y: 0 }, end: { x: 500, y: 400 },
+        start: { x: 0, y: 0 },
+        end: { x: 500, y: 400 },
       }),
     });
 

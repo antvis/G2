@@ -2,7 +2,7 @@ type DiffResult = {
   added: string[];
   removed: string[];
   updated: string[];
-}
+};
 
 /**
  * 做 diff，返回 新增，删除，更新

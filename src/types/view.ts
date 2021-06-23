@@ -1,6 +1,6 @@
 import type { View } from '../chart';
 import type { AutoPadding, Data, Datum, Padding, PlainObject, Region } from './common';
-import { ScaleOption } from './scale';
+import { ScaleDefOptions } from './scale';
 import type { GeometryOption } from './geometry';
 
 export type FilterCondition = (value: any, datum: Datum, idx?: number) => boolean;
@@ -43,7 +43,7 @@ export type Options = Partial<{
   /** 图例配置，以 data 中的数据属性为 key。 */
   legends: Record<string, LegendOption> | boolean;
   /** 列定义配置，用于配置数值的类型等，以 data 中的数据属性为 key。 */
-  scales: Record<string, ScaleOption>;
+  scales: Record<string, ScaleDefOptions>;
   /** Tooltip 配置。 */
   tooltip: TooltipOption;
   /** 坐标系配置。 */

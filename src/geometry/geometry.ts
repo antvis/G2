@@ -173,7 +173,7 @@ export abstract class Geometry extends Visibility {
         // 2. 将分类数据翻译成数子, 仅对位置相关的度量进行数字化处理
         // TODO 为什么要在分组的时候对位置中分类数字化（数组索引值）
         categoryPositionScales.forEach((scale) => {
-          const { field } = scale;
+          const field = scale.getField();
           mappingDatum[field] = scale.map(mappingDatum[field]);
         });
 
@@ -271,11 +271,11 @@ export abstract class Geometry extends Visibility {
     const xScale = this.getXScale();
     const yScale = this.getYScale();
 
-    const x = this.normalizeValues(datum[xScale.field], xScale);
+    const x = this.normalizeValues(datum[xScale.getField()], xScale);
     let y; // 存在没有 y 的情况
 
     if (yScale) {
-      y = this.normalizeValues(datum[yScale.field], yScale);
+      y = this.normalizeValues(datum[yScale.getField()], yScale);
     } else {
       y = datum.y ? datum.y : 0.1;
     }
@@ -342,17 +342,17 @@ export abstract class Geometry extends Visibility {
         const values = this.getAttributeValues(attr, datum);
 
         if (fields.length > 1) {
-            // position 之类的生成多个字段的属性
-            for (let i = 0; i < values.length; i += 1) {
-              const val = values[i];
-              const name = fields[i];
-              datum[name] = isArray(val) && val.length === 1 ? val[0] : val; // 只有一个值时返回第一个属性值
-            }
-          } else {
-            // values.length === 1 的判断是以下情况，获取用户设置的图形属性值
-            // shape('a', ['dot', 'dash']), color('a', ['red', 'yellow'])
-            datum[fields[0]] = values.length === 1 ? values[0] : values;
+          // position 之类的生成多个字段的属性
+          for (let i = 0; i < values.length; i += 1) {
+            const val = values[i];
+            const name = fields[i];
+            datum[name] = isArray(val) && val.length === 1 ? val[0] : val; // 只有一个值时返回第一个属性值
           }
+        } else {
+          // values.length === 1 的判断是以下情况，获取用户设置的图形属性值
+          // shape('a', ['dot', 'dash']), color('a', ['red', 'yellow'])
+          datum[fields[0]] = values.length === 1 ? values[0] : values;
+        }
       });
 
       // 使用 coordinate 进行坐标的转换（将 x、y 转换成画布坐标）
@@ -365,7 +365,7 @@ export abstract class Geometry extends Visibility {
   }
   /**
    * 将 attr 处理之后，归一化的坐标值转换成画布坐标
-   * @param mappingRecord 
+   * @param mappingRecord
    */
   private convertPoint(mappingDatum: MappingDatum) {
     const { x, y } = mappingDatum;
@@ -377,7 +377,11 @@ export abstract class Geometry extends Visibility {
     if (isArray(x) && isArray(y)) {
       rstX = [];
       rstY = [];
-      for (let i = 0, j = 0, xLen = x.length, yLen = y.length; i < xLen && j < yLen; i += 1, j += 1) {
+      for (
+        let i = 0, j = 0, xLen = x.length, yLen = y.length;
+        i < xLen && j < yLen;
+        i += 1, j += 1
+      ) {
         obj = coordinate.convert({
           x: x[i],
           y: y[j],
@@ -572,7 +576,7 @@ export abstract class Geometry extends Visibility {
 
   /**
    * 不同的 geometry 有不同的 id 规则
-   * @param mappingDatum 
+   * @param mappingDatum
    */
   private getElementId(mappingDatum: MappingDatum): string {
     const originalData = mappingDatum[ORIGINAL_FIELD];
@@ -580,7 +584,7 @@ export abstract class Geometry extends Visibility {
     const xScale = this.getXScale();
     const yScale = this.getYScale();
 
-    return `${originalData[xScale.field]}-${originalData[yScale.field]}`;
+    return `${originalData[xScale.getField()]}-${originalData[yScale.getField()]}`;
   }
 
   /**
@@ -766,7 +770,7 @@ export abstract class Geometry extends Visibility {
     const { scales } = attr;
     for (let i = 0; i < scales.length; i++) {
       const scale = scales[i];
-      const { field } = scale;
+      const field = scale.getField();
       if (scale.isIdentity()) {
         // @ts-ignore, yuzhanglong: 暂时不清楚作用，先用 ts-ignore 解决报错问题
         params.push(scale.values);
