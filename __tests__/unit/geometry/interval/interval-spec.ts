@@ -16,9 +16,9 @@ describe('interval geometry', () => {
   it('interval init', () => {
     // 重开一个实例
     const scales = new Map();
-    scales.set('city', new ScaleDef({ type: 'cat', field: 'city', domain: ['hz', 'sh', 'bj'] }));
-    scales.set('price', new ScaleDef({ type: 'linear', field: 'price', domain: [50, 1100] }));
-    scales.set('type', new ScaleDef({ type: 'cat', field: 'type', domain: ['red', 'green'] }));
+    scales.set('city', new ScaleDef({ type: 'cat', domain: ['hz', 'sh', 'bj'] }, 'city'));
+    scales.set('price', new ScaleDef({ type: 'linear', domain: [50, 1100] }, 'price'));
+    scales.set('type', new ScaleDef({ type: 'cat', domain: ['red', 'green'] }, 'type'));
 
     const g = new Interval({
       data,
