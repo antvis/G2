@@ -2,12 +2,12 @@ import { deepMix, each, get, isNumber, isString, last } from '@antv/util';
 import { createScaleByField } from '../../util/scale';
 import { ScaleDef } from '.';
 import { Data, PlainObject } from '../../types/common';
-import { ScaleOption } from '../../types';
+import { ScaleDefOptions } from '../../types';
 
 export type ScaleMeta = {
   key: string;
   scaleDef: ScaleDef;
-  scaleOption: ScaleOption;
+  scaleOption: ScaleDefOptions;
   syncKey?: string;
 };
 
@@ -56,7 +56,7 @@ export class ScalePool {
    * @param scaleOption
    * @param key
    */
-  public create(field: string, data: Data, scaleOption: ScaleOption, key: string): ScaleDef {
+  public create(field: string, data: Data, scaleOption: ScaleDefOptions, key: string): ScaleDef {
     let finalScaleDef = scaleOption;
 
     const cacheScaleMeta = this.getScaleMeta(key);
@@ -64,7 +64,7 @@ export class ScalePool {
       // 在更新过程中数据变为空，同时 key 对应的 scale 已存在则保持 scale 同类型
       const cacheScale = cacheScaleMeta.scaleDef;
       const cacheScaleDef: PlainObject = {
-        type: cacheScale.type,
+        type: cacheScale.getOption('type'),
         // 如果是分类类型，保持 values，防止图形跳变
         domain: cacheScale.isCategory ? cacheScale.getOption('domain') : undefined,
       };
@@ -181,12 +181,12 @@ export class ScalePool {
    * @param scaleDef
    * @param scaleOption
    */
-  private cacheScale(key: string, scaleDef: ScaleDef, scaleOption: ScaleOption) {
+  private cacheScale(key: string, scaleDef: ScaleDef, scaleOption: ScaleDefOptions) {
     // 1. 缓存到 scales
     let sm = this.getScaleMeta(key);
     // 存在则更新，同时检测类型是否一致
     const oldScaleDef = sm?.scaleDef;
-    if (oldScaleDef?.type === scaleDef.type) {
+    if (oldScaleDef?.getOption('type') === scaleDef.getOption('type')) {
       sm.scaleOption = scaleOption;
       sm.scaleDef = scaleDef;
     } else {
@@ -224,7 +224,7 @@ export class ScalePool {
    */
   private getSyncKey(sm: ScaleMeta): string {
     const { scaleDef, scaleOption } = sm;
-    const { field } = scaleDef;
+    const field = scaleDef.getField();
     const sync = get(scaleOption, ['sync']);
 
     // 如果 sync = true，则直接使用字段名作为 syncKey

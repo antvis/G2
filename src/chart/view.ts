@@ -15,7 +15,7 @@ import {
   LegendOption,
   TooltipOption,
   CoordinateOption,
-  ScaleOption,
+  ScaleDefOptions,
   ViewCfg,
   AutoPadding,
   Padding,
@@ -196,7 +196,7 @@ export class View extends EE {
    * Scale 的详细配置项可以参考：https://github.com/antvis/scale#api
    * @returns View
    */
-  public scale(field: Record<string, ScaleOption>): View;
+  public scale(field: Record<string, ScaleDefOptions>): View;
 
   /**
    * 为特性的数据字段进行 scale 配置。
@@ -210,12 +210,15 @@ export class View extends EE {
    *
    * @returns View
    */
-  public scale(field: string, scaleOption: ScaleOption): View;
-  public scale(field: string | Record<string, ScaleOption>, scaleOption?: ScaleOption): View {
+  public scale(field: string, scaleDefOptions: ScaleDefOptions): View;
+  public scale(
+    field: string | Record<string, ScaleDefOptions>,
+    scaleDefOptions?: ScaleDefOptions,
+  ): View {
     if (isString(field)) {
-      set(this.options, ['scales', field], scaleOption);
+      set(this.options, ['scales', field], scaleDefOptions);
     } else if (isObject(field)) {
-      each(field, (v: ScaleOption, k: string) => {
+      each(field, (v: ScaleDefOptions, k: string) => {
         set(this.options, ['scales', k], v);
       });
     }

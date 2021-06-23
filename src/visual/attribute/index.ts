@@ -5,3 +5,6 @@
 
 export { Attribute, AttributeCfg } from './attribute';
 export { Position } from './position';
+export { Color } from './color';
+export { Shape } from './shape';
+export { Size } from './size';

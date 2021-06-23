@@ -1,7 +1,8 @@
+import { Coordinate } from '../types/coordinate';
 import { ORIGINAL_FIELD } from '../constant';
 import type { ScaleDef } from '../visual/scale';
 import { Datum, Data, Func, PlainObject, RangePoint, Point } from './common';
-import { ShapeAttrs, ShapeMarkerSymbol } from './g';
+import { ShapeAttrs, ShapeMarkerSymbol, Group } from './g';
 
 /**
  * 视觉通道的 key
@@ -11,6 +12,7 @@ export type AttributeKey =
   | 'color'
   | 'shape'
   | 'size'
+  | 'style'
   | 'label'
   | 'tooltip'
   | 'sequence'
@@ -32,6 +34,10 @@ export type AttributeOptions = Map<AttributeKey, AttributeOption>;
  */
 export type GeometryOption = {
   /**
+   * 具体渲染的 G 容器
+   */
+  container: Group;
+  /**
    * 原始的明细数据
    */
   data: Data;
@@ -42,11 +48,15 @@ export type GeometryOption = {
   /**
    * 当前坐标系
    */
-  coordinate: any;
+  coordinate: Coordinate;
   /**
    * 是否生成关键点信息
    */
   generatePoints?: boolean;
+  /**
+   * 主题配置
+   */
+  theme?: PlainObject;
 };
 
 export type ShapeVertices = RangePoint[] | Point[] | Point[][];
@@ -129,8 +139,8 @@ export interface ShapeInfo {
   showSinglePoint?: boolean;
   /** 默认的 shape 样式 */
   defaultStyle?: PlainObject;
-  /** 自定义的数据，传入到 shapeInfo 中 */
-  customInfo?: any;
+  /** 自定义通道的，传入到 shapeInfo 中 */
+  custom?: any;
 }
 
 /** 获取 shape marker 时需要的信息 */

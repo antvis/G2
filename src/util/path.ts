@@ -45,13 +45,15 @@ function _convertArcPath(path: PathCommand, coord: Coordinate): any[] {
 
 function _convertPolarPath(pre: PathCommand, cur: PathCommand, coord: Coordinate): PathCommand[] {
   const { isTransposed, startAngle, endAngle } = coord;
-  const prePoint = pre[0].toLowerCase() === 'a' ? {
-    x: pre[6],
-    y: pre[7],
-  } : {
-    x: pre[1],
-    y: pre[2],
-  };
+  const prePoint = pre[0].toLowerCase() === 'a'
+    ? {
+      x: pre[6],
+      y: pre[7],
+    }
+    : {
+      x: pre[1],
+      y: pre[2],
+    };
 
   const curPoint = {
     x: cur[1],

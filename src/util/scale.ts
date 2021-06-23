@@ -108,7 +108,7 @@ export function createScaleByField(
   const type: ScaleTypes = isNumber(get(values, [0])) ? 'linear' : 'cat';
   const options = {
     type,
-    domain: values,
+    domain: type === 'linear' ? [Math.min(...values), Math.max(...values)] : values,
     ...scaleDefOptions,
   };
   return new ScaleDef(options, field.toString());

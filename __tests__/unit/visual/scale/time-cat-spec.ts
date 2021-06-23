@@ -23,7 +23,6 @@ describe('time category scale', () => {
       range: [0, 1],
     });
 
-    // console.log(scale)
     expect(scale.map('2012-02-01')).toBe(0);
     expect(scale.map('2012-02-02')).toBe(0.25);
     expect(scale.map('2012-02-03')).toBe(0.5);

@@ -15,12 +15,12 @@ describe('scale-pool', () => {
     scalePool.create('price', data, {}, 'view1-price');
 
     // get
-    expect(scalePool.get('view1-city').field).toBe('city');
-    expect(scalePool.get('view1-city').type).toBe('cat');
+    expect(scalePool.get('view1-city').getField()).toBe('city');
+    expect(scalePool.get('view1-city').getOption('type')).toBe('cat');
     expect(scalePool.get('view1-city').getOption('domain')).toEqual(['hz', 'sh', 'bj']);
 
-    expect(scalePool.get('view1-price').field).toBe('price');
-    expect(scalePool.get('view1-price').type).toBe('linear');
+    expect(scalePool.get('view1-price').getField()).toBe('price');
+    expect(scalePool.get('view1-price').getOption('type')).toBe('linear');
 
     expect(scalePool.get('view1-price').getOption('domain')).toEqual([50, 100]);
 
