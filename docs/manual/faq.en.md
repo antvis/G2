@@ -183,7 +183,7 @@ The Legend Marker type (Symbol) supported by G2 4.0 is: `"circle" | "square" | "
 The following JS is introduced in the HEAD, and each chart is mounted on the global G2.
 
 ```ts
-<script src="https://unpkg.com/@babel/polyfill@latest"></script> // optional
+<script src="https://unpkg.com/@babel/polyfill@latest/dist/polyfill.min.js"></script> // optional
 <script src="https://unpkg.com/@antv/g2@latest"></script>
 
 // chart.js
@@ -197,4 +197,4 @@ var chart = new G2.Chart({
 
 ### NPM
 
-Use NPM mode, if there is a compatibility problem please use combination of Babel and `@Babel/polyfill`, reference G2 [.babelrc](https://github.com/antvis/G2/blob/master/.babelrc) and [webpack.config](https://github.com/antvis/G2/blob/master/webpack.config.js), More questions are welcome to join the DingTalk Group.
+Use NPM mode, if there is a compatibility problem please use combination of Babel and `@Babel/polyfill`, reference G2 [webpack.config](https://github.com/antvis/G2/blob/master/webpack.config.js), More questions are welcome to join the DingTalk Group.
