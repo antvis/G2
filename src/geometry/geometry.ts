@@ -1,4 +1,6 @@
 import { deepMix, each, get, isArray, remove } from '@antv/util';
+import { Shape } from 'src/types/g';
+import { ShapeRenderer } from 'src/types/factory';
 import { Visibility } from '../core';
 import {
   AttributeKey,
@@ -25,8 +27,6 @@ import { Attribute } from '../visual/attribute';
 import { Coordinate } from '../types/coordinate';
 import { ScaleDef } from '../visual/scale';
 import { Element } from './element';
-import { Shape } from 'src/types/g';
-import { ShapeRenderer } from 'src/types/factory';
 import { getShape } from './factory';
 
 /**
@@ -55,7 +55,7 @@ export abstract class Geometry extends Visibility {
   /**
    * 传入到 Geometry 的配置信息（更新时候的配置）
    */
-  private options: GeometryOption;
+  public options: GeometryOption;
 
   /**
    * 视觉通道映射配置 Key Value 结构
@@ -154,9 +154,7 @@ export abstract class Geometry extends Visibility {
    * 数据加工：分组 -> 数字化 -> adjust
    */
   private processData() {
-    const categoryPositionScales = this.getAttribute('position').scales.filter((s) =>
-      s.isCategory(),
-    );
+    const categoryPositionScales = this.getAttribute('position').scales.filter((s) => s.isCategory());
 
     // 1. 数据根据分组字段，分组
     const groupedData = groupData(this.options.data, this.getGroupFields());
@@ -229,7 +227,7 @@ export abstract class Geometry extends Visibility {
    * @param beforeMappingData
    */
   private beforeMapping(beforeMappingData: Data[]) {
-    beforeMappingData.reduce((prev: Data, curr: Data) => {
+    beforeMappingData.reduce((prev: Data, curr: Data, idx: number) => {
       // 1. 生成关键点信息，用于绘图
       this.generateShapePoints(curr);
 
@@ -240,7 +238,7 @@ export abstract class Geometry extends Visibility {
         prev[0].nextPoints = curr[0].points;
       }
       return curr;
-    });
+    }, undefined);
 
     return beforeMappingData;
   }
@@ -257,7 +255,9 @@ export abstract class Geometry extends Visibility {
       const shape = shapeAttr ? this.getAttributeValues(shapeAttr, datum) : this.defaultShapeType;
       // 不同的图形 shape，会有不同的关键点信息，所以需要拿到 shapeAttr 获得渲染的 shape type string
       // todo 之前的 mapping 会返回多种数据格式
+
       const points = this.getShapePoints(shape as unknown as string, cfg);
+
       datum.points = points;
     }
   }
@@ -328,12 +328,10 @@ export abstract class Geometry extends Visibility {
    * 2. 位置属性额外进行坐标系的转换
    */
   private mapping(data: Data) {
-    let datum;
-
     const mappingData = new Array(data.length);
 
     for (let i = 0; i < data.length; i++) {
-      datum = data[i];
+      const datum = data[i] as MappingDatum;
 
       // 使用 attribute 进行数据的映射
       this.attributes.forEach((attr, key) => {
@@ -363,6 +361,7 @@ export abstract class Geometry extends Visibility {
 
     return mappingData;
   }
+
   /**
    * 将 attr 处理之后，归一化的坐标值转换成画布坐标
    * @param mappingRecord
@@ -842,7 +841,7 @@ export abstract class Geometry extends Visibility {
     return this.options.scales.get(this.getXYFields()[1]);
   }
 
-  /** 获取渲染信息的 API，原 factory 中的内容，子 geometry 需要对其进行重写    **************************************************************** */
+  /** 获取渲染信息的 API，原 factory 中的内容，子 geometry 需要对其进行重写    ************************************************* */
   /**
    * 获取 shape 绘制需要的关键点
    * @param shapeType shape 类型
@@ -883,7 +882,7 @@ export abstract class Geometry extends Visibility {
    * 获取 shape 的默认关键点
    * @override
    */
-  public getDefaultPoints(shapePoint: ShapePoint) {
+  protected getDefaultPoints(shapePoint: ShapePoint) {
     return [];
   }
 
@@ -893,6 +892,7 @@ export abstract class Geometry extends Visibility {
   public getDefaultStyle(geometryTheme: PlainObject): PlainObject {
     return get(geometryTheme, [this.defaultShapeType, 'default', 'style'], {});
   }
+
   /**
    * 获取 shape 对应的缩略图配置信息。
    * @param shapeType shape 类型

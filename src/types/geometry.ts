@@ -1,4 +1,4 @@
-import { Coordinate } from '../types/coordinate';
+import { Coordinate } from './coordinate';
 import { ORIGINAL_FIELD } from '../constant';
 import type { ScaleDef } from '../visual/scale';
 import { Datum, Data, Func, PlainObject, RangePoint, Point } from './common';

@@ -7,7 +7,7 @@ import { parsePathString } from '@antv/path-util';
 import { RegisterShapeRenderer, ShapeRenderer } from '../types/factory';
 import { Point } from '../types/common';
 import { PathCommand, Shape } from '../types/g';
-import { ShapeInfo } from '../types/geometry';
+import { ShapeInfo, ShapeMarkerCfg } from '../types/geometry';
 import { convertPolarPath, convertNormalPath } from '../util/path';
 
 /**
@@ -54,6 +54,9 @@ const SHAPE_RENDERER_BASE: ShapeRenderer = {
     return points.map((point) => {
       return coordinate.convert(point);
     });
+  },
+  getMarker(markerCfg: ShapeMarkerCfg) {
+
   },
   /**
    * 绘制 shape

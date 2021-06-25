@@ -7,8 +7,6 @@ module.exports = {
   },
   ignorePatterns: [
     '.eslintrc.js',
-    // 暂时屏蔽 geometry
-    'geometry.ts',
   ],
   extends: ['airbnb-base'],
   parser: '@typescript-eslint/parser',
@@ -42,6 +40,9 @@ module.exports = {
     'prefer-destructuring': 'off',
     'no-param-reassign': 'warn',
     'no-underscore-dangle': 'off',
+    'no-multi-assign': 'off',
+    'max-len': ['error', { code: 120, ignoreComments: true }],
+    'no-unused-expressions': 'off',
   },
   settings: {
     'import/parsers': {
