@@ -33,15 +33,12 @@
   },
   "dependencies": {
     "@antv/adjust": "^0.2.3",
-    "@antv/attr": "^0.3.2",
     "@antv/color-util": "^2.0.6",
-    "@antv/component": "^0.8.11",
     "@antv/coord": "^0.3.1",
     "@antv/dom-util": "^2.0.3",
     "@antv/event-emitter": "^0.1.2",
-    "@antv/g-base": "0.5.7",
-    "@antv/g-canvas": "0.5.7",
-    "@antv/g-svg": "0.5.6",
+    "@antv/g": "^1.0.0-alpha.1",
+    "@antv/g-canvas": "^1.0.0-alpha.1",
     "@antv/matrix-util": "^3.1.0-beta.1",
     "@antv/path-util": "^2.0.9",
     "@antv/scale": "^0.4.0",
@@ -59,6 +56,7 @@
     "@typescript-eslint/parser": "^4.21.0",
     "babel-loader": "^8.2.2",
     "conventional-changelog-cli": "^2.1.1",
+    "core-js": "^3.14.0",
     "eslint": "^7.26.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-import-resolver-typescript": "^2.4.0",
@@ -72,6 +70,7 @@
     "lint-staged": "^11.0.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.2.1",
+    "regenerator-runtime": "^0.13.7",
     "rimraf": "^3.0.2",
     "ts-jest": "^26.5.4",
     "ts-loader": "^8.1.0",
@@ -101,6 +100,9 @@
       "js",
       "ts",
       "json"
+    ],
+    "setupFilesAfterEnv": [
+      "./jest.setup.js"
     ],
     "moduleNameMapper": {}
   },
