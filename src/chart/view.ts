@@ -147,7 +147,7 @@ export class View extends EE {
       padding,
       appendPadding,
       options,
-      theme,
+      theme = 'light',
       limitInPlot,
       syncViewPadding,
     } = cfg;
@@ -167,7 +167,7 @@ export class View extends EE {
     this.syncViewPadding = syncViewPadding;
 
     // 初始化 theme
-    this.themeObject = isObject(theme) ? deepMix({}, getTheme('default'), theme) : getTheme(theme);
+    this.themeObject = isObject(theme) ? deepMix({}, getTheme('light'), theme) : getTheme(theme);
   }
 
   /** 初始化 View 配置 API    **************************************************** */
