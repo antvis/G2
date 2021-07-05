@@ -13,3 +13,5 @@ type SymmetricCfg = AdjustCfg;
 
 export { Dodge, Jitter, Stack, Symmetric };
 export { DodgeCfg, JitterCfg, StackCfg, SymmetricCfg };
+
+export { Identity } from './identity';

@@ -1,4 +1,4 @@
-import { deepMix, each, get, isArray, remove } from '@antv/util';
+import { deepMix, get, isArray } from '@antv/util';
 import { Shape } from 'src/types/g';
 import { ShapeRenderer } from 'src/types/factory';
 import { Visibility } from '../core';
@@ -20,7 +20,7 @@ import {
 } from '../types';
 import { GROUP_ATTR_KEYS, ORIGINAL_FIELD } from '../constant';
 import { createAttribute } from '../util/attribute';
-import { groupData } from '../util/data';
+import { createAdjust } from '../util/adjust';
 import { diff } from '../util/diff';
 import { getScaleUpdateOptionsAfterStack } from '../util/scale';
 import { Attribute } from '../visual/attribute';
@@ -154,35 +154,45 @@ export abstract class Geometry extends Visibility {
    * 数据加工：分组 -> 数字化 -> adjust
    */
   private processData() {
+    const { data } = this.options;
+
     const categoryPositionScales = this.getAttribute('position').scales.filter((s) => s.isCategory());
+    const groupFields = this.getGroupFields();
 
-    // 1. 数据根据分组字段，分组
-    const groupedData = groupData(this.options.data, this.getGroupFields());
+    // 1. 数据分组，然后对维度字段进行数字化
+    const groupedDataMap: Record<string, Data> = {};
+    for (let i = 0; i < data.length; i += 1) {
+      const datum = data[i];
+      const key = groupFields.map((f: string) => datum[f]).join('-');
 
-    // 2. 追加 ORIGINAL_FIELD，并且对位置维度进行数字化
-    const scaledData = groupedData.map((subData: Data) => {
-      return subData.map((datum: Datum) => {
-        // 1. 追加原始数据
-        const mappingDatum: Datum = {
-          [ORIGINAL_FIELD]: datum,
-          ...datum,
-        };
+      //  1.1. 追加原始数据
+      const digitalDatum: Datum = {
+        [ORIGINAL_FIELD]: datum,
+        ...datum,
+      };
 
-        // 2. 将分类数据翻译成数子, 仅对位置相关的度量进行数字化处理
-        // TODO 为什么要在分组的时候对位置中分类数字化（数组索引值）
-        categoryPositionScales.forEach((scale) => {
-          const field = scale.getField();
-          mappingDatum[field] = scale.map(mappingDatum[field]);
-        });
-
-        return mappingDatum;
+      // 1.2. 将分类数据翻译成数子, 仅对位置相关的度量进行数字化处理
+      // TODO 为什么要在分组的时候对位置中分类数字化（数组索引值）
+      categoryPositionScales.forEach((scale) => {
+        const field = scale.getField();
+        digitalDatum[field] = scale.map(digitalDatum[field]);
       });
-    });
 
-    // 3. 进行数据调整
-    // TODO 处理 adjust 实例
+      // 1.3 分组
+      if (groupedDataMap[key]) {
+        groupedDataMap[key].push(digitalDatum);
+      } else {
+        groupedDataMap[key] = [digitalDatum];
+      }
+    }
 
-    this.beforeMappingData = scaledData;
+    // 2. 转成数组
+    let beforeMappingData = Object.values(groupedDataMap);
+
+    // 3. 进行数据调整，处理 adjust 实例
+    beforeMappingData = this.processAdjust(beforeMappingData);
+
+    this.beforeMappingData = beforeMappingData;
   }
 
   /**
@@ -199,6 +209,36 @@ export abstract class Geometry extends Visibility {
     }
 
     // 2. ??? 还有什么
+  }
+
+  /**
+   * 处理 adjust 调整实例
+   * @param groupData
+   * @returns
+   */
+  private processAdjust(groupData: Data[]): Data[] {
+    this.adjusts = new Map();
+
+    const xScale = this.getXScale();
+    const yScale = this.getYScale();
+    const xField = xScale.getField();
+    const yField = yScale ? yScale.getField() : null;
+
+    return (this.adjustOptions || []).reduce((r: Data[], adjustOption: AdjustOption) => {
+      const { type } = adjustOption;
+
+      const cfg = {
+        // todo 添加其他的一些属性配置
+        ...adjustOption,
+      };
+
+      // 针对调整类型，做的一些额外配置
+      const adjustInstance = createAdjust(type, cfg);
+
+      this.adjusts.set(type, adjustInstance);
+
+      return adjustInstance.process(r);
+    }, groupData);
   }
 
   /** 生命周期函数       ************************************* */
@@ -679,6 +719,10 @@ export abstract class Geometry extends Visibility {
   /**
    * custom 信息：custom
    * 用于做自定义 shape 中传入自定义信息
+   *
+   * geometry.custom({
+   *   type: 'custom',
+   * });
    */
   public custom(value: any) {
     this.setAttributeOption('custom', null, value);
@@ -687,15 +731,13 @@ export abstract class Geometry extends Visibility {
   }
 
   /**
-   * sequence 序列通道：sequence
+   * geometry.adjust([
+   *   { type: 'stack' },
+   *   { type: 'dodge', dodgeBy: 'x' },
+   * ]);
    */
-  public adjust(type: string, adjustOption: AdjustOption) {
-    this.adjustOptions = [
-      {
-        type,
-        ...adjustOption,
-      },
-    ];
+  public adjust(adjustOptions: AdjustOption[]) {
+    this.adjustOptions = adjustOptions;
 
     return this;
   }
