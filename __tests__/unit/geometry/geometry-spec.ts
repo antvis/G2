@@ -60,7 +60,7 @@ describe('geometry', () => {
     });
 
     // 其他配置
-    g.adjust('stack', { a: 1 });
+    g.adjust([{ type: 'stack', a: 1 }]);
     g.animate(false);
 
     // @ts-ignore
