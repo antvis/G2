@@ -24,7 +24,6 @@ import { createAdjust } from '../util/adjust';
 import { diff } from '../util/diff';
 import { getScaleUpdateOptionsAfterStack } from '../util/scale';
 import { Attribute } from '../visual/attribute';
-import { Coordinate } from '../types/coordinate';
 import { ScaleDef } from '../visual/scale';
 import { Element } from './element';
 import { getShape } from './factory';
@@ -291,12 +290,12 @@ export abstract class Geometry extends Visibility {
     const shapeAttr = this.getAttribute('shape');
     for (let i = 0; i < data.length; i++) {
       const datum = data[i];
-      const cfg = this.createShapePointsCfg(datum);
+      const shapePoint = this.createShapePointsCfg(datum);
       const shape = shapeAttr ? this.getAttributeValues(shapeAttr, datum) : this.defaultShapeType;
       // 不同的图形 shape，会有不同的关键点信息，所以需要拿到 shapeAttr 获得渲染的 shape type string
-      // todo 之前的 mapping 会返回多种数据格式
+      // todo 之前的 mapping 会返回多种数据格式 string | string[]，不合理
 
-      const points = this.getShapePoints(shape as unknown as string, cfg);
+      const points = this.getShapePoints(shape as unknown as string, shapePoint);
 
       datum.points = points;
     }
@@ -304,6 +303,7 @@ export abstract class Geometry extends Visibility {
 
   /**
    * 获取每个 Shape 对应的关键点数据。
+   * @override
    * @param obj 经过分组 -> 数字化 -> adjust 调整后的数据记录
    * @returns
    */
@@ -317,6 +317,7 @@ export abstract class Geometry extends Visibility {
     if (yScale) {
       y = this.normalizeValues(datum[yScale.getField()], yScale);
     } else {
+      // todo 饼图的情况？
       y = datum.y ? datum.y : 0.1;
     }
 
@@ -397,6 +398,7 @@ export abstract class Geometry extends Visibility {
       this.convertPoint(datum);
 
       mappingData[i] = datum;
+      console.log(datum);
     }
 
     return mappingData;
@@ -480,9 +482,8 @@ export abstract class Geometry extends Visibility {
    * 绘制：将数据最终转化成 G 的 Shape
    */
   public paint() {
-    const { beforeMappingData } = this;
     // 1. 生成关键点
-    const dataArray = this.beforeMapping(beforeMappingData);
+    const dataArray = this.beforeMapping(this.beforeMappingData);
 
     let data;
     for (let i = 0; i < dataArray.length; i++) {
@@ -891,9 +892,9 @@ export abstract class Geometry extends Visibility {
    * @returns 图形关键点信息
    */
   public getShapePoints(shapeType: string, shapePoint: ShapePoint) {
-    const shape = this.getShapeRenderer(shapeType);
-    if (shape.getPoints) {
-      return shape.getPoints(shapePoint);
+    const shapeRenderer = this.getShapeRenderer(shapeType);
+    if (shapeRenderer.getPoints) {
+      return shapeRenderer.getPoints(shapePoint);
     }
 
     return this.getDefaultPoints(shapePoint);
@@ -910,8 +911,8 @@ export abstract class Geometry extends Visibility {
     // 如果以下，则更新
     // 1. 不存在
     // 2. 存在但是相同不匹配
-    if (!this.shapeRenderer || this.shapeRenderer.shapeType !== shapeRenderer.shapeType) {
-      this.shapeRenderer = getShape(this.type, shapeType);
+    if (this.shapeRenderer?.shapeType !== shapeRenderer.shapeType) {
+      this.shapeRenderer = shapeRenderer;
     }
 
     // 追加 coordinate 实例

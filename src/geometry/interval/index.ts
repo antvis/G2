@@ -20,29 +20,27 @@ export class Interval extends Geometry {
   /**
    * 存储每个 shape 的默认 size，用于 Interval、Schema 几何标记
    */
-  private defaultSize: number = 1 / 6;
+  private defaultSize: number;
 
   /**
    * 获取每条数据的 Shape 绘制信息
-   * @param obj 经过分组 -> 数字化 -> adjust 调整后的数据记录
+   * @param datum 经过分组 -> 数字化 -> adjust 调整后的数据记录
    * @returns
    */
-  protected createShapePointsCfg(obj: PlainObject) {
-    const cfg = super.createShapePointsCfg(obj);
+  protected createShapePointsCfg(datum: PlainObject) {
+    const cfg = super.createShapePointsCfg(datum);
 
     // 计算每个 shape 的 size
     let size;
     const sizeAttr = this.getAttribute('size');
     if (sizeAttr) {
-      size = this.getAttributeValues(sizeAttr, obj)[0];
+      size = this.getAttributeValues(sizeAttr, datum)[0];
       // 归一化
       const coordinate = this.options.coordinate;
       const coordinateWidth = getXDimensionLength(coordinate);
       size /= coordinateWidth;
     } else {
-      // if (!this.defaultSize) {
-      //   this.defaultSize = getDefaultSize(this);
-      // }
+      this.defaultSize = this.defaultSize || this.getDefaultSize();
       size = this.defaultSize;
     }
     cfg.size = size;
@@ -57,5 +55,14 @@ export class Interval extends Geometry {
    */
   protected getDefaultPoints(pointInfo: ShapePoint): Point[] {
     return getRectPoints(pointInfo);
+  }
+
+  /**
+   * 获取默认的 size（归一化）
+   * // todo 根据数据的各种情况，计算出 size，逻辑非常复杂，后续按照场景一个一个补齐
+   * https://github.com/antvis/G2/blob/2841641aa4e12eaa8f1061062c0dba39a263b7c0/src/geometry/util/shape-size.ts#L35
+   */
+  private getDefaultSize(): number {
+    return 1 / 6;
   }
 }

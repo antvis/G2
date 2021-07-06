@@ -34,8 +34,13 @@ describe('interval geometry', () => {
   it('interval init', () => {
     // 重开一个实例
     const scales = new Map();
-    scales.set('city', new ScaleDef({ type: 'band', domain: ['hz', 'sh', 'bj'] }, 'city'));
-    scales.set('price', new ScaleDef({ type: 'linear', domain: [50, 1100] }, 'price'));
+    scales.set('city', new ScaleDef({
+      type: 'band',
+      domain: ['hz', 'sh', 'bj'],
+      range: [1 / 6, 5 / 6],
+      paddingInner: 0.99999999,
+    }, 'city'));
+    scales.set('price', new ScaleDef({ type: 'linear', domain: [0, 2000] }, 'price'));
     scales.set('type', new ScaleDef({ type: 'cat', domain: ['red', 'green'] }, 'type'));
 
     const g = new Interval({
