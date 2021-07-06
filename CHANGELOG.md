@@ -1,3 +1,14 @@
+#### 4.1.20 (2021-07-06)
+
+##### Documentation Changes
+
+- faq 文档更新 ([#3490](https://github.com/antvis/g2/pull/3490)) ([731294d4](https://github.com/antvis/g2/commit/731294d4a07447f609bc8a4e3f1a16c345de0352))
+- 修改 AxisOption.title 文档 ([#3491](https://github.com/antvis/g2/pull/3491)) ([61f83784](https://github.com/antvis/g2/commit/61f83784edaaf4721ff08fc11e93006c1fa2e121))
+
+##### Bug Fixes
+
+- **legend:** 修复 legend marker 回调设置，spacing 不生效([#2671](https://github.com/antvis/g2plot/pull/2671)) ([026f5eb](https://github.com/antvis/component/commit/026f5eb69af83866646b1405a1ecee33d0674f5a))
+
 #### 4.1.18 (2021-06-22)
 
 ##### Documentation Changes
