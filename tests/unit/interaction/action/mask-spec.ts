@@ -86,7 +86,7 @@ describe('test mask', () => {
         x: 100,
         y: 100,
       };
-      maskAction.start();
+      maskAction.start({ maskStyle: { fill: 'red' } });
 
       context.event = {
         x: 200,
@@ -104,6 +104,7 @@ describe('test mask', () => {
         y: 160,
       };
       maskAction.move();
+      expect(maskShape.attr('fill')).toBe('red');
       expect(maskShape.attr('x')).toBe(110);
       expect(maskShape.attr('y')).toBe(110);
       expect(maskShape.attr('width')).toBe(100);
