@@ -229,7 +229,8 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
   private changeViewData([startIdx, endIdx]: [number, number], render?: boolean): void {
     const { type } = this.getValidScrollbarCfg();
     const isHorizontal = type !== 'vertical';
-    const values = valuesOfKey(this.data, this.xScaleCfg.field);
+    const xField = this.xScaleCfg.field;
+    const values = valuesOfKey(this.data, xField);
     const xValues = isHorizontal ? values : values.reverse();
     this.yScalesCfg.forEach((cfg) => {
       this.view.scale(cfg.field, {
@@ -239,10 +240,18 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
         max: cfg.max,
       });
     });
-    this.view.filter(this.xScaleCfg.field, (val) => {
+    this.view.filter(xField, (val) => {
       const idx = xValues.indexOf(val);
       return idx > -1 ? isBetween(idx, startIdx, endIdx) : true;
     });
+
+    const groupFields = this.view.getGroupScales().map((s) => s.field);
+    if (groupFields.indexOf(xField) !== -1) {
+      this.view.scale(xField, {
+        values: values.slice(startIdx, endIdx),
+      });
+    }
+
     this.view.render(true);
   }
 
