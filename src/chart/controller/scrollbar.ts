@@ -233,12 +233,14 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
     const values = valuesOfKey(this.data, xField);
     const xValues = isHorizontal ? values : values.reverse();
     this.yScalesCfg.forEach((cfg) => {
-      this.view.scale(cfg.field, {
-        formatter: cfg.formatter,
-        type: cfg.type as ScaleOption['type'],
-        min: cfg.min,
-        max: cfg.max,
-      });
+      if (cfg) {
+        this.view.scale(cfg.field, {
+          formatter: cfg.formatter,
+          type: cfg.type as ScaleOption['type'],
+          min: cfg.min,
+          max: cfg.max,
+        });
+      }
     });
     this.view.filter(xField, (val) => {
       const idx = xValues.indexOf(val);
