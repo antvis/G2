@@ -10,7 +10,6 @@ import { getIntervalRectPath, getRectWithCornerRadius } from '../util';
 registerShape('interval', 'rect', {
   draw(cfg: ShapeInfo, container: Group) {
     const style = getShapeStyle(cfg, false, true);
-    const group = container;
 
     let path;
     if (style.radius && this.coordinate.isRect) {
@@ -27,7 +26,7 @@ registerShape('interval', 'rect', {
       name: 'interval',
     });
 
-    group.appendChild(shape);
+    container.appendChild(shape);
 
     return shape;
   },

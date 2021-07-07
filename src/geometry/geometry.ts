@@ -93,11 +93,6 @@ export abstract class Geometry extends Visibility {
   private shapeRenderer: ShapeRenderer;
 
   /**
-   * 生成的所有绘图元素 Element
-   */
-  private elements: Element[];
-
-  /**
    * 缓存 map 形式的 element
    */
   private elementsMap: Map<string, Element>;
@@ -116,7 +111,6 @@ export abstract class Geometry extends Visibility {
 
     this.attriubteOptions = new Map();
     this.attributes = new Map();
-    this.elements = [];
     this.elementsMap = new Map();
   }
 
@@ -398,7 +392,6 @@ export abstract class Geometry extends Visibility {
       this.convertPoint(datum);
 
       mappingData[i] = datum;
-      console.log(datum);
     }
 
     return mappingData;
@@ -485,36 +478,39 @@ export abstract class Geometry extends Visibility {
     // 1. 生成关键点
     const dataArray = this.beforeMapping(this.beforeMappingData);
 
-    let data;
+    const mappingDataArray = new Array(dataArray.length);
     for (let i = 0; i < dataArray.length; i++) {
-      data = dataArray[i];
-      const mappingData = this.mapping(data);
+      const mappingData = this.mapping(dataArray[i]);
 
-      // 生成/更新 Element
-      this.createElements(mappingData, i);
+      mappingDataArray[i] = mappingData;
     }
+
+    // 生成/更新 Element
+    this.createElements(mappingDataArray);
   }
 
   /**
    * 每一个分组一个 Element
    * 存在则更新，不存在则创建，最后全部更新到 elementsMap 中
    * @param mappingData
-   * @param idx
    */
-  private createElements(mappingData: MappingDatum[], idx: number) {
+  private createElements(mappingDataArray: MappingDatum[][]) {
     // 根据需要生成的 elements 和当前已有的 elements，做一个 diff
     // 1. 更新已有的
     // 2. 创建新增的
     // 3. 销毁删除的
-    const newElementIds = new Array(mappingData.length);
+    const newElementIds = [];
     const datumMap = new Map<string, MappingDatum>();
 
-    for (let i = 0; i < mappingData.length; i++) {
-      const mappingDatum = mappingData[i];
-      const key = this.getElementId(mappingDatum);
-      newElementIds[i] = key;
+    for (let i = 0; i < mappingDataArray.length; i++) {
+      const mappingData = mappingDataArray[i];
+      for (let j = 0; j < mappingData.length; j++) {
+        const mappingDatum = mappingData[j];
+        const key = this.getElementId(mappingDatum);
+        newElementIds.push(key);
 
-      datumMap.set(key, mappingDatum);
+        datumMap.set(key, mappingDatum);
+      }
     }
 
     const { added, removed, updated } = diff(newElementIds, this.elementsMap);
@@ -528,6 +524,7 @@ export abstract class Geometry extends Visibility {
       const shapeInfo = this.getElementShapeInfo(mappingDatum); // 获取绘制图形的配置信息
 
       const element = new Element({
+        id: key,
         geometry: this,
         container,
         animate: this.animateOption,
@@ -549,6 +546,7 @@ export abstract class Geometry extends Visibility {
     //  todo 更新的
     updated.forEach((key: string) => {
       const el = this.elementsMap.get(key);
+
       const mappingDatum = datumMap.get(key);
       const shapeInfo = this.getElementShapeInfo(mappingDatum); // 获取绘制图形的配置信息
 
@@ -827,8 +825,8 @@ export abstract class Geometry extends Visibility {
   /**
    * 获取当前 Geometry 对应的 elements 绘图元素
    */
-  public getElements() {
-    return this.elements;
+  public getElements(): Element[] {
+    return Array.from(this.elementsMap.values());
   }
 
   /**
@@ -846,7 +844,7 @@ export abstract class Geometry extends Visibility {
    * @returns
    */
   public getElementsBy(condition: (element: Element) => boolean): Element[] {
-    return this.elements.filter((element) => {
+    return this.getElements().filter((element) => {
       return condition(element);
     });
   }

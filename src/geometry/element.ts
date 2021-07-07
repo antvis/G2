@@ -1,8 +1,8 @@
+import { Group } from '@antv/g';
 import { get, isArray } from '@antv/util';
 import { ElementOptions } from '../types/element';
 import { Visibility } from '../core';
 import { ShapeInfo } from '../types';
-import { Group } from '../types/g';
 
 /**
  * Element 图形元素。
@@ -35,6 +35,10 @@ export class Element extends Visibility {
     this.options = options;
   }
 
+  public get id() {
+    return this.options.id;
+  }
+
   /**
    * 更新渲染
    * @param model
@@ -51,7 +55,7 @@ export class Element extends Visibility {
     const shapeType = this.getShapeType();
 
     // todo 使用 G 场景树构造一个！
-    const offscreenGroup = {};
+    const offscreenGroup = new Group({});
 
     const newShape = geometry.drawShape(shapeType, this.model, offscreenGroup);
 
@@ -118,6 +122,16 @@ export class Element extends Visibility {
 
   /**
    * element 更新的时候，新旧 shape 进行同步
+   * todo: 通过 diff，觉得哪些是 add、update、remove
    */
-  private syncShape(shape: Group, newShape: Group) {}
+  private syncShape(shape: Group, newShape: Group) {
+    const { container } = this.options;
+    // 移除旧节点
+    shape.destroy();
+
+    // 增加新节点
+    container.appendChild(newShape);
+
+    this.shape = newShape;
+  }
 }
