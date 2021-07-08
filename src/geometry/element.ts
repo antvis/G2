@@ -99,6 +99,13 @@ export class Element extends Visibility {
   }
 
   /**
+   * 获得最后绘制出来的 G shape
+   */
+  public getShape() {
+    return this.shape;
+  }
+
+  /**
    * 具体根据 shape 类型，绘制对应的 ui
    */
   private drawShape() {

@@ -1,7 +1,6 @@
 import { Canvas, Group } from '@antv/g';
 import { Renderer } from '@antv/g-canvas';
 import { createDiv } from '../../../util/dom';
-import { delay } from '../../../util/delay';
 import { Interval } from '../../../../src/geometry/interval';
 import { ScaleDef } from '../../../../src/visual/scale';
 import { Rect } from '../../../../src/visual/coordinate';
@@ -60,9 +59,6 @@ describe('interval geometry', () => {
     g.update({});
 
     g.paint();
-
-    // @ts-ignore
-    window.g = g;
 
     expect(container.getElementsByName('interval').length).toBe(6);
     expect(g.getElements().length).toBe(6);

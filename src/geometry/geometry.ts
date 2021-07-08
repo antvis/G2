@@ -17,6 +17,7 @@ import {
   ShapeMarkerCfg,
   ShapeMarkerAttrs,
   ShapeInfo,
+  Point,
 } from '../types';
 import { GROUP_ATTR_KEYS, ORIGINAL_FIELD } from '../constant';
 import { createAttribute } from '../util/attribute';
@@ -923,7 +924,7 @@ export abstract class Geometry extends Visibility {
    * 获取 shape 的默认关键点
    * @override
    */
-  protected getDefaultPoints(shapePoint: ShapePoint) {
+  protected getDefaultPoints(shapePoint: ShapePoint): Point[] {
     return [];
   }
 
