@@ -3,6 +3,10 @@ import { Group } from './g';
 
 export type ElementOptions = {
   /**
+   * Element 的唯一 id
+   */
+  readonly id: string;
+  /**
    * 绘制的容器
    */
   container: Group;
