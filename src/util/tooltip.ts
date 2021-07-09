@@ -412,17 +412,22 @@ function getTooltipItemsByFindData(geometry: Geometry, point, title, tooltipCfg:
 }
 
 function getTooltipItemsByHitShape(geometry, point, title, tooltipCfg: TooltipCfg) {
-  const { showNil } = tooltipCfg;
+  const { showNil, shared } = tooltipCfg;
   const result = [];
   const container = geometry.container;
-  const shape = container.getShape(point.x, point.y);
-  if (shape && shape.get('visible') && shape.get('origin')) {
-    const mappingData = shape.get('origin').mappingData;
-    const items = getTooltipItems(mappingData, geometry, title, showNil);
-    if (items.length) {
-      result.push(items);
-    }
+  let shapes = [container.getShape(point.x, point.y)];
+  if (geometry.type === 'point' && shared) {
+    shapes = geometry.getShapesByHitPoint(point.x, point.y);
   }
+  shapes.forEach(shape => {
+    if (shape && shape.get('visible') && shape.get('origin')) {
+      const mappingData = shape.get('origin').mappingData;
+      const items = getTooltipItems(mappingData, geometry, title, showNil);
+      if (items.length) {
+        result.push(items);
+      }
+    }
+  })
 
   return result;
 }
