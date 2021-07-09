@@ -54,6 +54,59 @@ describe('Point', () => {
     expect(element.getModel().isStack).toBe(false);
   });
 
+  it('test the function: getShapesByHitPoint', () => {
+    const data = [
+      {
+        "gender": "female",
+        "height": 161.2,
+        "weight": 51.6
+      },
+      {
+        "gender": "female",
+        "height": 167.5,
+        "weight": 59
+      },
+      {
+        "gender": "male",
+        "height": 161.2,
+        "weight": 51.6
+      },
+    ]
+    const scales = {
+      height: createScale('height', data),
+      weight: createScale('weight', data),
+      gender: createScale('gender', data),
+    };
+
+    const point = new Point({
+      data,
+      scales,
+      coordinate: rectCoord,
+      container: canvas.addGroup(),
+    });
+    point.position('height*weight').color('gender');
+    point.init({
+      theme: Theme,
+    });
+    point.paint();
+
+    let shapes = point.getShapesByHitPoint(0, 300, null);
+    console.log('shapes', shapes)
+    expect(shapes.length).toBe(2);
+    // @ts-ignore
+    expect(shapes[0].get('origin').data).toEqual(data[2]);
+    // @ts-ignore
+    expect(shapes[1].get('origin').data).toEqual(data[0]);
+
+    shapes = point.getShapesByHitPoint(300, 0, null);
+    expect(shapes.length).toBe(1);
+    // @ts-ignore
+    expect(shapes[0].get('origin').data).toEqual(data[1]);
+
+    shapes = point.getShapesByHitPoint(0, 0, null);
+    expect(shapes.length).toBe(0);
+  })
+
   afterAll(() => {
     canvas.destroy();
     removeDom(div);
