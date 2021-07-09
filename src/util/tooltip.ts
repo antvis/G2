@@ -411,7 +411,7 @@ function getTooltipItemsByFindData(geometry: Geometry, point, title, tooltipCfg:
   return result;
 }
 
-function getTooltipItemsByHitShape(geometry, point, title, tooltipCfg: TooltipCfg) {
+export function getTooltipItemsByHitShape(geometry, point, title, tooltipCfg: TooltipCfg) {
   const { showNil, shared } = tooltipCfg;
   const result = [];
   const container = geometry.container;
