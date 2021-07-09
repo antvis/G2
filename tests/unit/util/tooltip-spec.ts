@@ -165,7 +165,6 @@ describe('Tooltip functions', () => {
 
       it('tooltip open shared', () => {
         const tooltipItems = getTooltipItemsByHitShape(point, { x: 0, y: 180 }, '', { shared: true });
-        console.log('tooltipItems', tooltipItems)
         expect(tooltipItems.length).toBe(2);
         const { name: name0, title: title0, value: value0 } = tooltipItems[0][0];
         expect(name0).toBe(data[2].gender);
@@ -179,7 +178,6 @@ describe('Tooltip functions', () => {
 
       it('tooltip not open shared', () => {
         const tooltipItems = getTooltipItemsByHitShape(point, { x: 0, y: 180 }, '', { shared: false });
-        console.log('tooltipItems', tooltipItems)
         expect(tooltipItems.length).toBe(1);
         const { name, title, value } = tooltipItems[0][0];
         expect(name).toBe(data[2].gender);
