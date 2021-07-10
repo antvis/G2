@@ -2,7 +2,13 @@
  * 创建一个 div 节点，并放到 container，默认放到 body 上
  * @param container
  */
-export function createDiv(container: HTMLElement = document.body): HTMLElement {
+export function createDiv(container: HTMLElement = document.body, title?: string): HTMLElement {
+  if (title) {
+    const titleDOM = document.createElement('div');
+    titleDOM.innerHTML = title;
+    titleDOM.style.marginBottom = '4px';
+    container.appendChild(titleDOM);
+  }
   const div = document.createElement('div');
 
   container.appendChild(div);
