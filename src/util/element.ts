@@ -1,4 +1,4 @@
-import { deepMix, isNil, get } from '@antv/util';
+import { isNil } from '@antv/util';
 import { ShapeInfo } from '../types/geometry';
 
 /**

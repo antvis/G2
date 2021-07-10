@@ -18,6 +18,5 @@ export { Geometry, Element } from './geometry';
 /**
  * 主题相关方法和常量
  */
-export { getTheme, registerTheme, LIGHT, LIGHT_STYLESHEET, DARK, DARK_STYLESHEET } from './theme';
-export { createThemeByStylesheet } from './theme/stylesheet';
-export type { Theme, Stylesheet } from './types/theme';
+export { getTheme, registerTheme, LIGHT_STYLESHEET, DARK_STYLESHEET } from './theme';
+export type { StyleSheet } from './types/theme';

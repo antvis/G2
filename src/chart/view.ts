@@ -6,7 +6,7 @@ import { BBox } from '../util/bbox';
 import { getFacet } from '../util/facet';
 import { createInteraction } from '../util/interaction';
 import { Geometry } from '../geometry';
-import {
+import type {
   Data,
   PlainObject,
   Region,
@@ -20,6 +20,7 @@ import {
   AutoPadding,
   Padding,
 } from '../types';
+import type { StyleSheet } from '../types/theme';
 import { ScalePool } from '../visual/scale/pool';
 
 /**
@@ -110,7 +111,7 @@ export class View extends EE {
   protected region: Region;
 
   /** 主题配置，存储当前主题配置。 */
-  protected themeObject: PlainObject;
+  protected themeObject: StyleSheet;
 
   // 配置信息存储
   protected options: Options = {
@@ -495,7 +496,7 @@ export class View extends EE {
    * @param theme 主题名或者主题配置
    * @returns View
    */
-  public theme(theme: string | PlainObject): View {
+  public theme(theme: string | Partial<StyleSheet>): View {
     // 从字符串获取主题的 object 配置
     this.themeObject = deepMix({}, this.themeObject, isObject(theme) ? theme : getTheme(theme));
 
@@ -572,6 +573,14 @@ export class View extends EE {
    */
   public getOptions() {
     return this.options;
+  }
+
+  /**
+   * 获取当前 view 的主题配置。
+   * @returns themeObject
+   */
+  public getTheme(): StyleSheet {
+    return this.themeObject;
   }
 
   /** 数据操作的一些 API  **************************************** */

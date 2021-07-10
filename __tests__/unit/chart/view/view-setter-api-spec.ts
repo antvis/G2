@@ -1,4 +1,4 @@
-import { View } from '../../../../src';
+import { DARK_STYLESHEET, View } from '../../../../src';
 
 describe('view setter api', () => {
   const v = new View({
@@ -135,5 +135,14 @@ describe('view setter api', () => {
     }).toThrow("facet 'invalid' is not exist!");
   });
 
-  it('theme', () => {});
+  it('theme', () => {
+    expect(v.getTheme().paletteQualitative10.length).toBe(10);
+    expect(v.getTheme().paletteQualitative20.length).toBe(20);
+
+    v.theme('dark');
+    expect(v.getTheme().paletteQualitative10).toEqual(DARK_STYLESHEET.paletteQualitative10);
+
+    v.theme({ paletteQualitative10: ['red'] });
+    expect(v.getTheme().paletteQualitative10).toEqual(['red']);
+  });
 });

@@ -1,7 +1,8 @@
 import type { View } from '../chart';
-import type { AutoPadding, Data, Datum, Padding, PlainObject, Region } from './common';
-import { ScaleDefOptions } from './scale';
+import type { AutoPadding, Data, Datum, Padding, Region } from './common';
 import type { GeometryOption } from './geometry';
+import type { StyleSheet } from './theme';
+import { ScaleDefOptions } from './scale';
 
 export type FilterCondition = (value: any, datum: Datum, idx?: number) => boolean;
 
@@ -113,8 +114,10 @@ export type ViewCfg = {
    * 如果是 Funcion，则使用自定义的方式去计算子 view 的 padding，这个函数中去修改所有的 views autoPadding 值
    */
   syncViewPadding?: boolean | SyncViewPaddingFn;
-  /** 设置 view 实例主题 */
-  theme?: PlainObject | string;
+  /**
+   * 设置 view 实例主题: 主题名称或者主题样式表
+   */
+  theme?: string | StyleSheet;
   /**
    * 传入 options 配置。子 view 需要延续父 view 配置项
    */

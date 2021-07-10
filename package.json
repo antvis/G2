@@ -20,7 +20,7 @@
     "lint": "run-p lint:*",
     "fix": "eslint ./src/**/*.ts ./__tests__/**/*.ts --fix",
     "test": "jest",
-    "test-live": "DEBUG_MODE=1 jest --watch tests/unit",
+    "test-live": "DEBUG_MODE=1 jest --watch __tests__/unit",
     "coverage": "jest --coverage",
     "build:umd": "rimraf ./dist && webpack --config webpack.config.js --mode production && npm run size",
     "build:cjs": "rimraf ./lib && tsc --module commonjs --outDir lib",
