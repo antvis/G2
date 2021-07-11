@@ -1,6 +1,8 @@
-import { CC } from './conponent';
+import type { SliderTheme } from '../../../types/component';
+import type { SliderOption } from '../../../types/view';
+import { CC } from './base';
 
-export class Slider extends CC<any> {
+export class Slider extends CC<SliderOption> {
   public init() {
     throw new Error('Method not implemented.');
   }
@@ -19,5 +21,12 @@ export class Slider extends CC<any> {
 
   public clear() {
     throw new Error('Method not implemented.');
+  }
+
+  /**
+   * 获取 slider 主题配置
+   */
+  protected getTheme(): Required<SliderTheme> {
+    return {};
   }
 }

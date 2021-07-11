@@ -1,4 +1,4 @@
-import { CC } from './conponent';
+import { CC } from './base';
 
 export class Annotation extends CC<any> {
   public init() {
@@ -19,5 +19,12 @@ export class Annotation extends CC<any> {
 
   public clear() {
     throw new Error('Method not implemented.');
+  }
+
+  /**
+   * 获取 annotation 主题配置
+   */
+  protected getTheme() {
+    return {};
   }
 }

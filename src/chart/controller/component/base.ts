@@ -1,3 +1,4 @@
+import type { PlainObject } from '../../../types';
 import type { View } from '../../view';
 
 /**
@@ -52,4 +53,9 @@ export abstract class CC<O> {
   public changeVisible(visible: boolean) {
     this.visibale = visible;
   }
+
+  /**
+   * 组件主题配置
+   */
+  protected abstract getTheme(): PlainObject;
 }

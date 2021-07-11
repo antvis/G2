@@ -1,6 +1,9 @@
-import { CC } from './conponent';
+import { getTooltipThemeStyle } from 'src/theme/util';
+import type { TooltipTheme } from '../../../types/component';
+import type { TooltipOption } from '../../../types/view';
+import { CC } from './base';
 
-export class Tooltip extends CC<any> {
+export class Tooltip extends CC<TooltipOption> {
   public init() {
     throw new Error('Method not implemented.');
   }
@@ -19,5 +22,12 @@ export class Tooltip extends CC<any> {
 
   public clear() {
     throw new Error('Method not implemented.');
+  }
+
+  /**
+   * 获取 tooltip 主题配置
+   */
+  protected getTheme(): Required<TooltipTheme> {
+    return getTooltipThemeStyle(this.view.getTheme());
   }
 }
