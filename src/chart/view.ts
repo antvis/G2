@@ -5,20 +5,19 @@ import { Facet } from '../facet';
 import { BBox } from '../util/bbox';
 import { getFacet } from '../util/facet';
 import { createInteraction } from '../util/interaction';
-import { Geometry } from '../geometry';
+import type { Element, Geometry } from '../geometry';
 import {
-  Data,
   PlainObject,
   Region,
-  Options,
+  ViewOptions,
   AxisOption,
   LegendOption,
   TooltipOption,
   CoordinateOption,
   ScaleDefOptions,
-  ViewCfg,
   AutoPadding,
   Padding,
+  Data,
 } from '../types';
 import { ScalePool } from '../visual/scale/pool';
 
@@ -30,24 +29,9 @@ import { ScalePool } from '../visual/scale/pool';
  */
 export class View extends EE {
   /**
-   * 全局唯一的 id 标识
+   * 唯一 id
    */
   public id: string;
-
-  /**
-   * 父节点
-   */
-  public parent: View;
-
-  /**
-   * auto padding 配置
-   */
-  public padding: AutoPadding;
-
-  /**
-   * 在 auto padding 的基础上，额外追加的边距 padding
-   */
-  public appendPadding: Padding;
 
   /**
    * 所有的子 views
@@ -87,39 +71,14 @@ export class View extends EE {
    */
   public coordinateBBox: BBox;
 
-  /**
-   * G.Canvas 画布对象
-   */
-  public canvas: any;
-
-  /** 三层 Group 图形中的背景层 */
-  public backgroundGroup: any;
-
-  /** 三层 Group 图形中的中间层 */
-  public middleGroup: any;
-
-  /** 三层 Group 图形中的前景层 */
-  public foregroundGroup: any;
-
-  /** 是否对超出坐标系范围的 Geometry 进行剪切 */
-  public limitInPlot: boolean = false;
-
-  /**
-   * 标记 view 的大小位置范围，均是 0 ~ 1 范围，便于开发者使用，起始点为左上角。
-   */
-  protected region: Region;
-
   /** 主题配置，存储当前主题配置。 */
   protected themeObject: PlainObject;
 
-  // 配置信息存储
-  protected options: Options = {
-    data: [],
-    animate: true, // 默认开启动画
-  }; // 初始化为空
+  /** 实际渲染绘制的数据，经过过滤操作的 */
+  private filteredData: Data;
 
-  /** 过滤之后的数据 */
-  protected filteredData: Data;
+  // 存储所有从构造方法传入的方法
+  protected options: ViewOptions;
 
   /** 所有的 scales */
   private scalePool = new ScalePool();
@@ -130,44 +89,29 @@ export class View extends EE {
   /** 背景色样式的 shape */
   private backgroundStyleRectShape;
 
-  /** 是否同步子 view 的 padding */
-  private syncViewPadding;
-
-  constructor(cfg: ViewCfg) {
+  constructor(options: ViewOptions) {
     super();
 
-    const {
-      id = uniqueId('view'),
-      parent,
-      canvas,
-      backgroundGroup,
-      middleGroup,
-      foregroundGroup,
-      region = { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
-      padding,
-      appendPadding,
-      options,
-      theme = 'light',
-      limitInPlot,
-      syncViewPadding,
-    } = cfg;
-
-    this.parent = parent;
-    this.canvas = canvas;
-    this.backgroundGroup = backgroundGroup;
-    this.middleGroup = middleGroup;
-    this.foregroundGroup = foregroundGroup;
-    this.region = region;
-    this.padding = padding;
-    this.appendPadding = appendPadding;
     // 接受父 view 传入的参数
-    this.options = { ...this.options, ...options };
-    this.limitInPlot = limitInPlot;
+    this.options = {
+      // 一些默认值
+      id: uniqueId('view'),
+      region: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+      originalData: [],
+      animate: true,
+      theme: 'light',
+      ...options,
+    };
+
+    const { id, theme } = this.options;
+
+    // id 比较特殊，放到顶层
     this.id = id;
-    this.syncViewPadding = syncViewPadding;
 
     // 初始化 theme
     this.themeObject = isObject(theme) ? deepMix({}, getTheme('light'), theme) : getTheme(theme);
+
+    this.init();
   }
 
   /** 初始化 View 配置 API    **************************************************** */
@@ -507,8 +451,6 @@ export class View extends EE {
   /**
    * 同一使用 geometry 去初始化图形
    */
-  public geom() {}
-
   public line() {}
 
   public point() {}
@@ -521,12 +463,76 @@ export class View extends EE {
 
   public edge() {}
 
+  public schema() {}
+
+  public venn() {}
+
   /** 生命周期的 API 函数     ************************************** */
 
   /**
-   * 初始化
+   * 初始化过程，主要几个事情：
+   * 1. View 的布局（根据 region 来计算，形成每个 view 的 viewBBox）
+   * 2. View 事件（因为不是继承 G，所以整个事件需要代理一下）
+   * 3. 各种 controller 实例化
    */
-  public init() {}
+  public init() {
+    this.calculateViewBBox();
+
+    /** 绑定/代理 G 事件 */
+    this.bindEvents();
+
+    /** TODO: 是否有更好的方式 */
+    this.initControllers();
+  }
+
+  /**
+   * 根据 region，计算实际的像素范围坐标，放到 this.viewBBox 上。
+   * 1. 当前 view 的大小等于父 view 的 coordinateBBox 大小
+   * 2. 根据当前容器的大小，结合 region 配置，得到实际的大小
+   */
+  private calculateViewBBox() {
+    const { parent, canvas, region } = this.options;
+
+    let bbox;
+    if (parent) {
+      // 存在 parent， 那么就是通过父容器大小计算
+      bbox = parent.coordinateBBox;
+    } else {
+      // 顶层容器，从 canvas 中取值 宽高，整个画布的大小
+      // bbox = new BBox(0, 0, canvas.get('width'), canvas.get('height'));
+      // @ts-ignore
+      bbox = new BBox(0, 0, canvas.width, canvas.height);
+    }
+
+    // 根据 region 计算当前 view 的 bbox 大小。
+    const { x, y, width, height } = bbox;
+    const { start, end } = region;
+
+    const newViewBBox = new BBox(
+      x + width * start.x,
+      y + height * start.y,
+      width * (end.x - start.x),
+      height * (end.y - start.y),
+    );
+
+    // viewBBox 发生变化的时候进行更新
+    if (!this.viewBBox?.isEqual(newViewBBox)) {
+      this.viewBBox = newViewBBox;
+    }
+
+    // 因为子 view 会依赖父 view 的 coordinateBBox，所以需要初始化一下当前的 coordinateBBox
+    this.coordinateBBox = this.viewBBox;
+  }
+
+  /**
+   * 绑定事件
+   */
+  private bindEvents() {}
+
+  /**
+   * 初始化各种 controller
+   */
+  private initControllers() {}
 
   /**
    * 渲染（异步）
@@ -557,7 +563,7 @@ export class View extends EE {
    * 获取实际展示在画布中的数据（经过过滤后的）
    */
   public getData() {
-    return this.options.data;
+    return this.filteredData;
   }
 
   /**
@@ -570,8 +576,16 @@ export class View extends EE {
   /**
    * 返回所有的配置项信息
    */
-  public getOptions() {
+  public getOptions(): ViewOptions {
     return this.options;
+  }
+
+  /**
+   * 获得容器中包含的 element 元素
+   * @param recursive 是否递归对应的子 views
+   */
+  public getElements(recursive?: boolean): Element[] {
+    return [];
   }
 
   /** 数据操作的一些 API  **************************************** */
