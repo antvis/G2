@@ -12,7 +12,7 @@ describe('util/bbox', () => {
     expect(bbox.minX).toBe(10);
     expect(bbox.maxX).toBe(40);
     expect(bbox.minY).toBe(20);
-    expect(bbox.maxY).toBe(40);
+    expect(bbox.maxY).toBe(60);
 
     expect(bbox.isEqual(new BBox(10, 20, 30, 40))).toBe(true);
     expect(bbox.isEqual(new BBox(10, 20, 30, 30))).toBe(false);
