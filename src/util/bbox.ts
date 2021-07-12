@@ -1,5 +1,4 @@
-import { each } from '@antv/util';
-import { Padding, Point, Region } from '../types';
+import { Point, Region } from '../types';
 
 /**
  * 用于包围盒计算。
