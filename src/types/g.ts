@@ -1,6 +1,6 @@
-export type Shape = any;
+export { Canvas, Group } from '@antv/g';
 
-export type Group = any;
+export type Shape = any;
 
 export type PathCommand = any;
 

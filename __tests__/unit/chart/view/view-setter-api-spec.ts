@@ -1,9 +1,27 @@
+import { Canvas, Group } from '@antv/g';
+import { Renderer } from '@antv/g-canvas';
+import { createDiv } from '../../../util/dom';
 import { View } from '../../../../src';
+
+// @ts-ignore
+const canvasRenderer = new Renderer();
+
+// create a canvas
+// @ts-ignore
+const canvas = new Canvas({
+  container: createDiv(),
+  width: 400,
+  height: 300,
+  renderer: canvasRenderer,
+});
+
+canvas.width = 400;
+canvas.height = 300;
 
 describe('view setter api', () => {
   const v = new View({
     parent: undefined,
-    canvas: null,
+    canvas,
     foregroundGroup: null,
     middleGroup: null,
     backgroundGroup: null,
