@@ -154,4 +154,25 @@ describe('view setter api', () => {
   });
 
   it('theme', () => {});
+
+  it('filter', () => {
+    const condition = jest.fn();
+    v.filter('a', condition);
+    expect(v.getOptions().filters).toEqual({ a: condition });
+
+    v.filter('a');
+    expect(v.getOptions().filters).toEqual({});
+
+    v.filter('a', condition);
+    v.filter('b', condition);
+    expect(v.getOptions().filters).toEqual({
+      a: condition,
+      b: condition,
+    });
+  });
+
+  afterAll(() => {
+    v.destroy();
+    canvas.destroy();
+  });
 });

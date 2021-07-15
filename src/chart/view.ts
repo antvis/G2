@@ -1,5 +1,5 @@
 import EE from '@antv/event-emitter';
-import { deepMix, each, isBoolean, isObject, isString, set, uniqueId } from '@antv/util';
+import { deepMix, each, isBoolean, isObject, isString, isFunction, filter, set, size, uniqueId } from '@antv/util';
 import { getTheme } from '../theme';
 import { Facet } from '../facet';
 import { BBox } from '../util/bbox';
@@ -18,6 +18,8 @@ import {
   AutoPadding,
   Padding,
   Data,
+  FilterCondition,
+  Datum,
 } from '../types';
 import { ScalePool } from '../visual/scale/pool';
 
@@ -535,10 +537,54 @@ export class View extends EE {
   private initControllers() {}
 
   /**
-   * 渲染（异步）
+   * 渲染，更新和渲染的逻辑使用同一个。
    */
-  public async render() {
-    // do render
+  public render() {
+    this.paint();
+  }
+
+  /**
+   * 具体的绘制渲染逻辑，主要包含几个事情：
+   * 1. 做数据的过滤（filter 的状态存储）
+   * 2. 创建 scale
+   * 3. 当前 view 的 geometry.init
+   * 4. 当前 view 的 component.init
+   * 5. 处理分面
+   */
+  protected paint() {
+    // 处理 filter
+    this.processFilter();
+    // // 创建 scale
+    // this.createScales();
+    // // 初始化当前 Geometry
+    // this.initGeometryes();
+    // // 初始化组件
+    // this.initComponents();
+    // // 分面
+    // this.processFacet();
+  }
+
+  private processFilter() {
+    const { originalData, filters } = this.options;
+
+    // 不存在 filters，则不需要进行数据过滤
+    if (size(filters) === 0) {
+      this.filteredData = originalData;
+    } else {
+      // 存在过滤器，则逐个执行过滤，过滤器之间是 与 的关系
+      this.filteredData = filter(originalData, (datum: Datum, idx: number) => {
+        // 所有的 filter 字段
+        const fields = Object.keys(filters);
+
+        // 所有的条件都通过，才算通过
+        return fields.every((field: string) => {
+          const condition = filters[field];
+
+          // condition 返回 true，则保留
+          return condition(datum[field], datum, idx);
+        });
+      });
+    }
   }
 
   /**
@@ -591,9 +637,29 @@ export class View extends EE {
   /** 数据操作的一些 API  **************************************** */
 
   /**
-   * 进行数据的过滤（数据分析：筛选、过滤）
+   * 设置数据筛选规则。
+   *
+   * ```ts
+   * view.filter('city', (value: any, datum: Datum) => value !== '杭州');
+   *
+   * // 删除 'city' 字段对应的筛选规则。
+   * view.filter('city', null);
+   * ```
+   *
+   * @param field 数据字段
+   * @param condition 筛选规则
+   * @returns View
    */
-  public filter() {}
+  public filter(field: string, condition?: FilterCondition): View {
+    if (isFunction(condition)) {
+      set(this.options, ['filters', field], condition);
+    } else if (!condition) {
+      // condition 为空，则表示删除过滤条件
+      delete this.options.filters[field];
+    }
+
+    return this;
+  }
 
   /**
    * 更新数据（数据分析：下钻）
