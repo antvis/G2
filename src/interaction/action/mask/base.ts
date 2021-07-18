@@ -1,4 +1,4 @@
-import { each } from '@antv/util';
+import { deepMix, each } from '@antv/util';
 import Action from '../base';
 import { LooseObject } from '../../../interface';
 
@@ -77,7 +77,7 @@ abstract class MaskBase extends Action {
   /**
    * 开始
    */
-  public start() {
+  public start(arg?: { maskStyle: LooseObject }) {
     this.starting = true;
     // 开始时，保证移动结束
     this.moving = false;
@@ -87,7 +87,7 @@ abstract class MaskBase extends Action {
       // 开始时设置 capture: false，可以避免创建、resize 时触发事件
       this.maskShape.set('capture', false);
     }
-    this.updateMask();
+    this.updateMask(arg?.maskStyle);
     this.emitEvent('start');
   }
 
@@ -119,8 +119,8 @@ abstract class MaskBase extends Action {
     this.preMovePoint = currentPoint;
   }
 
-  protected updateMask() {
-    const attrs = this.getMaskAttrs();
+  protected updateMask(maskStyle?: LooseObject) {
+    const attrs = deepMix({}, this.getMaskAttrs(), maskStyle);
     this.maskShape.attr(attrs);
   }
 
