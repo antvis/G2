@@ -45,6 +45,9 @@ describe('view', () => {
 
     view.filter('area', (area) => area === '东北');
 
+    // todo 万木，创建 scale 的逻辑补齐！
+    // view.interval().position('area*sales');
+
     view.render();
 
     expect(view.getData().length).toBe(1);

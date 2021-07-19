@@ -472,7 +472,7 @@ export class View extends EE {
    * 创建一个 interval 类型的 geometry
    * @param cfg
    */
-  public interval(cfg?: Partial<IntervalOptions>) {
+  public interval(cfg?: Partial<IntervalOptions>): Interval {
     const { middleGroup } = this.options;
     // geometry 绘制在 middleGroup 中
     const newGroup = new Group({});
@@ -485,6 +485,8 @@ export class View extends EE {
     });
 
     this.geometries.push(geometry);
+
+    return geometry;
   }
 
   public area() {}
@@ -646,7 +648,18 @@ export class View extends EE {
    * 初始化 Geometry
    */
   private initGeometryes() {
+    const options = {
+      // 使用 coordinate 引用，可以保持 coordinate 的同步更新
+      coordinate: this.coordinateInstance,
+      scales: this.getGeometryScales(),
+      data: this.getData(),
+      theme: this.themeObject,
+    };
 
+    // 全部更新
+    this.geometries.forEach((g) => {
+      g.update(options);
+    });
   }
 
   /**
@@ -723,6 +736,13 @@ export class View extends EE {
    */
   public getElements(recursive?: boolean): Element[] {
     return [];
+  }
+
+  /**
+   * 获取当前的 coordinate 实例
+   */
+  public getCoordinate() {
+    return this.coordinateInstance;
   }
 
   /** 数据操作的一些 API  **************************************** */
