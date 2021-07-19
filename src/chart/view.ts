@@ -1,11 +1,23 @@
 import EE from '@antv/event-emitter';
-import { deepMix, each, isBoolean, isObject, isString, isFunction, filter, set, size, uniqueId } from '@antv/util';
+import {
+  deepMix,
+  each,
+  isBoolean,
+  isObject,
+  isString,
+  isFunction,
+  filter,
+  set,
+  size,
+  uniqueId,
+  uniq,
+} from '@antv/util';
 import { getTheme } from '../theme';
 import { Facet } from '../facet';
 import { BBox } from '../util/bbox';
 import { getFacet } from '../util/facet';
 import { createInteraction } from '../util/interaction';
-import type { Element, Geometry } from '../geometry';
+import type { Element, Geometry, IntervalOptions } from '../geometry';
 import {
   PlainObject,
   Region,
@@ -22,6 +34,9 @@ import {
   Datum,
 } from '../types';
 import { ScalePool } from '../visual/scale/pool';
+import { Interval } from '../geometry';
+import { Group } from '../types/g';
+import { ScaleDef } from '../visual/scale';
 
 /**
  * 图表容器，可以嵌套迭代。容器中主要包含有三类组件：
@@ -38,22 +53,22 @@ export class View extends EE {
   /**
    * 所有的子 views
    */
-  public views: View[];
+  public views: View[] = [];
 
   /**
    * 当前 view 包含的图形 Geometry 数组
    */
-  public geometries: Geometry[];
+  public geometries: Geometry[] = [];
 
   /**
    * 当前 view 包含的组件 Component 数组
    */
-  public components: any[];
+  public components: any[] = [];
 
   /**
    * 所有组件对应的 controller 实例
    */
-  public controllers: any[];
+  public controllers: any[] = [];
 
   /**
    * 加载的交互实例
@@ -449,15 +464,28 @@ export class View extends EE {
   }
 
   /** 创建 Geometry 的 API       ********************************************** */
-
-  /**
-   * 同一使用 geometry 去初始化图形
-   */
   public line() {}
 
   public point() {}
 
-  public interval() {}
+  /**
+   * 创建一个 interval 类型的 geometry
+   * @param cfg
+   */
+  public interval(cfg?: Partial<IntervalOptions>) {
+    const { middleGroup } = this.options;
+    // geometry 绘制在 middleGroup 中
+    const newGroup = new Group({});
+    middleGroup.appendChild(newGroup);
+
+    const geometry = new Interval({
+      container: newGroup,
+      coordinate: this.coordinateInstance,
+      ...cfg,
+    });
+
+    this.geometries.push(geometry);
+  }
 
   public area() {}
 
@@ -527,6 +555,32 @@ export class View extends EE {
   }
 
   /**
+   * 获得 Geometry 中的 scale 对象
+   */
+  private getGeometryScales(): Map<string, ScaleDef> {
+    const fields = this.getScaleFields();
+
+    const scales = new Map();
+    for (let i = 0; i < fields.length; i++) {
+      const field = fields[i];
+      scales.set(field, this.getScale(field));
+    }
+
+    return scales;
+  }
+
+  /**
+   * 获得所有 geometry 对应的字段
+   */
+  private getScaleFields() {
+    const fields = [];
+    for (let i = 0; i < this.geometries.length; i++) {
+      fields.push(...this.geometries[i].getFields());
+    }
+    return uniq(fields);
+  }
+
+  /**
    * 绑定事件
    */
   private bindEvents() {}
@@ -557,13 +611,16 @@ export class View extends EE {
     // // 创建 scale
     // this.createScales();
     // // 初始化当前 Geometry
-    // this.initGeometryes();
+    this.initGeometryes();
     // // 初始化组件
     // this.initComponents();
     // // 分面
     // this.processFacet();
   }
 
+  /**
+   * 处理筛选器条件
+   */
   private processFilter() {
     const { originalData, filters } = this.options;
 
@@ -588,6 +645,21 @@ export class View extends EE {
   }
 
   /**
+   * 初始化 Geometry
+   */
+  private initGeometryes() {
+
+  }
+
+  /**
+   * scale key 的创建方式
+   * @param field
+   */
+  private getScaleKey(field: string): string {
+    return `${this.id}-${field}`;
+  }
+
+  /**
    * 销毁
    */
   public destroy() {}
@@ -602,8 +674,29 @@ export class View extends EE {
   /**
    * 获得某一个字段的 scale
    * @param field 字段 id
+   * @param key scale 对应的 key
    */
-  public getScale(field: string) {}
+  public getScale(field: string, key?: string) {
+    const defaultKey = key || this.getScaleKey(field);
+    // 调用根节点 view 的方法获取
+    return this.getRootView().scalePool.get(defaultKey);
+  }
+
+  /**
+   * 获得根节点 view。
+   */
+  public getRootView(): View {
+    let v = this as View;
+
+    while (true) {
+      if (v.options.parent) {
+        v = v.options.parent;
+        continue;
+      }
+      break;
+    }
+    return v;
+  }
 
   /**
    * 获取实际展示在画布中的数据（经过过滤后的）

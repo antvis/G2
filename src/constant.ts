@@ -6,6 +6,21 @@ import { AttributeKey } from './types';
 export const GROUP_ATTR_KEYS = ['color', 'shape', 'size'] as Partial<AttributeKey>[];
 
 /**
+ * 所有的 attribute keys
+ */
+export const ALL_ATTR_KEYS = [
+  'position',
+  'color',
+  'shape',
+  'size',
+  'style',
+  'label',
+  'tooltip',
+  'sequence',
+  'custom',
+] as Partial<AttributeKey>[];
+
+/**
  * 存储原始数据的 key
  */
 export const ORIGINAL_FIELD = Symbol('ORIGINAL_FIELD');

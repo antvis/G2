@@ -8,3 +8,5 @@
 
 export { Geometry } from './geometry';
 export { Element } from './element';
+
+export { Interval, IntervalOptions } from './interval';

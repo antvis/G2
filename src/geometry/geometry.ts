@@ -1,7 +1,7 @@
 import { deepMix, get, isArray } from '@antv/util';
 import { Shape } from 'src/types/g';
 import { ShapeRenderer } from 'src/types/factory';
-import { Visibility } from '../core';
+import { Visibility } from '../core/visibility';
 import {
   AttributeKey,
   AttributeOptions,
@@ -19,7 +19,7 @@ import {
   ShapeInfo,
   Point,
 } from '../types';
-import { GROUP_ATTR_KEYS, ORIGINAL_FIELD } from '../constant';
+import { ALL_ATTR_KEYS, GROUP_ATTR_KEYS, ORIGINAL_FIELD } from '../constant';
 import { createAttribute } from '../util/attribute';
 import { createAdjust } from '../util/adjust';
 import { diff } from '../util/diff';
@@ -39,7 +39,7 @@ import { getShape } from './factory';
  * g.paint();
  * ```
  */
-export abstract class Geometry extends Visibility {
+export abstract class Geometry<O extends GeometryOption = GeometryOption> extends Visibility {
   /**
    * geometry 的类型
    * @override
@@ -55,7 +55,7 @@ export abstract class Geometry extends Visibility {
   /**
    * 传入到 Geometry 的配置信息（更新时候的配置）
    */
-  public options: GeometryOption;
+  public options: O;
 
   /**
    * 视觉通道映射配置 Key Value 结构
@@ -98,7 +98,7 @@ export abstract class Geometry extends Visibility {
    */
   private elementsMap: Map<string, Element>;
 
-  constructor(option: GeometryOption) {
+  constructor(option: O) {
     super();
 
     // 初始化一些值
@@ -240,7 +240,7 @@ export abstract class Geometry extends Visibility {
   /**
    * 更新数据和配置
    */
-  public update(options: Partial<GeometryOption>) {
+  public update(options: Partial<O>) {
     this.options = {
       ...this.options,
       ...options,
@@ -754,10 +754,21 @@ export abstract class Geometry extends Visibility {
   /** 获取信息的 API         **************************************************************** */
 
   /**
+   * 获得所有属性映射中的字段，这些字段都会被创建 scale
+   */
+  public getFields(): string[] {
+    return this.getUniqFieldsByAttrKeys(ALL_ATTR_KEYS);
+  }
+
+  /**
    * 获取所有映射中的分组字段
    */
   public getGroupFields() {
-    const groupFields = [];
+    return this.getUniqFieldsByAttrKeys(GROUP_ATTR_KEYS);
+  }
+
+  private getUniqFieldsByAttrKeys(keys: string[]) {
+    const fields = [];
 
     // 去重，且考虑性能
     const uniqMap = new Map<string, boolean>();
@@ -771,13 +782,12 @@ export abstract class Geometry extends Visibility {
         const f = fields[j];
 
         if (!uniqMap.has(f)) {
-          groupFields.push(f);
+          fields.push(f);
           uniqMap.set(f, true);
         }
       }
     }
-
-    return groupFields;
+    return fields;
   }
 
   /**

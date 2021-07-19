@@ -3,10 +3,22 @@ import { ShapePoint } from '../../types/geometry';
 import { PlainObject, Point } from '../../types/common';
 import { getRectPoints } from './util';
 import { getXDimensionLength } from '../../util/coordinate';
+import { GeometryOption } from '../../types';
 
 import './shapes';
 
-export class Interval extends Geometry {
+/**
+ * Interval 的 options 配置
+ * 直接放到 geometry 中，看的更清楚
+ */
+export type IntervalOptions = GeometryOption & {
+  columnWidthRatio?: number;
+}
+
+/**
+ * Interval 类型的图形 marker
+ */
+export class Interval extends Geometry<IntervalOptions> {
   /**
    * geometry type
    */

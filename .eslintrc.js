@@ -43,6 +43,7 @@ module.exports = {
     'no-multi-assign': 'off',
     'max-len': ['error', { code: 120, ignoreComments: true }],
     'no-unused-expressions': 'off',
+    'no-continue': 'off',
   },
   settings: {
     'import/parsers': {
