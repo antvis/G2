@@ -341,7 +341,7 @@ export default class Legend extends Controller<AllLegendsOptions> {
    * @param legendOption
    */
   private createContinuousLegend(geometry: Geometry, attr: Attribute, scale: Scale, legendOption: any) {
-    const cfg = this.getContinuousCfg(geometry, attr, scale, legendOption);
+    const cfg = this.getContinuousCfg(geometry, attr, scale, omit(legendOption, ['value']));
     return new ContinuousLegend(cfg);
   }
 
