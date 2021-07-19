@@ -1551,7 +1551,7 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
   }
 
   // 创建图形属性相关的配置项
-  private createAttrOption(attrName: string, field: AttributeOption | string | number, cfg?) {
+  protected createAttrOption(attrName: string, field: AttributeOption | string | number, cfg?) {
     if (isNil(field) || isObject(field)) {
       if (isObject(field) && isEqual(Object.keys(field), ['values'])) {
         // shape({ values: [ 'funnel' ] })
