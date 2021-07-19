@@ -15,11 +15,6 @@ const canvas = new Canvas({
   renderer: canvasRenderer,
 });
 
-// @ts-ignore
-canvas.width = 400;
-// @ts-ignore
-canvas.height = 300;
-
 const foregroundGroup = new Group({});
 const middleGroup = new Group({});
 const backgroundGroup = new Group({});

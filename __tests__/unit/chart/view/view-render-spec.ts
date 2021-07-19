@@ -16,11 +16,6 @@ const canvas = new Canvas({
   renderer: canvasRenderer,
 });
 
-// @ts-ignore
-canvas.width = 400;
-// @ts-ignore
-canvas.height = 300;
-
 const backgroundGroup = new Group({});
 canvas.appendChild(backgroundGroup);
 

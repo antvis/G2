@@ -767,19 +767,19 @@ export abstract class Geometry<O extends GeometryOption = GeometryOption> extend
     return this.getUniqFieldsByAttrKeys(GROUP_ATTR_KEYS);
   }
 
-  private getUniqFieldsByAttrKeys(keys: string[]) {
+  private getUniqFieldsByAttrKeys(keys: AttributeKey[]) {
     const fields = [];
 
     // 去重，且考虑性能
     const uniqMap = new Map<string, boolean>();
 
-    for (let i = 0, { length } = GROUP_ATTR_KEYS; i < length; i++) {
-      const groupAttrKey = GROUP_ATTR_KEYS[i];
+    for (let i = 0, length = keys.length; i < length; i++) {
+      const attrKey = keys[i];
       // 获取所有通道中的 fields，谨防空值
-      const fields = this.attriubteOptions.get(groupAttrKey)?.fields || [];
+      const attrFields = this.attriubteOptions.get(attrKey)?.fields || [];
 
-      for (let j = 0; j < fields.length; j++) {
-        const f = fields[j];
+      for (let j = 0; j < attrFields.length; j++) {
+        const f = attrFields[j];
 
         if (!uniqMap.has(f)) {
           fields.push(f);

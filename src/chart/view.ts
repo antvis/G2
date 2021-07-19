@@ -529,9 +529,7 @@ export class View extends EE {
       bbox = parent.coordinateBBox;
     } else {
       // 顶层容器，从 canvas 中取值 宽高，整个画布的大小
-      // bbox = new BBox(0, 0, canvas.get('width'), canvas.get('height'));
-      // @ts-ignore
-      bbox = new BBox(0, 0, canvas.width, canvas.height);
+      bbox = new BBox(0, 0, canvas.getConfig().width, canvas.getConfig().height);
     }
 
     // 根据 region 计算当前 view 的 bbox 大小。
