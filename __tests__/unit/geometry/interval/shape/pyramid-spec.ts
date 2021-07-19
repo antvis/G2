@@ -1,7 +1,7 @@
 import { Canvas, Group } from '@antv/g';
 import { Renderer } from '@antv/g-canvas';
 import { createDiv } from '../../../../util/dom';
-import { Interval } from '../../../../../src/geometry/interval';
+import { Interval } from '../../../../../src/geometry';
 import { ScaleDef } from '../../../../../src/visual/scale';
 import { Rect } from '../../../../../src/visual/coordinate';
 

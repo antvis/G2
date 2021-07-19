@@ -40,15 +40,15 @@ export type GeometryOption = {
   /**
    * 原始的明细数据
    */
-  data: Data;
+  data?: Data;
   /**
    * 对应字段的 scale 信息
    */
-  scales: Map<string, ScaleDef>;
+  scales?: Map<string, ScaleDef>;
   /**
    * 当前坐标系
    */
-  coordinate: Coordinate;
+  coordinate?: Coordinate;
   /**
    * 是否生成关键点信息
    */

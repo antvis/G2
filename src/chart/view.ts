@@ -1,11 +1,23 @@
 import EE from '@antv/event-emitter';
-import { deepMix, each, isBoolean, isObject, isString, set, uniqueId } from '@antv/util';
+import {
+  deepMix,
+  each,
+  isBoolean,
+  isObject,
+  isString,
+  isFunction,
+  filter,
+  set,
+  size,
+  uniqueId,
+  uniq,
+} from '@antv/util';
 import { getTheme } from '../theme';
 import { Facet } from '../facet';
 import { BBox } from '../util/bbox';
 import { getFacet } from '../util/facet';
 import { createInteraction } from '../util/interaction';
-import type { Element, Geometry } from '../geometry';
+import type { Element, Geometry, IntervalOptions } from '../geometry';
 import {
   PlainObject,
   Region,
@@ -18,8 +30,13 @@ import {
   AutoPadding,
   Padding,
   Data,
+  FilterCondition,
+  Datum,
 } from '../types';
 import { ScalePool } from '../visual/scale/pool';
+import { Interval } from '../geometry';
+import { Group } from '../types/g';
+import { ScaleDef } from '../visual/scale';
 
 /**
  * 图表容器，可以嵌套迭代。容器中主要包含有三类组件：
@@ -36,22 +53,22 @@ export class View extends EE {
   /**
    * 所有的子 views
    */
-  public views: View[];
+  public views: View[] = [];
 
   /**
    * 当前 view 包含的图形 Geometry 数组
    */
-  public geometries: Geometry[];
+  public geometries: Geometry[] = [];
 
   /**
    * 当前 view 包含的组件 Component 数组
    */
-  public components: any[];
+  public components: any[] = [];
 
   /**
    * 所有组件对应的 controller 实例
    */
-  public controllers: any[];
+  public controllers: any[] = [];
 
   /**
    * 加载的交互实例
@@ -447,15 +464,30 @@ export class View extends EE {
   }
 
   /** 创建 Geometry 的 API       ********************************************** */
-
-  /**
-   * 同一使用 geometry 去初始化图形
-   */
   public line() {}
 
   public point() {}
 
-  public interval() {}
+  /**
+   * 创建一个 interval 类型的 geometry
+   * @param cfg
+   */
+  public interval(cfg?: Partial<IntervalOptions>): Interval {
+    const { middleGroup } = this.options;
+    // geometry 绘制在 middleGroup 中
+    const newGroup = new Group({});
+    middleGroup.appendChild(newGroup);
+
+    const geometry = new Interval({
+      container: newGroup,
+      coordinate: this.coordinateInstance,
+      ...cfg,
+    });
+
+    this.geometries.push(geometry);
+
+    return geometry;
+  }
 
   public area() {}
 
@@ -499,9 +531,7 @@ export class View extends EE {
       bbox = parent.coordinateBBox;
     } else {
       // 顶层容器，从 canvas 中取值 宽高，整个画布的大小
-      // bbox = new BBox(0, 0, canvas.get('width'), canvas.get('height'));
-      // @ts-ignore
-      bbox = new BBox(0, 0, canvas.width, canvas.height);
+      bbox = new BBox(0, 0, canvas.getConfig().width, canvas.getConfig().height);
     }
 
     // 根据 region 计算当前 view 的 bbox 大小。
@@ -525,6 +555,32 @@ export class View extends EE {
   }
 
   /**
+   * 获得 Geometry 中的 scale 对象
+   */
+  private getGeometryScales(): Map<string, ScaleDef> {
+    const fields = this.getScaleFields();
+
+    const scales = new Map();
+    for (let i = 0; i < fields.length; i++) {
+      const field = fields[i];
+      scales.set(field, this.getScale(field));
+    }
+
+    return scales;
+  }
+
+  /**
+   * 获得所有 geometry 对应的字段
+   */
+  private getScaleFields() {
+    const fields = [];
+    for (let i = 0; i < this.geometries.length; i++) {
+      fields.push(...this.geometries[i].getFields());
+    }
+    return uniq(fields);
+  }
+
+  /**
    * 绑定事件
    */
   private bindEvents() {}
@@ -535,10 +591,83 @@ export class View extends EE {
   private initControllers() {}
 
   /**
-   * 渲染（异步）
+   * 渲染，更新和渲染的逻辑使用同一个。
    */
-  public async render() {
-    // do render
+  public render() {
+    this.paint();
+  }
+
+  /**
+   * 具体的绘制渲染逻辑，主要包含几个事情：
+   * 1. 做数据的过滤（filter 的状态存储）
+   * 2. 创建 scale
+   * 3. 当前 view 的 geometry.init
+   * 4. 当前 view 的 component.init
+   * 5. 处理分面
+   */
+  protected paint() {
+    // 处理 filter
+    this.processFilter();
+    // // 创建 scale
+    // this.createScales();
+    // // 初始化当前 Geometry
+    this.initGeometryes();
+    // // 初始化组件
+    // this.initComponents();
+    // // 分面
+    // this.processFacet();
+  }
+
+  /**
+   * 处理筛选器条件
+   */
+  private processFilter() {
+    const { originalData, filters } = this.options;
+
+    // 不存在 filters，则不需要进行数据过滤
+    if (size(filters) === 0) {
+      this.filteredData = originalData;
+    } else {
+      // 存在过滤器，则逐个执行过滤，过滤器之间是 与 的关系
+      this.filteredData = filter(originalData, (datum: Datum, idx: number) => {
+        // 所有的 filter 字段
+        const fields = Object.keys(filters);
+
+        // 所有的条件都通过，才算通过
+        return fields.every((field: string) => {
+          const condition = filters[field];
+
+          // condition 返回 true，则保留
+          return condition(datum[field], datum, idx);
+        });
+      });
+    }
+  }
+
+  /**
+   * 初始化 Geometry
+   */
+  private initGeometryes() {
+    const options = {
+      // 使用 coordinate 引用，可以保持 coordinate 的同步更新
+      coordinate: this.coordinateInstance,
+      scales: this.getGeometryScales(),
+      data: this.getData(),
+      theme: this.themeObject,
+    };
+
+    // 全部更新
+    this.geometries.forEach((g) => {
+      g.update(options);
+    });
+  }
+
+  /**
+   * scale key 的创建方式
+   * @param field
+   */
+  private getScaleKey(field: string): string {
+    return `${this.id}-${field}`;
   }
 
   /**
@@ -556,8 +685,29 @@ export class View extends EE {
   /**
    * 获得某一个字段的 scale
    * @param field 字段 id
+   * @param key scale 对应的 key
    */
-  public getScale(field: string) {}
+  public getScale(field: string, key?: string) {
+    const defaultKey = key || this.getScaleKey(field);
+    // 调用根节点 view 的方法获取
+    return this.getRootView().scalePool.get(defaultKey);
+  }
+
+  /**
+   * 获得根节点 view。
+   */
+  public getRootView(): View {
+    let v = this as View;
+
+    while (true) {
+      if (v.options.parent) {
+        v = v.options.parent;
+        continue;
+      }
+      break;
+    }
+    return v;
+  }
 
   /**
    * 获取实际展示在画布中的数据（经过过滤后的）
@@ -588,12 +738,39 @@ export class View extends EE {
     return [];
   }
 
+  /**
+   * 获取当前的 coordinate 实例
+   */
+  public getCoordinate() {
+    return this.coordinateInstance;
+  }
+
   /** 数据操作的一些 API  **************************************** */
 
   /**
-   * 进行数据的过滤（数据分析：筛选、过滤）
+   * 设置数据筛选规则。
+   *
+   * ```ts
+   * view.filter('city', (value: any, datum: Datum) => value !== '杭州');
+   *
+   * // 删除 'city' 字段对应的筛选规则。
+   * view.filter('city', null);
+   * ```
+   *
+   * @param field 数据字段
+   * @param condition 筛选规则
+   * @returns View
    */
-  public filter() {}
+  public filter(field: string, condition?: FilterCondition): View {
+    if (isFunction(condition)) {
+      set(this.options, ['filters', field], condition);
+    } else if (!condition) {
+      // condition 为空，则表示删除过滤条件
+      delete this.options.filters[field];
+    }
+
+    return this;
+  }
 
   /**
    * 更新数据（数据分析：下钻）

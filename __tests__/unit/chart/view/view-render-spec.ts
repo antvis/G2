@@ -2,7 +2,7 @@ import { Canvas, Group } from '@antv/g';
 import { Renderer } from '@antv/g-canvas';
 import { createDiv } from '../../../util/dom';
 import { View } from '../../../../src';
-import { BBox } from '../../../../src/util/bbox';
+import { salesByArea } from '../../../data/sales';
 
 // @ts-ignore
 const canvasRenderer = new Renderer();
@@ -25,32 +25,36 @@ canvas.appendChild(middleGroup);
 const foregroundGroup = new Group({});
 canvas.appendChild(foregroundGroup);
 
+const view = new View({
+  canvas,
+  foregroundGroup,
+  middleGroup,
+  backgroundGroup,
+});
+
 describe('view', () => {
   it('init', () => {
-    const view = new View({
-      id: 'onlyView',
-      canvas,
-      foregroundGroup,
-      middleGroup,
-      backgroundGroup,
-    });
+    view.data(salesByArea);
+    view.filter('sales', (v) => v > 2400000);
 
-    const subview = new View({
-      parent: view,
-      canvas,
-      foregroundGroup,
-      middleGroup,
-      backgroundGroup,
-      region: { start: { x: 0.5, y: 0.5 }, end: { x: 0.9, y: 0.9 } },
-    });
+    view.render();
+    expect(view.getOriginalData()).toBe(salesByArea);
 
-    // 默认值
-    expect(view.getOptions().region).toEqual({ start: { x: 0, y: 0 }, end: { x: 1, y: 1 } });
+    expect(view.getData().every((d) => d.sales > 2400000)).toBe(true);
+    expect(view.getData().length).toBe(4);
 
-    expect(view.viewBBox).toEqual(new BBox(0, 0, 400, 300));
-    expect(subview.viewBBox).toEqual(new BBox(200, 150, 160, 120));
+    view.filter('area', (area) => area === '东北');
 
-    subview.destroy();
+    // todo 万木，创建 scale 的逻辑补齐！
+    // view.interval().position('area*sales');
+
+    view.render();
+
+    expect(view.getData().length).toBe(1);
+  });
+
+  afterAll(() => {
     view.destroy();
+    canvas.destroy();
   });
 });

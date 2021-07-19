@@ -15,16 +15,21 @@ const canvas = new Canvas({
   renderer: canvasRenderer,
 });
 
-canvas.width = 400;
-canvas.height = 300;
+const foregroundGroup = new Group({});
+const middleGroup = new Group({});
+const backgroundGroup = new Group({});
+
+canvas.appendChild(backgroundGroup);
+canvas.appendChild(middleGroup);
+canvas.appendChild(foregroundGroup);
 
 describe('view setter api', () => {
   const v = new View({
     parent: undefined,
     canvas,
-    foregroundGroup: null,
-    middleGroup: null,
-    backgroundGroup: null,
+    foregroundGroup,
+    middleGroup,
+    backgroundGroup,
   });
 
   it('id', () => {
@@ -78,6 +83,14 @@ describe('view setter api', () => {
       },
       actions: [['transpose']],
     });
+  });
+
+  it('geometry', () => {
+    v.interval({ columnWidthRatio: 0.6 });
+
+    expect(v.geometries.length).toBe(1);
+    // @ts-ignore
+    expect(v.geometries[0].options.columnWidthRatio).toBe(0.6);
   });
 
   it('axis', () => {
@@ -154,4 +167,25 @@ describe('view setter api', () => {
   });
 
   it('theme', () => {});
+
+  it('filter', () => {
+    const condition = jest.fn();
+    v.filter('a', condition);
+    expect(v.getOptions().filters).toEqual({ a: condition });
+
+    v.filter('a');
+    expect(v.getOptions().filters).toEqual({});
+
+    v.filter('a', condition);
+    v.filter('b', condition);
+    expect(v.getOptions().filters).toEqual({
+      a: condition,
+      b: condition,
+    });
+  });
+
+  afterAll(() => {
+    v.destroy();
+    canvas.destroy();
+  });
 });
