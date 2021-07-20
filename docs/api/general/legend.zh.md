@@ -162,9 +162,34 @@ chart.legend('type', {
 
 | 参数名    | 类型                                                    | 是否必选 | 默认值 | 描述                             |
 | --------- | ------------------------------------------------------- | -------- | ------ | -------------------------------- |
-| style     | [ShapeAttrs](/zh/docs/api/shape/shape-attrs)            |          | -      | 文本样式配置项                   |
+| style     | _((item: ListItem, index: number, items: ListItem[]) => ShapeAttrs) \| ShapeAttrs_             |          | -      | 文本样式配置项                   |
 | spacing   | number                                                  |          | -      | 图例项 marker 同后面 name 的间距 |
 | formatter | `(text: string, item: ListItem, index: number) => any;` |          |        | 格式化函数                       |
+
+其中, `ShapeAttrs` 详细配置见：[文档](/zh/docs/api/shape/shape-attrs)；`ListItem` 配置如下：
+
+```ts
+type ListItem = {
+  /**
+   * 名称 {string}
+   */
+  name: string;
+  /**
+   * 值 {any}
+   */
+  value: any;
+  /**
+   * 图形标记 {object|string}
+   */
+  marker?: Marker | string;
+}
+
+type Marker = {
+  symbol? string;
+  style?: ShapeAttrs;
+  spacing?: number;
+};
+```
 
 ### legendOption.itemSpacing
 
@@ -180,9 +205,34 @@ chart.legend('type', {
 
 | 参数名     | 类型                                                    | 是否必选 | 默认值  | 描述                                               |
 | ---------- | ------------------------------------------------------- | -------- | ------- | -------------------------------------------------- |
-| style      | [ShapeAttrs](/zh/docs/api/shape/shape-attrs)            |          | -       | 文本样式配置项                                     |
 | alignRight | boolean                                                 |          | `false` | 是否右对齐，默认为 false，仅当设置图例项宽度时生效 |
-| formatter  | `(text: string, item: ListItem, index: number) => any;` |          |         | 格式化函数                                         |
+| style     | _((item: ListItem, index: number, items: ListItem[]) => ShapeAttrs) \| ShapeAttrs_             |          | -      | 文本样式配置项                   |
+| formatter | `(text: string, item: ListItem, index: number) => any;` |          |        | 格式化函数                       |
+
+其中, `ShapeAttrs` 详细配置见：[文档](/zh/docs/api/shape/shape-attrs)；`ListItem` 配置如下：
+
+```ts
+type ListItem = {
+  /**
+   * 名称 {string}
+   */
+  name: string;
+  /**
+   * 值 {any}
+   */
+  value: any;
+  /**
+   * 图形标记 {object|string}
+   */
+  marker?: Marker | string;
+}
+
+type Marker = {
+  symbol? string;
+  style?: ShapeAttrs;
+  spacing?: number;
+};
+```
 
 ### legendOption.animate
 
