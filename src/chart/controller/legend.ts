@@ -72,7 +72,10 @@ export default class Legend extends Controller<AllLegendsOptions> {
     each(this.components, (co: ComponentOption) => {
       const { component, direction } = co;
       const layout = getLegendLayout(direction);
-      const maxSize = this.getCategoryLegendSizeCfg(layout);
+      const maxWidthRatio = component.get('maxWidthRatio');
+      const maxHeightRatio = component.get('maxHeightRatio');
+
+      const maxSize = this.getCategoryLegendSizeCfg(layout, maxWidthRatio, maxHeightRatio);
 
       const maxWidth = component.get('maxWidth');
       const maxHeight = component.get('maxHeight');
@@ -487,8 +490,10 @@ export default class Legend extends Controller<AllLegendsOptions> {
         title
       );
     }
+    const maxWidthRatio = get(legendOption, 'maxWidthRatio');
+    const maxHeightRatio = get(legendOption, 'maxHeightRatio');
 
-    const baseCfg: LooseObject = this.getCategoryLegendSizeCfg(layout);
+    const baseCfg: LooseObject = this.getCategoryLegendSizeCfg(layout, maxWidthRatio, maxHeightRatio);
     baseCfg.container = container;
     baseCfg.layout = layout;
     baseCfg.items = items;
@@ -540,18 +545,22 @@ export default class Legend extends Controller<AllLegendsOptions> {
     return find(this.components, (co) => co.id === id);
   }
 
-  private getCategoryLegendSizeCfg(layout: 'horizontal' | 'vertical') {
+  private getCategoryLegendSizeCfg(
+    layout: 'horizontal' | 'vertical',
+    maxWidthRatio = COMPONENT_MAX_VIEW_PERCENTAGE,
+    maxHeightRatio = COMPONENT_MAX_VIEW_PERCENTAGE
+  ) {
     const { width: vw, height: vh } = this.view.viewBBox;
     // 目前 legend 的布局是以 viewBBox 为参照
     // const { width: cw, height: ch } = this.view.coordinateBBox;
     return layout === 'vertical'
       ? {
-          maxWidth: vw * COMPONENT_MAX_VIEW_PERCENTAGE,
+          maxWidth: vw * maxWidthRatio,
           maxHeight: vh,
         }
       : {
           maxWidth: vw,
-          maxHeight: vh * COMPONENT_MAX_VIEW_PERCENTAGE,
+          maxHeight: vh * maxHeightRatio,
         };
   }
 }

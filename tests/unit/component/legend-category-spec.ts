@@ -207,6 +207,56 @@ describe('Legend category navigation', () => {
     // 继承默认的 symbol 设置
     expect(items[1].marker.style.stroke).toBeUndefined();
   });
+
+  it('maxItemWidth, maxWidth, maxWidthRatio', () => {
+    chart.legend('clarity', {
+      position: 'right',
+      custom: true,
+      items: [
+        {
+          name: '城市-1-城市-城市-城市-城市-城市-城市-城市-城市-城市-城市-城市-城市-城市-城市-城市-城市-城市-城市-城市',
+          value: 'city-1',
+        },
+      ],
+    });
+    chart.render();
+    let legends = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND);
+    // 不会大于
+    expect(legends[0].component.getLayoutBBox().width).not.toBeGreaterThan(
+      chart.getTheme().components.legend.common.maxItemWidth
+    );
+    expect(legends[0].component.getLayoutBBox().width).toBe(400 * 0.25);
+
+    chart.legend('clarity', {
+      position: 'right',
+      maxWidthRatio: 0.2,
+      custom: true,
+      items: [
+        {
+          name: '城市-1-城市-城市-城市-城市-城市-城市-城市-城市-城市-城市-城市-城市-城市-城市-城市-城市-城市-城市-城市',
+          value: 'city-1',
+        },
+      ],
+    });
+    chart.render();
+    legends = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND);
+    expect(legends[0].component.getLayoutBBox().width).toBe(400 * 0.2);
+
+    chart.legend('clarity', {
+      position: 'right',
+      maxWidth: 90,
+      custom: true,
+      items: [
+        {
+          name: '城市-1-城市-城市-城市-城市-城市-城市-城市-城市-城市-城市-城市-城市-城市-城市-城市-城市-城市-城市-城市',
+          value: 'city-1',
+        },
+      ],
+    });
+    chart.render();
+    legends = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND);
+    expect(legends[0].component.getLayoutBBox().width).toBe(90);
+  });
 });
 
 describe('Legend Category Vertical', () => {

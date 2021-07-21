@@ -1030,6 +1030,14 @@ export interface LegendCfg {
    */
   maxHeight?: number;
   /**
+   * **分类图例适用**，图例项最大宽度比例（以 view 的 bbox 宽度为参照，默认 0.25）。
+   */
+  maxWidthRatio?: number;
+  /**
+   * **分类图例适用**，图例项最大高度比例（以 view 的 bbox 高度为参照，默认 0.25）。
+   */
+  maxHeightRatio?: number;
+  /**
    * **分类图例适用**，图例项的 marker 图标的配置。
    */
   marker?: MarkerCfg | ((name: string, index: number, item: { name: string; value: string } & MarkerCfg) => MarkerCfg);
@@ -1493,7 +1501,7 @@ export interface SliderCfg {
 export type EventPayload = LooseObject & {
   /** 触发事件的来源 */
   source?: string;
-}
+};
 
 export type EventCallback = (event: LooseObject) => void;
 /**
