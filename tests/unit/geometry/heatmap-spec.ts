@@ -8,8 +8,6 @@ import { createCanvas, createDiv, removeDom } from '../../util/dom';
 const RectCoordinate = getCoordinate('rect');
 const Theme = getTheme('default');
 
-const initColor = '#F51D27-#FA541C-#FF8C12-#FFC838-#FAFFA8-#80FF73-#12CCCC-#1890FF-#6E32C2';
-
 describe('Heatmap', () => {
   const div = createDiv();
   const canvas = createCanvas({
@@ -38,7 +36,7 @@ describe('Heatmap', () => {
       },
       coordinate: coord,
     });
-    heatmap.position('g*l').color('tmp', initColor).style({ shadowBlur: 30 });
+    heatmap.position('g*l').color('tmp', '#F51D27-#FA541C-#FF8C12-#FFC838-#FAFFA8-#80FF73-#12CCCC-#1890FF-#6E32C').style({ shadowBlur: 30 });
 
     expect(heatmap.type).toBe('heatmap');
   });
