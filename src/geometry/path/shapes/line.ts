@@ -1,7 +1,6 @@
 import { Path } from '@antv/g';
 import { each } from '@antv/util';
-import { Group } from '../../../types/g';
-import { ShapeInfo, ShapeMarkerCfg } from '../../../types/geometry';
+import type { Group, ShapeInfo, ShapeMarkerCfg } from '../../../types';
 import { registerShape } from '../../factory';
 import { getLineShapeAttrs, getLineMarker } from '../util';
 

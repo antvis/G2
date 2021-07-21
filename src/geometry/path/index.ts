@@ -1,8 +1,8 @@
 import { Geometry } from '../geometry';
 import { ORIGINAL_FIELD } from '../../constant';
-import { MappingDatum, ShapeInfo } from '../../types/geometry';
 import { diff } from '../../util/diff';
 import { Element } from '../element';
+import type { MappingDatum, ShapeInfo } from '../../types/geometry';
 import type { PathGeometryOption } from './types';
 
 import './shapes';

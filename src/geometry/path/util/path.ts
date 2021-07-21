@@ -1,5 +1,5 @@
 import { isArray } from '@antv/util';
-import { Point, RangePoint, ShapeVertices } from '../../../types';
+import type { Point, RangePoint, ShapeVertices } from '../../../types';
 
 function isValueEmpty(value) {
   if (value) {

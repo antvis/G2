@@ -1,5 +1,5 @@
 import { each } from '@antv/util';
-import { Point, ShapeInfo } from '../../../types';
+import type { Point, ShapeInfo } from '../../../types';
 import { getShapeStyle } from '../../../util/element';
 import { getPathPoints } from '../../path/util/path';
 

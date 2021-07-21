@@ -1,4 +1,4 @@
-import { GeometryOption } from '../../types/geometry';
+import type { GeometryOption } from '../../types/geometry';
 
 export type PathGeometryOption = GeometryOption & {
   /**

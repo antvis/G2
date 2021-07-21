@@ -1,7 +1,7 @@
 import { each, isArray } from '@antv/util';
 import { getShapeStyle } from '../../../util/element';
 import { catmullRom2bezier } from '../../../util/path';
-import { Point, Position, RangePoint, PathCommand, ShapeAttrs, ShapeInfo, ShapeMarkerCfg } from '../../../types';
+import type { Point, Position, RangePoint, PathCommand, ShapeAttrs, ShapeInfo, ShapeMarkerCfg } from '../../../types';
 import { LineSymbols } from './symbol';
 import { getPathPoints } from './path';
 
