@@ -58,6 +58,11 @@ export abstract class Geometry<O extends GeometryOption = GeometryOption> extend
   public options: O;
 
   /**
+   * 缓存 map 形式的 element
+   */
+  protected elementsMap: Map<string, Element>;
+
+  /**
    * 视觉通道映射配置 Key Value 结构
    */
   private attriubteOptions: AttributeOptions;
@@ -92,11 +97,6 @@ export abstract class Geometry<O extends GeometryOption = GeometryOption> extend
    * 对应 shape type 的 shape renderer
    */
   private shapeRenderer: ShapeRenderer;
-
-  /**
-   * 缓存 map 形式的 element
-   */
-  private elementsMap: Map<string, Element>;
 
   constructor(option: O) {
     super();
