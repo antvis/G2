@@ -1,3 +1,19 @@
+#### 4.1.21 (2021-07-21)
+
+##### Chores
+
+*  更新官网版本 ([#3523](https://github.com/antvis/g2/pull/3523)) ([66dd7721](https://github.com/antvis/g2/commit/66dd7721af5435cb918fb14cb9667540a9e25d0d))
+
+##### New Features
+
+* **legend:**  图例若干更新 ([#3529](https://github.com/antvis/g2/pull/3529)) ([23323b7a](https://github.com/antvis/g2/commit/23323b7a54469e3ee4d9c0357859da99c96e2288))
+* **mask:**  mask 交互支持配置样式 & test cases ([#3504](https://github.com/antvis/g2/pull/3504)) ([752c127e](https://github.com/antvis/g2/commit/752c127e0b79cb8459e7c78ba8b58ab6da6f9d43))
+
+##### Bug Fixes
+
+* **heatmap:**  修复热力图 style shadowBlur 不生效 & color 使用回调会导致白屏 ([#3532](https://github.com/antvis/g2/pull/3532)) ([664cf1a7](https://github.com/antvis/g2/commit/664cf1a7fdb22c59a55c0031812f372a3817cab3))
+* **legend:**  过滤连续图例的 value 参数，防止影响到 component legend 的 value 属性 导致交互问题 ([#3527](https://github.com/antvis/g2/pull/3527)) ([f30d700c](https://github.com/antvis/g2/commit/f30d700c23621a682d78ab6ff83e405be8c00bba))
+
 #### 4.1.20 (2021-07-06)
 
 ##### Documentation Changes
