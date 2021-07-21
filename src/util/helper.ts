@@ -48,9 +48,11 @@ export function padEnd(source: string | any[], targetLength: number, padValue: a
  * @param keys
  */
 export function omit<T = any>(obj: T, keys: string[]): T {
-  keys.forEach((key: string) => {
-    delete obj[key];
-  });
+  if (typeof obj === 'object') {
+    keys.forEach((key: string) => {
+      delete obj[key];
+    });
+  }
 
   return obj;
 }
