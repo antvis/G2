@@ -16,7 +16,6 @@ import { getTheme } from '../theme';
 import { Facet } from '../facet';
 import { BBox } from '../util/bbox';
 import { getFacet } from '../util/facet';
-import { createInteraction } from '../util/interaction';
 import type { Element, Geometry, IntervalOptions } from '../geometry';
 import {
   PlainObject,
@@ -37,6 +36,7 @@ import { ScalePool } from '../visual/scale/pool';
 import { Interval } from '../geometry';
 import { Group } from '../types/g';
 import { ScaleDef } from '../visual/scale';
+import { getInteraction } from '../interaction';
 
 /**
  * 图表容器，可以嵌套迭代。容器中主要包含有三类组件：
@@ -255,11 +255,11 @@ export class View extends EE {
    * view.interaction('my-interaction', { extra: 'hello world' });
    * ```
    * 详细文档可以参考：https://g2.antv.vision/zh/docs/api/general/interaction
-   * @param name interaction name
-   * @param cfg interaction config
+   * @param name
+   * @param options
    * @returns
    */
-  public interaction(name: string, cfg?: PlainObject): View {
+  public interaction(name: string, options?: PlainObject): View {
     const existInteraction = this.interactions[name];
     // 存在则先销毁已有的
     if (existInteraction) {
@@ -267,8 +267,9 @@ export class View extends EE {
     }
 
     // 新建交互实例
-    const interaction = createInteraction();
-    if (interaction) {
+    const Ctor = getInteraction(name);
+    if (Ctor) {
+      const interaction = new Ctor(this, options);
       interaction.init();
       this.interactions[name] = interaction;
     }
