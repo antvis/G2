@@ -2,7 +2,7 @@ import ColorUtil from '@antv/color-util';
 import { get, isNumber } from '@antv/util';
 import { FIELD_ORIGIN } from '../constant';
 import { Color, IShape } from '../dependents';
-import { Data, Datum, MappingDatum, ShapeInfo } from '../interface';
+import { Data, Datum, MappingDatum, ShapeInfo, AttributeOption, ColorAttrCallback } from '../interface';
 import Geometry from './base';
 
 /**
@@ -20,7 +20,7 @@ export default class Heatmap extends Geometry {
     const range = this.prepareRange(mappingData);
     const radius = this.prepareSize();
 
-    let blur = get(this.styleOption, ['style', 'shadowBlur']);
+    let blur = get(this.styleOption, ['cfg', 'shadowBlur']);
     if (!isNumber(blur)) {
       blur = radius / 2;
     }
@@ -29,6 +29,13 @@ export default class Heatmap extends Geometry {
     this.drawWithRange(mappingData, range, radius, blur);
 
     return null;
+  }
+
+  /** 热力图暂时不支持 callback 回调（文档需要说明下） */
+  public color(field: AttributeOption | string, cfg?: string | string[] | ColorAttrCallback): Geometry {
+    this.createAttrOption('color', field, typeof cfg !== 'function' ? cfg : '');
+
+    return this;
   }
 
   /**

@@ -36,12 +36,12 @@ describe('Heatmap', () => {
       },
       coordinate: coord,
     });
+    heatmap.position('g*l').color('tmp', '#F51D27-#FA541C-#FF8C12-#FFC838-#FAFFA8-#80FF73-#12CCCC-#1890FF-#6E32C').style({ shadowBlur: 30 });
 
     expect(heatmap.type).toBe('heatmap');
   });
 
   it('paint', () => {
-    heatmap.position('g*l').color('tmp', '#F51D27-#FA541C-#FF8C12-#FFC838-#FAFFA8-#80FF73-#12CCCC-#1890FF-#6E32C2');
     heatmap.init({
       theme: Theme,
     });
@@ -49,6 +49,19 @@ describe('Heatmap', () => {
 
     expect(heatmap.container.getCount()).toBe(1);
     expect(heatmap.container.getFirst().get('type')).toBe('image');
+  });
+
+  it('style', () => {
+    const grayScaleBlurredCanvas = heatmap.getGrayScaleBlurredCanvas();
+    const ctx = grayScaleBlurredCanvas.getContext('2d');
+
+    expect(ctx.shadowBlur).toBe(30);
+  });
+
+  it('color callback', () => {
+    heatmap.position('g*l').color('tmp', () => '');
+
+    expect(heatmap).toBeDefined();
   });
 
   it('clear', () => {
