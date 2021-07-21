@@ -206,7 +206,7 @@ export function catmullRom2bezier(
   let cp2: Position;
   let p: Position;
 
-  for (let i = 0; i < len - 1; i++) {
+  for (let i = 0; i < len - 1; i += 1) {
     cp1 = controlPointList[i * 2];
     cp2 = controlPointList[i * 2 + 1];
     p = pointList[i + 1];

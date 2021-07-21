@@ -1,9 +1,7 @@
 import { each, isArray } from '@antv/util';
 import { getShapeStyle } from '../../../util/element';
 import { catmullRom2bezier } from '../../../util/path';
-import { Point, Position, RangePoint } from '../../../types';
-import { PathCommand, ShapeAttrs } from '../../../types/g';
-import { ShapeInfo, ShapeMarkerCfg } from '../../../types/geometry';
+import { Point, Position, RangePoint, PathCommand, ShapeAttrs, ShapeInfo, ShapeMarkerCfg } from '../../../types';
 import { LineSymbols } from './symbol';
 import { getPathPoints } from './path';
 
@@ -42,7 +40,7 @@ function getSplinePath(points: Point[], isInCircle?: boolean, constaint?: Positi
     // 两点以内直接绘制成路径
     return getLinePath(points, isInCircle);
   }
-  for (let i = 0, len = points.length; i < len; i++) {
+  for (let i = 0, len = points.length; i < len; i += 1) {
     const point = points[i];
     if (!prePoint || !(prePoint.x === point.x && prePoint.y === point.y)) {
       data.push(point.x);
@@ -165,7 +163,7 @@ export function getLineShapeAttrs(cfg: ShapeInfo, smooth?: boolean, constraint?:
 
   const points = getPathPoints(cfg.points, connectNulls, showSinglePoint); // 根据 connectNulls 值处理 points
   let path = [];
-  for (let i = 0, len = points.length; i < len; i++) {
+  for (let i = 0, len = points.length; i < len; i += 1) {
     const eachLinePoints = points[i];
     path = path.concat(getPath(eachLinePoints, isInCircle, isStack, smooth, constraint, shapeAttrs));
   }
@@ -186,7 +184,7 @@ export function getLineMarker(markerCfg: ShapeMarkerCfg, shapeType: string) {
   return {
     symbol: LineSymbols[shapeType],
     style: {
-      // fixme 这里应该允许用户
+      // fixme 这里应该允许用户设置，做图例的时候考虑
       lineWidth: 2,
       r: 6,
       stroke: color,

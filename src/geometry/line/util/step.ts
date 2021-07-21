@@ -1,7 +1,7 @@
 import { each } from '@antv/util';
 import { Point, ShapeInfo } from '../../../types';
 import { getShapeStyle } from '../../../util/element';
-import { getPathPoints } from './path';
+import { getPathPoints } from '../../path/util/path';
 
 const interpolateCallback = (point: Point, nextPoint: Point, shapeType: string) => {
   const x = point.x as number;

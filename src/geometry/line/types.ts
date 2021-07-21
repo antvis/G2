@@ -1,12 +1,6 @@
-import { GeometryOption } from '../../types/geometry';
+import type { PathGeometryOption } from '../path/types';
 
-export type LineGeometryOption = GeometryOption & {
-  /**
-   * 是否连接空值
-   */
-  readonly connectNulls?: boolean;
-  /**
-   * 单个孤立数据点是否展示
-   */
-  readonly showSinglePoint?: boolean;
+export type LineGeometryOption = PathGeometryOption & {
+  /** 是否对数据进行排序, 默认关闭 */
+  sortable?: boolean;
 };

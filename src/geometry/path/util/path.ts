@@ -1,6 +1,5 @@
 import { isArray } from '@antv/util';
-import { Point, RangePoint } from '../../../types';
-import { ShapeVertices } from '../../../types/geometry';
+import { Point, RangePoint, ShapeVertices } from '../../../types';
 
 function isValueEmpty(value) {
   if (value) {
@@ -49,7 +48,7 @@ export function getPathPoints(points: ShapeVertices, connectNulls: boolean = fal
   if (connectNulls) {
     // 即 y 值为空的场景
     const filtered = [];
-    for (let i = 0, len = points.length; i < len; i++) {
+    for (let i = 0, len = points.length; i < len; i += 1) {
       const point = points[i];
       if (!isYNil(point)) {
         filtered.push(point);
@@ -60,7 +59,7 @@ export function getPathPoints(points: ShapeVertices, connectNulls: boolean = fal
 
   const result = [];
   let tmp = [];
-  for (let i = 0, len = points.length; i < len; i++) {
+  for (let i = 0, len = points.length; i < len; i += 1) {
     const point = points[i];
     if (isYNil(point)) {
       if (tmp.length) {

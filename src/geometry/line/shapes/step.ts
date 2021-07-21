@@ -3,7 +3,7 @@ import { each } from '@antv/util';
 import { Group } from '../../../types/g';
 import { ShapeInfo, ShapeMarkerCfg } from '../../../types/geometry';
 import { registerShape } from '../../factory';
-import { getLineMarker } from '../util';
+import { getLineMarker } from '../../path/util';
 import { getInterpolateShapeAttrs } from '../util/step';
 
 /**
