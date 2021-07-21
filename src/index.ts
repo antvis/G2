@@ -21,3 +21,8 @@ export { Geometry, Element } from './geometry';
 export { getTheme, registerTheme, LIGHT, LIGHT_STYLESHEET, DARK, DARK_STYLESHEET } from './theme';
 export { createThemeByStylesheet } from './theme/stylesheet';
 export type { Theme, Stylesheet } from './types/theme';
+
+/**
+ * 交互相关内容
+ */
+export { Interaction, registerInteraction, getInteraction, grammar } from './interaction';

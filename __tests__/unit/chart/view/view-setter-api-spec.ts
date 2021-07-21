@@ -1,7 +1,7 @@
 import { Canvas, Group } from '@antv/g';
 import { Renderer } from '@antv/g-canvas';
 import { createDiv } from '../../../util/dom';
-import { View } from '../../../../src';
+import { Interaction, registerInteraction, View } from '../../../../src';
 
 // @ts-ignore
 const canvasRenderer = new Renderer();
@@ -144,9 +144,14 @@ describe('view setter api', () => {
 
   it('interaction', () => {
     v.interaction('highlight', { a: 1 });
+    expect(v.interactions.highlight).toBeUndefined();
+    registerInteraction('highlight', class extends Interaction {
+      public init() {}
+    });
 
+    v.interaction('highlight', { a: 1 });
     const instance = v.interactions.highlight;
-    expect(instance).toBeDefined();
+    expect(v.interactions.highlight).toBeDefined();
 
     v.interaction('highlight', { a: 2 });
     expect(v.interactions.highlight).not.toBe(instance);
