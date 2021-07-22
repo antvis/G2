@@ -45,7 +45,7 @@ class ElementRangeState extends StateBase {
     this.isStarted = true;
   }
 
-  private getIntersectElements() {
+  protected getIntersectElements() {
     let elements = null;
     if (isMask(this.context)) {
       elements = getMaskedElements(this.context, 10);

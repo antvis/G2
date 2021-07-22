@@ -36,10 +36,12 @@ function getFilter(scale: Scale, dim: string, point1: Point, point2: Point): Fil
   }
 }
 
-export enum BRUSH_FILTER_EVENTS {
+enum EVENTS {
   FILTER = 'brush-filter-processing',
   RESET = 'brush-filter-reset',
 }
+
+export { EVENTS as BRUSH_FILTER_EVENTS };
 
 /**
  * 范围过滤的 Action
@@ -110,7 +112,7 @@ class RangeFilter extends Action {
       const filter = getFilter(yScale, 'y', normalCurrent, normalStart);
       this.filterView(view, yScale.field, filter);
     }
-    this.reRender(view, { source: BRUSH_FILTER_EVENTS.FILTER });
+    this.reRender(view, { source: EVENTS.FILTER });
   }
 
   /**
@@ -135,7 +137,7 @@ class RangeFilter extends Action {
       const yScale = view.getYScales()[0];
       this.filterView(view, yScale.field, null); // 取消过滤
     }
-    this.reRender(view, { source: BRUSH_FILTER_EVENTS.RESET });
+    this.reRender(view, { source: EVENTS.RESET });
   }
 
   /**
