@@ -1,5 +1,5 @@
 import Element from '../../../geometry/element';
-import Event from '../../../chart/event';
+import { Event } from '../../../chart';
 import { clearHighlight, setHighlightBy } from './highlight-util';
 import ElementRangeState from './range-state';
 
