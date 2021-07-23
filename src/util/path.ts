@@ -5,7 +5,7 @@ import { Point, Position } from '../types/common';
 import { Coordinate } from '../types/coordinate';
 import { getDistanceToCenter } from './coordinate';
 
-function _points2path(points: Point[], isInCircle: boolean): PathCommand[] {
+function points2path(points: Point[], isInCircle: boolean): PathCommand[] {
   const path = [];
   if (points.length) {
     path.push(['M', points[0].x, points[0].y]);
@@ -206,7 +206,7 @@ export function catmullRom2bezier(
   let cp2: Position;
   let p: Position;
 
-  for (let i = 0; i < len - 1; i++) {
+  for (let i = 0; i < len - 1; i += 1) {
     cp1 = controlPointList[i * 2];
     cp2 = controlPointList[i * 2 + 1];
     p = pointList[i + 1];
@@ -229,7 +229,7 @@ export function catmullRom2bezier(
  * 将点连接成路径 path
  */
 export function getLinePath(points: Point[], isInCircle?: boolean): PathCommand[] {
-  return _points2path(points, isInCircle);
+  return points2path(points, isInCircle);
 }
 
 /**

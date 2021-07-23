@@ -58,6 +58,11 @@ export abstract class Geometry<O extends GeometryOption = GeometryOption> extend
   public options: O;
 
   /**
+   * 缓存 map 形式的 element
+   */
+  protected elementsMap: Map<string, Element>;
+
+  /**
    * 视觉通道映射配置 Key Value 结构
    */
   private attriubteOptions: AttributeOptions;
@@ -80,7 +85,7 @@ export abstract class Geometry<O extends GeometryOption = GeometryOption> extend
   /**
    * 设置的 animate 动画配置
    */
-  private animateOption;
+  protected animateOption;
 
   /**
    * 衍生数据，临时存储
@@ -92,11 +97,6 @@ export abstract class Geometry<O extends GeometryOption = GeometryOption> extend
    * 对应 shape type 的 shape renderer
    */
   private shapeRenderer: ShapeRenderer;
-
-  /**
-   * 缓存 map 形式的 element
-   */
-  private elementsMap: Map<string, Element>;
 
   constructor(option: O) {
     super();
@@ -120,27 +120,25 @@ export abstract class Geometry<O extends GeometryOption = GeometryOption> extend
    */
   private updateAttributes() {
     // 遍历每一个 attrOption，各自创建 Attribute 实例
-    this.attriubteOptions.forEach(
-      (attributeOption: AttributeOption, attributeKey: AttributeKey) => {
-        if (!attributeOption) {
-          return;
-        }
+    this.attriubteOptions.forEach((attributeOption: AttributeOption, attributeKey: AttributeKey) => {
+      if (!attributeOption) {
+        return;
+      }
 
-        const { fields = [], value, callback } = attributeOption;
-        const scales = fields.map((f: string) => this.options.scales.get(f));
+      const { fields = [], value, callback } = attributeOption;
+      const scales = fields.map((f: string) => this.options.scales.get(f));
 
-        // 创建，并缓存起来
-        // TODO 如果一直 update，且变更数据字段，可能导致内存泄露风险
-        this.attributes.set(
-          attributeKey,
-          createAttribute(attributeKey, {
-            scales,
-            value,
-            callback,
-          }),
-        );
-      },
-    );
+      // 创建，并缓存起来
+      // TODO 如果一直 update，且变更数据字段，可能导致内存泄露风险
+      this.attributes.set(
+        attributeKey,
+        createAttribute(attributeKey, {
+          scales,
+          value,
+          callback,
+        }),
+      );
+    });
   }
 
   /**
@@ -412,11 +410,7 @@ export abstract class Geometry<O extends GeometryOption = GeometryOption> extend
     if (isArray(x) && isArray(y)) {
       rstX = [];
       rstY = [];
-      for (
-        let i = 0, j = 0, xLen = x.length, yLen = y.length;
-        i < xLen && j < yLen;
-        i += 1, j += 1
-      ) {
+      for (let i = 0, j = 0, xLen = x.length, yLen = y.length; i < xLen && j < yLen; i += 1, j += 1) {
         obj = coordinate.convert({
           x: x[i],
           y: y[j],
@@ -495,7 +489,7 @@ export abstract class Geometry<O extends GeometryOption = GeometryOption> extend
    * 存在则更新，不存在则创建，最后全部更新到 elementsMap 中
    * @param mappingData
    */
-  private createElements(mappingDataArray: MappingDatum[][]) {
+  protected createElements(mappingDataArray: MappingDatum[][]): void {
     // 根据需要生成的 elements 和当前已有的 elements，做一个 diff
     // 1. 更新已有的
     // 2. 创建新增的
@@ -556,7 +550,7 @@ export abstract class Geometry<O extends GeometryOption = GeometryOption> extend
   }
 
   // 用于创建 Element 组件的配置
-  private getElementShapeInfo(mappingDatum: MappingDatum): ShapeInfo {
+  protected getElementShapeInfo(mappingDatum: MappingDatum): ShapeInfo {
     const originData = mappingDatum[ORIGINAL_FIELD]; // 原始数据
     const cfg: ShapeInfo = {
       mappingData: mappingDatum, // 映射后的数据
@@ -617,7 +611,7 @@ export abstract class Geometry<O extends GeometryOption = GeometryOption> extend
    * 不同的 geometry 有不同的 id 规则
    * @param mappingDatum
    */
-  private getElementId(mappingDatum: MappingDatum): string {
+  protected getElementId(mappingDatum: MappingDatum | MappingDatum[]): string {
     const originalData = mappingDatum[ORIGINAL_FIELD];
     // todo 不同的 element id 生成逻辑
     const xScale = this.getXScale();
