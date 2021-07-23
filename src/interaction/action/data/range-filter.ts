@@ -1,6 +1,6 @@
 import { Point, Scale } from '../../../dependents';
 import { FilterCondition, EventPayload } from '../../../interface';
-import { View } from '../../../chart';
+import { View, Event } from '../../../chart';
 import Action from '../base';
 import { isMask } from '../util';
 
@@ -36,10 +36,17 @@ function getFilter(scale: Scale, dim: string, point1: Point, point2: Point): Fil
   }
 }
 
-export enum BRUSH_FILTER_EVENTS {
+/** range-filter 只用于：brush-filter, brush-x-filter, brush-y-filter */
+enum EVENTS {
   FILTER = 'brush-filter-processing',
   RESET = 'brush-filter-reset',
+  BEFORE_FILTER = 'brush-filter:beforefilter',
+  AFTER_FILTER = 'brush-filter:afterfilter',
+  BEFORE_RESET = 'brush-filter:beforereset',
+  AFTER_RESET = 'brush-filter:afterreset',
 }
+
+export { EVENTS as BRUSH_FILTER_EVENTS };
 
 /**
  * 范围过滤的 Action
@@ -94,7 +101,10 @@ class RangeFilter extends Action {
       // 距离过小也不生效
       return;
     }
-    const view = this.context.view;
+    const { view, event } = this.context;
+    const payload = { view, event, dims: this.dims };
+    view.emit(EVENTS.BEFORE_FILTER, Event.fromData(view, EVENTS.BEFORE_FILTER, payload));
+
     const coord = view.getCoordinate();
     const normalCurrent = coord.invert(currentPoint);
     const normalStart = coord.invert(startPoint);
@@ -110,7 +120,9 @@ class RangeFilter extends Action {
       const filter = getFilter(yScale, 'y', normalCurrent, normalStart);
       this.filterView(view, yScale.field, filter);
     }
-    this.reRender(view, { source: BRUSH_FILTER_EVENTS.FILTER });
+    this.reRender(view, { source: EVENTS.FILTER });
+
+    view.emit(EVENTS.AFTER_FILTER, Event.fromData(view, EVENTS.AFTER_FILTER, payload));
   }
 
   /**
@@ -125,6 +137,8 @@ class RangeFilter extends Action {
    */
   public reset() {
     const view = this.context.view;
+    view.emit(EVENTS.BEFORE_RESET, Event.fromData(view, EVENTS.BEFORE_RESET, {}));
+
     this.isStarted = false;
     if (this.hasDim('x')) {
       const xScale = view.getXScale();
@@ -135,7 +149,9 @@ class RangeFilter extends Action {
       const yScale = view.getYScales()[0];
       this.filterView(view, yScale.field, null); // 取消过滤
     }
-    this.reRender(view, { source: BRUSH_FILTER_EVENTS.RESET });
+    this.reRender(view, { source: EVENTS.RESET });
+
+    view.emit(EVENTS.AFTER_RESET, Event.fromData(view, EVENTS.AFTER_RESET, {}));
   }
 
   /**

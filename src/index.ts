@@ -177,17 +177,17 @@ import SiblingTooltip from './interaction/action/component/tooltip/sibling';
 import TooltipAction from './interaction/action/component/tooltip/geometry';
 import EllipsisTextAction from './interaction/action/component/tooltip/ellipsis-text';
 
-import ElmentActive from './interaction/action/element/active';
+import ElementActive from './interaction/action/element/active';
 import ElementLinkByColor from './interaction/action/element/link-by-color';
-import ElmentRangeActive from './interaction/action/element/range-active';
-import ElmentSingleActive from './interaction/action/element/single-active';
+import ElementRangeActive from './interaction/action/element/range-active';
+import ElementSingleActive from './interaction/action/element/single-active';
 
-import ElmentHighlight from './interaction/action/element/highlight';
-import ElmentHighlightByColor from './interaction/action/element/highlight-by-color';
-import ElmentHighlightByX from './interaction/action/element/highlight-by-x';
+import ElementHighlight from './interaction/action/element/highlight';
+import ElementHighlightByColor from './interaction/action/element/highlight-by-color';
+import ElementHighlightByX from './interaction/action/element/highlight-by-x';
 
-import ElmentRangeHighlight from './interaction/action/element/range-highlight';
-import ElmentSingleHighlight from './interaction/action/element/single-highlight';
+import ElementRangeHighlight, { ELEMENT_RANGE_HIGHLIGHT_EVENTS } from './interaction/action/element/range-highlight';
+import ElementSingleHighlight from './interaction/action/element/single-highlight';
 
 import ElementRangeSelected from './interaction/action/element/range-selected';
 import ElementSelected from './interaction/action/element/selected';
@@ -221,17 +221,17 @@ import ScaleZoom from './interaction/action/view/scale-zoom';
 registerAction('tooltip', TooltipAction);
 registerAction('sibling-tooltip', SiblingTooltip);
 registerAction('ellipsis-text', EllipsisTextAction);
-registerAction('element-active', ElmentActive);
-registerAction('element-single-active', ElmentSingleActive);
-registerAction('element-range-active', ElmentRangeActive);
+registerAction('element-active', ElementActive);
+registerAction('element-single-active', ElementSingleActive);
+registerAction('element-range-active', ElementRangeActive);
 
-registerAction('element-highlight', ElmentHighlight);
-registerAction('element-highlight-by-x', ElmentHighlightByX);
-registerAction('element-highlight-by-color', ElmentHighlightByColor);
+registerAction('element-highlight', ElementHighlight);
+registerAction('element-highlight-by-x', ElementHighlightByX);
+registerAction('element-highlight-by-color', ElementHighlightByColor);
 
-registerAction('element-single-highlight', ElmentSingleHighlight);
-registerAction('element-range-highlight', ElmentRangeHighlight);
-registerAction('element-sibling-highlight', ElmentRangeHighlight, {
+registerAction('element-single-highlight', ElementSingleHighlight);
+registerAction('element-range-highlight', ElementRangeHighlight);
+registerAction('element-sibling-highlight', ElementRangeHighlight, {
   effectSiblings: true,
   effectByRecord: true,
 });
@@ -692,6 +692,6 @@ declare module './chart/view' {
 // 暴露一些常量
 export { VIEW_LIFE_CIRCLE } from './constant';
 /** brush 范围筛选的一些事件常量 */
-export { BRUSH_FILTER_EVENTS };
+export { BRUSH_FILTER_EVENTS, ELEMENT_RANGE_HIGHLIGHT_EVENTS };
 
 export * from './core';
