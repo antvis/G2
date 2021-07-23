@@ -11,11 +11,13 @@ import './shapes';
 export class Line extends Path<LineGeometryOption> {
   /**
    * geometry type
+   * @override
    */
   public type = 'line';
 
   /**
-   * shape type
+   * 默认的 shape type
+   * @override
    */
   public defaultShapeType = 'line';
 

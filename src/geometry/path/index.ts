@@ -15,11 +15,13 @@ import './shapes';
 export class Path<O extends PathGeometryOption = PathGeometryOption> extends Geometry<O> {
   /**
    * geometry type
+   * @override
    */
   public type = 'path';
 
   /**
-   * shape type
+   * 默认的 shape type
+   * @override
    */
   public defaultShapeType = 'line';
 
@@ -38,6 +40,7 @@ export class Path<O extends PathGeometryOption = PathGeometryOption> extends Geo
 
   /**
    * @overrider 创建 elements
+   * @todo 是否可以统一 createElement，而不是复写
    *
    * 每一个分组一个 Element
    * 存在则更新，不存在则创建，最后全部更新到 elementsMap 中
@@ -105,13 +108,15 @@ export class Path<O extends PathGeometryOption = PathGeometryOption> extends Geo
   }
 
   /**
-   * 获取组成一条线（一组数据）的所有点以及数据
-   * @param mappingData 映射后的数组
+   * @override 获取创建 Element 组件的配置
    */
-  protected getPointsAndData(mappingData: MappingDatum[]) {
+  protected getShapeInfo(mappingData: MappingDatum[]): ShapeInfo {
+    const shapeInfo = this.getElementShapeInfo(mappingData[0]);
+
     const points = [];
     const data = [];
 
+    // 获取组成一条线（一组数据）的所有点以及数据
     for (let i = 0, len = mappingData.length; i < len; i += 1) {
       const obj = mappingData[i];
       points.push({
@@ -120,20 +125,6 @@ export class Path<O extends PathGeometryOption = PathGeometryOption> extends Geo
       });
       data.push(obj[ORIGINAL_FIELD]);
     }
-
-    return {
-      points,
-      data,
-    };
-  }
-
-  /**
-   * @override 获取创建 Element 组件的配置
-   */
-  protected getShapeInfo(mappingData: MappingDatum[]): ShapeInfo {
-    const shapeInfo = this.getElementShapeInfo(mappingData[0]);
-
-    const { points, data } = this.getPointsAndData(mappingData);
     shapeInfo.mappingData = mappingData;
     shapeInfo.data = data;
     shapeInfo.isStack = !!this.getAdjust('stack');

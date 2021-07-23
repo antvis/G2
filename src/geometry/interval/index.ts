@@ -21,11 +21,13 @@ export type IntervalOptions = GeometryOption & {
 export class Interval extends Geometry<IntervalOptions> {
   /**
    * geometry type
+   * @override
    */
   public type = 'interval';
 
   /**
-   * shape type
+   * 默认的 shape type
+   * @override
    */
   public defaultShapeType = 'rect';
 

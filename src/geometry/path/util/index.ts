@@ -5,7 +5,7 @@ import type { Point, Position, RangePoint, PathCommand, ShapeAttrs, ShapeInfo, S
 import { LineSymbols } from './symbol';
 import { getPathPoints } from './path';
 
-function _points2path(points: Point[], isInCircle: boolean): PathCommand[] {
+function points2path(points: Point[], isInCircle: boolean): PathCommand[] {
   const path = [];
   if (points.length) {
     path.push(['M', points[0].x, points[0].y]);
@@ -26,11 +26,12 @@ function _points2path(points: Point[], isInCircle: boolean): PathCommand[] {
  * 将点连接成路径 path
  */
 function getLinePath(points: Point[], isInCircle?: boolean): PathCommand[] {
-  return _points2path(points, isInCircle);
+  return points2path(points, isInCircle);
 }
 
 /**
  * 根据关键点获取限定了范围的平滑线
+ * @fixme 绕圈圈逻辑 需要处理下
  */
 function getSplinePath(points: Point[], isInCircle?: boolean, constaint?: Position[]): PathCommand[] {
   const data = [];

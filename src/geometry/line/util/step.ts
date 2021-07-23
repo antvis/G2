@@ -3,7 +3,7 @@ import type { Point, ShapeInfo } from '../../../types';
 import { getShapeStyle } from '../../../util/element';
 import { getPathPoints } from '../../path/util/path';
 
-const interpolateCallback = (point: Point, nextPoint: Point, shapeType: string) => {
+function interpolateCallback(point: Point, nextPoint: Point, shapeType: string) {
   const x = point.x as number;
   const y = point.y as number;
   const nextX = nextPoint.x as number;
@@ -34,7 +34,7 @@ const interpolateCallback = (point: Point, nextPoint: Point, shapeType: string) 
   }
 
   return result;
-};
+}
 
 function getInterpolatePoints(points: Point[], shapeType: string) {
   let result = [];
