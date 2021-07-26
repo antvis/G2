@@ -11,11 +11,12 @@ import {
   size,
   uniqueId,
   uniq,
+  upperFirst,
 } from '@antv/util';
+import * as Facets from '../facet';
 import { getTheme } from '../theme';
 import { Facet } from '../facet';
 import { BBox } from '../util/bbox';
-import { getFacet } from '../util/facet';
 import type { Element, Geometry, IntervalOptions } from '../geometry';
 import {
   PlainObject,
@@ -35,6 +36,7 @@ import {
 import { ScalePool } from '../visual/scale/pool';
 import { Interval } from '../geometry';
 import { Group } from '../types/g';
+import { FacetOptionsMap } from '../types/facet';
 import { ScaleDef } from '../visual/scale';
 import { getInteraction } from '../interaction';
 import { Annotation, Axis, Legend, Scrollbar, Slider, Timeline, Tooltip } from './controller/component';
@@ -85,7 +87,7 @@ export class View extends EE {
   public interactions: Record<string, any> = {};
 
   /** 分面类实例 */
-  public facetInstance: Facet;
+  public facetInstance: Facet<any>;
 
   /** view 视图的矩形位置范围 */
   public viewBBox: BBox;
@@ -235,20 +237,20 @@ export class View extends EE {
    * @param cfg 分面配置
    * @returns View
    */
-  public facet(type: string, cfg: any): View {
+  public facet<T extends keyof FacetOptionsMap>(type: T, options: FacetOptionsMap[T]): View {
     // 先销毁掉之前的分面
     if (this.facetInstance) {
       this.facetInstance.destroy();
     }
 
     // 创建新的分面
-    const Ctor = getFacet(type);
+    const Ctor = Facets[upperFirst(type)];
 
     if (!Ctor) {
       throw new Error(`facet '${type}' is not exist!`);
     }
 
-    this.facetInstance = new Ctor(this, { ...cfg, type });
+    this.facetInstance = new Ctor(this, { ...options, type }) as FacetOptionsMap[T];
 
     return this;
   }
@@ -622,14 +624,14 @@ export class View extends EE {
   protected paint() {
     // 处理 filter
     this.processFilter();
-    // // 创建 scale
+    // 创建 scale
     // this.createScales();
-    // // 初始化当前 Geometry
+    // 初始化当前 Geometry
     this.initGeometryes();
-    // // 初始化组件，使用 component controller
+    // 初始化组件，使用 component controller
     this.initComponents();
-    // // 分面
-    // this.processFacet();
+    // 分面
+    this.processFacet();
   }
 
   /**
@@ -688,6 +690,15 @@ export class View extends EE {
     this.sliderController.update();
     this.timelineController.update();
     this.tooltipController.update();
+  }
+
+  /**
+   * 处理 facet，包含更新逻辑
+   */
+  private processFacet() {
+    if (this.facetInstance) {
+      this.facetInstance.render();
+    }
   }
 
   /**

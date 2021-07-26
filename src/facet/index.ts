@@ -4,4 +4,10 @@
  */
 
 export { Facet } from './facet';
+
+export { Circle } from './circle';
+export { List } from './list';
+export { Matrix } from './matrix';
+export { Mirror } from './mirror';
 export { Rect } from './rect';
+export { Tree } from './tree';

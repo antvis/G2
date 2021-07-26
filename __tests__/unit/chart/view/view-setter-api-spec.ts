@@ -3,11 +3,9 @@ import { Renderer } from '@antv/g-canvas';
 import { createDiv } from '../../../util/dom';
 import { Interaction, registerInteraction, View } from '../../../../src';
 
-// @ts-ignore
 const canvasRenderer = new Renderer();
 
 // create a canvas
-// @ts-ignore
 const canvas = new Canvas({
   container: createDiv(),
   width: 400,
@@ -167,6 +165,7 @@ describe('view setter api', () => {
     expect(v.facetInstance).not.toBe(instance);
 
     expect(() => {
+      // @ts-ignore
       v.facet('invalid', {});
     }).toThrow("facet 'invalid' is not exist!");
   });
