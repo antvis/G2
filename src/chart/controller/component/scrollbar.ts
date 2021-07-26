@@ -1,23 +1,15 @@
-import { CC } from './conponent';
+import { Controller } from './conponent';
 
-export class Scrollbar extends CC<any> {
-  public init() {
-    throw new Error('Method not implemented.');
-  }
-
+export class Scrollbar extends Controller<any> {
   public update() {
-    throw new Error('Method not implemented.');
   }
 
   public render() {
-    throw new Error('Method not implemented.');
   }
 
   public layout() {
-    throw new Error('Method not implemented.');
   }
 
   public clear() {
-    throw new Error('Method not implemented.');
   }
 }

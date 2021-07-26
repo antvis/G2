@@ -37,6 +37,7 @@ import { Interval } from '../geometry';
 import { Group } from '../types/g';
 import { ScaleDef } from '../visual/scale';
 import { getInteraction } from '../interaction';
+import { Annotation, Axis, Legend, Scrollbar, Slider, Timeline, Tooltip } from './controller/component';
 
 /**
  * 图表容器，可以嵌套迭代。容器中主要包含有三类组件：
@@ -61,14 +62,22 @@ export class View extends EE {
   public geometries: Geometry[] = [];
 
   /**
-   * 当前 view 包含的组件 Component 数组
-   */
-  public components: any[] = [];
-
-  /**
    * 所有组件对应的 controller 实例
    */
-  public controllers: any[] = [];
+  // public controllers: any[] = [];
+  public annotationController;
+
+  public axisController;
+
+  public legendController;
+
+  public scrollbarController;
+
+  public sliderController;
+
+  public timelineController;
+
+  public tooltipController;
 
   /**
    * 加载的交互实例
@@ -78,14 +87,10 @@ export class View extends EE {
   /** 分面类实例 */
   public facetInstance: Facet;
 
-  /**
-   * view 视图的矩形位置范围
-   */
+  /** view 视图的矩形位置范围 */
   public viewBBox: BBox;
 
-  /**
-   * view.coordinate 对饮的矩形位置范围
-   */
+  /** view.coordinate 对应的矩形位置范围 */
   public coordinateBBox: BBox;
 
   /** 主题配置，存储当前主题配置。 */
@@ -513,8 +518,7 @@ export class View extends EE {
 
     /** 绑定/代理 G 事件 */
     this.bindEvents();
-
-    /** TODO: 是否有更好的方式 */
+    /** 初始化组件的控制器 */
     this.initControllers();
   }
 
@@ -589,7 +593,16 @@ export class View extends EE {
   /**
    * 初始化各种 controller
    */
-  private initControllers() {}
+  private initControllers() {
+    // 内置的几个 controller 初始化实例
+    this.annotationController = new Annotation(this);
+    this.axisController = new Axis(this);
+    this.legendController = new Legend(this);
+    this.scrollbarController = new Scrollbar(this);
+    this.sliderController = new Slider(this);
+    this.timelineController = new Timeline(this);
+    this.tooltipController = new Tooltip(this);
+  }
 
   /**
    * 渲染，更新和渲染的逻辑使用同一个。
@@ -613,8 +626,8 @@ export class View extends EE {
     // this.createScales();
     // // 初始化当前 Geometry
     this.initGeometryes();
-    // // 初始化组件
-    // this.initComponents();
+    // // 初始化组件，使用 component controller
+    this.initComponents();
     // // 分面
     // this.processFacet();
   }
@@ -661,6 +674,20 @@ export class View extends EE {
     this.geometries.forEach((g) => {
       g.update(options);
     });
+  }
+
+  /**
+   * 初始化组件（初始化组件只是新增数据结构的实例，还没有具体去渲染）
+   */
+  private initComponents() {
+    // 执行控制器的 update 方法，如果不存在组件，则创建，否则更新
+    this.annotationController.update();
+    this.axisController.update();
+    this.legendController.update();
+    this.scrollbarController.update();
+    this.sliderController.update();
+    this.timelineController.update();
+    this.tooltipController.update();
   }
 
   /**
