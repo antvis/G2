@@ -76,6 +76,12 @@ _legendOption_ 配置如下：
 
 适用于 <tag color="green" text="分类图例">分类图例</tag>，当图例项过多时是否进行分页。
 
+### legendOption.maxRow
+
+<description> _number_ **optional** </description>
+
+适用于 <tag color="green" text="分类图例">分类图例</tag>，当图例项过多分页时，可以设置最大行数（仅适用于 `layout: 'horizontal'`），默认为：1。
+
 ### legendOption.pageNavigator
 
 <description> _LegendPageNavigatorCfg_ **optional** </description>
