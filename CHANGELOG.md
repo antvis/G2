@@ -1,3 +1,10 @@
+#### 4.1.22 (2021-07-28)
+
+##### New Features
+
+* **legend:**  图例支持多行分页 ([#3540](https://github.com/antvis/g2/pull/3540)) ([1b0fdb36](https://github.com/antvis/g2/commit/1b0fdb3636ba8f87b05e7dae3a8cb63e149a7539))
+* **range-highlight:**  为区间高亮增加 events 事件 ([#3536](https://github.com/antvis/g2/pull/3536)) ([6fb9d901](https://github.com/antvis/g2/commit/6fb9d901b10004b8583075d13774188be125ad65))
+
 #### 4.1.21 (2021-07-21)
 
 ##### Chores
