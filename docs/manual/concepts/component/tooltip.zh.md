@@ -137,7 +137,6 @@ chart.tooltip({
     type: 'xy',
     // highlight-start
     text: (type, defaultText, items) => {
-      const color = items[0].color;
       if (type === 'x') {
         return {
           offset: 5,
