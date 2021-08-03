@@ -105,7 +105,7 @@ Shape 是 G2 中最灵活、内容最丰富的模块，下图是各个图表的 
 - position 支持 3 种数据类型：
   - x，y 都是单个标量值，如 { name: '分类一',value: 100}
   - x 是单个标量值，y 是一个数组 ，如 {name: '分类一',range: [10, 100]}
-  - x 是数组，y 是单个标量值，例如学生成绩分布 {score: [60,70],count: 90}
+  - x 是数组，y 是单个标量值，例如学生成绩分布 {score: [70,80],count: 90}
 
 ![](https://zos.alipayobjects.com/basement/skylark/0ad6383d14791772321173794d7553/attach/4080/900/image.png#align=left&display=inline&height=677&originHeight=677&originWidth=836&status=done&style=none&width=836)
 
