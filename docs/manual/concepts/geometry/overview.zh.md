@@ -129,12 +129,14 @@ const data = [
 ];
 // 1: 2的数据
 const data = [
-  { month: '一月', temperature: [0, 10] },
+  { month: '一月', temperature: [3, 10] },
   { month: '二月', temperature: [5, 15] },
 ];
 ```
 
-![](https://zos.alipayobjects.com/basement/skylark/0ad680ae14791772516552748d17c0/attach/4080/900/image.png#align=left&display=inline&height=313&originHeight=313&originWidth=955&status=done&style=none&width=955)
+<!-- 原始图床使用的是阿里图床，外部用户无法上传，暂时使用 imgur 作为图床，希望内部员工有时间替换为阿里图床 -->
+
+![](https://imgur.com/yq8vtHo.png)
 
 - line（线图）和 path(路径图），如果对应位置的映射字段 x,y 都是单个标量多条记录对应一条线,对应关系是 n:1。如果 y 是数组，那么会生成多条记录对应关系是 n: n。同上面 point 的数据：
 
