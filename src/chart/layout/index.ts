@@ -46,17 +46,14 @@ export class Layout {
     components.forEach((component) => {
       this.unitMetaMap.set(component.id, {
         type: '',
-        cfg: {},
         extra: {},
         unit: component,
       });
     });
 
     geometries.forEach((geometry) => {
-      // @ts-ignore
       this.unitMetaMap.set(geometry.id, {
         type: '',
-        cfg: {},
         extra: {},
         unit: geometry,
       });

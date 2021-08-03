@@ -1,4 +1,4 @@
-import { deepMix, get, isArray } from '@antv/util';
+import { deepMix, get, isArray, uniqueId } from '@antv/util';
 import { Shape } from 'src/types/g';
 import { ShapeRenderer } from 'src/types/factory';
 import { Visibility } from '../core/visibility';
@@ -40,6 +40,8 @@ import { getShape } from './factory';
  * ```
  */
 export abstract class Geometry<O extends GeometryOption = GeometryOption> extends Visibility {
+  public id = uniqueId('g_');
+
   /**
    * geometry 的类型
    * @override

@@ -5,10 +5,6 @@ export type UnitMeta = {
   /** 元素的分类 */
   type: string;
   /**
-   * 元素对应的配置
-   */
-  cfg: any;
-  /**
    * 额外的信息存储
    */
   extra: any;
