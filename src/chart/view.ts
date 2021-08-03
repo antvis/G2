@@ -40,6 +40,7 @@ import { FacetOptionsMap } from '../types/facet';
 import { ScaleDef } from '../visual/scale';
 import { getInteraction } from '../interaction';
 import { Annotation, Axis, Legend, Scrollbar, Slider, Timeline, Tooltip } from './controller/component';
+import { Layout } from './layout';
 
 /**
  * 图表容器，可以嵌套迭代。容器中主要包含有三类组件：
@@ -113,6 +114,8 @@ export class View extends EE {
   /** 背景色样式的 shape */
   private backgroundStyleRectShape;
 
+  private layouter: Layout;
+
   constructor(options: ViewOptions) {
     super();
 
@@ -134,6 +137,9 @@ export class View extends EE {
 
     // 初始化 theme
     this.themeObject = isObject(theme) ? deepMix({}, getTheme('light'), theme) : getTheme(theme);
+
+    // 布局器（丹麦语）
+    this.layouter = new Layout(this);
 
     this.init();
   }
@@ -622,6 +628,7 @@ export class View extends EE {
    * 5. 处理分面
    */
   protected paint() {
+    // 1. 数据处理阶段
     // 处理 filter
     this.processFilter();
     // 创建 scale
@@ -632,6 +639,12 @@ export class View extends EE {
     this.initComponents();
     // 分面
     this.processFacet();
+
+    // 2. 计算布局阶段
+    this.doLayout();
+
+    // 3. 渲染阶段
+    this.doDraw();
   }
 
   /**
@@ -699,6 +712,22 @@ export class View extends EE {
     if (this.facetInstance) {
       this.facetInstance.render();
     }
+  }
+
+  /**
+   * 处理布局
+   */
+  private doLayout() {
+    this.layouter.init();
+    this.layouter.calculate();
+    this.layouter.apply();
+  }
+
+  /**
+   * 实际的图形、组件绘制和更新
+   */
+  private doDraw() {
+    // TODO geometry、component
   }
 
   /**
@@ -782,6 +811,13 @@ export class View extends EE {
    */
   public getCoordinate() {
     return this.coordinateInstance;
+  }
+
+  /**
+   * 获得所有的组件 components
+   */
+  public getComponents() {
+    return [];
   }
 
   /** 数据操作的一些 API  **************************************** */
