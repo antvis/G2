@@ -1,7 +1,7 @@
 import { each, pick } from '@antv/util';
 import { BBox, IGroup, IShape } from '../../../dependents';
 import { getCoordinateBBox } from '../../../util/coordinate';
-import { getEllipsisText } from '../../..//util/text';
+import { getEllipsisText } from '../../../util/text';
 import { translate } from '../../../util/transform';
 import { LabelItem } from '../interface';
 
