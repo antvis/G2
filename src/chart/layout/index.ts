@@ -25,6 +25,9 @@ export class Layout {
    */
   private unitMetaMap = new Map<string, UnitMeta>();
 
+  /**
+   * 对应约束布局求解器中的变量，一个 unit 元素有四个变量
+   */
   private variableMap = new Map<string, UnitVariable>();
 
   constructor(view: View) {
