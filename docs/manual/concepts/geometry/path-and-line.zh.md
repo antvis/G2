@@ -5,7 +5,7 @@ order: 2
 
 ## 简介
 
-路径（path)和线(line)都是一维的线，两者间的唯一差别在于线展示的数据是沿 x 轴方向有序的，而路径的数据是无序的。下面的讲解中使用的线图同时指代路径和线。
+路径(path)和线(line)都是一维的线，两者间的唯一差别在于线展示的数据是沿 x 轴方向有序的，而路径的数据是无序的。下面的讲解中使用的线图同时指代路径和线。
 
 ![](https://zos.alipayobjects.com/basement/skylark/0ad6383d14791813867844985d7559/attach/4080/900/image.png#align=left&display=inline&height=230&originHeight=230&originWidth=867&status=done&style=none&width=867)
 
