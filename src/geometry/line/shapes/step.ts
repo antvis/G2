@@ -14,6 +14,7 @@ each(['hv', 'vh', 'hvh', 'vhv'], (shapeType) => {
       const attrs = getInterpolateShapeAttrs(cfg, shapeType);
 
       const shape = new Path({
+        // @ts-ignore
         attrs,
         name: 'line',
       });

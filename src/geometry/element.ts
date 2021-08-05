@@ -55,7 +55,7 @@ export class Element extends Visibility {
     const shapeType = this.getShapeType();
 
     // todo 使用 G 场景树构造一个！
-    const offscreenGroup = new Group({});
+    const offscreenGroup = new Group();
 
     const newShape = geometry.drawShape(shapeType, this.model, offscreenGroup);
 

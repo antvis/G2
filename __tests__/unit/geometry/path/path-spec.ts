@@ -15,7 +15,7 @@ const canvas = new Canvas({
   renderer: canvasRenderer,
 });
 
-const container = new Group({});
+const container = new Group();
 
 canvas.appendChild(container);
 

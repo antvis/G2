@@ -49,7 +49,7 @@ describe('path shapes', () => {
   scales.set('type', new ScaleDef({ type: 'cat', domain: ['一', '二'] }, 'type'));
 
   it('line shape', () => {
-    const container = new Group({});
+    const container = new Group();
     canvas.appendChild(container);
 
     const g = new Path({
@@ -72,7 +72,7 @@ describe('path shapes', () => {
   });
 
   it('dot shape', () => {
-    const container = new Group({});
+    const container = new Group();
     canvas.appendChild(container);
 
     const g = new Path({
@@ -93,7 +93,7 @@ describe('path shapes', () => {
   });
 
   it('dash shape', () => {
-    const container = new Group({});
+    const container = new Group();
     canvas.appendChild(container);
 
     const g = new Path({
@@ -114,7 +114,7 @@ describe('path shapes', () => {
   });
 
   it('smooth shape', () => {
-    const container = new Group({});
+    const container = new Group();
     canvas.appendChild(container);
 
     const g = new Path({

@@ -483,7 +483,7 @@ export class View extends EE {
   public interval(cfg?: Partial<IntervalOptions>): Interval {
     const { middleGroup } = this.options;
     // geometry 绘制在 middleGroup 中
-    const newGroup = new Group({});
+    const newGroup = new Group();
     middleGroup.appendChild(newGroup);
 
     const geometry = new Interval({
