@@ -105,7 +105,7 @@ Shape 是 G2 中最灵活、内容最丰富的模块，下图是各个图表的 
 - position 支持 3 种数据类型：
   - x，y 都是单个标量值，如 { name: '分类一',value: 100}
   - x 是单个标量值，y 是一个数组 ，如 {name: '分类一',range: [10, 100]}
-  - x 是数组，y 是单个标量值，例如学生成绩分布 {score: [60,70],count: 90}
+  - x 是数组，y 是单个标量值，例如学生成绩分布 {score: [70,80],count: 90}
 
 ![](https://zos.alipayobjects.com/basement/skylark/0ad6383d14791772321173794d7553/attach/4080/900/image.png#align=left&display=inline&height=677&originHeight=677&originWidth=836&status=done&style=none&width=836)
 
@@ -134,7 +134,9 @@ const data = [
 ];
 ```
 
-![](https://zos.alipayobjects.com/basement/skylark/0ad680ae14791772516552748d17c0/attach/4080/900/image.png#align=left&display=inline&height=313&originHeight=313&originWidth=955&status=done&style=none&width=955)
+<!-- 原始图床使用的是阿里图床，外部用户无法上传，暂时使用 imgur 作为图床，希望内部员工有时间替换为阿里图床 -->
+
+![](https://imgur.com/yq8vtHo.png)
 
 - line（线图）和 path(路径图），如果对应位置的映射字段 x,y 都是单个标量多条记录对应一条线,对应关系是 n:1。如果 y 是数组，那么会生成多条记录对应关系是 n: n。同上面 point 的数据：
 
