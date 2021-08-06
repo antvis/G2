@@ -1,3 +1,19 @@
+#### 4.1.23 (2021-08-06)
+
+##### Documentation Changes
+
+*  增加 scrollbar 的demo ([#3550](https://github.com/antvis/g2/pull/3550)) ([fd47ed39](https://github.com/antvis/g2/commit/fd47ed39f7d4f89cc3da9c8fd5da92d0aee0e352))
+*  fix typos in  'docs/manual/concepts' ([#3552](https://github.com/antvis/g2/pull/3552)) ([2c74fc52](https://github.com/antvis/g2/commit/2c74fc52b7554bcbb5a97c8a64b6482279895cdd))
+* **tooltip:**  remove useless code ([#3549](https://github.com/antvis/g2/pull/3549)) ([f0e4e334](https://github.com/antvis/g2/commit/f0e4e334b0fdc8c5836567656630e7dd1c3fc8a6))
+
+##### Bug Fixes
+
+* **line:**  修复折线图 smooth 绘制错误 ([#3546](https://github.com/antvis/g2/pull/3546)) ([daf3b8a8](https://github.com/antvis/G2/commit/daf3b8a81ffb10d93875250e1128542af59d3618))
+
+##### Code Style Changes
+
+* **geometry:**  removed double slash in path ([#3542](https://github.com/antvis/g2/pull/3542)) ([d8bc1aae](https://github.com/antvis/g2/commit/d8bc1aaee9785f16a0413d320a6d51fdd9c179c2))
+
 #### 4.1.22 (2021-07-28)
 
 ##### New Features
