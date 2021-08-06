@@ -48,7 +48,7 @@ describe('step line shapes', () => {
   scales.set('type', new ScaleDef({ type: 'cat', domain: ['red', 'green'] }, 'type'));
 
   it('line shape', () => {
-    const container = new Group({});
+    const container = new Group();
     canvas.appendChild(container);
 
     const g = new Line({
@@ -71,7 +71,7 @@ describe('step line shapes', () => {
   });
 
   it('dot shape', () => {
-    const container = new Group({});
+    const container = new Group();
     canvas.appendChild(container);
 
     const g = new Line({
@@ -92,7 +92,7 @@ describe('step line shapes', () => {
   });
 
   it('dash shape', () => {
-    const container = new Group({});
+    const container = new Group();
     canvas.appendChild(container);
 
     const g = new Line({
@@ -113,7 +113,7 @@ describe('step line shapes', () => {
   });
 
   it('smooth shape', () => {
-    const container = new Group({});
+    const container = new Group();
     canvas.appendChild(container);
 
     const g = new Line({

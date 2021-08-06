@@ -47,7 +47,7 @@ describe('line shapes', () => {
   scales.set('type', new ScaleDef({ type: 'cat', domain: ['red', 'green'] }, 'type'));
 
   it('line shape', () => {
-    const container = new Group({});
+    const container = new Group();
     canvas.appendChild(container);
 
     const g = new Line({
@@ -70,7 +70,7 @@ describe('line shapes', () => {
   });
 
   it('dot shape', () => {
-    const container = new Group({});
+    const container = new Group();
     canvas.appendChild(container);
 
     const g = new Line({
@@ -91,7 +91,7 @@ describe('line shapes', () => {
   });
 
   it('dash shape', () => {
-    const container = new Group({});
+    const container = new Group();
     canvas.appendChild(container);
 
     const g = new Line({
@@ -113,7 +113,7 @@ describe('line shapes', () => {
 
   // fixme 绘制不正确
   it('smooth shape', () => {
-    const container = new Group({});
+    const container = new Group();
     canvas.appendChild(container);
 
     const g = new Line({

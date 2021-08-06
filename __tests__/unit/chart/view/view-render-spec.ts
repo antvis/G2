@@ -16,13 +16,13 @@ const canvas = new Canvas({
   renderer: canvasRenderer,
 });
 
-const backgroundGroup = new Group({});
+const backgroundGroup = new Group();
 canvas.appendChild(backgroundGroup);
 
-const middleGroup = new Group({});
+const middleGroup = new Group();
 canvas.appendChild(middleGroup);
 
-const foregroundGroup = new Group({});
+const foregroundGroup = new Group();
 canvas.appendChild(foregroundGroup);
 
 const view = new View({

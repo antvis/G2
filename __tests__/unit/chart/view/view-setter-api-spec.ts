@@ -13,9 +13,9 @@ const canvas = new Canvas({
   renderer: canvasRenderer,
 });
 
-const foregroundGroup = new Group({});
-const middleGroup = new Group({});
-const backgroundGroup = new Group({});
+const foregroundGroup = new Group();
+const middleGroup = new Group();
+const backgroundGroup = new Group();
 
 canvas.appendChild(backgroundGroup);
 canvas.appendChild(middleGroup);
