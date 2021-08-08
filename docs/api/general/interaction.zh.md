@@ -3,7 +3,7 @@ title: 交互 - Interaction
 order: 17
 ---
 
-交互（Interaction）是 G2 中的重要 API，通过这个方法可以加载 G2 内置的交互，或者基于交互语法形式自定义的 Interaction 交互。G2 4.0 在交互方面做了非常大的调整，所有的交互代码都是插入式的，通过交互语法进行组织。使用交互的方式也非常简单，仅需要设置交互的名称即可。关于交互语法可以阅读[交互语法](../../manual/concepts/interaction)。
+交互（Interaction）是 G2 中的重要 API，通过这个方法可以加载 G2 内置的交互，或者基于交互语法形式自定义的 Interaction 交互。G2 4.0 在交互方面做了非常大的调整，所有的交互代码都是插入式的，通过交互语法进行组织。使用交互的方式也非常简单，仅需要设置交互的名称即可。关于交互语法可以阅读[交互语法](../../../manual/concepts/interaction)。
 
 ```sign
 (name: string, cfg?: object) => View;
@@ -47,7 +47,7 @@ new Chart({
 - chart.interaction(name, [cfg]) 添加或者修改交互
 - chart.removeInteraction(name) 移除交互
 
-添加或者修改交互时的第二个参数 cfg 是来修改已经定义好的交互的行为，G2 4.0 中的交互全部由交互语法组装而成，可以参考 [交互的环节](../concepts/interaction)，我们在这里不对交互语法进行详细的介绍。
+添加或者修改交互时的第二个参数 cfg 是来修改已经定义好的交互的行为，G2 4.0 中的交互全部由交互语法组装而成，可以参考 [交互语法](../../../manual/concepts/interaction)，我们在这里不对交互语法进行详细的介绍。
 
 ```javascript
 chart.interaction('tooltip'); // 使用交互
@@ -1010,4 +1010,4 @@ registerInteraction('element-brush', {
 
 ### 更多
 
-本文中仅介绍了如何使用交互，而所有交互都是通过交互语法搭配而成的，需要自定义交互的用户可以参考 [交互语法](../../manual/concepts/interaction)。
+本文中仅介绍了如何使用交互，而所有交互都是通过交互语法搭配而成的，需要自定义交互的用户可以参考 [交互语法](../../../manual/concepts/interaction)。
