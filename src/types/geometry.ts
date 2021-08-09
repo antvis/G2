@@ -1,6 +1,6 @@
 import { Coordinate } from './coordinate';
 import { ORIGINAL_FIELD } from '../constant';
-import type { ScaleDef } from '../visual/scale';
+import type { Scale } from '../visual/scale';
 import { Datum, Data, Func, PlainObject, RangePoint, Point } from './common';
 import { ShapeAttrs, ShapeMarkerSymbol, Group } from './g';
 
@@ -44,7 +44,7 @@ export type GeometryOption = {
   /**
    * 对应字段的 scale 信息
    */
-  scales?: Map<string, ScaleDef>;
+  scales?: Map<string, Scale>;
   /**
    * 当前坐标系
    */

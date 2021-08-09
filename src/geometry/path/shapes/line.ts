@@ -32,6 +32,7 @@ export function registerLineShapes(type: string) {
         }
 
         const shape = new Path({
+          // @ts-ignore 这里的类型定义有问题
           attrs,
           name: type,
           // capture: !smooth,

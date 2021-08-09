@@ -2,14 +2,12 @@ import { Canvas, Group } from '@antv/g';
 import { Renderer } from '@antv/g-canvas';
 import { createDiv } from '../../../../util/dom';
 import { Line } from '../../../../../src/geometry/line';
-import { ScaleDef } from '../../../../../src/visual/scale';
+import { Category, Linear, TimeCat } from '../../../../../src/visual/scale';
 import { Rect } from '../../../../../src/visual/coordinate';
 
-// @ts-ignore
 const canvasRenderer = new Renderer();
 
 // create a canvas
-// @ts-ignore
 const canvas = new Canvas({
   container: createDiv(undefined, 'line shapes'),
   width: 400,
@@ -35,16 +33,14 @@ describe('line shapes', () => {
   const scales = new Map();
   scales.set(
     'year',
-    new ScaleDef(
+    new TimeCat(
       {
-        type: 'time',
-        domain: [new Date(1995, 0, 1, 0, 12), new Date(2000, 0, 1, 23, 48)],
+        field: 'year',
       },
-      'year',
     ),
   );
-  scales.set('price', new ScaleDef({ type: 'linear', domain: [20, 120] }, 'price'));
-  scales.set('type', new ScaleDef({ type: 'cat', domain: ['red', 'green'] }, 'type'));
+  scales.set('price', new Linear({ field: 'price' }));
+  scales.set('type', new Category({ field: 'type', values: ['red', 'green'] }));
 
   it('line shape', () => {
     const container = new Group();

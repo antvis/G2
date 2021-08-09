@@ -1,165 +1,109 @@
-import { deepMix, each, get, isNumber, isString, last } from '@antv/util';
-import { createScaleByField } from '../../util/scale';
-import { ScaleDef } from '.';
-import { Data, PlainObject } from '../../types/common';
-import { ScaleDefOptions } from '../../types';
-
-export type ScaleMeta = {
-  key: string;
-  scaleDef: ScaleDef;
-  scaleOption: ScaleDefOptions;
-  syncKey?: string;
-};
-
-export const SEP_KEY = '^_^';
-
 /**
- * 整个 chart 的所有 scale 都集中存储到一起，便于做同步和实例复用
+ * view 中缓存 scale 的类
  */
+import { deepMix, each, get, isNumber, last } from '@antv/util';
+import { Data, PlainObject, ScaleOptions, ViewOptions } from '../../types';
+import { Scale } from '../../types/scale';
+import { Coordinate } from '../../types/coordinate';
+import { createScaleByField, syncScale, getDefaultCategoryScaleRange } from '../../util/scale';
+
+/** @ignore */
+interface ScaleMeta {
+  readonly key: string;
+  readonly scale: Scale;
+  scaleDef: ScaleOptions;
+  syncKey?: string;
+}
+
+/** @ignore */
 export class ScalePool {
-  /**
-   * 所有的 scale 信息，k-v 存储。
-   * key: scale 对应的 key（从 view 冒泡上来的，直接使用 view_id + field）
-   * ScaleMeta: scale 实例、同步的 key、scaleDef 配置
-   */
-  private scaleMap = new Map<string, ScaleMeta>();
+  /** 所有的 scales */
+  private scales = new Map<string, ScaleMeta>();
+
+  /** 需要同步的 scale 分组， key: scaleKeyArray */
+  private syncScales = new Map<string, string[]>();
 
   /**
-   * scale 同步的数据结构
-   * scale 同步的意思是，不同字段的 scale 对应的 scale 映射采用相同的配置。
-   * 比如双轴图中，左边成本，右边利润，虽然数据量级是不同，到时需要放到一个坐标系大小中去对比，所以需要进行 scale 的同步
-   * 主要处理的逻辑是将 scale 的 min max domain 保持一致
-   * 数据结构：syncKey ----> scaleKey
-   */
-  private syncScaleKeys = new Map<string, string[]>();
-
-  /**
-   * 通过 key 获取 scale
-   */
-  public get(key: string): ScaleDef {
-    let scaleMeta = this.getScaleMeta(key);
-    if (!scaleMeta) {
-      // 这里耦合有 key 的生成规则
-      const field = last(key.split(SEP_KEY));
-      const scaleKeys = this.syncScaleKeys.get(field);
-      if (scaleKeys?.length) {
-        scaleMeta = this.getScaleMeta(scaleKeys[0]);
-      }
-    }
-    return scaleMeta?.scaleDef;
-  }
-
-  /**
-   * 创建一个新的 scale，并缓存起来
+   * 创建 scale
    * @param field
    * @param data
-   * @param scaleOption
+   * @param scaleDef
    * @param key
    */
-  public create(field: string, data: Data, scaleOption: ScaleDefOptions, key: string): ScaleDef {
-    let finalScaleDef = scaleOption;
+  public createScale(field: string, data: Data, scaleDef: ScaleOptions, key: string): Scale {
+    let finalScaleDef = scaleDef;
 
     const cacheScaleMeta = this.getScaleMeta(key);
     if (data.length === 0 && cacheScaleMeta) {
       // 在更新过程中数据变为空，同时 key 对应的 scale 已存在则保持 scale 同类型
-      const cacheScale = cacheScaleMeta.scaleDef;
+      const cacheScale = cacheScaleMeta.scale;
       const cacheScaleDef: PlainObject = {
-        type: cacheScale.getOption('type'),
-        // 如果是分类类型，保持 values，防止图形跳变
-        domain: cacheScale.isCategory ? cacheScale.getOption('domain') : undefined,
+        type: cacheScale.type,
       };
-      finalScaleDef = deepMix(cacheScaleDef, cacheScaleMeta.scaleDef, scaleOption);
+      if (cacheScale.isCategory) {
+        // 如果是分类类型，保持 values
+        cacheScaleDef.values = cacheScale.values;
+      }
+      finalScaleDef = deepMix(cacheScaleDef, cacheScaleMeta.scaleDef, scaleDef);
     }
 
-    const scaleDef = createScaleByField(field, data, finalScaleDef);
+    const scale = createScaleByField(field, data, finalScaleDef);
 
     // 缓存起来
-    this.cacheScale(key, scaleDef, scaleOption);
+    this.cacheScale(scale, scaleDef, key);
 
-    return scaleDef;
+    return scale;
   }
 
   /**
-   * 移除一个 scale
-   * @param key
+   * 同步 scale
    */
-  public delete(key: string) {
-    const scaleMeta = this.getScaleMeta(key);
-
-    if (scaleMeta) {
-      const { syncKey } = scaleMeta;
-
-      const scaleKeys = this.syncScaleKeys.get(syncKey);
-
-      // 移除同步的关系
-      if (scaleKeys && scaleKeys.length) {
-        const idx = scaleKeys.indexOf(key);
-
-        if (idx !== -1) {
-          scaleKeys.splice(idx, 1);
-        }
-      }
-    }
-
-    // 删除 scale 实例
-    this.scaleMap.delete(key);
-  }
-
-  /**
-   * 清空所有 scale
-   */
-  public clear() {
-    this.scaleMap.clear();
-    this.syncScaleKeys.clear();
-  }
-
-  /**
-   * 核心 API：同步 scale
-   */
-  public sync(defaultCategoryRange: number[]) {
+  public sync(coordinate: Coordinate, theme: ViewOptions['theme']) {
     // 对于 syncScales 中每一个 syncKey 下面的 scale 数组进行同步处理
-    this.syncScaleKeys.forEach((scaleKeys: string[]) => {
+    this.syncScales.forEach((scaleKeys: string[], syncKey: string) => {
       // min, max, values, ranges
       let min = Number.MAX_SAFE_INTEGER;
       let max = Number.MIN_SAFE_INTEGER;
-      const domain = [];
+      const values = [];
 
       // 1. 遍历求得最大最小值，values 等
       each(scaleKeys, (key: string) => {
-        const scale = this.get(key);
+        const scale = this.getScale(key);
 
-        max = isNumber(scale.getOption('max')) ? Math.max(max, scale.getOption('max')) : max;
-        min = isNumber(scale.getOption('min')) ? Math.min(min, scale.getOption('min')) : min;
+        max = isNumber(scale.max) ? Math.max(max, scale.max) : max;
+        min = isNumber(scale.min) ? Math.min(min, scale.min) : min;
 
         // 去重
-        each(scale.getOption('domain'), (v: any) => {
-          if (!domain.includes(v)) {
-            domain.push(v);
+        each(scale.values, (v: any) => {
+          if (!values.includes(v)) {
+            values.push(v);
           }
         });
       });
 
       // 2. 同步
       each(scaleKeys, (key: string) => {
-        const scale = this.get(key);
+        const scale = this.getScale(key);
 
-        if (scale.isLinear) {
-          scale.update({
+        if (scale.isContinuous) {
+          scale.change({
             min,
             max,
-            domain,
+            values,
           });
         } else if (scale.isCategory) {
-          let range = scale.getOption('range');
+          let range = scale.range;
           const cacheScaleMeta = this.getScaleMeta(key);
 
           // 存在 value 值，且用户没有配置 range 配置 to fix https://github.com/antvis/G2/issues/2996
-          if (domain && !get(cacheScaleMeta, ['scaleOption', 'range'])) {
+          if (values && !get(cacheScaleMeta, ['scaleDef', 'range'])) {
             // 更新 range
-            range = defaultCategoryRange;
+            range = getDefaultCategoryScaleRange(deepMix({}, scale, {
+              values,
+            }), coordinate, theme);
           }
-          scale.update({
-            domain,
+          scale.change({
+            values,
             range,
           });
         }
@@ -168,35 +112,28 @@ export class ScalePool {
   }
 
   /**
-   * 通过 key 获取 scale
-   * @param key
-   */
-  private getScaleMeta(key: string): ScaleMeta {
-    return this.scaleMap.get(key);
-  }
-
-  /**
-   * 将生成的 scale 存储起来
-   * @param key
+   * 缓存一个 scale
+   * @param scale
    * @param scaleDef
-   * @param scaleOption
+   * @param key
    */
-  private cacheScale(key: string, scaleDef: ScaleDef, scaleOption: ScaleDefOptions) {
+  private cacheScale(scale: Scale, scaleDef: ScaleOptions, key: string) {
     // 1. 缓存到 scales
+
     let sm = this.getScaleMeta(key);
     // 存在则更新，同时检测类型是否一致
-    const oldScaleDef = sm?.scaleDef;
-    if (oldScaleDef?.getOption('type') === scaleDef.getOption('type')) {
-      sm.scaleOption = scaleOption;
+    if (sm && sm.scale.type === scale.type) {
+      syncScale(sm.scale, scale);
       sm.scaleDef = scaleDef;
+      // 更新 scaleDef
     } else {
       sm = {
         key,
+        scale,
         scaleDef,
-        scaleOption,
       };
 
-      this.scaleMap.set(key, sm);
+      this.scales.set(key, sm);
     }
 
     // 2. 缓存到 syncScales，构造 Record<sync, string[]> 数据结构
@@ -209,28 +146,62 @@ export class ScalePool {
     // 存在 sync 标记才进行 sync
     if (syncKey) {
       // 不存在这个 syncKey，则创建一个空数组
-      let scaleKeys = this.syncScaleKeys.get(syncKey);
+      let scaleKeys = this.syncScales.get(syncKey);
       if (!scaleKeys) {
         scaleKeys = [];
-        this.syncScaleKeys.set(syncKey, scaleKeys);
+        this.syncScales.set(syncKey, scaleKeys);
       }
       scaleKeys.push(key);
     }
   }
 
   /**
-   * get scale sync key
-   * @param sm
+   * 通过 key 获取 scale
+   * @param key
    */
-  private getSyncKey(sm: ScaleMeta): string {
-    const { scaleDef, scaleOption } = sm;
-    const field = scaleDef.getField();
-    const sync = get(scaleOption, ['sync']);
+  public getScale(key: string): Scale {
+    let scaleMeta = this.getScaleMeta(key);
+    if (!scaleMeta) {
+      const field = last(key.split('-'));
+      const scaleKeys = this.syncScales.get(field);
+      if (scaleKeys && scaleKeys.length) {
+        scaleMeta = this.getScaleMeta(scaleKeys[0]);
+      }
+    }
+    return scaleMeta && scaleMeta.scale;
+  }
 
-    // 如果 sync = true，则直接使用字段名作为 syncKey
-    if (isString(sync)) return sync;
-    if (sync === true) return field;
-    return undefined;
+  /**
+   * 在 view 销毁的时候，删除 scale 实例，防止内存泄露
+   * @param key
+   */
+  public deleteScale(key: string) {
+    const scaleMeta = this.getScaleMeta(key);
+    if (scaleMeta) {
+      const { syncKey } = scaleMeta;
+
+      const scaleKeys = this.syncScales.get(syncKey);
+
+      // 移除同步的关系
+      if (scaleKeys && scaleKeys.length) {
+        const idx = scaleKeys.indexOf(key);
+
+        if (idx !== -1) {
+          scaleKeys.splice(idx, 1);
+        }
+      }
+    }
+
+    // 删除 scale 实例
+    this.scales.delete(key);
+  }
+
+  /**
+   * 清空
+   */
+  public clear() {
+    this.scales.clear();
+    this.syncScales.clear();
   }
 
   /**
@@ -238,11 +209,7 @@ export class ScalePool {
    * @param key
    */
   private removeFromSyncScales(key: string) {
-    const syncKeys = Object.keys(this.syncScaleKeys);
-
-    for (let i = 0; i < syncKeys.length; i += 1) {
-      const syncKey = syncKeys[i];
-      const scaleKeys = this.syncScaleKeys.get(syncKey);
+    this.syncScales.forEach((scaleKeys: string[], syncKey: string) => {
       const idx = scaleKeys.indexOf(key);
 
       if (idx !== -1) {
@@ -250,10 +217,39 @@ export class ScalePool {
 
         // 删除空数组值
         if (scaleKeys.length === 0) {
-          this.scaleMap.delete(syncKey);
+          this.syncScales.delete(syncKey);
         }
-        return; // 跳出循环
+
+        // todo 跳出循环
+        // return false;
       }
+    });
+  }
+
+  /**
+   * get sync key
+   * @param sm
+   */
+  private getSyncKey(sm: ScaleMeta): string {
+    const { scale, scaleDef } = sm;
+    const { field } = scale;
+    const sync = get(scaleDef, ['sync']);
+
+    // 如果 sync = true，则直接使用字段名作为 syncKey
+    if (sync === true) {
+      return field;
+    } if (sync === false) {
+      return undefined;
     }
+
+    return sync;
+  }
+
+  /**
+   * 通过 key 获取 scale
+   * @param key
+   */
+  private getScaleMeta(key: string): ScaleMeta {
+    return this.scales.get(key);
   }
 }

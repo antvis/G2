@@ -26,7 +26,7 @@ import {
   LegendOption,
   TooltipOption,
   CoordinateOption,
-  ScaleDefOptions,
+  ScaleOptions,
   AutoPadding,
   Padding,
   Data,
@@ -37,7 +37,7 @@ import { ScalePool } from '../visual/scale/pool';
 import { Interval } from '../geometry';
 import { Group } from '../types/g';
 import { FacetOptionsMap } from '../types/facet';
-import { ScaleDef } from '../visual/scale';
+import type { Scale } from '../visual/scale';
 import { getInteraction } from '../interaction';
 import { Annotation, Axis, Legend, Scrollbar, Slider, Timeline, Tooltip } from './controller/component';
 import { Layout } from './layout';
@@ -170,7 +170,7 @@ export class View extends EE {
    * Scale 的详细配置项可以参考：https://github.com/antvis/scale#api
    * @returns View
    */
-  public scale(field: Record<string, ScaleDefOptions>): View;
+  public scale(field: Record<string, ScaleOptions>): View;
 
   /**
    * 为特性的数据字段进行 scale 配置。
@@ -184,15 +184,15 @@ export class View extends EE {
    *
    * @returns View
    */
-  public scale(field: string, scaleDefOptions: ScaleDefOptions): View;
+  public scale(field: string, scaleOptions: ScaleOptions): View;
   public scale(
-    field: string | Record<string, ScaleDefOptions>,
-    scaleDefOptions?: ScaleDefOptions,
+    field: string | Record<string, ScaleOptions>,
+    scaleOptions?: ScaleOptions,
   ): View {
     if (isString(field)) {
-      set(this.options, ['scales', field], scaleDefOptions);
+      set(this.options, ['scales', field], scaleOptions);
     } else if (isObject(field)) {
-      each(field, (v: ScaleDefOptions, k: string) => {
+      each(field, (v: ScaleOptions, k: string) => {
         set(this.options, ['scales', k], v);
       });
     }
@@ -570,7 +570,7 @@ export class View extends EE {
   /**
    * 获得 Geometry 中的 scale 对象
    */
-  private getGeometryScales(): Map<string, ScaleDef> {
+  private getGeometryScales(): Map<string, Scale> {
     const fields = this.getScaleFields();
 
     const scales = new Map();

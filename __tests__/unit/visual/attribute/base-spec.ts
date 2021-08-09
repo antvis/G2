@@ -1,116 +1,83 @@
-import { Attribute } from '../../../../src/visual/attribute';
-import { ScaleDef } from '../../../../src/visual/scale';
+import { Category, Linear } from '../../../../src/visual/scale';
+import { Attribute as Attr } from '../../../../src/visual/attribute';
 
-describe('attribute base', () => {
-  test('default options', () => {
-    const attr = new Attribute({
-      scales: [],
-      value: [],
-      callback: () => {
-        return ['hello world'];
+describe('attr base test', () => {
+  const scale1 = new Linear({
+    field: 'dim1',
+    min: 0,
+    max: 100,
+  });
+  const scale2 = new Category({
+    field: 'dim2',
+    values: ['a', 'b', 'c', 'd'],
+  });
+  it('test init', () => {
+    const attr = new Attr({
+      fields: ['t1', 't2'],
+      scales: [scale1, scale2],
+    });
+    expect(attr.type).toBe('base');
+    expect(attr.fields).toEqual(['t1', 't2']);
+  });
+  it('test callback', () => {
+    const attr = new Attr({
+      fields: ['t1', 't2'],
+      callback(v1, v2) {
+        return v1 + v2;
       },
+      scales: [scale1, scale2],
     });
 
-    expect(attr.type).toStrictEqual('base');
-    expect(attr.fields).toStrictEqual([]);
-    expect(attr.value).toStrictEqual([]);
-    expect(attr.callback).toBeDefined();
-    expect(attr.scales).toStrictEqual([]);
+    const rst = attr.mapping(10, 'a');
+    expect(rst[0]).toBe('10a');
   });
 
-  test('test option update', () => {
-    const attr = new Attribute({
-      fields: [],
-      scales: [],
-      value: [],
-      callback: () => {
-        return ['hello world'];
+  it('test 0 as function callback', () => {
+    const attr = new Attr({
+      fields: ['t1', 't2'],
+      callback: (v1, v2) => {
+        return v2 === 'a' ? [0] : [1];
       },
+      scales: [scale1, scale2],
     });
 
-    attr.update({
-      fields: ['a', 'b'],
-      value: [0],
-      callback: undefined,
-    });
-
-    expect(attr.type).toStrictEqual('base');
-    expect(attr.fields).toStrictEqual(['a', 'b']);
-    expect(attr.value).toStrictEqual([0]);
-    expect(attr.callback).toBeUndefined();
-    expect(attr.scales).toStrictEqual([]);
+    expect(attr.mapping(10, 'a')[0]).toEqual([0]);
+    expect(attr.mapping(10, 'b')[0]).toEqual([1]);
+    expect(attr.mapping(10, 'c')[0]).toEqual([1]);
+    expect(attr.mapping(10, 'd')[0]).toEqual([1]);
   });
 
-  test('test mapping', () => {
-    const scaleIdentity = new ScaleDef({
-      type: 'identity',
+  it('test linear scale with two value', () => {
+    const attr = new Attr({
+      fields: ['t1', 't2'],
+      value: [0, 10],
+      scales: [scale1, scale2],
     });
-
-    const attr = new Attribute({
-      scales: [scaleIdentity],
-      fields: ['base'],
-    });
-
-    expect(attr.mapping(5)).toStrictEqual([5]);
-    expect(attr.mapping(6)).toStrictEqual([6]);
-    expect(attr.mapping(7)).toStrictEqual([7]);
-    expect(attr.mapping(8)).toStrictEqual([8]);
+    const rst = attr.mapping(10, 'a');
+    expect(rst[0]).toBe(1);
   });
 
-  test('use custom callback', () => {
-    const fn = jest.fn((val) => {
-      return val * 2;
+  it('test linear scale with three value', () => {
+    const attr = new Attr({
+      fields: ['t1', 't2'],
+      value: [0, 10, 40],
+      scales: [scale1, scale2],
     });
-
-    const scaleIdentity = new ScaleDef({
-      type: 'identity',
-    });
-
-    const attr = new Attribute({
-      scales: [scaleIdentity],
-      fields: ['base'],
-      callback: fn,
-    });
-
-    expect(attr.mapping(6)).toStrictEqual([12]);
-    expect(attr.mapping(7)).toStrictEqual([14]);
-    expect(attr.mapping(8)).toStrictEqual([16]);
-    expect(attr.mapping(9)).toStrictEqual([18]);
-
-    expect(fn).toBeCalledTimes(4);
+    let rst = attr.mapping(40);
+    expect(rst[0]).toBe(8);
+    rst = attr.mapping(60);
+    expect(Math.round(rst[0])).toBe(16);
   });
 
-  test('map with no params', () => {
-    const scaleIdentity = new ScaleDef({
-      type: 'identity',
+  it('test cat scale with values', () => {
+    const attr = new Attr({
+      fields: ['t1', 't2'],
+      value: ['red', 'blue'],
+      scales: [scale2, scale1],
     });
-
-    const attr = new Attribute({
-      scales: [scaleIdentity],
-      fields: ['base'],
-      value: [10],
-    });
-
-    expect(attr.mapping()).toStrictEqual([10]);
-    expect(attr.mapping()).toStrictEqual([10]);
-    expect(attr.mapping()).toStrictEqual([10]);
-    expect(attr.mapping()).toStrictEqual([10]);
-  });
-
-  test('callback dont return any value', () => {
-    const fn = jest.fn();
-
-    const scaleIdentity = new ScaleDef({
-      type: 'identity',
-    });
-
-    const attr = new Attribute({
-      scales: [scaleIdentity],
-      fields: ['base'],
-      callback: fn,
-    });
-
-    expect(attr.mapping(10)).toStrictEqual([10]);
-    expect(fn).toBeCalled();
+    let rst = attr.mapping('a');
+    expect(rst[0]).toBe('red');
+    rst = attr.mapping('b');
+    expect(rst[0]).toBe('blue');
   });
 });

@@ -2,14 +2,12 @@ import { Canvas, Group } from '@antv/g';
 import { Renderer } from '@antv/g-canvas';
 import { createDiv } from '../../../../util/dom';
 import { Interval } from '../../../../../src/geometry/interval';
-import { ScaleDef } from '../../../../../src/visual/scale';
+import { Linear, Category } from '../../../../../src/visual/scale';
 import { Rect } from '../../../../../src/visual/coordinate';
 
-// @ts-ignore
 const canvasRenderer = new Renderer();
 
 // create a canvas
-// @ts-ignore
 const canvas = new Canvas({
   container: createDiv(),
   width: 400,
@@ -30,13 +28,12 @@ describe('interval shapes', () => {
     ];
 
     const scales = new Map();
-    scales.set('city', new ScaleDef({
-      type: 'band',
-      domain: ['hz', 'sh', 'bj'],
+    scales.set('city', new Category({
+      field: 'city',
+      values: ['hz', 'sh', 'bj'],
       range: [1 / 6, 5 / 6],
-      paddingInner: 0.99999999,
-    }, 'city'));
-    scales.set('price', new ScaleDef({ type: 'linear', domain: [0, 130] }, 'price'));
+    }));
+    scales.set('price', new Linear({ field: 'price', min: 0, max: 130 }));
     const g = new Interval({
       data,
       container,

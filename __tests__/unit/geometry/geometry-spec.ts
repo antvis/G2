@@ -1,6 +1,6 @@
 import { ORIGINAL_FIELD } from '../../../src';
 import { Geometry } from '../../../src/geometry';
-import { ScaleDef } from '../../../src/visual/scale';
+import { Linear, Category } from '../../../src/visual/scale';
 
 const data = [
   { city: 'hz', price: 100, type: 'a' },
@@ -75,9 +75,9 @@ describe('geometry', () => {
   it('update', () => {
     // 重开一个实例
     const scales = new Map();
-    scales.set('city', new ScaleDef({ type: 'band', domain: ['hz', 'sh', 'bj'] }, 'city'));
-    scales.set('price', new ScaleDef({ type: 'linear', domain: [50, 1100] }, 'price'));
-    scales.set('type', new ScaleDef({ type: 'cat', domain: ['red', 'green'] }, 'type'));
+    scales.set('city', new Category({ field: 'city', values: ['hz', 'sh', 'bj'] }));
+    scales.set('price', new Linear({ field: 'price' }));
+    scales.set('type', new Category({ field: 'type', values: ['red', 'green'] }));
 
     // @ts-ignore
     const g = new Geometry({

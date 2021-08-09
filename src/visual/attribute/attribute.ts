@@ -1,6 +1,6 @@
 import { isNil } from '@antv/util';
 import { Callback } from '../../types';
-import { ScaleDef } from '../scale';
+import type { Scale } from '../scale';
 
 export type AttributeCfg = {
   /**
@@ -10,7 +10,7 @@ export type AttributeCfg = {
   /**
    * 对应字段的 scales
    */
-  readonly scales: ScaleDef[];
+  readonly scales: Scale[];
   /**
    * 用户传参, 用于辅助映射的 value，比如 color，可以传一个色板数组
    */
@@ -50,7 +50,12 @@ export class Attribute {
   /**
    * 属性映射对应的字段 scale
    */
-  public scales: ScaleDef[];
+  public scales: Scale[];
+
+  /**
+   * 是否是线性的 attr
+   */
+  public isLinear = false;
 
   constructor(cfg: Partial<AttributeCfg>) {
     this.update(cfg);
@@ -84,15 +89,10 @@ export class Attribute {
    * @return {any[]} 映射结果
    */
   protected defaultCallback(...params: any[]): any[] {
-    const results = [];
-    const len = params.length;
-    for (let i = 0; i < len; i += 1) {
-      const targetScale = this.scales[i];
-      const param = params[i];
-      results.push(this.performUnitOfScale(param, targetScale, i));
-    }
-
-    return results;
+    return params.map((param: any, idx: number) => {
+      const scale = this.scales[idx];
+      return scale.isIdentity ? scale.values[0] : this.performUnitOfScale(param, scale, idx);
+    });
   }
 
   /**
@@ -104,10 +104,36 @@ export class Attribute {
    * @param scale 本次对应的 scale 值
    * @param index 当前参数基于所有参数的下标
    */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected performUnitOfScale(param: any, scale: ScaleDef, index: number) {
-    // 默认行为 -- 直接映射
-    return scale.map(param);
+  protected performUnitOfScale(param: any, scale: Scale, index: number): number | string {
+    // 如果是非线性的字段，直接从 values 中取值即可
+    if (scale.isCategory && !this.isLinear) {
+      // 离散 scale 变换成索引
+      const idx = scale.translate(param) as number;
+      return this.value[idx % this.value.length];
+    }
+
+    // 线性则使用线性值
+    const percent = scale.scale(param);
+    return this.getLinearValue(percent);
+  }
+
+  /**
+   * 如果进行线性映射，返回对应的映射值
+   * @param percent
+   */
+  public getLinearValue(percent: number): number | string {
+    // 分段数量
+    const steps = this.value.length - 1;
+
+    const step = Math.floor(steps * percent);
+    const leftPercent = steps * percent - step;
+
+    // todo 不懂这个逻辑
+    const start = this.value[step];
+    const end = step === steps ? start : this.value[step + 1];
+
+    // 线性方程
+    return start + (end - start) * leftPercent;
   }
 
   /**

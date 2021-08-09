@@ -1,5 +1,20 @@
 import { Point } from '../types';
 import { Coordinate } from '../types/coordinate';
+
+/**
+ * @ignore
+ * Determines whether full circle is
+ * @param coordinate
+ * @returns true if full circle
+ */
+export function isFullCircle(coordinate: Coordinate): boolean {
+  if (coordinate.isPolar) {
+    const { startAngle, endAngle } = coordinate;
+    return endAngle - startAngle === Math.PI * 2;
+  }
+  return false;
+}
+
 /**
  * @ignore
  * 获取当前点到坐标系圆心的距离

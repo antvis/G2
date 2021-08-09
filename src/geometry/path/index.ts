@@ -35,7 +35,7 @@ export class Path<O extends PathGeometryOption = PathGeometryOption> extends Geo
     const xScale = this.getXScale();
     const yScale = this.getYScale();
 
-    return `${originalData[xScale.getField()]}-${originalData[yScale.getField()]}`;
+    return `${originalData[xScale.field]}-${originalData[yScale.field]}`;
   }
 
   /**

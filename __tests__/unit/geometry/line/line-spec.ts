@@ -2,14 +2,12 @@ import { Canvas, Group } from '@antv/g';
 import { Renderer } from '@antv/g-canvas';
 import { createDiv } from '../../../util/dom';
 import { Line } from '../../../../src/geometry/line';
-import { ScaleDef } from '../../../../src/visual/scale';
+import { Category, Linear } from '../../../../src/visual/scale';
 import { Rect } from '../../../../src/visual/coordinate';
 
-// @ts-ignore
 const canvasRenderer = new Renderer();
 
 // create a canvas
-// @ts-ignore
 const canvas = new Canvas({
   container: createDiv(),
   width: 400,
@@ -31,14 +29,13 @@ const data = [
 ];
 
 const scales = new Map();
-scales.set('city', new ScaleDef({
-  type: 'band',
-  domain: ['hz', 'sh', 'bj'],
+scales.set('city', new Category({
+  field: 'city',
+  values: ['hz', 'sh', 'bj'],
   range: [1 / 6, 5 / 6],
-  paddingInner: 0.99999999,
-}, 'city'));
-scales.set('price', new ScaleDef({ type: 'linear', domain: [0, 2000] }, 'price'));
-scales.set('type', new ScaleDef({ type: 'cat', domain: ['red', 'green'] }, 'type'));
+}));
+scales.set('price', new Linear({ field: 'price', min: 0, max: 2000 }));
+scales.set('type', new Category({ field: 'type', values: ['red', 'green'] }));
 
 const g = new Line({
   data,
@@ -75,14 +72,13 @@ describe('line geometry', () => {
   it('update', async () => {
     const scales = new Map();
 
-    scales.set('city', new ScaleDef({
-      type: 'band',
-      domain: ['hz', 'sh', 'sz'],
+    scales.set('city', new Category({
+      field: 'city',
+      values: ['hz', 'sh', 'sz'],
       range: [1 / 6, 5 / 6],
-      paddingInner: 0.99999999,
-    }, 'city'));
-    scales.set('price', new ScaleDef({ type: 'linear', domain: [0, 2000] }, 'price'));
-    scales.set('type', new ScaleDef({ type: 'cat', domain: ['red', 'green'] }, 'type'));
+    }));
+    scales.set('price', new Linear({ field: 'price' }));
+    scales.set('type', new Category({ field: 'type', values: ['red', 'green'] }));
 
     g.update({
       data: [

@@ -25,7 +25,7 @@ import { createAdjust } from '../util/adjust';
 import { diff } from '../util/diff';
 import { getScaleUpdateOptionsAfterStack } from '../util/scale';
 import { Attribute } from '../visual/attribute';
-import { ScaleDef } from '../visual/scale';
+import { Scale } from '../visual/scale';
 import { Element } from './element';
 import { getShape } from './factory';
 
@@ -150,7 +150,7 @@ export abstract class Geometry<O extends GeometryOption = GeometryOption> extend
   private processData() {
     const { data } = this.options;
 
-    const categoryPositionScales = this.getAttribute('position').scales.filter((s) => s.isCategory());
+    const categoryPositionScales = this.getAttribute('position').scales.filter((s) => s.isCategory);
     const groupFields = this.getGroupFields();
 
     // 1. 数据分组，然后对维度字段进行数字化
@@ -168,8 +168,8 @@ export abstract class Geometry<O extends GeometryOption = GeometryOption> extend
       // 1.2. 将分类数据翻译成数子, 仅对位置相关的度量进行数字化处理
       // TODO 为什么要在分组的时候对位置中分类数字化（数组索引值）
       categoryPositionScales.forEach((scale) => {
-        const field = scale.getField();
-        digitalDatum[field] = scale.map(digitalDatum[field]);
+        const field = scale.field;
+        digitalDatum[field] = scale.scale(digitalDatum[field]);
       });
 
       // 1.3 分组
@@ -199,7 +199,7 @@ export abstract class Geometry<O extends GeometryOption = GeometryOption> extend
 
     // 1. 对于 stack 类型的 adjust。需要将数据进行一个调整
     if (yScale && this.getAdjust('stack')) {
-      yScale.update(getScaleUpdateOptionsAfterStack(yScale, this.beforeMappingData));
+      yScale.change(getScaleUpdateOptionsAfterStack(yScale, this.beforeMappingData));
     }
 
     // 2. ??? 还有什么
@@ -215,8 +215,8 @@ export abstract class Geometry<O extends GeometryOption = GeometryOption> extend
 
     const xScale = this.getXScale();
     const yScale = this.getYScale();
-    const xField = xScale.getField();
-    const yField = yScale ? yScale.getField() : null;
+    const xField = xScale.field;
+    const yField = yScale ? yScale.field : null;
 
     return (this.adjustOptions || []).reduce((r: Data[], adjustOption: AdjustOption) => {
       const { type } = adjustOption;
@@ -306,11 +306,11 @@ export abstract class Geometry<O extends GeometryOption = GeometryOption> extend
     const xScale = this.getXScale();
     const yScale = this.getYScale();
 
-    const x = this.normalizeValues(datum[xScale.getField()], xScale);
+    const x = this.normalizeValues(datum[xScale.field], xScale);
     let y; // 存在没有 y 的情况
 
     if (yScale) {
-      y = this.normalizeValues(datum[yScale.getField()], yScale);
+      y = this.normalizeValues(datum[yScale.field], yScale);
     } else {
       // todo 饼图的情况？
       y = datum.y ? datum.y : 0.1;
@@ -319,7 +319,7 @@ export abstract class Geometry<O extends GeometryOption = GeometryOption> extend
     return {
       x,
       y,
-      y0: yScale ? yScale.map(this.getYMinValue()) : undefined,
+      y0: yScale ? yScale.scale(this.getYMinValue()) : undefined,
     };
   }
 
@@ -328,7 +328,7 @@ export abstract class Geometry<O extends GeometryOption = GeometryOption> extend
    */
   protected getYMinValue(): number {
     const yScale = this.getYScale();
-    const { min, max } = yScale.getOption('domain');
+    const { min, max } = yScale;
 
     if (min > 0) {
       // 当值全位于正区间时
@@ -346,16 +346,16 @@ export abstract class Geometry<O extends GeometryOption = GeometryOption> extend
    * @param values
    * @param scale
    */
-  protected normalizeValues(values: any, scale: ScaleDef): number | number[] {
+  protected normalizeValues(values: any, scale: Scale): number | number[] {
     if (isArray(values)) {
       const rst = [];
       for (let i = 0; i < values.length; i++) {
         const value = values[i];
-        rst.push(scale.map(value));
+        rst.push(scale.scale(value));
       }
       return rst;
     }
-    return scale.map(values);
+    return scale.scale(values);
   }
 
   /**
@@ -619,7 +619,7 @@ export abstract class Geometry<O extends GeometryOption = GeometryOption> extend
     const xScale = this.getXScale();
     const yScale = this.getYScale();
 
-    return `${originalData[xScale.getField()]}-${originalData[yScale.getField()]}`;
+    return `${originalData[xScale.field]}-${originalData[yScale.field]}`;
   }
 
   /**
@@ -817,8 +817,8 @@ export abstract class Geometry<O extends GeometryOption = GeometryOption> extend
     const { scales } = attr;
     for (let i = 0; i < scales.length; i++) {
       const scale = scales[i];
-      const field = scale.getField();
-      if (scale.isIdentity()) {
+      const field = scale.field;
+      if (scale.isIdentity) {
         // @ts-ignore, yuzhanglong: 暂时不清楚作用，先用 ts-ignore 解决报错问题
         params.push(scale.values);
       } else {
@@ -875,17 +875,17 @@ export abstract class Geometry<O extends GeometryOption = GeometryOption> extend
    * @param field
    * @returns
    */
-  public getScale(field: string): ScaleDef {
+  public getScale(field: string): Scale {
     return this.options.scales.get(field);
   }
 
   /** 获取 x 轴对应的 scale 实例。 */
-  public getXScale(): ScaleDef {
+  public getXScale(): Scale {
     return this.options.scales.get(this.getXYFields()[0]);
   }
 
   /** 获取 y 轴对应的 scale 实例。 */
-  public getYScale(): ScaleDef {
+  public getYScale(): Scale {
     return this.options.scales.get(this.getXYFields()[1]);
   }
 

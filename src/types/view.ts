@@ -1,6 +1,6 @@
 import type { View } from '../chart';
 import type { AutoPadding, Data, Datum, Padding, PlainObject, Region } from './common';
-import { ScaleDefOptions } from './scale';
+import { ScaleOptions } from './scale';
 import type { GeometryOption } from './geometry';
 import { Group, Canvas } from './g';
 
@@ -80,7 +80,7 @@ export type ViewOptions = Partial<{
    */
   originalData: Data;
   /** 列定义配置，用于配置数值的类型等，以 data 中的数据属性为 key。 */
-  scales: Record<string, ScaleDefOptions>;
+  scales: Record<string, ScaleOptions>;
   /** 设置数据过滤条件，以 data 中的数据属性为 key。 */
   filters: Record<string, FilterCondition>;
   /** 坐标系配置。 */
