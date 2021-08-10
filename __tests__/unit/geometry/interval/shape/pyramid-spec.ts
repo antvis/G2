@@ -33,6 +33,7 @@ describe('interval shapes', () => {
     scales.set('action', new Category({
       field: 'action',
       values: ['浏览网站', '放入购物车', '生成订单', '支付订单', '完成交易'],
+      range: [0, 1],
     }));
     scales.set('type', new Category({
       field: 'type',
@@ -47,7 +48,7 @@ describe('interval shapes', () => {
       coordinate: new Rect({
         start: { x: 0, y: 200 },
         end: { x: 400, y: 0 },
-      }).transpose().scale(1, -1),
+      }).transpose(), // .scale(1, -1),
     });
 
     g.position('action*pv').color('type', ['#0050B3', '#1890FF', '#40A9FF', '#69C0FF', '#BAE7FF']).shape('', 'pyramid');
@@ -55,6 +56,7 @@ describe('interval shapes', () => {
     g.update({});
 
     g.paint();
+
     expect(g.getElements()[0].getShape().getAttribute('lineWidth')).toBe(1);
     expect(g.getElements()[0].getShape().getAttribute('fill')).toBe('#0050B3');
   });

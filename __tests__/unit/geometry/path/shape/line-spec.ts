@@ -1,15 +1,14 @@
+import { uniq } from '@antv/util';
 import { Canvas, Group } from '@antv/g';
 import { Renderer } from '@antv/g-canvas';
 import { createDiv } from '../../../../util/dom';
 import { Path } from '../../../../../src/geometry/path';
-import { ScaleDef } from '../../../../../src/visual/scale';
+import { Category, Linear } from '../../../../../src/visual/scale';
 import { Rect } from '../../../../../src/visual/coordinate';
 
-// @ts-ignore
 const canvasRenderer = new Renderer();
 
 // create a canvas
-// @ts-ignore
 const canvas = new Canvas({
   container: createDiv(undefined, 'path shapes'),
   width: 800,
@@ -44,9 +43,9 @@ describe('path shapes', () => {
   ];
 
   const scales = new Map();
-  scales.set('x', new ScaleDef({ type: 'band', domain: data.map((d) => d.x) }, 'x'));
-  scales.set('y', new ScaleDef({ type: 'linear', domain: [0, 15] }, 'y'));
-  scales.set('type', new ScaleDef({ type: 'cat', domain: ['一', '二'] }, 'type'));
+  scales.set('x', new Category({ field: 'x', values: uniq(data.map((d) => d.x)) }));
+  scales.set('y', new Linear({ field: 'y', min: 0, max: 15 }));
+  scales.set('type', new Category({ field: 'type', values: ['一', '二'] }));
 
   it('line shape', () => {
     const container = new Group();

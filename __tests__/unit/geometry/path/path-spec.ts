@@ -3,7 +3,7 @@ import { Renderer } from '@antv/g-canvas';
 import { createDiv } from '../../../util/dom';
 import { Path } from '../../../../src/geometry/path';
 import { Element } from '../../../../src/geometry/element';
-import { ScaleDef } from '../../../../src/visual/scale';
+import { Category, Linear } from '../../../../src/visual/scale';
 import { Rect } from '../../../../src/visual/coordinate';
 
 const canvasRenderer = new Renderer();
@@ -25,9 +25,9 @@ const data = [7.22, 2.4269, 2.0484, 8.0495, 8.2496, 1.707, 5.213, 2.622, 0.8367,
 }));
 
 const scales = new Map();
-scales.set('x', new ScaleDef({ type: 'band', domain: data.map((d) => d.x) }, 'x'));
-scales.set('y', new ScaleDef({ type: 'linear', domain: [0, 15] }, 'y'));
-scales.set('type', new ScaleDef({ type: 'cat', domain: ['一', '二'] }, 'type'));
+scales.set('x', new Category({ field: 'x', values: data.map((d) => d.x) }));
+scales.set('y', new Linear({ field: 'y', min: 0, max: 15 }));
+scales.set('type', new Category({ field: 'type', values: ['一', '二'] }));
 
 describe('path geometry', () => {
   const g = new Path({
@@ -40,9 +40,8 @@ describe('path geometry', () => {
     }),
   });
 
-  g.position('x*y').color('type', ['red', 'orange']);
-
   it('path geometry init', () => {
+    g.position('x*y').color(null, 'red');
     g.update({});
     g.paint();
 
@@ -50,8 +49,6 @@ describe('path geometry', () => {
     expect(g.elementsMap.size).toBe(1);
     // 一条 path
     expect(g.options.container.findAll((obj) => obj.get('type') === 'path').length).toBe(1);
-
-    g.destroy();
   });
 
   it('two path', () => {
@@ -60,6 +57,8 @@ describe('path geometry', () => {
     data.forEach((d) => {
       data2.push({ ...d, type: '一' }, { ...d, y: d.y + 2, type: '二' });
     });
+
+    g.color('type', ['red', 'orange']);
 
     g.update({ data: data2 });
     g.paint();

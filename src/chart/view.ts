@@ -758,7 +758,7 @@ export class View extends EE {
   public getScale(field: string, key?: string) {
     const defaultKey = key || this.getScaleKey(field);
     // 调用根节点 view 的方法获取
-    return this.getRootView().scalePool.get(defaultKey);
+    return this.getRootView().scalePool.getScale(defaultKey);
   }
 
   /**

@@ -107,19 +107,19 @@ describe('geometry', () => {
     const beforeMappingData = g.beforeMappingData;
     expect(beforeMappingData[0]).toEqual([
       { city: 0, price: 100, type: 'a', [ORIGINAL_FIELD]: { city: 'hz', price: 100, type: 'a' } },
-      { city: 1 / 3, price: 50, type: 'a', [ORIGINAL_FIELD]: { city: 'sh', price: 50, type: 'a' } },
-      { city: 2 / 3, price: 75, type: 'a', [ORIGINAL_FIELD]: { city: 'bj', price: 75, type: 'a' } },
+      { city: 0.5, price: 50, type: 'a', [ORIGINAL_FIELD]: { city: 'sh', price: 50, type: 'a' } },
+      { city: 1, price: 75, type: 'a', [ORIGINAL_FIELD]: { city: 'bj', price: 75, type: 'a' } },
     ]);
     expect(beforeMappingData[1]).toEqual([
       { city: 0, price: 1100, type: 'b', [ORIGINAL_FIELD]: { city: 'hz', price: 1100, type: 'b' } },
       {
-        city: 1 / 3,
+        city: 0.5,
         price: 150,
         type: 'b',
         [ORIGINAL_FIELD]: { city: 'sh', price: 150, type: 'b' },
       },
       {
-        city: 2 / 3,
+        city: 1,
         price: 175,
         type: 'b',
         [ORIGINAL_FIELD]: { city: 'bj', price: 175, type: 'b' },

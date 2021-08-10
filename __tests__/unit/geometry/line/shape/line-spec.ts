@@ -31,16 +31,9 @@ describe('line shapes', () => {
     { year: '2000', price: 65, type: 'b' },
   ];
   const scales = new Map();
-  scales.set(
-    'year',
-    new TimeCat(
-      {
-        field: 'year',
-      },
-    ),
-  );
-  scales.set('price', new Linear({ field: 'price' }));
-  scales.set('type', new Category({ field: 'type', values: ['red', 'green'] }));
+  scales.set('year', new TimeCat({ field: 'year', values: ['1995', '1996', '1997', '1998', '1999', '2000'] }));
+  scales.set('price', new Linear({ field: 'price', min: 0, max: 150 }));
+  scales.set('type', new Category({ field: 'type', values: ['a', 'b'] }));
 
   it('line shape', () => {
     const container = new Group();

@@ -37,7 +37,7 @@ describe('interval shapes', () => {
       range: [1 / 6, 5 / 6],
     }));
     scales.set('price', new Linear({ field: 'price', min: 0, max: 2000 }));
-    scales.set('type', new Category({ field: 'type', values: ['red', 'green'] }));
+    scales.set('type', new Category({ field: 'type', values: ['a', 'b'] }));
 
     const g = new Interval({
       data,
