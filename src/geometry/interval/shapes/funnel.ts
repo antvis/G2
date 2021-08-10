@@ -25,6 +25,7 @@ registerShape('interval', 'funnel', {
       name: 'interval',
     });
 
+    // @ts-ignore G 类型定义问题
     container.appendChild(shape);
 
     return shape;
