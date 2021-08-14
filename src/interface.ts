@@ -841,7 +841,7 @@ export interface ViewCfg {
    */
   readonly padding?: ViewPadding;
   /**
-   * 设置图表的内边距在padding的基础上增加appendPading的调整。
+   * 设置图表的内边距在padding的基础上增加appendPadding的调整。
    * @example
    * 1. padding: 20
    * 2. padding: [ 10, 30, 30 ]
