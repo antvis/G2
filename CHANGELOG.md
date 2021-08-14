@@ -1,41 +1,53 @@
+#### 4.1.24 (2021-08-14)
+
+##### Documentation Changes
+
+- **style:** fix style issues in docs ([#3559](https://github.com/antvis/g2/pull/3559)) ([41ecf763](https://github.com/antvis/g2/commit/41ecf763df819ca6e0aac68b75c2f0ffc3090fdd))
+- fix 404 links for interaction ([#3560](https://github.com/antvis/g2/pull/3560)) ([2db29fed](https://github.com/antvis/g2/commit/2db29fed8d6230c674d7944b77c09202d484593f))
+- **typo:** appendPading to appendPadding ([#3572](https://github.com/antvis/g2/pull/3572)) ([bf59c62d](https://github.com/antvis/g2/commit/bf59c62d64f4edb4f3df94cb408c484923b8579d))
+
+##### New Features
+
+- 导出 utils，供 G2Plot 使用 ([#3571](https://github.com/antvis/g2/pull/3571)) ([2593f8aa](https://github.com/antvis/g2/commit/2593f8aac1af96ac1f75463944cc78f3c3d4d95d))
+
 #### 4.1.23 (2021-08-06)
 
 ##### Documentation Changes
 
-*  增加 scrollbar 的demo ([#3550](https://github.com/antvis/g2/pull/3550)) ([fd47ed39](https://github.com/antvis/g2/commit/fd47ed39f7d4f89cc3da9c8fd5da92d0aee0e352))
-*  fix typos in  'docs/manual/concepts' ([#3552](https://github.com/antvis/g2/pull/3552)) ([2c74fc52](https://github.com/antvis/g2/commit/2c74fc52b7554bcbb5a97c8a64b6482279895cdd))
-* **tooltip:**  remove useless code ([#3549](https://github.com/antvis/g2/pull/3549)) ([f0e4e334](https://github.com/antvis/g2/commit/f0e4e334b0fdc8c5836567656630e7dd1c3fc8a6))
+- 增加 scrollbar 的 demo ([#3550](https://github.com/antvis/g2/pull/3550)) ([fd47ed39](https://github.com/antvis/g2/commit/fd47ed39f7d4f89cc3da9c8fd5da92d0aee0e352))
+- fix typos in 'docs/manual/concepts' ([#3552](https://github.com/antvis/g2/pull/3552)) ([2c74fc52](https://github.com/antvis/g2/commit/2c74fc52b7554bcbb5a97c8a64b6482279895cdd))
+- **tooltip:** remove useless code ([#3549](https://github.com/antvis/g2/pull/3549)) ([f0e4e334](https://github.com/antvis/g2/commit/f0e4e334b0fdc8c5836567656630e7dd1c3fc8a6))
 
 ##### Bug Fixes
 
-* **line:**  修复折线图 smooth 绘制错误 ([#3546](https://github.com/antvis/g2/pull/3546)) ([daf3b8a8](https://github.com/antvis/G2/commit/daf3b8a81ffb10d93875250e1128542af59d3618))
+- **line:** 修复折线图 smooth 绘制错误 ([#3546](https://github.com/antvis/g2/pull/3546)) ([daf3b8a8](https://github.com/antvis/G2/commit/daf3b8a81ffb10d93875250e1128542af59d3618))
 
 ##### Code Style Changes
 
-* **geometry:**  removed double slash in path ([#3542](https://github.com/antvis/g2/pull/3542)) ([d8bc1aae](https://github.com/antvis/g2/commit/d8bc1aaee9785f16a0413d320a6d51fdd9c179c2))
+- **geometry:** removed double slash in path ([#3542](https://github.com/antvis/g2/pull/3542)) ([d8bc1aae](https://github.com/antvis/g2/commit/d8bc1aaee9785f16a0413d320a6d51fdd9c179c2))
 
 #### 4.1.22 (2021-07-28)
 
 ##### New Features
 
-* **legend:**  图例支持多行分页 ([#3540](https://github.com/antvis/g2/pull/3540)) ([1b0fdb36](https://github.com/antvis/g2/commit/1b0fdb3636ba8f87b05e7dae3a8cb63e149a7539))
-* **range-highlight:**  为区间高亮增加 events 事件 ([#3536](https://github.com/antvis/g2/pull/3536)) ([6fb9d901](https://github.com/antvis/g2/commit/6fb9d901b10004b8583075d13774188be125ad65))
+- **legend:** 图例支持多行分页 ([#3540](https://github.com/antvis/g2/pull/3540)) ([1b0fdb36](https://github.com/antvis/g2/commit/1b0fdb3636ba8f87b05e7dae3a8cb63e149a7539))
+- **range-highlight:** 为区间高亮增加 events 事件 ([#3536](https://github.com/antvis/g2/pull/3536)) ([6fb9d901](https://github.com/antvis/g2/commit/6fb9d901b10004b8583075d13774188be125ad65))
 
 #### 4.1.21 (2021-07-21)
 
 ##### Chores
 
-*  更新官网版本 ([#3523](https://github.com/antvis/g2/pull/3523)) ([66dd7721](https://github.com/antvis/g2/commit/66dd7721af5435cb918fb14cb9667540a9e25d0d))
+- 更新官网版本 ([#3523](https://github.com/antvis/g2/pull/3523)) ([66dd7721](https://github.com/antvis/g2/commit/66dd7721af5435cb918fb14cb9667540a9e25d0d))
 
 ##### New Features
 
-* **legend:**  图例若干更新 ([#3529](https://github.com/antvis/g2/pull/3529)) ([23323b7a](https://github.com/antvis/g2/commit/23323b7a54469e3ee4d9c0357859da99c96e2288))
-* **mask:**  mask 交互支持配置样式 & test cases ([#3504](https://github.com/antvis/g2/pull/3504)) ([752c127e](https://github.com/antvis/g2/commit/752c127e0b79cb8459e7c78ba8b58ab6da6f9d43))
+- **legend:** 图例若干更新 ([#3529](https://github.com/antvis/g2/pull/3529)) ([23323b7a](https://github.com/antvis/g2/commit/23323b7a54469e3ee4d9c0357859da99c96e2288))
+- **mask:** mask 交互支持配置样式 & test cases ([#3504](https://github.com/antvis/g2/pull/3504)) ([752c127e](https://github.com/antvis/g2/commit/752c127e0b79cb8459e7c78ba8b58ab6da6f9d43))
 
 ##### Bug Fixes
 
-* **heatmap:**  修复热力图 style shadowBlur 不生效 & color 使用回调会导致白屏 ([#3532](https://github.com/antvis/g2/pull/3532)) ([664cf1a7](https://github.com/antvis/g2/commit/664cf1a7fdb22c59a55c0031812f372a3817cab3))
-* **legend:**  过滤连续图例的 value 参数，防止影响到 component legend 的 value 属性 导致交互问题 ([#3527](https://github.com/antvis/g2/pull/3527)) ([f30d700c](https://github.com/antvis/g2/commit/f30d700c23621a682d78ab6ff83e405be8c00bba))
+- **heatmap:** 修复热力图 style shadowBlur 不生效 & color 使用回调会导致白屏 ([#3532](https://github.com/antvis/g2/pull/3532)) ([664cf1a7](https://github.com/antvis/g2/commit/664cf1a7fdb22c59a55c0031812f372a3817cab3))
+- **legend:** 过滤连续图例的 value 参数，防止影响到 component legend 的 value 属性 导致交互问题 ([#3527](https://github.com/antvis/g2/pull/3527)) ([f30d700c](https://github.com/antvis/g2/commit/f30d700c23621a682d78ab6ff83e405be8c00bba))
 
 #### 4.1.20 (2021-07-06)
 
