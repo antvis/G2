@@ -54,6 +54,7 @@ export type { Types };
 export { IGroup, ShapeAttrs, Coordinate, Scale, ScaleConfig } from './dependents';
 
 // 一些工具方法导出
+import { getMappingValue } from './util/attr';
 import { getLegendItems } from './util/legend';
 import { getAngle, getSectorPath, polarToCartesian } from './util/graphics';
 import { rotate, transform, translate, zoom } from './util/transform';
@@ -70,4 +71,5 @@ export const Util = {
   polarToCartesian,
   getDelegationObject,
   getTooltipItems,
+  getMappingValue,
 };
