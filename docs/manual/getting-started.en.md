@@ -39,6 +39,14 @@ You can either download the script locally or directly import online resources:
 <script src="./g2.js"></script>
 ```
 
+Use G2 with `script` in html, we should add the prefix `G2`, below:
+
+```ts
+const chart = new G2.Chart({
+  /* your options */
+});
+```
+
 <!-- 请求链接 404 先注释掉 -->
 <!-- You can also directly download through [unpkg](https://unpkg.com/@antv/g2). -->
 
