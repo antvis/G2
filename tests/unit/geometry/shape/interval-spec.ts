@@ -137,7 +137,7 @@ describe('Interval shapes', () => {
       });
       expect(shapePath.length).toBe(6);
       expect(hapePathTypes).toEqual(['M', 'L', 'L', 'L', 'L', 'Z']);
-      
+
       // lineCap:'round'
       const lineCapRoundShapePath = lineCapRoundShape.attr('path');
       let lineCapRoundShapePathTypes = [];
@@ -162,7 +162,7 @@ describe('Interval shapes', () => {
       canvas.draw();
       const path2 = rectWithCornerRadiusShape.attr('path');
       let path2Types = [];
-      path2.forEach((path) =>  path2Types.push(path[0]));
+      path2.forEach((path) => path2Types.push(path[0]));
       expect(path2.length).toBe(10);
       expect(path2Types).toEqual(['M', 'A', 'L', 'A', 'L', 'A', 'L', 'A', 'L', 'Z']);
 
@@ -180,7 +180,7 @@ describe('Interval shapes', () => {
       canvas.draw();
       const path3 = rectWithCornerRadiusShape1.attr('path');
       let path3Types = [];
-      path3.forEach((path) =>  path3Types.push(path[0]));
+      path3.forEach((path) => path3Types.push(path[0]));
       expect(path3.length).toBe(8);
       expect(path3Types).toEqual(['M', 'A', 'L', 'A', 'L', 'L', 'L', 'Z']);
     });
@@ -555,7 +555,8 @@ describe('Interval shapes', () => {
       expect(points).toEqual([
         { x: 0.2, y: 0.6 },
         { x: 0.2, y: 0.8 },
-        { x: 0.3, y: 0.7 },
+        { x: 0.3, y: 0.8 },
+        { x: 0.3, y: 0.6 },
       ]);
     });
 
@@ -584,7 +585,7 @@ describe('Interval shapes', () => {
 
       const path = shape.attr('path');
       expect(shape.attr('fill')).toEqual(Theme.defaultColor);
-      expect(path).toEqual([['M', 100, 200], ['L', 100, 100], ['L', 150, 150], ['L', 150, 150], ['Z']]);
+      expect(path).toEqual([['M', 100, 200], ['L', 100, 100], ['L', 150, 150], ['Z']]);
     });
 
     it('draw, nextPoints is not null', () => {
