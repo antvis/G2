@@ -11,7 +11,7 @@ import { Point, ShapeInfo, ShapePoint } from '../../../interface';
  * @param [isPyramid] 是否为尖底漏斗图
  * @returns rect points 返回矩形四个顶点信息
  */
-export function getRectPoints(pointInfo: ShapePoint, isPyramid = false): Point[] {
+export function getRectPoints(pointInfo: ShapePoint): Point[] {
   const { x, y, y0, size } = pointInfo;
   // 有 4 种情况，
   // 1. x, y 都不是数组

@@ -9,7 +9,7 @@ import { getFunnelPath, getRectPoints } from './util';
 registerShape('interval', 'pyramid', {
   getPoints(shapePoint: ShapePoint) {
     shapePoint.size = shapePoint.size * 2; // 漏斗图的 size 是柱状图的两倍
-    return getRectPoints(shapePoint, true);
+    return getRectPoints(shapePoint);
   },
   draw(cfg: ShapeInfo, container: IGroup) {
     const style = getStyle(cfg, false, true);
