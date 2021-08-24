@@ -1,42 +1,90 @@
+import DataSet from '@antv/data-set';
 import { Chart } from '@antv/g2';
 
-// 默认已经加载 legend-active 交互
-const data = [
-  { company: 'Apple', type: '整体', value: 30 },
-  { company: 'Facebook', type: '整体', value: 35 },
-  { company: 'Google', type: '整体', value: 28 },
-  { company: 'Apple', type: '非技术岗', value: 40 },
-  { company: 'Facebook', type: '非技术岗', value: 65 },
-  { company: 'Google', type: '非技术岗', value: 47 },
-  { company: 'Apple', type: '技术岗', value: 23 },
-  { company: 'Facebook', type: '技术岗', value: 18 },
-  { company: 'Google', type: '技术岗', value: 20 },
-  { company: 'Apple', type: '技术岗', value: 35 },
-  { company: 'Facebook', type: '技术岗', value: 30 },
-  { company: 'Google', type: '技术岗', value: 25 }
-];
+fetch('../data/terrorism.json')
+  .then(res => res.json())
+  .then(data => {
+    const ds = new DataSet();
 
-const chart = new Chart({
-  container: 'container',
-  autoFit: true,
-  height: 500,
-});
+    const chart = new Chart({
+      container: 'container',
+      autoFit: true,
+      height: 500,
+      padding: [20, 40],
+    });
 
-chart.data(data);
+    chart.scale({
+      Deaths: {
+        sync: true,
+        nice: true,
+      },
+      death: {
+        sync: true,
+        nice: true,
+      },
+    });
 
-chart.scale('value', { nice: true, });
 
-chart.legend({
-  position: 'top'
-});
+    const dv1 = ds.createView().source(data);
+    dv1.transform({
+      type: 'map',
+      callback: (row) => {
+        if (typeof (row.Deaths) === 'string') {
+          row.Deaths = row.Deaths.replace(',', '');
+        }
+        row.Deaths = parseInt(row.Deaths, 10);
+        row.death = row.Deaths;
+        row.year = row.Year;
+        return row;
+      }
+    });
+    const view1 = chart.createView();
+    view1.data(dv1.rows);
+    view1.axis('Year', {
+      subTickLine: {
+        count: 3,
+        length: 3,
+      },
+      tickLine: {
+        length: 6,
+      },
+    });
+    view1.axis('Deaths', {
+      label: {
+        formatter: text => {
+          return text.replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
+        }
+      }
+    });
+    view1.line().position('Year*Deaths');
 
-chart
-  .interval()
-  .position('type*value').color('company')
-  .adjust([{
-    type: 'dodge',
-    marginRatio: 0
-  }]);
 
-chart.render();
+    const dv2 = ds.createView().source(dv1.rows);
+    dv2.transform({
+      type: 'regression',
+      method: 'polynomial',
+      fields: ['year', 'death'],
+      bandwidth: 0.1,
+      as: ['year', 'death']
+    });
 
+    const view2 = chart.createView();
+    view2.axis(false);
+    view2.data(dv2.rows);
+    view2.line().position('year*death').style({
+      stroke: '#969696',
+      lineDash: [3, 3]
+    })
+      .tooltip(false);
+    view1.annotation().text({
+      content: '趋势线',
+      position: ['1970', 2500],
+      style: {
+        fill: '#8c8c8c',
+        fontSize: 14,
+        fontWeight: 300
+      },
+      offsetY: -70
+    });
+    chart.render();
+  });
