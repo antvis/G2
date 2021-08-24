@@ -60,12 +60,13 @@ describe('pyramid funnel ', () => {
     // @ts-ignore
     const labelItems = gLabels.getLabelItems(mappingArray);
 
-    console.log(labelItems)
     expect(labelItems[0].x).toBe(300);
     expect(labelItems[0].y).toBe(58.5);
     expect(labelItems[2].x).toBe(300);
     expect(labelItems[2].y).toBe(212.5);
     expect(labelItems[4].x).toBe(300);
     expect(labelItems[4].y).toBe(366.5);
+
+    chart.destroy();
   })
 });
