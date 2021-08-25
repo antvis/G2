@@ -1,3 +1,13 @@
+#### 4.1.25 (2021-08-25)
+
+##### Documentation Changes
+
+- **get-start:** add docs when use with script ([#3581](https://github.com/antvis/g2/pull/3581)) ([8b5f04c0](https://github.com/antvis/g2/commit/8b5f04c025da7a3ecbc421be05a9e0b2d24b8a44))
+
+##### Bug Fixes
+
+- **funnel:** pyramid shape 最下面一层的 label 绘制不对齐 ([#3585](https://github.com/antvis/g2/pull/3585)) ([13a2e05d](https://github.com/antvis/g2/commit/13a2e05dd613a5abe2516b4839f114fe3e3a5eb0))
+
 #### 4.1.24 (2021-08-14)
 
 ##### Documentation Changes
