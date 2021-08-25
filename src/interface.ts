@@ -899,7 +899,7 @@ export interface LegendItem {
   /** 值 */
   value: any;
   /** 图形标记 */
-  marker?: MarkerCfg;
+  marker?: MarkerCfg | ((name: string, index: number, item: { name: string; value: string } & MarkerCfg) => MarkerCfg);
   /** 初始是否处于未激活状态 */
   unchecked?: boolean;
 }
