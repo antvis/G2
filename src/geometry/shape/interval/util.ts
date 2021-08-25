@@ -11,7 +11,7 @@ import { Point, ShapeInfo, ShapePoint } from '../../../interface';
  * @param [isPyramid] 是否为尖底漏斗图
  * @returns rect points 返回矩形四个顶点信息
  */
-export function getRectPoints(pointInfo: ShapePoint, isPyramid = false): Point[] {
+export function getRectPoints(pointInfo: ShapePoint): Point[] {
   const { x, y, y0, size } = pointInfo;
   // 有 4 种情况，
   // 1. x, y 都不是数组
@@ -41,23 +41,11 @@ export function getRectPoints(pointInfo: ShapePoint, isPyramid = false): Point[]
     { x: xMin, y: yMax },
   ];
 
-  if (isPyramid) {
-    // 绘制尖底漏斗图
-    // 金字塔漏斗图的关键点
-    // 1
-    // |   2
-    // 0
-    points.push({
-      x: xMax,
-      y: (yMax + yMin) / 2,
-    });
-  } else {
-    // 矩形的四个关键点，结构如下（左下角顺时针连接）
-    // 1 ---- 2
-    // |      |
-    // 0 ---- 3
-    points.push({ x: xMax, y: yMax }, { x: xMax, y: yMin });
-  }
+  // 矩形的四个关键点，结构如下（左下角顺时针连接）
+  // 1 ---- 2
+  // |      |
+  // 0 ---- 3
+  points.push({ x: xMax, y: yMax }, { x: xMax, y: yMin });
 
   return points;
 }
@@ -246,8 +234,7 @@ export function getFunnelPath(points: Point[], nextPoints: Point[], isPyramid: b
     path.push(
       ['M', points[0].x, points[0].y],
       ['L', points[1].x, points[1].y],
-      ['L', points[2].x, points[2].y],
-      ['L', points[2].x, points[2].y],
+      ['L', (points[2].x + points[3].x) / 2, (points[2].y + points[3].y) / 2],
       ['Z']
     );
   } else {

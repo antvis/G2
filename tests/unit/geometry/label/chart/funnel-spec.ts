@@ -108,7 +108,7 @@ describe('Funnel chart label', () => {
     expect(labelItems[0].y).toBe(3.75);
     expect(labelItems[2].x).toBe(140);
     expect(labelItems[2].y).toBe(78.75);
-    expect(labelItems[4].x).toBe(116);
+    expect(labelItems[4].x).toBe(122);
     expect(labelItems[4].y).toBe(150);
   });
 
