@@ -1142,9 +1142,18 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
    * @returns
    */
   public getElementsBy(condition: (element: Element) => boolean): Element[] {
-    return this.elements.filter((element) => {
-      return condition(element);
-    });
+    return this.elements.filter((element) => condition(element));
+  }
+
+  /**
+   * 获取 Geometry 的所有 Elements。
+   *
+   * ```typescript
+   * getElements();
+   * ```
+   */
+  public getElements() {
+    return this.elements;
   }
 
   /**

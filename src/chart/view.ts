@@ -19,6 +19,7 @@ import {
   uniqueId,
   isEqual,
   isPlainObject,
+  reduce,
 } from '@antv/util';
 import { Attribute, Coordinate, Event as GEvent, GroupComponent, ICanvas, IGroup, IShape, Scale } from '../dependents';
 import {
@@ -42,11 +43,13 @@ import {
   ViewPadding,
   ViewAppendPadding,
   EventPayload,
+  Padding,
 } from '../interface';
 import { GROUP_Z_INDEX, LAYER, PLOT_EVENTS, VIEW_LIFE_CIRCLE } from '../constant';
 import Base from '../base';
 import { Facet, getFacet } from '../facet';
 import Geometry from '../geometry/base';
+import Element from '../geometry/element';
 import { createInteraction, Interaction } from '../interaction';
 import { getTheme } from '../theme';
 import { BBox } from '../util/bbox';
@@ -971,10 +974,18 @@ export class View extends Base {
    * @param field 数据字段名称
    * @param key id
    */
-  public getScaleByField(field: string, key?: string): Scale {
+  public getScale(field: string, key?: string): Scale {
     const defaultKey = key ? key : this.getScaleKey(field);
     // 调用根节点 view 的方法获取
     return this.getRootView().scalePool.getScale(defaultKey);
+  }
+
+  /**
+   * @deprecated
+   * This method will be removed at G2 V4.1. Please use `getScale`.
+   */
+  public getScaleByField(field: string, key?: string): Scale {
+    return this.getScale(field, key);
   }
 
   /**
@@ -991,6 +1002,57 @@ export class View extends Base {
    */
   public getData() {
     return this.filteredData;
+  }
+
+  /**
+   * 获取原始数据
+   * @returns 传入 G2 的原始数据
+   */
+  public getOriginalData() {
+    return this.options.data;
+  }
+
+  /**
+   * 获取布局后的边距 padding
+   * @returns
+   */
+  public getPadding(): Padding {
+    return this.autoPadding.getPadding();
+  }
+
+  /**
+   * 获取当前 view 有的 geometries
+   * @returns
+   */
+  public getGeometries() {
+    return this.geometries;
+  }
+
+  /**
+   * 获取 view 中的所有 geome
+   */
+  public getElements(): Element[] {
+    return reduce(this.geometries, (elements: Element[], geometry: Geometry) => {
+      return elements.concat(geometry.getElements());
+    }, []);
+  }
+
+  /**
+   * 根据一定的规则查找 Geometry 的 Elements。
+   *
+   * ```typescript
+   * getElementsBy((element) => {
+   *   const data = element.getData();
+   *
+   *   return data.a === 'a';
+   * });
+   * ```
+   *
+   * @param condition 定义查找规则的回调函数。
+   * @returns
+   */
+  public getElementsBy(condition: (element: Element) => boolean): Element[] {
+    return this.getElements().filter(el => condition(el));
   }
 
   /**
