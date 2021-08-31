@@ -490,7 +490,7 @@ export default class Annotation extends Controller<BaseOption[]> {
     }
 
     if (type === 'arc') {
-      const { start, end } = option as ArcOption;
+      const { start, end, ...rest } = option as ArcOption;
       const sp = this.parsePosition(start);
       const ep = this.parsePosition(end);
       const startAngle = getAngleByPoint(coordinate, sp);
@@ -500,28 +500,32 @@ export default class Annotation extends Controller<BaseOption[]> {
       }
 
       o = {
+        ...rest,
         center: coordinate.getCenter(),
         radius: getDistanceToCenter(coordinate, sp),
         startAngle,
         endAngle,
       };
     } else if (type === 'image') {
-      const { start, end } = option as ImageOption;
+      const { start, end, ...rest } = option as ImageOption;
       o = {
+        ...rest,
         start: this.parsePosition(start),
         end: this.parsePosition(end),
         src: option.src,
       };
     } else if (type === 'line') {
-      const { start, end } = option as LineOption;
+      const { start, end, ...rest } = option as LineOption;
       o = {
+        ...rest,
         start: this.parsePosition(start),
         end: this.parsePosition(end),
         text: get(option, 'text', null),
       };
     } else if (type === 'region') {
-      const { start, end } = option as RegionPositionBaseOption;
+      const { start, end, ...rest } = option as RegionPositionBaseOption;
       o = {
+        ...rest,
         start: this.parsePosition(start),
         end: this.parsePosition(end),
       };
@@ -538,8 +542,9 @@ export default class Annotation extends Controller<BaseOption[]> {
         content: textContent,
       };
     } else if (type === 'dataMarker') {
-      const { position, point, line, text, autoAdjust, direction } = option as DataMarkerOption;
+      const { position, point, line, text, autoAdjust, direction, ...rest } = option as DataMarkerOption;
       o = {
+        ...rest,
         ...this.parsePosition(position),
         coordinateBBox: this.getCoordinateBBox(),
         point,
@@ -549,15 +554,16 @@ export default class Annotation extends Controller<BaseOption[]> {
         direction,
       };
     } else if (type === 'dataRegion') {
-      const { start, end, region, text, lineLength } = option as DataRegionOption;
+      const { start, end, region, text, lineLength, ...rest } = option as DataRegionOption;
       o = {
+        ...rest,
         points: this.getRegionPoints(start, end),
         region,
         text,
         lineLength,
       };
     } else if (type === 'regionFilter') {
-      const { start, end, apply, color } = option as RegionFilterOption;
+      const { start, end, apply, color, ...rest } = option as RegionFilterOption;
       const geometries: Geometry[] = this.view.geometries;
       const shapes = [];
       const addShapes = (item?: IElement) => {
@@ -584,6 +590,7 @@ export default class Annotation extends Controller<BaseOption[]> {
         }
       });
       o = {
+        ...rest,
         color,
         shapes,
         start: this.parsePosition(start),
