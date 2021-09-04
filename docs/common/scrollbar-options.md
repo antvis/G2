@@ -46,3 +46,14 @@
 <description> _boolean_ **optional**</description>
 
 滚动的时候是否开启动画，默认跟随图表的 animate 配置
+
+
+### options.enableMouseWheel
+
+<description> _boolean_ | _object_ **optional** </description>
+
+啟用鼠標滾輪滾動
+
+| 参数名              | 类型     | 描述                                                        |
+| ------------------- | -------- | -----------------------------------------------------------|
+| wheelSpeed          | _number_ | 滾動速度                                                    |
