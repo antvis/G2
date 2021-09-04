@@ -53,6 +53,7 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
     super.destroy();
     this.view.off(VIEW_LIFE_CIRCLE.BEFORE_CHANGE_DATA, this.resetMeasure);
     this.view.off(VIEW_LIFE_CIRCLE.BEFORE_CHANGE_SIZE, this.resetMeasure);
+    this.cleanupViewInteractions();
   }
 
   public init() {}
@@ -66,17 +67,22 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
     if (this.option) {
       if (this.scrollbar) {
         // exist, update
-        this.scrollbar = this.updateScrollbar();
+        const config = this.getScrollbarComponentCfg()
+        this.scrollbar = this.updateScrollbar(config);
       } else {
         // not exist, create
         this.scrollbar = this.createScrollbar();
         this.scrollbar.component.on('scrollchange', this.onChangeFn);
+        if (isObject(this.option) && this.option.enableMouseWheel) {
+          this.view.interaction('plot-mousewheel-scroll');
+        }
       }
     } else {
       if (this.scrollbar) {
         // exist, destroy
         this.scrollbar.component.destroy();
         this.scrollbar = undefined;
+        this.cleanupViewInteractions();
       }
     }
   }
@@ -121,22 +127,7 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
       y += padding[0];
 
       // 默认放在 bottom
-      if (this.trackLen) {
-        this.scrollbar.component.update({
-          ...cfg,
-          x,
-          y,
-          trackLen: this.trackLen,
-          thumbLen: this.thumbLen,
-          thumbOffset: (this.trackLen - this.thumbLen) * this.ratio,
-        });
-      } else {
-        this.scrollbar.component.update({
-          ...cfg,
-          x,
-          y,
-        });
-      }
+      this.updateScrollbar({...cfg, x, y});
 
       this.view.viewBBox = this.view.viewBBox.cut(bbox, cfg.isHorizontal ? DIRECTION.BOTTOM : DIRECTION.RIGHT);
     }
@@ -266,8 +257,7 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
     };
   }
 
-  private updateScrollbar(): ComponentOption {
-    const config = this.getScrollbarComponentCfg();
+  private updateScrollbar(config): ComponentOption {
     const realConfig = this.trackLen
       ? {
           ...config,
@@ -276,6 +266,13 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
           thumbOffset: (this.trackLen - this.thumbLen) * this.ratio,
         }
       : { ...config };
+
+      if (realConfig.enableMouseWheel) {
+        this.view.interaction('plot-mousewheel-scroll');
+      } else {
+        this.cleanupViewInteractions();
+      }
+
     this.scrollbar.component.update(realConfig);
 
     return this.scrollbar;
@@ -304,7 +301,7 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
 
   private getScrollbarComponentCfg() {
     const { coordinateBBox, viewBBox } = this.view;
-    const { type, padding, width, height, style } = this.getValidScrollbarCfg();
+    const { type, padding, width, height, style, enableMouseWheel } = this.getValidScrollbarCfg();
     const isHorizontal = type !== 'vertical';
     const [paddingTop, paddingRight, paddingBottom, paddingLeft] = padding;
     const position = isHorizontal
@@ -333,6 +330,7 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
       thumbLen,
       thumbOffset: 0,
       theme: this.getScrollbarTheme(style),
+      enableMouseWheel
     };
   }
 
@@ -348,6 +346,7 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
       padding: [0, 0, 0, 0],
       animate: true,
       style: {},
+      enableMouseWheel: false,
     };
     if (isObject(this.option)) {
       cfg = { ...cfg, ...this.option };
@@ -358,5 +357,9 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
     }
 
     return cfg;
+  }
+
+  private cleanupViewInteractions() {
+    this.view.removeInteraction('plot-mousewheel-scroll');
   }
 }
