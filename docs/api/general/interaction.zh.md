@@ -665,6 +665,30 @@ Chart 和 View 上的 Action 用户控制视图的变化，目前支持的有：
 - zoomOut() 放大
 - reset() 恢复
 
+#### mousewheel-scroll
+
+- scroll() 鼠标滚轮
+
+```javascript
+chart.interaction("plot-mousewheel-scroll");
+
+chart.option('scrollbar', {
+  type: 'horizontal',
+});
+```
+
+在鼠标滚动事件（向下滚动或向上滚动）上滚动的图表数据项的数量可以通过如下设置 `wheelDelta` 参数来自定义:
+
+```javascript
+chart.interaction("plot-mousewheel-scroll", {
+  start: [{ trigger: 'plot:mousewheel', action: 'mousewheel-scroll:scroll', arg: {  wheelDelta: 5 } }],
+});
+
+chart.option('scrollbar', {
+  type: 'horizontal',
+});
+```
+
 ### Element 的 Action
 
 图表元素 Element 的 Action 大都与状态相关，支持的 Action 有：
