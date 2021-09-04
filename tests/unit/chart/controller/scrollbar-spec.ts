@@ -338,8 +338,8 @@ describe('Scrollbar', () => {
     expect(scrollbarBBox.width).toBe(coordinateBBox.width);
     expect(near(xAxisBBox.maxY, 392 - 16)).toBe(true);
     expect(scrollbar.component.get('trackLen')).toBe(coordinateBBox.width);
-    // @ts-ignore
-    expect(chart.filteredData.length).toBe(9);
+    // 32 - default category size
+    expect(chart.getData().length).toBe(Math.floor(coordinateBBox.width/32));
 
     chart.destroy();
   });
@@ -380,8 +380,8 @@ describe('Scrollbar', () => {
     // initial state
     expect(scrollbarBBox.height).toBe(8);
     expect(scrollbar.component.get('trackLen')).toBe(coordinateBBox.width);
-    // @ts-ignore
-    expect(chart.filteredData.length).toBe(9);
+    // 32 - default category size
+    expect(chart.getData().length).toBe(Math.floor(coordinateBBox.width/32));
 
     chart.destroy();
   });
