@@ -6,6 +6,9 @@ import { Scrollbar as ScrollbarComponent } from '../../../../src/dependents';
 import { BBox } from '../../../../src/util/bbox';
 import { delay } from '../../../util/delay';
 import { near } from '../../../util/math';
+import Context from '../../../../src/interaction/context';
+import MousewheelScroll from '../../../../src/interaction/action/view/mousewheel-scroll';
+import { getClientPoint, simulateMouseEvent } from '../../../util/simulate';
 
 describe('Scrollbar', () => {
   const container = createDiv();
@@ -343,6 +346,50 @@ describe('Scrollbar', () => {
 
     chart.destroy();
   });
+
+  it('scrollbar /w mouse wheel scrolling enabled', async () => {
+    const chart = new Chart({
+      container,
+      height: 400,
+      width: 360,
+    });
+    chart.animate(false);
+    chart.data(salesBySubCategory);
+    chart.axis('subCategory', {
+      label: {
+        autoHide: true,
+        autoRotate: false,
+      },
+    });
+    chart.option('scrollbar', {
+      type: 'horizontal',
+      categorySize: 32,
+      enableMouseWheel: {
+        wheelSpeed: 2
+      }
+    });
+    chart.scale('sales', {
+      nice: true,
+      formatter: (v) => `${Math.floor(v / 10000)}万`,
+    });
+    chart.interval().position('subCategory*sales').label('sales');
+
+    chart.render();
+
+    expect(chart.interactions['plot-mousewheel-scroll']).toBeDefined();
+
+    const spy = jest.spyOn(MousewheelScroll.prototype, 'scroll');
+    const canvas = chart.canvas;
+    const el = canvas.get('el');
+    simulateMouseEvent(el, 'mousewheel', getClientPoint(canvas, 180, 200));
+
+    expect(spy).toHaveBeenCalled();
+
+    chart.option('scrollbar', {enableMouseWheel: false});
+    await delay(500);
+    expect(chart.interactions['plot-mousewheel-scroll']).toBeUndefined();
+    chart.destroy();
+  })
 
   afterAll(() => {
     removeDom(container);
