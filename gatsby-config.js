@@ -293,6 +293,14 @@ module.exports = {
           en: 'Other Chart',
         },
       },
+      {
+        slug: 'customize',
+        icon: 'other',
+        title: {
+          zh: '业务自定义',
+          en: 'Customize',
+        },
+      },
     ],
     docsearchOptions: {
       apiKey: '200ec461f4aa0bb4f0e761566f1a1336',
