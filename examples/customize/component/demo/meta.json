@@ -19,6 +19,14 @@
         "zh": "自定义折线图 Tooltip"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/mt6fmjOEz9/7e80e61e-f4f5-4e55-9e72-75a37e62a078.png"
+    },
+    {
+      "filename": "bar-annotation.ts",
+      "title": {
+        "en": "Bar Annotation",
+        "zh": "自定义条图标注"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/rPYLMuT0Um/a45f988e-9e43-43ac-95b1-c4ee87480174.png"
     }
   ]
 }
