@@ -4,9 +4,8 @@ import inserCss from 'insert-css';
 const $container = document.getElementById('container');
 $container.innerHTML = `
 <div id="app-container">
-  <div id="g2-container"></div>
-  <div id="g2-customize-legend">
-	</div>
+  <div id="g2-container-pie"></div>
+  <div id="g2-customize-legend"></div>
 </div>
 `;
 
@@ -15,10 +14,10 @@ inserCss(`
   width: 100%;
   height: 100%;
   display: flex;
-  flex-direction: 'column',
+  flex-direction: column,
 }
 
-#g2-container {
+#g2-container-pie {
   flex: auto;
 }
 
@@ -62,7 +61,7 @@ const data = [
 ];
 
 const chart = new Chart({
-  container: 'g2-container',
+  container: 'g2-container-pie',
   autoFit: true,
   height: 500,
 });
