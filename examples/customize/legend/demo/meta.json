@@ -11,6 +11,14 @@
         "zh": "自定义图例饼图"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/FXumtQPY8%24/4f400067-dfde-47bc-8e75-0cd7695bd3b7.png"
+    },
+    {
+      "filename": "line-tooltip.ts",
+      "title": {
+        "en": "Line Tooltip",
+        "zh": "自定义 Tooltip"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/mt6fmjOEz9/7e80e61e-f4f5-4e55-9e72-75a37e62a078.png"
     }
   ]
 }

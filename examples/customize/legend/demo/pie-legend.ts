@@ -6,7 +6,6 @@ $container.innerHTML = `
 <div id="app-container">
   <div id="g2-container"></div>
   <div id="g2-customize-legend">
-    娃俄方
 	</div>
 </div>
 `;
