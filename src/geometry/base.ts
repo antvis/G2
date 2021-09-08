@@ -1112,8 +1112,25 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
     return attr.mapping(...params);
   }
 
+  /**
+   * 获取对应的 adjust 实例
+   * @param adjustType
+   * @returns
+   */
   public getAdjust(adjustType: string) {
     return this.adjusts[adjustType];
+  }
+
+  /**
+   * 获得 coordinate 实例
+   * @returns
+   */
+  public getCoordinate() {
+    return this.coordinate;
+  }
+
+  public getData() {
+    return this.data;
   }
 
   /**
@@ -1142,9 +1159,18 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
    * @returns
    */
   public getElementsBy(condition: (element: Element) => boolean): Element[] {
-    return this.elements.filter((element) => {
-      return condition(element);
-    });
+    return this.elements.filter((element) => condition(element));
+  }
+
+  /**
+   * 获取 Geometry 的所有 Elements。
+   *
+   * ```typescript
+   * getElements();
+   * ```
+   */
+  public getElements() {
+    return this.elements;
   }
 
   /**
@@ -1276,6 +1302,26 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
   }
 
   /**
+   * 获得所有的字段
+   */
+  public getFields() {
+    const uniqMap = new Map<string, boolean>();
+    const fields = [];
+
+    Object.values(this.attributeOption).forEach((cfg) => {
+      const fs = cfg?.fields || [];
+      fs.forEach(f => {
+        if (!uniqMap.has(f)) {
+          fields.push(f);
+        }
+        uniqMap.set(f, true);
+      });
+    }, []);
+
+    return fields;
+  }
+
+  /**
    * 获取当前配置中的所有分组 & 分类的字段。
    * @return fields string[]
    */
@@ -1299,6 +1345,22 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
   public getXYFields() {
     const [x, y] = this.attributeOption.position.fields;
     return [x, y];
+  }
+
+  /**
+   * x 字段
+   * @returns
+   */
+  public getXField(): string {
+    return get(this.getXYFields(), [0]);
+  }
+
+  /**
+   * y 字段
+   * @returns
+   */
+  public getYField(): string {
+    return get(this.getXYFields(), [1]);
   }
 
   /**

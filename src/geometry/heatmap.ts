@@ -209,16 +209,14 @@ export default class Heatmap extends Geometry {
   private getShapeInfo(mappingData: MappingDatum[]): ShapeInfo {
     const shapeCfg = this.getDrawCfg(mappingData[0]);
 
+    const data = mappingData.map((obj: Datum) => {
+      return obj[FIELD_ORIGIN];
+    });
+
     return {
       ...shapeCfg,
       mappingData,
-      data: this.getData(mappingData),
+      data,
     };
-  }
-
-  private getData(mappingData: MappingDatum[]): Data {
-    return mappingData.map((obj: Datum) => {
-      return obj[FIELD_ORIGIN];
-    });
   }
 }
