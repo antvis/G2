@@ -15,6 +15,8 @@ export function getNormalizedValue(val: number | string, scale: Scale) {
   switch (val) {
     case 'start':
       return 0;
+    case 'center':
+      return 0.5;
     case 'end':
       return 1;
     case 'median': {
