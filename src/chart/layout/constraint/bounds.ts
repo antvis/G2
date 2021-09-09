@@ -5,6 +5,7 @@ import { Variable } from './variable';
  * 定义一个布局元素的大小，其实就是包含有四个变量
  */
 export class Bounds {
+
   /**
    * x 变量
    */
@@ -25,10 +26,22 @@ export class Bounds {
    */
   public height: Variable;
 
+  constructor() {
+    this.x = new Variable();
+    this.y = new Variable();
+    this.width = new Variable();
+    this.height = new Variable();
+  }
+
   /**
    * 最终的布局信息
    */
   public get bbox(): BoxObject {
-    return;
+    return {
+      x: this.x.value,
+      y: this.y.value,
+      width: this.width.value,
+      height: this.height.value,
+    };
   }
 }

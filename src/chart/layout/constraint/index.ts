@@ -1,5 +1,7 @@
 /*
 
+> 先做一个针对 G2 场景的极简版本，只有 EQ，而没有不等式的！
+
 ```ts
 import { Solver, Constraint, Bounds, Operator } from './constraint';
 
@@ -23,5 +25,6 @@ const layout = solver.calc();
 
 export { Solver } from './solver';
 export { Bounds } from './bounds';
+export { Variable } from './variable';
 export { Constraint } from './constraint';
 export { Operator } from './types';
