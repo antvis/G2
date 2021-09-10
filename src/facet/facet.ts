@@ -1,4 +1,4 @@
-import { deepMix, each, every, get, isNil } from '@antv/util';
+import { deepMix, each, every, get, isNil, isNumber } from '@antv/util';
 import { LAYER } from '../constant';
 import { IGroup } from '../dependents';
 import { AxisCfg, Condition, Datum, FacetCfg, FacetData, FacetDataFilter, Region } from '../interface';
@@ -42,6 +42,15 @@ export abstract class Facet<C extends FacetCfg<FacetData> = FacetCfg<FacetData>,
   protected cfg: C;
   /** 分面之后的所有分面数据结构 */
   protected facets: F[] = [];
+
+  protected get spacing() {
+    const { width, height } = this.view.viewBBox;
+    const { spacing } = this.cfg;
+    return spacing.map((s, idx) => {
+      if (isNumber(s)) return s / [width, height][idx];
+      else return parseFloat(s) / 100;
+    });
+  }
 
   constructor(view: View, cfg: C) {
     this.view = view;
@@ -153,11 +162,9 @@ export abstract class Facet<C extends FacetCfg<FacetData> = FacetCfg<FacetData>,
    */
   private createFacetViews(): View[] {
     // 使用分面数据 创建分面 view
-    return this.facets.map(
-      (facet): View => {
-        return this.facetToView(facet);
-      }
-    );
+    return this.facets.map((facet): View => {
+      return this.facetToView(facet);
+    });
   }
 
   /**
@@ -206,30 +213,19 @@ export abstract class Facet<C extends FacetCfg<FacetData> = FacetCfg<FacetData>,
    * @param yIndex y 方向 index
    */
   protected getRegion(rows: number, cols: number, xIndex: number, yIndex: number): Region {
-    // x, y 方向均分 100% 宽高
-    const xRatio = 1 / (cols === 0 ? 1 : cols);
-    const yRatio = 1 / (rows === 0 ? 1 : rows);
-
-    const start = {
-      x: xRatio * xIndex,
-      y: yRatio * yIndex,
-    };
-
-    const end = {
-      x: xRatio * (xIndex + 1),
-      y: yRatio * (yIndex + 1),
-    };
-
-    return {
-      start,
-      end,
-    };
+    const [xSpacing, ySpacing] = this.spacing;
+    const xRatio = (1 + xSpacing) / (cols === 0 ? 1 : cols) - xSpacing;
+    const yRatio = (1 + ySpacing) / (rows === 0 ? 1 : rows) - ySpacing;
+    const start = { x: (xRatio + xSpacing) * xIndex, y: (yRatio + ySpacing) * yIndex };
+    const end = { x: start.x + xRatio, y: start.y + yRatio };
+    return { start, end };
   }
 
   protected getDefaultCfg() {
     return {
       eachView: undefined,
       showTitle: true,
+      spacing: [0, 0],
       padding: 10,
       fields: [],
     };

@@ -1,3 +1,9 @@
+#### FacetCfg.spacing
+
+<description> _[number | string, number | string]_ **optional**</description>
+
+facet 之间的水平、垂直间隔，支持百分比形式和数值形式。
+
 #### FacetCfg.padding
 
 <description> _number | number[] | 'auto'_ **optional**</description>
