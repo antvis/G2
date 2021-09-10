@@ -28,6 +28,7 @@ describe('util annotation', () => {
     });
 
     expect(getNormalizedValue('start', scale)).toEqual(0);
+    expect(getNormalizedValue('center', scale)).toEqual(0.5);
     expect(getNormalizedValue('end', scale)).toEqual(1);
     expect(near(getNormalizedValue('mean', scale), 0.055999999999999994)).toBe(true);
     expect(getNormalizedValue('median', scale)).toEqual(0.065);

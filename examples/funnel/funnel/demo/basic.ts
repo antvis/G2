@@ -90,7 +90,7 @@ chart.on('beforepaint', () => {
       top: true,
       position: {
         action: obj.action,
-        percent: 'median',
+        percent: 'center',
       },
       content: +obj.percent * 100 + '%', // 显示的文本内容
       style: {
