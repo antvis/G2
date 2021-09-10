@@ -58,7 +58,7 @@ chart
         return originData.value + '%';
       },
       style: {
-        stroke: '#fff'
+        fill: '#fff'
       }
     };
   });
