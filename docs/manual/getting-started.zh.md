@@ -69,15 +69,19 @@ const chart = new G2.Chart({
 创建 `div` 容器后，我们就可以进行简单的图表绘制：
 
 1. `new Chart()` 创建 Chart 图表对象，指定图表所在的容器 id、图表的宽高、边距等信息；
-2. `chart.data()` 载入图表数据源；
-3. 使用图形语法进行图表的绘制；
-4. `chart.render()` 渲染图表。
+3. `chart.data()` 载入图表数据源；
+4. 使用图形语法进行图表的绘制；
+5. `chart.render()` 渲染图表。
 
 <!-- 先放这里，等 gatsby 版本升级后即可看到效果 -->
 
 <playground path='column/basic/demo/basic.ts'></playground>
 
 你也可以进入 [G2 图表示例](zh/examples/gallery)页面查看更多例子。
+
+### 3. 图表容器被销毁时
+
+在图表容器被销毁时，总是应调用 `chart.destroy()` 以销毁实例释放资源，避免内存泄漏。
 
 ## 在 React / Vue / Angular 中使用 G2
 
