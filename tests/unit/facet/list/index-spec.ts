@@ -30,7 +30,6 @@ describe('facet rect', () => {
     fields: ['cut'],
     cols: 3, // 超过3个换行
     padding: 30,
-    spacing: ['10%', '10%'],
     eachView(view) {
       view.point().position('carat*price').color('cut').shape('circle').style({ opacity: 0.3 }).size(3);
     },
@@ -43,12 +42,10 @@ describe('facet rect', () => {
     // @ts-ignore
     expect(chart.views[0].padding).toEqual(30);
     // @ts-ignore
-    const { start: { x: sx, y: sy }, end: { x: ex, y: ey } } = chart.views[3].region;
-    expect(sx).toBeCloseTo(0);
-    expect(sy).toBeCloseTo((1 - 0.1) / 2 + 0.1);
-    expect(ex).toBeCloseTo((1 - 0.2) / 3);
-    expect(ey).toBeCloseTo(1);
-
+    expect(chart.views[3].region).toEqual({
+      start: { x: 0, y: 1 / 2 },
+      end: { x: 1 / 3, y: 1 },
+    });
     // @ts-ignore
     const facetData0 = chart.facetInstance.facets[0] as ListData;
     expect(facetData0.total).toBe(5);
