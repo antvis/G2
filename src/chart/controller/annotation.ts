@@ -365,19 +365,22 @@ export default class Annotation extends Controller<BaseOption[]> {
 
     let x = 0;
     let y = 0;
-
+    const coordinate = this.view.getCoordinate();
     // 入参是 [24, 24] 这类时
     if (isArray(position)) {
       const [xPos, yPos] = position;
-      // 如果数据格式是 ['50%', '50%'] 的格式
-      // fix: 原始数据中可能会包含 'xxx5%xxx' 这样的数据，需要判断下 https://github.com/antvis/f2/issues/590
-      // @ts-ignore
-      if (isString(xPos) && xPos.indexOf('%') !== -1 && !isNaN(xPos.slice(0, -1))) {
-        return this.parsePercentPosition(position as [string, string]);
-      }
-
-      x = getNormalizedValue(xPos, xScale);
-      y = getNormalizedValue(yPos, Object.values(yScales)[0]);
+      // 如果数据格式是 ['50%', 50] 的格式
+      [x, y] = position.map((pos, idx) => {
+        const picker = idx === 0 ? 'x' : 'y';
+        // fix: 原始数据中可能会包含 'xxx5%xxx' 这样的数据，需要判断下 https://github.com/antvis/f2/issues/590
+        // @ts-ignore
+        if (isString(pos) && pos.indexOf('%') !== -1 && !isNaN(pos.slice(0, -1))) {
+          const temp = { x: 0, y: 0 };
+          temp[picker] = idx === 0 ? this.parseXPercentPosition(pos) : this.parseYPercentPosition(pos);
+          return coordinate.invert(temp)[picker];
+        }
+        return getNormalizedValue(pos, idx === 0 ? xScale : Object.values(yScales)[0]);
+      });
     } else if (!isNil(position)) {
       // 入参是 object 结构，数据点
       for (const key of keys(position)) {
@@ -390,8 +393,7 @@ export default class Annotation extends Controller<BaseOption[]> {
         }
       }
     }
-
-    return this.view.getCoordinate().convert({ x, y });
+    return coordinate.convert({ x, y });
   }
 
   /**
@@ -430,22 +432,27 @@ export default class Annotation extends Controller<BaseOption[]> {
   }
 
   /**
-   * parse percent position
-   * @param position
+   * parse percent position of x
+   * @param number
    */
-  private parsePercentPosition(position: [string, string]): Point {
-    const xPercent = parseFloat(position[0]) / 100;
-    const yPercent = parseFloat(position[1]) / 100;
+  private parseXPercentPosition(number: string): number {
     const coordinate = this.view.getCoordinate();
     const { start, end } = coordinate;
+    const xPercent = parseFloat(number) / 100;
+    const x = coordinate.getWidth() * xPercent + Math.min(start.x, end.x);
+    return x;
+  }
 
-    const topLeft = {
-      x: Math.min(start.x, end.x),
-      y: Math.min(start.y, end.y),
-    };
-    const x = coordinate.getWidth() * xPercent + topLeft.x;
-    const y = coordinate.getHeight() * yPercent + topLeft.y;
-    return { x, y };
+  /**
+   * parse percent position of y
+   * @param number
+   */
+  private parseYPercentPosition(number: string): number {
+    const coordinate = this.view.getCoordinate();
+    const { start, end } = coordinate;
+    const yPercent = parseFloat(number) / 100;
+    const y = coordinate.getHeight() * yPercent + Math.min(start.y, end.y);
+    return y;
   }
 
   /**
