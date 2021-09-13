@@ -1665,7 +1665,7 @@ export interface FacetCfg<D> {
   readonly type?: string;
   /** view 创建回调。 */
   readonly eachView: (innerView: View, facet?: D) => any;
-  /** 分面 view 之间的间隔百分比 */
+  /** 分面 view 之间的间隔， 百分比或像素值 */
   readonly spacing?: [number | string, number | string];
   /** facet view padding。 */
   readonly padding?: ViewPadding;

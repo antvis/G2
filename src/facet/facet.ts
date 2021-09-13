@@ -43,19 +43,6 @@ export abstract class Facet<C extends FacetCfg<FacetData> = FacetCfg<FacetData>,
   /** 分面之后的所有分面数据结构 */
   protected facets: F[] = [];
 
-  /**
-   * 解析 spacing
-   * 支持 ['50%', 0.5], [0.5, '50%'], ['50%', '50%'], [0.5, 0.5] 格式
-   */
-  protected parseSpacing() {
-    const { width, height } = this.view.viewBBox;
-    const { spacing } = this.cfg;
-    return spacing.map((s:number, idx: number) => {
-      if (isNumber(s)) return s / (idx === 0 ? width : height);
-      else return parseFloat(s) / 100;
-    });
-  }
-
   constructor(view: View, cfg: C) {
     this.view = view;
     this.cfg = deepMix({}, this.getDefaultCfg(), cfg);
@@ -181,6 +168,31 @@ export abstract class Facet<C extends FacetCfg<FacetData> = FacetCfg<FacetData>,
         this.view.removeView(facet.view);
         facet.view = undefined;
       }
+    });
+  }
+
+  /**
+   * 解析 spacing
+   */
+  private parseSpacing() {
+    /**
+     * @example
+     *
+     * // 仅使用百分比或像素值
+     * // 横向间隔为 10%，纵向间隔为 10%
+     * ['10%', '10%']
+     * // 横向间隔为 10px，纵向间隔为 10px
+     * [10, 10]
+     *
+     * // 同时使用百分比和像素值
+     * ['10%', 10]
+     * // 横向间隔为 10%，纵向间隔为 10px
+     */
+    const { width, height } = this.view.viewBBox;
+    const { spacing } = this.cfg;
+    return spacing.map((s: number, idx: number) => {
+      if (isNumber(s)) return s / (idx === 0 ? width : height);
+      else return parseFloat(s) / 100;
     });
   }
 
