@@ -43,11 +43,15 @@ export abstract class Facet<C extends FacetCfg<FacetData> = FacetCfg<FacetData>,
   /** 分面之后的所有分面数据结构 */
   protected facets: F[] = [];
 
-  protected get spacing() {
+  /**
+   * 解析 spacing
+   * 支持 ['50%', 0.5], [0.5, '50%'], ['50%', '50%'], [0.5, 0.5] 格式
+   */
+  protected parseSpacing() {
     const { width, height } = this.view.viewBBox;
     const { spacing } = this.cfg;
-    return spacing.map((s, idx) => {
-      if (isNumber(s)) return s / [width, height][idx];
+    return spacing.map((s:number, idx: number) => {
+      if (isNumber(s)) return s / (idx === 0 ? width : height);
       else return parseFloat(s) / 100;
     });
   }
@@ -213,11 +217,29 @@ export abstract class Facet<C extends FacetCfg<FacetData> = FacetCfg<FacetData>,
    * @param yIndex y 方向 index
    */
   protected getRegion(rows: number, cols: number, xIndex: number, yIndex: number): Region {
-    const [xSpacing, ySpacing] = this.spacing;
+    const [xSpacing, ySpacing] = this.parseSpacing();
+    // 每两个分面区域横向间隔xSPacing, 纵向间隔ySpacing
+    // 每个分面区域的横纵占比
+    /**
+     * ratio * num + spacing * (num - 1) = 1
+     * => ratio = (1 - (spacing * (num - 1))) / num
+     *          = (1 + spacing) / num - spacing
+     *
+     * num 对应 cols/rows
+     * spacing 对应 xSpacing/ySpacing
+     */
     const xRatio = (1 + xSpacing) / (cols === 0 ? 1 : cols) - xSpacing;
     const yRatio = (1 + ySpacing) / (rows === 0 ? 1 : rows) - ySpacing;
-    const start = { x: (xRatio + xSpacing) * xIndex, y: (yRatio + ySpacing) * yIndex };
-    const end = { x: start.x + xRatio, y: start.y + yRatio };
+
+    // 得到第 index 个分面区域百分比位置
+    const start = {
+      x: (xRatio + xSpacing) * xIndex,
+      y: (yRatio + ySpacing) * yIndex,
+    };
+    const end = {
+      x: start.x + xRatio,
+      y: start.y + yRatio,
+    };
     return { start, end };
   }
 

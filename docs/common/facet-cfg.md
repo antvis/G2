@@ -2,7 +2,7 @@
 
 <description> _[number | string, number | string]_ **optional**</description>
 
-facet 之间的水平、垂直间隔，支持百分比形式和数值形式。
+facet 之间的水平、垂直间隔，支持百分比形式和数值形式, 如: `['50%', 0.5], [0.5, '50%'], ['50%', '50%'], [0.5, 0.5]`。
 
 #### FacetCfg.padding
 
