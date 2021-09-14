@@ -26,11 +26,16 @@ export class Bounds {
    */
   public height: Variable;
 
-  constructor() {
-    this.x = new Variable();
-    this.y = new Variable();
-    this.width = new Variable();
-    this.height = new Variable();
+  /**
+   * bounds 的名字
+   */
+  public name: string;
+
+  constructor(name: string) {
+    this.x = new Variable(`${name}.x`);
+    this.y = new Variable(`${name}.y`);
+    this.width = new Variable(`${name}.w`);
+    this.height = new Variable(`${name}.h`);
   }
 
   /**
