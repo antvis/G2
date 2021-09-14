@@ -120,6 +120,9 @@ In this way, your first column chart is drawn!
 
 You can also go to the [G2 chart example](../../examples/gallery) page to see more examples.
 
+### 3. Dispose of the Container Node
+Call `chart.destroy()` to release resources while disposing the node to avoid memory leaks.
+
 ## Use G2 in React / Vue / Angular
 
 There are many excellent projects based on the AntV technology stack. To use G2 in the React environment, we recommend using BizCharts and Viser-react! These two products are based on G2's React version packaging, and the experience is more in line with the habits of the React technology stack. They both have close collaboration with AntV. They will soon also open source and release a version based on G2 4.0.
