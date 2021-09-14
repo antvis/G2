@@ -169,6 +169,7 @@ describe('facet mirror transpose = true', () => {
     fields: ['gender'],
     transpose: true,
     padding: [0, 48, 0, 0],
+    spacing: ['10%', '10%'],
     eachView(view) {
       view.interval().position('age*total_percentage').color('gender', ['#1890ff', '#f04864']);
     },
@@ -235,6 +236,27 @@ describe('facet mirror transpose = true', () => {
     // @ts-ignore
     expect(facetInstance.facets.length).toBe(2);
     expect(facetInstance.destroyed).toBe(false);
+  });
+
+  it('spacing', () => {
+    const {
+      start: { x: sx0, y: sy0 },
+      end: { x: ex0, y: ey0 },
+      // @ts-ignore
+    } = chart.views[0].region;
+    expect(sx0).toBeCloseTo(0);
+    expect(sy0).toBeCloseTo(0);
+    expect(ex0).toBeCloseTo(0.5 - 0.1 / 2);
+    expect(ey0).toBeCloseTo(1);
+    const {
+      start: { x: sx1, y: sy1 },
+      end: { x: ex1, y: ey1 },
+      // @ts-ignore
+    } = chart.views[1].region;
+    expect(sx1).toBeCloseTo(0.5 + 0.1 / 2);
+    expect(sy1).toBeCloseTo(0);
+    expect(ex1).toBeCloseTo(1);
+    expect(ey1).toBeCloseTo(1);
   });
 
   it('clear', () => {

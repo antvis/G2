@@ -1,4 +1,4 @@
-import { deepMix, each, every, get, isNil } from '@antv/util';
+import { deepMix, each, every, get, isNil, isNumber } from '@antv/util';
 import { LAYER } from '../constant';
 import { IGroup } from '../dependents';
 import { AxisCfg, Condition, Datum, FacetCfg, FacetData, FacetDataFilter, Region } from '../interface';
@@ -153,11 +153,9 @@ export abstract class Facet<C extends FacetCfg<FacetData> = FacetCfg<FacetData>,
    */
   private createFacetViews(): View[] {
     // 使用分面数据 创建分面 view
-    return this.facets.map(
-      (facet): View => {
-        return this.facetToView(facet);
-      }
-    );
+    return this.facets.map((facet): View => {
+      return this.facetToView(facet);
+    });
   }
 
   /**
@@ -170,6 +168,31 @@ export abstract class Facet<C extends FacetCfg<FacetData> = FacetCfg<FacetData>,
         this.view.removeView(facet.view);
         facet.view = undefined;
       }
+    });
+  }
+
+  /**
+   * 解析 spacing
+   */
+  private parseSpacing() {
+    /**
+     * @example
+     *
+     * // 仅使用百分比或像素值
+     * // 横向间隔为 10%，纵向间隔为 10%
+     * ['10%', '10%']
+     * // 横向间隔为 10px，纵向间隔为 10px
+     * [10, 10]
+     *
+     * // 同时使用百分比和像素值
+     * ['10%', 10]
+     * // 横向间隔为 10%，纵向间隔为 10px
+     */
+    const { width, height } = this.view.viewBBox;
+    const { spacing } = this.cfg;
+    return spacing.map((s: number, idx: number) => {
+      if (isNumber(s)) return s / (idx === 0 ? width : height);
+      else return parseFloat(s) / 100;
     });
   }
 
@@ -206,30 +229,37 @@ export abstract class Facet<C extends FacetCfg<FacetData> = FacetCfg<FacetData>,
    * @param yIndex y 方向 index
    */
   protected getRegion(rows: number, cols: number, xIndex: number, yIndex: number): Region {
-    // x, y 方向均分 100% 宽高
-    const xRatio = 1 / (cols === 0 ? 1 : cols);
-    const yRatio = 1 / (rows === 0 ? 1 : rows);
+    const [xSpacing, ySpacing] = this.parseSpacing();
+    // 每两个分面区域横向间隔xSPacing, 纵向间隔ySpacing
+    // 每个分面区域的横纵占比
+    /**
+     * ratio * num + spacing * (num - 1) = 1
+     * => ratio = (1 - (spacing * (num - 1))) / num
+     *          = (1 + spacing) / num - spacing
+     *
+     * num 对应 cols/rows
+     * spacing 对应 xSpacing/ySpacing
+     */
+    const xRatio = (1 + xSpacing) / (cols === 0 ? 1 : cols) - xSpacing;
+    const yRatio = (1 + ySpacing) / (rows === 0 ? 1 : rows) - ySpacing;
 
+    // 得到第 index 个分面区域百分比位置
     const start = {
-      x: xRatio * xIndex,
-      y: yRatio * yIndex,
+      x: (xRatio + xSpacing) * xIndex,
+      y: (yRatio + ySpacing) * yIndex,
     };
-
     const end = {
-      x: xRatio * (xIndex + 1),
-      y: yRatio * (yIndex + 1),
+      x: start.x + xRatio,
+      y: start.y + yRatio,
     };
-
-    return {
-      start,
-      end,
-    };
+    return { start, end };
   }
 
   protected getDefaultCfg() {
     return {
       eachView: undefined,
       showTitle: true,
+      spacing: [0, 0],
       padding: 10,
       fields: [],
     };

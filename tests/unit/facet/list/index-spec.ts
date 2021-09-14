@@ -46,7 +46,6 @@ describe('facet rect', () => {
       start: { x: 0, y: 1 / 2 },
       end: { x: 1 / 3, y: 1 },
     });
-
     // @ts-ignore
     const facetData0 = chart.facetInstance.facets[0] as ListData;
     expect(facetData0.total).toBe(5);

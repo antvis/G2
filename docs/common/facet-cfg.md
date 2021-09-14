@@ -1,3 +1,12 @@
+#### FacetCfg.spacing
+
+<description> _[number | string, number | string]_ **optional**</description>
+
+分面子图之间的横向、纵向间隔大小，百分比形式表示占 view 宽高比例，数值形式表示像素值大小。支持百分比形式和数值形式混合表示，如：
+
+- [像素值, 像素值]: `[10, 20]`
+- [像素值, 百分比]: `[20, '50%']`
+
 #### FacetCfg.padding
 
 <description> _number | number[] | 'auto'_ **optional**</description>
