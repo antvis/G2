@@ -368,7 +368,6 @@ export default class Annotation extends Controller<BaseOption[]> {
     const coordinate = this.view.getCoordinate();
     // 入参是 [24, 24] 这类时
     if (isArray(position)) {
-      const [xPos, yPos] = position;
       // 如果数据格式是 ['50%', 50] 的格式
       [x, y] = position.map((pos, idx) => {
         const picker = idx === 0 ? 'x' : 'y';
@@ -678,13 +677,11 @@ export default class Annotation extends Controller<BaseOption[]> {
   private updateOrCreate(option: BaseOption) {
     // 拿到缓存的内容
     let co = this.cache.get(this.getCacheKey(option));
-
     // 存在则更新，不存在在创建
     if (co) {
       const { type } = option;
       const theme = this.getAnnotationTheme(type);
       const cfg = this.getAnnotationCfg(type, option, theme);
-
       // 忽略掉一些配置
       omit(cfg, ['container']);
       co.component.update(cfg);
