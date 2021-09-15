@@ -61,7 +61,7 @@
     "@babel/preset-env": "^7.13.0",
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-angular": "^13.1.0",
-    "@types/jest": "^25.2.1",
+    "@types/jest": "^27.0.1",
     "babel-loader": "^8.2.2",
     "conventional-changelog-cli": "^2.0.28",
     "core-js": "^2.5.7",
