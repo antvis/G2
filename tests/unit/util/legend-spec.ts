@@ -142,7 +142,7 @@ describe('util legend', () => {
     const geometry = chart.geometries[0];
     const { filters } = chart.getOptions();
     const attr = geometry.getGroupAttributes()[0];
-    let items = getLegendItems(chart, geometry, attr, {}, {});
+    const items = getLegendItems(chart, geometry, attr, {}, {});
     expect(filters.type).toBeDefined();
     expect(items.length).toBe(3);
     expect(items[0].unchecked).toBeFalsy();
