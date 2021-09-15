@@ -7,7 +7,20 @@ describe('constraint', () => {
     const c = new Constraint(Operator.EQ, [2, x1], x2, -100);
 
     expect(c.getVariables()).toEqual([x1, x2]);
-    expect(c.toString()).toBe('2*x1 + x2 + -100 = 0');
+  });
+
+  it.only('invalid Constraint', () => {
+    const x1 = new Variable('x1');
+    const x2 = new Variable('x2');
+    const c = new Constraint(Operator.EQ, [2, x1], x2, 'invalid', -100);
+
+    const vm = new Map();
+    vm.set(x1, 0);
+    vm.set(x2, 1);
+
+    expect(c.getVariables()).toEqual([x1, x2]);
+
+    expect(c.getGaussArr(vm)).toEqual([2, 1, -100]);
   });
 
   it('getGaussArr', () => {

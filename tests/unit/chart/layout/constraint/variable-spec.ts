@@ -7,9 +7,9 @@ describe('constraint', () => {
     v.value = 1;
     expect(v.value).toBe(1);
 
-    expect(v.toString()).toBe(`𝒳_1`);
+    expect(v.name).toBe(`𝒳_1`);
 
     const v1 = new Variable('v1');
-    expect(v1.toString()).toBe('v1');
+    expect(v1.name).toBe('v1');
   });
 });

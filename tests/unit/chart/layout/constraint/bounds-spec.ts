@@ -2,7 +2,7 @@ import { Bounds, Variable } from '../../../../../src/chart/layout/constraint';
 
 describe('constraint', () => {
   it('Bounds', () => {
-    const bounds = new Bounds();
+    const bounds = new Bounds('x');
 
     expect(bounds.x).toBeInstanceOf(Variable);
     expect(bounds.y).toBeInstanceOf(Variable);

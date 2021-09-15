@@ -33,7 +33,7 @@ export class Solver {
    * @param constraint
    */
   public addConstraint(...constraints: Constraint[]) {
-    this.constraints = constraints;
+    this.constraints.push(...constraints);
   }
 
   /**
@@ -42,6 +42,7 @@ export class Solver {
   public calc() {
     // 1. 拿到变量
     this.variables = this.getVariables();
+
     this.m = this.constraints.length;
     this.n = this.variables.length;
     
@@ -61,7 +62,7 @@ export class Solver {
   /**
    * 获取约束中所有的变量
    */
-  public getVariables() {
+  private getVariables() {
     let vars = [];
     for (let i = 0; i < this.constraints.length; i++) {
       const constraint = this.constraints[i];

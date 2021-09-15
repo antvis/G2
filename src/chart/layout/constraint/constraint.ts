@@ -74,19 +74,6 @@ export class Constraint {
   }
 
   /**
-   * 转字符串
-   */
-  public toString(): string {
-    return this.elements.map((element: Element) => {
-      if (Array.isArray(element)) {
-        return element.map(el => el.toString()).join('*');
-      }
-      
-      return element.toString();
-    }).join(' + ') + ' = 0';
-  }
-
-  /**
    * 解析 element，产生 [a, variable]
    * @param element 
    */

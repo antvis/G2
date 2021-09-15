@@ -30,11 +30,4 @@ export class Variable {
   constructor(name?: string) {
     this.name = name ?? `𝒳${uniqueId('_')}`;
   }
-
-  /**
-   * 转文本
-   */
-  public toString(): string {
-    return this.name;
-  }
 }
