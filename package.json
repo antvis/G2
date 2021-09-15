@@ -20,10 +20,10 @@
     "site:deploy": "npm run build && npm run site:build && npm run site:copy-mirror-action && gh-pages -d public",
     "site:copy-mirror-action": "mkdir -p public/.github/workflows && cp .github/workflows/mirror.yml public/.github/workflows",
     "clean": "rimraf lib esm dist",
-    "fix": "tslint -c tslint.json ./src/**/*.ts ./tests/**/*.ts --fix && prettier --write ./src ./tests && lint-md ./docs --fix",
+    "fix": "eslint ./src/**/*.ts ./__tests__/**/*.ts --fix && prettier --write ./src ./tests && lint-md ./docs --fix",
     "lint": "run-p lint:*",
-    "lint:tslint": "tslint -c tslint.json 'src/**/*.ts'",
     "lint:md": "lint-md ./docs",
+    "lint:eslint": "eslint ./src/**/*.ts",
     "test": "jest",
     "test-live": "DEBUG_MODE=1 jest --watch tests/unit",
     "coverage": "jest --coverage",
@@ -62,8 +62,11 @@
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-angular": "^13.1.0",
     "@types/jest": "^25.2.1",
+    "@typescript-eslint/eslint-plugin": "^4.31.1",
+    "@typescript-eslint/parser": "^4.31.1",
     "babel-loader": "^8.2.2",
     "conventional-changelog-cli": "^2.0.28",
+    "eslint": "^7.32.0",
     "gatsby": "^2.20.23",
     "generate-changelog": "^1.8.0",
     "gh-pages": "^3.2.3",
@@ -81,8 +84,6 @@
     "rimraf": "^3.0.0",
     "ts-jest": "^26.0.0",
     "ts-loader": "^9.2.5",
-    "tslint": "^6.1.2",
-    "tslint-config-prettier": "^1.18.0",
     "typedoc": "^0.17.6",
     "typedoc-plugin-markdown": "^2.2.11",
     "typescript": "^3.5.3",
@@ -95,8 +96,8 @@
       "prettier --write"
     ],
     "*.ts": [
-      "tslint -c tslint.json --fix",
-      "prettier --write"
+      "prettier --write",
+      "eslint ./src/**/*.ts ./__tests__/**/*.ts --fix"
     ],
     "*.md": [
       "lint-md ./docs --fix"
