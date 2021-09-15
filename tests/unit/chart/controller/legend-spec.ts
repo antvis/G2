@@ -147,6 +147,43 @@ describe('Legend', () => {
     expect(legends[0].component.get('title').text).toBe('城市');
   });
 
+  it('items marker callback custom', () => {
+    const container = createDiv();
+    chart = new Chart({
+      container,
+      height: 500,
+      width: 600,
+      autoFit: false,
+    });
+    chart.data([
+      { name: 'London', 月份: 'Jan.', 月均降雨量: 18.9 },
+      { name: 'London', 月份: 'Feb.', 月均降雨量: 28.8 },
+      { name: 'London', 月份: 'Mar.', 月均降雨量: 39.3 },
+      { name: 'Berlin', 月份: 'Jan.', 月均降雨量: 12.4 },
+      { name: 'Berlin', 月份: 'Feb.', 月均降雨量: 23.2 },
+      { name: 'Berlin', 月份: 'Mar.', 月均降雨量: 34.5 },
+    ]);
+
+    chart.legend({
+      custom: true,
+      items: [
+        { name: 'London', value: 'London', marker: () => ({ symbol: 'tick', style: { r: 10 } }) },
+        { name: 'Berlin', value: 'Berlin', marker: () => ({ symbol: 'circle', style: { r: 10 } }) },
+      ],
+      title: {
+        text: '城市',
+      },
+    });
+
+    chart.interval().position('月份*月均降雨量').size('月均降雨量').adjust('dodge');
+    chart.render();
+
+    const legends = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND);
+    expect(legends[0].component.get('items')[0].marker.symbol).toBeInstanceOf(Function);
+    expect(legends[0].component.get('items')[1].marker.symbol).toBe('circle');
+    expect(legends[0].component.get('title').text).toBe('城市');
+  });
+
   it('category legend, use hexagon marker', () => {
     const container = createDiv();
     chart = new Chart({

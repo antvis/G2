@@ -145,10 +145,13 @@ export function getCustomLegendItems(themeMarker: object, userMarker: object, cu
   // 如果有自定义的 item，那么就直接使用，并合并主题的 marker 配置
   return customItems.map((item: LegendItem, index: number) => {
     let markerCfg = userMarker;
-      if (isFunction(markerCfg)) {
-        markerCfg = markerCfg(item.name, index, deepMix({}, themeMarker, item))
-      }
-    const marker = deepMix({}, themeMarker, markerCfg, item.marker);
+    if (isFunction(markerCfg)) {
+      markerCfg = markerCfg(item.name, index, deepMix({}, themeMarker, item))
+    }
+
+    const itemMarker = isFunction(item.marker) ? item.marker(item.name, index, deepMix({}, themeMarker, item)) : item.marker;
+
+    const marker = deepMix({}, themeMarker, markerCfg, itemMarker);
     setMarkerSymbol(marker);
 
     item.marker = marker;
