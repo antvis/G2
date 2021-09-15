@@ -213,8 +213,8 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
   public labelOption: LabelOption | false;
   /** 状态量相关的配置项 */
   public stateOption: StateOption;
-  /** 使用 key-value 存储上一次渲染时的 element，用于更新逻辑，key 为每个 Element 实例对应的唯一 ID*/
-  public elementsMap: Map<string, Element>;
+  /** 使用 key-value 结构存储 Element，key 为每个 Element 实例对应的唯一 ID */
+  public elementsMap: Record<string, Element> = {};
   /** animate 配置项 */
   public animateOption: AnimateOption | boolean = true;
   /** 图形属性映射配置 */
@@ -227,6 +227,8 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
   protected customOption: CustomOption;
   /** 每个 Geometry 对应的 Shape 工厂实例，用于创建各个 Shape */
   protected shapeFactory: ShapeFactory;
+  /** 存储上一次渲染时的 element 映射表，用于更新逻辑 */
+  protected lastElementsMap: Record<string, Element> = {};
   /** 是否生成多个点来绘制图形。 */
   protected generatePoints: boolean = false;
   /** 存储发生图形属性映射前的数据 */
@@ -925,7 +927,7 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
 
     this.defaultSize = undefined;
     this.elements = [];
-    this.elementsMap.clear();
+    this.elementsMap = {};
     const offscreenGroup = this.getOffscreenGroup();
     offscreenGroup.clear();
 
@@ -987,7 +989,8 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
     this.scaleDefs = undefined;
     this.attributes = {};
     this.scales = {};
-    this.elementsMap.clear();
+    this.elementsMap = {};
+    this.lastElementsMap = {};
     this.elements = [];
     this.adjusts = {};
     this.dataArray = null;
@@ -1521,19 +1524,19 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
       }
     }
 
-    const { enter, update, exit } = diff(this.elementsMap, keys);
+    const { enter, update, exit } = diff(this.lastElementsMap, keys);
 
     // 新建 element
     for (const key of enter) {
       const mappingDatum = keyDatum.get(key);
       const element = this.createElement(mappingDatum, isUpdate);
-      this.elementsMap.set(key, element);
+      this.elementsMap[key] = element;
       this.elements.push(element);
     }
 
     // 更新 element
     for (const key of update) {
-      const element = this.elementsMap.get(key);
+      const element = this.lastElementsMap[key];
       const mappingDatum = keyDatum.get(key);
       const currentShapeCfg = this.getDrawCfg(mappingDatum);
       const preShapeCfg = element.getModel();
@@ -1543,11 +1546,12 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
         element.update(currentShapeCfg); // 更新对应的 element
       }
       this.elements.push(element);
+      this.elementsMap[key] = element;
     }
 
     // 销毁被删除的 elements
     for (const key of exit) {
-      const element = this.elementsMap.get(key);
+      const element = this.lastElementsMap[key];
       // 更新动画配置，用户有可能在更新之前有对动画进行配置操作
       element.animate = this.animateOption;
       element.destroy();
@@ -1560,6 +1564,8 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
         this.elements[i].shape.setZIndex(length - i);
       }
     }
+
+    this.lastElementsMap = this.elementsMap;
   }
 
   /**

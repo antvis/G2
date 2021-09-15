@@ -1,4 +1,4 @@
-export function diff(keyItem: Map<string, any>, keys: string[]) {
+export function diff(keyItem: Record<string, any>, keys: string[]) {
   const enter = [];
   const update = [];
   const exit = [];
@@ -6,7 +6,7 @@ export function diff(keyItem: Map<string, any>, keys: string[]) {
 
   for (let i = 0; i < keys.length; i++) {
     const key = keys[i];
-    if (keyItem.has(key)) {
+    if (keyItem[key]) {
       update.push(key);
     } else {
       enter.push(key);
@@ -14,7 +14,7 @@ export function diff(keyItem: Map<string, any>, keys: string[]) {
     keyIncluded.set(key, true);
   }
 
-  Array.from(keyItem).forEach(([key]) => {
+  Object.keys(keyItem).forEach((key) => {
     if (!keyIncluded.has(key)) exit.push(key);
   });
 
