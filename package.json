@@ -59,8 +59,8 @@
     "@antv/gatsby-theme-antv": "^1.1.7",
     "@babel/core": "^7.13.1",
     "@babel/preset-env": "^7.13.0",
-    "@commitlint/cli": "^8.2.0",
-    "@commitlint/config-angular": "^8.2.0",
+    "@commitlint/cli": "^13.1.0",
+    "@commitlint/config-angular": "^13.1.0",
     "@types/jest": "^25.2.1",
     "babel-loader": "^8.2.2",
     "conventional-changelog-cli": "^2.0.28",
@@ -93,13 +93,11 @@
   },
   "lint-staged": {
     "*.{js,css,json,md}": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ],
-    "*.{ts}": [
+    "*.ts": [
       "tslint -c tslint.json --fix",
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ],
     "*.md": [
       "lint-md ./docs --fix"
