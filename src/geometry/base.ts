@@ -926,8 +926,8 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
     }
 
     this.defaultSize = undefined;
-    this.elements = [];
     this.elementsMap = {};
+    this.elements = [];
     const offscreenGroup = this.getOffscreenGroup();
     offscreenGroup.clear();
 
@@ -1507,13 +1507,17 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
 
   protected updateElements(mappingDataArray: MappingDatum[][], isUpdate: boolean = false): void {
     const keyDatum = new Map<string, MappingDatum>();
+    // 用来保证 diff 元素之后的相互顺序
+    const keyIndex = new Map<string, number>();
     const keys: string[] = [];
 
     // 获得更新数据所有的 keys
     // 将更新的数据用 key 索引
+    let index = -1;
     for (let i = 0; i < mappingDataArray.length; i++) {
       const mappingData = mappingDataArray[i];
       for (let j = 0; j < mappingData.length; j++) {
+        index++;
         const mappingDatum = mappingData[j];
         let key = this.getElementId(mappingDatum);
         if (keyDatum.has(key)) {
@@ -1521,8 +1525,11 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
         }
         keys.push(key);
         keyDatum.set(key, mappingDatum);
+        keyIndex.set(key, index);
       }
     }
+
+    this.elements = new Array(index + 1);
 
     const { enter, update, exit } = diff(this.lastElementsMap, keys);
 
@@ -1530,8 +1537,9 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
     for (const key of enter) {
       const mappingDatum = keyDatum.get(key);
       const element = this.createElement(mappingDatum, isUpdate);
+      const i = keyIndex.get(key);
+      this.elements[i] = element;
       this.elementsMap[key] = element;
-      this.elements.push(element);
     }
 
     // 更新 element
@@ -1540,12 +1548,13 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
       const mappingDatum = keyDatum.get(key);
       const currentShapeCfg = this.getDrawCfg(mappingDatum);
       const preShapeCfg = element.getModel();
+      const i = keyIndex.get(key);
       if (this.isCoordinateChanged || isModelChange(currentShapeCfg, preShapeCfg)) {
         element.animate = this.animateOption;
         // 通过绘制数据的变更来判断是否需要更新，因为用户有可能会修改图形属性映射
         element.update(currentShapeCfg); // 更新对应的 element
       }
-      this.elements.push(element);
+      this.elements[i] = element;
       this.elementsMap[key] = element;
     }
 

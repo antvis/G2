@@ -41,17 +41,23 @@ export default class Path extends Geometry {
    * @param [isUpdate]
    * @returns elements
    */
-  protected createElements(mappingDataArray: MappingDatum[][], index: number, isUpdate: boolean = false) {
+  protected updateElements(mappingDataArray: MappingDatum[][], isUpdate: boolean = false) {
     // Path 的每个 element 对应一组数据
     const keyData = new Map<string, MappingDatum[]>();
+    const keyIndex = new Map<string, number>();
     const keys: string[] = [];
 
+    let index = -1;
     for (let i = 0; i < mappingDataArray.length; i++) {
+      index++;
       const mappingData = mappingDataArray[i];
       const key = this.getElementId(mappingData);
       keys.push(key);
       keyData.set(key, mappingData);
+      keyIndex.set(key, index);
     }
+
+    this.elements = new Array(index + 1);
 
     const { enter, update } = diff(this.lastElementsMap, keys);
 
@@ -59,6 +65,7 @@ export default class Path extends Geometry {
       const mappingData = keyData.get(key);
       const shapeFactory = this.getShapeFactory();
       const shapeCfg = this.getShapeInfo(mappingData);
+      const i = keyIndex.get(key);
       const element = new Element({
         shapeFactory,
         container: this.container,
@@ -68,12 +75,13 @@ export default class Path extends Geometry {
       element.animate = this.animateOption;
       element.draw(shapeCfg, isUpdate); // 绘制 shape
       this.elementsMap[key] = element;
-      this.elements.push(element);
+      this.elements[i] = element;
     }
 
     for (const key of update) {
       const mappingData = keyData.get(key);
       const element = this.lastElementsMap[key];
+      const i = keyIndex.get(key);
       const shapeCfg = this.getShapeInfo(mappingData);
       const preShapeCfg = element.getModel();
       if (this.isCoordinateChanged || isModelChange(preShapeCfg, shapeCfg)) {
@@ -82,7 +90,7 @@ export default class Path extends Geometry {
         element.update(shapeCfg); // 更新对应的 element
       }
       this.elementsMap[key] = element;
-      this.elements.push(element);
+      this.elements[i] = element;
       delete this.lastElementsMap[key];
     }
   }
