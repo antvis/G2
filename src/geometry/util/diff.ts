@@ -1,0 +1,26 @@
+export function diff(keyItem: Map<string, any>, keys: string[]) {
+  const enter = [];
+  const update = [];
+  const exit = [];
+  const keyIncluded = new Map<string, boolean>();
+
+  for (let i = 0; i < keys.length; i++) {
+    const key = keys[i];
+    if (keyItem.has(key)) {
+      update.push(key);
+    } else {
+      enter.push(key);
+    }
+    keyIncluded.set(key, true);
+  }
+
+  Array.from(keyItem).forEach(([key]) => {
+    if (!keyIncluded.has(key)) exit.push(key);
+  });
+
+  return {
+    enter,
+    update,
+    exit,
+  };
+}

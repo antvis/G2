@@ -57,6 +57,7 @@ import { getShapeFactory } from './shape/base';
 import { group } from './util/group-data';
 import { isModelChange } from './util/is-model-change';
 import { parseFields } from './util/parse-fields';
+import { diff } from './util/diff';
 import { getXDimensionLength } from '../util/coordinate';
 
 /** @ignore */
@@ -212,8 +213,8 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
   public labelOption: LabelOption | false;
   /** 状态量相关的配置项 */
   public stateOption: StateOption;
-  /** 使用 key-value 结构存储 Element，key 为每个 Element 实例对应的唯一 ID */
-  public elementsMap: Record<string, Element> = {};
+  /** 使用 key-value 存储上一次渲染时的 element，用于更新逻辑，key 为每个 Element 实例对应的唯一 ID*/
+  public elementsMap: Map<string, Element>;
   /** animate 配置项 */
   public animateOption: AnimateOption | boolean = true;
   /** 图形属性映射配置 */
@@ -226,8 +227,6 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
   protected customOption: CustomOption;
   /** 每个 Geometry 对应的 Shape 工厂实例，用于创建各个 Shape */
   protected shapeFactory: ShapeFactory;
-  /** 存储上一次渲染时的 element 映射表，用于更新逻辑 */
-  protected lastElementsMap: Record<string, Element> = {};
   /** 是否生成多个点来绘制图形。 */
   protected generatePoints: boolean = false;
   /** 存储发生图形属性映射前的数据 */
@@ -926,20 +925,15 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
 
     this.defaultSize = undefined;
     this.elements = [];
-    this.elementsMap = {};
+    this.elementsMap.clear();
     const offscreenGroup = this.getOffscreenGroup();
     offscreenGroup.clear();
 
     const beforeMappingData = this.beforeMappingData;
     const dataArray = this.beforeMapping(beforeMappingData);
 
-    const mappingArray = [];
-    for (let index = 0, length = dataArray.length; index < length; index++) {
-      const eachGroup = dataArray[index];
-      const mappingData = this.mapping(eachGroup);
-      mappingArray.push(mappingData);
-      this.createElements(mappingData, index, isUpdate);
-    }
+    this.dataArray = dataArray.map((d) => this.mapping(d));
+    this.updateElements(this.dataArray, isUpdate);
 
     if (this.canDoGroupAnimation(isUpdate)) {
       // 如果用户没有配置 appear.animation，就默认走整体动画
@@ -957,19 +951,8 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
 
     // 添加 label
     if (this.labelOption) {
-      this.renderLabels(flatten(mappingArray), isUpdate);
+      this.renderLabels(flatten(this.dataArray as any[]), isUpdate);
     }
-
-    this.dataArray = mappingArray;
-
-    // 销毁被删除的 elements
-    each(this.lastElementsMap, (deletedElement: Element) => {
-      // 更新动画配置，用户有可能在更新之前有对动画进行配置操作
-      deletedElement.animate = this.animateOption;
-      deletedElement.destroy();
-    });
-
-    this.lastElementsMap = this.elementsMap;
 
     // 缓存，用于更新
     this.lastAttributeOption = {
@@ -1004,8 +987,7 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
     this.scaleDefs = undefined;
     this.attributes = {};
     this.scales = {};
-    this.elementsMap = {};
-    this.lastElementsMap = {};
+    this.elementsMap.clear();
     this.elements = [];
     this.adjusts = {};
     this.dataArray = null;
@@ -1310,7 +1292,7 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
 
     Object.values(this.attributeOption).forEach((cfg) => {
       const fs = cfg?.fields || [];
-      fs.forEach(f => {
+      fs.forEach((f) => {
         if (!uniqMap.has(f)) {
           fields.push(f);
         }
@@ -1520,52 +1502,64 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
     return cfg;
   }
 
-  /**
-   * 创建所有的 Elements。
-   * @param mappingData
-   * @param [isUpdate]
-   * @returns elements
-   */
-  protected createElements(mappingData: MappingDatum[], index: number, isUpdate: boolean = false): Element[] {
-    const { lastElementsMap, elementsMap, elements } = this;
-    for (let subIndex = 0, length = mappingData.length; subIndex < length; subIndex++) {
-      const mappingDatum = mappingData[subIndex];
-      let id = this.getElementId(mappingDatum);
-      if (elementsMap[id]) {
-        // 存在重复数据，则根据再根据 index 进行区分
-        id = `${id}-${index}-${subIndex}`;
-      }
+  protected updateElements(mappingDataArray: MappingDatum[][], isUpdate: boolean = false): void {
+    const keyDatum = new Map<string, MappingDatum>();
+    const keys: string[] = [];
 
-      let result = lastElementsMap[id];
-      if (!result) {
-        // 创建新的 element
-        result = this.createElement(mappingDatum, isUpdate);
-      } else {
-        // element 已经创建
-        const currentShapeCfg = this.getDrawCfg(mappingDatum);
-        const preShapeCfg = result.getModel();
-        if (this.isCoordinateChanged || isModelChange(currentShapeCfg, preShapeCfg)) {
-          result.animate = this.animateOption;
-          // 通过绘制数据的变更来判断是否需要更新，因为用户有可能会修改图形属性映射
-          result.update(currentShapeCfg); // 更新对应的 element
+    // 获得更新数据所有的 keys
+    // 将更新的数据用 key 索引
+    for (let i = 0; i < mappingDataArray.length; i++) {
+      const mappingData = mappingDataArray[i];
+      for (let j = 0; j < mappingData.length; j++) {
+        const mappingDatum = mappingData[j];
+        let key = this.getElementId(mappingDatum);
+        if (keyDatum.has(key)) {
+          key = `${key}-${i}-${j}`;
         }
-
-        delete lastElementsMap[id];
+        keys.push(key);
+        keyDatum.set(key, mappingDatum);
       }
+    }
 
-      elements.push(result);
-      elementsMap[id] = result;
+    const { enter, update, exit } = diff(this.elementsMap, keys);
+
+    // 新建 element
+    for (const key of enter) {
+      const mappingDatum = keyDatum.get(key);
+      const element = this.createElement(mappingDatum, isUpdate);
+      this.elementsMap.set(key, element);
+      this.elements.push(element);
+    }
+
+    // 更新 element
+    for (const key of update) {
+      const element = this.elementsMap.get(key);
+      const mappingDatum = keyDatum.get(key);
+      const currentShapeCfg = this.getDrawCfg(mappingDatum);
+      const preShapeCfg = element.getModel();
+      if (this.isCoordinateChanged || isModelChange(currentShapeCfg, preShapeCfg)) {
+        element.animate = this.animateOption;
+        // 通过绘制数据的变更来判断是否需要更新，因为用户有可能会修改图形属性映射
+        element.update(currentShapeCfg); // 更新对应的 element
+      }
+      this.elements.push(element);
+    }
+
+    // 销毁被删除的 elements
+    for (const key of exit) {
+      const element = this.elementsMap.get(key);
+      // 更新动画配置，用户有可能在更新之前有对动画进行配置操作
+      element.animate = this.animateOption;
+      element.destroy();
     }
 
     // 对 elements 的 zIndex 进行反序
     if (this.zIndexReversed) {
-      const length = elements.length;
-      elements.forEach((ele, idx) => {
-        ele.shape.setZIndex(length - idx);
-      });
+      const length = this.elements.length;
+      for (let i = 0; i < length; i++) {
+        this.elements[i].shape.setZIndex(length - i);
+      }
     }
-
-    return elements;
   }
 
   /**
