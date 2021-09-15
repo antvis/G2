@@ -20,7 +20,7 @@
     "site:deploy": "npm run build && npm run site:build && npm run site:copy-mirror-action && gh-pages -d public",
     "site:copy-mirror-action": "mkdir -p public/.github/workflows && cp .github/workflows/mirror.yml public/.github/workflows",
     "clean": "rimraf lib esm dist",
-    "fix": "eslint ./src/**/*.ts ./__tests__/**/*.ts --fix && prettier --write ./src ./tests && lint-md ./docs --fix",
+    "fix": "eslint ./src/**/*.ts ./tests/**/*.ts --fix && prettier --write ./src ./tests && lint-md ./docs --fix",
     "lint": "run-p lint:*",
     "lint:md": "lint-md ./docs",
     "lint:eslint": "eslint ./src/**/*.ts",
@@ -97,7 +97,7 @@
     ],
     "*.ts": [
       "prettier --write",
-      "eslint ./src/**/*.ts ./__tests__/**/*.ts --fix"
+      "eslint ./src/**/*.ts ./tests/**/*.ts --fix"
     ],
     "*.md": [
       "lint-md ./docs --fix"
