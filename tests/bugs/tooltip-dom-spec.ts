@@ -1,7 +1,7 @@
 import { Chart } from '../../src';
 import { createDiv, removeDom } from '../util/dom';
 
-describe('#3616', () => {
+describe('clear + render: checkt tooltip dom', () => {
   const container = createDiv();
   const data = [
     { name: 'London', 月份: 'Jan.', 月均降雨量: 18.9 },
