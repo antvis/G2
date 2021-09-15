@@ -16,19 +16,20 @@ export default class Heatmap extends Geometry {
   private shadowCanvas: HTMLCanvasElement;
   private imageShape: IShape;
 
-  protected createElements(mappingData: MappingDatum[], index: number, isUpdate: boolean = false) {
-    const range = this.prepareRange(mappingData);
-    const radius = this.prepareSize();
+  protected updateElements(mappingDataArray: MappingDatum[][], isUpdate: boolean = false) {
+    for (let i = 0; i < mappingDataArray.length; i++) {
+      const mappingData = mappingDataArray[i];
+      const range = this.prepareRange(mappingData);
+      const radius = this.prepareSize();
 
-    let blur = get(this.styleOption, ['cfg', 'shadowBlur']);
-    if (!isNumber(blur)) {
-      blur = radius / 2;
+      let blur = get(this.styleOption, ['cfg', 'shadowBlur']);
+      if (!isNumber(blur)) {
+        blur = radius / 2;
+      }
+
+      this.prepareGreyScaleBlurredCircle(radius, blur);
+      this.drawWithRange(mappingData, range, radius, blur);
     }
-
-    this.prepareGreyScaleBlurredCircle(radius, blur);
-    this.drawWithRange(mappingData, range, radius, blur);
-
-    return null;
   }
 
   /** 热力图暂时不支持 callback 回调（文档需要说明下） */
