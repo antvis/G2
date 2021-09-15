@@ -81,7 +81,7 @@
     "react-i18next": "^11.1.0",
     "rimraf": "^3.0.0",
     "ts-jest": "^26.0.0",
-    "ts-loader": "^7.0.2",
+    "ts-loader": "^9.2.5",
     "tslint": "^6.1.2",
     "tslint-config-prettier": "^1.18.0",
     "typedoc": "^0.17.6",
