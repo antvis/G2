@@ -4,18 +4,18 @@ import { Chart } from '@antv/g2';
 function getData(data) {
   const tmp = [];
   const dates = [];
-  data.male.values.forEach(function(obj) {
+  data.male.values.forEach(function (obj) {
     if (dates.indexOf(obj.date) === -1) {
       dates.push(obj.date);
     }
-    obj.age_groups.forEach(function(subObject) {
+    obj.age_groups.forEach(function (subObject) {
       subObject.gender = 'male';
       subObject.date = obj.date;
       tmp.push(subObject);
     });
   });
-  data.female.values.forEach(function(obj) {
-    obj.age_groups.forEach(function(subObject) {
+  data.female.values.forEach(function (obj) {
+    obj.age_groups.forEach(function (subObject) {
       subObject.gender = 'female';
       subObject.date = obj.date;
       tmp.push(subObject);
@@ -35,6 +35,8 @@ function getData(data) {
   return dv.rows;
 }
 
+const axisHeight = 50;
+
 fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/population.json')
   .then(res => res.json())
   .then(data => {
@@ -42,7 +44,7 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/population.json')
       container: 'container',
       autoFit: true,
       height: 500,
-      padding: [16, 48, 0, 48]
+      padding: [0, 48, 0, 48]
     });
 
     chart.data(getData(data));
@@ -63,14 +65,33 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/population.json')
     });
 
     chart.facet('mirror', {
-      fields: [ 'gender' ],
+      fields: ['gender'],
       transpose: false,
-      padding: [ 0, 0, 32, 0 ],
+      padding: [axisHeight / 2, 0, axisHeight / 2, 0],
       eachView(view) {
         view.interval()
           .position('age*total_percentage')
-          .color('gender', [ '#1890ff', '#f04864' ]);
+          .color('gender', ['#1890ff', '#f04864']);
       }
     });
+
+    chart.on('afterrender', () => {
+      const view = chart.views[0];
+      const { height: rHeight } = chart.viewBBox;
+      const { height: vHeight } = view.viewBBox
+      view.axis('age', {
+        position: 'bottom',
+        label: {
+          style: {
+            textAlign: 'center',
+            textBaseline: 'middle'
+          },
+          offset: rHeight / 2 - vHeight + axisHeight / 2
+        },
+        tickLine: false
+      })
+      view.render()
+    })
+
     chart.render();
   });
