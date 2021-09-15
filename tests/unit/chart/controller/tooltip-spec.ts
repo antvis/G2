@@ -460,7 +460,7 @@ describe('showContent', () => {
 
     const tooltip = chart.getController('tooltip');
     // @ts-ignore
-    expect(tooltip.tooltip).toBe(null);
+    expect(tooltip.tooltip).toBe(undefined);
     const tooltipDom = container.getElementsByClassName('g2-tooltip');
     expect(tooltipDom.length).toBe(0);
   });

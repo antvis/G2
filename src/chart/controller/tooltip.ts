@@ -229,7 +229,11 @@ export default class Tooltip extends Controller<TooltipOption> {
     if (tooltipMarkersGroup) {
       tooltipMarkersGroup.clear();
     }
-    this.reset();
+
+    // title 和 items 需要清空, 否则 tooltip 内容会出现置空的情况
+    // 即：需要走进 !isEqual(lastTitle, title) || !isEqual(lastItems, items) 的逻辑，更新 tooltip 的内容
+    this.title = null;
+    this.items = null;
   }
 
   public destroy() {
