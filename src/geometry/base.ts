@@ -1519,13 +1519,11 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
       for (let j = 0; j < mappingData.length; j++) {
         index++;
         const mappingDatum = mappingData[j];
-        let key = this.getElementId(mappingDatum);
-        if (keyDatum.has(key)) {
-          key = `${key}-${i}-${j}`;
-        }
-        keys.push(key);
-        keyDatum.set(key, mappingDatum);
-        keyIndex.set(key, index);
+        const key = this.getElementId(mappingDatum);
+        const finalKey = keyDatum.has(key) ? `${key}-${i}-${j}` : key;
+        keys.push(finalKey);
+        keyDatum.set(finalKey, mappingDatum);
+        keyIndex.set(finalKey, index);
       }
     }
 

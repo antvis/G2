@@ -11,7 +11,7 @@ describe('clear + render: checkt tooltip dom', () => {
     { name: 'Berlin', 月份: 'Feb.', 月均降雨量: 23.2 },
     { name: 'Berlin', 月份: 'Mar.', 月均降雨量: 34.5 },
   ];
-  let chart = new Chart({
+  const chart = new Chart({
     container,
     autoFit: false,
     width: 400,
