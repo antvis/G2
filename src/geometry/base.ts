@@ -1246,7 +1246,7 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
    */
   public getScaleFields(): string[] {
     const fields = [];
-    const tmpMap = {};
+    const tmpMap = new Map();
     const { attributeOption, labelOption, tooltipOption } = this;
     // 获取图形属性上的 fields
     for (const attributeType in attributeOption) {
@@ -1327,7 +1327,7 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
    */
   public getGroupFields(): string[] {
     const groupFields = [];
-    const tmpMap = {}; // 用于去重过滤
+    const tmpMap = new Map(); // 用于去重过滤
     for (let index = 0, length = GROUP_ATTRS.length; index < length; index++) {
       const attributeName = GROUP_ATTRS[index];
       const cfg = this.attributeOption[attributeName];
