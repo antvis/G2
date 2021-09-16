@@ -59,9 +59,9 @@ export default class Path extends Geometry {
 
     this.elements = new Array(index + 1);
 
-    const { enter, update } = diff(this.lastElementsMap, keys);
+    const { added, updated, removed } = diff(this.lastElementsMap, keys);
 
-    for (const key of enter) {
+    for (const key of added) {
       const mappingData = keyData.get(key);
       const shapeFactory = this.getShapeFactory();
       const shapeCfg = this.getShapeInfo(mappingData);
@@ -78,7 +78,7 @@ export default class Path extends Geometry {
       this.elements[i] = element;
     }
 
-    for (const key of update) {
+    for (const key of updated) {
       const mappingData = keyData.get(key);
       const element = this.lastElementsMap[key];
       const i = keyIndex.get(key);
@@ -92,6 +92,13 @@ export default class Path extends Geometry {
       this.elementsMap[key] = element;
       this.elements[i] = element;
       delete this.lastElementsMap[key];
+    }
+
+    for (const key of removed) {
+      const element = this.lastElementsMap[key];
+      // 更新动画配置，用户有可能在更新之前有对动画进行配置操作
+      element.animate = this.animateOption;
+      element.destroy();
     }
   }
 

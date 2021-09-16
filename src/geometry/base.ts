@@ -934,7 +934,11 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
     const beforeMappingData = this.beforeMappingData;
     const dataArray = this.beforeMapping(beforeMappingData);
 
-    this.dataArray = dataArray.map((d) => this.mapping(d));
+    this.dataArray = new Array(dataArray.length);
+    for (let i = 0; i < dataArray.length; i++) {
+      const data = dataArray[i];
+      this.dataArray[i] = this.mapping(data);
+    }
     this.updateElements(this.dataArray, isUpdate);
 
     if (this.canDoGroupAnimation(isUpdate)) {
@@ -953,7 +957,7 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
 
     // 添加 label
     if (this.labelOption) {
-      this.renderLabels(flatten(this.dataArray as any[]), isUpdate);
+      this.renderLabels(flatten(this.dataArray) as unknown as MappingDatum[], isUpdate);
     }
 
     // 缓存，用于更新
@@ -1507,32 +1511,33 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
 
   protected updateElements(mappingDataArray: MappingDatum[][], isUpdate: boolean = false): void {
     const keyDatum = new Map<string, MappingDatum>();
-    // 用来保证 diff 元素之后的相互顺序
-    const keyIndex = new Map<string, number>();
     const keys: string[] = [];
+
+    // 用来保持 diff 元素之后 added, updated 的相对顺序
+    const keyIndex = new Map<string, number>();
+    let index = 0;
 
     // 获得更新数据所有的 keys
     // 将更新的数据用 key 索引
-    let index = -1;
     for (let i = 0; i < mappingDataArray.length; i++) {
       const mappingData = mappingDataArray[i];
       for (let j = 0; j < mappingData.length; j++) {
-        index++;
         const mappingDatum = mappingData[j];
         const key = this.getElementId(mappingDatum);
         const finalKey = keyDatum.has(key) ? `${key}-${i}-${j}` : key;
         keys.push(finalKey);
         keyDatum.set(finalKey, mappingDatum);
         keyIndex.set(finalKey, index);
+        index++;
       }
     }
 
-    this.elements = new Array(index + 1);
+    this.elements = new Array(index);
 
-    const { enter, update, exit } = diff(this.lastElementsMap, keys);
+    const { added, updated, removed } = diff(this.lastElementsMap, keys);
 
     // 新建 element
-    for (const key of enter) {
+    for (const key of added) {
       const mappingDatum = keyDatum.get(key);
       const element = this.createElement(mappingDatum, isUpdate);
       const i = keyIndex.get(key);
@@ -1541,7 +1546,7 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
     }
 
     // 更新 element
-    for (const key of update) {
+    for (const key of updated) {
       const element = this.lastElementsMap[key];
       const mappingDatum = keyDatum.get(key);
       const currentShapeCfg = this.getDrawCfg(mappingDatum);
@@ -1557,7 +1562,7 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
     }
 
     // 销毁被删除的 elements
-    for (const key of exit) {
+    for (const key of removed) {
       const element = this.lastElementsMap[key];
       // 更新动画配置，用户有可能在更新之前有对动画进行配置操作
       element.animate = this.animateOption;
