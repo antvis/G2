@@ -1,3 +1,27 @@
+#### 4.1.26 (2021-09-15)
+
+##### Documentation Changes
+
+* **facet:**  修改了镜像分面，使得轴标签居中显示 ([#3619](https://github.com/antvis/g2/pull/3619)) ([e3d83880](https://github.com/antvis/g2/commit/e3d83880fd408f02ec5a81616897a225abfdcf56))
+*  set default lang = zh ([#3609](https://github.com/antvis/g2/pull/3609)) ([d0224cc5](https://github.com/antvis/g2/commit/d0224cc557e725dcf2ff06aff8cec1b0932ec8b6))
+
+##### New Features
+
+* **api:**  add new api for view ([#3600](https://github.com/antvis/g2/pull/3600)) ([dd473f18](https://github.com/antvis/g2/commit/dd473f188f7b09962bcd098b1bcc3fb1269f651a))
+
+##### Bug Fixes
+
+* **tooltip:**  修复 clear + render 之后，tooltip dom 重复生成问题 ([#3621](https://github.com/antvis/g2/pull/3621)) ([eaacd502](https://github.com/antvis/g2/commit/eaacd50231e99d24a0b8d2415d58bf68b64c21ca))
+*  legend 自定义items 添加marker回调 ([#3591](https://github.com/antvis/g2/pull/3591)) ([dc80db29](https://github.com/antvis/g2/commit/dc80db292d706f9860bf72978a2b761baddabed9))
+* **scrollbar:**  修复了由于 getYScales 方法中去重方法错误导致的 scrollbar 会在特定情况下失效([#3569](https://github.com/antvis/g2/pull/3569)） ([#3570](https://github.com/antvis/g2/pull/3570)) ([28280ee4](https://github.com/antvis/g2/commit/28280ee47ba8ffef13ec1eee1e1d8d825af5ba24))
+* **annotation:**  修复 annotation 添加 id 失败 ([#3601](https://github.com/antvis/g2/pull/3601)) ([7561b33d](https://github.com/antvis/g2/commit/7561b33dcc999a070965cd80f67964b14975d84b))
+
+##### Refactors
+
+* **annotation:**  annotation position 支持百分比混用 ([#3615](https://github.com/antvis/g2/pull/3615)) ([bcffa462](https://github.com/antvis/g2/commit/bcffa462e12d9f97a76eccc86d2545781245d824))
+* **facet:**  添加了spacing属性，支持配置分面图之间的间距 ([#3614](https://github.com/antvis/g2/pull/3614)) ([d5588a0e](https://github.com/antvis/g2/commit/d5588a0ed9782bb9bfb0a145fc3bc080fdcb6f66))
+* **funnel:**  annotation 位置添加center，支持在漏斗图中正常显示 ([#3611](https://github.com/antvis/g2/pull/3611)) ([552500df](https://github.com/antvis/g2/commit/552500df9596358d7c6a7617274255b3376351f2))
+
 #### 4.1.25 (2021-08-25)
 
 ##### Documentation Changes
