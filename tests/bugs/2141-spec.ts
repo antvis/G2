@@ -48,7 +48,6 @@ describe('#2141', () => {
     chart.changeData(newData);
 
     expect(interval.elements.length).toBe(newData.length);
-    console.log(interval.elements.map(d => d.getData()));
     expect(interval.elements[1].getData()).toEqual({ item: '事例二', count: 21, percent: 0.11 });
     expect(interval.elementsMap).toContainAllKeys(['1', '1-0-1', '1-0-2', '1-0-3', '1-0-4', '1-0-5']);
   });
