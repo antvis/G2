@@ -148,7 +148,7 @@ describe('Tooltip', () => {
     chart.clear();
 
     const foregroundGroup = chart.foregroundGroup;
-    expect(foregroundGroup.getChildren().length).toBe(8);
+    expect(foregroundGroup.getChildren().length).toBe(7);
 
     const tooltipDom = container.getElementsByClassName('g2-tooltip');
     expect(tooltipDom.length).toBe(1);

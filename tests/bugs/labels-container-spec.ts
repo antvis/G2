@@ -1,7 +1,7 @@
 import { Chart } from '../../src';
 import { createDiv, removeDom } from '../util/dom';
 
-describe('clear + render: checkt tooltip dom', () => {
+describe('foreGroundGroup -> labelsContainer', () => {
   const container = createDiv();
   const data = [
     { name: 'London', 月份: 'Jan.', 月均降雨量: 18.9 },
@@ -27,9 +27,9 @@ describe('clear + render: checkt tooltip dom', () => {
   chart.interval().position('月份*月均降雨量').color('name').adjust('dodge');
   chart.render();
 
-  it('tooltip clear render', () => {
-    // 测试 clear + render 几次之后， tooltip dom 是否还是 1 个
-    for(let i = 1; i <= 3; i++) {
+  it('labelsContianer clear render', () => {
+    // 测试 clear + render 几次之后， foreGroundGroup 中的 labelsContianer 是否重复生成，不会溢出
+    for(let i = 1; i <= 10; i++) {
       chart.clear();
       chart.data(data);
       chart.tooltip({
@@ -41,16 +41,7 @@ describe('clear + render: checkt tooltip dom', () => {
       chart.interval().position('月份*月均降雨量').color('name').adjust('dodge');
       chart.render();
     }
-    const point = chart.getXY({ name: 'London', 月份: 'Mar.', 月均降雨量: 39.3 });
-    chart.showTooltip(point);
-    const tooltipDom = container.getElementsByClassName('g2-tooltip');
-    const tooltipGuide = chart.foregroundGroup.findAll((el) => {
-      return el.get('name') === 'tooltipGuide';
-    });
-    // 保证 tooltip dom 只有一个
-    expect(tooltipDom.length).toBe(1);
-    expect(tooltipGuide.length).toBe(1);
-    expect(chart.foregroundGroup.getChildren().length).toBe(8);
+    expect(chart.foregroundGroup.getChildren().length).toBe(7);
   });
 
   afterAll(() => {
