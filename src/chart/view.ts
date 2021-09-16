@@ -1844,7 +1844,7 @@ export class View extends Base {
 
   private getScaleFields() {
     const fields = [];
-    const tmpMap = {};
+    const tmpMap = new Map();
     const geometries = this.geometries;
     for (let i = 0; i < geometries.length; i++) {
       const geometry = geometries[i];
@@ -1856,7 +1856,7 @@ export class View extends Base {
 
   private getGroupedFields() {
     const fields = [];
-    const tmpMap = {};
+    const tmpMap = new Map();
     const geometries = this.geometries;
     for (let i = 0; i < geometries.length; i++) {
       const geometry = geometries[i];
