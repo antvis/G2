@@ -97,7 +97,8 @@
     ],
     "*.ts": [
       "prettier --write",
-      "eslint ./src/**/*.ts ./tests/**/*.ts --fix"
+      "eslint ./src/**/*.ts ./tests/**/*.ts --fix",
+      "git add ."
     ],
     "*.md": [
       "lint-md ./docs --fix"

@@ -1731,7 +1731,7 @@ export interface RectCfg extends FacetCfg<RectData> {
   readonly rowTitle?: FacetTitle;
 }
 
-export interface RectData extends FacetData {}
+export type RectData = FacetData;
 
 // ===================== mirror 相关类型定义 =====================
 /** mirror 分面类型配置 */
@@ -1742,7 +1742,7 @@ export interface MirrorCfg extends FacetCfg<MirrorData> {
   readonly title?: FacetTitle;
 }
 
-export interface MirrorData extends FacetData {}
+export type MirrorData = FacetData;
 
 // ===================== list 相关类型定义 =====================
 /** list 分面类型配置 */
@@ -1766,7 +1766,7 @@ export interface MatrixCfg extends FacetCfg<MirrorData> {
   readonly rowTitle?: FacetTitle;
 }
 
-export interface MatrixData extends FacetData {}
+export type MatrixData = FacetData;
 
 // ===================== circle 相关类型定义 =====================
 /** circle 分面类型配置 */
@@ -1775,7 +1775,7 @@ export interface CircleCfg extends FacetCfg<CircleData> {
   readonly title?: FacetTitle;
 }
 
-export interface CircleData extends FacetData {}
+export type CircleData = FacetData;
 
 // ===================== tree 相关类型定义 =====================
 
@@ -2087,7 +2087,7 @@ export interface StyleSheet {
   /** Geometry overflowLabel 文本描边粗细 */
   overflowLabelBorder?: number;
 
-  /** Geometry label　文本连接线粗细 */
+  /** Geometry label 文本连接线粗细 */
   labelLineBorder?: number;
   /** Geometry label 文本连接线颜色 */
   labelLineBorderColor?: string;

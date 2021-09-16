@@ -19,6 +19,7 @@ module.exports = {
     '@typescript-eslint/ban-ts-comment': 0,
     '@typescript-eslint/no-empty-function': 0,
     'no-prototype-builtins': 0,
+    'no-case-declarations': 0,
   },
   settings: {
     'import/parsers': {

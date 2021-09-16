@@ -49,7 +49,7 @@ describe('Legend category navigation', () => {
     const legends = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND);
     const legend = legends[0].component as GroupComponent<GroupComponentCfg>;
     const navigation = legend.getElementById(`${legendId}-legend-navigation-group`);
-    let children = navigation ? navigation.getChildren() : [];
+    const children = navigation ? navigation.getChildren() : [];
 
     expect(children[0].attr('fill')).toBe(antvLight.legendPageNavigatorMarkerInactiveFillColor);
     expect(children[0].attr('opacity')).toBe(antvLight.legendPageNavigatorMarkerInactiveFillOpacity);
@@ -67,7 +67,7 @@ describe('Legend category navigation', () => {
     const legends = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND);
     const legend = legends[0].component as GroupComponent<GroupComponentCfg>;
     const navigation = legend.getElementById(`${legendId}-legend-navigation-group`);
-    let children = navigation ? navigation.getChildren() : [];
+    const children = navigation ? navigation.getChildren() : [];
 
     expect(children[0].attr('fill')).toBe(antvDark.legendPageNavigatorMarkerInactiveFillColor);
     expect(children[0].attr('opacity')).toBe(antvDark.legendPageNavigatorMarkerInactiveFillOpacity);
@@ -102,7 +102,7 @@ describe('Legend category navigation', () => {
     const legends = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.LEGEND);
     const legend = legends[0].component as GroupComponent<GroupComponentCfg>;
     const navigation = legend.getElementById(`${legendId}-legend-navigation-group`);
-    let children = navigation ? navigation.getChildren() : [];
+    const children = navigation ? navigation.getChildren() : [];
 
     expect(children[0].attr('fill')).toBe('pink');
     expect(children[0].attr('opacity')).toBe(0.3);

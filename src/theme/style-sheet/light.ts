@@ -354,7 +354,7 @@ export const createLightStyleSheet = (cfg: StyleSheetCfg = {}) => {
     /** Geometry overflowLabel 文本描边粗细 */
     overflowLabelBorder: 1,
 
-    /** Geometry label　文本连接线粗细 */
+    /** Geometry label 文本连接线粗细 */
     labelLineBorder: 1,
     /** Geometry label 文本连接线颜色 */
     labelLineBorderColor: BLACK_COLORS[25],

@@ -50,7 +50,7 @@ describe('createTheme', () => {
   });
 
   it('styleSheet legendPadding', () => {
-    let theme = createTheme({});
+    const theme = createTheme({});
     expect(theme.components.legend.top.padding).toEqual([8, 0, 8, 0]);
     expect(theme.components.legend.bottom.padding).toEqual([8, 0, 8, 0]);
     expect(theme.components.legend.left.padding).toEqual([0, 8, 0, 8]);
@@ -59,10 +59,10 @@ describe('createTheme', () => {
   });
 
   it('styleSheet paletteSequence', () => {
-    let theme = createTheme({ styleSheet: { paletteSequence: ['red', 'blue'] }});
+    let theme = createTheme({ styleSheet: { paletteSequence: ['red', 'blue'] } });
     expect(theme.sequenceColors).toEqual(['red', 'blue']);
 
     theme = createTheme({ sequenceColors: ['red', 'yellow'] });
     expect(theme.sequenceColors).toEqual(['red', 'yellow']);
-  })
+  });
 });
