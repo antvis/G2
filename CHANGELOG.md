@@ -13,8 +13,8 @@
 
 * **tooltip:**  修复 clear + render 之后，tooltip dom 重复生成问题 ([#3621](https://github.com/antvis/g2/pull/3621)) ([eaacd502](https://github.com/antvis/g2/commit/eaacd50231e99d24a0b8d2415d58bf68b64c21ca))
 *  legend 自定义items 添加marker回调 ([#3591](https://github.com/antvis/g2/pull/3591)) ([dc80db29](https://github.com/antvis/g2/commit/dc80db292d706f9860bf72978a2b761baddabed9))
-* **scrollbar:**  修复了由于getYScales方法中去重方法错误导致的 scrollbar会在特定情况下失效([#3569](https://github.com/antvis/g2/pull/3569)） ([#3570](https://github.com/antvis/g2/pull/3570)) ([28280ee4](https://github.com/antvis/g2/commit/28280ee47ba8ffef13ec1eee1e1d8d825af5ba24))
-* **annotation:**  修复annotation添加id失败 ([#3601](https://github.com/antvis/g2/pull/3601)) ([7561b33d](https://github.com/antvis/g2/commit/7561b33dcc999a070965cd80f67964b14975d84b))
+* **scrollbar:**  修复了由于 getYScales 方法中去重方法错误导致的 scrollbar 会在特定情况下失效([#3569](https://github.com/antvis/g2/pull/3569)） ([#3570](https://github.com/antvis/g2/pull/3570)) ([28280ee4](https://github.com/antvis/g2/commit/28280ee47ba8ffef13ec1eee1e1d8d825af5ba24))
+* **annotation:**  修复 annotation 添加 id 失败 ([#3601](https://github.com/antvis/g2/pull/3601)) ([7561b33d](https://github.com/antvis/g2/commit/7561b33dcc999a070965cd80f67964b14975d84b))
 
 ##### Refactors
 
