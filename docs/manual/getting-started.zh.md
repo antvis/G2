@@ -79,6 +79,10 @@ const chart = new G2.Chart({
 
 你也可以进入 [G2 图表示例](zh/examples/gallery)页面查看更多例子。
 
+### 3. 图表容器被销毁时
+
+在图表容器被销毁时，总是应调用 `chart.destroy()` 以销毁实例释放资源，避免内存泄漏。
+
 ## 在 React / Vue / Angular 中使用 G2
 
 基于 AntV 技术栈还有许多优秀的项目，在 React 环境下使用 G2，我们推荐使用 Ant Design Charts，BizCharts 和 Viser。这三个产品都是基于 G2 的 React 版本封装，使用体验更符合 React 技术栈的习惯，他们都与 AntV 有着紧密的协同，他们很快也将同步开源和发布基于 G2 4.0 的版本。Viser 除了 React 外，还提供了 Vue 和 Angular 不同的分发版本。
