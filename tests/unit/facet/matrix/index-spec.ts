@@ -138,4 +138,110 @@ describe('facet matrix', () => {
     // @ts-ignore
     expect(chart.views[12].annotation().option[1].style.fill).toBe('red');
   });
+
+  it('padding', () => {
+    chart.facet('matrix', {
+      fields: ['SepalLength', 'SepalWidth', 'PetalLength', 'PetalWidth'],
+      padding: 10,
+      eachView(view, facet) {
+        if (facet.rowIndex === facet.columnIndex) {
+          // 对角线的图形，做数据封箱之后绘制图形
+          const dv = new DataSet.DataView();
+          dv.source(facet.data).transform({
+            type: 'bin.histogram',
+            field: facet.columnField, // 对应数轴上的一个点
+            bins: 30, // 分箱个数
+            as: [facet.columnField, 'count'],
+            groupBy: ['Species'],
+          });
+          view.data(dv.rows);
+
+          view
+            .interval()
+            .position(facet.columnField + '*count')
+            .color('Species', COLOR)
+            .adjust('stack')
+            .style({ opacity: 0.85 });
+        } else {
+          view
+            .point()
+            .position([facet.columnField, facet.rowField])
+            .color('Species', COLOR)
+            .shape('circle')
+            .style({ opacity: 0.3 })
+            .size(3);
+        }
+      },
+    });
+
+    chart.render();
+
+    const { viewBBox: vB0 } = chart.views[0];
+    const { coordinateBBox: cB0 } = chart.views[0];
+    expect(vB0.x).toBe(cB0.x - 10);
+    expect(vB0.y).toBe(cB0.y - 10);
+    expect(vB0.width).toBe(cB0.width + 10 * 2);
+    expect(vB0.height).toBe(cB0.height + 10 * 2);
+
+    const { viewBBox: vB1 } = chart.views[1];
+    const { coordinateBBox: cB1 } = chart.views[1];
+    expect(vB1.x).toBe(cB1.x - 10);
+    expect(vB1.y).toBe(cB1.y - 10);
+    expect(vB1.width).toBe(cB1.width + 10 * 2);
+    expect(vB1.height).toBe(cB1.height + 10 * 2);
+  });
+
+  it('padding callback', () => {
+    chart.facet('matrix', {
+      fields: ['SepalLength', 'SepalWidth', 'PetalLength', 'PetalWidth'],
+      padding: (idx) => idx * 10,
+      eachView(view, facet) {
+        if (facet.rowIndex === facet.columnIndex) {
+          // 对角线的图形，做数据封箱之后绘制图形
+          const dv = new DataSet.DataView();
+          dv.source(facet.data).transform({
+            type: 'bin.histogram',
+            field: facet.columnField, // 对应数轴上的一个点
+            bins: 30, // 分箱个数
+            as: [facet.columnField, 'count'],
+            groupBy: ['Species'],
+          });
+          view.data(dv.rows);
+
+          view
+            .interval()
+            .position(facet.columnField + '*count')
+            .color('Species', COLOR)
+            .adjust('stack')
+            .style({ opacity: 0.85 });
+        } else {
+          view
+            .point()
+            .position([facet.columnField, facet.rowField])
+            .color('Species', COLOR)
+            .shape('circle')
+            .style({ opacity: 0.3 })
+            .size(3);
+        }
+      },
+    });
+
+    chart.render();
+
+    // index: 0 -> padding: 0
+    const { viewBBox: vB0 } = chart.views[0];
+    const { coordinateBBox: cB0 } = chart.views[0];
+    expect(vB0.x).toBe(cB0.x);
+    expect(vB0.y).toBe(cB0.y);
+    expect(vB0.width).toBe(cB0.width);
+    expect(vB0.height).toBe(cB0.height);
+
+    // index: 1 -> padding: 10
+    const { viewBBox: vB1 } = chart.views[1];
+    const { coordinateBBox: cB1 } = chart.views[1];
+    expect(vB1.x).toBe(cB1.x - 10);
+    expect(vB1.y).toBe(cB1.y - 10);
+    expect(vB1.width).toBe(cB1.width + 10 * 2);
+    expect(vB1.height).toBe(cB1.height + 10 * 2);
+  });
 });

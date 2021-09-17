@@ -1,8 +1,8 @@
-import { deepMix, each, every, get, isNil, isNumber } from '@antv/util';
+import { deepMix, each, every, get, isNil, isNumber, isFunction } from '@antv/util';
 import { LAYER } from '../constant';
 import { IGroup } from '../dependents';
 import { AxisCfg, Condition, Datum, FacetCfg, FacetData, FacetDataFilter, Region } from '../interface';
-
+import { ViewPadding } from '../interface';
 import View from '../chart/view';
 import { getAxisOption } from '../util/axis';
 
@@ -109,12 +109,12 @@ export abstract class Facet<C extends FacetCfg<FacetData> = FacetCfg<FacetData>,
    * 根据 facet 生成 view，可以给上层自定义使用
    * @param facet
    */
-  protected facetToView(facet: F): View {
+  protected facetToView(facet: F, index: number): View {
     const { region, data, padding = this.cfg.padding } = facet;
 
     const view = this.view.createView({
       region,
-      padding,
+      padding: this.parsePadding(padding, index),
     });
 
     // 设置分面的数据
@@ -153,8 +153,8 @@ export abstract class Facet<C extends FacetCfg<FacetData> = FacetCfg<FacetData>,
    */
   private createFacetViews(): View[] {
     // 使用分面数据 创建分面 view
-    return this.facets.map((facet): View => {
-      return this.facetToView(facet);
+    return this.facets.map((facet, index): View => {
+      return this.facetToView(facet, index);
     });
   }
 
@@ -194,6 +194,14 @@ export abstract class Facet<C extends FacetCfg<FacetData> = FacetCfg<FacetData>,
       if (isNumber(s)) return s / (idx === 0 ? width : height);
       else return parseFloat(s) / 100;
     });
+  }
+
+  /**
+   * 解析 padding
+   */
+  private parsePadding(padding: ViewPadding | ((idx: number) => ViewPadding), index: number) {
+    if (isFunction(padding)) return padding(index);
+    else return padding;
   }
 
   // 其他一些提供给子类使用的方法

@@ -9,9 +9,9 @@
 
 #### FacetCfg.padding
 
-<description> _number | number[] | 'auto'_ **optional**</description>
+<description> _number | number[] | 'auto' | ((index: number)=> number | number[])_ **optional**</description>
 
-每个 facet 的内边距，设置方式参考 css 盒模型。
+每个 facet 的内边距，设置方式参考 css 盒模型。可通过回调方法分别设置每个 facet 的内边距。
 
 #### FacetCfg.showTitle
 
