@@ -1,6 +1,6 @@
 {
   "name": "@antv/g2",
-  "version": "4.1.26",
+  "version": "4.1.27",
   "description": "the Grammar of Graphics in Javascript",
   "main": "lib/index.js",
   "module": "esm/index.js",
