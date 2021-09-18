@@ -381,13 +381,13 @@ export default class Annotation extends Controller<BaseOption[]> {
         return this.parsePercentPosition(position as [string, string]);
       }
 
-      // 混合格式只支持笛卡尔坐标系
-      if ((isPercent(xPos) || isPercent(yPos)) && coordinate.isRect) {
-        x = isPercent(xPos) ? Number(xPos.slice(0, -1)) / 100 : getNormalizedValue(xPos, xScale);
-        y = isPercent(yPos) ? Number(yPos.slice(0, -1)) / 100 : getNormalizedValue(yPos, Object.values(yScales)[0]);
-      } else {
+      if (!isPercent(xPos) && !isPercent(yPos)) {
         x = getNormalizedValue(xPos, xScale);
         y = getNormalizedValue(yPos, Object.values(yScales)[0]);
+      } else if (coordinate.isRect) {
+        // 混合格式只支持笛卡尔坐标系
+        x = isPercent(xPos) ? Number(xPos.slice(0, -1)) / 100 : getNormalizedValue(xPos, xScale);
+        y = isPercent(yPos) ? Number(yPos.slice(0, -1)) / 100 : getNormalizedValue(yPos, Object.values(yScales)[0]);
       }
     } else if (!isNil(position)) {
       // 入参是 object 结构，数据点
