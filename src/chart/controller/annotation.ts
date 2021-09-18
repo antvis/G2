@@ -7,6 +7,7 @@ import {
   isFunction,
   isNil,
   isString,
+  isNumber,
   keys,
   upperFirst,
   find,
@@ -366,20 +367,28 @@ export default class Annotation extends Controller<BaseOption[]> {
     let x = 0;
     let y = 0;
     const coordinate = this.view.getCoordinate();
+    const isPercent = (val: string | number): val is string => {
+      return isString(val) && val.indexOf('%') !== -1 && !isNaN(Number(val.slice(0, -1)));
+    };
+
     // 入参是 [24, 24] 这类时
     if (isArray(position)) {
-      // 如果数据格式是 ['50%', 50] 的格式
-      [x, y] = position.map((pos, idx) => {
-        const picker = idx === 0 ? 'x' : 'y';
-        // fix: 原始数据中可能会包含 'xxx5%xxx' 这样的数据，需要判断下 https://github.com/antvis/f2/issues/590
-        // @ts-ignore
-        if (isString(pos) && pos.indexOf('%') !== -1 && !isNaN(pos.slice(0, -1))) {
-          const temp = { x: 0, y: 0 };
-          temp[picker] = idx === 0 ? this.parseXPercentPosition(pos) : this.parseYPercentPosition(pos);
-          return coordinate.invert(temp)[picker];
-        }
-        return getNormalizedValue(pos, idx === 0 ? xScale : Object.values(yScales)[0]);
-      });
+      const [xPos, yPos] = position;
+
+      // fix: 原始数据中可能会包含 'xxx5%xxx' 这样的数据，需要判断下 https://github.com/antvis/f2/issues/590
+      // 如果数据格式是 ['50%', '50%'] 的格式
+      if (isPercent(xPos) && isPercent(yPos)) {
+        return this.parsePercentPosition(position as [string, string]);
+      }
+
+      // 混合格式只支持笛卡尔坐标系
+      if ((isPercent(xPos) || isPercent(yPos)) && coordinate.isRect) {
+        x = isPercent(xPos) ? Number(xPos.slice(0, -1)) / 100 : getNormalizedValue(xPos, xScale);
+        y = isPercent(yPos) ? Number(yPos.slice(0, -1)) / 100 : getNormalizedValue(yPos, Object.values(yScales)[0]);
+      } else {
+        x = getNormalizedValue(xPos, xScale);
+        y = getNormalizedValue(yPos, Object.values(yScales)[0]);
+      }
     } else if (!isNil(position)) {
       // 入参是 object 结构，数据点
       for (const key of keys(position)) {
@@ -431,27 +440,22 @@ export default class Annotation extends Controller<BaseOption[]> {
   }
 
   /**
-   * parse percent position of x
-   * @param number
+   * parse percent position
+   * @param position
    */
-  private parseXPercentPosition(number: string): number {
+  private parsePercentPosition(position: [string, string]): Point {
+    const xPercent = parseFloat(position[0]) / 100;
+    const yPercent = parseFloat(position[1]) / 100;
     const coordinate = this.view.getCoordinate();
     const { start, end } = coordinate;
-    const xPercent = parseFloat(number) / 100;
-    const x = coordinate.getWidth() * xPercent + Math.min(start.x, end.x);
-    return x;
-  }
 
-  /**
-   * parse percent position of y
-   * @param number
-   */
-  private parseYPercentPosition(number: string): number {
-    const coordinate = this.view.getCoordinate();
-    const { start, end } = coordinate;
-    const yPercent = parseFloat(number) / 100;
-    const y = coordinate.getHeight() * yPercent + Math.min(start.y, end.y);
-    return y;
+    const topLeft = {
+      x: Math.min(start.x, end.x),
+      y: Math.min(start.y, end.y),
+    };
+    const x = coordinate.getWidth() * xPercent + topLeft.x;
+    const y = coordinate.getHeight() * yPercent + topLeft.y;
+    return { x, y };
   }
 
   /**
@@ -677,11 +681,13 @@ export default class Annotation extends Controller<BaseOption[]> {
   private updateOrCreate(option: BaseOption) {
     // 拿到缓存的内容
     let co = this.cache.get(this.getCacheKey(option));
+
     // 存在则更新，不存在在创建
     if (co) {
       const { type } = option;
       const theme = this.getAnnotationTheme(type);
       const cfg = this.getAnnotationCfg(type, option, theme);
+
       // 忽略掉一些配置
       omit(cfg, ['container']);
       co.component.update(cfg);
