@@ -34,18 +34,43 @@ chart.tooltip({
   showMarkers: false,
 });
 chart.legend({
+  position: 'top',
   custom: true,
   items: [
     {
-      name: '城市 1',
-      id: 'city-1',
+      name: 'London',
+      id: 'London',
+      value: 'name',
       marker: { symbol: 'triangle', style: { r: 4, fill: 'red' } },
     },
     {
-      name: '城市 2',
-      id: 'city-2',
+      name: 'Berlin',
+      id: 'Berlin',
+      value: 'name',
     },
   ],
+});
+
+chart.on('legend-item:click', (ev) => {
+  const target = ev.target;
+  const delegateObject = target.get('delegateObject');
+  const item = delegateObject.item;
+
+  let showLegend = [];
+  for (let i = 0; i < delegateObject.legend.get('items').length; i++) {
+    if (!delegateObject.legend.get('items')[i].unchecked) {
+      showLegend.push(delegateObject.legend.get('items')[i].id);
+    }
+  }
+  showLegend = [...showLegend];
+  chart.filter(item.value, (value) => {
+    if (value === undefined) {
+      return true;
+    } else {
+      return showLegend.includes(value);
+    }
+  });
+  chart.changeData(data);
 });
 
 chart.interval().position('月份*月均降雨量').color('name').adjust('stack');
