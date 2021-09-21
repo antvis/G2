@@ -1517,6 +1517,10 @@ export interface EventCfg {
  */
 export type SliderOption = SliderCfg | boolean;
 
+export interface MouseWheelScrollCfg {
+  wheelSpeed?: number
+}
+
 /** 滚动条组件配置项 */
 export interface ScrollbarCfg {
   /** 滚动条类型，默认 horizontal  */
@@ -1542,6 +1546,7 @@ export interface ScrollbarCfg {
     // 是否圆角，'round'
     lineCap?: string;
   };
+  enableMouseWheel?: MouseWheelScrollCfg | boolean;
 }
 
 /** 滚动条配置 */

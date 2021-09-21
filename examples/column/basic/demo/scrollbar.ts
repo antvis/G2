@@ -13,6 +13,11 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/top2000.json')
         groupBy: ['release'],
         operations: ['count'],
         type: 'aggregate',
+      })
+      .transform({
+        type: 'sort-by',
+        fields: ['release'],
+        order: 'ASC',
       });
 
     const chart = new Chart({
@@ -35,6 +40,9 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/top2000.json')
 
     chart.option('scrollbar', {
       type: 'horizontal',
+      enableMouseWheel: {
+        wheelSpeed: 2
+      }
     });
     chart.interaction('element-visible-filter');
     chart.render();
