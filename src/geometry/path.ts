@@ -47,17 +47,17 @@ export default class Path extends Geometry {
     const keyIndex = new Map<string, number>();
     const keys: string[] = [];
 
-    let index = -1;
+    let index = 0;
     for (let i = 0; i < mappingDataArray.length; i++) {
-      index++;
       const mappingData = mappingDataArray[i];
       const key = this.getElementId(mappingData);
       keys.push(key);
       keyData.set(key, mappingData);
       keyIndex.set(key, index);
+      index++;
     }
 
-    this.elements = new Array(index + 1);
+    this.elements = new Array(index);
 
     const { added, updated, removed } = diff(this.lastElementsMap, keys);
 
@@ -91,7 +91,6 @@ export default class Path extends Geometry {
       }
       this.elementsMap[key] = element;
       this.elements[i] = element;
-      delete this.lastElementsMap[key];
     }
 
     for (const key of removed) {

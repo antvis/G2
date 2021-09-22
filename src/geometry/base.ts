@@ -940,6 +940,7 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
       this.dataArray[i] = this.mapping(data);
     }
     this.updateElements(this.dataArray, isUpdate);
+    this.lastElementsMap = this.elementsMap;
 
     if (this.canDoGroupAnimation(isUpdate)) {
       // 如果用户没有配置 appear.animation，就默认走整体动画
@@ -1576,8 +1577,6 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
         this.elements[i].shape.setZIndex(length - i);
       }
     }
-
-    this.lastElementsMap = this.elementsMap;
   }
 
   /**
