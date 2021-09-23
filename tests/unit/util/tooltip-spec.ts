@@ -4,7 +4,7 @@ import Line from '../../../src/geometry/line';
 import Point from '../../../src/geometry/point';
 import { Datum, MappingDatum } from '../../../src/interface';
 import { getTheme } from '../../../src/theme/';
-import { findDataByPoint, getTooltipItems } from '../../../src/util/tooltip';
+import { findDataByPoint, getTooltipItems, getTooltipItemsByHitShape } from '../../../src/util/tooltip';
 import { CITY_SALE, DIAMOND } from '../../util/data';
 import { createCanvas, createDiv, removeDom } from '../../util/dom';
 import { createScale } from '../../util/scale';
@@ -126,6 +126,65 @@ describe('Tooltip functions', () => {
       expect(getTooltipItems(data, point, 'clarity')[0].title).toBe('SI2');
       expect(getTooltipItems(data, point, 'hahaha')[0].title).toBe('hahaha');
     });
+
+    describe('getTooltipItemsByHitShape: exist multiple points in the same place', () => {
+      const data = [
+        {
+          "gender": "female",
+          "height": 161.2,
+          "weight": 51.6
+        },
+        {
+          "gender": "female",
+          "height": 167.5,
+          "weight": 59
+        },
+        {
+          "gender": "male",
+          "height": 161.2,
+          "weight": 51.6
+        },
+      ]
+      const scales = {
+        height: createScale('height', data),
+        weight: createScale('weight', data),
+        gender: createScale('gender', data),
+      };
+
+      const point = new Point({
+        data,
+        scales,
+        coordinate: rectCoord,
+        container: canvas.addGroup(),
+      });
+      point.position('height*weight').color('gender');
+      point.init({
+        theme: Theme,
+      });
+      point.paint();
+
+      it('tooltip open shared', () => {
+        const tooltipItems = getTooltipItemsByHitShape(point, { x: 0, y: 180 }, '', { shared: true });
+        expect(tooltipItems.length).toBe(2);
+        const { name: name0, title: title0, value: value0 } = tooltipItems[0][0];
+        expect(name0).toBe(data[2].gender);
+        expect(Number(title0)).toEqual(data[2].height);
+        expect(Number(value0)).toEqual(data[2].weight);
+        const { name: name1, title: title1, value: value1 } = tooltipItems[1][0];
+        expect(name1).toBe(data[0].gender);
+        expect(Number(title1)).toEqual(data[0].height);
+        expect(Number(value1)).toEqual(data[0].weight);
+      })
+
+      it('tooltip not open shared', () => {
+        const tooltipItems = getTooltipItemsByHitShape(point, { x: 0, y: 180 }, '', { shared: false });
+        expect(tooltipItems.length).toBe(1);
+        const { name, title, value } = tooltipItems[0][0];
+        expect(name).toBe(data[2].gender);
+        expect(Number(title)).toEqual(data[2].height);
+        expect(Number(value)).toEqual(data[2].weight);
+      })
+    })
   });
 
   describe('x is linear', () => {
