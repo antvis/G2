@@ -1,14 +1,3 @@
-#### 4.1.27 (2021-09-18)
-
-##### Chores
-
-*  update version ([13b58ac0](https://github.com/antvis/g2/commit/13b58ac0f0a1caa4091723ddacf5dbab34e80efa))
-
-##### Bug Fixes
-
-* **annotation:**  修复了parsePosition的解析逻辑 ([#3632](https://github.com/antvis/g2/pull/3632)) ([47641ee2](https://github.com/antvis/g2/commit/47641ee2682d37ecb4ad452266c07dce02000ef3))
-* **label:**  处理clear+render之后labelsContainer重复生成的问题 ([#3630](https://github.com/antvis/g2/pull/3630)) ([115fcdcb](https://github.com/antvis/g2/commit/115fcdcbeb5a32cffd975410035bb47004125fec))
-
 #### 4.1.26 (2021-09-15)
 
 ##### Documentation Changes
