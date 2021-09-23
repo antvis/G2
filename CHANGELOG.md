@@ -1,5 +1,46 @@
 #### 4.1.28 (2021-09-23)
 
+##### Chores
+
+*  update version to 4.1.28 ([b992b185](https://github.com/antvis/g2/commit/b992b18519a432946e27f160755800e246b2498e))
+*  update version to 4.1.27 ([#3633](https://github.com/antvis/g2/pull/3633)) ([4e71c8f8](https://github.com/antvis/g2/commit/4e71c8f888186216ba09cb4789c8b4880eaf528b))
+*  v4.1.26 & changelog ([#3624](https://github.com/antvis/g2/pull/3624)) ([297630c5](https://github.com/antvis/g2/commit/297630c5d6e72898d6eb2ea95ebb41e6547138ed))
+* **package.json:**  downgrade ts-loader to 8.x and upgrade typescript to 4.x ([#3629](https://github.com/antvis/g2/pull/3629)) ([d22ece6e](https://github.com/antvis/g2/commit/d22ece6efeb39d5da45291c08b2d3d34084c4eb7))
+
+##### Documentation Changes
+
+* **get-start:**  add docs when disposing the node ([#3613](https://github.com/antvis/g2/pull/3613)) ([d47c5449](https://github.com/antvis/g2/commit/d47c5449c235f2fb895471d7a457a3d883e4f3d0))
+* **facet:**  修改了镜像分面，使得轴标签居中显示 ([#3619](https://github.com/antvis/g2/pull/3619)) ([e3d83880](https://github.com/antvis/g2/commit/e3d83880fd408f02ec5a81616897a225abfdcf56))
+*  set default lang = zh ([#3609](https://github.com/antvis/g2/pull/3609)) ([d0224cc5](https://github.com/antvis/g2/commit/d0224cc557e725dcf2ff06aff8cec1b0932ec8b6))
+
+##### New Features
+
+* **geometry:**  refactor and rename createElements ([#3626](https://github.com/antvis/g2/pull/3626)) ([5dadea97](https://github.com/antvis/g2/commit/5dadea973f0915ebb446f037b9816b7c88a99cd3))
+*  constraint layout solver ([#3622](https://github.com/antvis/g2/pull/3622)) ([576cf07d](https://github.com/antvis/g2/commit/576cf07dbbd4a70ca6a01e609459ce1ff94cab80))
+* **api:**  add new api for view ([#3600](https://github.com/antvis/g2/pull/3600)) ([dd473f18](https://github.com/antvis/g2/commit/dd473f188f7b09962bcd098b1bcc3fb1269f651a))
+
+##### Bug Fixes
+
+* **annotation:**
+  *  修复了parsePosition的解析逻辑 ([#3632](https://github.com/antvis/g2/pull/3632)) ([47641ee2](https://github.com/antvis/g2/commit/47641ee2682d37ecb4ad452266c07dce02000ef3))
+  *  修复annotation添加id失败 ([#3601](https://github.com/antvis/g2/pull/3601)) ([7561b33d](https://github.com/antvis/g2/commit/7561b33dcc999a070965cd80f67964b14975d84b))
+* **label:**  处理clear+render之后labelsContainer重复生成的问题 ([#3630](https://github.com/antvis/g2/pull/3630)) ([115fcdcb](https://github.com/antvis/g2/commit/115fcdcbeb5a32cffd975410035bb47004125fec))
+* **uniq:**  when uniq element is not string ([#3627](https://github.com/antvis/g2/pull/3627)) ([2a794f51](https://github.com/antvis/g2/commit/2a794f518fc34addddb3d25b4a39dd65a564afbd))
+* **tests:**  eslint error ([#3625](https://github.com/antvis/g2/pull/3625)) ([eef3f305](https://github.com/antvis/g2/commit/eef3f30548c65f00be735c84a144a61c9283d36b))
+* **tooltip:**  修复 clear + render 之后，tooltip dom 重复生成问题 ([#3621](https://github.com/antvis/g2/pull/3621)) ([eaacd502](https://github.com/antvis/g2/commit/eaacd50231e99d24a0b8d2415d58bf68b64c21ca))
+*  legend 自定义items 添加marker回调 ([#3591](https://github.com/antvis/g2/pull/3591)) ([dc80db29](https://github.com/antvis/g2/commit/dc80db292d706f9860bf72978a2b761baddabed9))
+* **scrollbar:**  修复了由于getYScales方法中去重方法错误导致的 scrollbar会在特定情况下失效([#3569](https://github.com/antvis/g2/pull/3569)） ([#3570](https://github.com/antvis/g2/pull/3570)) ([28280ee4](https://github.com/antvis/g2/commit/28280ee47ba8ffef13ec1eee1e1d8d825af5ba24))
+
+##### Refactors
+
+* **annotation:**  annotation position 支持百分比混用 ([#3615](https://github.com/antvis/g2/pull/3615)) ([bcffa462](https://github.com/antvis/g2/commit/bcffa462e12d9f97a76eccc86d2545781245d824))
+* **facet:**  添加了spacing属性，支持配置分面图之间的间距 ([#3614](https://github.com/antvis/g2/pull/3614)) ([d5588a0e](https://github.com/antvis/g2/commit/d5588a0ed9782bb9bfb0a145fc3bc080fdcb6f66))
+* **funnel:**  annotation 位置添加center，支持在漏斗图中正常显示 ([#3611](https://github.com/antvis/g2/pull/3611)) ([552500df](https://github.com/antvis/g2/commit/552500df9596358d7c6a7617274255b3376351f2))
+
+##### Reverts
+
+*  annotation position 相关的 ([#3637](https://github.com/antvis/g2/pull/3637)) ([1109e3fd](https://github.com/antvis/g2/commit/1109e3fd7e8a455ba8c75f260c36162c5a15f869))
+
 #### 4.1.26 (2021-09-15)
 
 ##### Documentation Changes
