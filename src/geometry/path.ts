@@ -5,6 +5,7 @@ import Element from './element';
 /** 引入对应的 ShapeFactory */
 import './shape/line';
 import { isModelChange } from './util/is-model-change';
+import { diff } from './util/diff';
 
 /** Path 构造函数参数类型 */
 export interface PathCfg extends GeometryCfg {
@@ -40,39 +41,64 @@ export default class Path extends Geometry {
    * @param [isUpdate]
    * @returns elements
    */
-  protected createElements(mappingData: MappingDatum[], index: number, isUpdate: boolean = false): Element[] {
+  protected updateElements(mappingDataArray: MappingDatum[][], isUpdate: boolean = false) {
     // Path 的每个 element 对应一组数据
-    const { lastElementsMap, elementsMap, elements, container } = this;
-    const elementId = this.getElementId(mappingData);
-    const shapeCfg = this.getShapeInfo(mappingData);
+    const keyData = new Map<string, MappingDatum[]>();
+    const keyIndex = new Map<string, number>();
+    const keys: string[] = [];
 
-    let result = lastElementsMap[elementId];
-    if (!result) {
-      const shapeFactory = this.getShapeFactory();
-
-      result = new Element({
-        shapeFactory,
-        container,
-        offscreenGroup: this.getOffscreenGroup(),
-      });
-      result.geometry = this;
-      result.animate = this.animateOption;
-      result.draw(shapeCfg, isUpdate); // 绘制 shape
-    } else {
-      // element 已经创建
-      const preShapeCfg = result.getModel();
-      if (this.isCoordinateChanged || isModelChange(preShapeCfg, shapeCfg)) {
-        result.animate = this.animateOption;
-        // 通过绘制数据的变更来判断是否需要更新，因为用户有可能会修改图形属性映射
-        result.update(shapeCfg); // 更新对应的 element
-      }
-      delete lastElementsMap[elementId];
+    let index = 0;
+    for (let i = 0; i < mappingDataArray.length; i++) {
+      const mappingData = mappingDataArray[i];
+      const key = this.getElementId(mappingData);
+      keys.push(key);
+      keyData.set(key, mappingData);
+      keyIndex.set(key, index);
+      index++;
     }
 
-    elements.push(result);
-    elementsMap[elementId] = result;
+    this.elements = new Array(index);
 
-    return elements;
+    const { added, updated, removed } = diff(this.lastElementsMap, keys);
+
+    for (const key of added) {
+      const mappingData = keyData.get(key);
+      const shapeFactory = this.getShapeFactory();
+      const shapeCfg = this.getShapeInfo(mappingData);
+      const i = keyIndex.get(key);
+      const element = new Element({
+        shapeFactory,
+        container: this.container,
+        offscreenGroup: this.getOffscreenGroup(),
+      });
+      element.geometry = this;
+      element.animate = this.animateOption;
+      element.draw(shapeCfg, isUpdate); // 绘制 shape
+      this.elementsMap[key] = element;
+      this.elements[i] = element;
+    }
+
+    for (const key of updated) {
+      const mappingData = keyData.get(key);
+      const element = this.lastElementsMap[key];
+      const i = keyIndex.get(key);
+      const shapeCfg = this.getShapeInfo(mappingData);
+      const preShapeCfg = element.getModel();
+      if (this.isCoordinateChanged || isModelChange(preShapeCfg, shapeCfg)) {
+        element.animate = this.animateOption;
+        // 通过绘制数据的变更来判断是否需要更新，因为用户有可能会修改图形属性映射
+        element.update(shapeCfg); // 更新对应的 element
+      }
+      this.elementsMap[key] = element;
+      this.elements[i] = element;
+    }
+
+    for (const key of removed) {
+      const element = this.lastElementsMap[key];
+      // 更新动画配置，用户有可能在更新之前有对动画进行配置操作
+      element.animate = this.animateOption;
+      element.destroy();
+    }
   }
 
   /**
