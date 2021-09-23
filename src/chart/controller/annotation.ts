@@ -7,7 +7,6 @@ import {
   isFunction,
   isNil,
   isString,
-  isNumber,
   keys,
   upperFirst,
   find,
@@ -366,29 +365,19 @@ export default class Annotation extends Controller<BaseOption[]> {
 
     let x = 0;
     let y = 0;
-    const coordinate = this.view.getCoordinate();
-    const isPercent = (val: string | number): val is string => {
-      return isString(val) && val.indexOf('%') !== -1 && !isNaN(Number(val.slice(0, -1)));
-    };
 
     // 入参是 [24, 24] 这类时
     if (isArray(position)) {
       const [xPos, yPos] = position;
-
-      // fix: 原始数据中可能会包含 'xxx5%xxx' 这样的数据，需要判断下 https://github.com/antvis/f2/issues/590
       // 如果数据格式是 ['50%', '50%'] 的格式
-      if (isPercent(xPos) && isPercent(yPos)) {
+      // fix: 原始数据中可能会包含 'xxx5%xxx' 这样的数据，需要判断下 https://github.com/antvis/f2/issues/590
+      // @ts-ignore
+      if (isString(xPos) && xPos.indexOf('%') !== -1 && !isNaN(xPos.slice(0, -1))) {
         return this.parsePercentPosition(position as [string, string]);
       }
 
-      if (!isPercent(xPos) && !isPercent(yPos)) {
-        x = getNormalizedValue(xPos, xScale);
-        y = getNormalizedValue(yPos, Object.values(yScales)[0]);
-      } else if (coordinate.isRect) {
-        // 混合格式只支持笛卡尔坐标系
-        x = isPercent(xPos) ? Number(xPos.slice(0, -1)) / 100 : getNormalizedValue(xPos, xScale);
-        y = isPercent(yPos) ? Number(yPos.slice(0, -1)) / 100 : getNormalizedValue(yPos, Object.values(yScales)[0]);
-      }
+      x = getNormalizedValue(xPos, xScale);
+      y = getNormalizedValue(yPos, Object.values(yScales)[0]);
     } else if (!isNil(position)) {
       // 入参是 object 结构，数据点
       for (const key of keys(position)) {
@@ -401,7 +390,8 @@ export default class Annotation extends Controller<BaseOption[]> {
         }
       }
     }
-    return coordinate.convert({ x, y });
+
+    return this.view.getCoordinate().convert({ x, y });
   }
 
   /**
