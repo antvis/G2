@@ -230,6 +230,12 @@ export default class Tooltip extends Controller<TooltipOption> {
       tooltipMarkersGroup.clear();
     }
 
+    // 如果 customContent 不为空，就重新生成 tooltip 
+    if (tooltip?.get("customContent")) {
+      this.tooltip.destroy();
+      this.tooltip = null;
+    }
+
     // title 和 items 需要清空, 否则 tooltip 内容会出现置空的情况
     // 即：需要走进 !isEqual(lastTitle, title) || !isEqual(lastItems, items) 的逻辑，更新 tooltip 的内容
     this.title = null;
