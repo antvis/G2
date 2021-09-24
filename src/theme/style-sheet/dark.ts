@@ -81,7 +81,7 @@ export const createDarkStyleSheet = (cfg: StyleSheetCfg = {}) => {
     paletteSemanticGreen = '#30BF78',
     paletteSemanticYellow = '#FAAD14',
     paletteSequence = SINGLE_SEQUENCE,
-    fontFamily = `"-apple-system", "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    fontFamily = `"Segoe UI", Roboto, "Helvetica Neue", Arial,
     "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
     "Noto Color Emoji"`,
   } = cfg;
