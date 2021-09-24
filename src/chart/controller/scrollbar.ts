@@ -169,6 +169,16 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
     this.yScalesCfg = [];
   }
 
+  /** 设置滚动条位置  */
+  public setValue(ratio: number) {
+    this.onValueChange({ ratio });
+  }
+
+  /** 获得滚动条位置  */
+  public getValue() {
+    return this.ratio;
+  }
+
   /**
    * 获取 scrollbar 的主题配置
    */
