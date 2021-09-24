@@ -1,3 +1,18 @@
+#### 4.1.28 (2021-09-24)
+
+##### New Features
+
+* **geometry:**  refactor and rename createElements ([#3626](https://github.com/antvis/g2/pull/3626)) ([5dadea97](https://github.com/antvis/g2/commit/5dadea973f0915ebb446f037b9816b7c88a99cd3))
+*  constraint layout solver ([#3622](https://github.com/antvis/g2/pull/3622)) ([576cf07d](https://github.com/antvis/g2/commit/576cf07dbbd4a70ca6a01e609459ce1ff94cab80))
+
+##### Bug Fixes
+
+*  crash on safari 15 when fillText with unicode ([#3640](https://github.com/antvis/g2/pull/3640)) ([0516f6e3](https://github.com/antvis/g2/commit/0516f6e3370df221bd52c6c987b8916da59979be))
+
+##### Reverts
+
+*  annotation position 相关的 ([#3637](https://github.com/antvis/g2/pull/3637)) ([1109e3fd](https://github.com/antvis/g2/commit/1109e3fd7e8a455ba8c75f260c36162c5a15f869))
+
 #### 4.1.26 (2021-09-15)
 
 ##### Documentation Changes
