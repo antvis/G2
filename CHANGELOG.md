@@ -1,10 +1,7 @@
-#### 4.1.28 (2021-09-23)
+#### 4.1.28 (2021-09-24)
 
 ##### Chores
 
-*  update version to 4.1.28 ([b992b185](https://github.com/antvis/g2/commit/b992b18519a432946e27f160755800e246b2498e))
-*  update version to 4.1.27 ([#3633](https://github.com/antvis/g2/pull/3633)) ([4e71c8f8](https://github.com/antvis/g2/commit/4e71c8f888186216ba09cb4789c8b4880eaf528b))
-*  v4.1.26 & changelog ([#3624](https://github.com/antvis/g2/pull/3624)) ([297630c5](https://github.com/antvis/g2/commit/297630c5d6e72898d6eb2ea95ebb41e6547138ed))
 * **package.json:**  downgrade ts-loader to 8.x and upgrade typescript to 4.x ([#3629](https://github.com/antvis/g2/pull/3629)) ([d22ece6e](https://github.com/antvis/g2/commit/d22ece6efeb39d5da45291c08b2d3d34084c4eb7))
 
 ##### Documentation Changes
@@ -21,20 +18,21 @@
 
 ##### Bug Fixes
 
+*  crash on safari 15 when fillText with unicode ([#3640](https://github.com/antvis/g2/pull/3640)) ([0516f6e3](https://github.com/antvis/g2/commit/0516f6e3370df221bd52c6c987b8916da59979be))
+*  legend 自定义 items 添加 marker 回调 ([#3591](https://github.com/antvis/g2/pull/3591)) ([dc80db29](https://github.com/antvis/g2/commit/dc80db292d706f9860bf72978a2b761baddabed9))
 * **annotation:**
-  *  修复了parsePosition的解析逻辑 ([#3632](https://github.com/antvis/g2/pull/3632)) ([47641ee2](https://github.com/antvis/g2/commit/47641ee2682d37ecb4ad452266c07dce02000ef3))
-  *  修复annotation添加id失败 ([#3601](https://github.com/antvis/g2/pull/3601)) ([7561b33d](https://github.com/antvis/g2/commit/7561b33dcc999a070965cd80f67964b14975d84b))
-* **label:**  处理clear+render之后labelsContainer重复生成的问题 ([#3630](https://github.com/antvis/g2/pull/3630)) ([115fcdcb](https://github.com/antvis/g2/commit/115fcdcbeb5a32cffd975410035bb47004125fec))
+  *  修复了 parsePosition 的解析逻辑 ([#3632](https://github.com/antvis/g2/pull/3632)) ([47641ee2](https://github.com/antvis/g2/commit/47641ee2682d37ecb4ad452266c07dce02000ef3))
+  *  修复 annotation 添加 id 失败 ([#3601](https://github.com/antvis/g2/pull/3601)) ([7561b33d](https://github.com/antvis/g2/commit/7561b33dcc999a070965cd80f67964b14975d84b))
+* **label:**  处理clear+render之后 labelsContainer 重复生成的问题 ([#3630](https://github.com/antvis/g2/pull/3630)) ([115fcdcb](https://github.com/antvis/g2/commit/115fcdcbeb5a32cffd975410035bb47004125fec))
 * **uniq:**  when uniq element is not string ([#3627](https://github.com/antvis/g2/pull/3627)) ([2a794f51](https://github.com/antvis/g2/commit/2a794f518fc34addddb3d25b4a39dd65a564afbd))
 * **tests:**  eslint error ([#3625](https://github.com/antvis/g2/pull/3625)) ([eef3f305](https://github.com/antvis/g2/commit/eef3f30548c65f00be735c84a144a61c9283d36b))
 * **tooltip:**  修复 clear + render 之后，tooltip dom 重复生成问题 ([#3621](https://github.com/antvis/g2/pull/3621)) ([eaacd502](https://github.com/antvis/g2/commit/eaacd50231e99d24a0b8d2415d58bf68b64c21ca))
-*  legend 自定义items 添加marker回调 ([#3591](https://github.com/antvis/g2/pull/3591)) ([dc80db29](https://github.com/antvis/g2/commit/dc80db292d706f9860bf72978a2b761baddabed9))
-* **scrollbar:**  修复了由于getYScales方法中去重方法错误导致的 scrollbar会在特定情况下失效([#3569](https://github.com/antvis/g2/pull/3569)） ([#3570](https://github.com/antvis/g2/pull/3570)) ([28280ee4](https://github.com/antvis/g2/commit/28280ee47ba8ffef13ec1eee1e1d8d825af5ba24))
+* **scrollbar:**  修复了由于 getYScales 方法中去重方法错误导致的 scrollbar会在特定情况下失效([#3569](https://github.com/antvis/g2/pull/3569)） ([#3570](https://github.com/antvis/g2/pull/3570)) ([28280ee4](https://github.com/antvis/g2/commit/28280ee47ba8ffef13ec1eee1e1d8d825af5ba24))
 
 ##### Refactors
 
 * **annotation:**  annotation position 支持百分比混用 ([#3615](https://github.com/antvis/g2/pull/3615)) ([bcffa462](https://github.com/antvis/g2/commit/bcffa462e12d9f97a76eccc86d2545781245d824))
-* **facet:**  添加了spacing属性，支持配置分面图之间的间距 ([#3614](https://github.com/antvis/g2/pull/3614)) ([d5588a0e](https://github.com/antvis/g2/commit/d5588a0ed9782bb9bfb0a145fc3bc080fdcb6f66))
+* **facet:**  添加了 spacing 属性，支持配置分面图之间的间距 ([#3614](https://github.com/antvis/g2/pull/3614)) ([d5588a0e](https://github.com/antvis/g2/commit/d5588a0ed9782bb9bfb0a145fc3bc080fdcb6f66))
 * **funnel:**  annotation 位置添加center，支持在漏斗图中正常显示 ([#3611](https://github.com/antvis/g2/pull/3611)) ([552500df](https://github.com/antvis/g2/commit/552500df9596358d7c6a7617274255b3376351f2))
 
 ##### Reverts
@@ -55,14 +53,14 @@
 ##### Bug Fixes
 
 * **tooltip:**  修复 clear + render 之后，tooltip dom 重复生成问题 ([#3621](https://github.com/antvis/g2/pull/3621)) ([eaacd502](https://github.com/antvis/g2/commit/eaacd50231e99d24a0b8d2415d58bf68b64c21ca))
-*  legend 自定义items 添加marker回调 ([#3591](https://github.com/antvis/g2/pull/3591)) ([dc80db29](https://github.com/antvis/g2/commit/dc80db292d706f9860bf72978a2b761baddabed9))
+*  legend 自定义items 添加 marker 回调 ([#3591](https://github.com/antvis/g2/pull/3591)) ([dc80db29](https://github.com/antvis/g2/commit/dc80db292d706f9860bf72978a2b761baddabed9))
 * **scrollbar:**  修复了由于 getYScales 方法中去重方法错误导致的 scrollbar 会在特定情况下失效([#3569](https://github.com/antvis/g2/pull/3569)） ([#3570](https://github.com/antvis/g2/pull/3570)) ([28280ee4](https://github.com/antvis/g2/commit/28280ee47ba8ffef13ec1eee1e1d8d825af5ba24))
 * **annotation:**  修复 annotation 添加 id 失败 ([#3601](https://github.com/antvis/g2/pull/3601)) ([7561b33d](https://github.com/antvis/g2/commit/7561b33dcc999a070965cd80f67964b14975d84b))
 
 ##### Refactors
 
 * **annotation:**  annotation position 支持百分比混用 ([#3615](https://github.com/antvis/g2/pull/3615)) ([bcffa462](https://github.com/antvis/g2/commit/bcffa462e12d9f97a76eccc86d2545781245d824))
-* **facet:**  添加了spacing属性，支持配置分面图之间的间距 ([#3614](https://github.com/antvis/g2/pull/3614)) ([d5588a0e](https://github.com/antvis/g2/commit/d5588a0ed9782bb9bfb0a145fc3bc080fdcb6f66))
+* **facet:**  添加了 spacing 属性，支持配置分面图之间的间距 ([#3614](https://github.com/antvis/g2/pull/3614)) ([d5588a0e](https://github.com/antvis/g2/commit/d5588a0ed9782bb9bfb0a145fc3bc080fdcb6f66))
 * **funnel:**  annotation 位置添加center，支持在漏斗图中正常显示 ([#3611](https://github.com/antvis/g2/pull/3611)) ([552500df](https://github.com/antvis/g2/commit/552500df9596358d7c6a7617274255b3376351f2))
 
 #### 4.1.25 (2021-08-25)
