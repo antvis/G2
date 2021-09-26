@@ -2,7 +2,7 @@
 
 ##### Bug Fixes
 
-* **custom-content:**  修复custom-content的undefined无法变回tooltip模版的问题 ([#3644](https://github.com/antvis/g2/pull/3644)) ([2790c349](https://github.com/antvis/g2/commit/2790c34907653c172136fef0124691f3bea3d863))
+* **custom-content:**  修复 custom-content undefined 无法变回 tooltip 模版的问题 ([#3644](https://github.com/antvis/g2/pull/3644)) ([2790c349](https://github.com/antvis/g2/commit/2790c34907653c172136fef0124691f3bea3d863))
 
 #### 4.1.28 (2021-09-24)
 
