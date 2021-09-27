@@ -173,6 +173,7 @@ registerComponentController('scrollbar', Scrollbar);
 // 注册 Interaction Action
 import { registerAction } from './core';
 import ActiveRegion from './interaction/action/active-region';
+import FacetActiveRegion from './interaction/action/facet-active-region';
 import SiblingTooltip from './interaction/action/component/tooltip/sibling';
 import TooltipAction from './interaction/action/component/tooltip/geometry';
 import EllipsisTextAction from './interaction/action/component/tooltip/ellipsis-text';
@@ -242,6 +243,7 @@ registerAction('element-range-selected', ElementRangeSelected);
 registerAction('element-link-by-color', ElementLinkByColor);
 
 registerAction('active-region', ActiveRegion);
+registerAction('facet-active-region', FacetActiveRegion);
 registerAction('list-active', ListActive);
 registerAction('list-selected', ListSelected);
 registerAction('list-highlight', ListHighlight);
@@ -585,6 +587,11 @@ registerInteraction('legend-visible-filter', {
 registerInteraction('active-region', {
   start: [{ trigger: 'plot:mousemove', action: 'active-region:show' }],
   end: [{ trigger: 'plot:mouseleave', action: 'active-region:hide' }],
+});
+
+registerInteraction('facet-active-region', {
+  start: [{ trigger: 'plot:mousemove', action: 'facet-active-region:show' }],
+  end: [{ trigger: 'plot:mouseleave', action: 'facet-active-region:hide' }],
 });
 
 function isWheelDown(event) {
