@@ -36,6 +36,11 @@ chart.scale('value', {
 
 chart.axis('value', false);
 chart.coordinate().transpose();
+chart.tooltip({
+  showMarkers: false,
+  shared: true,
+});
+chart.interaction('facet-active-region');
 chart.facet('mirror', {
   fields: ['type'],
   transpose: true,
@@ -48,29 +53,32 @@ chart.facet('mirror', {
         label: {
           style: {
             fill: '#aaaaaa',
-            fontSize: 12
-          }
+            fontSize: 12,
+          },
         },
         tickLine: {
           alignTick: false,
-          length: 0
+          length: 0,
         },
         line: null,
       });
     } else {
       view.axis('country', false);
     }
-    const color = (facetIndex === 0) ? '#1890ff' : '#2fc25b';
-    view.interval().position('country*value').color(color)
+    const color = facetIndex === 0 ? '#1890ff' : '#2fc25b';
+    view
+      .interval()
+      .position('country*value')
+      .color(color)
       .size(30)
       .label('value', (val) => {
-        let offset = (facetIndex === 1) ? -4 : 4;
+        let offset = facetIndex === 1 ? -4 : 4;
         let shadowBlur = 2;
-        let textAlign = (facetIndex === 1) ? 'end' : 'start';
+        let textAlign = facetIndex === 1 ? 'end' : 'start';
         let fill = 'white';
         if (val < 15) {
-          offset = (facetIndex === 1) ? 4 : -4;
-          textAlign = (facetIndex === 1) ? 'start' : 'end';
+          offset = facetIndex === 1 ? 4 : -4;
+          textAlign = facetIndex === 1 ? 'start' : 'end';
           fill = '#666666';
           shadowBlur = 0;
         }
@@ -81,11 +89,10 @@ chart.facet('mirror', {
             stroke: null,
             shadowBlur,
             shadowColor: 'rgba(0, 0, 0, .45)',
-            textAlign
-          }
+            textAlign,
+          },
         };
       });
-  }
+  },
 });
-chart.interaction('element-highlight');
 chart.render();
