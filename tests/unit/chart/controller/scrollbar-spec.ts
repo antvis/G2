@@ -10,6 +10,48 @@ import { near } from '../../../util/math';
 describe('Scrollbar', () => {
   const container = createDiv();
 
+  it('scrollbar value', async () => {
+    const chart = new Chart({
+      container,
+      height: 400,
+      width: 500,
+    });
+    chart.animate(false);
+    chart.data(salesBySubCategory);
+    chart.option('scrollbar', {
+      type: 'horizontal',
+    });
+    chart.scale('sales', {
+      nice: true,
+      formatter: (v) => `${Math.floor(v / 10000)}万`,
+    });
+    chart.axis('subCategory', {
+      label: {
+        autoRotate: false,
+      },
+    });
+    chart.interval().position('subCategory*sales').label('sales');
+
+    chart.render();
+    const coordinateBBox = chart.coordinateBBox;
+
+    await delay(1);
+
+    const scrollbar = chart.getController('scrollbar');
+
+    expect(scrollbar.getValue()).toBe(0);
+    scrollbar.setValue(1);
+    expect(scrollbar.getValue()).toBe(1);
+    scrollbar.setValue(0.5);
+    expect(scrollbar.getValue()).toBe(0.5);
+    scrollbar.setValue(-0.5);
+    expect(scrollbar.getValue()).toBe(0);
+    scrollbar.setValue(1.5);
+    expect(scrollbar.getValue()).toBe(1);
+
+    chart.destroy();
+  });
+
   it('scrollbar /w interval horizontal', async () => {
     const chart = new Chart({
       container,
