@@ -1,3 +1,9 @@
+#### 4.1.30 (2021-09-28)
+
+##### Bug Fixes
+
+* **state-style:**  修复存在状态时，动画丢失 ([2619645a](https://github.com/antvis/g2/commit/2619645a1162c97f66af0d8949ca1ba03e398e03))
+
 #### 4.1.29 (2021-09-26)
 
 ##### Bug Fixes
