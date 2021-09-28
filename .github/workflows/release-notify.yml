@@ -1,11 +1,12 @@
 name: DingTalk Release Notify
 
 on:
+  workflow_dispatch:
   release:
     types: [published]
 
 jobs:
-  build:
+  notify:
     runs-on: ubuntu-latest
     steps:
       - uses: visiky/release-notify@main
