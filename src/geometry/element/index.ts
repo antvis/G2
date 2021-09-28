@@ -491,7 +491,7 @@ export default class Element extends Base {
             toAttrs: newAttrs,
             shapeModel: this.model,
           });
-        } else if (isEmpty(states)) {
+        } else if (!isEmpty(states)) {
           sourceShape.stopAnimate();
           sourceShape.animate(newAttrs, {
             duration: 300,
