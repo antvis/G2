@@ -1,0 +1,17 @@
+name: DingTalk Release Notify
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: visiky/release-notify@main
+        with:
+          DING_TALK_TOKEN: ${{ secrets.DING_TALK_TOKEN}}
+          notify_title: '🎉 G2 发布 release {release_tag} 🎉'
+          notify_body: '## { title }<hr /> ![](https://gw.alipayobjects.com/zos/antfincdn/h2wMHAthDz/G2.png) <hr /> { body } <hr />'
+          notify_footer: '> 前往 [**G2 Releases**]({ release_url }) 查看完整信息.'
+          at_all: true
