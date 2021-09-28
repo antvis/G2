@@ -6,7 +6,7 @@ on:
     types: [published]
 
 jobs:
-  release-notify:
+  notify:
     runs-on: ubuntu-latest
     steps:
       - uses: visiky/release-notify@main
