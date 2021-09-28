@@ -85,7 +85,7 @@ describe('#2905: 没有自定义主题，自定义 shape 中 draw 方法获取�
     simulateMouseEvent(el, 'mouseenter', getClientPoint(canvas, (box.minX + box.maxX) / 2, (box.minY + box.maxY) / 2));
     expect(element0.hasState('active')).toBe(true);
 
-    await delay(10);
+    await delay(2000);
     expect(element0.shape.get('children')[0].attr('stroke')).toBe('green');
   });
 });
