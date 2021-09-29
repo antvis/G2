@@ -1,8 +1,8 @@
 import { Chart } from '@antv/g2';
 
 function getTypeColor(type) {
-  if (type === '转基因作物种植面积') { return '#1890ff'; }
-  if (type === '耕地总面积') { return '#2fc25b'; }
+  if (type === '发布数量') { return '#1890ff'; }
+  if (type === '平均已读率') { return '#2fc25b'; }
   if (type === '转基因作物种植占比（%）') { return '#facc14'; }
 }
 
