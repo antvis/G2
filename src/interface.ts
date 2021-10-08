@@ -20,6 +20,7 @@ import {
   ICanvas,
   IGroup,
   IShape,
+  CategoryLegendCfg,
   LegendBackgroundCfg,
   LegendItemNameCfg,
   LegendItemValueCfg,
@@ -912,7 +913,7 @@ export interface G2LegendTitleCfg extends LegendTitleCfg {
 /**
  * 图例项配置
  */
-export interface LegendCfg {
+export interface LegendCfg extends Omit<CategoryLegendCfg, 'marker'> {
   /**
    * 是否为自定义图例，当该属性为 true 时，需要声明 items 属性。
    */
