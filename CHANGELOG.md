@@ -1,3 +1,9 @@
+#### 3.5.18 (2021-10-08)
+
+##### Bugs
+
+* **fix:** crash on safari 15 ([3f10101](https://github.com/antvis/G2/commit/3f101014d0a02b06d0bae0fb6837453b53131c1c))
+  
 #### 3.5.17 (2020-06-02)
 
 ##### Chores
