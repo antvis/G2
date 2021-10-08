@@ -56,7 +56,7 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/baby-names.json')
       grid: null,
     });
     chart
-      .area()
+      .area({ sortable: true })
       .position('year*count')
       .adjust(['stack', 'symmetric'])
       .color('name')
