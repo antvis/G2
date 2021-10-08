@@ -43,6 +43,20 @@ changeSize(width: number, height: number): Chart;
 changeVisible(visible: boolean): Chart;
 ```
 
+### chart.aria()
+
+开启或者关闭无障碍标签，`false` 表示关闭，否则需要填入无障碍标签配置内容，默认关闭。
+
+```sign
+aria(false ｜ AriaOptions): void
+```
+
+Example:
+
+```ts
+chart.aria({ label: '这张图表展示的是不同城市的交易额对比情况。' });
+```
+
 ## View API
 
 > View 上的 api 同样适用于 Chart 上
