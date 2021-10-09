@@ -1,9 +1,10 @@
-import { debounce, each, isString, get } from '@antv/util';
+import { debounce, each, isString } from '@antv/util';
 import { ChartCfg } from '../interface';
 import { GROUP_Z_INDEX, VIEW_LIFE_CIRCLE } from '../constant';
 import { getEngine } from '../engine';
 import { createDom, getChartSize, removeDom, modifyCSS } from '../util/dom';
 import View from './view';
+import { AriaOption } from '../interface';
 
 /**
  * Chart 类，是使用 G2 进行绘图的入口。
@@ -104,6 +105,19 @@ export default class Chart extends View {
   }
 
   /**
+   * 设置 WAI-ARIA 无障碍标签。如何根据图形语法自动生成 arial 内容？
+   * @param ariaOption
+   */
+  public aria(ariaOption: AriaOption) {
+    const ATTR = 'aria-label';
+    if (ariaOption === false) {
+      this.ele.removeAttribute(ATTR);
+    } else {
+      this.ele.setAttribute(ATTR, ariaOption.label);
+    }
+  }
+
+  /**
    * 改变图表大小，同时重新渲染。
    * @param width 图表宽度
    * @param height 图表高度
@@ -127,6 +141,15 @@ export default class Chart extends View {
     this.emit(VIEW_LIFE_CIRCLE.AFTER_CHANGE_SIZE);
 
     return this;
+  }
+
+  /**
+   * 清空图表，同时清除掉 aria 配置
+   */
+  public clear() {
+    super.clear();
+
+    this.aria(false);
   }
 
   /**
