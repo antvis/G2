@@ -134,6 +134,41 @@ describe('collision-detect', () => {
     expect(isIntersect(getBox(rect0), getBox(rect1))).not.toBeFalsy();
   });
 
+  it('isInteract 只会判断合法的 box', () => {
+    const b0 = {
+      x: 0,
+      y: 0,
+      width: 10,
+      height: 10,
+    };
+
+    const b1 = {
+      x: NaN,
+      y: NaN,
+      width: 10,
+      height: 10,
+    };
+
+    const b2 = {
+      x: Infinity,
+      y: Infinity,
+      width: 10,
+      height: 10,
+    };
+
+    const b3 = {
+      x: undefined,
+      y: undefined,
+      width: 10,
+      height: 10,
+    };
+
+    expect(isIntersect(b0, b1)).toBe(false);
+    expect(isIntersect(b0, b2)).toBe(false);
+    expect(isIntersect(b0, b3)).toBe(false);
+    expect(isIntersect(b1, b2)).toBe(false);
+  });
+
   afterAll(() => {
     rectShape.remove(true);
     rect0.remove(true);

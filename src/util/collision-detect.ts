@@ -99,7 +99,7 @@ function isProjectionOverlap(projection1: Projection, projection2: Projection): 
 }
 
 function isValidBox(box: Box) {
-  return Object.values(box).every((d) => !isNaN(d) && !isNil(d));
+  return Object.values(box).every((d) => !Number.isNaN(d) && !isNil(d) && d !== Infinity);
 }
 
 /**
