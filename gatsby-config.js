@@ -14,7 +14,7 @@ module.exports = {
   siteMetadata: {
     title: 'G2',
     description: 'The Grammar of Graphics in JavaScript',
-    siteUrl: 'https://g2.antv.vision',
+    siteUrl: 'https://g2-v3.antv.vision',
     githubUrl: repository.url,
     navs: [
       {
