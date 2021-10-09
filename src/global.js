@@ -6,7 +6,7 @@ const Util = require('./util');
 const Theme = require('./theme/index');
 
 const Global = {
-  version: '3.5.18',
+  version: '3.5.19',
   renderer: 'canvas',
   // trackable: false,
   trackingInfo: {},
