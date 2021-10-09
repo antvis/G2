@@ -138,12 +138,12 @@ export default class Context implements IInteractionContext {
    * 销毁
    */
   public destroy() {
-    this.view = null;
-    this.event = null;
     // 先销毁 action 再清空，一边遍历，一边删除，所以数组需要更新引用
     each(this.actions.slice(), (action) => {
       action.destroy();
     });
+    this.view = null;
+    this.event = null;
     this.actions = null;
     this.cacheMap = null;
   }
