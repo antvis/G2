@@ -1,9 +1,9 @@
-import { vec2 } from '@antv/matrix-util'; 
+import { isNil } from '@antv/g-base/lib/util/util';
+import { vec2 } from '@antv/matrix-util';
 import { BBox, Point } from '../dependents';
 
 const { dot } = vec2;
 type Vec2 = [number, number];
-
 
 type Box = Pick<BBox, 'x' | 'y' | 'width' | 'height'> & { rotation?: number };
 
@@ -98,6 +98,10 @@ function isProjectionOverlap(projection1: Projection, projection2: Projection): 
   return projection1.max > projection2.min && projection1.min < projection2.max;
 }
 
+function isValidBox(box: Box) {
+  return Object.values(box).every((d) => !isNaN(d) && !isNil(d));
+}
+
 /**
  * 快速判断两个无旋转矩形是否遮挡
  */
@@ -117,6 +121,8 @@ export function isIntersectRect(box1: Box, box2: Box, margin: number = 0): boole
  * - 原理: 分离轴定律
  */
 export function isIntersect(box1: Box, box2: Box) {
+  // 如果两个 box 中有一个是不合法的 box，也就是不会被渲染出来的，那么它们就不相交。
+  if (!isValidBox(box1) || !isValidBox(box2)) return false;
 
   // 如果两个矩形没有旋转，使用快速判断
   if (!box1.rotation && !box2.rotation) {
