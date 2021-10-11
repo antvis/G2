@@ -15,25 +15,25 @@
 | data            | number[]   | 否       | -      | 趋势图数据，组件会默认根据图表数据填充，无需配置 |
 | smooth          | boolean    | 否       | false  | 趋势图曲线是否圆滑                               |
 | isArea          | boolean    | 否       | false  | 趋势图是否使用面积图                             |
-| backgroundStyle | ShapeStyle | 否       | -      | 背景样式                                         |
-| lineStyle       | ShapeStyle | 否       | -      | 折线图样式                                       |
-| areaStyle       | ShapeStyle | 否       | -      | 面积图样式                                       |
+| backgroundStyle | [ShapeAttrs](/zh/docs/api/shape/shape-attrs) | 否       | -      | 背景样式                                         |
+| lineStyle       | [ShapeAttrs](/zh/docs/api/shape/shape-attrs) | 否       | -      | 折线图样式                                       |
+| areaStyle       | [ShapeAttrs](/zh/docs/api/shape/shape-attrs) | 否       | -      | 面积图样式                                       |
 
 ### options.backgroundStyle
 
-<description> _ShapeStyle_ **optional**</description>
+<description> _[ShapeAttrs](/zh/docs/api/shape/shape-attrs)_ **optional**</description>
 
 滑块背景样式
 
 ### options.foregroundStyle
 
-<description> _ShapeStyle_ **optional**</description>
+<description> _[ShapeAttrs](/zh/docs/api/shape/shape-attrs)_ **optional**</description>
 
 滑块前景样式
 
 ### options.handlerStyle
 
-<description> _ShapeStyle_ **optional**</description>
+<description> _[ShapeAttrs](/zh/docs/api/shape/shape-attrs)_ **optional**</description>
 
 滑块两个操作块前景样式
 
