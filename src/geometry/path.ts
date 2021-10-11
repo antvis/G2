@@ -70,6 +70,7 @@ export default class Path extends Geometry {
         shapeFactory,
         container: this.container,
         offscreenGroup: this.getOffscreenGroup(),
+        elementIndex: i,
       });
       element.geometry = this;
       element.animate = this.animateOption;
