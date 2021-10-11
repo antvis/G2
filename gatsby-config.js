@@ -242,7 +242,7 @@ module.exports = {
         icon: 'candlestick',
         title: {
           zh: '烛形图',
-          en: 'K Chart',
+          en: 'Candlestick Chart',
         },
       },
       {
