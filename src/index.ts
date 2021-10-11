@@ -217,6 +217,7 @@ import ViewDrag from './interaction/action/view/drag';
 import ViewMove from './interaction/action/view/move';
 import ScaleTranslate from './interaction/action/view/scale-translate';
 import ScaleZoom from './interaction/action/view/scale-zoom';
+import MousewheelScroll from './interaction/action/view/mousewheel-scroll';
 
 registerAction('tooltip', TooltipAction);
 registerAction('sibling-tooltip', SiblingTooltip);
@@ -286,6 +287,8 @@ registerAction('reset-button', ButtonAction, {
   name: 'reset-button',
   text: 'reset',
 });
+
+registerAction('mousewheel-scroll', MousewheelScroll);
 
 // 注册默认的 Interaction 交互行为
 import { registerInteraction } from './core';
@@ -615,6 +618,10 @@ registerInteraction('view-zoom', {
 registerInteraction('sibling-tooltip', {
   start: [{ trigger: 'plot:mousemove', action: 'sibling-tooltip:show' }],
   end: [{ trigger: 'plot:mouseleave', action: 'sibling-tooltip:hide' }],
+});
+
+registerInteraction('plot-mousewheel-scroll', {
+  start: [{ trigger: 'plot:mousewheel', action: 'mousewheel-scroll:scroll' }],
 });
 
 // 让 TS 支持 View 原型上添加的创建 Geometry 方法的智能提示

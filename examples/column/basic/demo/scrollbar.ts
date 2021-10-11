@@ -13,6 +13,11 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/top2000.json')
         groupBy: ['release'],
         operations: ['count'],
         type: 'aggregate',
+      })
+      .transform({
+        type: 'sort-by',
+        fields: ['release'],
+        order: 'ASC',
       });
 
     const chart = new Chart({
@@ -37,5 +42,10 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/top2000.json')
       type: 'horizontal',
     });
     chart.interaction('element-visible-filter');
+    chart.interaction('plot-mousewheel-scroll', {
+      start: [
+        { trigger: 'plot:mousewheel', action: 'mousewheel-scroll:scroll', arg: { wheelDelta: 5 } },
+      ],
+    });
     chart.render();
   });
