@@ -1,4 +1,4 @@
-import { isNil } from '@antv/g-base/lib/util/util';
+import { isNil } from '@antv/util';
 import { vec2 } from '@antv/matrix-util';
 import { BBox, Point } from '../dependents';
 

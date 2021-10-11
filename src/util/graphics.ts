@@ -1,5 +1,5 @@
 import { BBox } from '@antv/g-svg';
-import { each, isEmpty, isNumber, isNumberEqual } from '@antv/util';
+import { each, isEmpty, isNumber, isNumberEqual, max, min } from '@antv/util';
 import { Coordinate, IShape, Point } from '../dependents';
 import { ShapeInfo } from '../interface';
 
@@ -35,7 +35,7 @@ function uniqueValues<T = number>(array: T[]) {
 }
 
 function mid(array: number[]) {
-  return (Math.min(...array) + Math.max(...array)) / 2;
+  return (min(array) + max(array)) / 2;
 }
 
 /**
@@ -200,9 +200,7 @@ export function getPolygonCentroid(xs: number | number[], ys: number | number[])
   // 下面计算得到的 k = 0
   // 导致返回的值是 [NaN, NaN]
   // 所以这里做相应的处理
-  if (uniqueValues(xs) && uniqueValues(ys)) return [xs[0], ys[0]];
-  if (uniqueValues(xs)) return [xs[0], mid(ys)];
-  if (uniqueValues(ys)) return [mid(xs), ys[0]];
+  if (uniqueValues(xs) || uniqueValues(ys)) return [mid(xs), mid(ys)];
 
   let i = -1;
   let x = 0;
