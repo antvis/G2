@@ -1,4 +1,4 @@
-import { isNil } from '@antv/util';
+import { isNumber } from '@antv/util';
 import { vec2 } from '@antv/matrix-util';
 import { BBox, Point } from '../dependents';
 
@@ -98,8 +98,12 @@ function isProjectionOverlap(projection1: Projection, projection2: Projection): 
   return projection1.max > projection2.min && projection1.min < projection2.max;
 }
 
+function isValidNumber(d: number) {
+  return isNumber(d) && !Number.isNaN(d) && d !== Infinity && d !== -Infinity;
+}
+
 function isValidBox(box: Box) {
-  return Object.values(box).every((d) => !Number.isNaN(d) && !isNil(d) && d !== Infinity);
+  return Object.values(box).every(isValidNumber);
 }
 
 /**

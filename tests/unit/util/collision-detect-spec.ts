@@ -163,10 +163,18 @@ describe('collision-detect', () => {
       height: 10,
     };
 
+    const b4 = {
+      x: -Infinity,
+      y: -Infinity,
+      width: 10,
+      height: 10,
+    };
+
     expect(isIntersect(b0, b1)).toBe(false);
     expect(isIntersect(b0, b2)).toBe(false);
     expect(isIntersect(b0, b3)).toBe(false);
     expect(isIntersect(b1, b2)).toBe(false);
+    expect(isIntersect(b0, b4)).toBe(false);
   });
 
   afterAll(() => {
