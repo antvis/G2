@@ -1,5 +1,5 @@
 import { BBox } from '@antv/g-svg';
-import { each, isEmpty, isNumber, isNumberEqual } from '@antv/util';
+import { each, isEmpty, isNumber, isNumberEqual, max, min } from '@antv/util';
 import { Coordinate, IShape, Point } from '../dependents';
 import { ShapeInfo } from '../interface';
 
@@ -28,6 +28,14 @@ function getPointsBox(points) {
     centerX: (minX + maxX) / 2,
     centerY: (minY + maxY) / 2,
   };
+}
+
+function uniqueValues<T = number>(array: T[]) {
+  return Array.from(new Set(array)).length === 1;
+}
+
+function mid(array: number[]) {
+  return (min(array) + max(array)) / 2;
 }
 
 /**
@@ -183,14 +191,25 @@ export function getPolygonCentroid(xs: number | number[], ys: number | number[])
     // 普通色块图，xs 和 ys 是数值
     return [xs, ys];
   }
+
+  xs = xs as number[];
+  ys = ys as number[];
+  // 当这个 polygon 的点在一条线上的时候
+  // 也就是说 xs 里面的值都相同，比如：[1, 1, 1, 1]
+  // 或者说 ys 里面的值都相同，比如：[0, 0, 0, 0]
+  // 下面计算得到的 k = 0
+  // 导致返回的值是 [NaN, NaN]
+  // 所以这里做相应的处理
+  if (uniqueValues(xs) || uniqueValues(ys)) return [mid(xs), mid(ys)];
+
   let i = -1;
   let x = 0;
   let y = 0;
   let former;
-  let current = (xs as number[]).length - 1;
+  let current = xs.length - 1;
   let diff;
   let k = 0;
-  while (++i < (xs as number[]).length) {
+  while (++i < xs.length) {
     former = current;
     current = i;
     k += diff = xs[former] * ys[current] - xs[current] * ys[former];
