@@ -1574,7 +1574,10 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
     const length = this.elements.length;
     for (let i = 0; i < length; i++) {
       // 若 zIndexReversed, 则对 elements 的 zIndex 进行反序；否则按序设置 zIndex
-      this.elements[i].shape.setZIndex(this.zIndexReversed ? length - i : i);
+      const shape = this.elements[i].shape;
+      if (shape) {
+        shape.setZIndex(this.zIndexReversed ? length - i : i);
+      }
     }
   }
 
