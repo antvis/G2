@@ -1622,7 +1622,7 @@ export type Marker =
   | 'hyphen'
   | 'line';
 /** 自定义 Marker 的回调函数定义 */
-export type MarkerCallback = (x: number, y: number, r: number) => PathCommand;
+export type MarkerCallback = (x: number, y: number, r: number) => PathCommand[];
 /** chart.tooltip() 参数类型 */
 export type TooltipOption = TooltipCfg | boolean;
 /* 筛选器函数类型定义 */
