@@ -1,3 +1,24 @@
+#### 4.1.31 (2021-10-13)
+
+##### Documentation Changes
+
+* **slider:**  change ShapeStyle to ShapeAttrs (close: [#3531](https://github.com/antvis/g2/pull/3531)) ([#3670](https://github.com/antvis/g2/pull/3670)) ([88cdee55](https://github.com/antvis/g2/commit/88cdee5540886bc1a012d81f41cc976ba2666353))
+* **examples:**  replace K chart with Candlestick chart ([#3667](https://github.com/antvis/g2/pull/3667)) ([5990d3a4](https://github.com/antvis/g2/commit/5990d3a416e3a7e455b9edd8983335b55c6828cb))
+
+##### New Features
+
+* **scrollbar:**
+  *  支持设置与获取当前滚动条的位置 ([#3639](https://github.com/antvis/g2/pull/3639)) ([3c89edf5](https://github.com/antvis/g2/commit/3c89edf53a729183de45ab201d300fd97f4b1e62))
+  *  mouse wheel for scrollbar ([#3606](https://github.com/antvis/g2/pull/3606)) ([67313836](https://github.com/antvis/g2/commit/67313836f3625f9329593354107ee7f0db3e7756))
+* **aria:**  设置无障碍标签 ([#3656](https://github.com/antvis/g2/pull/3656)) ([7d69af78](https://github.com/antvis/g2/commit/7d69af787b7aaf99bc861e9cc3d93546387c0329))
+
+##### Bug Fixes
+
+* **scrollbar:** 滚动条纵向在 reflectY 下的数据问题 ([#3678](https://github.com/antvis/g2/pull/3678)) ([1e412f32](https://github.com/antvis/g2/commit/1e412f32ebed6c21635f8ba5bc268b676337597e))
+* **type:** MarkerCallback return type ([#3674](https://github.com/antvis/g2/pull/3674)) ([88ef320e](https://github.com/antvis/g2/commit/88ef320e88f4eb1973a766391e1068e2aa58f063))
+* **demo:**  streamgraph typo ([#3659](https://github.com/antvis/g2/pull/3659)) ([e0189dc2](https://github.com/antvis/g2/commit/e0189dc2d7ec8f0efd2a4ec328992444e060b180))
+*  图例类型定义, 除了 marker 其它继承 component ([#3654](https://github.com/antvis/g2/pull/3654)) ([6ba4cf9a](https://github.com/antvis/g2/commit/6ba4cf9a9bb02d508ba7ed535fc933457f341dbc))
+
 #### 4.1.30 (2021-09-28)
 
 ##### Bug Fixes
