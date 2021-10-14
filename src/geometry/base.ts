@@ -1450,7 +1450,7 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
    * @param [isUpdate] 是否处于更新阶段
    * @returns element 返回创建的 Element 实例
    */
-  protected createElement(mappingDatum: MappingDatum, isUpdate: boolean = false): Element {
+  protected createElement(mappingDatum: MappingDatum, index: number, isUpdate: boolean = false): Element {
     const { container } = this;
 
     const shapeCfg = this.getDrawCfg(mappingDatum); // 获取绘制图形的配置信息
@@ -1460,6 +1460,7 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
       shapeFactory,
       container,
       offscreenGroup: this.getOffscreenGroup(),
+      elementIndex: index,
     });
     element.animate = this.animateOption;
     element.geometry = this;
@@ -1540,8 +1541,8 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
     // 新建 element
     for (const key of added) {
       const mappingDatum = keyDatum.get(key);
-      const element = this.createElement(mappingDatum, isUpdate);
       const i = keyIndex.get(key);
+      const element = this.createElement(mappingDatum, i, isUpdate);
       this.elements[i] = element;
       this.elementsMap[key] = element;
     }
@@ -1570,11 +1571,12 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
       element.destroy();
     }
 
-    // 对 elements 的 zIndex 进行反序
-    if (this.zIndexReversed) {
-      const length = this.elements.length;
-      for (let i = 0; i < length; i++) {
-        this.elements[i].shape.setZIndex(length - i);
+    const length = this.elements.length;
+    for (let i = 0; i < length; i++) {
+      // 若 zIndexReversed, 则对 elements 的 zIndex 进行反序；否则按序设置 zIndex
+      const shape = this.elements[i].shape;
+      if (shape) {
+        shape.setZIndex(this.zIndexReversed ? length - i : i);
       }
     }
   }

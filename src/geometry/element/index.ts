@@ -17,6 +17,8 @@ interface ElementCfg {
   shapeFactory: ShapeFactory;
   /** shape 容器 */
   container: IGroup;
+  /** element 的索引 */
+  elementIndex?: number;
   /** 虚拟 group，用户可以不传入 */
   offscreenGroup?: IGroup;
   /** 是否可见 */
@@ -32,6 +34,8 @@ export default class Element extends Base {
   public shapeFactory: ShapeFactory;
   /** shape 容器 */
   public container: IGroup;
+  /** element 索引 */
+  public elementIndex: number;
   /** 最后创建的图形对象 */
   public shape: IShape | IGroup;
   /** shape 的动画配置 */
@@ -59,11 +63,12 @@ export default class Element extends Base {
   constructor(cfg: ElementCfg) {
     super(cfg);
 
-    const { shapeFactory, container, offscreenGroup, visible = true } = cfg;
+    const { shapeFactory, container, offscreenGroup, elementIndex, visible = true } = cfg;
     this.shapeFactory = shapeFactory;
     this.container = container;
     this.offscreenGroup = offscreenGroup;
     this.visible = visible;
+    this.elementIndex = elementIndex;
   }
 
   /**
@@ -224,7 +229,7 @@ export default class Element extends Base {
       }
       states.splice(index, 1);
       if (stateName === 'active' || stateName === 'selected') {
-        shape?.toBack();
+        shape.setZIndex(this.elementIndex);
       }
     }
 
