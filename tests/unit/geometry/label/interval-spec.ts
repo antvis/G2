@@ -259,7 +259,7 @@ describe('interval labels', () => {
         position: 'bottom',
         offset: 0,
       });
-      const [item1, item2] = gLabels.getLabelItems(mappingArray);
+      let [item1, item2] = gLabels.getLabelItems(mappingArray);
       expect(item1.x).toBe((data1.x[0] + data1.x[1]) / 2);
       expect(item1.y).toBe(250);
       expect(item1.textAlign).toBe('center');
@@ -268,6 +268,88 @@ describe('interval labels', () => {
       expect(item2.y).toBe(250);
       expect(item2.textAlign).toBe('center');
       expect(item2.textBaseline).toBe('bottom');
+
+      interval.label('percent', {
+        position: 'bottom',
+        offset: 10,
+      });
+      [item1, item2] = gLabels.getLabelItems(mappingArray);
+      expect(item1.x).toBe((data1.x[0] + data1.x[1]) / 2 + 10);
+    });
+  });
+
+  describe('transposed coordinate with reflectX', () => {
+    const coord = new CartesianCoordinate({
+      start: { x: 50, y: 250 },
+      end: { x: 250, y: 50 },
+    });
+    coord.transpose().reflect('x');
+
+    const interval = new Interval({
+      data,
+      scales,
+      container: canvas.addGroup(),
+      labelsContainer: canvas.addGroup(),
+      coordinate: coord,
+      scaleDefs,
+    });
+    interval.position('country*value').color('year').adjust('stack');
+    interval.init({
+      theme: Theme,
+    });
+    interval.paint();
+
+    // 生成映射数据
+    // @ts-ignore
+    const beforeMappingData = interval.beforeMappingData;
+    // @ts-ignore
+    const dataArray = interval.beforeMapping(beforeMappingData);
+
+    let mappingArray = [];
+    for (const eachGroup of dataArray) {
+      // @ts-ignore
+      const mappingData = interval.mapping(eachGroup);
+      mappingArray.push(mappingData);
+    }
+    mappingArray = flatten(mappingArray);
+
+    const gLabels = new IntervalLabel(interval);
+    const [data1, data2] = mappingArray;
+
+    it('label', () => {
+      interval.label('percent', {
+        position: 'bottom',
+        offset: 10,
+      });
+      let [item1, item2] = gLabels.getLabelItems(mappingArray);
+      // middle
+      expect(item1.x).toBe((data1.x[0] + data1.x[1]) / 2 - 10);
+      expect(item2.x).toBe((data2.x[0] + data2.x[1]) / 2 - 10);
+
+      interval.label('percent', {
+        position: 'top',
+        offset: 20,
+      });
+      [item1, item2] = gLabels.getLabelItems(mappingArray);
+      // middle
+      expect(item1.x).toBe((data1.x[0] + data1.x[1]) / 2 - 20);
+      expect(item2.x).toBe((data2.x[0] + data2.x[1]) / 2 - 20);
+
+      interval.label('percent', {
+        position: 'left',
+        offset: 10,
+      });
+      [item1, item2] = gLabels.getLabelItems(mappingArray);
+      expect(item1.x).toBe(data1.x[0] - 10);
+      expect(item2.x).toBe(data2.x[0] - 10);
+
+      interval.label('percent', {
+        position: 'right',
+        offset: 10,
+      });
+      [item1, item2] = gLabels.getLabelItems(mappingArray);
+      expect(item1.x).toBe(data1.x[1] - 10);
+      expect(item2.x).toBe(data2.x[1] - 10);
     });
   });
 });
