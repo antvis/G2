@@ -259,7 +259,7 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
   /** 多层饼图/环图占比 */
   protected multiplePieWidthRatio: number;
   /** elements 的 zIndex 默认按顺序提升，通过 zIndexReversed 可以反序，从而数据越前，层级越高 */
-  protected zIndexReversed?: boolean;
+  public zIndexReversed?: boolean;
 
   /** 虚拟 Group，用于图形更新 */
   private offscreenGroup: IGroup;
@@ -1545,6 +1545,7 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
       const element = this.createElement(mappingDatum, i, isUpdate);
       this.elements[i] = element;
       this.elementsMap[key] = element;
+      element.shape.setZIndex(this.zIndexReversed ? this.elements.length - i : i);
     }
 
     // 更新 element
@@ -1561,6 +1562,7 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
       }
       this.elements[i] = element;
       this.elementsMap[key] = element;
+      element.shape.setZIndex(this.zIndexReversed ? this.elements.length - i : i);
     }
 
     // 销毁被删除的 elements
@@ -1569,15 +1571,6 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
       // 更新动画配置，用户有可能在更新之前有对动画进行配置操作
       element.animate = this.animateOption;
       element.destroy();
-    }
-
-    const length = this.elements.length;
-    for (let i = 0; i < length; i++) {
-      // 若 zIndexReversed, 则对 elements 的 zIndex 进行反序；否则按序设置 zIndex
-      const shape = this.elements[i].shape;
-      if (shape) {
-        shape.setZIndex(this.zIndexReversed ? length - i : i);
-      }
     }
   }
 
