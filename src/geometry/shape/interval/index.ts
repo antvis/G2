@@ -19,10 +19,11 @@ registerShape('interval', 'rect', {
   draw(cfg: ShapeInfo, container: IGroup) {
     const style = getStyle(cfg, false, true);
     const backgroundCfg = cfg?.background;
+    let backgroundShape;
     if (backgroundCfg) {
       const backgroundStyle = getBackgroundRectStyle(cfg);
       const backgroundPath = getBackgroundRectPath(cfg, this.parsePoints(cfg.points) as Point[], this.coordinate);
-      const backgroundShape = container.addShape('path', {
+       backgroundShape = container.addShape('path', {
         attrs: {
           ...backgroundStyle,
           path: backgroundPath,
@@ -48,7 +49,7 @@ registerShape('interval', 'rect', {
       name: 'interval',
     });
 
-    return shape;
+    return backgroundShape ? [shape, backgroundShape] : shape;
   },
   getMarker(markerCfg: ShapeMarkerCfg) {
     const { color, isInPolar } = markerCfg;

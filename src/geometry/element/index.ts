@@ -38,6 +38,7 @@ export default class Element extends Base {
   public elementIndex: number;
   /** 最后创建的图形对象 */
   public shape: IShape | IGroup;
+  public backgroundShape: IShape | IGroup;
   /** shape 的动画配置 */
   public animate: AnimateOption | boolean;
 
@@ -110,16 +111,28 @@ export default class Element extends Base {
 
     // step 2: 使用虚拟 Group 重新绘制 shape，然后更新当前 shape
     const offscreenGroup = this.getOffscreenGroup();
-    const newShape = shapeFactory.drawShape(this.shapeType, model, offscreenGroup);
-    // @ts-ignore
-    newShape.cfg.data = this.data;
-    // @ts-ignore
-    newShape.cfg.origin = model;
-    // label 需要使用
-    newShape.cfg.element = this;
+    const newShape: any = shapeFactory.drawShape(this.shapeType, model, offscreenGroup);
 
-    // step 3: 同步 shape 样式
-    this.syncShapeStyle(shape, newShape, this.getStates(), this.getAnimateCfg('update'));
+    function updateShape(source, target, context) {
+      if (target && target.cfg) {
+        // @ts-ignore
+        target.cfg.data = context.data;
+        // @ts-ignore
+        target.cfg.origin = model;
+        // label 需要使用
+        target.cfg.element = context;
+      }
+
+      // step 3: 同步 shape 样式
+      context.syncShapeStyle(source, target, context.getStates(), context.getAnimateCfg('update'));
+    }
+
+    if (!Array.isArray(newShape)) {
+      updateShape(shape, newShape, this);
+    } else {
+      updateShape(shape, newShape[0], this);
+      updateShape(this.backgroundShape, newShape[1], this);
+    }
   }
 
   /**
@@ -142,6 +155,7 @@ export default class Element extends Base {
         // 否则直接销毁
         shape.remove(true);
       }
+      this.backgroundShape && this.backgroundShape.remove(true);
     }
 
     // reset
@@ -236,14 +250,27 @@ export default class Element extends Base {
     // 使用虚拟 group 重新绘制 shape，然后对这个 shape 应用状态样式后，更新当前 shape。
     const offscreenShape = shapeFactory.drawShape(shapeType, model, this.getOffscreenGroup());
     if (states.length) {
-      // 应用当前状态
-      this.syncShapeStyle(shape, offscreenShape, states, null);
+      if (Array.isArray(offscreenShape)) {
+        // 应用当前状态
+        this.syncShapeStyle(shape, offscreenShape[0], states, null);
+      } else {
+        // 应用当前状态
+        this.syncShapeStyle(shape, offscreenShape, states, null);
+      }
     } else {
-      // 如果没有状态，则需要恢复至原始状态
-      this.syncShapeStyle(shape, offscreenShape, ['reset'], null);
+      if (Array.isArray(offscreenShape)) {
+        // 如果没有状态，则需要恢复至原始状态
+        this.syncShapeStyle(shape, offscreenShape[0], ['reset'], null);
+      } else {
+        // 如果没有状态，则需要恢复至原始状态
+        this.syncShapeStyle(shape, offscreenShape, ['reset'], null);
+      }
     }
-
-    offscreenShape.remove(true); // 销毁，减少内存占用
+    if (Array.isArray(offscreenShape)) {
+      each(offscreenShape, s => s.remove(true));
+    } else {
+      offscreenShape.remove(true); // 销毁，减少内存占用
+    }
 
     const eventObject = {
       state: stateName,
@@ -390,7 +417,14 @@ export default class Element extends Base {
     const { shapeFactory, container, shapeType } = this;
 
     // 自定义 shape 有可能返回空 shape
-    this.shape = shapeFactory.drawShape(shapeType, model, container);
+    const shape = shapeFactory.drawShape(shapeType, model, container);
+    if (Array.isArray(shape)) {
+      this.shape = shape[0];
+      this.backgroundShape = shape[1];
+    } else {
+      this.shape = shape;
+      this.backgroundShape = undefined;
+    }
 
     if (this.shape) {
       this.setShapeInfo(this.shape, model); // 存储绘图数据

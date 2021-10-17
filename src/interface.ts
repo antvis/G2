@@ -476,7 +476,7 @@ export interface RegisterShape {
   /** 获取 shape 对应的缩略图样式配置，在注册具体的 shape 时由开发者自己定义。 */
   readonly getMarker?: (markerCfg: ShapeMarkerCfg) => ShapeMarkerAttrs;
   /** 绘制函数。 */
-  readonly draw: (cfg: ShapeInfo, container: IGroup) => IShape | IGroup | void;
+  readonly draw: (cfg: ShapeInfo, container: IGroup) => IShape | IGroup | void | [IShape | IGroup, IShape];
 }
 
 /** Shape 接口定义。 */

@@ -28,6 +28,14 @@
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/7asolORz4s/2781b4e3-3d12-43c7-8646-124e400d5182.png"
     },
     {
+      "filename": "background.ts",
+      "title": {
+        "zh": "带 background 的柱状图",
+        "en": "Column chart with background"
+      },
+      "screenshot": ""
+    },
+    {
       "filename": "ranged.ts",
       "title": {
         "zh": "区间柱状图",
