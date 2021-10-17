@@ -18,14 +18,11 @@ const IntervalShapeFactory = registerShapeFactory('interval', {
 registerShape('interval', 'rect', {
   draw(cfg: ShapeInfo, container: IGroup) {
     const style = getStyle(cfg, false, true);
-    let group = container;
-
     const backgroundCfg = cfg?.background;
     if (backgroundCfg) {
-      group = container.addGroup();
       const backgroundStyle = getBackgroundRectStyle(cfg);
       const backgroundPath = getBackgroundRectPath(cfg, this.parsePoints(cfg.points) as Point[], this.coordinate);
-      group.addShape('path', {
+      const backgroundShape = container.addShape('path', {
         attrs: {
           ...backgroundStyle,
           path: backgroundPath,
@@ -33,6 +30,7 @@ registerShape('interval', 'rect', {
         zIndex: -1,
         name: BACKGROUND_SHAPE,
       });
+      backgroundShape.setZIndex(-1);
     }
 
     let path;
@@ -42,7 +40,7 @@ registerShape('interval', 'rect', {
       path = this.parsePath(getIntervalRectPath(cfg.points as Point[], style.lineCap, this.coordinate));
     }
 
-    const shape = group.addShape('path', {
+    const shape = container.addShape('path', {
       attrs: {
         ...style,
         path,
@@ -50,7 +48,7 @@ registerShape('interval', 'rect', {
       name: 'interval',
     });
 
-    return backgroundCfg ? group : shape;
+    return shape;
   },
   getMarker(markerCfg: ShapeMarkerCfg) {
     const { color, isInPolar } = markerCfg;
