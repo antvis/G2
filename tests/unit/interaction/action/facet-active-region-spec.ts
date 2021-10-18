@@ -1,7 +1,6 @@
 import { Chart, registerInteraction } from '../../../../src/index';
-import { isPointInCoordinate } from '../../../../src/util/coordinate';
 import { createDiv } from '../../../util/dom';
-import { delay } from '../../../util/delay';
+import { isPointInCoordinate } from '../../../../src/util/coordinate';
 
 describe('facet active region', () => {
   const dom = createDiv();
@@ -12,19 +11,20 @@ describe('facet active region', () => {
     autoFit: false,
   });
 
+  // illegal data
   chart.data([
     { country: '乌拉圭', type: '2016 年转基因种植面积', value: 1.3 },
-    { country: '乌拉圭', type: '2016 年耕地总面积', value: 1.8 },
+    { country: '乌拉圭', type: '2016 年耕地总面积', value: 0 },
     { country: '巴拉圭', type: '2016 年转基因种植面积', value: 3.6 },
-    { country: '巴拉圭', type: '2016 年耕地总面积', value: 5.5 },
+    { country: '巴拉圭', type: '2016 年耕地总面积', value: undefined },
     { country: '南非', type: '2016 年转基因种植面积', value: 3.7 },
-    { country: '南非', type: '2016 年耕地总面积', value: 12.1 },
+    { country: '南非', type: '2016 年耕地总面积', value: null },
     { country: '巴基斯坦', type: '2016 年转基因种植面积', value: 2.9 },
-    { country: '巴基斯坦', type: '2016 年耕地总面积', value: 22.0 },
+    { country: '巴基斯坦', type: '2016 年耕地总面积', value: 0 },
     { country: '阿根廷', type: '2016 年转基因种植面积', value: 23.8 },
-    { country: '阿根廷', type: '2016 年耕地总面积', value: 38.6 },
+    { country: '阿根廷', type: '2016 年耕地总面积', value: undefined },
     { country: '加拿大', type: '2016 年转基因种植面积', value: 11.6 },
-    { country: '加拿大', type: '2016 年耕地总面积', value: 46.9 },
+    { country: '加拿大', type: '2016 年耕地总面积', value: null },
     { country: '巴西', type: '2016 年转基因种植面积', value: 49.1 },
     { country: '巴西', type: '2016 年耕地总面积', value: 73.2 },
     { country: '中国', type: '2016 年转基因种植面积', value: 2.8 },
@@ -69,12 +69,47 @@ describe('facet active region', () => {
 
   let regionShapes = null;
 
+  it('illegal value', () => {
+    /**
+     * 使用非法值时，应当不存在该处的 active region
+     */
+    const zeroPoint = chart.views[0].getXY({ country: '巴基斯坦', type: '2016 年转基因种植面积', value: 2.9 });
+    const undefinedPoint = chart.views[0].getXY({ country: '阿根廷', type: '2016 年转基因种植面积', value: 23.8 });
+    const nullPoint = chart.views[0].getXY({ country: '加拿大', type: '2016 年转基因种植面积', value: 11.6 });
+    const normalPoint = chart.views[0].getXY({ country: '巴西', type: '2016 年耕地总面积', value: 73.2 });
+
+    chart.emit('plot:mousemove', zeroPoint);
+    regionShapes = chart.backgroundGroup.findAll((el) => {
+      return el.get('name') === 'facet-active-region';
+    });
+    expect(regionShapes.length).toBe(2);
+
+    chart.emit('plot:mousemove', undefinedPoint);
+    let [, rightRegionShape] = chart.backgroundGroup.findAll((el) => {
+      return el.get('name') === 'facet-active-region';
+    });
+    expect(rightRegionShape.get('visible')).toBe(false);
+
+    chart.emit('plot:mousemove', normalPoint);
+    [, rightRegionShape] = chart.backgroundGroup.findAll((el) => {
+      return el.get('name') === 'facet-active-region';
+    });
+    expect(rightRegionShape.get('visible')).toBe(true);
+
+    chart.emit('plot:mousemove', nullPoint);
+    [, rightRegionShape] = chart.backgroundGroup.findAll((el) => {
+      return el.get('name') === 'facet-active-region';
+    });
+    expect(rightRegionShape.get('visible')).toBe(false);
+  });
+
   it('show', () => {
     const point = chart.views[0].getXY({ country: '乌拉圭', type: '2016 年转基因种植面积', value: 1.3 });
     chart.emit('plot:mousemove', point);
     regionShapes = chart.backgroundGroup.findAll((el) => {
       return el.get('name') === 'facet-active-region';
     });
+
     expect(regionShapes.length).toBe(2);
     const [leftRegionShape, rightRegionShape] = regionShapes;
     const [[, xl1, yl1], [, xl2, yl2], [, xl3, yl3], [, xl4, yl4]] = leftRegionShape.attr('path');
@@ -225,7 +260,7 @@ describe('facet active region', () => {
     expect(rightRegionShape.get('visible')).toBe(false);
   });
 
-  it('remove interaction', async () => {
+  it('remove interaction', () => {
     expect(chart.interactions['facet-active-region']).not.toBe(undefined);
     chart.removeInteraction('facet-active-region');
     expect(chart.interactions['facet-active-region']).toBe(undefined);

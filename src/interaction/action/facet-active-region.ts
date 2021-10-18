@@ -1,8 +1,8 @@
 import Action from './base';
 import Element from '../../geometry/element';
-import { getItemsOfView } from './active-region';
+import { each, get, head, isEqual, isNil, last } from '@antv/util';
 import { getAngle, getSectorPath } from '../../util/graphics';
-import { each, isEqual, isNil, head, last, get } from '@antv/util';
+import { getItemsOfView } from './active-region';
 
 import type { LooseObject } from '../../interface';
 import type { IShape, ShapeAttrs, PathCommand } from '../../dependents';
@@ -34,16 +34,18 @@ export default class extends Action {
     const elements: Element[][] = [];
     each(view.views, (v, idx) => {
       const xField = v.getXScale().field;
-      const xValue = tooltipItems[idx].data[xField];
-      elements[idx] = [];
-      each(v.geometries, (geometry) => {
-        if (['interval', 'schema'].includes(geometry.type)) {
-          const result = geometry.getElementsBy((ele) => {
-            return ele.getData()[xField] === xValue;
-          });
-          elements[idx].push(...result);
-        }
-      });
+      const xValue = tooltipItems[idx]?.data[xField];
+      if (xValue) {
+        elements[idx] = [];
+        each(v.geometries, (geometry) => {
+          if (['interval', 'schema'].includes(geometry.type)) {
+            const result = geometry.getElementsBy((ele) => {
+              return ele.getData()[xField] === xValue;
+            });
+            elements[idx].push(...result);
+          }
+        });
+      }
     });
 
     each(elements, (els, idx) => {
@@ -130,18 +132,23 @@ export default class extends Action {
             this.regionPaths[idx].attr({ path });
             this.regionPaths[idx].show();
           } else {
-            const style = get(args, 'style', DEFAULT_REGION_PATH_STYLE);
             this.regionPaths[idx] = backgroundGroup.addShape({
               type: 'path',
               name: 'facet-active-region',
               capture: false,
               attrs: {
                 path,
-                ...style,
+                ...get(args, 'style', DEFAULT_REGION_PATH_STYLE),
               },
             });
           }
         });
+      }
+    });
+
+    each(this.regionPaths, (regionPath, idx) => {
+      if (idx >= elements.length) {
+        regionPath.hide();
       }
     });
   }
@@ -153,13 +160,14 @@ export default class extends Action {
     this.items = null;
   }
 
-  public destroy() {
-    this.hide();
-    // each(this.regionPaths, (region) => {
-    //   region.remove(true);
-    // });
+  public clear() {
     this.regionPaths.forEach((region) => region.remove(true));
     this.regionPaths = [];
+  }
+
+  public destroy() {
+    this.hide();
+    this.clear();
     super.destroy();
   }
 }
