@@ -2,7 +2,7 @@ import { get, deepMix, isArray } from '@antv/util';
 import { Writeable } from '../../util/types';
 import { MappingDatum, Point } from '../../interface';
 import GeometryLabel from './base';
-import { LabelCfg, LabelPointCfg } from './interface';
+import { LabelCfg, LabelItem, LabelPointCfg, TextAlign } from './interface';
 
 /**
  * 柱状图 label
@@ -12,7 +12,7 @@ export default class IntervalLabel extends GeometryLabel {
    * 获取 interval label 的方向，取决于 value 的值是正还是负
    * @param labelCfg
    */
-  private getLabelValueDir(mappingData: MappingDatum) {
+   private getLabelValueDir(mappingData: MappingDatum) {
     // points 中的 x/y 和 transpose 无关
     const dim = 'y';
     const { points } = mappingData;
@@ -26,16 +26,28 @@ export default class IntervalLabel extends GeometryLabel {
    * @param index
    * @param total
    */
-  protected getLabelOffsetPoint(labelCfg: LabelCfg, index: number, total: number) {
-    const point = super.getLabelOffsetPoint(labelCfg, index, total);
-    const transposed = this.getCoordinate().isTransposed;
+  protected getLabelOffsetPoint(labelCfg: LabelCfg, index: number, total: number, position?: string) {
+    let point = super.getLabelOffsetPoint(labelCfg, index, total);
+    const coordinate = this.getCoordinate();
+    const transposed = coordinate.isTransposed;
     const dim = transposed ? 'x' : 'y';
     const dir = this.getLabelValueDir(labelCfg.mappingData);
+    point = { ...point, [dim]: point[dim] * dir };
 
-    return {
-      ...point,
-      [dim]: point[dim] * dir,
-    };
+    if (coordinate.isReflect('x')) {
+      point = {
+        ...point,
+        x: point.x * -1,
+      }
+    }
+    if (coordinate.isReflect('y')) {
+      point = {
+        ...point,
+        y: point.y * -1,
+      }
+    }
+
+    return point;
   }
 
   /**
