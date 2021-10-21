@@ -1,6 +1,7 @@
-import { Chart, getEngine, registerShape } from '../../src';
+import { Chart, getEngine } from '../../src';
 import { getSectorPath } from '../../src/util/graphics';
 import { createDiv } from '../util/dom';
+import { delay } from '../util/delay';
 const G = getEngine('canvas');
 
 describe('Pie update animation', () => {
@@ -89,7 +90,7 @@ describe('Pie update animation', () => {
     expect(path.length).toBe(5);
   });
 
-  it('pie with group label', (done) => {
+  it('pie with group label', async () => {
     const data = [
       { sex: '男', sold: 0.45 },
       { sex: '女', sold: 0.55 },
@@ -149,13 +150,11 @@ describe('Pie update animation', () => {
     chart.filter('sex', (val) => val === '男');
     chart.render(true);
 
-    setTimeout(() => {
-      const interval = chart.geometries[0];
-      const labelContainer = interval.labelsContainer;
-      expect(labelContainer.getCount()).toBe(1);
+    await delay(500);
+    const interval = chart.geometries[0];
+    const labelContainer = interval.labelsContainer;
+    expect(labelContainer.getCount()).toBe(1);
 
-      done();
-    }, 500);
   });
 
   it('pie update animation when width changed to 0.', () => {
@@ -180,11 +179,11 @@ describe('Pie update animation', () => {
     chart.data(data);
     const interval = chart.interval().position('percent').color('item').adjust('stack');
     chart.render();
-    
+
     expect(() => {
       chart.changeSize(0, 300);
     }).not.toThrow();
-    
+
     chart.destroy();
   });
 });
