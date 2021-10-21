@@ -1,3 +1,18 @@
+#### 4.1.32 (2021-10-21)
+
+##### Documentation Changes
+
+* **demo:**  增加一个带动效的柱状图 ([#3689](https://github.com/antvis/g2/pull/3689)) ([5c0f6a4a](https://github.com/antvis/g2/commit/5c0f6a4a21d0a2fb9b9851b2aeb2659e099ad810))
+
+##### New Features
+
+* **element:**  element 图形元素按照 elementIndex 设置展示层级 ([#3671](https://github.com/antvis/g2/pull/3671)) ([4a536731](https://github.com/antvis/g2/commit/4a536731ad8cc7a3219591404f6af71a8229c702))
+
+##### Bug Fixes
+
+*  修复 element 设置层级 zIndex 的时候，需要考虑zIndexReversed ([#3685](https://github.com/antvis/g2/pull/3685)) ([c3654776](https://github.com/antvis/g2/commit/c36547768ceeb852a1b8b97af62e7be9360a04d9))
+* **label:**  修复 label 做坐标系镜像下，位置计算问题 ([#3682](https://github.com/antvis/g2/pull/3682)) ([71ee0d91](https://github.com/antvis/g2/commit/71ee0d912a45d25f440ed49df050a8d188c72c90))
+
 #### 4.1.31 (2021-10-13)
 
 ##### Documentation Changes
