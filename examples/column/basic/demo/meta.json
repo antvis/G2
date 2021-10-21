@@ -58,6 +58,15 @@
         "en": "Spiral column chart"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*ZwIQQYi3H3wAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "custom-shape.ts",
+      "title": {
+        "zh": "自定义柱状图",
+        "en": "Custom column chart"
+      },
+      "new": true,
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/RtT7tVCih6/blink-interval.gif"
     }
   ]
 }
