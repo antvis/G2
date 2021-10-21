@@ -229,7 +229,11 @@ export default class Element extends Base {
       }
       states.splice(index, 1);
       if (stateName === 'active' || stateName === 'selected') {
-        shape.setZIndex(this.elementIndex);
+        if (this.geometry.zIndexReversed) {
+          shape.setZIndex(this.geometry.elements.length - this.elementIndex);
+        } else {
+          shape.setZIndex(this.elementIndex);
+        }
       }
     }
 
