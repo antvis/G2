@@ -1545,7 +1545,9 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
       const element = this.createElement(mappingDatum, i, isUpdate);
       this.elements[i] = element;
       this.elementsMap[key] = element;
-      element.shape.setZIndex(this.zIndexReversed ? this.elements.length - i : i);
+      if (element.shape) {
+        element.shape.setZIndex(this.zIndexReversed ? this.elements.length - i : i);
+      }
     }
 
     // 更新 element
@@ -1562,7 +1564,9 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
       }
       this.elements[i] = element;
       this.elementsMap[key] = element;
-      element.shape.setZIndex(this.zIndexReversed ? this.elements.length - i : i);
+      if (element.shape) {
+        element.shape.setZIndex(this.zIndexReversed ? this.elements.length - i : i);
+      }
     }
 
     // 销毁被删除的 elements
