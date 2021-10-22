@@ -36,7 +36,7 @@ G2 4.0 在功能上全面兼容 3.x 的功能，在 API 接口上，我们进行
 - 🗑️ `chart.view()`  接口废弃，请使用 `chart.createView()`。
 - 🗑️ `chart.interact()`  接口废弃，请使用 `chart.interaction()`。
 - 🗑️ `chart.repaint()`  接口废弃，请使用 `chart.render(update: boolean)` 接口。
-- 🗑️ 考虑到 G2 使用环境的不同（浏览器、mobile 等），v3 版本中关于图片下载的接口：`chart.toDataURL` 以及 `chart.downloadImage()` 接口废弃，具体方案可参考 [FAQ](./faq)。
+- 🗑️ 考虑到 G2 使用环境的不同（浏览器、mobile 等），v3 版本中关于图片下载的接口：`chart.toDataURL` 以及 `chart.downloadImage()` 接口废弃，具体方案可参考 [FAQ](/zh/docs/manual/faq)。
 - 🗑️ `G2.Global` 移除，默认的主题配置可以通过以下方式获取：
 
 ```typescript
