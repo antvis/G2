@@ -60,6 +60,9 @@ import { getAngle, getSectorPath, polarToCartesian } from './util/graphics';
 import { rotate, transform, translate, zoom } from './util/transform';
 import { getTooltipItems } from './util/tooltip';
 import { getDelegationObject } from './interaction/action/util';
+import { getPathPoints } from './geometry/shape/util/get-path-points';
+import { getPath } from './geometry/shape/line';
+
 export const Util = {
   getLegendItems,
   translate,
@@ -72,4 +75,7 @@ export const Util = {
   getDelegationObject,
   getTooltipItems,
   getMappingValue,
+  // shape 的一些操作方法
+  getPath,
+  getPathPoints,
 };

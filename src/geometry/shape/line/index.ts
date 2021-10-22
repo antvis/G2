@@ -82,7 +82,10 @@ function getRangePath(
   return topPath.concat(bottomPath);
 }
 
-function getPath(
+/**
+ * 获取折线图 path
+ */
+export function getPath(
   points: Point[] | RangePoint[],
   isInCircle: boolean,
   isStack?: boolean,
