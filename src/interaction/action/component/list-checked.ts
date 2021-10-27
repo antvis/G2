@@ -53,7 +53,7 @@ class ListChecked extends ListState {
       // 不知道 🤷‍♀️ 只认 unchecked status
       const allChecked = !some(list.getItems(), (t) => list.hasState(t, STATUS_UNCHECKED));
 
-      // 
+      //
       if (allChecked || list.hasState(item, STATUS_UNCHECKED)) {
         this.setItemState(list, item, true);
       } else {

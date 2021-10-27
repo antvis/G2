@@ -27,7 +27,7 @@ describe('Element with states failed to animate', () => {
           stroke: '#000',
         },
       },
-    })
+    });
   chart.render();
 
   it('normal', () => {
@@ -37,6 +37,6 @@ describe('Element with states failed to animate', () => {
     // 2s 动画结束了，状态样式变化了
     setTimeout(() => {
       expect(interval.elements[1].shape.attr('stroke')).toEqual('#000');
-    }, 2000)
+    }, 2000);
   });
 });

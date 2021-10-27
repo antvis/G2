@@ -16,7 +16,7 @@ export function getMedian(array: number[]) {
   // median
   // 0
   if (len === 0) {
-    return 0
+    return 0;
   }
 
   // 奇数
@@ -33,9 +33,13 @@ export function getMedian(array: number[]) {
  * @param array
  */
 export function getMean(array: number[]) {
-  const sum = reduce(array, (r: number, num: number) => {
-    return r += (isNaN(num) || !isNumber(num) ? 0 : num);
-  }, 0);
+  const sum = reduce(
+    array,
+    (r: number, num: number) => {
+      return (r += isNaN(num) || !isNumber(num) ? 0 : num);
+    },
+    0
+  );
 
   return array.length === 0 ? 0 : sum / array.length;
 }

@@ -1,5 +1,5 @@
 /**
- * 测试 G2 提供的一些开放 API，用于增强自定义能力 
+ * 测试 G2 提供的一些开放 API，用于增强自定义能力
  */
 import { Chart } from '../../src';
 import { createDiv } from '../util/dom';
@@ -26,16 +26,19 @@ const chart = new Chart({
 chart.data(data);
 
 chart.legend({
-  position: 'top'
+  position: 'top',
 });
 
 chart
   .interval()
-  .position('type*value').color('company')
-  .adjust([{
-    type: 'dodge',
-    marginRatio: 0
-  }]);
+  .position('type*value')
+  .color('company')
+  .adjust([
+    {
+      type: 'dodge',
+      marginRatio: 0,
+    },
+  ]);
 
 chart.render();
 
@@ -44,7 +47,7 @@ describe('G2 api', () => {
     expect(chart.getGeometries()[0].getCoordinate().getWidth()).toBe(536);
     expect(chart.getGeometries()[0].getCoordinate().getHeight()).toBe(336);
   });
-  
+
   it('geometry data', () => {
     expect(chart.getGeometries()[0].getData()).toEqual(data);
 
@@ -57,7 +60,7 @@ describe('G2 api', () => {
 
   it('geometry element', () => {
     expect(chart.getGeometries()[0].getElements().length).toBe(9);
-    expect(chart.getGeometries()[0].getElementsBy(el => el.getData().value > 40).length).toBe(2);
+    expect(chart.getGeometries()[0].getElementsBy((el) => el.getData().value > 40).length).toBe(2);
   });
 
   it('geometry adjust', () => {
@@ -72,9 +75,11 @@ describe('G2 api', () => {
     expect(chart.getGeometries()[0].getAttribute('size')).toBeUndefined();
 
     const color = chart.getGeometries()[0].getAttribute('color');
-    expect(chart.getGeometries()[0].getAttributeValues(color, {
-      company: 'Google',
-    })).toEqual(['#5D7092']);
+    expect(
+      chart.getGeometries()[0].getAttributeValues(color, {
+        company: 'Google',
+      })
+    ).toEqual(['#5D7092']);
   });
 
   it('coordinate', () => {

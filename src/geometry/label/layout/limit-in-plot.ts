@@ -38,10 +38,12 @@ export function limitInPlot(
   if (!coordinate) {
     return;
   }
-  const { minX: regionMinX, minY: regionMinY, maxX: regionMaxX, maxY: regionMaxY } = getCoordinateBBox(
-    coordinate,
-    margin
-  );
+  const {
+    minX: regionMinX,
+    minY: regionMinY,
+    maxX: regionMaxX,
+    maxY: regionMaxY,
+  } = getCoordinateBBox(coordinate, margin);
 
   each(labels, (label: IGroup) => {
     const { minX, minY, maxX, maxY, x, y, width, height } = label.getCanvasBBox();

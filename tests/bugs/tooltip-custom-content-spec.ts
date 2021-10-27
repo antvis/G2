@@ -3,14 +3,14 @@ import { createDiv, removeDom } from '../util/dom';
 
 /**
  * 解决第二次 showTooltip() 时， 设置 customContent: undefined 无法变回 tooltip 模版的问题
- * 
+ *
  * 原因：在 tooltip 的 update() 中，设置 customContent 会销毁原来的 container，因此无法变回 tooltip 模版
  * 为什么会呈现 旧值：tooltip.show() 中 customContent 由 tooltip.container 获取。但在此之前的 tooltip.update() 中没有成功更新 tooltip.container
- * 
+ *
  * 暂时解法：避免大改 component 的 update() 逻辑
  * 在 g2 层解：第二次调用 showTooltip() 的时候，如果之前设置过 customContent
  * 就在 clear 方法中清空 tooltip -> null, 保证下次是重新生成的，以变回模版
-*/
+ */
 
 describe('tooltip: customContent', () => {
   const container = createDiv();
@@ -66,7 +66,7 @@ describe('tooltip: customContent', () => {
     chart.tooltip({
       follow: true,
       shared: true,
-      customContent: undefined // 变回模版
+      customContent: undefined, // 变回模版
     });
     chart.interval().position('月份*月均降雨量').color('name').adjust('dodge');
     chart.render();
@@ -77,7 +77,7 @@ describe('tooltip: customContent', () => {
     expect(tooltipDom.length).toBe(1);
     // expect(tooltipDom[0].getElementsByClassName('g2-tooltip-title')[0].innerHTML).toBe(`Mar.`);
     const tooltipList = tooltipDom[0].getElementsByClassName('g2-tooltip-list')[0];
-    
+
     const item0 = tooltipList.getElementsByClassName('g2-tooltip-list-item')[0];
     expect(item0.getElementsByClassName('g2-tooltip-name')[0].innerHTML).toBe('London');
     expect(item0.getElementsByClassName('g2-tooltip-value')[0].innerHTML).toBe('39.3');

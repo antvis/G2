@@ -1,4 +1,4 @@
-import type { Variable } from './variable'
+import type { Variable } from './variable';
 
 /**
  * 操作符的枚举值
@@ -17,7 +17,7 @@ export type BoxObject = {
   y: number;
   width: number;
   height: number;
-}
+};
 
 /**
  * 几种情况

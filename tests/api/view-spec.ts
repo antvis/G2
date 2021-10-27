@@ -1,5 +1,5 @@
 /**
- * 测试 G2 提供的一些开放 API，用于增强自定义能力 
+ * 测试 G2 提供的一些开放 API，用于增强自定义能力
  */
 import { Chart } from '../../src';
 import { createDiv } from '../util/dom';
@@ -25,16 +25,19 @@ const chart = new Chart({
 chart.data(data);
 
 chart.legend({
-  position: 'top'
+  position: 'top',
 });
 
 chart
   .interval()
-  .position('type*value').color('company')
-  .adjust([{
-    type: 'dodge',
-    marginRatio: 0
-  }]);
+  .position('type*value')
+  .color('company')
+  .adjust([
+    {
+      type: 'dodge',
+      marginRatio: 0,
+    },
+  ]);
 
 chart.render();
 
@@ -50,18 +53,15 @@ describe('G2 api', () => {
     chart.render();
 
     expect(chart.getOriginalData()).toBe(data);
-    expect(chart.getData()).toEqual(data.filter(datum => datum.company !== 'Google'));
+    expect(chart.getData()).toEqual(data.filter((datum) => datum.company !== 'Google'));
   });
 
   it('chart layout', () => {
     chart.padding = 32;
     chart.render();
-    
+
     expect(chart.getPadding()).toEqual([32, 32, 32, 32]);
-    expect([
-      chart.getCoordinate().getWidth(),
-      chart.getCoordinate().getHeight(),
-    ]).toEqual([536, 336]);
+    expect([chart.getCoordinate().getWidth(), chart.getCoordinate().getHeight()]).toEqual([536, 336]);
   });
 
   it('chart scale', () => {
@@ -84,8 +84,8 @@ describe('G2 api', () => {
     expect(chart.getGeometries().length).toBe(1);
 
     expect(chart.getElements().length).toBe(6);
-    
-    expect(chart.getElementsBy(element => element.getData().value > 40).length).toBe(1); // 因为还有一个隐藏了
+
+    expect(chart.getElementsBy((element) => element.getData().value > 40).length).toBe(1); // 因为还有一个隐藏了
   });
 
   /**
@@ -100,9 +100,9 @@ describe('G2 api', () => {
     expect(chart.getOriginalData()).toEqual(data);
 
     // 联动（有点复杂，怎么提供语法躺
-    const ele = chart.getElementsBy(element => element.getData().value > 40);
+    const ele = chart.getElementsBy((element) => element.getData().value > 40);
 
-    ele.forEach(el => {
+    ele.forEach((el) => {
       el.setState('active', true);
     });
 

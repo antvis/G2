@@ -7,7 +7,6 @@ import { Variable } from './variable';
  * 定义一个约束条件
  */
 export class Constraint {
-
   /**
    * 操作符
    */
@@ -75,20 +74,20 @@ export class Constraint {
 
   /**
    * 解析 element，产生 [a, variable]
-   * @param element 
+   * @param element
    */
   private parseElement(e: Element): [number, Variable] {
     if (isNumber(e)) {
       return [e, undefined];
     }
-    
+
     if (Variable.isVariable(e)) {
       return [1, e];
     }
 
     if (Array.isArray(e)) {
-      const mul = multiply(e.filter(i => isNumber(i)) as number[]);
-      const variable = e.find(i => Variable.isVariable(i)) as Variable;
+      const mul = multiply(e.filter((i) => isNumber(i)) as number[]);
+      const variable = e.find((i) => Variable.isVariable(i)) as Variable;
       return [mul, variable];
     }
 

@@ -21,23 +21,23 @@ const data2 = [
 ];
 
 const series_data1 = [
-  {site: "001", type: "类型 A", count: 21},
-  {site: "001", type: "类型 B", count: 16},
-  {site: "002", type: "类型 A", count: 25},
-  {site: "002", type: "类型 B", count: 16},
-  {site: "003", type: "类型 A", count: 25},
-  {site: "003", type: "类型 B", count: 15},
-  {site: "004", type: "类型 A", count: 25},
-  {site: "004", type: "类型 B", count: 10},
+  { site: '001', type: '类型 A', count: 21 },
+  { site: '001', type: '类型 B', count: 16 },
+  { site: '002', type: '类型 A', count: 25 },
+  { site: '002', type: '类型 B', count: 16 },
+  { site: '003', type: '类型 A', count: 25 },
+  { site: '003', type: '类型 B', count: 15 },
+  { site: '004', type: '类型 A', count: 25 },
+  { site: '004', type: '类型 B', count: 10 },
 ];
 
 const series_data2 = [
-  {site: "001", type: "类型 C", count: 201},
-  {site: "001", type: "类型 D", count: 160},
-  {site: "002", type: "类型 C", count: 250},
-  {site: "002", type: "类型 D", count: 160},
-  {site: "003", type: "类型 C", count: 250},
-  {site: "003", type: "类型 D", count: 100},
+  { site: '001', type: '类型 C', count: 201 },
+  { site: '001', type: '类型 D', count: 160 },
+  { site: '002', type: '类型 C', count: 250 },
+  { site: '002', type: '类型 D', count: 160 },
+  { site: '003', type: '类型 C', count: 250 },
+  { site: '003', type: '类型 D', count: 100 },
 ];
 
 describe('2996', () => {
@@ -50,7 +50,7 @@ describe('2996', () => {
     });
     chart.axis(false);
     chart.tooltip({
-      shared: true
+      shared: true,
     });
 
     const leftView = chart.createView({});
@@ -58,59 +58,65 @@ describe('2996', () => {
     leftView.scale({
       site: {
         type: 'cat',
-      }
+      },
     });
-    leftView.line({connectNulls: true}).position('site*pv');
+    leftView.line({ connectNulls: true }).position('site*pv');
 
     leftView.axis('pv', {
-      position: 'left'
+      position: 'left',
     });
-
 
     const rightView = chart.createView({});
     rightView.data(data2);
     rightView.scale({
       site: {
         type: 'cat',
-      }
+      },
     });
     rightView.interval().position('site*uv');
 
     rightView.axis('uv', {
-      position: 'right'
+      position: 'right',
     });
-    
+
     chart.render();
 
     // 没有声明 sync
     expect(leftView.getScaleByField('site').values.length).toBe(7);
     expect(rightView.getScaleByField('site').values.length).toBe(6);
 
-    expect(leftView.getScaleByField('site').range[0].toFixed(4)).not.toEqual(rightView.getScaleByField('site').range[0].toFixed(4))
-    expect(leftView.getScaleByField('site').range[1].toFixed(4)).not.toEqual(rightView.getScaleByField('site').range[1].toFixed(4))
+    expect(leftView.getScaleByField('site').range[0].toFixed(4)).not.toEqual(
+      rightView.getScaleByField('site').range[0].toFixed(4)
+    );
+    expect(leftView.getScaleByField('site').range[1].toFixed(4)).not.toEqual(
+      rightView.getScaleByField('site').range[1].toFixed(4)
+    );
 
     // 更新 sync
     leftView.scale({
       site: {
         type: 'cat',
         sync: true,
-      }
+      },
     });
     rightView.scale({
       site: {
         type: 'cat',
         sync: true,
-      }
+      },
     });
 
-   
     chart.render();
 
     expect(leftView.getScaleByField('site').values.length).toBe(7);
     expect(rightView.getScaleByField('site').values.length).toBe(7);
 
-    expect(leftView.getScaleByField('site').range[0].toFixed(4)).toEqual(rightView.getScaleByField('site').range[0].toFixed(4))
-    expect(leftView.getScaleByField('site').range[1].toFixed(4)).toEqual(rightView.getScaleByField('site').range[1].toFixed(4))
+    expect(leftView.getScaleByField('site').range[0].toFixed(4)).toEqual(
+      rightView.getScaleByField('site').range[0].toFixed(4)
+    );
+    expect(leftView.getScaleByField('site').range[1].toFixed(4)).toEqual(
+      rightView.getScaleByField('site').range[1].toFixed(4)
+    );
 
     // 更新，用户指定 range，则仅更新 stage，不更新 range
     leftView.scale({
@@ -118,14 +124,14 @@ describe('2996', () => {
         type: 'cat',
         sync: true,
         range: [0, 0.5],
-      }
+      },
     });
     rightView.scale({
       site: {
         type: 'cat',
         sync: true,
         range: [0.6, 1],
-      }
+      },
     });
 
     chart.render();
@@ -133,8 +139,8 @@ describe('2996', () => {
     expect(leftView.getScaleByField('site').values.length).toBe(7);
     expect(rightView.getScaleByField('site').values.length).toBe(7);
 
-    expect(leftView.getScaleByField('site').range).toEqual([0, 0.5])
-    expect(rightView.getScaleByField('site').range).toEqual([0.6, 1])
+    expect(leftView.getScaleByField('site').range).toEqual([0, 0.5]);
+    expect(rightView.getScaleByField('site').range).toEqual([0.6, 1]);
 
     // 其中一个数据更新为空数组，期待正常渲染
     leftView.data(data1);
@@ -143,20 +149,24 @@ describe('2996', () => {
       site: {
         type: 'cat',
         sync: true,
-      }
+      },
     });
     rightView.scale({
       site: {
         type: 'cat',
         sync: true,
-      }
+      },
     });
     chart.render();
     expect(leftView.getScaleByField('site').values.length).toBe(7);
     expect(rightView.getScaleByField('site').values.length).toBe(7);
 
-    expect(leftView.getScaleByField('site').range[0].toFixed(4)).toEqual(rightView.getScaleByField('site').range[0].toFixed(4))
-    expect(leftView.getScaleByField('site').range[1].toFixed(4)).toEqual(rightView.getScaleByField('site').range[1].toFixed(4))
+    expect(leftView.getScaleByField('site').range[0].toFixed(4)).toEqual(
+      rightView.getScaleByField('site').range[0].toFixed(4)
+    );
+    expect(leftView.getScaleByField('site').range[1].toFixed(4)).toEqual(
+      rightView.getScaleByField('site').range[1].toFixed(4)
+    );
     chart.destroy();
   });
 
@@ -169,7 +179,7 @@ describe('2996', () => {
     });
     chart.axis(false);
     chart.tooltip({
-      shared: true
+      shared: true,
     });
     chart.coordinate({
       type: 'polar',
@@ -185,11 +195,10 @@ describe('2996', () => {
     leftView.scale({
       site: {
         type: 'cat',
-      }
+      },
     });
     leftView.interval({}).position('site*pv');
     leftView.axis('site', {});
-
 
     const rightView = chart.createView({
       region: {
@@ -201,14 +210,14 @@ describe('2996', () => {
     rightView.scale({
       site: {
         type: 'cat',
-      }
+      },
     });
     rightView.interval().position('site*uv');
 
     rightView.axis('uv', {
-      position: 'right'
+      position: 'right',
     });
-    
+
     chart.render();
 
     // 没有声明 sync
@@ -216,30 +225,33 @@ describe('2996', () => {
     expect(rightView.getScaleByField('site').values.length).toBe(6);
     expect(leftView.getScaleByField('site').range[0]).toBe(0);
     expect(rightView.getScaleByField('site').range[0]).toBe(0);
-    expect(leftView.getScaleByField('site').range[1].toFixed(4)).not.toEqual(rightView.getScaleByField('site').range[1].toFixed(4))
+    expect(leftView.getScaleByField('site').range[1].toFixed(4)).not.toEqual(
+      rightView.getScaleByField('site').range[1].toFixed(4)
+    );
 
     // 更新 sync
     leftView.scale({
       site: {
         type: 'cat',
         sync: true,
-      }
+      },
     });
     rightView.scale({
       site: {
         type: 'cat',
         sync: true,
-      }
+      },
     });
 
-   
     chart.render();
 
     expect(leftView.getScaleByField('site').values.length).toBe(7);
     expect(rightView.getScaleByField('site').values.length).toBe(7);
     expect(leftView.getScaleByField('site').range[0]).toBe(0);
     expect(rightView.getScaleByField('site').range[0]).toBe(0);
-    expect(leftView.getScaleByField('site').range[1].toFixed(4)).toEqual(rightView.getScaleByField('site').range[1].toFixed(4))
+    expect(leftView.getScaleByField('site').range[1].toFixed(4)).toEqual(
+      rightView.getScaleByField('site').range[1].toFixed(4)
+    );
 
     // 更新，用户指定 range，则仅更新 stage，不更新 range
     leftView.scale({
@@ -247,14 +259,14 @@ describe('2996', () => {
         type: 'cat',
         sync: true,
         range: [0, 0.5],
-      }
+      },
     });
     rightView.scale({
       site: {
         type: 'cat',
         sync: true,
         range: [0.6, 1],
-      }
+      },
     });
 
     chart.render();
@@ -262,8 +274,8 @@ describe('2996', () => {
     expect(leftView.getScaleByField('site').values.length).toBe(7);
     expect(rightView.getScaleByField('site').values.length).toBe(7);
 
-    expect(leftView.getScaleByField('site').range).toEqual([0, 0.5])
-    expect(rightView.getScaleByField('site').range).toEqual([0.6, 1])
+    expect(leftView.getScaleByField('site').range).toEqual([0, 0.5]);
+    expect(rightView.getScaleByField('site').range).toEqual([0.6, 1]);
 
     chart.destroy();
   });
@@ -278,13 +290,15 @@ describe('2996', () => {
     chart.axis(false);
 
     chart.tooltip({
-      shared: true
+      shared: true,
     });
 
-    chart.coordinate('polar', {
-      innerRadius: 0.1,
-      radius: 0.8
-    }).transpose();
+    chart
+      .coordinate('polar', {
+        innerRadius: 0.1,
+        radius: 0.8,
+      })
+      .transpose();
 
     const leftView = chart.createView({
       region: {
@@ -296,13 +310,16 @@ describe('2996', () => {
     leftView.scale({
       site: {
         type: 'cat',
-      }
+      },
     });
-    leftView.interval({
-      theme: {
-        multiplePieWidthRatio: 0.5
-      }
-    }).position('site*count').color('type');
+    leftView
+      .interval({
+        theme: {
+          multiplePieWidthRatio: 0.5,
+        },
+      })
+      .position('site*count')
+      .color('type');
 
     leftView.axis('site', {});
 
@@ -316,44 +333,53 @@ describe('2996', () => {
     rightView.scale({
       site: {
         type: 'cat',
-      }
+      },
     });
-    rightView.interval({
-      theme: {
-        multiplePieWidthRatio: 0.5
-      }
-    }).position('site*count').color('type');
-    rightView.axis('site', {
-     
-    });
+    rightView
+      .interval({
+        theme: {
+          multiplePieWidthRatio: 0.5,
+        },
+      })
+      .position('site*count')
+      .color('type');
+    rightView.axis('site', {});
     chart.render();
 
     // 没有声明 sync
     expect(leftView.getScaleByField('site').values.length).toBe(4);
     expect(rightView.getScaleByField('site').values.length).toBe(3);
-    expect(leftView.getScaleByField('site').range[0].toFixed(4)).not.toEqual(rightView.getScaleByField('site').range[0].toFixed(4))
-    expect(leftView.getScaleByField('site').range[1].toFixed(4)).not.toEqual(rightView.getScaleByField('site').range[1].toFixed(4))
+    expect(leftView.getScaleByField('site').range[0].toFixed(4)).not.toEqual(
+      rightView.getScaleByField('site').range[0].toFixed(4)
+    );
+    expect(leftView.getScaleByField('site').range[1].toFixed(4)).not.toEqual(
+      rightView.getScaleByField('site').range[1].toFixed(4)
+    );
 
     // 更新 sync
     leftView.scale({
       site: {
         type: 'cat',
         sync: true,
-      }
+      },
     });
     rightView.scale({
       site: {
         type: 'cat',
         sync: true,
-      }
+      },
     });
 
     chart.render();
 
     expect(leftView.getScaleByField('site').values.length).toBe(4);
     expect(rightView.getScaleByField('site').values.length).toBe(4);
-    expect(leftView.getScaleByField('site').range[0].toFixed(4)).toEqual(rightView.getScaleByField('site').range[0].toFixed(4))
-    expect(leftView.getScaleByField('site').range[1].toFixed(4)).toEqual(rightView.getScaleByField('site').range[1].toFixed(4))
+    expect(leftView.getScaleByField('site').range[0].toFixed(4)).toEqual(
+      rightView.getScaleByField('site').range[0].toFixed(4)
+    );
+    expect(leftView.getScaleByField('site').range[1].toFixed(4)).toEqual(
+      rightView.getScaleByField('site').range[1].toFixed(4)
+    );
 
     // 更新，用户指定 range，则仅更新 stage，不更新 range
     leftView.scale({
@@ -361,22 +387,22 @@ describe('2996', () => {
         type: 'cat',
         sync: true,
         range: [0, 0.5],
-      }
+      },
     });
     rightView.scale({
       site: {
         type: 'cat',
         sync: true,
         range: [0.6, 1],
-      }
+      },
     });
 
     chart.render();
     expect(leftView.getScaleByField('site').values.length).toBe(4);
     expect(rightView.getScaleByField('site').values.length).toBe(4);
 
-    expect(leftView.getScaleByField('site').range).toEqual([0, 0.5])
-    expect(rightView.getScaleByField('site').range).toEqual([0.6, 1])
+    expect(leftView.getScaleByField('site').range).toEqual([0, 0.5]);
+    expect(rightView.getScaleByField('site').range).toEqual([0.6, 1]);
 
     chart.destroy();
   });

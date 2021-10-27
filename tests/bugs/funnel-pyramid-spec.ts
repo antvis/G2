@@ -1,10 +1,9 @@
 import { Chart } from '../../src';
 import { createDiv } from '../util/dom';
 import { flatten } from '@antv/util';
-import IntervalLabel from "../../src/geometry/label/interval";
+import IntervalLabel from '../../src/geometry/label/interval';
 
 describe('pyramid funnel ', () => {
-
   it('should render label middle', () => {
     const data = [
       { action: '浏览网站', pv: 50000 },
@@ -22,10 +21,7 @@ describe('pyramid funnel ', () => {
     });
     chart.data(data);
     chart.axis(false);
-    chart
-      .coordinate('rect')
-      .transpose()
-      .scale(1, -1);
+    chart.coordinate('rect').transpose().scale(1, -1);
 
     const interval = chart
       .interval()
@@ -33,18 +29,15 @@ describe('pyramid funnel ', () => {
       .position('action*pv')
       .shape('pyramid')
       .color('action', ['#0050B3', '#1890FF', '#40A9FF', '#69C0FF', '#BAE7FF'])
-      .label(
-        'action*pv',
-        {
-          position: 'middle',
-          labelLine: {
-            style: {
-              lineWidth: 1,
-              stroke: 'rgba(0, 0, 0, 0.15)',
-            },
+      .label('action*pv', {
+        position: 'middle',
+        labelLine: {
+          style: {
+            lineWidth: 1,
+            stroke: 'rgba(0, 0, 0, 0.15)',
           },
-        }
-      )
+        },
+      });
 
     chart.render();
 
@@ -55,7 +48,7 @@ describe('pyramid funnel ', () => {
     const dataArray = interval.beforeMapping(beforeMappingData);
 
     // @ts-ignore
-    const mappingArray = flatten(dataArray.map(d => interval.mapping(d)));
+    const mappingArray = flatten(dataArray.map((d) => interval.mapping(d)));
     const gLabels = new IntervalLabel(interval);
     // @ts-ignore
     const labelItems = gLabels.getLabelItems(mappingArray);
@@ -68,5 +61,5 @@ describe('pyramid funnel ', () => {
     expect(labelItems[4].y).toBe(366.5);
 
     chart.destroy();
-  })
+  });
 });

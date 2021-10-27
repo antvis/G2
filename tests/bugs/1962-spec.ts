@@ -24,9 +24,9 @@ describe('#1881', () => {
 
     chart.line().position('city*sale').color('category');
     chart.render();
-    const elements = chart.geometries[0].elements
+    const elements = chart.geometries[0].elements;
     const bbox = elements[elements.length - 1].getBBox();
-    chart.showTooltip({ x: bbox.maxX, y: bbox.maxY })
+    chart.showTooltip({ x: bbox.maxX, y: bbox.maxY });
     const tooltipController = chart.getController('tooltip');
     expect(tooltipController.visible).toBeTruthy();
     // @ts-ignore
@@ -60,9 +60,9 @@ describe('#1881', () => {
 
     chart.line().position('city*sale').color('category');
     chart.render();
-    const elements = chart.geometries[0].elements
+    const elements = chart.geometries[0].elements;
     const bbox = elements[elements.length - 1].getBBox();
-    chart.showTooltip({ x: bbox.maxX, y: bbox.maxY })
+    chart.showTooltip({ x: bbox.maxX, y: bbox.maxY });
     const tooltipController = chart.getController('tooltip');
     expect(tooltipController.visible).toBeTruthy();
     // @ts-ignore

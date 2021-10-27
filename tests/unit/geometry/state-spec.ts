@@ -189,7 +189,7 @@ describe('State setting', () => {
     const shape2 = element2.shape;
     expect(shape0.get('zIndex')).toEqual(1);
     expect(shape2.get('zIndex')).toEqual(2);
-  
+
     const parent = shape0.getParent();
     expect(parent.getChildren()[1].get('origin').data.a).toEqual(data[1].a);
     expect(parent.getChildren()[2].get('origin').data.a).toEqual(data[2].a);
@@ -202,5 +202,4 @@ describe('State setting', () => {
 
     interval.destroy();
   });
-
 });

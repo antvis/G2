@@ -230,8 +230,8 @@ export default class Tooltip extends Controller<TooltipOption> {
       tooltipMarkersGroup.clear();
     }
 
-    // 如果 customContent 不为空，就重新生成 tooltip 
-    if (tooltip?.get("customContent")) {
+    // 如果 customContent 不为空，就重新生成 tooltip
+    if (tooltip?.get('customContent')) {
       this.tooltip.destroy();
       this.tooltip = null;
     }

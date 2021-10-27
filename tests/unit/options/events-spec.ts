@@ -28,7 +28,7 @@ describe('Events options', () => {
         ],
         events: {
           'interval:click': () => clickFn(),
-        }
+        },
       },
     });
     chart.render();

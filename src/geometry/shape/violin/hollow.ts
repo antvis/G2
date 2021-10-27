@@ -34,7 +34,7 @@ registerShape('violin', 'hollow', {
 /**
  * 平滑边界的空心小提琴图
  */
- registerShape('violin', 'hollow-smooth', {
+registerShape('violin', 'hollow-smooth', {
   draw(cfg: ShapeInfo, container: IGroup) {
     const attrs = getStyle(cfg, true, false);
     const path = this.parsePath(getSmoothViolinPath(cfg.points));

@@ -24,9 +24,7 @@ describe('2851', () => {
     chart.animate(false);
     chart.data(data);
 
-    chart
-      .line()
-      .position('year*sales');
+    chart.line().position('year*sales');
 
     chart.annotation().line({
       top: true,
@@ -42,7 +40,7 @@ describe('2851', () => {
       top: true,
       start: ['min', 100],
       end: ['max', 0],
-      color: '#f5222d'
+      color: '#f5222d',
     });
 
     chart.annotation().text({
@@ -89,5 +87,5 @@ describe('2851', () => {
     expect(chart.getController('annotation').getComponents().length).toEqual(0);
     // @ts-ignore
     expect(chart.getController('annotation').option.length).toEqual(0);
-  })
+  });
 });

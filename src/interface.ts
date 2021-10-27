@@ -73,9 +73,11 @@ export interface RangePoint {
 /**
  * WAI-ARIA 无障碍标签配置
  */
-export type AriaOption  = false | {
-  readonly label: string;
-}
+export type AriaOption =
+  | false
+  | {
+      readonly label: string;
+    };
 
 /** 用户数据经过图形映射处理后的数据结构 */
 export interface MappingDatum {

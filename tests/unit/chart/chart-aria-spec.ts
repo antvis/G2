@@ -15,7 +15,6 @@ describe('Chart aria', () => {
   chart.interval().position('city*sale').color('category').adjust('stack');
 
   test('aria', () => {
-
     const label = '不同城市按照产品类别的堆积柱形图。';
 
     chart.aria({
@@ -35,5 +34,4 @@ describe('Chart aria', () => {
 
     expect(div.getAttribute('aria-label')).toBe(null);
   });
-
 });

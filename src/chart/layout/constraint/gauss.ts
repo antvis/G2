@@ -7,8 +7,8 @@ export function gauss(a: number[][]): number[] {
   const row = a.length;
   const col = a[0].length;
 
-  const m = row;      // 方程的个数
-  const n = col - 1;  // 变量的个数(最后一列是常量)
+  const m = row; // 方程的个数
+  const n = col - 1; // 变量的个数(最后一列是常量)
 
   /**
    * 先对 a 进行排序，排序规则为：
@@ -37,7 +37,7 @@ export function gauss(a: number[][]): number[] {
       const c = -a[j][i] / a[i][i];
       // 这一行的元素全部处理
       for (let k = i; k < n + 1; k++) {
-        a[j][k] += (c * a[i][k]);
+        a[j][k] += c * a[i][k];
       }
     }
   }
@@ -54,8 +54,8 @@ export function gauss(a: number[][]): number[] {
     // 向上带入归零
     for (let j = i - 1; j >= 0; j--) {
       const c = -a[j][i] / a[i][i];
-      a[j][i] += (a[i][i] * c);
-      a[j][n] += (a[i][n] * c);
+      a[j][i] += a[i][i] * c;
+      a[j][n] += a[i][n] * c;
     }
   }
 
@@ -64,7 +64,7 @@ export function gauss(a: number[][]): number[] {
 
 /**
  * 乘法
- * @param v 
+ * @param v
  */
 export function multiply(v: number[]) {
   return v.reduce((r, c) => r * c, 1);

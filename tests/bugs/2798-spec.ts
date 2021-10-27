@@ -25,14 +25,12 @@ registerShape('interval', '2798-shape', {
     });
 
     return container;
-  }
-})
+  },
+});
 
 describe('2798', () => {
   it('2798', () => {
-    const data = [
-      { type: '一线城市', value: 0.19 },
-    ];
+    const data = [{ type: '一线城市', value: 0.19 }];
     const chart = new Chart({
       container: createDiv(),
       width: 400,
@@ -40,10 +38,7 @@ describe('2798', () => {
       autoFit: false,
     });
     chart.data(data);
-    chart
-      .interval()
-      .position('type*value')
-      .shape('2798-shape')
+    chart.interval().position('type*value').shape('2798-shape');
 
     chart.legend(false);
     chart.axis(false);

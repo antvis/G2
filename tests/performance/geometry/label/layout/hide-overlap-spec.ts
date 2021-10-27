@@ -58,7 +58,9 @@ describe.skip('Benchmarks of hide-overlap', () => {
     console.info(`performance/label/hide-overlap: ${ROUNDS} tests, ${totalTime}ms`);
     // 期待 600 个 labels 平均时长小于 5s (60 个 labels，柱状图大概在 10-30ms, 饼图大概在 20-40ms)
     expect(totalTime / ROUNDS).toBeLessThan(5 * 1000);
-    console.info(`performance/label/hide-overlap, ${data.length * REPEAT_COUNTS} labels, average: ${totalTime / ROUNDS}ms`);
+    console.info(
+      `performance/label/hide-overlap, ${data.length * REPEAT_COUNTS} labels, average: ${totalTime / ROUNDS}ms`
+    );
   }
 
   it('column labels', () => {

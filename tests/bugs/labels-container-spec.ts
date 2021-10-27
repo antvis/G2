@@ -11,7 +11,7 @@ describe('foreGroundGroup -> labelsContainer', () => {
     { name: 'Berlin', 月份: 'Feb.', 月均降雨量: 23.2 },
     { name: 'Berlin', 月份: 'Mar.', 月均降雨量: 34.5 },
   ];
-  let chart = new Chart({
+  const chart = new Chart({
     container,
     autoFit: false,
     width: 400,
@@ -29,7 +29,7 @@ describe('foreGroundGroup -> labelsContainer', () => {
 
   it('labelsContianer clear render', () => {
     // 测试 clear + render 几次之后， foreGroundGroup 中的 labelsContianer 是否重复生成，不会溢出
-    for(let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 10; i++) {
       chart.clear();
       chart.data(data);
       chart.tooltip({

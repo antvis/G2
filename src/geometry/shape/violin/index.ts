@@ -5,7 +5,7 @@ import { registerShape, registerShapeFactory } from '../base';
 import { getViolinPath } from '../util/get-path-points';
 import { getStyle } from '../util/get-style';
 
-function normalizeSize(arr: number[]){
+function normalizeSize(arr: number[]) {
   if (!isArray(arr)) {
     return [];
   }
@@ -19,7 +19,7 @@ const ViolinShapeFactory = registerShapeFactory('violin', {
     const radius = pointInfo.size / 2;
     const points = [];
     const sizeArr = normalizeSize(pointInfo._size);
-    
+
     each(pointInfo.y as number[], (y, index) => {
       const offset = sizeArr[index] * radius;
       const isMin = index === 0;

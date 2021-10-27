@@ -6,7 +6,7 @@ describe('parse action', () => {
   it('not args', () => {
     const context = new Context(null);
     class CustomAction extends Action {
-      name: 'hello'
+      name: 'hello';
       show() {}
     }
     registerAction('hello', CustomAction);

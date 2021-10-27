@@ -96,10 +96,14 @@ export class ScalePool {
           // 存在 value 值，且用户没有配置 range 配置 to fix https://github.com/antvis/G2/issues/2996
           if (values && !get(cacheScaleMeta, ['scaleDef', 'range'])) {
             // 更新 range
-            range = getDefaultCategoryScaleRange(deepMix({}, scale, {
-              values
-            }), coordinate, theme);
-          } 
+            range = getDefaultCategoryScaleRange(
+              deepMix({}, scale, {
+                values,
+              }),
+              coordinate,
+              theme
+            );
+          }
           scale.change({
             values,
             range,

@@ -29,7 +29,7 @@ describe('clear + render: checkt tooltip dom', () => {
 
   it('tooltip clear render', () => {
     // 测试 clear + render 几次之后， tooltip dom 是否还是 1 个
-    for(let i = 1; i <= 3; i++) {
+    for (let i = 1; i <= 3; i++) {
       chart.clear();
       chart.data(data);
       chart.tooltip({

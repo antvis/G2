@@ -16,8 +16,8 @@ export class Variable {
 
   /**
    * 判断是否为一个变量
-   * @param v 
-   * @returns 
+   * @param v
+   * @returns
    */
   public static isVariable(v: any): v is Variable {
     return v instanceof Variable;

@@ -17,7 +17,7 @@ describe('#2799', () => {
     });
 
     chart.data(data);
-    chart.coordinate({ type: "theta" });
+    chart.coordinate({ type: 'theta' });
     chart.interval().adjust('stack').position('value').label('type').color('type');
 
     chart.render();
@@ -27,7 +27,7 @@ describe('#2799', () => {
 
     // 重新设置
     chart.data(data);
-    chart.coordinate({ type: "theta" });
+    chart.coordinate({ type: 'theta' });
     chart.interval().adjust('stack').position('value').label('type').color('type');
 
     chart.render();
