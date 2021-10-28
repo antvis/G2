@@ -93,7 +93,7 @@ describe('Pie GeometryLabel offset', () => {
     geometry.label('type', { offset: '10%' });
     labelItems = geometryLabel.getLabelItems(flatten(geometry.dataArray));
     expect(labelItems[0].offset).not.toEqual(coordinate.getRadius() * 0.1);
-    expect(labelItems[0].offset).toBeCloseTo((coordinate.getRadius() * (1 - 0.6) * 0.1));
+    expect(labelItems[0].offset).toBeCloseTo(coordinate.getRadius() * (1 - 0.6) * 0.1);
   });
 
   afterAll(() => {

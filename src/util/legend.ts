@@ -82,7 +82,7 @@ export function getLegendItems(
   geometry: Geometry,
   attr: Attribute,
   themeMarker: object,
-  userMarker: LegendCfg['marker'],
+  userMarker: LegendCfg['marker']
 ): ComponentLegendItem[] {
   const scale = attr.getScale(attr.type);
   if (scale.isCategory) {
@@ -115,7 +115,7 @@ export function getLegendItems(
 
       let markerCfg = userMarker;
       if (isFunction(markerCfg)) {
-        markerCfg = markerCfg(name, index, { name, value, ...deepMix({}, themeMarker, marker) })
+        markerCfg = markerCfg(name, index, { name, value, ...deepMix({}, themeMarker, marker) });
       }
 
       // the marker configure order should be ensure
@@ -146,10 +146,12 @@ export function getCustomLegendItems(themeMarker: object, userMarker: object, cu
   return customItems.map((item: LegendItem, index: number) => {
     let markerCfg = userMarker;
     if (isFunction(markerCfg)) {
-      markerCfg = markerCfg(item.name, index, deepMix({}, themeMarker, item))
+      markerCfg = markerCfg(item.name, index, deepMix({}, themeMarker, item));
     }
 
-    const itemMarker = isFunction(item.marker) ? item.marker(item.name, index, deepMix({}, themeMarker, item)) : item.marker;
+    const itemMarker = isFunction(item.marker)
+      ? item.marker(item.name, index, deepMix({}, themeMarker, item))
+      : item.marker;
 
     const marker = deepMix({}, themeMarker, markerCfg, itemMarker);
     setMarkerSymbol(marker);

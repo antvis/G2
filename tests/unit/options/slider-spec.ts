@@ -25,7 +25,7 @@ describe('Slider option', () => {
         slider: {
           start: 0.3,
           end: 0.7,
-        }
+        },
       },
     });
     chart.render();

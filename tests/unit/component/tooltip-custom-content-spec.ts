@@ -66,7 +66,7 @@ describe('TooltipCustomContent', () => {
         div.className = 'g2-tooltip';
         div.id = 'g2-tooltip';
         div.innerHTML = `${title}`;
-        return div
+        return div;
       },
     });
     chart.render();

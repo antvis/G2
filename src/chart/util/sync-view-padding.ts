@@ -1,5 +1,5 @@
 import { PaddingCalCtor } from '../layout/padding-cal';
-import{ View } from '../view';
+import { View } from '../view';
 
 /**
  * 默认的 syncViewPadding 逻辑

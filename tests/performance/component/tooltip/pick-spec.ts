@@ -5,13 +5,15 @@ import MV from 'mock-variable';
 import { Chart } from '../../../../src';
 import { createDiv } from '../../../util/dom';
 
-const DATA = MV.arrayOf(MV.shape({
-  value: MV.number(100, 110),
-  name: MV.string(8),
-}), 20000).mock();
+const DATA = MV.arrayOf(
+  MV.shape({
+    value: MV.number(100, 110),
+    name: MV.string(8),
+  }),
+  20000
+).mock();
 
 describe('benchmark of tooltip', () => {
-
   it('pick', () => {
     const chart = new Chart({
       container: createDiv(),

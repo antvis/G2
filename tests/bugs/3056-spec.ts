@@ -51,7 +51,7 @@ describe('#3056', () => {
     chart.render();
     labels = chart.geometries[0].labelsContainer.getChildren();
     // @ts-ignore
-    label2CenterY = labels[5].getBBox().minY - labels[5].getChildByIndex(0).getBBox().height/2
+    label2CenterY = labels[5].getBBox().minY - labels[5].getChildByIndex(0).getBBox().height / 2;
     expect(label2CenterY).toBeGreaterThanOrEqual(chart.getCoordinate().end.y);
   });
 });

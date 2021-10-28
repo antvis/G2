@@ -52,7 +52,9 @@ describe('2841 syncViewPadding', () => {
     expect(v1.autoPadding).toBe(v2.autoPadding);
 
     // legend 在 x 轴的下方
-    expect(chart.getComponents()[0].component.getBBox().minY).toBeGreaterThan(v1.getComponents()[0].component.getBBox().maxY);
+    expect(chart.getComponents()[0].component.getBBox().minY).toBeGreaterThan(
+      v1.getComponents()[0].component.getBBox().maxY
+    );
 
     // v1 v2 的 axis 轴坐标一模一样
     expect(v1.getComponents()[0].component.getBBox()).toEqual(v2.getComponents()[0].component.getBBox());

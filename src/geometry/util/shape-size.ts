@@ -41,10 +41,7 @@ export function getDefaultSize(geometry): number {
   let count: number = xValues.length;
   const xDimensionLength = getXDimensionLength(geometry.coordinate);
   // 获取柱宽相关配置项
-  const {
-    intervalPadding,
-    dodgePadding,
-  } = geometry;
+  const { intervalPadding, dodgePadding } = geometry;
   // 兼容theme配置
   const maxColumnWidth = geometry.maxColumnWidth || theme.maxColumnWidth;
   const minColumnWidth = geometry.minColumnWidth || theme.minColumnWidth;
@@ -108,7 +105,7 @@ export function getDefaultSize(geometry): number {
       // 组间距和组内间距均未配置
       normalizedSize = normalizedSize / dodgeCount;
     }
-    normalizedSize = (normalizedSize >= 0) ? normalizedSize : 0;
+    normalizedSize = normalizedSize >= 0 ? normalizedSize : 0;
   }
 
   // 最大和最小限制

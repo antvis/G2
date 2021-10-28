@@ -20,7 +20,7 @@ describe('Label option', () => {
         ],
         coordinate: {
           type: 'polar',
-          actions: [['transpose']]
+          actions: [['transpose']],
         },
         scales: {
           genre: { alias: '游戏种类' },
@@ -34,7 +34,7 @@ describe('Label option', () => {
             adjust: 'stack',
             label: {
               fields: ['sold'],
-            }
+            },
           },
         ],
         interactions: [{ type: 'active-region' }],

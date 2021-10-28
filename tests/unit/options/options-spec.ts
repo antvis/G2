@@ -192,10 +192,10 @@ describe('Schema', () => {
         geometries: [
           {
             type: 'area',
-            position: { fields: [ 'Date', 'scales' ] }
+            position: { fields: ['Date', 'scales'] },
           },
         ],
-      }
+      },
     });
     chart.render();
     chart.updateOptions({
@@ -206,7 +206,7 @@ describe('Schema', () => {
       geometries: [
         {
           type: 'area',
-          position: { fields: [ 'Date', 'scales'] }
+          position: { fields: ['Date', 'scales'] },
         },
       ],
     });

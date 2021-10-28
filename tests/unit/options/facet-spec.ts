@@ -6,9 +6,15 @@ describe('Facets Schema', () => {
   let chart;
 
   function getTypeColor(type) {
-    if (type === '转基因作物种植面积') { return '#1890ff'; }
-    if (type === '耕地总面积') { return '#2fc25b'; }
-    if (type === '转基因作物种植占比（%）') { return '#facc14'; }
+    if (type === '转基因作物种植面积') {
+      return '#1890ff';
+    }
+    if (type === '耕地总面积') {
+      return '#2fc25b';
+    }
+    if (type === '转基因作物种植占比（%）') {
+      return '#facc14';
+    }
   }
 
   const data = [
@@ -71,7 +77,7 @@ describe('Facets Schema', () => {
     { class: '转基因作物种植占比（%）', country: '巴拉圭', type: '1', value: 65.7 },
     { class: '转基因作物种植占比（%）', country: '巴拉圭', type: '2', value: 34.3 },
     { class: '转基因作物种植占比（%）', country: '乌拉圭', type: '1', value: 73 },
-    { class: '转基因作物种植占比（%）', country: '乌拉圭', type: '2', value: 27 }
+    { class: '转基因作物种植占比（%）', country: '乌拉圭', type: '2', value: 27 },
   ];
 
   it('use schema to create a facet', () => {
@@ -93,8 +99,8 @@ describe('Facets Schema', () => {
               style: {
                 fontSize: 14,
                 fontWeight: 300,
-                fill: '#8d8d8d'
-              }
+                fill: '#8d8d8d',
+              },
             },
             eachView: (view, facet) => {
               view.coordinate().transpose();
@@ -119,15 +125,15 @@ describe('Facets Schema', () => {
                   if (type === '2') {
                     return null;
                   }
-                  const offset = (value < 30) ? 10 : -4;
+                  const offset = value < 30 ? 10 : -4;
                   return {
                     offset,
                   };
                 });
               view.interaction('element-active');
-            }
-          }
-        ]
+            },
+          },
+        ],
       },
     });
 
@@ -139,7 +145,6 @@ describe('Facets Schema', () => {
     chart.render();
 
     expect(chart.views.length).toBe(3);
-
   });
 
   afterAll(() => {

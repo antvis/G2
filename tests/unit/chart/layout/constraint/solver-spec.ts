@@ -55,7 +55,7 @@ describe('constraint', () => {
       new Constraint(Operator.EQ, x.x, [-1, geometry.x], 0),
       new Constraint(Operator.EQ, x.width, [-1, geometry.width], 0),
       new Constraint(Operator.EQ, y.y, [-1, geometry.y], 0),
-      new Constraint(Operator.EQ, y.height, [-1, geometry.height], 0),
+      new Constraint(Operator.EQ, y.height, [-1, geometry.height], 0)
     );
 
     console.time('solver');

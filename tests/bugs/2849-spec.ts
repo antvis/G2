@@ -14,24 +14,28 @@ describe('2849', () => {
         views: [
           {
             options: {
-              data: [{ x: 'A', y: 10 }, { x: 'B', y: 15 }, { x: 'C', 'y': 40 }],
+              data: [
+                { x: 'A', y: 10 },
+                { x: 'B', y: 15 },
+                { x: 'C', y: 40 },
+              ],
               scales: { y: { nice: true } },
-              geometries: [
-                { type: 'interval', position: { fields: ['x', 'y'] } }
-              ]
-            }
+              geometries: [{ type: 'interval', position: { fields: ['x', 'y'] } }],
+            },
           },
           {
             options: {
-              data: [{ x: 'A', y1: 23 }, { x: 'B', y1: 40 }, { x: 'C', y1: 100 }],
-              geometries: [
-                { type: 'line', position: { fields: ['x', 'y1'] }, size: { values: [2] } }
+              data: [
+                { x: 'A', y1: 23 },
+                { x: 'B', y1: 40 },
+                { x: 'C', y1: 100 },
               ],
-              axes: { x: false, y1: { position: 'right' } }
-            }
-          }
+              geometries: [{ type: 'line', position: { fields: ['x', 'y1'] }, size: { values: [2] } }],
+              axes: { x: false, y1: { position: 'right' } },
+            },
+          },
         ],
-      }
+      },
     });
 
     chart.render();
@@ -58,29 +62,33 @@ describe('2849', () => {
         views: [
           {
             options: {
-              data: [{ x: 'A', y: 10 }, { x: 'B', y: 15 }, { x: 'C', 'y': 40 }],
+              data: [
+                { x: 'A', y: 10 },
+                { x: 'B', y: 15 },
+                { x: 'C', y: 40 },
+              ],
               scales: { y: { nice: true } },
-              geometries: [
-                { type: 'interval', position: { fields: ['x', 'y'] } }
-              ]
-            }
+              geometries: [{ type: 'interval', position: { fields: ['x', 'y'] } }],
+            },
           },
           {
             options: {
-              data: [{ x: 'A', y1: 23 }, { x: 'B', y1: 40 }, { x: 'C', y1: 100 }],
-              geometries: [
-                { type: 'line', position: { fields: ['x', 'y1'] }, size: { values: [2] } }
+              data: [
+                { x: 'A', y1: 23 },
+                { x: 'B', y1: 40 },
+                { x: 'C', y1: 100 },
               ],
-              axes: { x: false, y1: { position: 'right' } }
-            }
-          }
+              geometries: [{ type: 'line', position: { fields: ['x', 'y1'] }, size: { values: [2] } }],
+              axes: { x: false, y1: { position: 'right' } },
+            },
+          },
         ],
-      }
+      },
     });
 
     chart.render();
 
     expect(fn).toBeCalledTimes(1);
     expect(fn).toBeCalledWith(chart, chart.views, PaddingCal);
-  })
+  });
 });

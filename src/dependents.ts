@@ -2,9 +2,17 @@
 
 // G
 export {
-  ICanvas, IElement, IGroup, IShape,
-  PathCommand, BBox, Point, ShapeAttrs,
-  Event, AbstractGroup, AbstractShape
+  ICanvas,
+  IElement,
+  IGroup,
+  IShape,
+  PathCommand,
+  BBox,
+  Point,
+  ShapeAttrs,
+  Event,
+  AbstractGroup,
+  AbstractShape,
 } from '@antv/g-base';
 // 需要有 G-base 提供 g engine 类型定义
 export type IG = any;

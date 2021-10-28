@@ -4,7 +4,7 @@ import { deepMix } from '@antv/util';
 describe('theme', () => {
   test('theme API', () => {
     const defaultTheme = getTheme('default');
-    const stringify = (obj) => JSON.stringify(obj)
+    const stringify = (obj) => JSON.stringify(obj);
     expect(stringify(getTheme())).toEqual(stringify(getTheme('default')));
 
     // 都是 default

@@ -94,11 +94,13 @@ describe('Violin smooth shape', () => {
       { x: -0.25, y: 0.5 },
       { x: -0.375, y: 0.12 },
       { x: -0.5, y: 0.88 },
-    ]).map((pathCommand: any) => pathCommand.map(v => {
-      if (typeof v === 'string') return v.toUpperCase();
-      if (typeof v === 'number') return v * 100; // 根据 rectCoord 转换的
-      return v;
-    }));
+    ]).map((pathCommand: any) =>
+      pathCommand.map((v) => {
+        if (typeof v === 'string') return v.toUpperCase();
+        if (typeof v === 'number') return v * 100; // 根据 rectCoord 转换的
+        return v;
+      })
+    );
     expect(shape.attr('path')).toEqual(expectedPath);
   });
 

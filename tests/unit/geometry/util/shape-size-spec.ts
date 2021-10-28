@@ -273,8 +273,8 @@ describe('Calculate shape size', () => {
         container: canvas.addGroup(),
         intervalPadding: 36,
         theme: {
-          columnWidthRatio: 0.5
-        }
+          columnWidthRatio: 0.5,
+        },
       });
       interval.position('a*b');
       interval.init({
@@ -295,7 +295,7 @@ describe('Calculate shape size', () => {
         intervalPadding: 36,
         theme: {
           maxColumnWidth: 18,
-        }
+        },
       });
       interval.position('a*b');
       interval.init({
@@ -341,7 +341,7 @@ describe('Calculate shape size', () => {
       dodgePadding: 0,
       theme: {
         columnWidthRatio: 0.5,
-      }
+      },
     });
 
     interval.position('a*b').color('c');

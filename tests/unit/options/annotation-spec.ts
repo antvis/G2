@@ -26,21 +26,25 @@ describe('Annotations options', () => {
             color: 'genre',
           },
         ],
-        annotations: [{
-          type: 'text',
-          position: [ 'Action', 120 ],
-          content: 'XXXXXXXXXXXXXx',
-        }],
+        annotations: [
+          {
+            type: 'text',
+            position: ['Action', 120],
+            content: 'XXXXXXXXXXXXXx',
+          },
+        ],
       },
     });
     chart.render();
 
     // @ts-ignore
-    expect(chart.getController('annotation').option).toEqual([{
-      type: 'text',
-      position: ['Action', 120],
-      content: 'XXXXXXXXXXXXXx',
-    }]);
+    expect(chart.getController('annotation').option).toEqual([
+      {
+        type: 'text',
+        position: ['Action', 120],
+        content: 'XXXXXXXXXXXXXx',
+      },
+    ]);
 
     chart.updateOptions({
       data: [
@@ -57,19 +61,23 @@ describe('Annotations options', () => {
           color: 'genre',
         },
       ],
-      annotations: [{
-        type: 'text',
-        position: ['Action', 100],
-        content: 'XXXXXXXXXXXXXx',
-      }],
+      annotations: [
+        {
+          type: 'text',
+          position: ['Action', 100],
+          content: 'XXXXXXXXXXXXXx',
+        },
+      ],
     });
     chart.render();
     // @ts-ignore
-    expect(chart.getController('annotation').option).toEqual([{
-      type: 'text',
-      position: ['Action', 100],
-      content: 'XXXXXXXXXXXXXx',
-    }]);
+    expect(chart.getController('annotation').option).toEqual([
+      {
+        type: 'text',
+        position: ['Action', 100],
+        content: 'XXXXXXXXXXXXXx',
+      },
+    ]);
   });
 
   afterAll(() => {

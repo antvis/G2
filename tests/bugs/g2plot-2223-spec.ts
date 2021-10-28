@@ -73,9 +73,7 @@ describe('#2223', () => {
     chart.animate(false);
     chart.data(data);
 
-    chart
-      .interval()
-      .position('hour*click_count');
+    chart.interval().position('hour*click_count');
 
     chart.tooltip({
       shared: true,
@@ -88,15 +86,19 @@ describe('#2223', () => {
       y: 100,
     });
 
-    expect(chart.ele.querySelector('.g2-tooltip .g2-tooltip-list .g2-tooltip-list-item .g2-tooltip-name').innerHTML).toBe('click_count');
+    expect(
+      chart.ele.querySelector('.g2-tooltip .g2-tooltip-list .g2-tooltip-list-item .g2-tooltip-name').innerHTML
+    ).toBe('click_count');
 
     chart.tooltip({
       shared: true,
       customItems: (items) => {
-        return [{
-          ...items[0],
-          name: 'hello g2',
-        }];
+        return [
+          {
+            ...items[0],
+            name: 'hello g2',
+          },
+        ];
       },
     });
 
@@ -107,7 +109,9 @@ describe('#2223', () => {
       y: 110,
     });
 
-    expect(chart.ele.querySelector('.g2-tooltip .g2-tooltip-list .g2-tooltip-list-item .g2-tooltip-name').innerHTML).toBe('hello g2');
+    expect(
+      chart.ele.querySelector('.g2-tooltip .g2-tooltip-list .g2-tooltip-list-item .g2-tooltip-name').innerHTML
+    ).toBe('hello g2');
 
     chart.destroy();
   });

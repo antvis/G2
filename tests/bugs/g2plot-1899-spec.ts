@@ -73,9 +73,7 @@ describe('#1899', () => {
     chart.animate(false);
     chart.data(data);
 
-    chart
-      .interval()
-      .position('hour*click_count');
+    chart.interval().position('hour*click_count');
 
     chart.option('slider', {
       start: 0.2,
@@ -107,9 +105,7 @@ describe('#1899', () => {
     chart.animate(false);
     chart.data(data);
 
-    chart
-      .interval()
-      .position('hour*click_count');
+    chart.interval().position('hour*click_count');
 
     chart.option('scrollbar', {
       type: 'horizontal',
@@ -122,5 +118,5 @@ describe('#1899', () => {
 
     // @ts-ignore
     expect(chart.filteredData).toEqual(data.slice(0, 5));
-  })
+  });
 });

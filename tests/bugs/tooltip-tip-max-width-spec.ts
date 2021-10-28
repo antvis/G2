@@ -3,8 +3,10 @@ import { createDiv } from '../util/dom';
 
 describe('tooltip ellipsis tip', () => {
   it('max-width 50%', () => {
-    const Tokyo = 'TokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyo';
-    const London = 'LondonLondonLondonLondonLondonLondonLondonLondonLondonLondonLondonLondonLondonLondonLondonLondonLondonLondonLondonLondonLondonLondonLondonLondonLondonLondon';
+    const Tokyo =
+      'TokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyoTokyo';
+    const London =
+      'LondonLondonLondonLondonLondonLondonLondonLondonLondonLondonLondonLondonLondonLondonLondonLondonLondonLondonLondonLondonLondonLondonLondonLondonLondonLondon';
 
     const data = [
       { month: 'Jan', city: Tokyo, temperature: 7 },
@@ -25,7 +27,11 @@ describe('tooltip ellipsis tip', () => {
     chart.line().position('month*temperature').color('city').shape('smooth').adjust('stack');
     chart.render();
 
-    const label = chart.getController('legend').getComponents()[0].component.get('container').findById(`-legend-item-${Tokyo}-name`);
+    const label = chart
+      .getController('legend')
+      .getComponents()[0]
+      .component.get('container')
+      .findById(`-legend-item-${Tokyo}-name`);
 
     chart.emit('legend-item-name:mousemove', {
       x: 0,

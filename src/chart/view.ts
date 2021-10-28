@@ -1035,9 +1035,13 @@ export class View extends Base {
    * 获取 view 中的所有 geome
    */
   public getElements(): Element[] {
-    return reduce(this.geometries, (elements: Element[], geometry: Geometry) => {
-      return elements.concat(geometry.getElements());
-    }, []);
+    return reduce(
+      this.geometries,
+      (elements: Element[], geometry: Geometry) => {
+        return elements.concat(geometry.getElements());
+      },
+      []
+    );
   }
 
   /**
@@ -1055,7 +1059,7 @@ export class View extends Base {
    * @returns
    */
   public getElementsBy(condition: (element: Element) => boolean): Element[] {
-    return this.getElements().filter(el => condition(el));
+    return this.getElements().filter((el) => condition(el));
   }
 
   /**
@@ -1086,7 +1090,7 @@ export class View extends Base {
    * @returns 维度字段的 Attribute 数组
    */
   public getLegendAttributes(): Attribute[] {
-    return (flatten(this.geometries.map((g: Geometry) => g.getGroupAttributes())) as unknown) as Attribute[];
+    return flatten(this.geometries.map((g: Geometry) => g.getGroupAttributes())) as unknown as Attribute[];
   }
 
   /**
@@ -1104,7 +1108,7 @@ export class View extends Base {
    * @returns G.Canvas 画布实例。
    */
   public getCanvas(): ICanvas {
-    return ((this.getRootView() as unknown) as Chart).canvas;
+    return (this.getRootView() as unknown as Chart).canvas;
   }
 
   /**

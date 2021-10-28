@@ -12,7 +12,7 @@ export default class IntervalLabel extends GeometryLabel {
    * 获取 interval label 的方向，取决于 value 的值是正还是负
    * @param labelCfg
    */
-   private getLabelValueDir(mappingData: MappingDatum) {
+  private getLabelValueDir(mappingData: MappingDatum) {
     // points 中的 x/y 和 transpose 无关
     const dim = 'y';
     const { points } = mappingData;
@@ -38,13 +38,13 @@ export default class IntervalLabel extends GeometryLabel {
       point = {
         ...point,
         x: point.x * -1,
-      }
+      };
     }
     if (coordinate.isReflect('y')) {
       point = {
         ...point,
         y: point.y * -1,
-      }
+      };
     }
 
     return point;

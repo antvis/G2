@@ -17,7 +17,7 @@ describe('Component', () => {
 
   chart.data(CITY_SALE);
   chart.axis('sale', {
-    title: { },
+    title: {},
   });
   chart.interval().position('city*sale').color('category').adjust('stack');
 

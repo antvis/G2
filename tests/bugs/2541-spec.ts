@@ -59,7 +59,7 @@ describe('#2541', () => {
     setTimeout(() => {
       expect(interval.elements[1].shape.attr('stroke')).toEqual('#000');
     }, 0);
-  
+
     chart.changeData([
       { type: '一线城市', value: 0.19 },
       { type: '三线城市', value: 0.27 },

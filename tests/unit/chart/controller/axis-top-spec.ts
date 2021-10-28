@@ -27,7 +27,7 @@ describe('axis top', () => {
     chart.axis('月份', {
       top: true,
       grid: {},
-    })
+    });
 
     chart.render();
 

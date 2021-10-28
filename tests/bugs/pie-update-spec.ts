@@ -154,7 +154,6 @@ describe('Pie update animation', () => {
     const interval = chart.geometries[0];
     const labelContainer = interval.labelsContainer;
     expect(labelContainer.getCount()).toBe(1);
-
   });
 
   it('pie update animation when width changed to 0.', () => {

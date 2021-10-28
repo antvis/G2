@@ -1,7 +1,7 @@
-import { clamp, size, valuesOfKey } from "@antv/util";
-import { COMPONENT_TYPE } from "../../../constant";
+import { clamp, size, valuesOfKey } from '@antv/util';
+import { COMPONENT_TYPE } from '../../../constant';
 import { Action } from '..';
-import { LooseObject } from "../../../interface";
+import { LooseObject } from '../../../interface';
 
 function isWheelDown(event: LooseObject) {
   const wheelEvent = event.gEvent.originalEvent as WheelEvent;
@@ -10,7 +10,6 @@ function isWheelDown(event: LooseObject) {
 
 const DEFAULT_WHEELDELTA = 1;
 class MousewheelScroll extends Action {
-
   public scroll(arg?) {
     const { view, event } = this.context;
 

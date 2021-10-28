@@ -73,13 +73,10 @@ describe('#3065', () => {
     chart.data(data);
     chart.scale('population', { nice: true });
     chart.coordinate().transpose();
-    chart
-      .interval()
-      .position('country*population')
-      .label('population', {
-        position: 'right',
-        offsetX: 0,
-      });
+    chart.interval().position('country*population').label('population', {
+      position: 'right',
+      offsetX: 0,
+    });
     chart.render();
 
     let labels = chart.geometries[0].labelsContainer.getChildren();

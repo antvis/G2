@@ -125,7 +125,6 @@ const data = [
   },
 ];
 
-
 describe('G2Plot #2165', () => {
   it('change data', () => {
     const chart = new Chart({
@@ -137,11 +136,7 @@ describe('G2Plot #2165', () => {
 
     chart.data([]);
 
-    chart
-      .area()
-      .position('date*value')
-      .color('country')
-      .adjust('stack');
+    chart.area().position('date*value').color('country').adjust('stack');
 
     chart.render();
 

@@ -9,12 +9,7 @@ import { Point } from '../../../interface';
  * @returns
  */
 export function getCPath(from: Point, to: Point) {
-  return [
-    'C',
-    (from.x * 1) / 2 + (to.x * 1) / 2, from.y,
-    (from.x * 1) / 2 + (to.x * 1) / 2, to.y,
-    to.x, to.y,
-  ];
+  return ['C', (from.x * 1) / 2 + (to.x * 1) / 2, from.y, (from.x * 1) / 2 + (to.x * 1) / 2, to.y, to.x, to.y];
 }
 
 /**

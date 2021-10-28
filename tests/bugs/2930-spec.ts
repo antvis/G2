@@ -4,13 +4,13 @@ import { createDiv } from '../util/dom';
 
 describe('#2930', () => {
   const data = [
-    { type: "分类一", value: NaN },
-    { type: "分类二", value: undefined },
-    { type: "分类三", value: null },
-    { type: "分类四", value: -1.2 },
-    { type: "分类五", value: -1 },
-    { type: "分类六", value: 0 },
-    { type: "其他", value: 1 },
+    { type: '分类一', value: NaN },
+    { type: '分类二', value: undefined },
+    { type: '分类三', value: null },
+    { type: '分类四', value: -1.2 },
+    { type: '分类五', value: -1 },
+    { type: '分类六', value: 0 },
+    { type: '其他', value: 1 },
   ];
 
   const chart = new Chart({
@@ -23,7 +23,7 @@ describe('#2930', () => {
   // chart.animate(false) // @todo 数据isNaN过滤处理
   chart.data(data);
   chart.interval().position('value').color('type').adjust('stack');
-  chart.render()
+  chart.render();
 
   it('check data is NaN', () => {
     chart.scale('y', {

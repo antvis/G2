@@ -341,7 +341,7 @@ describe('Scrollbar', () => {
     expect(near(xAxisBBox.maxY, 392 - 16)).toBe(true);
     expect(scrollbar.component.get('trackLen')).toBe(coordinateBBox.width);
     // 32 - default category size
-    expect(chart.getData().length).toBe(Math.floor(coordinateBBox.width/32));
+    expect(chart.getData().length).toBe(Math.floor(coordinateBBox.width / 32));
 
     chart.destroy();
   });
@@ -383,7 +383,7 @@ describe('Scrollbar', () => {
     expect(scrollbarBBox.height).toBe(8);
     expect(scrollbar.component.get('trackLen')).toBe(coordinateBBox.width);
     // 32 - default category size
-    expect(chart.getData().length).toBe(Math.floor(coordinateBBox.width/32));
+    expect(chart.getData().length).toBe(Math.floor(coordinateBBox.width / 32));
 
     chart.destroy();
   });
@@ -395,40 +395,41 @@ describe('Scrollbar', () => {
 
 describe('scrollbar mouse wheel scrolling', () => {
   const container = createDiv();
-    const chart = new Chart({
-      container,
-      height: 400,
-      width: 360,
-    });
-    chart.animate(false);
-    chart.data(salesBySubCategory);
-    chart.axis('subCategory', {
-      label: {
-        autoHide: true,
-        autoRotate: false,
-      },
-    });
-    chart.option('scrollbar', {
-      type: 'horizontal',
-    });
-    chart.scale('sales', {
-      nice: true,
-      formatter: (v) => `${Math.floor(v / 10000)}万`,
-    });
-    chart.interval().position('subCategory*sales').label('sales');
-    chart.render();
+  const chart = new Chart({
+    container,
+    height: 400,
+    width: 360,
+  });
+  chart.animate(false);
+  chart.data(salesBySubCategory);
+  chart.axis('subCategory', {
+    label: {
+      autoHide: true,
+      autoRotate: false,
+    },
+  });
+  chart.option('scrollbar', {
+    type: 'horizontal',
+  });
+  chart.scale('sales', {
+    nice: true,
+    formatter: (v) => `${Math.floor(v / 10000)}万`,
+  });
+  chart.interval().position('subCategory*sales').label('sales');
+  chart.render();
 
-    const spy = jest.spyOn(MousewheelScroll.prototype, 'scroll');
-    const canvas = chart.canvas;
-    const el = canvas.get('el');
+  const spy = jest.spyOn(MousewheelScroll.prototype, 'scroll');
+  const canvas = chart.canvas;
+  const el = canvas.get('el');
 
-  const createMouseWheelEvent = (options) => new WheelEvent('mousewheel', {
+  const createMouseWheelEvent = (options) =>
+    new WheelEvent('mousewheel', {
       bubbles: true,
       cancelable: true,
-      ...options
+      ...options,
     });
 
-  type TestTuple = { expectedWheelDelta: number, options?: any };
+  type TestTuple = { expectedWheelDelta: number; options?: any };
 
   const cases: Record<string, TestTuple> = {
     ['detault']: {
@@ -438,19 +439,19 @@ describe('scrollbar mouse wheel scrolling', () => {
       expectedWheelDelta: 5,
       options: {
         arg: { wheelDelta: 5 },
-      }
+      },
     },
     ['advanced w/o wheel delta specified']: {
       expectedWheelDelta: 1,
-      options: {
-      }
-    }
+      options: {},
+    },
   };
 
-  test.each(Object.entries(cases))('options: %s', async (_, {expectedWheelDelta, options}) => {
-
+  test.each(Object.entries(cases))('options: %s', async (_, { expectedWheelDelta, options }) => {
     const interactionCfg = options !== undefined && {
-      start: [{ trigger: 'plot:mousewheel', action: 'mousewheel-scroll:scroll', ...(options.arg && { arg: options.arg }) }],
+      start: [
+        { trigger: 'plot:mousewheel', action: 'mousewheel-scroll:scroll', ...(options.arg && { arg: options.arg }) },
+      ],
     };
 
     chart.interaction('plot-mousewheel-scroll', interactionCfg);
@@ -458,11 +459,11 @@ describe('scrollbar mouse wheel scrolling', () => {
 
     const scrollForwardEvt = createMouseWheelEvent({
       deltaY: 100,
-    ...getClientPoint(canvas, 180, 200)
+      ...getClientPoint(canvas, 180, 200),
     });
     const scrollBackEvt = createMouseWheelEvent({
       deltaY: -100,
-      ...getClientPoint(canvas, 180, 200)
+      ...getClientPoint(canvas, 180, 200),
     });
 
     await delay(50);
@@ -473,19 +474,20 @@ describe('scrollbar mouse wheel scrolling', () => {
     const value = (salesBySubCategory.length - chart.getData().length) / expectedWheelDelta;
     const numberOfScrolls = Number.isInteger(value) ? value : Math.ceil(value);
     for (let i = 1; i < numberOfScrolls; i++) {
-    el.dispatchEvent(scrollForwardEvt);
+      el.dispatchEvent(scrollForwardEvt);
       await delay(50);
       expect(spy).toHaveBeenCalled();
       const chartData = chart.getData();
       const from = i * expectedWheelDelta;
-      const to = (from + chartData.length > salesBySubCategory.length ? salesBySubCategory.length : from + chartData.length) - 1;
+      const to =
+        (from + chartData.length > salesBySubCategory.length ? salesBySubCategory.length : from + chartData.length) - 1;
       expect(chartData[0]).toEqual(salesBySubCategory[from]);
       expect(chartData[chartData.length - 1]).toEqual(salesBySubCategory[to]);
     }
 
     el.dispatchEvent(scrollForwardEvt);
     expect(spy).toHaveBeenCalled();
-    expect(chart.getData()[chart.getData().length - 1]).toEqual(salesBySubCategory[salesBySubCategory.length-1]);
+    expect(chart.getData()[chart.getData().length - 1]).toEqual(salesBySubCategory[salesBySubCategory.length - 1]);
   });
 
   afterAll(() => {

@@ -252,7 +252,6 @@ describe('绘制 interval shape 的一些 utils', () => {
       ['z'],
     ]);
 
-
     const path1 = getRectWithCornerRadius(
       [
         { x: 60, y: 150 },
@@ -308,7 +307,6 @@ describe('绘制 interval shape 的一些 utils', () => {
       ['L', 60, 95],
       ['z'],
     ]);
-
 
     const path1 = getRectWithCornerRadius(
       [

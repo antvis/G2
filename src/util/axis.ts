@@ -178,14 +178,19 @@ export function getAxisThemeCfg(theme: object, direction: string): object {
 
 /**
  * get the options of axis title，mix the cfg from theme, avoid common themeCfg not work
- * @param theme 
- * @param direction 
- * @param axisOptions 
+ * @param theme
+ * @param direction
+ * @param axisOptions
  * @returns axis title options
  */
 export function getAxisTitleOptions(theme: object, direction: string, axisOptions?: object): object {
   const axisTheme = get(theme, ['components', 'axis'], {});
-  return deepMix({}, get(axisTheme, ['common', 'title'], {}), deepMix({}, get(axisTheme, [direction, 'title'], {})), axisOptions);
+  return deepMix(
+    {},
+    get(axisTheme, ['common', 'title'], {}),
+    deepMix({}, get(axisTheme, [direction, 'title'], {})),
+    axisOptions
+  );
 }
 
 /**

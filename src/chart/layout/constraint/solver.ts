@@ -10,7 +10,6 @@ import type { Variable } from './variable';
  * 所以将算法退化成多元一次方程组的解法，直接使用高斯消元法（o(n^2)）
  */
 export class Solver {
-  
   /**
    * 存在的约束
    */
@@ -45,7 +44,7 @@ export class Solver {
 
     this.m = this.constraints.length;
     this.n = this.variables.length;
-    
+
     // 2. 获取消元矩阵
     const matrix = this.getGaussMatrix();
 
@@ -78,7 +77,7 @@ export class Solver {
    */
   private getGaussMatrix() {
     const variableMap = new Map<Variable, number>();
-    
+
     for (let i = 0; i < this.n; i++) {
       const variable = this.variables[i];
       variableMap.set(variable, i);
@@ -87,12 +86,12 @@ export class Solver {
     const matrix = [];
     for (let i = 0; i < this.m; i++) {
       const constraint = this.constraints[i];
-      
+
       const arr = constraint.getGaussArr(variableMap);
 
       matrix.push(arr);
     }
-  
+
     return matrix;
   }
 }

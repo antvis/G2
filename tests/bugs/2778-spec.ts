@@ -17,7 +17,7 @@ describe('#2778', () => {
     });
 
     chart.data(data);
-    chart.coordinate({ type: "theta" });
+    chart.coordinate({ type: 'theta' });
 
     chart.interval().adjust('stack').position('value').label('type').color('type');
 
