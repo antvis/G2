@@ -881,7 +881,7 @@ describe('Geometry', () => {
     geometry.once(GEOMETRY_LIFE_CIRCLE.AFTER_DRAW_ANIMATE, () => afterFn(3));
     chart.changeSize(400, 400);
 
-    await delay(500);
+    await delay(800);
 
     // 自定义的 animate callback 也需要调用
     expect(fn).toBeCalled();

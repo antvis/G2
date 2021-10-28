@@ -1,3 +1,17 @@
+#### 4.1.33 (2021-10-28)
+
+##### Documentation Changes
+
+*  修复链接 404 ([#3692](https://github.com/antvis/g2/pull/3692)) ([6582738a](https://github.com/antvis/g2/commit/6582738a756824f74f2abc404579d012e205860b))
+
+##### New Features
+
+*  export utils of shape ([#3693](https://github.com/antvis/g2/pull/3693)) ([8dea465f](https://github.com/antvis/g2/commit/8dea465fca651aa242c4bec9d4c978ff318b0bff))
+
+##### Bug Fixes
+
+*  自动 lint fix ([#3697](https://github.com/antvis/g2/pull/3697)) ([f43bf9d5](https://github.com/antvis/g2/commit/f43bf9d5408eec7ac8cbec9a24ca6dc078fc8494))
+
 #### 4.1.32 (2021-10-21)
 
 ##### Documentation Changes

@@ -150,7 +150,7 @@ describe('Pie update animation', () => {
     chart.filter('sex', (val) => val === '男');
     chart.render(true);
 
-    await delay(500);
+    await delay(800);
     const interval = chart.geometries[0];
     const labelContainer = interval.labelsContainer;
     expect(labelContainer.getCount()).toBe(1);
