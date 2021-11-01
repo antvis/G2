@@ -14,6 +14,7 @@
   ],
   "scripts": {
     "start": "npm run site:clean && npm run site:develop",
+    "release": "semantic-release",
     "site:develop": "gatsby develop --open -H 0.0.0.0",
     "site:build": "npm run site:clean && gatsby build --prefix-paths",
     "site:clean": "gatsby clean",
