@@ -83,6 +83,7 @@
     "prettier": "^2.0.5",
     "react-i18next": "^11.1.0",
     "rimraf": "^3.0.0",
+    "semantic-release": "^18.0.0",
     "ts-jest": "^26.0.0",
     "ts-loader": "^8.2.0",
     "typedoc": "^0.17.6",
