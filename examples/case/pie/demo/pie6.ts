@@ -7,7 +7,7 @@ const data = [
   { name: '射手', type: '火象星座', value: 10 },
   { name: '水瓶', type: '风向星座', value: 14 },
   { name: '双子', type: '风向星座', value: 7 },
-  { name: '天平', type: '风向星座', value: 7 },
+  { name: '天秤', type: '风向星座', value: 7 },
   { name: '摩羯', type: '土象星座', value: 14 },
   { name: '金牛', type: '土象星座', value: 3 },
   { name: '处女', type: '土象星座', value: 3 },
