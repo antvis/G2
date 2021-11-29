@@ -680,10 +680,16 @@ export default class Annotation extends Controller<BaseOption[]> {
 
       // 忽略掉一些配置
       omit(cfg, ['container']);
-      co.component.update(cfg);
-      // 对于 regionFilter/shape，因为生命周期的原因，需要额外 render
-      if (includes(ANNOTATIONS_AFTER_RENDER, option.type)) {
-        co.component.render();
+
+      if (includes(['text', 'dataMarker', 'html'], type) && (isNaN(cfg['x']) || isNaN(cfg['y']))) {
+        co.component.hide();
+      } else {
+        co.component.update(cfg);
+        co.component.show();
+        // 对于 regionFilter/shape，因为生命周期的原因，需要额外 render
+        if (includes(ANNOTATIONS_AFTER_RENDER, option.type)) {
+          co.component.render();
+        }
       }
     } else {
       // 不存在，创建
