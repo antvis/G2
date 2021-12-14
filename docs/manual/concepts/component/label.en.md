@@ -113,4 +113,4 @@ chart
   });
 ```
 
-对于文本布局，有多种解决方案，为了更大的灵活，G2 提供了自定义 label 布局的机制，用户可以根据需求自定义 label 布局，具体使用请阅读[自定义 label 布局](../developer/register-label/#自定义-label-布局函数)。
+对于文本布局，有多种解决方案，为了更大的灵活，G2 提供了自定义 label 布局的机制，用户可以根据需求自定义 label 布局，具体使用请阅读[自定义 label 布局](../../../api/advanced/register-label/#自定义-label-布局函数)。
