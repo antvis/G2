@@ -1,3 +1,15 @@
+#### 4.1.35 (2021-12-14)
+
+##### Bug Fixes
+
+* **bar:**  修复条形图在 reflect y 时，绘制圆角错误 ([#3745](https://github.com/antvis/g2/pull/3745)) ([048a4920](https://github.com/antvis/g2/commit/048a492037e2d106fb8c60443fb90f37f1ec0496))
+
+##### Documentation Changes
+
+*  更新官网公告 ([2caa82a9](https://github.com/antvis/g2/commit/2caa82a9512d196fb42d01f7c6adee25f6d13aa9))
+* **docs:**  label link 404 ([#3728](https://github.com/antvis/g2/pull/3728)) ([e92dbd74](https://github.com/antvis/g2/commit/e92dbd741d170168d6d4d6f3da1d36f3f9a80cce))
+* **demo:** demo 中自定义shape会有误导 ([#3744](https://github.com/antvis/g2/pull/3744)) ([1249000f](https://github.com/antvis/g2/commit/1249000f11482313239edf03a2fac8619d3574b4))
+
 #### 4.1.34 (2021-11-01)
 
 ##### Chores
