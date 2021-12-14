@@ -46,8 +46,7 @@ G2.registerAnimation('label-update', (element, animateCfg, cfg) => {
   }, animateCfg);
 });
 
-
-G2.registerShape("interval", "blink-interval", {
+G2.registerShape('interval', 'blink-interval', {
   draw(cfg, container) {
     const group = container.addGroup();
     const path = this.parsePath(getIntervalRectPath(cfg.points));
@@ -58,7 +57,7 @@ G2.registerShape("interval", "blink-interval", {
     const width = path[3][1] - path[0][1];
     const x = path[0][1];
     const y = path[0][2];
-    group.addShape("path", {
+    group.addShape('path', {
       attrs: {
         ...style,
         path,
@@ -72,18 +71,17 @@ G2.registerShape("interval", "blink-interval", {
     });
 
     const data = cfg.data;
-    if (data[LATEST_FLAG]) {
-      group.addShape("rect", {
-        attrs: {
-          x,
-          y,
-          width,
-          height,
-          fill: `l(90) 0:${fillColor} 1:rgba(255,255,255,0.23)`,
-        },
-        name: 'blink-interval',
-      });
-    }
+    group.addShape('rect', {
+      attrs: {
+        x,
+        y,
+        width,
+        height,
+        fill: `l(90) 0:${fillColor} 1:rgba(255,255,255,0.23)`,
+        opacity: data[LATEST_FLAG] ? 1 : 0,
+      },
+      name: 'blink-interval',
+    });
 
     return group;
   },
@@ -143,7 +141,7 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/xXg6cUV0lV/column.json').then(d
     container: 'container',
     autoFit: true,
     height: 500,
-    padding: [20,40]
+    padding: [20, 40]
   });
 
   chart.data(data.map((d, idx) => ({ ...d, [LATEST_FLAG]: idx === data.length - 1 })));
