@@ -247,6 +247,7 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
         type: cfg.type as ScaleOption['type'],
         min: cfg.min,
         max: cfg.max,
+        tickMethod: cfg.tickMethod
       });
     });
     this.view.filter(this.xScaleCfg.field, (val) => {
