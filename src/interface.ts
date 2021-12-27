@@ -39,6 +39,7 @@ import { View } from './chart';
 import { Facet } from './facet';
 import Element from './geometry/element';
 import { PaddingCalCtor } from './chart/layout/padding-cal';
+import { LegendRadio } from '@antv/component';
 
 // ============================ 基础类型 ============================
 /** 通用对象 */
@@ -1063,6 +1064,10 @@ export interface LegendCfg extends Omit<CategoryLegendCfg, 'marker'> {
    * **分类图例适用**，用户自己配置图例项的内容。
    */
   items?: LegendItem[];
+  /**
+   * **分类图里适用**，用来配置正反选功能
+   */
+  radio?:LegendRadio
   /**
    * **分类图例适用**，是否将图例项逆序展示。
    */

@@ -18,7 +18,9 @@ class ListChecked extends ListState {
 
   // 单个 item 设置状态
   protected setItemState(list: IList, item: ListItem, enable: boolean) {
-    this.setCheckedBy(list, (el) => el === item, enable);
+    // 不能通过 el === item 来判断
+    // list-highlight 会增加 active 状态，会生成新的对象
+    this.setCheckedBy(list, (el) => el.id === item.id, enable);
   }
 
   // 根据条件设置 checked
@@ -49,12 +51,18 @@ class ListChecked extends ListState {
     const triggerInfo = this.getTriggerListInfo();
     if (triggerInfo && triggerInfo.item) {
       const { list, item } = triggerInfo;
+      const items = list.getItems();
 
-      // 不知道 🤷‍♀️ 只认 unchecked status
-      const allChecked = !some(list.getItems(), (t) => list.hasState(t, STATUS_UNCHECKED));
+      // 最开始都没有都没有 STATUS_CHECKED，不能通过其来判断是否是 checked
+      // 所以只能通过判断有没有 STATUS_UNCHECKED 来判断
+      const allChecked = !some(items, (t) => list.hasState(t, STATUS_UNCHECKED));
 
-      //
-      if (allChecked || list.hasState(item, STATUS_UNCHECKED)) {
+      // 这个地方很奇怪很坑！
+      // 触发事件的 item 和 list 里面对应的 clickedItem 的状态不一样
+      // clickedItem 的状态才是对的
+      const clickedItem = items.find((d) => d.id === item.id);
+
+      if (allChecked || list.hasState(clickedItem, STATUS_UNCHECKED)) {
         this.setItemState(list, item, true);
       } else {
         this.reset();
