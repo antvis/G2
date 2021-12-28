@@ -75,7 +75,7 @@ describe('Legend category radio', () => {
     expect(radio.attr('opacity')).toBe(0);
   });
 
-  test('点击 radio，如果没有被选中，只显示当前 legend 和对应数据，否者显示所有数据', () => {
+  test('点击 radio，如果有多个 item 被选中，那么只选中对应 item，否者恢复默认状态', () => {
     const { legend, chart } = renderLegend({ radio: {} });
     const radios = legend.getElementsByName('legend-item-radio');
     const [radio] = radios;
@@ -115,6 +115,17 @@ describe('Legend category radio', () => {
       { value: '广州', unchecked: false },
       { value: '上海', unchecked: false },
       { value: '呼和浩特', unchecked: false },
+    ]);
+
+    const target2 = legend.get('container').findById('-legend-item-广州-name');
+    chart.emit('legend-item-radio:click', { x: 50, y: 330, target });
+    chart.emit('legend-item:click', { x: 50, y: 330, target: target2 });
+    chart.emit('legend-item-radio:click', { x: 50, y: 330, target });
+    expect(getItems(legend)).toEqual([
+      { value: '杭州', unchecked: false },
+      { value: '广州', unchecked: true },
+      { value: '上海', unchecked: true },
+      { value: '呼和浩特', unchecked: true },
     ]);
   });
 });

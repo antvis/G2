@@ -198,6 +198,7 @@ import ListHighlight from './interaction/action/component/list-highlight';
 import ListSelected from './interaction/action/component/list-selected';
 import ListUnchecked from './interaction/action/component/list-unchecked';
 import ListChecked from './interaction/action/component/list-checked';
+import ListFocus from './interaction/action/component/list-focus';
 import ListRadio from './interaction/action/component/list-radio';
 
 import CircleMask from './interaction/action/mask/circle';
@@ -249,6 +250,7 @@ registerAction('list-selected', ListSelected);
 registerAction('list-highlight', ListHighlight);
 registerAction('list-unchecked', ListUnchecked);
 registerAction('list-checked', ListChecked);
+registerAction('list-focus', ListFocus);
 registerAction('list-radio', ListRadio);
 
 registerAction('legend-item-highlight', ListHighlight, {
@@ -576,7 +578,7 @@ registerInteraction('legend-filter', {
     //  正反选数据: 只有当 radio === truthy 的时候才会有 legend-item-radio 这个元素
     {
       trigger: 'legend-item-radio:click',
-      action: ['list-checked:toggle', 'data-filter:filter', 'list-radio:show'],
+      action: ['list-focus:toggle', 'data-filter:filter', 'list-radio:show'],
     },
   ],
 });
