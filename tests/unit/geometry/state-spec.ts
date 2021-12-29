@@ -65,7 +65,7 @@ describe('State setting', () => {
     { a: 'B', b: 12 },
     { a: 'C', b: 8 },
   ];
-  function initInterval({ background }) {
+  function initInterval({ background, sortZIndex = false }) {
     const scaleDefs = {
       a: { range: [0.25, 0.75] },
       b: { min: 7 },
@@ -81,6 +81,7 @@ describe('State setting', () => {
       coordinate: rectCoord,
       container: canvas.addGroup(),
       background,
+      sortZIndex,
     });
 
     interval
@@ -182,7 +183,7 @@ describe('State setting', () => {
   });
 
   it('get ZIndex and setState', () => {
-    const interval = initInterval({ background: false });
+    const interval = initInterval({ background: false, sortZIndex: true });
     const element1 = interval.elements[1];
     const element2 = interval.elements[2];
     const shape0 = element1.shape;

@@ -5,7 +5,7 @@ import { delay } from '../util/delay';
 const G = getEngine('canvas');
 
 describe('Pie update animation', () => {
-  it('pie shape path should not be changed.', (done) => {
+  it('pie shape path should not be changed.', async (done) => {
     const data = [
       { item: '事例一', count: 40, percent: 0.4 },
       { item: '事例二', count: 21, percent: 0.21 },
@@ -33,14 +33,13 @@ describe('Pie update animation', () => {
       { item: '事例三', count: 17, percent: 0.17 },
     ]);
 
-    setTimeout(() => {
-      const shape = interval.elements[0].shape;
-      const commands = shape.attr('path').map((eachCommand) => {
-        return eachCommand[0];
-      });
-      expect(commands).toEqual(['M', 'L', 'A', 'L', 'Z']);
-      done();
-    }, 600);
+    await delay(600);
+    const shape = interval.elements[0].shape;
+    const commands = shape.attr('path').map((eachCommand) => {
+      return eachCommand[0];
+    });
+    expect(commands).toEqual(['M', 'L', 'A', 'L', 'Z']);
+    done();
   });
 
   it('recheck', () => {
