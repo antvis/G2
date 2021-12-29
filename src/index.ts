@@ -198,6 +198,8 @@ import ListHighlight from './interaction/action/component/list-highlight';
 import ListSelected from './interaction/action/component/list-selected';
 import ListUnchecked from './interaction/action/component/list-unchecked';
 import ListChecked from './interaction/action/component/list-checked';
+import ListFocus from './interaction/action/component/list-focus';
+import ListRadio from './interaction/action/component/list-radio';
 
 import CircleMask from './interaction/action/mask/circle';
 import DimMask from './interaction/action/mask/dim-rect';
@@ -248,6 +250,8 @@ registerAction('list-selected', ListSelected);
 registerAction('list-highlight', ListHighlight);
 registerAction('list-unchecked', ListUnchecked);
 registerAction('list-checked', ListChecked);
+registerAction('list-focus', ListFocus);
+registerAction('list-radio', ListRadio);
 
 registerAction('legend-item-highlight', ListHighlight, {
   componentNames: ['legend'],
@@ -560,10 +564,23 @@ registerInteraction('element-single-selected', {
 // 筛选数据
 registerInteraction('legend-filter', {
   showEnable: [
-    { trigger: 'legend-item:mouseenter', action: 'cursor:pointer' },
-    { trigger: 'legend-item:mouseleave', action: 'cursor:default' },
+    { trigger: 'legend-item:mouseenter', action: ['cursor:pointer', 'list-radio:show'] },
+    { trigger: 'legend-item:mouseleave', action: ['cursor:default', 'list-radio:hide'] },
   ],
-  start: [{ trigger: 'legend-item:click', action: ['list-unchecked:toggle', 'data-filter:filter'] }],
+  start: [
+    {
+      trigger: 'legend-item:click',
+      isEnable: (context) => {
+        return !context.isInShape('legend-item-radio');
+      },
+      action: ['list-unchecked:toggle', 'data-filter:filter', 'list-radio:show'],
+    },
+    //  正反选数据: 只有当 radio === truthy 的时候才会有 legend-item-radio 这个元素
+    {
+      trigger: 'legend-item-radio:click',
+      action: ['list-focus:toggle', 'data-filter:filter', 'list-radio:show'],
+    },
+  ],
 });
 
 // 筛选数据

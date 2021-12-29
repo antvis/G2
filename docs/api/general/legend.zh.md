@@ -166,11 +166,11 @@ chart.legend('type', {
 
 适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项 name 文本的配置。_LegendItemNameCfg_ 配置如下：
 
-| 参数名    | 类型                                                    | 是否必选 | 默认值 | 描述                             |
-| --------- | ------------------------------------------------------- | -------- | ------ | -------------------------------- |
-| style     | _((item: ListItem, index: number, items: ListItem[]) => ShapeAttrs) \| ShapeAttrs_             |          | -      | 文本样式配置项                   |
-| spacing   | number                                                  |          | -      | 图例项 marker 同后面 name 的间距 |
-| formatter | `(text: string, item: ListItem, index: number) => any;` |          |        | 格式化函数                       |
+| 参数名    | 类型                                                                               | 是否必选 | 默认值 | 描述                             |
+| --------- | ---------------------------------------------------------------------------------- | -------- | ------ | -------------------------------- |
+| style     | _((item: ListItem, index: number, items: ListItem[]) => ShapeAttrs) \| ShapeAttrs_ |          | -      | 文本样式配置项                   |
+| spacing   | number                                                                             |          | -      | 图例项 marker 同后面 name 的间距 |
+| formatter | `(text: string, item: ListItem, index: number) => any;`                            |          |        | 格式化函数                       |
 
 其中, `ShapeAttrs` 详细配置见：[文档](/zh/docs/api/shape/shape-attrs)；`ListItem` 配置如下：
 
@@ -209,11 +209,11 @@ type Marker = {
 
 适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项 value 附加值的配置项。_LegendItemValueCfg_ 配置如下：
 
-| 参数名     | 类型                                                    | 是否必选 | 默认值  | 描述                                               |
-| ---------- | ------------------------------------------------------- | -------- | ------- | -------------------------------------------------- |
-| alignRight | boolean                                                 |          | `false` | 是否右对齐，默认为 false，仅当设置图例项宽度时生效 |
-| style     | _((item: ListItem, index: number, items: ListItem[]) => ShapeAttrs) \| ShapeAttrs_             |          | -      | 文本样式配置项                   |
-| formatter | `(text: string, item: ListItem, index: number) => any;` |          |        | 格式化函数                       |
+| 参数名     | 类型                                                                               | 是否必选 | 默认值  | 描述                                               |
+| ---------- | ---------------------------------------------------------------------------------- | -------- | ------- | -------------------------------------------------- |
+| alignRight | boolean                                                                            |          | `false` | 是否右对齐，默认为 false，仅当设置图例项宽度时生效 |
+| style      | _((item: ListItem, index: number, items: ListItem[]) => ShapeAttrs) \| ShapeAttrs_ |          | -       | 文本样式配置项                                     |
+| formatter  | `(text: string, item: ListItem, index: number) => any;`                            |          |         | 格式化函数                                         |
 
 其中, `ShapeAttrs` 详细配置见：[文档](/zh/docs/api/shape/shape-attrs)；`ListItem` 配置如下：
 
@@ -239,6 +239,19 @@ type Marker = {
   spacing?: number;
 };
 ```
+
+### legendOption.radio
+
+<description> _LegendRadio_ **optional** </description>
+
+适用于 <tag color="green" text="分类图例">分类图例</tag>，当 radio 为 truthy 的时候开启正反选功能：鼠标移动到图例上面的时候会出现 radio 按钮，点击按钮的时候，如果当前图例没有被选中，那么只选中该图例，并且展示对应数据，否者恢复默认状态。
+
+_LegendRadio_ 配置如下：
+
+| 参数名     | 类型                                                                               | 是否必选 | 默认值  | 描述                                               |
+| ---------- | ---------------------------------------------------------------------------------- | -------- | ------- | -------------------------------------------------- |
+| style      | _ShapeAttrs_ |          | -       | 文本样式配置项                                     |
+                           
 
 ### legendOption.animate
 
