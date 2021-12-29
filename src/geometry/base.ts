@@ -1546,7 +1546,7 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
       this.elements[i] = element;
       this.elementsMap[key] = element;
       if (element.shape) {
-        element.shape.setZIndex(this.zIndexReversed ? this.elements.length - i : i);
+        element.shape.set('zIndex', this.zIndexReversed ? this.elements.length - i : i);
       }
     }
 
@@ -1565,8 +1565,13 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
       this.elements[i] = element;
       this.elementsMap[key] = element;
       if (element.shape) {
-        element.shape.setZIndex(this.zIndexReversed ? this.elements.length - i : i);
+        element.shape.set('zIndex', this.zIndexReversed ? this.elements.length - i : i);
       }
+    }
+
+    // 全部 setZIndex 之后，再执行 sort
+    if (this.container) {
+      this.container.sort();
     }
 
     // 销毁被删除的 elements
