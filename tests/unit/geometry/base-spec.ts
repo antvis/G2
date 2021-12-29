@@ -905,7 +905,7 @@ describe('Geometry', () => {
     });
 
     chart.data(data);
-    const geometry = chart.interval({ zIndexReversed: true }).position('year*valye');
+    const geometry = chart.interval({ zIndexReversed: true, sortZIndex: true }).position('year*valye');
     chart.render();
     // @ts-ignore
     expect(geometry.zIndexReversed).toBe(true);

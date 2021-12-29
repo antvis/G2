@@ -132,6 +132,8 @@ export interface GeometryCfg {
   sortable?: boolean;
   /** elements 的 zIndex 默认按顺序提升，通过 zIndexReversed 可以反序，从而数据越前，层级越高 */
   zIndexReversed?: boolean;
+  /** 是否需要对 zIndex 进行 sort。因为耗时长，由具体场景自行决定 */
+  sortZIndex?: boolean;
   /** 是否可见 */
   visible?: boolean;
   /** 主题配置 */
@@ -260,6 +262,8 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
   protected multiplePieWidthRatio: number;
   /** elements 的 zIndex 默认按顺序提升，通过 zIndexReversed 可以反序，从而数据越前，层级越高 */
   public zIndexReversed?: boolean;
+  /** 是否需要对 zIndex 进行 sort。因为耗时长，由具体场景自行决定 */
+  public sortZIndex?: boolean;
 
   /** 虚拟 Group，用于图形更新 */
   private offscreenGroup: IGroup;
@@ -293,6 +297,7 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
       roseWidthRatio,
       multiplePieWidthRatio,
       zIndexReversed,
+      sortZIndex,
     } = cfg;
 
     this.container = container;
@@ -313,6 +318,7 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
     this.roseWidthRatio = roseWidthRatio;
     this.multiplePieWidthRatio = multiplePieWidthRatio;
     this.zIndexReversed = zIndexReversed;
+    this.sortZIndex = sortZIndex;
   }
 
   /**

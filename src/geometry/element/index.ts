@@ -229,11 +229,9 @@ export default class Element extends Base {
       }
       states.splice(index, 1);
       if (stateName === 'active' || stateName === 'selected') {
-        if (this.geometry.zIndexReversed) {
-          shape.setZIndex(this.geometry.elements.length - this.elementIndex);
-        } else {
-          shape.setZIndex(this.elementIndex);
-        }
+        const { sortZIndex, zIndexReversed } = this.geometry;
+        const idx = zIndexReversed ? this.geometry.elements.length - this.elementIndex : this.elementIndex;
+        sortZIndex ? shape.setZIndex(idx) : shape.set('zIndex', idx);
       }
     }
 
