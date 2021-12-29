@@ -1,3 +1,17 @@
+#### 4.1.36 (2021-12-29)
+
+##### New Features
+
+* **legend:**  添加图例的正反选功能 ([#3756](https://github.com/antvis/g2/pull/3756)) ([2c92f5d8](https://github.com/antvis/g2/commit/2c92f5d8bcec555460d9ed10ed1255a7a09dedbe))
+
+##### Bug Fixes
+
+* **scrollbar:**  Scale option tickMethod doesn't work when enable scrollbar ([#3747](https://github.com/antvis/g2/pull/3747)) ([cb3ad042](https://github.com/antvis/g2/commit/cb3ad0424886d4fa096c6aabc9cdcccf84644a2f))
+
+##### Performance Improvements
+
+*  优化性能，由于set-zindex每次都会调用 sort，导致耗时为指数级别的 ([#3758](https://github.com/antvis/g2/pull/3758)) ([f2877bcf](https://github.com/antvis/g2/commit/f2877bcf0e6b5e281de289d544296c940ddbdb3d))
+
 #### 4.1.35 (2021-12-14)
 
 ##### Bug Fixes
