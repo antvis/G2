@@ -124,7 +124,7 @@ describe('Animate', () => {
     expect(isNumberEqual(rect.attr('opacity'), 1)).toBeTruthy();
   });
 
-  it('doAnimate, update', (done) => {
+  it('doAnimate, update', async (done) => {
     const rect = canvas.addShape({
       type: 'rect',
       attrs: {
@@ -150,11 +150,11 @@ describe('Animate', () => {
       },
     });
 
-    setTimeout(() => {
-      expect(isNumberEqual(rect.attr('width'), 150)).toBeTruthy();
-      expect(isNumberEqual(rect.attr('height'), 150)).toBeTruthy();
-      done();
-    }, 450);
+    await delay(450);
+
+    expect(isNumberEqual(rect.attr('width'), 150)).toBeTruthy();
+    expect(isNumberEqual(rect.attr('height'), 150)).toBeTruthy();
+    done();
   });
 
   it('doGroupAppearAnimate', (done) => {
