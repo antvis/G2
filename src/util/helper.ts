@@ -1,4 +1,6 @@
-import { isArray, isString } from '@antv/util';
+import { isArray, isString, find, values, isEqual, get } from '@antv/util';
+import type { Scale } from '../dependents';
+import type Geometry from '../geometry/base';
 
 /**
  * @ignore
@@ -71,4 +73,16 @@ export function uniq(sourceArray: any[], targetArray: any[] = [], map: Map<any, 
     }
   }
   return targetArray;
+}
+
+/**
+ * @ignore
+ * Interval whether there is a continuous numerical type of classification scale, and obtain it
+ * @param geometry: Geometry
+ * @returns { false | Scale }
+ */
+export function getLinearIntervalScale(geometry: Geometry): false | Scale {
+  const scales = values(geometry.scales);
+  const colorScale = get(geometry, 'attributes.color.scales.0');
+  return geometry.type === 'interval' && colorScale?.isLinear && find(scales, scale => scale.isLinear && !isEqual(scale, colorScale));
 }

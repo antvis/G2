@@ -2,6 +2,7 @@ import {
   contains,
   filter,
   find,
+  get,
   isArray,
   isEmpty,
   isFunction,
@@ -18,6 +19,7 @@ import { Attribute, Scale } from '../dependents';
 import Geometry from '../geometry/base';
 import { Data, Datum, MappingDatum, Point, TooltipCfg, TooltipTitle } from '../interface';
 import { getName } from './scale';
+import { getLinearIntervalScale } from './helper';
 
 function snapEqual(v1: any, v2: any, scale: Scale) {
   const value1 = scale.translate(v1);
@@ -376,10 +378,21 @@ export function getTooltipItems(
       }
     }
   } else {
-    const valueScale = getTooltipValueScale(geometry);
-    // 字段数据为null ,undefined时不显示
+
+    // 类型为 interval 并且颜色字段为连续数值类型 Linear
+    const linearIntervalScale = getLinearIntervalScale(geometry);
+    let valueScale = getTooltipValueScale(geometry);
+
+    if (linearIntervalScale) {
+      const colorScale = get(geometry, 'attributes.color.scales.0');
+
+      valueScale = linearIntervalScale;
+      name = colorScale.getText(originData[colorScale.field]);
+    } else {
+      name = getTooltipName(originData, geometry);
+    }
+
     value = getTooltipValue(originData, valueScale);
-    name = getTooltipName(originData, geometry);
     addItem(name, value);
   }
   return items;
@@ -388,7 +401,12 @@ export function getTooltipItems(
 function getTooltipItemsByFindData(geometry: Geometry, point, title, tooltipCfg: TooltipCfg) {
   const { showNil } = tooltipCfg;
   const result = [];
-  const dataArray = geometry.dataArray;
+
+  const linearIntervalScale = getLinearIntervalScale(geometry);
+
+  // 连续不分组数据 进行每个分组 方便下面便利
+  const dataArray = linearIntervalScale ? geometry.dataArray[0].map(data => [data]) : geometry.dataArray;
+
   if (!isEmpty(dataArray)) {
     geometry.sort(dataArray); // 先进行排序，便于 tooltip 查找
     for (const data of dataArray) {
