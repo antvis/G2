@@ -239,7 +239,13 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
   private changeViewData([startIdx, endIdx]: [number, number], render?: boolean): void {
     const { type } = this.getValidScrollbarCfg();
     const isHorizontal = type !== 'vertical';
-    const values = valuesOfKey(this.data, this.xScaleCfg.field);
+    let values = valuesOfKey(this.data, this.xScaleCfg.field);
+
+    // 如果是 xScale 数值类型，则进行排序
+    if (this.view.getXScale().isLinear) {
+      values = values.sort();
+    }
+
     const xValues = isHorizontal ? values : values.reverse();
     this.yScalesCfg.forEach((cfg) => {
       this.view.scale(cfg.field, {
@@ -280,11 +286,11 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
     const config = this.getScrollbarComponentCfg();
     const realConfig = this.trackLen
       ? {
-          ...config,
-          trackLen: this.trackLen,
-          thumbLen: this.thumbLen,
-          thumbOffset: (this.trackLen - this.thumbLen) * this.ratio,
-        }
+        ...config,
+        trackLen: this.trackLen,
+        thumbLen: this.thumbLen,
+        thumbOffset: (this.trackLen - this.thumbLen) * this.ratio,
+      }
       : { ...config };
     this.scrollbar.component.update(realConfig);
 
@@ -319,13 +325,13 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
     const [paddingTop, paddingRight, paddingBottom, paddingLeft] = padding;
     const position = isHorizontal
       ? {
-          x: coordinateBBox.minX + paddingLeft,
-          y: viewBBox.maxY - height - paddingBottom,
-        }
+        x: coordinateBBox.minX + paddingLeft,
+        y: viewBBox.maxY - height - paddingBottom,
+      }
       : {
-          x: viewBBox.maxX - width - paddingRight,
-          y: coordinateBBox.minY + paddingTop,
-        };
+        x: viewBBox.maxX - width - paddingRight,
+        y: coordinateBBox.minY + paddingTop,
+      };
     const step = this.getStep();
     const cnt = this.getCnt();
     const trackLen = isHorizontal
