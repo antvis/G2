@@ -143,7 +143,7 @@ describe('2295', () => {
     chart.render();
     chart.render();
 
-    await delay(1);
+    await delay(10);
 
     expect(chart.getData().length).toBe(Math.floor(data.length * (0.8 - 0.2)));
   });
