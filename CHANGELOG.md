@@ -1,3 +1,9 @@
+#### 4.1.37 (2022-01-04)
+
+##### Bug Fixes
+
+* **slider,scrollbar:**  滚动条和缩略轴 在xScale 为线性时筛选错误的问题 ([#3767](https://github.com/antvis/g2/pull/3767)) ([768eb3c3](https://github.com/antvis/g2/commit/768eb3c34bd0d1c031554cac8f33146a845a901e))
+
 #### 4.1.36 (2021-12-29)
 
 ##### New Features

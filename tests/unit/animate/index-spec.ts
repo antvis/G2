@@ -117,7 +117,7 @@ describe('Animate', () => {
       toAttrs: null,
     });
 
-    await delay(500);
+    await delay(800);
 
     expect(isNumberEqual(rect.attr('strokeOpacity'), 1)).toBeTruthy();
     expect(isNumberEqual(rect.attr('fillOpacity'), 0.5)).toBeTruthy();
