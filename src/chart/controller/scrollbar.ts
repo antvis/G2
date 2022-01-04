@@ -55,7 +55,7 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
     this.view.off(VIEW_LIFE_CIRCLE.BEFORE_CHANGE_SIZE, this.resetMeasure);
   }
 
-  public init() {}
+  public init() { }
 
   /**
    * 渲染
@@ -240,7 +240,11 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
     const { type } = this.getValidScrollbarCfg();
     const isHorizontal = type !== 'vertical';
     const values = valuesOfKey(this.data, this.xScaleCfg.field);
-    const xValues = isHorizontal ? values : values.reverse();
+
+    // 如果是 xScale 数值类型，则进行排序
+    const xScaleValues = this.view.getXScale().isLinear ? values.sort() : values;
+
+    const xValues = isHorizontal ? xScaleValues : xScaleValues.reverse();
     this.yScalesCfg.forEach((cfg) => {
       this.view.scale(cfg.field, {
         formatter: cfg.formatter,
@@ -281,11 +285,11 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
     const config = this.getScrollbarComponentCfg();
     const realConfig = this.trackLen
       ? {
-          ...config,
-          trackLen: this.trackLen,
-          thumbLen: this.thumbLen,
-          thumbOffset: (this.trackLen - this.thumbLen) * this.ratio,
-        }
+        ...config,
+        trackLen: this.trackLen,
+        thumbLen: this.thumbLen,
+        thumbOffset: (this.trackLen - this.thumbLen) * this.ratio,
+      }
       : { ...config };
     this.scrollbar.component.update(realConfig);
 
@@ -320,13 +324,13 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
     const [paddingTop, paddingRight, paddingBottom, paddingLeft] = padding;
     const position = isHorizontal
       ? {
-          x: coordinateBBox.minX + paddingLeft,
-          y: viewBBox.maxY - height - paddingBottom,
-        }
+        x: coordinateBBox.minX + paddingLeft,
+        y: viewBBox.maxY - height - paddingBottom,
+      }
       : {
-          x: viewBBox.maxX - width - paddingRight,
-          y: coordinateBBox.minY + paddingTop,
-        };
+        x: viewBBox.maxX - width - paddingRight,
+        y: coordinateBBox.minY + paddingTop,
+      };
     const step = this.getStep();
     const cnt = this.getCnt();
     const trackLen = isHorizontal
