@@ -319,14 +319,12 @@ export default class Slider extends Controller<SliderOption> {
       return;
     }
     const isHorizontal = true;
-    let values = valuesOfKey(data, xScale.field);
+    const values = valuesOfKey(data, xScale.field);
 
     // 如果是 xScale 数值类型，则进行排序
-    if (xScale.isLinear) {
-      values = values.sort();
-    }
+    const xScaleValues = this.view.getXScale().isLinear ? values.sort() : values;
   
-    const xValues = isHorizontal ? values : values.reverse();
+    const xValues = isHorizontal ? xScaleValues : xScaleValues.reverse();
     const xTickCount = size(xValues);
 
     const minIndex = Math.floor(min * (xTickCount - 1));

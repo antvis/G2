@@ -55,7 +55,7 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
     this.view.off(VIEW_LIFE_CIRCLE.BEFORE_CHANGE_SIZE, this.resetMeasure);
   }
 
-  public init() {}
+  public init() { }
 
   /**
    * 渲染
@@ -239,14 +239,12 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
   private changeViewData([startIdx, endIdx]: [number, number], render?: boolean): void {
     const { type } = this.getValidScrollbarCfg();
     const isHorizontal = type !== 'vertical';
-    let values = valuesOfKey(this.data, this.xScaleCfg.field);
+    const values = valuesOfKey(this.data, this.xScaleCfg.field);
 
     // 如果是 xScale 数值类型，则进行排序
-    if (this.view.getXScale().isLinear) {
-      values = values.sort();
-    }
+    const xScaleValues = this.view.getXScale().isLinear ? values.sort() : values;
 
-    const xValues = isHorizontal ? values : values.reverse();
+    const xValues = isHorizontal ? xScaleValues : xScaleValues.reverse();
     this.yScalesCfg.forEach((cfg) => {
       this.view.scale(cfg.field, {
         formatter: cfg.formatter,
