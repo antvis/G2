@@ -273,7 +273,7 @@ export default class Slider extends Controller<SliderOption> {
     const xScale = this.view.getXScale();
     const isHorizontal = true;
     let values = valuesOfKey(data, xScale.field);
- 
+
     // 如果是 xScale 数值类型，则进行排序
     if (xScale.isLinear) {
       values = values.sort();
@@ -322,8 +322,8 @@ export default class Slider extends Controller<SliderOption> {
     const values = valuesOfKey(data, xScale.field);
 
     // 如果是 xScale 数值类型，则进行排序
-    const xScaleValues = this.view.getXScale().isLinear ? values.sort() : values;
-  
+    const xScaleValues = this.view.getXScale().isLinear ? values.sort((a, b) => Number(a) - Number(b)) : values;
+
     const xValues = isHorizontal ? xScaleValues : xScaleValues.reverse();
     const xTickCount = size(xValues);
 
