@@ -242,7 +242,7 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
     const values = valuesOfKey(this.data, this.xScaleCfg.field);
 
     // 如果是 xScale 数值类型，则进行排序
-    const xScaleValues = this.view.getXScale().isLinear ? values.sort() : values;
+    const xScaleValues = this.view.getXScale().isLinear ? values.sort((a, b) => Number(a) - Number(b)) : values;
 
     const xValues = isHorizontal ? xScaleValues : xScaleValues.reverse();
     this.yScalesCfg.forEach((cfg) => {
