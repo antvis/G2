@@ -1,3 +1,10 @@
+#### 4.1.38 (2022-01-12)
+
+##### Bug Fixes
+
+* **issue-3723:**  修复annotation 在筛选条件下，范围外的标注不需要展示 ([#3775](https://github.com/antvis/g2/pull/3775)) ([151f9152](https://github.com/antvis/g2/commit/151f915280cb7d00604a39c2c96859bb92dc6395))
+* **slider,scrollbar:**  修复slider 、scrollbar values 排序错误的问题 ([#3773](https://github.com/antvis/g2/pull/3773)) ([6e84c446](https://github.com/antvis/g2/commit/6e84c44684149cf0c5754cb8b537dd541011dc06))
+
 #### 4.1.37 (2022-01-04)
 
 ##### Bug Fixes
