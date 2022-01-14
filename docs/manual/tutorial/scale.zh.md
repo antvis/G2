@@ -119,7 +119,7 @@ chart.scale('x', {
 | values     | any[]              | 定义域                                 |
 | min        | any                | 定义域的最小值，在分类型 度量 中为序号 |
 | max        | any                | 定义域的最大值                         |
-| range      | [number, number]   | 值域的最小、最大值                     |
+| range      | [number, number]   | 值域的最小、最大值。注意在 D3 中 scale 的值域是一个画布上实际的像素长度范围，G2 不是直接把数据映射到最后画布的区域，G2 的值域则是在 `[0,1]` 的范围内 ，然后通过坐标系转换到画布区域                     |
 | tickCount  | number             | 期望的 tick 数量，非最终结果           |
 | formatter  | func(value, index) | 格式化函数，用于 tooltip、tick 等展示  |
 | tickMethod | string/func(scale) | 计算 ticks 的方法                      |
