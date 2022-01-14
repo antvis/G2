@@ -1067,7 +1067,7 @@ export interface LegendCfg extends Omit<CategoryLegendCfg, 'marker'> {
   /**
    * **分类图里适用**，用来配置正反选功能
    */
-  radio?:LegendRadio
+  radio?: LegendRadio
   /**
    * **分类图例适用**，是否将图例项逆序展示。
    */
