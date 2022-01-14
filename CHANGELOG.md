@@ -1,3 +1,14 @@
+#### 4.1.39 (2022-01-14)
+
+##### Chores
+
+*  增加dingtalk-release-nofity ([#3778](https://github.com/antvis/g2/pull/3778)) ([c69af004](https://github.com/antvis/g2/commit/c69af004c27ce738be11470572f330e40921ac54))
+
+##### Bug Fixes
+
+* **legend:**  修复图例 radio focus 模式 & 增加 demo ([#3779](https://github.com/antvis/g2/pull/3779)) ([5295b78a](https://github.com/antvis/g2/commit/5295b78a3d25c07a6b3a27c7ee7c15a6ed6be831))
+*  remove node 12 to fix release action failed ([#3720](https://github.com/antvis/g2/pull/3720)) ([1358be9a](https://github.com/antvis/g2/commit/1358be9a05a33f313b54d0f18a47df048f92ecb1))
+
 #### 4.1.38 (2022-01-12)
 
 ##### Bug Fixes
