@@ -35,7 +35,9 @@ chart.tooltip({
 });
 chart.legend({
   position: 'top',
-  radio: {},
+  radio: {
+    tip: '仅看当前项'
+  },
 });
 
 chart.interval().position('月份*月均降雨量').color('name').adjust('stack');
