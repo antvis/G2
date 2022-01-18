@@ -19,6 +19,15 @@
         "en": "Custom legend items"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/PgYlI9hB3Z/c50fffd5-5db0-49f2-ba16-ee3f523905bc.png"
+    },
+    {
+      "filename": "legend-focus.ts",
+      "title": {
+        "zh": "图例聚焦单选模式",
+        "en": "Legeng focus mode"
+      },
+      "new": true,
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/TRgIGLQ3u9/legend-focus.gif"
     }
   ]
 }

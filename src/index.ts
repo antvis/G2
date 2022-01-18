@@ -577,6 +577,14 @@ registerInteraction('legend-filter', {
     },
     //  正反选数据: 只有当 radio === truthy 的时候才会有 legend-item-radio 这个元素
     {
+      trigger: 'legend-item-radio:mouseenter',
+      action: ['list-radio:showTip'],
+    },
+    {
+      trigger: 'legend-item-radio:mouseleave',
+      action: ['list-radio:hideTip'],
+    },
+    {
       trigger: 'legend-item-radio:click',
       action: ['list-focus:toggle', 'data-filter:filter', 'list-radio:show'],
     },
