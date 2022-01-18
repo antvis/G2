@@ -1,5 +1,5 @@
 import { Chart } from '../../../src/';
-import { createDiv, removeDom } from '../../util/dom';
+import { createDiv } from '../../util/dom';
 import { COMPONENT_TYPE } from '../../../src/constant';
 import { GroupComponent, GroupComponentCfg } from '../../../src/dependents';
 
@@ -49,8 +49,10 @@ describe('Legend category radio', () => {
   test('选项 radio:styles 可以配置 radio 样式', () => {
     const { legend } = renderLegend({
       radio: {
-        stroke: 'red',
-        fill: 'blue',
+        style: {
+          stroke: 'red',
+          fill: 'blue',
+        }
       },
     });
     const [radio] = legend.getElementsByName('legend-item-radio');
