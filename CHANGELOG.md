@@ -1,3 +1,22 @@
+#### 4.1.40 (2022-01-18)
+
+##### Documentation Changes
+
+*   添加对scale的值域说明，与d3 值域用法相对比，防止误解。 ([#3781](https://github.com/antvis/g2/pull/3781)) ([3b07b921](https://github.com/antvis/g2/commit/3b07b9211bc1d3fc628a4b74d22dc67570a37b17))
+
+##### New Features
+
+* **legend:**  图例 radio增加 tip 文案提示 ([#3786](https://github.com/antvis/g2/pull/3786)) ([6736def0](https://github.com/antvis/g2/commit/6736def0aee2ea02fd645a170e9368dc91e032ea))
+
+##### Bug Fixes
+
+* **legend:**  修复 legend radio 设置样式不生效 ([#3784](https://github.com/antvis/g2/pull/3784)) ([fe554991](https://github.com/antvis/g2/commit/fe55499114c4dd440d48747af07e882a8cc87767))
+
+##### Chores
+
+*  resolutions 更新 修复 remark-mdx 引入问题 ([#3785](https://github.com/antvis/g2/pull/3785)) ([0212ce97](https://github.com/antvis/g2/commit/0212ce97823373537002c9c1c4de9ecb22c94fee))
+*  release actions ([52059d5e](https://github.com/antvis/g2/commit/52059d5e603e5e20b062900ca150693c09376850))
+
 #### 4.1.39 (2022-01-14)
 
 ##### Chores
