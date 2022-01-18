@@ -147,6 +147,7 @@
     "monaco-editor": "0.21.3",
     "@babel/plugin-transform-spread": "7.12.1",
     "d3-array": "2.12.1",
-    "normalize-url": "^4.5.1"
+    "normalize-url": "^4.5.1",
+    "remark-mdx": "1.6.22"
   }
 }
