@@ -1725,27 +1725,6 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
     const { scales } = this.getAttribute('position');
     const categoryScales = scales.filter((scale: Scale) => scale.isCategory);
 
-    //当 scale.values 中有 data 中没有的 category 时，生成一条 category 对应的空数据到 data 里面
-    //虽然很丑，但是我觉得如果把 scale 传到 adjust 当中更丑。
-    const allFields = this.getXYFields();
-    const adjustCategoryScaleData = (scale: Scale) => {
-      //找到 scale.values 中有 data 中没有的 category
-      const categoriesInScale = scale.values;
-      const categoriesInData = data.map((val) => val[scale.field] as string);
-      const categoriesNotInData = categoriesInScale.filter(
-        (val) => categoriesInData.findIndex((cat) => val === cat) === -1
-      );
-      data.push(
-        ...categoriesNotInData.map((cat) => ({
-          [allFields[0]]: undefined,
-          [allFields[1]]: undefined,
-          [scale.field]: cat,
-        }))
-      );
-    };
-    for (const scale of categoryScales) {
-      adjustCategoryScaleData(scale);
-    }
     const groupedArray = this.groupData(data); // 数据分组
     const beforeAdjust = [];
     for (let i = 0, len = groupedArray.length; i < len; i++) {
@@ -1842,7 +1821,16 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
           }
         }
         const adjustCtor = getAdjustClass(type);
-        const adjustInstance = new adjustCtor(adjustCfg);
+        //生成dimValuesMap
+        const xScale = this.getXScale(),
+          yScale = this.getYScale();
+        const dimValuesMap = {};
+        for (const scale of [xScale, yScale]) {
+          if (scale.isCategory) {
+            dimValuesMap[scale.field] = scale.values.map((val, index) => index);
+          }
+        }
+        const adjustInstance = new adjustCtor({ ...adjustCfg, dimValuesMap });
 
         result = adjustInstance.process(result);
 

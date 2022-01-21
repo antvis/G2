@@ -34,12 +34,14 @@ describe('#3737', () => {
     });
 
     chart.data(data);
+    
     chart.scale('category', {
       type: 'cat',
       range: [0, 1],
       nice: true,
       values: ['A', 'B', 'C', 'D', 'E'],
     });
+    
     chart.axis('category', {
       grid: {
         alignTick: false,
@@ -47,7 +49,7 @@ describe('#3737', () => {
     });
 
     chart.point().adjust('jitter').position('category*value');
-
+    
     chart.render();
 
     const pointsB = chart.geometries[0].dataArray[0].filter((val) => val._origin.category === 'B');
