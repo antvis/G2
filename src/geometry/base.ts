@@ -1822,8 +1822,6 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
         }
         const adjustCtor = getAdjustClass(type);
         //生成dimValuesMap
-        const xScale = this.getXScale(),
-          yScale = this.getYScale();
         const dimValuesMap = {};
         for (const scale of [xScale, yScale]) {
           if (scale && scale.isCategory && scale.values) {
