@@ -1,4 +1,5 @@
 import { firstValue, get, isEmpty, isNil, isNumber, isString, valuesOfKey } from '@antv/util';
+import { GROUP_ATTRS } from '../constant';
 import { getScale, Scale, Coordinate } from '../dependents';
 import { LooseObject, ScaleOption, ViewCfg } from '../interface';
 import { isFullCircle } from './coordinate';
@@ -23,6 +24,18 @@ function getDefaultType(value: any): string {
 }
 
 /**
+ * using the scale type if user specified, otherwise infer the type
+ */
+export function inferScaleType(scale: Scale, scaleDef: ScaleOption = {}, attrType: string, geometryType: string): string {
+  if (scaleDef.type) return scaleDef.type;
+  // geometry 类型有: edge,heatmap,interval,line,path,point,polygon,schema,voilin等；理论上，interval 下，可以用 linear scale 作为分组字段
+  if (GROUP_ATTRS.includes(attrType) && ['interval'].includes(geometryType)) {
+    return 'cat';
+  }
+  return scale.type;
+}
+
+/**
  * @ignore
  * 为指定的 `field` 字段数据创建 scale
  * @param field 字段名
@@ -43,7 +56,7 @@ export function createScaleByField(field: string | number, data?: LooseObject[] 
 
   const values = valuesOfKey(validData, field);
 
-  // 如果已经定义过这个度量
+  // 如果已经定义过这个度量 (fix-later 单纯从数据中，推断 scale type 是不精确的)
   const type = get(scaleDef, 'type', getDefaultType(values[0]));
   const ScaleCtor = getScale(type);
   return new ScaleCtor({
