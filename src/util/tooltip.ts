@@ -9,7 +9,7 @@ import {
   isNumberEqual,
   isObject,
   memoize,
-  uniq,
+  get,
   values,
 } from '@antv/util';
 import { View } from '../chart';
@@ -17,7 +17,7 @@ import { FIELD_ORIGIN, GROUP_ATTRS } from '../constant';
 import { Attribute, Scale } from '../dependents';
 import Geometry from '../geometry/base';
 import { Data, Datum, MappingDatum, Point, TooltipCfg, TooltipTitle } from '../interface';
-import { getName } from './scale';
+import { getName, inferScaleType } from './scale';
 
 function snapEqual(v1: any, v2: any, scale: Scale) {
   const value1 = scale.translate(v1);
@@ -111,9 +111,13 @@ function getTooltipValueScale(geometry: Geometry) {
   for (const attribute of attributes) {
     const tmpScale = attribute.getScale(attribute.type);
     if (tmpScale && tmpScale.isLinear) {
-      // 如果指定字段是非 position 的，同时是连续的
-      scale = tmpScale;
-      break;
+      const tmpScaleDef = get(geometry.scaleDefs, tmpScale.field);
+      const inferedScaleType = inferScaleType(tmpScale, tmpScaleDef, attribute.type, geometry.type);
+      if (inferedScaleType !== 'cat') {
+        // 如果指定字段是非 position 的，同时是连续的
+        scale = tmpScale;
+        break;
+      }
     }
   }
 
