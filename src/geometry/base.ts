@@ -68,7 +68,9 @@ interface AttributeInstanceCfg {
   values?: string[] | number[];
   scales?: Scale[];
 }
-
+interface DimValuesMapType {
+  [dim: string]: number[];
+}
 /** @ignore */
 interface AdjustInstanceCfg {
   type: AdjustType;
@@ -98,6 +100,8 @@ interface AdjustInstanceCfg {
   minColumnWidth?: number;
   /** 柱宽比例 */
   columnWidthRatio?: number;
+  /** 用户自定义的dimValuesMap */
+  dimValuesMap?: DimValuesMapType;
 }
 
 /** geometry.init() 传入参数 */
@@ -1821,14 +1825,14 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
           }
         }
         const adjustCtor = getAdjustClass(type);
+        adjustCfg.dimValuesMap = {};
         //生成dimValuesMap
-        const dimValuesMap = {};
-        for (const scale of [xScale, yScale]) {
-          if (scale && scale.isCategory && scale.values) {
-            dimValuesMap[scale.field] = scale.values.map(v => scale.translate(v)) ;
+        [xScale, yScale].forEach((scale) => {
+          if (scale && scale.values) {
+            adjustCfg.dimValuesMap[scale.field] = scale.values.map((v) => scale.translate(v));
           }
-        }
-        const adjustInstance = new adjustCtor({ ...adjustCfg, dimValuesMap });
+        });
+        const adjustInstance = new adjustCtor(adjustCfg);
 
         result = adjustInstance.process(result);
 

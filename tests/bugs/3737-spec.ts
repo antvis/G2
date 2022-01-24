@@ -52,8 +52,13 @@ describe('#3737', () => {
     
     chart.render();
 
-    const pointsB = chart.geometries[0].dataArray[0].filter((val) => val._origin.category === 'B');
+    const pointsB = chart.geometries[0].elements.filter((ele) => ele.getData().category === 'B');
 
-    expect(pointsB.every((val) => val.x < (400 / 5) * 2)).toBe(true);
+    expect(pointsB.every((point) => {
+      const bbox = point.shape.getBBox();
+      const subWidth = chart.coordinateBBox.width / 5;
+      const range = [chart.coordinateBBox.x + subWidth, chart.coordinateBBox.x + subWidth * 2];
+      return bbox.maxX > range[0] && bbox.minX < range[1];
+    })).toBe(true);
   });
 });
