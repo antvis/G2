@@ -53,12 +53,15 @@ describe('#3737', () => {
     chart.render();
 
     const pointsB = chart.geometries[0].elements.filter((ele) => ele.getData().category === 'B');
-
+    const subWidth = chart.coordinateBBox.width / 4;
+    const range = [chart.coordinateBBox.x + subWidth / 2, chart.coordinateBBox.x + subWidth * 1.5];
+    console.log("range",range);
     expect(pointsB.every((point) => {
-      const bbox = point.shape.getBBox();
-      const subWidth = chart.coordinateBBox.width / 5;
-      const range = [chart.coordinateBBox.x + subWidth, chart.coordinateBBox.x + subWidth * 2];
-      return bbox.maxX > range[0] && bbox.minX < range[1];
+      const model = point.getModel()
+      if(!(model.x > range[0] && model.x < range[1])){
+        console.log(model,point.getBBox(), point);
+      }
+      return ((model.x as number)) > range[0] && model.x < range[1];
     })).toBe(true);
   });
 });
