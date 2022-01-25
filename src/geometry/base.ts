@@ -1827,11 +1827,9 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
         const adjustCtor = getAdjustClass(type);
         adjustCfg.dimValuesMap = {};
         //生成dimValuesMap
-        [xScale, yScale].forEach((scale) => {
-          if (scale && scale.values) {
-            adjustCfg.dimValuesMap[scale.field] = scale.values.map((v) => scale.translate(v));
-          }
-        });
+        if (xScale && xScale.values) {
+          adjustCfg.dimValuesMap[scale.field] = scale.values.map((v) => scale.translate(v));
+        }
         const adjustInstance = new adjustCtor(adjustCfg);
 
         result = adjustInstance.process(result);
