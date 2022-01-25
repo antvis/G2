@@ -1,7 +1,7 @@
 import { deepMix, find, get, isEqual, isFunction, mix, isString, isBoolean, flatten, isArray } from '@antv/util';
 import { Crosshair, HtmlTooltip, IGroup } from '../../dependents';
 import { Point, TooltipItem, TooltipOption } from '../../interface';
-import { getAngleByPoint, getDistanceToCenter, isPointInCoordinate } from '../../util/coordinate';
+import { getAngleByPoint, getDistanceToCenter, isPointInCoordinate, getCoordinateClipCfg } from '../../util/coordinate';
 import { polarToCartesian } from '../../util/graphics';
 import { findItemsFromView } from '../../util/tooltip';
 import { BBox } from '../../util/bbox';
@@ -47,14 +47,14 @@ export default class Tooltip extends Controller<TooltipOption> {
     return 'tooltip';
   }
 
-  public init() {}
+  public init() { }
 
   private isVisible() {
     const option = this.view.getOptions().tooltip;
     return option !== false;
   }
 
-  public render() {}
+  public render() { }
 
   /**
    * Shows tooltip
@@ -342,7 +342,7 @@ export default class Tooltip extends Controller<TooltipOption> {
     return [];
   }
 
-  public layout() {}
+  public layout() { }
 
   public update() {
     if (this.point) {
@@ -439,8 +439,23 @@ export default class Tooltip extends Controller<TooltipOption> {
 
   private renderTooltipMarkers(items, marker) {
     const tooltipMarkersGroup = this.getTooltipMarkersGroup();
+    const rootView = this.view.getRootView();
+    const { limitInPlot } = rootView;
     for (const item of items) {
       const { x, y } = item;
+
+      // 有裁剪就剪切
+      if (limitInPlot || tooltipMarkersGroup?.getClip()) {
+        const { type, attrs } = getCoordinateClipCfg(rootView.getCoordinate());
+        tooltipMarkersGroup?.setClip({
+          type,
+          attrs,
+        });
+      } else {
+        // 清除已有的 clip
+        tooltipMarkersGroup?.setClip(undefined);
+      }
+
       const attrs = {
         fill: item.color,
         symbol: 'circle',
