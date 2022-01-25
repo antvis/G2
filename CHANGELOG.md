@@ -1,3 +1,10 @@
+#### 4.1.41 (2022-01-25)
+
+##### Bug Fixes
+
+*  修复 jitter 点图 adjust 后点位置不正确的问题 ([#3790](https://github.com/antvis/g2/pull/3790)) ([5ffcb7ac](https://github.com/antvis/g2/commit/5ffcb7acc6ed445c694c8dfd4b2a1631281b1fe3))
+*  修复获取分组scale错误 & tooltip 获取 value-scale 不忽略 color、shape 通道相关字段 ([#3768](https://github.com/antvis/g2/pull/3768)) ([ab893335](https://github.com/antvis/g2/commit/ab893335ebf274c7291331feceec3f65a5cbd26f))
+
 #### 4.1.40 (2022-01-18)
 
 ##### Documentation Changes
