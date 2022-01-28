@@ -15,13 +15,9 @@ changelog:
     - title: 🐛 Bug Fixes
       labels:
         - bugfix
-    - title: 🛠 Chores
-      labels:
-        - chore
     - title: 🛠 Breaking Changes
       labels:
-        - Semver-Major
-        - breaking-change
+        - breaking
     - title: Other Changes
       labels:
         - "*"
