@@ -1,3 +1,10 @@
+#### 4.1.42 (2022-01-28)
+
+##### Bug Fixes
+
+* **slider:**  修复slider过大挤压图形的问题 [#2968](https://github.com/antvis/g2/pull/2968) ([#3794](https://github.com/antvis/g2/pull/3794)) ([a3187617](https://github.com/antvis/g2/commit/a3187617e6750bec7a5ec2aa34224272c8e0b329))
+* **toolitp:**  修复 limitInPlot属性无法屏蔽一些后出现的状态 ([#3792](https://github.com/antvis/g2/pull/3792)) ([50e319dc](https://github.com/antvis/g2/commit/50e319dcd8c845b77c28d5292403321415743ae9))
+
 #### 4.1.41 (2022-01-25)
 
 ##### Bug Fixes
