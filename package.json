@@ -33,7 +33,7 @@
     "build": "run-s clean lib",
     "dist": "webpack --config webpack.config.js --mode production",
     "ci": "run-s build coverage",
-    "prepublishOnly": "npm run lint && npm run test && npm run build && npm run dist",
+    "prepublishOnly": "npm-run-all --parallel lint test build dist",
     "changelog": "generate-changelog",
     "analyz": "webpack --profile --json > stats.json && webpack-bundle-analyzer ./stats.json"
   },
