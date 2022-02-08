@@ -4,6 +4,7 @@ changelog:
   exclude:
     labels:
       - ignore-for-release
+      - chore
   categories:
     - title: 🎉 New Features
       labels:

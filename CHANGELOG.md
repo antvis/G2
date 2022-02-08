@@ -1,3 +1,13 @@
+#### 4.1.43 (2022-02-08)
+
+##### Chores
+
+*  add pr-auto-labels & auto-release-generate ([94146ea0](https://github.com/antvis/g2/commit/94146ea0502cb4a5afc912d2e5ff48cc7700b6a8))
+
+##### Bug Fixes
+
+* **charts:**  修复 annotations 创建失败 ([09cde2d1](https://github.com/antvis/g2/commit/09cde2d1f929e69aed78273cac2f5351f37e0913))
+
 #### 4.1.42 (2022-01-28)
 
 ##### Bug Fixes
