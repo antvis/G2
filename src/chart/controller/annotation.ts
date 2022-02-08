@@ -198,6 +198,10 @@ export default class Annotation extends Controller<BaseOption[]> {
     if (Ctor) {
       const theme = this.getAnnotationTheme(type);
       const cfg = this.getAnnotationCfg(type, option, theme);
+      // 不创建
+      if (!cfg) {
+        return null;
+      }
       const annotation = new Ctor(cfg);
 
       return {
