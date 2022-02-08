@@ -1,4 +1,4 @@
-name: NPM publish
+name: Npm publish
 
 on:
   workflow_dispatch:
@@ -12,7 +12,7 @@ jobs:
       - run: npm run lint
       - run: npm run build
 
-  publish-package:
+  publish-site:
     needs: build
     runs-on: ubuntu-latest
     steps:
