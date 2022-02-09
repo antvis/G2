@@ -1,6 +1,6 @@
 {
   "name": "@antv/g2",
-  "version": "4.1.44",
+  "version": "4.1.45",
   "description": "the Grammar of Graphics in Javascript",
   "main": "lib/index.js",
   "module": "esm/index.js",
@@ -25,7 +25,7 @@
     "lint:md": "lint-md ./docs",
     "lint:eslint": "eslint ./src/**/*.ts",
     "test": "jest -w 16",
-    "test-live": "DEBUG_MODE=1 jest --watch tests/unit",
+    "test-live": "DEBUG_MODE=1 jest --watch",
     "coverage": "jest -w 16 --coverage",
     "lib:cjs": "tsc -p tsconfig.json --target ES5 --module commonjs --outDir lib",
     "lib:esm": "tsc -p tsconfig.json --target ES5 --module ESNext --outDir esm",

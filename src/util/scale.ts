@@ -28,8 +28,9 @@ function getDefaultType(value: any): string {
  */
 export function inferScaleType(scale: Scale, scaleDef: ScaleOption = {}, attrType: string, geometryType: string): string {
   if (scaleDef.type) return scaleDef.type;
+  // identity scale 直接返回
   // geometry 类型有: edge,heatmap,interval,line,path,point,polygon,schema,voilin等；理论上，interval 下，可以用 linear scale 作为分组字段
-  if (GROUP_ATTRS.includes(attrType) && ['interval'].includes(geometryType)) {
+  if (scale.type !== 'identity' && GROUP_ATTRS.includes(attrType) && ['interval'].includes(geometryType)) {
     return 'cat';
   }
   return scale.type;

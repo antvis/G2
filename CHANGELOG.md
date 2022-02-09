@@ -1,4 +1,10 @@
-#### 4.1.43 (2022-02-08)
+#### 4.1.45 (2022-02-09)
+
+##### Bug Fixes
+
+* **interval:**  修复 interval color 通道没有 field，会导致 tooltip name 消失 ([3e3d03fb](https://github.com/antvis/g2/commit/3e3d03fbf4b7270ef5eaa3ec7886864555691ed8))
+
+#### 4.1.44 (2022-02-08)
 
 ##### Chores
 
