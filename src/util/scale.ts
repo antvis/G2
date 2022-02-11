@@ -33,7 +33,7 @@ export function inferScaleType(scale: Scale, scaleDef: ScaleOption = {}, attrTyp
   if (scale.type !== 'identity' && GROUP_ATTRS.includes(attrType) && ['interval'].includes(geometryType)) {
     return 'cat';
   }
-  return scale.type;
+  return scale.isCategory ? 'cat' : scale.type;
 }
 
 /**
