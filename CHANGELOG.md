@@ -1,3 +1,14 @@
+#### 4.1.46 (2022-02-11)
+
+##### Documentation Changes
+
+*  修改钉钉群号 ([ce197ed0](https://github.com/antvis/g2/commit/ce197ed0f64ad5c87bd99f26f48303388b7b4eaf))
+
+##### Bug Fixes
+
+*  修复 timeCat scale 没有当作 groupScale，导致对应场景的折线图绘制无法正常分组 ([1861807e](https://github.com/antvis/g2/commit/1861807ebc1cd3c21bdf2d35a930d67bc72c5cd3))
+*  update actions/checkout version to avoid vulnerability ([#3774](https://github.com/antvis/g2/pull/3774)) ([781eb8c8](https://github.com/antvis/g2/commit/781eb8c8b11cfc69a97eda27a5e9c746f2c40485))
+
 #### 4.1.45 (2022-02-09)
 
 ##### Bug Fixes
