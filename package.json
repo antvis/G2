@@ -20,6 +20,7 @@
     "lint": "eslint ./src ./__tests__ && prettier ./src ./__tests__ --check ",
     "fix": "eslint ./src ./__tests__ --fix && prettier ./src ./__tests__ --write ",
     "test": "jest",
+    "test-live": "cross-env DEBUG_MODE=1 jest",
     "build:umd": "rimraf ./dist && rollup -c && npm run size",
     "build:cjs": "rimraf ./lib && tsc --module commonjs --outDir lib",
     "build:esm": "rimraf ./esm && tsc --module ESNext --outDir esm",
@@ -35,10 +36,12 @@
     "@types/jest": "^26.0.20",
     "@typescript-eslint/eslint-plugin": "^4.18.0",
     "@typescript-eslint/parser": "^4.18.0",
+    "cross-env": "^7.0.3",
     "eslint": "^7.22.0",
     "eslint-plugin-import": "^2.22.1",
     "husky": "^5.0.9",
-    "jest": "^26.6.3",
+    "jest": "^26.0.1",
+    "jest-electron": "^0.1.12",
     "limit-size": "^0.1.4",
     "lint-staged": "^10.5.4",
     "npm-run-all": "^4.1.5",
@@ -50,14 +53,6 @@
     "rollup-plugin-uglify": "^6.0.4",
     "ts-jest": "^26.5.1",
     "typescript": "^4.1.5"
-  },
-  "jest": {
-    "preset": "ts-jest",
-    "collectCoverage": true,
-    "testRegex": "(/__tests__/.*\\.(test|spec))\\.ts$",
-    "collectCoverageFrom": [
-      "src/**/*.ts"
-    ]
   },
   "lint-staged": {
     "*.{ts,tsx}": [
