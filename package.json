@@ -26,7 +26,8 @@
     "build:esm": "rimraf ./esm && tsc --module ESNext --outDir esm",
     "build": "run-p build:*",
     "ci": "run-s lint test build",
-    "prepublishOnly": "npm run ci"
+    "prepublishOnly": "npm run ci",
+    "prepare": "husky install"
   },
   "keywords": [
     "template"
@@ -39,7 +40,6 @@
     "cross-env": "^7.0.3",
     "eslint": "^7.22.0",
     "eslint-plugin-import": "^2.22.1",
-    "husky": "^5.0.9",
     "jest": "^26.0.1",
     "jest-electron": "^0.1.12",
     "limit-size": "^0.1.4",
@@ -52,7 +52,8 @@
     "rollup-plugin-typescript": "^1.0.1",
     "rollup-plugin-uglify": "^6.0.4",
     "ts-jest": "^26.5.1",
-    "typescript": "^4.1.5"
+    "typescript": "^4.1.5",
+    "husky": "^7.0.0"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
@@ -72,12 +73,6 @@
       "limit": "1 Kb"
     }
   ],
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint-staged",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
   "author": {
     "name": "AntV",
     "url": "https://antv.vision/"
