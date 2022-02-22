@@ -129,7 +129,7 @@ const defs = {
   }
 };
 
-chart.source(data,defs);
+chart.data(data,defs);
 
 chart.tooltip(true, {
   showTitle: false // 默认标题不显示
@@ -202,7 +202,7 @@ const chart = new G2.Chart({
   forceFit: true,
   height: 400
 });
-chart.source(data);
+chart.data(data);
 chart.coord('theta', { innerRadius: 0.6, radius: 0.8 });
 chart.tooltip({
   showTitle: false,
@@ -254,7 +254,7 @@ const chart = new G2.Chart({
   height: 400,
   padding: [ 20, 50, 95, 80 ]
 });
-chart.source(dv, {
+chart.data(dv, {
   'time': { // 设置日期类型
     type: 'time',
     mask: 'YYYY-MM-DD HH:MM:ss'
@@ -443,7 +443,7 @@ const chart = new G2.Chart({
   height: 300,
   padding: [ 50, 80 ]
 });
-chart.source(data);
+chart.data(data);
 chart.scale('time',{
   type: 'timeCat',
   mask: 'HH:MM',

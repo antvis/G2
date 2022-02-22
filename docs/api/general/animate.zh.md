@@ -154,7 +154,7 @@ const chart = new Chart({
 });
 chart.axis('x', false);
 chart.legend(false);
-chart.source(data);
+chart.data(data);
 chart.interval()
   .position('x*y')
   .color('y', '#4a657a-#308e92-#b1cfa5-#f5d69f-#f5898b-#ef5055')

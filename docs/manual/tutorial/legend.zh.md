@@ -76,7 +76,7 @@ const chart = new G2.Chart({
   padding: [20, 90, 95, 80],
 });
 
-chart.source(data);
+chart.data(data);
 chart.coord().transpose();
 chart.legend({
   title: null, // 不展示图例的标题
