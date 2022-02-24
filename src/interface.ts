@@ -42,30 +42,40 @@ import { PaddingCalCtor } from './chart/layout/padding-cal';
 import { LegendRadio } from '@antv/component';
 
 // ============================ 基础类型 ============================
-/** 通用对象 */
+/**
+ * @title 通用对象
+ */
 export interface LooseObject {
   [key: string]: any;
 }
 
-/** 一个点位置 */
+/**
+ * @title 一个点位置
+ */
 export interface Point {
   readonly x: number;
   readonly y: number;
 }
 
-/** 画布范围 */
+/**
+ * @title 画布范围
+ */
 export interface Region {
   readonly start: Point;
   readonly end: Point;
 }
 
-/** 画布大小 */
+/**
+ * @title 画布大小
+ */
 export interface Size {
   readonly width: number;
   readonly height: number;
 }
 
-/** 带范围的点结构 */
+/**
+ * @title 带范围的点结构
+ */
 export interface RangePoint {
   readonly x?: number | number[];
   readonly y?: number | number[];
@@ -80,195 +90,337 @@ export type AriaOption =
       readonly label: string;
     };
 
-/** 用户数据经过图形映射处理后的数据结构 */
+/**
+ * @title 用户数据经过图形映射处理后的数据结构
+ */
 export interface MappingDatum {
-  /** 原始数据 */
+  /**
+   * @title 原始数据
+   */
   _origin: Datum;
-  /** shape 的关键点信息 */
+  /**
+   * @title shape 的关键点信息
+   */
   points?: ShapeVertices;
-  /** 相对于当前 shape 的下一个 shape 的关键点信息 */
+  /**
+   * @title 相对于当前 shape 的下一个 shape 的关键点信息
+   */
   nextPoints?: ShapeVertices;
-  /** x 轴的坐标 */
+  /**
+   * @title x 轴的坐标
+   */
   x?: number[] | number;
-  /** y 轴的坐标 */
+  /**
+   * @title y 轴的坐标
+   */
   y?: number[] | number;
-  /** 颜色 */
+  /**
+   * @title 颜色
+   */
   color?: string;
-  /** 渲染的 shape 类型 */
+  /**
+   * @title 渲染的 shape 类型
+   */
   shape?: string | string[];
-  /** 大小 */
+  /**
+   * @title 大小
+   */
   size?: number;
 }
 
-/** 绘制 Shape 需要的图形、样式、关键点等信息 */
+/**
+ * @title 绘制 Shape 需要的图形、样式、关键点等信息
+ */
 export interface ShapeInfo {
-  /** x 坐标 */
+  /**
+   * @title x 坐标
+   */
   x: number | number[];
-  /** y 坐标 */
+  /**
+   * @title y 坐标
+   */
   y: number | number[];
-  /** 映射的 shape 类型 */
+  /**
+   * @title 映射的 shape 类型
+   */
   shape?: string | string[];
-  /** size 映射值 */
+  /**
+   * @title size 映射值
+   */
   size?: number;
-  /** 映射的颜色值 */
+  /**
+   * @title 映射的颜色值
+   */
   color?: string;
-  /** 用户设置的图形样式 */
+  /**
+   * @title 用户设置的图形样式
+   */
   style?: LooseObject;
-  /** 是否在极坐标下 */
+  /**
+   * @title 是否在极坐标下
+   */
   isInCircle?: boolean;
-  /** 对应的原始数据记录 */
+  /**
+   * @title 对应的原始数据记录
+   */
   data?: Datum | Data;
-  /** 存储进行图形映射后的数据 */
+  /**
+   * @title 存储进行图形映射后的数据
+   */
   mappingData?: MappingDatum | MappingDatum[];
-  /** 构成 shape 的关键点  */
+  /**
+   * @title 构成 shape 的关键点
+   */
   points?: ShapeVertices;
-  /** 下一个数据集对应的关键点 */
+  /**
+   * @title 下一个数据集对应的关键点
+   */
   nextPoints?: ShapeVertices;
-  /** Geometry.Text 需要 */
+  /**
+   * @title Geometry.Text 需要
+   */
   text?: string;
-  /** 数据是否发生层叠 */
+  /**
+   * @title 数据是否发生层叠
+   */
   isStack?: boolean;
-  /** 是否连接空值，只对 Path Line Area 这三种 Geometry 生效。 */
+  /**
+   * @title 是否连接空值，只对 Path Line Area 这三种 Geometry 生效。
+   */
   connectNulls?: boolean;
-  /** shape 背景，只对 Interval Geometry 生效，目前只对 interval-rect shape 生效。 */
+  /**
+   * @title shape 背景，只对 Interval Geometry 生效，目前只对 interval-rect shape 生效。
+   */
   background?: {
     style?: ShapeAttrs;
   };
-  /** 是否展示单个孤立的数据点，只对 Path Line Area 这三种 Geometry 生效。 */
+  /**
+   * @title 是否展示单个孤立的数据点，只对 Path Line Area 这三种 Geometry 生效。
+   */
   showSinglePoint?: boolean;
-  /** 默认的 shape 样式 */
+  /**
+   * @title 默认的 shape 样式
+   */
   defaultStyle?: LooseObject;
-  /** 自定义的数据，传入到 shapeInfo 中 */
+  /**
+   * @title 自定义的数据，传入到 shapeInfo 中
+   */
   customInfo?: CustomOption;
 }
 
-/** 用户配置的动画，属性均可选 */
+/**
+ * @title 用户配置的动画，属性均可选
+ */
 export interface AnimateCfg {
-  /** 动画缓动函数 */
+  /**
+   * @title 动画缓动函数
+   */
   readonly easing?: string | AnimateEasingCallback;
-  /** 动画执行函数 */
+  /**
+   * @title 动画执行函数
+   */
   readonly animation?: string;
-  /** 动画执行时间 */
+  /**
+   * @title 动画执行时间
+   */
   readonly duration?: number | AnimateDurationCallback;
-  /** 动画延迟时间 */
+  /**
+   * @title 动画延迟时间
+   */
   readonly delay?: number | AnimateDelayCallback;
-  /** 动画执行结束后的回调函数 */
+  /**
+   * @title 动画执行结束后的回调函数
+   */
   readonly callback?: () => any;
-  /** 动画是否重复 */
+  /**
+   * @title 动画是否重复
+   */
   readonly repeat?: boolean;
 }
 
-/** 传递给 G 的动画配置，duration 必须提供 */
+/**
+ * @title 传递给 G 的动画配置，duration 必须提供
+ */
 export interface GAnimateCfg {
-  /** 动画执行时间 */
+  /**
+   * @title 动画执行时间
+   */
   readonly duration: number;
-  /** 动画缓动函数 */
+  /**
+   * @title 动画缓动函数
+   */
   readonly easing?: string;
-  /** 动画执行函数 */
+  /**
+   * @title 动画执行函数
+   */
   readonly animation?: string;
-  /** 动画延迟时间 */
+  /**
+   * @title 动画延迟时间
+   */
   readonly delay?: number;
-  /** 动画执行结束后的回调函数 */
+  /**
+   * @title 动画执行结束后的回调函数
+   */
   readonly callback?: () => any;
-  /** 动画是否重复 */
+  /**
+   * @title 动画是否重复
+   */
   readonly repeat?: boolean;
 }
 
 // ============================ Geometry 接口相关的类型定义 ============================
-/** 图形属性配置项定义，如 geometry.position({}) */
+/**
+ * @title 图形属性配置项定义，如 geometry.position({})
+ */
 export interface AttributeOption {
-  /** 映射的属性字段。 */
+  /**
+   * @title 映射的属性字段。
+   */
   fields?: string[];
-  /** 回调函数。 */
+  /**
+   * @title 回调函数。
+   */
   callback?: (...args) => any;
-  /** 指定常量映射规则。 */
+  /**
+   * @title 指定常量映射规则。
+   */
   values?: any[];
 }
 
-/** 数据调整配置项定义，`geometry.adjust({})` */
+/**
+ * @title 数据调整配置项定义，`geometry.adjust({})`
+ */
 export interface AdjustOption {
-  /** 数据调整类型。 */
+  /**
+   * @title 数据调整类型。
+   */
   readonly type: AdjustType;
   /**
-   * 该属性只对 'dodge' 类型生效，取 0 到 1 范围的值（相对于每个柱子宽度），用于控制一个分组中柱子之间的间距。
-   *
-   * ![image](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*ps3pToOg2nwAAAAAAAAAAABkARQnAQ)
+   * @title 间距
+   * @description 该属性只对 'dodge' 类型生效，取 0 到 1 范围的值（相对于每个柱子宽度），用于控制一个分组中柱子之间的间距。
+   * @see ![image](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*ps3pToOg2nwAAAAAAAAAAABkARQnAQ)
    */
   readonly marginRatio?: number;
   /**
-   * 该属性只对 'dodge' 类型生效，声明以哪个数据字段为分组依据。
+   * @title 分组字段
+   * @description 该属性只对 'dodge' 类型生效，声明以哪个数据字段为分组依据。
    */
   readonly dodgeBy?: string;
   /**
-   * 该属性只对 'stack' 类型生效，用于控制是否对数据进行反序操作。
+   * @title 是否反序
+   * @description 该属性只对 'stack' 类型生效，用于控制是否对数据进行反序操作。
    */
   readonly reverseOrder?: boolean;
 }
 
-/** `geometry.style({})` 样式配置定义 */
+/**
+ * @title `geometry.style({})` 样式配置定义
+ */
 export interface StyleOption {
-  /** 映射的字段。 */
+  /**
+   * @title 映射的字段。
+   */
   readonly fields?: string[];
-  /** 回调函数。 */
+  /**
+   * @title 回调函数。
+   */
   readonly callback?: (...args) => LooseObject;
-  /** 图形样式配置。 */
+  /**
+   * @title 图形样式配置。
+   */
   readonly cfg?: LooseObject;
 }
 
-/** geometry.custom() custom 自定义的配置，可以传入任何数据 */
+/**
+ * @title geometry.custom() custom 自定义的配置，可以传入任何数据
+ */
 export type CustomOption = any;
 
-/** `geometry.tooltip({})` Tooltip 配置定义 */
+/**
+ * @title `geometry.tooltip({})` Tooltip 配置定义
+ */
 export interface GeometryTooltipOption {
-  /** 参与映射的字段。 */
+  /**
+   * @title 参与映射的字段。
+   */
   readonly fields: string[];
-  /** 回调函数。 */
+  /**
+   * @title 回调函数。
+   */
   readonly callback?: (...args) => LooseObject;
 }
 
 export interface GeometryLabelLayoutCfg {
-  /** label 布局类型。 */
+  /**
+   * @title label 布局类型。
+   */
   type: string;
-  /** 各个布局函数开放给用户的配置。 */
+  /**
+   * @title 各个布局函数开放给用户的配置。
+   */
   cfg?: LooseObject;
 }
 
-/** geometry.label({}) 配置属性 */
+/**
+ * @title geometry.label({}) 配置属性
+ */
 export interface GeometryLabelCfg {
   /**
-   * 用于声明渲染的 label 类型。
-   * 当用户使用了自定义的 label 类型，需要声明具体的 type 类型，否则会使用默认的 label 类型渲染。
+   * @title 类型
+   * @description 用于声明渲染的 label 类型。当用户使用了自定义的 label 类型，需要声明具体的 type 类型，否则会使用默认的 label 类型渲染。
    */
   type?: string;
-  /** 相对数据点的偏移距离, polar 和 theta 坐标系下可使用百分比字符串。 */
+  /**
+   * @title 相对数据点的偏移距离, polar 和 theta 坐标系下可使用百分比字符串。
+   */
   offset?: number | string;
-  /** label 相对于数据点在 X 方向的偏移距离。 */
+  /**
+   * @title label 相对于数据点在 X 方向的偏移距离。
+   */
   offsetX?: number;
-  /** label 相对于数据点在 Y 方向的偏移距离。 */
+  /**
+   * @title label 相对于数据点在 Y 方向的偏移距离。
+   */
   offsetY?: number;
   /**
-   * 展示的文本内容，如果不声明则按照参与映射的第一字段的值进行显示。
-   * 当 content 为 IGroup 或者 IShape 类型时，请使用相对定位，即 x 和 y 坐标都设为 0，G2 内部会整体做最后的 label 进行定位的。
-   * 示例： https://g2.antv.vision/zh/examples/pie/basic#pie-custome-label
+   * @title 文本内容
+   * @description 展示的文本内容，如果不声明则按照参与映射的第一字段的值进行显示。当 content 为 IGroup 或者 IShape 类型时，请使用相对定位，即 x 和 y 坐标都设为 0，G2 内部会整体做最后的 label 进行定位的。
+   * @link 示例： https://g2.antv.vision/zh/examples/pie/basic#pie-custome-label
    */
   content?: string | IGroup | IShape | GeometryLabelContentCallback;
-  /** label 文本图形属性样式。 */
+  /**
+   * @title 文本样式
+   * @description label 文本图形属性样式。
+   */
   style?: LooseObject;
-  /** label 是否自动旋转，默认为 true。 */
+  /**
+   * @title 是否自动旋转
+   * @description label 是否自动旋转
+   * @default true
+   */
   autoRotate?: boolean;
   /**
-   * 当且仅当 `autoRotate` 为 false 时生效，用于设置文本的旋转角度，**弧度制**。
+   * @title 旋转
+   * @description 当且仅当 `autoRotate` 为 false 时生效，用于设置文本的旋转角度，**弧度制**。
    */
   rotate?: number;
-  /** 标签高度设置，仅当标签类型 type 为 pie 时生效；也可在主题中设置 pieLabels.labelHeight */
+  /**
+   * @title 标签高度
+   * @description 标签高度设置，仅当标签类型 type 为 pie 时生效；也可在主题中设置 pieLabels.labelHeight
+   */
   labelHeight?: number;
   /**
-   * 用于设置文本连接线的样式属性，null 表示不展示。
+   * @title 文本连接线
+   * @description 用于设置文本连接线的样式属性，null 表示不展示。
    */
   labelLine?: null | boolean | { style?: object };
-  /** 只对极坐标下的文本生效，表示文本是否按照角度进行放射状显示，true 表示开启，false 表示关闭。 */
+  /**
+   * @title 文本放射状
+   * @description 只对极坐标下的文本生效，表示文本是否按照角度进行放射状显示，true 表示开启，false 表示关闭。
+   */
   labelEmit?: boolean;
   /**
+   * @title 文本布局
    * 文本布局类型，支持多种布局函数组合使用。
    *
    * 目前提供了三种：'overlap'，'fixedOverlap'，'limitInShape'：
@@ -285,96 +437,154 @@ export interface GeometryLabelCfg {
    */
   layout?: GeometryLabelLayoutCfg | GeometryLabelLayoutCfg[];
   /**
-   * 用于绘制 label 背景
+   * @title 背景
+   * @description 用于绘制 label 背景
    */
   background?: {
     /**
-     * 背景框 图形属性配置
+     * @title 背景框图形属性配置
      * - fill?: string; 背景框 填充色
      * - stroke?: string; 背景框 描边色
      * - lineWidth?: string; 背景框 描边宽度
      * - radius?: number | number[]; 背景框圆角，支持整数或数组形式
      */
     style?: ShapeAttrs;
-    /** 背景框 内边距 */
+    /**
+     * @title 背景框 内边距
+     */
     padding?: number | number[];
   };
   /**
-   * 仅当 geometry 为 interval 时生效，指定当前 label 与当前图形的相对位置。
+   * @title 位置
+   * @description 仅当 geometry 为 interval 时生效，指定当前 label 与当前图形的相对位置。
    */
   position?:
     | ((data: Datum, mappingData: MappingDatum, index: number) => IntervalGeometryLabelPosition)
     | IntervalGeometryLabelPosition;
-  /** 动画配置。 */
+  /**
+   * @title 动画配置。
+   */
   animate?: AnimateOption | false | null;
 }
 
-/** `geometry().label({})` 配置定义 */
+/**
+ * @title `geometry().label({})` 配置定义
+ */
 export interface LabelOption {
-  /** 映射的字段。 */
+  /**
+   * @title 映射的字段。
+   */
   fields?: string[];
-  /** 回调函数。 */
+  /**
+   * @title 回调函数。
+   */
   callback?: LabelCallback;
   cfg?: GeometryLabelCfg;
 }
 
-/** Geometry 下每个 state 的配置结构 */
+/**
+ * @title Geometry 下每个 state 的配置结构
+ */
 export interface StateCfg {
-  /** 状态样式配置。 */
+  /**
+   * @title 状态样式配置。
+   */
   style?: object | StateStyleCallback;
 }
 
-/** geometry.state({}) 配置定义 */
+/**
+ * @title geometry.state({}) 配置定义
+ */
 export interface StateOption {
-  /** 默认状态样式。 */
+  /**
+   * @title 默认状态样式。
+   */
   default?: StateCfg;
-  /** active 状态配置。 */
+  /**
+   * @title active 状态配置。
+   */
   active?: StateCfg;
-  /** inactive 状态配置。 */
+  /**
+   * @title inactive 状态配置。
+   */
   inactive?: StateCfg;
-  /** selected 状态配置。 */
+  /**
+   * @title selected 状态配置。
+   */
   selected?: StateCfg;
 }
 
-/** interval label 的位置 */
+/**
+ * @title interval label 的位置
+ */
 export type IntervalGeometryLabelPosition = 'top' | 'bottom' | 'middle' | 'left' | 'right';
-/** G2 提供的 adjust 类型 */
+/**
+ * @title G2 提供的 adjust 类型
+ */
 export type AdjustType = 'stack' | 'jitter' | 'dodge' | 'symmetric';
-/** geometry.color() 图形属性回调函数定义 */
+/**
+ * @title geometry.color() 图形属性回调函数定义
+ */
 export type ColorAttrCallback = (...args) => string;
-/** geometry.shape() 图形属性回调函数定义 */
+/**
+ * @title geometry.shape() 图形属性回调函数定义
+ */
 export type ShapeAttrCallback = (...args) => string | any[];
-/** geometry.size() 图形属性回调函数定义 */
+/**
+ * @title geometry.size() 图形属性回调函数定义
+ */
 export type SizeAttrCallback = (...args) => number;
-/** geometry.tooltip() 接口回调函数定义 */
+/**
+ * @title geometry.tooltip() 接口回调函数定义
+ */
 export type TooltipCallback = (...args) => LooseObject;
-/** geometry.style() 接口回调函数定义 */
+/**
+ * @title geometry.style() 接口回调函数定义
+ */
 export type StyleCallback = (...args) => LooseObject;
-/** geometry.label() 接口回调函数定义 */
+/**
+ * @title geometry.label() 接口回调函数定义
+ */
 export type LabelCallback = (...args) => GeometryLabelCfg | null | undefined;
-/** geometry label 中 content 属性的回调函数类型定义 */
+/**
+ * @title geometry label 中 content 属性的回调函数类型定义
+ */
 export type GeometryLabelContentCallback = (
   data: Datum,
   mappingData: MappingDatum,
   index: number
 ) => string | IShape | IGroup;
-/** state 下 style 回调函数定义 */
+/**
+ * @title state 下 style 回调函数定义
+ */
 export type StateStyleCallback = (element: Element) => LooseObject;
 
 // ============================ Geometry Shape 接口相关的类型定义 ============================
-/** 获取 shape marker 时需要的信息 */
+/**
+ * @title 获取 shape marker 时需要的信息
+ */
 export interface ShapeMarkerCfg {
-  /** 颜色。 */
+  /**
+   * @title 颜色。
+   */
   color: string;
-  /** 是否是极坐标。 */
+  /**
+   * @title 是否是极坐标。
+   */
   isInPolar: boolean;
 }
 
-/** 图形 marker 的配置信息。 */
+/**
+ * @title 图形 marker 的配置信息。
+ */
 export interface ShapeMarkerAttrs {
-  /** marker 的形状。 */
+  /**
+   * @title marker 的形状。
+   */
   symbol: string | ShapeMarkerSymbol;
   /**
+   * @title marker 样式
+   * @description
    * marker 的样式，`ShapeAttrs` 属性结构如下：
    *
    * ```ts
@@ -439,173 +649,308 @@ export interface ShapeMarkerAttrs {
    * }
    * ```
    *
-   * 详见 {@link https://github.com/antvis/g/blob/28e3178b616573e0fa6d59694f1aaca2baaa9766/packages/g-base/src/types.ts#L37|ShapeAttrs}
+   * @link https://github.com/antvis/g/blob/28e3178b616573e0fa6d59694f1aaca2baaa9766/packages/g-base/src/types.ts#L37|ShapeAttrs
    */
   style: ShapeAttrs;
 }
 
-/** shape 关键点信息 */
+/**
+ * @title shape 关键点信息
+ */
 export interface ShapePoint {
-  /** 数据点映射后对应 x 的值。 */
+  /**
+   * @title 数据点映射后对应 x 的值。
+   */
   readonly x: number | number[];
-  /** 数据点映射后对应 y 的值。 */
+  /**
+   * @title 数据点映射后对应 y 的值。
+   */
   readonly y?: number | number[];
-  /** 数据在 y 方向的最小值。 */
+  /**
+   * @title 数据在 y 方向的最小值。
+   */
   readonly y0?: number;
+  /**
+   * @title 大小
+   */
   size?: number;
 }
 
-/** 小提琴图 shape 关键点信息 */
+/**
+ * @title 小提琴图 shape 关键点信息
+ */
 export type ViolinShapePoint = ShapePoint & { _size?: number[] };
 
-/** 注册 ShapeFactory 需要实现的接口。 */
+/**
+ * @title 注册 ShapeFactory 需要实现的接口。
+ */
 export interface RegisterShapeFactory {
-  /** 默认的 shape 类型。 */
+  /**
+   * @title 默认的 shape 类型。
+   */
   readonly defaultShapeType: string;
-  /** 返回绘制 shape 所有的关键点集合。 */
+  /**
+   * @title 返回绘制 shape 所有的关键点集合。
+   */
   readonly getDefaultPoints?: (pointInfo: ShapePoint) => Point[];
-  /** 获取 shape 的默认绘制样式 */
+  /**
+   * @title 获取 shape 的默认绘制样式
+   */
   readonly getDefaultStyle?: (geometryTheme: LooseObject) => LooseObject;
-  /** 获取 shape 对应的缩略图配置。 */
+  /**
+   * @title 获取 shape 对应的缩略图配置。
+   */
   readonly getMarker?: (shapeType: string, markerCfg: ShapeMarkerCfg) => ShapeMarkerAttrs;
-  /** 创建具体的 G.Shape 实例。 */
+  /**
+   * @title 创建具体的 G.Shape 实例。
+   */
   readonly drawShape?: (shapeType: string, cfg: ShapeInfo, container: IGroup) => IShape | IGroup;
 }
 
-/** 注册具体 shape 需要实现的接口。 */
+/**
+ * @title 注册具体 shape 需要实现的接口。
+ */
 export interface RegisterShape {
-  /** 计算绘制需要的关键点，在注册具体的 shape 时由开发者自己定义。 */
+  /**
+   * @title 计算绘制需要的关键点，在注册具体的 shape 时由开发者自己定义。
+   */
   readonly getPoints?: (pointInfo: ShapePoint) => Point[];
-  /** 获取 shape 对应的缩略图样式配置，在注册具体的 shape 时由开发者自己定义。 */
+  /**
+   * @title 获取 shape 对应的缩略图样式配置，在注册具体的 shape 时由开发者自己定义。
+   */
   readonly getMarker?: (markerCfg: ShapeMarkerCfg) => ShapeMarkerAttrs;
-  /** 绘制函数。 */
+  /**
+   * @title 绘制函数。
+   */
   readonly draw: (cfg: ShapeInfo, container: IGroup) => IShape | IGroup | void;
 }
 
-/** Shape 接口定义。 */
+/**
+ * @title Shape 接口定义。
+ */
 export interface Shape extends RegisterShape {
-  /** 坐标系对象。 */
+  /**
+   * @title 坐标系对象。
+   */
   coordinate: Coordinate;
-  /** 工具函数，将 0～1 path 转化成实际画布 path。 */
+  /**
+   * @title 工具函数，将 0～1 path 转化成实际画布 path。
+   */
   parsePath: (path: any) => PathCommand[];
-  /** 工具函数，0～1 的坐标点转换成实际画布坐标点。 */
+  /**
+   * @title 工具函数，0～1 的坐标点转换成实际画布坐标点。
+   */
   parsePoint: (point: Point) => Point;
-  /** 工具函数，0～1 的坐标点集合转换成实际画布坐标点集合。 */
+  /**
+   * @title 工具函数，0～1 的坐标点集合转换成实际画布坐标点集合。
+   */
   parsePoints: (points: Point[]) => Point[];
 }
 
-/** ShapeFactory 接口定义。 */
+/**
+ * @title ShapeFactory 接口定义。
+ */
 export interface ShapeFactory extends RegisterShapeFactory {
-  /** 工厂名。 */
+  /**
+   * @title 工厂名。
+   */
   geometryType: string;
-  /** 坐标系对象。 */
+  /**
+   * @title 坐标系对象。
+   */
   coordinate: Coordinate;
-  /** ShapeFactory 下所有的主题样式。 */
+  /**
+   * @title ShapeFactory 下所有的主题样式。
+   */
   theme: LooseObject;
-  /** 根据名称获取具体的 shape 对象。 */
+  /**
+   * @title 根据名称获取具体的 shape 对象。
+   */
   getShape: (shapeType: string | string[]) => Shape;
-  /** 获取构成 shape 的关键点。 */
+  /**
+   * @title 获取构成 shape 的关键点。
+   */
   getShapePoints: (shapeType: string | string[], pointInfo: ShapePoint) => Point[];
 }
 
-/** 自定义 Shape marker 的函数 */
+/**
+ * @title 自定义 Shape marker 的函数
+ */
 export type ShapeMarkerSymbol = (x: number, y: number, r: number) => PathCommand[];
 
 // ============================ Annotation 类型定义 ============================
-/** Annotation position 回调函数 */
+/**
+ * @title Annotation position 回调函数
+ */
 export type AnnotationPositionCallback = (
   xScales: Scale[] | Record<string, Scale>,
   yScales: Scale[] | Record<string, Scale>
 ) => [number | string, number | string];
-/** Annotation 位置相关属性的类型定义 */
+/**
+ * @title Annotation 位置相关属性的类型定义
+ */
 export type AnnotationPosition =
   | [number | string, number | string]
   | Record<string, number | string>
   | AnnotationPositionCallback;
 
-/** Annotation 定义的通用属性，chart.annotation().line({}) */
+/**
+ * @title Annotation 定义的通用属性，chart.annotation().line({})
+ */
 export interface AnnotationBaseOption {
+  /**
+   * @title 类型
+   */
   readonly type?: string;
-  /** 指定 annotation 是否绘制在 canvas 最上层，默认为 false, 即绘制在最下层 */
+  /**
+   * @title 是否顶层
+   * @description 指定 annotation 是否绘制在 canvas 最上层，默认为 false, 即绘制在最下层
+   */
   readonly top?: boolean;
-  /** 是否进行动画 */
+  /**
+   * @title 是否进行动画
+   */
   readonly animate?: boolean;
-  /** 动画参数配置，当且仅当 `animate` 属性为 true，即动画开启时生效。 */
+  /**
+   * @title 动画参数配置
+   * @description 当且仅当 `animate` 属性为 true，即动画开启时生效。
+   */
   readonly animateOption?: ComponentAnimateOption;
-  /** x 方向的偏移量 */
+  /**
+   * @title x 方向的偏移量
+   */
   readonly offsetX?: number;
-  /** y 方向的偏移量 */
+  /**
+   * @title y 方向的偏移量
+   */
   readonly offsetY?: number;
 }
 
-/** 使用 RegionPosition 定位的组件配置 */
+/**
+ * @title 使用 RegionPosition 定位的组件配置
+ */
 export interface RegionPositionBaseOption extends AnnotationBaseOption {
-  /** 起始位置 */
+  /**
+   * @title 起始位置
+   */
   readonly start: AnnotationPosition;
-  /** 结束位置 */
+  /**
+   * @title 结束位置
+   */
   readonly end: AnnotationPosition;
-  /** 图形样式属性 */
+  /**
+   * @title 图形样式属性
+   */
   readonly style?: ShapeAttrs;
 }
 
-/** 使用 PointPosition 定位的组件配置 */
+/**
+ * @title 使用 PointPosition 定位的组件配置
+ */
 export interface PointPositionBaseOption extends AnnotationBaseOption {
-  /** Point 定位位置 */
+  /**
+   * @title Point 定位位置
+   */
   readonly position: AnnotationPosition;
 }
 
-/** 使用 Image Annotation 组件的配置定义 */
+/**
+ * @title 使用 Image Annotation 组件的配置定义
+ */
 export interface ImageOption extends RegionPositionBaseOption {
-  /** 图片路径 */
+  /**
+   * @title 图片路径
+   */
   readonly src: string;
 }
 
-/** 使用 Line Annotation 组件的配置定义 */
+/**
+ * @title 使用 Line Annotation 组件的配置定义
+ */
 export interface LineOption extends RegionPositionBaseOption {
-  /** 文本配置定义 */
+  /**
+   * @title 文本配置定义
+   */
   readonly text?: LineAnnotationTextCfg;
 }
-/** 使用 Arc Annotation 组件的配置定义 */
+/**
+ * @title 使用 Arc Annotation 组件的配置定义
+ */
 export type ArcOption = RegionPositionBaseOption;
-/** 使用 Region Annotation 组件的配置定义 */
+/**
+ * @title 使用 Region Annotation 组件的配置定义
+ */
 export type RegionOption = RegionPositionBaseOption;
-/** 使用 Text Annotation 组件的配置定义 */
+/**
+ * @title 使用 Text Annotation 组件的配置定义
+ */
 export interface TextOption extends PointPositionBaseOption, Omit<EnhancedTextCfg, 'content'> {
   content?: string | number | ((filteredData: object[]) => string | number);
 }
-/** 使用 DataMarker Annotation 组件的配置定义 */
+/**
+ * @title 使用 DataMarker Annotation 组件的配置定义
+ */
 export interface DataMarkerOption extends PointPositionBaseOption {
-  /** point 设置 */
+  /**
+   * @title point 设置
+   */
   readonly point?: null | { style?: ShapeAttrs };
-  /** line 设置 */
+  /**
+   * @title line 设置
+   */
   readonly line?: null | { style?: ShapeAttrs; length?: number };
-  /** text 设置 */
+  /**
+   * @title text 设置
+   */
   readonly text: null | EnhancedTextCfg;
-  /** 文本超出绘制区域时，是否自动调节文本方向，默认为 true */
+  /**
+   * @title 文本超出绘制区域时，是否自动调节文本方向，默认为 true
+   */
   readonly autoAdjust?: boolean;
-  /** 朝向，默认为 upward，可选值为 'upward' 或者 'downward' */
+  /**
+   * @title 朝向，默认为 upward，可选值为 'upward' 或者 'downward'
+   */
   readonly direction?: 'upward' | 'downward';
 }
-/** 使用 DataRegion Annotation 组件的配置定义 */
+/**
+ * @title 使用 DataRegion Annotation 组件的配置定义
+ */
 export interface DataRegionOption extends RegionPositionBaseOption {
-  /** line长度，default为 0 */
+  /**
+   * @title line长度，default为 0
+   */
   readonly lineLength?: number;
-  /** 标注区间的配置 */
+  /**
+   * @title 标注区间的配置
+   */
   readonly region?: null | { style?: ShapeAttrs };
-  /** 文本的配置 */
+  /**
+   * @title 文本的配置
+   */
   readonly text?: null | EnhancedTextCfg;
 }
-/** 使用 RegionFilter Annotation 组件的配置定义 */
+/**
+ * @title 使用 RegionFilter Annotation 组件的配置定义
+ */
 export interface RegionFilterOption extends RegionPositionBaseOption {
-  /** 染色色值 */
+  /**
+   * @title 染色色值
+   */
   readonly color: string;
-  /* 可选,设定regionFilter只对特定geom类型起作用，如apply:['area'] */
+  /**
+   * @title 适用场景
+   * @description 可选,设定regionFilter只对特定geom类型起作用，如apply:['area']
+   */
   readonly apply?: string[];
 }
 
-/** Shape Annotation 的配置 */
+/**
+ * @title Shape Annotation 的配置
+ */
 export interface ShapeAnnotationOption extends AnnotationBaseOption {
-  /** 自定义 Annotation 绘制函数 */
+  /**
+   * @title 自定义 Annotation 绘制函数
+   */
   render: (
     container: IGroup,
     view: View,
@@ -617,22 +962,36 @@ export interface ShapeAnnotationOption extends AnnotationBaseOption {
  * Html Annotation 配置
  */
 export interface HtmlAnnotationOption extends PointPositionBaseOption {
-  /** 容器元素 */
+  /**
+   * @title 容器元素
+   */
   container?: string | HTMLElement;
-  /** 自定义 HTML DOM 元素 */
+  /**
+   * @title 自定义 HTML DOM 元素
+   */
   html: string | HTMLElement | ((container: HTMLElement, view: View) => void | string | HTMLElement);
-  /** X 方向对齐 */
+  /**
+   * @title X 方向对齐
+   */
   alignX?: 'left' | 'middle' | 'right';
-  /** Y 方向对齐 */
+  /**
+   * @title Y 方向对齐
+   */
   alignY?: 'top' | 'middle' | 'bottom';
-  /** X 方向偏移 */
+  /**
+   * @title X 方向偏移
+   */
   offsetX?: number;
-  /** Y 方向偏移 */
+  /**
+   * @title Y 方向偏移
+   */
   offsetY?: number;
 }
 
 // ============================ Chart && View 上的类型定义 ============================
-/** Tooltip 内容框的 css 样式定义 */
+/**
+ * @title Tooltip 内容框的 css 样式定义
+ */
 export interface TooltipDomStyles {
   'g2-tooltip'?: LooseObject;
   'g2-tooltip-title'?: LooseObject;
@@ -643,33 +1002,55 @@ export interface TooltipDomStyles {
   'g2-tooltip-name'?: LooseObject;
 }
 
-/** 目前组件动画允许的参数配置 */
+/**
+ * @title 目前组件动画允许的参数配置
+ */
 export interface ComponentAnimateCfg {
-  /** 动画执行时间 */
+  /**
+   * @title 动画执行时间
+   */
   readonly duration?: number;
-  /** 动画缓动函数 */
+  /**
+   * @title 动画缓动函数
+   */
   readonly easing?: string;
-  /** 动画延迟时间 */
+  /**
+   * @title 动画延迟时间
+   */
   readonly delay?: number;
 }
-/** 组件各个动画类型配置 */
+/**
+ * @title 组件各个动画类型配置
+ */
 export interface ComponentAnimateOption {
-  /** 初入场动画配置 */
+  /**
+   * @title 初入场动画配置
+   */
   appear?: ComponentAnimateCfg;
-  /** 更新动画配置 */
+  /**
+   * @title 更新动画配置
+   */
   update?: ComponentAnimateCfg;
-  /** 更新后新入场的动画配置 */
+  /**
+   * @title 更新后新入场的动画配置
+   */
   enter?: ComponentAnimateCfg;
-  /** 离场动画配置 */
+  /**
+   * @title 离场动画配置
+   */
   leave?: ComponentAnimateCfg;
 }
 
-/** 列定义配置项 */
+/**
+ * @title 列定义配置项
+ */
 export interface ScaleOption extends ScaleConfig {
-  /** 声明度量类型。  */
+  /**
+   * @title 声明度量类型。
+   */
   type?: ScaleType;
   /**
-   * 同步 scale。
+   * @title 同步 scale
    *
    * @example
    * ```ts
@@ -685,15 +1066,17 @@ export interface ScaleOption extends ScaleConfig {
    */
   sync?: boolean | string;
   /**
-   * 只对 type: 'time' 的 scale 生效，强制显示最后的日期 tick。
+   * @title 是否显示最后日期
+   * @description 只对 type: 'time' 的 scale 生效，强制显示最后的日期 tick。
    */
   showLast?: boolean;
   /**
+   * @title 唯一 ID
+   * @description
    * 用于声明使用数据记录中的哪些字段来组成一条数据的唯一 id（如有多个字段，则使用 '-' 连接）。
    * 数据 id 用于标识 Element 图形元素，应用于 Geometry 中的图形元素 Element 更新。
    * 默认 G2 内部会有一套 ID 生成规则，如果不能满足用户需求，用户既可以使用该属性配置 id。
    * @example
-   *
    * 下面的例子中，声明了将 'x' 和 'y' 字段的数值来作为每条数据记录的 id，即下面数据两条数据的 id 分别为：'1-23' 和 '2-2'。
    * ```ts
    * const data = [
@@ -710,66 +1093,120 @@ export interface ScaleOption extends ScaleConfig {
   key?: boolean;
 }
 
-/** Geometry 动画参数配置。geometry.animate() */
+/**
+ * @title Geometry 动画参数配置。geometry.animate()
+ */
 export interface AnimateOption {
-  /** chart 初始化渲染时的入场动画，false/null 表示关闭入场动画。 */
+  /**
+   * @title chart 初始化渲染时的入场动画，false/null 表示关闭入场动画。
+   */
   appear?: AnimateCfg | false | null;
-  /** chart 发生更新时，新增元素的入场动画，false/null 表示关闭入场动画。 */
+  /**
+   * @title chart 发生更新时，新增元素的入场动画，false/null 表示关闭入场动画。
+   */
   enter?: AnimateCfg | false | null;
-  /** 更新动画配置，false/null 表示关闭更新动画。 */
+  /**
+   * @title 更新动画配置，false/null 表示关闭更新动画。
+   */
   update?: AnimateCfg | false | null;
-  /** 销毁动画配置，false/null 表示关闭销毁动画。 */
+  /**
+   * @title 销毁动画配置，false/null 表示关闭销毁动画。
+   */
   leave?: AnimateCfg | false | null;
 }
 
-/** 用于配置项式声明交互行为 */
+/**
+ * @title 用于配置项式声明交互行为
+ */
 export interface InteractionOption {
-  /** 交互名称 */
+  /**
+   * @title 交互名称
+   */
   type: string;
-  /** 交互配置 */
+  /**
+   * @title 交互配置
+   */
   cfg?: LooseObject;
 }
 
-/** 用于配置项式的 Geometry 创建方式 */
+/**
+ * @title 用于配置项式的 Geometry 创建方式
+ */
 export interface GeometryOption {
-  /** Geometry 的类型。 */
+  /**
+   * @title Geometry 的类型。
+   */
   type?: 'interval' | 'line' | 'path' | 'point' | 'area' | 'polygon' | 'schema' | 'edge' | 'heatmap' | string;
-  /** position 通道映射规则，对应 `geometry.position()`。 */
+  /**
+   * @title position 通道映射规则，对应 `geometry.position()`。
+   */
   position?: string | AttributeOption;
-  /** color 通道映射规则，对应 `geometry.color()`。 */
+  /**
+   * @title color 通道映射规则，对应 `geometry.color()`。
+   */
   color?: string | AttributeOption;
-  /** shape 通道映射规则，对应 `geometry.shape()`。 */
+  /**
+   * @title shape 通道映射规则，对应 `geometry.shape()`。
+   */
   shape?: string | AttributeOption;
-  /** size 通道映射规则，对应 `geometry.size()`。 */
+  /**
+   * @title size 通道映射规则，对应 `geometry.size()`。
+   */
   size?: number | string | AttributeOption;
-  /** adjust 数据调整方式，对应 `geometry.adjust()`。 */
+  /**
+   * @title adjust 数据调整方式，对应 `geometry.adjust()`。
+   */
   adjust?: string | string[] | AdjustOption | AdjustOption[];
-  /** style 样式配置，对应 `geometry.size()`。 */
+  /**
+   * @title style 样式配置，对应 `geometry.size()`。
+   */
   style?: StyleOption | LooseObject;
-  /** tooltip 配置，对应 `geometry.tooltip()`。 */
+  /**
+   * @title tooltip 配置，对应 `geometry.tooltip()`。
+   */
   tooltip?: GeometryTooltipOption | boolean | string;
-  /** Geometry 动画配置，对应 `geometry.animate()`。 */
+  /**
+   * @title Geometry 动画配置，对应 `geometry.animate()`。
+   */
   animate?: AnimateOption | boolean;
-  /** Label 配置，对应 `geometry.label()`。 */
+  /**
+   * @title Label 配置，对应 `geometry.label()`。
+   */
   label?: LabelOption | false | string;
-  /** state 样式配置，对应 `geometry.state()`。 */
+  /**
+   * @title state 样式配置，对应 `geometry.state()`。
+   */
   state?: StateOption;
-  /** 其他配置 */
+  /**
+   * @title 其他配置
+   */
   cfg?: {
-    /** 是否对数据进行排序 */
+    /**
+     * @title 是否对数据进行排序
+     */
     sortable?: boolean;
-    /** 是否可见 */
+    /**
+     * @title 是否可见
+     */
     visible?: boolean;
-    /** 是否连接空值，仅对 'line', 'area' 和 'path' 生效 */
+    /**
+     * @title 是否连接空值，仅对 'line', 'area' 和 'path' 生效
+     */
     connectNulls?: boolean;
   };
 }
 
-/** 用于配置型式的 View 声明方式 */
+/**
+ * @title 用于配置型式的 View 声明方式
+ */
 export interface ViewOption {
-  /** view 的唯一表示 ID */
+  /**
+   * @title view 的唯一表示 ID
+   */
   readonly id?: string;
-  /** view 的绘制范围，起始点为左上角。 */
+  /**
+   * @title view 的绘制范围，起始点为左上角。
+   */
   readonly region?: Region;
   /**
    * 设置图表的内边距，使用方式参考 CSS 盒模型。
@@ -781,9 +1218,13 @@ export interface ViewOption {
    * 2. padding: [ 10, 30, 30 ]
    */
   readonly padding?: ViewPadding;
-  /** 设置主题。 */
+  /**
+   * @title 设置主题。
+   */
   readonly theme?: LooseObject | string;
-  /** 是否可见。 */
+  /**
+   * @title 是否可见。
+   */
   readonly visible?: boolean;
   /**
    * 图表组件、图形映射等相关的配置。
@@ -791,90 +1232,136 @@ export interface ViewOption {
   readonly options?: Options;
 }
 
-/** Chart 构造方法的入参 */
+/**
+ * @title Chart 构造方法的入参
+ */
 export interface ChartCfg
   extends Omit<ViewCfg, 'parent' | 'canvas' | 'foregroundGroup' | 'middleGroup' | 'backgroundGroup' | 'region'> {
-  /** 指定 chart 绘制的 DOM，可以传入 DOM id，也可以直接传入 dom 实例。 */
+  /**
+   * @title 指定 chart 绘制的 DOM，可以传入 DOM id，也可以直接传入 dom 实例。
+   */
   readonly container: string | HTMLElement;
-  /** 图表宽度。 */
+  /**
+   * @title 图表宽度。
+   */
   readonly width?: number;
-  /** 图表高度。 */
+  /**
+   * @title 图表高度。
+   */
   readonly height?: number;
   /**
-   * 图表是否自适应容器宽高，默认为 false，用户需要手动设置 width 和 height。
-   * 当 `autoFit: true` 时，会自动取图表容器的宽高，如果用户设置了 height，那么会以用户设置的 height 为准。
+   * @title 否自适应容器宽高
+   * @description
+   * 图表是否自适应容器宽高，默认为 false，用户需要手动设置 width 和 height。当 `autoFit: true` 时，
+   * 会自动取图表容器的宽高，如果用户设置了 height，那么会以用户设置的 height 为准。
+   * @default false
    */
   readonly autoFit?: boolean;
-  /** 指定渲染引擎，默认使用 canvas。 */
+  /**
+   * @title 渲染引擎
+   * @default "canvas"
+   */
   readonly renderer?: Renderer;
-  /** 设置设备像素比，默认取浏览器的值 `window.devicePixelRatio`。 */
+  /**
+   * @title 像素比
+   * @description 设置设备像素比，默认取浏览器的值 `window.devicePixelRatio`。
+   */
   readonly pixelRatio?: number;
   /**
-   * 是否开启局部刷新，默认开启。
+   * @title 是否开启局部刷新
+   * @default true
    */
   readonly localRefresh?: boolean;
-  /** 支持 CSS transform，开启后图表的交互以及事件将在页面设置了 css transform 属性时生效，默认关闭。 */
+  /**
+   * @title 是否支持 CSS transform
+   * @description 开启后图表的交互以及事件将在页面设置了 css transform 属性时生效，默认关闭。
+   * @default false
+   */
   readonly supportCSSTransform?: boolean;
   /**
-   * 配置图表默认交互，仅支持字符串形式。
+   * @title 配置图表默认交互，仅支持字符串形式。
    */
   readonly defaultInteractions?: string[];
 }
 
 export type SyncViewPaddingFn = (chart: View, views: View[], PC: PaddingCalCtor) => void;
 
-/** View 构造参数 */
+/**
+ * @title View 构造参数
+ */
 export interface ViewCfg {
-  /** View id，可以由外部传入 */
+  /**
+   * @title View id，可以由外部传入
+   */
   readonly id?: string;
-  /** 当前 view 的父级 view。 */
+  /**
+   * @title 当前 view 的父级 view。
+   */
   readonly parent: View;
-  /** canvas 实例。 */
+  /**
+   * @title canvas 实例。
+   */
   readonly canvas: ICanvas;
-  /** 前景层 */
+  /**
+   * @title 前景层
+   */
   readonly foregroundGroup: IGroup;
-  /** 中间层 */
+  /**
+   * @title 中间层
+   */
   readonly middleGroup: IGroup;
-  /** 背景层 */
+  /**
+   * @title 背景层
+   */
   readonly backgroundGroup: IGroup;
-  /** view 的绘制范围 */
+  /**
+   * @title view 的绘制范围
+   */
   readonly region?: Region;
-  /** 是否对超出坐标系范围的 Geometry 进行剪切 */
+  /**
+   * @title 是否对超出坐标系范围的 Geometry 进行剪切
+   */
   readonly limitInPlot?: boolean;
   /**
-   * 设置图表的内边距，使用方式参考 CSS 盒模型。
-   * 下图黄色区域即为 padding 的范围。
-   * ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*pYwiQrdXGJ8AAAAAAAAAAABkARQnAQ)
-   *
+   * @title 内边距
+   * @description 设置图表的内边距，使用方式参考 CSS 盒模型，下图黄色区域即为 padding 的范围。
+   * @see ![](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*pYwiQrdXGJ8AAAAAAAAAAABkARQnAQ)
    * @example
    * 1. padding: 20
    * 2. padding: [ 10, 30, 30 ]
    */
   readonly padding?: ViewPadding;
   /**
-   * 设置图表的内边距在padding的基础上增加appendPadding的调整。
+   * @title 额外边距
+   * @description 设置图表的内边距在padding的基础上增加appendPadding的调整。
    * @example
    * 1. padding: 20
    * 2. padding: [ 10, 30, 30 ]
    */
   readonly appendPadding?: ViewAppendPadding;
   /**
-   * 是否同步子 view 的 padding，可以是 boolean / SyncViewPaddingFn
-   * 比如:
+   * @title 是否同步子 view 的 padding
+   * @description 是否同步子 view 的 padding，可以是 boolean / SyncViewPaddingFn
+   * @example
    *  view1 的 padding 10
    *  view2 的 padding 20
-   * 那么两个子 view 的 padding 统一变成最大的 20.
+   *  那么两个子 view 的 padding 统一变成最大的 20.
    *
    * 如果是 Funcion，则使用自定义的方式去计算子 view 的 padding，这个函数中去修改所有的 views autoPadding 值
    */
   readonly syncViewPadding?: boolean | SyncViewPaddingFn;
-  /** 设置 view 实例主题。 */
+  /**
+   * @title 主题
+   * @description 设置 view 实例主题
+   */
   readonly theme?: LooseObject | string;
   /**
-   * 图表组件、图形映射等相关的配置。
+   * @title 图表组件、图形映射等相关的配置。
    */
   readonly options?: Options;
-  /** 是否可见。 */
+  /**
+   * @title 是否可见
+   */
   readonly visible?: boolean;
 }
 
@@ -892,31 +1379,47 @@ export interface ComponentOption {
   readonly extra?: any;
 }
 
-/** Legend marker 的配置结构 */
+/**
+ * @title Legend marker 的配置结构
+ */
 export interface MarkerCfg extends LegendMarkerCfg {
-  /** 配置图例 marker 的 symbol 形状。 */
+  /**
+   * @title 配置图例 marker 的 symbol 形状。
+   */
   symbol?: Marker | MarkerCallback;
   style?: ShapeAttrs | ((style: ShapeAttrs) => ShapeAttrs);
 }
 
-/** Legend item 各个图例项的数据结构 */
+/**
+ * @title Legend item 各个图例项的数据结构
+ */
 export interface LegendItem {
   /**
    * 唯一值，用于动画或者查找
    */
   id?: string;
-  /** 名称 */
+  /**
+   * @title 名称
+   */
   name: string;
-  /** 值 */
+  /**
+   * @title 值
+   */
   value: any;
-  /** 图形标记 */
+  /**
+   * @title 图形标记
+   */
   marker?: MarkerCfg | ((name: string, index: number, item: { name: string; value: string } & MarkerCfg) => MarkerCfg);
-  /** 初始是否处于未激活状态 */
+  /**
+   * @title 初始是否处于未激活状态
+   */
   unchecked?: boolean;
 }
 
 export interface G2LegendTitleCfg extends LegendTitleCfg {
-  /** title 文本显示内容 */
+  /**
+   * @title title 文本显示内容
+   */
   text?: string;
 }
 
@@ -925,16 +1428,19 @@ export interface G2LegendTitleCfg extends LegendTitleCfg {
  */
 export interface LegendCfg extends Omit<CategoryLegendCfg, 'marker'> {
   /**
-   * 是否为自定义图例，当该属性为 true 时，需要声明 items 属性。
+   * @title 是否为自定义图例
+   * @description 当该属性为 true 时，需要声明 items 属性。
    */
   readonly custom?: boolean;
   /**
-   * 布局方式： horizontal，vertical
+   * @title 布局
+   * @description 布局方式： horizontal，vertical
    */
   layout?: 'horizontal' | 'vertical';
   /**
-   * 图例标题配置，默认不展示。
-   *
+   * @title 图例标题配置
+   * @description 默认不展示。
+   * @example
    * 属性结构如下：
    *
    * ```ts
@@ -944,12 +1450,12 @@ export interface LegendCfg extends Omit<CategoryLegendCfg, 'marker'> {
    * }
    * ```
    *
-   * 详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L639|LegendTitleCfg}，
+   * @link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L639|LegendTitleCfg
    */
   title?: G2LegendTitleCfg;
   /**
-   * 背景框配置项。
-   *
+   * @title 背景框配置项。
+   * @example
    * 属性结构如下：
    *
    * ```ts
@@ -962,7 +1468,9 @@ export interface LegendCfg extends Omit<CategoryLegendCfg, 'marker'> {
    * 详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L652|LegendBackgroundCfg}
    */
   background?: LegendBackgroundCfg;
-  /** 图例的位置。 */
+  /**
+   * @title 图例的位置。
+   */
   position?:
     | 'top'
     | 'top-left'
@@ -976,33 +1484,46 @@ export interface LegendCfg extends Omit<CategoryLegendCfg, 'marker'> {
     | 'bottom'
     | 'bottom-left'
     | 'bottom-right';
-  /** 动画开关，默认关闭。 */
+  /**
+   * @title 动画开关，默认关闭。
+   */
   animate?: boolean;
-  /** 动画参数配置，当且仅当 `animate` 属性为 true，即动画开启时生效。 */
+  /**
+   * @title 动画
+   * @description 动画参数配置，当且仅当 `animate` 属性为 true，即动画开启时生效。
+   */
   animateOption?: ComponentAnimateOption;
   /**
-   * **分类图例适用**，控制图例项水平方向的间距。
+   * @title 水平间距
+   * @description **分类图例适用**，控制图例项水平方向的间距。
    */
   itemSpacing?: number;
   /**
-   * **分类图例适用**，控制图例项垂直方向的间距。
+   * @title 垂直间距
+   * @description **分类图例适用**，控制图例项垂直方向的间距。
    */
   itemMarginBottom?: number;
   /**
+   * @title 图例项的最大宽度
+   * @description
    * **分类图例适用**，图例项的最大宽度，超出则自动缩略。
    * `maxItemWidth` 可以是像素值；
    * 也可以是相对值（取 0 到 1 范围的数值），代表占图表宽度的多少
    */
   maxItemWidth?: number;
   /**
-   * **分类图例适用**，图例项的宽度, 默认为 null，自动计算。
+   * @title 图例项的宽度
+   * @description **分类图例适用**，图例项的宽度, 默认为 null，自动计算。
    */
   itemWidth?: number;
   /**
-   * **分类图例适用**，图例的高度，默认为 null。
+   * @title 图例项的高度
+   * @description **分类图例适用**，图例的高度，默认为 null。
    */
   itemHeight?: number;
   /**
+   * @title 图例项 name
+   * @description
    * **分类图例适用**，图例项 name 文本的配置。
    * 属性结构如下：
    *
@@ -1014,10 +1535,12 @@ export interface LegendCfg extends Omit<CategoryLegendCfg, 'marker'> {
    * }
    * ```
    *
-   * 详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L665|LegendItemNameCfg}，
+   * @link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L665|LegendItemNameCfg
    */
   itemName?: LegendItemNameCfg;
   /**
+   * @title 图例项 value
+   * @description
    * **分类图例适用**，图例项 value 附加值的配置项。
    * 属性结构如下：
    *
@@ -1029,63 +1552,78 @@ export interface LegendCfg extends Omit<CategoryLegendCfg, 'marker'> {
    * }
    * ```
    *
-   * 详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L685|LegendItemValueCfg}，
+   * @link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L685|LegendItemValueCfg
    */
   itemValue?: LegendItemValueCfg;
   /**
-   * **分类图例适用**，图例项最大宽度设置。
+   * @title 最大宽度
+   * @description **分类图例适用**，图例项最大宽度设置。
    */
   maxWidth?: number;
   /**
-   * **分类图例适用**，图例项最大高度设置。
+   * @title 最大高度
+   * @description **分类图例适用**，图例项最大高度设置。
    */
   maxHeight?: number;
   /**
-   * **分类图例适用**，图例项最大宽度比例（以 view 的 bbox 宽度为参照，默认 0.25）。
+   * @title 最大宽度比例
+   * @description **分类图例适用**，图例项最大宽度比例（以 view 的 bbox 宽度为参照，默认 0.25）。
    */
   maxWidthRatio?: number;
   /**
-   * **分类图例适用**，图例项最大高度比例（以 view 的 bbox 高度为参照，默认 0.25）。
+   * @title 最大高度比例
+   * @description **分类图例适用**，图例项最大高度比例（以 view 的 bbox 高度为参照，默认 0.25）。
    */
   maxHeightRatio?: number;
   /**
-   * **分类图例适用**，图例项的 marker 图标的配置。
+   * @title 图例项的 marker
+   * @description **分类图例适用**，图例项的 marker 图标的配置。
    */
   marker?: MarkerCfg | ((name: string, index: number, item: { name: string; value: string } & MarkerCfg) => MarkerCfg);
   /**
-   * **适用于分类图例**，当图例项过多时是否进行分页。
+   * @title 是否进行分页
+   * @description **适用于分类图例**，当图例项过多时是否进行分页。
    */
   flipPage?: boolean;
   /**
-   *  **适用于分类图例**，图例分页器的样式设置。
+   * @title 分页器的样式
+   * @description **适用于分类图例**，图例分页器的样式设置。
    */
   pageNavigator?: LegendPageNavigatorCfg;
   /**
-   * **分类图例适用**，用户自己配置图例项的内容。
+   * @title 图例项
+   * @description **分类图例适用**，用户自己配置图例项的内容。
    */
   items?: LegendItem[];
   /**
-   * **分类图里适用**，用来配置正反选功能
+   * @title 反选
+   * @description **分类图里适用**，用来配置正反选功能
    */
-  radio?: LegendRadio
+  radio?: LegendRadio;
   /**
-   * **分类图例适用**，是否将图例项逆序展示。
+   * @title 是否逆序
+   * @description **分类图例适用**，是否将图例项逆序展示。
    */
   reversed?: boolean;
 
   /**
-   * **连续图例适用**，选择范围的最小值。
+   * @title 最小值
+   * @description **连续图例适用**，选择范围的最小值。
    */
   min?: number;
   /**
-   * **连续图例适用**，选择范围的最大值。
+   * @title 最大
+   * @description **连续图例适用**，选择范围的最大值。
    */
   max?: number;
   /**
-   * **连续图例适用**，选择的值。
+   * @title value
+   * @description **连续图例适用**，选择的值。
    */
   value?: number[];
   /**
+   * @title 色块样式
+   * @description
    * **连续图例适用**，选择范围的色块样式配置项。
    * 属性结构如下：
    *
@@ -1095,10 +1633,12 @@ export interface LegendCfg extends Omit<CategoryLegendCfg, 'marker'> {
    * }
    * ```
    *
-   * 详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L574|ContinueLegendTrackCfg}
+   * @link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L574|ContinueLegendTrackCfg
    */
   track?: ContinueLegendTrackCfg;
   /**
+   * @title 滑轨（背景
+   * @description
    * **连续图例适用**，图例滑轨（背景）的样式配置项。
    * 属性结构如下：
    *
@@ -1111,10 +1651,12 @@ export interface LegendCfg extends Omit<CategoryLegendCfg, 'marker'> {
    * }
    * ```
    *
-   * 详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L595|ContinueLegendRailCfg}，
+   * @link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L595|ContinueLegendRailCfg
    */
   rail?: ContinueLegendRailCfg;
   /**
+   * @title 文本
+   * @description
    * **连续图例适用**，文本的配置项。
    * 属性结构如下：
    *
@@ -1129,11 +1671,12 @@ export interface LegendCfg extends Omit<CategoryLegendCfg, 'marker'> {
    *   style?: ShapeAttrs; // 文本样式
    * }
    * ```
-   *
-   * 详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L618|ContinueLegendLabelCfg}
+   * @link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L618|ContinueLegendLabelCfg
    */
   label?: ContinueLegendLabelCfg;
   /**
+   * @title 滑块
+   * @description
    * **连续图例适用**，滑块的配置项。
    * 属性结构如下：
    *
@@ -1144,18 +1687,25 @@ export interface LegendCfg extends Omit<CategoryLegendCfg, 'marker'> {
    * }
    * ```
    *
-   * 详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L582|ContinueLegendTrackCfg}，
+   * @link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L582|ContinueLegendTrackCfg
    */
   handler?: ContinueLegendHandlerCfg;
   /**
-   * **连续图例适用**，滑块是否可以滑动。
+   * @title 是否可滑动
+   * @description **连续图例适用**，滑块是否可以滑动。
    */
   slidable?: boolean;
-  /** 图例 x 方向的偏移。 */
+  /**
+   * @title 图例 x 方向的偏移。
+   */
   offsetX?: number;
-  /** 图例 y 方向的偏移。 */
+  /**
+   * @title 图例 y 方向的偏移。
+   */
   offsetY?: number;
-  /** 图例在四个方向的偏移量 */
+  /**
+   * @title 图例在四个方向的偏移量
+   */
   padding?: number[];
   /**
    * 图例高亮状态，false 表示默认置灰，无或 true 表示高亮
@@ -1169,7 +1719,9 @@ export interface LegendCfg extends Omit<CategoryLegendCfg, 'marker'> {
  * Tooltip Crosshairs 的文本数据结构。
  */
 export interface TooltipCrosshairsText extends CrosshairTextCfg {
-  /** crosshairs 文本内容 */
+  /**
+   * @title crosshairs 文本内容
+   */
   content?: string;
 }
 
@@ -1187,9 +1739,13 @@ export type TooltipCrosshairsTextCallback = (
   items: any[],
   currentPoint: Point
 ) => TooltipCrosshairsText;
-/** Tooltip crosshairs 配置结构 */
+/**
+ * @title Tooltip crosshairs 配置结构
+ */
 export interface TooltipCrosshairs {
   /**
+   * @title 类型
+   * @description
    * crosshairs 的类型: `x` 表示 x 轴上的辅助线，`y` 表示 y 轴上的辅助项。
    * 以下是在不同坐标系下，crosshairs 各个类型的表现：
    *
@@ -1200,7 +1756,8 @@ export interface TooltipCrosshairs {
    */
   type?: 'x' | 'y' | 'xy';
   /**
-   * 辅助线的样式配置。
+   * @title 辅助线的样式配置。
+   * @description
    * 属性结构如下：
    *
    * ```ts
@@ -1209,15 +1766,17 @@ export interface TooltipCrosshairs {
    * }
    * ```
    *
-   * 详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L1177|CrosshairLineCfg}
+   * @link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L1177|CrosshairLineCfg
    */
   line?: CrosshairLineCfg;
   /**
-   * 辅助线文本配置，支持回调。
+   * @title 文本
+   * @description 辅助线文本配置，支持回调。
    */
   text?: TooltipCrosshairsText | TooltipCrosshairsTextCallback;
   /**
-   * 辅助线文本背景配置。
+   * @title 辅助线文本背景配置。
+   * @description
    * 属性结构如下：
    *
    * ```ts
@@ -1227,90 +1786,164 @@ export interface TooltipCrosshairs {
    * }
    * ```
    *
-   * 详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L1185|CrosshairTextBackgroundCfg}
+   * @link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L1185|CrosshairTextBackgroundCfg
    */
   textBackground?: CrosshairTextBackgroundCfg;
-  /** 辅助线是否跟随鼠标移动，默认为 false，即定位到数据点 */
+  /**
+   * @title 辅助线是否跟随鼠标移动
+   * @description 即定位到数据点
+   * @default false
+   */
   follow?: boolean;
 }
 
 export type TooltipTitle = string | ((title: string, datum: Datum) => string);
 
 export type TooltipItem = {
-  /** 原始数据 */
+  /**
+   * @title 原始数据
+   */
   readonly data: Datum; // 原始数据
-  /** 映射之后的数据 */
+  /**
+   * @title 映射之后的数据
+   */
   readonly mappingData: Datum; // 映射后的数据
-  /** tooltip item 中名称 */
+  /**
+   * @title tooltip item 中名称
+   */
   readonly name: string;
-  /** tooltip item 中值 */
+  /**
+   * @title tooltip item 中值
+   */
   readonly value: string | number;
-  /** tooltip item 中颜色 */
+  /**
+   * @title tooltip item 中颜色
+   */
   readonly color: string;
-  /** tooltip item 中图标类型 */
+  /**
+   * @title tooltip item 中图标类型
+   */
   readonly marker: string;
 };
 
-/** chart.tooltip() 接口配置属性 */
+/**
+ * @title chart.tooltip() 接口配置属性
+ */
 export interface TooltipCfg {
   /**
-   * 设置 tooltip 内容框是否跟随鼠标移动。
-   * 默认为 true，跟随鼠标移动，false 则固定位置不随鼠标移动。
+   * @title 设置 tooltip 内容框是否跟随鼠标移动。
+   * @description 默认为 true，跟随鼠标移动，false 则固定位置不随鼠标移动。
+   * @default true
    */
   follow?: boolean;
-  /** tooltip 是否允许鼠标滑入，默认为 false，不允许 */
+  /**
+   * @title tooltip 是否允许鼠标滑入
+   * @default false
+   */
   enterable?: boolean;
-  /** tooltip 显示延迟（ms），默认为 16ms，建议在 enterable = true 的时候才设置  */
+  /**
+   * @title tooltip 显示延迟（ms）
+   * @description 默认为 16ms，建议在 enterable = true 的时候才设置
+   * @default "16ms"
+   */
   showDelay?: number;
-  /** 是否展示 tooltip 标题。 */
+  /**
+   * @title 是否展示 tooltip 标题。
+   */
   showTitle?: boolean;
   /**
+   * @title 标题
+   * @description
    * 设置 tooltip 的标题内容：如果值为数据字段名，则会展示数据中对应该字段的数值，如果数据中不存在该字段，则直接展示 title 值。
    * 同时支持传入方法，回调的方式返回字符串
    */
   title?: TooltipTitle;
-  /** 设置 tooltip 的固定展示位置，相对于数据点。 */
+  /**
+   * @title 设置 tooltip 的固定展示位置，相对于数据点。
+   */
   position?: 'top' | 'bottom' | 'left' | 'right';
-  /** true 表示合并当前点对应的所有数据并展示，false 表示只展示离当前点最逼近的数据内容。 */
+  /**
+   * @title 是否合并当前点对应的所有数据
+   * @description true 表示合并当前点对应的所有数据并展示，false 表示只展示离当前点最逼近的数据内容。
+   */
   shared?: boolean; // 是否只展示单条数据
-  /** 是否展示 crosshairs。 */
+  /**
+   * @title 是否展示 crosshairs。
+   */
   showCrosshairs?: boolean;
-  /** 配置 tooltip 的 crosshairs，当且仅当 `showCrosshairs` 为 true 时生效。 */
+  /**
+   * @title 交叉线
+   * @description 配置 tooltip 的 crosshairs，当且仅当 `showCrosshairs` 为 true 时生效。
+   */
   crosshairs?: TooltipCrosshairs;
-  /** 是否渲染 tooltipMarkers。 */
+  /**
+   * @title 是否渲染 tooltipMarkers。
+   */
   showMarkers?: boolean;
-  /** tooltipMarker 的样式配置。 */
+  /**
+   * @title tooltipMarker 的样式配置。
+   */
   marker?: object;
-  /** 是否展示 tooltip 内容框 */
+  /**
+   * @title 是否展示 tooltip 内容框
+   */
   showContent?: boolean | ((datum: Datum) => boolean);
-  /** 自定义 tooltip 的容器。 */
+  /**
+   * @title 自定义 tooltip 的容器。
+   */
   container?: string | HTMLElement;
-  /** 用于指定图例容器的模板，自定义模板时必须包含各个 dom 节点的 class。 */
+  /**
+   * @title 图例容器的模板
+   * @description 用于指定图例容器的模板，自定义模板时必须包含各个 dom 节点的 class。
+   */
   containerTpl?: string;
-  /** 每项记录的默认模板，自定义模板时必须包含各个 dom 节点的 class。 */
+  /**
+   * @title 默认模板
+   * @description 每项记录的默认模板，自定义模板时必须包含各个 dom 节点的 class。
+   */
   itemTpl?: string;
-  /** 传入各个 dom 的样式。 */
+  /**
+   * @title dom 样式
+   * @description 传入各个 dom 的样式。
+   */
   domStyles?: TooltipDomStyles;
-  /** tooltip 偏移量。 */
+  /**
+   * @title tooltip 偏移量。
+   */
   offset?: number;
-  /** 是否将 tooltip items 逆序 */
+  /**
+   * @title 是否将 tooltip items 逆序
+   */
   reversed?: boolean;
-  /** 是否显示空值的 tooltip 项目 */
+  /**
+   * @title 是否显示空值的 tooltip 项目
+   */
   showNil?: boolean;
-  /** 在 tooltip 渲染之前，对最终的 items 进行自定义处理（比如排序、过滤、格式化等） */
+  /**
+   * @description 在 tooltip 渲染之前，对最终的 items 进行自定义处理（比如排序、过滤、格式化等）
+   */
   customItems?: (originalItems: TooltipItem[]) => TooltipItem[];
-  /** 支持自定义模板 */
+  /**
+   * @title 自定义模板
+   */
   customContent?: (title: string, data: any[]) => string | HTMLElement;
 }
 
-/** 坐标系配置 */
+/**
+ * @title 坐标系配置
+ */
 export interface CoordinateOption {
-  /** 坐标系类型 */
+  /**
+   * @title 坐标系类型
+   */
   type?: 'polar' | 'theta' | 'rect' | 'cartesian' | 'helix';
-  /** 坐标系配置项，目前常用于极坐标。 */
+  /**
+   * @title 坐标系配置项，目前常用于极坐标。
+   */
   cfg?: CoordinateCfg;
   /**
-   * 坐标系变换操作:
+   * @title 坐标系变换
+   * @description
    * 1. rotate 表示旋转，使用弧度制。
    * 2. scale 表示沿着 x 和 y 方向的缩放比率。
    * 3. reflect 表示沿 x 方向镜像或者沿 y 轴方向映射。
@@ -1319,30 +1952,39 @@ export interface CoordinateOption {
   actions?: CoordinateActions[];
 }
 
-/** 极坐标系支持的配置属性 */
+/**
+ * @title 极坐标系支持的配置属性
+ */
 export interface CoordinateCfg {
   /**
-   * 用于极坐标，配置起始弧度。
+   * @title 起始弧度
+   * @description 用于极坐标，配置起始弧度。
    */
   startAngle?: number;
   /**
-   * 用于极坐标，配置结束弧度。
+   * @title 结束弧度
+   * @description 用于极坐标，配置结束弧度。
    */
   endAngle?: number;
   /**
-   * 用于极坐标，配置极坐标半径，0 - 1 范围的数值。
+   * @title 半径
+   * @description 用于极坐标，配置极坐标半径，0 - 1 范围的数值。
    */
   radius?: number;
   /**
-   * 用于极坐标，极坐标内半径，0 -1 范围的数值。
+   * @title 内半径
+   * @description 用于极坐标，极坐标内半径，0 -1 范围的数值。
    */
   innerRadius?: number;
 }
 
-/** 坐标轴网格线的配置属性 */
+/**
+ * @title 坐标轴网格线的配置属性
+ */
 export interface AxisGridCfg {
   /**
-   * 线的样式。
+   * @title 线的样式
+   * @description
    * 属性结构如下：
    *
    * ```ts
@@ -1352,35 +1994,43 @@ export interface AxisGridCfg {
    * }
    * ```
    *
-   * 详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L407|GridLineCfg}
+   * @link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L407|GridLineCfg
    */
   line?: GridLineCfg;
   /**
-   * 两个栅格线间的填充色。
+   * @title 两个栅格线间的填充色。
    */
   alternateColor?: string | string[];
   /**
-   * 对于 circle 是否关闭 grid。
+   * @title 是否关闭
+   * @description 对于 circle 是否关闭 grid。
    */
   closed?: boolean;
   /**
-   * 是否同刻度线对齐，如果值为 false，则会显示在两个刻度中间。
-   * ![image](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*YX6fS4GTTvMAAAAAAAAAAABkARQnAQ)
+   * @title 是否同刻度线对齐
+   * @description 如果值为 false，则会显示在两个刻度中间。
+   * @see ![image](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*YX6fS4GTTvMAAAAAAAAAAABkARQnAQ)
    */
   alignTick?: boolean;
 }
 
-/** 坐标轴配置属性，chart.axis() */
+/**
+ * @title 坐标轴配置属性，chart.axis()
+ */
 export interface AxisCfg {
   /**
-   * 是否渲染在画布顶层，防止部分图形中，需要将 axis 显示在图形上面，避免被图形遮挡
+   * @title 是否渲染在画布顶层
+   * @description 防止部分图形中，需要将 axis 显示在图形上面，避免被图形遮挡
    */
   top?: boolean;
   /**
-   * 适用于直角坐标系，设置坐标轴的位置。
+   * @title 坐标轴的位置
+   * @description 适用于直角坐标系，设置坐标轴的位置。
    */
   position?: 'top' | 'bottom' | 'right' | 'left';
   /**
+   * @title 轴线
+   * @description
    * 坐标轴线的配置项，null 表示不展示。
    * 属性结构如下：
    *
@@ -1390,10 +2040,12 @@ export interface AxisCfg {
    * }
    * ```
    *
-   * 详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L91|AxisLineCfg}
+   * @link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L91|AxisLineCfg
    */
   line?: AxisLineCfg | null;
   /**
+   * @title 刻度线线
+   * @description
    * 坐标轴刻度线线的配置项，null 表示不展示。
    * 属性结构如下：
    *
@@ -1405,10 +2057,12 @@ export interface AxisCfg {
    * }
    * ```
    *
-   * 详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L103|AxisTickLineCfg}
+   * @link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L103|AxisTickLineCfg
    */
   tickLine?: AxisTickLineCfg | null;
   /**
+   * @title 子刻度线
+   * @description
    * 坐标轴子刻度线的配置项，null 表示不展示。
    * 属性结构如下：
    *
@@ -1420,10 +2074,12 @@ export interface AxisCfg {
    * }
    * ```
    *
-   * 详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L169|AxisSubTickLineCfg}
+   * @link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L169|AxisSubTickLineCfg
    */
   subTickLine?: AxisSubTickLineCfg | null;
   /**
+   * @title 标题
+   * @description
    * 标题的配置项，null 表示不展示。
    * 属性结构如下：
    *
@@ -1435,10 +2091,12 @@ export interface AxisCfg {
    * }
    * ```
    *
-   * 详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L191|AxisTitleCfg}
+   * @link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L191|AxisTitleCfg
    */
   title?: AxisTitleCfg | null;
   /**
+   * @title 文本标签
+   * @description
    * 文本标签的配置项，null 表示不展示。
    * 属性结构如下：
    *
@@ -1461,18 +2119,31 @@ export interface AxisCfg {
    * }
    * ```
    *
-   * 详见 {@link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L127|AxisLabelCfg}
+   * @link https://github.com/antvis/component/blob/81890719a431b3f9088e0c31c4d5d382ef0089df/src/types.ts#L127|AxisLabelCfg
    */
   label?: AxisLabelCfg | null;
-  /** 坐标轴网格线的配置项，null 表示不展示。 */
+  /**
+   * @title 网格线
+   * @description 坐标轴网格线的配置项，null 表示不展示。
+   */
   grid?: AxisGridCfg | null;
-  /** 动画开关，默认开启。 */
+  /**
+   * @title 动画
+   * @default true
+   */
   animate?: boolean;
-  /** 动画参数配置。 */
+  /**
+   * @title 动画参数
+   */
   animateOption?: ComponentAnimateOption;
-  /** 标记坐标轴 label 的方向，左侧为 1，右侧为 -1。 */
+  /**
+   * @title 坐标轴 label 的方向
+   * @description 标记坐标轴 label 的方向，左侧为 1，右侧为 -1。
+   */
   verticalFactor?: number;
   /**
+   * @title 坐标轴垂直方向的最大限制长度
+   * @description
    * 配置坐标轴垂直方向的最大限制长度，对文本自适应有很大影响。
    * 1. 可以直接设置像素值，如 100；
    * 2. 也可设置绝对值，如 0.2，如果是 x 轴，则相对于图表的高度，如果是 y 轴，则相对于图表的宽度
@@ -1483,30 +2154,54 @@ export interface AxisCfg {
 }
 
 export interface SliderCfg {
-  /** slider 高度 */
+  /**
+   * @title slider 高度
+   */
   readonly height?: number;
 
-  /** 滑块背景区域配置 */
+  /**
+   * @title 滑块背景区域配置
+   */
   readonly trendCfg?: Omit<TrendCfg, 'data'> & { data?: number[] };
-  /** 滑块背景样式 */
+  /**
+   * @title 滑块背景样式
+   */
   readonly backgroundStyle?: any;
-  /** 滑块前景样式 */
+  /**
+   * @title 滑块前景样式
+   */
   readonly foregroundStyle?: any;
-  /** 滑块两个操作块样式 */
+  /**
+   * @title 滑块两个操作块样式
+   */
   readonly handlerStyle?: any;
-  /** 文本样式 */
+  /**
+   * @title 文本样式
+   */
   readonly textStyle?: any;
-  /** 允许滑动位置的最小值 */
+  /**
+   * @title 允许滑动位置的最小值
+   */
   readonly minLimit?: number;
-  /** 允许滑动位置的最大值 */
+  /**
+   * @title 允许滑动位置的最大值
+   */
   readonly maxLimit?: number;
-  /** 滑块初始化的起始位置 */
+  /**
+   * @title 滑块初始化的起始位置
+   */
   readonly start?: number;
-  /** 滑块初始化的结束位置 */
+  /**
+   * @title 滑块初始化的结束位置
+   */
   readonly end?: number;
-  /** 布局的 padding */
+  /**
+   * @title 布局的 padding
+   */
   readonly padding?: number[];
-  /** 滑块文本格式化函数 */
+  /**
+   * @title 滑块文本格式化函数
+   */
   formatter?: (val: any, datum: Datum, idx: number) => any;
 }
 
@@ -1514,7 +2209,9 @@ export interface SliderCfg {
  * 事件 payload
  */
 export type EventPayload = LooseObject & {
-  /** 触发事件的来源 */
+  /**
+   * @title 触发事件的来源
+   */
   source?: string;
 };
 
@@ -1532,53 +2229,97 @@ export interface EventCfg {
  */
 export type SliderOption = SliderCfg | boolean;
 
-/** 滚动条组件配置项 */
+/**
+ * @title 滚动条组件配置项
+ */
 export interface ScrollbarCfg {
-  /** 滚动条类型，默认 horizontal  */
+  /**
+   * @title 滚动条类型，默认 horizontal
+   */
   type?: 'horizontal' | 'vertical';
-  /** 宽度，在 vertical 下生效 */
+  /**
+   * @title 宽度，在 vertical 下生效
+   */
   width?: number;
-  /** 高度，在 horizontal 下生效 */
+  /**
+   * @title 高度，在 horizontal 下生效
+   */
   height?: number;
-  /** 可选 padding */
+  /**
+   * @title 可选 padding
+   */
   padding?: Padding;
-  /** 对应水平滚动条，为 X 轴每个分类字段的宽度；对于垂直滚动条，为 X 轴每个分类字段的高度 */
+  /**
+   * @title 对应水平滚动条，为 X 轴每个分类字段的宽度；对于垂直滚动条，为 X 轴每个分类字段的高度
+   */
   categorySize?: number;
-  /** 滚动的时候是否开启动画，默认跟随 view 中 animate 配置 */
+  /**
+   * @title 滚动的时候是否开启动画，默认跟随 view 中 animate 配置
+   */
   animate?: boolean;
-  /** 主题样式设置, 暂不提供 hover 高亮滑块样式配置 */
+  /**
+   * @title 主题样式设置, 暂不提供 hover 高亮滑块样式配置
+   */
   style?: {
-    /** 滑道颜色 */
+    /**
+     * @title 滑道颜色
+     */
     trackColor?: string;
-    /** 滑块颜色 */
+    /**
+     * @title 滑块颜色
+     */
     thumbColor?: string;
-    /** 滑块高亮样式，对应主题的 hover.style.thumbColor */
+    /**
+     * @title 滑块高亮样式，对应主题的 hover.style.thumbColor
+     */
     thumbHighlightColor?: string;
-    // 是否圆角，'round'
+    /**
+     * @title 是否圆角
+     */
     lineCap?: string;
   };
 }
 
-/** 滚动条配置 */
+/**
+ * @title 滚动条配置
+ */
 export type ScrollbarOption = ScrollbarCfg | boolean;
 
-/** 配置项声明式 */
+/**
+ * @title 配置项声明式
+ */
 export interface Options {
-  /** 数据源配置。 */
+  /**
+   * @title 数据源配置。
+   */
   readonly data?: Data;
-  /** 设置数据过滤条件，以 data 中的数据属性为 key。 */
+  /**
+   * @title 设置数据过滤条件，以 data 中的数据属性为 key。
+   */
   readonly filters?: Record<string, FilterCondition>;
-  /** 坐标轴配置，以 data 中的数据属性为 key。 */
+  /**
+   * @title 坐标轴配置，以 data 中的数据属性为 key。
+   */
   readonly axes?: Record<string, AxisOption> | boolean;
-  /** 图例配置，以 data 中的数据属性为 key。 */
+  /**
+   * @title 图例配置，以 data 中的数据属性为 key。
+   */
   readonly legends?: AllLegendsOptions;
-  /** 列定义配置，用于配置数值的类型等，以 data 中的数据属性为 key。 */
+  /**
+   * @title 列定义配置，用于配置数值的类型等，以 data 中的数据属性为 key。
+   */
   readonly scales?: Record<string, ScaleOption>;
-  /** Tooltip 配置。 */
+  /**
+   * @title Tooltip 配置。
+   */
   readonly tooltip?: TooltipOption;
-  /** 坐标系配置。 */
+  /**
+   * @title 坐标系配置。
+   */
   readonly coordinate?: CoordinateOption;
-  /** 静态辅助元素声明。 */
+  /**
+   * @title 静态辅助元素声明。
+   */
   readonly annotations?: (
     | ArcOption
     | RegionFilterOption
@@ -1589,32 +2330,52 @@ export interface Options {
     | DataMarkerOption
     | DataRegionOption
   )[];
-  /** Geometry 配置 */
+  /**
+   * @title Geometry 配置
+   */
   readonly geometries?: GeometryOption[];
-  /** 开启/关闭动画，默认开启 */
+  /**
+   * @title 开启/关闭动画，默认开启
+   */
   readonly animate?: boolean;
-  /** 配置需要使用的交互行为 */
+  /**
+   * @title 配置需要使用的交互行为
+   */
   readonly interactions?: InteractionOption[];
-  /** 事件配置 */
+  /**
+   * @title 事件配置
+   */
   readonly events?: EventCfg;
 
-  /** 缩略轴的配置 */
+  /**
+   * @title 缩略轴的配置
+   */
   readonly slider?: SliderOption;
 
-  /** 滚动条配置 */
+  /**
+   * @title 滚动条配置
+   */
   readonly scrollbar?: ScrollbarOption;
 
-  /** 子 View */
+  /**
+   * @title 子 View
+   */
   readonly views?: ViewOption[];
 
-  /** 分面 */
+  /**
+   * @title 分面
+   */
   readonly facets?: (RectCfg | MirrorCfg | CircleCfg | ListCfg | TreeCfg)[];
 
-  /** 其他自定义的 option */
+  /**
+   * @title 其他自定义的 option
+   */
   readonly [name: string]: any;
 }
 
-/** 支持的 Marker 类型 */
+/**
+ * @title 支持的 Marker 类型
+ */
 export type Marker =
   | 'circle'
   | 'square'
@@ -1628,19 +2389,31 @@ export type Marker =
   | 'plus'
   | 'hyphen'
   | 'line';
-/** 自定义 Marker 的回调函数定义 */
+/**
+ * @title 自定义 Marker 的回调函数定义
+ */
 export type MarkerCallback = (x: number, y: number, r: number) => PathCommand[];
-/** chart.tooltip() 参数类型 */
+/**
+ * @title chart.tooltip() 参数类型
+ */
 export type TooltipOption = TooltipCfg | boolean;
 /* 筛选器函数类型定义 */
 export type FilterCondition = (value: any, datum: Datum, idx?: number) => boolean;
-/** chart.axis() 参数类型 */
+/**
+ * @title chart.axis() 参数类型
+ */
 export type AxisOption = AxisCfg | boolean;
-/** chart.legend() 参数类型 */
+/**
+ * @title chart.legend() 参数类型
+ */
 export type LegendOption = LegendCfg | boolean;
-/** Options 中 legends 的配置定义 */
+/**
+ * @title Options 中 legends 的配置定义
+ */
 export type AllLegendsOptions = LegendCfg | Record<string, LegendOption> | boolean;
-/** G2 支持的度量类型 */
+/**
+ * @title G2 支持的度量类型
+ */
 export type ScaleType =
   | 'linear'
   | 'cat'
@@ -1657,7 +2430,9 @@ export type CoordinateRotate = ['rotate', number];
 export type CoordinateReflect = ['reflect', 'x' | 'y'];
 export type CoordinateScale = ['scale', number, number];
 export type CoordinateTranspose = ['transpose'];
-/** 坐标系支持的 action 配置 */
+/**
+ * @title 坐标系支持的 action 配置
+ */
 export type CoordinateActions = CoordinateRotate | CoordinateReflect | CoordinateScale | CoordinateTranspose;
 
 // ============================ Facet 分面相关类型定义 ============================
@@ -1676,17 +2451,29 @@ export type FacetDataFilter = (data: Datum[]) => boolean;
  * 默认的基础配置
  */
 export interface FacetCfg<D> {
-  /** 布局类型。 */
+  /**
+   * @title 布局类型。
+   */
   readonly type?: string;
-  /** view 创建回调。 */
+  /**
+   * @title view 创建回调。
+   */
   readonly eachView: (innerView: View, facet?: D) => any;
-  /** 分面 view 之间的间隔， 百分比或像素值 */
+  /**
+   * @title 分面 view 之间的间隔， 百分比或像素值
+   */
   readonly spacing?: [number | string, number | string];
-  /** facet view padding。 */
+  /**
+   * @title facet view padding。
+   */
   readonly padding?: ViewPadding;
-  /** 是否显示标题。 */
+  /**
+   * @title 是否显示标题。
+   */
   readonly showTitle?: boolean;
-  /** facet 数据划分维度。 */
+  /**
+   * @title facet 数据划分维度。
+   */
   readonly fields: string[];
 }
 
@@ -1694,12 +2481,21 @@ export interface FacetCfg<D> {
  * Facet title 配置项
  */
 export interface FacetTitle {
-  /** x 方向偏移。 */
+  /**
+   * @title x 方向偏移。
+   */
   readonly offsetX?: number;
-  /** y 方向偏移。 */
+  /**
+   * @title y 方向偏移。
+   */
   readonly offsetY?: number;
-  /** 文本样式。 */
+  /**
+   * @title 文本样式。
+   */
   readonly style?: object;
+  /**
+   * @title 格式化
+   */
   readonly formatter?: (val: any) => any;
 }
 
@@ -1707,64 +2503,108 @@ export interface FacetTitle {
  * 分面数据
  */
 export interface FacetData {
-  /** 分面类型。 */
+  /**
+   * @title 分面类型。
+   */
   readonly type: string;
-  /** 当前分面子 view 的数据。 */
+  /**
+   * @title 当前分面子 view 的数据。
+   */
   readonly data: object[];
-  /** 当前分面子 view 的范围。 */
+  /**
+   * @title 当前分面子 view 的范围。
+   */
   readonly region: Region;
-  /** 当前分面子 view 的 padding。 */
+  /**
+   * @title 当前分面子 view 的 padding。
+   */
   readonly padding?: number;
-  /** 当前 facet 对应生成的 view。 */
+  /**
+   * @title 当前 facet 对应生成的 view。
+   */
   view?: View;
 
   // facet data
-  /** 分面行字段。 */
+  /**
+   * @title 分面行字段。
+   */
   readonly rowField: string;
-  /** 分面列字段。 */
+  /**
+   * @title 分面列字段。
+   */
   readonly columnField: string;
-  /** 当前行分面的枚举值。 */
+  /**
+   * @title 当前行分面的枚举值。
+   */
   readonly rowValue: string;
-  /** 当前列分面的枚举值。 */
+  /**
+   * @title 当前列分面的枚举值。
+   */
   readonly columnValue: string;
-  /** 当前行索引。 */
+  /**
+   * @title 当前行索引。
+   */
   readonly rowIndex: number;
-  /** 当前列索引。 */
+  /**
+   * @title 当前列索引。
+   */
   readonly columnIndex: number;
-  /** 当前行字段的枚举值长度。 */
+  /**
+   * @title 当前行字段的枚举值长度。
+   */
   readonly rowValuesLength: number;
-  /** 当前列字段的枚举值长度。 */
+  /**
+   * @title 当前列字段的枚举值长度。
+   */
   readonly columnValuesLength: number;
 }
 
 // ===================== rect 相关类型定义 =====================
-/** rect 分面类型配置 */
+/**
+ * @title rect 分面类型配置
+ */
 export interface RectCfg extends FacetCfg<RectData> {
-  /** 行标题的样式。 */
+  /**
+   * @title 行标题的样式。
+   */
   readonly columnTitle?: FacetTitle;
-  /** 列标题的样式。 */
+  /**
+   * @title 列标题的样式。
+   */
   readonly rowTitle?: FacetTitle;
 }
 
 export type RectData = FacetData;
 
 // ===================== mirror 相关类型定义 =====================
-/** mirror 分面类型配置 */
+/**
+ * @title mirror 分面类型配置
+ */
 export interface MirrorCfg extends FacetCfg<MirrorData> {
-  /** 是否转置。 */
+  /**
+   * @title 是否转置。
+   */
   readonly transpose?: boolean;
-  /** 标题样式。 */
+  /**
+   * @title 标题样式。
+   */
   readonly title?: FacetTitle;
 }
 
 export type MirrorData = FacetData;
 
 // ===================== list 相关类型定义 =====================
-/** list 分面类型配置 */
+/**
+ * @title list 分面类型配置
+ */
 export interface ListCfg extends FacetCfg<ListData> {
-  /** 指定每行可显示分面的个数，超出时会自动换行。 */
+  /**
+   * @title 指定每行可显示分面的个数，超出时会自动换行。
+   */
   readonly cols?: number;
-  /** 每个分面标题配置。 */
+  /**
+   * @title 每个分面标题配置。
+   */
   readonly title?: FacetTitle;
 }
 
@@ -1773,20 +2613,30 @@ export interface ListData extends FacetData {
 }
 
 // ===================== matrix 相关类型定义 =====================
-/** matrix 分面类型配置 */
+/**
+ * @title matrix 分面类型配置
+ */
 export interface MatrixCfg extends FacetCfg<MirrorData> {
-  /** 列标题的样式 */
+  /**
+   * @title 列标题的样式
+   */
   readonly columnTitle?: FacetTitle;
-  /** 列标题的样式 */
+  /**
+   * @title 列标题的样式
+   */
   readonly rowTitle?: FacetTitle;
 }
 
 export type MatrixData = FacetData;
 
 // ===================== circle 相关类型定义 =====================
-/** circle 分面类型配置 */
+/**
+ * @title circle 分面类型配置
+ */
 export interface CircleCfg extends FacetCfg<CircleData> {
-  /** 分面标题配置。 */
+  /**
+   * @title 分面标题配置。
+   */
   readonly title?: FacetTitle;
 }
 
@@ -1798,7 +2648,9 @@ export interface Line {
   readonly style?: ShapeAttrs;
   readonly smooth?: boolean;
 }
-/** tree 分面类型配置 */
+/**
+ * @title tree 分面类型配置
+ */
 export interface TreeCfg extends FacetCfg<TreeData> {
   readonly line?: Line;
   readonly title?: FacetTitle;
@@ -1813,626 +2665,1172 @@ export interface TreeData extends FacetData {
  * facet object map
  */
 export interface FacetCfgMap {
-  /** rect 类型分面配置 */
+  /**
+   * @title rect 类型分面配置
+   */
   readonly rect: RectCfg;
-  /** mirror 类型分面配置 */
+  /**
+   * @title mirror 类型分面配置
+   */
   readonly mirror: MirrorCfg;
-  /** list 类型分面配置 */
+  /**
+   * @title list 类型分面配置
+   */
   readonly list: ListCfg;
-  /** matrix 类型分面配置 */
+  /**
+   * @title matrix 类型分面配置
+   */
   readonly matrix: MatrixCfg;
-  /** circle 类型分面配置 */
+  /**
+   * @title circle 类型分面配置
+   */
   readonly circle: CircleCfg;
-  /** tree 类型分面配置 */
+  /**
+   * @title tree 类型分面配置
+   */
   readonly tree: TreeCfg;
 }
 
 // ============================ 主题样式表定义 ============================
 export interface StyleSheet {
-  /** 背景色 */
+  /**
+   * @title 背景色
+   */
   backgroundColor?: string;
-  /** 主题色 */
+  /**
+   * @title 主题色
+   */
   brandColor?: string;
-  /** 辅助色 */
+  /**
+   * @title 辅助色
+   */
   subColor?: string;
-  /** 分类色板 1，在数据量小于等于 10 时使用 */
+  /**
+   * @title 分类色板 1，在数据量小于等于 10 时使用
+   */
   paletteQualitative10?: string[];
-  /** 分类色板 2，在数据量大于 10 时使用 */
+  /**
+   * @title 分类色板 2，在数据量大于 10 时使用
+   */
   paletteQualitative20?: string[];
-  /** 语义色 */
+  /**
+   * @title 语义色
+   */
   paletteSemanticRed?: string;
-  /** 语义色 */
+  /**
+   * @title 语义色
+   */
   paletteSemanticGreen?: string;
-  /** 语义色 */
+  /**
+   * @title 语义色
+   */
   paletteSemanticYellow?: string;
-  /** (单色)顺序色板 */
+  /**
+   * @title (单色)顺序色板
+   */
   paletteSequence?: string[];
-  /** 字体 */
+  /**
+   * @title 字体
+   */
   fontFamily?: string;
 
   // -------------------- 坐标轴 --------------------
-  /** 坐标轴线颜色 */
+  /**
+   * @title 坐标轴线颜色
+   */
   axisLineBorderColor?: string;
-  /** 坐标轴线粗细 */
+  /**
+   * @title 坐标轴线粗细
+   */
   axisLineBorder?: number;
-  /** 坐标轴线 lineDash 设置 */
+  /**
+   * @title 坐标轴线 lineDash 设置
+   */
   axisLineDash?: number[];
 
-  /** 坐标轴标题颜色 */
+  /**
+   * @title 坐标轴标题颜色
+   */
   axisTitleTextFillColor?: string;
-  /** 坐标轴标题文本字体大小 */
+  /**
+   * @title 坐标轴标题文本字体大小
+   */
   axisTitleTextFontSize?: number;
-  /** 坐标轴标题文本行高 */
+  /**
+   * @title 坐标轴标题文本行高
+   */
   axisTitleTextLineHeight?: number;
-  /** 坐标轴标题文本字体粗细 */
+  /**
+   * @title 坐标轴标题文本字体粗细
+   */
   axisTitleTextFontWeight?: number | string;
-  /** 坐标轴标题距离坐标轴文本的间距 */
+  /**
+   * @title 坐标轴标题距离坐标轴文本的间距
+   */
   axisTitleSpacing?: number;
 
-  /** 坐标轴刻度线颜色 */
+  /**
+   * @title 坐标轴刻度线颜色
+   */
   axisTickLineBorderColor?: string;
-  /** 坐标轴刻度线长度 */
+  /**
+   * @title 坐标轴刻度线长度
+   */
   axisTickLineLength?: number;
-  /** 坐标轴刻度线粗细 */
+  /**
+   * @title 坐标轴刻度线粗细
+   */
   axisTickLineBorder?: number;
 
-  /** 坐标轴次刻度线颜色 */
+  /**
+   * @title 坐标轴次刻度线颜色
+   */
   axisSubTickLineBorderColor?: string;
-  /** 坐标轴次刻度线长度 */
+  /**
+   * @title 坐标轴次刻度线长度
+   */
   axisSubTickLineLength?: number;
-  /** 坐标轴次刻度线粗细 */
+  /**
+   * @title 坐标轴次刻度线粗细
+   */
   axisSubTickLineBorder?: number;
 
-  /** 坐标轴刻度文本颜色 */
+  /**
+   * @title 坐标轴刻度文本颜色
+   */
   axisLabelFillColor?: string;
-  /** 坐标轴刻度文本字体大小 */
+  /**
+   * @title 坐标轴刻度文本字体大小
+   */
   axisLabelFontSize?: number;
-  /** 坐标轴刻度文本行高 */
+  /**
+   * @title 坐标轴刻度文本行高
+   */
   axisLabelLineHeight?: number;
-  /** 坐标轴刻度文本字体粗细 */
+  /**
+   * @title 坐标轴刻度文本字体粗细
+   */
   axisLabelFontWeight?: number | string;
-  /** 坐标轴刻度文本距离坐标轴线的间距 */
+  /**
+   * @title 坐标轴刻度文本距离坐标轴线的间距
+   */
   axisLabelOffset: number;
 
-  /** 坐标轴网格线颜色 */
+  /**
+   * @title 坐标轴网格线颜色
+   */
   axisGridBorderColor?: string;
-  /** 坐标轴网格线粗细 */
+  /**
+   * @title 坐标轴网格线粗细
+   */
   axisGridBorder?: number;
-  /** 坐标轴网格线虚线设置 */
+  /**
+   * @title 坐标轴网格线虚线设置
+   */
   axisGridLineDash?: number[];
 
   // -------------------- 图例 --------------------
-  /** 图例标题颜色 */
+  /**
+   * @title 图例标题颜色
+   */
   legendTitleTextFillColor?: string;
-  /** 图例标题文本字体大小 */
+  /**
+   * @title 图例标题文本字体大小
+   */
   legendTitleTextFontSize?: number;
-  /** 图例标题文本行高 */
+  /**
+   * @title 图例标题文本行高
+   */
   legendTitleTextLineHeight?: number;
-  /** 图例标题文本字体粗细 */
+  /**
+   * @title 图例标题文本字体粗细
+   */
   legendTitleTextFontWeight?: number | string;
 
-  /** 图例 marker 颜色 */
+  /**
+   * @title 图例 marker 颜色
+   */
   legendMarkerColor?: string;
-  /** 图例 marker 距离图例文本的间距 */
+  /**
+   * @title 图例 marker 距离图例文本的间距
+   */
   legendMarkerSpacing?: number;
-  /** 图例 marker 默认半径大小 */
+  /**
+   * @title 图例 marker 默认半径大小
+   */
   legendMarkerSize?: number;
-  /** 图例 'circle' marker 半径 */
+  /**
+   * @title 图例 'circle' marker 半径
+   */
   legendCircleMarkerSize?: number;
-  /** 图例 'square' marker 半径 */
+  /**
+   * @title 图例 'square' marker 半径
+   */
   legendSquareMarkerSize?: number;
-  /** 图例 'line' marker 半径 */
+  /**
+   * @title 图例 'line' marker 半径
+   */
   legendLineMarkerSize?: number;
 
-  /** 图例项文本颜色 */
+  /**
+   * @title 图例项文本颜色
+   */
   legendItemNameFillColor?: string;
-  /** 图例项文本字体大小 */
+  /**
+   * @title 图例项文本字体大小
+   */
   legendItemNameFontSize?: number;
-  /** 图例项文本行高 */
+  /**
+   * @title 图例项文本行高
+   */
   legendItemNameLineHeight?: number;
-  /** 图例项粗细 */
+  /**
+   * @title 图例项粗细
+   */
   legendItemNameFontWeight?: number | string;
-  /** 图例项之间的水平间距 */
+  /**
+   * @title 图例项之间的水平间距
+   */
   legendItemSpacing?: number;
-  /** 图例项垂直方向的间隔 */
+  /**
+   * @title 图例项垂直方向的间隔
+   */
   legendItemMarginBottom?: number;
-  /** 图例与图表绘图区域的偏移距离  */
+  /**
+   * @title 图例与图表绘图区域的偏移距离
+   */
   legendPadding?: number[];
-  /** 水平布局的图例与绘图区域偏移距离 */
+  /**
+   * @title 水平布局的图例与绘图区域偏移距离
+   */
   legendHorizontalPadding?: number[];
-  /** 垂直布局的图例与绘图区域偏移距离 */
+  /**
+   * @title 垂直布局的图例与绘图区域偏移距离
+   */
   legendVerticalPadding?: number[];
 
-  /** 图例分页器 marker 大小 */
+  /**
+   * @title 图例分页器 marker 大小
+   */
   legendPageNavigatorMarkerSize: number;
-  /** 图例分页器 marker 非激活状态填充色 */
+  /**
+   * @title 图例分页器 marker 非激活状态填充色
+   */
   legendPageNavigatorMarkerInactiveFillColor: string;
-  /** 图例分页器 marker 非激活状态填充色透明度 */
+  /**
+   * @title 图例分页器 marker 非激活状态填充色透明度
+   */
   legendPageNavigatorMarkerInactiveFillOpacity: number;
-  /** 图例分页器 marker 填充色 */
+  /**
+   * @title 图例分页器 marker 填充色
+   */
   legendPageNavigatorMarkerFillColor: string;
-  /** 图例分页器 marker 填充色透明度 */
+  /**
+   * @title 图例分页器 marker 填充色透明度
+   */
   legendPageNavigatorMarkerFillOpacity: number;
-  /** 图例分页器文本颜色 */
+  /**
+   * @title 图例分页器文本颜色
+   */
   legendPageNavigatorTextFillColor: string;
-  /** 图例分页器文本字体大小 */
+  /**
+   * @title 图例分页器文本字体大小
+   */
   legendPageNavigatorTextFontSize: number;
 
-  /** 连续图例滑块填充色 */
+  /**
+   * @title 连续图例滑块填充色
+   */
   sliderRailFillColor?: string;
-  /** 连续图例滑块边框粗细 */
+  /**
+   * @title 连续图例滑块边框粗细
+   */
   sliderRailBorder?: number;
-  /** 连续图例滑块边框颜色 */
+  /**
+   * @title 连续图例滑块边框颜色
+   */
   sliderRailBorderColor?: string;
-  /** 连续图例滑块宽度 */
+  /**
+   * @title 连续图例滑块宽度
+   */
   sliderRailWidth?: number;
-  /** 连续图例滑块高度 */
+  /**
+   * @title 连续图例滑块高度
+   */
   sliderRailHeight?: number;
 
-  /** 连续图例文本颜色 */
+  /**
+   * @title 连续图例文本颜色
+   */
   sliderLabelTextFillColor?: string;
-  /** 连续图例文本字体大小 */
+  /**
+   * @title 连续图例文本字体大小
+   */
   sliderLabelTextFontSize?: number;
-  /** 连续图例文本行高 */
+  /**
+   * @title 连续图例文本行高
+   */
   sliderLabelTextLineHeight?: number;
-  /** 连续图例文本字体粗细 */
+  /**
+   * @title 连续图例文本字体粗细
+   */
   sliderLabelTextFontWeight?: number | string;
 
-  /** 连续图例滑块颜色 */
+  /**
+   * @title 连续图例滑块颜色
+   */
   sliderHandlerFillColor?: string;
-  /** 连续图例滑块宽度 */
+  /**
+   * @title 连续图例滑块宽度
+   */
   sliderHandlerWidth?: number;
-  /** 连续图例滑块高度 */
+  /**
+   * @title 连续图例滑块高度
+   */
   sliderHandlerHeight?: number;
-  /** 连续图例滑块边框粗细 */
+  /**
+   * @title 连续图例滑块边框粗细
+   */
   sliderHandlerBorder?: number;
-  /** 连续图例滑块边框颜色 */
+  /**
+   * @title 连续图例滑块边框颜色
+   */
   sliderHandlerBorderColor?: string;
 
   // -------------------- Annotation，图形标注 --------------------
-  /** arc 图形标注描边颜色 */
+  /**
+   * @title arc 图形标注描边颜色
+   */
   annotationArcBorderColor?: string;
-  /** arc 图形标注粗细 */
+  /**
+   * @title arc 图形标注粗细
+   */
   annotationArcBorder?: number;
 
-  /** line 图形标注颜色 */
+  /**
+   * @title line 图形标注颜色
+   */
   annotationLineBorderColor?: string;
-  /** line 图形标注粗细 */
+  /**
+   * @title line 图形标注粗细
+   */
   annotationLineBorder?: number;
-  /** lube 图形标注的虚线间隔 */
+  /**
+   * @title lube 图形标注的虚线间隔
+   */
   annotationLineDash?: number[];
 
-  /** text 图形标注文本颜色 */
+  /**
+   * @title text 图形标注文本颜色
+   */
   annotationTextFillColor?: string;
-  /** text 图形标注文本字体大小 */
+  /**
+   * @title text 图形标注文本字体大小
+   */
   annotationTextFontSize?: number;
-  /** text 图形标注文本行高 */
+  /**
+   * @title text 图形标注文本行高
+   */
   annotationTextLineHeight?: number;
-  /** text 图形标注文本字体粗细 */
+  /**
+   * @title text 图形标注文本字体粗细
+   */
   annotationTextFontWeight?: number | string;
 
-  /** text 图形标注文本边框颜色 */
+  /**
+   * @title text 图形标注文本边框颜色
+   */
   annotationTextBorderColor?: string;
-  /** text 图形标注文本边框粗细 */
+  /**
+   * @title text 图形标注文本边框粗细
+   */
   annotationTextBorder?: number;
 
-  /** region 图形标注填充颜色 */
+  /**
+   * @title region 图形标注填充颜色
+   */
   annotationRegionFillColor?: string;
-  /** region 图形标注填充颜色透明色 */
+  /**
+   * @title region 图形标注填充颜色透明色
+   */
   annotationRegionFillOpacity?: number;
-  /** region 图形标注描边粗细 */
+  /**
+   * @title region 图形标注描边粗细
+   */
   annotationRegionBorder?: number;
-  /** region 图形标注描边颜色 */
+  /**
+   * @title region 图形标注描边颜色
+   */
   annotationRegionBorderColor?: string;
 
-  /** dataMarker 图形标注的连接线长度 */
+  /**
+   * @title dataMarker 图形标注的连接线长度
+   */
   annotationDataMarkerLineLength?: number;
 
   // -------------------- Tooltip --------------------
-  /** tooltip crosshairs 辅助线颜色 */
+  /**
+   * @title tooltip crosshairs 辅助线颜色
+   */
   tooltipCrosshairsBorderColor?: string;
-  /** tooltip crosshairs 辅助线粗细 */
+  /**
+   * @title tooltip crosshairs 辅助线粗细
+   */
   tooltipCrosshairsBorder?: number;
-  /** tooltip crosshairs 辅助线虚线间隔 */
+  /**
+   * @title tooltip crosshairs 辅助线虚线间隔
+   */
   tooltipCrosshairsLineDash?: number[];
 
-  /** tooltip 内容框背景色 */
+  /**
+   * @title tooltip 内容框背景色
+   */
   tooltipContainerFillColor?: string;
-  /** tooltip 内容框背景透明度 */
+  /**
+   * @title tooltip 内容框背景透明度
+   */
   tooltipContainerFillOpacity?: number;
-  /** tooltip 内容框阴影 */
+  /**
+   * @title tooltip 内容框阴影
+   */
   tooltipContainerShadow?: string;
-  /** tooltip 内容框圆角 */
+  /**
+   * @title tooltip 内容框圆角
+   */
   tooltipContainerBorderRadius?: number;
 
-  /** tooltip 文本颜色 */
+  /**
+   * @title tooltip 文本颜色
+   */
   tooltipTextFillColor?: string;
-  /** tooltip 文本字体大小 */
+  /**
+   * @title tooltip 文本字体大小
+   */
   tooltipTextFontSize?: number;
-  /** tooltip 文本行高 */
+  /**
+   * @title tooltip 文本行高
+   */
   tooltipTextLineHeight?: number;
-  /** tooltip 文本字体粗细 */
+  /**
+   * @title tooltip 文本字体粗细
+   */
   tooltipTextFontWeight?: number | string;
 
   // -------------------- Geometry labels --------------------
-  /** Geometry label 文本颜色 */
+  /**
+   * @title Geometry label 文本颜色
+   */
   labelFillColor?: string;
-  /** Geometry label 暗色文本颜色 */
+  /**
+   * @title Geometry label 暗色文本颜色
+   */
   labelFillColorDark?: string;
-  /** Geometry label 亮色文本颜色 */
+  /**
+   * @title Geometry label 亮色文本颜色
+   */
   labelFillColorLight?: string;
-  /** Geometry label 文本字体大小 */
+  /**
+   * @title Geometry label 文本字体大小
+   */
   labelFontSize?: number;
-  /** Geometry label 文本行高 */
+  /**
+   * @title Geometry label 文本行高
+   */
   labelLineHeight?: number;
-  /** Geometry label 文本字体粗细 */
+  /**
+   * @title Geometry label 文本字体粗细
+   */
   labelFontWeight?: number | string;
-  /** Geometry label 文本描边颜色 */
+  /**
+   * @title Geometry label 文本描边颜色
+   */
   labelBorderColor?: string;
-  /** Geometry label 文本描边粗细 */
+  /**
+   * @title Geometry label 文本描边粗细
+   */
   labelBorder?: number;
 
-  /** Geometry innerLabel 文本颜色 */
+  /**
+   * @title Geometry innerLabel 文本颜色
+   */
   innerLabelFillColor?: string;
-  /** Geometry innerLabel 文本字体大小 */
+  /**
+   * @title Geometry innerLabel 文本字体大小
+   */
   innerLabelFontSize?: number;
-  /** Geometry innerLabel 文本行高 */
+  /**
+   * @title Geometry innerLabel 文本行高
+   */
   innerLabelLineHeight?: number;
-  /** Geometry innerLabel 文本字体粗细 */
+  /**
+   * @title Geometry innerLabel 文本字体粗细
+   */
   innerLabelFontWeight?: number | string;
-  /** Geometry innerLabel 文本描边颜色 */
+  /**
+   * @title Geometry innerLabel 文本描边颜色
+   */
   innerLabelBorderColor?: string;
-  /** Geometry innerLabel 文本描边粗细 */
+  /**
+   * @title Geometry innerLabel 文本描边粗细
+   */
   innerLabelBorder?: number;
 
-  /** Geometry overflowLabel 文本颜色 */
+  /**
+   * @title Geometry overflowLabel 文本颜色
+   */
   overflowLabelFillColor?: string;
-  /** Geometry overflowLabel 暗色文本颜色 */
+  /**
+   * @title Geometry overflowLabel 暗色文本颜色
+   */
   overflowLabelFillColorDark?: string;
-  /** Geometry overflowLabel 亮色文本颜色 */
+  /**
+   * @title Geometry overflowLabel 亮色文本颜色
+   */
   overflowLabelFillColorLight?: string;
-  /** Geometry overflowLabel 文本字体大小 */
+  /**
+   * @title Geometry overflowLabel 文本字体大小
+   */
   overflowLabelFontSize?: number;
-  /** Geometry overflowLabel 文本行高 */
+  /**
+   * @title Geometry overflowLabel 文本行高
+   */
   overflowLabelLineHeight?: number;
-  /** Geometry overflowLabel 文本字体粗细 */
+  /**
+   * @title Geometry overflowLabel 文本字体粗细
+   */
   overflowLabelFontWeight?: number | string;
-  /** Geometry overflowLabel 文本描边颜色 */
+  /**
+   * @title Geometry overflowLabel 文本描边颜色
+   */
   overflowLabelBorderColor?: string;
-  /** Geometry overflowLabel 文本描边粗细 */
+  /**
+   * @title Geometry overflowLabel 文本描边粗细
+   */
   overflowLabelBorder?: number;
 
-  /** Geometry label 文本连接线粗细 */
+  /**
+   * @title Geometry label 文本连接线粗细
+   */
   labelLineBorder?: number;
-  /** Geometry label 文本连接线颜色 */
+  /**
+   * @title Geometry label 文本连接线颜色
+   */
   labelLineBorderColor?: string;
 
   // -------------------- Slider 组件样式--------------------
-  /** slider 滑道高度 */
+  /**
+   * @title slider 滑道高度
+   */
   cSliderRailHieght?: number;
-  /** slider 滑道背景色 */
+  /**
+   * @title slider 滑道背景色
+   */
   cSliderBackgroundFillColor?: string;
-  /** slider 滑道背景色透明度 */
+  /**
+   * @title slider 滑道背景色透明度
+   */
   cSliderBackgroundFillOpacity?: number;
-  /** slider 滑道前景色 */
+  /**
+   * @title slider 滑道前景色
+   */
   cSliderForegroundFillColor?: string;
-  /** slider 滑道前景色透明度 */
+  /**
+   * @title slider 滑道前景色透明度
+   */
   cSliderForegroundFillOpacity?: number;
 
   // slider handlerStyle 手柄样式
-  /** slider 手柄高度 */
+  /**
+   * @title slider 手柄高度
+   */
   cSliderHandlerHeight?: number;
-  /** Slider 手柄宽度 */
+  /**
+   * @title Slider 手柄宽度
+   */
   cSliderHandlerWidth?: number;
-  /** Slider 手柄背景色 */
+  /**
+   * @title Slider 手柄背景色
+   */
   cSliderHandlerFillColor?: string;
-  /** Slider 手柄背景色透明度 */
+  /**
+   * @title Slider 手柄背景色透明度
+   */
   cSliderHandlerFillOpacity?: number;
-  /** Slider 手柄高亮背景色 */
+  /**
+   * @title Slider 手柄高亮背景色
+   */
   cSliderHandlerHighlightFillColor?: string;
-  /** Slider 手柄边框色 */
+  /**
+   * @title Slider 手柄边框色
+   */
   cSliderHandlerBorderColor?: string;
-  /** Slider 手柄边框粗细 */
+  /**
+   * @title Slider 手柄边框粗细
+   */
   cSliderHandlerBorder?: number;
-  /** Slider 手柄边框圆角 */
+  /**
+   * @title Slider 手柄边框圆角
+   */
   cSliderHandlerBorderRadius?: number;
 
   // slider textStyle 字体标签样式
-  /** Slider 字体标签颜色 */
+  /**
+   * @title Slider 字体标签颜色
+   */
   cSliderTextFillColor?: string;
-  /** Slider 字体标签透明度 */
+  /**
+   * @title Slider 字体标签透明度
+   */
   cSliderTextFillOpacity?: number;
-  /** Slider 字体标签大小 */
+  /**
+   * @title Slider 字体标签大小
+   */
   cSliderTextFontSize?: number;
-  /** Slider 字体标签行高 */
+  /**
+   * @title Slider 字体标签行高
+   */
   cSliderTextLineHeight?: number;
-  /** Slider 字体标签字重 */
+  /**
+   * @title Slider 字体标签字重
+   */
   cSliderTextFontWeight?: number | string;
-  /** Slider 字体标签描边色 */
+  /**
+   * @title Slider 字体标签描边色
+   */
   cSliderTextBorderColor?: string;
-  /** Slider 字体标签描边粗细 */
+  /**
+   * @title Slider 字体标签描边粗细
+   */
   cSliderTextBorder?: number;
 
   // -------------------- Scrollbar 组件样式--------------------
-  /** 滚动条 滚道填充色 */
+  /**
+   * @title 滚动条 滚道填充色
+   */
   scrollbarTrackFillColor?: string;
-  /** 滚动条 滑块填充色 */
+  /**
+   * @title 滚动条 滑块填充色
+   */
   scrollbarThumbFillColor?: string;
-  /** 滚动条 滑块高亮填充色 */
+  /**
+   * @title 滚动条 滑块高亮填充色
+   */
   scrollbarThumbHighlightFillColor?: string;
 
   // -------------------- Geometry 图形样式--------------------
-  /** 点图的大小范围 */
+  /**
+   * @title 点图的大小范围
+   */
   pointSizeRange?: [number, number];
-  /** 点图填充颜色 */
+  /**
+   * @title 点图填充颜色
+   */
   pointFillColor?: string;
-  /** 点图填充颜色透明度 */
+  /**
+   * @title 点图填充颜色透明度
+   */
   pointFillOpacity?: number;
-  /** 点图大小 */
+  /**
+   * @title 点图大小
+   */
   pointSize?: number;
-  /** 点图描边粗细 */
+  /**
+   * @title 点图描边粗细
+   */
   pointBorder?: number;
-  /** 点图描边颜色 */
+  /**
+   * @title 点图描边颜色
+   */
   pointBorderColor?: string;
-  /** 点图描边透明度 */
+  /**
+   * @title 点图描边透明度
+   */
   pointBorderOpacity?: number;
 
-  /** 点图 active 状态下填充颜色 */
+  /**
+   * @title 点图 active 状态下填充颜色
+   */
   pointActiveFillColor?: string;
-  /** 点图 active 状态下填充颜色透明度 */
+  /**
+   * @title 点图 active 状态下填充颜色透明度
+   */
   pointActiveFillOpacity?: number;
-  /** 点图 active 状态下大小 */
+  /**
+   * @title 点图 active 状态下大小
+   */
   pointActiveSize?: number;
-  /** 点图 active 状态下描边粗细 */
+  /**
+   * @title 点图 active 状态下描边粗细
+   */
   pointActiveBorder?: number;
-  /** 点图 active 状态下描边颜色 */
+  /**
+   * @title 点图 active 状态下描边颜色
+   */
   pointActiveBorderColor?: string;
-  /** 点图 active 状态下描边透明度 */
+  /**
+   * @title 点图 active 状态下描边透明度
+   */
   pointActiveBorderOpacity?: number;
 
-  /** 点图 selected 状态下填充颜色 */
+  /**
+   * @title 点图 selected 状态下填充颜色
+   */
   pointSelectedFillColor?: string;
-  /** 点图 selected 状态下填充颜色透明度 */
+  /**
+   * @title 点图 selected 状态下填充颜色透明度
+   */
   pointSelectedFillOpacity?: number;
-  /** 点图 selected 状态下大小 */
+  /**
+   * @title 点图 selected 状态下大小
+   */
   pointSelectedSize?: number;
-  /** 点图 selected 状态下描边粗细 */
+  /**
+   * @title 点图 selected 状态下描边粗细
+   */
   pointSelectedBorder?: number;
-  /** 点图 selected 状态下描边颜色 */
+  /**
+   * @title 点图 selected 状态下描边颜色
+   */
   pointSelectedBorderColor?: string;
-  /** 点图 selected 状态下描边透明度 */
+  /**
+   * @title 点图 selected 状态下描边透明度
+   */
   pointSelectedBorderOpacity?: number;
 
-  /** 点图 inactive 状态下填充颜色 */
+  /**
+   * @title 点图 inactive 状态下填充颜色
+   */
   pointInactiveFillColor?: string;
-  /** 点图 inactive 状态下填充颜色透明度 */
+  /**
+   * @title 点图 inactive 状态下填充颜色透明度
+   */
   pointInactiveFillOpacity?: number;
-  /** 点图 inactive 状态下大小 */
+  /**
+   * @title 点图 inactive 状态下大小
+   */
   pointInactiveSize?: number;
-  /** 点图 inactive 状态下描边粗细 */
+  /**
+   * @title 点图 inactive 状态下描边粗细
+   */
   pointInactiveBorder?: number;
-  /** 点图 inactive 状态下描边颜色 */
+  /**
+   * @title 点图 inactive 状态下描边颜色
+   */
   pointInactiveBorderColor?: string;
-  /** 点图 inactive 状态下描边透明度 */
+  /**
+   * @title 点图 inactive 状态下描边透明度
+   */
   pointInactiveBorderOpacity?: number;
 
-  /** 描边点图大小 */
+  /**
+   * @title 描边点图大小
+   */
   hollowPointSize?: number;
-  /** 描边点图描边粗细 */
+  /**
+   * @title 描边点图描边粗细
+   */
   hollowPointBorder?: number;
-  /** 描边点图描边颜色 */
+  /**
+   * @title 描边点图描边颜色
+   */
   hollowPointBorderColor?: string;
-  /** 描边点图描边透明度 */
+  /**
+   * @title 描边点图描边透明度
+   */
   hollowPointBorderOpacity?: number;
-  /** 描边点图填充颜色 */
+  /**
+   * @title 描边点图填充颜色
+   */
   hollowPointFillColor?: string;
-  /** 描边点图填充透明度 */
+  /**
+   * @title 描边点图填充透明度
+   */
   hollowPointFillOpacity?: number;
 
-  /** 点 描边 active 状态下大小 */
+  /**
+   * @title 点 描边 active 状态下大小
+   */
   hollowPointActiveSize?: number;
-  /** 点 描边 active 状态下描边粗细 */
+  /**
+   * @title 点 描边 active 状态下描边粗细
+   */
   hollowPointActiveBorder?: number;
-  /** 点 描边 active 状态下描边颜色 */
+  /**
+   * @title 点 描边 active 状态下描边颜色
+   */
   hollowPointActiveBorderColor?: string;
-  /** 点 描边 active 状态下描边透明度 */
+  /**
+   * @title 点 描边 active 状态下描边透明度
+   */
   hollowPointActiveBorderOpacity?: number;
 
-  /** 点 描边 selected 状态下大小 */
+  /**
+   * @title 点 描边 selected 状态下大小
+   */
   hollowPointSelectedSize?: number;
-  /** 点 描边 selected 状态下描边粗细 */
+  /**
+   * @title 点 描边 selected 状态下描边粗细
+   */
   hollowPointSelectedBorder?: number;
-  /** 点 描边 selected 状态下描边颜色 */
+  /**
+   * @title 点 描边 selected 状态下描边颜色
+   */
   hollowPointSelectedBorderColor?: string;
-  /** 点 描边 selected 状态下描边透明度 */
+  /**
+   * @title 点 描边 selected 状态下描边透明度
+   */
   hollowPointSelectedBorderOpacity?: number;
 
-  /** 点 描边 inactive 状态下大小 */
+  /**
+   * @title 点 描边 inactive 状态下大小
+   */
   hollowPointInactiveSize?: number;
-  /** 点 描边 inactive 状态下描边粗细 */
+  /**
+   * @title 点 描边 inactive 状态下描边粗细
+   */
   hollowPointInactiveBorder?: number;
-  /** 点 描边 inactive 状态下描边颜色 */
+  /**
+   * @title 点 描边 inactive 状态下描边颜色
+   */
   hollowPointInactiveBorderColor?: string;
-  /** 点 描边 inactive 状态下描边透明度 */
+  /**
+   * @title 点 描边 inactive 状态下描边透明度
+   */
   hollowPointInactiveBorderOpacity?: number;
 
-  /** 线图粗细 */
+  /**
+   * @title 线图粗细
+   */
   lineBorder?: number;
-  /** 线图颜色 */
+  /**
+   * @title 线图颜色
+   */
   lineBorderColor?: string;
-  /** 线图透明度 */
+  /**
+   * @title 线图透明度
+   */
   lineBorderOpacity?: number;
 
-  /** 线图 active 状态下粗细 */
+  /**
+   * @title 线图 active 状态下粗细
+   */
   lineActiveBorder?: number;
-  /** 线图 active 状态下颜色 */
+  /**
+   * @title 线图 active 状态下颜色
+   */
   lineActiveBorderColor?: string;
-  /** 线图 active 状态下透明度 */
+  /**
+   * @title 线图 active 状态下透明度
+   */
   lineActiveBorderOpacity?: number;
 
-  /** 线图 selected 状态下粗细 */
+  /**
+   * @title 线图 selected 状态下粗细
+   */
   lineSelectedBorder?: number;
-  /** 线图 selected 状态下颜色 */
+  /**
+   * @title 线图 selected 状态下颜色
+   */
   lineSelectedBorderColor?: string;
-  /** 线图 selected 状态下透明度 */
+  /**
+   * @title 线图 selected 状态下透明度
+   */
   lineSelectedBorderOpacity?: number;
 
-  /** 线图 inactive 状态下粗细 */
+  /**
+   * @title 线图 inactive 状态下粗细
+   */
   lineInactiveBorder?: number;
-  /** 线图 inactive 状态下颜色 */
+  /**
+   * @title 线图 inactive 状态下颜色
+   */
   lineInactiveBorderColor?: string;
-  /** 线图 inactive 状态下透明度 */
+  /**
+   * @title 线图 inactive 状态下透明度
+   */
   lineInactiveBorderOpacity?: number;
 
   areaBorder?: number;
-  /** area 边框颜色 */
+  /**
+   * @title area 边框颜色
+   */
   areaBorderColor?: string;
-  /** area 边框透明度 */
+  /**
+   * @title area 边框透明度
+   */
   areaBorderOpacity?: number;
-  /** area 填充颜色 */
+  /**
+   * @title area 填充颜色
+   */
   areaFillColor?: string;
-  /** area 填充透明度 */
+  /**
+   * @title area 填充透明度
+   */
   areaFillOpacity?: number;
 
-  /** area Active 状态下边框粗细 */
+  /**
+   * @title area Active 状态下边框粗细
+   */
   areaActiveBorder?: number;
-  /** area Active 状态下边框颜色 */
+  /**
+   * @title area Active 状态下边框颜色
+   */
   areaActiveBorderColor?: string;
-  /** area Active 状态下边框透明度 */
+  /**
+   * @title area Active 状态下边框透明度
+   */
   areaActiveBorderOpacity?: number;
-  /** area Active 状态下填充颜色 */
+  /**
+   * @title area Active 状态下填充颜色
+   */
   areaActiveFillColor?: string;
-  /** area Active 状态下填充透明度 */
+  /**
+   * @title area Active 状态下填充透明度
+   */
   areaActiveFillOpacity?: number;
 
-  /** area selected 状态下边框粗细 */
+  /**
+   * @title area selected 状态下边框粗细
+   */
   areaSelectedBorder?: number;
-  /** area selected 状态下边框颜色 */
+  /**
+   * @title area selected 状态下边框颜色
+   */
   areaSelectedBorderColor?: string;
-  /** area selected 状态下边框透明度 */
+  /**
+   * @title area selected 状态下边框透明度
+   */
   areaSelectedBorderOpacity?: number;
-  /** area selected 状态下填充颜色 */
+  /**
+   * @title area selected 状态下填充颜色
+   */
   areaSelectedFillColor?: string;
-  /** area selected 状态下填充透明度 */
+  /**
+   * @title area selected 状态下填充透明度
+   */
   areaSelectedFillOpacity?: number;
 
-  /** area inactive 状态下边框粗细 */
+  /**
+   * @title area inactive 状态下边框粗细
+   */
   areaInactiveBorder?: number;
-  /** area inactive 状态下边框颜色 */
+  /**
+   * @title area inactive 状态下边框颜色
+   */
   areaInactiveBorderColor?: string;
-  /** area inactive 状态下边框透明度 */
+  /**
+   * @title area inactive 状态下边框透明度
+   */
   areaInactiveBorderOpacity?: number;
-  /** area inactive 状态下填充颜色 */
+  /**
+   * @title area inactive 状态下填充颜色
+   */
   areaInactiveFillColor?: string;
-  /** area inactive 状态下填充透明度 */
+  /**
+   * @title area inactive 状态下填充透明度
+   */
   areaInactiveFillOpacity?: number;
 
-  /** hollowArea 边框粗细 */
+  /**
+   * @title hollowArea 边框粗细
+   */
   hollowAreaBorder?: number;
-  /** hollowArea 边框颜色 */
+  /**
+   * @title hollowArea 边框颜色
+   */
   hollowAreaBorderColor?: string;
-  /** hollowArea 边框透明度 */
+  /**
+   * @title hollowArea 边框透明度
+   */
   hollowAreaBorderOpacity?: number;
 
-  /** hollowArea Active 状态下边框粗细 */
+  /**
+   * @title hollowArea Active 状态下边框粗细
+   */
   hollowAreaActiveBorder?: number;
-  /** hollowArea Active 状态下边框颜色 */
+  /**
+   * @title hollowArea Active 状态下边框颜色
+   */
   hollowAreaActiveBorderColor?: string;
-  /** hollowArea Active 状态下边框透明度 */
+  /**
+   * @title hollowArea Active 状态下边框透明度
+   */
   hollowAreaActiveBorderOpacity?: number;
 
-  /** hollowArea selected 状态下边框粗细 */
+  /**
+   * @title hollowArea selected 状态下边框粗细
+   */
   hollowAreaSelectedBorder?: number;
-  /** hollowArea selected 状态下边框颜色 */
+  /**
+   * @title hollowArea selected 状态下边框颜色
+   */
   hollowAreaSelectedBorderColor?: string;
-  /** hollowArea selected 状态下边框透明度 */
+  /**
+   * @title hollowArea selected 状态下边框透明度
+   */
   hollowAreaSelectedBorderOpacity?: number;
 
-  /** hollowArea inactive 状态下边框粗细 */
+  /**
+   * @title hollowArea inactive 状态下边框粗细
+   */
   hollowAreaInactiveBorder?: number;
-  /** hollowArea inactive 状态下边框颜色 */
+  /**
+   * @title hollowArea inactive 状态下边框颜色
+   */
   hollowAreaInactiveBorderColor?: string;
-  /** hollowArea inactive 状态下边框透明度 */
+  /**
+   * @title hollowArea inactive 状态下边框透明度
+   */
   hollowAreaInactiveBorderOpacity?: number;
 
-  /** interval 边框粗细 */
+  /**
+   * @title interval 边框粗细
+   */
   intervalBorder?: number;
-  /** interval 边框颜色 */
+  /**
+   * @title interval 边框颜色
+   */
   intervalBorderColor?: string;
-  /** interval 边框透明度 */
+  /**
+   * @title interval 边框透明度
+   */
   intervalBorderOpacity?: number;
-  /** interval 填充颜色 */
+  /**
+   * @title interval 填充颜色
+   */
   intervalFillColor?: string;
-  /** interval 填充透明度 */
+  /**
+   * @title interval 填充透明度
+   */
   intervalFillOpacity?: number;
 
-  /** interval active 状态下边框粗细 */
+  /**
+   * @title interval active 状态下边框粗细
+   */
   intervalActiveBorder?: number;
-  /** interval active 状态下边框颜色 */
+  /**
+   * @title interval active 状态下边框颜色
+   */
   intervalActiveBorderColor?: string;
-  /** interval active 状态下边框透明度 */
+  /**
+   * @title interval active 状态下边框透明度
+   */
   intervalActiveBorderOpacity?: number;
-  /** interval active 状态下填充颜色 */
+  /**
+   * @title interval active 状态下填充颜色
+   */
   intervalActiveFillColor?: string;
-  /** interval active 状态下填充透明度 */
+  /**
+   * @title interval active 状态下填充透明度
+   */
   intervalActiveFillOpacity?: number;
 
-  /** interval selected 状态下边框粗细 */
+  /**
+   * @title interval selected 状态下边框粗细
+   */
   intervalSelectedBorder?: number;
-  /** interval selected 状态下边框颜色 */
+  /**
+   * @title interval selected 状态下边框颜色
+   */
   intervalSelectedBorderColor?: string;
-  /** interval selected 状态下边框透明度 */
+  /**
+   * @title interval selected 状态下边框透明度
+   */
   intervalSelectedBorderOpacity?: number;
-  /** interval selected 状态下填充颜色 */
+  /**
+   * @title interval selected 状态下填充颜色
+   */
   intervalSelectedFillColor?: string;
-  /** interval selected 状态下填充透明度 */
+  /**
+   * @title interval selected 状态下填充透明度
+   */
   intervalSelectedFillOpacity?: number;
 
-  /** interval inactive 状态下边框粗细 */
+  /**
+   * @title interval inactive 状态下边框粗细
+   */
   intervalInactiveBorder?: number;
-  /** interval inactive 状态下边框颜色 */
+  /**
+   * @title interval inactive 状态下边框颜色
+   */
   intervalInactiveBorderColor?: string;
-  /** interval inactive 状态下边框透明度 */
+  /**
+   * @title interval inactive 状态下边框透明度
+   */
   intervalInactiveBorderOpacity?: number;
-  /** interval inactive 状态下填充颜色 */
+  /**
+   * @title interval inactive 状态下填充颜色
+   */
   intervalInactiveFillColor?: string;
-  /** interval inactive 状态下填充透明度 */
+  /**
+   * @title interval inactive 状态下填充透明度
+   */
   intervalInactiveFillOpacity?: number;
 
-  /** hollowInterval 边框粗细 */
+  /**
+   * @title hollowInterval 边框粗细
+   */
   hollowIntervalBorder?: number;
-  /** hollowInterval 边框颜色 */
+  /**
+   * @title hollowInterval 边框颜色
+   */
   hollowIntervalBorderColor?: string;
-  /** hollowInterval 边框透明度 */
+  /**
+   * @title hollowInterval 边框透明度
+   */
   hollowIntervalBorderOpacity?: number;
-  /** hollowInterval 填充颜色 */
+  /**
+   * @title hollowInterval 填充颜色
+   */
   hollowIntervalFillColor?: string;
-  /** hollowInterval 填充透明度 */
+  /**
+   * @title hollowInterval 填充透明度
+   */
   hollowIntervalFillOpacity?: number;
 
-  /** hollowInterval active 状态下边框粗细 */
+  /**
+   * @title hollowInterval active 状态下边框粗细
+   */
   hollowIntervalActiveBorder?: number;
-  /** hollowInterval active 状态下边框颜色 */
+  /**
+   * @title hollowInterval active 状态下边框颜色
+   */
   hollowIntervalActiveBorderColor?: string;
-  /** hollowInterval active 状态下边框透明度 */
+  /**
+   * @title hollowInterval active 状态下边框透明度
+   */
   hollowIntervalActiveBorderOpacity?: number;
 
-  /** hollowInterval selected 状态下边框粗细 */
+  /**
+   * @title hollowInterval selected 状态下边框粗细
+   */
   hollowIntervalSelectedBorder?: number;
-  /** hollowInterval selected 状态下边框颜色 */
+  /**
+   * @title hollowInterval selected 状态下边框颜色
+   */
   hollowIntervalSelectedBorderColor?: string;
-  /** hollowInterval selected 状态下边框透明度 */
+  /**
+   * @title hollowInterval selected 状态下边框透明度
+   */
   hollowIntervalSelectedBorderOpacity?: number;
 
-  /** hollowInterval inactive 状态下边框粗细 */
+  /**
+   * @title hollowInterval inactive 状态下边框粗细
+   */
   hollowIntervalInactiveBorder?: number;
-  /** hollowInterval inactive 状态下边框颜色 */
+  /**
+   * @title hollowInterval inactive 状态下边框颜色
+   */
   hollowIntervalInactiveBorderColor?: string;
-  /** hollowInterval inactive 状态下边框透明度 */
+  /**
+   * @title hollowInterval inactive 状态下边框透明度
+   */
   hollowIntervalInactiveBorderOpacity?: number;
 }
 
-/** createTheme 主题样式表配置 */
+/**
+ * @title createTheme 主题样式表配置
+ */
 export type StyleSheetCfg = Pick<
   StyleSheet,
   | 'backgroundColor'
@@ -2448,7 +3846,9 @@ export type StyleSheetCfg = Pick<
 >;
 
 // ============================ 交互相关的类型定义 ============================
-/** 交互反馈的定义 */
+/**
+ * @title 交互反馈的定义
+ */
 export interface IAction {
   /**
    * 初始化
@@ -2468,15 +3868,21 @@ export interface IAction {
   destroy();
 }
 
-/** 交互上下文的接口定义 */
+/**
+ * @title 交互上下文的接口定义
+ */
 export interface IInteractionContext extends LooseObject {
-  /** 事件对象 */
+  /**
+   * @title 事件对象
+   */
   event: LooseObject;
   /**
    * 当前的 view
    */
   view: View;
-  /** 交互相关的 Actions */
+  /**
+   * @title 交互相关的 Actions
+   */
   actions: IAction[];
   /**
    * 缓存属性，用于上下文传递信息
@@ -2529,9 +3935,13 @@ export interface IInteractionContext extends LooseObject {
   destroy();
 }
 
-/** G 的渲染类型 */
+/**
+ * @title G 的渲染类型
+ */
 export type Renderer = 'svg' | 'canvas';
-/** 数据的定义 */
+/**
+ * @title 数据的定义
+ */
 export type Datum = Record<string, any>;
 export type Data = Datum[];
 export type ActionCallback = (context: IInteractionContext) => void;
@@ -2541,9 +3951,15 @@ export type ViewAppendPadding = number | number[];
 export type Position = [number, number];
 export type AttributeType = 'position' | 'size' | 'color' | 'shape';
 export type ShapeVertices = RangePoint[] | Point[] | Point[][];
-/** easing 的回调函数， 入参 data 为对应的原始数据记录 */
+/**
+ * @title easing 的回调函数， 入参 data 为对应的原始数据记录
+ */
 export type AnimateEasingCallback = (data: Datum) => string;
-/** delay 的回调函数， 入参 data 为对应的原始数据记录 */
+/**
+ * @title delay 的回调函数， 入参 data 为对应的原始数据记录
+ */
 export type AnimateDelayCallback = (data: Datum) => number;
-/** duration 的回调函数， 入参 data 为对应的原始数据记录 */
+/**
+ * @title duration 的回调函数， 入参 data 为对应的原始数据记录
+ */
 export type AnimateDurationCallback = (data: Datum) => number;
