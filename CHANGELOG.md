@@ -1,3 +1,9 @@
+#### 4.1.47 (2022-03-03)
+
+##### New Features
+
+*  基于新版本注释规范调整 interface 文件代码注释 ([#3817](https://github.com/antvis/g2/pull/3817)) ([d3ebdba4](https://github.com/antvis/g2/commit/d3ebdba44dacbd7bd58309d0b9e3f7c90f383dad))
+
 #### 4.1.46 (2022-02-11)
 
 ##### Documentation Changes
