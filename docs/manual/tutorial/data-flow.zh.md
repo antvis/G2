@@ -28,7 +28,7 @@ const chart = new G2.Chart({
   width: 400,
   height: 200
 });
-chart.source(data);
+chart.data(data);
 chart.point().position('month*temperature').color('city', [ '#1890FF', '#2FC25B' ]);
 chart.render();
 ```

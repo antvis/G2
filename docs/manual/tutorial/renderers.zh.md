@@ -84,7 +84,7 @@ const chart = new G2.Chart({
   padding: 'auto',
   renderer: 'svg'
 });
-chart.source(dv);
+chart.data(dv);
 chart.interval().position('月份*月均降雨量').color('name').adjust([{
   type: 'dodge',
   marginRatio: 1 / 32
