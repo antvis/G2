@@ -1,1 +1,1 @@
-export { drawRedRect } from './drawRedRect';
+export { render } from './runtime';

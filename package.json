@@ -83,5 +83,9 @@
   },
   "bugs": {
     "url": "https://github.com/antvis/template/issues"
+  },
+  "dependencies": {
+    "@antv/g": "^5.0.14",
+    "@antv/g-canvas": "^1.0.13"
   }
 }
