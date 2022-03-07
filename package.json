@@ -34,12 +34,14 @@
   ],
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
+    "@rollup/plugin-commonjs": "^21.0.2",
     "@types/jest": "^26.0.20",
     "@typescript-eslint/eslint-plugin": "^4.18.0",
     "@typescript-eslint/parser": "^4.18.0",
     "cross-env": "^7.0.3",
     "eslint": "^7.22.0",
     "eslint-plugin-import": "^2.22.1",
+    "husky": "^7.0.0",
     "jest": "^26.0.1",
     "jest-electron": "^0.1.12",
     "limit-size": "^0.1.4",
@@ -52,8 +54,7 @@
     "rollup-plugin-typescript": "^1.0.1",
     "rollup-plugin-uglify": "^6.0.4",
     "ts-jest": "^26.5.1",
-    "typescript": "^4.1.5",
-    "husky": "^7.0.0"
+    "typescript": "^4.1.5"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
@@ -65,12 +66,12 @@
   "limit-size": [
     {
       "path": "dist/template.min.js",
-      "limit": "500b",
+      "limit": "1 Mb",
       "gzip": true
     },
     {
       "path": "dist/template.min.js",
-      "limit": "1 Kb"
+      "limit": "1 Mb"
     }
   ],
   "author": {
