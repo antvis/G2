@@ -21,3 +21,5 @@ export type G2Context = {
   library?: G2Library;
   canvas?: Canvas;
 };
+
+export type Primitive = number | string | boolean | Date;
