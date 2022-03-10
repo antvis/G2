@@ -1,2 +1,4 @@
 export { render } from './render';
-export * from './types';
+
+export * from './types/common';
+export * from './types/component';

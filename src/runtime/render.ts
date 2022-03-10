@@ -1,10 +1,12 @@
-import { G2Spec } from '../spec';
 import { createLibrary } from '../stdlib';
 import { Canvas } from '../renderer';
-import { G2Context } from './types';
+import { G2Context, G2ViewTree } from './types/common';
 import { plot } from './plot';
 
-export function render(options: G2Spec, context: G2Context = {}): HTMLElement {
+export function render(
+  options: G2ViewTree,
+  context: G2Context = {},
+): HTMLElement {
   // Initialize the context if it is not provided.
   const { width = 640, height = 480 } = options;
   const {
@@ -24,5 +26,7 @@ export function render(options: G2Spec, context: G2Context = {}): HTMLElement {
 }
 
 function coerceHTMLElement(container: HTMLElement | string): HTMLElement {
-  return typeof container === 'string' ? document.getElementById(container) : container;
+  return typeof container === 'string'
+    ? document.getElementById(container)
+    : container;
 }

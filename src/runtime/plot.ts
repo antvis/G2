@@ -1,4 +1,3 @@
-import { G2Spec } from '../spec';
-import { G2Context } from './types';
+import { G2Context, G2ViewTree } from './types/common';
 
-export function plot(options: G2Spec, context: G2Context): void {}
+export function plot(options: G2ViewTree, context: G2Context): void {}

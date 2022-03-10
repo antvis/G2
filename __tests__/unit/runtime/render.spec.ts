@@ -1,5 +1,5 @@
 import { render } from '../../../src';
-import { createDiv, mount, unmountAll } from './utils';
+import { createDiv, mount, unmountAll } from '../../utils/dom';
 
 describe('render', () => {
   it('render({}) returns a canvas wrapped in HTMLElement with default size', () => {
