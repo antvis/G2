@@ -1,5 +1,5 @@
 import { Canvas } from '@antv/g';
-import { Primitive } from './common';
+import { Encodings, Primitive, MaybeArray, EncodeFunction } from './common';
 
 export type G2ComponentNamespaces = 'renderer';
 
@@ -20,8 +20,11 @@ export type RendererComponent<O = Record<string, unknown>> = G2BaseComponent<
   O
 >;
 
-export type Encode = (data: Record<string, Primitive>[]) => Primitive[];
+export type Encode = EncodeFunction;
 export type EncodeComponent<O = Record<string, unknown>> = G2BaseComponent<
   Encode,
   O
 >;
+
+export type Infer = (encodings: Encodings) => Encodings;
+export type InferComponent<O = void> = G2BaseComponent<Infer, O>;

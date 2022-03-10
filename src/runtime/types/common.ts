@@ -22,4 +22,19 @@ export type G2Context = {
   canvas?: Canvas;
 };
 
+export type MaybeArray<T> = T | T[];
+
 export type Primitive = number | string | boolean | Date;
+
+export type TabularData = Record<string, Primitive>[];
+
+export type EncodeFunction = (
+  data: Record<string, MaybeArray<Primitive>>[],
+) => MaybeArray<Primitive>[];
+
+export type Encoding =
+  | EncodeFunction
+  | Primitive
+  | { type: string; [key: string]: any };
+
+export type Encodings = Record<string, MaybeArray<Encoding>>;

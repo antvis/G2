@@ -2,7 +2,7 @@
   "compilerOptions": {
     "outDir": "lib",
     "module": "commonjs",
-    "target": "es5",
+    "target": "esnext",
     "jsx": "preserve",
     "moduleResolution": "node",
     "experimentalDecorators": true,
