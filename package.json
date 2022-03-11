@@ -87,6 +87,7 @@
   },
   "dependencies": {
     "@antv/g": "^5.0.14",
-    "@antv/g-canvas": "^1.0.13"
+    "@antv/g-canvas": "^1.0.13",
+    "@antv/scale": "^0.4.6"
   }
 }

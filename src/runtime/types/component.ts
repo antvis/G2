@@ -31,3 +31,12 @@ export type InferComponent<O = void> = G2BaseComponent<Infer, O>;
 
 export type Statistic = (value: IndexedValue) => IndexedValue;
 export type StatisticComponent<O = void> = G2BaseComponent<Statistic, O>;
+
+export type Scale = {
+  map: (x: any) => any;
+  invert: (x: any) => any;
+};
+export type ScaleComponent<O = Record<string, unknown>> = G2BaseComponent<
+  Scale,
+  O
+>;
