@@ -1,4 +1,5 @@
 import { Canvas } from '@antv/g';
+import { Transformation } from '@antv/coord';
 import { Encodings, IndexedValue, EncodeFunction } from './common';
 
 export type G2ComponentNamespaces = 'renderer';
@@ -38,5 +39,11 @@ export type Scale = {
 };
 export type ScaleComponent<O = Record<string, unknown>> = G2BaseComponent<
   Scale,
+  O
+>;
+
+export type Coordinate = Transformation[];
+export type CoordinateComponent<O = Record<string, unknown>> = G2BaseComponent<
+  Coordinate,
   O
 >;
