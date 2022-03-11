@@ -47,3 +47,9 @@ export type CoordinateComponent<O = Record<string, unknown>> = G2BaseComponent<
   Coordinate,
   O
 >;
+
+export type Palette = string[];
+export type PaletteComponent<O = Record<string, unknown>> = G2BaseComponent<
+  Palette,
+  O
+>;
