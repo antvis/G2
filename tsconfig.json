@@ -2,6 +2,7 @@
   "compilerOptions": {
     "outDir": "lib",
     "module": "commonjs",
+    // Change from es5 to esnext is for increasing test coverage.
     "target": "esnext",
     "jsx": "preserve",
     "moduleResolution": "node",

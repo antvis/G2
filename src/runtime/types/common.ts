@@ -38,3 +38,14 @@ export type Encoding =
   | { type: string; [key: string]: any };
 
 export type Encodings = Record<string, MaybeArray<Encoding>>;
+
+export type Value = {
+  x?: number[][];
+  y?: number[][];
+  position?: number[][];
+  [key: string]: (number[] | Primitive)[];
+};
+export type IndexedValue = {
+  index: number[];
+  value: Value;
+};

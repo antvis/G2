@@ -1,5 +1,5 @@
 import { Canvas } from '@antv/g';
-import { Encodings, Primitive, MaybeArray, EncodeFunction } from './common';
+import { Encodings, IndexedValue, EncodeFunction } from './common';
 
 export type G2ComponentNamespaces = 'renderer';
 
@@ -28,3 +28,6 @@ export type EncodeComponent<O = Record<string, unknown>> = G2BaseComponent<
 
 export type Infer = (encodings: Encodings) => Encodings;
 export type InferComponent<O = void> = G2BaseComponent<Infer, O>;
+
+export type Statistic = (value: IndexedValue) => IndexedValue;
+export type StatisticComponent<O = void> = G2BaseComponent<Statistic, O>;
