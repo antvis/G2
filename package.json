@@ -35,6 +35,8 @@
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
     "@rollup/plugin-commonjs": "^21.0.2",
+    "@types/d3-array": "^3.0.2",
+    "@types/d3-shape": "^3.0.2",
     "@types/jest": "^26.0.20",
     "@typescript-eslint/eslint-plugin": "^4.18.0",
     "@typescript-eslint/parser": "^4.18.0",
@@ -48,6 +50,7 @@
     "lint-staged": "^10.5.4",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.2.1",
+    "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rollup": "^2.39.0",
     "rollup-plugin-node-resolve": "^5.2.0",
@@ -89,6 +92,8 @@
     "@antv/coord": "^0.4.1",
     "@antv/g": "^5.0.14",
     "@antv/g-canvas": "^1.0.13",
-    "@antv/scale": "^0.4.6"
+    "@antv/scale": "^0.4.6",
+    "d3-array": "^3.1.1",
+    "d3-shape": "^3.1.0"
   }
 }
