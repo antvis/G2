@@ -11,17 +11,3 @@ export function mapObject<T>(
     return obj;
   }, {});
 }
-
-export function group<T>(array: T[], key: (d: T) => any) {
-  const keyGroups = new Map();
-  for (const item of array) {
-    const k = key(item);
-    const group = keyGroups.get(k);
-    if (group) {
-      group.push(item);
-    } else {
-      keyGroups.set(k, [item]);
-    }
-  }
-  return keyGroups;
-}

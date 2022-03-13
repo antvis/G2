@@ -49,3 +49,13 @@ export type IndexedValue = {
   index: number[];
   value: Value;
 };
+
+export type ChannelValue = (number[] | Primitive)[];
+export type Channel = {
+  name: string;
+  scale?: string;
+  required?: boolean;
+  value?: ChannelValue;
+};
+
+export type Point = [number, number];

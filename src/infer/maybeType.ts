@@ -5,7 +5,7 @@ import {
   Encoding,
   EncodeFunction,
 } from '../runtime';
-import { mapObject } from '../utils';
+import { mapObject } from '../utils/array';
 
 export type MayBeTypeOptions = {
   data: TabularData;

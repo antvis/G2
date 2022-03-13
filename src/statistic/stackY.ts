@@ -1,5 +1,5 @@
+import { group } from 'd3-array';
 import { StatisticComponent } from '../runtime';
-import { group } from '../utils';
 import { x1, y1 } from './utils';
 
 export type StackYOptions = void;
@@ -17,7 +17,9 @@ export const StackY: StatisticComponent<StackYOptions> = () => {
     // In that case marks should be grouped based on both x1 and series channel,
     // otherwise just x1.
     const X1 = X.map(x1);
-    const key = S ? (i: number) => `${X1[i]}-${S[i]}` : (i: number) => X1[i];
+    const key = S
+      ? (i: number) => `${X1[i]}-${S[i]}`
+      : (i: number) => `${X1[i]}`;
     const groups = Array.from(group(index, key).values());
 
     // Stack y channel in each groups.

@@ -1,0 +1,65 @@
+import { Coordinate } from '@antv/coord';
+import { DisplayObject } from '@antv/g';
+import { Cartesian } from '../../../src/coordinate';
+import { Canvas } from '../../../src/renderer';
+
+import {
+  CoordinateTransform,
+  Geometry,
+  Shape,
+  Scale,
+  ChannelValue,
+  Theme,
+} from '../../../src/runtime';
+
+type Options = {
+  index: number[];
+  geometry: Geometry;
+  scale: Record<string, Scale>;
+  container: string | HTMLElement;
+  channel: {
+    x?: number[][];
+    y?: number[][];
+    shape?: Shape[];
+    color?: string[];
+    [key: string]: ChannelValue | Shape[];
+  };
+  theme?: Theme;
+  width?: number;
+  height?: number;
+  x?: number;
+  y?: number;
+  transform?: CoordinateTransform[];
+  style?: Record<string, string>;
+};
+
+export function plot({
+  index,
+  geometry,
+  scale,
+  channel,
+  container,
+  theme = {
+    defaultColor: '#5B8FF9',
+  },
+  x = 0,
+  y = 0,
+  width = 600,
+  height = 400,
+  transform = [],
+  style = {},
+}: Options): DisplayObject[] {
+  const coordinate = new Coordinate({
+    width,
+    height,
+    x,
+    y,
+    transformations: [...transform.flat(), Cartesian()[0]],
+  });
+  const shapes = geometry(index, scale, channel, style, coordinate, theme);
+  const canvas = Canvas({ width, height, container });
+  for (const shape of shapes) {
+    canvas.appendChild(shape);
+  }
+  return shapes;
+}

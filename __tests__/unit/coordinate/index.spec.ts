@@ -16,24 +16,24 @@ describe('coordinate', () => {
 
   it('Polar({...}) returns expected coordinate transformations', () => {
     expect(Polar({})).toEqual([
-      ['translate', 0.5, 0.5],
+      ['translate', 0, 0.5],
       ['reflect.y'],
-      ['translate', -0.5, -0.5],
-      ['polar', -Math.PI / 2, (Math.PI / 2) * 3, 0, 1],
+      ['translate', 0, -0.5],
+      ['polar', 0, Math.PI * 2, 0, 1],
     ]);
 
     expect(
       Polar({
-        startAngle: 0,
-        endAngle: Math.PI * 2,
+        startAngle: -Math.PI / 2,
+        endAngle: Math.PI,
         innerRadius: 0.2,
         outerRadius: 0.8,
       }),
     ).toEqual([
-      ['translate', 0.5, 0.5],
+      ['translate', 0, 0.5],
       ['reflect.y'],
-      ['translate', -0.5, -0.5],
-      ['polar', 0, Math.PI * 2, 0.2, 0.8],
+      ['translate', 0, -0.5],
+      ['polar', -Math.PI / 2, Math.PI, 0.2, 0.8],
     ]);
   });
 });

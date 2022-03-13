@@ -8,15 +8,15 @@ export type PolarOptions = {
 };
 
 export const Polar: CC<PolarOptions> = ({
-  startAngle = -Math.PI / 2,
-  endAngle = (Math.PI / 2) * 3,
+  startAngle = 0,
+  endAngle = Math.PI * 2,
   innerRadius = 0,
   outerRadius = 1,
 }) => {
   return [
-    ['translate', 0.5, 0.5],
+    ['translate', 0, 0.5],
     ['reflect.y'],
-    ['translate', -0.5, -0.5],
+    ['translate', 0, -0.5],
     ['polar', startAngle, endAngle, innerRadius, outerRadius],
   ];
 };

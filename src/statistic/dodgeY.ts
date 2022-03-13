@@ -1,5 +1,5 @@
+import { group } from 'd3-array';
 import { StatisticComponent as SC } from '../runtime';
-import { group } from '../utils';
 import { x1 } from './utils';
 
 export type DodgeYOptions = void;
