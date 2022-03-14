@@ -37,6 +37,12 @@ export type RendererComponent<O = Record<string, unknown>> = G2BaseComponent<
   O
 >;
 
+export type Transform = (data?: any) => any;
+export type TransformComponent<O = Record<string, undefined>> = G2BaseComponent<
+  Transform,
+  O
+>;
+
 export type Encode = EncodeFunction;
 export type EncodeComponent<O = Record<string, unknown>> = G2BaseComponent<
   Encode,
