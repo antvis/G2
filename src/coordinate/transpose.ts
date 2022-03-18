@@ -1,6 +1,6 @@
 import { CoordinateComponent as CC } from '../runtime';
 
-export type TransposeOptions = void;
+export type TransposeOptions = {};
 
 export const Transpose: CC<TransposeOptions> = () => {
   return [

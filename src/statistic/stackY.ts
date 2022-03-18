@@ -2,7 +2,7 @@ import { group } from 'd3-array';
 import { StatisticComponent } from '../runtime';
 import { x1, y1 } from './utils';
 
-export type StackYOptions = void;
+export type StackYOptions = {};
 
 /**
  * Group marks into groups and modify y channel by stacking.
@@ -13,7 +13,7 @@ export const StackY: StatisticComponent<StackYOptions> = () => {
     const { x: X, y: Y, series: S } = value;
     if (X === undefined || Y === undefined) return { index, value };
 
-    // If series channel is specified, it maybe apply both stackY and dodgeY.
+    // If series channel is specified, it maybe apply both stackY and dodgeX.
     // In that case marks should be grouped based on both x1 and series channel,
     // otherwise just x1.
     const X1 = X.map(x1);

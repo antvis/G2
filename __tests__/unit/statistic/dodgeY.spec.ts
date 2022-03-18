@@ -1,8 +1,8 @@
-import { DodgeY } from '../../../src/statistic';
+import { DodgeX } from '../../../src/statistic';
 
-describe('DodgeY', () => {
-  it('DodgeY returns a function produce series channel for value', () => {
-    const statistic = DodgeY();
+describe('DodgeX', () => {
+  it('DodgeX returns a function produce series channel for value', () => {
+    const statistic = DodgeX();
 
     const v1 = {
       index: [0, 1, 2],

@@ -1,6 +1,6 @@
 import { PaletteComponent } from '../runtime';
 
-export type Category10Options = void;
+export type Category10Options = {};
 
 export const Category10: PaletteComponent<Category10Options> = () => {
   return [

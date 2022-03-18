@@ -19,8 +19,8 @@ describe('Interval', () => {
         { type: 'maybeTuple' },
         { type: 'maybeZeroX1' },
         { type: 'maybeZeroY2' },
-        { type: 'maybeStackY' },
       ],
+      shapes: ['rect', 'hollowRect'],
     });
   });
 
@@ -28,7 +28,7 @@ describe('Interval', () => {
     const container = document.createElement('div');
     const rect = ShapeRect();
     const shapes = plot({
-      geometry: Interval(),
+      mark: Interval(),
       container,
       index: [0, 1, 2],
       scale: {
@@ -94,7 +94,7 @@ describe('Interval', () => {
     const container = document.createElement('div');
     const rect = ShapeRect();
     const shapes = plot({
-      geometry: Interval(),
+      mark: Interval(),
       container,
       index: [0, 1, 2, 3, 4, 5],
       scale: {

@@ -1,7 +1,7 @@
 import { TransformComponent as TC } from '../runtime';
 import { useAsyncMemoTransform } from './utils';
 
-type FetchOptions = {
+export type FetchOptions = {
   url?: string;
 };
 
@@ -14,7 +14,7 @@ export const Fetch: TC<FetchOptions> = (options) => {
     const response = await fetch(url);
     const data = await response.json();
     return data;
-  }, [url]);
+  }, [options]);
 };
 
 Fetch.props = {

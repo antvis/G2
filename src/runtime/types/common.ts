@@ -1,25 +1,7 @@
-import { Canvas } from '@antv/g';
-import { G2Component, G2ComponentNamespaces } from './component';
-
-export type G2ViewTree = {
-  width?: number;
-  height?: number;
-} & Node;
-
-export type Node = {
-  type?: string;
-  children?: Node[];
-  [key: string]: any;
-};
-
-export type G2Library = Record<
-  `${G2ComponentNamespaces}.${string}`,
-  G2Component
->;
-
-export type G2Context = {
-  library?: G2Library;
-  canvas?: Canvas;
+export type G2Theme = {
+  defaultColor?: string;
+  defaultCategory10?: string;
+  defaultCategory20?: string;
 };
 
 export type MaybeArray<T> = T | T[];
@@ -33,29 +15,69 @@ export type EncodeFunction = (
 ) => MaybeArray<Primitive>[];
 
 export type Encoding =
-  | EncodeFunction
+  | { type: string; [key: string]: any }
   | Primitive
-  | { type: string; [key: string]: any };
+  | ((...args: any[]) => any);
 
-export type Encodings = Record<string, MaybeArray<Encoding>>;
+export type Encodings = Record<string | symbol, MaybeArray<Encoding>>;
 
 export type Value = {
   x?: number[][];
   y?: number[][];
   position?: number[][];
-  [key: string]: (number[] | Primitive)[];
+  [key: string]: MaybeArray<Primitive>[];
 };
 export type IndexedValue = {
   index: number[];
   value: Value;
 };
 
-export type ChannelValue = (number[] | Primitive)[];
+export type ChannelValue = MaybeArray<Primitive>[];
 export type Channel = {
   name: string;
   scale?: string;
   required?: boolean;
   value?: ChannelValue;
+  type?: string;
+  field?: string;
 };
+export type FlattenChannel = Omit<Channel, 'value'> & { value?: Primitive[] };
 
 export type Point = [number, number];
+
+export type BBox = {
+  x?: number;
+  y?: number;
+  width?: number;
+  height?: number;
+};
+
+export type GuideComponentPosition =
+  | 'top'
+  | 'left'
+  | 'bottom'
+  | 'right'
+  | 'center';
+
+export type Padding = {
+  paddingLeft?: number;
+  paddingRight?: number;
+  paddingBottom?: number;
+  paddingTop?: number;
+};
+
+export type SectionArea = [
+  number,
+  number,
+  number,
+  number,
+  number,
+  (a: Primitive, b: Primitive) => number,
+];
+export type Section = {
+  top: SectionArea;
+  right: SectionArea;
+  bottom: SectionArea;
+  left: SectionArea;
+  center: SectionArea;
+};

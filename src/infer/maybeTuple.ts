@@ -1,6 +1,6 @@
 import { InferComponent as IC } from '../runtime';
 
-export type MaybeTupleOptions = void;
+export type MaybeTupleOptions = {};
 
 export const MaybeTuple: IC<MaybeTupleOptions> = () => {
   return ({ x, y, ...rest }) => ({

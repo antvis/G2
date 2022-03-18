@@ -1,19 +1,19 @@
-class Container<T> {
-  private $value: T;
+class Container<O> {
+  private $value: any;
 
-  constructor(x: T) {
+  constructor(x: any) {
     this.$value = x;
   }
 
-  static of<T>(x: T) {
-    return new Container(x);
+  static of<O>(x: any) {
+    return new Container<O>(x);
   }
 
-  map(f: (x: T) => T) {
-    return (this.$value = f(this.$value)), this;
+  map<T, U>(f: (x: T, ...rest: any[]) => U, ...rest: any[]) {
+    return (this.$value = f(this.$value, ...rest)), this;
   }
 
-  value() {
+  value(): O {
     return this.$value;
   }
 }

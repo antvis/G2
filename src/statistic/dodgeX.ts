@@ -2,13 +2,13 @@ import { group } from 'd3-array';
 import { StatisticComponent as SC } from '../runtime';
 import { x1 } from './utils';
 
-export type DodgeYOptions = void;
+export type DodgeYOptions = {};
 
 /**
  * Produce series channel to achieve dodge.
  * @todo Sort marks in each groups.
  */
-export const DodgeY: SC<DodgeYOptions> = () => {
+export const DodgeX: SC<DodgeYOptions> = () => {
   return ({ index, value }) => {
     const { series: S, color: C, x: X } = value;
     // If series channel is specified, then do nothing.
@@ -44,4 +44,4 @@ export const DodgeY: SC<DodgeYOptions> = () => {
   };
 };
 
-DodgeY.props = {};
+DodgeX.props = {};

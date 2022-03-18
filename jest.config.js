@@ -11,6 +11,7 @@ module.exports = {
       tsConfig: {
         target: 'esnext', // Increase test coverage.
         allowJs: true,
+        sourceMap: true,
       },
     },
   },

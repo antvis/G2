@@ -1,2 +1,2 @@
-export { Fetch } from './fetch';
-export { SortBy } from './sortBy';
+export { Fetch, FetchOptions } from './fetch';
+export { SortBy, SortByOptions } from './sortBy';

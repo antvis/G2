@@ -5,7 +5,7 @@ import { Canvas } from '../../../src/renderer';
 
 import {
   CoordinateTransform,
-  Geometry,
+  Mark,
   Shape,
   Scale,
   ChannelValue,
@@ -14,7 +14,7 @@ import {
 
 type Options = {
   index: number[];
-  geometry: Geometry;
+  mark: Mark;
   scale: Record<string, Scale>;
   container: string | HTMLElement;
   channel: {
@@ -35,7 +35,7 @@ type Options = {
 
 export function plot({
   index,
-  geometry,
+  mark,
   scale,
   channel,
   container,
@@ -56,7 +56,7 @@ export function plot({
     y,
     transformations: [...transform.flat(), Cartesian()[0]],
   });
-  const shapes = geometry(index, scale, channel, style, coordinate, theme);
+  const shapes = mark(index, scale, channel, style, coordinate, theme);
   const canvas = Canvas({ width, height, container });
   for (const shape of shapes) {
     canvas.appendChild(shape);

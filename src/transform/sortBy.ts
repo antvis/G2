@@ -22,7 +22,7 @@ export const SortBy: TC<SortByOptions> = (options) => {
       const comparator = order === 'ASC' ? asc : desc;
       return data.sort(comparator);
     },
-    [F],
+    [options],
   );
 };
 

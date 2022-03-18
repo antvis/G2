@@ -1,7 +1,7 @@
 import { InferComponent as IC } from '../runtime';
 import { zero } from './utils';
 
-export type MaybeZeroX1Options = void;
+export type MaybeZeroX1Options = {};
 
 export const MaybeZeroX1: IC<MaybeZeroX1Options> = () => {
   return ({ x = [zero()], ...rest }) => ({

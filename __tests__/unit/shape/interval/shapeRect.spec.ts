@@ -103,7 +103,7 @@ describe('ShapeRect', () => {
     });
   });
 
-  it('ShapeRect() returns a function drawing ring in Polar with angle equals to Math.PI * 2', () => {
+  it.skip('ShapeRect() returns a function drawing ring in Polar with angle equals to Math.PI * 2', () => {
     const container = document.createElement('div');
     const shape = draw({
       shape: ShapeRect(),

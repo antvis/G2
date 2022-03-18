@@ -1,11 +1,11 @@
 import { Band } from '@antv/scale';
-import { GeometryComponent as GC, Point } from '../runtime';
+import { MarkComponent as MC, Point } from '../runtime';
 
-export type IntervalOptions = void;
+export type IntervalOptions = {};
 
-export const Interval: GC<IntervalOptions> = () => {
-  return (index, scale, channel, style, coordinate, theme) => {
-    const { x: X, y: Y, series: S, color: C, shape: SP } = channel;
+export const Interval: MC<IntervalOptions> = () => {
+  return (index, scale, value, style, coordinate, theme) => {
+    const { x: X, y: Y, series: S, color: C, shape: SP } = value;
     const { defaultColor } = theme;
     const x = scale.x as Band;
     const series = scale.series as Band;
@@ -23,7 +23,10 @@ export const Interval: GC<IntervalOptions> = () => {
       const p4 = [x1, y2];
       const points = [p1, p2, p3, p4].map((d) => coordinate.map(d)) as Point[];
       const shapeFunction = SP[i];
-      const channelStyle = { ...style, color: C?.[i] || defaultColor };
+      const channelStyle = {
+        color: C?.[i] || defaultColor,
+        ...style,
+      };
       return shapeFunction(points, channelStyle, coordinate);
     });
   };
@@ -42,6 +45,6 @@ Interval.props = {
     { type: 'maybeTuple' },
     { type: 'maybeZeroX1' },
     { type: 'maybeZeroY2' },
-    { type: 'maybeStackY' },
   ],
+  shapes: ['rect', 'hollowRect'],
 };
