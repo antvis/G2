@@ -1,11 +1,11 @@
 {
-  "name": "@antv/template",
+  "name": "@antv/g2",
   "version": "0.1.0",
-  "description": "Template repo for AntV",
+  "description": "G2 5.0",
   "license": "MIT",
   "main": "lib/index.js",
   "module": "esm/index.js",
-  "browser": "dist/template.min.js",
+  "browser": "dist/g2.min.js",
   "types": "lib/index.d.ts",
   "files": [
     "src",
@@ -34,26 +34,31 @@
   ],
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
+    "@rollup/plugin-commonjs": "^21.0.2",
+    "@types/d3-array": "^3.0.2",
+    "@types/d3-shape": "^3.0.2",
     "@types/jest": "^26.0.20",
     "@typescript-eslint/eslint-plugin": "^4.18.0",
     "@typescript-eslint/parser": "^4.18.0",
     "cross-env": "^7.0.3",
     "eslint": "^7.22.0",
     "eslint-plugin-import": "^2.22.1",
+    "husky": "^7.0.0",
     "jest": "^26.0.1",
     "jest-electron": "^0.1.12",
     "limit-size": "^0.1.4",
     "lint-staged": "^10.5.4",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.2.1",
+    "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rollup": "^2.39.0",
     "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-polyfill-node": "^0.8.0",
     "rollup-plugin-typescript": "^1.0.1",
     "rollup-plugin-uglify": "^6.0.4",
     "ts-jest": "^26.5.1",
-    "typescript": "^4.1.5",
-    "husky": "^7.0.0"
+    "typescript": "^4.1.5"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
@@ -64,13 +69,13 @@
   },
   "limit-size": [
     {
-      "path": "dist/template.min.js",
-      "limit": "500b",
+      "path": "dist/g2.min.js",
+      "limit": "1 Mb",
       "gzip": true
     },
     {
-      "path": "dist/template.min.js",
-      "limit": "1 Kb"
+      "path": "dist/g2.min.js",
+      "limit": "1 Mb"
     }
   ],
   "author": {
@@ -79,9 +84,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/antvis/template"
+    "url": "https://github.com/antvis/g2"
   },
   "bugs": {
-    "url": "https://github.com/antvis/template/issues"
+    "url": "https://github.com/antvis/g2/issues"
+  },
+  "dependencies": {
+    "@antv/coord": "^0.4.1",
+    "@antv/g": "^5.0.14",
+    "@antv/g-canvas": "^1.0.13",
+    "@antv/gui": "^0.3.3",
+    "@antv/scale": "^0.4.6",
+    "d3-array": "^3.1.1",
+    "d3-shape": "^3.1.0"
   }
 }
