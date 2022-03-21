@@ -8,6 +8,10 @@ export type LegendContinuousOptions = {
   position?: GuideComponentPosition;
 };
 
+/**
+ * Guide Component for continuous color scale.
+ * @todo Custom style.
+ */
 export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
   return (scale, bbox, value, coordinate, theme) => {
     const { field, domain } = value;

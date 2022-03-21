@@ -1,5 +1,5 @@
 import { group } from 'd3-array';
-import { compose } from '../utils/helper';
+import { compose, composeAsync } from '../utils/helper';
 import {
   indexOf,
   mapObject,
@@ -11,8 +11,6 @@ import { useLibrary } from './library';
 import { G2Theme, IndexedValue } from './types/common';
 import {
   MarkProps,
-  MarkComponent,
-  Mark,
   Transform,
   TransformComponent,
   InferComponent,
@@ -21,6 +19,7 @@ import {
   Encode,
   StatisticComponent,
   Statistic,
+  InferValue,
 } from './types/component';
 import {
   G2Area,
@@ -35,14 +34,14 @@ import {
 import { inferEncodeType } from './encode';
 import { inferScale } from './scale';
 
-export function inferMarkAndProps(
+export async function initializeMark(
   partialMark: G2Mark,
   partialProps: MarkProps,
   channelScale: Map<string, G2ScaleOptions>,
   theme: G2Theme,
   options: G2Area,
   library: G2Library,
-): [G2Mark, MarkProps] {
+): Promise<[G2Mark, MarkProps]> {
   const [useTransform] = useLibrary<
     G2TransformOptions,
     TransformComponent,
@@ -74,7 +73,7 @@ export function inferMarkAndProps(
 
   // Apply transform to get tabular data.
   const transformFunctions = transform.map(useTransform);
-  const transformedData = compose(transformFunctions)(data);
+  const transformedData = await composeAsync(transformFunctions)(data);
 
   // Skip mark with non-tabular or empty data.
   if (
@@ -156,13 +155,13 @@ export function inferMarkAndProps(
   return [mark, props];
 }
 
-function inferChannelType(encode) {
+function inferChannelType(encode: InferValue) {
   if (encode === undefined) return null;
   if (Array.isArray(encode)) return null;
   return encode.type;
 }
 
-function inferChannelField(encode) {
+function inferChannelField(encode: InferValue) {
   if (encode === undefined) return null;
   if (Array.isArray(encode)) {
     const fieldEncode = encode.find((d) => d.type === 'field');

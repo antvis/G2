@@ -8,6 +8,10 @@ export type LegendCategoryOptions = {
   position?: GuideComponentPosition;
 };
 
+/**
+ * Guide Component for ordinal color scale.
+ * @todo Custom style.
+ */
 export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
   return (scale, bbox, value, coordinate, theme) => {
     const { x, y } = bbox;

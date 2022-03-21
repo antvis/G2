@@ -1,12 +1,22 @@
 import { TransformComponent } from '../runtime';
-import { SortByOptions, FetchOptions } from '../transform';
 
-export type Transform = SortByTransform | FetchTransform;
+export type Transform = SortByTransform | FetchTransform | CustomTransform;
 
-export type TransformTypes = 'sortBy' | 'fetch';
+export type TransformTypes = 'sortBy' | 'fetch' | TransformComponent;
 
-export type BaseTransform<T, O> = { type?: T | TransformComponent } & O;
+export type SortByTransform = {
+  type?: 'sortBy';
+  fields?: string[];
+  order?: 'DESC' | 'ASC';
+};
 
-export type SortByTransform = BaseTransform<'sortBy', SortByOptions>;
+export type FetchTransform = {
+  type?: 'fetch';
+  url?: string;
+  format?: 'json';
+};
 
-export type FetchTransform = BaseTransform<'fetch', FetchOptions>;
+export type CustomTransform = {
+  type?: TransformComponent;
+  [key: string]: any;
+};

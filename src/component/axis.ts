@@ -9,6 +9,11 @@ export type AxisOptions = {
   position?: GuideComponentPosition;
 };
 
+/**
+ * Guide Component for position channel(e.g. x, y).
+ * @todo Render Circular in polar coordinate.
+ * @todo Custom style.
+ */
 export const Axis: GCC<AxisOptions> = (options) => {
   const { position } = options;
   return (scale, bbox, value, coordinate, theme) => {

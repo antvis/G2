@@ -1,27 +1,27 @@
-import { Coordinate } from '@antv/coord';
-
-export function isTranspose(coordinate: Coordinate): boolean {
-  const { transformations } = coordinate.getOptions();
-  const transposes = transformations
-    .map(([type]) => type)
-    .filter((type) => type === 'transpose');
-  return transposes.length % 2 !== 0;
-}
-
-export function isPolar(coordinate: Coordinate): boolean {
-  const { transformations } = coordinate.getOptions();
-  return transformations.some(([type]) => type === 'polar');
-}
-
 export function identity<T>(x: T): T {
   return x;
 }
 
 /**
- * Composes single-argument functions from left to right.
+ * Composes single-argument sync functions from left to right.
  */
 export function compose<R>(fns: ((x: R) => R)[]): (x: R) => R {
   return fns.reduce((composed, fn) => (x) => fn(composed(x)), identity);
+}
+
+/**
+ * Composes single-argument async functions from left to right.
+ */
+export function composeAsync<R>(
+  fns: ((x: R) => Promise<R> | R)[],
+): (x: R) => Promise<R> | R {
+  return fns.reduce(
+    (composed, fn) => async (x) => {
+      const value = await composed(x);
+      return fn(value);
+    },
+    identity,
+  );
 }
 
 export function capitalizeFirst(str: string): string {

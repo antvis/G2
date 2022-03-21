@@ -1,11 +1,12 @@
 import { group } from 'd3-array';
 import { StatisticComponent } from '../runtime';
-import { x1, y1 } from './utils';
+import { StackYStatistic } from '../spec';
+import { firstOf as x1, firstOf as y1 } from '../utils/array';
 
-export type StackYOptions = {};
+export type StackYOptions = Omit<StackYStatistic, 'type'>;
 
 /**
- * Group marks into groups and modify y channel by stacking.
+ * Group marks into groups and stack y channel.
  *  @todo Sort marks in each groups.
  */
 export const StackY: StatisticComponent<StackYOptions> = () => {

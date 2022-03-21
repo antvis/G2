@@ -1,9 +1,11 @@
 import { CoordinateComponent as CC } from '../runtime';
+import { CartesianCoordinate } from '../spec';
 
-export type CartesianOptions = {};
+export type CartesianOptions = Omit<CartesianCoordinate, 'polar'>;
 
-export const Cartesian: CC<CartesianOptions> = () => {
-  return [['cartesian']];
-};
+/**
+ * Default coordinate transformation for all charts.
+ */
+export const Cartesian: CC<CartesianOptions> = () => [['cartesian']];
 
 Cartesian.props = {};

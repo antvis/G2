@@ -1,8 +1,9 @@
 import { group } from 'd3-array';
 import { StatisticComponent as SC } from '../runtime';
-import { x1 } from './utils';
+import { DodgeXStatistic } from '../spec';
+import { firstOf as x1 } from '../utils/array';
 
-export type DodgeYOptions = {};
+export type DodgeYOptions = Omit<DodgeXStatistic, 'type'>;
 
 /**
  * Produce series channel to achieve dodge.
@@ -23,8 +24,8 @@ export const DodgeX: SC<DodgeYOptions> = () => {
     const groups = Array.from(group(index, (i) => X1[i]).values());
 
     // Note!!!
-    // In this case, it is impossible to get information about series.
-    // Here using index of mark in each group as series to avoid overlapping,
+    // In this case, it's impossible to get information about series.
+    // Here using index of each mark in each group as series field to avoid overlapping,
     // which may make no sense if data is disordered in each group.
     const series = new Array(index.length);
     for (const I of groups) {

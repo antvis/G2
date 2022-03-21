@@ -43,7 +43,7 @@ export type Channel = {
 };
 export type FlattenChannel = Omit<Channel, 'value'> & { value?: Primitive[] };
 
-export type Point = [number, number];
+export type Vector2 = [number, number];
 
 export type BBox = {
   x?: number;

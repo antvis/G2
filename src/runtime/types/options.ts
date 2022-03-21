@@ -23,7 +23,7 @@ export type G2ViewTree = {
 } & Node;
 
 export type Node = {
-  type?: string;
+  type?: string | ((...args: any[]) => any);
   children?: Node[];
   [key: string]: any;
 };

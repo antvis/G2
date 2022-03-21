@@ -1,7 +1,8 @@
-import { Identity as IdentityScale, IdentityOptions as IO } from '@antv/scale';
+import { Identity as IdentityScale } from '@antv/scale';
+import { IdentityScale as IdentityScaleSpec } from '../spec';
 import { ScaleComponent as SC } from '../runtime';
 
-export type IdentityOptions = IO;
+export type IdentityOptions = Omit<IdentityScaleSpec, 'type'>;
 
 export const Identity: SC<IdentityOptions> = (options) => {
   return new IdentityScale(options);

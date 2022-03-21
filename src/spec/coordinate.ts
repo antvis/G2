@@ -1,14 +1,30 @@
-import { PolarOptions, TransposeOptions } from '../coordinate';
 import { CoordinateComponent } from '../runtime';
 
-export type Coordinate = PolarCoordinate | TransposeCoordinate;
+export type Coordinate =
+  | PolarCoordinate
+  | TransposeCoordinate
+  | CustomCoordinate
+  | CartesianCoordinate;
 
-export type CoordinateTypes = 'polar' | 'transpose';
+export type CoordinateTypes = 'polar' | 'transpose' | 'cartesian';
 
-export type BaseCoordinate<T extends CoordinateTypes, O> = {
-  type?: T | CoordinateComponent;
-} & O;
+export type PolarCoordinate = {
+  type?: 'polar';
+  startAngle?: number;
+  endAngle?: number;
+  innerRadius?: number;
+  outerRadius?: number;
+};
 
-export type PolarCoordinate = BaseCoordinate<'polar', PolarOptions>;
+export type TransposeCoordinate = {
+  type?: 'transpose';
+};
 
-export type TransposeCoordinate = BaseCoordinate<'transpose', TransposeOptions>;
+export type CartesianCoordinate = {
+  type?: 'cartesian';
+};
+
+export type CustomCoordinate = {
+  type: CoordinateComponent;
+  [key: string]: any;
+};

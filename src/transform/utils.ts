@@ -1,5 +1,9 @@
 import { Transform } from '../runtime';
 
+/**
+ * Returns a sync function returning memoized value.
+ * The memoized value will recompute only when the data reference or values of deps has changed.
+ */
 export function useMemoTransform(
   callbackFn: Transform,
   deps: any[],
@@ -20,7 +24,8 @@ export function useMemoTransform(
 }
 
 /**
- * @todo Should handle calls in a row? (fn();fn();fn())
+ * Returns a async function returning memoized value.
+ * The memoized value will recompute only when the data reference or values of deps has changed.
  */
 export function useAsyncMemoTransform(
   callbackFn: Transform,

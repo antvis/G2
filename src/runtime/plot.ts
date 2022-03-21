@@ -29,16 +29,16 @@ import {
 } from './types/component';
 import { Channel } from './types/common';
 import { useLibrary } from './library';
-import { inferMarkAndProps } from './mark';
+import { initializeMark } from './mark';
 import { inferComponent } from './component';
 import { computeLayout, placeComponents } from './layout';
 import { createCoordinate } from './coordinate';
 import { applyScale } from './scale';
 
-export function plot<T extends G2ViewTree>(
+export async function plot<T extends G2ViewTree>(
   options: T,
   context: G2Context,
-): void {
+): Promise<void> {
   const {
     width,
     height,
@@ -66,10 +66,10 @@ export function plot<T extends G2ViewTree>(
     component,
     marks: [{ data, ...mark }],
   };
-  plotArea(area, context);
+  return plotArea(area, context);
 }
 
-function plotArea(options: G2Area, context: G2Context): void {
+async function plotArea(options: G2Area, context: G2Context): Promise<void> {
   const { canvas, library } = context;
   const [useTheme] = useLibrary<G2ThemeOptions, ThemeComponent, Theme>(
     'theme',
@@ -89,16 +89,18 @@ function plotArea(options: G2Area, context: G2Context): void {
     GuideComponent
   >('component', library);
 
+  // Initialize theme.
   const { theme: partialTheme, marks: partialMarks } = options;
   const theme = useTheme(inferTheme(partialTheme));
 
+  // Infer options and calc props for each mark.
   const markProps = new Map<G2Mark, MarkProps>();
   const channelScale = new Map<string, G2ScaleOptions>();
   const marks = [];
   for (const partialMark of partialMarks) {
-    const { type = error('Mark type is required.') } = partialMark;
+    const { type = error('G2Mark type is required.') } = partialMark;
     const { props: partialProps } = createMark(type);
-    const markAndProps = inferMarkAndProps(
+    const markAndProps = await initializeMark(
       partialMark,
       partialProps,
       channelScale,
@@ -113,18 +115,22 @@ function plotArea(options: G2Area, context: G2Context): void {
     }
   }
 
+  // Collect scales from marks.
   const scales = Array.from(
     new Set(marks.flatMap((d) => Object.values(d.scale))),
   );
+
+  // Infer guide components by scales and create coordinate.
   const [components, componentScale] = inferComponent(scales, options, library);
   const layout = computeLayout(components, options);
   const componentBBox = placeComponents(components, layout, options);
   const coordinate = createCoordinate(layout, options, library);
 
+  // Render components with corresponding bbox and scale(if required).
   for (const component of components) {
     const scaleDescriptor = componentScale.get(component);
     const bbox = componentBBox.get(component);
-    const scale = useScale(scaleDescriptor);
+    const scale = scaleDescriptor ? useScale(scaleDescriptor) : null;
     const render = useGuideComponent(component);
     const { field, domain } = scaleDescriptor;
     const value = { field, domain };
@@ -132,16 +138,17 @@ function plotArea(options: G2Area, context: G2Context): void {
     canvas.appendChild(group);
   }
 
+  // Render marks with corresponding channel values.
   for (const [mark, props] of markProps.entries()) {
-    const { type, style, scale: scaleDescriptor } = mark;
+    const { scale: scaleDescriptor } = mark;
     const { index, channels, defaultShape } = props;
     const scale = mapObject(scaleDescriptor, useScale);
-    const render = useMark({ type });
+    const render = useMark(mark);
     const value = Container.of<MarkChannel>(channels)
       .map(applyScale, scale)
       .map(shapeFunction, index, defaultShape, library)
       .value();
-    const shapes = render(index, scale, value, style, coordinate, theme);
+    const shapes = render(index, scale, value, coordinate, theme);
     for (const shape of shapes) {
       canvas.appendChild(shape);
     }

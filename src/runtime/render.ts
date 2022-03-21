@@ -6,6 +6,7 @@ import { plot } from './plot';
 export function render<T extends G2ViewTree = G2ViewTree>(
   options: T,
   context: G2Context = {},
+  callback?: () => void,
 ): HTMLElement {
   // Initialize the context if it is not provided.
   const { width = 640, height = 480 } = options;
@@ -22,8 +23,8 @@ export function render<T extends G2ViewTree = G2ViewTree>(
   context.library = library;
   context.viewTree = viewTree;
 
-  // Plot the chart and mutate the inner states of canvas.
-  plot<T>({ ...options, width, height }, context);
+  // Plot the chart and mutate context.
+  plot<T>({ ...options, width, height }, context).then(callback);
 
   // Return the container HTML element wraps the canvas or svg element.
   return normalizeContainer(canvas.getConfig().container);

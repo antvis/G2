@@ -8,6 +8,9 @@ export type CanvasOptions = {
   container?: string | HTMLElement;
 };
 
+/**
+ * Returns a canvas renderer.
+ */
 export const Canvas: RC<CanvasOptions> = ({ width, height, container }) => {
   return new GCanvas({
     container,

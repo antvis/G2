@@ -12,7 +12,7 @@ export function mapObject<T, U>(
   }, {});
 }
 
-export function indexesOf<T>(array: T[]): number[] {
+export function indexOf<T>(array: T[]): number[] {
   return array.map((_, i) => i);
 }
 

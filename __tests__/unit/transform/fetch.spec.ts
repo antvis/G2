@@ -3,9 +3,15 @@ import { Fetch } from '../../../src/transform';
 describe('Fetch', () => {
   it('Fetch({...}) returns a function fetching json by default', async () => {
     const transform = Fetch({
-      url: 'https://gw.alipayobjects.com/os/bmw-prod/6b50ec60-2afd-451f-8ca2-4ba7d90c5651.json',
+      url: 'https://gw.alipayobjects.com/os/bmw-prod/ce45e3d7-ba78-4a08-b411-28df40ef9b7f.json',
     });
     const data = await transform();
-    expect(data).toEqual({ a: 1 });
+    expect(data).toEqual([
+      { genre: 'Sports', sold: 275 },
+      { genre: 'Strategy', sold: 115 },
+      { genre: 'Action', sold: 120 },
+      { genre: 'Shooter', sold: 350 },
+      { genre: 'Other', sold: 150 },
+    ]);
   });
 });

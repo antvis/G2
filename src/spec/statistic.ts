@@ -1,14 +1,18 @@
 import { StatisticComponent } from '../runtime';
-import { StackYOptions, DodgeYOptions } from '../statistic';
 
-export type Statistic = DodgeYOptions | StackYStatistic;
+export type Statistic = StackYStatistic | DodgeXStatistic | CustomStatistic;
 
-export type StatisticTypes = 'dodgeX' | 'stackY';
+export type StatisticTypes = 'dodgeX' | 'stackY' | StatisticComponent;
 
-export type BaseStatistic<T extends StatisticTypes, O> = {
-  type?: T | StatisticComponent;
-} & O;
+export type DodgeXStatistic = {
+  type?: 'dodgeX';
+};
 
-export type DodgeYStatistic = BaseStatistic<'dodgeX', DodgeYOptions>;
+export type StackYStatistic = {
+  type?: 'stackY';
+};
 
-export type StackYStatistic = BaseStatistic<'stackY', StackYOptions>;
+export type CustomStatistic = {
+  type?: StatisticComponent;
+  [key: string]: any;
+};

@@ -3,6 +3,9 @@ import { Axis, AxisOptions } from './axis';
 
 export type AxisYOptions = AxisOptions;
 
+/**
+ * Axis component bind to y scale.
+ */
 export const AxisY: GCC<AxisYOptions> = (options) => {
   return Axis(options);
 };

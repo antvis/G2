@@ -2,6 +2,10 @@ import { ThemeComponent as TC, Theme } from '../runtime';
 
 export type LightOptions = Theme;
 
+/**
+ * Default theme.
+ * @todo deep mix
+ */
 export const Light: TC<LightOptions> = (options) => {
   const defaultOptions: Theme = {
     defaultColor: '#5B8FF9',

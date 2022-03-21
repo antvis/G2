@@ -29,6 +29,8 @@ describe('useMemo', () => {
     expect(fn).toBeCalledTimes(3);
     expect(t2(2)).toBe(6);
     expect(fn).toBeCalledTimes(3);
+    expect(t2(1)).toBe(5);
+    expect(fn).toBeCalledTimes(4);
   });
 
   it('useAsyncMemoTransform returns a async function memorizing with same data and options', async () => {
@@ -65,5 +67,9 @@ describe('useMemo', () => {
     const r5 = await t2(2);
     expect(r5).toBe(6);
     expect(fn).toBeCalledTimes(3);
+
+    const r6 = await t2(1);
+    expect(r6).toBe(5);
+    expect(fn).toBeCalledTimes(4);
   });
 });

@@ -1,14 +1,35 @@
-import { EncodeOptions, EncodeComponent } from '../runtime/types/component';
-import { ConstantOptions, FieldOptions, TransformOptions } from '../encode';
+import { EncodeComponent, Primitive } from '../runtime';
 
-export type Encode = ConstantEncode | FieldEncode | TransformEncode;
+export type Encode =
+  | ConstantEncode
+  | FieldEncode
+  | TransformEncode
+  | ConstantEncode['value']
+  | FieldEncode['value']
+  | TransformEncode['value'];
 
-export type EncodeTypes = 'constant' | 'field' | 'transform';
+export type EncodeTypes = 'constant' | 'field' | 'transform' | EncodeComponent;
 
-export type BaseEncode<T extends EncodeTypes, O extends EncodeOptions> =
-  | O['value']
-  | ({ type?: T | EncodeComponent } & O);
+export type ConstantEncode = {
+  type?: 'constant';
+  value?: any;
+};
 
-export type ConstantEncode = BaseEncode<'constant', ConstantOptions>;
-export type FieldEncode = BaseEncode<'field', FieldOptions>;
-export type TransformEncode = BaseEncode<'transform', TransformOptions>;
+export type FieldEncode = {
+  type?: 'field';
+  value: string;
+};
+
+export type TransformEncode = {
+  type?: 'transform';
+  value?: (
+    value: Record<string, Primitive>,
+    index: number,
+    array: Record<string, Primitive>[],
+  ) => Primitive;
+};
+
+export type CustomEncode = {
+  type?: EncodeComponent;
+  [key: string]: any;
+};

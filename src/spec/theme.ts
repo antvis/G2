@@ -3,14 +3,18 @@ import {
   ThemeComponent,
 } from '../runtime/types/component';
 
-export type Theme = LightTheme | DarkTheme;
+export type Theme = LightTheme | DarkTheme | CustomTheme;
 
-export type ThemeTypes = 'light' | 'dark';
+export type ThemeTypes = 'light' | 'dark' | ThemeComponent;
 
-export type BaseTheme<T extends ThemeTypes> = {
-  type?: T | ThemeComponent;
+export type LightTheme = {
+  type?: 'light';
 } & ThemeOptions;
 
-export type LightTheme = BaseTheme<'light'>;
+export type DarkTheme = {
+  type?: 'dark';
+} & ThemeOptions;
 
-export type DarkTheme = BaseTheme<'dark'>;
+export type CustomTheme = {
+  type?: ThemeComponent;
+} & ThemeOptions;

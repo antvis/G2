@@ -30,7 +30,6 @@ type Options = {
   x?: number;
   y?: number;
   transform?: CoordinateTransform[];
-  style?: Record<string, string>;
 };
 
 export function plot({
@@ -47,7 +46,6 @@ export function plot({
   width = 600,
   height = 400,
   transform = [],
-  style = {},
 }: Options): DisplayObject[] {
   const coordinate = new Coordinate({
     width,
@@ -56,7 +54,7 @@ export function plot({
     y,
     transformations: [...transform.flat(), Cartesian()[0]],
   });
-  const shapes = mark(index, scale, channel, style, coordinate, theme);
+  const shapes = mark(index, scale, channel, coordinate, theme);
   const canvas = Canvas({ width, height, container });
   for (const shape of shapes) {
     canvas.appendChild(shape);

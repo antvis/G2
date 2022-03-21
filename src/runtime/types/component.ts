@@ -3,13 +3,13 @@ import { Transformation, Coordinate } from '@antv/coord';
 import {
   IndexedValue,
   EncodeFunction,
-  Point,
   ChannelValue,
   Channel,
   Primitive,
   G2Theme,
   TabularData,
   BBox,
+  Vector2,
   GuideComponentPosition,
 } from './common';
 
@@ -77,7 +77,7 @@ export type TransformComponent<O = Record<string, undefined>> = G2BaseComponent<
 >;
 
 export type Encode = EncodeFunction;
-export type EncodeOptions = { value: any };
+export type EncodeOptions = { value?: any };
 export type EncodeComponent<O extends EncodeOptions = EncodeOptions> =
   G2BaseComponent<Encode, O>;
 
@@ -123,7 +123,6 @@ export type Mark = (
   index: number[],
   scale: Record<string, Scale>,
   channel: MarkChannel,
-  style: Record<string, Primitive>,
   coordinate: Coordinate,
   theme: Theme,
 ) => DisplayObject[];
@@ -141,7 +140,7 @@ export type MarkComponent<O = Record<string, unknown>> = G2BaseComponent<
 >;
 
 export type Shape = (
-  points: Point[],
+  points: Vector2[],
   style: {
     color?: string;
     [key: string]: Primitive;

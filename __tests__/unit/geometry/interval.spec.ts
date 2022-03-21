@@ -28,7 +28,7 @@ describe('Interval', () => {
     const container = document.createElement('div');
     const rect = ShapeRect();
     const shapes = plot({
-      mark: Interval(),
+      mark: Interval({}),
       container,
       index: [0, 1, 2],
       scale: {
@@ -45,11 +45,6 @@ describe('Interval', () => {
           [0.4, 1],
           [0.2, 1],
         ],
-      },
-      style: {
-        // This is invalid, because the color channel of ShapeRect having higher priority
-        // and will overriding it.
-        fill: 'steelblue',
       },
     });
     mount(createDiv(), container);
@@ -94,7 +89,7 @@ describe('Interval', () => {
     const container = document.createElement('div');
     const rect = ShapeRect();
     const shapes = plot({
-      mark: Interval(),
+      mark: Interval({}),
       container,
       index: [0, 1, 2, 3, 4, 5],
       scale: {

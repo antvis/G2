@@ -1,5 +1,5 @@
 import { Polygon } from '@antv/g';
-import { G2Spec, Point, render, ShapeComponent } from '../../../src';
+import { G2Spec, Vector2, render, ShapeComponent } from '../../../src';
 import { createLibrary } from '../../../src/stdlib';
 import { createDiv, mount, unmountAll } from '../../utils/dom';
 
@@ -28,6 +28,7 @@ describe('render', () => {
     expect(canvas.style.height).toBe('200px');
   });
 
+  // Don't asset for temporary as the inner data structure of context is not clear now.
   it('render({...} renders chart according to specified options', () => {
     const chart = render<G2Spec>({
       type: 'interval',
@@ -121,7 +122,6 @@ describe('render', () => {
       encode: {
         x: 'genre',
         y: 'sold',
-        // @ts-ignore
         shape: {
           type: 'constant',
           value: () => {
@@ -145,10 +145,10 @@ describe('render', () => {
   });
 
   it('render({...} renders chart with custom library', () => {
-    const TriangleShape: ShapeComponent<{}> = () => {
+    const TriangleShape: ShapeComponent<void> = () => {
       return (P, style, coordinate) => {
         const [p0, p1, p2, p3] = P;
-        const pm: Point = [(p0[0] + p1[0]) / 2, p0[1]];
+        const pm: Vector2 = [(p0[0] + p1[0]) / 2, p0[1]];
         const { color } = style;
         return new Polygon({
           style: {

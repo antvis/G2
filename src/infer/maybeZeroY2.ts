@@ -1,8 +1,12 @@
 import { InferComponent as IC } from '../runtime';
 import { zero } from './utils';
 
-export type MaybeZeroY2Options = {};
+export type MaybeZeroY2Options = Record<string, never>;
 
+/**
+ * Add zero constant encode for y2 channel.
+ * This is useful for interval and area geometry.
+ */
 export const MaybeZeroY2: IC<MaybeZeroY2Options> = () => {
   return (encodings) => {
     const { y, ...rest } = encodings;

@@ -1,12 +1,12 @@
 import { TransformComponent as TC } from '../runtime';
+import { FetchTransform } from '../spec';
 import { useAsyncMemoTransform } from './utils';
 
-export type FetchOptions = {
-  url?: string;
-};
+export type FetchOptions = Omit<FetchTransform, 'type'>;
 
 /**
- * @todo Format like csv
+ * Fetch resource in different format asynchronously across the network.
+ * @todo Support more formats (e.g., csv, dsv).
  */
 export const Fetch: TC<FetchOptions> = (options) => {
   const { url } = options;
@@ -17,6 +17,4 @@ export const Fetch: TC<FetchOptions> = (options) => {
   }, [options]);
 };
 
-Fetch.props = {
-  async: true,
-};
+Fetch.props = {};
