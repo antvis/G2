@@ -1,3 +1,17 @@
+#### 4.1.48 (2022-03-23)
+
+##### Documentation Changes
+
+*  更新文档，将chart.source 改为 chart.data ([#3816](https://github.com/antvis/g2/pull/3816)) ([ddda1f80](https://github.com/antvis/g2/commit/ddda1f800886828305b7b54f738bf0d060dee84d))
+
+##### New Features
+
+* **theme:**  主题支持完整样式表的自定义 ([#3833](https://github.com/antvis/g2/pull/3833)) ([97a5b419](https://github.com/antvis/g2/commit/97a5b419ed7246f482fed24cddbd700fd1017764))
+
+##### Bug Fixes
+
+* **interval:**  修复转置后的圆角条形图渲染多出一部分 ([#3826](https://github.com/antvis/g2/pull/3826)) ([b12dd0fe](https://github.com/antvis/g2/commit/b12dd0fe76ce1a7c0a3d8f55f15493501f4efe63))
+
 #### 4.1.47 (2022-03-03)
 
 ##### New Features
