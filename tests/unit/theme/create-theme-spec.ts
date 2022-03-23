@@ -65,4 +65,14 @@ describe('createTheme', () => {
     theme = createTheme({ sequenceColors: ['red', 'yellow'] });
     expect(theme.sequenceColors).toEqual(['red', 'yellow']);
   });
+
+  it('通过 styleSheet 设置组件样式', () => {
+    let theme = createTheme({ styleSheet: { axisLabelFillColor: 'red', axisGridBorderColor: 'blue', annotationTextFillColor: 'green' } });
+    // 坐标轴标签颜色
+    expect(theme.components.axis.common.label.style.fill).toEqual('red');
+    // 坐标轴 grid 虚线颜色
+    expect(theme.components.axis.common.grid.line.style.stroke).toEqual('blue');
+    // text annotation 颜色
+    expect(theme.components.annotation.text.style.fill).toEqual('green');
+  });
 });

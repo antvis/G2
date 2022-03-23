@@ -72,42 +72,32 @@ const SINGLE_SEQUENCE = [
 ];
 
 export const createDarkStyleSheet = (cfg: StyleSheetCfg = {}) => {
-  const {
-    backgroundColor = '#141414',
-    subColor = 'rgba(255,255,255,0.05)',
-    paletteQualitative10 = QUALITATIVE_10,
-    paletteQualitative20 = QUALITATIVE_20,
-    paletteSemanticRed = '#F4664A',
-    paletteSemanticGreen = '#30BF78',
-    paletteSemanticYellow = '#FAAD14',
-    paletteSequence = SINGLE_SEQUENCE,
-    fontFamily = `"Segoe UI", Roboto, "Helvetica Neue", Arial,
-    "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
-    "Noto Color Emoji"`,
-  } = cfg;
+  const { paletteQualitative10 = QUALITATIVE_10, paletteQualitative20 = QUALITATIVE_20 } = cfg;
   const { brandColor = paletteQualitative10[0] } = cfg;
 
-  return {
+  const token = {
     /** 图表背景色 */
-    backgroundColor,
+    backgroundColor: '#141414',
     /** 主题色 */
     brandColor,
     /** 图表辅助色 */
-    subColor,
+    subColor: 'rgba(255,255,255,0.05)',
     /** 分类色板 1，在数据量小于等于 10 时使用 */
     paletteQualitative10,
     /** 分类色板 2，在数据量大于 10 时使用 */
     paletteQualitative20,
     /** 语义色 */
-    paletteSemanticRed,
+    paletteSemanticRed: '#F4664A',
     /** 语义色 */
-    paletteSemanticGreen,
+    paletteSemanticGreen: '#30BF78',
     /** 语义色 */
-    paletteSemanticYellow,
+    paletteSemanticYellow: '#FAAD14',
     /** (单色)顺序色板 */
-    paletteSequence,
+    paletteSequence: SINGLE_SEQUENCE,
     /** 字体 */
-    fontFamily,
+    fontFamily: `"Segoe UI", Roboto, "Helvetica Neue", Arial,
+    "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+    "Noto Color Emoji"`,
 
     // -------------------- 坐标轴 --------------------
     /** 坐标轴线颜色 */
@@ -565,6 +555,8 @@ export const createDarkStyleSheet = (cfg: StyleSheetCfg = {}) => {
     /** hollowInterval inactive 状态下边框透明度 */
     hollowIntervalInactiveBorderOpacity: 0.3,
   };
+
+  return { ...token, ...cfg };
 };
 
 export const antvDark = createDarkStyleSheet();

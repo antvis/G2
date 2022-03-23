@@ -3831,19 +3831,7 @@ export interface StyleSheet {
 /**
  * @title createTheme 主题样式表配置
  */
-export type StyleSheetCfg = Pick<
-  StyleSheet,
-  | 'backgroundColor'
-  | 'subColor'
-  | 'brandColor'
-  | 'paletteQualitative10'
-  | 'paletteQualitative20'
-  | 'paletteSemanticRed'
-  | 'paletteSemanticGreen'
-  | 'paletteSemanticYellow'
-  | 'paletteSequence'
-  | 'fontFamily'
->;
+export type StyleSheetCfg = Partial<StyleSheet>;
 
 // ============================ 交互相关的类型定义 ============================
 /**
