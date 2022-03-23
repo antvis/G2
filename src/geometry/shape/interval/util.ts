@@ -269,7 +269,6 @@ export function getRectWithCornerRadius(points: Point[], coordinate: Coordinate,
 
   if (coordinate.isTransposed) {
     [p1, p3] = swap(p1, p3);
-    [r1, r2, r3, r4] = [r4, r1, r2, r3]
   }
 
   /**
@@ -300,6 +299,10 @@ export function getRectWithCornerRadius(points: Point[], coordinate: Coordinate,
    */
   const abs = v => Math.abs(v);
   [r1, r2, r3, r4] = parseRadius([r1, r2, r3, r4], Math.min(abs(p3.x - p0.x), abs(p1.y - p0.y))).map(d => abs(d));
+
+  if (coordinate.isTransposed) {
+    [r1, r2, r3, r4] = [r4, r1, r2, r3]
+  }
 
   if (p0.y < p1.y /** 负数情况 */) {
     path.push(['M', p3.x, p3.y + r3]);
