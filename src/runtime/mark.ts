@@ -141,7 +141,7 @@ export async function initializeMark(
     const { shapes } = partialProps;
     scale[name] = inferScale(
       channel,
-      partialScale,
+      partialScale[name] || {},
       coordinate,
       shapes,
       theme,
@@ -155,6 +155,9 @@ export async function initializeMark(
   return [mark, props];
 }
 
+// This is for scale type inference.
+// It tells color channel to use a ordinal or identity scale.
+// It also tells enter channel to use a identity or non-identity scale.
 function inferChannelType(encode: InferValue) {
   if (encode === undefined) return null;
   if (Array.isArray(encode)) return null;
@@ -171,6 +174,7 @@ function inferChannelField(encode: InferValue) {
   return null;
 }
 
+// @todo Move into a standalone file.
 function inferStack(
   statistic: G2StatisticOptions[],
   indexedValue: IndexedValue,

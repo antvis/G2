@@ -7,10 +7,11 @@ import { MaybeTuple, MaybeZeroX1, MaybeZeroY2 } from '../infer';
 import { Category10, Category20 } from '../palette';
 import { Linear, Ordinal, Band, Identity } from '../scale';
 import { ShapeRect, ShapeHollowRect } from '../shape';
-import { DodgeX, StackY } from '../statistic';
+import { DodgeX, StackY, StackEnter } from '../statistic';
 import { Light } from '../theme';
 import { Fetch, SortBy } from '../transform';
 import { AxisX, AxisY, LegendCategory, LegendContinuous } from '../component';
+import { ScaleInY, FadeIn } from '../animation';
 
 export function createLibrary(): G2Library {
   return {
@@ -35,6 +36,7 @@ export function createLibrary(): G2Library {
     'shape.hollowRect': ShapeHollowRect,
     'statistic.stackY': StackY,
     'statistic.dodgeX': DodgeX,
+    'statistic.stackEnter': StackEnter,
     'theme.light': Light,
     'transform.fetch': Fetch,
     'transform.sortBy': SortBy,
@@ -42,5 +44,7 @@ export function createLibrary(): G2Library {
     'component.axisY': AxisY,
     'component.legendCategory': LegendCategory,
     'component.legendContinuous': LegendContinuous,
+    'animation.scaleInY': ScaleInY,
+    'animation.fadeIn': FadeIn,
   };
 }

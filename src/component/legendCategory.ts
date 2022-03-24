@@ -30,7 +30,7 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
         itemName: {
           style: {
             selected: {
-              fill: 'black',
+              fontSize: 12,
             },
           },
         },
@@ -40,7 +40,6 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
             spacing: 0,
             style: {
               fontSize: 12,
-              fill: 'black',
             },
           },
         }),

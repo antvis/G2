@@ -14,6 +14,10 @@ describe('Interval', () => {
         { name: 'series', scale: 'band' },
         { name: 'color' },
         { name: 'shape' },
+        { name: 'enterType' },
+        { name: 'enterDelay' },
+        { name: 'enterDuration' },
+        { name: 'enterEasing' },
       ],
       infer: [
         { type: 'maybeTuple' },

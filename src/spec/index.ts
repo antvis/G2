@@ -14,3 +14,4 @@ export * from './scale';
 export * from './palette';
 export * from './coordinate';
 export * from './geometry';
+export * from './animate';

@@ -14,7 +14,7 @@ export const Interval: MC<IntervalOptions> = (options) => {
     const { x: X, y: Y, series: S, color: C, shape: SP } = value;
     const { defaultColor } = theme;
 
-    // Calc with for each interval
+    // Calc width for each interval.
     // The scales for x and series channels must be band scale.
     const x = scale.x as Band;
     const series = scale.series as Band;
@@ -56,6 +56,10 @@ Interval.props = {
     { name: 'series', scale: 'band' },
     { name: 'color' },
     { name: 'shape' },
+    { name: 'enterType' },
+    { name: 'enterDelay' },
+    { name: 'enterDuration' },
+    { name: 'enterEasing' },
   ],
   infer: [
     { type: 'maybeTuple' },

@@ -15,6 +15,7 @@ import {
   ShapeComponent,
   PaletteComponent,
   GuideComponentComponent,
+  AnimationComponent,
 } from './component';
 
 export type G2ViewTree = {
@@ -65,6 +66,7 @@ export type G2Mark = {
   scale?: Record<string, G2ScaleOptions>;
   encode?: Record<string, any | G2EncodeOptions>;
   type?: string;
+  animate?: Record<string, Primitive>;
   style?: Record<string, Primitive>;
 };
 
@@ -96,7 +98,8 @@ export type G2ComponentOptions =
   | G2InferOptions
   | G2ShapeOptions
   | G2PaletteOptions
-  | G2GuideComponentOptions;
+  | G2GuideComponentOptions
+  | G2AnimationOptions;
 
 export type G2TransformOptions = G2BaseComponentOptions<TransformComponent>;
 export type G2StatisticOptions = G2BaseComponentOptions<StatisticComponent>;
@@ -128,3 +131,4 @@ export type G2GuideComponentOptions = G2BaseComponentOptions<
     [key: string | symbol]: any;
   }
 >;
+export type G2AnimationOptions = G2BaseComponentOptions<AnimationComponent>;

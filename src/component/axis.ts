@@ -45,7 +45,6 @@ export const Axis: GCC<AxisOptions> = (options) => {
           offset: labelOffset,
           style: {
             default: {
-              // @todo [BUG] It' not work!!!
               textAlign: labelAlign,
             },
           },
@@ -64,7 +63,6 @@ export const Axis: GCC<AxisOptions> = (options) => {
             content: field,
             position: scale.getTicks ? titlePosition : 'center',
             style: {
-              fontSize: 12,
               textAlign: titleAlign,
             },
             offset: titleOffset,
@@ -109,7 +107,7 @@ function inferPosition(
     return {
       startPos: [x + width, y],
       endPos: [x + width, y + height],
-      labelOffset: [0, -15],
+      labelOffset: [0, -5],
       titlePosition: 'start',
       titleOffset: [0, -20],
       titleRotate: 0,
