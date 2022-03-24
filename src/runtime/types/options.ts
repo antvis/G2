@@ -114,6 +114,7 @@ export type G2ScaleOptions = G2BaseComponentOptions<
     range?: any[];
     guide?: boolean | G2GuideComponentOptions;
     field?: string;
+    zero?: boolean;
     [key: string | symbol]: any;
   }
 >;

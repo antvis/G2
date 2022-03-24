@@ -29,11 +29,12 @@ export const Axis: GCC<AxisOptions> = (options) => {
       labelAlign,
     } = inferPosition(position, bbox);
     const tickNumbers = scale.getTicks?.() || domain;
+    const formatter = scale.getFormatter ? scale.getFormatter() : (d) => `${d}`;
     const ticks = tickNumbers.map((d) => {
       const offset = scale.getBandWidth?.() / 2 || 0;
       return {
         value: scale.map(d) + offset,
-        text: `${d}`,
+        text: formatter(d),
       };
     });
     return new Linear({

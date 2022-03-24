@@ -179,17 +179,18 @@ function inferStack(
   statistic: G2StatisticOptions[],
   indexedValue: IndexedValue,
 ): G2StatisticOptions[] {
-  if (statistic.find(({ type }) => type === 'stackY' || type === 'dodgeX')) {
-    return statistic;
-  }
-  const { index, value } = indexedValue;
-  const { x: X, y: Y } = value;
-  if (X === undefined || Y === undefined) return statistic;
-  const X1 = X.map(firstOf);
-  const groups = Array.from(group(index, (i) => X1[i]).values());
-  if (groups.some((d) => d.length > 1)) {
-    return [{ type: 'stackY' }, ...statistic];
-  } else {
-    return statistic;
-  }
+  // if (statistic.find(({ type }) => type === 'stackY' || type === 'dodgeX')) {
+  //   return statistic;
+  // }
+  // const { index, value } = indexedValue;
+  // const { x: X, y: Y } = value;
+  // if (X === undefined || Y === undefined) return statistic;
+  // const X1 = X.map(firstOf);
+  // const groups = Array.from(group(index, (i) => X1[i]).values());
+  // if (groups.some((d) => d.length > 1)) {
+  //   return [{ type: 'stackY' }, ...statistic];
+  // } else {
+  //   return statistic;
+  // }
+  return statistic;
 }
