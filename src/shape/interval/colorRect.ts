@@ -3,7 +3,7 @@ import { arc } from 'd3-shape';
 import { Container } from '../../utils/container';
 import { angle, sub, dist } from '../../utils/vector';
 import { Vector2, ShapeComponent as SC, Primitive } from '../../runtime';
-import { isTranspose, isPolar } from '../utils';
+import { isTranspose, isPolar } from '../../utils/coordinate';
 
 export type ColorRectOptions = {
   colorAttribute: 'fill' | 'stroke';
@@ -63,7 +63,10 @@ export const ColorRect: SC<ColorRectOptions> = (options) => {
   };
 };
 
-ColorRect.props = {};
+// @todo Should Shape have default animations using for ordinal scale?
+ColorRect.props = {
+  defaultEnterAnimation: 'scaleInY',
+};
 
 function reorder(points: Vector2[]): Vector2[] {
   const [p0, p1, p2, p3] = points;
