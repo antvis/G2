@@ -1,3 +1,14 @@
+#### 4.1.49 (2022-03-25)
+
+##### Chores
+
+*  ci actions 添加 pr 触发时机 ([4cc0475f](https://github.com/antvis/g2/commit/4cc0475f7382e8cb423c115ee2180781c588bc17))
+
+##### Bug Fixes
+
+*  修复判空问题 ([#3840](https://github.com/antvis/g2/pull/3840)) ([c712251d](https://github.com/antvis/g2/commit/c712251d028bf349ae98568ad4b5a06d3ce34725))
+
+
 #### 4.1.48 (2022-03-23)
 
 ##### Documentation Changes
