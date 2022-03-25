@@ -112,10 +112,9 @@ export function pieSpiderLabelLayout(items: LabelItem[], labels: IGroup[], shape
 
   // step 1: adjust items to spider
   each(items, (item) => {
+    if (!item) return;
     const label = get(labelsMap, [item.id]);
-    if (!label) {
-      return;
-    }
+    if (!label) return;
 
     const inRight = item.x > center.x || (item.x === center.x && item.y > center.y);
     const offsetX = !isNil(item.offsetX) ? item.offsetX : LABEL_OFFSET_X;
@@ -130,12 +129,12 @@ export function pieSpiderLabelLayout(items: LabelItem[], labels: IGroup[], shape
   const LEFT_HALF_KEY = 'left';
   const RIGHT_HALF_KEY = 'right';
   // step 1: separate labels
-  const seperateLabels = groupBy(items, (item) => (item.x < center.x ? LEFT_HALF_KEY : RIGHT_HALF_KEY));
+  const separateLabels = groupBy(items, (item) => (item.x < center.x ? LEFT_HALF_KEY : RIGHT_HALF_KEY));
 
   // step2: calculate totalHeight
   let totalHeight = (radius + labelOffset) * 2 + labelHeight;
 
-  each(seperateLabels, (half: PolarLabelItem[]) => {
+  each(separateLabels, (half: PolarLabelItem[]) => {
     const halfHeight = half.length * labelHeight;
     if (halfHeight > totalHeight) {
       totalHeight = Math.min(halfHeight, Math.abs(start.y - end.y));
@@ -151,7 +150,7 @@ export function pieSpiderLabelLayout(items: LabelItem[], labels: IGroup[], shape
   };
 
   // step 3: antiCollision
-  each(seperateLabels, (half, key) => {
+  each(separateLabels, (half, key) => {
     const maxLabelsCountForOneSide = totalHeight / labelHeight;
     if (half.length > maxLabelsCountForOneSide) {
       half.sort((a, b) => {
@@ -173,7 +172,7 @@ export function pieSpiderLabelLayout(items: LabelItem[], labels: IGroup[], shape
   const endY = labelsContainerRange.maxY;
 
   // step4: applyTo labels and adjust labelLines
-  each(seperateLabels, (half, key) => {
+  each(separateLabels, (half, key) => {
     const inRight = key === RIGHT_HALF_KEY;
 
     each(half, (item) => {
