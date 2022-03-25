@@ -12,6 +12,7 @@ export type StackEnterOptions = Omit<StackDurationStatistic, 'type'>;
  * @todo Sort among groups(e.g. reverse).
  * @todo Stack enter in groups rather than between groups?
  * @todo Auto inter this statistic for scaleInY animation in stacked interval?
+ * @todo All the groups shared the enterDuration?
  */
 export const StackEnter: SC<StackEnterOptions> = (options) => {
   const { by = ['x'] } = options;

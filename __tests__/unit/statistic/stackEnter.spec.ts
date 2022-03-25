@@ -32,6 +32,26 @@ describe('', () => {
     });
   });
 
+  test('StackEnter({...}) should work based on specified enterDelay', () => {
+    const statistic = StackEnter({});
+    const v = {
+      index: [0, 1, 2],
+      value: {
+        x: [[0], [1], [2]],
+        enterDuration: [100, 100, 100],
+        enterDelay: [100, 100, 100],
+      },
+    };
+    expect(statistic(v)).toEqual({
+      index: [0, 1, 2],
+      value: {
+        x: [[0], [1], [2]],
+        enterDuration: [100, 100, 100],
+        enterDelay: [100, 200, 300],
+      },
+    });
+  });
+
   test('StackEnter({...}) should shack enter by multiple channels', () => {
     const v = {
       index: [0, 1, 2, 3, 4, 5],
