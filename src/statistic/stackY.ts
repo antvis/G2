@@ -1,5 +1,5 @@
 import { group } from 'd3-array';
-import { StatisticComponent } from '../runtime';
+import { StatisticComponent as SC } from '../runtime';
 import { StackYStatistic } from '../spec';
 import { firstOf as x1, firstOf as y1 } from '../utils/array';
 
@@ -9,7 +9,7 @@ export type StackYOptions = Omit<StackYStatistic, 'type'>;
  * Group marks into groups and stack y channel.
  *  @todo Sort marks in each groups.
  */
-export const StackY: StatisticComponent<StackYOptions> = () => {
+export const StackY: SC<StackYOptions> = () => {
   return ({ index, value }) => {
     const { x: X, y: Y, series: S } = value;
     if (X === undefined || Y === undefined) return { index, value };

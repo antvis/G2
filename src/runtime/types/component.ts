@@ -1,4 +1,4 @@
-import { Canvas, DisplayObject } from '@antv/g';
+import { Canvas, DisplayObject, Animation as GAnimation } from '@antv/g';
 import { Transformation, Coordinate } from '@antv/coord';
 import {
   IndexedValue,
@@ -26,7 +26,8 @@ export type G2ComponentNamespaces =
   | 'statistic'
   | 'theme'
   | 'transform'
-  | 'component';
+  | 'component'
+  | 'animation';
 
 export type G2Component =
   | RendererComponent
@@ -39,7 +40,8 @@ export type G2Component =
   | MarkComponent
   | ShapeComponent
   | ThemeComponent
-  | GuideComponentComponent;
+  | GuideComponentComponent
+  | AnimationComponent;
 
 export type G2ComponentValue =
   | Renderer
@@ -53,7 +55,8 @@ export type G2ComponentValue =
   | Mark
   | Shape
   | Theme
-  | GuideComponent;
+  | GuideComponent
+  | Animation;
 
 export type G2BaseComponent<
   R = any,
@@ -147,9 +150,13 @@ export type Shape = (
   },
   coordinate: Coordinate,
 ) => DisplayObject;
+export type ShapeProps = {
+  defaultEnterAnimation: string;
+};
 export type ShapeComponent<O = Record<string, unknown>> = G2BaseComponent<
   Shape,
-  O
+  O,
+  ShapeProps
 >;
 
 export type Theme = G2Theme;
@@ -172,3 +179,14 @@ export type GuideComponentProps = {
 };
 export type GuideComponentComponent<O = Record<string, unknown>> =
   G2BaseComponent<GuideComponent, O, GuideComponentProps>;
+
+export type Animation = (
+  shape: DisplayObject,
+  style: Record<string, any>,
+  coordinate: Coordinate,
+  theme: G2Theme,
+) => GAnimation;
+export type AnimationComponent<O = Record<string, unknown>> = G2BaseComponent<
+  Animation,
+  O
+>;

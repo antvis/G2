@@ -10,4 +10,6 @@ export const ShapeHollowRect: SC<ShapeHollowRectOptions> = () => {
   return ColorRect({ colorAttribute: 'stroke' });
 };
 
-ShapeHollowRect.props = {};
+ShapeHollowRect.props = {
+  ...ColorRect.props,
+};

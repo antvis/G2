@@ -1,3 +1,5 @@
+import { DisplayObject } from '@antv/g';
+import { Coordinate } from '@antv/coord';
 import { mapObject } from '../utils/array';
 import { Container } from '../utils/container';
 import { error } from '../utils/helper';
@@ -12,6 +14,7 @@ import {
   G2Mark,
   G2Library,
   G2ShapeOptions,
+  G2AnimationOptions,
 } from './types/options';
 import {
   ThemeComponent,
@@ -26,8 +29,10 @@ import {
   MarkChannel,
   Shape,
   ShapeComponent,
+  AnimationComponent,
+  Animation,
 } from './types/component';
-import { Channel } from './types/common';
+import { Channel, G2Theme } from './types/common';
 import { useLibrary } from './library';
 import { initializeMark } from './mark';
 import { inferComponent } from './component';
@@ -140,24 +145,81 @@ async function plotArea(options: G2Area, context: G2Context): Promise<void> {
 
   // Render marks with corresponding channel values.
   for (const [mark, props] of markProps.entries()) {
-    const { scale: scaleDescriptor } = mark;
+    const { scale: scaleDescriptor, animate = {} } = mark;
     const { index, channels, defaultShape } = props;
     const scale = mapObject(scaleDescriptor, useScale);
-    const render = useMark(mark);
     const value = Container.of<MarkChannel>(channels)
       .map(applyScale, scale)
+      .map(animationFunction, index, animate, defaultShape, library)
       .map(shapeFunction, index, defaultShape, library)
       .value();
+
+    // Apply atheistic attributes.
+    const render = useMark(mark);
     const shapes = render(index, scale, value, coordinate, theme);
     for (const shape of shapes) {
       canvas.appendChild(shape);
     }
+
+    // Apply animation attributes.
+    applyAnimation(shapes, value, coordinate, theme);
   }
 }
 
 function inferTheme(theme: G2ThemeOptions = { type: 'light' }): G2ThemeOptions {
   const { type = 'light' } = theme;
   return { ...theme, type };
+}
+
+function applyAnimation(
+  shapes: DisplayObject[],
+  value: Record<string, any>,
+  coordinate: Coordinate,
+  theme: G2Theme,
+) {
+  const {
+    enterType: ET,
+    enterDelay: EDL = [],
+    enterEasing: EE = [],
+    enterDuration: EDR = [],
+  } = value;
+  for (let i = 0; i < shapes.length; i++) {
+    const shape = shapes[i];
+    const animate = ET[i];
+    const style = {
+      duration: EDR[i],
+      easing: EE[i],
+      delay: EDL[i],
+    };
+    animate(shape, style, coordinate, theme);
+  }
+}
+
+function animationFunction(
+  value: Record<string, any>,
+  index: number[],
+  animate: G2AnimationOptions,
+  defaultShape: string,
+  library: G2Library,
+) {
+  const [, createShape] = useLibrary<G2ShapeOptions, ShapeComponent, Shape>(
+    'shape',
+    library,
+  );
+  const [useAnimation] = useLibrary<
+    G2AnimationOptions,
+    AnimationComponent,
+    Animation
+  >('animation', library);
+
+  const { enterType: ET } = value;
+  const { defaultEnterAnimation } = createShape(defaultShape).props;
+  const { enter = {} } = animate;
+  const { type = defaultEnterAnimation } = enter;
+  const animationFunctions = Array.isArray(ET)
+    ? ET.map((type) => useAnimation({ ...enter, type }))
+    : index.map(() => useAnimation({ ...enter, type }));
+  return { ...value, enterType: animationFunctions };
 }
 
 function shapeFunction(

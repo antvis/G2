@@ -1,8 +1,16 @@
 import { StatisticComponent } from '../runtime';
 
-export type Statistic = StackYStatistic | DodgeXStatistic | CustomStatistic;
+export type Statistic =
+  | StackYStatistic
+  | DodgeXStatistic
+  | StackDurationStatistic
+  | CustomStatistic;
 
-export type StatisticTypes = 'dodgeX' | 'stackY' | StatisticComponent;
+export type StatisticTypes =
+  | 'dodgeX'
+  | 'stackY'
+  | 'stackEnter'
+  | StatisticComponent;
 
 export type DodgeXStatistic = {
   type?: 'dodgeX';
@@ -10,6 +18,11 @@ export type DodgeXStatistic = {
 
 export type StackYStatistic = {
   type?: 'stackY';
+};
+
+export type StackDurationStatistic = {
+  type?: 'stackEnter';
+  by?: string[];
 };
 
 export type CustomStatistic = {

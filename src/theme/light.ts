@@ -11,6 +11,11 @@ export const Light: TC<LightOptions> = (options) => {
     defaultColor: '#5B8FF9',
     defaultCategory10: 'category10',
     defaultCategory20: 'category20',
+    enter: {
+      duration: 300,
+      fill: 'both',
+      delay: 0,
+    },
   };
   return Object.assign({}, defaultOptions, options);
 };
