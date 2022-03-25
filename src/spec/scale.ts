@@ -26,6 +26,7 @@ export type BaseScale<T extends ScaleTypes, O> = {
   palette?: Palette;
   guide?: Record<string, any>; // @todo
   field?: string;
+  independent?: boolean;
 } & O;
 
 export type LinearScale = BaseScale<'linear', LinearOptions>;

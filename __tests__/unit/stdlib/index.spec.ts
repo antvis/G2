@@ -7,7 +7,7 @@ import { MaybeTuple, MaybeZeroX1, MaybeZeroY2 } from '../../../src/infer';
 import { Category10, Category20 } from '../../../src/palette';
 import { Linear, Ordinal, Band, Identity } from '../../../src/scale';
 import { ShapeRect, ShapeHollowRect } from '../../../src/shape';
-import { DodgeX, StackY } from '../../../src/statistic';
+import { DodgeX, StackEnter, StackY } from '../../../src/statistic';
 import { Light } from '../../../src/theme';
 import { Fetch, SortBy } from '../../../src/transform';
 import {
@@ -16,6 +16,7 @@ import {
   LegendCategory,
   LegendContinuous,
 } from '../../../src/component';
+import { ScaleInY, FadeIn } from '../../../src/animation';
 
 describe('stdlib', () => {
   it('createLibrary() should returns expected builtin', () => {
@@ -41,6 +42,7 @@ describe('stdlib', () => {
       'shape.hollowRect': ShapeHollowRect,
       'statistic.stackY': StackY,
       'statistic.dodgeX': DodgeX,
+      'statistic.stackEnter': StackEnter,
       'theme.light': Light,
       'transform.fetch': Fetch,
       'transform.sortBy': SortBy,
@@ -48,6 +50,8 @@ describe('stdlib', () => {
       'component.axisY': AxisY,
       'component.legendCategory': LegendCategory,
       'component.legendContinuous': LegendContinuous,
+      'animation.scaleInY': ScaleInY,
+      'animation.fadeIn': FadeIn,
     });
   });
 });

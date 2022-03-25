@@ -11,4 +11,6 @@ export const ShapeRect: SC<ShapeRectOptions> = () => {
   return ColorRect({ colorAttribute: 'fill' });
 };
 
-ShapeRect.props = {};
+ShapeRect.props = {
+  ...ColorRect.props,
+};

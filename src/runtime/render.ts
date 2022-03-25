@@ -24,7 +24,10 @@ export function render<T extends G2ViewTree = G2ViewTree>(
   context.viewTree = viewTree;
 
   // Plot the chart and mutate context.
-  plot<T>({ ...options, width, height }, context).then(callback);
+  // Using requestAnimationFrame to make sure that plot chart after mounting container.
+  requestAnimationFrame(() =>
+    plot<T>({ ...options, width, height }, context).then(callback),
+  );
 
   // Return the container HTML element wraps the canvas or svg element.
   return normalizeContainer(canvas.getConfig().container);

@@ -2,6 +2,11 @@ export type G2Theme = {
   defaultColor?: string;
   defaultCategory10?: string;
   defaultCategory20?: string;
+  enter?: {
+    duration?: number;
+    delay?: number;
+    fill?: 'both';
+  };
 };
 
 export type MaybeArray<T> = T | T[];

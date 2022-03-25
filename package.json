@@ -91,9 +91,9 @@
   },
   "dependencies": {
     "@antv/coord": "^0.4.1",
-    "@antv/g": "^5.0.14",
+    "@antv/g": "^5.0.17",
     "@antv/g-canvas": "^1.0.13",
-    "@antv/gui": "^0.3.3",
+    "@antv/gui": "0.3.4-beta.1",
     "@antv/scale": "^0.4.6",
     "d3-array": "^3.1.1",
     "d3-shape": "^3.1.0"

@@ -29,7 +29,7 @@ export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
         },
         min,
         max,
-        indicator: false,
+        indicator: null,
         handle: false,
         ...(field && {
           title: {
@@ -37,7 +37,6 @@ export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
             spacing: 0,
             style: {
               fontSize: 12,
-              fill: 'black',
             },
           },
         }),
