@@ -3,6 +3,9 @@ import { ParallelCoordinate } from '../spec';
 
 export type ParallelOptions = Omit<ParallelCoordinate, 'type'>;
 
-export const Parallel: CC<ParallelOptions> = () => [['parallel', 0, 0, 1, 1]];
+/**
+ * Parallel coordinate transformations for parallel coordinate.
+ */
+export const Parallel: CC<ParallelOptions> = () => [['parallel', 0, 1, 0, 1]];
 
 Parallel.props = {};

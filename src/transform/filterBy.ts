@@ -4,6 +4,10 @@ import { useMemoTransform } from './utils';
 
 export type FilterByOptions = Omit<FilterByTransform, 'type'>;
 
+/**
+ * Filter data by specified fields and filter callback for each fields.
+ * It saves datum with every fields defined by default.
+ */
 export const FilterBy: TC<FilterByOptions> = (options) => {
   const { fields: F = [], callback = defined } = options;
   return useMemoTransform(
