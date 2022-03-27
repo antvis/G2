@@ -1,12 +1,12 @@
-import { ShapeHollowRect } from '../../../../src/shape';
+import { HollowRect } from '../../../../src/shape';
 import { mount, createDiv } from '../../../utils/dom';
 import { draw, style } from '../helper';
 
-describe('ShapeHollowRect', () => {
-  it('ShapeRect() returns a function drawing rect in cartesian using color as stroke', () => {
+describe('HollowRect', () => {
+  it('HollowRect() returns a function drawing rect in cartesian using color as stroke', () => {
     const container = document.createElement('div');
     const shape = draw({
-      shape: ShapeHollowRect(),
+      shape: HollowRect(),
       container,
       style: {
         color: 'steelblue',
@@ -27,10 +27,10 @@ describe('ShapeHollowRect', () => {
     });
   });
 
-  it('ShapeRect() returns a function drawing rect with specified lineWidth', () => {
+  it('HollowRect() returns a function drawing rect with specified lineWidth', () => {
     const container = document.createElement('div');
     const shape = draw({
-      shape: ShapeHollowRect(),
+      shape: HollowRect(),
       container,
       style: {
         color: 'steelblue',

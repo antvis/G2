@@ -1,15 +1,15 @@
 import { ShapeComponent as SC } from '../../runtime';
 import { ColorRect } from './colorRect';
 
-export type ShapeHollowRectOptions = void;
+export type HollowRectOptions = void;
 
 /**
  * Render rect in different coordinate and using color channel for stroke attribute.
  */
-export const ShapeHollowRect: SC<ShapeHollowRectOptions> = () => {
+export const HollowRect: SC<HollowRectOptions> = () => {
   return ColorRect({ colorAttribute: 'stroke' });
 };
 
-ShapeHollowRect.props = {
+HollowRect.props = {
   ...ColorRect.props,
 };

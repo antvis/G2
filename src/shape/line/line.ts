@@ -1,28 +1,13 @@
-import { line } from 'd3-shape';
-import { Path } from '@antv/g';
-import { isPolar } from '../../utils/coordinate';
+import { curveLinear } from 'd3-shape';
 import { ShapeComponent as SC } from '../../runtime';
-import { Container } from '../../utils/container';
-import { applyStyle, attr } from '../utils';
+import { CurveLine } from './curveLine';
 
-export type ShapeLineOptions = void;
+export type LineOptions = void;
 
-export const ShapeLine: SC<ShapeLineOptions> = () => {
-  return (points, style, coordinate) => {
-    const { color } = style;
-    const P = isPolar(coordinate) ? [...points, points[0]] : points;
-    // const P = points;
-    const path = line()
-      .x((d) => d[0])
-      .y((d) => d[1]);
-    return Container.of<Path>(new Path({}))
-      .map(attr, 'd', path(P))
-      .map(attr, 'stroke', color)
-      .map(applyStyle, style)
-      .value();
-  };
+export const Line: SC<LineOptions> = () => {
+  return CurveLine({ curve: curveLinear });
 };
 
-ShapeLine.props = {
-  defaultEnterAnimation: 'fadeIn',
+Line.props = {
+  ...CurveLine.props,
 };
