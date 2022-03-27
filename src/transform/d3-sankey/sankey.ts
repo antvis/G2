@@ -1,5 +1,6 @@
+import { sum, max, min } from 'd3-array';
 import { justify } from './align';
-import { constant, sumBy, maxValueBy, minValueBy } from './helper';
+import { constant } from './constant';
 
 function ascendingSourceBreadth(a, b) {
   return ascendingBreadth(a.source, b.source) || a.index - b.index;
@@ -187,10 +188,7 @@ export function Sankey() {
     for (const node of nodes) {
       node.value =
         node.fixedValue === undefined
-          ? Math.max(
-              sumBy(node.sourceLinks, value),
-              sumBy(node.targetLinks, value),
-            )
+          ? Math.max(sum(node.sourceLinks, value), sum(node.targetLinks, value))
           : node.fixedValue;
     }
   }
@@ -214,7 +212,10 @@ export function Sankey() {
 
     // 如果配置了 depth，则设置自定义 depth
     if (depth) {
-      const maxDepth = Math.max(maxValueBy(nodes, (d: any) => d.depth) + 1, 0);
+      const maxDepth = Math.max(
+        max(nodes, (d: { depth: number }) => d.depth) + 1,
+        0,
+      );
 
       let node;
       for (let i = 0; i < nodes.length; i++) {
@@ -243,7 +244,7 @@ export function Sankey() {
   }
 
   function computeNodeLayers({ nodes }) {
-    const x = Math.max(maxValueBy(nodes, (d: any) => d.depth) + 1, 0);
+    const x = Math.max(max(nodes, (d: { depth: number }) => d.depth) + 1, 0);
     const kx = (x1 - x0 - dx) / (x - 1);
     const columns = new Array(x).fill(0).map(() => []);
     for (const node of nodes) {
@@ -265,9 +266,9 @@ export function Sankey() {
   }
 
   function initializeNodeBreadths(columns) {
-    const ky = minValueBy(
+    const ky = min(
       columns,
-      (c: any[]) => (y1 - y0 - (c.length - 1) * py) / sumBy(c, value),
+      (c: any[]) => (y1 - y0 - (c.length - 1) * py) / sum(c, value),
     ) as any as number;
     for (const nodes of columns) {
       let y = y0;
@@ -293,8 +294,7 @@ export function Sankey() {
     const columns = computeNodeLayers(graph);
     py = Math.min(
       dy,
-      (y1 - y0) /
-        ((maxValueBy(columns, (c: any[]) => c.length) as any as number) - 1),
+      (y1 - y0) / ((max(columns, (c: any[]) => c.length) as any as number) - 1),
     );
     initializeNodeBreadths(columns);
     for (let i = 0; i < iterations; ++i) {

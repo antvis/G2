@@ -1,4 +1,4 @@
-import { minBy } from '@antv/util';
+import { min } from 'd3-array';
 
 function targetDepth(d) {
   return d.target.depth;
@@ -20,6 +20,6 @@ export function center(node) {
   return node.targetLinks.length
     ? node.depth
     : node.sourceLinks.length
-    ? minBy(node.sourceLinks, targetDepth) - 1
+    ? (min(node.sourceLinks, targetDepth) as any) - 1
     : 0;
 }
