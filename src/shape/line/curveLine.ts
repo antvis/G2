@@ -13,6 +13,7 @@ export const CurveLine: SC<CurveLineOptions> = (options) => {
   const { curve } = options;
   return (points, style, coordinate) => {
     const { color, size } = style;
+    // Append first point to draw close line in polar coordinate.
     const P = isPolar(coordinate) ? [...points, points[0]] : points;
     const path = line()
       .x((d) => d[0])
