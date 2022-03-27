@@ -1,20 +1,24 @@
-import { InferComponent as IC } from '../runtime';
+import { InferComponent as IC, InferredEncode } from '../runtime';
 
 export type MaybeSeriesOptions = Record<string, never>;
 
+function inferEncode(encode: InferredEncode) {
+  const { color, series, ...rest } = encode;
+  if (series) return encode;
+  if (color !== undefined) return { color, series: color, ...rest };
+  return encode;
+}
+
 /**
- * Wrap flat x and y channel into nested array.
+ * Produce series channel by color channel.
+ * It useful for line and area geometries to draw multiple series and areas.
  * @example {x: [1, 2, 3]} -> {x: [[1], [2], [3]]}
  */
 export const MaybeSeries: IC<MaybeSeriesOptions> = () => {
-  return (encodings) => {
-    const { color, series, ...rest } = encodings;
-    if (series) return encodings;
-    if (typeof color === 'object' && color.type === 'field') {
-      return { color, series: color, ...rest };
-    }
-    return encodings;
-  };
+  return ({ encode, transform }) => ({
+    encode: inferEncode(encode),
+    transform,
+  });
 };
 
 MaybeSeries.props = {};
