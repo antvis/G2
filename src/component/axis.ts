@@ -57,6 +57,7 @@ export const Axis: GCC<AxisOptions> = (options) => {
         },
         tickLine: {
           len: 5,
+          offset: -5,
           style: { default: { lineWidth: 1 } },
         },
         ...(field && {
@@ -104,11 +105,11 @@ function inferPosition(
       titleOffset: [0, 30],
       titleRotate: 0,
     };
-  } else if (position === 'left') {
+  } else if (position === 'left' || position === 'centerHorizontal') {
     return {
       startPos: [x + width, y],
       endPos: [x + width, y + height],
-      labelOffset: [0, -5],
+      labelOffset: [0, -10],
       titlePosition: 'start',
       titleOffset: [0, -20],
       titleRotate: 0,

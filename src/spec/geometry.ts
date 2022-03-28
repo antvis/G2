@@ -40,9 +40,14 @@ export type BaseGeometry<
   animate?: {
     enter?: Animation;
   };
+  zIndex?: number;
 };
 
 export type IntervalGeometry = BaseGeometry<'interval'>;
-export type LineGeometry = BaseGeometry<'line', ChannelTypes | 'position'>;
+
+export type LineGeometry = BaseGeometry<
+  'line',
+  ChannelTypes | 'position' | `position[${number}]` | 'size'
+>;
 
 export type CustomComponent = BaseGeometry<MarkComponent>;

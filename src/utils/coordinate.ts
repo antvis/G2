@@ -12,3 +12,8 @@ export function isPolar(coordinate: Coordinate): boolean {
   const { transformations } = coordinate.getOptions();
   return transformations.some(([type]) => type === 'polar');
 }
+
+export function isParallel(coordinate: Coordinate): boolean {
+  const { transformations } = coordinate.getOptions();
+  return transformations.some(([type]) => type === 'parallel');
+}

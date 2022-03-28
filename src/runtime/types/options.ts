@@ -1,5 +1,5 @@
 import { Canvas } from '@antv/g';
-import { BBox, Channel, GuideComponentPosition, Primitive } from './common';
+import { Channel, GuideComponentPosition, Primitive } from './common';
 
 import {
   G2BaseComponent,
@@ -68,7 +68,20 @@ export type G2Mark = {
   type?: string;
   animate?: Record<string, Primitive>;
   style?: Record<string, Primitive>;
+  zIndex?: number;
 };
+
+export type G2Display =
+  | {
+      type: 'component';
+      zIndex: number;
+      display: G2GuideComponentOptions;
+    }
+  | {
+      type: 'mark';
+      zIndex: number;
+      display: G2Mark;
+    };
 
 export type G2MarkDescriptor = {
   render: Mark;
@@ -110,9 +123,10 @@ export type G2CoordinateOptions = G2BaseComponentOptions<CoordinateComponent>;
 export type G2ScaleOptions = G2BaseComponentOptions<
   ScaleComponent,
   {
+    name?: string;
     domain?: any[];
     range?: any[];
-    guide?: boolean | G2GuideComponentOptions;
+    guide?: G2GuideComponentOptions;
     field?: string;
     zero?: boolean;
     [key: string | symbol]: any;
@@ -125,10 +139,10 @@ export type G2GuideComponentOptions = G2BaseComponentOptions<
   GuideComponentComponent,
   {
     scale?: G2ScaleOptions;
-    bbox?: BBox;
     position?: GuideComponentPosition;
     size?: number;
     order?: number;
+    zIndex?: number;
     [key: string | symbol]: any;
   }
 >;

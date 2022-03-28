@@ -14,7 +14,7 @@ import {
   Palette,
   Scale,
 } from './types/component';
-import { isPolar, isTranspose } from './coordinate';
+import { isPolar } from './coordinate';
 import { useLibrary } from './library';
 
 export function inferScale(
@@ -88,7 +88,8 @@ function inferPotentialScale(
   theme: G2Theme,
   library: G2Library,
 ): G2ScaleOptions {
-  const { name, field } = channel;
+  const { field: defaultField } = options;
+  const { name, field = defaultField } = channel;
   const flattenChannel = { ...channel, value: channel.value.flat(1) };
   const type = inferScaleType(flattenChannel, options);
   if (typeof type !== 'string') return options;
@@ -121,12 +122,8 @@ function inferScaleType(
   if (scale !== undefined) return scale;
   if (type !== undefined) return type;
 
-  if (channelType === 'constant') {
-    if (name === 'color') return 'identity';
-    if (name === 'shape') return 'identity';
-    if (name === 'enterDelay') return 'identity';
-    if (name === 'enterDuration') return 'identity';
-  }
+  if (channelType === 'constant' && !isPosition(name)) return 'identity';
+  if (isObject(value)) return 'identity';
 
   if ((domain || range || []).length > 2) return asOrdinalType(name);
   if (domain !== undefined) {
@@ -217,8 +214,12 @@ function inferOptionsQ(
   coordinate: G2CoordinateOptions[],
   options: G2ScaleOptions,
 ): G2ScaleOptions {
-  const { interpolate = createInterpolateValue, nice = false } = options;
-  return { ...options, interpolate, nice };
+  const {
+    interpolate = createInterpolateValue,
+    nice = false,
+    tickCount = 10,
+  } = options;
+  return { ...options, interpolate, nice, tickCount };
 }
 
 function inferOptionsC(
@@ -247,7 +248,7 @@ function inferPadding(
 }
 
 function asOrdinalType(name: string) {
-  return isPosition(name) ? 'point' : 'ordinal';
+  return isQuantitative(name) ? 'point' : 'ordinal';
 }
 
 function inferDomainQ(value: Primitive[], options: G2ScaleOptions) {
@@ -261,12 +262,14 @@ function inferDomainC(value: Primitive[]) {
 
 /**
  * @todo More nice default range for enterDelay and enterDuration.
+ * @todo Add default range for some channels?
  */
 function inferRangeQ(name: string, palette: Palette): Primitive[] {
   if (name === 'enterDelay') return [0, 1000];
   if (name == 'enterDuration') return [300, 1000];
-  if (name === 'y') return [1, 0];
+  if (name === 'y' || name.startsWith('position')) return [1, 0];
   if (name === 'color') return [firstOf(palette), lastOf(palette)];
+  if (name === 'size') return [1, 10];
   return [0, 1];
 }
 
@@ -283,8 +286,23 @@ function isTemporal(values: Primitive[]): boolean {
   });
 }
 
+function isObject(values: Primitive[]): boolean {
+  return values.some((v) => {
+    return typeof v === 'object' && !(v instanceof Date);
+  });
+}
+
+function isQuantitative(name: string): boolean {
+  return (
+    name === 'x' ||
+    name === 'y' ||
+    name.startsWith('position') ||
+    name === 'size'
+  );
+}
+
 function isPosition(name: string): boolean {
-  return name === 'x' || name === 'y';
+  return name === 'x' || name === 'y' || name.startsWith('position');
 }
 
 /**

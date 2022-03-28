@@ -1,4 +1,5 @@
 import { DisplayObject } from '@antv/g';
+import { group } from 'd3-array';
 import { Coordinate } from '@antv/coord';
 import { mapObject } from '../utils/array';
 import { Container } from '../utils/container';
@@ -15,6 +16,7 @@ import {
   G2Library,
   G2ShapeOptions,
   G2AnimationOptions,
+  G2Display,
 } from './types/options';
 import {
   ThemeComponent,
@@ -128,41 +130,70 @@ async function plotArea(options: G2Area, context: G2Context): Promise<void> {
   // Infer guide components by scales and create coordinate.
   const [components, componentScale] = inferComponent(scales, options, library);
   const layout = computeLayout(components, options);
-  const componentBBox = placeComponents(components, layout, options);
   const coordinate = createCoordinate(layout, options, library);
 
-  // Render components with corresponding bbox and scale(if required).
-  for (const component of components) {
-    const scaleDescriptor = componentScale.get(component);
-    const bbox = componentBBox.get(component);
-    const scale = scaleDescriptor ? useScale(scaleDescriptor) : null;
-    const render = useGuideComponent(component);
-    const { field, domain } = scaleDescriptor;
-    const value = { field, domain };
-    const group = render(scale, bbox, value, coordinate, theme);
-    canvas.appendChild(group);
-  }
+  // Place each component by layout and coordinate.
+  const componentBBox = placeComponents(
+    components,
+    coordinate,
+    layout,
+    options,
+  );
 
-  // Render marks with corresponding channel values.
-  for (const [mark, props] of markProps.entries()) {
-    const { scale: scaleDescriptor, animate = {} } = mark;
-    const { index, channels, defaultShape } = props;
-    const scale = mapObject(scaleDescriptor, useScale);
-    const value = Container.of<MarkChannel>(channels)
-      .map(applyScale, scale)
-      .map(animationFunction, index, animate, defaultShape, library)
-      .map(shapeFunction, index, defaultShape, library)
-      .value();
+  // Sorted marks and components by zIndex.
+  const displays: G2Display[] = [
+    ...components.map(
+      (component): G2Display => ({
+        type: 'component',
+        zIndex: component.zIndex || -1,
+        display: component,
+      }),
+    ),
+    ...Array.from(markProps.keys()).map(
+      (mark): G2Display => ({
+        type: 'mark',
+        zIndex: mark.zIndex || 0,
+        display: mark,
+      }),
+    ),
+  ].sort((a, b) => a.zIndex - b.zIndex);
 
-    // Apply atheistic attributes.
-    const render = useMark(mark);
-    const shapes = render(index, scale, value, coordinate, theme);
-    for (const shape of shapes) {
-      canvas.appendChild(shape);
+  // @todo Refactor into renderComponents and renderMarks.
+  for (const { type, display } of displays) {
+    if (type === 'component') {
+      // Render components with corresponding bbox and scale(if required).
+      const scaleDescriptor = componentScale.get(display);
+      const scale = scaleDescriptor ? useScale(scaleDescriptor) : null;
+      const { field, domain } = scaleDescriptor;
+      const value = { field, domain };
+      const bbox = componentBBox.get(display);
+
+      const render = useGuideComponent(display);
+      const group = render(scale, bbox, value, coordinate, theme);
+      canvas.appendChild(group);
+    } else {
+      // Render marks with corresponding channel values.
+      const props = markProps.get(display);
+      const { scale: scaleDescriptor, animate = {} } = display;
+      const { index, channels, defaultShape } = props;
+
+      const scale = mapObject(scaleDescriptor, useScale);
+      const value = Container.of<MarkChannel>(channels)
+        .map(applyScale, scale)
+        .map(animationFunction, index, animate, defaultShape, library)
+        .map(shapeFunction, index, defaultShape, library)
+        .value();
+
+      // Apply atheistic attributes.
+      const render = useMark(display);
+      const shapes = render(index, scale, value, coordinate, theme);
+      for (const shape of shapes) {
+        canvas.appendChild(shape);
+      }
+
+      // Apply animation attributes.
+      applyAnimation(index, shapes, value, coordinate, theme);
     }
-
-    // Apply animation attributes.
-    applyAnimation(shapes, value, coordinate, theme);
   }
 }
 
@@ -172,6 +203,7 @@ function inferTheme(theme: G2ThemeOptions = { type: 'light' }): G2ThemeOptions {
 }
 
 function applyAnimation(
+  I: number[],
   shapes: DisplayObject[],
   value: Record<string, any>,
   coordinate: Coordinate,
@@ -183,16 +215,37 @@ function applyAnimation(
     enterEasing: EE = [],
     enterDuration: EDR = [],
   } = value;
+
+  // A shape may correspond to a group of data(e.g. line).
+  // Map shape index(group index) to the index of first data for this group.
+  const valueIndex = createIndex(I, shapes, value);
   for (let i = 0; i < shapes.length; i++) {
     const shape = shapes[i];
-    const animate = ET[i];
+    const index = valueIndex(i);
+    const animate = ET[index];
     const style = {
-      duration: EDR[i],
-      easing: EE[i],
-      delay: EDL[i],
+      duration: EDR[index],
+      easing: EE[index],
+      delay: EDL[index],
     };
     animate(shape, style, coordinate, theme);
   }
+}
+
+function createIndex(
+  index: number[],
+  shapes: DisplayObject[],
+  value: Record<string, any>,
+): (i: number) => number {
+  if (index.length === shapes.length) return (i) => i;
+
+  // Group shapes by series channel.
+  const { series: S } = value;
+  const groups = S ? Array.from(group(index, (i) => S[i]).values()) : [index];
+
+  // Using the index of the first shape for the group as the group index.
+  const groupIndex = new Map(groups.map((g, i) => [i, g[0]]));
+  return (i) => groupIndex.get(i);
 }
 
 function animationFunction(
@@ -237,7 +290,11 @@ function shapeFunction(
   );
   const { shape } = value;
   const shapeFunctions = Array.isArray(shape)
-    ? shape.map((type) => useShape({ type }))
+    ? shape.map((type) => useShape(normalizeOptions(type)))
     : index.map(() => useShape({ type: defaultShape }));
   return { ...value, shape: shapeFunctions };
+}
+
+function normalizeOptions(options: string | Record<string, any>) {
+  return typeof options === 'object' ? options : { type: options };
 }
