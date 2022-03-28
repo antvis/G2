@@ -21,7 +21,7 @@ import {
 } from '../shape';
 import { DodgeX, StackY, StackEnter, SplitPosition } from '../statistic';
 import { Light } from '../theme';
-import { Fetch, FilterBy, SortBy } from '../transform';
+import { Fetch, FilterBy, SortBy, Pick } from '../transform';
 import { AxisX, AxisY, LegendCategory, LegendContinuous } from '../component';
 import { ScaleInY, FadeIn } from '../animation';
 
@@ -63,6 +63,7 @@ export function createLibrary(): G2Library {
     'transform.fetch': Fetch,
     'transform.sortBy': SortBy,
     'transform.filterBy': FilterBy,
+    'transform.pick': Pick,
     'component.axisX': AxisX,
     'component.axisY': AxisY,
     'component.legendCategory': LegendCategory,

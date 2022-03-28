@@ -33,7 +33,7 @@ import {
   SplitPosition,
 } from '../../../src/statistic';
 import { Light } from '../../../src/theme';
-import { Fetch, SortBy, FilterBy } from '../../../src/transform';
+import { Fetch, SortBy, FilterBy, Pick } from '../../../src/transform';
 import {
   AxisX,
   AxisY,
@@ -81,6 +81,7 @@ describe('stdlib', () => {
       'transform.fetch': Fetch,
       'transform.sortBy': SortBy,
       'transform.filterBy': FilterBy,
+      'transform.pick': Pick,
       'component.axisX': AxisX,
       'component.axisY': AxisY,
       'component.legendCategory': LegendCategory,

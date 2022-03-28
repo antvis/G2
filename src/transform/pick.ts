@@ -18,7 +18,6 @@ export const Pick: TC<PickOptions> = (options) => {
           }
           return datum;
         }, {});
-
       return data.map(pick);
     },
     [options],

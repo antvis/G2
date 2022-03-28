@@ -71,7 +71,7 @@ describe('line', () => {
               alphas.flatMap((alpha) =>
                 data.map((d) => ({
                   ...d,
-                  alpha: alpha,
+                  alpha,
                 })),
               );
           },
@@ -153,7 +153,7 @@ describe('line', () => {
     mount(createDiv(), chart);
   });
 
-  it('render({...}) should render series line chart', () => {
+  it('render({...}) should render series line chart with animation', () => {
     const chart = render<G2Spec>({
       type: 'line',
       data: [
@@ -194,7 +194,7 @@ describe('line', () => {
     mount(createDiv(), chart);
   });
 
-  it('render({...}) should render series line chart', () => {
+  it('render({...}) should render line chart with size channel', () => {
     const chart = render<G2Spec>({
       type: 'line',
       data: [
