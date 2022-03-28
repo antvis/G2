@@ -1,13 +1,22 @@
 import { TransformComponent } from '../runtime';
 
-export type Transform = SortByTransform | FetchTransform | CustomTransform;
+export type Transform =
+  | SortByTransform
+  | PickTransform
+  | FetchTransform
+  | CustomTransform;
 
-export type TransformTypes = 'sortBy' | 'fetch' | TransformComponent;
+export type TransformTypes = 'sortBy' | 'pick' | 'fetch' | TransformComponent;
 
 export type SortByTransform = {
   type?: 'sortBy';
   fields?: string[];
   order?: 'DESC' | 'ASC';
+};
+
+export type PickTransform = {
+  type?: 'pick';
+  fields?: string[];
 };
 
 export type FetchTransform = {
