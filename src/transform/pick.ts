@@ -12,11 +12,11 @@ export const Pick: TC<PickOptions> = (options) => {
   return useMemoTransform(
     (data: any[]) => {
       const pick = (v: any) =>
-        F.reduce((prev, field) => {
+        F.reduce((datum, field) => {
           if (field in v) {
-            prev[field] = v[field];
+            datum[field] = v[field];
           }
-          return prev;
+          return datum;
         }, {});
 
       return data.map(pick);
