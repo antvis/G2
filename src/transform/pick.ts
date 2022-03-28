@@ -28,25 +28,3 @@ export const Pick: TC<PickOptions> = (options) => {
 };
 
 Pick.props = {};
-
-/**
-  数据不规整的情况？
-const data = [
-  { x: 1, y: 11 },
-  { x: 2, y: 12 },
-  { y: 13 },
-  { x: 4, y: 14 },
-  { x: 5, y: 15 },
-];
-
-Pick({ fields: ['x'] })(data);
-/**
-  result: [
-    { x: 1 },
-    { x: 2 },
-    { x: 3 },
-    { x: 4 },
-    { x: 5 }
-  ]
-
- */
