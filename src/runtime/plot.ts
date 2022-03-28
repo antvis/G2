@@ -140,25 +140,10 @@ async function plotArea(options: G2Area, context: G2Context): Promise<void> {
     options,
   );
 
-  // Sorted marks and components by zIndex.
-  const displays: G2Display[] = [
-    ...components.map(
-      (component): G2Display => ({
-        type: 'component',
-        zIndex: component.zIndex || -1,
-        display: component,
-      }),
-    ),
-    ...Array.from(markProps.keys()).map(
-      (mark): G2Display => ({
-        type: 'mark',
-        zIndex: mark.zIndex || 0,
-        display: mark,
-      }),
-    ),
-  ].sort((a, b) => a.zIndex - b.zIndex);
+  // Sort marks and components by zIndex.
+  const displays = normalizeDisplays(marks, components);
+  displays.sort((a, b) => a.zIndex - b.zIndex);
 
-  // @todo Refactor into renderComponents and renderMarks.
   for (const { type, display } of displays) {
     if (type === 'component') {
       // Render components with corresponding bbox and scale(if required).
@@ -200,6 +185,28 @@ async function plotArea(options: G2Area, context: G2Context): Promise<void> {
 function inferTheme(theme: G2ThemeOptions = { type: 'light' }): G2ThemeOptions {
   const { type = 'light' } = theme;
   return { ...theme, type };
+}
+
+function normalizeDisplays(
+  marks: G2Mark[],
+  components: G2GuideComponentOptions[],
+): G2Display[] {
+  return [
+    ...components.map(
+      (component): G2Display => ({
+        type: 'component',
+        zIndex: component.zIndex || -1,
+        display: component,
+      }),
+    ),
+    ...marks.map(
+      (mark): G2Display => ({
+        type: 'mark',
+        zIndex: mark.zIndex || 0,
+        display: mark,
+      }),
+    ),
+  ];
 }
 
 function applyAnimation(
