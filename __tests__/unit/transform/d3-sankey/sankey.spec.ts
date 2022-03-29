@@ -1,4 +1,4 @@
-import { sankey } from '../../../../src/transform/d3-sankey';
+import { sankey } from '../../../../src/transform/utils/d3-sankey';
 import { delay } from '../../../utils/delay';
 import data from './energy.json';
 import nodes from './energy-nodes.json';

@@ -1,4 +1,4 @@
-import { constant } from '../../../../src/transform/d3-sankey/constant';
+import { constant } from '../../../../src/transform/utils/d3-sankey/constant';
 
 describe('constant(...) returns a function returning a constant value', () => {
   it('', () => {
