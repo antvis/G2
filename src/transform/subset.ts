@@ -2,16 +2,8 @@ import { TransformComponent as TC } from '../runtime';
 import { SubsetTransform } from '../spec';
 import { useMemoTransform } from './utils';
 
-function constrain(options: SubsetOptions, data: any[]) {
-  let { start = 0, end = data.length } = options;
-  if (start < 0) start = 0;
-  if (start > data.length - 1) start = data.length - 1;
-  if (end > data.length) end = data.length;
-  if (end < 0) end = 0;
-  if (start > end) {
-    [start, end] = [end, start];
-  }
-  return { start, end };
+function constrain(v: number, min: number, max: number) {
+  return Math.min(max, Math.max(min, v));
 }
 
 export type SubsetOptions = Omit<SubsetTransform, 'type'>;
@@ -23,7 +15,10 @@ export const Subset: TC<SubsetOptions> = (options) => {
   return useMemoTransform(
     (data) => {
       const { fields = [] } = options;
-      const { start, end } = constrain(options, data);
+      let { start = 0, end = data.length } = options;
+      start = constrain(start, 0, data.length - 1);
+      end = constrain(end, 1, data.length);
+      if (start > end) [start, end] = [end, start];
       const pick = (v: any) =>
         fields.reduce((datum, field) => {
           if (field in v) {
