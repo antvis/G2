@@ -5,34 +5,47 @@ import { sankey, left, right, center, justify } from './utils/d3-sankey';
 
 export type SankeyOptions = Omit<SankeyTransform, 'type'>;
 
-/**
- * 默认值
- */
 const DEFAULT_OPTIONS: Partial<SankeyOptions> = {
   nodeAlign: 'justify',
   nodeWidth: 0.008,
   nodePadding: 0.03,
+  nodes: (graph) => graph.nodes,
+  links: (graph) => graph.links,
   nodeSort: undefined,
+  linkSort: undefined,
+  iterations: 6,
 };
 
 /**
- * Compute the node and edge position, return a graph representing the Sankey layout
+ * Compute the node and edge position, return a graph representing the Sankey layout. All will be normalized to [[0, 0], [1, 1]]
  * Required graph data (nodes, edges)
  */
 export const Sankey: TC<SankeyOptions> = (options) => {
-  const { nodeId, nodeSort, nodeAlign, nodeWidth, nodePadding, nodeDepth } =
-    Object.assign({}, DEFAULT_OPTIONS, options);
-
   return useMemoTransform(
     (data) => {
+      const {
+        nodeId,
+        nodeSort,
+        nodeAlign,
+        nodeWidth,
+        nodePadding,
+        nodeDepth,
+        nodes: nodeNodes,
+        links: nodeLinks,
+        linkSort,
+        iterations,
+      } = Object.assign({}, DEFAULT_OPTIONS, options);
+
       const sankeyProcessor = sankey()
         .nodeSort(nodeSort)
-        .links((d: any) => d.edges)
-        // .nodes((d: any) => d.nodes)
+        .linkSort(linkSort)
+        .links(nodeLinks)
+        .nodes(nodeNodes)
         .nodeWidth(nodeWidth)
         .nodePadding(nodePadding)
         .nodeDepth(nodeDepth)
         .nodeAlign(getNodeAlignFunction(nodeAlign))
+        .iterations(iterations)
         .extent([
           [0, 0],
           [1, 1],
@@ -42,39 +55,35 @@ export const Sankey: TC<SankeyOptions> = (options) => {
         sankeyProcessor.nodeId(nodeId);
       }
 
-      // 进行桑基图布局处理
       const layoutData = sankeyProcessor(data);
 
-      // post process (x, y), etc.
-      layoutData.nodes.forEach((node) => {
+      const { nodes: N, links: L } = layoutData;
+      const nodes = N.map((node) => {
         const { x0, x1, y0, y1 } = node;
         /* points
          * 3---2
          * |   |
          * 0---1
          */
-        node.x = [x0, x1, x1, x0];
-        node.y = [y0, y0, y1, y1];
+        return { ...node, x: [x0, x1, x1, x0], y: [y0, y0, y1, y1] };
       });
-
-      layoutData.links.forEach((edge) => {
+      const links = L.map((edge) => {
         const { source, target } = edge;
         const sx = source.x1;
         const tx = target.x0;
-        edge.x = [sx, sx, tx, tx];
         const offset = edge.width / 2;
-        edge.y = [
-          edge.y0 + offset,
-          edge.y0 - offset,
-          edge.y1 + offset,
-          edge.y1 - offset,
-        ];
+        return {
+          ...edge,
+          x: [sx, sx, tx, tx],
+          y: [
+            edge.y0 + offset,
+            edge.y0 - offset,
+            edge.y1 + offset,
+            edge.y1 - offset,
+          ],
+        };
       });
-
-      return {
-        nodes: layoutData.nodes,
-        edges: layoutData.links,
-      };
+      return { nodes, links };
     },
     [options],
   );
@@ -88,14 +97,10 @@ const ALIGN_METHOD = {
 };
 
 function getNodeAlignFunction(nodeAlign: SankeyOptions['nodeAlign']) {
-  const func =
-    typeof nodeAlign === 'string'
-      ? ALIGN_METHOD[nodeAlign]
-      : typeof nodeAlign === 'function'
-      ? nodeAlign
-      : null;
-
-  return func || justify;
+  const type = typeof nodeAlign;
+  if (type === 'string') return ALIGN_METHOD[nodeAlign as string] || justify;
+  if (type === 'function') return nodeAlign;
+  return justify;
 }
 
 Sankey.props = {};
