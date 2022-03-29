@@ -1,7 +1,7 @@
 import { Subset } from '../../../src/transform/subset';
 
 describe('subset', () => {
-  it('Rename({...}) returns function to get subset of data', () => {
+  it('Subset({...}) returns function to get subset of data', () => {
     const data = [
       { a: 1, b: 2, c: 3 },
       { a: 2, b: 3, c: 4 },
@@ -36,5 +36,8 @@ describe('subset', () => {
 
     const p6 = Subset({ start: -1, end: 2 });
     expect(p6(data)).toEqual([{}, {}]);
+
+    const p7 = Subset({ fields: ['a'], start: 3, end: 1 });
+    expect(p7(data)).toEqual([{ a: 2 }, { a: 3 }]);
   });
 });

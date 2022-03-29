@@ -13,17 +13,17 @@ export const Subset: TC<SubsetOptions> = (options) => {
     (data) => {
       const { fields: F = [] } = options;
       const pick = Pick({ fields: F });
-      let { start: s = 0, end: e = data.length } = options;
+      let { start = 0, end = data.length } = options;
 
-      if (s < 0 || s > data.length - 1) s = 0;
-
-      if (e < 0 || e > data.length) e = data.length;
-
-      if (s > e) {
-        [s, e] = [e, s];
+      if (start < 0) start = 0;
+      if (start > data.length - 1) start = data.length - 1;
+      if (end > data.length) end = data.length;
+      if (end < 0) end = 0;
+      if (start > end) {
+        [start, end] = [end, start];
       }
 
-      return (pick(data) as any[]).filter((_, i) => i >= s && i < e);
+      return pick(data).filter((_, i) => i >= start && i < end);
     },
     [options],
   );
