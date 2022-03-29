@@ -1,7 +1,7 @@
 import { TransformComponent as TC } from '../runtime';
 import { SankeyTransform } from '../spec';
-import { useMemoTransform } from './utils';
-import { sankey, left, right, center, justify } from './d3-sankey';
+import { useMemoTransform } from './utils/memo';
+import { sankey, left, right, center, justify } from './utils/d3-sankey';
 
 export type SankeyOptions = Omit<SankeyTransform, 'type'>;
 
