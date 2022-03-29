@@ -19,5 +19,9 @@ describe('pick', () => {
 
     const p2 = Pick({});
     expect(p2(data)).toEqual([{}, {}, {}, {}]);
+
+    const data2 = [{ a: 1, b: 2 }, { a: 2 }, { a: 3, b: 4 }, { b: 5 }];
+    const p3 = Pick({ fields: ['b'] });
+    expect(p3(data2)).toEqual([{ b: 2 }, {}, { b: 4 }, { b: 5 }]);
   });
 });
