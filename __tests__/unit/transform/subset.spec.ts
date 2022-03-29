@@ -39,5 +39,11 @@ describe('subset', () => {
 
     const p7 = Subset({ fields: ['a'], start: 3, end: 1 });
     expect(p7(data)).toEqual([{ a: 2 }, { a: 3 }]);
+
+    const p8 = Subset({ fields: ['b'], start: 5, end: 2 });
+    expect(p8(data)).toEqual([{ b: 4 }]);
+
+    const p9 = Subset({ fields: ['b'], start: 1, end: -2 });
+    expect(p9(data)).toEqual([]);
   });
 });
