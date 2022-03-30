@@ -2,6 +2,7 @@ export type G2Theme = {
   defaultColor?: string;
   defaultCategory10?: string;
   defaultCategory20?: string;
+  defaultSize?: number;
   enter?: {
     duration?: number;
     delay?: number;
@@ -62,7 +63,7 @@ export type GuideComponentPosition =
   | 'left'
   | 'bottom'
   | 'right'
-  | 'center';
+  | 'centerHorizontal';
 
 export type Padding = {
   paddingLeft?: number;
@@ -71,18 +72,15 @@ export type Padding = {
   paddingTop?: number;
 };
 
+// @todo Using emus.
 export type SectionArea = [
-  number,
-  number,
-  number,
-  number,
-  number,
-  (a: Primitive, b: Primitive) => number,
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+  direction: 0 | 1 | -1, // horizontal: 1, vertical: 0, center: -1
+  reverse: boolean,
+  comparator: (a: Primitive, b: Primitive) => number,
 ];
-export type Section = {
-  top: SectionArea;
-  right: SectionArea;
-  bottom: SectionArea;
-  left: SectionArea;
-  center: SectionArea;
-};
+
+export type Section = Record<GuideComponentPosition, SectionArea>;

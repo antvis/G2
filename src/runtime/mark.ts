@@ -1,14 +1,7 @@
-import { group } from 'd3-array';
 import { compose, composeAsync } from '../utils/helper';
-import {
-  indexOf,
-  mapObject,
-  transpose,
-  firstOf,
-  isFlatArray,
-} from '../utils/array';
+import { indexOf, mapObject, transpose, isFlatArray } from '../utils/array';
 import { useLibrary } from './library';
-import { G2Theme, IndexedValue } from './types/common';
+import { G2Theme } from './types/common';
 import {
   MarkProps,
   Transform,
@@ -19,7 +12,7 @@ import {
   Encode,
   StatisticComponent,
   Statistic,
-  InferValue,
+  InferredEncode,
 } from './types/component';
 import {
   G2Area,
@@ -89,10 +82,14 @@ export async function initializeMark(
   // Infer encoding to get intact encoding with type.
   const typedEncode = inferEncodeType(partialEncode, transformedData);
   const inferFunctions = infer.map(useInfer);
-  const encode = compose(inferFunctions)(typedEncode);
+  const { encode, transform: inferStatistic = () => [] } = compose(
+    inferFunctions,
+  )({
+    encode: typedEncode,
+  });
 
   // Extract value from data based on inferred encodings.
-  const value = mapObject(encode, (encodeOptions) => {
+  const value = mapObject(encode, (encodeOptions, key) => {
     if (Array.isArray(encodeOptions)) {
       const values = encodeOptions.map((d) => {
         const value = useEncode(d)(transformedData);
@@ -102,15 +99,17 @@ export async function initializeMark(
           throw new Error("Array channel can't bind to array field.");
         }
       });
-      return transpose(values);
+      // Position channel is a special channel which will be split into multiple
+      // channels by statistic, so there is no need to transpose it.
+      return key !== 'position' ? transpose(values) : values;
     } else {
       return useEncode(encodeOptions)(transformedData);
     }
   });
 
-  // Infer statistic to stack data in some cases.
+  // Infer statistic to get intact statistic(e.g. stackY, splitPosition)
   const indexedValue = { value, index };
-  const statistic = inferStack(partialStatistic, indexedValue);
+  const statistic = inferStatistic(indexedValue, partialStatistic);
 
   // Apply inferred and specified statistic.
   const statisticFunctions = statistic.map(useStatistic);
@@ -126,13 +125,29 @@ export async function initializeMark(
       }
       return value !== undefined;
     })
-    .map(({ name, ...rest }) => ({
-      name,
-      value: transformedValue[name],
-      type: inferChannelType(encode[name]),
-      field: inferChannelField(encode[name]),
-      ...rest,
-    }));
+    .flatMap(({ name, ...rest }) => {
+      const encoding = encode[name];
+      const type = inferChannelType(encoding);
+      const field = inferChannelField(encoding);
+      const value = transformedValue[name];
+      if (name !== 'position') return { name, value, type, field, ...rest };
+
+      // Split position channels to multiple channels.
+      // position -> position[0], position[1], position[2]
+      return Object.entries(transformedValue)
+        .filter(([key]) => /position\[\d+\]/.test(key))
+        .map(([key, value]) => {
+          const match = /position\[(\d+)\]/g.exec(key);
+          const index = +match[1];
+          return {
+            name: key,
+            value,
+            type,
+            field: inferChannelField(encoding[index]),
+            ...rest,
+          };
+        });
+    });
 
   // Infer scale for each channel.
   const scale = {};
@@ -150,7 +165,13 @@ export async function initializeMark(
     );
   }
 
-  const mark = { ...partialMark, statistic, encode, scale };
+  const mark = {
+    ...partialMark,
+    statistic,
+    encode,
+    scale,
+    data: transformedData,
+  };
   const props = { ...partialProps, channels, index: transformedIndex };
   return [mark, props];
 }
@@ -158,38 +179,18 @@ export async function initializeMark(
 // This is for scale type inference.
 // It tells color channel to use a ordinal or identity scale.
 // It also tells enter channel to use a identity or non-identity scale.
-function inferChannelType(encode: InferValue) {
-  if (encode === undefined) return null;
-  if (Array.isArray(encode)) return null;
+function inferChannelType(encode: InferredEncode) {
+  if (encode === undefined) return undefined;
+  if (Array.isArray(encode)) return undefined;
   return encode.type;
 }
 
-function inferChannelField(encode: InferValue) {
-  if (encode === undefined) return null;
+function inferChannelField(encode: InferredEncode) {
+  if (encode === undefined) return undefined;
   if (Array.isArray(encode)) {
     const fieldEncode = encode.find((d) => d.type === 'field');
-    return fieldEncode?.value || null;
+    return fieldEncode?.value || undefined;
   }
   if (encode.type === 'field') return encode.value;
-  return null;
-}
-
-// @todo Move into a standalone file.
-function inferStack(
-  statistic: G2StatisticOptions[],
-  indexedValue: IndexedValue,
-): G2StatisticOptions[] {
-  if (statistic.find(({ type }) => type === 'stackY' || type === 'dodgeX')) {
-    return statistic;
-  }
-  const { index, value } = indexedValue;
-  const { x: X, y: Y } = value;
-  if (X === undefined || Y === undefined) return statistic;
-  const X1 = X.map(firstOf);
-  const groups = Array.from(group(index, (i) => X1[i]).values());
-  if (groups.some((d) => d.length > 1)) {
-    return [{ type: 'stackY' }, ...statistic];
-  } else {
-    return statistic;
-  }
+  return undefined;
 }
