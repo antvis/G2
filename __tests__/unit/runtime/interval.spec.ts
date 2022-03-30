@@ -937,6 +937,6 @@ describe('render', () => {
   });
 
   afterAll(() => {
-    unmountAll();
+    // unmountAll();
   });
 });

@@ -6,9 +6,9 @@ import { Coordinate } from './coordinate';
 import { Statistic } from './statistic';
 import { Animation } from './animate';
 
-export type Geometry = IntervalGeometry | CustomComponent;
+export type Geometry = IntervalGeometry | LineGeometry | CustomComponent;
 
-export type GeometryTypes = 'interval' | MarkComponent;
+export type GeometryTypes = 'interval' | 'line' | MarkComponent;
 
 export type ChannelTypes =
   | 'x'
@@ -21,7 +21,10 @@ export type ChannelTypes =
   | 'enterDuration'
   | 'enterDelay';
 
-export type BaseGeometry<T extends GeometryTypes> = {
+export type BaseGeometry<
+  T extends GeometryTypes,
+  C extends string = ChannelTypes,
+> = {
   type?: T;
   paddingLeft?: number;
   paddingRight?: number;
@@ -29,16 +32,22 @@ export type BaseGeometry<T extends GeometryTypes> = {
   paddingTop?: number;
   data?: any;
   transform?: Transform[];
-  encode?: Partial<Record<ChannelTypes, Encode | Encode[]>>;
-  scale?: Partial<Record<ChannelTypes, Scale>>;
+  encode?: Partial<Record<C, Encode | Encode[]>>;
+  scale?: Partial<Record<C, Scale>>;
   coordinate?: Coordinate[];
   statistic?: Statistic[];
   style?: Record<string, any>;
   animate?: {
     enter?: Animation;
   };
+  zIndex?: number;
 };
 
 export type IntervalGeometry = BaseGeometry<'interval'>;
+
+export type LineGeometry = BaseGeometry<
+  'line',
+  ChannelTypes | 'position' | `position[${number}]` | 'size'
+>;
 
 export type CustomComponent = BaseGeometry<MarkComponent>;

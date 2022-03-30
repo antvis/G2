@@ -84,7 +84,21 @@ export type EncodeOptions = { value?: any };
 export type EncodeComponent<O extends EncodeOptions = EncodeOptions> =
   G2BaseComponent<Encode, O>;
 
-export type InferValue = { type?: string; [key: string | symbol]: any };
+export type InferredEncode = {
+  type?: string;
+  [key: string | symbol]: any;
+};
+export type InferredStatistic = {
+  type?: string | ((...args: any[]) => any);
+  [key: string | symbol]: any;
+};
+export type InferValue = {
+  encode?: InferredEncode;
+  transform?: (
+    indexedValue: IndexedValue,
+    statistic: InferredStatistic[],
+  ) => InferredStatistic[];
+};
 export type Infer = (encodings: InferValue) => InferValue;
 export type InferComponent<O = void> = G2BaseComponent<Infer, O>;
 
@@ -96,6 +110,7 @@ export type Scale = {
   invert: (x: any) => any;
   getTicks?: () => any[];
   getBandWidth?: () => number;
+  getFormatter?: () => (x: any) => string;
 };
 export type ScaleComponent<O = Record<string, unknown>> = G2BaseComponent<
   Scale,

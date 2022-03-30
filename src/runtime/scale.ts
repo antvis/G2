@@ -1,4 +1,4 @@
-import { extent } from 'd3-array';
+import { extent, max } from 'd3-array';
 import { createInterpolateValue } from '@antv/scale';
 import { firstOf, lastOf, unique, isFlatArray } from '../utils/array';
 import { Channel, FlattenChannel, Primitive, G2Theme } from './types/common';
@@ -14,7 +14,7 @@ import {
   Palette,
   Scale,
 } from './types/component';
-import { isPolar, isTranspose } from './coordinate';
+import { isPolar } from './coordinate';
 import { useLibrary } from './library';
 
 export function inferScale(
@@ -88,7 +88,8 @@ function inferPotentialScale(
   theme: G2Theme,
   library: G2Library,
 ): G2ScaleOptions {
-  const { name, field } = channel;
+  const { field: defaultField } = options;
+  const { name, field = defaultField } = channel;
   const flattenChannel = { ...channel, value: channel.value.flat(1) };
   const type = inferScaleType(flattenChannel, options);
   if (typeof type !== 'string') return options;
@@ -121,12 +122,8 @@ function inferScaleType(
   if (scale !== undefined) return scale;
   if (type !== undefined) return type;
 
-  if (channelType === 'constant') {
-    if (name === 'color') return 'identity';
-    if (name === 'shape') return 'identity';
-    if (name === 'enterDelay') return 'identity';
-    if (name === 'enterDuration') return 'identity';
-  }
+  if (channelType === 'constant' && !isPosition(name)) return 'identity';
+  if (isObject(value)) return 'identity';
 
   if ((domain || range || []).length > 2) return asOrdinalType(name);
   if (domain !== undefined) {
@@ -134,6 +131,7 @@ function inferScaleType(
     return 'linear';
   }
   if (isOrdinal(value)) return asOrdinalType(name);
+  if (isTemporal(value)) return 'time';
   return 'linear';
 }
 
@@ -147,9 +145,11 @@ function inferScaleDomain(
   if (domain !== undefined) return domain;
   switch (type) {
     case 'linear':
-      return inferDomainQ(value);
+    case 'time':
+      return inferDomainQ(value, options);
     case 'band':
     case 'ordinal':
+    case 'point':
       return inferDomainC(value);
     default:
       return [];
@@ -181,6 +181,8 @@ function inferScaleRange(
   switch (type) {
     case 'linear':
     case 'band':
+    case 'point':
+    case 'time':
       return inferRangeQ(name, palette);
     case 'ordinal':
       return name === 'color' ? palette : shapes;
@@ -198,9 +200,11 @@ function inferScaleOptions(
   const { name } = channel;
   switch (type) {
     case 'linear':
+    case 'time':
       return inferOptionsQ(coordinate, options);
     case 'band':
-      return inferOptionsC(name, coordinate, options);
+    case 'point':
+      return inferOptionsC(type, name, coordinate, options);
     default:
       return options;
   }
@@ -212,30 +216,44 @@ function inferOptionsQ(
 ): G2ScaleOptions {
   const {
     interpolate = createInterpolateValue,
-    nice = isPolar(coordinate) && isTranspose(coordinate) ? false : true,
+    nice = false,
+    tickCount = 10,
   } = options;
-  return { ...options, interpolate, nice };
+  return { ...options, interpolate, nice, tickCount };
 }
 
 function inferOptionsC(
+  type: string,
   name: string,
   coordinate: G2CoordinateOptions[],
   options: G2ScaleOptions,
 ): G2ScaleOptions {
-  // The scale for enterDelay and enterDuration should has zero padding by default.
-  // Because there is no need to add extra delay for the start and the end.
-  const isEnter = name === 'enterDelay' || name === 'enterDuration';
-  const { padding = isPolar(coordinate) || isEnter ? 0 : 0.1 } = options;
+  const { padding = inferPadding(type, name, coordinate) } = options;
   return { ...options, padding };
 }
 
-// @todo point scale
-function asOrdinalType(name: string) {
-  return 'ordinal';
+function inferPadding(
+  type: string,
+  name: string,
+  coordinate: G2CoordinateOptions[],
+): number {
+  // The scale for enterDelay and enterDuration should has zero padding by default.
+  // Because there is no need to add extra delay for the start and the end.
+  if (name === 'enterDelay' || name === 'enterDuration') return 0;
+  if (type === 'band') return isPolar(coordinate) ? 0 : 0.1;
+  // Point scale need 0.5 padding to make interval between first and last point
+  // equal to other intervals in polar coordinate.
+  if (type === 'point') return isPolar(coordinate) ? 0.5 : 0;
+  return 0;
 }
 
-function inferDomainQ(value: Primitive[]) {
-  return extent(value, (v) => +v);
+function asOrdinalType(name: string) {
+  return isQuantitative(name) ? 'point' : 'ordinal';
+}
+
+function inferDomainQ(value: Primitive[], options: G2ScaleOptions) {
+  const { zero = false } = options;
+  return zero ? [0, max(value, (v) => +v)] : extent(value, (v) => +v);
 }
 
 function inferDomainC(value: Primitive[]) {
@@ -244,12 +262,14 @@ function inferDomainC(value: Primitive[]) {
 
 /**
  * @todo More nice default range for enterDelay and enterDuration.
+ * @todo Add default range for some channels?
  */
 function inferRangeQ(name: string, palette: Palette): Primitive[] {
   if (name === 'enterDelay') return [0, 1000];
   if (name == 'enterDuration') return [300, 1000];
-  if (name === 'y') return [1, 0];
+  if (name === 'y' || name.startsWith('position')) return [1, 0];
   if (name === 'color') return [firstOf(palette), lastOf(palette)];
+  if (name === 'size') return [1, 10];
   return [0, 1];
 }
 
@@ -258,6 +278,31 @@ function isOrdinal(values: Primitive[]): boolean {
     const type = typeof v;
     return type === 'string' || type === 'boolean';
   });
+}
+
+function isTemporal(values: Primitive[]): boolean {
+  return values.some((v) => {
+    return v instanceof Date;
+  });
+}
+
+function isObject(values: Primitive[]): boolean {
+  return values.some((v) => {
+    return typeof v === 'object' && !(v instanceof Date);
+  });
+}
+
+function isQuantitative(name: string): boolean {
+  return (
+    name === 'x' ||
+    name === 'y' ||
+    name.startsWith('position') ||
+    name === 'size'
+  );
+}
+
+function isPosition(name: string): boolean {
+  return name === 'x' || name === 'y' || name.startsWith('position');
 }
 
 /**

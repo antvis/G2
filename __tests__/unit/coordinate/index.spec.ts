@@ -1,4 +1,4 @@
-import { Cartesian, Polar, Transpose } from '../../../src/coordinate';
+import { Cartesian, Polar, Transpose, Parallel } from '../../../src/coordinate';
 
 describe('coordinate', () => {
   it('Cartesian() returns expected coordinate transformations', () => {
@@ -35,5 +35,9 @@ describe('coordinate', () => {
       ['translate', 0, -0.5],
       ['polar', -Math.PI / 2, Math.PI, 0.2, 0.8],
     ]);
+  });
+
+  it('Parallel({...}) returns expected coordinate transformations', () => {
+    expect(Parallel()).toEqual([['parallel', 0, 1, 0, 1]]);
   });
 });

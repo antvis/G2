@@ -6,9 +6,15 @@ export type Transform =
   | RenameTransform
   | SubsetTransform
   | FetchTransform
+  | FilterByTransform
   | CustomTransform;
 
-export type TransformTypes = 'sortBy' | 'pick' | 'fetch' | TransformComponent;
+export type TransformTypes =
+  | 'sortBy'
+  | 'fetch'
+  | 'filterBy'
+  | 'pick'
+  | TransformComponent;
 
 export type SortByTransform = {
   type?: 'sortBy';
@@ -37,6 +43,13 @@ export type FetchTransform = {
   type?: 'fetch';
   url?: string;
   format?: 'json';
+  callback?: (d: any) => any;
+};
+
+export type FilterByTransform = {
+  type?: 'filterBy';
+  fields?: string[];
+  callback?: (d: any) => boolean;
 };
 
 export type CustomTransform = {

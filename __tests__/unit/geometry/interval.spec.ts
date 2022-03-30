@@ -1,5 +1,5 @@
 import { Interval } from '../../../src/geometry';
-import { ShapeRect } from '../../../src/shape';
+import { Rect as RectShape } from '../../../src/shape';
 import { Band } from '../../../src/scale';
 import { createDiv, mount, unmountAll } from '../../utils/dom';
 import { plot } from './helper';
@@ -23,6 +23,7 @@ describe('Interval', () => {
         { type: 'maybeTuple' },
         { type: 'maybeZeroX1' },
         { type: 'maybeZeroY2' },
+        { type: 'maybeStackY' },
       ],
       shapes: ['rect', 'hollowRect'],
     });
@@ -30,7 +31,7 @@ describe('Interval', () => {
 
   it('Interval() returns a function transforming values into interval shapes', () => {
     const container = document.createElement('div');
-    const rect = ShapeRect();
+    const rect = RectShape();
     const shapes = plot({
       mark: Interval({}),
       container,
@@ -91,7 +92,7 @@ describe('Interval', () => {
 
   it('Interval() returns a function handle series channel', () => {
     const container = document.createElement('div');
-    const rect = ShapeRect();
+    const rect = RectShape();
     const shapes = plot({
       mark: Interval({}),
       container,
