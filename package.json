@@ -1,7 +1,7 @@
 {
   "name": "@antv/g2",
-  "version": "0.1.0",
-  "description": "G2 5.0",
+  "version": "5.0.0",
+  "description": "the Grammar of Graphics in Javascript",
   "license": "MIT",
   "main": "lib/index.js",
   "module": "esm/index.js",
@@ -30,7 +30,14 @@
     "prepare": "husky install"
   },
   "keywords": [
-    "template"
+    "antv",
+    "g2",
+    "visualization",
+    "chart",
+    "grammar",
+    "graphics",
+    "interaction",
+    "animation"
   ],
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
@@ -70,12 +77,12 @@
   "limit-size": [
     {
       "path": "dist/g2.min.js",
-      "limit": "1 Mb",
+      "limit": "750 Kb",
       "gzip": true
     },
     {
       "path": "dist/g2.min.js",
-      "limit": "1 Mb"
+      "limit": "2 Mb"
     }
   ],
   "author": {
