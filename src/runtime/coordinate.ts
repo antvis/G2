@@ -52,6 +52,11 @@ export function isTranspose(coordinate: G2CoordinateOptions[]) {
   return transposes.length % 2 === 1;
 }
 
+export function isParallel(coordinate: G2CoordinateOptions[]) {
+  const parallel = coordinate.find((d) => d.type === 'parallel');
+  return parallel !== undefined;
+}
+
 function inferCoordinate(
   coordinate: G2CoordinateOptions[],
 ): G2CoordinateOptions[] {

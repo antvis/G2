@@ -1,36 +1,43 @@
-import { MaybeZeroY2, MaybeZeroX1, MaybeTuple } from '../../../src/infer';
+import {
+  MaybeZeroY2,
+  MaybeZeroX1,
+  MaybeTuple,
+  MaybeSeries,
+  MaybeStackY,
+  MaybeSplitPosition,
+} from '../../../src/infer';
 
 describe('infer', () => {
   it('MaybeZeroY2() returns a function inferring zero y2', () => {
     const infer = MaybeZeroY2();
 
     const e1 = { y: 'name' };
-    expect(infer(e1)).toEqual({
+    expect(infer({ encode: e1 }).encode).toEqual({
       y: ['name', { type: 'constant', value: 0 }],
     });
 
     const e2 = { y: ['name'] };
-    expect(infer(e2)).toEqual({
+    expect(infer({ encode: e2 }).encode).toEqual({
       y: ['name', { type: 'constant', value: 0 }],
     });
 
     const e3 = { y: ['name', 'age'] };
-    expect(infer(e3)).toEqual(e3);
+    expect(infer({ encode: e3 }).encode).toEqual(e3);
 
     const e4 = {};
-    expect(infer(e4)).toEqual(e4);
+    expect(infer({ encode: e4 }).encode).toEqual(e4);
   });
 
   it('MaybeZeroX1() returns a function inferring zero x1', () => {
     const infer = MaybeZeroX1();
 
     const e1 = {};
-    expect(infer(e1)).toEqual({
+    expect(infer({ encode: e1 }).encode).toEqual({
       x: [{ type: 'constant', value: 0 }],
     });
 
     const e2 = { x: 'name', y: 'age' };
-    expect(infer(e2)).toEqual({
+    expect(infer({ encode: e2 }).encode).toEqual({
       x: 'name',
       y: 'age',
     });
@@ -40,21 +47,153 @@ describe('infer', () => {
     const infer = MaybeTuple();
 
     const e1 = {};
-    expect(infer(e1)).toEqual(e1);
+    expect(infer({ encode: e1 }).encode).toEqual(e1);
 
     const e2 = { x: 0 };
-    expect(infer(e2)).toEqual({ x: [0] });
+    expect(infer({ encode: e2 }).encode).toEqual({ x: [0] });
 
     const e3 = { x: [0] };
-    expect(infer(e3)).toEqual(e3);
+    expect(infer({ encode: e3 }).encode).toEqual(e3);
 
     const e4 = { y: 0 };
-    expect(infer(e4)).toEqual({ y: [0] });
+    expect(infer({ encode: e4 }).encode).toEqual({ y: [0] });
 
     const e5 = { y: [0] };
-    expect(infer(e5)).toEqual(e5);
+    expect(infer({ encode: e5 }).encode).toEqual(e5);
 
     const e6 = { x: 0, y: 0 };
-    expect(infer(e6)).toEqual({ x: [0], y: [0] });
+    expect(infer({ encode: e6 }).encode).toEqual({ x: [0], y: [0] });
+  });
+
+  it('MaybeSeries returns a function inferring series channel by color channel', () => {
+    const infer = MaybeSeries();
+
+    const e1 = {};
+    expect(infer({ encode: e1 }).encode).toEqual(e1);
+
+    const e2 = { series: [1, 2, 3] };
+    expect(infer({ encode: e2 }).encode).toEqual(e2);
+
+    const e3 = { color: [1, 2, 3] };
+    expect(infer({ encode: e3 }).encode).toEqual({
+      color: [1, 2, 3],
+      series: [1, 2, 3],
+    });
+  });
+
+  it('MaybeStackY returns a function inferring stackY statistic', () => {
+    const infer = MaybeStackY();
+
+    const { transform } = infer({ transform: () => [] });
+
+    expect(transform(null, [{ type: 'stackY' }])).toEqual([{ type: 'stackY' }]);
+    expect(transform(null, [{ type: 'dodgeX' }])).toEqual([{ type: 'dodgeX' }]);
+
+    expect(
+      transform(
+        {
+          index: [0, 1, 2],
+          value: {},
+        },
+        [],
+      ),
+    ).toEqual([]);
+    expect(
+      transform(
+        {
+          index: [0, 1, 2],
+          value: {
+            y: [[1], [2], [3]],
+          },
+        },
+        [],
+      ),
+    ).toEqual([]);
+
+    expect(
+      transform(
+        {
+          index: [0, 1, 2],
+          value: {
+            x: [[1], [2], [3]],
+            y: [[1], [2], [3]],
+          },
+        },
+        [],
+      ),
+    ).toEqual([]);
+
+    expect(
+      transform(
+        {
+          index: [0, 1, 2, 3, 4, 5],
+          value: {
+            x: [[1], [2], [3], [1], [2], [3]],
+            y: [[1], [2], [3], [1], [2], [3]],
+          },
+        },
+        [],
+      ),
+    ).toEqual([{ type: 'stackY' }]);
+
+    expect(
+      transform(
+        {
+          index: [0, 1, 2, 3, 4, 5],
+          value: {
+            x: [[1], [2], [3], [1], [2], [3]],
+            y: [[1], [2], [3], [1], [2], [3]],
+          },
+        },
+        [{ type: 'splitPosition' }],
+      ),
+    ).toEqual([{ type: 'stackY' }, { type: 'splitPosition' }]);
+  });
+
+  it('MaybeSplitPosition returns a function inferring splitPosition function', () => {
+    const infer = MaybeSplitPosition();
+
+    const { transform } = infer({});
+
+    expect(transform(null, [{ type: 'splitPosition' }])).toEqual([
+      { type: 'splitPosition' },
+    ]);
+
+    expect(
+      transform(
+        {
+          index: [0, 1, 2],
+          value: {
+            x: [[1], [2], [3]],
+            y: [[1], [2], [3]],
+          },
+        },
+        [],
+      ),
+    ).toEqual([]);
+
+    expect(
+      transform(
+        {
+          index: [0, 1, 2],
+          value: {
+            position: [[1], [2], [3]],
+          },
+        },
+        [],
+      ),
+    ).toEqual([{ type: 'splitPosition' }]);
+
+    expect(
+      transform(
+        {
+          index: [0, 1, 2],
+          value: {
+            position: [[1], [2], [3]],
+          },
+        },
+        [{ type: 'stackY' }],
+      ),
+    ).toEqual([{ type: 'splitPosition' }, { type: 'stackY' }]);
   });
 });

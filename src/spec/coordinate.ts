@@ -4,9 +4,10 @@ export type Coordinate =
   | PolarCoordinate
   | TransposeCoordinate
   | CustomCoordinate
-  | CartesianCoordinate;
+  | CartesianCoordinate
+  | ParallelCoordinate;
 
-export type CoordinateTypes = 'polar' | 'transpose' | 'cartesian';
+export type CoordinateTypes = 'polar' | 'transpose' | 'cartesian' | 'parallel';
 
 export type PolarCoordinate = {
   type?: 'polar';
@@ -22,6 +23,10 @@ export type TransposeCoordinate = {
 
 export type CartesianCoordinate = {
   type?: 'cartesian';
+};
+
+export type ParallelCoordinate = {
+  type?: 'parallel';
 };
 
 export type CustomCoordinate = {

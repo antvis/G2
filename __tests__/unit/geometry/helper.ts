@@ -15,7 +15,7 @@ import {
 type Options = {
   index: number[];
   mark: Mark;
-  scale: Record<string, Scale>;
+  scale?: Record<string, Scale>;
   container: string | HTMLElement;
   channel: {
     x?: number[][];
@@ -35,11 +35,12 @@ type Options = {
 export function plot({
   index,
   mark,
-  scale,
+  scale = {},
   channel,
   container,
   theme = {
     defaultColor: '#5B8FF9',
+    defaultSize: 1,
   },
   x = 0,
   y = 0,

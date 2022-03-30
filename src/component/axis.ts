@@ -29,11 +29,12 @@ export const Axis: GCC<AxisOptions> = (options) => {
       labelAlign,
     } = inferPosition(position, bbox);
     const tickNumbers = scale.getTicks?.() || domain;
+    const formatter = scale.getFormatter ? scale.getFormatter() : (d) => `${d}`;
     const ticks = tickNumbers.map((d) => {
       const offset = scale.getBandWidth?.() / 2 || 0;
       return {
         value: scale.map(d) + offset,
-        text: `${d}`,
+        text: formatter(d),
       };
     });
     return new Linear({
@@ -56,6 +57,7 @@ export const Axis: GCC<AxisOptions> = (options) => {
         },
         tickLine: {
           len: 5,
+          offset: -5,
           style: { default: { lineWidth: 1 } },
         },
         ...(field && {
@@ -103,11 +105,11 @@ function inferPosition(
       titleOffset: [0, 30],
       titleRotate: 0,
     };
-  } else if (position === 'left') {
+  } else if (position === 'left' || position === 'centerHorizontal') {
     return {
       startPos: [x + width, y],
       endPos: [x + width, y + height],
-      labelOffset: [0, -5],
+      labelOffset: [0, -10],
       titlePosition: 'start',
       titleOffset: [0, -20],
       titleRotate: 0,

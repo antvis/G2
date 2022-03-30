@@ -1,13 +1,13 @@
 import { Polar, Transpose } from '../../../../src/coordinate';
-import { ShapeRect } from '../../../../src/shape';
+import { Rect } from '../../../../src/shape';
 import { mount, createDiv } from '../../../utils/dom';
 import { draw, style } from '../helper';
 
-describe('ShapeRect', () => {
-  it('ShapeRect() returns a function drawing rect in cartesian using color as fill', () => {
+describe('Rect', () => {
+  it('Rect() returns a function drawing rect in cartesian using color as fill', () => {
     const container = document.createElement('div');
     const shape = draw({
-      shape: ShapeRect(),
+      shape: Rect(),
       container,
       style: {
         color: 'steelblue',
@@ -30,10 +30,10 @@ describe('ShapeRect', () => {
     });
   });
 
-  it('ShapeRect() returns a function drawing rect in transpose', () => {
+  it('Rect() returns a function drawing rect in transpose', () => {
     const container = document.createElement('div');
     const shape = draw({
-      shape: ShapeRect(),
+      shape: Rect(),
       container,
       style: {
         color: 'steelblue',
@@ -57,10 +57,10 @@ describe('ShapeRect', () => {
     });
   });
 
-  it('ShapeRect() returns a function drawing sector in Polar', () => {
+  it('Rect() returns a function drawing sector in Polar', () => {
     const container = document.createElement('div');
     const shape = draw({
-      shape: ShapeRect(),
+      shape: Rect(),
       container,
       style: {
         color: 'steelblue',
@@ -80,10 +80,10 @@ describe('ShapeRect', () => {
     });
   });
 
-  it('ShapeRect() returns a function drawing nothing in Polar with angle equals to 0', () => {
+  it('Rect() returns a function drawing nothing in Polar with angle equals to 0', () => {
     const container = document.createElement('div');
     const shape = draw({
-      shape: ShapeRect(),
+      shape: Rect(),
       container,
       style: {
         color: 'steelblue',
@@ -103,10 +103,10 @@ describe('ShapeRect', () => {
     });
   });
 
-  it('ShapeRect() returns a function drawing ring in Polar with angle equals to Math.PI * 2', () => {
+  it('Rect() returns a function drawing ring in Polar with angle equals to Math.PI * 2', () => {
     const container = document.createElement('div');
     const shape = draw({
-      shape: ShapeRect(),
+      shape: Rect(),
       container,
       style: {
         color: 'steelblue',
@@ -133,7 +133,7 @@ describe('ShapeRect', () => {
   it('ShapesRect() returns a function enabling drawing rect with radius corner', () => {
     const container = document.createElement('div');
     const shape = draw({
-      shape: ShapeRect(),
+      shape: Rect(),
       container,
       style: {
         color: 'steelblue',
@@ -152,10 +152,10 @@ describe('ShapeRect', () => {
     });
   });
 
-  it('ShapeRect() returns a function enabling drawing sector with radius in Polar', () => {
+  it('Rect() returns a function enabling drawing sector with radius in Polar', () => {
     const container = document.createElement('div');
     const shape = draw({
-      shape: ShapeRect(),
+      shape: Rect(),
       container,
       style: {
         color: 'steelblue',

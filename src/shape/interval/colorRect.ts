@@ -1,9 +1,10 @@
-import { DisplayObject, Rect, Path } from '@antv/g';
+import { Rect, Path } from '@antv/g';
 import { arc } from 'd3-shape';
 import { Container } from '../../utils/container';
 import { angle, sub, dist } from '../../utils/vector';
-import { Vector2, ShapeComponent as SC, Primitive } from '../../runtime';
+import { Vector2, ShapeComponent as SC } from '../../runtime';
 import { isTranspose, isPolar } from '../../utils/coordinate';
+import { applyStyle, attr } from '../utils';
 
 export type ColorRectOptions = {
   colorAttribute: 'fill' | 'stroke';
@@ -71,20 +72,4 @@ ColorRect.props = {
 function reorder(points: Vector2[]): Vector2[] {
   const [p0, p1, p2, p3] = points;
   return [p3, p0, p1, p2];
-}
-
-function applyStyle<T extends DisplayObject>(
-  shape: T,
-  style: Record<string, Primitive>,
-) {
-  for (const [key, value] of Object.entries(style)) {
-    attr(shape, key, value);
-  }
-  return shape;
-}
-
-function attr<T extends DisplayObject>(shape: T, key: string, value: any): T {
-  if (value === undefined) return shape;
-  shape.style[key] = value;
-  return shape;
 }

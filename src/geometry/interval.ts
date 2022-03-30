@@ -1,6 +1,7 @@
 import { Band } from '@antv/scale';
 import { MarkComponent as MC, Vector2 } from '../runtime';
 import { IntervalGeometry } from '../spec';
+import { applyStyle } from './utils';
 
 export type IntervalOptions = Omit<IntervalGeometry, 'type'>;
 
@@ -11,8 +12,7 @@ export const Interval: MC<IntervalOptions> = (options) => {
   const { style = {} } = options;
 
   return (index, scale, value, coordinate, theme) => {
-    const { x: X, y: Y, series: S, color: C, shape: SP } = value;
-    const { defaultColor } = theme;
+    const { x: X, y: Y, series: S, shape: SP } = value;
 
     // Calc width for each interval.
     // The scales for x and series channels must be band scale.
@@ -23,7 +23,7 @@ export const Interval: MC<IntervalOptions> = (options) => {
     const width = groupWidth * ratio;
 
     return Array.from(index, (i) => {
-      // Calc bounding box for the interval.
+      // Calc the points of bounding box for the interval.
       // They are start from left-top corner in clock wise order.
       const offset = ((S?.[i] as number) || 0) * groupWidth;
       const x1 = X[i][0] + offset;
@@ -38,12 +38,8 @@ export const Interval: MC<IntervalOptions> = (options) => {
       ) as Vector2[];
 
       // Attribute related to atheistic.
-      const shapeFunction = SP[i];
-      const channelStyle = {
-        color: C?.[i] || defaultColor,
-        ...style,
-      };
-      return shapeFunction(points, channelStyle, coordinate);
+      const channelStyle = applyStyle(i, value, style, theme);
+      return SP[i](points, channelStyle, coordinate);
     });
   };
 };
@@ -65,6 +61,7 @@ Interval.props = {
     { type: 'maybeTuple' },
     { type: 'maybeZeroX1' },
     { type: 'maybeZeroY2' },
+    { type: 'maybeStackY' },
   ],
   shapes: ['rect', 'hollowRect'],
 };
