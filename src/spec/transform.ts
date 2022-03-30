@@ -3,6 +3,8 @@ import { TransformComponent } from '../runtime';
 export type Transform =
   | SortByTransform
   | PickTransform
+  | RenameTransform
+  | SubsetTransform
   | FetchTransform
   | FilterByTransform
   | CustomTransform;
@@ -22,6 +24,18 @@ export type SortByTransform = {
 
 export type PickTransform = {
   type?: 'pick';
+  fields?: string[];
+};
+
+export type RenameTransform = {
+  type?: 'rename';
+  map?: Record<string, string>;
+};
+
+export type SubsetTransform = {
+  type?: 'subset';
+  start?: number;
+  end?: number;
   fields?: string[];
 };
 
