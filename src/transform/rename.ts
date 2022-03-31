@@ -1,6 +1,6 @@
 import { TransformComponent as TC } from '../runtime';
 import { RenameTransform } from '../spec';
-import { useMemoTransform } from './utils';
+import { useMemoTransform } from './utils/memo';
 
 export function isEmpty(obj: any) {
   return Object.keys(obj).length === 0;
