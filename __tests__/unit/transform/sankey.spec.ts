@@ -3,7 +3,7 @@ import { Sankey } from '../../../src/transform';
 describe('Sankey', () => {
   const data = {
     nodes: [{ name: 'n1' }, { name: 'n2' }, { name: 'n3' }, { name: 'n4' }],
-    edges: [
+    links: [
       { source: 'n1', target: 'n2', value: 3 },
       { source: 'n1', target: 'n3', value: 1 },
       { source: 'n2', target: 'n3', value: 1 },
@@ -11,10 +11,12 @@ describe('Sankey', () => {
     ],
   };
 
+  const dftOptions = { nodeId: (n) => n.name };
+
   it('Sankey({...}) returns a graph representing sankey layout', async () => {
-    const graph = Sankey({ nodeId: (n) => n.name })(data);
+    const graph = Sankey(dftOptions)(data);
     expect(graph.nodes.length).toEqual(4);
-    expect(graph.edges.length).toEqual(4);
+    expect(graph.links.length).toEqual(4);
     expect(graph.nodes.map((n) => n.name)).toEqual(['n1', 'n2', 'n3', 'n4']);
     expect(graph.nodes[0].x0).toEqual(0);
     expect(graph.nodes[2].x1).toEqual(1);
@@ -31,14 +33,14 @@ describe('Sankey', () => {
     expect(graph.nodes[2].sourceLinks.length).toEqual(0);
   });
 
-  it('Sankey({...}) enable config nodeAlign', () => {
-    const graph = Sankey({ nodeId: (n) => n.name, nodeAlign: 'left' })(data);
+  it('Sankey({ nodeAlign: ... })', () => {
+    const graph = Sankey({ ...dftOptions, nodeAlign: 'left' })(data);
     expect(graph.nodes[3].x1).not.toEqual(1);
   });
 
-  it('Sankey({...}) enable config nodePadding and nodeWidth', () => {
+  it('Sankey({ nodePadding: ..., nodeWidth: ... })', () => {
     const graph = Sankey({
-      nodeId: (n) => n.name,
+      ...dftOptions,
       nodePadding: 0.1,
       nodeWidth: 0.01,
       nodeAlign: 'left',
@@ -47,7 +49,7 @@ describe('Sankey', () => {
     expect(graph.nodes[3].y0 - graph.nodes[1].y1).toBeCloseTo(0.1);
   });
 
-  it('Sankey({...}) enable config nodeDepth', () => {
+  it('Sankey({ nodeDepth: ... })', () => {
     const data = {
       nodes: [
         { name: 'n1' },
@@ -56,7 +58,7 @@ describe('Sankey', () => {
         { name: 'n4' },
         { name: 'n5' },
       ],
-      edges: [
+      links: [
         { source: 'n1', target: 'n2', value: 3 },
         { source: 'n1', target: 'n3', value: 1 },
         { source: 'n2', target: 'n3', value: 1 },
@@ -65,7 +67,7 @@ describe('Sankey', () => {
       ],
     };
     let graph = Sankey({
-      nodeId: (n) => n.name,
+      ...dftOptions,
       nodeAlign: 'left',
       nodeDepth: (datum) => datum.depth,
     })(data);
@@ -80,11 +82,49 @@ describe('Sankey', () => {
 
     // config the depth of 'n4' to maxDepth, makes it align the last
     graph = Sankey({
-      nodeId: (n) => n.name,
+      ...dftOptions,
       nodeAlign: 'left',
       nodeDepth: (datum, maxDepth) =>
         datum.name === 'n4' ? maxDepth : datum.depth,
     })(data);
     expect(graph.nodes[3].x1).toEqual(1);
+  });
+
+  it('Sankey({ nodes: ..., links: ...})', () => {
+    const data = {
+      names: [{ id: 'Bob' }, { id: 'Carol' }, { id: 'Alice' }],
+      edges: [
+        { source: 0, target: 1 },
+        { source: 1, target: 2 },
+      ],
+    };
+
+    const graph = Sankey({ nodes: (d) => d.names, links: (d) => d.edges })(
+      data,
+    );
+    expect(graph.nodes.length).toEqual(3);
+    expect(graph.links.length).toEqual(2);
+    expect(graph.nodes[0].id).toBe('Bob');
+  });
+
+  it('Sankey({ nodeSort: ..., linkSort: ...})', () => {
+    const data = {
+      nodes: [{ id: 'Alice' }, { id: 'Bob' }, { id: 'Carol' }],
+      links: [
+        { source: 'Alice', target: 'Bob', value: 1 },
+        { source: 'Alice', target: 'Carol', value: 2 },
+      ],
+    };
+    let graph = Sankey({ nodeId: (n) => n.id })(data);
+    expect(graph.links[0].y0).toBeLessThan(graph.links[1].y0);
+    expect(graph.nodes[1].y0).toBeLessThan(graph.nodes[2].y0);
+    // link, node sort by value desc
+    graph = Sankey({
+      nodeId: (n) => n.id,
+      linkSort: (a, b) => b.value - a.value,
+      nodeSort: (a, b) => b.value - a.value,
+    })(data);
+    expect(graph.links[0].y0).not.toBeLessThan(graph.links[1].y0);
+    expect(graph.nodes[1].y0).not.toBeLessThan(graph.nodes[2].y0);
   });
 });
