@@ -1,6 +1,6 @@
 import { TransformComponent as TC } from '../runtime';
 import { FilterByTransform } from '../spec';
-import { useMemoTransform } from './utils';
+import { useMemoTransform } from './utils/memo';
 
 export type FilterByOptions = Omit<FilterByTransform, 'type'>;
 

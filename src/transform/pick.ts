@@ -1,7 +1,7 @@
 import { TransformComponent as TC } from '../runtime';
 import { PickTransform } from '../spec';
 import { Subset } from './subset';
-import { useMemoTransform } from './utils';
+import { useMemoTransform } from './utils/memo';
 
 export type PickOptions = Omit<PickTransform, 'type'>;
 
