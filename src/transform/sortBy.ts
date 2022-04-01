@@ -1,6 +1,6 @@
 import { TransformComponent as TC } from '../runtime';
 import { SortByTransform } from '../spec';
-import { useMemoTransform } from './utils';
+import { useMemoTransform } from './utils/memo';
 
 export type SortByOptions = Omit<SortByTransform, 'type'>;
 

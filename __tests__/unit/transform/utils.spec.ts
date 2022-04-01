@@ -1,7 +1,7 @@
 import {
   useAsyncMemoTransform,
   useMemoTransform,
-} from '../../../src/transform/utils';
+} from '../../../src/transform/utils/memo';
 
 describe('useMemo', () => {
   it('useMemoTransform returns a function memorizing with same data and options ', () => {

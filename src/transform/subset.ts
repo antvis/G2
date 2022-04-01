@@ -1,6 +1,6 @@
 import { TransformComponent as TC } from '../runtime';
 import { SubsetTransform } from '../spec';
-import { useMemoTransform } from './utils';
+import { useMemoTransform } from './utils/memo';
 
 function constrain(v: number, min: number, max: number) {
   return Math.min(max, Math.max(min, v));

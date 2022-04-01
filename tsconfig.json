@@ -14,7 +14,8 @@
     "lib": ["dom", "esnext"],
     "skipLibCheck": true,
     "sourceRoot": "src",
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "resolveJsonModule": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]

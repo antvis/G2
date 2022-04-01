@@ -1,4 +1,4 @@
-import { Transform } from '../runtime';
+import { Transform } from '../../runtime';
 
 /**
  * Returns a sync function returning memoized value.
