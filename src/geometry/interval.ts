@@ -1,18 +1,15 @@
 import { Band } from '@antv/scale';
 import { MarkComponent as MC, Vector2 } from '../runtime';
 import { IntervalGeometry } from '../spec';
-import { applyStyle } from './utils';
 
 export type IntervalOptions = Omit<IntervalGeometry, 'type'>;
 
 /**
  * Convert value for each channel to rect shapes.
  */
-export const Interval: MC<IntervalOptions> = (options) => {
-  const { style = {} } = options;
-
-  return (index, scale, value, coordinate, theme) => {
-    const { x: X, y: Y, series: S, shape: SP } = value;
+export const Interval: MC<IntervalOptions> = () => {
+  return (index, scale, value, coordinate) => {
+    const { x: X, y: Y, series: S } = value;
 
     // Calc width for each interval.
     // The scales for x and series channels must be band scale.
@@ -22,9 +19,9 @@ export const Interval: MC<IntervalOptions> = (options) => {
     const ratio = series ? series.getBandWidth() : 1;
     const width = groupWidth * ratio;
 
-    return Array.from(index, (i) => {
-      // Calc the points of bounding box for the interval.
-      // They are start from left-top corner in clock wise order.
+    // Calc the points of bounding box for the interval.
+    // They are start from left-top corner in clock wise order.
+    const P = Array.from(index, (i) => {
       const offset = ((S?.[i] as number) || 0) * groupWidth;
       const x1 = X[i][0] + offset;
       const x2 = x1 + width;
@@ -33,14 +30,9 @@ export const Interval: MC<IntervalOptions> = (options) => {
       const p2 = [x2, y1];
       const p3 = [x2, y2];
       const p4 = [x1, y2];
-      const points = [p1, p2, p3, p4].map((d) =>
-        coordinate.map(d),
-      ) as Vector2[];
-
-      // Attribute related to atheistic.
-      const channelStyle = applyStyle(i, value, style, theme);
-      return SP[i](points, channelStyle, coordinate);
+      return [p1, p2, p3, p4].map((d) => coordinate.map(d)) as Vector2[];
     });
+    return [index, P];
   };
 };
 
@@ -56,12 +48,14 @@ Interval.props = {
     { name: 'enterDelay' },
     { name: 'enterDuration' },
     { name: 'enterEasing' },
+    { name: 'key', scale: 'identity' },
   ],
   infer: [
     { type: 'maybeTuple' },
     { type: 'maybeZeroX1' },
     { type: 'maybeZeroY2' },
     { type: 'maybeStackY' },
+    { type: 'maybeKey' },
   ],
   shapes: ['rect', 'hollowRect'],
 };

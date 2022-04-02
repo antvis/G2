@@ -187,7 +187,7 @@ describe('line', () => {
         x: 'month',
         y: 'temperature',
         color: 'city',
-        enterDuration: 2000,
+        enterDuration: 1000,
       },
     });
 

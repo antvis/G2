@@ -9,7 +9,7 @@ describe('Rect', () => {
     const shape = draw({
       shape: Rect(),
       container,
-      style: {
+      value: {
         color: 'steelblue',
       },
       vectors: [
@@ -35,7 +35,7 @@ describe('Rect', () => {
     const shape = draw({
       shape: Rect(),
       container,
-      style: {
+      value: {
         color: 'steelblue',
       },
       vectors: [
@@ -62,7 +62,7 @@ describe('Rect', () => {
     const shape = draw({
       shape: Rect(),
       container,
-      style: {
+      value: {
         color: 'steelblue',
       },
       vectors: [
@@ -85,7 +85,7 @@ describe('Rect', () => {
     const shape = draw({
       shape: Rect(),
       container,
-      style: {
+      value: {
         color: 'steelblue',
       },
       vectors: [
@@ -106,12 +106,10 @@ describe('Rect', () => {
   it('Rect() returns a function drawing ring in Polar with angle equals to Math.PI * 2', () => {
     const container = document.createElement('div');
     const shape = draw({
-      shape: Rect(),
+      shape: Rect({ stroke: 'black', lineWidth: 10 }),
       container,
-      style: {
+      value: {
         color: 'steelblue',
-        stroke: 'black',
-        lineWidth: 10,
       },
       vectors: [
         [0, 0],
@@ -133,11 +131,10 @@ describe('Rect', () => {
   it('ShapesRect() returns a function enabling drawing rect with radius corner', () => {
     const container = document.createElement('div');
     const shape = draw({
-      shape: Rect(),
+      shape: Rect({ radius: 10 }),
       container,
-      style: {
+      value: {
         color: 'steelblue',
-        radius: 10,
       },
       vectors: [
         [0, 0],
@@ -155,11 +152,10 @@ describe('Rect', () => {
   it('Rect() returns a function enabling drawing sector with radius in Polar', () => {
     const container = document.createElement('div');
     const shape = draw({
-      shape: Rect(),
+      shape: Rect({ radius: 20 }),
       container,
-      style: {
+      value: {
         color: 'steelblue',
-        radius: 20,
       },
       vectors: [
         [0, 0],

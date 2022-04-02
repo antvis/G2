@@ -9,7 +9,7 @@ describe('Line', () => {
     const shape = draw({
       shape: Line(),
       container,
-      style: {
+      value: {
         color: 'steelblue',
       },
       vectors: [
@@ -28,12 +28,36 @@ describe('Line', () => {
     });
   });
 
+  it('Line() returns a function draw line with custom styles', () => {
+    const container = document.createElement('div');
+    const shape = draw({
+      shape: Line({ stroke: 'red' }),
+      container,
+      value: {
+        color: 'steelblue',
+      },
+      vectors: [
+        [0, 0],
+        [0.2, 0.5],
+        [0.4, 0.2],
+        [0.6, 0.4],
+      ],
+    });
+    mount(createDiv(), container);
+
+    expect(shape.nodeName).toBe('path');
+    expect(style(shape, ['stroke', 'path'])).toEqual({
+      stroke: 'red',
+      path: 'M0,0L120,200L240,80L360,160',
+    });
+  });
+
   it('Line() returns a function draw closed line in polar coordinate', () => {
     const container = document.createElement('div');
     const shape = draw({
       shape: Line(),
       container,
-      style: {
+      value: {
         color: 'steelblue',
       },
       vectors: [

@@ -10,6 +10,7 @@ import {
   MaybeSeries,
   MaybeSplitPosition,
   MaybeStackY,
+  MaybeKey,
 } from '../../../src/infer';
 import { Category10, Category20 } from '../../../src/palette';
 import {
@@ -31,6 +32,7 @@ import {
   StackEnter,
   StackY,
   SplitPosition,
+  Key,
 } from '../../../src/statistic';
 import { Light } from '../../../src/theme';
 import { Fetch, SortBy, FilterBy, Pick } from '../../../src/transform';
@@ -61,6 +63,7 @@ describe('stdlib', () => {
       'infer.maybeSeries': MaybeSeries,
       'infer.maybeStackY': MaybeStackY,
       'infer.maybeSplitPosition': MaybeSplitPosition,
+      'infer.maybeKey': MaybeKey,
       'palette.category10': Category10,
       'palette.category20': Category20,
       'scale.linear': Linear,
@@ -77,6 +80,7 @@ describe('stdlib', () => {
       'statistic.dodgeX': DodgeX,
       'statistic.stackEnter': StackEnter,
       'statistic.splitPosition': SplitPosition,
+      'statistic.key': Key,
       'theme.light': Light,
       'transform.fetch': Fetch,
       'transform.sortBy': SortBy,

@@ -1,7 +1,5 @@
 import { Interval } from '../../../src/geometry';
-import { Rect as RectShape } from '../../../src/shape';
 import { Band } from '../../../src/scale';
-import { createDiv, mount, unmountAll } from '../../utils/dom';
 import { plot } from './helper';
 
 describe('Interval', () => {
@@ -18,23 +16,22 @@ describe('Interval', () => {
         { name: 'enterDelay' },
         { name: 'enterDuration' },
         { name: 'enterEasing' },
+        { name: 'key', scale: 'identity' },
       ],
       infer: [
         { type: 'maybeTuple' },
         { type: 'maybeZeroX1' },
         { type: 'maybeZeroY2' },
         { type: 'maybeStackY' },
+        { type: 'maybeKey' },
       ],
       shapes: ['rect', 'hollowRect'],
     });
   });
 
   it('Interval() returns a function transforming values into interval shapes', () => {
-    const container = document.createElement('div');
-    const rect = RectShape();
-    const shapes = plot({
+    const [I, P] = plot({
       mark: Interval({}),
-      container,
       index: [0, 1, 2],
       scale: {
         x: Band({
@@ -44,7 +41,6 @@ describe('Interval', () => {
       },
       channel: {
         x: [[0], [1 / 3], [2 / 3]],
-        shape: [rect, rect, rect],
         y: [
           [0.6, 1],
           [0.4, 1],
@@ -52,50 +48,33 @@ describe('Interval', () => {
         ],
       },
     });
-    mount(createDiv(), container);
 
-    const attributes = shapes.map((d) => ({
-      type: d.nodeName,
-      x: d.style.x,
-      y: d.style.y,
-      width: d.style.width,
-      height: d.style.height,
-      fill: d.style.fill,
-    }));
-    expect(attributes).toEqual([
-      {
-        type: 'rect',
-        fill: '#5B8FF9',
-        x: 0,
-        y: 240,
-        width: 200,
-        height: 160,
-      },
-      {
-        type: 'rect',
-        fill: '#5B8FF9',
-        x: 200,
-        y: 160,
-        width: 200,
-        height: 240,
-      },
-      {
-        type: 'rect',
-        fill: '#5B8FF9',
-        x: 400,
-        y: 80,
-        width: 200,
-        height: 320,
-      },
+    expect(I).toEqual([0, 1, 2]);
+    expect(P).toEqual([
+      [
+        [0, 240],
+        [200, 240],
+        [200, 400],
+        [0, 400],
+      ],
+      [
+        [200, 160],
+        [400, 160],
+        [400, 400],
+        [200, 400],
+      ],
+      [
+        [400, 80],
+        [600, 80],
+        [600, 400],
+        [400, 400],
+      ],
     ]);
   });
 
   it('Interval() returns a function handle series channel', () => {
-    const container = document.createElement('div');
-    const rect = RectShape();
-    const shapes = plot({
+    const [I, P] = plot({
       mark: Interval({}),
-      container,
       index: [0, 1, 2, 3, 4, 5],
       scale: {
         x: Band({
@@ -105,7 +84,6 @@ describe('Interval', () => {
         series: Band({ domain: ['1', '2'], range: [0, 1] }),
       },
       channel: {
-        shape: [rect, rect, rect, rect, rect, rect],
         x: [[0], [1 / 3], [2 / 3], [0], [1 / 3], [2 / 3]],
         y: [
           [0.6, 1],
@@ -116,79 +94,47 @@ describe('Interval', () => {
           [0.3, 1],
         ],
         series: [0, 0, 0, 1 / 2, 1 / 2, 1 / 2],
-        color: [
-          'steelblue',
-          'steelblue',
-          'steelblue',
-          'orange',
-          'orange',
-          'orange',
-        ],
       },
     });
-    mount(createDiv(), container);
 
-    const attributes = shapes.map((d) => ({
-      type: d.nodeName,
-      x: d.style.x,
-      y: d.style.y,
-      width: d.style.width,
-      height: d.style.height,
-      fill: d.style.fill,
-    }));
-    expect(attributes).toEqual([
-      {
-        type: 'rect',
-        fill: 'steelblue',
-        x: 0,
-        y: 240,
-        width: 100,
-        height: 160,
-      },
-      {
-        type: 'rect',
-        fill: 'steelblue',
-        width: 100,
-        height: 200,
-        x: 200,
-        y: 200,
-      },
-      {
-        type: 'rect',
-        fill: 'steelblue',
-        width: 99.99999999999994,
-        x: 400,
-        y: 320,
-        height: 80,
-      },
-      {
-        type: 'rect',
-        fill: 'orange',
-        width: 100,
-        x: 100,
-        y: 120,
-        height: 280,
-      },
-      {
-        type: 'rect',
-        fill: 'orange',
-        width: 100,
-        height: 320,
-        x: 300,
-        y: 80,
-      },
-      {
-        type: 'rect',
-        fill: 'orange',
-        width: 99.99999999999994,
-        height: 280,
-        x: 500,
-        y: 120,
-      },
+    expect(I).toEqual([0, 1, 2, 3, 4, 5]);
+    expect(P).toEqual([
+      [
+        [0, 240],
+        [100, 240],
+        [100, 400],
+        [0, 400],
+      ],
+      [
+        [200, 200],
+        [300, 200],
+        [300, 400],
+        [200, 400],
+      ],
+      [
+        [400, 320],
+        [499.99999999999994, 320],
+        [499.99999999999994, 400],
+        [400, 400],
+      ],
+      [
+        [100, 120],
+        [200, 120],
+        [200, 400],
+        [100, 400],
+      ],
+      [
+        [300, 80],
+        [400, 80],
+        [400, 400],
+        [300, 400],
+      ],
+      [
+        [499.99999999999994, 120],
+        [599.9999999999999, 120],
+        [599.9999999999999, 400],
+        [499.99999999999994, 400],
+      ],
     ]);
-  });
-
-  afterAll(() => {
-    unmountAll();
   });
 });

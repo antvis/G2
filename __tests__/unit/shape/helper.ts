@@ -1,6 +1,12 @@
 import { DisplayObject } from '@antv/g';
 import { Coordinate } from '@antv/coord';
-import { Shape, CoordinateTransform, Primitive } from '../../../src/runtime';
+import {
+  Shape,
+  CoordinateTransform,
+  Primitive,
+  G2Theme,
+} from '../../../src/runtime';
+import { Light } from '../../../src/theme';
 import { Canvas } from '../../../src/renderer';
 import { Cartesian } from '../../../src/coordinate';
 import { Vector2 } from '../../../src/utils/vector';
@@ -9,24 +15,26 @@ type Options = {
   shape: Shape;
   vectors: Vector2[];
   container: string | HTMLElement;
-  style?: Record<string, Primitive>;
+  value?: Record<string, Primitive>;
   x?: number;
   y?: number;
   width?: number;
   height?: number;
   transform?: CoordinateTransform[];
+  theme?: G2Theme;
 };
 
 export function draw({
   shape: shapeFunction,
   container,
   vectors,
-  style = {},
+  value = {},
   x = 0,
   y = 0,
   width = 600,
   height = 400,
   transform = [],
+  theme = Light({}),
 }: Options): DisplayObject {
   const coordinate = new Coordinate({
     x,
@@ -37,7 +45,7 @@ export function draw({
   });
 
   const points = vectors.map((d) => coordinate.map(d)) as Vector2[];
-  const shape = shapeFunction(points, style, coordinate);
+  const shape = shapeFunction(points, value, coordinate, theme);
 
   const canvas = Canvas({ width, height, container });
   canvas.appendChild(shape);

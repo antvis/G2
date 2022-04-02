@@ -7,8 +7,8 @@ export type SmoothOptions = {
 };
 
 export const Smooth: SC<SmoothOptions> = (options) => {
-  const { alpha = 0.5 } = options;
-  return CurveLine({ curve: curveCatmullRom.alpha(alpha) });
+  const { alpha = 0.5, ...rest } = options;
+  return CurveLine({ curve: curveCatmullRom.alpha(alpha), ...rest });
 };
 
 Smooth.props = {

@@ -142,8 +142,7 @@ export type Mark = (
   scale: Record<string, Scale>,
   channel: MarkChannel,
   coordinate: Coordinate,
-  theme: Theme,
-) => DisplayObject[];
+) => [number[], Vector2[][]];
 export type MarkProps = {
   defaultShape: string;
   channels: Channel[];
@@ -159,11 +158,12 @@ export type MarkComponent<O = Record<string, unknown>> = G2BaseComponent<
 
 export type Shape = (
   points: Vector2[],
-  style: {
+  value: {
     color?: string;
     [key: string]: Primitive;
   },
   coordinate: Coordinate,
+  theme: G2Theme,
 ) => DisplayObject;
 export type ShapeProps = {
   defaultEnterAnimation: string;
@@ -182,7 +182,6 @@ export type ThemeComponent<O = Record<string, unknown>> = G2BaseComponent<
 
 export type GuideComponent = (
   scale: Scale,
-  bbox: BBox,
   style: Record<string, any>,
   coordinate: Coordinate,
   theme: G2Theme,

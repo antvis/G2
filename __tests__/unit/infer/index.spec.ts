@@ -5,6 +5,7 @@ import {
   MaybeSeries,
   MaybeStackY,
   MaybeSplitPosition,
+  MaybeKey,
 } from '../../../src/infer';
 
 describe('infer', () => {
@@ -195,5 +196,20 @@ describe('infer', () => {
         [{ type: 'stackY' }],
       ),
     ).toEqual([{ type: 'splitPosition' }, { type: 'stackY' }]);
+  });
+
+  it('MaybeKey returns a function inferring key function', () => {
+    const infer = MaybeKey();
+    const { transform } = infer({ transform: () => [] });
+
+    expect(transform(null, [{ type: 'key' }])).toEqual([{ type: 'key' }]);
+
+    expect(
+      transform({ index: [0, 1, 2], value: { key: [0, 1, 2] } }, []),
+    ).toEqual([]);
+
+    expect(
+      transform({ index: [0, 1, 2], value: {} }, [{ type: 'stackY' }]),
+    ).toEqual([{ type: 'key' }, { type: 'stackY' }]);
   });
 });

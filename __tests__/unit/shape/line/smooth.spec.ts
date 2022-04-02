@@ -8,7 +8,7 @@ describe('Smooth', () => {
     const shape = draw({
       shape: Smooth({}),
       container,
-      style: {
+      value: {
         color: 'steelblue',
       },
       vectors: [
@@ -32,7 +32,7 @@ describe('Smooth', () => {
     const shape = draw({
       shape: Smooth({ alpha: 0 }),
       container,
-      style: {
+      value: {
         color: 'steelblue',
       },
       vectors: [
