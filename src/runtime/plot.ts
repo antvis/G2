@@ -194,11 +194,11 @@ function renderMark(
   return (d, i) => {
     const render = S[d];
     const points = P[i];
-    const style = Object.entries(rest).reduce(
+    const v = Object.entries(rest).reduce(
       (obj, [key, value]) => ((obj[key] = value[d]), obj),
       {},
     );
-    return render(points, style, coordinate, theme);
+    return render(points, v, coordinate, theme);
   };
 }
 
