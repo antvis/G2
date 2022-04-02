@@ -5,13 +5,15 @@ export type Statistic =
   | DodgeXStatistic
   | StackDurationStatistic
   | SplitPositionStatistic
-  | CustomStatistic;
+  | CustomStatistic
+  | KeyStatistic;
 
 export type StatisticTypes =
   | 'dodgeX'
   | 'stackY'
   | 'stackEnter'
   | 'splitPosition'
+  | 'key'
   | StatisticComponent;
 
 export type DodgeXStatistic = {
@@ -29,6 +31,10 @@ export type StackDurationStatistic = {
 
 export type SplitPositionStatistic = {
   type?: 'splitPosition';
+};
+
+export type KeyStatistic = {
+  type?: 'key';
 };
 
 export type CustomStatistic = {

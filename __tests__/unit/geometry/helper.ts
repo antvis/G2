@@ -1,30 +1,21 @@
-import { Coordinate } from '@antv/coord';
-import { DisplayObject } from '@antv/g';
+import { Coordinate, Vector2 } from '@antv/coord';
 import { Cartesian } from '../../../src/coordinate';
-import { Canvas } from '../../../src/renderer';
-
 import {
   CoordinateTransform,
   Mark,
-  Shape,
   Scale,
   ChannelValue,
-  Theme,
 } from '../../../src/runtime';
 
 type Options = {
   index: number[];
   mark: Mark;
   scale?: Record<string, Scale>;
-  container: string | HTMLElement;
   channel: {
     x?: number[][];
     y?: number[][];
-    shape?: Shape[];
-    color?: string[];
-    [key: string]: ChannelValue | Shape[];
+    [key: string]: ChannelValue;
   };
-  theme?: Theme;
   width?: number;
   height?: number;
   x?: number;
@@ -37,17 +28,12 @@ export function plot({
   mark,
   scale = {},
   channel,
-  container,
-  theme = {
-    defaultColor: '#5B8FF9',
-    defaultSize: 1,
-  },
   x = 0,
   y = 0,
   width = 600,
   height = 400,
   transform = [],
-}: Options): DisplayObject[] {
+}: Options): [number[], Vector2[][]] {
   const coordinate = new Coordinate({
     width,
     height,
@@ -55,10 +41,5 @@ export function plot({
     y,
     transformations: [...transform.flat(), Cartesian()[0]],
   });
-  const shapes = mark(index, scale, channel, coordinate, theme);
-  const canvas = Canvas({ width, height, container });
-  for (const shape of shapes) {
-    canvas.appendChild(shape);
-  }
-  return shapes;
+  return mark(index, scale, channel, coordinate);
 }

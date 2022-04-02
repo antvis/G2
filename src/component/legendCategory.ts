@@ -13,9 +13,9 @@ export type LegendCategoryOptions = {
  * @todo Custom style.
  */
 export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
-  return (scale, bbox, value, coordinate, theme) => {
+  return (scale, value, coordinate, theme) => {
+    const { domain, field, bbox } = value;
     const { x, y } = bbox;
-    const { domain, field } = value;
     const items = domain.map((d) => ({
       id: d,
       name: d,

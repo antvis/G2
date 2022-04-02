@@ -1,12 +1,10 @@
-import { DisplayObject } from '@antv/g';
-import { group } from 'd3-array';
-import { Coordinate } from '@antv/coord';
+import { Coordinate, Vector2 } from '@antv/coord';
 import { mapObject } from '../utils/array';
 import { Container } from '../utils/container';
 import { error } from '../utils/helper';
+import { Selection } from '../utils/selection';
 import {
   G2ViewTree,
-  G2Context,
   G2Area,
   G2MarkOptions,
   G2ScaleOptions,
@@ -16,7 +14,6 @@ import {
   G2Library,
   G2ShapeOptions,
   G2AnimationOptions,
-  G2Display,
 } from './types/options';
 import {
   ThemeComponent,
@@ -44,7 +41,8 @@ import { applyScale } from './scale';
 
 export async function plot<T extends G2ViewTree>(
   options: T,
-  context: G2Context,
+  selection: Selection,
+  library: G2Library,
 ): Promise<void> {
   const {
     width,
@@ -73,11 +71,14 @@ export async function plot<T extends G2ViewTree>(
     component,
     marks: [{ data, ...mark }],
   };
-  return plotArea(area, context);
+  return plotArea(area, selection, library);
 }
 
-async function plotArea(options: G2Area, context: G2Context): Promise<void> {
-  const { canvas, library } = context;
+async function plotArea(
+  options: G2Area,
+  selection: Selection,
+  library: G2Library,
+): Promise<void> {
   const [useTheme] = useLibrary<G2ThemeOptions, ThemeComponent, Theme>(
     'theme',
     library,
@@ -126,59 +127,55 @@ async function plotArea(options: G2Area, context: G2Context): Promise<void> {
   const scales = Array.from(
     new Set(marks.flatMap((d) => Object.values(d.scale))),
   );
-
-  // Infer guide components by scales and create coordinate.
-  const [components, componentScale] = inferComponent(scales, options, library);
+  const components = inferComponent(scales, options, library);
   const layout = computeLayout(components, options);
   const coordinate = createCoordinate(layout, options, library);
 
-  // Place each component by layout and coordinate.
-  const componentBBox = placeComponents(
-    components,
-    coordinate,
-    layout,
-    options,
-  );
+  // Place components and mutate their bbox.
+  placeComponents(components, coordinate, layout, options);
 
-  // Sort marks and components by zIndex.
-  const displays = normalizeDisplays(marks, components);
-  displays.sort((a, b) => a.zIndex - b.zIndex);
+  selection
+    .selectAll('.component')
+    .data(components, (d) => JSON.stringify(d))
+    .join((enter) =>
+      enter
+        .append('g')
+        .style('zIndex', ({ zIndex }) => zIndex || -1)
+        .attr('className', '.component')
+        .append((component) => {
+          const { scale: scaleDescriptor, bbox, ...options } = component;
+          const scale = scaleDescriptor ? useScale(scaleDescriptor) : null;
+          const { field, domain } = scaleDescriptor;
+          const value = { field, domain, bbox };
+          const render = useGuideComponent(options);
+          return render(scale, value, coordinate, theme);
+        }),
+    );
 
-  for (const { type, display } of displays) {
-    if (type === 'component') {
-      // Render components with corresponding bbox and scale(if required).
-      const scaleDescriptor = componentScale.get(display);
-      const scale = scaleDescriptor ? useScale(scaleDescriptor) : null;
-      const { field, domain } = scaleDescriptor;
-      const value = { field, domain };
-      const bbox = componentBBox.get(display);
+  for (const [mark, props] of markProps.entries()) {
+    const { scale: scaleDescriptor, style = {}, animate = {} } = mark;
+    const { index, channels, defaultShape } = props;
+    const scale = mapObject(scaleDescriptor, useScale);
+    const value = Container.of<MarkChannel>(channels)
+      .map(applyScale, scale)
+      .map(applyAnimationFunction, index, animate, defaultShape, library)
+      .map(applyShapeFunction, index, style, defaultShape, library)
+      .value();
 
-      const render = useGuideComponent(display);
-      const group = render(scale, bbox, value, coordinate, theme);
-      canvas.appendChild(group);
-    } else {
-      // Render marks with corresponding channel values.
-      const props = markProps.get(display);
-      const { scale: scaleDescriptor, animate = {} } = display;
-      const { index, channels, defaultShape } = props;
+    const calcPoints = useMark(mark);
+    const [I, P] = calcPoints(index, scale, value, coordinate);
+    const { key: K } = value;
 
-      const scale = mapObject(scaleDescriptor, useScale);
-      const value = Container.of<MarkChannel>(channels)
-        .map(applyScale, scale)
-        .map(animationFunction, index, animate, defaultShape, library)
-        .map(shapeFunction, index, defaultShape, library)
-        .value();
-
-      // Apply atheistic attributes.
-      const render = useMark(display);
-      const shapes = render(index, scale, value, coordinate, theme);
-      for (const shape of shapes) {
-        canvas.appendChild(shape);
-      }
-
-      // Apply animation attributes.
-      applyAnimation(index, shapes, value, coordinate, theme);
-    }
+    //@todo Which is better: Binding index or Binding data directly?
+    selection
+      .selectAll('.element')
+      .data(I, (d) => K[d])
+      .join((enter) =>
+        enter
+          .append(renderMark(P, value, coordinate, theme))
+          .call(applyEnterAnimation, value, coordinate, theme)
+          .attr('className', 'element'),
+      );
   }
 }
 
@@ -187,31 +184,26 @@ function inferTheme(theme: G2ThemeOptions = { type: 'light' }): G2ThemeOptions {
   return { ...theme, type };
 }
 
-function normalizeDisplays(
-  marks: G2Mark[],
-  components: G2GuideComponentOptions[],
-): G2Display[] {
-  return [
-    ...components.map(
-      (component): G2Display => ({
-        type: 'component',
-        zIndex: component.zIndex || -1,
-        display: component,
-      }),
-    ),
-    ...marks.map(
-      (mark): G2Display => ({
-        type: 'mark',
-        zIndex: mark.zIndex || 0,
-        display: mark,
-      }),
-    ),
-  ];
+function renderMark(
+  P: Vector2[][],
+  value: Record<string, any>,
+  coordinate: Coordinate,
+  theme: G2Theme,
+) {
+  const { shape: S, ...rest } = value;
+  return (d, i) => {
+    const render = S[d];
+    const points = P[i];
+    const style = Object.entries(rest).reduce(
+      (obj, [key, value]) => ((obj[key] = value[d]), obj),
+      {},
+    );
+    return render(points, style, coordinate, theme);
+  };
 }
 
-function applyAnimation(
-  I: number[],
-  shapes: DisplayObject[],
+function applyEnterAnimation(
+  selection: Selection,
   value: Record<string, any>,
   coordinate: Coordinate,
   theme: G2Theme,
@@ -222,40 +214,18 @@ function applyAnimation(
     enterEasing: EE = [],
     enterDuration: EDR = [],
   } = value;
-
-  // A shape may correspond to a group of data(e.g. line).
-  // Map shape index(group index) to the index of first data for this group.
-  const valueIndex = createIndex(I, shapes, value);
-  for (let i = 0; i < shapes.length; i++) {
-    const shape = shapes[i];
-    const index = valueIndex(i);
-    const animate = ET[index];
-    const style = {
-      duration: EDR[index],
-      easing: EE[index],
-      delay: EDL[index],
+  selection.each(function (d) {
+    const animate = ET[d];
+    const effectTiming = {
+      duration: EDR[d],
+      easing: EE[d],
+      delay: EDL[d],
     };
-    animate(shape, style, coordinate, theme);
-  }
+    animate(this, effectTiming, coordinate, theme);
+  });
 }
 
-function createIndex(
-  index: number[],
-  shapes: DisplayObject[],
-  value: Record<string, any>,
-): (i: number) => number {
-  if (index.length === shapes.length) return (i) => i;
-
-  // Group shapes by series channel.
-  const { series: S } = value;
-  const groups = S ? Array.from(group(index, (i) => S[i]).values()) : [index];
-
-  // Using the index of the first shape for the group as the group index.
-  const groupIndex = new Map(groups.map((g, i) => [i, g[0]]));
-  return (i) => groupIndex.get(i);
-}
-
-function animationFunction(
+function applyAnimationFunction(
   value: Record<string, any>,
   index: number[],
   animate: G2AnimationOptions,
@@ -282,9 +252,10 @@ function animationFunction(
   return { ...value, enterType: animationFunctions };
 }
 
-function shapeFunction(
+function applyShapeFunction(
   value: Record<string, Channel>,
   index: number[],
+  style: Record<string, any>,
   defaultShape: string,
   library: G2Library,
 ): {
@@ -297,8 +268,8 @@ function shapeFunction(
   );
   const { shape } = value;
   const shapeFunctions = Array.isArray(shape)
-    ? shape.map((type) => useShape(normalizeOptions(type)))
-    : index.map(() => useShape({ type: defaultShape }));
+    ? shape.map((type) => useShape({ ...normalizeOptions(type), ...style }))
+    : index.map(() => useShape({ type: defaultShape, ...style }));
   return { ...value, shape: shapeFunctions };
 }
 

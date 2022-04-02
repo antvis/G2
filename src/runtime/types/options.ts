@@ -37,7 +37,6 @@ export type G2Library = Record<
 export type G2Context = {
   library?: G2Library;
   canvas?: Canvas;
-  viewTree?: any;
 };
 
 export type G2Area = {
@@ -68,20 +67,7 @@ export type G2Mark = {
   type?: string;
   animate?: Record<string, Primitive>;
   style?: Record<string, Primitive>;
-  zIndex?: number;
 };
-
-export type G2Display =
-  | {
-      type: 'component';
-      zIndex: number;
-      display: G2GuideComponentOptions;
-    }
-  | {
-      type: 'mark';
-      zIndex: number;
-      display: G2Mark;
-    };
 
 export type G2MarkDescriptor = {
   render: Mark;

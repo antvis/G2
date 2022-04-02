@@ -4,7 +4,6 @@ import { capitalizeFirst } from '../utils/helper';
 import {
   GuideComponentPosition,
   Section,
-  BBox,
   Padding,
   SectionArea,
 } from './types/common';
@@ -48,7 +47,7 @@ export function placeComponents(
   coordinate: Coordinate,
   layout: Padding,
   partialOptions: G2Area,
-): Map<G2GuideComponentOptions, BBox> {
+): void {
   const positionComponents = group(components, (d) => d.position);
   const {
     paddingLeft: pl,
@@ -68,21 +67,17 @@ export function placeComponents(
     centerHorizontal: [x + pl, y + pt, innerWidth, innerHeight, -1, null, null],
   };
 
-  const componentBBox = new Map<G2GuideComponentOptions, BBox>();
   for (const [key, components] of positionComponents.entries()) {
     const area = section[key];
     if (key === 'centerHorizontal') {
-      placeCenterHorizontal(componentBBox, components, coordinate, area);
+      placeCenterHorizontal(components, coordinate, area);
     } else {
-      placePaddingArea(componentBBox, components, coordinate, area);
+      placePaddingArea(components, coordinate, area);
     }
   }
-
-  return componentBBox;
 }
 
 function placeCenterHorizontal(
-  componentBBox: Map<G2GuideComponentOptions, BBox>,
   components: G2GuideComponentOptions[],
   coordinate: Coordinate,
   area: SectionArea,
@@ -102,12 +97,11 @@ function placeCenterHorizontal(
     const component = components[i];
     const x = X[i];
     const width = X[i + 1] - x;
-    componentBBox.set(component, { x, y, width, height });
+    component.bbox = { x, y, width, height };
   }
 }
 
 function placePaddingArea(
-  componentBBox: Map<G2GuideComponentOptions, BBox>,
   components: G2GuideComponentOptions[],
   coordinate: Coordinate,
   area: SectionArea,
@@ -135,12 +129,12 @@ function placePaddingArea(
   for (let i = 0, start = startValue; i < components.length; i++) {
     const component = components[i];
     const { size } = component;
-    componentBBox.set(component, {
+    component.bbox = {
       [mainStartKey]: reverse ? start - size : start,
       [crossStartKey]: crossStartValue,
       [mainSizeKey]: size,
       [crossSizeKey]: crossSizeValue,
-    });
+    };
     start += size * (reverse ? -1 : 1);
   }
 }

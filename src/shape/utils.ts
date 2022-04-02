@@ -1,22 +1,11 @@
-import { DisplayObject } from '@antv/g';
 import { Primitive } from '../runtime';
+import { Selection } from '../utils/selection';
 
-export function applyStyle<T extends DisplayObject>(
-  shape: T,
+export function applyStyle(
+  selection: Selection,
   style: Record<string, Primitive>,
 ) {
   for (const [key, value] of Object.entries(style)) {
-    attr(shape, key, value);
+    selection.style(key, value);
   }
-  return shape;
-}
-
-export function attr<T extends DisplayObject>(
-  shape: T,
-  key: string,
-  value: any,
-): T {
-  if (value === undefined) return shape;
-  shape.style[key] = value;
-  return shape;
 }
