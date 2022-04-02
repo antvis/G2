@@ -88,7 +88,7 @@ function inferPotentialScale(
   theme: G2Theme,
   library: G2Library,
 ): G2ScaleOptions {
-  const { field: defaultField } = options;
+  const { field: defaultField, guide = {} } = options;
   const { name, field = defaultField } = channel;
   const flattenChannel = { ...channel, value: channel.value.flat(1) };
   const type = inferScaleType(flattenChannel, options);
@@ -105,6 +105,7 @@ function inferPotentialScale(
       theme,
       library,
     ),
+    guide,
     name,
     field,
     type,

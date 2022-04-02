@@ -14,7 +14,7 @@ export function inferComponent(
   scales: G2ScaleOptions[],
   partialOptions: G2Area,
   library: G2Library,
-): [G2GuideComponentOptions[], Map<G2GuideComponentOptions, G2ScaleOptions>] {
+): G2GuideComponentOptions[] {
   const { component: partialComponents = [], coordinate = [] } = partialOptions;
   const [, createGuideComponent] = useLibrary<
     G2GuideComponentOptions,
@@ -22,13 +22,7 @@ export function inferComponent(
     GuideComponent
   >('component', library);
 
-  const displayedScales = scales
-    .filter(({ guide }) => guide !== null)
-    .map(({ guide, ...rest }) => ({
-      ...rest,
-      guide: guide || {},
-    }));
-  const componentScale = new Map<G2GuideComponentOptions, G2ScaleOptions>();
+  const displayedScales = scales.filter(({ guide }) => guide !== null);
   const components = [...partialComponents];
 
   for (const scale of displayedScales) {
@@ -48,19 +42,11 @@ export function inferComponent(
         size = defaultSize,
         order = defaultOrder,
       } = partialGuide;
-      const guide = {
-        ...partialGuide,
-        position,
-        order,
-        size,
-        type,
-      };
-      components.push(guide);
-      componentScale.set(guide, scale);
+      components.push({ ...partialGuide, position, order, size, type, scale });
     }
   }
 
-  return [components, componentScale];
+  return components;
 }
 
 // @todo Render components in non-cartesian coordinate.

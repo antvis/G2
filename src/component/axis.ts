@@ -7,6 +7,7 @@ import {
 
 export type AxisOptions = {
   position?: GuideComponentPosition;
+  zIndex?: number;
 };
 
 /**
@@ -16,8 +17,8 @@ export type AxisOptions = {
  */
 export const Axis: GCC<AxisOptions> = (options) => {
   const { position } = options;
-  return (scale, bbox, value, coordinate, theme) => {
-    const { domain, field } = value;
+  return (scale, value, coordinate, theme) => {
+    const { domain, field, bbox } = value;
     const {
       startPos,
       endPos,

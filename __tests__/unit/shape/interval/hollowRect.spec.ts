@@ -8,7 +8,7 @@ describe('HollowRect', () => {
     const shape = draw({
       shape: HollowRect(),
       container,
-      style: {
+      value: {
         color: 'steelblue',
       },
       vectors: [
@@ -30,12 +30,10 @@ describe('HollowRect', () => {
   it('HollowRect() returns a function drawing rect with specified lineWidth', () => {
     const container = document.createElement('div');
     const shape = draw({
-      shape: HollowRect(),
+      shape: HollowRect({ lineWidth: 10, radius: 10 }),
       container,
-      style: {
+      value: {
         color: 'steelblue',
-        lineWidth: 10,
-        radius: 10,
       },
       vectors: [
         [0.1, 0.1],

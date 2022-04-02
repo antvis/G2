@@ -141,11 +141,12 @@ describe('render', () => {
           y: 'sold',
           shape: {
             type: 'constant',
-            value: () => {
-              return (P, style) => {
+            value: (style) => {
+              return (P, value, coordinate, theme) => {
                 const [p0, p1, p2, p3] = P;
+                const { defaultColor } = theme;
                 const pm = [(p0[0] + p1[0]) / 2, p0[1]];
-                const { color } = style;
+                const { color = defaultColor } = value;
                 return new Polygon({
                   style: {
                     ...style,
@@ -165,11 +166,12 @@ describe('render', () => {
   });
 
   it('render({...} renders chart with custom library', (done) => {
-    const TriangleShape: ShapeComponent<void> = () => {
-      return (P, style, coordinate) => {
+    const TriangleShape: ShapeComponent = (style) => {
+      return (P, value, coordinate, theme) => {
+        const { defaultColor } = theme;
         const [p0, p1, p2, p3] = P;
         const pm: Vector2 = [(p0[0] + p1[0]) / 2, p0[1]];
-        const { color } = style;
+        const { color = defaultColor } = value;
         return new Polygon({
           style: {
             ...style,
