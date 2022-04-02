@@ -1,7 +1,7 @@
 import { identity } from '../utils/helper';
 import { TransformComponent as TC } from '../runtime';
 import { FetchTransform } from '../spec';
-import { useAsyncMemoTransform } from './utils';
+import { useAsyncMemoTransform } from './utils/memo';
 
 export type FetchOptions = Omit<FetchTransform, 'type'>;
 

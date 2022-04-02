@@ -1,0 +1,31 @@
+{
+  "links": [
+    {
+      "source": "Agricultural waste",
+      "target": "Bio-conversion",
+      "value": 124.729
+    },
+    { "source": "Bio-conversion", "target": "Liquid", "value": 0.597 },
+    { "source": "Bio-conversion", "target": "Losses", "value": 26.862 },
+    { "source": "Bio-conversion", "target": "Solid", "value": 280.322 },
+    { "source": "Bio-conversion", "target": "Gas", "value": 81.144 },
+    { "source": "Biofuel imports", "target": "Liquid", "value": 35 },
+    { "source": "Biomass imports", "target": "Solid", "value": 35 },
+    { "source": "Coal imports", "target": "Coal", "value": 11.606 },
+    { "source": "Coal reserves", "target": "Coal", "value": 63.965 },
+    { "source": "Coal", "target": "Solid", "value": 75.571 }
+  ],
+  "nodes": [
+    { "name": "Agricultural waste" },
+    { "name": "Bio-conversion" },
+    { "name": "Biofuel imports" },
+    { "name": "Biomass imports" },
+    { "name": "Coal imports" },
+    { "name": "Coal reserves" },
+    { "name": "Coal" },
+    { "name": "Liquid" },
+    { "name": "Losses" },
+    { "name": "Solid" },
+    { "name": "Gas" }
+  ]
+}
