@@ -76,7 +76,7 @@ describe('infer', () => {
 
     const e2 = {};
     expect(infer({ encode: e2 }).encode).toEqual({
-      size: { type: 'constant', value: 2 },
+      size: { type: 'constant', value: 3 },
     });
   });
 

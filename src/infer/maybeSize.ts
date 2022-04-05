@@ -6,7 +6,7 @@ function constant(value: any) {
   return { type: 'constant', value };
 }
 
-function inferEncode({ size = constant(2), ...rest }: InferredEncode) {
+function inferEncode({ size = constant(3), ...rest }: InferredEncode) {
   return { size, ...rest };
 }
 

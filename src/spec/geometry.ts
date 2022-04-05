@@ -6,20 +6,24 @@ import { Coordinate } from './coordinate';
 import { Statistic } from './statistic';
 import { Animation } from './animate';
 
-export type Geometry = IntervalGeometry | LineGeometry | CustomComponent;
+export type Geometry =
+  | IntervalGeometry
+  | LineGeometry
+  | PointGeometry
+  | CustomComponent;
 
-export type GeometryTypes = 'interval' | 'line' | MarkComponent;
+export type GeometryTypes = 'interval' | 'line' | 'point' | MarkComponent;
 
 export type ChannelTypes =
   | 'x'
   | 'y'
   | 'color'
   | 'shape'
-  | 'series'
   | 'enterType'
   | 'enterEasing'
   | 'enterDuration'
-  | 'enterDelay';
+  | 'enterDelay'
+  | 'size';
 
 export type BaseGeometry<
   T extends GeometryTypes,
@@ -43,11 +47,16 @@ export type BaseGeometry<
   zIndex?: number;
 };
 
-export type IntervalGeometry = BaseGeometry<'interval'>;
+export type IntervalGeometry = BaseGeometry<
+  'interval',
+  ChannelTypes | 'series'
+>;
 
 export type LineGeometry = BaseGeometry<
   'line',
   ChannelTypes | 'position' | `position[${number}]` | 'size'
 >;
+
+export type PointGeometry = BaseGeometry<'point'>;
 
 export type CustomComponent = BaseGeometry<MarkComponent>;
