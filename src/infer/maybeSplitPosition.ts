@@ -13,6 +13,10 @@ const inferStatistic: InferValue['transform'] = (indexedValue, statistic) => {
   return [{ type: 'splitPosition' }, ...statistic];
 };
 
+/**
+ * Split position channel into multiple position channels.
+ * @example position -> position[0], position[1], position[2]...
+ */
 export const MaybeSplitPosition: IC<MaybeSplitPositionOptions> = () => {
   return ({ encode, transform }) => ({
     encode,

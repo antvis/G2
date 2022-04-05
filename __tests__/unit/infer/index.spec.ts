@@ -6,6 +6,8 @@ import {
   MaybeStackY,
   MaybeSplitPosition,
   MaybeKey,
+  MaybeSize,
+  MaybeZeroY1,
 } from '../../../src/infer';
 
 describe('infer', () => {
@@ -64,6 +66,30 @@ describe('infer', () => {
 
     const e6 = { x: 0, y: 0 };
     expect(infer({ encode: e6 }).encode).toEqual({ x: [0], y: [0] });
+  });
+
+  it('MaybeSize returns a function producing constant size encode', () => {
+    const infer = MaybeSize();
+
+    const e1 = { size: 0 };
+    expect(infer({ encode: e1 }).encode).toEqual(e1);
+
+    const e2 = {};
+    expect(infer({ encode: e2 }).encode).toEqual({
+      size: { type: 'constant', value: 2 },
+    });
+  });
+
+  it('MaybeZeroY1() returns a function inferring zero y1', () => {
+    const infer = MaybeZeroY1();
+
+    const e1 = {};
+    expect(infer({ encode: e1 }).encode).toEqual({
+      y: [{ type: 'constant', value: 0 }],
+    });
+
+    const e2 = { y: 'name' };
+    expect(infer({ encode: e2 }).encode).toEqual(e2);
   });
 
   it('MaybeSeries returns a function inferring series channel by color channel', () => {
