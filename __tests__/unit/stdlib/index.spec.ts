@@ -2,7 +2,7 @@ import { createLibrary } from '../../../src/stdlib';
 import { Canvas } from '../../../src/renderer';
 import { Cartesian, Polar, Transpose, Parallel } from '../../../src/coordinate';
 import { Constant, Field, Transform } from '../../../src/encode';
-import { Interval, Line } from '../../../src/geometry';
+import { Interval, Line, Point as PointGeometry } from '../../../src/geometry';
 import {
   MaybeTuple,
   MaybeZeroX1,
@@ -11,6 +11,8 @@ import {
   MaybeSplitPosition,
   MaybeStackY,
   MaybeKey,
+  MaybeSize,
+  MaybeZeroY1,
 } from '../../../src/infer';
 import { Category10, Category20 } from '../../../src/palette';
 import {
@@ -20,12 +22,16 @@ import {
   Identity,
   Point,
   Time,
+  Log,
+  Pow,
 } from '../../../src/scale';
 import {
   Rect as RectShape,
   HollowRect,
   Line as LineShape,
   Smooth,
+  Point as PointShape,
+  HollowPoint,
 } from '../../../src/shape';
 import {
   DodgeX,
@@ -57,6 +63,7 @@ describe('stdlib', () => {
       'encode.transform': Transform,
       'mark.interval': Interval,
       'mark.line': Line,
+      'mark.point': PointGeometry,
       'infer.maybeTuple': MaybeTuple,
       'infer.maybeZeroX1': MaybeZeroX1,
       'infer.maybeZeroY2': MaybeZeroY2,
@@ -64,6 +71,8 @@ describe('stdlib', () => {
       'infer.maybeStackY': MaybeStackY,
       'infer.maybeSplitPosition': MaybeSplitPosition,
       'infer.maybeKey': MaybeKey,
+      'infer.maybeSize': MaybeSize,
+      'infer.maybeZeroY1': MaybeZeroY1,
       'palette.category10': Category10,
       'palette.category20': Category20,
       'scale.linear': Linear,
@@ -72,10 +81,14 @@ describe('stdlib', () => {
       'scale.identity': Identity,
       'scale.point': Point,
       'scale.time': Time,
+      'scale.log': Log,
+      'scale.pow': Pow,
       'shape.rect': RectShape,
       'shape.hollowRect': HollowRect,
       'shape.line': LineShape,
       'shape.smooth': Smooth,
+      'shape.point': PointShape,
+      'shape.hollowPoint': HollowPoint,
       'statistic.stackY': StackY,
       'statistic.dodgeX': DodgeX,
       'statistic.stackEnter': StackEnter,

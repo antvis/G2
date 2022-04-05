@@ -5,6 +5,8 @@ import {
   Identity as IdentityScale,
   Point as PointScale,
   Time as TimeScale,
+  Log as LogScale,
+  Pow as PowScale,
 } from '@antv/scale';
 import {
   Linear,
@@ -13,6 +15,8 @@ import {
   Identity,
   Point,
   Time,
+  Log,
+  Pow,
 } from '../../../src/scale';
 
 describe('scale', () => {
@@ -23,5 +27,7 @@ describe('scale', () => {
     expect(Identity()).toBeInstanceOf(IdentityScale);
     expect(Point()).toBeInstanceOf(PointScale);
     expect(Time()).toBeInstanceOf(TimeScale);
+    expect(Log()).toBeInstanceOf(LogScale);
+    expect(Pow()).toBeInstanceOf(PowScale);
   });
 });

@@ -12,7 +12,7 @@ const inferStatistic: InferValue['transform'] = (indexedValue, statistic) => {
 };
 
 /**
- * Add stack statistic for marks grouped by x channel.
+ * Add key for each mark.
  */
 export const MaybeKey: IC<MaybeKeyOptions> = () => {
   return ({ encode, transform }) => ({
