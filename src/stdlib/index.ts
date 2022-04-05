@@ -2,7 +2,7 @@ import { G2Library } from '../runtime';
 import { Canvas } from '../renderer';
 import { Cartesian, Polar, Transpose, Parallel } from '../coordinate';
 import { Constant, Field, Transform } from '../encode';
-import { Interval, Line } from '../geometry';
+import { Interval, Line, Point as PointGeometry } from '../geometry';
 import {
   MaybeTuple,
   MaybeZeroX1,
@@ -11,14 +11,27 @@ import {
   MaybeStackY,
   MaybeSplitPosition,
   MaybeKey,
+  MaybeSize,
+  MaybeZeroY1,
 } from '../infer';
 import { Category10, Category20 } from '../palette';
-import { Linear, Ordinal, Band, Identity, Point, Time } from '../scale';
+import {
+  Linear,
+  Ordinal,
+  Band,
+  Identity,
+  Point,
+  Time,
+  Log,
+  Pow,
+} from '../scale';
 import {
   Rect as RectShape,
   HollowRect,
   Line as LineShape,
   Smooth,
+  Point as PointShape,
+  HollowPoint,
 } from '../shape';
 import { DodgeX, StackY, StackEnter, SplitPosition, Key } from '../statistic';
 import { Light } from '../theme';
@@ -38,6 +51,7 @@ export function createLibrary(): G2Library {
     'encode.transform': Transform,
     'mark.interval': Interval,
     'mark.line': Line,
+    'mark.point': PointGeometry,
     'infer.maybeTuple': MaybeTuple,
     'infer.maybeZeroX1': MaybeZeroX1,
     'infer.maybeZeroY2': MaybeZeroY2,
@@ -45,6 +59,8 @@ export function createLibrary(): G2Library {
     'infer.maybeStackY': MaybeStackY,
     'infer.maybeSplitPosition': MaybeSplitPosition,
     'infer.maybeKey': MaybeKey,
+    'infer.maybeSize': MaybeSize,
+    'infer.maybeZeroY1': MaybeZeroY1,
     'palette.category10': Category10,
     'palette.category20': Category20,
     'scale.linear': Linear,
@@ -53,10 +69,14 @@ export function createLibrary(): G2Library {
     'scale.identity': Identity,
     'scale.point': Point,
     'scale.time': Time,
+    'scale.log': Log,
+    'scale.pow': Pow,
     'shape.rect': RectShape,
     'shape.hollowRect': HollowRect,
     'shape.line': LineShape,
     'shape.smooth': Smooth,
+    'shape.point': PointShape,
+    'shape.hollowPoint': HollowPoint,
     'statistic.stackY': StackY,
     'statistic.dodgeX': DodgeX,
     'statistic.stackEnter': StackEnter,

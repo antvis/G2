@@ -4,6 +4,12 @@ import { draw, style } from '../helper';
 import { Polar } from '../../../../src/coordinate';
 
 describe('Line', () => {
+  it('Line has expected defaults', () => {
+    expect(Line.props).toEqual({
+      defaultEnterAnimation: 'fadeIn',
+    });
+  });
+
   it('Line() returns a function draw line in cartesian coordinate using color as stroke', () => {
     const container = document.createElement('div');
     const shape = draw({

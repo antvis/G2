@@ -5,6 +5,8 @@ import {
   BandOptions,
   PointOptions,
   TimeOptions,
+  LogOptions,
+  PowOptions,
 } from '@antv/scale';
 import { ScaleComponent } from '../runtime';
 import { Palette } from './palette';
@@ -16,6 +18,8 @@ export type Scale =
   | BandScale
   | PointScale
   | TimeScale
+  | LogScale
+  | PowScale
   | CustomScale;
 
 export type ScaleTypes =
@@ -25,6 +29,8 @@ export type ScaleTypes =
   | 'band'
   | 'point'
   | 'time'
+  | 'log'
+  | 'pow'
   | ScaleComponent;
 
 export type BaseScale<T extends ScaleTypes, O> = {
@@ -47,5 +53,9 @@ export type BandScale = BaseScale<'band', BandOptions>;
 export type PointScale = BaseScale<'point', PointOptions>;
 
 export type TimeScale = BaseScale<'time', TimeOptions>;
+
+export type LogScale = BaseScale<'log', LogOptions>;
+
+export type PowScale = BaseScale<'pow', PowOptions>;
 
 export type CustomScale = BaseScale<ScaleComponent, { [key: string]: any }>;

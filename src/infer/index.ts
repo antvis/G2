@@ -8,3 +8,5 @@ export {
   MaybeSplitPositionOptions,
 } from './maybeSplitPosition';
 export { MaybeKey, MaybeKeyOptions } from './maybeKey';
+export { MaybeZeroY1, MaybeZeroY1Options } from './maybeZeroY1';
+export { MaybeSize, MaybeSizeOptions } from './maybeSize';
