@@ -88,8 +88,8 @@ function inferPotentialScale(
   theme: G2Theme,
   library: G2Library,
 ): G2ScaleOptions {
-  const { field: defaultField, guide = {} } = options;
-  const { name, field = defaultField } = channel;
+  const { name, field: inferredField } = channel;
+  const { field = inferredField, guide = {} } = options;
   const flattenChannel = { ...channel, value: channel.value.flat(1) };
   const type = inferScaleType(flattenChannel, options);
   if (typeof type !== 'string') return options;
@@ -147,6 +147,8 @@ function inferScaleDomain(
   switch (type) {
     case 'linear':
     case 'time':
+    case 'log':
+    case 'pow':
       return inferDomainQ(value, options);
     case 'band':
     case 'ordinal':
@@ -202,6 +204,8 @@ function inferScaleOptions(
   switch (type) {
     case 'linear':
     case 'time':
+    case 'log':
+    case 'pow':
       return inferOptionsQ(coordinate, options);
     case 'band':
     case 'point':
@@ -359,6 +363,8 @@ function maybeCompatible(
 function syncDomain(type: string, target: any[], source: any[]): any[] {
   switch (type) {
     case 'linear':
+    case 'pow':
+    case 'log':
       return syncTupleQ(target, source);
     case 'band':
     case 'ordinal':
@@ -372,6 +378,8 @@ function syncRange(type: string, target: any[], source: any[]): any[] {
   switch (type) {
     case 'linear':
     case 'band':
+    case 'pow':
+    case 'log':
       return syncTupleQ(target, source);
     case 'ordinal':
       return syncTupleC(target, source);
