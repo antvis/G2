@@ -3,6 +3,12 @@ import { mount, createDiv } from '../../../utils/dom';
 import { draw, style } from '../helper';
 
 describe('Smooth', () => {
+  it('Smooth has expected defaults', () => {
+    expect(Smooth.props).toEqual({
+      defaultEnterAnimation: 'fadeIn',
+    });
+  });
+
   it('Smooth() returns a function draw curve line in cartesian coordinate using color as stroke', () => {
     const container = document.createElement('div');
     const shape = draw({
