@@ -6,9 +6,14 @@ import { useMemoTransform } from './utils/memo';
 
 export type WordCloudOptions = Omit<WordCloudTransform, 'type'>;
 
+const DEFAULT_OPTIONS: Partial<WordCloudOptions> = {
+  size: [500, 500],
+};
+
 export const WordCloud: TC<WordCloudOptions> = (options) => {
   return useMemoTransform(
     async (data) => {
+      const cloudOptions = Object.assign({}, DEFAULT_OPTIONS, options);
       const layout = tagCloud();
 
       [
@@ -24,15 +29,15 @@ export const WordCloud: TC<WordCloudOptions> = (options) => {
         'random',
         'text',
       ].forEach((key: string) => {
-        if (options[key]) {
-          layout[key](options[key]);
+        if (cloudOptions[key]) {
+          layout[key](cloudOptions[key]);
         }
       });
 
       layout.words(data);
 
-      const imageMask = await processImageMask(options.imageMask);
-      if (imageMask) {
+      if (cloudOptions.imageMask) {
+        const imageMask = await processImageMask(cloudOptions.imageMask);
         layout.createMask(imageMask);
       }
 
@@ -40,14 +45,14 @@ export const WordCloud: TC<WordCloudOptions> = (options) => {
       const tags: any[] = result._tags;
 
       tags.forEach((tag) => {
-        tag.x += options.size[0] / 2;
-        tag.y += options.size[1] / 2;
+        tag.x += cloudOptions.size[0] / 2;
+        tag.y += cloudOptions.size[1] / 2;
       });
 
-      const [w, h] = options.size;
+      const [w, h] = cloudOptions.size;
       const bounds = result._bounds || [
         { x: 0, y: 0 },
-        { x: options.size[0], y: options.size[1] },
+        { x: cloudOptions.size[0], y: cloudOptions.size[1] },
       ];
       const hasImage = result.hasImage;
       tags.push({
