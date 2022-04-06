@@ -82,6 +82,37 @@ export type SankeyTransform = {
   nodeDepth?: (datum: any, maxDepth: number) => number;
 };
 
+export type WordCloudTransform = {
+  type?: 'wordCloud';
+  /**
+   * @description If specified, sets the rectangular [width, height] of the layout
+   * @default [1, 1]
+   */
+  size?: [number, number];
+  font?: string | ((word: any) => string);
+  fontStyle?: string | ((word: any) => string);
+  fontWeight?: any | ((word: any) => any);
+  fontSize?: number | ((word: any) => number);
+  padding?: number | ((word: any) => number);
+  /**
+   * @description sets the text accessor function, which indicates the text for each word
+   * @default (d) => d.text
+   */
+  text?: (word: any) => number;
+  rotate?: number | ((word: any) => number);
+  timeInterval?: number;
+  random?: number | (() => number);
+  /**
+   * @description sets the current type of spiral used for positioning words. This can either be one of the two built-in spirals, "archimedean" and "rectangular"
+   * @default "archimedean"
+   */
+  spiral?:
+    | 'archimedean'
+    | 'rectangular'
+    | ((size: [number, number]) => (t: number) => number[]);
+  imageMask?: HTMLImageElement | string;
+};
+
 export type CustomTransform = {
   type?: TransformComponent;
   [key: string]: any;
