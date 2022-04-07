@@ -87,7 +87,7 @@ export const WordCloud: TC<WordCloudOptions> = (options) => {
   );
 };
 
-function processImageMask(
+export function processImageMask(
   img: HTMLImageElement | string,
 ): Promise<HTMLImageElement> {
   return new Promise((res, rej) => {
@@ -117,12 +117,7 @@ function processImageMask(
   });
 }
 
-/**
- * 把用户提供的 fontSize 值转换成符合 DataSet 要求的值
- * @param options
- * @param range
- */
-function getFontSizeMapping(fontSize: any, range?: [number, number]) {
+export function getFontSizeMapping(fontSize: any, range?: [number, number]) {
   if (typeof fontSize === 'function') {
     return fontSize;
   }

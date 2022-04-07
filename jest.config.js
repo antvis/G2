@@ -18,7 +18,7 @@ module.exports = {
   },
   collectCoverage: true,
   testRegex: '(/__tests__/.*\\.(test|spec))\\.ts$',
-  collectCoverageFrom: ['src/**/*.ts', '!**/d3-sankey/**'],
+  collectCoverageFrom: ['src/**/*.ts', '!**/d3-sankey/**', '!**/d3-cloud/**'],
   // Transform esm to cjs.
   transformIgnorePatterns: [`<rootDir>/node_modules/(?!(${esm}))`],
 };
