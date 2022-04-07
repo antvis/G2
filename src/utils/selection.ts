@@ -16,14 +16,19 @@ import {
 } from '@antv/g';
 import { error } from './helper';
 
-export type G2Element = DisplayObject & { __data__?: any };
+export type G2Element = DisplayObject & {
+  __data__?: any;
+  __state__?: any;
+  __event__?: any;
+};
 
-export function select<T = unknown>(node: Group) {
+export function select<T = any>(node: Group) {
   return new Selection<T>([node], null, node, node.ownerDocument);
 }
 
 /**
- * A simple implementation of core features of d3-selection for @antv/g.
+ * A simple implementation of d3-selection for @antv/g.
+ * It has the core features of d3-selection and extended ability.
  * Every methods of selection returns new selection if elements
  * are mutated(e.g. append, remove), otherwise return the selection itself(e.g. attr, style).
  * @see https://github.com/d3/d3-selection
@@ -111,6 +116,7 @@ export class Selection<T = any> {
         this._parent.appendChild(newElement);
         elements.push(newElement);
       }
+      return new Selection(elements, null, this._parent, this._document);
     } else {
       // For non-empty selection, append new element to
       // selected element and return new selection.
@@ -121,8 +127,8 @@ export class Selection<T = any> {
         element.appendChild(newElement);
         elements.push(newElement);
       }
+      return new Selection(elements, null, elements[0], this._document);
     }
-    return new Selection(elements, null, this._parent, this._document);
   }
 
   /**
@@ -226,6 +232,66 @@ export class Selection<T = any> {
     const callback = typeof value !== 'function' ? () => value : value;
     this.each(function (d, i) {
       if (value !== undefined) this.style[key] = callback.call(this, d, i);
+    });
+    return this;
+  }
+
+  /**
+   * Register event for selected elements.
+   * Every event can only be registered once.
+   */
+  on(event: string, handler: any) {
+    this.each(function () {
+      // Skip registered event.
+      const { __event__ = {} } = this;
+      if (__event__[event] !== undefined) return;
+
+      // Register event and update event pool.
+      this.addEventListener(event, handler);
+      __event__[event] = handler;
+      this.__event__ = __event__;
+    });
+    return this;
+  }
+
+  /**
+   * Set state for selected elements.
+   * The ordinal style of selected elements will be stored.
+   */
+  state(key: string, value: any): Selection<T> {
+    const callback = typeof value !== 'function' ? () => value : value;
+    this.each(function (d, i) {
+      // Skip undefined style.
+      if (value === undefined) return;
+      const { __state__ = {} } = this;
+
+      // Save non-saved style to store.
+      if (__state__[key] === undefined) {
+        __state__[key] = this.style[key];
+      }
+
+      // Update style.
+      const v = callback.call(this, d, i);
+      this.style[key] = v;
+      this.__state__ = __state__;
+    });
+    return this;
+  }
+
+  /**
+   * Reset specified style to ordinal.
+   */
+  reset(key: string): Selection<T> {
+    this.each(function () {
+      const { __state__ = {} } = this;
+      if (__state__[key]) {
+        // Reset style to original state.
+        this.style[key] = __state__[key];
+
+        // Update store.
+        __state__[key] = undefined;
+        this.__state__ = __state__;
+      }
     });
     return this;
   }
