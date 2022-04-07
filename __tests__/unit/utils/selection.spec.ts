@@ -11,9 +11,11 @@ import {
   Polygon,
   Polyline,
   HTML,
+  CustomEvent,
 } from '@antv/g';
 import { Canvas } from '../../../src/renderer/canvas';
 import { G2Element, select, Selection } from '../../../src/utils/selection';
+import { mount, createDiv } from '../../utils/dom';
 
 describe('select', () => {
   it('select(node) should return a new selection with expected defaults', () => {
@@ -107,9 +109,12 @@ describe('select', () => {
     const rect = s1.node();
     const rect1 = selection.append('rect').node();
     const rect2 = selection.append('rect').node();
-    const circles = selection.selectAll('rect').append('circle').nodes();
+    const s2 = selection.selectAll('rect').append('circle');
+    const circles = s2.nodes();
 
     expect(s1).not.toBe(selection);
+    // @ts-ignore
+    expect(s2._parent).toBe(circles[0]);
     expect(rect.parentElement).toBe(canvas.document.documentElement);
     expect(circles[0].parentElement).toBe(rect);
     expect(circles[1].parentElement).toBe(rect1);
@@ -128,10 +133,12 @@ describe('select', () => {
     expect(nodes[1].__data__).toBe(2);
     expect(nodes[2].__data__).toBe(3);
 
-    selection.append((d, i) => {
+    const s2 = selection.append((d, i) => {
       expect(d).toBe(data[i]);
       return new Rect();
     });
+    // @ts-ignore
+    expect(s2._parent).toBe(selection._parent);
   });
 
   it('Selection.append(node) should throw error with unknown node type', () => {
@@ -438,5 +445,67 @@ describe('select', () => {
     expect(selection.selectAll('rect').nodes()[0]).toBe(rect1);
     expect(selection.selectAll('rect').nodes()[1]).toBe(rect2);
     expect(selection.selectAll('rect').nodes()[2]).toBe(rect3);
+  });
+
+  it('Selection.on() should register event only once', () => {
+    const container = document.createElement('div');
+    const canvas = Canvas({
+      width: 300,
+      height: 200,
+      container,
+    });
+    mount(createDiv(), container);
+
+    const selection = select(canvas.document.documentElement);
+
+    const fn = jest.fn();
+    const event = new CustomEvent('build');
+    const circle = selection
+      .append('circle')
+      .on('build', () => fn())
+      .on('build', () => (fn(), fn()))
+      .node();
+
+    circle.dispatchEvent(event);
+    expect(fn).toBeCalledTimes(1);
+  });
+
+  it('Selection.state(key, style) should save the original style', () => {
+    const rect = new Rect();
+    // @ts-ignore
+    rect.__data__ = 1;
+
+    const selection = select(rect);
+    selection.style('fill', 'red');
+    selection.state('fill', 'blue');
+    selection.state('fill', (d, i) => {
+      expect(d).toBe(1);
+      expect(i).toBe(0);
+      return 'yellow';
+    });
+    selection.state('fill', undefined);
+    expect(selection.node().style.fill).toBe('yellow');
+    expect(selection.node().__state__.fill).toBe('red');
+  });
+
+  it('Selection.reset(key) should reset the original style', () => {
+    const rect = new Rect();
+    // @ts-ignore
+    rect.__data__ = 1;
+
+    const selection = select(rect);
+    selection.style('fill', 'red').style('stroke', 'black');
+    selection.state('fill', 'blue');
+    selection.state('fill', (d, i) => {
+      expect(d).toBe(1);
+      expect(i).toBe(0);
+      return 'yellow';
+    });
+    selection.reset('fill');
+    selection.reset('stroke');
+    expect(selection.node().style.fill).toBe('red');
+    expect(selection.node().style.stroke).toBe('black');
+    expect(selection.node().__state__.fill).toBeUndefined();
+    expect(selection.node().__state__.stroke).toBeUndefined();
   });
 });
