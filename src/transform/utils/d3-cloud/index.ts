@@ -37,6 +37,9 @@ function cloudPadding() {
   return 1;
 }
 
+function cloudDispatch() {
+  return;
+}
 // Fetches a monochrome sprite bitmap for the specified text.
 // Load in batches for speed.
 function cloudSprite(contextAndRatio, d, data, di) {
@@ -245,20 +248,19 @@ export function tagCloud() {
     text = cloudText,
     font = cloudFont,
     fontSize = cloudFontSize,
-    fontStyle = cloudFontNormal,
     fontWeight = cloudFontNormal,
     rotate = cloudRotate,
     padding = cloudPadding,
     spiral = archimedeanSpiral,
-    words: any = [],
-    timeInterval = Infinity,
     random = Math.random,
-    canvas = cloudCanvas;
-  const cloud: any = {};
+    event = cloudDispatch,
+    words = [],
+    timer = null,
+    timeInterval = Infinity;
 
-  cloud.canvas = function (_) {
-    return arguments.length ? ((canvas = functor(_)), cloud) : canvas;
-  };
+  const fontStyle = cloudFontNormal;
+  const canvas = cloudCanvas;
+  const cloud: any = {};
 
   cloud.start = function () {
     const [width, height] = size;
@@ -267,14 +269,14 @@ export function tagCloud() {
       n = words.length,
       tags = [],
       data = words
-        .map(function (d, i) {
-          d.text = text.call(this, d, i);
-          d.font = font.call(this, d, i);
-          d.style = fontStyle.call(this, d, i);
-          d.weight = fontWeight.call(this, d, i);
-          d.rotate = rotate.call(this, d, i);
-          d.size = ~~fontSize.call(this, d, i);
-          d.padding = padding.call(this, d, i);
+        .map(function (d, i, data) {
+          d.text = text.call(this, d, i, data);
+          d.font = font.call(this, d, i, data);
+          d.style = fontStyle.call(this, d, i, data);
+          d.weight = fontWeight.call(this, d, i, data);
+          d.rotate = rotate.call(this, d, i, data);
+          d.size = ~~fontSize.call(this, d, i, data);
+          d.padding = padding.call(this, d, i, data);
           return d;
         })
         .sort(function (a, b) {
@@ -294,6 +296,8 @@ export function tagCloud() {
             },
           ];
 
+    if (timer) clearInterval(timer);
+    timer = setInterval(step, 0);
     step();
 
     function step() {
@@ -304,6 +308,7 @@ export function tagCloud() {
         d.y = (height * (random() + 0.5)) >> 1;
         cloudSprite(contextAndRatio, d, data, i);
         if (d.hasText && place(board, d, bounds)) {
+          event.call(null, 'word', cloud, d);
           tags.push(d);
           if (bounds) {
             if (!cloud.hasImage) {
@@ -323,8 +328,21 @@ export function tagCloud() {
       }
       cloud._tags = tags;
       cloud._bounds = bounds;
+
+      if (i >= n) {
+        cloud.stop();
+        event.call(null, 'end', cloud, tags, bounds);
+      }
     }
 
+    return cloud;
+  };
+
+  cloud.stop = function () {
+    if (timer) {
+      clearInterval(timer);
+      timer = null;
+    }
     return cloud;
   };
 
@@ -430,53 +448,51 @@ export function tagCloud() {
   };
 
   cloud.timeInterval = function (_) {
-    return arguments.length
-      ? ((timeInterval = _ == null ? Infinity : _), cloud)
-      : timeInterval;
+    timeInterval = _ == null ? Infinity : _;
   };
 
   cloud.words = function (_) {
-    return arguments.length ? ((words = _), cloud) : words;
+    words = _;
   };
 
   cloud.size = function (_) {
-    return arguments.length ? ((size = [+_[0], +_[1]]), cloud) : size;
-  };
-
-  cloud.font = function (_) {
-    return arguments.length ? ((font = functor(_)), cloud) : font;
-  };
-
-  cloud.fontStyle = function (_) {
-    return arguments.length ? ((fontStyle = functor(_)), cloud) : fontStyle;
-  };
-
-  cloud.fontWeight = function (_) {
-    return arguments.length ? ((fontWeight = functor(_)), cloud) : fontWeight;
-  };
-
-  cloud.rotate = function (_) {
-    return arguments.length ? ((rotate = functor(_)), cloud) : rotate;
+    size = [+_[0], +_[1]];
   };
 
   cloud.text = function (_) {
-    return arguments.length ? ((text = functor(_)), cloud) : text;
+    text = functor(_);
+  };
+
+  cloud.font = function (_) {
+    font = functor(_);
+  };
+
+  cloud.fontWeight = function (_) {
+    fontWeight = functor(_);
+  };
+
+  cloud.rotate = function (_) {
+    rotate = functor(_);
   };
 
   cloud.spiral = function (_) {
-    return arguments.length ? ((spiral = spirals[_] || _), cloud) : spiral;
+    spiral = spirals[_] || _;
   };
 
   cloud.fontSize = function (_) {
-    return arguments.length ? ((fontSize = functor(_)), cloud) : fontSize;
+    fontSize = functor(_);
   };
 
   cloud.padding = function (_) {
-    return arguments.length ? ((padding = functor(_)), cloud) : padding;
+    padding = functor(_);
   };
 
   cloud.random = function (_) {
-    return arguments.length ? ((random = _), cloud) : random;
+    random = functor(_);
+  };
+
+  cloud.on = function (_) {
+    event = functor(_);
   };
 
   return cloud;

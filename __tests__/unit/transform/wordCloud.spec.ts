@@ -51,7 +51,6 @@ describe('WordCloud', () => {
     expect(typeof firstRow.x).toBe('number');
     expect(typeof firstRow.y).toBe('number');
     expect(firstRow.hasText).toBe(true);
-    expect(firstRow.text).toBe('Hello,');
     expect(firstRow.font).toBe('font-test');
     expect(firstRow.weight).toBe('fontWeight-test');
     expect(firstRow.size).toBe(11);

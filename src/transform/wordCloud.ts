@@ -1,3 +1,4 @@
+import { min, max } from 'd3-array';
 import { TransformComponent as TC } from '../runtime';
 import { WordCloudTransform } from '../spec';
 import { log, LEVEL } from '../utils/invariant';
@@ -8,6 +9,7 @@ export type WordCloudOptions = Omit<WordCloudTransform, 'type'>;
 
 const DEFAULT_OPTIONS: Partial<WordCloudOptions> = {
   size: [500, 500],
+  fontSize: [14, 28],
 };
 
 export const WordCloud: TC<WordCloudOptions> = (options) => {
@@ -16,10 +18,15 @@ export const WordCloud: TC<WordCloudOptions> = (options) => {
       const cloudOptions = Object.assign({}, DEFAULT_OPTIONS, options);
       const layout = tagCloud();
 
+      if (cloudOptions.fontSize) {
+        const arr = data.map((d) => d.value);
+        const range = [min(arr) as any, max(arr) as any] as [number, number];
+        layout.fontSize(getFontSizeMapping(cloudOptions.fontSize, range));
+      }
+
       [
         'font',
         'fontStyle',
-        'fontSize',
         'fontWeight',
         'padding',
         'rotate',
@@ -28,13 +35,14 @@ export const WordCloud: TC<WordCloudOptions> = (options) => {
         'timeInterval',
         'random',
         'text',
+        'on',
       ].forEach((key: string) => {
         if (cloudOptions[key]) {
           layout[key](cloudOptions[key]);
         }
       });
 
-      layout.words(data);
+      layout.words([...data]);
 
       if (cloudOptions.imageMask) {
         const imageMask = await processImageMask(cloudOptions.imageMask);
@@ -49,6 +57,7 @@ export const WordCloud: TC<WordCloudOptions> = (options) => {
         tag.y += cloudOptions.size[1] / 2;
       });
 
+      // append two data to replace the corner of top-left and bottom-right
       const [w, h] = cloudOptions.size;
       const bounds = result._bounds || [
         { x: 0, y: 0 },
@@ -61,6 +70,7 @@ export const WordCloud: TC<WordCloudOptions> = (options) => {
         x: hasImage ? 0 : bounds[0].x,
         y: hasImage ? 0 : bounds[0].y,
         opacity: 0,
+        fontSize: 0,
       });
       tags.push({
         text: '',
@@ -68,6 +78,7 @@ export const WordCloud: TC<WordCloudOptions> = (options) => {
         x: hasImage ? w : bounds[1].x,
         y: hasImage ? h : bounds[1].y,
         opacity: 0,
+        fontSize: 0,
       });
 
       return tags;
@@ -104,6 +115,31 @@ function processImageMask(
     );
     rej();
   });
+}
+
+/**
+ * 把用户提供的 fontSize 值转换成符合 DataSet 要求的值
+ * @param options
+ * @param range
+ */
+function getFontSizeMapping(fontSize: any, range?: [number, number]) {
+  if (typeof fontSize === 'function') {
+    return fontSize;
+  }
+  if (Array.isArray(fontSize)) {
+    const [fMin, fMax] = fontSize;
+    if (!range) {
+      return () => (fMax + fMin) / 2;
+    }
+    const [min, max] = range;
+    if (max === min) {
+      return () => (fMax + fMin) / 2;
+    }
+    return function fontSize({ value }) {
+      return ((fMax - fMin) / (max - min)) * (value - min) + fMin;
+    };
+  }
+  return () => fontSize;
 }
 
 WordCloud.props = {};
