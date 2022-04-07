@@ -7,6 +7,7 @@ export type Transform =
   | SubsetTransform
   | FetchTransform
   | FilterByTransform
+  | WordCloudTransform
   | CustomTransform;
 
 export type TransformTypes =
@@ -92,7 +93,7 @@ export type WordCloudTransform = {
   font?: string | ((word: any) => string);
   fontStyle?: string | ((word: any) => string);
   fontWeight?: any | ((word: any) => any);
-  fontSize?: number | ((word: any) => number);
+  fontSize?: number | [number, number] | ((word: any) => number);
   padding?: number | ((word: any) => number);
   /**
    * @description sets the text accessor function, which indicates the text for each word

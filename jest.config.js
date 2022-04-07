@@ -5,6 +5,7 @@ const esm = ['internmap', 'd3-*'].map((d) => `_${d}|${d}`).join('|');
 module.exports = {
   runner: 'jest-electron/runner',
   testEnvironment: 'jest-electron/environment',
+  "testTimeout": 30000,
   preset: 'ts-jest/presets/js-with-ts',
   globals: {
     'ts-jest': {
