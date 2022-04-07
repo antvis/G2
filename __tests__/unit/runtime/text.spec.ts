@@ -35,12 +35,10 @@ describe('text', () => {
             padding: 0,
             rotate: () => ~~(Math.random() * 2) * 90,
             fontSize: (d) => d.value * 2,
-            // @ts-ignore
-            on: async (type, __, tags) => {
+            on: (type, { words }) => {
               if (type === 'end') {
-                expect(tags.length).toBeGreaterThan(0);
-                await delay(50);
-                expect(tags.length).toBe(
+                expect(words.length).toBeGreaterThan(0);
+                expect(words.length).toBe(
                   context.canvas.getRoot().querySelectorAll('.element').length,
                 );
               }

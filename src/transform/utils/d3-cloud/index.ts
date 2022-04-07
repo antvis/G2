@@ -308,7 +308,7 @@ export function tagCloud() {
         d.y = (height * (random() + 0.5)) >> 1;
         cloudSprite(contextAndRatio, d, data, i);
         if (d.hasText && place(board, d, bounds)) {
-          event.call(null, 'word', cloud, d);
+          event.call(null, 'word', { cloud, word: d });
           tags.push(d);
           if (bounds) {
             if (!cloud.hasImage) {
@@ -331,7 +331,7 @@ export function tagCloud() {
 
       if (i >= n) {
         cloud.stop();
-        event.call(null, 'end', cloud, tags, bounds);
+        event.call(null, 'end', { cloud, words: tags, bounds });
       }
     }
 

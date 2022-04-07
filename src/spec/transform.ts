@@ -112,6 +112,9 @@ export type WordCloudTransform = {
     | 'rectangular'
     | ((size: [number, number]) => (t: number) => number[]);
   imageMask?: HTMLImageElement | string;
+  on?:
+    | ((type: 'end', details?: { cloud; words; bounds }) => void)
+    | ((type: 'word', details?: { cloud; word }) => void);
 };
 
 export type CustomTransform = {
