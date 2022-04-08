@@ -220,6 +220,7 @@ import ViewMove from './interaction/action/view/move';
 import ScaleTranslate from './interaction/action/view/scale-translate';
 import ScaleZoom from './interaction/action/view/scale-zoom';
 import MousewheelScroll from './interaction/action/view/mousewheel-scroll';
+import AxisDescription from './interaction/action/component/axis/axis-description'
 
 registerAction('tooltip', TooltipAction);
 registerAction('sibling-tooltip', SiblingTooltip);
@@ -260,6 +261,7 @@ registerAction('legend-item-highlight', ListHighlight, {
 registerAction('axis-label-highlight', ListHighlight, {
   componentNames: ['axis'],
 });
+registerAction('axis-description', AxisDescription)
 
 registerAction('rect-mask', RectMask);
 registerAction('x-rect-mask', DimMask, { dim: 'x' });
@@ -614,6 +616,12 @@ registerInteraction('active-region', {
   start: [{ trigger: 'plot:mousemove', action: 'active-region:show' }],
   end: [{ trigger: 'plot:mouseleave', action: 'active-region:hide' }],
 });
+
+// 显示坐标轴标题详情信息
+registerInteraction('axis-description', {
+  start: [{ trigger: 'axis-description:mousemove', action: 'axis-description:show' }],
+  end: [{ trigger: 'axis-description:mouseleave', action: 'axis-description:hide' }]
+})
 
 function isWheelDown(event) {
   event.gEvent.preventDefault();
