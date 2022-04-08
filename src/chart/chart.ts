@@ -40,7 +40,7 @@ export default class Chart extends View {
       localRefresh = true,
       visible = true,
       supportCSSTransform = false,
-      defaultInteractions = ['tooltip', 'legend-filter', 'legend-active', 'continuous-filter', 'ellipsis-text'],
+      defaultInteractions = ['tooltip', 'legend-filter', 'legend-active', 'continuous-filter', 'ellipsis-text', 'axis-description'],
       options,
       limitInPlot,
       theme,
