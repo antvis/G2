@@ -1066,8 +1066,8 @@ export interface ScaleOption extends ScaleConfig {
    */
   sync?: boolean | string;
   /**
-   * @title 是否显示最后日期
-   * @description 只对 type: 'time' 的 scale 生效，强制显示最后的日期 tick。
+   * @title 是否显示最后的 tick
+   * @description 只对 `type: 'cat'` 以及 `type: 'time-cat'` 的 scale 生效，强制显示最后的日期 tick。
    */
   showLast?: boolean;
   /**
