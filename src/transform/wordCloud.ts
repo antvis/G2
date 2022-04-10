@@ -1,7 +1,7 @@
 import { min, max } from 'd3-array';
+import { error, flow } from '../utils/helper';
 import { TransformComponent as TC } from '../runtime';
 import { WordCloudTransform } from '../spec';
-import { log, LEVEL } from '../utils/invariant';
 import { tagCloud } from './utils/d3-cloud';
 import { useMemoTransform } from './utils/memo';
 
@@ -18,67 +18,54 @@ export const WordCloud: TC<WordCloudOptions> = (options) => {
       const cloudOptions = Object.assign({}, DEFAULT_OPTIONS, options);
       const layout = tagCloud();
 
-      if (cloudOptions.fontSize) {
-        const arr = data.map((d) => d.value);
-        const range = [min(arr) as any, max(arr) as any] as [number, number];
-        layout.fontSize(getFontSizeMapping(cloudOptions.fontSize, range));
-      }
-
-      [
-        'font',
-        'fontStyle',
-        'fontWeight',
-        'padding',
-        'rotate',
-        'size',
-        'spiral',
-        'timeInterval',
-        'random',
-        'text',
-        'on',
-      ].forEach((key: string) => {
-        if (cloudOptions[key]) {
-          layout[key](cloudOptions[key]);
-        }
-      });
+      await flow(layout, cloudOptions)
+        .set('fontSize', (v) => {
+          const arr = data.map((d) => d.value);
+          return normalizeFontSize(v, [min(arr) as any, max(arr) as any]);
+        })
+        .set('font')
+        .set('fontStyle')
+        .set('fontWeight')
+        .set('padding')
+        .set('rotate')
+        .set('size')
+        .set('spiral')
+        .set('timeInterval')
+        .set('random')
+        .set('text')
+        .set('on')
+        .setAsync('imageMask', processImageMask, layout.createMask);
 
       layout.words([...data]);
 
-      if (cloudOptions.imageMask) {
-        const imageMask = await processImageMask(cloudOptions.imageMask);
-        layout.createMask(imageMask);
-      }
-
       const result = layout.start();
-      const tags: any[] = result._tags;
 
-      tags.forEach((tag) => {
-        tag.x += cloudOptions.size[0] / 2;
-        tag.y += cloudOptions.size[1] / 2;
-      });
+      const [cw, ch] = cloudOptions.size;
+      const defaultBounds = [
+        { x: 0, y: 0 },
+        { x: cw, y: ch },
+      ];
+      const { _bounds: bounds = defaultBounds, _tags, hasImage } = result;
+
+      const tags = _tags.map(({ x, y, ...rest }) => ({
+        ...rest,
+        x: x + cw / 2,
+        y: y + ch / 2,
+      }));
 
       // append two data to replace the corner of top-left and bottom-right
-      const [w, h] = cloudOptions.size;
-      const bounds = result._bounds || [
-        { x: 0, y: 0 },
-        { x: cloudOptions.size[0], y: cloudOptions.size[1] },
-      ];
-      const hasImage = result.hasImage;
+      // avoid calculate the actual bounds will occur some error
+      const [{ x: tlx, y: tly }, { x: brx, y: bry }] = bounds;
+      const invisibleText = { text: '', value: 0, opacity: 0, fontSize: 0 };
       tags.push({
-        text: '',
-        value: 0,
-        x: hasImage ? 0 : bounds[0].x,
-        y: hasImage ? 0 : bounds[0].y,
-        opacity: 0,
-        fontSize: 0,
+        ...invisibleText,
+        x: hasImage ? 0 : tlx,
+        y: hasImage ? 0 : tly,
       });
       tags.push({
-        text: '',
-        value: 0,
-        x: hasImage ? w : bounds[1].x,
-        y: hasImage ? h : bounds[1].y,
-        opacity: 0,
-        fontSize: 0,
+        ...invisibleText,
+        x: hasImage ? cw : brx,
+        y: hasImage ? ch : bry,
       });
 
       return tags;
@@ -99,40 +86,28 @@ export function processImageMask(
       const image = new Image();
       image.crossOrigin = 'anonymous';
       image.src = img;
-      image.onload = () => {
-        res(image);
-      };
+      image.onload = () => res(image);
       image.onerror = () => {
-        log(LEVEL.ERROR, false, 'image %s load failed !!!', img);
+        console.error(`'image ${img} load failed !!!'`);
         rej();
       };
       return;
     }
-    log(
-      LEVEL.WARN,
-      img === undefined,
-      'The type of imageMask option must be String or HTMLImageElement.',
-    );
     rej();
   });
 }
 
-export function getFontSizeMapping(fontSize: any, range?: [number, number]) {
-  if (typeof fontSize === 'function') {
-    return fontSize;
-  }
+export function normalizeFontSize(fontSize: any, range?: [number, number]) {
+  if (typeof fontSize === 'function') return fontSize;
+
   if (Array.isArray(fontSize)) {
     const [fMin, fMax] = fontSize;
-    if (!range) {
-      return () => (fMax + fMin) / 2;
-    }
+    if (!range) return () => (fMax + fMin) / 2;
+
     const [min, max] = range;
-    if (max === min) {
-      return () => (fMax + fMin) / 2;
-    }
-    return function fontSize({ value }) {
-      return ((fMax - fMin) / (max - min)) * (value - min) + fMin;
-    };
+    if (max === min) return () => (fMax + fMin) / 2;
+
+    return ({ value }) => ((fMax - fMin) / (max - min)) * (value - min) + fMin;
   }
   return () => fontSize;
 }

@@ -1,6 +1,6 @@
 import { WordCloud } from '../../../src/transform';
 import {
-  getFontSizeMapping,
+  normalizeFontSize,
   processImageMask,
 } from '../../../src/transform/wordCloud';
 
@@ -105,12 +105,12 @@ describe('WordCloud', () => {
 });
 
 describe('Utils of wordCloud transform', () => {
-  it('getFontSizeMapping', () => {
-    const f1: any = getFontSizeMapping(10);
+  it('normalizeFontSize', () => {
+    const f1: any = normalizeFontSize(10);
     expect(f1()).toBe(10);
 
     const foo = () => 10;
-    const f2 = getFontSizeMapping(foo);
+    const f2 = normalizeFontSize(foo);
     expect(f2).toBe(foo);
 
     const data = [
@@ -120,17 +120,17 @@ describe('Utils of wordCloud transform', () => {
       { value: 4 },
       { value: 5 },
     ];
-    const f3: any = getFontSizeMapping([10, 20], [10, 10]);
+    const f3: any = normalizeFontSize([10, 20], [10, 10]);
     data.forEach((v) => {
       expect(f3(v)).toBe(15);
     });
 
-    const f4: any = getFontSizeMapping([10, 20]);
+    const f4: any = normalizeFontSize([10, 20]);
     data.forEach((v) => {
       expect(f4(v)).toBe(15);
     });
 
-    const f5: any = getFontSizeMapping([10, 20], [1, 5]);
+    const f5: any = normalizeFontSize([10, 20], [1, 5]);
     data.forEach((v) => {
       expect(f5(v) >= 10 && f5(v) <= 20).toBe(true);
     });

@@ -35,8 +35,9 @@ describe('text', () => {
             padding: 0,
             rotate: () => ~~(Math.random() * 2) * 90,
             fontSize: (d) => d.value * 2,
-            on: (type, { words }) => {
+            on: async (type, { words }) => {
               if (type === 'end') {
+                await delay(50);
                 expect(words.length).toBeGreaterThan(0);
                 expect(words.length).toBe(
                   context.canvas.getRoot().querySelectorAll('.element').length,
@@ -49,6 +50,8 @@ describe('text', () => {
           x: { guide: null },
           y: { guide: null, range: [0, 1] },
           color: { guide: null },
+          fontSize: { type: 'identity' },
+          rotate: { type: 'identity' },
         },
         encode: {
           x: 'x',
@@ -101,6 +104,8 @@ describe('text', () => {
         x: { guide: null },
         y: { guide: null, range: [0, 1] },
         color: { guide: null },
+        fontSize: { type: 'identity' },
+        rotate: { type: 'identity' },
       },
       encode: {
         x: 'x',

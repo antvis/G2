@@ -284,7 +284,7 @@ export function tagCloud() {
         });
     let i = -1,
       bounds = !cloud.board
-        ? null
+        ? undefined
         : [
             {
               x: 0,
@@ -455,7 +455,7 @@ export function tagCloud() {
     words = _;
   };
 
-  cloud.size = function (_) {
+  cloud.size = function (_ = []) {
     size = [+_[0], +_[1]];
   };
 
