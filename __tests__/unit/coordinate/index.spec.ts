@@ -1,4 +1,10 @@
-import { Cartesian, Polar, Transpose, Parallel } from '../../../src/coordinate';
+import {
+  Cartesian,
+  Polar,
+  Transpose,
+  Parallel,
+  Fisheye,
+} from '../../../src/coordinate';
 
 describe('coordinate', () => {
   it('Cartesian() returns expected coordinate transformations', () => {
@@ -39,5 +45,9 @@ describe('coordinate', () => {
 
   it('Parallel({...}) returns expected coordinate transformations', () => {
     expect(Parallel()).toEqual([['parallel', 0, 1, 0, 1]]);
+  });
+
+  it('Fisheye({...}) returns expected coordinate transformations', () => {
+    expect(Fisheye({})).toEqual([['fisheye', 0, 0, 2, 2]]);
   });
 });
