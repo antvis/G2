@@ -2,16 +2,22 @@ import { InferComponent as IC, InferredEncode } from '../runtime';
 
 export type MaybeTupleOptions = Record<string, never>;
 
-function inferEncode({ x, y, ...rest }: InferredEncode) {
+function tuple(options: Record<string, unknown>, key: string) {
+  const value = options[key];
+  return value !== undefined && { [key]: [value].flat(1) };
+}
+
+function inferEncode(encode: InferredEncode) {
   return {
-    ...(x !== undefined && { x: [x].flat(1) }),
-    ...(y !== undefined && { y: [y].flat(1) }),
-    ...rest,
+    ...encode,
+    ...tuple(encode, 'y'),
+    ...tuple(encode, 'x'),
+    ...tuple(encode, 'tooltip'),
   };
 }
 
 /**
- * Wrap flat x and y channel into nested array.
+ * Wrap flat channel into nested array.
  * @example {x: [1, 2, 3]} -> {x: [[1], [2], [3]]}
  */
 export const MaybeTuple: IC<MaybeTupleOptions> = () => {
