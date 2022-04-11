@@ -93,7 +93,7 @@ chart.scale({
 
 <description> _boolean_ **optional**</description>
 
-只对 type: 'time' 的 scale 生效，强制显示最后的日期 tick。
+只对 `type: 'cat'` 以及 `type: 'time-cat'` 的 scale 生效，强制显示最后的 tick。注意：如果设置了 `tickMethod`, 自定义 ticks 逻辑，会导致此配置失效。
 
 ### ScaleOption.sync
 
