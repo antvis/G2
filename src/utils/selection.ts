@@ -18,8 +18,6 @@ import { error } from './helper';
 
 export type G2Element = DisplayObject & {
   __data__?: any;
-  __state__?: any;
-  __event__?: any;
 };
 
 export function select<T = any>(node: Group) {
@@ -79,7 +77,7 @@ export class Selection<T = any> {
       typeof selector === 'string'
         ? this._parent.querySelectorAll<G2Element>(selector)
         : selector;
-    return new Selection<T>(elements, null, this._parent, this._document);
+    return new Selection<T>(elements, null, this._elements[0], this._document);
   }
 
   /**
@@ -137,7 +135,10 @@ export class Selection<T = any> {
    * Update: Selection with elements to be updated.
    * Exit: Selection with elements to be removed.
    */
-  data<T>(data: T[], id: (d: T) => unknown = (d) => d): Selection<T> {
+  data<T>(
+    data: T[],
+    id: (d: T, index: number) => unknown = (d) => d,
+  ): Selection<T> {
     // An array of new data.
     const enter = [];
 
@@ -145,11 +146,14 @@ export class Selection<T = any> {
     const update = [];
 
     // A Map from key to each element.
-    const keyElement = new Map(this._elements.map((d) => [id(d.__data__), d]));
+    const keyElement = new Map(
+      this._elements.map((d, i) => [id(d.__data__, i), d]),
+    );
 
     // Diff data with selection(elements with data).
-    for (const datum of data) {
-      const key = id(datum);
+    for (let i = 0; i < data.length; i++) {
+      const datum = data[i];
+      const key = id(datum, i);
       if (keyElement.has(key)) {
         const element = keyElement.get(key);
         element.__data__ = datum;
@@ -236,62 +240,9 @@ export class Selection<T = any> {
     return this;
   }
 
-  /**
-   * Register event for selected elements.
-   * Every event can only be registered once.
-   */
   on(event: string, handler: any) {
     this.each(function () {
-      // Skip registered event.
-      const { __event__ = {} } = this;
-      if (__event__[event] !== undefined) return;
-
-      // Register event and update event pool.
       this.addEventListener(event, handler);
-      __event__[event] = handler;
-      this.__event__ = __event__;
-    });
-    return this;
-  }
-
-  /**
-   * Set state for selected elements.
-   * The ordinal style of selected elements will be stored.
-   */
-  state(key: string, value: any): Selection<T> {
-    const callback = typeof value !== 'function' ? () => value : value;
-    this.each(function (d, i) {
-      // Skip undefined style.
-      if (value === undefined) return;
-      const { __state__ = {} } = this;
-
-      // Save non-saved style to store.
-      if (__state__[key] === undefined) {
-        __state__[key] = this.style[key];
-      }
-
-      // Update style.
-      const v = callback.call(this, d, i);
-      this.style[key] = v;
-      this.__state__ = __state__;
-    });
-    return this;
-  }
-
-  /**
-   * Reset specified style to ordinal.
-   */
-  reset(key: string): Selection<T> {
-    this.each(function () {
-      const { __state__ = {} } = this;
-      if (__state__[key]) {
-        // Reset style to original state.
-        this.style[key] = __state__[key];
-
-        // Update store.
-        __state__[key] = undefined;
-        this.__state__ = __state__;
-      }
     });
     return this;
   }
