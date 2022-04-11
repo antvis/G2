@@ -37,6 +37,7 @@ chart
   .position('percent')
   .color('item')
   .label('percent', {
+    layout: [{ type: 'limit-in-plot', cfg: { action: 'ellipsis'/** 或 translate */ } }],
     content: (data) => {
       return `${data.item}: ${data.percent * 100}%`;
     },

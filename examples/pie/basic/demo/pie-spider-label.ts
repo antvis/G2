@@ -35,7 +35,7 @@ chart
   .position('value')
   .color('type')
   .label('type*value', {
-    layout: { type: 'pie-spider' },
+    layout: [{ type: 'pie-spider' }, { type: 'limit-in-plot', cfg: { action: 'ellipsis'/** 或 translate */ } }, ],
     labelHeight: 20,
     content: (obj) => `${obj.type} (${obj.value})`,
     labelLine: {
