@@ -53,20 +53,21 @@ export const WordCloud: TC<WordCloudOptions> = (options) => {
         y: y + ch / 2,
       }));
 
-      // append two data to replace the corner of top-left and bottom-right
-      // avoid calculate the actual bounds will occur some error
+      // Append two data to replace the corner of top-left and bottom-right, avoid calculate the actual bounds will occur some error.
       const [{ x: tlx, y: tly }, { x: brx, y: bry }] = bounds;
       const invisibleText = { text: '', value: 0, opacity: 0, fontSize: 0 };
-      tags.push({
-        ...invisibleText,
-        x: hasImage ? 0 : tlx,
-        y: hasImage ? 0 : tly,
-      });
-      tags.push({
-        ...invisibleText,
-        x: hasImage ? cw : brx,
-        y: hasImage ? ch : bry,
-      });
+      tags.push(
+        {
+          ...invisibleText,
+          x: hasImage ? 0 : tlx,
+          y: hasImage ? 0 : tly,
+        },
+        {
+          ...invisibleText,
+          x: hasImage ? cw : brx,
+          y: hasImage ? ch : bry,
+        },
+      );
 
       return tags;
     },

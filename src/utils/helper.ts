@@ -36,6 +36,9 @@ type Flow = {
   set(key: string, normalize?, callback?): Flow;
   setAsync(key: string, normalize?, callback?): Promise<Flow>;
 };
+/**
+ * @todo Combine with the `Container` util
+ */
 export function flow(
   target: Record<keyof any, any>,
   source: Record<keyof any, any>,
