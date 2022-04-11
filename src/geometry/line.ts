@@ -3,6 +3,7 @@ import { group } from 'd3-array';
 import { isParallel } from '../utils/coordinate';
 import { Mark, MarkComponent as MC, Vector2 } from '../runtime';
 import { LineGeometry } from '../spec';
+import { baseChannels, baseInference } from './utils';
 
 export type LineOptions = Omit<LineGeometry, 'type'>;
 
@@ -70,27 +71,16 @@ export const Line: MC<LineOptions> = () => {
 Line.props = {
   defaultShape: 'line',
   channels: [
+    ...baseChannels(),
     { name: 'x' },
     { name: 'y' },
     { name: 'size' },
-    // Series channel is used to classify data,
-    // so it is unnecessary to map it.
     { name: 'series', scale: 'identity' },
-    { name: 'color' },
-    { name: 'position' },
-    { name: 'shape' },
-    { name: 'enterType' },
-    { name: 'enterDelay' },
-    { name: 'enterDuration' },
-    { name: 'enterEasing' },
-    { name: 'maybeKey' },
-    { name: 'key' },
   ],
   infer: [
-    { type: 'maybeTuple' },
+    ...baseInference(),
     { type: 'maybeSeries' },
     { type: 'maybeSplitPosition' },
-    { type: 'maybeKey' },
   ],
   shapes: ['line', 'smooth'],
 };

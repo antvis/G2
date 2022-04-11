@@ -7,9 +7,6 @@ describe('Interval', () => {
     expect(Interval.props).toEqual({
       defaultShape: 'rect',
       channels: [
-        { name: 'x', scale: 'band', required: true },
-        { name: 'y', required: true },
-        { name: 'series', scale: 'band' },
         { name: 'color' },
         { name: 'shape' },
         { name: 'enterType' },
@@ -17,13 +14,20 @@ describe('Interval', () => {
         { name: 'enterDuration' },
         { name: 'enterEasing' },
         { name: 'key', scale: 'identity' },
+        { name: 'title', scale: 'identity' },
+        { name: 'tooltip', scale: 'identity' },
+        { name: 'x', scale: 'band', required: true },
+        { name: 'y', required: true },
+        { name: 'series', scale: 'band' },
       ],
       infer: [
         { type: 'maybeTuple' },
+        { type: 'maybeKey' },
+        { type: 'maybeTitle' },
+        { type: 'maybeTooltip' },
         { type: 'maybeZeroX1' },
         { type: 'maybeZeroY2' },
         { type: 'maybeStackY' },
-        { type: 'maybeKey' },
       ],
       shapes: ['rect', 'hollowRect'],
     });

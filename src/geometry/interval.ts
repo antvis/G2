@@ -1,6 +1,7 @@
 import { Band } from '@antv/scale';
 import { MarkComponent as MC, Vector2 } from '../runtime';
 import { IntervalGeometry } from '../spec';
+import { baseChannels, baseInference } from './utils';
 
 export type IntervalOptions = Omit<IntervalGeometry, 'type'>;
 
@@ -39,23 +40,16 @@ export const Interval: MC<IntervalOptions> = () => {
 Interval.props = {
   defaultShape: 'rect',
   channels: [
+    ...baseChannels(),
     { name: 'x', scale: 'band', required: true },
     { name: 'y', required: true },
     { name: 'series', scale: 'band' },
-    { name: 'color' },
-    { name: 'shape' },
-    { name: 'enterType' },
-    { name: 'enterDelay' },
-    { name: 'enterDuration' },
-    { name: 'enterEasing' },
-    { name: 'key', scale: 'identity' },
   ],
   infer: [
-    { type: 'maybeTuple' },
+    ...baseInference(),
     { type: 'maybeZeroX1' },
     { type: 'maybeZeroY2' },
     { type: 'maybeStackY' },
-    { type: 'maybeKey' },
   ],
   shapes: ['rect', 'hollowRect'],
 };
