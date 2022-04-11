@@ -4,3 +4,4 @@ export { Line, LineOptions } from './line/line';
 export { Smooth, SmoothOptions } from './line/smooth';
 export { Point, PointOptions } from './point/point';
 export { HollowPoint, HollowPointOptions } from './point/hollowPoint';
+export { Text, TextOptions } from './text/text';

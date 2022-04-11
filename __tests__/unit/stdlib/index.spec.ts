@@ -2,7 +2,12 @@ import { createLibrary } from '../../../src/stdlib';
 import { Canvas } from '../../../src/renderer';
 import { Cartesian, Polar, Transpose, Parallel } from '../../../src/coordinate';
 import { Constant, Field, Transform } from '../../../src/encode';
-import { Interval, Line, Point as PointGeometry } from '../../../src/geometry';
+import {
+  Interval,
+  Line,
+  Point as PointGeometry,
+  Text as TextGeometry,
+} from '../../../src/geometry';
 import {
   MaybeTuple,
   MaybeZeroX1,
@@ -32,6 +37,7 @@ import {
   Smooth,
   Point as PointShape,
   HollowPoint,
+  Text,
 } from '../../../src/shape';
 import {
   DodgeX,
@@ -41,7 +47,14 @@ import {
   Key,
 } from '../../../src/statistic';
 import { Light } from '../../../src/theme';
-import { Fetch, SortBy, FilterBy, Pick } from '../../../src/transform';
+import {
+  Fetch,
+  SortBy,
+  FilterBy,
+  Pick,
+  Rename,
+  WordCloud,
+} from '../../../src/transform';
 import {
   AxisX,
   AxisY,
@@ -64,6 +77,7 @@ describe('stdlib', () => {
       'mark.interval': Interval,
       'mark.line': Line,
       'mark.point': PointGeometry,
+      'mark.text': TextGeometry,
       'infer.maybeTuple': MaybeTuple,
       'infer.maybeZeroX1': MaybeZeroX1,
       'infer.maybeZeroY2': MaybeZeroY2,
@@ -89,6 +103,7 @@ describe('stdlib', () => {
       'shape.smooth': Smooth,
       'shape.point': PointShape,
       'shape.hollowPoint': HollowPoint,
+      'shape.text': Text,
       'statistic.stackY': StackY,
       'statistic.dodgeX': DodgeX,
       'statistic.stackEnter': StackEnter,
@@ -99,6 +114,8 @@ describe('stdlib', () => {
       'transform.sortBy': SortBy,
       'transform.filterBy': FilterBy,
       'transform.pick': Pick,
+      'transform.rename': Rename,
+      'transform.wordCloud': WordCloud,
       'component.axisX': AxisX,
       'component.axisY': AxisY,
       'component.legendCategory': LegendCategory,

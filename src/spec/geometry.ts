@@ -10,9 +10,15 @@ export type Geometry =
   | IntervalGeometry
   | LineGeometry
   | PointGeometry
+  | TextGeometry
   | CustomComponent;
 
-export type GeometryTypes = 'interval' | 'line' | 'point' | MarkComponent;
+export type GeometryTypes =
+  | 'interval'
+  | 'line'
+  | 'point'
+  | 'text'
+  | MarkComponent;
 
 export type ChannelTypes =
   | 'x'
@@ -58,5 +64,18 @@ export type LineGeometry = BaseGeometry<
 >;
 
 export type PointGeometry = BaseGeometry<'point'>;
+
+export type TextGeometry = BaseGeometry<
+  'text',
+  | ChannelTypes
+  | 'text'
+  | 'fontSize'
+  | 'fontWeight'
+  | 'fontStyle'
+  | 'rotate'
+  | 'fontStyle'
+  | 'textAlign'
+  | 'textBaseline'
+>;
 
 export type CustomComponent = BaseGeometry<MarkComponent>;
