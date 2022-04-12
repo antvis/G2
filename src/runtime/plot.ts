@@ -1,14 +1,12 @@
-import { Coordinate, Vector2 } from '@antv/coord';
 import { mapObject } from '../utils/array';
 import { Container } from '../utils/container';
-import { error } from '../utils/helper';
-import { Selection } from '../utils/selection';
+import { copyAttributes, error } from '../utils/helper';
+import { Selection, select } from '../utils/selection';
 import {
   G2ViewTree,
   G2Area,
   G2MarkOptions,
   G2ScaleOptions,
-  G2GuideComponentOptions,
   G2ThemeOptions,
   G2Mark,
   G2Library,
@@ -23,21 +21,20 @@ import {
   MarkProps,
   ScaleComponent,
   Scale,
-  GuideComponentComponent,
-  GuideComponent,
   MarkChannel,
   Shape,
   ShapeComponent,
   AnimationComponent,
   Animation,
 } from './types/component';
-import { Channel, G2Theme } from './types/common';
+import { Channel, G2AreaDescriptor } from './types/common';
 import { useLibrary } from './library';
 import { initializeMark } from './mark';
-import { inferComponent } from './component';
+import { inferComponent, renderComponent } from './component';
 import { computeLayout, placeComponents } from './layout';
 import { createCoordinate } from './coordinate';
 import { applyScale } from './scale';
+import { applyInteraction } from './interaction';
 
 export async function plot<T extends G2ViewTree>(
   options: T,
@@ -55,9 +52,12 @@ export async function plot<T extends G2ViewTree>(
     coordinate,
     theme,
     component,
+    interaction,
     ...mark
   } = options;
-  const area = {
+
+  const areaOptions = {
+    key: '0',
     x: 0,
     y: 0,
     width,
@@ -69,16 +69,38 @@ export async function plot<T extends G2ViewTree>(
     theme,
     coordinate,
     component,
+    interaction,
     marks: [{ data, ...mark }],
   };
-  return plotArea(area, selection, library);
+
+  selection
+    .selectAll('.chart')
+    .data([areaOptions], (d) => d.key)
+    .join(
+      (enter) =>
+        enter
+          .append('g')
+          .attr('className', 'chart')
+          .each(async function (areaOptions) {
+            const area = await plotArea(areaOptions, select(this), library);
+            const update = (updater = (d: T) => d) => {
+              plot(updater(options), selection, library);
+            };
+            // Only apply interaction for the first time.
+            applyInteraction(areaOptions, area, update, library);
+          }),
+      (update) =>
+        update.each(function (options) {
+          plotArea(options, select(this), library);
+        }),
+    );
 }
 
 async function plotArea(
   options: G2Area,
   selection: Selection,
   library: G2Library,
-): Promise<void> {
+): Promise<G2AreaDescriptor> {
   const [useTheme] = useLibrary<G2ThemeOptions, ThemeComponent, Theme>(
     'theme',
     library,
@@ -91,20 +113,15 @@ async function plotArea(
     'scale',
     library,
   );
-  const [useGuideComponent] = useLibrary<
-    G2GuideComponentOptions,
-    GuideComponentComponent,
-    GuideComponent
-  >('component', library);
 
   // Initialize theme.
-  const { theme: partialTheme, marks: partialMarks } = options;
+  const { theme: partialTheme, marks: partialMarks, key } = options;
   const theme = useTheme(inferTheme(partialTheme));
 
   // Infer options and calc props for each mark.
   const markProps = new Map<G2Mark, MarkProps>();
   const channelScale = new Map<string, G2ScaleOptions>();
-  const marks = [];
+  const marks: G2Mark[] = [];
   for (const partialMark of partialMarks) {
     const { type = error('G2Mark type is required.') } = partialMark;
     const { props: partialProps } = createMark(type);
@@ -127,31 +144,66 @@ async function plotArea(
   const scales = Array.from(
     new Set(marks.flatMap((d) => Object.values(d.scale))),
   );
+  const scale = scales.reduce(
+    (obj, { name, ...options }) => ((obj[name] = useScale(options)), obj),
+    {},
+  );
   const components = inferComponent(scales, options, library);
   const layout = computeLayout(components, options);
   const coordinate = createCoordinate(layout, options, library);
 
   // Place components and mutate their bbox.
-  placeComponents(components, coordinate, layout, options);
+  placeComponents(components, coordinate, layout);
 
+  // Render components.
   selection
     .selectAll('.component')
-    .data(components, (d) => JSON.stringify(d))
-    .join((enter) =>
-      enter
-        .append('g')
-        .style('zIndex', ({ zIndex }) => zIndex || -1)
-        .attr('className', '.component')
-        .append((component) => {
-          const { scale: scaleDescriptor, bbox, ...options } = component;
-          const scale = scaleDescriptor ? useScale(scaleDescriptor) : null;
-          const { field, domain } = scaleDescriptor;
-          const value = { field, domain, bbox };
-          const render = useGuideComponent(options);
-          return render(scale, value, coordinate, theme);
+    .data(components, (d, i) => `${d.type}-${i}`)
+    .join(
+      (enter) =>
+        enter
+          .append('g')
+          .style('zIndex', ({ zIndex }) => zIndex || -1)
+          .attr('className', 'component')
+          .append((options) =>
+            renderComponent(options, coordinate, theme, library),
+          ),
+      (update) =>
+        update.each(function (options) {
+          const newComponent = renderComponent(
+            options,
+            coordinate,
+            theme,
+            library,
+          );
+          const { attributes } = newComponent;
+          const [node] = this.childNodes;
+          node.update({ ...attributes });
         }),
     );
 
+  // Create layers for plot.
+  // Main layer is for showing the main visual representation such as marks.
+  // Selection layer is for showing selected marks.
+  // Transient layer is for showing transient graphical elements produced by interaction.
+  selection
+    .selectAll('.plot')
+    .data([layout], () => key)
+    .join((enter) => {
+      const rect = enter
+        .append('rect')
+        .attr('className', 'plot')
+        .style('x', (d) => d.x + d.paddingLeft)
+        .style('y', (d) => d.y + d.paddingTop)
+        .style('width', (d) => d.innerWidth)
+        .style('height', (d) => d.innerHeight);
+      rect.append('g').attr('className', 'main');
+      rect.append('g').attr('className', 'selection');
+      rect.append('g').attr('className', 'transient');
+      return rect;
+    });
+
+  // Render marks with corresponding props.
   for (const [mark, props] of markProps.entries()) {
     const { scale: scaleDescriptor, style = {}, animate = {} } = mark;
     const { index, channels, defaultShape } = props;
@@ -164,65 +216,46 @@ async function plotArea(
 
     const calcPoints = useMark(mark);
     const [I, P] = calcPoints(index, scale, value, coordinate);
-    const { key: K } = value;
+    const data: Record<string, any>[] = I.map((d, i) =>
+      Object.entries(value).reduce(
+        (datum, [k, V]) => ((datum[k] = V[d]), datum),
+        { points: P[i] },
+      ),
+    );
 
-    //@todo Which is better: Binding index or Binding data directly?
     selection
+      .select('.main')
       .selectAll('.element')
-      .data(I, (d) => K[d])
-      .join((enter) =>
-        enter
-          .append(renderMark(P, value, coordinate, theme))
-          .call(applyEnterAnimation, value, coordinate, theme)
-          .attr('className', 'element'),
+      .data(data, (d) => d.key)
+      .join(
+        (enter) =>
+          enter
+            .append(({ shape, points, ...v }) =>
+              shape(points, v, coordinate, theme),
+            )
+            .attr('className', 'element')
+            .each(function ({ enterType: animate, ...v }) {
+              animate(this, v, coordinate, theme);
+            }),
+        (update) =>
+          update.each(function ({ shape, points, ...v }) {
+            const node = shape(points, v, coordinate, theme);
+            copyAttributes(this, node);
+          }),
       );
   }
+
+  return {
+    selection,
+    scale,
+    coordinate,
+    theme,
+  };
 }
 
 function inferTheme(theme: G2ThemeOptions = { type: 'light' }): G2ThemeOptions {
   const { type = 'light' } = theme;
   return { ...theme, type };
-}
-
-function renderMark(
-  P: Vector2[][],
-  value: Record<string, any>,
-  coordinate: Coordinate,
-  theme: G2Theme,
-) {
-  const { shape: S, ...rest } = value;
-  return (d, i) => {
-    const render = S[d];
-    const points = P[i];
-    const v = Object.entries(rest).reduce(
-      (obj, [key, value]) => ((obj[key] = value[d]), obj),
-      {},
-    );
-    return render(points, v, coordinate, theme);
-  };
-}
-
-function applyEnterAnimation(
-  selection: Selection,
-  value: Record<string, any>,
-  coordinate: Coordinate,
-  theme: G2Theme,
-) {
-  const {
-    enterType: ET,
-    enterDelay: EDL = [],
-    enterEasing: EE = [],
-    enterDuration: EDR = [],
-  } = value;
-  selection.each(function (d) {
-    const animate = ET[d];
-    const effectTiming = {
-      duration: EDR[d],
-      easing: EE[d],
-      delay: EDL[d],
-    };
-    animate(this, effectTiming, coordinate, theme);
-  });
 }
 
 function applyAnimationFunction(

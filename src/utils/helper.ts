@@ -1,3 +1,5 @@
+import { DisplayObject } from '@antv/g';
+
 export function identity<T>(x: T): T {
   return x;
 }
@@ -30,4 +32,12 @@ export function capitalizeFirst(str: string): string {
 
 export function error(message = ''): never {
   throw new Error(message);
+}
+
+export function copyAttributes(target: DisplayObject, source: DisplayObject) {
+  const { attributes } = source;
+  const exclude = new Set(['id', 'className']);
+  for (const [key, value] of Object.entries(attributes)) {
+    if (!exclude.has(key)) target.attr(key, value);
+  }
 }

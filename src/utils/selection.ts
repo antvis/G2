@@ -135,9 +135,9 @@ export class Selection<T = any> {
    * Update: Selection with elements to be updated.
    * Exit: Selection with elements to be removed.
    */
-  data<T>(
+  data<T = any>(
     data: T[],
-    id: (d: T, index: number) => unknown = (d) => d,
+    id: (d: T, index: number) => any = (d) => d,
   ): Selection<T> {
     // An array of new data.
     const enter = [];

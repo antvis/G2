@@ -4,7 +4,7 @@ import { capitalizeFirst } from '../utils/helper';
 import {
   GuideComponentPosition,
   Section,
-  Padding,
+  Layout,
   SectionArea,
 } from './types/common';
 import { G2Area, G2GuideComponentOptions } from './types/options';
@@ -12,7 +12,25 @@ import { G2Area, G2GuideComponentOptions } from './types/options';
 export function computeLayout(
   components: G2GuideComponentOptions[],
   options: G2Area,
-): Padding {
+): Layout {
+  const padding = computePadding(components, options);
+  const { paddingLeft, paddingRight, paddingTop, paddingBottom } = padding;
+  const { width, height, x, y } = options;
+  return {
+    ...padding,
+    width,
+    height,
+    innerWidth: width - paddingLeft - paddingRight,
+    innerHeight: height - paddingTop - paddingBottom,
+    x,
+    y,
+  };
+}
+
+function computePadding(
+  components: G2GuideComponentOptions[],
+  options: G2Area,
+) {
   const positions: GuideComponentPosition[] = [
     'left',
     'right',
@@ -45,8 +63,7 @@ export function computeLayout(
 export function placeComponents(
   components: G2GuideComponentOptions[],
   coordinate: Coordinate,
-  layout: Padding,
-  partialOptions: G2Area,
+  layout: Layout,
 ): void {
   const positionComponents = group(components, (d) => d.position);
   const {
@@ -54,23 +71,24 @@ export function placeComponents(
     paddingRight: pr,
     paddingTop: pt,
     paddingBottom: pb,
+    innerHeight,
+    innerWidth,
+    height,
+    width,
   } = layout;
 
-  const { x, y, width, height } = partialOptions;
-  const innerHeight = height - pt - pb;
-  const innerWidth = width - pr - pl;
   const section: Section = {
-    top: [x + pl, y, innerWidth, pt, 0, true, descending],
-    right: [width - pr, y, pr, innerHeight, 1, false, ascending],
-    bottom: [x + pl, height - pb, innerWidth, pb, 0, false, ascending],
-    left: [x, y + pt, pl, innerHeight, 1, true, descending],
-    centerHorizontal: [x + pl, y + pt, innerWidth, innerHeight, -1, null, null],
+    top: [pl, 0, innerWidth, pt, 0, true, descending],
+    right: [width - pr, 0, pr, innerHeight, 1, false, ascending],
+    bottom: [pl, height - pb, innerWidth, pb, 0, false, ascending],
+    left: [0, pt, pl, innerHeight, 1, true, descending],
+    centerHorizontal: [pl, pt, innerWidth, innerHeight, -1, null, null],
   };
 
   for (const [key, components] of positionComponents.entries()) {
     const area = section[key];
     if (key === 'centerHorizontal') {
-      placeCenterHorizontal(components, coordinate, area);
+      placeCenterHorizontal(components, layout, coordinate, area);
     } else {
       placePaddingArea(components, coordinate, area);
     }
@@ -79,10 +97,13 @@ export function placeComponents(
 
 function placeCenterHorizontal(
   components: G2GuideComponentOptions[],
+  layout: Layout,
   coordinate: Coordinate,
   area: SectionArea,
 ): void {
   const [, y, , height] = area;
+  const { paddingLeft } = layout;
+
   // Create a high dimension vector and map to a list of two-dimension points.
   // [0, 0, 0] -> [x0, 0, x1, 0, x2, 0]
   const vector = new Array(components.length + 1).fill(0);
@@ -90,7 +111,7 @@ function placeCenterHorizontal(
 
   // Extract x of each points.
   // [x0, 0, x1, 0, x2, 0] -> [x0, x1, x2]
-  const X = points.filter((_, i) => i % 2 === 0);
+  const X = points.filter((_, i) => i % 2 === 0).map((d) => d + paddingLeft);
 
   // Place each axis by coordinate in parallel coordinate.
   for (let i = 0; i < components.length; i++) {

@@ -74,6 +74,7 @@ Line.props = {
     ...baseChannels(),
     { name: 'x' },
     { name: 'y' },
+    { name: 'position' },
     { name: 'size' },
     { name: 'series', scale: 'identity' },
   ],

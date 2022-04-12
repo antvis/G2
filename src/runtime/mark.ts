@@ -188,8 +188,9 @@ function inferChannelType(encode: InferredEncode) {
 function inferChannelField(encode: InferredEncode) {
   if (encode === undefined) return undefined;
   if (Array.isArray(encode)) {
-    const fieldEncode = encode.find((d) => d.type === 'field');
-    return fieldEncode?.value || undefined;
+    return encode.map(({ value, type }) =>
+      type === 'field' ? value : undefined,
+    );
   }
   if (encode.type === 'field') return encode.value;
   return undefined;

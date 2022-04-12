@@ -18,6 +18,7 @@ describe('Line', () => {
         { name: 'tooltip', scale: 'identity' },
         { name: 'x' },
         { name: 'y' },
+        { name: 'position' },
         { name: 'size' },
         { name: 'series', scale: 'identity' },
       ],

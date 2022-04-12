@@ -8,10 +8,12 @@ import {
   Primitive,
   G2Theme,
   TabularData,
-  BBox,
+  MaybeArray,
   Vector2,
   GuideComponentPosition,
+  G2AreaDescriptor,
 } from './common';
+import { G2Area } from './options';
 
 export type G2ComponentNamespaces =
   | 'renderer'
@@ -27,7 +29,10 @@ export type G2ComponentNamespaces =
   | 'theme'
   | 'transform'
   | 'component'
-  | 'animation';
+  | 'animation'
+  | 'action'
+  | 'interaction'
+  | 'interactor';
 
 export type G2Component =
   | RendererComponent
@@ -41,7 +46,10 @@ export type G2Component =
   | ShapeComponent
   | ThemeComponent
   | GuideComponentComponent
-  | AnimationComponent;
+  | AnimationComponent
+  | ActionComponent
+  | InteractionComponent
+  | InteractorComponent;
 
 export type G2ComponentValue =
   | Renderer
@@ -56,7 +64,10 @@ export type G2ComponentValue =
   | Shape
   | Theme
   | GuideComponent
-  | Animation;
+  | Animation
+  | Action
+  | Interaction
+  | Interactor;
 
 export type G2BaseComponent<
   R = any,
@@ -202,5 +213,48 @@ export type Animation = (
 ) => GAnimation;
 export type AnimationComponent<O = Record<string, unknown>> = G2BaseComponent<
   Animation,
+  O
+>;
+
+export type Step = {
+  trigger: string;
+  action: MaybeArray<
+    string | { type: string | ActionComponent; [key: string]: any }
+  >;
+  throttle?: { wait?: number; leading?: boolean; trailing: boolean };
+};
+export type Interaction = {
+  interactors?: { type: string | InteractorComponent; [key: string]: any }[];
+  start?: Step[];
+  end?: Step[];
+};
+export type InteractionComponent<O = Record<string, unknown>> = G2BaseComponent<
+  Interaction,
+  O
+>;
+
+export type G2Event = Omit<Event, 'target'> & {
+  target: DisplayObject;
+  currentTarget: DisplayObject;
+  offsetY: number;
+  offsetX: number;
+};
+export type ActionContext = {
+  event: G2Event;
+  update: (updater: (options: G2Area) => G2Area) => void;
+  [key: string]: any;
+} & G2AreaDescriptor;
+export type Action = (options: ActionContext) => ActionContext;
+export type ActionComponent<O = Record<string, unknown>> = G2BaseComponent<
+  Action,
+  O
+>;
+
+export type InteractorAction = { action?: string; events: string[] };
+export type Interactor = {
+  actions?: InteractorAction[];
+};
+export type InteractorComponent<O = Record<string, unknown>> = G2BaseComponent<
+  Interactor,
   O
 >;

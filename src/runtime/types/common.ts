@@ -1,13 +1,25 @@
+import { Coordinate } from '@antv/coord';
+import { Selection } from '../../utils/selection';
+import { Scale } from './component';
+
 export type G2Theme = {
   defaultColor?: string;
   defaultCategory10?: string;
   defaultCategory20?: string;
   defaultSize?: number;
+  elementActiveStroke?: string;
   enter?: {
     duration?: number;
     delay?: number;
     fill?: 'both';
   };
+};
+
+export type G2AreaDescriptor = {
+  selection: Selection;
+  scale: Record<string, Scale>;
+  coordinate: Coordinate;
+  theme: G2Theme;
 };
 
 export type MaybeArray<T> = T | T[];
@@ -45,7 +57,7 @@ export type Channel = {
   required?: boolean;
   value?: ChannelValue;
   type?: string;
-  field?: string;
+  field?: string | string[];
 };
 export type FlattenChannel = Omit<Channel, 'value'> & { value?: Primitive[] };
 
@@ -65,11 +77,17 @@ export type GuideComponentPosition =
   | 'right'
   | 'centerHorizontal';
 
-export type Padding = {
+export type Layout = {
   paddingLeft?: number;
   paddingRight?: number;
   paddingBottom?: number;
   paddingTop?: number;
+  width?: number;
+  height?: number;
+  innerWidth?: number;
+  innerHeight?: number;
+  x?: number;
+  y?: number;
 };
 
 // @todo Using emus.
