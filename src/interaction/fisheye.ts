@@ -4,7 +4,7 @@ import { FisheyeInteraction } from '../spec';
 export type FisheyeOptions = Omit<FisheyeInteraction, 'type'>;
 
 export const Fisheye: IC<FisheyeOptions> = (options) => ({
-  interactors: [{ type: 'mousePosition' }],
+  interactors: [{ type: 'mousePosition' }, { type: 'touchPosition' }],
   start: [
     {
       trigger: 'hover',
@@ -14,7 +14,7 @@ export const Fisheye: IC<FisheyeOptions> = (options) => ({
   ],
   end: [
     {
-      trigger: 'hover',
+      trigger: 'leave',
       action: [{ type: 'fisheyeFocus', ...options }, { type: 'plot' }],
     },
   ],

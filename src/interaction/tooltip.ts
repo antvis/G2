@@ -4,7 +4,7 @@ import { TooltipInteraction } from '../spec';
 export type TooltipOptions = Omit<TooltipInteraction, 'type'>;
 
 export const Tooltip: IC<TooltipOptions> = (options) => ({
-  interactors: [{ type: 'mousePosition' }],
+  interactors: [{ type: 'mousePosition' }, { type: 'touchPosition' }],
   start: [
     {
       trigger: 'hover',

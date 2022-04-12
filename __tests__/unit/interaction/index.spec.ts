@@ -27,7 +27,7 @@ describe('interaction', () => {
 
   it('Fisheye() returns expected defaults', () => {
     expect(Fisheye({ distortionX: 3 })).toEqual({
-      interactors: [{ type: 'mousePosition' }],
+      interactors: [{ type: 'mousePosition' }, { type: 'touchPosition' }],
       start: [
         {
           trigger: 'hover',
@@ -37,7 +37,7 @@ describe('interaction', () => {
       ],
       end: [
         {
-          trigger: 'hover',
+          trigger: 'leave',
           action: [{ type: 'fisheyeFocus', distortionX: 3 }, { type: 'plot' }],
         },
       ],
@@ -46,7 +46,7 @@ describe('interaction', () => {
 
   it('Tooltip() returns expected defaults', () => {
     expect(Tooltip()).toEqual({
-      interactors: [{ type: 'mousePosition' }],
+      interactors: [{ type: 'mousePosition' }, { type: 'touchPosition' }],
       start: [
         {
           trigger: 'hover',
