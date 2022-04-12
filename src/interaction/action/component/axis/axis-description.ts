@@ -22,10 +22,10 @@ class AxisDescription extends Action {
       customContent: () => {
         return (`
           <div class="${TOOLTIP_CSS_CONST.CONTAINER_CLASS}">
-            <div class="${TOOLTIP_CSS_CONST.TITLE_CLASS}" style="font-size: 15px">
+            <div class="${TOOLTIP_CSS_CONST.TITLE_CLASS}">
               ${text}
             </div>
-            <div class="${TOOLTIP_CSS_CONST.LIST_CLASS}" style="margin-left:0">
+            <div class="${TOOLTIP_CSS_CONST.LIST_CLASS}">
               ${description}
             </div>
           </div>
@@ -61,8 +61,20 @@ class AxisDescription extends Action {
       domStyles: {
         ...deepMix({}, {
           // 超长的时候，tooltip tip 最大宽度为 50%，然后可以换行
-          [TOOLTIP_CSS_CONST.CONTAINER_CLASS]: { 'max-width': '50%' },
-          [TOOLTIP_CSS_CONST.TITLE_CLASS]: { 'word-break': 'break-all' },
+          [TOOLTIP_CSS_CONST.CONTAINER_CLASS]: {
+            'max-width': '50%',
+            'padding': '5px',
+            'line-height': '15px'
+          },
+          [TOOLTIP_CSS_CONST.TITLE_CLASS]: {
+            'word-break': 'break-all',
+            'font-size': '14px',
+            'margin-bottom': '3px'
+          },
+          [TOOLTIP_CSS_CONST.LIST_CLASS]: {
+            'word-break': 'break-all',
+            'opacity': '.5'
+          }
         }),
       },
     });
