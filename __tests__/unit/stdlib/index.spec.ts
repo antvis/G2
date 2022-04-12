@@ -8,7 +8,12 @@ import {
   Fisheye,
 } from '../../../src/coordinate';
 import { Constant, Field, Transform } from '../../../src/encode';
-import { Interval, Line, Point as PointGeometry } from '../../../src/geometry';
+import {
+  Interval,
+  Line,
+  Point as PointGeometry,
+  Text as TextGeometry,
+} from '../../../src/geometry';
 import {
   MaybeTuple,
   MaybeZeroX1,
@@ -40,6 +45,7 @@ import {
   Smooth,
   Point as PointShape,
   HollowPoint,
+  Text,
 } from '../../../src/shape';
 import {
   DodgeX,
@@ -56,6 +62,7 @@ import {
   Pick,
   Rename,
   Subset,
+  WordCloud,
 } from '../../../src/transform';
 import {
   AxisX,
@@ -93,6 +100,7 @@ describe('stdlib', () => {
       'mark.interval': Interval,
       'mark.line': Line,
       'mark.point': PointGeometry,
+      'mark.text': TextGeometry,
       'infer.maybeTuple': MaybeTuple,
       'infer.maybeZeroX1': MaybeZeroX1,
       'infer.maybeZeroY2': MaybeZeroY2,
@@ -120,6 +128,7 @@ describe('stdlib', () => {
       'shape.smooth': Smooth,
       'shape.point': PointShape,
       'shape.hollowPoint': HollowPoint,
+      'shape.text': Text,
       'statistic.stackY': StackY,
       'statistic.dodgeX': DodgeX,
       'statistic.stackEnter': StackEnter,
@@ -132,6 +141,7 @@ describe('stdlib', () => {
       'transform.pick': Pick,
       'transform.rename': Rename,
       'transform.subset': Subset,
+      'transform.wordCloud': WordCloud,
       'component.axisX': AxisX,
       'component.axisY': AxisY,
       'component.legendCategory': LegendCategory,

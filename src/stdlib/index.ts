@@ -2,7 +2,12 @@ import { G2Library } from '../runtime';
 import { Canvas } from '../renderer';
 import { Cartesian, Polar, Transpose, Parallel, Fisheye } from '../coordinate';
 import { Constant, Field, Transform } from '../encode';
-import { Interval, Line, Point as PointGeometry } from '../geometry';
+import {
+  Interval,
+  Line,
+  Point as PointGeometry,
+  Text as TextGeometry,
+} from '../geometry';
 import {
   MaybeTuple,
   MaybeZeroX1,
@@ -34,10 +39,19 @@ import {
   Smooth,
   Point as PointShape,
   HollowPoint,
+  Text,
 } from '../shape';
 import { DodgeX, StackY, StackEnter, SplitPosition, Key } from '../statistic';
 import { Light } from '../theme';
-import { Fetch, FilterBy, SortBy, Pick, Rename, Subset } from '../transform';
+import {
+  Fetch,
+  FilterBy,
+  SortBy,
+  Pick,
+  WordCloud,
+  Rename,
+  Subset,
+} from '../transform';
 import { AxisX, AxisY, LegendCategory, LegendContinuous } from '../component';
 import { ScaleInY, FadeIn } from '../animation';
 import {
@@ -68,6 +82,7 @@ export function createLibrary(): G2Library {
     'mark.interval': Interval,
     'mark.line': Line,
     'mark.point': PointGeometry,
+    'mark.text': TextGeometry,
     'infer.maybeTuple': MaybeTuple,
     'infer.maybeZeroX1': MaybeZeroX1,
     'infer.maybeZeroY2': MaybeZeroY2,
@@ -95,6 +110,7 @@ export function createLibrary(): G2Library {
     'shape.smooth': Smooth,
     'shape.point': PointShape,
     'shape.hollowPoint': HollowPoint,
+    'shape.text': Text,
     'statistic.stackY': StackY,
     'statistic.dodgeX': DodgeX,
     'statistic.stackEnter': StackEnter,
@@ -107,6 +123,7 @@ export function createLibrary(): G2Library {
     'transform.pick': Pick,
     'transform.rename': Rename,
     'transform.subset': Subset,
+    'transform.wordCloud': WordCloud,
     'component.axisX': AxisX,
     'component.axisY': AxisY,
     'component.legendCategory': LegendCategory,
