@@ -117,6 +117,8 @@ export const createLightStyleSheet = (cfg: StyleSheetCfg = {}) => {
     axisTitleTextFontWeight: 'normal',
     /** 坐标轴标题距离坐标轴文本的间距 */
     axisTitleSpacing: 12,
+    /** 坐标轴标题详细说明icon颜色 */
+    axisDescriptionIconFillColor: WHITE_COLORS[85],
 
     /** 坐标轴刻度线颜色 */
     axisTickLineBorderColor: BLACK_COLORS[25],

@@ -22,8 +22,12 @@ class AxisDescription extends Action {
       customContent: () => {
         return (`
           <div class="${TOOLTIP_CSS_CONST.CONTAINER_CLASS}">
-            <div style="font-size: 15px">${text}</div>
-            <div style="color: #a4abb8">${description}</div>
+            <div class="${TOOLTIP_CSS_CONST.TITLE_CLASS}" style="font-size: 15px">
+              ${text}
+            </div>
+            <div class="${TOOLTIP_CSS_CONST.LIST_CLASS}" style="margin-left:0">
+              ${description}
+            </div>
           </div>
         `)
       },

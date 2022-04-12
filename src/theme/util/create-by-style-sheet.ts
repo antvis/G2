@@ -22,6 +22,9 @@ function createAxisStyles(styleSheet: StyleSheet): LooseObject {
         textBaseline: 'middle',
         fontFamily: styleSheet.fontFamily,
       },
+      iconStyle: {
+        fill: styleSheet.axisDescriptionIconFillColor
+      }
     },
     label: {
       autoRotate: false,

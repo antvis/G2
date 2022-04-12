@@ -2768,7 +2768,10 @@ export interface StyleSheet {
    * @title 坐标轴标题距离坐标轴文本的间距
    */
   axisTitleSpacing?: number;
-
+  /**
+   * @title 坐标轴详细说明icon颜色
+   */
+  axisDescriptionIconFillColor?: string;
   /**
    * @title 坐标轴刻度线颜色
    */
