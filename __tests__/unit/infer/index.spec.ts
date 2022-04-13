@@ -157,7 +157,7 @@ describe('infer', () => {
   it('MaybeStackY returns a function inferring stackY statistic', () => {
     const infer = MaybeStackY();
 
-    const { transform } = infer({ transform: () => [] });
+    const { transform } = infer({});
 
     expect(transform(null, [{ type: 'stackY' }])).toEqual([{ type: 'stackY' }]);
     expect(transform(null, [{ type: 'dodgeX' }])).toEqual([{ type: 'dodgeX' }]);
@@ -272,7 +272,7 @@ describe('infer', () => {
 
   it('MaybeKey returns a function inferring key function', () => {
     const infer = MaybeKey();
-    const { transform } = infer({ transform: () => [] });
+    const { transform } = infer({});
 
     expect(transform(null, [{ type: 'key' }])).toEqual([{ type: 'key' }]);
 

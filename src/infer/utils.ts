@@ -6,11 +6,11 @@ import { InferValue } from 'runtime';
 export const zero = () => ({ type: 'constant', value: 0 });
 
 export const composeTransform = (
-  a: InferValue['transform'] = () => [],
-  b: InferValue['transform'] = () => [],
+  a: InferValue['transform'],
+  b: InferValue['transform'],
 ): InferValue['transform'] => {
-  return (indexedValue, statistic) => [
-    ...a(indexedValue, statistic),
-    ...b(indexedValue, statistic),
-  ];
+  return (indexedValue, statistic) => {
+    const inferredStatistic = a?.(indexedValue, statistic) || statistic;
+    return b?.(indexedValue, inferredStatistic) || inferredStatistic;
+  };
 };

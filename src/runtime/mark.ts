@@ -82,11 +82,10 @@ export async function initializeMark(
   // Infer encoding to get intact encoding with type.
   const typedEncode = inferEncodeType(partialEncode, transformedData);
   const inferFunctions = infer.map(useInfer);
-  const { encode, transform: inferStatistic = () => [] } = compose(
-    inferFunctions,
-  )({
-    encode: typedEncode,
-  });
+  const { encode, transform: inferStatistic = () => partialStatistic } =
+    compose(inferFunctions)({
+      encode: typedEncode,
+    });
 
   // Extract value from data based on inferred encodings.
   const value = mapObject(encode, (encodeOptions, key) => {
