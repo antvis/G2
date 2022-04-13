@@ -8,6 +8,8 @@ import {
   MaybeKey,
   MaybeSize,
   MaybeZeroY1,
+  MaybeTitle,
+  MaybeTooltip,
 } from '../../../src/infer';
 
 describe('infer', () => {
@@ -66,6 +68,12 @@ describe('infer', () => {
 
     const e6 = { x: 0, y: 0 };
     expect(infer({ encode: e6 }).encode).toEqual({ x: [0], y: [0] });
+
+    const e7 = { tooltip: 'a' };
+    expect(infer({ encode: e7 }).encode).toEqual({ tooltip: ['a'] });
+
+    const e8 = { tooltip: ['a'] };
+    expect(infer({ encode: e8 }).encode).toEqual({ tooltip: ['a'] });
   });
 
   it('MaybeSize returns a function producing constant size encode', () => {
@@ -108,10 +116,48 @@ describe('infer', () => {
     });
   });
 
+  it('MaybeTitle() returns a function inferring tooltip title', () => {
+    const infer = MaybeTitle();
+
+    const e1 = { title: 'value' };
+    expect(infer({ encode: e1 }).encode).toEqual(e1);
+
+    const e2 = { x: ['name'] };
+    expect(infer({ encode: e2 }).encode).toEqual({
+      x: ['name'],
+      title: 'name',
+    });
+
+    const e3 = {};
+    expect(infer({ encode: e3 }).encode).toEqual(e3);
+  });
+
+  it('MaybeTooltip() returns a function inferring tooltip value', () => {
+    const infer = MaybeTooltip();
+
+    const e1 = {};
+    expect(infer({ encode: e1 }).encode).toEqual(e1);
+
+    const e2 = { y: ['name'] };
+    expect(infer({ encode: e2 }).encode).toEqual({
+      y: ['name'],
+      tooltip: ['name'],
+    });
+
+    const e3 = { position: ['a', 'b'] };
+    expect(infer({ encode: e3 }).encode).toEqual({
+      position: ['a', 'b'],
+      tooltip: ['a', 'b'],
+    });
+
+    const e4 = { tooltip: ['a'] };
+    expect(infer({ encode: e4 }).encode).toEqual(e4);
+  });
+
   it('MaybeStackY returns a function inferring stackY statistic', () => {
     const infer = MaybeStackY();
 
-    const { transform } = infer({ transform: () => [] });
+    const { transform } = infer({});
 
     expect(transform(null, [{ type: 'stackY' }])).toEqual([{ type: 'stackY' }]);
     expect(transform(null, [{ type: 'dodgeX' }])).toEqual([{ type: 'dodgeX' }]);
@@ -226,7 +272,7 @@ describe('infer', () => {
 
   it('MaybeKey returns a function inferring key function', () => {
     const infer = MaybeKey();
-    const { transform } = infer({ transform: () => [] });
+    const { transform } = infer({});
 
     expect(transform(null, [{ type: 'key' }])).toEqual([{ type: 'key' }]);
 

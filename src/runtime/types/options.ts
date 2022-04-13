@@ -10,12 +10,14 @@ import {
   G2ComponentNamespaces,
   CoordinateComponent,
   ScaleComponent,
-  Mark,
   InferComponent,
   ShapeComponent,
   PaletteComponent,
   GuideComponentComponent,
   AnimationComponent,
+  ActionComponent,
+  InteractionComponent,
+  InteractorComponent,
 } from './component';
 
 export type G2ViewTree = {
@@ -40,6 +42,7 @@ export type G2Context = {
 };
 
 export type G2Area = {
+  key?: string;
   x?: number;
   y?: number;
   width?: number;
@@ -51,6 +54,7 @@ export type G2Area = {
   theme?: G2ThemeOptions;
   coordinate?: G2CoordinateOptions[];
   component?: G2GuideComponentOptions[];
+  interaction?: G2InteractionOptions[];
   marks?: G2Mark[];
 };
 
@@ -67,16 +71,6 @@ export type G2Mark = {
   type?: string;
   animate?: Record<string, Primitive>;
   style?: Record<string, Primitive>;
-};
-
-export type G2MarkDescriptor = {
-  render: Mark;
-  index: number[];
-  channels: Channel[];
-  scale?: Record<string, G2ScaleOptions>;
-  style: Record<string, Primitive>;
-  defaultShape?: string;
-  shapes?: string[];
 };
 
 export type G2BaseComponentOptions<
@@ -98,7 +92,10 @@ export type G2ComponentOptions =
   | G2ShapeOptions
   | G2PaletteOptions
   | G2GuideComponentOptions
-  | G2AnimationOptions;
+  | G2AnimationOptions
+  | G2ActionOptions
+  | G2InteractionOptions
+  | G2InteractorOptions;
 
 export type G2TransformOptions = G2BaseComponentOptions<TransformComponent>;
 export type G2StatisticOptions = G2BaseComponentOptions<StatisticComponent>;
@@ -113,7 +110,7 @@ export type G2ScaleOptions = G2BaseComponentOptions<
     domain?: any[];
     range?: any[];
     guide?: G2GuideComponentOptions;
-    field?: string;
+    field?: string | string[];
     zero?: boolean;
     [key: string | symbol]: any;
   }
@@ -133,3 +130,6 @@ export type G2GuideComponentOptions = G2BaseComponentOptions<
   }
 >;
 export type G2AnimationOptions = G2BaseComponentOptions<AnimationComponent>;
+export type G2ActionOptions = G2BaseComponentOptions<ActionComponent>;
+export type G2InteractionOptions = G2BaseComponentOptions<InteractionComponent>;
+export type G2InteractorOptions = G2BaseComponentOptions<InteractorComponent>;

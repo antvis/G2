@@ -15,10 +15,12 @@ export const Subset: TC<SubsetOptions> = (options) => {
   return useMemoTransform(
     (data) => {
       const { fields = [] } = options;
+
       let { start = 0, end = data.length } = options;
       start = constrain(start, 0, data.length - 1);
       end = constrain(end, 1, data.length);
       if (start > end) [start, end] = [end, start];
+
       const pick = (v: any) =>
         fields.reduce((datum, field) => {
           if (field in v) {
@@ -26,6 +28,7 @@ export const Subset: TC<SubsetOptions> = (options) => {
           }
           return datum;
         }, {});
+
       return data.filter((_, i) => i >= start && i < end).map(pick);
     },
     [options],

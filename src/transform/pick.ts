@@ -1,7 +1,6 @@
 import { TransformComponent as TC } from '../runtime';
 import { PickTransform } from '../spec';
 import { Subset } from './subset';
-import { useMemoTransform } from './utils/memo';
 
 export type PickOptions = Omit<PickTransform, 'type'>;
 
@@ -10,7 +9,7 @@ export type PickOptions = Omit<PickTransform, 'type'>;
  */
 export const Pick: TC<PickOptions> = (options) => {
   const { fields } = options;
-  return useMemoTransform(Subset({ fields }), [options]);
+  return Subset({ fields });
 };
 
 Pick.props = {};

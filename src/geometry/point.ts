@@ -1,5 +1,6 @@
 import { MarkComponent as MC, Vector2 } from '../runtime';
 import { PointGeometry } from '../spec';
+import { baseChannels, baseInference } from './utils';
 
 export type PointOptions = Omit<PointGeometry, 'type'>;
 
@@ -29,22 +30,11 @@ export const Point: MC<PointOptions> = () => {
 Point.props = {
   defaultShape: 'point',
   channels: [
+    ...baseChannels(),
     { name: 'x', required: true },
     { name: 'y', required: true },
     { name: 'size', required: true },
-    { name: 'color' },
-    { name: 'shape' },
-    { name: 'enterType' },
-    { name: 'enterDelay' },
-    { name: 'enterDuration' },
-    { name: 'enterEasing' },
-    { name: 'key', scale: 'identity' },
   ],
-  infer: [
-    { type: 'maybeTuple' },
-    { type: 'maybeZeroY1' },
-    { type: 'maybeSize' },
-    { type: 'maybeKey' },
-  ],
+  infer: [...baseInference(), { type: 'maybeZeroY1' }, { type: 'maybeSize' }],
   shapes: ['point', 'hollowPoint'],
 };

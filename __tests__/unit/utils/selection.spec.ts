@@ -91,6 +91,8 @@ describe('select', () => {
     expect(rect1).not.toBe(selection);
     // @ts-ignore
     expect(rect1._elements.length).toEqual(3);
+    // @ts-ignore
+    expect(rect1._parent).toBe(selection.node());
 
     const rect2 = selection.selectAll(rect1.nodes());
     // @ts-ignore
@@ -447,7 +449,7 @@ describe('select', () => {
     expect(selection.selectAll('rect').nodes()[2]).toBe(rect3);
   });
 
-  it('Selection.on() should register event only once', () => {
+  it('Selection.on() should register event', () => {
     const container = document.createElement('div');
     const canvas = Canvas({
       width: 300,
@@ -467,45 +469,6 @@ describe('select', () => {
       .node();
 
     circle.dispatchEvent(event);
-    expect(fn).toBeCalledTimes(1);
-  });
-
-  it('Selection.state(key, style) should save the original style', () => {
-    const rect = new Rect();
-    // @ts-ignore
-    rect.__data__ = 1;
-
-    const selection = select(rect);
-    selection.style('fill', 'red');
-    selection.state('fill', 'blue');
-    selection.state('fill', (d, i) => {
-      expect(d).toBe(1);
-      expect(i).toBe(0);
-      return 'yellow';
-    });
-    selection.state('fill', undefined);
-    expect(selection.node().style.fill).toBe('yellow');
-    expect(selection.node().__state__.fill).toBe('red');
-  });
-
-  it('Selection.reset(key) should reset the original style', () => {
-    const rect = new Rect();
-    // @ts-ignore
-    rect.__data__ = 1;
-
-    const selection = select(rect);
-    selection.style('fill', 'red').style('stroke', 'black');
-    selection.state('fill', 'blue');
-    selection.state('fill', (d, i) => {
-      expect(d).toBe(1);
-      expect(i).toBe(0);
-      return 'yellow';
-    });
-    selection.reset('fill');
-    selection.reset('stroke');
-    expect(selection.node().style.fill).toBe('red');
-    expect(selection.node().style.stroke).toBe('black');
-    expect(selection.node().__state__.fill).toBeUndefined();
-    expect(selection.node().__state__.stroke).toBeUndefined();
+    expect(fn).toBeCalledTimes(3);
   });
 });

@@ -1,9 +1,9 @@
 import { min, max } from 'd3-array';
-import { error, flow } from '../utils/helper';
 import { TransformComponent as TC } from '../runtime';
 import { WordCloudTransform } from '../spec';
 import { tagCloud } from './utils/d3-cloud';
 import { useMemoTransform } from './utils/memo';
+import { flow } from './utils/flow';
 
 export type WordCloudOptions = Omit<WordCloudTransform, 'type'>;
 

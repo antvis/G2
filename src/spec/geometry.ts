@@ -5,6 +5,7 @@ import { Scale } from './scale';
 import { Coordinate } from './coordinate';
 import { Statistic } from './statistic';
 import { Animation } from './animate';
+import { Interaction } from './interaction';
 
 export type Geometry =
   | IntervalGeometry
@@ -29,7 +30,10 @@ export type ChannelTypes =
   | 'enterEasing'
   | 'enterDuration'
   | 'enterDelay'
-  | 'size';
+  | 'size'
+  | 'tooltip'
+  | 'title'
+  | 'key';
 
 export type BaseGeometry<
   T extends GeometryTypes,
@@ -47,10 +51,10 @@ export type BaseGeometry<
   coordinate?: Coordinate[];
   statistic?: Statistic[];
   style?: Record<string, any>;
+  interaction?: Interaction[];
   animate?: {
     enter?: Animation;
   };
-  zIndex?: number;
 };
 
 export type IntervalGeometry = BaseGeometry<

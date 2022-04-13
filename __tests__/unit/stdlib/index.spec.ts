@@ -1,6 +1,12 @@
 import { createLibrary } from '../../../src/stdlib';
 import { Canvas } from '../../../src/renderer';
-import { Cartesian, Polar, Transpose, Parallel } from '../../../src/coordinate';
+import {
+  Cartesian,
+  Polar,
+  Transpose,
+  Parallel,
+  Fisheye,
+} from '../../../src/coordinate';
 import { Constant, Field, Transform } from '../../../src/encode';
 import {
   Interval,
@@ -18,6 +24,8 @@ import {
   MaybeKey,
   MaybeSize,
   MaybeZeroY1,
+  MaybeTooltip,
+  MaybeTitle,
 } from '../../../src/infer';
 import { Category10, Category20 } from '../../../src/palette';
 import {
@@ -53,6 +61,7 @@ import {
   FilterBy,
   Pick,
   Rename,
+  Subset,
   WordCloud,
 } from '../../../src/transform';
 import {
@@ -62,6 +71,19 @@ import {
   LegendContinuous,
 } from '../../../src/component';
 import { ScaleInY, FadeIn } from '../../../src/animation';
+import {
+  ElementActive,
+  Tooltip,
+  Fisheye as FisheyeInteraction,
+} from '../../../src/interaction';
+import {
+  SurfacePointSelection,
+  HighlightSelection,
+  Tooltip as TooltipAction,
+  FisheyeFocus,
+  Plot,
+} from '../../../src/action';
+import { MousePosition, TouchPosition } from '../../../src/interactor';
 
 describe('stdlib', () => {
   it('createLibrary() should returns expected builtin', () => {
@@ -71,6 +93,7 @@ describe('stdlib', () => {
       'coordinate.polar': Polar,
       'coordinate.transpose': Transpose,
       'coordinate.parallel': Parallel,
+      'coordinate.fisheye': Fisheye,
       'encode.constant': Constant,
       'encode.field': Field,
       'encode.transform': Transform,
@@ -87,6 +110,8 @@ describe('stdlib', () => {
       'infer.maybeKey': MaybeKey,
       'infer.maybeSize': MaybeSize,
       'infer.maybeZeroY1': MaybeZeroY1,
+      'infer.maybeTooltip': MaybeTooltip,
+      'infer.maybeTitle': MaybeTitle,
       'palette.category10': Category10,
       'palette.category20': Category20,
       'scale.linear': Linear,
@@ -115,6 +140,7 @@ describe('stdlib', () => {
       'transform.filterBy': FilterBy,
       'transform.pick': Pick,
       'transform.rename': Rename,
+      'transform.subset': Subset,
       'transform.wordCloud': WordCloud,
       'component.axisX': AxisX,
       'component.axisY': AxisY,
@@ -122,6 +148,16 @@ describe('stdlib', () => {
       'component.legendContinuous': LegendContinuous,
       'animation.scaleInY': ScaleInY,
       'animation.fadeIn': FadeIn,
+      'interaction.elementActive': ElementActive,
+      'interaction.tooltip': Tooltip,
+      'interaction.fisheye': FisheyeInteraction,
+      'action.surfacePointSelection': SurfacePointSelection,
+      'action.highlightSelection': HighlightSelection,
+      'action.tooltip': TooltipAction,
+      'action.fisheyeFocus': FisheyeFocus,
+      'action.plot': Plot,
+      'interactor.mousePosition': MousePosition,
+      'interactor.touchPosition': TouchPosition,
     });
   });
 });

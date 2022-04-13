@@ -6,9 +6,6 @@ describe('Point', () => {
     expect(Point.props).toEqual({
       defaultShape: 'point',
       channels: [
-        { name: 'x', required: true },
-        { name: 'y', required: true },
-        { name: 'size', required: true },
         { name: 'color' },
         { name: 'shape' },
         { name: 'enterType' },
@@ -16,12 +13,19 @@ describe('Point', () => {
         { name: 'enterDuration' },
         { name: 'enterEasing' },
         { name: 'key', scale: 'identity' },
+        { name: 'title', scale: 'identity' },
+        { name: 'tooltip', scale: 'identity' },
+        { name: 'x', required: true },
+        { name: 'y', required: true },
+        { name: 'size', required: true },
       ],
       infer: [
         { type: 'maybeTuple' },
+        { type: 'maybeKey' },
+        { type: 'maybeTitle' },
+        { type: 'maybeTooltip' },
         { type: 'maybeZeroY1' },
         { type: 'maybeSize' },
-        { type: 'maybeKey' },
       ],
       shapes: ['point', 'hollowPoint'],
     });

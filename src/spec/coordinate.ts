@@ -5,9 +5,15 @@ export type Coordinate =
   | TransposeCoordinate
   | CustomCoordinate
   | CartesianCoordinate
-  | ParallelCoordinate;
+  | ParallelCoordinate
+  | FisheyeCoordinate;
 
-export type CoordinateTypes = 'polar' | 'transpose' | 'cartesian' | 'parallel';
+export type CoordinateTypes =
+  | 'polar'
+  | 'transpose'
+  | 'cartesian'
+  | 'parallel'
+  | 'fisheye';
 
 export type PolarCoordinate = {
   type?: 'polar';
@@ -27,6 +33,14 @@ export type CartesianCoordinate = {
 
 export type ParallelCoordinate = {
   type?: 'parallel';
+};
+
+export type FisheyeCoordinate = {
+  type?: 'fisheye';
+  focusX?: number;
+  focusY?: number;
+  distortionX?: number;
+  distortionY?: number;
 };
 
 export type CustomCoordinate = {

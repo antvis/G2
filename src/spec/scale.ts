@@ -37,7 +37,7 @@ export type BaseScale<T extends ScaleTypes, O> = {
   type?: T;
   palette?: Palette;
   guide?: Record<string, any>; // @todo
-  field?: string;
+  field?: string | string[];
   independent?: boolean;
   zero?: boolean;
 } & O;

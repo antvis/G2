@@ -15,3 +15,5 @@ export * from './palette';
 export * from './coordinate';
 export * from './geometry';
 export * from './animate';
+export * from './interaction';
+export * from './action';
