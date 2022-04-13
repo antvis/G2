@@ -41,7 +41,7 @@
     "@antv/adjust": "^0.2.1",
     "@antv/attr": "^0.3.1",
     "@antv/color-util": "^2.0.2",
-    "@antv/component": "^0.8.19",
+    "@antv/component": "^0.8.27",
     "@antv/coord": "^0.3.0",
     "@antv/dom-util": "^2.0.2",
     "@antv/event-emitter": "~0.1.0",
