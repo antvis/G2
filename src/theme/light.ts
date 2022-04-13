@@ -12,6 +12,7 @@ export const Light: TC<LightOptions> = (options) => {
     defaultCategory10: 'category10',
     defaultCategory20: 'category20',
     defaultSize: 1,
+    elementActiveStroke: 'black',
     enter: {
       duration: 300,
       fill: 'both',

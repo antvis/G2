@@ -1,20 +1,32 @@
-import { G2Theme, MarkChannel } from 'runtime';
+/**
+ * Channels for all geometries.
+ * The order is not important.
+ */
+export function baseChannels() {
+  return [
+    { name: 'color' },
+    { name: 'shape' },
+    { name: 'enterType' },
+    { name: 'enterDelay' },
+    { name: 'enterDuration' },
+    { name: 'enterEasing' },
+    { name: 'key', scale: 'identity' },
+    { name: 'title', scale: 'identity' },
+    { name: 'tooltip', scale: 'identity' },
+  ];
+}
 
-export function applyStyle(
-  index: number,
-  value: MarkChannel,
-  style: Record<string, any>,
-  theme: G2Theme,
-  defaults = {
-    color: (theme: G2Theme) => theme.defaultColor,
-    size: (theme: G2Theme) => theme.defaultSize,
-  },
-): Record<string, any> {
-  const { color: C, size: S } = value;
-  const { color, size } = defaults;
-  return {
-    color: C?.[index] || color(theme),
-    size: S?.[index] || size(theme),
-    ...style,
-  };
+/**
+ * Inference for all geometries.
+ * MaybeTuple should always be the first one,
+ * because the following inference only accept nested channels.
+ * MaybeKey should always be the second one to avoid redundant channel keys.
+ */
+export function baseInference() {
+  return [
+    { type: 'maybeTuple' },
+    { type: 'maybeKey' },
+    { type: 'maybeTitle' },
+    { type: 'maybeTooltip' },
+  ];
 }

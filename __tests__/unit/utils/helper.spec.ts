@@ -1,4 +1,4 @@
-import { flow } from '../../../src/utils/helper';
+import { flow } from '../../../src/transform/utils/flow';
 import { delay } from '../../utils/delay';
 
 describe('helper utils', () => {

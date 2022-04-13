@@ -1,3 +1,4 @@
+import { Coordinate } from '@antv/coord';
 import {
   G2ScaleOptions,
   G2CoordinateOptions,
@@ -5,8 +6,13 @@ import {
   G2GuideComponentOptions,
   G2Area,
 } from './types/options';
-import { GuideComponentComponent, GuideComponent } from './types/component';
-import { GuideComponentPosition } from './types/common';
+import {
+  GuideComponentComponent,
+  GuideComponent,
+  ScaleComponent,
+  Scale,
+} from './types/component';
+import { G2Theme, GuideComponentPosition } from './types/common';
 import { isPolar, isTranspose, isParallel } from './coordinate';
 import { useLibrary } from './library';
 
@@ -47,6 +53,29 @@ export function inferComponent(
   }
 
   return components;
+}
+
+export function renderComponent(
+  component: G2GuideComponentOptions,
+  coordinate: Coordinate,
+  theme: G2Theme,
+  library: G2Library,
+) {
+  const [useScale] = useLibrary<G2ScaleOptions, ScaleComponent, Scale>(
+    'scale',
+    library,
+  );
+  const [useGuideComponent] = useLibrary<
+    G2GuideComponentOptions,
+    GuideComponentComponent,
+    GuideComponent
+  >('component', library);
+  const { scale: scaleDescriptor, bbox, ...options } = component;
+  const scale = scaleDescriptor ? useScale(scaleDescriptor) : null;
+  const { field, domain } = scaleDescriptor;
+  const value = { field, domain, bbox };
+  const render = useGuideComponent(options);
+  return render(scale, value, coordinate, theme);
 }
 
 // @todo Render components in non-cartesian coordinate.

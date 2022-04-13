@@ -2,10 +2,10 @@ import { Coordinate } from '@antv/coord';
 import { G2Area, G2CoordinateOptions, G2Library } from './types/options';
 import { CoordinateComponent, CoordinateTransform } from './types/component';
 import { useLibrary } from './library';
-import { Padding } from './types/common';
+import { Layout } from './types/common';
 
 export function createCoordinate(
-  layout: Padding,
+  layout: Layout,
   partialOptions: G2Area,
   library: G2Library,
 ): Coordinate {
@@ -15,30 +15,16 @@ export function createCoordinate(
     CoordinateTransform
   >('coordinate', library);
 
-  const {
-    paddingLeft: pl,
-    paddingRight: pr,
-    paddingBottom: pb,
-    paddingTop: pt,
-  } = layout;
-
-  const {
-    x,
-    y,
-    width,
-    height,
-    coordinate: partialTransform = [],
-  } = partialOptions;
-
+  const { innerHeight, innerWidth } = layout;
+  const { coordinate: partialTransform = [] } = partialOptions;
   const transform = inferCoordinate(partialTransform);
   const coordinate = new Coordinate({
-    x: x + pl,
-    y: y + pt,
-    width: width - pl - pr,
-    height: height - pt - pb,
+    x: 0,
+    y: 0,
+    width: innerWidth,
+    height: innerHeight,
     transformations: transform.map(useCoordinate).flat(),
   });
-
   return coordinate;
 }
 
@@ -60,5 +46,6 @@ export function isParallel(coordinate: G2CoordinateOptions[]) {
 function inferCoordinate(
   coordinate: G2CoordinateOptions[],
 ): G2CoordinateOptions[] {
+  if (coordinate.find((d) => d.type === 'cartesian')) return coordinate;
   return [...coordinate, { type: 'cartesian' }];
 }

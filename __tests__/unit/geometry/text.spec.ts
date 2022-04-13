@@ -6,11 +6,6 @@ describe('Text', () => {
     expect(Text.props).toEqual({
       defaultShape: 'text',
       channels: [
-        { name: 'x', required: true },
-        { name: 'y', required: true },
-        { name: 'text', required: true, scale: 'identity' },
-        { name: 'fontSize' },
-        { name: 'rotate' },
         { name: 'color' },
         { name: 'shape' },
         { name: 'enterType' },
@@ -18,8 +13,20 @@ describe('Text', () => {
         { name: 'enterDuration' },
         { name: 'enterEasing' },
         { name: 'key', scale: 'identity' },
+        { name: 'title', scale: 'identity' },
+        { name: 'tooltip', scale: 'identity' },
+        { name: 'x', required: true },
+        { name: 'y', required: true },
+        { name: 'text', required: true, scale: 'identity' },
+        { name: 'fontSize' },
+        { name: 'rotate' },
       ],
-      infer: [{ type: 'maybeTuple' }, { type: 'maybeKey' }],
+      infer: [
+        { type: 'maybeTuple' },
+        { type: 'maybeKey' },
+        { type: 'maybeTitle' },
+        { type: 'maybeTooltip' },
+      ],
       shapes: ['text'],
     });
   });

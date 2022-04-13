@@ -1,6 +1,6 @@
 import { G2Library } from '../runtime';
 import { Canvas } from '../renderer';
-import { Cartesian, Polar, Transpose, Parallel } from '../coordinate';
+import { Cartesian, Polar, Transpose, Parallel, Fisheye } from '../coordinate';
 import { Constant, Field, Transform } from '../encode';
 import {
   Interval,
@@ -18,6 +18,8 @@ import {
   MaybeKey,
   MaybeSize,
   MaybeZeroY1,
+  MaybeTooltip,
+  MaybeTitle,
 } from '../infer';
 import { Category10, Category20 } from '../palette';
 import {
@@ -41,9 +43,30 @@ import {
 } from '../shape';
 import { DodgeX, StackY, StackEnter, SplitPosition, Key } from '../statistic';
 import { Light } from '../theme';
-import { Fetch, FilterBy, SortBy, Pick, WordCloud, Rename } from '../transform';
+import {
+  Fetch,
+  FilterBy,
+  SortBy,
+  Pick,
+  WordCloud,
+  Rename,
+  Subset,
+} from '../transform';
 import { AxisX, AxisY, LegendCategory, LegendContinuous } from '../component';
 import { ScaleInY, FadeIn } from '../animation';
+import {
+  ElementActive,
+  Tooltip,
+  Fisheye as FisheyeInteraction,
+} from '../interaction';
+import {
+  SurfacePointSelection,
+  HighlightSelection,
+  Tooltip as TooltipAction,
+  FisheyeFocus,
+  Plot,
+} from '../action';
+import { MousePosition, TouchPosition } from '../interactor';
 
 export function createLibrary(): G2Library {
   return {
@@ -52,6 +75,7 @@ export function createLibrary(): G2Library {
     'coordinate.polar': Polar,
     'coordinate.transpose': Transpose,
     'coordinate.parallel': Parallel,
+    'coordinate.fisheye': Fisheye,
     'encode.constant': Constant,
     'encode.field': Field,
     'encode.transform': Transform,
@@ -68,6 +92,8 @@ export function createLibrary(): G2Library {
     'infer.maybeKey': MaybeKey,
     'infer.maybeSize': MaybeSize,
     'infer.maybeZeroY1': MaybeZeroY1,
+    'infer.maybeTooltip': MaybeTooltip,
+    'infer.maybeTitle': MaybeTitle,
     'palette.category10': Category10,
     'palette.category20': Category20,
     'scale.linear': Linear,
@@ -96,6 +122,7 @@ export function createLibrary(): G2Library {
     'transform.filterBy': FilterBy,
     'transform.pick': Pick,
     'transform.rename': Rename,
+    'transform.subset': Subset,
     'transform.wordCloud': WordCloud,
     'component.axisX': AxisX,
     'component.axisY': AxisY,
@@ -103,5 +130,15 @@ export function createLibrary(): G2Library {
     'component.legendContinuous': LegendContinuous,
     'animation.scaleInY': ScaleInY,
     'animation.fadeIn': FadeIn,
+    'interaction.elementActive': ElementActive,
+    'interaction.tooltip': Tooltip,
+    'interaction.fisheye': FisheyeInteraction,
+    'action.surfacePointSelection': SurfacePointSelection,
+    'action.highlightSelection': HighlightSelection,
+    'action.tooltip': TooltipAction,
+    'action.fisheyeFocus': FisheyeFocus,
+    'action.plot': Plot,
+    'interactor.mousePosition': MousePosition,
+    'interactor.touchPosition': TouchPosition,
   };
 }

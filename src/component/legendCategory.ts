@@ -36,7 +36,7 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
         },
         ...(field && {
           title: {
-            content: field,
+            content: Array.isArray(field) ? field[0] : field,
             spacing: 0,
             style: {
               fontSize: 12,
