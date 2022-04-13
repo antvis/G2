@@ -6,7 +6,8 @@ export type FisheyeFocusOptions = Omit<FisheyeFocusAction, 'type'>;
 export const FisheyeFocus: AC<FisheyeFocusOptions> = (options) => {
   return (context) => {
     // Using the mouseX and mouseY as focusX and focusY.
-    const { event, selection, updater = (d) => d } = context;
+    const { event, selection, shared } = context;
+    const { updater = (d) => d } = shared;
     const { offsetX, offsetY } = event;
     const mainLayer = selection.select('.main').node();
     const bbox = mainLayer.getBounds();
@@ -49,7 +50,7 @@ export const FisheyeFocus: AC<FisheyeFocusOptions> = (options) => {
         };
       }
     };
-    context.updater = newUpdater;
+    shared.updater = newUpdater;
     return context;
   };
 };

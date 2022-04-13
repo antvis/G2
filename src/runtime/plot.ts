@@ -189,19 +189,19 @@ async function plotArea(
   selection
     .selectAll('.plot')
     .data([layout], () => key)
-    .join((enter) => {
-      const rect = enter
-        .append('rect')
-        .attr('className', 'plot')
-        .style('x', (d) => d.x + d.paddingLeft)
-        .style('y', (d) => d.y + d.paddingTop)
-        .style('width', (d) => d.innerWidth)
-        .style('height', (d) => d.innerHeight);
-      rect.append('g').attr('className', 'main');
-      rect.append('g').attr('className', 'selection');
-      rect.append('g').attr('className', 'transient');
-      return rect;
-    });
+    .join(
+      (enter) => {
+        const rect = enter
+          .append('rect')
+          .attr('className', 'plot')
+          .call(applyDimension);
+        rect.append('g').attr('className', 'main');
+        rect.append('g').attr('className', 'selection');
+        rect.append('g').attr('className', 'transient');
+        return rect;
+      },
+      (update) => update.call(applyDimension),
+    );
 
   // Render marks with corresponding props.
   for (const [mark, props] of markProps.entries()) {
@@ -262,6 +262,14 @@ async function plotArea(
 function inferTheme(theme: G2ThemeOptions = { type: 'light' }): G2ThemeOptions {
   const { type = 'light' } = theme;
   return { ...theme, type };
+}
+
+function applyDimension(selection: Selection) {
+  selection
+    .style('x', (d) => d.x + d.paddingLeft)
+    .style('y', (d) => d.y + d.paddingTop)
+    .style('width', (d) => d.innerWidth)
+    .style('height', (d) => d.innerHeight);
 }
 
 function applyAnimationFunction(

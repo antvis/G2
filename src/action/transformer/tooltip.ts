@@ -47,15 +47,8 @@ export type TooltipOptions = Omit<TooltipAction, 'type'>;
  */
 export const Tooltip: AC<TooltipOptions> = () => {
   return (context) => {
-    const {
-      selectedElements = [],
-      scale,
-      coordinate,
-      theme,
-      selection,
-      mouseX,
-      mouseY,
-    } = context;
+    const { scale, coordinate, theme, selection, shared } = context;
+    const { mouseX, mouseY, selectedElements = [] } = shared;
     const data = selectedElements.map((d) => d.__data__);
 
     selection

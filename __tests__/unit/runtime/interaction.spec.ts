@@ -58,7 +58,6 @@ describe('Interaction', () => {
         y: 'sold',
         color: 'genre',
         tooltip: (d) => ({
-          title: `Genre: ${d.genre}`,
           value: `${d.genre}, ${d.sold}`,
         }),
       },

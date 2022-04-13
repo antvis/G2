@@ -5,7 +5,8 @@ export type HighlightSelectionOptions = Omit<HighlightSelectionAction, 'type'>;
 
 export const HighlightSelection: AC<HighlightSelectionOptions> = (options) => {
   return (context) => {
-    const { selectedElements = [], selection, theme } = context;
+    const { shared, selection, theme } = context;
+    const { selectedElements = [] } = shared;
     const { elementActiveStroke } = theme;
     const { color = elementActiveStroke } = options;
     const data = selectedElements.map((d) => d.__data__);

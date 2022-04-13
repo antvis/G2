@@ -80,6 +80,7 @@ export function applyInteraction(
             coordinate,
             theme,
             selection,
+            shared: {},
             update,
           });
         });

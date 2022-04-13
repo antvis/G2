@@ -242,7 +242,7 @@ export type G2Event = Omit<Event, 'target'> & {
 export type ActionContext = {
   event: G2Event;
   update: (updater: (options: G2Area) => G2Area) => void;
-  [key: string]: any;
+  shared: Record<string, any>;
 } & G2AreaDescriptor;
 export type Action = (options: ActionContext) => ActionContext;
 export type ActionComponent<O = Record<string, unknown>> = G2BaseComponent<
