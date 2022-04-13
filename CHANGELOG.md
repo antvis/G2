@@ -1,3 +1,13 @@
+#### 4.1.50 (2022-04-13)
+
+##### Documentation Changes
+
+*  axis API 文档中新增 title 字段的 description 配置 ([#3863](https://github.com/antvis/g2/pull/3863)) ([7e2493c8](https://github.com/antvis/g2/commit/7e2493c8af25d0e81a504ca3ec513e8584d4f3d7))
+
+##### New Features
+
+* **axis:**  添加坐标轴标题详细说明 icon 交互事件 ([#3863](https://github.com/antvis/g2/pull/3863)) ([7e2493c8](https://github.com/antvis/g2/commit/7e2493c8af25d0e81a504ca3ec513e8584d4f3d7))
+
 #### 4.1.49 (2022-03-25)
 
 ##### Chores
