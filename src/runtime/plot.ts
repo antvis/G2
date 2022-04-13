@@ -235,7 +235,13 @@ async function plotArea(
             )
             .attr('className', 'element')
             .each(function ({ enterType: animate, ...v }) {
-              animate(this, v, coordinate, theme);
+              const {
+                enterDelay: delay,
+                enterDuration: duration,
+                enterEasing: easing,
+              } = v;
+              const style = { delay, duration, easing };
+              animate(this, style, coordinate, theme);
             }),
         (update) =>
           update.each(function ({ shape, points, ...v }) {
