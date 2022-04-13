@@ -1,7 +1,17 @@
-<img src="https://gw.alipayobjects.com/zos/antfincdn/R8sN%24GNdh6/language.svg" width="18"> [English](./README.en-US.md) | 简体中文
+# G2 5.0
+
+> 开发中，敬请期待 🌈
+
+- [效果预览](https://pearmini.github.io/hello-g2v5/#/)
+- [案例验证](https://www.yuque.com/antv/g2-docs/waehm6)
+- [Spec 设计](https://www.yuque.com/antv/g2-docs/g2-spec)
+- [架构设计](https://www.yuque.com/antv/g2-docs/ffpve8)
+- [时间安排](https://www.yuque.com/antv/g2-docs/rmp5ac#89U4)
+
+<!-- <img src="https://gw.alipayobjects.com/zos/antfincdn/R8sN%24GNdh6/language.svg" width="18"> [English](./README.en-US.md) | 简体中文
 
 <h1 align="center">
-<b>G2</b>
+<b>G2 5.0</b>
 </h1>
 
 <div align="center">
@@ -121,4 +131,4 @@ $ npm start
 
 钉钉群组号码: 30233731 / 35686967 (2 群)
 
-<img src="https://gw.alipayobjects.com/zos/antfincdn/8qEHi7GiaN/G2Plot-dingding.JPG" width="200" height="266" />
+<img src="https://gw.alipayobjects.com/zos/antfincdn/8qEHi7GiaN/G2Plot-dingding.JPG" width="200" height="266" /> -->
