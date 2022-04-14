@@ -15,6 +15,9 @@
     },
     "Animation": "animation",
     "Interaction": "interaction",
+    "Composition": {
+      "View": "view"
+    },
     "Theme": "theme"
   },
   "output": "docs/dist",
