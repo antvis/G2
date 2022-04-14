@@ -18,6 +18,7 @@ import {
   ActionComponent,
   InteractionComponent,
   InteractorComponent,
+  MarkComponent,
 } from './component';
 
 export type G2ViewTree = {
@@ -28,6 +29,7 @@ export type G2ViewTree = {
 export type Node = {
   type?: string | ((...args: any[]) => any);
   children?: Node[];
+  key?: string;
   [key: string]: any;
 };
 
@@ -41,7 +43,7 @@ export type G2Context = {
   canvas?: Canvas;
 };
 
-export type G2Area = {
+export type G2View = {
   key?: string;
   x?: number;
   y?: number;
@@ -59,6 +61,7 @@ export type G2Area = {
 };
 
 export type G2Mark = {
+  key?: string;
   paddingLeft?: number;
   paddingRight?: number;
   paddingTop?: number;
@@ -68,7 +71,7 @@ export type G2Mark = {
   statistic?: G2StatisticOptions[];
   scale?: Record<string, G2ScaleOptions>;
   encode?: Record<string, any | G2EncodeOptions>;
-  type?: string;
+  type?: string | ((...args: any[]) => any);
   animate?: Record<string, Primitive>;
   style?: Record<string, Primitive>;
 };
@@ -101,7 +104,7 @@ export type G2TransformOptions = G2BaseComponentOptions<TransformComponent>;
 export type G2StatisticOptions = G2BaseComponentOptions<StatisticComponent>;
 export type G2EncodeOptions = G2BaseComponentOptions<EncodeComponent>;
 export type G2ThemeOptions = G2BaseComponentOptions<ThemeComponent>;
-export type G2MarkOptions = G2BaseComponentOptions<void>;
+export type G2MarkOptions = G2BaseComponentOptions<MarkComponent>;
 export type G2CoordinateOptions = G2BaseComponentOptions<CoordinateComponent>;
 export type G2ScaleOptions = G2BaseComponentOptions<
   ScaleComponent,

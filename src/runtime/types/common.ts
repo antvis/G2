@@ -15,7 +15,7 @@ export type G2Theme = {
   };
 };
 
-export type G2AreaDescriptor = {
+export type G2ViewDescriptor = {
   selection: Selection;
   scale: Record<string, Scale>;
   coordinate: Coordinate;

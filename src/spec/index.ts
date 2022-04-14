@@ -1,11 +1,12 @@
 import { Theme } from './theme';
 import { Geometry } from './geometry';
+import { View } from './composition';
 
-export type G2Spec = {
+export type Node = Geometry | View;
+export type G2Spec = Node & {
   width?: number;
   height?: number;
-  theme?: Theme;
-} & Geometry;
+};
 
 export * from './transform';
 export * from './encode';

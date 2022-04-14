@@ -1,12 +1,12 @@
 import { Coordinate } from '@antv/coord';
-import { G2Area, G2CoordinateOptions, G2Library } from './types/options';
+import { G2View, G2CoordinateOptions, G2Library } from './types/options';
 import { CoordinateComponent, CoordinateTransform } from './types/component';
 import { useLibrary } from './library';
 import { Layout } from './types/common';
 
 export function createCoordinate(
   layout: Layout,
-  partialOptions: G2Area,
+  partialOptions: G2View,
   library: G2Library,
 ): Coordinate {
   const [useCoordinate] = useLibrary<

@@ -15,7 +15,7 @@ import {
   InferredEncode,
 } from './types/component';
 import {
-  G2Area,
+  G2View,
   G2Library,
   G2Mark,
   G2ScaleOptions,
@@ -32,7 +32,7 @@ export async function initializeMark(
   partialProps: MarkProps,
   channelScale: Map<string, G2ScaleOptions>,
   theme: G2Theme,
-  options: G2Area,
+  options: G2View,
   library: G2Library,
 ): Promise<[G2Mark, MarkProps]> {
   const [useTransform] = useLibrary<

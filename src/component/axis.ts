@@ -21,8 +21,9 @@ function inferPosition(
   startPos: [number, number];
   endPos: [number, number];
   labelOffset: [number, number];
-  titlePosition: 'start' | 'end';
+  titlePosition: 'start' | 'end' | 'center';
   titleOffset: [number, number];
+  tickOffset: number;
   titleRotate: number;
   titleAlign?: 'start' | 'end' | 'center' | 'left' | 'right';
   labelAlign?: 'start' | 'end' | 'center' | 'left' | 'right';
@@ -36,26 +37,31 @@ function inferPosition(
       titlePosition: 'end',
       titleOffset: [0, 30],
       titleRotate: 0,
+      tickOffset: 0,
     };
   } else if (position === 'left' || position === 'centerHorizontal') {
     return {
       startPos: [x + width, y],
       endPos: [x + width, y + height],
       labelOffset: [0, -10],
-      titlePosition: 'start',
-      titleOffset: [0, -20],
-      titleRotate: 0,
+      titlePosition: 'center',
+      titleOffset: [-20, 0],
+      titleRotate: -90,
       titleAlign: 'end',
       labelAlign: 'end',
+      tickOffset: -5,
     };
   } else if (position === 'right') {
     return {
       startPos: [x, y],
       endPos: [x, y + height],
-      labelOffset: [0, 15],
-      titlePosition: 'start',
-      titleOffset: [0, 30],
-      titleRotate: 0,
+      labelOffset: [0, 8],
+      titlePosition: 'center',
+      titleOffset: [15, 0],
+      titleRotate: -90,
+      titleAlign: 'start',
+      labelAlign: 'start',
+      tickOffset: 0,
     };
   }
   return {
@@ -65,6 +71,7 @@ function inferPosition(
     titlePosition: 'end',
     titleOffset: [0, 30],
     titleRotate: 0,
+    tickOffset: 0,
   };
 }
 
@@ -144,6 +151,7 @@ export const Axis: GCC<AxisOptions> = (options) => {
       titleRotate,
       titleAlign,
       labelAlign,
+      tickOffset,
     } = inferPosition(position, bbox);
     const ticks = getTicks(scale, domain, position, coordinate);
     return new Linear({
@@ -166,7 +174,7 @@ export const Axis: GCC<AxisOptions> = (options) => {
         },
         tickLine: {
           len: 5,
-          offset: -5,
+          offset: tickOffset,
           style: { default: { lineWidth: 1 } },
         },
         ...(field && {

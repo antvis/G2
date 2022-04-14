@@ -1,10 +1,10 @@
 import { mapObject } from '../utils/array';
 import { Container } from '../utils/container';
 import { copyAttributes, error } from '../utils/helper';
-import { Selection, select } from '../utils/selection';
+import { Selection } from '../utils/selection';
 import {
   G2ViewTree,
-  G2Area,
+  G2View,
   G2MarkOptions,
   G2ScaleOptions,
   G2ThemeOptions,
@@ -27,7 +27,7 @@ import {
   AnimationComponent,
   Animation,
 } from './types/component';
-import { Channel, G2AreaDescriptor } from './types/common';
+import { Channel, G2ViewDescriptor } from './types/common';
 import { useLibrary } from './library';
 import { initializeMark } from './mark';
 import { inferComponent, renderComponent } from './component';
@@ -41,6 +41,86 @@ export async function plot<T extends G2ViewTree>(
   selection: Selection,
   library: G2Library,
 ): Promise<void> {
+  // Collect keys of existed views, for both of enter and update.
+  const viewKeys = [];
+
+  // Convert node to views, then plot the views and collect keys
+  // of views to viewKeys.
+  await plotNode(options, selection, viewKeys, library);
+
+  // Remove exit views.
+  // The init and update manipulations of enter and update view
+  // have been done in plotNode, so here will do nothing.
+  selection
+    .selectAll('.view')
+    .data(viewKeys, (d) => d)
+    .join(
+      (enter) => enter,
+      (update) => update,
+      (exit) => exit.remove(),
+    );
+}
+
+/**
+ * Convert node specification to view specification and plot it.
+ */
+async function plotNode<T extends G2ViewTree>(
+  options: T,
+  selection: Selection,
+  keys: string[],
+  library: G2Library,
+): Promise<void> {
+  const marks = new Set(
+    Object.keys(library)
+      .filter((d) => d.startsWith('mark'))
+      .map((d) => d.split('.').pop()),
+  );
+  const { type } = options;
+  if (type === 'view') {
+    // If node specification is already view, just change children to marks.
+    const { children = [] } = options;
+    const view = { ...options, marks: children };
+    keys.push(view.key);
+    plotView(view, selection, library);
+  } else if (typeof type === 'string' && marks.has(type)) {
+    // Convert mark specification to a view specification.
+    // Mark specification can be treated as syntax surger for view specification.
+    const view = fromMark(options);
+    keys.push(view.key);
+    plotView(view, selection, library);
+  } else {
+    // todo
+  }
+}
+
+async function plotView(
+  options: G2View,
+  selection: Selection,
+  library: G2Library,
+): Promise<void> {
+  const { key } = options;
+  // Find container of current plot by key.
+  const chart = selection.select(`#${key}`);
+  if (chart.node() !== null) {
+    updateView(options, chart, library);
+  } else {
+    // If the container of current view is not exist,
+    // that means it's the first time for it to render.
+    // In this case, create container for it, bind key and apply interaction.
+    const chart = selection
+      .append('g')
+      .attr('className', 'view')
+      .attr('id', key)
+      .attr('__data__', key);
+    const view = await updateView(options, chart, library);
+    const update = (updater = (d: G2View) => d) => {
+      plotView(updater(options), selection, library);
+    };
+    applyInteraction(options, view, update, library);
+  }
+}
+
+function fromMark<T extends G2ViewTree>(options: T): G2View {
   const {
     width,
     height,
@@ -53,13 +133,16 @@ export async function plot<T extends G2ViewTree>(
     theme,
     component,
     interaction,
+    x,
+    y,
+    key,
     ...mark
   } = options;
-
-  const areaOptions = {
-    key: '0',
-    x: 0,
-    y: 0,
+  const markKey = mark.key || `${key}-0`;
+  return {
+    x,
+    y,
+    key,
     width,
     height,
     paddingLeft,
@@ -70,37 +153,15 @@ export async function plot<T extends G2ViewTree>(
     coordinate,
     component,
     interaction,
-    marks: [{ data, ...mark }],
+    marks: [{ ...mark, key: markKey, data }],
   };
-
-  selection
-    .selectAll('.chart')
-    .data([areaOptions], (d) => d.key)
-    .join(
-      (enter) =>
-        enter
-          .append('g')
-          .attr('className', 'chart')
-          .each(async function (areaOptions) {
-            const area = await plotArea(areaOptions, select(this), library);
-            const update = (updater = (d: T) => d) => {
-              plot(updater(options), selection, library);
-            };
-            // Only apply interaction for the first time.
-            applyInteraction(areaOptions, area, update, library);
-          }),
-      (update) =>
-        update.each(function (options) {
-          plotArea(options, select(this), library);
-        }),
-    );
 }
 
-async function plotArea(
-  options: G2Area,
+async function updateView(
+  options: G2View,
   selection: Selection,
   library: G2Library,
-): Promise<G2AreaDescriptor> {
+): Promise<G2ViewDescriptor> {
   const [useTheme] = useLibrary<G2ThemeOptions, ThemeComponent, Theme>(
     'theme',
     library,
@@ -186,6 +247,8 @@ async function plotArea(
   // Main layer is for showing the main visual representation such as marks.
   // Selection layer is for showing selected marks.
   // Transient layer is for showing transient graphical elements produced by interaction.
+  // There may be multiple main layers for a view, each main layer correspond to one of
+  // marks. While there is only one selection layer and transient layer for a view.
   selection
     .selectAll('.plot')
     .data([layout], () => key)
@@ -194,18 +257,18 @@ async function plotArea(
         const rect = enter
           .append('rect')
           .attr('className', 'plot')
-          .call(applyDimension);
-        rect.append('g').attr('className', 'main');
+          .call(applyDimension)
+          .call(updateMainLayers, markProps);
         rect.append('g').attr('className', 'selection');
         rect.append('g').attr('className', 'transient');
         return rect;
       },
-      (update) => update.call(applyDimension),
+      (update) => update.call(applyDimension).call(updateMainLayers, markProps),
     );
 
   // Render marks with corresponding props.
   for (const [mark, props] of markProps.entries()) {
-    const { scale: scaleDescriptor, style = {}, animate = {} } = mark;
+    const { scale: scaleDescriptor, style = {}, animate = {}, key } = mark;
     const { index, channels, defaultShape } = props;
     const scale = mapObject(scaleDescriptor, useScale);
     const value = Container.of<MarkChannel>(channels)
@@ -224,7 +287,7 @@ async function plotArea(
     );
 
     selection
-      .select('.main')
+      .select(`#${key}`)
       .selectAll('.element')
       .data(data, (d) => d.key)
       .join(
@@ -270,6 +333,28 @@ function applyDimension(selection: Selection) {
     .style('y', (d) => d.y + d.paddingTop)
     .style('width', (d) => d.innerWidth)
     .style('height', (d) => d.innerHeight);
+}
+
+function updateMainLayers(
+  selection: Selection,
+  markProps: Map<G2Mark, MarkProps>,
+) {
+  const markKeys = Array.from(markProps.keys()).map((d) => d.key);
+
+  // Create and update layer for each mark.
+  // All the layers created here are treated as main layers.
+  selection
+    .selectAll('.main')
+    .data(markKeys)
+    .join(
+      (enter) =>
+        enter
+          .append('g')
+          .attr('className', 'main')
+          .attr('id', (d) => d),
+      (update) => update,
+      (exit) => exit.remove(),
+    );
 }
 
 function applyAnimationFunction(
