@@ -3,20 +3,18 @@ import { createDiv, mount } from '../../utils/dom';
 
 describe('point', () => {
   it('render({...}) should render marks with same scales', () => {
-    const data = [
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
-    ];
-
     const chart = render<G2Spec>({
       type: 'view',
+      data: [
+        { genre: 'Sports', sold: 275 },
+        { genre: 'Strategy', sold: 115 },
+        { genre: 'Action', sold: 120 },
+        { genre: 'Shooter', sold: 350 },
+        { genre: 'Other', sold: 150 },
+      ],
       children: [
         {
           type: 'interval',
-          data,
           encode: {
             x: 'genre',
             y: 'sold',
@@ -25,7 +23,6 @@ describe('point', () => {
         },
         {
           type: 'text',
-          data,
           encode: {
             x: 'genre',
             y: 'sold',
@@ -72,10 +69,11 @@ describe('point', () => {
     ];
     const chart = render<G2Spec>({
       type: 'view',
+      data,
       children: [
         {
           type: 'line',
-          data: data,
+          data,
           encode: {
             x: 'month',
             y: 'temperature',
@@ -84,7 +82,7 @@ describe('point', () => {
         },
         {
           type: 'point',
-          data: data,
+          data,
           encode: {
             x: 'month',
             y: 'temperature',
@@ -98,24 +96,22 @@ describe('point', () => {
   });
 
   it('render({...}) should render view with axis in same position', () => {
-    const data = [
-      { year: '1991', value: 3, count: 10 },
-      { year: '1992', value: 4, count: 4 },
-      { year: '1993', value: 3.5, count: 5 },
-      { year: '1994', value: 5, count: 5 },
-      { year: '1995', value: 4.9, count: 4.9 },
-      { year: '1996', value: 6, count: 35 },
-      { year: '1997', value: 7, count: 7 },
-      { year: '1998', value: 9, count: 1 },
-      { year: '1999', value: 13, count: 20 },
-    ];
-
     const chart = render<G2Spec>({
       type: 'view',
+      data: [
+        { year: '1991', value: 3, count: 10 },
+        { year: '1992', value: 4, count: 4 },
+        { year: '1993', value: 3.5, count: 5 },
+        { year: '1994', value: 5, count: 5 },
+        { year: '1995', value: 4.9, count: 4.9 },
+        { year: '1996', value: 6, count: 35 },
+        { year: '1997', value: 7, count: 7 },
+        { year: '1998', value: 9, count: 1 },
+        { year: '1999', value: 13, count: 20 },
+      ],
       children: [
         {
           type: 'line',
-          data: data,
           scale: {
             color: {
               domain: ['value', 'count'],
@@ -130,7 +126,6 @@ describe('point', () => {
         },
         {
           type: 'line',
-          data: data,
           scale: {
             y: {
               independent: true,
@@ -149,20 +144,18 @@ describe('point', () => {
   });
 
   it('render({...}) should render view with axis in different position', () => {
-    const data = [
-      { time: '2019-03', value: 350, count: 800 },
-      { time: '2019-04', value: 900, count: 600 },
-      { time: '2019-05', value: 300, count: 400 },
-      { time: '2019-06', value: 450, count: 380 },
-      { time: '2019-07', value: 470, count: 220 },
-    ];
-
     const chart = render<G2Spec>({
       type: 'view',
+      data: [
+        { time: '2019-03', value: 350, count: 800 },
+        { time: '2019-04', value: 900, count: 600 },
+        { time: '2019-05', value: 300, count: 400 },
+        { time: '2019-06', value: 450, count: 380 },
+        { time: '2019-07', value: 470, count: 220 },
+      ],
       children: [
         {
           type: 'interval',
-          data: data,
           scale: {
             color: {
               domain: ['value', 'count'],
@@ -177,7 +170,6 @@ describe('point', () => {
         },
         {
           type: 'line',
-          data: data,
           scale: {
             y: {
               independent: true,
@@ -201,24 +193,22 @@ describe('point', () => {
   });
 
   it('render({...}) should render series intervals with different scales', () => {
-    const data = [
-      { year: '1991', value: 3, count: 10 },
-      { year: '1992', value: 4, count: 4 },
-      { year: '1993', value: 3.5, count: 5 },
-      { year: '1994', value: 5, count: 5 },
-      { year: '1995', value: 4.9, count: 4.9 },
-      { year: '1996', value: 6, count: 35 },
-      { year: '1997', value: 7, count: 7 },
-      { year: '1998', value: 9, count: 1 },
-      { year: '1999', value: 13, count: 20 },
-    ];
-
     const chart = render<G2Spec>({
       type: 'view',
+      data: [
+        { year: '1991', value: 3, count: 10 },
+        { year: '1992', value: 4, count: 4 },
+        { year: '1993', value: 3.5, count: 5 },
+        { year: '1994', value: 5, count: 5 },
+        { year: '1995', value: 4.9, count: 4.9 },
+        { year: '1996', value: 6, count: 35 },
+        { year: '1997', value: 7, count: 7 },
+        { year: '1998', value: 9, count: 1 },
+        { year: '1999', value: 13, count: 20 },
+      ],
       children: [
         {
           type: 'interval',
-          data: data,
           scale: {
             color: {
               domain: ['value', 'count'],
@@ -237,7 +227,6 @@ describe('point', () => {
         },
         {
           type: 'interval',
-          data: data,
           scale: {
             y: {
               independent: true,

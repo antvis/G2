@@ -5,6 +5,7 @@ import { Interaction } from './interaction';
 
 export type View = {
   type?: 'view';
+  data?: any;
   key?: string;
   paddingLeft?: number;
   paddingRight?: number;

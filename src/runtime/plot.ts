@@ -78,8 +78,7 @@ async function plotNode<T extends G2ViewTree>(
   const { type } = options;
   if (type === 'view') {
     // If node specification is already view, just change children to marks.
-    const { children = [] } = options;
-    const view = { ...options, marks: children };
+    const view = fromView(options);
     keys.push(view.key);
     plotView(view, selection, library);
   } else if (typeof type === 'string' && marks.has(type)) {
@@ -155,6 +154,15 @@ function fromMark<T extends G2ViewTree>(options: T): G2View {
     interaction,
     marks: [{ ...mark, key: markKey, data }],
   };
+}
+
+function fromView<T extends G2ViewTree>(options: T): G2View {
+  const { children = [], data: viewData } = options;
+  const marks = children.map(({ data = viewData, ...rest }) => ({
+    data,
+    ...rest,
+  }));
+  return { ...options, marks };
 }
 
 async function updateView(

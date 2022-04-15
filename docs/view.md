@@ -9,50 +9,47 @@
 ## Interval with Text
 
 ```js | dom
-(() => {
-  const data = [
+G2.render({
+  type: 'view',
+  data: [
     { genre: 'Sports', sold: 275 },
     { genre: 'Strategy', sold: 115 },
     { genre: 'Action', sold: 120 },
     { genre: 'Shooter', sold: 350 },
     { genre: 'Other', sold: 150 },
-  ];
-  return G2.render({
-    type: 'view',
-    children: [
-      {
-        type: 'interval',
-        data,
-        encode: {
-          x: 'genre',
-          y: 'sold',
-          color: 'genre',
-        },
+  ],
+  children: [
+    {
+      type: 'interval',
+      encode: {
+        x: 'genre',
+        y: 'sold',
+        color: 'genre',
       },
-      {
-        type: 'text',
-        data,
-        encode: {
-          x: 'genre',
-          y: 'sold',
-          text: 'sold',
-        },
-        style: {
-          fill: 'black',
-          textAlign: 'center',
-          dy: -5,
-        },
+    },
+    {
+      type: 'text',
+      encode: {
+        x: 'genre',
+        y: 'sold',
+        text: 'sold',
       },
-    ],
-  });
-})();
+      style: {
+        fill: 'black',
+        textAlign: 'center',
+        dy: -5,
+      },
+    },
+  ],
+});
 ```
 
 ## Line with Point
 
 ```js | dom
-(() => {
-  const data = [
+G2.render({
+  type: 'view',
+  data: [
     { month: 'Jan', city: 'Tokyo', temperature: 7 },
     { month: 'Jan', city: 'London', temperature: 3.9 },
     { month: 'Feb', city: 'Tokyo', temperature: 6.9 },
@@ -77,38 +74,34 @@
     { month: 'Nov', city: 'London', temperature: 6.6 },
     { month: 'Dec', city: 'Tokyo', temperature: 9.6 },
     { month: 'Dec', city: 'London', temperature: 4.8 },
-  ];
-  return G2.render({
-    type: 'view',
-    children: [
-      {
-        type: 'line',
-        data: data,
-        encode: {
-          x: 'month',
-          y: 'temperature',
-          color: 'city',
-        },
+  ],
+  children: [
+    {
+      type: 'line',
+      encode: {
+        x: 'month',
+        y: 'temperature',
+        color: 'city',
       },
-      {
-        type: 'point',
-        data: data,
-        encode: {
-          x: 'month',
-          y: 'temperature',
-          color: 'city',
-        },
+    },
+    {
+      type: 'point',
+      encode: {
+        x: 'month',
+        y: 'temperature',
+        color: 'city',
       },
-    ],
-  });
-})();
+    },
+  ],
+});
 ```
 
 ## Same Side Axes
 
 ```js | dom
-(() => {
-  const data = [
+G2.render({
+  type: 'view',
+  data: [
     { year: '1991', value: 3, count: 10 },
     { year: '1992', value: 4, count: 4 },
     { year: '1993', value: 3.5, count: 5 },
@@ -118,102 +111,94 @@
     { year: '1997', value: 7, count: 7 },
     { year: '1998', value: 9, count: 1 },
     { year: '1999', value: 13, count: 20 },
-  ];
-  return G2.render({
-    type: 'view',
-    children: [
-      {
-        type: 'line',
-        data: data,
-        scale: {
-          color: {
-            domain: ['value', 'count'],
-            range: ['#5B8FF9', '#5AD8A6'],
-          },
-        },
-        encode: {
-          x: 'year',
-          y: 'value',
-          color: () => 'value',
+  ],
+  children: [
+    {
+      type: 'line',
+      scale: {
+        color: {
+          domain: ['value', 'count'],
+          range: ['#5B8FF9', '#5AD8A6'],
         },
       },
-      {
-        type: 'line',
-        data: data,
-        scale: {
-          y: {
-            independent: true,
-          },
-        },
-        encode: {
-          x: 'year',
-          y: 'count',
-          color: () => 'count',
+      encode: {
+        x: 'year',
+        y: 'value',
+        color: () => 'value',
+      },
+    },
+    {
+      type: 'line',
+      scale: {
+        y: {
+          independent: true,
         },
       },
-    ],
-  });
-})();
+      encode: {
+        x: 'year',
+        y: 'count',
+        color: () => 'count',
+      },
+    },
+  ],
+});
 ```
 
 ## Different Side Axes
 
 ```js | dom
-(() => {
-  const data = [
+G2.render({
+  type: 'view',
+  data: [
     { time: '2019-03', value: 350, count: 800 },
     { time: '2019-04', value: 900, count: 600 },
     { time: '2019-05', value: 300, count: 400 },
     { time: '2019-06', value: 450, count: 380 },
     { time: '2019-07', value: 470, count: 220 },
-  ];
-  return G2.render({
-    type: 'view',
-    children: [
-      {
-        type: 'interval',
-        data: data,
-        scale: {
-          color: {
-            domain: ['value', 'count'],
-            range: ['#5B8FF9', '#5AD8A6'],
-          },
-        },
-        encode: {
-          x: 'time',
-          y: 'value',
-          color: () => 'value',
+  ],
+  children: [
+    {
+      type: 'interval',
+      scale: {
+        color: {
+          domain: ['value', 'count'],
+          range: ['#5B8FF9', '#5AD8A6'],
         },
       },
-      {
-        type: 'line',
-        data: data,
-        scale: {
-          y: {
-            independent: true,
-            guide: { position: 'right' },
-          },
-          x: {
-            independent: true,
-            guide: null,
-          },
+      encode: {
+        x: 'time',
+        y: 'value',
+        color: () => 'value',
+      },
+    },
+    {
+      type: 'line',
+      scale: {
+        y: {
+          independent: true,
+          guide: { position: 'right' },
         },
-        encode: {
-          x: 'time',
-          y: 'count',
-          color: () => 'count',
+        x: {
+          independent: true,
+          guide: null,
         },
       },
-    ],
-  });
-})();
+      encode: {
+        x: 'time',
+        y: 'count',
+        color: () => 'count',
+      },
+    },
+  ],
+});
 ```
 
 ## Double Intervals
 
 ```js | dom
-(() => {
-  const data = [
+G2.render({
+  type: 'view',
+  data: [
     { year: '1991', value: 3, count: 10 },
     { year: '1992', value: 4, count: 4 },
     { year: '1993', value: 3.5, count: 5 },
@@ -223,46 +208,41 @@
     { year: '1997', value: 7, count: 7 },
     { year: '1998', value: 9, count: 1 },
     { year: '1999', value: 13, count: 20 },
-  ];
-  return G2.render({
-    type: 'view',
-    children: [
-      {
-        type: 'interval',
-        data: data,
-        scale: {
-          color: {
-            domain: ['value', 'count'],
-            range: ['#5B8FF9', '#5AD8A6'],
-          },
-          series: {
-            domain: ['value', 'count'],
-          },
+  ],
+  children: [
+    {
+      type: 'interval',
+      scale: {
+        color: {
+          domain: ['value', 'count'],
+          range: ['#5B8FF9', '#5AD8A6'],
         },
-        encode: {
-          x: 'year',
-          y: 'value',
-          color: () => 'value',
-          series: () => 'value',
+        series: {
+          domain: ['value', 'count'],
         },
       },
-      {
-        type: 'interval',
-        data: data,
-        scale: {
-          y: {
-            independent: true,
-            guide: { position: 'right' },
-          },
-        },
-        encode: {
-          x: 'year',
-          y: 'count',
-          color: () => 'count',
-          series: () => 'count',
+      encode: {
+        x: 'year',
+        y: 'value',
+        color: () => 'value',
+        series: () => 'value',
+      },
+    },
+    {
+      type: 'interval',
+      scale: {
+        y: {
+          independent: true,
+          guide: { position: 'right' },
         },
       },
-    ],
-  });
-})();
+      encode: {
+        x: 'year',
+        y: 'count',
+        color: () => 'count',
+        series: () => 'count',
+      },
+    },
+  ],
+});
 ```
