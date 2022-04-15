@@ -67,6 +67,7 @@ import {
   Plot,
 } from '../action';
 import { MousePosition, TouchPosition } from '../interactor';
+import { Layer, Flex } from '../composition';
 
 export function createLibrary(): G2Library {
   return {
@@ -140,5 +141,7 @@ export function createLibrary(): G2Library {
     'action.plot': Plot,
     'interactor.mousePosition': MousePosition,
     'interactor.touchPosition': TouchPosition,
+    'composition.layer': Layer,
+    'composition.flex': Flex,
   };
 }

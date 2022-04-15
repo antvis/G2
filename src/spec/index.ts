@@ -1,8 +1,5 @@
-import { Theme } from './theme';
-import { Geometry } from './geometry';
-import { View } from './composition';
+import { Node } from './composition';
 
-export type Node = Geometry | View;
 export type G2Spec = Node & {
   width?: number;
   height?: number;
@@ -18,3 +15,4 @@ export * from './geometry';
 export * from './animate';
 export * from './interaction';
 export * from './action';
+export * from './composition';

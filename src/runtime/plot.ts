@@ -12,6 +12,7 @@ import {
   G2Library,
   G2ShapeOptions,
   G2AnimationOptions,
+  G2CompositionOptions,
 } from './types/options';
 import {
   ThemeComponent,
@@ -26,6 +27,8 @@ import {
   ShapeComponent,
   AnimationComponent,
   Animation,
+  CompositionComponent,
+  Composition,
 } from './types/component';
 import { Channel, G2ViewDescriptor } from './types/common';
 import { useLibrary } from './library';
@@ -70,6 +73,12 @@ async function plotNode<T extends G2ViewTree>(
   keys: string[],
   library: G2Library,
 ): Promise<void> {
+  const [useComposition] = useLibrary<
+    G2CompositionOptions,
+    CompositionComponent,
+    Composition
+  >('composition', library);
+
   const marks = new Set(
     Object.keys(library)
       .filter((d) => d.startsWith('mark'))
@@ -77,18 +86,19 @@ async function plotNode<T extends G2ViewTree>(
   );
   const { type } = options;
   if (type === 'view') {
-    // If node specification is already view, just change children to marks.
     const view = fromView(options);
     keys.push(view.key);
     plotView(view, selection, library);
   } else if (typeof type === 'string' && marks.has(type)) {
-    // Convert mark specification to a view specification.
-    // Mark specification can be treated as syntax surger for view specification.
     const view = fromMark(options);
     keys.push(view.key);
     plotView(view, selection, library);
   } else {
-    // todo
+    const composition = useComposition({ type });
+    const views = composition(options);
+    for (const view of views) {
+      plotNode(view, selection, keys, library);
+    }
   }
 }
 
@@ -119,6 +129,10 @@ async function plotView(
   }
 }
 
+/**
+ * Convert mark specification to a view specification.
+ * Mark specification can be treated as syntax surger for view specification.
+ */
 function fromMark<T extends G2ViewTree>(options: T): G2View {
   const {
     width,
