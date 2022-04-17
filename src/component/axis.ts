@@ -20,12 +20,11 @@ function inferPosition(
 ): {
   startPos: [number, number];
   endPos: [number, number];
-  labelOffset: [number, number];
+  labelOffset: number;
   titlePosition: 'start' | 'end' | 'center';
-  titleOffset: [number, number];
-  tickOffset: number;
+  titlePadding: number;
   titleRotate: number;
-  titleAlign?: 'start' | 'end' | 'center' | 'left' | 'right';
+  verticalFactor: 1 | -1;
   labelAlign?: 'start' | 'end' | 'center' | 'left' | 'right';
 } {
   const { x, y, width, height } = bbox;
@@ -33,45 +32,43 @@ function inferPosition(
     return {
       startPos: [x, y],
       endPos: [x + width, y],
-      labelOffset: [0, 15],
+      labelOffset: 8,
       titlePosition: 'end',
-      titleOffset: [0, 30],
+      titlePadding: 2,
       titleRotate: 0,
-      tickOffset: 0,
+      verticalFactor: 1,
     };
   } else if (position === 'left' || position === 'centerHorizontal') {
     return {
       startPos: [x + width, y],
       endPos: [x + width, y + height],
-      labelOffset: [0, -10],
       titlePosition: 'center',
-      titleOffset: [-20, 0],
+      titlePadding: 6,
       titleRotate: -90,
-      titleAlign: 'end',
       labelAlign: 'end',
-      tickOffset: -5,
+      labelOffset: 4,
+      verticalFactor: -1,
     };
   } else if (position === 'right') {
     return {
       startPos: [x, y],
       endPos: [x, y + height],
-      labelOffset: [0, 8],
       titlePosition: 'center',
-      titleOffset: [15, 0],
+      titlePadding: 16,
       titleRotate: -90,
-      titleAlign: 'start',
       labelAlign: 'start',
-      tickOffset: 0,
+      labelOffset: 4,
+      verticalFactor: 1,
     };
   }
   return {
     startPos: [x, y + height],
     endPos: [x + width, y + height],
-    labelOffset: [0, -15],
     titlePosition: 'end',
-    titleOffset: [0, 30],
+    titlePadding: 2,
     titleRotate: 0,
-    tickOffset: 0,
+    labelOffset: 4,
+    verticalFactor: -1,
   };
 }
 
@@ -147,25 +144,21 @@ export const Axis: GCC<AxisOptions> = (options) => {
       endPos,
       labelOffset,
       titlePosition,
-      titleOffset,
+      titlePadding,
       titleRotate,
-      titleAlign,
       labelAlign,
-      tickOffset,
+      verticalFactor,
     } = inferPosition(position, bbox);
     const ticks = getTicks(scale, domain, position, coordinate);
-    return new Linear({
+    const axis = new Linear({
       style: {
         startPos,
         endPos,
+        verticalFactor,
         ticks,
         label: {
-          offset: labelOffset,
-          style: {
-            default: {
-              textAlign: labelAlign,
-            },
-          },
+          tickPadding: labelOffset,
+          style: {},
         },
         axisLine: {
           style: {
@@ -174,22 +167,20 @@ export const Axis: GCC<AxisOptions> = (options) => {
         },
         tickLine: {
           len: 5,
-          offset: tickOffset,
-          style: { default: { lineWidth: 1 } },
+          style: { lineWidth: 1 },
         },
         ...(field && {
           title: {
             content: Array.isArray(field) ? field[0] : field,
-            position: scale.getTicks ? titlePosition : 'center',
-            style: {
-              textAlign: titleAlign,
-            },
-            offset: titleOffset,
-            rotate: titleRotate,
+            titleAnchor: scale.getTicks ? titlePosition : 'center',
+            style: {},
+            titlePadding,
+            rotation: titleRotate,
           },
         }),
       },
     });
+    return axis;
   };
 };
 
