@@ -2,7 +2,7 @@ import { throttle } from '@antv/util';
 import { group } from 'd3-array';
 import { composeAsync } from '../utils/helper';
 import {
-  G2Area,
+  G2View,
   G2Library,
   G2ActionOptions,
   G2InteractionOptions,
@@ -16,12 +16,12 @@ import {
   InteractorComponent,
   Interactor,
 } from './types/component';
-import { MaybeArray, G2AreaDescriptor } from './types/common';
+import { MaybeArray, G2ViewDescriptor } from './types/common';
 import { useLibrary } from './library';
 
 export function applyInteraction(
-  options: G2Area,
-  area: G2AreaDescriptor,
+  options: G2View,
+  view: G2ViewDescriptor,
   update: any,
   library: G2Library,
 ) {
@@ -42,7 +42,7 @@ export function applyInteraction(
 
   const { interaction: partialInteraction = [] } = options;
   const interactions = inferInteraction(partialInteraction);
-  const { scale, selection, coordinate, theme } = area;
+  const { scale, selection, coordinate, theme } = view;
 
   for (const options of interactions) {
     const {

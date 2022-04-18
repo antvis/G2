@@ -11,9 +11,10 @@ export const FisheyeFocus: AC<FisheyeFocusOptions> = (options) => {
     const { offsetX, offsetY } = event;
     const mainLayer = selection.select('.main').node();
     const bbox = mainLayer.getBounds();
-    const { min, max } = bbox;
-    const [x, y] = min;
-    const [x1, y1] = max;
+    const {
+      min: [x, y],
+      max: [x1, y1],
+    } = bbox;
 
     // Skip if mouse position is out of plot area.
     const isOutX = offsetX < x || offsetX > x1;

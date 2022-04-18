@@ -88,7 +88,7 @@ export class Selection<T = any> {
       typeof selector === 'string'
         ? this._parent.querySelectorAll<G2Element>(selector)[0] || null
         : selector;
-    return new Selection<T>([element], null, this._elements[0], this._document);
+    return new Selection<T>([element], null, element, this._document);
   }
 
   append(node: string | ((data: T, i: number) => G2Element)): Selection<T> {

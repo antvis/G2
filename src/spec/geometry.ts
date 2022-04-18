@@ -6,6 +6,7 @@ import { Coordinate } from './coordinate';
 import { Statistic } from './statistic';
 import { Animation } from './animate';
 import { Interaction } from './interaction';
+import { Theme } from './theme';
 
 export type Geometry =
   | IntervalGeometry
@@ -52,6 +53,7 @@ export type BaseGeometry<
   statistic?: Statistic[];
   style?: Record<string, any>;
   interaction?: Interaction[];
+  theme?: Theme;
   animate?: {
     enter?: Animation;
   };

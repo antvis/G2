@@ -59,6 +59,7 @@ export const Tooltip: AC<TooltipOptions> = () => {
         (enter) =>
           enter
             .append(() => {
+              // Find the first of main layers.
               const mainLayer = selection.select('.main').node();
               const container = getContainer(mainLayer);
               const { x, y, width, height } = coordinate.getOptions();

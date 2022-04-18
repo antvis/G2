@@ -7,15 +7,15 @@ import {
   Layout,
   SectionArea,
 } from './types/common';
-import { G2Area, G2GuideComponentOptions } from './types/options';
+import { G2View, G2GuideComponentOptions } from './types/options';
 
 export function computeLayout(
   components: G2GuideComponentOptions[],
-  options: G2Area,
+  options: G2View,
 ): Layout {
   const padding = computePadding(components, options);
   const { paddingLeft, paddingRight, paddingTop, paddingBottom } = padding;
-  const { width, height, x, y } = options;
+  const { width, height, x = 0, y = 0 } = options;
   return {
     ...padding,
     width,
@@ -27,9 +27,12 @@ export function computeLayout(
   };
 }
 
+/**
+ * @todo Support percentage size(e.g. 50%)
+ */
 function computePadding(
   components: G2GuideComponentOptions[],
-  options: G2Area,
+  options: G2View,
 ) {
   const positions: GuideComponentPosition[] = [
     'left',
@@ -79,7 +82,7 @@ export function placeComponents(
 
   const section: Section = {
     top: [pl, 0, innerWidth, pt, 0, true, descending],
-    right: [width - pr, 0, pr, innerHeight, 1, false, ascending],
+    right: [width - pr, pt, pr, innerHeight, 1, false, ascending],
     bottom: [pl, height - pb, innerWidth, pb, 0, false, ascending],
     left: [0, pt, pl, innerHeight, 1, true, descending],
     centerHorizontal: [pl, pt, innerWidth, innerHeight, -1, null, null],

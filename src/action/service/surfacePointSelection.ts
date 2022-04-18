@@ -11,10 +11,9 @@ export const SurfacePointSelection: AC<SurfacePointSelectionOptions> = () => {
     const { event, shared } = context;
     const { target, offsetX, offsetY } = event;
     const { className } = target || {};
-
     // @todo Replace with elementsFromPoint.
     // Currently is not support in @antv/g.
-    if (className && className.endsWith('element')) {
+    if (className && className.includes('element')) {
       shared.selectedElements = [target];
       shared.mouseX = offsetX;
       shared.mouseY = offsetY;

@@ -11,9 +11,9 @@ import {
   MaybeArray,
   Vector2,
   GuideComponentPosition,
-  G2AreaDescriptor,
+  G2ViewDescriptor,
 } from './common';
-import { G2Area } from './options';
+import { G2View, G2ViewTree } from './options';
 
 export type G2ComponentNamespaces =
   | 'renderer'
@@ -32,7 +32,8 @@ export type G2ComponentNamespaces =
   | 'animation'
   | 'action'
   | 'interaction'
-  | 'interactor';
+  | 'interactor'
+  | 'composition';
 
 export type G2Component =
   | RendererComponent
@@ -49,7 +50,8 @@ export type G2Component =
   | AnimationComponent
   | ActionComponent
   | InteractionComponent
-  | InteractorComponent;
+  | InteractorComponent
+  | CompositionComponent;
 
 export type G2ComponentValue =
   | Renderer
@@ -67,7 +69,8 @@ export type G2ComponentValue =
   | Animation
   | Action
   | Interaction
-  | Interactor;
+  | Interactor
+  | Composition;
 
 export type G2BaseComponent<
   R = any,
@@ -241,9 +244,9 @@ export type G2Event = Omit<Event, 'target'> & {
 };
 export type ActionContext = {
   event: G2Event;
-  update: (updater: (options: G2Area) => G2Area) => void;
+  update: (updater: (options: G2View) => G2View) => void;
   shared: Record<string, any>;
-} & G2AreaDescriptor;
+} & G2ViewDescriptor;
 export type Action = (options: ActionContext) => ActionContext;
 export type ActionComponent<O = Record<string, unknown>> = G2BaseComponent<
   Action,
@@ -256,5 +259,11 @@ export type Interactor = {
 };
 export type InteractorComponent<O = Record<string, unknown>> = G2BaseComponent<
   Interactor,
+  O
+>;
+
+export type Composition = (children: G2ViewTree) => G2ViewTree[];
+export type CompositionComponent<O = Record<string, unknown>> = G2BaseComponent<
+  Composition,
   O
 >;

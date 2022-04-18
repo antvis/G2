@@ -335,10 +335,6 @@ function syncScale(
 }
 
 /**
- * Quantitative scale and identity scale is compatible for each other and identity scale has higher priority.
- * This is useful for enterDelay and enterDuration to know whether they are constant or field channel.
- * If any of them is identity scale, it means one of them is specified as constant channel in encode options.
- * In this case, assume all of them are identity scales.
  * @todo Take more quantitative scales besides linear(e.g. log, time, pow) into account.
  */
 function maybeCompatible(
@@ -346,11 +342,16 @@ function maybeCompatible(
   source: string,
   channel: string,
 ): string | never {
-  if (
-    (target === 'linear' && source === 'identity') ||
-    (source === 'identity' && target === 'linear')
-  ) {
+  if (oneOf(target, source, 'linear', 'identity')) {
+    // Quantitative scale and identity scale is compatible for each other and identity scale has higher priority.
+    // This is useful for enterDelay and enterDuration to know whether they are constant or field channel.
+    // If any of them is identity scale, it means one of them is specified as constant channel in encode options.
+    // In this case, assume all of them are identity scales.
     return 'identity';
+  } else if (oneOf(target, source, 'band', 'point')) {
+    // Band scale and point scale is compatible, because they have same type of domain and range.
+    // The only difference is the method to compute interval between points.
+    return 'band';
   } else if (target !== source) {
     throw new Error(
       `Incompatible scale type: ${target} !== ${source} for channel: ${channel}`,
@@ -358,6 +359,10 @@ function maybeCompatible(
   } else {
     return target;
   }
+}
+
+function oneOf(a: string, b: string, m: string, n: string) {
+  return (a === m && b === n) || (a === n && b === m);
 }
 
 function syncDomain(type: string, target: any[], source: any[]): any[] {
