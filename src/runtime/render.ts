@@ -9,14 +9,15 @@ import { plot } from './plot';
  * Infer key for each node of view tree.
  * Each key should be unique in the entire view tree.
  * The key is for incremental render when view tree is changed.
+ * @todo Fix custom key equals to inferred key.
  */
 function inferKeys<T extends G2ViewTree = G2ViewTree>(options: T): T {
   const root = deepMix({}, options);
   const nodeParent = new Map<T, T>([[root, null]]);
   const nodeIndex = new Map<T, number>([[null, -1]]);
-  const visited = [root];
-  while (visited.length) {
-    const node = visited.pop();
+  const discovered = [root];
+  while (discovered.length) {
+    const node = discovered.pop();
     // If key of node is not specified, using parentKey and the index for it
     // in parent.children as its key.
     // e.g. The key of node named 'a' will be 'a', and the key of node named
@@ -33,7 +34,7 @@ function inferKeys<T extends G2ViewTree = G2ViewTree>(options: T): T {
       const child = children[i];
       nodeParent.set(child, node);
       nodeIndex.set(child, i);
-      visited.push(child);
+      discovered.push(child);
     }
   }
   return root;
@@ -61,9 +62,10 @@ export function render<T extends G2ViewTree = G2ViewTree>(
   // Plot the chart and mutate context.
   // Using requestAnimationFrame to make sure that plot chart after mounting container.
   const selection = select(canvas.document.documentElement);
-  requestAnimationFrame(() =>
-    plot<T>({ ...keyed, width, height }, selection, library).then(callback),
-  );
+  requestAnimationFrame(async () => {
+    await plot<T>({ ...keyed, width, height }, selection, library);
+    callback();
+  });
 
   // Return the container HTML element wraps the canvas or svg element.
   return normalizeContainer(canvas.getConfig().container);
