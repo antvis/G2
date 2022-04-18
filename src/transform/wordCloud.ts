@@ -2,7 +2,7 @@ import { min, max } from 'd3-array';
 import { TransformComponent as TC } from '../runtime';
 import { WordCloudTransform } from '../spec';
 import { tagCloud } from './utils/d3-cloud';
-import { useMemoTransform } from './utils/memo';
+import { useAsyncMemoTransform } from './utils/memo';
 import { flow } from './utils/flow';
 
 export type WordCloudOptions = Omit<WordCloudTransform, 'type'>;
@@ -10,69 +10,6 @@ export type WordCloudOptions = Omit<WordCloudTransform, 'type'>;
 const DEFAULT_OPTIONS: Partial<WordCloudOptions> = {
   size: [500, 500],
   fontSize: [14, 28],
-};
-
-export const WordCloud: TC<WordCloudOptions> = (options) => {
-  return useMemoTransform(
-    async (data) => {
-      const cloudOptions = Object.assign({}, DEFAULT_OPTIONS, options);
-      const layout = tagCloud();
-
-      await flow(layout, cloudOptions)
-        .set('fontSize', (v) => {
-          const arr = data.map((d) => d.value);
-          return normalizeFontSize(v, [min(arr) as any, max(arr) as any]);
-        })
-        .set('font')
-        .set('fontStyle')
-        .set('fontWeight')
-        .set('padding')
-        .set('rotate')
-        .set('size')
-        .set('spiral')
-        .set('timeInterval')
-        .set('random')
-        .set('text')
-        .set('on')
-        .setAsync('imageMask', processImageMask, layout.createMask);
-
-      layout.words([...data]);
-
-      const result = layout.start();
-
-      const [cw, ch] = cloudOptions.size;
-      const defaultBounds = [
-        { x: 0, y: 0 },
-        { x: cw, y: ch },
-      ];
-      const { _bounds: bounds = defaultBounds, _tags, hasImage } = result;
-
-      const tags = _tags.map(({ x, y, ...rest }) => ({
-        ...rest,
-        x: x + cw / 2,
-        y: y + ch / 2,
-      }));
-
-      // Append two data to replace the corner of top-left and bottom-right, avoid calculate the actual bounds will occur some error.
-      const [{ x: tlx, y: tly }, { x: brx, y: bry }] = bounds;
-      const invisibleText = { text: '', value: 0, opacity: 0, fontSize: 0 };
-      tags.push(
-        {
-          ...invisibleText,
-          x: hasImage ? 0 : tlx,
-          y: hasImage ? 0 : tly,
-        },
-        {
-          ...invisibleText,
-          x: hasImage ? cw : brx,
-          y: hasImage ? ch : bry,
-        },
-      );
-
-      return tags;
-    },
-    [options],
-  );
 };
 
 export function processImageMask(
@@ -112,5 +49,67 @@ export function normalizeFontSize(fontSize: any, range?: [number, number]) {
   }
   return () => fontSize;
 }
+
+const Transform: TC<WordCloudOptions> = (options) => {
+  return async (data) => {
+    const cloudOptions = Object.assign({}, DEFAULT_OPTIONS, options);
+    const layout = tagCloud();
+
+    await flow(layout, cloudOptions)
+      .set('fontSize', (v) => {
+        const arr = data.map((d) => d.value);
+        return normalizeFontSize(v, [min(arr) as any, max(arr) as any]);
+      })
+      .set('font')
+      .set('fontStyle')
+      .set('fontWeight')
+      .set('padding')
+      .set('rotate')
+      .set('size')
+      .set('spiral')
+      .set('timeInterval')
+      .set('random')
+      .set('text')
+      .set('on')
+      .setAsync('imageMask', processImageMask, layout.createMask);
+
+    layout.words([...data]);
+
+    const result = layout.start();
+
+    const [cw, ch] = cloudOptions.size;
+    const defaultBounds = [
+      { x: 0, y: 0 },
+      { x: cw, y: ch },
+    ];
+    const { _bounds: bounds = defaultBounds, _tags, hasImage } = result;
+
+    const tags = _tags.map(({ x, y, ...rest }) => ({
+      ...rest,
+      x: x + cw / 2,
+      y: y + ch / 2,
+    }));
+
+    // Append two data to replace the corner of top-left and bottom-right, avoid calculate the actual bounds will occur some error.
+    const [{ x: tlx, y: tly }, { x: brx, y: bry }] = bounds;
+    const invisibleText = { text: '', value: 0, opacity: 0, fontSize: 0 };
+    tags.push(
+      {
+        ...invisibleText,
+        x: hasImage ? 0 : tlx,
+        y: hasImage ? 0 : tly,
+      },
+      {
+        ...invisibleText,
+        x: hasImage ? cw : brx,
+        y: hasImage ? ch : bry,
+      },
+    );
+
+    return tags;
+  };
+};
+
+export const WordCloud = useAsyncMemoTransform(Transform);
 
 WordCloud.props = {};

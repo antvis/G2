@@ -6,15 +6,12 @@ import {
 describe('useMemo', () => {
   it('useMemoTransform returns a function memorizing with same data and options ', () => {
     const fn = jest.fn();
-    const Add = ({ a, b }: { a: number; b: number }) => {
-      return useMemoTransform(
-        (c) => {
-          fn();
-          return a + b + c;
-        },
-        [a, b],
-      );
-    };
+    const Add = useMemoTransform(({ a, b }: { a: number; b: number }) => {
+      return (c) => {
+        fn();
+        return a + b + c;
+      };
+    });
 
     const t1 = Add({ a: 1, b: 1 });
 
@@ -31,20 +28,24 @@ describe('useMemo', () => {
     expect(fn).toBeCalledTimes(3);
     expect(t2(1)).toBe(5);
     expect(fn).toBeCalledTimes(4);
+
+    const t3 = Add({ a: 1, b: 1 });
+    expect(t3(1)).toBe(3);
+    expect(fn).toBeCalledTimes(4);
   });
 
   it('useAsyncMemoTransform returns a async function memorizing with same data and options', async () => {
     const fn = jest.fn();
-    const LazyAdd = ({ a, b }: { a: number; b: number }) => {
-      return useAsyncMemoTransform(
-        async (c) => {
+
+    const LazyAdd = useAsyncMemoTransform(
+      ({ a, b }: { a: number; b: number }) => {
+        return async (c) => {
           fn();
           await new Promise((resolve) => setTimeout(resolve, 500));
           return a + b + c;
-        },
-        [a, b],
-      );
-    };
+        };
+      },
+    );
 
     const t1 = LazyAdd({ a: 1, b: 1 });
 
@@ -70,6 +71,11 @@ describe('useMemo', () => {
 
     const r6 = await t2(1);
     expect(r6).toBe(5);
+    expect(fn).toBeCalledTimes(4);
+
+    const t3 = LazyAdd({ a: 1, b: 1 });
+    const r7 = await t3(1);
+    expect(r7).toBe(3);
     expect(fn).toBeCalledTimes(4);
   });
 });
