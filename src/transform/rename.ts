@@ -8,23 +8,22 @@ export function isEmpty(obj: any) {
 
 export type RenameOptions = Omit<RenameTransform, 'type'>;
 
+const Transform: TC<RenameOptions> = (options) => {
+  const { map } = options;
+  return (data) => {
+    if (!map || isEmpty(map)) return data;
+    const rename = (v: any) =>
+      Object.entries(v).reduce(
+        (datum, [key, value]) => ((datum[map[key] || key] = value), datum),
+        {},
+      );
+    return data.map(rename);
+  };
+};
+
 /**
  * Immutable data rename by specified fields.
  */
-export const Rename: TC<RenameOptions> = (options) => {
-  const { map } = options;
-  return useMemoTransform(
-    (data) => {
-      if (!map || isEmpty(map)) return data;
-      const rename = (v: any) =>
-        Object.entries(v).reduce(
-          (datum, [key, value]) => ((datum[map[key] || key] = value), datum),
-          {},
-        );
-      return data.map(rename);
-    },
-    [options],
-  );
-};
+export const Rename = useMemoTransform(Transform);
 
 Rename.props = {};
