@@ -87,7 +87,7 @@ G2.render({
 });
 ```
 
-```js
+```js | dom
 G2.render({
   type: "interval",
   data: [

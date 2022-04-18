@@ -97,7 +97,7 @@ G2.render({
 
 **ElementActive with custom color.**
 
-```js
+```js | dom
 G2.render({
   type: 'interval',
   data: [

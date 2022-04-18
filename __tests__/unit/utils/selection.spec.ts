@@ -68,6 +68,8 @@ describe('select', () => {
     expect(rect1).not.toBe(selection);
     // @ts-ignore
     expect(rect1._elements).toEqual([rect1.node()]);
+    // @ts-ignore
+    expect(rect1._parent).toBe(rect1.node());
 
     const rect2 = selection.select(rect1.node());
     // @ts-ignore

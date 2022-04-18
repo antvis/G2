@@ -4,7 +4,7 @@ import {
   G2CoordinateOptions,
   G2Library,
   G2GuideComponentOptions,
-  G2Area,
+  G2View,
 } from './types/options';
 import {
   GuideComponentComponent,
@@ -18,7 +18,7 @@ import { useLibrary } from './library';
 
 export function inferComponent(
   scales: G2ScaleOptions[],
-  partialOptions: G2Area,
+  partialOptions: G2View,
   library: G2Library,
 ): G2GuideComponentOptions[] {
   const { component: partialComponents = [], coordinate = [] } = partialOptions;

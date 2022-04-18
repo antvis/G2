@@ -84,6 +84,7 @@ import {
   Plot,
 } from '../../../src/action';
 import { MousePosition, TouchPosition } from '../../../src/interactor';
+import { Layer, Flex } from '../../../src/composition';
 
 describe('stdlib', () => {
   it('createLibrary() should returns expected builtin', () => {
@@ -158,6 +159,8 @@ describe('stdlib', () => {
       'action.plot': Plot,
       'interactor.mousePosition': MousePosition,
       'interactor.touchPosition': TouchPosition,
+      'composition.layer': Layer,
+      'composition.flex': Flex,
     });
   });
 });
