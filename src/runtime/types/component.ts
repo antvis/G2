@@ -85,7 +85,7 @@ export type RendererComponent<O = Record<string, unknown>> = G2BaseComponent<
 >;
 
 export type Transform = (data?: any | TabularData) => any | TabularData;
-export type TransformComponent<O = Record<string, undefined>> = G2BaseComponent<
+export type TransformComponent<O = Record<string, unknown>> = G2BaseComponent<
   Transform,
   O
 >;
