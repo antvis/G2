@@ -27,6 +27,9 @@ export function computeLayout(
   };
 }
 
+/**
+ * @todo Support percentage size(e.g. 50%)
+ */
 function computePadding(
   components: G2GuideComponentOptions[],
   options: G2View,

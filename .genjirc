@@ -16,7 +16,8 @@
     "Animation": "animation",
     "Interaction": "interaction",
     "Composition": {
-      "View": "view"
+      "View": "view",
+      "Spatial": "spatial"
     },
     "Theme": "theme"
   },

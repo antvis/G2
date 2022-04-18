@@ -12,6 +12,7 @@ import {
   G2Library,
   G2ShapeOptions,
   G2AnimationOptions,
+  G2CompositionOptions,
 } from './types/options';
 import {
   ThemeComponent,
@@ -26,6 +27,8 @@ import {
   ShapeComponent,
   AnimationComponent,
   Animation,
+  CompositionComponent,
+  Composition,
 } from './types/component';
 import { Channel, G2ViewDescriptor } from './types/common';
 import { useLibrary } from './library';
@@ -41,12 +44,8 @@ export async function plot<T extends G2ViewTree>(
   selection: Selection,
   library: G2Library,
 ): Promise<void> {
-  // Collect keys of existed views, for both of enter and update.
-  const viewKeys = [];
-
-  // Convert node to views, then plot the views and collect keys
-  // of views to viewKeys.
-  await plotNode(options, selection, viewKeys, library);
+  // Convert node to views, then plot the views and collect keys.
+  const viewKeys = await plotNode(options, selection, library);
 
   // Remove exit views.
   // The init and update manipulations of enter and update view
@@ -67,29 +66,38 @@ export async function plot<T extends G2ViewTree>(
 async function plotNode<T extends G2ViewTree>(
   options: T,
   selection: Selection,
-  keys: string[],
   library: G2Library,
-): Promise<void> {
+): Promise<string[]> {
+  const [useComposition] = useLibrary<
+    G2CompositionOptions,
+    CompositionComponent,
+    Composition
+  >('composition', library);
+
   const marks = new Set(
     Object.keys(library)
       .filter((d) => d.startsWith('mark'))
       .map((d) => d.split('.').pop()),
   );
   const { type } = options;
+  const keys = [];
   if (type === 'view') {
-    // If node specification is already view, just change children to marks.
     const view = fromView(options);
     keys.push(view.key);
     plotView(view, selection, library);
   } else if (typeof type === 'string' && marks.has(type)) {
-    // Convert mark specification to a view specification.
-    // Mark specification can be treated as syntax surger for view specification.
     const view = fromMark(options);
     keys.push(view.key);
     plotView(view, selection, library);
   } else {
-    // todo
+    const composition = useComposition({ type });
+    const views = composition(options);
+    for (const view of views) {
+      const subKeys = await plotNode(view, selection, library);
+      keys.push(...subKeys);
+    }
   }
+  return keys;
 }
 
 async function plotView(
@@ -119,6 +127,10 @@ async function plotView(
   }
 }
 
+/**
+ * Convert mark specification to a view specification.
+ * Mark specification can be treated as syntax surger for view specification.
+ */
 function fromMark<T extends G2ViewTree>(options: T): G2View {
   const {
     width,
@@ -165,6 +177,9 @@ function fromView<T extends G2ViewTree>(options: T): G2View {
   return { ...options, marks };
 }
 
+/**
+ * @todo Extract className as constants.
+ */
 async function updateView(
   options: G2View,
   selection: Selection,
@@ -225,6 +240,7 @@ async function updateView(
   placeComponents(components, coordinate, layout);
 
   // Render components.
+  // @todo renderComponent return ctor and options.
   selection
     .selectAll('.component')
     .data(components, (d, i) => `${d.type}-${i}`)
@@ -257,6 +273,7 @@ async function updateView(
   // Transient layer is for showing transient graphical elements produced by interaction.
   // There may be multiple main layers for a view, each main layer correspond to one of
   // marks. While there is only one selection layer and transient layer for a view.
+  // @todo Test DOM structure.
   selection
     .selectAll('.plot')
     .data([layout], () => key)
@@ -265,16 +282,18 @@ async function updateView(
         const rect = enter
           .append('rect')
           .attr('className', 'plot')
-          .call(applyDimension)
+          .call(applyBBox)
           .call(updateMainLayers, markProps);
         rect.append('g').attr('className', 'selection');
         rect.append('g').attr('className', 'transient');
         return rect;
       },
-      (update) => update.call(applyDimension).call(updateMainLayers, markProps),
+      (update) => update.call(applyBBox).call(updateMainLayers, markProps),
     );
 
   // Render marks with corresponding props.
+  // @todo More readable APIs for Container which stays
+  // the same style with JS standard and lodash APIs.
   for (const [mark, props] of markProps.entries()) {
     const { scale: scaleDescriptor, style = {}, animate = {}, key } = mark;
     const { index, channels, defaultShape } = props;
@@ -335,7 +354,7 @@ function inferTheme(theme: G2ThemeOptions = { type: 'light' }): G2ThemeOptions {
   return { ...theme, type };
 }
 
-function applyDimension(selection: Selection) {
+function applyBBox(selection: Selection) {
   selection
     .style('x', (d) => d.x + d.paddingLeft)
     .style('y', (d) => d.y + d.paddingTop)

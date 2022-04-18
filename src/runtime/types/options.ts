@@ -1,5 +1,5 @@
 import { Canvas } from '@antv/g';
-import { Channel, GuideComponentPosition, Primitive } from './common';
+import { GuideComponentPosition, Primitive } from './common';
 
 import {
   G2BaseComponent,
@@ -19,6 +19,7 @@ import {
   InteractionComponent,
   InteractorComponent,
   MarkComponent,
+  CompositionComponent,
 } from './component';
 
 export type G2ViewTree = {
@@ -98,7 +99,8 @@ export type G2ComponentOptions =
   | G2AnimationOptions
   | G2ActionOptions
   | G2InteractionOptions
-  | G2InteractorOptions;
+  | G2InteractorOptions
+  | G2CompositionOptions;
 
 export type G2TransformOptions = G2BaseComponentOptions<TransformComponent>;
 export type G2StatisticOptions = G2BaseComponentOptions<StatisticComponent>;
@@ -136,3 +138,4 @@ export type G2AnimationOptions = G2BaseComponentOptions<AnimationComponent>;
 export type G2ActionOptions = G2BaseComponentOptions<ActionComponent>;
 export type G2InteractionOptions = G2BaseComponentOptions<InteractionComponent>;
 export type G2InteractorOptions = G2BaseComponentOptions<InteractorComponent>;
+export type G2CompositionOptions = G2BaseComponentOptions<CompositionComponent>;

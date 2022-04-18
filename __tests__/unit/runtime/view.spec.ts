@@ -1,7 +1,7 @@
 import { G2Spec, render } from '../../../src';
 import { createDiv, mount } from '../../utils/dom';
 
-describe('point', () => {
+describe('view', () => {
   it('render({...}) should render marks with same scales', () => {
     const chart = render<G2Spec>({
       type: 'view',
