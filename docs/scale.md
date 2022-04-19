@@ -7,6 +7,9 @@
 - <a href="#band">Band</a>
 - <a href="#ordinal">Ordinal</a>
 - <a href="#identity">Identity</a>
+- <a href="#threshold">Threshold</a>
+- <a href="#quantize">Quantize</a>
+- <a href="#quantile">Quantile</a>
 
 ## Linear
 
@@ -120,6 +123,7 @@ G2.render({
       url: 'https://gw.alipayobjects.com/os/bmw-prod/ab55d10f-24da-465a-9eba-87ac4b7a83ec.json',
     },
   ],
+  scale: { x: { field: 'Date' } },
   encode: {
     x: (d) => new Date(d.Date),
     y: 'Close',
@@ -232,6 +236,105 @@ G2.render({
     textBaseline: 'alphabetic',
     fontFamily: 'Verdana',
     fontWeight: 'normal',
+  },
+});
+```
+
+## Threshold
+
+```js | dom
+G2.render({
+  type: 'grid',
+  transform: [
+    {
+      type: 'fetch',
+      url: 'https://gw.alipayobjects.com/os/bmw-prod/89c20fe8-0c6f-46c8-b36b-4cb653dba8ed.json',
+      callback: (d) => ({ salary: d }),
+    },
+  ],
+  width: 900,
+  height: 280,
+  scale: {
+    color: {
+      type: 'threshold',
+      domain: [10000, 100000],
+      range: ['#eee', 'pink', 'red'],
+    },
+  },
+  encode: {
+    y: (_, i) => (i % 5) + 1,
+    x: (_, i) => ((i / 5) | 0) + 1,
+    color: 'salary',
+  },
+  style: {
+    stroke: 'black',
+    lineWidth: 1,
+  },
+});
+```
+
+## Quantize
+
+```js | dom
+G2.render({
+  type: 'grid',
+  transform: [
+    {
+      type: 'fetch',
+      url: 'https://gw.alipayobjects.com/os/bmw-prod/89c20fe8-0c6f-46c8-b36b-4cb653dba8ed.json',
+      callback: (d) => ({ salary: d }),
+    },
+  ],
+  width: 900,
+  height: 280,
+  scale: {
+    color: {
+      type: 'quantize',
+      domain: [10000, 100000],
+      range: ['#eee', 'pink', 'red'],
+    },
+  },
+  encode: {
+    y: (_, i) => (i % 5) + 1,
+    x: (_, i) => ((i / 5) | 0) + 1,
+    color: 'salary',
+    tooltip: 'salary',
+  },
+  style: {
+    stroke: 'black',
+    lineWidth: 1,
+  },
+});
+```
+
+## Quantile
+
+```js | dom
+G2.render({
+  type: 'grid',
+  transform: [
+    {
+      type: 'fetch',
+      url: 'https://gw.alipayobjects.com/os/bmw-prod/89c20fe8-0c6f-46c8-b36b-4cb653dba8ed.json',
+      callback: (d) => ({ salary: d }),
+    },
+  ],
+  width: 900,
+  height: 280,
+  scale: {
+    color: {
+      type: 'quantile',
+      range: ['#eee', 'pink', 'red'],
+    },
+  },
+  encode: {
+    y: (_, i) => (i % 5) + 1,
+    x: (_, i) => ((i / 5) | 0) + 1,
+    color: 'salary',
+  },
+  style: {
+    stroke: 'black',
+    lineWidth: 1,
   },
 });
 ```
