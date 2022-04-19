@@ -1,4 +1,4 @@
-import { Rect, Path } from '@antv/g';
+import { Rect, Path, Circle } from '@antv/g';
 import { arc } from 'd3-shape';
 import { angle, sub, dist } from '../../utils/vector';
 import { Vector2, ShapeComponent as SC } from '../../runtime';
@@ -18,7 +18,10 @@ export type ColorRectOptions = {
 
 /**
  * Render rect in different coordinate.
- * @todo Replace d3-arc with custom arc path generator because of accuracy problem.
+ * @todo Replace d3-arc with custom arc path generator.
+ * Calc arc path based on control points directly rather startAngle, endAngle, innerRadius,
+ * outerRadius. This is not accurate and will cause bug when the range of y scale is [1, 0]
+ * for grid geometry.
  */
 export const ColorRect: SC<ColorRectOptions> = (options) => {
   // Render border only when colorAttribute is stroke.
@@ -35,12 +38,19 @@ export const ColorRect: SC<ColorRectOptions> = (options) => {
     if (!isPolar(coordinate)) {
       const [x, y] = p0;
       const [width, height] = sub(p2, p0);
+
+      // Deal with width or height is negative.
+      const absX = width > 0 ? x : x + width;
+      const absY = height > 0 ? y : y + height;
+      const absWidth = Math.abs(width);
+      const absHeight = Math.abs(height);
+
       return select(new Rect({}))
         .style('lineWidth', lineWidth)
-        .style('x', x)
-        .style('y', y)
-        .style('width', width)
-        .style('height', height)
+        .style('x', absX)
+        .style('y', absY)
+        .style('width', absWidth)
+        .style('height', absHeight)
         .style('stroke', color)
         .style(colorAttribute, color)
         .call(applyStyle, style) // The priority of style is higher than encode value.

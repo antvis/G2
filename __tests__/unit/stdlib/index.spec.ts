@@ -13,6 +13,7 @@ import {
   Line,
   Point as PointGeometry,
   Text as TextGeometry,
+  Grid,
 } from '../../../src/geometry';
 import {
   MaybeTuple,
@@ -37,6 +38,9 @@ import {
   Time,
   Log,
   Pow,
+  Threshold,
+  Quantile,
+  Quantize,
 } from '../../../src/scale';
 import {
   Rect as RectShape,
@@ -102,6 +106,7 @@ describe('stdlib', () => {
       'mark.line': Line,
       'mark.point': PointGeometry,
       'mark.text': TextGeometry,
+      'mark.grid': Grid,
       'infer.maybeTuple': MaybeTuple,
       'infer.maybeZeroX1': MaybeZeroX1,
       'infer.maybeZeroY2': MaybeZeroY2,
@@ -123,6 +128,9 @@ describe('stdlib', () => {
       'scale.time': Time,
       'scale.log': Log,
       'scale.pow': Pow,
+      'scale.threshold': Threshold,
+      'scale.quantile': Quantile,
+      'scale.quantize': Quantize,
       'shape.rect': RectShape,
       'shape.hollowRect': HollowRect,
       'shape.line': LineShape,

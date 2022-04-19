@@ -6,3 +6,6 @@ export { Point, PointOptions } from './point';
 export { Time, TimeOptions } from './time';
 export { Log, LogOptions } from './log';
 export { Pow, PowOptions } from './pow';
+export { Threshold, ThresholdOptions } from './threshold';
+export { Quantile, QuantileOptions } from './quantile';
+export { Quantize, QuantizeOptions } from './quantize';

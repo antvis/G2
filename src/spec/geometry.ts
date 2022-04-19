@@ -13,6 +13,7 @@ export type Geometry =
   | LineGeometry
   | PointGeometry
   | TextGeometry
+  | GridGeometry
   | CustomComponent;
 
 export type GeometryTypes =
@@ -20,6 +21,7 @@ export type GeometryTypes =
   | 'line'
   | 'point'
   | 'text'
+  | 'grid'
   | MarkComponent;
 
 export type ChannelTypes =
@@ -83,5 +85,7 @@ export type TextGeometry = BaseGeometry<
   | 'textAlign'
   | 'textBaseline'
 >;
+
+export type GridGeometry = BaseGeometry<'grid'>;
 
 export type CustomComponent = BaseGeometry<MarkComponent>;
