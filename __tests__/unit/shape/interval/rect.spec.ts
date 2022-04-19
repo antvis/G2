@@ -30,6 +30,32 @@ describe('Rect', () => {
     });
   });
 
+  it('Rect() returns a function drawing rect with negative width and height', () => {
+    const container = document.createElement('div');
+    const shape = draw({
+      shape: Rect(),
+      container,
+      value: {
+        color: 'steelblue',
+      },
+      vectors: [
+        [0.2, 1],
+        [0, 1],
+        [0, 0],
+        [0.2, 0],
+      ],
+    });
+    mount(createDiv(), container);
+
+    expect(style(shape, ['x', 'y', 'width', 'height', 'fill'])).toEqual({
+      fill: 'steelblue',
+      height: 400,
+      width: 120,
+      x: 0,
+      y: 0,
+    });
+  });
+
   it('Rect() returns a function drawing rect in transpose', () => {
     const container = document.createElement('div');
     const shape = draw({

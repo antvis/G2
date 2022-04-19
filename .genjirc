@@ -11,7 +11,8 @@
       "Interval": "interval",
       "Point": "point",
       "Line": "line",
-      "Text": "text"
+      "Text": "text",
+      "Grid": "grid"
     },
     "Animation": "animation",
     "Interaction": "interaction",

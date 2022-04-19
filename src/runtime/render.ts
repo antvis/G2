@@ -64,7 +64,7 @@ export function render<T extends G2ViewTree = G2ViewTree>(
   const selection = select(canvas.document.documentElement);
   requestAnimationFrame(async () => {
     await plot<T>({ ...keyed, width, height }, selection, library);
-    callback();
+    callback?.();
   });
 
   // Return the container HTML element wraps the canvas or svg element.

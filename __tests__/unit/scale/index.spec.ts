@@ -7,6 +7,9 @@ import {
   Time as TimeScale,
   Log as LogScale,
   Pow as PowScale,
+  Threshold as ThresholdScale,
+  Quantile as QuantileScale,
+  Quantize as QuantizeScale,
 } from '@antv/scale';
 import {
   Linear,
@@ -17,6 +20,9 @@ import {
   Time,
   Log,
   Pow,
+  Threshold,
+  Quantile,
+  Quantize,
 } from '../../../src/scale';
 
 describe('scale', () => {
@@ -29,5 +35,8 @@ describe('scale', () => {
     expect(Time()).toBeInstanceOf(TimeScale);
     expect(Log()).toBeInstanceOf(LogScale);
     expect(Pow()).toBeInstanceOf(PowScale);
+    expect(Threshold()).toBeInstanceOf(ThresholdScale);
+    expect(Quantile()).toBeInstanceOf(QuantileScale);
+    expect(Quantize()).toBeInstanceOf(QuantizeScale);
   });
 });
