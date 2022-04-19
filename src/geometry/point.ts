@@ -8,6 +8,7 @@ export type PointOptions = Omit<PointGeometry, 'type'>;
  * Convert value for each channel to point shapes.
  * Calc the bbox of each point based on x, y and r.
  * This is for allowing their radius can be affected by coordinate(e.g. fisheye).
+ * @todo Return 4 points of bbox rather than 2 points for better reuse.
  */
 export const Point: MC<PointOptions> = () => {
   return (index, scale, value, coordinate) => {
