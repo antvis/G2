@@ -149,11 +149,14 @@ function inferScaleDomain(
     case 'time':
     case 'log':
     case 'pow':
+    case 'threshold':
       return inferDomainQ(value, options);
     case 'band':
     case 'ordinal':
     case 'point':
       return inferDomainC(value);
+    case 'quantile':
+      return inferDomainO(value);
     default:
       return [];
   }
@@ -265,6 +268,9 @@ function inferDomainC(value: Primitive[]) {
   return Array.from(new Set(value));
 }
 
+function inferDomainO(value: Primitive[]) {
+  return inferDomainC(value).sort();
+}
 /**
  * @todo More nice default range for enterDelay and enterDuration.
  * @todo Add default range for some channels?

@@ -7,6 +7,9 @@ import {
   TimeOptions,
   LogOptions,
   PowOptions,
+  ThresholdOptions,
+  QuantileOptions,
+  QuantizeOptions,
 } from '@antv/scale';
 import { ScaleComponent } from '../runtime';
 import { Palette } from './palette';
@@ -20,6 +23,9 @@ export type Scale =
   | TimeScale
   | LogScale
   | PowScale
+  | ThresholdScale
+  | QuantizeScale
+  | QuantileScale
   | CustomScale;
 
 export type ScaleTypes =
@@ -31,6 +37,9 @@ export type ScaleTypes =
   | 'time'
   | 'log'
   | 'pow'
+  | 'threshold'
+  | 'quantize'
+  | 'quantile'
   | ScaleComponent;
 
 export type BaseScale<T extends ScaleTypes, O> = {
@@ -57,5 +66,11 @@ export type TimeScale = BaseScale<'time', TimeOptions>;
 export type LogScale = BaseScale<'log', LogOptions>;
 
 export type PowScale = BaseScale<'pow', PowOptions>;
+
+export type ThresholdScale = BaseScale<'threshold', ThresholdOptions>;
+
+export type QuantileScale = BaseScale<'quantile', QuantileOptions>;
+
+export type QuantizeScale = BaseScale<'quantize', QuantizeOptions>;
 
 export type CustomScale = BaseScale<ScaleComponent, { [key: string]: any }>;

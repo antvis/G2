@@ -14,6 +14,7 @@ function inferEncode(encode: InferredEncode) {
  * Produces tooltip channel for tooltip.
  * Using y channel as default tooltip channel for non-parallel coordinate,
  * using position channel for others.
+ * @todo More reasonable inference such as take color channel into account.
  */
 export const MaybeTooltip: IC<MaybeTooltipOptions> = () => {
   return ({ encode, transform }) => ({

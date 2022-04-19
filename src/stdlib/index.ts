@@ -3,6 +3,7 @@ import { Canvas } from '../renderer';
 import { Cartesian, Polar, Transpose, Parallel, Fisheye } from '../coordinate';
 import { Constant, Field, Transform } from '../encode';
 import {
+  Grid,
   Interval,
   Line,
   Point as PointGeometry,
@@ -31,6 +32,9 @@ import {
   Time,
   Log,
   Pow,
+  Threshold,
+  Quantile,
+  Quantize,
 } from '../scale';
 import {
   Rect as RectShape,
@@ -84,6 +88,7 @@ export function createLibrary(): G2Library {
     'mark.line': Line,
     'mark.point': PointGeometry,
     'mark.text': TextGeometry,
+    'mark.grid': Grid,
     'infer.maybeTuple': MaybeTuple,
     'infer.maybeZeroX1': MaybeZeroX1,
     'infer.maybeZeroY2': MaybeZeroY2,
@@ -105,6 +110,9 @@ export function createLibrary(): G2Library {
     'scale.time': Time,
     'scale.log': Log,
     'scale.pow': Pow,
+    'scale.threshold': Threshold,
+    'scale.quantile': Quantile,
+    'scale.quantize': Quantize,
     'shape.rect': RectShape,
     'shape.hollowRect': HollowRect,
     'shape.line': LineShape,
