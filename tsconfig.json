@@ -10,6 +10,7 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
+    "downlevelIteration": true,
     "lib": ["esnext", "dom"],
     "types": ["jest"],
     "resolveJsonModule": true,

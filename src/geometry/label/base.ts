@@ -74,8 +74,8 @@ export default class GeometryLabel {
     return items;
   }
 
-  public render(mapppingArray: MappingDatum[], isUpdate: boolean = false) {
-    const labelItems = this.getLabelItems(mapppingArray);
+  public render(mappingArray: MappingDatum[], isUpdate: boolean = false) {
+    const labelItems = this.getLabelItems(mappingArray);
     const labelsRenderer = this.getLabelsRenderer();
     const shapes = this.getGeometryShapes();
     // 渲染文本
