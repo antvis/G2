@@ -9,7 +9,7 @@ class Container<O> {
     return new Container<O>(x);
   }
 
-  map<T, U>(f: (x: T, ...rest: any[]) => U, ...rest: any[]) {
+  call<T, U>(f: (x: T, ...rest: any[]) => U, ...rest: any[]) {
     return (this.$value = f(this.$value, ...rest)), this;
   }
 

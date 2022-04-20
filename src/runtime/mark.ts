@@ -1,7 +1,7 @@
 import { compose, composeAsync } from '../utils/helper';
 import { indexOf, mapObject, transpose, isFlatArray } from '../utils/array';
 import { useLibrary } from './library';
-import { G2Theme } from './types/common';
+import { G2MarkState, G2Theme } from './types/common';
 import {
   MarkProps,
   Transform,
@@ -34,7 +34,7 @@ export async function initializeMark(
   theme: G2Theme,
   options: G2View,
   library: G2Library,
-): Promise<[G2Mark, MarkProps]> {
+): Promise<[G2Mark, G2MarkState]> {
   const [useTransform] = useLibrary<
     G2TransformOptions,
     TransformComponent,
@@ -153,9 +153,10 @@ export async function initializeMark(
   for (const channel of channels) {
     const { name } = channel;
     const { shapes } = partialProps;
+    const { [name]: options = {} } = partialScale;
     scale[name] = inferScale(
       channel,
-      partialScale[name] || {},
+      options,
       coordinate,
       shapes,
       theme,
@@ -171,8 +172,8 @@ export async function initializeMark(
     scale,
     data: transformedData,
   };
-  const props = { ...partialProps, channels, index: transformedIndex };
-  return [mark, props];
+  const state = { ...partialProps, channels, index: transformedIndex };
+  return [mark, state];
 }
 
 // This is for scale type inference.

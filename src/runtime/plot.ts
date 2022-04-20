@@ -1,7 +1,7 @@
 import { mapObject } from '../utils/array';
 import { Container } from '../utils/container';
 import { copyAttributes, error } from '../utils/helper';
-import { Selection } from '../utils/selection';
+import { Selection, select } from '../utils/selection';
 import {
   G2ViewTree,
   G2View,
@@ -19,7 +19,6 @@ import {
   Theme,
   MarkComponent,
   Mark,
-  MarkProps,
   ScaleComponent,
   Scale,
   MarkChannel,
@@ -30,7 +29,7 @@ import {
   CompositionComponent,
   Composition,
 } from './types/component';
-import { Channel, G2ViewDescriptor } from './types/common';
+import { Channel, G2ViewDescriptor, G2MarkState } from './types/common';
 import { useLibrary } from './library';
 import { initializeMark } from './mark';
 import { inferComponent, renderComponent } from './component';
@@ -44,30 +43,6 @@ export async function plot<T extends G2ViewTree>(
   selection: Selection,
   library: G2Library,
 ): Promise<void> {
-  // Convert node to views, then plot the views and collect keys.
-  const viewKeys = await plotNode(options, selection, library);
-
-  // Remove exit views.
-  // The init and update manipulations of enter and update view
-  // have been done in plotNode, so here will do nothing.
-  selection
-    .selectAll('.view')
-    .data(viewKeys, (d) => d)
-    .join(
-      (enter) => enter,
-      (update) => update,
-      (exit) => exit.remove(),
-    );
-}
-
-/**
- * Convert node specification to view specification and plot it.
- */
-async function plotNode<T extends G2ViewTree>(
-  options: T,
-  selection: Selection,
-  library: G2Library,
-): Promise<string[]> {
   const [useComposition] = useLibrary<
     G2CompositionOptions,
     CompositionComponent,
@@ -79,110 +54,54 @@ async function plotNode<T extends G2ViewTree>(
       .filter((d) => d.startsWith('mark'))
       .map((d) => d.split('.').pop()),
   );
-  const { type } = options;
-  const keys = [];
-  if (type === 'view') {
-    const view = fromView(options);
-    keys.push(view.key);
-    plotView(view, selection, library);
-  } else if (typeof type === 'string' && marks.has(type)) {
-    const view = fromMark(options);
-    keys.push(view.key);
-    plotView(view, selection, library);
-  } else {
-    const composition = useComposition({ type });
-    const views = composition(options);
-    for (const view of views) {
-      const subKeys = await plotNode(view, selection, library);
-      keys.push(...subKeys);
+  const views = [];
+  const viewOptions = new Map();
+  const discovered: G2ViewTree[] = [options];
+
+  while (discovered.length) {
+    const node = discovered.shift();
+    const { type: t } = node;
+    const type = typeof t === 'string' && marks.has(t) ? 'mark' : t;
+    if (type === 'standardView') {
+      const view = await initializeView(node, library);
+      viewOptions.set(view, node);
+      views.push(view);
+    } else {
+      const composition = useComposition({ type });
+      const nodes = composition(node);
+      discovered.push(...nodes);
     }
   }
-  return keys;
+
+  selection
+    .selectAll('.view')
+    .data(views, (d) => d.key)
+    .join(
+      (enter) =>
+        enter
+          .append('g')
+          .attr('className', 'view')
+          .attr('id', (view) => view.id)
+          .each(function (view) {
+            plotView(view, select(this), library);
+            const options = viewOptions.get(view);
+            const update = async (updater = (d: G2View) => d) => {
+              const newOptions = updater(options);
+              const newView = await initializeView(newOptions, library);
+              plotView(newView, select(this), library);
+            };
+            applyInteraction(options, select(this), view, update, library);
+          }),
+      (update) =>
+        update.each(function (view) {
+          plotView(view, select(this), library);
+        }),
+      (exit) => exit.remove(),
+    );
 }
 
-async function plotView(
+async function initializeView(
   options: G2View,
-  selection: Selection,
-  library: G2Library,
-): Promise<void> {
-  const { key } = options;
-  // Find container of current plot by key.
-  const chart = selection.select(`#${key}`);
-  if (chart.node() !== null) {
-    updateView(options, chart, library);
-  } else {
-    // If the container of current view is not exist,
-    // that means it's the first time for it to render.
-    // In this case, create container for it, bind key and apply interaction.
-    const chart = selection
-      .append('g')
-      .attr('className', 'view')
-      .attr('id', key)
-      .attr('__data__', key);
-    const view = await updateView(options, chart, library);
-    const update = (updater = (d: G2View) => d) => {
-      plotView(updater(options), selection, library);
-    };
-    applyInteraction(options, view, update, library);
-  }
-}
-
-/**
- * Convert mark specification to a view specification.
- * Mark specification can be treated as syntax surger for view specification.
- */
-function fromMark<T extends G2ViewTree>(options: T): G2View {
-  const {
-    width,
-    height,
-    paddingLeft,
-    paddingRight,
-    paddingTop,
-    paddingBottom,
-    data,
-    coordinate,
-    theme,
-    component,
-    interaction,
-    x,
-    y,
-    key,
-    ...mark
-  } = options;
-  const markKey = mark.key || `${key}-0`;
-  return {
-    x,
-    y,
-    key,
-    width,
-    height,
-    paddingLeft,
-    paddingRight,
-    paddingTop,
-    paddingBottom,
-    theme,
-    coordinate,
-    component,
-    interaction,
-    marks: [{ ...mark, key: markKey, data }],
-  };
-}
-
-function fromView<T extends G2ViewTree>(options: T): G2View {
-  const { children = [], data: viewData } = options;
-  const marks = children.map(({ data = viewData, ...rest }) => ({
-    data,
-    ...rest,
-  }));
-  return { ...options, marks };
-}
-
-/**
- * @todo Extract className as constants.
- */
-async function updateView(
-  options: G2View,
-  selection: Selection,
   library: G2Library,
 ): Promise<G2ViewDescriptor> {
   const [useTheme] = useLibrary<G2ThemeOptions, ThemeComponent, Theme>(
@@ -202,42 +121,82 @@ async function updateView(
   const { theme: partialTheme, marks: partialMarks, key } = options;
   const theme = useTheme(inferTheme(partialTheme));
 
-  // Infer options and calc props for each mark.
-  const markProps = new Map<G2Mark, MarkProps>();
+  // Infer options and calc state for each mark.
+  const markState = new Map<G2Mark, G2MarkState>();
   const channelScale = new Map<string, G2ScaleOptions>();
-  const marks: G2Mark[] = [];
+  const scales = new Set();
   for (const partialMark of partialMarks) {
     const { type = error('G2Mark type is required.') } = partialMark;
-    const { props: partialProps } = createMark(type);
-    const markAndProps = await initializeMark(
+    const { props } = createMark(type);
+    const markAndState = await initializeMark(
       partialMark,
-      partialProps,
+      props,
       channelScale,
       theme,
       options,
       library,
     );
-    if (markAndProps) {
-      const [mark, props] = markAndProps;
-      markProps.set(mark, props);
-      marks.push(mark);
+    if (markAndState) {
+      const [mark, state] = markAndState;
+      markState.set(mark, state);
+      for (const scale of Object.values(mark.scale)) {
+        scales.add(scale);
+      }
     }
   }
 
-  // Collect scales from marks.
-  const scales = Array.from(
-    new Set(marks.flatMap((d) => Object.values(d.scale))),
-  );
-  const scale = scales.reduce(
-    (obj, { name, ...options }) => ((obj[name] = useScale(options)), obj),
-    {},
-  );
-  const components = inferComponent(scales, options, library);
+  // Infer components and compute layout.
+  const components = inferComponent(Array.from(scales), options, library);
   const layout = computeLayout(components, options);
   const coordinate = createCoordinate(layout, options, library);
 
   // Place components and mutate their bbox.
   placeComponents(components, coordinate, layout);
+
+  // Calc data to be rendered for each mark.
+  const scale = {};
+  for (const [mark, state] of markState.entries()) {
+    const { scale: scaleDescriptor, style = {}, animate = {} } = mark;
+    const { index, channels, defaultShape } = state;
+    const markScale = mapObject(scaleDescriptor, useScale);
+    const value = Container.of<MarkChannel>(channels)
+      .call(applyScale, markScale)
+      .call(applyAnimationFunction, index, animate, defaultShape, library)
+      .call(applyShapeFunction, index, style, defaultShape, library)
+      .value();
+
+    const calcPoints = useMark(mark);
+    const [I, P] = calcPoints(index, markScale, value, coordinate);
+    const data: Record<string, any>[] = I.map((d, i) =>
+      Object.entries(value).reduce(
+        (datum, [k, V]) => ((datum[k] = V[d]), datum),
+        { points: P[i] },
+      ),
+    );
+    state.data = data;
+    Object.assign(scale, markScale);
+  }
+
+  return {
+    layout,
+    theme,
+    coordinate,
+    scale,
+    components,
+    markState,
+    key,
+  };
+}
+
+/**
+ * @todo Extract className as constants.
+ */
+async function plotView(
+  view: G2ViewDescriptor,
+  selection: Selection,
+  library: G2Library,
+): Promise<void> {
+  const { components, theme, layout, markState, coordinate, key } = view;
 
   // Render components.
   // @todo renderComponent return ctor and options.
@@ -283,36 +242,21 @@ async function updateView(
           .append('rect')
           .attr('className', 'plot')
           .call(applyBBox)
-          .call(updateMainLayers, markProps);
+          .call(updateMainLayers, Array.from(markState.keys()));
         rect.append('g').attr('className', 'selection');
         rect.append('g').attr('className', 'transient');
         return rect;
       },
-      (update) => update.call(applyBBox).call(updateMainLayers, markProps),
+      (update) =>
+        update
+          .call(applyBBox)
+          .call(updateMainLayers, Array.from(markState.keys())),
     );
 
   // Render marks with corresponding props.
   // @todo More readable APIs for Container which stays
   // the same style with JS standard and lodash APIs.
-  for (const [mark, props] of markProps.entries()) {
-    const { scale: scaleDescriptor, style = {}, animate = {}, key } = mark;
-    const { index, channels, defaultShape } = props;
-    const scale = mapObject(scaleDescriptor, useScale);
-    const value = Container.of<MarkChannel>(channels)
-      .map(applyScale, scale)
-      .map(applyAnimationFunction, index, animate, defaultShape, library)
-      .map(applyShapeFunction, index, style, defaultShape, library)
-      .value();
-
-    const calcPoints = useMark(mark);
-    const [I, P] = calcPoints(index, scale, value, coordinate);
-    const data: Record<string, any>[] = I.map((d, i) =>
-      Object.entries(value).reduce(
-        (datum, [k, V]) => ((datum[k] = V[d]), datum),
-        { points: P[i] },
-      ),
-    );
-
+  for (const [{ key }, { data }] of markState.entries()) {
     selection
       .select(`#${key}`)
       .selectAll('.element')
@@ -340,13 +284,6 @@ async function updateView(
           }),
       );
   }
-
-  return {
-    selection,
-    scale,
-    coordinate,
-    theme,
-  };
 }
 
 function inferTheme(theme: G2ThemeOptions = { type: 'light' }): G2ThemeOptions {
@@ -362,17 +299,14 @@ function applyBBox(selection: Selection) {
     .style('height', (d) => d.innerHeight);
 }
 
-function updateMainLayers(
-  selection: Selection,
-  markProps: Map<G2Mark, MarkProps>,
-) {
-  const markKeys = Array.from(markProps.keys()).map((d) => d.key);
-
-  // Create and update layer for each mark.
-  // All the layers created here are treated as main layers.
+/**
+ * Create and update layer for each mark.
+ * All the layers created here are treated as main layers.
+ */
+function updateMainLayers(selection: Selection, marks: G2Mark[]) {
   selection
     .selectAll('.main')
-    .data(markKeys)
+    .data(marks.map((d) => d.key))
     .join(
       (enter) =>
         enter

@@ -3,9 +3,15 @@ import { Theme } from './theme';
 import { Coordinate } from './coordinate';
 import { Interaction } from './interaction';
 
-export type Node = Geometry | View | Layer | Flex;
+export type Node =
+  | MarkComposition
+  | ViewComposition
+  | LayerComposition
+  | FlexComposition;
 
-export type View = {
+export type MarkComposition = Geometry;
+
+export type ViewComposition = {
   type?: 'view';
   data?: any;
   key?: string;
@@ -16,17 +22,17 @@ export type View = {
   coordinate?: Coordinate[];
   interaction?: Interaction[];
   theme?: Theme;
-  children?: Geometry[];
+  children?: MarkComposition[];
 };
 
-export type Layer = {
+export type LayerComposition = {
   type?: 'layer';
   key?: string;
   data?: any;
   children?: Node[];
 };
 
-export type Flex = {
+export type FlexComposition = {
   type?: 'flex';
   key?: string;
   data?: any;

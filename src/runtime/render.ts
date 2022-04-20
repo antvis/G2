@@ -17,7 +17,7 @@ function inferKeys<T extends G2ViewTree = G2ViewTree>(options: T): T {
   const nodeIndex = new Map<T, number>([[null, -1]]);
   const discovered = [root];
   while (discovered.length) {
-    const node = discovered.pop();
+    const node = discovered.shift();
     // If key of node is not specified, using parentKey and the index for it
     // in parent.children as its key.
     // e.g. The key of node named 'a' will be 'a', and the key of node named
