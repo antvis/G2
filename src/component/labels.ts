@@ -59,6 +59,7 @@ export default class Labels {
           this.renderLabel(item, offscreenGroup);
         }
       }
+      // [todo] Move layout into Worker.
       // step 2: 根据布局，调整 labels
       this.doLayout(items, shapes);
       // step 3.1: 绘制 labelLine

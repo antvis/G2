@@ -1,0 +1,26 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "big-data-line.ts",
+      "title": {
+        "zh": "Big data line",
+        "en": "Big data line"
+      },
+      "new": true,
+      "screenshot": ""
+    },
+    {
+      "filename": "big-data-interval.ts",
+      "title": {
+        "zh": "Big data interval",
+        "en": "Big data interval"
+      },
+      "new": true,
+      "screenshot": ""
+    }
+  ]
+}

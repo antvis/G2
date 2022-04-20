@@ -139,7 +139,7 @@ export interface GeometryCfg {
   zIndexReversed?: boolean;
   /** 是否需要对 zIndex 进行 sort。因为耗时长，由具体场景自行决定 */
   sortZIndex?: boolean;
-  /** 延迟渲染 Geometry 数据标签. 设置为 true 时，会在浏览器空闲时期被调用，且默认 timeout 为 100ms, 也可以指定具体 timeout 时间 */
+  /** 延迟渲染 Geometry 数据标签. 设置为 true 时，会在浏览器空闲时期被调用, 也可以指定具体 timeout 时间 */
   useDeferredLabel?: boolean | number;
   /** 是否可见 */
   visible?: boolean;
@@ -314,7 +314,7 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
     this.multiplePieWidthRatio = multiplePieWidthRatio;
     this.zIndexReversed = zIndexReversed;
     this.sortZIndex = sortZIndex;
-    this.useDeferredLabel = useDeferredLabel ? (typeof useDeferredLabel === 'number' ? useDeferredLabel : 200) : null;
+    this.useDeferredLabel = useDeferredLabel ? (typeof useDeferredLabel === 'number' ? useDeferredLabel : Infinity) : null;
   }
 
   /**
@@ -964,11 +964,12 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
       const callback = (() => this.renderLabels(flatten(this.dataArray) as unknown as MappingDatum[], isUpdate)).bind(this);
       if (typeof deferred === 'number') {
         // Use `requestIdleCallback` to render labels in idle time (like react fiber)
-        const timeout = typeof deferred === 'number' ? deferred : 0;
+        const timeout = (typeof deferred === 'number' && deferred !== Infinity) ? deferred : 0;
         if (!window.requestIdleCallback) {
           setTimeout(callback, timeout);
         } else {
-          window.requestIdleCallback(callback, { timeout })
+          const options = timeout && timeout !== Infinity ? { timeout } : undefined;
+          window.requestIdleCallback(callback, options);
         }
       } else {
         callback();
