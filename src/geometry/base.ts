@@ -19,7 +19,7 @@ import {
 } from '@antv/util';
 import { doGroupAppearAnimate, getDefaultAnimateCfg } from '../animate';
 import Base from '../base';
-import { FIELD_ORIGIN, GROUP_ATTRS } from '../constant';
+import { FIELD_ORIGIN, GEOMETRY_LIFE_CIRCLE, GROUP_ATTRS } from '../constant';
 import { BBox, Coordinate, IGroup, IShape, Scale } from '../dependents';
 import {
   AdjustOption,
@@ -2091,6 +2091,8 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
   private renderLabels(mappingArray: MappingDatum[], isUpdate: boolean = false) {
     let geometryLabel = this.geometryLabel;
 
+    this.emit(GEOMETRY_LIFE_CIRCLE.BEFORE_RENDER_LABEL);
+
     if (!geometryLabel) {
       // 初次创建
       const labelType = this.getLabelType();
@@ -2121,6 +2123,8 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
     for (const [element, labels] of elementLabels.entries()) {
       element.labelShape = [...labels];
     }
+
+    this.emit(GEOMETRY_LIFE_CIRCLE.AFTER_RENDER_LABEL);
   }
   /**
    * 是否需要进行群组入场动画

@@ -92,6 +92,9 @@ export enum VIEW_LIFE_CIRCLE {
 export enum GEOMETRY_LIFE_CIRCLE {
   BEFORE_DRAW_ANIMATE = 'beforeanimate',
   AFTER_DRAW_ANIMATE = 'afteranimate',
+
+  BEFORE_RENDER_LABEL = 'beforerenderlabel',
+  AFTER_RENDER_LABEL = 'afterrenderlabel',
 }
 
 /**
