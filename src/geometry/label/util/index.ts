@@ -18,7 +18,7 @@ export function findLabelTextShape(label: IGroup): IElement {
 /**
  * 获取标签背景信息: box (无旋转) + rotation (旋转角度)
  */
-export function getlLabelBackgroundInfo(
+export function getLabelBackgroundInfo(
   labelGroup: IGroup,
   labelItem: LabelItem,
   padding: number | number[] = [0, 0, 0, 0]

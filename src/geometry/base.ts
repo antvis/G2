@@ -139,6 +139,8 @@ export interface GeometryCfg {
   zIndexReversed?: boolean;
   /** 是否需要对 zIndex 进行 sort。因为耗时长，由具体场景自行决定 */
   sortZIndex?: boolean;
+  /** 延迟渲染 Geometry 数据标签. 设置为 true 时，会在浏览器空闲时期被调用，且默认 timeout 为 100ms, 也可以指定具体 timeout 时间 */
+  useDeferredLabel?: boolean | number;
   /** 是否可见 */
   visible?: boolean;
   /** 主题配置 */
@@ -255,6 +257,7 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
   public zIndexReversed?: boolean;
   /** 是否需要对 zIndex 进行 sort。因为耗时长，由具体场景自行决定 */
   public sortZIndex?: boolean;
+  protected useDeferredLabel?: null | number;
 
   /** 虚拟 Group，用于图形更新 */
   private offscreenGroup: IGroup;
@@ -289,6 +292,7 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
       multiplePieWidthRatio,
       zIndexReversed,
       sortZIndex,
+      useDeferredLabel,
     } = cfg;
 
     this.container = container;
@@ -310,6 +314,7 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
     this.multiplePieWidthRatio = multiplePieWidthRatio;
     this.zIndexReversed = zIndexReversed;
     this.sortZIndex = sortZIndex;
+    this.useDeferredLabel = useDeferredLabel ? (typeof useDeferredLabel === 'number' ? useDeferredLabel : 200) : null;
   }
 
   /**
@@ -955,7 +960,19 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
 
     // 添加 label
     if (this.labelOption) {
-      this.renderLabels(flatten(this.dataArray) as unknown as MappingDatum[], isUpdate);
+      const deferred = this.useDeferredLabel;
+      const callback = (() => this.renderLabels(flatten(this.dataArray) as unknown as MappingDatum[], isUpdate)).bind(this);
+      if (typeof deferred === 'number') {
+        // Use `requestIdleCallback` to render labels in idle time (like react fiber)
+        const timeout = typeof deferred === 'number' ? deferred : 0;
+        if (!window.requestIdleCallback) {
+          setTimeout(callback, timeout);
+        } else {
+          window.requestIdleCallback(callback, { timeout })
+        }
+      } else {
+        callback();
+      }
     }
 
     // 缓存，用于更新
