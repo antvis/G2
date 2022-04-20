@@ -919,7 +919,7 @@ describe('Geometry', () => {
     expect(geometry1.elements[0].shape.get('zIndex')).not.toBeGreaterThan(geometry1.elements[1].shape.get('zIndex'));
   });
 
-  describe.only('geometry renderLabels. Bind labels to elements', () => {
+  describe('geometry renderLabels. Bind labels to elements', () => {
     const data = [
       { year: '1991', value: 15468, type: 'a' },
       { year: '1992', value: 16100, type: 'a' },

@@ -2085,26 +2085,23 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
     // 将 label 同 element 进行关联
     const labelsMap = geometryLabel.labelsRenderer.shapesMap;
     // Store labels for every element.
-    const elementLabels = new Map<Element, any[]>();
-    each(labelsMap, (labelGroup, id) => {
+    const elementLabels = new Map<Element, Set<IGroup>>();
+    each(labelsMap, (labelGroup: IGroup, labelGroupId: string) => {
       const labelChildren = labelGroup.getChildren();
       for (let j = 0; j < labelChildren.length; j++) {
         const labelShape = labelChildren[j];
-        const element = this.elementsMap[labelShape.get('elementId')];
+        const element = this.elementsMap[labelShape.get('elementId') || labelGroupId.split(' ')[0]];
         if (element) {
           labelShape.cfg.name = ['element', 'label'];
           labelShape.cfg.element = element;
-          const labels = elementLabels.get(element);
-          if (!labels) {
-            elementLabels.set(element, [labelShape]);
-          } else {
-            labels.push(labelShape);
-          }
+          const labels = elementLabels.get(element) || new Set();
+          labels.add(labelGroup);
+          elementLabels.set(element, labels);
         }
       }
     });
     for (const [element, labels] of elementLabels.entries()) {
-      element.labelShape = labels;
+      element.labelShape = [...labels];
     }
   }
   /**
