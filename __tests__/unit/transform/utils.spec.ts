@@ -1,6 +1,7 @@
 import {
   useAsyncMemoTransform,
   useMemoTransform,
+  useMemoConnector,
 } from '../../../src/transform/utils/memo';
 
 describe('useMemo', () => {
@@ -77,5 +78,31 @@ describe('useMemo', () => {
     const r7 = await t3(1);
     expect(r7).toBe(3);
     expect(fn).toBeCalledTimes(4);
+  });
+
+  it('useMemoConnector returns a async function ignoring change of data reference', async () => {
+    const fn = jest.fn();
+
+    const Connector = useMemoConnector(({ a, b }: { a: number; b: number }) => {
+      return async () => {
+        fn();
+        await new Promise((resolve) => setTimeout(resolve, 500));
+        return a + b;
+      };
+    });
+
+    const c1 = Connector({ a: 1, b: 1 });
+    const r1 = await c1({});
+    expect(r1).toBe(2);
+
+    const c2 = Connector({ a: 1, b: 1 });
+    const r2 = await c2({});
+    expect(r2).toBe(2);
+    expect(fn).toBeCalledTimes(1);
+
+    const c3 = Connector({ a: 1, b: 2 });
+    const r3 = await c3({});
+    expect(r3).toBe(3);
+    expect(fn).toBeCalledTimes(2);
   });
 });
