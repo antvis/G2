@@ -52,3 +52,22 @@ export function useAsyncMemoTransform<T>(
     };
   };
 }
+
+/**
+ * Returns a async function returning memoized connector transform.
+ * The memoized value will recompute only when options has changed
+ * and ignore data.
+ */
+export function useMemoConnector<T>(
+  callbackFn: TransformComponent<T>,
+): TransformComponent<T> {
+  const cache = {};
+  return (options) => {
+    const connector = callbackFn(options);
+    const key = JSON.stringify(options, withFunction);
+    return async () => {
+      cache[key] = cache[key] || (await connector());
+      return cache[key];
+    };
+  };
+}
