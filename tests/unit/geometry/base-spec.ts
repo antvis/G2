@@ -202,11 +202,11 @@ describe('Geometry', () => {
         },
       });
 
-      geometry.label('temperature', (val) => {});
+      geometry.label('temperature', (val) => { });
       expect(geometry.labelOption.callback).toBeInstanceOf(Function);
       expect(geometry.labelOption.cfg).toBeUndefined();
 
-      geometry.label('temperature', (val) => {}, {
+      geometry.label('temperature', (val) => { }, {
         type: 'base',
       });
       expect(geometry.labelOption.callback).toBeInstanceOf(Function);
@@ -843,31 +843,31 @@ describe('Geometry', () => {
     });
 
     chart.data(data);
-    const geometry = chart.interval().position('year*valye');
+    const geometry = chart.interval().position('year*value');
 
-    const beforFn = jest.fn();
+    const beforeFn = jest.fn();
     const afterFn = jest.fn();
 
     // 无动画
     geometry.animate(false);
-    geometry.once(GEOMETRY_LIFE_CIRCLE.BEFORE_DRAW_ANIMATE, () => beforFn(1));
+    geometry.once(GEOMETRY_LIFE_CIRCLE.BEFORE_DRAW_ANIMATE, () => beforeFn(1));
     geometry.once(GEOMETRY_LIFE_CIRCLE.AFTER_DRAW_ANIMATE, () => afterFn(1));
     chart.render();
 
-    await delay(500);
+    await delay(100);
 
-    expect(beforFn).not.toBeCalled();
+    expect(beforeFn).not.toBeCalled();
     expect(afterFn).not.toBeCalled();
 
     // 有动画
     geometry.animate(true);
-    geometry.once(GEOMETRY_LIFE_CIRCLE.BEFORE_DRAW_ANIMATE, () => beforFn(2));
+    geometry.once(GEOMETRY_LIFE_CIRCLE.BEFORE_DRAW_ANIMATE, () => beforeFn(2));
     geometry.once(GEOMETRY_LIFE_CIRCLE.AFTER_DRAW_ANIMATE, () => afterFn(2));
     chart.changeSize(300, 300);
 
-    await delay(500);
+    await delay(100);
 
-    expect(beforFn).toBeCalledWith(2);
+    expect(beforeFn).toBeCalledWith(2);
     // expect(afterFn).toBeCalledWith(2);
 
     const fn = jest.fn();
@@ -877,7 +877,7 @@ describe('Geometry', () => {
         callback: fn,
       },
     });
-    geometry.once(GEOMETRY_LIFE_CIRCLE.BEFORE_DRAW_ANIMATE, () => beforFn(3));
+    geometry.once(GEOMETRY_LIFE_CIRCLE.BEFORE_DRAW_ANIMATE, () => beforeFn(3));
     geometry.once(GEOMETRY_LIFE_CIRCLE.AFTER_DRAW_ANIMATE, () => afterFn(3));
     chart.changeSize(400, 400);
 
@@ -917,5 +917,74 @@ describe('Geometry', () => {
     // @ts-ignore
     expect(geometry1.zIndexReversed).toBe(false);
     expect(geometry1.elements[0].shape.get('zIndex')).not.toBeGreaterThan(geometry1.elements[1].shape.get('zIndex'));
+  });
+
+  describe('geometry renderLabels. Bind labels to elements', () => {
+    const data = [
+      { year: '1991', value: 15468, type: 'a' },
+      { year: '1992', value: 16100, type: 'a' },
+      { year: '1993', value: 15900, type: 'a' },
+      { year: '1998', value: 32040, type: 'a' },
+      { year: '1991', value: 5468, type: 'b' },
+      { year: '1992', value: 6100, type: 'b' },
+      { year: '1993', value: 5900, type: 'b' },
+      { year: '1998', value: 22040, type: 'b' },
+    ];
+
+    it('Geometry, with color mapping', async () => {
+      async function renderGeometry(type: string) {
+        const chart = new Chart({ container: createDiv(), width: 500, height: 400 });
+        chart.data(data);
+        chart.clear();
+        let geometry = chart[type]().position('year*value').color('type').label('value').animate(false);
+        chart.render();
+
+        await delay(100);
+        expect(geometry.elements.length).toBe(['line', 'area'].includes(type) ? 2 : data.length);
+        const element = geometry.elements[0];
+        expect(element.labelShape.length).toBe(['line', 'area'].includes(type) ? data.length / 2 : 1);
+        expect(element.labelShape[0].get('visible')).toBe(true);
+        element.changeVisible(false);
+        expect(element.labelShape[0].get('visible')).toBe(false);
+        const bbox = element.getBBox();
+
+        chart.clear();
+        geometry = chart[type]().position('year*value').color('type').label(false).animate(false);
+        chart.render();
+        // previous bbox contains labelBBox, so it not equal to current bbox.
+        expect(geometry.elements[0].getBBox()).not.toEqual(bbox);
+      }
+      await renderGeometry('line');
+      await renderGeometry('area');
+      await renderGeometry('interval');
+    });
+
+    it('Line Geometry, without color mapping', async () => {
+      async function renderGeometry(type: string) {
+        const chart = new Chart({ container: createDiv(), width: 500, height: 400 });
+        chart.data(data.filter(d => d.type === 'a'));
+        chart.clear();
+        let geometry = chart[type]().position('year*value').label('value').animate(false);
+        chart.render();
+
+        await delay(100);
+        const element = geometry.elements[0];
+        expect(element.labelShape.length).toBe(['line', 'area'].includes(type) ? data.length / 2 : 1);
+        expect(element.labelShape[0].get('visible')).toBe(true);
+        element.changeVisible(false);
+        expect(element.labelShape[0].get('visible')).toBe(false);
+        const bbox = element.getBBox();
+
+        chart.clear();
+        geometry = chart[type]().position('year*value').label(false).animate(false);
+        chart.render();
+        // previous bbox contains labelBBox, so it not equal to current bbox.
+        expect(geometry.elements[0].getBBox()).not.toEqual(bbox);
+      }
+
+      await renderGeometry('line');
+      await renderGeometry('area');
+      await renderGeometry('interval');
+    });
   });
 });

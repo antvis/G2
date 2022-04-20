@@ -160,20 +160,6 @@ export interface GeometryCfg {
   multiplePieWidthRatio?: number;
 }
 
-// 根据 elementId 查找对应的 label，因为有可能一个 element 对应多个 labels，所以在给 labels 打标识时做了处理
-// 打标规则详见 ./label/base.ts#L263
-function filterLabelsById(id: string, labelsMap: Record<string, IGroup>) {
-  const labels = [];
-  each(labelsMap, (label: IGroup, labelId: string) => {
-    const elementId = labelId.split(' ')[0];
-    if (elementId === id) {
-      labels.push(label);
-    }
-  });
-
-  return labels;
-}
-
 /**
  * Geometry 几何标记基类，主要负责数据到图形属性的映射以及绘制逻辑。
  */
@@ -2098,21 +2084,25 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
 
     // 将 label 同 element 进行关联
     const labelsMap = geometryLabel.labelsRenderer.shapesMap;
-    each(this.elementsMap, (element: Element, id) => {
-      const labels = filterLabelsById(id, labelsMap); // element 实例同 label 进行绑定
-      if (labels.length) {
-        element.labelShape = labels;
-        for (let i = 0; i < labels.length; i++) {
-          const label = labels[i];
-          const labelChildren = label.getChildren();
-          for (let j = 0; j < labelChildren.length; j++) {
-            const child = labelChildren[j];
-            child.cfg.name = ['element', 'label'];
-            child.cfg.element = element;
-          }
+    // Store labels for every element.
+    const elementLabels = new Map<Element, Set<IGroup>>();
+    each(labelsMap, (labelGroup: IGroup, labelGroupId: string) => {
+      const labelChildren = labelGroup.getChildren();
+      for (let j = 0; j < labelChildren.length; j++) {
+        const labelShape = labelChildren[j];
+        const element = this.elementsMap[labelShape.get('elementId') || labelGroupId.split(' ')[0]];
+        if (element) {
+          labelShape.cfg.name = ['element', 'label'];
+          labelShape.cfg.element = element;
+          const labels = elementLabels.get(element) || new Set();
+          labels.add(labelGroup);
+          elementLabels.set(element, labels);
         }
       }
     });
+    for (const [element, labels] of elementLabels.entries()) {
+      element.labelShape = [...labels];
+    }
   }
   /**
    * 是否需要进行群组入场动画
