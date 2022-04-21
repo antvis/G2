@@ -176,13 +176,13 @@ const onmessage = function (e) {
   // Main
   try {
     const eventData = JSON.parse(e.data);
-    if (typeof eventData !== 'object' || !methods[eventData.type]) return;
+    if (!eventData || !eventData.type || !methods[eventData.type]) return;
 
     const { type, items } = eventData;
     const result = methods[type](items);
     self.postMessage(result);
   } catch (e) {
-    console.error(e)
+    throw e;
   }
 }
 

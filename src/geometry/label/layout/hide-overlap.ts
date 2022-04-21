@@ -59,13 +59,17 @@ export function hideOverlap(labelItems: LabelItem[], labels: IGroup[], shapes: I
 
     // Do layout in worker.
     if (window.Worker) {
-      const worker = createWorker(layoutCode);
-      worker.postMessage(JSON.stringify({ type: 'hide-overlap', items: boxes }));
-      worker.onmessage = (e) => cb(Array.isArray(e.data) ? e.data : []);
-      worker.onmessageerror = (e) => {
-        // Normal layout in main thread.
-        layout(boxes).then(items => cb(items));
-      };
+      try {
+        const worker = createWorker(layoutCode);
+        worker.postMessage(JSON.stringify({ type: 'hide-overlap', items: boxes }));
+        worker.onmessage = (e) => cb(Array.isArray(e.data) ? e.data : []);
+        worker.onmessageerror = (e) => {
+          // Normal layout in main thread.
+          layout(boxes).then(items => cb(items));
+        };
+      } catch (e) {
+        console.error(e);
+      }
     } else {
       console.warn('[AntV G2] Web worker is not available');
       // Normal layout in main thread.
