@@ -154,6 +154,8 @@ async function initializeView(
   placeComponents(components, coordinate, layout);
 
   // Calc data to be rendered for each mark.
+  // @todo More readable APIs for Container which stays
+  // the same style with JS standard and lodash APIs.
   const scale = {};
   for (const [mark, state] of markState.entries()) {
     const { scale: scaleDescriptor, style = {}, animate = {} } = mark;
@@ -253,9 +255,7 @@ async function plotView(
           .call(updateMainLayers, Array.from(markState.keys())),
     );
 
-  // Render marks with corresponding props.
-  // @todo More readable APIs for Container which stays
-  // the same style with JS standard and lodash APIs.
+  // Render marks with corresponding data.
   for (const [{ key }, { data }] of markState.entries()) {
     selection
       .select(`#${key}`)
