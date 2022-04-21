@@ -1,6 +1,5 @@
 import { groupBy, keys, map } from '@antv/util';
-import { IElement, IGroup, IShape, BBox } from '../../../../dependents';
-import { isIntersect } from '../../../../util/collision-detect';
+import { IGroup, IShape, BBox } from '../../../../dependents';
 import Geometry from '../../../base';
 import Element from '../../../element';
 import { LabelItem } from '../../interface';

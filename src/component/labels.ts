@@ -34,7 +34,6 @@ export default class Labels {
   public region: BBox;
 
   /** 存储当前 shape 的映射表，键值为 shape id */
-  public shapesMap: Record<string, IGroup> = {};
   private lastShapesMap: Record<string, IGroup> = {};
 
   constructor(cfg: LabelsGroupCfg) {
@@ -43,12 +42,11 @@ export default class Labels {
     this.layout = layout;
     this.container = container;
   }
-
   /**
    * 渲染文本
    */
-  public render(items: LabelItem[], shapes: Record<string, IShape | IGroup>, isUpdate: boolean = false) {
-    this.shapesMap = {};
+  public async render(items: LabelItem[], shapes: Record<string, IShape | IGroup>, isUpdate: boolean = false) {
+    const shapesMap = {};
     const container = this.container;
     const offscreenGroup = this.createOffscreenGroup(); // 创建虚拟分组
     if (items.length) {
@@ -56,23 +54,22 @@ export default class Labels {
       // step 1: 在虚拟 group 中创建 shapes
       for (const item of items) {
         if (item) {
-          this.renderLabel(item, offscreenGroup);
+          shapesMap[item.id] = this.renderLabel(item, offscreenGroup);
         }
       }
-      // [todo] Move layout into Worker.
       // step 2: 根据布局，调整 labels
-      this.doLayout(items, shapes);
+      await this.doLayout(items, shapes, shapesMap);
+
       // step 3.1: 绘制 labelLine
-      this.renderLabelLine(items);
+      this.renderLabelLine(items, shapesMap);
       // step 3.2: 绘制 labelBackground
-      this.renderLabelBackground(items);
+      this.renderLabelBackground(items, shapesMap);
       // step 4: 根据用户设置的偏移量调整 label
-      this.adjustLabel(items);
+      this.adjustLabel(items, shapesMap);
     }
 
     // 进行添加、更新、销毁操作
     const lastShapesMap = this.lastShapesMap;
-    const shapesMap = this.shapesMap;
     each(shapesMap, (shape, id) => {
       if (shape.destroyed) {
         // label 在布局调整环节被删除了（doLayout）
@@ -93,11 +90,10 @@ export default class Labels {
             coordinate,
           });
 
-          this.shapesMap[id] = currentShape; // 保存引用
+          shapesMap[id] = currentShape; // 保存引用
         } else {
           // 新生成的 shape
           container.add(shape);
-
           const animateCfg = get(shape.get('animateCfg'), isUpdate ? 'enter' : 'appear');
           if (animateCfg) {
             doAnimate(shape, animateCfg, {
@@ -132,18 +128,16 @@ export default class Labels {
   /** 清除当前 labels */
   public clear() {
     this.container.clear();
-    this.shapesMap = {};
     this.lastShapesMap = {};
   }
 
   /** 销毁 */
   public destroy() {
     this.container.destroy();
-    this.shapesMap = null;
     this.lastShapesMap = null;
   }
 
-  private renderLabel(cfg: LabelItem, container: IGroup) {
+  private renderLabel(cfg: LabelItem, container: IGroup): IGroup {
     const { id, elementId, data, mappingData, coordinate, animate, content } = cfg;
     const shapeAppendCfg = {
       id,
@@ -199,30 +193,30 @@ export default class Labels {
     if (cfg.rotate) {
       rotate(labelShape, cfg.rotate);
     }
-    this.shapesMap[id] = labelGroup;
+    return labelGroup;
   }
 
   // 根据type对label布局
-  private doLayout(items: LabelItem[], shapes: Record<string, IShape | IGroup>) {
+  private async doLayout(items: LabelItem[], shapes: Record<string, IShape | IGroup>, shapesMap: Record<string, IGroup>) {
     if (this.layout) {
       const layouts = isArray(this.layout) ? this.layout : [this.layout];
-      each(layouts, (layout: GeometryLabelLayoutCfg) => {
+      await Promise.all(layouts.map((layout: GeometryLabelLayoutCfg) => {
         const layoutFn = getGeometryLabelLayout(get(layout, 'type', ''));
-        if (layoutFn) {
-          const labelShapes = [];
-          const geometryShapes = [];
-          each(this.shapesMap, (labelShape, id) => {
-            labelShapes.push(labelShape);
-            geometryShapes.push(shapes[labelShape.get('elementId')]);
-          });
+        if (!layoutFn) return;
 
-          layoutFn(items, labelShapes, geometryShapes, this.region, layout.cfg);
-        }
-      });
+        const labelShapes = [];
+        const geometryShapes = [];
+        each(shapesMap, (labelShape, id) => {
+          labelShapes.push(labelShape);
+          geometryShapes.push(shapes[labelShape.get('elementId')]);
+        });
+        // [todo] Refactor more layout into Worker.
+        return layoutFn(items, labelShapes, geometryShapes, this.region, layout.cfg);
+      }));
     }
   }
 
-  private renderLabelLine(labelItems: LabelItem[]) {
+  private renderLabelLine(labelItems: LabelItem[], shapesMap) {
     each(labelItems, (labelItem) => {
       const coordinate: Coordinate = get(labelItem, 'coordinate');
       if (!labelItem || !coordinate) {
@@ -244,7 +238,7 @@ export default class Labels {
           ['L', labelItem.x, labelItem.y],
         ];
       }
-      const labelGroup = this.shapesMap[id];
+      const labelGroup = shapesMap[id];
       if (!labelGroup.destroyed) {
         labelGroup.addShape('path', {
           capture: false, // labelLine 默认不参与事件捕获
@@ -267,7 +261,7 @@ export default class Labels {
    * 绘制标签背景
    * @param labelItems
    */
-  private renderLabelBackground(labelItems: LabelItem[]) {
+  private renderLabelBackground(labelItems: LabelItem[], shapesMap) {
     each(labelItems, (labelItem) => {
       const coordinate: Coordinate = get(labelItem, 'coordinate');
       const background: LabelItem['background'] = get(labelItem, 'background');
@@ -276,7 +270,7 @@ export default class Labels {
       }
 
       const id = labelItem.id;
-      const labelGroup = this.shapesMap[id];
+      const labelGroup = shapesMap[id];
       if (!labelGroup.destroyed) {
         const labelContentShape = labelGroup.getChildren()[0];
         if (labelContentShape) {
@@ -309,11 +303,11 @@ export default class Labels {
     return newGroup;
   }
 
-  private adjustLabel(items: LabelItem[]) {
+  private adjustLabel(items: LabelItem[], shapesMap) {
     each(items, (item) => {
       if (item) {
         const id = item.id;
-        const labelGroup = this.shapesMap[id];
+        const labelGroup = shapesMap[id];
         if (!labelGroup.destroyed) {
           // fix: 如果说开发者的 label content 是一个 group，此处的偏移无法对 整个 content group 生效；场景类似 饼图 spider label 是一个含 2 个 textShape 的 gorup
           const labelShapes = labelGroup.findAll((ele) => ele.get('type') !== 'path');

@@ -5,7 +5,6 @@
 import { isNil, isNumber, some } from '@antv/util';
 import { IElement, IGroup, BBox } from '../../../dependents';
 import { rotate } from '../../../util/transform';
-import { LabelItem } from '../interface';
 
 /**
  * 查找 Label Group 中的文本 shape 对象
@@ -20,10 +19,10 @@ export function findLabelTextShape(label: IGroup): IElement {
  */
 export function getLabelBackgroundInfo(
   labelGroup: IGroup,
-  labelItem: LabelItem,
+  labelItem: { rotate?: number;[key: string]: any },
   padding: number | number[] = [0, 0, 0, 0]
 ): { x: number; y: number; width: number; height: number; rotation: number } {
-  const content = labelGroup.getChildren()[0];
+  const content = labelGroup && labelGroup.getChildren()[0];
   if (content) {
     const labelShape = content.clone();
 
@@ -52,6 +51,8 @@ export function getLabelBackgroundInfo(
       rotation: labelItem?.rotate || 0,
     };
   }
+
+  return { x: 0, y: 0, width: 0, height: 0, rotation: 0 };
 }
 
 /**

@@ -2107,7 +2107,7 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
     // Store labels for every element.
     const elementLabels = new Map<Element, Set<IGroup>>();
     each(labelsMap, (labelGroup: IGroup, labelGroupId: string) => {
-      const labelChildren = labelGroup.getChildren();
+      const labelChildren = labelGroup.getChildren() || [];
       for (let j = 0; j < labelChildren.length; j++) {
         const labelShape = labelChildren[j];
         const element = this.elementsMap[labelShape.get('elementId') || labelGroupId.split(' ')[0]];
