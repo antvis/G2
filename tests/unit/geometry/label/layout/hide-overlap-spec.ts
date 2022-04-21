@@ -1,7 +1,6 @@
 import { hideOverlap } from '../../../../../src/geometry/label/layout/hide-overlap';
 import { removeDom } from '../../../../../src/util/dom';
 import { createCanvas, createDiv } from '../../../../util/dom';
-import { delay } from '../../../../util/delay';
 import { getRotateMatrix } from '../../../../../src/util/transform';
 
 describe('GeometryLabel layout', () => {
@@ -84,8 +83,7 @@ describe('GeometryLabel layout', () => {
     }
     expect(canvas.getChildren().filter((child) => child.get('visible')).length).toBe(10);
 
-    hideOverlap(items, labels, [], {} as any)
-    await delay(0);
+    await hideOverlap(items, labels, [], {} as any)
     canvas.draw();
     expect(canvas.getChildren().filter((child) => child.get('visible')).length).toBe(10);
 

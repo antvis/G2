@@ -30,8 +30,7 @@ describe('test active action', () => {
   const interval = chart.interval().position('year*value');
   chart.render();
 
-  describe('test common active', async () => {
-    await delay(0);
+  describe('test common active', () => {
     const context = new Context(chart);
     const action = new ActiveAction(context);
     const axisLabels = chart.backgroundGroup.findAll((el) => {
