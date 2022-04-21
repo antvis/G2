@@ -33,6 +33,9 @@ const layout = (items: Item[]): Promise<Item[]> => {
   return Promise.resolve(boxes);
 }
 
+const cache: Map<string, any> = new Map();
+const worker = createWorker(layoutCode);
+
 /**
  * label 防遮挡布局：在不改变 label 位置的情况下对相互重叠的 label 进行隐藏（非移除）
  * 不同于 'overlap' 类型的布局，该布局不会对 label 的位置进行偏移调整。
@@ -45,7 +48,9 @@ export function hideOverlap(labelItems: LabelItem[], labels: IGroup[], shapes: I
       ...getLabelBackgroundInfo(d, labelItems[idx], get(labelItems[idx], 'background.padding')),
       visible: true,
     }));
+    const memoKey = JSON.stringify(boxes);
     const cb = (items: Item[]) => {
+      cache.set(memoKey, items);
       each(items, ({ visible }, idx) => {
         const labelShape = labels[idx];
         if (visible) {
@@ -56,14 +61,15 @@ export function hideOverlap(labelItems: LabelItem[], labels: IGroup[], shapes: I
       });
       return resolve(items);
     }
-
-    // Do layout in worker.
-    if (window.Worker) {
+    if (cache.get(memoKey)) {
+      cb(cache.get(memoKey))
+    } else if (worker) {
+      // Do layout in worker.
       try {
-        const worker = createWorker(layoutCode);
         worker.postMessage(JSON.stringify({ type: 'hide-overlap', items: boxes }));
         worker.onmessage = (e) => cb(Array.isArray(e.data) ? e.data : []);
         worker.onmessageerror = (e) => {
+          console.warn('[AntV G2] Web worker is not available');
           // Normal layout in main thread.
           layout(boxes).then(items => cb(items));
         };
@@ -71,7 +77,6 @@ export function hideOverlap(labelItems: LabelItem[], labels: IGroup[], shapes: I
         console.error(e);
       }
     } else {
-      console.warn('[AntV G2] Web worker is not available');
       // Normal layout in main thread.
       layout(boxes).then(items => cb(items));
     }
