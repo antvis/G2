@@ -9,6 +9,7 @@ import { createScale } from '../../../util/scale';
 import { positiveNegativeData } from '../../../data/positive-negative';
 import { Point } from '../../../../src/interface';
 import { near } from '../../../util/math';
+import { delay } from '../../../util/delay';
 
 const Theme = getTheme('default');
 const CartesianCoordinate = getCoordinate('rect');
@@ -372,7 +373,7 @@ describe('interval position', () => {
     };
   };
 
-  it('position bottom', () => {
+  it('position bottom', async () => {
     const chart = new Chart({
       container: createDiv(),
       width: 600,
@@ -386,7 +387,7 @@ describe('interval position', () => {
       position: 'bottom',
     });
 
-    chart.render();
+    chart.render(); await delay(0);
 
     const { elements } = interval;
 
@@ -402,7 +403,7 @@ describe('interval position', () => {
     });
   });
 
-  it('position middle', () => {
+  it('position middle', async () => {
     const chart = new Chart({
       container: createDiv(),
       width: 600,
@@ -416,7 +417,7 @@ describe('interval position', () => {
       position: 'middle',
     });
 
-    chart.render();
+    chart.render(); await delay(0);
 
     const { elements } = interval;
 
@@ -432,7 +433,7 @@ describe('interval position', () => {
     });
   });
 
-  it('position top', () => {
+  it('position top', async () => {
     const chart = new Chart({
       container: createDiv(),
       width: 600,
@@ -446,7 +447,7 @@ describe('interval position', () => {
       position: 'top',
     });
 
-    chart.render();
+    chart.render(); await delay(0);
 
     const { elements } = interval;
 
@@ -462,7 +463,7 @@ describe('interval position', () => {
     });
   });
 
-  it('transposed position left', () => {
+  it('transposed position left', async () => {
     const chart = new Chart({
       container: createDiv(),
       width: 600,
@@ -477,7 +478,7 @@ describe('interval position', () => {
       position: 'left',
     });
 
-    chart.render();
+    chart.render(); await delay(0);
 
     const { elements } = interval;
 
@@ -493,7 +494,7 @@ describe('interval position', () => {
     });
   });
 
-  it('transposed position middle', () => {
+  it('transposed position middle', async () => {
     const chart = new Chart({
       container: createDiv(),
       width: 600,
@@ -508,7 +509,7 @@ describe('interval position', () => {
       position: 'middle',
     });
 
-    chart.render();
+    chart.render(); await delay(0);
 
     const { elements } = interval;
 
@@ -524,7 +525,7 @@ describe('interval position', () => {
     });
   });
 
-  it('transposed position right', () => {
+  it('transposed position right', async () => {
     const chart = new Chart({
       container: createDiv(),
       width: 600,
@@ -539,7 +540,7 @@ describe('interval position', () => {
       position: 'right',
     });
 
-    chart.render();
+    chart.render(); await delay(0);
 
     const { elements } = interval;
 
@@ -608,7 +609,7 @@ describe('funnel position', () => {
     };
   };
 
-  it('position bottom', () => {
+  it('position bottom', async () => {
     const chart = new Chart({
       container: createDiv(),
       width: 600,
@@ -630,7 +631,7 @@ describe('funnel position', () => {
         position: 'bottom',
       });
 
-    chart.render();
+    chart.render(); await delay(0);
 
     const { elements } = interval;
 
@@ -646,7 +647,7 @@ describe('funnel position', () => {
     });
   });
 
-  it('position middle', () => {
+  it('position middle', async () => {
     const chart = new Chart({
       container: createDiv(),
       width: 600,
@@ -668,7 +669,7 @@ describe('funnel position', () => {
         position: 'middle',
       });
 
-    chart.render();
+    chart.render(); await delay(0);
 
     const { elements } = interval;
 
@@ -684,7 +685,7 @@ describe('funnel position', () => {
     });
   });
 
-  it('position top', () => {
+  it('position top', async () => {
     const chart = new Chart({
       container: createDiv(),
       width: 600,
@@ -706,7 +707,7 @@ describe('funnel position', () => {
         position: 'top',
       });
 
-    chart.render();
+    chart.render(); await delay(0);
 
     const { elements } = interval;
 
@@ -722,7 +723,7 @@ describe('funnel position', () => {
     });
   });
 
-  it('transposed position left', () => {
+  it('transposed position left', async () => {
     const chart = new Chart({
       container: createDiv(),
       width: 600,
@@ -744,7 +745,7 @@ describe('funnel position', () => {
         position: 'left',
       });
 
-    chart.render();
+    chart.render(); await delay(0);
 
     const { elements } = interval;
 
@@ -760,7 +761,7 @@ describe('funnel position', () => {
     });
   });
 
-  it('transposed position middle', () => {
+  it('transposed position middle', async () => {
     const chart = new Chart({
       container: createDiv(),
       width: 600,
@@ -782,7 +783,7 @@ describe('funnel position', () => {
         position: 'middle',
       });
 
-    chart.render();
+    chart.render(); await delay(0);
 
     const { elements } = interval;
 
@@ -798,7 +799,7 @@ describe('funnel position', () => {
     });
   });
 
-  it('transposed position right', () => {
+  it('transposed position right', async () => {
     const chart = new Chart({
       container: createDiv(),
       width: 600,
@@ -820,7 +821,7 @@ describe('funnel position', () => {
         position: 'right',
       });
 
-    chart.render();
+    chart.render(); await delay(0);
 
     const { elements } = interval;
 

@@ -2088,7 +2088,7 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
     }
   }
 
-  private renderLabels(mappingArray: MappingDatum[], isUpdate: boolean = false) {
+  private async renderLabels(mappingArray: MappingDatum[], isUpdate: boolean = false) {
     let geometryLabel = this.geometryLabel;
 
     this.emit(GEOMETRY_LIFE_CIRCLE.BEFORE_RENDER_LABEL);
@@ -2100,7 +2100,7 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
       geometryLabel = new GeometryLabelsCtor(this);
       this.geometryLabel = geometryLabel;
     }
-    geometryLabel.render(mappingArray, isUpdate);
+    await geometryLabel.render(mappingArray, isUpdate);
 
     // 将 label 同 element 进行关联
     const labelsMap = geometryLabel.labelsRenderer.shapesMap;

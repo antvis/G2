@@ -45,7 +45,7 @@ export default class Element extends Base {
   /** element 对应的 Geometry 实例 */
   public geometry: Geometry;
   /** 保存 shape 对应的 label */
-  public labelShape: IGroup[];
+  public labelShape: IGroup[] = [];
 
   /** 绘制的 shape 类型 */
   private shapeType: string;
@@ -151,7 +151,7 @@ export default class Element extends Base {
     this.shape = undefined;
     this.animate = undefined;
     this.geometry = undefined;
-    this.labelShape = undefined;
+    this.labelShape = [];
     this.model = undefined;
     this.data = undefined;
     this.offscreenGroup = undefined;
