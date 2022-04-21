@@ -987,4 +987,23 @@ describe('Geometry', () => {
       await renderGeometry('interval');
     });
   });
+
+  it('useDeferredLabel', () => {
+    const data = [
+      { year: '1991', value: 15468, type: 'a' },
+      { year: '1992', value: 16100, type: 'a' },
+      { year: '1993', value: 15900, type: 'a' },
+      { year: '1998', value: 32040, type: 'a' },
+    ];
+    const chart = new Chart({ container: createDiv(), width: 500, height: 400 });
+    chart.data(data);
+    chart.interval({ useDeferredLabel: true }).position('year*value').label('value');
+    chart.render();
+
+    const geometry = chart.geometries[0];
+    expect(geometry.labelsContainer.getChildren().length).toBe(0)
+    geometry.once(GEOMETRY_LIFE_CIRCLE.AFTER_RENDER_LABEL, () => {
+      expect(geometry.labelsContainer.getChildren().length).toBe(4)
+    });
+  });
 });

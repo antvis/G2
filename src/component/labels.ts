@@ -4,7 +4,7 @@ import { LabelItem } from '../geometry/label/interface';
 import { AnimateOption, GeometryLabelLayoutCfg } from '../interface';
 import { doAnimate } from '../animate';
 import { getGeometryLabelLayout } from '../geometry/label';
-import { getlLabelBackgroundInfo } from '../geometry/label/util';
+import { getLabelBackgroundInfo } from '../geometry/label/util';
 import { polarToCartesian } from '../util/graphics';
 import { rotate, translate } from '../util/transform';
 import { FIELD_ORIGIN } from '../constant';
@@ -59,6 +59,7 @@ export default class Labels {
           this.renderLabel(item, offscreenGroup);
         }
       }
+      // [todo] Move layout into Worker.
       // step 2: 根据布局，调整 labels
       this.doLayout(items, shapes);
       // step 3.1: 绘制 labelLine
@@ -279,7 +280,7 @@ export default class Labels {
       if (!labelGroup.destroyed) {
         const labelContentShape = labelGroup.getChildren()[0];
         if (labelContentShape) {
-          const { rotation, ...box } = getlLabelBackgroundInfo(labelGroup, labelItem, background.padding);
+          const { rotation, ...box } = getLabelBackgroundInfo(labelGroup, labelItem, background.padding);
           const backgroundShape = labelGroup.addShape('rect', {
             attrs: {
               ...box,

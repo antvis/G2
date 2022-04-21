@@ -19,7 +19,7 @@ import {
 } from '@antv/util';
 import { doGroupAppearAnimate, getDefaultAnimateCfg } from '../animate';
 import Base from '../base';
-import { FIELD_ORIGIN, GROUP_ATTRS } from '../constant';
+import { FIELD_ORIGIN, GEOMETRY_LIFE_CIRCLE, GROUP_ATTRS } from '../constant';
 import { BBox, Coordinate, IGroup, IShape, Scale } from '../dependents';
 import {
   AdjustOption,
@@ -139,6 +139,8 @@ export interface GeometryCfg {
   zIndexReversed?: boolean;
   /** 是否需要对 zIndex 进行 sort。因为耗时长，由具体场景自行决定 */
   sortZIndex?: boolean;
+  /** 延迟渲染 Geometry 数据标签. 设置为 true 时，会在浏览器空闲时期被调用, 也可以指定具体 timeout 时间 */
+  useDeferredLabel?: boolean | number;
   /** 是否可见 */
   visible?: boolean;
   /** 主题配置 */
@@ -255,6 +257,7 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
   public zIndexReversed?: boolean;
   /** 是否需要对 zIndex 进行 sort。因为耗时长，由具体场景自行决定 */
   public sortZIndex?: boolean;
+  protected useDeferredLabel?: null | number;
 
   /** 虚拟 Group，用于图形更新 */
   private offscreenGroup: IGroup;
@@ -289,6 +292,7 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
       multiplePieWidthRatio,
       zIndexReversed,
       sortZIndex,
+      useDeferredLabel,
     } = cfg;
 
     this.container = container;
@@ -310,6 +314,7 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
     this.multiplePieWidthRatio = multiplePieWidthRatio;
     this.zIndexReversed = zIndexReversed;
     this.sortZIndex = sortZIndex;
+    this.useDeferredLabel = useDeferredLabel ? (typeof useDeferredLabel === 'number' ? useDeferredLabel : Infinity) : null;
   }
 
   /**
@@ -955,7 +960,20 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
 
     // 添加 label
     if (this.labelOption) {
-      this.renderLabels(flatten(this.dataArray) as unknown as MappingDatum[], isUpdate);
+      const deferred = this.useDeferredLabel;
+      const callback = (() => this.renderLabels(flatten(this.dataArray) as unknown as MappingDatum[], isUpdate)).bind(this);
+      if (typeof deferred === 'number') {
+        // Use `requestIdleCallback` to render labels in idle time (like react fiber)
+        const timeout = (typeof deferred === 'number' && deferred !== Infinity) ? deferred : 0;
+        if (!window.requestIdleCallback) {
+          setTimeout(callback, timeout);
+        } else {
+          const options = timeout && timeout !== Infinity ? { timeout } : undefined;
+          window.requestIdleCallback(callback, options);
+        }
+      } else {
+        callback();
+      }
     }
 
     // 缓存，用于更新
@@ -2073,6 +2091,8 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
   private renderLabels(mappingArray: MappingDatum[], isUpdate: boolean = false) {
     let geometryLabel = this.geometryLabel;
 
+    this.emit(GEOMETRY_LIFE_CIRCLE.BEFORE_RENDER_LABEL);
+
     if (!geometryLabel) {
       // 初次创建
       const labelType = this.getLabelType();
@@ -2103,6 +2123,8 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
     for (const [element, labels] of elementLabels.entries()) {
       element.labelShape = [...labels];
     }
+
+    this.emit(GEOMETRY_LIFE_CIRCLE.AFTER_RENDER_LABEL);
   }
   /**
    * 是否需要进行群组入场动画
