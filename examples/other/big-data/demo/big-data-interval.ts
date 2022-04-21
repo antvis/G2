@@ -24,3 +24,4 @@ chart.interval({ useDeferredLabel: 5000 }).position('x*y').color('type').label('
 console.time('render');
 chart.render();
 console.timeEnd('render');
+

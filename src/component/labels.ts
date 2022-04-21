@@ -57,6 +57,7 @@ export default class Labels {
           shapesMap[item.id] = this.renderLabel(item, offscreenGroup);
         }
       }
+      // [todo] Move layout into Worker.
       // step 2: 根据布局，调整 labels
       await this.doLayout(items, shapes, shapesMap);
 

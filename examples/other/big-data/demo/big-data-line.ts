@@ -25,3 +25,4 @@ chart.line({ useDeferredLabel: true }).position('x*y').color('type').label('y', 
 console.time('render');
 chart.render();
 console.timeEnd('render');
+
