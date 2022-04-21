@@ -47,7 +47,6 @@ export default class Labels {
    */
   public async render(items: LabelItem[], shapes: Record<string, IShape | IGroup>, isUpdate: boolean = false) {
     const shapesMap = {};
-    const container = this.container;
     const offscreenGroup = this.createOffscreenGroup(); // 创建虚拟分组
     if (items.length) {
       // 如果 items 空的话就不进行绘制调整操作
@@ -94,7 +93,9 @@ export default class Labels {
           shapesMap[id] = currentShape; // 保存引用
         } else {
           // 新生成的 shape
-          container.add(shape);
+          // If container has been destroyed, no need to render labels.
+          if (this.container.destroyed) return;
+          this.container.add(shape);
           const animateCfg = get(shape.get('animateCfg'), isUpdate ? 'enter' : 'appear');
           if (animateCfg) {
             doAnimate(shape, animateCfg, {
