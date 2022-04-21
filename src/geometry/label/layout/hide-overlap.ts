@@ -15,7 +15,7 @@ type Item = {
   visible?: boolean;
 };
 
-const layout = (items: Item[]): Promise<Item[]> => {
+const layout = (items: Item[]): Item[] => {
   const boxes = items.slice();
   for (let i = 0; i < boxes.length; i++) {
     const box1 = boxes[i];
@@ -30,7 +30,7 @@ const layout = (items: Item[]): Promise<Item[]> => {
       }
     }
   }
-  return Promise.resolve(boxes);
+  return boxes;
 }
 
 const cache: Map<string, any> = new Map();
@@ -71,14 +71,14 @@ export function hideOverlap(labelItems: LabelItem[], labels: IGroup[], shapes: I
         worker.onmessageerror = (e) => {
           console.warn('[AntV G2] Web worker is not available');
           // Normal layout in main thread.
-          layout(boxes).then(items => cb(items));
+          cb(layout(boxes));
         };
       } catch (e) {
         console.error(e);
       }
     } else {
       // Normal layout in main thread.
-      layout(boxes).then(items => cb(items));
+      cb(layout(boxes));
     }
   });
 }
