@@ -1,9 +1,10 @@
 // 欢迎使用全新的 G2 4.0
 import { Chart } from '../../src/';
 import { createDiv } from '../util/dom';
+import { delay } from '../util/delay';
 
 describe('#3056', () => {
-  it('pie-outer 溢出', () => {
+  it('pie-outer 溢出', async () => {
     // G2 对数据源格式的要求，仅仅是 JSON 数组，数组的每个元素是一个标准 JSON 对象。
     const data = [
       { genre: 'Sports', sold: 275 },
@@ -41,7 +42,7 @@ describe('#3056', () => {
     chart.legend({ position: 'top' });
     // Step 4: 渲染图表
     chart.render();
-
+    await delay(0);
     let labels = chart.geometries[0].labelsContainer.getChildren();
     let label2CenterY = labels[2].getBBox().minY + labels[2].getBBox().height / 2;
     expect(label2CenterY).toBeLessThanOrEqual(chart.getCoordinate().start.y);
@@ -49,9 +50,11 @@ describe('#3056', () => {
     chart.changeData([...data, { genre: 'other-other', sold: 150 }]);
     chart.legend({ position: 'bottom' });
     chart.render();
+
+    await delay(0);
     labels = chart.geometries[0].labelsContainer.getChildren();
     // @ts-ignore
-    label2CenterY = labels[5].getBBox().minY - labels[5].getChildByIndex(0).getBBox().height / 2;
+    label2CenterY = labels[5].getBBox().minY + labels[5].getChildByIndex(0).getBBox().height / 2;
     expect(label2CenterY).toBeGreaterThanOrEqual(chart.getCoordinate().end.y);
   });
 });

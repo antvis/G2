@@ -1,8 +1,9 @@
 import { Chart } from '../../src';
 import { createDiv } from '../util/dom';
+import { delay } from '../util/delay';
 
 describe('#2778', () => {
-  it('饼图交互click事件有概率丢失数据', () => {
+  it('饼图交互click事件有概率丢失数据', async () => {
     const data = [
       { type: '一线城市', value: 0.19 },
       { type: '二线城市', value: 0.21 },
@@ -22,7 +23,7 @@ describe('#2778', () => {
     chart.interval().adjust('stack').position('value').label('type').color('type');
 
     chart.render();
-
+    await delay(0);
     const labelShapes = chart.foregroundGroup.findAllByName('label');
     expect(labelShapes[0].get('origin').data).not.toBeUndefined();
     expect(labelShapes[0].get('origin').data).toEqual(data[0]);

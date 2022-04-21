@@ -2,6 +2,7 @@ import { IGroup } from '@antv/g-base';
 import { Chart } from '../../../../../src';
 import { removeDom } from '../../../../../src/util/dom';
 import { createDiv } from '../../../../util/dom';
+import { delay } from '../../../../util/delay';
 import { CountryEconomy } from '../../../../data/country-economy';
 
 describe('pie-spider-label layout', () => {
@@ -12,7 +13,7 @@ describe('pie-spider-label layout', () => {
     height: 400,
   });
 
-  it('50+ 标签', () => {
+  it('50+ 标签', async () => {
     chart.data(CountryEconomy.map((d) => ({ country: d.Country, value: d.Population })));
     chart.coordinate({
       type: 'theta',
@@ -37,7 +38,7 @@ describe('pie-spider-label layout', () => {
       });
 
     chart.render();
-
+    await delay(0);
     const coordinate = chart.getCoordinate();
     const center = coordinate.getCenter();
 
@@ -53,7 +54,7 @@ describe('pie-spider-label layout', () => {
     }
   });
 
-  it('normal', () => {
+  it('normal', async () => {
     chart.data([
       { item: '事例一', count: 50 },
       { item: '事例二', count: 15 },
@@ -84,6 +85,7 @@ describe('pie-spider-label layout', () => {
       });
 
     chart.render();
+    await delay(0);
     const labels = chart.geometries[0].labelsContainer.getChildren().filter((label) => label.get('visible'));
     expect(labels.length).toBe(5);
 
@@ -95,7 +97,7 @@ describe('pie-spider-label layout', () => {
     expect(label1.getBBox().y + label1.getBBox().height / 2).toEqual(center.y);
   });
 
-  it('异常情况', () => {
+  it('异常情况', async () => {
     chart.clear();
 
     let data = [
@@ -124,6 +126,7 @@ describe('pie-spider-label layout', () => {
       });
 
     chart.render();
+    await delay(0);
     let labels = chart.geometries[0].labelsContainer.getChildren();
     expect(labels.length).toBe(5);
 
@@ -141,7 +144,7 @@ describe('pie-spider-label layout', () => {
       { item: '事例五', count: 20 },
     ];
     chart.changeData(data);
-
+    await delay(0);
     labels = chart.geometries[0].labelsContainer.getChildren();
 
     label1 = labels.find((l) => l.get('id') === `1-${data[0].item}`);

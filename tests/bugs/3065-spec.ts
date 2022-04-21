@@ -2,9 +2,10 @@
 import { IGroup } from '@antv/g-base';
 import { Chart } from '../../src/';
 import { createDiv } from '../util/dom';
+import { delay } from '../util/delay';
 
 describe('#3065', () => {
-  it('theta 坐标系 label', () => {
+  it('theta 坐标系 label', async () => {
     const chart = new Chart({
       container: createDiv(),
       height: 300, // 指定图表高度
@@ -33,6 +34,7 @@ describe('#3065', () => {
       });
 
     chart.render();
+    await delay(0);
     let labels = chart.geometries[0].labelsContainer.getChildren();
     expect(labels[1].getCanvasBBox().maxX).not.toBeLessThanOrEqual(chart.getCoordinate().end.x);
 
@@ -46,6 +48,7 @@ describe('#3065', () => {
         layout: [{ type: 'pie-outer' }, { type: 'limit-in-plot', cfg: { action: 'ellipsis' } }],
       });
     chart.render();
+    await delay(0);
     labels = chart.geometries[0].labelsContainer.getChildren();
     expect(labels[1].getCanvasBBox().maxX).toBeLessThanOrEqual(chart.getCoordinate().end.x);
     expect((labels[1] as IGroup).find((shape) => shape.get('type') === 'text').attr('text')).toMatch('...');
@@ -53,7 +56,7 @@ describe('#3065', () => {
     chart.destroy();
   });
 
-  it('rect 坐标系', () => {
+  it('rect 坐标系', async () => {
     const chart = new Chart({
       container: createDiv(),
       autoFit: false,
@@ -78,7 +81,7 @@ describe('#3065', () => {
       offsetX: 0,
     });
     chart.render();
-
+    await delay(0);
     let labels = chart.geometries[0].labelsContainer.getChildren();
     expect(labels[4].getCanvasBBox().maxX).not.toBeLessThanOrEqual(chart.getCoordinate().end.x);
 
@@ -91,6 +94,7 @@ describe('#3065', () => {
         layout: [{ type: 'limit-in-plot', cfg: { action: 'ellipsis' } }],
       });
     chart.render();
+    await delay(0);
     labels = chart.geometries[0].labelsContainer.getChildren();
     expect(labels[4].getCanvasBBox().maxX).toBeLessThanOrEqual(chart.getCoordinate().end.x);
     expect((labels[4] as IGroup).find((shape) => shape.get('type') === 'text').attr('text')).toMatch('...');

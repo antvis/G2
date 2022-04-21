@@ -1,10 +1,10 @@
 import { getCoordinate } from '@antv/coord';
-import { isNumberEqual } from '@antv/util';
 import 'jest-extended';
 import PieLabel from '../../../../src/geometry/label/pie';
 import Point from '../../../../src/geometry/point';
 import { getTheme } from '../../../../src/theme/';
 import { createCanvas, createDiv } from '../../../util/dom';
+import { delay } from '../../../util/delay';
 import { createScale } from '../../../util/scale';
 
 const PolarCoord = getCoordinate('polar');
@@ -183,9 +183,10 @@ describe('pie labels', () => {
 
     const gLabels = new PieLabel(pointGeom);
 
-    it('render', () => {
+    it('render', async () => {
       gLabels.render(points, false);
 
+      await delay(0);
       const items = gLabels.getLabelItems(points);
 
       const labels = gLabels.labelsRenderer.container.getChildren();
