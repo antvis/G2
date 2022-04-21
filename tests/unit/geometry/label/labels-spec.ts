@@ -138,8 +138,6 @@ describe('LabelsRenderer', () => {
 
       expect(interval.labelsContainer.getCount()).toBe(0);
       expect(labelsRenderer.shapesMap).toEqual({});
-      // @ts-ignore
-      expect(labelsRenderer.lastShapesMap).toEqual({});
     });
 
     it('destroy', () => {

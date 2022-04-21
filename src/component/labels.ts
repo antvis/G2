@@ -34,7 +34,7 @@ export default class Labels {
   public region: BBox;
 
   /** 存储当前 shape 的映射表，键值为 shape id */
-  private lastShapesMap: Record<string, IGroup> = {};
+  public shapesMap: Record<string, IGroup> = {};
 
   constructor(cfg: LabelsGroupCfg) {
     const { layout, container } = cfg;
@@ -69,7 +69,7 @@ export default class Labels {
     }
 
     // 进行添加、更新、销毁操作
-    const lastShapesMap = this.lastShapesMap;
+    const lastShapesMap = this.shapesMap;
     each(shapesMap, (shape, id) => {
       if (shape.destroyed) {
         // label 在布局调整环节被删除了（doLayout）
@@ -121,20 +121,20 @@ export default class Labels {
       }
     });
 
-    this.lastShapesMap = shapesMap;
+    this.shapesMap = shapesMap;
     offscreenGroup.destroy();
   }
 
   /** 清除当前 labels */
   public clear() {
     this.container.clear();
-    this.lastShapesMap = {};
+    this.shapesMap = {};
   }
 
   /** 销毁 */
   public destroy() {
     this.container.destroy();
-    this.lastShapesMap = null;
+    this.shapesMap = null;
   }
 
   private renderLabel(cfg: LabelItem, container: IGroup): IGroup {

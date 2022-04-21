@@ -56,7 +56,6 @@ export function hideOverlap(labelItems: LabelItem[], labels: IGroup[], shapes: I
       });
       return resolve(items);
     }
-    console.log('intersect 2', intersect(boxes[2], boxes[3]), labels[2].getChildByIndex(1)?.attr('text'));
 
     // Do layout in worker.
     if (window.Worker) {
