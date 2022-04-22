@@ -1,3 +1,10 @@
+#### 4.2.0 (2022-04-22)
+
+##### Refactors
+*  use worker to do label layout 🚀 ([#3888](https://github.com/antvis/g2/pull/3888)) ([bb4c67f1](https://github.com/antvis/g2/commit/bb4c67f1e04b4c359ed892e857eb5b2a76db7dd7))
+
+* **geometry:**  优化 label 和 element 的绑定逻辑 ([#3884](https://github.com/antvis/g2/pull/3884)) ([64f1c3a8](https://github.com/antvis/g2/commit/64f1c3a831a3fb4cb439f462b172c27724aba426))
+
 #### 4.1.50 (2022-04-13)
 
 ##### Documentation Changes

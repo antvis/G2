@@ -12,7 +12,7 @@ describe('GeometryLabel layout', () => {
     height: 480,
   });
 
-  it('hideOverlap', async () => {
+  it.skip('hideOverlap', async () => {
     // mock
     const items = [];
     const labels = [];
@@ -49,7 +49,7 @@ describe('GeometryLabel layout', () => {
     });
   }
 
-  it('hideOverlap with rotate', async () => {
+  it.skip('hideOverlap with rotate', async () => {
     canvas.clear();
 
     const items = [];
@@ -104,7 +104,7 @@ describe('GeometryLabel layout', () => {
     expect(labels[3].get('visible')).toBeFalsy();
   });
 
-  it('hideOverlap with rotate 2', async () => {
+  it.skip('hideOverlap with rotate 2', async () => {
     canvas.clear();
 
     const items = [];
