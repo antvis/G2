@@ -71,7 +71,7 @@ import {
   Plot,
 } from '../action';
 import { MousePosition, TouchPosition } from '../interactor';
-import { Layer, Flex } from '../composition';
+import { Layer, Flex, Mark, View } from '../composition';
 
 export function createLibrary(): G2Library {
   return {
@@ -151,5 +151,7 @@ export function createLibrary(): G2Library {
     'interactor.touchPosition': TouchPosition,
     'composition.layer': Layer,
     'composition.flex': Flex,
+    'composition.mark': Mark,
+    'composition.view': View,
   };
 }

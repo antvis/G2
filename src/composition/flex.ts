@@ -1,7 +1,7 @@
 import { CompositionComponent as CC } from '../runtime';
-import { Flex as FlexSpec } from '../spec';
+import { FlexComposition } from '../spec';
 
-export type FlexOptions = Omit<FlexSpec, 'type'>;
+export type FlexOptions = Omit<FlexComposition, 'type'>;
 
 export const Flex: CC<FlexOptions> = () => {
   return (options) => {

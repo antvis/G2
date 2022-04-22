@@ -8,9 +8,9 @@ export function effectTiming(
 ): Record<string, any> {
   const { enter = {} } = theme;
   return Container.of({})
-    .map(assignDefined, enter)
-    .map(assignDefined, style)
-    .map(assignDefined, options)
+    .call(assignDefined, enter)
+    .call(assignDefined, style)
+    .call(assignDefined, options)
     .value();
 }
 
