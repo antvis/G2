@@ -1,5 +1,4 @@
-import { Chart } from '../../src';
-import { delay } from '../util/delay';
+import { Chart, VIEW_LIFE_CIRCLE } from '../../src';
 import { createDiv } from '../util/dom';
 
 describe('2295', () => {
@@ -141,10 +140,9 @@ describe('2295', () => {
       end: 0.8,
     });
     chart.render();
-    chart.render();
-
-    await delay(10);
-
-    expect(chart.getData().length).toBe(Math.floor(data.length * (0.8 - 0.2)));
+    // After slider filter view and trigger render.
+    chart.on(VIEW_LIFE_CIRCLE.AFTER_RENDER, () => {
+      expect(chart.getData().length).toBe(Math.floor(data.length * (0.8 - 0.2)));
+    });
   });
 });

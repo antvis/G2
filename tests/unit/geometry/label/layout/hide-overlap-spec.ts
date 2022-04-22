@@ -2,6 +2,7 @@ import { hideOverlap } from '../../../../../src/geometry/label/layout/hide-overl
 import { removeDom } from '../../../../../src/util/dom';
 import { createCanvas, createDiv } from '../../../../util/dom';
 import { getRotateMatrix } from '../../../../../src/util/transform';
+import { delay } from '../../../../util/delay';
 
 describe('GeometryLabel layout', () => {
   const div = createDiv();
@@ -147,9 +148,9 @@ describe('GeometryLabel layout', () => {
     expect(canvas.getChildren().filter((child) => child.get('visible')).length).toBe(9);
     expect(labels[9].get('visible')).toBeFalsy();
   });
-
-  afterAll(() => {
-    canvas.destroy();
-    removeDom(div);
-  });
+  // Delay render, no to destroy
+  // afterAll(async () => {
+  //   canvas.destroy();
+  //   removeDom(div);
+  // });
 });

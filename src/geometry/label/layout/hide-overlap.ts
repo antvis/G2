@@ -75,6 +75,7 @@ export function hideOverlap(labelItems: LabelItem[], labels: IGroup[], shapes: I
         };
       } catch (e) {
         console.error(e);
+        cb(layout(boxes));
       }
     } else {
       // Normal layout in main thread.
