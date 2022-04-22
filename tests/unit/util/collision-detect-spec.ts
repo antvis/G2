@@ -1,6 +1,6 @@
 import { createCanvas, createDiv } from '../../util/dom';
 import { rotate } from '../../../src/util/transform';
-import { isIntersect } from '../../../src/util/collision-detect';
+import { intersect } from '../../../src/util/collision-detect';
 
 describe('collision-detect', () => {
   const canvas = createCanvas({
@@ -37,10 +37,10 @@ describe('collision-detect', () => {
       height: 100,
       rotation: 0,
     };
-    expect(isIntersect(box1, box2)).toBeTruthy();
-    expect(isIntersect({ ...box1, rotation: -Math.PI / 2 }, box2)).not.toBeTruthy();
-    expect(isIntersect({ ...box1, rotation: -Math.PI / 2 + Math.PI / 180 }, box2)).toBeTruthy();
-    expect(isIntersect({ ...box1, rotation: Math.PI / 6 }, box2)).not.toBeTruthy();
+    expect(intersect(box1, box2)).toBeTruthy();
+    expect(intersect({ ...box1, rotation: -Math.PI / 2 }, box2)).not.toBeTruthy();
+    expect(intersect({ ...box1, rotation: -Math.PI / 2 + Math.PI / 180 }, box2)).toBeTruthy();
+    expect(intersect({ ...box1, rotation: Math.PI / 6 }, box2)).not.toBeTruthy();
   });
 
   const rect0 = canvas.addShape({
@@ -67,21 +67,21 @@ describe('collision-detect', () => {
   const getBox = (shape, rotation: number = 0) => ({ ...shape.getCanvasBBox(), rotation });
 
   it('判断旋转矩阵是否重叠: 随机旋转', () => {
-    expect(isIntersect(getBox(rect0), getBox(rect1))).toBeFalsy();
+    expect(intersect(getBox(rect0), getBox(rect1))).toBeFalsy();
 
     rect0.translate(22, 0);
-    expect(isIntersect(getBox(rect0), getBox(rect1))).not.toBeFalsy();
+    expect(intersect(getBox(rect0), getBox(rect1))).not.toBeFalsy();
 
     rect0.resetMatrix();
-    expect(isIntersect(getBox(rect0), getBox(rect1))).toBeFalsy();
+    expect(intersect(getBox(rect0), getBox(rect1))).toBeFalsy();
 
     let rotation0 = -Math.PI / 8;
-    expect(isIntersect(getBox(rect0, rotation0), getBox(rect1))).not.toBeFalsy();
+    expect(intersect(getBox(rect0, rotation0), getBox(rect1))).not.toBeFalsy();
     // 看可视化效果
     rotate(rect0, rotation0);
 
     rect0.resetMatrix();
-    expect(isIntersect(getBox(rect0, 0), getBox(rect1))).toBeFalsy();
+    expect(intersect(getBox(rect0, 0), getBox(rect1))).toBeFalsy();
     rotate(rect0, 0);
 
     rect0.resetMatrix();
@@ -89,7 +89,7 @@ describe('collision-detect', () => {
     rotation0 = -Math.PI / 4;
     let rotation1 = Math.PI / 4;
 
-    expect(isIntersect(getBox(rect0, rotation0), getBox(rect1, rotation1))).not.toBeFalsy();
+    expect(intersect(getBox(rect0, rotation0), getBox(rect1, rotation1))).not.toBeFalsy();
     // 看可视化效果
     rotate(rect0, rotation0);
     rotate(rect1, rotation1);
@@ -98,7 +98,7 @@ describe('collision-detect', () => {
     rect1.resetMatrix();
     rotation0 = Math.PI / 8;
     rotation1 = Math.PI / 8;
-    expect(isIntersect(getBox(rect0, rotation0), getBox(rect1, rotation1))).toBeFalsy();
+    expect(intersect(getBox(rect0, rotation0), getBox(rect1, rotation1))).toBeFalsy();
     // 看可视化效果：平行 （需要在 getCanvasBBox 之后）
     rotate(rect0, rotation0);
     rotate(rect1, rotation1);
@@ -116,7 +116,7 @@ describe('collision-detect', () => {
     rect1.attr('x', 45);
     rect1.attr('y', 0);
 
-    expect(isIntersect(getBox(rect0), getBox(rect1))).not.toBeFalsy();
+    expect(intersect(getBox(rect0), getBox(rect1))).not.toBeFalsy();
   });
 
   it('判断旋转矩阵是否重叠: 包含', () => {
@@ -131,7 +131,7 @@ describe('collision-detect', () => {
     rect1.attr('x', 45);
     rect1.attr('y', 45);
 
-    expect(isIntersect(getBox(rect0), getBox(rect1))).not.toBeFalsy();
+    expect(intersect(getBox(rect0), getBox(rect1))).not.toBeFalsy();
   });
 
   it('isInteract 只会判断合法的 box', () => {
@@ -170,11 +170,11 @@ describe('collision-detect', () => {
       height: 10,
     };
 
-    expect(isIntersect(b0, b1)).toBe(false);
-    expect(isIntersect(b0, b2)).toBe(false);
-    expect(isIntersect(b0, b3)).toBe(false);
-    expect(isIntersect(b1, b2)).toBe(false);
-    expect(isIntersect(b0, b4)).toBe(false);
+    expect(intersect(b0, b1)).toBe(false);
+    expect(intersect(b0, b2)).toBe(false);
+    expect(intersect(b0, b3)).toBe(false);
+    expect(intersect(b1, b2)).toBe(false);
+    expect(intersect(b0, b4)).toBe(false);
   });
 
   afterAll(() => {

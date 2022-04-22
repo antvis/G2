@@ -1,6 +1,7 @@
 import { flatten } from 'lodash';
 import { Chart } from '../../../../src';
 import { createDiv } from '../../../util/dom';
+import { delay } from '../../../util/delay';
 
 describe('Pie GeometryLabel offset', () => {
   const div = createDiv();
@@ -58,25 +59,29 @@ describe('Pie GeometryLabel offset', () => {
     expect(labelItems[0].offset).toBe(chart.getCoordinate().getRadius() * 0.1);
   });
 
-  it('labelLine not to be shown, when offset <= 0', () => {
+  it('labelLine not to be shown, when offset <= 0', async () => {
     geometry.label('type', { offset: '-10%' });
     let labelItems = geometryLabel.getLabelItems(flatten(geometry.dataArray));
     expect(labelItems[0].labelLine).toBeNull();
     expect(labelItems[0].offset).toBe(chart.getCoordinate().getRadius() * -0.1);
     chart.render();
+
+    await delay(0);
     expect(geometryLabel.labelsRenderer.shapesMap[labelItems[0].id].getChildren().length).toBe(1);
 
     geometry.label('type', { offset: 10 });
     labelItems = geometryLabel.getLabelItems(flatten(geometry.dataArray));
     chart.render();
+    await delay(0);
     expect(geometryLabel.labelsRenderer.shapesMap[labelItems[0].id].getChildren().length).toBe(2);
   });
 
-  it('declare "offset" percentage, with innerRadius', () => {
+  it('declare "offset" percentage, with innerRadius', async () => {
     chart.coordinate('polar', { radius: 0.9, innerRadius: 0.6 });
     geometry.label('type', { offset: '-50%' });
     chart.render();
     const coordinate = chart.getCoordinate();
+    await delay(0);
 
     let labelItems = geometryLabel.getLabelItems(flatten(geometry.dataArray));
     expect(labelItems[0].offset).not.toEqual(coordinate.getRadius() * -0.5);

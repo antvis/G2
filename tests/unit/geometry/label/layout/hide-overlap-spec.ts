@@ -2,6 +2,7 @@ import { hideOverlap } from '../../../../../src/geometry/label/layout/hide-overl
 import { removeDom } from '../../../../../src/util/dom';
 import { createCanvas, createDiv } from '../../../../util/dom';
 import { getRotateMatrix } from '../../../../../src/util/transform';
+import { delay } from '../../../../util/delay';
 
 describe('GeometryLabel layout', () => {
   const div = createDiv();
@@ -11,7 +12,7 @@ describe('GeometryLabel layout', () => {
     height: 480,
   });
 
-  it('hideOverlap', () => {
+  it('hideOverlap', async () => {
     // mock
     const items = [];
     const labels = [];
@@ -31,9 +32,8 @@ describe('GeometryLabel layout', () => {
     }
     expect(canvas.getChildren().length).toBe(20);
 
-    hideOverlap(items, labels, [], {} as any);
+    await hideOverlap(items, labels, [], {} as any)
     canvas.draw();
-
     expect(canvas.getChildren().filter((child) => child.get('visible')).length).toBe(1);
   });
 
@@ -49,7 +49,7 @@ describe('GeometryLabel layout', () => {
     });
   }
 
-  it('hideOverlap with rotate', () => {
+  it('hideOverlap with rotate', async () => {
     canvas.clear();
 
     const items = [];
@@ -72,7 +72,7 @@ describe('GeometryLabel layout', () => {
       label.addShape({
         type: 'text',
         attrs: {
-          text: '嗨',
+          text: `嗨 ${i}`,
           x: x + 15,
           y: 115,
           fill: '#333',
@@ -84,9 +84,8 @@ describe('GeometryLabel layout', () => {
     }
     expect(canvas.getChildren().filter((child) => child.get('visible')).length).toBe(10);
 
-    hideOverlap(items, labels, [], {} as any);
+    await hideOverlap(items, labels, [], {} as any)
     canvas.draw();
-
     expect(canvas.getChildren().filter((child) => child.get('visible')).length).toBe(10);
 
     // 旋转 10 度
@@ -99,13 +98,13 @@ describe('GeometryLabel layout', () => {
     items[2].rotate = rotateRadian2;
     rotate(labels[2], rotateRadian2);
 
-    hideOverlap(items, labels, [], {} as any);
+    await hideOverlap(items, labels, [], {} as any)
     canvas.draw();
     expect(canvas.getChildren().filter((child) => child.get('visible')).length).toBe(9);
     expect(labels[3].get('visible')).toBeFalsy();
   });
 
-  it('hideOverlap with rotate 2', () => {
+  it('hideOverlap with rotate 2', async () => {
     canvas.clear();
 
     const items = [];
@@ -144,14 +143,14 @@ describe('GeometryLabel layout', () => {
     items[9].rotate = rotateRadian;
     rotate(labels[9], rotateRadian);
 
-    hideOverlap(items, labels, [], {} as any);
+    await hideOverlap(items, labels, [], {} as any);
     canvas.draw();
     expect(canvas.getChildren().filter((child) => child.get('visible')).length).toBe(9);
     expect(labels[9].get('visible')).toBeFalsy();
   });
-
-  afterAll(() => {
-    canvas.destroy();
-    removeDom(div);
-  });
+  // Delay render, no to destroy
+  // afterAll(async () => {
+  //   canvas.destroy();
+  //   removeDom(div);
+  // });
 });

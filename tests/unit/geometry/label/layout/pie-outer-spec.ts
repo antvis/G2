@@ -2,6 +2,7 @@ import { IGroup } from '@antv/g-base';
 import { Chart } from '../../../../../src';
 import { removeDom } from '../../../../../src/util/dom';
 import { createDiv } from '../../../../util/dom';
+import { delay } from '../../../../util/delay';
 import { CountryEconomy } from '../../../../data/country-economy';
 
 describe('pie-outer-label layout', () => {
@@ -79,7 +80,7 @@ describe('pie-outer-label layout', () => {
     }
   });
 
-  it('normal', () => {
+  it('normal', async () => {
     chart.data([
       { item: '事例一', count: 50 },
       { item: '事例二', count: 15 },
@@ -110,6 +111,7 @@ describe('pie-outer-label layout', () => {
       });
 
     chart.render();
+    await delay(0);
     const labels = chart.geometries[0].labelsContainer.getChildren().filter((label) => label.get('visible'));
     expect(labels.length).toBe(5);
 

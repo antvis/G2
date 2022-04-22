@@ -1,9 +1,10 @@
 // 欢迎使用全新的 G2 4.0
 import { Chart } from '../../src/';
 import { createDiv } from '../util/dom';
+import { delay } from '../util/delay';
 
 describe('#3073', () => {
-  it('pie-outer 当数据存在 null 报错', () => {
+  it('pie-outer 当数据存在 null 报错', async () => {
     const data = [
       { type: '分类一', value: 27 },
       { type: '分类二', value: 25 },
@@ -37,7 +38,7 @@ describe('#3073', () => {
       });
 
     chart.render();
-
+    await delay(0);
     const labels = chart.geometries[0].labelsContainer.getChildren();
     expect(labels.length).toBe(data.filter((d) => d.value).length);
   });

@@ -1,5 +1,6 @@
 import { Chart } from '../../src';
 import { createDiv, removeDom } from '../util/dom';
+import { delay } from '../util/delay';
 
 describe('#3160', () => {
   const div = createDiv();
@@ -32,7 +33,7 @@ describe('#3160', () => {
     expect(labels.length).toBe(4);
   });
 
-  it('spider label, render normal', () => {
+  it('spider label, render normal', async () => {
     chart.clear();
     chart
       .interval()
@@ -41,7 +42,7 @@ describe('#3160', () => {
       .label('type', { layout: { type: 'pie-spider' } })
       .adjust('stack');
     chart.render();
-
+    await delay(0);
     const labels = chart.geometries[0].labelsContainer.getChildren();
 
     const label1 = labels.find((l) => l.get('id') === `1-${data[0].type}`);

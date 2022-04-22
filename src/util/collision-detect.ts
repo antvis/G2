@@ -1,16 +1,24 @@
 import { isNumber } from '@antv/util';
-import { vec2 } from '@antv/matrix-util';
-import { BBox, Point } from '../dependents';
+import { Point } from '../dependents';
 
-const { dot } = vec2;
 type Vec2 = [number, number];
 
-type Box = Pick<BBox, 'x' | 'y' | 'width' | 'height'> & { rotation?: number };
-
+type Item = {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  rotation?: number;
+  visible?: boolean;
+};
 /**
  * 定义投影对象
  */
 type Projection = { min: number; max: number };
+
+function dot(a, b) {
+  return (a[0] || 0) * (b[0] || 0) + (a[1] || 0) * (b[1] || 0) + (a[2] || 0) * (b[2] || 0);
+}
 
 /**
  * @private
@@ -52,7 +60,7 @@ function rotateAtPoint(point: Point, deg = 0, origin = { x: 0, y: 0 }): Point {
  *
  * @param {Object} box
  */
-function getRectPoints(box: Box): Point[] {
+function getRectPoints(box: Item): Point[] {
   const points = [
     { x: box.x, y: box.y },
     { x: box.x + box.width, y: box.y },
@@ -99,17 +107,17 @@ function isProjectionOverlap(projection1: Projection, projection2: Projection): 
 }
 
 function isValidNumber(d: number) {
-  return isNumber(d) && !Number.isNaN(d) && d !== Infinity && d !== -Infinity;
+  return typeof d === 'number' && !Number.isNaN(d) && d !== Infinity && d !== -Infinity;
 }
 
-function isValidBox(box: Box) {
-  return Object.values(box).every(isValidNumber);
+function isValidBox(box: Item) {
+  return ['x', 'y', 'width', 'height'].every(attr => isValidNumber(box[attr]))
 }
 
 /**
  * 快速判断两个无旋转矩形是否遮挡
  */
-export function isIntersectRect(box1: Box, box2: Box, margin: number = 0): boolean {
+export function isIntersectRect(box1: Item, box2: Item, margin: number = 0): boolean {
   return !(
     box2.x > box1.x + box1.width + margin ||
     box2.x + box2.width < box1.x - margin ||
@@ -124,13 +132,13 @@ export function isIntersectRect(box1: Box, box2: Box, margin: number = 0): boole
  *
  * - 原理: 分离轴定律
  */
-export function isIntersect(box1: Box, box2: Box) {
+export function intersect(box1: Item, box2: Item, margin: number = 0) {
   // 如果两个 box 中有一个是不合法的 box，也就是不会被渲染出来的，那么它们就不相交。
   if (!isValidBox(box1) || !isValidBox(box2)) return false;
 
   // 如果两个矩形没有旋转，使用快速判断
   if (!box1.rotation && !box2.rotation) {
-    return isIntersectRect(box1, box2);
+    return isIntersectRect(box1, box2, margin);
   }
 
   // 分别获取 4 个关键点
@@ -138,7 +146,7 @@ export function isIntersect(box1: Box, box2: Box) {
   const rect2Points = getRectPoints(box2);
 
   // 获取所有投影轴
-  const axes = [...getAxes(rect1Points), ...getAxes(rect2Points)];
+  const axes = getAxes(rect1Points).concat(getAxes(rect2Points));
 
   for (let i = 0; i < axes.length; i++) {
     const axis = axes[i];
@@ -146,7 +154,9 @@ export function isIntersect(box1: Box, box2: Box) {
     const projection2 = getProjection(rect2Points, axis);
 
     // 判断投影轴上的投影是否存在重叠，若检测到存在间隙则立刻退出判断，消除不必要的运算。
-    if (!isProjectionOverlap(projection1, projection2)) return false;
+    if (!isProjectionOverlap(projection1, projection2)) {
+      return false;
+    }
   }
 
   return true;

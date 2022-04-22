@@ -1,7 +1,7 @@
 import { Chart } from '../../../../src';
 import { createDiv, removeDom } from '../../../util/dom';
 import { salesBySubCategory, subSalesBySubCategory } from '../../../data/sales';
-import { COMPONENT_TYPE } from '../../../../src/constant';
+import { COMPONENT_TYPE, VIEW_LIFE_CIRCLE } from '../../../../src/constant';
 import { Scrollbar as ScrollbarComponent } from '../../../../src/dependents';
 import { BBox } from '../../../../src/util/bbox';
 import { delay } from '../../../util/delay';
@@ -86,14 +86,17 @@ describe('Scrollbar', () => {
     const [xAxis] = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.AXIS);
     const xAxisBBox = xAxis.component.getLayoutBBox();
 
-    // initial state
-    expect(scrollbarBBox.height).toBe(8);
-    expect(scrollbarBBox.width).toBe(coordinateBBox.width);
-    expect(near(xAxisBBox.maxY, 392 - 16)).toBe(true);
-    expect(scrollbar.component.get('trackLen')).toBe(coordinateBBox.width);
-    // @ts-ignore
-    expect(chart.filteredData.length).toBe(14);
-    chart.destroy();
+    // After scrollbar filter view and trigger render.
+    chart.on(VIEW_LIFE_CIRCLE.AFTER_RENDER, () => {
+      // initial state
+      expect(scrollbarBBox.height).toBe(8);
+      expect(scrollbarBBox.width).toBe(coordinateBBox.width);
+      expect(near(xAxisBBox.maxY, 392 - 16)).toBe(true);
+      expect(scrollbar.component.get('trackLen')).toBe(coordinateBBox.width);
+      // @ts-ignore
+      expect(chart.filteredData.length).toBe(14);
+      chart.destroy();
+    });
   });
 
   it('scrollbar /w interval vertical', async () => {
@@ -170,6 +173,7 @@ describe('Scrollbar', () => {
     // padding 8 * 2
     expect(near(xAxisBBox.maxY, 392 - 16)).toBe(true);
     expect(scrollbar.component.get('trackLen')).toBe(coordinateBBox.width);
+    await delay(50);
     // @ts-ignore
     expect(chart.filteredData.length).toBe(12);
   });

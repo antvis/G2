@@ -38,6 +38,7 @@ describe('adjust-color layout', () => {
       });
 
     chart.render();
+    await delay(0);
 
     const labelContainer = interval.labelsContainer;
     expect(labelContainer.getCount()).toBe(subSalesByArea.length);
@@ -59,7 +60,7 @@ describe('adjust-color layout', () => {
     });
   });
 
-  it('adjust-color overflow shape', () => {
+  it('adjust-color overflow shape', async () => {
     const DATA = [
       {
         name: '人群定向召回',
@@ -109,6 +110,7 @@ describe('adjust-color layout', () => {
       },
     });
     chart.render();
+    await delay(0);
 
     const labelContainer = interval.labelsContainer;
     expect(labelContainer.getCount()).toBe(DATA.length);
@@ -135,7 +137,7 @@ describe('adjust-color layout', () => {
     });
   });
 
-  it('adjust-color overflow shape /w dark theme', () => {
+  it('adjust-color overflow shape /w dark theme', async () => {
     const DATA = [
       {
         name: '人群定向召回',
@@ -185,6 +187,7 @@ describe('adjust-color layout', () => {
       },
     });
     chart.render();
+    await delay(0);
 
     const labelContainer = interval.labelsContainer;
     expect(labelContainer.getCount()).toBe(DATA.length);

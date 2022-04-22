@@ -4,6 +4,7 @@ import GeometryLabel from '../../../../src/geometry/label/base';
 import Point from '../../../../src/geometry/point';
 import { getTheme } from '../../../../src/theme/';
 import { createCanvas, createDiv } from '../../../util/dom';
+import { delay } from '../../../util/delay';
 import { createScale } from '../../../util/scale';
 
 const CartesianCoordinate = getCoordinate('rect');
@@ -81,7 +82,7 @@ describe('GeometryLabel', () => {
       expect(labelItems[1].style).toEqual(Theme.labels.style);
     });
 
-    it('offsetX, offsetY', () => {
+    it('offsetX, offsetY', async () => {
       point.label('z', {
         offsetX: 10,
         offsetY: 10,
@@ -93,7 +94,7 @@ describe('GeometryLabel', () => {
         ],
         false
       );
-
+      await delay(0);
       // @ts-ignore
       const labelShape1 = labelsContainer.getChildren()[0].find((ele) => ele.get('type') === 'text');
       expect(labelShape1.attr('x')).toBe(110);

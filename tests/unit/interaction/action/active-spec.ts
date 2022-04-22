@@ -2,9 +2,9 @@ import { Chart } from '../../../../src/index';
 import ActiveAction from '../../../../src/interaction/action/element/active';
 import RangeActiveAction from '../../../../src/interaction/action/element/range-active';
 import SingleActiveAction from '../../../../src/interaction/action/element/single-active';
-
 import Context from '../../../../src/interaction/context';
 import { createDiv } from '../../../util/dom';
+import { delay } from '../../../util/delay';
 
 describe('test active action', () => {
   const chart = new Chart({
@@ -121,9 +121,10 @@ describe('test active action', () => {
       expect(second.hasState('active')).toBe(false);
     });
 
-    it('label active', () => {
+    it('label active', async () => {
       interval.label('value');
       chart.render(true);
+      await delay(0);
       const labels = chart.foregroundGroup.findAll((el) => {
         return el.get('name') === 'label';
       });

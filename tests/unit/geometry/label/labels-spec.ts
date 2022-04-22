@@ -5,6 +5,7 @@ import Interval from '../../../../src/geometry/interval';
 import Path from '../../../../src/geometry/path';
 import { getTheme } from '../../../../src/theme/';
 import { createCanvas, createDiv, removeDom } from '../../../util/dom';
+import { delay } from '../../../util/delay';
 import { createScale, updateScales } from '../../../util/scale';
 
 const PolarCoordinate = getCoordinate('polar');
@@ -80,7 +81,8 @@ describe('LabelsRenderer', () => {
     });
     interval.paint();
 
-    it('render', () => {
+    it('render', async () => {
+      await delay(0);
       expect(interval.labelsContainer.getCount()).toBe(3);
       // @ts-ignore
       const labelsRenderer = interval.geometryLabel.labelsRenderer;
@@ -91,7 +93,7 @@ describe('LabelsRenderer', () => {
       expect(labelsRenderer.container.getFirst().get('coordinate')).toEqual(interval.coordinate);
     });
 
-    it('update', () => {
+    it('update', async () => {
       const newData = [
         { a: '1', percent: 0.5 },
         { a: '2', percent: 0.5 },
@@ -112,7 +114,7 @@ describe('LabelsRenderer', () => {
           data: newData,
         });
       interval.paint();
-
+      await delay(0);
       // @ts-ignore
       const labelsRenderer = interval.geometryLabel.labelsRenderer;
       expect(labelsRenderer.container.getCount()).toBe(2);
@@ -124,6 +126,7 @@ describe('LabelsRenderer', () => {
 
       interval.animate(false).update();
       interval.paint();
+      await delay(0);
       // @ts-ignore
       expect(labelsRenderer.container.getFirst().get('animateCfg')).toBe(false);
     });
@@ -135,8 +138,6 @@ describe('LabelsRenderer', () => {
 
       expect(interval.labelsContainer.getCount()).toBe(0);
       expect(labelsRenderer.shapesMap).toEqual({});
-      // @ts-ignore
-      expect(labelsRenderer.lastShapesMap).toEqual({});
     });
 
     it('destroy', () => {
@@ -185,7 +186,8 @@ describe('LabelsRenderer', () => {
     });
     path.paint();
 
-    it('render', () => {
+    it('render', async () => {
+      await delay(0);
       expect(path.container.getCount()).toEqual(1);
       expect(path.labelsContainer.getCount()).toEqual(data.length);
 
@@ -195,7 +197,7 @@ describe('LabelsRenderer', () => {
     });
   });
 
-  it('content is an instance of group', () => {
+  it('content is an instance of group', async () => {
     const data = [
       { sex: '男', sold: 0.45 },
       { sex: '女', sold: 0.55 },
@@ -262,7 +264,7 @@ describe('LabelsRenderer', () => {
       });
     chart.interaction('active');
     chart.render();
-
+    await delay(0);
     const labelsContainer = interval.labelsContainer;
     expect(labelsContainer.getCount()).toBe(2);
     const femaleLabel = labelsContainer.findById('1-女');

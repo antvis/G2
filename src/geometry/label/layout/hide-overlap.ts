@@ -1,33 +1,85 @@
-import { get } from '@antv/util';
+import { get, each } from '@antv/util';
 import { BBox, IGroup, IShape } from '../../../dependents';
-import { isIntersect } from '../../../util/collision-detect';
+import { intersect } from '../../../util/collision-detect';
 import { LabelItem } from '../interface';
 import { getLabelBackgroundInfo } from '../util';
+import { createWorker } from '../util/createWorker';
+import { code as layoutCode } from './worker/hide-overlap';
+
+type Item = {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  rotation?: number;
+  visible?: boolean;
+};
+
+const layout = (items: Item[]): Item[] => {
+  const boxes = items.slice();
+  for (let i = 0; i < boxes.length; i++) {
+    const box1 = boxes[i];
+    if (box1.visible) {
+      for (let j = i + 1; j < boxes.length; j++) {
+        const box2 = boxes[j];
+        if (box1 !== box2 && box2.visible) {
+          if (intersect(box1, box2)) {
+            box2.visible = false;
+          }
+        }
+      }
+    }
+  }
+  return boxes;
+}
+
+const cache: Map<string, any> = new Map();
+const worker = createWorker(layoutCode);
 
 /**
  * label 防遮挡布局：在不改变 label 位置的情况下对相互重叠的 label 进行隐藏（非移除）
  * 不同于 'overlap' 类型的布局，该布局不会对 label 的位置进行偏移调整。
  * @param labels 参与布局调整的 label 数组集合
  */
-export function hideOverlap(items: LabelItem[], labels: IGroup[], shapes: IShape[] | IGroup[], region: BBox) {
-  // todo 添加 labelrank
-  // each label will hide the next one because the next one always has lower rank.
-
-  // Detect overlapping labels
-  for (let i = 0; i < labels.length; i++) {
-    const label1 = labels[i];
-    if (labels[i].get('visible')) {
-      for (let j = i + 1; j < labels.length; j++) {
-        const label2 = labels[j];
-        if (label1 && label2 && label1 !== label2 && label2.get('visible')) {
-          const box1 = getLabelBackgroundInfo(label1, items[i], get(items[i], 'background.padding'));
-          const box2 = getLabelBackgroundInfo(label2, items[j], get(items[j], 'background.padding'));
-
-          if (isIntersect(box1, box2)) {
-            labels[j].set('visible', false);
-          }
+export function hideOverlap(labelItems: LabelItem[], labels: IGroup[], shapes: IShape[] | IGroup[], region: BBox) {
+  // todo 添加 label rank
+  return new Promise((resolve) => {
+    const boxes = labels.map((d, idx) => ({
+      ...getLabelBackgroundInfo(d, labelItems[idx], get(labelItems[idx], 'background.padding')),
+      visible: true,
+    }));
+    const memoKey = JSON.stringify(boxes);
+    const cb = (items: Item[]) => {
+      cache.set(memoKey, items);
+      each(items, ({ visible }, idx) => {
+        const labelShape = labels[idx];
+        if (visible) {
+          labelShape?.show()
+        } else {
+          labelShape?.hide();
         }
-      }
+      });
+      return resolve(items);
     }
-  }
+    if (cache.get(memoKey)) {
+      cb(cache.get(memoKey))
+    } else if (worker) {
+      // Do layout in worker.
+      try {
+        worker.postMessage(JSON.stringify({ type: 'hide-overlap', items: boxes }));
+        worker.onmessage = (e) => cb(Array.isArray(e.data) ? e.data : []);
+        worker.onmessageerror = (e) => {
+          console.warn('[AntV G2] Web worker is not available');
+          // Normal layout in main thread.
+          cb(layout(boxes));
+        };
+      } catch (e) {
+        console.error(e);
+        cb(layout(boxes));
+      }
+    } else {
+      // Normal layout in main thread.
+      cb(layout(boxes));
+    }
+  });
 }

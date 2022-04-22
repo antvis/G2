@@ -4,6 +4,7 @@ import { removeDom } from '../../../../../../src/util/dom';
 import { salesByArea, subSalesByArea } from '../../../../../data/sales';
 import { createDiv } from '../../../../../util/dom';
 import { near } from '../../../../../util/math';
+import { delay } from '../../../../../util/delay';
 
 describe('adjust-position layout', () => {
   const container = createDiv();
@@ -32,7 +33,7 @@ describe('adjust-position layout', () => {
       });
 
     chart.render();
-
+    await delay(0);
     const elements = interval.elements;
     expect(elements).toHaveLength(salesByArea.length);
     elements.forEach((element) => {
@@ -68,7 +69,7 @@ describe('adjust-position layout', () => {
       });
 
     chart.render();
-
+    await delay(0);
     const elements = interval.elements;
     expect(elements).toHaveLength(salesByArea.length);
     elements.forEach((element) => {
@@ -105,7 +106,7 @@ describe('adjust-position layout', () => {
       });
 
     chart.render();
-
+    await delay(0);
     const elements = interval.elements;
     expect(elements).toHaveLength(salesByArea.length);
     elements.forEach((element) => {
@@ -142,7 +143,7 @@ describe('adjust-position layout', () => {
       });
 
     chart.render();
-
+    await delay(0);
     const elements = interval.elements;
     expect(elements).toHaveLength(salesByArea.length);
     elements.forEach((element) => {
@@ -180,7 +181,7 @@ describe('adjust-position layout', () => {
       });
 
     chart.render();
-
+    await delay(0);
     let elements = interval.elements;
     expect(elements).toHaveLength(salesByArea.length);
     elements.forEach((element) => {
@@ -230,7 +231,7 @@ describe('adjust-position layout', () => {
       });
 
     chart.render();
-
+    await delay(0);
     const elements = interval.elements;
     expect(elements).toHaveLength(subSalesByArea.length);
     elements.forEach((element) => {
@@ -269,7 +270,7 @@ describe('adjust-position layout', () => {
       });
 
     chart.render();
-
+    await delay(0);
     const elements = interval.elements;
     expect(elements).toHaveLength(subSalesByArea.length);
     elements.forEach((element) => {
@@ -307,7 +308,7 @@ describe('adjust-position layout', () => {
       });
 
     chart.render();
-
+    await delay(0);
     const elements = interval.elements;
     expect(elements).toHaveLength(subSalesByArea.length);
     elements.forEach((element) => {
@@ -345,7 +346,7 @@ describe('adjust-position layout', () => {
       });
 
     chart.render();
-
+    await delay(0);
     const elements = interval.elements;
     expect(elements).toHaveLength(subSalesByArea.length);
     elements.forEach((element) => {
