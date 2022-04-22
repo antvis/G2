@@ -1,6 +1,6 @@
 import { Coordinate } from '@antv/coord';
-import { Selection } from '../../utils/selection';
-import { Scale } from './component';
+import { G2GuideComponentOptions, G2Mark } from './options';
+import { Scale, MarkProps } from './component';
 
 export type G2Theme = {
   defaultColor?: string;
@@ -16,11 +16,19 @@ export type G2Theme = {
 };
 
 export type G2ViewDescriptor = {
-  selection: Selection;
   scale: Record<string, Scale>;
   coordinate: Coordinate;
   theme: G2Theme;
+  markState: Map<G2Mark, G2MarkState>;
+  components: G2GuideComponentOptions[];
+  layout: Layout;
+  key: string;
 };
+
+export type G2MarkState = {
+  index?: number[];
+  data?: Record<string, any>[];
+} & MarkProps;
 
 export type MaybeArray<T> = T | T[];
 

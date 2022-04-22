@@ -1,7 +1,7 @@
 import { CompositionComponent as CC } from '../runtime';
-import { Layer as LayerSpec } from '../spec';
+import { LayerComposition } from '../spec';
 
-export type LayerOptions = Omit<LayerSpec, 'type'>;
+export type LayerOptions = Omit<LayerComposition, 'type'>;
 
 export const Layer: CC<LayerOptions> = () => {
   return (options) => {

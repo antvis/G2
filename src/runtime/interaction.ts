@@ -1,6 +1,7 @@
 import { throttle } from '@antv/util';
 import { group } from 'd3-array';
 import { composeAsync } from '../utils/helper';
+import { Selection } from '../utils/selection';
 import {
   G2View,
   G2Library,
@@ -21,6 +22,7 @@ import { useLibrary } from './library';
 
 export function applyInteraction(
   options: G2View,
+  selection: Selection,
   view: G2ViewDescriptor,
   update: any,
   library: G2Library,
@@ -42,7 +44,7 @@ export function applyInteraction(
 
   const { interaction: partialInteraction = [] } = options;
   const interactions = inferInteraction(partialInteraction);
-  const { scale, selection, coordinate, theme } = view;
+  const { scale, coordinate, theme } = view;
 
   for (const options of interactions) {
     const {

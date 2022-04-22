@@ -1,5 +1,6 @@
 import { Canvas, DisplayObject, Animation as GAnimation } from '@antv/g';
 import { Transformation, Coordinate } from '@antv/coord';
+import { Selection } from '../../utils/selection';
 import {
   IndexedValue,
   EncodeFunction,
@@ -162,7 +163,6 @@ export type MarkProps = {
   channels: Channel[];
   infer: { type: string; [key: string]: any }[];
   shapes: string[];
-  index?: number[];
 };
 export type MarkComponent<O = Record<string, unknown>> = G2BaseComponent<
   Mark,
@@ -246,6 +246,7 @@ export type ActionContext = {
   event: G2Event;
   update: (updater: (options: G2View) => G2View) => void;
   shared: Record<string, any>;
+  selection: Selection;
 } & G2ViewDescriptor;
 export type Action = (options: ActionContext) => ActionContext;
 export type ActionComponent<O = Record<string, unknown>> = G2BaseComponent<
