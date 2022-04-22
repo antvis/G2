@@ -64,5 +64,5 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
 LegendCategory.props = {
   defaultPosition: 'top',
   defaultOrder: 1,
-  defaultSize: 64,
+  defaultSize: 40,
 };
