@@ -13,6 +13,7 @@ import {
   G2ShapeOptions,
   G2AnimationOptions,
   G2CompositionOptions,
+  G2AdjustOptions,
 } from './types/options';
 import {
   ThemeComponent,
@@ -28,6 +29,8 @@ import {
   Animation,
   CompositionComponent,
   Composition,
+  AdjustComponent,
+  Adjust,
 } from './types/component';
 import { Channel, G2ViewDescriptor, G2MarkState } from './types/common';
 import { useLibrary } from './library';
@@ -116,9 +119,13 @@ async function initializeView(
     'scale',
     library,
   );
+  const [useAdjust] = useLibrary<G2AdjustOptions, AdjustComponent, Adjust>(
+    'adjust',
+    library,
+  );
 
   // Initialize theme.
-  const { theme: partialTheme, marks: partialMarks, key } = options;
+  const { theme: partialTheme, marks: partialMarks, key, adjust } = options;
   const theme = useTheme(inferTheme(partialTheme));
 
   // Infer options and calc state for each mark.
@@ -169,13 +176,15 @@ async function initializeView(
 
     const calcPoints = useMark(mark);
     const [I, P] = calcPoints(index, markScale, value, coordinate);
+    const T = adjust ? useAdjust(adjust)(P, layout) : [];
     const data: Record<string, any>[] = I.map((d, i) =>
       Object.entries(value).reduce(
         (datum, [k, V]) => ((datum[k] = V[d]), datum),
-        { points: P[i] },
+        { points: P[i], transform: T[i] },
       ),
     );
     state.data = data;
+    state.index = I;
     Object.assign(scale, markScale);
   }
 

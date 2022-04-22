@@ -25,6 +25,7 @@ describe('Point', () => {
         { type: 'maybeTitle' },
         { type: 'maybeTooltip' },
         { type: 'maybeZeroY1' },
+        { type: 'maybeZeroX1' },
         { type: 'maybeSize' },
       ],
       shapes: ['point', 'hollowPoint'],

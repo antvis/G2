@@ -36,6 +36,11 @@ Point.props = {
     { name: 'y', required: true },
     { name: 'size', required: true },
   ],
-  infer: [...baseInference(), { type: 'maybeZeroY1' }, { type: 'maybeSize' }],
+  infer: [
+    ...baseInference(),
+    { type: 'maybeZeroY1' },
+    { type: 'maybeZeroX1' },
+    { type: 'maybeSize' },
+  ],
   shapes: ['point', 'hollowPoint'],
 };

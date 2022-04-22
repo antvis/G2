@@ -1,4 +1,4 @@
-import { Geometry } from './geometry';
+import { Geometry, Adjust } from './geometry';
 import { Theme } from './theme';
 import { Coordinate } from './coordinate';
 import { Interaction } from './interaction';
@@ -23,6 +23,7 @@ export type ViewComposition = {
   interaction?: Interaction[];
   theme?: Theme;
   children?: MarkComposition[];
+  adjust?: Adjust;
 };
 
 export type LayerComposition = {

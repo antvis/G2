@@ -13,6 +13,7 @@ import {
   Vector2,
   GuideComponentPosition,
   G2ViewDescriptor,
+  Layout,
 } from './common';
 import { G2View, G2ViewTree } from './options';
 
@@ -34,7 +35,8 @@ export type G2ComponentNamespaces =
   | 'action'
   | 'interaction'
   | 'interactor'
-  | 'composition';
+  | 'composition'
+  | 'adjust';
 
 export type G2Component =
   | RendererComponent
@@ -52,7 +54,8 @@ export type G2Component =
   | ActionComponent
   | InteractionComponent
   | InteractorComponent
-  | CompositionComponent;
+  | CompositionComponent
+  | AdjustComponent;
 
 export type G2ComponentValue =
   | Renderer
@@ -71,7 +74,8 @@ export type G2ComponentValue =
   | Action
   | Interaction
   | Interactor
-  | Composition;
+  | Composition
+  | Adjust;
 
 export type G2BaseComponent<
   R = any,
@@ -266,5 +270,11 @@ export type InteractorComponent<O = Record<string, unknown>> = G2BaseComponent<
 export type Composition = (children: G2ViewTree) => G2ViewTree[];
 export type CompositionComponent<O = Record<string, unknown>> = G2BaseComponent<
   Composition,
+  O
+>;
+
+export type Adjust = (points: Vector2[][], layout: Layout) => string[];
+export type AdjustComponent<O = Record<string, unknown>> = G2BaseComponent<
+  Adjust,
   O
 >;

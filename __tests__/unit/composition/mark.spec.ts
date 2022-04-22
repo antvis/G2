@@ -22,6 +22,7 @@ describe('composition', () => {
       transform: [{ type: 'sortBy' }],
       statistic: [{ type: 'stackY' }],
       key: '0',
+      adjust: { type: 'pack' },
     };
     expect(composition(options)).toEqual([
       {
@@ -37,6 +38,7 @@ describe('composition', () => {
         paddingTop: 40,
         x: 10,
         y: 20,
+        adjust: { type: 'pack' },
         component: [{ type: 'title' }],
         coordinate: [{ type: 'polar' }],
         marks: [
