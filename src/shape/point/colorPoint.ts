@@ -18,7 +18,7 @@ export const ColorPoint: SC<ColorPointOptions> = (options) => {
 
   return (points, value, coordinate, theme) => {
     const { defaultColor } = theme;
-    const { color = defaultColor } = value;
+    const { color = defaultColor, transform } = value;
     const [[x0, y0], [x2, y2]] = points;
     const [cx, cy] = [(x0 + x2) / 2, (y0 + y2) / 2];
     const a = (x2 - x0) / 2;
@@ -30,6 +30,7 @@ export const ColorPoint: SC<ColorPointOptions> = (options) => {
       .style('y', cy)
       .style('lineWidth', lineWidth)
       .style('stroke', color)
+      .style('transform', transform)
       .style(colorAttribute, color)
       .call(applyStyle, style)
       .node();

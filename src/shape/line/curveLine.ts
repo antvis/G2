@@ -14,7 +14,7 @@ export const CurveLine: SC<CurveLineOptions> = (options) => {
   const { curve, ...style } = options;
   return (points, value, coordinate, theme) => {
     const { defaultColor, defaultSize } = theme;
-    const { color = defaultColor, size = defaultSize } = value;
+    const { color = defaultColor, size = defaultSize, transform } = value;
     // Append first point to draw close line in polar coordinate.
     const P = isPolar(coordinate) ? [...points, points[0]] : points;
     const path = line()
@@ -26,6 +26,7 @@ export const CurveLine: SC<CurveLineOptions> = (options) => {
       .style('d', path(P))
       .style('stroke', color)
       .style('lineWidth', size)
+      .style('transform', transform)
       .call(applyStyle, style)
       .node();
   };

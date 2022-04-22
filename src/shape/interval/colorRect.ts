@@ -31,7 +31,7 @@ export const ColorRect: SC<ColorRectOptions> = (options) => {
   return (points, value, coordinate, theme) => {
     const { radius = 0 } = style;
     const { defaultColor } = theme;
-    const { color = defaultColor } = value;
+    const { color = defaultColor, transform } = value;
     const [p0, p1, p2, p3] = isTranspose(coordinate) ? reorder(points) : points;
 
     // Render rect in non-polar coordinate.
@@ -73,6 +73,7 @@ export const ColorRect: SC<ColorRectOptions> = (options) => {
       .style('path', path(arcObject))
       .style('transform', `translate(${center[0]}, ${center[1]})`)
       .style('stroke', color)
+      .style('transform', transform)
       .style(colorAttribute, color)
       .call(applyStyle, style)
       .node();

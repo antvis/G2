@@ -17,6 +17,7 @@ export const Text: SC<TextOptions> = (options) => {
       text = '',
       fontSize = 14,
       rotate = 0,
+      transform = '',
     } = value;
     const [[x0, y0]] = points;
 
@@ -27,7 +28,7 @@ export const Text: SC<TextOptions> = (options) => {
       .style('stroke', color)
       .style('fill', color)
       .style('fontSize', fontSize as any)
-      .style('transform', `rotate(${+rotate})`)
+      .style('transform', `${transform}rotate(${+rotate})`)
       .call(applyStyle, style)
       .node();
   };
