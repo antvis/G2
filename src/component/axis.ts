@@ -118,7 +118,7 @@ function getTicks(
   const ticks = scale.getTicks?.() || domain;
   const formatter = scale.getFormatter?.() || ((d) => `${d}`);
   return ticks.map((d) => {
-    const offset = scale.getBandWidth?.() / 2 || 0;
+    const offset = scale.getBandWidth?.(d) / 2 || 0;
     const tick = scale.map(d) + offset;
     const point = getTickPoint(tick, position);
     const vector = coordinate.map(point) as Vector2;
