@@ -56,10 +56,13 @@ export type BaseGeometry<
   style?: Record<string, any>;
   interaction?: Interaction[];
   theme?: Theme;
+  adjust?: Adjust;
   animate?: {
     enter?: Animation;
   };
 };
+
+export type Adjust = { type: 'pack' };
 
 export type IntervalGeometry = BaseGeometry<
   'interval',

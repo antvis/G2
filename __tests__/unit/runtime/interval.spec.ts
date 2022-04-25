@@ -418,6 +418,33 @@ describe('render', () => {
     mount(createDiv(), chart);
   });
 
+  it('render({...} renders chart with specified scale options', (done) => {
+    const chart = render<G2Spec>(
+      {
+        type: 'interval',
+        data: [
+          { genre: 'Sports', sold: 275 },
+          { genre: 'Strategy', sold: 115 },
+          { genre: 'Action', sold: 120 },
+          { genre: 'Shooter', sold: 350 },
+          { genre: 'Other', sold: 150 },
+        ],
+        scale: {
+          x: { flex: [2, 3, 1, 4, 2] },
+        },
+        encode: {
+          x: 'genre',
+          y: 'sold',
+          color: 'genre',
+        },
+      },
+      {},
+      done,
+    );
+
+    mount(createDiv(), chart);
+  });
+
   it('render({...} renders chart with specified palette option', (done) => {
     const chart = render<G2Spec>(
       {

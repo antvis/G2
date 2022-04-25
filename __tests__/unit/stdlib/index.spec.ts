@@ -89,6 +89,7 @@ import {
 } from '../../../src/action';
 import { MousePosition, TouchPosition } from '../../../src/interactor';
 import { Layer, Flex, Mark, View } from '../../../src/composition';
+import { Pack } from '../../../src/adjust';
 
 describe('stdlib', () => {
   it('createLibrary() should returns expected builtin', () => {
@@ -171,6 +172,7 @@ describe('stdlib', () => {
       'composition.flex': Flex,
       'composition.mark': Mark,
       'composition.view': View,
+      'adjust.pack': Pack,
     });
   });
 });

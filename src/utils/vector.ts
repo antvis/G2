@@ -12,3 +12,19 @@ export function angle([x, y]: Vector2): number {
   const theta = Math.atan2(y, x);
   return theta;
 }
+
+export function calcBBox(points: Vector2[]) {
+  let minX = Infinity;
+  let maxX = -Infinity;
+  let minY = Infinity;
+  let maxY = -Infinity;
+  for (const [x, y] of points) {
+    minX = Math.min(x, minX);
+    maxX = Math.max(x, maxX);
+    minY = Math.min(y, minY);
+    maxY = Math.max(y, maxY);
+  }
+  const width = maxX - minX;
+  const height = maxY - minY;
+  return [minX, minY, width, height];
+}

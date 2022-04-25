@@ -2,7 +2,7 @@
 
 - <a href="#ordinal-grid">Ordinal Grid</a>
 - <a href="#quantize-grid">Quantize Grid</a>
-
+- <a href="#flex-grid">Flex Grid</a>
 ## Ordinal Grid
 
 ```js | dom
@@ -57,6 +57,32 @@ G2.render({
     x: (_, i) => ((i / 5) | 0) + 1,
     color: 'salary',
     tooltip: 'salary',
+  },
+  style: {
+    stroke: 'black',
+    lineWidth: 1,
+  },
+});
+```
+
+## Flex Grid
+
+```js | dom
+G2.render({
+  type: 'grid',
+  data: [
+    { name: 'A', course: 'a' },
+    { name: 'A', course: 'b' },
+    { name: 'B', course: 'a' },
+    { name: 'B', course: 'b' },
+  ],
+  scale: {
+    x: { flex: [2, 1] },
+    y: { flex: [1, 2] },
+  },
+  encode: {
+    y: 'name',
+    x: 'course',
   },
   style: {
     stroke: 'black',

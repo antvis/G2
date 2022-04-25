@@ -50,6 +50,8 @@ export const Tooltip: AC<TooltipOptions> = () => {
     const { scale, coordinate, theme, selection, shared } = context;
     const { mouseX, mouseY, selectedElements = [] } = shared;
     const data = selectedElements.map((d) => d.__data__);
+    const { tooltip } = scale;
+    if (tooltip === undefined) return;
 
     selection
       .select('.selection')

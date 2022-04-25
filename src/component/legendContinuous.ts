@@ -49,5 +49,5 @@ export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
 LegendContinuous.props = {
   defaultPosition: 'top',
   defaultOrder: 1,
-  defaultSize: 64,
+  defaultSize: 40,
 };
