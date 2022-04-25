@@ -312,7 +312,7 @@ function isQuantitative(name: string): boolean {
   );
 }
 
-function isPosition(name: string): boolean {
+export function isPosition(name: string): boolean {
   return name === 'x' || name === 'y' || name.startsWith('position');
 }
 

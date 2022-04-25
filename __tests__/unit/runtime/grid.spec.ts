@@ -123,4 +123,29 @@ describe('grid', () => {
     });
     mount(createDiv(), chart);
   });
+
+  it('render({...}) should render grid with flex band', () => {
+    const chart = render<G2Spec>({
+      type: 'grid',
+      data: [
+        { name: 'A', course: 'a' },
+        { name: 'A', course: 'b' },
+        { name: 'B', course: 'a' },
+        { name: 'B', course: 'b' },
+      ],
+      scale: {
+        x: { flex: [2, 1] },
+        y: { flex: [1, 2] },
+      },
+      encode: {
+        y: 'name',
+        x: 'course',
+      },
+      style: {
+        stroke: 'black',
+        lineWidth: 1,
+      },
+    });
+    mount(createDiv(), chart);
+  });
 });

@@ -20,6 +20,7 @@ import {
   InteractorComponent,
   MarkComponent,
   CompositionComponent,
+  AdjustComponent,
 } from './component';
 
 export type G2ViewTree = {
@@ -59,6 +60,7 @@ export type G2View = {
   component?: G2GuideComponentOptions[];
   interaction?: G2InteractionOptions[];
   marks?: G2Mark[];
+  adjust?: { type?: string; [key: string]: any };
 };
 
 export type G2Mark = {
@@ -100,7 +102,8 @@ export type G2ComponentOptions =
   | G2ActionOptions
   | G2InteractionOptions
   | G2InteractorOptions
-  | G2CompositionOptions;
+  | G2CompositionOptions
+  | G2AdjustOptions;
 
 export type G2TransformOptions = G2BaseComponentOptions<TransformComponent>;
 export type G2StatisticOptions = G2BaseComponentOptions<StatisticComponent>;
@@ -139,3 +142,4 @@ export type G2ActionOptions = G2BaseComponentOptions<ActionComponent>;
 export type G2InteractionOptions = G2BaseComponentOptions<InteractionComponent>;
 export type G2InteractorOptions = G2BaseComponentOptions<InteractorComponent>;
 export type G2CompositionOptions = G2BaseComponentOptions<CompositionComponent>;
+export type G2AdjustOptions = G2BaseComponentOptions<AdjustComponent>;

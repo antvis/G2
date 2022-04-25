@@ -15,20 +15,31 @@ import {
 import { G2Theme, GuideComponentPosition } from './types/common';
 import { isPolar, isTranspose, isParallel } from './coordinate';
 import { useLibrary } from './library';
+import { isPosition } from './scale';
 
 export function inferComponent(
   scales: G2ScaleOptions[],
   partialOptions: G2View,
   library: G2Library,
 ): G2GuideComponentOptions[] {
-  const { component: partialComponents = [], coordinate = [] } = partialOptions;
+  const {
+    component: partialComponents = [],
+    coordinate = [],
+    adjust,
+  } = partialOptions;
   const [, createGuideComponent] = useLibrary<
     G2GuideComponentOptions,
     GuideComponentComponent,
     GuideComponent
   >('component', library);
 
-  const displayedScales = scales.filter(({ guide }) => guide !== null);
+  // For view with adjust, the position channel is meaningless for visualization,
+  // so there is no need to show axis.
+  const displayedScales = scales.filter(({ guide, name }) => {
+    if (guide === null) return false;
+    if (adjust && isPosition(name)) return false;
+    return true;
+  });
   const components = [...partialComponents];
 
   for (const scale of displayedScales) {
