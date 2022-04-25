@@ -15,9 +15,10 @@ export const Grid: MC<GridOptions> = () => {
     const { x: X, y: Y } = value;
     const x = scale.x as Band;
     const y = scale.y as Band;
-    const width = x.getBandWidth();
-    const height = y.getBandWidth();
+
     const P = Array.from(index, (i) => {
+      const width = x.getBandWidth(x.invert(X[i][0]));
+      const height = y.getBandWidth(y.invert(Y[i][0]));
       const x1 = +X[i][0];
       const y1 = +Y[i][0];
       const p1 = [x1, y1];

@@ -16,14 +16,14 @@ export const Interval: MC<IntervalOptions> = () => {
     // The scales for x and series channels must be band scale.
     const x = scale.x as Band;
     const series = scale.series as Band;
-    const groupWidth = x.getBandWidth();
-    const ratio = series ? series.getBandWidth() : 1;
-    const width = groupWidth * ratio;
 
     // Calc the points of bounding box for the interval.
     // They are start from left-top corner in clock wise order.
     const P = Array.from(index, (i) => {
-      const offset = ((S?.[i] as number) || 0) * groupWidth;
+      const groupWidth = x.getBandWidth(x.invert(X[i][0]));
+      const ratio = series ? series.getBandWidth(series.invert(+S?.[i])) : 1;
+      const width = groupWidth * ratio;
+      const offset = (+S?.[i] || 0) * groupWidth;
       const x1 = X[i][0] + offset;
       const x2 = x1 + width;
       const [y1, y2] = Y[i];
