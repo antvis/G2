@@ -30,11 +30,13 @@ function inferKeys<T extends G2ViewTree = G2ViewTree>(options: T): T {
       node.key = key;
     }
     const { children = [] } = node;
-    for (let i = 0; i < children.length; i++) {
-      const child = children[i];
-      nodeParent.set(child, node);
-      nodeIndex.set(child, i);
-      discovered.push(child);
+    if (Array.isArray(children)) {
+      for (let i = 0; i < children.length; i++) {
+        const child = children[i];
+        nodeParent.set(child, node);
+        nodeIndex.set(child, i);
+        discovered.push(child);
+      }
     }
   }
   return root;

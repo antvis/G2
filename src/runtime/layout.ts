@@ -81,10 +81,10 @@ export function placeComponents(
   } = layout;
 
   const section: Section = {
-    top: [pl, 0, innerWidth, pt, 0, true, descending],
-    right: [width - pr, pt, pr, innerHeight, 1, false, ascending],
-    bottom: [pl, height - pb, innerWidth, pb, 0, false, ascending],
-    left: [0, pt, pl, innerHeight, 1, true, descending],
+    top: [pl, 0, innerWidth, pt, 0, true, ascending],
+    right: [width - pr, pt, pr, innerHeight, 1, false, descending],
+    bottom: [pl, height - pb, innerWidth, pb, 0, false, descending],
+    left: [0, pt, pl, innerHeight, 1, true, ascending],
     centerHorizontal: [pl, pt, innerWidth, innerHeight, -1, null, null],
   };
 

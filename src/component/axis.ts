@@ -12,6 +12,7 @@ import {
 export type AxisOptions = {
   position?: GuideComponentPosition;
   zIndex?: number;
+  title?: boolean;
 };
 
 function inferPosition(
@@ -136,7 +137,7 @@ function getTicks(
  * @todo Custom style.
  */
 export const Axis: GCC<AxisOptions> = (options) => {
-  const { position } = options;
+  const { position, title = true } = options;
   return (scale, value, coordinate, theme) => {
     const { domain, field, bbox } = value;
     const {
@@ -169,15 +170,16 @@ export const Axis: GCC<AxisOptions> = (options) => {
           len: 5,
           style: { lineWidth: 1 },
         },
-        ...(field && {
-          title: {
-            content: Array.isArray(field) ? field[0] : field,
-            titleAnchor: scale.getTicks ? titlePosition : 'center',
-            style: {},
-            titlePadding,
-            rotation: titleRotate,
-          },
-        }),
+        ...(field &&
+          title && {
+            title: {
+              content: Array.isArray(field) ? field[0] : field,
+              titleAnchor: scale.getTicks ? titlePosition : 'center',
+              style: {},
+              titlePadding,
+              rotation: titleRotate,
+            },
+          }),
       },
     });
     return axis;
