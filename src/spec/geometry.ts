@@ -42,7 +42,7 @@ export type BaseGeometry<
   T extends GeometryTypes,
   C extends string = ChannelTypes,
 > = {
-  type?: T;
+  type?: T | string;
   paddingLeft?: number;
   paddingRight?: number;
   paddingBottom?: number;
@@ -57,6 +57,7 @@ export type BaseGeometry<
   interaction?: Interaction[];
   theme?: Theme;
   adjust?: Adjust;
+  facet?: boolean;
   animate?: {
     enter?: Animation;
   };

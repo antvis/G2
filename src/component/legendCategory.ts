@@ -18,7 +18,7 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
     const { x, y, width, height } = bbox;
     const items = domain.map((d) => ({
       id: d,
-      name: d,
+      name: `${d}`,
       state: 'selected',
       color: scale.map(d),
     }));

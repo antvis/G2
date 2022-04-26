@@ -1,6 +1,6 @@
 import { mapObject } from '../utils/array';
 import { Container } from '../utils/container';
-import { copyAttributes, error } from '../utils/helper';
+import { copyAttributes, error, defined } from '../utils/helper';
 import { Selection, select } from '../utils/selection';
 import {
   G2ViewTree,
@@ -66,9 +66,10 @@ export async function plot<T extends G2ViewTree>(
     const { type: t } = node;
     const type = typeof t === 'string' && marks.has(t) ? 'mark' : t;
     if (type === 'standardView') {
-      const view = await initializeView(node, library);
+      const [view, children] = await initializeView(node, library);
       viewOptions.set(view, node);
       views.push(view);
+      discovered.push(...children);
     } else {
       const composition = useComposition({ type });
       const nodes = composition(node);
@@ -85,28 +86,34 @@ export async function plot<T extends G2ViewTree>(
           .append('g')
           .attr('className', 'view')
           .attr('id', (view) => view.id)
+          .style('transform', (d) => `translate(${d.layout.x}, ${d.layout.y})`)
           .each(function (view) {
             plotView(view, select(this), library);
             const options = viewOptions.get(view);
             const update = async (updater = (d: G2View) => d) => {
               const newOptions = updater(options);
-              const newView = await initializeView(newOptions, library);
+              const [newView] = await initializeView(newOptions, library);
               plotView(newView, select(this), library);
             };
             applyInteraction(options, select(this), view, update, library);
           }),
       (update) =>
-        update.each(function (view) {
-          plotView(view, select(this), library);
-        }),
+        update
+          .style('transform', (d) => `translate(${d.layout.x}, ${d.layout.y})`)
+          .each(function (view) {
+            plotView(view, select(this), library);
+          }),
       (exit) => exit.remove(),
     );
 }
 
+/**
+ * @todo Nested filter for nested facet.
+ */
 async function initializeView(
   options: G2View,
   library: G2Library,
-): Promise<G2ViewDescriptor> {
+): Promise<[G2ViewDescriptor, G2View[]]> {
   const [useTheme] = useLibrary<G2ThemeOptions, ThemeComponent, Theme>(
     'theme',
     library,
@@ -164,39 +171,73 @@ async function initializeView(
   // @todo More readable APIs for Container which stays
   // the same style with JS standard and lodash APIs.
   const scale = {};
+  const children = [];
   for (const [mark, state] of markState.entries()) {
-    const { scale: scaleDescriptor, style = {}, animate = {} } = mark;
+    const {
+      data,
+      scale: scaleDescriptor,
+      style = {},
+      animate = {},
+      children: childrenCallback,
+      filter = () => true,
+      facet = true,
+    } = mark;
     const { index, channels, defaultShape } = state;
+
+    // Transform abstract value to visual value by scales.
     const markScale = mapObject(scaleDescriptor, useScale);
+    Object.assign(scale, markScale);
     const value = Container.of<MarkChannel>(channels)
       .call(applyScale, markScale)
       .call(applyAnimationFunction, index, animate, defaultShape, library)
       .call(applyShapeFunction, index, style, defaultShape, library)
       .value();
 
+    // Filter datum with falsy position value and is excluded in this facet.
+    // @todo Take position channel into account.
+    const definedPosition = (i) => {
+      const { x: X = [], y: Y = [] } = value;
+      const x = X[i];
+      const y = Y[i];
+      const definedX = x ? x.every(defined) : true;
+      const definedY = y ? y.every(defined) : true;
+      return definedX && definedY;
+    };
+    const includeFacet = facet ? filter : () => true;
+    const filteredIndex = index.filter(
+      (i) => definedPosition(i) && includeFacet(i),
+    );
+
+    // Calc points and transformation for each data,
+    // and then transform visual value to visual data.
     const calcPoints = useMark(mark);
-    const [I, P] = calcPoints(index, markScale, value, coordinate);
+    const [I, P] = calcPoints(filteredIndex, markScale, value, coordinate);
     const T = adjust ? useAdjust(adjust)(P, layout) : [];
-    const data: Record<string, any>[] = I.map((d, i) =>
+    const visualData: Record<string, any>[] = I.map((d, i) =>
       Object.entries(value).reduce(
         (datum, [k, V]) => ((datum[k] = V[d]), datum),
         { points: P[i], transform: T[i] },
       ),
     );
-    state.data = data;
+    state.data = visualData;
     state.index = I;
-    Object.assign(scale, markScale);
+
+    // Create children options by children callback,
+    // and then propagate data to each child.
+    if (childrenCallback) {
+      const childrenOptions = childrenCallback(
+        data,
+        visualData,
+        markScale,
+        layout,
+        key,
+      );
+      children.push(...childrenOptions.map((d) => ({ ...d, data })));
+    }
   }
 
-  return {
-    layout,
-    theme,
-    coordinate,
-    scale,
-    components,
-    markState,
-    key,
-  };
+  const view = { layout, theme, coordinate, scale, components, markState, key };
+  return [view, children];
 }
 
 /**
@@ -302,8 +343,8 @@ function inferTheme(theme: G2ThemeOptions = { type: 'light' }): G2ThemeOptions {
 
 function applyBBox(selection: Selection) {
   selection
-    .style('x', (d) => d.x + d.paddingLeft)
-    .style('y', (d) => d.y + d.paddingTop)
+    .style('x', (d) => d.paddingLeft)
+    .style('y', (d) => d.paddingTop)
     .style('width', (d) => d.innerWidth)
     .style('height', (d) => d.innerHeight);
 }
@@ -350,7 +391,10 @@ function applyAnimationFunction(
   const { type = defaultEnterAnimation } = enter;
   const animationFunctions = Array.isArray(ET)
     ? ET.map((type) => useAnimation({ ...enter, type }))
-    : index.map(() => useAnimation({ ...enter, type }));
+    : index.reduce(
+        (ET, i) => ((ET[i] = useAnimation({ ...enter, type })), ET),
+        [],
+      );
   return { ...value, enterType: animationFunctions };
 }
 
@@ -371,7 +415,10 @@ function applyShapeFunction(
   const { shape } = value;
   const shapeFunctions = Array.isArray(shape)
     ? shape.map((type) => useShape({ ...normalizeOptions(type), ...style }))
-    : index.map(() => useShape({ type: defaultShape, ...style }));
+    : index.reduce(
+        (S, i) => ((S[i] = useShape({ type: defaultShape, ...style })), S),
+        [],
+      );
   return { ...value, shape: shapeFunctions };
 }
 
