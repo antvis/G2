@@ -21,6 +21,7 @@ export const Mark: CC<MarkOptions> = () => {
       y,
       key,
       adjust,
+      frame,
       ...mark
     } = options;
     return [
@@ -40,6 +41,7 @@ export const Mark: CC<MarkOptions> = () => {
         component,
         interaction,
         adjust,
+        frame,
         marks: [{ ...mark, key: `${key}-0`, data }],
       },
     ];

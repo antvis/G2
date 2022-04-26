@@ -37,7 +37,7 @@ describe('composition', () => {
         color: undefined,
       },
       encode: { shape: 'hollowRect', x: 'series', color: undefined },
-      style: { lineWidth: 1, stroke: 'black' },
+      style: { lineWidth: 0 },
       animate: { enter: { type: 'fadeIn' } },
       transform: [
         {

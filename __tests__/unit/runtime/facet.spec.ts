@@ -96,6 +96,7 @@ describe('facet', () => {
           {
             type: 'point',
             facet: false,
+            frame: false,
             encode: {
               x: 'culmen_depth_mm',
               y: 'culmen_length_mm',

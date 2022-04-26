@@ -60,11 +60,6 @@ export const Rect: CC<RectOptions> = () => {
       },
       encode: {
         color: colorEncode,
-        shape: 'hollowRect',
-      },
-      style: {
-        lineWidth: 1,
-        stroke: 'black',
       },
       animate: {
         enter: {
@@ -93,8 +88,8 @@ export const Rect: CC<RectOptions> = () => {
           const [left, top, width, height] = calcBBox(points);
 
           // Split data domain.
-          const filter = (i) => {
-            const { [fieldX]: x, [fieldY]: y } = data[i];
+          const filter = (d) => {
+            const { [fieldX]: x, [fieldY]: y } = d;
             const inX = encodeX !== undefined ? x === fx : true;
             const inY = encodeY !== undefined ? y === fy : true;
             return inX && inY;
@@ -124,7 +119,8 @@ export const Rect: CC<RectOptions> = () => {
             height,
             children: normalizedChildren.map(({ scale, ...rest }, i) => ({
               key: `${key}-${i}`,
-              filter,
+              filter: (i) => filter(data[i]),
+              frame: true,
               // Adjust the position of components for each facet for better
               // readability. These can be override by users.
               paddingLeft: 0,
@@ -187,6 +183,12 @@ export const Rect: CC<RectOptions> = () => {
             },
         },
       ],
+      encode: {
+        shape: 'hollowRect',
+      },
+      style: {
+        lineWidth: 0,
+      },
     };
     const newOptions = deepMix(defaultOptions, options, facetOptions);
     return [newOptions];
