@@ -12,10 +12,10 @@ export const View: CC<ViewOptions> = () => {
     const { children, ...restOptions } = options;
     if (!Array.isArray(children)) return [];
 
-    const { data: viewData, scale: viewScale, ...rest } = restOptions;
+    const { data: viewData, scale: viewScale = {}, ...rest } = restOptions;
     const marks = children.map(({ data = viewData, scale, ...rest }) => ({
       data,
-      scale: deepMix(viewScale, scale),
+      scale: deepMix({}, viewScale, scale),
       ...rest,
     }));
     return [{ ...rest, marks, type: 'standardView' }];
