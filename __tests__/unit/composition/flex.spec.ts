@@ -8,12 +8,24 @@ describe('composition', () => {
       width: 400,
       height: 300,
       data: [1, 2, 3],
-      children: [{ data: [2, 3, 4] }, {}],
+      children: [{ data: [2, 3, 4], scale: undefined }, { scale: undefined }],
     };
     expect(composition(options).map((d) => d.data)).toEqual([
       [2, 3, 4],
       [1, 2, 3],
     ]);
+  });
+
+  it('Flex({...}) should ignore children callback', () => {
+    const composition = Flex();
+    const options = {
+      type: 'flex',
+      width: 400,
+      height: 300,
+      data: [1, 2, 3],
+      children: () => {},
+    };
+    expect(composition(options)).toEqual([]);
   });
 
   it('Flex({...}) should split space domain in horizontal direction by default', () => {
