@@ -58,6 +58,7 @@ export type BaseGeometry<
   theme?: Theme;
   adjust?: Adjust;
   facet?: boolean;
+  frame?: boolean;
   animate?: {
     enter?: Animation;
   };

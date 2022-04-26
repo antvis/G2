@@ -132,7 +132,13 @@ async function initializeView(
   );
 
   // Initialize theme.
-  const { theme: partialTheme, marks: partialMarks, key, adjust } = options;
+  const {
+    theme: partialTheme,
+    marks: partialMarks,
+    key,
+    adjust,
+    frame,
+  } = options;
   const theme = useTheme(inferTheme(partialTheme));
 
   // Infer options and calc state for each mark.
@@ -236,7 +242,16 @@ async function initializeView(
     }
   }
 
-  const view = { layout, theme, coordinate, scale, components, markState, key };
+  const view = {
+    layout,
+    theme,
+    coordinate,
+    scale,
+    components,
+    markState,
+    key,
+    frame,
+  };
   return [view, children];
 }
 
@@ -248,7 +263,15 @@ async function plotView(
   selection: Selection,
   library: G2Library,
 ): Promise<void> {
-  const { components, theme, layout, markState, coordinate, key } = view;
+  const {
+    components,
+    theme,
+    layout,
+    markState,
+    coordinate,
+    key,
+    frame = false,
+  } = view;
 
   // Render components.
   // @todo renderComponent return ctor and options.
@@ -293,6 +316,7 @@ async function plotView(
         const rect = enter
           .append('rect')
           .attr('className', 'plot')
+          .call(applyFrame, frame)
           .call(applyBBox)
           .call(updateMainLayers, Array.from(markState.keys()));
         rect.append('g').attr('className', 'selection');
@@ -347,6 +371,11 @@ function applyBBox(selection: Selection) {
     .style('y', (d) => d.paddingTop)
     .style('width', (d) => d.innerWidth)
     .style('height', (d) => d.innerHeight);
+}
+
+function applyFrame(selection: Selection, frame: boolean) {
+  if (!frame) return;
+  selection.style('lineWidth', 1).style('stroke', 'black');
 }
 
 /**

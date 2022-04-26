@@ -66,6 +66,7 @@ export type G2View = {
   component?: G2GuideComponentOptions[];
   interaction?: G2InteractionOptions[];
   marks?: G2Mark[];
+  frame?: boolean;
   adjust?: { type?: string; [key: string]: any };
 };
 

@@ -95,7 +95,8 @@ G2.render({
   children: [
     {
       type: 'point',
-      facet: false,
+      facet: false, // Do not filter data.
+      frame: false, // Do not draw frame for this view.
       encode: {
         x: 'culmen_depth_mm',
         y: 'culmen_length_mm',
