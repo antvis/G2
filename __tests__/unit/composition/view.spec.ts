@@ -11,7 +11,10 @@ describe('composition', () => {
     expect(composition(options)).toEqual([
       {
         type: 'standardView',
-        marks: [{ data: [2, 3, 4] }, { data: [1, 2, 3] }],
+        marks: [
+          { data: [2, 3, 4], scale: {} },
+          { data: [1, 2, 3], scale: {} },
+        ],
       },
     ]);
   });
