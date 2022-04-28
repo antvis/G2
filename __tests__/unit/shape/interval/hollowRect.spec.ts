@@ -22,7 +22,7 @@ describe('HollowRect', () => {
 
     expect(style(shape, ['stroke', 'lineWidth', 'fill'])).toEqual({
       stroke: 'steelblue',
-      fill: 'transparent',
+      fill: '',
       lineWidth: 2,
     });
   });
@@ -46,7 +46,7 @@ describe('HollowRect', () => {
 
     expect(style(shape, ['stroke', 'lineWidth', 'fill'])).toEqual({
       stroke: 'steelblue',
-      fill: 'transparent',
+      fill: '',
       lineWidth: 10,
     });
   });
