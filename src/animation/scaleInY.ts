@@ -9,9 +9,9 @@ export type ScaleInYOptions = Animation;
  * Scale mark from nothing to desired shape in y direction.
  */
 export const ScaleInY: AC<ScaleInYOptions> = (options) => {
-  // Small enough to hide mark,
-  // But bigger enough to not cause bug.
-  const ZERO = 0.0001;
+  // Small enough to hide or show very small part of mark,
+  // but bigger enough to not cause bug.
+  const ZERO = 0.001;
 
   return (shape, style, coordinate, theme) => {
     const { height } = shape.getBoundingClientRect();
@@ -19,7 +19,14 @@ export const ScaleInY: AC<ScaleInYOptions> = (options) => {
       isTranspose(coordinate)
         ? [[0, 0], `scale(${ZERO}, 1)`] // left-top corner
         : [[0, height], `scale(1, ${ZERO})`]; // left-bottom corner
-    const keyframes = [{ transform }, { transform: 'scale(1, 1)' }];
+
+    // Using a short fadeIn transition to hide element with scale(0.001)
+    // which is still visible.
+    const keyframes = [
+      { transform, fillOpacity: 0, strokeOpacity: 0, opacity: 0 },
+      { transform, fillOpacity: 1, strokeOpacity: 1, opacity: 1, offset: 0.01 },
+      { transform: 'scale(1, 1)' },
+    ];
 
     // Change transform origin for correct transform.
     shape.setOrigin(transformOrigin);
