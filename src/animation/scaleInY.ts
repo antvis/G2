@@ -11,7 +11,7 @@ export type ScaleInYOptions = Animation;
 export const ScaleInY: AC<ScaleInYOptions> = (options) => {
   // Small enough to hide or show very small part of mark,
   // but bigger enough to not cause bug.
-  const ZERO = 0.001;
+  const ZERO = 0.0001;
 
   return (shape, style, coordinate, theme) => {
     const { height } = shape.getBoundingClientRect();
