@@ -20,7 +20,8 @@
     "Composition": {
       "View": "view",
       "Spatial": "spatial",
-      "Facet": "facet"
+      "Facet": "facet",
+      "Unit": "unit"
     },
     "Theme": "theme"
   },
