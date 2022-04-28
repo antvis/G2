@@ -1,6 +1,6 @@
 import { mapObject } from '../utils/array';
 import { Container } from '../utils/container';
-import { copyAttributes, error, defined } from '../utils/helper';
+import { copyAttributes, error, defined, composeAsync } from '../utils/helper';
 import { Selection, select } from '../utils/selection';
 import {
   G2ViewTree,
@@ -14,6 +14,7 @@ import {
   G2AnimationOptions,
   G2CompositionOptions,
   G2AdjustOptions,
+  G2TransformOptions,
 } from './types/options';
 import {
   ThemeComponent,
@@ -31,6 +32,8 @@ import {
   Composition,
   AdjustComponent,
   Adjust,
+  TransformComponent,
+  Transform,
 } from './types/component';
 import { Channel, G2ViewDescriptor, G2MarkState } from './types/common';
 import { useLibrary } from './library';
@@ -72,7 +75,11 @@ export async function plot<T extends G2ViewTree>(
       discovered.push(...children);
     } else {
       const composition = useComposition({ type });
-      const nodes = composition(node);
+      // Apply transform to get data in advance for composition node,
+      // which makes sure that composition node can preprocess the
+      // data to produce more nodes based on it.
+      const transformedNode = await applyTransform(node, library);
+      const nodes = composition(transformedNode);
       discovered.push(...nodes);
     }
   }
@@ -92,8 +99,15 @@ export async function plot<T extends G2ViewTree>(
             const options = viewOptions.get(view);
             const update = async (updater = (d: G2View) => d) => {
               const newOptions = updater(options);
-              const [newView] = await initializeView(newOptions, library);
+              const [newView, newChildren] = await initializeView(
+                newOptions,
+                library,
+              );
+              // Update itself and child nodes.
               plotView(newView, select(this), library);
+              for (const child of newChildren) {
+                plot(child, selection, library);
+              }
             };
             applyInteraction(options, select(this), view, update, library);
           }),
@@ -113,7 +127,7 @@ export async function plot<T extends G2ViewTree>(
 async function initializeView(
   options: G2View,
   library: G2Library,
-): Promise<[G2ViewDescriptor, G2View[]]> {
+): Promise<[G2ViewDescriptor, G2ViewTree[]]> {
   const [useTheme] = useLibrary<G2ThemeOptions, ThemeComponent, Theme>(
     'theme',
     library,
@@ -176,30 +190,36 @@ async function initializeView(
   // Calc data to be rendered for each mark.
   // @todo More readable APIs for Container which stays
   // the same style with JS standard and lodash APIs.
-  const scale = {};
+  // @todo More proper way to index scale for different marks.
+  const scaleInstance = {};
   const children = [];
   for (const [mark, state] of markState.entries()) {
     const {
-      data,
-      scale: scaleDescriptor,
+      scale,
+      // Callback to create children options based on this mark.
+      children: createChildren,
+      // Filter data exclude in this facet by index.
+      filter,
+      // Whether to filter data exclude in this facet or not.
+      facet = true,
+      // The total count of data (both show and hide)for this facet.
+      // This is for unit visualization to sync data domain.
+      dataDomain,
       style = {},
       animate = {},
-      children: childrenCallback,
-      filter = () => true,
-      facet = true,
     } = mark;
     const { index, channels, defaultShape } = state;
 
     // Transform abstract value to visual value by scales.
-    const markScale = mapObject(scaleDescriptor, useScale);
-    Object.assign(scale, markScale);
+    const markScaleInstance = mapObject(scale, useScale);
+    Object.assign(scaleInstance, markScaleInstance);
     const value = Container.of<MarkChannel>(channels)
-      .call(applyScale, markScale)
+      .call(applyScale, markScaleInstance)
       .call(applyAnimationFunction, index, animate, defaultShape, library)
       .call(applyShapeFunction, index, style, defaultShape, library)
       .value();
 
-    // Filter datum with falsy position value and is excluded in this facet.
+    // Filter datum with falsy position value and exclude in this facet.
     // @todo Take position channel into account.
     const definedPosition = (i) => {
       const { x: X = [], y: Y = [] } = value;
@@ -209,7 +229,7 @@ async function initializeView(
       const definedY = y ? y.every(defined) : true;
       return definedX && definedY;
     };
-    const includeFacet = facet ? filter : () => true;
+    const includeFacet = facet && filter ? filter : () => true;
     const filteredIndex = index.filter(
       (i) => definedPosition(i) && includeFacet(i),
     );
@@ -217,8 +237,14 @@ async function initializeView(
     // Calc points and transformation for each data,
     // and then transform visual value to visual data.
     const calcPoints = useMark(mark);
-    const [I, P] = calcPoints(filteredIndex, markScale, value, coordinate);
-    const T = adjust ? useAdjust(adjust)(P, layout) : [];
+    const [I, P] = calcPoints(
+      filteredIndex,
+      markScaleInstance,
+      value,
+      coordinate,
+    );
+    const count = dataDomain || filteredIndex.length;
+    const T = adjust ? useAdjust(adjust)(P, count, layout) : [];
     const visualData: Record<string, any>[] = I.map((d, i) =>
       Object.entries(value).reduce(
         (datum, [k, V]) => ((datum[k] = V[d]), datum),
@@ -230,27 +256,23 @@ async function initializeView(
 
     // Create children options by children callback,
     // and then propagate data to each child.
-    if (childrenCallback) {
-      const childrenOptions = childrenCallback(
-        data,
-        visualData,
-        markScale,
-        layout,
-        key,
-      );
-      children.push(...childrenOptions.map((d) => ({ ...d, data })));
-    }
+    const markChildren = createChildren?.(
+      visualData,
+      markScaleInstance,
+      layout,
+    );
+    children.push(...(markChildren || []));
   }
 
   const view = {
     layout,
     theme,
     coordinate,
-    scale,
     components,
     markState,
     key,
     frame,
+    scale: scaleInstance,
   };
   return [view, children];
 }
@@ -318,7 +340,7 @@ async function plotView(
           .attr('className', 'plot')
           .call(applyFrame, frame)
           .call(applyBBox)
-          .call(updateMainLayers, Array.from(markState.keys()));
+          .call(applyMainLayers, Array.from(markState.keys()));
         rect.append('g').attr('className', 'selection');
         rect.append('g').attr('className', 'transient');
         return rect;
@@ -326,7 +348,7 @@ async function plotView(
       (update) =>
         update
           .call(applyBBox)
-          .call(updateMainLayers, Array.from(markState.keys())),
+          .call(applyMainLayers, Array.from(markState.keys())),
     );
 
   // Render marks with corresponding data.
@@ -365,6 +387,22 @@ function inferTheme(theme: G2ThemeOptions = { type: 'light' }): G2ThemeOptions {
   return { ...theme, type };
 }
 
+async function applyTransform<T extends G2ViewTree>(
+  node: T,
+  library: G2Library,
+): Promise<G2ViewTree> {
+  const [useTransform] = useLibrary<
+    G2TransformOptions,
+    TransformComponent,
+    Transform
+  >('transform', library);
+  const { transform, data, ...rest } = node;
+  if (transform === undefined) return node;
+  const transformFunctions = transform.map(useTransform);
+  const transformedData = await composeAsync(transformFunctions)(data);
+  return { data: transformedData, ...rest };
+}
+
 function applyBBox(selection: Selection) {
   selection
     .style('x', (d) => d.paddingLeft)
@@ -373,6 +411,11 @@ function applyBBox(selection: Selection) {
     .style('height', (d) => d.innerHeight);
 }
 
+/**
+ * Draw frame for the plot area of each facet.
+ * This is useful for facet.
+ * @todo More options for frame style.
+ */
 function applyFrame(selection: Selection, frame: boolean) {
   if (!frame) return;
   selection.style('lineWidth', 1).style('stroke', 'black');
@@ -382,7 +425,7 @@ function applyFrame(selection: Selection, frame: boolean) {
  * Create and update layer for each mark.
  * All the layers created here are treated as main layers.
  */
-function updateMainLayers(selection: Selection, marks: G2Mark[]) {
+function applyMainLayers(selection: Selection, marks: G2Mark[]) {
   selection
     .selectAll('.main')
     .data(marks.map((d) => d.key))

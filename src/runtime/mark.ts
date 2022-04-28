@@ -116,6 +116,7 @@ export async function initializeMark(
     compose(statisticFunctions)(indexedValue);
 
   // Filter and create channels based on channelDescriptors and processed data.
+  // @todo Abstract array encode algebra.
   const channels = channelDescriptors
     .filter(({ name, required }) => {
       const value = transformedValue[name];

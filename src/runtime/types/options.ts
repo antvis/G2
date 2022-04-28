@@ -86,16 +86,16 @@ export type G2Mark = {
   facet?: boolean;
   filter?: (i: number) => boolean;
   children?: G2MarkChildrenCallback;
+  dataDomain?: number;
+  frame?: boolean;
   style?: Record<string, Primitive>;
 };
 
 export type G2MarkChildrenCallback = (
-  data: Record<string, any>[],
   visualData: Record<string, any>[],
   scale: Record<string, Scale>,
   layout: Layout,
-  key: string,
-) => Node[] | Node;
+) => Node[];
 
 export type G2BaseComponentOptions<
   C = G2BaseComponent,
