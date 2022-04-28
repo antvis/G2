@@ -6,6 +6,7 @@ import {
 
 export type LegendCategoryOptions = {
   position?: GuideComponentPosition;
+  formatter?: (d: any) => string;
 };
 
 /**
@@ -13,12 +14,13 @@ export type LegendCategoryOptions = {
  * @todo Custom style.
  */
 export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
+  const { formatter = (d) => `${d}` } = options;
   return (scale, value, coordinate, theme) => {
     const { domain, field, bbox } = value;
     const { x, y, width, height } = bbox;
     const items = domain.map((d) => ({
       id: d,
-      name: `${d}`,
+      name: formatter(d),
       state: 'selected',
       color: scale.map(d),
     }));
