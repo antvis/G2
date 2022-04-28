@@ -159,6 +159,7 @@ const setChildren = useOverrideAdaptor<G2ViewTree>((options) => {
   const { x: encodeX, y: encodeY } = encode;
   const { color: facetScaleColor } = facetScale;
   const { domain: facetDomainColor } = facetScaleColor;
+
   const createChildren: G2MarkChildrenCallback = (
     visualData,
     scale,
@@ -182,6 +183,12 @@ const setChildren = useOverrideAdaptor<G2ViewTree>((options) => {
       const inY = encodeY !== undefined ? y === fy : true;
       return inX && inY;
     });
+    const maxDataDomain = shareData
+      ? filters.reduce(
+          (max, filter) => Math.max(max, data.filter(filter).length),
+          -Infinity,
+        )
+      : undefined;
     const facets = values.map(([fx, fy]) => ({
       columnField: fieldX,
       columnIndex: domainX.indexOf(fx),
@@ -196,12 +203,6 @@ const setChildren = useOverrideAdaptor<G2ViewTree>((options) => {
       if (Array.isArray(children)) return children;
       return [children(facet)].flat(1);
     });
-    const maxDataDomain = shareData
-      ? filters.reduce(
-          (max, filter) => Math.max(max, data.filter(filter).length),
-          -Infinity,
-        )
-      : undefined;
 
     return index.flatMap((i) => {
       const [left, top, width, height] = bboxs[i];
@@ -211,39 +212,10 @@ const setChildren = useOverrideAdaptor<G2ViewTree>((options) => {
       return children.map(({ scale, key, ...rest }) => {
         const guideY = scale?.y?.guide;
         const guideX = scale?.x?.guide;
-        const createGuideX = () => {
-          const type = typeof guideX;
-          if (type === 'function') return guideX;
-          if (type === 'object') return () => null;
-          return (facet) => {
-            const {
-              rowIndex,
-              rowValuesLength,
-              columnIndex,
-              columnValuesLength,
-            } = facet;
-            // Only the bottom-most facet show axisX.
-            if (rowIndex !== rowValuesLength - 1) return null;
-            // Only the bottom-left facet show title.
-            if (columnIndex !== columnValuesLength - 1) return { title: false };
-          };
-        };
-        const createGuideY = () => {
-          const type = typeof guideY;
-          if (type === 'function') return guideY;
-          if (type === 'object') return () => type;
-          return (facet) => {
-            const { rowIndex, columnIndex } = facet;
-            // Only the left-most facet show axisY.
-            if (columnIndex !== 0) return null;
-            // Only the left-top facet show title.
-            if (rowIndex !== 0) return { title: false };
-          };
-        };
         const defaultScale = { x: { tickCount: 5 }, y: { tickCount: 5 } };
         const newScale = {
-          x: { guide: createGuideX()(facet) },
-          y: { guide: createGuideY()(facet) },
+          x: { guide: createGuideX(guideX)(facet) },
+          y: { guide: createGuideY(guideY)(facet) },
           // Hide all legends for child mark by default,
           // they are displayed in the top-level.
           color: { guide: null, domain: facetDomainColor },
@@ -268,10 +240,38 @@ const setChildren = useOverrideAdaptor<G2ViewTree>((options) => {
       });
     });
   };
+
   return {
     children: createChildren,
   };
 });
+
+function createGuideX(guideX) {
+  const type = typeof guideX;
+  if (type === 'function') return guideX;
+  if (type === 'object') return () => null;
+  return (facet) => {
+    const { rowIndex, rowValuesLength, columnIndex, columnValuesLength } =
+      facet;
+    // Only the bottom-most facet show axisX.
+    if (rowIndex !== rowValuesLength - 1) return null;
+    // Only the bottom-left facet show title.
+    if (columnIndex !== columnValuesLength - 1) return { title: false };
+  };
+}
+
+function createGuideY(guideY) {
+  const type = typeof guideY;
+  if (type === 'function') return guideY;
+  if (type === 'object') return () => type;
+  return (facet) => {
+    const { rowIndex, columnIndex } = facet;
+    // Only the left-most facet show axisY.
+    if (columnIndex !== 0) return null;
+    // Only the left-top facet show title.
+    if (rowIndex !== 0) return { title: false };
+  };
+}
 
 export type RectOptions = Omit<RectComposition, 'type'>;
 
