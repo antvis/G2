@@ -3,7 +3,6 @@ import { Theme } from './theme';
 import { Coordinate } from './coordinate';
 import { Interaction } from './interaction';
 import { Transform } from './transform';
-import { Encode } from './encode';
 import { Scale } from './scale';
 
 export type Node =
@@ -60,21 +59,21 @@ export type FacetContext = {
 
 export type RectComposition = {
   transform?: Transform;
+  data?: any;
   paddingLeft?: number;
   paddingRight?: number;
   paddingTop?: number;
   paddingBottom?: number;
-  data?: any;
   type?: 'rect';
   encode?: {
-    x?: Encode;
-    y?: Encode;
-    color?: Encode;
+    x?: string;
+    y?: string;
   };
   scale?: {
     x?: Scale;
     y?: Scale;
-    color?: Encode;
   };
+  shareData?: boolean;
+  shareSize?: boolean;
   children?: Node[] | ((facet: FacetContext) => Node);
 };
