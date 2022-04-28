@@ -274,7 +274,11 @@ export type CompositionComponent<O = Record<string, unknown>> = G2BaseComponent<
   O
 >;
 
-export type Adjust = (points: Vector2[][], layout: Layout) => string[];
+export type Adjust = (
+  points: Vector2[][],
+  domain: number,
+  layout: Layout,
+) => string[];
 export type AdjustComponent<O = Record<string, unknown>> = G2BaseComponent<
   Adjust,
   O

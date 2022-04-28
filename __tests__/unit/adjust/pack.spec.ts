@@ -9,14 +9,14 @@ describe('pack', () => {
       [0, 0],
       [5, 5],
     ]);
-    const transforms = adjust(points, layout);
+    const transforms = adjust(points, points.length, layout);
     expect(transforms).toEqual([
       'translate(22.5, 172.5) scale(10, 10)',
       'translate(72.5, 172.5) scale(10, 10)',
-      'translate(22.5, 122.5) scale(10, 10)',
-      'translate(72.5, 122.5) scale(10, 10)',
-      'translate(22.5, 72.5) scale(10, 10)',
-      'translate(72.5, 72.5) scale(10, 10)',
+      'translate(22.5, 97.5) scale(10, 10)',
+      'translate(72.5, 97.5) scale(10, 10)',
+      'translate(22.5, 22.5) scale(10, 10)',
+      'translate(72.5, 22.5) scale(10, 10)',
     ]);
   });
 });
