@@ -16,17 +16,22 @@ describe('ScaleInY', () => {
       animate: ScaleInY({ fill: 'both', duration: 300 }),
       container,
     });
-    expect(style(shape, 'origin')).toEqual(new Float32Array([0, 200, 0]));
+    expect(shape.getOrigin()).toEqual(new Float32Array([0, 200, 0]));
     expect(keyframes(animation, 'transform')).toEqual([
+      'scale(1, 0.0001)',
       'scale(1, 0.0001)',
       'scale(1, 1)',
     ]);
+    expect(keyframes(animation, 'fillOpacity')).toEqual([0, 1, undefined]);
+    expect(keyframes(animation, 'strokeOpacity')).toEqual([0, 1, undefined]);
+    expect(keyframes(animation, 'opacity')).toEqual([0, 1, undefined]);
+    expect(keyframes(animation, 'offset')).toEqual([null, 0.01, null]);
 
     const { onfinish } = animation;
     return new Promise<void>((resolve) => {
       animation.onfinish = (e) => {
         onfinish.call(animation, e);
-        expect(style(shape, 'origin')).toEqual(new Float32Array([0, 0, 0]));
+        expect(shape.getOrigin()).toEqual(new Float32Array([0, 0, 0]));
         resolve();
       };
     });
@@ -45,8 +50,9 @@ describe('ScaleInY', () => {
       container,
     });
 
-    expect(style(shape, 'origin')).toEqual(new Float32Array([0, 0, 0]));
+    expect(shape.getOrigin()).toEqual(new Float32Array([0, 0, 0]));
     expect(keyframes(animation, 'transform')).toEqual([
+      'scale(0.0001, 1)',
       'scale(0.0001, 1)',
       'scale(1, 1)',
     ]);

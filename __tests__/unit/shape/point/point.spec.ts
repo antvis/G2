@@ -28,7 +28,7 @@ describe('Point', () => {
     expect(style(shape, ['fill', 'r', 'lineWidth'])).toEqual({
       fill: 'steelblue',
       r: 75,
-      lineWidth: 0,
+      lineWidth: '0',
     });
   });
 
