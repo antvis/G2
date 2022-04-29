@@ -15,7 +15,7 @@ import { useDefaultAdaptor, useOverrideAdaptor } from './utils';
 const setScale = useDefaultAdaptor<G2ViewTree>((options) => {
   const { encode, data, scale, shareSize = false } = options;
   const { x, y } = encode;
-  const scaleOptions = (encode: string, channel: string) => {
+  const flexDomain = (encode: string, channel: string) => {
     if (encode === undefined || !shareSize) return {};
     const groups = group(data, (d) => d[encode]);
     const domain = scale?.[channel]?.domain || Array.from(groups.keys());
@@ -31,14 +31,14 @@ const setScale = useDefaultAdaptor<G2ViewTree>((options) => {
         paddingOuter: 0,
         guide: x === undefined ? null : { position: 'top' },
         ...(x === undefined && { paddingInner: 0 }),
-        ...scaleOptions(x, 'x'),
+        ...flexDomain(x, 'x'),
       },
       y: {
         range: [0, 1],
         paddingOuter: 0,
         guide: y === undefined ? null : { position: 'right' },
         ...(y === undefined && { paddingInner: 0 }),
-        ...scaleOptions(y, 'y'),
+        ...flexDomain(y, 'y'),
       },
     },
   };
@@ -117,9 +117,8 @@ const toGrid = useOverrideAdaptor<G2ViewTree>(() => ({
 }));
 
 /**
- * Filter index to make sure that there is only one grid
- * rendered for each x value and y value. Do not filter value
- * to make the scale obtain right domain(e.g. color scale).
+ * Filter index and value to make sure that there is only one grid
+ * rendered for each x value and y value.
  **/
 const setStatistic = useOverrideAdaptor<G2ViewTree>(() => ({
   statistic: [
@@ -137,15 +136,22 @@ const setStatistic = useOverrideAdaptor<G2ViewTree>(() => ({
             keys.add(key);
             return true;
           });
+          const filteredValue = Object.entries(value).reduce((obj, [k, v]) => {
+            obj[k] = filteredIndex.map((i) => v[i]);
+            return obj;
+          }, {});
           return {
-            index: filteredIndex,
-            value,
+            index: indexOf(filteredIndex),
+            value: filteredValue,
           };
         },
     },
   ],
 }));
 
+/**
+ * @todo Move some options assignment to runtime.
+ */
 const setChildren = useOverrideAdaptor<G2ViewTree>((options) => {
   const {
     data,
@@ -159,7 +165,6 @@ const setChildren = useOverrideAdaptor<G2ViewTree>((options) => {
   const { x: encodeX, y: encodeY } = encode;
   const { color: facetScaleColor } = facetScale;
   const { domain: facetDomainColor } = facetScaleColor;
-
   const createChildren: G2MarkChildrenCallback = (
     visualData,
     scale,
@@ -203,7 +208,6 @@ const setChildren = useOverrideAdaptor<G2ViewTree>((options) => {
       if (Array.isArray(children)) return children;
       return [children(facet)].flat(1);
     });
-
     return index.flatMap((i) => {
       const [left, top, width, height] = bboxs[i];
       const filter = filters[i];
@@ -240,7 +244,6 @@ const setChildren = useOverrideAdaptor<G2ViewTree>((options) => {
       });
     });
   };
-
   return {
     children: createChildren,
   };

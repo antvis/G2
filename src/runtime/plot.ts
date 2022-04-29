@@ -338,11 +338,18 @@ async function plotView(
         const rect = enter
           .append('rect')
           .attr('className', 'plot')
+          .style('fill', 'transparent')
           .call(applyFrame, frame)
           .call(applyBBox)
           .call(applyMainLayers, Array.from(markState.keys()));
-        rect.append('g').attr('className', 'selection');
-        rect.append('g').attr('className', 'transient');
+        rect
+          .append('g')
+          .attr('className', 'selection')
+          .style('fill', 'transparent');
+        rect
+          .append('g')
+          .attr('className', 'transient')
+          .style('fill', 'transparent');
         return rect;
       },
       (update) =>
@@ -434,7 +441,8 @@ function applyMainLayers(selection: Selection, marks: G2Mark[]) {
         enter
           .append('g')
           .attr('className', 'main')
-          .attr('id', (d) => d),
+          .attr('id', (d) => d)
+          .style('fill', 'transparent'),
       (update) => update,
       (exit) => exit.remove(),
     );
