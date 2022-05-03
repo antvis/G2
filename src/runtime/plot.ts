@@ -279,18 +279,24 @@ async function plotView(
     .selectAll('.component')
     .data(components, (d, i) => `${d.type}-${i}`)
     .join(
-      (enter) =>
-        enter
+      (enter) => {
+        const selection = enter
           .append('g')
           .style('zIndex', ({ zIndex }) => zIndex || -1)
-          .attr('className', 'component')
-          .append((options) =>
-            renderComponent(options, coordinate, theme, library),
+          .attr('className', 'component');
+        return selection.append((options) =>
+          renderComponent(
+            { ...options, container: selection.node() },
+            coordinate,
+            theme,
+            library,
           ),
+        );
+      },
       (update) =>
         update.each(function (options) {
           const newComponent = renderComponent(
-            options,
+            { ...options, container: this },
             coordinate,
             theme,
             library,

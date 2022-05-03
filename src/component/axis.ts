@@ -1,4 +1,5 @@
 import { Coordinate, Vector2 } from '@antv/coord';
+import { Group } from '@antv/g';
 import { Linear } from '@antv/gui';
 import { Linear as LinearScale } from '@antv/scale';
 import { isParallel } from '../utils/coordinate';
@@ -10,6 +11,7 @@ import {
 } from '../runtime';
 
 export type AxisOptions = {
+  container: Group;
   position?: GuideComponentPosition;
   zIndex?: number;
   title?: boolean;
@@ -18,6 +20,7 @@ export type AxisOptions = {
 function inferPosition(
   position: GuideComponentPosition,
   bbox: BBox,
+  showTitle?: boolean,
 ): {
   startPos: [number, number];
   endPos: [number, number];
@@ -26,6 +29,8 @@ function inferPosition(
   titlePadding: number;
   titleRotate: number;
   verticalFactor: 1 | -1;
+  labelLimit?: number;
+  titleBounds?: { x1?: number; x2?: number };
   labelAlign?: 'start' | 'end' | 'center' | 'left' | 'right';
 } {
   const { x, y, width, height } = bbox;
@@ -44,11 +49,18 @@ function inferPosition(
       startPos: [x + width, y],
       endPos: [x + width, y + height],
       titlePosition: 'center',
-      titlePadding: 6,
+      titlePadding: 4,
       titleRotate: -90,
       labelAlign: 'end',
       labelOffset: 4,
       verticalFactor: -1,
+      // 16px for show axis-title.
+      labelLimit: showTitle && position === 'left' ? width - 16 : undefined,
+      // Limit axis-title not out-of bounds. 14px is determined by fontSize and textBaseline.
+      titleBounds:
+        showTitle && position === 'left'
+          ? { x1: x + 14, x2: x + width }
+          : undefined,
     };
   } else if (position === 'right') {
     return {
@@ -137,9 +149,10 @@ function getTicks(
  * @todo Custom style.
  */
 export const Axis: GCC<AxisOptions> = (options) => {
-  const { position, title = true } = options;
+  const { container, position, title = true } = options;
   return (scale, value, coordinate, theme) => {
     const { domain, field, bbox } = value;
+    const showTitle = field && title;
     const {
       startPos,
       endPos,
@@ -147,18 +160,21 @@ export const Axis: GCC<AxisOptions> = (options) => {
       titlePosition,
       titlePadding,
       titleRotate,
-      labelAlign,
       verticalFactor,
-    } = inferPosition(position, bbox);
+      labelLimit,
+      titleBounds,
+    } = inferPosition(position, bbox, showTitle);
     const ticks = getTicks(scale, domain, position, coordinate);
     const axis = new Linear({
       style: {
+        container,
         startPos,
         endPos,
         verticalFactor,
         ticks,
         label: {
           tickPadding: labelOffset,
+          maxLength: labelLimit,
           style: {},
         },
         axisLine: {
@@ -170,16 +186,16 @@ export const Axis: GCC<AxisOptions> = (options) => {
           len: 5,
           style: { lineWidth: 1 },
         },
-        ...(field &&
-          title && {
-            title: {
-              content: Array.isArray(field) ? field[0] : field,
-              titleAnchor: scale.getTicks ? titlePosition : 'center',
-              style: {},
-              titlePadding,
-              rotation: titleRotate,
-            },
-          }),
+        ...(showTitle && {
+          title: {
+            content: Array.isArray(field) ? field[0] : field,
+            titleAnchor: scale.getTicks ? titlePosition : 'center',
+            style: {},
+            titlePadding,
+            rotate: titleRotate,
+            bounds: titleBounds,
+          },
+        }),
       },
     });
     return axis;

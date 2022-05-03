@@ -103,7 +103,7 @@
     "@antv/coord": "^0.4.1",
     "@antv/g": "^5.0.17",
     "@antv/g-canvas": "^1.0.13",
-    "@antv/gui": "0.4.0",
+    "@antv/gui": "^0.4.3-alpha.2",
     "@antv/scale": "^0.4.7",
     "@antv/util": "^2.0.17",
     "d3-array": "^3.1.1",
