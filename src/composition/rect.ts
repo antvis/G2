@@ -252,7 +252,7 @@ const setChildren = useOverrideAdaptor<G2ViewTree>((options) => {
 function createGuideX(guideX) {
   const type = typeof guideX;
   if (type === 'function') return guideX;
-  if (type === 'object') return () => null;
+  if (type === 'object') return () => guideX;
   return (facet) => {
     const { rowIndex, rowValuesLength, columnIndex, columnValuesLength } =
       facet;
@@ -266,7 +266,7 @@ function createGuideX(guideX) {
 function createGuideY(guideY) {
   const type = typeof guideY;
   if (type === 'function') return guideY;
-  if (type === 'object') return () => type;
+  if (type === 'object') return () => guideY;
   return (facet) => {
     const { rowIndex, columnIndex } = facet;
     // Only the left-most facet show axisY.
