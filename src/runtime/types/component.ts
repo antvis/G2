@@ -130,6 +130,7 @@ export type Scale = {
   getTicks?: () => any[];
   getBandWidth?: (d?: any) => number;
   getFormatter?: () => (x: any) => string;
+  getOptions?: () => Record<string, any>;
 };
 export type ScaleComponent<O = Record<string, unknown>> = G2BaseComponent<
   Scale,
@@ -273,7 +274,11 @@ export type CompositionComponent<O = Record<string, unknown>> = G2BaseComponent<
   O
 >;
 
-export type Adjust = (points: Vector2[][], layout: Layout) => string[];
+export type Adjust = (
+  points: Vector2[][],
+  domain: number,
+  layout: Layout,
+) => string[];
 export type AdjustComponent<O = Record<string, unknown>> = G2BaseComponent<
   Adjust,
   O

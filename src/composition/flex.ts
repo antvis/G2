@@ -3,11 +3,16 @@ import { FlexComposition } from '../spec';
 
 export type FlexOptions = Omit<FlexComposition, 'type'>;
 
+/**
+ * @todo Propagate more options to children.
+ */
 export const Flex: CC<FlexOptions> = () => {
   return (options) => {
+    const { children } = options;
+    if (!Array.isArray(children)) return [];
+
     const {
       direction = 'row',
-      children = [],
       flex = children.map(() => 1),
       padding = 0,
       data: flexData,

@@ -41,3 +41,7 @@ export function copyAttributes(target: DisplayObject, source: DisplayObject) {
     if (!exclude.has(key)) target.attr(key, value);
   }
 }
+
+export function defined(x: any) {
+  return x !== undefined && x !== null && !Number.isNaN(x);
+}

@@ -1,6 +1,6 @@
-import { extent, max } from 'd3-array';
 import { createInterpolateValue } from '@antv/scale';
 import { firstOf, lastOf, unique, isFlatArray } from '../utils/array';
+import { defined } from '../utils/helper';
 import { Channel, FlattenChannel, Primitive, G2Theme } from './types/common';
 import {
   G2CoordinateOptions,
@@ -236,8 +236,10 @@ function inferOptionsC(
   coordinate: G2CoordinateOptions[],
   options: G2ScaleOptions,
 ): G2ScaleOptions {
-  const { padding = inferPadding(type, name, coordinate) } = options;
-  return { ...options, padding };
+  if (options.padding !== undefined) return options;
+  const padding = inferPadding(type, name, coordinate);
+  const { paddingInner = padding, paddingOuter = padding } = options;
+  return { ...options, paddingInner, paddingOuter };
 }
 
 function inferPadding(
@@ -261,7 +263,15 @@ function asOrdinalType(name: string) {
 
 function inferDomainQ(value: Primitive[], options: G2ScaleOptions) {
   const { zero = false } = options;
-  return zero ? [0, max(value, (v) => +v)] : extent(value, (v) => +v);
+  let min = Infinity;
+  let max = -Infinity;
+  for (const d of value) {
+    if (defined(d)) {
+      min = Math.min(min, +d);
+      max = Math.max(max, +d);
+    }
+  }
+  return zero ? [Math.min(0, min), max] : [min, max];
 }
 
 function inferDomainC(value: Primitive[]) {
@@ -299,7 +309,7 @@ function isTemporal(values: Primitive[]): boolean {
 
 function isObject(values: Primitive[]): boolean {
   return values.some((v) => {
-    return typeof v === 'object' && !(v instanceof Date);
+    return typeof v === 'object' && !(v instanceof Date) && v !== null;
   });
 }
 

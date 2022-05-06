@@ -16,6 +16,18 @@ describe('composition', () => {
     ]);
   });
 
+  it('Layer({...}) should ignore children callback', () => {
+    const composition = Layer();
+    const options = {
+      type: 'layer',
+      width: 400,
+      height: 300,
+      data: [1, 2, 3],
+      children: () => {},
+    };
+    expect(composition(options)).toEqual([]);
+  });
+
   it('Layer({...}) should accept x and y options', () => {
     const composition = Layer();
     const options = {

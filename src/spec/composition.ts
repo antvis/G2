@@ -2,12 +2,15 @@ import { Geometry, Adjust } from './geometry';
 import { Theme } from './theme';
 import { Coordinate } from './coordinate';
 import { Interaction } from './interaction';
+import { Transform } from './transform';
+import { Scale } from './scale';
 
 export type Node =
   | MarkComposition
   | ViewComposition
   | LayerComposition
-  | FlexComposition;
+  | FlexComposition
+  | RectComposition;
 
 export type MarkComposition = Geometry;
 
@@ -41,4 +44,36 @@ export type FlexComposition = {
   flex?: number[];
   padding?: number;
   children?: Node[];
+};
+
+export type FacetContext = {
+  columnField?: string | number;
+  columnIndex?: number;
+  columnValue?: string | number;
+  columnValuesLength?: number;
+  rowField?: string | number;
+  rowIndex?: number;
+  rowValue?: string | number;
+  rowValuesLength?: number;
+};
+
+export type RectComposition = {
+  transform?: Transform;
+  data?: any;
+  paddingLeft?: number;
+  paddingRight?: number;
+  paddingTop?: number;
+  paddingBottom?: number;
+  type?: 'rect';
+  encode?: {
+    x?: string;
+    y?: string;
+  };
+  scale?: {
+    x?: Scale;
+    y?: Scale;
+  };
+  shareData?: boolean;
+  shareSize?: boolean;
+  children?: Node[] | ((facet: FacetContext) => Node);
 };

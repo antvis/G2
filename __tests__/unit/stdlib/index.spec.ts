@@ -88,7 +88,7 @@ import {
   Plot,
 } from '../../../src/action';
 import { MousePosition, TouchPosition } from '../../../src/interactor';
-import { Layer, Flex, Mark, View } from '../../../src/composition';
+import { Layer, Flex, Mark, View, Rect } from '../../../src/composition';
 import { Pack } from '../../../src/adjust';
 
 describe('stdlib', () => {
@@ -172,6 +172,7 @@ describe('stdlib', () => {
       'composition.flex': Flex,
       'composition.mark': Mark,
       'composition.view': View,
+      'composition.rect': Rect,
       'adjust.pack': Pack,
     });
   });
