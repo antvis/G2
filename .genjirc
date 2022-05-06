@@ -19,7 +19,9 @@
     "Interaction": "interaction",
     "Composition": {
       "View": "view",
-      "Spatial": "spatial"
+      "Spatial": "spatial",
+      "Facet": "facet",
+      "Unit": "unit"
     },
     "Theme": "theme"
   },

@@ -44,6 +44,8 @@ export type TooltipOptions = Omit<TooltipAction, 'type'>;
 /**
  * @todo Tooltip for line and area geometry.
  * @todo Tooltip for group or stack interval.
+ * @todo Using the color(fill or stroke) attribute of each
+ * shape as the item.
  */
 export const Tooltip: AC<TooltipOptions> = () => {
   return (context) => {

@@ -12,6 +12,8 @@ import {
 export type AxisOptions = {
   position?: GuideComponentPosition;
   zIndex?: number;
+  title?: boolean;
+  formatter?: (d: any) => string;
 };
 
 function inferPosition(
@@ -112,11 +114,12 @@ function getTickPoint(tick: number, position: GuideComponentPosition) {
 function getTicks(
   scale: Scale,
   domain: any[],
+  defaultFormatter: (d: any) => string,
   position: GuideComponentPosition,
   coordinate: Coordinate,
 ) {
   const ticks = scale.getTicks?.() || domain;
-  const formatter = scale.getFormatter?.() || ((d) => `${d}`);
+  const formatter = scale.getFormatter?.() || defaultFormatter;
   return ticks.map((d) => {
     const offset = scale.getBandWidth?.(d) / 2 || 0;
     const tick = scale.map(d) + offset;
@@ -136,7 +139,7 @@ function getTicks(
  * @todo Custom style.
  */
 export const Axis: GCC<AxisOptions> = (options) => {
-  const { position } = options;
+  const { position, title = true, formatter = (d) => `${d}` } = options;
   return (scale, value, coordinate, theme) => {
     const { domain, field, bbox } = value;
     const {
@@ -149,7 +152,7 @@ export const Axis: GCC<AxisOptions> = (options) => {
       labelAlign,
       verticalFactor,
     } = inferPosition(position, bbox);
-    const ticks = getTicks(scale, domain, position, coordinate);
+    const ticks = getTicks(scale, domain, formatter, position, coordinate);
     const axis = new Linear({
       style: {
         startPos,
@@ -169,15 +172,16 @@ export const Axis: GCC<AxisOptions> = (options) => {
           len: 5,
           style: { lineWidth: 1 },
         },
-        ...(field && {
-          title: {
-            content: Array.isArray(field) ? field[0] : field,
-            titleAnchor: scale.getTicks ? titlePosition : 'center',
-            style: {},
-            titlePadding,
-            rotation: titleRotate,
-          },
-        }),
+        ...(field &&
+          title && {
+            title: {
+              content: Array.isArray(field) ? field[0] : field,
+              titleAnchor: scale.getTicks ? titlePosition : 'center',
+              style: {},
+              titlePadding,
+              rotation: titleRotate,
+            },
+          }),
       },
     });
     return axis;

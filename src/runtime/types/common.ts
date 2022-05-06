@@ -23,6 +23,7 @@ export type G2ViewDescriptor = {
   components: G2GuideComponentOptions[];
   layout: Layout;
   key: string;
+  frame: boolean;
 };
 
 export type G2MarkState = {

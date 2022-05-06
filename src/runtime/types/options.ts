@@ -1,5 +1,10 @@
 import { Canvas } from '@antv/g';
-import { GuideComponentPosition, Primitive } from './common';
+import {
+  GuideComponentPosition,
+  Layout,
+  Primitive,
+  TabularData,
+} from './common';
 
 import {
   G2BaseComponent,
@@ -21,6 +26,7 @@ import {
   MarkComponent,
   CompositionComponent,
   AdjustComponent,
+  Scale,
 } from './component';
 
 export type G2ViewTree = {
@@ -30,7 +36,7 @@ export type G2ViewTree = {
 
 export type Node = {
   type?: string | ((...args: any[]) => any);
-  children?: Node[];
+  children?: Node[] | ((...args: any[]) => any);
   key?: string;
   [key: string]: any;
 };
@@ -60,6 +66,7 @@ export type G2View = {
   component?: G2GuideComponentOptions[];
   interaction?: G2InteractionOptions[];
   marks?: G2Mark[];
+  frame?: boolean;
   adjust?: { type?: string; [key: string]: any };
 };
 
@@ -76,8 +83,19 @@ export type G2Mark = {
   encode?: Record<string, any | G2EncodeOptions>;
   type?: string | ((...args: any[]) => any);
   animate?: Record<string, Primitive>;
+  facet?: boolean;
+  filter?: (i: number) => boolean;
+  children?: G2MarkChildrenCallback;
+  dataDomain?: number;
+  frame?: boolean;
   style?: Record<string, Primitive>;
 };
+
+export type G2MarkChildrenCallback = (
+  visualData: Record<string, any>[],
+  scale: Record<string, Scale>,
+  layout: Layout,
+) => Node[];
 
 export type G2BaseComponentOptions<
   C = G2BaseComponent,

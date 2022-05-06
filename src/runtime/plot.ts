@@ -1,6 +1,6 @@
 import { mapObject } from '../utils/array';
 import { Container } from '../utils/container';
-import { copyAttributes, error } from '../utils/helper';
+import { copyAttributes, error, defined, composeAsync } from '../utils/helper';
 import { Selection, select } from '../utils/selection';
 import {
   G2ViewTree,
@@ -14,6 +14,7 @@ import {
   G2AnimationOptions,
   G2CompositionOptions,
   G2AdjustOptions,
+  G2TransformOptions,
 } from './types/options';
 import {
   ThemeComponent,
@@ -31,6 +32,8 @@ import {
   Composition,
   AdjustComponent,
   Adjust,
+  TransformComponent,
+  Transform,
 } from './types/component';
 import { Channel, G2ViewDescriptor, G2MarkState } from './types/common';
 import { useLibrary } from './library';
@@ -66,12 +69,17 @@ export async function plot<T extends G2ViewTree>(
     const { type: t } = node;
     const type = typeof t === 'string' && marks.has(t) ? 'mark' : t;
     if (type === 'standardView') {
-      const view = await initializeView(node, library);
+      const [view, children] = await initializeView(node, library);
       viewOptions.set(view, node);
       views.push(view);
+      discovered.push(...children);
     } else {
       const composition = useComposition({ type });
-      const nodes = composition(node);
+      // Apply transform to get data in advance for composition node,
+      // which makes sure that composition node can preprocess the
+      // data to produce more nodes based on it.
+      const transformedNode = await applyTransform(node, library);
+      const nodes = composition(transformedNode);
       discovered.push(...nodes);
     }
   }
@@ -85,28 +93,41 @@ export async function plot<T extends G2ViewTree>(
           .append('g')
           .attr('className', 'view')
           .attr('id', (view) => view.id)
+          .style('transform', (d) => `translate(${d.layout.x}, ${d.layout.y})`)
           .each(function (view) {
             plotView(view, select(this), library);
             const options = viewOptions.get(view);
             const update = async (updater = (d: G2View) => d) => {
               const newOptions = updater(options);
-              const newView = await initializeView(newOptions, library);
+              const [newView, newChildren] = await initializeView(
+                newOptions,
+                library,
+              );
+              // Update itself and child nodes.
               plotView(newView, select(this), library);
+              for (const child of newChildren) {
+                plot(child, selection, library);
+              }
             };
             applyInteraction(options, select(this), view, update, library);
           }),
       (update) =>
-        update.each(function (view) {
-          plotView(view, select(this), library);
-        }),
+        update
+          .style('transform', (d) => `translate(${d.layout.x}, ${d.layout.y})`)
+          .each(function (view) {
+            plotView(view, select(this), library);
+          }),
       (exit) => exit.remove(),
     );
 }
 
+/**
+ * @todo Nested filter for nested facet.
+ */
 async function initializeView(
   options: G2View,
   library: G2Library,
-): Promise<G2ViewDescriptor> {
+): Promise<[G2ViewDescriptor, G2ViewTree[]]> {
   const [useTheme] = useLibrary<G2ThemeOptions, ThemeComponent, Theme>(
     'theme',
     library,
@@ -125,7 +146,13 @@ async function initializeView(
   );
 
   // Initialize theme.
-  const { theme: partialTheme, marks: partialMarks, key, adjust } = options;
+  const {
+    theme: partialTheme,
+    marks: partialMarks,
+    key,
+    adjust,
+    frame,
+  } = options;
   const theme = useTheme(inferTheme(partialTheme));
 
   // Infer options and calc state for each mark.
@@ -163,40 +190,91 @@ async function initializeView(
   // Calc data to be rendered for each mark.
   // @todo More readable APIs for Container which stays
   // the same style with JS standard and lodash APIs.
-  const scale = {};
+  // @todo More proper way to index scale for different marks.
+  const scaleInstance = {};
+  const children = [];
   for (const [mark, state] of markState.entries()) {
-    const { scale: scaleDescriptor, style = {}, animate = {} } = mark;
+    const {
+      scale,
+      // Callback to create children options based on this mark.
+      children: createChildren,
+      // Filter data exclude in this facet by index.
+      filter,
+      // Whether to filter data exclude in this facet or not.
+      facet = true,
+      // The total count of data (both show and hide)for this facet.
+      // This is for unit visualization to sync data domain.
+      dataDomain,
+      style = {},
+      animate = {},
+    } = mark;
     const { index, channels, defaultShape } = state;
-    const markScale = mapObject(scaleDescriptor, useScale);
+
+    // Transform abstract value to visual value by scales.
+    const markScaleInstance = mapObject(scale, useScale);
+    Object.assign(scaleInstance, markScaleInstance);
     const value = Container.of<MarkChannel>(channels)
-      .call(applyScale, markScale)
+      .call(applyScale, markScaleInstance)
       .call(applyAnimationFunction, index, animate, defaultShape, library)
       .call(applyShapeFunction, index, style, defaultShape, library)
       .value();
 
+    // Filter datum with falsy position value and exclude in this facet.
+    // @todo Take position channel into account.
+    const definedPosition = (i) => {
+      const { x: X = [], y: Y = [] } = value;
+      const x = X[i];
+      const y = Y[i];
+      const definedX = x ? x.every(defined) : true;
+      const definedY = y ? y.every(defined) : true;
+      return definedX && definedY;
+    };
+    const includeFacet = facet && filter ? filter : () => true;
+    const filteredIndex = index.filter(
+      (i) => definedPosition(i) && includeFacet(i),
+    );
+
+    // Calc points and transformation for each data,
+    // and then transform visual value to visual data.
     const calcPoints = useMark(mark);
-    const [I, P] = calcPoints(index, markScale, value, coordinate);
-    const T = adjust ? useAdjust(adjust)(P, layout) : [];
-    const data: Record<string, any>[] = I.map((d, i) =>
+    const [I, P] = calcPoints(
+      filteredIndex,
+      markScaleInstance,
+      value,
+      coordinate,
+    );
+    const count = dataDomain || filteredIndex.length;
+    const T = adjust ? useAdjust(adjust)(P, count, layout) : [];
+    const visualData: Record<string, any>[] = I.map((d, i) =>
       Object.entries(value).reduce(
         (datum, [k, V]) => ((datum[k] = V[d]), datum),
         { points: P[i], transform: T[i] },
       ),
     );
-    state.data = data;
+    state.data = visualData;
     state.index = I;
-    Object.assign(scale, markScale);
+
+    // Create children options by children callback,
+    // and then propagate data to each child.
+    const markChildren = createChildren?.(
+      visualData,
+      markScaleInstance,
+      layout,
+    );
+    children.push(...(markChildren || []));
   }
 
-  return {
+  const view = {
     layout,
     theme,
     coordinate,
-    scale,
     components,
     markState,
     key,
+    frame,
+    scale: scaleInstance,
   };
+  return [view, children];
 }
 
 /**
@@ -207,7 +285,15 @@ async function plotView(
   selection: Selection,
   library: G2Library,
 ): Promise<void> {
-  const { components, theme, layout, markState, coordinate, key } = view;
+  const {
+    components,
+    theme,
+    layout,
+    markState,
+    coordinate,
+    key,
+    frame = false,
+  } = view;
 
   // Render components.
   // @todo renderComponent return ctor and options.
@@ -252,16 +338,24 @@ async function plotView(
         const rect = enter
           .append('rect')
           .attr('className', 'plot')
+          .style('fill', 'transparent')
+          .call(applyFrame, frame)
           .call(applyBBox)
-          .call(updateMainLayers, Array.from(markState.keys()));
-        rect.append('g').attr('className', 'selection');
-        rect.append('g').attr('className', 'transient');
+          .call(applyMainLayers, Array.from(markState.keys()));
+        rect
+          .append('g')
+          .attr('className', 'selection')
+          .style('fill', 'transparent');
+        rect
+          .append('g')
+          .attr('className', 'transient')
+          .style('fill', 'transparent');
         return rect;
       },
       (update) =>
         update
           .call(applyBBox)
-          .call(updateMainLayers, Array.from(markState.keys())),
+          .call(applyMainLayers, Array.from(markState.keys())),
     );
 
   // Render marks with corresponding data.
@@ -300,19 +394,45 @@ function inferTheme(theme: G2ThemeOptions = { type: 'light' }): G2ThemeOptions {
   return { ...theme, type };
 }
 
+async function applyTransform<T extends G2ViewTree>(
+  node: T,
+  library: G2Library,
+): Promise<G2ViewTree> {
+  const [useTransform] = useLibrary<
+    G2TransformOptions,
+    TransformComponent,
+    Transform
+  >('transform', library);
+  const { transform, data, ...rest } = node;
+  if (transform === undefined) return node;
+  const transformFunctions = transform.map(useTransform);
+  const transformedData = await composeAsync(transformFunctions)(data);
+  return { data: transformedData, ...rest };
+}
+
 function applyBBox(selection: Selection) {
   selection
-    .style('x', (d) => d.x + d.paddingLeft)
-    .style('y', (d) => d.y + d.paddingTop)
+    .style('x', (d) => d.paddingLeft)
+    .style('y', (d) => d.paddingTop)
     .style('width', (d) => d.innerWidth)
     .style('height', (d) => d.innerHeight);
+}
+
+/**
+ * Draw frame for the plot area of each facet.
+ * This is useful for facet.
+ * @todo More options for frame style.
+ */
+function applyFrame(selection: Selection, frame: boolean) {
+  if (!frame) return;
+  selection.style('lineWidth', 1).style('stroke', 'black');
 }
 
 /**
  * Create and update layer for each mark.
  * All the layers created here are treated as main layers.
  */
-function updateMainLayers(selection: Selection, marks: G2Mark[]) {
+function applyMainLayers(selection: Selection, marks: G2Mark[]) {
   selection
     .selectAll('.main')
     .data(marks.map((d) => d.key))
@@ -321,7 +441,8 @@ function updateMainLayers(selection: Selection, marks: G2Mark[]) {
         enter
           .append('g')
           .attr('className', 'main')
-          .attr('id', (d) => d),
+          .attr('id', (d) => d)
+          .style('fill', 'transparent'),
       (update) => update,
       (exit) => exit.remove(),
     );
@@ -350,7 +471,10 @@ function applyAnimationFunction(
   const { type = defaultEnterAnimation } = enter;
   const animationFunctions = Array.isArray(ET)
     ? ET.map((type) => useAnimation({ ...enter, type }))
-    : index.map(() => useAnimation({ ...enter, type }));
+    : index.reduce(
+        (ET, i) => ((ET[i] = useAnimation({ ...enter, type })), ET),
+        [],
+      );
   return { ...value, enterType: animationFunctions };
 }
 
@@ -371,7 +495,10 @@ function applyShapeFunction(
   const { shape } = value;
   const shapeFunctions = Array.isArray(shape)
     ? shape.map((type) => useShape({ ...normalizeOptions(type), ...style }))
-    : index.map(() => useShape({ type: defaultShape, ...style }));
+    : index.reduce(
+        (S, i) => ((S[i] = useShape({ type: defaultShape, ...style })), S),
+        [],
+      );
   return { ...value, shape: shapeFunctions };
 }
 
