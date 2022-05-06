@@ -176,7 +176,7 @@ describe('adjust', () => {
     mount(createDiv(), chart);
   });
 
-  it.only('Pack() should pack points with specified x and y channel uniformly', () => {
+  it('Pack() should pack points with specified x and y channel uniformly', () => {
     const chart = render<G2Spec>({
       type: 'rect',
       transform: [

@@ -136,6 +136,7 @@ describe('Text', () => {
     });
     mount(createDiv(), container);
 
-    expect(shape.getBoundingClientRect().right).toBe(96);
+    const { right } = shape.getBoundingClientRect();
+    expect(Math.abs(right - 96)).toBeLessThanOrEqual(1);
   });
 });
