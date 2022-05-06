@@ -130,7 +130,7 @@ G2.render({
       order: 'DESC',
     },
   ],
-  paddingRight: 50,
+  paddingRight: 70,
   encode: {
     x: 'Class',
     y: 'Sex',
@@ -163,7 +163,7 @@ G2.render({
       order: 'DESC',
     },
   ],
-  paddingRight: 50,
+  paddingRight: 70,
   shareData: true,
   encode: {
     x: 'Class',
@@ -198,7 +198,7 @@ G2.render({
   ],
   paddingRight: 50,
   paddingBottom: 50,
-  paddingLeft: 50,
+  paddingLeft: 80,
   encode: {
     y: 'pclass',
   },
@@ -223,10 +223,7 @@ G2.render({
           encode: { y: 'sex' },
           shareSize: true,
           scale: {
-            y: {
-              guide: ({ columnValue }) =>
-                columnValue === '0' ? { position: 'left' } : null,
-            },
+            y: { guide: { position: 'left' } },
             x: { guide: null },
           },
           children: [

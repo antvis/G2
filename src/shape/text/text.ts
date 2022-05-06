@@ -28,7 +28,7 @@ export const Text: SC<TextOptions> = (options) => {
       .style('stroke', color)
       .style('fill', color)
       .style('fontSize', fontSize as any)
-      .style('transform', `${transform}rotate(${+rotate})`)
+      .style('transform', `${transform}rotate(${+rotate}deg)`)
       .call(applyStyle, style)
       .node();
   };
