@@ -250,29 +250,29 @@ const setChildren = useOverrideAdaptor<G2ViewTree>((options) => {
 });
 
 function createGuideX(guideX) {
-  const type = typeof guideX;
-  if (type === 'function') return guideX;
-  if (type === 'object') return () => guideX;
+  if (typeof guideX === 'function') return guideX;
+  if (guideX === null) return () => null;
   return (facet) => {
     const { rowIndex, rowValuesLength, columnIndex, columnValuesLength } =
       facet;
     // Only the bottom-most facet show axisX.
     if (rowIndex !== rowValuesLength - 1) return null;
     // Only the bottom-left facet show title.
-    if (columnIndex !== columnValuesLength - 1) return { title: false };
+    if (columnIndex !== columnValuesLength - 1) {
+      return deepMix({ title: false }, guideX);
+    }
   };
 }
 
 function createGuideY(guideY) {
-  const type = typeof guideY;
-  if (type === 'function') return guideY;
-  if (type === 'object') return () => guideY;
+  if (typeof guideY === 'function') return guideY;
+  if (guideY === null) return () => null;
   return (facet) => {
     const { rowIndex, columnIndex } = facet;
     // Only the left-most facet show axisY.
     if (columnIndex !== 0) return null;
     // Only the left-top facet show title.
-    if (rowIndex !== 0) return { title: false };
+    if (rowIndex !== 0) return deepMix({ title: false }, guideY);
   };
 }
 

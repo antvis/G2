@@ -123,7 +123,7 @@ describe('adjust', () => {
           order: 'DESC',
         },
       ],
-      paddingRight: 50,
+      paddingRight: 70,
       encode: {
         x: 'Class',
         y: 'Sex',
@@ -156,7 +156,7 @@ describe('adjust', () => {
           order: 'DESC',
         },
       ],
-      paddingRight: 50,
+      paddingRight: 70,
       shareData: true,
       encode: {
         x: 'Class',
@@ -176,7 +176,7 @@ describe('adjust', () => {
     mount(createDiv(), chart);
   });
 
-  it('Pack() should pack points with specified x and y channel uniformly', () => {
+  it.only('Pack() should pack points with specified x and y channel uniformly', () => {
     const chart = render<G2Spec>({
       type: 'rect',
       transform: [
@@ -191,7 +191,7 @@ describe('adjust', () => {
       ],
       paddingRight: 50,
       paddingBottom: 50,
-      paddingLeft: 50,
+      paddingLeft: 80,
       encode: {
         y: 'pclass',
       },
@@ -216,10 +216,7 @@ describe('adjust', () => {
               encode: { y: 'sex' },
               shareSize: true,
               scale: {
-                y: {
-                  guide: ({ columnValue }) =>
-                    columnValue === '0' ? { position: 'left' } : null,
-                },
+                y: { guide: { position: 'left' } },
                 x: { guide: null },
               },
               children: [
