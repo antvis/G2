@@ -1,6 +1,6 @@
 // Installing third-party modules by tnpm or cnpm will name modules with underscore as prefix.
 // In this case _{module} is also necessary.
-const esm = ['internmap', 'd3-*'].map((d) => `_${d}|${d}`).join('|');
+const esm = ['internmap', 'd3-*', 'lodash-es'].map((d) => `_${d}|${d}`).join('|');
 
 module.exports = {
   runner: 'jest-electron/runner',
