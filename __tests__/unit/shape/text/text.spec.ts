@@ -119,4 +119,23 @@ describe('Text', () => {
     expect(shape.getLineBoundingRects().length).toBeGreaterThan(1);
     mount(createDiv(), container);
   });
+
+  it('Text() returns a function draw rotate text', () => {
+    const container = document.createElement('div');
+    const shape = draw({
+      width: 150,
+      height: 50,
+      shape: Text({}),
+      container,
+      value: {
+        text: 'hello',
+        color: 'steelblue',
+        rotate: '90',
+      },
+      vectors: [[0.5, 0.5]],
+    });
+    mount(createDiv(), container);
+
+    expect(shape.getBoundingClientRect().right).toBe(96);
+  });
 });
