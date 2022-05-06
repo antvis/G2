@@ -149,7 +149,6 @@ export const Axis: GCC<AxisOptions> = (options) => {
       titlePosition,
       titlePadding,
       titleRotate,
-      labelAlign,
       verticalFactor,
     } = inferPosition(position, bbox);
     const ticks = getTicks(scale, domain, formatter, position, coordinate);
@@ -177,9 +176,9 @@ export const Axis: GCC<AxisOptions> = (options) => {
             title: {
               content: Array.isArray(field) ? field[0] : field,
               titleAnchor: scale.getTicks ? titlePosition : 'center',
-              style: {},
+              style: { fontWeight: 'bold', fillOpacity: 1 },
               titlePadding,
-              rotation: titleRotate,
+              rotate: titleRotate,
             },
           }),
       },
