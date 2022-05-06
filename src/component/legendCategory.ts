@@ -44,12 +44,14 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
             spacing: 0,
             style: {
               fontSize: 12,
+              fontWeight: 'bold',
+              fillOpacity: 1,
             },
           },
         }),
         itemMarker: ({ color }) => {
           return {
-            size: 10,
+            size: 8,
             marker: 'circle',
             style: {
               selected: {
