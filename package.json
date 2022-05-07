@@ -15,6 +15,7 @@
   ],
   "scripts": {
     "start": "genji dev",
+    "dev": "node node_modules/genji-notebook/bin/genji.js dev",
     "deploy": "genji deploy",
     "clean": "rimraf lib esm dist",
     "lint-staged": "lint-staged",

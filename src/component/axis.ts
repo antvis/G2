@@ -1,9 +1,11 @@
 import { Coordinate, Vector2 } from '@antv/coord';
 import { Linear } from '@antv/gui';
+import { deepMix, get, upperFirst } from '@antv/util';
 import { Linear as LinearScale } from '@antv/scale';
 import { isParallel } from '../utils/coordinate';
 import {
   BBox,
+  G2Theme,
   GuideComponentComponent as GCC,
   GuideComponentPosition,
   Scale,
@@ -22,54 +24,31 @@ function inferPosition(
 ): {
   startPos: [number, number];
   endPos: [number, number];
-  labelOffset: number;
-  titlePosition: 'start' | 'end' | 'center';
-  titlePadding: number;
-  titleRotate: number;
   verticalFactor: 1 | -1;
-  labelAlign?: 'start' | 'end' | 'center' | 'left' | 'right';
 } {
   const { x, y, width, height } = bbox;
   if (position === 'bottom') {
     return {
       startPos: [x, y],
       endPos: [x + width, y],
-      labelOffset: 8,
-      titlePosition: 'end',
-      titlePadding: 2,
-      titleRotate: 0,
       verticalFactor: 1,
     };
   } else if (position === 'left' || position === 'centerHorizontal') {
     return {
       startPos: [x + width, y],
       endPos: [x + width, y + height],
-      titlePosition: 'center',
-      titlePadding: 6,
-      titleRotate: -90,
-      labelAlign: 'end',
-      labelOffset: 4,
       verticalFactor: -1,
     };
   } else if (position === 'right') {
     return {
       startPos: [x, y],
       endPos: [x, y + height],
-      titlePosition: 'center',
-      titlePadding: 16,
-      titleRotate: -90,
-      labelAlign: 'start',
-      labelOffset: 4,
       verticalFactor: 1,
     };
   }
   return {
     startPos: [x, y + height],
     endPos: [x + width, y + height],
-    titlePosition: 'end',
-    titlePadding: 2,
-    titleRotate: 0,
-    labelOffset: 4,
     verticalFactor: -1,
   };
 }
@@ -133,6 +112,36 @@ function getTicks(
   });
 }
 
+function getTheme(theme: G2Theme, position: string) {
+  const axisTheme = deepMix(
+    {},
+    get(theme, 'axis'),
+    get(theme, `axis${upperFirst(position)}`),
+  );
+  return {
+    title: {
+      titlePadding: get(axisTheme, 'titlePadding'),
+      rotate: get(axisTheme, 'titleRotate'),
+      style: get(axisTheme, 'title'),
+    },
+    tickLine: {
+      len: get(axisTheme, 'tickLineLength'),
+      style: get(axisTheme, 'tickLine'),
+    },
+    subTickLine: {
+      len: get(axisTheme, 'subTickLineLength'),
+      count: get(axisTheme, 'subTickLineCount'),
+      style: get(axisTheme, 'subTickLine'),
+    },
+    label: {
+      tickPadding: get(axisTheme, 'labelOffset'),
+      style: get(axisTheme, 'label'),
+    },
+    axisLine: {
+      style: get(axisTheme, 'line'),
+    },
+  };
+}
 /**
  * Guide Component for position channel(e.g. x, y).
  * @todo Render Circular in polar coordinate.
@@ -142,46 +151,23 @@ export const Axis: GCC<AxisOptions> = (options) => {
   const { position, title = true, formatter = (d) => `${d}` } = options;
   return (scale, value, coordinate, theme) => {
     const { domain, field, bbox } = value;
-    const {
-      startPos,
-      endPos,
-      labelOffset,
-      titlePosition,
-      titlePadding,
-      titleRotate,
-      verticalFactor,
-    } = inferPosition(position, bbox);
+    const { startPos, endPos, verticalFactor } = inferPosition(position, bbox);
     const ticks = getTicks(scale, domain, formatter, position, coordinate);
+    const themeOptions = getTheme(theme, position);
     const axis = new Linear({
-      style: {
+      style: deepMix({}, themeOptions, {
         startPos,
         endPos,
         verticalFactor,
         ticks,
-        label: {
-          tickPadding: labelOffset,
-          style: {},
-        },
-        axisLine: {
-          style: {
-            strokeOpacity: 0,
-          },
-        },
-        tickLine: {
-          len: 5,
-          style: { lineWidth: 1 },
-        },
-        ...(field &&
-          title && {
-            title: {
-              content: Array.isArray(field) ? field[0] : field,
-              titleAnchor: scale.getTicks ? titlePosition : 'center',
-              style: { fontWeight: 'bold', fillOpacity: 1 },
-              titlePadding,
-              rotate: titleRotate,
-            },
-          }),
-      },
+        title:
+          field && title
+            ? {
+                content: Array.isArray(field) ? field[0] : field,
+                titleAnchor: !scale.getTicks ? 'center' : undefined,
+              }
+            : null,
+      }),
     });
     return axis;
   };

@@ -2,16 +2,74 @@ import { Coordinate } from '@antv/coord';
 import { G2GuideComponentOptions, G2Mark } from './options';
 import { Scale, MarkProps } from './component';
 
+type TextStyle = {
+  fill?: string;
+  fillOpacity?: number;
+  fontWeight?: number | string;
+  fontSize?: number;
+};
+type LineStyle = {
+  stroke?: string;
+  strokeOpacity?: number;
+  lineWidth?: number;
+};
+type MarkerStyle = {
+  symbol?: string;
+  size?: number;
+  fill?: string;
+  fillOpacity?: number;
+  cursor?: string;
+};
+
 export type G2Theme = {
   defaultColor?: string;
   defaultCategory10?: string;
   defaultCategory20?: string;
   defaultSize?: number;
+  fontFamily?: string;
   elementActiveStroke?: string;
   enter?: {
     duration?: number;
     delay?: number;
     fill?: 'both';
+  };
+  // Components
+  axis?: {
+    /** options: start, end, center */
+    titleAnchor?: string;
+    titlePadding?: number;
+    titleRotate?: number;
+    labelOffset?: number;
+    tickLineLength?: number;
+    subTickLineCount?: number;
+    subTickLineLength?: number;
+    // Style
+    title?: TextStyle;
+    label?: TextStyle;
+    line?: LineStyle;
+    tickLine?: LineStyle;
+    subTickLine?: LineStyle;
+  };
+  axisTop?: any;
+  axisBottom?: any;
+  axisLeft?: any;
+  axisCenterHorizontal?: any;
+  axisRight?: any;
+
+  legend?: {
+    title?: TextStyle;
+    label?: TextStyle;
+    itemName?: TextStyle;
+    itemValue?: TextStyle;
+    itemMarker?: MarkerStyle;
+    pager?: {
+      marker?: MarkerStyle;
+      text?: TextStyle;
+    };
+    // StateStyle
+    active?: any;
+    inactive?: any;
+    disabled?: any;
   };
 };
 
