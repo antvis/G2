@@ -21,7 +21,6 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
     const items = domain.map((d) => ({
       id: d,
       name: formatter(d),
-      state: 'selected',
       color: scale.map(d),
     }));
     return new Category({
@@ -31,9 +30,10 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
         y,
         maxWidth: width,
         maxHeight: height,
+        spacing: [8, 0],
         itemName: {
           style: {
-            selected: {
+            default: {
               fontSize: 12,
             },
           },
@@ -49,16 +49,9 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
             },
           },
         }),
-        itemMarker: ({ color }) => {
-          return {
-            size: 8,
-            marker: 'circle',
-            style: {
-              selected: {
-                fill: color,
-              },
-            },
-          };
+        itemMarker: {
+          size: 8,
+          symbol: 'circle',
         },
       },
     });
