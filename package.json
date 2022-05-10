@@ -21,7 +21,7 @@
     "size": "limit-size",
     "lint": "eslint ./src ./__tests__ && prettier ./src ./__tests__ --check ",
     "fix": "eslint ./src ./__tests__ --fix && prettier ./src ./__tests__ --write ",
-    "test": "jest",
+    "test": "jest --coverage",
     "test-live": "cross-env DEBUG_MODE=1 jest --watch",
     "build:umd": "rimraf ./dist && rollup -c && npm run size",
     "build:cjs": "rimraf ./lib && tsc --module commonjs --outDir lib",
