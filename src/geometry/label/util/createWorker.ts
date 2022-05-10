@@ -1,4 +1,6 @@
 export function createWorker(f: any) {
+  if (typeof window === "undefined") return;
+
   let blob;
   try {
     blob = new Blob([f.toString()], { type: 'application/javascript' });
