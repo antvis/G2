@@ -1,3 +1,9 @@
+#### 4.2.1 (2022-05-10)
+
+##### Bug Fixes
+
+*  add window-detect ([00f24f13](https://github.com/antvis/g2/commit/00f24f139bd8ac977b8fe74758fc255dcbed85b5))
+
 #### 4.2.0 (2022-04-22)
 
 ##### Refactors
