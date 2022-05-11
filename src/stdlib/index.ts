@@ -44,6 +44,7 @@ import {
   Point as PointShape,
   HollowPoint,
   Text,
+  TextAnnotation,
 } from '../shape';
 import { DodgeX, StackY, StackEnter, SplitPosition, Key } from '../statistic';
 import { Light } from '../theme';
@@ -121,6 +122,7 @@ export function createLibrary(): G2Library {
     'shape.point': PointShape,
     'shape.hollowPoint': HollowPoint,
     'shape.text': Text,
+    'shape.textAnnotation': TextAnnotation,
     'statistic.stackY': StackY,
     'statistic.dodgeX': DodgeX,
     'statistic.stackEnter': StackEnter,

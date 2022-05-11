@@ -5,3 +5,4 @@ export { Smooth, SmoothOptions } from './line/smooth';
 export { Point, PointOptions } from './point/point';
 export { HollowPoint, HollowPointOptions } from './point/hollowPoint';
 export { Text, TextOptions } from './text/text';
+export { TextAnnotation, TextAnnotationOptions } from './annotation/text';
