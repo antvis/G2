@@ -14,7 +14,7 @@ import {
   Point as PointGeometry,
   Text as TextGeometry,
   Grid,
-} from '../../../src/geometry';
+} from '../../../src/mark/geometry';
 import {
   MaybeTuple,
   MaybeZeroX1,
@@ -50,6 +50,7 @@ import {
   Point as PointShape,
   HollowPoint,
   Text,
+  AnnotationText,
 } from '../../../src/shape';
 import {
   DodgeX,
@@ -139,6 +140,7 @@ describe('stdlib', () => {
       'shape.point': PointShape,
       'shape.hollowPoint': HollowPoint,
       'shape.text': Text,
+      'shape.textAnnotation': AnnotationText,
       'statistic.stackY': StackY,
       'statistic.dodgeX': DodgeX,
       'statistic.stackEnter': StackEnter,

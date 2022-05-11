@@ -2,19 +2,18 @@ import {
   CustomElement,
   DisplayObjectConfig,
   Text as GText,
+  TextStyleProps,
   Rect,
   RectStyleProps,
-  TextStyleProps,
   Path,
   PathStyleProps,
-  ElementEvent,
 } from '@antv/g';
 import { Marker } from '@antv/gui';
 import { ShapeComponent as SC } from '../../runtime';
 import { applyStyle } from '../../shape/utils';
 import { select } from '../../utils/selection';
 
-export type TextAnnotationOptions = TextShapeStyleProps & Record<string, any>;
+export type AnnotationTextOptions = TextShapeStyleProps & Record<string, any>;
 
 type MarkerStyleProps = {
   size?: number;
@@ -35,10 +34,17 @@ interface TextShapeStyleProps extends Omit<TextStyleProps, 'text'> {
 }
 
 class TextShape extends CustomElement<TextShapeStyleProps> {
-  static tag = 'textAnnotation';
-
   constructor(config: DisplayObjectConfig<TextShapeStyleProps>) {
     super(config);
+    this.render();
+  }
+
+  // Callback after connected with canvas, should trigger render.
+  connectedCallback() {
+    this.render();
+  }
+
+  attributeChangedCallback() {
     this.render();
   }
 
@@ -56,15 +62,6 @@ class TextShape extends CustomElement<TextShapeStyleProps> {
     this.drawPoints();
   }
 
-  // Callback after connected with canvas, should trigger render.
-  connectedCallback() {
-    this.render();
-  }
-
-  attributeChangedCallback() {
-    this.render();
-  }
-
   drawText() {
     const {
       connector,
@@ -74,6 +71,7 @@ class TextShape extends CustomElement<TextShapeStyleProps> {
       x: x0,
       y: y0,
       rotate = 0,
+      transform = '',
       ...style
     } = this.attributes;
     const { x, y } = this.endPoint;
@@ -81,7 +79,7 @@ class TextShape extends CustomElement<TextShapeStyleProps> {
       .style('x', +x)
       .style('y', +y)
       .style('textAlign', x < 0 ? 'right' : x > 0 ? 'left' : 'center')
-      .style('transform', `rotate(${+rotate}deg)`)
+      .style('transform', `${transform}rotate(${+rotate}deg)`)
       .call(applyStyle, style)
       .node() as GText;
   }
@@ -96,9 +94,9 @@ class TextShape extends CustomElement<TextShapeStyleProps> {
 
     const { padding, ...style } = background;
     const [top = 0, right = 0, bottom = top, left = right] = padding || [];
-    this.textShape.translateLocal(left, -(top + bottom));
     const bbox = this.textShape.getBBox();
     const [x, y] = this.textShape.getLocalBounds().min;
+    // [todo] support background rotate with text.
     this.background = select(this.background || this.appendChild(new Rect({})))
       .style('zIndex', -1)
       .style('x', x - left)
@@ -168,14 +166,14 @@ class TextShape extends CustomElement<TextShapeStyleProps> {
 /**
  * todo autoRotate when in polar coordinate
  */
-export const TextAnnotation: SC<TextAnnotationOptions> = (options) => {
+export const AnnotationText: SC<AnnotationTextOptions> = (options) => {
   const { ...style } = options;
   return (points, value, coordinate, theme) => {
     const { defaultColor } = theme;
     const {
       color = defaultColor,
       text = '',
-      fontSize = 14,
+      fontSize = 12,
       rotate = 0,
       transform = '',
     } = value;
@@ -194,6 +192,6 @@ export const TextAnnotation: SC<TextAnnotationOptions> = (options) => {
   };
 };
 
-TextAnnotation.props = {
+AnnotationText.props = {
   defaultEnterAnimation: 'fadeIn',
 };

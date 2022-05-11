@@ -14,6 +14,7 @@ export type Geometry =
   | PointGeometry
   | TextGeometry
   | GridGeometry
+  | AnnotationText
   | CustomComponent;
 
 export type GeometryTypes =
@@ -22,6 +23,7 @@ export type GeometryTypes =
   | 'point'
   | 'text'
   | 'grid'
+  | 'annotation.text'
   | MarkComponent;
 
 export type ChannelTypes =
@@ -80,6 +82,19 @@ export type PointGeometry = BaseGeometry<'point'>;
 
 export type TextGeometry = BaseGeometry<
   'text',
+  | ChannelTypes
+  | 'text'
+  | 'fontSize'
+  | 'fontWeight'
+  | 'fontStyle'
+  | 'rotate'
+  | 'fontStyle'
+  | 'textAlign'
+  | 'textBaseline'
+>;
+
+export type AnnotationText = BaseGeometry<
+  'annotation.text',
   | ChannelTypes
   | 'text'
   | 'fontSize'

@@ -8,7 +8,8 @@ import {
   Line,
   Point as PointGeometry,
   Text as TextGeometry,
-} from '../geometry';
+} from '../mark/geometry';
+import { AnnotationText } from '../mark/annotation';
 import {
   MaybeTuple,
   MaybeZeroX1,
@@ -44,7 +45,7 @@ import {
   Point as PointShape,
   HollowPoint,
   Text,
-  TextAnnotation,
+  AnnotationText as AnnotationTextShape,
 } from '../shape';
 import { DodgeX, StackY, StackEnter, SplitPosition, Key } from '../statistic';
 import { Light } from '../theme';
@@ -91,6 +92,7 @@ export function createLibrary(): G2Library {
     'mark.point': PointGeometry,
     'mark.text': TextGeometry,
     'mark.grid': Grid,
+    'mark.annotation.text': AnnotationText,
     'infer.maybeTuple': MaybeTuple,
     'infer.maybeZeroX1': MaybeZeroX1,
     'infer.maybeZeroY2': MaybeZeroY2,
@@ -122,7 +124,7 @@ export function createLibrary(): G2Library {
     'shape.point': PointShape,
     'shape.hollowPoint': HollowPoint,
     'shape.text': Text,
-    'shape.textAnnotation': TextAnnotation,
+    'shape.annotation.text': AnnotationTextShape,
     'statistic.stackY': StackY,
     'statistic.dodgeX': DodgeX,
     'statistic.stackEnter': StackEnter,
