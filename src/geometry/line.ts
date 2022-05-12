@@ -24,10 +24,12 @@ export const Line: MC<LineOptions> = () => {
     // There is only one series without specified series encode.
     const series = S ? Array.from(group(index, (i) => S[i]).values()) : [index];
     const I = series.map((group) => group[0]);
-
+    const xoffset = scale.x?.getBandWidth?.() || 0;
     // A group of data corresponds to one line.
     const P = Array.from(series, (I) => {
-      return I.map((i) => coordinate.map([X[i][0], Y[i][0]])) as Vector2[];
+      return I.map((i) =>
+        coordinate.map([X[i][0] + xoffset / 2, Y[i][0]]),
+      ) as Vector2[];
     });
     return [I, P];
   };

@@ -1,4 +1,5 @@
 import { Parallel } from '../../../src/coordinate';
+import { Band } from '../../../src/scale';
 import { Line } from '../../../src/geometry';
 import { plot } from './helper';
 
@@ -146,5 +147,31 @@ describe('Line', () => {
         transform: [Parallel()],
       }),
     ).toThrowError();
+  });
+
+  it('Line should have xoffset when xScale is band type', () => {
+    const [I, P] = plot({
+      mark: Line({}),
+      index: [0, 1, 2, 3],
+      scale: {
+        x: Band({
+          domain: ['a', 'b', 'c', 'd'],
+          range: [0, 0.25, 0.5, 0.75],
+        }),
+      },
+      channel: {
+        x: [[0], [0.25], [0.5], [0.75]],
+        y: [[0.5], [0.2], [0.4], [0.4]],
+      },
+    });
+    expect(I).toEqual([0]);
+    expect(P).toEqual([
+      [
+        [18.75, 200],
+        [150 + 18.75, 80],
+        [150 * 2 + 18.75, 160],
+        [150 * 3 + 18.75, 160],
+      ],
+    ]);
   });
 });
