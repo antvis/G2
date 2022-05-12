@@ -7,9 +7,6 @@ export type AreaOptions = Omit<AreaGeometry, 'type'>;
 
 /**
  * Convert value for each channel to area shapes.
- * - x, y
- * - x, y, series
- * - x, y, size
  */
 export const Area: MC<AreaOptions> = () => {
   return (index, scale, value, coordinate) => {
@@ -22,15 +19,15 @@ export const Area: MC<AreaOptions> = () => {
     // A group of data corresponds to one area.
     const P = Array.from(series, (SI) => {
       const l = SI.length;
-      const p = new Array(l * 2);
+      const points = new Array(l * 2);
 
       for (let idx = 0; idx < SI.length; idx++) {
         const i = SI[idx];
-        p[idx] = coordinate.map([X[i][0], Y[i][0]]); // y1
-        p[l + idx] = coordinate.map([X[i][0], Y[i][1]]); // y0
+        points[idx] = coordinate.map([X[i][0], Y[i][0]]); // y1
+        points[l + idx] = coordinate.map([X[i][0], Y[i][1]]); // y0
       }
 
-      return p;
+      return points;
     });
 
     return [I, P];

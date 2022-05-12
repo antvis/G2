@@ -18,7 +18,7 @@ export const CurveArea: SC<CurveAreaOptions> = (options) => {
     const { color = defaultColor } = value;
     let { transform } = value;
 
-    // seperate into y0, y1
+    // Seperate into y0, y1.
     const Y1 = P.slice(0, P.length / 2);
     const Y0 = P.slice(P.length / 2);
 
