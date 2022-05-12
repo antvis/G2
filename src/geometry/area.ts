@@ -46,11 +46,6 @@ Area.props = {
     { name: 'size' },
     { name: 'series', scale: 'identity' },
   ],
-  infer: [
-    ...baseInference(),
-    { type: 'maybeSeries' },
-    { type: 'maybeZeroY2' },
-    { type: 'maybeStackY' },
-  ],
+  infer: [...baseInference(), { type: 'maybeSeries' }, { type: 'maybeZeroY2' }],
   shapes: ['area', 'smooth'],
 };

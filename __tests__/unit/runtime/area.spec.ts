@@ -31,20 +31,39 @@ describe('area', () => {
   });
 
   it('render({...}) should render stacked area chart', () => {
-    const context = {};
-    const chart = render<G2Spec>(
-      {
-        type: 'area',
-        data: SALE_OF_YEAR_WITH_TYPE,
-        encode: {
-          x: 'year',
-          y: 'sale',
-          color: 'type',
-          shape: 'smoothArea',
-        },
+    const chart = render<G2Spec>({
+      type: 'area',
+      data: SALE_OF_YEAR_WITH_TYPE,
+      encode: {
+        x: 'year',
+        y: 'sale',
+        color: 'type',
+        shape: 'smoothArea',
       },
-      context,
-    );
+      statistic: [{ type: 'stackY' }],
+    });
+
+    mount(createDiv(), chart);
+  });
+
+  it('render({...}) should render area chart in polar', () => {
+    const chart = render<G2Spec>({
+      type: 'area',
+      data: SALE_OF_YEAR_WITH_TYPE,
+      encode: {
+        x: 'year',
+        y: 'sale',
+        color: 'type',
+      },
+      scale: {
+        x: { padding: 0.5, align: 0 },
+      },
+      statistic: [{ type: 'stackY' }],
+      coordinate: [{ type: 'polar' }],
+      style: {
+        fillOpacity: 0.7,
+      },
+    });
 
     mount(createDiv(), chart);
   });
