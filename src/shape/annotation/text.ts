@@ -22,7 +22,7 @@ type MarkerStyleProps = {
 
 interface TextShapeStyleProps extends Omit<TextStyleProps, 'text'> {
   // [todo] Support connector controlPoints config later.
-  connector?: Omit<PathStyleProps, 'x' | 'y' | 'path'>;
+  connector?: Omit<PathStyleProps, 'x' | 'y'>;
   // [todo] Use Marker to replace.
   startMarker?: MarkerStyleProps;
   endMarker?: MarkerStyleProps;
@@ -51,15 +51,23 @@ class TextShape extends CustomElement<TextShapeStyleProps> {
   private textShape!: GText;
   private background!: Rect;
   private connector!: Path;
-  private endPoint = { x: 0, y: 0 };
   private startMarkerPoint!: Marker;
   private endMarkerPoint!: Marker;
 
   protected draw() {
-    this.drawConnector();
     this.drawText();
     this.drawBackground();
+    this.drawConnector();
     this.drawPoints();
+  }
+
+  private get endPoint() {
+    const { connector } = this.style;
+    if (connector?.path?.length > 0) {
+      const [[, x, y]] = connector.path.slice(-1);
+      return { x, y };
+    }
+    return { x: 0, y: 0 };
   }
 
   protected drawText() {
@@ -85,7 +93,7 @@ class TextShape extends CustomElement<TextShapeStyleProps> {
   }
 
   protected drawBackground() {
-    const { background } = this.style;
+    const { background, rotate } = this.style;
     if (!background) {
       this.background && this.removeChild(this.background, true);
       this.background = undefined;
@@ -94,15 +102,19 @@ class TextShape extends CustomElement<TextShapeStyleProps> {
 
     const { padding, ...style } = background;
     const [top = 0, right = 0, bottom = top, left = right] = padding || [];
+    const angle = this.textShape.getEulerAngles();
+    this.textShape.setEulerAngles(0);
     const bbox = this.textShape.getBBox();
     const [x, y] = this.textShape.getLocalBounds().min;
-    // [todo] support background rotate with text.
+    this.textShape.setEulerAngles(angle);
     this.background = select(this.background || this.appendChild(new Rect({})))
       .style('zIndex', -1)
       .style('x', x - left)
       .style('y', y - top)
       .style('width', bbox.width + left + right)
       .style('height', bbox.height + top + bottom)
+      .style('transformOrigin', 'top center')
+      .style('transform', `rotate(${+rotate}deg)`)
       .call(applyStyle, style)
       .node() as Rect;
   }
@@ -115,27 +127,35 @@ class TextShape extends CustomElement<TextShapeStyleProps> {
       return;
     }
 
-    const { ...style } = connector;
-    const offset = [
-      [0, -12],
-      [8, 0],
-    ];
-    this.endPoint = { x: 0, y: 0 };
-    const path = offset.reduce(
-      (p, [dx, dy]) => {
-        const x1 = +(this.endPoint.x + dx);
-        const y1 = +(this.endPoint.y + dy);
-        this.endPoint = { x: x1, y: y1 };
-        return p.concat([['L', x1, y1]]);
-      },
-      [['M', this.endPoint.x, this.endPoint.y]],
-    );
+    let { path = [] } = connector;
+    if (!path?.length && this.textShape) {
+      const { min, max } = this.background
+        ? this.background.getLocalBounds()
+        : this.textShape.getLocalBounds();
+      let x = (min[0] + max[0]) / 2;
+      let y = max[1];
+      if (max[0] < 0) {
+        x = max[0];
+      } else if (min[0] > 0) {
+        x = min[0];
+      }
 
+      if (min[1] > 0) {
+        y = min[1];
+      } else if (max[1] < 0) {
+        y = max[1];
+      }
+      path = [
+        ['M', 0, 0],
+        ['L', x, y],
+      ];
+    }
     this.connector = select(this.connector || this.appendChild(new Path({})))
+      .style('zIndex', -1)
       .style('stroke', 'black')
       .style('lineWidth', 1)
+      .call(applyStyle, connector)
       .style('path', path)
-      .call(applyStyle, style)
       .node() as Path;
   }
 

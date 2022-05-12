@@ -179,7 +179,7 @@ describe('render', () => {
     mount(createDiv(), chart);
   });
 
-  it.only('render({...} renders text annotation with badge shape.', () => {
+  it('render({...} renders text annotation with badge shape.', () => {
     const chart = render<G2Spec>(
       {
         type: 'view',
@@ -217,6 +217,52 @@ describe('render', () => {
                 fontSize: 10,
                 fill: '#fff',
               },
+            },
+          },
+        ],
+      },
+      {},
+    );
+
+    mount(createDiv(), chart);
+  });
+
+  it.only('render({...} renders text annotation with badge shape.', () => {
+    const chart = render<G2Spec>(
+      {
+        type: 'view',
+        width: 640,
+        transform: [
+          {
+            type: 'fetch',
+            url: 'https://gw.alipayobjects.com/os/antfincdn/jjAX4HPWB9/sales.json',
+          },
+        ],
+        scale: {
+          x: { nice: true, tickCount: 15 },
+          y: { guide: null },
+          color: { guide: null },
+        },
+        children: [
+          {
+            type: 'line',
+            encode: {
+              x: (d) => new Date(d.date),
+              y: 'sales',
+              color: 'fruit',
+            },
+          },
+          {
+            type: 'annotation.text',
+            encode: {
+              x: (d) => new Date(d.date),
+              y: 'sales',
+              text: 'sales',
+              color: 'fruit',
+              shape: 'annotation.badge',
+            },
+            style: {
+              size: 20,
             },
           },
         ],
