@@ -21,17 +21,16 @@ export const Area: MC<AreaOptions> = () => {
 
     // A group of data corresponds to one area.
     const P = Array.from(series, (SI) => {
-      const p: Vector2[] = [];
-      const base: Vector2[] = [];
+      const y1: Vector2[] = [];
+      const y0: Vector2[] = [];
 
       for (let idx = 0; idx < SI.length; idx++) {
         const i = SI[idx];
-        p.push(coordinate.map([X[i][0], Y[i][0]]) as Vector2);
-        // todo: customize the base line, default is 1
-        base.unshift(coordinate.map([X[i][0], 1]) as Vector2);
+        y1.push(coordinate.map([X[i][0], Y[i][0]]) as Vector2);
+        y0.push(coordinate.map([X[i][0], Y[i][1]]) as Vector2);
       }
 
-      return [...p, ...base];
+      return [...y1, ...y0];
     });
 
     return [I, P];
@@ -45,7 +44,13 @@ Area.props = {
     { name: 'x', required: true },
     { name: 'y', required: true },
     { name: 'size' },
+    { name: 'series', scale: 'identity' },
   ],
-  infer: [...baseInference()],
+  infer: [
+    ...baseInference(),
+    { type: 'maybeSeries' },
+    { type: 'maybeZeroY2' },
+    { type: 'maybeStackY' },
+  ],
   shapes: ['area', 'smooth'],
 };

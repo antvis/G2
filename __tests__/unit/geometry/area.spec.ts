@@ -17,14 +17,17 @@ describe('Area', () => {
         { name: 'tooltip', scale: 'identity' },
         { name: 'x', required: true },
         { name: 'y', required: true },
-        { name: 'position' },
         { name: 'size' },
+        { name: 'series', scale: 'identity' },
       ],
       infer: [
         { type: 'maybeTuple' },
         { type: 'maybeKey' },
         { type: 'maybeTitle' },
         { type: 'maybeTooltip' },
+        { type: 'maybeSeries' },
+        { type: 'maybeZeroY2' },
+        { type: 'maybeStackY' },
       ],
       shapes: ['area', 'smooth'],
     });
@@ -36,7 +39,11 @@ describe('Area', () => {
       index: [0, 1, 2],
       channel: {
         x: [[0.2], [0.4], [0.6]],
-        y: [[0.5], [0.2], [0.4]],
+        y: [
+          [0.5, 0],
+          [0.2, 0],
+          [0.4, 0],
+        ],
       },
     });
     expect(I).toEqual([0]);
@@ -45,9 +52,9 @@ describe('Area', () => {
         [120, 200],
         [240, 80],
         [360, 160],
-        [360, 0],
-        [240, 0],
         [120, 0],
+        [240, 0],
+        [360, 0],
       ],
     ]);
   });
@@ -58,7 +65,14 @@ describe('Area', () => {
       index: [0, 1, 2, 3, 4, 5],
       channel: {
         x: [[0.2], [0.4], [0.6], [0.5], [0.2], [0.4]],
-        y: [[0.5], [0.2], [0.4], [0.2], [0.4], [0.6]],
+        y: [
+          [0.5, 0],
+          [0.2, 0],
+          [0.4, 0],
+          [0.2, 0],
+          [0.4, 0],
+          [0.6, 0],
+        ],
         series: ['a', 'a', 'a', 'b', 'b', 'b'],
       },
     });
@@ -69,17 +83,17 @@ describe('Area', () => {
         [120, 200],
         [240, 80],
         [360, 160],
-        [360, 0],
-        [240, 0],
         [120, 0],
+        [240, 0],
+        [360, 0],
       ],
       [
         [300, 80],
         [120, 160],
         [240, 240],
-        [240, 0],
-        [120, 0],
         [300, 0],
+        [120, 0],
+        [240, 0],
       ],
     ]);
   });
