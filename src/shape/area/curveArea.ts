@@ -20,8 +20,8 @@ export const CurveArea: SC<CurveAreaOptions> = (options) => {
     const Y0 = P.slice(P.length / 2);
 
     const path = area()
-      .x((d) => d[0])
-      .y1((d) => d[1])
+      .x((_, idx) => Y1[idx][0])
+      .y1((_, idx) => Y1[idx][1])
       .y0((_, idx) => Y0[idx][1])
       .curve(curve);
 
