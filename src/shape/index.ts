@@ -7,3 +7,4 @@ export { HollowPoint, HollowPointOptions } from './point/hollowPoint';
 export { Text, TextOptions } from './text/text';
 export { Area, AreaOptions } from './area/area';
 export { SmoothArea, SmoothAreaOptions } from './area/smoothArea';
+export { Edge, EdgeOptions } from './edge/edge';

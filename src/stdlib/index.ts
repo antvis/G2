@@ -9,6 +9,7 @@ import {
   Point as PointGeometry,
   Text as TextGeometry,
   Area as AreaGeometry,
+  Edge as EdgeGeometry,
 } from '../geometry';
 import {
   MaybeTuple,
@@ -47,6 +48,7 @@ import {
   Text,
   Area,
   SmoothArea,
+  Edge,
 } from '../shape';
 import { DodgeX, StackY, StackEnter, SplitPosition, Key } from '../statistic';
 import { Light } from '../theme';
@@ -94,6 +96,7 @@ export function createLibrary(): G2Library {
     'mark.text': TextGeometry,
     'mark.grid': Grid,
     'mark.area': AreaGeometry,
+    'mark.edge': EdgeGeometry,
     'infer.maybeTuple': MaybeTuple,
     'infer.maybeZeroX1': MaybeZeroX1,
     'infer.maybeZeroY2': MaybeZeroY2,
@@ -127,6 +130,7 @@ export function createLibrary(): G2Library {
     'shape.text': Text,
     'shape.area': Area,
     'shape.smoothArea': SmoothArea,
+    'shape.edge': Edge,
     'statistic.stackY': StackY,
     'statistic.dodgeX': DodgeX,
     'statistic.stackEnter': StackEnter,
