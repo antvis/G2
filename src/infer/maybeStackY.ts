@@ -37,6 +37,4 @@ export const MaybeStackY: IC<MaybeStackYOptions> = (props) => {
   });
 };
 
-MaybeStackY.props = {
-  bySeries: true,
-};
+MaybeStackY.props = {};
