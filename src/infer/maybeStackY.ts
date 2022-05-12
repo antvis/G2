@@ -30,7 +30,7 @@ const inferStatistic: InferValue['transform'] = (indexedValue, statistic) => {
 /**
  * Add stack statistic for marks grouped by x channel.
  */
-export const MaybeStackY: IC<MaybeStackYOptions> = () => {
+export const MaybeStackY: IC<MaybeStackYOptions> = (props) => {
   return ({ encode, transform }) => ({
     encode,
     transform: composeTransform(transform, inferStatistic),

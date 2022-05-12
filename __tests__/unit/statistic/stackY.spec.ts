@@ -51,7 +51,7 @@ describe('StackY', () => {
   });
 
   it('StackY() returns a function can handle value with defined series', () => {
-    const statistic = StackY();
+    const statistic = StackY({ series: true });
     const value = {
       index: [0, 1, 2, 3, 4, 5],
       value: {

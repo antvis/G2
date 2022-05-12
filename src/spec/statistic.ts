@@ -22,6 +22,7 @@ export type DodgeXStatistic = {
 
 export type StackYStatistic = {
   type?: 'stackY';
+  series?: boolean;
 };
 
 export type StackDurationStatistic = {
