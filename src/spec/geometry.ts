@@ -22,6 +22,7 @@ export type GeometryTypes =
   | 'point'
   | 'text'
   | 'grid'
+  | 'area'
   | MarkComponent;
 
 export type ChannelTypes =
@@ -73,7 +74,7 @@ export type IntervalGeometry = BaseGeometry<
 
 export type LineGeometry = BaseGeometry<
   'line',
-  ChannelTypes | 'position' | `position[${number}]` | 'size'
+  ChannelTypes | 'position' | `position[${number}]`
 >;
 
 export type PointGeometry = BaseGeometry<'point'>;
@@ -92,5 +93,7 @@ export type TextGeometry = BaseGeometry<
 >;
 
 export type GridGeometry = BaseGeometry<'grid'>;
+
+export type AreaGeometry = BaseGeometry<'area', ChannelTypes>;
 
 export type CustomComponent = BaseGeometry<MarkComponent>;

@@ -14,6 +14,7 @@ import {
   Point as PointGeometry,
   Text as TextGeometry,
   Grid,
+  Area,
 } from '../../../src/geometry';
 import {
   MaybeTuple,
@@ -50,6 +51,8 @@ import {
   Point as PointShape,
   HollowPoint,
   Text,
+  Area as AreaShape,
+  SmoothArea,
 } from '../../../src/shape';
 import {
   DodgeX,
@@ -108,6 +111,7 @@ describe('stdlib', () => {
       'mark.point': PointGeometry,
       'mark.text': TextGeometry,
       'mark.grid': Grid,
+      'mark.area': Area,
       'infer.maybeTuple': MaybeTuple,
       'infer.maybeZeroX1': MaybeZeroX1,
       'infer.maybeZeroY2': MaybeZeroY2,
@@ -139,6 +143,8 @@ describe('stdlib', () => {
       'shape.point': PointShape,
       'shape.hollowPoint': HollowPoint,
       'shape.text': Text,
+      'shape.area': AreaShape,
+      'shape.smoothArea': SmoothArea,
       'statistic.stackY': StackY,
       'statistic.dodgeX': DodgeX,
       'statistic.stackEnter': StackEnter,

@@ -1,0 +1,32 @@
+export const SALE_OF_YEAR = [
+  { year: '1991', sale: 15468 },
+  { year: '1992', sale: 16100 },
+  { year: '1993', sale: 15900 },
+  { year: '1994', sale: 17409 },
+  { year: '1995', sale: 17000 },
+  { year: '1996', sale: 31056 },
+  { year: '1997', sale: 31982 },
+  { year: '1998', sale: 32040 },
+  { year: '1999', sale: 33233 },
+];
+
+export const SALE_OF_YEAR_WITH_TYPE = [
+  { year: '1991', sale: 15468, type: '办公用品' },
+  { year: '1992', sale: 16100, type: '办公用品' },
+  { year: '1993', sale: 15900, type: '办公用品' },
+  { year: '1994', sale: 17409, type: '办公用品' },
+  { year: '1995', sale: 17000, type: '办公用品' },
+  { year: '1996', sale: 31056, type: '办公用品' },
+  { year: '1997', sale: 31982, type: '办公用品' },
+  { year: '1998', sale: 32040, type: '办公用品' },
+  { year: '1999', sale: 33233, type: '办公用品' },
+  { year: '1991', sale: 11468, type: '食品' },
+  { year: '1992', sale: 16100, type: '食品' },
+  { year: '1993', sale: 19900, type: '食品' },
+  { year: '1994', sale: 17409, type: '食品' },
+  { year: '1995', sale: 20000, type: '食品' },
+  { year: '1996', sale: 18056, type: '食品' },
+  { year: '1997', sale: 28982, type: '食品' },
+  { year: '1998', sale: 32040, type: '食品' },
+  { year: '1999', sale: 40233, type: '食品' },
+];

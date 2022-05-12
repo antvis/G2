@@ -9,7 +9,8 @@ export type StackYOptions = Omit<StackYStatistic, 'type'>;
  * Group marks into groups and stack y channel.
  *  @todo Sort marks in each groups.
  */
-export const StackY: SC<StackYOptions> = () => {
+export const StackY: SC<StackYOptions> = (options = {}) => {
+  const { series } = options;
   return ({ index, value }) => {
     const { x: X, y: Y, series: S } = value;
     if (X === undefined || Y === undefined) return { index, value };
@@ -18,9 +19,10 @@ export const StackY: SC<StackYOptions> = () => {
     // In that case marks should be grouped based on both x1 and series channel,
     // otherwise just x1.
     const X1 = X.map(x1);
-    const key = S
-      ? (i: number) => `${X1[i]}-${S[i]}`
-      : (i: number) => `${X1[i]}`;
+    const key =
+      S && series
+        ? (i: number) => `${X1[i]}-${S[i]}`
+        : (i: number) => `${X1[i]}`;
     const groups = Array.from(group(index, key).values());
 
     // Stack y channel in each groups.
