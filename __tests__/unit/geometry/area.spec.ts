@@ -27,7 +27,6 @@ describe('Area', () => {
         { type: 'maybeTooltip' },
         { type: 'maybeSeries' },
         { type: 'maybeZeroY2' },
-        { type: 'maybeStackY' },
       ],
       shapes: ['area', 'smooth'],
     });
