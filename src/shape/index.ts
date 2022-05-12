@@ -6,3 +6,4 @@ export { Point, PointOptions } from './point/point';
 export { HollowPoint, HollowPointOptions } from './point/hollowPoint';
 export { Text, TextOptions } from './text/text';
 export { AnnotationText, AnnotationTextOptions } from './annotation/text';
+export { AnnotationBadge, AnnotationBadgeOptions } from './annotation/badge';

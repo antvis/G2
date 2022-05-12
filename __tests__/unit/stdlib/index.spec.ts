@@ -15,6 +15,7 @@ import {
   Text as TextGeometry,
   Grid,
 } from '../../../src/mark/geometry';
+import { AnnotationText } from '../../../src/mark/annotation';
 import {
   MaybeTuple,
   MaybeZeroX1,
@@ -50,7 +51,8 @@ import {
   Point as PointShape,
   HollowPoint,
   Text,
-  AnnotationText,
+  AnnotationText as AnnotationTextShape,
+  AnnotationBadge,
 } from '../../../src/shape';
 import {
   DodgeX,
@@ -108,6 +110,7 @@ describe('stdlib', () => {
       'mark.line': Line,
       'mark.point': PointGeometry,
       'mark.text': TextGeometry,
+      'mark.annotation.text': AnnotationText,
       'mark.grid': Grid,
       'infer.maybeTuple': MaybeTuple,
       'infer.maybeZeroX1': MaybeZeroX1,
@@ -140,7 +143,8 @@ describe('stdlib', () => {
       'shape.point': PointShape,
       'shape.hollowPoint': HollowPoint,
       'shape.text': Text,
-      'shape.textAnnotation': AnnotationText,
+      'shape.annotation.text': AnnotationTextShape,
+      'shape.annotation.badge': AnnotationBadge,
       'statistic.stackY': StackY,
       'statistic.dodgeX': DodgeX,
       'statistic.stackEnter': StackEnter,

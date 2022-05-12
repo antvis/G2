@@ -36,16 +36,16 @@ interface TextShapeStyleProps extends Omit<TextStyleProps, 'text'> {
 class TextShape extends CustomElement<TextShapeStyleProps> {
   constructor(config: DisplayObjectConfig<TextShapeStyleProps>) {
     super(config);
-    this.render();
+    this.draw();
   }
 
   // Callback after connected with canvas, should trigger render.
   connectedCallback() {
-    this.render();
+    this.draw();
   }
 
   attributeChangedCallback() {
-    this.render();
+    this.draw();
   }
 
   private textShape!: GText;
@@ -55,14 +55,14 @@ class TextShape extends CustomElement<TextShapeStyleProps> {
   private startMarkerPoint!: Marker;
   private endMarkerPoint!: Marker;
 
-  render() {
+  protected draw() {
     this.drawConnector();
     this.drawText();
     this.drawBackground();
     this.drawPoints();
   }
 
-  drawText() {
+  protected drawText() {
     const {
       connector,
       startMarker,
@@ -84,7 +84,7 @@ class TextShape extends CustomElement<TextShapeStyleProps> {
       .node() as GText;
   }
 
-  drawBackground() {
+  protected drawBackground() {
     const { background } = this.style;
     if (!background) {
       this.background && this.removeChild(this.background, true);
@@ -107,7 +107,7 @@ class TextShape extends CustomElement<TextShapeStyleProps> {
       .node() as Rect;
   }
 
-  drawConnector() {
+  protected drawConnector() {
     const { connector } = this.style;
     if (!connector) {
       this.connector && this.removeChild(this.connector, true);
@@ -139,13 +139,13 @@ class TextShape extends CustomElement<TextShapeStyleProps> {
       .node() as Path;
   }
 
-  drawPoints() {
+  protected drawPoints() {
     const { startMarker, endMarker } = this.style;
     this.drawPoint('start', startMarker);
     this.drawPoint('end', endMarker && { ...endMarker, ...this.endPoint });
   }
 
-  drawPoint(type: string, style?: MarkerStyleProps) {
+  protected drawPoint(type: string, style?: MarkerStyleProps) {
     const shape =
       type === 'start' ? this.startMarkerPoint : this.endMarkerPoint;
     if (!style) {

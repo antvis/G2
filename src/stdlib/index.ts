@@ -46,6 +46,7 @@ import {
   HollowPoint,
   Text,
   AnnotationText as AnnotationTextShape,
+  AnnotationBadge,
 } from '../shape';
 import { DodgeX, StackY, StackEnter, SplitPosition, Key } from '../statistic';
 import { Light } from '../theme';
@@ -125,6 +126,7 @@ export function createLibrary(): G2Library {
     'shape.hollowPoint': HollowPoint,
     'shape.text': Text,
     'shape.annotation.text': AnnotationTextShape,
+    'shape.annotation.badge': AnnotationBadge,
     'statistic.stackY': StackY,
     'statistic.dodgeX': DodgeX,
     'statistic.stackEnter': StackEnter,

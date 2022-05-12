@@ -31,9 +31,9 @@ describe('render', () => {
               text: 'sold',
             },
             style: {
-              fill: 'black',
               textAlign: 'center',
-              dy: -5,
+              dy: -4,
+              fill: 'black',
             },
           },
         ],
@@ -98,7 +98,6 @@ describe('render', () => {
 
   it('render({...} renders text annotation support custom text style.', () => {
     const { cos, sin, PI } = Math;
-    const degToRad = Math.PI / 180;
     const chart = render<G2Spec>(
       {
         type: 'view',
@@ -169,6 +168,54 @@ describe('render', () => {
               connector: {
                 stroke: '#416180',
                 strokeOpacity: 0.45,
+              },
+            },
+          },
+        ],
+      },
+      {},
+    );
+
+    mount(createDiv(), chart);
+  });
+
+  it.only('render({...} renders text annotation with badge shape.', () => {
+    const chart = render<G2Spec>(
+      {
+        type: 'view',
+        height: 300,
+        data: [
+          { genre: 'Sports', sold: 275 },
+          { genre: 'Strategy', sold: 115 },
+          { genre: 'Action', sold: 120 },
+          { genre: 'Shooter', sold: 350 },
+          { genre: 'Other', sold: 150 },
+        ],
+        children: [
+          {
+            type: 'line',
+            encode: {
+              x: 'genre',
+              y: 'sold',
+            },
+          },
+          {
+            type: 'annotation.text',
+            data: [{ genre: 'Shooter', sold: 350 }],
+            encode: {
+              x: 'genre',
+              y: 'sold',
+              text: 'sold',
+              shape: 'annotation.badge',
+            },
+            style: {
+              textAlign: 'center',
+              position: 'top-right',
+              content: 'Top',
+              size: 24,
+              textStyle: {
+                fontSize: 10,
+                fill: '#fff',
               },
             },
           },
