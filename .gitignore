@@ -21,3 +21,6 @@ esm
 
 # Test
 coverage
+
+# Bundle visualizer
+stats.html
