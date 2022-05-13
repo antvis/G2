@@ -1,5 +1,5 @@
 import { group } from 'd3-array';
-import { MarkComponent as MC, Vector2 } from '../runtime';
+import { MarkComponent as MC } from '../runtime';
 import { AreaGeometry } from '../spec';
 import { baseChannels, baseInference } from './utils';
 
