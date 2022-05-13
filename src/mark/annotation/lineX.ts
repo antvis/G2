@@ -1,6 +1,5 @@
 import { Vector } from '@antv/coord';
 import { MarkComponent as MC, Vector2 } from '../../runtime';
-import { baseChannels, baseInference } from '../common/utils';
 import { AnnotationLineX } from '../../spec';
 
 export type LineXOptions = Omit<AnnotationLineX, 'type'>;
@@ -11,7 +10,6 @@ export const LineX: MC<LineXOptions> = () => {
     if (Y === undefined) {
       throw new Error('Missing encode for y channel.');
     }
-
     const P = Array.from(index, (i) => {
       const p1 = [0, Y[i]] as Vector;
       const p2 = [1, Y[i]] as Vector;
@@ -24,7 +22,15 @@ export const LineX: MC<LineXOptions> = () => {
 
 LineX.props = {
   defaultShape: 'annotation.line',
-  channels: [...baseChannels(), { name: 'y', required: true }],
-  infer: [...baseInference()],
+  channels: [
+    { name: 'enterType' },
+    { name: 'enterDelay' },
+    { name: 'enterDuration' },
+    { name: 'enterEasing' },
+    { name: 'key', scale: 'identity' },
+    { name: 'y', required: true },
+    { name: 'size' },
+  ],
+  infer: [],
   shapes: ['annotation.line'],
 };

@@ -12,6 +12,6 @@ export { SmoothArea, SmoothAreaOptions } from './area/smoothArea';
 export { Edge, EdgeOptions } from './edge/edge';
 export { Arc, ArcOptions } from './edge/arc';
 export {
-  Line as AnnotationLine,
+  AnnotationLine as AnnotationLine,
   LineOptions as AnnotationLineOptions,
 } from './annotation/line';

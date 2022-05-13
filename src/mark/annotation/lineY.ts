@@ -1,6 +1,5 @@
 import { Vector } from '@antv/coord';
 import { MarkComponent as MC, Vector2 } from '../../runtime';
-import { baseChannels, baseInference } from '../common/utils';
 import { AnnotationLineY } from '../../spec';
 
 export type LineYOptions = Omit<AnnotationLineY, 'type'>;
@@ -24,7 +23,15 @@ export const LineY: MC<LineYOptions> = () => {
 
 LineY.props = {
   defaultShape: 'annotation.line',
-  channels: [...baseChannels(), { name: 'x', required: true }],
-  infer: [...baseInference()],
+  channels: [
+    { name: 'enterType' },
+    { name: 'enterDelay' },
+    { name: 'enterDuration' },
+    { name: 'enterEasing' },
+    { name: 'key', scale: 'identity' },
+    { name: 'x', required: true },
+    { name: 'size' },
+  ],
+  infer: [],
   shapes: ['annotation.line'],
 };

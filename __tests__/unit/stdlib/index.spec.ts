@@ -17,7 +17,11 @@ import {
   Area,
   Edge as EdgeGeometry,
 } from '../../../src/mark/geometry';
-import { AnnotationText } from '../../../src/mark/annotation';
+import {
+  AnnotationLineX,
+  AnnotationLineY,
+  AnnotationText,
+} from '../../../src/mark/annotation';
 import {
   MaybeTuple,
   MaybeZeroX1,
@@ -59,6 +63,7 @@ import {
   SmoothArea,
   Edge,
   Arc as ArcEdge,
+  AnnotationLine,
 } from '../../../src/shape';
 import {
   DodgeX,
@@ -117,6 +122,8 @@ describe('stdlib', () => {
       'mark.point': PointGeometry,
       'mark.text': TextGeometry,
       'mark.annotation.text': AnnotationText,
+      'mark.annotation.lineX': AnnotationLineX,
+      'mark.annotation.lineY': AnnotationLineY,
       'mark.grid': Grid,
       'mark.area': Area,
       'mark.edge': EdgeGeometry,
@@ -153,6 +160,7 @@ describe('stdlib', () => {
       'shape.text': Text,
       'shape.annotation.text': AnnotationTextShape,
       'shape.annotation.badge': AnnotationBadge,
+      'shape.annotation.line': AnnotationLine,
       'shape.area': AreaShape,
       'shape.smoothArea': SmoothArea,
       'shape.edge': Edge,

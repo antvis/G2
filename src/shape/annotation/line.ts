@@ -8,7 +8,7 @@ import { applyStyle } from '../utils';
 
 export type LineOptions = Record<string, any>;
 
-export const Line: SC<LineOptions> = (options) => {
+export const AnnotationLine: SC<LineOptions> = (options) => {
   const { ...style } = options;
   return (points, value, coordinate, theme) => {
     const { defaultColor, defaultSize } = theme;
@@ -41,6 +41,6 @@ export const Line: SC<LineOptions> = (options) => {
   };
 };
 
-Line.props = {
+AnnotationLine.props = {
   defaultEnterAnimation: 'fadeIn',
 };
