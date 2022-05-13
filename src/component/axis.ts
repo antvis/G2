@@ -160,6 +160,7 @@ export const Axis: GCC<AxisOptions> = (options) => {
         ticks,
         label: {
           tickPadding: labelOffset,
+          autoHide: true,
           style: {},
         },
         axisLine: {

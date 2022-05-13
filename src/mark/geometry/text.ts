@@ -1,9 +1,8 @@
-import { MarkComponent as MC, Vector2 } from '../runtime';
-import { TextGeometry } from '../spec';
-import { baseInference, baseChannels } from './utils';
+import { MarkComponent as MC, Vector2 } from '../../runtime';
+import { baseChannels, baseInference } from '../utils';
+import { TextGeometry } from '../../spec';
 
 export type TextOptions = Omit<TextGeometry, 'type'>;
-
 export const Text: MC<TextOptions> = () => {
   return (index, scale, value, coordinate) => {
     const { x: X, y: Y } = value;

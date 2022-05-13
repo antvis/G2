@@ -1,4 +1,4 @@
-import { Edge } from '../../../src/geometry';
+import { Edge } from '../../../src/mark/geometry';
 import { plot } from './helper';
 
 describe('Edge', () => {

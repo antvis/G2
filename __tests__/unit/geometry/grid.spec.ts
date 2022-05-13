@@ -1,4 +1,4 @@
-import { Grid } from '../../../src/geometry';
+import { Grid } from '../../../src/mark/geometry';
 import { Band } from '../../../src/scale';
 import { plot } from './helper';
 

@@ -1,9 +1,9 @@
 import { Vector } from '@antv/coord';
 import { group } from 'd3-array';
-import { isParallel } from '../utils/coordinate';
-import { Mark, MarkComponent as MC, Vector2 } from '../runtime';
-import { LineGeometry } from '../spec';
-import { baseChannels, baseInference } from './utils';
+import { isParallel } from '../../utils/coordinate';
+import { Mark, MarkComponent as MC, Vector2 } from '../../runtime';
+import { LineGeometry } from '../../spec';
+import { baseChannels, baseInference } from '../utils';
 
 export type LineOptions = Omit<LineGeometry, 'type'>;
 
