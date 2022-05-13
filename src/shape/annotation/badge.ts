@@ -9,14 +9,14 @@ import { ShapeComponent as SC } from '../../runtime';
 import { applyStyle } from '../../shape/utils';
 import { select } from '../../utils/selection';
 
-export type AnnotationBadgeOptions = BadgeShapeStyleProps & Record<string, any>;
+export type AnnotationBadgeOptions = BadgeShapeStyleProps;
 
 /**
  * Get the path to draw a built-in badge, which is like a balloon.
  */
 function getPath(r: number) {
-  const offset = r / sqrt(2);
-  const dy = r * sqrt(2);
+  const offset = r / Math.sqrt(2);
+  const dy = r * Math.sqrt(2);
   const [p0x, p0y] = [-offset, offset - dy];
   const [p1x, p1y] = [0, 0];
   const [p2x, p2y] = [offset, offset - dy];
@@ -43,7 +43,6 @@ type BadgeShapeStyleProps = BaseStyleProps & {
   };
 };
 
-const { sqrt } = Math;
 class BadgeShape extends CustomElement<BadgeShapeStyleProps> {
   constructor(config: DisplayObjectConfig<BadgeShapeStyleProps>) {
     super(config);
