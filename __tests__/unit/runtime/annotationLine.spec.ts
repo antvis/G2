@@ -171,6 +171,11 @@ describe('line annotation', () => {
             x: 'item',
             y: 40,
           },
+          style: {
+            lineDash: [2, 4],
+            stroke: '#999',
+            lineWidth: 1,
+          },
         },
       ],
     });

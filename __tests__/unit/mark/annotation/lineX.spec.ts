@@ -14,7 +14,7 @@ describe('Line annotation', () => {
         { name: 'y', required: true },
         { name: 'shape' },
       ],
-      infer: [],
+      infer: [{ type: 'maybeTuple' }],
       shapes: ['annotation.line'],
     });
   });

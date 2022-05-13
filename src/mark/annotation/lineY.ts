@@ -32,6 +32,6 @@ LineY.props = {
     { name: 'x', required: true },
     { name: 'shape' },
   ],
-  infer: [],
+  infer: [{ type: 'maybeTuple' }],
   shapes: ['annotation.line'],
 };
