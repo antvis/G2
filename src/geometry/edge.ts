@@ -28,5 +28,5 @@ Edge.props = {
     { name: 'y', required: true },
   ],
   infer: [...baseInference()],
-  shapes: ['edge'],
+  shapes: ['edge', 'arc'],
 };
