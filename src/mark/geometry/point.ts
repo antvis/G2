@@ -1,6 +1,6 @@
-import { MarkComponent as MC, Vector2 } from '../runtime';
-import { PointGeometry } from '../spec';
-import { baseChannels, baseInference } from './utils';
+import { MarkComponent as MC, Vector2 } from '../../runtime';
+import { PointGeometry } from '../../spec';
+import { baseChannels, baseInference } from '../utils';
 
 export type PointOptions = Omit<PointGeometry, 'type'>;
 

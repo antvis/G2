@@ -1,5 +1,5 @@
 import { Parallel } from '../../../src/coordinate';
-import { Line } from '../../../src/geometry';
+import { Line } from '../../../src/mark/geometry';
 import { plot } from './helper';
 
 describe('Line', () => {

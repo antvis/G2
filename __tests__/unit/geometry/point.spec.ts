@@ -1,4 +1,4 @@
-import { Point } from '../../../src/geometry';
+import { Point } from '../../../src/mark/geometry';
 import { plot } from './helper';
 
 describe('Point', () => {

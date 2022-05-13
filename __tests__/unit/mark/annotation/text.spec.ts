@@ -1,11 +1,11 @@
 import { Band, Linear } from '@antv/scale';
-import { Text } from '../../../src/mark/geometry';
-import { plot } from './helper';
+import { AnnotationText } from '../../../../src/mark/annotation';
+import { plot } from '../../geometry/helper';
 
-describe('Text', () => {
+describe('Annotation Text', () => {
   it('Text should has expected props', () => {
-    expect(Text.props).toEqual({
-      defaultShape: 'text',
+    expect(AnnotationText.props).toEqual({
+      defaultShape: 'annotation.text',
       channels: [
         { name: 'color' },
         { name: 'shape' },
@@ -28,13 +28,13 @@ describe('Text', () => {
         { type: 'maybeTitle' },
         { type: 'maybeTooltip' },
       ],
-      shapes: ['text'],
+      shapes: ['annotation.text', 'annotation.badge'],
     });
   });
 
   it('Text should transform values into points of anchor of text', () => {
     const [I, P] = plot({
-      mark: Text({}),
+      mark: AnnotationText({}),
       index: [0, 1, 2],
       channel: {
         x: [[0.2], [0.4], [0.6]],
@@ -49,7 +49,7 @@ describe('Text', () => {
 
   it('Text should skip non-band scale for x channel', () => {
     const [I, P] = plot({
-      mark: Text({}),
+      mark: AnnotationText({}),
       index: [0, 1, 2],
       scale: {
         x: new Linear({}),
@@ -67,7 +67,7 @@ describe('Text', () => {
 
   it('Text should apply offset X for band scale', () => {
     const [I, P] = plot({
-      mark: Text({}),
+      mark: AnnotationText({}),
       index: [0, 1, 2],
       scale: {
         x: new Band({ domain: ['a', 'b', 'c'], range: [0, 1] }),

@@ -1,4 +1,4 @@
-import { Interval } from '../../../src/geometry';
+import { Interval } from '../../../src/mark/geometry';
 import { Band } from '../../../src/scale';
 import { plot } from './helper';
 

@@ -1,7 +1,7 @@
 import { group } from 'd3-array';
-import { MarkComponent as MC } from '../runtime';
-import { AreaGeometry } from '../spec';
-import { baseChannels, baseInference } from './utils';
+import { MarkComponent as MC } from '../../runtime';
+import { AreaGeometry } from '../../spec';
+import { baseChannels, baseInference } from '../utils';
 
 export type AreaOptions = Omit<AreaGeometry, 'type'>;
 

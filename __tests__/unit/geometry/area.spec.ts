@@ -1,4 +1,4 @@
-import { Area } from '../../../src/geometry';
+import { Area } from '../../../src/mark/geometry';
 import { plot } from './helper';
 
 describe('Area', () => {
