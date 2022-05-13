@@ -227,7 +227,7 @@ describe('render', () => {
     mount(createDiv(), chart);
   });
 
-  it.only('render({...} renders text annotation with badge shape.', () => {
+  it('render({...} renders text annotation with badge shape.', () => {
     const chart = render<G2Spec>(
       {
         type: 'view',
