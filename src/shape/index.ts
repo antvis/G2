@@ -9,3 +9,5 @@ export { AnnotationText, AnnotationTextOptions } from './annotation/text';
 export { AnnotationBadge, AnnotationBadgeOptions } from './annotation/badge';
 export { Area, AreaOptions } from './area/area';
 export { SmoothArea, SmoothAreaOptions } from './area/smoothArea';
+export { Edge, EdgeOptions } from './edge/edge';
+export { Arc, ArcOptions } from './edge/arc';

@@ -24,6 +24,7 @@ export type GeometryTypes =
   | 'text'
   | 'grid'
   | 'area'
+  | 'edge'
   | 'annotation.text'
   | MarkComponent;
 
@@ -110,5 +111,7 @@ export type AnnotationText = BaseGeometry<
 export type GridGeometry = BaseGeometry<'grid'>;
 
 export type AreaGeometry = BaseGeometry<'area', ChannelTypes>;
+
+export type EdgeGeometry = BaseGeometry<'edge', ChannelTypes>;
 
 export type CustomComponent = BaseGeometry<MarkComponent>;
