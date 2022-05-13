@@ -13,7 +13,7 @@ import { ShapeComponent as SC } from '../../runtime';
 import { applyStyle } from '../../shape/utils';
 import { select } from '../../utils/selection';
 
-export type AnnotationTextOptions = TextShapeStyleProps;
+export type AnnotationTextOptions = TextShapeStyleProps & Record<string, any>;
 
 type MarkerStyleProps = {
   size?: number;

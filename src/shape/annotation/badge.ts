@@ -9,7 +9,7 @@ import { ShapeComponent as SC } from '../../runtime';
 import { applyStyle } from '../../shape/utils';
 import { select } from '../../utils/selection';
 
-export type AnnotationBadgeOptions = BadgeShapeStyleProps;
+export type AnnotationBadgeOptions = BadgeShapeStyleProps & Record<string, any>;
 
 /**
  * Get the path to draw a built-in badge, which is like a balloon.
