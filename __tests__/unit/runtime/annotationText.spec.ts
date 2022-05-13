@@ -134,8 +134,8 @@ describe('render', () => {
               fill: '#2C3542',
               fillOpacity: 0.65,
               textAlign: 'left',
-              dy: 10,
-              dx: 4,
+              dy: 0,
+              dx: 20,
               fontSize: 10,
               background: {
                 fill: '#416180',

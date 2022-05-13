@@ -17,10 +17,10 @@ export type AnnotationTextOptions = TextShapeStyleProps & Record<string, any>;
 
 type MarkerStyleProps = {
   size?: number;
-  symbol?: string | ((x: number, y: number, r: number) => number);
+  symbol?: string | ((x: number, y: number, r: number) => string);
 };
 
-interface TextShapeStyleProps extends Omit<TextStyleProps, 'text'> {
+type TextShapeStyleProps = Omit<TextStyleProps, 'text'> & {
   // [todo] Support connector controlPoints config later.
   connector?: Omit<PathStyleProps, 'x' | 'y'>;
   // [todo] Use Marker to replace.
@@ -30,13 +30,29 @@ interface TextShapeStyleProps extends Omit<TextStyleProps, 'text'> {
     // Padding between background bounds and the text block.
     padding?: number[];
   };
-  rotate?: number;
+};
+
+function getConnectorPath(shape: GText | Rect) {
+  const {
+    min: [x0, y0],
+    max: [x1, y1],
+  } = shape.getLocalBounds();
+  let x = 0;
+  let y = 0;
+  if (x0 > 0) x = x0;
+  if (x1 < 0) x = x1;
+  if (y0 > 0) y = y0;
+  if (y1 < 0) y = y1;
+
+  return [
+    ['M', 0, 0],
+    ['L', x, y],
+  ];
 }
 
 class TextShape extends CustomElement<TextShapeStyleProps> {
   constructor(config: DisplayObjectConfig<TextShapeStyleProps>) {
     super(config);
-    this.draw();
   }
 
   // Callback after connected with canvas, should trigger render.
@@ -70,30 +86,30 @@ class TextShape extends CustomElement<TextShapeStyleProps> {
     return { x: 0, y: 0 };
   }
 
-  protected drawText() {
+  private drawText() {
     const {
       connector,
       startMarker,
       endMarker,
       background,
-      x: x0,
-      y: y0,
-      rotate = 0,
-      transform = '',
+      transform,
+      textAlign,
       ...style
     } = this.attributes;
     const { x, y } = this.endPoint;
     this.textShape = select(this.textShape || this.appendChild(new GText({})))
+      .call(applyStyle, style)
       .style('x', +x)
       .style('y', +y)
-      .style('textAlign', x < 0 ? 'right' : x > 0 ? 'left' : 'center')
-      .style('transform', `${transform}rotate(${+rotate}deg)`)
-      .call(applyStyle, style)
+      .style(
+        'textAlign',
+        textAlign || (x < 0 ? 'right' : x > 0 ? 'left' : 'center'),
+      )
       .node() as GText;
   }
 
-  protected drawBackground() {
-    const { background, rotate } = this.style;
+  private drawBackground() {
+    const { background } = this.style;
     if (!background) {
       this.background && this.removeChild(this.background, true);
       this.background = undefined;
@@ -104,22 +120,22 @@ class TextShape extends CustomElement<TextShapeStyleProps> {
     const [top = 0, right = 0, bottom = top, left = right] = padding || [];
     const angle = this.textShape.getEulerAngles();
     this.textShape.setEulerAngles(0);
-    const bbox = this.textShape.getBBox();
-    const [x, y] = this.textShape.getLocalBounds().min;
+    const {
+      min: [x, y],
+      halfExtents: [hw, hh],
+    } = this.textShape.getLocalBounds();
     this.textShape.setEulerAngles(angle);
     this.background = select(this.background || this.appendChild(new Rect({})))
       .style('zIndex', -1)
       .style('x', x - left)
       .style('y', y - top)
-      .style('width', bbox.width + left + right)
-      .style('height', bbox.height + top + bottom)
-      .style('transformOrigin', 'top center')
-      .style('transform', `rotate(${+rotate}deg)`)
+      .style('width', hw * 2 + left + right)
+      .style('height', hh * 2 + top + bottom)
       .call(applyStyle, style)
       .node() as Rect;
   }
 
-  protected drawConnector() {
+  private drawConnector() {
     const { connector } = this.style;
     if (!connector) {
       this.connector && this.removeChild(this.connector, true);
@@ -127,29 +143,8 @@ class TextShape extends CustomElement<TextShapeStyleProps> {
       return;
     }
 
-    let { path = [] } = connector;
-    if (!path?.length && this.textShape) {
-      const { min, max } = this.background
-        ? this.background.getLocalBounds()
-        : this.textShape.getLocalBounds();
-      let x = (min[0] + max[0]) / 2;
-      let y = max[1];
-      if (max[0] < 0) {
-        x = max[0];
-      } else if (min[0] > 0) {
-        x = min[0];
-      }
-
-      if (min[1] > 0) {
-        y = min[1];
-      } else if (max[1] < 0) {
-        y = max[1];
-      }
-      path = [
-        ['M', 0, 0],
-        ['L', x, y],
-      ];
-    }
+    const path =
+      connector.path || getConnectorPath(this.background || this.textShape);
     this.connector = select(this.connector || this.appendChild(new Path({})))
       .style('zIndex', -1)
       .style('stroke', 'black')
@@ -159,27 +154,40 @@ class TextShape extends CustomElement<TextShapeStyleProps> {
       .node() as Path;
   }
 
-  protected drawPoints() {
+  private drawPoints() {
     const { startMarker, endMarker } = this.style;
-    this.drawPoint('start', startMarker);
-    this.drawPoint('end', endMarker && { ...endMarker, ...this.endPoint });
+    this.drawStartMarker(startMarker);
+    this.drawEndMarker(endMarker && { ...endMarker, ...this.endPoint });
   }
 
-  protected drawPoint(type: string, style?: MarkerStyleProps) {
-    const shape =
-      type === 'start' ? this.startMarkerPoint : this.endMarkerPoint;
+  private drawStartMarker(style?: MarkerStyleProps) {
+    const shape = this.startMarkerPoint;
     if (!style) {
       shape && this.removeChild(shape, true);
-      this[`${type}MarkerPoint`] = undefined;
+      this.startMarkerPoint = undefined;
       return;
     }
-    if (shape) {
-      shape.update(style);
-    } else {
-      this[`${type}MarkerPoint`] = this.appendChild(
-        new Marker({ style: { symbol: 'circle', size: 4, ...style } }),
+    if (!shape) {
+      this.startMarkerPoint = this.appendChild(
+        new Marker({ style: { symbol: 'circle', size: 4 } }),
       );
     }
+    this.startMarkerPoint.update(style);
+  }
+
+  private drawEndMarker(style?: MarkerStyleProps) {
+    const shape = this.endMarkerPoint;
+    if (!style) {
+      shape && this.removeChild(shape, true);
+      this.endMarkerPoint = undefined;
+      return;
+    }
+    if (!shape) {
+      this.endMarkerPoint = this.appendChild(
+        new Marker({ style: { symbol: 'circle', size: 4 } }),
+      );
+    }
+    this.endMarkerPoint.update(style);
   }
 }
 
@@ -205,8 +213,7 @@ export const AnnotationText: SC<AnnotationTextOptions> = (options) => {
       .style('stroke', color)
       .style('fill', color)
       .style('fontSize', fontSize as any)
-      .style('rotate', rotate)
-      .style('transform', `${transform}`)
+      .style('transform', `${transform}rotate(${+rotate}deg)`)
       .call(applyStyle, style)
       .node();
   };

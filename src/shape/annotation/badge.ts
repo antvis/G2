@@ -11,22 +11,42 @@ import { select } from '../../utils/selection';
 
 export type AnnotationBadgeOptions = BadgeShapeStyleProps & Record<string, any>;
 
-interface BadgeShapeStyleProps extends BaseStyleProps {
-  position?: 'top' | 'top-left' | 'top-right';
+/**
+ * Get the path to draw a built-in badge, which is like a balloon.
+ */
+function getPath(r: number) {
+  const offset = r / sqrt(2);
+  const dy = r * sqrt(2);
+  const [p0x, p0y] = [-offset, offset - dy];
+  const [p1x, p1y] = [0, 0];
+  const [p2x, p2y] = [offset, offset - dy];
+  return [
+    ['M', p0x, p0y],
+    ['A', r, r, 0, 1, 1, p2x, p2y],
+    ['L', p1x, p1y],
+    ['Z'],
+  ];
+}
+
+function getCenter(shape: Marker) {
+  const { min, max } = shape.getLocalBounds();
+  return { x: (min[0] + max[0]) / 2, y: (min[1] + max[1]) / 2 };
+}
+
+type BadgeShapeStyleProps = BaseStyleProps & {
   size?: number;
-  symbol?: string | ((x: number, y: number, r: number) => number);
+  symbol?: string | ((x: number, y: number, r: number) => string);
   content?: string;
   textStyle?: {
     fontSize?: number;
     fill?: string;
   };
-}
+};
 
-const { cos, sin, sqrt, PI } = Math;
+const { sqrt } = Math;
 class BadgeShape extends CustomElement<BadgeShapeStyleProps> {
   constructor(config: DisplayObjectConfig<BadgeShapeStyleProps>) {
     super(config);
-    this.draw();
   }
 
   // Callback after connected with canvas, should trigger render.
@@ -46,68 +66,25 @@ class BadgeShape extends CustomElement<BadgeShapeStyleProps> {
     this.drawText();
   }
 
-  protected drawMarker() {
-    const {
-      x: x0,
-      y: y0,
-      size = 24,
-      position = 'top',
-      ...style
-    } = this.attributes;
-    const radius = size / 2;
-    const cornerOffset = radius * sqrt(2) * 0.72;
-    const symbol = () => {
-      const sign = position.includes('right') ? -1 : 1;
-      const offset = radius / sqrt(2);
-      const points = [];
-      if (position === 'top') {
-        points.push([-offset, offset], [0, radius * sqrt(2)], [offset, offset]);
-      } else {
-        const theta = (Math.atan(cornerOffset / radius) / PI) * 180;
-        const dx = radius * cos(((180 - theta * 2) / 180) * PI);
-        const dy = radius * sin(((180 - theta * 2) / 180) * PI);
-        points.push(
-          [sign * dx, dy],
-          [sign * radius, cornerOffset],
-          [sign * radius, 0],
-        );
-      }
-      const sweepFlag = sign === -1 ? 0 : 1;
-      return [
-        ['M', ...points[0]],
-        ['A', radius, radius, 0, 1, sweepFlag, ...points[2]],
-        ['L', ...points[1]],
-        ['L', ...points[0]],
-      ];
-    };
+  private drawMarker() {
+    const { size = 24, ...style } = this.attributes;
+    const symbol = () => getPath(size / 2);
 
-    this.badgeMarker =
-      this.badgeMarker ||
-      this.appendChild(new Marker({ className: 'badge-marker' }));
-    let x = 0;
-    let y = 0;
-    if (!this.style.symbol) {
-      const signX = position.includes('right')
-        ? -1
-        : position.includes('left')
-        ? 1
-        : 0;
-      const offset = position !== 'top' ? cornerOffset : radius * sqrt(2);
-      x = -signX * offset;
-      y = -offset;
-    }
-    this.badgeMarker.update({ x, y, symbol, size, ...style });
+    this.badgeMarker = this.badgeMarker || this.appendChild(new Marker({}));
+    this.badgeMarker.className = 'badge-marker';
+    this.badgeMarker.update({ symbol, size, ...style, x: 0, y: 0 });
   }
 
-  protected drawText() {
-    if (!this.badgeMarker) return;
+  private drawText() {
+    const center = getCenter(this.badgeMarker);
+    const { content: text = '', textStyle } = this.style;
+    const { fontSize = 10, fill = '#333' } = textStyle || {};
 
-    const { content: text = '' } = this.style;
-    const { fontSize = 10, fill = '#333' } = this.style.textStyle || {};
-    this.badgeText = select(
-      this.badgeText || this.badgeMarker.appendChild(new GText({})),
-    )
+    this.badgeText = this.badgeText || this.appendChild(new GText({}));
+    select(this.badgeText)
       .attr('className', 'badge-text')
+      .style('x', center.x)
+      .style('y', center.y)
       .style('textAlign', 'center')
       .style('textBaseline', 'middle')
       .call(applyStyle, { fill, fontSize, text })

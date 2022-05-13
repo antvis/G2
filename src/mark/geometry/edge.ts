@@ -1,5 +1,5 @@
-import { Vector2, MarkComponent as MC } from '../runtime';
-import { EdgeGeometry } from '../spec';
+import { Vector2, MarkComponent as MC } from '../../runtime';
+import { EdgeGeometry } from '../../spec';
 import { baseChannels, baseInference } from '../common/utils';
 
 export type EdgeOptions = Omit<EdgeGeometry, 'type'>;

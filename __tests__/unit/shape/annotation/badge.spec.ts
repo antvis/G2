@@ -65,14 +65,12 @@ describe('AnnotationBadge shape', () => {
     expect(textShape.style.fontSize).toBe(10);
   });
 
-  it('AnnotationBadge() returns a function draw badge annotation, enable change position', () => {
+  it('AnnotationBadge() returns a function draw badge annotation, with built-in marker.', () => {
     const container = document.createElement('div');
     const shape = draw({
       width: 150,
       height: 100,
-      shape: AnnotationBadge({
-        position: 'top-right',
-      }),
+      shape: AnnotationBadge({ size: 12 }),
       container,
       value: {
         text: 'hello',
@@ -80,17 +78,12 @@ describe('AnnotationBadge shape', () => {
       vectors: [[0.5, 0.5]],
     });
     mount(createDiv(), container);
+
     const badgeMarker = shape.querySelector('.badge-marker') as any;
-    let bbox = badgeMarker.getBounds();
-    expect(bbox.max[0]).not.toBeLessThan(75);
-    expect(bbox.max[1]).toBe(50);
-
-    shape.style.position = 'top-left';
-    expect(badgeMarker.getBounds().max[0]).not.toBeGreaterThan(75);
-
-    shape.style.position = 'top';
-    bbox = badgeMarker.getBounds();
-    expect((bbox.min[0] + bbox.max[0]) / 2).toBeCloseTo(75);
+    expect(badgeMarker.style.x).toBe(0);
+    expect(badgeMarker.style.y).toBe(0);
+    expect(badgeMarker.getBBox().width).toBeCloseTo(12);
+    expect(badgeMarker.getBBox().bottom).toBeCloseTo(50);
   });
 
   it('AnnotationBadge() returns a function draw badge annotation, enable custom marker symbol', () => {

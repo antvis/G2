@@ -16,7 +16,7 @@ describe('AnnotationText shape', () => {
     expect(shape.style.fill).toBe('red');
   });
 
-  it('AnnotationText() returns a function draw textAnnotation using color as fill and stroke', () => {
+  it('AnnotationText() returns a function draw textAnnotation, using color as fill and stroke', () => {
     const container = document.createElement('div');
     const shape = draw({
       width: 150,
@@ -44,7 +44,7 @@ describe('AnnotationText shape', () => {
     expect(shape.childNodes.length).toBe(1);
   });
 
-  it('AnnotationText() returns a function draw textAnnotation contains connector, background and markerPoints', () => {
+  it('AnnotationText() returns a function draw textAnnotation, contains connector, background and markerPoints', () => {
     const container = document.createElement('div');
     const shape = draw({
       width: 150,
@@ -66,13 +66,16 @@ describe('AnnotationText shape', () => {
     expect(shape.childNodes.length).toBe(5);
   });
 
-  it('AnnotationText() returns a function draw textAnnotation, enable custom text style, includes rotate.', () => {
+  it('AnnotationText() returns a function draw textAnnotation, enable custom text style includes rotate.', () => {
     const container = document.createElement('div');
     mount(createDiv(), container);
     const shape = draw({
       width: 150,
       height: 100,
-      shape: AnnotationText({}),
+      shape: AnnotationText({
+        stroke: 'red',
+        textAlign: 'left',
+      }),
       container,
       value: {
         text: 'hello',
@@ -83,23 +86,12 @@ describe('AnnotationText shape', () => {
 
     // @ts-ignore
     const textShape = shape.textShape;
-    expect(textShape.style.transform).toBe('rotate(-45deg)');
-    shape.style.textAlign = 'left';
+    expect(textShape.getEulerAngles()).toBeCloseTo(-45);
     expect(textShape.style.textAlign).toBe('left');
-
-    shape.style.background = { stroke: 'green', lineWidth: 1 };
-    // @ts-ignore
-    const background = shape.background;
-    expect(background.style.transform).toBe('rotate(-45deg)');
-    // fix G has a litter error when rotate.
-    // expect(textShape.getLocalBounds().min[0]).toBe(background.getLocalBounds().min[0]);
-    textShape.setEulerAngles(0);
-    background.setEulerAngles(0);
-    expect(textShape.getLocalBounds().min[0]).toBe(
-      background.getLocalBounds().min[0],
-    );
+    expect(textShape.style.stroke).toBe('red');
   });
 
+  const bounds = (shape: any) => shape.getLocalBounds();
   it('AnnotationText() returns a function draw textAnnotation, enable custom background style.', () => {
     const container = document.createElement('div');
     mount(createDiv(), container);
@@ -110,11 +102,7 @@ describe('AnnotationText shape', () => {
         dx: 6,
         dy: -10,
         connector: {},
-        background: {
-          fill: 'red',
-          padding: [2, 4, 2, 6],
-          fillOpacity: 0.65,
-        },
+        background: {},
       }),
       container,
       value: {
@@ -123,7 +111,7 @@ describe('AnnotationText shape', () => {
       vectors: [[0.5, 0.5]],
     });
 
-    shape.style.connector = {};
+    shape.style.background = { padding: [2, 4, 2, 6], fill: 'red' };
     // @ts-ignore
     const textShape = shape.textShape;
     // @ts-ignore
@@ -134,18 +122,41 @@ describe('AnnotationText shape', () => {
     expect(background.style.width).toBe(textShape.getBBox().width + 10);
     expect(background.style.height).toBe(textShape.getBBox().height + 4);
     expect(background.style.zIndex).toBe(-1);
-    expect(background.getLocalBounds().min[1]).toBe(
-      textShape.getLocalBounds().min[1] - 2,
-    );
-    expect(background.getLocalBounds().min[0]).toBe(
-      textShape.getLocalBounds().min[0] - 6,
-    );
-    expect(background.getLocalBounds().max[1]).toBe(
-      connectorShape.getLocalBounds().min[1],
-    );
+    expect(bounds(background).min[1]).toBe(bounds(textShape).min[1] - 2);
+    expect(bounds(background).min[0]).toBe(bounds(textShape).min[0] - 6);
+    expect(bounds(background).max[1]).toBe(bounds(connectorShape).min[1]);
+
     shape.style.background = null;
     // @ts-ignore
     expect(shape.background).toBeUndefined();
+  });
+
+  it('AnnotationText() returns a function draw text annotation, enable text and background rotate.', () => {
+    const container = document.createElement('div');
+    mount(createDiv(), container);
+    const shape = draw({
+      width: 150,
+      height: 100,
+      shape: AnnotationText({
+        background: {},
+      }),
+      container,
+      value: {
+        text: 'hello',
+        rotate: -45,
+      },
+      vectors: [[0.5, 0.5]],
+    });
+    shape.style.background = { stroke: 'green', lineWidth: 1 };
+    // @ts-ignore
+    const textShape = shape.textShape;
+    // @ts-ignore
+    const background = shape.background;
+    expect(background.getEulerAngles()).toBeCloseTo(-45);
+    // fix G has a litter error when rotate.
+    // expect(textShape.getLocalBounds().min[0]).toBe(background.getLocalBounds().min[0]);
+    shape.setEulerAngles(0);
+    expect(bounds(background).min[0]).toBe(bounds(textShape).min[0]);
   });
 
   it('AnnotationText() returns a function draw textAnnotation, connector path infer by text shape and background.', () => {
@@ -156,7 +167,7 @@ describe('AnnotationText shape', () => {
       height: 100,
       shape: AnnotationText({
         dx: 24,
-        dy: 15,
+        dy: 20,
         textAlign: 'left',
         textBaseline: 'top',
         connector: {
@@ -180,21 +191,24 @@ describe('AnnotationText shape', () => {
     expect(connectorShape.style.stroke).toBe('green');
     expect(connectorShape.style.path).toEqual([
       ['M', 0, 0],
-      ['L', 24, 15],
+      ['L', 24, 20],
     ]);
     expect(connectorShape.style.lineDash).toEqual([2, 4]);
-    expect(connectorShape.getLocalBounds().min[1]).toBe(0);
+    expect(bounds(connectorShape).min[1]).toBe(0);
 
     shape.style.textAlign = 'right';
-    expect(connectorShape.getLocalBounds().min[1]).toBe(0);
-    expect(connectorShape.style.path[1][2]).toBe(
-      textShape.getLocalBounds().min[1],
-    );
+    expect(bounds(connectorShape).min[1]).toBe(0);
+    expect(connectorShape.style.path[1][2]).toBe(bounds(textShape).min[1]);
+
+    shape.style.textAlign = 'center';
+    shape.style.dx = 0;
+    expect(connectorShape.style.path).toEqual([
+      ['M', 0, 0],
+      ['L', 0, 20],
+    ]);
 
     shape.style.background = { padding: [4, 0] };
-    expect(connectorShape.style.path[1][2]).toBe(
-      textShape.getLocalBounds().min[1] - 4,
-    );
+    expect(connectorShape.style.path[1][2]).toBe(bounds(textShape).min[1] - 4);
     shape.style.connector = null;
     // @ts-ignore
     expect(shape.connector).toBeUndefined();
@@ -209,7 +223,6 @@ describe('AnnotationText shape', () => {
       shape: AnnotationText({
         dx: 24,
         dy: 15,
-        textAlign: 'left',
         textBaseline: 'top',
         connector: {
           path: [
@@ -233,6 +246,19 @@ describe('AnnotationText shape', () => {
       ['M', 0, -4],
       ['L', 8, -4],
     ]);
+    expect((shape.childNodes[0] as any).style.x).toBe(8);
+    expect((shape.childNodes[0] as any).style.y).toBe(-4);
+    expect((shape.childNodes[0] as any).style.textAlign).toBe('left');
+
+    shape.style.connector = {
+      path: [
+        ['M', 0, 4],
+        ['L', -8, 4],
+      ],
+    };
+    expect((shape.childNodes[0] as any).style.x).toBe(-8);
+    expect((shape.childNodes[0] as any).style.y).toBe(4);
+    expect((shape.childNodes[0] as any).style.textAlign).toBe('right');
   });
 
   it('AnnotationText() returns a function draw textAnnotation, enable custom startMarker and endMarker style.', () => {
@@ -242,8 +268,8 @@ describe('AnnotationText shape', () => {
       width: 150,
       height: 100,
       shape: AnnotationText({
-        startMarker: {},
-        endMarker: {},
+        startMarker: { size: 12 },
+        endMarker: { size: 20 },
       }),
       container,
       value: {
@@ -258,9 +284,12 @@ describe('AnnotationText shape', () => {
     shape.style.endMarker = { fill: 'green' };
     // @ts-ignore
     const startPoint = shape.startMarkerPoint;
-    expect(startPoint.style.fill).toBe('red');
     // @ts-ignore
-    expect(shape.endMarkerPoint.style.fill).toBe('green');
+    const endPoint = shape.endMarkerPoint;
+    expect(startPoint.style.fill).toBe('red');
+    expect(startPoint.getBBox().width).toBe(12);
+    expect(endPoint.getBBox().width).toBe(20);
+    expect(endPoint.style.fill).toBe('green');
 
     shape.style.startMarker = null;
     shape.style.endMarker = null;
