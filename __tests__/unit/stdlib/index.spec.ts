@@ -55,6 +55,7 @@ import {
   Area as AreaShape,
   SmoothArea,
   Edge,
+  Arc as ArcEdge,
 } from '../../../src/shape';
 import {
   DodgeX,
@@ -149,6 +150,7 @@ describe('stdlib', () => {
       'shape.area': AreaShape,
       'shape.smoothArea': SmoothArea,
       'shape.edge': Edge,
+      'shape.arc': ArcEdge,
       'statistic.stackY': StackY,
       'statistic.dodgeX': DodgeX,
       'statistic.stackEnter': StackEnter,

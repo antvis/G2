@@ -49,6 +49,7 @@ import {
   Area,
   SmoothArea,
   Edge,
+  Arc as ArcEdge,
 } from '../shape';
 import { DodgeX, StackY, StackEnter, SplitPosition, Key } from '../statistic';
 import { Light } from '../theme';
@@ -131,6 +132,7 @@ export function createLibrary(): G2Library {
     'shape.area': Area,
     'shape.smoothArea': SmoothArea,
     'shape.edge': Edge,
+    'shape.arc': ArcEdge,
     'statistic.stackY': StackY,
     'statistic.dodgeX': DodgeX,
     'statistic.stackEnter': StackEnter,
