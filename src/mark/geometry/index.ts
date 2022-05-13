@@ -5,3 +5,4 @@ export { Text, TextOptions } from './text';
 export { Grid, GridOptions } from './grid';
 export { Area, AreaOptions } from './area';
 export { Edge, EdgeOptions } from './edge';
+export { Image, ImageOptions } from './image';
