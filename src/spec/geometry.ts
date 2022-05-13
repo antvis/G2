@@ -23,6 +23,7 @@ export type GeometryTypes =
   | 'text'
   | 'grid'
   | 'area'
+  | 'edge'
   | MarkComponent;
 
 export type ChannelTypes =
@@ -95,5 +96,7 @@ export type TextGeometry = BaseGeometry<
 export type GridGeometry = BaseGeometry<'grid'>;
 
 export type AreaGeometry = BaseGeometry<'area', ChannelTypes>;
+
+export type EdgeGeometry = BaseGeometry<'edge', ChannelTypes>;
 
 export type CustomComponent = BaseGeometry<MarkComponent>;
