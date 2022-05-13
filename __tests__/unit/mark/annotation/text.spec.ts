@@ -28,7 +28,7 @@ describe('Annotation Text', () => {
         { type: 'maybeTitle' },
         { type: 'maybeTooltip' },
       ],
-      shapes: ['annotation.text'],
+      shapes: ['annotation.text', 'annotation.badge'],
     });
   });
 

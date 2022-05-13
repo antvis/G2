@@ -1,7 +1,7 @@
 import { Band } from '@antv/scale';
 import { MarkComponent as MC, Vector2 } from '../../runtime';
 import { GridGeometry } from '../../spec';
-import { baseChannels, baseInference } from '../common/utils';
+import { baseChannels, baseInference } from '../utils';
 
 export type GridOptions = Omit<GridGeometry, 'type'>;
 

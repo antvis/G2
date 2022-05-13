@@ -1,21 +1,14 @@
 import { MarkComponent as MC } from '../../runtime';
-import { baseChannels, baseInference } from '../common/utils';
-import { PointMark } from '../common/text';
-import { AnnotationText } from '../../spec';
+import { AnnotationText as AnnotationTextProps } from '../../spec';
+import { Text } from '../geometry/text';
 
-export type TextOptions = Omit<AnnotationText, 'type'>;
-export const Text: MC<TextOptions> = () => PointMark;
+export type AnnotationTextOptions = Omit<AnnotationTextProps, 'type'>;
+export const AnnotationText: MC<AnnotationTextOptions> = () => {
+  return Text();
+};
 
-Text.props = {
+AnnotationText.props = {
+  ...Text.props,
   defaultShape: 'annotation.text',
-  channels: [
-    ...baseChannels(),
-    { name: 'x', required: true },
-    { name: 'y', required: true },
-    { name: 'text', required: true, scale: 'identity' },
-    { name: 'fontSize' },
-    { name: 'rotate' },
-  ],
-  infer: [...baseInference()],
-  shapes: ['annotation.text'],
+  shapes: ['annotation.text', 'annotation.badge'],
 };

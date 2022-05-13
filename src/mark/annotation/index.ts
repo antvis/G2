@@ -1,4 +1,1 @@
-export {
-  Text as AnnotationText,
-  TextOptions as AnnotationTextOptions,
-} from './text';
+export { AnnotationText, AnnotationTextOptions } from './text';
