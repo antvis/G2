@@ -29,7 +29,7 @@ LineX.props = {
     { name: 'enterEasing' },
     { name: 'key', scale: 'identity' },
     { name: 'y', required: true },
-    { name: 'size' },
+    { name: 'shape' },
   ],
   infer: [],
   shapes: ['annotation.line'],

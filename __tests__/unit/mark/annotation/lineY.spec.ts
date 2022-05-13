@@ -12,7 +12,7 @@ describe('Line annotation', () => {
         { name: 'enterEasing' },
         { name: 'key', scale: 'identity' },
         { name: 'x', required: true },
-        { name: 'size' },
+        { name: 'shape' },
       ],
       infer: [],
       shapes: ['annotation.line'],
@@ -69,7 +69,6 @@ describe('Line annotation', () => {
         index: [0, 1, 2],
         channel: {
           y: [[0.5], [0.2], [0.4]],
-          size: [2, 2, 2],
         },
       }),
     ).toThrowError();
