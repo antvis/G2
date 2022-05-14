@@ -32,8 +32,6 @@ describe('connector Annotation', () => {
             encode: {
               x: ['x1', 'x2'],
               y: ['y1', 'y2'],
-              // @ts-ignore
-              d: 5,
             },
             style: {
               stroke: '#979797',
