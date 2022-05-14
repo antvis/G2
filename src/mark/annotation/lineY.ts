@@ -27,8 +27,11 @@ LineY.props = {
     { name: 'key', scale: 'identity' },
     { name: 'x', required: true },
     { name: 'shape' },
+<<<<<<< HEAD
     { name: 'size' },
     { name: 'color' },
+=======
+>>>>>>> f0eccee92 (feat(annotation): support lineX, lineY annotation)
   ],
   infer: [{ type: 'maybeTuple' }],
   shapes: ['annotation.line'],
