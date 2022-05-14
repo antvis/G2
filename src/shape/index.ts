@@ -16,3 +16,7 @@ export {
   AnnotationLine as AnnotationLine,
   LineOptions as AnnotationLineOptions,
 } from './annotation/line';
+export {
+  Connector as AnnotationConnector,
+  ConnectorOptions as AnnotationConnectorOptions,
+} from './annotation/connector';

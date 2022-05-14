@@ -21,9 +21,7 @@ type MarkerStyleProps = {
 };
 
 type TextShapeStyleProps = Omit<TextStyleProps, 'text'> & {
-  // [todo] Support connector controlPoints config later.
   connector?: Omit<PathStyleProps, 'x' | 'y'>;
-  // [todo] Use Marker to replace.
   startMarker?: MarkerStyleProps;
   endMarker?: MarkerStyleProps;
   background?: Omit<RectStyleProps, 'width' | 'height' | 'x' | 'y'> & {
