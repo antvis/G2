@@ -13,6 +13,8 @@ describe('Line annotation', () => {
         { name: 'key', scale: 'identity' },
         { name: 'x', required: true },
         { name: 'shape' },
+        { name: 'size' },
+        { name: 'color' },
       ],
       infer: [{ type: 'maybeTuple' }],
       shapes: ['annotation.line'],

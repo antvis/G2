@@ -7,10 +7,6 @@ export const LineY: MC<LineYOptions> = () => {
   return (index, scale, value, coordinate) => {
     const { x: X } = value;
 
-    if (X === undefined) {
-      throw new Error('Missing encode for x channel.');
-    }
-
     const P = Array.from(index, (i) => {
       const p1 = [X[i], 1] as Vector;
       const p2 = [X[i], 0] as Vector;
@@ -31,6 +27,8 @@ LineY.props = {
     { name: 'key', scale: 'identity' },
     { name: 'x', required: true },
     { name: 'shape' },
+    { name: 'size' },
+    { name: 'color' },
   ],
   infer: [{ type: 'maybeTuple' }],
   shapes: ['annotation.line'],
