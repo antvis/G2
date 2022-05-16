@@ -14,6 +14,9 @@ export type Geometry =
   | PointGeometry
   | TextGeometry
   | GridGeometry
+  | AreaGeometry
+  | EdgeGeometry
+  | ImageGeometry
   | AnnotationText
   | CustomComponent;
 
@@ -25,6 +28,7 @@ export type GeometryTypes =
   | 'grid'
   | 'area'
   | 'edge'
+  | 'image'
   | 'annotation.text'
   | MarkComponent;
 
@@ -113,5 +117,7 @@ export type GridGeometry = BaseGeometry<'grid'>;
 export type AreaGeometry = BaseGeometry<'area', ChannelTypes>;
 
 export type EdgeGeometry = BaseGeometry<'edge', ChannelTypes>;
+
+export type ImageGeometry = BaseGeometry<'image', ChannelTypes | 'src'>;
 
 export type CustomComponent = BaseGeometry<MarkComponent>;

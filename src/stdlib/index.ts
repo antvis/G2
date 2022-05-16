@@ -10,6 +10,7 @@ import {
   Text as TextGeometry,
   Area as AreaGeometry,
   Edge as EdgeGeometry,
+  Image as ImageGeometry,
 } from '../mark/geometry';
 import { AnnotationText } from '../mark/annotation';
 import {
@@ -53,6 +54,7 @@ import {
   SmoothArea,
   Edge,
   Arc as ArcEdge,
+  Image,
 } from '../shape';
 import { DodgeX, StackY, StackEnter, SplitPosition, Key } from '../statistic';
 import { Light } from '../theme';
@@ -101,6 +103,7 @@ export function createLibrary(): G2Library {
     'mark.grid': Grid,
     'mark.area': AreaGeometry,
     'mark.edge': EdgeGeometry,
+    'mark.image': ImageGeometry,
     'mark.annotation.text': AnnotationText,
     'infer.maybeTuple': MaybeTuple,
     'infer.maybeZeroX1': MaybeZeroX1,
@@ -137,6 +140,7 @@ export function createLibrary(): G2Library {
     'shape.smoothArea': SmoothArea,
     'shape.edge': Edge,
     'shape.arc': ArcEdge,
+    'shape.image': Image,
     'shape.annotation.text': AnnotationTextShape,
     'shape.annotation.badge': AnnotationBadge,
     'statistic.stackY': StackY,
