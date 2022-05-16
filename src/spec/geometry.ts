@@ -32,6 +32,7 @@ export type GeometryTypes =
   | 'annotation.text'
   | 'annotation.lineX'
   | 'annotation.lineY'
+  | 'annotation.connector'
   | MarkComponent;
 
 export type ChannelTypes =
@@ -117,6 +118,11 @@ export type AnnotationText = BaseGeometry<
 export type AnnotationLineX = BaseGeometry<'annotation.lineX', ChannelTypes>;
 
 export type AnnotationLineY = BaseGeometry<'annotation.lineY', ChannelTypes>;
+
+export type AnnotationConnector = BaseGeometry<
+  'annotation.connector',
+  ChannelTypes
+>;
 
 export type GridGeometry = BaseGeometry<'grid'>;
 

@@ -16,6 +16,7 @@ import {
   AnnotationText,
   AnnotationLineX,
   AnnotationLineY,
+  AnnotationConnector,
 } from '../mark/annotation';
 import {
   MaybeTuple,
@@ -55,6 +56,7 @@ import {
   AnnotationText as AnnotationTextShape,
   AnnotationBadge,
   AnnotationLine as AnnotationLineShape,
+  AnnotationConnector as AnnotationConnectorShape,
   Area,
   SmoothArea,
   Edge,
@@ -112,6 +114,7 @@ export function createLibrary(): G2Library {
     'mark.annotation.text': AnnotationText,
     'mark.annotation.lineX': AnnotationLineX,
     'mark.annotation.lineY': AnnotationLineY,
+    'mark.annotation.connector': AnnotationConnector,
     'infer.maybeTuple': MaybeTuple,
     'infer.maybeZeroX1': MaybeZeroX1,
     'infer.maybeZeroY2': MaybeZeroY2,
@@ -151,6 +154,7 @@ export function createLibrary(): G2Library {
     'shape.annotation.text': AnnotationTextShape,
     'shape.annotation.badge': AnnotationBadge,
     'shape.annotation.line': AnnotationLineShape,
+    'shape.annotation.connector': AnnotationConnectorShape,
     'statistic.stackY': StackY,
     'statistic.dodgeX': DodgeX,
     'statistic.stackEnter': StackEnter,
