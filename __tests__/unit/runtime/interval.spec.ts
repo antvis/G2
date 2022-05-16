@@ -705,6 +705,43 @@ describe('render', () => {
     mount(createDiv(), chart);
   });
 
+  it('render({...} renders chart with array field', (done) => {
+    const chart = render<G2Spec>(
+      {
+        type: 'interval',
+        data: [
+          { month: 'Jan.', profit: 387264, y: [0, 387264] },
+          { month: 'Feb.', profit: 772096, y: [387264, 1159360] },
+          { month: 'Mar.', profit: 638075, y: [1159360, 1797435] },
+          { month: 'Apr.', profit: -211386, y: [1797435, 1586049] },
+          { month: 'May', profit: -138135, y: [1586049, 1447914] },
+          { month: 'Jun', profit: -267238, y: [1447914, 1180676] },
+          { month: 'Jul.', profit: 431406, y: [1180676, 1612082] },
+          { month: 'Aug.', profit: 363018, y: [1612082, 1975100] },
+          { month: 'Sep.', profit: -224638, y: [1975100, 1750462] },
+          { month: 'Oct.', profit: -299867, y: [1750462, 1450595] },
+          { month: 'Nov.', profit: 607365, y: [1450595, 2057960] },
+          { month: 'Dec.', profit: 1106986, y: [2057960, 3164946] },
+          { month: 'Total', y: [0, 3164946] },
+        ],
+        encode: {
+          x: 'month',
+          y: 'y',
+          color: (d) =>
+            d.month === 'Total'
+              ? 'Total'
+              : d.profit > 0
+              ? 'Increase'
+              : 'Decrease',
+        },
+      },
+      {},
+      done,
+    );
+
+    mount(createDiv(), chart);
+  });
+
   it('render({...} renders chart with both stackY and dodgeX', (done) => {
     const chart = render<G2Spec>(
       {
