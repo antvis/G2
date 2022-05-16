@@ -1,5 +1,5 @@
 import { G2Spec, render } from '../../../src';
-import { createDiv, mount, unmountAll } from '../../utils/dom';
+import { createDiv, mount } from '../../utils/dom';
 
 describe('render', () => {
   it('render({...} renders interval chart with text annotation', () => {

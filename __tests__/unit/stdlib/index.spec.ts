@@ -19,6 +19,7 @@ import {
   Image as ImageGeometry,
 } from '../../../src/mark/geometry';
 import {
+  AnnotationConnector,
   AnnotationLineX,
   AnnotationLineY,
   AnnotationText,
@@ -60,6 +61,7 @@ import {
   Text,
   AnnotationText as AnnotationTextShape,
   AnnotationBadge,
+  AnnotationConnector as AnnotationConnectorShape,
   Area as AreaShape,
   SmoothArea,
   Edge,
@@ -126,6 +128,7 @@ describe('stdlib', () => {
       'mark.annotation.text': AnnotationText,
       'mark.annotation.lineX': AnnotationLineX,
       'mark.annotation.lineY': AnnotationLineY,
+      'mark.annotation.connector': AnnotationConnector,
       'mark.grid': Grid,
       'mark.area': Area,
       'mark.edge': EdgeGeometry,
@@ -164,6 +167,7 @@ describe('stdlib', () => {
       'shape.annotation.text': AnnotationTextShape,
       'shape.annotation.badge': AnnotationBadge,
       'shape.annotation.line': AnnotationLine,
+      'shape.annotation.connector': AnnotationConnectorShape,
       'shape.area': AreaShape,
       'shape.smoothArea': SmoothArea,
       'shape.edge': Edge,

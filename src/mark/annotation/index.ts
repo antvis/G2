@@ -7,3 +7,7 @@ export {
   LineY as AnnotationLineY,
   LineYOptions as AnnotationLineYOptions,
 } from './lineY';
+export {
+  Connector as AnnotationConnector,
+  ConnectorOptions as AnnotationConnectorOptions,
+} from './connector';

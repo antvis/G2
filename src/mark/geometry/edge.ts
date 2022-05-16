@@ -11,9 +11,11 @@ export const Edge: MC<EdgeOptions> = () => {
   return (index, scale, value, coordinate) => {
     const { x: X, y: Y } = value;
 
+    const xoffset = scale.x?.getBandWidth?.() || 0;
+
     const P = index.map((i) => [
-      coordinate.map([X[i][0], Y[i][0]]) as Vector2,
-      coordinate.map([X[i][1], Y[i][1]]) as Vector2,
+      coordinate.map([X[i][0] + xoffset / 2, Y[i][0]]) as Vector2,
+      coordinate.map([X[i][1] + xoffset / 2, Y[i][1]]) as Vector2,
     ]);
 
     return [index, P];

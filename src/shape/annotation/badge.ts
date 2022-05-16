@@ -11,6 +11,16 @@ import { select } from '../../utils/selection';
 
 export type AnnotationBadgeOptions = BadgeShapeStyleProps & Record<string, any>;
 
+type BadgeShapeStyleProps = BaseStyleProps & {
+  size?: number;
+  symbol?: string | ((x: number, y: number, r: number) => string);
+  content?: string;
+  textStyle?: {
+    fontSize?: number;
+    fill?: string;
+  };
+};
+
 /**
  * Get the path to draw a built-in badge, which is like a balloon.
  */
@@ -32,16 +42,6 @@ function getCenter(shape: Marker) {
   const { min, max } = shape.getLocalBounds();
   return { x: (min[0] + max[0]) / 2, y: (min[1] + max[1]) / 2 };
 }
-
-type BadgeShapeStyleProps = BaseStyleProps & {
-  size?: number;
-  symbol?: string | ((x: number, y: number, r: number) => string);
-  content?: string;
-  textStyle?: {
-    fontSize?: number;
-    fill?: string;
-  };
-};
 
 class BadgeShape extends CustomElement<BadgeShapeStyleProps> {
   constructor(config: DisplayObjectConfig<BadgeShapeStyleProps>) {
