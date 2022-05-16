@@ -1,7 +1,7 @@
 import { compose, composeAsync } from '../utils/helper';
 import { indexOf, mapObject, transpose, isFlatArray } from '../utils/array';
 import { useLibrary } from './library';
-import { G2MarkState, G2Theme } from './types/common';
+import { G2MarkState, G2Theme, Primitive } from './types/common';
 import {
   MarkProps,
   Transform,
@@ -90,17 +90,14 @@ export async function initializeMark(
   // Extract value from data based on inferred encodings.
   const value = mapObject(encode, (encodeOptions, key) => {
     if (Array.isArray(encodeOptions)) {
-      const values = encodeOptions.map((d) => {
-        const value = useEncode(d)(transformedData);
-        if (isFlatArray(value)) {
-          return value;
-        } else {
-          throw new Error("Array channel can't bind to array field.");
-        }
-      });
+      const values = encodeOptions.map((d) => useEncode(d)(transformedData));
+      // For array field, just return it.
+      const [V] = values;
+      if (!isFlatArray(V)) return V;
+
       // Position channel is a special channel which will be split into multiple
       // channels by statistic, so there is no need to transpose it.
-      return key !== 'position' ? transpose(values) : values;
+      return (key !== 'position' ? transpose(values) : values) as Primitive[][];
     } else {
       return useEncode(encodeOptions)(transformedData);
     }
