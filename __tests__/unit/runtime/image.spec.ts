@@ -143,7 +143,7 @@ describe('image', () => {
       scale: {
         x: { type: 'band' },
         y: { domain: [0, 1] },
-        size: { type: 'linear', domain: [0, 1], range: [12, 32] },
+        size: { type: 'linear', range: [12, 32] },
       },
     });
 

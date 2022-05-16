@@ -22,7 +22,6 @@ export const Image: SC<ImageOptions> = (options) => {
       .style('height', size)
       .style('img', src)
       .style('stroke', color)
-      .style('fill', color)
       .style('transform', transform)
       .call(applyStyle, style)
       .node();
