@@ -11,10 +11,6 @@ export const Edge: MC<EdgeOptions> = () => {
   return (index, scale, value, coordinate) => {
     const { x: X, y: Y } = value;
 
-    if (X === undefined || Y === undefined) {
-      throw new Error('Missing encode for x or y channel.');
-    }
-
     const xoffset = scale.x?.getBandWidth?.() || 0;
 
     const P = index.map((i) => [

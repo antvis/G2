@@ -14,7 +14,7 @@ describe('Connector', () => {
         { name: 'key', scale: 'identity' },
         { name: 'x', required: true },
         { name: 'y', required: true },
-        { name: 'd' },
+        { name: 'color' },
         { name: 'shape' },
       ],
       infer: [{ type: 'maybeTuple' }],
