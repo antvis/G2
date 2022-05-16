@@ -17,6 +17,7 @@ import {
   Area,
   Edge as EdgeGeometry,
   Image as ImageGeometry,
+  Polygon as PolygonGeometry,
 } from '../../../src/mark/geometry';
 import {
   AnnotationConnector,
@@ -67,6 +68,7 @@ import {
   Edge,
   Arc as ArcEdge,
   Image as ImageShape,
+  Polygon as PolygonShape,
   AnnotationLine,
 } from '../../../src/shape';
 import {
@@ -85,6 +87,7 @@ import {
   Rename,
   Subset,
   WordCloud,
+  Voronoi,
 } from '../../../src/transform';
 import {
   AxisX,
@@ -133,6 +136,7 @@ describe('stdlib', () => {
       'mark.area': Area,
       'mark.edge': EdgeGeometry,
       'mark.image': ImageGeometry,
+      'mark.polygon': PolygonGeometry,
       'infer.maybeTuple': MaybeTuple,
       'infer.maybeZeroX1': MaybeZeroX1,
       'infer.maybeZeroY2': MaybeZeroY2,
@@ -173,6 +177,7 @@ describe('stdlib', () => {
       'shape.edge': Edge,
       'shape.arc': ArcEdge,
       'shape.image': ImageShape,
+      'shape.polygon': PolygonShape,
       'statistic.stackY': StackY,
       'statistic.dodgeX': DodgeX,
       'statistic.stackEnter': StackEnter,
@@ -186,6 +191,7 @@ describe('stdlib', () => {
       'transform.rename': Rename,
       'transform.subset': Subset,
       'transform.wordCloud': WordCloud,
+      'transform.voronoi': Voronoi,
       'component.axisX': AxisX,
       'component.axisY': AxisY,
       'component.legendCategory': LegendCategory,
