@@ -17,6 +17,7 @@ export type Geometry =
   | AreaGeometry
   | EdgeGeometry
   | ImageGeometry
+  | PolygonGeometry
   | AnnotationText
   | CustomComponent;
 
@@ -29,6 +30,7 @@ export type GeometryTypes =
   | 'area'
   | 'edge'
   | 'image'
+  | 'polygon'
   | 'annotation.text'
   | 'annotation.lineX'
   | 'annotation.lineY'
@@ -131,5 +133,7 @@ export type AreaGeometry = BaseGeometry<'area', ChannelTypes>;
 export type EdgeGeometry = BaseGeometry<'edge', ChannelTypes>;
 
 export type ImageGeometry = BaseGeometry<'image', ChannelTypes | 'src'>;
+
+export type PolygonGeometry = BaseGeometry<'polygon'>;
 
 export type CustomComponent = BaseGeometry<MarkComponent>;

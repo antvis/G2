@@ -1,4 +1,4 @@
-import { TransformComponent } from '../runtime';
+import { TransformComponent, Vector2 } from '../runtime';
 
 export type Transform =
   | SortByTransform
@@ -8,6 +8,7 @@ export type Transform =
   | FetchTransform
   | FilterByTransform
   | WordCloudTransform
+  | VoronoiTransform
   | CustomTransform;
 
 export type TransformTypes =
@@ -115,6 +116,22 @@ export type WordCloudTransform = {
   on?:
     | ((type: 'end', details?: { cloud; words; bounds }) => void)
     | ((type: 'word', details?: { cloud; word }) => void);
+};
+
+export type VoronoiTransform = {
+  type?: 'voronoi';
+  /**
+   * @description Sets the input fields from the data.
+   */
+  fields: [string, string];
+  /**
+   * @description Sets the output fields into data.
+   */
+  as: [string, string];
+  /**
+   * @description Sets region of canvas.
+   */
+  extend: Vector2[];
 };
 
 export type CustomTransform = {
