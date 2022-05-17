@@ -1,6 +1,7 @@
 import { Polygon } from '@antv/g';
 import { G2Spec, Vector2, render, ShapeComponent } from '../../../src';
 import { createLibrary } from '../../../src/stdlib';
+import { SALE_OF_YEAR } from '../../data/sales';
 import { createDiv, mount, unmountAll } from '../../utils/dom';
 
 describe('render', () => {
@@ -1000,6 +1001,29 @@ describe('render', () => {
       {},
       done,
     );
+
+    mount(createDiv(), chart);
+  });
+
+  it.only('render({...} renders interval chart in transposed polar coordinate', () => {
+    const chart = render<G2Spec>({
+      type: 'interval',
+      data: SALE_OF_YEAR,
+      coordinate: [
+        { type: 'transpose' },
+        { type: 'polar' },
+        { type: 'cartesian' },
+      ],
+      scale: {
+        x: { guide: { type: 'axisX', title: null } },
+        y: { guide: { type: 'axisY', title: null }, nice: true },
+      },
+      encode: {
+        x: 'year',
+        y: 'sale',
+        color: 'year',
+      },
+    });
 
     mount(createDiv(), chart);
   });

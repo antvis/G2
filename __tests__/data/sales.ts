@@ -1,13 +1,12 @@
 export const SALE_OF_YEAR = [
-  { year: '1991', sale: 15468 },
-  { year: '1992', sale: 16100 },
-  { year: '1993', sale: 15900 },
-  { year: '1994', sale: 17409 },
-  { year: '1995', sale: 17000 },
-  { year: '1996', sale: 31056 },
-  { year: '1997', sale: 31982 },
-  { year: '1998', sale: 32040 },
-  { year: '1999', sale: 33233 },
+  { year: '1951 年', sale: 38 },
+  { year: '1952 年', sale: 52 },
+  { year: '1956 年', sale: 61 },
+  { year: '1957 年', sale: 145 },
+  { year: '1958 年', sale: 48 },
+  { year: '1959 年', sale: 38 },
+  { year: '1960 年', sale: 38 },
+  { year: '1962 年', sale: 38 },
 ];
 
 export const SALE_OF_YEAR_WITH_TYPE = [
@@ -29,4 +28,27 @@ export const SALE_OF_YEAR_WITH_TYPE = [
   { year: '1997', sale: 28982, type: '食品' },
   { year: '1998', sale: 32040, type: '食品' },
   { year: '1999', sale: 40233, type: '食品' },
+];
+
+export const SCORE_OF_ITEM_WITH_TYPE = [
+  { item: 'Design', type: 'a', score: 70 },
+  { item: 'Design', type: 'b', score: 30 },
+  { item: 'Development', type: 'a', score: 60 },
+  { item: 'Development', type: 'b', score: 70 },
+  { item: 'Marketing', type: 'a', score: 50 },
+  { item: 'Marketing', type: 'b', score: 60 },
+  { item: 'Users', type: 'a', score: 40 },
+  { item: 'Users', type: 'b', score: 50 },
+  { item: 'Test', type: 'a', score: 60 },
+  { item: 'Test', type: 'b', score: 70 },
+  { item: 'Language', type: 'a', score: 70 },
+  { item: 'Language', type: 'b', score: 50 },
+  { item: 'Technology', type: 'a', score: 50 },
+  { item: 'Technology', type: 'b', score: 40 },
+  { item: 'Support', type: 'a', score: 30 },
+  { item: 'Support', type: 'b', score: 40 },
+  { item: 'Sales', type: 'a', score: 60 },
+  { item: 'Sales', type: 'b', score: 40 },
+  { item: 'UX', type: 'a', score: 50 },
+  { item: 'UX', type: 'b', score: 60 },
 ];

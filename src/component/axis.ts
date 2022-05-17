@@ -1,7 +1,8 @@
 import { Coordinate, Vector2 } from '@antv/coord';
-import { Linear } from '@antv/gui';
+import { Arc, Linear } from '@antv/gui';
 import { Linear as LinearScale } from '@antv/scale';
-import { isParallel } from '../utils/coordinate';
+import { deepMix } from '@antv/util';
+import { isParallel, isPolar, isTranspose } from '../utils/coordinate';
 import {
   BBox,
   GuideComponentComponent as GCC,
@@ -19,6 +20,7 @@ export type AxisOptions = {
 function inferPosition(
   position: GuideComponentPosition,
   bbox: BBox,
+  coordinate: Coordinate,
 ): {
   startPos: [number, number];
   endPos: [number, number];
@@ -27,6 +29,7 @@ function inferPosition(
   titlePadding: number;
   titleRotate: number;
   verticalFactor: 1 | -1;
+  titleOffsetY?: number;
   labelAlign?: 'start' | 'end' | 'center' | 'left' | 'right';
 } {
   const { x, y, width, height } = bbox;
@@ -61,6 +64,19 @@ function inferPosition(
       labelAlign: 'start',
       labelOffset: 4,
       verticalFactor: 1,
+    };
+  } else if (position === 'arcY') {
+    const [cx, cy] = coordinate.getCenter() as Vector2;
+    const radius = Math.min(bbox.width, bbox.height) / 2;
+    return {
+      startPos: [cx + bbox.x, cy + bbox.y - radius],
+      endPos: [cx + bbox.x, cy + bbox.y],
+      titlePosition: 'start',
+      titlePadding: -16,
+      titleOffsetY: -8,
+      titleRotate: 0,
+      labelOffset: 4,
+      verticalFactor: -1,
     };
   }
   return {
@@ -120,6 +136,20 @@ function getTicks(
 ) {
   const ticks = scale.getTicks?.() || domain;
   const formatter = scale.getFormatter?.() || defaultFormatter;
+
+  if (isPolar(coordinate)) {
+    const axisTicks = ticks.map((d) => {
+      const offset = scale.getBandWidth?.(d) / 2 || 0;
+      const tick = scale.map(d) + offset;
+      return {
+        value: isTranspose(coordinate) && scale.getTicks?.() ? 1 - tick : tick,
+        text: formatter(d),
+      };
+    });
+    // If axis is place `arc`, the first tick and final tick will be duplicate, do no show first tick.
+    return position === 'arc' ? axisTicks.slice(1) : axisTicks;
+  }
+
   return ticks.map((d) => {
     const offset = scale.getBandWidth?.(d) / 2 || 0;
     const tick = scale.map(d) + offset;
@@ -133,6 +163,43 @@ function getTicks(
   });
 }
 
+const ArcAxis = (options) => {
+  const { position, formatter = (d) => `${d}` } = options;
+  return (scale, value, coordinate, theme) => {
+    const [cx, cy] = coordinate.getCenter() as Vector2;
+    const { domain, bbox } = value;
+    const ticks = getTicks(scale, domain, formatter, position, coordinate);
+    const radius = Math.min(bbox.width, bbox.height) / 2;
+    return new Arc({
+      style: deepMix(
+        {},
+        {
+          center: [cx + bbox.x, cy + bbox.y],
+          radius,
+          startAngle: -90,
+          endAngle: 270,
+          ticks,
+          axisLine: {
+            style: {
+              lineWidth: 0,
+              strokeOpacity: 0,
+            },
+          },
+          tickLine: {
+            len: 4,
+            style: { lineWidth: 1 },
+          },
+          label: {
+            align: 'tangential',
+            style: { dy: -2 },
+          },
+        },
+        scale.getOptions().guide,
+      ),
+    });
+  };
+};
+
 /**
  * Guide Component for position channel(e.g. x, y).
  * @todo Render Circular in polar coordinate.
@@ -141,6 +208,10 @@ function getTicks(
 export const Axis: GCC<AxisOptions> = (options) => {
   const { position, title = true, formatter = (d) => `${d}` } = options;
   return (scale, value, coordinate, theme) => {
+    if (position === 'arc') {
+      return ArcAxis(options)(scale, value, coordinate, theme);
+    }
+
     const { domain, field, bbox } = value;
     const {
       startPos,
@@ -150,42 +221,45 @@ export const Axis: GCC<AxisOptions> = (options) => {
       titlePadding,
       titleRotate,
       verticalFactor,
-    } = inferPosition(position, bbox);
+      titleOffsetY,
+    } = inferPosition(position, bbox, coordinate);
     const ticks = getTicks(scale, domain, formatter, position, coordinate);
-    const axis = new Linear({
-      style: {
-        startPos,
-        endPos,
-        verticalFactor,
-        ticks,
-        label: {
-          tickPadding: labelOffset,
-          autoHide: true,
-          style: {},
-        },
-        axisLine: {
-          style: {
-            lineWidth: 0,
-            strokeOpacity: 0,
+    return new Linear({
+      style: deepMix(
+        {
+          startPos,
+          endPos,
+          verticalFactor,
+          ticks,
+          label: {
+            tickPadding: labelOffset,
+            autoHide: true,
+            style: {},
           },
-        },
-        tickLine: {
-          len: 5,
-          style: { lineWidth: 1 },
-        },
-        ...(field &&
-          title && {
-            title: {
-              content: Array.isArray(field) ? field[0] : field,
-              titleAnchor: scale.getTicks ? titlePosition : 'center',
-              style: { fontWeight: 'bold', fillOpacity: 1 },
-              titlePadding,
-              rotate: titleRotate,
+          axisLine: {
+            style: {
+              lineWidth: 0,
+              strokeOpacity: 0,
             },
-          }),
-      },
+          },
+          tickLine: {
+            len: 4,
+            style: { lineWidth: 1 },
+          },
+          ...(field &&
+            title && {
+              title: {
+                content: Array.isArray(field) ? field[0] : field,
+                titleAnchor: scale.getTicks ? titlePosition : 'center',
+                style: { fontWeight: 'bold', fillOpacity: 1, dy: titleOffsetY },
+                titlePadding,
+                rotate: titleRotate,
+              },
+            }),
+        },
+        scale.getOptions().guide || {},
+      ),
     });
-    return axis;
   };
 };
 

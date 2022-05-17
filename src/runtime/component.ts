@@ -95,12 +95,11 @@ function inferComponentType(
   scale: G2ScaleOptions,
   coordinates: G2CoordinateOptions[],
 ) {
-  if (isPolar(coordinates)) return null;
-  if (isTranspose(coordinates)) return null;
-
   const { name, guide, type: scaleType } = scale;
   const { type } = guide;
   if (type !== undefined) return type;
+  if (isTranspose(coordinates)) return null;
+  if (isPolar(coordinates)) return null;
   if (name === 'x') return 'axisX';
   if (name === 'y') return 'axisY';
   if (name.startsWith('position')) return 'axisY';
@@ -143,6 +142,13 @@ function inferComponentPosition(
     if (match === null) return ordinalPosition;
     const index = +match[1];
     return index === 0 ? ordinalPosition : 'centerHorizontal';
+  } else if (
+    (type === 'axisX' && isPolar(coordinate) && !isTranspose(coordinate)) ||
+    (type === 'axisY' && isPolar(coordinate) && isTranspose(coordinate))
+  ) {
+    return 'arc';
+  } else if (isPolar(coordinate) && (type === 'axisX' || type === 'axisY')) {
+    return 'arcY';
   }
   return ordinalPosition;
 }
