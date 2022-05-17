@@ -2,7 +2,7 @@ import { Coordinate, Vector2 } from '@antv/coord';
 import { Arc, Linear } from '@antv/gui';
 import { Linear as LinearScale } from '@antv/scale';
 import { deepMix } from '@antv/util';
-import { getPolarOptions, isParallel, isPolar } from '../utils/coordinate';
+import { isParallel, isPolar, isTranspose } from '../utils/coordinate';
 import {
   BBox,
   GuideComponentComponent as GCC,
@@ -138,14 +138,16 @@ function getTicks(
   const formatter = scale.getFormatter?.() || defaultFormatter;
 
   if (isPolar(coordinate)) {
-    return ticks.map((d) => {
+    const axisTicks = ticks.map((d) => {
       const offset = scale.getBandWidth?.(d) / 2 || 0;
       const tick = scale.map(d) + offset;
       return {
-        value: tick,
+        value: isTranspose(coordinate) && scale.getTicks?.() ? 1 - tick : tick,
         text: formatter(d),
       };
     });
+    // If axis is place `arc`, the first tick and final tick will be duplicate, do no show first tick.
+    return position === 'arc' ? axisTicks.slice(1) : axisTicks;
   }
 
   return ticks.map((d) => {
@@ -168,15 +170,14 @@ const ArcAxis = (options) => {
     const { domain, bbox } = value;
     const ticks = getTicks(scale, domain, formatter, position, coordinate);
     const radius = Math.min(bbox.width, bbox.height) / 2;
-    const [startAngle, endAngle] = getPolarOptions(coordinate);
     return new Arc({
       style: deepMix(
         {},
         {
           center: [cx + bbox.x, cy + bbox.y],
           radius,
-          startAngle,
-          endAngle,
+          startAngle: -90,
+          endAngle: 270,
           ticks,
           axisLine: {
             style: {

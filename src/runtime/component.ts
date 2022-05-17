@@ -143,9 +143,8 @@ function inferComponentPosition(
     const index = +match[1];
     return index === 0 ? ordinalPosition : 'centerHorizontal';
   } else if (
-    type === 'axisX' &&
-    isPolar(coordinate) &&
-    !isTranspose(coordinate)
+    (type === 'axisX' && isPolar(coordinate) && !isTranspose(coordinate)) ||
+    (type === 'axisY' && isPolar(coordinate) && isTranspose(coordinate))
   ) {
     return 'arc';
   } else if (isPolar(coordinate) && (type === 'axisX' || type === 'axisY')) {

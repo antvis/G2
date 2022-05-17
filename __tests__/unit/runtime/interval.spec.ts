@@ -1005,7 +1005,7 @@ describe('render', () => {
     mount(createDiv(), chart);
   });
 
-  it('render({...} renders interval chart in transposed polar coordinate', () => {
+  it.only('render({...} renders interval chart in transposed polar coordinate', () => {
     const chart = render<G2Spec>({
       type: 'interval',
       data: SALE_OF_YEAR,
@@ -1016,7 +1016,7 @@ describe('render', () => {
       ],
       scale: {
         x: { guide: { type: 'axisX', title: null } },
-        y: { nice: true },
+        y: { guide: { type: 'axisY', title: null }, nice: true },
       },
       encode: {
         x: 'year',
