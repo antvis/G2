@@ -1,6 +1,10 @@
 import { G2Spec, render } from '../../../src';
 import { createDiv, mount } from '../../utils/dom';
-import { SALE_OF_YEAR, SALE_OF_YEAR_WITH_TYPE } from '../../data/sales';
+import {
+  SALE_OF_YEAR,
+  SALE_OF_YEAR_WITH_TYPE,
+  SCORE_OF_ITEM_WITH_TYPE,
+} from '../../data/sales';
 
 describe('area', () => {
   it('render({...}) should render basic area chart', () => {
@@ -49,19 +53,19 @@ describe('area', () => {
   it('render({...}) should render area chart in polar', () => {
     const chart = render<G2Spec>({
       type: 'area',
-      data: SALE_OF_YEAR_WITH_TYPE,
+      data: SCORE_OF_ITEM_WITH_TYPE,
       encode: {
-        x: 'year',
-        y: 'sale',
+        x: 'item',
+        y: 'score',
         color: 'type',
       },
       scale: {
-        x: { padding: 0.5, align: 0 },
+        x: { guide: { type: 'axisX' }, padding: 0.5, align: 0 },
+        y: { guide: { type: 'axisY', zIndex: 1 }, tickCount: 5 },
       },
-      statistic: [{ type: 'stackY' }],
       coordinate: [{ type: 'polar' }],
       style: {
-        fillOpacity: 0.7,
+        fillOpacity: 0.25,
       },
     });
 

@@ -86,12 +86,16 @@ export function placeComponents(
     bottom: [pl, height - pb, innerWidth, pb, 0, false, descending],
     left: [0, pt, pl, innerHeight, 1, true, ascending],
     centerHorizontal: [pl, pt, innerWidth, innerHeight, -1, null, null],
+    arc: [pl, pt, width - pl - pr, height - pt - pb, -1, null, null],
+    arcY: [pl, pt, width - pl - pr, height - pt - pb, -1, null, null],
   };
 
   for (const [key, components] of positionComponents.entries()) {
     const area = section[key];
     if (key === 'centerHorizontal') {
       placeCenterHorizontal(components, layout, coordinate, area);
+    } else if (key === 'arc' || key === 'arcY') {
+      placeArc(components, coordinate, area);
     } else {
       placePaddingArea(components, coordinate, area);
     }
@@ -160,5 +164,17 @@ function placePaddingArea(
       [crossSizeKey]: crossSizeValue,
     };
     start += size * (reverse ? -1 : 1);
+  }
+}
+
+function placeArc(
+  components: G2GuideComponentOptions[],
+  coordinate: Coordinate,
+  area: SectionArea,
+) {
+  const [x, y, width, height] = area;
+  for (let i = 0; i < components.length; i++) {
+    const component = components[i];
+    component.bbox = { x, y, width, height };
   }
 }

@@ -23,18 +23,17 @@ export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
         x,
         y,
         rail: {
-          width: 120,
-          height: 12,
+          // length: 120,
+          // size: 12,
           ticks,
         },
         min,
         max,
         indicator: null,
-        handle: false,
+        handle: null,
         ...(field && {
           title: {
             content: Array.isArray(field) ? field[0] : field,
-            spacing: 0,
             style: {
               fontSize: 12,
             },

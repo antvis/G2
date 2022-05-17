@@ -17,3 +17,9 @@ export function isParallel(coordinate: Coordinate): boolean {
   const { transformations } = coordinate.getOptions();
   return transformations.some(([type]) => type === 'parallel');
 }
+
+export function getPolarOptions(coordinate: Coordinate): [number, number] {
+  const { transformations } = coordinate.getOptions();
+  const [, sr, er] = transformations.find(([type]) => type === 'polar');
+  return [(+sr / Math.PI) * 180, (+er / Math.PI) * 180];
+}
