@@ -4,6 +4,7 @@ import {
   DisplayObjectConfig,
   Path,
   PathStyleProps,
+  PathCommand,
 } from '@antv/g';
 import { Marker } from '@antv/gui';
 import { line as d3line } from 'd3-shape';
@@ -19,7 +20,8 @@ type MarkerStyleProps = {
   symbol?: string | ((x: number, y: number, r: number) => string);
 };
 
-type ConnectorPathStyleProps = PathStyleProps & {
+type ConnectorPathStyleProps = Omit<PathStyleProps, 'path'> & {
+  connectorPath?: PathCommand[];
   direction?: 'upward' | 'downward';
   endMarker?: MarkerStyleProps;
 };
@@ -47,18 +49,16 @@ class ConnectorPath extends CustomElement<ConnectorPathStyleProps> {
   }
 
   private drawPath() {
-    const { x: x0, y: y0, path, ...style } = this.attributes;
+    const { connectorPath, ...style } = this.attributes;
     this.connector = select(this.connector || this.appendChild(new Path({})))
-      .style('path', path)
+      .style('path', connectorPath)
       .call(applyStyle, style)
       .node() as Path;
   }
 
   private drawEndMarker() {
     const { stroke, endMarker } = this.style;
-    this.endMarker = select(
-      this.endMarker || this.appendChild(new Marker({})),
-    ).node() as Marker;
+    this.endMarker = this.endMarker || this.appendChild(new Marker({}));
     this.endMarker.update({ size: 8, fill: stroke, ...endMarker });
   }
 }
@@ -119,7 +119,7 @@ export const Connector: SC<ConnectorOptions> = (options) => {
     const [, , , p3] = P;
 
     return select(new ConnectorPath({}))
-      .style('path', path)
+      .style('connectorPath', path)
       .style('stroke', color)
       .style('transform', transform)
       .style('endMarker', {
