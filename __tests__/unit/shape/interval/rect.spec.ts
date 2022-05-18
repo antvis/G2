@@ -25,8 +25,9 @@ describe('Rect', () => {
       fill: 'steelblue',
       height: 400,
       width: 120,
-      x: 0,
-      y: 0,
+      // G will convert "" to 0
+      x: '',
+      y: '',
     });
   });
 
@@ -51,8 +52,8 @@ describe('Rect', () => {
       fill: 'steelblue',
       height: 400,
       width: 120,
-      x: 0,
-      y: 0,
+      x: '',
+      y: '',
     });
   });
 
@@ -78,8 +79,8 @@ describe('Rect', () => {
       fill: 'steelblue',
       height: 80,
       width: 600,
-      x: 0,
-      y: 0,
+      x: '',
+      y: '',
     });
   });
 
