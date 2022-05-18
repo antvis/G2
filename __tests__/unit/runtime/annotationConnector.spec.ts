@@ -46,7 +46,7 @@ describe('connector Annotation', () => {
     mount(createDiv(), chart);
   });
 
-  it.only('render({...} renders chart with connector annotation in transpose coordinate.', () => {
+  it('render({...} renders chart with connector annotation in transpose coordinate.', () => {
     const chart = render<G2Spec>(
       {
         type: 'view',
