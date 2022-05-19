@@ -1,285 +1,291 @@
+#### 4.2.2 (2022-05-19)
+
+##### New Features
+
+- **axis:** 更新 axis-description-tooltip 样式, 添加自定义 style 配置 ([#3929](https://github.com/antvis/g2/pull/3929)) ([27d35093](https://github.com/antvis/g2/commit/27d35093aabb61758fef98376262decc29626b11))
+
 #### 4.2.1 (2022-05-10)
 
 ##### Bug Fixes
 
-*  add window-detect ([00f24f13](https://github.com/antvis/g2/commit/00f24f139bd8ac977b8fe74758fc255dcbed85b5))
+- add window-detect ([00f24f13](https://github.com/antvis/g2/commit/00f24f139bd8ac977b8fe74758fc255dcbed85b5))
 
 #### 4.2.0 (2022-04-22)
 
 ##### Refactors
-*  use worker to do label layout 🚀 ([#3888](https://github.com/antvis/g2/pull/3888)) ([bb4c67f1](https://github.com/antvis/g2/commit/bb4c67f1e04b4c359ed892e857eb5b2a76db7dd7))
 
-* **geometry:**  优化 label 和 element 的绑定逻辑 ([#3884](https://github.com/antvis/g2/pull/3884)) ([64f1c3a8](https://github.com/antvis/g2/commit/64f1c3a831a3fb4cb439f462b172c27724aba426))
+- use worker to do label layout 🚀 ([#3888](https://github.com/antvis/g2/pull/3888)) ([bb4c67f1](https://github.com/antvis/g2/commit/bb4c67f1e04b4c359ed892e857eb5b2a76db7dd7))
+
+- **geometry:** 优化 label 和 element 的绑定逻辑 ([#3884](https://github.com/antvis/g2/pull/3884)) ([64f1c3a8](https://github.com/antvis/g2/commit/64f1c3a831a3fb4cb439f462b172c27724aba426))
 
 #### 4.1.50 (2022-04-13)
 
 ##### Documentation Changes
 
-*  axis API 文档中新增 title 字段的 description 配置 ([#3863](https://github.com/antvis/g2/pull/3863)) ([7e2493c8](https://github.com/antvis/g2/commit/7e2493c8af25d0e81a504ca3ec513e8584d4f3d7))
+- axis API 文档中新增 title 字段的 description 配置 ([#3863](https://github.com/antvis/g2/pull/3863)) ([7e2493c8](https://github.com/antvis/g2/commit/7e2493c8af25d0e81a504ca3ec513e8584d4f3d7))
 
 ##### New Features
 
-* **axis:**  添加坐标轴标题详细说明 icon 交互事件 ([#3863](https://github.com/antvis/g2/pull/3863)) ([7e2493c8](https://github.com/antvis/g2/commit/7e2493c8af25d0e81a504ca3ec513e8584d4f3d7))
+- **axis:** 添加坐标轴标题详细说明 icon 交互事件 ([#3863](https://github.com/antvis/g2/pull/3863)) ([7e2493c8](https://github.com/antvis/g2/commit/7e2493c8af25d0e81a504ca3ec513e8584d4f3d7))
 
 #### 4.1.49 (2022-03-25)
 
 ##### Chores
 
-*  ci actions 添加 pr 触发时机 ([4cc0475f](https://github.com/antvis/g2/commit/4cc0475f7382e8cb423c115ee2180781c588bc17))
+- ci actions 添加 pr 触发时机 ([4cc0475f](https://github.com/antvis/g2/commit/4cc0475f7382e8cb423c115ee2180781c588bc17))
 
 ##### Bug Fixes
 
-*  修复判空问题 ([#3840](https://github.com/antvis/g2/pull/3840)) ([c712251d](https://github.com/antvis/g2/commit/c712251d028bf349ae98568ad4b5a06d3ce34725))
-
+- 修复判空问题 ([#3840](https://github.com/antvis/g2/pull/3840)) ([c712251d](https://github.com/antvis/g2/commit/c712251d028bf349ae98568ad4b5a06d3ce34725))
 
 #### 4.1.48 (2022-03-23)
 
 ##### Documentation Changes
 
-*  更新文档，将chart.source 改为 chart.data ([#3816](https://github.com/antvis/g2/pull/3816)) ([ddda1f80](https://github.com/antvis/g2/commit/ddda1f800886828305b7b54f738bf0d060dee84d))
+- 更新文档，将 chart.source 改为 chart.data ([#3816](https://github.com/antvis/g2/pull/3816)) ([ddda1f80](https://github.com/antvis/g2/commit/ddda1f800886828305b7b54f738bf0d060dee84d))
 
 ##### New Features
 
-* **theme:**  主题支持完整样式表的自定义 ([#3833](https://github.com/antvis/g2/pull/3833)) ([97a5b419](https://github.com/antvis/g2/commit/97a5b419ed7246f482fed24cddbd700fd1017764))
+- **theme:** 主题支持完整样式表的自定义 ([#3833](https://github.com/antvis/g2/pull/3833)) ([97a5b419](https://github.com/antvis/g2/commit/97a5b419ed7246f482fed24cddbd700fd1017764))
 
 ##### Bug Fixes
 
-* **interval:**  修复转置后的圆角条形图渲染多出一部分 ([#3826](https://github.com/antvis/g2/pull/3826)) ([b12dd0fe](https://github.com/antvis/g2/commit/b12dd0fe76ce1a7c0a3d8f55f15493501f4efe63))
+- **interval:** 修复转置后的圆角条形图渲染多出一部分 ([#3826](https://github.com/antvis/g2/pull/3826)) ([b12dd0fe](https://github.com/antvis/g2/commit/b12dd0fe76ce1a7c0a3d8f55f15493501f4efe63))
 
 #### 4.1.47 (2022-03-03)
 
 ##### New Features
 
-*  基于新版本注释规范调整 interface 文件代码注释 ([#3817](https://github.com/antvis/g2/pull/3817)) ([d3ebdba4](https://github.com/antvis/g2/commit/d3ebdba44dacbd7bd58309d0b9e3f7c90f383dad))
+- 基于新版本注释规范调整 interface 文件代码注释 ([#3817](https://github.com/antvis/g2/pull/3817)) ([d3ebdba4](https://github.com/antvis/g2/commit/d3ebdba44dacbd7bd58309d0b9e3f7c90f383dad))
 
 #### 4.1.46 (2022-02-11)
 
 ##### Documentation Changes
 
-*  修改钉钉群号 ([ce197ed0](https://github.com/antvis/g2/commit/ce197ed0f64ad5c87bd99f26f48303388b7b4eaf))
+- 修改钉钉群号 ([ce197ed0](https://github.com/antvis/g2/commit/ce197ed0f64ad5c87bd99f26f48303388b7b4eaf))
 
 ##### Bug Fixes
 
-*  修复 timeCat scale 没有当作 groupScale，导致对应场景的折线图绘制无法正常分组 ([1861807e](https://github.com/antvis/g2/commit/1861807ebc1cd3c21bdf2d35a930d67bc72c5cd3))
-*  update actions/checkout version to avoid vulnerability ([#3774](https://github.com/antvis/g2/pull/3774)) ([781eb8c8](https://github.com/antvis/g2/commit/781eb8c8b11cfc69a97eda27a5e9c746f2c40485))
+- 修复 timeCat scale 没有当作 groupScale，导致对应场景的折线图绘制无法正常分组 ([1861807e](https://github.com/antvis/g2/commit/1861807ebc1cd3c21bdf2d35a930d67bc72c5cd3))
+- update actions/checkout version to avoid vulnerability ([#3774](https://github.com/antvis/g2/pull/3774)) ([781eb8c8](https://github.com/antvis/g2/commit/781eb8c8b11cfc69a97eda27a5e9c746f2c40485))
 
 #### 4.1.45 (2022-02-09)
 
 ##### Bug Fixes
 
-* **interval:**  修复 interval color 通道没有 field，会导致 tooltip name 消失 ([3e3d03fb](https://github.com/antvis/g2/commit/3e3d03fbf4b7270ef5eaa3ec7886864555691ed8))
+- **interval:** 修复 interval color 通道没有 field，会导致 tooltip name 消失 ([3e3d03fb](https://github.com/antvis/g2/commit/3e3d03fbf4b7270ef5eaa3ec7886864555691ed8))
 
 #### 4.1.44 (2022-02-08)
 
 ##### Chores
 
-*  add pr-auto-labels & auto-release-generate ([94146ea0](https://github.com/antvis/g2/commit/94146ea0502cb4a5afc912d2e5ff48cc7700b6a8))
+- add pr-auto-labels & auto-release-generate ([94146ea0](https://github.com/antvis/g2/commit/94146ea0502cb4a5afc912d2e5ff48cc7700b6a8))
 
 ##### Bug Fixes
 
-* **charts:**  修复 annotations 创建失败 ([09cde2d1](https://github.com/antvis/g2/commit/09cde2d1f929e69aed78273cac2f5351f37e0913))
+- **charts:** 修复 annotations 创建失败 ([09cde2d1](https://github.com/antvis/g2/commit/09cde2d1f929e69aed78273cac2f5351f37e0913))
 
 #### 4.1.42 (2022-01-28)
 
 ##### Bug Fixes
 
-* **slider:**  修复slider过大挤压图形的问题 [#2968](https://github.com/antvis/g2/pull/2968) ([#3794](https://github.com/antvis/g2/pull/3794)) ([a3187617](https://github.com/antvis/g2/commit/a3187617e6750bec7a5ec2aa34224272c8e0b329))
-* **toolitp:**  修复 limitInPlot属性无法屏蔽一些后出现的状态 ([#3792](https://github.com/antvis/g2/pull/3792)) ([50e319dc](https://github.com/antvis/g2/commit/50e319dcd8c845b77c28d5292403321415743ae9))
+- **slider:** 修复 slider 过大挤压图形的问题 [#2968](https://github.com/antvis/g2/pull/2968) ([#3794](https://github.com/antvis/g2/pull/3794)) ([a3187617](https://github.com/antvis/g2/commit/a3187617e6750bec7a5ec2aa34224272c8e0b329))
+- **toolitp:** 修复 limitInPlot 属性无法屏蔽一些后出现的状态 ([#3792](https://github.com/antvis/g2/pull/3792)) ([50e319dc](https://github.com/antvis/g2/commit/50e319dcd8c845b77c28d5292403321415743ae9))
 
 #### 4.1.41 (2022-01-25)
 
 ##### Bug Fixes
 
-*  修复 jitter 点图 adjust 后点位置不正确的问题 ([#3790](https://github.com/antvis/g2/pull/3790)) ([5ffcb7ac](https://github.com/antvis/g2/commit/5ffcb7acc6ed445c694c8dfd4b2a1631281b1fe3))
-*  修复获取分组scale错误 & tooltip 获取 value-scale 不忽略 color、shape 通道相关字段 ([#3768](https://github.com/antvis/g2/pull/3768)) ([ab893335](https://github.com/antvis/g2/commit/ab893335ebf274c7291331feceec3f65a5cbd26f))
+- 修复 jitter 点图 adjust 后点位置不正确的问题 ([#3790](https://github.com/antvis/g2/pull/3790)) ([5ffcb7ac](https://github.com/antvis/g2/commit/5ffcb7acc6ed445c694c8dfd4b2a1631281b1fe3))
+- 修复获取分组 scale 错误 & tooltip 获取 value-scale 不忽略 color、shape 通道相关字段 ([#3768](https://github.com/antvis/g2/pull/3768)) ([ab893335](https://github.com/antvis/g2/commit/ab893335ebf274c7291331feceec3f65a5cbd26f))
 
 #### 4.1.40 (2022-01-18)
 
 ##### Documentation Changes
 
-*   添加对scale的值域说明，与d3 值域用法相对比，防止误解。 ([#3781](https://github.com/antvis/g2/pull/3781)) ([3b07b921](https://github.com/antvis/g2/commit/3b07b9211bc1d3fc628a4b74d22dc67570a37b17))
+- 添加对 scale 的值域说明，与 d3 值域用法相对比，防止误解。 ([#3781](https://github.com/antvis/g2/pull/3781)) ([3b07b921](https://github.com/antvis/g2/commit/3b07b9211bc1d3fc628a4b74d22dc67570a37b17))
 
 ##### New Features
 
-* **legend:**  图例 radio增加 tip 文案提示 ([#3786](https://github.com/antvis/g2/pull/3786)) ([6736def0](https://github.com/antvis/g2/commit/6736def0aee2ea02fd645a170e9368dc91e032ea))
+- **legend:** 图例 radio 增加 tip 文案提示 ([#3786](https://github.com/antvis/g2/pull/3786)) ([6736def0](https://github.com/antvis/g2/commit/6736def0aee2ea02fd645a170e9368dc91e032ea))
 
 ##### Bug Fixes
 
-* **legend:**  修复 legend radio 设置样式不生效 ([#3784](https://github.com/antvis/g2/pull/3784)) ([fe554991](https://github.com/antvis/g2/commit/fe55499114c4dd440d48747af07e882a8cc87767))
+- **legend:** 修复 legend radio 设置样式不生效 ([#3784](https://github.com/antvis/g2/pull/3784)) ([fe554991](https://github.com/antvis/g2/commit/fe55499114c4dd440d48747af07e882a8cc87767))
 
 ##### Chores
 
-*  resolutions 更新 修复 remark-mdx 引入问题 ([#3785](https://github.com/antvis/g2/pull/3785)) ([0212ce97](https://github.com/antvis/g2/commit/0212ce97823373537002c9c1c4de9ecb22c94fee))
-*  release actions ([52059d5e](https://github.com/antvis/g2/commit/52059d5e603e5e20b062900ca150693c09376850))
+- resolutions 更新 修复 remark-mdx 引入问题 ([#3785](https://github.com/antvis/g2/pull/3785)) ([0212ce97](https://github.com/antvis/g2/commit/0212ce97823373537002c9c1c4de9ecb22c94fee))
+- release actions ([52059d5e](https://github.com/antvis/g2/commit/52059d5e603e5e20b062900ca150693c09376850))
 
 #### 4.1.39 (2022-01-14)
 
 ##### Chores
 
-*  增加dingtalk-release-nofity ([#3778](https://github.com/antvis/g2/pull/3778)) ([c69af004](https://github.com/antvis/g2/commit/c69af004c27ce738be11470572f330e40921ac54))
+- 增加 dingtalk-release-nofity ([#3778](https://github.com/antvis/g2/pull/3778)) ([c69af004](https://github.com/antvis/g2/commit/c69af004c27ce738be11470572f330e40921ac54))
 
 ##### Bug Fixes
 
-* **legend:**  修复图例 radio focus 模式 & 增加 demo ([#3779](https://github.com/antvis/g2/pull/3779)) ([5295b78a](https://github.com/antvis/g2/commit/5295b78a3d25c07a6b3a27c7ee7c15a6ed6be831))
-*  remove node 12 to fix release action failed ([#3720](https://github.com/antvis/g2/pull/3720)) ([1358be9a](https://github.com/antvis/g2/commit/1358be9a05a33f313b54d0f18a47df048f92ecb1))
+- **legend:** 修复图例 radio focus 模式 & 增加 demo ([#3779](https://github.com/antvis/g2/pull/3779)) ([5295b78a](https://github.com/antvis/g2/commit/5295b78a3d25c07a6b3a27c7ee7c15a6ed6be831))
+- remove node 12 to fix release action failed ([#3720](https://github.com/antvis/g2/pull/3720)) ([1358be9a](https://github.com/antvis/g2/commit/1358be9a05a33f313b54d0f18a47df048f92ecb1))
 
 #### 4.1.38 (2022-01-12)
 
 ##### Bug Fixes
 
-* **issue-3723:**  修复annotation 在筛选条件下，范围外的标注不需要展示 ([#3775](https://github.com/antvis/g2/pull/3775)) ([151f9152](https://github.com/antvis/g2/commit/151f915280cb7d00604a39c2c96859bb92dc6395))
-* **slider,scrollbar:**  修复slider 、scrollbar values 排序错误的问题 ([#3773](https://github.com/antvis/g2/pull/3773)) ([6e84c446](https://github.com/antvis/g2/commit/6e84c44684149cf0c5754cb8b537dd541011dc06))
+- **issue-3723:** 修复 annotation 在筛选条件下，范围外的标注不需要展示 ([#3775](https://github.com/antvis/g2/pull/3775)) ([151f9152](https://github.com/antvis/g2/commit/151f915280cb7d00604a39c2c96859bb92dc6395))
+- **slider,scrollbar:** 修复 slider 、scrollbar values 排序错误的问题 ([#3773](https://github.com/antvis/g2/pull/3773)) ([6e84c446](https://github.com/antvis/g2/commit/6e84c44684149cf0c5754cb8b537dd541011dc06))
 
 #### 4.1.37 (2022-01-04)
 
 ##### Bug Fixes
 
-* **slider,scrollbar:**  滚动条和缩略轴 在xScale 为线性时筛选错误的问题 ([#3767](https://github.com/antvis/g2/pull/3767)) ([768eb3c3](https://github.com/antvis/g2/commit/768eb3c34bd0d1c031554cac8f33146a845a901e))
+- **slider,scrollbar:** 滚动条和缩略轴 在 xScale 为线性时筛选错误的问题 ([#3767](https://github.com/antvis/g2/pull/3767)) ([768eb3c3](https://github.com/antvis/g2/commit/768eb3c34bd0d1c031554cac8f33146a845a901e))
 
 #### 4.1.36 (2021-12-29)
 
 ##### New Features
 
-* **legend:**  添加图例的正反选功能 ([#3756](https://github.com/antvis/g2/pull/3756)) ([2c92f5d8](https://github.com/antvis/g2/commit/2c92f5d8bcec555460d9ed10ed1255a7a09dedbe))
+- **legend:** 添加图例的正反选功能 ([#3756](https://github.com/antvis/g2/pull/3756)) ([2c92f5d8](https://github.com/antvis/g2/commit/2c92f5d8bcec555460d9ed10ed1255a7a09dedbe))
 
 ##### Bug Fixes
 
-* **scrollbar:**  Scale option tickMethod doesn't work when enable scrollbar ([#3747](https://github.com/antvis/g2/pull/3747)) ([cb3ad042](https://github.com/antvis/g2/commit/cb3ad0424886d4fa096c6aabc9cdcccf84644a2f))
+- **scrollbar:** Scale option tickMethod doesn't work when enable scrollbar ([#3747](https://github.com/antvis/g2/pull/3747)) ([cb3ad042](https://github.com/antvis/g2/commit/cb3ad0424886d4fa096c6aabc9cdcccf84644a2f))
 
 ##### Performance Improvements
 
-*  优化性能，由于set-zindex每次都会调用 sort，导致耗时为指数级别的 ([#3758](https://github.com/antvis/g2/pull/3758)) ([f2877bcf](https://github.com/antvis/g2/commit/f2877bcf0e6b5e281de289d544296c940ddbdb3d))
+- 优化性能，由于 set-zindex 每次都会调用 sort，导致耗时为指数级别的 ([#3758](https://github.com/antvis/g2/pull/3758)) ([f2877bcf](https://github.com/antvis/g2/commit/f2877bcf0e6b5e281de289d544296c940ddbdb3d))
 
 #### 4.1.35 (2021-12-14)
 
 ##### Bug Fixes
 
-* **bar:**  修复条形图在 reflect y 时，绘制圆角错误 ([#3745](https://github.com/antvis/g2/pull/3745)) ([048a4920](https://github.com/antvis/g2/commit/048a492037e2d106fb8c60443fb90f37f1ec0496))
+- **bar:** 修复条形图在 reflect y 时，绘制圆角错误 ([#3745](https://github.com/antvis/g2/pull/3745)) ([048a4920](https://github.com/antvis/g2/commit/048a492037e2d106fb8c60443fb90f37f1ec0496))
 
 ##### Documentation Changes
 
-*  更新官网公告 ([2caa82a9](https://github.com/antvis/g2/commit/2caa82a9512d196fb42d01f7c6adee25f6d13aa9))
-* **docs:**  label link 404 ([#3728](https://github.com/antvis/g2/pull/3728)) ([e92dbd74](https://github.com/antvis/g2/commit/e92dbd741d170168d6d4d6f3da1d36f3f9a80cce))
-* **demo:** demo 中自定义shape会有误导 ([#3744](https://github.com/antvis/g2/pull/3744)) ([1249000f](https://github.com/antvis/g2/commit/1249000f11482313239edf03a2fac8619d3574b4))
+- 更新官网公告 ([2caa82a9](https://github.com/antvis/g2/commit/2caa82a9512d196fb42d01f7c6adee25f6d13aa9))
+- **docs:** label link 404 ([#3728](https://github.com/antvis/g2/pull/3728)) ([e92dbd74](https://github.com/antvis/g2/commit/e92dbd741d170168d6d4d6f3da1d36f3f9a80cce))
+- **demo:** demo 中自定义 shape 会有误导 ([#3744](https://github.com/antvis/g2/pull/3744)) ([1249000f](https://github.com/antvis/g2/commit/1249000f11482313239edf03a2fac8619d3574b4))
 
 #### 4.1.34 (2021-11-01)
 
 ##### Chores
 
-*  添加 auto-release actions ([#3701](https://github.com/antvis/g2/pull/3701)) ([26c08443](https://github.com/antvis/g2/commit/26c084435923f1a975c6a4bbeee82be50468d5f6))
+- 添加 auto-release actions ([#3701](https://github.com/antvis/g2/pull/3701)) ([26c08443](https://github.com/antvis/g2/commit/26c084435923f1a975c6a4bbeee82be50468d5f6))
 
 ##### Documentation Changes
 
-*  修复链接 404 ([#3692](https://github.com/antvis/g2/pull/3692)) ([6582738a](https://github.com/antvis/g2/commit/6582738a756824f74f2abc404579d012e205860b))
+- 修复链接 404 ([#3692](https://github.com/antvis/g2/pull/3692)) ([6582738a](https://github.com/antvis/g2/commit/6582738a756824f74f2abc404579d012e205860b))
 
 ##### New Features
 
-*  export utils of shape ([#3693](https://github.com/antvis/g2/pull/3693)) ([8dea465f](https://github.com/antvis/g2/commit/8dea465fca651aa242c4bec9d4c978ff318b0bff))
+- export utils of shape ([#3693](https://github.com/antvis/g2/pull/3693)) ([8dea465f](https://github.com/antvis/g2/commit/8dea465fca651aa242c4bec9d4c978ff318b0bff))
 
 ##### Bug Fixes
 
-*  自动 lint fix ([#3697](https://github.com/antvis/g2/pull/3697)) ([f43bf9d5](https://github.com/antvis/g2/commit/f43bf9d5408eec7ac8cbec9a24ca6dc078fc8494))
+- 自动 lint fix ([#3697](https://github.com/antvis/g2/pull/3697)) ([f43bf9d5](https://github.com/antvis/g2/commit/f43bf9d5408eec7ac8cbec9a24ca6dc078fc8494))
 
 #### 4.1.33 (2021-10-28)
 
 ##### Documentation Changes
 
-*  修复链接 404 ([#3692](https://github.com/antvis/g2/pull/3692)) ([6582738a](https://github.com/antvis/g2/commit/6582738a756824f74f2abc404579d012e205860b))
+- 修复链接 404 ([#3692](https://github.com/antvis/g2/pull/3692)) ([6582738a](https://github.com/antvis/g2/commit/6582738a756824f74f2abc404579d012e205860b))
 
 ##### New Features
 
-*  export utils of shape ([#3693](https://github.com/antvis/g2/pull/3693)) ([8dea465f](https://github.com/antvis/g2/commit/8dea465fca651aa242c4bec9d4c978ff318b0bff))
+- export utils of shape ([#3693](https://github.com/antvis/g2/pull/3693)) ([8dea465f](https://github.com/antvis/g2/commit/8dea465fca651aa242c4bec9d4c978ff318b0bff))
 
 ##### Bug Fixes
 
-*  自动 lint fix ([#3697](https://github.com/antvis/g2/pull/3697)) ([f43bf9d5](https://github.com/antvis/g2/commit/f43bf9d5408eec7ac8cbec9a24ca6dc078fc8494))
+- 自动 lint fix ([#3697](https://github.com/antvis/g2/pull/3697)) ([f43bf9d5](https://github.com/antvis/g2/commit/f43bf9d5408eec7ac8cbec9a24ca6dc078fc8494))
 
 #### 4.1.32 (2021-10-21)
 
 ##### Documentation Changes
 
-* **demo:**  增加一个带动效的柱状图 ([#3689](https://github.com/antvis/g2/pull/3689)) ([5c0f6a4a](https://github.com/antvis/g2/commit/5c0f6a4a21d0a2fb9b9851b2aeb2659e099ad810))
+- **demo:** 增加一个带动效的柱状图 ([#3689](https://github.com/antvis/g2/pull/3689)) ([5c0f6a4a](https://github.com/antvis/g2/commit/5c0f6a4a21d0a2fb9b9851b2aeb2659e099ad810))
 
 ##### New Features
 
-* **element:**  element 图形元素按照 elementIndex 设置展示层级 ([#3671](https://github.com/antvis/g2/pull/3671)) ([4a536731](https://github.com/antvis/g2/commit/4a536731ad8cc7a3219591404f6af71a8229c702))
+- **element:** element 图形元素按照 elementIndex 设置展示层级 ([#3671](https://github.com/antvis/g2/pull/3671)) ([4a536731](https://github.com/antvis/g2/commit/4a536731ad8cc7a3219591404f6af71a8229c702))
 
 ##### Bug Fixes
 
-*  修复 element 设置层级 zIndex 的时候，需要考虑zIndexReversed ([#3685](https://github.com/antvis/g2/pull/3685)) ([c3654776](https://github.com/antvis/g2/commit/c36547768ceeb852a1b8b97af62e7be9360a04d9))
-* **label:**  修复 label 做坐标系镜像下，位置计算问题 ([#3682](https://github.com/antvis/g2/pull/3682)) ([71ee0d91](https://github.com/antvis/g2/commit/71ee0d912a45d25f440ed49df050a8d188c72c90))
+- 修复 element 设置层级 zIndex 的时候，需要考虑 zIndexReversed ([#3685](https://github.com/antvis/g2/pull/3685)) ([c3654776](https://github.com/antvis/g2/commit/c36547768ceeb852a1b8b97af62e7be9360a04d9))
+- **label:** 修复 label 做坐标系镜像下，位置计算问题 ([#3682](https://github.com/antvis/g2/pull/3682)) ([71ee0d91](https://github.com/antvis/g2/commit/71ee0d912a45d25f440ed49df050a8d188c72c90))
 
 #### 4.1.31 (2021-10-13)
 
 ##### Documentation Changes
 
-* **slider:**  change ShapeStyle to ShapeAttrs (close: [#3531](https://github.com/antvis/g2/pull/3531)) ([#3670](https://github.com/antvis/g2/pull/3670)) ([88cdee55](https://github.com/antvis/g2/commit/88cdee5540886bc1a012d81f41cc976ba2666353))
-* **examples:**  replace K chart with Candlestick chart ([#3667](https://github.com/antvis/g2/pull/3667)) ([5990d3a4](https://github.com/antvis/g2/commit/5990d3a416e3a7e455b9edd8983335b55c6828cb))
+- **slider:** change ShapeStyle to ShapeAttrs (close: [#3531](https://github.com/antvis/g2/pull/3531)) ([#3670](https://github.com/antvis/g2/pull/3670)) ([88cdee55](https://github.com/antvis/g2/commit/88cdee5540886bc1a012d81f41cc976ba2666353))
+- **examples:** replace K chart with Candlestick chart ([#3667](https://github.com/antvis/g2/pull/3667)) ([5990d3a4](https://github.com/antvis/g2/commit/5990d3a416e3a7e455b9edd8983335b55c6828cb))
 
 ##### New Features
 
-* **scrollbar:**
-  *  支持设置与获取当前滚动条的位置 ([#3639](https://github.com/antvis/g2/pull/3639)) ([3c89edf5](https://github.com/antvis/g2/commit/3c89edf53a729183de45ab201d300fd97f4b1e62))
-  *  mouse wheel for scrollbar ([#3606](https://github.com/antvis/g2/pull/3606)) ([67313836](https://github.com/antvis/g2/commit/67313836f3625f9329593354107ee7f0db3e7756))
-* **aria:**  设置无障碍标签 ([#3656](https://github.com/antvis/g2/pull/3656)) ([7d69af78](https://github.com/antvis/g2/commit/7d69af787b7aaf99bc861e9cc3d93546387c0329))
+- **scrollbar:**
+  - 支持设置与获取当前滚动条的位置 ([#3639](https://github.com/antvis/g2/pull/3639)) ([3c89edf5](https://github.com/antvis/g2/commit/3c89edf53a729183de45ab201d300fd97f4b1e62))
+  - mouse wheel for scrollbar ([#3606](https://github.com/antvis/g2/pull/3606)) ([67313836](https://github.com/antvis/g2/commit/67313836f3625f9329593354107ee7f0db3e7756))
+- **aria:** 设置无障碍标签 ([#3656](https://github.com/antvis/g2/pull/3656)) ([7d69af78](https://github.com/antvis/g2/commit/7d69af787b7aaf99bc861e9cc3d93546387c0329))
 
 ##### Bug Fixes
 
-* **scrollbar:** 滚动条纵向在 reflectY 下的数据问题 ([#3678](https://github.com/antvis/g2/pull/3678)) ([1e412f32](https://github.com/antvis/g2/commit/1e412f32ebed6c21635f8ba5bc268b676337597e))
-* **type:** MarkerCallback return type ([#3674](https://github.com/antvis/g2/pull/3674)) ([88ef320e](https://github.com/antvis/g2/commit/88ef320e88f4eb1973a766391e1068e2aa58f063))
-* **demo:**  streamgraph typo ([#3659](https://github.com/antvis/g2/pull/3659)) ([e0189dc2](https://github.com/antvis/g2/commit/e0189dc2d7ec8f0efd2a4ec328992444e060b180))
-*  图例类型定义, 除了 marker 其它继承 component ([#3654](https://github.com/antvis/g2/pull/3654)) ([6ba4cf9a](https://github.com/antvis/g2/commit/6ba4cf9a9bb02d508ba7ed535fc933457f341dbc))
+- **scrollbar:** 滚动条纵向在 reflectY 下的数据问题 ([#3678](https://github.com/antvis/g2/pull/3678)) ([1e412f32](https://github.com/antvis/g2/commit/1e412f32ebed6c21635f8ba5bc268b676337597e))
+- **type:** MarkerCallback return type ([#3674](https://github.com/antvis/g2/pull/3674)) ([88ef320e](https://github.com/antvis/g2/commit/88ef320e88f4eb1973a766391e1068e2aa58f063))
+- **demo:** streamgraph typo ([#3659](https://github.com/antvis/g2/pull/3659)) ([e0189dc2](https://github.com/antvis/g2/commit/e0189dc2d7ec8f0efd2a4ec328992444e060b180))
+- 图例类型定义, 除了 marker 其它继承 component ([#3654](https://github.com/antvis/g2/pull/3654)) ([6ba4cf9a](https://github.com/antvis/g2/commit/6ba4cf9a9bb02d508ba7ed535fc933457f341dbc))
 
 #### 4.1.30 (2021-09-28)
 
 ##### Bug Fixes
 
-* **state-style:**  修复存在状态时，动画丢失 ([2619645a](https://github.com/antvis/g2/commit/2619645a1162c97f66af0d8949ca1ba03e398e03))
+- **state-style:** 修复存在状态时，动画丢失 ([2619645a](https://github.com/antvis/g2/commit/2619645a1162c97f66af0d8949ca1ba03e398e03))
 
 #### 4.1.29 (2021-09-26)
 
 ##### Bug Fixes
 
-* **custom-content:**  修复 custom-content undefined 无法变回 tooltip 模版的问题 ([#3644](https://github.com/antvis/g2/pull/3644)) ([2790c349](https://github.com/antvis/g2/commit/2790c34907653c172136fef0124691f3bea3d863))
+- **custom-content:** 修复 custom-content undefined 无法变回 tooltip 模版的问题 ([#3644](https://github.com/antvis/g2/pull/3644)) ([2790c349](https://github.com/antvis/g2/commit/2790c34907653c172136fef0124691f3bea3d863))
 
 #### 4.1.28 (2021-09-24)
 
 ##### New Features
 
-* **geometry:**  refactor and rename createElements ([#3626](https://github.com/antvis/g2/pull/3626)) ([5dadea97](https://github.com/antvis/g2/commit/5dadea973f0915ebb446f037b9816b7c88a99cd3))
-*  constraint layout solver ([#3622](https://github.com/antvis/g2/pull/3622)) ([576cf07d](https://github.com/antvis/g2/commit/576cf07dbbd4a70ca6a01e609459ce1ff94cab80))
+- **geometry:** refactor and rename createElements ([#3626](https://github.com/antvis/g2/pull/3626)) ([5dadea97](https://github.com/antvis/g2/commit/5dadea973f0915ebb446f037b9816b7c88a99cd3))
+- constraint layout solver ([#3622](https://github.com/antvis/g2/pull/3622)) ([576cf07d](https://github.com/antvis/g2/commit/576cf07dbbd4a70ca6a01e609459ce1ff94cab80))
 
 ##### Bug Fixes
 
-*  crash on safari 15 when fillText with unicode ([#3640](https://github.com/antvis/g2/pull/3640)) ([0516f6e3](https://github.com/antvis/g2/commit/0516f6e3370df221bd52c6c987b8916da59979be))
+- crash on safari 15 when fillText with unicode ([#3640](https://github.com/antvis/g2/pull/3640)) ([0516f6e3](https://github.com/antvis/g2/commit/0516f6e3370df221bd52c6c987b8916da59979be))
 
 ##### Reverts
 
-*  annotation position 相关的 ([#3637](https://github.com/antvis/g2/pull/3637)) ([1109e3fd](https://github.com/antvis/g2/commit/1109e3fd7e8a455ba8c75f260c36162c5a15f869))
+- annotation position 相关的 ([#3637](https://github.com/antvis/g2/pull/3637)) ([1109e3fd](https://github.com/antvis/g2/commit/1109e3fd7e8a455ba8c75f260c36162c5a15f869))
 
 #### 4.1.26 (2021-09-15)
 
 ##### Documentation Changes
 
-* **facet:**  修改了镜像分面，使得轴标签居中显示 ([#3619](https://github.com/antvis/g2/pull/3619)) ([e3d83880](https://github.com/antvis/g2/commit/e3d83880fd408f02ec5a81616897a225abfdcf56))
-*  set default lang = zh ([#3609](https://github.com/antvis/g2/pull/3609)) ([d0224cc5](https://github.com/antvis/g2/commit/d0224cc557e725dcf2ff06aff8cec1b0932ec8b6))
+- **facet:** 修改了镜像分面，使得轴标签居中显示 ([#3619](https://github.com/antvis/g2/pull/3619)) ([e3d83880](https://github.com/antvis/g2/commit/e3d83880fd408f02ec5a81616897a225abfdcf56))
+- set default lang = zh ([#3609](https://github.com/antvis/g2/pull/3609)) ([d0224cc5](https://github.com/antvis/g2/commit/d0224cc557e725dcf2ff06aff8cec1b0932ec8b6))
 
 ##### New Features
 
-* **api:**  add new api for view ([#3600](https://github.com/antvis/g2/pull/3600)) ([dd473f18](https://github.com/antvis/g2/commit/dd473f188f7b09962bcd098b1bcc3fb1269f651a))
+- **api:** add new api for view ([#3600](https://github.com/antvis/g2/pull/3600)) ([dd473f18](https://github.com/antvis/g2/commit/dd473f188f7b09962bcd098b1bcc3fb1269f651a))
 
 ##### Bug Fixes
 
-* **tooltip:**  修复 clear + render 之后，tooltip dom 重复生成问题 ([#3621](https://github.com/antvis/g2/pull/3621)) ([eaacd502](https://github.com/antvis/g2/commit/eaacd50231e99d24a0b8d2415d58bf68b64c21ca))
-*  legend 自定义items 添加marker回调 ([#3591](https://github.com/antvis/g2/pull/3591)) ([dc80db29](https://github.com/antvis/g2/commit/dc80db292d706f9860bf72978a2b761baddabed9))
-* **scrollbar:**  修复了由于 getYScales 方法中去重方法错误导致的 scrollbar 会在特定情况下失效([#3569](https://github.com/antvis/g2/pull/3569)） ([#3570](https://github.com/antvis/g2/pull/3570)) ([28280ee4](https://github.com/antvis/g2/commit/28280ee47ba8ffef13ec1eee1e1d8d825af5ba24))
-* **annotation:**  修复 annotation 添加 id 失败 ([#3601](https://github.com/antvis/g2/pull/3601)) ([7561b33d](https://github.com/antvis/g2/commit/7561b33dcc999a070965cd80f67964b14975d84b))
+- **tooltip:** 修复 clear + render 之后，tooltip dom 重复生成问题 ([#3621](https://github.com/antvis/g2/pull/3621)) ([eaacd502](https://github.com/antvis/g2/commit/eaacd50231e99d24a0b8d2415d58bf68b64c21ca))
+- legend 自定义 items 添加 marker 回调 ([#3591](https://github.com/antvis/g2/pull/3591)) ([dc80db29](https://github.com/antvis/g2/commit/dc80db292d706f9860bf72978a2b761baddabed9))
+- **scrollbar:** 修复了由于 getYScales 方法中去重方法错误导致的 scrollbar 会在特定情况下失效([#3569](https://github.com/antvis/g2/pull/3569)） ([#3570](https://github.com/antvis/g2/pull/3570)) ([28280ee4](https://github.com/antvis/g2/commit/28280ee47ba8ffef13ec1eee1e1d8d825af5ba24))
+- **annotation:** 修复 annotation 添加 id 失败 ([#3601](https://github.com/antvis/g2/pull/3601)) ([7561b33d](https://github.com/antvis/g2/commit/7561b33dcc999a070965cd80f67964b14975d84b))
 
 ##### Refactors
 
-* **annotation:**  annotation position 支持百分比混用 ([#3615](https://github.com/antvis/g2/pull/3615)) ([bcffa462](https://github.com/antvis/g2/commit/bcffa462e12d9f97a76eccc86d2545781245d824))
-* **facet:**  添加了spacing属性，支持配置分面图之间的间距 ([#3614](https://github.com/antvis/g2/pull/3614)) ([d5588a0e](https://github.com/antvis/g2/commit/d5588a0ed9782bb9bfb0a145fc3bc080fdcb6f66))
-* **funnel:**  annotation 位置添加center，支持在漏斗图中正常显示 ([#3611](https://github.com/antvis/g2/pull/3611)) ([552500df](https://github.com/antvis/g2/commit/552500df9596358d7c6a7617274255b3376351f2))
+- **annotation:** annotation position 支持百分比混用 ([#3615](https://github.com/antvis/g2/pull/3615)) ([bcffa462](https://github.com/antvis/g2/commit/bcffa462e12d9f97a76eccc86d2545781245d824))
+- **facet:** 添加了 spacing 属性，支持配置分面图之间的间距 ([#3614](https://github.com/antvis/g2/pull/3614)) ([d5588a0e](https://github.com/antvis/g2/commit/d5588a0ed9782bb9bfb0a145fc3bc080fdcb6f66))
+- **funnel:** annotation 位置添加 center，支持在漏斗图中正常显示 ([#3611](https://github.com/antvis/g2/pull/3611)) ([552500df](https://github.com/antvis/g2/commit/552500df9596358d7c6a7617274255b3376351f2))
 
 #### 4.1.25 (2021-08-25)
 
