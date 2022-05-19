@@ -1,10 +1,11 @@
-import { TOOLTIP_CSS_CONST } from "@antv/component";
-import { deepMix } from "@antv/util";
-import { HtmlTooltip } from "../../../../dependents";
-import Action from "../../base";
-import { getDelegationObject } from "../../util";
+import { TOOLTIP_CSS_CONST } from '@antv/component';
+import { deepMix } from '@antv/util';
+import { HtmlTooltip } from '../../../../dependents';
+import Action from '../../base';
+import { getDelegationObject } from '../../util';
+import cx from 'classnames';
 
-const AXIS_DESCRIPTION_TOOLTIP = 'aixs-description-tooltip'
+const AXIS_DESCRIPTION_TOOLTIP = 'aixs-description-tooltip';
 
 class AxisDescription extends Action {
   private tooltip;
@@ -12,29 +13,26 @@ class AxisDescription extends Action {
   public show() {
     const context = this.context;
     const { axis } = getDelegationObject(context);
-    const { description, text } = axis.cfg.title;
+    const { description, text, descriptionTooltipStyle } = axis.cfg.title;
     const { x, y } = context.event;
-    if(!this.tooltip) {
-      this.renderTooltip()
-    };
+    if (!this.tooltip) {
+      this.renderTooltip();
+    }
     this.tooltip.update({
       title: text || '',
       customContent: () => {
-        return (`
-          <div class="${TOOLTIP_CSS_CONST.CONTAINER_CLASS}">
+        return `
+          <div class="${TOOLTIP_CSS_CONST.CONTAINER_CLASS}" style={${descriptionTooltipStyle}}>
             <div class="${TOOLTIP_CSS_CONST.TITLE_CLASS}">
-              ${text}
-            </div>
-            <div class="${TOOLTIP_CSS_CONST.LIST_CLASS}">
-              ${description}
+              字段说明：${description}
             </div>
           </div>
-        `)
+        `;
       },
       x,
-      y
+      y,
     });
-    this.tooltip.show()
+    this.tooltip.show();
   }
 
   public destroy() {
@@ -43,7 +41,7 @@ class AxisDescription extends Action {
   }
 
   public hide() {
-    this.tooltip && this.tooltip.hide()
+    this.tooltip && this.tooltip.hide();
   }
 
   public renderTooltip() {
@@ -59,28 +57,28 @@ class AxisDescription extends Action {
       visible: false,
       containerId: AXIS_DESCRIPTION_TOOLTIP,
       domStyles: {
-        ...deepMix({}, {
-          // 超长的时候，tooltip tip 最大宽度为 50%，然后可以换行
-          [TOOLTIP_CSS_CONST.CONTAINER_CLASS]: {
-            'max-width': '50%',
-            'padding': '5px',
-            'line-height': '15px'
-          },
-          [TOOLTIP_CSS_CONST.TITLE_CLASS]: {
-            'word-break': 'break-all',
-            'font-size': '14px',
-            'margin-bottom': '3px'
-          },
-          [TOOLTIP_CSS_CONST.LIST_CLASS]: {
-            'word-break': 'break-all',
-            'opacity': '.5'
+        ...deepMix(
+          {},
+          {
+            // 超长的时候，tooltip tip 最大宽度为 50%，然后可以换行
+            [TOOLTIP_CSS_CONST.CONTAINER_CLASS]: {
+              'max-width': '50%',
+              padding: '10px',
+              'line-height': '15px',
+              'font-size': '12px',
+              color: 'rgba(0, 0, 0, .65)',
+            },
+            [TOOLTIP_CSS_CONST.TITLE_CLASS]: {
+              'word-break': 'break-all',
+              'margin-bottom': '3px',
+            },
           }
-        }),
+        ),
       },
     });
     tooltip.init();
     tooltip.setCapture(false);
-    this.tooltip = tooltip
+    this.tooltip = tooltip;
   }
 }
-export default AxisDescription
+export default AxisDescription;
