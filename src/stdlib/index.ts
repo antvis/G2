@@ -12,6 +12,7 @@ import {
   Edge as EdgeGeometry,
   Image as ImageGeometry,
   Polygon as PolygonGeometry,
+  Schema as SchemaGeometry,
 } from '../mark/geometry';
 import {
   AnnotationText,
@@ -67,6 +68,7 @@ import {
   Arc as ArcEdge,
   Image,
   Polygon,
+  Box,
 } from '../shape';
 import { DodgeX, StackY, StackEnter, SplitPosition, Key } from '../statistic';
 import { Light } from '../theme';
@@ -118,6 +120,7 @@ export function createLibrary(): G2Library {
     'mark.edge': EdgeGeometry,
     'mark.image': ImageGeometry,
     'mark.polygon': PolygonGeometry,
+    'mark.schema': SchemaGeometry,
     'mark.annotation.text': AnnotationText,
     'mark.annotation.lineX': AnnotationLineX,
     'mark.annotation.lineY': AnnotationLineY,
@@ -162,6 +165,7 @@ export function createLibrary(): G2Library {
     'shape.arc': ArcEdge,
     'shape.image': Image,
     'shape.polygon': Polygon,
+    'shape.box': Box,
     'shape.annotation.text': AnnotationTextShape,
     'shape.annotation.badge': AnnotationBadge,
     'shape.annotation.line': AnnotationLineShape,
