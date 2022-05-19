@@ -119,7 +119,7 @@ _GridLineCfg_ 配置如下：
 | 参数名 | 类型                | 是否必选 | 默认值 | 描述                               |
 | ------ | ------------------- | -------- | ------ | ---------------------------------- |
 | type   | 'line' \| 'circle'  |          | -      | 栅格线的类型，'line' 或者 'circle' |
-| style  | [ShapeAttrs](/zh/docs/api/shape/shape-attrs) |          | -      | 坐标轴刻度线的样式配置项           |
+| style  | [ShapeAttrs](/zh/docs/api/shape/shape-attrs) \| ShapeAttrsCallback |          | -      | 坐标轴刻度线的样式配置项           |
 
 ### AxisOption.animate
 
