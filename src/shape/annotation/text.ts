@@ -21,7 +21,7 @@ type MarkerStyleProps = {
 };
 
 type TextShapeStyleProps = Omit<TextStyleProps, 'text'> & {
-  connector?: Omit<PathStyleProps, 'x' | 'y'>;
+  connector?: PathStyleProps;
   startMarker?: MarkerStyleProps;
   endMarker?: MarkerStyleProps;
   background?: Omit<RectStyleProps, 'width' | 'height' | 'x' | 'y'> & {
@@ -77,7 +77,7 @@ class TextShape extends CustomElement<TextShapeStyleProps> {
 
   private get endPoint() {
     const { connector } = this.style;
-    if (connector?.path?.length > 0) {
+    if (Array.isArray(connector?.path) && connector.path.length) {
       const [[, x, y]] = connector.path.slice(-1);
       return { x, y };
     }

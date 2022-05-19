@@ -26,7 +26,9 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
     return new Category({
       style: {
         items,
+        // @ts-ignore
         x,
+        // @ts-ignore
         y,
         maxWidth: width,
         maxHeight: height,

@@ -25,8 +25,8 @@ describe('AnnotationConnector shape', () => {
     mount(createDiv(), container);
 
     expect(shape.nodeName).toBe('g');
-    expect(style(shape, ['path'])).toEqual({
-      path: 'M60,200L60,188L240,188L240,200',
+    expect(style(shape, ['connectorPath'])).toEqual({
+      connectorPath: 'M60,200L60,188L240,188L240,200',
     });
     // @ts-ignore
     expect(shape.endMarker.style.symbol(0, 0, 8)).toEqual([

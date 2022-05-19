@@ -6,3 +6,4 @@ export { Subset, SubsetOptions } from './subset';
 export { FilterBy, FilterByOptions } from './filterBy';
 export { Sankey, SankeyOptions } from './sankey';
 export { WordCloud, WordCloudOptions } from './wordCloud';
+export { Voronoi, VoronoiOptions } from './voronoi';
