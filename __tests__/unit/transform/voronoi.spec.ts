@@ -1,6 +1,6 @@
 import { Voronoi } from '../../../src/transform';
 
-describe('SortBy', () => {
+describe('Voronoi', () => {
   it('Voronoi({...}) returns function transform data', () => {
     const data = [
       { x: 200, y: 200, v: 1 },
