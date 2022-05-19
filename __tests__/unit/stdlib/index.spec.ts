@@ -18,6 +18,7 @@ import {
   Edge as EdgeGeometry,
   Image as ImageGeometry,
   Polygon as PolygonGeometry,
+  Schema as SchemaGeometry,
 } from '../../../src/mark/geometry';
 import {
   AnnotationConnector,
@@ -72,6 +73,7 @@ import {
   Arc as ArcEdge,
   Image as ImageShape,
   Polygon as PolygonShape,
+  Box,
   AnnotationLine,
 } from '../../../src/shape';
 import {
@@ -140,6 +142,7 @@ describe('stdlib', () => {
       'mark.edge': EdgeGeometry,
       'mark.image': ImageGeometry,
       'mark.polygon': PolygonGeometry,
+      'mark.schema': SchemaGeometry,
       'infer.maybeTuple': MaybeTuple,
       'infer.maybeZeroX1': MaybeZeroX1,
       'infer.maybeZeroY2': MaybeZeroY2,
@@ -184,6 +187,7 @@ describe('stdlib', () => {
       'shape.arc': ArcEdge,
       'shape.image': ImageShape,
       'shape.polygon': PolygonShape,
+      'shape.box': Box,
       'statistic.stackY': StackY,
       'statistic.dodgeX': DodgeX,
       'statistic.stackEnter': StackEnter,
