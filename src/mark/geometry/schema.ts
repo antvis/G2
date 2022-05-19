@@ -7,6 +7,33 @@ export type SchemaOptions = Omit<SchemaGeometry, 'type'>;
 
 /**
  * Convert value for each channel to schema shapes.
+ *
+ * p0           p2          p1
+ *    ──────────┬──────────
+ *              │
+ *              │
+ *              │
+ *              │
+ *              │
+ *              │
+ *              │ p3
+ * p4 ┌─────────┴──────────┐ p5
+ *    │                    │
+ *    │                    │
+ * p8 ├────────────────────┤ p9
+ *    │                    │
+ *    │        p10         │
+ * p7 └─────────┬──────────┘ p6
+ *              │
+ *              │
+ *              │
+ *              │
+ *              │
+ *              │
+ *              │
+ *              │
+ *   ───────────┴───────────
+ * p12         p11           p13
  */
 export const Schema: MC<SchemaOptions> = () => {
   return (index, scale, value, coordinate) => {
@@ -17,35 +44,6 @@ export const Schema: MC<SchemaOptions> = () => {
     const xScale = scale.x as Band;
     const series = scale.series as Band;
 
-    /**
-     * Calc the key points of box.
-     * p0           p2          p1
-     *    ──────────┬──────────
-     *              │
-     *              │
-     *              │
-     *              │
-     *              │
-     *              │
-     *              │ p3
-     * p4 ┌─────────┴──────────┐ p5
-     *    │                    │
-     *    │                    │
-     * p8 ├────────────────────┤ p9
-     *    │                    │
-     *    │        p10         │
-     * p7 └─────────┬──────────┘ p6
-     *              │
-     *              │
-     *              │
-     *              │
-     *              │
-     *              │
-     *              │
-     *              │
-     *   ───────────┴───────────
-     * p12         p11           p13
-     */
     const P = Array.from(index, (i) => {
       const groupWidth = xScale.getBandWidth(xScale.invert(X[i][0]));
       const ratio = series ? series.getBandWidth(series.invert(+S?.[i])) : 1;
@@ -53,7 +51,6 @@ export const Schema: MC<SchemaOptions> = () => {
       const offset = (+S?.[i] || 0) * groupWidth;
 
       const x = X[i][0] + offset + width / 2;
-
       const [low, q1, median, q3, high] = Y[i];
 
       const P14 = [
