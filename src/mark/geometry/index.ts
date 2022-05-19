@@ -7,3 +7,4 @@ export { Area, AreaOptions } from './area';
 export { Edge, EdgeOptions } from './edge';
 export { Image, ImageOptions } from './image';
 export { Polygon, PolygonOptions } from './polygon';
+export { Schema, SchemaOptions } from './schema';
