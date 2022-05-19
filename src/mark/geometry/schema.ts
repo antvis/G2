@@ -52,7 +52,7 @@ export const Schema: MC<SchemaOptions> = () => {
       const width = groupWidth * ratio;
       const offset = (+S?.[i] || 0) * groupWidth;
 
-      const x = X[i][0] + offset + groupWidth / 2;
+      const x = X[i][0] + offset + width / 2;
 
       const [low, q1, median, q3, high] = Y[i];
 
