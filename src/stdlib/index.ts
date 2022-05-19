@@ -11,6 +11,7 @@ import {
   Area as AreaGeometry,
   Edge as EdgeGeometry,
   Image as ImageGeometry,
+  Polygon as PolygonGeometry,
 } from '../mark/geometry';
 import {
   AnnotationText,
@@ -62,6 +63,7 @@ import {
   Edge,
   Arc as ArcEdge,
   Image,
+  Polygon,
 } from '../shape';
 import { DodgeX, StackY, StackEnter, SplitPosition, Key } from '../statistic';
 import { Light } from '../theme';
@@ -73,6 +75,7 @@ import {
   WordCloud,
   Rename,
   Subset,
+  Voronoi,
 } from '../transform';
 import { AxisX, AxisY, LegendCategory, LegendContinuous } from '../component';
 import { ScaleInY, FadeIn } from '../animation';
@@ -111,6 +114,7 @@ export function createLibrary(): G2Library {
     'mark.area': AreaGeometry,
     'mark.edge': EdgeGeometry,
     'mark.image': ImageGeometry,
+    'mark.polygon': PolygonGeometry,
     'mark.annotation.text': AnnotationText,
     'mark.annotation.lineX': AnnotationLineX,
     'mark.annotation.lineY': AnnotationLineY,
@@ -151,6 +155,7 @@ export function createLibrary(): G2Library {
     'shape.edge': Edge,
     'shape.arc': ArcEdge,
     'shape.image': Image,
+    'shape.polygon': Polygon,
     'shape.annotation.text': AnnotationTextShape,
     'shape.annotation.badge': AnnotationBadge,
     'shape.annotation.line': AnnotationLineShape,
@@ -168,6 +173,7 @@ export function createLibrary(): G2Library {
     'transform.rename': Rename,
     'transform.subset': Subset,
     'transform.wordCloud': WordCloud,
+    'transform.voronoi': Voronoi,
     'component.axisX': AxisX,
     'component.axisY': AxisY,
     'component.legendCategory': LegendCategory,
