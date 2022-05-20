@@ -33,13 +33,11 @@ export const CurveArea: SC<CurveAreaOptions> = (options) => {
     } else {
       const center = coordinate.getCenter() as Vector2;
 
-      const appendY1 = [...Y1, Y1[0]];
-      const appendY0 = [...Y0, Y0[0]];
       pathString = areaRadial()
-        .angle((_, idx) => angle(sub(appendY1[idx], center)))
-        .outerRadius((_, idx) => dist(appendY1[idx], center))
-        .innerRadius((_, idx) => dist(appendY0[idx], center))
-        .curve(curve)(appendY1);
+        .angle((_, idx) => angle(sub(Y1[idx], center)))
+        .outerRadius((_, idx) => dist(Y1[idx], center))
+        .innerRadius((_, idx) => dist(Y0[idx], center))
+        .curve(curve)(Y0);
 
       transform = `translate(${center[0]}, ${center[1]}) ${transform || ''}`;
     }

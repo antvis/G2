@@ -1,4 +1,5 @@
-import { curveCatmullRom } from 'd3-shape';
+import { curveCatmullRomClosed, curveCatmullRom } from 'd3-shape';
+import { isPolar } from '../../utils/coordinate';
 import { ShapeComponent as SC } from '../../runtime';
 import { CurveArea } from './curveArea';
 
@@ -8,7 +9,15 @@ export type SmoothAreaOptions = {
 
 export const SmoothArea: SC<SmoothAreaOptions> = (options) => {
   const { alpha = 0.5, ...rest } = options;
-  return CurveArea({ curve: curveCatmullRom.alpha(alpha), ...rest });
+  return (P, value, coordinate, theme) => {
+    const curve = isPolar(coordinate) ? curveCatmullRomClosed : curveCatmullRom;
+    return CurveArea({ curve: curve.alpha(alpha), ...rest })(
+      P,
+      value,
+      coordinate,
+      theme,
+    );
+  };
 };
 
 SmoothArea.props = {
