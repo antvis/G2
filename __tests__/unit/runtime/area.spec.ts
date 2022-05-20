@@ -71,4 +71,27 @@ describe('area', () => {
 
     mount(createDiv(), chart);
   });
+
+  it('render({...}) should render area chart in polar with smooth', () => {
+    const chart = render<G2Spec>({
+      type: 'area',
+      data: SCORE_OF_ITEM_WITH_TYPE,
+      encode: {
+        x: 'item',
+        y: 'score',
+        color: 'type',
+        shape: 'smoothArea',
+      },
+      scale: {
+        x: { guide: { type: 'axisX' }, padding: 0.5, align: 0 },
+        y: { guide: { type: 'axisY', zIndex: 1 }, tickCount: 5 },
+      },
+      coordinate: [{ type: 'polar' }],
+      style: {
+        fillOpacity: 0.25,
+      },
+    });
+
+    mount(createDiv(), chart);
+  });
 });
