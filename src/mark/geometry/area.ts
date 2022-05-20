@@ -5,9 +5,32 @@ import { baseChannels, baseInference } from '../utils';
 
 export type AreaOptions = Omit<AreaGeometry, 'type'>;
 
-/**
+/*
  * Convert value for each channel to area shapes.
+ *
+ *     ▲
+ *     │
+ *     │                                         y2
+ *     │
+ *     │                     y1     xxxxxxxxxxxxx
+ *     │                         xxxx            x
+ *     │                      xxx                x
+ *     │                    xxx                  x
+ *     │        y0       xxx                     x
+ *     │           xxxxxxx                       x
+ *     │          x                              x
+ *     │         xx                              x
+ *     │         x                               x
+ *     │         x                               x
+ *     │         x                               x
+ *     │         x                               x
+ *     │         x                               x
+ *     │         x                               x
+ *     │         x                               x
+ * ────┼─────────x───────────────────────────────x──────────────►
+ *     │        y3             y4                y5
  */
+
 export const Area: MC<AreaOptions> = () => {
   return (index, scale, value, coordinate) => {
     const { x: X, y: Y, series: S } = value;
