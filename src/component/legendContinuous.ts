@@ -20,9 +20,7 @@ export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
     const [min, max] = domain;
     return new Continuous({
       style: {
-        // @ts-ignore
         x,
-        // @ts-ignore
         y,
         rail: {
           // length: 120,
