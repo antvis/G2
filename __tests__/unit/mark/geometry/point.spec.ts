@@ -30,7 +30,27 @@ describe('Point', () => {
         { type: 'maybeTitleX' },
         { type: 'maybeTooltipY' },
       ],
-      shapes: ['point', 'hollowPoint'],
+      shapes: [
+        'bowtie',
+        'cross',
+        'diamond',
+        'hexagon',
+        'hollowBowtie',
+        'hollowDiamond',
+        'hollowHexagon',
+        'hollowPoint',
+        'hollowSquare',
+        'hollowTriangle',
+        'hollowTriangleDown',
+        'hyphen',
+        'linePoint',
+        'plus',
+        'point',
+        'square',
+        'tick',
+        'triangle',
+        'triangleDown',
+      ],
     });
   });
 
