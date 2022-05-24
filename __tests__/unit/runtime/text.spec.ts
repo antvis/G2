@@ -23,7 +23,7 @@ describe('text', () => {
     };
 
     Flat.props = {
-      type: 'preprocessor',
+      category: 'preprocessor',
     };
 
     const chart = render<G2Spec>(
