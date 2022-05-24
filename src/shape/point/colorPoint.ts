@@ -1,6 +1,4 @@
-import { Circle } from '@antv/g';
 import { Marker } from '@antv/gui';
-import { symbol } from 'd3-shape';
 import { ShapeComponent as SC } from '../../runtime';
 import { select } from '../../utils/selection';
 import { applyStyle } from '../utils';
