@@ -22,5 +22,5 @@ export const MaybeSeries: TC<MaybeSeriesOptions> = () => {
 };
 
 MaybeSeries.props = {
-  type: 'inference',
+  category: 'inference',
 };

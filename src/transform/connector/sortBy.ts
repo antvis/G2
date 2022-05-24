@@ -24,5 +24,5 @@ export const SortBy: TC<SortByOptions> = (options) => {
 };
 
 SortBy.props = {
-  type: 'connector',
+  category: 'connector',
 };

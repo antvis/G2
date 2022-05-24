@@ -22,5 +22,5 @@ export const MaybeTitleX: TC<MaybeTitleXOptions> = () => {
 };
 
 MaybeTitleX.props = {
-  type: 'inference',
+  category: 'inference',
 };

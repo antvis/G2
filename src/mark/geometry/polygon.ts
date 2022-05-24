@@ -22,14 +22,14 @@ export const Polygon: MC<PolygonOptions> = () => {
       .map(([, value]) => value);
 
     const P = index.map((i) => {
-      const PN = [];
+      const Pn = [];
       for (let j = 0; j < Xn.length; j++) {
         const x = Xn[j][i];
         if (x === undefined) break;
         const y = Yn[j][i];
-        PN.push(coordinate.map([+x, +y]));
+        Pn.push(coordinate.map([+x, +y]));
       }
-      return PN as Vector2[];
+      return Pn as Vector2[];
     });
 
     return [index, P];

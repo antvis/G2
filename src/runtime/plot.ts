@@ -403,8 +403,8 @@ async function applyConnector<T extends G2ViewTree>(
   const others = [];
   for (const t of transform) {
     const { type } = t;
-    const { type: subType } = createTransform(type).props;
-    if (subType === 'connector') connectors.push(t);
+    const { category } = createTransform(type).props;
+    if (category === 'connector') connectors.push(t);
     else others.push(t);
   }
   if (connectors.length === 0) return node;

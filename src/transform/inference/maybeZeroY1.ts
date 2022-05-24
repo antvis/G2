@@ -14,5 +14,5 @@ export const MaybeZeroY1: TC<MaybeZeroY1Options> = () => {
 };
 
 MaybeZeroY1.props = {
-  type: 'inference',
+  category: 'inference',
 };

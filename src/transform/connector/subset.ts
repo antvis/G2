@@ -36,5 +36,5 @@ export const Subset: TC<SubsetOptions> = (options) => {
 };
 
 Subset.props = {
-  type: 'preprocessor',
+  category: 'preprocessor',
 };

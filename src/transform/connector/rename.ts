@@ -25,5 +25,5 @@ export const Rename: TC<RenameOptions> = (options) => {
 };
 
 Rename.props = {
-  type: 'connector',
+  category: 'connector',
 };

@@ -14,5 +14,5 @@ export const MaybeZeroX: TC<MaybeZeroXOptions> = () => {
 };
 
 MaybeZeroX.props = {
-  type: 'inference',
+  category: 'inference',
 };

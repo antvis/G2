@@ -12,5 +12,5 @@ export const MaybeTooltipY: TC<MaybeTooltipYOptions> = () => {
 };
 
 MaybeTooltipY.props = {
-  type: 'inference',
+  category: 'inference',
 };

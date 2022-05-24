@@ -20,5 +20,5 @@ export const FilterBy: TC<FilterByOptions> = (options) => {
 };
 
 FilterBy.props = {
-  type: 'connector',
+  category: 'connector',
 };

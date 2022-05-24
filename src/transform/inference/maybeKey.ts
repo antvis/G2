@@ -25,5 +25,5 @@ export const MaybeKey: TC<MaybeKeyOptions> = () => {
 };
 
 MaybeKey.props = {
-  type: 'inference',
+  category: 'inference',
 };

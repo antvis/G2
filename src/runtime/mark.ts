@@ -192,8 +192,8 @@ function applyTransform(
   const statistics = [];
   for (const t of partialTransform) {
     const { type } = t;
-    const { type: subType } = createTransform(type).props;
-    if (subType === 'preprocessor') preprocessors.push(t);
+    const { category } = createTransform(type).props;
+    if (category === 'preprocessor') preprocessors.push(t);
     else statistics.push(t);
   }
   const transform = [

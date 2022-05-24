@@ -53,5 +53,5 @@ export const DodgeX: TC<DodgeXOptions> = () => {
 };
 
 DodgeX.props = {
-  type: 'statistic',
+  category: 'statistic',
 };

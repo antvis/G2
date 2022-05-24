@@ -14,5 +14,5 @@ export const MaybeSize: TC<MaybeSizeOptions> = () => {
 };
 
 MaybeSize.props = {
-  type: 'inference',
+  category: 'inference',
 };

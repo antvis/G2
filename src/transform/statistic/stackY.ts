@@ -54,5 +54,5 @@ export const StackY: TC<StackYOptions> = (options = {}) => {
 };
 
 StackY.props = {
-  type: 'statistic',
+  category: 'statistic',
 };

@@ -112,5 +112,5 @@ export const WordCloud: TC<WordCloudOptions> = (options) => {
 };
 
 WordCloud.props = {
-  type: 'preprocessor',
+  category: 'preprocessor',
 };

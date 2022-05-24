@@ -31,5 +31,5 @@ export const MaybeTooltip: TC<MaybeTooltipOptions> = (options) => {
 };
 
 MaybeTooltip.props = {
-  type: 'inference',
+  category: 'inference',
 };

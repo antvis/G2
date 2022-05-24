@@ -61,5 +61,5 @@ export const StackEnter: TC<StackEnterOptions> = (options) => {
 };
 
 StackEnter.props = {
-  type: 'statistic',
+  category: 'statistic',
 };

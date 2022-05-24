@@ -101,5 +101,5 @@ export const Sankey: TC<SankeyOptions> = (options) => {
 };
 
 Sankey.props = {
-  type: 'preprocessor',
+  category: 'preprocessor',
 };

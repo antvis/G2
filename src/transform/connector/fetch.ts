@@ -21,5 +21,5 @@ export const Fetch: TC<FetchOptions> = (options) => {
 };
 
 Fetch.props = {
-  type: 'connector',
+  category: 'connector',
 };

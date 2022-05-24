@@ -51,5 +51,5 @@ export const MaybeArrayField: TC<MaybeArrayFieldOptions> = () => {
 };
 
 MaybeArrayField.props = {
-  type: 'inference',
+  category: 'inference',
 };

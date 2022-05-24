@@ -27,5 +27,5 @@ export const MaybeStackY: TC<MaybeStackYOptions> = (options) => {
 };
 
 MaybeStackY.props = {
-  type: 'inference',
+  category: 'inference',
 };

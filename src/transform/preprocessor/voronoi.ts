@@ -26,5 +26,5 @@ export const Voronoi: TC<VoronoiOptions> = (options) => {
 };
 
 Voronoi.props = {
-  type: 'preprocessor',
+  category: 'preprocessor',
 };
