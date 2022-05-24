@@ -1,11 +1,13 @@
 // Installing third-party modules by tnpm or cnpm will name modules with underscore as prefix.
 // In this case _{module} is also necessary.
-const esm = ['internmap', 'd3-*', 'lodash-es'].map((d) => `_${d}|${d}`).join('|');
+const esm = ['internmap', 'd3-*', 'lodash-es']
+  .map((d) => `_${d}|${d}`)
+  .join('|');
 
 module.exports = {
   runner: 'jest-electron/runner',
   testEnvironment: 'jest-electron/environment',
-  "testTimeout": 30000,
+  testTimeout: 30000,
   preset: 'ts-jest/presets/js-with-ts',
   globals: {
     'ts-jest': {
@@ -21,4 +23,7 @@ module.exports = {
   collectCoverageFrom: ['src/**/*.ts', '!**/d3-sankey/**', '!**/d3-cloud/**'],
   // Transform esm to cjs.
   transformIgnorePatterns: [`<rootDir>/node_modules/(?!(${esm}))`],
+  testPathIgnorePatterns: [
+    '<rootDir>/__tests__/unit/(transform|statistic|infer|animation|composition)',
+  ],
 };

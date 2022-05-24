@@ -86,12 +86,12 @@ describe('Interaction', () => {
       ],
       coordinate: [{ type: 'parallel' }],
       scale: {
-        'position[1]': { nice: true, guide: { zIndex: 1 } },
-        'position[2]': { nice: true, guide: { zIndex: 1 } },
-        'position[3]': { nice: true, guide: { zIndex: 1 } },
-        'position[4]': { nice: true, guide: { zIndex: 1 } },
-        'position[5]': { nice: true, guide: { zIndex: 1 } },
-        'position[6]': { nice: true, guide: { zIndex: 1 } },
+        position: { nice: true, guide: { zIndex: 1 } },
+        position1: { nice: true, guide: { zIndex: 1 } },
+        position2: { nice: true, guide: { zIndex: 1 } },
+        position3: { nice: true, guide: { zIndex: 1 } },
+        position4: { nice: true, guide: { zIndex: 1 } },
+        position5: { nice: true, guide: { zIndex: 1 } },
       },
       encode: {
         position: [
@@ -155,7 +155,7 @@ describe('Interaction', () => {
     mount(createDiv(), chart);
   });
 
-  it('render({...}) renders bubble chart with fisheye', () => {
+  it.only('render({...}) renders bubble chart with fisheye', () => {
     const chart = render({
       type: 'point',
       transform: [

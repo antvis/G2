@@ -3,7 +3,6 @@ import { Encode } from './encode';
 import { Transform } from './transform';
 import { Scale } from './scale';
 import { Coordinate } from './coordinate';
-import { Statistic } from './statistic';
 import { Animation } from './animate';
 import { Interaction } from './interaction';
 import { Theme } from './theme';
@@ -48,6 +47,7 @@ export type ChannelTypes =
   | 'enterEasing'
   | 'enterDuration'
   | 'enterDelay'
+  | 'enter'
   | 'size'
   | 'tooltip'
   | 'title'
@@ -67,7 +67,6 @@ export type BaseGeometry<
   encode?: Partial<Record<C, Encode | Encode[]>>;
   scale?: Partial<Record<C, Scale>>;
   coordinate?: Coordinate[];
-  statistic?: Statistic[];
   style?: Record<string, any>;
   interaction?: Interaction[];
   theme?: Theme;
@@ -88,7 +87,7 @@ export type IntervalGeometry = BaseGeometry<
 
 export type LineGeometry = BaseGeometry<
   'line',
-  ChannelTypes | 'position' | `position[${number}]`
+  ChannelTypes | 'position' | `position${number}`
 >;
 
 export type PointGeometry = BaseGeometry<'point'>;

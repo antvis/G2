@@ -17,17 +17,23 @@ function updateTooltip(
   theme: G2Theme,
 ) {
   const { defaultColor } = theme;
-  const { title, tooltip, color = defaultColor } = datum;
-  const { field } = scale.tooltip.getOptions();
-  const items = tooltip.map((d, i) => {
-    const isObject = typeof d === 'object' && !(d instanceof Date);
-    const item = isObject ? d : { value: `${d}` };
-    return {
-      name: field[i],
-      color,
-      ...item,
-    };
-  });
+  const { title, color = defaultColor } = datum;
+  const items = Object.entries(datum)
+    .filter(([key]) => key.startsWith('tooltip'))
+    .map(([key, d]) => {
+      const { field } = scale[key].getOptions();
+      const isObject = typeof d === 'object' && !(d instanceof Date);
+      const item = (isObject ? d : { value: d === undefined ? d : `${d}` }) as {
+        value: string;
+      };
+      return {
+        name: field,
+        color,
+        ...item,
+      };
+    })
+    .filter(({ value }) => value !== undefined);
+
   tooltipElement.update({
     x: mouseX,
     y: mouseY,

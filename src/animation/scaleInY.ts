@@ -15,6 +15,7 @@ export const ScaleInY: AC<ScaleInYOptions> = (options) => {
 
   return (shape, style, coordinate, theme) => {
     const { height } = shape.getBoundingClientRect();
+    const { transform: prefix } = shape.style;
     const [transformOrigin, transform]: [[number, number], string] =
       isTranspose(coordinate)
         ? [[0, 0], `scale(${ZERO}, 1)`] // left-top corner
@@ -23,9 +24,20 @@ export const ScaleInY: AC<ScaleInYOptions> = (options) => {
     // Using a short fadeIn transition to hide element with scale(0.001)
     // which is still visible.
     const keyframes = [
-      { transform, fillOpacity: 0, strokeOpacity: 0, opacity: 0 },
-      { transform, fillOpacity: 1, strokeOpacity: 1, opacity: 1, offset: 0.01 },
-      { transform: 'scale(1, 1)' },
+      {
+        transform: `${prefix} ${transform}`,
+        fillOpacity: 0,
+        strokeOpacity: 0,
+        opacity: 0,
+      },
+      {
+        transform: `${prefix} ${transform}`,
+        fillOpacity: 1,
+        strokeOpacity: 1,
+        opacity: 1,
+        offset: 0.01,
+      },
+      { transform: `${prefix} scale(1, 1)` },
     ];
 
     // Change transform origin for correct transform.

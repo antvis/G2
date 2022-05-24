@@ -1,6 +1,6 @@
 import { Band, Linear } from '@antv/scale';
 import { AnnotationText } from '../../../../src/mark/annotation';
-import { plot } from '../../geometry/helper';
+import { plot } from '../helper';
 
 describe('Annotation Text', () => {
   it('Text should has expected props', () => {
@@ -10,24 +10,18 @@ describe('Annotation Text', () => {
         { name: 'color' },
         { name: 'shape' },
         { name: 'enterType' },
-        { name: 'enterDelay' },
-        { name: 'enterDuration' },
+        { name: 'enterDelay', scaleName: 'enter' },
+        { name: 'enterDuration', scaleName: 'enter' },
         { name: 'enterEasing' },
         { name: 'key', scale: 'identity' },
-        { name: 'title', scale: 'identity' },
-        { name: 'tooltip', scale: 'identity' },
         { name: 'x', required: true },
         { name: 'y', required: true },
         { name: 'text', required: true, scale: 'identity' },
         { name: 'fontSize' },
         { name: 'rotate' },
       ],
-      infer: [
-        { type: 'maybeTuple' },
-        { type: 'maybeKey' },
-        { type: 'maybeTitle' },
-        { type: 'maybeTooltip' },
-      ],
+      preInference: [{ type: 'maybeArrayField' }],
+      postInference: [{ type: 'maybeKey' }],
       shapes: ['annotation.text', 'annotation.badge'],
     });
   });
@@ -37,8 +31,8 @@ describe('Annotation Text', () => {
       mark: AnnotationText({}),
       index: [0, 1, 2],
       channel: {
-        x: [[0.2], [0.4], [0.6]],
-        y: [[0.5], [0.2], [0.4]],
+        x: [0.2, 0.4, 0.6],
+        y: [0.5, 0.2, 0.4],
         text: ['a', 'b', 'c'],
       },
     });
@@ -55,8 +49,8 @@ describe('Annotation Text', () => {
         x: new Linear({}),
       },
       channel: {
-        x: [[0.2], [0.4], [0.6]],
-        y: [[0.5], [0.2], [0.4]],
+        x: [0.2, 0.4, 0.6],
+        y: [0.5, 0.2, 0.4],
         text: ['a', 'b', 'c'],
       },
     });
@@ -73,8 +67,8 @@ describe('Annotation Text', () => {
         x: new Band({ domain: ['a', 'b', 'c'], range: [0, 1] }),
       },
       channel: {
-        x: [[0.2], [0.4], [0.6]],
-        y: [[0.5], [0.2], [0.4]],
+        x: [0.2, 0.4, 0.6],
+        y: [0.5, 0.2, 0.4],
         text: ['a', 'b', 'c'],
       },
     });

@@ -1,4 +1,4 @@
-import { G2Spec, render } from '../../../src';
+import { G2Spec, render, TransformComponent } from '../../../src';
 import { createDiv, mount } from '../../utils/dom';
 
 describe('line', () => {
@@ -50,6 +50,27 @@ describe('line', () => {
   });
 
   it('render({...}) should render basic line chart', () => {
+    const Alpha: TransformComponent = ({ alphas = [] }) => {
+      if (!Array.isArray(alphas)) return (context) => context;
+      return ({ data, ...rest }) => {
+        const newData = alphas.flatMap((alpha) =>
+          data.map((d) => ({
+            ...d,
+            alpha,
+          })),
+        );
+        return {
+          ...rest,
+          data: newData,
+          I: new Array(newData.length).fill(0).map((_, i) => i),
+        };
+      };
+    };
+
+    Alpha.props = {
+      type: 'preprocessor',
+    };
+
     const chart = render<G2Spec>({
       type: 'line',
       data: [
@@ -65,16 +86,7 @@ describe('line', () => {
       ],
       transform: [
         {
-          type: ({ alphas = [] }) => {
-            if (!Array.isArray(alphas)) return (data) => data;
-            return (data) =>
-              alphas.flatMap((alpha) =>
-                data.map((d) => ({
-                  ...d,
-                  alpha,
-                })),
-              );
-          },
+          type: Alpha,
           alphas: [0, 0.25, 0.5, 0.75, 1],
         },
       ],
@@ -182,7 +194,7 @@ describe('line', () => {
         { month: 'Dec', city: 'Tokyo', temperature: 9.6 },
         { month: 'Dec', city: 'London', temperature: 4.8 },
       ],
-      statistic: [{ type: 'stackEnter', by: ['color'] }],
+      transform: [{ type: 'stackEnter', by: ['color'] }],
       encode: {
         x: 'month',
         y: 'temperature',
@@ -293,12 +305,12 @@ describe('line', () => {
         ],
         coordinate: [{ type: 'parallel' }],
         scale: {
-          'position[1]': { nice: true, guide: { zIndex: 1 } },
-          'position[2]': { nice: true, guide: { zIndex: 1 } },
-          'position[3]': { nice: true, guide: { zIndex: 1 } },
-          'position[4]': { nice: true, guide: { zIndex: 1 } },
-          'position[5]': { nice: true, guide: { zIndex: 1 } },
-          'position[6]': { nice: true, guide: { zIndex: 1 } },
+          position: { nice: true, guide: { zIndex: 1 } },
+          position1: { nice: true, guide: { zIndex: 1 } },
+          position2: { nice: true, guide: { zIndex: 1 } },
+          position3: { nice: true, guide: { zIndex: 1 } },
+          position4: { nice: true, guide: { zIndex: 1 } },
+          position5: { nice: true, guide: { zIndex: 1 } },
         },
         encode: {
           position: [

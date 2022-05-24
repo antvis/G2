@@ -1,22 +1,22 @@
 import { LineX } from '../../../../src/mark/annotation/lineX';
-import { plot } from '../../geometry/helper';
+import { plot } from '../helper';
 
 describe('Line annotation', () => {
   it('LineX and LineY has expected props', () => {
     expect(LineX.props).toEqual({
       defaultShape: 'annotation.line',
       channels: [
+        { name: 'color' },
+        { name: 'shape' },
         { name: 'enterType' },
-        { name: 'enterDelay' },
-        { name: 'enterDuration' },
+        { name: 'enterDelay', scaleName: 'enter' },
+        { name: 'enterDuration', scaleName: 'enter' },
         { name: 'enterEasing' },
         { name: 'key', scale: 'identity' },
         { name: 'y', required: true },
-        { name: 'shape' },
-        { name: 'size' },
-        { name: 'color' },
       ],
-      infer: [{ type: 'maybeTuple' }],
+      preInference: [{ type: 'maybeArrayField' }],
+      postInference: [{ type: 'maybeKey' }],
       shapes: ['annotation.line'],
     });
   });
@@ -26,7 +26,7 @@ describe('Line annotation', () => {
       mark: LineX({}),
       index: [0],
       channel: {
-        y: [[0.5], [0.5], [0.5]],
+        y: [0.5, 0.5, 0.5],
       },
     });
     expect(I).toEqual([0]);
@@ -43,7 +43,7 @@ describe('Line annotation', () => {
       mark: LineX({}),
       index: [0, 1, 2],
       channel: {
-        y: [[0.5], [0.2], [0.4]],
+        y: [0.5, 0.2, 0.4],
       },
     });
 

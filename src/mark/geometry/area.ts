@@ -1,7 +1,11 @@
 import { group } from 'd3-array';
 import { MarkComponent as MC } from '../../runtime';
 import { AreaGeometry } from '../../spec';
-import { baseChannels, baseInference } from '../utils';
+import {
+  baseGeometryChannels,
+  basePostInference,
+  basePreInference,
+} from '../utils';
 
 export type AreaOptions = Omit<AreaGeometry, 'type'>;
 
@@ -33,7 +37,7 @@ export type AreaOptions = Omit<AreaGeometry, 'type'>;
 
 export const Area: MC<AreaOptions> = () => {
   return (index, scale, value, coordinate) => {
-    const { x: X, y: Y, series: S } = value;
+    const { x: X, y: Y, y1: Y1, series: S } = value;
 
     // Group data by series field.
     const series = S ? Array.from(group(index, (i) => S[i]).values()) : [index];
@@ -46,8 +50,8 @@ export const Area: MC<AreaOptions> = () => {
 
       for (let idx = 0; idx < SI.length; idx++) {
         const i = SI[idx];
-        points[idx] = coordinate.map([X[i][0], Y[i][0]]); // y1
-        points[l + idx] = coordinate.map([X[i][0], Y[i][1]]); // y0
+        points[idx] = coordinate.map([+X[i], +Y[i]]); // y1
+        points[l + idx] = coordinate.map([+X[i], +Y1[i]]); // y0
       }
 
       return points;
@@ -60,12 +64,21 @@ export const Area: MC<AreaOptions> = () => {
 Area.props = {
   defaultShape: 'area',
   channels: [
-    ...baseChannels(),
+    ...baseGeometryChannels(),
     { name: 'x', required: true },
     { name: 'y', required: true },
     { name: 'size' },
     { name: 'series', scale: 'identity' },
   ],
-  infer: [...baseInference(), { type: 'maybeSeries' }, { type: 'maybeZeroY2' }],
+  preInference: [
+    ...basePreInference(),
+    { type: 'maybeSeries' },
+    { type: 'maybeZeroY1' },
+  ],
+  postInference: [
+    ...basePostInference(),
+    { type: 'maybeTitleX' },
+    { type: 'maybeTooltipY' },
+  ],
   shapes: ['area', 'smooth'],
 };

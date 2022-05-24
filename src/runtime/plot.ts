@@ -19,11 +19,8 @@ import {
 import {
   ThemeComponent,
   Theme,
-  MarkComponent,
-  Mark,
   ScaleComponent,
   Scale,
-  MarkChannel,
   Shape,
   ShapeComponent,
   AnimationComponent,
@@ -32,9 +29,9 @@ import {
   Composition,
   AdjustComponent,
   Adjust,
-  TransformComponent,
-  Transform,
 } from './types/component';
+import { MarkComponent, Mark, MarkChannel } from './types/mark';
+import { TransformComponent, Transform } from './types/transform';
 import { Channel, G2ViewDescriptor, G2MarkState } from './types/common';
 import { useLibrary } from './library';
 import { initializeMark } from './mark';
@@ -78,8 +75,8 @@ export async function plot<T extends G2ViewTree>(
       // Apply transform to get data in advance for composition node,
       // which makes sure that composition node can preprocess the
       // data to produce more nodes based on it.
-      const transformedNode = await applyTransform(node, library);
-      const nodes = composition(transformedNode);
+      const nodeWithData = await applyConnector(node, library);
+      const nodes = composition(nodeWithData);
       discovered.push(...nodes);
     }
   }
@@ -219,40 +216,38 @@ async function initializeView(
       .call(applyShapeFunction, index, style, defaultShape, library)
       .value();
 
-    // Filter datum with falsy position value and exclude in this facet.
-    // @todo Take position channel into account.
-    const definedPosition = (i) => {
-      const { x: X = [], y: Y = [] } = value;
-      const x = X[i];
-      const y = Y[i];
-      const definedX = x ? x.every(defined) : true;
-      const definedY = y ? y.every(defined) : true;
-      return definedX && definedY;
-    };
-    const includeFacet = facet && filter ? filter : () => true;
-    const filteredIndex = index.filter(
-      (i) => definedPosition(i) && includeFacet(i),
-    );
+    // Filter datum include in this facet.
+    const includeIndex = facet && filter ? index.filter(filter) : index;
 
     // Calc points and transformation for each data,
     // and then transform visual value to visual data.
     const calcPoints = useMark(mark);
     const [I, P] = calcPoints(
-      filteredIndex,
+      includeIndex,
       markScaleInstance,
       value,
       coordinate,
     );
-    const count = dataDomain || filteredIndex.length;
+    const definedIndex = [];
+    const definedPoints = [];
+    for (let i = 0; i < I.length; i++) {
+      const d = I[i];
+      const p = P[i];
+      if (p.every(([x, y]) => defined(x) && defined(y))) {
+        definedIndex.push(d);
+        definedPoints.push(p);
+      }
+    }
+    const count = dataDomain || definedIndex.length;
     const T = adjust ? useAdjust(adjust)(P, count, layout) : [];
-    const visualData: Record<string, any>[] = I.map((d, i) =>
+    const visualData: Record<string, any>[] = definedIndex.map((d, i) =>
       Object.entries(value).reduce(
         (datum, [k, V]) => ((datum[k] = V[d]), datum),
-        { points: P[i], transform: T[i] },
+        { points: definedPoints[i], transform: T[i] },
       ),
     );
     state.data = visualData;
-    state.index = I;
+    state.index = definedIndex;
 
     // Create children options by children callback,
     // and then propagate data to each child.
@@ -394,20 +389,28 @@ function inferTheme(theme: G2ThemeOptions = { type: 'light' }): G2ThemeOptions {
   return { ...theme, type };
 }
 
-async function applyTransform<T extends G2ViewTree>(
+async function applyConnector<T extends G2ViewTree>(
   node: T,
   library: G2Library,
 ): Promise<G2ViewTree> {
-  const [useTransform] = useLibrary<
+  const [useTransform, createTransform] = useLibrary<
     G2TransformOptions,
     TransformComponent,
     Transform
   >('transform', library);
-  const { transform, data, ...rest } = node;
-  if (transform === undefined) return node;
-  const transformFunctions = transform.map(useTransform);
-  const transformedData = await composeAsync(transformFunctions)(data);
-  return { data: transformedData, ...rest };
+  const { transform = [], data, ...rest } = node;
+  const connectors = [];
+  const others = [];
+  for (const t of transform) {
+    const { type } = t;
+    const { category } = createTransform(type).props;
+    if (category === 'connector') connectors.push(t);
+    else others.push(t);
+  }
+  if (connectors.length === 0) return node;
+  const transformFunctions = connectors.map(useTransform);
+  const { data: newData } = await composeAsync(transformFunctions)({ data });
+  return { ...rest, data: newData, transform: others };
 }
 
 function applyBBox(selection: Selection) {

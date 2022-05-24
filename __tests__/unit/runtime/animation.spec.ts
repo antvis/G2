@@ -149,7 +149,10 @@ describe('animation', () => {
           { genre: 'Shooter', sold: 350 },
           { genre: 'Other', sold: 150 },
         ],
-        statistic: [{ type: 'stackEnter', by: ['x'] }],
+        scale: {
+          enter: { type: 'identity' },
+        },
+        transform: [{ type: 'stackEnter', by: ['x'] }],
         encode: {
           x: 'genre',
           y: 'sold',
@@ -175,7 +178,10 @@ describe('animation', () => {
           { type: 'Orange', year: '2002', value: 150 },
           { type: 'Banana', year: '2002', value: 30 },
         ],
-        statistic: [{ type: 'stackEnter', by: ['color'] }],
+        scale: {
+          enter: { type: 'identity' },
+        },
+        transform: [{ type: 'stackEnter', by: ['color'] }],
         encode: {
           x: 'year',
           y: 'value',
@@ -202,7 +208,10 @@ describe('animation', () => {
           { type: 'Orange', year: '2002', value: 150 },
           { type: 'Banana', year: '2002', value: 30 },
         ],
-        statistic: [{ type: 'stackEnter', by: ['x', 'color'] }],
+        scale: {
+          enter: { type: 'identity' },
+        },
+        transform: [{ type: 'stackEnter', by: ['x', 'color'] }],
         encode: {
           x: 'year',
           y: 'value',
@@ -229,7 +238,10 @@ describe('animation', () => {
           { type: 'Orange', year: '2002', value: 150 },
           { type: 'Banana', year: '2002', value: 30 },
         ],
-        statistic: [{ type: 'stackEnter', by: ['color'] }],
+        scale: {
+          enter: { type: 'identity' },
+        },
+        transform: [{ type: 'stackEnter', by: ['color'] }],
         encode: {
           x: 'year',
           y: 'value',
@@ -257,7 +269,10 @@ describe('animation', () => {
           { type: 'Orange', year: '2002', value: 150 },
           { type: 'Banana', year: '2002', value: 30 },
         ],
-        statistic: [{ type: 'stackEnter', by: ['x'] }],
+        scale: {
+          enter: { type: 'identity' },
+        },
+        transform: [{ type: 'stackEnter', by: ['x'] }],
         encode: {
           x: 'year',
           y: 'value',
@@ -285,7 +300,10 @@ describe('animation', () => {
           { type: 'Orange', year: '2002', value: 150 },
           { type: 'Banana', year: '2002', value: 30 },
         ],
-        statistic: [{ type: 'stackEnter', by: ['x', 'color'] }],
+        scale: {
+          enter: { type: 'identity' },
+        },
+        transform: [{ type: 'stackEnter', by: ['x', 'color'] }],
         encode: {
           x: 'year',
           y: 'value',
@@ -313,7 +331,7 @@ describe('animation', () => {
           { type: 'Orange', year: '2002', value: 150 },
           { type: 'Banana', year: '2002', value: 30 },
         ],
-        statistic: [{ type: 'stackEnter', by: ['color', 'x'] }],
+        transform: [{ type: 'stackEnter', by: ['color', 'x'] }],
         encode: {
           x: 'year',
           y: 'value',
@@ -345,7 +363,7 @@ describe('animation', () => {
         ],
         coordinate: [{ type: 'transpose' }],
         scale: {
-          enterDelay: { range: [0, 10000] },
+          enter: { range: [0, 10000], zero: true },
         },
         encode: {
           x: 'name',
