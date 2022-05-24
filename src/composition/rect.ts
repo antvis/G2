@@ -146,7 +146,7 @@ const setFilterPreprocessor = useOverrideAdaptor<G2ViewTree>((options) => {
   };
 
   Filter.props = {
-    type: 'preprocessor',
+    category: 'preprocessor',
   };
 
   return {

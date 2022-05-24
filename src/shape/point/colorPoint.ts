@@ -1,10 +1,11 @@
-import { Circle } from '@antv/g';
+import { Marker } from '@antv/gui';
 import { ShapeComponent as SC } from '../../runtime';
 import { select } from '../../utils/selection';
 import { applyStyle } from '../utils';
 
 export type ColorPointOptions = {
   colorAttribute: 'fill' | 'stroke';
+  symbol: string;
   [key: string]: any;
 };
 
@@ -13,7 +14,7 @@ export type ColorPointOptions = {
  */
 export const ColorPoint: SC<ColorPointOptions> = (options) => {
   // Render border only when colorAttribute is stroke.
-  const { colorAttribute, ...style } = options;
+  const { colorAttribute, symbol = 'point', ...style } = options;
   const lineWidth = colorAttribute === 'stroke' ? 1 : undefined;
 
   return (points, value, coordinate, theme) => {
@@ -24,10 +25,11 @@ export const ColorPoint: SC<ColorPointOptions> = (options) => {
     const a = (x2 - x0) / 2;
     const b = (y2 - y0) / 2;
     const r = Math.max(0, (a + b) / 2);
-    return select(new Circle())
-      .style('r', r)
-      .style('cx', cx)
-      .style('cy', cy)
+    return select(new Marker({}))
+      .style('size', r)
+      .style('x', cx)
+      .style('y', cy)
+      .style('symbol', symbol)
       .style('lineWidth', lineWidth)
       .style('stroke', color)
       .style('transform', transform)
