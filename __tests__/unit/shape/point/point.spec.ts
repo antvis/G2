@@ -24,11 +24,11 @@ describe('Point', () => {
     });
     mount(createDiv(), container);
 
-    expect(shape.nodeName).toBe('circle');
-    expect(style(shape, ['fill', 'r', 'lineWidth'])).toEqual({
+    expect(shape.nodeName).toBe('marker');
+    expect(style(shape, ['fill', 'size', 'lineWidth'])).toEqual({
       fill: 'steelblue',
-      r: 75,
-      lineWidth: '0',
+      size: 75,
+      lineWidth: null,
     });
   });
 
@@ -47,7 +47,7 @@ describe('Point', () => {
     });
     mount(createDiv(), container);
 
-    expect(shape.nodeName).toBe('circle');
+    expect(shape.nodeName).toBe('marker');
     expect(style(shape, ['fill'])).toEqual({
       fill: 'red',
     });
