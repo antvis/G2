@@ -117,37 +117,42 @@ const toGrid = useOverrideAdaptor<G2ViewTree>(() => ({
 }));
 
 /**
- * Filter index and value to make sure that there is only one grid
+ * Filter data to make sure that there is only one grid
  * rendered for each x value and y value.
  **/
-const setStatistic = useOverrideAdaptor<G2ViewTree>(() => ({
-  statistic: [
-    {
-      type:
-        () =>
-        ({ index, value }) => {
-          const keys = new Set();
-          const { x: X, y: Y } = value;
-          const filteredIndex = index.filter((i) => {
-            const x = X[i][0];
-            const y = Y[i][0];
-            const key = `(${x}, ${y})`;
-            if (keys.has(key)) return false;
-            keys.add(key);
-            return true;
-          });
-          const filteredValue = Object.entries(value).reduce((obj, [k, v]) => {
-            obj[k] = filteredIndex.map((i) => v[i]);
-            return obj;
-          }, {});
-          return {
-            index: indexOf(filteredIndex),
-            value: filteredValue,
-          };
-        },
-    },
-  ],
-}));
+const setFilterPreprocessor = useOverrideAdaptor<G2ViewTree>((options) => {
+  const { transform = [] } = options;
+  const Filter = () => {
+    return (context) => {
+      const { data, columnOf, encode } = context;
+      const { x, y } = encode;
+      const X = columnOf(data, x);
+      const Y = columnOf(data, y);
+      const keys = new Set();
+      const newData = data.filter((_, i) => {
+        const x = X?.[i];
+        const y = Y?.[i];
+        const key = `(${x}, ${y})`;
+        if (keys.has(key)) return false;
+        keys.add(key);
+        return true;
+      });
+      return {
+        ...context,
+        data: newData,
+        I: new Array(newData.length).fill(0).map((_, i) => i),
+      };
+    };
+  };
+
+  Filter.props = {
+    type: 'preprocessor',
+  };
+
+  return {
+    transform: [...transform, { type: Filter }],
+  };
+});
 
 /**
  * @todo Move some options assignment to runtime.
@@ -172,15 +177,13 @@ const setChildren = useOverrideAdaptor<G2ViewTree>((options) => {
   ) => {
     const { x: scaleX, y: scaleY } = scale;
     const { paddingLeft, paddingTop } = layout;
-    const { domain: domainX, field: fieldsX } = scaleX.getOptions();
-    const { domain: domainY, field: fieldsY } = scaleY.getOptions();
-    const [fieldX] = fieldsX;
-    const [fieldY] = fieldsY;
+    const { domain: domainX, field: fieldX } = scaleX.getOptions();
+    const { domain: domainY, field: fieldY } = scaleY.getOptions();
     const index = indexOf(visualData);
     const bboxs = visualData.map(({ points }) => calcBBox(points));
     const values = visualData.map(({ x, y }) => [
-      scaleX.invert(x[0]),
-      scaleY.invert(y[0]),
+      scaleX.invert(x),
+      scaleY.invert(y),
     ]);
     const filters = values.map(([fx, fy]) => (d) => {
       const { [fieldX]: x, [fieldY]: y } = d;
@@ -287,7 +290,7 @@ export const Rect: CC<RectOptions> = () => {
       .call(setAnimation)
       .call(setScale)
       .call(setStyle)
-      .call(setStatistic)
+      .call(setFilterPreprocessor)
       .call(setChildren)
       .value();
     return [newOptions];

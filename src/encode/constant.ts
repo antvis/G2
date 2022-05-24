@@ -4,7 +4,7 @@ import { ConstantEncode } from '../spec';
 export type ConstantOptions = Omit<ConstantEncode, 'type'>;
 
 /**
- * Extract an array filled with the specified constant from the data.
+ * Extract a column of data filled with the specified constant.
  */
 export const Constant: EC<ConstantOptions> = ({ value }) => {
   return (data) => data.map(() => value);

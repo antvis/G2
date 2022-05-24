@@ -1,6 +1,10 @@
 import { MarkComponent as MC, Vector2 } from '../../runtime';
 import { PointGeometry } from '../../spec';
-import { baseChannels, baseInference } from '../utils';
+import {
+  baseGeometryChannels,
+  basePostInference,
+  basePreInference,
+} from '../utils';
 
 export type PointOptions = Omit<PointGeometry, 'type'>;
 
@@ -15,8 +19,8 @@ export const Point: MC<PointOptions> = () => {
     const { x: X, y: Y, size: S } = value;
     const [width, height] = coordinate.getSize();
     const P = Array.from(index, (i) => {
-      const cx = +X[i][0];
-      const cy = +Y[i][0];
+      const cx = +X[i];
+      const cy = +Y[i];
       const r = +S[i];
       const a = r / width;
       const b = r / height;
@@ -31,16 +35,21 @@ export const Point: MC<PointOptions> = () => {
 Point.props = {
   defaultShape: 'point',
   channels: [
-    ...baseChannels(),
+    ...baseGeometryChannels(),
     { name: 'x', required: true },
     { name: 'y', required: true },
     { name: 'size', required: true },
   ],
-  infer: [
-    ...baseInference(),
-    { type: 'maybeZeroY1' },
-    { type: 'maybeZeroX1' },
+  preInference: [
+    ...basePreInference(),
+    { type: 'maybeZeroY' },
+    { type: 'maybeZeroX' },
     { type: 'maybeSize' },
+  ],
+  postInference: [
+    ...basePostInference(),
+    { type: 'maybeTitleX' },
+    { type: 'maybeTooltipY' },
   ],
   shapes: ['point', 'hollowPoint'],
 };

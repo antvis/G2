@@ -4,11 +4,17 @@ export type Encode =
   | ConstantEncode
   | FieldEncode
   | TransformEncode
+  | ColumnEncode
   | ConstantEncode['value']
   | FieldEncode['value']
   | TransformEncode['value'];
 
-export type EncodeTypes = 'constant' | 'field' | 'transform' | EncodeComponent;
+export type EncodeTypes =
+  | 'constant'
+  | 'field'
+  | 'transform'
+  | 'column'
+  | EncodeComponent;
 
 export type ConstantEncode = {
   type?: 'constant';
@@ -17,7 +23,12 @@ export type ConstantEncode = {
 
 export type FieldEncode = {
   type?: 'field';
-  value: string;
+  value?: string;
+};
+
+export type ColumnEncode = {
+  type?: 'column';
+  value?: Primitive[];
 };
 
 export type TransformEncode = {

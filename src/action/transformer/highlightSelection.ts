@@ -21,7 +21,7 @@ export const HighlightSelection: AC<HighlightSelectionOptions> = (options) => {
         enter
           .append((_, i) => selectedElements[i].cloneNode())
           .style('lineWidth', function () {
-            return this.style.lineWidth || 1;
+            return +this.style.lineWidth || 1;
           })
           .style('stroke', color)
           .attr('className', 'highlight-element'),

@@ -4,53 +4,57 @@ function withFunction(_: string, value: any) {
   return typeof value === 'function' ? `${value}` : value;
 }
 /**
- * Returns a sync function returning memoized transform.
+ * Returns a sync function returning memoized transform of preprocessor and connector.
  * The memoized value will recompute only when the data reference or options has changed.
  */
-export function useMemoTransform<T>(
-  callbackFn: TransformComponent<T>,
+export function useMemoPreprocessor<T>(
+  Preprocessor: TransformComponent<T>,
 ): TransformComponent<T> {
   const dataCache = new Map();
-  return (options) => {
+  const NewPreprocessor = (options) => {
     const key = JSON.stringify(options, withFunction);
-    const transform = callbackFn(options);
-    return (data) => {
+    const transform = Preprocessor(options);
+    return ({ data }) => {
       if (dataCache.has(data)) {
         const cache = dataCache.get(data);
         cache[key] = cache[key] || transform(data);
         return cache[key];
       }
       const cache = {};
-      cache[key] = transform(data);
+      cache[key] = transform({ data });
       dataCache.set(data, cache);
       return cache[key];
     };
   };
+  NewPreprocessor.props = Preprocessor.props;
+  return NewPreprocessor;
 }
 
 /**
- * Returns a async function returning memoized transform.
+ * Returns a async function returning memoized transform and connector.
  * The memoized value will recompute only when the data reference or options has changed.
  */
-export function useAsyncMemoTransform<T>(
-  callbackFn: TransformComponent<T>,
+export function useAsyncMemoPreprocessor<T>(
+  Preprocessor: TransformComponent<T>,
 ): TransformComponent<T> {
   const dataCache = new Map();
-  return (options) => {
+  const NewPreprocessor = (options) => {
     const key = JSON.stringify(options, withFunction);
-    const transform = callbackFn(options);
-    return async (data) => {
+    const transform = Preprocessor(options);
+    return async ({ data }) => {
       if (dataCache.has(data)) {
         const cache = dataCache.get(data);
         cache[key] = cache[key] || (await transform(data));
         return cache[key];
       }
       const cache = {};
-      cache[key] = transform(data);
+      cache[key] = transform({ data });
       dataCache.set(data, cache);
       return cache[key];
     };
   };
+  NewPreprocessor.props = Preprocessor.props;
+  return NewPreprocessor;
 }
 
 /**
@@ -59,15 +63,17 @@ export function useAsyncMemoTransform<T>(
  * and ignore data.
  */
 export function useMemoConnector<T>(
-  callbackFn: TransformComponent<T>,
+  Connector: TransformComponent<T>,
 ): TransformComponent<T> {
   const cache = {};
-  return (options) => {
-    const connector = callbackFn(options);
+  const NewConnector = (options) => {
+    const transform = Connector(options);
     const key = JSON.stringify(options, withFunction);
     return async () => {
-      cache[key] = cache[key] || (await connector());
+      cache[key] = cache[key] || (await transform({}));
       return cache[key];
     };
   };
+  NewConnector.props = Connector.props;
+  return NewConnector;
 }

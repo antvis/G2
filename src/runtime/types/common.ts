@@ -1,6 +1,8 @@
 import { Coordinate } from '@antv/coord';
 import { G2GuideComponentOptions, G2Mark } from './options';
-import { Scale, MarkProps } from './component';
+import { Scale } from './component';
+import { MarkProps } from './mark';
+import { ColumnValue } from './encode';
 
 export type G2Theme = {
   defaultColor?: string;
@@ -60,15 +62,17 @@ export type IndexedValue = {
 };
 
 export type ChannelValue = MaybeArray<Primitive>[];
+
 export type Channel = {
-  name: string;
+  name?: string;
   scale?: string;
+  scaleName?: string;
   required?: boolean;
-  value?: ChannelValue;
+  value?: ColumnValue;
   type?: string;
+  independent?: boolean;
   field?: string | string[];
 };
-export type FlattenChannel = Omit<Channel, 'value'> & { value?: Primitive[] };
 
 export type Vector2 = [number, number];
 

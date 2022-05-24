@@ -1,32 +1,33 @@
-/**
- * Channels for all geometries.
- * The order is not important.
- */
-export function baseChannels() {
+import { Channel } from '../runtime';
+
+export function baseChannels(): Channel[] {
   return [
     { name: 'color' },
     { name: 'shape' },
     { name: 'enterType' },
-    { name: 'enterDelay' },
-    { name: 'enterDuration' },
+    { name: 'enterDelay', scaleName: 'enter' },
+    { name: 'enterDuration', scaleName: 'enter' },
     { name: 'enterEasing' },
     { name: 'key', scale: 'identity' },
-    { name: 'title', scale: 'identity' },
-    { name: 'tooltip', scale: 'identity' },
   ];
 }
 
-/**
- * Inference for all geometries.
- * MaybeTuple should always be the first one,
- * because the following inference only accept nested channels.
- * MaybeKey should always be the second one to avoid redundant channel keys.
- */
-export function baseInference() {
+export function baseGeometryChannels(): Channel[] {
   return [
-    { type: 'maybeTuple' },
-    { type: 'maybeKey' },
-    { type: 'maybeTitle' },
-    { type: 'maybeTooltip' },
+    ...baseChannels(),
+    { name: 'title', scale: 'identity' },
+    { name: 'tooltip', scale: 'identity', independent: true },
   ];
+}
+
+export function baseAnnotationChannels(): Channel[] {
+  return baseChannels();
+}
+
+export function basePreInference() {
+  return [{ type: 'maybeArrayField' }];
+}
+
+export function basePostInference() {
+  return [{ type: 'maybeKey' }];
 }

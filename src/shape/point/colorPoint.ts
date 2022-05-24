@@ -26,8 +26,8 @@ export const ColorPoint: SC<ColorPointOptions> = (options) => {
     const r = Math.max(0, (a + b) / 2);
     return select(new Circle())
       .style('r', r)
-      .style('x', cx)
-      .style('y', cy)
+      .style('cx', cx)
+      .style('cy', cy)
       .style('lineWidth', lineWidth)
       .style('stroke', color)
       .style('transform', transform)

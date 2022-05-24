@@ -38,13 +38,13 @@ describe('area', () => {
     const chart = render<G2Spec>({
       type: 'area',
       data: SALE_OF_YEAR_WITH_TYPE,
+      transform: [{ type: 'stackY' }],
       encode: {
         x: 'year',
         y: 'sale',
         color: 'type',
         shape: 'smoothArea',
       },
-      statistic: [{ type: 'stackY' }],
     });
 
     mount(createDiv(), chart);

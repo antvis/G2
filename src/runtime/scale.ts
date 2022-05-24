@@ -1,7 +1,7 @@
 import { createInterpolateValue } from '@antv/scale';
-import { firstOf, lastOf, unique, isFlatArray } from '../utils/array';
+import { firstOf, lastOf, unique } from '../utils/array';
 import { defined } from '../utils/helper';
-import { Channel, FlattenChannel, Primitive, G2Theme } from './types/common';
+import { Channel, Primitive, G2Theme } from './types/common';
 import {
   G2CoordinateOptions,
   G2Library,
@@ -26,8 +26,7 @@ export function inferScale(
   nameScale: Map<string, G2ScaleOptions>,
   library: G2Library,
 ) {
-  const { name: channelName } = channel;
-  const name = scaleName(channelName);
+  const { scaleName } = channel;
   const potentialScale = inferPotentialScale(
     channel,
     options,
@@ -38,46 +37,25 @@ export function inferScale(
   );
   const { independent } = potentialScale;
   if (independent) return potentialScale;
-  if (!nameScale.has(name)) {
-    nameScale.set(name, potentialScale);
+  if (!nameScale.has(scaleName)) {
+    nameScale.set(scaleName, potentialScale);
     return potentialScale;
   }
-  const scale = nameScale.get(name);
-  syncScale(channelName, scale, potentialScale);
+  const scale = nameScale.get(scaleName);
+  syncScale(scaleName, scale, potentialScale);
   return scale;
 }
 
 export function applyScale(
   channels: Channel[],
-  scales: Record<string, Scale>,
+  scale: Record<string, Scale>,
 ): Record<string, Channel> {
-  const values = {};
-  for (const { name, value } of channels) {
-    const scale = scales[name];
-    const map = scale.map.bind(scale);
-    if (isFlatArray(value)) {
-      values[name] = value.map(map);
-    } else {
-      values[name] = value.map((d) => (Array.isArray(d) ? d.map(map) : map(d)));
-    }
+  const scaledValue = {};
+  for (const { scaleName, value, name } of channels) {
+    const scaleInstance = scale[scaleName];
+    scaledValue[name] = value.map((d) => scaleInstance.map(d));
   }
-  return values;
-}
-
-/**
- * In most cases each channel has one scale and the name of the scale
- * equals to the channel name.
- * But in some cases more than one channel share the same scale
- * (e.g. enterDelay and enterDuration share the enter scale).
- */
-function scaleName(channelName: string): string {
-  // A Map from channel name to scale name.
-  const channelScale = new Map([
-    ['enterDelay', 'enter'],
-    ['enterDuration', 'enter'],
-  ]);
-  if (channelScale.has(channelName)) return channelScale.get(channelName);
-  return channelName;
+  return scaledValue;
 }
 
 function inferPotentialScale(
@@ -90,21 +68,13 @@ function inferPotentialScale(
 ): G2ScaleOptions {
   const { name, field: inferredField } = channel;
   const { field = inferredField, guide = {} } = options;
-  const flattenChannel = { ...channel, value: channel.value.flat(1) };
-  const type = inferScaleType(flattenChannel, options);
+  const type = inferScaleType(channel, options);
   if (typeof type !== 'string') return options;
   return {
     ...options,
-    ...inferScaleOptions(type, flattenChannel, options, coordinate),
-    domain: inferScaleDomain(type, flattenChannel, options),
-    range: inferScaleRange(
-      type,
-      flattenChannel,
-      options,
-      shapes,
-      theme,
-      library,
-    ),
+    ...inferScaleOptions(type, channel, options, coordinate),
+    domain: inferScaleDomain(type, channel, options),
+    range: inferScaleRange(type, channel, options, shapes, theme, library),
     guide,
     name,
     field,
@@ -114,7 +84,7 @@ function inferPotentialScale(
 
 // @todo More accurate inference for different cases.
 function inferScaleType(
-  channel: FlattenChannel,
+  channel: Channel,
   options: G2ScaleOptions,
 ): string | ScaleComponent {
   const { scale, name, value, type: channelType } = channel;
@@ -138,7 +108,7 @@ function inferScaleType(
 
 function inferScaleDomain(
   type: string,
-  channel: FlattenChannel,
+  channel: Channel,
   options: G2ScaleOptions,
 ): Primitive[] {
   const { value } = channel;
@@ -164,7 +134,7 @@ function inferScaleDomain(
 
 function inferScaleRange(
   type: string,
-  channel: FlattenChannel,
+  channel: Channel,
   options: G2ScaleOptions,
   shapes: string[],
   theme: G2Theme,
@@ -199,7 +169,7 @@ function inferScaleRange(
 
 function inferScaleOptions(
   type: string,
-  channel: FlattenChannel,
+  channel: Channel,
   options: G2ScaleOptions,
   coordinate: G2CoordinateOptions[],
 ): G2ScaleOptions {
@@ -288,7 +258,7 @@ function inferDomainO(value: Primitive[]) {
 function inferRangeQ(name: string, palette: Palette): Primitive[] {
   if (name === 'enterDelay') return [0, 1000];
   if (name == 'enterDuration') return [300, 1000];
-  if (name === 'y' || name.startsWith('position')) return [1, 0];
+  if (name.startsWith('y') || name.startsWith('position')) return [1, 0];
   if (name === 'color') return [firstOf(palette), lastOf(palette)];
   if (name === 'size') return [1, 10];
   return [0, 1];
@@ -315,15 +285,17 @@ function isObject(values: Primitive[]): boolean {
 
 function isQuantitative(name: string): boolean {
   return (
-    name === 'x' ||
-    name === 'y' ||
+    name.startsWith('x') ||
+    name.startsWith('y') ||
     name.startsWith('position') ||
-    name === 'size'
+    name.startsWith('size')
   );
 }
 
 export function isPosition(name: string): boolean {
-  return name === 'x' || name === 'y' || name.startsWith('position');
+  return (
+    name.startsWith('x') || name.startsWith('y') || name.startsWith('position')
+  );
 }
 
 /**

@@ -73,7 +73,6 @@ export const ColorRect: SC<ColorRectOptions> = (options) => {
       .style('path', path(arcObject))
       .style('transform', `translate(${center[0]}, ${center[1]})`)
       .style('stroke', color)
-      .style('transform', transform)
       .style(colorAttribute, color)
       .call(applyStyle, style)
       .node();
