@@ -8,9 +8,7 @@ import {
 
 import {
   G2BaseComponent,
-  TransformComponent,
   StatisticComponent,
-  EncodeComponent,
   ThemeComponent,
   G2ComponentNamespaces,
   CoordinateComponent,
@@ -23,11 +21,14 @@ import {
   ActionComponent,
   InteractionComponent,
   InteractorComponent,
-  MarkComponent,
   CompositionComponent,
   AdjustComponent,
   Scale,
 } from './component';
+
+import { TransformComponent } from './transform';
+import { EncodeComponent } from './encode';
+import { MarkComponent } from './mark';
 
 export type G2ViewTree = {
   width?: number;
@@ -81,7 +82,7 @@ export type G2Mark = {
   statistic?: G2StatisticOptions[];
   scale?: Record<string, G2ScaleOptions>;
   encode?: Record<string, any | G2EncodeOptions>;
-  type?: string | ((...args: any[]) => any);
+  type?: string | MarkComponent;
   animate?: Record<string, Primitive>;
   facet?: boolean;
   filter?: (i: number) => boolean;

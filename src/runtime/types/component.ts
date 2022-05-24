@@ -3,12 +3,8 @@ import { Transformation, Coordinate } from '@antv/coord';
 import { Selection } from '../../utils/selection';
 import {
   IndexedValue,
-  EncodeFunction,
-  ChannelValue,
-  Channel,
   Primitive,
   G2Theme,
-  TabularData,
   MaybeArray,
   Vector2,
   GuideComponentPosition,
@@ -16,6 +12,9 @@ import {
   Layout,
 } from './common';
 import { G2View, G2ViewTree } from './options';
+import { EncodeComponent, Encode } from './encode';
+import { MarkComponent, Mark } from './mark';
+import { TransformComponent, Transform } from './transform';
 
 export type G2ComponentNamespaces =
   | 'renderer'
@@ -55,7 +54,8 @@ export type G2Component =
   | InteractionComponent
   | InteractorComponent
   | CompositionComponent
-  | AdjustComponent;
+  | AdjustComponent
+  | TransformComponent;
 
 export type G2ComponentValue =
   | Renderer
@@ -92,16 +92,16 @@ export type RendererComponent<O = Record<string, unknown>> = G2BaseComponent<
   O
 >;
 
-export type Transform = (data?: any | TabularData) => any | TabularData;
-export type TransformComponent<O = Record<string, unknown>> = G2BaseComponent<
-  Transform,
-  O
->;
+// export type Transform = (data?: any | TabularData) => any | TabularData;
+// export type TransformComponent<O = Record<string, unknown>> = G2BaseComponent<
+//   Transform,
+//   O
+// >;
 
-export type Encode = EncodeFunction;
-export type EncodeOptions = { value?: any };
-export type EncodeComponent<O extends EncodeOptions = EncodeOptions> =
-  G2BaseComponent<Encode, O>;
+// export type Encode = EncodeFunction;
+// export type EncodeOptions = { value?: any };
+// export type EncodeComponent<O extends EncodeOptions = EncodeOptions> =
+//   G2BaseComponent<Encode, O>;
 
 export type InferredEncode = {
   type?: string;
@@ -149,31 +149,31 @@ export type PaletteComponent<O = Record<string, unknown>> = G2BaseComponent<
   O
 >;
 
-export type MarkChannel = {
-  x?: number[][];
-  y?: number[][];
-  shape?: Shape[];
-  color?: string[];
-  [key: string]: ChannelValue | Shape[];
-};
+// export type MarkChannel = {
+//   x?: number[][];
+//   y?: number[][];
+//   shape?: Shape[];
+//   color?: string[];
+//   [key: string]: ChannelValue | Shape[];
+// };
 
-export type Mark = (
-  index: number[],
-  scale: Record<string, Scale>,
-  channel: MarkChannel,
-  coordinate: Coordinate,
-) => [number[], Vector2[][]];
-export type MarkProps = {
-  defaultShape: string;
-  channels: Channel[];
-  infer: { type: string; [key: string]: any }[];
-  shapes: string[];
-};
-export type MarkComponent<O = Record<string, unknown>> = G2BaseComponent<
-  Mark,
-  O,
-  MarkProps
->;
+// export type Mark = (
+//   index: number[],
+//   scale: Record<string, Scale>,
+//   channel: MarkChannel,
+//   coordinate: Coordinate,
+// ) => [number[], Vector2[][]];
+// export type MarkProps = {
+//   defaultShape: string;
+//   channels: Channel[];
+//   infer: { type: string; [key: string]: any }[];
+//   shapes: string[];
+// };
+// export type MarkComponent<O = Record<string, unknown>> = G2BaseComponent<
+//   Mark,
+//   O,
+//   MarkProps
+// >;
 
 export type Shape = (
   points: Vector2[],

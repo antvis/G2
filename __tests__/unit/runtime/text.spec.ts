@@ -1,10 +1,31 @@
-import { G2Context, G2Spec, render } from '../../../src';
+import { G2Context, G2Spec, render, TransformComponent } from '../../../src';
 import { createDiv, mount } from '../../utils/dom';
 import { delay } from '../../utils/delay';
 
 describe('text', () => {
   it('render({...}) should render basic wordCloud', () => {
     const context: G2Context = {};
+    const Flat: TransformComponent = () => {
+      return ({ data, ...rest }) => {
+        const newData = data.flatMap((d) =>
+          d.words.map(({ weight, word }) => ({
+            value: weight,
+            text: word,
+            name: d.name,
+          })),
+        );
+        return {
+          ...rest,
+          data: newData,
+          I: newData.map((_, i) => i),
+        };
+      };
+    };
+
+    Flat.props = {
+      type: 'preprocessor',
+    };
+
     const chart = render<G2Spec>(
       {
         type: 'text',
@@ -18,14 +39,7 @@ describe('text', () => {
             url: 'https://gw.alipayobjects.com/os/bmw-prod/d345d2d7-a35d-4d27-af92-4982b3e6b213.json',
           },
           {
-            type: () => (data) =>
-              data.flatMap((d) =>
-                d.words.map(({ weight, word }) => ({
-                  value: weight,
-                  text: word,
-                  name: d.name,
-                })),
-              ),
+            type: Flat,
           },
           {
             type: 'wordCloud',
@@ -39,9 +53,11 @@ describe('text', () => {
               if (type === 'end') {
                 await delay(50);
                 expect(words.length).toBeGreaterThan(0);
-                expect(words.length).toBe(
-                  context.canvas.getRoot().querySelectorAll('.element').length,
-                );
+                const renderCount = context.canvas
+                  .getRoot()
+                  .querySelectorAll('.element').length;
+                const diff = Math.abs(renderCount - words.length);
+                expect(diff).toBeLessThan(5);
               }
             },
           },

@@ -100,8 +100,8 @@ function inferComponentType(
   if (type !== undefined) return type;
   if (isTranspose(coordinates)) return null;
   if (isPolar(coordinates)) return null;
-  if (name === 'x') return 'axisX';
-  if (name === 'y') return 'axisY';
+  if (name.startsWith('x')) return 'axisX';
+  if (name.startsWith('y')) return 'axisY';
   if (name.startsWith('position')) return 'axisY';
   if (name === 'color') {
     switch (scaleType) {
@@ -138,7 +138,7 @@ function inferComponentPosition(
   // There are multiple axes for parallel coordinate.
   // Place the first one in the border area and put others in the center.
   if (type === 'axisY' && isParallel(coordinate)) {
-    const match = /position\[(\d+)\]/g.exec(name);
+    const match = /position(\d*)/g.exec(name);
     if (match === null) return ordinalPosition;
     const index = +match[1];
     return index === 0 ? ordinalPosition : 'centerHorizontal';

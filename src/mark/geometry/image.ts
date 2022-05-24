@@ -1,5 +1,9 @@
 import { MarkComponent as MC, Vector2 } from '../../runtime';
-import { baseChannels, baseInference } from '../utils';
+import {
+  baseGeometryChannels,
+  basePostInference,
+  basePreInference,
+} from '../utils';
 import { ImageGeometry } from '../../spec';
 
 export type ImageOptions = Omit<ImageGeometry, 'type'>;
@@ -8,8 +12,8 @@ export const Image: MC<ImageOptions> = () => {
     const { x: X, y: Y } = value;
     const { x } = scale;
     const P = Array.from(index, (i) => {
-      const px = +X[i][0];
-      const py = +Y[i][0];
+      const px = +X[i];
+      const py = +Y[i];
       const xoffset = x?.getBandWidth?.() || 0;
       return [coordinate.map([px + xoffset / 2, py])] as Vector2[];
     });
@@ -20,12 +24,17 @@ export const Image: MC<ImageOptions> = () => {
 Image.props = {
   defaultShape: 'image',
   channels: [
-    ...baseChannels(),
+    ...baseGeometryChannels(),
     { name: 'x', required: true },
     { name: 'y', required: true },
     { name: 'src', required: true, scale: 'identity' },
     { name: 'size' },
   ],
-  infer: [...baseInference()],
+  preInference: [...basePreInference()],
+  postInference: [
+    ...basePostInference(),
+    { type: 'maybeTitleX' },
+    { type: 'maybeTooltipY' },
+  ],
   shapes: ['image'],
 };

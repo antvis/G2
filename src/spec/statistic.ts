@@ -1,44 +1,26 @@
-import { StatisticComponent } from '../runtime';
+import { TransformComponent } from '../runtime';
 
-export type Statistic =
-  | StackYStatistic
-  | DodgeXStatistic
-  | StackDurationStatistic
-  | SplitPositionStatistic
-  | CustomStatistic
-  | KeyStatistic;
+export type StatisticTransform =
+  | StackYTransform
+  | DodgeXTransform
+  | StackEnterTransform;
 
-export type StatisticTypes =
+export type StatisticTransformTypes =
   | 'dodgeX'
   | 'stackY'
   | 'stackEnter'
-  | 'splitPosition'
-  | 'key'
-  | StatisticComponent;
+  | TransformComponent;
 
-export type DodgeXStatistic = {
+export type DodgeXTransform = {
   type?: 'dodgeX';
 };
 
-export type StackYStatistic = {
+export type StackYTransform = {
   type?: 'stackY';
   series?: boolean;
 };
 
-export type StackDurationStatistic = {
+export type StackEnterTransform = {
   type?: 'stackEnter';
   by?: string[];
-};
-
-export type SplitPositionStatistic = {
-  type?: 'splitPosition';
-};
-
-export type KeyStatistic = {
-  type?: 'key';
-};
-
-export type CustomStatistic = {
-  type?: StatisticComponent;
-  [key: string]: any;
 };

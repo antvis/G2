@@ -1,30 +1,36 @@
-import { compose, composeAsync } from '../utils/helper';
-import { indexOf, mapObject, transpose, isFlatArray } from '../utils/array';
+import { group } from 'd3-array';
+import { composeAsync, defined } from '../utils/helper';
+import { indexOf } from '../utils/array';
 import { useLibrary } from './library';
-import { G2MarkState, G2Theme, Primitive } from './types/common';
 import {
-  MarkProps,
-  Transform,
-  TransformComponent,
-  InferComponent,
-  Infer,
-  EncodeComponent,
-  Encode,
-  StatisticComponent,
-  Statistic,
-  InferredEncode,
-} from './types/component';
+  Channel,
+  G2MarkState,
+  G2Theme,
+  TabularData,
+  MaybeArray,
+} from './types/common';
 import {
   G2View,
   G2Library,
   G2Mark,
   G2ScaleOptions,
   G2TransformOptions,
-  G2InferOptions,
   G2EncodeOptions,
-  G2StatisticOptions,
 } from './types/options';
-import { inferEncodeType } from './encode';
+import { MarkProps } from './types/mark';
+import {
+  EncodeSpec,
+  NormalizedEncodeSpec,
+  PrimitiveEncodeSpec,
+  EncodeComponent,
+  Encode,
+} from './types/encode';
+import {
+  ColumnOf,
+  TransformContext,
+  Transform,
+  TransformComponent,
+} from './types/transform';
 import { inferScale } from './scale';
 
 export async function initializeMark(
@@ -35,126 +41,53 @@ export async function initializeMark(
   options: G2View,
   library: G2Library,
 ): Promise<[G2Mark, G2MarkState]> {
-  const [useTransform] = useLibrary<
-    G2TransformOptions,
-    TransformComponent,
-    Transform
-  >('transform', library);
-  const [useInfer] = useLibrary<G2InferOptions, InferComponent, Infer>(
-    'infer',
+  // Apply transform to get data to be visualized.
+  const { data, encode, I, columnOf } = await applyTransform(
+    partialMark,
+    partialProps,
     library,
   );
-  const [useEncode] = useLibrary<G2EncodeOptions, EncodeComponent, Encode>(
-    'encode',
-    library,
-  );
-  const [useStatistic] = useLibrary<
-    G2StatisticOptions,
-    StatisticComponent,
-    Statistic
-  >('statistic', library);
-
-  const {
-    data,
-    transform = [],
-    encode: partialEncode = [],
-    statistic: partialStatistic = [],
-    scale: partialScale = {},
-  } = partialMark;
-  const { coordinate = [] } = options;
-  const { infer, channels: channelDescriptors } = partialProps;
-
-  // Apply transform to get tabular data.
-  const transformFunctions = transform.map(useTransform);
-  const transformedData = await composeAsync(transformFunctions)(data);
 
   // Skip mark with non-tabular or empty data.
-  if (
-    Array.isArray(transformedData) === false ||
-    transformedData.length === 0
-  ) {
+  if (Array.isArray(data) === false || data.length === 0) {
     return null;
   }
 
-  // Extract index from data.
-  const index = indexOf(transformedData);
-
-  // Infer encoding to get intact encoding with type.
-  const typedEncode = inferEncodeType(partialEncode, transformedData);
-  const inferFunctions = infer.map(useInfer);
-  const { encode, transform: inferStatistic = () => partialStatistic } =
-    compose(inferFunctions)({
-      encode: typedEncode,
-    });
-
-  // Extract value from data based on inferred encodings.
-  const value = mapObject(encode, (encodeOptions, key) => {
-    if (Array.isArray(encodeOptions)) {
-      const values = encodeOptions.map((d) => useEncode(d)(transformedData));
-      // For array field, just return it.
-      const [V] = values;
-      if (!isFlatArray(V)) return V;
-
-      // Position channel is a special channel which will be split into multiple
-      // channels by statistic, so there is no need to transpose it.
-      return (key !== 'position' ? transpose(values) : values) as Primitive[][];
-    } else {
-      return useEncode(encodeOptions)(transformedData);
-    }
-  });
-
-  // Infer statistic to get intact statistic(e.g. stackY, splitPosition)
-  const indexedValue = { value, index };
-  const statistic = inferStatistic(indexedValue, partialStatistic);
-
-  // Apply inferred and specified statistic.
-  const statisticFunctions = statistic.map(useStatistic);
-  const { index: transformedIndex, value: transformedValue } =
-    compose(statisticFunctions)(indexedValue);
-
-  // Filter and create channels based on channelDescriptors and processed data.
-  // @todo Abstract array encode algebra.
+  // Extract column of data for each channel.
+  const { channels: channelDescriptors } = partialProps;
+  const nameEncodes = group(
+    Object.entries(encode).filter(([, value]) => defined(value)),
+    ([key]) => {
+      const match = /([^\d]+)\d*$/.exec(key);
+      return match[1];
+    },
+  );
   const channels = channelDescriptors
-    .filter(({ name, required }) => {
-      const value = transformedValue[name];
-      if (value === undefined && required) {
-        throw new Error(`Missing encoding for channel: ${name}.`);
-      }
-      return value !== undefined;
+    .filter((descriptor) => {
+      const { name, required } = descriptor;
+      if (nameEncodes.has(name)) return true;
+      if (required) throw new Error(`Missing encoding for channel: ${name}.`);
+      return false;
     })
-    .flatMap(({ name, ...rest }) => {
-      const encoding = encode[name];
-      const type = inferChannelType(encoding);
-      const field = inferChannelField(encoding);
-      const value = transformedValue[name];
-      if (name !== 'position') return { name, value, type, field, ...rest };
-
-      // Split position channels to multiple channels.
-      // position -> position[0], position[1], position[2]
-      return Object.entries(transformedValue)
-        .filter(([key]) => /position\[\d+\]/.test(key))
-        .map(([key, value]) => {
-          const match = /position\[(\d+)\]/g.exec(key);
-          const index = +match[1];
-          return {
-            name: key,
-            value,
-            type,
-            field: inferChannelField(encoding[index]),
-            ...rest,
-          };
-        });
+    .flatMap((descriptor) => {
+      const { name } = descriptor;
+      const encodes = nameEncodes.get(name);
+      return encodes.map((e) => createChannel(descriptor, data, e, columnOf));
     });
 
-  // Infer scale for each channel.
+  //  Infer scale for each channel.
   const scale = {};
-  for (const channel of channels) {
-    const { name } = channel;
+  const { scale: partialScale = {} } = partialMark;
+  const { coordinate = [] } = options;
+  const scaleChannels = group(channels, (d) => d.scaleName);
+
+  for (const [scaleName, channels] of scaleChannels.entries()) {
     const { shapes } = partialProps;
-    const { [name]: options = {} } = partialScale;
-    scale[name] = inferScale(
+    const channel = mergeChannel(channels);
+    const { [scaleName]: scaleOptions = {} } = partialScale;
+    scale[scaleName] = inferScale(
       channel,
-      options,
+      scaleOptions,
       coordinate,
       shapes,
       theme,
@@ -165,31 +98,151 @@ export async function initializeMark(
 
   const mark = {
     ...partialMark,
-    statistic,
     encode,
     scale,
-    data: transformedData,
+    data,
   };
-  const state = { ...partialProps, channels, index: transformedIndex };
+  const state = { ...partialProps, channels, index: I };
   return [mark, state];
 }
 
-// This is for scale type inference.
-// It tells color channel to use a ordinal or identity scale.
-// It also tells enter channel to use a identity or non-identity scale.
-function inferChannelType(encode: InferredEncode) {
-  if (encode === undefined) return undefined;
-  if (Array.isArray(encode)) return undefined;
-  return encode.type;
+function createTransformContext(
+  mark: G2Mark,
+  library: G2Library,
+): TransformContext {
+  const [useEncode] = useLibrary<G2EncodeOptions, EncodeComponent, Encode>(
+    'encode',
+    library,
+  );
+  const { data, encode = {}, transform = [] } = mark;
+  const columnOf: ColumnOf = (data, encode) => {
+    if (encode === undefined) return null;
+    if (data === undefined) return null;
+    const normalizedEncode = normalizeEncode(data, encode);
+    const value = useEncode(normalizedEncode)(data);
+    const field = fieldOf(normalizedEncode);
+    value.field = field;
+    return value;
+  };
+  return {
+    data,
+    I: Array.isArray(data) ? indexOf(data) : [],
+    encode: flatEncode(encode),
+    columnOf,
+    transform,
+  };
 }
 
-function inferChannelField(encode: InferredEncode) {
-  if (encode === undefined) return undefined;
-  if (Array.isArray(encode)) {
-    return encode.map(({ value, type }) =>
-      type === 'field' ? value : undefined,
-    );
+function flatEncode(
+  encode: Record<string, MaybeArray<EncodeSpec>>,
+): Record<string, EncodeSpec> {
+  const flattenEncode = {};
+  for (const [key, value] of Object.entries(encode)) {
+    if (Array.isArray(value)) {
+      for (let i = 0; i < value.length; i++) {
+        const name = `${key}${i === 0 ? '' : i}`;
+        flattenEncode[name] = value[i];
+      }
+    } else {
+      flattenEncode[key] = value;
+    }
   }
-  if (encode.type === 'field') return encode.value;
-  return undefined;
+  return flattenEncode;
+}
+
+function inferEncodeType(
+  data: TabularData,
+  encode: PrimitiveEncodeSpec,
+): string {
+  if (typeof encode === 'function') return 'transform';
+  if (typeof encode === 'string' && data?.[0]?.[encode] !== undefined) {
+    return 'field';
+  }
+  return 'constant';
+}
+
+function normalizeEncode(
+  data: TabularData,
+  encode: EncodeSpec,
+): NormalizedEncodeSpec {
+  if (typeof encode === 'object' && !(encode instanceof Date)) return encode;
+  const type = inferEncodeType(data, encode);
+  return { type, value: encode };
+}
+
+function applyTransform(
+  mark: G2Mark,
+  props: MarkProps,
+  library: G2Library,
+): TransformContext | Promise<TransformContext> {
+  const [useTransform, createTransform] = useLibrary<
+    G2TransformOptions,
+    TransformComponent,
+    Transform
+  >('transform', library);
+
+  // Create transform Context.
+  const context = createTransformContext(mark, library);
+
+  // Create transforms functions.
+  const { transform: partialTransform = [] } = mark;
+  const { preInference = [], postInference = [] } = props;
+
+  const preprocessors = [];
+  const statistics = [];
+  for (const t of partialTransform) {
+    const { type } = t;
+    const { type: subType } = createTransform(type).props;
+    if (subType === 'preprocessor') preprocessors.push(t);
+    else statistics.push(t);
+  }
+  const transform = [
+    ...preprocessors,
+    ...preInference,
+    ...statistics,
+    ...postInference,
+  ];
+  const transformFunctions = transform.map(useTransform);
+
+  // Apply transforms functions to transform context.
+  return composeAsync(transformFunctions)(context);
+}
+
+function createChannel(
+  descriptor: Channel,
+  data: TabularData,
+  nameEncode: [string, EncodeSpec],
+  columnOf: ColumnOf,
+): Channel {
+  const { independent = false, name, scaleName, ...rest } = descriptor;
+  const [encodeName, encode] = nameEncode;
+  const normalizedEncode = normalizeEncode(data, encode);
+  const { type } = normalizedEncode;
+  return {
+    ...rest,
+    type,
+    name: encodeName,
+    scaleName: scaleName ?? (independent ? encodeName : name),
+    value: columnOf(data, normalizedEncode),
+    field: fieldOf(normalizedEncode),
+  };
+}
+
+function mergeChannel(channels: Channel[]): Channel {
+  const target: Channel = {};
+  for (const source of channels) {
+    const { value: targetValue = [], field: targetField } = target;
+    const { value: sourceValue = [], field: sourceField } = source;
+    Object.assign(target, source);
+    target.value = [...targetValue, ...sourceValue];
+    target.field = sourceField == null ? targetField : sourceField;
+  }
+  return target;
+}
+
+function fieldOf(encode: NormalizedEncodeSpec): string {
+  const { type, value } = encode;
+  if (type === 'field' && typeof value === 'string') return value;
+  if (value && value.field) return value.field;
+  return null;
 }

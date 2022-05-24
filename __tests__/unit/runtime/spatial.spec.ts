@@ -26,7 +26,7 @@ describe('spatial', () => {
           type: 'interval',
           paddingBottom: 200,
           paddingLeft: 400,
-          statistic: [{ type: 'stackY' }],
+          transform: [{ type: 'stackY' }],
           coordinate: [{ type: 'transpose' }, { type: 'polar' }],
           encode: {
             y: 'sold',

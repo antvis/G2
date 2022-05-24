@@ -1,23 +1,24 @@
 import { Connector } from '../../../../src/mark/annotation/connector';
 import { Band } from '../../../../src/scale';
-import { plot } from '../../geometry/helper';
+import { plot } from '../helper';
 
 describe('Connector', () => {
   it('Connector has expected props', () => {
     expect(Connector.props).toEqual({
       defaultShape: 'annotation.connector',
       channels: [
+        { name: 'color' },
+        { name: 'shape' },
         { name: 'enterType' },
-        { name: 'enterDelay' },
-        { name: 'enterDuration' },
+        { name: 'enterDelay', scaleName: 'enter' },
+        { name: 'enterDuration', scaleName: 'enter' },
         { name: 'enterEasing' },
         { name: 'key', scale: 'identity' },
         { name: 'x', required: true },
         { name: 'y', required: true },
-        { name: 'color' },
-        { name: 'shape' },
       ],
-      infer: [{ type: 'maybeTuple' }],
+      preInference: [{ type: 'maybeArrayField' }],
+      postInference: [{ type: 'maybeKey' }],
       shapes: ['annotation.connector'],
     });
   });
@@ -27,14 +28,10 @@ describe('Connector', () => {
       mark: Connector({}),
       index: [0, 1],
       channel: {
-        x: [
-          [0.1, 0.9],
-          [0.2, 0.8],
-        ],
-        y: [
-          [0.1, 0.9],
-          [0.2, 0.8],
-        ],
+        x: [0.1, 0.2],
+        x1: [0.9, 0.8],
+        y: [0.1, 0.2],
+        y1: [0.9, 0.8],
       },
     });
 
@@ -62,8 +59,10 @@ describe('Connector', () => {
         }),
       },
       channel: {
-        x: [[0, 1 / 3]],
-        y: [[0.1, 0.9]],
+        x: [0],
+        x1: [1 / 3],
+        y: [0.1],
+        y1: [0.9],
       },
     });
 

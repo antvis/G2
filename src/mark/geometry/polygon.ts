@@ -1,6 +1,10 @@
 import { Vector2, MarkComponent as MC } from '../../runtime';
 import { PolygonGeometry } from '../../spec';
-import { baseChannels, baseInference } from '../utils';
+import {
+  baseGeometryChannels,
+  basePostInference,
+  basePreInference,
+} from '../utils';
 
 export type PolygonOptions = Omit<PolygonGeometry, 'type'>;
 
@@ -9,12 +13,23 @@ export type PolygonOptions = Omit<PolygonGeometry, 'type'>;
  */
 export const Polygon: MC<PolygonOptions> = () => {
   return (index, scale, value, coordinate) => {
-    const { x: X, y: Y } = value;
+    const Xn = Object.entries(value)
+      .filter(([key]) => key.startsWith('x'))
+      .map(([, value]) => value);
+
+    const Yn = Object.entries(value)
+      .filter(([key]) => key.startsWith('y'))
+      .map(([, value]) => value);
 
     const P = index.map((i) => {
-      return X[i].map(
-        (_, idx) => coordinate.map([X[i][idx], Y[i][idx]]) as Vector2,
-      );
+      const PN = [];
+      for (let j = 0; j < Xn.length; j++) {
+        const x = Xn[j][i];
+        if (x === undefined) break;
+        const y = Yn[j][i];
+        PN.push(coordinate.map([+x, +y]));
+      }
+      return PN as Vector2[];
     });
 
     return [index, P];
@@ -24,10 +39,15 @@ export const Polygon: MC<PolygonOptions> = () => {
 Polygon.props = {
   defaultShape: 'polygon',
   channels: [
-    ...baseChannels(),
+    ...baseGeometryChannels(),
     { name: 'x', required: true },
     { name: 'y', required: true },
   ],
-  infer: [...baseInference()],
+  preInference: [...basePreInference()],
+  postInference: [
+    ...basePostInference(),
+    { type: 'maybeTitleX' },
+    { type: 'maybeTooltipY' },
+  ],
   shapes: ['polygon'],
 };

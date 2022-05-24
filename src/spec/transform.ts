@@ -1,4 +1,5 @@
 import { TransformComponent, Vector2 } from '../runtime';
+import { StatisticTransform, StatisticTransformTypes } from './statistic';
 
 export type Transform =
   | SortByTransform
@@ -9,13 +10,15 @@ export type Transform =
   | FilterByTransform
   | WordCloudTransform
   | VoronoiTransform
-  | CustomTransform;
+  | CustomTransform
+  | StatisticTransform;
 
 export type TransformTypes =
   | 'sortBy'
   | 'fetch'
   | 'filterBy'
   | 'pick'
+  | StatisticTransformTypes
   | TransformComponent;
 
 export type SortByTransform = {

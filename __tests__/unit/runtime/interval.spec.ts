@@ -547,7 +547,7 @@ describe('render', () => {
           { city: 'Berlin', month: 'Jul.', rainfall: 37.4 },
           { city: 'Berlin', month: 'Aug.', rainfall: 42.4 },
         ],
-        statistic: [{ type: 'stackY' }],
+        transform: [{ type: 'stackY' }],
         encode: {
           x: 'month',
           y: 'rainfall',
@@ -596,7 +596,7 @@ describe('render', () => {
     mount(createDiv(), chart);
   });
 
-  it('render({...} renders chart inferring dodgeX', (done) => {
+  it('render({...} renders chart with stackY and series field', (done) => {
     const chart = render<G2Spec>(
       {
         type: 'interval',
@@ -618,7 +618,7 @@ describe('render', () => {
           { city: 'Berlin', month: 'Jul.', rainfall: 37.4 },
           { city: 'Berlin', month: 'Aug.', rainfall: 42.4 },
         ],
-        statistic: [{ type: 'stackY', series: true }],
+        transform: [{ type: 'stackY', series: true }],
         encode: {
           x: 'month',
           y: 'rainfall',
@@ -655,7 +655,7 @@ describe('render', () => {
           { city: 'Berlin', month: 'Jul.', rainfall: 37.4 },
           { city: 'Berlin', month: 'Aug.', rainfall: 42.4 },
         ],
-        statistic: [{ type: 'dodgeX' }],
+        transform: [{ type: 'dodgeX' }],
         encode: {
           x: 'month',
           y: 'rainfall',
@@ -669,7 +669,7 @@ describe('render', () => {
     mount(createDiv(), chart);
   });
 
-  it('render({...} renders chart with transform and array encode', (done) => {
+  it('render({...} renders chart with array encode', (done) => {
     const chart = render<G2Spec>(
       {
         type: 'interval',
@@ -859,7 +859,7 @@ describe('render', () => {
             product_sub_type: '鼠标',
           },
         ],
-        statistic: [{ type: 'stackY', series: true }],
+        transform: [{ type: 'stackY', series: true }],
         encode: {
           x: 'product_type',
           y: 'order_amt',
@@ -996,7 +996,7 @@ describe('render', () => {
           color: 'product_sub_type',
           series: 'sex',
         },
-        statistic: [{ type: 'stackY', series: true }],
+        transform: [{ type: 'stackY', series: true }],
       },
       {},
       done,
