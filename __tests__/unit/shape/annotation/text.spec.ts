@@ -153,8 +153,9 @@ describe('AnnotationText shape', () => {
     // @ts-ignore
     const background = shape.background;
     expect(background.getEulerAngles()).toBeCloseTo(-45);
-    // fix G has a litter error when rotate.
-    // expect(textShape.getLocalBounds().min[0]).toBe(background.getLocalBounds().min[0]);
+    expect(textShape.getLocalBounds().min[0]).toBe(
+      background.getLocalBounds().min[0],
+    );
     shape.setEulerAngles(0);
     expect(bounds(background).min[0]).toBe(bounds(textShape).min[0]);
   });

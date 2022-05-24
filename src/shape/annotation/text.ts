@@ -116,13 +116,13 @@ class TextShape extends CustomElement<TextShapeStyleProps> {
 
     const { padding, ...style } = background;
     const [top = 0, right = 0, bottom = top, left = right] = padding || [];
-    const angle = this.textShape.getEulerAngles();
-    this.textShape.setEulerAngles(0);
+    const angle = this.getEulerAngles();
+    this.setEulerAngles(0);
     const {
       min: [x, y],
       halfExtents: [hw, hh],
     } = this.textShape.getLocalBounds();
-    this.textShape.setEulerAngles(angle);
+    this.setEulerAngles(angle);
     this.background = select(this.background || this.appendChild(new Rect({})))
       .style('zIndex', -1)
       .style('x', x - left)
