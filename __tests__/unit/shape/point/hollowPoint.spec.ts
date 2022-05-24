@@ -24,10 +24,10 @@ describe('HollowPoint', () => {
     });
     mount(createDiv(), container);
 
-    expect(shape.nodeName).toBe('circle');
-    expect(style(shape, ['stroke', 'r', 'lineWidth'])).toEqual({
+    expect(shape.nodeName).toBe('marker');
+    expect(style(shape, ['stroke', 'size', 'lineWidth'])).toEqual({
       stroke: 'steelblue',
-      r: 75,
+      size: 75,
       lineWidth: 1,
     });
   });
@@ -47,7 +47,7 @@ describe('HollowPoint', () => {
     });
     mount(createDiv(), container);
 
-    expect(shape.nodeName).toBe('circle');
+    expect(shape.nodeName).toBe('marker');
     expect(style(shape, ['stroke'])).toEqual({
       stroke: 'red',
     });

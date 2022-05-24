@@ -4,10 +4,10 @@ import { ColorPoint } from './colorPoint';
 export type PointOptions = Record<string, any>;
 
 /**
- * Render point in different coordinate and using color channel for stroke attribute.
+ * ●
  */
 export const Point: SC<PointOptions> = (options) => {
-  return ColorPoint({ colorAttribute: 'fill', ...options });
+  return ColorPoint({ colorAttribute: 'fill', symbol: 'circle', ...options });
 };
 
 Point.props = {
