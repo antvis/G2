@@ -127,6 +127,7 @@ import {
   WordCloud,
   Voronoi,
   Sankey,
+  NormalizeY,
 } from '../../../src/transform';
 
 describe('stdlib', () => {
@@ -152,6 +153,7 @@ describe('stdlib', () => {
       'transform.stackY': StackY,
       'transform.dodgeX': DodgeX,
       'transform.stackEnter': StackEnter,
+      'transform.normalizeY': NormalizeY,
       'transform.maybeSize': MaybeSize,
       'transform.maybeZeroY': MaybeZeroY,
       'transform.maybeKey': MaybeKey,
