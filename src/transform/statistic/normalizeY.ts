@@ -49,7 +49,7 @@ export const NormalizeY: TC<NormalizeYOptions> = (options = {}) => {
       .filter(([k]) => k.startsWith('y'))
       .map(([k, encode]) => [k, columnOf(data, encode)] as const);
     const newYn = Yn.map(([k, V]) => {
-      const newV = new Array(I.length).fill(0);
+      const newV = new Array(I.length);
       return [k, field(newV, V)] as const;
     });
 
