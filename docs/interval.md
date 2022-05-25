@@ -1,16 +1,5 @@
 # Interval
 
-- <a href="#basic-interval">Basic Interval</a>
-- <a href="#flex-interval">Flex Interval</a>
-- <a href="#hollow-interval">Hollow Interval</a>
-- <a href="#transpose-interval">Transpose Interval</a>
-- <a href="#polar-interval">Polar Interval</a>
-- <a href="#polar+transpose-interval">Polar+Transpose Interval</a>
-- <a href="#polar+transpose+stacky-interval">Polar+Transpose+StackY Interval</a>
-- <a href="#stacky-interval">StackY Interval</a>
-- <a href="#dodgex-interval">DodgeX Interval</a>
-- <a href="#stacky+dodgex-interval">StackY+DodgeX Interval</a>
-
 ## Basic Interval
 
 ```js | dom
@@ -244,6 +233,39 @@ G2.render({
     y: 'order_amt',
     color: 'product_sub_type',
     series: 'sex',
+  },
+});
+```
+
+## Range Interval
+
+```js
+G2.render({
+  type: 'interval',
+  data: [
+    { month: 'Jan.', profit: 387264, start: 0, end: 387264 },
+    { month: 'Feb.', profit: 772096, start: 387264, end: 1159360 },
+    { month: 'Mar.', profit: 638075, start: 1159360, end: 1797435 },
+    { month: 'Apr.', profit: -211386, start: 1797435, end: 1586049 },
+    { month: 'May', profit: -138135, start: 1586049, end: 1447914 },
+    { month: 'Jun', profit: -267238, start: 1447914, end: 1180676 },
+    { month: 'Jul.', profit: 431406, start: 1180676, end: 1612082 },
+    { month: 'Aug.', profit: 363018, start: 1612082, end: 1975100 },
+    { month: 'Sep.', profit: -224638, start: 1975100, end: 1750462 },
+    { month: 'Oct.', profit: -299867, start: 1750462, end: 1450595 },
+    { month: 'Nov.', profit: 607365, start: 1450595, end: 2057960 },
+    { month: 'Dec.', profit: 1106986, start: 2057960, end: 3164946 },
+    { month: 'Total', start: 0, end: 3164946 },
+  ],
+  paddingLeft: 60,
+  scale: {
+    y: { guide: { label: { formatter: (d) => `${+d.text / 1000}k` } } },
+  },
+  encode: {
+    x: 'month',
+    y: ['end', 'start'],
+    color: (d) =>
+      d.month === 'Total' ? 'Total' : d.profit > 0 ? 'Increase' : 'Decrease',
   },
 });
 ```

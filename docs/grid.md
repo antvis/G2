@@ -1,8 +1,5 @@
 # Grid
 
-- <a href="#ordinal-grid">Ordinal Grid</a>
-- <a href="#quantize-grid">Quantize Grid</a>
-- <a href="#flex-grid">Flex Grid</a>
 ## Ordinal Grid
 
 ```js | dom

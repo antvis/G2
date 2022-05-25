@@ -1,11 +1,5 @@
 # Coordinate
 
-- <a href="#cartesian">Cartesian</a>
-- <a href="#polar">Polar</a>
-- <a href="#transpose">Transpose</a>
-- <a href="#parallel">Parallel</a>
-- <a href="#fisheye">Fisheye</a>
-
 ## Cartesian
 
 Cartesian coordinate will append to coordinate if is not specified.

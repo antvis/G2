@@ -1,16 +1,5 @@
 # Scale
 
-- <a href="#linear">Linear</a>
-- <a href="#log">Log</a>
-- <a href="#pow">Pow</a>
-- <a href="#time">Time</a>
-- <a href="#band">Band</a>
-- <a href="#ordinal">Ordinal</a>
-- <a href="#identity">Identity</a>
-- <a href="#threshold">Threshold</a>
-- <a href="#quantize">Quantize</a>
-- <a href="#quantile">Quantile</a>
-
 ## Linear
 
 The scale for y channel of following interval is linear scale.
@@ -208,59 +197,68 @@ G2.render({
 The scale for text, fontSize and rotate channel of following text is identity scale.
 
 ```js | dom
-G2.render({
-  type: 'text',
-  paddingLeft: 0,
-  paddingRight: 0,
-  paddingTop: 0,
-  paddingBottom: 0,
-  transform: [
-    {
-      type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/bmw-prod/d345d2d7-a35d-4d27-af92-4982b3e6b213.json',
+(() => {
+  const Flat =
+    () =>
+    ({ data }) => ({
+      data: data.flatMap((d) =>
+        d.words.map(({ weight, word }) => ({
+          value: weight,
+          text: word,
+          name: d.name,
+        })),
+      ),
+    });
+
+  Flat.props = { category: 'connector' };
+
+  return G2.render({
+    type: 'text',
+    paddingLeft: 0,
+    paddingRight: 0,
+    paddingTop: 0,
+    paddingBottom: 0,
+    transform: [
+      {
+        type: 'fetch',
+        url: 'https://gw.alipayobjects.com/os/bmw-prod/d345d2d7-a35d-4d27-af92-4982b3e6b213.json',
+      },
+      {
+        type: Flat,
+      },
+      {
+        type: 'wordCloud',
+        size: [640, 480],
+        timeInterval: 5000,
+        padding: 0,
+        rotate: () => ~~(Math.random() * 2) * 90,
+        fontSize: (d) => d.value * 2,
+      },
+    ],
+    scale: {
+      x: { guide: null },
+      y: { guide: null, range: [0, 1] },
+      color: { guide: null },
+      fontSize: { type: 'identity' },
+      rotate: { type: 'identity' },
     },
-    {
-      type: () => (data) =>
-        data.flatMap((d) =>
-          d.words.map(({ weight, word }) => ({
-            value: weight,
-            text: word,
-            name: d.name,
-          })),
-        ),
+    encode: {
+      x: 'x',
+      y: 'y',
+      text: 'text',
+      color: 'black',
+      rotate: 'rotate',
+      fontSize: 'size',
+      tooltip: 'name',
     },
-    {
-      type: 'wordCloud',
-      size: [640, 480],
-      timeInterval: 5000,
-      padding: 0,
-      rotate: () => ~~(Math.random() * 2) * 90,
-      fontSize: (d) => d.value * 2,
+    style: {
+      textAlign: 'center',
+      textBaseline: 'alphabetic',
+      fontFamily: 'Verdana',
+      fontWeight: 'normal',
     },
-  ],
-  scale: {
-    x: { guide: null },
-    y: { guide: null, range: [0, 1] },
-    color: { guide: null },
-    fontSize: { type: 'identity' },
-    rotate: { type: 'identity' },
-  },
-  encode: {
-    x: 'x',
-    y: 'y',
-    text: 'text',
-    color: 'black',
-    rotate: 'rotate',
-    fontSize: 'size',
-    tooltip: 'name',
-  },
-  style: {
-    textAlign: 'center',
-    textBaseline: 'alphabetic',
-    fontFamily: 'Verdana',
-    fontWeight: 'normal',
-  },
-});
+  });
+})();
 ```
 
 ## Threshold

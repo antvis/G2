@@ -1,7 +1,5 @@
 # Theme
 
-- <a href="#default-color">Default Color</a>
-
 ## Default Color
 
 ```js | dom

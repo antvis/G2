@@ -1,10 +1,13 @@
 {
   "title": "G2 5.0",
   "outline": {
+    "Overview": "overview",
     "Dimension": "dimension",
-    "Transform": "transform",
+    "Transform": {
+      "Connector": "connector",
+      "Statistic": "statistic"
+    },
     "Encode": "encode",
-    "Statistic": "statistic",
     "Scale": "scale",
     "Coordinate": "coordinate",
     "Geometry": {
@@ -26,11 +29,12 @@
     },
     "Theme": "theme"
   },
+  "domain": "g2-next.antv.vision",
   "output": "docs/dist",
   "assets": "docs/assets",
-  "logo": "./docs/assets/logo.png",
+  "logo": "/docs/assets/logo.png",
   "github": "https://github.com/antvis/G2/tree/v5",
-  "siteGithub": "https://github.com/pearmini/hello-g2v5",
+  "siteGithub": "https://github.com/antvis/g2-next-site",
   "theme": {
     "mainColor": "#792EF7"
   },

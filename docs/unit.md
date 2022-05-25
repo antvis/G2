@@ -1,12 +1,5 @@
 # Unit Visualization
 
-- <a href="#row">Row</a>
-- <a href="#sharedData-row">SharedData Row</a>
-- <a href="#sharedSize-row">SharedSize Row</a>
-- <a href="#rect">Rect</a>
-- <a href="#sharedData-rect">SharedData Rect</a>
-- <a href="#nested">Nested</a>
-
 ## Row
 
 ```js | dom

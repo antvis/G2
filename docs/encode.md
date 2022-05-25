@@ -1,25 +1,20 @@
 # Encode
 
-- <a href="#field">Field</a>
-- <a href="#constant">Constant</a>
-- <a href="#transform">Transform</a>
-- <a href="#custom">Custom</a>
-
 ## Field
 
 ```js | dom
 G2.render({
-  type: "interval",
+  type: 'interval',
   data: [
-    { genre: "Sports", sold: 275 },
-    { genre: "Strategy", sold: 115 },
-    { genre: "Action", sold: 120 },
-    { genre: "Shooter", sold: 350 },
-    { genre: "Other", sold: 150 },
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
   ],
   encode: {
-    x: "genre", // Field Encode
-    y: "sold", // Field Encode
+    x: 'genre', // Field Encode
+    y: 'sold', // Field Encode
   },
 });
 ```
@@ -28,18 +23,18 @@ G2.render({
 
 ```js | dom
 G2.render({
-  type: "interval",
+  type: 'interval',
   data: [
-    { genre: "Sports", sold: 275 },
-    { genre: "Strategy", sold: 115 },
-    { genre: "Action", sold: 120 },
-    { genre: "Shooter", sold: 350 },
-    { genre: "Other", sold: 150 },
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
   ],
   encode: {
-    x: "genre",
-    y: "sold",
-    color: "orange", // Constant Encode
+    x: 'genre',
+    y: 'sold',
+    color: 'orange', // Constant Encode
   },
 });
 ```
@@ -48,42 +43,42 @@ G2.render({
 
 ```js | dom
 G2.render({
-  type: "interval",
+  type: 'interval',
   data: [
-    { genre: "Sports", sold: 275 },
-    { genre: "Strategy", sold: 115 },
-    { genre: "Action", sold: 120 },
-    { genre: "Shooter", sold: 350 },
-    { genre: "Other", sold: 150 },
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
   ],
   encode: {
-    x: "genre",
-    y: "sold",
+    x: 'genre',
+    y: 'sold',
     // Transform Encode
     // It is not visual data by default.
-    color: (d) => (d.sold > 200 ? "high" : "low"),
+    color: (d) => (d.sold > 200 ? 'high' : 'low'),
   },
 });
 ```
 
 ```js | dom
 G2.render({
-  type: "interval",
+  type: 'interval',
   data: [
-    { genre: "Sports", sold: 275 },
-    { genre: "Strategy", sold: 115 },
-    { genre: "Action", sold: 120 },
-    { genre: "Shooter", sold: 350 },
-    { genre: "Other", sold: 150 },
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
   ],
   scale: {
     // This will make channel values for color visual data.
-    color: { type: "identity" },
+    color: { type: 'identity' },
   },
   encode: {
-    x: "genre",
-    y: "sold",
-    color: (d) => (d.sold > 200 ? "orange" : "steelblue"),
+    x: 'genre',
+    y: 'sold',
+    color: (d) => (d.sold > 200 ? 'orange' : 'steelblue'),
   },
 });
 ```
@@ -99,17 +94,17 @@ G2.render({
     };
   };
   return G2.render({
-    type: "interval",
+    type: 'interval',
     data: [
-      { genre: "Sports", sold: 275 },
-      { genre: "Strategy", sold: 115 },
-      { genre: "Action", sold: 120 },
-      { genre: "Shooter", sold: 350 },
-      { genre: "Other", sold: 150 },
+      { genre: 'Sports', sold: 275 },
+      { genre: 'Strategy', sold: 115 },
+      { genre: 'Action', sold: 120 },
+      { genre: 'Shooter', sold: 350 },
+      { genre: 'Other', sold: 150 },
     ],
     encode: {
-      x: "genre",
-      y: { type: Proportion, value: "sold" },
+      x: 'genre',
+      y: { type: Proportion, value: 'sold' },
     },
   });
 })();
@@ -126,23 +121,26 @@ G2.render({
 
   const context = {
     library: Object.assign(G2.createLibrary(), {
-      "encode.proportion": Proportion,
+      'encode.proportion': Proportion,
     }),
   };
 
-  return G2.render({
-    type: "interval",
-    data: [
-      { genre: "Sports", sold: 275 },
-      { genre: "Strategy", sold: 115 },
-      { genre: "Action", sold: 120 },
-      { genre: "Shooter", sold: 350 },
-      { genre: "Other", sold: 150 },
-    ],
-    encode: {
-      x: "genre",
-      y: { type: "proportion", value: "sold" },
+  return G2.render(
+    {
+      type: 'interval',
+      data: [
+        { genre: 'Sports', sold: 275 },
+        { genre: 'Strategy', sold: 115 },
+        { genre: 'Action', sold: 120 },
+        { genre: 'Shooter', sold: 350 },
+        { genre: 'Other', sold: 150 },
+      ],
+      encode: {
+        x: 'genre',
+        y: { type: 'proportion', value: 'sold' },
+      },
     },
-  });
+    context,
+  );
 })();
 ```

@@ -1,7 +1,5 @@
 # Adjust
 
-- <a href="#pack-uniform">Pack Uniform</a>
-
 ## Pack Uniform
 
 The different of following examples is only the tooltip inference.
