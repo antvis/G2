@@ -159,6 +159,7 @@ function inferScaleRange(
     case 'band':
     case 'point':
     case 'time':
+    case 'log':
       return inferRangeQ(name, palette);
     case 'ordinal':
       return name === 'color' ? palette : shapes;
