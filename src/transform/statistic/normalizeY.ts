@@ -35,7 +35,7 @@ function normalizeBasis(basis: NormalizeYOptions['basis']) {
 }
 
 /**
- * Group data into series by specified channels, and then transform
+ * Group marks into series by specified channels, and then transform
  * each series's value, say to transform them relative to some basis
  * to apply a moving average.
  */
@@ -44,7 +44,7 @@ export const NormalizeY: TC<NormalizeYOptions> = (options = {}) => {
   return merge(({ data, encode, columnOf, I }) => {
     const { x, series, ...rest } = encode;
 
-    // Extract and create new channels starts with y, such as y, y1
+    // Extract and create new channels starts with y, such as y, y1.
     const Yn = Object.entries(rest)
       .filter(([k]) => k.startsWith('y'))
       .map(([k, encode]) => [k, columnOf(data, encode)] as const);
@@ -53,7 +53,7 @@ export const NormalizeY: TC<NormalizeYOptions> = (options = {}) => {
       return [k, field(newV, V)] as const;
     });
 
-    // Group mark into series by specified keys.
+    // Group marks into series by specified keys.
     const G = normalizeGroupBy(groupBy).map(
       (k) => [k, columnOf(data, encode[k])] as const,
     );

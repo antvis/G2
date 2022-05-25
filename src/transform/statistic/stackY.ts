@@ -28,7 +28,7 @@ export const StackY: TC<StackYOptions> = (options = {}) => {
         : (i: number) => `${X[i]}`;
     const groups = Array.from(group(I, key).values());
 
-    // Stack y channel in each groups.
+    // Stack y channels in each groups.
     const newY = new Array(I.length);
     const newY1 = new Array(I.length);
     for (const G of groups) {
