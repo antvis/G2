@@ -73,32 +73,20 @@ G2.render({
 ```js
 G2.render({
   type: 'area',
-  data: [
-    { year: '1991', sale: 15468, type: '办公用品' },
-    { year: '1992', sale: 16100, type: '办公用品' },
-    { year: '1993', sale: 15900, type: '办公用品' },
-    { year: '1994', sale: 17409, type: '办公用品' },
-    { year: '1995', sale: 17000, type: '办公用品' },
-    { year: '1996', sale: 31056, type: '办公用品' },
-    { year: '1997', sale: 31982, type: '办公用品' },
-    { year: '1998', sale: 32040, type: '办公用品' },
-    { year: '1999', sale: 33233, type: '办公用品' },
-    { year: '1991', sale: 11468, type: '食品' },
-    { year: '1992', sale: 16100, type: '食品' },
-    { year: '1993', sale: 19900, type: '食品' },
-    { year: '1994', sale: 17409, type: '食品' },
-    { year: '1995', sale: 20000, type: '食品' },
-    { year: '1996', sale: 18056, type: '食品' },
-    { year: '1997', sale: 28982, type: '食品' },
-    { year: '1998', sale: 32040, type: '食品' },
-    { year: '1999', sale: 40233, type: '食品' },
+  transform: [
+    {
+      type: 'fetch',
+      url: 'https://gw.alipayobjects.com/os/bmw-prod/e58c9758-0a09-4527-aa90-fbf175b45925.json',
+    },
+    { type: 'stackY' },
+    { type: 'normalizeY' },
   ],
-  transform: [{ type: 'stackY' }, { type: 'normalizeY' }],
+  scale: { x: { field: 'Date' } },
   encode: {
-    x: 'year',
-    y: 'sale',
-    color: 'type',
     shape: 'smoothArea',
+    x: (d) => new Date(d.date),
+    y: 'unemployed',
+    color: 'industry',
   },
 });
 ```

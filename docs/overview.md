@@ -22,7 +22,7 @@ genji.preview([
     title: 'Normalized Stacked Area',
     path: '/normalize#normalized-stacked-area',
     thumbnail:
-      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*kfwvRoOr44cAAAAAAAAAAAAAARQnAQ',
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*jmWgQ7L8eyUAAAAAAAAAAAAAARQnAQ',
   },
   {
     title: 'Normalized Line',
