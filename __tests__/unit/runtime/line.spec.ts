@@ -52,7 +52,7 @@ describe('line', () => {
   it('render({...}) should render basic line chart', () => {
     const Alpha: TransformComponent = ({ alphas = [] }) => {
       if (!Array.isArray(alphas)) return (context) => context;
-      return ({ data, ...rest }) => {
+      return ({ data }) => {
         const newData = alphas.flatMap((alpha) =>
           data.map((d) => ({
             ...d,
@@ -60,15 +60,13 @@ describe('line', () => {
           })),
         );
         return {
-          ...rest,
           data: newData,
-          I: new Array(newData.length).fill(0).map((_, i) => i),
         };
       };
     };
 
     Alpha.props = {
-      category: 'preprocessor',
+      category: 'connector',
     };
 
     const chart = render<G2Spec>({

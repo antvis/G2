@@ -1,11 +1,5 @@
 # View
 
-- <a href="#interval-with-text">Interval with Text</a>
-- <a href="#line-with-point">Line with Point</a>
-- <a href="#same-side-axes">Same Side Axes</a>
-- <a href="#different-side-axes">Different Side Axes</a>
-- <a href="#double-intervals">Double Intervals</a>
-
 ## Interval with Text
 
 ```js | dom

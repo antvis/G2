@@ -1,43 +1,45 @@
 # Annotation
 
-- <a href="#text-annotation">Text Annotation</a>
-- <a href="#badge-annotation">Badge Annotation</a>
-- <a href="#connector-annotation">Connector Annotation</a>
-
 ## Text Annotation
 
-```js|dom
-G2.render(
-  {
-    type: 'view',
-    width: 640,
-    transform: [
-      {
-        type: 'fetch',
-        url: 'https://gw.alipayobjects.com/os/antfincdn/ulQpndlrT%26/line.json',
-      },
-    ],
-    scale: {
-      x: { nice: true, tickCount: 15 },
-      y: { guide: null },
+```js
+G2.render({
+  type: 'view',
+  width: 640,
+  transform: [
+    {
+      type: 'fetch',
+      url: 'https://gw.alipayobjects.com/os/antfincdn/ulQpndlrT%26/line.json',
     },
-    children: [{
+  ],
+  scale: {
+    x: { nice: true, tickCount: 15 },
+    y: { guide: null },
+  },
+  children: [
+    {
       type: 'line',
       encode: {
-        x: d => new Date(d.date),
+        x: (d) => new Date(d.date),
         y: 'value',
       },
-    }, {
+    },
+    {
       type: 'annotation.text',
-      transform: [{
-        type: 'filterBy', fields: ['date'], callback: d => d === 'March 2008' || d === 'March 2019'
-      }],
+      transform: [
+        {
+          type: 'filterBy',
+          fields: ['date'],
+          callback: (d) => d === 'March 2008' || d === 'March 2019',
+        },
+      ],
       encode: {
-        x: d => new Date(d.date),
+        x: (d) => new Date(d.date),
         y: 'value',
-        text: d => d.date === 'March 2019' ?
-          'The most visits were in March 2019 with 8.30M in total' :
-          'There was a drop in number of visits in early 2008 which have been due to The Greet Recession',
+        text: (d) =>
+          d.date === 'March 2019'
+            ? 'The most visits were in March 2019 with 8.30M in total'
+            : 'There was a drop in number of visits in early 2008 which have been due to The Greet Recession',
       },
       style: {
         fill: 'black',
@@ -52,17 +54,16 @@ G2.render(
         background: {
           fill: '#FFF',
           padding: [2, 2],
-        }
-      }
-    }]
-  },
-  {},
-);
+        },
+      },
+    },
+  ],
+});
 ```
 
 ## Badge Annotation
 
-```js|dom
+```js
 G2.render(
   {
     type: 'view',
@@ -78,26 +79,29 @@ G2.render(
       y: { guide: null },
       color: { guide: null },
     },
-    children: [{
-      type: 'line',
-      encode: {
-        x: d => new Date(d.date),
-        y: 'sales',
-        color: 'fruit',
+    children: [
+      {
+        type: 'line',
+        encode: {
+          x: (d) => new Date(d.date),
+          y: 'sales',
+          color: 'fruit',
+        },
       },
-    }, {
-      type: 'annotation.text',
-      encode: {
-        x: d => new Date(d.date),
-        y: 'sales',
-        text: 'sales',
-        color: 'fruit',
-        shape: 'annotation.badge',
+      {
+        type: 'annotation.text',
+        encode: {
+          x: (d) => new Date(d.date),
+          y: 'sales',
+          text: 'sales',
+          color: 'fruit',
+          shape: 'annotation.badge',
+        },
+        style: {
+          size: 20,
+        },
       },
-      style: {
-        size: 20
-      }
-    }]
+    ],
   },
   {},
 );
@@ -105,7 +109,7 @@ G2.render(
 
 ## Connector Annotation
 
-```js|dom
+```js
 G2.render(
   {
     type: 'view',

@@ -1,9 +1,5 @@
 # Point
 
-- <a href="#basic-point">Basic Point</a>
-- <a href="#one-dimension">One Dimension</a>
-- <a href="#size-channel">Size Channel</a>
-
 ## Basic Point
 
 ```js | dom

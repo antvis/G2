@@ -5,26 +5,20 @@ import { delay } from '../../utils/delay';
 describe('text', () => {
   it('render({...}) should render basic wordCloud', () => {
     const context: G2Context = {};
-    const Flat: TransformComponent = () => {
-      return ({ data, ...rest }) => {
-        const newData = data.flatMap((d) =>
+
+    const Flat: TransformComponent =
+      () =>
+      ({ data }) => ({
+        data: data.flatMap((d) =>
           d.words.map(({ weight, word }) => ({
             value: weight,
             text: word,
             name: d.name,
           })),
-        );
-        return {
-          ...rest,
-          data: newData,
-          I: newData.map((_, i) => i),
-        };
-      };
-    };
+        ),
+      });
 
-    Flat.props = {
-      category: 'preprocessor',
-    };
+    Flat.props = { category: 'connector' };
 
     const chart = render<G2Spec>(
       {

@@ -1,4 +1,5 @@
-import { Marker } from '@antv/gui';
+// import { Marker } from '@antv/gui';
+import { Circle } from '@antv/g';
 import { ShapeComponent as SC } from '../../runtime';
 import { select } from '../../utils/selection';
 import { applyStyle } from '../utils';
@@ -25,17 +26,19 @@ export const ColorPoint: SC<ColorPointOptions> = (options) => {
     const a = (x2 - x0) / 2;
     const b = (y2 - y0) / 2;
     const r = Math.max(0, (a + b) / 2);
-    return select(new Marker({}))
-      .style('size', r)
-      .style('x', cx)
-      .style('y', cy)
-      .style('symbol', symbol)
-      .style('lineWidth', lineWidth)
-      .style('stroke', color)
-      .style('transform', transform)
-      .style(colorAttribute, color)
-      .call(applyStyle, style)
-      .node();
+    return (
+      select(new Circle({}))
+        .style('r', r)
+        .style('cx', cx)
+        .style('cy', cy)
+        // .style('symbol', symbol)
+        .style('lineWidth', lineWidth)
+        .style('stroke', color)
+        .style('transform', transform)
+        .style(colorAttribute, color)
+        .call(applyStyle, style)
+        .node()
+    );
   };
 };
 

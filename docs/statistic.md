@@ -1,11 +1,5 @@
 # Statistic
 
-- <a href="#stackY">StackY</a>
-- <a href="#dodgeX">DodgeX</a>
-- <a href="#/animation">StackEnter</a>
-- <a href="#multiple">Multiple</a>
-- <a href="#custom">Custom</a>
-
 ## StackY
 
 StackY will be inferred if color channel is specified.
@@ -62,7 +56,7 @@ G2.render({
     { city: 'Berlin', month: 'Jul.', rainfall: 37.4 },
     { city: 'Berlin', month: 'Aug.', rainfall: 42.4 },
   ],
-  statistic: [{ type: 'stackY' }],
+  transform: [{ type: 'stackY' }],
   encode: {
     x: 'month',
     y: 'rainfall',
@@ -128,7 +122,7 @@ G2.render({
     { city: 'Berlin', month: 'Jul.', rainfall: 37.4 },
     { city: 'Berlin', month: 'Aug.', rainfall: 42.4 },
   ],
-  statistic: [{ type: 'dodgeX' }],
+  transform: [{ type: 'dodgeX' }],
   encode: {
     x: 'month',
     y: 'rainfall',
@@ -181,7 +175,7 @@ G2.render({
     { city: 'Berlin', month: 'Jul.', rainfall: 37.4 },
     { city: 'Berlin', month: 'Aug.', rainfall: 42.4 },
   ],
-  statistic: [{ type: 'dodgeX' }],
+  transform: [{ type: 'dodgeX' }],
   encode: {
     x: 'month',
     y: 'rainfall',
@@ -201,8 +195,9 @@ G2.render({
       type: 'fetch',
       url: 'https://gw.alipayobjects.com/os/antfincdn/mor%26R5yBI9/stack-group-column.json',
     },
+    { type: 'stackY', series: true },
+    { type: 'dodgeX' },
   ],
-  statistic: [{ type: 'stackY' }, { type: 'dodgeX' }],
   encode: {
     x: 'product_type',
     y: 'order_amt',
@@ -210,71 +205,4 @@ G2.render({
     series: 'sex',
   },
 });
-```
-
-## Custom
-
-```js | dom
-(() => {
-  const SimpleNormalizeY = () => {
-    return ({ index, value }) => {
-      const { y: Y } = value;
-      const sum = Y.reduce((total, e) => total + e[0], 0);
-      const newY = Y.map(([a, b]) => [a / sum, b]);
-      return { index, value: { ...value, y: newY } };
-    };
-  };
-  return G2.render({
-    type: 'interval',
-    data: [
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
-    ],
-    statistic: [{ type: SimpleNormalizeY }],
-    encode: {
-      x: 'genre',
-      y: 'sold',
-    },
-  });
-})();
-```
-
-```js | dom
-(() => {
-  const SimpleNormalizeY = () => {
-    return ({ index, value }) => {
-      const { y: Y } = value;
-      const sum = Y.reduce((total, e) => total + e[0], 0);
-      const newY = Y.map(([a, b]) => [a / sum, b]);
-      return { index, value: { ...value, y: newY } };
-    };
-  };
-
-  const context = {
-    library: Object.assign(G2.createLibrary(), {
-      'statistic.simpleNormalizeY': SimpleNormalizeY,
-    }),
-  };
-  return G2.render(
-    {
-      type: 'interval',
-      data: [
-        { genre: 'Sports', sold: 275 },
-        { genre: 'Strategy', sold: 115 },
-        { genre: 'Action', sold: 120 },
-        { genre: 'Shooter', sold: 350 },
-        { genre: 'Other', sold: 150 },
-      ],
-      statistic: [{ type: 'simpleNormalizeY' }],
-      encode: {
-        x: 'genre',
-        y: 'sold',
-      },
-    },
-    context,
-  );
-})();
 ```

@@ -1,13 +1,5 @@
 # Line
 
-- <a href="#basic-line">Basic Line</a>
-- <a href="#smooth-line">Smooth Line</a>
-- <a href="#series-line">Series Line</a>
-- <a href="#temporal-channel">Temporal Channel</a>
-- <a href="#size-channel">Size Channel</a>
-- <a href="#parallel-line">Parallel Line</a>
-- <a href="#parallel+polar-line">Parallel+Polar Line</a>
-
 ## Basic Line
 
 ```js | dom
@@ -60,50 +52,62 @@ G2.render({
 **Alpha for smooth shape.**
 
 ```js | dom
-G2.render({
-  type: 'line',
-  data: [
-    { year: '1991', value: 15468 },
-    { year: '1992', value: 16100 },
-    { year: '1993', value: 15900 },
-    { year: '1994', value: 17409 },
-    { year: '1995', value: 17000 },
-    { year: '1996', value: 31056 },
-    { year: '1997', value: 31982 },
-    { year: '1998', value: 32040 },
-    { year: '1999', value: 33233 },
-  ],
-  transform: [
-    {
-      type: ({ alphas = [] }) => {
-        if (!Array.isArray(alphas)) return (data) => data;
-        return (data) =>
-          alphas.flatMap((alpha) =>
-            data.map((d) => ({
-              ...d,
-              alpha,
-            })),
-          );
+(() => {
+  const Alpha = ({ alphas = [] }) => {
+    if (!Array.isArray(alphas)) return (context) => context;
+    return ({ data }) => {
+      const newData = alphas.flatMap((alpha) =>
+        data.map((d) => ({
+          ...d,
+          alpha,
+        })),
+      );
+      return {
+        data: newData,
+      };
+    };
+  };
+
+  Alpha.props = {
+    category: 'connector',
+  };
+
+  return G2.render({
+    type: 'line',
+    data: [
+      { year: '1991', value: 15468 },
+      { year: '1992', value: 16100 },
+      { year: '1993', value: 15900 },
+      { year: '1994', value: 17409 },
+      { year: '1995', value: 17000 },
+      { year: '1996', value: 31056 },
+      { year: '1997', value: 31982 },
+      { year: '1998', value: 32040 },
+      { year: '1999', value: 33233 },
+    ],
+    transform: [
+      {
+        type: Alpha,
+        alphas: [0, 0.25, 0.5, 0.75, 1],
       },
-      alphas: [0, 0.25, 0.5, 0.75, 1],
+    ],
+    scale: {
+      color: { field: 'alpha' },
     },
-  ],
-  scale: {
-    color: { field: 'alpha' },
-  },
-  encode: {
-    x: 'year',
-    y: 'value',
-    color: (d) => `${d.alpha}`,
-    shape: {
-      type: 'transform',
-      value: (d) => ({
-        type: 'smooth',
-        alpha: d.alpha,
-      }),
+    encode: {
+      x: 'year',
+      y: 'value',
+      color: (d) => `${d.alpha}`,
+      shape: {
+        type: 'transform',
+        value: (d) => ({
+          type: 'smooth',
+          alpha: d.alpha,
+        }),
+      },
     },
-  },
-});
+  });
+})();
 ```
 
 ## Series Line
@@ -274,12 +278,12 @@ G2.render({
     // zIndex of mark is default to 0.
     // zIndex of component is default to -1.
     // Set zIndex to 1 for component to draw above marks.
-    'position[1]': { nice: true, guide: { zIndex: 1 } },
-    'position[2]': { nice: true, guide: { zIndex: 1 } },
-    'position[3]': { nice: true, guide: { zIndex: 1 } },
-    'position[4]': { nice: true, guide: { zIndex: 1 } },
-    'position[5]': { nice: true, guide: { zIndex: 1 } },
-    'position[6]': { nice: true, guide: { zIndex: 1 } },
+    position: { nice: true, guide: { zIndex: 1 } },
+    position1: { nice: true, guide: { zIndex: 1 } },
+    position2: { nice: true, guide: { zIndex: 1 } },
+    position3: { nice: true, guide: { zIndex: 1 } },
+    position4: { nice: true, guide: { zIndex: 1 } },
+    position5: { nice: true, guide: { zIndex: 1 } },
   },
   encode: {
     position: [
@@ -323,12 +327,12 @@ G2.render({
   ],
   coordinate: [{ type: 'parallel' }, { type: 'polar' }],
   scale: {
-    'position[1]': { nice: true, guide: { zIndex: 1 } },
-    'position[2]': { nice: true, guide: { zIndex: 1 } },
-    'position[3]': { nice: true, guide: { zIndex: 1 } },
-    'position[4]': { nice: true, guide: { zIndex: 1 } },
-    'position[5]': { nice: true, guide: { zIndex: 1 } },
-    'position[6]': { nice: true, guide: { zIndex: 1 } },
+    position: { nice: true, guide: { zIndex: 1 } },
+    position1: { nice: true, guide: { zIndex: 1 } },
+    position2: { nice: true, guide: { zIndex: 1 } },
+    position3: { nice: true, guide: { zIndex: 1 } },
+    position4: { nice: true, guide: { zIndex: 1 } },
+    position5: { nice: true, guide: { zIndex: 1 } },
   },
   encode: {
     position: [

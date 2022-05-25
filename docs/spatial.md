@@ -1,10 +1,5 @@
 # Spatial
 
-- <a href="#stackY">Layer</a>
-- <a href="#row(flex)">Row(Flex)</a>
-- <a href="#col(flex)">Col(Flex)</a>
-- <a href="#nested(flex)">Nested(Flex)</a>
-
 ## Layer
 
 ```js | dom
