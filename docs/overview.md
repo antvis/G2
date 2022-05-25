@@ -2,7 +2,36 @@
 
 ## Transform
 
-> TODO
+### Normalize
+
+```js | dom "pin: false"
+genji.preview([
+  {
+    title: 'Normalized Stacked Interval',
+    path: '/normalize#normalized-stacked-interval',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*j2EJSJ0pvvkAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Normalized Stacked Dodged Interval',
+    path: '/normalize#normalized-stacked-dodged-interval',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*Ex-_SL1hFswAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Normalized Stacked Area',
+    path: '/normalize#normalized-stacked-area',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*kfwvRoOr44cAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Normalized Line',
+    path: '/normalize#normalized-line',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*5kk0RqnkTdcAAAAAAAAAAAAAARQnAQ',
+  },
+]);
+```
 
 ## Scale
 
