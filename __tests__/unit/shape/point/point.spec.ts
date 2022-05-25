@@ -2,7 +2,7 @@ import { Point } from '../../../../src/shape';
 import { mount, createDiv } from '../../../utils/dom';
 import { draw, style } from '../helper';
 
-describe('Point', () => {
+describe.skip('Point', () => {
   it('Point has expected defaults', () => {
     expect(Point.props).toEqual({
       defaultEnterAnimation: 'fadeIn',

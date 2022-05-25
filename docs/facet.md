@@ -1,10 +1,5 @@
 # Facet
 
-- <a href="#row-facet">Row Facet</a>
-- <a href="#col-facet">Col Facet</a>
-- <a href="#rect-facet">Rect Facet</a>
-- <a href="#facet-callback">Facet Callback</a>
-
 ## Row Facet
 
 > Add insert options for plot area to avoid outside circle for scatter?

@@ -2,7 +2,7 @@ import { HollowPoint } from '../../../../src/shape';
 import { mount, createDiv } from '../../../utils/dom';
 import { draw, style } from '../helper';
 
-describe('HollowPoint', () => {
+describe.skip('HollowPoint', () => {
   it('HollowPoint has expected defaults', () => {
     expect(HollowPoint.props).toEqual({
       defaultEnterAnimation: 'fadeIn',

@@ -188,15 +188,18 @@ function applyTransform(
   const { transform: partialTransform = [] } = mark;
   const { preInference = [], postInference = [] } = props;
 
+  const connectors = [];
   const preprocessors = [];
   const statistics = [];
   for (const t of partialTransform) {
     const { type } = t;
     const { category } = createTransform(type).props;
     if (category === 'preprocessor') preprocessors.push(t);
+    else if (category === 'connector') connectors.push(t);
     else statistics.push(t);
   }
   const transform = [
+    ...connectors,
     ...preprocessors,
     ...preInference,
     ...statistics,

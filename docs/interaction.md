@@ -1,9 +1,5 @@
 # Interaction
 
-- <a href="#tooltip">Tooltip</a>
-- <a href="#elementactive">ElementActive</a>
-- <a href="#fisheye">Fisheye</a>
-
 ## Tooltip
 
 **Basic tooltip.**
