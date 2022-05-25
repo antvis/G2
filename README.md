@@ -2,7 +2,7 @@
 
 > 开发中，敬请期待 🌈
 
-- [效果预览](https://pearmini.github.io/hello-g2v5/#/)
+- [效果预览](https://g2-next.antv.vision/overview)
 - [案例验证](https://www.yuque.com/antv/g2-docs/waehm6)
 - [Spec 设计](https://www.yuque.com/antv/g2-docs/g2-spec)
 - [架构设计](https://www.yuque.com/antv/g2-docs/ffpve8)
