@@ -4,8 +4,7 @@
     "Overview": "overview",
     "Dimension": "dimension",
     "Transform": {
-      "Connector": "connector",
-      "Statistic": "statistic"
+      "Normalize": "Normalize"
     },
     "Encode": "encode",
     "Scale": "scale",

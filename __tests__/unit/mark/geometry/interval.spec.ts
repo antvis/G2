@@ -24,10 +24,10 @@ describe('Interval', () => {
         { type: 'maybeArrayField' },
         { type: 'maybeZeroY1' },
         { type: 'maybeZeroX' },
+        { type: 'maybeStackY', series: true },
       ],
       postInference: [
         { type: 'maybeKey' },
-        { type: 'maybeStackY', series: true },
         { type: 'maybeTitleX' },
         { type: 'maybeTooltipY' },
       ],
