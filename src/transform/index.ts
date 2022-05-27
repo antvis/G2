@@ -21,6 +21,7 @@ export { MaybeSeries, MaybeSeriesOptions } from './inference/maybeSeries';
 export { StackY, StackYOptions } from './statistic/stackY';
 export { DodgeX, DodgeXOptions } from './statistic/dodgeX';
 export { StackEnter, StackEnterOptions } from './statistic/stackEnter';
+export { NormalizeY, NormalizeYOptions } from './statistic/normalizeY';
 
 // Connector
 export { Fetch, FetchOptions } from './connector/fetch';

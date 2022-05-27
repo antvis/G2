@@ -116,6 +116,7 @@ import {
   WordCloud,
   Voronoi,
   Sankey,
+  NormalizeY,
 } from '../transform';
 
 export function createLibrary(): G2Library {
@@ -140,6 +141,7 @@ export function createLibrary(): G2Library {
     'transform.stackY': StackY,
     'transform.dodgeX': DodgeX,
     'transform.stackEnter': StackEnter,
+    'transform.normalizeY': NormalizeY,
     'transform.maybeSize': MaybeSize,
     'transform.maybeZeroY': MaybeZeroY,
     'transform.maybeKey': MaybeKey,
