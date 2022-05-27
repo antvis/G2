@@ -95,4 +95,222 @@ describe('statistic', () => {
     });
     mount(createDiv(), chart);
   });
+
+  it('should render stacked area', () => {
+    const chart = render<G2Spec>({
+      type: 'area',
+      transform: [
+        {
+          type: 'fetch',
+          url: 'https://gw.alipayobjects.com/os/bmw-prod/e58c9758-0a09-4527-aa90-fbf175b45925.json',
+        },
+        { type: 'stackY', orderBy: 'series' },
+      ],
+      scale: {
+        x: { field: 'Date', utc: true },
+        y: { guide: { label: { formatter: (d) => `${+d.text / 1000}k` } } },
+      },
+      encode: {
+        shape: 'smoothArea',
+        x: (d) => new Date(d.date),
+        y: 'unemployed',
+        color: 'industry',
+      },
+    });
+    mount(createDiv(), chart);
+  });
+
+  it('should render stacked area order by value', () => {
+    const chart = render<G2Spec>({
+      type: 'area',
+      transform: [
+        {
+          type: 'fetch',
+          url: 'https://gw.alipayobjects.com/os/bmw-prod/e58c9758-0a09-4527-aa90-fbf175b45925.json',
+        },
+        { type: 'stackY', orderBy: 'value' },
+      ],
+      scale: {
+        x: { field: 'Date', utc: true },
+        y: { guide: { label: { formatter: (d) => `${+d.text / 1000}k` } } },
+      },
+      encode: {
+        shape: 'smoothArea',
+        x: (d) => new Date(d.date),
+        y: 'unemployed',
+        color: 'industry',
+      },
+    });
+    mount(createDiv(), chart);
+  });
+
+  it('should render stacked value order by sum', () => {
+    const chart = render<G2Spec>({
+      type: 'area',
+      transform: [
+        {
+          type: 'fetch',
+          url: 'https://gw.alipayobjects.com/os/bmw-prod/e58c9758-0a09-4527-aa90-fbf175b45925.json',
+        },
+        { type: 'stackY', orderBy: 'sum' },
+      ],
+      scale: {
+        x: { field: 'Date', utc: true },
+        y: { guide: { label: { formatter: (d) => `${+d.text / 1000}k` } } },
+      },
+      encode: {
+        shape: 'smoothArea',
+        x: (d) => new Date(d.date),
+        y: 'unemployed',
+        color: 'industry',
+      },
+    });
+    mount(createDiv(), chart);
+  });
+
+  it('should render stacked area order by fields', () => {
+    const chart = render<G2Spec>({
+      type: 'area',
+      transform: [
+        {
+          type: 'fetch',
+          url: 'https://gw.alipayobjects.com/os/bmw-prod/e58c9758-0a09-4527-aa90-fbf175b45925.json',
+        },
+        { type: 'stackY', orderBy: ['unemployed'] },
+      ],
+      scale: {
+        x: { field: 'Date', utc: true },
+        y: { guide: { label: { formatter: (d) => `${+d.text / 1000}k` } } },
+      },
+      encode: {
+        shape: 'smoothArea',
+        x: (d) => new Date(d.date),
+        y: 'unemployed',
+        color: 'industry',
+      },
+    });
+    mount(createDiv(), chart);
+  });
+
+  it('should render stacked area order by function', () => {
+    const chart = render<G2Spec>({
+      type: 'area',
+      transform: [
+        {
+          type: 'fetch',
+          url: 'https://gw.alipayobjects.com/os/bmw-prod/e58c9758-0a09-4527-aa90-fbf175b45925.json',
+        },
+        { type: 'stackY', orderBy: (d) => d.unemployed },
+      ],
+      scale: {
+        x: { field: 'Date', utc: true },
+        y: { guide: { label: { formatter: (d) => `${+d.text / 1000}k` } } },
+      },
+      encode: {
+        shape: 'smoothArea',
+        x: (d) => new Date(d.date),
+        y: 'unemployed',
+        color: 'industry',
+      },
+    });
+    mount(createDiv(), chart);
+  });
+
+  it('should render stacked area order by reverse max index', () => {
+    const chart = render<G2Spec>({
+      type: 'view',
+      transform: [
+        {
+          type: 'fetch',
+          url: 'https://gw.alipayobjects.com/os/bmw-prod/f38a8ad0-6e1f-4bb3-894c-7db50781fdec.json',
+        },
+      ],
+      children: [
+        {
+          type: 'area',
+          transform: [
+            {
+              type: 'stackY',
+              orderBy: 'maxIndex',
+              reverse: true,
+            },
+          ],
+          scale: {
+            y: { guide: { label: { formatter: (d) => `${+d.text / 1000}k` } } },
+          },
+          encode: {
+            shape: 'smoothArea',
+            x: (d) => new Date(d.year),
+            y: 'revenue',
+            color: 'group',
+            series: 'format',
+          },
+        },
+        {
+          type: 'line',
+          transform: [
+            {
+              type: 'stackY',
+              orderBy: 'maxIndex',
+              reverse: true,
+              y: 'y1',
+            },
+          ],
+          encode: {
+            shape: 'smooth',
+            x: (d) => new Date(d.year),
+            y: 'revenue',
+            series: 'format',
+          },
+          style: {
+            stroke: 'white',
+          },
+        },
+      ],
+    });
+    mount(createDiv(), chart);
+  });
+
+  it('should render stacked point', () => {
+    const chart = render<G2Spec>({
+      type: 'view',
+      height: 360,
+      children: [
+        {
+          type: 'point',
+          transform: [
+            {
+              type: 'fetch',
+              url: 'https://gw.alipayobjects.com/os/bmw-prod/88c601cd-c1ff-4c9b-90d5-740d0b710b7e.json',
+            },
+            { type: 'stackY' },
+          ],
+          scale: {
+            x: { field: 'Age →', nice: true },
+            y: {
+              field: '← Women · Men →',
+              guide: { label: { formatter: (d) => `${Math.abs(+d.text)}` } },
+            },
+          },
+          encode: {
+            x: (d) => 2021 - d.birth,
+            y: (d) => (d.gender === 'M' ? 1 : -1),
+            color: 'gender',
+          },
+        },
+        {
+          type: 'annotation.lineX',
+          // @todo Do not need encode.
+          data: [0],
+          encode: {
+            y: 0,
+          },
+          style: {
+            stroke: 'black',
+          },
+        },
+      ],
+    });
+    mount(createDiv(), chart);
+  });
 });

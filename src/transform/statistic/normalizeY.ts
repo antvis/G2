@@ -1,23 +1,10 @@
-import {
-  group,
-  mean,
-  extent,
-  deviation,
-  median,
-  sum,
-  max,
-  min,
-} from 'd3-array';
+import { mean, extent, deviation, median, sum, max, min } from 'd3-array';
 import { TransformComponent as TC } from '../../runtime';
 import { NormalizeYTransform } from '../../spec';
 import { merge, column, field } from '../utils/helper';
+import { createGroups } from './utils';
 
 export type NormalizeYOptions = Omit<NormalizeYTransform, 'type'>;
-
-function normalizeGroupBy(groupBy: NormalizeYOptions['groupBy']): string[] {
-  if (Array.isArray(groupBy)) return groupBy;
-  return [groupBy];
-}
 
 function normalizeBasis(basis: NormalizeYOptions['basis']) {
   const registry = {
@@ -41,7 +28,8 @@ function normalizeBasis(basis: NormalizeYOptions['basis']) {
  */
 export const NormalizeY: TC<NormalizeYOptions> = (options = {}) => {
   const { groupBy = 'x', basis = 'max' } = options;
-  return merge(({ data, encode, columnOf, I }) => {
+  return merge((context) => {
+    const { data, encode, columnOf, I } = context;
     const { x, series, ...rest } = encode;
 
     // Extract and create new channels starts with y, such as y, y1.
@@ -54,11 +42,7 @@ export const NormalizeY: TC<NormalizeYOptions> = (options = {}) => {
     });
 
     // Group marks into series by specified keys.
-    const G = normalizeGroupBy(groupBy).map(
-      (k) => [k, columnOf(data, encode[k])] as const,
-    );
-    const key = (i) => G.map(([, V]) => V[i]).join('-');
-    const groups = Array.from(group(I, key).values());
+    const groups = createGroups(groupBy, context);
 
     // Transform y channels for each group based on basis.
     const basisFunction = normalizeBasis(basis);
@@ -75,9 +59,7 @@ export const NormalizeY: TC<NormalizeYOptions> = (options = {}) => {
     }
 
     return {
-      encode: Object.fromEntries(
-        [...G, ...newYn].map(([k, v]) => [k, column(v)]),
-      ),
+      encode: Object.fromEntries(newYn.map(([k, v]) => [k, column(v)])),
     };
   });
 };
