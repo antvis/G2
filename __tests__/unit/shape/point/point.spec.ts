@@ -2,7 +2,7 @@ import { Point } from '../../../../src/shape';
 import { mount, createDiv } from '../../../utils/dom';
 import { draw, style } from '../helper';
 
-describe.skip('Point', () => {
+describe('Point', () => {
   it('Point has expected defaults', () => {
     expect(Point.props).toEqual({
       defaultEnterAnimation: 'fadeIn',
@@ -24,11 +24,10 @@ describe.skip('Point', () => {
     });
     mount(createDiv(), container);
 
-    expect(shape.nodeName).toBe('marker');
-    expect(style(shape, ['fill', 'size', 'lineWidth'])).toEqual({
+    expect(shape.nodeName).toBe('path');
+    expect(style(shape, ['fill', 'lineWidth'])).toEqual({
       fill: 'steelblue',
-      size: 75,
-      lineWidth: null,
+      lineWidth: 1,
     });
   });
 
@@ -47,7 +46,7 @@ describe.skip('Point', () => {
     });
     mount(createDiv(), container);
 
-    expect(shape.nodeName).toBe('marker');
+    expect(shape.nodeName).toBe('path');
     expect(style(shape, ['fill'])).toEqual({
       fill: 'red',
     });

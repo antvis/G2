@@ -85,7 +85,7 @@ describe('point', () => {
       },
       style: {
         strokeOpacity: 0.2,
-        lineWidth: 2,
+        lineWidth: 1,
       },
     });
 

@@ -2,7 +2,7 @@ import { HollowPoint } from '../../../../src/shape';
 import { mount, createDiv } from '../../../utils/dom';
 import { draw, style } from '../helper';
 
-describe.skip('HollowPoint', () => {
+describe('HollowPoint', () => {
   it('HollowPoint has expected defaults', () => {
     expect(HollowPoint.props).toEqual({
       defaultEnterAnimation: 'fadeIn',
@@ -24,10 +24,9 @@ describe.skip('HollowPoint', () => {
     });
     mount(createDiv(), container);
 
-    expect(shape.nodeName).toBe('marker');
-    expect(style(shape, ['stroke', 'size', 'lineWidth'])).toEqual({
+    expect(shape.nodeName).toBe('path');
+    expect(style(shape, ['stroke', 'lineWidth'])).toEqual({
       stroke: 'steelblue',
-      size: 75,
       lineWidth: 1,
     });
   });
@@ -47,7 +46,7 @@ describe.skip('HollowPoint', () => {
     });
     mount(createDiv(), container);
 
-    expect(shape.nodeName).toBe('marker');
+    expect(shape.nodeName).toBe('path');
     expect(style(shape, ['stroke'])).toEqual({
       stroke: 'red',
     });

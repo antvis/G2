@@ -7,7 +7,7 @@ export type HollowPointOptions = Record<string, any>;
  * ○
  */
 export const HollowPoint: SC<HollowPointOptions> = (options) => {
-  return ColorPoint({ colorAttribute: 'stroke', symbol: 'circle', ...options });
+  return ColorPoint({ colorAttribute: 'stroke', symbol: 'point', ...options });
 };
 
 HollowPoint.props = {
