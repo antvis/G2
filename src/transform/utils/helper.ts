@@ -46,6 +46,7 @@ export function constant(value: Primitive) {
 }
 
 export function field(target: ColumnValue, source: ColumnValue) {
+  if (!source) return target;
   target.field = source.field;
   return target;
 }
