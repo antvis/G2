@@ -1,6 +1,6 @@
 # Normalize
 
-Group marks into series by specified channels, and then transform each series's value, say to transform them relative to some basis to apply a moving average. The default basis is `max` and the marks are grouped by `x` channel by default. The built-in basis is as followed:
+The **normalize** transform group marks into series by specified channels, and then transform each series's value, say to transform them relative to some basis to apply a moving average. The default basis is `max` and the marks are grouped by `x` channel by default. The built-in basis is as followed:
 
 - min
 - max

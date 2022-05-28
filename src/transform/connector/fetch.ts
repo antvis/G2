@@ -16,6 +16,8 @@ export const Fetch: TC<FetchOptions> = (options) => {
     const data = await response.json();
     return {
       data: data.map(callback),
+      // @todo Remove this.
+      I: data.map((_, i) => i),
     };
   });
 };

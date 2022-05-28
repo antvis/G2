@@ -4,6 +4,7 @@
     "Overview": "overview",
     "Dimension": "dimension",
     "Transform": {
+      "Stack": "Stack",
       "Normalize": "Normalize"
     },
     "Encode": "encode",

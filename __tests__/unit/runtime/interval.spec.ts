@@ -618,7 +618,7 @@ describe('render', () => {
           { city: 'Berlin', month: 'Jul.', rainfall: 37.4 },
           { city: 'Berlin', month: 'Aug.', rainfall: 42.4 },
         ],
-        transform: [{ type: 'stackY', series: true }],
+        transform: [{ type: 'stackY', groupBy: ['x', 'series'] }],
         encode: {
           x: 'month',
           y: 'rainfall',
@@ -859,7 +859,7 @@ describe('render', () => {
             product_sub_type: '鼠标',
           },
         ],
-        transform: [{ type: 'stackY', series: true }],
+        transform: [{ type: 'stackY', groupBy: ['x', 'series'] }],
         encode: {
           x: 'product_type',
           y: 'order_amt',
@@ -996,7 +996,7 @@ describe('render', () => {
           color: 'product_sub_type',
           series: 'sex',
         },
-        transform: [{ type: 'stackY', series: true }],
+        transform: [{ type: 'stackY', groupBy: ['x', 'series'] }],
       },
       {},
       done,

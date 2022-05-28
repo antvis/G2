@@ -22,7 +22,9 @@ export const MaybeStackY: TC<MaybeStackYOptions> = (options) => {
     }
     // StackY need both x and y channel values, so pass value with empty x or y channel.
     if (x === undefined || y === undefined) return {};
-    return StackY(options)(context);
+    const { series } = options;
+    const groupBy = series ? ['x', 'series'] : 'x';
+    return StackY({ groupBy })(context);
   });
 };
 

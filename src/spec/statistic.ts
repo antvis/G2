@@ -1,4 +1,4 @@
-import { TransformComponent } from '../runtime';
+import { Primitive, TransformComponent } from '../runtime';
 
 export type StatisticTransform =
   | StackYTransform
@@ -19,7 +19,16 @@ export type DodgeXTransform = {
 
 export type StackYTransform = {
   type?: 'stackY';
-  series?: boolean;
+  groupBy?: string | string[];
+  reverse?: boolean;
+  orderBy?:
+    | 'value'
+    | 'sum'
+    | 'series'
+    | 'maxIndex'
+    | string[]
+    | ((data: Record<string, Primitive>) => Primitive);
+  y?: 'y' | 'y1';
 };
 
 export type NormalizeYTransform = {
