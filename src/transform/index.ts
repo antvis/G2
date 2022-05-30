@@ -24,6 +24,7 @@ export { StackEnter, StackEnterOptions } from './statistic/stackEnter';
 export { NormalizeY, NormalizeYOptions } from './statistic/normalizeY';
 export { Jitter, JitterOptions } from './statistic/Jitter';
 export { JitterY, JitterYOptions } from './statistic/JitterY';
+export { SymmetryY, SymmetryYOptions } from './statistic/symmetryY';
 
 // Connector
 export { Fetch, FetchOptions } from './connector/fetch';

@@ -119,6 +119,7 @@ import {
   NormalizeY,
   Jitter,
   JitterY,
+  SymmetryY,
 } from '../transform';
 
 export function createLibrary(): G2Library {
@@ -144,6 +145,7 @@ export function createLibrary(): G2Library {
     'transform.dodgeX': DodgeX,
     'transform.jitter': Jitter,
     'transform.jitterY': JitterY,
+    'transform.symmetryY': SymmetryY,
     'transform.stackEnter': StackEnter,
     'transform.normalizeY': NormalizeY,
     'transform.maybeSize': MaybeSize,

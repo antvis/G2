@@ -384,4 +384,81 @@ describe('statistic', () => {
     });
     mount(createDiv(), chart);
   });
+
+  it('should render symmetry stacked area', () => {
+    const chart = render<G2Spec>({
+      type: 'area',
+      transform: [
+        {
+          type: 'fetch',
+          url: 'https://gw.alipayobjects.com/os/bmw-prod/e58c9758-0a09-4527-aa90-fbf175b45925.json',
+        },
+        { type: 'stackY' },
+        { type: 'symmetryY' },
+      ],
+      scale: {
+        x: { field: 'Date', utc: true },
+        y: { guide: { label: { formatter: (d) => `${+d.text / 1000}k` } } },
+      },
+      encode: {
+        shape: 'smoothArea',
+        x: (d) => new Date(d.date),
+        y: 'unemployed',
+        color: 'industry',
+      },
+    });
+    mount(createDiv(), chart);
+  });
+
+  it('should render symmetry interval', () => {
+    const chart = render<G2Spec>({
+      type: 'interval',
+      transform: [
+        { type: 'sortBy', fields: ['sold'], order: 'DESC' },
+        { type: 'symmetryY' },
+      ],
+      data: [
+        { genre: 'Sports', sold: 275 },
+        { genre: 'Strategy', sold: 115 },
+        { genre: 'Action', sold: 120 },
+        { genre: 'Shooter', sold: 350 },
+        { genre: 'Other', sold: 150 },
+      ],
+      coordinate: [{ type: 'transpose' }],
+      encode: {
+        x: 'genre',
+        y: 'sold',
+        color: 'genre',
+      },
+    });
+    mount(createDiv(), chart);
+  });
+
+  it('should render symmetry stacked points', () => {
+    const chart = render<G2Spec>({
+      type: 'point',
+      height: 360,
+      transform: [
+        {
+          type: 'fetch',
+          url: 'https://gw.alipayobjects.com/os/bmw-prod/88c601cd-c1ff-4c9b-90d5-740d0b710b7e.json',
+        },
+        { type: 'stackY', orderBy: 'series' },
+        { type: 'symmetryY' },
+      ],
+      scale: {
+        x: { field: 'Age →', nice: true },
+        y: {
+          field: '← Women · Men →',
+          guide: { label: { formatter: (d) => `${Math.abs(+d.text)}` } },
+        },
+      },
+      encode: {
+        x: (d) => 2021 - d.birth,
+        y: 1,
+        color: 'gender',
+      },
+    });
+    mount(createDiv(), chart);
+  });
 });
