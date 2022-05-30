@@ -19,6 +19,8 @@ import {
   AnnotationLineX,
   AnnotationLineY,
   AnnotationConnector,
+  AnnotationRangeX,
+  AnnotationRangeY,
 } from '../mark/annotation';
 import { Category10, Category20 } from '../palette';
 import {
@@ -66,6 +68,7 @@ import {
   AnnotationBadge,
   AnnotationLine as AnnotationLineShape,
   AnnotationConnector as AnnotationConnectorShape,
+  AnnotationRange as AnnotationRangeShape,
   Area,
   SmoothArea,
   Edge,
@@ -175,6 +178,8 @@ export function createLibrary(): G2Library {
     'mark.annotation.lineX': AnnotationLineX,
     'mark.annotation.lineY': AnnotationLineY,
     'mark.annotation.connector': AnnotationConnector,
+    'mark.annotation.rangeX': AnnotationRangeX,
+    'mark.annotation.rangeY': AnnotationRangeY,
     'palette.category10': Category10,
     'palette.category20': Category20,
     'scale.linear': Linear,
@@ -226,6 +231,7 @@ export function createLibrary(): G2Library {
     'shape.annotation.badge': AnnotationBadge,
     'shape.annotation.line': AnnotationLineShape,
     'shape.annotation.connector': AnnotationConnectorShape,
+    'shape.annotation.range': AnnotationRangeShape,
     'theme.light': Light,
     'component.axisX': AxisX,
     'component.axisY': AxisY,

@@ -50,3 +50,7 @@ export {
   Connector as AnnotationConnector,
   ConnectorOptions as AnnotationConnectorOptions,
 } from './annotation/connector';
+export {
+  Range as AnnotationRange,
+  RangeOptions as AnnotationRangeOptions,
+} from './annotation/range';
