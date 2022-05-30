@@ -6,6 +6,8 @@ export type TransformContext = {
   encode?: Record<string, EncodeSpec>;
   columnOf?: ColumnOf;
   transform?: TransformSpec[];
+  // @todo Replace with ScaleSpec
+  scale?: Record<string, any>;
 };
 
 export type TransformOptions = Record<string, any>;
