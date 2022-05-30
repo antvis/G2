@@ -82,6 +82,34 @@ genji.preview(
 );
 ```
 
+### Symmetry
+
+```js | dom "pin: false"
+genji.preview(
+  [
+    {
+      title: 'Symmetry Stacked Area',
+      path: '/symmetry#symmetry-stacked-area',
+      thumbnail:
+        'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*JvVVTI5ASawAAAAAAAAAAAAAARQnAQ',
+    },
+    {
+      title: 'Symmetry Interval',
+      path: '/symmetry#symmetry-interval',
+      thumbnail:
+        'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*dx05SoJezooAAAAAAAAAAAAAARQnAQ',
+    },
+    {
+      title: 'Symmetry Stacked Point',
+      path: '/symmetry#symmetry-stacked-point',
+      thumbnail:
+        'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*PSfjSZUa_nIAAAAAAAAAAAAAARQnAQ',
+    },
+  ],
+  { height: 175 },
+);
+```
+
 ### Jitter
 
 ```js | dom "pin: false"
