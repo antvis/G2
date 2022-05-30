@@ -97,7 +97,7 @@ genji.preview(
       title: 'Jitter In Polar',
       path: '/jitter#jitter-in-polar',
       thumbnail:
-        'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*y4cqTb9zA6YAAAAAAAAAAAAAARQnAQ',
+        'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*Z0BHQ6NBLT0AAAAAAAAAAAAAARQnAQ',
     },
     {
       title: 'JitterY',

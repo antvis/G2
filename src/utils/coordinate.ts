@@ -17,3 +17,8 @@ export function isParallel(coordinate: Coordinate): boolean {
   const { transformations } = coordinate.getOptions();
   return transformations.some(([type]) => type === 'parallel');
 }
+
+export function isFisheye(coordinate: Coordinate): boolean {
+  const { transformations } = coordinate.getOptions();
+  return transformations.some(([type]) => type === 'fisheye');
+}
