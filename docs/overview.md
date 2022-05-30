@@ -125,13 +125,13 @@ genji.preview([
     title: 'Text Annotation',
     path: '/annotation#text-annotation',
     thumbnail:
-      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*aWMNTIzEPmcAAAAAAAAAAAAAARQnAQ',
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*rbg3QYa_Vx4AAAAAAAAAAAAAARQnAQ',
   },
   {
     title: 'Badge Annotation',
     path: '/annotation#badge-annotation',
     thumbnail:
-      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*kxjsQIbpB_EAAAAAAAAAAAAAARQnAQ',
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*VZLqQYo5pokAAAAAAAAAAAAAARQnAQ',
   },
   {
     title: 'Connector Annotation',

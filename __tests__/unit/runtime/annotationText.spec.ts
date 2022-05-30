@@ -239,7 +239,11 @@ describe('render', () => {
           },
         ],
         scale: {
-          x: { nice: true, tickCount: 15 },
+          x: {
+            nice: true,
+            tickCount: 15,
+            guide: { label: { autoHide: true } },
+          },
           y: { guide: null },
           color: { guide: null },
         },

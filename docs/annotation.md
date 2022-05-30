@@ -21,7 +21,7 @@ G2.render({
     {
       type: 'line',
       encode: {
-        x: 'date',
+        x: (d) => new Date(d.date),
         y: 'blockchain',
         color: '#5B8FF9',
       },
@@ -29,7 +29,7 @@ G2.render({
     {
       type: 'line',
       encode: {
-        x: 'date',
+        x: (d) => new Date(d.date),
         y: 'nlp',
         color: '#61DDAA',
       },
@@ -38,7 +38,7 @@ G2.render({
       type: 'annotation.text',
       data: [{ date: '2017-12-17', blockchain: 100 }],
       encode: {
-        x: 'date',
+        x: (d) => new Date(d.date),
         y: 'blockchain',
         text: (d) =>
           `${d.date}, 受比特币影响，blockchain 搜索热度达到峰值：${d.blockchain}`,
@@ -85,17 +85,22 @@ G2.render({
     x: {
       guide: {
         label: { autoHide: 'greedy', showLast: false, style: { fontSize: 10 } },
-        title: { style: { fontSize: 10 } }
-      }
+        title: { style: { fontSize: 10 } },
+      },
     },
-    y: { guide: { label: { style: { fontSize: 10 } }, title: { style: { fontSize: 10 } } } },
+    y: {
+      guide: {
+        label: { style: { fontSize: 10 } },
+        title: { style: { fontSize: 10 } },
+      },
+    },
     color: { guide: null },
   },
   children: [
     {
       type: 'line',
       encode: {
-        x: 'date',
+        x: (d) => new Date(d.date),
         y: 'blockchain',
         color: '#5B8FF9',
       },
@@ -103,7 +108,7 @@ G2.render({
     {
       type: 'line',
       encode: {
-        x: 'date',
+        x: (d) => new Date(d.date),
         y: 'nlp',
         color: '#61DDAA',
       },
@@ -112,7 +117,7 @@ G2.render({
       type: 'annotation.text',
       data: [{ date: '2017-12-17', blockchain: 100 }],
       encode: {
-        x: 'date',
+        x: (d) => new Date(d.date),
         y: 'blockchain',
         text: (d) =>
           `${d.date}, 受比特币影响，blockchain 搜索热度达到峰值：${d.blockchain}`,
