@@ -35,7 +35,7 @@ describe('Text', () => {
     expect(style(shape, ['fill', 'stroke', 'lineWidth'])).toEqual({
       fill: 'steelblue',
       stroke: 'steelblue',
-      lineWidth: 0,
+      lineWidth: '',
     });
   });
 

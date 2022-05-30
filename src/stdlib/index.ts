@@ -117,6 +117,8 @@ import {
   Voronoi,
   Sankey,
   NormalizeY,
+  Jitter,
+  JitterY,
 } from '../transform';
 
 export function createLibrary(): G2Library {
@@ -140,6 +142,8 @@ export function createLibrary(): G2Library {
     'transform.maybeSeries': MaybeSeries,
     'transform.stackY': StackY,
     'transform.dodgeX': DodgeX,
+    'transform.jitter': Jitter,
+    'transform.jitterY': JitterY,
     'transform.stackEnter': StackEnter,
     'transform.normalizeY': NormalizeY,
     'transform.maybeSize': MaybeSize,

@@ -6,7 +6,7 @@ import { normalizeComparator, createGroups, applyOrder } from './utils';
 export type StackYOptions = Omit<StackYTransform, 'type'>;
 
 /**
- * The **stack** transform group marks into series by color or series channel,
+ * The stack transform group marks into series by color or series channel,
  * and then produce new y channel for each series by specified order,
  * say to form vertical "stacks" by specified channels.
  */

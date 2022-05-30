@@ -16,11 +16,13 @@ export type PointOptions = Omit<PointGeometry, 'type'>;
  */
 export const Point: MC<PointOptions> = () => {
   return (index, scale, value, coordinate) => {
-    const { x: X, y: Y, size: S } = value;
+    const { x: X, y: Y, size: S, dx: DX, dy: DY } = value;
     const [width, height] = coordinate.getSize();
     const P = Array.from(index, (i) => {
-      const cx = +X[i];
-      const cy = +Y[i];
+      const dx = +(DX?.[i] || 0);
+      const dy = +(DY?.[i] || 0);
+      const cx = +X[i] + dx;
+      const cy = +Y[i] + dy;
       const r = +S[i];
       const a = r / width;
       const b = r / height;
@@ -39,6 +41,8 @@ Point.props = {
     { name: 'x', required: true },
     { name: 'y', required: true },
     { name: 'size', required: true },
+    { name: 'dx', scale: 'identity' },
+    { name: 'dy', scale: 'identity' },
   ],
   preInference: [
     ...basePreInference(),

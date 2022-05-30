@@ -128,6 +128,8 @@ import {
   Voronoi,
   Sankey,
   NormalizeY,
+  Jitter,
+  JitterY,
 } from '../../../src/transform';
 
 describe('stdlib', () => {
@@ -152,6 +154,8 @@ describe('stdlib', () => {
       'transform.maybeSeries': MaybeSeries,
       'transform.stackY': StackY,
       'transform.dodgeX': DodgeX,
+      'transform.jitter': Jitter,
+      'transform.jitterY': JitterY,
       'transform.stackEnter': StackEnter,
       'transform.normalizeY': NormalizeY,
       'transform.maybeSize': MaybeSize,

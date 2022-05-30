@@ -45,3 +45,7 @@ export function copyAttributes(target: DisplayObject, source: DisplayObject) {
 export function defined(x: any) {
   return x !== undefined && x !== null && !Number.isNaN(x);
 }
+
+export function random(a: number, b: number): number {
+  return a + (b - a) * Math.random();
+}
