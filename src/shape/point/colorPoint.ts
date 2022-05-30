@@ -25,8 +25,8 @@ export const ColorPoint: SC<ColorPointOptions> = (options) => {
     const { color = defaultColor, transform } = value;
     const [[x0, y0], [x2, y2]] = points;
     const [cx, cy] = [(x0 + x2) / 2, (y0 + y2) / 2];
-    const a = (x2 - x0) / 2;
-    const b = (y2 - y0) / 2;
+    const a = Math.abs((x2 - x0) / 2);
+    const b = Math.abs((y2 - y0) / 2);
     const r = Math.max(0, (a + b) / 2);
     return select(new Path({}))
       .style('d', path(cx, cy, r))
