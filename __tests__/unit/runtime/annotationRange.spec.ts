@@ -26,12 +26,24 @@ describe('range Annotation', () => {
           },
           {
             type: 'annotation.rangeX',
-            data: [{ x1: 'Sports', x2: 'Action' }],
+            data: [
+              { x1: 'Sports', x2: 'Action' },
+              { x2: 'Shooter', x1: 'Shooter', value: 12 },
+            ],
+            scale: {
+              color: {
+                independent: true,
+                guide: null,
+                range: ['rgba(220,220,220, 0.4)', 'rgba(255,0,0, 0.15)'],
+              },
+            },
             encode: {
               x: ['x1', 'x2'],
+              color: (_, i) => i,
             },
             style: {
-              fill: 'rgba(220,220,220,0.3)',
+              stroke: 'red',
+              lineWidth: 1,
             },
           },
         ],

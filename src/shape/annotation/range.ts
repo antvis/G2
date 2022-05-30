@@ -12,7 +12,6 @@ function reorder(points: Vector2[]): Vector2[] {
 }
 
 export type RangeOptions = {
-  colorAttribute: 'fill' | 'stroke';
   [key: string]: any;
 };
 
@@ -67,7 +66,10 @@ export const Range: SC<RangeOptions> = (options) => {
 
     return select(new Path({}))
       .style('path', path(arcObject))
-      .style('transform', `translate(${center[0]}, ${center[1]})`)
+      .style(
+        'transform',
+        `${transform || ''} translate(${center[0]}, ${center[1]})`,
+      )
       .style('fill', color)
       .call(applyStyle, style)
       .node();

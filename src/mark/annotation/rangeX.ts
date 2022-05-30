@@ -41,7 +41,6 @@ RangeX.props = {
     ...baseAnnotationChannels(),
     { name: 'x', required: true },
     { name: 'y' },
-    { name: 'series', scale: 'band' },
   ],
   preInference: [...basePreInference()],
   postInference: [...basePostInference()],
