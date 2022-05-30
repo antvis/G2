@@ -1,8 +1,8 @@
-// import { Marker } from '@antv/gui';
-import { Circle } from '@antv/g';
+import { Path } from '@antv/g';
 import { ShapeComponent as SC } from '../../runtime';
 import { select } from '../../utils/selection';
 import { applyStyle } from '../utils';
+import * as Symbols from './symbol';
 
 export type ColorPointOptions = {
   colorAttribute: 'fill' | 'stroke';
@@ -15,8 +15,10 @@ export type ColorPointOptions = {
  */
 export const ColorPoint: SC<ColorPointOptions> = (options) => {
   // Render border only when colorAttribute is stroke.
-  const { colorAttribute, symbol = 'point', ...style } = options;
+  const { colorAttribute, symbol, ...style } = options;
   const lineWidth = colorAttribute === 'stroke' ? 1 : undefined;
+
+  const path = Symbols[symbol] || Symbols.point;
 
   return (points, value, coordinate, theme) => {
     const { defaultColor } = theme;
@@ -26,19 +28,14 @@ export const ColorPoint: SC<ColorPointOptions> = (options) => {
     const a = (x2 - x0) / 2;
     const b = (y2 - y0) / 2;
     const r = Math.max(0, (a + b) / 2);
-    return (
-      select(new Circle({}))
-        .style('r', r)
-        .style('cx', cx)
-        .style('cy', cy)
-        // .style('symbol', symbol)
-        .style('lineWidth', lineWidth)
-        .style('stroke', color)
-        .style('transform', transform)
-        .style(colorAttribute, color)
-        .call(applyStyle, style)
-        .node()
-    );
+    return select(new Path({}))
+      .style('d', path(cx, cy, r))
+      .style('lineWidth', lineWidth)
+      .style('stroke', color)
+      .style('transform', transform)
+      .style(colorAttribute, color)
+      .call(applyStyle, style)
+      .node();
   };
 };
 
