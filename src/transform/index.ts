@@ -22,6 +22,8 @@ export { StackY, StackYOptions } from './statistic/stackY';
 export { DodgeX, DodgeXOptions } from './statistic/dodgeX';
 export { StackEnter, StackEnterOptions } from './statistic/stackEnter';
 export { NormalizeY, NormalizeYOptions } from './statistic/normalizeY';
+export { Jitter, JitterOptions } from './statistic/Jitter';
+export { JitterY, JitterYOptions } from './statistic/JitterY';
 
 // Connector
 export { Fetch, FetchOptions } from './connector/fetch';

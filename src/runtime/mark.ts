@@ -114,7 +114,7 @@ function createTransformContext(
     'encode',
     library,
   );
-  const { data, encode = {}, transform = [] } = mark;
+  const { data, encode = {}, transform = [], scale = {} } = mark;
   const columnOf: ColumnOf = (data, encode) => {
     if (encode === undefined) return null;
     if (data === undefined) return null;
@@ -130,6 +130,7 @@ function createTransformContext(
     encode: flatEncode(encode),
     columnOf,
     transform,
+    scale,
   };
 }
 

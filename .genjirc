@@ -5,7 +5,8 @@
     "Dimension": "dimension",
     "Transform": {
       "Stack": "Stack",
-      "Normalize": "Normalize"
+      "Normalize": "Normalize",
+      "Jitter": "Jitter"
     },
     "Encode": "encode",
     "Scale": "scale",

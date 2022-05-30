@@ -313,4 +313,75 @@ describe('statistic', () => {
     });
     mount(createDiv(), chart);
   });
+
+  it('should render jittered points in x and y dimensions', () => {
+    const chart = render<G2Spec>({
+      type: 'point',
+      transform: [
+        {
+          type: 'fetch',
+          url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
+        },
+        { type: 'jitter' },
+      ],
+      scale: { x: { padding: 0.5 }, y: { guide: null } },
+      encode: {
+        x: 'clarity',
+        color: 'clarity',
+      },
+    });
+    mount(createDiv(), chart);
+  });
+
+  it('should render jittered points in polar', () => {
+    const chart = render<G2Spec>({
+      type: 'point',
+      transform: [
+        {
+          type: 'fetch',
+          url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
+        },
+        { type: 'jitter', paddingX: 0.1, paddingY: 0.1 },
+      ],
+      paddingLeft: 90,
+      coordinate: [{ type: 'polar' }],
+      scale: {
+        x: { padding: 0.5 },
+        y: { padding: 0.5 },
+        color: { guide: null },
+      },
+      encode: {
+        x: 'clarity',
+        y: 'cut',
+        color: (d) => `(${d.clarity}, ${d.cut})`,
+      },
+    });
+    mount(createDiv(), chart);
+  });
+
+  it('should render jittered points in y dimension', () => {
+    const chart = render<G2Spec>({
+      type: 'point',
+      transform: [
+        {
+          type: 'fetch',
+          url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
+        },
+        { type: 'jitterY', padding: 0.1 },
+      ],
+      paddingLeft: 90,
+      scale: {
+        x: { padding: 0.5 },
+        y: { padding: 0.5 },
+        color: { guide: null },
+      },
+      encode: {
+        x: 'clarity',
+        y: 'cut',
+        shape: 'hyphen',
+        size: 25,
+      },
+    });
+    mount(createDiv(), chart);
+  });
 });

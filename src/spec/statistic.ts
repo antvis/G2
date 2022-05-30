@@ -4,13 +4,17 @@ export type StatisticTransform =
   | StackYTransform
   | DodgeXTransform
   | NormalizeYTransform
-  | StackEnterTransform;
+  | StackEnterTransform
+  | JitterTransform
+  | JitterYTransform;
 
 export type StatisticTransformTypes =
   | 'dodgeX'
   | 'stackY'
   | 'normalizeY'
   | 'stackEnter'
+  | 'jitter'
+  | 'jitterY'
   | TransformComponent;
 
 export type DodgeXTransform = {
@@ -45,6 +49,17 @@ export type NormalizeYTransform = {
     | 'min'
     | 'sum'
     | 'extent';
+};
+
+export type JitterTransform = {
+  type?: 'jitter';
+  paddingX?: number;
+  paddingY?: number;
+};
+
+export type JitterYTransform = {
+  type?: 'jitterY';
+  padding?: number;
 };
 
 export type StackEnterTransform = {
