@@ -82,6 +82,34 @@ genji.preview(
 );
 ```
 
+### Jitter
+
+```js | dom "pin: false"
+genji.preview(
+  [
+    {
+      title: 'Jitter Both',
+      path: '/jitter#jitter-both',
+      thumbnail:
+        'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*-MaBTb6i7RQAAAAAAAAAAAAAARQnAQ',
+    },
+    {
+      title: 'Jitter In Polar',
+      path: '/jitter#jitter-in-polar',
+      thumbnail:
+        'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*y4cqTb9zA6YAAAAAAAAAAAAAARQnAQ',
+    },
+    {
+      title: 'JitterY',
+      path: '/jitter#jittery',
+      thumbnail:
+        'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*qSd7S56SzGMAAAAAAAAAAAAAARQnAQ',
+    },
+  ],
+  { height: 175 },
+);
+```
+
 ## Scale
 
 > TODO
@@ -201,26 +229,29 @@ genji.preview(
 ## Annotation
 
 ```js | dom "pin: false"
-genji.preview([
-  {
-    title: 'Text Annotation',
-    path: '/annotation#text-annotation',
-    thumbnail:
-      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*rbg3QYa_Vx4AAAAAAAAAAAAAARQnAQ',
-  },
-  {
-    title: 'Badge Annotation',
-    path: '/annotation#badge-annotation',
-    thumbnail:
-      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*VZLqQYo5pokAAAAAAAAAAAAAARQnAQ',
-  },
-  {
-    title: 'Connector Annotation',
-    path: '/annotation#connector-annotation',
-    thumbnail:
-      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*pkbESpuunUwAAAAAAAAAAAAAARQnAQ',
-  }
-]);
+genji.preview(
+  [
+    {
+      title: 'Text Annotation',
+      path: '/annotation#text-annotation',
+      thumbnail:
+        'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*rbg3QYa_Vx4AAAAAAAAAAAAAARQnAQ',
+    },
+    {
+      title: 'Badge Annotation',
+      path: '/annotation#badge-annotation',
+      thumbnail:
+        'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*VZLqQYo5pokAAAAAAAAAAAAAARQnAQ',
+    },
+    {
+      title: 'Connector Annotation',
+      path: '/annotation#connector-annotation',
+      thumbnail:
+        'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*pkbESpuunUwAAAAAAAAAAAAAARQnAQ',
+    },
+  ],
+  { height: 175 },
+);
 ```
 
 ## Animation
