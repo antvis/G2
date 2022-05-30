@@ -125,19 +125,19 @@ genji.preview([
     title: 'Text Annotation',
     path: '/annotation#text-annotation',
     thumbnail:
-      'https://gw.alipayobjects.com/os/s/prod/antv/assets/image/screenshot-placeholder-b8e70.png',
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*aWMNTIzEPmcAAAAAAAAAAAAAARQnAQ',
   },
   {
     title: 'Badge Annotation',
     path: '/annotation#badge-annotation',
     thumbnail:
-      'https://gw.alipayobjects.com/os/s/prod/antv/assets/image/screenshot-placeholder-b8e70.png',
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*kxjsQIbpB_EAAAAAAAAAAAAAARQnAQ',
   },
   {
     title: 'Connector Annotation',
     path: '/annotation#connector-annotation',
     thumbnail:
-      'https://gw.alipayobjects.com/os/s/prod/antv/assets/image/screenshot-placeholder-b8e70.png',
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*pkbESpuunUwAAAAAAAAAAAAAARQnAQ',
   }
 ]);
 ```
