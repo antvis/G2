@@ -5,55 +5,62 @@
 ```js
 G2.render({
   type: 'view',
+  height: 300,
   width: 640,
   transform: [
     {
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/antfincdn/ulQpndlrT%26/line.json',
+      url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/blockchain.json',
     },
   ],
   scale: {
-    x: { nice: true, tickCount: 15 },
-    y: { guide: null },
+    x: { guide: { label: { autoHide: 'greedy', showLast: false } } },
+    color: { guide: null },
   },
   children: [
     {
       type: 'line',
       encode: {
         x: (d) => new Date(d.date),
-        y: 'value',
+        y: 'blockchain',
+        color: '#5B8FF9',
+      },
+    },
+    {
+      type: 'line',
+      encode: {
+        x: (d) => new Date(d.date),
+        y: 'nlp',
+        color: '#61DDAA',
       },
     },
     {
       type: 'annotation.text',
-      transform: [
-        {
-          type: 'filterBy',
-          fields: ['date'],
-          callback: (d) => d === 'March 2008' || d === 'March 2019',
-        },
-      ],
+      data: [{ date: '2017-12-17', blockchain: 100 }],
       encode: {
         x: (d) => new Date(d.date),
-        y: 'value',
+        y: 'blockchain',
         text: (d) =>
-          d.date === 'March 2019'
-            ? 'The most visits were in March 2019 with 8.30M in total'
-            : 'There was a drop in number of visits in early 2008 which have been due to The Greet Recession',
+          `${d.date}, 受比特币影响，blockchain 搜索热度达到峰值：${d.blockchain}`,
       },
       style: {
-        fill: 'black',
-        fontSize: 10,
-        textAlign: 'right',
-        textBaseline: 'middle',
-        dy: 8,
-        dx: -20,
         wordWrap: true,
-        wordWrapWidth: 100,
-        connector: { lineDash: [2, 1], stroke: '#416180', lineWidth: 1 },
+        wordWrapWidth: 160,
+        fill: '#2C3542',
+        fillOpacity: 0.65,
+        textAlign: 'left',
+        dy: 30,
+        dx: -174,
+        fontSize: 10,
         background: {
-          fill: '#FFF',
-          padding: [2, 2],
+          fill: '#416180',
+          fillOpacity: 0.15,
+          radius: 2,
+          padding: [2, 4],
+        },
+        connector: {
+          stroke: '#416180',
+          strokeOpacity: 0.45,
         },
       },
     },
@@ -64,47 +71,76 @@ G2.render({
 ## Badge Annotation
 
 ```js
-G2.render(
-  {
-    type: 'view',
-    width: 640,
-    transform: [
-      {
-        type: 'fetch',
-        url: 'https://gw.alipayobjects.com/os/antfincdn/jjAX4HPWB9/sales.json',
-      },
-    ],
-    scale: {
-      x: { nice: true, tickCount: 15 },
-      y: { guide: null },
-      color: { guide: null },
+G2.render({
+  type: 'view',
+  height: 300,
+  width: 300,
+  transform: [
+    {
+      type: 'fetch',
+      url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/blockchain.json',
     },
-    children: [
-      {
-        type: 'line',
-        encode: {
-          x: (d) => new Date(d.date),
-          y: 'sales',
-          color: 'fruit',
-        },
+  ],
+  scale: {
+    x: {
+      guide: {
+        label: { autoHide: 'greedy', showLast: false, style: { fontSize: 10 } },
+        title: { style: { fontSize: 10 } },
       },
-      {
-        type: 'annotation.text',
-        encode: {
-          x: (d) => new Date(d.date),
-          y: 'sales',
-          text: 'sales',
-          color: 'fruit',
-          shape: 'annotation.badge',
-        },
-        style: {
-          size: 20,
-        },
+    },
+    y: {
+      guide: {
+        label: { style: { fontSize: 10 } },
+        title: { style: { fontSize: 10 } },
       },
-    ],
+    },
+    color: { guide: null },
   },
-  {},
-);
+  children: [
+    {
+      type: 'line',
+      encode: {
+        x: (d) => new Date(d.date),
+        y: 'blockchain',
+        color: '#5B8FF9',
+      },
+    },
+    {
+      type: 'line',
+      encode: {
+        x: (d) => new Date(d.date),
+        y: 'nlp',
+        color: '#61DDAA',
+      },
+    },
+    {
+      type: 'annotation.text',
+      data: [{ date: '2017-12-17', blockchain: 100 }],
+      encode: {
+        x: (d) => new Date(d.date),
+        y: 'blockchain',
+        text: (d) =>
+          `${d.date}, 受比特币影响，blockchain 搜索热度达到峰值：${d.blockchain}`,
+        shape: 'annotation.badge',
+      },
+      style: {
+        wordWrap: true,
+        wordWrapWidth: 160,
+        fill: '#6395FA',
+        fillOpacity: 0.65,
+        textAlign: 'left',
+        content: 'Top',
+        dy: 30,
+        dx: -174,
+        fontSize: 10,
+        connector: {
+          stroke: '#416180',
+          strokeOpacity: 0.45,
+        },
+      },
+    },
+  ],
+});
 ```
 
 ## Connector Annotation
