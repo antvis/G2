@@ -200,7 +200,28 @@ genji.preview(
 
 ## Annotation
 
-> TODO
+```js | dom "pin: false"
+genji.preview([
+  {
+    title: 'Text Annotation',
+    path: '/annotation#text-annotation',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*rbg3QYa_Vx4AAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Badge Annotation',
+    path: '/annotation#badge-annotation',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*VZLqQYo5pokAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Connector Annotation',
+    path: '/annotation#connector-annotation',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*pkbESpuunUwAAAAAAAAAAAAAARQnAQ',
+  }
+]);
+```
 
 ## Animation
 
