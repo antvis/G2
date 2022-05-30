@@ -17,6 +17,8 @@ describe('Point', () => {
         { name: 'tooltip', scale: 'identity', independent: true },
         { name: 'x', required: true },
         { name: 'y', required: true },
+        { name: 'dx', scale: 'identity' },
+        { name: 'dy', scale: 'identity' },
         { name: 'size', required: true },
       ],
       preInference: [
