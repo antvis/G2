@@ -13,7 +13,6 @@ describe('RangeX annotation', () => {
         { name: 'enterEasing' },
         { name: 'key', scale: 'identity' },
         { name: 'x', required: true },
-        { name: 'y' },
       ],
       preInference: [{ type: 'maybeArrayField' }],
       postInference: [{ type: 'maybeKey' }],

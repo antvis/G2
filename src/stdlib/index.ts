@@ -19,6 +19,7 @@ import {
   AnnotationLineX,
   AnnotationLineY,
   AnnotationConnector,
+  AnnotationRange,
   AnnotationRangeX,
   AnnotationRangeY,
 } from '../mark/annotation';
@@ -178,6 +179,7 @@ export function createLibrary(): G2Library {
     'mark.annotation.lineX': AnnotationLineX,
     'mark.annotation.lineY': AnnotationLineY,
     'mark.annotation.connector': AnnotationConnector,
+    'mark.annotation.range': AnnotationRange,
     'mark.annotation.rangeX': AnnotationRangeX,
     'mark.annotation.rangeY': AnnotationRangeY,
     'palette.category10': Category10,

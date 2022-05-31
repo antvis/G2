@@ -55,49 +55,6 @@ describe('range Annotation', () => {
     mount(createDiv(), chart);
   });
 
-  it('render({...} renders rangeX annotation in polar coordinate.', (done) => {
-    const chart = render<G2Spec>(
-      {
-        type: 'view',
-        height: 200,
-        data: [
-          { genre: 'Sports', sold: 275 },
-          { genre: 'Strategy', sold: 115 },
-          { genre: 'Action', sold: 120 },
-          { genre: 'Shooter', sold: 150 },
-          { genre: 'Other', sold: 350 },
-        ],
-        coordinate: [{ type: 'polar' }],
-        children: [
-          {
-            type: 'interval',
-            encode: {
-              x: 'genre',
-              y: 'sold',
-              color: 'genre',
-            },
-          },
-          {
-            type: 'annotation.rangeX',
-            data: [{ x1: 'Sports', x2: 'Strategy', y2: 0, y1: 1.1 }],
-            scale: { y: { domain: [0, 1], independent: true, guide: null } },
-            encode: {
-              x: ['x1', 'x2'],
-              y: ['y1', 'y2'],
-            },
-            style: {
-              fill: 'rgba(220,220,220,0.3)',
-            },
-          },
-        ],
-      },
-      {},
-      done,
-    );
-
-    mount(createDiv(), chart);
-  });
-
   it('render({...} renders rangeX annotation with identity scale.', (done) => {
     const chart = render<G2Spec>(
       {
@@ -230,7 +187,7 @@ describe('range Annotation', () => {
     mount(createDiv(), chart);
   });
 
-  it('render({...} renders rangeY annotation with custom x encode.', (done) => {
+  it('render({...} renders range annotation', (done) => {
     const chart = render<G2Spec>(
       {
         type: 'view',
@@ -251,7 +208,7 @@ describe('range Annotation', () => {
             },
           },
           {
-            type: 'annotation.rangeY',
+            type: 'annotation.range',
             scale: {
               y: { independent: true, guide: null, domain: [0, 1] },
             },
@@ -259,6 +216,49 @@ describe('range Annotation', () => {
             encode: {
               x: ['x1', 'x2'],
               y: ['val1', 'val2'],
+            },
+            style: {
+              fill: 'rgba(220,220,220,0.3)',
+            },
+          },
+        ],
+      },
+      {},
+      done,
+    );
+
+    mount(createDiv(), chart);
+  });
+
+  it('render({...} renders range annotation in polar coordinate.', (done) => {
+    const chart = render<G2Spec>(
+      {
+        type: 'view',
+        height: 200,
+        data: [
+          { genre: 'Sports', sold: 275 },
+          { genre: 'Strategy', sold: 115 },
+          { genre: 'Action', sold: 120 },
+          { genre: 'Shooter', sold: 150 },
+          { genre: 'Other', sold: 350 },
+        ],
+        coordinate: [{ type: 'polar' }],
+        children: [
+          {
+            type: 'interval',
+            encode: {
+              x: 'genre',
+              y: 'sold',
+              color: 'genre',
+            },
+          },
+          {
+            type: 'annotation.range',
+            data: [{ x1: 'Sports', x2: 'Strategy', y2: 0, y1: 1.1 }],
+            scale: { y: { domain: [0, 1], independent: true, guide: null } },
+            encode: {
+              x: ['x1', 'x2'],
+              y: ['y1', 'y2'],
             },
             style: {
               fill: 'rgba(220,220,220,0.3)',

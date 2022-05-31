@@ -1,8 +1,8 @@
-import { RangeY } from '../../../../src/mark/annotation/rangeY';
+import { Range } from '../../../../src/mark/annotation/range';
 
-describe('RangeY annotation', () => {
-  it('RangeY has expected props', () => {
-    expect(RangeY.props).toEqual({
+describe('Range annotation', () => {
+  it('Range has expected props', () => {
+    expect(Range.props).toEqual({
       defaultShape: 'annotation.range',
       channels: [
         { name: 'color' },
@@ -12,9 +12,14 @@ describe('RangeY annotation', () => {
         { name: 'enterDuration', scaleName: 'enter' },
         { name: 'enterEasing' },
         { name: 'key', scale: 'identity' },
+        { name: 'x', required: true },
         { name: 'y', required: true },
       ],
-      preInference: [{ type: 'maybeArrayField' }],
+      preInference: [
+        { type: 'maybeArrayField' },
+        { type: 'maybeZeroY1' },
+        { type: 'maybeZeroX' },
+      ],
       postInference: [{ type: 'maybeKey' }],
       shapes: ['annotation.range'],
     });
