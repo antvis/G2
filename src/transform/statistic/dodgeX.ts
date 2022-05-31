@@ -12,7 +12,7 @@ import {
 export type DodgeXOptions = Omit<DodgeXTransform, 'type'>;
 
 /**
- * The stack dodge group marks into series by color or series channel,
+ * The dodge group marks into series by color or series channel,
  * and then produce new series channel for each series by specified order,
  * say to form horizontal "columns" by specified channels.
  */
