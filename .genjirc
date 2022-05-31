@@ -6,6 +6,7 @@
     "Transform": {
       "Stack": "Stack",
       "Normalize": "Normalize",
+      "Symmetry": "Symmetry",
       "Jitter": "Jitter"
     },
     "Encode": "encode",
