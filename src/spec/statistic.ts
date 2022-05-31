@@ -6,7 +6,8 @@ export type StatisticTransform =
   | NormalizeYTransform
   | StackEnterTransform
   | JitterTransform
-  | JitterYTransform;
+  | JitterYTransform
+  | SymmetryYTransform;
 
 export type StatisticTransformTypes =
   | 'dodgeX'
@@ -15,6 +16,7 @@ export type StatisticTransformTypes =
   | 'stackEnter'
   | 'jitter'
   | 'jitterY'
+  | 'symmetryY'
   | TransformComponent;
 
 export type DodgeXTransform = {
@@ -65,4 +67,9 @@ export type JitterYTransform = {
 export type StackEnterTransform = {
   type?: 'stackEnter';
   by?: string[];
+};
+
+export type SymmetryYTransform = {
+  type?: 'symmetryY';
+  groupBy?: string | string[];
 };

@@ -30,7 +30,7 @@ export const NormalizeY: TC<NormalizeYOptions> = (options = {}) => {
   const { groupBy = 'x', basis = 'max' } = options;
   return merge((context) => {
     const { data, encode, columnOf, I } = context;
-    const { x, series, ...rest } = encode;
+    const { x, ...rest } = encode;
 
     // Extract and create new channels starts with y, such as y, y1.
     const Yn = Object.entries(rest)
