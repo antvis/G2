@@ -17,7 +17,7 @@ export type DodgeXOptions = Omit<DodgeXTransform, 'type'>;
  * say to form horizontal "columns" by specified channels.
  */
 export const DodgeX: TC<DodgeXOptions> = (options = {}) => {
-  const { groupBy = 'x', reverse = false, orderBy } = options;
+  const { groupBy = 'x', reverse = false, orderBy, ...rest } = options;
   return merge((context) => {
     const { data, encode, columnOf, I, scale } = context;
     const { series, color, y } = encode;
@@ -43,7 +43,7 @@ export const DodgeX: TC<DodgeXOptions> = (options = {}) => {
 
     return {
       // Update the domain of series as well.
-      scale: deepMix({}, scale, { series: { domain: domainSeries } }),
+      scale: deepMix({}, scale, { series: { domain: domainSeries, ...rest } }),
       encode: {
         series: column(newS),
       },

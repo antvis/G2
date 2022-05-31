@@ -32,6 +32,9 @@ export type DodgeXTransform = {
   groupBy?: string | string[];
   reverse?: boolean;
   orderBy?: StatisticOrder;
+  paddingInner?: number;
+  paddingOuter?: number;
+  padding?: number;
 };
 
 export type StackYTransform = {

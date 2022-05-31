@@ -523,17 +523,20 @@ describe('statistic', () => {
           type: 'fetch',
           url: 'https://gw.alipayobjects.com/os/bmw-prod/62fd7bf5-beb5-4791-9b62-6c66fa0204da.json',
         },
+        {
+          type: 'dodgeX',
+          paddingInner: 0.3,
+          paddingOuter: 0.1,
+        },
       ],
       encode: {
         x: 'type',
         y: 'bin',
-        series: 'Species',
         color: 'Species',
       },
       scale: {
         x: { paddingInner: 0.2, paddingOuter: 0.1 },
         y: { zero: true },
-        series: { paddingInner: 0.3, paddingOuter: 0.1 },
       },
       style: {
         stroke: 'black',
