@@ -3,12 +3,9 @@ import { ColumnValue, TransformComponent as TC } from '../../runtime';
 import { JitterTransform } from '../../spec';
 import { merge, column } from '../utils/helper';
 import { random } from '../../utils/helper';
+import { domainOf } from './utils';
 
 export type JitterOptions = Omit<JitterTransform, 'type'>;
-
-function domainOf(value: ColumnValue) {
-  return Array.from(new Set(value));
-}
 
 export function rangeOf(
   value: ColumnValue,
@@ -16,7 +13,7 @@ export function rangeOf(
   padding: number,
 ): [number, number] {
   if (value === null) return [-0.5, 0.5];
-  const domain = scaleOptions?.domain || domainOf(value);
+  const domain = domainOf(value, scaleOptions);
   const scale = new Band({ domain, range: [0, 1], padding });
   const step = scale.getBandWidth();
   return [-step / 2, step / 2];

@@ -35,7 +35,7 @@ G2.render({
     y: { guide: { label: { formatter: (d) => `${+d.text / 1000}k` } } },
   },
   type: 'interval',
-  encode: { x: 'date', y: 'deaths', color: 'cause', order: 'appearance' },
+  encode: { x: 'date', y: 'deaths', color: 'cause' },
 });
 ```
 

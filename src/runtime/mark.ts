@@ -42,11 +42,13 @@ export async function initializeMark(
   library: G2Library,
 ): Promise<[G2Mark, G2MarkState]> {
   // Apply transform to get data to be visualized.
-  const { data, encode, I, columnOf } = await applyTransform(
-    partialMark,
-    partialProps,
-    library,
-  );
+  const {
+    data,
+    encode,
+    I,
+    columnOf,
+    scale: partialScale = {},
+  } = await applyTransform(partialMark, partialProps, library);
 
   // Skip mark with non-tabular or empty data.
   if (Array.isArray(data) === false || data.length === 0) {
@@ -77,7 +79,7 @@ export async function initializeMark(
 
   //  Infer scale for each channel.
   const scale = {};
-  const { scale: partialScale = {} } = partialMark;
+  // const { scale: partialScale = {} } = partialMark;
   const { coordinate = [] } = options;
   const scaleChannels = group(channels, (d) => d.scaleName);
 

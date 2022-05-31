@@ -79,6 +79,7 @@ G2.render({
     x: (d) => 2021 - d.birth,
     y: 1,
     color: 'gender',
+    shape: 'hexagon',
   },
 });
 ```
