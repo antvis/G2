@@ -48,6 +48,34 @@ genji.preview(
 );
 ```
 
+### Dodge
+
+```js | dom "pin: false"
+genji.preview(
+  [
+    {
+      title: 'Dodged Interval',
+      path: '/dodge#dodged-interval',
+      thumbnail:
+        'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*S1lURbrnjLQAAAAAAAAAAAAAARQnAQ',
+    },
+    {
+      title: 'Order By Value',
+      path: '/dodge#order-by-value',
+      thumbnail:
+        'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*4fYgT68yuIoAAAAAAAAAAAAAARQnAQ',
+    },
+    {
+      title: 'Dodged Schema',
+      path: '/dodge#dodged-schema',
+      thumbnail:
+        'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*igdpTZKSp0UAAAAAAAAAAAAAARQnAQ',
+    },
+  ],
+  { height: 175 },
+);
+```
+
 ### Normalize
 
 ```js | dom "pin: false"
