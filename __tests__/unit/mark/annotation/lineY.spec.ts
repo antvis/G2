@@ -13,7 +13,7 @@ describe('Line annotation', () => {
         { name: 'enterDuration', scaleName: 'enter' },
         { name: 'enterEasing' },
         { name: 'key', scale: 'identity' },
-        { name: 'x', required: true },
+        { name: 'y', required: true },
       ],
       preInference: [{ type: 'maybeArrayField' }],
       postInference: [{ type: 'maybeKey' }],
@@ -21,19 +21,19 @@ describe('Line annotation', () => {
     });
   });
 
-  it('LineY should draw line annotation in y direction', () => {
+  it('LineY should draw line annotation in x direction', () => {
     const [I, P] = plot({
       mark: LineY({}),
       index: [0],
       channel: {
-        x: [0.5],
+        y: [0.5, 0.5, 0.5],
       },
     });
     expect(I).toEqual([0]);
     expect(P).toEqual([
       [
-        [300, 400],
-        [300, 0],
+        [0, 200],
+        [600, 200],
       ],
     ]);
   });
@@ -43,34 +43,34 @@ describe('Line annotation', () => {
       mark: LineY({}),
       index: [0, 1, 2],
       channel: {
-        x: [0.5, 0.2, 0.4],
+        y: [0.5, 0.2, 0.4],
       },
     });
 
     expect(I).toEqual([0, 1, 2]);
     expect(P).toEqual([
       [
-        [300, 400],
-        [300, 0],
+        [0, 200],
+        [600, 200],
       ],
       [
-        [120, 400],
-        [120, 0],
+        [0, 80],
+        [600, 80],
       ],
       [
-        [240, 400],
-        [240, 0],
+        [0, 160],
+        [600, 160],
       ],
     ]);
   });
 
-  it('LineY should throw error without x', () => {
+  it('LineY should throw error without y', () => {
     expect(() =>
       plot({
         mark: LineY({}),
         index: [0, 1, 2],
         channel: {
-          y: [[0.5], [0.2], [0.4]],
+          x: [[0.5], [0.2], [0.4]],
         },
       }),
     ).toThrowError();
