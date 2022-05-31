@@ -461,4 +461,85 @@ describe('statistic', () => {
     });
     mount(createDiv(), chart);
   });
+
+  it('should render dodged interval', () => {
+    const chart = render<G2Spec>({
+      transform: [
+        {
+          type: 'fetch',
+          url: 'https://gw.alipayobjects.com/os/bmw-prod/0afdce89-c103-479d-91f4-6cf604bcf200.json',
+        },
+        { type: 'dodgeX' },
+      ],
+      paddingLeft: 60,
+      scale: {
+        x: {
+          guide: {
+            label: {
+              formatter: (d) =>
+                `${new Date(d.text).toLocaleString('en', { month: 'narrow' })}`,
+            },
+          },
+        },
+        y: { guide: { label: { formatter: (d) => `${+d.text / 1000}k` } } },
+      },
+      type: 'interval',
+      encode: { x: 'date', y: 'deaths', color: 'cause' },
+    });
+
+    mount(createDiv(), chart);
+  });
+
+  it('should render dodged interval with value order', () => {
+    const chart = render<G2Spec>({
+      data: [
+        { year: '2014', type: 'Sales', sales: 1000 },
+        { year: '2015', type: 'Sales', sales: 1170 },
+        { year: '2016', type: 'Sales', sales: 660 },
+        { year: '2017', type: 'Sales', sales: 1030 },
+        { year: '2014', type: 'Expenses', sales: 400 },
+        { year: '2015', type: 'Expenses', sales: 460 },
+        { year: '2016', type: 'Expenses', sales: 1120 },
+        { year: '2017', type: 'Expenses', sales: 540 },
+        { year: '2014', type: 'Profit', sales: 300 },
+        { year: '2015', type: 'Profit', sales: 300 },
+        { year: '2016', type: 'Profit', sales: 300 },
+        { year: '2017', type: 'Profit', sales: 350 },
+      ],
+      paddingLeft: 60,
+      transform: [{ type: 'dodgeX', orderBy: 'value', reverse: true }],
+      type: 'interval',
+      encode: { x: 'year', y: 'sales', color: 'type' },
+    });
+
+    mount(createDiv(), chart);
+  });
+
+  it('should render normalized dodged schema', () => {
+    const chart = render<G2Spec>({
+      type: 'schema',
+      transform: [
+        {
+          type: 'fetch',
+          url: 'https://gw.alipayobjects.com/os/bmw-prod/62fd7bf5-beb5-4791-9b62-6c66fa0204da.json',
+        },
+      ],
+      encode: {
+        x: 'type',
+        y: 'bin',
+        series: 'Species',
+        color: 'Species',
+      },
+      scale: {
+        x: { paddingInner: 0.2, paddingOuter: 0.1 },
+        y: { zero: true },
+        series: { paddingInner: 0.3, paddingOuter: 0.1 },
+      },
+      style: {
+        stroke: 'black',
+      },
+    });
+
+    mount(createDiv(), chart);
+  });
 });

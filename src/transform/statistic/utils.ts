@@ -46,6 +46,10 @@ export function applyOrder(groups: number[][], comparator: IndexComparator) {
   }
 }
 
+export function domainOf(value: ColumnValue, scale: Record<string, any>) {
+  return scale?.domain || Array.from(new Set(value));
+}
+
 function normalizeGroupBy(groupBy: string | string[]): string[] {
   if (Array.isArray(groupBy)) return groupBy;
   return [groupBy];

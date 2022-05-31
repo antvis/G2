@@ -9,6 +9,14 @@ export type StatisticTransform =
   | JitterYTransform
   | SymmetryYTransform;
 
+export type StatisticOrder =
+  | 'value'
+  | 'sum'
+  | 'series'
+  | 'maxIndex'
+  | string[]
+  | ((data: Record<string, Primitive>) => Primitive);
+
 export type StatisticTransformTypes =
   | 'dodgeX'
   | 'stackY'
@@ -21,19 +29,16 @@ export type StatisticTransformTypes =
 
 export type DodgeXTransform = {
   type?: 'dodgeX';
+  groupBy?: string | string[];
+  reverse?: boolean;
+  orderBy?: StatisticOrder;
 };
 
 export type StackYTransform = {
   type?: 'stackY';
   groupBy?: string | string[];
   reverse?: boolean;
-  orderBy?:
-    | 'value'
-    | 'sum'
-    | 'series'
-    | 'maxIndex'
-    | string[]
-    | ((data: Record<string, Primitive>) => Primitive);
+  orderBy?: StatisticOrder;
   y?: 'y' | 'y1';
 };
 
