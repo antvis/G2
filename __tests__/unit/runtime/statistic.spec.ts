@@ -106,9 +106,11 @@ describe('statistic', () => {
         },
         { type: 'stackY', orderBy: 'series' },
       ],
+      paddingTop: 68,
       scale: {
         x: { field: 'Date', utc: true },
         y: { guide: { label: { formatter: (d) => `${+d.text / 1000}k` } } },
+        color: { guide: { autoWrap: true, size: 68, maxRows: 3, cols: 4 } },
       },
       encode: {
         shape: 'smoothArea',
