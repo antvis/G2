@@ -16,8 +16,15 @@ describe('facet', () => {
         height: 240,
         paddingLeft: 50,
         paddingBottom: 50,
+        title: {
+          content: 'Facet',
+          subtitle: 'Description of chart.',
+        },
         encode: {
           x: 'series',
+        },
+        scale: {
+          x: { guide: { size: 30 } },
         },
         children: [
           {

@@ -86,6 +86,7 @@ import {
   AxisY,
   LegendCategory,
   LegendContinuous,
+  TitleComponent,
 } from '../../../src/component';
 import { ScaleInY, FadeIn } from '../../../src/animation';
 import {
@@ -243,6 +244,7 @@ describe('stdlib', () => {
       'component.axisY': AxisY,
       'component.legendCategory': LegendCategory,
       'component.legendContinuous': LegendContinuous,
+      'component.title': TitleComponent,
       'animation.scaleInY': ScaleInY,
       'animation.fadeIn': FadeIn,
       'interaction.elementActive': ElementActive,

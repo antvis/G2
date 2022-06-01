@@ -1,10 +1,12 @@
 import { Coordinate } from '@antv/coord';
+import { deepMix } from '@antv/util';
 import {
   G2ScaleOptions,
   G2CoordinateOptions,
   G2Library,
   G2GuideComponentOptions,
   G2View,
+  G2TitleOptions,
 } from './types/options';
 import {
   GuideComponentComponent,
@@ -26,6 +28,8 @@ export function inferComponent(
     component: partialComponents = [],
     coordinate = [],
     adjust,
+    title,
+    theme,
   } = partialOptions;
   const [, createGuideComponent] = useLibrary<
     G2GuideComponentOptions,
@@ -41,6 +45,19 @@ export function inferComponent(
     return true;
   });
   const components = [...partialComponents];
+  if (title) {
+    const { props } = createGuideComponent('title');
+    const { defaultPosition, defaultOrder } = props;
+    const titleOptions = typeof title === 'string' ? { content: title } : title;
+    const size = inferTitleComponentSize(deepMix({}, theme, titleOptions));
+    components.push({
+      type: 'title',
+      position: defaultPosition,
+      order: defaultOrder,
+      size,
+      ...titleOptions,
+    });
+  }
 
   for (const scale of displayedScales) {
     const type = inferComponentType(scale, coordinate);
@@ -83,7 +100,7 @@ export function renderComponent(
   >('component', library);
   const { scale: scaleDescriptor, bbox, ...options } = component;
   const scale = scaleDescriptor ? useScale(scaleDescriptor) : null;
-  const { field, domain } = scaleDescriptor;
+  const { field, domain } = scaleDescriptor || {};
   const value = { field, domain, bbox };
   const render = useGuideComponent(options);
   return render(scale, value, coordinate, theme);
@@ -151,4 +168,15 @@ function inferComponentPosition(
     return 'arcY';
   }
   return ordinalPosition;
+}
+
+function inferTitleComponentSize(options: G2TitleOptions) {
+  const { size, content, subtitle, style, subtitleStyle } = options;
+  if (size) return size;
+  return (
+    (content ? style?.fontSize || 14 : 0) +
+    (subtitle
+      ? (subtitleStyle?.fontSize || 12) + (subtitleStyle?.spacing || 0) + 8
+      : 0)
+  );
 }

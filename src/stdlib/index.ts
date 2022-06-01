@@ -75,7 +75,13 @@ import {
   Box,
 } from '../shape';
 import { Light } from '../theme';
-import { AxisX, AxisY, LegendCategory, LegendContinuous } from '../component';
+import {
+  AxisX,
+  AxisY,
+  LegendCategory,
+  LegendContinuous,
+  TitleComponent,
+} from '../component';
 import { ScaleInY, FadeIn } from '../animation';
 import {
   ElementActive,
@@ -231,6 +237,7 @@ export function createLibrary(): G2Library {
     'component.axisY': AxisY,
     'component.legendCategory': LegendCategory,
     'component.legendContinuous': LegendContinuous,
+    'component.title': TitleComponent,
     'animation.scaleInY': ScaleInY,
     'animation.fadeIn': FadeIn,
     'interaction.elementActive': ElementActive,

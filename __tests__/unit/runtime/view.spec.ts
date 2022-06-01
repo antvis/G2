@@ -5,6 +5,7 @@ describe('view', () => {
   it('render({...}) should render marks with same scales', () => {
     const chart = render<G2Spec>({
       type: 'view',
+      title: 'View Composition',
       data: [
         { genre: 'Sports', sold: 275 },
         { genre: 'Strategy', sold: 115 },
@@ -69,7 +70,15 @@ describe('view', () => {
     ];
     const chart = render<G2Spec>({
       type: 'view',
+      title: {
+        content: 'View Composition',
+        subtitle: 'Description of chart.',
+      },
       data,
+      paddingRight: 80,
+      scale: {
+        color: { guide: { position: 'right', size: 80 } },
+      },
       children: [
         {
           type: 'line',

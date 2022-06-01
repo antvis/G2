@@ -34,6 +34,12 @@ describe('render', () => {
     const chart = render<G2Spec>(
       {
         type: 'interval',
+        title: {
+          size: 40,
+          content: 'Chart Title',
+          subtitle: 'Chart Subtitle: description, description.',
+          subtitleStyle: { fill: 'pink' },
+        },
         data: [
           { genre: 'Sports', sold: 275 },
           { genre: 'Strategy', sold: 115 },
@@ -41,6 +47,8 @@ describe('render', () => {
           { genre: 'Shooter', sold: 350 },
           { genre: 'Other', sold: 150 },
         ],
+        paddingRight: 80,
+        scale: { color: { guide: { position: 'right', size: 80 } } },
         encode: {
           x: 'genre',
           y: 'sold',
@@ -58,6 +66,7 @@ describe('render', () => {
     const chart = render<G2Spec>(
       {
         type: 'interval',
+        title: 'Chart Title',
         data: [
           { genre: 'Sports', sold: 275 },
           { genre: 'Strategy', sold: 115 },

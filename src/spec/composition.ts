@@ -4,6 +4,7 @@ import { Coordinate } from './coordinate';
 import { Interaction } from './interaction';
 import { Transform } from './transform';
 import { Scale } from './scale';
+import { Title } from './title';
 
 export type Node =
   | MarkComposition
@@ -12,7 +13,9 @@ export type Node =
   | FlexComposition
   | RectComposition;
 
-export type MarkComposition = Geometry;
+export type MarkComposition = Geometry & {
+  title?: Title;
+};
 
 export type ViewComposition = {
   type?: 'view';
@@ -24,6 +27,7 @@ export type ViewComposition = {
   paddingBottom?: number;
   coordinate?: Coordinate[];
   interaction?: Interaction[];
+  title?: Title;
   theme?: Theme;
   children?: MarkComposition[];
   adjust?: Adjust;
@@ -65,6 +69,7 @@ export type RectComposition = {
   paddingTop?: number;
   paddingBottom?: number;
   type?: 'rect';
+  title?: Title;
   encode?: {
     x?: string;
     y?: string;
