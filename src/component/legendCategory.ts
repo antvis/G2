@@ -1,4 +1,5 @@
 import { Category } from '@antv/gui';
+import { deepMix } from '@antv/util';
 import {
   GuideComponentComponent as GCC,
   GuideComponentPosition,
@@ -23,19 +24,23 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
       name: formatter(d),
       color: scale.map(d),
     }));
-    return new Category({
-      style: {
+    const { cols, autoWrap, ...guideCfg } = scale.getOptions().guide || {};
+    const maxItemWidth = autoWrap && cols ? width / cols : undefined;
+    const legendStyle = deepMix(
+      {},
+      {
         items,
         x,
         y,
         maxWidth: width,
         maxHeight: height,
+        autoWrap,
+        maxItemWidth,
+        itemWidth: maxItemWidth,
         spacing: [8, 0],
         itemName: {
           style: {
-            default: {
-              fontSize: 12,
-            },
+            fontSize: 12,
           },
         },
         ...(field && {
@@ -53,7 +58,9 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
           symbol: 'circle',
         },
       },
-    });
+      guideCfg,
+    );
+    return new Category({ style: legendStyle });
   };
 };
 
