@@ -16,7 +16,6 @@ describe('light', () => {
       subtitle: {
         fill: 'rgba(0,0,0,0.65)',
         fontSize: 10,
-        spacing: 2,
       },
       title: {
         fill: 'rgba(0,0,0,0.85)',
