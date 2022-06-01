@@ -23,7 +23,6 @@ export type RangeOptions = {
  * for grid geometry.
  */
 export const Range: SC<RangeOptions> = (options) => {
-  // Render border only when colorAttribute is stroke.
   const { ...style } = options;
   return (points, value, coordinate, theme) => {
     const { radius = 0 } = style;

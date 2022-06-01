@@ -272,4 +272,47 @@ describe('range Annotation', () => {
 
     mount(createDiv(), chart);
   });
+
+  it('render({...} renders range annotation in transpose coordinate.', (done) => {
+    const chart = render<G2Spec>(
+      {
+        type: 'view',
+        height: 200,
+        data: [
+          { genre: 'Sports', sold: 275 },
+          { genre: 'Strategy', sold: 115 },
+          { genre: 'Action', sold: 120 },
+          { genre: 'Shooter', sold: 150 },
+          { genre: 'Other', sold: 350 },
+        ],
+        coordinate: [{ type: 'transpose' }],
+        children: [
+          {
+            type: 'interval',
+            encode: {
+              x: 'genre',
+              y: 'sold',
+              color: 'genre',
+            },
+          },
+          {
+            type: 'annotation.range',
+            data: [{ x1: 'Sports', x2: 'Strategy', y2: 0, y1: 1.1 }],
+            scale: { y: { domain: [0, 1], independent: true, guide: null } },
+            encode: {
+              x: ['x1', 'x2'],
+              y: ['y1', 'y2'],
+            },
+            style: {
+              fill: 'rgba(220,220,220,0.3)',
+            },
+          },
+        ],
+      },
+      {},
+      done,
+    );
+
+    mount(createDiv(), chart);
+  });
 });

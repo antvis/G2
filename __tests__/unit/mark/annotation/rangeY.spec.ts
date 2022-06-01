@@ -1,4 +1,5 @@
 import { RangeY } from '../../../../src/mark/annotation/rangeY';
+import { plot } from '../helper';
 
 describe('RangeY annotation', () => {
   it('RangeY has expected props', () => {
@@ -18,5 +19,25 @@ describe('RangeY annotation', () => {
       postInference: [{ type: 'maybeKey' }],
       shapes: ['annotation.range'],
     });
+  });
+
+  it('RangeY should draw range annotation in x direction', () => {
+    const [I, P] = plot({
+      mark: RangeY({}),
+      index: [0],
+      channel: {
+        y: [0.2],
+        y1: [0.5],
+      },
+    });
+    expect(I).toEqual([0]);
+    expect(P).toEqual([
+      [
+        [0, 80],
+        [600, 80],
+        [600, 200],
+        [0, 200],
+      ],
+    ]);
   });
 });
