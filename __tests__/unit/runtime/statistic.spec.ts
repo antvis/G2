@@ -299,7 +299,7 @@ describe('statistic', () => {
           },
         },
         {
-          type: 'annotation.lineX',
+          type: 'annotation.lineY',
           // @todo Do not need encode.
           data: [0],
           encode: {
