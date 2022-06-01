@@ -1,4 +1,5 @@
 import { Primitive, TransformComponent } from '../runtime';
+import { ChannelTypes } from './geometry';
 
 export type StatisticTransform =
   | StackYTransform
@@ -7,7 +8,10 @@ export type StatisticTransform =
   | StackEnterTransform
   | JitterTransform
   | JitterYTransform
-  | SymmetryYTransform;
+  | SymmetryYTransform
+  | SelectTransform
+  | SelectXTransform
+  | SelectYTransform;
 
 export type StatisticOrder =
   | 'value'
@@ -25,6 +29,9 @@ export type StatisticTransformTypes =
   | 'jitter'
   | 'jitterY'
   | 'symmetryY'
+  | 'select'
+  | 'selectY'
+  | 'selectX'
   | TransformComponent;
 
 export type DodgeXTransform = {
@@ -80,4 +87,30 @@ export type StackEnterTransform = {
 export type SymmetryYTransform = {
   type?: 'symmetryY';
   groupBy?: string | string[];
+};
+
+export type Selector =
+  | 'min'
+  | 'max'
+  | 'first'
+  | 'last'
+  | 'mean'
+  | 'median'
+  | ((I: number[], V: number[]) => number[]);
+
+export type SelectTransform = {
+  type?: 'select';
+  groupBy?: string | string[];
+} & { [key in ChannelTypes]?: Selector };
+
+export type SelectXTransform = {
+  type?: 'selectX';
+  groupBy?: string | string[];
+  selector?: Selector;
+};
+
+export type SelectYTransform = {
+  type?: 'selectY';
+  groupBy?: string | string[];
+  selector?: Selector;
 };
