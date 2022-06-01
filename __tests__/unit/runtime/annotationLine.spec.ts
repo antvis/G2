@@ -25,7 +25,7 @@ describe('line annotation', () => {
           },
         },
         {
-          type: 'annotation.lineX',
+          type: 'annotation.lineY',
           encode: {
             y: 30000,
           },
@@ -34,7 +34,7 @@ describe('line annotation', () => {
           },
         },
         {
-          type: 'annotation.lineY',
+          type: 'annotation.lineX',
           transform: [
             {
               type: 'filterBy',
@@ -94,7 +94,7 @@ describe('line annotation', () => {
           },
         },
         {
-          type: 'annotation.lineX',
+          type: 'annotation.lineY',
           transform: [
             {
               type: 'filterBy',
@@ -108,7 +108,7 @@ describe('line annotation', () => {
           },
         },
         {
-          type: 'annotation.lineY',
+          type: 'annotation.lineX',
           transform: [
             {
               type: 'filterBy',
@@ -166,7 +166,7 @@ describe('line annotation', () => {
           },
         },
         {
-          type: 'annotation.lineX',
+          type: 'annotation.lineY',
           encode: {
             x: 'item',
             y: 40,

@@ -203,7 +203,7 @@ G2.render({
       },
     },
     {
-      type: 'annotation.lineX',
+      type: 'annotation.lineY',
       data: [0],
       encode: {
         y: 0,
