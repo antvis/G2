@@ -166,6 +166,34 @@ genji.preview(
 );
 ```
 
+### Select
+
+```js | dom "pin: false"
+genji.preview(
+  [
+    {
+      title: 'Select',
+      path: '/select#select',
+      thumbnail:
+        'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*wJ1DSaMAZWcAAAAAAAAAAAAAARQnAQ',
+    },
+    {
+      title: 'SelectX',
+      path: '/select#selectx',
+      thumbnail:
+        'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*xRbfTLMwYXcAAAAAAAAAAAAAARQnAQ',
+    },
+    {
+      title: 'SelectY',
+      path: '/select#selecty',
+      thumbnail:
+        'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*5zEHTYNlmoAAAAAAAAAAAAAAARQnAQ',
+    },
+  ],
+  { height: 175 },
+);
+```
+
 ## Scale
 
 > TODO

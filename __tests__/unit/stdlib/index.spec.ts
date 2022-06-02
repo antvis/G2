@@ -131,6 +131,9 @@ import {
   Jitter,
   JitterY,
   SymmetryY,
+  Select,
+  SelectX,
+  SelectY,
 } from '../../../src/transform';
 
 describe('stdlib', () => {
@@ -160,6 +163,9 @@ describe('stdlib', () => {
       'transform.symmetryY': SymmetryY,
       'transform.stackEnter': StackEnter,
       'transform.normalizeY': NormalizeY,
+      'transform.select': Select,
+      'transform.selectX': SelectX,
+      'transform.selectY': SelectY,
       'transform.maybeSize': MaybeSize,
       'transform.maybeZeroY': MaybeZeroY,
       'transform.maybeKey': MaybeKey,
