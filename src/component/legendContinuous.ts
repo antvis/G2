@@ -13,9 +13,10 @@ export type LegendContinuousOptions = {
  * @todo Custom style.
  */
 export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
-  return (scale, value, coordinate, theme) => {
-    const { field, domain, bbox } = value;
-    const { x, y } = bbox;
+  return (scales, value, coordinate, theme) => {
+    const scale = scales[0];
+    const { field, domain } = scale.getOptions();
+    const { x, y } = value.bbox;
     const ticks = scale.getTicks?.() || [];
     const [min, max] = domain;
     return new Continuous({

@@ -40,7 +40,7 @@ export function inferComponent(
     if (adjust && isPosition(name)) return false;
     return true;
   });
-  const components = [...partialComponents];
+  const components = new Map<string, G2GuideComponentOptions>();
 
   for (const scale of displayedScales) {
     const type = inferComponentType(scale, coordinate);
@@ -59,11 +59,14 @@ export function inferComponent(
         size = defaultSize,
         order = defaultOrder,
       } = partialGuide;
-      components.push({ ...partialGuide, position, order, size, type, scale });
+      const key = typeof type === 'string' ? type : String(type);
+      const value = { ...partialGuide, position, order, size, type };
+      const exitedScales = components.get(key)?.scales || [];
+      components.set(key, { ...value, scales: exitedScales.concat(scale) });
     }
   }
 
-  return components;
+  return [...partialComponents].concat([...components.values()]);
 }
 
 export function renderComponent(
@@ -81,12 +84,10 @@ export function renderComponent(
     GuideComponentComponent,
     GuideComponent
   >('component', library);
-  const { scale: scaleDescriptor, bbox, ...options } = component;
-  const scale = scaleDescriptor ? useScale(scaleDescriptor) : null;
-  const { field, domain } = scaleDescriptor;
-  const value = { field, domain, bbox };
+  const { scales: scaleDescriptors, bbox, ...options } = component;
+  const scales = scaleDescriptors.map((descriptor) => useScale(descriptor));
   const render = useGuideComponent(options);
-  return render(scale, value, coordinate, theme);
+  return render(scales, { bbox }, coordinate, theme);
 }
 
 // @todo Render components in non-cartesian coordinate.
@@ -103,7 +104,7 @@ function inferComponentType(
   if (name.startsWith('x')) return 'axisX';
   if (name.startsWith('y')) return 'axisY';
   if (name.startsWith('position')) return 'axisY';
-  if (name === 'color') {
+  if (name === 'color' || name === 'size') {
     switch (scaleType) {
       case 'ordinal':
         return 'legendCategory';
@@ -113,6 +114,15 @@ function inferComponentType(
         return null;
     }
   }
+  if (name === 'shape') {
+    switch (scaleType) {
+      case 'ordinal':
+        return 'legendCategory';
+      default:
+        return null;
+    }
+  }
+
   return null;
 }
 

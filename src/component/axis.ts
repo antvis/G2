@@ -207,12 +207,12 @@ const ArcAxis = (options) => {
  */
 export const Axis: GCC<AxisOptions> = (options) => {
   const { position, title = true, formatter = (d) => `${d}` } = options;
-  return (scale, value, coordinate, theme) => {
+  return (scales, value, coordinate, theme) => {
+    const scale = scales[0];
     if (position === 'arc') {
       return ArcAxis(options)(scale, value, coordinate, theme);
     }
-
-    const { domain, field, bbox } = value;
+    const { domain, field } = scale.getOptions();
     const {
       startPos,
       endPos,
@@ -222,7 +222,7 @@ export const Axis: GCC<AxisOptions> = (options) => {
       titleRotate,
       verticalFactor,
       titleOffsetY,
-    } = inferPosition(position, bbox, coordinate);
+    } = inferPosition(position, value.bbox, coordinate);
     const ticks = getTicks(scale, domain, formatter, position, coordinate);
     return new Linear({
       style: deepMix(

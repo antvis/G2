@@ -148,7 +148,7 @@ export type G2PaletteOptions = G2BaseComponentOptions<PaletteComponent>;
 export type G2GuideComponentOptions = G2BaseComponentOptions<
   GuideComponentComponent,
   {
-    scale?: G2ScaleOptions;
+    scales?: G2ScaleOptions[];
     position?: GuideComponentPosition;
     size?: number;
     order?: number;

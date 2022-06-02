@@ -10,26 +10,41 @@ export type LegendCategoryOptions = {
   formatter?: (d: any) => string;
 };
 
+const getMarker = (v: string): string => {
+  const prefix = v.startsWith('hollow') ? 'hollow' : '';
+  if (v === 'rect' || v === 'hollowRect') return `${prefix}square`;
+  return v;
+};
+
 /**
  * Guide Component for ordinal color scale.
  * @todo Custom style.
  */
 export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
   const { formatter = (d) => `${d}` } = options;
-  return (scale, value, coordinate, theme) => {
-    const { domain, field, bbox } = value;
-    const { x, y, width, height } = bbox;
-    const items = domain.map((d) => ({
-      id: d,
-      name: formatter(d),
-      color: scale.map(d),
-    }));
-    const { cols, autoWrap, ...guideCfg } = scale.getOptions().guide || {};
+  return (scales, value, coordinate, theme) => {
+    const { defaultColor } = theme;
+    const { x, y, width, height } = value.bbox;
+
+    const items: Map<string, any> = new Map();
+    const { field } = scales[0].getOptions();
+    scales.forEach((scale) => {
+      const scaleOptions = scale.getOptions();
+      const { domain, name } = scaleOptions;
+      domain.forEach((d) => {
+        let item = items.get(d);
+        if (!item) item = { id: d, name: formatter(d), color: defaultColor };
+        const key = name === 'shape' ? 'symbol' : name;
+        item[key] = name === 'shape' ? getMarker(scale.map(d)) : scale.map(d);
+        items.set(item.id, item);
+      });
+    });
+    const { cols, autoWrap, ...guideCfg } = scales[0].getOptions().guide || {};
     const maxItemWidth = autoWrap && cols ? width / cols : undefined;
     const legendStyle = deepMix(
       {},
       {
-        items,
+        items: Array.from(items.values()),
         x,
         y,
         maxWidth: width,
@@ -53,14 +68,22 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
             },
           },
         }),
-        itemMarker: {
-          size: 8,
-          symbol: 'circle',
+        itemMarker: (datum: any) => {
+          const { symbol = 'circle', color } = datum;
+          const hollow = symbol.startsWith('hollow');
+          return {
+            size: 8,
+            symbol: hollow ? symbol.replace('hollow', '') : symbol,
+            style: {
+              lineWidth: hollow ? 1 : 0,
+              fill: hollow ? 'transparent' : color,
+            },
+          };
         },
       },
       guideCfg,
     );
-    return new Category({ style: legendStyle });
+    return new Category({ className: 'category-legend', style: legendStyle });
   };
 };
 

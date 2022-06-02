@@ -200,7 +200,7 @@ export type ThemeComponent<O = Record<string, unknown>> = G2BaseComponent<
 >;
 
 export type GuideComponent = (
-  scale: Scale,
+  scales: Scale[],
   style: Record<string, any>,
   coordinate: Coordinate,
   theme: G2Theme,
