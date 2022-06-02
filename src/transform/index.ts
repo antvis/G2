@@ -25,6 +25,9 @@ export { NormalizeY, NormalizeYOptions } from './statistic/normalizeY';
 export { Jitter, JitterOptions } from './statistic/Jitter';
 export { JitterY, JitterYOptions } from './statistic/JitterY';
 export { SymmetryY, SymmetryYOptions } from './statistic/symmetryY';
+export { Select, SelectOptions } from './statistic/Select';
+export { SelectX, SelectXOptions } from './statistic/SelectX';
+export { SelectY, SelectYOptions } from './statistic/SelectY';
 
 // Connector
 export { Fetch, FetchOptions } from './connector/fetch';
