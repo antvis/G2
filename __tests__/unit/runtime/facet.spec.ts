@@ -17,7 +17,7 @@ describe('facet', () => {
         paddingLeft: 50,
         paddingBottom: 50,
         title: {
-          content: 'Facet',
+          text: 'Facet',
           subtitle: 'Description of chart.',
         },
         encode: {

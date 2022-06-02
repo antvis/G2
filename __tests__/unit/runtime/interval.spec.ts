@@ -36,7 +36,7 @@ describe('render', () => {
         type: 'interval',
         title: {
           size: 40,
-          content: 'Chart Title',
+          text: 'Chart Title',
           subtitle: 'Chart Subtitle: description, description.',
           subtitleStyle: { fill: 'pink' },
         },

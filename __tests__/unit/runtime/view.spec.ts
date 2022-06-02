@@ -71,7 +71,7 @@ describe('view', () => {
     const chart = render<G2Spec>({
       type: 'view',
       title: {
-        content: 'View Composition',
+        text: 'View Composition',
         subtitle: 'Description of chart.',
       },
       data,

@@ -171,10 +171,10 @@ function inferComponentPosition(
 }
 
 function inferTitleComponentSize(options: G2TitleOptions) {
-  const { size, content, subtitle, style, subtitleStyle } = options;
+  const { size, text, subtitle, style, subtitleStyle } = options;
   if (size) return size;
   return (
-    (content ? style?.fontSize || 14 : 0) +
+    (text ? style?.fontSize || 14 : 0) +
     (subtitle
       ? (subtitleStyle?.fontSize || 12) + (subtitleStyle?.spacing || 0) + 8
       : 0)

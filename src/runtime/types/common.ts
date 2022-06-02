@@ -29,7 +29,7 @@ export type G2Theme = {
 };
 
 export type G2Title = {
-  content?: string;
+  text?: string;
   subtitle?: string | null;
   style?: Record<string, any>;
   subtitleStyle?: Record<string, any>;

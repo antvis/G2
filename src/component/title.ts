@@ -25,7 +25,7 @@ function maybeAppend<T>(
 type TitleStyleProps = {
   x?: number;
   y?: number;
-  content?: string;
+  text?: string;
   style?: Omit<TextStyleProps, 'x' | 'y' | 'text'>;
   subtitle?: string | null;
   subtitleStyle?: Omit<TextStyleProps, 'x' | 'y' | 'text'> & {
@@ -48,12 +48,12 @@ class Title extends CustomElement<TitleStyleProps> {
   }
 
   private render() {
-    const { content, style, subtitle, subtitleStyle } = this.style;
+    const { text, style, subtitle, subtitleStyle } = this.style;
     const title = maybeAppend(this, '.title', 'text')
       .attr('className', 'title')
       .style('fontSize', 14)
       .style('textBaseline', 'top')
-      .style('text', content)
+      .style('text', text)
       .call(applyStyle, style || {})
       .node();
 
@@ -74,7 +74,7 @@ class Title extends CustomElement<TitleStyleProps> {
  * Title Component.
  */
 export const TitleComponent: GCC<TitleComponentOptions> = (options) => {
-  const { content, style, subtitle, subtitleStyle } = options;
+  const { text, style, subtitle, subtitleStyle } = options;
 
   return (scale, value, coordinate, theme) => {
     const { x, y } = value.bbox;
@@ -89,7 +89,7 @@ export const TitleComponent: GCC<TitleComponentOptions> = (options) => {
           x,
           y,
           style,
-          content,
+          text,
           subtitle,
           subtitleStyle,
         },
