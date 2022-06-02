@@ -305,6 +305,16 @@ genji.preview(
       thumbnail:
         'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*pkbESpuunUwAAAAAAAAAAAAAARQnAQ',
     },
+    {
+      title: 'RangeX Annotation',
+      path: '/annotation#rangex-annotation',
+      thumbnail: 'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*Pp1EQZdAIQMAAAAAAAAAAAAAARQnAQ'
+    },
+    {
+      title: 'RangeY Annotation',
+      path: '/annotation#rangey-annotation',
+      thumbnail: 'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*nOmVR4gsaugAAAAAAAAAAAAAARQnAQ'
+    }
   ],
   { height: 175 },
 );
