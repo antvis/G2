@@ -41,11 +41,7 @@ Range.props = {
     { name: 'x', required: true },
     { name: 'y', required: true },
   ],
-  preInference: [
-    ...basePreInference(),
-    { type: 'maybeZeroY1' },
-    { type: 'maybeZeroX' },
-  ],
+  preInference: [...basePreInference()],
   postInference: [...basePostInference()],
   shapes: ['annotation.range'],
 };

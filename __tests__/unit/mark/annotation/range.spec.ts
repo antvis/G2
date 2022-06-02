@@ -17,11 +17,7 @@ describe('Range annotation', () => {
         { name: 'x', required: true },
         { name: 'y', required: true },
       ],
-      preInference: [
-        { type: 'maybeArrayField' },
-        { type: 'maybeZeroY1' },
-        { type: 'maybeZeroX' },
-      ],
+      preInference: [{ type: 'maybeArrayField' }],
       postInference: [{ type: 'maybeKey' }],
       shapes: ['annotation.range'],
     });
