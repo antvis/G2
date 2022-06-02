@@ -8,15 +8,10 @@ import {
 
 export type RangeOptions = Omit<AnnotationRange, 'type'>;
 
-/**
- * Convert value for each channel to rect shapes.
- */
 export const Range: MC<RangeOptions> = () => {
   return (index, scale, value, coordinate) => {
     const { x: X, x1: X1, y: Y, y1: Y1 } = value;
 
-    // Calc width for each interval.
-    // The scales for x and series channels must be band scale.
     const x = scale.x;
 
     const P = Array.from(index, (i) => {

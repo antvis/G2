@@ -9,7 +9,7 @@ export function isEmpty(obj: any) {
 export type FoldOptions = Omit<FoldTransform, 'type'>;
 
 /**
- * Immutable data rename by specified fields.
+ * Collapses (or “folds”) one or more data fields into two properties: `key` (contains the original data field name) and `value` (contains the original data value.)
  */
 export const Fold: TC<FoldOptions> = (options) => {
   const { fields, as = [] } = options;
