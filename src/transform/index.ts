@@ -36,5 +36,6 @@ export { Pick, PickOptions } from './connector/pick';
 export { Rename, RenameOptions } from './connector/rename';
 export { Subset, SubsetOptions } from './connector/subset';
 export { SortBy, SortByOptions } from './connector/sortBy';
+export { Fold, FoldOptions } from './connector/fold';
 export { Voronoi, VoronoiOptions } from './preprocessor/voronoi';
 export { Sankey, SankeyOptions } from './preprocessor/sankey';
