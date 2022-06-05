@@ -632,6 +632,8 @@ registerInteraction('brush-visible', {
 - swResize() 光标指示可移动的方向左下方（西南）
 - nsResize() 光标指示可以在上下方向移动
 - ewResize() 光标指示可以在左右方向移动
+- zoomIn() 光标显示可以被放大
+- zoomOut() 光标显示可以缩小尺寸
 
 ### Chart/View 的 Action
 
