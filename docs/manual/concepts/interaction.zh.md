@@ -178,7 +178,7 @@ _
 - Element 名称：interval, line, point, area 等名称
 - Element 内部的图形元素的名称： line-label， point-label 等
 - 组件的名称：legend, axis, annotation
-- 组件的组成部分: legend-item, annotaion-line
+- 组件的组成部分: legend-item, annotation-line
 
 一个触发 Trigger 是对象名称与事件名进行组合。使用 `:`  连接对象与事件名，e.g. interval:click
 
