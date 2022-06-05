@@ -81,7 +81,10 @@ G2.render({
     { type: 'stackY' },
     { type: 'normalizeY' },
   ],
-  scale: { x: { field: 'Date' } },
+  scale: {
+    x: { field: 'Date' },
+    color: { guide: { autoWrap:true, size: 84, cols: 4 } }
+  },
   encode: {
     shape: 'smoothArea',
     x: (d) => new Date(d.date),

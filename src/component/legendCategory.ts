@@ -39,8 +39,7 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
         items.set(item.id, item);
       });
     });
-    const { cols, autoWrap, ...guideCfg } = scales[0].getOptions().guide || {};
-    const maxItemWidth = autoWrap && cols ? width / cols : undefined;
+    const { autoWrap, ...guideCfg } = scales[0].getOptions().guide || {};
     const legendStyle = deepMix(
       {},
       {
@@ -50,8 +49,6 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
         maxWidth: width,
         maxHeight: height,
         autoWrap,
-        maxItemWidth,
-        itemWidth: maxItemWidth,
         spacing: [8, 0],
         itemName: {
           style: {
