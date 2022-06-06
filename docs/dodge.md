@@ -83,7 +83,6 @@ G2.render({
     color: 'Species',
   },
   scale: {
-    x: { paddingInner: 0.2, paddingOuter: 0.1 },
     y: { zero: true },
   },
   style: {
