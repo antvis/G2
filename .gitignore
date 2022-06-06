@@ -8,7 +8,7 @@ lerna-debug.log*
 yarn.lock
 
 # Sys
-.DS_STORE
+.DS_Store
 .idea
 
 # Node

@@ -2,7 +2,7 @@ import { TransformComponent as TC } from '../../runtime';
 import { JitterYTransform } from '../../spec';
 import { merge, column } from '../utils/helper';
 import { random } from '../../utils/helper';
-import { rangeOf } from './Jitter';
+import { rangeOf } from './jitter';
 
 export type JitterYOptions = Omit<JitterYTransform, 'type'>;
 
