@@ -1,5 +1,5 @@
 import { Category } from '@antv/gui';
-import { deepMix } from '@antv/util';
+import { deepMix, lowerCase } from '@antv/util';
 import {
   GuideComponentComponent as GCC,
   GuideComponentPosition,
@@ -11,9 +11,11 @@ export type LegendCategoryOptions = {
 };
 
 const getMarker = (v: string): string => {
-  const prefix = v.startsWith('hollow') ? 'hollow' : '';
-  if (v === 'rect' || v === 'hollowRect') return `${prefix}square`;
-  return v;
+  const prefix =
+    v.startsWith('hollow') || v === 'cross' || v === 'hyphen' ? 'hollow' : '';
+  const shape = lowerCase(v.replace('hollow', ''));
+  if (shape === 'rect') return `${prefix}square`;
+  return `${prefix}${shape}`;
 };
 
 /**
@@ -23,17 +25,17 @@ const getMarker = (v: string): string => {
 export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
   const { formatter = (d) => `${d}` } = options;
   return (scales, value, coordinate, theme) => {
-    const { defaultColor } = theme;
     const { x, y, width, height } = value.bbox;
 
     const items: Map<string, any> = new Map();
     const { field } = scales[0].getOptions();
     scales.forEach((scale) => {
       const scaleOptions = scale.getOptions();
-      const { domain, name } = scaleOptions;
+      const { domain, name, field } = scaleOptions;
       domain.forEach((d) => {
         let item = items.get(d);
-        if (!item) item = { id: d, name: formatter(d), color: defaultColor };
+        if (!item)
+          item = { id: d, name: formatter(d), _origin_: { field, value: d } };
         const key = name === 'shape' ? 'symbol' : name;
         item[key] = name === 'shape' ? getMarker(scale.map(d)) : scale.map(d);
         items.set(item.id, item);
@@ -53,7 +55,13 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
         itemName: {
           style: {
             fontSize: 12,
+            unselected: {
+              fill: '#d8d8d8',
+            },
           },
+        },
+        itemBackgroundStyle: {
+          fill: 'transparent',
         },
         ...(field && {
           title: {
@@ -73,7 +81,12 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
             symbol: hollow ? symbol.replace('hollow', '') : symbol,
             style: {
               lineWidth: hollow ? 1 : 0,
-              fill: hollow ? 'transparent' : color,
+              fill: hollow ? 'transparent' : color || theme.defaultColor,
+              stroke: hollow ? theme.defaultColor : 'transparent',
+              unselected: {
+                fill: hollow ? 'transparent' : '#d8d8d8',
+                stroke: hollow ? '#d8d8d8' : 'transparent',
+              },
             },
           };
         },

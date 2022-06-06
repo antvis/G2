@@ -81,13 +81,16 @@ import {
   ElementActive,
   Tooltip,
   Fisheye as FisheyeInteraction,
+  LegendActive,
 } from '../interaction';
 import {
   SurfacePointSelection,
   HighlightSelection,
+  LegendSelection,
   Tooltip as TooltipAction,
   FisheyeFocus,
   Plot,
+  HighlightLegendSelection,
 } from '../action';
 import { MousePosition, TouchPosition } from '../interactor';
 import { Layer, Flex, Mark, View, Rect } from '../composition';
@@ -240,10 +243,13 @@ export function createLibrary(): G2Library {
     'animation.scaleInY': ScaleInY,
     'animation.fadeIn': FadeIn,
     'interaction.elementActive': ElementActive,
+    'interaction.legendActive': LegendActive,
     'interaction.tooltip': Tooltip,
     'interaction.fisheye': FisheyeInteraction,
     'action.surfacePointSelection': SurfacePointSelection,
     'action.highlightSelection': HighlightSelection,
+    'action.legendSelection': LegendSelection,
+    'action.highlightLegendSelection': HighlightLegendSelection,
     'action.tooltip': TooltipAction,
     'action.fisheyeFocus': FisheyeFocus,
     'action.plot': Plot,
