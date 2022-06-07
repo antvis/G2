@@ -13,5 +13,5 @@ export const Pick: TC<PickOptions> = (options) => {
 };
 
 Pick.props = {
-  category: 'connector',
+  category: 'preprocessor',
 };

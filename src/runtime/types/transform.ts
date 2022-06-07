@@ -13,7 +13,7 @@ export type TransformContext = {
 export type TransformOptions = Record<string, any>;
 
 export type TransformProps = {
-  category: 'connector' | 'inference' | 'preprocessor' | 'statistic';
+  category: 'inference' | 'preprocessor' | 'statistic';
 };
 
 export type TransformComponent<O extends TransformOptions = TransformOptions> =
