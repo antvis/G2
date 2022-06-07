@@ -36,6 +36,9 @@ export type GeometryTypes =
   | 'annotation.lineX'
   | 'annotation.lineY'
   | 'annotation.connector'
+  | 'annotation.range'
+  | 'annotation.rangeX'
+  | 'annotation.rangeY'
   | MarkComponent;
 
 export type ChannelTypes =
@@ -121,6 +124,9 @@ export type AnnotationText = BaseGeometry<
 export type AnnotationLineX = BaseGeometry<'annotation.lineX', ChannelTypes>;
 
 export type AnnotationLineY = BaseGeometry<'annotation.lineY', ChannelTypes>;
+export type AnnotationRange = BaseGeometry<'annotation.range', ChannelTypes>;
+export type AnnotationRangeX = BaseGeometry<'annotation.rangeX', ChannelTypes>;
+export type AnnotationRangeY = BaseGeometry<'annotation.rangeY', ChannelTypes>;
 
 export type AnnotationConnector = BaseGeometry<
   'annotation.connector',

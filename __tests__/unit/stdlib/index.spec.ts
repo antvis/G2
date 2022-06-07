@@ -25,6 +25,9 @@ import {
   AnnotationLineX,
   AnnotationLineY,
   AnnotationText,
+  AnnotationRange,
+  AnnotationRangeX,
+  AnnotationRangeY,
 } from '../../../src/mark/annotation';
 import { Category10, Category20 } from '../../../src/palette';
 import {
@@ -125,6 +128,7 @@ import {
   Pick,
   Rename,
   Subset,
+  Fold,
   WordCloud,
   Voronoi,
   Sankey,
@@ -146,6 +150,7 @@ describe('stdlib', () => {
       'transform.pick': Pick,
       'transform.rename': Rename,
       'transform.subset': Subset,
+      'transform.fold': Fold,
       'transform.wordCloud': WordCloud,
       'transform.voronoi': Voronoi,
       'transform.Sankey': Sankey,
@@ -194,6 +199,9 @@ describe('stdlib', () => {
       'mark.annotation.lineX': AnnotationLineX,
       'mark.annotation.lineY': AnnotationLineY,
       'mark.annotation.connector': AnnotationConnector,
+      'mark.annotation.range': AnnotationRange,
+      'mark.annotation.rangeX': AnnotationRangeX,
+      'mark.annotation.rangeY': AnnotationRangeY,
       'palette.category10': Category10,
       'palette.category20': Category20,
       'scale.linear': Linear,
@@ -245,6 +253,7 @@ describe('stdlib', () => {
       'shape.annotation.badge': AnnotationBadge,
       'shape.annotation.line': AnnotationLineShape,
       'shape.annotation.connector': AnnotationConnectorShape,
+      'shape.annotation.range': RectShape,
       'theme.light': Light,
       'component.axisX': AxisX,
       'component.axisY': AxisY,

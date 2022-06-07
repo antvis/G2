@@ -6,6 +6,7 @@ export type Transform =
   | PickTransform
   | RenameTransform
   | SubsetTransform
+  | FoldTransform
   | FetchTransform
   | FilterByTransform
   | WordCloudTransform
@@ -18,6 +19,7 @@ export type TransformTypes =
   | 'fetch'
   | 'filterBy'
   | 'pick'
+  | 'fold'
   | StatisticTransformTypes
   | TransformComponent;
 
@@ -135,6 +137,12 @@ export type VoronoiTransform = {
    * @description Sets region of canvas.
    */
   extend: Vector2[];
+};
+
+export type FoldTransform = {
+  type?: 'fold';
+  fields?: string[];
+  as?: string[];
 };
 
 export type CustomTransform = {
