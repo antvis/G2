@@ -8,8 +8,8 @@ export type PolarOptions = Omit<PolarCoordinate, 'type'>;
  * @todo Adjust size of canvas by startAngle and endAngle to make chart as big as possible.
  */
 export const Polar: CC<PolarOptions> = ({
-  startAngle = 0,
-  endAngle = Math.PI * 2,
+  startAngle = -Math.PI / 2,
+  endAngle = (Math.PI * 3) / 2,
   innerRadius = 0,
   outerRadius = 1,
 }) => [
