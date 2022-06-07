@@ -5,12 +5,12 @@ import {
   basePostInference,
   basePreInference,
 } from '../utils';
-import { Range } from './range';
+import { AbstractRange } from './range';
 
 export type RangeYOptions = Omit<AnnotationRangeY, 'type'>;
 
 export const RangeY: MC<RangeYOptions> = () => {
-  return Range();
+  return AbstractRange({ extendX: true });
 };
 
 RangeY.props = {

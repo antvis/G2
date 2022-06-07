@@ -1,4 +1,4 @@
-import { MarkComponent as MC, Vector2 } from '../../runtime';
+import { Mark, MarkComponent as MC, Vector2 } from '../../runtime';
 import { AnnotationRange } from '../../spec';
 import {
   baseAnnotationChannels,
@@ -6,24 +6,27 @@ import {
   basePreInference,
 } from '../utils';
 
-export type RangeOptions = Omit<AnnotationRange, 'type'>;
+function extend(channel: string, extended: boolean, value, scale) {
+  if (extended) return () => [0, 1];
+  const { [channel]: C, [`${channel}1`]: C1 } = value;
+  return (i) => {
+    const offset =
+      (scale && C1 && scale.getBandWidth?.(scale.invert(+C1[i]))) || 0;
+    return [C ?? C[i], C1[i] + offset];
+  };
+}
 
-export const Range: MC<RangeOptions> = () => {
+export function AbstractRange(
+  options: { extendX?: boolean; extendY?: boolean } = {},
+): Mark {
+  const { extendX = false, extendY = false } = options;
   return (index, scale, value, coordinate) => {
-    const { x: X, x1: X1, y: Y, y1: Y1 } = value;
-
-    const x = scale.x;
-    const y = scale.y;
-
+    const x = extend('x', extendX, value, scale.x);
+    const y = extend('y', extendY, value, scale.y);
     const P = Array.from(index, (i) => {
-      const width = (x && X1 && x.getBandWidth?.(x.invert(+X1[i]))) || 0;
-      const height = (y && Y1 && y.getBandWidth?.(y.invert(+Y1[i]))) || 0;
+      const [x1, x2] = x(i);
+      const [y1, y2] = y(i);
 
-      const x1 = X ? +X[i] : 0;
-      const x2 = X1 ? +X1[i] + width : 1;
-
-      const y1 = Y ? +Y[i] : 0;
-      const y2 = Y1 ? +Y1[i] + height : 1;
       const p1 = [x1, y1];
       const p2 = [x2, y1];
       const p3 = [x2, y2];
@@ -32,6 +35,11 @@ export const Range: MC<RangeOptions> = () => {
     });
     return [index, P];
   };
+}
+
+export type RangeOptions = Omit<AnnotationRange, 'type'>;
+export const Range: MC<RangeOptions> = () => {
+  return AbstractRange();
 };
 
 Range.props = {
