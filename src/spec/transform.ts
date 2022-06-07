@@ -148,7 +148,6 @@ export type FoldTransform = {
   as?: string[];
 };
 
-
 export type ConnectorTransform = {
   type?: 'connector';
   callback: (d: any) => any;
