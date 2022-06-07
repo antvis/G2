@@ -9,9 +9,10 @@ export type Transform =
   | FoldTransform
   | FetchTransform
   | FilterByTransform
+  | SankeyTransform
   | WordCloudTransform
   | VoronoiTransform
-  | CustomTransform
+  | ConnectorTransform
   | StatisticTransform;
 
 export type TransformTypes =
@@ -20,6 +21,7 @@ export type TransformTypes =
   | 'filterBy'
   | 'pick'
   | 'fold'
+  | 'connector'
   | StatisticTransformTypes
   | TransformComponent;
 
@@ -143,6 +145,12 @@ export type FoldTransform = {
   type?: 'fold';
   fields?: string[];
   as?: string[];
+};
+
+
+export type ConnectorTransform = {
+  type?: 'connector';
+  callback: (d: any) => any;
 };
 
 export type CustomTransform = {

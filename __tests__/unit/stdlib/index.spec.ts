@@ -139,6 +139,7 @@ import {
   Select,
   SelectX,
   SelectY,
+  Connector,
 } from '../../../src/transform';
 
 describe('stdlib', () => {
@@ -151,9 +152,10 @@ describe('stdlib', () => {
       'transform.rename': Rename,
       'transform.subset': Subset,
       'transform.fold': Fold,
+      'transform.connector': Connector,
       'transform.wordCloud': WordCloud,
       'transform.voronoi': Voronoi,
-      'transform.Sankey': Sankey,
+      'transform.sankey': Sankey,
       'transform.maybeZeroY1': MaybeZeroY1,
       'transform.maybeZeroX': MaybeZeroX,
       'transform.maybeStackY': MaybeStackY,

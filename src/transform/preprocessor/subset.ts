@@ -1,4 +1,4 @@
-import { indexOf } from '../../utils/array';
+import { get } from '@antv/util';
 import { TransformComponent as TC } from '../../runtime';
 import { SubsetTransform } from '../../spec';
 import { merge } from '../utils/helper';
@@ -24,7 +24,8 @@ export const Subset: TC<SubsetOptions> = (options) => {
     const pick = (v: any) =>
       fields.reduce((datum, field) => {
         if (field in v) {
-          datum[field] = v[field];
+          // pick the data deeply.
+          datum[field] = get(v, field);
         }
         return datum;
       }, {});
@@ -36,5 +37,5 @@ export const Subset: TC<SubsetOptions> = (options) => {
 };
 
 Subset.props = {
-  category: 'preprocessor',
+  category: 'connector',
 };
