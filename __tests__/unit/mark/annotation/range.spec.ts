@@ -1,4 +1,4 @@
-import { Band, Identity } from '../../../../src/scale';
+import { Band, Identity, Linear } from '../../../../src/scale';
 import { Range } from '../../../../src/mark/annotation/range';
 import { plot } from '../helper';
 
@@ -32,6 +32,10 @@ describe('Range annotation', () => {
           domain: ['a', 'b', 'c'],
           range: [0, 1],
         }),
+        y: Linear({
+          domain: [0, 1],
+          range: [0, 1],
+        }),
       },
       channel: {
         x: [1 / 3],
@@ -58,6 +62,10 @@ describe('Range annotation', () => {
       scale: {
         x: Identity({
           domain: [0, 1],
+        }),
+        y: Linear({
+          domain: [0, 1],
+          range: [0, 1],
         }),
       },
       channel: {

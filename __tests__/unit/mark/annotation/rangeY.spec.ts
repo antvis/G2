@@ -1,3 +1,4 @@
+import { Linear } from '../../../../src/scale';
 import { RangeY } from '../../../../src/mark/annotation/rangeY';
 import { plot } from '../helper';
 
@@ -25,6 +26,12 @@ describe('RangeY annotation', () => {
     const [I, P] = plot({
       mark: RangeY({}),
       index: [0],
+      scale: {
+        y: Linear({
+          domain: [0, 1],
+          range: [0, 1],
+        }),
+      },
       channel: {
         y: [0.2],
         y1: [0.5],
