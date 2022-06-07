@@ -1,4 +1,4 @@
-import { Fold } from '../../../src/transform/connector/fold';
+import { Fold } from '../../../src/transform/preprocessor/fold';
 
 describe('fold', () => {
   const data = [

@@ -50,25 +50,6 @@ describe('line', () => {
   });
 
   it('render({...}) should render basic line chart', () => {
-    const Alpha: TransformComponent = ({ alphas = [] }) => {
-      if (!Array.isArray(alphas)) return (context) => context;
-      return ({ data }) => {
-        const newData = alphas.flatMap((alpha) =>
-          data.map((d) => ({
-            ...d,
-            alpha,
-          })),
-        );
-        return {
-          data: newData,
-        };
-      };
-    };
-
-    Alpha.props = {
-      category: 'connector',
-    };
-
     const chart = render<G2Spec>({
       type: 'line',
       data: [
@@ -84,7 +65,20 @@ describe('line', () => {
       ],
       transform: [
         {
-          type: Alpha,
+          type: ({ alphas = [] }) => {
+            if (!Array.isArray(alphas)) return (context) => context;
+            return ({ data }) => {
+              const newData = alphas.flatMap((alpha) =>
+                data.map((d) => ({
+                  ...d,
+                  alpha,
+                })),
+              );
+              return {
+                data: newData,
+              };
+            };
+          },
           alphas: [0, 0.25, 0.5, 0.75, 1],
         },
       ],

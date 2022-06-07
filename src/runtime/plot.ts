@@ -34,7 +34,7 @@ import { MarkComponent, Mark, MarkChannel } from './types/mark';
 import { TransformComponent, Transform } from './types/transform';
 import { Channel, G2ViewDescriptor, G2MarkState } from './types/common';
 import { useLibrary } from './library';
-import { initializeMark } from './mark';
+import { createTransformContext, initializeMark } from './mark';
 import { inferComponent, renderComponent } from './component';
 import { computeLayout, placeComponents } from './layout';
 import { createCoordinate } from './coordinate';
@@ -70,12 +70,15 @@ export async function plot<T extends G2ViewTree>(
       viewOptions.set(view, node);
       views.push(view);
       discovered.push(...children);
-    } else {
+    } else if (type === 'mark') {
       const composition = useComposition({ type });
-      // Apply transform to get data in advance for composition node,
-      // which makes sure that composition node can preprocess the
+      discovered.push(...composition(node));
+    } else {
+      // Apply transform to get data in advance for non-mark composition
+      // node, which makes sure that composition node can preprocess the
       // data to produce more nodes based on it.
-      const nodeWithData = await applyConnector(node, library);
+      const composition = useComposition({ type });
+      const nodeWithData = await applyTransform(node, library);
       const nodes = composition(nodeWithData);
       discovered.push(...nodes);
     }
@@ -389,28 +392,24 @@ function inferTheme(theme: G2ThemeOptions = { type: 'light' }): G2ThemeOptions {
   return { ...theme, type };
 }
 
-async function applyConnector<T extends G2ViewTree>(
+async function applyTransform<T extends G2ViewTree>(
   node: T,
   library: G2Library,
 ): Promise<G2ViewTree> {
-  const [useTransform, createTransform] = useLibrary<
+  const [useTransform] = useLibrary<
     G2TransformOptions,
     TransformComponent,
     Transform
   >('transform', library);
   const { transform = [], data, ...rest } = node;
-  const connectors = [];
-  const others = [];
-  for (const t of transform) {
-    const { type } = t;
-    const { category } = createTransform(type).props;
-    if (category === 'connector') connectors.push(t);
-    else others.push(t);
-  }
-  if (connectors.length === 0) return node;
-  const transformFunctions = connectors.map(useTransform);
-  const { data: newData } = await composeAsync(transformFunctions)({ data });
-  return { ...rest, data: newData, transform: others };
+  const context = createTransformContext(node, library);
+  const transformFunctions: TransformComponent[] = transform.map(useTransform);
+  const {
+    data: newDate,
+    encode,
+    scale,
+  } = await composeAsync(transformFunctions)(context);
+  return { ...rest, data: newDate, encode, scale };
 }
 
 function applyBBox(selection: Selection) {

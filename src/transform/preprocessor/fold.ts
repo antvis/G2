@@ -28,5 +28,5 @@ export const Fold: TC<FoldOptions> = (options) => {
 };
 
 Fold.props = {
-  category: 'connector',
+  category: 'preprocessor',
 };

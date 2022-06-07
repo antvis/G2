@@ -52,62 +52,54 @@ G2.render({
 **Alpha for smooth shape.**
 
 ```js | dom
-(() => {
-  const Alpha = ({ alphas = [] }) => {
-    if (!Array.isArray(alphas)) return (context) => context;
-    return ({ data }) => {
-      const newData = alphas.flatMap((alpha) =>
-        data.map((d) => ({
-          ...d,
-          alpha,
-        })),
-      );
-      return {
-        data: newData,
-      };
-    };
-  };
-
-  Alpha.props = {
-    category: 'connector',
-  };
-
-  return G2.render({
-    type: 'line',
-    data: [
-      { year: '1991', value: 15468 },
-      { year: '1992', value: 16100 },
-      { year: '1993', value: 15900 },
-      { year: '1994', value: 17409 },
-      { year: '1995', value: 17000 },
-      { year: '1996', value: 31056 },
-      { year: '1997', value: 31982 },
-      { year: '1998', value: 32040 },
-      { year: '1999', value: 33233 },
-    ],
-    transform: [
-      {
-        type: Alpha,
-        alphas: [0, 0.25, 0.5, 0.75, 1],
+G2.render({
+  type: 'line',
+  data: [
+    { year: '1991', value: 15468 },
+    { year: '1992', value: 16100 },
+    { year: '1993', value: 15900 },
+    { year: '1994', value: 17409 },
+    { year: '1995', value: 17000 },
+    { year: '1996', value: 31056 },
+    { year: '1997', value: 31982 },
+    { year: '1998', value: 32040 },
+    { year: '1999', value: 33233 },
+  ],
+  transform: [
+    {
+      type: ({ alphas = [] }) => {
+        if (!Array.isArray(alphas)) return (context) => context;
+        return ({ data }) => {
+          const newData = alphas.flatMap((alpha) =>
+            data.map((d) => ({
+              ...d,
+              alpha,
+            })),
+          );
+          return {
+            data: newData,
+          };
+        };
       },
-    ],
-    scale: {
-      color: { field: 'alpha' },
+      alphas: [0, 0.25, 0.5, 0.75, 1],
     },
-    encode: {
-      x: 'year',
-      y: 'value',
-      color: (d) => `${d.alpha}`,
-      shape: {
-        type: 'transform',
-        value: (d) => ({
-          type: 'smooth',
-          alpha: d.alpha,
-        }),
-      },
+  ],
+  scale: {
+    color: { field: 'alpha' },
+  },
+  encode: {
+    x: 'year',
+    y: 'value',
+    color: (d) => `${d.alpha}`,
+    shape: {
+      type: 'transform',
+      value: (d) => ({
+        type: 'smooth',
+        alpha: d.alpha,
+      }),
     },
-  });
-})();
+  },
+});
 ```
 
 ## Series Line

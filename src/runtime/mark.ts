@@ -1,4 +1,4 @@
-import { group } from 'd3-array';
+import { group, index } from 'd3-array';
 import { composeAsync, defined } from '../utils/helper';
 import { indexOf } from '../utils/array';
 import { useLibrary } from './library';
@@ -16,6 +16,7 @@ import {
   G2ScaleOptions,
   G2TransformOptions,
   G2EncodeOptions,
+  G2ViewTree,
 } from './types/options';
 import { MarkProps } from './types/mark';
 import {
@@ -108,16 +109,27 @@ export async function initializeMark(
   return [mark, state];
 }
 
-function createTransformContext(
-  mark: G2Mark,
+export function createTransformContext(
+  mark: G2ViewTree,
   library: G2Library,
 ): TransformContext {
+  const { data, encode = {}, transform = [], scale = {} } = mark;
+  return {
+    data,
+    encode: flatEncode(encode),
+    columnOf: createColumnOf(library),
+    transform,
+    I: data ? indexOf(data) : [],
+    scale,
+  };
+}
+
+function createColumnOf(library: G2Library): ColumnOf {
   const [useEncode] = useLibrary<G2EncodeOptions, EncodeComponent, Encode>(
     'encode',
     library,
   );
-  const { data, encode = {}, transform = [], scale = {} } = mark;
-  const columnOf: ColumnOf = (data, encode) => {
+  return (data, encode) => {
     if (encode === undefined) return null;
     if (data === undefined) return null;
     const normalizedEncode = normalizeEncode(data, encode);
@@ -125,14 +137,6 @@ function createTransformContext(
     const field = fieldOf(normalizedEncode);
     value.field = field;
     return value;
-  };
-  return {
-    data,
-    I: Array.isArray(data) ? indexOf(data) : [],
-    encode: flatEncode(encode),
-    columnOf,
-    transform,
-    scale,
   };
 }
 
@@ -173,11 +177,11 @@ function normalizeEncode(
   return { type, value: encode };
 }
 
-function applyTransform(
+async function applyTransform(
   mark: G2Mark,
   props: MarkProps,
   library: G2Library,
-): TransformContext | Promise<TransformContext> {
+): Promise<TransformContext> {
   const [useTransform, createTransform] = useLibrary<
     G2TransformOptions,
     TransformComponent,
@@ -187,31 +191,34 @@ function applyTransform(
   // Create transform Context.
   const context = createTransformContext(mark, library);
 
-  // Create transforms functions.
+  // Group transforms into preprcessors and others.
   const { transform: partialTransform = [] } = mark;
   const { preInference = [], postInference = [] } = props;
-
-  const connectors = [];
   const preprocessors = [];
   const statistics = [];
   for (const t of partialTransform) {
     const { type } = t;
-    const { category } = createTransform(type).props;
+    const { category = 'preprocessor' } = createTransform(type).props || {};
     if (category === 'preprocessor') preprocessors.push(t);
-    else if (category === 'connector') connectors.push(t);
     else statistics.push(t);
   }
-  const transform = [
-    ...connectors,
-    ...preprocessors,
-    ...preInference,
-    ...statistics,
-    ...postInference,
-  ];
-  const transformFunctions = transform.map(useTransform);
 
-  // Apply transforms functions to transform context.
-  return composeAsync(transformFunctions)(context);
+  // Apply preprocessors to get tabular data.
+  const preprocessorFunctions = preprocessors.map(useTransform);
+  const preprocessedContext = await composeAsync(preprocessorFunctions)(
+    context,
+  );
+
+  // Apply other transforms to get data to be visualized.
+  const { data } = preprocessedContext;
+  const I = data ? indexOf(data) : [];
+  const transform = [...preInference, ...statistics, ...postInference];
+  const transformFunctions = transform.map(useTransform);
+  return composeAsync(transformFunctions)({
+    ...context,
+    ...preprocessedContext,
+    I,
+  });
 }
 
 function createChannel(
