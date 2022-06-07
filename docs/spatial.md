@@ -26,7 +26,6 @@ G2.render({
       type: 'interval',
       paddingBottom: 200,
       paddingLeft: 400,
-      statistic: [{ type: 'stackY' }],
       coordinate: [{ type: 'transpose' }, { type: 'polar' }],
       encode: {
         y: 'sold',
