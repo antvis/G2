@@ -1,5 +1,5 @@
 import { Coordinate } from '@antv/coord';
-import { deepMix } from '@antv/util';
+import { deepMix, get } from '@antv/util';
 import {
   G2ScaleOptions,
   G2CoordinateOptions,
@@ -173,10 +173,9 @@ function inferComponentPosition(
 function inferTitleComponentSize(options: G2TitleOptions) {
   const { size, text, subtitle, style, subtitleStyle } = options;
   if (size) return size;
-  return (
-    (text ? style?.fontSize || 14 : 0) +
-    (subtitle
-      ? (subtitleStyle?.fontSize || 12) + (subtitleStyle?.spacing || 0) + 8
-      : 0)
-  );
+  const titleSize = get(style, 'fontSize', 14);
+  const subtitleSize = get(subtitleStyle, 'fontSize', 12);
+  const spacing = get(subtitleStyle, 'spacing', 0);
+  // Extra 4px spacing.
+  return (text ? titleSize + 4 : 0) + (subtitle ? subtitleSize + spacing : 0);
 }
