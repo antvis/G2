@@ -29,16 +29,14 @@ export { Select, SelectOptions } from './statistic/Select';
 export { SelectX, SelectXOptions } from './statistic/SelectX';
 export { SelectY, SelectYOptions } from './statistic/SelectY';
 
-// Connector
-export { Fetch, FetchOptions } from './connector/fetch';
-
 // Preprocessor
+export { Fetch, FetchOptions } from './preprocessor/fetch';
 export { WordCloud, WordCloudOptions } from './preprocessor/wordCloud';
-export { FilterBy, FilterByOptions } from './connector/filterBy';
-export { Pick, PickOptions } from './connector/pick';
-export { Rename, RenameOptions } from './connector/rename';
-export { Subset, SubsetOptions } from './connector/subset';
-export { SortBy, SortByOptions } from './connector/sortBy';
-export { Fold, FoldOptions } from './connector/fold';
+export { Fold, FoldOptions } from './preprocessor/fold';
+export { FilterBy, FilterByOptions } from './preprocessor/filterBy';
+export { Pick, PickOptions } from './preprocessor/pick';
+export { Rename, RenameOptions } from './preprocessor/rename';
+export { Subset, SubsetOptions } from './preprocessor/subset';
+export { SortBy, SortByOptions } from './preprocessor/sortBy';
 export { Voronoi, VoronoiOptions } from './preprocessor/voronoi';
 export { Sankey, SankeyOptions } from './preprocessor/sankey';

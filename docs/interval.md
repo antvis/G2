@@ -143,7 +143,6 @@ G2.render({
     { genre: 'Shooter', sold: 350 },
     { genre: 'Other', sold: 150 },
   ],
-  statistic: [{ type: 'stackY' }],
   coordinate: [{ type: 'transpose' }, { type: 'polar' }],
   encode: {
     y: 'sold',
@@ -175,7 +174,6 @@ G2.render({
     { city: 'Berlin', month: 'Jul.', rainfall: 37.4 },
     { city: 'Berlin', month: 'Aug.', rainfall: 42.4 },
   ],
-  statistic: [{ type: 'stackY' }],
   encode: {
     x: 'month',
     y: 'rainfall',

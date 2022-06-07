@@ -6,20 +6,6 @@ describe('text', () => {
   it('render({...}) should render basic wordCloud', () => {
     const context: G2Context = {};
 
-    const Flat: TransformComponent =
-      () =>
-      ({ data }) => ({
-        data: data.flatMap((d) =>
-          d.words.map(({ weight, word }) => ({
-            value: weight,
-            text: word,
-            name: d.name,
-          })),
-        ),
-      });
-
-    Flat.props = { category: 'connector' };
-
     const chart = render<G2Spec>(
       {
         type: 'text',
@@ -33,7 +19,17 @@ describe('text', () => {
             url: 'https://gw.alipayobjects.com/os/bmw-prod/d345d2d7-a35d-4d27-af92-4982b3e6b213.json',
           },
           {
-            type: Flat,
+            type:
+              () =>
+              ({ data }) => ({
+                data: data.flatMap((d) =>
+                  d.words.map(({ weight, word }) => ({
+                    value: weight,
+                    text: word,
+                    name: d.name,
+                  })),
+                ),
+              }),
           },
           {
             type: 'wordCloud',

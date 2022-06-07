@@ -74,7 +74,6 @@ G2.render({
 G2.render({
   type: 'view',
   height: 300,
-  width: 300,
   transform: [
     {
       type: 'fetch',
