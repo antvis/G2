@@ -11,3 +11,15 @@ export {
   Connector as AnnotationConnector,
   ConnectorOptions as AnnotationConnectorOptions,
 } from './connector';
+export {
+  Range as AnnotationRange,
+  RangeOptions as AnnotationRangeOptions,
+} from './range';
+export {
+  RangeX as AnnotationRangeX,
+  RangeXOptions as AnnotationRangeXOptions,
+} from './rangeX';
+export {
+  RangeY as AnnotationRangeY,
+  RangeYOptions as AnnotationRangeYOptions,
+} from './rangeY';

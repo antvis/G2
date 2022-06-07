@@ -185,3 +185,90 @@ G2.render(
   {},
 );
 ```
+
+## RangeX Annotation
+
+```js
+G2.render({
+  transform: [
+    {
+      type: 'fetch',
+      url: 'https://gw.alipayobjects.com/os/bmw-prod/89a884ff-5f4e-48e8-b317-ae5b3b956bf2.json',
+    },
+    {
+      type: 'fold',
+      fields: ['New York', 'San Francisco'],
+      as: ['city', 'weather'],
+    },
+  ],
+  type: 'view',
+  children: [
+    {
+      type: 'line',
+      encode: {
+        x: (d) => new Date(d.date),
+        y: 'weather',
+        color: 'city',
+      },
+      style: {
+        zIndex: 1,
+      },
+    },
+    {
+      type: 'annotation.rangeX',
+      data: [{ x1: 0.6, x2: 1 }],
+      scale: {
+        x: { independent: true, guide: null, domain: [0, 1] },
+      },
+      encode: {
+        x: ['x1', 'x2'],
+      },
+      style: {
+        zIndex: 0,
+        fill: 'rgba(220,220,220,0.3)',
+      },
+    },
+  ],
+});
+```
+
+## RangeY Annotation
+
+```js
+G2.render({
+  transform: [
+    {
+      type: 'fetch',
+      url: 'https://gw.alipayobjects.com/os/bmw-prod/2e5e34b8-229d-4503-92cb-d415106785cf.json',
+    },
+  ],
+  type: 'view',
+  children: [
+    {
+      type: 'point',
+      scale: {
+        x: { domain: [0, 250] },
+        y: { domain: [0, 50] },
+      },
+      encode: {
+        x: 'Horsepower',
+        y: 'Miles_per_Gallon',
+      },
+      style: {
+        zIndex: 1,
+      },
+    },
+    {
+      type: 'annotation.rangeY',
+      data: [{ 'Mean+stdev': 31.3305571769, 'Mean-stdev': 15.6985885518 }],
+      encode: {
+        y: ['Mean-stdev', 'Mean+stdev'],
+      },
+      style: {
+        zIndex: 0,
+        fill: 'rgba(220,220,220,0.3)',
+      },
+    },
+  ],
+});
+```
