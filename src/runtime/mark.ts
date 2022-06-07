@@ -119,7 +119,7 @@ export function createTransformContext(
     encode: flatEncode(encode),
     columnOf: createColumnOf(library),
     transform,
-    I: data ? indexOf(data) : [],
+    I: Array.isArray(data) ? indexOf(data) : [],
     scale,
   };
 }

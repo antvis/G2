@@ -70,16 +70,47 @@ describe('polygon', () => {
     mount(createDiv(), chart);
   });
 
-  it.only('render({...}) should render sankey plot', () => {
+  it('render({...}) should render sankey plot', () => {
     const chart = render<G2Spec>({
       type: 'view',
       data: SANKEY_DATA,
+      paddingBottom: 5,
+      paddingTop: 5,
+      paddingLeft: 5,
+      paddingRight: 5,
       transform: [
         {
           type: 'sankey',
         },
       ],
+      scale: {
+        x: { guide: null },
+        y: { guide: null },
+        color: { guide: null },
+      },
       children: [
+        {
+          type: 'polygon',
+          transform: [
+            {
+              type: 'connector',
+              callback: (v) => v.links,
+            },
+            {
+              type: 'pick',
+              fields: ['x', 'y', 'source.name'],
+            },
+          ],
+          encode: {
+            x: 'x',
+            y: 'y',
+            color: 'source.name',
+            shape: 'ribbon',
+          },
+          style: {
+            fillOpacity: 0.5,
+          },
+        },
         {
           type: 'polygon',
           transform: [
@@ -97,26 +128,6 @@ describe('polygon', () => {
             y: 'y',
             color: 'name',
             shape: 'polygon',
-          },
-        },
-        {
-          type: 'polygon',
-          transform: [
-            {
-              type: 'connector',
-              callback: (v) => {
-                return v.links;
-              },
-            },
-            {
-              type: 'pick',
-              fields: ['x', 'y', 'name'],
-            },
-          ],
-          encode: {
-            x: 'x',
-            y: 'y',
-            shape: 'ribbon',
           },
         },
       ],
