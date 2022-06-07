@@ -1,5 +1,6 @@
 import { Canvas } from '@antv/g';
 import {
+  G2Title,
   GuideComponentPosition,
   Layout,
   Primitive,
@@ -63,6 +64,7 @@ export type G2View = {
   paddingTop?: number;
   paddingBottom?: number;
   theme?: G2ThemeOptions;
+  title?: G2TitleOptions;
   coordinate?: G2CoordinateOptions[];
   component?: G2GuideComponentOptions[];
   interaction?: G2InteractionOptions[];
@@ -162,3 +164,8 @@ export type G2InteractionOptions = G2BaseComponentOptions<InteractionComponent>;
 export type G2InteractorOptions = G2BaseComponentOptions<InteractorComponent>;
 export type G2CompositionOptions = G2BaseComponentOptions<CompositionComponent>;
 export type G2AdjustOptions = G2BaseComponentOptions<AdjustComponent>;
+export type G2TitleOptions = G2Title & {
+  position?: GuideComponentPosition;
+  size?: number;
+  zIndex?: number;
+};

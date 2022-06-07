@@ -15,6 +15,24 @@ export type G2Theme = {
     delay?: number;
     fill?: 'both';
   };
+  title?: {
+    fill?: string;
+    fontSize?: number;
+    fontWeight?: string;
+  };
+  subtitle?: {
+    fill?: string;
+    fontSize?: number;
+    fontWeight?: string;
+    spacing?: number;
+  };
+};
+
+export type G2Title = {
+  text?: string;
+  subtitle?: string | null;
+  style?: Record<string, any>;
+  subtitleStyle?: Record<string, any>;
 };
 
 export type G2ViewDescriptor = {

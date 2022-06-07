@@ -18,6 +18,15 @@ export const Light: TC<LightOptions> = (options) => {
       fill: 'both',
       delay: 0,
     },
+    title: {
+      fill: 'rgba(0,0,0,0.85)',
+      fontSize: 14,
+      fontWeight: 'bold',
+    },
+    subtitle: {
+      fill: 'rgba(0,0,0,0.65)',
+      fontSize: 10,
+    },
   };
   return Object.assign({}, defaultOptions, options);
 };

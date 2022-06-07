@@ -15,7 +15,7 @@ export type LegendCategoryOptions = {
  * @todo Custom style.
  */
 export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
-  const { formatter = (d) => `${d}` } = options;
+  const { position, formatter = (d) => `${d}` } = options;
   return (scale, value, coordinate, theme) => {
     const { domain, field, bbox } = value;
     const { x, y, width, height } = bbox;
@@ -32,6 +32,9 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
         items,
         x,
         y,
+        orient: ['right', 'left'].includes(position)
+          ? 'vertical'
+          : 'horizontal',
         maxWidth: width,
         maxHeight: height,
         autoWrap,

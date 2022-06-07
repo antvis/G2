@@ -155,7 +155,7 @@ describe('Interaction', () => {
     mount(createDiv(), chart);
   });
 
-  it.only('render({...}) renders bubble chart with fisheye', () => {
+  it('render({...}) renders bubble chart with fisheye', () => {
     const chart = render({
       type: 'point',
       transform: [
