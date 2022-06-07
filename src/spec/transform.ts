@@ -13,7 +13,8 @@ export type Transform =
   | WordCloudTransform
   | VoronoiTransform
   | ConnectorTransform
-  | StatisticTransform;
+  | StatisticTransform
+  | CustomTransform;
 
 export type TransformTypes =
   | 'sortBy'

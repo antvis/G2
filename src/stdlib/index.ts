@@ -75,6 +75,7 @@ import {
   Arc as ArcEdge,
   Image,
   Polygon,
+  Ribbon,
   Box,
 } from '../shape';
 import { Light } from '../theme';
@@ -243,6 +244,7 @@ export function createLibrary(): G2Library {
     'shape.arc': ArcEdge,
     'shape.image': Image,
     'shape.polygon': Polygon,
+    'shape.ribbon': Ribbon,
     'shape.box': Box,
     'shape.annotation.text': AnnotationTextShape,
     'shape.annotation.badge': AnnotationBadge,

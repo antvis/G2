@@ -41,6 +41,7 @@ export { Edge, EdgeOptions } from './edge/edge';
 export { Arc, ArcOptions } from './edge/arc';
 export { Image, ImageOptions } from './image/image';
 export { Polygon, PolygonOptions } from './polygon/polygon';
+export { Ribbon, RibbonOptions } from './polygon/ribbon';
 export { Box, BoxOptions } from './schema/box';
 export {
   AnnotationLine as AnnotationLine,

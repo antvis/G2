@@ -80,6 +80,7 @@ import {
   Arc as ArcEdge,
   Image,
   Polygon,
+  Ribbon,
   Box,
   AnnotationLine as AnnotationLineShape,
 } from '../../../src/shape';
@@ -250,6 +251,7 @@ describe('stdlib', () => {
       'shape.arc': ArcEdge,
       'shape.image': Image,
       'shape.polygon': Polygon,
+      'shape.ribbon': Ribbon,
       'shape.box': Box,
       'shape.annotation.text': AnnotationTextShape,
       'shape.annotation.badge': AnnotationBadge,

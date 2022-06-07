@@ -18,5 +18,5 @@ export const Connector: TC<ConnectorOptions> = (options) => {
 };
 
 Connector.props = {
-  category: 'connector',
+  category: 'preprocessor',
 };
