@@ -10,9 +10,8 @@ function extend(channel: string, extended: boolean, value, scale) {
   if (extended) return () => [0, 1];
   const { [channel]: C, [`${channel}1`]: C1 } = value;
   return (i) => {
-    const offset =
-      (scale && C1 && scale.getBandWidth?.(scale.invert(+C1[i]))) || 0;
-    return [C ?? C[i], C1[i] + offset];
+    const offset = scale.getBandWidth?.(scale.invert(+C1[i]))) || 0;
+    return [C[i], C1[i] + offset];
   };
 }
 
