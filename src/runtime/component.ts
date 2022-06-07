@@ -175,7 +175,7 @@ function inferTitleComponentSize(options: G2TitleOptions) {
   if (size) return size;
   const titleSize = style?.fontSize ?? 14;
   const subtitleSize = subtitleStyle?.fontSize ?? 12;
-  const spacing = get(subtitleStyle, 'spacing', 0);
+  const spacing = subtitleStyle?.spacing || 0;
   // Extra 4px spacing.
   return (text ? titleSize + 4 : 0) + (subtitle ? subtitleSize + spacing : 0);
 }
