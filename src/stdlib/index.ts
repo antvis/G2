@@ -75,6 +75,7 @@ import {
   Arc as ArcEdge,
   Image,
   Polygon,
+  Ribbon,
   Box,
 } from '../shape';
 import { Light } from '../theme';
@@ -133,6 +134,7 @@ import {
   Select,
   SelectX,
   SelectY,
+  Connector,
 } from '../transform';
 
 export function createLibrary(): G2Library {
@@ -146,7 +148,8 @@ export function createLibrary(): G2Library {
     'transform.fold': Fold,
     'transform.wordCloud': WordCloud,
     'transform.voronoi': Voronoi,
-    'transform.Sankey': Sankey,
+    'transform.sankey': Sankey,
+    'transform.connector': Connector,
     'transform.maybeZeroY1': MaybeZeroY1,
     'transform.maybeZeroX': MaybeZeroX,
     'transform.maybeStackY': MaybeStackY,
@@ -241,6 +244,7 @@ export function createLibrary(): G2Library {
     'shape.arc': ArcEdge,
     'shape.image': Image,
     'shape.polygon': Polygon,
+    'shape.ribbon': Ribbon,
     'shape.box': Box,
     'shape.annotation.text': AnnotationTextShape,
     'shape.annotation.badge': AnnotationBadge,

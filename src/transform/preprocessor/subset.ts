@@ -1,4 +1,3 @@
-import { indexOf } from '../../utils/array';
 import { TransformComponent as TC } from '../../runtime';
 import { SubsetTransform } from '../../spec';
 import { merge } from '../utils/helper';
@@ -23,6 +22,7 @@ export const Subset: TC<SubsetOptions> = (options) => {
 
     const pick = (v: any) =>
       fields.reduce((datum, field) => {
+        // pick the data deeply.
         if (field in v) {
           datum[field] = v[field];
         }

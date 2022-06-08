@@ -1,4 +1,4 @@
-import { Subset } from '../../../src/transform/subset';
+import { Subset } from '../../../src/transform';
 
 describe('subset', () => {
   it('Subset({...}) returns function to get subset of data', () => {
