@@ -1,3 +1,4 @@
+import { CanvasEvent } from '@antv/g';
 import { deepMix } from '@antv/util';
 import { createLibrary } from '../stdlib';
 import { Canvas } from '../renderer';
@@ -62,9 +63,9 @@ export function render<T extends G2ViewTree = G2ViewTree>(
   context.library = library;
 
   // Plot the chart and mutate context.
-  // Using requestAnimationFrame to make sure that plot chart after mounting container.
+  // Listen CanvasEvent.READY to make sure that plot chart after container is ready.
   const selection = select(canvas.document.documentElement);
-  requestAnimationFrame(async () => {
+  canvas.addEventListener(CanvasEvent.READY, async () => {
     await plot<T>({ ...keyed, width, height }, selection, library);
     callback?.();
   });
