@@ -16,9 +16,9 @@ describe('AnnotationText shape', () => {
     expect(shape.style.fill).toBe('red');
   });
 
-  it('AnnotationText() returns a function draw textAnnotation, using color as fill and stroke', () => {
+  it('AnnotationText() returns a function draw textAnnotation, using color as fill and stroke', async () => {
     const container = document.createElement('div');
-    const shape = draw({
+    const shape = await draw({
       width: 150,
       height: 50,
       shape: AnnotationText({}),
@@ -44,9 +44,9 @@ describe('AnnotationText shape', () => {
     expect(shape.childNodes.length).toBe(1);
   });
 
-  it('AnnotationText() returns a function draw textAnnotation, contains connector, background and markerPoints', () => {
+  it('AnnotationText() returns a function draw textAnnotation, contains connector, background and markerPoints', async () => {
     const container = document.createElement('div');
-    const shape = draw({
+    const shape = await draw({
       width: 150,
       height: 100,
       shape: AnnotationText({
@@ -66,10 +66,10 @@ describe('AnnotationText shape', () => {
     expect(shape.childNodes.length).toBe(5);
   });
 
-  it('AnnotationText() returns a function draw textAnnotation, enable custom text style includes rotate.', () => {
+  it('AnnotationText() returns a function draw textAnnotation, enable custom text style includes rotate.', async () => {
     const container = document.createElement('div');
     mount(createDiv(), container);
-    const shape = draw({
+    const shape = await draw({
       width: 150,
       height: 100,
       shape: AnnotationText({
@@ -92,10 +92,10 @@ describe('AnnotationText shape', () => {
   });
 
   const bounds = (shape: any) => shape.getLocalBounds();
-  it('AnnotationText() returns a function draw textAnnotation, enable custom background style.', () => {
+  it('AnnotationText() returns a function draw textAnnotation, enable custom background style.', async () => {
     const container = document.createElement('div');
     mount(createDiv(), container);
-    const shape = draw({
+    const shape = await draw({
       width: 150,
       height: 100,
       shape: AnnotationText({
@@ -131,10 +131,10 @@ describe('AnnotationText shape', () => {
     expect(shape.background).toBeUndefined();
   });
 
-  it('AnnotationText() returns a function draw text annotation, enable text and background rotate.', () => {
+  it('AnnotationText() returns a function draw text annotation, enable text and background rotate.', async () => {
     const container = document.createElement('div');
     mount(createDiv(), container);
-    const shape = draw({
+    const shape = await draw({
       width: 150,
       height: 100,
       shape: AnnotationText({
@@ -160,10 +160,10 @@ describe('AnnotationText shape', () => {
     expect(bounds(background).min[0]).toBe(bounds(textShape).min[0]);
   });
 
-  it('AnnotationText() returns a function draw textAnnotation, connector path infer by text shape and background.', () => {
+  it('AnnotationText() returns a function draw textAnnotation, connector path infer by text shape and background.', async () => {
     const container = document.createElement('div');
     mount(createDiv(), container);
-    const shape = draw({
+    const shape = await draw({
       width: 150,
       height: 100,
       shape: AnnotationText({
@@ -215,10 +215,10 @@ describe('AnnotationText shape', () => {
     expect(shape.connector).toBeUndefined();
   });
 
-  it('AnnotationText() returns a function draw textAnnotation, enable custom connector path.', () => {
+  it('AnnotationText() returns a function draw textAnnotation, enable custom connector path.', async () => {
     const container = document.createElement('div');
     mount(createDiv(), container);
-    const shape = draw({
+    const shape = await draw({
       width: 150,
       height: 100,
       shape: AnnotationText({
@@ -262,10 +262,10 @@ describe('AnnotationText shape', () => {
     expect((shape.childNodes[0] as any).style.textAlign).toBe('right');
   });
 
-  it('AnnotationText() returns a function draw textAnnotation, enable custom startMarker and endMarker style.', () => {
+  it('AnnotationText() returns a function draw textAnnotation, enable custom startMarker and endMarker style.', async () => {
     const container = document.createElement('div');
     mount(createDiv(), container);
-    const shape = draw({
+    const shape = await draw({
       width: 150,
       height: 100,
       shape: AnnotationText({

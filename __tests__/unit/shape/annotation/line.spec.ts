@@ -10,9 +10,9 @@ describe('AnnotationLine', () => {
     });
   });
 
-  it('AnnotationLine() returns a function draw line in cartesian coordinate using color as stroke', () => {
+  it('AnnotationLine() returns a function draw line in cartesian coordinate using color as stroke', async () => {
     const container = document.createElement('div');
-    const shape = draw({
+    const shape = await draw({
       shape: AnnotationLine({}),
       container,
       value: {
@@ -32,9 +32,9 @@ describe('AnnotationLine', () => {
     });
   });
 
-  it('AnnotationLine() returns a function draw line using size', () => {
+  it('AnnotationLine() returns a function draw line using size', async () => {
     const container = document.createElement('div');
-    const shape = draw({
+    const shape = await draw({
       shape: AnnotationLine({}),
       container,
       value: {
@@ -51,9 +51,9 @@ describe('AnnotationLine', () => {
     expect(shape.style.lineWidth).toBe(4);
   });
 
-  it('AnnotationLine() returns a function draw line with custom styles', () => {
+  it('AnnotationLine() returns a function draw line with custom styles', async () => {
     const container = document.createElement('div');
-    const shape = draw({
+    const shape = await draw({
       shape: AnnotationLine({ stroke: 'red' }),
       container,
       value: {
@@ -73,9 +73,9 @@ describe('AnnotationLine', () => {
     });
   });
 
-  it('AnnotationLine() returns a function draw arc line in polar coordinate', () => {
+  it('AnnotationLine() returns a function draw arc line in polar coordinate', async () => {
     const container = document.createElement('div');
-    const shape = draw({
+    const shape = await draw({
       shape: AnnotationLine({}),
       container,
       value: {

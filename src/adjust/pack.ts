@@ -45,22 +45,20 @@ export const Pack: AC<PackOptions> = () => {
 
     return P.map((points, m) => {
       const [x, y, width, height] = calcBBox(points);
-      const cx = x + width / 2;
-      const cy = y + height / 2;
 
       const i = m % col;
       const j = Math.floor(m / col);
 
-      const newCX = i * size + size / 2;
-      const newCY = (row - j - 1) * size + space + size / 2;
+      const newX = i * size;
+      const newY = (row - j - 1) * size + space;
 
       const sx = size / width;
       const sy = size / height;
 
       // Translate the shape and mark to make sure the center of
       // shape is overlap before and after scale transformation.
-      const tx = newCX - cx + offsetX * i;
-      const ty = newCY - cy - intervalY * j - offsetY;
+      const tx = newX - x + offsetX * i;
+      const ty = newY - y - intervalY * j - offsetY;
       return `translate(${tx}, ${ty}) scale(${sx}, ${sy})`;
     });
   };

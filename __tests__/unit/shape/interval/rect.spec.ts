@@ -4,9 +4,9 @@ import { mount, createDiv } from '../../../utils/dom';
 import { draw, style } from '../helper';
 
 describe('Rect', () => {
-  it('Rect() returns a function drawing rect in cartesian using color as fill', () => {
+  it('Rect() returns a function drawing rect in cartesian using color as fill', async () => {
     const container = document.createElement('div');
-    const shape = draw({
+    const shape = await draw({
       shape: Rect(),
       container,
       value: {
@@ -25,15 +25,14 @@ describe('Rect', () => {
       fill: 'steelblue',
       height: 400,
       width: 120,
-      // G will convert "" to 0
-      x: '',
-      y: '',
+      x: 0,
+      y: 0,
     });
   });
 
-  it('Rect() returns a function drawing rect with negative width and height', () => {
+  it('Rect() returns a function drawing rect with negative width and height', async () => {
     const container = document.createElement('div');
-    const shape = draw({
+    const shape = await draw({
       shape: Rect(),
       container,
       value: {
@@ -52,14 +51,14 @@ describe('Rect', () => {
       fill: 'steelblue',
       height: 400,
       width: 120,
-      x: '',
-      y: '',
+      x: 0,
+      y: 0,
     });
   });
 
-  it('Rect() returns a function drawing rect in transpose', () => {
+  it('Rect() returns a function drawing rect in transpose', async () => {
     const container = document.createElement('div');
-    const shape = draw({
+    const shape = await draw({
       shape: Rect(),
       container,
       value: {
@@ -79,14 +78,14 @@ describe('Rect', () => {
       fill: 'steelblue',
       height: 80,
       width: 600,
-      x: '',
-      y: '',
+      x: 0,
+      y: 0,
     });
   });
 
-  it('Rect() returns a function drawing sector in Polar', () => {
+  it('Rect() returns a function drawing sector in Polar', async () => {
     const container = document.createElement('div');
-    const shape = draw({
+    const shape = await draw({
       shape: Rect(),
       container,
       value: {
@@ -107,9 +106,9 @@ describe('Rect', () => {
     });
   });
 
-  it('Rect() returns a function drawing nothing in Polar with angle equals to 0', () => {
+  it('Rect() returns a function drawing nothing in Polar with angle equals to 0', async () => {
     const container = document.createElement('div');
-    const shape = draw({
+    const shape = await draw({
       shape: Rect(),
       container,
       value: {
@@ -130,9 +129,9 @@ describe('Rect', () => {
     });
   });
 
-  it('Rect() returns a function drawing ring in Polar with angle equals to Math.PI * 2', () => {
+  it('Rect() returns a function drawing ring in Polar with angle equals to Math.PI * 2', async () => {
     const container = document.createElement('div');
-    const shape = draw({
+    const shape = await draw({
       shape: Rect({ stroke: 'black', lineWidth: 10 }),
       container,
       value: {
@@ -155,9 +154,9 @@ describe('Rect', () => {
     });
   });
 
-  it('ShapesRect() returns a function enabling drawing rect with radius corner', () => {
+  it('ShapesRect() returns a function enabling drawing rect with radius corner', async () => {
     const container = document.createElement('div');
-    const shape = draw({
+    const shape = await draw({
       shape: Rect({ radius: 10 }),
       container,
       value: {
@@ -176,9 +175,9 @@ describe('Rect', () => {
     });
   });
 
-  it('Rect() returns a function enabling drawing sector with radius in Polar', () => {
+  it('Rect() returns a function enabling drawing sector with radius in Polar', async () => {
     const container = document.createElement('div');
-    const shape = draw({
+    const shape = await draw({
       shape: Rect({ radius: 20 }),
       container,
       value: {

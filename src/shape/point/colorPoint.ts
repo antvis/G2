@@ -41,7 +41,7 @@ function getOrigin(points: Vector2[]) {
 export const ColorPoint: SC<ColorPointOptions> = (options) => {
   // Render border only when colorAttribute is stroke.
   const { colorAttribute, symbol, mode = 'auto', ...style } = options;
-  const lineWidth = colorAttribute === 'stroke' ? 1 : undefined;
+  const lineWidth = colorAttribute === 'stroke' ? 1 : 0;
   const path = Symbols[symbol] || Symbols.point;
 
   return (points, value, coordinate, theme) => {
@@ -49,7 +49,7 @@ export const ColorPoint: SC<ColorPointOptions> = (options) => {
     const { color = defaultColor, transform } = value;
     const [cx, cy] = getOrigin(points);
     const r = getRadius(mode, points, value, coordinate);
-    return select(new Path({}))
+    return select(new Path())
       .style('d', path(cx, cy, r))
       .style('lineWidth', lineWidth)
       .style('stroke', color)
