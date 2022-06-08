@@ -179,10 +179,12 @@ export type Shape = (
   points: Vector2[],
   value: {
     color?: string;
+    index?: number;
     [key: string]: Primitive;
   },
   coordinate: Coordinate,
   theme: G2Theme,
+  point2d?: Vector2[][],
 ) => DisplayObject;
 export type ShapeProps = {
   defaultEnterAnimation: string;
