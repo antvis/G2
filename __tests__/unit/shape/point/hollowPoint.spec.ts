@@ -9,9 +9,9 @@ describe('HollowPoint', () => {
     });
   });
 
-  it('HollowPoint() returns a function draw point using color as fill', () => {
+  it('HollowPoint() returns a function draw point using color as fill', async () => {
     const container = document.createElement('div');
-    const shape = draw({
+    const shape = await draw({
       shape: HollowPoint({}),
       container,
       value: {
@@ -31,9 +31,9 @@ describe('HollowPoint', () => {
     });
   });
 
-  it('HollowPoint({...}) returns a function draw point with custom style', () => {
+  it('HollowPoint({...}) returns a function draw point with custom style', async () => {
     const container = document.createElement('div');
-    const shape = draw({
+    const shape = await draw({
       shape: HollowPoint({ stroke: 'red' }),
       container,
       value: {

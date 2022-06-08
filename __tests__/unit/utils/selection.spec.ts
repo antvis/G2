@@ -451,14 +451,17 @@ describe('select', () => {
     expect(selection.selectAll('rect').nodes()[2]).toBe(rect3);
   });
 
-  it('Selection.on() should register event', () => {
+  it('Selection.on() should register event', async () => {
     const container = document.createElement('div');
     const canvas = Canvas({
       width: 300,
       height: 200,
       container,
     });
+
     mount(createDiv(), container);
+
+    await canvas.ready;
 
     const selection = select(canvas.document.documentElement);
 

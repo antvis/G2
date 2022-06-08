@@ -9,9 +9,9 @@ describe('Smooth', () => {
     });
   });
 
-  it('Smooth() returns a function draw curve line in cartesian coordinate using color as stroke', () => {
+  it('Smooth() returns a function draw curve line in cartesian coordinate using color as stroke', async () => {
     const container = document.createElement('div');
-    const shape = draw({
+    const shape = await draw({
       shape: Smooth({}),
       container,
       value: {
@@ -33,9 +33,9 @@ describe('Smooth', () => {
     });
   });
 
-  it('Smooth() returns a function draw curve line with specified alpha', () => {
+  it('Smooth() returns a function draw curve line with specified alpha', async () => {
     const container = document.createElement('div');
-    const shape = draw({
+    const shape = await draw({
       shape: Smooth({ alpha: 0 }),
       container,
       value: {

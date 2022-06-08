@@ -14,9 +14,9 @@ describe('Text', () => {
     expect(shape.style.fill).toBe('red');
   });
 
-  it('Text() returns a function draw text using color as fill and stroke', () => {
+  it('Text() returns a function draw text using color as fill and stroke', async () => {
     const container = document.createElement('div');
-    const shape = draw({
+    const shape = await draw({
       width: 150,
       height: 50,
       shape: Text({}),
@@ -39,9 +39,9 @@ describe('Text', () => {
     });
   });
 
-  it('Text({...}) returns a function draw text with custom style', () => {
+  it('Text({...}) returns a function draw text with custom style', async () => {
     const container = document.createElement('div');
-    const shape = draw({
+    const shape = await draw({
       width: 150,
       height: 50,
       shape: Text({
@@ -81,9 +81,9 @@ describe('Text', () => {
     // expect(shape.style.text).toEqual('HELLO');
   });
 
-  it('Text({...}) returns a function draw text which enable custom wordWrap', () => {
+  it('Text({...}) returns a function draw text which enable custom wordWrap', async () => {
     const container = document.createElement('div');
-    let shape = draw({
+    let shape = await draw({
       width: 150,
       height: 50,
       shape: Text({
@@ -99,7 +99,7 @@ describe('Text', () => {
       vectors: [[0.5, 0.5]],
     });
     expect(shape.getBoundingClientRect().width).toBeGreaterThan(80);
-    shape = draw({
+    shape = await draw({
       width: 150,
       height: 250,
       shape: Text({
@@ -120,9 +120,9 @@ describe('Text', () => {
     mount(createDiv(), container);
   });
 
-  it('Text() returns a function draw rotate text', () => {
+  it('Text() returns a function draw rotate text', async () => {
     const container = document.createElement('div');
-    const shape = draw({
+    const shape = await draw({
       width: 150,
       height: 50,
       shape: Text({}),

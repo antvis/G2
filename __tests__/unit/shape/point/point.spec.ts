@@ -9,9 +9,9 @@ describe('Point', () => {
     });
   });
 
-  it('Point() returns a function draw point using color as fill', () => {
+  it('Point() returns a function draw point using color as fill', async () => {
     const container = document.createElement('div');
-    const shape = draw({
+    const shape = await draw({
       shape: Point({}),
       container,
       value: {
@@ -27,13 +27,13 @@ describe('Point', () => {
     expect(shape.nodeName).toBe('path');
     expect(style(shape, ['fill', 'lineWidth'])).toEqual({
       fill: 'steelblue',
-      lineWidth: '',
+      lineWidth: 0,
     });
   });
 
-  it('Point({...}) returns a function draw point with custom style', () => {
+  it('Point({...}) returns a function draw point with custom style', async () => {
     const container = document.createElement('div');
-    const shape = draw({
+    const shape = await draw({
       shape: Point({ fill: 'red' }),
       container,
       value: {

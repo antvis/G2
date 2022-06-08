@@ -3,9 +3,9 @@ import { mount, createDiv } from '../../../utils/dom';
 import { draw, style } from '../helper';
 
 describe('HollowRect', () => {
-  it('HollowRect() returns a function drawing rect in cartesian using color as stroke', () => {
+  it('HollowRect() returns a function drawing rect in cartesian using color as stroke', async () => {
     const container = document.createElement('div');
-    const shape = draw({
+    const shape = await draw({
       shape: HollowRect(),
       container,
       value: {
@@ -27,9 +27,9 @@ describe('HollowRect', () => {
     });
   });
 
-  it('HollowRect() returns a function drawing rect with specified lineWidth', () => {
+  it('HollowRect() returns a function drawing rect with specified lineWidth', async () => {
     const container = document.createElement('div');
-    const shape = draw({
+    const shape = await draw({
       shape: HollowRect({ lineWidth: 10, radius: 10 }),
       container,
       value: {

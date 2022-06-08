@@ -10,9 +10,9 @@ describe('Line', () => {
     });
   });
 
-  it('Line() returns a function draw line in cartesian coordinate using color as stroke', () => {
+  it('Line() returns a function draw line in cartesian coordinate using color as stroke', async () => {
     const container = document.createElement('div');
-    const shape = draw({
+    const shape = await draw({
       shape: Line(),
       container,
       value: {
@@ -34,9 +34,9 @@ describe('Line', () => {
     });
   });
 
-  it('Line() returns a function draw line with custom styles', () => {
+  it('Line() returns a function draw line with custom styles', async () => {
     const container = document.createElement('div');
-    const shape = draw({
+    const shape = await draw({
       shape: Line({ stroke: 'red' }),
       container,
       value: {
@@ -58,9 +58,9 @@ describe('Line', () => {
     });
   });
 
-  it('Line() returns a function draw closed line in polar coordinate', () => {
+  it('Line() returns a function draw closed line in polar coordinate', async () => {
     const container = document.createElement('div');
-    const shape = draw({
+    const shape = await draw({
       shape: Line(),
       container,
       value: {
