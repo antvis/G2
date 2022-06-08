@@ -31,7 +31,7 @@ export const ColorRect: SC<ColorRectOptions> = (options) => {
   return (points, value, coordinate, theme) => {
     const { radius = 0 } = style;
     const { defaultColor } = theme;
-    const { color = defaultColor, transform } = value;
+    const { color = defaultColor } = value;
     const [p0, p1, p2, p3] = isTranspose(coordinate) ? reorder(points) : points;
 
     // Render rect in non-polar coordinate.
@@ -58,12 +58,18 @@ export const ColorRect: SC<ColorRectOptions> = (options) => {
     }
 
     // Render path in polar coordinate.
+    const { y, y1 } = value;
     const center = coordinate.getCenter() as Vector2;
     const a1 = angle(sub(p0, center));
     const a2 = angle(sub(p1, center));
+    // There are two situations that t1 === t2:
+    // 1. a1 - a2 = 0
+    // 2. |t1 - t2| = Math.PI * 2
+    // Distinguish them by y and y1:
+    const a3 = a2 === a1 && y !== y1 ? a2 + Math.PI * 2 : a2;
     const arcObject = {
       startAngle: a1,
-      endAngle: a2 - a1 >= 0 ? a2 : Math.PI * 2 + a2,
+      endAngle: a3 - a1 >= 0 ? a3 : Math.PI * 2 + a3,
       innerRadius: dist(p3, center),
       outerRadius: dist(p0, center),
     };
