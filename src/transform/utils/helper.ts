@@ -23,15 +23,13 @@ export function merge(
 ): Transform {
   return async (options) => {
     const newOptions = await transform(options);
-    const { encode: newEncode = {} } = newOptions;
-    const { encode: oldEncode = {} } = options;
+    const { encode: newEncode } = newOptions;
+    const { encode: oldEncode } = options;
     return {
       ...options,
       ...newOptions,
-      encode: {
-        ...oldEncode,
-        ...newEncode,
-      },
+      // Update encode options only when newEncode is defined.
+      ...(newEncode && { encode: { ...oldEncode, ...newEncode } }),
     };
   };
 }
