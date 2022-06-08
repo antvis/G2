@@ -11,12 +11,12 @@ describe('pack', () => {
     ]);
     const transforms = adjust(points, points.length, layout);
     expect(transforms).toEqual([
-      'translate(22.5, 172.5) scale(10, 10)',
-      'translate(72.5, 172.5) scale(10, 10)',
-      'translate(22.5, 97.5) scale(10, 10)',
-      'translate(72.5, 97.5) scale(10, 10)',
-      'translate(22.5, 22.5) scale(10, 10)',
-      'translate(72.5, 22.5) scale(10, 10)',
+      'translate(0, 150) scale(10, 10)',
+      'translate(50, 150) scale(10, 10)',
+      'translate(0, 75) scale(10, 10)',
+      'translate(50, 75) scale(10, 10)',
+      'translate(0, 0) scale(10, 10)',
+      'translate(50, 0) scale(10, 10)',
     ]);
   });
 });
