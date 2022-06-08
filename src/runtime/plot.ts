@@ -358,6 +358,7 @@ async function plotView(
 
   // Render marks with corresponding data.
   for (const [{ key }, { data }] of markState.entries()) {
+    const point2d = data.map((d) => d.points);
     selection
       .select(`#${key}`)
       .selectAll('.element')
@@ -365,9 +366,10 @@ async function plotView(
       .join(
         (enter) =>
           enter
-            .append(({ shape, points, ...v }) =>
-              shape(points, v, coordinate, theme),
-            )
+            .append(({ shape, points, ...v }, i) => {
+              const value = { ...v, index: i };
+              return shape(points, value, coordinate, theme, point2d);
+            })
             .attr('className', 'element')
             .each(function ({ enterType: animate, ...v }) {
               const {
@@ -379,8 +381,9 @@ async function plotView(
               animate(this, style, coordinate, theme);
             }),
         (update) =>
-          update.each(function ({ shape, points, ...v }) {
-            const node = shape(points, v, coordinate, theme);
+          update.each(function ({ shape, points, ...v }, i) {
+            const value = { ...v, index: i };
+            const node = shape(points, value, coordinate, theme, point2d);
             copyAttributes(this, node);
           }),
       );
