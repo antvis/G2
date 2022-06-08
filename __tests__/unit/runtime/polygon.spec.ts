@@ -96,19 +96,16 @@ describe('polygon', () => {
               type: 'connector',
               callback: (v) => v.links,
             },
-            {
-              type: 'pick',
-              fields: ['x', 'y', 'source.name'],
-            },
           ],
           encode: {
             x: 'x',
             y: 'y',
-            color: 'source.name',
+            color: (d) => d.source.name,
             shape: 'ribbon',
           },
           style: {
             fillOpacity: 0.5,
+            stroke: null,
           },
         },
         {
@@ -117,10 +114,6 @@ describe('polygon', () => {
             {
               type: 'connector',
               callback: (v) => v.nodes,
-            },
-            {
-              type: 'pick',
-              fields: ['x', 'y', 'name'],
             },
           ],
           encode: {

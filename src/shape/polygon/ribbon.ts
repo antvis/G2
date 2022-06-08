@@ -49,6 +49,7 @@ export const Ribbon: SC<RibbonOptions> = (options) => {
     return select(new GPath())
       .style('d', path.toString())
       .style('fill', color)
+      .style('stroke', color)
       .style('transform', transform)
       .call(applyStyle, style)
       .node();
