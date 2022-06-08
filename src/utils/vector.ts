@@ -8,8 +8,11 @@ export function dist([x0, y0]: Vector2, [x1, y1]: Vector2): number {
   return Math.sqrt((x0 - x1) ** 2 + (y0 - y1) ** 2);
 }
 
+/**
+ * Calculate angle of [x, y] from -Math.PI / 2.
+ */
 export function angle([x, y]: Vector2): number {
-  const theta = Math.atan2(y, x);
+  const theta = Math.atan2(y, x) + Math.PI / 2;
   return theta;
 }
 

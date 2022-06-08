@@ -25,7 +25,7 @@ describe('coordinate', () => {
       ['translate', 0, 0.5],
       ['reflect.y'],
       ['translate', 0, -0.5],
-      ['polar', 0, Math.PI * 2, 0, 1],
+      ['polar', -Math.PI / 2, (Math.PI * 3) / 2, 0, 1],
     ]);
 
     expect(
