@@ -139,30 +139,19 @@ export function getBackgroundRectPath(cfg: ShapeInfo, points: Point[], coordinat
       const height = coordinate.isTransposed ? coordinate.getWidth() : coordinate.getHeight();
       const [r1, r2, r3, r4] = parseRadius(radius, Math.min(width, height));
 
-      /**
-       * 同时存在 坐标系是否发生转置 和 y 镜像的时候
-       */
-      if (coordinate.isTransposed && coordinate.isReflect('y')) {
-        path.push(['M', p0.x, p1.y - r1]);
-        r1 !== 0 && path.push(['A', r1, r1, 0, 0, 0, p0.x + r1, p1.y]);
-        path.push(['L', p1.x - r2, p1.y]);
-        r2 !== 0 && path.push(['A', r2, r2, 0, 0, 0, p1.x, p1.y - r2]);
-        path.push(['L', p1.x, p0.y + r3]);
-        r3 !== 0 && path.push(['A', r3, r3, 0, 0, 0, p1.x - r3, p0.y]);
-        path.push(['L', p0.x + r4, p0.y]);
-        r4 !== 0 && path.push(['A', r4, r4, 0, 0, 0, p0.x, p0.y + r4]);
+      // 同时存在 坐标系是否发生转置 和 y 镜像的时候
+      const isReflectYTransposed = (coordinate.isTransposed && coordinate.isReflect('y'));
+      const bump = isReflectYTransposed ? 0 : 1;
+      const opposite = (r: number) => isReflectYTransposed ? -r : r;
 
-      } else {
-        path.push(['M', p0.x, p1.y + r1]);
-        r1 !== 0 && path.push(['A', r1, r1, 0, 0, 1, p0.x + r1, p1.y]);
-        path.push(['L', p1.x - r2, p1.y]);
-        r2 !== 0 && path.push(['A', r2, r2, 0, 0, 1, p1.x, p1.y + r2]);
-        path.push(['L', p1.x, p0.y - r3]);
-        r3 !== 0 && path.push(['A', r3, r3, 0, 0, 1, p1.x - r3, p0.y]);
-        path.push(['L', p0.x + r4, p0.y]);
-        r4 !== 0 && path.push(['A', r4, r4, 0, 0, 1, p0.x, p0.y - r4]);
-      }
-
+      path.push(['M', p0.x, p1.y + opposite(r1)]);
+      r1 !== 0 && path.push(['A', r1, r1, 0, 0, bump, p0.x + r1, p1.y]);
+      path.push(['L', p1.x - r2, p1.y]);
+      r2 !== 0 && path.push(['A', r2, r2, 0, 0, bump, p1.x, p1.y + opposite(r2)]);
+      path.push(['L', p1.x, p0.y - opposite(r3)]);
+      r3 !== 0 && path.push(['A', r3, r3, 0, 0, bump, p1.x - r3, p0.y]);
+      path.push(['L', p0.x + r4, p0.y]);
+      r4 !== 0 && path.push(['A', r4, r4, 0, 0, bump, p0.x, p0.y - opposite(r4)]);
     } else {
       path.push(['M', p0.x, p0.y]);
       path.push(['L', p1.x, p0.y]);
