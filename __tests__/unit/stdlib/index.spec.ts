@@ -80,6 +80,7 @@ import {
   Arc as ArcEdge,
   Image,
   Polygon,
+  Ribbon,
   Box,
   AnnotationLine as AnnotationLineShape,
 } from '../../../src/shape';
@@ -139,6 +140,7 @@ import {
   Select,
   SelectX,
   SelectY,
+  Connector,
 } from '../../../src/transform';
 
 describe('stdlib', () => {
@@ -151,9 +153,10 @@ describe('stdlib', () => {
       'transform.rename': Rename,
       'transform.subset': Subset,
       'transform.fold': Fold,
+      'transform.connector': Connector,
       'transform.wordCloud': WordCloud,
       'transform.voronoi': Voronoi,
-      'transform.Sankey': Sankey,
+      'transform.sankey': Sankey,
       'transform.maybeZeroY1': MaybeZeroY1,
       'transform.maybeZeroX': MaybeZeroX,
       'transform.maybeStackY': MaybeStackY,
@@ -248,6 +251,7 @@ describe('stdlib', () => {
       'shape.arc': ArcEdge,
       'shape.image': Image,
       'shape.polygon': Polygon,
+      'shape.ribbon': Ribbon,
       'shape.box': Box,
       'shape.annotation.text': AnnotationTextShape,
       'shape.annotation.badge': AnnotationBadge,
