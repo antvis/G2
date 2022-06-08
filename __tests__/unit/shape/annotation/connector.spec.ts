@@ -9,9 +9,9 @@ describe('AnnotationConnector shape', () => {
     });
   });
 
-  it('AnnotationConnector() should return a function draw connector with arrow', () => {
+  it('AnnotationConnector() should return a function draw connector with arrow', async () => {
     const container = document.createElement('div');
-    const shape = draw({
+    const shape = await draw({
       shape: AnnotationConnector({ offset: 12 }),
       container,
       value: {

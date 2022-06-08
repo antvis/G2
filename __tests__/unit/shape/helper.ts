@@ -1,4 +1,4 @@
-import { DisplayObject } from '@antv/g';
+import { DisplayObject, CanvasEvent } from '@antv/g';
 import { Coordinate } from '@antv/coord';
 import {
   Shape,
@@ -35,7 +35,7 @@ export function draw({
   height = 400,
   transform = [],
   theme = Light({}),
-}: Options): DisplayObject {
+}: Options): Promise<DisplayObject> {
   const coordinate = new Coordinate({
     x,
     y,
@@ -48,9 +48,12 @@ export function draw({
   const shape = shapeFunction(points, value, coordinate, theme);
 
   const canvas = Canvas({ width, height, container });
-  canvas.appendChild(shape);
-
-  return shape;
+  return new Promise((resolve) => {
+    canvas.addEventListener(CanvasEvent.READY, async () => {
+      canvas.appendChild(shape);
+      resolve(shape);
+    });
+  });
 }
 
 export function style(

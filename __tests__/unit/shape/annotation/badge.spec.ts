@@ -16,9 +16,9 @@ describe('AnnotationBadge shape', () => {
     expect(shape.style.fill).toBe('red');
   });
 
-  it('AnnotationBadge() returns a function draw badgeAnnotation with text, default using color as fill', () => {
+  it('AnnotationBadge() returns a function draw badgeAnnotation with text, default using color as fill', async () => {
     const container = document.createElement('div');
-    const shape = draw({
+    const shape = await draw({
       width: 150,
       height: 50,
       shape: AnnotationBadge({}),
@@ -39,9 +39,9 @@ describe('AnnotationBadge shape', () => {
     expect(badgeMarker.style.symbol).toBeInstanceOf(Function);
   });
 
-  it('AnnotationBadge() returns a function draw badgeAnnotation contains text and support custom style.', () => {
+  it('AnnotationBadge() returns a function draw badgeAnnotation contains text and support custom style.', async () => {
     const container = document.createElement('div');
-    const shape = draw({
+    const shape = await draw({
       width: 150,
       height: 100,
       shape: AnnotationBadge({
@@ -65,9 +65,9 @@ describe('AnnotationBadge shape', () => {
     expect(textShape.style.fontSize).toBe(10);
   });
 
-  it('AnnotationBadge() returns a function draw badge annotation, with built-in marker.', () => {
+  it('AnnotationBadge() returns a function draw badge annotation, with built-in marker.', async () => {
     const container = document.createElement('div');
-    const shape = draw({
+    const shape = await draw({
       width: 150,
       height: 100,
       shape: AnnotationBadge({ size: 12 }),
@@ -86,9 +86,9 @@ describe('AnnotationBadge shape', () => {
     expect(badgeMarker.getBBox().bottom).toBeCloseTo(50);
   });
 
-  it('AnnotationBadge() returns a function draw badge annotation, enable custom marker symbol', () => {
+  it('AnnotationBadge() returns a function draw badge annotation, enable custom marker symbol', async () => {
     const container = document.createElement('div');
-    const shape = draw({
+    const shape = await draw({
       width: 150,
       height: 100,
       shape: AnnotationBadge({

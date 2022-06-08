@@ -21,16 +21,20 @@ export const Text: SC<TextOptions> = (options) => {
     } = value;
     const [[x0, y0]] = points;
 
-    return select(new GText())
-      .style('x', x0)
-      .style('y', y0)
-      .style('text', String(text))
-      .style('stroke', color)
-      .style('fill', color)
-      .style('fontSize', fontSize as any)
-      .style('transform', `${transform}rotate(${+rotate}deg)`)
-      .call(applyStyle, style)
-      .node();
+    return (
+      select(new GText())
+        .style('x', x0)
+        .style('y', y0)
+        .style('text', String(text))
+        .style('stroke', color)
+        .style('fill', color)
+        .style('fontSize', fontSize as any)
+        .style('transform', `${transform}rotate(${+rotate}deg)`)
+        // Hide stroke.
+        .style('lineWidth', 0)
+        .call(applyStyle, style)
+        .node()
+    );
   };
 };
 

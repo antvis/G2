@@ -1,5 +1,4 @@
 import { min, max } from 'd3-array';
-import { indexOf } from '../../utils/array';
 import { TransformComponent as TC } from '../../runtime';
 import { WordCloudTransform } from '../../spec';
 import { tagCloud } from '../utils/d3-cloud';
@@ -107,7 +106,7 @@ export const WordCloud: TC<WordCloudOptions> = (options) => {
       },
     );
 
-    return { data: tags, I: indexOf(tags) };
+    return { data: tags };
   });
 };
 

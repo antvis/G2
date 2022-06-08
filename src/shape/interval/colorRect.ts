@@ -1,4 +1,4 @@
-import { Rect, Path, Circle } from '@antv/g';
+import { Rect, Path } from '@antv/g';
 import { arc } from 'd3-shape';
 import { angle, sub, dist } from '../../utils/vector';
 import { Vector2, ShapeComponent as SC } from '../../runtime';
@@ -26,7 +26,7 @@ export type ColorRectOptions = {
 export const ColorRect: SC<ColorRectOptions> = (options) => {
   // Render border only when colorAttribute is stroke.
   const { colorAttribute, ...style } = options;
-  const lineWidth = colorAttribute === 'stroke' ? 2 : undefined;
+  const lineWidth = colorAttribute === 'stroke' ? 1 : 0;
 
   return (points, value, coordinate, theme) => {
     const { radius = 0 } = style;
