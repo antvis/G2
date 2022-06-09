@@ -31,7 +31,7 @@ describe('Interval', () => {
         { type: 'maybeTitleX' },
         { type: 'maybeTooltipY' },
       ],
-      shapes: ['rect', 'hollowRect'],
+      shapes: ['rect', 'hollowRect', 'funnel', 'pyramid'],
     });
   });
 

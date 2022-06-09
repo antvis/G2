@@ -77,6 +77,8 @@ import {
   Polygon,
   Ribbon,
   Box,
+  Funnel,
+  Pyramid,
 } from '../shape';
 import { Light } from '../theme';
 import {
@@ -213,6 +215,8 @@ export function createLibrary(): G2Library {
     'scale.quantize': Quantize,
     'shape.rect': RectShape,
     'shape.hollowRect': HollowRect,
+    'shape.funnel': Funnel,
+    'shape.pyramid': Pyramid,
     'shape.line': LineShape,
     'shape.hv': HV,
     'shape.vh': VH,

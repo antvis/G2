@@ -1,5 +1,7 @@
 export { Rect, RectOptions } from './interval/rect';
 export { HollowRect, HollowRectOptions } from './interval/hollowRect';
+export { Funnel, FunnelOptions } from './interval/funnel';
+export { Pyramid, PyramidOptions } from './interval/pyramid';
 export { Line, LineOptions } from './line/line';
 export { Smooth, SmoothOptions } from './line/smooth';
 export { HV, HVOptions } from './line/hv';
