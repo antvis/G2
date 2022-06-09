@@ -13,6 +13,7 @@ import {
   Image as ImageGeometry,
   Polygon as PolygonGeometry,
   Schema as SchemaGeometry,
+  Vector as VectorGeometry,
 } from '../mark/geometry';
 import {
   AnnotationText,
@@ -79,6 +80,7 @@ import {
   Box,
   Funnel,
   Pyramid,
+  Vector,
 } from '../shape';
 import { Light } from '../theme';
 import {
@@ -193,6 +195,7 @@ export function createLibrary(): G2Library {
     'mark.image': ImageGeometry,
     'mark.polygon': PolygonGeometry,
     'mark.schema': SchemaGeometry,
+    'mark.vector': VectorGeometry,
     'mark.annotation.text': AnnotationText,
     'mark.annotation.lineX': AnnotationLineX,
     'mark.annotation.lineY': AnnotationLineY,
@@ -250,6 +253,7 @@ export function createLibrary(): G2Library {
     'shape.polygon': Polygon,
     'shape.ribbon': Ribbon,
     'shape.box': Box,
+    'shape.vector': Vector,
     'shape.annotation.text': AnnotationTextShape,
     'shape.annotation.badge': AnnotationBadge,
     'shape.annotation.line': AnnotationLineShape,
