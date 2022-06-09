@@ -83,6 +83,7 @@ import {
   Ribbon,
   Box,
   AnnotationLine as AnnotationLineShape,
+  Funnel,
 } from '../../../src/shape';
 import { Light } from '../../../src/theme';
 import {
@@ -220,6 +221,7 @@ describe('stdlib', () => {
       'scale.quantize': Quantize,
       'shape.rect': RectShape,
       'shape.hollowRect': HollowRect,
+      'shape.funnel': Funnel,
       'shape.line': LineShape,
       'shape.hv': HV,
       'shape.vh': VH,

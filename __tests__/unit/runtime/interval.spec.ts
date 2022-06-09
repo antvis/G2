@@ -1037,6 +1037,56 @@ describe('render', () => {
     mount(createDiv(), chart);
   });
 
+  it('render({...} renders interval chart with funnel shape', () => {
+    const chart = render<G2Spec>({
+      type: 'interval',
+      data: [
+        { action: '浏览网站', pv: 50000 },
+        { action: '放入购物车', pv: 35000 },
+        { action: '生成订单', pv: 25000 },
+        { action: '支付订单', pv: 15000 },
+        { action: '完成交易', pv: 8000 },
+      ],
+      encode: {
+        x: 'action',
+        y: 'pv',
+        color: 'action',
+        shape: 'funnel',
+      },
+      scale: {
+        x: { padding: 0 },
+        y: { guide: null },
+      },
+    });
+    mount(createDiv(), chart);
+  });
+
+  it('render({...} renders interval chart with funnel shape when transpose', () => {
+    const chart = render<G2Spec>({
+      type: 'interval',
+      data: [
+        { action: '浏览网站', pv: 50000 },
+        { action: '放入购物车', pv: 35000 },
+        { action: '生成订单', pv: 25000 },
+        { action: '支付订单', pv: 15000 },
+        { action: '完成交易', pv: 8000 },
+      ],
+      coordinate: [{ type: 'transpose' }],
+      encode: {
+        x: 'action',
+        y: 'pv',
+        color: 'action',
+        shape: 'funnel',
+      },
+      scale: {
+        x: { padding: 0 },
+        y: { guide: null },
+      },
+    });
+
+    mount(createDiv(), chart);
+  });
+
   afterAll(() => {
     // unmountAll();
   });
