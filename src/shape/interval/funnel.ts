@@ -3,7 +3,10 @@ import { isTranspose } from '../../utils/coordinate';
 import { ShapeComponent as SC, Vector2 } from '../../runtime';
 import { ColorRect } from './colorRect';
 
-export type FunnelOptions = Record<string, any>;
+export type FunnelOptions = {
+  isPyramid?: boolean;
+  [key: string]: any;
+};
 
 /**
  * Adjust and return the new `points`.
