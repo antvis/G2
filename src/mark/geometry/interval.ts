@@ -11,6 +11,11 @@ export type IntervalOptions = Omit<IntervalGeometry, 'type'>;
 
 /**
  * Convert value for each channel to rect shapes.
+ * p0        p1
+ *    ┌────┐
+ *    │    │
+ *    │    │
+ * p3 └────┘ p2
  */
 export const Interval: MC<IntervalOptions> = () => {
   return (index, scale, value, coordinate) => {
@@ -61,5 +66,5 @@ Interval.props = {
     { type: 'maybeTitleX' },
     { type: 'maybeTooltipY' },
   ],
-  shapes: ['rect', 'hollowRect'],
+  shapes: ['rect', 'hollowRect', 'funnel', 'pyramid'],
 };

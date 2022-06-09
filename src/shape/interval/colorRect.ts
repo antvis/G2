@@ -1,10 +1,10 @@
-import { Rect, Path } from '@antv/g';
+import { Path } from '@antv/g';
 import { arc } from 'd3-shape';
 import { angle, sub, dist } from '../../utils/vector';
 import { Vector2, ShapeComponent as SC } from '../../runtime';
 import { isTranspose, isPolar } from '../../utils/coordinate';
 import { select } from '../../utils/selection';
-import { applyStyle } from '../utils';
+import { applyStyle, polygon } from '../utils';
 
 function reorder(points: Vector2[]): Vector2[] {
   const [p0, p1, p2, p3] = points;
@@ -36,21 +36,9 @@ export const ColorRect: SC<ColorRectOptions> = (options) => {
 
     // Render rect in non-polar coordinate.
     if (!isPolar(coordinate)) {
-      const [x, y] = p0;
-      const [width, height] = sub(p2, p0);
-
-      // Deal with width or height is negative.
-      const absX = width > 0 ? x : x + width;
-      const absY = height > 0 ? y : y + height;
-      const absWidth = Math.abs(width);
-      const absHeight = Math.abs(height);
-
-      return select(new Rect({}))
+      return select(new Path())
         .style('lineWidth', lineWidth)
-        .style('x', absX)
-        .style('y', absY)
-        .style('width', absWidth)
-        .style('height', absHeight)
+        .style('d', polygon(points))
         .style('stroke', color)
         .style(colorAttribute, color)
         .call(applyStyle, style) // The priority of style is higher than encode value.
