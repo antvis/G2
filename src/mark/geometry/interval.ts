@@ -66,5 +66,5 @@ Interval.props = {
     { type: 'maybeTitleX' },
     { type: 'maybeTooltipY' },
   ],
-  shapes: ['rect', 'hollowRect', 'funnel'],
+  shapes: ['rect', 'hollowRect', 'funnel', 'pyramid'],
 };

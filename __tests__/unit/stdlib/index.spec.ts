@@ -84,6 +84,7 @@ import {
   Box,
   AnnotationLine as AnnotationLineShape,
   Funnel,
+  Pyramid,
 } from '../../../src/shape';
 import { Light } from '../../../src/theme';
 import {
@@ -222,6 +223,7 @@ describe('stdlib', () => {
       'shape.rect': RectShape,
       'shape.hollowRect': HollowRect,
       'shape.funnel': Funnel,
+      'shape.pyramid': Pyramid,
       'shape.line': LineShape,
       'shape.hv': HV,
       'shape.vh': VH,
