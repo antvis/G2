@@ -18,9 +18,11 @@ function getFunnelPoints(
 
   if (isTranspose(coordinate)) {
     p1 = [nextPoints ? nextPoints[0][0] : p1[0], p1[1]];
+    p2 = [nextPoints ? nextPoints[3][0] : p2[0], p2[1]];
   } else {
     // Other case.
     p1 = [p1[0], nextPoints ? nextPoints[0][1] : p1[1]];
+    p2 = [p2[0], nextPoints ? nextPoints[3][1] : p2[1]];
   }
 
   return [p0, p1, p2, p3];
