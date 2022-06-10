@@ -18,6 +18,7 @@ export type Geometry =
   | ImageGeometry
   | PolygonGeometry
   | SchemaGeometry
+  | VectorGeometry
   | AnnotationText
   | CustomComponent;
 
@@ -32,6 +33,7 @@ export type GeometryTypes =
   | 'image'
   | 'polygon'
   | 'schema'
+  | 'vector'
   | 'annotation.text'
   | 'annotation.lineX'
   | 'annotation.lineY'
@@ -144,5 +146,10 @@ export type ImageGeometry = BaseGeometry<'image', ChannelTypes | 'src'>;
 export type PolygonGeometry = BaseGeometry<'polygon'>;
 
 export type SchemaGeometry = BaseGeometry<'schema'>;
+
+export type VectorGeometry = BaseGeometry<
+  'vector',
+  ChannelTypes | 'rotate' | 'size'
+>;
 
 export type CustomComponent = BaseGeometry<MarkComponent>;

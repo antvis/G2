@@ -19,7 +19,8 @@
       "Point": "point",
       "Line": "line",
       "Text": "text",
-      "Grid": "grid"
+      "Grid": "grid",
+      "Vector": "vector"
     },
     "Annotation": "annotation",
     "Adjust": "adjust",

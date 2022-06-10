@@ -34,6 +34,8 @@ export { Tick, TickOptions } from './point/tick';
 export { Triangle, TriangleOptions } from './point/triangle';
 export { TriangleDown, TriangleDownOptions } from './point/triangleDown';
 
+export { Vector, VectorOptions } from './vector/vector';
+
 export { Text, TextOptions } from './text/text';
 export { AnnotationText, AnnotationTextOptions } from './annotation/text';
 export { AnnotationBadge, AnnotationBadgeOptions } from './annotation/badge';
