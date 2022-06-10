@@ -23,8 +23,8 @@ export const Vector: MC<VectorOptions> = () => {
 
       const [x, y] = coordinate.map([X[i] as number, Y[i] as number]);
       return [
-        [x - vx, y - vy],
-        [x + vx, y + vy],
+        [x - vx / 2, y - vy / 2],
+        [x + vx / 2, y + vy / 2],
       ] as Vector2[];
     });
 
