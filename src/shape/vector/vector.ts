@@ -9,6 +9,7 @@ export type VectorOptions = Record<string, any>;
 
 function getArrowPoints(from: Vector2, to: Vector2) {
   const arrowSize = 0.4 * dist(from, to);
+  // TODO Use config from style.
   // Default arrow rotate is 30°.
   const arrowAngle = Math.PI / 6;
 
