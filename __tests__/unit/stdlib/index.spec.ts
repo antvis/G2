@@ -19,6 +19,7 @@ import {
   Image as ImageGeometry,
   Polygon as PolygonGeometry,
   Schema as SchemaGeometry,
+  Vector as VectorGeometry,
 } from '../../../src/mark/geometry';
 import {
   AnnotationConnector,
@@ -85,6 +86,7 @@ import {
   AnnotationLine as AnnotationLineShape,
   Funnel,
   Pyramid,
+  Vector,
 } from '../../../src/shape';
 import { Light } from '../../../src/theme';
 import {
@@ -200,6 +202,7 @@ describe('stdlib', () => {
       'mark.image': ImageGeometry,
       'mark.polygon': PolygonGeometry,
       'mark.schema': SchemaGeometry,
+      'mark.vector': VectorGeometry,
       'mark.annotation.text': AnnotationText,
       'mark.annotation.lineX': AnnotationLineX,
       'mark.annotation.lineY': AnnotationLineY,
@@ -257,6 +260,7 @@ describe('stdlib', () => {
       'shape.polygon': Polygon,
       'shape.ribbon': Ribbon,
       'shape.box': Box,
+      'shape.vector': Vector,
       'shape.annotation.text': AnnotationTextShape,
       'shape.annotation.badge': AnnotationBadge,
       'shape.annotation.line': AnnotationLineShape,
