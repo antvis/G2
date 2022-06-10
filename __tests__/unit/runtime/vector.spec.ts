@@ -16,13 +16,12 @@ describe('vector', () => {
       encode: {
         x: 'longitude',
         y: 'latitude',
-        rotate: ({ u, v }) => Math.atan2(u, v),
-        size: ({ u, v }) => Math.hypot(u, v),
-        color: ({ u, v }) => Math.hypot(u, v),
+        rotate: ({ u, v }) => Math.atan2(v, u),
+        size: ({ u, v }) => Math.hypot(v, u),
+        color: ({ u, v }) => Math.hypot(v, u),
       },
       scale: {
         color: { guide: null },
-        rotate: { range: [-Math.PI, Math.PI] },
         size: { range: [8, 20] },
       },
     });

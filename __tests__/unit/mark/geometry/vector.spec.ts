@@ -17,7 +17,7 @@ describe('Vector', () => {
         { name: 'tooltip', scale: 'identity', independent: true },
         { name: 'x', required: true },
         { name: 'y', required: true },
-        { name: 'rotate', required: true },
+        { name: 'rotate', required: true, scale: 'identity' },
         { name: 'size', required: true },
       ],
       preInference: [{ type: 'maybeArrayField' }],
@@ -48,12 +48,12 @@ describe('Vector', () => {
         [121, 200],
       ],
       [
-        [239.18954654119779, 78.73779352278815],
-        [240.81045345880221, 81.26220647721185],
+        [239.18954654119779, 81.26220647721185],
+        [240.81045345880221, 78.73779352278815],
       ],
       [
-        [360.8322936730943, 158.18140514634862],
-        [359.1677063269057, 161.81859485365138],
+        [360.8322936730943, 161.81859485365138],
+        [359.1677063269057, 158.18140514634862],
       ],
     ]);
   });

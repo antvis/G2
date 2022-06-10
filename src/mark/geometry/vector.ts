@@ -10,6 +10,7 @@ export type VectorOptions = Omit<VectorGeometry, 'type'>;
 
 /**
  * Convert value for each channel to start, end.
+ * The angle starts from the X axis(right direction).
  */
 export const Vector: MC<VectorOptions> = () => {
   return (index, scale, value, coordinate) => {
@@ -19,7 +20,7 @@ export const Vector: MC<VectorOptions> = () => {
       const r = R[i] as number;
       const s = S[i] as number;
       const vx = s * Math.cos(r);
-      const vy = s * Math.sin(r);
+      const vy = -s * Math.sin(r);
 
       const [x, y] = coordinate.map([X[i] as number, Y[i] as number]);
       return [
@@ -38,7 +39,7 @@ Vector.props = {
     ...baseGeometryChannels(),
     { name: 'x', required: true },
     { name: 'y', required: true },
-    { name: 'rotate', required: true },
+    { name: 'rotate', required: true, scale: 'identity' },
     { name: 'size', required: true },
   ],
   preInference: [...basePreInference()],
