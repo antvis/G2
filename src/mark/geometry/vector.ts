@@ -15,17 +15,20 @@ export type VectorOptions = Omit<VectorGeometry, 'type'>;
 export const Vector: MC<VectorOptions> = () => {
   return (index, scale, value, coordinate) => {
     const { x: X, y: Y, size: S, rotate: R } = value;
+    const [width, height] = coordinate.getSize();
 
     const P = index.map((i) => {
-      const r = R[i] as number;
-      const s = S[i] as number;
-      const vx = s * Math.cos(r);
-      const vy = -s * Math.sin(r);
+      const angle = (+R[i] / 180) * Math.PI;
+      const s = +S[i];
+      const a = s / width;
+      const b = s / height;
 
-      const [x, y] = coordinate.map([X[i] as number, Y[i] as number]);
+      const vx = a * Math.cos(angle);
+      const vy = -b * Math.sin(angle);
+
       return [
-        [x - vx / 2, y - vy / 2],
-        [x + vx / 2, y + vy / 2],
+        coordinate.map([+X[i] - vx / 2, +Y[i] - vy / 2]),
+        coordinate.map([+X[i] + vx / 2, +Y[i] + vy / 2]),
       ] as Vector2[];
     });
 
