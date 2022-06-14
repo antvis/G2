@@ -52,41 +52,46 @@ const setScale = useDefaultAdaptor<G2ViewTree>((options) => {
  * color encoding, but it also can be override with explicity
  * encode and scale specification.
  */
-const inferColor = useDefaultAdaptor<G2ViewTree>((options: G2ViewTree) => {
-  const { data, scale } = options;
-  const discovered = [options];
-  let encodeColor;
-  let scaleColor;
-  while (discovered.length) {
-    const node = discovered.shift();
-    const { children, encode = {}, scale = {} } = node;
-    const { color: c } = encode;
-    const { color: cs } = scale;
-    if (c !== undefined) encodeColor = c;
-    if (cs !== undefined) scaleColor = cs;
-    if (Array.isArray(children)) {
-      discovered.push(...children);
+export const inferColor = useDefaultAdaptor<G2ViewTree>(
+  (options: G2ViewTree) => {
+    const { data, scale } = options;
+    const discovered = [options];
+    let encodeColor;
+    let scaleColor;
+    while (discovered.length) {
+      const node = discovered.shift();
+      const { children, encode = {}, scale = {} } = node;
+      const { color: c } = encode;
+      const { color: cs } = scale;
+      if (c !== undefined) encodeColor = c;
+      if (cs !== undefined) scaleColor = cs;
+      if (Array.isArray(children)) {
+        discovered.push(...children);
+      }
     }
-  }
 
-  const domainColor = () => {
-    const domain = scale?.color?.domain;
-    if (domain !== undefined) return domain;
-    if (encodeColor === undefined) return undefined;
-    return Array.from(new Set(data.map((d) => d[encodeColor])));
-  };
+    const domainColor = () => {
+      const domain = scale?.color?.domain;
+      if (domain !== undefined) return domain;
+      if (encodeColor === undefined) return undefined;
+      return Array.from(new Set(data.map((d) => d[encodeColor])));
+    };
 
-  return {
-    encode: {
-      color: encodeColor,
-    },
-    scale: {
-      color: deepMix({}, scaleColor, { domain: domainColor() }),
-    },
-  };
-});
+    return {
+      encode: {
+        color: encodeColor,
+      },
+      scale: {
+        color: deepMix({}, scaleColor, {
+          domain: domainColor(),
+          field: encodeColor,
+        }),
+      },
+    };
+  },
+);
 
-const setAnimation = useDefaultAdaptor<G2ViewTree>(() => ({
+export const setAnimation = useDefaultAdaptor<G2ViewTree>(() => ({
   animate: {
     enter: {
       type: 'fadeIn',
@@ -94,7 +99,7 @@ const setAnimation = useDefaultAdaptor<G2ViewTree>(() => ({
   },
 }));
 
-const setStyle = useOverrideAdaptor<G2ViewTree>(() => ({
+export const setStyle = useOverrideAdaptor<G2ViewTree>(() => ({
   frame: false,
   encode: {
     shape: 'hollowRect',
@@ -112,7 +117,7 @@ const filterData = useOverrideAdaptor<G2ViewTree>((options) => {
   return { data, filter: null };
 });
 
-const toGrid = useOverrideAdaptor<G2ViewTree>(() => ({
+export const toGrid = useOverrideAdaptor<G2ViewTree>(() => ({
   type: 'grid',
 }));
 
@@ -207,7 +212,7 @@ const setChildren = useOverrideAdaptor<G2ViewTree>((options) => {
       rowValue: fy,
       rowValuesLength: domainY.length,
     }));
-    const normalizedChildren: Node[] = facets.map((facet) => {
+    const normalizedChildren: Node[][] = facets.map((facet) => {
       if (Array.isArray(children)) return children;
       return [children(facet)].flat(1);
     });

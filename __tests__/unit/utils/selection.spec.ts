@@ -55,12 +55,15 @@ describe('select', () => {
     });
   });
 
-  it('Selection.select(selector) should return a new selection with the first match element selected', () => {
+  it('Selection.select(selector) should return a new selection with the first match element selected', async () => {
     const canvas = Canvas({
       width: 300,
       height: 200,
       container: document.createElement('div'),
     });
+
+    await canvas.ready;
+
     const selection = select(canvas.document.documentElement);
     selection.append('rect').attr('className', 'cls');
 
@@ -78,12 +81,15 @@ describe('select', () => {
     expect(selection.select('circle').nodes()[0]).toBeNull();
   });
 
-  it('Selection.selectAll(selector) should returns a new selection with all match element selected', () => {
+  it('Selection.selectAll(selector) should returns a new selection with all match element selected', async () => {
     const canvas = Canvas({
       width: 300,
       height: 200,
       container: document.createElement('div'),
     });
+
+    await canvas.ready;
+
     const selection = select(canvas.document.documentElement);
     selection.append('rect').attr('className', 'cls');
     selection.append('rect').attr('className', 'cls');
@@ -101,12 +107,15 @@ describe('select', () => {
     expect(rect2._elements).toEqual(rect1.nodes());
   });
 
-  it('Selection.append(node) should append node to each selected elements for non-empty selection and return the new selection', () => {
+  it('Selection.append(node) should append node to each selected elements for non-empty selection and return the new selection', async () => {
     const canvas = Canvas({
       width: 300,
       height: 200,
       container: document.createElement('div'),
     });
+
+    await canvas.ready;
+
     const selection = select(canvas.document.documentElement);
 
     const s1 = selection.append('rect');

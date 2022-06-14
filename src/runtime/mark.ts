@@ -116,7 +116,7 @@ export function createTransformContext(
   const { data, encode = {}, transform = [], scale = {} } = mark;
   return {
     data,
-    encode: flatEncode(encode),
+    encode,
     columnOf: createColumnOf(library),
     transform,
     I: Array.isArray(data) ? indexOf(data) : [],
@@ -189,6 +189,7 @@ async function applyTransform(
   >('transform', library);
 
   // Create transform Context.
+  mark.encode = flatEncode(mark.encode);
   const context = createTransformContext(mark, library);
 
   // Group transforms into preprcessors and others.

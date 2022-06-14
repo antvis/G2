@@ -104,7 +104,7 @@ import {
   Plot,
 } from '../action';
 import { MousePosition, TouchPosition } from '../interactor';
-import { Layer, Flex, Mark, View, Rect } from '../composition';
+import { Layer, Flex, Mark, View, Rect, Matrix } from '../composition';
 import { Pack } from '../adjust';
 import {
   MaybeTitleX,
@@ -282,6 +282,7 @@ export function createLibrary(): G2Library {
     'composition.mark': Mark,
     'composition.view': View,
     'composition.rect': Rect,
+    'composition.matrix': Matrix,
     'adjust.pack': Pack,
   };
 }

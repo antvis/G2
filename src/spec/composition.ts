@@ -11,6 +11,7 @@ export type Node =
   | ViewComposition
   | LayerComposition
   | FlexComposition
+  | MatrixComposition
   | RectComposition;
 
 export type MarkComposition = Geometry & {
@@ -80,5 +81,21 @@ export type RectComposition = {
   };
   shareData?: boolean;
   shareSize?: boolean;
+  children?: Node[] | ((facet: FacetContext) => Node);
+};
+
+export type MatrixComposition = {
+  type?: 'matrix';
+  transform?: Transform;
+  data?: any;
+  encode?: {
+    x?: string[];
+    y?: string[];
+    position?: string[];
+  };
+  scale?: {
+    x?: Scale;
+    y?: Scale;
+  };
   children?: Node[] | ((facet: FacetContext) => Node);
 };
