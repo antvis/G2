@@ -175,4 +175,87 @@ describe('facet', () => {
     );
     mount(createDiv(), chart);
   });
+
+  it('render({...}) should render matrix facet with position channel', () => {
+    const chart = render<G2Spec>({
+      type: 'matrix',
+      width: 800,
+      height: 800,
+      paddingLeft: 60,
+      paddingBottom: 60,
+      transform: [
+        {
+          type: 'fetch',
+          url: 'https://vega.github.io/editor/data/penguins.json',
+        },
+      ],
+      encode: {
+        position: [
+          'Beak Length (mm)',
+          'Beak Depth (mm)',
+          'Flipper Length (mm)',
+          'Body Mass (g)',
+        ],
+      },
+      children: [
+        {
+          type: 'point',
+          encode: {
+            color: 'Species',
+            shape: 'hollowPoint',
+          },
+        },
+      ],
+    });
+    mount(createDiv(), chart);
+  });
+
+  it('render({...}) should render matrix facet with x and y channel', () => {
+    const chart = render<G2Spec>({
+      type: 'matrix',
+      width: 800,
+      paddingLeft: 50,
+      paddingBottom: 60,
+      transform: [
+        {
+          type: 'fetch',
+          url: 'https://gw.alipayobjects.com/os/bmw-prod/48eb9b33-9d2b-40a2-864b-6522f92ba3b9.json',
+          // @todo Remove this with scale.transform
+          callback: (d) => ({
+            ...d,
+            temp_max: +d.temp_max,
+            precipitation: +d.precipitation,
+            wind: +d.wind,
+            date: new Date(d.date),
+          }),
+        },
+        {
+          type: 'rename',
+          map: {
+            temp_max: 'Temp Max',
+            precipitation: 'Precipitation',
+            wind: 'Wind',
+            date: 'Date',
+            location: 'Location',
+          },
+        },
+      ],
+      encode: {
+        y: ['Temp Max', 'Precipitation', 'Wind'],
+        x: 'Date',
+      },
+      children: [
+        {
+          type: 'line',
+          scale: {
+            x: { tickCount: 10 },
+          },
+          encode: {
+            color: 'Location',
+          },
+        },
+      ],
+    });
+    mount(createDiv(), chart);
+  });
 });

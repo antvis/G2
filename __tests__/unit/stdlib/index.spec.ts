@@ -110,7 +110,14 @@ import {
   Plot,
 } from '../../../src/action';
 import { MousePosition, TouchPosition } from '../../../src/interactor';
-import { Layer, Flex, Mark, View, Rect } from '../../../src/composition';
+import {
+  Layer,
+  Flex,
+  Mark,
+  View,
+  Rect,
+  Matrix,
+} from '../../../src/composition';
 import { Pack } from '../../../src/adjust';
 import {
   MaybeTitleX,
@@ -287,6 +294,7 @@ describe('stdlib', () => {
       'composition.layer': Layer,
       'composition.flex': Flex,
       'composition.mark': Mark,
+      'composition.matrix': Matrix,
       'composition.view': View,
       'composition.rect': Rect,
       'adjust.pack': Pack,
