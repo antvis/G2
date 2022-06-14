@@ -8,7 +8,7 @@ import { AnimateExtraCfg } from '../interface';
 import { getArcPath, getSectorPath } from '../../util/graphics';
 
 function getAngle(startPoint: number[], arcPath: PathCommand) {
-  let { startAngle, endAngle } = getArcParams(startPoint, arcPath);
+  let { startAngle, endAngle, arcFlag } = getArcParams(startPoint, arcPath);
 
   if (!isNumberEqual(startAngle, -Math.PI * 0.5) && startAngle < -Math.PI * 0.5) {
     startAngle += Math.PI * 2;
@@ -26,7 +26,7 @@ function getAngle(startPoint: number[], arcPath: PathCommand) {
     startAngle = Math.PI * -0.5;
   }
 
-  if (isNumberEqual(endAngle, Math.PI * -0.5)) {
+  if (isNumberEqual(endAngle, Math.PI * -0.5) && arcFlag) {
     endAngle = Math.PI * 1.5;
   }
 
@@ -57,7 +57,7 @@ function getArcStartPoint(path: PathCommand) {
  * 6. radial-line, 为整圆时的 path，命令为 M, A, A, A, A, Z
  * @param path theta 坐标系下圆弧的 path 命令
  */
-function getArcInfo(path: PathCommand[]) {
+export function getArcInfo(path: PathCommand[]) {
   let startAngle;
   let endAngle;
 
