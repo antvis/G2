@@ -48,7 +48,7 @@ export function inferComponent(
   if (title) {
     const { props } = createGuideComponent('title');
     const { defaultPosition, defaultOrder } = props;
-    const titleOptions = typeof title === 'string' ? { content: title } : title;
+    const titleOptions = typeof title === 'string' ? { text: title } : title;
     const size = inferTitleComponentSize(deepMix({}, theme, titleOptions));
     components.push({
       type: 'title',
