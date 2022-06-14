@@ -6,6 +6,7 @@ export type ViewOptions = Omit<ViewComposition, 'type'>;
 
 /**
  * @todo Propagate more options to children.(e.g. filter)
+ * @todo Propagate encode options to children. This is useful for Matrix composition.
  */
 export const View: CC<ViewOptions> = () => {
   return (options) => {
