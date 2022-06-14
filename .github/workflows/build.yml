@@ -4,7 +4,6 @@ on: [push]
 
 jobs:
   build:
-
     runs-on: macOS-latest
 
     steps:
@@ -14,18 +13,8 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.1.5
         with:
-          node-version: "12"
+          node-version: '12'
 
-      - name: Cache node modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: ./node_modules
-          key: ${{ runner.os }}-build-cache-node-modules-${{ hashFiles('**/package.json') }}
-          restore-keys: |
-            cache-node-modules-
-          
       - name: Run CI
         run: |
           npm install
