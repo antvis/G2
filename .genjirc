@@ -29,8 +29,9 @@
     "Composition": {
       "View": "view",
       "Spatial": "spatial",
-      "Facet": "facet",
-      "Unit": "unit"
+      "Rect": "rect",
+      "Unit": "unit",
+      "Matrix": "matrix"
     },
     "Theme": "theme"
   },
