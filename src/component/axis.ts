@@ -15,7 +15,6 @@ export type AxisOptions = {
   zIndex?: number;
   title?: boolean;
   formatter?: (d: any) => string;
-  titleAnchor?: string;
 };
 
 function inferPosition(
@@ -207,12 +206,7 @@ const ArcAxis = (options) => {
  * @todo Custom style.
  */
 export const Axis: GCC<AxisOptions> = (options) => {
-  const {
-    position,
-    title = true,
-    formatter = (d) => `${d}`,
-    titleAnchor,
-  } = options;
+  const { position, title = true, formatter = (d) => `${d}` } = options;
   return (scale, value, coordinate, theme) => {
     if (position === 'arc') {
       return ArcAxis(options)(scale, value, coordinate, theme);
@@ -256,8 +250,7 @@ export const Axis: GCC<AxisOptions> = (options) => {
             title && {
               title: {
                 content: Array.isArray(field) ? field[0] : field,
-                titleAnchor:
-                  titleAnchor || (scale.getTicks ? titlePosition : 'center'),
+                titleAnchor: scale.getTicks ? titlePosition : 'center',
                 style: { fontWeight: 'bold', fillOpacity: 1, dy: titleOffsetY },
                 titlePadding,
                 rotate: titleRotate,

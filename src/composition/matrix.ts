@@ -57,8 +57,8 @@ const setChildren = useOverrideAdaptor<G2ViewTree>((options) => {
         const guideX = scale?.x?.guide;
         const defaultScale = {
           color: { guide: null },
-          x: { guide: { titleAnchor: 'center' }, tickCount: 5 },
-          y: { guide: { titleAnchor: 'center' }, tickCount: 5 },
+          x: { guide: { title: { titleAnchor: 'center' } }, tickCount: 5 },
+          y: { guide: { title: { titleAnchor: 'center' } }, tickCount: 5 },
         };
         const newScale = {
           x: { guide: createGuideX(guideX)(facet) },
