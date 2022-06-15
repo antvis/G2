@@ -32,7 +32,7 @@ export function updateLabel(fromShape: IGroup, toShape: IGroup, cfg: Cfg): void 
   fromShape.set('coordinate', coordinate);
   fromShape.set('visible', toShape.get('visible'));
 
-  fromShape.getChildren().forEach((fromChild, idx) => {
+  (fromShape.getChildren() || []).forEach((fromChild, idx) => {
     const toChild = toShape.getChildByIndex(idx) as IShape;
     if (!toChild) {
       fromShape.removeChild(fromChild);
