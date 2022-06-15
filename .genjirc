@@ -30,8 +30,8 @@
       "View": "view",
       "Spatial": "spatial",
       "Rect": "rect",
-      "Unit": "unit",
-      "Matrix": "matrix"
+      "Matrix": "matrix",
+      "Unit": "unit"
     },
     "Theme": "theme"
   },
