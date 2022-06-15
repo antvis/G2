@@ -19,7 +19,7 @@ export function waveIn(element: IShape | IGroup, animateCfg: GAnimateCfg, cfg: A
     attrs: startState,
   }) as IShape; // 为 shape 设置剪切区域
 
-  // 对剪切图形做动画
+  // 对剪切图形做动画
   clipShape.animate(endState, {
     ...animateCfg,
     callback: () => {

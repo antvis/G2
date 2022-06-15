@@ -1,3 +1,10 @@
+#### 4.2.3 (2022-06-14)
+
+##### Bug Fixes
+
+- **sector-path:** 修复扇形非常小的时候, 角度 diff 会被重置为 Math.PI \* 2 ([c1b308bc](https://github.com/antvis/g2/commit/c1b308bc77ef951ce76b65117100c86827e2dff1))
+- annotation typo ([#3960](https://github.com/antvis/g2/pull/3960)) ([e46fd837](https://github.com/antvis/g2/commit/e46fd8371acad8e3520c7e2d1e13a64d8c674e47))
+
 #### 4.2.2 (2022-05-19)
 
 ##### New Features
