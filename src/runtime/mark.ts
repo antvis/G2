@@ -51,8 +51,9 @@ export async function initializeMark(
     scale: partialScale = {},
   } = await applyTransform(partialMark, partialProps, library);
 
-  // Skip mark with non-tabular or empty data.
-  if (Array.isArray(data) === false || data.length === 0) {
+  // Skip mark with non-tabular data. Do not skip empty
+  // data, they are useful for facet to display axes.
+  if (Array.isArray(data) === false) {
     return null;
   }
 
@@ -80,7 +81,6 @@ export async function initializeMark(
 
   //  Infer scale for each channel.
   const scale = {};
-  // const { scale: partialScale = {} } = partialMark;
   const { coordinate = [] } = options;
   const scaleChannels = group(channels, (d) => d.scaleName);
 

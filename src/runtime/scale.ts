@@ -1,12 +1,14 @@
 import { createInterpolateValue } from '@antv/scale';
+import { extent } from 'd3-array';
 import { firstOf, lastOf, unique } from '../utils/array';
 import { defined } from '../utils/helper';
-import { Channel, Primitive, G2Theme } from './types/common';
+import { Channel, Primitive, G2Theme, G2MarkState } from './types/common';
 import {
   G2CoordinateOptions,
   G2Library,
   G2ScaleOptions,
   G2PaletteOptions,
+  G2Mark,
 } from './types/options';
 import {
   ScaleComponent,
@@ -56,6 +58,48 @@ export function applyScale(
     scaledValue[name] = value.map((d) => scaleInstance.map(d));
   }
   return scaledValue;
+}
+
+export function syncFacetsScales(states: Map<G2Mark, G2MarkState>[]): void {
+  const scales = states
+    .flatMap((state) => Array.from(state.keys()))
+    .map((d) => d.scale);
+  syncFacetsScaleByChannel(scales, 'x');
+  syncFacetsScaleByChannel(scales, 'y');
+}
+
+function syncFacetsScaleByChannel(
+  scales: Record<string, G2ScaleOptions>[],
+  channel: 'x' | 'y',
+): void {
+  const S = scales.map((d) => d[channel]).filter(({ facet = true }) => facet);
+  const D = S.flatMap((d) => d.domain);
+  const syncedD = S.every(isQuantitativeScale)
+    ? extent(D)
+    : S.every(isDiscreteScale)
+    ? Array.from(new Set(D))
+    : null;
+  if (syncedD === null) return;
+  for (const scale of S) {
+    scale.domain = syncedD;
+  }
+}
+
+function isQuantitativeScale(scale: G2ScaleOptions) {
+  const { type } = scale;
+  if (typeof type !== 'string') return false;
+  // Do not take quantize, quantile or threshold scale into account,
+  // because they are not for position scales. If they are, there is
+  // no need to sync them.
+  const names = ['linear', 'log', 'pow', 'time'];
+  return names.includes(type);
+}
+
+function isDiscreteScale(scale: G2ScaleOptions) {
+  const { type } = scale;
+  if (typeof type !== 'string') return false;
+  const names = ['band', 'point', 'ordinal'];
+  return names.includes(type);
 }
 
 function inferPotentialScale(
@@ -234,6 +278,7 @@ function asOrdinalType(name: string) {
 
 function inferDomainQ(value: Primitive[], options: G2ScaleOptions) {
   const { zero = false } = options;
+  if (value.length === 0) return [];
   let min = Infinity;
   let max = -Infinity;
   for (const d of value) {
