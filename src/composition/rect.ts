@@ -1,5 +1,5 @@
 import { deepMix } from '@antv/util';
-import { group } from 'd3-array';
+import { group, max } from 'd3-array';
 import {
   CompositionComponent as CC,
   G2MarkChildrenCallback,
@@ -109,14 +109,6 @@ export const setStyle = useOverrideAdaptor<G2ViewTree>(() => ({
   },
 }));
 
-const filterData = useOverrideAdaptor<G2ViewTree>((options) => {
-  const { data: rawData, filter } = options;
-  const data = filter ? rawData.filter((_, i) => filter(i)) : rawData;
-  // Filter options for rect is to filter data from its parent
-  // Node. It should be removed after being called.
-  return { data, filter: null };
-});
-
 export const toGrid = useOverrideAdaptor<G2ViewTree>(() => ({
   type: 'grid',
 }));
@@ -196,11 +188,9 @@ const setChildren = useOverrideAdaptor<G2ViewTree>((options) => {
       const inY = encodeY !== undefined ? y === fy : true;
       return inX && inY;
     });
+    const facetData2d = filters.map((f) => data.filter(f));
     const maxDataDomain = shareData
-      ? filters.reduce(
-          (max, filter) => Math.max(max, data.filter(filter).length),
-          -Infinity,
-        )
+      ? max(facetData2d, (data) => data.length)
       : undefined;
     const facets = values.map(([fx, fy]) => ({
       columnField: fieldX,
@@ -218,10 +208,10 @@ const setChildren = useOverrideAdaptor<G2ViewTree>((options) => {
     });
     return index.flatMap((i) => {
       const [left, top, width, height] = bboxs[i];
-      const filter = filters[i];
       const facet = facets[i];
+      const facetData = facetData2d[i];
       const children = normalizedChildren[i];
-      return children.map(({ scale, key, ...rest }) => {
+      return children.map(({ scale, key, facet: isFacet = true, ...rest }) => {
         const guideY = scale?.y?.guide;
         const guideX = scale?.x?.guide;
         const defaultScale = { x: { tickCount: 5 }, y: { tickCount: 5 } };
@@ -234,8 +224,7 @@ const setChildren = useOverrideAdaptor<G2ViewTree>((options) => {
         };
         return {
           key: `${key}-${i}`,
-          data,
-          filter: (i) => filter(data[i]),
+          data: isFacet ? facetData : data,
           x: left + paddingLeft + originX,
           y: top + paddingTop + originY,
           width,
@@ -290,7 +279,6 @@ export const Rect: CC<RectOptions> = () => {
   return (options) => {
     const newOptions = Container.of<G2ViewTree>(options)
       .call(toGrid)
-      .call(filterData)
       .call(inferColor)
       .call(setAnimation)
       .call(setScale)

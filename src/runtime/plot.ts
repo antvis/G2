@@ -198,10 +198,6 @@ async function initializeView(
       scale,
       // Callback to create children options based on this mark.
       children: createChildren,
-      // Filter data exclude in this facet by index.
-      filter,
-      // Whether to filter data exclude in this facet or not.
-      facet = true,
       // The total count of data (both show and hide)for this facet.
       // This is for unit visualization to sync data domain.
       dataDomain,
@@ -219,18 +215,10 @@ async function initializeView(
       .call(applyShapeFunction, index, style, defaultShape, library)
       .value();
 
-    // Filter datum include in this facet.
-    const includeIndex = facet && filter ? index.filter(filter) : index;
-
     // Calc points and transformation for each data,
     // and then transform visual value to visual data.
     const calcPoints = useMark(mark);
-    const [I, P] = calcPoints(
-      includeIndex,
-      markScaleInstance,
-      value,
-      coordinate,
-    );
+    const [I, P] = calcPoints(index, markScaleInstance, value, coordinate);
     const definedIndex = [];
     const definedPoints = [];
     for (let i = 0; i < I.length; i++) {
