@@ -38,7 +38,7 @@ import { createTransformContext, initializeMark } from './mark';
 import { inferComponent, renderComponent } from './component';
 import { computeLayout, placeComponents } from './layout';
 import { createCoordinate } from './coordinate';
-import { applyScale } from './scale';
+import { applyScale, syncFacetsScales } from './scale';
 import { applyInteraction } from './interaction';
 
 export async function plot<T extends G2ViewTree>(
@@ -52,35 +52,71 @@ export async function plot<T extends G2ViewTree>(
     Composition
   >('composition', library);
 
+  // Some helper functions.
   const marks = new Set(
     Object.keys(library)
       .filter((d) => d.startsWith('mark'))
       .map((d) => d.split('.').pop()),
   );
+  const typeOf = (node: G2ViewTree) => {
+    const { type } = node;
+    return typeof type === 'string' && marks.has(type) ? 'mark' : type;
+  };
+  const isMark = (node: G2ViewTree) => typeOf(node) === 'mark';
+  const isStandardView = (node: G2ViewTree) => typeOf(node) === 'standardView';
+  const transform = (node: G2ViewTree) => {
+    if (isStandardView(node)) return [node];
+    const type = typeOf(node);
+    const composition = useComposition({ type });
+    return composition(node);
+  };
+
+  // Some temporary variables help parse the view tree.
   const views = [];
-  const viewOptions = new Map();
+  const viewNode = new Map();
+  const nodeState = new Map();
   const discovered: G2ViewTree[] = [options];
 
   while (discovered.length) {
     const node = discovered.shift();
-    const { type: t } = node;
-    const type = typeof t === 'string' && marks.has(t) ? 'mark' : t;
-    if (type === 'standardView') {
-      const [view, children] = await initializeView(node, library);
-      viewOptions.set(view, node);
+    if (isStandardView(node)) {
+      // Initialize view to get data to be visualized. If the marks
+      // of the view have already been initialized (facet view),
+      // initialize the view based on the initialized mark states,
+      // otherwise initialize it from beginning.
+      const state = nodeState.get(node);
+      const [view, children] = state
+        ? initializeState(state, node, library)
+        : await initializeView(node, library);
+      viewNode.set(view, node);
       views.push(view);
-      discovered.push(...children);
-    } else if (type === 'mark') {
-      const composition = useComposition({ type });
-      discovered.push(...composition(node));
+
+      // Transform children, they will be transformed into
+      // standardView if they are mark or view node.
+      const transformedNodes = children.flatMap(transform);
+      discovered.push(...transformedNodes);
+
+      // Only StandardView can be treated as facet and it
+      // should sync position scales among facets normally.
+      if (transformedNodes.every(isStandardView)) {
+        const states = await Promise.all(
+          transformedNodes.map((d) => initializeMarks(d, library)),
+        );
+        // Note!!!
+        // This will mutate scales for marks.
+        syncFacetsScales(states);
+        for (let i = 0; i < transformedNodes.length; i++) {
+          const nodeT = transformedNodes[i];
+          const state = states[i];
+          nodeState.set(nodeT, state);
+        }
+      }
     } else {
       // Apply transform to get data in advance for non-mark composition
       // node, which makes sure that composition node can preprocess the
       // data to produce more nodes based on it.
-      const composition = useComposition({ type });
-      const nodeWithData = await applyTransform(node, library);
-      const nodes = composition(nodeWithData);
-      discovered.push(...nodes);
+      const n = isMark(node) ? node : await applyTransform(node, library);
+      discovered.push(...transform(n));
     }
   }
 
@@ -96,7 +132,7 @@ export async function plot<T extends G2ViewTree>(
           .style('transform', (d) => `translate(${d.layout.x}, ${d.layout.y})`)
           .each(function (view) {
             plotView(view, select(this), library);
-            const options = viewOptions.get(view);
+            const options = viewNode.get(view);
             const update = async (updater = (d: G2View) => d) => {
               const newOptions = updater(options);
               const [newView, newChildren] = await initializeView(
@@ -121,44 +157,31 @@ export async function plot<T extends G2ViewTree>(
     );
 }
 
-/**
- * @todo Nested filter for nested facet.
- */
 async function initializeView(
   options: G2View,
   library: G2Library,
 ): Promise<[G2ViewDescriptor, G2ViewTree[]]> {
+  const state = await initializeMarks(options, library);
+  return initializeState(state, options, library);
+}
+
+async function initializeMarks(
+  options: G2View,
+  library: G2Library,
+): Promise<Map<G2Mark, G2MarkState>> {
   const [useTheme] = useLibrary<G2ThemeOptions, ThemeComponent, Theme>(
     'theme',
     library,
   );
-  const [useMark, createMark] = useLibrary<G2MarkOptions, MarkComponent, Mark>(
+  const [, createMark] = useLibrary<G2MarkOptions, MarkComponent, Mark>(
     'mark',
     library,
   );
-  const [useScale] = useLibrary<G2ScaleOptions, ScaleComponent, Scale>(
-    'scale',
-    library,
-  );
-  const [useAdjust] = useLibrary<G2AdjustOptions, AdjustComponent, Adjust>(
-    'adjust',
-    library,
-  );
 
-  // Initialize theme.
-  const {
-    theme: partialTheme,
-    marks: partialMarks,
-    key,
-    adjust,
-    frame,
-  } = options;
+  const { theme: partialTheme, marks: partialMarks } = options;
   const theme = useTheme(inferTheme(partialTheme));
-
-  // Infer options and calc state for each mark.
   const markState = new Map<G2Mark, G2MarkState>();
   const channelScale = new Map<string, G2ScaleOptions>();
-  const scales = new Set();
   for (const partialMark of partialMarks) {
     const { type = error('G2Mark type is required.') } = partialMark;
     const { props } = createMark(type);
@@ -173,13 +196,39 @@ async function initializeView(
     if (markAndState) {
       const [mark, state] = markAndState;
       markState.set(mark, state);
-      for (const scale of Object.values(mark.scale)) {
-        scales.add(scale);
-      }
     }
   }
+  return markState;
+}
+
+function initializeState(
+  markState: Map<G2Mark, G2MarkState>,
+  options: G2View,
+  library: G2Library,
+): [G2ViewDescriptor, G2ViewTree[]] {
+  const [useMark] = useLibrary<G2MarkOptions, MarkComponent, Mark>(
+    'mark',
+    library,
+  );
+  const [useScale] = useLibrary<G2ScaleOptions, ScaleComponent, Scale>(
+    'scale',
+    library,
+  );
+  const [useAdjust] = useLibrary<G2AdjustOptions, AdjustComponent, Adjust>(
+    'adjust',
+    library,
+  );
+  const [useTheme] = useLibrary<G2ThemeOptions, ThemeComponent, Theme>(
+    'theme',
+    library,
+  );
+
+  const { key, adjust, frame, theme: partialTheme } = options;
+  const theme = useTheme(inferTheme(partialTheme));
 
   // Infer components and compute layout.
+  const marks = Array.from(markState.keys());
+  const scales = new Set(marks.flatMap((d) => Object.values(d.scale)));
   const components = inferComponent(Array.from(scales), options, library);
   const layout = computeLayout(components, options);
   const coordinate = createCoordinate(layout, options, library);

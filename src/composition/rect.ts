@@ -85,6 +85,8 @@ export const inferColor = useDefaultAdaptor<G2ViewTree>(
         color: deepMix({}, scaleColor, {
           domain: domainColor(),
           field: encodeColor,
+          // @todo Remove this when pass columnOf to extract color.
+          type: 'ordinal',
         }),
       },
     };
@@ -114,40 +116,38 @@ export const toGrid = useOverrideAdaptor<G2ViewTree>(() => ({
 }));
 
 /**
- * Filter data to make sure that there is only one grid
- * rendered for each x value and y value.
+ * Do not set grid data directly, the children will get wrong do if do
+ * so. Use transform to set new data.
  **/
-const setFilterPreprocessor = useOverrideAdaptor<G2ViewTree>((options) => {
+const setData = useOverrideAdaptor<G2ViewTree>((options) => {
   const { transform = [] } = options;
-  const Filter = () => {
-    return (context) => {
-      const { data, columnOf, encode } = context;
-      const { x, y } = encode;
-      const X = columnOf(data, x);
-      const Y = columnOf(data, y);
-      const keys = new Set();
-      const newData = data.filter((_, i) => {
-        const x = X?.[i];
-        const y = Y?.[i];
-        const key = `(${x}, ${y})`;
-        if (keys.has(key)) return false;
-        keys.add(key);
-        return true;
-      });
-      return {
-        ...context,
-        data: newData,
-        I: new Array(newData.length).fill(0).map((_, i) => i),
-      };
-    };
-  };
-
-  Filter.props = {
-    category: 'preprocessor',
-  };
-
   return {
-    transform: [...transform, { type: Filter }],
+    transform: [
+      ...transform,
+      {
+        type: 'connector',
+        callback: () => {
+          const { data, encode } = options;
+          const { x, y } = encode;
+          const X = x ? Array.from(new Set(data.map((d) => d[x]))) : [];
+          const Y = y ? Array.from(new Set(data.map((d) => d[y]))) : [];
+          const gridData = () => {
+            if (X.length && Y.length) {
+              const gridData = [];
+              for (const vx of X) {
+                for (const vy of Y) {
+                  gridData.push({ [x]: vx, [y]: vy });
+                }
+              }
+              return gridData;
+            }
+            if (X.length) return X.map((d) => ({ [x]: d }));
+            if (Y.length) return Y.map((d) => ({ [y]: d }));
+          };
+          return gridData();
+        },
+      },
+    ],
   };
 });
 
@@ -222,9 +222,10 @@ const setChildren = useOverrideAdaptor<G2ViewTree>((options) => {
           // they are displayed in the top-level.
           color: { guide: null, domain: facetDomainColor },
         };
+        const newData = isFacet ? facetData : data;
         return {
           key: `${key}-${i}`,
-          data: isFacet ? facetData : data,
+          data: newData,
           x: left + paddingLeft + originX,
           y: top + paddingTop + originY,
           width,
@@ -233,7 +234,7 @@ const setChildren = useOverrideAdaptor<G2ViewTree>((options) => {
           paddingRight: 0,
           paddingTop: 0,
           paddingBottom: 0,
-          frame: true,
+          frame: newData.length ? true : false,
           dataDomain: maxDataDomain,
           scale: deepMix(defaultScale, scale, newScale),
           ...rest,
@@ -283,7 +284,7 @@ export const Rect: CC<RectOptions> = () => {
       .call(setAnimation)
       .call(setScale)
       .call(setStyle)
-      .call(setFilterPreprocessor)
+      .call(setData)
       .call(setChildren)
       .value();
     return [newOptions];

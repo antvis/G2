@@ -130,6 +130,99 @@ describe('facet', () => {
     mount(createDiv(), chart);
   });
 
+  it('render({...} should render rect facet with unsynced position scales', () => {
+    const days = ['Sun.', 'Mon.', 'Tues.', 'Wed.', 'Thur.', 'Fri.', 'Sat.'];
+    const mockData = () => {
+      const names = ['Eat', 'Play', 'Sleep'];
+      const week = (date: Date) => {
+        const currentDate = date.getDate();
+        const newDate = new Date(date);
+        const firstDay = new Date(newDate.setDate(1)).getDay();
+        return Math.ceil((currentDate + firstDay) / 7);
+      };
+      const day = (date: Date) => date.getDay();
+      return Array.from({ length: 30 }, (_, i) => {
+        const date = new Date(2022, 5, i + 1);
+        return names.map((name) => ({
+          activity: name,
+          value: Math.random(),
+          week: `${week(date)}`,
+          day: days[day(date)],
+        }));
+      }).flat(Infinity);
+    };
+    const chart = render<G2Spec>({
+      type: 'rect',
+      data: mockData(),
+      encode: { x: 'day', y: 'week' },
+      scale: {
+        x: { domain: days },
+        color: { guide: { position: 'right', size: 50 } },
+      },
+      paddingRight: 100,
+      title: 'The distribution of time for June 2022',
+      children: [
+        {
+          type: 'interval',
+          coordinate: [
+            { type: 'transpose' },
+            { type: 'polar', outerRadius: 0.9 },
+          ],
+          scale: {
+            y: { facet: false },
+          },
+          encode: {
+            y: 'value',
+            color: 'activity',
+          },
+        },
+      ],
+    });
+    mount(createDiv(), chart);
+  });
+
+  it('render({...} should render rect facet with proper axes', () => {
+    const days = ['Sun.', 'Mon.', 'Tues.', 'Wed.', 'Thur.', 'Fri.', 'Sat.'];
+    const mockData = () => {
+      const names = ['A', 'B', 'C'];
+      const week = (date: Date) => {
+        const currentDate = date.getDate();
+        const newDate = new Date(date);
+        const firstDay = new Date(newDate.setDate(1)).getDay();
+        return Math.ceil((currentDate + firstDay) / 7);
+      };
+      const day = (date: Date) => date.getDay();
+      return Array.from({ length: 30 }, (_, i) => {
+        const date = new Date(2022, 5, i + 1);
+        return names.map((name) => ({
+          activity: name,
+          value: Math.random(),
+          week: `${week(date)}`,
+          day: days[day(date)],
+        }));
+      }).flat(Infinity);
+    };
+    const chart = render<G2Spec>({
+      type: 'rect',
+      data: mockData(),
+      encode: { x: 'day', y: 'week' },
+      scale: {
+        x: { domain: days },
+      },
+      children: [
+        {
+          type: 'interval',
+          encode: {
+            x: 'activity',
+            y: 'value',
+            color: 'activity',
+          },
+        },
+      ],
+    });
+    mount(createDiv(), chart);
+  });
+
   it('render({...} should render rect facet with callback', (done) => {
     const chart = render<G2Spec>(
       {
