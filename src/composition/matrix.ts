@@ -14,7 +14,6 @@ const setScale = useDefaultAdaptor<G2ViewTree>((options) => {
     scale: {
       x: { guide: null, paddingOuter: 0, paddingInner: 0.1 },
       y: { guide: null, range: [0, 1], paddingOuter: 0, paddingInner: 0.1 },
-      color: { type: 'ordinal' },
     },
   };
 });
@@ -57,8 +56,18 @@ const setChildren = useOverrideAdaptor<G2ViewTree>((options) => {
         const guideX = scale?.x?.guide;
         const defaultScale = {
           color: { guide: null },
-          x: { guide: { title: { titleAnchor: 'center' } }, tickCount: 5 },
-          y: { guide: { title: { titleAnchor: 'center' } }, tickCount: 5 },
+          x: {
+            guide: { title: { titleAnchor: 'center' } },
+            tickCount: 5,
+            // Do not sync position scales among facets by default.
+            facet: false,
+          },
+          y: {
+            guide: { title: { titleAnchor: 'center' } },
+            // Do not sync position scales among facets by default.
+            tickCount: 5,
+            facet: false,
+          },
         };
         const newScale = {
           x: { guide: createGuideX(guideX)(facet) },
