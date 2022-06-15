@@ -38,7 +38,7 @@ describe('edge', () => {
       encode: {
         x: ['x1', 'x2'],
         y: ['y1', 'y2'],
-        shape: 'arc',
+        shape: 'smoothEdge',
       },
       scale: {
         x: { type: 'linear', domain: [0, 400] },

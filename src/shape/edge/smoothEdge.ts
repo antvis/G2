@@ -4,9 +4,9 @@ import { applyStyle } from '../utils';
 import { select } from '../../utils/selection';
 import { ShapeComponent as SC } from '../../runtime';
 
-export type ArcOptions = Record<string, any>;
+export type SmoothEdgeOptions = Record<string, any>;
 
-export const Arc: SC<ArcOptions> = (options) => {
+export const SmoothEdge: SC<SmoothEdgeOptions> = (options) => {
   const { ...style } = options;
   return (points, value, coordinate, theme) => {
     const { defaultColor } = theme;
@@ -33,6 +33,6 @@ export const Arc: SC<ArcOptions> = (options) => {
   };
 };
 
-Arc.props = {
+SmoothEdge.props = {
   defaultEnterAnimation: 'fadeIn',
 };
