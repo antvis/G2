@@ -24,6 +24,6 @@ module.exports = {
   // Transform esm to cjs.
   transformIgnorePatterns: [`<rootDir>/node_modules/(?!(${esm}))`],
   testPathIgnorePatterns: [
-    '<rootDir>/__tests__/unit/(statistic|infer|animation|composition)',
+    '<rootDir>/__tests__/unit/(transform|statistic|infer|animation|composition)',
   ],
 };
