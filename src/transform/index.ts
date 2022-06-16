@@ -40,4 +40,5 @@ export { Subset, SubsetOptions } from './preprocessor/subset';
 export { SortBy, SortByOptions } from './preprocessor/sortBy';
 export { Voronoi, VoronoiOptions } from './preprocessor/voronoi';
 export { Sankey, SankeyOptions } from './preprocessor/sankey';
+export { Arc, ArcOptions } from './preprocessor/arc';
 export { Connector, ConnectorOptions } from './preprocessor/connector';

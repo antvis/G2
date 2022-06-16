@@ -10,6 +10,7 @@ export type Transform =
   | FetchTransform
   | FilterByTransform
   | SankeyTransform
+  | ArcTransform
   | WordCloudTransform
   | VoronoiTransform
   | ConnectorTransform
@@ -140,6 +141,33 @@ export type VoronoiTransform = {
    * @description Sets region of canvas.
    */
   extend: Vector2[];
+};
+
+/**
+ * For arc diagram(edge with weight) or chord diagram(with weight)
+ */
+export type ArcTransform = {
+  type?: 'arc';
+  /** Layout y position, default: 0 */
+  y?: number;
+  /** margin between nodes, [0, 1), default: 0.1  */
+  marginRatio?: number;
+  /** Thickness of node, default: 0.05 */
+  thickness?: number;
+  /** Whether calculate weight, default: false */
+  weight?: boolean;
+  /** Key of node, default: node.id */
+  id?: (node: any) => any;
+  /** Source key of edge, default: edge.source */
+  source?: (edge: any) => any;
+  /** Target key of edge, default: edge.target */
+  target?: (edge: any) => any;
+  /** Weight of source, default: edge.value || 1 */
+  sourceWeight?: (edge: any) => number;
+  /** Weight of target, default: edge.value || 1 */
+  targetWeight?: (edge: any) => number;
+  /** Sort method, default: null */
+  sortBy?: 'id' | 'weight' | 'frequency' | null | ((a: any, b: any) => number);
 };
 
 export type FoldTransform = {

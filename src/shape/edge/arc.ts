@@ -2,6 +2,8 @@ import { Path } from '@antv/g';
 import { path as d3path } from 'd3-path';
 import { applyStyle } from '../utils';
 import { select } from '../../utils/selection';
+import { isPolar } from '../../utils/coordinate';
+import { angle, dist, mid, sub } from '../../utils/vector';
 import { ShapeComponent as SC } from '../../runtime';
 
 export type ArcOptions = Record<string, any>;
@@ -15,14 +17,24 @@ export const Arc: SC<ArcOptions> = (options) => {
 
     const path = d3path();
     path.moveTo(from[0], from[1]);
-    path.bezierCurveTo(
-      from[0] / 2 + to[0] / 2,
-      from[1],
-      from[0] / 2 + to[0] / 2,
-      to[1],
-      to[0],
-      to[1],
-    );
+
+    if (isPolar(coordinate)) {
+      const center = coordinate.getCenter();
+      path.quadraticCurveTo(center[0], center[1], to[0], to[1]);
+    } else {
+      const center = mid(from, to);
+      const raduis = dist(from, to) / 2;
+      const startAngle = angle(sub(from, center)) - Math.PI / 2;
+      const endAngle = angle(sub(to, from)) - Math.PI / 2;
+      path.arc(
+        center[0],
+        center[1],
+        raduis,
+        startAngle,
+        endAngle,
+        startAngle < endAngle,
+      );
+    }
 
     return select(new Path())
       .style('d', path.toString())

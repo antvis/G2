@@ -42,6 +42,7 @@ export { AnnotationBadge, AnnotationBadgeOptions } from './annotation/badge';
 export { Area, AreaOptions } from './area/area';
 export { SmoothArea, SmoothAreaOptions } from './area/smoothArea';
 export { Edge, EdgeOptions } from './edge/edge';
+export { SmoothEdge, SmoothEdgeOptions } from './edge/smoothEdge';
 export { Arc, ArcOptions } from './edge/arc';
 export { Image, ImageOptions } from './image/image';
 export { Polygon, PolygonOptions } from './polygon/polygon';
