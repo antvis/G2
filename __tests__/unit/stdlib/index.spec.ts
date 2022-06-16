@@ -117,6 +117,7 @@ import {
   View,
   Rect,
   Matrix,
+  Circle,
 } from '../../../src/composition';
 import { Pack } from '../../../src/adjust';
 import {
@@ -297,6 +298,7 @@ describe('stdlib', () => {
       'composition.matrix': Matrix,
       'composition.view': View,
       'composition.rect': Rect,
+      'composition.circle': Circle,
       'adjust.pack': Pack,
     });
   });

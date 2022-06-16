@@ -115,11 +115,6 @@ function inferComponentType(
   const { name, guide, type: scaleType } = scale;
   const { type } = guide;
   if (type !== undefined) return type;
-  if (isTranspose(coordinates)) return null;
-  if (isPolar(coordinates)) return null;
-  if (name.startsWith('x')) return 'axisX';
-  if (name.startsWith('y')) return 'axisY';
-  if (name.startsWith('position')) return 'axisY';
   if (name === 'color') {
     switch (scaleType) {
       case 'ordinal':
@@ -130,6 +125,11 @@ function inferComponentType(
         return null;
     }
   }
+  if (isTranspose(coordinates)) return null;
+  if (isPolar(coordinates)) return null;
+  if (name.startsWith('x')) return 'axisX';
+  if (name.startsWith('y')) return 'axisY';
+  if (name.startsWith('position')) return 'axisY';
   return null;
 }
 
