@@ -167,7 +167,7 @@ export type ArcTransform = {
   /** Weight of target, default: edge.value || 1 */
   targetWeight?: (edge: any) => number;
   /** Sort method, default: null */
-  sortBy?: 'id' | 'weigth' | 'frequency' | null | ((a: any, b: any) => number);
+  sortBy?: 'id' | 'weight' | 'frequency' | null | ((a: any, b: any) => number);
 };
 
 export type FoldTransform = {

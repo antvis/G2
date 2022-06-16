@@ -10,7 +10,7 @@ export type ArcOptions = {
   /** Weight of target, default: edge.value || 1 */
   targetWeight?: (edge: any) => number;
   /** Sort method, default: null */
-  sortBy?: 'id' | 'weigth' | 'frequency' | null | ((a: any, b: any) => number);
+  sortBy?: 'id' | 'weight' | 'frequency' | null | ((a: any, b: any) => number);
   /** Layout y position, default: 0 */
   y?: number;
   /** Whether calculate weight, default: false */
