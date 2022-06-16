@@ -146,8 +146,9 @@ function getTicks(
         text: formatter(d),
       };
     });
-    // If axis is place `arc`, the first tick and final tick will be duplicate, do no show first tick.
-    return position === 'arc' ? axisTicks.slice(1) : axisTicks;
+    // @todo GUI should consider the overlap problem for the first
+    // and label of arc axis.
+    return axisTicks;
   }
 
   return ticks.map((d) => {

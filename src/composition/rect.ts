@@ -12,6 +12,8 @@ import { Container } from '../utils/container';
 import { indexOf } from '../utils/array';
 import { useDefaultAdaptor, useOverrideAdaptor } from './utils';
 
+export type SubLayout = (data?: any) => number[];
+
 const setScale = useDefaultAdaptor<G2ViewTree>((options) => {
   const { encode, data, scale, shareSize = false } = options;
   const { x, y } = encode;
@@ -119,7 +121,7 @@ export const toGrid = useOverrideAdaptor<G2ViewTree>(() => ({
  * Do not set grid data directly, the children will get wrong do if do
  * so. Use transform to set new data.
  **/
-const setData = useOverrideAdaptor<G2ViewTree>((options) => {
+export const setData = useOverrideAdaptor<G2ViewTree>((options) => {
   const { transform = [] } = options;
   return {
     transform: [
@@ -154,102 +156,116 @@ const setData = useOverrideAdaptor<G2ViewTree>((options) => {
 /**
  * @todo Move some options assignment to runtime.
  */
-const setChildren = useOverrideAdaptor<G2ViewTree>((options) => {
-  const {
-    data,
-    encode,
-    children,
-    scale: facetScale,
-    x: originX = 0,
-    y: originY = 0,
-    shareData = false,
-  } = options;
-  const { x: encodeX, y: encodeY } = encode;
-  const { color: facetScaleColor } = facetScale;
-  const { domain: facetDomainColor } = facetScaleColor;
-  const createChildren: G2MarkChildrenCallback = (
-    visualData,
-    scale,
-    layout,
+export const setChildren = useOverrideAdaptor<G2ViewTree>(
+  (
+    options,
+    subLayout: SubLayout = subLayoutRect,
+    createGuideX = createGuideXRect,
+    createGuideY = createGuideYRect,
+    chidOptions = {},
   ) => {
-    const { x: scaleX, y: scaleY } = scale;
-    const { paddingLeft, paddingTop } = layout;
-    const { domain: domainX, field: fieldX } = scaleX.getOptions();
-    const { domain: domainY, field: fieldY } = scaleY.getOptions();
-    const index = indexOf(visualData);
-    const bboxs = visualData.map(({ points }) => calcBBox(points));
-    const values = visualData.map(({ x, y }) => [
-      scaleX.invert(x),
-      scaleY.invert(y),
-    ]);
-    const filters = values.map(([fx, fy]) => (d) => {
-      const { [fieldX]: x, [fieldY]: y } = d;
-      const inX = encodeX !== undefined ? x === fx : true;
-      const inY = encodeY !== undefined ? y === fy : true;
-      return inX && inY;
-    });
-    const facetData2d = filters.map((f) => data.filter(f));
-    const maxDataDomain = shareData
-      ? max(facetData2d, (data) => data.length)
-      : undefined;
-    const facets = values.map(([fx, fy]) => ({
-      columnField: fieldX,
-      columnIndex: domainX.indexOf(fx),
-      columnValue: fx,
-      columnValuesLength: domainX.length,
-      rowField: fieldY,
-      rowIndex: domainY.indexOf(fy),
-      rowValue: fy,
-      rowValuesLength: domainY.length,
-    }));
-    const normalizedChildren: Node[][] = facets.map((facet) => {
-      if (Array.isArray(children)) return children;
-      return [children(facet)].flat(1);
-    });
-    return index.flatMap((i) => {
-      const [left, top, width, height] = bboxs[i];
-      const facet = facets[i];
-      const facetData = facetData2d[i];
-      const children = normalizedChildren[i];
-      return children.map(({ scale, key, facet: isFacet = true, ...rest }) => {
-        const guideY = scale?.y?.guide;
-        const guideX = scale?.x?.guide;
-        const defaultScale = { x: { tickCount: 5 }, y: { tickCount: 5 } };
-        const newScale = {
-          x: { guide: createGuideX(guideX)(facet) },
-          y: { guide: createGuideY(guideY)(facet) },
-          // Hide all legends for child mark by default,
-          // they are displayed in the top-level.
-          color: { guide: null, domain: facetDomainColor },
-        };
-        const newData = isFacet ? facetData : data;
-        return {
-          key: `${key}-${i}`,
-          data: newData,
-          x: left + paddingLeft + originX,
-          y: top + paddingTop + originY,
-          width,
-          height,
-          paddingLeft: 0,
-          paddingRight: 0,
-          paddingTop: 0,
-          paddingBottom: 0,
-          frame: newData.length ? true : false,
-          dataDomain: maxDataDomain,
-          scale: deepMix(defaultScale, scale, newScale),
-          ...rest,
-        };
+    const {
+      data,
+      encode,
+      children,
+      scale: facetScale,
+      x: originX = 0,
+      y: originY = 0,
+      shareData = false,
+    } = options;
+    const { x: encodeX, y: encodeY } = encode;
+    const { color: facetScaleColor } = facetScale;
+    const { domain: facetDomainColor } = facetScaleColor;
+    const createChildren: G2MarkChildrenCallback = (
+      visualData,
+      scale,
+      layout,
+    ) => {
+      const { x: scaleX, y: scaleY } = scale;
+      const { paddingLeft, paddingTop } = layout;
+      const { domain: domainX, field: fieldX } = scaleX.getOptions();
+      const { domain: domainY, field: fieldY } = scaleY.getOptions();
+      const index = indexOf(visualData);
+      const bboxs = visualData.map(subLayout);
+      const values = visualData.map(({ x, y }) => [
+        scaleX.invert(x),
+        scaleY.invert(y),
+      ]);
+      const filters = values.map(([fx, fy]) => (d) => {
+        const { [fieldX]: x, [fieldY]: y } = d;
+        const inX = encodeX !== undefined ? x === fx : true;
+        const inY = encodeY !== undefined ? y === fy : true;
+        return inX && inY;
       });
-    });
-  };
-  return {
-    children: createChildren,
-  };
-});
+      const facetData2d = filters.map((f) => data.filter(f));
+      const maxDataDomain = shareData
+        ? max(facetData2d, (data) => data.length)
+        : undefined;
+      const facets = values.map(([fx, fy]) => ({
+        columnField: fieldX,
+        columnIndex: domainX.indexOf(fx),
+        columnValue: fx,
+        columnValuesLength: domainX.length,
+        rowField: fieldY,
+        rowIndex: domainY.indexOf(fy),
+        rowValue: fy,
+        rowValuesLength: domainY.length,
+      }));
+      const normalizedChildren: Node[][] = facets.map((facet) => {
+        if (Array.isArray(children)) return children;
+        return [children(facet)].flat(1);
+      });
+      return index.flatMap((i) => {
+        const [left, top, width, height] = bboxs[i];
+        const facet = facets[i];
+        const facetData = facetData2d[i];
+        const children = normalizedChildren[i];
+        return children.map(
+          ({ scale, key, facet: isFacet = true, ...rest }) => {
+            const guideY = scale?.y?.guide;
+            const guideX = scale?.x?.guide;
+            const defaultScale = { x: { tickCount: 5 }, y: { tickCount: 5 } };
+            const newScale = {
+              x: { guide: createGuide(guideX, createGuideX)(facet) },
+              y: { guide: createGuide(guideY, createGuideY)(facet) },
+              // Hide all legends for child mark by default,
+              // they are displayed in the top-level.
+              color: { guide: null, domain: facetDomainColor },
+            };
+            const newData = isFacet ? facetData : data;
+            return {
+              key: `${key}-${i}`,
+              data: newData,
+              x: left + paddingLeft + originX,
+              y: top + paddingTop + originY,
+              width,
+              height,
+              paddingLeft: 0,
+              paddingRight: 0,
+              paddingTop: 0,
+              paddingBottom: 0,
+              frame: newData.length ? true : false,
+              dataDomain: maxDataDomain,
+              scale: deepMix(defaultScale, scale, newScale),
+              ...rest,
+              ...chidOptions,
+            };
+          },
+        );
+      });
+    };
+    return {
+      children: createChildren,
+    };
+  },
+);
 
-function createGuideX(guideX) {
-  if (typeof guideX === 'function') return guideX;
-  if (guideX === null) return () => null;
+function subLayoutRect(data) {
+  const { points } = data;
+  return calcBBox(points);
+}
+
+function createGuideXRect(guide) {
   return (facet) => {
     const { rowIndex, rowValuesLength, columnIndex, columnValuesLength } =
       facet;
@@ -257,21 +273,25 @@ function createGuideX(guideX) {
     if (rowIndex !== rowValuesLength - 1) return null;
     // Only the bottom-left facet show title.
     if (columnIndex !== columnValuesLength - 1) {
-      return deepMix({ title: false }, guideX);
+      return deepMix({ title: false }, guide);
     }
   };
 }
 
-function createGuideY(guideY) {
-  if (typeof guideY === 'function') return guideY;
-  if (guideY === null) return () => null;
+function createGuideYRect(guide) {
   return (facet) => {
     const { rowIndex, columnIndex } = facet;
     // Only the left-most facet show axisY.
     if (columnIndex !== 0) return null;
     // Only the left-top facet show title.
-    if (rowIndex !== 0) return deepMix({ title: false }, guideY);
+    if (rowIndex !== 0) return deepMix({ title: false }, guide);
   };
+}
+
+function createGuide(guide, factory) {
+  if (typeof guide === 'function') return guide;
+  if (guide === null) return () => null;
+  return factory(guide);
 }
 
 export type RectOptions = Omit<RectComposition, 'type'>;

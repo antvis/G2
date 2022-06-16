@@ -50,9 +50,9 @@ export const ColorRect: SC<ColorRectOptions> = (options) => {
     const center = coordinate.getCenter() as Vector2;
     const a1 = angle(sub(p0, center));
     const a2 = angle(sub(p1, center));
-    // There are two situations that t1 === t2:
+    // There are two situations that a2 === a1:
     // 1. a1 - a2 = 0
-    // 2. |t1 - t2| = Math.PI * 2
+    // 2. |a1 - a2| = Math.PI * 2
     // Distinguish them by y and y1:
     const a3 = a2 === a1 && y !== y1 ? a2 + Math.PI * 2 : a2;
     const arcObject = {
