@@ -1,3 +1,15 @@
+#### 4.2.3 (2022-06-15)
+
+##### New Features
+
+- **axis:** 更新 axis-description-tooltip 样式, 添加自定义 style 配置 ([#3929](https://github.com/antvis/g2/pull/3929)) ([27d35093](https://github.com/antvis/g2/commit/27d35093aabb61758fef98376262decc29626b11))
+
+##### Bug Fixes
+
+- **sector-path:** 修复扇形非常小的时候, 角度 diff 会被重置为 Math.PI \* 2 ([#3981](https://github.com/antvis/g2/pull/3981)) ([dec20728](https://github.com/antvis/g2/commit/dec207282bb865896702fa500a0f49fc2fe56000))
+- **interval:** 修复同时存在坐标系转制和 y 镜像的时候 的 bakcground radius 的错误 ([#3969](https://github.com/antvis/g2/pull/3969)) ([36e97f44](https://github.com/antvis/g2/commit/36e97f445a7a8e3df7018c3eb14ecae089259ae9))
+- annotation typo ([#3960](https://github.com/antvis/g2/pull/3960)) ([e46fd837](https://github.com/antvis/g2/commit/e46fd8371acad8e3520c7e2d1e13a64d8c674e47))
+
 #### 4.2.2 (2022-05-19)
 
 ##### New Features
