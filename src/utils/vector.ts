@@ -31,3 +31,10 @@ export function calcBBox(points: Vector2[]) {
   const height = maxY - minY;
   return [minX, minY, width, height];
 }
+
+/**
+ * Get the center of two points.
+ */
+export function mid([x1, y1]: Vector2, [x2, y2]: Vector2): Vector2 {
+  return [(x1 + x2) / 2, (y1 + y2) / 2];
+}

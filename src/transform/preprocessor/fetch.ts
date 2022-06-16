@@ -14,8 +14,9 @@ export const Fetch: TC<FetchOptions> = (options) => {
   return merge(async () => {
     const response = await fetch(url);
     const data = await response.json();
+    // todo: suggested to remove the `callback`, use `connector` transform instead.
     return {
-      data: data.map(callback),
+      data: Array.isArray(data) ? data.map(callback) : data,
     };
   });
 };
