@@ -10,6 +10,7 @@ export type Transform =
   | FetchTransform
   | FilterByTransform
   | SankeyTransform
+  | ArcTransform
   | WordCloudTransform
   | VoronoiTransform
   | ConnectorTransform

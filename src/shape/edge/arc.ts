@@ -26,7 +26,14 @@ export const Arc: SC<ArcOptions> = (options) => {
       const raduis = dist(from, to) / 2;
       const startAngle = angle(sub(from, center)) - Math.PI / 2;
       const endAngle = angle(sub(to, from)) - Math.PI / 2;
-      path.arc(center[0], center[1], raduis, startAngle, endAngle);
+      path.arc(
+        center[0],
+        center[1],
+        raduis,
+        startAngle,
+        endAngle,
+        startAngle < endAngle,
+      );
     }
 
     return select(new Path())
