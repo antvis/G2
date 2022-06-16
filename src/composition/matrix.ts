@@ -100,6 +100,9 @@ const setChildren = useOverrideAdaptor<G2ViewTree>((options) => {
   };
 });
 
+/**
+ * @todo Use transform instead of override data directly.
+ */
 const setData = (options: G2ViewTree) => {
   const { encode, ...rest } = options;
   const {

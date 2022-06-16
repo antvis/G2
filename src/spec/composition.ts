@@ -12,7 +12,8 @@ export type Node =
   | LayerComposition
   | FlexComposition
   | MatrixComposition
-  | RectComposition;
+  | RectComposition
+  | CircleComposition;
 
 export type MarkComposition = Geometry & {
   title?: Title;
@@ -92,6 +93,20 @@ export type MatrixComposition = {
     x?: string[];
     y?: string[];
     position?: string[];
+  };
+  scale?: {
+    x?: Scale;
+    y?: Scale;
+  };
+  children?: Node[] | ((facet: FacetContext) => Node);
+};
+
+export type CircleComposition = {
+  type?: 'matrix';
+  transform?: Transform;
+  data?: any;
+  encode?: {
+    position?: string;
   };
   scale?: {
     x?: Scale;
