@@ -20,6 +20,7 @@ import {
   Polygon as PolygonGeometry,
   Schema as SchemaGeometry,
   Vector as VectorGeometry,
+  Link as LinkrGeometry,
 } from '../../../src/mark/geometry';
 import {
   AnnotationConnector,
@@ -88,6 +89,7 @@ import {
   Funnel,
   Pyramid,
   Vector,
+  Link,
 } from '../../../src/shape';
 import { Light } from '../../../src/theme';
 import {
@@ -205,6 +207,7 @@ describe('stdlib', () => {
       'mark.grid': Grid,
       'mark.area': AreaGeometry,
       'mark.edge': EdgeGeometry,
+      'mark.link': LinkrGeometry,
       'mark.image': ImageGeometry,
       'mark.polygon': PolygonGeometry,
       'mark.schema': SchemaGeometry,
@@ -263,6 +266,7 @@ describe('stdlib', () => {
       'shape.edge': Edge,
       'shape.smoothEdge': SmoothEdge,
       'shape.arc': Arc,
+      'shape.link': Link,
       'shape.image': Image,
       'shape.polygon': Polygon,
       'shape.ribbon': Ribbon,

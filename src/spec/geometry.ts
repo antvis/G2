@@ -30,6 +30,7 @@ export type GeometryTypes =
   | 'grid'
   | 'area'
   | 'edge'
+  | 'link'
   | 'image'
   | 'polygon'
   | 'schema'
@@ -140,6 +141,8 @@ export type GridGeometry = BaseGeometry<'grid'>;
 export type AreaGeometry = BaseGeometry<'area', ChannelTypes>;
 
 export type EdgeGeometry = BaseGeometry<'edge', ChannelTypes>;
+
+export type LinkGeometry = BaseGeometry<'link', ChannelTypes>;
 
 export type ImageGeometry = BaseGeometry<'image', ChannelTypes | 'src'>;
 
