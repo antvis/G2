@@ -1,1 +1,2 @@
-export { Arc, ArcOptions } from './arc';
+export { Arc } from './arc';
+export { ArcOptions } from './types';

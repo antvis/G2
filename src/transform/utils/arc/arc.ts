@@ -3,8 +3,6 @@ import { error } from '../../../utils/helper';
 import { ArcData, ArcOptions } from './types';
 import * as SortMethods from './sort';
 
-export { ArcOptions };
-
 const DEFAULT_OPTIONS = {
   y: 0,
   thickness: 0.05,
