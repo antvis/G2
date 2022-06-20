@@ -5,7 +5,7 @@ import { merge } from '../utils/helper';
 
 export type ClusterOptions = Omit<ClusterTransform, 'type'>;
 
-export const Cluster: TC<ClusterOptions> = (options) => {
+export const hierarchyFunction = (layoutFunction) => (options) => {
   return merge(({ data }) => {
     const {
       field = 'value',
@@ -22,7 +22,7 @@ export const Cluster: TC<ClusterOptions> = (options) => {
       .sort(sortBy);
 
     // Layout
-    const c = cluster();
+    const c = layoutFunction();
     c.size([1, 1]);
     if (nodeSize) c.nodeSize(nodeSize);
     if (separation) c.separation(separation);
@@ -38,6 +38,8 @@ export const Cluster: TC<ClusterOptions> = (options) => {
     };
   });
 };
+
+export const Cluster: TC<ClusterOptions> = hierarchyFunction(cluster);
 
 Cluster.props = {
   category: 'preprocessor',
