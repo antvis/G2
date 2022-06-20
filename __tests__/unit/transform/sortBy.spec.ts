@@ -1,23 +1,28 @@
 import { SortBy } from '../../../src/transform';
 
 describe('SortBy', () => {
-  it('SortBy({...}) returns function sort data by fields in asc order by default', () => {
+  it('SortBy({...}) returns function sort data by fields in asc order by default', async () => {
     const data = [{ a: 3 }, { a: 2 }, { a: 1 }];
 
     const s1 = SortBy({});
-    expect(s1(data)).toEqual(data);
+    expect((await s1({ data })).data).toEqual(data);
 
     const s2 = SortBy({ fields: ['a'] });
-    expect(s2(data)).toEqual([{ a: 1 }, { a: 2 }, { a: 3 }]);
+    expect((await s2({ data })).data).toEqual([{ a: 1 }, { a: 2 }, { a: 3 }]);
   });
 
-  it('SortBy({...}) returns function enabling sorting data in des order', () => {
+  it('SortBy({...}) returns function enabling sorting data in des order', async () => {
     const data = [{ a: 1 }, { a: 2 }, { a: 2 }, { a: 3 }];
     const s = SortBy({ fields: ['a'], order: 'DESC' });
-    expect(s(data)).toEqual([{ a: 3 }, { a: 2 }, { a: 2 }, { a: 1 }]);
+    expect((await s({ data })).data).toEqual([
+      { a: 3 },
+      { a: 2 },
+      { a: 2 },
+      { a: 1 },
+    ]);
   });
 
-  it('SortBy({...} returns function enabling sorting data by multiple fields', () => {
+  it('SortBy({...} returns function enabling sorting data by multiple fields', async () => {
     const data = [
       { a: 3, b: 1 },
       { a: 2, b: 2 },
@@ -26,7 +31,7 @@ describe('SortBy', () => {
     ];
 
     const s1 = SortBy({ fields: ['a', 'b'] });
-    expect(s1(data)).toEqual([
+    expect((await s1({ data })).data).toEqual([
       { a: 1, b: 4 },
       { a: 2, b: 2 },
       { a: 2, b: 3 },
@@ -34,7 +39,7 @@ describe('SortBy', () => {
     ]);
 
     const s2 = SortBy({ fields: ['b', 'a'] });
-    expect(s2(data)).toEqual([
+    expect((await s2({ data })).data).toEqual([
       { a: 3, b: 1 },
       { a: 2, b: 2 },
       { a: 2, b: 3 },

@@ -1,7 +1,7 @@
-import { Rename } from '../../../src/transform/rename';
+import { Rename } from '../../../src/transform/preprocessor/rename';
 
 describe('rename', () => {
-  it('Rename({...}) returns function rename data fields', () => {
+  it('Rename({...}) returns function rename data fields', async () => {
     const data = [
       { a: 1, b: 2, c: 3 },
       { a: 2, b: 3, c: 4 },
@@ -10,7 +10,7 @@ describe('rename', () => {
     ];
 
     const p1 = Rename({ map: { a: 'x', c: 'c' } });
-    expect(p1(data)).toEqual([
+    expect((await p1({ data })).data).toEqual([
       { x: 1, b: 2, c: 3 },
       { x: 2, b: 3, c: 4 },
       { x: 3, b: 4, c: 1 },
@@ -18,9 +18,10 @@ describe('rename', () => {
     ]);
 
     const p2 = Rename({});
-    expect(p2(data)).toEqual(data);
+
+    expect((await p2({ data })).data).toEqual(data);
 
     const p3 = Rename({ map: {} });
-    expect(p3(data)).toEqual(data);
+    expect((await p3({ data })).data).toEqual(data);
   });
 });

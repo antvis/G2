@@ -1,7 +1,7 @@
 import { Voronoi } from '../../../src/transform';
 
 describe('Voronoi', () => {
-  it('Voronoi({...}) returns function transform data', () => {
+  it('Voronoi({...}) returns function transform data', async () => {
     const data = [
       { x: 200, y: 200, v: 1 },
       { x: 760, y: 300, v: 2 },
@@ -16,7 +16,7 @@ describe('Voronoi', () => {
       ],
     });
 
-    expect(v(data)).toEqual([
+    expect((await v({ data })).data).toEqual([
       {
         x: 200,
         y: 200,
