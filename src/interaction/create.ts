@@ -22,12 +22,6 @@ import {
   G2Event,
 } from './types';
 
-// A Map from G node to its registered event handlers.
-const nodeHandler = new Map<
-  DisplayObject,
-  Record<string, (event: any) => void>
->();
-
 export function createInteraction<T>(
   interaction: (options: T) => InteractionDescriptor,
   library = createInteractionLibrary(),
@@ -77,10 +71,8 @@ export function createInteraction<T>(
         const events = interactorEvent.get(trigger) || [[trigger]];
         for (const [event] of events) {
           const [className, eventName] = event.split(':');
-          selection.selectAll(`.${className}`).each(function () {
-            addComposableEventListener(this, eventName, (event) => {
-              handler({ event, ...context });
-            });
+          selection.selectAll(`.${className}`).on(eventName, (event) => {
+            handler({ event, ...context });
           });
         }
       }
@@ -120,24 +112,6 @@ function createInteractionContext(
     viewInstances,
     shared: {},
   };
-}
-
-function addComposableEventListener(
-  node: DisplayObject,
-  eventName: string,
-  handler: (event: G2Event) => void,
-) {
-  const keyHandler = nodeHandler.get(node) || {};
-  const exitedHandler = keyHandler[eventName];
-  const updatedHandler = !exitedHandler
-    ? handler
-    : (event) => {
-        exitedHandler(event);
-        handler(event);
-      };
-  select(node).on(eventName, updatedHandler);
-  keyHandler[eventName] = updatedHandler;
-  nodeHandler.set(node, keyHandler);
 }
 
 function normalizeOptions(options: InteractionStep['action']) {
