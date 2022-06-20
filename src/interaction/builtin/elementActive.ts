@@ -1,9 +1,9 @@
-import { InteractionComponent as IC } from '../runtime';
-import { ElementActiveInteraction } from '../spec';
+import { ElementActiveInteraction } from '../../spec';
+import { createInteraction } from '../create';
 
 export type ElementActiveOptions = Omit<ElementActiveInteraction, 'type'>;
 
-export const ElementActive: IC<ElementActiveOptions> = (options) => ({
+export const InteractionDescriptor = (options?: ElementActiveOptions) => ({
   interactors: [{ type: 'mousePosition' }, { type: 'touchPosition' }],
   start: [
     {
@@ -24,5 +24,9 @@ export const ElementActive: IC<ElementActiveOptions> = (options) => ({
     },
   ],
 });
+
+export const ElementActive = createInteraction<ElementActiveOptions>(
+  InteractionDescriptor,
+);
 
 ElementActive.props = {};

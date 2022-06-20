@@ -97,14 +97,6 @@ import {
   Tooltip,
   Fisheye as FisheyeInteraction,
 } from '../interaction';
-import {
-  SurfacePointSelection,
-  HighlightSelection,
-  Tooltip as TooltipAction,
-  FisheyeFocus,
-  Plot,
-} from '../action';
-import { MousePosition, TouchPosition } from '../interactor';
 import { Layer, Flex, Mark, View, Rect, Matrix, Circle } from '../composition';
 import { Pack } from '../adjust';
 import {
@@ -274,13 +266,6 @@ export function createLibrary(): G2Library {
     'interaction.elementActive': ElementActive,
     'interaction.tooltip': Tooltip,
     'interaction.fisheye': FisheyeInteraction,
-    'action.surfacePointSelection': SurfacePointSelection,
-    'action.highlightSelection': HighlightSelection,
-    'action.tooltip': TooltipAction,
-    'action.fisheyeFocus': FisheyeFocus,
-    'action.plot': Plot,
-    'interactor.mousePosition': MousePosition,
-    'interactor.touchPosition': TouchPosition,
     'composition.layer': Layer,
     'composition.flex': Flex,
     'composition.mark': Mark,

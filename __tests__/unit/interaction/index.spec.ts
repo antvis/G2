@@ -1,4 +1,6 @@
-import { Fisheye, Tooltip, ElementActive } from '../../../src/interaction';
+import { InteractionDescriptor as Fisheye } from '../../../src/interaction/builtin/fisheye';
+import { InteractionDescriptor as Tooltip } from '../../../src/interaction/builtin/tooltip';
+import { InteractionDescriptor as ElementActive } from '../../../src/interaction/builtin/elementActive';
 
 describe('interaction', () => {
   it('ElementActive() returns expected defaults', () => {
