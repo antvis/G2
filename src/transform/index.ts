@@ -41,4 +41,6 @@ export { SortBy, SortByOptions } from './preprocessor/sortBy';
 export { Voronoi, VoronoiOptions } from './preprocessor/voronoi';
 export { Sankey, SankeyOptions } from './preprocessor/sankey';
 export { Arc, ArcOptions } from './preprocessor/arc';
+export { Cluster, ClusterOptions } from './preprocessor/cluster';
+export { Tree, TreeOptions } from './preprocessor/tree';
 export { Connector, ConnectorOptions } from './preprocessor/connector';

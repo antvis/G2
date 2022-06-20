@@ -35,7 +35,7 @@ describe('WordCloud', async () => {
       padding: common(() => 33),
       spiral,
     })({ data });
-    const firstRow = result[0];
+    const firstRow = result.data[0];
     expect(typeof firstRow.x).toBe('number');
     expect(typeof firstRow.y).toBe('number');
     expect(firstRow.hasText).toBe(true);
@@ -51,25 +51,23 @@ describe('WordCloud', async () => {
       rotate: (d) => (d.text === 'welcome' ? 45 : 0),
       fontSize: 12,
     })({ data });
-    result = result.data.filter((d) => !!d.text);
-    expect(result.data.length).toBe(data.length);
+    let r = result.data.filter((d) => !!d.text);
+    expect(r.length).toBe(data.length);
     expect(
-      result.data.every((d) =>
-        d.text === 'welcome' ? d.rotate === 45 : d.rotate === 0,
-      ),
+      r.every((d) => (d.text === 'welcome' ? d.rotate === 45 : d.rotate === 0)),
     ).toBe(true);
 
     result = await WordCloud({ rotate: 30 })({ data });
-    result = result.data.filter((d) => !!d.text);
-    expect(result.data.every((d) => d.rotate === 30)).toBe(true);
+    r = result.data.filter((d) => !!d.text);
+    expect(r.every((d) => d.rotate === 30)).toBe(true);
   });
 
   it('WordCloud({ size: [...] })', async () => {
     const result = await WordCloud({ size: [0, 0] })({ data });
     // append two tags
     expect(result.data.length).toBe(2);
-    expect(result[0].opacity).toBe(0);
-    expect(result[1].opacity).toBe(0);
+    expect(result.data[0].opacity).toBe(0);
+    expect(result.data[1].opacity).toBe(0);
   });
 
   it('WordCloud({ fontSize: ... }) supports `number`, `number[]` and `function`', async () => {
