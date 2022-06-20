@@ -60,9 +60,9 @@ export function createInteraction<T>(
       (d) => d[1],
     );
 
-    return (target, viewDescriptors) => {
+    return (target, viewInstances) => {
       // Every interaction has its own standalone context.
-      const context = createInteractionContext(target, viewDescriptors);
+      const context = createInteractionContext(target, viewInstances);
 
       const { selection } = context;
       for (const { trigger, action, throttle: throttleOptions } of steps) {
@@ -90,7 +90,7 @@ export function createInteraction<T>(
 
 function createInteractionContext(
   target: G2ViewInstance,
-  viewDescriptors: G2ViewInstance[],
+  viewInstances: G2ViewInstance[],
 ) {
   const { view, update, container, options } = target;
   const selection = select(container);
@@ -117,7 +117,7 @@ function createInteractionContext(
     selection,
     selectionLayer,
     transientLayer,
-    viewDescriptors,
+    viewInstances,
     shared: {},
   };
 }

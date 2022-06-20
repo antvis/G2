@@ -4,14 +4,13 @@ import {
   DisplayObjectConfig,
   Path,
   PathStyleProps,
-  PathCommand,
 } from '@antv/g';
 import { Marker } from '@antv/gui';
 import { line as d3line } from 'd3-shape';
 import { isTranspose } from '../../utils/coordinate';
 import { select } from '../../utils/selection';
 import { ShapeComponent as SC, Vector2 } from '../../runtime';
-import { applyStyle } from '../utils';
+import { applyStyle, PathCommand } from '../utils';
 
 export type ConnectorOptions = ConnectorPathStyleProps & Record<string, any>;
 
