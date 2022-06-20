@@ -20,7 +20,8 @@ describe('edge', () => {
       },
       style: {
         lineDash: [6, 3],
-        lineWidth: 3,
+        lineWidth: 2,
+        arrow: { size: 16 },
       },
     });
 

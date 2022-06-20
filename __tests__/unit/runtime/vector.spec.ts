@@ -24,6 +24,9 @@ describe('vector', () => {
         color: { guide: null },
         size: { range: [6, 20] },
       },
+      style: {
+        arrow: { size: '40%' },
+      },
     });
 
     mount(createDiv(), chart);

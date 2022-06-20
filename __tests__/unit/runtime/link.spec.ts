@@ -24,6 +24,9 @@ describe('link', () => {
         x: { type: 'log' },
         color: { guide: null },
       },
+      style: {
+        arrow: { size: 6 },
+      },
     });
 
     mount(createDiv(), chart);
