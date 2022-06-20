@@ -13,6 +13,8 @@ export type Transform =
   | ArcTransform
   | WordCloudTransform
   | VoronoiTransform
+  | TreeTransform
+  | ClusterTransform
   | ConnectorTransform
   | StatisticTransform
   | CustomTransform;

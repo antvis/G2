@@ -28,13 +28,23 @@ export const hierarchyFunction = (layoutFunction) => (options) => {
     if (separation) c.separation(separation);
     c(root);
 
+    const nodes = [];
     root.each((node: any) => {
       node[x] = node.x;
       node[y] = node.y;
+      node.name = node.data.name;
+
+      nodes.push(node);
+    });
+
+    const edges = root.links();
+    edges.forEach((edge) => {
+      edge[x] = [edge.source[x], edge.target[x]];
+      edge[y] = [edge.source[y], edge.target[y]];
     });
 
     return {
-      data: root,
+      data: { nodes, edges },
     };
   });
 };

@@ -18,11 +18,12 @@ export const Node: MC<NodeGeometry> = (...args) => {
 };
 
 Node.props = {
-  defaultShape: 'point',
+  defaultShape: 'pointNode',
   channels: [
     ...baseGeometryChannels(),
     { name: 'x', required: true },
     { name: 'y', required: true },
+    { name: 'size', required: true },
   ],
   preInference: [...basePreInference()],
   postInference: [
@@ -30,5 +31,5 @@ Node.props = {
     { type: 'maybeTitleX' },
     { type: 'maybeTooltipY' },
   ],
-  shapes: ['point', 'polygon'],
+  shapes: ['pointNode', 'polygonNode'],
 };

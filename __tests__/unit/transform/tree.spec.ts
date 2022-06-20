@@ -10,10 +10,9 @@ describe('Tree', () => {
     const c = Tree({});
     const r = (await c({ data })).data;
 
-    expect(r.x).toBe(0.4054794520547945);
-    expect(r.y).toBe(0);
+    expect(r.nodes[0].x).toBe(0.4054794520547945);
+    expect(r.nodes[0].y).toBe(0);
 
-    r.count();
-    expect(r.value).toBe(220);
+    expect(r.nodes.length).toBe(252);
   });
 });
