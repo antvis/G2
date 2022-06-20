@@ -14,6 +14,7 @@ export type Geometry =
   | TextGeometry
   | GridGeometry
   | AreaGeometry
+  | NodeGeometry
   | EdgeGeometry
   | ImageGeometry
   | PolygonGeometry
@@ -29,6 +30,7 @@ export type GeometryTypes =
   | 'text'
   | 'grid'
   | 'area'
+  | 'node'
   | 'edge'
   | 'link'
   | 'image'
@@ -139,6 +141,8 @@ export type AnnotationConnector = BaseGeometry<
 export type GridGeometry = BaseGeometry<'grid'>;
 
 export type AreaGeometry = BaseGeometry<'area', ChannelTypes>;
+
+export type NodeGeometry = BaseGeometry<'node', ChannelTypes>;
 
 export type EdgeGeometry = BaseGeometry<'edge', ChannelTypes>;
 

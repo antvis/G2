@@ -15,12 +15,13 @@ import {
   Text as TextGeometry,
   Grid,
   Area as AreaGeometry,
+  Node as NodeGeometry,
   Edge as EdgeGeometry,
   Image as ImageGeometry,
   Polygon as PolygonGeometry,
   Schema as SchemaGeometry,
   Vector as VectorGeometry,
-  Link as LinkrGeometry,
+  Link as LinkGeometry,
 } from '../../../src/mark/geometry';
 import {
   AnnotationConnector,
@@ -90,6 +91,8 @@ import {
   Pyramid,
   Vector,
   Link,
+  PointNode,
+  PolygonNode,
 } from '../../../src/shape';
 import { Light } from '../../../src/theme';
 import {
@@ -210,8 +213,9 @@ describe('stdlib', () => {
       'mark.text': TextGeometry,
       'mark.grid': Grid,
       'mark.area': AreaGeometry,
+      'mark.node': NodeGeometry,
       'mark.edge': EdgeGeometry,
-      'mark.link': LinkrGeometry,
+      'mark.link': LinkGeometry,
       'mark.image': ImageGeometry,
       'mark.polygon': PolygonGeometry,
       'mark.schema': SchemaGeometry,
@@ -241,6 +245,8 @@ describe('stdlib', () => {
       'shape.funnel': Funnel,
       'shape.pyramid': Pyramid,
       'shape.line': LineShape,
+      'shape.pointNode': PointNode,
+      'shape.polygonNode': PolygonNode,
       'shape.hv': HV,
       'shape.vh': VH,
       'shape.hvh': HVH,

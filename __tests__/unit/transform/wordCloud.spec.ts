@@ -4,7 +4,7 @@ import {
   processImageMask,
 } from '../../../src/transform/preprocessor/wordCloud';
 
-describe('WordCloud', async () => {
+describe('WordCloud', () => {
   const data = 'Hello, welcome to visit @antv/g2'
     .split(' ')
     .map((d) => ({ text: d, value: parseInt(`${Math.random() * 10}`) }));

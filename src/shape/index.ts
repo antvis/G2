@@ -42,13 +42,18 @@ export { AnnotationBadge, AnnotationBadgeOptions } from './annotation/badge';
 export { Area, AreaOptions } from './area/area';
 export { SmoothArea, SmoothAreaOptions } from './area/smoothArea';
 export { Link, LinkOptions } from './link/link';
-export { Edge, EdgeOptions } from './edge/edge';
-export { SmoothEdge, SmoothEdgeOptions } from './edge/smoothEdge';
-export { Arc, ArcOptions } from './edge/arc';
 export { Image, ImageOptions } from './image/image';
 export { Polygon, PolygonOptions } from './polygon/polygon';
 export { Ribbon, RibbonOptions } from './polygon/ribbon';
 export { Box, BoxOptions } from './schema/box';
+
+// For relation diagram (node and edge).
+export { Point as PointNode } from './node/point';
+export { Polygon as PolygonNode } from './node/polygon';
+export { Edge, EdgeOptions } from './edge/edge';
+export { SmoothEdge, SmoothEdgeOptions } from './edge/smoothEdge';
+export { Arc, ArcOptions } from './edge/arc';
+
 export {
   AnnotationLine as AnnotationLine,
   LineOptions as AnnotationLineOptions,

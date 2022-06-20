@@ -5,6 +5,7 @@ export { Text, TextOptions } from './text';
 export { Grid, GridOptions } from './grid';
 export { Area, AreaOptions } from './area';
 export { Edge, EdgeOptions } from './edge';
+export { Node, NodeOptions } from './node';
 export { Link, LinkOptions } from './link';
 export { Image, ImageOptions } from './image';
 export { Polygon, PolygonOptions } from './polygon';

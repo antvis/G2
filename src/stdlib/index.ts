@@ -15,6 +15,7 @@ import {
   Schema as SchemaGeometry,
   Vector as VectorGeometry,
   Link as LinkGeometry,
+  Node as NodeGeometry,
 } from '../mark/geometry';
 import {
   AnnotationText,
@@ -84,6 +85,8 @@ import {
   Pyramid,
   Vector,
   Link,
+  PointNode,
+  PolygonNode,
 } from '../shape';
 import { Light } from '../theme';
 import {
@@ -196,6 +199,7 @@ export function createLibrary(): G2Library {
     'mark.grid': Grid,
     'mark.area': AreaGeometry,
     'mark.link': LinkGeometry,
+    'mark.node': NodeGeometry,
     'mark.edge': EdgeGeometry,
     'mark.image': ImageGeometry,
     'mark.polygon': PolygonGeometry,
@@ -256,6 +260,8 @@ export function createLibrary(): G2Library {
     'shape.smoothEdge': SmoothEdge,
     'shape.arc': Arc,
     'shape.link': Link,
+    'shape.pointNode': PointNode,
+    'shape.polygonNode': PolygonNode,
     'shape.image': Image,
     'shape.polygon': Polygon,
     'shape.ribbon': Ribbon,
