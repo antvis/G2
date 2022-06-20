@@ -1,4 +1,4 @@
-import { InteractorComponent as IC } from '../runtime';
+import { InteractorComponent as IC } from '../types';
 
 export type TouchPositionPotions = Record<string, unknown>;
 

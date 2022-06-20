@@ -1,12 +1,5 @@
 import { Canvas } from '@antv/g';
-import {
-  G2Title,
-  GuideComponentPosition,
-  Layout,
-  Primitive,
-  TabularData,
-} from './common';
-
+import { G2Title, GuideComponentPosition, Layout, Primitive } from './common';
 import {
   G2BaseComponent,
   StatisticComponent,
@@ -19,9 +12,7 @@ import {
   PaletteComponent,
   GuideComponentComponent,
   AnimationComponent,
-  ActionComponent,
   InteractionComponent,
-  InteractorComponent,
   CompositionComponent,
   AdjustComponent,
   Scale,
@@ -120,9 +111,7 @@ export type G2ComponentOptions =
   | G2PaletteOptions
   | G2GuideComponentOptions
   | G2AnimationOptions
-  | G2ActionOptions
   | G2InteractionOptions
-  | G2InteractorOptions
   | G2CompositionOptions
   | G2AdjustOptions;
 
@@ -159,9 +148,7 @@ export type G2GuideComponentOptions = G2BaseComponentOptions<
   }
 >;
 export type G2AnimationOptions = G2BaseComponentOptions<AnimationComponent>;
-export type G2ActionOptions = G2BaseComponentOptions<ActionComponent>;
 export type G2InteractionOptions = G2BaseComponentOptions<InteractionComponent>;
-export type G2InteractorOptions = G2BaseComponentOptions<InteractorComponent>;
 export type G2CompositionOptions = G2BaseComponentOptions<CompositionComponent>;
 export type G2AdjustOptions = G2BaseComponentOptions<AdjustComponent>;
 export type G2TitleOptions = G2Title & {
