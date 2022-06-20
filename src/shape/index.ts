@@ -50,6 +50,7 @@ export { Point as PointNode } from './node/point';
 export { Polygon as PolygonNode } from './node/polygon';
 export { Edge, EdgeOptions } from './edge/edge';
 export { SmoothEdge, SmoothEdgeOptions } from './edge/smoothEdge';
+export { VHVEdge, VHVEdgeOptions } from './edge/vhv';
 export { Arc, ArcOptions } from './edge/arc';
 export { Ribbon, RibbonOptions } from './edge/ribbon';
 

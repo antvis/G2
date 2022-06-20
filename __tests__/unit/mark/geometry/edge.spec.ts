@@ -24,7 +24,7 @@ describe('Edge', () => {
         { type: 'maybeTitleX' },
         { type: 'maybeTooltipY' },
       ],
-      shapes: ['edge', 'arc', 'smoothEdge', 'ribbon'],
+      shapes: ['edge', 'arc', 'vhv', 'smoothEdge', 'ribbon'],
     });
   });
 
