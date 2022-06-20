@@ -1,3 +1,4 @@
+import { DisplayObject } from '@antv/g';
 import { mapObject } from '../utils/array';
 import { Container } from '../utils/container';
 import { copyAttributes, error, defined, composeAsync } from '../utils/helper';
@@ -15,6 +16,7 @@ import {
   G2CompositionOptions,
   G2AdjustOptions,
   G2TransformOptions,
+  G2InteractionOptions,
 } from './types/options';
 import {
   ThemeComponent,
@@ -29,17 +31,23 @@ import {
   Composition,
   AdjustComponent,
   Adjust,
+  InteractionComponent,
+  Interaction,
 } from './types/component';
 import { MarkComponent, Mark, MarkChannel } from './types/mark';
 import { TransformComponent, Transform } from './types/transform';
-import { Channel, G2ViewDescriptor, G2MarkState } from './types/common';
+import {
+  Channel,
+  G2ViewDescriptor,
+  G2MarkState,
+  G2ViewInstance,
+} from './types/common';
 import { useLibrary } from './library';
 import { createTransformContext, initializeMark } from './mark';
 import { inferComponent, renderComponent } from './component';
 import { computeLayout, placeComponents } from './layout';
 import { createCoordinate } from './coordinate';
 import { applyScale, syncFacetsScales } from './scale';
-import { applyInteraction } from './interaction';
 
 export async function plot<T extends G2ViewTree>(
   options: T,
@@ -51,6 +59,11 @@ export async function plot<T extends G2ViewTree>(
     CompositionComponent,
     Composition
   >('composition', library);
+  const [useInteraction] = useLibrary<
+    G2InteractionOptions,
+    InteractionComponent,
+    Interaction
+  >('interaction', library);
 
   // Some helper functions.
   const marks = new Set(
@@ -72,9 +85,9 @@ export async function plot<T extends G2ViewTree>(
   };
 
   // Some temporary variables help parse the view tree.
-  const views = [];
-  const viewNode = new Map();
-  const nodeState = new Map();
+  const views: G2ViewDescriptor[] = [];
+  const viewNode = new Map<G2ViewDescriptor, G2ViewTree>();
+  const nodeState = new Map<G2ViewTree, Map<G2Mark, G2MarkState>>();
   const discovered: G2ViewTree[] = [options];
 
   while (discovered.length) {
@@ -120,6 +133,8 @@ export async function plot<T extends G2ViewTree>(
     }
   }
 
+  // Plot chart.
+  const viewContainer = new Map<G2ViewDescriptor, DisplayObject>();
   selection
     .selectAll('.view')
     .data(views, (d) => d.key)
@@ -129,32 +144,55 @@ export async function plot<T extends G2ViewTree>(
           .append('g')
           .attr('className', 'view')
           .attr('id', (view) => view.id)
-          .style('transform', (d) => `translate(${d.layout.x}, ${d.layout.y})`)
+          .call(applyTranslate)
           .each(function (view) {
             plotView(view, select(this), library);
-            const options = viewNode.get(view);
-            const update = async (updater = (d: G2View) => d) => {
-              const newOptions = updater(options);
-              const [newView, newChildren] = await initializeView(
-                newOptions,
-                library,
-              );
-              // Update itself and child nodes.
-              plotView(newView, select(this), library);
-              for (const child of newChildren) {
-                plot(child, selection, library);
-              }
-            };
-            applyInteraction(options, select(this), view, update, library);
+            viewContainer.set(view, this);
           }),
       (update) =>
-        update
-          .style('transform', (d) => `translate(${d.layout.x}, ${d.layout.y})`)
-          .each(function (view) {
-            plotView(view, select(this), library);
-          }),
+        update.call(applyTranslate).each(function (view) {
+          plotView(view, select(this), library);
+        }),
       (exit) => exit.remove(),
     );
+
+  // Apply interaction to entered views.
+  const viewInstances = Array.from(viewContainer.entries()).map(
+    ([view, container]) => ({
+      view,
+      container,
+      options: viewNode.get(view),
+      update: createUpdateView(select(container), library),
+    }),
+  );
+  for (const target of viewInstances) {
+    const { options } = target;
+    const { interaction } = options;
+    for (const option of inferInteraction(interaction)) {
+      const interaction = useInteraction(option);
+      interaction(target, viewInstances);
+    }
+  }
+}
+
+function applyTranslate(selection: Selection) {
+  selection.style(
+    'transform',
+    (d) => `translate(${d.layout.x}, ${d.layout.y})`,
+  );
+}
+
+function createUpdateView(
+  selection: Selection,
+  library: G2Library,
+): G2ViewInstance['update'] {
+  return async (newOptions) => {
+    const [newView, newChildren] = await initializeView(newOptions, library);
+    plotView(newView, selection, library);
+    for (const child of newChildren) {
+      plot(child, selection, library);
+    }
+  };
 }
 
 async function initializeView(
@@ -358,35 +396,21 @@ async function plotView(
         }),
     );
 
-  // Create layers for plot.
-  // Main layer is for showing the main visual representation such as marks.
-  // Selection layer is for showing selected marks.
-  // Transient layer is for showing transient graphical elements produced by interaction.
-  // There may be multiple main layers for a view, each main layer correspond to one of
-  // marks. While there is only one selection layer and transient layer for a view.
+  // Main layer is for showing the main visual representation such as marks. There
+  // may be multiple main layers for a view, each main layer correspond to one of marks.
   // @todo Test DOM structure.
   selection
     .selectAll('.plot')
     .data([layout], () => key)
     .join(
-      (enter) => {
-        const rect = enter
+      (enter) =>
+        enter
           .append('rect')
           .attr('className', 'plot')
           .style('fill', 'transparent')
           .call(applyFrame, frame)
           .call(applyBBox)
-          .call(applyMainLayers, Array.from(markState.keys()));
-        rect
-          .append('g')
-          .attr('className', 'selection')
-          .style('fill', 'transparent');
-        rect
-          .append('g')
-          .attr('className', 'transient')
-          .style('fill', 'transparent');
-        return rect;
-      },
+          .call(applyMainLayers, Array.from(markState.keys())),
       (update) =>
         update
           .call(applyBBox)
@@ -430,6 +454,12 @@ async function plotView(
 function inferTheme(theme: G2ThemeOptions = { type: 'light' }): G2ThemeOptions {
   const { type = 'light' } = theme;
   return { ...theme, type };
+}
+
+function inferInteraction(
+  interaction: G2InteractionOptions[] = [],
+): G2InteractionOptions[] {
+  return [...interaction, { type: 'tooltip' }];
 }
 
 async function applyTransform<T extends G2ViewTree>(

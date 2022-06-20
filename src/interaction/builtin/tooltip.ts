@@ -1,9 +1,9 @@
-import { InteractionComponent as IC } from '../runtime';
-import { TooltipInteraction } from '../spec';
+import { TooltipInteraction } from '../../spec';
+import { createInteraction } from '../create';
 
 export type TooltipOptions = Omit<TooltipInteraction, 'type'>;
 
-export const Tooltip: IC<TooltipOptions> = (options) => ({
+export const InteractionDescriptor = (options?: TooltipOptions) => ({
   interactors: [{ type: 'mousePosition' }, { type: 'touchPosition' }],
   start: [
     {
@@ -23,5 +23,7 @@ export const Tooltip: IC<TooltipOptions> = (options) => ({
     },
   ],
 });
+
+export const Tooltip = createInteraction<TooltipOptions>(InteractionDescriptor);
 
 Tooltip.props = {};

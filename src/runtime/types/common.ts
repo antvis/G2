@@ -1,5 +1,6 @@
 import { Coordinate } from '@antv/coord';
-import { G2GuideComponentOptions, G2Mark } from './options';
+import { DisplayObject } from '@antv/g';
+import { G2GuideComponentOptions, G2Mark, G2ViewTree } from './options';
 import { Scale } from './component';
 import { MarkProps } from './mark';
 import { ColumnValue } from './encode';
@@ -44,6 +45,13 @@ export type G2ViewDescriptor = {
   layout: Layout;
   key: string;
   frame: boolean;
+};
+
+export type G2ViewInstance = {
+  view: G2ViewDescriptor;
+  container: DisplayObject;
+  options: G2ViewTree;
+  update: (options: G2ViewTree) => Promise<void>;
 };
 
 export type G2MarkState = {

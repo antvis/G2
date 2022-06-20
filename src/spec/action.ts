@@ -1,4 +1,4 @@
-import { ActionComponent } from '../runtime';
+import { ActionComponent } from '../interaction';
 import { FisheyeCoordinate } from './coordinate';
 
 export type Action =

@@ -1,7 +1,8 @@
 import { IElement } from '@antv/g';
 import { Tooltip as TooltipComponent } from '@antv/gui';
-import { ActionComponent as AC, G2Theme } from '../../runtime';
-import { TooltipAction } from '../../spec';
+import { ActionComponent as AC } from '../../types';
+import { G2Theme } from '../../../runtime';
+import { TooltipAction } from '../../../spec';
 
 function getContainer(group: IElement) {
   // @ts-ignore
@@ -55,14 +56,14 @@ export type TooltipOptions = Omit<TooltipAction, 'type'>;
  */
 export const Tooltip: AC<TooltipOptions> = () => {
   return (context) => {
-    const { scale, coordinate, theme, selection, shared } = context;
+    const { scale, coordinate, theme, selection, shared, selectionLayer } =
+      context;
     const { mouseX, mouseY, selectedElements = [] } = shared;
     const data = selectedElements.map((d) => d.__data__);
     const { tooltip } = scale;
     if (tooltip === undefined) return;
 
-    selection
-      .select('.selection')
+    selectionLayer
       .selectAll('.tooltip')
       .data(data, (_, i) => i)
       .join(

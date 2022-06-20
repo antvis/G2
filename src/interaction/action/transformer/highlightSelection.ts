@@ -1,16 +1,15 @@
-import { ActionComponent as AC } from '../../runtime';
-import { HighlightSelectionAction } from '../../spec';
+import { ActionComponent as AC } from '../../types';
+import { HighlightSelectionAction } from '../../../spec';
 
 export type HighlightSelectionOptions = Omit<HighlightSelectionAction, 'type'>;
 
 export const HighlightSelection: AC<HighlightSelectionOptions> = (options) => {
   return (context) => {
-    const { shared, selection, theme } = context;
+    const { shared, selection, theme, selectionLayer } = context;
     const { selectedElements = [] } = shared;
     const { elementActiveStroke } = theme;
     const { color = elementActiveStroke } = options;
     const data = selectedElements.map((d) => d.__data__);
-    const selectionLayer = selection.select('.selection');
 
     selectionLayer.selectAll('.highlight-element').remove();
 

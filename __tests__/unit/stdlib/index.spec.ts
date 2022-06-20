@@ -104,14 +104,6 @@ import {
   Fisheye as FisheyeInteraction,
 } from '../../../src/interaction';
 import {
-  SurfacePointSelection,
-  HighlightSelection,
-  Tooltip as TooltipAction,
-  FisheyeFocus,
-  Plot,
-} from '../../../src/action';
-import { MousePosition, TouchPosition } from '../../../src/interactor';
-import {
   Layer,
   Flex,
   Mark,
@@ -289,13 +281,6 @@ describe('stdlib', () => {
       'interaction.elementActive': ElementActive,
       'interaction.tooltip': Tooltip,
       'interaction.fisheye': FisheyeInteraction,
-      'action.surfacePointSelection': SurfacePointSelection,
-      'action.highlightSelection': HighlightSelection,
-      'action.tooltip': TooltipAction,
-      'action.fisheyeFocus': FisheyeFocus,
-      'action.plot': Plot,
-      'interactor.mousePosition': MousePosition,
-      'interactor.touchPosition': TouchPosition,
       'composition.layer': Layer,
       'composition.flex': Flex,
       'composition.mark': Mark,

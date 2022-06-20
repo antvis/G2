@@ -1,9 +1,9 @@
-import { InteractionComponent as IC } from '../runtime';
-import { FisheyeInteraction } from '../spec';
+import { FisheyeInteraction } from '../../spec';
+import { createInteraction } from '../create';
 
 export type FisheyeOptions = Omit<FisheyeInteraction, 'type'>;
 
-export const Fisheye: IC<FisheyeOptions> = (options) => ({
+export const InteractionDescriptor = (options?: FisheyeOptions) => ({
   interactors: [{ type: 'mousePosition' }, { type: 'touchPosition' }],
   start: [
     {
@@ -19,5 +19,7 @@ export const Fisheye: IC<FisheyeOptions> = (options) => ({
     },
   ],
 });
+
+export const Fisheye = createInteraction<FisheyeOptions>(InteractionDescriptor);
 
 Fisheye.props = {};

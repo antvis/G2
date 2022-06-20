@@ -1,13 +1,14 @@
-import { ActionComponent as AC } from '../../runtime';
-import { FisheyeFocusAction } from '../../spec';
+import { deepMix } from '@antv/util';
+import { ActionComponent as AC } from '../../types';
+import { FisheyeFocusAction } from '../../../spec';
 
 export type FisheyeFocusOptions = Omit<FisheyeFocusAction, 'type'>;
 
 export const FisheyeFocus: AC<FisheyeFocusOptions> = (options) => {
   return (context) => {
     // Using the mouseX and mouseY as focusX and focusY.
-    const { event, selection, shared } = context;
-    const { updater = (d) => d } = shared;
+    const { event, selection, shared, options: plotOptions } = context;
+    const { updatedOptions = {} } = shared;
     const { offsetX, offsetY } = event;
     const mainLayer = selection.select('.main').node();
     const bbox = mainLayer.getBounds();
@@ -20,13 +21,15 @@ export const FisheyeFocus: AC<FisheyeFocusOptions> = (options) => {
     const isOutX = offsetX < x || offsetX > x1;
     const isOutY = offsetY < y || offsetY > y1;
     const isOut = isOutX || isOutY;
-    if (isOut) return context;
+    if (isOut) {
+      shared.updatedOptions = deepMix({}, plotOptions);
+      return context;
+    }
 
     // Update focusX and focusY if mouse position is in plot area.
     const focusX = offsetX - x;
     const focusY = offsetY - y;
-    const newUpdater = (plotOptions) => {
-      const newOptions = updater(plotOptions);
+    const getUpdatedOptions = () => {
       const { coordinate = [] } = plotOptions;
       const index = coordinate.findIndex((d) => d.type === 'fisheye');
       if (index !== -1) {
@@ -36,13 +39,13 @@ export const FisheyeFocus: AC<FisheyeFocusOptions> = (options) => {
         const newCoordinate = [...coordinate];
         newCoordinate.splice(index, 1, newFisheye);
         return {
-          ...newOptions,
+          ...plotOptions,
           coordinate: newCoordinate,
         };
       } else {
         // Append cartesian and fisheye coordinate if fisheye dose not exist.
         return {
-          ...newOptions,
+          ...plotOptions,
           coordinate: [
             ...coordinate,
             { type: 'cartesian' },
@@ -51,7 +54,7 @@ export const FisheyeFocus: AC<FisheyeFocusOptions> = (options) => {
         };
       }
     };
-    shared.updater = newUpdater;
+    shared.updatedOptions = deepMix(updatedOptions, getUpdatedOptions());
     return context;
   };
 };
