@@ -1,4 +1,5 @@
 import { G2Spec, render } from '../../../src';
+import { SANKEY_DATA } from '../../data/sankey';
 import { createDiv, mount } from '../../utils/dom';
 
 describe('edge', () => {
@@ -49,6 +50,65 @@ describe('edge', () => {
         lineWidth: 1,
         stroke: 'grey',
       },
+    });
+
+    mount(createDiv(), chart);
+  });
+
+  it('render({...}) should render sankey plot', () => {
+    const chart = render<G2Spec>({
+      type: 'view',
+      data: SANKEY_DATA,
+      paddingBottom: 5,
+      paddingTop: 5,
+      paddingLeft: 5,
+      paddingRight: 5,
+      transform: [
+        {
+          type: 'sankey',
+        },
+      ],
+      scale: {
+        x: { guide: null },
+        y: { guide: null },
+        color: { guide: null },
+      },
+      children: [
+        {
+          type: 'edge',
+          transform: [
+            {
+              type: 'connector',
+              callback: (v) => v.links,
+            },
+          ],
+          encode: {
+            x: 'x',
+            y: 'y',
+            color: (d) => d.source.name,
+            shape: 'ribbon',
+          },
+          style: {
+            fillOpacity: 0.5,
+            stroke: null,
+          },
+        },
+        {
+          type: 'polygon',
+          transform: [
+            {
+              type: 'connector',
+              callback: (v) => v.nodes,
+            },
+          ],
+          encode: {
+            x: 'x',
+            y: 'y',
+            color: 'name',
+            shape: 'polygon',
+          },
+        },
+      ],
     });
 
     mount(createDiv(), chart);

@@ -5,6 +5,9 @@ import { ShapeComponent as SC } from '../../runtime';
 
 export type EdgeOptions = Record<string, any>;
 
+/**
+ * Connect 2 points with a single line.
+ */
 export const Edge: SC<EdgeOptions> = (options) => {
   const { ...style } = options;
   return (points, value, coordinate, theme) => {

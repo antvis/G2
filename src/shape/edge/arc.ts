@@ -8,6 +8,14 @@ import { ShapeComponent as SC } from '../../runtime';
 
 export type ArcOptions = Record<string, any>;
 
+/**
+ * Connect points by rules:
+ * - when 2 points in rect, draw half circle.
+ * - when 2 points in polar, draw quadratic curve.
+ * todo
+ * - when 4 points in rect, draw ribbon used in Sankey.
+ * - when 4 points in polar, draw arc used in Chord.
+ */
 export const Arc: SC<ArcOptions> = (options) => {
   const { ...style } = options;
   return (points, value, coordinate, theme) => {

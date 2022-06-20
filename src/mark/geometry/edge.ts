@@ -5,25 +5,21 @@ import {
   basePostInference,
   basePreInference,
 } from '../utils';
+import { Polygon } from './polygon';
 
 export type EdgeOptions = Omit<EdgeGeometry, 'type'>;
 
 /**
  * Convert value for each channel to edge shapes.
+ *
+ * input:
+ *  X: [x0, x1, x2, x3, ...]
+ *  Y: [y0, y1, y2, y3, ...]
+ * output:
+ *  [P0, P1, P2, P3, ...]
  */
-export const Edge: MC<EdgeOptions> = () => {
-  return (index, scale, value, coordinate) => {
-    const { x: X, y: Y, x1: X1, y1: Y1 } = value;
-
-    const xoffset = scale.x?.getBandWidth?.() || 0;
-
-    const P = index.map((i) => [
-      coordinate.map([+X[i] + xoffset / 2, +Y[i]]) as Vector2,
-      coordinate.map([+X1[i] + xoffset / 2, +Y1[i]]) as Vector2,
-    ]);
-
-    return [index, P];
-  };
+export const Edge: MC<EdgeOptions> = (...args) => {
+  return Polygon(...args);
 };
 
 Edge.props = {
@@ -39,5 +35,5 @@ Edge.props = {
     { type: 'maybeTitleX' },
     { type: 'maybeTooltipY' },
   ],
-  shapes: ['edge', 'smoothEdge'],
+  shapes: ['edge', 'arc', 'smoothEdge', 'ribbon'],
 };
