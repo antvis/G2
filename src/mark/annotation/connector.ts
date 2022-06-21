@@ -5,12 +5,12 @@ import {
 } from '../utils';
 import { MarkComponent as MC } from '../../runtime';
 import { AnnotationConnector } from '../../spec';
-import { Edge } from '../geometry/edge';
+import { Link } from '../geometry/link';
 
 export type ConnectorOptions = Omit<AnnotationConnector, 'type'>;
 
-export const Connector: MC<ConnectorOptions> = () => {
-  return Edge();
+export const Connector: MC<ConnectorOptions> = (...args) => {
+  return Link(...args);
 };
 
 Connector.props = {

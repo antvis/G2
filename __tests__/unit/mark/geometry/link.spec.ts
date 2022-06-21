@@ -1,10 +1,10 @@
-import { Polygon } from '../../../../src/mark/geometry';
+import { Link } from '../../../../src/mark/geometry';
 import { plot } from '../helper';
 
-describe('Polygon', () => {
-  it('Polygon has expected props', () => {
-    expect(Polygon.props).toEqual({
-      defaultShape: 'polygon',
+describe('Link', () => {
+  it('Link has expected props', () => {
+    expect(Link.props).toEqual({
+      defaultShape: 'link',
       channels: [
         { name: 'color' },
         { name: 'shape' },
@@ -24,21 +24,19 @@ describe('Polygon', () => {
         { type: 'maybeTitleX' },
         { type: 'maybeTooltipY' },
       ],
-      shapes: ['polygon'],
+      shapes: ['link'],
     });
   });
 
-  it('Polygon should draw basic polygon', () => {
+  it('Link should draw basic link', () => {
     const [I, P] = plot({
-      mark: Polygon({}),
+      mark: Link({}),
       index: [0, 1],
       channel: {
         x: [0.1, 0.2],
-        x1: [0.5, 0.8],
-        x2: [1, 1],
+        x1: [0.9, 0.8],
         y: [0.1, 0.2],
-        y1: [0.9, 0.5],
-        y2: [1, 1],
+        y1: [0.9, 0.8],
       },
     });
 
@@ -46,13 +44,11 @@ describe('Polygon', () => {
     expect(P).toEqual([
       [
         [60, 40],
-        [300, 360],
-        [600, 400],
+        [540, 360],
       ],
       [
         [120, 80],
-        [480, 200],
-        [600, 400],
+        [480, 320],
       ],
     ]);
   });

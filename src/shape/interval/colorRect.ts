@@ -1,10 +1,11 @@
 import { Path } from '@antv/g';
 import { arc } from 'd3-shape';
+import { path as d3path } from 'd3-path';
 import { angle, sub, dist } from '../../utils/vector';
 import { Vector2, ShapeComponent as SC } from '../../runtime';
 import { isTranspose, isPolar } from '../../utils/coordinate';
 import { select } from '../../utils/selection';
-import { applyStyle, polygon } from '../utils';
+import { applyStyle, appendPolygon } from '../utils';
 
 function reorder(points: Vector2[]): Vector2[] {
   const [p0, p1, p2, p3] = points;
@@ -38,7 +39,7 @@ export const ColorRect: SC<ColorRectOptions> = (options) => {
     if (!isPolar(coordinate)) {
       return select(new Path())
         .style('lineWidth', lineWidth)
-        .style('d', polygon(points))
+        .style('d', appendPolygon(d3path(), points).toString())
         .style('stroke', color)
         .style(colorAttribute, color)
         .call(applyStyle, style) // The priority of style is higher than encode value.
