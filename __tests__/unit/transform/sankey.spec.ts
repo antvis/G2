@@ -14,7 +14,7 @@ describe('Sankey', () => {
   const dftOptions = { nodeId: (n) => n.name };
 
   it('Sankey({...}) returns a graph representing sankey layout', async () => {
-    const graph = Sankey(dftOptions)(data);
+    const graph = (await Sankey(dftOptions)({ data })).data;
     expect(graph.nodes.length).toEqual(4);
     expect(graph.links.length).toEqual(4);
     expect(graph.nodes.map((n) => n.name)).toEqual(['n1', 'n2', 'n3', 'n4']);
@@ -33,23 +33,26 @@ describe('Sankey', () => {
     expect(graph.nodes[2].sourceLinks.length).toEqual(0);
   });
 
-  it('Sankey({ nodeAlign: ... })', () => {
-    const graph = Sankey({ ...dftOptions, nodeAlign: 'left' })(data);
+  it('Sankey({ nodeAlign: ... })', async () => {
+    const graph = (await Sankey({ ...dftOptions, nodeAlign: 'left' })({ data }))
+      .data;
     expect(graph.nodes[3].x1).not.toEqual(1);
   });
 
-  it('Sankey({ nodePadding: ..., nodeWidth: ... })', () => {
-    const graph = Sankey({
-      ...dftOptions,
-      nodePadding: 0.1,
-      nodeWidth: 0.01,
-      nodeAlign: 'left',
-    })(data);
+  it('Sankey({ nodePadding: ..., nodeWidth: ... })', async () => {
+    const graph = (
+      await Sankey({
+        ...dftOptions,
+        nodePadding: 0.1,
+        nodeWidth: 0.01,
+        nodeAlign: 'left',
+      })({ data })
+    ).data;
     expect(graph.nodes[0].x1 - graph.nodes[0].x0).toBeCloseTo(0.01);
     expect(graph.nodes[3].y0 - graph.nodes[1].y1).toBeCloseTo(0.1);
   });
 
-  it('Sankey({ nodeDepth: ... })', () => {
+  it('Sankey({ nodeDepth: ... })', async () => {
     const data = {
       nodes: [
         { name: 'n1' },
@@ -66,11 +69,13 @@ describe('Sankey', () => {
         { source: 'n3', target: 'n5', value: 1 },
       ],
     };
-    let graph = Sankey({
-      ...dftOptions,
-      nodeAlign: 'left',
-      nodeDepth: (datum) => datum.depth,
-    })(data);
+    let graph = (
+      await Sankey({
+        ...dftOptions,
+        nodeAlign: 'left',
+        nodeDepth: (datum) => datum.depth,
+      })({ data })
+    ).data;
     expect(graph.nodes.map((n) => n.name)).toEqual([
       'n1',
       'n2',
@@ -81,16 +86,18 @@ describe('Sankey', () => {
     expect(graph.nodes[3].x1).not.toEqual(1);
 
     // config the depth of 'n4' to maxDepth, makes it align the last
-    graph = Sankey({
-      ...dftOptions,
-      nodeAlign: 'left',
-      nodeDepth: (datum, maxDepth) =>
-        datum.name === 'n4' ? maxDepth : datum.depth,
-    })(data);
+    graph = (
+      await Sankey({
+        ...dftOptions,
+        nodeAlign: 'left',
+        nodeDepth: (datum, maxDepth) =>
+          datum.name === 'n4' ? maxDepth : datum.depth,
+      })({ data })
+    ).data;
     expect(graph.nodes[3].x1).toEqual(1);
   });
 
-  it('Sankey({ nodes: ..., links: ...})', () => {
+  it('Sankey({ nodes: ..., links: ...})', async () => {
     const data = {
       names: [{ id: 'Bob' }, { id: 'Carol' }, { id: 'Alice' }],
       edges: [
@@ -99,15 +106,15 @@ describe('Sankey', () => {
       ],
     };
 
-    const graph = Sankey({ nodes: (d) => d.names, links: (d) => d.edges })(
-      data,
-    );
+    const graph = (
+      await Sankey({ nodes: (d) => d.names, links: (d) => d.edges })({ data })
+    ).data;
     expect(graph.nodes.length).toEqual(3);
     expect(graph.links.length).toEqual(2);
     expect(graph.nodes[0].id).toBe('Bob');
   });
 
-  it('Sankey({ nodeSort: ..., linkSort: ...})', () => {
+  it('Sankey({ nodeSort: ..., linkSort: ...})', async () => {
     const data = {
       nodes: [{ id: 'Alice' }, { id: 'Bob' }, { id: 'Carol' }],
       links: [
@@ -115,15 +122,17 @@ describe('Sankey', () => {
         { source: 'Alice', target: 'Carol', value: 2 },
       ],
     };
-    let graph = Sankey({ nodeId: (n) => n.id })(data);
+    let graph = (await Sankey({ nodeId: (n) => n.id })({ data })).data;
     expect(graph.links[0].y0).toBeLessThan(graph.links[1].y0);
     expect(graph.nodes[1].y0).toBeLessThan(graph.nodes[2].y0);
     // link, node sort by value desc
-    graph = Sankey({
-      nodeId: (n) => n.id,
-      linkSort: (a, b) => b.value - a.value,
-      nodeSort: (a, b) => b.value - a.value,
-    })(data);
+    graph = (
+      await Sankey({
+        nodeId: (n) => n.id,
+        linkSort: (a, b) => b.value - a.value,
+        nodeSort: (a, b) => b.value - a.value,
+      })({ data })
+    ).data;
     expect(graph.links[0].y0).not.toBeLessThan(graph.links[1].y0);
     expect(graph.nodes[1].y0).not.toBeLessThan(graph.nodes[2].y0);
   });

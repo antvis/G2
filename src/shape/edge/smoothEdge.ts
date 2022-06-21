@@ -6,6 +6,9 @@ import { ShapeComponent as SC } from '../../runtime';
 
 export type SmoothEdgeOptions = Record<string, any>;
 
+/**
+ * Connect 2 points with a smooth line, used in tree.
+ */
 export const SmoothEdge: SC<SmoothEdgeOptions> = (options) => {
   const { ...style } = options;
   return (points, value, coordinate, theme) => {

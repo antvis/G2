@@ -13,6 +13,8 @@ export type Transform =
   | ArcTransform
   | WordCloudTransform
   | VoronoiTransform
+  | TreeTransform
+  | ClusterTransform
   | ConnectorTransform
   | StatisticTransform
   | CustomTransform;
@@ -168,6 +170,38 @@ export type ArcTransform = {
   targetWeight?: (edge: any) => number;
   /** Sort method, default: null */
   sortBy?: 'id' | 'weight' | 'frequency' | null | ((a: any, b: any) => number);
+};
+
+/**
+ * Cluster layout options.
+ */
+export type ClusterTransform = {
+  type?: 'cluster';
+  /**
+   * Layout field. Default: 'value'.
+   */
+  field?: string;
+  /**
+   * Sets this cluster layout’s node size to the specified two-element array of numbers [width, height] and returns this cluster layout.
+   * Default: null.
+   */
+  nodeSize?: any;
+  /**
+   * The separation accessor is used to separate neighboring leaves.  Default: (a, b) => a.parent == b.parent ? 1 : 2;
+   */
+  separation?: (a, b) => number;
+  /**
+   * Sort function by compare 2 nodes.
+   */
+  sortBy?: (a, b) => number;
+  /**
+   * Layout infomation saved into fields. Default: ['x', 'y'].
+   */
+  as?: [string, string];
+};
+
+export type TreeTransform = Omit<ClusterTransform, 'type'> & {
+  type?: 'tree';
 };
 
 export type FoldTransform = {

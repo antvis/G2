@@ -1,10 +1,10 @@
-import { Polygon } from '../../../../src/mark/geometry';
+import { Node } from '../../../../src/mark/geometry';
 import { plot } from '../helper';
 
-describe('Polygon', () => {
-  it('Polygon has expected props', () => {
-    expect(Polygon.props).toEqual({
-      defaultShape: 'polygon',
+describe('Node', () => {
+  it('Node has expected props', () => {
+    expect(Node.props).toEqual({
+      defaultShape: 'pointNode',
       channels: [
         { name: 'color' },
         { name: 'shape' },
@@ -17,6 +17,7 @@ describe('Polygon', () => {
         { name: 'tooltip', scale: 'identity', independent: true },
         { name: 'x', required: true },
         { name: 'y', required: true },
+        { name: 'size', required: true },
       ],
       preInference: [{ type: 'maybeArrayField' }],
       postInference: [
@@ -24,13 +25,13 @@ describe('Polygon', () => {
         { type: 'maybeTitleX' },
         { type: 'maybeTooltipY' },
       ],
-      shapes: ['polygon'],
+      shapes: ['pointNode', 'polygonNode'],
     });
   });
 
-  it('Polygon should draw basic polygon', () => {
+  it('Node should draw basic point', () => {
     const [I, P] = plot({
-      mark: Polygon({}),
+      mark: Node({}),
       index: [0, 1],
       channel: {
         x: [0.1, 0.2],

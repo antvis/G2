@@ -109,6 +109,7 @@
     "@antv/scale": "^0.4.7",
     "@antv/util": "^2.0.17",
     "d3-array": "^3.1.1",
+    "d3-hierarchy": "^3.1.2",
     "d3-shape": "^3.1.0",
     "d3-voronoi": "^1.1.4"
   }
