@@ -5,10 +5,6 @@ describe('link', () => {
   it('render({...}) should render basic link', () => {
     const chart = render<G2Spec>({
       type: 'link',
-      data: [
-        { x1: 100, y1: 100, x2: 200, y2: 200 },
-        { x1: 50, y1: 400, x2: 200, y2: 30 },
-      ],
       transform: [
         {
           type: 'fetch',

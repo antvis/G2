@@ -10,13 +10,11 @@ describe('connector', () => {
     ];
 
     const c1 = Connector({ callback: undefined });
-    let r = await c1({ data });
-    expect(r.data).toBe(data);
+    expect((await c1({ data })).data).toBe(data);
 
     const c2 = Connector({
       callback: (d) => d.filter((i) => i.a === 1),
     });
-    r = await c2({ data });
-    expect(r.data).toEqual([{ a: 1, b: 2, c: 3 }]);
+    expect((await c2({ data })).data).toEqual([{ a: 1, b: 2, c: 3 }]);
   });
 });

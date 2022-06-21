@@ -14,7 +14,6 @@ function getPolygonPath(points: Vector2[], coordinate: Coordinate) {
   // In polar, draw arc.
   if (isPolar(coordinate)) {
     const center = coordinate.getCenter();
-
     const closedPoints = [...points, points[0]];
     // Calculate dist array for cache.
     const dists = closedPoints.map((p) => dist(p, center));
@@ -24,9 +23,7 @@ function getPolygonPath(points: Vector2[], coordinate: Coordinate) {
         path.moveTo(curr[0], curr[1]);
         return;
       }
-
       const currDist = dists[idx];
-
       const prev = points[idx - 1];
       const prevDist = dists[idx - 1];
 
