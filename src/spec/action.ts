@@ -7,6 +7,9 @@ export type Action =
   | SurfacePointSelectionAction
   | HighlightSelectionAction
   | HighlightAction
+  | TriggerInfoSelectionAction
+  | LegendItemSelectionAction
+  | SetItemStateAction
   | PlotAction
   | TooltipAction;
 
@@ -16,6 +19,9 @@ export type ActionTypes =
   | 'elementSelection'
   | 'highlightSelection'
   | 'highlight'
+  | 'triggerInfoSelection'
+  | 'legendItemSelection'
+  | 'setItemState'
   | 'plot'
   | 'tooltip'
   | CustomAction;
@@ -50,6 +56,23 @@ export type ElementSelectionAction = {
   type?: 'elementSelection';
   from?: string;
   filterBy?: 'x' | 'color';
+};
+
+export type TriggerInfoSelectionAction = {
+  type?: 'triggerInfoSelection';
+  multiple?: boolean;
+};
+
+export type LegendItemSelectionAction = {
+  type?: 'legendItemSelection';
+  from?: 'selectedElements' | 'triggerInfo';
+};
+
+export type SetItemStateAction = {
+  type?: 'setItemState';
+  color?: string;
+  items?: string[];
+  state?: string;
 };
 
 export type CustomAction = {

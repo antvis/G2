@@ -7,6 +7,9 @@ import {
   Plot,
   ElementSelection,
   Highlight,
+  LegendItemSelection,
+  TriggerInfoSelection,
+  SetItemState as SetItemStateAction,
 } from '../../../src/interaction/action';
 import {
   MousePosition,
@@ -20,6 +23,9 @@ describe('createInteractionLibrary', () => {
       'action.elementSelection': ElementSelection,
       'action.highlightSelection': HighlightSelection,
       'action.highlight': Highlight,
+      'action.legendItemSelection': LegendItemSelection,
+      'action.triggerInfoSelection': TriggerInfoSelection,
+      'action.setItemState': SetItemStateAction,
       'action.tooltip': Tooltip,
       'action.fisheyeFocus': FisheyeFocus,
       'action.plot': Plot,

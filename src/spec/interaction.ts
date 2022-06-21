@@ -6,6 +6,8 @@ export type Interaction =
   | ElementHighlightInteraction
   | ElementHighlightByXInteraction
   | ElementHighlightByColorInteraction
+  | LegendActiveInteraction
+  | LegendHighlightInteraction
   | TooltipInteraction
   | FisheyeInteraction
   | CustomInteraction;
@@ -15,6 +17,8 @@ export type InteractionTypes =
   | 'elementHighlight'
   | 'elementHighlightByColor'
   | 'elementHighlightByX'
+  | 'legendActive'
+  | 'legendHighlight'
   | 'tooltip'
   | 'fisheye'
   | InteractionComponent;
@@ -37,6 +41,14 @@ export type ElementHighlightByXInteraction = {
 export type ElementHighlightByColorInteraction = {
   type?: 'elementHighlightByColor';
   color?: string;
+};
+
+export type LegendActiveInteraction = {
+  type?: 'legendActive';
+};
+
+export type LegendHighlightInteraction = {
+  type?: 'legendHighlight';
 };
 
 export type TooltipInteraction = {

@@ -105,6 +105,8 @@ import {
   ElementHighlightByColor,
   ElementHighlightByX,
   ElementHighlight,
+  LegendActive,
+  LegendHighlight,
 } from '../../../src/interaction';
 import {
   Layer,
@@ -287,6 +289,8 @@ describe('stdlib', () => {
       'interaction.elementHighlightByColor': ElementHighlightByColor,
       'interaction.tooltip': Tooltip,
       'interaction.fisheye': FisheyeInteraction,
+      'interaction.legendActive': LegendActive,
+      'interaction.legendHighlight': LegendHighlight,
       'composition.layer': Layer,
       'composition.flex': Flex,
       'composition.mark': Mark,
