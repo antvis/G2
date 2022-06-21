@@ -102,6 +102,9 @@ import {
   ElementActive,
   Tooltip,
   Fisheye as FisheyeInteraction,
+  ElementHighlightByColor,
+  ElementHighlightByX,
+  ElementHighlight,
 } from '../../../src/interaction';
 import {
   Layer,
@@ -279,6 +282,9 @@ describe('stdlib', () => {
       'animation.scaleInY': ScaleInY,
       'animation.fadeIn': FadeIn,
       'interaction.elementActive': ElementActive,
+      'interaction.elementHighlight': ElementHighlight,
+      'interaction.elementHighlightByX': ElementHighlightByX,
+      'interaction.elementHighlightByColor': ElementHighlightByColor,
       'interaction.tooltip': Tooltip,
       'interaction.fisheye': FisheyeInteraction,
       'composition.layer': Layer,

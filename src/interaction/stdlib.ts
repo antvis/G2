@@ -4,6 +4,8 @@ import {
   Tooltip,
   FisheyeFocus,
   Plot,
+  ElementSelection,
+  Highlight,
 } from './action';
 import { MousePosition, TouchPosition } from './interactor';
 import { InteractionLibrary } from './types';
@@ -11,7 +13,9 @@ import { InteractionLibrary } from './types';
 export function createInteractionLibrary(): InteractionLibrary {
   return {
     'action.surfacePointSelection': SurfacePointSelection,
+    'action.elementSelection': ElementSelection,
     'action.highlightSelection': HighlightSelection,
+    'action.highlight': Highlight,
     'action.tooltip': Tooltip,
     'action.fisheyeFocus': FisheyeFocus,
     'action.plot': Plot,

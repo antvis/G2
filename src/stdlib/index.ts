@@ -96,6 +96,9 @@ import {
   ElementActive,
   Tooltip,
   Fisheye as FisheyeInteraction,
+  ElementHighlight,
+  ElementHighlightByX,
+  ElementHighlightByColor,
 } from '../interaction';
 import { Layer, Flex, Mark, View, Rect, Matrix, Circle } from '../composition';
 import { Pack } from '../adjust';
@@ -264,6 +267,9 @@ export function createLibrary(): G2Library {
     'animation.scaleInY': ScaleInY,
     'animation.fadeIn': FadeIn,
     'interaction.elementActive': ElementActive,
+    'interaction.elementHighlight': ElementHighlight,
+    'interaction.elementHighlightByX': ElementHighlightByX,
+    'interaction.elementHighlightByColor': ElementHighlightByColor,
     'interaction.tooltip': Tooltip,
     'interaction.fisheye': FisheyeInteraction,
     'composition.layer': Layer,
