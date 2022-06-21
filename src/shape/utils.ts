@@ -1,4 +1,4 @@
-import { path as d3path, Path as D3Path } from 'd3-path';
+import { Path as D3Path } from 'd3-path';
 import { Primitive, Vector2 } from '../runtime';
 import { angle, dist, sub } from '../utils/vector';
 import { Selection } from '../utils/selection';
@@ -29,15 +29,15 @@ export function applyStyle(
 
 /**
  * Draw polygon path with points.
+ * @param path
  * @param points
  */
-export function polygon(points: Vector2[]) {
-  const path = d3path();
+export function appendPolygon(path: D3Path, points: Vector2[]) {
   points.forEach((p, idx) =>
     idx === 0 ? path.moveTo(p[0], p[1]) : path.lineTo(p[0], p[1]),
   );
   path.closePath();
-  return path.toString();
+  return path;
 }
 
 export type ArrowOptions = {

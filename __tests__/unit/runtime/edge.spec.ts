@@ -198,7 +198,7 @@ describe('edge', () => {
           },
           scale: {
             y: { domain: [0, 1], guide: null },
-            x: { guide: null },
+            x: { domain: [0, 1], guide: null },
             color: { type: 'ordinal', guide: null },
           },
           style: {
@@ -254,7 +254,7 @@ describe('edge', () => {
           },
           scale: {
             y: { domain: [0, 1], guide: null },
-            x: { guide: null },
+            x: { domain: [0, 1], guide: null },
             color: { type: 'ordinal', guide: null },
           },
           style: {
@@ -269,6 +269,11 @@ describe('edge', () => {
               callback: (v) => v.nodes,
             },
           ],
+          scale: {
+            y: { domain: [0, 1], guide: null },
+            x: { domain: [0, 1], guide: null },
+            color: { type: 'ordinal', guide: null },
+          },
           encode: {
             x: 'x',
             y: 'y',

@@ -184,9 +184,9 @@ export function Arc(options?: ArcOptions) {
 
       let offset = 0;
       /* points
-       * 3---2
-       * |   |
-       * 0---1
+       * 0----------2
+       * |          |
+       * 1----------3
        */
       sourceEdges.map((edge) => {
         const w = (edge.sourceWeight / value) * width;
@@ -198,8 +198,8 @@ export function Arc(options?: ArcOptions) {
 
       targetEdges.forEach((edge) => {
         const w = (edge.targetWeight / value) * width;
-        edge.x[2] = node.x[0] + offset;
-        edge.x[3] = node.x[0] + offset + w;
+        edge.x[3] = node.x[0] + offset;
+        edge.x[2] = node.x[0] + offset + w;
 
         offset += w;
       });
