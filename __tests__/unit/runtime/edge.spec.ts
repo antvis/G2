@@ -150,7 +150,7 @@ describe('edge', () => {
           },
         },
         {
-          type: 'point',
+          type: 'node',
           transform: [
             {
               type: 'connector',
@@ -206,7 +206,7 @@ describe('edge', () => {
           },
         },
         {
-          type: 'point',
+          type: 'node',
           transform: [
             {
               type: 'connector',
@@ -218,6 +218,63 @@ describe('edge', () => {
             y: 'y',
             size: 'value',
             color: 'name',
+          },
+        },
+      ],
+    });
+
+    mount(createDiv(), chart);
+  });
+
+  it('render({...}) should render chord diagram', () => {
+    const chart = render<G2Spec>({
+      type: 'view',
+      transform: [
+        {
+          type: 'fetch',
+          url: 'https://gw.alipayobjects.com/os/antfincdn/agVao%26jU5l/miserables.json',
+        },
+        { type: 'arc', y: 1, weight: true },
+      ],
+      coordinate: [{ type: 'polar' }],
+      children: [
+        {
+          type: 'edge',
+          transform: [
+            {
+              type: 'connector',
+              callback: (v) => v.edges,
+            },
+          ],
+          encode: {
+            x: 'x',
+            y: 'y',
+            color: 'source',
+            shape: 'ribbon',
+          },
+          scale: {
+            y: { domain: [0, 1], guide: null },
+            x: { guide: null },
+            color: { type: 'ordinal', guide: null },
+          },
+          style: {
+            opacity: 0.5,
+          },
+        },
+        {
+          type: 'node',
+          transform: [
+            {
+              type: 'connector',
+              callback: (v) => v.nodes,
+            },
+          ],
+          encode: {
+            x: 'x',
+            y: 'y',
+            size: 'value',
+            color: 'name',
+            shape: 'polygon',
           },
         },
       ],

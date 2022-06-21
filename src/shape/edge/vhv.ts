@@ -1,7 +1,7 @@
 import { Path } from '@antv/g';
 import { path as d3path } from 'd3-path';
 import { Coordinate } from '@antv/coord';
-import { applyStyle } from '../utils';
+import { appendArc, applyStyle } from '../utils';
 import { select } from '../../utils/selection';
 import { isTranspose, isPolar } from '../../utils/coordinate';
 import { Vector2, dist, angle, sub } from '../../utils/vector';
@@ -28,22 +28,13 @@ function getVHVPath(
 
   if (isPolar(coordinate)) {
     const center = coordinate.getCenter();
-    const startAngle = angle(sub(center, from)) + Math.PI / 2;
-    const endAngle = angle(sub(center, to)) + Math.PI / 2;
 
     const a = dist(from, center);
     const b = dist(to, center);
-    const raduis = (b - a) * ratio + a;
+    const radius = (b - a) * ratio + a;
 
     path.moveTo(from[0], from[1]);
-    path.arc(
-      center[0],
-      center[1],
-      raduis,
-      startAngle,
-      endAngle,
-      endAngle - startAngle < 0,
-    );
+    appendArc(path, from, to, center, radius);
     path.lineTo(to[0], to[1]);
 
     return path;

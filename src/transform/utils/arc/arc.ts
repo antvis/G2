@@ -1,4 +1,4 @@
-import { group, map, sum } from 'd3-array';
+import { group, sum } from 'd3-array';
 import { error } from '../../../utils/helper';
 import { ArcData, ArcOptions } from './types';
 import * as SortMethods from './sort';

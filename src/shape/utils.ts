@@ -1,6 +1,6 @@
-import { path as d3path } from 'd3-path';
+import { path as d3path, Path as D3Path } from 'd3-path';
 import { Primitive, Vector2 } from '../runtime';
-import { dist } from '../utils/vector';
+import { angle, dist, sub } from '../utils/vector';
 import { Selection } from '../utils/selection';
 
 type A = ['a' | 'A', number, number, number, number, number, number, number];
@@ -86,4 +86,34 @@ export function arrowPoints(
   ];
 
   return [arrow1, arrow2];
+}
+
+/**
+ * Draw arc by from -> to, with center and radius.
+ * @param path
+ * @param from
+ * @param to
+ * @param center
+ * @param radius
+ */
+export function appendArc(
+  path: D3Path,
+  from: Vector2,
+  to: Vector2,
+  center: Vector2,
+  radius: number,
+) {
+  const startAngle = angle(sub(center, from)) + Math.PI / 2;
+  const endAngle = angle(sub(center, to)) + Math.PI / 2;
+
+  path.arc(
+    center[0],
+    center[1],
+    radius,
+    startAngle,
+    endAngle,
+    endAngle - startAngle < 0,
+  );
+
+  return path;
 }

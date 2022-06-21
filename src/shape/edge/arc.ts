@@ -1,6 +1,6 @@
 import { Path } from '@antv/g';
 import { path as d3path } from 'd3-path';
-import { applyStyle } from '../utils';
+import { appendArc, applyStyle } from '../utils';
 import { select } from '../../utils/selection';
 import { isPolar } from '../../utils/coordinate';
 import { angle, dist, mid, sub } from '../../utils/vector';
@@ -9,12 +9,9 @@ import { ShapeComponent as SC } from '../../runtime';
 export type ArcOptions = Record<string, any>;
 
 /**
- * Connect points by rules:
- * - when 2 points in rect, draw half circle.
- * - when 2 points in polar, draw quadratic curve.
- * todo
- * - when 4 points in rect, draw ribbon used in Sankey.
- * - when 4 points in polar, draw arc used in Chord.
+ * Connect points for 2 points:
+ * - In rect, draw half circle.
+ * - In polar, draw quadratic curve.
  */
 export const Arc: SC<ArcOptions> = (options) => {
   const { ...style } = options;
@@ -32,16 +29,7 @@ export const Arc: SC<ArcOptions> = (options) => {
     } else {
       const center = mid(from, to);
       const raduis = dist(from, to) / 2;
-      const startAngle = angle(sub(from, center)) - Math.PI / 2;
-      const endAngle = angle(sub(to, from)) - Math.PI / 2;
-      path.arc(
-        center[0],
-        center[1],
-        raduis,
-        startAngle,
-        endAngle,
-        startAngle < endAngle,
-      );
+      appendArc(path, from, to, center, raduis);
     }
 
     return select(new Path())
