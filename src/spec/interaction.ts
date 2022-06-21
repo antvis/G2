@@ -6,6 +6,7 @@ export type Interaction =
   | ElementHighlightInteraction
   | ElementHighlightByXInteraction
   | ElementHighlightByColorInteraction
+  | ElementListHighlightInteraction
   | LegendActiveInteraction
   | LegendHighlightInteraction
   | TooltipInteraction
@@ -17,6 +18,7 @@ export type InteractionTypes =
   | 'elementHighlight'
   | 'elementHighlightByColor'
   | 'elementHighlightByX'
+  | 'elementListHighlight'
   | 'legendActive'
   | 'legendHighlight'
   | 'tooltip'
@@ -41,6 +43,10 @@ export type ElementHighlightByXInteraction = {
 export type ElementHighlightByColorInteraction = {
   type?: 'elementHighlightByColor';
   color?: string;
+};
+
+export type ElementListHighlightInteraction = {
+  type?: 'elementListHighlight';
 };
 
 export type LegendActiveInteraction = {

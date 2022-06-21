@@ -99,6 +99,7 @@ import {
   ElementHighlight,
   ElementHighlightByX,
   ElementHighlightByColor,
+  ElementListHighlight,
   LegendActive,
   LegendHighlight,
 } from '../interaction';
@@ -272,6 +273,7 @@ export function createLibrary(): G2Library {
     'interaction.elementHighlight': ElementHighlight,
     'interaction.elementHighlightByX': ElementHighlightByX,
     'interaction.elementHighlightByColor': ElementHighlightByColor,
+    'interaction.elementListHighlight': ElementListHighlight,
     'interaction.legendActive': LegendActive,
     'interaction.legendHighlight': LegendHighlight,
     'interaction.tooltip': Tooltip,

@@ -5,6 +5,7 @@ export { ElementActive } from './builtin/elementActive';
 export { Tooltip } from './builtin/tooltip';
 export { Fisheye } from './builtin/fisheye';
 export { ElementHighlight } from './builtin/elementHighlight';
+export { ElementListHighlight } from './builtin/elementListHighlight';
 export { ElementHighlightByX } from './builtin/elementHighlightByX';
 export { ElementHighlightByColor } from './builtin/elementHighlightByColor';
 export { LegendActive } from './builtin/legendActive';
