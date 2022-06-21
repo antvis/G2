@@ -6,13 +6,16 @@ export type Action =
   | CustomAction
   | SurfacePointSelectionAction
   | HighlightSelectionAction
+  | HighlightAction
   | PlotAction
   | TooltipAction;
 
 export type ActionTypes =
   | 'fisheyeFocus'
   | 'surfacePointSelection'
+  | 'elementSelection'
   | 'highlightSelection'
+  | 'highlight'
   | 'plot'
   | 'tooltip'
   | CustomAction;
@@ -30,12 +33,23 @@ export type HighlightSelectionAction = {
   color?: string;
 };
 
+export type HighlightAction = {
+  type?: 'highlight';
+  color?: string;
+};
+
 export type PlotAction = {
   type?: 'plot';
 };
 
 export type TooltipAction = {
   type?: 'tooltip';
+};
+
+export type ElementSelectionAction = {
+  type?: 'elementSelection';
+  from?: string;
+  filterBy?: 'x' | 'color';
 };
 
 export type CustomAction = {
