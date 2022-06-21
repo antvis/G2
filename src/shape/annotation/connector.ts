@@ -12,9 +12,6 @@ import { select } from '../../utils/selection';
 import { ShapeComponent as SC, Vector2 } from '../../runtime';
 import { applyStyle, PathCommand } from '../utils';
 
-// todo: use type define which exported from G.
-type PathCommand = any;
-
 export type ConnectorOptions = ConnectorPathStyleProps & Record<string, any>;
 
 type MarkerStyleProps = {
