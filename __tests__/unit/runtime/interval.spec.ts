@@ -5,7 +5,7 @@ import { SALE_OF_YEAR } from '../../data/sales';
 import { createDiv, mount, unmountAll } from '../../utils/dom';
 
 describe('render', () => {
-  it('render({}) returns a canvas wrapped in HTMLElement with default size', () => {
+  it.skip('render({}) returns a canvas wrapped in HTMLElement with default size', () => {
     const chart = render({
       type: 'interval',
     });
@@ -16,7 +16,7 @@ describe('render', () => {
     expect(canvas.style.height).toBe('480px');
   });
 
-  it('render({width, height}) returns a canvas wrapped in HTMLElement with specified size', () => {
+  it.skip('render({width, height}) returns a canvas wrapped in HTMLElement with specified size', () => {
     const chart = render({
       width: 800,
       height: 200,
