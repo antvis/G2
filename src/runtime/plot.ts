@@ -1,6 +1,6 @@
-import { DisplayObject } from '@antv/g';
+import { DisplayObject, Animation as GAnimation } from '@antv/g';
+import { upperFirst } from '@antv/util';
 import { mapObject } from '../utils/array';
-import { Container } from '../utils/container';
 import { copyAttributes, error, defined, composeAsync } from '../utils/helper';
 import { Selection, select } from '../utils/selection';
 import {
@@ -53,7 +53,7 @@ export async function plot<T extends G2ViewTree>(
   options: T,
   selection: Selection,
   library: G2Library,
-): Promise<void> {
+): Promise<void[]> {
   const [useComposition] = useLibrary<
     G2CompositionOptions,
     CompositionComponent,
@@ -89,6 +89,7 @@ export async function plot<T extends G2ViewTree>(
   const viewNode = new Map<G2ViewDescriptor, G2ViewTree>();
   const nodeState = new Map<G2ViewTree, Map<G2Mark, G2MarkState>>();
   const discovered: G2ViewTree[] = [options];
+  const animations = [];
 
   while (discovered.length) {
     const node = discovered.shift();
@@ -129,12 +130,15 @@ export async function plot<T extends G2ViewTree>(
       // node, which makes sure that composition node can preprocess the
       // data to produce more nodes based on it.
       const n = isMark(node) ? node : await applyTransform(node, library);
-      discovered.push(...transform(n));
+      const N = transform(n);
+      if (Array.isArray(N)) discovered.push(...N);
+      else if (typeof N === 'function') animations.push(N());
     }
   }
 
   // Plot chart.
   const viewContainer = new Map<G2ViewDescriptor, DisplayObject>();
+  const transitions: Promise<void>[] = [];
   selection
     .selectAll('.view')
     .data(views, (d) => d.key)
@@ -146,12 +150,12 @@ export async function plot<T extends G2ViewTree>(
           .attr('id', (view) => view.id)
           .call(applyTranslate)
           .each(function (view) {
-            plotView(view, select(this), library);
+            plotView(view, select(this), transitions, library);
             viewContainer.set(view, this);
           }),
       (update) =>
         update.call(applyTranslate).each(function (view) {
-          plotView(view, select(this), library);
+          plotView(view, select(this), transitions, library);
         }),
       (exit) => exit.remove(),
     );
@@ -173,6 +177,19 @@ export async function plot<T extends G2ViewTree>(
       interaction(target, viewInstances);
     }
   }
+
+  // Plot animations.
+  const { width, height } = options;
+  for (const animation of animations) {
+    setTimeout(async () => {
+      for (const keyframe of animation) {
+        const sizedNode = { width, height, ...keyframe };
+        await plot(sizedNode, selection, library);
+      }
+    }, 0);
+  }
+
+  return Promise.all(transitions);
 }
 
 function applyTranslate(selection: Selection) {
@@ -187,8 +204,9 @@ function createUpdateView(
   library: G2Library,
 ): G2ViewInstance['update'] {
   return async (newOptions) => {
+    const transitions = [];
     const [newView, newChildren] = await initializeView(newOptions, library);
-    plotView(newView, selection, library);
+    plotView(newView, selection, transitions, library);
     for (const child of newChildren) {
       plot(child, selection, library);
     }
@@ -288,19 +306,13 @@ function initializeState(
       // The total count of data (both show and hide)for this facet.
       // This is for unit visualization to sync data domain.
       dataDomain,
-      style = {},
-      animate = {},
     } = mark;
     const { index, channels, defaultShape } = state;
 
     // Transform abstract value to visual value by scales.
     const markScaleInstance = mapObject(scale, useScale);
     Object.assign(scaleInstance, markScaleInstance);
-    const value = Container.of<MarkChannel>(channels)
-      .call(applyScale, markScaleInstance)
-      .call(applyAnimationFunction, index, animate, defaultShape, library)
-      .call(applyShapeFunction, index, style, defaultShape, library)
-      .value();
+    const value = applyScale(channels, markScaleInstance);
 
     // Calc points and transformation for each data,
     // and then transform visual value to visual data.
@@ -356,6 +368,7 @@ function initializeState(
 async function plotView(
   view: G2ViewDescriptor,
   selection: Selection,
+  transitions: Promise<void>[],
   library: G2Library,
 ): Promise<void> {
   const {
@@ -418,8 +431,13 @@ async function plotView(
     );
 
   // Render marks with corresponding data.
-  for (const [{ key }, { data }] of markState.entries()) {
-    const point2d = data.map((d) => d.points);
+  for (const [mark, state] of markState.entries()) {
+    const { data } = state;
+    const { key } = mark;
+    const shapeFunction = createShapeFunction(mark, state, view, library);
+    const enterFunction = createEnterFunction(mark, state, view, library);
+    const updateFunction = createUpdateFunction(mark, state, view, library);
+    const exitFunction = createExitFunction(mark, state, view, library);
     selection
       .select(`#${key}`)
       .selectAll('.element')
@@ -427,28 +445,148 @@ async function plotView(
       .join(
         (enter) =>
           enter
-            .append(({ shape, points, ...v }, i) => {
-              const value = { ...v, index: i };
-              return shape(points, value, coordinate, theme, point2d);
-            })
+            .append(shapeFunction)
             .attr('className', 'element')
-            .each(function ({ enterType: animate, ...v }) {
-              const {
-                enterDelay: delay,
-                enterDuration: duration,
-                enterEasing: easing,
-              } = v;
-              const style = { delay, duration, easing };
-              animate(this, style, coordinate, theme);
+            .each(function (data) {
+              const animation = enterFunction(data, this);
+              appendTransition(transitions, animation);
             }),
         (update) =>
-          update.each(function ({ shape, points, ...v }, i) {
-            const value = { ...v, index: i };
-            const node = shape(points, value, coordinate, theme, point2d);
-            copyAttributes(this, node);
+          update.each(function (data, index) {
+            const node = shapeFunction(data, index);
+            const animation = updateFunction(data, this, node);
+            appendTransition(transitions, animation);
+            if (animation === null) copyAttributes(this, node);
+          }),
+        (exit) =>
+          exit.each(function (data) {
+            const animation = exitFunction(data, this);
+            appendTransition(transitions, animation);
           }),
       );
   }
+}
+
+function createShapeFunction(
+  mark: G2Mark,
+  state: G2MarkState,
+  view: G2ViewDescriptor,
+  library: G2Library,
+): (data: Record<string, any>, index: number) => DisplayObject {
+  const [useShape] = useLibrary<G2ShapeOptions, ShapeComponent, Shape>(
+    'shape',
+    library,
+  );
+  const { defaultShape, data } = state;
+  const point2d = data.map((d) => d.points);
+  const { theme, coordinate } = view;
+  return (data, index) => {
+    const { shape, points, ...v } = data;
+    const value = { ...v, index };
+    const normalizedShape = normalizeOptions(shape || defaultShape);
+    const shapeFunction = useShape(normalizedShape);
+    return shapeFunction(points, value, coordinate, theme, point2d);
+  };
+}
+
+function createAnimationFunction(
+  type: 'enter' | 'exit' | 'update',
+  mark: G2Mark,
+  state: G2MarkState,
+  view: G2ViewDescriptor,
+  library: G2Library,
+): (
+  data: Record<string, any>,
+  from: DisplayObject,
+  to?: DisplayObject,
+) => GAnimation {
+  const [, createShape] = useLibrary<G2ShapeOptions, ShapeComponent, Shape>(
+    'shape',
+    library,
+  );
+  const [useAnimation] = useLibrary<
+    G2AnimationOptions,
+    AnimationComponent,
+    Animation
+  >('animation', library);
+  const { defaultShape } = state;
+  const { theme, coordinate } = view;
+  const upperType = upperFirst(type) as 'Enter' | 'Exit' | 'Update';
+  const key:
+    | 'defaultEnterAnimation'
+    | 'defaultExitAnimation'
+    | 'defaultUpdateAnimation' = `default${upperType}Animation`;
+  const { [key]: defaultAnimation } = createShape(defaultShape).props;
+  const { [type]: animate = {} } = mark.animate || {};
+  const { [type]: defaultEffectTiming = {} } = theme;
+  return (data, from, to?) => {
+    const {
+      [`${type}Type`]: animation,
+      [`${type}Delay`]: delay,
+      [`${type}Duration`]: duration,
+      [`${type}Easing`]: easing,
+    } = data;
+    const options = {
+      type: animation || defaultAnimation,
+      ...animate,
+    };
+    if (!options.type) return null;
+    const animateFunction = useAnimation(options);
+    const value = { delay, duration, easing, to };
+    return animateFunction(from, value, coordinate, defaultEffectTiming);
+  };
+}
+
+function createEnterFunction(
+  mark: G2Mark,
+  state: G2MarkState,
+  view: G2ViewDescriptor,
+  library: G2Library,
+): (
+  data: Record<string, any>,
+  from: DisplayObject,
+  to?: DisplayObject,
+) => GAnimation {
+  return createAnimationFunction('enter', mark, state, view, library);
+}
+
+function createUpdateFunction(
+  mark: G2Mark,
+  state: G2MarkState,
+  view: G2ViewDescriptor,
+  library: G2Library,
+): (
+  data: Record<string, any>,
+  from: DisplayObject,
+  to?: DisplayObject,
+) => GAnimation {
+  return createAnimationFunction('update', mark, state, view, library);
+}
+
+function createExitFunction(
+  mark: G2Mark,
+  state: G2MarkState,
+  view: G2ViewDescriptor,
+  library: G2Library,
+): (
+  data: Record<string, any>,
+  from: DisplayObject,
+  to?: DisplayObject,
+) => GAnimation {
+  return createAnimationFunction('exit', mark, state, view, library);
+}
+
+function appendTransition(transitions: Promise<void>[], animation: GAnimation) {
+  if (animation === null) return;
+  transitions.push(
+    new Promise((resolve) => {
+      const preOnfinish = animation.onfinish;
+      animation.onfinish = () => {
+        preOnfinish?.call(animation);
+        resolve();
+      };
+    }),
+  );
 }
 
 function inferTheme(theme: G2ThemeOptions = { type: 'light' }): G2ThemeOptions {
@@ -518,60 +656,6 @@ function applyMainLayers(selection: Selection, marks: G2Mark[]) {
       (update) => update,
       (exit) => exit.remove(),
     );
-}
-
-function applyAnimationFunction(
-  value: Record<string, any>,
-  index: number[],
-  animate: G2AnimationOptions,
-  defaultShape: string,
-  library: G2Library,
-) {
-  const [, createShape] = useLibrary<G2ShapeOptions, ShapeComponent, Shape>(
-    'shape',
-    library,
-  );
-  const [useAnimation] = useLibrary<
-    G2AnimationOptions,
-    AnimationComponent,
-    Animation
-  >('animation', library);
-
-  const { enterType: ET } = value;
-  const { defaultEnterAnimation } = createShape(defaultShape).props;
-  const { enter = {} } = animate;
-  const { type = defaultEnterAnimation } = enter;
-  const animationFunctions = Array.isArray(ET)
-    ? ET.map((type) => useAnimation({ ...enter, type }))
-    : index.reduce(
-        (ET, i) => ((ET[i] = useAnimation({ ...enter, type })), ET),
-        [],
-      );
-  return { ...value, enterType: animationFunctions };
-}
-
-function applyShapeFunction(
-  value: Record<string, Channel>,
-  index: number[],
-  style: Record<string, any>,
-  defaultShape: string,
-  library: G2Library,
-): {
-  shape: Shape[];
-  [key: string]: Channel | Shape[];
-} {
-  const [useShape] = useLibrary<G2ShapeOptions, ShapeComponent, Shape>(
-    'shape',
-    library,
-  );
-  const { shape } = value;
-  const shapeFunctions = Array.isArray(shape)
-    ? shape.map((type) => useShape({ ...normalizeOptions(type), ...style }))
-    : index.reduce(
-        (S, i) => ((S[i] = useShape({ type: defaultShape, ...style })), S),
-        [],
-      );
-  return { ...value, shape: shapeFunctions };
 }
 
 function normalizeOptions(options: string | Record<string, any>) {

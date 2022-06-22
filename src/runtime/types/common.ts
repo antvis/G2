@@ -16,6 +16,16 @@ export type G2Theme = {
     delay?: number;
     fill?: 'both';
   };
+  exit?: {
+    duration?: number;
+    delay?: number;
+    fill?: 'both';
+  };
+  update?: {
+    duration?: number;
+    delay?: number;
+    fill?: 'both';
+  };
   title?: {
     fill?: string;
     fontSize?: number;

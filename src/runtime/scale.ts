@@ -18,6 +18,7 @@ import {
 } from './types/component';
 import { isPolar } from './coordinate';
 import { useLibrary } from './library';
+import { MarkChannel } from './types/mark';
 
 export function inferScale(
   channel: Channel,
@@ -51,7 +52,7 @@ export function inferScale(
 export function applyScale(
   channels: Channel[],
   scale: Record<string, Scale>,
-): Record<string, Channel> {
+): MarkChannel {
   const scaledValue = {};
   for (const { scaleName, value, name } of channels) {
     const scaleInstance = scale[scaleName];
