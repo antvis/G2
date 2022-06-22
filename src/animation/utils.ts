@@ -2,14 +2,13 @@ import { Container } from '../utils/container';
 import { G2Theme } from '../runtime';
 
 export function effectTiming(
-  theme: G2Theme,
-  style: Record<string, any>,
+  defaults: G2Theme['enter'],
+  value: Record<string, any>,
   options: Record<string, any>,
 ): Record<string, any> {
-  const { enter = {} } = theme;
   return Container.of({})
-    .call(assignDefined, enter)
-    .call(assignDefined, style)
+    .call(assignDefined, defaults)
+    .call(assignDefined, value)
     .call(assignDefined, options)
     .value();
 }
