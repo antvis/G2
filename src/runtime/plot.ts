@@ -181,22 +181,17 @@ export async function plot<T extends G2ViewTree>(
   // Author animations.
   const { width, height } = options;
   for (const nodeGenerator of nodeGenerators) {
-    // Make sure that plot end after both end of transitions for its
-    // own shapes end of a series sub plot in a keyframe composition.
-    // This is for nested keyframe composition.
-    let finish: (value: void | PromiseLike<void>) => void;
-    transitions.push(new Promise((resolve) => (finish = resolve)));
-
     // Delay the rendering of animation keyframe. Different animation
     // created by different nodeGenerator will play in the same time.
-    requestAnimationFrame(async () => {
+    // eslint-disable-next-line no-async-promise-executor
+    const keyframe = new Promise<void>(async (resolve) => {
       for (const node of nodeGenerator) {
         const sizedNode = { width, height, ...node };
         await plot(sizedNode, selection, library);
       }
-      // Resolve promise related to this nodeGenerator.
-      finish();
+      resolve();
     });
+    transitions.push(keyframe);
   }
 
   // Note!!!
