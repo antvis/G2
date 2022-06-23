@@ -18,8 +18,7 @@ export const TriggerInfoSelection: AC<TriggerInfoSelectionOptions> = (
     // todo. Extend more trigger items, includes: axis-label, continuous-legend, scrollbar, slider and so on.
     const activeItem = pathObjects.find((d) => d.className === 'legend-item');
 
-    let { triggerInfo = [] } = shared;
-    if (!multiple) triggerInfo = [];
+    const triggerInfo = multiple ? shared.triggerInfo || [] : [];
     if (activeItem) {
       // todo. Consider axis encode (x or others), and legend encode could be shape, size or others.
       triggerInfo.push({ id: activeItem.id, scaleType: 'color' });
