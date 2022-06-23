@@ -1071,10 +1071,10 @@ export class View extends Base {
     return layer === LAYER.BG
       ? this.backgroundGroup
       : layer === LAYER.MID
-      ? this.middleGroup
-      : layer === LAYER.FORE
-      ? this.foregroundGroup
-      : this.foregroundGroup;
+        ? this.middleGroup
+        : layer === LAYER.FORE
+          ? this.foregroundGroup
+          : this.foregroundGroup;
   }
 
   /**
@@ -1391,7 +1391,19 @@ export class View extends Base {
       }
 
       // 2. 有了 shape 之后设置背景，位置（更新的时候）
-      const { x, y, width, height } = this.viewBBox;
+      const { x, y } = this.viewBBox;
+
+      // slider, scrollbar 的 layout 会让 viewBBox 被剪切 cut 导致使用 viewBBox 获取宽高时重新剪切后的，覆盖不到 slider、scrollbar
+      let width, height;
+      if (this.parent) {
+        const bbox = this.parent.coordinateBBox;
+        width = bbox.width;
+        height = bbox.height;
+      } else {
+        width = this.canvas.get('width');
+        height = this.canvas.get('height');
+      }
+
       this.backgroundStyleRectShape.attr({
         fill: background,
         x,
@@ -1446,8 +1458,8 @@ export class View extends Base {
       this.syncViewPadding === true
         ? defaultSyncViewPadding
         : isFunction(this.syncViewPadding)
-        ? this.syncViewPadding
-        : undefined;
+          ? this.syncViewPadding
+          : undefined;
 
     if (syncViewPaddingFn) {
       syncViewPaddingFn(this, this.views, PaddingCal);
