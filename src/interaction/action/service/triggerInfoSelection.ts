@@ -15,16 +15,17 @@ export const TriggerInfoSelection: AC<TriggerInfoSelectionOptions> = (
   return (context) => {
     const { event, shared } = context;
     const pathObjects = event.composedPath() as DisplayObject[];
-    // todo. Extend more trigger items, includes: continuous-legend, scrollbar, slider and so on.
-    const activeItem = pathObjects.find(
-      (d) => d.className === 'legend-item' || d.className === 'axis-label',
-    );
+    // todo. Extend more trigger items, includes: axis-label, continuous-legend, scrollbar, slider and so on.
+    const activeItem = pathObjects.find((d) => d.className === 'legend-item');
 
-    if (!multiple) shared.triggerInfo = [];
+    let { triggerInfo = [] } = shared;
+    if (!multiple) triggerInfo = [];
     if (activeItem) {
       // todo. Consider axis encode (x or others), and legend encode could be shape, size or others.
-      shared.triggerInfo.push({ id: activeItem.id, scaleType: 'color' });
+      triggerInfo.push({ id: activeItem.id, scaleType: 'color' });
     }
+
+    shared.triggerInfo = triggerInfo;
 
     return context;
   };

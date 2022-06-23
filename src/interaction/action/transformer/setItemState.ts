@@ -21,7 +21,7 @@ export const SetItemState: AC<SetItemStateOptions> = (options) => {
     const { shared, selection } = context;
 
     if (items.includes('legendItem')) {
-      const selectedItems = shared.selectedLegendItems || [];
+      const { selectedLegendItems: selectedItems = [] } = shared;
       const legend = selection.select('.category-legend').node() as Category;
       if (state === 'highlight') {
         highlightLegendItems(legend, selectedItems);
