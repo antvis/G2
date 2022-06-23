@@ -23,6 +23,7 @@ export type ColorRectOptions = {
  * Calc arc path based on control points directly rather startAngle, endAngle, innerRadius,
  * outerRadius. This is not accurate and will cause bug when the range of y scale is [1, 0]
  * for grid geometry.
+ * @todo Radius in rect.
  */
 export const ColorRect: SC<ColorRectOptions> = (options) => {
   // Render border only when colorAttribute is stroke.

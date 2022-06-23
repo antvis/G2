@@ -13,7 +13,7 @@ export const ScaleInY: AC<ScaleInYOptions> = (options) => {
   // but bigger enough to not cause bug.
   const ZERO = 0.0001;
 
-  return (shape, style, coordinate, theme) => {
+  return (shape, value, coordinate, defaults) => {
     const { height } = shape.getBoundingClientRect();
     const { transform: prefix } = shape.style;
     const [transformOrigin, transform]: [[number, number], string] =
@@ -45,7 +45,7 @@ export const ScaleInY: AC<ScaleInYOptions> = (options) => {
 
     const animation = shape.animate(
       keyframes,
-      effectTiming(theme, style, options),
+      effectTiming(defaults, value, options),
     );
 
     // Reset transform origin to eliminate side effect for following animations.

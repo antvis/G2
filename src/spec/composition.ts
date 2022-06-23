@@ -13,7 +13,8 @@ export type Node =
   | FlexComposition
   | MatrixComposition
   | RectComposition
-  | CircleComposition;
+  | CircleComposition
+  | KeyframeComposition;
 
 export type MarkComposition = Geometry & {
   title?: Title;
@@ -113,4 +114,13 @@ export type CircleComposition = {
     y?: Scale;
   };
   children?: Node[] | ((facet: FacetContext) => Node);
+};
+
+export type KeyframeComposition = {
+  type?: 'keyframe';
+  duration?: number;
+  easing?: string;
+  iterationCount?: 'infinite' | number;
+  direction?: 'normal' | 'reverse' | 'alternate' | 'reverse-alternate';
+  children?: Node[];
 };
