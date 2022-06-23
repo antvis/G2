@@ -89,7 +89,7 @@ export async function plot<T extends G2ViewTree>(
   const viewNode = new Map<G2ViewDescriptor, G2ViewTree>();
   const nodeState = new Map<G2ViewTree, Map<G2Mark, G2MarkState>>();
   const discovered: G2ViewTree[] = [options];
-  const animations = [];
+  const nodeGenerators: Generator<G2ViewTree, void, void>[] = [];
 
   while (discovered.length) {
     const node = discovered.shift();
@@ -132,7 +132,7 @@ export async function plot<T extends G2ViewTree>(
       const n = isMark(node) ? node : await applyTransform(node, library);
       const N = transform(n);
       if (Array.isArray(N)) discovered.push(...N);
-      else if (typeof N === 'function') animations.push(N());
+      else if (typeof N === 'function') nodeGenerators.push(N());
     }
   }
 
@@ -178,17 +178,31 @@ export async function plot<T extends G2ViewTree>(
     }
   }
 
-  // Plot animations.
+  // Author animations.
   const { width, height } = options;
-  for (const animation of animations) {
-    setTimeout(async () => {
-      for (const keyframe of animation) {
-        const sizedNode = { width, height, ...keyframe };
+  for (const nodeGenerator of nodeGenerators) {
+    // Make sure that plot end after both end of transitions for its
+    // own shapes end of a series sub plot in a keyframe composition.
+    // This is for nested keyframe composition.
+    let finish: (value: void | PromiseLike<void>) => void;
+    transitions.push(new Promise((resolve) => (finish = resolve)));
+
+    // Delay the rendering of animation keyframe. Different animation
+    // created by different nodeGenerator will play in the same time.
+    requestAnimationFrame(async () => {
+      for (const node of nodeGenerator) {
+        const sizedNode = { width, height, ...node };
         await plot(sizedNode, selection, library);
       }
-    }, 0);
+      // Resolve promise related to this nodeGenerator.
+      finish();
+    });
   }
 
+  // Note!!!
+  // The returned promise will never resolved if one of nodeGenerator
+  // never stop to yield node, which may created by a keyframe composition
+  // with iteration count set to infinite.
   return Promise.all(transitions);
 }
 

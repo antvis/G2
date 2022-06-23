@@ -2,7 +2,7 @@ import { Container } from '../utils/container';
 import { G2Theme } from '../runtime';
 
 export function effectTiming(
-  defaults: G2Theme['enter'],
+  defaults: G2Theme['enter' | 'exit' | 'update'],
   value: Record<string, any>,
   options: Record<string, any>,
 ): Record<string, any> {

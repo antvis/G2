@@ -8,11 +8,11 @@ function range(
   direction: KeyframeComposition['direction'],
   iterationCount: number,
   keyframeCount: number,
-) {
+): [number, number] {
   const start = 0;
   const end = keyframeCount;
-  const normal = [start, end];
-  const reverse = [-end + 1, -start + 1];
+  const normal: [number, number] = [start, end];
+  const reverse: [number, number] = [-end + 1, -start + 1];
   if (direction === 'normal') return normal;
   if (direction === 'reverse') return reverse;
   if (direction === 'alternate') {
@@ -24,7 +24,7 @@ function range(
 }
 
 /**
- * @todo More options, such as fill, totalCount...
+ * @todo More options, such as fill, totalDuration...
  */
 export const Keyframe: CC<KeyframeOptions> = () => {
   return (options) => {
@@ -33,6 +33,7 @@ export const Keyframe: CC<KeyframeOptions> = () => {
       duration = 1000,
       iterationCount = 1,
       direction = 'normal',
+      easing = 'ease-in-out-sine',
     } = options;
     const n = children.length;
     if (!Array.isArray(children) || n === 0) return [];
@@ -45,7 +46,7 @@ export const Keyframe: CC<KeyframeOptions> = () => {
             update: {
               duration,
               type: 'morphing',
-              easing: 'ease-in-out-sine',
+              easing,
               fill: 'both',
             },
             exit: { duration },
@@ -63,9 +64,13 @@ export const Keyframe: CC<KeyframeOptions> = () => {
       while (iterationCount === 'infinite' || count < iterationCount) {
         const [start, end] = range(direction, count, n);
         for (let i = start; i < end; i += 1) {
-          const node = newChildren[Math.abs(i)];
-          if (Math.abs(i) !== Math.abs(prevIndex)) yield node;
-          prevIndex = i;
+          // For reverse direction, the range is from negative to negative
+          // so the absolute value of i is the real index for newChildren.
+          const index = Math.abs(i);
+          // This is for preventing alternate or reverse-alternate keyframe
+          // to yield two same node one by one when the direction change.
+          if (prevIndex !== index) yield newChildren[index];
+          prevIndex = index;
         }
         count++;
       }

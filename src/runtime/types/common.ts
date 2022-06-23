@@ -14,17 +14,17 @@ export type G2Theme = {
   enter?: {
     duration?: number;
     delay?: number;
-    fill?: 'both';
+    fill?: string;
   };
   exit?: {
     duration?: number;
     delay?: number;
-    fill?: 'both';
+    fill?: string;
   };
   update?: {
     duration?: number;
     delay?: number;
-    fill?: 'both';
+    fill?: string;
   };
   title?: {
     fill?: string;

@@ -178,7 +178,7 @@ export type Animation = (
   shape: DisplayObject,
   style: Record<string, any>,
   coordinate: Coordinate,
-  defaults: G2Theme['enter'],
+  defaults: G2Theme['enter' | 'exit' | 'enter'],
 ) => GAnimation;
 export type AnimationComponent<O = Record<string, unknown>> = G2BaseComponent<
   Animation,
@@ -196,9 +196,7 @@ export type InteractionComponent<O = Record<string, unknown>> = G2BaseComponent<
 
 export type Composition = (
   children: G2ViewTree,
-) =>
-  | G2ViewTree[]
-  | (() => Generator<(callback: any) => Promise<void>, void, unknown>);
+) => G2ViewTree[] | (() => Generator<G2ViewTree, void, void>);
 export type CompositionComponent<O = Record<string, unknown>> = G2BaseComponent<
   Composition,
   O

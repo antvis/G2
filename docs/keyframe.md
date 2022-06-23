@@ -4,9 +4,9 @@
 
 Keyframe composition provide a convent mechanism to author storytelling. It can be declared as simple as css animation, expect the object which applied animation change from a simple shape to a chart. It support following options for keyframe composition.
 
-- _duration_ - the duration for each frame 
-- _iterationCount_ the play count for the animation, which can be a number of *infinite*
-- _direction_ - the play direction for the animation, which can be *normal*, *reverse*, *alternate*, *reverse-alternate*
+- _duration_ - the duration for each frame
+- _iterationCount_ the play count for the animation, which can be a number of _infinite_
+- _direction_ - the play direction for the animation, which can be _normal_, _reverse_, _alternate_, _reverse-alternate_
 - _easing_ - the easing function for each frame
 
 ## One to One
@@ -312,6 +312,20 @@ Keyframe composition provide a convent mechanism to author storytelling. It can 
     iterationCount: 2,
     children: [
       {
+        type: 'point',
+        data,
+        scale: {
+          x: { guide: null, padding: 0.5 },
+          y: { guide: null },
+        },
+        encode: {
+          x: 'genre',
+          key: 'genre',
+          color: 'orange',
+          size: 50,
+        },
+      },
+      {
         type: 'interval',
         data,
         encode: {
@@ -353,6 +367,20 @@ Keyframe composition provide a convent mechanism to author storytelling. It can 
     direction: 'reverse-alternate',
     iterationCount: 2,
     children: [
+      {
+        type: 'point',
+        data,
+        scale: {
+          x: { guide: null, padding: 0.5 },
+          y: { guide: null },
+        },
+        encode: {
+          x: 'genre',
+          key: 'genre',
+          color: 'orange',
+          size: 50,
+        },
+      },
       {
         type: 'interval',
         data,
