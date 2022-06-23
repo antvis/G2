@@ -45,7 +45,9 @@ export type ScaleTypes =
 export type BaseScale<T extends ScaleTypes, O> = {
   type?: T;
   palette?: Palette;
-  guide?: Record<string, any>; // @todo
+  // @todo More specific options.
+  // @todo Remove null as it can be stored in JSON.
+  guide?: Record<string, any> | null;
   field?: string | string[];
   independent?: boolean;
   zero?: boolean;

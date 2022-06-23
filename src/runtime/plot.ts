@@ -489,11 +489,12 @@ function createShapeFunction(
   const { defaultShape, data } = state;
   const point2d = data.map((d) => d.points);
   const { theme, coordinate } = view;
+  const { style } = mark;
   return (data, index) => {
     const { shape, points, ...v } = data;
     const value = { ...v, index };
     const normalizedShape = normalizeOptions(shape || defaultShape);
-    const shapeFunction = useShape(normalizedShape);
+    const shapeFunction = useShape({ ...normalizedShape, ...style });
     return shapeFunction(points, value, coordinate, theme, point2d);
   };
 }
