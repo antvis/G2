@@ -97,7 +97,7 @@ import {
   LegendContinuous,
   TitleComponent,
 } from '../component';
-import { ScaleInY, FadeIn } from '../animation';
+import { ScaleInY, FadeIn, Morphing } from '../animation';
 import {
   ElementActive,
   Tooltip,
@@ -106,7 +106,16 @@ import {
   ElementHighlightByX,
   ElementHighlightByColor,
 } from '../interaction';
-import { Layer, Flex, Mark, View, Rect, Matrix, Circle } from '../composition';
+import {
+  Layer,
+  Flex,
+  Mark,
+  View,
+  Rect,
+  Matrix,
+  Circle,
+  Keyframe,
+} from '../composition';
 import { Pack } from '../adjust';
 import {
   MaybeTitleX,
@@ -282,6 +291,7 @@ export function createLibrary(): G2Library {
     'component.title': TitleComponent,
     'animation.scaleInY': ScaleInY,
     'animation.fadeIn': FadeIn,
+    'animation.morphing': Morphing,
     'interaction.elementActive': ElementActive,
     'interaction.elementHighlight': ElementHighlight,
     'interaction.elementHighlightByX': ElementHighlightByX,
@@ -295,6 +305,7 @@ export function createLibrary(): G2Library {
     'composition.rect': Rect,
     'composition.matrix': Matrix,
     'composition.circle': Circle,
+    'composition.keyframe': Keyframe,
     'adjust.pack': Pack,
   };
 }

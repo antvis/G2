@@ -31,8 +31,9 @@
       "Spatial": "spatial",
       "Rect": "rect",
       "Matrix": "matrix",
+      "More": "more-composition",
       "Unit": "unit",
-      "More": "more-composition"
+      "Keyframe": "keyframe"
     },
     "Theme": "theme"
   },

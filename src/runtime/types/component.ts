@@ -144,7 +144,9 @@ export type Shape = (
   point2d?: Vector2[][],
 ) => DisplayObject;
 export type ShapeProps = {
-  defaultEnterAnimation: string;
+  defaultEnterAnimation?: string;
+  defaultUpdateAnimation?: string;
+  defaultExitAnimation?: string;
 };
 export type ShapeComponent<O = Record<string, unknown>> = G2BaseComponent<
   Shape,
@@ -176,7 +178,7 @@ export type Animation = (
   shape: DisplayObject,
   style: Record<string, any>,
   coordinate: Coordinate,
-  theme: G2Theme,
+  defaults: G2Theme['enter' | 'exit' | 'enter'],
 ) => GAnimation;
 export type AnimationComponent<O = Record<string, unknown>> = G2BaseComponent<
   Animation,
@@ -192,7 +194,9 @@ export type InteractionComponent<O = Record<string, unknown>> = G2BaseComponent<
   O
 >;
 
-export type Composition = (children: G2ViewTree) => G2ViewTree[];
+export type Composition = (
+  children: G2ViewTree,
+) => G2ViewTree[] | (() => Generator<G2ViewTree, void, void>);
 export type CompositionComponent<O = Record<string, unknown>> = G2BaseComponent<
   Composition,
   O

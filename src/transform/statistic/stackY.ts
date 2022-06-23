@@ -47,7 +47,7 @@ export const StackY: TC<StackYOptions> = (options = {}) => {
     return {
       encode: {
         y: column(field(V, Y)),
-        y1: column(newY1),
+        y1: column(field(newY1, Y1)),
       },
     };
   });

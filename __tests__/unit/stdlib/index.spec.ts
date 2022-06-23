@@ -103,7 +103,7 @@ import {
   LegendContinuous,
   TitleComponent,
 } from '../../../src/component';
-import { ScaleInY, FadeIn } from '../../../src/animation';
+import { ScaleInY, FadeIn, Morphing } from '../../../src/animation';
 import {
   ElementActive,
   Tooltip,
@@ -120,6 +120,7 @@ import {
   Rect,
   Matrix,
   Circle,
+  Keyframe,
 } from '../../../src/composition';
 import { Pack } from '../../../src/adjust';
 import {
@@ -297,6 +298,7 @@ describe('stdlib', () => {
       'component.title': TitleComponent,
       'animation.scaleInY': ScaleInY,
       'animation.fadeIn': FadeIn,
+      'animation.morphing': Morphing,
       'interaction.elementActive': ElementActive,
       'interaction.elementHighlight': ElementHighlight,
       'interaction.elementHighlightByX': ElementHighlightByX,
@@ -305,6 +307,7 @@ describe('stdlib', () => {
       'interaction.fisheye': FisheyeInteraction,
       'composition.layer': Layer,
       'composition.flex': Flex,
+      'composition.keyframe': Keyframe,
       'composition.mark': Mark,
       'composition.matrix': Matrix,
       'composition.view': View,
