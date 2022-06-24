@@ -19,6 +19,11 @@ export function waveIn(element: IShape | IGroup, animateCfg: GAnimateCfg, cfg: A
     attrs: startState,
   }) as IShape; // 为 shape 设置剪切区域
 
+  // 更新 动画 获取了 toAttrs 需要重新更新上去
+  if (cfg.toAttrs) {
+    element.attr(cfg.toAttrs);
+  }
+
   // 对剪切图形做动画
   clipShape.animate(endState, {
     ...animateCfg,
