@@ -17,7 +17,7 @@ export {
 export {
   HighlightSelection,
   HighlightSelectionOptions,
-} from './transformer/highlightSelection';
+} from './transformer/activeElement';
 export {
   HighlightElement,
   HighlightOption,

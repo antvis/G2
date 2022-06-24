@@ -5,7 +5,7 @@ export type Action =
   | FisheyeFocusAction
   | CustomAction
   | SurfacePointSelectionAction
-  | HighlightSelectionAction
+  | ActiveElementAction
   | HighlightElementAction
   | TriggerInfoSelectionAction
   | LegendItemSelectionAction
@@ -17,7 +17,7 @@ export type ActionTypes =
   | 'fisheyeFocus'
   | 'surfacePointSelection'
   | 'elementSelection'
-  | 'highlightSelection'
+  | 'activeElement'
   | 'highlightElement'
   | 'triggerInfoSelection'
   | 'legendItemSelection'
@@ -34,8 +34,8 @@ export type SurfacePointSelectionAction = {
   type?: 'surfacePointSelection';
 };
 
-export type HighlightSelectionAction = {
-  type?: 'highlightSelection';
+export type ActiveElementAction = {
+  type?: 'activeElement';
   color?: string;
 };
 

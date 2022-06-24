@@ -10,7 +10,7 @@ export const InteractionDescriptor = (options?: ElementActiveOptions) => ({
       trigger: 'hover',
       action: [
         { type: 'surfacePointSelection' },
-        { type: 'highlightSelection', ...options },
+        { type: 'activeElement', ...options },
       ],
     },
   ],
@@ -19,7 +19,7 @@ export const InteractionDescriptor = (options?: ElementActiveOptions) => ({
       trigger: 'leave',
       action: [
         { type: 'surfacePointSelection' },
-        { type: 'highlightSelection', ...options },
+        { type: 'activeElement', ...options },
       ],
     },
   ],

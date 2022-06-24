@@ -17,7 +17,7 @@ export function createInteractionLibrary(): InteractionLibrary {
   return {
     'action.surfacePointSelection': SurfacePointSelection,
     'action.elementSelection': ElementSelection,
-    'action.highlightSelection': HighlightSelection,
+    'action.activeElement': HighlightSelection,
     'action.highlightElement': HighlightElement,
     'action.legendItemSelection': LegendItemSelection,
     'action.triggerInfoSelection': TriggerInfoSelection,
