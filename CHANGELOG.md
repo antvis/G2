@@ -1,3 +1,11 @@
+#### 4.2.4 (2022-06-24)
+
+##### Bug Fixes
+
+* **axis-label:**  修复 axis-label tooltip 移开没有 hide 的问题 ([#4002](https://github.com/antvis/g2/pull/4002)) ([a6dce615](https://github.com/antvis/g2/commit/a6dce61579a81636a6138e06628ed43d01d5d6f9))
+* **view:**  修复 view 更新时, tooltip 依赖 coordinate 更新位置导致 crosshairs 位置错位 ([#4001](https://github.com/antvis/g2/pull/4001)) ([ce457851](https://github.com/antvis/g2/commit/ce457851ba9bbc4fe017ddc76b32159d1b2b195d))
+* **animate waveIn:**  修复 waveIn 动画 最后没有给 element 附上更新后样式的问题 ([#4000](https://github.com/antvis/g2/pull/4000)) ([beb97663](https://github.com/antvis/g2/commit/beb976638c84ef51a8208b486aefe8febde88628))
+
 #### 4.2.3 (2022-06-15)
 
 ##### New Features
