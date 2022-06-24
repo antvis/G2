@@ -1427,6 +1427,10 @@ export class View extends Base {
     this.coordinateBBox = this.viewBBox.shrink(this.autoPadding.getPadding());
     this.adjustCoordinate();
 
+    // 刷新 tooltip (tooltip crosshairs 依赖 coordinate 位置)
+    const tooltipController = this.controllers.find((c) => c.name === 'tooltip');
+    tooltipController.update();
+
     // 同样递归处理子 views
     const views = this.views;
     for (let i = 0, len = views.length; i < len; i++) {
