@@ -1,0 +1,33 @@
+name: Site deploy
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # change to macOS-latest if need to run ci/test
+    steps:
+      - uses: actions/checkout@v2
+      - run: yarn install
+      - run: npm run lint
+
+  publish-site:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: yarn install
+      - run: npm run site:build
+      - run: |
+          cd public
+          git init
+          git config --local user.name antv
+          git config --local user.email antv@antfin.com
+          git add .
+          git commit -m "update by release action"
+      - uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{secrets.PERSONAL_ACCESS_TOKEN}}
+          directory: public
+          branch: gh-pages
+          force: true

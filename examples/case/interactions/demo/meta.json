@@ -1,0 +1,17 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "drag-point.ts",
+      "title": {
+        "zh": "拖拽点交互",
+        "en": "Drag point"
+      },
+      "new": true,
+      "screenshot": ""
+    }
+  ]
+}
