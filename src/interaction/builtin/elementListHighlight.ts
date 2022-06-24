@@ -14,7 +14,7 @@ export const InteractionDescriptor = (
       trigger: 'plot:pointermove',
       action: [
         { type: 'elementSelection' },
-        { type: 'highlight', ...options },
+        { type: 'highlightElement', ...options },
         { type: 'legendItemSelection', from: 'selectedElements' },
         { type: 'setItemState', items: ['legendItem'], state: 'highlight' },
       ],
@@ -25,7 +25,7 @@ export const InteractionDescriptor = (
       trigger: 'plot:pointerleave',
       action: [
         { type: 'elementSelection' },
-        { type: 'highlight', ...options },
+        { type: 'highlightElement', ...options },
         { type: 'legendItemSelection', from: 'selectedElements' },
         { type: 'setItemState', items: ['legendItem'], state: 'highlight' },
       ],

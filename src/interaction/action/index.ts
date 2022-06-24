@@ -18,7 +18,10 @@ export {
   HighlightSelection,
   HighlightSelectionOptions,
 } from './transformer/highlightSelection';
-export { Highlight, HighlightOption } from './transformer/highlight';
+export {
+  HighlightElement,
+  HighlightOption,
+} from './transformer/highlightElement';
 export { Tooltip, TooltipOptions } from './transformer/tooltip';
 export { Plot, PlotOptions } from './transformer/plot';
 export { SetItemState, SetItemStateOptions } from './transformer/setItemState';

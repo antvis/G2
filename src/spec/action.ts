@@ -6,7 +6,7 @@ export type Action =
   | CustomAction
   | SurfacePointSelectionAction
   | HighlightSelectionAction
-  | HighlightAction
+  | HighlightElementAction
   | TriggerInfoSelectionAction
   | LegendItemSelectionAction
   | SetItemStateAction
@@ -18,7 +18,7 @@ export type ActionTypes =
   | 'surfacePointSelection'
   | 'elementSelection'
   | 'highlightSelection'
-  | 'highlight'
+  | 'highlightElement'
   | 'triggerInfoSelection'
   | 'legendItemSelection'
   | 'setItemState'
@@ -39,8 +39,8 @@ export type HighlightSelectionAction = {
   color?: string;
 };
 
-export type HighlightAction = {
-  type?: 'highlight';
+export type HighlightElementAction = {
+  type?: 'highlightElement';
   color?: string;
 };
 

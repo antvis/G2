@@ -1,7 +1,7 @@
 import { ActionComponent as AC } from '../../types';
-import { HighlightAction } from '../../../spec';
+import { HighlightElementAction } from '../../../spec';
 
-export type HighlightOption = Omit<HighlightAction, 'type'>;
+export type HighlightOption = Omit<HighlightElementAction, 'type'>;
 
 function applyHighlightStyle(element, datum, data, color: string) {
   if (data.includes(datum)) {
@@ -14,7 +14,7 @@ function applyHighlightStyle(element, datum, data, color: string) {
   }
 }
 
-export const Highlight: AC<HighlightOption> = (options) => {
+export const HighlightElement: AC<HighlightOption> = (options) => {
   return (context) => {
     const { shared, selection, theme, selectionLayer } = context;
     const { selectedElements = [] } = shared;
@@ -51,4 +51,4 @@ export const Highlight: AC<HighlightOption> = (options) => {
   };
 };
 
-Highlight.props = {};
+HighlightElement.props = {};
