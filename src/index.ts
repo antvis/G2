@@ -343,6 +343,7 @@ registerInteraction('ellipsis-text', {
     { trigger: 'legend-item-name:mouseleave', action: 'ellipsis-text:hide' },
     { trigger: 'legend-item-name:touchend', action: 'ellipsis-text:hide' },
     { trigger: 'axis-label:mouseleave', action: 'ellipsis-text:hide' },
+    { trigger: 'axis-label:mouseout', action: 'ellipsis-text:hide' },
     { trigger: 'axis-label:touchend', action: 'ellipsis-text:hide' },
   ],
 });
