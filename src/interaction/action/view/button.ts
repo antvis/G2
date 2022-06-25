@@ -1,7 +1,7 @@
 import { LooseObject } from '../../../interface';
 import { IGroup } from '@antv/g-base';
 import { ext } from '@antv/matrix-util';
-import { deepMix } from '@antv/util';
+import { deepMix, get } from '@antv/util';
 import { parsePadding } from '../../../util/padding';
 import Action from '../base';
 const PADDING_RIGHT = 10;
@@ -35,7 +35,9 @@ class ButtonAction extends Action {
   };
   // mix 默认的配置和用户配置
   private getButtonCfg(): LooseObject {
-    return deepMix(this.buttonCfg, this.cfg);
+    const customOptions = this.context.view.getOptions();
+    const customBtnCfg = get(customOptions, 'button', {});
+    return deepMix(this.buttonCfg, this.cfg, customBtnCfg);
   }
   // 绘制 Button 和 文本
   private drawButton() {

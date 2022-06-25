@@ -15,6 +15,12 @@ const chart = new Chart({
   container: 'container',
   autoFit: true,
   height: 500,
+  options: {
+    button: {
+      name: 'reset-button',
+      text: '重置'
+    }
+  }
 });
 
 chart.data(data);
