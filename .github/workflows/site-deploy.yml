@@ -21,10 +21,10 @@ jobs:
       - run: |
           cd public
           git init
-          git config --local user.name antv
-          git config --local user.email antv@antfin.com
+          git config --local user.name "antv"
+          git config --local user.email "antv@antfin.com"
           git add .
-          git commit -m "update by release action"
+          git commit -m "update by manual workflow dispatch"
       - uses: ad-m/github-push-action@master
         with:
           github_token: ${{secrets.PERSONAL_ACCESS_TOKEN}}
