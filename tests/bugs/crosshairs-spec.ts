@@ -106,9 +106,6 @@ describe('Crosshairs', () => {
     chart.tooltip({
       showCrosshairs: true,
       shared: true,
-      crosshairs: {
-        inCoordinate: true,
-      },
     });
     chart.data(data);
     chart.line().position('Date*value');
@@ -121,6 +118,6 @@ describe('Crosshairs', () => {
     const tooltip = chart.getController('tooltip');
     // @ts-ignore
     const xCrosshairs = tooltip.xCrosshair;
-    expect(!!xCrosshairs).toBe(false);
+    expect(!!xCrosshairs).toBe(true);
   });
 });
