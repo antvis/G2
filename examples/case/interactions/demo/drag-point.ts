@@ -102,8 +102,9 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/blockchain.json')
 
     chart.tooltip({ showCrosshairs: true, showMarkers: false });
 
+    let newData = data;
     chart.on('dragend', ({ changedDatum }) => {
-      const newData = data.map((d) => {
+      newData = newData.map((d) => {
         if (d.date === changedDatum.date) {
           return changedDatum;
         }
