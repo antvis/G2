@@ -24,9 +24,8 @@
       "filename": "legend-focus.ts",
       "title": {
         "zh": "图例聚焦单选模式",
-        "en": "Legeng focus mode"
+        "en": "Legend focus mode"
       },
-      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/TRgIGLQ3u9/legend-focus.gif"
     }
   ]

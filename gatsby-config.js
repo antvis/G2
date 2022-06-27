@@ -328,8 +328,8 @@ module.exports = {
         </html>`,
     },
     announcement: {
-      zh: "AntV G2 / G2Plot 2021 品牌日：[潜心深造 · 统计图表](https://www.yuque.com/antv/blog/2021g2)",
-      en: "AntV G2 / G2Plot 2021 品牌日：[潜心深造 · 统计图表](https://www.yuque.com/antv/blog/2021g2)",
-    }
+      zh: '',
+      en: '',
+    },
   },
 };
