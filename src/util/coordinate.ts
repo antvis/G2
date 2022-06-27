@@ -64,7 +64,7 @@ export function isPointInCoordinate(coordinate: Coordinate, point: Point) {
       result = isBetween(point.x, start.x, end.x) && isBetween(point.y, start.y, end.y);
     } else {
       const invertPoint = coordinate.invert(point);
-
+    
       result = isBetween(invertPoint.x, 0, 1) && isBetween(invertPoint.y, 0, 1);
     }
   }

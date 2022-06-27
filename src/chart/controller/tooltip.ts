@@ -492,7 +492,8 @@ export default class Tooltip extends Controller<TooltipOption> {
   // 渲染 x 轴上的 tooltip 辅助线
   private renderXCrosshairs(point: Point, tooltipCfg) {
     const coordinate = this.getViewWithGeometry(this.view).getCoordinate();
-    if (!isPointInCoordinate(coordinate, point)) {
+    const inCoordinate = get(tooltipCfg, ['crosshairs', 'inCoordinate'], false);
+    if (inCoordinate && !isPointInCoordinate(coordinate, point)) {
       return;
     }
     let start;
@@ -552,7 +553,8 @@ export default class Tooltip extends Controller<TooltipOption> {
   // 渲染 y 轴上的辅助线
   private renderYCrosshairs(point: Point, tooltipCfg) {
     const coordinate = this.getViewWithGeometry(this.view).getCoordinate();
-    if (!isPointInCoordinate(coordinate, point)) {
+    const inCoordinate = get(tooltipCfg, ['crosshairs', 'inCoordinate'], false);
+    if (inCoordinate && !isPointInCoordinate(coordinate, point)) {
       return;
     }
     let cfg;

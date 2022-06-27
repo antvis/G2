@@ -1795,6 +1795,12 @@ export interface TooltipCrosshairs {
    * @default false
    */
   follow?: boolean;
+  /**
+   * @title 坐标轴外数据点是否显示
+   * @description 即定位到坐标轴外数据点是否显示
+   * @default true
+   */
+   inCoordinate?: boolean;
 }
 
 export type TooltipTitle = string | ((title: string, datum: Datum) => string);
