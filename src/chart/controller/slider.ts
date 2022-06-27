@@ -50,7 +50,7 @@ export default class Slider extends Controller<SliderOption> {
   /**
    * 初始化
    */
-  public init() {}
+  public init() { }
 
   /**
    * 渲染
@@ -109,7 +109,7 @@ export default class Slider extends Controller<SliderOption> {
       );
       const { minText, maxText } = this.getMinMaxText(this.start, this.end);
 
-      const [x1, y1] = directionToPosition(this.view.viewBBox, bbox, DIRECTION.BOTTOM);
+      const [x1, y1] = directionToPosition(this.view.contentBBox, bbox, DIRECTION.BOTTOM);
       const [x2, y2] = directionToPosition(this.view.coordinateBBox, bbox, DIRECTION.BOTTOM);
 
       // 默认放在 bottom
@@ -124,7 +124,7 @@ export default class Slider extends Controller<SliderOption> {
         maxText,
       });
 
-      this.view.viewBBox = this.view.viewBBox.cut(bbox, DIRECTION.BOTTOM);
+      this.view.contentBBox = this.view.contentBBox.cut(bbox, DIRECTION.BOTTOM);
     }
   }
 

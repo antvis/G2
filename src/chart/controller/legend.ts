@@ -67,7 +67,7 @@ export default class Legend extends Controller<AllLegendsOptions> {
    * 计算出 legend 的 direction 位置 x, y
    */
   public layout() {
-    this.layoutBBox = this.view.viewBBox;
+    this.layoutBBox = this.view.contentBBox.clone();
 
     each(this.components, (co: ComponentOption) => {
       const { component, direction } = co;
@@ -91,7 +91,7 @@ export default class Legend extends Controller<AllLegendsOptions> {
       const bboxObject = component.getLayoutBBox(); // 这里只需要他的 width、height 信息做位置调整
       const bbox = new BBox(bboxObject.x, bboxObject.y, bboxObject.width, bboxObject.height).expand(padding);
 
-      const [x1, y1] = directionToPosition(this.view.viewBBox, bbox, direction);
+      const [x1, y1] = directionToPosition(this.view.contentBBox, bbox, direction);
       const [x2, y2] = directionToPosition(this.layoutBBox, bbox, direction);
 
       let x = 0;

@@ -106,13 +106,13 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
       let y: number;
 
       if (cfg.isHorizontal) {
-        const [x1, y1] = directionToPosition(this.view.viewBBox, bbox, DIRECTION.BOTTOM);
+        const [x1, y1] = directionToPosition(this.view.contentBBox, bbox, DIRECTION.BOTTOM);
         const [x2, y2] = directionToPosition(this.view.coordinateBBox, bbox, DIRECTION.BOTTOM);
         x = x2;
         y = y1;
       } else {
-        const [x1, y1] = directionToPosition(this.view.viewBBox, bbox, DIRECTION.RIGHT);
-        const [x2, y2] = directionToPosition(this.view.viewBBox, bbox, DIRECTION.RIGHT);
+        const [x1, y1] = directionToPosition(this.view.contentBBox, bbox, DIRECTION.RIGHT);
+        const [x2, y2] = directionToPosition(this.view.contentBBox, bbox, DIRECTION.RIGHT);
         x = x2;
         y = y1;
       }
@@ -138,7 +138,7 @@ export default class Scrollbar extends Controller<ScrollbarOption> {
         });
       }
 
-      this.view.viewBBox = this.view.viewBBox.cut(bbox, cfg.isHorizontal ? DIRECTION.BOTTOM : DIRECTION.RIGHT);
+      this.view.contentBBox = this.view.contentBBox.cut(bbox, cfg.isHorizontal ? DIRECTION.BOTTOM : DIRECTION.RIGHT);
     }
   }
 

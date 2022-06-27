@@ -96,6 +96,8 @@ export class View extends Base {
 
   /** view 区域空间。 */
   public viewBBox: BBox;
+  /** 内容 区域空间。 */
+  public contentBBox?: BBox;
   /** 坐标系的位置大小，ViewBBox - padding = coordinateBBox。 */
   public coordinateBBox: BBox;
   /** view 的 padding 大小，传入的配置（不是解析之后的值）。 */
@@ -1391,18 +1393,7 @@ export class View extends Base {
       }
 
       // 2. 有了 shape 之后设置背景，位置（更新的时候）
-      const { x, y } = this.viewBBox;
-
-      // slider, scrollbar 的 layout 会让 viewBBox 被剪切 cut 导致使用 viewBBox 获取宽高时重新剪切后的，覆盖不到 slider、scrollbar
-      let width, height;
-      if (this.parent) {
-        const bbox = this.parent.coordinateBBox;
-        width = bbox.width;
-        height = bbox.height;
-      } else {
-        width = this.canvas.get('width');
-        height = this.canvas.get('height');
-      }
+      const { x, y, width, height } = this.viewBBox;
 
       this.backgroundStyleRectShape.attr({
         fill: background,
@@ -1603,6 +1594,7 @@ export class View extends Base {
 
     // 初始的 coordinate bbox 大小
     this.coordinateBBox = this.viewBBox;
+    this.contentBBox = this.viewBBox.clone();
   }
 
   /**
