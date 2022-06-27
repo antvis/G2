@@ -1,4 +1,4 @@
-import { Chart } from '@antv/g2';
+import { Chart, registerAction, getActionClass } from '@antv/g2';
 
 const data = [
   { year: '1991', value: 3 },
@@ -15,6 +15,15 @@ const chart = new Chart({
   container: 'container',
   autoFit: true,
   height: 500,
+});
+
+
+const ButtonAction = getActionClass('reset-button');
+
+// 重新注册修改按钮默认文案
+registerAction('reset-button', ButtonAction, {
+  name: 'reset-button',
+  text: '重置',
 });
 
 chart.data(data);
