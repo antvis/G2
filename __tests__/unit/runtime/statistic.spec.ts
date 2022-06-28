@@ -686,4 +686,27 @@ describe('statistic', () => {
 
     mount(createDiv(), chart);
   });
+
+  it('should render interval aggregated by groupX', () => {
+    const chart = render<G2Spec>({
+      type: 'interval',
+      transform: [
+        {
+          type: 'fetch',
+          url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
+        },
+        {
+          type: 'groupX',
+          y: 'mean',
+        },
+      ],
+      paddingLeft: 60,
+      encode: {
+        x: 'clarity',
+        y: 'price',
+        color: 'clarity',
+      },
+    });
+    mount(createDiv(), chart);
+  });
 });

@@ -153,6 +153,7 @@ import {
   SelectX,
   SelectY,
   Connector,
+  GroupX,
 } from '../transform';
 
 export function createLibrary(): G2Library {
@@ -189,6 +190,7 @@ export function createLibrary(): G2Library {
     'transform.select': Select,
     'transform.selectX': SelectX,
     'transform.selectY': SelectY,
+    'transform.groupX': GroupX,
     'transform.maybeSize': MaybeSize,
     'transform.maybeZeroY': MaybeZeroY,
     'transform.maybeKey': MaybeKey,

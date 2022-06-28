@@ -11,7 +11,8 @@ export type StatisticTransform =
   | SymmetryYTransform
   | SelectTransform
   | SelectXTransform
-  | SelectYTransform;
+  | SelectYTransform
+  | GroupXTransform;
 
 export type StatisticOrder =
   | 'value'
@@ -32,6 +33,8 @@ export type StatisticTransformTypes =
   | 'select'
   | 'selectY'
   | 'selectX'
+  | 'groupX'
+  | 'group'
   | TransformComponent;
 
 export type DodgeXTransform = {
@@ -114,3 +117,20 @@ export type SelectYTransform = {
   groupBy?: string | string[];
   selector?: Selector;
 };
+
+export type Reducer =
+  | 'mean'
+  | 'max'
+  | 'count'
+  | 'min'
+  | 'median'
+  | 'sum'
+  | 'first'
+  | 'last'
+  | ((I: number[], V: Primitive[]) => Primitive);
+
+export type GroupXTransform = {
+  type?: 'groupX';
+  orderBy?: ChannelTypes;
+  reverse?: boolean;
+} & { [key in ChannelTypes]?: Reducer };
