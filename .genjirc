@@ -4,12 +4,13 @@
     "Overview": "overview",
     "Dimension": "dimension",
     "Transform": {
-      "Stack": "Stack",
-      "Dodge": "Dodge",
-      "Normalize": "Normalize",
-      "Symmetry": "Symmetry",
-      "Jitter": "Jitter",
-      "Select": "Select"
+      "Stack": "stack",
+      "Dodge": "dodge",
+      "Normalize": "normalize",
+      "Symmetry": "symmetry",
+      "Jitter": "jitter",
+      "Select": "select",
+      "Group": "group"
     },
     "Encode": "encode",
     "Scale": "scale",

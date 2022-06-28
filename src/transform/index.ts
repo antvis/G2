@@ -28,6 +28,7 @@ export { SymmetryY, SymmetryYOptions } from './statistic/symmetryY';
 export { Select, SelectOptions } from './statistic/Select';
 export { SelectX, SelectXOptions } from './statistic/SelectX';
 export { SelectY, SelectYOptions } from './statistic/SelectY';
+export { GroupX, GroupXOptions } from './statistic/groupX';
 
 // Preprocessor
 export { Fetch, FetchOptions } from './preprocessor/fetch';
