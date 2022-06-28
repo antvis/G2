@@ -5,8 +5,11 @@ export type Action =
   | FisheyeFocusAction
   | CustomAction
   | SurfacePointSelectionAction
-  | HighlightSelectionAction
-  | HighlightAction
+  | ActiveElementAction
+  | HighlightElementAction
+  | TriggerInfoSelectionAction
+  | LegendItemSelectionAction
+  | SetItemStateAction
   | PlotAction
   | TooltipAction;
 
@@ -14,8 +17,11 @@ export type ActionTypes =
   | 'fisheyeFocus'
   | 'surfacePointSelection'
   | 'elementSelection'
-  | 'highlightSelection'
-  | 'highlight'
+  | 'activeElement'
+  | 'highlightElement'
+  | 'triggerInfoSelection'
+  | 'legendItemSelection'
+  | 'setItemState'
   | 'plot'
   | 'tooltip'
   | CustomAction;
@@ -28,13 +34,13 @@ export type SurfacePointSelectionAction = {
   type?: 'surfacePointSelection';
 };
 
-export type HighlightSelectionAction = {
-  type?: 'highlightSelection';
+export type ActiveElementAction = {
+  type?: 'activeElement';
   color?: string;
 };
 
-export type HighlightAction = {
-  type?: 'highlight';
+export type HighlightElementAction = {
+  type?: 'highlightElement';
   color?: string;
 };
 
@@ -50,6 +56,23 @@ export type ElementSelectionAction = {
   type?: 'elementSelection';
   from?: string;
   filterBy?: 'x' | 'color';
+};
+
+export type TriggerInfoSelectionAction = {
+  type?: 'triggerInfoSelection';
+  multiple?: boolean;
+};
+
+export type LegendItemSelectionAction = {
+  type?: 'legendItemSelection';
+  from?: 'selectedElements' | 'triggerInfo';
+};
+
+export type SetItemStateAction = {
+  type?: 'setItemState';
+  color?: string;
+  items?: string[];
+  state?: string;
 };
 
 export type CustomAction = {
