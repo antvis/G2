@@ -13,7 +13,8 @@ export const ScaleOutY: AC<ScaleOutYOptions> = (options) => {
   // but bigger enough to not cause bug.
   const ZERO = 0.0001;
 
-  return (shape, value, coordinate, defaults) => {
+  return (from, to, value, coordinate, defaults) => {
+    const [shape] = from;
     const { height } = shape.getBoundingClientRect();
     const { transform: prefix } = shape.style;
     const { fillOpacity, strokeOpacity, opacity } = shape.parsedStyle;

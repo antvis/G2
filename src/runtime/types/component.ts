@@ -175,11 +175,12 @@ export type GuideComponentComponent<O = Record<string, unknown>> =
   G2BaseComponent<GuideComponent, O, GuideComponentProps>;
 
 export type Animation = (
-  shape: DisplayObject,
-  style: Record<string, any>,
+  from: DisplayObject[],
+  to: DisplayObject[],
+  value: Record<string, any>,
   coordinate: Coordinate,
-  defaults: G2Theme['enter' | 'exit' | 'update'],
-) => GAnimation;
+  defaults: G2Theme['enter' | 'exit' | 'enter'],
+) => GAnimation | GAnimation[];
 export type AnimationComponent<O = Record<string, unknown>> = G2BaseComponent<
   Animation,
   O

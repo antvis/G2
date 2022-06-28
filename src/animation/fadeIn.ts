@@ -8,7 +8,8 @@ export type FadeInOptions = Animation;
  * Transform mark from transparent to solid.
  */
 export const FadeIn: AC<FadeInOptions> = (options) => {
-  return (shape, value, coordinate, defaults) => {
+  return (from, to, value, coordinate, defaults) => {
+    const [shape] = from;
     // shape.animate() can not process `opacity = ""`;
     // todo: When G's bug fixed, modify to `shape.style`.
     const { fillOpacity, strokeOpacity, opacity } = shape.parsedStyle;
