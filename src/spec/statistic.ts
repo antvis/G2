@@ -34,7 +34,6 @@ export type StatisticTransformTypes =
   | 'selectY'
   | 'selectX'
   | 'groupX'
-  | 'group'
   | TransformComponent;
 
 export type DodgeXTransform = {
