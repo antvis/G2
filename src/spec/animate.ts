@@ -1,4 +1,10 @@
-export type AnimationTypes = 'fadeIn' | 'fadeOut' | 'scaleInX' | 'scaleInY';
+export type AnimationTypes =
+  | 'fadeIn'
+  | 'fadeOut'
+  | 'scaleInX'
+  | 'scaleOutX'
+  | 'scaleInY'
+  | 'scaleOutY';
 
 export type Animation = {
   type?: AnimationTypes;

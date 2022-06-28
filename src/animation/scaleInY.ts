@@ -16,6 +16,7 @@ export const ScaleInY: AC<ScaleInYOptions> = (options) => {
   return (shape, value, coordinate, defaults) => {
     const { height } = shape.getBoundingClientRect();
     const { transform: prefix } = shape.style;
+    const { fillOpacity, strokeOpacity, opacity } = shape.parsedStyle;
     const [transformOrigin, transform]: [[number, number], string] =
       isTranspose(coordinate)
         ? [[0, 0], `scale(${ZERO}, 1)`] // left-top corner
@@ -32,9 +33,9 @@ export const ScaleInY: AC<ScaleInYOptions> = (options) => {
       },
       {
         transform: `${prefix} ${transform}`.trimStart(),
-        fillOpacity: 1,
-        strokeOpacity: 1,
-        opacity: 1,
+        fillOpacity: fillOpacity.value,
+        strokeOpacity: strokeOpacity.value,
+        opacity: opacity.value,
         offset: 0.01,
       },
       {

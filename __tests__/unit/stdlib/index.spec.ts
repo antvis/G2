@@ -105,7 +105,9 @@ import {
 } from '../../../src/component';
 import {
   ScaleInX,
+  ScaleOutX,
   ScaleInY,
+  ScaleOutY,
   FadeIn,
   FadeOut,
   Morphing,
@@ -303,7 +305,9 @@ describe('stdlib', () => {
       'component.legendContinuous': LegendContinuous,
       'component.title': TitleComponent,
       'animation.scaleInX': ScaleInX,
+      'animation.scaleOutX': ScaleOutX,
       'animation.scaleInY': ScaleInY,
+      'animation.scaleOutY': ScaleOutY,
       'animation.fadeIn': FadeIn,
       'animation.fadeOut': FadeOut,
       'animation.morphing': Morphing,
