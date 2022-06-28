@@ -194,6 +194,22 @@ genji.preview(
 );
 ```
 
+### Group
+
+```js | dom "pin: false"
+genji.preview(
+  [
+    {
+      title: 'GroupX',
+      path: '/group#groupX',
+      thumbnail:
+        'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*R3_FSY2cH1oAAAAAAAAAAAAAARQnAQ',
+    },
+  ],
+  { height: 175 },
+);
+```
+
 ## Scale
 
 > TODO
@@ -336,13 +352,15 @@ genji.preview(
     {
       title: 'RangeX Annotation',
       path: '/annotation#rangex-annotation',
-      thumbnail: 'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*Pp1EQZdAIQMAAAAAAAAAAAAAARQnAQ'
+      thumbnail:
+        'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*Pp1EQZdAIQMAAAAAAAAAAAAAARQnAQ',
     },
     {
       title: 'RangeY Annotation',
       path: '/annotation#rangey-annotation',
-      thumbnail: 'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*nOmVR4gsaugAAAAAAAAAAAAAARQnAQ'
-    }
+      thumbnail:
+        'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*nOmVR4gsaugAAAAAAAAAAAAAARQnAQ',
+    },
   ],
   { height: 175 },
 );
