@@ -11,7 +11,7 @@ describe('interaction', () => {
           trigger: 'hover',
           action: [
             { type: 'surfacePointSelection' },
-            { type: 'highlightSelection', color: 'red' },
+            { type: 'activeElement', color: 'red' },
           ],
         },
       ],
@@ -20,7 +20,7 @@ describe('interaction', () => {
           trigger: 'leave',
           action: [
             { type: 'surfacePointSelection' },
-            { type: 'highlightSelection', color: 'red' },
+            { type: 'activeElement', color: 'red' },
           ],
         },
       ],

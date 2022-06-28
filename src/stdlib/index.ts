@@ -105,6 +105,9 @@ import {
   ElementHighlight,
   ElementHighlightByX,
   ElementHighlightByColor,
+  ElementListHighlight,
+  LegendActive,
+  LegendHighlight,
 } from '../interaction';
 import {
   Layer,
@@ -298,6 +301,9 @@ export function createLibrary(): G2Library {
     'interaction.elementHighlight': ElementHighlight,
     'interaction.elementHighlightByX': ElementHighlightByX,
     'interaction.elementHighlightByColor': ElementHighlightByColor,
+    'interaction.elementListHighlight': ElementListHighlight,
+    'interaction.legendActive': LegendActive,
+    'interaction.legendHighlight': LegendHighlight,
     'interaction.tooltip': Tooltip,
     'interaction.fisheye': FisheyeInteraction,
     'composition.layer': Layer,

@@ -14,14 +14,17 @@ export const InteractionDescriptor = (
       trigger: 'plot:pointermove',
       action: [
         { type: 'elementSelection', filterBy: 'x' },
-        { type: 'highlight', ...options },
+        { type: 'highlightElement', ...options },
       ],
     },
   ],
   end: [
     {
       trigger: 'plot:pointerleave',
-      action: [{ type: 'elementSelection' }, { type: 'highlight', ...options }],
+      action: [
+        { type: 'elementSelection' },
+        { type: 'highlightElement', ...options },
+      ],
     },
   ],
 });

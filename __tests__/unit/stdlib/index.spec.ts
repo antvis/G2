@@ -111,6 +111,9 @@ import {
   ElementHighlightByColor,
   ElementHighlightByX,
   ElementHighlight,
+  ElementListHighlight,
+  LegendActive,
+  LegendHighlight,
 } from '../../../src/interaction';
 import {
   Layer,
@@ -305,8 +308,11 @@ describe('stdlib', () => {
       'interaction.elementHighlight': ElementHighlight,
       'interaction.elementHighlightByX': ElementHighlightByX,
       'interaction.elementHighlightByColor': ElementHighlightByColor,
+      'interaction.elementListHighlight': ElementListHighlight,
       'interaction.tooltip': Tooltip,
       'interaction.fisheye': FisheyeInteraction,
+      'interaction.legendActive': LegendActive,
+      'interaction.legendHighlight': LegendHighlight,
       'composition.layer': Layer,
       'composition.flex': Flex,
       'composition.keyframe': Keyframe,

@@ -1,7 +1,7 @@
 import { ActionComponent as AC } from '../../types';
-import { HighlightSelectionAction } from '../../../spec';
+import { ActiveElementAction } from '../../../spec';
 
-export type HighlightSelectionOptions = Omit<HighlightSelectionAction, 'type'>;
+export type HighlightSelectionOptions = Omit<ActiveElementAction, 'type'>;
 
 export const HighlightSelection: AC<HighlightSelectionOptions> = (options) => {
   return (context) => {

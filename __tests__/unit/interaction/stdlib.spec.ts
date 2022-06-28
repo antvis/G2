@@ -6,7 +6,10 @@ import {
   FisheyeFocus,
   Plot,
   ElementSelection,
-  Highlight,
+  HighlightElement,
+  LegendItemSelection,
+  TriggerInfoSelection,
+  SetItemState as SetItemStateAction,
 } from '../../../src/interaction/action';
 import {
   MousePosition,
@@ -18,8 +21,11 @@ describe('createInteractionLibrary', () => {
     expect(createInteractionLibrary()).toEqual({
       'action.surfacePointSelection': SurfacePointSelection,
       'action.elementSelection': ElementSelection,
-      'action.highlightSelection': HighlightSelection,
-      'action.highlight': Highlight,
+      'action.activeElement': HighlightSelection,
+      'action.highlightElement': HighlightElement,
+      'action.legendItemSelection': LegendItemSelection,
+      'action.triggerInfoSelection': TriggerInfoSelection,
+      'action.setItemState': SetItemStateAction,
       'action.tooltip': Tooltip,
       'action.fisheyeFocus': FisheyeFocus,
       'action.plot': Plot,
