@@ -25,19 +25,21 @@ export const ScaleInY: AC<ScaleInYOptions> = (options) => {
     // which is still visible.
     const keyframes = [
       {
-        transform: `${prefix} ${transform}`,
+        transform: `${prefix} ${transform}`.trimStart(),
         fillOpacity: 0,
         strokeOpacity: 0,
         opacity: 0,
       },
       {
-        transform: `${prefix} ${transform}`,
+        transform: `${prefix} ${transform}`.trimStart(),
         fillOpacity: 1,
         strokeOpacity: 1,
         opacity: 1,
         offset: 0.01,
       },
-      { transform: `${prefix} scale(1, 1)` },
+      {
+        transform: `${prefix} scale(1, 1)`.trimStart(),
+      },
     ];
 
     // Change transform origin for correct transform.

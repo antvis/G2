@@ -68,8 +68,8 @@ describe('ScaleInY', () => {
       }),
       transform: [Transpose()],
       animate: ScaleInY({ duration: 300 }),
-      theme: { enter: { duration: 200 } },
-      style: { duration: 100 },
+      defaults: { duration: 200 },
+      value: { duration: 100 },
       container,
     });
     expect(timing(animation, 'duration')).toBe(300);
@@ -85,8 +85,8 @@ describe('ScaleInY', () => {
       }),
       transform: [Transpose()],
       animate: ScaleInY({ duration: undefined }),
-      theme: { enter: { duration: 200 } },
-      style: { duration: 100 },
+      defaults: { duration: 200 },
+      value: { duration: 100 },
       container,
     });
     expect(timing(animation, 'duration')).toBe(100);
@@ -102,7 +102,7 @@ describe('ScaleInY', () => {
       }),
       transform: [Transpose()],
       animate: ScaleInY({}),
-      theme: { enter: { duration: 200 } },
+      defaults: { duration: 200 },
       container,
     });
     expect(timing(animation, 'duration')).toBe(200);
