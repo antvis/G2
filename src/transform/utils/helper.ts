@@ -43,8 +43,12 @@ export function constant(value: Primitive) {
   return { type: 'constant', value };
 }
 
-export function field(target: ColumnValue, source: ColumnValue) {
+export function field(
+  target: ColumnValue,
+  source: ColumnValue,
+  formatter?: (d: any) => string,
+) {
   if (!source) return target;
-  target.field = source.field;
+  target.field = formatter ? formatter(source.field) : source.field;
   return target;
 }

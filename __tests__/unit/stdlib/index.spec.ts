@@ -159,6 +159,7 @@ import {
   SelectX,
   SelectY,
   Connector,
+  GroupX,
 } from '../../../src/transform';
 
 describe('stdlib', () => {
@@ -196,6 +197,7 @@ describe('stdlib', () => {
       'transform.select': Select,
       'transform.selectX': SelectX,
       'transform.selectY': SelectY,
+      'transform.groupX': GroupX,
       'transform.maybeSize': MaybeSize,
       'transform.maybeZeroY': MaybeZeroY,
       'transform.maybeKey': MaybeKey,
