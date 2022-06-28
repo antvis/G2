@@ -103,7 +103,7 @@ import {
   LegendContinuous,
   TitleComponent,
 } from '../../../src/component';
-import { ScaleInY, FadeIn, Morphing } from '../../../src/animation';
+import { ScaleInY, FadeIn, FadeOut, Morphing } from '../../../src/animation';
 import {
   ElementActive,
   Tooltip,
@@ -298,6 +298,7 @@ describe('stdlib', () => {
       'component.title': TitleComponent,
       'animation.scaleInY': ScaleInY,
       'animation.fadeIn': FadeIn,
+      'animation.fadeOut': FadeOut,
       'animation.morphing': Morphing,
       'interaction.elementActive': ElementActive,
       'interaction.elementHighlight': ElementHighlight,

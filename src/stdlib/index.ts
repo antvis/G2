@@ -97,7 +97,7 @@ import {
   LegendContinuous,
   TitleComponent,
 } from '../component';
-import { ScaleInY, FadeIn, Morphing } from '../animation';
+import { ScaleInY, FadeIn, FadeOut, Morphing } from '../animation';
 import {
   ElementActive,
   Tooltip,
@@ -291,6 +291,7 @@ export function createLibrary(): G2Library {
     'component.title': TitleComponent,
     'animation.scaleInY': ScaleInY,
     'animation.fadeIn': FadeIn,
+    'animation.fadeOut': FadeOut,
     'animation.morphing': Morphing,
     'interaction.elementActive': ElementActive,
     'interaction.elementHighlight': ElementHighlight,

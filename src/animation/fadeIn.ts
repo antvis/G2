@@ -1,19 +1,29 @@
+import { ParsedBaseStyleProps } from '@antv/g';
 import { AnimationComponent as AC } from '../runtime';
 import { Animation } from '../spec';
 import { effectTiming } from './utils';
 
-export type FadeInYOptions = Animation;
+export type FadeInOptions = Animation;
 
 /**
  * Transform mark from transparent to solid.
  */
-export const FadeIn: AC<FadeInYOptions> = (options) => {
+export const FadeIn: AC<FadeInOptions> = (options) => {
   return (shape, value, coordinate, defaults) => {
-    const { fillOpacity = 1, strokeOpacity = 1, opacity = 1 } = shape.style;
+    // shape.animate() can not process `opacity = ""`;
+    // todo: When G's bug fixed, modify to `shape.style`.
+    const { fillOpacity, strokeOpacity, opacity } =
+      shape.parsedStyle as ParsedBaseStyleProps;
+
     const keyframes = [
       { fillOpacity: 0, strokeOpacity: 0, opacity: 0 },
-      { fillOpacity, strokeOpacity, opacity },
+      {
+        fillOpacity: fillOpacity.value,
+        strokeOpacity: strokeOpacity.value,
+        opacity: opacity.value,
+      },
     ];
+
     return shape.animate(keyframes, effectTiming(defaults, value, options));
   };
 };
