@@ -467,7 +467,7 @@ async function plotView(
           update.transition(function (data, index) {
             const node = shapeFunction(data, index);
             const animation = updateFunction(data, [this], [node]);
-            // @todo Handle shape with different type.
+            // @todo Handle element with different type.
             if (animation === null) copyAttributes(this, node);
             return animation;
           }),
@@ -479,13 +479,14 @@ async function plotView(
             .remove(),
         (merge) =>
           merge
-            // Append shapes to be merged.
+            // Append elements to be merged.
             .append(shapeFunction)
             .attr('className', 'element')
             .transition(function (data) {
-              // Remove merged shapes after animation finishing.
-              const transition = updateFunction(data, this.__from__, [this]);
-              const exit = new Selection(this.__from__, null, this.parentNode);
+              // Remove merged elements after animation finishing.
+              const { __fromElements__: fromElements } = this;
+              const transition = updateFunction(data, fromElements, [this]);
+              const exit = new Selection(fromElements, null, this.parentNode);
               exit.transition(transition).remove();
               return transition;
             }),
@@ -493,14 +494,14 @@ async function plotView(
           split
             .transition(function (data) {
               // Append splitted shapes.
-              const enter = new Selection([], this.__to__, this.parentNode);
-              const to = enter
+              const enter = new Selection([], this.__toData__, this.parentNode);
+              const toElements = enter
                 .append(shapeFunction)
                 .attr('className', 'element')
                 .nodes();
-              return updateFunction(data, [this], to);
+              return updateFunction(data, [this], toElements);
             })
-            // Remove shapes to be splitted after animation finishing.
+            // Remove elements to be splitted after animation finishing.
             .remove(),
       )
       .transitions();
@@ -599,8 +600,7 @@ function createEnterFunction(
  * manually. This is very important for performance.
  */
 function cancel(animation: GAnimation): Promise<any> {
-  animation.finished.then(() => animation.cancel());
-  return animation.finished;
+  return animation.finished.then(() => animation.cancel());
 }
 
 function createUpdateFunction(

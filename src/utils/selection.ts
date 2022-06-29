@@ -19,8 +19,8 @@ import { error } from './helper';
 
 export type G2Element = DisplayObject & {
   __data__?: any;
-  __to__?: any[];
-  __from__?: DisplayObject[];
+  __toData__?: any[];
+  __fromElements__?: DisplayObject[];
 };
 
 export function select<T = any>(node: Group) {
@@ -128,7 +128,7 @@ export class Selection<T = any> {
         const [datum, from] = Array.isArray(d) ? d : [d, null];
         const newElement = callback(datum, i);
         newElement.__data__ = datum;
-        if (from !== null) newElement.__from__ = from;
+        if (from !== null) newElement.__fromElements__ = from;
         this._parent.appendChild(newElement);
         elements.push(newElement);
       }
@@ -205,8 +205,8 @@ export class Selection<T = any> {
         // groupKey as its key, and bind to datum for it.
       } else if (keyElement.has(groupKey)) {
         const element = keyElement.get(groupKey);
-        if (element.__to__) element.__to__.push(datum);
-        else element.__to__ = [datum];
+        if (element.__toData__) element.__toData__.push(datum);
+        else element.__toData__ = [datum];
         split.add(element);
         exit.delete(element);
       } else {

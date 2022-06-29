@@ -2,16 +2,17 @@ import {
   convertToPath,
   DisplayObject,
   Animation as GAnimation,
-  Rect,
   Path,
 } from '@antv/g';
 import { AnimationComponent as AC } from '../runtime';
 import { Animation } from '../spec';
 import { effectTiming } from './utils';
 
-export type MorphingOptions = Animation;
+export type MorphingOptions = Animation & { split: 'pack' | SplitFunction };
 
 type BBox = [number, number, number, number];
+
+type SplitFunction = (shape: DisplayObject, count: number) => string[];
 
 function attributeOf(shape: DisplayObject, keys: string[]) {
   const attribute = {};
@@ -22,6 +23,67 @@ function attributeOf(shape: DisplayObject, keys: string[]) {
     }
   }
   return attribute;
+}
+
+function localBBoxOf(shape: DisplayObject): BBox {
+  const { min, max } = shape.getLocalBounds();
+  const [x0, y0] = min;
+  const [x1, y1] = max;
+  const height = y1 - y0;
+  const width = x1 - x0;
+  return [x0, y0, width, height];
+}
+
+function d(bbox: BBox): string {
+  const [x, y, width, height] = bbox;
+  return `
+    M ${x} ${y}
+    L ${x + width} ${y}
+    L ${x + width} ${y + height}
+    L ${x} ${y + height}
+    Z
+  `;
+}
+
+function pack(shape: DisplayObject, count: number): string[] {
+  const [x0, y0, width, height] = localBBoxOf(shape);
+  const aspect = height / width;
+  const col = Math.ceil(Math.sqrt(count / aspect));
+  const row = Math.ceil(count / col);
+  const B = [];
+  const h = height / row;
+  let j = 0;
+  let n = count;
+  while (n > 0) {
+    const c = Math.min(n, col);
+    const w = width / c;
+    for (let i = 0; i < c; i++) {
+      const x = x0 + i * w;
+      const y = y0 + j * h;
+      B.push(d([x, y, w, h]));
+    }
+    n -= c;
+    j += 1;
+  }
+  return B;
+}
+
+function normalizeSplit(
+  split: MorphingOptions['split'] = 'pack',
+): SplitFunction {
+  if (typeof split == 'function') return split;
+  return pack;
+}
+
+/**
+ * @todo After @antv/g supports smooth transition between transform attributes.
+ */
+function shapeToShape(
+  from: DisplayObject,
+  to: DisplayObject,
+  timeEffect: Record<string, any>,
+): GAnimation {
+  return null;
 }
 
 function oneToOne(
@@ -65,74 +127,11 @@ function oneToOne(
   return animation;
 }
 
-/**
- * @todo After @antv/g supports smooth transition between transform attributes.
- */
-function shapeToShape(
-  from: DisplayObject,
-  to: DisplayObject,
-  timeEffect: Record<string, any>,
-): GAnimation {
-  return null;
-}
-
-function localBBoxOf(shape: DisplayObject): BBox {
-  const { min, max } = shape.getLocalBounds();
-  const [x0, y0] = min;
-  const [x1, y1] = max;
-  const height = y1 - y0;
-  const width = x1 - x0;
-  return [x0, y0, width, height];
-}
-
-function d(bbox: BBox): string {
-  const [x, y, width, height] = bbox;
-  return `
-    M ${x} ${y}
-    L ${x + width} ${y}
-    L ${x + width} ${y + height}
-    L ${x} ${y + height}
-    Z
-  `;
-}
-
-function pack(
-  x0: number,
-  y0: number,
-  width: number,
-  height: number,
-  count: number,
-): BBox[] {
-  const aspect = height / width;
-  const col = Math.ceil(Math.sqrt(count / aspect));
-  const row = Math.ceil(count / col);
-  const B = [];
-  const h = height / row;
-  let j = 0;
-  let n = count;
-  while (n > 0) {
-    const c = Math.min(n, col);
-    const w = width / c;
-    for (let i = 0; i < c; i++) {
-      const x = x0 + i * w;
-      const y = y0 + j * h;
-      B.push([x, y, w, h]);
-    }
-    n -= c;
-    j += 1;
-  }
-  return B;
-}
-
-function split(shape: DisplayObject, count: number): string[] {
-  const [x, y, width, height] = localBBoxOf(shape);
-  return pack(x, y, width, height, count).map(d);
-}
-
 function oneToMultiple(
   from: DisplayObject,
   to: DisplayObject[],
   timeEffect: Record<string, any>,
+  split: SplitFunction,
 ) {
   // Hide the shape to be split before being removing.
   from.style.visibility = 'hidden';
@@ -152,6 +151,7 @@ function multipleToOne(
   from: DisplayObject[],
   to: DisplayObject,
   timeEffect: Record<string, any>,
+  split: SplitFunction,
 ) {
   const D = split(to, from.length);
   // @todo Replace with to.style.
@@ -180,9 +180,11 @@ function multipleToOne(
 
 /**
  * Morphing animations.
+ * @todo Support ore split function.
  */
 export const Morphing: AC<MorphingOptions> = (options) => {
   return (from, to, value, coordinate, defaults) => {
+    const split = normalizeSplit(options.split);
     const timeEffect = effectTiming(defaults, value, options);
     const { length: fl } = from;
     const { length: tl } = to;
@@ -193,11 +195,11 @@ export const Morphing: AC<MorphingOptions> = (options) => {
     }
     if (fl === 1 && tl > 1) {
       const [f] = from;
-      return oneToMultiple(f, to, timeEffect);
+      return oneToMultiple(f, to, timeEffect, split);
     }
     if (fl > 1 && tl === 1) {
       const [t] = to;
-      return multipleToOne(from, t, timeEffect);
+      return multipleToOne(from, t, timeEffect, split);
     }
     return null;
   };
