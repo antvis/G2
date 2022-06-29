@@ -127,6 +127,46 @@ Keyframe composition provide a convent mechanism to author storytelling. It can 
 })();
 ```
 
+## Split and Merge
+
+```js
+(async () => {
+  const response = await fetch(
+    'https://gw.alipayobjects.com/os/bmw-prod/fbe4a8c1-ce04-4ba3-912a-0b26d6965333.json',
+  );
+  const data = await response.json();
+  return G2.render({
+    type: 'keyframe',
+    direction: 'alternate',
+    duration: 1000,
+    iterationCount: 4,
+    children: [
+      {
+        type: 'interval',
+        data,
+        transform: [{ type: 'groupX', y: 'mean' }],
+        encode: {
+          x: 'gender',
+          y: 'weight',
+          color: 'gender',
+          key: 'gender',
+        },
+      },
+      {
+        type: 'point',
+        data,
+        encode: {
+          x: 'height',
+          y: 'weight',
+          color: 'gender',
+          groupKey: 'gender',
+        },
+      },
+    ],
+  });
+})();
+```
+
 ## Duration
 
 ```js

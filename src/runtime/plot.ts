@@ -598,9 +598,12 @@ function createEnterFunction(
 /**
  * Animation will not cancel automatically, it should be canceled
  * manually. This is very important for performance.
+ * @todo Enable cancel after transition bug fixed.
  */
 function cancel(animation: GAnimation): Promise<any> {
-  return animation.finished.then(() => animation.cancel());
+  return animation.finished.then(() => {
+    // animation.cancel()
+  });
 }
 
 function createUpdateFunction(
