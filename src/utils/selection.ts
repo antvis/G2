@@ -66,7 +66,7 @@ export class Selection<T = any> {
     elements: Iterable<G2Element> = null,
     data: T[] | [T, G2Element[]][] = null,
     parent: G2Element = null,
-    document: IDocument = null,
+    document: IDocument | null = null,
     selections: [Selection, Selection, Selection, Selection, Selection] = [
       null,
       null,

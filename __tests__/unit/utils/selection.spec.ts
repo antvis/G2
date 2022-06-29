@@ -137,7 +137,7 @@ describe('select', () => {
   it('Selection.append(node) should append nodes with data to parent for empty selection and return the new selection', () => {
     const group = new Group();
     const data = [1, 2, 3];
-    const selection = new Selection(null, data, group, group.ownerDocument);
+    const selection = new Selection([], data, group, group.ownerDocument);
 
     const s1 = selection.append('rect');
     const nodes = s1.nodes();
@@ -325,14 +325,6 @@ describe('select', () => {
         expect(selection.nodes().map((d) => d.__data__)).toEqual([2, 3, 4, 1]),
       );
     expect(selection.selectAll('.cls').nodes()[1].style.fill).toBe('red');
-  });
-
-  it('Selection.remove() should not remove selected elements without parentNode', () => {
-    const group = new Group();
-    const selection = select(group);
-    const s1 = selection.remove();
-    expect(s1).not.toBe(selection);
-    expect(s1.nodes().length).toBe(1);
   });
 
   it('Selection.remove() should remove selected elements', () => {

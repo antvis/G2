@@ -53,7 +53,7 @@ export const ScaleOutY: AC<ScaleOutYOptions> = (options) => {
     );
 
     // Reset transform origin to eliminate side effect for following animations.
-    animation.onfinish = () => shape.setOrigin(0, 0);
+    animation.finished.then(() => shape.setOrigin(0, 0));
 
     return animation;
   };
