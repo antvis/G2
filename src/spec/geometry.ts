@@ -83,6 +83,8 @@ export type BaseGeometry<
   frame?: boolean;
   animate?: {
     enter?: Animation;
+    exit?: Animation;
+    update?: Animation;
   };
 };
 

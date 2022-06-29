@@ -178,7 +178,7 @@ export type Animation = (
   shape: DisplayObject,
   style: Record<string, any>,
   coordinate: Coordinate,
-  defaults: G2Theme['enter' | 'exit' | 'enter'],
+  defaults: G2Theme['enter' | 'exit' | 'update'],
 ) => GAnimation;
 export type AnimationComponent<O = Record<string, unknown>> = G2BaseComponent<
   Animation,

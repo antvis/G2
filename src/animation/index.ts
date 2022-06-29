@@ -1,3 +1,7 @@
+export { ScaleInX, ScaleInXOptions } from './scaleInX';
+export { ScaleOutX, ScaleOutXOptions } from './scaleOutX';
 export { ScaleInY, ScaleInYOptions } from './scaleInY';
-export { FadeIn, FadeInYOptions } from './fadeIn';
-export { Morphing, MorphingOptions } from './Morphing';
+export { ScaleOutY, ScaleOutYOptions } from './scaleOutY';
+export { FadeIn, FadeInOptions } from './fadeIn';
+export { FadeOut, FadeOutOptions } from './fadeOut';
+export { Morphing, MorphingOptions } from './morphing';

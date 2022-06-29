@@ -3,12 +3,12 @@ import { Animation } from '../spec';
 import { AnimationComponent as AC } from '../runtime';
 import { effectTiming } from './utils';
 
-export type ScaleInYOptions = Animation;
+export type ScaleInXOptions = Animation;
 
 /**
- * Scale mark from nothing to desired shape in y direction.
+ * Scale mark from nothing to desired shape in x direction.
  */
-export const ScaleInY: AC<ScaleInYOptions> = (options) => {
+export const ScaleInX: AC<ScaleInXOptions> = (options) => {
   // Small enough to hide or show very small part of mark,
   // but bigger enough to not cause bug.
   const ZERO = 0.0001;
@@ -19,8 +19,8 @@ export const ScaleInY: AC<ScaleInYOptions> = (options) => {
     const { fillOpacity, strokeOpacity, opacity } = shape.parsedStyle;
     const [transformOrigin, transform]: [[number, number], string] =
       isTranspose(coordinate)
-        ? [[0, 0], `scale(${ZERO}, 1)`] // left-top corner
-        : [[0, height], `scale(1, ${ZERO})`]; // left-bottom corner
+        ? [[0, height], `scale(1, ${ZERO})`] // left-buttom corner
+        : [[0, 0], `scale(${ZERO}, 1)`]; // left-top corner
 
     // Using a short fadeIn transition to hide element with scale(0.001)
     // which is still visible.
