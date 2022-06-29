@@ -85,12 +85,12 @@ describe('#1899', () => {
     await delay(50);
 
     // @ts-ignore
-    expect(chart.getController('slider').slider.component.get('minText')).toBe('02');
+    expect(chart.getController('slider').slider.component.get('minText')).toBe('03');
     // @ts-ignore
     expect(chart.getController('slider').slider.component.get('maxText')).toBe('10');
 
     // @ts-ignore
-    expect(chart.filteredData).toEqual(data.slice(2, 11));
+    expect(chart.filteredData).toEqual(data.slice(3, 11));
 
     chart.destroy();
   });
