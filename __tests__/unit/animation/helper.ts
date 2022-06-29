@@ -13,8 +13,9 @@ type Options = {
   y?: number;
   height?: number;
   width?: number;
-  style?: Record<string, any>;
-  theme?: G2Theme;
+  value?: Record<string, any>;
+  coordinate?: Coordinate;
+  defaults?: G2Theme['enter' | 'exit' | 'enter'];
 };
 
 export function applyAnimation({
@@ -28,11 +29,11 @@ export function applyAnimation({
     style: { x: 0, y: 0, width: 50, height: 200, fill: 'red' },
   }),
   transform = [],
-  style = {},
-  theme = {},
+  value = {},
+  defaults = {},
 }: Options): Promise<[DisplayObject, GAnimation]> {
   return new Promise((resolve) => {
-    requestAnimationFrame(() => {
+    requestAnimationFrame(async () => {
       const coordinate = new Coordinate({
         x,
         y,
@@ -41,9 +42,10 @@ export function applyAnimation({
         transformations: [...transform.flat(), Cartesian()[0]],
       });
       const canvas = Canvas({ width, height, container });
+      await canvas.ready;
+
       canvas.appendChild(shape);
-      const animation = animate(shape, style, coordinate, theme);
-      resolve([shape, animation]);
+      resolve([shape, animate(shape, value, coordinate, defaults)]);
     });
   });
 }

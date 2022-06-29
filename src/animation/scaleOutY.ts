@@ -3,12 +3,12 @@ import { Animation } from '../spec';
 import { AnimationComponent as AC } from '../runtime';
 import { effectTiming } from './utils';
 
-export type ScaleInYOptions = Animation;
+export type ScaleOutYOptions = Animation;
 
 /**
- * Scale mark from nothing to desired shape in y direction.
+ * Scale mark from desired shape to nothing in y direction.
  */
-export const ScaleInY: AC<ScaleInYOptions> = (options) => {
+export const ScaleOutY: AC<ScaleOutYOptions> = (options) => {
   // Small enough to hide or show very small part of mark,
   // but bigger enough to not cause bug.
   const ZERO = 0.0001;
@@ -26,20 +26,20 @@ export const ScaleInY: AC<ScaleInYOptions> = (options) => {
     // which is still visible.
     const keyframes = [
       {
-        transform: `${prefix} ${transform}`.trimStart(),
-        fillOpacity: 0,
-        strokeOpacity: 0,
-        opacity: 0,
+        transform: `${prefix} scale(1, 1)`.trimStart(),
       },
       {
         transform: `${prefix} ${transform}`.trimStart(),
         fillOpacity: fillOpacity.value,
         strokeOpacity: strokeOpacity.value,
         opacity: opacity.value,
-        offset: 0.01,
+        offset: 0.99,
       },
       {
-        transform: `${prefix} scale(1, 1)`.trimStart(),
+        transform: `${prefix} ${transform}`.trimStart(),
+        fillOpacity: 0,
+        strokeOpacity: 0,
+        opacity: 0,
       },
     ];
 
