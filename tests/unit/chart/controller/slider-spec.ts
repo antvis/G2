@@ -64,7 +64,7 @@ describe('Slider', () => {
     // @ts-ignore
     expect(sliderComponent.maxHandler.get('x')).toBe(0.7 * coordinateBBox.width - 5);
     // @ts-ignore
-    expect(chart.filteredData.length).toBe(4);
+    expect(chart.filteredData.length).toBe(5);
   });
 
   it('padding', async () => {
@@ -95,10 +95,10 @@ describe('Slider', () => {
   it('slider filter', async () => {
     const [slider] = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.SLIDER);
     expect(slider.component.get('minText')).toBe('1993');
-    expect(slider.component.get('maxText')).toBe('1996');
+    expect(slider.component.get('maxText')).toBe('1997');
 
     // view 过滤规则
-    expect(chart.filterFieldData('year', Data).map((d) => d.year)).toEqual(['1993', '1994', '1995', '1996']);
+    expect(chart.filterFieldData('year', Data).map((d) => d.year)).toEqual(['1993', '1994', '1995', '1996', '1997']);
   });
 
   it('slider update', async () => {
@@ -129,13 +129,32 @@ describe('Slider', () => {
     expect(slider.component.get('height')).toBe(16);
   });
 
+  it('slider change', async () => {
+    chart.option('slider', {
+      padding: [8, 0, 8, 0],
+      height: 16,
+      start: 0.01,
+      end: 0.99,
+    });
+
+    chart.render();
+
+    await delay(1);
+
+    const [slider] = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.SLIDER);
+
+    expect(slider.component.get('minText')).toBe('1991');
+    expect(slider.component.get('maxText')).toBe('1999');
+
+  });
+
   it('changeData', () => {
     chart.changeData(Data.slice(0, 3));
     chart.render(true);
 
     const [slider] = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.SLIDER);
     expect(slider.component.get('minText')).toBe('1991');
-    expect(slider.component.get('maxText')).toBe('1992');
+    expect(slider.component.get('maxText')).toBe('1993');
   });
 
   it('changeSize', async () => {

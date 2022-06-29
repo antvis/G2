@@ -74,8 +74,8 @@ describe('When data is empty, slider will throw error', () => {
     // @ts-ignore
     const slider = chart.getController('slider').slider;
     expect(slider).toBeDefined();
-    expect(slider.component.get('minText')).toBe('东海');
-    expect(slider.component.get('maxText')).toBe('东胜');
+    expect(slider.component.get('minText')).toBe('东胜');
+    expect(slider.component.get('maxText')).toBe('东莞');
 
     // 数据再为空时，slider 销毁
     chart.updateOptions({

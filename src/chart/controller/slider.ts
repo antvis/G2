@@ -288,8 +288,8 @@ export default class Slider extends Controller<SliderOption> {
 
     const xTickCount = size(xValues);
 
-    const minIndex = Math.floor(min * (xTickCount - 1));
-    const maxIndex = Math.floor(max * (xTickCount - 1));
+    const minIndex = Math.round(min * (xTickCount - 1));
+    const maxIndex = Math.round(max * (xTickCount - 1));
 
     let minText = get(xValues, [minIndex]);
     let maxText = get(xValues, [maxIndex]);
@@ -327,8 +327,8 @@ export default class Slider extends Controller<SliderOption> {
     const xValues = isHorizontal ? xScaleValues : xScaleValues.reverse();
     const xTickCount = size(xValues);
 
-    const minIndex = Math.floor(min * (xTickCount - 1));
-    const maxIndex = Math.floor(max * (xTickCount - 1));
+    const minIndex = Math.round(min * (xTickCount - 1));
+    const maxIndex = Math.round(max * (xTickCount - 1));
 
     // 增加 x 轴的过滤器
     this.view.filter(xScale.field, (value: any, datum: Datum) => {
