@@ -16,9 +16,9 @@ describe('ScaleInY', () => {
       animate: ScaleInY({ fill: 'both', duration: 300 }),
       container,
     });
-    expect(shape.getOrigin()).toEqual(new Float32Array([0, 200, 0]));
+    expect(shape.style.transformOrigin).toBe('left bottom');
     expect(keyframes(animation, 'transform')).toEqual([
-      'scale(1, 0.0001)',
+      undefined,
       'scale(1, 0.0001)',
       'scale(1, 1)',
     ]);
@@ -27,14 +27,8 @@ describe('ScaleInY', () => {
     expect(keyframes(animation, 'opacity')).toEqual([0, 1, undefined]);
     expect(keyframes(animation, 'offset')).toEqual([null, 0.01, null]);
 
-    const { onfinish } = animation;
-    return new Promise<void>((resolve) => {
-      animation.onfinish = (e) => {
-        onfinish.call(animation, e);
-        expect(shape.getOrigin()).toEqual(new Float32Array([0, 0, 0]));
-        resolve();
-      };
-    });
+    await animation.finished;
+    expect(shape.style.transformOrigin).toBe('left top');
   });
 
   it('ScaleInY({...}) should scale in different origin in transpose coordinate', async () => {
@@ -50,9 +44,9 @@ describe('ScaleInY', () => {
       container,
     });
 
-    expect(shape.getOrigin()).toEqual(new Float32Array([0, 0, 0]));
+    expect(shape.style.transformOrigin).toBe('left top');
     expect(keyframes(animation, 'transform')).toEqual([
-      'scale(0.0001, 1)',
+      undefined,
       'scale(0.0001, 1)',
       'scale(1, 1)',
     ]);
