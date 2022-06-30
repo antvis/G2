@@ -9,6 +9,7 @@ export function baseChannels(): Channel[] {
     { name: 'enterDuration', scaleName: 'enter' },
     { name: 'enterEasing' },
     { name: 'key', scale: 'identity' },
+    { name: 'groupKey', scale: 'identity' },
   ];
 }
 

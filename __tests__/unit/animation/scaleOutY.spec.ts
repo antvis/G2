@@ -1,4 +1,4 @@
-import { Rect } from '@antv/g';
+import { Rect, Animation } from '@antv/g';
 import { ScaleOutY } from '../../../src/animation';
 import { Transpose } from '../../../src/coordinate';
 import { mount, createDiv } from '../../utils/dom';
@@ -27,14 +27,8 @@ describe('ScaleOutY', () => {
     expect(keyframes(animation, 'opacity')).toEqual([undefined, 1, 0]);
     expect(keyframes(animation, 'offset')).toEqual([null, 0.99, null]);
 
-    const { onfinish } = animation;
-    return new Promise<void>((resolve) => {
-      animation.onfinish = (e) => {
-        onfinish.call(animation, e);
-        expect(shape.getOrigin()).toEqual(new Float32Array([0, 0, 0]));
-        resolve();
-      };
-    });
+    await (animation as Animation).finished;
+    expect(shape.getOrigin()).toEqual(new Float32Array([0, 0, 0]));
   });
 
   it('ScaleOutY({...}) should scale in different origin in transpose coordinate', async () => {

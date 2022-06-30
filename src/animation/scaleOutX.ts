@@ -13,13 +13,14 @@ export const ScaleOutX: AC<ScaleOutXOptions> = (options) => {
   // but bigger enough to not cause bug.
   const ZERO = 0.0001;
 
-  return (shape, value, coordinate, defaults) => {
+  return (from, to, value, coordinate, defaults) => {
+    const [shape] = from;
     const { height } = shape.getBoundingClientRect();
     const { transform: prefix } = shape.style;
     const { fillOpacity, strokeOpacity, opacity } = shape.parsedStyle;
     const [transformOrigin, transform]: [[number, number], string] =
       isTranspose(coordinate)
-        ? [[0, height], `scale(1, ${ZERO})`] // left-buttom corner
+        ? [[0, height], `scale(1, ${ZERO})`] // left-bottom corner
         : [[0, 0], `scale(${ZERO}, 1)`]; // left-top corner
 
     // Using a short fadeIn transition to hide element with scale(0.001)
@@ -52,7 +53,7 @@ export const ScaleOutX: AC<ScaleOutXOptions> = (options) => {
     );
 
     // Reset transform origin to eliminate side effect for following animations.
-    animation.onfinish = () => shape.setOrigin(0, 0);
+    animation.finished.then(() => shape.setOrigin(0, 0));
 
     return animation;
   };

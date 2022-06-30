@@ -14,6 +14,7 @@ describe('RangeY annotation', () => {
         { name: 'enterDuration', scaleName: 'enter' },
         { name: 'enterEasing' },
         { name: 'key', scale: 'identity' },
+        { name: 'groupKey', scale: 'identity' },
         { name: 'y', required: true },
       ],
       preInference: [{ type: 'maybeArrayField' }],

@@ -447,32 +447,65 @@ async function plotView(
     const enterFunction = createEnterFunction(mark, state, view, library);
     const updateFunction = createUpdateFunction(mark, state, view, library);
     const exitFunction = createExitFunction(mark, state, view, library);
-    selection
+    const T = selection
       .select(`#${key}`)
       .selectAll('.element')
-      .data(data, (d) => d.key)
+      .data(
+        data,
+        (d) => d.key,
+        (d) => d.groupKey,
+      )
       .join(
         (enter) =>
           enter
             .append(shapeFunction)
             .attr('className', 'element')
-            .each(function (data) {
-              const animation = enterFunction(data, this);
-              appendTransition(transitions, animation);
+            .transition(function (data) {
+              return enterFunction(data, [this]);
             }),
         (update) =>
-          update.each(function (data, index) {
+          update.transition(function (data, index) {
             const node = shapeFunction(data, index);
-            const animation = updateFunction(data, this, node);
-            appendTransition(transitions, animation);
+            const animation = updateFunction(data, [this], [node]);
+            // @todo Handle element with different type.
             if (animation === null) copyAttributes(this, node);
+            return animation;
           }),
         (exit) =>
-          exit.each(function (data) {
-            const animation = exitFunction(data, this);
-            appendTransition(transitions, animation);
-          }),
-      );
+          exit
+            .transition(function (data) {
+              return exitFunction(data, [this]);
+            })
+            .remove(),
+        (merge) =>
+          merge
+            // Append elements to be merged.
+            .append(shapeFunction)
+            .attr('className', 'element')
+            .transition(function (data) {
+              // Remove merged elements after animation finishing.
+              const { __fromElements__: fromElements } = this;
+              const transition = updateFunction(data, fromElements, [this]);
+              const exit = new Selection(fromElements, null, this.parentNode);
+              exit.transition(transition).remove();
+              return transition;
+            }),
+        (split) =>
+          split
+            .transition(function (data) {
+              // Append splitted shapes.
+              const enter = new Selection([], this.__toData__, this.parentNode);
+              const toElements = enter
+                .append(shapeFunction)
+                .attr('className', 'element')
+                .nodes();
+              return updateFunction(data, [this], toElements);
+            })
+            // Remove elements to be splitted after animation finishing.
+            .remove(),
+      )
+      .transitions();
+    transitions.push(...T);
   }
 }
 
@@ -507,9 +540,9 @@ function createAnimationFunction(
   library: G2Library,
 ): (
   data: Record<string, any>,
-  from: DisplayObject,
-  to?: DisplayObject,
-) => GAnimation {
+  from: DisplayObject[],
+  to: DisplayObject[],
+) => Promise<void> {
   const [, createShape] = useLibrary<G2ShapeOptions, ShapeComponent, Shape>(
     'shape',
     library,
@@ -529,7 +562,7 @@ function createAnimationFunction(
   const { [key]: defaultAnimation } = createShape(defaultShape).props;
   const { [type]: animate = {} } = mark.animate || {};
   const { [type]: defaultEffectTiming = {} } = theme;
-  return (data, from, to?) => {
+  return (data, from, to) => {
     const {
       [`${type}Type`]: animation,
       [`${type}Delay`]: delay,
@@ -542,8 +575,10 @@ function createAnimationFunction(
     };
     if (!options.type) return null;
     const animateFunction = useAnimation(options);
-    const value = { delay, duration, easing, to };
-    return animateFunction(from, value, coordinate, defaultEffectTiming);
+    const value = { delay, duration, easing };
+    const A = animateFunction(from, to, value, coordinate, defaultEffectTiming);
+    if (!Array.isArray(A)) return cancel(A);
+    return Promise.all(A.map(cancel));
   };
 }
 
@@ -554,10 +589,21 @@ function createEnterFunction(
   library: G2Library,
 ): (
   data: Record<string, any>,
-  from: DisplayObject,
-  to?: DisplayObject,
-) => GAnimation {
+  from?: DisplayObject[],
+  to?: DisplayObject[],
+) => Promise<void> {
   return createAnimationFunction('enter', mark, state, view, library);
+}
+
+/**
+ * Animation will not cancel automatically, it should be canceled
+ * manually. This is very important for performance.
+ * @todo Enable cancel after transition bug fixed.
+ */
+function cancel(animation: GAnimation): Promise<any> {
+  return animation.finished.then(() => {
+    // animation.cancel()
+  });
 }
 
 function createUpdateFunction(
@@ -567,9 +613,9 @@ function createUpdateFunction(
   library: G2Library,
 ): (
   data: Record<string, any>,
-  from: DisplayObject,
-  to?: DisplayObject,
-) => GAnimation {
+  from?: DisplayObject[],
+  to?: DisplayObject[],
+) => Promise<void> {
   return createAnimationFunction('update', mark, state, view, library);
 }
 
@@ -580,23 +626,10 @@ function createExitFunction(
   library: G2Library,
 ): (
   data: Record<string, any>,
-  from: DisplayObject,
-  to?: DisplayObject,
-) => GAnimation {
+  from?: DisplayObject[],
+  to?: DisplayObject[],
+) => Promise<void> {
   return createAnimationFunction('exit', mark, state, view, library);
-}
-
-function appendTransition(transitions: Promise<void>[], animation: GAnimation) {
-  if (animation === null) return;
-  transitions.push(
-    new Promise((resolve) => {
-      const preOnfinish = animation.onfinish;
-      animation.onfinish = () => {
-        preOnfinish?.call(animation);
-        resolve();
-      };
-    }),
-  );
 }
 
 function inferTheme(theme: G2ThemeOptions = { type: 'light' }): G2ThemeOptions {

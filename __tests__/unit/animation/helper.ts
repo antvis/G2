@@ -31,7 +31,7 @@ export function applyAnimation({
   transform = [],
   value = {},
   defaults = {},
-}: Options): Promise<[DisplayObject, GAnimation]> {
+}: Options): Promise<[DisplayObject, GAnimation | GAnimation[]]> {
   return new Promise((resolve) => {
     requestAnimationFrame(async () => {
       const coordinate = new Coordinate({
@@ -45,7 +45,7 @@ export function applyAnimation({
       await canvas.ready;
 
       canvas.appendChild(shape);
-      resolve([shape, animate(shape, value, coordinate, defaults)]);
+      resolve([shape, animate([shape], [], value, coordinate, defaults)]);
     });
   });
 }
@@ -54,10 +54,15 @@ export function style(shape: DisplayObject, key: string): any {
   return shape.style[key];
 }
 
-export function timing(animation: GAnimation, key: string): any {
-  return animation.effect.timing[key];
+export function timing(animation: GAnimation | GAnimation[], key: string): any {
+  const a = Array.isArray(animation) ? animation[0] : animation;
+  return a.effect.timing[key];
 }
 
-export function keyframes(animate: GAnimation, key: string): any {
-  return animate.effect.normalizedKeyframes.map((d) => d[key]);
+export function keyframes(
+  animation: GAnimation | GAnimation[],
+  key: string,
+): any {
+  const a = Array.isArray(animation) ? animation[0] : animation;
+  return a.effect.normalizedKeyframes.map((d) => d[key]);
 }

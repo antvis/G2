@@ -13,6 +13,7 @@ describe('Image', () => {
         { name: 'enterDuration', scaleName: 'enter' },
         { name: 'enterEasing' },
         { name: 'key', scale: 'identity' },
+        { name: 'groupKey', scale: 'identity' },
         { name: 'title', scale: 'identity' },
         { name: 'tooltip', scale: 'identity', independent: true },
         { name: 'x', required: true },
