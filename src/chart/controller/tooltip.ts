@@ -1,9 +1,9 @@
-import { deepMix, find, get, isEqual, isFunction, mix, isString, isBoolean, flatten, isArray } from '@antv/util';
+import { deepMix, find, get, isEqual, isFunction, mix, isString, isBoolean, flatten, isArray, last } from '@antv/util';
 import { Crosshair, HtmlTooltip, IGroup } from '../../dependents';
 import { Point, TooltipItem, TooltipOption } from '../../interface';
 import { getAngleByPoint, getDistanceToCenter, isPointInCoordinate, getCoordinateClipCfg } from '../../util/coordinate';
 import { polarToCartesian } from '../../util/graphics';
-import { findItemsFromView } from '../../util/tooltip';
+import { findItemsFromView, averageArrayXY } from '../../util/tooltip';
 import { BBox } from '../../util/bbox';
 import { Controller } from './base';
 import Event from '../event';
@@ -310,14 +310,27 @@ export default class Tooltip extends Controller<TooltipOption> {
 
   public getTooltipItems(point: Point) {
     let items = this.findItemsFromView(this.view, point);
+    const coordinate = this.getViewWithGeometry(this.view).getCoordinate();
+
     if (items.length) {
       // 三层
       items = flatten(items);
       for (const itemArr of items) {
         for (const item of itemArr) {
           const { x, y } = item.mappingData;
-          item.x = isArray(x) ? x[x.length - 1] : x;
-          item.y = isArray(y) ? y[y.length - 1] : y;
+
+          if (coordinate.isRect) {
+            if (coordinate.isTransposed) {
+              item.x = isArray(x) ? last(x) : x;
+              item.y = averageArrayXY(y);
+            } else {
+              item.x = averageArrayXY(x);
+              item.y = isArray(y) ? last(y) : y;
+            }
+          } else {
+            item.x = isArray(x) ? last(x) : x;
+            item.y = isArray(y) ? last(y) : y;
+          }
         }
       }
 

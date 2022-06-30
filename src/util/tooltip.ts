@@ -26,6 +26,10 @@ function snapEqual(v1: any, v2: any, scale: Scale) {
   return isNumberEqual(value1, value2);
 }
 
+export function averageArrayXY(values: number[] | number) {
+  return isArray(values) ? values.reduce((v, i) => v + i) / values.length : values;
+}
+
 function getXValueByPoint(point: Point, geometry: Geometry): number {
   const coordinate = geometry.coordinate;
   const xScale = geometry.getXScale();
@@ -422,7 +426,19 @@ function getTooltipItemsByHitShape(geometry, point, title, tooltipCfg: TooltipCf
   const shape = container.getShape(point.x, point.y);
   if (shape && shape.get('visible') && shape.get('origin')) {
     const mappingData = shape.get('origin').mappingData;
-    const items = getTooltipItems(mappingData, geometry, title, showNil);
+
+    let items;
+    // 自定义几何形状 取 marker x y 的平均值 中心点
+    if (shape.cfg.name.includes('polygon')) {
+      let { x, y } = mappingData;
+      x = averageArrayXY(x);
+      y = averageArrayXY(y);
+
+      items = getTooltipItems({ ...mappingData, x, y }, geometry, title, showNil);
+    } else {
+      items = getTooltipItems(mappingData, geometry, title, showNil);
+    }
+
     if (items.length) {
       result.push(items);
     }
