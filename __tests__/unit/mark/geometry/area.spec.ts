@@ -35,7 +35,7 @@ describe('Area', () => {
   });
 
   it('Area should draw basic area', () => {
-    const [I, P] = plot({
+    const [I, P, S] = plot({
       mark: Area({}),
       index: [0, 1, 2],
       channel: {
@@ -55,10 +55,11 @@ describe('Area', () => {
         [360, 0],
       ],
     ]);
+    expect(S).toEqual([[0, 1, 2]]);
   });
 
   it('Area should drawing multiple areas', () => {
-    const [I, P] = plot({
+    const [I, P, S] = plot({
       mark: Area({}),
       index: [0, 1, 2, 3, 4, 5],
       channel: {
@@ -87,6 +88,10 @@ describe('Area', () => {
         [120, 0],
         [240, 0],
       ],
+    ]);
+    expect(S).toEqual([
+      [0, 1, 2],
+      [3, 4, 5],
     ]);
   });
 });
