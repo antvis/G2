@@ -20,8 +20,8 @@ export const CurveLine: SC<CurveLineOptions> = (options) => {
       color = defaultColor,
       size = defaultSize,
       transform,
-      seriesColor,
-      seriesX,
+      seriesColor: sc,
+      seriesX: sx,
     } = value;
     // Append first point to draw close line in polar coordinate.
     const P = isPolar(coordinate) ? [...points, points[0]] : points;
@@ -29,7 +29,7 @@ export const CurveLine: SC<CurveLineOptions> = (options) => {
       .x((d) => d[0])
       .y((d) => d[1])
       .curve(curve);
-    const stroke = gradient ? computeGradient(seriesColor, seriesX) : color;
+    const stroke = gradient && sc ? computeGradient(sc, sx) : color;
     return select(new Path({}))
       .style('d', path(P))
       .style('stroke', stroke)

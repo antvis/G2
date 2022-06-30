@@ -39,9 +39,13 @@ export const CurveArea: SC<CurveAreaOptions> = (options) => {
   const { curve, gradient = false, ...style } = options;
   return (P, value, coordinate, theme) => {
     const { defaultColor } = theme;
-    const { color: colorValue = defaultColor, seriesColor, seriesX } = value;
+    const {
+      color: colorValue = defaultColor,
+      seriesColor: sc,
+      seriesX: sx,
+    } = value;
     const [path, transform] = pathTransform(P, value, curve, coordinate);
-    const color = gradient ? computeGradient(seriesColor, seriesX) : colorValue;
+    const color = gradient && sc ? computeGradient(sc, sx) : colorValue;
     return select(new Path({}))
       .style('d', path)
       .style('fill', color)
