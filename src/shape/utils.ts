@@ -1,4 +1,5 @@
 import { Path as D3Path } from 'd3-path';
+import { Linear } from '@antv/scale';
 import { Primitive, Vector2 } from '../runtime';
 import { angle, dist, sub } from '../utils/vector';
 import { Selection } from '../utils/selection';
@@ -116,4 +117,13 @@ export function appendArc(
   );
 
   return path;
+}
+
+export function computeGradient(C: string[], X: number[]): string {
+  const color = new Linear({
+    domain: [X[0], X[X.length - 1]],
+    range: [0, 100],
+  });
+  const gradient = C.map((c, i) => `${c} ${color.map(X[i])}%`).join(',');
+  return `linear-gradient(${gradient})`;
 }

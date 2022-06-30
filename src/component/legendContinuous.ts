@@ -23,8 +23,10 @@ export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
         x,
         y,
         rail: {
-          // length: 120,
-          // size: 12,
+          // @ts-ignore
+          length: 120,
+          // @ts-ignore
+          size: 12,
           ticks,
         },
         min,
