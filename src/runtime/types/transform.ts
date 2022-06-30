@@ -18,7 +18,7 @@ export type TransformProps = {
 
 export type TransformComponent<O extends TransformOptions = TransformOptions> =
   {
-    (options?: O): Transform;
+    (options: O): Transform;
     props?: TransformProps;
   };
 
