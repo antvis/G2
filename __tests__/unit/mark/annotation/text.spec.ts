@@ -14,6 +14,7 @@ describe('Annotation Text', () => {
         { name: 'enterDuration', scaleName: 'enter' },
         { name: 'enterEasing' },
         { name: 'key', scale: 'identity' },
+        { name: 'groupKey', scale: 'identity' },
         { name: 'x', required: true },
         { name: 'y', required: true },
         { name: 'text', required: true, scale: 'identity' },

@@ -13,7 +13,8 @@ export const ScaleInY: AC<ScaleInYOptions> = (options) => {
   // but bigger enough to not cause bug.
   const ZERO = 0.0001;
 
-  return (shape, value, coordinate, defaults) => {
+  return (from, to, value, coordinate, defaults) => {
+    const [shape] = from;
     const { height } = shape.getBoundingClientRect();
     const { transform: prefix } = shape.style;
     const { fillOpacity, strokeOpacity, opacity } = shape.parsedStyle;
@@ -52,7 +53,7 @@ export const ScaleInY: AC<ScaleInYOptions> = (options) => {
     );
 
     // Reset transform origin to eliminate side effect for following animations.
-    animation.onfinish = () => shape.setOrigin(0, 0);
+    animation.finished.then(() => shape.setOrigin(0, 0));
 
     return animation;
   };

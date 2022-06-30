@@ -8,7 +8,8 @@ export type FadeOutOptions = Animation;
  * Transform mark from solid to transparent.
  */
 export const FadeOut: AC<FadeOutOptions> = (options) => {
-  return (shape, value, coordinate, defaults) => {
+  return (from, to, value, coordinate, defaults) => {
+    const [shape] = from;
     const { fillOpacity, strokeOpacity, opacity } = shape.parsedStyle;
     const keyframes = [
       {
