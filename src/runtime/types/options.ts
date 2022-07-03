@@ -66,6 +66,7 @@ export type G2View = {
 
 export type G2Mark = {
   key?: string;
+  class?: string;
   paddingLeft?: number;
   paddingRight?: number;
   paddingTop?: number;

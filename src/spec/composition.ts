@@ -24,6 +24,7 @@ export type ViewComposition = {
   type?: 'view';
   data?: any;
   key?: string;
+  class?: string;
   paddingLeft?: number;
   paddingRight?: number;
   paddingTop?: number;
@@ -39,6 +40,7 @@ export type ViewComposition = {
 export type LayerComposition = {
   type?: 'layer';
   key?: string;
+  class?: string;
   data?: any;
   children?: Node[];
 };
@@ -46,6 +48,7 @@ export type LayerComposition = {
 export type FlexComposition = {
   type?: 'flex';
   key?: string;
+  class?: string;
   data?: any;
   direction?: 'col' | 'row';
   flex?: number[];
@@ -73,6 +76,7 @@ export type RectComposition = {
   paddingBottom?: number;
   type?: 'rect';
   title?: Title;
+  class?: string;
   encode?: {
     x?: string;
     y?: string;
@@ -90,6 +94,8 @@ export type MatrixComposition = {
   type?: 'matrix';
   transform?: Transform;
   data?: any;
+  class?: string;
+  key?: string;
   encode?: {
     x?: string[];
     y?: string[];
@@ -106,6 +112,8 @@ export type CircleComposition = {
   type?: 'matrix';
   transform?: Transform;
   data?: any;
+  class?: string;
+  key?: string;
   encode?: {
     position?: string;
   };
@@ -119,6 +127,8 @@ export type CircleComposition = {
 export type KeyframeComposition = {
   type?: 'keyframe';
   duration?: number;
+  class?: string;
+  key?: string;
   easing?: string;
   iterationCount?: 'infinite' | number;
   direction?: 'normal' | 'reverse' | 'alternate' | 'reverse-alternate';

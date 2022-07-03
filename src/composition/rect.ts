@@ -224,7 +224,10 @@ export const setChildren = useOverrideAdaptor<G2ViewTree>(
           ({ scale, key, facet: isFacet = true, ...rest }) => {
             const guideY = scale?.y?.guide;
             const guideX = scale?.x?.guide;
-            const defaultScale = { x: { tickCount: 5 }, y: { tickCount: 5 } };
+            const defaultScale = {
+              x: { tickCount: encodeX ? 5 : undefined },
+              y: { tickCount: encodeY ? 5 : undefined },
+            };
             const newScale = {
               x: { guide: createGuide(guideX, createGuideX)(facet) },
               y: { guide: createGuide(guideY, createGuideY)(facet) },

@@ -99,6 +99,7 @@ function oneToOne(
   }
 
   // @todo Add more attributes need to be transform.
+  // @todo Opacity transform unexpectedly.
   const keys = [
     'fill',
     'stroke',
@@ -109,6 +110,7 @@ function oneToOne(
   ];
   // Convert Path will take transform, anchor, etc into account,
   // so there is no need to specify these attributes in keyframes.
+  // console.log(from.style.path, to.style.path, from.style.transform, to.style.transform)
   const keyframes = [
     {
       path: fromPath,
@@ -116,6 +118,7 @@ function oneToOne(
     },
     {
       path: toPath,
+      transform: 'scale(1, 1)',
       ...attributeOf(to, keys),
     },
   ];
@@ -123,7 +126,9 @@ function oneToOne(
 
   // Remove transform because it already applied in path
   // converted by convertToPath.
-  animation.finished.then(() => (shape.style.transform = 'none'));
+  // @tdo Remove this scale(1, 1)
+  shape.style.transform = 'scale(1, 1)';
+  shape.style.transform = 'none';
   return animation;
 }
 

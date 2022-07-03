@@ -231,4 +231,122 @@ describe('keyframe', () => {
 
     mount(createDiv(), chart);
   });
+
+  it('keyframe should apply transition among facets', async () => {
+    const response = await fetch(
+      'https://gw.alipayobjects.com/os/bmw-prod/7fbb7084-cf34-4e7c-91b3-09e4748dc5e9.json',
+    );
+    const data = await response.json();
+    const chart = render<G2Spec>({
+      type: 'keyframe',
+      direction: 'alternate',
+      iterationCount: 2,
+      children: [
+        {
+          type: 'rect',
+          paddingRight: 86,
+          paddingLeft: 54,
+          data,
+          encode: {
+            y: 'industry',
+          },
+          children: [
+            {
+              type: 'area',
+              class: 'area',
+              frame: false,
+              scale: { y: { facet: false }, x: { utc: true } },
+              encode: {
+                shape: 'smoothArea',
+                x: (d) => new Date(d.date),
+                y: 'unemployed',
+                color: 'industry',
+                key: 'industry',
+              },
+              style: { fillOpacity: 1 },
+              animate: { enter: { type: 'scaleInY' } },
+            },
+          ],
+        },
+        {
+          type: 'area',
+          class: 'area',
+          paddingLeft: 54,
+          paddingRight: 86,
+          data,
+          transform: [{ type: 'stackY', reverse: true }],
+          scale: { x: { utc: true } },
+          encode: {
+            shape: 'smoothArea',
+            x: (d) => new Date(d.date),
+            y: 'unemployed',
+            color: 'industry',
+            key: 'industry',
+          },
+          style: { fillOpacity: 1 },
+        },
+        {
+          type: 'area',
+          class: 'area',
+          paddingLeft: 54,
+          paddingRight: 86,
+          scale: { x: { utc: true } },
+          data,
+          encode: {
+            shape: 'smoothArea',
+            x: (d) => new Date(d.date),
+            y: 'unemployed',
+            color: 'industry',
+            key: 'industry',
+          },
+          style: { fillOpacity: 0.8 },
+        },
+      ],
+    });
+    mount(createDiv(), chart);
+  });
+
+  it('keyframe should apply transition among unit visualization', async () => {
+    const response = await fetch(
+      'https://gw.alipayobjects.com/os/bmw-prod/fbe4a8c1-ce04-4ba3-912a-0b26d6965333.json',
+    );
+    const data = await response.json();
+    const chart = render<G2Spec>({
+      type: 'keyframe',
+      direction: 'alternate',
+      iterationCount: 2,
+      children: [
+        {
+          type: 'rect',
+          data,
+          encode: {
+            x: 'gender',
+          },
+          children: [
+            {
+              type: 'point',
+              class: 'point',
+              encode: {
+                color: 'gender',
+                key: (d) => `(${d.weight}, ${d.height})`,
+              },
+              adjust: { type: 'pack' },
+            },
+          ],
+        },
+        {
+          type: 'point',
+          class: 'point',
+          data,
+          encode: {
+            x: 'height',
+            y: 'weight',
+            color: 'gender',
+            key: (d) => `(${d.weight}, ${d.height})`,
+          },
+        },
+      ],
+    });
+    mount(createDiv(), chart);
+  });
 });
