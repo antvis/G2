@@ -94,6 +94,7 @@ import {
   Link,
   PointNode,
   PolygonNode,
+  Label,
 } from '../../../src/shape';
 import { Light } from '../../../src/theme';
 import {
@@ -298,6 +299,7 @@ describe('stdlib', () => {
       'shape.ribbon': Ribbon,
       'shape.box': Box,
       'shape.vector': Vector,
+      'shape.label': Label,
       'shape.annotation.text': AnnotationTextShape,
       'shape.annotation.badge': AnnotationBadge,
       'shape.annotation.line': AnnotationLineShape,
