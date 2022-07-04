@@ -460,7 +460,7 @@ async function plotView(
     const T = selection
       .select(`#${key}`)
       .selectAll('.element')
-      .selectUpdateAll(facetElements)
+      .selectFacetAll(facetElements)
       .data(
         data,
         (d) => d.key,
@@ -594,7 +594,7 @@ function maybeFacetElement(
   parent: DisplayObject,
   originOf: (node: DisplayObject) => [number, number],
 ): void {
-  if (!element.__update__) return;
+  if (!element.__facet__) return;
   // element -> g#main -> rect#plot
   const prePlot = element.parentNode.parentNode as DisplayObject;
   // g#main -> rect#plot

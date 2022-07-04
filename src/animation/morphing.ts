@@ -118,7 +118,6 @@ function oneToOne(
     },
     {
       path: toPath,
-      transform: 'scale(1, 1)',
       ...attributeOf(to, keys),
     },
   ];
@@ -126,7 +125,7 @@ function oneToOne(
 
   // Remove transform because it already applied in path
   // converted by convertToPath.
-  // @tdo Remove this scale(1, 1)
+  // @todo Remove this scale(1, 1)
   shape.style.transform = 'scale(1, 1)';
   shape.style.transform = 'none';
   return animation;
