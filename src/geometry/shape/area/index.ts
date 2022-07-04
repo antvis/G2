@@ -41,6 +41,7 @@ registerShape('area', 'area', {
       style: {
         r: 5,
         fill: color,
+        fillOpacity: 1,
       },
     };
   },

@@ -28,6 +28,7 @@ registerShape('area', 'smooth', {
       style: {
         r: 5,
         fill: color,
+        fillOpacity: 1,
       },
     };
   },

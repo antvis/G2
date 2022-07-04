@@ -63,6 +63,7 @@ describe('Area shapes', () => {
     });
     expect(areaMarker.style.fill).toBe('red');
     expect(areaMarker.symbol).toBeFunction();
+    expect(areaMarker.style.fillOpacity).toBe(1);
 
     const lineMarker = AreaShapeFactory.getMarker('line', {
       color: 'red',
@@ -77,6 +78,7 @@ describe('Area shapes', () => {
     });
     expect(smoothMarker.style.fill).toBe('red');
     expect(smoothMarker.symbol).toBeFunction();
+    expect(areaMarker.style.fillOpacity).toBe(1);
 
     const smoothLineMarker = AreaShapeFactory.getMarker('smooth-line', {
       color: 'red',
