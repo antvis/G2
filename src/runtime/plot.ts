@@ -546,7 +546,7 @@ function plotLabel(
       copyAttributes(label, newLabel);
     });
   }
-  // @todo applyLayoutLayout(labels);
+  // @todo applyLayout(labels);
 }
 
 function createLabelShapeFunction(

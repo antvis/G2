@@ -7,7 +7,7 @@ export type LabelOptions = Record<string, any>;
 
 /**
  * Render normal label for each mark.
- * @todo Support layout option: middle...
+ * @todo Support position option: middle...
  */
 export const Label: SC<LabelOptions> = (options) => {
   const { label: style = {} } = options;
