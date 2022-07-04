@@ -49,6 +49,7 @@ export const Interval: MC<IntervalOptions> = () => {
 
 Interval.props = {
   defaultShape: 'rect',
+  defaultLabelShape: 'label',
   channels: [
     ...baseGeometryChannels(),
     { name: 'x', scale: 'band', required: true },

@@ -88,6 +88,7 @@ import {
   Link,
   PointNode,
   PolygonNode,
+  Label,
 } from '../shape';
 import { Light } from '../theme';
 import {
@@ -291,6 +292,7 @@ export function createLibrary(): G2Library {
     'shape.ribbon': Ribbon,
     'shape.box': Box,
     'shape.vector': Vector,
+    'shape.label': Label,
     'shape.annotation.text': AnnotationTextShape,
     'shape.annotation.badge': AnnotationBadge,
     'shape.annotation.line': AnnotationLineShape,

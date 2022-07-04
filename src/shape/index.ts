@@ -62,3 +62,5 @@ export {
   Connector as AnnotationConnector,
   ConnectorOptions as AnnotationConnectorOptions,
 } from './annotation/connector';
+
+export { Label, LabelOptions } from './label/label';

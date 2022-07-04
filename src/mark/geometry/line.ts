@@ -74,6 +74,7 @@ export const Line: MC<LineOptions> = () => {
 
 Line.props = {
   defaultShape: 'line',
+  defaultLabelShape: 'label',
   channels: [
     ...baseGeometryChannels(),
     { name: 'x' },

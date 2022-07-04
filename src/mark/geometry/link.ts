@@ -28,6 +28,7 @@ export const Link: MC<LinkOptions> = () => {
 
 Link.props = {
   defaultShape: 'link',
+  defaultLabelShape: 'label',
   channels: [
     ...baseGeometryChannels(),
     { name: 'x', required: true },

@@ -14,6 +14,7 @@ export type MarkComponent<O extends MarkOptions = MarkOptions> = {
 
 export type MarkProps = {
   defaultShape: string;
+  defaultLabelShape?: string;
   channels: Channel[];
   preInference?: TransformSpec[];
   postInference?: TransformSpec[];

@@ -63,6 +63,7 @@ export const Area: MC<AreaOptions> = () => {
 
 Area.props = {
   defaultShape: 'area',
+  defaultLabelShape: 'label',
   channels: [
     ...baseGeometryChannels(),
     { name: 'x', required: true },

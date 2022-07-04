@@ -6,6 +6,7 @@ describe('Connector', () => {
   it('Connector has expected props', () => {
     expect(Connector.props).toEqual({
       defaultShape: 'annotation.connector',
+      defaultLabelShape: 'label',
       channels: [
         { name: 'color' },
         { name: 'shape' },
@@ -15,6 +16,7 @@ describe('Connector', () => {
         { name: 'enterEasing' },
         { name: 'key', scale: 'identity' },
         { name: 'groupKey', scale: 'identity' },
+        { name: 'label', scale: 'identity' },
         { name: 'x', required: true },
         { name: 'y', required: true },
       ],

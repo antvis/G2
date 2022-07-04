@@ -23,6 +23,7 @@ export const Image: MC<ImageOptions> = () => {
 
 Image.props = {
   defaultShape: 'image',
+  defaultLabelShape: 'label',
   channels: [
     ...baseGeometryChannels(),
     { name: 'x', required: true },

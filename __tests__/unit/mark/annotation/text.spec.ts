@@ -6,6 +6,7 @@ describe('Annotation Text', () => {
   it('Text should has expected props', () => {
     expect(AnnotationText.props).toEqual({
       defaultShape: 'annotation.text',
+      defaultLabelShape: 'label',
       channels: [
         { name: 'color' },
         { name: 'shape' },
@@ -15,6 +16,7 @@ describe('Annotation Text', () => {
         { name: 'enterEasing' },
         { name: 'key', scale: 'identity' },
         { name: 'groupKey', scale: 'identity' },
+        { name: 'label', scale: 'identity' },
         { name: 'x', required: true },
         { name: 'y', required: true },
         { name: 'text', required: true, scale: 'identity' },

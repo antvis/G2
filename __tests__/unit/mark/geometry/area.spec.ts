@@ -5,6 +5,7 @@ describe('Area', () => {
   it('Area has expected props', () => {
     expect(Area.props).toEqual({
       defaultShape: 'area',
+      defaultLabelShape: 'label',
       channels: [
         { name: 'color' },
         { name: 'shape' },
@@ -14,6 +15,7 @@ describe('Area', () => {
         { name: 'enterEasing' },
         { name: 'key', scale: 'identity' },
         { name: 'groupKey', scale: 'identity' },
+        { name: 'label', scale: 'identity' },
         { name: 'title', scale: 'identity' },
         { name: 'tooltip', scale: 'identity', independent: true },
         { name: 'x', required: true },

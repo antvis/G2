@@ -88,6 +88,7 @@ export const Schema: MC<SchemaOptions> = () => {
 
 Schema.props = {
   defaultShape: 'box',
+  defaultLabelShape: 'label',
   channels: [
     ...baseGeometryChannels(),
     { name: 'x', scale: 'band', required: true },

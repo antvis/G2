@@ -10,6 +10,7 @@ export function baseChannels(): Channel[] {
     { name: 'enterEasing' },
     { name: 'key', scale: 'identity' },
     { name: 'groupKey', scale: 'identity' },
+    { name: 'label', scale: 'identity' },
   ];
 }
 

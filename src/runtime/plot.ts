@@ -160,6 +160,11 @@ export async function plot<T extends G2ViewTree>(
       (exit) => exit.remove(),
     );
 
+  // Draw label for each element.
+  selection.selectAll('.view').each(function (view) {
+    plotLabel(view, select(this), transitions, library);
+  });
+
   // Apply interaction to entered views.
   const viewInstances = Array.from(viewContainer.entries()).map(
     ([view, container]) => ({
@@ -445,7 +450,7 @@ async function plotView(
   for (const [mark, state] of markState.entries()) {
     const { data } = state;
     const { key } = mark;
-    const shapeFunction = createShapeFunction(mark, state, view, library);
+    const shapeFunction = createMarkShapeFunction(mark, state, view, library);
     const enterFunction = createEnterFunction(mark, state, view, library);
     const updateFunction = createUpdateFunction(mark, state, view, library);
     const exitFunction = createExitFunction(mark, state, view, library);
@@ -511,23 +516,87 @@ async function plotView(
   }
 }
 
-function createShapeFunction(
+/**
+ * Auto hide labels be specify label layout.
+ */
+function plotLabel(
+  view: G2ViewDescriptor,
+  selection: Selection,
+  transitions: Promise<void>[],
+  library: G2Library,
+) {
+  const { markState } = view;
+  const labels = [];
+  for (const [mark, state] of markState.entries()) {
+    const { key } = mark;
+    const mainLayer = selection.select(`#${key}`);
+    const shapeFunction = createLabelShapeFunction(mark, state, view, library);
+    mainLayer.selectAll('.element').each(function (data, index) {
+      if (data?.label === undefined) return;
+      const newLabel = shapeFunction(data, index, this);
+      const label = this.getElementById('.label');
+      if (!label) {
+        newLabel.id = 'label';
+        this.appendChild(newLabel);
+        labels.push(newLabel);
+        return;
+      }
+      labels.push(label);
+      // @todo Handle Label with different type.
+      copyAttributes(label, newLabel);
+    });
+  }
+  // @todo applyLayout(labels);
+}
+
+function createLabelShapeFunction(
+  mark: G2Mark,
+  state: G2MarkState,
+  view: G2ViewDescriptor,
+  library: G2Library,
+): (
+  data: Record<string, any>,
+  index: number,
+  element?: DisplayObject,
+) => DisplayObject {
+  return createShapeFunction('labelShape', mark, state, view, library);
+}
+
+function createMarkShapeFunction(
   mark: G2Mark,
   state: G2MarkState,
   view: G2ViewDescriptor,
   library: G2Library,
 ): (data: Record<string, any>, index: number) => DisplayObject {
+  return createShapeFunction('shape', mark, state, view, library);
+}
+
+function createShapeFunction(
+  type: 'shape' | 'labelShape',
+  mark: G2Mark,
+  state: G2MarkState,
+  view: G2ViewDescriptor,
+  library: G2Library,
+): (
+  data: Record<string, any>,
+  index: number,
+  element?: DisplayObject,
+) => DisplayObject {
   const [useShape] = useLibrary<G2ShapeOptions, ShapeComponent, Shape>(
     'shape',
     library,
   );
-  const { defaultShape, data } = state;
+  const upperType = upperFirst(type) as 'Shape' | 'LabelShape';
+  const defaultKey:
+    | 'defaultShape'
+    | 'defaultLabelShape' = `default${upperType}`;
+  const { [defaultKey]: defaultShape, data } = state;
   const point2d = data.map((d) => d.points);
   const { theme, coordinate } = view;
   const { style } = mark;
-  return (data, index) => {
-    const { shape, points, ...v } = data;
-    const value = { ...v, index };
+  return (data, index, element?) => {
+    const { [type]: shape, points, ...v } = data;
+    const value = { ...v, index, element };
     const normalizedShape = normalizeOptions(shape || defaultShape);
     const shapeFunction = useShape({ ...normalizedShape, ...style });
     return shapeFunction(points, value, coordinate, theme, point2d);

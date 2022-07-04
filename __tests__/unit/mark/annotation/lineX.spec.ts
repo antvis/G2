@@ -5,6 +5,7 @@ describe('Line annotation', () => {
   it('LineX has expected props', () => {
     expect(LineX.props).toEqual({
       defaultShape: 'annotation.line',
+      defaultLabelShape: 'label',
       channels: [
         { name: 'color' },
         { name: 'shape' },
@@ -14,6 +15,7 @@ describe('Line annotation', () => {
         { name: 'enterEasing' },
         { name: 'key', scale: 'identity' },
         { name: 'groupKey', scale: 'identity' },
+        { name: 'label', scale: 'identity' },
         { name: 'x', required: true },
       ],
       preInference: [{ type: 'maybeArrayField' }],

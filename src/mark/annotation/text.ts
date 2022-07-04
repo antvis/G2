@@ -15,6 +15,7 @@ export const AnnotationText: MC<AnnotationTextOptions> = () => {
 
 AnnotationText.props = {
   defaultShape: 'annotation.text',
+  defaultLabelShape: 'label',
   channels: [
     ...baseAnnotationChannels(),
     { name: 'x', required: true },

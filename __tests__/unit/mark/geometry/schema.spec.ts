@@ -6,6 +6,7 @@ describe('Schema', () => {
   it('Schema has expected props', () => {
     expect(Schema.props).toEqual({
       defaultShape: 'box',
+      defaultLabelShape: 'label',
       channels: [
         { name: 'color' },
         { name: 'shape' },
@@ -15,6 +16,7 @@ describe('Schema', () => {
         { name: 'enterEasing' },
         { name: 'key', scale: 'identity' },
         { name: 'groupKey', scale: 'identity' },
+        { name: 'label', scale: 'identity' },
         { name: 'title', scale: 'identity' },
         { name: 'tooltip', scale: 'identity', independent: true },
         { name: 'x', scale: 'band', required: true },

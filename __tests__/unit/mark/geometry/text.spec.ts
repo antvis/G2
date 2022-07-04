@@ -6,6 +6,7 @@ describe('Text', () => {
   it('Text should has expected props', () => {
     expect(Text.props).toEqual({
       defaultShape: 'text',
+      defaultLabelShape: 'label',
       channels: [
         { name: 'color' },
         { name: 'shape' },
@@ -15,6 +16,7 @@ describe('Text', () => {
         { name: 'enterEasing' },
         { name: 'key', scale: 'identity' },
         { name: 'groupKey', scale: 'identity' },
+        { name: 'label', scale: 'identity' },
         { name: 'title', scale: 'identity' },
         { name: 'tooltip', scale: 'identity', independent: true },
         { name: 'x', required: true },
