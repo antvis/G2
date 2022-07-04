@@ -24,6 +24,7 @@ export const Edge: MC<EdgeOptions> = (...args) => {
 
 Edge.props = {
   defaultShape: 'edge',
+  defaultLabelShape: 'label',
   channels: [
     ...baseGeometryChannels(),
     { name: 'x', required: true },

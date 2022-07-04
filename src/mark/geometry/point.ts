@@ -36,6 +36,7 @@ export const Point: MC<PointOptions> = () => {
 
 Point.props = {
   defaultShape: 'point',
+  defaultLabelShape: 'label',
   channels: [
     ...baseGeometryChannels(),
     { name: 'x', required: true },

@@ -6,6 +6,7 @@ describe('Grid', () => {
   it('Grid has expected props', () => {
     expect(Grid.props).toEqual({
       defaultShape: 'rect',
+      defaultLabelShape: 'label',
       channels: [
         { name: 'color' },
         { name: 'shape' },
@@ -15,6 +16,7 @@ describe('Grid', () => {
         { name: 'enterEasing' },
         { name: 'key', scale: 'identity' },
         { name: 'groupKey', scale: 'identity' },
+        { name: 'label', scale: 'identity' },
         { name: 'title', scale: 'identity' },
         { name: 'tooltip', scale: 'identity', independent: true },
         { name: 'x', required: true, scale: 'band' },

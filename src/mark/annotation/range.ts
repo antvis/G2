@@ -43,6 +43,7 @@ export const Range: MC<RangeOptions> = () => {
 
 Range.props = {
   defaultShape: 'annotation.range',
+  defaultLabelShape: 'label',
   channels: [
     ...baseAnnotationChannels(),
     { name: 'x', required: true },

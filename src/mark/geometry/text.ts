@@ -24,6 +24,7 @@ export const Text: MC<TextOptions> = () => {
 
 Text.props = {
   defaultShape: 'text',
+  defaultLabelShape: 'label',
   channels: [
     ...baseGeometryChannels(),
     { name: 'x', required: true },

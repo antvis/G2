@@ -38,6 +38,7 @@ export const Vector: MC<VectorOptions> = () => {
 
 Vector.props = {
   defaultShape: 'vector',
+  defaultLabelShape: 'label',
   channels: [
     ...baseGeometryChannels(),
     { name: 'x', required: true },

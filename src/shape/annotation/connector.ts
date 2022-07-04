@@ -48,7 +48,8 @@ class ConnectorPath extends CustomElement<ConnectorPathStyleProps> {
   }
 
   private drawPath() {
-    const { connectorPath, ...style } = this.attributes;
+    // Do not copy className to path.
+    const { connectorPath, class: className, ...style } = this.attributes;
     this.connector = select(this.connector || this.appendChild(new Path({})))
       .style('path', connectorPath)
       .call(applyStyle, style)

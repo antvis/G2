@@ -15,6 +15,7 @@ export const RangeY: MC<RangeYOptions> = () => {
 
 RangeY.props = {
   defaultShape: 'annotation.range',
+  defaultLabelShape: 'label',
   channels: [...baseAnnotationChannels(), { name: 'y', required: true }],
   preInference: [...basePreInference()],
   postInference: [...basePostInference()],

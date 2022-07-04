@@ -36,6 +36,7 @@ export const Grid: MC<GridOptions> = () => {
 
 Grid.props = {
   defaultShape: 'rect',
+  defaultLabelShape: 'label',
   channels: [
     ...baseGeometryChannels(),
     { name: 'x', required: true, scale: 'band' },

@@ -15,6 +15,7 @@ export const Connector: MC<ConnectorOptions> = (...args) => {
 
 Connector.props = {
   defaultShape: 'annotation.connector',
+  defaultLabelShape: 'label',
   channels: [
     ...baseAnnotationChannels(),
     { name: 'x', required: true },
