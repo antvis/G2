@@ -5,6 +5,14 @@
   },
   "demos": [
     {
+      "filename": "brush-rename-button.ts",
+      "title": {
+        "zh": "修改框选重置按钮默认文案",
+        "en": "Brush reset button default text"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*PF0IS7OaCSwAAAAAAAAAAABkARQnAQ"
+    },
+    {
       "filename": "element-brush.ts",
       "title": {
         "zh": "框选过滤数据",
