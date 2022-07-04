@@ -57,7 +57,7 @@ export const Area: MC<AreaOptions> = () => {
       return points;
     });
 
-    return [I, P];
+    return [I, P, series];
   };
 };
 

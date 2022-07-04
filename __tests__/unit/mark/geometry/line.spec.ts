@@ -35,7 +35,7 @@ describe('Line', () => {
   });
 
   it('Line should draw basic line', () => {
-    const [I, P] = plot({
+    const [I, P, S] = plot({
       mark: Line({}),
       index: [0, 1, 2],
       channel: {
@@ -51,10 +51,11 @@ describe('Line', () => {
         [360, 160],
       ],
     ]);
+    expect(S).toEqual([[0, 1, 2]]);
   });
 
   it('Line should drawing multiple lines', () => {
-    const [I, P] = plot({
+    const [I, P, S] = plot({
       mark: Line({}),
       index: [0, 1, 2, 3, 4, 5],
       channel: {
@@ -76,6 +77,10 @@ describe('Line', () => {
         [120, 160],
         [240, 240],
       ],
+    ]);
+    expect(S).toEqual([
+      [0, 1, 2],
+      [3, 4, 5],
     ]);
   });
 

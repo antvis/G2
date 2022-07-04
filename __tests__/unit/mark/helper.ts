@@ -29,7 +29,7 @@ export function plot({
   width = 600,
   height = 400,
   transform = [],
-}: Options): [number[], Vector2[][]] {
+}: Options): [number[], Vector2[][], number[][]?] {
   const coordinate = new Coordinate({
     width,
     height,

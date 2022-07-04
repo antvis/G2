@@ -25,6 +25,6 @@ export type Mark = (
   scale: Record<string, Scale>,
   channel: MarkChannel,
   coordinate: Coordinate,
-) => [I: number[], Point2d: Vector2[][]];
+) => [I: number[], point2d: Vector2[][], series?: number[][]];
 
 export type MarkChannel = Record<string, Primitive[]>;
