@@ -137,7 +137,7 @@ export type Shape = (
   value: {
     color?: string;
     index?: number;
-    [key: string]: Primitive;
+    [key: string]: any;
   },
   coordinate: Coordinate,
   theme: G2Theme,

@@ -326,7 +326,7 @@ function initializeState(
     // Calc points and transformation for each data,
     // and then transform visual value to visual data.
     const calcPoints = useMark(mark);
-    const [I, P] = calcPoints(index, markScaleInstance, value, coordinate);
+    const [I, P, S] = calcPoints(index, markScaleInstance, value, coordinate);
     const definedIndex = [];
     const definedPoints = [];
     for (let i = 0; i < I.length; i++) {
@@ -339,12 +339,14 @@ function initializeState(
     }
     const count = dataDomain || definedIndex.length;
     const T = adjust ? useAdjust(adjust)(P, count, layout) : [];
-    const visualData: Record<string, any>[] = definedIndex.map((d, i) =>
-      Object.entries(value).reduce(
-        (datum, [k, V]) => ((datum[k] = V[d]), datum),
-        { points: definedPoints[i], transform: T[i] },
-      ),
-    );
+    const visualData: Record<string, any>[] = definedIndex.map((d, i) => {
+      const datum = { points: definedPoints[i], transform: T[i] };
+      for (const [k, V] of Object.entries(value)) {
+        datum[k] = V[d];
+        if (S) datum[`series${upperFirst(k)}`] = S[i].map((i) => V[i]);
+      }
+      return datum;
+    });
     state.data = visualData;
     state.index = definedIndex;
 

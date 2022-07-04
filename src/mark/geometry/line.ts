@@ -29,7 +29,7 @@ const line: Mark = (index, scale, value, coordinate) => {
   const P = Array.from(series, (I) => {
     return I.map((i) => coordinate.map([+X[i], +Y[i]])) as Vector2[];
   });
-  return [I, P];
+  return [I, P, series];
 };
 
 const parallel: Mark = (index, scale, value, coordinate) => {

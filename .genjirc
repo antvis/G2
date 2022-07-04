@@ -19,6 +19,7 @@
       "Interval": "interval",
       "Point": "point",
       "Line": "line",
+      "Area": "area",
       "Text": "text",
       "Grid": "grid",
       "Vector": "vector"
