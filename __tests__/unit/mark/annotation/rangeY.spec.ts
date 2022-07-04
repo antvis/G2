@@ -6,6 +6,7 @@ describe('RangeY annotation', () => {
   it('RangeY has expected props', () => {
     expect(RangeY.props).toEqual({
       defaultShape: 'annotation.range',
+      defaultLabelShape: 'label',
       channels: [
         { name: 'color' },
         { name: 'shape' },
@@ -15,6 +16,7 @@ describe('RangeY annotation', () => {
         { name: 'enterEasing' },
         { name: 'key', scale: 'identity' },
         { name: 'groupKey', scale: 'identity' },
+        { name: 'label', scale: 'identity' },
         { name: 'y', required: true },
       ],
       preInference: [{ type: 'maybeArrayField' }],

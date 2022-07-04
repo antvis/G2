@@ -23,6 +23,7 @@ export const LineX: MC<LineXOptions> = () => {
 
 LineX.props = {
   defaultShape: 'annotation.line',
+  defaultLabelShape: 'label',
   channels: [...baseAnnotationChannels(), { name: 'x', required: true }],
   preInference: [...basePreInference()],
   postInference: [...basePostInference()],

@@ -1,4 +1,3 @@
-import { Linear } from '@antv/scale';
 import { line, CurveFactory, CurveFactoryLineOnly } from 'd3-shape';
 import { Path } from '@antv/g';
 import { isPolar } from '../../utils/coordinate';

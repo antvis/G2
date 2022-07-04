@@ -38,6 +38,7 @@ export const Polygon: MC<PolygonOptions> = () => {
 
 Polygon.props = {
   defaultShape: 'polygon',
+  defaultLabelShape: 'label',
   channels: [
     ...baseGeometryChannels(),
     { name: 'x', required: true },

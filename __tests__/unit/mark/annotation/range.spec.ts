@@ -6,6 +6,7 @@ describe('Range annotation', () => {
   it('Range has expected props', () => {
     expect(Range.props).toEqual({
       defaultShape: 'annotation.range',
+      defaultLabelShape: 'label',
       channels: [
         { name: 'color' },
         { name: 'shape' },
@@ -15,6 +16,7 @@ describe('Range annotation', () => {
         { name: 'enterEasing' },
         { name: 'key', scale: 'identity' },
         { name: 'groupKey', scale: 'identity' },
+        { name: 'label', scale: 'identity' },
         { name: 'x', required: true },
         { name: 'y', required: true },
       ],

@@ -19,6 +19,7 @@ export const Node: MC<NodeGeometry> = (...args) => {
 
 Node.props = {
   defaultShape: 'pointNode',
+  defaultLabelShape: 'label',
   channels: [
     ...baseGeometryChannels(),
     { name: 'x', required: true },
