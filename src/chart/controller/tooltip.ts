@@ -1,7 +1,7 @@
 import { deepMix, find, get, isEqual, isFunction, mix, isString, isBoolean, flatten, isArray } from '@antv/util';
 import { Crosshair, HtmlTooltip, IGroup } from '../../dependents';
 import { Point, TooltipItem, TooltipOption } from '../../interface';
-import { getAngleByPoint, getDistanceToCenter, isPointInCoordinate, getCoordinateClipCfg } from '../../util/coordinate';
+import { getAngleByPoint, getDistanceToCenter, getCoordinateClipCfg } from '../../util/coordinate';
 import { polarToCartesian } from '../../util/graphics';
 import { findItemsFromView } from '../../util/tooltip';
 import { BBox } from '../../util/bbox';
@@ -492,9 +492,6 @@ export default class Tooltip extends Controller<TooltipOption> {
   // 渲染 x 轴上的 tooltip 辅助线
   private renderXCrosshairs(point: Point, tooltipCfg) {
     const coordinate = this.getViewWithGeometry(this.view).getCoordinate();
-    if (!isPointInCoordinate(coordinate, point)) {
-      return;
-    }
     let start;
     let end;
     if (coordinate.isRect) {
@@ -552,9 +549,6 @@ export default class Tooltip extends Controller<TooltipOption> {
   // 渲染 y 轴上的辅助线
   private renderYCrosshairs(point: Point, tooltipCfg) {
     const coordinate = this.getViewWithGeometry(this.view).getCoordinate();
-    if (!isPointInCoordinate(coordinate, point)) {
-      return;
-    }
     let cfg;
     let type;
     if (coordinate.isRect) {

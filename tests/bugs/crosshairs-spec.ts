@@ -84,4 +84,40 @@ describe('Crosshairs', () => {
     expect(xCrosshairs.get('group').getChildren()[1].getBBox().height).toBe(view2.getCoordinate().getHeight() + 1);
     expect(xCrosshairs.get('group').getChildren()[2].attr('text')).toBe('28 February');
   });
+
+  it('crosshairs inCoordinate', () => {
+    const data = [
+      { Date: '22 February', value: -125000 },
+      { Date: '28 February', value: 150000 },
+      { Date: '3 March', value: 250000 },
+    ];
+
+    const chart = new Chart({
+      container: createDiv(),
+      width: 400,
+      height: 300,
+      padding: 0,
+    });
+    chart.scale({
+      value: {
+        min: 0,
+      },
+    });
+    chart.tooltip({
+      showCrosshairs: true,
+      shared: true,
+    });
+    chart.data(data);
+    chart.line().position('Date*value');
+
+    chart.render();
+
+    const point = chart.getXY({ Date: '22 February', value: -125000 });
+    chart.showTooltip(point);
+
+    const tooltip = chart.getController('tooltip');
+    // @ts-ignore
+    const xCrosshairs = tooltip.xCrosshair;
+    expect(!!xCrosshairs).toBe(true);
+  });
 });
