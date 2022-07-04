@@ -45,9 +45,11 @@ describe('label', () => {
           label: 'sold',
         },
         style: {
-          labelFill: 'red',
-          labelFontSize: 20,
-          labelFontWeight: 'bold',
+          label: {
+            fill: 'red',
+            fontSize: 20,
+            fontWeight: 'bold',
+          },
         },
       },
       {},

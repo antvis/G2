@@ -530,14 +530,9 @@ function plotLabel(
   for (const [mark, state] of markState.entries()) {
     const { key } = mark;
     const mainLayer = selection.select(`#${key}`);
+    const shapeFunction = createLabelShapeFunction(mark, state, view, library);
     mainLayer.selectAll('.element').each(function (data, index) {
       if (data?.label === undefined) return;
-      const shapeFunction = createLabelShapeFunction(
-        mark,
-        state,
-        view,
-        library,
-      );
       const newLabel = shapeFunction(data, index, this);
       const label = this.getElementById('.label');
       if (!label) {

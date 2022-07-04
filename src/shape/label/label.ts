@@ -1,5 +1,4 @@
 import { DisplayObject, Text } from '@antv/g';
-import { lowerFirst } from '@antv/util';
 import { select } from '../../utils/selection';
 import { ShapeComponent as SC } from '../../runtime';
 import { applyStyle } from '../../shape/utils';
@@ -11,11 +10,7 @@ export type LabelOptions = Record<string, any>;
  * @todo Support layout option: middle...
  */
 export const Label: SC<LabelOptions> = (options) => {
-  const style = Object.fromEntries(
-    Object.entries(options)
-      .filter(([key]) => key.startsWith('label'))
-      .map(([key, value]) => [lowerFirst(key.slice(5)), value]),
-  );
+  const { label: style = {} } = options;
   return (points, value, coordinate, theme) => {
     const element: DisplayObject = value.element;
     const { min, max } = element.getRenderBounds();
