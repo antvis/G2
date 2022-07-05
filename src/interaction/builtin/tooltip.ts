@@ -9,14 +9,20 @@ export const InteractionDescriptor = (options?: TooltipOptions) => ({
     {
       trigger: 'hover',
       action: [
-        { type: 'surfacePointSelection' },
+        {
+          type: 'surfacePointSelection',
+          trigger: options?.shared ? 'axis' : 'item',
+        },
         { type: 'tooltip', ...options },
       ],
       throttle: { wait: 50, leading: true, trailing: false },
     },
     {
       trigger: 'leave',
-      action: [{ type: 'tooltip', hide: true, ...options }],
+      action: [
+        { type: 'surfacePointSelection' },
+        { type: 'tooltip', hide: true, ...options },
+      ],
     },
   ],
 });

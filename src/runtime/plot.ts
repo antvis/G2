@@ -711,6 +711,7 @@ function inferTheme(theme: G2ThemeOptions = { type: 'light' }): G2ThemeOptions {
 function inferInteraction(
   interaction: G2InteractionOptions[] = [],
 ): G2InteractionOptions[] {
+  if (interaction.find((d) => d.type === 'tooltip')) return interaction;
   return [...interaction, { type: 'tooltip' }];
 }
 

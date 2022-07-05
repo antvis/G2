@@ -19,14 +19,6 @@ describe('Interactions of tooltip', () => {
       ],
       scale: {
         color: { guide: { title: null } },
-        tooltip: {
-          guide: {
-            shared: true,
-            showCrosshairs: true,
-            showMarkers: true,
-            crosshairs: { type: 'xy' },
-          },
-        },
       },
       children: [
         {
@@ -42,6 +34,15 @@ describe('Interactions of tooltip', () => {
             x: 'year',
             y: 'value',
           },
+        },
+      ],
+      interaction: [
+        {
+          type: 'tooltip',
+          shared: true,
+          showCrosshairs: true,
+          // showMarkers: true,
+          crosshairs: { type: 'xy' },
         },
       ],
     });
@@ -77,14 +78,15 @@ describe('Interactions of tooltip', () => {
       },
       scale: {
         color: { guide: { title: null } },
-        tooltip: {
-          guide: {
-            showCrosshairs: true,
-            showMarkers: true,
-            shared: true,
-          },
-        },
       },
+      interaction: [
+        {
+          type: 'tooltip',
+          showCrosshairs: true,
+          showMarkers: true,
+          shared: true,
+        },
+      ],
     });
     mount(createDiv(), chart);
   });
@@ -120,14 +122,15 @@ describe('Interactions of tooltip', () => {
         y: { domain: [0, 80], guide: { type: 'axisX' } },
         x: { padding: 0.5, align: 0 },
         color: { guide: { title: null } },
-        tooltip: {
-          guide: {
-            shared: true,
-            showCrosshairs: true,
-            crosshairs: { type: 'xy' },
-          },
-        },
       },
+      interaction: [
+        {
+          type: 'tooltip',
+          shared: true,
+          showCrosshairs: true,
+          crosshairs: { type: 'xy' },
+        },
+      ],
       children: [
         {
           type: 'line',
@@ -146,67 +149,6 @@ describe('Interactions of tooltip', () => {
           },
         },
       ],
-    });
-    mount(createDiv(), chart);
-  });
-
-  it('render({...} renders stacked interval chart with tooltip interaction', () => {
-    const chart = render<G2Spec>({
-      type: 'interval',
-      title: 'Interval chart with tooltip',
-      data: [
-        { genre: 'Sports', sold: 275, type: 'A' },
-        { genre: 'Sports', sold: 115, type: 'B' },
-        { genre: 'Strategy', sold: 115, type: 'A' },
-        { genre: 'Strategy', sold: 95, type: 'B' },
-        { genre: 'Action', sold: 120, type: 'A' },
-        { genre: 'Action', sold: 190, type: 'B' },
-        { genre: 'Shooter', sold: 350, type: 'A' },
-        { genre: 'Shooter', sold: 250, type: 'B' },
-      ],
-      encode: {
-        x: 'genre',
-        y: 'sold',
-        color: 'type',
-      },
-      scale: { color: { guide: { title: null } } },
-    });
-    mount(createDiv(), chart);
-  });
-
-  it('render({...} renders range interval chart with tooltip interaction', () => {
-    const chart = render<G2Spec>({
-      type: 'interval',
-      data: [
-        { month: 'Jan.', profit: 387264, start: 0, end: 387264 },
-        { month: 'Feb.', profit: 772096, start: 387264, end: 1159360 },
-        { month: 'Mar.', profit: 638075, start: 1159360, end: 1797435 },
-        { month: 'Apr.', profit: -211386, start: 1797435, end: 1586049 },
-        { month: 'May', profit: -138135, start: 1586049, end: 1447914 },
-        { month: 'Jun', profit: -267238, start: 1447914, end: 1180676 },
-        { month: 'Jul.', profit: 431406, start: 1180676, end: 1612082 },
-        { month: 'Aug.', profit: 363018, start: 1612082, end: 1975100 },
-        { month: 'Sep.', profit: -224638, start: 1975100, end: 1750462 },
-        { month: 'Oct.', profit: -299867, start: 1750462, end: 1450595 },
-        { month: 'Nov.', profit: 607365, start: 1450595, end: 2057960 },
-        { month: 'Dec.', profit: 1106986, start: 2057960, end: 3164946 },
-        { month: 'Total', start: 0, end: 3164946 },
-      ],
-      paddingLeft: 60,
-      encode: {
-        x: 'month',
-        y: ['end', 'start'],
-        color: (d) =>
-          d.month === 'Total'
-            ? 'Total'
-            : d.profit > 0
-            ? 'Increase'
-            : 'Decrease',
-      },
-      scale: {
-        y: { guide: { label: { formatter: (d) => `${+d.text / 1000}k` } } },
-        tooltip: { guide: { showMarkers: true } },
-      },
     });
     mount(createDiv(), chart);
   });
@@ -232,10 +174,10 @@ describe('Interactions of tooltip', () => {
       },
       scale: {
         color: { guide: { title: null } },
-        tooltip: { guide: { shared: true } },
       },
       style: { lineWidth: 1, stroke: '#fff' },
       coordinate: [{ type: 'polar' }],
+      interaction: [{ type: 'tooltip', shared: true }],
     });
     mount(createDiv(), chart);
   });
@@ -283,9 +225,9 @@ describe('Interactions of tooltip', () => {
       scale: {
         x: { paddingInner: 0.6, paddingOuter: 0.3 },
         y: { zero: true, title: 'value' },
-        tooltip: { guide: { shared: true } },
       },
       style: { stroke: 'black' },
+      interaction: [{ type: 'tooltip', shared: true }],
     });
 
     mount(createDiv(), chart);
@@ -323,12 +265,12 @@ describe('Interactions of tooltip', () => {
         { genre: 'Other', sold: 150 },
       ],
       coordinate: [{ type: 'transpose' }],
-      scale: { tooltip: { guide: { shared: true } } },
       encode: {
         x: 'genre',
         y: 'sold',
         color: 'genre',
       },
+      interaction: [{ type: 'tooltip', shared: true }],
     });
     mount(createDiv(), chart);
   });

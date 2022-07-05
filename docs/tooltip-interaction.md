@@ -66,7 +66,7 @@ G2.render({
 });
 ```
 
-## Tooltip with custom guide options
+## Tooltip with custom interaction options
 
 **Tooltip with `showMarkers` and `showCrosshairs`**
 
@@ -90,10 +90,10 @@ G2.render({
   },
   scale: {
     color: { guide: { title: null } },
-    tooltip: {
-      guide: { shared: true, showCrosshairs: true, showMarkers: true },
-    },
   },
+  interaction: [
+    { type: 'tooltip', shared: true, showCrosshairs: true, showMarkers: true },
+  ],
 });
 ```
 
@@ -116,8 +116,10 @@ G2.render({
   ],
   scale: {
     color: { guide: { title: null } },
-    tooltip: { guide: { shared: true, showMarkers: true, showCrosshairs: true } },
   },
+  interaction: [
+    { type: 'tooltip', shared: true, showMarkers: true, showCrosshairs: true },
+  ],
   children: [
     {
       type: 'line',

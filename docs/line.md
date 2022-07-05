@@ -358,9 +358,6 @@ G2.render({
     y: { domain: [0, 80] },
     x: { padding: 0.5, align: 0, guide: { type: 'axisX' } },
     color: { guide: { title: null } },
-    tooltip: {
-      guide: { shared: true, showCrosshairs: true, crosshairs: { type: 'xy' } },
-    },
   },
   children: [
     {
@@ -378,6 +375,14 @@ G2.render({
         y: 'score',
         color: 'user',
       },
+    },
+  ],
+  interaction: [
+    {
+      type: 'tooltip',
+      shared: true,
+      showCrosshairs: true,
+      crosshairs: { type: 'xy' },
     },
   ],
 });

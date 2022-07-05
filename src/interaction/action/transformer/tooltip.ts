@@ -244,18 +244,14 @@ function getTooltipData(
   context: InteractionContext,
   pointX: number,
   pointY: number,
-  tooltipCfg: any = {},
   theme: G2Theme,
 ) {
-  const { shared, selection, scale, coordinate } = context;
+  const { shared, scale, coordinate } = context;
   const { mouseX, mouseY, selectedElements } = shared;
   const { defaultColor } = theme;
   const { x: scaleX } = scale;
 
-  // If not shared, get data by hit shape.
-  const elements = !tooltipCfg.shared
-    ? (selectedElements as G2Element[])
-    : selection.selectAll('.element').nodes();
+  const elements = selectedElements as G2Element[];
   const data = elements
     .map((element) => {
       const { __data__: datum } = element;
@@ -340,19 +336,17 @@ export type TooltipOptions = Omit<TooltipAction, 'type'>;
  * shape as the item.
  */
 export const Tooltip: AC<TooltipOptions> = (options) => {
-  const { hide } = options;
+  const { showCrosshairs, showMarkers, ...tooltipCfg } = options;
   return (context) => {
     const { scale, coordinate, theme, selection, shared, transientLayer } =
       context;
     const { tooltip } = scale;
 
-    if (hide || tooltip === undefined) {
+    if (tooltip === undefined) {
       hideTooltip(transientLayer);
       return context;
     }
 
-    const { guide = {} } = tooltip.getOptions();
-    const { showCrosshairs, showMarkers, ...tooltipCfg } = guide;
     const { mouseX, mouseY } = shared;
     // Find the first of main layers.
     const plot = selection.select('.plot').node();
@@ -367,13 +361,7 @@ export const Tooltip: AC<TooltipOptions> = (options) => {
       height,
     });
 
-    const data = getTooltipData(
-      context,
-      mouseX - x0,
-      mouseY - y0,
-      tooltipCfg,
-      theme,
-    );
+    const data = getTooltipData(context, mouseX - x0, mouseY - y0, theme);
 
     if (!data) {
       hideTooltip(transientLayer);

@@ -60,6 +60,7 @@ export type LegendHighlightInteraction = {
 
 export type TooltipInteraction = Omit<TooltipAction, 'type'> & {
   type?: 'tooltip';
+  shared?: boolean;
 };
 
 export type FisheyeInteraction = {

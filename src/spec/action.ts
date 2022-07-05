@@ -32,6 +32,7 @@ export type FisheyeFocusAction = {
 
 export type SurfacePointSelectionAction = {
   type?: 'surfacePointSelection';
+  trigger?: 'item' | 'axis';
 };
 
 export type ActiveElementAction = {
@@ -50,7 +51,10 @@ export type PlotAction = {
 
 export type TooltipAction = {
   type?: 'tooltip';
-  hide?: boolean;
+  showMarkers?: boolean;
+  showCrosshairs?: boolean;
+  crosshairs?: any;
+  markers?: any;
 };
 
 export type ElementSelectionAction = {
