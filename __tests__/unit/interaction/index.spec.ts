@@ -57,7 +57,7 @@ describe('interaction', () => {
         },
         {
           trigger: 'leave',
-          action: [{ type: 'surfacePointSelection' }, { type: 'tooltip' }],
+          action: [{ type: 'tooltip', hide: true }],
         },
       ],
     });
