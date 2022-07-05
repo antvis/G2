@@ -74,9 +74,9 @@ describe('Interval', () => {
 
       dataArray = interval.beforeMappingData;
       expect(dataArray.length).toBe(3);
-      expect(dataArray[0][0].a).toBe(0);
-      expect(dataArray[1][0].a).toBe(1);
-      expect(dataArray[2][0].a).toBe(2);
+      expect(dataArray[0][0].a).toBe('A');
+      expect(dataArray[1][0].a).toBe('B');
+      expect(dataArray[2][0].a).toBe('C');
     });
 
     test('yScale min adjust', () => {

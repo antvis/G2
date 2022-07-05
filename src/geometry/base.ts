@@ -1735,9 +1735,11 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
 
     const groupedArray = this.groupData(data); // 数据分组
     const beforeAdjust = [];
+    let dataArray = [];
     for (let i = 0, len = groupedArray.length; i < len; i++) {
       const subData = groupedArray[i];
       const arr = [];
+      const initArr = [];
       for (let j = 0, subLen = subData.length; j < subLen; j++) {
         const originData = subData[j];
         const item = {};
@@ -1746,7 +1748,7 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
           item[k] = originData[k];
         }
         item[FIELD_ORIGIN] = originData;
-
+        initArr.push({ ...item });
         // 将分类数据翻译成数据, 仅对位置相关的度量进行数字化处理
         for (const scale of categoryScales) {
           const field = scale.field;
@@ -1754,11 +1756,18 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
         }
         arr.push(item);
       }
+      dataArray.push(initArr);
       beforeAdjust.push(arr);
     }
+    // 【0，1，2 ] -> [0, 1, 2] | [0.25,0.5,0.75,...] 
+    // {1 => 0 , 2 => 1, 3 => 2 }
+    const afterAdjust = this.adjustData(beforeAdjust); // 进行 adjust 数据调整
 
-    const dataArray = this.adjustData(beforeAdjust); // 进行 adjust 数据调整
-    this.beforeMappingData = dataArray;
+    if (isEqual(afterAdjust, beforeAdjust)) {
+      this.beforeMappingData = dataArray;
+    } else {
+      this.beforeMappingData = afterAdjust;
+    }
 
     return dataArray;
   }

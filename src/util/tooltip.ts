@@ -39,7 +39,7 @@ function getXValueByPoint(point: Point, geometry: Geometry): number {
   if (coordinate.isPolar && xValue > (1 + rangeMax) / 2) {
     xValue = rangeMin; // 极坐标下，scale 的 range 被做过特殊处理
   }
-  return xScale.translate(xScale.invert(xValue));
+  return xScale.invert(xValue);
 }
 
 function filterYValue(data: Data, point: Point, geometry: Geometry) {
