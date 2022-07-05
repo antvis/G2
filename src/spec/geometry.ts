@@ -68,6 +68,8 @@ export type BaseGeometry<
   C extends string = ChannelTypes,
 > = {
   type?: T | string;
+  class?: string;
+  key?: string;
   paddingLeft?: number;
   paddingRight?: number;
   paddingBottom?: number;
