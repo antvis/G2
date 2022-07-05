@@ -1,8 +1,15 @@
 import { DisplayObject, Animation as GAnimation } from '@antv/g';
 import { upperFirst } from '@antv/util';
 import { mapObject } from '../utils/array';
-import { copyAttributes, error, defined, composeAsync } from '../utils/helper';
-import { Selection, select } from '../utils/selection';
+import {
+  copyAttributes,
+  error,
+  defined,
+  composeAsync,
+  useMemo,
+  appendTransform,
+} from '../utils/helper';
+import { Selection, select, G2Element } from '../utils/selection';
 import {
   G2ViewTree,
   G2View,
@@ -36,12 +43,7 @@ import {
 } from './types/component';
 import { MarkComponent, Mark, MarkChannel } from './types/mark';
 import { TransformComponent, Transform } from './types/transform';
-import {
-  Channel,
-  G2ViewDescriptor,
-  G2MarkState,
-  G2ViewInstance,
-} from './types/common';
+import { G2ViewDescriptor, G2MarkState, G2ViewInstance } from './types/common';
 import { useLibrary } from './library';
 import { createTransformContext, initializeMark } from './mark';
 import { inferComponent, renderComponent } from './component';
@@ -147,7 +149,7 @@ export async function plot<T extends G2ViewTree>(
         enter
           .append('g')
           .attr('className', 'view')
-          .attr('id', (view) => view.id)
+          .attr('id', (view) => view.key)
           .call(applyTranslate)
           .each(function (view) {
             plotView(view, select(this), transitions, library);
@@ -321,7 +323,7 @@ function initializeState(
       // This is for unit visualization to sync data domain.
       dataDomain,
     } = mark;
-    const { index, channels, defaultShape } = state;
+    const { index, channels } = state;
 
     // Transform abstract value to visual value by scales.
     const markScaleInstance = mapObject(scale, useScale);
@@ -449,14 +451,16 @@ async function plotView(
   // Render marks with corresponding data.
   for (const [mark, state] of markState.entries()) {
     const { data } = state;
-    const { key } = mark;
+    const { key, class: className } = mark;
     const shapeFunction = createMarkShapeFunction(mark, state, view, library);
     const enterFunction = createEnterFunction(mark, state, view, library);
     const updateFunction = createUpdateFunction(mark, state, view, library);
     const exitFunction = createExitFunction(mark, state, view, library);
+    const facetElements = selectFacetElements(selection, className, 'element');
     const T = selection
       .select(`#${key}`)
       .selectAll('.element')
+      .selectFacetAll(facetElements)
       .data(
         data,
         (d) => d.key,
@@ -471,12 +475,20 @@ async function plotView(
               return enterFunction(data, [this]);
             }),
         (update) =>
-          update.transition(function (data, index) {
-            const node = shapeFunction(data, index);
-            const animation = updateFunction(data, [this], [node]);
-            // @todo Handle element with different type.
-            if (animation === null) copyAttributes(this, node);
-            return animation;
+          update.call((selection) => {
+            const parent = selection.parent();
+            const origin = useMemo<DisplayObject, [number, number]>((node) => {
+              const [x, y] = node.getBounds().min;
+              return [x, y];
+            });
+            update.transition(function (data, index) {
+              maybeFacetElement(this, parent, origin);
+              const node = shapeFunction(data, index);
+              const animation = updateFunction(data, [this], [node]);
+              // @todo Handle element with different type.
+              if (animation === null) copyAttributes(this, node);
+              return animation;
+            });
           }),
         (exit) =>
           exit
@@ -560,6 +572,38 @@ function createLabelShapeFunction(
   element?: DisplayObject,
 ) => DisplayObject {
   return createShapeFunction('labelShape', mark, state, view, library);
+}
+
+function selectFacetElements(
+  selection: Selection,
+  facetClassName: string,
+  elementClassName: string,
+): DisplayObject[] {
+  const group = selection.node().parentElement;
+  return group
+    .findAll((node) => node.style.facet === facetClassName)
+    .flatMap((node) => node.getElementsByClassName(elementClassName));
+}
+
+/**
+ * Update the parent of element and apply transform to make it
+ * stay in original position.
+ */
+function maybeFacetElement(
+  element: G2Element,
+  parent: DisplayObject,
+  originOf: (node: DisplayObject) => [number, number],
+): void {
+  if (!element.__facet__) return;
+  // element -> g#main -> rect#plot
+  const prePlot = element.parentNode.parentNode as DisplayObject;
+  // g#main -> rect#plot
+  const newPlot = parent.parentNode as DisplayObject;
+  const [px, py] = originOf(prePlot);
+  const [x, y] = originOf(newPlot);
+  const translate = `translate(${px - x}, ${py - y})`;
+  appendTransform(element, translate);
+  parent.append(element);
 }
 
 function createMarkShapeFunction(
@@ -669,11 +713,10 @@ function createEnterFunction(
 /**
  * Animation will not cancel automatically, it should be canceled
  * manually. This is very important for performance.
- * @todo Enable cancel after transition bug fixed.
  */
 function cancel(animation: GAnimation): Promise<any> {
   return animation.finished.then(() => {
-    // animation.cancel()
+    animation.cancel();
   });
 }
 
@@ -757,19 +800,23 @@ function applyFrame(selection: Selection, frame: boolean) {
  * All the layers created here are treated as main layers.
  */
 function applyMainLayers(selection: Selection, marks: G2Mark[]) {
-  selection
-    .selectAll('.main')
-    .data(marks.map((d) => d.key))
-    .join(
-      (enter) =>
-        enter
-          .append('g')
-          .attr('className', 'main')
-          .attr('id', (d) => d)
-          .style('fill', 'transparent'),
-      (update) => update,
-      (exit) => exit.remove(),
-    );
+  const facet = (d) => (d.class !== undefined ? `${d.class}` : '');
+  selection.each(function () {
+    select(this)
+      .selectAll('.main')
+      .data(marks, (d) => d.key)
+      .join(
+        (enter) =>
+          enter
+            .append('g')
+            .attr('className', 'main')
+            .attr('id', (d) => d.key)
+            .style('facet', facet)
+            .style('fill', 'transparent'),
+        (update) => update.style('facet', facet),
+        (exit) => exit.remove(),
+      );
+  });
 }
 
 function normalizeOptions(options: string | Record<string, any>) {

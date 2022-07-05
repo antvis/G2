@@ -4,7 +4,8 @@ export type AnimationTypes =
   | 'scaleInX'
   | 'scaleOutX'
   | 'scaleInY'
-  | 'scaleOutY';
+  | 'scaleOutY'
+  | 'morphing';
 
 export type Animation = {
   type?: AnimationTypes;

@@ -18,12 +18,17 @@ import { group } from 'd3-array';
 import { error } from './helper';
 
 export type G2Element = DisplayObject & {
+  // Data for this element.
   __data__?: any;
+  // An Array of data to be splitted to.
   __toData__?: any[];
+  // An Array of elements to be merged from.
   __fromElements__?: DisplayObject[];
+  // Whether to update parent if it in update selection.
+  __facet__?: boolean;
 };
 
-export function select<T = any>(node: Group) {
+export function select<T = any>(node: DisplayObject) {
   return new Selection<T>([node], null, node, node.ownerDocument);
 }
 
@@ -61,6 +66,7 @@ export class Selection<T = any> {
   private _split: Selection;
   private _document: IDocument;
   private _transitions: Promise<void>[];
+  private _facetElements: G2Element[];
 
   constructor(
     elements: Iterable<G2Element> = null,
@@ -75,6 +81,7 @@ export class Selection<T = any> {
       null,
     ],
     transitions: Promise<void>[] = [],
+    updateElements: G2Element[] = [],
   ) {
     this._elements = Array.from(elements);
     this._data = data;
@@ -86,6 +93,7 @@ export class Selection<T = any> {
     this._merge = selections[3];
     this._split = selections[4];
     this._transitions = transitions;
+    this._facetElements = updateElements;
   }
 
   selectAll(selector: string | G2Element[]): Selection<T> {
@@ -94,6 +102,22 @@ export class Selection<T = any> {
         ? this._parent.querySelectorAll<G2Element>(selector)
         : selector;
     return new Selection<T>(elements, null, this._elements[0], this._document);
+  }
+
+  selectFacetAll(selector: string | G2Element[]): Selection<T> {
+    const elements =
+      typeof selector === 'string'
+        ? this._parent.querySelectorAll<G2Element>(selector)
+        : selector;
+    return new Selection<T>(
+      this._elements,
+      null,
+      this._parent,
+      this._document,
+      undefined,
+      undefined,
+      elements,
+    );
   }
 
   /**
@@ -178,22 +202,41 @@ export class Selection<T = any> {
       this._elements.map((d, i) => [id(d.__data__, i), d]),
     );
 
+    // A Map from key to exist element. The Update Selection
+    // can get element from this map, this is for diff among
+    // facets.
+    const keyUpdateElement = new Map<string, G2Element>(
+      this._facetElements.map((d, i) => [id(d.__data__, i), d]),
+    );
+
     // A Map from groupKey to a group of elements.
     const groupKeyElements = group(this._elements, (d) => groupId(d.__data__));
 
     // Diff data with selection(elements with data).
+    // !!! Note
+    // The switch is strictly ordered, not not change the order of them.
     for (let i = 0; i < data.length; i++) {
       const datum = data[i];
       const key = id(datum, i);
       const groupKey = groupId(datum, i);
       // Append element to update selection if incoming data has
-      // exactly the same key.
+      // exactly the same key with elements.
       if (keyElement.has(key)) {
         const element = keyElement.get(key);
         element.__data__ = datum;
+        element.__facet__ = false;
         update.push(element);
         exit.delete(element);
         keyElement.delete(key);
+        // Append element to update selection if incoming data has
+        // exactly the same key with updateElements.
+      } else if (keyUpdateElement.has(key)) {
+        const element = keyUpdateElement.get(key);
+        element.__data__ = datum;
+        // Flag this element should update its parentNode.
+        element.__facet__ = true;
+        update.push(element);
+        keyUpdateElement.delete(key);
         // Append datum to merge selection if existed elements has
         // its key as groupKey.
       } else if (groupKeyElements.has(key)) {
@@ -352,5 +395,9 @@ export class Selection<T = any> {
 
   transitions(): Promise<void>[] {
     return this._transitions;
+  }
+
+  parent(): DisplayObject {
+    return this._parent;
   }
 }

@@ -49,3 +49,21 @@ export function defined(x: any) {
 export function random(a: number, b: number): number {
   return a + (b - a) * Math.random();
 }
+
+export function useMemo<T = unknown, U = unknown>(
+  compute: (key: T) => U,
+): (key: T) => U {
+  const map = new Map<T, U>();
+  return (key) => {
+    if (map.has(key)) return map.get(key);
+    const value = compute(key);
+    map.set(key, value);
+    return value;
+  };
+}
+
+export function appendTransform(node: DisplayObject, transform: any) {
+  const { transform: preTransform } = node.style;
+  const prefix = preTransform === 'none' ? '' : preTransform;
+  node.style.transform = `${prefix} ${transform}`.trimStart();
+}
