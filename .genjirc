@@ -27,7 +27,10 @@
     "Annotation": "annotation",
     "Adjust": "adjust",
     "Animation": "animation",
-    "Interaction": "interaction",
+    "Interaction": {
+      "Tooltip": "tooltip-interaction",
+      "More": "more-interaction"
+    },
     "Composition": {
       "View": "view",
       "Spatial": "spatial",

@@ -1,108 +1,402 @@
-import { IElement } from '@antv/g';
-import { Tooltip as TooltipComponent } from '@antv/gui';
-import { ActionComponent as AC } from '../../types';
+import { Coordinate, Vector2 } from '@antv/coord';
+import { IElement, Circle } from '@antv/g';
+import {
+  Tooltip as TooltipComponent,
+  LineCrosshair,
+  CircleCrosshair,
+} from '@antv/gui';
+import { least } from 'd3-array';
+import { isPolar } from '../../../utils/coordinate';
+import { G2Element, Selection } from '../../../utils/selection';
+import { dist } from '../../../utils/vector';
+import { ActionComponent as AC, InteractionContext } from '../../types';
 import { G2Theme } from '../../../runtime';
 import { TooltipAction } from '../../../spec';
+
+type TooltipItem = {
+  // x,y relative to the coordinate.
+  x: number;
+  y: number;
+  color: string;
+  title: string;
+  name: string;
+  value: string;
+};
+
+type TooltipData = {
+  // x,y relative to the canvas.
+  x: number;
+  y: number;
+  title: string;
+  items: TooltipItem[];
+};
 
 function getContainer(group: IElement) {
   // @ts-ignore
   return group.getRootNode().defaultView.getConfig().container;
 }
 
-function updateTooltip(
-  datum: any,
-  mouseX: number,
-  mouseY: number,
-  tooltipElement: TooltipComponent,
-  scale: any,
+function getCrosshairCfgOfPoint(
+  coordinate: Coordinate,
+  point: Vector2,
+  crosshairOptions: any,
+) {
+  let lineX;
+  let lineY;
+  const {
+    type = 'y',
+    line: lineStyle = { lineDash: [4, 4], lineWidth: 1 },
+    text = false,
+  } = crosshairOptions;
+
+  if (isPolar(coordinate)) {
+    const center = coordinate.getCenter();
+    const radius = dist(center, point);
+    lineY = {
+      id: 'circle-y',
+      center,
+      defaultRadius: radius,
+      type: 'circle',
+      text,
+      lineStyle,
+    };
+    lineX = {
+      id: 'line-x',
+      startPos: [center[0], center[1]],
+      endPos: point,
+      text,
+      lineStyle,
+    };
+  } else {
+    const { x, y, width, height } = coordinate.getOptions();
+
+    lineX = {
+      id: 'line-x',
+      startPos: [x, point[1]],
+      endPos: [x + width, point[1]],
+      text,
+      lineStyle,
+    };
+    lineY = {
+      id: 'line-y',
+      startPos: [point[0], y],
+      endPos: [point[0], y + height],
+      text,
+      lineStyle,
+    };
+  }
+
+  if (type === 'x') return [lineX];
+  if (type === 'xy') return [lineX, lineY];
+  return [lineY];
+}
+
+function hideCrosshairs(selection: Selection) {
+  selection.selectAll('.tooltip-crosshairs').each(function () {
+    this.hide();
+  });
+}
+
+function hideTooltipMarkers(selection: Selection) {
+  selection.selectAll('.tooltip-markers').each(function () {
+    this.hide();
+  });
+}
+
+function hideTooltip(transientLayer: Selection) {
+  transientLayer.selectAll('.tooltip').each(function () {
+    this.hide();
+  });
+  hideCrosshairs(transientLayer);
+  hideTooltipMarkers(transientLayer);
+}
+
+function renderCrosshair(
+  context: InteractionContext,
+  tooltipData: TooltipData | null,
+  crosshairsCfg: any = {},
+) {
+  const { transientLayer, coordinate } = context;
+
+  if (!tooltipData) {
+    hideCrosshairs(transientLayer);
+    return;
+  }
+
+  const { follow, ...options } = crosshairsCfg;
+  const { x, y, items } = tooltipData;
+
+  const data = (follow ? [{ x, y }] : items)
+    .map(({ x, y }) => getCrosshairCfgOfPoint(coordinate, [x, y], options))
+    .flat();
+
+  transientLayer
+    .selectAll('.tooltip-crosshairs')
+    .data(data, (d) => d.id)
+    .join(
+      (enter) =>
+        enter.append(({ type, ...style }) => {
+          const Ctor = type === 'circle' ? CircleCrosshair : LineCrosshair;
+          return new Ctor({ className: 'tooltip-crosshairs', style });
+        }),
+      (update) =>
+        update.each(function (datum) {
+          this.update(datum);
+          this.show();
+        }),
+      (exit) => exit.remove(),
+    );
+}
+
+function renderMarkers(
+  context: InteractionContext,
+  tooltipData: TooltipData | null,
+  markerCfg = {},
+) {
+  const { transientLayer } = context;
+
+  if (!tooltipData) {
+    hideTooltipMarkers(transientLayer);
+    return;
+  }
+
+  const { items } = tooltipData;
+  const data = items.map((item) => {
+    const { x, y, color } = item;
+    return {
+      cx: x,
+      cy: y,
+      fill: color,
+      r: 3,
+      stroke: '#fff',
+      lineWidth: 1.5,
+      zIndex: 1,
+      ...markerCfg,
+    };
+  });
+
+  transientLayer
+    .selectAll('.tooltip-markers')
+    .data(data, (_, i) => i)
+    .join(
+      (enter) =>
+        enter.append(
+          (style) => new Circle({ className: 'tooltip-markers', style }),
+        ),
+      (update) =>
+        update.each(function (datum) {
+          this.attr(datum);
+          this.show();
+        }),
+      (exit) => exit.remove(),
+    );
+}
+
+function createTooltipComponent(
+  transientLayer: Selection,
+  container: HTMLElement,
+  bounding: any,
+) {
+  let tooltip = transientLayer.select('.tooltip').node() as TooltipComponent;
+  if (!tooltip) {
+    tooltip = new TooltipComponent({
+      className: 'tooltip',
+      style: {
+        container: { x: 0, y: 0 },
+        items: [],
+        bounding,
+        position: 'bottom-right',
+        offset: [10, 10],
+      },
+    });
+    transientLayer.append(() => tooltip);
+    container.appendChild(tooltip.HTMLTooltipElement);
+  }
+  return tooltip;
+}
+
+function valuesByDim(datum: any, dim: string) {
+  return Object.entries(datum)
+    .filter(([key]) => key.startsWith(dim))
+    .map(([, value]) => value) as number[];
+}
+
+/**
+ * Point to render tooltip marker.
+ */
+function getMarkerPoint(datum: any, scale, coordinate): [number, number] {
+  const X = valuesByDim(datum, 'x');
+  const Y = valuesByDim(datum, 'y');
+
+  const { x: scaleX } = scale;
+  const sumX = X.reduce(
+    (r, x) => r + x + (scaleX.getBandWidth?.(scaleX.invert(x)) || 0) / 2,
+    0,
+  );
+
+  return coordinate.map([sumX / X.length, Math.min.apply(null, Y)]);
+}
+
+/**
+ * @todo Remove duplicate items.
+ */
+function getTooltipData(
+  context: InteractionContext,
+  pointX: number,
+  pointY: number,
+  tooltipCfg: any = {},
   theme: G2Theme,
 ) {
+  const { shared, selection, scale, coordinate } = context;
+  const { mouseX, mouseY, selectedElements } = shared;
   const { defaultColor } = theme;
-  const { title, color = defaultColor } = datum;
-  const items = Object.entries(datum)
-    .filter(([key]) => key.startsWith('tooltip'))
-    .map(([key, d]) => {
-      const { field } = scale[key].getOptions();
-      const isObject = typeof d === 'object' && !(d instanceof Date);
-      const item = (isObject ? d : { value: d === undefined ? d : `${d}` }) as {
-        value: string;
-      };
-      return {
-        name: field,
-        color,
-        ...item,
-      };
-    })
-    .filter(({ value }) => value !== undefined);
+  const { x: scaleX } = scale;
 
-  tooltipElement.update({
-    x: mouseX,
-    y: mouseY,
-    title,
-    position: 'bottom-right',
-    offset: [10, 10],
-    items,
-  });
-  tooltipElement.show();
+  // If not shared, get data by hit shape.
+  const elements = !tooltipCfg.shared
+    ? (selectedElements as G2Element[])
+    : selection.selectAll('.element').nodes();
+  const data = elements
+    .map((element) => {
+      const { __data__: datum } = element;
+      const {
+        seriesX = [],
+        seriesY = [],
+        seriesTooltip = [],
+        seriesTitle = [],
+      } = datum;
+
+      if (seriesX.length) {
+        return seriesX.map((_, i) => {
+          const [x, y] = coordinate.map([seriesX[i], seriesY[i]]);
+          return {
+            x,
+            y,
+            datum: {
+              ...datum,
+              x: seriesX[i],
+              title: seriesTitle[i],
+              tooltip: seriesTooltip[i],
+            },
+          };
+        });
+      } else {
+        const [x, y] = getMarkerPoint(datum, scale, coordinate);
+        return { x, y, datum };
+      }
+    })
+    .flat();
+
+  // Find closestPoint by x (normalized).
+  const invertCoordX = coordinate.invert([pointX, pointY])[0];
+  const closestPoint = least(
+    data,
+    ({ datum: { x } }) =>
+      (x + (scaleX.getBandWidth?.(scaleX.invert(x)) || 0) / 2 - invertCoordX) **
+      2,
+  );
+
+  if (!closestPoint) return null;
+
+  const items = data
+    .filter(({ datum: { x } }) => x === closestPoint.datum.x)
+    .map((item) => {
+      const { datum, x, y } = item;
+      const { color = defaultColor, title } = datum;
+
+      return Object.entries(datum)
+        .filter(([key]) => key.startsWith('tooltip'))
+        .map(([key, d]: any) => {
+          const { field, title: name = field } = scale[key].getOptions();
+          const isObject = typeof d === 'object' && !(d instanceof Date);
+          return {
+            x,
+            y,
+            title,
+            color,
+            name: key.replace('tooltip', name),
+            value: isObject ? d.value : d === undefined ? d : `${d}`,
+          };
+        })
+        .filter(({ value }) => value !== undefined);
+    })
+    .flat();
+
+  return items.length
+    ? {
+        x: mouseX,
+        y: mouseY,
+        // Default use the first one.
+        title: items[0].title,
+        items,
+      }
+    : null;
 }
 
 export type TooltipOptions = Omit<TooltipAction, 'type'>;
 
 /**
- * @todo Tooltip for line and area geometry.
- * @todo Tooltip for group or stack interval.
  * @todo Using the color(fill or stroke) attribute of each
  * shape as the item.
  */
-export const Tooltip: AC<TooltipOptions> = () => {
+export const Tooltip: AC<TooltipOptions> = (options) => {
+  const { hide } = options;
   return (context) => {
-    const { scale, coordinate, theme, selection, shared, selectionLayer } =
+    const { scale, coordinate, theme, selection, shared, transientLayer } =
       context;
-    const { mouseX, mouseY, selectedElements = [] } = shared;
-    const data = selectedElements.map((d) => d.__data__);
     const { tooltip } = scale;
-    if (tooltip === undefined) return;
 
-    selectionLayer
-      .selectAll('.tooltip')
-      .data(data, (_, i) => i)
-      .join(
-        (enter) =>
-          enter
-            .append(() => {
-              // Find the first of main layers.
-              const mainLayer = selection.select('.main').node();
-              const container = getContainer(mainLayer);
-              const { x, y, width, height } = coordinate.getOptions();
-              const [x0, y0] = mainLayer.getBounds().min;
-              const newTooltip = new TooltipComponent({
-                style: {
-                  container: { x: 0, y: 0 },
-                  items: [],
-                  bounding: {
-                    x: x0 + x,
-                    y: y0 + y,
-                    width,
-                    height,
-                  },
-                },
-              });
-              container.appendChild(newTooltip.HTMLTooltipElement);
-              return newTooltip;
-            })
-            .attr('className', 'tooltip')
-            .each(function (d) {
-              updateTooltip(d, mouseX, mouseY, this, scale, theme);
-            }),
-        (update) =>
-          update.each(function (d) {
-            updateTooltip(d, mouseX, mouseY, this, scale, theme);
-          }),
-        (exit) =>
-          exit.each(function () {
-            this.hide();
-          }),
-      );
+    if (hide || tooltip === undefined) {
+      hideTooltip(transientLayer);
+      return context;
+    }
+
+    const { guide = {} } = tooltip.getOptions();
+    const { showCrosshairs, showMarkers, ...tooltipCfg } = guide;
+    const { mouseX, mouseY } = shared;
+    // Find the first of main layers.
+    const plot = selection.select('.plot').node();
+    const container = getContainer(plot);
+    const { x, y, width, height } = coordinate.getOptions();
+    const [x0, y0] = plot.getBounds().min;
+
+    const tooltipComponent = createTooltipComponent(transientLayer, container, {
+      x: x0 + x,
+      y: y0 + y,
+      width,
+      height,
+    });
+
+    const data = getTooltipData(
+      context,
+      mouseX - x0,
+      mouseY - y0,
+      tooltipCfg,
+      theme,
+    );
+
+    if (!data) {
+      hideTooltip(transientLayer);
+    } else {
+      const { title, items } = data;
+      tooltipComponent.update({
+        x: mouseX,
+        y: mouseY,
+        title,
+        position: 'bottom-right',
+        offset: [10, 10],
+        items,
+      });
+      tooltipComponent.show();
+    }
+
+    renderMarkers(context, showMarkers ? data : null, tooltipCfg.markers);
+    renderCrosshair(
+      context,
+      showCrosshairs ? data : null,
+      tooltipCfg.crosshairs,
+    );
+
     return context;
   };
 };

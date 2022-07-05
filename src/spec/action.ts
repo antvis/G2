@@ -50,6 +50,7 @@ export type PlotAction = {
 
 export type TooltipAction = {
   type?: 'tooltip';
+  hide?: boolean;
 };
 
 export type ElementSelectionAction = {

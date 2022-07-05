@@ -16,10 +16,7 @@ export const InteractionDescriptor = (options?: TooltipOptions) => ({
     },
     {
       trigger: 'leave',
-      action: [
-        { type: 'surfacePointSelection' },
-        { type: 'tooltip', ...options },
-      ],
+      action: [{ type: 'tooltip', hide: true, ...options }],
     },
   ],
 });
