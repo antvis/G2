@@ -52,12 +52,21 @@ describe('interaction', () => {
       start: [
         {
           trigger: 'hover',
-          action: [{ type: 'surfacePointSelection' }, { type: 'tooltip' }],
+          action: [
+            {
+              type: 'surfacePointSelection',
+              trigger: 'item',
+            },
+            { type: 'tooltip' },
+          ],
           throttle: { wait: 50, leading: true, trailing: false },
         },
         {
           trigger: 'leave',
-          action: [{ type: 'tooltip', hide: true }],
+          action: [
+            { type: 'surfacePointSelection' },
+            { type: 'tooltip', hide: true },
+          ],
         },
       ],
     });
