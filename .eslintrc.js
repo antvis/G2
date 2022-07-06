@@ -20,6 +20,7 @@ module.exports = {
     '@typescript-eslint/no-empty-function': 0,
     'no-prototype-builtins': 0,
     'no-case-declarations': 0,
+    'no-useless-catch': 0,
     '@typescript-eslint/explicit-module-boundary-types': 0,
   },
   settings: {

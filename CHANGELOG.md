@@ -1,10 +1,25 @@
+#### 4.2.5 (2022-07-06)
+
+##### Documentation Changes
+
+- **example:** brush selection add the modification button example ([#4004](https://github.com/antvis/g2/pull/4004)) ([de7425af](https://github.com/antvis/g2/commit/de7425afab6afdd798d83cee8e815f3253e9ead2))
+- 优化拖拽点交互的 demo ([466cf81b](https://github.com/antvis/g2/commit/466cf81bd80929cd87e824e28221c9bb9a11412c))
+
+##### Bug Fixes
+
+- **pie:** 修复扇形 变化时 角度按照反方向变化的问题 ([#4029](https://github.com/antvis/g2/pull/4029)) ([5256a8a0](https://github.com/antvis/g2/commit/5256a8a004a1b15b3cd583907422f478f017f154))
+- **crosshairs:** crosshairs 删除在坐标轴外不能显示的配置 ([#4008](https://github.com/antvis/g2/pull/4008)) ([56ff97ba](https://github.com/antvis/g2/commit/56ff97ba16690edfbb8c0ee4c9bbe50ba8871689))
+- **area-shape:** fix marker fillOpacity ([#4017](https://github.com/antvis/g2/pull/4017)) ([97897428](https://github.com/antvis/g2/commit/97897428d0a38105a995b5c626c9eb095f6c766a))
+- **slider:** 修改 slider 的最大值最小值 位置 计算数据方式 floor 为 round ([#4015](https://github.com/antvis/g2/pull/4015)) ([b923eb38](https://github.com/antvis/g2/commit/b923eb384bfe9261478c786b7739581048764c8a))
+- **backgroundName:** 修复 柱形存在背景时添加 interval:click 触发两次的问题 ([#3999](https://github.com/antvis/g2/pull/3999)) ([a6341a02](https://github.com/antvis/g2/commit/a6341a02f747c0a4f1b2b76a86b8ade82aaf7cbd))
+
 #### 4.2.4 (2022-06-24)
 
 ##### Bug Fixes
 
-* **axis-label:**  修复 axis-label tooltip 移开没有 hide 的问题 ([#4002](https://github.com/antvis/g2/pull/4002)) ([a6dce615](https://github.com/antvis/g2/commit/a6dce61579a81636a6138e06628ed43d01d5d6f9))
-* **view:**  修复 view 更新时, tooltip 依赖 coordinate 更新位置导致 crosshairs 位置错位 ([#4001](https://github.com/antvis/g2/pull/4001)) ([ce457851](https://github.com/antvis/g2/commit/ce457851ba9bbc4fe017ddc76b32159d1b2b195d))
-* **animate waveIn:**  修复 waveIn 动画 最后没有给 element 附上更新后样式的问题 ([#4000](https://github.com/antvis/g2/pull/4000)) ([beb97663](https://github.com/antvis/g2/commit/beb976638c84ef51a8208b486aefe8febde88628))
+- **axis-label:** 修复 axis-label tooltip 移开没有 hide 的问题 ([#4002](https://github.com/antvis/g2/pull/4002)) ([a6dce615](https://github.com/antvis/g2/commit/a6dce61579a81636a6138e06628ed43d01d5d6f9))
+- **view:** 修复 view 更新时, tooltip 依赖 coordinate 更新位置导致 crosshairs 位置错位 ([#4001](https://github.com/antvis/g2/pull/4001)) ([ce457851](https://github.com/antvis/g2/commit/ce457851ba9bbc4fe017ddc76b32159d1b2b195d))
+- **animate waveIn:** 修复 waveIn 动画 最后没有给 element 附上更新后样式的问题 ([#4000](https://github.com/antvis/g2/pull/4000)) ([beb97663](https://github.com/antvis/g2/commit/beb976638c84ef51a8208b486aefe8febde88628))
 
 #### 4.2.3 (2022-06-15)
 
