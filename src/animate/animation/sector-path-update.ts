@@ -8,7 +8,7 @@ import { AnimateExtraCfg } from '../interface';
 import { getArcPath, getSectorPath } from '../../util/graphics';
 
 function getAngle(startPoint: number[], arcPath: PathCommand) {
-  let { startAngle, endAngle, arcFlag } = getArcParams(startPoint, arcPath);
+  let { startAngle, endAngle } = getArcParams(startPoint, arcPath);
 
   if (!isNumberEqual(startAngle, -Math.PI * 0.5) && startAngle < -Math.PI * 0.5) {
     startAngle += Math.PI * 2;
@@ -26,7 +26,8 @@ function getAngle(startPoint: number[], arcPath: PathCommand) {
     startAngle = Math.PI * -0.5;
   }
 
-  if (isNumberEqual(endAngle, Math.PI * -0.5) && arcFlag) {
+  // 当 startAngle, endAngle 接近相等时，不进行 endAngle = Math.PI * 1.5 防止变化从整个圆开始
+  if (isNumberEqual(endAngle, Math.PI * -0.5) && !isNumberEqual(startAngle, endAngle)) {
     endAngle = Math.PI * 1.5;
   }
 
