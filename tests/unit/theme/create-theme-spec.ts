@@ -67,7 +67,7 @@ describe('createTheme', () => {
   });
 
   it('通过 styleSheet 设置组件样式', () => {
-    let theme = createTheme({ styleSheet: { axisLabelFillColor: 'red', axisGridBorderColor: 'blue', annotationTextFillColor: 'green' } });
+    const theme = createTheme({ styleSheet: { axisLabelFillColor: 'red', axisGridBorderColor: 'blue', annotationTextFillColor: 'green' } });
     // 坐标轴标签颜色
     expect(theme.components.axis.common.label.style.fill).toEqual('red');
     // 坐标轴 grid 虚线颜色

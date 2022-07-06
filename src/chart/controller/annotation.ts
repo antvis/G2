@@ -496,7 +496,7 @@ export default class Annotation extends Controller<BaseOption[]> {
     if (isNil(option)) {
       return null;
     }
-    const { start, end, position } = option;;
+    const { start, end, position } = option;
     const sp = this.parsePosition(start);
     const ep = this.parsePosition(end);
     const textPoint = this.parsePosition(position);
