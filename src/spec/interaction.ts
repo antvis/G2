@@ -1,4 +1,5 @@
 import { InteractionComponent } from '../runtime';
+import { TooltipAction } from './action';
 import { FisheyeCoordinate } from './coordinate';
 
 export type Interaction =
@@ -57,8 +58,9 @@ export type LegendHighlightInteraction = {
   type?: 'legendHighlight';
 };
 
-export type TooltipInteraction = {
+export type TooltipInteraction = Omit<TooltipAction, 'type'> & {
   type?: 'tooltip';
+  shared?: boolean;
 };
 
 export type FisheyeInteraction = {

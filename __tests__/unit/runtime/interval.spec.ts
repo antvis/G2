@@ -490,7 +490,7 @@ describe('render', () => {
     mount(createDiv(), chart);
   });
 
-  it('render({...} renders chart with continuos color', (done) => {
+  it('render({...} renders chart with continuous color', (done) => {
     const chart = render<G2Spec>(
       {
         type: 'interval',
