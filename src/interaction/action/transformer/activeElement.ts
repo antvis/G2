@@ -1,14 +1,14 @@
 import { ActionComponent as AC } from '../../types';
 import { ActiveElementAction } from '../../../spec';
 
-export type HighlightSelectionOptions = Omit<ActiveElementAction, 'type'>;
+export type ActiveElementOptions = Omit<ActiveElementAction, 'type'>;
 
-export const HighlightSelection: AC<HighlightSelectionOptions> = (options) => {
+export const ActiveElement: AC<ActiveElementOptions> = (options) => {
   return (context) => {
-    const { shared, selection, theme, selectionLayer } = context;
+    const { shared, theme, selectionLayer } = context;
     const { selectedElements = [] } = shared;
     const { elementActiveStroke } = theme;
-    const { color = elementActiveStroke } = options;
+    const { color = elementActiveStroke, border } = options;
     const data = selectedElements.map((d) => d.__data__);
 
     selectionLayer.selectAll('.highlight-element').remove();
@@ -20,7 +20,7 @@ export const HighlightSelection: AC<HighlightSelectionOptions> = (options) => {
         enter
           .append((_, i) => selectedElements[i].cloneNode())
           .style('lineWidth', function () {
-            return +this.style.lineWidth || 1;
+            return border !== undefined ? border : +this.style.lineWidth || 1;
           })
           .style('stroke', color)
           .attr('className', 'highlight-element'),
@@ -29,4 +29,4 @@ export const HighlightSelection: AC<HighlightSelectionOptions> = (options) => {
   };
 };
 
-HighlightSelection.props = {};
+ActiveElement.props = {};

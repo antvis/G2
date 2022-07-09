@@ -15,8 +15,8 @@ export {
   LegendItemSelectionOptions,
 } from './service/legendItemSelection';
 export {
-  HighlightSelection,
-  HighlightSelectionOptions,
+  ActiveElement,
+  ActiveElementOptions,
 } from './transformer/activeElement';
 export {
   HighlightElement,
