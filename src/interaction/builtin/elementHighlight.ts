@@ -7,13 +7,19 @@ export const InteractionDescriptor = (options?: ElementHighlightOptions) => ({
   start: [
     {
       trigger: 'plot:pointermove',
-      action: [{ type: 'elementSelection' }, { type: 'highlight', ...options }],
+      action: [
+        { type: 'elementSelection' },
+        { type: 'highlightElement', ...options },
+      ],
     },
   ],
   end: [
     {
       trigger: 'plot:pointerleave',
-      action: [{ type: 'elementSelection' }, { type: 'highlight', ...options }],
+      action: [
+        { type: 'elementSelection' },
+        { type: 'highlightElement', ...options },
+      ],
     },
   ],
 });

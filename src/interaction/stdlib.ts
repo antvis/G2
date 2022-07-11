@@ -1,6 +1,6 @@
 import {
   SurfacePointSelection,
-  HighlightSelection,
+  ActiveElement,
   Tooltip,
   FisheyeFocus,
   Plot,
@@ -17,7 +17,7 @@ export function createInteractionLibrary(): InteractionLibrary {
   return {
     'action.surfacePointSelection': SurfacePointSelection,
     'action.elementSelection': ElementSelection,
-    'action.activeElement': HighlightSelection,
+    'action.activeElement': ActiveElement,
     'action.highlightElement': HighlightElement,
     'action.legendItemSelection': LegendItemSelection,
     'action.triggerInfoSelection': TriggerInfoSelection,

@@ -115,6 +115,7 @@ import {
 } from '../../../src/animation';
 import {
   ElementActive,
+  ElementSelected,
   Tooltip,
   Fisheye as FisheyeInteraction,
   ElementHighlightByColor,
@@ -319,6 +320,7 @@ describe('stdlib', () => {
       'animation.fadeOut': FadeOut,
       'animation.morphing': Morphing,
       'interaction.elementActive': ElementActive,
+      'interaction.elementSelected': ElementSelected,
       'interaction.elementHighlight': ElementHighlight,
       'interaction.elementHighlightByX': ElementHighlightByX,
       'interaction.elementHighlightByColor': ElementHighlightByColor,

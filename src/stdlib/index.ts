@@ -109,6 +109,7 @@ import {
 } from '../animation';
 import {
   ElementActive,
+  ElementSelected,
   Tooltip,
   Fisheye as FisheyeInteraction,
   ElementHighlight,
@@ -312,6 +313,7 @@ export function createLibrary(): G2Library {
     'animation.fadeOut': FadeOut,
     'animation.morphing': Morphing,
     'interaction.elementActive': ElementActive,
+    'interaction.elementSelected': ElementSelected,
     'interaction.elementHighlight': ElementHighlight,
     'interaction.elementHighlightByX': ElementHighlightByX,
     'interaction.elementHighlightByColor': ElementHighlightByColor,

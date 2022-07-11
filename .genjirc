@@ -28,8 +28,9 @@
     "Adjust": "adjust",
     "Animation": "animation",
     "Interaction": {
-      "Tooltip": "tooltip-interaction",
-      "More": "more-interaction"
+      "Element": "interaction-element",
+      "Tooltip": "interaction-tooltip",
+      "More": "interaction-more"
     },
     "Composition": {
       "View": "view",
