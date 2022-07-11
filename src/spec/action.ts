@@ -11,7 +11,13 @@ export type Action =
   | LegendItemSelectionAction
   | SetItemStateAction
   | PlotAction
-  | TooltipAction;
+  | FilterAction
+  | CursorAction
+  | TooltipAction
+  | RecordStateAction
+  | RecordRegionAction
+  | MaskAction
+  | ButtonAction;
 
 export type ActionTypes =
   | 'fisheyeFocus'
@@ -23,7 +29,14 @@ export type ActionTypes =
   | 'legendItemSelection'
   | 'setItemState'
   | 'plot'
+  | 'filter'
+  | 'cursor'
   | 'tooltip'
+  | 'recordState'
+  | 'recordPoint'
+  | 'recordRegion'
+  | 'mask'
+  | 'button'
   | CustomAction;
 
 export type FisheyeFocusAction = {
@@ -46,8 +59,18 @@ export type HighlightElementAction = {
   color?: string;
 };
 
+export type CursorAction = {
+  type?: 'cursor';
+  cursor?: string;
+};
+
 export type PlotAction = {
   type?: 'plot';
+};
+
+export type FilterAction = {
+  type?: 'filter';
+  reset?: boolean;
 };
 
 export type TooltipAction = {
@@ -81,6 +104,42 @@ export type SetItemStateAction = {
   color?: string;
   items?: string[];
   state?: string;
+};
+
+export type RecordStateAction = {
+  type?: 'recordState';
+  state?: string;
+};
+
+export type RecordPointAction = {
+  type?: 'recordPoint';
+  clear?: boolean;
+  start?: boolean;
+};
+
+export type RecordRegionAction = {
+  type?: 'recordRegion';
+  dim?: 'x' | 'y';
+};
+
+export type MaskAction = {
+  type?: 'mask';
+  fill?: string;
+  fillOpacity?: number;
+};
+
+export type ButtonAction = {
+  type?: 'button';
+  position?: string;
+  text?: string;
+  textStyle?: {
+    fontSize?: number;
+    fill?: string;
+  };
+  fill?: string;
+  stroke?: string;
+  padding?: number[];
+  hide?: boolean;
 };
 
 export type CustomAction = {
