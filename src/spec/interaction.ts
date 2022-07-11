@@ -4,6 +4,7 @@ import { FisheyeCoordinate } from './coordinate';
 
 export type Interaction =
   | ElementActiveInteraction
+  | ElementSelectedInteraction
   | ElementHighlightInteraction
   | ElementHighlightByXInteraction
   | ElementHighlightByColorInteraction
@@ -29,6 +30,13 @@ export type InteractionTypes =
 export type ElementActiveInteraction = {
   type?: 'elementActive';
   color?: string;
+};
+
+export type ElementSelectedInteraction = {
+  type?: 'elementSelected';
+  color?: string;
+  border?: number;
+  singleMode?: boolean;
 };
 
 export type ElementHighlightInteraction = {

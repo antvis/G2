@@ -38,6 +38,7 @@ export type SurfacePointSelectionAction = {
 export type ActiveElementAction = {
   type?: 'activeElement';
   color?: string;
+  border?: number;
 };
 
 export type HighlightElementAction = {
@@ -61,6 +62,8 @@ export type ElementSelectionAction = {
   type?: 'elementSelection';
   from?: string;
   filterBy?: 'x' | 'color';
+  toggle?: boolean;
+  multiple?: boolean;
 };
 
 export type TriggerInfoSelectionAction = {

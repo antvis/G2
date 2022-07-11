@@ -1,7 +1,7 @@
 import { createInteractionLibrary } from '../../../src/interaction/stdlib';
 import {
   SurfacePointSelection,
-  HighlightSelection,
+  ActiveElement,
   Tooltip,
   FisheyeFocus,
   Plot,
@@ -21,7 +21,7 @@ describe('createInteractionLibrary', () => {
     expect(createInteractionLibrary()).toEqual({
       'action.surfacePointSelection': SurfacePointSelection,
       'action.elementSelection': ElementSelection,
-      'action.activeElement': HighlightSelection,
+      'action.activeElement': ActiveElement,
       'action.highlightElement': HighlightElement,
       'action.legendItemSelection': LegendItemSelection,
       'action.triggerInfoSelection': TriggerInfoSelection,
