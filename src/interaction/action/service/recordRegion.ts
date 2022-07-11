@@ -11,20 +11,20 @@ function getRegion(points: Vector2[], plot: DisplayObject, dim?: 'x' | 'y') {
   const end = last(points);
   const halfExtents = plot.getBounds().halfExtents;
 
-  let x = Math.min(start[0], end[0]);
-  let y = Math.min(start[1], end[1]);
+  let x1 = Math.min(start[0], end[0]);
+  let y1 = Math.min(start[1], end[1]);
   let width = Math.abs(end[0] - start[0]);
   let height = Math.abs(end[1] - start[1]);
 
   if (dim === 'x') {
-    y = 0;
+    y1 = 0;
     height = halfExtents[1] * 2;
   } else if (dim === 'y') {
-    x = 0;
+    x1 = 0;
     width = halfExtents[0] * 2;
   }
 
-  return { x, y, width, height };
+  return { x1, y1, x2: x1 + width, y2: y1 + height };
 }
 
 export const RecordRegion: AC<RecordRegionOptions> = (options) => {
