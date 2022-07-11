@@ -11,6 +11,7 @@ function isButton(context) {
 
 export const InteractionDescriptor = (options?: BrushOptions) => {
   const { brushType } = options;
+  const maskType = brushType === 'polygon' ? 'polygon' : 'rect';
   const dim = brushType === 'rectX' ? 'x' : brushType === 'rectY' ? 'y' : '';
   return {
     start: [
@@ -49,13 +50,13 @@ export const InteractionDescriptor = (options?: BrushOptions) => {
         action: [
           { type: 'recordPoint' },
           { type: 'recordRegion', dim },
-          { type: 'mask' },
+          { type: 'mask', maskType },
         ],
       },
       {
         trigger: 'plot:maskChange',
         action: [
-          { type: 'elementSelection', from: 'mask' },
+          { type: 'elementSelection', from: `${maskType}-mask` },
           { type: 'highlightElement' },
         ],
       },
@@ -64,14 +65,14 @@ export const InteractionDescriptor = (options?: BrushOptions) => {
         isEnable: (context) => !isButton(context),
         action: [
           { type: 'recordState', state: null },
-          { type: 'elementSelection', from: 'mask' },
+          { type: 'elementSelection', from: `${maskType}-mask` },
           { type: 'filter' },
           { type: 'plot' },
           { type: 'recordState', state: 'filtered' },
           { type: 'recordPoint', clear: true },
           { type: 'recordRegion' },
           { type: 'mask' },
-          { type: 'elementSelection', from: 'mask' },
+          { type: 'elementSelection', from: `${maskType}-mask` },
           { type: 'highlightElement' },
           { type: 'button' },
         ],

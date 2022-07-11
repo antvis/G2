@@ -1,3 +1,4 @@
+import { isPolygonsIntersect } from '@antv/path-util';
 import { G2Element, select } from '../../../utils/selection';
 import { ActionComponent as AC } from '../../types';
 import { ElementSelectionAction } from '../../../spec';
@@ -43,28 +44,32 @@ export const ElementSelection: AC<ElementSelectionOptions> = (options) => {
 
   return (context) => {
     const { event, shared, selection, scale: scales, transientLayer } = context;
-
+    const elements = selection.selectAll('.element').nodes();
     const { selectedElements: oldSelectedElements = [] } = shared;
     shared.selectedElements = [];
 
     let selectedElements = [];
     if (from === 'triggerInfo') {
       const { triggerInfo = [] } = shared;
-      const elements = selection.selectAll('.element').nodes();
       selectedElements = getElementsByTriggerInfo(
         elements,
         scales,
         triggerInfo,
       );
-    } else if (from === 'mask') {
-      const elements = selection.selectAll('.element').nodes();
+    } else if (from === 'rect-mask') {
       const masks = transientLayer.selectAll('.mask').nodes();
       selectedElements = elements.filter((element) => {
-        return masks.some((mask) => {
-          return intersectRect(
-            element.getRenderBounds(),
-            mask.getRenderBounds(),
-          );
+        return masks.some((mask) =>
+          intersectRect(element.getRenderBounds(), mask.getRenderBounds()),
+        );
+      });
+    } else if (from === 'polygon-mask') {
+      const masks = transientLayer.selectAll('.mask').nodes();
+      selectedElements = elements.filter((element) => {
+        return masks.some(({ __data__: { points } }) => {
+          const { min, max } = element.getLocalBounds();
+          const polygon = [[min], [min[0], max[1]], [max], [max[0], min[1]]];
+          return isPolygonsIntersect(points, polygon);
         });
       });
     } else {

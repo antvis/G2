@@ -11,28 +11,29 @@ export type MaskOptions = Omit<MaskAction, 'type'>;
  * @todo add mask movable
  */
 export const Mask: AC<MaskOptions> = (options) => {
-  const { fill = '#C5D4EB', fillOpacity = 0.3 } = options;
+  const { maskType, fill = '#C5D4EB', fillOpacity = 0.3 } = options;
   return (context) => {
     const { shared, transientLayer } = context;
     const { regions = [], points = [] } = shared;
 
-    const P = regions.length
-      ? regions.map((region) => {
-          const { x1, y1, x2, y2 } = region;
-          return [
-            [x1, y1],
-            [x2, y1],
-            [x2, y2],
-            [x1, y2],
-          ];
-        })
-      : points;
-
+    const P =
+      maskType === 'polygon'
+        ? points
+        : regions.map((region) => {
+            const { x1, y1, x2, y2 } = region;
+            return [
+              [x1, y1],
+              [x2, y1],
+              [x2, y2],
+              [x1, y2],
+            ];
+          });
     const data = P.map((points) => {
       return {
         d: appendPolygon(d3path(), points).toString(),
         fill,
         fillOpacity,
+        points,
       };
     });
 

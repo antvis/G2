@@ -137,13 +137,14 @@ describe('Brush', () => {
         y: 'sold',
         color: 'type',
       },
-      interaction: [{ type: 'brush', brushType: 'rectX' }],
+      interaction: [{ type: 'brush' }],
     });
     mount(createDiv(), chart);
   });
 
   it('render({...} renders scatter with brush interaction', () => {
     const chart = render<G2Spec>({
+      title: 'Polygon brush',
       type: 'point',
       transform: [
         {
@@ -156,7 +157,7 @@ describe('Brush', () => {
         y: 'weight',
         color: 'gender',
       },
-      interaction: [{ type: 'brush' }],
+      interaction: [{ type: 'brush', brushType: 'polygon' }],
     });
 
     mount(createDiv(), chart);

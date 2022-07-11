@@ -33,12 +33,12 @@ export type InteractionTypes =
 
 export type BrushInteraction = {
   type?: 'brush';
-  brushType?: 'rect' | 'rectX' | 'rectY';
+  brushType?: 'rect' | 'rectX' | 'rectY' | 'polygon';
 };
 
 export type BrushHighlightInteraction = {
   type?: 'brushHighlight';
-  brushType?: 'rect' | 'rectX' | 'rectY';
+  brushType?: 'rect' | 'rectX' | 'rectY' | 'polygon';
 };
 
 export type ElementActiveInteraction = {

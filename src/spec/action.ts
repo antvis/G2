@@ -124,6 +124,7 @@ export type RecordRegionAction = {
 
 export type MaskAction = {
   type?: 'mask';
+  maskType?: 'rect' | 'polygon';
   fill?: string;
   fillOpacity?: number;
 };

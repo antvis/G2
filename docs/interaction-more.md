@@ -172,3 +172,23 @@ G2.render({
   interaction: [{ type: 'brushHighlight', brushType: 'rectY' }],
 });
 ```
+
+## Polygon brush
+
+```js | dom
+G2.render({
+  type: 'point',
+  transform: [
+    {
+      type: 'fetch',
+      url: 'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
+    },
+  ],
+  encode: {
+    x: 'height',
+    y: 'weight',
+    color: 'gender',
+  },
+  interaction: [{ type: 'brushHighlight', brushType: 'polygon' }],
+});
+```

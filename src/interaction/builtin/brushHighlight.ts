@@ -5,6 +5,7 @@ export type BrushHighlightOptions = Omit<BrushHighlightInteraction, 'type'>;
 
 export const InteractionDescriptor = (options?: BrushHighlightOptions) => {
   const { brushType } = options;
+  const maskType = brushType === 'polygon' ? 'polygon' : 'rect';
   const dim = brushType === 'rectX' ? 'x' : brushType === 'rectY' ? 'y' : '';
   return {
     start: [
@@ -27,13 +28,13 @@ export const InteractionDescriptor = (options?: BrushHighlightOptions) => {
         action: [
           { type: 'recordPoint' },
           { type: 'recordRegion', dim },
-          { type: 'mask' },
+          { type: 'mask', maskType },
         ],
       },
       {
         trigger: 'plot:maskChange',
         action: [
-          { type: 'elementSelection', from: 'mask' },
+          { type: 'elementSelection', from: `${maskType}-mask` },
           { type: 'highlightElement' },
         ],
       },
@@ -55,7 +56,7 @@ export const InteractionDescriptor = (options?: BrushHighlightOptions) => {
           { type: 'recordPoint', clear: true },
           { type: 'recordRegion' },
           { type: 'mask' },
-          { type: 'elementSelection', from: 'mask' },
+          { type: 'elementSelection', from: `${maskType}-mask` },
           { type: 'highlightElement' },
         ],
       },
