@@ -13,6 +13,8 @@ export type Interaction =
   | LegendHighlightInteraction
   | TooltipInteraction
   | FisheyeInteraction
+  | BrushInteraction
+  | BrushHighlightInteraction
   | CustomInteraction;
 
 export type InteractionTypes =
@@ -24,8 +26,20 @@ export type InteractionTypes =
   | 'legendActive'
   | 'legendHighlight'
   | 'tooltip'
+  | 'brush'
+  | 'brushHighlight'
   | 'fisheye'
   | InteractionComponent;
+
+export type BrushInteraction = {
+  type?: 'brush';
+  brushType?: 'rect' | 'rectX' | 'rectY';
+};
+
+export type BrushHighlightInteraction = {
+  type?: 'brushHighlight';
+  brushType?: 'rect' | 'rectX' | 'rectY';
+};
 
 export type ElementActiveInteraction = {
   type?: 'elementActive';

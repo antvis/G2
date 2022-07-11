@@ -8,9 +8,13 @@ export type ButtonOptions = Omit<ButtonAction, 'type'>;
 const ButtonComponent = createComponent<ButtonOptions>({
   render(attributes, context) {
     const { text, textStyle = {}, fill, stroke, padding = [] } = attributes;
+    const [pt, pr, pb, pl] = padding;
     const textShape = maybeAppend(context, '.button-text', 'text')
       .attr('className', 'button-text')
+      .style('x', pl)
+      .style('y', pt + (textStyle.fontSize || 12) / 2)
       .style('fontSize', 12)
+      .style('textAlign', 'end')
       .style('textBaseline', 'middle')
       .style('fill', '#333')
       .style('text', text)
@@ -18,13 +22,15 @@ const ButtonComponent = createComponent<ButtonOptions>({
       .call(applyStyle, textStyle)
       .node();
 
-    const { halfExtents } = textShape.getLocalBounds();
+    const { min, halfExtents } = textShape.getLocalBounds();
+    const width = halfExtents[0] * 2;
+    const height = halfExtents[1] * 2;
     maybeAppend(context, '.button-rect', 'rect')
       .attr('className', 'button-rect')
-      .style('x', -padding[3])
-      .style('y', -padding[0] - halfExtents[1])
-      .style('width', halfExtents[0] * 2 + padding[1] + padding[3])
-      .style('height', halfExtents[1] * 2 + padding[0] + padding[2])
+      .style('x', min[0] - pl)
+      .style('y', min[1] - pt)
+      .style('width', width + pl + pr)
+      .style('height', height + pt + pb)
       .style('fill', fill)
       .style('stroke', stroke)
       .style('z-index', 0);
@@ -46,11 +52,8 @@ export const Button: AC<ButtonOptions> = (options) => {
 
     const buttonCfg = {
       text: 'Reset',
-      fontSize: 24,
-      width: 40,
-      height: 20,
-      x: x + width - 40,
-      y: y,
+      x: x + width - 4,
+      y: y + 4,
       fill,
       stroke,
       textStyle,
