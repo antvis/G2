@@ -29,11 +29,20 @@ function intersect(
     .map((e) => e.__data__.key);
 }
 
+function intersectRect(bounds: any, bounds2: any) {
+  return !(
+    bounds2.min[0] > bounds.max[0] ||
+    bounds2.max[0] < bounds.min[0] ||
+    bounds2.min[1] > bounds.max[1] ||
+    bounds2.max[1] < bounds.min[1]
+  );
+}
+
 export const ElementSelection: AC<ElementSelectionOptions> = (options) => {
   const { from, filterBy: field, multiple, toggle } = options;
 
   return (context) => {
-    const { event, shared, selection, scale: scales } = context;
+    const { event, shared, selection, scale: scales, transientLayer } = context;
 
     const { selectedElements: oldSelectedElements = [] } = shared;
     shared.selectedElements = [];
@@ -47,6 +56,17 @@ export const ElementSelection: AC<ElementSelectionOptions> = (options) => {
         scales,
         triggerInfo,
       );
+    } else if (from === 'mask') {
+      const elements = selection.selectAll('.element').nodes();
+      const masks = transientLayer.selectAll('.mask').nodes();
+      selectedElements = elements.filter((element) => {
+        return masks.some((mask) => {
+          return intersectRect(
+            element.getRenderBounds(),
+            mask.getRenderBounds(),
+          );
+        });
+      });
     } else {
       const { target } = event;
       const { className } = target || {};
