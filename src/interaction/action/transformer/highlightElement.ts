@@ -21,19 +21,20 @@ export const HighlightElement: AC<HighlightOption> = (options) => {
     const { elementActiveStroke } = theme;
     const { color = elementActiveStroke } = options;
 
-    const data = selectedElements.map((d) => d.__data__);
+    const selectedData = selectedElements.map((d) => d.__data__);
     selection.selectAll('.element').each(function () {
       if (!this.style.originVisibility) {
         this.style.originVisibility = this.style.visibility || 'visible';
       }
-      this.style.visibility = data.length
+      this.style.visibility = selectedData.length
         ? 'hidden'
         : this.style.originVisibility;
     });
     const elements = selection.selectAll('.element').nodes();
+    const data = selectedData.length ? elements.map((d) => d.__data__) : [];
     selectionLayer
       .selectAll('.highlight-element')
-      .data(data.length ? elements.map((d) => d.__data__) : [], (d) => d.key)
+      .data(data, (_, i) => i)
       .join(
         (enter) =>
           enter
@@ -41,11 +42,11 @@ export const HighlightElement: AC<HighlightOption> = (options) => {
             .attr('className', 'highlight-element')
             .style('visibility', 'visible')
             .each(function (datum) {
-              applyHighlightStyle(this, datum, data, color);
+              applyHighlightStyle(this, datum, selectedData, color);
             }),
         (update) =>
           update.each(function (datum) {
-            applyHighlightStyle(this, datum, data, color);
+            applyHighlightStyle(this, datum, selectedData, color);
           }),
         (exit) => exit.remove(),
       );

@@ -30,7 +30,7 @@ function intersect(
     .map((e) => e.__data__.key);
 }
 
-function intersectRect(bounds: any, bounds2: any) {
+function intersects(bounds: any, bounds2: any) {
   return !(
     bounds2.min[0] > bounds.max[0] ||
     bounds2.max[0] < bounds.min[0] ||
@@ -60,7 +60,7 @@ export const ElementSelection: AC<ElementSelectionOptions> = (options) => {
       const masks = transientLayer.selectAll('.mask').nodes();
       selectedElements = elements.filter((element) => {
         return masks.some((mask) =>
-          intersectRect(element.getRenderBounds(), mask.getRenderBounds()),
+          intersects(element.getRenderBounds(), mask.getRenderBounds()),
         );
       });
     } else if (from === 'polygon-mask') {
