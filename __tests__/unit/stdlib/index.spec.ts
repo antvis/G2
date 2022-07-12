@@ -124,6 +124,8 @@ import {
   ElementListHighlight,
   LegendActive,
   LegendHighlight,
+  Brush,
+  BrushHighlight,
 } from '../../../src/interaction';
 import {
   Layer,
@@ -329,6 +331,8 @@ describe('stdlib', () => {
       'interaction.fisheye': FisheyeInteraction,
       'interaction.legendActive': LegendActive,
       'interaction.legendHighlight': LegendHighlight,
+      'interaction.brush': Brush,
+      'interaction.brushHighlight': BrushHighlight,
       'composition.layer': Layer,
       'composition.flex': Flex,
       'composition.keyframe': Keyframe,

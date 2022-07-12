@@ -10,6 +10,13 @@ import {
   LegendItemSelection,
   TriggerInfoSelection,
   SetItemState as SetItemStateAction,
+  Button,
+  Filter,
+  Mask,
+  RecordPoint,
+  RecordRegion,
+  RecordState,
+  Cursor as CursorAction,
 } from '../../../src/interaction/action';
 import {
   MousePosition,
@@ -21,6 +28,9 @@ describe('createInteractionLibrary', () => {
     expect(createInteractionLibrary()).toEqual({
       'action.surfacePointSelection': SurfacePointSelection,
       'action.elementSelection': ElementSelection,
+      'action.recordState': RecordState,
+      'action.recordPoint': RecordPoint,
+      'action.recordRegion': RecordRegion,
       'action.activeElement': ActiveElement,
       'action.highlightElement': HighlightElement,
       'action.legendItemSelection': LegendItemSelection,
@@ -29,6 +39,10 @@ describe('createInteractionLibrary', () => {
       'action.tooltip': Tooltip,
       'action.fisheyeFocus': FisheyeFocus,
       'action.plot': Plot,
+      'action.filter': Filter,
+      'action.cursor': CursorAction,
+      'action.mask': Mask,
+      'action.button': Button,
       'interactor.mousePosition': MousePosition,
       'interactor.touchPosition': TouchPosition,
     });
