@@ -1,25 +1,20 @@
 import { ActionComponent as AC } from '../../types';
-import { HighlightElementAction } from '../../../spec';
+import { FilterElementAction } from '../../../spec';
 
-export type HighlightOptions = Omit<HighlightElementAction, 'type'>;
+export type FilterElementOptions = Omit<FilterElementAction, 'type'>;
 
-function applyHighlightStyle(element, datum, data, color: string) {
-  if (data.includes(datum)) {
-    element.style.fillOpacity = 1;
-    element.style.lineWidth = +element.style.lineWidth || 1;
-    element.style.stroke = color;
+function applyStyle(element, datum, data) {
+  if (!data.includes(datum)) {
+    element.style.visibility = 'hidden';
   } else {
-    element.style.fillOpacity = 0.45;
-    element.style.stroke = 'transparent';
+    element.style.visibility = element.style.originVisibility;
   }
 }
 
-export const HighlightElement: AC<HighlightOptions> = (options) => {
+export const FilterElement: AC<FilterElementOptions> = () => {
   return (context) => {
-    const { shared, selection, theme, selectionLayer } = context;
+    const { shared, selection, selectionLayer } = context;
     const { selectedElements = [] } = shared;
-    const { elementActiveStroke } = theme;
-    const { color = elementActiveStroke } = options;
 
     const selectedData = selectedElements.map((d) => d.__data__);
     const elements = selection
@@ -42,13 +37,12 @@ export const HighlightElement: AC<HighlightOptions> = (options) => {
           enter
             .append((_, i) => elements[i].cloneNode(true))
             .attr('className', 'highlight-element')
-            .style('visibility', 'visible')
             .each(function (datum) {
-              applyHighlightStyle(this, datum, selectedData, color);
+              applyStyle(this, datum, selectedData);
             }),
         (update) =>
           update.each(function (datum) {
-            applyHighlightStyle(this, datum, selectedData, color);
+            applyStyle(this, datum, selectedData);
           }),
         (exit) => exit.remove(),
       );
@@ -57,4 +51,4 @@ export const HighlightElement: AC<HighlightOptions> = (options) => {
   };
 };
 
-HighlightElement.props = {};
+FilterElement.props = {};

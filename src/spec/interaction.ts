@@ -15,6 +15,7 @@ export type Interaction =
   | FisheyeInteraction
   | BrushInteraction
   | BrushHighlightInteraction
+  | BrushVisibleInteraction
   | CustomInteraction;
 
 export type InteractionTypes =
@@ -28,6 +29,7 @@ export type InteractionTypes =
   | 'tooltip'
   | 'brush'
   | 'brushHighlight'
+  | 'brushVisible'
   | 'fisheye'
   | InteractionComponent;
 
@@ -38,6 +40,11 @@ export type BrushInteraction = {
 
 export type BrushHighlightInteraction = {
   type?: 'brushHighlight';
+  brushType?: 'rect' | 'rectX' | 'rectY' | 'polygon';
+};
+
+export type BrushVisibleInteraction = {
+  type?: 'brushVisible';
   brushType?: 'rect' | 'rectX' | 'rectY' | 'polygon';
 };
 

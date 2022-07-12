@@ -173,7 +173,7 @@ G2.render({
 });
 ```
 
-## Polygon brush
+**BrushHighlight with `polygon` brushType.**
 
 ```js | dom
 G2.render({
@@ -190,5 +190,26 @@ G2.render({
     color: 'gender',
   },
   interaction: [{ type: 'brushHighlight', brushType: 'polygon' }],
+});
+```
+
+## BrushVisible
+
+```js | dom
+G2.render({
+  title: 'Basic brushVisible',
+  type: 'point',
+  transform: [
+    {
+      type: 'fetch',
+      url: 'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
+    },
+  ],
+  encode: {
+    x: 'height',
+    y: 'weight',
+    color: 'gender',
+  },
+  interaction: [{ type: 'brushVisible' }],
 });
 ```

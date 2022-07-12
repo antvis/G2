@@ -142,7 +142,7 @@ describe('Brush', () => {
     mount(createDiv(), chart);
   });
 
-  it('render({...} renders scatter with brush interaction', () => {
+  it('render({...} renders scatter with polygon brush interaction', () => {
     const chart = render<G2Spec>({
       title: 'Polygon brush',
       type: 'point',
@@ -158,6 +158,27 @@ describe('Brush', () => {
         color: 'gender',
       },
       interaction: [{ type: 'brush', brushType: 'polygon' }],
+    });
+
+    mount(createDiv(), chart);
+  });
+
+  it('render({...} renders scatter with brushVisible interaction', () => {
+    const chart = render<G2Spec>({
+      title: 'Basic brushVisible',
+      type: 'point',
+      transform: [
+        {
+          type: 'fetch',
+          url: 'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
+        },
+      ],
+      encode: {
+        x: 'height',
+        y: 'weight',
+        color: 'gender',
+      },
+      interaction: [{ type: 'brushVisible' }],
     });
 
     mount(createDiv(), chart);

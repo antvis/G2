@@ -7,6 +7,7 @@ export type Action =
   | SurfacePointSelectionAction
   | ActiveElementAction
   | HighlightElementAction
+  | FilterElementAction
   | TriggerInfoSelectionAction
   | LegendItemSelectionAction
   | SetItemStateAction
@@ -25,6 +26,7 @@ export type ActionTypes =
   | 'elementSelection'
   | 'activeElement'
   | 'highlightElement'
+  | 'filterElement'
   | 'triggerInfoSelection'
   | 'legendItemSelection'
   | 'setItemState'
@@ -57,6 +59,10 @@ export type ActiveElementAction = {
 export type HighlightElementAction = {
   type?: 'highlightElement';
   color?: string;
+};
+
+export type FilterElementAction = {
+  type?: 'filterElement';
 };
 
 export type CursorAction = {
