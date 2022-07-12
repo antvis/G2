@@ -30,13 +30,13 @@ export const FilterElement: AC<FilterElementOptions> = () => {
       .nodes();
     const data = selectedData.length ? elements.map((d) => d.__data__) : [];
     selectionLayer
-      .selectAll('.highlight-element')
+      .selectAll('.filtered-element')
       .data(data, (_, i) => i)
       .join(
         (enter) =>
           enter
             .append((_, i) => elements[i].cloneNode(true))
-            .attr('className', 'highlight-element')
+            .attr('className', 'filtered-element')
             .each(function (datum) {
               applyStyle(this, datum, selectedData);
             }),

@@ -35,30 +35,28 @@ export const InteractionDescriptor = (options?: BrushVisibleOptions) => {
         trigger: 'plot:maskChange',
         action: [
           { type: 'elementSelection', from: `${maskType}-mask` },
-          { type: 'filterElement' },
+          { type: 'highlightElement' },
         ],
       },
       {
         trigger: 'plot:pointerup',
-        action: [{ type: 'recordState', state: null }],
+        action: [
+          { type: 'recordState', state: null },
+          { type: 'elementSelection', from: `${maskType}-mask` },
+          { type: 'filterElement' },
+          // Clear highlight elements, but not to effect elements of mainLayer.
+          { type: 'highlightElement', clear: true },
+          // Clear mask
+          { type: 'recordPoint', clear: true },
+          { type: 'recordRegion' },
+          { type: 'mask' },
+        ],
       },
     ],
     end: [
       {
         trigger: 'plot:pointerleave',
         action: [{ type: 'cursor', cursor: 'default' }],
-      },
-      {
-        trigger: 'plot:click',
-        // dblclick. https://g-next.antv.vision/zh/docs/api/event
-        isEnable: (context) => context.event.detail === 2,
-        action: [
-          { type: 'recordPoint', clear: true },
-          { type: 'recordRegion' },
-          { type: 'mask' },
-          { type: 'elementSelection', from: `${maskType}-mask` },
-          { type: 'filterElement' },
-        ],
       },
     ],
   };

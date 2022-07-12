@@ -59,6 +59,7 @@ export type ActiveElementAction = {
 export type HighlightElementAction = {
   type?: 'highlightElement';
   color?: string;
+  clear?: boolean;
 };
 
 export type FilterElementAction = {

@@ -126,6 +126,7 @@ import {
   LegendHighlight,
   Brush,
   BrushHighlight,
+  BrushVisible,
 } from '../../../src/interaction';
 import {
   Layer,
@@ -333,6 +334,7 @@ describe('stdlib', () => {
       'interaction.legendHighlight': LegendHighlight,
       'interaction.brush': Brush,
       'interaction.brushHighlight': BrushHighlight,
+      'interaction.brushVisible': BrushVisible,
       'composition.layer': Layer,
       'composition.flex': Flex,
       'composition.keyframe': Keyframe,

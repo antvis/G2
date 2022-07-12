@@ -197,7 +197,6 @@ G2.render({
 
 ```js | dom
 G2.render({
-  title: 'Basic brushVisible',
   type: 'point',
   transform: [
     {

@@ -15,6 +15,7 @@ function applyHighlightStyle(element, datum, data, color: string) {
 }
 
 export const HighlightElement: AC<HighlightOptions> = (options) => {
+  const { clear } = options;
   return (context) => {
     const { shared, selection, theme, selectionLayer } = context;
     const { selectedElements = [] } = shared;
@@ -36,7 +37,7 @@ export const HighlightElement: AC<HighlightOptions> = (options) => {
     const data = selectedData.length ? elements.map((d) => d.__data__) : [];
     selectionLayer
       .selectAll('.highlight-element')
-      .data(data, (_, i) => i)
+      .data(clear ? [] : data, (_, i) => i)
       .join(
         (enter) =>
           enter

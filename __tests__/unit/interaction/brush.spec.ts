@@ -165,7 +165,6 @@ describe('Brush', () => {
 
   it('render({...} renders scatter with brushVisible interaction', () => {
     const chart = render<G2Spec>({
-      title: 'Basic brushVisible',
       type: 'point',
       transform: [
         {
