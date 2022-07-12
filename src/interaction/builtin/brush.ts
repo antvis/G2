@@ -23,10 +23,7 @@ export const InteractionDescriptor = (options?: BrushOptions) => {
       {
         trigger: 'plot:pointermove',
         isEnable: (context) => isButton(context),
-        action: [
-          { type: 'cursor', cursor: 'pointer' },
-          { type: 'button', fill: '#e6e6e6' },
-        ],
+        action: [{ type: 'cursor', cursor: 'pointer' }, { type: 'button' }],
       },
       {
         trigger: 'plot:pointermove',

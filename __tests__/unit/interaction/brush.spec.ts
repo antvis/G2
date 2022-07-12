@@ -137,7 +137,7 @@ describe('Brush', () => {
         y: 'sold',
         color: 'type',
       },
-      interaction: [{ type: 'brush' }],
+      interaction: [{ type: 'brush', brushType: 'rectX' }],
     });
     mount(createDiv(), chart);
   });

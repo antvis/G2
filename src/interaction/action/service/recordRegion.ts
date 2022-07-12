@@ -1,15 +1,14 @@
-import { Vector2 } from '@antv/coord';
-import { DisplayObject } from '@antv/g';
+import { Coordinate, Vector2 } from '@antv/coord';
 import { head, last } from '@antv/util';
 import { ActionComponent as AC } from '../../types';
 import { RecordRegionAction } from '../../../spec';
 
 export type RecordRegionOptions = Omit<RecordRegionAction, 'type'>;
 
-function getRegion(points: Vector2[], plot: DisplayObject, dim?: 'x' | 'y') {
+function getRegion(points: Vector2[], coordinate: Coordinate, dim?: 'x' | 'y') {
+  const options = coordinate.getOptions();
   const start = head(points);
   const end = last(points);
-  const halfExtents = plot.getBounds().halfExtents;
 
   let x1 = Math.min(start[0], end[0]);
   let y1 = Math.min(start[1], end[1]);
@@ -17,11 +16,11 @@ function getRegion(points: Vector2[], plot: DisplayObject, dim?: 'x' | 'y') {
   let height = Math.abs(end[1] - start[1]);
 
   if (dim === 'x') {
-    y1 = 0;
-    height = halfExtents[1] * 2;
+    y1 = options.y;
+    height = options.height;
   } else if (dim === 'y') {
-    x1 = 0;
-    width = halfExtents[0] * 2;
+    x1 = options.x;
+    width = options.width;
   }
 
   return { x1, y1, x2: x1 + width, y2: y1 + height };
@@ -30,11 +29,10 @@ function getRegion(points: Vector2[], plot: DisplayObject, dim?: 'x' | 'y') {
 export const RecordRegion: AC<RecordRegionOptions> = (options) => {
   const { dim } = options;
   return (context) => {
-    const { shared, selection } = context;
+    const { shared, coordinate } = context;
     const { points = [] } = shared;
 
-    const plot = selection.select('.plot').node();
-    shared.regions = points.map((P) => getRegion(P, plot, dim));
+    shared.regions = points.map((P) => getRegion(P, coordinate, dim));
 
     return context;
   };

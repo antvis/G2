@@ -16,7 +16,7 @@ const ButtonComponent = createComponent<ButtonOptions>({
       .style('fontSize', 12)
       .style('textAlign', 'end')
       .style('textBaseline', 'middle')
-      .style('fill', '#333')
+      .style('fill', '#3080d0')
       .style('text', text)
       .style('z-index', 1)
       .call(applyStyle, textStyle)
@@ -31,6 +31,7 @@ const ButtonComponent = createComponent<ButtonOptions>({
       .style('y', min[1] - pt)
       .style('width', width + pl + pr)
       .style('height', height + pt + pb)
+      .style('radius', 4)
       .style('fill', fill)
       .style('stroke', stroke)
       .style('z-index', 0);
@@ -43,6 +44,7 @@ export const Button: AC<ButtonOptions> = (options) => {
     fill = '#f7f7f7',
     stroke = '#ccc',
     padding = [4, 5, 4, 5],
+    text = 'Reset',
     textStyle,
   } = options;
 
@@ -51,7 +53,7 @@ export const Button: AC<ButtonOptions> = (options) => {
     const { x, y, width } = coordinate.getOptions();
 
     const buttonCfg = {
-      text: 'Reset',
+      text,
       x: x + width - 4,
       y: y + 4,
       fill,
