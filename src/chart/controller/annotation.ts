@@ -175,7 +175,7 @@ export default class Annotation extends Controller<BaseOption[]> {
    * @param doWhat
    */
   private onAfterRender(doWhat: () => void) {
-    let afterRender = true;
+    let done = true;
     if (this.view.getOptions().animate) {
       this.view.geometries.forEach((g: Geometry) => {
         // 如果 geometry 开启，则监听
@@ -183,12 +183,12 @@ export default class Annotation extends Controller<BaseOption[]> {
           g.once(GEOMETRY_LIFE_CIRCLE.AFTER_DRAW_ANIMATE, () => {
           doWhat();
           });
-          afterRender = false;
+          done = false;
         }
       });
     }
 
-    if (afterRender) {
+    if (done) {
       this.view.getRootView().once(VIEW_LIFE_CIRCLE.AFTER_RENDER, () => {
         doWhat();
       });
