@@ -59,7 +59,12 @@ export function createInteraction<T>(
       const context = createInteractionContext(target, viewInstances);
 
       const { selection } = context;
-      for (const { trigger, action, throttle: throttleOptions } of steps) {
+      for (const {
+        trigger,
+        isEnable = () => true,
+        action,
+        throttle: throttleOptions,
+      } of steps) {
         // Compose async actions to a single action.
         const actions = normalizeOptions(action).map(useAction);
         const throttler = throttleOptions
@@ -72,7 +77,10 @@ export function createInteraction<T>(
         for (const [event] of events) {
           const [className, eventName] = event.split(':');
           selection.selectAll(`.${className}`).on(eventName, (event) => {
-            handler({ event, ...context });
+            const ctx = { event, ...context };
+            if (isEnable(ctx)) {
+              handler(ctx);
+            }
           });
         }
       }
