@@ -7,11 +7,18 @@ export type Action =
   | SurfacePointSelectionAction
   | ActiveElementAction
   | HighlightElementAction
+  | FilterElementAction
   | TriggerInfoSelectionAction
   | LegendItemSelectionAction
   | SetItemStateAction
   | PlotAction
-  | TooltipAction;
+  | FilterAction
+  | CursorAction
+  | TooltipAction
+  | RecordStateAction
+  | RecordRegionAction
+  | MaskAction
+  | ButtonAction;
 
 export type ActionTypes =
   | 'fisheyeFocus'
@@ -19,11 +26,19 @@ export type ActionTypes =
   | 'elementSelection'
   | 'activeElement'
   | 'highlightElement'
+  | 'filterElement'
   | 'triggerInfoSelection'
   | 'legendItemSelection'
   | 'setItemState'
   | 'plot'
+  | 'filter'
+  | 'cursor'
   | 'tooltip'
+  | 'recordState'
+  | 'recordPoint'
+  | 'recordRegion'
+  | 'mask'
+  | 'button'
   | CustomAction;
 
 export type FisheyeFocusAction = {
@@ -44,10 +59,25 @@ export type ActiveElementAction = {
 export type HighlightElementAction = {
   type?: 'highlightElement';
   color?: string;
+  clear?: boolean;
+};
+
+export type FilterElementAction = {
+  type?: 'filterElement';
+};
+
+export type CursorAction = {
+  type?: 'cursor';
+  cursor?: string;
 };
 
 export type PlotAction = {
   type?: 'plot';
+};
+
+export type FilterAction = {
+  type?: 'filter';
+  reset?: boolean;
 };
 
 export type TooltipAction = {
@@ -81,6 +111,43 @@ export type SetItemStateAction = {
   color?: string;
   items?: string[];
   state?: string;
+};
+
+export type RecordStateAction = {
+  type?: 'recordState';
+  state?: string;
+};
+
+export type RecordPointAction = {
+  type?: 'recordPoint';
+  clear?: boolean;
+  start?: boolean;
+};
+
+export type RecordRegionAction = {
+  type?: 'recordRegion';
+  dim?: 'x' | 'y';
+};
+
+export type MaskAction = {
+  type?: 'mask';
+  maskType?: 'rect' | 'polygon';
+  fill?: string;
+  fillOpacity?: number;
+};
+
+export type ButtonAction = {
+  type?: 'button';
+  position?: string;
+  text?: string;
+  textStyle?: {
+    fontSize?: number;
+    fill?: string;
+  };
+  fill?: string;
+  stroke?: string;
+  padding?: number[];
+  hide?: boolean;
 };
 
 export type CustomAction = {

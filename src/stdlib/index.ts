@@ -118,6 +118,9 @@ import {
   ElementListHighlight,
   LegendActive,
   LegendHighlight,
+  Brush,
+  BrushHighlight,
+  BrushVisible,
 } from '../interaction';
 import {
   Layer,
@@ -322,6 +325,9 @@ export function createLibrary(): G2Library {
     'interaction.legendHighlight': LegendHighlight,
     'interaction.tooltip': Tooltip,
     'interaction.fisheye': FisheyeInteraction,
+    'interaction.brush': Brush,
+    'interaction.brushHighlight': BrushHighlight,
+    'interaction.brushVisible': BrushVisible,
     'composition.layer': Layer,
     'composition.flex': Flex,
     'composition.mark': Mark,

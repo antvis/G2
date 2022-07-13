@@ -1,7 +1,7 @@
 import { ActionComponent as AC } from '../../types';
 import { HighlightElementAction } from '../../../spec';
 
-export type HighlightOption = Omit<HighlightElementAction, 'type'>;
+export type HighlightOptions = Omit<HighlightElementAction, 'type'>;
 
 function applyHighlightStyle(element, datum, data, color: string) {
   if (data.includes(datum)) {
@@ -14,23 +14,30 @@ function applyHighlightStyle(element, datum, data, color: string) {
   }
 }
 
-export const HighlightElement: AC<HighlightOption> = (options) => {
+export const HighlightElement: AC<HighlightOptions> = (options) => {
+  const { clear } = options;
   return (context) => {
     const { shared, selection, theme, selectionLayer } = context;
     const { selectedElements = [] } = shared;
     const { elementActiveStroke } = theme;
     const { color = elementActiveStroke } = options;
 
-    const data = selectedElements.map((d) => d.__data__);
-
-    selection
+    const selectedData = selectedElements.map((d) => d.__data__);
+    const elements = selection
       .selectAll('.element')
-      .style('visibility', data.length ? 'hidden' : 'visible');
-
-    const elements = selection.selectAll('.element').nodes();
+      .each(function () {
+        if (!this.style.originVisibility) {
+          this.style.originVisibility = this.style.visibility || 'visible';
+        }
+        this.style.visibility = selectedData.length
+          ? 'hidden'
+          : this.style.originVisibility;
+      })
+      .nodes();
+    const data = selectedData.length ? elements.map((d) => d.__data__) : [];
     selectionLayer
       .selectAll('.highlight-element')
-      .data(data.length ? elements.map((d) => d.__data__) : [], (d) => d.key)
+      .data(clear ? [] : data, (_, i) => i)
       .join(
         (enter) =>
           enter
@@ -38,11 +45,11 @@ export const HighlightElement: AC<HighlightOption> = (options) => {
             .attr('className', 'highlight-element')
             .style('visibility', 'visible')
             .each(function (datum) {
-              applyHighlightStyle(this, datum, data, color);
+              applyHighlightStyle(this, datum, selectedData, color);
             }),
         (update) =>
           update.each(function (datum) {
-            applyHighlightStyle(this, datum, data, color);
+            applyHighlightStyle(this, datum, selectedData, color);
           }),
         (exit) => exit.remove(),
       );

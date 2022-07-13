@@ -16,6 +16,7 @@ export type InteractionDescriptor = {
 export type InteractionStep = {
   trigger: string;
   action: ActionOptions | ActionOptions[];
+  isEnable?: (InteractionContext) => boolean;
   throttle?: { wait?: number; leading?: boolean; trailing: boolean };
 };
 

@@ -1,3 +1,4 @@
+import { isPolygonsIntersect } from '@antv/path-util';
 import { G2Element, select } from '../../../utils/selection';
 import { ActionComponent as AC } from '../../types';
 import { ElementSelectionAction } from '../../../spec';
@@ -29,24 +30,48 @@ function intersect(
     .map((e) => e.__data__.key);
 }
 
+function intersects(bounds: any, bounds2: any) {
+  return !(
+    bounds2.min[0] > bounds.max[0] ||
+    bounds2.max[0] < bounds.min[0] ||
+    bounds2.min[1] > bounds.max[1] ||
+    bounds2.max[1] < bounds.min[1]
+  );
+}
+
 export const ElementSelection: AC<ElementSelectionOptions> = (options) => {
   const { from, filterBy: field, multiple, toggle } = options;
 
   return (context) => {
-    const { event, shared, selection, scale: scales } = context;
-
+    const { event, shared, selection, scale: scales, transientLayer } = context;
+    const elements = selection.selectAll('.element').nodes();
     const { selectedElements: oldSelectedElements = [] } = shared;
     shared.selectedElements = [];
 
     let selectedElements = [];
     if (from === 'triggerInfo') {
       const { triggerInfo = [] } = shared;
-      const elements = selection.selectAll('.element').nodes();
       selectedElements = getElementsByTriggerInfo(
         elements,
         scales,
         triggerInfo,
       );
+    } else if (from === 'rect-mask') {
+      const masks = transientLayer.selectAll('.mask').nodes();
+      selectedElements = elements.filter((element) => {
+        return masks.some((mask) =>
+          intersects(element.getRenderBounds(), mask.getRenderBounds()),
+        );
+      });
+    } else if (from === 'polygon-mask') {
+      const masks = transientLayer.selectAll('.mask').nodes();
+      selectedElements = elements.filter((element) => {
+        return masks.some(({ __data__: { points } }) => {
+          const { min, max } = element.getLocalBounds();
+          const polygon = [[min], [min[0], max[1]], [max], [max[0], min[1]]];
+          return isPolygonsIntersect(points, polygon);
+        });
+      });
     } else {
       const { target } = event;
       const { className } = target || {};

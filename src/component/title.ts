@@ -1,26 +1,10 @@
-import {
-  CustomElement,
-  DisplayObjectConfig,
-  TextStyleProps,
-  Group,
-} from '@antv/g';
+import { TextStyleProps } from '@antv/g';
 import { deepMix } from '@antv/util';
-import { select, Selection, G2Element } from '../utils/selection';
 import { applyStyle } from '../shape/utils';
 import { GuideComponentComponent as GCC, G2TitleOptions } from '../runtime';
+import { createComponent, maybeAppend } from './utils';
 
 export type TitleComponentOptions = G2TitleOptions;
-
-function maybeAppend<T>(
-  parent: Group,
-  selector: string,
-  node: string | ((data: T, i: number) => G2Element),
-): Selection<T> {
-  if (!parent.querySelector(selector)) {
-    return select(parent).append(node);
-  }
-  return select(parent).select(selector);
-}
 
 type TitleStyleProps = {
   x?: number;
@@ -33,23 +17,10 @@ type TitleStyleProps = {
   };
 };
 
-class Title extends CustomElement<TitleStyleProps> {
-  constructor(config: DisplayObjectConfig<TitleStyleProps>) {
-    super(config);
-  }
-
-  connectedCallback(): void {
-    this.render();
-  }
-
-  public update(cfg: Partial<any> = {}) {
-    this.attr(deepMix({}, this.attributes, cfg));
-    this.render();
-  }
-
-  private render() {
-    const { text, style, subtitle, subtitleStyle } = this.style;
-    const title = maybeAppend(this, '.title', 'text')
+const Title = createComponent<TitleStyleProps>({
+  render(attributes, context) {
+    const { text, style, subtitle, subtitleStyle } = attributes;
+    const title = maybeAppend(context, '.title', 'text')
       .attr('className', 'title')
       .style('fontSize', 14)
       .style('textBaseline', 'top')
@@ -58,7 +29,7 @@ class Title extends CustomElement<TitleStyleProps> {
       .node();
 
     const bounds = title.getLocalBounds();
-    maybeAppend(this, '.sub-title', 'text')
+    maybeAppend(context, '.sub-title', 'text')
       .attr('className', 'sub-title')
       .style('y', bounds.max[1] + (subtitleStyle?.spacing || 0))
       .style('fontSize', 12)
@@ -67,8 +38,8 @@ class Title extends CustomElement<TitleStyleProps> {
         if (!subtitle) return selection.node().remove();
         selection.node().attr({ text: subtitle, ...subtitleStyle });
       });
-  }
-}
+  },
+});
 
 /**
  * Title Component.
