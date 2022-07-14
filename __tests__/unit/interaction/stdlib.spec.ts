@@ -18,6 +18,8 @@ import {
   RecordRegion,
   RecordState,
   Cursor as CursorAction,
+  RecordCurrentPoint,
+  Move,
 } from '../../../src/interaction/action';
 import {
   MousePosition,
@@ -31,6 +33,7 @@ describe('createInteractionLibrary', () => {
       'action.elementSelection': ElementSelection,
       'action.recordState': RecordState,
       'action.recordPoint': RecordPoint,
+      'action.recordCurrentPoint': RecordCurrentPoint,
       'action.recordRegion': RecordRegion,
       'action.activeElement': ActiveElement,
       'action.highlightElement': HighlightElement,
@@ -45,6 +48,7 @@ describe('createInteractionLibrary', () => {
       'action.cursor': CursorAction,
       'action.mask': Mask,
       'action.button': Button,
+      'action.move': Move,
       'interactor.mousePosition': MousePosition,
       'interactor.touchPosition': TouchPosition,
     });

@@ -16,6 +16,10 @@ export {
 } from './service/legendItemSelection';
 export { RecordState, RecordStateOptions } from './service/recordState';
 export { RecordPoint, RecordPointOptions } from './service/recordPoint';
+export {
+  RecordCurrentPoint,
+  RecordCurrentPointOptions,
+} from './service/recordCurrentPoint';
 export { RecordRegion, RecordRegionOptions } from './service/recordRegion';
 export {
   ActiveElement,
@@ -37,3 +41,4 @@ export { FisheyeFocus, FisheyeFocusOptions } from './service/fisheyeFocus';
 export { Cursor, CursorOptions } from './transformer/cursor';
 export { Mask, MaskOptions } from './transformer/mask';
 export { Button, ButtonOptions } from './transformer/button';
+export { Move, MoveOptions } from './transformer/move';

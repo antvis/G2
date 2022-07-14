@@ -10,7 +10,7 @@ describe('interaction', () => {
         {
           trigger: 'hover',
           action: [
-            { type: 'surfacePointSelection' },
+            { type: 'elementSelection' },
             { type: 'activeElement', color: 'red' },
           ],
         },
@@ -19,7 +19,7 @@ describe('interaction', () => {
         {
           trigger: 'leave',
           action: [
-            { type: 'surfacePointSelection' },
+            { type: 'elementSelection' },
             { type: 'activeElement', color: 'red' },
           ],
         },

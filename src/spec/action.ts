@@ -15,10 +15,13 @@ export type Action =
   | FilterAction
   | CursorAction
   | TooltipAction
+  | RecordPointAction
+  | RecordCurrentPointAction
   | RecordStateAction
   | RecordRegionAction
   | MaskAction
-  | ButtonAction;
+  | ButtonAction
+  | MoveAction;
 
 export type ActionTypes =
   | 'fisheyeFocus'
@@ -36,9 +39,11 @@ export type ActionTypes =
   | 'tooltip'
   | 'recordState'
   | 'recordPoint'
+  | 'recordCurrentPoint'
   | 'recordRegion'
   | 'mask'
   | 'button'
+  | 'move'
   | CustomAction;
 
 export type FisheyeFocusAction = {
@@ -118,6 +123,11 @@ export type RecordStateAction = {
   state?: string;
 };
 
+export type RecordCurrentPointAction = {
+  type?: 'recordCurrentPoint';
+  clear?: boolean;
+};
+
 export type RecordPointAction = {
   type?: 'recordPoint';
   clear?: boolean;
@@ -131,7 +141,7 @@ export type RecordRegionAction = {
 
 export type MaskAction = {
   type?: 'mask';
-  maskType?: 'rect' | 'polygon';
+  maskType?: 'rect' | 'rectX' | 'rectY' | 'polygon';
   fill?: string;
   fillOpacity?: number;
 };
@@ -148,6 +158,10 @@ export type ButtonAction = {
   stroke?: string;
   padding?: number[];
   hide?: boolean;
+};
+
+export type MoveAction = {
+  type?: 'move';
 };
 
 export type CustomAction = {
