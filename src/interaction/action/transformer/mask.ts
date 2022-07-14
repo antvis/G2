@@ -55,7 +55,6 @@ export const Mask: AC<MaskOptions> = (options) => {
       lineWidth: 0.5,
       points,
       cursor: 'move',
-      type: 'selection',
       index,
     }));
 
