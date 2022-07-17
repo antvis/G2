@@ -1,5 +1,5 @@
 import { each, head, isEqual, last, get, flatten, isArray, uniq, isNil } from '@antv/util';
-import { View } from 'src/chart';
+import View from '../../chart/view';
 import { findItemsFromViewRecurisive } from '../../util/tooltip';
 import { IShape, Point, ShapeAttrs } from '../../dependents';
 import Element from '../../geometry/element';
