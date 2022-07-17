@@ -74,6 +74,34 @@ describe('Tooltip', () => {
     );
   });
 
+  it('showTooltip', () => {
+    chart.tooltip({
+      follow: true,
+      shared: true,
+      showMarkers: true,
+      marker: (v) => ({
+        fill: v.name === 'London' ? 'red' : 'green',
+      }),
+    });
+
+    chart.render();
+
+    let items;
+    chart.on('tooltip:show', (e) => {
+      items = e.data.items;
+    });
+
+    const point = chart.getXY({ name: 'London', 月份: 'Mar.', 月均降雨量: 39.3 });
+    chart.showTooltip(point);
+
+    const tooltip = chart.getController('tooltip');
+
+    // @ts-ignore
+    const markers = tooltip.tooltipMarkersGroup.getChildren();
+    expect(markers[0].attr('fill')).toBe('red');
+    expect(markers[1].attr('fill')).toBe('green');
+  });
+
   it('tooltip change', () => {
     // 内容没有发生变化，但是位置更新了
     const changeEvent = jest.fn();

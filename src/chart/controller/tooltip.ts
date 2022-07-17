@@ -456,11 +456,14 @@ export default class Tooltip extends Controller<TooltipOption> {
         tooltipMarkersGroup?.setClip(undefined);
       }
 
+      const theme = this.view.getTheme();
+      const markerDefaultCfg = get(theme, ['components', 'tooltip', 'marker'], {});
+
       const attrs = {
         fill: item.color,
         symbol: 'circle',
         shadowColor: item.color,
-        ...marker,
+        ...(isFunction(marker) ? { ...markerDefaultCfg, ...marker(item) } : marker),
         x,
         y,
       };
