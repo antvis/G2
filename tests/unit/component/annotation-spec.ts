@@ -317,6 +317,24 @@ describe('annotation', () => {
     expect(regionFilter.get('shapes')).toHaveLength(1);
   });
 
+  it('regionFilter', async () => {
+    chart.animate(false);
+    chart.line().position('city*sale').animate(false);
+    chart.annotation().regionFilter({
+      start: { city: '广州', sale: 30 },
+      end: { city: '上海', sale: 110 },
+      color: '#ff0000',
+      apply: ['line'],
+    });
+    chart.render();
+
+    await delay(100);
+
+    const regionFilter = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.ANNOTATION)[9].component;
+    expect(regionFilter.get('type')).toEqual('regionFilter');
+    expect(regionFilter.get('shapes')).toHaveLength(2);
+  });
+
   it('text with callback', () => {
     // @ts-ignore
     chart.getController('annotation').clear(true);
