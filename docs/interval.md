@@ -68,6 +68,7 @@ G2.render({
 
 ```js | dom
 G2.render({
+  paddingLeft: 70,
   type: 'interval',
   data: [
     { genre: 'Sports', sold: 275 },

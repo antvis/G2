@@ -31,6 +31,9 @@ function inferPosition(
   verticalFactor: 1 | -1;
   titleOffsetY?: number;
   labelAlign?: 'start' | 'end' | 'center' | 'left' | 'right';
+  label?: boolean;
+  axisLine?: boolean;
+  tickLine?: boolean;
 } {
   const { x, y, width, height } = bbox;
   if (position === 'bottom') {
@@ -72,11 +75,14 @@ function inferPosition(
       startPos: [cx + bbox.x, cy + bbox.y - radius],
       endPos: [cx + bbox.x, cy + bbox.y],
       titlePosition: 'start',
-      titlePadding: -16,
+      titlePadding: -20,
       titleOffsetY: -8,
-      titleRotate: 0,
+      titleRotate: -90,
       labelOffset: 4,
       verticalFactor: -1,
+      label: false,
+      axisLine: true,
+      tickLine: false,
     };
   }
   return {
@@ -137,7 +143,7 @@ function getTicks(
   const ticks = scale.getTicks?.() || domain;
   const formatter = scale.getFormatter?.() || defaultFormatter;
 
-  if (isPolar(coordinate)) {
+  if (isPolar(coordinate) || isTranspose(coordinate)) {
     const axisTicks = ticks.map((d) => {
       const offset = scale.getBandWidth?.(d) / 2 || 0;
       const tick = scale.map(d) + offset;
@@ -188,7 +194,7 @@ const ArcAxis = (options) => {
           },
           tickLine: {
             len: 4,
-            style: { lineWidth: 1 },
+            style: { lineWidth: 1, stroke: '#BFBFBF' },
           },
           label: {
             align: 'tangential',
@@ -223,6 +229,9 @@ export const Axis: GCC<AxisOptions> = (options) => {
       titleRotate,
       verticalFactor,
       titleOffsetY,
+      label = true,
+      axisLine,
+      tickLine = true,
     } = inferPosition(position, bbox, coordinate);
     const ticks = getTicks(scale, domain, formatter, position, coordinate);
     return new Linear({
@@ -232,21 +241,20 @@ export const Axis: GCC<AxisOptions> = (options) => {
           endPos,
           verticalFactor,
           ticks,
-          label: {
-            tickPadding: labelOffset,
-            autoHide: false,
-            style: {},
-          },
-          axisLine: {
-            style: {
-              lineWidth: 0,
-              strokeOpacity: 0,
-            },
-          },
-          tickLine: {
-            len: 4,
-            style: { lineWidth: 1 },
-          },
+          label: label
+            ? {
+                tickPadding: labelOffset,
+                autoHide: false,
+                style: {},
+              }
+            : null,
+          axisLine: axisLine ? { stroke: '#BFBFBF' } : null,
+          tickLine: tickLine
+            ? {
+                len: 4,
+                style: { lineWidth: 1, stroke: '#BFBFBF' },
+              }
+            : null,
           ...(field &&
             title && {
               title: {

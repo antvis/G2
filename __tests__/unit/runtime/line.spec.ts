@@ -293,7 +293,7 @@ describe('line', () => {
         { item: 'UX', user: 'b', score: 60 },
       ],
       coordinate: [{ type: 'polar' }],
-      scale: { y: { zero: true } },
+      scale: { x: { padding: 0.5, align: 0 }, y: { zero: true } },
       encode: {
         x: 'item',
         y: 'score',
