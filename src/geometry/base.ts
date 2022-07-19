@@ -1735,7 +1735,7 @@ export default class Geometry<S extends ShapePoint = ShapePoint> extends Base {
 
     const groupedArray = this.groupData(data); // 数据分组
     const beforeAdjust = [];
-    let dataArray = [];
+    const dataArray = [];
     for (let i = 0, len = groupedArray.length; i < len; i++) {
       const subData = groupedArray[i];
       const arr = [];
