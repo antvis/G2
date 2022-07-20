@@ -11,12 +11,14 @@ import {
   SetItemState as SetItemStateAction,
   RecordState,
   RecordPoint,
+  RecordCurrentPoint,
   RecordRegion,
   Cursor as CursorAction,
   Plot,
   Filter,
   Mask,
   Button,
+  Move,
 } from './action';
 import { MousePosition, TouchPosition } from './interactor';
 import { InteractionLibrary } from './types';
@@ -27,6 +29,7 @@ export function createInteractionLibrary(): InteractionLibrary {
     'action.elementSelection': ElementSelection,
     'action.recordState': RecordState,
     'action.recordPoint': RecordPoint,
+    'action.recordCurrentPoint': RecordCurrentPoint,
     'action.recordRegion': RecordRegion,
     'action.activeElement': ActiveElement,
     'action.highlightElement': HighlightElement,
@@ -41,6 +44,7 @@ export function createInteractionLibrary(): InteractionLibrary {
     'action.cursor': CursorAction,
     'action.mask': Mask,
     'action.button': Button,
+    'action.move': Move,
     'interactor.mousePosition': MousePosition,
     'interactor.touchPosition': TouchPosition,
   };

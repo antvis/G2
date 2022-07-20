@@ -21,7 +21,6 @@ export type G2ComponentNamespaces =
   | 'mark'
   | 'infer'
   | 'palette'
-  | 'renderer'
   | 'scale'
   | 'shape'
   | 'statistic'
