@@ -356,7 +356,7 @@ G2.render({
   coordinate: [{ type: 'polar' }],
   scale: {
     y: { domain: [0, 80] },
-    x: { padding: 0.5, align: 0, guide: { type: 'axisX' } },
+    x: { padding: 0.5, align: 0 },
     color: { guide: { title: null } },
   },
   children: [

@@ -106,7 +106,7 @@ export function renderComponent(
   return render(scale, value, coordinate, theme);
 }
 
-// @todo Render components in non-cartesian coordinate.
+// @todo Render axis in polar with parallel coordinate.
 // @todo Infer legend for shape.
 function inferComponentType(
   scale: G2ScaleOptions,
@@ -125,11 +125,10 @@ function inferComponentType(
         return null;
     }
   }
-  if (isTranspose(coordinates)) return null;
-  if (isPolar(coordinates)) return null;
-  if (name.startsWith('x')) return 'axisX';
-  if (name.startsWith('y')) return 'axisY';
-  if (name.startsWith('position')) return 'axisY';
+  if (isTranspose(coordinates) && isPolar(coordinates)) return null;
+  if (name.startsWith('x')) return isTranspose(coordinates) ? 'axisY' : 'axisX';
+  if (name.startsWith('y')) return isTranspose(coordinates) ? 'axisX' : 'axisY';
+  if (name.startsWith('position') && !isPolar(coordinates)) return 'axisY';
   return null;
 }
 
