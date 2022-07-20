@@ -198,7 +198,7 @@ const ArcAxis = (options) => {
           },
           label: {
             align: 'tangential',
-            style: { dy: -2 },
+            tickPadding: 2,
           },
         },
         scale.getOptions().guide,

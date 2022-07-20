@@ -124,6 +124,10 @@ G2.render({
     { genre: 'Other', sold: 150 },
   ],
   coordinate: [{ type: 'transpose' }, { type: 'polar' }],
+  scale: {
+    y: { guide: { type: 'axisY' }},
+    color: { guide: { position: 'right', size: 65 }},
+  },
   encode: {
     x: 'genre',
     y: 'sold',
