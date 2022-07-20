@@ -68,7 +68,7 @@ export const ElementSelection: AC<ElementSelectionOptions> = (options) => {
       selectedElements = elements.filter((element) => {
         return masks.some(({ __data__: { points } }) => {
           const { min, max } = element.getLocalBounds();
-          const polygon = [[min], [min[0], max[1]], [max], [max[0], min[1]]];
+          const polygon = [min, [min[0], max[1]], max, [max[0], min[1]]];
           return isPolygonsIntersect(points, polygon);
         });
       });

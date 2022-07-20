@@ -5,7 +5,7 @@ export type BrushVisibleOptions = Omit<BrushVisibleInteraction, 'type'>;
 
 export const InteractionDescriptor = (options?: BrushVisibleOptions) => {
   const { brushType } = options;
-  const maskType = brushType === 'polygon' ? 'polygon' : 'rect';
+  const maskPrefix = brushType === 'polygon' ? 'polygon' : 'rect';
   const dim = brushType === 'rectX' ? 'x' : brushType === 'rectY' ? 'y' : '';
   return {
     start: [
@@ -28,13 +28,13 @@ export const InteractionDescriptor = (options?: BrushVisibleOptions) => {
         action: [
           { type: 'recordPoint' },
           { type: 'recordRegion', dim },
-          { type: 'mask', maskType },
+          { type: 'mask', maskType: brushType },
         ],
       },
       {
         trigger: 'plot:maskChange',
         action: [
-          { type: 'elementSelection', from: `${maskType}-mask` },
+          { type: 'elementSelection', from: `${maskPrefix}-mask` },
           { type: 'highlightElement' },
         ],
       },
@@ -42,7 +42,7 @@ export const InteractionDescriptor = (options?: BrushVisibleOptions) => {
         trigger: 'plot:pointerup',
         action: [
           { type: 'recordState', state: null },
-          { type: 'elementSelection', from: `${maskType}-mask` },
+          { type: 'elementSelection', from: `${maskPrefix}-mask` },
           { type: 'filterElement' },
           // Clear highlight elements, but not to effect elements of mainLayer.
           { type: 'highlightElement', clear: true },
