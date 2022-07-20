@@ -207,18 +207,9 @@ const ArcAxis = (options) => {
   };
 };
 
-/**
- * Guide Component for position channel(e.g. x, y).
- * @todo Render Circular in polar coordinate.
- * @todo Custom style.
- */
-export const Axis: GCC<AxisOptions> = (options) => {
+const LinearAxis: GCC<AxisOptions> = (options) => {
   const { position, title = true, formatter = (d) => `${d}` } = options;
   return (scale, value, coordinate, theme) => {
-    if (position === 'arc') {
-      return ArcAxis(options)(scale, value, coordinate, theme);
-    }
-
     const { domain, field, bbox } = value;
     const {
       startPos,
@@ -269,6 +260,20 @@ export const Axis: GCC<AxisOptions> = (options) => {
         scale.getOptions().guide || {},
       ),
     });
+  };
+};
+
+/**
+ * Guide Component for position channel(e.g. x, y).
+ * @todo Render Circular in polar coordinate.
+ * @todo Custom style.
+ */
+export const Axis: GCC<AxisOptions> = (options) => {
+  const { position } = options;
+  return (scale, value, coordinate, theme) => {
+    return position === 'arc'
+      ? ArcAxis(options)(scale, value, coordinate, theme)
+      : LinearAxis(options)(scale, value, coordinate, theme);
   };
 };
 
