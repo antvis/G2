@@ -337,7 +337,7 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
             items: gridItems,
             lineStyle: {
               stroke: '#1b1e23',
-              strokeOpacity: 0.1,
+              strokeOpacity: 0.05,
               lineDash: [0, 0],
             },
           },
