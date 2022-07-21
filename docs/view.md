@@ -110,6 +110,9 @@ G2.render({
     {
       type: 'line',
       scale: {
+        y: {
+          guide: { grid: null },
+        },
         color: {
           domain: ['value', 'count'],
           range: ['#5B8FF9', '#5AD8A6'],
@@ -126,6 +129,7 @@ G2.render({
       scale: {
         y: {
           independent: true,
+          guide: { grid: null },
         },
       },
       encode: {
@@ -154,6 +158,7 @@ G2.render({
     {
       type: 'interval',
       scale: {
+        y: { guide: { grid: null } },
         color: {
           domain: ['value', 'count'],
           range: ['#5B8FF9', '#5AD8A6'],
@@ -170,7 +175,7 @@ G2.render({
       scale: {
         y: {
           independent: true,
-          guide: { position: 'right' },
+          guide: { position: 'right', grid: null },
         },
         x: {
           independent: true,
@@ -207,6 +212,7 @@ G2.render({
     {
       type: 'interval',
       scale: {
+        y: { guide: { grid: null } },
         color: {
           domain: ['value', 'count'],
           range: ['#5B8FF9', '#5AD8A6'],
@@ -227,7 +233,7 @@ G2.render({
       scale: {
         y: {
           independent: true,
-          guide: { position: 'right' },
+          guide: { position: 'right', grid: null },
         },
       },
       encode: {

@@ -4,7 +4,13 @@ import { MatrixComposition } from '../spec';
 import { Container } from '../utils/container';
 import { calcBBox } from '../utils/vector';
 import { indexOf } from '../utils/array';
-import { inferColor, setAnimation, setStyle, toGrid } from './rect';
+import {
+  createInnerGuide,
+  inferColor,
+  setAnimation,
+  setStyle,
+  toGrid,
+} from './rect';
 import { useDefaultAdaptor, useOverrideAdaptor } from './utils';
 
 export type MatrixOptions = Omit<MatrixComposition, 'type'>;
@@ -70,8 +76,8 @@ const setChildren = useOverrideAdaptor<G2ViewTree>((options) => {
           },
         };
         const newScale = {
-          x: { guide: createGuideX(guideX)(facet) },
-          y: { guide: createGuideY(guideY)(facet) },
+          x: { guide: createGuideX(guideX)(facet, data) },
+          y: { guide: createGuideY(guideY)(facet, data) },
         };
         return {
           data,
@@ -127,20 +133,20 @@ const setData = (options: G2ViewTree) => {
 function createGuideX(guideX) {
   if (typeof guideX === 'function') return guideX;
   if (guideX === null) return () => null;
-  return (facet) => {
+  return (facet, data) => {
     const { rowIndex, rowValuesLength } = facet;
     // Only the bottom-most facet show axisX.
-    if (rowIndex !== rowValuesLength - 1) return null;
+    if (rowIndex !== rowValuesLength - 1) return createInnerGuide(guideX, data);
   };
 }
 
 function createGuideY(guideY) {
   if (typeof guideY === 'function') return guideY;
   if (guideY === null) return () => null;
-  return (facet) => {
+  return (facet, data) => {
     const { columnIndex } = facet;
     // Only the left-most facet show axisY.
-    if (columnIndex !== 0) return null;
+    if (columnIndex !== 0) return createInnerGuide(guideY, data);
   };
 }
 
