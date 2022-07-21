@@ -148,6 +148,7 @@ G2.render({
         {
           type: 'interval',
           coordinate: [{ type: 'polar' }],
+          scale: { y: { guide: null } },
           encode: {
             x: 'genre',
             y: 'sold',
