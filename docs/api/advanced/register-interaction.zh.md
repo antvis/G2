@@ -402,6 +402,18 @@ class CursorAction extends Action {
   public ewResize() {
     this.setCursor('ew-resize');
   }
+  /**
+   * 光标显示可以被放大
+   */
+  public zoomIn() {
+    this.setCursor('zoom-in');
+  }
+  /**
+   * 光标显示可以缩小尺寸
+   */
+  public zoomOut() {
+    this.setCursor('zoom-out');
+  }
 }
 ```
 

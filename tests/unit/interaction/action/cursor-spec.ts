@@ -28,6 +28,7 @@ describe('active test', () => {
   first.shape.attr('cursor', 'pointer');
   const action = new CursorActive(context);
   const cursors = ['default', 'crosshair', 'pointer', 'move', 'wait', 'help', 'text'];
+  const zoomCursors = ['In', 'Out'];
   const resizeArr = ['n', 's', 'w', 'e', 'ne', 'nw', 'se', 'sw', 'ns', 'ew'];
 
   it('test cursors', () => {
@@ -51,6 +52,15 @@ describe('active test', () => {
   it('text cursor', () => {
     action.text();
     expect(canvas.getCursor()).toBe('text');
+  });
+
+  it('zoom cursor', () => {
+    each(zoomCursors, (name: string) => {
+      const method = 'zoom' + name;
+      const cursor = 'zoom-' + name.toLowerCase();
+      action[method]();
+      expect(canvas.getCursor()).toBe(cursor);
+    });
   });
 
   afterAll(() => {
