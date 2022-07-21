@@ -75,14 +75,12 @@ function inferPosition(
       startPos: [cx + bbox.x, cy + bbox.y - radius],
       endPos: [cx + bbox.x, cy + bbox.y],
       titlePosition: 'start',
-      titlePadding: -20,
-      titleOffsetY: -8,
+      titlePadding: 4,
+      titleOffsetY: 0,
       titleRotate: -90,
       labelOffset: 4,
       verticalFactor: -1,
-      label: false,
-      axisLine: true,
-      tickLine: false,
+      axisLine: false,
     };
   }
   return {
@@ -170,26 +168,114 @@ function getTicks(
   });
 }
 
+function getTickGridItem(
+  tick: number,
+  position: GuideComponentPosition,
+  coordinate: Coordinate,
+  startPos: Vector2,
+  endPos: Vector2,
+) {
+  const [sx, sy] = startPos;
+  const [ex, ey] = endPos;
+  const [width, height] = coordinate.getSize();
+  let x1, x2, y1, y2;
+  if (position === 'bottom' || position === 'top') {
+    x1 = x2 = sx + (ex - sx) * tick;
+    y1 = sy;
+    y2 = position === 'bottom' ? sy - height : sy + height;
+  } else {
+    y1 = y2 = sy + (ey - sy) * tick;
+    x1 = sx;
+    x2 = position === 'left' ? sx + width : sx - width;
+  }
+  return [
+    [x1, y1],
+    [x2, y2],
+  ];
+}
+
+function getArcGridItems(
+  ticks: any[],
+  center: [number, number],
+  startAngle: number,
+  endAngle: number,
+  radius: number,
+) {
+  const [cx, cy] = center;
+  return ticks.map(({ value }) => {
+    const angle = (endAngle - startAngle) * value + startAngle;
+    return {
+      points: [
+        [cx, cy],
+        [
+          cx + radius * Math.cos((angle * Math.PI) / 180),
+          cy + radius * Math.sin((angle * Math.PI) / 180),
+        ],
+      ],
+    };
+  });
+}
+
+/**
+ * @todo render grid in arcY positioned axis.
+ */
+function getGridItems(
+  ticks: any[],
+  position: GuideComponentPosition,
+  coordinate: any,
+  startPos: Vector2,
+  endPos: Vector2,
+) {
+  if (isPolar(coordinate) || isParallel(coordinate)) return [];
+  return ticks.map((tick) => {
+    const points = getTickGridItem(
+      tick.value,
+      position,
+      coordinate,
+      startPos,
+      endPos,
+    );
+    return { points };
+  });
+}
+
 const ArcAxis = (options) => {
   const { position, formatter = (d) => `${d}` } = options;
   return (scale, value, coordinate, theme) => {
     const [cx, cy] = coordinate.getCenter() as Vector2;
     const { domain, bbox } = value;
+    const center = [cx + bbox.x, cy + bbox.y] as [number, number];
     const ticks = getTicks(scale, domain, formatter, position, coordinate);
     const radius = Math.min(bbox.width, bbox.height) / 2;
+    const startAngle = -90;
+    const endAngle = 270;
+
+    const guideOptions = scale.getOptions().guide || {};
+    const { grid: showGrid } = guideOptions;
+    const gridItems = showGrid
+      ? getArcGridItems(ticks, center, startAngle, endAngle, radius)
+      : [];
     return new Arc({
       style: deepMix(
         {},
         {
-          center: [cx + bbox.x, cy + bbox.y],
+          center,
           radius,
-          startAngle: -90,
-          endAngle: 270,
+          startAngle,
+          endAngle,
           ticks,
           axisLine: {
             style: {
               lineWidth: 0,
               strokeOpacity: 0,
+            },
+          },
+          grid: {
+            items: gridItems,
+            lineStyle: {
+              stroke: '#1b1e23',
+              strokeOpacity: 0.1,
+              lineDash: [0, 0],
             },
           },
           tickLine: {
@@ -201,24 +287,15 @@ const ArcAxis = (options) => {
             tickPadding: 2,
           },
         },
-        scale.getOptions().guide,
+        guideOptions,
       ),
     });
   };
 };
 
-/**
- * Guide Component for position channel(e.g. x, y).
- * @todo Render Circular in polar coordinate.
- * @todo Custom style.
- */
-export const Axis: GCC<AxisOptions> = (options) => {
+const LinearAxis: GCC<AxisOptions> = (options) => {
   const { position, title = true, formatter = (d) => `${d}` } = options;
   return (scale, value, coordinate, theme) => {
-    if (position === 'arc') {
-      return ArcAxis(options)(scale, value, coordinate, theme);
-    }
-
     const { domain, field, bbox } = value;
     const {
       startPos,
@@ -234,6 +311,13 @@ export const Axis: GCC<AxisOptions> = (options) => {
       tickLine = true,
     } = inferPosition(position, bbox, coordinate);
     const ticks = getTicks(scale, domain, formatter, position, coordinate);
+
+    const guideOptions = scale.getOptions().guide || {};
+    // Display axis grid for non-discrete values.
+    const { grid: showGrid = !!scale.getTicks } = guideOptions;
+    const gridItems = showGrid
+      ? getGridItems(ticks, position, coordinate, startPos, endPos)
+      : [];
     return new Linear({
       style: deepMix(
         {
@@ -249,6 +333,14 @@ export const Axis: GCC<AxisOptions> = (options) => {
               }
             : null,
           axisLine: axisLine ? { stroke: '#BFBFBF' } : null,
+          grid: {
+            items: gridItems,
+            lineStyle: {
+              stroke: '#1b1e23',
+              strokeOpacity: 0.05,
+              lineDash: [0, 0],
+            },
+          },
           tickLine: tickLine
             ? {
                 len: 4,
@@ -266,9 +358,23 @@ export const Axis: GCC<AxisOptions> = (options) => {
               },
             }),
         },
-        scale.getOptions().guide || {},
+        guideOptions,
       ),
     });
+  };
+};
+
+/**
+ * Guide Component for position channel(e.g. x, y).
+ * @todo Render Circular in polar coordinate.
+ * @todo Custom style.
+ */
+export const Axis: GCC<AxisOptions> = (options) => {
+  const { position } = options;
+  return (scale, value, coordinate, theme) => {
+    return position === 'arc'
+      ? ArcAxis(options)(scale, value, coordinate, theme)
+      : LinearAxis(options)(scale, value, coordinate, theme);
   };
 };
 

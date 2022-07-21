@@ -228,14 +228,14 @@ export const setChildren = useOverrideAdaptor<G2ViewTree>(
               x: { tickCount: encodeX ? 5 : undefined },
               y: { tickCount: encodeY ? 5 : undefined },
             };
+            const newData = isFacet ? facetData : data;
             const newScale = {
-              x: { guide: createGuide(guideX, createGuideX)(facet) },
-              y: { guide: createGuide(guideY, createGuideY)(facet) },
+              x: { guide: createGuide(guideX, createGuideX)(facet, newData) },
+              y: { guide: createGuide(guideY, createGuideY)(facet, newData) },
               // Hide all legends for child mark by default,
               // they are displayed in the top-level.
               color: { guide: null, domain: facetDomainColor },
             };
-            const newData = isFacet ? facetData : data;
             return {
               key: `${key}-${i}`,
               data: newData,
@@ -268,26 +268,43 @@ function subLayoutRect(data) {
   return calcBBox(points);
 }
 
+/**
+ * Inner guide not show title, tickLine, label and subTickLine, if data is empty, do not show guide.
+ */
+export function createInnerGuide(guide, data) {
+  return data.length
+    ? deepMix(
+        { title: false, tickLine: null, label: null, subTickLine: null },
+        guide,
+      )
+    : null;
+}
+
 function createGuideXRect(guide) {
-  return (facet) => {
+  return (facet, data) => {
     const { rowIndex, rowValuesLength, columnIndex, columnValuesLength } =
       facet;
     // Only the bottom-most facet show axisX.
-    if (rowIndex !== rowValuesLength - 1) return null;
+    if (rowIndex !== rowValuesLength - 1) return createInnerGuide(guide, data);
     // Only the bottom-left facet show title.
-    if (columnIndex !== columnValuesLength - 1) {
-      return deepMix({ title: false }, guide);
-    }
+    const title = columnIndex !== columnValuesLength - 1 ? false : undefined;
+    // If data is empty, do not show grid.
+    const grid = data.length ? undefined : null;
+
+    return deepMix({ title, grid }, guide);
   };
 }
 
 function createGuideYRect(guide) {
-  return (facet) => {
+  return (facet, data) => {
     const { rowIndex, columnIndex } = facet;
     // Only the left-most facet show axisY.
-    if (columnIndex !== 0) return null;
+    if (columnIndex !== 0) return createInnerGuide(guide, data);
     // Only the left-top facet show title.
-    if (rowIndex !== 0) return deepMix({ title: false }, guide);
+    const title = rowIndex !== 0 ? false : undefined;
+    // If data is empty, do not show grid.
+    const grid = data.length ? undefined : null;
+    return deepMix({ title, grid }, guide);
   };
 }
 
