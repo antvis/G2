@@ -9,8 +9,7 @@ export const ActiveRegion: AC<ActiveRegionOptions> = (options) => {
   return (context) => {
     const { coordinate, event, scale, selection, transientLayer } = context;
     const scaleX = scale.x as BandScale;
-    // If scale.x is not BandScale, do not show shadow activeRegion.
-    // @todo Maybe should support it, when scale.x is not BandScale.
+    // If scale.x is not a band scale, do not show shadow activeRegion. @todo Maybe should support it.
     if (!scaleX?.getBandWidth) return context;
 
     const plot = selection.select('.plot').node();
