@@ -21,7 +21,8 @@ export type Action =
   | RecordRegionAction
   | MaskAction
   | ButtonAction
-  | MoveAction;
+  | MoveAction
+  | ActiveRegionAction;
 
 export type ActionTypes =
   | 'fisheyeFocus'
@@ -44,6 +45,7 @@ export type ActionTypes =
   | 'mask'
   | 'button'
   | 'move'
+  | 'activeRegion'
   | CustomAction;
 
 export type FisheyeFocusAction = {
@@ -162,6 +164,13 @@ export type ButtonAction = {
 
 export type MoveAction = {
   type?: 'move';
+};
+
+export type ActiveRegionAction = {
+  type?: 'activeRegion';
+  clear?: boolean;
+  fill?: string;
+  fillOpacity?: number;
 };
 
 export type CustomAction = {

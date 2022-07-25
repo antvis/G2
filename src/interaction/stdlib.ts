@@ -19,6 +19,7 @@ import {
   Mask,
   Button,
   Move,
+  ActiveRegion,
 } from './action';
 import { MousePosition, TouchPosition } from './interactor';
 import { InteractionLibrary } from './types';
@@ -45,6 +46,7 @@ export function createInteractionLibrary(): InteractionLibrary {
     'action.mask': Mask,
     'action.button': Button,
     'action.move': Move,
+    'action.activeRegion': ActiveRegion,
     'interactor.mousePosition': MousePosition,
     'interactor.touchPosition': TouchPosition,
   };

@@ -45,6 +45,8 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
           style: {
             fontSize: 12,
             fillOpacity: 1,
+            fill: '#000',
+            fontWeight: 'lighter',
             active: {
               fillOpacity: 0.8,
             },

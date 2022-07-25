@@ -14,4 +14,5 @@ export { LegendHighlight } from './builtin/legendHighlight';
 export { Brush } from './builtin/brush';
 export { BrushHighlight } from './builtin/brushHighlight';
 export { BrushVisible } from './builtin/brushVisible';
+export { ActiveRegion } from './builtin/activeRegion';
 export * from './types';

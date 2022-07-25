@@ -52,6 +52,7 @@ G2.render({
         dy: 30,
         dx: -174,
         fontSize: 10,
+        lineWidth: 0,
         background: {
           fill: '#416180',
           fillOpacity: 0.15,
