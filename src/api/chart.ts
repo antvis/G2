@@ -2,7 +2,7 @@ import { clone } from '@antv/util';
 import { render } from '../runtime';
 import { ViewComposition } from '../spec';
 import { Node } from './node';
-import { defineProps, defineCreate } from './props';
+import { defineProps } from './props';
 import { Interval } from './interval';
 
 function normalizeContainer(container: string | HTMLElement): HTMLElement {
@@ -51,7 +51,6 @@ export interface Chart {
   node(): HTMLElement;
 }
 
-@defineCreate
 @defineProps([{ name: 'interval', type: 'node', ctor: Interval }])
 export class Chart extends Node<ChartOptions> {
   private container: HTMLElement;

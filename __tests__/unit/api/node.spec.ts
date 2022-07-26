@@ -38,6 +38,13 @@ describe('Node', () => {
     expect(node.children[0]).toBe(c1);
   });
 
+  it('node.map() should return a cloned node', () => {
+    class N extends Node {}
+    const n = new N();
+    const n1 = n.map();
+    expect(n1).toBeInstanceOf(N);
+  });
+
   it('node.attr(key, value) should update value and return a new clone node.', () => {
     const node = new Node({ a: 1 });
     const n1 = node.attr('a', 2);

@@ -19,9 +19,4 @@ describe('Interval', () => {
       { name: 'theme', type: 'object' },
     ]);
   });
-
-  it('interval.create() should return Interval', () => {
-    const interval = new Interval();
-    expect(interval.create()).toBe(Interval);
-  });
 });

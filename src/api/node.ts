@@ -37,7 +37,11 @@ export class Node<
     transform = (x: Value): Value => x,
   ): Node<Value, ParentValue, ChildValue> {
     const newValue = transform(clone(this.value));
-    const Ctor = this.create();
+    const Ctor = this.constructor as new (...args: any[]) => Node<
+      Value,
+      ParentValue,
+      ChildValue
+    >;
     const newNode = new Ctor(newValue);
     newNode.children = this.children;
     newNode.parentNode = this.parentNode;
@@ -82,12 +86,5 @@ export class Node<
     ...params: any[]
   ): Node<Value, ParentValue, ChildValue> {
     return callback(this.map(), ...params);
-  }
-
-  /**
-   * Return a constructor for cloning node.
-   */
-  create(): new (value: Value) => Node<Value, ParentValue, ChildValue> {
-    return Node<Value, ParentValue, ChildValue>;
   }
 }

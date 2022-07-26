@@ -57,8 +57,3 @@ export function defineProps(descriptors: NodePropertyDescriptor[]) {
     return Node;
   };
 }
-
-export function defineCreate(Node) {
-  Node.prototype.create = () => Node;
-  return Node;
-}

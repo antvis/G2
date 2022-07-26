@@ -1,6 +1,6 @@
 import { IntervalGeometry } from '../spec';
 import { Node } from './node';
-import { defineProps, defineCreate, NodePropertyDescriptor } from './props';
+import { defineProps, NodePropertyDescriptor } from './props';
 import {
   ValueAttribute,
   ObjectAttribute,
@@ -34,7 +34,6 @@ export const props: NodePropertyDescriptor[] = [
   { name: 'theme', type: 'object' },
 ];
 
-@defineCreate
 @defineProps(props)
 export class Interval extends Node<IntervalGeometry> {
   constructor(options?: IntervalGeometry) {
