@@ -107,7 +107,7 @@ function createInteractionContext(
   const transientLayer = selection
     .select('.plot')
     .append('g')
-    .attr('className', 'transparent')
+    .attr('className', 'transient')
     .style('fill', 'transparent');
 
   return {

@@ -150,7 +150,7 @@ export type MaskAction = {
 
 export type ButtonAction = {
   type?: 'button';
-  position?: string;
+  position?: 'top-left' | 'top-right';
   text?: string;
   textStyle?: {
     fontSize?: number;
@@ -158,6 +158,7 @@ export type ButtonAction = {
   };
   fill?: string;
   stroke?: string;
+  radius?: number;
   padding?: number[];
   hide?: boolean;
 };

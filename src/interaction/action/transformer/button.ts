@@ -1,14 +1,17 @@
+import { Coordinate } from '@antv/coord';
+import { deepMix } from '@antv/util';
 import { createComponent, maybeAppend } from '../../../component/utils';
 import { applyStyle } from '../../../shape/utils';
 import { ButtonAction } from '../../../spec';
 import { ActionComponent as AC } from '../../types';
 
 export type ButtonOptions = Omit<ButtonAction, 'type'>;
+type ButtonPosition = ButtonOptions['position'];
 
 const ButtonComponent = createComponent<ButtonOptions>({
   render(attributes, context) {
-    const { text, textStyle = {}, fill, stroke, padding = [] } = attributes;
-    const [pt, pr, pb, pl] = padding;
+    const { text, textStyle, fill, stroke, padding = [], radius } = attributes;
+    const [pt, pr = pt, pb = pt, pl = pr] = padding;
     const textShape = maybeAppend(context, '.button-text', 'text')
       .attr('className', 'button-text')
       .style('x', pl)
@@ -31,12 +34,36 @@ const ButtonComponent = createComponent<ButtonOptions>({
       .style('y', min[1] - pt)
       .style('width', width + pl + pr)
       .style('height', height + pt + pb)
-      .style('radius', 4)
+      .style('radius', radius)
       .style('fill', fill)
       .style('stroke', stroke)
       .style('z-index', 0);
   },
 });
+
+function inferButtonCfg(
+  position: ButtonPosition,
+  coordinate: Coordinate,
+  padding: number[],
+) {
+  const { x, y, width } = coordinate.getOptions();
+  const [pt, pr = pt] = padding;
+  const gap = [8, 4];
+
+  if (position === 'top-left') {
+    return {
+      x: x + gap[0],
+      y: y + gap[1],
+      textStyle: { textAlign: 'start' },
+    };
+  }
+
+  return {
+    x: x + width - gap[0] - pr,
+    y: y + gap[1],
+    textStyle: { textAlign: 'end' },
+  };
+}
 
 export const Button: AC<ButtonOptions> = (options) => {
   const {
@@ -45,22 +72,24 @@ export const Button: AC<ButtonOptions> = (options) => {
     stroke = '#ccc',
     padding = [4, 5, 4, 5],
     text = 'Reset',
-    textStyle,
+    radius = 4,
+    textStyle = {},
+    position,
   } = options;
 
   return (context) => {
     const { transientLayer, coordinate } = context;
-    const { x, y, width } = coordinate.getOptions();
 
-    const buttonCfg = {
+    const userCfg = {
       text,
-      x: x + width - 4,
-      y: y + 4,
       fill,
       stroke,
       textStyle,
       padding,
+      radius,
     };
+    const cfg = inferButtonCfg(position, coordinate, padding);
+    const buttonCfg = deepMix({}, userCfg, cfg);
 
     transientLayer
       .selectAll('.button')
