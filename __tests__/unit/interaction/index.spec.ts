@@ -1,6 +1,7 @@
 import { InteractionDescriptor as Fisheye } from '../../../src/interaction/builtin/fisheye';
 import { InteractionDescriptor as Tooltip } from '../../../src/interaction/builtin/tooltip';
 import { InteractionDescriptor as ElementActive } from '../../../src/interaction/builtin/elementActive';
+import { InteractionDescriptor as ElementSelected } from '../../../src/interaction/builtin/elementSelected';
 
 describe('interaction', () => {
   it('ElementActive() returns expected defaults', () => {
@@ -21,6 +22,20 @@ describe('interaction', () => {
           action: [
             { type: 'elementSelection' },
             { type: 'activeElement', color: 'red' },
+          ],
+        },
+      ],
+    });
+  });
+
+  it('ElementSelected() returns expected defaults', () => {
+    expect(ElementSelected({ border: 3, color: 'red' })).toEqual({
+      start: [
+        {
+          trigger: 'plot:pointerdown',
+          action: [
+            { type: 'elementSelection', multiple: true, toggle: true },
+            { type: 'activeElement', border: 3, color: 'red' },
           ],
         },
       ],

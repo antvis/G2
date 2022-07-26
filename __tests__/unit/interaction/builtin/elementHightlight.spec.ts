@@ -1,5 +1,5 @@
-import { G2Spec, render } from '../../../src';
-import { createDiv, mount } from '../../utils/dom';
+import { G2Spec, render } from '../../../../src';
+import { createDiv, mount } from '../../../utils/dom';
 
 describe('Interactions of ElementHighlight', () => {
   it('render({...} renders chart with elementHighlight interaction', () => {

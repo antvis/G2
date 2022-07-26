@@ -20,6 +20,7 @@ import {
   Cursor as CursorAction,
   RecordCurrentPoint,
   Move,
+  ActiveRegion,
 } from '../../../src/interaction/action';
 import {
   MousePosition,
@@ -49,6 +50,7 @@ describe('createInteractionLibrary', () => {
       'action.mask': Mask,
       'action.button': Button,
       'action.move': Move,
+      'action.activeRegion': ActiveRegion,
       'interactor.mousePosition': MousePosition,
       'interactor.touchPosition': TouchPosition,
     });
