@@ -33,21 +33,10 @@ export class Node<
    * Mount the cloned node to replace the original one in the tree
    * and then return it.
    */
-  map(
-    transform = (x: Value): Value => x,
-  ): Node<Value, ParentValue, ChildValue> {
+  map(transform = (x: Value): Value => x): this {
     const newValue = transform(clone(this.value));
-    const Ctor = this.constructor as new (...args: any[]) => Node<
-      Value,
-      ParentValue,
-      ChildValue
-    >;
-    const newNode = new Ctor(newValue);
-    newNode.children = this.children;
-    newNode.parentNode = this.parentNode;
-    newNode.index = this.index;
-    if (this.parentNode) this.parentNode.children[this.index] = newNode;
-    return newNode;
+    this.value = newValue;
+    return this;
   }
 
   /**
@@ -58,7 +47,7 @@ export class Node<
   attr<T extends Value[keyof Value]>(
     key: keyof Value,
     value?: T,
-  ): T extends undefined ? T : Node<Value, ParentValue, ChildValue> {
+  ): T extends undefined ? T : this {
     if (value === undefined) return this.value[key];
     return this.map((v) => ((v[key] = value), v)) as any;
   }
@@ -66,7 +55,9 @@ export class Node<
   /**
    * Create a new node and append to children nodes.
    */
-  append(Ctor: new (value: Record<string, any>) => Node<ChildValue, Value>) {
+  append(
+    Ctor: new (value: Record<string, any>) => Node<ChildValue, Value>,
+  ): Node<ChildValue, Value> {
     const node = new Ctor({});
     node.children = [];
     node.parentNode = this;
@@ -79,12 +70,9 @@ export class Node<
    * Apply specified callback to a new cloned node.
    */
   pipe(
-    callback: (
-      node: Node<Value>,
-      ...params: any[]
-    ) => Node<Value, ParentValue, ChildValue>,
+    callback: (node: Node<Value>, ...params: any[]) => this,
     ...params: any[]
-  ): Node<Value, ParentValue, ChildValue> {
+  ): this {
     return callback(this.map(), ...params);
   }
 }

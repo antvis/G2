@@ -2,8 +2,9 @@ import { clone } from '@antv/util';
 import { render } from '../runtime';
 import { ViewComposition } from '../spec';
 import { Node } from './node';
-import { defineProps } from './props';
+import { defineProps, NodePropertyDescriptor } from './props';
 import { Interval } from './interval';
+import { ValueAttribute, Concrete } from './types';
 
 function normalizeContainer(container: string | HTMLElement): HTMLElement {
   if (container === undefined) return document.createElement('div');
@@ -45,13 +46,21 @@ export type ChartOptions = ViewComposition & {
   container?: string | HTMLElement;
 };
 
+type ChartProps = Concrete<ViewComposition>;
+
 export interface Chart {
   render(): void;
   interval(): Interval;
   node(): HTMLElement;
+  data: ValueAttribute<ChartProps['data'], Chart>;
 }
 
-@defineProps([{ name: 'interval', type: 'node', ctor: Interval }])
+export const props: NodePropertyDescriptor[] = [
+  { name: 'interval', type: 'node', ctor: Interval },
+  { name: 'data', type: 'value' },
+];
+
+@defineProps(props)
 export class Chart extends Node<ChartOptions> {
   private container: HTMLElement;
 
