@@ -127,6 +127,7 @@ import {
   Brush,
   BrushHighlight,
   BrushVisible,
+  ActiveRegion,
 } from '../../../src/interaction';
 import {
   Layer,
@@ -335,6 +336,7 @@ describe('stdlib', () => {
       'interaction.brush': Brush,
       'interaction.brushHighlight': BrushHighlight,
       'interaction.brushVisible': BrushVisible,
+      'interaction.activeRegion': ActiveRegion,
       'composition.layer': Layer,
       'composition.flex': Flex,
       'composition.keyframe': Keyframe,
