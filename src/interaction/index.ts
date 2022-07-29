@@ -15,4 +15,5 @@ export { Brush } from './builtin/brush';
 export { BrushHighlight } from './builtin/brushHighlight';
 export { BrushVisible } from './builtin/brushVisible';
 export { ActiveRegion } from './builtin/activeRegion';
+export { EllipsisText } from './builtin/ellipsisText';
 export * from './types';

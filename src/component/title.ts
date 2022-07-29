@@ -18,9 +18,9 @@ type TitleStyleProps = {
 };
 
 const Title = createComponent<TitleStyleProps>({
-  render(attributes, context) {
+  render(attributes, container) {
     const { text, style, subtitle, subtitleStyle } = attributes;
-    const title = maybeAppend(context, '.title', 'text')
+    const title = maybeAppend(container, '.title', 'text')
       .attr('className', 'title')
       .style('fontSize', 14)
       .style('textBaseline', 'top')
@@ -29,7 +29,7 @@ const Title = createComponent<TitleStyleProps>({
       .node();
 
     const bounds = title.getLocalBounds();
-    maybeAppend(context, '.sub-title', 'text')
+    maybeAppend(container, '.sub-title', 'text')
       .attr('className', 'sub-title')
       .style('y', bounds.max[1] + (subtitleStyle?.spacing || 0))
       .style('fontSize', 12)

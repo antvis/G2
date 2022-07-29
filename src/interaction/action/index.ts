@@ -43,3 +43,5 @@ export { Mask, MaskOptions } from './transformer/mask';
 export { Button, ButtonOptions } from './transformer/button';
 export { Move, MoveOptions } from './transformer/move';
 export { ActiveRegion, ActiveRegionOptions } from './transformer/activeRegion';
+export { RecordTip } from './service/recordTip';
+export { Poptip } from './transformer/poptip';

@@ -1,4 +1,3 @@
-import { DisplayObject } from '@antv/g';
 import { group } from 'd3-array';
 import { throttle } from '@antv/util';
 import { G2ViewInstance, InteractionComponent as IC } from '../runtime';
@@ -75,13 +74,18 @@ export function createInteraction<T>(
         // Bind low-level events with composed action.
         const events = interactorEvent.get(trigger) || [[trigger]];
         for (const [event] of events) {
-          const [className, eventName] = event.split(':');
-          selection.selectAll(`.${className}`).on(eventName, (event) => {
-            const ctx = { event, ...context };
-            if (isEnable(ctx)) {
-              handler(ctx);
-            }
-          });
+          const [className, eventName] = (event as string).includes(':')
+            ? (event as string).split(':')
+            : [null, event];
+          (className ? selection.selectAll(`.${className}`) : selection).on(
+            eventName,
+            (event) => {
+              const ctx = { event, ...context };
+              if (isEnable(ctx)) {
+                handler(ctx);
+              }
+            },
+          );
         }
       }
     };

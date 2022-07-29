@@ -1,5 +1,5 @@
 import { InteractionComponent } from '../runtime';
-import { ActiveRegionAction, TooltipAction } from './action';
+import { ActiveRegionAction, PoptipAction, TooltipAction } from './action';
 import { FisheyeCoordinate } from './coordinate';
 
 export type Interaction =
@@ -17,6 +17,7 @@ export type Interaction =
   | BrushHighlightInteraction
   | BrushVisibleInteraction
   | ActiveRegionInteraction
+  | EllipsisTextInteraction
   | CustomInteraction;
 
 export type InteractionTypes =
@@ -33,6 +34,7 @@ export type InteractionTypes =
   | 'brushVisible'
   | 'fisheye'
   | 'activeRegion'
+  | 'ellipsisText'
   | InteractionComponent;
 
 export type BrushInteraction = {
@@ -101,6 +103,10 @@ export type FisheyeInteraction = {
 export type ActiveRegionInteraction = {
   type?: 'activeRegion';
 } & Omit<ActiveRegionAction, 'type' | 'clear'>;
+
+export type EllipsisTextInteraction = {
+  type?: 'ellipsisText';
+} & Omit<PoptipAction, 'type'>;
 
 export type CustomInteraction = {
   type?: InteractionComponent;

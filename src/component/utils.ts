@@ -3,7 +3,7 @@ import { deepMix } from '@antv/util';
 import { select, Selection, G2Element } from '../utils/selection';
 
 type Descriptor<T> = {
-  render?: (attributes: T, context: CustomElement<T>) => void;
+  render?: (attributes: T, container: CustomElement<T>) => void;
 };
 
 export function createComponent<T>(descriptor: Descriptor<T>): any {
