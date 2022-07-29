@@ -128,6 +128,7 @@ import {
   BrushHighlight,
   BrushVisible,
   ActiveRegion,
+  EllipsisText,
 } from '../../../src/interaction';
 import {
   Layer,
@@ -330,6 +331,7 @@ describe('stdlib', () => {
       'interaction.elementHighlightByColor': ElementHighlightByColor,
       'interaction.elementListHighlight': ElementListHighlight,
       'interaction.tooltip': Tooltip,
+      'interaction.ellipsisText': EllipsisText,
       'interaction.fisheye': FisheyeInteraction,
       'interaction.legendActive': LegendActive,
       'interaction.legendHighlight': LegendHighlight,

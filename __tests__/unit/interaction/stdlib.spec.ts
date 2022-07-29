@@ -21,6 +21,8 @@ import {
   RecordCurrentPoint,
   Move,
   ActiveRegion,
+  Poptip,
+  RecordTip,
 } from '../../../src/interaction/action';
 import {
   MousePosition,
@@ -36,12 +38,14 @@ describe('createInteractionLibrary', () => {
       'action.recordPoint': RecordPoint,
       'action.recordCurrentPoint': RecordCurrentPoint,
       'action.recordRegion': RecordRegion,
+      'action.recordTip': RecordTip,
       'action.activeElement': ActiveElement,
       'action.highlightElement': HighlightElement,
       'action.legendItemSelection': LegendItemSelection,
       'action.triggerInfoSelection': TriggerInfoSelection,
       'action.setItemState': SetItemStateAction,
       'action.tooltip': Tooltip,
+      'action.poptip': Poptip,
       'action.fisheyeFocus': FisheyeFocus,
       'action.plot': Plot,
       'action.filter': Filter,
