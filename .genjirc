@@ -29,6 +29,7 @@
     "Animation": "animation",
     "Interaction": {
       "Element": "interaction-element",
+      "Component": "interaction-component",
       "Tooltip": "interaction-tooltip",
       "More": "interaction-more"
     },

@@ -21,7 +21,8 @@ export type Action =
   | RecordRegionAction
   | MaskAction
   | ButtonAction
-  | MoveAction;
+  | MoveAction
+  | ActiveRegionAction;
 
 export type ActionTypes =
   | 'fisheyeFocus'
@@ -44,6 +45,7 @@ export type ActionTypes =
   | 'mask'
   | 'button'
   | 'move'
+  | 'activeRegion'
   | CustomAction;
 
 export type FisheyeFocusAction = {
@@ -148,7 +150,7 @@ export type MaskAction = {
 
 export type ButtonAction = {
   type?: 'button';
-  position?: string;
+  position?: 'top-left' | 'top-right';
   text?: string;
   textStyle?: {
     fontSize?: number;
@@ -156,12 +158,20 @@ export type ButtonAction = {
   };
   fill?: string;
   stroke?: string;
+  radius?: number;
   padding?: number[];
   hide?: boolean;
 };
 
 export type MoveAction = {
   type?: 'move';
+};
+
+export type ActiveRegionAction = {
+  type?: 'activeRegion';
+  clear?: boolean;
+  fill?: string;
+  fillOpacity?: number;
 };
 
 export type CustomAction = {

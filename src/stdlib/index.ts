@@ -121,6 +121,7 @@ import {
   Brush,
   BrushHighlight,
   BrushVisible,
+  ActiveRegion,
 } from '../interaction';
 import {
   Layer,
@@ -328,6 +329,7 @@ export function createLibrary(): G2Library {
     'interaction.brush': Brush,
     'interaction.brushHighlight': BrushHighlight,
     'interaction.brushVisible': BrushVisible,
+    'interaction.activeRegion': ActiveRegion,
     'composition.layer': Layer,
     'composition.flex': Flex,
     'composition.mark': Mark,

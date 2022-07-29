@@ -1,7 +1,7 @@
-import { G2Spec, render } from '../../../src';
-import { createDiv, mount } from '../../utils/dom';
+import { G2Spec, render } from '../../../../src';
+import { createDiv, mount } from '../../../utils/dom';
 
-describe('Brush', () => {
+describe('Interactions of brush', () => {
   it('render({...} renders chart with brushHighlight interaction', () => {
     const chart = render<G2Spec>({
       title: 'BrushHighlight',
