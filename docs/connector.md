@@ -2,6 +2,8 @@
 
 ## Fetch
 
+**Fetch with `json` format.**
+
 ```js | dom
 G2.render({
   type: 'interval',
@@ -15,6 +17,33 @@ G2.render({
   encode: {
     x: 'genre',
     y: 'sold',
+  },
+});
+```
+
+**Fetch with `csv` format.**
+
+```js | dom
+G2.render({
+  type: 'interval',
+  // fetch
+  transform: [
+    {
+      type: 'fetch',
+      url: 'https://gw.alipayobjects.com/os/bmw-prod/87092954-aed4-48b2-93ba-b07b255f04a2.csv',
+      format: 'csv',
+      callback: (d) => ({ ...d, weight: Number(d.weight) }),
+    },
+  ],
+  encode: {
+    x: 'to',
+    y: 'weight',
+    color: 'from',
+  },
+  scale: {
+    x: { guide: { title: null, label: { style: { fontSize: 10 } } } },
+    y: { guide: { title: null, label: { style: { fontSize: 10 } } } },
+    color: { guide: null },
   },
 });
 ```
