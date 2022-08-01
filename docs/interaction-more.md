@@ -212,3 +212,46 @@ G2.render({
   interaction: [{ type: 'brushVisible' }],
 });
 ```
+
+## EllipsisText with custom options
+
+```js | dom
+G2.render({
+  type: 'area',
+  transform: [
+    {
+      type: 'fetch',
+      url: 'https://gw.alipayobjects.com/os/bmw-prod/e58c9758-0a09-4527-aa90-fbf175b45925.json',
+    },
+    { type: 'stackY' },
+    { type: 'normalizeY' },
+  ],
+  paddingTop: 72,
+  scale: {
+    x: { field: 'Date' },
+    color: {
+      guide: {
+        size: 72,
+        autoWrap: true,
+        maxRows: 3,
+        cols: 6,
+      },
+    },
+  },
+  width: 700,
+  interaction: [
+    {
+      type: 'ellipsisText',
+      x: 576,
+      y: 30,
+      htmlStyle: 'max-width:120px;overflow:hidden;',
+    },
+  ],
+  encode: {
+    shape: 'smoothArea',
+    x: (d) => new Date(d.date),
+    y: 'unemployed',
+    color: 'industry',
+  },
+});
+```

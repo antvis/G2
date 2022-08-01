@@ -20,6 +20,8 @@ import {
   Button,
   Move,
   ActiveRegion,
+  RecordTip,
+  Poptip,
 } from './action';
 import { MousePosition, TouchPosition } from './interactor';
 import { InteractionLibrary } from './types';
@@ -47,6 +49,8 @@ export function createInteractionLibrary(): InteractionLibrary {
     'action.button': Button,
     'action.move': Move,
     'action.activeRegion': ActiveRegion,
+    'action.recordTip': RecordTip,
+    'action.poptip': Poptip,
     'interactor.mousePosition': MousePosition,
     'interactor.touchPosition': TouchPosition,
   };

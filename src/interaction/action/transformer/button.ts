@@ -9,10 +9,10 @@ export type ButtonOptions = Omit<ButtonAction, 'type'>;
 type ButtonPosition = ButtonOptions['position'];
 
 const ButtonComponent = createComponent<ButtonOptions>({
-  render(attributes, context) {
+  render(attributes, container) {
     const { text, textStyle, fill, stroke, padding = [], radius } = attributes;
     const [pt, pr = pt, pb = pt, pl = pr] = padding;
-    const textShape = maybeAppend(context, '.button-text', 'text')
+    const textShape = maybeAppend(container, '.button-text', 'text')
       .attr('className', 'button-text')
       .style('x', pl)
       .style('y', pt + (textStyle.fontSize || 12) / 2)
@@ -28,7 +28,7 @@ const ButtonComponent = createComponent<ButtonOptions>({
     const { min, halfExtents } = textShape.getLocalBounds();
     const width = halfExtents[0] * 2;
     const height = halfExtents[1] * 2;
-    maybeAppend(context, '.button-rect', 'rect')
+    maybeAppend(container, '.button-rect', 'rect')
       .attr('className', 'button-rect')
       .style('x', min[0] - pl)
       .style('y', min[1] - pt)
