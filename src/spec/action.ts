@@ -15,6 +15,8 @@ export type Action =
   | FilterAction
   | CursorAction
   | TooltipAction
+  | RecordTipAction
+  | PoptipAction
   | RecordPointAction
   | RecordCurrentPointAction
   | RecordStateAction
@@ -38,6 +40,8 @@ export type ActionTypes =
   | 'filter'
   | 'cursor'
   | 'tooltip'
+  | 'recordTip'
+  | 'poptip'
   | 'recordState'
   | 'recordPoint'
   | 'recordCurrentPoint'
@@ -172,6 +176,19 @@ export type ActiveRegionAction = {
   clear?: boolean;
   fill?: string;
   fillOpacity?: number;
+};
+
+export type RecordTipAction = {
+  type?: 'recordTip';
+  tip?: string;
+};
+
+export type PoptipAction = {
+  type?: 'poptip';
+  // x,y position. If not specified, using mouseX and mouseY position from shared variables.
+  x?: number;
+  y?: number;
+  htmlStyle?: string;
 };
 
 export type CustomAction = {
