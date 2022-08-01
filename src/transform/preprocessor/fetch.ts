@@ -1,3 +1,4 @@
+import { dsvFormat } from 'd3-dsv';
 import { identity } from '../../utils/helper';
 import { TransformComponent as TC } from '../../runtime';
 import { FetchTransform } from '../../spec';
@@ -10,9 +11,14 @@ export type FetchOptions = Omit<FetchTransform, 'type'>;
  * @todo Support more formats (e.g., csv, dsv).
  */
 export const Fetch: TC<FetchOptions> = (options) => {
-  const { url, callback = identity } = options;
+  const { url, callback = identity, format, delimiter = ',' } = options;
   return merge(async () => {
     const response = await fetch(url);
+    if (format === 'csv') {
+      // Detail to see: https://github.com/d3/d3-dsv#dsv_parse
+      const str = await response.text();
+      return { data: dsvFormat(delimiter).parse(str, callback) };
+    }
     const data = await response.json();
     // todo: suggested to remove the `callback`, use `connector` transform instead.
     return {
