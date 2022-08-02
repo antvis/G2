@@ -2,7 +2,8 @@
   "title": "G2 5.0",
   "outline": {
     "Overview": "overview",
-    "Dimension": "dimension",
+    "Layout": "dimension",
+    "Data": "data",
     "Transform": {
       "Stack": "stack",
       "Dodge": "dodge",
@@ -12,20 +13,19 @@
       "Select": "select",
       "Group": "group"
     },
-    "Encode": "encode",
-    "Scale": "scale",
-    "Coordinate": "coordinate",
-    "Geometry": {
+    "Mark": {
       "Interval": "interval",
       "Point": "point",
       "Line": "line",
       "Area": "area",
       "Text": "text",
       "Grid": "grid",
-      "Vector": "vector"
+      "Vector": "vector",
+      "Annotation": "annotation",
+      "Component": "component"
     },
-    "Annotation": "annotation",
-    "Adjust": "adjust",
+    "Scale": "scale",
+    "Coordinate": "coordinate",
     "Animation": "animation",
     "Interaction": {
       "Element": "interaction-element",
