@@ -68,10 +68,8 @@ describe('interaction', () => {
         {
           trigger: 'hover',
           action: [
-            {
-              type: 'surfacePointSelection',
-              trigger: 'item',
-            },
+            { type: 'surfacePointSelection' },
+            { type: 'elementSelection', trigger: 'item' },
             { type: 'tooltip' },
           ],
           throttle: { wait: 50, leading: true, trailing: false },
@@ -79,7 +77,7 @@ describe('interaction', () => {
         {
           trigger: 'leave',
           action: [
-            { type: 'surfacePointSelection' },
+            { type: 'elementSelection', clear: true },
             { type: 'tooltip', hide: true },
           ],
         },

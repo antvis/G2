@@ -304,19 +304,73 @@ genji.preview(
 
 ### Grid
 
-> TODO
+```js | dom "pin: false"
+genji.preview([
+  {
+    title: 'Ordinal grid',
+    path: '/grid#ordinal-grid',
+    thumbnail:
+      'https://gw.alipayobjects.com/zos/antfincdn/cfgJwjW2q4/3d55906c-5da8-41fd-a17c-80b6c504f2fd.png',
+  },
+  {
+    title: 'Quantize grid',
+    path: '/grid#quantize-grid',
+    thumbnail:
+      'https://gw.alipayobjects.com/zos/antfincdn/Z2mUdMCVJ2/294d37a9-4627-458d-beb2-c3a6e5049ca4.png',
+  },
+  {
+    title: 'Flex grid',
+    path: '/grid#flex-grid',
+    thumbnail:
+      'https://gw.alipayobjects.com/zos/antfincdn/Lz6kRwsXAr/dbb01680-a620-4e66-8e5f-3cb323c41ae7.png',
+  },
+]);
+```
 
-### Edge
+### Node & Edge
 
-> TODO
+```js | dom "pin: false"
+genji.preview([
+  {
+    title: 'Node & Edge',
+    path: '/node-edge#chord',
+    thumbnail:
+      'https://gw.alipayobjects.com/zos/antfincdn/dXVisxZXpb/9c0a409c-9884-4b7b-8b63-f4f2c7781e48.png',
+  },
+]);
+```
 
 ### Polygon
 
-> TODO
+```js | dom "pin: false"
+genji.preview([
+  {
+    title: 'Polygon',
+    path: '/polygon#voronoi-plot',
+    thumbnail:
+      'https://gw.alipayobjects.com/zos/antfincdn/8y7qaQR%26zO/82c4470b-8427-4411-80bf-1a9ffc3928be.png',
+  },
+]);
+```
 
 ### Image
 
-> TODO
+```js | dom "pin: false"
+genji.preview([
+  {
+    title: 'Image',
+    path: '/image#basic-image',
+    thumbnail:
+      'https://gw.alipayobjects.com/zos/antfincdn/wUcPPv4pbU/24ca8e42-c323-48a4-bf19-4304ca262c7a.png',
+  },
+  {
+    title: 'Image',
+    path: '/image#image-combine-with-link',
+    thumbnail:
+      'https://gw.alipayobjects.com/zos/antfincdn/D993ZydZpK/4fd21de6-f471-4340-bf03-9ba3924da014.png',
+  }
+]);
+```
 
 ### Text
 
@@ -324,7 +378,16 @@ genji.preview(
 
 ### Schema
 
-> TODO
+```js | dom "pin: false"
+genji.preview([
+  {
+    title: 'Schema',
+    path: '/schema#box-plot',
+    thumbnail:
+      'https://gw.alipayobjects.com/zos/antfincdn/hLflHDiP4p/9a4aa9ab-6dc6-4020-badd-9d40c46f3a52.png',
+  },
+]);
+```
 
 ## Annotation
 
