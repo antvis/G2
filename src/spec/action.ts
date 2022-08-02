@@ -58,7 +58,6 @@ export type FisheyeFocusAction = {
 
 export type SurfacePointSelectionAction = {
   type?: 'surfacePointSelection';
-  trigger?: 'item' | 'axis';
 };
 
 export type ActiveElementAction = {
@@ -101,7 +100,7 @@ export type TooltipAction = {
 
 export type ElementSelectionAction = {
   type?: 'elementSelection';
-  from?: string;
+  trigger?: 'item' | 'axis' | 'triggerInfo' | 'rect-mask' | 'polygon-mask';
   filterBy?: 'x' | 'color';
   toggle?: boolean;
   multiple?: boolean;
