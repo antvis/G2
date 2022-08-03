@@ -68,6 +68,6 @@ describe('Chart', () => {
       .encode('y', 'sold')
       .encode('color', 'genre');
 
-    chart.render();
+    expect(chart.render()).toBe(chart);
   });
 });

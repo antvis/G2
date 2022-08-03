@@ -1,5 +1,32 @@
 # Overview
 
+There are some demos for [G2 5.0](https://github.com/antvis/G2/tree/v5).
+
+## Layout
+
+```js | dom "pin: false"
+genji.preview([
+  {
+    title: 'Default Size',
+    path: '/layout#default-size',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*PkFmSKsjU5YAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Specified Size',
+    path: '/layout#specified-size',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*ZTC0QKYGe-EAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Padding',
+    path: '/stack#stacked-area',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*jddxSYkwWPEAAAAAAAAAAAAAARQnAQ',
+  },
+]);
+```
+
 ## Transform
 
 ### Stack

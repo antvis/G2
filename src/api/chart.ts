@@ -73,6 +73,7 @@ export class Chart extends Node<ChartOptions> {
   render() {
     const node = render(optionsOf(this));
     this.container.append(node);
+    return this;
   }
 
   node() {
