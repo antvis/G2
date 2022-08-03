@@ -4,6 +4,7 @@
     "Overview": "overview",
     "Layout": "dimension",
     "Data": "data",
+    "Connector": "connector",
     "Transform": {
       "Stack": "stack",
       "Dodge": "dodge",
@@ -22,6 +23,10 @@
       "Grid": "grid",
       "Vector": "vector",
       "Annotation": "annotation",
+      "Image": "image",
+      "Polygon": "polygon",
+      "Node & Edge": "node-edge",
+      "Schema": "schema",
       "Component": "component"
     },
     "Scale": "scale",

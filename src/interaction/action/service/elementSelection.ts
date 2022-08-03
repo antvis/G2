@@ -1,7 +1,8 @@
 import { isPolygonsIntersect } from '@antv/path-util';
-import { G2Element, select } from '../../../utils/selection';
 import { ActionComponent as AC } from '../../types';
 import { ElementSelectionAction } from '../../../spec';
+import { G2Element, select } from '../../../utils/selection';
+import { getAllElements, getClosestElement } from '../../utils';
 
 export type ElementSelectionOptions = Omit<ElementSelectionAction, 'type'>;
 
@@ -19,7 +20,7 @@ function getElementsByTriggerInfo(
   });
 }
 
-function intersect(
+function intersectElements(
   elements: G2Element[],
   oldSelectedElements: G2Element[] = [],
 ) {
@@ -40,30 +41,48 @@ function intersects(bounds: any, bounds2: any) {
 }
 
 export const ElementSelection: AC<ElementSelectionOptions> = (options) => {
-  const { from, filterBy: field, multiple, toggle } = options;
+  const { trigger, filterBy: field, multiple, toggle } = options;
 
   return (context) => {
-    const { event, shared, selection, scale: scales, transientLayer } = context;
-    const elements = selection.selectAll('.element').nodes();
+    const {
+      event,
+      shared,
+      selection,
+      scale: scales,
+      transientLayer,
+      coordinate,
+    } = context;
+    const elements = getAllElements(selection);
     const { selectedElements: oldSelectedElements = [] } = shared;
     shared.selectedElements = [];
 
     let selectedElements = [];
-    if (from === 'triggerInfo') {
+    if (trigger === 'axis') {
+      const plot = selection.select('.plot').node();
+      const [x0, y0] = plot.getBounds().min;
+      const { offsetX, offsetY } = event;
+      const [value] = coordinate.invert([offsetX - x0, offsetY - y0]);
+      const closestElement = getClosestElement(elements, scales.x, value);
+      selectedElements = closestElement
+        ? elements.filter(
+            ({ __data__: { x } }) => x === closestElement.__data__.x,
+          )
+        : [];
+    } else if (trigger === 'triggerInfo') {
       const { triggerInfo = [] } = shared;
       selectedElements = getElementsByTriggerInfo(
         elements,
         scales,
         triggerInfo,
       );
-    } else if (from === 'rect-mask') {
+    } else if (trigger === 'rect-mask') {
       const masks = transientLayer.selectAll('.mask').nodes();
       selectedElements = elements.filter((element) => {
         return masks.some((mask) =>
           intersects(element.getRenderBounds(), mask.getRenderBounds()),
         );
       });
-    } else if (from === 'polygon-mask') {
+    } else if (trigger === 'polygon-mask') {
       const masks = transientLayer.selectAll('.mask').nodes();
       selectedElements = elements.filter((element) => {
         return masks.some(({ __data__: { points } }) => {
@@ -86,7 +105,7 @@ export const ElementSelection: AC<ElementSelectionOptions> = (options) => {
       }
     }
 
-    const keys = intersect(selectedElements, oldSelectedElements);
+    const keys = intersectElements(selectedElements, oldSelectedElements);
     shared.selectedElements = selectedElements;
     if (multiple) {
       oldSelectedElements.forEach((e) => {

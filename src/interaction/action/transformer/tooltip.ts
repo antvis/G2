@@ -40,7 +40,7 @@ function getCrosshairCfgOfPoint(
   coordinate: Coordinate,
   point: Vector2,
   crosshairOptions: any,
-) {
+): any[] {
   let lineX;
   let lineY;
   const {
@@ -111,6 +111,9 @@ function hideTooltip(transientLayer: Selection) {
   hideTooltipMarkers(transientLayer);
 }
 
+/**
+ * If has multiple items, show the crosshairs of the item which has the highest y value.
+ */
 function renderCrosshair(
   context: InteractionContext,
   tooltipData: TooltipData | null,
@@ -126,13 +129,12 @@ function renderCrosshair(
   const { follow, ...options } = crosshairsCfg;
   const { x, y, items } = tooltipData;
 
-  const data = (follow ? [{ x, y }] : items)
-    .map(({ x, y }) => getCrosshairCfgOfPoint(coordinate, [x, y], options))
-    .flat();
+  const point = (follow ? [x, y] : [items[0].x, items[0].y]) as Vector2;
+  const data = getCrosshairCfgOfPoint(coordinate, point, options);
 
   transientLayer
     .selectAll('.tooltip-crosshairs')
-    .data(data, (d) => d.id)
+    .data(data, (_, i) => i)
     .join(
       (enter) =>
         enter.append(({ type, ...style }) => {
@@ -310,7 +312,7 @@ function getTooltipData(
             y,
             title,
             color,
-            name: key.replace('tooltip', name),
+            name,
             value: isObject ? d.value : d === undefined ? d : `${d}`,
           };
         })
