@@ -55,8 +55,10 @@ export type SubsetTransform = {
 export type FetchTransform = {
   type?: 'fetch';
   url?: string;
-  format?: 'json';
+  format?: 'json' | 'csv';
   callback?: (d: any) => any;
+  // Useful when format is 'csv'.
+  delimiter?: string;
 };
 
 export type FilterByTransform = {
