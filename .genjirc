@@ -2,7 +2,7 @@
   "title": "G2 5.0",
   "outline": {
     "Overview": "overview",
-    "Layout": "dimension",
+    "Layout": "layout",
     "Data": "data",
     "Connector": "connector",
     "Transform": {
