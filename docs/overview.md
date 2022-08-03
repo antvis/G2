@@ -395,13 +395,28 @@ genji.preview([
     path: '/image#image-combine-with-link',
     thumbnail:
       'https://gw.alipayobjects.com/zos/antfincdn/D993ZydZpK/4fd21de6-f471-4340-bf03-9ba3924da014.png',
-  }
+  },
 ]);
 ```
 
 ### Text
 
-> TODO
+```js | dom "pin: false"
+genji.preview([
+  {
+    title: 'Basic WordCloud',
+    path: '/text#basic-wordcloud',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*Q3x-RJd_HR0AAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Image WordCloud',
+    path: '/text#image-wordcloud',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*6EbeRocFE8EAAAAAAAAAAAAAARQnAQ',
+  },
+]);
+```
 
 ### Schema
 
@@ -462,7 +477,26 @@ genji.preview(
 
 ## Interaction
 
+### Element
+
 > TODO
+
+### Component
+
+> TODO
+
+### Brush
+
+```js | dom "pin: false"
+genji.preview([
+  {
+    title: 'Schema',
+    path: '/schema#box-plot',
+    thumbnail:
+      'https://gw.alipayobjects.com/zos/antfincdn/hLflHDiP4p/9a4aa9ab-6dc6-4020-badd-9d40c46f3a52.png',
+  },
+]);
+```
 
 ## Composition
 
