@@ -3,8 +3,6 @@
   "outline": {
     "Overview": "overview",
     "Layout": "layout",
-    "Data": "data",
-    "Connector": "connector",
     "Transform": {
       "Stack": "stack",
       "Dodge": "dodge",
@@ -12,7 +10,9 @@
       "Symmetry": "symmetry",
       "Jitter": "jitter",
       "Select": "select",
-      "Group": "group"
+      "Group": "group",
+      "Pack": "pack",
+      "Connector": "connector"
     },
     "Mark": {
       "Interval": "interval",
@@ -22,11 +22,10 @@
       "Text": "text",
       "Grid": "grid",
       "Vector": "vector",
-      "Annotation": "annotation",
       "Image": "image",
       "Polygon": "polygon",
-      "Node & Edge": "node-edge",
       "Schema": "schema",
+      "Annotation": "annotation",
       "Component": "component"
     },
     "Scale": "scale",
@@ -43,9 +42,9 @@
       "Spatial": "spatial",
       "Rect": "rect",
       "Matrix": "matrix",
-      "More": "more-composition",
       "Unit": "unit",
-      "Keyframe": "keyframe"
+      "Keyframe": "keyframe",
+      "More": "more-composition"
     },
     "Theme": "theme"
   },
