@@ -1,6 +1,6 @@
-# Adjust
+# Pack
 
-## Pack Uniform
+## Uniform
 
 The different of following examples is only the tooltip inference.
 
@@ -19,6 +19,8 @@ G2.render({
   adjust: { type: 'pack' },
 });
 ```
+
+## Tooltip Inference
 
 ```js | dom
 G2.render({

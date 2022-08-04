@@ -71,10 +71,7 @@ G2.render({
         if (!Array.isArray(alphas)) return (context) => context;
         return ({ data }) => {
           const newData = alphas.flatMap((alpha) =>
-            data.map((d) => ({
-              ...d,
-              alpha,
-            })),
+            data.map((d) => Object.assign({}, d, { alpha })),
           );
           return {
             data: newData,
@@ -123,7 +120,7 @@ G2.render({
     y: 'value',
     color: 'value',
     shape: 'smooth',
-    series: 'a',
+    series: 'a', // A arbitrary value is OK.
   },
   style: {
     gradient: true,
@@ -283,10 +280,7 @@ G2.render({
     {
       type: 'fetch',
       url: 'https://gw.alipayobjects.com/os/bmw-prod/96cd81b5-54a4-4fe8-b778-502b2114df58.json',
-      callback: ({ Year, ...rest }) => ({
-        Year: new Date(Year),
-        ...rest,
-      }),
+      callback: (d) => Object.assign(d, { Year: new Date(d.Year) }),
     },
     {
       type: 'filterBy',
@@ -399,10 +393,7 @@ G2.render({
     {
       type: 'fetch',
       url: 'https://gw.alipayobjects.com/os/bmw-prod/96cd81b5-54a4-4fe8-b778-502b2114df58.json',
-      callback: ({ Year, ...rest }) => ({
-        Year: new Date(Year),
-        ...rest,
-      }),
+      callback: (d) => Object.assign(d, { Year: new Date(d.Year) }),
     },
     {
       type: 'filterBy',

@@ -63,6 +63,7 @@ Keyframe composition provide a convent mechanism to author storytelling. It can 
         type: 'interval',
         data,
         coordinate: [{ type: 'transpose' }],
+        scale: { y: { guide: null }, x: { guide: null } },
         encode: {
           y: 'sold',
           color: 'genre',
@@ -106,6 +107,7 @@ Keyframe composition provide a convent mechanism to author storytelling. It can 
       },
       {
         type: 'interval',
+        paddingLeft: 70,
         data,
         transform: [
           {
@@ -320,6 +322,7 @@ Keyframe composition provide a convent mechanism to author storytelling. It can 
         type: 'interval',
         data,
         coordinate: [{ type: 'polar' }],
+        scale: { y: { guide: null }, x: { guide: null } },
         encode: {
           x: 'genre',
           y: 'sold',
@@ -363,6 +366,7 @@ Keyframe composition provide a convent mechanism to author storytelling. It can 
         type: 'interval',
         data,
         coordinate: [{ type: 'polar' }],
+        scale: { y: { guide: null }, x: { guide: null } },
         encode: {
           x: 'genre',
           y: 'sold',
@@ -404,6 +408,7 @@ Keyframe composition provide a convent mechanism to author storytelling. It can 
         type: 'interval',
         data,
         coordinate: [{ type: 'polar' }],
+        scale: { y: { guide: null }, x: { guide: null } },
         encode: {
           x: 'genre',
           y: 'sold',
@@ -447,6 +452,7 @@ Keyframe composition provide a convent mechanism to author storytelling. It can 
         type: 'interval',
         data,
         coordinate: [{ type: 'polar' }],
+        scale: { y: { guide: null }, x: { guide: null } },
         encode: {
           x: 'genre',
           y: 'sold',
@@ -503,6 +509,7 @@ Keyframe composition provide a convent mechanism to author storytelling. It can 
         type: 'interval',
         data,
         coordinate: [{ type: 'polar' }],
+        scale: { y: { guide: null }, x: { guide: null } },
         encode: {
           x: 'genre',
           y: 'sold',
@@ -559,6 +566,7 @@ Keyframe composition provide a convent mechanism to author storytelling. It can 
         type: 'interval',
         data,
         coordinate: [{ type: 'polar' }],
+        scale: { y: { guide: null }, x: { guide: null } },
         encode: {
           x: 'genre',
           y: 'sold',

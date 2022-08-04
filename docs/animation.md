@@ -1,6 +1,6 @@
 # Animation
 
-## Animate Options
+## TimeEffect
 
 ```js | dom
 G2.render({
@@ -25,6 +25,8 @@ G2.render({
   },
 });
 ```
+
+## Animation Type
 
 ```js | dom
 G2.render({
@@ -111,6 +113,7 @@ G2.render({
 ```js | dom
 G2.render({
   type: 'interval',
+  width: 720,
   data: [
     { name: 'event planning', startTime: 1, endTime: 4 },
     { name: 'layout logistics', startTime: 3, endTime: 13 },
@@ -121,11 +124,14 @@ G2.render({
     { name: 'rehearsal', startTime: 14, endTime: 16 },
     { name: 'event celebration', startTime: 17, endTime: 18 },
   ],
+  paddingTop: 60,
+  paddingLeft: 100,
   coordinate: [{ type: 'transpose' }],
   scale: {
     // All the intervals will show up in 10s.
     // But the animation will take more than 10s to finish.
     enter: { range: [0, 10000], zero: true },
+    color: { guide: { size: 60, autoWrap: true, maxRows: 2, cols: 5 } },
   },
   encode: {
     x: 'name',
@@ -137,223 +143,4 @@ G2.render({
     enterDuration: (d) => d.endTime - d.startTime,
   },
 });
-```
-
-## StackEnter
-
-Intervals show group one by group.
-
-```js | dom
-G2.render({
-  type: 'interval',
-  data: [
-    { type: 'Apple', year: '2001', value: 260 },
-    { type: 'Orange', year: '2001', value: 100 },
-    { type: 'Banana', year: '2001', value: 90 },
-    { type: 'Apple', year: '2002', value: 210 },
-    { type: 'Orange', year: '2002', value: 150 },
-    { type: 'Banana', year: '2002', value: 30 },
-  ],
-  scale: { enter: { type: 'identity' } },
-  transform: [{ type: 'stackEnter', by: ['x'] }],
-  encode: {
-    x: 'year',
-    y: 'value',
-    color: 'type',
-    series: 'type',
-    enterDuration: 1000,
-  },
-});
-```
-
-Intervals shows up series by series.
-
-```js | dom
-G2.render({
-  type: 'interval',
-  data: [
-    { type: 'Apple', year: '2001', value: 260 },
-    { type: 'Orange', year: '2001', value: 100 },
-    { type: 'Banana', year: '2001', value: 90 },
-    { type: 'Apple', year: '2002', value: 210 },
-    { type: 'Orange', year: '2002', value: 150 },
-    { type: 'Banana', year: '2002', value: 30 },
-  ],
-  scale: { enter: { type: 'identity' } },
-  transform: [{ type: 'stackEnter', by: ['color'] }],
-  encode: {
-    x: 'year',
-    y: 'value',
-    color: 'type',
-    series: 'type',
-    enterDuration: 1000,
-  },
-});
-```
-
-Intervals shows up series by series then group by group.
-
-```js | dom
-G2.render({
-  type: 'interval',
-  data: [
-    { type: 'Apple', year: '2001', value: 260 },
-    { type: 'Orange', year: '2001', value: 100 },
-    { type: 'Banana', year: '2001', value: 90 },
-    { type: 'Apple', year: '2002', value: 210 },
-    { type: 'Orange', year: '2002', value: 150 },
-    { type: 'Banana', year: '2002', value: 30 },
-  ],
-  scale: { enter: { type: 'identity' } },
-  transform: [{ type: 'stackEnter', by: ['color', 'x'] }],
-  encode: {
-    x: 'year',
-    y: 'value',
-    color: 'type',
-    series: 'type',
-    enterDuration: 1000,
-  },
-});
-```
-
-Intervals shows up group by group and then series by series.
-
-```js | dom
-G2.render({
-  type: 'interval',
-  data: [
-    { type: 'Apple', year: '2001', value: 260 },
-    { type: 'Orange', year: '2001', value: 100 },
-    { type: 'Banana', year: '2001', value: 90 },
-    { type: 'Apple', year: '2002', value: 210 },
-    { type: 'Orange', year: '2002', value: 150 },
-    { type: 'Banana', year: '2002', value: 30 },
-  ],
-  scale: { enter: { type: 'identity' } },
-  transform: [{ type: 'stackEnter', by: ['x', 'color'] }],
-  encode: {
-    x: 'year',
-    y: 'value',
-    color: 'type',
-    series: 'type',
-    enterDuration: 1000,
-  },
-});
-```
-
-StackEnter is useful for stack intervals.
-
-```js | dom
-G2.render({
-  type: 'interval',
-  data: [
-    { type: 'Apple', year: '2001', value: 260 },
-    { type: 'Orange', year: '2001', value: 100 },
-    { type: 'Banana', year: '2001', value: 90 },
-    { type: 'Apple', year: '2002', value: 210 },
-    { type: 'Orange', year: '2002', value: 150 },
-    { type: 'Banana', year: '2002', value: 30 },
-  ],
-  scale: { enter: { type: 'identity' } },
-  transform: [{ type: 'stackEnter', by: ['color'] }],
-  encode: {
-    x: 'year',
-    y: 'value',
-    color: 'type',
-    enterDuration: 1000,
-  },
-});
-```
-
-## Custom
-
-```js | dom
-(() => {
-  const Rotate = (options) => {
-    return (shape, style, coordinate, theme) => {
-      const { height, width } = shape.getBoundingClientRect();
-      const { enter } = theme;
-      const keyframe = [
-        { transform: 'rotate(-90deg)' },
-        { transform: 'rotate(0deg)' },
-      ];
-      shape.setOrigin([width / 2, height / 2]);
-      return shape.animate(keyframe, { ...enter, ...style, ...options });
-    };
-  };
-  return G2.render({
-    type: 'interval',
-    data: [
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
-    ],
-    scale: {
-      enterType: { type: 'identity' },
-    },
-    encode: {
-      x: 'genre',
-      y: 'sold',
-      color: 'genre',
-    },
-    animate: {
-      enter: {
-        type: Rotate, // Inline custom
-        duration: 3000,
-      },
-    },
-  });
-})();
-```
-
-```js
-(() => {
-  const Rotate = (options) => {
-    return (shape, style, coordinate, theme) => {
-      const { height, width } = shape.getBoundingClientRect();
-      const { enter } = theme;
-      const keyframes = [
-        { transform: 'rotate(-90deg)' },
-        { transform: 'rotate(0deg)' },
-      ];
-      shape.setOrigin([width / 2, height / 2]);
-      return shape.animate(keyframes, { ...enter, ...style, ...options });
-    };
-  };
-
-  const context = {
-    // Global custom
-    library: Object.assign(G2.createLibrary(), { 'animation.rotate': Rotate }),
-  };
-
-  return G2.render(
-    {
-      type: 'interval',
-      data: [
-        { genre: 'Sports', sold: 275 },
-        { genre: 'Strategy', sold: 115 },
-        { genre: 'Action', sold: 120 },
-        { genre: 'Shooter', sold: 350 },
-        { genre: 'Other', sold: 150 },
-      ],
-      scale: {
-        enterType: { type: 'identity' },
-      },
-      encode: {
-        x: 'genre',
-        y: 'sold',
-        color: 'genre',
-      },
-      animate: {
-        enter: {
-          type: 'rotate',
-          duration: 3000,
-        },
-      },
-    },
-    context,
-  );
-})();
 ```

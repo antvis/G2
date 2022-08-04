@@ -49,13 +49,13 @@ G2.render({
     {
       type: 'fetch',
       url: 'https://gw.alipayobjects.com/os/bmw-prod/48eb9b33-9d2b-40a2-864b-6522f92ba3b9.json',
-      callback: (d) => ({
-        ...d,
-        temp_max: +d.temp_max,
-        precipitation: +d.precipitation,
-        wind: +d.wind,
-        date: new Date(d.date),
-      }),
+      callback: (d) =>
+        Object.assign(d, {
+          temp_max: +d.temp_max,
+          precipitation: +d.precipitation,
+          wind: +d.wind,
+          date: new Date(d.date),
+        }),
     },
     {
       type: 'rename',
