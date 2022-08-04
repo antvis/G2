@@ -140,10 +140,11 @@ export default class Labels {
   }
 
   private renderLabel(cfg: LabelItem, container: IGroup): IGroup {
-    const { id, elementId, data, mappingData, coordinate, animate, content } = cfg;
+    const { id, elementId, data, mappingData, coordinate, animate, content, capture } = cfg;
     const shapeAppendCfg = {
       id,
       elementId,
+      capture,
       data,
       origin: {
         ...mappingData,

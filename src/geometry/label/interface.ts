@@ -44,6 +44,10 @@ export interface LabelItem extends LabelCfg, LabelPointCfg {
    * @title 牵引线
    */
   labelLine?: null | boolean | { style?: object; path?: string };
+  /**
+   * @title 是否支持捕获
+   */
+   capture?: boolean;
 }
 
 /**
