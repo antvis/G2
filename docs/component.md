@@ -216,21 +216,3 @@ G2.render({
   },
 });
 ```
-
-## Grid
-
-## Tooltip
-
-> TODO
-
-## Slider
-
-> TODO
-
-## Scrollbar
-
-> TODO
-
-## Timeline
-
-> TODO
