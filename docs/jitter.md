@@ -45,7 +45,8 @@ G2.render({
   coordinate: [{ type: 'polar' }],
   scale: {
     x: { padding: 0.5 },
-    y: { padding: 0.5 },
+    y: { padding: 0.5, guide: null },
+    color: { guide: null },
   },
   encode: {
     x: 'clarity',

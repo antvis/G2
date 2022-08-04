@@ -54,6 +54,7 @@ G2.render({
   scale: {
     x: { field: 'Date', utc: true },
     y: { guide: { label: { formatter: (d) => `${+d.text / 1000}k` } } },
+    color: { guide: { size: 72, autoWrap: true, maxRows: 3, cols: 6 } },
   },
   encode: {
     shape: 'smoothArea',
@@ -79,6 +80,7 @@ G2.render({
   scale: {
     x: { field: 'Date', utc: true },
     y: { guide: { label: { formatter: (d) => `${+d.text / 1000}k` } } },
+    color: { guide: { size: 72, autoWrap: true, maxRows: 3, cols: 6 } },
   },
   encode: {
     shape: 'smoothArea',
@@ -104,6 +106,7 @@ G2.render({
   scale: {
     x: { field: 'Date', utc: true },
     y: { guide: { label: { formatter: (d) => `${+d.text / 1000}k` } } },
+    color: { guide: { size: 72, autoWrap: true, maxRows: 3, cols: 6 } },
   },
   encode: {
     shape: 'smoothArea',
@@ -193,7 +196,10 @@ G2.render({
         x: { field: 'Age →', nice: true },
         y: {
           field: '← Women · Men →',
-          guide: { label: { formatter: (d) => `${Math.abs(+d.text)}` } },
+          guide: {
+            label: { formatter: (d) => `${Math.abs(+d.text)}` },
+            title: { style: { textAlign: 'center' } },
+          },
         },
       },
       encode: {

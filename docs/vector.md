@@ -1,8 +1,6 @@
 # Vector
 
-## Vector Plot
-
-**Basic Vector.**
+## Basic Vector
 
 ```js | dom
 G2.render({
@@ -18,7 +16,7 @@ G2.render({
   encode: {
     x: 'longitude',
     y: 'latitude',
-    rotate: ({ u, v }) => Math.atan2(v, u) * 180 / Math.PI,
+    rotate: ({ u, v }) => (Math.atan2(v, u) * 180) / Math.PI,
     size: ({ u, v }) => Math.hypot(v, u),
     color: ({ u, v }) => Math.hypot(v, u),
   },

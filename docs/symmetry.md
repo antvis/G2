@@ -8,6 +8,7 @@ them to be symmetry.
 ```js
 G2.render({
   type: 'area',
+  paddingTop: 72,
   transform: [
     {
       type: 'fetch',
@@ -19,6 +20,9 @@ G2.render({
   scale: {
     x: { field: 'Date', utc: true },
     y: { guide: { label: { formatter: (d) => `${+d.text / 1000}k` } } },
+    color: {
+      guide: { size: 72, autoWrap: true, maxRows: 3, cols: 6 },
+    },
   },
   encode: {
     shape: 'smoothArea',
@@ -34,6 +38,7 @@ G2.render({
 ```js
 G2.render({
   type: 'interval',
+  paddingLeft: 72,
   transform: [
     { type: 'sortBy', fields: ['sold'], order: 'DESC' },
     { type: 'symmetryY' },
@@ -45,11 +50,13 @@ G2.render({
     { genre: 'Shooter', sold: 350 },
     { genre: 'Other', sold: 150 },
   ],
+  scale: { x: { paddingInner: 0 } },
   coordinate: [{ type: 'transpose' }],
   encode: {
     x: 'genre',
     y: 'sold',
     color: 'genre',
+    shape: 'pyramid',
   },
 });
 ```
@@ -72,7 +79,10 @@ G2.render({
     x: { field: 'Age →', nice: true },
     y: {
       field: '← Women · Men →',
-      guide: { label: { formatter: (d) => `${Math.abs(+d.text)}` } },
+      guide: {
+        label: { formatter: (d) => `${Math.abs(+d.text)}` },
+        title: { style: { textAlign: 'center' } },
+      },
     },
   },
   encode: {
