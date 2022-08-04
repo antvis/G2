@@ -53,7 +53,7 @@ export const InteractionDescriptor = (options?: BrushOptions) => {
       {
         trigger: 'plot:maskChange',
         action: [
-          { type: 'elementSelection', from: `${maskPrefix}-mask` },
+          { type: 'elementSelection', trigger: `${maskPrefix}-mask` },
           { type: 'highlightElement' },
         ],
       },
@@ -62,14 +62,14 @@ export const InteractionDescriptor = (options?: BrushOptions) => {
         isEnable: (context) => !isButton(context),
         action: [
           { type: 'recordState', state: null },
-          { type: 'elementSelection', from: `${maskPrefix}-mask` },
+          { type: 'elementSelection', trigger: `${maskPrefix}-mask` },
           { type: 'filter' },
           { type: 'plot' },
           { type: 'recordState', state: 'filtered' },
           { type: 'recordPoint', clear: true },
           { type: 'recordRegion' },
           { type: 'mask' },
-          { type: 'elementSelection', from: `${maskPrefix}-mask` },
+          { type: 'elementSelection', trigger: `${maskPrefix}-mask` },
           { type: 'highlightElement' },
           { type: 'button' },
         ],

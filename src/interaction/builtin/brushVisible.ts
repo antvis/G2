@@ -34,7 +34,7 @@ export const InteractionDescriptor = (options?: BrushVisibleOptions) => {
       {
         trigger: 'plot:maskChange',
         action: [
-          { type: 'elementSelection', from: `${maskPrefix}-mask` },
+          { type: 'elementSelection', trigger: `${maskPrefix}-mask` },
           { type: 'highlightElement' },
         ],
       },
@@ -42,7 +42,7 @@ export const InteractionDescriptor = (options?: BrushVisibleOptions) => {
         trigger: 'plot:pointerup',
         action: [
           { type: 'recordState', state: null },
-          { type: 'elementSelection', from: `${maskPrefix}-mask` },
+          { type: 'elementSelection', trigger: `${maskPrefix}-mask` },
           { type: 'filterElement' },
           // Clear highlight elements, but not to effect elements of mainLayer.
           { type: 'highlightElement', clear: true },

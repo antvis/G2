@@ -24,7 +24,7 @@ function dragEnable(context) {
 }
 
 export const InteractionDescriptor = (options?: BrushHighlightOptions) => {
-  const { brushType } = options;
+  const { brushType, multiple } = options;
   const maskPrefix = brushType === 'polygon' ? 'polygon' : 'rect';
   const dim = brushType === 'rectX' ? 'x' : brushType === 'rectY' ? 'y' : '';
   return {
@@ -43,11 +43,11 @@ export const InteractionDescriptor = (options?: BrushHighlightOptions) => {
         trigger: 'plot:pointerdown',
         isEnable: (context) => isInPlot(context),
         action: [
-          { type: 'recordPoint', clear: true },
+          multiple ? null : { type: 'recordPoint', clear: true },
           { type: 'recordPoint', start: true },
           { type: 'recordRegion', dim },
           { type: 'recordState', state: 'brushing' },
-        ],
+        ].filter((a) => !!a),
       },
       {
         trigger: 'plot:pointermove',
@@ -62,7 +62,7 @@ export const InteractionDescriptor = (options?: BrushHighlightOptions) => {
       {
         trigger: 'plot:maskChange',
         action: [
-          { type: 'elementSelection', from: `${maskPrefix}-mask` },
+          { type: 'elementSelection', trigger: `${maskPrefix}-mask` },
           { type: 'highlightElement' },
         ],
       },
@@ -107,7 +107,7 @@ export const InteractionDescriptor = (options?: BrushHighlightOptions) => {
           { type: 'recordPoint', clear: true },
           { type: 'recordRegion' },
           { type: 'mask' },
-          { type: 'elementSelection', from: `${maskPrefix}-mask` },
+          { type: 'elementSelection', trigger: `${maskPrefix}-mask` },
           { type: 'highlightElement' },
         ],
       },

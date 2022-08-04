@@ -45,6 +45,7 @@ export type BrushInteraction = {
 export type BrushHighlightInteraction = {
   type?: 'brushHighlight';
   brushType?: 'rect' | 'rectX' | 'rectY' | 'polygon';
+  multiple?: boolean;
 };
 
 export type BrushVisibleInteraction = {

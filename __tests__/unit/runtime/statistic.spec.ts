@@ -704,7 +704,7 @@ describe('statistic', () => {
       encode: {
         x: 'clarity',
         y: 'price',
-        color: 'clarity',
+        color: 'price',
       },
     });
     mount(createDiv(), chart);

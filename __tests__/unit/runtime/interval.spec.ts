@@ -39,33 +39,29 @@ describe('render', () => {
 
   // Don't asset for temporary as the inner data structure of context is not clear now.
   it('render({...} renders chart according to specified options', (done) => {
-    const chart = render<G2Spec>(
-      {
-        type: 'interval',
-        title: {
-          size: 40,
-          text: 'Chart Title',
-          subtitle: 'Chart Subtitle: description, description.',
-          subtitleStyle: { fill: 'pink' },
-        },
-        data: [
-          { genre: 'Sports', sold: 275 },
-          { genre: 'Strategy', sold: 115 },
-          { genre: 'Action', sold: 120 },
-          { genre: 'Shooter', sold: 350 },
-          { genre: 'Other', sold: 150 },
-        ],
-        paddingRight: 80,
-        scale: { color: { guide: { position: 'right', size: 80 } } },
-        encode: {
-          x: 'genre',
-          y: 'sold',
-          color: 'genre',
-        },
+    const chart = render<G2Spec>({
+      type: 'interval',
+      title: {
+        size: 40,
+        text: 'Chart Title',
+        subtitle: 'Chart Subtitle: description, description.',
+        subtitleStyle: { fill: 'pink' },
       },
-      {},
-      done,
-    );
+      data: [
+        { genre: 'Sports', sold: 275 },
+        { genre: 'Strategy', sold: 115 },
+        { genre: 'Action', sold: 120 },
+        { genre: 'Shooter', sold: 350 },
+        { genre: 'Other', sold: 150 },
+      ],
+      paddingRight: 80,
+      scale: { color: { guide: { position: 'right', size: 80 } } },
+      encode: {
+        x: 'genre',
+        y: 'sold',
+        color: 'genre',
+      },
+    });
 
     mount(createDiv(), chart);
   });

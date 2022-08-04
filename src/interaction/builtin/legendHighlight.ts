@@ -9,9 +9,9 @@ export const InteractionDescriptor = (options?: LegendHighlightOptions) => ({
       trigger: 'legend-item:pointermove',
       action: [
         { type: 'triggerInfoSelection' },
-        { type: 'legendItemSelection', from: 'triggerInfo' },
+        { type: 'legendItemSelection', trigger: 'triggerInfo' },
         { type: 'setItemState', items: 'legendItem', state: 'highlight' },
-        { type: 'elementSelection', from: 'triggerInfo' },
+        { type: 'elementSelection', trigger: 'triggerInfo' },
         { type: 'highlightElement' },
       ],
     },
@@ -21,9 +21,9 @@ export const InteractionDescriptor = (options?: LegendHighlightOptions) => ({
       trigger: 'legend-item:pointerleave',
       action: [
         { type: 'triggerInfoSelection' },
-        { type: 'legendItemSelection', from: 'triggerInfo' },
+        { type: 'legendItemSelection', trigger: 'triggerInfo' },
         { type: 'setItemState', items: 'legendItem', state: 'highlight' },
-        { type: 'elementSelection', from: 'triggerInfo' },
+        { type: 'elementSelection', trigger: 'triggerInfo' },
         { type: 'highlightElement' },
       ],
     },
