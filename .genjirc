@@ -35,6 +35,7 @@
       "Element": "interaction-element",
       "Component": "interaction-component",
       "Tooltip": "interaction-tooltip",
+      "Brush": "interaction-brush",
       "More": "interaction-more"
     },
     "Composition": {

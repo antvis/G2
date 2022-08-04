@@ -72,5 +72,5 @@ export const TitleComponent: GCC<TitleComponentOptions> = (options) => {
 TitleComponent.props = {
   defaultPosition: 'top',
   defaultOrder: 2,
-  defaultSize: 20,
+  defaultSize: 30,
 };

@@ -49,7 +49,7 @@ G2.render({
     x: 'x',
     y: 'y',
     text: 'text',
-    color: 'black',
+    color: '#5B8FF9',
     rotate: 'rotate',
     fontSize: 'size',
     tooltip: 'name',
