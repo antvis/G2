@@ -1,3 +1,15 @@
+#### 4.2.6 (2022-08-04)
+
+##### Documentation Changes
+- **md:** 更新钉钉群号 ([#4048](https://github.com/antvis/G2/pull/4048)) ([165747a](https://github.com/antvis/G2/pull/4048/commits/165747adc4c5f596921b8231d62e36ecb2c42ff2))
+
+##### Bug Fixes
+
+- **label:** label 可以配置 是否支持捕获 ([#4064](https://github.com/antvis/G2/pull/4064)) ([7ff3941](https://github.com/antvis/G2/pull/4064/commits/7ff39416cfd6d1b142bf96264fea58a3b6af41f6))
+- **toolitp:** 增加 tooltip marker 回调，以和 point 的不同形状保持一致 ([#4039](https://github.com/antvis/G2/pull/4039)) ([7b16ce7](https://github.com/antvis/G2/pull/4039/commits/7b16ce725da38e74703949c69b1cf458d316aaea))
+- **annotation:** 修复 annotation shape/regionFilter 在 geometries 没有动画没有渲染的问题 ([#4035](https://github.com/antvis/G2/pull/4035)) ([dcb8cf4](https://github.com/antvis/G2/pull/4035/commits/dcb8cf4e0f37c5289c719545e922e8fd5340cc84))
+
+
 #### 4.2.5 (2022-07-06)
 
 ##### Documentation Changes
