@@ -79,10 +79,7 @@ G2.render({
     {
       type: 'fetch',
       url: 'https://gw.alipayobjects.com/os/bmw-prod/96cd81b5-54a4-4fe8-b778-502b2114df58.json',
-      callback: ({ Year, ...rest }) => ({
-        Year: new Date(Year),
-        ...rest,
-      }),
+      callback: (d) => Object.assign(d, { Year: new Date(d.Year) }),
     },
     {
       type: 'filterBy',
@@ -95,12 +92,12 @@ G2.render({
     // zIndex of mark is default to 0.
     // zIndex of component is default to -1.
     // Set zIndex to 1 for component to draw above marks.
-    'position[1]': { nice: true, guide: { zIndex: 1 } },
-    'position[2]': { nice: true, guide: { zIndex: 1 } },
-    'position[3]': { nice: true, guide: { zIndex: 1 } },
-    'position[4]': { nice: true, guide: { zIndex: 1 } },
-    'position[5]': { nice: true, guide: { zIndex: 1 } },
-    'position[6]': { nice: true, guide: { zIndex: 1 } },
+    position: { nice: true, guide: { zIndex: 1 } },
+    position1: { nice: true, guide: { zIndex: 1 } },
+    position2: { nice: true, guide: { zIndex: 1 } },
+    position3: { nice: true, guide: { zIndex: 1 } },
+    position4: { nice: true, guide: { zIndex: 1 } },
+    position5: { nice: true, guide: { zIndex: 1 } },
   },
   encode: {
     position: [
@@ -134,7 +131,11 @@ G2.render({
       url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
     },
   ],
-  scale: { size: { type: 'log', range: [4, 20] }, y: { field: 'Life' } },
+  scale: {
+    size: { type: 'log', range: [4, 20] },
+    y: { field: 'Life' },
+    x: { guide: { label: { autoHide: true } } },
+  },
   coordinate: [
     { type: 'cartesian' },
     { type: 'fisheye', focusX: 50, focusY: 50 },

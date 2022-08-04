@@ -12,6 +12,7 @@
       "Select": "select",
       "Group": "group",
       "Pack": "pack",
+      "StackEnter": "stack-enter",
       "Connector": "connector"
     },
     "Mark": {
@@ -22,6 +23,7 @@
       "Text": "text",
       "Grid": "grid",
       "Vector": "vector",
+      "Link": "link",
       "Image": "image",
       "Polygon": "polygon",
       "Schema": "schema",
