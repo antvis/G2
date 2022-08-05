@@ -477,23 +477,111 @@ genji.preview(
 
 ## Interaction
 
-### Element
-
-> TODO
-
-### Component
-
-> TODO
-
-### Brush
+### Element Interaction
 
 ```js | dom "pin: false"
 genji.preview([
   {
-    title: 'Schema',
-    path: '/schema#box-plot',
+    title: 'ElementActive',
+    path: '/interaction-element#elementactive',
     thumbnail:
-      'https://gw.alipayobjects.com/zos/antfincdn/hLflHDiP4p/9a4aa9ab-6dc6-4020-badd-9d40c46f3a52.png',
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*eVBpQIOVCKAAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'ElementHighlight',
+    path: '/interaction-element#elementhighlight',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*c-CVSr5DSs8AAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'elementHighlightByX',
+    path: '/interaction-element#elementhighlightbyx',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*InsVRapegkYAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'elementHighlightByY',
+    path: '/interaction-element#elementhighlightbycolor',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*L_8jSKmanAgAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'ElementSelected',
+    path: '/interaction-element#elementselected',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*PAPkTaAsEfsAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'ElementSingleSelected',
+    path: '/interaction-element#elementsingleselected',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*uKkpR6K0FKgAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'ActiveRegion',
+    path: '/interaction-element#activeregion',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*NOw5R4aZr5UAAAAAAAAAAAAAARQnAQ',
+  },
+]);
+```
+
+### Component Interaction
+
+```js | dom "pin: false"
+genji.preview([
+  {
+    title: 'LegendActive',
+    path: '/interaction-component#legendactive',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*RtTwRrO27Q4AAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'LegendHighlight',
+    path: '/interaction-component#legendhighlight',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*PvQqQKVfCqQAAAAAAAAAAAAAARQnAQ',
+  },
+]);
+```
+
+### Brush Interaction
+
+```js | dom "pin: false"
+genji.preview([
+  {
+    title: 'Brush',
+    path: '/interaction-brush#basic-brush',
+    thumbnail: 'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*bu25QqXgGOEAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Brush Highlight',
+    path: '/interaction-brush#brushhighlight',
+    thumbnail: 'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*AExnTqbbzyUAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Brush Visible',
+    path: '/interaction-brush#brushvisible',
+    thumbnail: 'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*CX2JRa_Bh7IAAAAAAAAAAAAAARQnAQ',
+  },
+]);
+```
+
+### More Interaction
+
+```js | dom "pin: false"
+genji.preview([
+  {
+    title: 'Fisheye',
+    path: '/interaction-more#fisheye',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*cnFCRKn4US0AAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'EllipsisText',
+    path: '/interaction-more#ellipsistext',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*jIrUQatrZGQAAAAAAAAAAAAAARQnAQ',
   },
 ]);
 ```
