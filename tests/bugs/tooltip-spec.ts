@@ -160,4 +160,50 @@ describe('tooltip', () => {
     // @ts-ignore
     expect(chart.ele.getElementsByClassName('g2-tooltip')[0].style['pointer-events']).toBe('none');
   });
+  it('tooltip hide when mouseleave tooltipContainer', () => {
+    const data = [
+      { date: 1489593600000, pv: 17, time: 12351000 },
+      { date: 1489680000000, pv: 10, time: 18000 },
+      { date: 1489766400000, pv: 3, time: 0 },
+      { date: 1489852800000, pv: 3, time: 0 },
+      { date: 1489939200000, pv: 18, time: 21157000 },
+      { date: 1490025600000, pv: 32, time: 3543000 },
+      { date: 1490112000000, pv: 25, time: 10000 },
+      { date: 1490198400000, pv: 23, time: 24000 },
+      { date: 1490284800000, pv: 7, time: 0 },
+    ];
+    const chart = new Chart({
+      container: createDiv(),
+      width: 400,
+      height: 250,
+    });
+
+    chart.data(data);
+    chart.area().position('time*pv');
+
+    chart.render();
+
+    chart.tooltip({
+      enterable: true,
+    });
+
+    const point = chart.getXY({ date: 1489939200000, pv: 18, time: 21157000 });
+    chart.showTooltip(point);
+
+    const tooltip = chart.ele.getElementsByClassName('g2-tooltip')[0];
+    const mouseleaveEvent = new MouseEvent('mouseleave', {
+      clientX: 10000,
+      clientY: 10000,
+    });
+
+    tooltip.dispatchEvent(mouseleaveEvent);
+    // @ts-ignore
+    expect(tooltip.style.visibility).toBe('hidden');
+
+    chart.lockTooltip();
+    chart.showTooltip(point);
+    tooltip.dispatchEvent(mouseleaveEvent);
+    // @ts-ignore
+    expect(tooltip.style.visibility).toBe('visible');
+  });
 });
