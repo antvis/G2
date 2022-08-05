@@ -207,13 +207,10 @@ G2.render({
   scale: {
     color: { type: 'identity' },
   },
-  scale: {
-    y: { range: [0.9, 0.1] },
-    color: 'steeblue',
-  },
   encode: {
     x: 'genre',
     y: 'sold',
+    color: 'steelblue',
   },
 });
 ```

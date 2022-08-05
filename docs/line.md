@@ -49,7 +49,7 @@ G2.render({
 });
 ```
 
-**Alpha for smooth shape.**
+## Alpha for Smooth
 
 ```js | dom
 G2.render({
