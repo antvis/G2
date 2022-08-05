@@ -24,5 +24,11 @@ G2.render({
     color: { guide: null },
     size: { range: [6, 20] },
   },
+  style: {
+    arrow: {
+      // arrow size is 40% of the  vector length (encode by `size`)
+      size: '40',
+    },
+  },
 });
 ```

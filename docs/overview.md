@@ -628,7 +628,7 @@ genji.preview([
     title: 'Basic Vector',
     path: '/link#basic-vector',
     thumbnail:
-      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*zoczRZJNUo8AAAAAAAAAAAAAARQnAQ',
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*QGaxR6L6w_sAAAAAAAAAAAAAARQnAQ',
   },
 ]);
 ```
