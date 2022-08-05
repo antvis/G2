@@ -26,6 +26,9 @@ G2.render({
       type: 'interval',
       paddingBottom: 200,
       paddingLeft: 400,
+      scale: {
+        color: { guide: null },
+      },
       coordinate: [{ type: 'transpose' }, { type: 'polar' }],
       encode: {
         y: 'sold',
@@ -89,6 +92,7 @@ G2.render({
   children: [
     {
       type: 'interval',
+      paddingLeft: 80,
       encode: {
         x: 'genre',
         y: 'sold',
@@ -97,6 +101,7 @@ G2.render({
     },
     {
       type: 'interval',
+      paddingLeft: 80,
       coordinate: [{ type: 'transpose' }],
       encode: {
         x: 'genre',

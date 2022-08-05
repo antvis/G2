@@ -15,6 +15,8 @@
       "StackEnter": "stack-enter",
       "Connector": "connector"
     },
+    "Scale": "scale",
+    "Coordinate": "coordinate",
     "Mark": {
       "Interval": "interval",
       "Point": "point",
@@ -30,16 +32,6 @@
       "Annotation": "annotation",
       "Component": "component"
     },
-    "Scale": "scale",
-    "Coordinate": "coordinate",
-    "Animation": "animation",
-    "Interaction": {
-      "Element": "interaction-element",
-      "Component": "interaction-component",
-      "Tooltip": "interaction-tooltip",
-      "Brush": "interaction-brush",
-      "More": "interaction-more"
-    },
     "Composition": {
       "View": "view",
       "Spatial": "spatial",
@@ -48,6 +40,14 @@
       "Unit": "unit",
       "Keyframe": "keyframe",
       "More": "more-composition"
+    },
+    "Animation": "animation",
+    "Interaction": {
+      "Element": "interaction-element",
+      "Component": "interaction-component",
+      "Tooltip": "interaction-tooltip",
+      "Brush": "interaction-brush",
+      "More": "interaction-more"
     },
     "Theme": "theme"
   },
