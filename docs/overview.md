@@ -152,7 +152,7 @@ genji.preview(
       title: 'Symmetry Interval',
       path: '/symmetry#symmetry-interval',
       thumbnail:
-        'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*dx05SoJezooAAAAAAAAAAAAAARQnAQ',
+        'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*qM7vSq3iiiAAAAAAAAAAAAAAARQnAQ',
     },
     {
       title: 'Symmetry Stacked Point',
@@ -237,15 +237,161 @@ genji.preview(
 );
 ```
 
+### Pack
+
+```js | dom "pin: false"
+genji.preview([
+  {
+    title: 'Uniform Pack',
+    path: '/pack#uniform',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*vQNgR5-NbDoAAAAAAAAAAAAAARQnAQ',
+  },
+]);
+```
+
+### StackEnter
+
+```js | dom "pin: false"
+genji.preview([
+  {
+    title: 'Group by X',
+    path: '/stack-enter#group-by-x',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*w1qYQ5_5CqcAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Group by Color',
+    path: '/stack-enter#group-by-color',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*aHpPRb2GjF0AAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Group by Color and X',
+    path: '/stack-enter#group-by-color-and-x',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*XT9SSqeUZq0AAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Group by X and Color',
+    path: '/stack-enter#group-by-x-and-color',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*-l9qRrTH7z8AAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'For Stack Interval',
+    path: '/stack-enter#for-stack-interval',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*Dp-8Q4Pv4CcAAAAAAAAAAAAAARQnAQ',
+  },
+]);
+```
+
 ## Scale
 
-> TODO
+```js | dom "pin: false"
+genji.preview([
+  {
+    title: 'Linear',
+    path: '/scale#linear',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*kd7FRq2zwsgAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Log',
+    path: '/scale#log',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*GOM3S4I3rCkAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Pow',
+    path: '/scale#pow',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*GnyWTKnYsJMAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Time',
+    path: '/scale#time',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*FTTBSq1dYbwAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Band',
+    path: '/scale#band',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*JkokR5DJCogAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Ordinal',
+    path: '/scale#ordinal',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*8pKqSZwnudoAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Identity',
+    path: '/scale#identity',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*3qNbQoczg6cAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Threshold',
+    path: '/scale#threshold',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*2Ts3TJq6zdkAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Quantize',
+    path: '/scale#quantize',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*kxaNSYoG7MoAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Quantile',
+    path: '/scale#quantile',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*z1urQYn2ZkgAAAAAAAAAAAAAARQnAQ',
+  },
+]);
+```
 
 ## Coordinate
 
-> TODO
+```js | dom "pin: false"
+genji.preview([
+  {
+    title: 'Cartesian',
+    path: '/coordinate#cartesian',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*8EqFQJkVXRsAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Polar',
+    path: '/coordinate#polar',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*urWcSpWKLIAAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Transpose',
+    path: '/coordinate#transpose',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*RjFfRZ-Wn_8AAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Parallel',
+    path: '/coordinate#parallel',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*u9gzRLlSp_oAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Fisheye',
+    path: '/coordinate#fisheye',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*14pOTZhc_UEAAAAAAAAAAAAAARQnAQ',
+  },
+]);
+```
 
-## Geometry
+## Mark
 
 ### Interval
 
@@ -319,15 +465,129 @@ genji.preview(
 
 ### Point
 
-> TODO
+```js | dom "pin: false"
+genji.preview(
+  [
+    {
+      title: 'Basic Point',
+      path: '/point#basic-point',
+      thumbnail:
+        'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*xSkRSolN2YAAAAAAAAAAAAAAARQnAQ',
+    },
+    {
+      title: 'One Dimension',
+      path: '/point#one-dimension',
+      thumbnail:
+        'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*wGpLRblfBmIAAAAAAAAAAAAAARQnAQ',
+    },
+    {
+      title: 'Size Channel',
+      path: '/point#size-channel',
+      thumbnail:
+        'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*ptMSTaO9eU4AAAAAAAAAAAAAARQnAQ',
+    },
+    {
+      title: 'Circle Pack',
+      path: '/point#circle-pack',
+      thumbnail:
+        'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*Yk9JQIH4xREAAAAAAAAAAAAAARQnAQ',
+    },
+  ],
+  { height: 175 },
+);
+```
 
 ### Line
 
-> TODO
+```js | dom "pin: false"
+genji.preview([
+  {
+    title: 'Basic Line',
+    path: '/line#basic-line',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*lNS-So4Ewe4AAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Smooth Line',
+    path: '/line#smooth-line',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*lf4tQp8bfL4AAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Alpha for Smooth',
+    path: '/line#alpha-for-smooth',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*JSIoSrm9lzcAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Gradient Line',
+    path: '/line#gradient-line',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*lxWnSbqJTLEAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Series Line',
+    path: '/line#series-line',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*TTZRSpIeAR4AAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Size Channel',
+    path: '/line#size-channel',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*QIdKRawhcsoAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Parallel Line',
+    path: '/line#parallel-line',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*u9gzRLlSp_oAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Polar Line',
+    path: '/line#polar-line',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*8wA3RYMCaIcAAAAAAAAAAAAAARQnAQ',
+  },
+]);
+```
 
 ### Area
 
-> TODO
+```js | dom "pin: false"
+genji.preview([
+  {
+    title: 'Basic Area',
+    path: '/area#basic-area',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*ZOKqQqDVV6MAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Stacked Area',
+    path: '/area#stacked-area',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*wSs-S5d9BjMAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Symmetry Area',
+    path: '/area#symmetry-area',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*fWKRS7V2MaoAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Gradient Area',
+    path: '/area#gradient-area',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*eR0DSILa_6UAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Area in Polar',
+    path: '/area#area-in-polar',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*MpH0S6RSws8AAAAAAAAAAAAAARQnAQ',
+  },
+]);
+```
 
 ### Grid
 
@@ -351,18 +611,43 @@ genji.preview([
     thumbnail:
       'https://gw.alipayobjects.com/zos/antfincdn/Lz6kRwsXAr/dbb01680-a620-4e66-8e5f-3cb323c41ae7.png',
   },
+  {
+    title: 'Calendar grid',
+    path: '/grid#calendar-grid',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*EM5JTL0cAK8AAAAAAAAAAAAAARQnAQ',
+  },
 ]);
 ```
 
-### Node & Edge
+### Vector
 
 ```js | dom "pin: false"
 genji.preview([
   {
-    title: 'Node & Edge',
-    path: '/node-edge#chord',
+    title: 'Basic Vector',
+    path: '/link#basic-vector',
     thumbnail:
-      'https://gw.alipayobjects.com/zos/antfincdn/dXVisxZXpb/9c0a409c-9884-4b7b-8b63-f4f2c7781e48.png',
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*zoczRZJNUo8AAAAAAAAAAAAAARQnAQ',
+  },
+]);
+```
+
+### Link
+
+```js | dom "pin: false"
+genji.preview([
+  {
+    title: 'Basic Link',
+    path: '/link#basic-link',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*jr69T7nYZ7EAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Graph Edge',
+    path: '/link#graph-edge',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*rNBnSoKQFXUAAAAAAAAAAAAAARQnAQ',
   },
 ]);
 ```
@@ -372,10 +657,16 @@ genji.preview([
 ```js | dom "pin: false"
 genji.preview([
   {
-    title: 'Polygon',
-    path: '/polygon#voronoi-plot',
+    title: 'Voronoi',
+    path: '/polygon#voronoi',
     thumbnail:
-      'https://gw.alipayobjects.com/zos/antfincdn/8y7qaQR%26zO/82c4470b-8427-4411-80bf-1a9ffc3928be.png',
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*43ZhQpxY57EAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Treemap',
+    path: '/polygon#treemap',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*PkWsQpH2JO8AAAAAAAAAAAAAARQnAQ',
   },
 ]);
 ```
@@ -404,16 +695,16 @@ genji.preview([
 ```js | dom "pin: false"
 genji.preview([
   {
-    title: 'Basic WordCloud',
-    path: '/text#basic-wordcloud',
+    title: 'Basic Text',
+    path: '/text#basic-text',
     thumbnail:
-      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*Q3x-RJd_HR0AAAAAAAAAAAAAARQnAQ',
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*FrmJQa_NbYwAAAAAAAAAAAAAARQnAQ',
   },
   {
-    title: 'Image WordCloud',
-    path: '/text#image-wordcloud',
+    title: 'Word Cloud',
+    path: '/text#wordcloud',
     thumbnail:
-      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*6EbeRocFE8EAAAAAAAAAAAAAARQnAQ',
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*JjfsR6dNUvAAAAAAAAAAAAAAARQnAQ',
   },
 ]);
 ```
@@ -427,6 +718,12 @@ genji.preview([
     path: '/schema#box-plot',
     thumbnail:
       'https://gw.alipayobjects.com/zos/antfincdn/hLflHDiP4p/9a4aa9ab-6dc6-4020-badd-9d40c46f3a52.png',
+  },
+  {
+    title: 'Dodged Schema',
+    path: '/schema#dodged-schema',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*igdpTZKSp0UAAAAAAAAAAAAAARQnAQ',
   },
 ]);
 ```
@@ -471,9 +768,255 @@ genji.preview(
 );
 ```
 
+## Composition
+
+### View
+
+```js | dom "pin: false"
+genji.preview([
+  {
+    title: 'Interval Width Text',
+    path: '/view#interval-with-text',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*vDhRRrXT88wAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Line With Point',
+    path: '/view#line-with-point',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*8Z0cSYDQc9EAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Same Side Axes',
+    path: '/view#same-side-axes',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*ZWBPR47OwxYAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Different Side Axes',
+    path: '/view#different-side-axes',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*e6O9SoYzY3QAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Double Intervals',
+    path: '/view#double-intervals',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*WKPiSZ6zIzYAAAAAAAAAAAAAARQnAQ',
+  },
+]);
+```
+
+### Spatial
+
+```js | dom "pin: false"
+genji.preview([
+  {
+    title: 'Layer',
+    path: '/spatial#layer',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*FtH7T499A2MAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Flex Row',
+    path: '/spatial#row(flex)',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*uUx2RL68ysQAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Flex Col',
+    path: '/spatial#col(flex)',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*jGT3S7hrZv8AAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Flex Nested',
+    path: '/spatial#nested(flex)',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*MvwSQIvD45oAAAAAAAAAAAAAARQnAQ',
+  },
+]);
+```
+
+### Rect
+
+```js | dom "pin: false"
+genji.preview([
+  {
+    title: 'Row',
+    path: '/rect#row-facet',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*kD1BQqfozlMAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Col',
+    path: '/rect#col-facet',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*o5vzRJ2Yz3YAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Both',
+    path: '/rect#rect-facet',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*XVs2S6jRUZMAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Calendar Interval',
+    path: '/rect#calendar-interval',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*PjsJRI1gdegAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Calendar Pie',
+    path: '/rect#calendar-pie',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*KTkjRKkEKgoAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Callback',
+    path: '/rect#facet-callback',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*_RepSp6IbqsAAAAAAAAAAAAAARQnAQ',
+  },
+]);
+```
+
+### Matrix
+
+```js | dom "pin: false"
+genji.preview([
+  {
+    title: 'Position',
+    path: '/matrix#position',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*0r6ER6vYUZIAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'X and Y',
+    path: '/matrix#x-&-y',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*_-T4S6X8XoUAAAAAAAAAAAAAARQnAQ',
+  },
+]);
+```
+
+### Unit
+
+```js | dom "pin: false"
+genji.preview([
+  {
+    title: 'Row',
+    path: '/unit#row',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*j7tuQ6k7GhYAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Share Data',
+    path: '/unit#shareddata-row',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*Z3-fT54MsAYAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Share Size',
+    path: '/unit#sharedsize-row',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*r2RbR4FA5sMAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Rect',
+    path: '/unit#rect',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*85gnSpL0JogAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Share Data Rect',
+    path: '/unit#shareddata-rect',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*osUmQ4W7hOAAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Nested',
+    path: '/unit#nested',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*rqZeS4euPy0AAAAAAAAAAAAAARQnAQ',
+  },
+]);
+```
+
+### Keyframe
+
+```js | dom "pin: false"
+genji.preview([
+  {
+    title: 'One To One',
+    path: '/keyframe#one-to-one',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*TMe0Qr_mVTkAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Split And Merge',
+    path: '/keyframe#split-and-merge',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*ecgaQoSyV8wAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Among Facets',
+    path: '/keyframe#among-facets',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*dMzUT6Opl9UAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Unit Animation',
+    path: '/keyframe#unit-visualization',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*KBTtQYQPHR0AAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Infinite',
+    path: '/keyframe#infinite',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*l1Z5QJlyoMoAAAAAAAAAAAAAARQnAQ',
+  },
+]);
+```
+
+### More
+
+```js | dom "pin: false"
+genji.preview([
+  {
+    title: 'Circle',
+    path: '/more-composition#circle',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*OTxKQ5eBQYMAAAAAAAAAAAAAARQnAQ',
+  },
+]);
+```
+
 ## Animation
 
-> TODO
+```js | dom "pin: false"
+genji.preview([
+  {
+    title: 'Time Effect',
+    path: '/animation#timeeffect',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*Z6PhRYghUDMAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Encode EnterType',
+    path: '/animation#encode-entertype',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*Oul6SbXHKqAAAAAAAAAAAAAAARQnAQ',
+  },
+  {
+    title: 'Encode EnterDelay and EnterDuration',
+    path: '/animation#encode-enterdelay-and-enterduration',
+    thumbnail:
+      'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*Pzf7S44tZL0AAAAAAAAAAAAAARQnAQ',
+  },
+]);
+```
 
 ## Interaction
 
@@ -497,7 +1040,3 @@ genji.preview([
   },
 ]);
 ```
-
-## Composition
-
-> TODO

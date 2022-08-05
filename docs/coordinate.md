@@ -35,7 +35,7 @@ G2.render({
     { genre: 'Other', sold: 150 },
   ],
   coordinate: [{ type: 'polar' }],
-  scale: { x: { padding: 0.05 } },
+  scale: { x: { padding: 0.05 }, y: { guide: null } },
   encode: {
     x: 'genre',
     y: 'sold',
@@ -52,6 +52,7 @@ G2.render({
 ```js | dom
 G2.render({
   type: 'interval',
+  paddingLeft: 80,
   data: [
     { genre: 'Sports', sold: 275 },
     { genre: 'Strategy', sold: 115 },
