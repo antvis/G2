@@ -1,4 +1,4 @@
-# Tooltip Interaction
+# Tooltip
 
 ## Basic tooltip
 

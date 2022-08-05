@@ -1020,7 +1020,7 @@ genji.preview([
 
 ## Interaction
 
-### Element Interaction
+### Element
 
 ```js | dom "pin: false"
 genji.preview([
@@ -1069,7 +1069,7 @@ genji.preview([
 ]);
 ```
 
-### Component Interaction
+### Component
 
 ```js | dom "pin: false"
 genji.preview([
@@ -1088,7 +1088,7 @@ genji.preview([
 ]);
 ```
 
-### Brush Interaction
+### Brush
 
 ```js | dom "pin: false"
 genji.preview([
@@ -1110,7 +1110,7 @@ genji.preview([
 ]);
 ```
 
-### More Interaction
+### More
 
 ```js | dom "pin: false"
 genji.preview([
