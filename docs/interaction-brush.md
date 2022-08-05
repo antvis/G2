@@ -1,8 +1,8 @@
-# Brush Interaction
+# Brush
 
 ## Brush
 
-> Brush Interaction supports config `brushType`, options are: `rect`(default), `rectX`, `rectY`, `polygon`.
+Brush Interaction supports config `brushType`, options are: `rect`(default), `rectX`, `rectY`, `polygon`.
 
 ### Basic Brush
 
@@ -86,12 +86,12 @@ G2.render({
 
 ## BrushHighlight
 
-> BrushHighlight Interaction options:
->
-> - `brushType`: type of brush, supports `rect` (default), `rectX`, `rectY` and `polygon`.
-> - `multiple`: whether support multiple brush selections.
->
-> Double click to cancel brush selections.
+BrushHighlight Interaction options:
+
+- `brushType`: type of brush, supports `rect` (default), `rectX`, `rectY` and `polygon`.
+- `multiple`: whether support multiple brush selections.
+
+Double click to cancel brush selections.
 
 ### Basic BrushHighlight
 
