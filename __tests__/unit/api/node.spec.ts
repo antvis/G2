@@ -59,7 +59,9 @@ describe('Node', () => {
 
   it('node.pipe(callback) should apply specified callback to a new cloned node.', () => {
     const node = new Node({ a: 1 });
-    const n1 = node.pipe((node) => node.attr('a', 2));
+    const n1 = node.pipe((node) => {
+      node.attr('a', 2);
+    });
     expect(node.value).toEqual({ a: 2 });
     expect(n1).toBe(node);
   });

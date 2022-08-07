@@ -69,10 +69,8 @@ export class Node<
   /**
    * Apply specified callback to a new cloned node.
    */
-  pipe(
-    callback: (node: Node<Value>, ...params: any[]) => this,
-    ...params: any[]
-  ): this {
-    return callback(this.map(), ...params);
+  pipe(callback: (this, ...params: any[]) => any, ...params: any[]): this {
+    callback(this.map(), ...params);
+    return this;
   }
 }

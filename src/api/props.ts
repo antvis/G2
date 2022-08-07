@@ -1,7 +1,7 @@
 import { isObject, clone } from '@antv/util';
 
 export type NodePropertyDescriptor = {
-  type: 'object' | 'value' | 'array' | 'node';
+  type: 'object' | 'value' | 'array' | 'node' | 'container';
   name: string;
   ctor?: new (...args: any[]) => any;
 };
@@ -41,6 +41,11 @@ function defineNodeProp(Node, { name, ctor }: NodePropertyDescriptor) {
   };
 }
 
+function defineContainerProp(Node, { name, ctor }: NodePropertyDescriptor) {
+  Node.prototype[name] = function () {
+    this.type = null;
+  };
+}
 /**
  * A decorator to define different type of attribute setter or
  * getter for current node.
@@ -53,6 +58,7 @@ export function defineProps(descriptors: NodePropertyDescriptor[]) {
       else if (type === 'array') defineArrayProp(Node, descriptor);
       else if (type === 'object') defineObjectProp(Node, descriptor);
       else if (type === 'node') defineNodeProp(Node, descriptor);
+      else if (type === 'container') defineContainerProp(Node, descriptor);
     }
     return Node;
   };
