@@ -609,7 +609,7 @@ registerInteraction('legend-visible-filter', {
     { trigger: 'legend-item:mouseenter', action: 'cursor:pointer' },
     { trigger: 'legend-item:mouseleave', action: 'cursor:default' },
   ],
-  start: [{ trigger: 'legend-item:click', action: ['list-unchecked:toggle', 'element-filter:filter'] }],
+  start: [{ trigger: 'legend-item:click', action: ['legend-item-highlight:reset', 'element-highlight:reset', 'list-unchecked:toggle', 'element-filter:filter'] }],
 });
 
 // 出现背景框
