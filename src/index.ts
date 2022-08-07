@@ -576,7 +576,7 @@ registerInteraction('legend-filter', {
       isEnable: (context) => {
         return !context.isInShape('legend-item-radio');
       },
-      action: ['list-unchecked:toggle', 'data-filter:filter', 'list-radio:show'],
+      action: ['legend-item-highlight:reset', 'element-highlight:reset', 'list-unchecked:toggle', 'data-filter:filter', 'list-radio:show'],
     },
     //  正反选数据: 只有当 radio === truthy 的时候才会有 legend-item-radio 这个元素
     {
