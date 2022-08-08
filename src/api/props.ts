@@ -44,6 +44,7 @@ function defineNodeProp(Node, { name, ctor }: NodePropertyDescriptor) {
 function defineContainerProp(Node, { name, ctor }: NodePropertyDescriptor) {
   Node.prototype[name] = function () {
     this.type = null;
+    return this.append(ctor);
   };
 }
 /**
@@ -62,4 +63,24 @@ export function defineProps(descriptors: NodePropertyDescriptor[]) {
     }
     return Node;
   };
+}
+
+export function nodeProps(
+  node: Record<string, new (...args: any[]) => any>,
+): NodePropertyDescriptor[] {
+  return Object.entries(node).map(([name, ctor]) => ({
+    type: 'node',
+    name,
+    ctor,
+  }));
+}
+
+export function containerProps(
+  node: Record<string, new (...args: any[]) => any>,
+): NodePropertyDescriptor[] {
+  return Object.entries(node).map(([name, ctor]) => ({
+    type: 'container',
+    name,
+    ctor,
+  }));
 }

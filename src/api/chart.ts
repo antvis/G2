@@ -2,34 +2,20 @@ import { clone } from '@antv/util';
 import { render } from '../runtime';
 import { ViewComposition } from '../spec';
 import { Node } from './node';
-import { defineProps, NodePropertyDescriptor } from './props';
 import {
-  Area,
-  Interval,
-  Point,
-  Line,
-  Grid,
-  Vector,
-  Link,
-  Polygon,
-  Image,
-  Text,
-  Schema,
-  AnnotationText,
-  AnnotationBadge,
-  AnnotationLineX,
-  AnnotationLineY,
-  AnnotationRange,
-  AnnotationRangeX,
-  AnnotationRangeY,
-  AnnotationConnector,
-} from './mark';
+  defineProps,
+  NodePropertyDescriptor,
+  nodeProps,
+  containerProps,
+} from './props';
 import {
   ValueAttribute,
   Concrete,
   ArrayAttribute,
   ObjectAttribute,
 } from './types';
+import { mark, Mark } from './mark';
+import { composition, Composition } from './composition';
 
 function normalizeContainer(container: string | HTMLElement): HTMLElement {
   if (container === undefined) return document.createElement('div');
@@ -42,7 +28,7 @@ function normalizeContainer(container: string | HTMLElement): HTMLElement {
 
 function normalizeRoot(root: Node) {
   if (root.type !== null) return root;
-  return root.children[0];
+  return root.children[root.children.length - 1];
 }
 
 function valueOf(node: Node): Record<string, any> {
@@ -53,7 +39,8 @@ function valueOf(node: Node): Record<string, any> {
   };
 }
 
-export function optionsOf(root: Node): Record<string, any> {
+export function optionsOf(node: Node): Record<string, any> {
+  const root = normalizeRoot(node);
   const discovered: Node[] = [root];
   const nodeValue = new Map<Node, Record<string, any>>();
   nodeValue.set(root, valueOf(root));
@@ -78,7 +65,7 @@ export type ChartOptions = ViewComposition & {
 
 type ChartProps = Concrete<ViewComposition>;
 
-export interface Chart {
+export interface Chart extends Composition, Mark {
   render(): void;
   node(): HTMLElement;
   data: ValueAttribute<ChartProps['data'], Chart>;
@@ -86,25 +73,6 @@ export interface Chart {
   interaction: ArrayAttribute<ChartProps['interaction'], Chart>;
   title: ObjectAttribute<ChartProps['title'], Chart>;
   key: ValueAttribute<ChartProps['key'], Chart>;
-  interval(): Interval;
-  point(): Point;
-  area(): Area;
-  line(): Line;
-  grid(): Grid;
-  vector(): Vector;
-  link(): Link;
-  polygon(): Polygon;
-  image(): Image;
-  text(): Text;
-  schema(): Schema;
-  annotationText(): AnnotationText;
-  annotationBadge(): AnnotationBadge;
-  annotationLineX(): AnnotationLineX;
-  annotationLineY(): AnnotationLineY;
-  annotationRange(): AnnotationRange;
-  annotationRangeX(): AnnotationRangeX;
-  annotationRangeY(): AnnotationRangeY;
-  annotationConnector(): AnnotationConnector;
 }
 
 export const props: NodePropertyDescriptor[] = [
@@ -114,25 +82,8 @@ export const props: NodePropertyDescriptor[] = [
   { name: 'theme', type: 'object' },
   { name: 'title', type: 'object' },
   { name: 'key', type: 'value' },
-  { name: 'interval', type: 'node', ctor: Interval },
-  { name: 'point', type: 'node', ctor: Point },
-  { name: 'area', type: 'node', ctor: Area },
-  { name: 'line', type: 'node', ctor: Line },
-  { name: 'grid', type: 'node', ctor: Grid },
-  { name: 'vector', type: 'node', ctor: Vector },
-  { name: 'link', type: 'node', ctor: Link },
-  { name: 'polygon', type: 'node', ctor: Polygon },
-  { name: 'image', type: 'node', ctor: Image },
-  { name: 'text', type: 'node', ctor: Text },
-  { name: 'schema', type: 'node', ctor: Schema },
-  { name: 'annotationText', type: 'node', ctor: AnnotationText },
-  { name: 'annotationBadge', type: 'node', ctor: AnnotationBadge },
-  { name: 'annotationLineX', type: 'node', ctor: AnnotationLineX },
-  { name: 'annotationLineY', type: 'node', ctor: AnnotationLineY },
-  { name: 'annotationRange', type: 'node', ctor: AnnotationRange },
-  { name: 'annotationRangeX', type: 'node', ctor: AnnotationRangeX },
-  { name: 'annotationRangeY', type: 'node', ctor: AnnotationRangeY },
-  { name: 'annotationConnector', type: 'node', ctor: AnnotationConnector },
+  ...nodeProps(mark),
+  ...containerProps(composition),
 ];
 
 @defineProps(props)
@@ -146,8 +97,7 @@ export class Chart extends Node<ChartOptions> {
   }
 
   render() {
-    const root = normalizeRoot(this);
-    const node = render(optionsOf(root));
+    const node = render(optionsOf(this));
     this.container.append(node);
     return this;
   }

@@ -1,5 +1,4 @@
 import {
-  Geometry,
   IntervalGeometry,
   AreaGeometry,
   PointGeometry,
@@ -19,29 +18,11 @@ import {
   AnnotationRangeX as AnnotationRangeXSpec,
   AnnotationRangeY as AnnotationRangeYSpec,
   AnnotationConnector as AnnotationConnectorSpec,
-} from '../spec';
-import { NodePropertyDescriptor, defineProps } from './props';
-import {
-  ValueAttribute,
-  ObjectAttribute,
-  ArrayAttribute,
-  Concrete,
-} from './types';
-import { Node } from './node';
-
-export type API<Props extends Geometry, Mark> = {
-  data: ValueAttribute<Props['data'], Mark>;
-  encode: ObjectAttribute<Props['encode'], Mark>;
-  scale: ObjectAttribute<Props['scale'], Mark>;
-  transform: ArrayAttribute<Props['transform'], Mark>;
-  animate: ObjectAttribute<Props['animate'], Mark>;
-  key: ValueAttribute<Props['key'], Mark>;
-  class: ValueAttribute<Props['class'], Mark>;
-  style: ObjectAttribute<Props['style'], Mark>;
-  facet: ValueAttribute<Props['facet'], Mark>;
-  frame: ValueAttribute<Props['frame'], Mark>;
-  adjust: ObjectAttribute<Props['adjust'], Mark>;
-};
+} from '../../spec';
+import { NodePropertyDescriptor, defineProps } from '../props';
+import { Node } from '../node';
+import { Concrete } from '../types';
+import { API } from './types';
 
 export interface Interval extends API<Concrete<IntervalGeometry>, Interval> {
   type: 'interval';

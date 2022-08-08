@@ -62,14 +62,14 @@ describe('composition', () => {
     ]);
   });
 
-  it('Flex({...}) should split calc main size by flex', () => {
+  it('Flex({...}) should split calc main size by ratio', () => {
     const composition = Flex();
     const options = {
       type: 'flex',
       width: 400,
       height: 300,
       data: [1, 2, 3],
-      flex: [1, 2, 1],
+      ratio: [1, 2, 1],
       children: [{}, {}, {}],
     };
     expect(composition(options)).toEqual([

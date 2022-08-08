@@ -1,6 +1,15 @@
 import { Chart } from '../../../src';
 import { optionsOf } from '../../../src/api/chart';
 import {
+  View,
+  Keyframe,
+  Flex,
+  Rect,
+  Matrix,
+  Circle,
+} from '../../../src/api/composition';
+import { Layer } from '../../../src/api/composition/layer';
+import {
   Area,
   Grid,
   Image,
@@ -20,7 +29,7 @@ import {
   AnnotationRangeY,
   AnnotationText,
   AnnotationConnector,
-} from '../../../src/api/mark';
+} from '../../../src/api/mark/mark';
 import { createDiv } from '../../utils/dom';
 
 describe('Chart', () => {
@@ -86,12 +95,6 @@ describe('Chart', () => {
     expect(chart.data()).toEqual(data);
   });
 
-  it('chart.title() should specify title options', () => {
-    const chart = new Chart();
-    chart.title({ text: 'hello world' });
-    expect(optionsOf(chart).title).toEqual({ text: 'hello world' });
-  });
-
   it('chart.coordinate() should specify coordinate options', () => {
     const chart = new Chart();
     chart.coordinate({ type: 'polar' });
@@ -125,6 +128,52 @@ describe('Chart', () => {
     expect(chart.annotationRangeY()).toBeInstanceOf(AnnotationRangeY);
     expect(chart.annotationText()).toBeInstanceOf(AnnotationText);
     expect(chart.annotationConnector()).toBeInstanceOf(AnnotationConnector);
+    expect(optionsOf(chart).children).toEqual([
+      { type: 'interval' },
+      { type: 'point' },
+      { type: 'area' },
+      { type: 'line' },
+      { type: 'grid' },
+      { type: 'vector' },
+      { type: 'link' },
+      { type: 'polygon' },
+      { type: 'image' },
+      { type: 'text' },
+      { type: 'schema' },
+      { type: 'annotation.badge' },
+      { type: 'annotation.lineX' },
+      { type: 'annotation.lineY' },
+      { type: 'annotation.range' },
+      { type: 'annotation.rangeX' },
+      { type: 'annotation.rangeY' },
+      { type: 'annotation.text' },
+      { type: 'annotation.connector' },
+    ]);
+  });
+
+  it('chart.container() should use last node as root node', () => {
+    const chart = new Chart();
+    chart.view();
+    chart.layer();
+    expect(chart.layer()).toBeInstanceOf(Layer);
+  });
+
+  it('chart.container() should return expected container', () => {
+    const chart = new Chart();
+    expect(chart.view()).toBeInstanceOf(View);
+    expect(optionsOf(chart)).toEqual({ type: 'view' });
+    expect(chart.layer()).toBeInstanceOf(Layer);
+    expect(optionsOf(chart)).toEqual({ type: 'layer' });
+    expect(chart.flex()).toBeInstanceOf(Flex);
+    expect(optionsOf(chart)).toEqual({ type: 'flex' });
+    expect(chart.rect()).toBeInstanceOf(Rect);
+    expect(optionsOf(chart)).toEqual({ type: 'rect' });
+    expect(chart.matrix()).toBeInstanceOf(Matrix);
+    expect(optionsOf(chart)).toEqual({ type: 'matrix' });
+    expect(chart.circle()).toBeInstanceOf(Circle);
+    expect(optionsOf(chart)).toEqual({ type: 'circle' });
+    expect(chart.keyframe()).toBeInstanceOf(Keyframe);
+    expect(optionsOf(chart)).toEqual({ type: 'keyframe' });
   });
 
   it('chart.nodeName() should build view tree', () => {
@@ -143,6 +192,26 @@ describe('Chart', () => {
     expect(optionsOf(chart)).toEqual({
       type: 'view',
       children: [{ type: 'interval' }, { type: 'point' }],
+    });
+  });
+
+  it('chart.nodeName() should build nested view tree', () => {
+    const chart = new Chart();
+    chart
+      .flex()
+      .pipe((node) => node.interval())
+      .pipe((node) =>
+        node
+          .flex()
+          .pipe((node) => node.line())
+          .pipe((node) => node.point()),
+      );
+    expect(optionsOf(chart)).toEqual({
+      type: 'flex',
+      children: [
+        { type: 'interval' },
+        { type: 'flex', children: [{ type: 'line' }, { type: 'point' }] },
+      ],
     });
   });
 

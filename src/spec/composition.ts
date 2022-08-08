@@ -40,7 +40,6 @@ export type ViewComposition = {
 export type LayerComposition = {
   type?: 'layer';
   key?: string;
-  class?: string;
   data?: any;
   children?: Node[];
 };
@@ -48,10 +47,9 @@ export type LayerComposition = {
 export type FlexComposition = {
   type?: 'flex';
   key?: string;
-  class?: string;
   data?: any;
   direction?: 'col' | 'row';
-  flex?: number[];
+  ratio?: number[];
   padding?: number;
   children?: Node[];
 };
@@ -74,9 +72,9 @@ export type RectComposition = {
   paddingRight?: number;
   paddingTop?: number;
   paddingBottom?: number;
+  key?: string;
   type?: 'rect';
   title?: Title;
-  class?: string;
   encode?: {
     x?: string;
     y?: string;
@@ -92,9 +90,13 @@ export type RectComposition = {
 
 export type MatrixComposition = {
   type?: 'matrix';
+  paddingLeft?: number;
+  paddingRight?: number;
+  paddingTop?: number;
+  paddingBottom?: number;
   transform?: Transform;
+  title?: Title;
   data?: any;
-  class?: string;
   key?: string;
   encode?: {
     x?: string[];
@@ -110,9 +112,13 @@ export type MatrixComposition = {
 
 export type CircleComposition = {
   type?: 'matrix';
+  paddingLeft?: number;
+  paddingRight?: number;
+  paddingTop?: number;
+  paddingBottom?: number;
   transform?: Transform;
+  title?: Title;
   data?: any;
-  class?: string;
   key?: string;
   encode?: {
     position?: string;
@@ -127,7 +133,6 @@ export type CircleComposition = {
 export type KeyframeComposition = {
   type?: 'keyframe';
   duration?: number;
-  class?: string;
   key?: string;
   easing?: string;
   iterationCount?: 'infinite' | number;
