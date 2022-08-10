@@ -576,7 +576,7 @@ registerInteraction('legend-filter', {
       isEnable: (context) => {
         return !context.isInShape('legend-item-radio');
       },
-      action: ['list-unchecked:toggle', 'data-filter:filter', 'list-radio:show'],
+      action: ['legend-item-highlight:reset', 'element-highlight:reset', 'list-unchecked:toggle', 'data-filter:filter', 'list-radio:show'],
     },
     //  正反选数据: 只有当 radio === truthy 的时候才会有 legend-item-radio 这个元素
     {
@@ -609,7 +609,7 @@ registerInteraction('legend-visible-filter', {
     { trigger: 'legend-item:mouseenter', action: 'cursor:pointer' },
     { trigger: 'legend-item:mouseleave', action: 'cursor:default' },
   ],
-  start: [{ trigger: 'legend-item:click', action: ['list-unchecked:toggle', 'element-filter:filter'] }],
+  start: [{ trigger: 'legend-item:click', action: ['legend-item-highlight:reset', 'element-highlight:reset', 'list-unchecked:toggle', 'element-filter:filter'] }],
 });
 
 // 出现背景框
