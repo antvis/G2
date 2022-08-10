@@ -57,9 +57,9 @@ describe('Node', () => {
     expect(node.children[1]).toBe(n2);
   });
 
-  it('node.pipe(callback) should apply specified callback to a new cloned node.', () => {
+  it('node.call(callback) should apply specified callback to a new cloned node.', () => {
     const node = new Node({ a: 1 });
-    const n1 = node.pipe((node) => {
+    const n1 = node.call((node) => {
       node.attr('a', 2);
     });
     expect(node.value).toEqual({ a: 2 });
@@ -70,7 +70,7 @@ describe('Node', () => {
     const node = new Node({ a: 1 });
     const multiple = (node, t) => node.attr('a', node.attr('a') * t);
     expect(node.value).toEqual({ a: 1 });
-    const n1 = node.pipe(multiple, 2);
+    const n1 = node.call(multiple, 2);
     expect(n1.value).toEqual({ a: 2 });
   });
 });

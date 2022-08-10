@@ -295,7 +295,7 @@ function initializeState(
     library,
   );
 
-  const { key, adjust, frame, theme: partialTheme } = options;
+  const { key, frame, theme: partialTheme } = options;
   const theme = useTheme(inferTheme(partialTheme));
 
   // Infer components and compute layout.
@@ -322,6 +322,9 @@ function initializeState(
       // The total count of data (both show and hide)for this facet.
       // This is for unit visualization to sync data domain.
       dataDomain,
+      // @ts-ignore
+      // @todo Remove this when change adjust to transform.
+      adjust,
     } = mark;
     const { index, channels } = state;
 

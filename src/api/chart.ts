@@ -26,9 +26,16 @@ function normalizeContainer(container: string | HTMLElement): HTMLElement {
   return container;
 }
 
-function normalizeRoot(root: Node) {
-  if (root.type !== null) return root;
-  return root.children[root.children.length - 1];
+function normalizeRoot(node: Node) {
+  if (node.type !== null) return node;
+  const root = node.children[node.children.length - 1];
+  root.attr('width', node.attr('width'));
+  root.attr('height', node.attr('height'));
+  root.attr('paddingLeft', node.attr('paddingLeft'));
+  root.attr('paddingTop', node.attr('paddingTop'));
+  root.attr('paddingBottom', node.attr('paddingBottom'));
+  root.attr('paddingRight', node.attr('paddingRight'));
+  return root;
 }
 
 function valueOf(node: Node): Record<string, any> {
@@ -61,6 +68,8 @@ export function optionsOf(node: Node): Record<string, any> {
 
 export type ChartOptions = ViewComposition & {
   container?: string | HTMLElement;
+  width?: number;
+  height?: number;
 };
 
 type ChartProps = Concrete<ViewComposition>;
@@ -71,8 +80,9 @@ export interface Chart extends Composition, Mark {
   data: ValueAttribute<ChartProps['data'], Chart>;
   coordinate: ArrayAttribute<ChartProps['coordinate'], Chart>;
   interaction: ArrayAttribute<ChartProps['interaction'], Chart>;
-  title: ObjectAttribute<ChartProps['title'], Chart>;
   key: ValueAttribute<ChartProps['key'], Chart>;
+  transform: ArrayAttribute<ChartProps['transform'], Chart>;
+  theme: ObjectAttribute<ChartProps['theme'], Chart>;
 }
 
 export const props: NodePropertyDescriptor[] = [
@@ -82,6 +92,8 @@ export const props: NodePropertyDescriptor[] = [
   { name: 'theme', type: 'object' },
   { name: 'title', type: 'object' },
   { name: 'key', type: 'value' },
+  { name: 'transform', type: 'array' },
+  { name: 'theme', type: 'object' },
   ...nodeProps(mark),
   ...containerProps(composition),
 ];
@@ -100,6 +112,10 @@ export class Chart extends Node<ChartOptions> {
     const node = render(optionsOf(this));
     this.container.append(node);
     return this;
+  }
+
+  options() {
+    return optionsOf(this);
   }
 
   node() {

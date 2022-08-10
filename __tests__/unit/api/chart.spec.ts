@@ -1,5 +1,4 @@
 import { Chart } from '../../../src';
-import { optionsOf } from '../../../src/api/chart';
 import {
   View,
   Keyframe,
@@ -21,7 +20,6 @@ import {
   Vector,
   Text,
   Schema,
-  AnnotationBadge,
   AnnotationLineX,
   AnnotationLineY,
   AnnotationRange,
@@ -81,30 +79,25 @@ describe('Chart', () => {
     expect(chart.node()).toBe(container);
   });
 
-  it('chart.data(data) should specify data options', () => {
+  it('chart.[attr](...) should specify options by API', () => {
     const chart = new Chart();
-    const data = [1, 2, 3];
-    chart.data([1, 2, 3]);
-    expect(optionsOf(chart).data).toEqual(data);
-  });
+    chart
+      .data([1, 2, 3])
+      .key('composition')
+      .coordinate({ type: 'polar' })
+      .interaction({ type: 'brush' })
+      .transform({ type: 'stackY' })
+      .theme('defaultColor', 'red');
 
-  it('chart.data() should return current data', () => {
-    const chart = new Chart();
-    const data = [1, 2, 3];
-    chart.data([1, 2, 3]);
-    expect(chart.data()).toEqual(data);
-  });
-
-  it('chart.coordinate() should specify coordinate options', () => {
-    const chart = new Chart();
-    chart.coordinate({ type: 'polar' });
-    expect(optionsOf(chart).coordinate).toEqual([{ type: 'polar' }]);
-  });
-
-  it('chart.key() should specify key options', () => {
-    const chart = new Chart();
-    chart.key('a');
-    expect(optionsOf(chart).key).toBe('a');
+    expect(chart.options()).toEqual({
+      type: 'view',
+      data: [1, 2, 3],
+      key: 'composition',
+      coordinate: [{ type: 'polar' }],
+      interaction: [{ type: 'brush' }],
+      transform: [{ type: 'stackY' }],
+      theme: { defaultColor: 'red' },
+    });
   });
 
   it('chart.nodeName() should return expected node ', () => {
@@ -120,7 +113,6 @@ describe('Chart', () => {
     expect(chart.image()).toBeInstanceOf(Image);
     expect(chart.text()).toBeInstanceOf(Text);
     expect(chart.schema()).toBeInstanceOf(Schema);
-    expect(chart.annotationBadge()).toBeInstanceOf(AnnotationBadge);
     expect(chart.annotationLineX()).toBeInstanceOf(AnnotationLineX);
     expect(chart.annotationLineY()).toBeInstanceOf(AnnotationLineY);
     expect(chart.annotationRange()).toBeInstanceOf(AnnotationRange);
@@ -128,7 +120,7 @@ describe('Chart', () => {
     expect(chart.annotationRangeY()).toBeInstanceOf(AnnotationRangeY);
     expect(chart.annotationText()).toBeInstanceOf(AnnotationText);
     expect(chart.annotationConnector()).toBeInstanceOf(AnnotationConnector);
-    expect(optionsOf(chart).children).toEqual([
+    expect(chart.options().children).toEqual([
       { type: 'interval' },
       { type: 'point' },
       { type: 'area' },
@@ -140,7 +132,6 @@ describe('Chart', () => {
       { type: 'image' },
       { type: 'text' },
       { type: 'schema' },
-      { type: 'annotation.badge' },
       { type: 'annotation.lineX' },
       { type: 'annotation.lineY' },
       { type: 'annotation.range' },
@@ -158,38 +149,69 @@ describe('Chart', () => {
     expect(chart.layer()).toBeInstanceOf(Layer);
   });
 
+  it('chart.container() should set layout options for root node', () => {
+    const chart = new Chart({
+      width: 100,
+      height: 120,
+      paddingBottom: 10,
+      paddingRight: 20,
+      paddingLeft: 30,
+      paddingTop: 40,
+    });
+    chart.layer();
+    expect(chart.options()).toEqual({
+      type: 'layer',
+      width: 100,
+      height: 120,
+      paddingBottom: 10,
+      paddingRight: 20,
+      paddingLeft: 30,
+      paddingTop: 40,
+    });
+  });
+
   it('chart.container() should return expected container', () => {
     const chart = new Chart();
     expect(chart.view()).toBeInstanceOf(View);
-    expect(optionsOf(chart)).toEqual({ type: 'view' });
+    expect(chart.options()).toEqual({ type: 'view' });
     expect(chart.layer()).toBeInstanceOf(Layer);
-    expect(optionsOf(chart)).toEqual({ type: 'layer' });
+    expect(chart.options()).toEqual({ type: 'layer' });
     expect(chart.flex()).toBeInstanceOf(Flex);
-    expect(optionsOf(chart)).toEqual({ type: 'flex' });
+    expect(chart.options()).toEqual({ type: 'flex' });
     expect(chart.rect()).toBeInstanceOf(Rect);
-    expect(optionsOf(chart)).toEqual({ type: 'rect' });
+    expect(chart.options()).toEqual({ type: 'rect' });
     expect(chart.matrix()).toBeInstanceOf(Matrix);
-    expect(optionsOf(chart)).toEqual({ type: 'matrix' });
+    expect(chart.options()).toEqual({ type: 'matrix' });
     expect(chart.circle()).toBeInstanceOf(Circle);
-    expect(optionsOf(chart)).toEqual({ type: 'circle' });
+    expect(chart.options()).toEqual({ type: 'circle' });
     expect(chart.keyframe()).toBeInstanceOf(Keyframe);
-    expect(optionsOf(chart)).toEqual({ type: 'keyframe' });
+    expect(chart.options()).toEqual({ type: 'keyframe' });
+  });
+
+  it('chart.options() should return view tree', () => {
+    const chart = new Chart();
+    chart.interval();
+    chart.point();
+    expect(chart.options()).toEqual({
+      type: 'view',
+      children: [{ type: 'interval' }, { type: 'point' }],
+    });
   });
 
   it('chart.nodeName() should build view tree', () => {
     const chart = new Chart();
     chart.interval();
     chart.point();
-    expect(optionsOf(chart)).toEqual({
+    expect(chart.options()).toEqual({
       type: 'view',
       children: [{ type: 'interval' }, { type: 'point' }],
     });
   });
 
-  it('chart.pipe(chart => chart.nodeName()) should build view tree', () => {
+  it('chart.call(chart => chart.nodeName()) should build view tree', () => {
     const chart = new Chart();
-    chart.pipe((chart) => chart.interval()).pipe((chart) => chart.point());
-    expect(optionsOf(chart)).toEqual({
+    chart.call((chart) => chart.interval()).call((chart) => chart.point());
+    expect(chart.options()).toEqual({
       type: 'view',
       children: [{ type: 'interval' }, { type: 'point' }],
     });
@@ -199,14 +221,14 @@ describe('Chart', () => {
     const chart = new Chart();
     chart
       .flex()
-      .pipe((node) => node.interval())
-      .pipe((node) =>
+      .call((node) => node.interval())
+      .call((node) =>
         node
           .flex()
-          .pipe((node) => node.line())
-          .pipe((node) => node.point()),
+          .call((node) => node.line())
+          .call((node) => node.point()),
       );
-    expect(optionsOf(chart)).toEqual({
+    expect(chart.options()).toEqual({
       type: 'flex',
       children: [
         { type: 'interval' },

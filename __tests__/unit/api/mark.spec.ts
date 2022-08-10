@@ -11,7 +11,6 @@ import {
   Text,
   Schema,
   AnnotationText,
-  AnnotationBadge,
   AnnotationConnector,
   AnnotationLineX,
   AnnotationLineY,
@@ -28,11 +27,17 @@ function setOptions(node) {
     .transform({ type: 'stackY' })
     .style('stroke', 'black')
     .animate('enter', { type: 'scaleInX' })
-    .adjust('type', 'pack')
+    .adjust({ type: 'pack' })
     .facet(true)
     .frame(true)
     .key('mark')
-    .class('mark');
+    .class('mark')
+    .coordinate({ type: 'polar' })
+    .interaction({ type: 'brush' })
+    .paddingBottom(10)
+    .paddingLeft(20)
+    .paddingTop(30)
+    .paddingRight(40);
 }
 
 function getOptions() {
@@ -48,26 +53,16 @@ function getOptions() {
     facet: true,
     key: 'mark',
     class: 'mark',
+    coordinate: [{ type: 'polar' }],
+    interaction: [{ type: 'brush' }],
+    paddingBottom: 10,
+    paddingLeft: 20,
+    paddingTop: 30,
+    paddingRight: 40,
   };
 }
 
 describe('Mark', () => {
-  it('Mark should have expected props', () => {
-    expect(props).toEqual([
-      { name: 'encode', type: 'object' },
-      { name: 'scale', type: 'object' },
-      { name: 'data', type: 'value' },
-      { name: 'key', type: 'value' },
-      { name: 'class', type: 'value' },
-      { name: 'transform', type: 'array' },
-      { name: 'style', type: 'object' },
-      { name: 'animate', type: 'object' },
-      { name: 'adjust', type: 'object' },
-      { name: 'frame', type: 'value' },
-      { name: 'facet', type: 'value' },
-    ]);
-  });
-
   it('Interval() should specify options by API', () => {
     const node = new Interval();
     expect(node.type).toBe('interval');
@@ -131,12 +126,6 @@ describe('Mark', () => {
   it('AnnotationText() should specify options by API', () => {
     const node = new AnnotationText();
     expect(node.type).toBe('annotation.text');
-    expect(setOptions(node).value).toEqual(getOptions());
-  });
-
-  it('AnnotationBadge() should specify options by API', () => {
-    const node = new AnnotationBadge();
-    expect(node.type).toBe('annotation.badge');
     expect(setOptions(node).value).toEqual(getOptions());
   });
 

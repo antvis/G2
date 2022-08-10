@@ -11,7 +11,6 @@ import {
   SchemaGeometry,
   LineGeometry,
   AnnotationText as AnnotationTextSpec,
-  AnnotationBadge as AnnotationBadgeSpec,
   AnnotationLineX as AnnotationLineXSpec,
   AnnotationLineY as AnnotationLineYSpec,
   AnnotationRange as AnnotationRangeSpec,
@@ -73,11 +72,6 @@ export interface AnnotationText
   type: 'annotation.text';
 }
 
-export interface AnnotationBadge
-  extends API<Concrete<AnnotationBadgeSpec>, AnnotationBadge> {
-  type: 'annotation.badge';
-}
-
 export interface AnnotationLineX
   extends API<Concrete<AnnotationLineXSpec>, AnnotationLineX> {
   type: 'annotation.lineX';
@@ -117,9 +111,15 @@ export const props: NodePropertyDescriptor[] = [
   { name: 'transform', type: 'array' },
   { name: 'style', type: 'object' },
   { name: 'animate', type: 'object' },
-  { name: 'adjust', type: 'object' },
   { name: 'frame', type: 'value' },
   { name: 'facet', type: 'value' },
+  { name: 'adjust', type: 'value' },
+  { name: 'coordinate', type: 'array' },
+  { name: 'interaction', type: 'array' },
+  { name: 'paddingLeft', type: 'value' },
+  { name: 'paddingRight', type: 'value' },
+  { name: 'paddingBottom', type: 'value' },
+  { name: 'paddingTop', type: 'value' },
 ];
 
 @defineProps(props)
@@ -203,13 +203,6 @@ export class Schema extends Node<SchemaGeometry> {
 export class AnnotationText extends Node<AnnotationTextSpec> {
   constructor() {
     super({}, 'annotation.text');
-  }
-}
-
-@defineProps(props)
-export class AnnotationBadge extends Node<AnnotationBadgeSpec> {
-  constructor() {
-    super({}, 'annotation.badge');
   }
 }
 

@@ -72,6 +72,12 @@ export const inferColor = useDefaultAdaptor<G2ViewTree>(
       }
     }
 
+    // Set guide of color scale to null to avoid legend
+    // for mark scale.
+    // @todo Maybe make it optional?
+    const topLevelScaleColor = { ...scaleColor };
+    if (scaleColor) scaleColor.guide = null;
+
     const domainColor = () => {
       const domain = scale?.color?.domain;
       if (domain !== undefined) return domain;
@@ -84,7 +90,7 @@ export const inferColor = useDefaultAdaptor<G2ViewTree>(
         color: encodeColor,
       },
       scale: {
-        color: deepMix({}, scaleColor, {
+        color: deepMix({}, topLevelScaleColor, {
           domain: domainColor(),
           field: encodeColor,
           // @todo Remove this when pass columnOf to extract color.
@@ -162,7 +168,7 @@ export const setChildren = useOverrideAdaptor<G2ViewTree>(
     subLayout: SubLayout = subLayoutRect,
     createGuideX = createGuideXRect,
     createGuideY = createGuideYRect,
-    chidOptions = {},
+    childOptions = {},
   ) => {
     const {
       data,
@@ -251,7 +257,7 @@ export const setChildren = useOverrideAdaptor<G2ViewTree>(
               dataDomain: maxDataDomain,
               scale: deepMix(defaultScale, scale, newScale),
               ...rest,
-              ...chidOptions,
+              ...childOptions,
             };
           },
         );

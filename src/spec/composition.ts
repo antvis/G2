@@ -31,6 +31,7 @@ export type ViewComposition = {
   paddingBottom?: number;
   coordinate?: Coordinate[];
   interaction?: Interaction[];
+  transform?: Transform[];
   title?: Title;
   theme?: Theme;
   children?: MarkComposition[];

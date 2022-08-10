@@ -11,7 +11,6 @@ import {
   Text,
   Schema,
   AnnotationText,
-  AnnotationBadge,
   AnnotationLineX,
   AnnotationLineY,
   AnnotationRange,
@@ -33,7 +32,6 @@ export interface Mark {
   text(): Text;
   schema(): Schema;
   annotationText(): AnnotationText;
-  annotationBadge(): AnnotationBadge;
   annotationLineX(): AnnotationLineX;
   annotationLineY(): AnnotationLineY;
   annotationRange(): AnnotationRange;
@@ -55,7 +53,6 @@ export const mark = {
   text: Text,
   schema: Schema,
   annotationText: AnnotationText,
-  annotationBadge: AnnotationBadge,
   annotationLineX: AnnotationLineX,
   annotationLineY: AnnotationLineY,
   annotationRange: AnnotationRange,

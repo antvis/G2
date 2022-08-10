@@ -12,5 +12,11 @@ export type API<Props extends Geometry, Mark> = {
   style: ObjectAttribute<Props['style'], Mark>;
   facet: ValueAttribute<Props['facet'], Mark>;
   frame: ValueAttribute<Props['frame'], Mark>;
-  adjust: ObjectAttribute<Props['adjust'], Mark>;
+  adjust: ValueAttribute<Props['adjust'], Mark>;
+  coordinate: ArrayAttribute<Props['coordinate'], Mark>;
+  interaction: ArrayAttribute<Props['interaction'], Mark>;
+  paddingLeft: ValueAttribute<Props['paddingLeft'], Mark>;
+  paddingRight: ValueAttribute<Props['paddingRight'], Mark>;
+  paddingBottom: ValueAttribute<Props['paddingBottom'], Mark>;
+  paddingTop: ValueAttribute<Props['paddingTop'], Mark>;
 };
