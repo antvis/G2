@@ -3,30 +3,27 @@
 ## Basic Link
 
 ```js
-G2.render({
-  type: 'link',
-  transform: [
-    {
+(() => {
+  const chart = new G2.Chart();
+
+  chart
+    .link()
+    .transform({
       type: 'fetch',
       url: 'https://gw.alipayobjects.com/os/antfincdn/SM13%24lHuYH/metros.json',
-    },
-  ],
-  encode: {
-    x: ['POP_1980', 'POP_2015'],
-    y: ['R90_10_1980', 'R90_10_2015'],
-    color: (d) => d.R90_10_2015 - d.R90_10_1980,
-  },
-  scale: {
-    x: {
+    })
+    .encode('x', ['POP_1980', 'POP_2015'])
+    .encode('y', ['R90_10_1980', 'R90_10_2015'])
+    .encode('color', (d) => d.R90_10_2015 - d.R90_10_1980)
+    .scale('x', {
       type: 'log',
       guide: { formatter: (d) => `${d / 1000}k`, label: { autoHide: true } },
-    },
-    color: { guide: null },
-  },
-  style: {
-    arrow: { size: 6 },
-  },
-});
+    })
+    .scale('color', { guide: null })
+    .style('arrow', { size: 6 });
+
+  return chart.render().node();
+})();
 ```
 
 ## Graph Edge
@@ -66,51 +63,39 @@ G2.render({
   };
   const links = (d) => d.links;
   const nodes = (d) => d.nodes;
-  return G2.render({
-    type: 'view',
-    transform: [
-      {
-        type: 'fetch',
-        url: 'https://gw.alipayobjects.com/os/bmw-prod/233673d6-9c84-4ba2-98be-992fb1b34593.json',
-      },
-      { type: 'connector', callback: flatten },
-      { type: 'connector', callback: layout },
-    ],
-    children: [
-      {
-        type: 'link',
-        transform: [{ type: 'connector', callback: links }],
-        encode: {
-          x: (d) => d.source.x,
-          y: (d) => d.source.y,
-          x1: (d) => d.target.x,
-          y1: (d) => d.target.y,
-        },
-        scale: {
-          x: { guide: null },
-          y: { guide: null },
-        },
-        style: {
-          stroke: '#ddd',
-        },
-      },
-      {
-        type: 'point',
-        transform: [{ type: 'connector', callback: nodes }],
-        scale: {
-          tooltip: { field: '名字' },
-        },
-        encode: {
-          x: 'x',
-          y: 'y',
-          size: 10,
-          color: (d) => d.data.type,
-          title: (d) => d.data.type,
-          tooltip: (d) => d.data.name,
-        },
-      },
-    ],
+  const chart = new G2.Chart({
+    width: 640,
+    height: 640,
   });
+
+  chart
+    .transform({
+      type: 'fetch',
+      url: 'https://gw.alipayobjects.com/os/bmw-prod/233673d6-9c84-4ba2-98be-992fb1b34593.json',
+    })
+    .transform({ type: 'connector', callback: flatten })
+    .transform({ type: 'connector', callback: layout });
+
+  chart
+    .link()
+    .transform({ type: 'connector', callback: links })
+    .encode('x', [(d) => d.source.x, (d) => d.target.x])
+    .encode('y', [(d) => d.source.y, (d) => d.target.y])
+    .scale('x', { guide: null })
+    .scale('y', { guide: null })
+    .style('stroke', '#ddd');
+
+  chart
+    .point()
+    .transform({ type: 'connector', callback: nodes })
+    .encode('x', 'x')
+    .encode('y', 'y')
+    .encode('size', 10)
+    .encode('color', (d) => d.data.type)
+    .encode('title', (d) => d.data.type)
+    .encode('tooltip', (d) => d.data.name);
+
+  return chart.render().node();
 })();
 ```
 
