@@ -26,25 +26,19 @@
       value: Math.random(),
     })),
   );
-
-  return G2.render({
-    type: 'circle',
-    encode: {
-      position: 'month',
-    },
+  const chart = new G2.Chart({
     width: 480,
     height: 480,
-    data: mockData,
-    children: [
-      {
-        type: 'interval',
-        encode: {
-          x: 'name',
-          y: 'value',
-          color: 'name',
-        },
-      },
-    ],
   });
+
+  const circle = chart.circle().data(mockData).encode('position', 'month');
+
+  circle
+    .interval()
+    .encode('x', 'name')
+    .encode('y', 'value')
+    .encode('color', 'name');
+
+  return chart.render().node();
 })();
 ```

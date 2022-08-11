@@ -5,125 +5,120 @@
 **Bubble with fisheye.**
 
 ```js | dom
-G2.render({
-  type: 'point',
-  transform: [
-    {
+(() => {
+  const chart = new G2.Chart();
+
+  chart
+    .coordinate({ type: 'cartesian' })
+    .coordinate({ type: 'fisheye', focusX: 50, focusY: 50 })
+    .interaction({ type: 'fisheye' });
+
+  chart
+    .point()
+    .transform({
       type: 'fetch',
       url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
-    },
-  ],
-  scale: { size: { type: 'log', range: [4, 20] }, y: { field: 'Life' } },
-  encode: {
-    x: 'GDP',
-    y: 'LifeExpectancy',
-    size: 'Population',
-    color: 'continent',
-  },
-  style: {
-    fillOpacity: 0.3,
-    lineWidth: 1,
-  },
-  interaction: [{ type: 'fisheye' }],
-});
+    })
+    .encode('x', 'GDP')
+    .encode('y', 'LifeExpectancy')
+    .encode('size', 'Population')
+    .encode('size', 'Population')
+    .encode('color', 'continent')
+    .scale('size', { type: 'log', range: [4, 20] })
+    .scale('x', { guide: { label: { autoHide: true } } })
+    .style('fillOpacity', 0.3)
+    .style('lineWidth', 1);
+
+  return chart.render().node();
+})();
 ```
 
 **Interval with fisheye.**
 
-```js | dom
-G2.render({
-  type: 'interval',
-  data: [
-    { genre: 'Sports', sold: 275, type: 'A' },
-    { genre: 'Strategy', sold: 115, type: 'B' },
-    { genre: 'Action', sold: 120, type: 'C' },
-    { genre: 'Shooter', sold: 350, type: 'D' },
-    { genre: 'Other', sold: 150, type: 'E' },
-  ],
-  encode: {
-    x: 'genre',
-    y: 'sold',
-    color: 'genre',
-  },
-  interaction: [{ type: 'fisheye' }],
-});
+```js
+(() => {
+  const chart = new G2.Chart();
+
+  chart
+    .interval()
+    .data([
+      { genre: 'Sports', sold: 275 },
+      { genre: 'Strategy', sold: 115 },
+      { genre: 'Action', sold: 120 },
+      { genre: 'Shooter', sold: 350 },
+      { genre: 'Other', sold: 150 },
+    ])
+    .encode('x', 'genre')
+    .encode('y', 'sold')
+    .encode('color', 'genre');
+
+  chart.interaction({ type: 'fisheye' });
+
+  return chart.render().node();
+})();
 ```
 
 ## EllipsisText
 
 **Basic EllipsisText.**
 
-```js | dom
-G2.render({
-  type: 'area',
-  transform: [
-    {
+```js
+(() => {
+  const chart = new G2.Chart();
+
+  chart.interaction({ type: 'ellipsisText' });
+
+  chart
+    .area()
+    .transform({
       type: 'fetch',
       url: 'https://gw.alipayobjects.com/os/bmw-prod/e58c9758-0a09-4527-aa90-fbf175b45925.json',
-    },
-    { type: 'stackY' },
-    { type: 'normalizeY' },
-  ],
-  paddingTop: 72,
-  scale: {
-    x: { field: 'Date' },
-    color: {
-      guide: {
-        size: 72,
-        autoWrap: true,
-        maxRows: 3,
-        cols: 6,
-      },
-    },
-  },
-  encode: {
-    shape: 'smoothArea',
-    x: (d) => new Date(d.date),
-    y: 'unemployed',
-    color: 'industry',
-  },
-});
+    })
+    .transform({ type: 'stackY' })
+    .transform({ type: 'normalizeY' })
+    .encode('x', (d) => new Date(d.date))
+    .encode('y', 'unemployed')
+    .encode('color', 'industry')
+    .encode('shape', 'smoothArea')
+    .scale('x', { field: 'Date' })
+    .scale('color', {
+      guide: { size: 72, autoWrap: true, maxRows: 3, cols: 6 },
+    });
+
+  return chart.render().node();
+})();
 ```
 
 **EllipsisText with custom options.**
 
-```js | dom
-G2.render({
-  type: 'area',
-  transform: [
-    {
+```js
+(() => {
+  const chart = new G2.Chart();
+
+  chart.interaction({
+    type: 'ellipsisText',
+    x: 576,
+    y: 30,
+    htmlStyle: 'max-width:120px;overflow:hidden;',
+  });
+
+  chart
+    .area()
+    .transform({
       type: 'fetch',
       url: 'https://gw.alipayobjects.com/os/bmw-prod/e58c9758-0a09-4527-aa90-fbf175b45925.json',
-    },
-    { type: 'stackY' },
-    { type: 'normalizeY' },
-  ],
-  paddingTop: 72,
-  scale: {
-    x: { field: 'Date' },
-    color: {
-      guide: {
-        size: 72,
-        autoWrap: true,
-        maxRows: 3,
-        cols: 6,
-      },
-    },
-  },
-  width: 700,
-  interaction: [
-    {
-      type: 'ellipsisText',
-      x: 576,
-      y: 30,
-      htmlStyle: 'max-width:120px;overflow:hidden;',
-    },
-  ],
-  encode: {
-    shape: 'smoothArea',
-    x: (d) => new Date(d.date),
-    y: 'unemployed',
-    color: 'industry',
-  },
-});
+    })
+    .transform({ type: 'stackY' })
+    .transform({ type: 'normalizeY' })
+    .encode('x', (d) => new Date(d.date))
+    .encode('y', 'unemployed')
+    .encode('color', 'industry')
+    .encode('shape', 'smoothArea')
+    .scale('x', { field: 'Date' })
+    .scale('color', {
+      guide: { size: 72, autoWrap: true, maxRows: 3, cols: 6 },
+    });
+
+  return chart.render().node();
+})();
 ```

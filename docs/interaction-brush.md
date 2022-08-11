@@ -6,82 +6,90 @@ Brush Interaction supports config `brushType`, options are: `rect`(default), `re
 
 ### Basic Brush
 
-```js | dom
-G2.render({
-  type: 'point',
-  transform: [
-    {
+```js
+(() => {
+  const chart = new G2.Chart();
+
+  chart
+    .point()
+    .transform({
       type: 'fetch',
       url: 'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
-    },
-  ],
-  encode: {
-    x: 'height',
-    y: 'weight',
-    color: 'gender',
-  },
-  interaction: [{ type: 'brush' }],
-});
+    })
+    .encode('x', 'height')
+    .encode('y', 'weight')
+    .encode('color', 'gender');
+
+  chart.interaction({ type: 'brush' });
+
+  return chart.render().node();
+})();
 ```
 
 ### BrushX
 
-```js | dom
-G2.render({
-  type: 'point',
-  transform: [
-    {
+```js
+(() => {
+  const chart = new G2.Chart();
+
+  chart
+    .point()
+    .transform({
       type: 'fetch',
       url: 'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
-    },
-  ],
-  encode: {
-    x: 'height',
-    y: 'weight',
-    color: 'gender',
-  },
-  interaction: [{ type: 'brush', brushType: 'rectX' }],
-});
+    })
+    .encode('x', 'height')
+    .encode('y', 'weight')
+    .encode('color', 'gender');
+
+  chart.interaction({ type: 'brush', brushType: 'rectX' });
+
+  return chart.render().node();
+})();
 ```
 
 ### BrushY
 
-```js | dom
-G2.render({
-  type: 'point',
-  transform: [
-    {
+```js
+(() => {
+  const chart = new G2.Chart();
+
+  chart
+    .point()
+    .transform({
       type: 'fetch',
       url: 'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
-    },
-  ],
-  encode: {
-    x: 'height',
-    y: 'weight',
-    color: 'gender',
-  },
-  interaction: [{ type: 'brush', brushType: 'rectY' }],
-});
+    })
+    .encode('x', 'height')
+    .encode('y', 'weight')
+    .encode('color', 'gender');
+
+  chart.interaction({ type: 'brush', brushType: 'rectY' });
+
+  return chart.render().node();
+})();
 ```
 
 ### Polygon Brush
 
-```js | dom
-G2.render({
-  type: 'point',
-  transform: [
-    {
+```js
+(() => {
+  const chart = new G2.Chart();
+
+  chart
+    .point()
+    .transform({
       type: 'fetch',
       url: 'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
-    },
-  ],
-  encode: {
-    x: 'height',
-    y: 'weight',
-    color: 'gender',
-  },
-  interaction: [{ type: 'brush', brushType: 'polygon' }],
-});
+    })
+    .encode('x', 'height')
+    .encode('y', 'weight')
+    .encode('color', 'gender');
+
+  chart.interaction({ type: 'brush', brushType: 'polygon' });
+
+  return chart.render().node();
+})();
 ```
 
 ## BrushHighlight
@@ -95,82 +103,98 @@ Double click to cancel brush selections.
 
 ### Basic BrushHighlight
 
-```js | dom
-G2.render({
-  type: 'interval',
-  data: [
-    { genre: 'Sports', sold: 275, type: 'A' },
-    { genre: 'Strategy', sold: 115, type: 'B' },
-    { genre: 'Action', sold: 120, type: 'C' },
-    { genre: 'Shooter', sold: 350, type: 'D' },
-    { genre: 'Other', sold: 150, type: 'E' },
-  ],
-  encode: {
-    x: 'genre',
-    y: 'sold',
-  },
-  interaction: [{ type: 'brushHighlight' }],
-});
+```js
+(() => {
+  const chart = new G2.Chart();
+
+  chart
+    .interval()
+    .data([
+      { genre: 'Sports', sold: 275 },
+      { genre: 'Strategy', sold: 115 },
+      { genre: 'Action', sold: 120 },
+      { genre: 'Shooter', sold: 350 },
+      { genre: 'Other', sold: 150 },
+    ])
+    .encode('x', 'genre')
+    .encode('y', 'sold');
+
+  chart.interaction({ type: 'brushHighlight' });
+
+  return chart.render().node();
+})();
 ```
 
 ### BrushHighlightX
 
-```js | dom
-G2.render({
-  type: 'interval',
-  data: [
-    { genre: 'Sports', sold: 275, type: 'A' },
-    { genre: 'Strategy', sold: 115, type: 'B' },
-    { genre: 'Action', sold: 120, type: 'C' },
-    { genre: 'Shooter', sold: 350, type: 'D' },
-    { genre: 'Other', sold: 150, type: 'E' },
-  ],
-  encode: {
-    x: 'genre',
-    y: 'sold',
-  },
-  interaction: [{ type: 'brushHighlight', brushType: 'rectX' }],
-});
+```js
+(() => {
+  const chart = new G2.Chart();
+
+  chart
+    .interval()
+    .data([
+      { genre: 'Sports', sold: 275 },
+      { genre: 'Strategy', sold: 115 },
+      { genre: 'Action', sold: 120 },
+      { genre: 'Shooter', sold: 350 },
+      { genre: 'Other', sold: 150 },
+    ])
+    .encode('x', 'genre')
+    .encode('y', 'sold');
+
+  chart.interaction({ type: 'brushHighlight', brushType: 'rectX' });
+
+  return chart.render().node();
+})();
 ```
 
 ### BrushHighlightY
 
-```js | dom
-G2.render({
-  type: 'interval',
-  data: [
-    { genre: 'Sports', sold: 275, type: 'A' },
-    { genre: 'Strategy', sold: 115, type: 'B' },
-    { genre: 'Action', sold: 120, type: 'C' },
-    { genre: 'Shooter', sold: 350, type: 'D' },
-    { genre: 'Other', sold: 150, type: 'E' },
-  ],
-  encode: {
-    x: 'genre',
-    y: 'sold',
-  },
-  interaction: [{ type: 'brushHighlight', brushType: 'rectY' }],
-});
+```js
+(() => {
+  const chart = new G2.Chart();
+
+  chart
+    .interval()
+    .data([
+      { genre: 'Sports', sold: 275 },
+      { genre: 'Strategy', sold: 115 },
+      { genre: 'Action', sold: 120 },
+      { genre: 'Shooter', sold: 350 },
+      { genre: 'Other', sold: 150 },
+    ])
+    .encode('x', 'genre')
+    .encode('y', 'sold');
+
+  chart.interaction({ type: 'brushHighlight', brushType: 'rectY' });
+
+  return chart.render().node();
+})();
 ```
 
 ### Multiple BrushHighlight
 
-```js | dom
-G2.render({
-  type: 'interval',
-  data: [
-    { genre: 'Sports', sold: 275, type: 'A' },
-    { genre: 'Strategy', sold: 115, type: 'B' },
-    { genre: 'Action', sold: 120, type: 'C' },
-    { genre: 'Shooter', sold: 350, type: 'D' },
-    { genre: 'Other', sold: 150, type: 'E' },
-  ],
-  encode: {
-    x: 'genre',
-    y: 'sold',
-  },
-  interaction: [{ type: 'brushHighlight', multiple: true }],
-});
+```js
+(() => {
+  const chart = new G2.Chart();
+
+  chart
+    .interval()
+    .data([
+      { genre: 'Sports', sold: 275 },
+      { genre: 'Strategy', sold: 115 },
+      { genre: 'Action', sold: 120 },
+      { genre: 'Shooter', sold: 350 },
+      { genre: 'Other', sold: 150 },
+    ])
+    .encode('x', 'genre')
+    .encode('y', 'sold');
+
+  chart.interaction({ type: 'brushHighlight', multiple: true });
+
+  return chart.render().node();
+})();
 ```
 
 ## BrushVisible
