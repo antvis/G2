@@ -4,6 +4,10 @@ Matrix is part of G2's view composition. It generates multiple plots like _Rect_
 
 ## Position
 
+```js | table
+data = fetchJSON('https://vega.github.io/editor/data/penguins.json');
+```
+
 ```js
 (() => {
   const chart = new G2.Chart({
@@ -15,10 +19,7 @@ Matrix is part of G2's view composition. It generates multiple plots like _Rect_
 
   const matrix = chart
     .matrix()
-    .transform({
-      type: 'fetch',
-      url: 'https://vega.github.io/editor/data/penguins.json',
-    })
+    .data(data)
     .encode('position', [
       'Beak Length (mm)',
       'Beak Depth (mm)',
@@ -26,7 +27,11 @@ Matrix is part of G2's view composition. It generates multiple plots like _Rect_
       'Body Mass (g)',
     ]);
 
-  matrix.point().encode('color', 'Species').encode('shape', 'hollowPoint');
+  matrix
+    .point()
+    .encode('color', 'Species')
+    .encode('shape', 'hollowPoint')
+    .animate('enter', { type: null });
 
   return chart.render().node();
 })();

@@ -144,6 +144,7 @@ function inferScaleType(
   if ((domain || range || []).length > 2) return asOrdinalType(name);
   if (domain !== undefined) {
     if (isOrdinal(domain)) return asOrdinalType(name);
+    if (isTemporal(value)) return 'time';
     return 'linear';
   }
   if (isOrdinal(value)) return asOrdinalType(name);
