@@ -3,6 +3,7 @@ import { MarkComposition } from '../spec';
 
 export type MarkOptions = Omit<MarkComposition, 'type'>;
 
+// @todo Move this to runtime.
 export const Mark: CC<MarkOptions> = () => {
   return (options) => {
     const {
@@ -20,7 +21,6 @@ export const Mark: CC<MarkOptions> = () => {
       x,
       y,
       key,
-      adjust,
       frame,
       title,
       ...mark
@@ -41,7 +41,6 @@ export const Mark: CC<MarkOptions> = () => {
         coordinate,
         component,
         interaction,
-        adjust,
         frame,
         title,
         marks: [{ ...mark, key: `${key}-0`, data }],

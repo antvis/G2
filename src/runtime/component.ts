@@ -41,7 +41,7 @@ export function inferComponent(
   // so there is no need to show axis.
   const displayedScales = scales.filter(({ guide, name }) => {
     if (guide === null) return false;
-    if (adjust && isPosition(name)) return false;
+    if (isAdjust(partialOptions) && isPosition(name)) return false;
     return true;
   });
   const components = [...partialComponents];
@@ -106,6 +106,13 @@ export function renderComponent(
   const value = { field, domain, bbox };
   const render = useGuideComponent(options);
   return render(scale, value, coordinate, theme);
+}
+
+// @todo Remove this function when change adjust to transform.
+function isAdjust(options: G2View): boolean {
+  const { marks = [] } = options;
+  //@ts-ignore
+  return marks.some((mark) => typeof mark.adjust === 'object');
 }
 
 // @todo Render axis in polar with parallel coordinate.

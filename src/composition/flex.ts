@@ -13,7 +13,7 @@ export const Flex: CC<FlexOptions> = () => {
 
     const {
       direction = 'row',
-      flex = children.map(() => 1),
+      ratio = children.map(() => 1),
       padding = 0,
       data: flexData,
     } = options;
@@ -22,9 +22,9 @@ export const Flex: CC<FlexOptions> = () => {
         ? ['y', 'height', 'width', 'x']
         : ['x', 'width', 'height', 'y'];
 
-    const sum = flex.reduce((total, value) => total + value);
+    const sum = ratio.reduce((total, value) => total + value);
     const totalSize = options[mainSize] - padding * (children.length - 1);
-    const sizes = flex.map((value) => totalSize * (value / sum));
+    const sizes = ratio.map((value) => totalSize * (value / sum));
 
     const newChildren = [];
     let next = options[mainStart] || 0;

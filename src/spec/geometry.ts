@@ -138,7 +138,6 @@ export type AnnotationLineY = BaseGeometry<'annotation.lineY', ChannelTypes>;
 export type AnnotationRange = BaseGeometry<'annotation.range', ChannelTypes>;
 export type AnnotationRangeX = BaseGeometry<'annotation.rangeX', ChannelTypes>;
 export type AnnotationRangeY = BaseGeometry<'annotation.rangeY', ChannelTypes>;
-
 export type AnnotationConnector = BaseGeometry<
   'annotation.connector',
   ChannelTypes

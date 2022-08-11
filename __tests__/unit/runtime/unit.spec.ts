@@ -176,7 +176,7 @@ describe('adjust', () => {
     mount(createDiv(), chart);
   });
 
-  it('Pack() should pack points with specified x and y channel uniformly', () => {
+  it.only('Pack() should pack points with specified x and y channel uniformly', () => {
     const chart = render<G2Spec>({
       type: 'rect',
       transform: [
@@ -221,16 +221,23 @@ describe('adjust', () => {
               },
               children: [
                 {
-                  type: 'point',
-                  scale: {
-                    color: {
-                      guide: { formatter: (d) => (d === '1' ? 'Yes' : 'No') },
+                  type: 'view',
+                  children: [
+                    {
+                      type: 'point',
+                      scale: {
+                        color: {
+                          guide: {
+                            formatter: (d) => (d === '1' ? 'Yes' : 'No'),
+                          },
+                        },
+                      },
+                      encode: {
+                        color: 'survived',
+                      },
+                      adjust: { type: 'pack' },
                     },
-                  },
-                  encode: {
-                    color: 'survived',
-                  },
-                  adjust: { type: 'pack' },
+                  ],
                 },
               ],
             },
