@@ -44,7 +44,6 @@ export type GeometryTypes =
   | 'annotation.range'
   | 'annotation.rangeX'
   | 'annotation.rangeY'
-  | 'annotation.badge'
   | MarkComponent;
 
 export type ChannelTypes =

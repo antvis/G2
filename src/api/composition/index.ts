@@ -32,6 +32,7 @@ export { View, Layer, Flex, Rect, Circle, Matrix, Keyframe };
 /**
  * Define composition node api for composition node dynamically,
  * which can avoid circular dependency.
+ * @todo Remove view as composition.
  */
 for (const Ctor of Object.values(composition)) {
   defineProps(nodeProps(composition))(Ctor);
