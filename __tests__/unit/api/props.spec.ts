@@ -40,4 +40,14 @@ describe('defineProps', () => {
     expect(n.children[0]).toBe(n1);
     expect(n1).toBeInstanceOf(Node);
   });
+
+  it('definedProps([...]) should define container prop', () => {
+    const N = defineProps([{ type: 'container', ctor: Node, name: 'a' }])(Node);
+    const n = new N();
+    const n1 = n.a();
+    expect(n1.parentNode).toBe(n);
+    expect(n.children[0]).toBe(n1);
+    expect(n1).toBeInstanceOf(Node);
+    expect(n.type).toBeNull();
+  });
 });

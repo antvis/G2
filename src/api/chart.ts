@@ -2,9 +2,20 @@ import { clone } from '@antv/util';
 import { render } from '../runtime';
 import { ViewComposition } from '../spec';
 import { Node } from './node';
-import { defineProps, NodePropertyDescriptor } from './props';
-import { Interval } from './interval';
-import { ValueAttribute, Concrete } from './types';
+import {
+  defineProps,
+  NodePropertyDescriptor,
+  nodeProps,
+  containerProps,
+} from './props';
+import {
+  ValueAttribute,
+  Concrete,
+  ArrayAttribute,
+  ObjectAttribute,
+} from './types';
+import { mark, Mark } from './mark';
+import { composition, Composition } from './composition';
 
 function normalizeContainer(container: string | HTMLElement): HTMLElement {
   if (container === undefined) return document.createElement('div');
@@ -15,6 +26,18 @@ function normalizeContainer(container: string | HTMLElement): HTMLElement {
   return container;
 }
 
+function normalizeRoot(node: Node) {
+  if (node.type !== null) return node;
+  const root = node.children[node.children.length - 1];
+  root.attr('width', node.attr('width'));
+  root.attr('height', node.attr('height'));
+  root.attr('paddingLeft', node.attr('paddingLeft'));
+  root.attr('paddingTop', node.attr('paddingTop'));
+  root.attr('paddingBottom', node.attr('paddingBottom'));
+  root.attr('paddingRight', node.attr('paddingRight'));
+  return root;
+}
+
 function valueOf(node: Node): Record<string, any> {
   const value = clone(node.value);
   return {
@@ -23,7 +46,8 @@ function valueOf(node: Node): Record<string, any> {
   };
 }
 
-export function optionsOf(root: Node): Record<string, any> {
+export function optionsOf(node: Node): Record<string, any> {
+  const root = normalizeRoot(node);
   const discovered: Node[] = [root];
   const nodeValue = new Map<Node, Record<string, any>>();
   nodeValue.set(root, valueOf(root));
@@ -44,20 +68,34 @@ export function optionsOf(root: Node): Record<string, any> {
 
 export type ChartOptions = ViewComposition & {
   container?: string | HTMLElement;
+  width?: number;
+  height?: number;
 };
 
 type ChartProps = Concrete<ViewComposition>;
 
-export interface Chart {
+export interface Chart extends Composition, Mark {
   render(): void;
-  interval(): Interval;
   node(): HTMLElement;
   data: ValueAttribute<ChartProps['data'], Chart>;
+  coordinate: ArrayAttribute<ChartProps['coordinate'], Chart>;
+  interaction: ArrayAttribute<ChartProps['interaction'], Chart>;
+  key: ValueAttribute<ChartProps['key'], Chart>;
+  transform: ArrayAttribute<ChartProps['transform'], Chart>;
+  theme: ObjectAttribute<ChartProps['theme'], Chart>;
 }
 
 export const props: NodePropertyDescriptor[] = [
-  { name: 'interval', type: 'node', ctor: Interval },
   { name: 'data', type: 'value' },
+  { name: 'coordinate', type: 'array' },
+  { name: 'interaction', type: 'array' },
+  { name: 'theme', type: 'object' },
+  { name: 'title', type: 'object' },
+  { name: 'key', type: 'value' },
+  { name: 'transform', type: 'array' },
+  { name: 'theme', type: 'object' },
+  ...nodeProps(mark),
+  ...containerProps(composition),
 ];
 
 @defineProps(props)
@@ -74,6 +112,10 @@ export class Chart extends Node<ChartOptions> {
     const node = render(optionsOf(this));
     this.container.append(node);
     return this;
+  }
+
+  options() {
+    return optionsOf(this);
   }
 
   node() {
