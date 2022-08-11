@@ -1,8 +1,61 @@
-# Coordinate
+# Connector
 
-## Cartesian
+## Fetch
 
-Cartesian coordinate will append to coordinate if is not specified.
+**Fetch with `json` format.**
+
+```js
+(() => {
+  const chart = new G2.Chart();
+
+  chart
+    .interval()
+    .transform({
+      type: 'fetch',
+      url: 'https://gw.alipayobjects.com/os/bmw-prod/ce45e3d7-ba78-4a08-b411-28df40ef9b7f.json',
+    })
+    .encode('x', 'genre')
+    .encode('y', 'sold');
+
+  return chart.render().node();
+})();
+```
+
+**Fetch with `csv` format.**
+
+```js
+(() => {
+  const chart = new G2.Chart({
+    width: 760,
+    height: 760,
+    paddingLeft: 84,
+    paddingRight: 0,
+  });
+
+  chart
+    .grid()
+    .transform({
+      type: 'fetch',
+      url: 'https://gw.alipayobjects.com/os/bmw-prod/87092954-aed4-48b2-93ba-b07b255f04a2.csv',
+      format: 'csv',
+      callback: (d) => Object.assign(d, { weight: +d.weight }),
+    })
+    .encode('x', 'to')
+    .encode('y', 'from')
+    .encode('color', 'weight')
+    .scale('x', { guide: { label: { style: { fontSize: 10 } }, grid: {} } })
+    .scale('y', { guide: { label: { style: { fontSize: 10 } }, grid: {} } })
+    .scale('color', {
+      type: 'quantile',
+      range: ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'],
+      guide: null,
+    });
+
+  return chart.render().node();
+})();
+```
+
+## SortBy
 
 ```js
 (() => {
@@ -10,6 +63,7 @@ Cartesian coordinate will append to coordinate if is not specified.
 
   chart
     .interval()
+    .transform({ type: 'sortBy', fields: ['sold'] })
     .data([
       { genre: 'Sports', sold: 275 },
       { genre: 'Strategy', sold: 115 },
@@ -18,67 +72,13 @@ Cartesian coordinate will append to coordinate if is not specified.
       { genre: 'Other', sold: 150 },
     ])
     .encode('x', 'genre')
-    .encode('y', 'sold')
-    .encode('color', 'genre');
+    .encode('y', 'sold');
 
   return chart.render().node();
 })();
 ```
 
-## Polar
-
-```js
-(() => {
-  const chart = new G2.Chart();
-
-  chart.coordinate({ type: 'polar' });
-
-  chart
-    .interval()
-    .data([
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
-    ])
-    .encode('x', 'genre')
-    .encode('y', 'sold')
-    .encode('color', 'genre')
-    .scale('x', { padding: 0.05 })
-    .scale('y', { guide: null })
-    .style('radius', 10);
-
-  return chart.render().node();
-})();
-```
-
-## Transpose
-
-```js
-(() => {
-  const chart = new G2.Chart({ paddingLeft: 80 });
-
-  chart.coordinate({ type: 'transpose' });
-
-  chart
-    .interval()
-    .data([
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
-    ])
-    .encode('x', 'genre')
-    .encode('y', 'sold')
-    .encode('color', 'genre');
-
-  return chart.render().node();
-})();
-```
-
-## Parallel
+## FilterBy
 
 ```js
 (() => {
@@ -122,38 +122,6 @@ Cartesian coordinate will append to coordinate if is not specified.
     .scale('position3', { nice: true, guide: { zIndex: 1 } })
     .scale('position4', { nice: true, guide: { zIndex: 1 } })
     .scale('position5', { nice: true, guide: { zIndex: 1 } });
-
-  return chart.render().node();
-})();
-```
-
-## Fisheye
-
-Fisheye coordinate must be specified after cartesian coordinate.
-
-```js | dom
-(() => {
-  const chart = new G2.Chart();
-
-  chart
-    .coordinate({ type: 'cartesian' })
-    .coordinate({ type: 'fisheye', focusX: 50, focusY: 50 });
-
-  chart
-    .point()
-    .transform({
-      type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
-    })
-    .encode('x', 'GDP')
-    .encode('y', 'LifeExpectancy')
-    .encode('size', 'Population')
-    .encode('size', 'Population')
-    .encode('color', 'continent')
-    .scale('size', { type: 'log', range: [4, 20] })
-    .scale('x', { guide: { label: { autoHide: true } } })
-    .style('fillOpacity', 0.3)
-    .style('lineWidth', 1);
 
   return chart.render().node();
 })();

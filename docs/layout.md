@@ -8,6 +8,7 @@ The default width equals to 640px, default height equals to 480px.
 (() => {
   // Don't specify size.
   const chart = new G2.Chart();
+
   chart
     .interval()
     .data([
@@ -19,6 +20,7 @@ The default width equals to 640px, default height equals to 480px.
     ])
     .encode('x', 'genre')
     .encode('y', 'sold');
+
   return chart.render().node();
 })();
 ```
@@ -39,6 +41,7 @@ height = 300;
     width, // Specify width.
     height, // SPecify height.
   });
+
   chart
     .interval()
     .data([
@@ -50,6 +53,7 @@ height = 300;
     ])
     .encode('x', 'genre')
     .encode('y', 'sold');
+
   return chart.render().node();
 })();
 ```
@@ -82,6 +86,7 @@ paddingTop = 80;
     paddingBottom, // Specify paddingBottom.
     paddingLeft, // Specify paddingLeft.
   });
+
   chart
     .interval()
     .data([
@@ -93,6 +98,7 @@ paddingTop = 80;
     ])
     .encode('x', 'genre')
     .encode('y', 'sold');
+
   return chart.render().node();
 })();
 ```

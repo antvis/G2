@@ -1,117 +1,100 @@
-# Facet
+# Rect
 
-## Row Facet
+## Row Rect
 
-> Add insert options for plot area to avoid outside circle for scatter?
+```js
+(() => {
+  const chart = new G2.Chart({
+    width: 928,
+    height: 240,
+    paddingLeft: 50,
+    paddingBottom: 50,
+  });
 
-```js | dom
-G2.render({
-  transform: [
-    {
+  const rect = chart
+    .rect()
+    .transform({
       type: 'fetch',
       url: 'https://gw.alipayobjects.com/os/bmw-prod/a0f96c54-d1fa-46c8-b6ef-548e2f700a6d.json',
-    },
-  ],
-  type: 'rect',
-  width: 928,
-  height: 240,
-  paddingLeft: 50,
-  paddingBottom: 50,
-  encode: {
-    x: 'series',
-  },
-  children: [
-    {
-      type: 'point',
-      encode: {
-        x: 'x',
-        y: 'y',
-        shape: 'hollowPoint',
-      },
-    },
-  ],
-});
+    })
+    .encode('x', 'series');
+
+  rect.point().encode('x', 'x').encode('y', 'y').encode('shape', 'hollowPoint');
+
+  return chart.render().node();
+})();
 ```
 
-## Col Facet
+## Col Rect
 
-```js | dom
-G2.render({
-  transform: [
-    {
+```js
+(() => {
+  const chart = new G2.Chart({
+    height: 800,
+    paddingLeft: 130,
+    paddingRight: 120,
+    paddingBottom: 60,
+  });
+
+  const rect = chart
+    .rect()
+    .transform({
       type: 'fetch',
       url: 'https://gw.alipayobjects.com/os/bmw-prod/90ec29b1-c939-434e-8bbb-ce5fa27c62a7.json',
-    },
-  ],
-  type: 'rect',
-  height: 800,
-  encode: {
-    y: 'site',
-  },
-  paddingLeft: 130,
-  paddingRight: 120,
-  paddingBottom: 60,
-  children: [
-    {
-      type: 'point',
-      scale: {
-        color: { type: 'ordinal' },
-      },
-      encode: {
-        x: 'yield',
-        y: 'variety',
-        color: 'year',
-        shape: 'hollowPoint',
-      },
-    },
-  ],
-});
+    })
+    .encode('y', 'site');
+
+  rect
+    .point()
+    .encode('x', 'yield')
+    .encode('y', 'variety')
+    .encode('color', 'year')
+    .encode('shape', 'hollowPoint')
+    .scale('color', { type: 'ordinal' });
+
+  return chart.render().node();
+})();
 ```
 
-## Rect Facet
+## Both Rect
 
-```js | dom
-G2.render({
-  transform: [
-    {
+```js
+(() => {
+  const chart = new G2.Chart({
+    paddingRight: 80,
+    paddingBottom: 50,
+    paddingLeft: 50,
+    height: 600,
+  });
+  const xy = (node) => {
+    node.encode('x', 'culmen_depth_mm').encode('y', 'culmen_length_mm');
+  };
+
+  const rect = chart
+    .rect()
+    .transform({
       type: 'fetch',
       url: 'https://gw.alipayobjects.com/os/bmw-prod/3346929c-d7f4-4a81-8edc-c4c6d028ab96.json',
-    },
-  ],
-  type: 'rect',
-  paddingRight: 80,
-  paddingBottom: 50,
-  paddingLeft: 50,
-  height: 600,
-  encode: {
-    x: 'sex',
-    y: 'species',
-  },
-  children: [
-    {
-      type: 'point',
-      facet: false, // Do not filter data.
-      frame: false, // Do not draw frame for this view.
-      encode: {
-        x: 'culmen_depth_mm',
-        y: 'culmen_length_mm',
-        size: 2,
-      },
-      style: {
-        fill: '#ddd',
-      },
-    },
-    {
-      type: 'point',
-      encode: {
-        x: 'culmen_depth_mm',
-        y: 'culmen_length_mm',
-        shape: 'hollowPoint',
-        color: 'island',
-      },
-    },
-  ],
-});
+    })
+    .encode('x', 'sex')
+    .encode('y', 'species');
+
+  rect
+    .point()
+    .facet(false)
+    .frame(false)
+    .call(xy)
+    .encode('size', 2)
+    .style('fill', '#ddd');
+
+  rect
+    .point()
+    .call(xy)
+    .encode('shape', 'hollowPoint')
+    .encode('color', 'island');
+
+  return chart.render().node();
+})();
 ```
 
 ## Calendar Interval
@@ -139,26 +122,22 @@ G2.render({
       }));
     }).flat(Infinity);
   };
+  const chart = new G2.Chart();
 
-  // Render Chart.
-  return G2.render({
-    type: 'rect',
-    data: mockData(),
-    encode: { x: 'day', y: 'week' },
-    scale: {
-      x: { domain: days },
-    },
-    children: [
-      {
-        type: 'interval',
-        encode: {
-          x: 'activity',
-          y: 'value',
-          color: 'activity',
-        },
-      },
-    ],
-  });
+  const rect = chart
+    .rect()
+    .data(mockData())
+    .encode('x', 'day')
+    .encode('y', 'week')
+    .scale('x', { domain: days });
+
+  rect
+    .interval()
+    .encode('x', 'activity')
+    .encode('y', 'value')
+    .encode('color', 'activity');
+
+  return chart.render().node();
 })();
 ```
 
@@ -187,43 +166,34 @@ G2.render({
       }));
     }).flat(Infinity);
   };
-
-  // Render Chart.
-  return G2.render({
-    type: 'rect',
-    data: mockData(),
-    encode: { x: 'day', y: 'week' },
-    scale: {
-      x: { domain: days },
-      color: { guide: { position: 'right', size: 50 } },
-    },
+  const chart = new G2.Chart({
     paddingRight: 100,
-    title: 'The distribution of time for June 2022',
-    children: [
-      {
-        type: 'interval',
-        coordinate: [
-          { type: 'transpose' },
-          { type: 'polar', outerRadius: 0.9 },
-        ],
-        scale: {
-          // Do not sync y scales among facets.
-          y: { facet: false },
-        },
-        encode: {
-          y: 'value',
-          color: 'activity',
-        },
-      },
-    ],
   });
+
+  const rect = chart
+    .rect()
+    .data(mockData())
+    .encode('x', 'day')
+    .encode('y', 'week')
+    .scale('x', { domain: days })
+    .scale('color', { guide: { position: 'right', size: 50 } });
+
+  rect
+    .view()
+    .coordinate({ type: 'transpose' })
+    .coordinate({ type: 'polar', outerRadius: 0.9 })
+    .interval()
+    .encode('y', 'value')
+    .encode('color', 'activity')
+    .scale('y', { facet: false });
+
+  return chart.render().node();
 })();
 ```
 
-## Facet Callback
+<!-- ## Facet Callback -->
 
-```js | dom
-G2.render({
+<!-- G2.render({
   transform: [
     {
       type: 'fetch',
@@ -260,5 +230,4 @@ G2.render({
           },
         };
   },
-});
-```
+}); -->

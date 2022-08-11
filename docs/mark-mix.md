@@ -4,9 +4,9 @@
 
 ```js
 (() => {
-  const view = new G2.Chart();
+  const chart = new G2.Chart();
 
-  view.data([
+  chart.data([
     { genre: 'Sports', sold: 275 },
     { genre: 'Strategy', sold: 115 },
     { genre: 'Action', sold: 120 },
@@ -14,13 +14,13 @@
     { genre: 'Other', sold: 150 },
   ]);
 
-  view
+  chart
     .interval()
     .encode('x', 'genre')
     .encode('y', 'sold')
     .encode('color', 'genre');
 
-  view
+  chart
     .text()
     .encode('x', 'genre')
     .encode('y', 'sold')
@@ -29,7 +29,7 @@
     .style('textAlign', 'center')
     .style('dy', -5);
 
-  return view.render().node();
+  return chart.render().node();
 })();
 ```
 
@@ -37,7 +37,7 @@
 
 ```js
 (() => {
-  const view = new G2.Chart();
+  const chart = new G2.Chart();
   const xycolor = (node) => {
     node
       .encode('x', 'month')
@@ -45,7 +45,7 @@
       .encode('color', 'city');
   };
 
-  view.data([
+  chart.data([
     { month: 'Jan', city: 'Tokyo', temperature: 7 },
     { month: 'Jan', city: 'London', temperature: 3.9 },
     { month: 'Feb', city: 'Tokyo', temperature: 6.9 },
@@ -72,10 +72,10 @@
     { month: 'Dec', city: 'London', temperature: 4.8 },
   ]);
 
-  view.line().call(xycolor);
-  view.point().call(xycolor);
+  chart.line().call(xycolor);
+  chart.point().call(xycolor);
 
-  return view.render().node();
+  return chart.render().node();
 })();
 ```
 
@@ -83,9 +83,9 @@
 
 ```js
 (() => {
-  const view = new G2.Chart();
+  const chart = new G2.Chart();
 
-  view.data([
+  chart.data([
     { year: '1991', value: 3, count: 10 },
     { year: '1992', value: 4, count: 4 },
     { year: '1993', value: 3.5, count: 5 },
@@ -97,13 +97,13 @@
     { year: '1999', value: 13, count: 20 },
   ]);
 
-  view
+  chart
     .line()
     .encode('x', 'year')
     .encode('y', 'value')
     .encode('color', () => 'value');
 
-  view
+  chart
     .line()
     .encode('x', 'year')
     .encode('y', 'count')
@@ -113,7 +113,7 @@
       guide: { grid: null },
     });
 
-  return view.render().node();
+  return chart.render().node();
 })();
 ```
 
@@ -121,9 +121,9 @@
 
 ```js
 (() => {
-  const view = new G2.Chart();
+  const chart = new G2.Chart();
 
-  view.data([
+  chart.data([
     { time: '2019-03', value: 350, count: 800 },
     { time: '2019-04', value: 900, count: 600 },
     { time: '2019-05', value: 300, count: 400 },
@@ -131,7 +131,7 @@
     { time: '2019-07', value: 470, count: 220 },
   ]);
 
-  view
+  chart
     .interval()
     .encode('x', 'time')
     .encode('y', 'value')
@@ -142,7 +142,7 @@
       range: ['#5B8FF9', '#5AD8A6'],
     });
 
-  view
+  chart
     .line()
     .encode('x', 'time')
     .encode('y', 'count')
@@ -156,7 +156,7 @@
       guide: null,
     });
 
-  return view.render().node();
+  return chart.render().node();
 })();
 ```
 
@@ -164,9 +164,9 @@
 
 ```js
 (() => {
-  const view = new G2.Chart();
+  const chart = new G2.Chart();
 
-  view.data([
+  chart.data([
     { year: '1991', value: 3, count: 10 },
     { year: '1992', value: 4, count: 4 },
     { year: '1993', value: 3.5, count: 5 },
@@ -178,7 +178,7 @@
     { year: '1999', value: 13, count: 20 },
   ]);
 
-  view
+  chart
     .interval()
     .encode('x', 'year')
     .encode('y', 'value')
@@ -193,7 +193,7 @@
       domain: ['value', 'count'],
     });
 
-  view
+  chart
     .interval()
     .encode('x', 'year')
     .encode('y', 'count')
@@ -204,6 +204,6 @@
       guide: { position: 'right', grid: null },
     });
 
-  return view.render().node();
+  return chart.render().node();
 })();
 ```
