@@ -23,7 +23,8 @@ It also support _padding_ option to specify padding of space.
     .encode('x', 'clarity')
     .encode('color', 'clarity')
     .scale('x', { padding: 0.5 })
-    .scale('y', { guide: null });
+    .scale('y', { guide: null })
+    .animate('enter', { type: null });
 
   return chart.render().node();
 })();
