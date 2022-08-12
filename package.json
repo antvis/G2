@@ -1,6 +1,6 @@
 {
   "name": "@antv/g2",
-  "version": "5.0.0",
+  "version": "5.0.0-alpha.0",
   "description": "the Grammar of Graphics in Javascript",
   "license": "MIT",
   "main": "lib/index.js",
