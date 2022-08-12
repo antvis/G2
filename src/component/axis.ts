@@ -311,6 +311,7 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
       tickLine = true,
     } = inferPosition(position, bbox, coordinate);
     const ticks = getTicks(scale, domain, formatter, position, coordinate);
+    const anchor = scale.getTicks ? titlePosition : 'center';
 
     const guideOptions = scale.getOptions().guide || {};
     // Display axis grid for non-discrete values.
@@ -351,8 +352,13 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
             title && {
               title: {
                 content: Array.isArray(field) ? field[0] : field,
-                titleAnchor: scale.getTicks ? titlePosition : 'center',
-                style: { fontWeight: 'bold', fillOpacity: 1, dy: titleOffsetY },
+                titleAnchor: anchor,
+                style: {
+                  fontWeight: 'bold',
+                  fillOpacity: 1,
+                  dy: titleOffsetY,
+                  textAnchor: anchor,
+                },
                 titlePadding,
                 rotate: titleRotate,
               },

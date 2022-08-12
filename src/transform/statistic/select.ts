@@ -9,7 +9,7 @@ export type SelectOptions = Omit<SelectTransform, 'type'>;
 type SelectorFunction = (I: number[], V: number[]) => number[];
 
 function first(I: number[], V: number[]): number[] {
-  return [0];
+  return [I[0]];
 }
 
 function last(I: number[], V: number[]): number[] {

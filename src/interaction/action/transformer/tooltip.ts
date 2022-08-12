@@ -241,12 +241,13 @@ function getMarkerPoint(datum: any, scale, coordinate): [number, number] {
   const Y = valuesByDim(datum, 'y');
 
   const { x: scaleX } = scale;
-  const sumX = X.reduce(
-    (r, x) => r + x + (scaleX.getBandWidth?.(scaleX.invert(x)) || 0) / 2,
-    0,
-  );
+  const sumX = X.reduce((r, x) => r + x + bandWidth(scaleX, x) / 2, 0);
 
   return coordinate.map([sumX / X.length, Math.min.apply(null, Y)]);
+}
+
+function bandWidth(scale, x): number {
+  return scale?.getBandWidth?.(scale.invert(x)) || 0;
 }
 
 /**
@@ -299,9 +300,7 @@ function getTooltipData(
   const invertCoordX = coordinate.invert([pointX, pointY])[0];
   const closestPoint = least(
     data,
-    ({ datum: { x } }) =>
-      (x + (scaleX.getBandWidth?.(scaleX.invert(x)) || 0) / 2 - invertCoordX) **
-      2,
+    ({ datum: { x } }) => (x + bandWidth(scaleX, x) / 2 - invertCoordX) ** 2,
   );
 
   if (!closestPoint) return null;
@@ -345,6 +344,7 @@ export type TooltipOptions = Omit<TooltipAction, 'type'>;
 
 /**
  * @todo Using the color(fill or stroke) attribute of each
+ * @todo Add tooltip for parallel coordinate
  * shape as the item.
  */
 export const Tooltip: AC<TooltipOptions> = (options) => {
