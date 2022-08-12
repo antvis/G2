@@ -66,7 +66,8 @@ class BadgeShape extends CustomElement<BadgeShapeStyleProps> {
   }
 
   private drawMarker() {
-    const { size = 24, ...style } = this.attributes;
+    // Do not pass className to children.
+    const { class: className, size = 24, ...style } = this.attributes;
     const symbol = () => getPath(size / 2);
 
     this.badgeMarker = this.badgeMarker || this.appendChild(new Marker({}));

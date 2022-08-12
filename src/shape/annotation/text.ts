@@ -86,6 +86,8 @@ class TextShape extends CustomElement<TextShapeStyleProps> {
 
   private drawText() {
     const {
+      // Do not pass className.
+      class: className,
       connector,
       startMarker,
       endMarker,
