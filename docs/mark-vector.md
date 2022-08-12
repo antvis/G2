@@ -21,7 +21,8 @@
     .encode('size', ({ u, v }) => Math.hypot(v, u))
     .encode('color', ({ u, v }) => Math.hypot(v, u))
     .scale('color', { guide: null })
-    .scale('size', { range: [6, 20] });
+    .scale('size', { range: [6, 20] })
+    .animate('enter', { type: null });
 
   return chart.render().node();
 })();

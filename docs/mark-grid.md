@@ -24,7 +24,8 @@
     .encode('y', 'y')
     .encode('color', (d) => `${d.index}`)
     .style('stroke', 'black')
-    .style('lineWidth', 1);
+    .style('lineWidth', 1)
+    .animate('enter', { type: null });
 
   return chart.render().node();
 })();
@@ -157,7 +158,8 @@
       range: ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'],
       guide: null,
     })
-    .frame(false);
+    .frame(false)
+    .animate('enter', { type: null });
 
   return chart.render().node();
 })();

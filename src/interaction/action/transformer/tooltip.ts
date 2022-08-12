@@ -209,6 +209,16 @@ function createTooltipComponent(
         bounding,
         position: 'bottom-right',
         offset: [10, 10],
+        style: {
+          '.tooltip': {
+            'max-width': '170px',
+          },
+          '.tooltip-title': {
+            overflow: 'hidden',
+            'white-space': 'nowrap',
+            'text-overflow': 'ellipsis',
+          },
+        },
       },
     });
     transientLayer.append(() => tooltip);
@@ -374,7 +384,7 @@ export const Tooltip: AC<TooltipOptions> = (options) => {
         y: mouseY,
         title,
         position: 'bottom-right',
-        offset: [10, 10],
+        offset: [14, 10],
         items,
       });
       tooltipComponent.show();

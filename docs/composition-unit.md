@@ -25,7 +25,8 @@
     .encode('color', 'survived')
     .scale('color', {
       guide: { formatter: (d) => (d === '1' ? 'Yes' : 'No') },
-    });
+    })
+    .animate('enter', { type: null });
 
   return chart.render().node();
 })();

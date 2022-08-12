@@ -26,22 +26,23 @@ export const Poptip: AC<PoptipOptions> = (options = {}) => {
     if (options.x !== undefined) x = options.x - x1;
     if (options.y !== undefined) y = options.y - y1;
 
-    maybeAppend(
-      transientLayer.node(),
-      '.tip-popover',
-      () =>
-        new HTML({
-          className: 'tip-popover',
-          style: {
-            innerHTML: getInnerHTML('', htmlStyle),
-            visibility: 'hidden',
-          },
-        }),
-    )
-      .style('x', x)
-      .style('y', y)
-      .style('innerHTML', getInnerHTML(content, htmlStyle))
-      .style('visibility', content ? 'visible' : 'hidden');
+    const container = transientLayer.node();
+    if (content) {
+      maybeAppend(
+        container,
+        '.tip-popover',
+        () =>
+          new HTML({
+            className: 'tip-popover',
+            style: { innerHTML: getInnerHTML('', htmlStyle) },
+          }),
+      )
+        .style('x', x)
+        .style('y', y)
+        .style('innerHTML', getInnerHTML(content, htmlStyle));
+    } else {
+      container.querySelector('.tip-popover')?.remove();
+    }
 
     return context;
   };
