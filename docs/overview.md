@@ -273,7 +273,7 @@ genji.preview([
       'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*MvwSQIvD45oAAAAAAAAAAAAAARQnAQ',
   },
   {
-    title: 'Both Rect',
+    title: 'Rect - Both',
     path: '/composition-rect#both-rect',
     thumbnail:
       'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*XVs2S6jRUZMAAAAAAAAAAAAAARQnAQ',
