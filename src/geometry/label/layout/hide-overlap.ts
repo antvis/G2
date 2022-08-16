@@ -31,7 +31,7 @@ const layout = (items: Item[]): Item[] => {
     }
   }
   return boxes;
-}
+};
 
 const cache: Map<string, any> = new Map();
 const worker = createWorker(layoutCode);
@@ -41,45 +41,43 @@ const worker = createWorker(layoutCode);
  * 不同于 'overlap' 类型的布局，该布局不会对 label 的位置进行偏移调整。
  * @param labels 参与布局调整的 label 数组集合
  */
-export function hideOverlap(labelItems: LabelItem[], labels: IGroup[], shapes: IShape[] | IGroup[], region: BBox) {
-  // todo 添加 label rank
-  return new Promise((resolve) => {
-    const boxes = labels.map((d, idx) => ({
-      ...getLabelBackgroundInfo(d, labelItems[idx], get(labelItems[idx], 'background.padding')),
-      visible: true,
-    }));
-    const memoKey = JSON.stringify(boxes);
-    const cb = (items: Item[]) => {
-      cache.set(memoKey, items);
-      each(items, ({ visible }, idx) => {
-        const labelShape = labels[idx];
-        if (visible) {
-          labelShape?.show()
-        } else {
-          labelShape?.hide();
-        }
-      });
-      return resolve(items);
-    }
-    if (cache.get(memoKey)) {
-      cb(cache.get(memoKey))
-    } else if (worker) {
-      // Do layout in worker.
-      try {
-        worker.postMessage(JSON.stringify({ type: 'hide-overlap', items: boxes }));
-        worker.onmessage = (e) => cb(Array.isArray(e.data) ? e.data : []);
-        worker.onmessageerror = (e) => {
-          console.warn('[AntV G2] Web worker is not available');
-          // Normal layout in main thread.
-          cb(layout(boxes));
-        };
-      } catch (e) {
-        console.error(e);
-        cb(layout(boxes));
+export async function hideOverlap(
+  labelItems: LabelItem[],
+  labels: IGroup[],
+  shapes: IShape[] | IGroup[],
+  region: BBox
+) {
+  const boxes = labels.map((d, idx) => ({
+    ...getLabelBackgroundInfo(d, labelItems[idx], get(labelItems[idx], 'background.padding')),
+    visible: true,
+  }));
+  const memoKey = JSON.stringify(boxes);
+  const cb = (items: Item[]) => {
+    cache.set(memoKey, items);
+    each(items, ({ visible }, idx) => {
+      const labelShape = labels[idx];
+      if (visible) {
+        labelShape?.show();
+      } else {
+        labelShape?.hide();
       }
-    } else {
-      // Normal layout in main thread.
+    });
+    return items;
+  };
+  if (cache.get(memoKey)) {
+    cb(cache.get(memoKey));
+  } else if (worker) {
+    // Do layout in worker.
+    try {
+      const params = JSON.stringify({ type: 'hide-overlap', items: boxes });
+      const res = await worker.post(params, () => cb(layout(boxes)));
+      cb(Array.isArray(res.data) ? res.data : []);
+    } catch (e) {
+      console.error(e);
       cb(layout(boxes));
     }
-  });
+  } else {
+    // Normal layout in main thread.
+    cb(layout(boxes));
+  }
 }
