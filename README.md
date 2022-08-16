@@ -1,14 +1,4 @@
-# G2 5.0
-
-> 开发中，敬请期待 🌈
-
-- [效果预览](https://g2-next.antv.vision/overview)
-- [案例验证](https://www.yuque.com/antv/g2-docs/waehm6)
-- [Spec 设计](https://www.yuque.com/antv/g2-docs/g2-spec)
-- [架构设计](https://www.yuque.com/antv/g2-docs/ffpve8)
-- [时间安排](https://www.yuque.com/antv/g2-docs/rmp5ac#89U4)
-
-<!-- <img src="https://gw.alipayobjects.com/zos/antfincdn/R8sN%24GNdh6/language.svg" width="18"> [English](./README.en-US.md) | 简体中文
+<img src="https://gw.alipayobjects.com/zos/antfincdn/R8sN%24GNdh6/language.svg" width="18"> [English](./README.en-US.md) | 简体中文
 
 <h1 align="center">
 <b>G2 5.0</b>
@@ -16,58 +6,57 @@
 
 <div align="center">
 
-一套面向常规统计图表，以数据驱动的高交互可视化图形语法。
+G2 是一个可视化语法，用于报表搭建、数据探索和可视化叙事。
 
-[![](https://img.shields.io/travis/antvis/g2.svg)](https://travis-ci.org/antvis/g2) ![CI](https://github.com/antvis/G2/workflows/CI/badge.svg) [![Coverage Status](https://coveralls.io/repos/github/antvis/G2/badge.svg?branch=master)](https://coveralls.io/github/antvis/G2?branch=master) [![NPM Package](https://img.shields.io/npm/v/@antv/g2.svg)](https://www.npmjs.com/package/@antv/g2) [![NPM Downloads](http://img.shields.io/npm/dm/@antv/g2.svg)](https://npmjs.org/package/@antv/g2) ![Dependencies](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg) [![Percentage of issues still open](http://isitmaintained.com/badge/open/antvis/g2.svg)](http://isitmaintained.com/project/antvis/g2 'Percentage of issues still open') [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=shields)](https://github.com/antvis/g2/pulls)
+[![Build Status](https://github.com/antvis/g2/workflows/build/badge.svg?branch=v5)](https://github.com/antvis//actions)
+[![Coverage Status](https://img.shields.io/coveralls/github/antvis/g2/v5.svg)](https://coveralls.io/github/antvis/g2?branch=v5)
+[![npm Version](https://img.shields.io/npm/v/@antv/g2.svg)](https://www.npmjs.com/package/@antv/g2)
+[![npm Download](https://img.shields.io/npm/dm/@antv/g2.svg)](https://www.npmjs.com/package/@antv/g2)
+[![npm License](https://img.shields.io/npm/l/@antv/g2.svg)](https://www.npmjs.com/package/@antv/g2)
 
-![](https://img.shields.io/badge/language-TypeScript-red.svg) ![](https://img.shields.io/badge/license-MIT-000000.svg)
-
-[![](https://img.shields.io/twitter/follow/AntV_Alipay.svg?label=AntV&style=social)](https://twitter.com/AntV_Alipay)
+![examples](https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*o4YET5i12oMAAAAAAAAAAAAAARQnAQ)
 
 </div>
 
-<p align="center">
-  <a href="https://g2.antv.vision/zh">网站</a> •
-  <a href="https://g2.antv.vision/zh/docs/manual/about-g2">教程文档</a> •
-  <a href="https://www.yuque.com/antv">博客</a> •
-  <a href="https://github.com/antvis/G2Plot">G2Plot</a>
-</p>
+> G2 5.0 仍在开发中，4.x 稳定版在 [master](https://github.com/antvis/G2/tree/master) 分支上.
 
-G2 是一套基于图形语法理论的可视化底层引擎，以数据驱动，提供图形语法与交互语法，具有高度的易用性和扩展性。使用 G2，你可以无需关注图表各种繁琐的实现细节，一条语句即可使用 Canvas 或 SVG 构建出各种各样的可交互的统计图表。
+G2 的名字来自于 Wilkinson 的《Grammar of Graphics》，并在功能和 API 设计上深受它的启发。这里有一些资源可以帮助你开始使用它：
 
-## 📺 线上示例
+- [介绍](http://g2-next.antv.vision/introduction)：概述和开发动机
+- [案例](http://g2-next.antv.vision/examples)：大量可供学习和复制粘贴的案例
+- [教程](http://g2-next.antv.vision/tutorials)：交互式案例驱动的教程，帮助你了解核心概念
+- [API](http://g2-next.antv.vision/basic)：所有可视化组件的完整文档
 
-<a href="https://g2.antv.vision/zh/examples/gallery"><img src="https://user-images.githubusercontent.com/6628666/75466330-fe1d0c00-59c4-11ea-91ba-506f60ef8af4.png" style='width: 100%'/></a>
+## ✨ 特色
 
-## ✨ 特性
+- **渐进式使用**：可以通过简明的声明，快速获得有意义的可视化图表，G2 会在内部会做出合理的推断。但是针对复杂和高级的场景，仍然可以添加更多的配置去满足你的需求。
+- **声明式 API**：我们采用了函数式的声明式 API，可以通过更具编程风格的方式指定图表配置，这有助于更好地重用逻辑和更灵活地组织代码。
+- **高可扩展性**：为了满足各种特定需求，G2 提供了一个方便和一致的机制来扩展你能想象到的一切，无论是一个比例尺，一个变换还是一个视觉元素，等等。你甚至可以基于这个机制定制一个全新的可视化工具。
+- **全面的语法**：和传统可视化工具不同，G2 中没有图表的概念，而是通过组合视觉元素、变换、比例尺、坐标系变换和视图复合来获得图表。除了静态可视化之外，还支持制作由数据驱动的可视化动画，并且提供了一套精心设计的基于 Action 的交互语法。
+- **强大的渲染引擎**：在 G2 底层有一个强大的渲染器 [G](https://github.com/antvis/G)，可用使用 Canvas、SVG 以及 WebGL 生成基于网页的可视化。同时 G 提供了大量的插件，使得 G2 能够绘制拥有新颖风格的图表（比如手绘风格）并且可以并完全拥抱 [D3](https://github.com/d3/d3) 的生态。
 
-- 💯 完善的图形语法：数据到图形的映射，能够绘制出所有的图表。
-- 🤩 扩展交互语法：通过触发和反馈机制可以组合出各种交互行为，对数据进行探索。
-- 🌊 全新的动画语法：通过数据和动画属性的绑定，轻松组装和排练动画，让数据更灵动。
-- 🦍 易用的画布布局：提供内置基础的容器组件，拆分画布空间和数据，构建简单的 dashboard。
-- 👬 多引擎渲染：`Canvas`、`SVG`、`WebGL` 无缝任意切换。
-- 💄 可视化组件体系：面向交互、体验优雅。
-- 🛡 全面拥抱 TypeScript：提供完整的类型定义文件。
+## 🔨 开始使用
 
-## 📦 安装
+可以通过 npm 或 Yarn 等包管理器来安装。
 
 ```bash
 $ npm install @antv/g2
 ```
 
-## 🔨 快速上手
-
-<img src="https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*8qbLQb7A0loAAAAAAAAAAABkARQnAQ" style="width: 600px">
-
-在绘图前我们需要为 G2 准备一个 DOM 容器：
-
-```html
-<div id="c1"></div>
+```bash
+$ yarn add @antv/g2
 ```
 
-```ts
+成功安装之后，可以通过 import 导入 Chart 对象。
+
+```html
+<div id="chart"></div>
+```
+
+```js
 import { Chart } from '@antv/g2';
 
+// 将要可视化的表格数据
 const data = [
   { genre: 'Sports', sold: 275 },
   { genre: 'Strategy', sold: 115 },
@@ -76,59 +65,34 @@ const data = [
   { genre: 'Other', sold: 150 },
 ];
 
-// Step 1: 创建 Chart 对象
+// 实例化图表并且指定容器的 id
 const chart = new Chart({
-  container: 'c1', // 指定图表容器 ID
-  width: 600, // 指定图表宽度
-  height: 300, // 指定图表高度
+  container: 'chart',
 });
 
-// Step 2: 载入数据源
-chart.data(data);
+// 声明可视化
+chart
+  .interval() // 创建一个 Interval 的视觉元素，并且添加到图表中
+  .data(data) // 给这个视觉元素绑定数据
+  .encode('x', 'genre') // 将 genre 对应的列数据和 x 位置通道绑定
+  .encode('y', 'sold'); // 将 sold 对应的列数据和 y 位置通道绑定
 
-// Step 3: 创建图形语法，绘制柱状图
-chart.interval().position('genre*sold');
-
-// Step 4: 渲染图表
+// 将可视化渲染进指定的容器
 chart.render();
 ```
 
-## ⌨️ 本地开发
+如果一切顺利，你可以得到下面的柱状图!
 
-```bash
-# 安装依赖
-$ npm install
+<img src="https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*NZmbQItc82oAAAAAAAAAAAAAARQnAQ" width="640" height="480">
 
-# 运行测试用例
-$ npm run test
+## 📮 参与贡献
 
-# 打开 electron 运行测试用例，监听文件变化构建
-$ npm run test-live
+- [问题](https://github.com/antvis/g2/issues)： 报告 bug 或者提出需求
+- [贡献指南](https://github.com/antvis/g2/blob/v5/CONTRIBUTING.en-US.md)：参与建设 G2
+- [讨论](https://github.com/antvis/G2/discussions)：在 Github 上或者钉钉群里面讨论（30233731, 35686967, 44788198）
 
-# 运行 CI
-$ npm run ci
+<img src="https://gw.alipayobjects.com/zos/antfincdn/hTzzaqgHgQ/Antv%252520G2%252520%26%252520G2Plot.png" width="200" height="266" />
 
-# 运行网站
-$ npm start
-```
+## 📄 许可证
 
-## 🏷️ 版本
-
-- v3.5.x: https://github.com/antvis/G2/tree/v3.5.x
-- v4.0.x: https://github.com/antvis/G2/tree/v4.0.x
-
-> 你也可以在业务中使用基于 G2 封装的常规统计图表 **[G2Plot](https://github.com/antvis/G2Plot)**，可以使用配置的方式快速生成一个通用图表，降低开发者的使用成本。
-
-## 🤝 如何贡献
-
-如果您在使用的过程中碰到问题，可以先通过 [issues](https://github.com/antvis/g2/issues) 看看有没有类似的 bug 或者建议。
-
-如需提交代码，请遵从我们的[贡献指南](https://github.com/antvis/g2/blob/master/CONTRIBUTING.md)。
-
-<a href="https://issuehunt.io/r/antvis/G2" rel="nofollow" target="_blank"><img src="https://camo.githubusercontent.com/fcf6ed4dcbd95ccadfe62647fc93194b7262c862de38406e5dae68aa682c85c3/68747470733a2f2f697373756568756e742e696f2f7374617469632f656d6265642f697373756568756e742d627574746f6e2d76312e737667" alt="Let's fund issues in this repository" data-canonical-src="https://issuehunt.io/static/embed/issuehunt-button-v1.svg" style="max-width:100%;"></a>
-
-## 联系我们
-
-钉钉群组号码: 30233731 / 35686967 (2 群)
-
-<img src="https://gw.alipayobjects.com/zos/antfincdn/8qEHi7GiaN/G2Plot-dingding.JPG" width="200" height="266" /> -->
+MIT@[AntV](https://github.com/antvis).
