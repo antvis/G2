@@ -2,6 +2,7 @@
   "title": "G2 5.0",
   "outline": {
     "Overview": "overview",
+    "Introduction": "introduction",
     "Layout": "layout",
     "Transform": {
       "Stack": "transform-stack",
