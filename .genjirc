@@ -1,56 +1,59 @@
 {
   "title": "G2 5.0",
   "outline": {
-    "Overview": "overview",
     "Introduction": "introduction",
-    "Layout": "layout",
-    "Transform": {
-      "Stack": "transform-stack",
-      "Dodge": "transform-dodge",
-      "Normalize": "transform-normalize",
-      "Symmetry": "transform-symmetry",
-      "Jitter": "transform-jitter",
-      "Select": "transform-select",
-      "Group": "transform-group",
-      "Pack": "transform-pack",
-      "StackEnter": "transform-stack-enter",
-      "Connector": "transform-connector"
-    },
-    "Scale": "scale",
-    "Coordinate": "coordinate",
-    "Mark": {
-      "Interval": "mark-interval",
-      "Point": "mark-point",
-      "Line": "mark-line",
-      "Area": "mark-area",
-      "Text": "mark-text",
-      "Grid": "mark-grid",
-      "Vector": "mark-vector",
-      "Link": "mark-link",
-      "Image": "mark-image",
-      "Polygon": "mark-polygon",
-      "Schema": "mark-schema",
-      "Annotation": "mark-annotation",
-      "Component": "mark-component",
-      "Mix": "mark-mix"
-    },
-    "Composition": {
-      "Spatial": "composition-spatial",
-      "Rect": "composition-rect",
-      "Matrix": "composition-matrix",
-      "Unit": "composition-unit",
-      "Keyframe": "composition-keyframe",
-      "More": "composition-more"
-    },
-    "Animation": "animation",
-    "Interaction": {
-      "Element": "interaction-element",
-      "Component": "interaction-component",
-      "Tooltip": "interaction-tooltip",
-      "Brush": "interaction-brush",
-      "More": "interaction-more"
-    },
-    "Theme": "theme"
+    "Tutorials": "tutorials",
+    "Examples": "examples",
+    "API Reference": {
+      "Basic": "basic",
+      "Transform": {
+        "Stack": "transform-stack",
+        "Dodge": "transform-dodge",
+        "Normalize": "transform-normalize",
+        "Symmetry": "transform-symmetry",
+        "Jitter": "transform-jitter",
+        "Select": "transform-select",
+        "Group": "transform-group",
+        "Pack": "transform-pack",
+        "StackEnter": "transform-stack-enter",
+        "Connector": "transform-connector"
+      },
+      "Scale": "scale",
+      "Coordinate": "coordinate",
+      "Mark": {
+        "Interval": "mark-interval",
+        "Point": "mark-point",
+        "Line": "mark-line",
+        "Area": "mark-area",
+        "Text": "mark-text",
+        "Grid": "mark-grid",
+        "Vector": "mark-vector",
+        "Link": "mark-link",
+        "Image": "mark-image",
+        "Polygon": "mark-polygon",
+        "Schema": "mark-schema",
+        "Annotation": "mark-annotation",
+        "Component": "mark-component",
+        "Mix": "mark-mix"
+      },
+      "Composition": {
+        "Spatial": "composition-spatial",
+        "Rect": "composition-rect",
+        "Matrix": "composition-matrix",
+        "Unit": "composition-unit",
+        "Keyframe": "composition-keyframe",
+        "More": "composition-more"
+      },
+      "Animation": "animation",
+      "Interaction": {
+        "Element": "interaction-element",
+        "Component": "interaction-component",
+        "Tooltip": "interaction-tooltip",
+        "Brush": "interaction-brush",
+        "More": "interaction-more"
+      },
+      "Theme": "theme"
+    }
   },
   "domain": "g2-next.antv.vision",
   "output": "docs/dist",

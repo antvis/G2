@@ -1,4 +1,4 @@
-# Layout
+# Basic
 
 ## Default Size
 
