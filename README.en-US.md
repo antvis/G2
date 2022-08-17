@@ -1,63 +1,62 @@
 <img src="https://gw.alipayobjects.com/zos/antfincdn/R8sN%24GNdh6/language.svg" width="18"> English | [简体中文](./README.md)
 
 <h1 align="center">
-<b>G2</b>
+<b>G2 5.0</b>
 </h1>
 
 <div align="center">
 
-A highly interactive data-driven visualization grammar for statistical charts.
+G2 is a visualization grammar for dashboard building, data exploration and storytelling.
 
-[![](https://img.shields.io/travis/antvis/g2.svg)](https://travis-ci.org/antvis/g2) ![CI](https://github.com/antvis/G2/workflows/CI/badge.svg) [![Coverage Status](https://coveralls.io/repos/github/antvis/G2/badge.svg?branch=master)](https://coveralls.io/github/antvis/G2?branch=master) [![NPM Package](https://img.shields.io/npm/v/@antv/g2.svg)](https://www.npmjs.com/package/@antv/g2) [![NPM Downloads](http://img.shields.io/npm/dm/@antv/g2.svg)](https://npmjs.org/package/@antv/g2) ![Dependencies](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg) [![Percentage of issues still open](http://isitmaintained.com/badge/open/antvis/g2.svg)](http://isitmaintained.com/project/antvis/g2 'Percentage of issues still open') [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=shields)](https://github.com/antvis/g2/pulls)
+[![Build Status](https://github.com/antvis/g2/workflows/build/badge.svg?branch=v5)](https://github.com/antvis//actions)
+[![Coverage Status](https://img.shields.io/coveralls/github/antvis/g2/v5.svg)](https://coveralls.io/github/antvis/g2?branch=v5)
+[![npm Version](https://img.shields.io/npm/v/@antv/g2.svg)](https://www.npmjs.com/package/@antv/g2)
+[![npm Download](https://img.shields.io/npm/dm/@antv/g2.svg)](https://www.npmjs.com/package/@antv/g2)
+[![npm License](https://img.shields.io/npm/l/@antv/g2.svg)](https://www.npmjs.com/package/@antv/g2)
 
-![](https://img.shields.io/badge/language-TypeScript-red.svg) ![](https://img.shields.io/badge/license-MIT-000000.svg)
-
-[![](https://img.shields.io/twitter/follow/AntV_Alipay.svg?label=AntV&style=social)](https://twitter.com/AntV_Alipay)
+![examples](https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*o4YET5i12oMAAAAAAAAAAAAAARQnAQ)
 
 </div>
 
-<p align="center">
-  <a href="https://g2.antv.vision/en">Website</a> •
-  <a href="https://g2.antv.vision/en/docs/manual/about-g2">Tutorial Docs</a> •
-  <a href="https://www.yuque.com/antv">Blog</a> •
-  <a href="https://github.com/antvis/G2Plot">G2Plot</a>
-</p>
+> G2 5.0 is still work in progress, the stable release is on the [master](https://github.com/antvis/G2/tree/master) branch.
 
-G2 is a visualization grammar, a data-driven visual language with a high level of usability and scalability. It provides a set of grammars, takes users beyond a limited set of charts to an almost unlimited world of graphical forms. With G2, you can describe the visual appearance and interactive behavior of a visualization just by one statement, and generate web-based views using Canvas or SVG.
+G2 is named after Wilkinson’s Grammar of Graphics and was profoundly inspired by it in the very beginning. Here are some resources you can begin with:
 
-## 📺 Live Demos
-
-<a href="https://g2.antv.vision/en/examples/gallery"><img src="https://user-images.githubusercontent.com/6628666/75466330-fe1d0c00-59c4-11ea-91ba-506f60ef8af4.png" style='width: 100%'/></a>
+- [Introduction](http://g2-next.antv.vision/introduction) - a brief overview and G2's motivations
+- [Examples](http://g2-next.antv.vision/examples) - a large number of demos to learn from and copy-paste
+- [Tutorials](http://g2-next.antv.vision/tutorials) - interactive case-driven guides of G2's core concepts
+- [API Reference](http://g2-next.antv.vision/basic) - complete documentation for all visualization components
 
 ## ✨ Features
 
-- 💯 Stable grammar of graphics: enable to draw all kinds of charts by mapping data to graphics.
-- 🤩 Grammar of interaction: interaction behaviors combined with Trigger and Action mechanisms are used to exploring data.
-- 🌊 New grammar of animation: with binding of data and animation properties, the animation can be easily assembled and rehearsed to make the data more flexible.
-- 🦍 Advanced layout container: with the ability to split space and data, help to build dashboard easily.
-- 👬 Mutil-engine rendering: with the ability to switch `Canvas`, `SVG` and`WebGL` freely.
-- 💄 Visual components: interaction-oriented, elegant experience.
-- 🛡 Fully embrace TypeScript: Complete type definition files are provided.
+- **Progressive Usage** - The main objective of G2 is to help you get meaningful visualizations quickly with concise declarations and it infers the rest. But you can configure much more for complex and advanced situations.
+- **Declarative API** - We employs a functional declarative API to specify chart options in a programmatic fashion, which contributes to better logic reuse and more flexible code organization.
+- **High Extensibility** - To satisfy specific needs, G2 provides a convenient and consistent mechanism to extend everything you can imagine, whether a scale, a transform, a mark, etc,. You can even customize a brand new visualization tool based on this mechanism.
+- **Comprehensive Grammar** - G2 rejects a chart typology in favor of marks, transforms, scales, coordinates, and compositions. In addition to static visual representations, it's possible to declare data-driven animations and apply well-designed action-based interactions to plots as well.
+- **Powerful Renderer** - There is a powerful renderer [G](https://github.com/antvis/G) under G2 to generate web-based visualizations using Canvas, SVG or WebGL. The plenty of plugins it has benefit G2 from rendering charts with novel styles such as hand-drawn and fully embrace the ecosystem of [D3](https://github.com/d3/d3).
 
-## 📦 Installation
+## 🔨 Getting Started
+
+G2 is usually installed via a package manager such as npm or Yarn.
 
 ```bash
 $ npm install @antv/g2
 ```
 
-## 🔨 Getting Started
-
-<img src="https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*8qbLQb7A0loAAAAAAAAAAABkARQnAQ" style="width: 600px">
-
-Before drawing we need to prepare a DOM container for G2:
-
-```html
-<div id="c1"></div>
+```bash
+$ yarn add @antv/g2
 ```
 
-```ts
+The Chart object then can be imported from G2.
+
+```html
+<div id="chart"></div>
+```
+
+```js
 import { Chart } from '@antv/g2';
 
+// A tabular data to be visualized.
 const data = [
   { genre: 'Sports', sold: 275 },
   { genre: 'Strategy', sold: 115 },
@@ -66,59 +65,32 @@ const data = [
   { genre: 'Other', sold: 150 },
 ];
 
-// Step 1: Create a Chart instance.
-const chart = new Chart({
-  container: 'c1', // Specify chart container ID
-  width: 600, // Specify chart width
-  height: 300, // Specify chart height
-});
+// Instantiate a new chart.
+const chart = new Chart();
 
-// Step 2: Load the data.
-chart.data(data);
+// Specify visualization.
+chart
+  .interval() // Create an interval mark and add it to the chart.
+  .data(data) // Bind data for this mark.
+  .encode('x', 'genre') // Assign genre column to x position channel.
+  .encode('y', 'sold'); // Assign sold column to y position channel.
 
-// Step 3: Declare the grammar of graphics, draw column chart.
-chart.interval().position('genre*sold');
-
-// Step 4: Render chart.
+// Render visualization。
 chart.render();
 ```
 
-## ⌨️ Development
+If all goes well, you can get the following lovely bar chart!
 
-```bash
-# Install dependencies
-$ npm install
+<img src="https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*NZmbQItc82oAAAAAAAAAAAAAARQnAQ" width="640" height="480">
 
-# Run test cases
-$ npm run test
+## 📮 Contributing
 
-# Open electron to run test cases and listen to file changes
-$ npm run test-live
+- [Issues](https://github.com/antvis/g2/issues) - report bugs or request features
+- [Contributing Guide](https://github.com/antvis/g2/blob/v5/CONTRIBUTING.en-US.md) - help build G2
+- [Discussions](https://github.com/antvis/G2/discussions) - discuss on Github or in DingTalk group(30233731, 35686967, 44788198)
 
-# Run CI
-$ npm run ci
+<img src="https://gw.alipayobjects.com/zos/antfincdn/hTzzaqgHgQ/Antv%252520G2%252520%26%252520G2Plot.png" width="200" height="266" />
 
-# Run website
-$ npm start
-```
+## 📄 License
 
-## 🏷️ Releases
-
-- v3.5.x: https://github.com/antvis/G2/tree/v3.5.x
-- v4.0.x: https://github.com/antvis/G2/tree/v4.0.x
-
-> You can also use **[G2Plot](https://github.com/antvis/G2Plot)** which is an interactive and responsive charting library based on G2. You can easily make superior statistical plots through a few lines of code.
-
-## 🤝 How to Contribute
-
-Please let us know how can we help. Do check out [issues](https://github.com/antvis/g2/issues) for bug reports or suggestions first.
-
-To become a contributor, please follow our [contributing guide](https://github.com/antvis/g2/blob/master/CONTRIBUTING.en-US.md).
-
-<a href="https://issuehunt.io/r/antvis/G2" rel="nofollow" target="_blank"><img src="https://camo.githubusercontent.com/fcf6ed4dcbd95ccadfe62647fc93194b7262c862de38406e5dae68aa682c85c3/68747470733a2f2f697373756568756e742e696f2f7374617469632f656d6265642f697373756568756e742d627574746f6e2d76312e737667" alt="Let's fund issues in this repository" data-canonical-src="https://issuehunt.io/static/embed/issuehunt-button-v1.svg" style="max-width:100%;"></a>
-
-## 📧 Contact us
-
-DingTalk Group: 30233731 / 35686967 (2 群)
-
-<img src="https://gw.alipayobjects.com/zos/antfincdn/8qEHi7GiaN/G2Plot-dingding.JPG" width="200" height="266" />
+MIT@[AntV](https://github.com/antvis).

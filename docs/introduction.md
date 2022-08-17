@@ -1,5 +1,7 @@
 # Introduction
 
+![examples](https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*o4YET5i12oMAAAAAAAAAAAAAARQnAQ)
+
 [G2](https://github.com/antvis/G2/tree/v5) is a concise and progressive visualization grammar for **dashboard building**, **data exploration** and **storytelling**. This notebook will give a brief introduction to it and introduce you to some core concepts.
 
 - **Mark** - drawing data-driven geometric elements and static component
