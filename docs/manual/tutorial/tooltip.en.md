@@ -183,7 +183,7 @@ chart.line().position('x*y').tooltip('x*y', (x, y) => {
     x,
     y
   }; // 返回的参数名对应 itemTpl 中的变量名
-);
+});
 ```
 
 ![image](https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*TOvNSbXMCHoAAAAAAAAAAABkARQnAQ)
