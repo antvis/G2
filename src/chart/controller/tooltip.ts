@@ -434,15 +434,6 @@ export default class Tooltip extends Controller<TooltipOption> {
     });
 
     tooltip.init();
-
-    if (cfg.enterable) {
-      tooltip.get('container').onmouseleave = () => {
-        if (!this.isTooltipLocked()) {
-          this.hideTooltip();
-        }
-      };
-    }
-
     this.tooltip = tooltip;
   }
 
