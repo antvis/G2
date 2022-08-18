@@ -103,9 +103,9 @@
   },
   "dependencies": {
     "@antv/coord": "^0.4.1",
-    "@antv/g": "^5.0.20",
-    "@antv/g-canvas": "^1.0.13",
-    "@antv/g-plugin-dragndrop": "^1.5.1",
+    "@antv/g": "^5.7.4",
+    "@antv/g-canvas": "^1.7.4",
+    "@antv/g-plugin-dragndrop": "^1.6.1",
     "@antv/gui": "^0.4.3-alpha.5",
     "@antv/scale": "^0.4.7",
     "@antv/util": "^2.0.17",

@@ -16,8 +16,12 @@ export const ScaleOutX: AC<ScaleOutXOptions> = (options) => {
   return (from, to, value, coordinate, defaults) => {
     const [shape] = from;
     const { height } = shape.getBoundingClientRect();
-    const { transform: prefix } = shape.style;
-    const { fillOpacity, strokeOpacity, opacity } = shape.parsedStyle;
+    const {
+      transform: prefix,
+      fillOpacity,
+      strokeOpacity,
+      opacity,
+    } = shape.style;
     const [transformOrigin, transform]: [[number, number], string] =
       isTranspose(coordinate)
         ? [[0, height], `scale(1, ${ZERO})`] // left-bottom corner
@@ -31,9 +35,9 @@ export const ScaleOutX: AC<ScaleOutXOptions> = (options) => {
       },
       {
         transform: `${prefix} ${transform}`.trimStart(),
-        fillOpacity: fillOpacity.value,
-        strokeOpacity: strokeOpacity.value,
-        opacity: opacity.value,
+        fillOpacity,
+        strokeOpacity,
+        opacity,
         offset: 0.99,
       },
       {
