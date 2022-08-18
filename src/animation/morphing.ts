@@ -158,15 +158,14 @@ function multipleToOne(
   split: SplitFunction,
 ) {
   const D = split(to, from.length);
-  // @todo Replace with to.style.
-  const { fillOpacity, strokeOpacity, opacity } = to.parsedStyle;
+  const { fillOpacity, strokeOpacity, opacity } = to.style;
   const keyframes = [
     { fillOpacity: 0, strokeOpacity: 0, opacity: 0 },
     { fillOpacity: 0, strokeOpacity: 0, opacity: 0, offset: 0.99 },
     {
-      fillOpacity: fillOpacity.value,
-      strokeOpacity: strokeOpacity.value,
-      opacity: opacity.value,
+      fillOpacity,
+      strokeOpacity,
+      opacity,
     },
   ];
   const animation = to.animate(keyframes, timeEffect);

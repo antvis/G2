@@ -10,12 +10,12 @@ export type FadeOutOptions = Animation;
 export const FadeOut: AC<FadeOutOptions> = (options) => {
   return (from, to, value, coordinate, defaults) => {
     const [shape] = from;
-    const { fillOpacity, strokeOpacity, opacity } = shape.parsedStyle;
+    const { fillOpacity, strokeOpacity, opacity } = shape.style;
     const keyframes = [
       {
-        fillOpacity: fillOpacity.value,
-        strokeOpacity: strokeOpacity.value,
-        opacity: opacity.value,
+        fillOpacity,
+        strokeOpacity,
+        opacity,
       },
       { fillOpacity: 0, strokeOpacity: 0, opacity: 0 },
     ];

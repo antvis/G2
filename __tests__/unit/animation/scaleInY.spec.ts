@@ -22,9 +22,9 @@ describe('ScaleInY', () => {
       'scale(1, 0.0001)',
       'scale(1, 1)',
     ]);
-    expect(keyframes(animation, 'fillOpacity')).toEqual([0, 1, undefined]);
-    expect(keyframes(animation, 'strokeOpacity')).toEqual([0, 1, undefined]);
-    expect(keyframes(animation, 'opacity')).toEqual([0, 1, undefined]);
+    expect(keyframes(animation, 'fillOpacity')).toEqual([0, '', undefined]);
+    expect(keyframes(animation, 'strokeOpacity')).toEqual([0, '', undefined]);
+    expect(keyframes(animation, 'opacity')).toEqual([0, '', undefined]);
     expect(keyframes(animation, 'offset')).toEqual([null, 0.01, null]);
 
     await (animation as Animation).finished;
