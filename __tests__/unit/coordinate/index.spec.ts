@@ -48,6 +48,6 @@ describe('coordinate', () => {
   });
 
   it('Fisheye({...}) returns expected coordinate transformations', () => {
-    expect(Fisheye({})).toEqual([['fisheye', 0, 0, 2, 2]]);
+    expect(Fisheye({})).toEqual([['fisheye', 0, 0, 2, 2, false]]);
   });
 });

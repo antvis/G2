@@ -15,7 +15,14 @@ import {
   Scale,
 } from './types/component';
 import { G2Theme, GuideComponentPosition } from './types/common';
-import { isPolar, isTranspose, isParallel } from './coordinate';
+import {
+  isPolar,
+  isTranspose,
+  isParallel,
+  isReflect,
+  isReflectY,
+  isTheta,
+} from './coordinate';
 import { useLibrary } from './library';
 import { isPosition } from './scale';
 
@@ -169,11 +176,17 @@ function inferComponentPosition(
     return index === 0 ? ordinalPosition : 'centerHorizontal';
   } else if (
     (type === 'axisX' && isPolar(coordinate) && !isTranspose(coordinate)) ||
-    (type === 'axisY' && isPolar(coordinate) && isTranspose(coordinate))
+    (type === 'axisY' && isPolar(coordinate) && isTranspose(coordinate)) ||
+    (type === 'axisY' && isTheta(coordinate))
   ) {
     return 'arc';
   } else if (isPolar(coordinate) && (type === 'axisX' || type === 'axisY')) {
     return 'arcY';
+  } else if (
+    (type === 'axisX' && isReflect(coordinate)) ||
+    (type === 'axisX' && isReflectY(coordinate))
+  ) {
+    return 'top';
   }
   return ordinalPosition;
 }

@@ -43,6 +43,21 @@ export function isParallel(coordinate: G2CoordinateOptions[]) {
   return parallel !== undefined;
 }
 
+export function isTheta(coordinate: G2CoordinateOptions[]) {
+  const reflect = coordinate.find((d) => d.type === 'theta');
+  return reflect !== undefined;
+}
+
+export function isReflect(coordinate: G2CoordinateOptions[]) {
+  const reflect = coordinate.find((d) => d.type === 'reflect');
+  return reflect !== undefined;
+}
+
+export function isReflectY(coordinate: G2CoordinateOptions[]) {
+  const reflect = coordinate.find((d) => d.type === 'reflectY');
+  return reflect !== undefined;
+}
+
 function inferCoordinate(
   coordinate: G2CoordinateOptions[],
 ): G2CoordinateOptions[] {

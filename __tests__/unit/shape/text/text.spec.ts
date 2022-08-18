@@ -10,7 +10,7 @@ describe('Text', () => {
   });
 
   it('Text() returns a function draw text', () => {
-    const shape = Text({})([[0, 0]], {}, null, { defaultColor: 'red' });
+    const shape = Text({})([[0, 0]], {}, [], { defaultColor: 'red' });
     expect(shape.style.fill).toBe('red');
   });
 

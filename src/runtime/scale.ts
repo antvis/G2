@@ -16,7 +16,7 @@ import {
   Palette,
   Scale,
 } from './types/component';
-import { isPolar } from './coordinate';
+import { isPolar, isTheta } from './coordinate';
 import { useLibrary } from './library';
 import { MarkChannel } from './types/mark';
 
@@ -267,7 +267,8 @@ function inferPadding(
   // The scale for enterDelay and enterDuration should has zero padding by default.
   // Because there is no need to add extra delay for the start and the end.
   if (name === 'enterDelay' || name === 'enterDuration') return 0;
-  if (type === 'band') return isPolar(coordinate) ? 0 : 0.1;
+  if (type === 'band')
+    return isPolar(coordinate) || isTheta(coordinate) ? 0 : 0.1;
   // Point scale need 0.5 padding to make interval between first and last point
   // equal to other intervals in polar coordinate.
   if (type === 'point') return isPolar(coordinate) ? 0.5 : 0;

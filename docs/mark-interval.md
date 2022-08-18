@@ -124,6 +124,59 @@
 })();
 ```
 
+## Reflect Interval
+
+```js
+(() => {
+  const chart = new G2.Chart();
+
+  chart.coordinate({ type: 'reflect' });
+
+  chart
+    .interval()
+    .data([
+      { genre: 'Sports', sold: 275 },
+      { genre: 'Strategy', sold: 115 },
+      { genre: 'Action', sold: 120 },
+      { genre: 'Shooter', sold: 350 },
+      { genre: 'Other', sold: 150 },
+    ])
+    .encode('x', 'genre')
+    .encode('y', 'sold')
+    .encode('color', 'genre')
+    .scale('x', { padding: 0.05 })
+    .scale('y', { guide: null })
+    .style('radius', 10);
+
+  return chart.render().node();
+})();
+```
+
+## Helix Interval
+
+```js
+(() => {
+  const chart = new G2.Chart();
+
+  chart.coordinate({ type: 'helix' });
+
+  chart
+    .interval()
+    .data([
+      { genre: 'Sports', sold: 275 },
+      { genre: 'Strategy', sold: 115 },
+      { genre: 'Action', sold: 120 },
+      { genre: 'Shooter', sold: 350 },
+      { genre: 'Other', sold: 150 },
+    ])
+    .encode('x', 'genre')
+    .encode('y', 'sold')
+    .encode('color', 'genre');
+
+  return chart.render().node();
+})();
+```
+
 ## Polar+Transpose Interval
 
 ```js
@@ -131,6 +184,35 @@
   const chart = new G2.Chart();
 
   chart.coordinate({ type: 'transpose' }).coordinate({ type: 'polar' });
+
+  //@todo Hide the last label to avoid overlap.
+  //@todo Maybe don't need to specify guide type?
+  chart
+    .interval()
+    .data([
+      { genre: 'Sports', sold: 275 },
+      { genre: 'Strategy', sold: 115 },
+      { genre: 'Action', sold: 120 },
+      { genre: 'Shooter', sold: 350 },
+      { genre: 'Other', sold: 150 },
+    ])
+    .encode('x', 'genre')
+    .encode('y', 'sold')
+    .encode('color', 'genre')
+    .scale('color', { guide: { position: 'right', size: 65 } })
+    .scale('y', { guide: { type: 'axisY' } });
+
+  return chart.render().node();
+})();
+```
+
+## Theta Interval
+
+```js
+(() => {
+  const chart = new G2.Chart();
+
+  chart.coordinate({ type: 'theta' });
 
   //@todo Hide the last label to avoid overlap.
   //@todo Maybe don't need to specify guide type?
