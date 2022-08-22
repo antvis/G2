@@ -22,6 +22,7 @@ import {
   isReflect,
   isReflectY,
   isTheta,
+  isHelix,
 } from './coordinate';
 import { useLibrary } from './library';
 import { isPosition } from './scale';
@@ -141,7 +142,12 @@ function inferComponentType(
         return null;
     }
   }
-  if (isTranspose(coordinates) && isPolar(coordinates)) return null;
+  if (
+    (isTranspose(coordinates) && isPolar(coordinates)) ||
+    isHelix(coordinates) ||
+    isTheta(coordinates)
+  )
+    return null;
   if (name.startsWith('x')) return isTranspose(coordinates) ? 'axisY' : 'axisX';
   if (name.startsWith('y')) return isTranspose(coordinates) ? 'axisX' : 'axisY';
   if (name.startsWith('position') && !isPolar(coordinates)) return 'axisY';
@@ -177,7 +183,8 @@ function inferComponentPosition(
   } else if (
     (type === 'axisX' && isPolar(coordinate) && !isTranspose(coordinate)) ||
     (type === 'axisY' && isPolar(coordinate) && isTranspose(coordinate)) ||
-    (type === 'axisY' && isTheta(coordinate))
+    (type === 'axisY' && isTheta(coordinate)) ||
+    (type === 'axisY' && isHelix(coordinate))
   ) {
     return 'arc';
   } else if (isPolar(coordinate) && (type === 'axisX' || type === 'axisY')) {

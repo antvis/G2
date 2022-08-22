@@ -33,6 +33,11 @@ export function isPolar(coordinate: G2CoordinateOptions[]) {
   return polar !== undefined;
 }
 
+export function isHelix(coordinate: G2CoordinateOptions[]) {
+  const polar = coordinate.find((d) => d.type === 'helix');
+  return polar !== undefined;
+}
+
 export function isTranspose(coordinate: G2CoordinateOptions[]) {
   const transposes = coordinate.filter(({ type }) => type === 'transpose');
   return transposes.length % 2 === 1;

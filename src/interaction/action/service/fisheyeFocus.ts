@@ -4,6 +4,7 @@ import { FisheyeFocusAction } from '../../../spec';
 
 export type FisheyeFocusOptions = Omit<FisheyeFocusAction, 'type'>;
 
+// TODO: add FisheyeXFocus & FisheyeYFocus
 export const FisheyeFocus: AC<FisheyeFocusOptions> = (options) => {
   return (context) => {
     // Using the mouseX and mouseY as focusX and focusY.
@@ -33,7 +34,7 @@ export const FisheyeFocus: AC<FisheyeFocusOptions> = (options) => {
     const getUpdatedOptions = () => {
       const { coordinate = [] } = plotOptions;
 
-      // update if fisheye/fisheyeX/fisheyeY/fisheyeCircular exists
+      // Update if fisheye/fisheyeX/fisheyeY/fisheyeCircular exists.
       const index = coordinate.findIndex((d) => d.type.startsWith('fisheye'));
 
       if (index !== -1) {

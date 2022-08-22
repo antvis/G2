@@ -10,7 +10,6 @@
 
   chart
     .coordinate({ type: 'fisheye', focusX: 0.5, focusY: 0.5 })
-    .coordinate({ type: 'cartesian' })
     .interaction({ type: 'fisheye' });
 
   chart

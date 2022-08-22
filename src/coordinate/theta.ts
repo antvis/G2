@@ -1,10 +1,12 @@
 import { CoordinateComponent as CC } from '../runtime';
 import { ThetaCoordinate } from '../spec';
+import { Polar } from './polar';
+import { Transpose } from './transpose';
 
 export type ThetaOptions = ThetaCoordinate;
 
 /**
- * Theta
+ * Theta = Transpose + Polar.
  */
 export const Theta: CC<ThetaOptions> = ({
   startAngle = -Math.PI / 2,
@@ -12,13 +14,8 @@ export const Theta: CC<ThetaOptions> = ({
   innerRadius = 0,
   outerRadius = 1,
 }) => [
-  ['transpose'],
-  ['translate', 0.5, 0.5],
-  ['reflect.x'],
-  ['translate', -0.5, 0],
-  ['reflect.y'],
-  ['translate', 0, -0.5],
-  ['polar', startAngle, endAngle, innerRadius, outerRadius],
+  ...Transpose(),
+  ...Polar({ startAngle, endAngle, innerRadius, outerRadius }),
 ];
 
 Theta.props = {};

@@ -13,6 +13,11 @@ export function isPolar(coordinate: Coordinate): boolean {
   return transformations.some(([type]) => type === 'polar');
 }
 
+export function isHelix(coordinate: Coordinate): boolean {
+  const { transformations } = coordinate.getOptions();
+  return transformations.some(([type]) => type === 'helix');
+}
+
 export function isParallel(coordinate: Coordinate): boolean {
   const { transformations } = coordinate.getOptions();
   return transformations.some(([type]) => type === 'parallel');

@@ -8,6 +8,7 @@ import {
   Fisheye,
   Helix,
   Theta,
+  Reflect,
   ReflectX,
   ReflectY,
   FisheyeX,
