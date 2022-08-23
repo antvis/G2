@@ -1,5 +1,12 @@
 export { Cartesian, CartesianOptions } from './cartesian';
 export { Polar, PolarOptions } from './polar';
+export { Helix, HelixOptions } from './helix';
 export { Transpose, TransposeOptions } from './transpose';
+export { Reflect, ReflectOptions } from './reflect';
+export { ReflectX, ReflectXOptions } from './reflectX';
+export { ReflectY, ReflectYOptions } from './reflectY';
+export { Theta, ThetaOptions } from './theta';
 export { Parallel, ParallelOptions } from './parallel';
 export { Fisheye, FisheyeOptions } from './fisheye';
+export { FisheyeX, FisheyeXOptions } from './fisheyeX';
+export { FisheyeY, FisheyeYOptions } from './fisheyeY';

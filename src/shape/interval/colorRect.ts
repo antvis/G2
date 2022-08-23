@@ -3,7 +3,7 @@ import { arc } from 'd3-shape';
 import { path as d3path } from 'd3-path';
 import { angle, sub, dist } from '../../utils/vector';
 import { Vector2, ShapeComponent as SC } from '../../runtime';
-import { isTranspose, isPolar } from '../../utils/coordinate';
+import { isTranspose, isPolar, isHelix } from '../../utils/coordinate';
 import { select } from '../../utils/selection';
 import { applyStyle, appendPolygon } from '../utils';
 
@@ -37,7 +37,7 @@ export const ColorRect: SC<ColorRectOptions> = (options) => {
     const [p0, p1, p2, p3] = isTranspose(coordinate) ? reorder(points) : points;
 
     // Render rect in non-polar coordinate.
-    if (!isPolar(coordinate)) {
+    if (!isPolar(coordinate) && !isHelix(coordinate)) {
       return select(new Path())
         .style('lineWidth', lineWidth)
         .style('d', appendPolygon(d3path(), points).toString())

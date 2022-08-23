@@ -33,6 +33,11 @@ export function isPolar(coordinate: G2CoordinateOptions[]) {
   return polar !== undefined;
 }
 
+export function isHelix(coordinate: G2CoordinateOptions[]) {
+  const polar = coordinate.find((d) => d.type === 'helix');
+  return polar !== undefined;
+}
+
 export function isTranspose(coordinate: G2CoordinateOptions[]) {
   const transposes = coordinate.filter(({ type }) => type === 'transpose');
   return transposes.length % 2 === 1;
@@ -41,6 +46,21 @@ export function isTranspose(coordinate: G2CoordinateOptions[]) {
 export function isParallel(coordinate: G2CoordinateOptions[]) {
   const parallel = coordinate.find((d) => d.type === 'parallel');
   return parallel !== undefined;
+}
+
+export function isTheta(coordinate: G2CoordinateOptions[]) {
+  const reflect = coordinate.find((d) => d.type === 'theta');
+  return reflect !== undefined;
+}
+
+export function isReflect(coordinate: G2CoordinateOptions[]) {
+  const reflect = coordinate.find((d) => d.type === 'reflect');
+  return reflect !== undefined;
+}
+
+export function isReflectY(coordinate: G2CoordinateOptions[]) {
+  const reflect = coordinate.find((d) => d.type === 'reflectY');
+  return reflect !== undefined;
 }
 
 function inferCoordinate(
