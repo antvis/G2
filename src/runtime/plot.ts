@@ -70,8 +70,8 @@ export async function plot<T extends G2ViewTree>(
   // Some helper functions.
   const marks = new Set(
     Object.keys(library)
-      .filter((d) => d.startsWith('mark'))
-      .map((d) => d.split('.').pop()),
+      .map((d) => /mark\.(.*)/.exec(d)?.[1])
+      .filter(defined),
   );
   const typeOf = (node: G2ViewTree) => {
     const { type } = node;
