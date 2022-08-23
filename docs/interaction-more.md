@@ -9,8 +9,7 @@
   const chart = new G2.Chart();
 
   chart
-    .coordinate({ type: 'cartesian' })
-    .coordinate({ type: 'fisheye', focusX: 50, focusY: 50 })
+    .coordinate({ type: 'fisheye', focusX: 0.5, focusY: 0.5 })
     .interaction({ type: 'fisheye' });
 
   chart

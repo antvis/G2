@@ -15,7 +15,15 @@ import {
   Scale,
 } from './types/component';
 import { G2Theme, GuideComponentPosition } from './types/common';
-import { isPolar, isTranspose, isParallel } from './coordinate';
+import {
+  isPolar,
+  isTranspose,
+  isParallel,
+  isReflect,
+  isReflectY,
+  isTheta,
+  isHelix,
+} from './coordinate';
 import { useLibrary } from './library';
 import { isPosition } from './scale';
 
@@ -134,7 +142,12 @@ function inferComponentType(
         return null;
     }
   }
-  if (isTranspose(coordinates) && isPolar(coordinates)) return null;
+  if (
+    (isTranspose(coordinates) && isPolar(coordinates)) ||
+    isHelix(coordinates) ||
+    isTheta(coordinates)
+  )
+    return null;
   if (name.startsWith('x')) return isTranspose(coordinates) ? 'axisY' : 'axisX';
   if (name.startsWith('y')) return isTranspose(coordinates) ? 'axisX' : 'axisY';
   if (name.startsWith('position') && !isPolar(coordinates)) return 'axisY';
@@ -169,11 +182,18 @@ function inferComponentPosition(
     return index === 0 ? ordinalPosition : 'centerHorizontal';
   } else if (
     (type === 'axisX' && isPolar(coordinate) && !isTranspose(coordinate)) ||
-    (type === 'axisY' && isPolar(coordinate) && isTranspose(coordinate))
+    (type === 'axisY' && isPolar(coordinate) && isTranspose(coordinate)) ||
+    (type === 'axisY' && isTheta(coordinate)) ||
+    (type === 'axisY' && isHelix(coordinate))
   ) {
     return 'arc';
   } else if (isPolar(coordinate) && (type === 'axisX' || type === 'axisY')) {
     return 'arcY';
+  } else if (
+    (type === 'axisX' && isReflect(coordinate)) ||
+    (type === 'axisX' && isReflectY(coordinate))
+  ) {
+    return 'top';
   }
   return ordinalPosition;
 }

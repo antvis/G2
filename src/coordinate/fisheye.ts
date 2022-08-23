@@ -1,7 +1,7 @@
 import { CoordinateComponent as CC } from '../runtime';
 import { FisheyeCoordinate } from '../spec';
 
-export type FisheyeOptions = Omit<FisheyeCoordinate, 'polar'>;
+export type FisheyeOptions = FisheyeCoordinate;
 
 /**
  * Fisheye
@@ -11,6 +11,7 @@ export const Fisheye: CC<FisheyeOptions> = ({
   focusY = 0,
   distortionX = 2,
   distortionY = 2,
-}) => [['fisheye', focusX, focusY, distortionX, distortionY]];
+  isVisual = false,
+}) => [['fisheye', focusX, focusY, distortionX, distortionY, isVisual]];
 
 Fisheye.props = {};

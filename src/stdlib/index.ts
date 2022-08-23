@@ -1,6 +1,19 @@
 import { G2Library } from '../runtime';
 import { Canvas } from '../renderer';
-import { Cartesian, Polar, Transpose, Parallel, Fisheye } from '../coordinate';
+import {
+  Cartesian,
+  Polar,
+  Helix,
+  Transpose,
+  Theta,
+  Parallel,
+  Fisheye,
+  FisheyeX,
+  FisheyeY,
+  Reflect,
+  ReflectX,
+  ReflectY,
+} from '../coordinate';
 import { Constant, Field, Transform, Column } from '../encode';
 import {
   Grid,
@@ -215,9 +228,16 @@ export function createLibrary(): G2Library {
     'renderer.canvas': Canvas,
     'coordinate.cartesian': Cartesian,
     'coordinate.polar': Polar,
+    'coordinate.helix': Helix,
     'coordinate.transpose': Transpose,
+    'coordinate.theta': Theta,
+    'coordinate.reflect': Reflect,
+    'coordinate.reflectX': ReflectX,
+    'coordinate.reflectY': ReflectY,
     'coordinate.parallel': Parallel,
     'coordinate.fisheye': Fisheye,
+    'coordinate.fisheyeX': FisheyeX,
+    'coordinate.fisheyeY': FisheyeY,
     'encode.constant': Constant,
     'encode.field': Field,
     'encode.transform': Transform,
