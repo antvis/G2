@@ -148,7 +148,7 @@ describe('render', () => {
                 fillOpacity: 1,
                 size: 18,
                 symbol: (x, y, r) => {
-                  const path = [];
+                  const path: any[] = [];
                   for (let i = 0; i < 5; i++) {
                     path.push([
                       i === 0 ? 'M' : 'L',
@@ -330,6 +330,50 @@ describe('render', () => {
               fill: '#FFF',
               padding: [2, 2],
             },
+          },
+        },
+      ],
+    });
+    mount(createDiv(), chart);
+  });
+
+  it('render({...}) should render view with single annotation', () => {
+    const chart = render<G2Spec>({
+      type: 'layer',
+      children: [
+        {
+          type: 'interval',
+          coordinate: [{ type: 'theta', innerRadius: 0.5 }],
+          scale: { color: { guide: null } },
+          data: [
+            { genre: 'Sports', sold: 275 },
+            { genre: 'Strategy', sold: 115 },
+            { genre: 'Action', sold: 120 },
+            { genre: 'Shooter', sold: 350 },
+            { genre: 'Other', sold: 150 },
+          ],
+          encode: {
+            y: 'sold',
+            color: 'genre',
+          },
+        },
+        {
+          type: 'annotation.text',
+          data: [{ x: 0.5, y: 0.5, text: 'G2' }],
+          scale: {
+            x: { guide: null },
+            y: { guide: null },
+          },
+          encode: {
+            x: 'x',
+            y: 'y',
+            text: 'text',
+            color: 'black',
+          },
+          style: {
+            fontSize: 60,
+            textBaseline: 'middle',
+            fontWeight: 'bold',
           },
         },
       ],
