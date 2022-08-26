@@ -35,8 +35,7 @@
     .scale('color', {
       guide: { position: 'right', title: false, size: paddingRight },
     })
-    .style('stroke', '#fff')
-    .style('lineWidth', 1);
+    .style({ stroke: '#fff', lineWidth: 1 });
 
   const v2 = layer
     .view()
@@ -44,7 +43,7 @@
     .paddingRight(paddingRight)
     .paddingTop(paddingTop)
     .paddingBottom(paddingTop);
-  const applyAnnotationText = (node, data, style) => {
+  const addAnnotationText = (node, data, style) => {
     const shape = node
       .annotationText()
       .data(data)
@@ -53,22 +52,24 @@
       .encode('text', 'text')
       .scale('x', { guide: null })
       .scale('y', { guide: null, domain: [0, 1] })
-      .style('textAlign', 'center')
-      .style('textBaseline', 'middle')
-      .style('fill', '#333')
-      .style('lineWidth', 0)
-      .style('dx', 0)
-      .style('dy', 0);
+      .style({
+        textAlign: 'center',
+        textBaseline: 'middle',
+        fill: '#333',
+        lineWidth: 0,
+        dx: 0,
+        dy: 0,
+      });
 
     Object.entries(style).forEach(([k, v]) => shape.style(k, v));
     return shape;
   };
-  v2.call(applyAnnotationText, [{ x: 0.5, y: 0.5, text: '前端应用数' }], {
+  v2.call(addAnnotationText, [{ x: 0.5, y: 0.5, text: '前端应用数' }], {
     fontSize: 16,
     textBaseline: 'bottom',
     dy: -8,
   });
-  v2.call(applyAnnotationText, [{ x: 0.5, y: 0.5, text: '38,129' }], {
+  v2.call(addAnnotationText, [{ x: 0.5, y: 0.5, text: '38,129' }], {
     fontSize: 32,
     textBaseline: 'top',
   });
