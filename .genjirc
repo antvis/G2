@@ -52,7 +52,8 @@
         "Brush": "interaction-brush",
         "More": "interaction-more"
       },
-      "Theme": "theme"
+      "Theme": "theme",
+      "Customize": "customize"
     }
   },
   "domain": "g2-next.antv.vision",
