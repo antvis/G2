@@ -5,6 +5,7 @@
     "Tutorials": "tutorials",
     "Examples": "examples",
     "API Reference": {
+      "Renderer": "renderer",
       "Basic": "basic",
       "Data": "data",
       "Transform": {
