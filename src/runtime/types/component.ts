@@ -33,7 +33,8 @@ export type G2ComponentNamespaces =
   | 'interactor'
   | 'composition'
   | 'adjust'
-  | 'data';
+  | 'data'
+  | 'labelLayout';
 
 export type G2Component =
   | RendererComponent
@@ -52,7 +53,8 @@ export type G2Component =
   | CompositionComponent
   | AdjustComponent
   | TransformComponent
-  | DataComponent;
+  | DataComponent
+  | LabelLayoutComponent;
 
 export type G2ComponentValue =
   | Renderer
@@ -70,8 +72,7 @@ export type G2ComponentValue =
   | Animation
   | Interaction
   | Composition
-  | Adjust
-  | Data;
+  | Adjust;
 
 export type G2BaseComponent<
   R = any,
@@ -212,5 +213,11 @@ export type Adjust = (
 ) => string[];
 export type AdjustComponent<O = Record<string, unknown>> = G2BaseComponent<
   Adjust,
+  O
+>;
+
+export type LabelLayout = (labels: DisplayObject[]) => DisplayObject[];
+export type LabelLayoutComponent<O = Record<string, unknown>> = G2BaseComponent<
+  LabelLayout,
   O
 >;

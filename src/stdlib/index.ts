@@ -171,17 +171,6 @@ import {
   SelectY,
   GroupX,
 } from '../transform';
-import {
-  Fetch,
-  SortBy,
-  FilterBy,
-  Pick,
-  Rename,
-  Subset,
-  Fold,
-  Inline,
-  Connector,
-} from '../data';
 
 export function createLibrary(): G2Library {
   return {
@@ -358,5 +347,6 @@ export function createLibrary(): G2Library {
     'composition.circle': Circle,
     'composition.keyframe': Keyframe,
     'adjust.pack': Pack,
+    'labelLayout.hideOverlap': HideOverlap,
   };
 }

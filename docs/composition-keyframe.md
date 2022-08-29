@@ -72,6 +72,7 @@ Keyframe composition provide a convent mechanism to author storytelling. It can 
     .interval()
     .data(data)
     .coordinate({ type: 'polar' })
+    .scale('x', { guide: null })
     .encode('x', 'genre')
     .encode('y', 'sold')
     .encode('color', 'genre')

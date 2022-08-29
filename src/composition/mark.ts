@@ -23,8 +23,10 @@ export const Mark: CC<MarkOptions> = () => {
       key,
       frame,
       title,
+      labelLayout,
       ...mark
     } = options;
+
     return [
       {
         type: 'standardView',
@@ -43,6 +45,7 @@ export const Mark: CC<MarkOptions> = () => {
         interaction,
         frame,
         title,
+        labelLayout,
         marks: [{ ...mark, key: `${key}-0`, data }],
       },
     ];
