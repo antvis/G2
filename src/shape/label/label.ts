@@ -6,7 +6,7 @@ import { applyStyle } from '../../shape/utils';
 import { isHelix, isPolar, isTranspose } from '../../utils/coordinate';
 import { angle, sub, dist } from '../../utils/vector';
 
-type LabelPosition = 'top' | 'left' | 'right' | 'bottom' | 'inside';
+type LabelPosition = 'top' | 'left' | 'right' | 'bottom' | 'inside' | 'outside';
 
 export type LabelOptions = Record<string, any>;
 
@@ -71,7 +71,14 @@ function inferPosition(
   const endAngle = a3 - a1 >= 0 ? a3 : Math.PI * 2 + a3;
   const midAngle = (startAngle + endAngle) / 2 + Math.PI / 2;
   // InnerRadius is equal to dist(p3, center), and outerRadius is equal to dist(p0, center).
-  const radius = (dist(p3, center) + dist(p0, center)) / 2;
+  const outerRadius = dist(p3, center);
+  const innerRadius = dist(p0, center);
+
+  // @todo Support config by label.offset
+  const offset = position === 'inside' ? 0 : 12;
+  const radius =
+    (position === 'inside' ? (innerRadius + outerRadius) / 2 : outerRadius) +
+    offset;
 
   return {
     x: center[0] + Math.cos(midAngle) * radius - x0,
@@ -83,7 +90,12 @@ function inferDefaultStyle(position: LabelPosition): {
   dy?: string;
   textBaseline?: string;
 } {
-  if (position === 'left' || position === 'right' || position === 'inside') {
+  if (
+    position === 'left' ||
+    position === 'right' ||
+    position === 'inside' ||
+    position === 'outside'
+  ) {
     return { textBaseline: 'middle' };
   }
 

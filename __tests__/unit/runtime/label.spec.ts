@@ -51,7 +51,7 @@ describe('label', () => {
           y: 'sold',
           label: 'genre',
         },
-        style: { label: { position: 'inside', textAlign: 'center' } },
+        style: { label: { position: 'inside' } },
       },
       {},
       done,
@@ -60,6 +60,31 @@ describe('label', () => {
     mount(createDiv(), chart);
   });
 
+  it('render({...} renders interval with outside label with in theta coordinate.', (done) => {
+    const chart = render<G2Spec>(
+      {
+        type: 'interval',
+        data: [
+          { genre: 'Sports', sold: 275 },
+          { genre: 'Strategy', sold: 115 },
+          { genre: 'Action', sold: 120 },
+          { genre: 'Shooter', sold: 350 },
+          { genre: 'Other', sold: 150 },
+        ],
+        coordinate: [{ type: 'theta', innerRadius: 0.5 }],
+        encode: {
+          color: 'genre',
+          y: 'sold',
+          label: 'genre',
+        },
+        style: { label: { position: 'outside' } },
+      },
+      {},
+      done,
+    );
+
+    mount(createDiv(), chart);
+  });
   it('render({...} renders interval with inside label with in transpose coordinate.', (done) => {
     const chart = render<G2Spec>(
       {
