@@ -22,15 +22,15 @@ data = genji.fetchJSON(
 
 ## Mark
 
-Let's begin with a scatterplot of the GDP and the LifeExpectancy of of countries, constructed with [point mark](/mark-point).
+Let's begin with a scatterplot of the GDP and the LifeExpectancy of countries, constructed with [point mark](/mark-point).
 
-G2 doesn't have chart types, it using **mark** as the basic visual building block instead. In most cases, a G2 mark is a template for generating geometric elements from data. Each generated element can either depict a single data item such as interval and point, or a series of data items such line and area.
+G2 doesn't have chart types, it uses **mark** as the basic visual building block instead. In most cases, a G2 mark is a template for generating geometric elements from data. Each generated element can either depict a single data item such as interval and point, or a series of data items such as line and area.
 
-To control the appearance of mark, we bind columns of data to its visual properties. Each column can either extracting from a data dimension, deriving from existed columns or be an array of constant values. For the below point mark, we assign _GDP_ column to x-position, _LifeExpectancy_ column to x-position, deriving a new column from _Population_ column for color and set shape to _hollowPoint_.
+To control the appearance of the mark, we bind columns of data to its visual properties. Each column can either be extracting from a data dimension, derived from existing columns, or be an array of constant values. For the below point mark, we assign _GDP_ column to x-position, _LifeExpectancy_ column to x-position, deriving a new column from _Population_ column for color and set shape to _hollowPoint_.
 
-This binding technique is called **encode**. We always say that a visual property encode a abstract data column, and this kind of data-driven property is called **channel**. With the help of encode, not only can marks be positioned in pixels or styling literally, but they can also be drawn with abstract data.
+This binding technique is called **encode**. We always say that a visual property encodes an abstract data column, and this kind of data-driven property is called **channel**. With the help of encoding, not only can marks be positioned in pixels or styling literally, but they can also be drawn with abstract data.
 
-In G2, calling `chart.mark()` to create a new mark and add it to chart. Then calling `mark.encode(channel, column)` to specify its channel and calling `mark.style(property, value)` for its constant property.
+In G2, call `chart.mark()` to create a new mark and add it to the chart. Then calling `mark.encode(channel, column)` to specify its channel and calling `mark.style(property, value)` for its constant property.
 
 ```js
 (() => {
@@ -51,9 +51,9 @@ In G2, calling `chart.mark()` to create a new mark and add it to chart. Then cal
 })();
 ```
 
-Besides geometric mark, G2 can drawing **static mark** such as [axis](/mark-component#axis) and [legend](/mark-component#legend) as well. Static mark are also called **component** for decoration or guide purpose.
+Besides geometric mark, G2 can drawing **static mark** such as [axis](/mark-component#axis) and [legend](/mark-component#legend) as well. Static marks are also called **components** for decoration or guide purposes.
 
-Think of axis and legend as the the visualizations for [scales](/introduction#scale), which can facilitate us comprehending the chart. So it is naturally to configure them in the options of its bind scale. The below example, we title the legend and format labels of x-axis.
+Think of axis and legend as the visualizations for [scales](/introduction#scale), which can facilitate us comprehending the chart. So it is natural to configure them in the options of its bind scale. In the below example, we title the legend and format labels of the x-axis.
 
 ```js
 (() => {
@@ -78,9 +78,9 @@ Think of axis and legend as the the visualizations for [scales](/introduction#sc
 
 Then we use [groupX transform](/transform-group) to render a bar chart showing the count of countries for each continent.
 
-Unlike conventional data transform transforming data before plotting, G2 **transform** provide a convenient mechanism for deriving data or even mark options while plotting. Transform is a function that filter, modify, aggregate existed channels or produce new channels, which can both operate in abstract data space such as [stackY](/transform-stack) and operate in screen space such as [pack](/transform-pack).
+Unlike conventional data transform transforming data before plotting, G2 **transform** provides a convenient mechanism for deriving data or even mark options while plotting. Transform is a function that filter, modify, aggregates existing channels or produce new channels, which can both operate in abstract data space such as [stackY](/transform-stack) and operate in screen space such as [pack](/transform-pack).
 
-Transform is born for data exploration, because it frees us for wrestling with the intricacies of manipulating abstract data. By paying more attention to manipulate channels instead, we are able to explore different aspects of data more efficiently and visually. For example as below, we apply groupX transform to group [interval mark](/mark-interval) by x-position channel and produce a new y-position channel storing count for each group.
+Transform is born for data exploration because it frees us from wrestling with the intricacies of manipulating abstract data. By paying more attention to manipulating channels instead, we are able to explore different aspects of data more efficiently and visually. For example, as below, we apply groupX transform to group [interval mark](/mark-interval) by x-position channel and produce a new y-position channel storing count for each group.
 
 In G2, calling `mark.transform(transform)` to specify a transform for mark.
 
@@ -99,13 +99,13 @@ In G2, calling `mark.transform(transform)` to specify a transform for mark.
 })();
 ```
 
-Some transform is also helpful for annotating such as [select](/transform-select). Select provides the ability to pulling a single value out of each series or summary each series. Let's go back to the scatterplot above and label the countries with maximum GDP for each continent. It is possible to label the minium, last or first country as well.
+Some transform is also helpful for annotating such as [select](/transform-select). Select provides the ability to pull a single value out of each series or summary each series. Let's go back to the scatterplot above and label the countries with maximum GDP for each continent. It is possible to label the minimum, last or first country as well.
 
 ```js | select "label:'selector'; options: { labels: ['Maximum', 'Minium', 'Last', 'First'], values: ['max', 'min', 'last', 'first'] }"
 selector = 'max'; // Default to max.
 ```
 
-This example also shows how to draw multiple marks in a single chart. Noticed that annotation is considered as a mark, which means that it is as flexible and powerful as geometries such as point mark mentioned above.
+This example also shows how to draw multiple marks in a single chart. Noticed that annotation is considered a mark, which means that it is as flexible and powerful as geometries such as the point mark mentioned above.
 
 ```js
 (() => {
@@ -140,9 +140,9 @@ This example also shows how to draw multiple marks in a single chart. Noticed th
 
 ## Scale
 
-A more complicated take on this data is to focus one more dimension: Population. Here we encode size channel to _Population_ column to get a bubble chart.
+A more complicated take on this data is to focus on one more dimension: Population. Here we encode the size channel to _Population_ column to get a bubble chart.
 
-Oops! A green circle is so large and the rest of circles are nearly the same size, which makes it no way to compare them. This happens because the values of size channel is non-uniformly distributed, most of values are relatively small to a extreme value. To fix this, set the type of scale for size channel to [log](/scale#log).
+Oops! A green circle is so large and the rest of the circles are nearly the same size, which makes it no way to compare them. This happens because the values of the size channel are non-uniformly distributed, most of the values are relatively small to an extreme value. To fix this, set the type of scale for the size channel to [log](/scale#log).
 
 ```js | select "label:'Scale Type'; options: { labels: ['Linear', 'Log', 'Pow'], values: ['linear', 'log', 'pow'] }"
 scale = 'linear'; // Default to linear scale.
@@ -150,9 +150,9 @@ scale = 'linear'; // Default to linear scale.
 
 Here we come to **scale**: a function that map abstract data to visual data. Scale is the bridge between abstract data and visual shapes. If encode define what properties of shape should be visualized, then scale define how to visualize these properties.
 
-Each channel are bind with a scale. It will transform each value for the channel from data domain called **domain** to visual space called **range** by the specified map function. For scaled values of non-spatial position channel, they are ready to be rendered into screen. For example, we specify the type of scale for size channel to _log_, and specify the range to _[4, 20]_.
+Each channel is bound with a scale. It will transform each value for the channel from the data domain called **domain** to a visual space called **range** by the specified map function. For scaled values of non-spatial position channels, they are ready to be rendered on screen. For example, we specify the type of scale for the size channel to _log_, and specify the range to _[4, 20]_.
 
-In G2, calling `mark.scale(channel, options)` to specify scale options for each channel. Although G2 are smart enough to infer type, domain and range for each scale, you can still specify them explicitly, if need.
+In G2, calling `mark.scale(channel, options)` to specify scale options for each channel. Although G2 is smart enough to infer the type, domain, and range for each scale, you can still specify them explicitly, if needed.
 
 ```js
 (() => {
@@ -177,9 +177,9 @@ In G2, calling `mark.scale(channel, options)` to specify scale options for each 
 
 What if we prefer a horizontal bar chart rather than a vertical bar chart? That's also easy! Simply applying [transpose coordinate transformation](/coordinate#transpose) to the vertical bar chart is OK.
 
-**Coordinate** or better called as coordinate transformation is for applying point transformations for scaled spatial position channels such as x-position and y-position. Coordinate is a powerful mechanism to modify the position or appearance of shapes, which allows you make different charts with slight modification of chart declaration.
+**Coordinate** or better called coordinate transformation is for applying point transformations for scaled spatial position channels such as x-position and y-position. Coordinate is a powerful mechanism to modify the position or appearance of shapes, which allows you to make different charts with the slight modification of chart declaration.
 
-Each chart is able to have one or more coordinate transformations at the same time, which will affect all the marks in this chart. For example, the specified transpose coordinate transformation transpose the position for interval mark, axisX and axisY altogether.
+Each chart is able to have one or more coordinate transformations at the same time, which will affect all the marks in this chart. For example, the specified transpose coordinate transformation transposes the position for interval mark, axisX, and axisY altogether.
 
 In G2, calling `chart.coordinate(coordinate)` to specify a coordinate transformation.
 
@@ -234,13 +234,13 @@ Here is an example to using [parallel coordinate transformation](/coordinate#par
 
 ## Composition
 
-So far we have plotted several charts, including scatterplot, barchart, bubble, etc,. But more strictly speaking, they are called single view visualizations. A **view** is an area with multiple marks, coordinate transformations and [interactions](/introduction#interaction).
+So far we have plotted several charts, including scatterplot, bar chart, bubble, etc, But more, strictly speaking, they are called single view visualizations. A **view** is an area with multiple marks, coordinate transformations and [interactions](/introduction#interaction).
 
-For more complex situations, G2 use a **view tree** to describe multi-view displays, which allows you create a whole dashboard with a single specification.
+For more complex situations, G2 use a **view tree** to describe multi-view displays, which allows you to create a whole dashboard with a single specification.
 
-Each node of the view tree has its own data, space and time. In the view tree, a single view plot is called a **view node** and a mark is called a **mark node**. The type of the rest nodes is called **composition node** that divides the data domain, spatial domain and temporal domain for child node.
+Each node of the view tree has its own data, space, and time. In the view tree, a single view plot is called a **view node** and a mark is called a **mark node**. The type of the rest nodes is called **composition node** which divides the data domain, spatial domain, and temporal domain for the child node.
 
-Spatial composition node always split its space for child spaces and pass the copy of its data, such as [flex node](</composition-spatial#row(flex)>). Here we place the scatterplot and barchart from left to right.
+The patial composition node always split its space for child spaces and passes the copy of its data, such as [flex node](/composition-spatial#row(flex)). Here we place the scatterplot and bar chart from left to right.
 
 ```js
 (() => {
@@ -267,7 +267,7 @@ Spatial composition node always split its space for child spaces and pass the co
 })();
 ```
 
-Facet composition node produces [small multiples](https://en.wikipedia.org/wiki/Small_multiple) to compare different subsets of the same data, such as [rect node](/composition-rect). In other words, facet composition node will both divide data and space domain for its children. For example, we can mount the scattarplot view to a rect node to visualize countries for each continent separately.
+Facet composition node produces [small multiples](https://en.wikipedia.org/wiki/Small_multiple) to compare different subsets of the same data, such as [rect node](/composition-rect). In other words, the facet composition node will both divide data and space domain for its children. For example, we can mount the scatterplot view to a rect node to visualize countries for each continent separately.
 
 ```js
 (() => {
@@ -293,7 +293,7 @@ Facet composition node produces [small multiples](https://en.wikipedia.org/wiki/
 })();
 ```
 
-Add pack transform to the faceted scatterplot above, we can get a unit visualization with non-overlapping layout. And you can try `shareData` and `shareSize` options to see the different. And you can use nested rect composition to get a more informative unit visualization for the [Titanic dataset](/composition-unit#nested).
+Add pack transform to the faceted scatterplot above, we can get a unit visualization with a non-overlapping layout. And you can try the `shareData` and `shareSize` options to see the difference. And you can use nested rect composition to get a more informative unit visualization for the Titanic dataset.
 
 ```js | select "pin: false; label: 'ShareData'; options: { labels: ['False', 'True'], values: [0, 1] }"
 shareData = false; // Default to false.
@@ -303,7 +303,7 @@ shareData = false; // Default to false.
 shareSize = false; // Default to false.
 ```
 
-**Unit visualizations** is a family of visualization that each visual element represent a data item, such as scatterplot, parallel coordinates. They are easier to be interpreted and be tracked during animated transitions and interaction compared to **aggregating visualization**, such as barchart.
+**Unit visualizations** is a family of visualization in which each visual element represent a data item, such as a scatterplot, or parallel coordinates. They are easier to be interpreted and be tracked during animated transitions and interactions compared to **aggregating visualization**, such as bar chart.
 
 ```js
 (() => {
@@ -330,13 +330,13 @@ shareSize = false; // Default to false.
 })();
 ```
 
-We'll leave temporal composition node to the next animation section.
+We'll leave the temporal composition node to the next animation section.
 
 ## Animation
 
-**Animation** is an essential part of visualization to attract people's attention and maintain their engagement. In G2, data dimensions can be encoded by animation properties such as duration, delay and easing function. This benefit us to declare [data driven chart animations](/animation#encode-enterdelay-and-enterduration).
+**Animation** is an essential part of visualization to attract people's attention and maintain their engagement. In G2, data dimensions can be encoded by animation properties such as duration, delay, and easing function. This benefit us to declare [data driven chart animations](/animation#encode-enterdelay-and-enterduration).
 
-We can use [stackEnter transform](/transform-stack-enter) to partition entering marks into hierarchical groups and stacked effects temporally for each group. For example, click the _run_ button in the codeblock to see country bubbles appearing continent by continent.
+We can use [stackEnter transform](/transform-stack-enter) to partition entering marks into hierarchical groups and stacked effects temporally for each group. For example, click the _run_ button in the code block to see country bubbles appearing continent by continent.
 
 This example also shows how to group different kinds of declarations with the same concerns by the `mark.call` API.
 
@@ -371,7 +371,7 @@ This example also shows how to group different kinds of declarations with the sa
 
 Except for data-driven animation, it is possible to author data storytelling or visual narratives by temporal composition node such as [keyframe composition](/composition-keyframe).
 
-For example, we mount some plotted view nodes to a keyframe composition node as below. These views will be rendered in sequence and G2 will apply consistent transitions for marks with connection, which is defined by _key_, _groupKey_ and _key of view_.
+For example, we mount some plotted view nodes to a keyframe composition node as below. These views will be rendered in sequence and G2 will apply consistent transitions for marks with connection, which is defined by _key_, _groupKey_, and _key of view_.
 
 ```js
 (() => {
@@ -448,9 +448,9 @@ For example, we mount some plotted view nodes to a keyframe composition node as 
 
 ## Interaction
 
-**Interaction** is another fundamental part of visualization. Well-designed interaction techniques empower users to effectively explore visualized data while providing an engaging experience.
+**Interaction** is another fundamental part of the visualization. Well-designed interaction techniques empower users to effectively explore visualized data while providing an engaging experience.
 
-Inspired by [Libra](https://libra-js.github.io/): an instrument-based interaction model for data visualization, we design a visualization grammar to compose rich interactions with a set of carefully-designed and highly-reusable interaction units called **actions**. G2 also maintain a clear separation of concerns between visual representation and interaction, which means you can define your own interaction grammar if you want.
+Inspired by [Libra](https://libra-js.github.io/): an instrument-based interaction model for data visualization, we design a visualization grammar to compose rich interactions with a set of carefully-designed and highly-reusable interaction units called **actions**. G2 also maintains a clear separation of concerns between visual representation and interaction, which means you can define your own interaction grammar if you want.
 
 In G2, calling `view.interaction(interaction)` declare a new interaction for the current view. Here we display two built-in interactions [brush](/interaction-brush) and [fisheye](/interaction-more#fisheye) to solve overlapping problems.
 
@@ -506,11 +506,13 @@ G2, short for Grammar of Graphics, is inspired by Wilkinson’s Grammar of Graph
 
 But in the last decade, some theories of GoG are out of date and data visualization tools have evolved tremendously. In order to catch up and satisfy the growing needs for data visualization, we redesign the specification and architecture for G2 by taking [Observable Plot](https://observablehq.com/@observablehq/plot?collection=@observablehq/plot), [Vega-Lite](https://vega.github.io/vega-lite/docs/), [Atom](https://ieeexplore.ieee.org/abstract/document/8233127/), [Canis](http://www.yunhaiwang.net/EuroVis2020/canis/index.html) and [Libra](https://libra-js.github.io/) as references.
 
-The core of GoG is to reject a chart typology, so does G2 in in favor of marks, transforms, scales and coordinates. Not only does this help us create traditional or novel charts, but this also enable us to use vision to think in the world of data. Besides single view chart, we also propose a view tree to construct multiple views easily, such as unit visualization.
+The core of GoG is to reject a chart typology, and so does G2 in favor of marks, transforms, scales, and coordinates. Not only does this help us create traditional or novel charts, but this also enables us to use vision to think in the world of data. Besides a single view chart, we also propose a view tree to construct multiple views easily, such as unit visualization.
 
-Existed general purpose visualization tools such as [D3.js](https://github.com/d3/d3), [Vega](https://vega.github.io/vega/), [Apache ECharts](https://echarts.apache.org/zh/index.html), don't support declarative specifications of data-driven chart animations. So we make data dimensions encodeable by animation properties and design temporal composition node to animate views to fill the gap. This provides us the ability to rapidly create expressive data storytelling or visual narratives.
+Existed general purpose visualization tools such as [D3.js](https://github.com/d3/d3), [Vega](https://vega.github.io/vega/), [Apache ECharts](https://echarts.apache.org/zh/index.html), don't support declarative specifications of data-driven chart animations. So we make data dimensions encodable by animation properties and design temporal composition nodes to animate views to fill the gap. This provides us the ability to rapidly create expressive data storytelling or visual narratives.
 
-When it comes to interaction, it is always with less concerned as well as visual representations. Vega introduces high-level abstractions such as streams and signals to simplify the implementation of interactions. Yet it has a steep learning curve and maybe difficult to be specified for complex interaction. Compare to that, G2 only abstract some intuitive action to compose most interactions(hopefully).
+When it comes to interaction, it is always with less concern as well as visual representations. Vega introduces high-level abstractions such as streams and signals to simplify the implementation of interactions. Yet it has a steep learning curve and may be difficult to be specified for complex interaction. Compare to that, G2 only abstract some intuitive action to compose most interactions(hopefully).
+
+What to make G2 better? Come and join us, it is still a work in progress!
 
 What to make G2 better? Come and join us, it is still work in progress!
 
