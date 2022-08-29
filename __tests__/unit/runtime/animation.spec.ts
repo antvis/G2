@@ -288,7 +288,7 @@ describe('animation', () => {
     mount(createDiv(), chart);
   });
 
-  it('chart should show intervals year by year and then type by type', (done) => {
+  it.only('chart should show intervals year by year and then type by type', (done) => {
     const chart = render<G2Spec>(
       {
         type: 'interval',
@@ -301,7 +301,7 @@ describe('animation', () => {
           { type: 'Banana', year: '2002', value: 30 },
         ],
         scale: {
-          enter: { type: 'identity' },
+          // enter: { type: 'identity' },
         },
         transform: [{ type: 'stackEnter', by: ['x', 'color'] }],
         encode: {

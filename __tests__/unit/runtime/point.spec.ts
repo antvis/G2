@@ -5,12 +5,10 @@ describe('point', () => {
   it('render({...}) should render basic scatter', () => {
     const chart = render<G2Spec>({
       type: 'point',
-      transform: [
-        {
-          type: 'fetch',
-          url: 'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
-        },
-      ],
+      data: {
+        type: 'fetch',
+        url: 'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
+      },
       encode: {
         x: 'height',
         y: 'weight',
@@ -25,12 +23,10 @@ describe('point', () => {
   it('render({...}) should render scatter with only one dimension', () => {
     const chart = render<G2Spec>({
       type: 'point',
-      transform: [
-        {
-          type: 'fetch',
-          url: 'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
-        },
-      ],
+      data: {
+        type: 'fetch',
+        url: 'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
+      },
       height: 120,
       scale: { y: { guide: null } },
       encode: {
@@ -45,12 +41,10 @@ describe('point', () => {
   it('render({...}) should render bubble chart', () => {
     const chart = render<G2Spec>({
       type: 'point',
-      transform: [
-        {
-          type: 'fetch',
-          url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
-        },
-      ],
+      data: {
+        type: 'fetch',
+        url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
+      },
       scale: { size: { type: 'log', range: [4, 20] }, y: { field: 'Life' } },
       encode: {
         x: 'GDP',
@@ -70,12 +64,10 @@ describe('point', () => {
   it('render({...}) should render scatter with only one dimension with line shape', () => {
     const chart = render<G2Spec>({
       type: 'point',
-      transform: [
-        {
-          type: 'fetch',
-          url: 'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
-        },
-      ],
+      data: {
+        type: 'fetch',
+        url: 'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
+      },
       height: 120,
       scale: { y: { guide: null } },
       encode: {
@@ -95,12 +87,10 @@ describe('point', () => {
   it('render({...}) should render chart with shapes', () => {
     const chart = render<G2Spec>({
       type: 'point',
-      transform: [
-        {
-          type: 'fetch',
-          url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
-        },
-      ],
+      data: {
+        type: 'fetch',
+        url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
+      },
       encode: {
         x: 'clarity',
         y: 'carat',

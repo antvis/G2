@@ -23,11 +23,7 @@ describe('Area', () => {
         { name: 'size' },
         { name: 'series', scale: 'identity' },
       ],
-      preInference: [
-        { type: 'maybeArrayField' },
-        { type: 'maybeSeries' },
-        { type: 'maybeZeroY1' },
-      ],
+      preInference: [{ type: 'maybeSeries' }, { type: 'maybeZeroY1' }],
       postInference: [
         { type: 'maybeKey' },
         { type: 'maybeTitleX' },

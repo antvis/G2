@@ -1,4 +1,4 @@
-import { Pick } from '../../../src/transform/preprocessor/pick';
+import { Pick } from '../../../src/data';
 
 describe('pick', () => {
   it('Pick({...}) returns function pick data by fields', async () => {
@@ -10,7 +10,7 @@ describe('pick', () => {
     ];
 
     const p1 = Pick({ fields: ['a', 'b', 'd'] });
-    expect((await p1({ data })).data).toEqual([
+    expect(p1(data)).toEqual([
       { a: 1, b: 2 },
       { a: 2, b: 3 },
       { a: 3, b: 4 },
@@ -18,15 +18,10 @@ describe('pick', () => {
     ]);
 
     const p2 = Pick({});
-    expect((await p2({ data })).data).toEqual([{}, {}, {}, {}]);
+    expect(await p2(data)).toEqual([{}, {}, {}, {}]);
 
     const data2 = [{ a: 1, b: 2 }, { a: 2 }, { a: 3, b: 4 }, { b: 5 }];
     const p3 = Pick({ fields: ['b'] });
-    expect((await p3({ data: data2 })).data).toEqual([
-      { b: 2 },
-      {},
-      { b: 4 },
-      { b: 5 },
-    ]);
+    expect(p3(data2)).toEqual([{ b: 2 }, {}, { b: 4 }, { b: 5 }]);
   });
 });

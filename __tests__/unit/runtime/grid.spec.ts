@@ -5,16 +5,16 @@ describe('grid', () => {
   it('render({...} should render basic grid', () => {
     const chart = render<G2Spec>({
       type: 'grid',
-      transform: [
-        {
-          type: 'fetch',
-          url: 'https://gw.alipayobjects.com/os/bmw-prod/bd287f2c-3e2b-4d0a-8428-6a85211dce33.json',
-        },
-        {
-          type: 'sortBy',
-          fields: ['y'],
-        },
-      ],
+      data: {
+        type: 'fetch',
+        url: 'https://gw.alipayobjects.com/os/bmw-prod/bd287f2c-3e2b-4d0a-8428-6a85211dce33.json',
+        transform: [
+          {
+            type: 'sortBy',
+            fields: ['y'],
+          },
+        ],
+      },
       height: 640,
       encode: {
         x: 'x',
@@ -32,13 +32,11 @@ describe('grid', () => {
   it('render({...}) should render grid with threshold', () => {
     const chart = render<G2Spec>({
       type: 'grid',
-      transform: [
-        {
-          type: 'fetch',
-          url: 'https://gw.alipayobjects.com/os/bmw-prod/89c20fe8-0c6f-46c8-b36b-4cb653dba8ed.json',
-          callback: (d) => ({ salary: d }),
-        },
-      ],
+      data: {
+        type: 'fetch',
+        url: 'https://gw.alipayobjects.com/os/bmw-prod/89c20fe8-0c6f-46c8-b36b-4cb653dba8ed.json',
+        callback: (d) => ({ salary: d }),
+      },
       width: 900,
       height: 280,
       scale: {
@@ -64,13 +62,11 @@ describe('grid', () => {
   it('render({...}) should render grid with quantile', () => {
     const chart = render<G2Spec>({
       type: 'grid',
-      transform: [
-        {
-          type: 'fetch',
-          url: 'https://gw.alipayobjects.com/os/bmw-prod/89c20fe8-0c6f-46c8-b36b-4cb653dba8ed.json',
-          callback: (d) => ({ salary: d }),
-        },
-      ],
+      data: {
+        type: 'fetch',
+        url: 'https://gw.alipayobjects.com/os/bmw-prod/89c20fe8-0c6f-46c8-b36b-4cb653dba8ed.json',
+        callback: (d) => ({ salary: d }),
+      },
       width: 900,
       height: 280,
       scale: {
@@ -95,13 +91,11 @@ describe('grid', () => {
   it('render({...}) should render grid with quantize', () => {
     const chart = render<G2Spec>({
       type: 'grid',
-      transform: [
-        {
-          type: 'fetch',
-          url: 'https://gw.alipayobjects.com/os/bmw-prod/89c20fe8-0c6f-46c8-b36b-4cb653dba8ed.json',
-          callback: (d) => ({ salary: d }),
-        },
-      ],
+      data: {
+        type: 'fetch',
+        url: 'https://gw.alipayobjects.com/os/bmw-prod/89c20fe8-0c6f-46c8-b36b-4cb653dba8ed.json',
+        callback: (d) => ({ salary: d }),
+      },
       width: 900,
       height: 280,
       scale: {

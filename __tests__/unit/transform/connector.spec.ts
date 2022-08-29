@@ -1,4 +1,4 @@
-import { Connector } from '../../../src/transform';
+import { Connector } from '../../../src/data';
 
 describe('connector', () => {
   it('Connector({...}) returns function preprocess data by specified callback', async () => {
@@ -10,11 +10,11 @@ describe('connector', () => {
     ];
 
     const c1 = Connector({ callback: undefined });
-    expect((await c1({ data })).data).toBe(data);
+    expect(await c1(data)).toBe(data);
 
     const c2 = Connector({
       callback: (d) => d.filter((i) => i.a === 1),
     });
-    expect((await c2({ data })).data).toEqual([{ a: 1, b: 2, c: 3 }]);
+    expect(await c2(data)).toEqual([{ a: 1, b: 2, c: 3 }]);
   });
 });

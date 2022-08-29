@@ -23,7 +23,7 @@ describe('Annotation Text', () => {
         { name: 'fontSize' },
         { name: 'rotate' },
       ],
-      preInference: [{ type: 'maybeArrayField' }],
+      preInference: [],
       postInference: [{ type: 'maybeKey' }],
       shapes: ['annotation.text', 'annotation.badge'],
     });

@@ -1,5 +1,6 @@
 import { CompositionComponent as CC } from '../runtime';
 import { FlexComposition } from '../spec';
+import { mergeData } from './utils';
 
 export type FlexOptions = Omit<FlexComposition, 'type'>;
 
@@ -29,13 +30,14 @@ export const Flex: CC<FlexOptions> = () => {
     const newChildren = [];
     let next = options[mainStart] || 0;
     for (let i = 0; i < sizes.length; i += 1) {
-      const { data = flexData, ...rest } = children[i];
+      const { data, ...rest } = children[i];
+      const newData = mergeData(data, flexData);
       newChildren.push({
         [mainStart]: next,
         [mainSize]: sizes[i],
         [crossStart]: options[crossStart] || 0,
         [crossSize]: options[crossSize],
-        data,
+        data: newData,
         ...rest,
       });
       next += sizes[i] + padding;

@@ -23,7 +23,7 @@ describe('Schema', () => {
         { name: 'y', required: true },
         { name: 'series', scale: 'band' },
       ],
-      preInference: [{ type: 'maybeArrayField' }],
+      preInference: [],
       postInference: [
         { type: 'maybeKey' },
         { type: 'maybeTitleX' },

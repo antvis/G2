@@ -5,12 +5,10 @@ describe('facet', () => {
   it('render({...} should render row facet', (done) => {
     const chart = render<G2Spec>(
       {
-        transform: [
-          {
-            type: 'fetch',
-            url: 'https://gw.alipayobjects.com/os/bmw-prod/a0f96c54-d1fa-46c8-b6ef-548e2f700a6d.json',
-          },
-        ],
+        data: {
+          type: 'fetch',
+          url: 'https://gw.alipayobjects.com/os/bmw-prod/a0f96c54-d1fa-46c8-b6ef-548e2f700a6d.json',
+        },
         type: 'rect',
         width: 928,
         height: 240,
@@ -46,12 +44,10 @@ describe('facet', () => {
   it('render({...} should render col facet', (done) => {
     const chart = render<G2Spec>(
       {
-        transform: [
-          {
-            type: 'fetch',
-            url: 'https://gw.alipayobjects.com/os/bmw-prod/90ec29b1-c939-434e-8bbb-ce5fa27c62a7.json',
-          },
-        ],
+        data: {
+          type: 'fetch',
+          url: 'https://gw.alipayobjects.com/os/bmw-prod/90ec29b1-c939-434e-8bbb-ce5fa27c62a7.json',
+        },
         type: 'rect',
         height: 800,
         encode: {
@@ -84,12 +80,10 @@ describe('facet', () => {
   it('render({...} should render rect facet', (done) => {
     const chart = render<G2Spec>(
       {
-        transform: [
-          {
-            type: 'fetch',
-            url: 'https://gw.alipayobjects.com/os/bmw-prod/3346929c-d7f4-4a81-8edc-c4c6d028ab96.json',
-          },
-        ],
+        data: {
+          type: 'fetch',
+          url: 'https://gw.alipayobjects.com/os/bmw-prod/3346929c-d7f4-4a81-8edc-c4c6d028ab96.json',
+        },
         type: 'rect',
         paddingRight: 80,
         paddingBottom: 50,
@@ -272,12 +266,10 @@ describe('facet', () => {
   it('render({...} should render rect facet with callback', (done) => {
     const chart = render<G2Spec>(
       {
-        transform: [
-          {
-            type: 'fetch',
-            url: 'https://gw.alipayobjects.com/os/bmw-prod/3346929c-d7f4-4a81-8edc-c4c6d028ab96.json',
-          },
-        ],
+        data: {
+          type: 'fetch',
+          url: 'https://gw.alipayobjects.com/os/bmw-prod/3346929c-d7f4-4a81-8edc-c4c6d028ab96.json',
+        },
         type: 'rect',
         paddingRight: 80,
         paddingBottom: 50,
@@ -322,12 +314,10 @@ describe('facet', () => {
       height: 800,
       paddingLeft: 60,
       paddingBottom: 60,
-      transform: [
-        {
-          type: 'fetch',
-          url: 'https://vega.github.io/editor/data/penguins.json',
-        },
-      ],
+      data: {
+        type: 'fetch',
+        url: 'https://vega.github.io/editor/data/penguins.json',
+      },
       encode: {
         position: [
           'Beak Length (mm)',
@@ -355,30 +345,30 @@ describe('facet', () => {
       width: 800,
       paddingLeft: 50,
       paddingBottom: 60,
-      transform: [
-        {
-          type: 'fetch',
-          url: 'https://gw.alipayobjects.com/os/bmw-prod/48eb9b33-9d2b-40a2-864b-6522f92ba3b9.json',
-          // @todo Remove this with scale.transform
-          callback: (d) => ({
-            ...d,
-            temp_max: +d.temp_max,
-            precipitation: +d.precipitation,
-            wind: +d.wind,
-            date: new Date(d.date),
-          }),
-        },
-        {
-          type: 'rename',
-          map: {
-            temp_max: 'Temp Max',
-            precipitation: 'Precipitation',
-            wind: 'Wind',
-            date: 'Date',
-            location: 'Location',
+      data: {
+        type: 'fetch',
+        url: 'https://gw.alipayobjects.com/os/bmw-prod/48eb9b33-9d2b-40a2-864b-6522f92ba3b9.json',
+        // @todo Remove this with scale.transform
+        callback: (d) => ({
+          ...d,
+          temp_max: +d.temp_max,
+          precipitation: +d.precipitation,
+          wind: +d.wind,
+          date: new Date(d.date),
+        }),
+        transform: [
+          {
+            type: 'rename',
+            map: {
+              temp_max: 'Temp Max',
+              precipitation: 'Precipitation',
+              wind: 'Wind',
+              date: 'Date',
+              location: 'Location',
+            },
           },
-        },
-      ],
+        ],
+      },
       encode: {
         y: ['Temp Max', 'Precipitation', 'Wind'],
         x: 'Date',

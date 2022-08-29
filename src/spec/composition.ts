@@ -5,6 +5,7 @@ import { Interaction } from './interaction';
 import { Transform } from './transform';
 import { Scale } from './scale';
 import { Title } from './title';
+import { Data } from './data';
 
 export type Node =
   | MarkComposition
@@ -22,7 +23,7 @@ export type MarkComposition = Geometry & {
 
 export type ViewComposition = {
   type?: 'view';
-  data?: any;
+  data?: Data;
   key?: string;
   class?: string;
   paddingLeft?: number;
@@ -48,7 +49,7 @@ export type LayerComposition = {
 export type FlexComposition = {
   type?: 'flex';
   key?: string;
-  data?: any;
+  data?: Data;
   direction?: 'col' | 'row';
   ratio?: number[];
   padding?: number;
@@ -68,7 +69,7 @@ export type FacetContext = {
 
 export type RectComposition = {
   transform?: Transform;
-  data?: any;
+  data?: Data;
   paddingLeft?: number;
   paddingRight?: number;
   paddingTop?: number;
@@ -97,7 +98,7 @@ export type MatrixComposition = {
   paddingBottom?: number;
   transform?: Transform;
   title?: Title;
-  data?: any;
+  data?: Data;
   key?: string;
   encode?: {
     x?: string[];
@@ -119,7 +120,7 @@ export type CircleComposition = {
   paddingBottom?: number;
   transform?: Transform;
   title?: Title;
-  data?: any;
+  data?: Data;
   key?: string;
   encode?: {
     position?: string;

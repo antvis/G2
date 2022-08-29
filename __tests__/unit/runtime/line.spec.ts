@@ -81,36 +81,36 @@ describe('line', () => {
   it('render({...}) should render basic line chart', () => {
     const chart = render<G2Spec>({
       type: 'line',
-      data: [
-        { year: '1991', value: 15468 },
-        { year: '1992', value: 16100 },
-        { year: '1993', value: 15900 },
-        { year: '1994', value: 17409 },
-        { year: '1995', value: 17000 },
-        { year: '1996', value: 31056 },
-        { year: '1997', value: 31982 },
-        { year: '1998', value: 32040 },
-        { year: '1999', value: 33233 },
-      ],
-      transform: [
-        {
-          type: ({ alphas = [] }) => {
-            if (!Array.isArray(alphas)) return (context) => context;
-            return ({ data }) => {
-              const newData = alphas.flatMap((alpha) =>
-                data.map((d) => ({
-                  ...d,
-                  alpha,
-                })),
-              );
-              return {
-                data: newData,
+      data: {
+        value: [
+          { year: '1991', value: 15468 },
+          { year: '1992', value: 16100 },
+          { year: '1993', value: 15900 },
+          { year: '1994', value: 17409 },
+          { year: '1995', value: 17000 },
+          { year: '1996', value: 31056 },
+          { year: '1997', value: 31982 },
+          { year: '1998', value: 32040 },
+          { year: '1999', value: 33233 },
+        ],
+        transform: [
+          {
+            type: ({ alphas = [] }) => {
+              if (!Array.isArray(alphas)) return (context) => context;
+              return (data) => {
+                const newData = alphas.flatMap((alpha) =>
+                  data.map((d) => ({
+                    ...d,
+                    alpha,
+                  })),
+                );
+                return newData;
               };
-            };
+            },
+            alphas: [0, 0.25, 0.5, 0.75, 1],
           },
-          alphas: [0, 0.25, 0.5, 0.75, 1],
-        },
-      ],
+        ],
+      },
       scale: {
         color: { field: 'alpha' },
       },
@@ -133,12 +133,10 @@ describe('line', () => {
   it('render({...}) should render line chart with temporal x channel', () => {
     const chart = render<G2Spec>({
       type: 'line',
-      transform: [
-        {
-          type: 'fetch',
-          url: 'https://gw.alipayobjects.com/os/bmw-prod/ab55d10f-24da-465a-9eba-87ac4b7a83ec.json',
-        },
-      ],
+      data: {
+        type: 'fetch',
+        url: 'https://gw.alipayobjects.com/os/bmw-prod/ab55d10f-24da-465a-9eba-87ac4b7a83ec.json',
+      },
       encode: {
         x: (d) => new Date(d.Date),
         y: 'Close',
@@ -310,20 +308,20 @@ describe('line', () => {
         type: 'line',
         width: 720,
         paddingLeft: 80,
-        transform: [
-          {
-            type: 'fetch',
-            url: 'https://gw.alipayobjects.com/os/bmw-prod/96cd81b5-54a4-4fe8-b778-502b2114df58.json',
-            callback: ({ Year, ...rest }) => ({
-              Year: new Date(Year),
-              ...rest,
-            }),
-          },
-          {
-            type: 'filterBy',
-            fields: ['Horsepower', 'Miles_per_Gallon'],
-          },
-        ],
+        data: {
+          type: 'fetch',
+          url: 'https://gw.alipayobjects.com/os/bmw-prod/96cd81b5-54a4-4fe8-b778-502b2114df58.json',
+          callback: ({ Year, ...rest }) => ({
+            Year: new Date(Year),
+            ...rest,
+          }),
+          transform: [
+            {
+              type: 'filterBy',
+              fields: ['Horsepower', 'Miles_per_Gallon'],
+            },
+          ],
+        },
         coordinate: [{ type: 'parallel' }],
         scale: {
           position: { nice: true, guide: { zIndex: 1 } },

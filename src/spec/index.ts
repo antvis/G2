@@ -7,7 +7,7 @@ export type G2Spec = Node & {
 
 export * from './transform';
 export * from './encode';
-export * from './statistic';
+export * from './data';
 export * from './scale';
 export * from './palette';
 export * from './coordinate';

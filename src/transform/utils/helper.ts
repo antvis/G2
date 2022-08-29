@@ -1,54 +1,37 @@
-import {
-  Transform,
-  Primitive,
-  TransformContext,
-  ColumnValue,
-} from '../../runtime';
+import { Primitive } from '../../runtime';
 
-export function applyDefaults<T>(
-  source: Record<string, T>,
-  defaults: Record<string, T>,
-) {
-  const target = { ...source };
-  for (const [key, value] of Object.entries(defaults)) {
-    target[key] = target[key] ?? value;
-  }
-  return target;
-}
-
-export function merge(
-  transform: (
-    context: TransformContext,
-  ) => Partial<TransformContext> | Promise<Partial<TransformContext>>,
-): Transform {
-  return async (options) => {
-    const newOptions = await transform(options);
-    const { encode: newEncode } = newOptions;
-    const { encode: oldEncode } = options;
-    return {
-      ...options,
-      ...newOptions,
-      // Update encode options only when newEncode is defined.
-      ...(newEncode && { encode: { ...oldEncode, ...newEncode } }),
-    };
-  };
-}
-
-export function column(value: ColumnValue) {
+export function column(value: Primitive[], field?: string) {
   if (value === null) return undefined;
-  return { type: 'column', value };
+  return { type: 'column', value, field };
 }
 
-export function constant(value: Primitive) {
-  return { type: 'constant', value };
+export function visualColumn(value: Primitive[], field?: string) {
+  if (value === null) return undefined;
+  return { type: 'column', value, field, visual: true };
 }
 
-export function field(
-  target: ColumnValue,
-  source: ColumnValue,
-  formatter?: (d: any) => string,
-) {
-  if (!source) return target;
-  target.field = formatter ? formatter(source.field) : source.field;
-  return target;
+export function constant(I: number[], value: any) {
+  return new Array(I.length).fill(value);
+}
+
+export function columnOf(encode, key: string): [Primitive[], string] {
+  const channel = encode[key];
+  if (!channel) return [null, null];
+  const { value, field = null } = channel;
+  return [value, field];
+}
+
+export function maybeColumnOf(
+  encode,
+  ...K: (string | Primitive[])[]
+): [Primitive[], string] {
+  for (const key of K) {
+    if (typeof key === 'string') {
+      const [KV, fv] = columnOf(encode, key);
+      if (KV !== null) return [KV, fv];
+    } else {
+      return [key, null];
+    }
+  }
+  return [null, null];
 }

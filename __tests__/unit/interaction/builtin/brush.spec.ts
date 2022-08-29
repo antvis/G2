@@ -146,12 +146,10 @@ describe('Interactions of brush', () => {
     const chart = render<G2Spec>({
       title: 'Polygon brush',
       type: 'point',
-      transform: [
-        {
-          type: 'fetch',
-          url: 'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
-        },
-      ],
+      data: {
+        type: 'fetch',
+        url: 'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
+      },
       encode: {
         x: 'height',
         y: 'weight',
@@ -166,12 +164,10 @@ describe('Interactions of brush', () => {
   it('render({...} renders scatter with brushVisible interaction', () => {
     const chart = render<G2Spec>({
       type: 'point',
-      transform: [
-        {
-          type: 'fetch',
-          url: 'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
-        },
-      ],
+      data: {
+        type: 'fetch',
+        url: 'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
+      },
       encode: {
         x: 'height',
         y: 'weight',

@@ -1,11 +1,11 @@
-import { FilterBy } from '../../../src/transform';
+import { FilterBy } from '../../../src/data';
 
 describe('FilterBy', () => {
   it('FilterBy({...}) returns a function do nothing with empty fields', async () => {
     const transform = FilterBy({});
     const data = [{ a: undefined }, { a: null }, { a: NaN }, { a: 1 }];
-    const r = await transform({ data });
-    expect(r.data).toEqual(data);
+    const r = await transform(data);
+    expect(r).toEqual(data);
   });
 
   it('FilterBy({...}) returns a function filter defined value', async () => {
@@ -16,8 +16,8 @@ describe('FilterBy', () => {
       { a: NaN, b: 1 },
       { a: 1, b: 1 },
     ];
-    const r = await transform({ data });
-    expect(r.data).toEqual([{ a: 1, b: 1 }]);
+    const r = await transform(data);
+    expect(r).toEqual([{ a: 1, b: 1 }]);
   });
 
   it('FilterBy({...}) returns function accepting custom filter callback for each field value', async () => {
@@ -28,7 +28,7 @@ describe('FilterBy', () => {
       { a: -1, b: -1 },
       { a: -1, b: 1 },
     ];
-    const r = await transform({ data });
-    expect(r.data).toEqual([{ a: 1, b: 1 }]);
+    const r = await transform(data);
+    expect(r).toEqual([{ a: 1, b: 1 }]);
   });
 });

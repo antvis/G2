@@ -5,17 +5,17 @@ describe('adjust', () => {
   it('Pack() should pack points with specified x and y channel uniformly', async () => {
     const chart = render<G2Spec>({
       type: 'rect',
-      transform: [
-        {
-          type: 'fetch',
-          url: 'https://gw.alipayobjects.com/os/bmw-prod/97d0b32e-97f7-49dc-b8a1-9e41fa8597a7.json',
-        },
-        {
-          type: 'sortBy',
-          fields: ['survived'],
-          order: 'DESC',
-        },
-      ],
+      data: {
+        type: 'fetch',
+        url: 'https://gw.alipayobjects.com/os/bmw-prod/97d0b32e-97f7-49dc-b8a1-9e41fa8597a7.json',
+        transform: [
+          {
+            type: 'sortBy',
+            fields: ['survived'],
+            order: 'DESC',
+          },
+        ],
+      },
       paddingRight: 50,
       encode: {
         x: 'pclass',
@@ -40,17 +40,17 @@ describe('adjust', () => {
   it('Pack() should pack points with specified x and y channel uniformly', async () => {
     const chart = render<G2Spec>({
       type: 'rect',
-      transform: [
-        {
-          type: 'fetch',
-          url: 'https://gw.alipayobjects.com/os/bmw-prod/97d0b32e-97f7-49dc-b8a1-9e41fa8597a7.json',
-        },
-        {
-          type: 'sortBy',
-          fields: ['survived'],
-          order: 'DESC',
-        },
-      ],
+      data: {
+        type: 'fetch',
+        url: 'https://gw.alipayobjects.com/os/bmw-prod/97d0b32e-97f7-49dc-b8a1-9e41fa8597a7.json',
+        transform: [
+          {
+            type: 'sortBy',
+            fields: ['survived'],
+            order: 'DESC',
+          },
+        ],
+      },
       paddingRight: 50,
       shareData: true,
       encode: {
@@ -76,17 +76,17 @@ describe('adjust', () => {
   it('Pack() should pack points with specified x and y channel uniformly', async () => {
     const chart = render<G2Spec>({
       type: 'rect',
-      transform: [
-        {
-          type: 'fetch',
-          url: 'https://gw.alipayobjects.com/os/bmw-prod/97d0b32e-97f7-49dc-b8a1-9e41fa8597a7.json',
-        },
-        {
-          type: 'sortBy',
-          fields: ['survived'],
-          order: 'DESC',
-        },
-      ],
+      data: {
+        type: 'fetch',
+        url: 'https://gw.alipayobjects.com/os/bmw-prod/97d0b32e-97f7-49dc-b8a1-9e41fa8597a7.json',
+        transform: [
+          {
+            type: 'sortBy',
+            fields: ['survived'],
+            order: 'DESC',
+          },
+        ],
+      },
       paddingRight: 50,
       encode: {
         x: 'pclass',
@@ -112,17 +112,17 @@ describe('adjust', () => {
   it('Pack() should pack points with specified x and y channel uniformly', () => {
     const chart = render<G2Spec>({
       type: 'rect',
-      transform: [
-        {
-          type: 'fetch',
-          url: 'https://gw.alipayobjects.com/os/bmw-prod/1f3410d2-5048-4d87-a1c2-4abb39da8915.json',
-        },
-        {
-          type: 'sortBy',
-          fields: ['Survived'],
-          order: 'DESC',
-        },
-      ],
+      data: {
+        type: 'fetch',
+        url: 'https://gw.alipayobjects.com/os/bmw-prod/1f3410d2-5048-4d87-a1c2-4abb39da8915.json',
+        transform: [
+          {
+            type: 'sortBy',
+            fields: ['Survived'],
+            order: 'DESC',
+          },
+        ],
+      },
       paddingRight: 70,
       encode: {
         x: 'Class',
@@ -145,17 +145,17 @@ describe('adjust', () => {
   it('Pack() should pack points with specified x and y channel uniformly', () => {
     const chart = render<G2Spec>({
       type: 'rect',
-      transform: [
-        {
-          type: 'fetch',
-          url: 'https://gw.alipayobjects.com/os/bmw-prod/1f3410d2-5048-4d87-a1c2-4abb39da8915.json',
-        },
-        {
-          type: 'sortBy',
-          fields: ['Survived'],
-          order: 'DESC',
-        },
-      ],
+      data: {
+        type: 'fetch',
+        url: 'https://gw.alipayobjects.com/os/bmw-prod/1f3410d2-5048-4d87-a1c2-4abb39da8915.json',
+        transform: [
+          {
+            type: 'sortBy',
+            fields: ['Survived'],
+            order: 'DESC',
+          },
+        ],
+      },
       paddingRight: 70,
       shareData: true,
       encode: {
@@ -176,19 +176,19 @@ describe('adjust', () => {
     mount(createDiv(), chart);
   });
 
-  it.only('Pack() should pack points with specified x and y channel uniformly', () => {
+  it('Pack() should pack points with specified x and y channel uniformly', () => {
     const chart = render<G2Spec>({
       type: 'rect',
-      transform: [
-        {
-          type: 'fetch',
-          url: 'https://gw.alipayobjects.com/os/bmw-prod/97d0b32e-97f7-49dc-b8a1-9e41fa8597a7.json',
-        },
-        {
-          type: 'sortBy',
-          fields: ['survived', 'sex'],
-        },
-      ],
+      data: {
+        type: 'fetch',
+        url: 'https://gw.alipayobjects.com/os/bmw-prod/97d0b32e-97f7-49dc-b8a1-9e41fa8597a7.json',
+        transform: [
+          {
+            type: 'sortBy',
+            fields: ['survived', 'sex'],
+          },
+        ],
+      },
       paddingRight: 50,
       paddingBottom: 50,
       paddingLeft: 80,

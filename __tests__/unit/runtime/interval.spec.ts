@@ -74,7 +74,6 @@ describe('render', () => {
     const chart = render<G2Spec>(
       {
         type: 'interval',
-        title: 'Chart Title',
         data: [
           { genre: 'Sports', sold: 275 },
           { genre: 'Strategy', sold: 115 },
@@ -521,14 +520,16 @@ describe('render', () => {
     const chart = render<G2Spec>(
       {
         type: 'interval',
-        data: [
-          { genre: 'Sports', sold: 275 },
-          { genre: 'Strategy', sold: 115 },
-          { genre: 'Action', sold: 120 },
-          { genre: 'Shooter', sold: 350 },
-          { genre: 'Other', sold: 150 },
-        ],
-        transform: [{ type: 'sortBy', fields: ['sold'] }],
+        data: {
+          value: [
+            { genre: 'Sports', sold: 275 },
+            { genre: 'Strategy', sold: 115 },
+            { genre: 'Action', sold: 120 },
+            { genre: 'Shooter', sold: 350 },
+            { genre: 'Other', sold: 150 },
+          ],
+          transform: [{ type: 'sortBy', fields: ['sold'] }],
+        },
         encode: {
           x: 'genre',
           y: 'sold',

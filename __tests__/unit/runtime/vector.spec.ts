@@ -7,12 +7,10 @@ describe('vector', () => {
       width: 800,
       height: 600,
       type: 'vector',
-      transform: [
-        {
-          type: 'fetch',
-          url: 'https://gw.alipayobjects.com/os/antfincdn/F5VcgnqRku/wind.json',
-        },
-      ],
+      data: {
+        type: 'fetch',
+        url: 'https://gw.alipayobjects.com/os/antfincdn/F5VcgnqRku/wind.json',
+      },
       encode: {
         x: 'longitude',
         y: 'latitude',
