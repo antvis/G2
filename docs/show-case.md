@@ -25,10 +25,7 @@
     { genre: 'Shooter', sold: 350 },
     { genre: 'Other', sold: 150 },
   ]);
-  v1.coordinate({ type: 'transpose' }).coordinate({
-    type: 'polar',
-    innerRadius: 0.68,
-  });
+  v1.coordinate({ type: 'theta', innerRadius: 0.68 });
   v1.interval()
     .encode('color', 'genre')
     .encode('y', 'sold')
@@ -43,7 +40,7 @@
     .paddingRight(paddingRight)
     .paddingTop(paddingTop)
     .paddingBottom(paddingTop);
-  const addAnnotationText = (node, data, style) => {
+  const addAnnotationText = (node, data, style = {}) => {
     const shape = node
       .annotationText()
       .data(data)
@@ -52,16 +49,20 @@
       .encode('text', 'text')
       .scale('x', { guide: null })
       .scale('y', { guide: null, domain: [0, 1] })
-      .style({
-        textAlign: 'center',
-        textBaseline: 'middle',
-        fill: '#333',
-        lineWidth: 0,
-        dx: 0,
-        dy: 0,
-      });
+      .style(
+        Object.assign(
+          {
+            textAlign: 'center',
+            textBaseline: 'middle',
+            fill: '#333',
+            lineWidth: 0,
+            dx: 0,
+            dy: 0,
+          },
+          style,
+        ),
+      );
 
-    Object.entries(style).forEach(([k, v]) => shape.style(k, v));
     return shape;
   };
   v2.call(addAnnotationText, [{ x: 0.5, y: 0.5, text: '前端应用数' }], {
