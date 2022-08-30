@@ -148,7 +148,8 @@ describe('Interactions of brush', () => {
       type: 'point',
       data: {
         type: 'fetch',
-        url: 'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
+        value:
+          'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
       },
       encode: {
         x: 'height',
@@ -166,7 +167,8 @@ describe('Interactions of brush', () => {
       type: 'point',
       data: {
         type: 'fetch',
-        url: 'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
+        value:
+          'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
       },
       encode: {
         x: 'height',
@@ -174,6 +176,31 @@ describe('Interactions of brush', () => {
         color: 'gender',
       },
       interaction: [{ type: 'brushVisible' }],
+    });
+
+    mount(createDiv(), chart);
+  });
+
+  it('render({...}) should render bubble chart with brush interaction', async () => {
+    const response = await fetch(
+      'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
+    );
+    const data = await response.json();
+    const chart = render<G2Spec>({
+      type: 'point',
+      data,
+      scale: { size: { type: 'log', range: [4, 20] }, y: { field: 'Life' } },
+      encode: {
+        x: 'GDP',
+        y: 'LifeExpectancy',
+        size: 'Population',
+        color: 'continent',
+      },
+      style: {
+        fillOpacity: 0.3,
+        lineWidth: 1,
+      },
+      interaction: [{ type: 'brush' }],
     });
 
     mount(createDiv(), chart);

@@ -34,13 +34,15 @@
 
   chart
     .polygon()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/voronoi.json',
-    })
-    .transform({
-      type: 'connector',
-      callback: layout,
+      value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/voronoi.json',
+      transform: [
+        {
+          type: 'connector',
+          callback: layout,
+        },
+      ],
     })
     .encode('x', 'x')
     .encode('y', 'y')
@@ -90,12 +92,11 @@
     paddingRight: padding,
   });
 
-  chart
-    .transform({
-      type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/bmw-prod/5155ef81-db23-49f3-b72b-d436a219d289.json',
-    })
-    .transform({ type: 'connector', callback: layout });
+  chart.data({
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/bmw-prod/5155ef81-db23-49f3-b72b-d436a219d289.json',
+    transform: [{ type: 'connector', callback: layout }],
+  });
 
   chart
     .polygon()
@@ -116,9 +117,11 @@
 
   chart
     .text()
-    .transform([
-      { type: 'filterBy', fields: ['height'], callback: (d) => d === 0 },
-    ])
+    .data({
+      transform: [
+        { type: 'filterBy', fields: ['height'], callback: (d) => d === 0 },
+      ],
+    })
     .encode('x', (d) => d.x[0])
     .encode('y', (d) => d.y[0])
     .encode('text', name)

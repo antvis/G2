@@ -8,9 +8,10 @@
 
   chart
     .link()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/antfincdn/SM13%24lHuYH/metros.json',
+      value:
+        'https://gw.alipayobjects.com/os/antfincdn/SM13%24lHuYH/metros.json',
     })
     .encode('x', ['POP_1980', 'POP_2015'])
     .encode('y', ['R90_10_1980', 'R90_10_2015'])
@@ -68,17 +69,21 @@
     height: 640,
   });
 
-  chart
-    .transform({
-      type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/bmw-prod/233673d6-9c84-4ba2-98be-992fb1b34593.json',
-    })
-    .transform({ type: 'connector', callback: flatten })
-    .transform({ type: 'connector', callback: layout });
+  chart.data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/233673d6-9c84-4ba2-98be-992fb1b34593.json',
+    transform: [
+      { type: 'connector', callback: flatten },
+      { type: 'connector', callback: layout },
+    ],
+  });
 
   chart
     .link()
-    .transform({ type: 'connector', callback: links })
+    .data({
+      transform: [{ type: 'connector', callback: links }],
+    })
     .encode('x', [(d) => d.source.x, (d) => d.target.x])
     .encode('y', [(d) => d.source.y, (d) => d.target.y])
     .scale('x', { guide: null })
@@ -87,7 +92,9 @@
 
   chart
     .point()
-    .transform({ type: 'connector', callback: nodes })
+    .data({
+      transform: [{ type: 'connector', callback: nodes }],
+    })
     .encode('x', 'x')
     .encode('y', 'y')
     .encode('size', 10)

@@ -14,9 +14,9 @@
 
   chart
     .point()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
+      value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
     })
     .encode('x', 'GDP')
     .encode('y', 'LifeExpectancy')
@@ -69,9 +69,9 @@
 
   chart
     .area()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/bmw-prod/e58c9758-0a09-4527-aa90-fbf175b45925.json',
+      value: 'https://gw.alipayobjects.com/os/bmw-prod/e58c9758-0a09-4527-aa90-fbf175b45925.json',
     })
     .transform({ type: 'stackY' })
     .transform({ type: 'normalizeY' })
@@ -103,9 +103,9 @@
 
   chart
     .area()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/bmw-prod/e58c9758-0a09-4527-aa90-fbf175b45925.json',
+      value: 'https://gw.alipayobjects.com/os/bmw-prod/e58c9758-0a09-4527-aa90-fbf175b45925.json',
     })
     .transform({ type: 'stackY' })
     .transform({ type: 'normalizeY' })

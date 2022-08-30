@@ -7,7 +7,8 @@ describe('grid', () => {
       type: 'grid',
       data: {
         type: 'fetch',
-        url: 'https://gw.alipayobjects.com/os/bmw-prod/bd287f2c-3e2b-4d0a-8428-6a85211dce33.json',
+        value:
+          'https://gw.alipayobjects.com/os/bmw-prod/bd287f2c-3e2b-4d0a-8428-6a85211dce33.json',
         transform: [
           {
             type: 'sortBy',
@@ -34,7 +35,8 @@ describe('grid', () => {
       type: 'grid',
       data: {
         type: 'fetch',
-        url: 'https://gw.alipayobjects.com/os/bmw-prod/89c20fe8-0c6f-46c8-b36b-4cb653dba8ed.json',
+        value:
+          'https://gw.alipayobjects.com/os/bmw-prod/89c20fe8-0c6f-46c8-b36b-4cb653dba8ed.json',
         callback: (d) => ({ salary: d }),
       },
       width: 900,
@@ -64,7 +66,8 @@ describe('grid', () => {
       type: 'grid',
       data: {
         type: 'fetch',
-        url: 'https://gw.alipayobjects.com/os/bmw-prod/89c20fe8-0c6f-46c8-b36b-4cb653dba8ed.json',
+        value:
+          'https://gw.alipayobjects.com/os/bmw-prod/89c20fe8-0c6f-46c8-b36b-4cb653dba8ed.json',
         callback: (d) => ({ salary: d }),
       },
       width: 900,
@@ -93,7 +96,8 @@ describe('grid', () => {
       type: 'grid',
       data: {
         type: 'fetch',
-        url: 'https://gw.alipayobjects.com/os/bmw-prod/89c20fe8-0c6f-46c8-b36b-4cb653dba8ed.json',
+        value:
+          'https://gw.alipayobjects.com/os/bmw-prod/89c20fe8-0c6f-46c8-b36b-4cb653dba8ed.json',
         callback: (d) => ({ salary: d }),
       },
       width: 900,

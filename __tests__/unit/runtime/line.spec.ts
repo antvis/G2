@@ -135,7 +135,8 @@ describe('line', () => {
       type: 'line',
       data: {
         type: 'fetch',
-        url: 'https://gw.alipayobjects.com/os/bmw-prod/ab55d10f-24da-465a-9eba-87ac4b7a83ec.json',
+        value:
+          'https://gw.alipayobjects.com/os/bmw-prod/ab55d10f-24da-465a-9eba-87ac4b7a83ec.json',
       },
       encode: {
         x: (d) => new Date(d.Date),
@@ -310,7 +311,8 @@ describe('line', () => {
         paddingLeft: 80,
         data: {
           type: 'fetch',
-          url: 'https://gw.alipayobjects.com/os/bmw-prod/96cd81b5-54a4-4fe8-b778-502b2114df58.json',
+          value:
+            'https://gw.alipayobjects.com/os/bmw-prod/96cd81b5-54a4-4fe8-b778-502b2114df58.json',
           callback: ({ Year, ...rest }) => ({
             Year: new Date(Year),
             ...rest,

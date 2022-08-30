@@ -40,8 +40,8 @@
     .paddingRight(paddingRight)
     .paddingTop(paddingTop)
     .paddingBottom(paddingTop);
-  const addAnnotationText = (node, data, style = {}) => {
-    const shape = node
+  const addAnnotationText = (node, data, style = {}) =>
+    node
       .annotationText()
       .data(data)
       .encode('x', 'x')
@@ -62,9 +62,6 @@
           style,
         ),
       );
-
-    return shape;
-  };
   v2.call(addAnnotationText, [{ x: 0.5, y: 0.5, text: '前端应用数' }], {
     fontSize: 16,
     textBaseline: 'bottom',

@@ -246,7 +246,8 @@ describe('render', () => {
         width: 640,
         data: {
           type: 'fetch',
-          url: 'https://gw.alipayobjects.com/os/antfincdn/jjAX4HPWB9/sales.json',
+          value:
+            'https://gw.alipayobjects.com/os/antfincdn/jjAX4HPWB9/sales.json',
         },
         scale: {
           x: {
@@ -293,7 +294,8 @@ describe('render', () => {
       width: 640,
       data: {
         type: 'fetch',
-        url: 'https://gw.alipayobjects.com/os/antfincdn/ulQpndlrT%26/line.json',
+        value:
+          'https://gw.alipayobjects.com/os/antfincdn/ulQpndlrT%26/line.json',
       },
       scale: {
         x: { nice: true, tickCount: 15 },

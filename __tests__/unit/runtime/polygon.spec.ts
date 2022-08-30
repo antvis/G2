@@ -8,7 +8,7 @@ describe('polygon', () => {
     //   transform: [
     //     {
     //       type: 'fetch',
-    //       url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/voronoi.json',
+    //       value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/voronoi.json',
     //     },
     //     {
     //       type: 'voronoi',
@@ -40,7 +40,7 @@ describe('polygon', () => {
     //   transform: [
     //     {
     //       type: 'fetch',
-    //       url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/voronoi.json',
+    //       value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/voronoi.json',
     //     },
     //     {
     //       type: 'voronoi',

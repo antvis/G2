@@ -21,7 +21,6 @@ import {
   G2AnimationOptions,
   G2CompositionOptions,
   G2AdjustOptions,
-  G2TransformOptions,
   G2InteractionOptions,
 } from './types/options';
 import {

@@ -6,13 +6,13 @@ import { DataComponent as DC } from '../runtime';
 export type FetchOptions = Omit<FetchConnector, 'type'>;
 
 export const Fetch: DC<FetchOptions> = (options) => {
-  const { url, callback = identity, format, delimiter = ',' } = options;
+  const { value, callback = identity, format, delimiter = ',' } = options;
   return async () => {
-    const response = await fetch(url);
+    const response = await fetch(value);
     if (format === 'csv') {
       // @see: https://github.com/d3/d3-dsv#dsv_parse
       const str = await response.text();
-      return { data: dsvFormat(delimiter).parse(str, callback) };
+      return dsvFormat(delimiter).parse(str, callback);
     }
     const data = await response.json();
     // @Todo: Remove the `callback`.

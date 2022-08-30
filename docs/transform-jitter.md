@@ -15,9 +15,9 @@ It also support _padding_ option to specify padding of space.
 
   chart
     .point()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
+      value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
     })
     .transform({ type: 'jitter' })
     .encode('x', 'clarity')
@@ -42,9 +42,9 @@ Specify _paddingX_ and _paddingY_ option for jitter.
 
   chart
     .point()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
+      value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
     })
     .transform({ type: 'jitter', paddingX: 0.05, paddingY: 0.05 })
     .encode('x', 'clarity')
@@ -68,9 +68,9 @@ Specify _padding_ option for jitterY.
 
   chart
     .point()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
+      value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
     })
     .transform({ type: 'jitterY', padding: 0.1 })
     .encode('x', 'clarity')

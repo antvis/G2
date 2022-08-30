@@ -7,7 +7,8 @@ describe('link', () => {
       type: 'link',
       data: {
         type: 'fetch',
-        url: 'https://gw.alipayobjects.com/os/antfincdn/SM13%24lHuYH/metros.json',
+        value:
+          'https://gw.alipayobjects.com/os/antfincdn/SM13%24lHuYH/metros.json',
       },
       encode: {
         x: ['POP_1980', 'POP_2015'],

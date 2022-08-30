@@ -12,13 +12,16 @@
 
   chart
     .grid()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/bmw-prod/bd287f2c-3e2b-4d0a-8428-6a85211dce33.json',
-    })
-    .transform({
-      type: 'sortBy',
-      fields: ['y'],
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/bd287f2c-3e2b-4d0a-8428-6a85211dce33.json',
+      transform: [
+        {
+          type: 'sortBy',
+          fields: ['y'],
+        },
+      ],
     })
     .encode('x', 'x')
     .encode('y', 'y')
@@ -42,9 +45,10 @@
 
   chart
     .grid()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/bmw-prod/89c20fe8-0c6f-46c8-b36b-4cb653dba8ed.json',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/89c20fe8-0c6f-46c8-b36b-4cb653dba8ed.json',
       callback: (d) => ({ salary: d }),
     })
     .encode('x', (_, i) => ((i / 5) | 0) + 1)
@@ -124,20 +128,23 @@
 
   const rect = chart
     .rect()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/bmw-prod/dcd363de-395c-44bd-b0ad-4b5606977b97.json',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/dcd363de-395c-44bd-b0ad-4b5606977b97.json',
       callback: (d) =>
         Object.assign({}, d, {
           Year: `${new Date(d.Date).getUTCFullYear()}`,
           Month: month(new Date(d.Date)),
           Date: new Date(d.Date),
         }),
-    })
-    .transform({
-      type: 'sortBy',
-      fields: ['Year'],
-      order: 'DESC',
+      transform: [
+        {
+          type: 'sortBy',
+          fields: ['Year'],
+          order: 'DESC',
+        },
+      ],
     })
     .encode('y', 'Year')
     .encode('x', 'Month');

@@ -8,7 +8,7 @@ describe('node', () => {
     //   transform: [
     //     {
     //       type: 'fetch',
-    //       url: 'https://gw.alipayobjects.com/os/antfincdn/FouG0KJrBc/flare.json',
+    //       value: 'https://gw.alipayobjects.com/os/antfincdn/FouG0KJrBc/flare.json',
     //     },
     //     {
     //       type: 'tree',
@@ -67,7 +67,7 @@ describe('node', () => {
     //   transform: [
     //     {
     //       type: 'fetch',
-    //       url: 'https://gw.alipayobjects.com/os/antfincdn/FouG0KJrBc/flare.json',
+    //       value: 'https://gw.alipayobjects.com/os/antfincdn/FouG0KJrBc/flare.json',
     //     },
     //     {
     //       type: 'cluster',
@@ -127,7 +127,7 @@ describe('node', () => {
     //   transform: [
     //     {
     //       type: 'fetch',
-    //       url: 'https://gw.alipayobjects.com/os/antfincdn/FouG0KJrBc/flare.json',
+    //       value: 'https://gw.alipayobjects.com/os/antfincdn/FouG0KJrBc/flare.json',
     //     },
     //     {
     //       type: 'cluster',

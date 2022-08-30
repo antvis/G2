@@ -1,5 +1,4 @@
 export { render } from './render';
-export { createColumnOf } from './mark';
 export * from './types/common';
 export * from './types/component';
 export * from './types/options';

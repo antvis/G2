@@ -120,7 +120,7 @@ describe('edge', () => {
     //   transform: [
     //     {
     //       type: 'fetch',
-    //       url: 'https://gw.alipayobjects.com/os/antfincdn/agVao%26jU5l/miserables.json',
+    //       value: 'https://gw.alipayobjects.com/os/antfincdn/agVao%26jU5l/miserables.json',
     //     },
     //     { type: 'arc', y: 0.3 },
     //   ],
@@ -174,7 +174,7 @@ describe('edge', () => {
     //   transform: [
     //     {
     //       type: 'fetch',
-    //       url: 'https://gw.alipayobjects.com/os/antfincdn/agVao%26jU5l/miserables.json',
+    //       value: 'https://gw.alipayobjects.com/os/antfincdn/agVao%26jU5l/miserables.json',
     //     },
     //     { type: 'arc', y: 1 },
     //   ],
@@ -229,7 +229,7 @@ describe('edge', () => {
     //   transform: [
     //     {
     //       type: 'fetch',
-    //       url: 'https://gw.alipayobjects.com/os/antfincdn/agVao%26jU5l/miserables.json',
+    //       value: 'https://gw.alipayobjects.com/os/antfincdn/agVao%26jU5l/miserables.json',
     //     },
     //     { type: 'arc', y: 1, weight: true },
     //   ],

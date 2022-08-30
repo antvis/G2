@@ -9,7 +9,7 @@ describe('vector', () => {
       type: 'vector',
       data: {
         type: 'fetch',
-        url: 'https://gw.alipayobjects.com/os/antfincdn/F5VcgnqRku/wind.json',
+        value: 'https://gw.alipayobjects.com/os/antfincdn/F5VcgnqRku/wind.json',
       },
       encode: {
         x: 'longitude',

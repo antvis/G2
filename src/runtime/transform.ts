@@ -34,7 +34,10 @@ export async function applyDataTransform(
   const transform = [connector, ...T];
   const transformFunctions = transform.map(useData);
   const transformedData = await composeAsync(transformFunctions)(data);
-  return [indexOf(transformedData), { ...mark, data: transformedData }];
+  return [
+    Array.isArray(transformedData) ? indexOf(transformedData) : [],
+    { ...mark, data: transformedData },
+  ];
 }
 
 export function flatEncode(

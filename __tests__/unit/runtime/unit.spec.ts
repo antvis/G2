@@ -7,7 +7,8 @@ describe('adjust', () => {
       type: 'rect',
       data: {
         type: 'fetch',
-        url: 'https://gw.alipayobjects.com/os/bmw-prod/97d0b32e-97f7-49dc-b8a1-9e41fa8597a7.json',
+        value:
+          'https://gw.alipayobjects.com/os/bmw-prod/97d0b32e-97f7-49dc-b8a1-9e41fa8597a7.json',
         transform: [
           {
             type: 'sortBy',
@@ -42,7 +43,8 @@ describe('adjust', () => {
       type: 'rect',
       data: {
         type: 'fetch',
-        url: 'https://gw.alipayobjects.com/os/bmw-prod/97d0b32e-97f7-49dc-b8a1-9e41fa8597a7.json',
+        value:
+          'https://gw.alipayobjects.com/os/bmw-prod/97d0b32e-97f7-49dc-b8a1-9e41fa8597a7.json',
         transform: [
           {
             type: 'sortBy',
@@ -78,7 +80,8 @@ describe('adjust', () => {
       type: 'rect',
       data: {
         type: 'fetch',
-        url: 'https://gw.alipayobjects.com/os/bmw-prod/97d0b32e-97f7-49dc-b8a1-9e41fa8597a7.json',
+        value:
+          'https://gw.alipayobjects.com/os/bmw-prod/97d0b32e-97f7-49dc-b8a1-9e41fa8597a7.json',
         transform: [
           {
             type: 'sortBy',
@@ -114,7 +117,8 @@ describe('adjust', () => {
       type: 'rect',
       data: {
         type: 'fetch',
-        url: 'https://gw.alipayobjects.com/os/bmw-prod/1f3410d2-5048-4d87-a1c2-4abb39da8915.json',
+        value:
+          'https://gw.alipayobjects.com/os/bmw-prod/1f3410d2-5048-4d87-a1c2-4abb39da8915.json',
         transform: [
           {
             type: 'sortBy',
@@ -147,7 +151,8 @@ describe('adjust', () => {
       type: 'rect',
       data: {
         type: 'fetch',
-        url: 'https://gw.alipayobjects.com/os/bmw-prod/1f3410d2-5048-4d87-a1c2-4abb39da8915.json',
+        value:
+          'https://gw.alipayobjects.com/os/bmw-prod/1f3410d2-5048-4d87-a1c2-4abb39da8915.json',
         transform: [
           {
             type: 'sortBy',
@@ -181,7 +186,8 @@ describe('adjust', () => {
       type: 'rect',
       data: {
         type: 'fetch',
-        url: 'https://gw.alipayobjects.com/os/bmw-prod/97d0b32e-97f7-49dc-b8a1-9e41fa8597a7.json',
+        value:
+          'https://gw.alipayobjects.com/os/bmw-prod/97d0b32e-97f7-49dc-b8a1-9e41fa8597a7.json',
         transform: [
           {
             type: 'sortBy',

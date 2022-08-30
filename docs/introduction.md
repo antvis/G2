@@ -51,7 +51,7 @@ In G2, call `chart.mark()` to create a new mark and add it to the chart. Then ca
 })();
 ```
 
-Besides geometric mark, G2 can drawing **static mark** such as [axis](/mark-component#axis) and [legend](/mark-component#legend) as well. Static marks are also called **components** for decoration or guide purposes.
+Besides geometric mark, G2 can draw **static mark** such as [axis](/mark-component#axis) and [legend](/mark-component#legend) as well. Static marks are also called **components** for decoration or guide purposes.
 
 Think of axis and legend as the visualizations for [scales](/introduction#scale), which can facilitate us comprehending the chart. So it is natural to configure them in the options of its bind scale. In the below example, we title the legend and format labels of the x-axis.
 
@@ -82,7 +82,7 @@ Unlike conventional data transform transforming data before plotting, G2 **trans
 
 Transform is born for data exploration because it frees us from wrestling with the intricacies of manipulating abstract data. By paying more attention to manipulating channels instead, we are able to explore different aspects of data more efficiently and visually. For example, as below, we apply groupX transform to group [interval mark](/mark-interval) by x-position channel and produce a new y-position channel storing count for each group.
 
-In G2, calling `mark.transform(transform)` to specify a transform for mark.
+In G2, call `mark.transform(transform)` to specify a transform for mark.
 
 ```js
 (() => {

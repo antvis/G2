@@ -57,9 +57,9 @@ Options `groupBy` can be specified as an array.
 
   chart
     .interval()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/antfincdn/mor%26R5yBI9/stack-group-column.json',
+      value: 'https://gw.alipayobjects.com/os/antfincdn/mor%26R5yBI9/stack-group-column.json',
     })
     .transform({ type: 'normalizeY', groupBy: ['x', 'series'] })
     .encode('x', 'product_type')
@@ -80,9 +80,9 @@ Options `groupBy` can be specified as an array.
 
   chart
     .area()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/bmw-prod/e58c9758-0a09-4527-aa90-fbf175b45925.json',
+      value: 'https://gw.alipayobjects.com/os/bmw-prod/e58c9758-0a09-4527-aa90-fbf175b45925.json',
     })
     .transform({ type: 'stackY' })
     .transform({ type: 'normalizeY' })
@@ -109,9 +109,9 @@ Specifies `basis` to `first`.
 
   chart
     .line()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/bmw-prod/6a9b4091-2fe1-4649-89f3-f9a211827811.json',
+      value: 'https://gw.alipayobjects.com/os/bmw-prod/6a9b4091-2fe1-4649-89f3-f9a211827811.json',
     })
     .transform({ type: 'normalizeY', groupBy: 'series', basis: 'first' })
     .encode('x', (d) => new Date(d.Date))

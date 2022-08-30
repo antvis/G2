@@ -1,10 +1,6 @@
 import { deepMix } from '@antv/util';
 import { group, max as d3Max, mean as d3Mean, sum as d3Sum } from 'd3-array';
-import {
-  TransformComponent as TC,
-  Primitive,
-  createColumnOf,
-} from '../runtime';
+import { TransformComponent as TC, Primitive } from '../runtime';
 import { GroupXTransform, Reducer } from '../spec';
 import { indexOf } from '../utils/array';
 import { columnOf, column } from './utils/helper';
@@ -62,60 +58,35 @@ function last(): [ReducerFunction, Formatter] {
 /**
  * The GroupX transform group data by x channel, and aggregate.
  * @todo Sort among groups and apply reverse options.
+ * @todo Test encode after aggregate.
  */
 export const GroupX: TC<GroupXOptions> = (options = {}) => {
   const { orderBy, reverse = false, ...rest } = options;
-  return (I, mark, context) => {
+  return (I, mark) => {
     const { data, encode } = mark;
-    const [X, fx] = columnOf(encode, 'x');
-    const { library } = context;
-    const channelOf = createColumnOf(library);
+    const [X] = columnOf(encode, 'x');
     const groups = X ? Array.from(group(I, (i) => X[i]).values()) : [I];
     const outputs = Object.entries(rest).map(([channel, reducer]) => {
-      const { [channel]: e } = encode;
-      const { value: V, field } = channelOf(data, e);
       const [reducerFunction, formatter] = normalizeReducer(reducer);
+      const [V, field] = columnOf(encode, channel);
       const RV = groups.map((I) => reducerFunction(I, V ?? data));
       return [channel, column(RV, formatter?.(field) || field)];
     });
+    const reducedColumns = Object.keys(encode).map((key) => {
+      const [V, fv] = columnOf(encode, key);
+      const GV = groups.map((I) => V[I[0]]);
+      return [key, column(GV, fv)];
+    });
     const GD = groups.map((I) => data[I[0]]);
-    const GX = groups.map((I) => X[I[0]]);
     const GI = indexOf(groups);
     return [
       GI,
       deepMix({}, mark, {
         data: GD,
-        encode: {
-          x: column(GX, fx),
-          ...Object.fromEntries(outputs),
-        },
+        encode: Object.fromEntries([...reducedColumns, ...outputs]),
       }),
     ];
   };
-  // return merge((context) => {
-  //   const { data, encode, columnOf, I } = context;
-  //   const { x } = encode;
-  //   const X = columnOf(data, x);
-  //   const groups = X ? Array.from(group(I, (i) => X[i]).values()) : [I];
-  //   const outputs = Object.entries(rest).map(([channel, reducer]) => {
-  //     const { [channel]: e } = encode;
-  //     const V = columnOf(data, e);
-  //     const [reducerFunction, formatter] = normalizeReducer(reducer);
-  //     const RV = groups.map((I) => reducerFunction(I, V ?? data));
-  //     return [channel, column(field(RV, V, formatter))];
-  //   });
-  //   const GD = groups.map((I) => data[I[0]]);
-  //   const GX = groups.map((I) => X[I[0]]);
-  //   const GI = indexOf(groups);
-  //   return {
-  //     I: GI,
-  //     data: GD,
-  //     encode: {
-  //       x: column(field(GX, X)),
-  //       ...Object.fromEntries(outputs),
-  //     },
-  //   };
-  // });
 };
 
 GroupX.props = {};

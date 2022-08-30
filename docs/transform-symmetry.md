@@ -11,9 +11,9 @@ them to be symmetry.
 
   chart
     .area()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/bmw-prod/e58c9758-0a09-4527-aa90-fbf175b45925.json',
+      value: 'https://gw.alipayobjects.com/os/bmw-prod/e58c9758-0a09-4527-aa90-fbf175b45925.json',
     })
     .transform({ type: 'stackY' })
     .transform({ type: 'symmetryY' })
@@ -41,14 +41,16 @@ them to be symmetry.
 
   chart
     .interval()
-    .data([
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
-    ])
-    .transform({ type: 'sortBy', fields: ['sold'], order: 'DESC' })
+    .data({
+      value: [
+        { genre: 'Sports', sold: 275 },
+        { genre: 'Strategy', sold: 115 },
+        { genre: 'Action', sold: 120 },
+        { genre: 'Shooter', sold: 350 },
+        { genre: 'Other', sold: 150 },
+      ],
+      transform: [{ type: 'sortBy', fields: ['sold'], order: 'DESC' }],
+    })
     .transform({ type: 'symmetryY' })
     .encode('x', 'genre')
     .encode('y', 'sold')
@@ -68,9 +70,9 @@ them to be symmetry.
 
   chart
     .point()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/bmw-prod/88c601cd-c1ff-4c9b-90d5-740d0b710b7e.json',
+      value: 'https://gw.alipayobjects.com/os/bmw-prod/88c601cd-c1ff-4c9b-90d5-740d0b710b7e.json',
     })
     .transform({ type: 'stackY', orderBy: 'series' })
     .transform({ type: 'symmetryY' })

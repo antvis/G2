@@ -72,7 +72,8 @@ describe('Interaction', () => {
       paddingLeft: 80,
       data: {
         type: 'fetch',
-        url: 'https://gw.alipayobjects.com/os/bmw-prod/96cd81b5-54a4-4fe8-b778-502b2114df58.json',
+        value:
+          'https://gw.alipayobjects.com/os/bmw-prod/96cd81b5-54a4-4fe8-b778-502b2114df58.json',
         callback: ({ Year, ...rest }) => ({
           Year: new Date(Year),
           ...rest,
@@ -139,7 +140,8 @@ describe('Interaction', () => {
       type: 'point',
       data: {
         type: 'fetch',
-        url: 'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
+        value:
+          'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
       },
       encode: {
         x: 'height',
@@ -158,7 +160,8 @@ describe('Interaction', () => {
       type: 'point',
       data: {
         type: 'fetch',
-        url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
+        value:
+          'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
       },
       scale: { size: { type: 'log', range: [4, 20] }, y: { field: 'Life' } },
       encode: {

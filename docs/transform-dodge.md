@@ -20,9 +20,9 @@ The _reverse_ option reverse any of the above orders.
 
   chart
     .interval()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/bmw-prod/0afdce89-c103-479d-91f4-6cf604bcf200.json',
+      value: 'https://gw.alipayobjects.com/os/bmw-prod/0afdce89-c103-479d-91f4-6cf604bcf200.json',
     })
     .transform({ type: 'dodgeX' })
     .encode('x', 'date')
@@ -79,9 +79,9 @@ The _reverse_ option reverse any of the above orders.
 
   chart
     .schema()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/bmw-prod/62fd7bf5-beb5-4791-9b62-6c66fa0204da.json',
+      value: 'https://gw.alipayobjects.com/os/bmw-prod/62fd7bf5-beb5-4791-9b62-6c66fa0204da.json',
     })
     .transform({ type: 'dodgeX', paddingInner: 0.3, paddingOuter: 0.1 })
     .encode('x', 'type')

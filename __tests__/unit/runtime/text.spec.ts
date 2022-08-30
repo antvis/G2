@@ -15,7 +15,7 @@ describe('text', () => {
     //     transform: [
     //       {
     //         type: 'fetch',
-    //         url: 'https://gw.alipayobjects.com/os/bmw-prod/d345d2d7-a35d-4d27-af92-4982b3e6b213.json',
+    //         value: 'https://gw.alipayobjects.com/os/bmw-prod/d345d2d7-a35d-4d27-af92-4982b3e6b213.json',
     //       },
     //       {
     //         type:
@@ -88,7 +88,7 @@ describe('text', () => {
     //   transform: [
     //     {
     //       type: 'fetch',
-    //       url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/antv-keywords.json',
+    //       value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/antv-keywords.json',
     //     },
     //     {
     //       type: 'wordCloud',

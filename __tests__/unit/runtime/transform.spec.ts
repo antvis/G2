@@ -40,7 +40,8 @@ describe('statistic', () => {
       type: 'interval',
       data: {
         type: 'fetch',
-        url: 'https://gw.alipayobjects.com/os/antfincdn/mor%26R5yBI9/stack-group-column.json',
+        value:
+          'https://gw.alipayobjects.com/os/antfincdn/mor%26R5yBI9/stack-group-column.json',
       },
       transform: [{ type: 'normalizeY', groupBy: ['x', 'series'] }],
       scale: { y: { field: 'order' } },
@@ -75,7 +76,8 @@ describe('statistic', () => {
       type: 'line',
       data: {
         type: 'fetch',
-        url: 'https://gw.alipayobjects.com/os/bmw-prod/6a9b4091-2fe1-4649-89f3-f9a211827811.json',
+        value:
+          'https://gw.alipayobjects.com/os/bmw-prod/6a9b4091-2fe1-4649-89f3-f9a211827811.json',
       },
       transform: [
         {
@@ -99,7 +101,8 @@ describe('statistic', () => {
       type: 'area',
       data: {
         type: 'fetch',
-        url: 'https://gw.alipayobjects.com/os/bmw-prod/e58c9758-0a09-4527-aa90-fbf175b45925.json',
+        value:
+          'https://gw.alipayobjects.com/os/bmw-prod/e58c9758-0a09-4527-aa90-fbf175b45925.json',
       },
       transform: [{ type: 'stackY', orderBy: 'series' }],
       paddingTop: 68,
@@ -123,7 +126,8 @@ describe('statistic', () => {
       type: 'area',
       data: {
         type: 'fetch',
-        url: 'https://gw.alipayobjects.com/os/bmw-prod/e58c9758-0a09-4527-aa90-fbf175b45925.json',
+        value:
+          'https://gw.alipayobjects.com/os/bmw-prod/e58c9758-0a09-4527-aa90-fbf175b45925.json',
       },
       transform: [{ type: 'stackY', orderBy: 'value' }],
       scale: {
@@ -145,7 +149,8 @@ describe('statistic', () => {
       type: 'area',
       data: {
         type: 'fetch',
-        url: 'https://gw.alipayobjects.com/os/bmw-prod/e58c9758-0a09-4527-aa90-fbf175b45925.json',
+        value:
+          'https://gw.alipayobjects.com/os/bmw-prod/e58c9758-0a09-4527-aa90-fbf175b45925.json',
       },
       transform: [{ type: 'stackY', orderBy: 'sum' }],
       scale: {
@@ -167,7 +172,8 @@ describe('statistic', () => {
       type: 'area',
       data: {
         type: 'fetch',
-        url: 'https://gw.alipayobjects.com/os/bmw-prod/e58c9758-0a09-4527-aa90-fbf175b45925.json',
+        value:
+          'https://gw.alipayobjects.com/os/bmw-prod/e58c9758-0a09-4527-aa90-fbf175b45925.json',
       },
       transform: [{ type: 'stackY', orderBy: ['unemployed'] }],
       scale: {
@@ -189,7 +195,8 @@ describe('statistic', () => {
       type: 'area',
       data: {
         type: 'fetch',
-        url: 'https://gw.alipayobjects.com/os/bmw-prod/e58c9758-0a09-4527-aa90-fbf175b45925.json',
+        value:
+          'https://gw.alipayobjects.com/os/bmw-prod/e58c9758-0a09-4527-aa90-fbf175b45925.json',
       },
       transform: [{ type: 'stackY', orderBy: (d) => d.unemployed }],
       scale: {
@@ -211,7 +218,8 @@ describe('statistic', () => {
       type: 'view',
       data: {
         type: 'fetch',
-        url: 'https://gw.alipayobjects.com/os/bmw-prod/f38a8ad0-6e1f-4bb3-894c-7db50781fdec.json',
+        value:
+          'https://gw.alipayobjects.com/os/bmw-prod/f38a8ad0-6e1f-4bb3-894c-7db50781fdec.json',
       },
       children: [
         {
@@ -259,7 +267,7 @@ describe('statistic', () => {
     mount(createDiv(), chart);
   });
 
-  it.only('should render stacked point', () => {
+  it('should render stacked point', () => {
     const chart = render<G2Spec>({
       type: 'view',
       height: 360,
@@ -268,7 +276,8 @@ describe('statistic', () => {
           type: 'point',
           data: {
             type: 'fetch',
-            url: 'https://gw.alipayobjects.com/os/bmw-prod/88c601cd-c1ff-4c9b-90d5-740d0b710b7e.json',
+            value:
+              'https://gw.alipayobjects.com/os/bmw-prod/88c601cd-c1ff-4c9b-90d5-740d0b710b7e.json',
           },
           transform: [{ type: 'stackY' }],
           scale: {
@@ -305,7 +314,8 @@ describe('statistic', () => {
       type: 'point',
       data: {
         type: 'fetch',
-        url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
+        value:
+          'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
       },
       transform: [{ type: 'jitter' }],
       scale: { x: { padding: 0.5 }, y: { guide: null } },
@@ -322,7 +332,8 @@ describe('statistic', () => {
       type: 'point',
       data: {
         type: 'fetch',
-        url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
+        value:
+          'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
       },
       transform: [{ type: 'jitter', paddingX: 0.1, paddingY: 0.1 }],
       paddingLeft: 90,
@@ -346,7 +357,8 @@ describe('statistic', () => {
       type: 'point',
       data: {
         type: 'fetch',
-        url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
+        value:
+          'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
       },
       transform: [{ type: 'jitterY', padding: 0.1 }],
       paddingLeft: 90,
@@ -370,7 +382,8 @@ describe('statistic', () => {
       type: 'area',
       data: {
         type: 'fetch',
-        url: 'https://gw.alipayobjects.com/os/bmw-prod/e58c9758-0a09-4527-aa90-fbf175b45925.json',
+        value:
+          'https://gw.alipayobjects.com/os/bmw-prod/e58c9758-0a09-4527-aa90-fbf175b45925.json',
       },
       transform: [{ type: 'stackY' }, { type: 'symmetryY' }],
       scale: {
@@ -416,7 +429,8 @@ describe('statistic', () => {
       type: 'point',
       data: {
         type: 'fetch',
-        url: 'https://gw.alipayobjects.com/os/bmw-prod/88c601cd-c1ff-4c9b-90d5-740d0b710b7e.json',
+        value:
+          'https://gw.alipayobjects.com/os/bmw-prod/88c601cd-c1ff-4c9b-90d5-740d0b710b7e.json',
       },
       height: 360,
       transform: [{ type: 'stackY', orderBy: 'series' }, { type: 'symmetryY' }],
@@ -440,7 +454,8 @@ describe('statistic', () => {
     const chart = render<G2Spec>({
       data: {
         type: 'fetch',
-        url: 'https://gw.alipayobjects.com/os/bmw-prod/0afdce89-c103-479d-91f4-6cf604bcf200.json',
+        value:
+          'https://gw.alipayobjects.com/os/bmw-prod/0afdce89-c103-479d-91f4-6cf604bcf200.json',
       },
       transform: [{ type: 'dodgeX' }],
       paddingLeft: 60,
@@ -492,7 +507,8 @@ describe('statistic', () => {
       type: 'schema',
       data: {
         type: 'fetch',
-        url: 'https://gw.alipayobjects.com/os/bmw-prod/62fd7bf5-beb5-4791-9b62-6c66fa0204da.json',
+        value:
+          'https://gw.alipayobjects.com/os/bmw-prod/62fd7bf5-beb5-4791-9b62-6c66fa0204da.json',
       },
       transform: [{ type: 'dodgeX', paddingInner: 0.3, paddingOuter: 0.1 }],
       encode: {
@@ -517,7 +533,8 @@ describe('statistic', () => {
       type: 'view',
       data: {
         type: 'fetch',
-        url: 'https://gw.alipayobjects.com/os/bmw-prod/6a9b4091-2fe1-4649-89f3-f9a211827811.json',
+        value:
+          'https://gw.alipayobjects.com/os/bmw-prod/6a9b4091-2fe1-4649-89f3-f9a211827811.json',
       },
       paddingLeft: 60,
       paddingRight: 60,
@@ -558,7 +575,8 @@ describe('statistic', () => {
       type: 'view',
       data: {
         type: 'fetch',
-        url: 'https://gw.alipayobjects.com/os/bmw-prod/ab55d10f-24da-465a-9eba-87ac4b7a83ec.json',
+        value:
+          'https://gw.alipayobjects.com/os/bmw-prod/ab55d10f-24da-465a-9eba-87ac4b7a83ec.json',
       },
       children: [
         {
@@ -603,7 +621,8 @@ describe('statistic', () => {
       type: 'view',
       data: {
         type: 'fetch',
-        url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
+        value:
+          'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
       },
       children: [
         {
@@ -650,7 +669,8 @@ describe('statistic', () => {
       type: 'interval',
       data: {
         type: 'fetch',
-        url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
+        value:
+          'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
       },
       transform: [{ type: 'groupX', y: 'mean' }],
       paddingLeft: 60,
@@ -658,6 +678,23 @@ describe('statistic', () => {
         x: 'clarity',
         y: 'price',
         color: 'clarity',
+      },
+    });
+    mount(createDiv(), chart);
+  });
+
+  it('should render interval aggregated by groupX', () => {
+    const chart = render<G2Spec>({
+      type: 'interval',
+      data: {
+        type: 'fetch',
+        value:
+          'https://gw.alipayobjects.com/os/bmw-prod/1ecf85d2-8279-46a1-898d-d2e1814617f9.json',
+      },
+      scale: { x: { field: 'count' } },
+      transform: [{ type: 'groupX', y: 'count' }],
+      encode: {
+        x: 'Continent',
       },
     });
     mount(createDiv(), chart);

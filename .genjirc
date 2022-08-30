@@ -6,6 +6,7 @@
     "Examples": "examples",
     "API Reference": {
       "Basic": "basic",
+      "Data": "data",
       "Transform": {
         "Stack": "transform-stack",
         "Dodge": "transform-dodge",
@@ -15,8 +16,7 @@
         "Select": "transform-select",
         "Group": "transform-group",
         "Pack": "transform-pack",
-        "StackEnter": "transform-stack-enter",
-        "Connector": "transform-connector"
+        "StackEnter": "transform-stack-enter"
       },
       "Scale": "scale",
       "Coordinate": "coordinate",

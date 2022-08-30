@@ -23,9 +23,7 @@ Intervals show group one by group.
     .encode('y', 'value')
     .encode('color', 'type')
     .encode('series', 'type')
-    .encode('enterDuration', 1000)
-    // @todo EnterDuration scale is better.
-    .scale('enter', { type: 'identity' });
+    .encode('enterDuration', 1000);
 
   return chart.render().node();
 })();
@@ -54,8 +52,7 @@ Intervals shows up series by series.
     .encode('y', 'value')
     .encode('color', 'type')
     .encode('series', 'type')
-    .encode('enterDuration', 1000)
-    .scale('enter', { type: 'identity' });
+    .encode('enterDuration', 1000);
 
   return chart.render().node();
 })();
@@ -84,8 +81,7 @@ Intervals shows up series by series then group by group.
     .encode('y', 'value')
     .encode('color', 'type')
     .encode('series', 'type')
-    .encode('enterDuration', 1000)
-    .scale('enter', { type: 'identity' });
+    .encode('enterDuration', 1000);
 
   return chart.render().node();
 })();
@@ -114,8 +110,7 @@ Intervals shows up group by group and then series by series.
     .encode('y', 'value')
     .encode('color', 'type')
     .encode('series', 'type')
-    .encode('enterDuration', 1000)
-    .scale('enter', { type: 'identity' });
+    .encode('enterDuration', 1000);
 
   return chart.render().node();
 })();
@@ -143,8 +138,7 @@ StackEnter is useful for stack intervals.
     .encode('x', 'year')
     .encode('y', 'value')
     .encode('color', 'type')
-    .encode('enterDuration', 1000)
-    .scale('enter', { type: 'identity' });
+    .encode('enterDuration', 1000);
 
   return chart.render().node();
 })();

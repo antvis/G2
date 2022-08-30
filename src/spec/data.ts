@@ -3,7 +3,7 @@ export type Data = FetchConnector | InlineConnector | any;
 
 export type FetchConnector = {
   type?: 'fetch';
-  url?: string;
+  value?: string;
   format?: 'json' | 'csv';
   callback?: (d: any) => any;
   // Useful when format is 'csv'.

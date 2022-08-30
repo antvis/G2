@@ -194,7 +194,7 @@ describe('keyframe', () => {
     mount(createDiv(), chart);
   });
 
-  it('keyframe should apply transition from one to multiple and reverse', async () => {
+  it.only('keyframe should apply transition from one to multiple and reverse', async () => {
     const response = await fetch(
       'https://gw.alipayobjects.com/os/bmw-prod/fbe4a8c1-ce04-4ba3-912a-0b26d6965333.json',
     );

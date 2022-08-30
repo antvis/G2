@@ -12,9 +12,10 @@ Brush Interaction supports config `brushType`, options are: `rect`(default), `re
 
   chart
     .point()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
+      value:
+        'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
     })
     .encode('x', 'height')
     .encode('y', 'weight')
@@ -34,9 +35,10 @@ Brush Interaction supports config `brushType`, options are: `rect`(default), `re
 
   chart
     .point()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
+      value:
+        'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
     })
     .encode('x', 'height')
     .encode('y', 'weight')
@@ -56,9 +58,10 @@ Brush Interaction supports config `brushType`, options are: `rect`(default), `re
 
   chart
     .point()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
+      value:
+        'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
     })
     .encode('x', 'height')
     .encode('y', 'weight')
@@ -78,9 +81,10 @@ Brush Interaction supports config `brushType`, options are: `rect`(default), `re
 
   chart
     .point()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
+      value:
+        'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
     })
     .encode('x', 'height')
     .encode('y', 'weight')
@@ -199,20 +203,22 @@ Double click to cancel brush selections.
 
 ## BrushVisible
 
-```js | dom
-G2.render({
-  type: 'point',
-  transform: [
-    {
+```js
+(() => {
+  const chart = new G2.Chart();
+
+  chart
+    .point()
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
-    },
-  ],
-  encode: {
-    x: 'height',
-    y: 'weight',
-    color: 'gender',
-  },
-  interaction: [{ type: 'brushVisible' }],
-});
+      value: 'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
+    })
+    .encode('x', 'height')
+    .encode('y', 'weight')
+    .encode('color', 'gender');
+
+  chart.interaction({ type: 'brushVisible' });
+
+  return chart.render().node();
+})();
 ```

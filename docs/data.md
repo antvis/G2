@@ -1,4 +1,4 @@
-# Connector
+# Data
 
 ## Fetch
 
@@ -10,9 +10,9 @@
 
   chart
     .interval()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/bmw-prod/ce45e3d7-ba78-4a08-b411-28df40ef9b7f.json',
+      value: 'https://gw.alipayobjects.com/os/bmw-prod/ce45e3d7-ba78-4a08-b411-28df40ef9b7f.json',
     })
     .encode('x', 'genre')
     .encode('y', 'sold');
@@ -34,9 +34,9 @@
 
   chart
     .grid()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/bmw-prod/87092954-aed4-48b2-93ba-b07b255f04a2.csv',
+      value: 'https://gw.alipayobjects.com/os/bmw-prod/87092954-aed4-48b2-93ba-b07b255f04a2.csv',
       format: 'csv',
       callback: (d) => Object.assign(d, { weight: +d.weight }),
     })
@@ -63,14 +63,16 @@
 
   chart
     .interval()
-    .transform({ type: 'sortBy', fields: ['sold'] })
-    .data([
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
-    ])
+    .data({
+      value: [
+        { genre: 'Sports', sold: 275 },
+        { genre: 'Strategy', sold: 115 },
+        { genre: 'Action', sold: 120 },
+        { genre: 'Shooter', sold: 350 },
+        { genre: 'Other', sold: 150 },
+      ],
+      transform: [{ type: 'sortBy', fields: ['sold'] }],
+    })
     .encode('x', 'genre')
     .encode('y', 'sold');
 
@@ -91,15 +93,17 @@
 
   chart
     .line()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/bmw-prod/96cd81b5-54a4-4fe8-b778-502b2114df58.json',
+      value: 'https://gw.alipayobjects.com/os/bmw-prod/96cd81b5-54a4-4fe8-b778-502b2114df58.json',
       callback: (d) => Object.assign(d, { year: new Date(d.year) }),
-    })
-    .transform({
-      type: 'filterBy',
-      // Filter data with defined Horsepower and Miles_per_Gallon.
-      fields: ['Horsepower', 'Miles_per_Gallon'],
+      transform: [
+        {
+          type: 'filterBy',
+          // Filter data with defined Horsepower and Miles_per_Gallon.
+          fields: ['Horsepower', 'Miles_per_Gallon'],
+        },
+      ],
     })
     .encode('position', [
       'Cylinders',
