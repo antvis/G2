@@ -104,7 +104,7 @@ describe('Composition', () => {
       .key('composition')
       .encode('position', 'name')
       .scale('x', { type: 'log' })
-      .transform({ type: 'fetch' });
+      .transform({ type: 'stackY' });
 
     expect(node.type).toBe('circle');
     expect(node.value).toEqual({
@@ -116,7 +116,7 @@ describe('Composition', () => {
       key: 'composition',
       encode: { position: 'name' },
       scale: { x: { type: 'log' } },
-      transform: [{ type: 'fetch' }],
+      transform: [{ type: 'stackY' }],
     });
     expectToCreateNodes(node);
   });
@@ -184,7 +184,7 @@ describe('Composition', () => {
       .paddingTop(10)
       .scale('x', { type: 'log' })
       .encode('y', ['name'])
-      .transform({ type: 'fetch' });
+      .transform({ type: 'stackY' });
 
     expect(node.type).toBe('matrix');
     expect(node.value).toEqual({
@@ -196,7 +196,7 @@ describe('Composition', () => {
       paddingTop: 10,
       scale: { x: { type: 'log' } },
       encode: { y: ['name'] },
-      transform: [{ type: 'fetch' }],
+      transform: [{ type: 'stackY' }],
     });
     expectToCreateNodes(node);
   });
@@ -214,7 +214,7 @@ describe('Composition', () => {
       .shareSize(true)
       .scale('x', { type: 'log' })
       .encode('y', 'name')
-      .transform({ type: 'fetch' });
+      .transform({ type: 'stackY' });
 
     expect(node.type).toBe('rect');
     expect(node.value).toEqual({
@@ -226,7 +226,7 @@ describe('Composition', () => {
       paddingTop: 10,
       scale: { x: { type: 'log' } },
       encode: { y: 'name' },
-      transform: [{ type: 'fetch' }],
+      transform: [{ type: 'stackY' }],
       shareData: true,
       shareSize: true,
     });

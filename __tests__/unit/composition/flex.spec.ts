@@ -10,7 +10,7 @@ describe('composition', () => {
       data: [1, 2, 3],
       children: [{ data: [2, 3, 4], scale: undefined }, { scale: undefined }],
     };
-    expect(composition(options).map((d) => d.data)).toEqual([
+    expect((composition(options) as any[]).map((d) => d.data)).toEqual([
       [2, 3, 4],
       [1, 2, 3],
     ]);

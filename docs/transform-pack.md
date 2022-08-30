@@ -10,9 +10,9 @@ The different of following examples is only the tooltip inference.
 
   view
     .point()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
+      value: 'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
     })
     .adjust({ type: 'pack' })
     .encode('color', 'gender');
@@ -29,9 +29,9 @@ The different of following examples is only the tooltip inference.
 
   view
     .point()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
+      value: 'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
     })
     .adjust({ type: 'pack' })
     .encode('x', 'height')

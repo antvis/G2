@@ -27,7 +27,7 @@ export function baseAnnotationChannels(): Channel[] {
 }
 
 export function basePreInference() {
-  return [{ type: 'maybeArrayField' }];
+  return [];
 }
 
 export function basePostInference() {

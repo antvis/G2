@@ -19,9 +19,9 @@ The select transform groups marks with specified channels, and filter index by s
       .encode('y', 'LifeExpectancy')
       .encode('size', 'Population'); // @todo Remove this for text.
 
-  chart.transform({
+  chart.data({
     type: 'fetch',
-    url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
   });
 
   chart
@@ -55,9 +55,9 @@ The select transform groups marks with specified channels, and filter index by s
   const xy = (node) =>
     node.encode('x', (d) => new Date(d.Date)).encode('y', 'Close');
 
-  chart.transform({
+  chart.data({
     type: 'fetch',
-    url: 'https://gw.alipayobjects.com/os/bmw-prod/6a9b4091-2fe1-4649-89f3-f9a211827811.json',
+    value: 'https://gw.alipayobjects.com/os/bmw-prod/6a9b4091-2fe1-4649-89f3-f9a211827811.json',
   });
 
   chart.line().call(xy).encode('color', 'Symbol').scale('x', { field: 'Date' });
@@ -83,9 +83,9 @@ The select transform groups marks with specified channels, and filter index by s
 (() => {
   const chart = new G2.Chart();
 
-  chart.transform({
+  chart.data({
     type: 'fetch',
-    url: 'https://gw.alipayobjects.com/os/bmw-prod/ab55d10f-24da-465a-9eba-87ac4b7a83ec.json',
+    value: 'https://gw.alipayobjects.com/os/bmw-prod/ab55d10f-24da-465a-9eba-87ac4b7a83ec.json',
   });
 
   chart

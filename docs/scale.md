@@ -57,9 +57,9 @@ The scale for size channel of following point is log scale.
 
   chart
     .point()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
+      value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
     })
     .encode('x', 'GDP')
     .encode('y', 'LifeExpectancy')
@@ -84,9 +84,9 @@ The scale for size channel of following point is pow scale.
 
   chart
     .point()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
+      value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
     })
     .encode('x', 'GDP')
     .encode('y', 'LifeExpectancy')
@@ -111,9 +111,9 @@ The scale for x channel of following line is time scale.
 
   chart
     .line()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/bmw-prod/ab55d10f-24da-465a-9eba-87ac4b7a83ec.json',
+      value: 'https://gw.alipayobjects.com/os/bmw-prod/ab55d10f-24da-465a-9eba-87ac4b7a83ec.json',
     })
     .encode('x', (d) => new Date(d.Date))
     .encode('y', 'Close');
@@ -181,9 +181,9 @@ The scale for color channel of following point is ordinal scale.
 
   chart
     .point()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
+      value: 'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
     })
     .encode('x', 'height')
     .encode('y', 'weight')
@@ -230,9 +230,9 @@ The scale for color channel of following point is ordinal scale.
 
   chart
     .grid()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/bmw-prod/89c20fe8-0c6f-46c8-b36b-4cb653dba8ed.json',
+      value: 'https://gw.alipayobjects.com/os/bmw-prod/89c20fe8-0c6f-46c8-b36b-4cb653dba8ed.json',
       callback: (d) => ({ salary: d }),
     })
     .encode('x', (_, i) => ((i / 5) | 0) + 1)
@@ -261,9 +261,9 @@ The scale for color channel of following point is ordinal scale.
 
   chart
     .grid()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/bmw-prod/89c20fe8-0c6f-46c8-b36b-4cb653dba8ed.json',
+      value: 'https://gw.alipayobjects.com/os/bmw-prod/89c20fe8-0c6f-46c8-b36b-4cb653dba8ed.json',
       callback: (d) => ({ salary: d }),
     })
     .encode('x', (_, i) => ((i / 5) | 0) + 1)
@@ -292,9 +292,9 @@ The scale for color channel of following point is ordinal scale.
 
   chart
     .grid()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/bmw-prod/89c20fe8-0c6f-46c8-b36b-4cb653dba8ed.json',
+      value: 'https://gw.alipayobjects.com/os/bmw-prod/89c20fe8-0c6f-46c8-b36b-4cb653dba8ed.json',
       callback: (d) => ({ salary: d }),
     })
     .encode('x', (_, i) => ((i / 5) | 0) + 1)

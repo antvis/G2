@@ -132,13 +132,13 @@ function inferScaleType(
   channel: Channel,
   options: G2ScaleOptions,
 ): string | ScaleComponent {
-  const { scale, name, value, type: channelType } = channel;
+  const { scale, name, value, visual } = channel;
   const { type, domain, range } = options;
 
   if (scale !== undefined) return scale;
   if (type !== undefined) return type;
 
-  if (channelType === 'constant' && !isPosition(name)) return 'identity';
+  if (visual) return 'identity';
   if (isObject(value)) return 'identity';
 
   if ((domain || range || []).length > 2) return asOrdinalType(name);
@@ -341,9 +341,18 @@ function isQuantitative(name: string): boolean {
   );
 }
 
+// Spatial and temporal position.
 export function isPosition(name: string): boolean {
   return (
-    name.startsWith('x') || name.startsWith('y') || name.startsWith('position')
+    name.startsWith('x') ||
+    name.startsWith('y') ||
+    name.startsWith('position') ||
+    name === 'enterDelay' ||
+    name === 'enterDuration' ||
+    name === 'updateDelay' ||
+    name === 'updateDuration' ||
+    name === 'exitDelay' ||
+    name === 'exitDuration'
   );
 }
 

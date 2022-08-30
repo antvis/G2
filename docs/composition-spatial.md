@@ -17,7 +17,9 @@
   layer
     .view()
     .interval()
-    .transform({ type: 'sortBy', fields: ['sold'], order: 'DESC' })
+    .data({
+      transform: [{ type: 'sortBy', fields: ['sold'], order: 'DESC' }],
+    })
     .encode('x', 'genre')
     .encode('y', 'sold')
     .encode('color', 'genre');
@@ -56,7 +58,9 @@
   flex
     .view()
     .interval()
-    .transform({ type: 'sortBy', fields: ['sold'], order: 'DESC' })
+    .data({
+      transform: [{ type: 'sortBy', fields: ['sold'], order: 'DESC' }],
+    })
     .encode('x', 'genre')
     .encode('y', 'sold')
     .encode('color', 'genre');
@@ -94,7 +98,9 @@
   flex
     .view()
     .interval()
-    .transform({ type: 'sortBy', fields: ['sold'], order: 'DESC' })
+    .data({
+      transform: [{ type: 'sortBy', fields: ['sold'], order: 'DESC' }],
+    })
     .encode('x', 'genre')
     .encode('y', 'sold')
     .encode('color', 'genre');

@@ -15,7 +15,9 @@ describe('spatial', () => {
       children: [
         {
           type: 'interval',
-          transform: [{ type: 'sortBy', fields: ['sold'], order: 'DESC' }],
+          data: {
+            transform: [{ type: 'sortBy', fields: ['sold'], order: 'DESC' }],
+          },
           encode: {
             x: 'genre',
             y: 'sold',
@@ -53,7 +55,9 @@ describe('spatial', () => {
       children: [
         {
           type: 'interval',
-          transform: [{ type: 'sortBy', fields: ['sold'], order: 'DESC' }],
+          data: {
+            transform: [{ type: 'sortBy', fields: ['sold'], order: 'DESC' }],
+          },
           encode: {
             x: 'genre',
             y: 'sold',

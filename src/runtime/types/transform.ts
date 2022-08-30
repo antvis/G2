@@ -1,20 +1,13 @@
-import { ColumnValue, EncodeSpec } from './encode';
+import { ColumnValue, NormalizedEncodeSpec } from './encode';
+import { G2Library, G2Mark } from './options';
 
 export type TransformContext = {
-  data?: any;
-  I?: number[];
-  encode?: Record<string, EncodeSpec>;
-  columnOf?: ColumnOf;
-  transform?: TransformSpec[];
-  // @todo Replace with ScaleSpec
-  scale?: Record<string, any>;
+  library: G2Library;
 };
 
 export type TransformOptions = Record<string, any>;
 
-export type TransformProps = {
-  category: 'inference' | 'preprocessor' | 'statistic';
-};
+export type TransformProps = Record<string, never>;
 
 export type TransformComponent<O extends TransformOptions = TransformOptions> =
   {
@@ -23,12 +16,14 @@ export type TransformComponent<O extends TransformOptions = TransformOptions> =
   };
 
 export type Transform = (
+  I: number[],
+  mark: G2Mark,
   context: TransformContext,
-) => TransformContext | Promise<TransformContext>;
+) => [number[], G2Mark] | Promise<[number[], G2Mark]>;
 
 export type TransformSpec = {
   type?: string | TransformComponent;
   [key: string]: any;
 };
 
-export type ColumnOf = (data: any, encode: EncodeSpec) => ColumnValue;
+export type ColumnOf = (data: any, encode: NormalizedEncodeSpec) => ColumnValue;

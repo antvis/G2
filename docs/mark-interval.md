@@ -350,9 +350,9 @@
 
   chart
     .interval()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/antfincdn/mor%26R5yBI9/stack-group-column.json',
+      value: 'https://gw.alipayobjects.com/os/antfincdn/mor%26R5yBI9/stack-group-column.json',
     })
     .encode('x', 'product_type')
     .encode('y', 'order_amt')

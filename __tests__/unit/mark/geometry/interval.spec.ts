@@ -24,7 +24,6 @@ describe('Interval', () => {
         { name: 'series', scale: 'band' },
       ],
       preInference: [
-        { type: 'maybeArrayField' },
         { type: 'maybeZeroY1' },
         { type: 'maybeZeroX' },
         { type: 'maybeStackY', series: true },

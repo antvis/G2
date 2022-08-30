@@ -5,7 +5,6 @@ import {
   copyAttributes,
   error,
   defined,
-  composeAsync,
   useMemo,
   appendTransform,
 } from '../utils/helper';
@@ -22,7 +21,6 @@ import {
   G2AnimationOptions,
   G2CompositionOptions,
   G2AdjustOptions,
-  G2TransformOptions,
   G2InteractionOptions,
 } from './types/options';
 import {
@@ -45,11 +43,12 @@ import { MarkComponent, Mark, MarkChannel } from './types/mark';
 import { TransformComponent, Transform } from './types/transform';
 import { G2ViewDescriptor, G2MarkState, G2ViewInstance } from './types/common';
 import { useLibrary } from './library';
-import { createTransformContext, initializeMark } from './mark';
+import { initializeMark } from './mark';
 import { inferComponent, renderComponent } from './component';
 import { computeLayout, placeComponents } from './layout';
 import { createCoordinate } from './coordinate';
 import { applyScale, syncFacetsScales } from './scale';
+import { applyDataTransform } from './transform';
 
 export async function plot<T extends G2ViewTree>(
   options: T,
@@ -769,20 +768,11 @@ async function applyTransform<T extends G2ViewTree>(
   node: T,
   library: G2Library,
 ): Promise<G2ViewTree> {
-  const [useTransform] = useLibrary<
-    G2TransformOptions,
-    TransformComponent,
-    Transform
-  >('transform', library);
-  const { transform = [], data, ...rest } = node;
-  const context = createTransformContext(node, library);
-  const transformFunctions: TransformComponent[] = transform.map(useTransform);
-  const {
-    data: newDate,
-    encode,
-    scale,
-  } = await composeAsync(transformFunctions)(context);
-  return { ...rest, data: newDate, encode, scale };
+  const context = { library };
+  const { data, ...rest } = node;
+  if (data == undefined) return node;
+  const [, { data: newData }] = await applyDataTransform([], { data }, context);
+  return { data: newData, ...rest };
 }
 
 function applyBBox(selection: Selection) {

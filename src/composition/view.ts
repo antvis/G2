@@ -1,6 +1,7 @@
 import { deepMix } from '@antv/util';
 import { CompositionComponent as CC } from '../runtime';
 import { ViewComposition } from '../spec';
+import { mergeData } from './utils';
 
 export type ViewOptions = Omit<ViewComposition, 'type'>;
 
@@ -15,8 +16,8 @@ export const View: CC<ViewOptions> = () => {
     if (!Array.isArray(children)) return [];
 
     const { data: viewData, scale: viewScale = {}, ...rest } = restOptions;
-    const marks = children.map(({ data = viewData, scale, ...rest }) => ({
-      data,
+    const marks = children.map(({ data, scale, ...rest }) => ({
+      data: mergeData(data, viewData),
       scale: deepMix({}, viewScale, scale),
       ...rest,
     }));

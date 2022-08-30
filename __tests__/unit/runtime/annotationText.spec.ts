@@ -66,9 +66,15 @@ describe('render', () => {
           },
           {
             type: 'annotation.text',
-            transform: [
-              { type: 'filterBy', fields: ['sold'], callback: (d) => d > 300 },
-            ],
+            data: {
+              transform: [
+                {
+                  type: 'filterBy',
+                  fields: ['sold'],
+                  callback: (d) => d > 300,
+                },
+              ],
+            },
             encode: {
               x: 'genre',
               y: 'sold',
@@ -119,9 +125,15 @@ describe('render', () => {
           },
           {
             type: 'annotation.text',
-            transform: [
-              { type: 'filterBy', fields: ['sold'], callback: (d) => d > 300 },
-            ],
+            data: {
+              transform: [
+                {
+                  type: 'filterBy',
+                  fields: ['sold'],
+                  callback: (d) => d > 300,
+                },
+              ],
+            },
             encode: {
               x: 'genre',
               y: 'sold',
@@ -232,12 +244,11 @@ describe('render', () => {
       {
         type: 'view',
         width: 640,
-        transform: [
-          {
-            type: 'fetch',
-            url: 'https://gw.alipayobjects.com/os/antfincdn/jjAX4HPWB9/sales.json',
-          },
-        ],
+        data: {
+          type: 'fetch',
+          value:
+            'https://gw.alipayobjects.com/os/antfincdn/jjAX4HPWB9/sales.json',
+        },
         scale: {
           x: {
             nice: true,
@@ -281,12 +292,11 @@ describe('render', () => {
     const chart = render<G2Spec>({
       type: 'view',
       width: 640,
-      transform: [
-        {
-          type: 'fetch',
-          url: 'https://gw.alipayobjects.com/os/antfincdn/ulQpndlrT%26/line.json',
-        },
-      ],
+      data: {
+        type: 'fetch',
+        value:
+          'https://gw.alipayobjects.com/os/antfincdn/ulQpndlrT%26/line.json',
+      },
       scale: {
         x: { nice: true, tickCount: 15 },
         y: { guide: null },
@@ -301,13 +311,15 @@ describe('render', () => {
         },
         {
           type: 'annotation.text',
-          transform: [
-            {
-              type: 'filterBy',
-              fields: ['date'],
-              callback: (d) => d === 'March 2008' || d === 'March 2019',
-            },
-          ],
+          data: {
+            transform: [
+              {
+                type: 'filterBy',
+                fields: ['date'],
+                callback: (d) => d === 'March 2008' || d === 'March 2019',
+              },
+            ],
+          },
           encode: {
             x: (d) => new Date(d.date),
             y: 'value',

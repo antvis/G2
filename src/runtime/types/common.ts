@@ -104,10 +104,11 @@ export type Channel = {
   scale?: string;
   scaleName?: string;
   required?: boolean;
-  value?: ColumnValue;
+  value?: Primitive[];
   type?: string;
   independent?: boolean;
   field?: string | string[];
+  visual?: boolean;
 };
 
 export type Vector2 = [number, number];

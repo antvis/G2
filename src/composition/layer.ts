@@ -1,5 +1,6 @@
 import { CompositionComponent as CC } from '../runtime';
 import { LayerComposition } from '../spec';
+import { mergeData } from './utils';
 
 export type LayerOptions = Omit<LayerComposition, 'type'>;
 
@@ -11,9 +12,9 @@ export const Layer: CC<LayerOptions> = () => {
     const { children } = options;
     if (!Array.isArray(children)) return [];
     const { x = 0, y = 0, width, height, data: layerData } = options;
-    return children.map(({ data = layerData, ...rest }) => ({
+    return children.map(({ data, ...rest }) => ({
       ...rest,
-      data,
+      data: mergeData(data, layerData),
       x,
       y,
       width,

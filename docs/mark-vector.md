@@ -2,6 +2,12 @@
 
 ## Basic Vector
 
+```js | table "pin: false"
+data = genji.fetchJSON(
+  'https://gw.alipayobjects.com/os/antfincdn/F5VcgnqRku/wind.json',
+);
+```
+
 ```js
 (() => {
   const chart = new G2.Chart({
@@ -11,10 +17,7 @@
 
   chart
     .vector()
-    .transform({
-      type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/antfincdn/F5VcgnqRku/wind.json',
-    })
+    .data(data)
     .encode('x', 'longitude')
     .encode('y', 'latitude')
     .encode('rotate', ({ u, v }) => (Math.atan2(v, u) * 180) / Math.PI)

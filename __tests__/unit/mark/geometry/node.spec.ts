@@ -22,7 +22,7 @@ describe('Node', () => {
         { name: 'y', required: true },
         { name: 'size', required: true },
       ],
-      preInference: [{ type: 'maybeArrayField' }],
+      preInference: [],
       postInference: [
         { type: 'maybeKey' },
         { type: 'maybeTitleX' },

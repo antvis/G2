@@ -91,15 +91,18 @@ Cartesian coordinate will append to coordinate if is not specified.
 
   chart
     .line()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/bmw-prod/96cd81b5-54a4-4fe8-b778-502b2114df58.json',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/96cd81b5-54a4-4fe8-b778-502b2114df58.json',
       callback: (d) => Object.assign(d, { year: new Date(d.year) }),
-    })
-    .transform({
-      type: 'filterBy',
-      // Filter data with defined Horsepower and Miles_per_Gallon.
-      fields: ['Horsepower', 'Miles_per_Gallon'],
+      transform: [
+        {
+          type: 'filterBy',
+          // Filter data with defined Horsepower and Miles_per_Gallon.
+          fields: ['Horsepower', 'Miles_per_Gallon'],
+        },
+      ],
     })
     .encode('position', [
       'Cylinders',
@@ -135,15 +138,13 @@ Fisheye coordinate must be specified after cartesian coordinate.
 (() => {
   const chart = new G2.Chart();
 
-  chart
-    .coordinate({ type: 'cartesian' })
-    .coordinate({ type: 'fisheye', focusX: 50, focusY: 50 });
+  chart.coordinate({ type: 'fisheye', focusX: 0.5, focusY: 0.5 });
 
   chart
     .point()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
+      value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
     })
     .encode('x', 'GDP')
     .encode('y', 'LifeExpectancy')

@@ -49,9 +49,10 @@ data = fetchJSON('https://vega.github.io/editor/data/penguins.json');
 
   const matrix = chart
     .matrix()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/bmw-prod/48eb9b33-9d2b-40a2-864b-6522f92ba3b9.json',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/48eb9b33-9d2b-40a2-864b-6522f92ba3b9.json',
       callback: (d) =>
         Object.assign(d, {
           temp_max: +d.temp_max,
@@ -59,16 +60,18 @@ data = fetchJSON('https://vega.github.io/editor/data/penguins.json');
           wind: +d.wind,
           date: new Date(d.date),
         }),
-    })
-    .transform({
-      type: 'rename',
-      map: {
-        temp_max: 'Temp Max',
-        precipitation: 'Precipitation',
-        wind: 'Wind',
-        date: 'Date',
-        location: 'Location',
-      },
+      transform: [
+        {
+          type: 'rename',
+          map: {
+            temp_max: 'Temp Max',
+            precipitation: 'Precipitation',
+            wind: 'Wind',
+            date: 'Date',
+            location: 'Location',
+          },
+        },
+      ],
     })
     .encode('x', 'Date')
     .encode('y', ['Temp Max', 'Precipitation', 'Wind']);

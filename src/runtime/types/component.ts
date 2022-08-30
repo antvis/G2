@@ -2,7 +2,6 @@ import { Canvas, DisplayObject, Animation as GAnimation } from '@antv/g';
 import { Transformation, Coordinate } from '@antv/coord';
 import {
   IndexedValue,
-  Primitive,
   G2Theme,
   Vector2,
   GuideComponentPosition,
@@ -13,6 +12,7 @@ import { G2ViewTree } from './options';
 import { EncodeComponent, Encode } from './encode';
 import { MarkComponent, Mark } from './mark';
 import { TransformComponent, Transform } from './transform';
+import { Data, DataComponent } from './data';
 
 export type G2ComponentNamespaces =
   | 'renderer'
@@ -32,7 +32,8 @@ export type G2ComponentNamespaces =
   | 'interaction'
   | 'interactor'
   | 'composition'
-  | 'adjust';
+  | 'adjust'
+  | 'data';
 
 export type G2Component =
   | RendererComponent
@@ -50,7 +51,8 @@ export type G2Component =
   | InteractionComponent
   | CompositionComponent
   | AdjustComponent
-  | TransformComponent;
+  | TransformComponent
+  | DataComponent;
 
 export type G2ComponentValue =
   | Renderer
@@ -68,7 +70,8 @@ export type G2ComponentValue =
   | Animation
   | Interaction
   | Composition
-  | Adjust;
+  | Adjust
+  | Data;
 
 export type G2BaseComponent<
   R = any,
