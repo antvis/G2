@@ -8,9 +8,9 @@
 
   chart
     .interval()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
+      value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
     })
     .transform({
       type: 'groupX',

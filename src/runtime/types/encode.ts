@@ -11,7 +11,7 @@ export type EncodeComponent<O extends EncodeOptions = EncodeOptions> = {
   props: EncodeProps;
 };
 
-export type Encode = (data: TabularData) => ColumnValue;
+export type Encode = (data: TabularData) => Primitive[];
 
 export type EncodeSpec = NormalizedEncodeSpec | PrimitiveEncodeSpec;
 
@@ -29,4 +29,8 @@ export type FunctionEncodeSpec = (
 
 export type PrimitiveEncodeSpec = Primitive | FunctionEncodeSpec;
 
-export type ColumnValue = Primitive[] & { field?: string };
+export type ColumnValue = {
+  type: 'column';
+  value: Primitive[];
+  field?: string;
+};

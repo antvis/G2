@@ -128,34 +128,32 @@ export const toGrid = useOverrideAdaptor<G2ViewTree>(() => ({
  * so. Use transform to set new data.
  **/
 export const setData = useOverrideAdaptor<G2ViewTree>((options) => {
-  const { transform = [] } = options;
-  return {
-    transform: [
-      ...transform,
-      {
-        type: 'connector',
-        callback: () => {
-          const { data, encode } = options;
-          const { x, y } = encode;
-          const X = x ? Array.from(new Set(data.map((d) => d[x]))) : [];
-          const Y = y ? Array.from(new Set(data.map((d) => d[y]))) : [];
-          const gridData = () => {
-            if (X.length && Y.length) {
-              const gridData = [];
-              for (const vx of X) {
-                for (const vy of Y) {
-                  gridData.push({ [x]: vx, [y]: vy });
-                }
-              }
-              return gridData;
+  const { data } = options;
+  const connector = {
+    type: 'connector',
+    callback: () => {
+      const { data, encode } = options;
+      const { x, y } = encode;
+      const X = x ? Array.from(new Set(data.map((d) => d[x]))) : [];
+      const Y = y ? Array.from(new Set(data.map((d) => d[y]))) : [];
+      const gridData = () => {
+        if (X.length && Y.length) {
+          const gridData = [];
+          for (const vx of X) {
+            for (const vy of Y) {
+              gridData.push({ [x]: vx, [y]: vy });
             }
-            if (X.length) return X.map((d) => ({ [x]: d }));
-            if (Y.length) return Y.map((d) => ({ [y]: d }));
-          };
-          return gridData();
-        },
-      },
-    ],
+          }
+          return gridData;
+        }
+        if (X.length) return X.map((d) => ({ [x]: d }));
+        if (Y.length) return Y.map((d) => ({ [y]: d }));
+      };
+      return gridData();
+    },
+  };
+  return {
+    data: { type: 'inline', value: data, transform: [connector] },
   };
 });
 
@@ -171,7 +169,7 @@ export const setChildren = useOverrideAdaptor<G2ViewTree>(
     childOptions = {},
   ) => {
     const {
-      data,
+      data: dataValue,
       encode,
       children,
       scale: facetScale,
@@ -179,6 +177,7 @@ export const setChildren = useOverrideAdaptor<G2ViewTree>(
       y: originY = 0,
       shareData = false,
     } = options;
+    const { value: data } = dataValue;
     const { x: encodeX, y: encodeY } = encode;
     const { color: facetScaleColor } = facetScale;
     const { domain: facetDomainColor } = facetScaleColor;

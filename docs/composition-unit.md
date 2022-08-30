@@ -8,14 +8,17 @@
 
   const rect = chart
     .rect()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/bmw-prod/97d0b32e-97f7-49dc-b8a1-9e41fa8597a7.json',
-    })
-    .transform({
-      type: 'sortBy',
-      fields: ['survived'],
-      order: 'DESC',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/97d0b32e-97f7-49dc-b8a1-9e41fa8597a7.json',
+      transform: [
+        {
+          type: 'sortBy',
+          fields: ['survived'],
+          order: 'DESC',
+        },
+      ],
     })
     .encode('x', 'pclass');
 
@@ -40,14 +43,17 @@
 
   const rect = chart
     .rect()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/bmw-prod/97d0b32e-97f7-49dc-b8a1-9e41fa8597a7.json',
-    })
-    .transform({
-      type: 'sortBy',
-      fields: ['survived'],
-      order: 'DESC',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/97d0b32e-97f7-49dc-b8a1-9e41fa8597a7.json',
+      transform: [
+        {
+          type: 'sortBy',
+          fields: ['survived'],
+          order: 'DESC',
+        },
+      ],
     })
     .shareData(true)
     .encode('x', 'pclass');
@@ -72,14 +78,17 @@
 
   const rect = chart
     .rect()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/bmw-prod/97d0b32e-97f7-49dc-b8a1-9e41fa8597a7.json',
-    })
-    .transform({
-      type: 'sortBy',
-      fields: ['survived'],
-      order: 'DESC',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/97d0b32e-97f7-49dc-b8a1-9e41fa8597a7.json',
+      transform: [
+        {
+          type: 'sortBy',
+          fields: ['survived'],
+          order: 'DESC',
+        },
+      ],
     })
     .shareSize(true)
     .encode('x', 'pclass');
@@ -104,14 +113,17 @@
 
   const rect = chart
     .rect()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/bmw-prod/1f3410d2-5048-4d87-a1c2-4abb39da8915.json',
-    })
-    .transform({
-      type: 'sortBy',
-      fields: ['Survived'],
-      order: 'DESC',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/1f3410d2-5048-4d87-a1c2-4abb39da8915.json',
+      transform: [
+        {
+          type: 'sortBy',
+          fields: ['Survived'],
+          order: 'DESC',
+        },
+      ],
     })
     .encode('x', 'Class')
     .encode('y', 'Sex');
@@ -130,14 +142,17 @@
 
   const rect = chart
     .rect()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/bmw-prod/1f3410d2-5048-4d87-a1c2-4abb39da8915.json',
-    })
-    .transform({
-      type: 'sortBy',
-      fields: ['Survived'],
-      order: 'DESC',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/1f3410d2-5048-4d87-a1c2-4abb39da8915.json',
+      transform: [
+        {
+          type: 'sortBy',
+          fields: ['Survived'],
+          order: 'DESC',
+        },
+      ],
     })
     .shareData(true)
     .encode('x', 'Class')
@@ -163,13 +178,16 @@
     .rect()
     .encode('y', 'pclass')
     .shareSize(true)
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/bmw-prod/97d0b32e-97f7-49dc-b8a1-9e41fa8597a7.json',
-    })
-    .transform({
-      type: 'sortBy',
-      fields: ['survived', 'sex'],
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/97d0b32e-97f7-49dc-b8a1-9e41fa8597a7.json',
+      transform: [
+        {
+          type: 'sortBy',
+          fields: ['survived', 'sex'],
+        },
+      ],
     });
 
   const r2 = r1

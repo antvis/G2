@@ -21,6 +21,7 @@ import {
 import { TransformComponent } from './transform';
 import { EncodeComponent } from './encode';
 import { MarkComponent } from './mark';
+import { DataComponent } from './data';
 
 export type G2ViewTree = {
   width?: number;
@@ -73,7 +74,6 @@ export type G2Mark = {
   paddingBottom?: number;
   data?: any;
   transform?: G2TransformOptions[];
-  statistic?: G2StatisticOptions[];
   scale?: Record<string, G2ScaleOptions>;
   encode?: Record<string, any | G2EncodeOptions>;
   type?: string | MarkComponent;
@@ -157,3 +157,4 @@ export type G2TitleOptions = G2Title & {
   size?: number;
   zIndex?: number;
 };
+export type G2DataOptions = G2BaseComponent<DataComponent>;

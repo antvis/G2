@@ -22,11 +22,7 @@ describe('Grid', () => {
         { name: 'x', required: true, scale: 'band' },
         { name: 'y', required: true, scale: 'band' },
       ],
-      preInference: [
-        { type: 'maybeArrayField' },
-        { type: 'maybeZeroX' },
-        { type: 'maybeZeroY' },
-      ],
+      preInference: [{ type: 'maybeZeroX' }, { type: 'maybeZeroY' }],
       postInference: [
         { type: 'maybeKey' },
         { type: 'maybeTitleX' },

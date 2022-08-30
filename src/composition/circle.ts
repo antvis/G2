@@ -85,6 +85,7 @@ export const Circle: CC<CircleComposition> = () => {
       .call(setEncode)
       .call(inferColor)
       .call(setCoordinate)
+      .call(setData)
       .call(
         setChildren,
         subLayoutCircle,
@@ -92,7 +93,6 @@ export const Circle: CC<CircleComposition> = () => {
         createGuideCircle,
         { frame: false },
       )
-      .call(setData)
       .call(setAnimation)
       .call(setStyle)
       .call(setScale)

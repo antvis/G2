@@ -23,7 +23,7 @@ describe('Image', () => {
         { name: 'src', required: true, scale: 'identity' },
         { name: 'size' },
       ],
-      preInference: [{ type: 'maybeArrayField' }],
+      preInference: [],
       postInference: [
         { type: 'maybeKey' },
         { type: 'maybeTitleX' },

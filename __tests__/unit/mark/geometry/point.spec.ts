@@ -25,7 +25,6 @@ describe('Point', () => {
         { name: 'dy', scale: 'identity' },
       ],
       preInference: [
-        { type: 'maybeArrayField' },
         { type: 'maybeZeroY' },
         { type: 'maybeZeroX' },
         { type: 'maybeSize' },

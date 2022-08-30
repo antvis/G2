@@ -68,30 +68,29 @@
   });
   const alpha = ({ alphas = [] }) => {
     if (!Array.isArray(alphas)) return (context) => context;
-    return ({ data }) => {
-      const newData = alphas.flatMap((alpha) =>
+    return (data) => {
+      return alphas.flatMap((alpha) =>
         data.map((d) => Object.assign({}, d, { alpha })),
       );
-      return {
-        data: newData,
-      };
     };
   };
 
   chart
     .line()
-    .data([
-      { year: '1991', value: 15468 },
-      { year: '1992', value: 16100 },
-      { year: '1993', value: 15900 },
-      { year: '1994', value: 17409 },
-      { year: '1995', value: 17000 },
-      { year: '1996', value: 31056 },
-      { year: '1997', value: 31982 },
-      { year: '1998', value: 32040 },
-      { year: '1999', value: 33233 },
-    ])
-    .transform({ type: alpha, alphas: [0, 0.25, 0.5, 0.75, 1] })
+    .data({
+      value: [
+        { year: '1991', value: 15468 },
+        { year: '1992', value: 16100 },
+        { year: '1993', value: 15900 },
+        { year: '1994', value: 17409 },
+        { year: '1995', value: 17000 },
+        { year: '1996', value: 31056 },
+        { year: '1997', value: 31982 },
+        { year: '1998', value: 32040 },
+        { year: '1999', value: 33233 },
+      ],
+      transform: [{ type: alpha, alphas: [0, 0.25, 0.5, 0.75, 1] }],
+    })
     .encode('x', 'year')
     .encode('y', 'value')
     .encode('color', (d) => `${d.alpha}`)
@@ -233,9 +232,10 @@
 
   chart
     .line()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/bmw-prod/ab55d10f-24da-465a-9eba-87ac4b7a83ec.json',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/ab55d10f-24da-465a-9eba-87ac4b7a83ec.json',
     })
     .encode('x', (d) => new Date(d.Date))
     .encode('y', 'Close');
@@ -300,15 +300,18 @@
 
   chart
     .line()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/bmw-prod/96cd81b5-54a4-4fe8-b778-502b2114df58.json',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/96cd81b5-54a4-4fe8-b778-502b2114df58.json',
       callback: (d) => Object.assign(d, { year: new Date(d.year) }),
-    })
-    .transform({
-      type: 'filterBy',
-      // Filter data with defined Horsepower and Miles_per_Gallon.
-      fields: ['Horsepower', 'Miles_per_Gallon'],
+      transform: [
+        {
+          type: 'filterBy',
+          // Filter data with defined Horsepower and Miles_per_Gallon.
+          fields: ['Horsepower', 'Miles_per_Gallon'],
+        },
+      ],
     })
     .encode('position', [
       'Cylinders',
@@ -399,15 +402,18 @@
 
   chart
     .line()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/bmw-prod/96cd81b5-54a4-4fe8-b778-502b2114df58.json',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/96cd81b5-54a4-4fe8-b778-502b2114df58.json',
       callback: (d) => Object.assign(d, { year: new Date(d.year) }),
-    })
-    .transform({
-      type: 'filterBy',
-      // Filter data with defined Horsepower and Miles_per_Gallon.
-      fields: ['Horsepower', 'Miles_per_Gallon'],
+      transform: [
+        {
+          type: 'filterBy',
+          // Filter data with defined Horsepower and Miles_per_Gallon.
+          fields: ['Horsepower', 'Miles_per_Gallon'],
+        },
+      ],
     })
     .encode('position', [
       'Cylinders',

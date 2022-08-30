@@ -83,9 +83,10 @@ If the scale is ordinal or categorical, by default the legend appears as a categ
 
   chart
     .area()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/bmw-prod/e58c9758-0a09-4527-aa90-fbf175b45925.json',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/e58c9758-0a09-4527-aa90-fbf175b45925.json',
     })
     .transform({ type: 'stackY', orderBy: 'sum' })
     .encode('x', (d) => new Date(d.date))
@@ -110,9 +111,10 @@ If the scale is ordinal or categorical, by default the legend appears as a categ
 
   chart
     .interval()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
+      value:
+        'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
     })
     .transform({ type: 'groupX', y: 'mean' })
     .encode('x', 'clarity')
@@ -178,16 +180,18 @@ If the scale is ordinal or categorical, by default the legend appears as a categ
     height: 300,
   });
 
-  chart
-    .transform({
-      type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/blockchain.json',
-    })
-    .transform({
-      type: 'fold',
-      fields: ['blockchain', 'nlp'],
-      as: ['metric', 'value'],
-    });
+  chart.data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/antvdemo/assets/data/blockchain.json',
+    transform: [
+      {
+        type: 'fold',
+        fields: ['blockchain', 'nlp'],
+        as: ['metric', 'value'],
+      },
+    ],
+  });
 
   chart
     .line()

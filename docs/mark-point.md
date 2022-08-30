@@ -8,9 +8,10 @@
 
   chart
     .point()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
+      value:
+        'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
     })
     .encode('x', 'height')
     .encode('y', 'weight')
@@ -29,9 +30,10 @@
 
   chart
     .point()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
+      value:
+        'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
     })
     .encode('x', 'height')
     .encode('shape', 'hollowPoint')
@@ -49,9 +51,9 @@
 
   chart
     .point()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
+      value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
     })
     .encode('x', 'GDP')
     .encode('y', 'LifeExpectancy')
@@ -92,12 +94,12 @@
   });
   const xy = (node) => node.encode('x', 'x').encode('y', 'y');
 
-  chart
-    .transform({
-      type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/bmw-prod/5155ef81-db23-49f3-b72b-d436a219d289.json',
-    })
-    .transform({ type: 'connector', callback: layout });
+  chart.data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/5155ef81-db23-49f3-b72b-d436a219d289.json',
+    transform: [{ type: 'connector', callback: layout }],
+  });
 
   chart
     .point()
@@ -111,10 +113,14 @@
 
   chart
     .text()
-    .transform({
-      type: 'filterBy',
-      fields: ['height'],
-      callback: (d) => d === 0,
+    .data({
+      transform: [
+        {
+          type: 'filterBy',
+          fields: ['height'],
+          callback: (d) => d === 0,
+        },
+      ],
     })
     .call(xy)
     .encode('text', name)

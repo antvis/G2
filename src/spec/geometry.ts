@@ -6,6 +6,7 @@ import { Coordinate } from './coordinate';
 import { Animation } from './animate';
 import { Interaction } from './interaction';
 import { Theme } from './theme';
+import { Data } from './data';
 
 export type Geometry =
   | IntervalGeometry
@@ -74,7 +75,7 @@ export type BaseGeometry<
   paddingRight?: number;
   paddingBottom?: number;
   paddingTop?: number;
-  data?: any;
+  data?: Data;
   transform?: Transform[];
   encode?: Partial<Record<C, Encode | Encode[]>>;
   scale?: Partial<Record<C, Scale>>;

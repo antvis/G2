@@ -70,20 +70,21 @@ describe('Interaction', () => {
       type: 'line',
       width: 720,
       paddingLeft: 80,
-      transform: [
-        {
-          type: 'fetch',
-          url: 'https://gw.alipayobjects.com/os/bmw-prod/96cd81b5-54a4-4fe8-b778-502b2114df58.json',
-          callback: ({ Year, ...rest }) => ({
-            Year: new Date(Year),
-            ...rest,
-          }),
-        },
-        {
-          type: 'filterBy',
-          fields: ['Horsepower', 'Miles_per_Gallon'],
-        },
-      ],
+      data: {
+        type: 'fetch',
+        value:
+          'https://gw.alipayobjects.com/os/bmw-prod/96cd81b5-54a4-4fe8-b778-502b2114df58.json',
+        callback: ({ Year, ...rest }) => ({
+          Year: new Date(Year),
+          ...rest,
+        }),
+        transform: [
+          {
+            type: 'filterBy',
+            fields: ['Horsepower', 'Miles_per_Gallon'],
+          },
+        ],
+      },
       coordinate: [{ type: 'parallel' }],
       scale: {
         position: { nice: true, guide: { zIndex: 1 } },
@@ -137,12 +138,11 @@ describe('Interaction', () => {
   it('render({...}) should render with elementActive', () => {
     const chart = render<G2Spec>({
       type: 'point',
-      transform: [
-        {
-          type: 'fetch',
-          url: 'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
-        },
-      ],
+      data: {
+        type: 'fetch',
+        value:
+          'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
+      },
       encode: {
         x: 'height',
         y: 'weight',
@@ -158,12 +158,11 @@ describe('Interaction', () => {
   it('render({...}) renders bubble chart with fisheye', () => {
     const chart = render({
       type: 'point',
-      transform: [
-        {
-          type: 'fetch',
-          url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
-        },
-      ],
+      data: {
+        type: 'fetch',
+        value:
+          'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
+      },
       scale: { size: { type: 'log', range: [4, 20] }, y: { field: 'Life' } },
       encode: {
         x: 'GDP',

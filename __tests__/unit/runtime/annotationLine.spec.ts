@@ -35,13 +35,15 @@ describe('line annotation', () => {
         },
         {
           type: 'annotation.lineX',
-          transform: [
-            {
-              type: 'filterBy',
-              fields: ['year'],
-              callback: (d) => d === '1995' || d === '1998',
-            },
-          ],
+          data: {
+            transform: [
+              {
+                type: 'filterBy',
+                fields: ['year'],
+                callback: (d) => d === '1995' || d === '1998',
+              },
+            ],
+          },
           encode: {
             x: 'year',
           },
@@ -95,13 +97,15 @@ describe('line annotation', () => {
         },
         {
           type: 'annotation.lineY',
-          transform: [
-            {
-              type: 'filterBy',
-              fields: ['temperature'],
-              callback: (d) => d > 14 && d < 15,
-            },
-          ],
+          data: {
+            transform: [
+              {
+                type: 'filterBy',
+                fields: ['temperature'],
+                callback: (d) => d > 14 && d < 15,
+              },
+            ],
+          },
           encode: {
             y: 'temperature',
             color: 'city',
@@ -109,13 +113,15 @@ describe('line annotation', () => {
         },
         {
           type: 'annotation.lineX',
-          transform: [
-            {
-              type: 'filterBy',
-              fields: ['month'],
-              callback: (d) => d === 'Jun',
-            },
-          ],
+          data: {
+            transform: [
+              {
+                type: 'filterBy',
+                fields: ['month'],
+                callback: (d) => d === 'Jun',
+              },
+            ],
+          },
           encode: {
             x: 'month',
           },

@@ -25,7 +25,7 @@ describe('Text', () => {
         { name: 'fontSize' },
         { name: 'rotate' },
       ],
-      preInference: [{ type: 'maybeArrayField' }],
+      preInference: [],
       postInference: [
         { type: 'maybeKey' },
         { type: 'maybeTitleX' },

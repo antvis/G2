@@ -25,7 +25,7 @@ describe('Line', () => {
         { name: 'size' },
         { name: 'series', scale: 'identity' },
       ],
-      preInference: [{ type: 'maybeArrayField' }, { type: 'maybeSeries' }],
+      preInference: [{ type: 'maybeSeries' }],
       postInference: [
         { type: 'maybeKey' },
         { type: 'maybeTitleX' },

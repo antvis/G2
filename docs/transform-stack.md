@@ -20,9 +20,9 @@ The _reverse_ option reverse any of the above orders. And the _y_ option control
 
   chart
     .interval()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/bmw-prod/0afdce89-c103-479d-91f4-6cf604bcf200.json',
+      value: 'https://gw.alipayobjects.com/os/bmw-prod/0afdce89-c103-479d-91f4-6cf604bcf200.json',
     })
     .encode('x', 'date')
     .encode('y', 'deaths')
@@ -47,9 +47,9 @@ The _reverse_ option reverse any of the above orders. And the _y_ option control
 
   chart
     .area()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/bmw-prod/e58c9758-0a09-4527-aa90-fbf175b45925.json',
+      value: 'https://gw.alipayobjects.com/os/bmw-prod/e58c9758-0a09-4527-aa90-fbf175b45925.json',
     })
     .transform({ type: 'stackY', orderBy: 'series' })
     .encode('x', (d) => new Date(d.date))
@@ -74,9 +74,9 @@ The _reverse_ option reverse any of the above orders. And the _y_ option control
 
   chart
     .area()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/bmw-prod/e58c9758-0a09-4527-aa90-fbf175b45925.json',
+      value: 'https://gw.alipayobjects.com/os/bmw-prod/e58c9758-0a09-4527-aa90-fbf175b45925.json',
     })
     .transform({ type: 'stackY', orderBy: 'sum' })
     .encode('x', (d) => new Date(d.date))
@@ -101,9 +101,9 @@ The _reverse_ option reverse any of the above orders. And the _y_ option control
 
   chart
     .area()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/bmw-prod/e58c9758-0a09-4527-aa90-fbf175b45925.json',
+      value: 'https://gw.alipayobjects.com/os/bmw-prod/e58c9758-0a09-4527-aa90-fbf175b45925.json',
     })
     .transform({ type: 'stackY', orderBy: 'value' })
     .encode('x', (d) => new Date(d.date))
@@ -133,9 +133,9 @@ Replace _orderBy_ option with `d => d.unemployed` (function order) or `['unemplo
       .encode('y', 'revenue')
       .encode('series', 'format');
 
-  chart.transform({
+  chart.data({
     type: 'fetch',
-    url: 'https://gw.alipayobjects.com/os/bmw-prod/f38a8ad0-6e1f-4bb3-894c-7db50781fdec.json',
+    value: 'https://gw.alipayobjects.com/os/bmw-prod/f38a8ad0-6e1f-4bb3-894c-7db50781fdec.json',
   });
 
   chart
@@ -165,9 +165,9 @@ Replace _orderBy_ option with `d => d.unemployed` (function order) or `['unemplo
 
   chart
     .point()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/bmw-prod/88c601cd-c1ff-4c9b-90d5-740d0b710b7e.json',
+      value: 'https://gw.alipayobjects.com/os/bmw-prod/88c601cd-c1ff-4c9b-90d5-740d0b710b7e.json',
     })
     .transform({ type: 'stackY' })
     .encode('x', (d) => 2021 - d.birth)

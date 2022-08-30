@@ -40,18 +40,17 @@
   const width = 640;
   const height = 480;
   const words = () => {
-    return ({ data }) => ({
-      data: data.flatMap((d) =>
+    return (data) =>
+      data.flatMap((d) =>
         d.words.map(({ weight, word }) => ({
           value: weight,
           text: word,
           name: d.name,
         })),
-      ),
-    });
+      );
   };
   const layout = () => {
-    return async ({ data }) => {
+    return async (data) => {
       return new Promise((resolve) =>
         cloud()
           .size([width, height])
@@ -59,7 +58,7 @@
           .padding(2)
           .rotate(() => ~~(Math.random() * 2) * 90)
           .fontSize((d) => d.value * 2)
-          .on('end', (data) => resolve({ data }))
+          .on('end', (data) => resolve(data))
           .start(),
       );
     };
@@ -75,12 +74,12 @@
 
   chart
     .text()
-    .transform({
+    .data({
       type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/bmw-prod/d345d2d7-a35d-4d27-af92-4982b3e6b213.json',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/d345d2d7-a35d-4d27-af92-4982b3e6b213.json',
+      transform: [{ type: words }, { type: layout }],
     })
-    .transform({ type: words })
-    .transform({ type: layout })
     .encode('x', 'x')
     .encode('y', 'y')
     .encode('text', 'text')

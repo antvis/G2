@@ -23,7 +23,7 @@ describe('Vector', () => {
         { name: 'rotate', required: true, scale: 'identity' },
         { name: 'size', required: true },
       ],
-      preInference: [{ type: 'maybeArrayField' }],
+      preInference: [],
       postInference: [
         { type: 'maybeKey' },
         { type: 'maybeTitleX' },

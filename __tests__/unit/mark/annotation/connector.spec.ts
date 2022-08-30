@@ -20,7 +20,7 @@ describe('Connector', () => {
         { name: 'x', required: true },
         { name: 'y', required: true },
       ],
-      preInference: [{ type: 'maybeArrayField' }],
+      preInference: [],
       postInference: [{ type: 'maybeKey' }],
       shapes: ['annotation.connector'],
     });

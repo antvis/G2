@@ -9,16 +9,18 @@
     width: 640,
   });
 
-  chart
-    .transform({
-      type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/blockchain.json',
-    })
-    .transform({
-      type: 'fold',
-      fields: ['blockchain', 'nlp'],
-      as: ['type', 'value'],
-    });
+  chart.data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/antvdemo/assets/data/blockchain.json',
+    transform: [
+      {
+        type: 'fold',
+        fields: ['blockchain', 'nlp'],
+        as: ['type', 'value'],
+      },
+    ],
+  });
 
   chart
     .line()
@@ -69,16 +71,18 @@
     width: 640,
   });
 
-  chart
-    .transform({
-      type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/blockchain.json',
-    })
-    .transform({
-      type: 'fold',
-      fields: ['blockchain', 'nlp'],
-      as: ['type', 'value'],
-    });
+  chart.data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/antvdemo/assets/data/blockchain.json',
+    transform: [
+      {
+        type: 'fold',
+        fields: ['blockchain', 'nlp'],
+        as: ['type', 'value'],
+      },
+    ],
+  });
 
   chart
     .line()
@@ -161,16 +165,18 @@
 (() => {
   const chart = new G2.Chart({ width: 800 });
 
-  chart
-    .transform({
-      type: 'fetch',
-      url: 'https://gw.alipayobjects.com/os/bmw-prod/89a884ff-5f4e-48e8-b317-ae5b3b956bf2.json',
-    })
-    .transform({
-      type: 'fold',
-      fields: ['New York', 'San Francisco'],
-      as: ['city', 'weather'],
-    });
+  chart.data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/89a884ff-5f4e-48e8-b317-ae5b3b956bf2.json',
+    transform: [
+      {
+        type: 'fold',
+        fields: ['New York', 'San Francisco'],
+        as: ['city', 'weather'],
+      },
+    ],
+  });
 
   chart
     .annotationRangeX()
@@ -195,9 +201,10 @@
 (() => {
   const chart = new G2.Chart();
 
-  chart.transform({
+  chart.data({
     type: 'fetch',
-    url: 'https://gw.alipayobjects.com/os/bmw-prod/2e5e34b8-229d-4503-92cb-d415106785cf.json',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/2e5e34b8-229d-4503-92cb-d415106785cf.json',
   });
 
   chart

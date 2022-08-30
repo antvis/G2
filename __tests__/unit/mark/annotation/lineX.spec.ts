@@ -18,7 +18,7 @@ describe('Line annotation', () => {
         { name: 'label', scale: 'identity' },
         { name: 'x', required: true },
       ],
-      preInference: [{ type: 'maybeArrayField' }],
+      preInference: [],
       postInference: [{ type: 'maybeKey' }],
       shapes: ['annotation.line'],
     });

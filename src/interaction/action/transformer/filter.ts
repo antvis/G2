@@ -14,7 +14,7 @@ export const Filter: AC<FilterOptions> = (options) => {
     const { selectedElements } = shared;
 
     if (!shared.originTransform) {
-      shared.originTransform = plotOptions.marks[0].transform || [];
+      shared.originTransform = plotOptions.marks[0].data.transform || [];
     }
 
     const { x: scaleX } = scale;
@@ -27,7 +27,7 @@ export const Filter: AC<FilterOptions> = (options) => {
 
     const getUpdatedOptions = () => {
       if (reset) {
-        plotOptions.marks[0].transform = shared.originTransform;
+        plotOptions.marks[0].data.transform = shared.originTransform;
       } else if (data.length > 0) {
         const transform = [...shared.originTransform];
         const { field: xField } = scaleX.getOptions();
@@ -37,8 +37,12 @@ export const Filter: AC<FilterOptions> = (options) => {
           callback: (x) =>
             isBandScale ? data.includes(x) : x >= min && x <= max,
         });
-
-        plotOptions.marks[0].transform = transform;
+        const { data } = plotOptions.marks[0];
+        if (Array.isArray(data)) {
+          plotOptions.marks[0].data = { value: data, transform };
+        } else {
+          plotOptions.marks[0].data.transform = transform;
+        }
       }
 
       return plotOptions;
