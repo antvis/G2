@@ -171,6 +171,18 @@ import {
   SelectY,
   GroupX,
 } from '../transform';
+import {
+  Fetch,
+  SortBy,
+  FilterBy,
+  Pick,
+  Rename,
+  Subset,
+  Fold,
+  Inline,
+  Connector,
+} from '../data';
+import { HideOverlap } from '../labelLayout/hideOverlap';
 
 export function createLibrary(): G2Library {
   return {
