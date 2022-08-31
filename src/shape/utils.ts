@@ -1,6 +1,8 @@
 import { Path as D3Path } from 'd3-path';
+import { Coordinate } from '@antv/coord';
 import { Linear } from '@antv/scale';
 import { Primitive, Vector2 } from '../runtime';
+import { isTranspose } from '../utils/coordinate';
 import { angle, dist, sub } from '../utils/vector';
 import { Selection } from '../utils/selection';
 
@@ -126,4 +128,33 @@ export function computeGradient(C: string[], X: number[]): string {
   });
   const gradient = C.map((c, i) => `${c} ${color.map(X[i])}%`).join(',');
   return `linear-gradient(${gradient})`;
+}
+
+function reorder(points: Vector2[]): Vector2[] {
+  const [p0, p1, p2, p3] = points;
+  return [p3, p0, p1, p2];
+}
+
+export function getArcObject(
+  coordinate: Coordinate,
+  points: Vector2[],
+  Y: [number, number],
+) {
+  const [p0, p1, , p3] = isTranspose(coordinate) ? reorder(points) : points;
+
+  const [y, y1] = Y;
+  const center = coordinate.getCenter() as Vector2;
+  const a1 = angle(sub(p0, center));
+  const a2 = angle(sub(p1, center));
+  // There are two situations that a2 === a1:
+  // 1. a1 - a2 = 0
+  // 2. |a1 - a2| = Math.PI * 2
+  // Distinguish them by y and y1:
+  const a3 = a2 === a1 && y !== y1 ? a2 + Math.PI * 2 : a2;
+  return {
+    startAngle: a1,
+    endAngle: a3 - a1 >= 0 ? a3 : Math.PI * 2 + a3,
+    innerRadius: dist(p3, center),
+    outerRadius: dist(p0, center),
+  };
 }

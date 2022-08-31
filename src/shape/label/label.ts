@@ -2,18 +2,12 @@ import { Coordinate } from '@antv/coord';
 import { DisplayObject, Text } from '@antv/g';
 import { select } from '../../utils/selection';
 import { ShapeComponent as SC, Vector2 } from '../../runtime';
-import { applyStyle } from '../../shape/utils';
-import { isHelix, isPolar, isTranspose } from '../../utils/coordinate';
-import { angle, sub, dist } from '../../utils/vector';
+import { applyStyle, getArcObject } from '../../shape/utils';
+import { isHelix, isPolar } from '../../utils/coordinate';
 
 type LabelPosition = 'top' | 'left' | 'right' | 'bottom' | 'inside' | 'outside';
 
 export type LabelOptions = Record<string, any>;
-
-function reorder(points: Vector2[]): Vector2[] {
-  const [p0, p1, p2, p3] = points;
-  return [p1, p2, p3, p0];
-}
 
 /**
  * Avoid getting error bounds caused by element animations.
@@ -57,22 +51,13 @@ function inferPosition(
   }
 
   // Infer the label position in polar coordinate.
-  const [p0, p1, , p3] = isTranspose(coordinate) ? reorder(points) : points;
   const { y, y1 } = value;
+  const arcObject = getArcObject(coordinate, points, [y, y1]);
+
+  const { startAngle, endAngle, innerRadius, outerRadius } = arcObject;
+  const midAngle = (startAngle + endAngle) / 2;
+
   const center = coordinate.getCenter() as Vector2;
-  const a1 = angle(sub(p0, center));
-  const a2 = angle(sub(p1, center));
-  // There are two situations that a2 === a1:
-  // 1. a1 - a2 = 0
-  // 2. |a1 - a2| = Math.PI * 2
-  // Distinguish them by y and y1:
-  const a3 = a2 === a1 && y !== y1 ? a2 + Math.PI * 2 : a2;
-  const startAngle = a1;
-  const endAngle = a3 - a1 >= 0 ? a3 : Math.PI * 2 + a3;
-  const midAngle = (startAngle + endAngle) / 2 + Math.PI / 2;
-  // InnerRadius is equal to dist(p3, center), and outerRadius is equal to dist(p0, center).
-  const outerRadius = dist(p3, center);
-  const innerRadius = dist(p0, center);
 
   // @todo Support config by label.offset
   const offset = position === 'inside' ? 0 : 12;
@@ -81,8 +66,8 @@ function inferPosition(
     offset;
 
   return {
-    x: center[0] + Math.cos(midAngle) * radius - x0,
-    y: center[1] + Math.sin(midAngle) * radius - y0,
+    x: center[0] + Math.sin(midAngle) * radius - x0,
+    y: center[1] - Math.cos(midAngle) * radius - y0,
   };
 }
 
