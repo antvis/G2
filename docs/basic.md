@@ -102,3 +102,46 @@ paddingTop = 80;
   return chart.render().node();
 })();
 ```
+
+## Update Data
+
+> Currently do not support animate transition.
+
+```js
+(() => {
+  const chart = new G2.Chart({});
+  const data = [
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ];
+
+  const interval = chart
+    .interval()
+    .data(data)
+    .encode('x', 'genre')
+    .encode('y', 'sold')
+    .encode('color', 'genre');
+
+  chart.render();
+
+  const button = document.createElement('button');
+  button.innerText = 'Update Data';
+  button.style.marginBottom = '10px';
+  button.onclick = () => {
+    // Update data of the interval.
+    const shuffle = (array) => array.sort((a, b) => Math.random() - 1);
+    interval.data(shuffle(data));
+
+    // Rerender the chart.
+    chart.render();
+  };
+
+  const div = document.createElement('div');
+  div.appendChild(button);
+  div.appendChild(chart.node());
+  return div;
+})();
+```

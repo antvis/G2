@@ -53,7 +53,8 @@
         "More": "interaction-more"
       },
       "Theme": "theme",
-      "Show Case": "show-case"
+      "Show Case": "show-case",
+      "Register": "register"
     }
   },
   "domain": "g2-next.antv.vision",

@@ -1,4 +1,5 @@
-import { Chart } from '../../../src';
+import { Canvas } from '@antv/g';
+import { Chart, createLibrary } from '../../../src';
 import {
   View,
   Keyframe,
@@ -36,7 +37,7 @@ describe('Chart', () => {
     expect(chart.type).toBe('view');
     expect(chart.parentNode).toBeNull();
     expect(chart.value).toEqual({});
-    expect(chart['container'].nodeName).toBe('DIV');
+    expect(chart['_container'].nodeName).toBe('DIV');
   });
 
   it('Chart({...}) should support HTML container', () => {
@@ -44,7 +45,7 @@ describe('Chart', () => {
     const chart = new Chart({
       container,
     });
-    expect(chart['container']).toBe(container);
+    expect(chart['_container']).toBe(container);
   });
 
   it('Chart({...}) should support id container', () => {
@@ -54,12 +55,12 @@ describe('Chart', () => {
     const chart = new Chart({
       container: 'root',
     });
-    expect(chart['container']).toBe(div);
+    expect(chart['_container']).toBe(div);
   });
 
   it('Chart({...}) should support undefined container', () => {
     const chart = new Chart();
-    expect(chart['container'].nodeName).toBe('DIV');
+    expect(chart['_container'].nodeName).toBe('DIV');
   });
 
   it('Chart({...}) should override default value', () => {
@@ -257,5 +258,69 @@ describe('Chart', () => {
       .encode('color', 'genre');
 
     expect(chart.render()).toBe(chart);
+  });
+
+  it('chart.context() should return rendering context', () => {
+    const chart = new Chart({
+      container: createDiv(),
+    });
+
+    chart.data([
+      { genre: 'Sports', sold: 275 },
+      { genre: 'Strategy', sold: 115 },
+      { genre: 'Action', sold: 120 },
+      { genre: 'Shooter', sold: 350 },
+      { genre: 'Other', sold: 150 },
+    ]);
+
+    chart
+      .interval()
+      .encode('x', 'genre')
+      .encode('y', 'sold')
+      .encode('color', 'genre');
+
+    const context = chart.context();
+    expect(context.canvas).toBeUndefined();
+    expect(context.library).toEqual(createLibrary());
+    chart.render();
+    expect(context.canvas).toBeInstanceOf(Canvas);
+  });
+
+  it('chart.render({...}) should rerender chart with updated data', () => {
+    const div = createDiv();
+    const button = document.createElement('button');
+    button.innerText = 'Update';
+    div.appendChild(button);
+
+    const chart = new Chart({
+      container: div,
+    });
+
+    chart.data([
+      { genre: 'Sports', sold: 275 },
+      { genre: 'Strategy', sold: 115 },
+      { genre: 'Action', sold: 120 },
+      { genre: 'Shooter', sold: 350 },
+      { genre: 'Other', sold: 150 },
+    ]);
+
+    chart
+      .interval()
+      .encode('x', 'genre')
+      .encode('y', 'sold')
+      .encode('color', 'genre');
+
+    chart.render();
+
+    button.onclick = () => {
+      chart.data([
+        { genre: 'Action', sold: 120 },
+        { genre: 'Shooter', sold: 350 },
+        { genre: 'Other', sold: 150 },
+        { genre: 'Sports', sold: 275 },
+        { genre: 'Strategy', sold: 115 },
+      ]);
+      chart.render();
+    };
   });
 });
