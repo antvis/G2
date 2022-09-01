@@ -2,30 +2,16 @@
 
 <!-- TODO: -->
 
-## Dependance
-
-```js | dom "pin: false"
-render = (async () => {
-  const { Renderer: SvgRenderer } = await genji.require('@antv/g-svg');
-
-  const { Plugin: CanvasRoughPlugin } = await genji.require(
-    '@antv/g-plugin-rough-canvas-renderer',
-  );
-  const { Plugin: SvgRoughPlugin } = await genji.require(
-    '@antv/g-plugin-rough-svg-renderer',
-  );
-  return { SvgRenderer, CanvasRoughPlugin, SvgRoughPlugin };
-})();
-```
-
 ## Default Renderer
 
 ```js | dom
 (() => {
   // Don't specify size.
   const chart = new G2.Chart({
-    // renderer: new renderer.SvgRenderer(),
-    plugins: [new render.CanvasRoughPlugin()],
+    // renderer: new G.SVG.Renderer(),
+    // renderer: new G.Canvas2D.Renderer(),
+    plugins: [new G.RoughCanvasRenderer.Plugin()],
+    // plugins: [new G.RoughSVGRenderer.Plugin()],
   });
 
   chart
@@ -38,7 +24,9 @@ render = (async () => {
       { genre: 'Other', sold: 150 },
     ])
     .encode('x', 'genre')
-    .encode('y', 'sold');
+    .encode('y', 'sold')
+    .encode('color', 'genre')
+    .style('strokeWidth', 1);
 
   return chart.render().node();
 })();
