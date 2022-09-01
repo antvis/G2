@@ -351,7 +351,7 @@ describe('line', () => {
         },
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);

@@ -21,7 +21,7 @@ describe('label', () => {
         },
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
@@ -53,7 +53,7 @@ describe('label', () => {
         },
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);

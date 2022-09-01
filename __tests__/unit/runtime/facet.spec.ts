@@ -37,7 +37,7 @@ describe('facet', () => {
         ],
       },
       {},
-      done,
+      () => done(),
     );
     mount(createDiv(), chart);
   });
@@ -74,7 +74,7 @@ describe('facet', () => {
         ],
       },
       {},
-      done,
+      () => done(),
     );
     mount(createDiv(), chart);
   });
@@ -122,7 +122,7 @@ describe('facet', () => {
         ],
       },
       {},
-      done,
+      () => done(),
     );
     mount(createDiv(), chart);
   });
@@ -306,7 +306,7 @@ describe('facet', () => {
         },
       },
       {},
-      done,
+      () => done(),
     );
     mount(createDiv(), chart);
   });

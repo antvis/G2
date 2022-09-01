@@ -11,7 +11,7 @@ describe('render', () => {
         type: 'interval',
       },
       {},
-      done,
+      () => done(),
     );
     mount(createDiv(), chart);
 
@@ -28,7 +28,7 @@ describe('render', () => {
         type: 'interval',
       },
       {},
-      done,
+      () => done(),
     );
     mount(createDiv(), chart);
 
@@ -64,7 +64,7 @@ describe('render', () => {
         },
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
@@ -88,7 +88,7 @@ describe('render', () => {
         },
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
@@ -111,7 +111,7 @@ describe('render', () => {
         },
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
@@ -137,7 +137,7 @@ describe('render', () => {
         },
       },
       {},
-      done,
+      () => done(),
     );
     mount(createDiv(), chart);
   });
@@ -177,7 +177,7 @@ describe('render', () => {
         },
       },
       {},
-      done,
+      () => done(),
     );
     mount(createDiv(), chart);
   });
@@ -222,7 +222,7 @@ describe('render', () => {
         },
       },
       context,
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
@@ -247,7 +247,7 @@ describe('render', () => {
         },
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
@@ -271,7 +271,7 @@ describe('render', () => {
         },
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
@@ -299,7 +299,7 @@ describe('render', () => {
         },
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
@@ -324,7 +324,7 @@ describe('render', () => {
         },
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
@@ -349,7 +349,7 @@ describe('render', () => {
         },
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
@@ -373,7 +373,7 @@ describe('render', () => {
         },
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
@@ -398,7 +398,7 @@ describe('render', () => {
         },
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
@@ -429,7 +429,7 @@ describe('render', () => {
         },
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
@@ -456,7 +456,7 @@ describe('render', () => {
         },
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
@@ -483,7 +483,7 @@ describe('render', () => {
         },
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
@@ -510,7 +510,7 @@ describe('render', () => {
         },
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
@@ -537,7 +537,7 @@ describe('render', () => {
         },
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
@@ -573,7 +573,7 @@ describe('render', () => {
         },
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
@@ -608,7 +608,7 @@ describe('render', () => {
         },
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
@@ -645,7 +645,7 @@ describe('render', () => {
         },
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
@@ -681,7 +681,7 @@ describe('render', () => {
         },
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
@@ -718,7 +718,7 @@ describe('render', () => {
         },
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
@@ -755,7 +755,7 @@ describe('render', () => {
         },
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
@@ -886,7 +886,7 @@ describe('render', () => {
         },
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
@@ -1017,7 +1017,7 @@ describe('render', () => {
         transform: [{ type: 'stackY', groupBy: ['x', 'series'] }],
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
