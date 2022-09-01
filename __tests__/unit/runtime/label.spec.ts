@@ -54,7 +54,7 @@ describe('label', () => {
         style: { label: { position: 'inside' } },
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
@@ -80,7 +80,7 @@ describe('label', () => {
         style: { label: { position: 'outside' } },
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
@@ -135,7 +135,7 @@ describe('label', () => {
         labelLayout: [{ type: 'hideOverlap' }],
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
@@ -163,7 +163,7 @@ describe('label', () => {
         style: { label: { position: 'inside' } },
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
