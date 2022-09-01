@@ -21,7 +21,7 @@ describe('animation', () => {
         },
       },
       {},
-      done,
+      () => done(),
     );
     mount(createDiv(), chart);
   });
@@ -50,7 +50,7 @@ describe('animation', () => {
         },
       },
       {},
-      done,
+      () => done(),
     );
     mount(createDiv(), chart);
   });
@@ -74,7 +74,7 @@ describe('animation', () => {
         },
       },
       {},
-      done,
+      () => done(),
     );
     mount(createDiv(), chart);
   });
@@ -101,7 +101,7 @@ describe('animation', () => {
         },
       },
       {},
-      done,
+      () => done(),
     );
     mount(createDiv(), chart);
   });
@@ -133,7 +133,7 @@ describe('animation', () => {
         },
       },
       {},
-      done,
+      () => done(),
     );
     mount(createDiv(), chart);
   });
@@ -161,7 +161,7 @@ describe('animation', () => {
         },
       },
       {},
-      done,
+      () => done(),
     );
     mount(createDiv(), chart);
   });
@@ -190,7 +190,7 @@ describe('animation', () => {
         },
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
@@ -220,7 +220,7 @@ describe('animation', () => {
         },
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
@@ -251,7 +251,7 @@ describe('animation', () => {
         },
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
@@ -282,7 +282,7 @@ describe('animation', () => {
         },
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
@@ -313,7 +313,7 @@ describe('animation', () => {
         },
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
@@ -341,7 +341,7 @@ describe('animation', () => {
         },
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
@@ -374,7 +374,7 @@ describe('animation', () => {
         },
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);

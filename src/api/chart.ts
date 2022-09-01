@@ -1,5 +1,5 @@
 import { clone } from '@antv/util';
-import { render } from '../runtime';
+import { G2Context, render } from '../runtime';
 import { ViewComposition } from '../spec';
 import { Node } from './node';
 import {
@@ -16,6 +16,7 @@ import {
 } from './types';
 import { mark, Mark } from './mark';
 import { composition, Composition } from './composition';
+import { library } from './library';
 
 function normalizeContainer(container: string | HTMLElement): HTMLElement {
   if (container === undefined) return document.createElement('div');
@@ -100,17 +101,23 @@ export const props: NodePropertyDescriptor[] = [
 
 @defineProps(props)
 export class Chart extends Node<ChartOptions> {
-  private container: HTMLElement;
+  private _container: HTMLElement;
+
+  private _context: G2Context;
 
   constructor(options: ChartOptions = {}) {
     const { container, ...rest } = options;
     super(rest, 'view');
-    this.container = normalizeContainer(container);
+    this._container = normalizeContainer(container);
+    this._context = { library };
   }
 
-  render() {
-    const node = render(optionsOf(this));
-    this.container.append(node);
+  render(): Chart {
+    const options = optionsOf(this);
+    const node = render(options, this._context);
+    if (node.parentNode !== this._container) {
+      this._container.append(node);
+    }
     return this;
   }
 
@@ -118,7 +125,11 @@ export class Chart extends Node<ChartOptions> {
     return optionsOf(this);
   }
 
-  node() {
-    return this.container;
+  node(): HTMLElement {
+    return this._container;
+  }
+
+  context(): G2Context {
+    return this._context;
   }
 }

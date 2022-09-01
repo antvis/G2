@@ -40,7 +40,7 @@ describe('connector Annotation', () => {
         ],
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
@@ -134,7 +134,7 @@ describe('connector Annotation', () => {
         ],
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);

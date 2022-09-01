@@ -49,7 +49,7 @@ describe('range Annotation', () => {
         ],
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
@@ -92,7 +92,7 @@ describe('range Annotation', () => {
         ],
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
@@ -139,7 +139,7 @@ describe('range Annotation', () => {
         ],
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
@@ -181,7 +181,7 @@ describe('range Annotation', () => {
         ],
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
@@ -224,7 +224,7 @@ describe('range Annotation', () => {
         ],
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
@@ -267,7 +267,7 @@ describe('range Annotation', () => {
         ],
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
@@ -310,7 +310,7 @@ describe('range Annotation', () => {
         ],
       },
       {},
-      done,
+      () => done(),
     );
 
     mount(createDiv(), chart);
