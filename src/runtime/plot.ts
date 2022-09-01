@@ -7,6 +7,7 @@ import {
   defined,
   useMemo,
   appendTransform,
+  compose,
 } from '../utils/helper';
 import { Selection, select, G2Element } from '../utils/selection';
 import {
@@ -22,6 +23,7 @@ import {
   G2CompositionOptions,
   G2AdjustOptions,
   G2InteractionOptions,
+  G2LabelLayoutOptions,
 } from './types/options';
 import {
   ThemeComponent,
@@ -38,6 +40,8 @@ import {
   Adjust,
   InteractionComponent,
   Interaction,
+  LabelLayoutComponent,
+  LabelLayout,
 } from './types/component';
 import { MarkComponent, Mark, MarkChannel } from './types/mark';
 import { TransformComponent, Transform } from './types/transform';
@@ -293,9 +297,20 @@ function initializeState(
     'theme',
     library,
   );
+  const [useLabelLayout] = useLibrary<
+    G2LabelLayoutOptions,
+    LabelLayoutComponent,
+    LabelLayout
+  >('labelLayout', library);
 
-  const { key, frame, theme: partialTheme } = options;
+  const {
+    key,
+    frame,
+    theme: partialTheme,
+    labelLayout: userLabelLayout = [],
+  } = options;
   const theme = useTheme(inferTheme(partialTheme));
+  const labelLayout = compose(userLabelLayout.map(useLabelLayout));
 
   // Infer components and compute layout.
   const marks = Array.from(markState.keys());
@@ -377,6 +392,7 @@ function initializeState(
     markState,
     key,
     frame,
+    labelLayout,
     scale: scaleInstance,
   };
   return [view, children];
@@ -539,7 +555,7 @@ function plotLabel(
   transitions: Promise<void>[],
   library: G2Library,
 ) {
-  const { markState } = view;
+  const { markState, labelLayout } = view;
   const labels = [];
   for (const [mark, state] of markState.entries()) {
     const { key } = mark;
@@ -560,7 +576,8 @@ function plotLabel(
       copyAttributes(label, newLabel);
     });
   }
-  // @todo applyLayout(labels);
+  // @todo applyLayout
+  if (labelLayout) labelLayout(labels);
 }
 
 function createLabelShapeFunction(

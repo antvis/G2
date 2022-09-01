@@ -8,19 +8,20 @@ describe('light', () => {
       defaultCategory20: 'category20',
       defaultSize: 1,
       elementActiveStroke: 'black',
+      labelFill: '#595959',
       enter: {
         duration: 300,
         fill: 'both',
         delay: 0,
       },
-      subtitle: {
-        fill: 'rgba(0,0,0,0.65)',
-        fontSize: 10,
-      },
       title: {
         fill: 'rgba(0,0,0,0.85)',
         fontSize: 14,
         fontWeight: 'bold',
+      },
+      subtitle: {
+        fill: 'rgba(0,0,0,0.65)',
+        fontSize: 10,
       },
     });
   });

@@ -182,6 +182,7 @@ import {
   Inline,
   Connector,
 } from '../data';
+import { HideOverlap } from '../labelLayout/hideOverlap';
 
 export function createLibrary(): G2Library {
   return {
@@ -358,5 +359,6 @@ export function createLibrary(): G2Library {
     'composition.circle': Circle,
     'composition.keyframe': Keyframe,
     'adjust.pack': Pack,
+    'labelLayout.hideOverlap': HideOverlap,
   };
 }

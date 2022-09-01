@@ -16,6 +16,7 @@ import {
   CompositionComponent,
   AdjustComponent,
   Scale,
+  LabelLayoutComponent,
 } from './component';
 
 import { TransformComponent } from './transform';
@@ -63,6 +64,7 @@ export type G2View = {
   marks?: G2Mark[];
   frame?: boolean;
   adjust?: { type?: string; [key: string]: any };
+  labelLayout?: G2LabelLayoutOptions[];
 };
 
 export type G2Mark = {
@@ -114,7 +116,8 @@ export type G2ComponentOptions =
   | G2AnimationOptions
   | G2InteractionOptions
   | G2CompositionOptions
-  | G2AdjustOptions;
+  | G2AdjustOptions
+  | G2LabelLayoutOptions;
 
 export type G2TransformOptions = G2BaseComponentOptions<TransformComponent>;
 export type G2StatisticOptions = G2BaseComponentOptions<StatisticComponent>;
@@ -152,6 +155,7 @@ export type G2AnimationOptions = G2BaseComponentOptions<AnimationComponent>;
 export type G2InteractionOptions = G2BaseComponentOptions<InteractionComponent>;
 export type G2CompositionOptions = G2BaseComponentOptions<CompositionComponent>;
 export type G2AdjustOptions = G2BaseComponentOptions<AdjustComponent>;
+export type G2LabelLayoutOptions = G2BaseComponentOptions<LabelLayoutComponent>;
 export type G2TitleOptions = G2Title & {
   position?: GuideComponentPosition;
   size?: number;

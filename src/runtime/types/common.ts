@@ -1,7 +1,7 @@
 import { Coordinate } from '@antv/coord';
 import { DisplayObject } from '@antv/g';
 import { G2GuideComponentOptions, G2Mark, G2ViewTree } from './options';
-import { Scale } from './component';
+import { LabelLayout, Scale } from './component';
 import { MarkProps } from './mark';
 import { ColumnValue } from './encode';
 
@@ -11,6 +11,7 @@ export type G2Theme = {
   defaultCategory20?: string;
   defaultSize?: number;
   elementActiveStroke?: string;
+  labelFill?: string;
   enter?: {
     duration?: number;
     delay?: number;
@@ -55,6 +56,7 @@ export type G2ViewDescriptor = {
   layout: Layout;
   key: string;
   frame: boolean;
+  labelLayout?: LabelLayout;
 };
 
 export type G2ViewInstance = {

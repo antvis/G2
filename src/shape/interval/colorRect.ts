@@ -1,16 +1,10 @@
 import { Path } from '@antv/g';
 import { arc } from 'd3-shape';
 import { path as d3path } from 'd3-path';
-import { angle, sub, dist } from '../../utils/vector';
 import { Vector2, ShapeComponent as SC } from '../../runtime';
-import { isTranspose, isPolar, isHelix } from '../../utils/coordinate';
+import { isPolar, isHelix } from '../../utils/coordinate';
 import { select } from '../../utils/selection';
-import { applyStyle, appendPolygon } from '../utils';
-
-function reorder(points: Vector2[]): Vector2[] {
-  const [p0, p1, p2, p3] = points;
-  return [p3, p0, p1, p2];
-}
+import { applyStyle, appendPolygon, getArcObject } from '../utils';
 
 export type ColorRectOptions = {
   colorAttribute: 'fill' | 'stroke';
@@ -34,7 +28,6 @@ export const ColorRect: SC<ColorRectOptions> = (options) => {
     const { radius = 0 } = style;
     const { defaultColor } = theme;
     const { color = defaultColor } = value;
-    const [p0, p1, p2, p3] = isTranspose(coordinate) ? reorder(points) : points;
 
     // Render rect in non-polar coordinate.
     if (!isPolar(coordinate) && !isHelix(coordinate)) {
@@ -50,19 +43,7 @@ export const ColorRect: SC<ColorRectOptions> = (options) => {
     // Render path in polar coordinate.
     const { y, y1 } = value;
     const center = coordinate.getCenter() as Vector2;
-    const a1 = angle(sub(p0, center));
-    const a2 = angle(sub(p1, center));
-    // There are two situations that a2 === a1:
-    // 1. a1 - a2 = 0
-    // 2. |a1 - a2| = Math.PI * 2
-    // Distinguish them by y and y1:
-    const a3 = a2 === a1 && y !== y1 ? a2 + Math.PI * 2 : a2;
-    const arcObject = {
-      startAngle: a1,
-      endAngle: a3 - a1 >= 0 ? a3 : Math.PI * 2 + a3,
-      innerRadius: dist(p3, center),
-      outerRadius: dist(p0, center),
-    };
+    const arcObject = getArcObject(coordinate, points, [y, y1]);
     const path = arc().cornerRadius(radius as number);
 
     return select(new Path({}))
