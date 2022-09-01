@@ -1,5 +1,5 @@
 import { Coordinate } from '@antv/coord';
-import { group, descending, ascending } from 'd3-array';
+import { group, ascending } from 'd3-array';
 import { capitalizeFirst } from '../utils/helper';
 import {
   GuideComponentPosition,

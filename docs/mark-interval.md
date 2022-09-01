@@ -17,7 +17,8 @@
     ])
     .encode('x', 'genre')
     .encode('y', 'sold')
-    .encode('color', 'genre');
+    .encode('color', 'genre')
+    .encode('label', 'sold');
 
   return chart.render().node();
 })();

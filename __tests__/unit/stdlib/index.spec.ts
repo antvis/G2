@@ -179,9 +179,10 @@ import {
   Rename,
   Subset,
   Fold,
-  Connector,
   Inline,
+  Connector,
 } from '../../../src/data';
+import { HideOverlap } from '../../../src/labelLayout';
 
 describe('stdlib', () => {
   it('createLibrary() should returns expected builtin', () => {
@@ -359,6 +360,7 @@ describe('stdlib', () => {
       'composition.circle': Circle,
       'composition.keyframe': Keyframe,
       'adjust.pack': Pack,
+      'labelLayout.hideOverlap': HideOverlap,
     });
   });
 });

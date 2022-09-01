@@ -52,6 +52,7 @@
         "Brush": "interaction-brush",
         "More": "interaction-more"
       },
+      "Label": "label",
       "Theme": "theme",
       "Show Case": "show-case"
     }
