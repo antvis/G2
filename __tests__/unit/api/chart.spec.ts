@@ -199,6 +199,16 @@ describe('Chart', () => {
     });
   });
 
+  it('chart.options() should handle date object', () => {
+    const chart = new Chart({});
+    const date = new Date();
+    chart.grid().data([{ date }]);
+    expect(chart.options()).toEqual({
+      type: 'view',
+      children: [{ type: 'grid', data: [{ date }] }],
+    });
+  });
+
   it('chart.nodeName() should build view tree', () => {
     const chart = new Chart();
     chart.interval();
