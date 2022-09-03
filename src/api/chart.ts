@@ -1,6 +1,9 @@
 import { clone } from '@antv/util';
+import { Renderer as CanvasRenderer } from '@antv/g-canvas';
+import { RendererPlugin } from '@antv/g';
 import { G2Context, render } from '../runtime';
 import { ViewComposition } from '../spec';
+import { Canvas } from '../renderer';
 import { Node } from './node';
 import {
   defineProps,
@@ -71,6 +74,8 @@ export type ChartOptions = ViewComposition & {
   container?: string | HTMLElement;
   width?: number;
   height?: number;
+  renderer?: CanvasRenderer;
+  plugins?: RendererPlugin[];
 };
 
 type ChartProps = Concrete<ViewComposition>;
@@ -114,6 +119,21 @@ export class Chart extends Node<ChartOptions> {
 
   render(): Chart {
     const options = optionsOf(this);
+
+    // Create canvas and library if it do not exist.
+    const { width = 640, height = 480, renderer, plugins } = options;
+    const {
+      canvas = Canvas({
+        width,
+        height,
+        container: document.createElement('div'),
+        renderer,
+        plugins,
+      }),
+    } = this._context;
+
+    this._context.canvas = canvas;
+
     const node = render(options, this._context);
     if (node.parentNode !== this._container) {
       this._container.append(node);

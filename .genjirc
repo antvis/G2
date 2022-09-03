@@ -5,7 +5,6 @@
     "Tutorials": "tutorials",
     "Examples": "examples",
     "API Reference": {
-      "Renderer": "renderer",
       "Basic": "basic",
       "Data": "data",
       "Transform": {
@@ -69,11 +68,6 @@
     "mainColor": "#792EF7"
   },
   "scripts": [
-    "docs/assets/g.umd.min.js",
-    "docs/assets/g-canvas.umd.min.js",
-    "docs/assets/g-svg.umd.min.js",
-    "docs/assets/g-plugin-rough-canvas-renderer.umd.min.js",
-    "docs/assets/g-plugin-rough-svg-renderer.umd.min.js",
-    "dist/g2-lite.min.js"
+    "dist/g2.min.js"
   ]
 }

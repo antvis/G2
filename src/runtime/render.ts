@@ -49,16 +49,13 @@ export function render<T extends G2ViewTree = G2ViewTree>(
   callback?: () => void,
 ): HTMLElement {
   // Initialize the context if it is not provided.
-  const { width = 640, height = 480, renderer, plugins } = options;
-
+  const { width = 640, height = 480 } = options;
   const keyed = inferKeys(options);
   const {
     canvas = Canvas({
       width,
       height,
       container: document.createElement('div'),
-      renderer,
-      plugins,
     }),
     library = createLibrary(),
   } = context;
