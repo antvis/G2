@@ -16,4 +16,5 @@ export { BrushHighlight } from './builtin/brushHighlight';
 export { BrushVisible } from './builtin/brushVisible';
 export { ActiveRegion } from './builtin/activeRegion';
 export { EllipsisText } from './builtin/ellipsisText';
+export { LegendFilter } from './builtin/legendFilter';
 export * from './types';

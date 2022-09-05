@@ -136,6 +136,7 @@ import {
   BrushVisible,
   ActiveRegion,
   EllipsisText,
+  LegendFilter,
 } from '../interaction';
 import {
   Layer,
@@ -350,6 +351,7 @@ export function createLibrary(): G2Library {
     'interaction.brushVisible': BrushVisible,
     'interaction.activeRegion': ActiveRegion,
     'interaction.ellipsisText': EllipsisText,
+    'interaction.legendFilter': LegendFilter,
     'composition.layer': Layer,
     'composition.flex': Flex,
     'composition.mark': Mark,

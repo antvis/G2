@@ -272,6 +272,8 @@ export class Selection<T = any> {
       new Selection<T>(split, null, this._parent, this._document),
     ];
 
+    console.log(S);
+
     return new Selection<T>(
       this._elements,
       null,

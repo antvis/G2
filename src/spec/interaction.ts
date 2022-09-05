@@ -18,6 +18,7 @@ export type Interaction =
   | BrushVisibleInteraction
   | ActiveRegionInteraction
   | EllipsisTextInteraction
+  | LegendFilterInteraction
   | CustomInteraction;
 
 export type InteractionTypes =
@@ -28,6 +29,7 @@ export type InteractionTypes =
   | 'elementListHighlight'
   | 'legendActive'
   | 'legendHighlight'
+  | 'legendFilter'
   | 'tooltip'
   | 'brush'
   | 'brushHighlight'
@@ -108,6 +110,10 @@ export type ActiveRegionInteraction = {
 export type EllipsisTextInteraction = {
   type?: 'ellipsisText';
 } & Omit<PoptipAction, 'type'>;
+
+export type LegendFilterInteraction = {
+  type?: 'legendFilter';
+};
 
 export type CustomInteraction = {
   type?: InteractionComponent;

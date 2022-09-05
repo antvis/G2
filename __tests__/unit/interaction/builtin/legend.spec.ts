@@ -38,7 +38,7 @@ describe('Interaction of legend', () => {
     mount(createDiv(), chart);
   });
 
-  it('render({...} renders chart with legendActive interaction.', () => {
+  it('render({...} renders chart with legendActive interaction', () => {
     const chart = render<G2Spec>({
       type: 'view',
       data: [
@@ -70,6 +70,31 @@ describe('Interaction of legend', () => {
         },
       ],
       interaction: [{ type: 'legendHighlight' }, { type: 'elementHighlight' }],
+    });
+    mount(createDiv(), chart);
+  });
+
+  it.only('', () => {
+    const chart = render<G2Spec>({
+      type: 'interval',
+      data: [
+        { company: 'Apple', type: '整体', value: 30 },
+        { company: 'Facebook', type: '整体', value: 35 },
+        { company: 'Google', type: '整体', value: 28 },
+        { company: 'Apple', type: '非技术岗', value: 40 },
+        { company: 'Facebook', type: '非技术岗', value: 65 },
+        { company: 'Google', type: '非技术岗', value: 47 },
+        { company: 'Apple', type: '技术岗', value: 23 },
+        { company: 'Facebook', type: '技术岗', value: 18 },
+        { company: 'Google', type: '技术岗', value: 20 },
+      ],
+      encode: {
+        x: 'type',
+        y: 'value',
+        color: 'company',
+        series: 'company',
+      },
+      interaction: [{ type: 'legendFilter' }],
     });
     mount(createDiv(), chart);
   });
