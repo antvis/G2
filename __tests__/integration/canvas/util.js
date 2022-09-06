@@ -1,6 +1,32 @@
 const fs = require('fs');
+const { createCanvas } = require('canvas');
+const { Canvas } = require('@antv/g');
+const { Renderer } = require('@antv/g-canvas');
 const pixelmatch = require('pixelmatch');
 const PNG = require('pngjs').PNG;
+
+const createGCanvas = (width, height) => {
+  // Create a node-canvas instead of HTMLCanvasElement
+  const nodeCanvas = createCanvas(width, height);
+  // A standalone offscreen canvas for text metrics
+  const offscreenNodeCanvas = createCanvas(1, 1);
+
+  // Create a renderer, unregister plugin relative to DOM.
+  const renderer = new Renderer();
+  const domInteractionPlugin = renderer.getPlugin('dom-interaction');
+  renderer.unregisterPlugin(domInteractionPlugin);
+
+  return [
+    new Canvas({
+      width,
+      height,
+      canvas: nodeCanvas,
+      renderer,
+      offscreenCanvas: offscreenNodeCanvas,
+    }),
+    nodeCanvas,
+  ];
+};
 
 const sleep = (n) => {
   return new Promise((resolve) => {
@@ -48,4 +74,14 @@ const createPNGFromRawdata = async (target, width, height, data) => {
   });
 };
 
-module.exports = { sleep, diff, createPNGFromRawdata };
+const writePNG = (nodeCanvas, path) =>
+  new Promise((resolve) => {
+    const out = fs.createWriteStream(path);
+    const stream = nodeCanvas.createPNGStream();
+    stream.pipe(out);
+    out.on('finish', () => {
+      resolve(undefined);
+    });
+  });
+
+module.exports = { sleep, diff, createPNGFromRawdata, createGCanvas, writePNG };

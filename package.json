@@ -45,6 +45,7 @@
     "animation"
   ],
   "devDependencies": {
+    "@antv/g-svg": "^1.7.4",
     "@commitlint/cli": "^11.0.0",
     "@rollup/plugin-commonjs": "^21.0.2",
     "@types/d3-array": "^3.0.2",
@@ -60,6 +61,7 @@
     "husky": "^7.0.0",
     "jest": "^26.0.1",
     "jest-electron": "^0.1.12",
+    "jsdom": "^19.0.0",
     "limit-size": "^0.1.4",
     "lint-staged": "^10.5.4",
     "npm-run-all": "^4.1.5",
@@ -75,7 +77,8 @@
     "rollup-plugin-uglify": "^6.0.4",
     "rollup-plugin-visualizer": "^5.6.0",
     "ts-jest": "^26.5.1",
-    "typescript": "^4.1.5"
+    "typescript": "^4.1.5",
+    "xmlserializer": "^0.6.1"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
