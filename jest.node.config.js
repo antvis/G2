@@ -16,13 +16,9 @@ module.exports = {
       },
     },
   },
-  transform: {
-    '^.+\\.[tj]s$': 'ts-jest',
-  },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'json'],
   collectCoverage: false,
   testRegex: '(/__tests__/integration/.*\\.(test|spec))\\.(ts|tsx|js)$',
-  collectCoverageFrom: ['src/**/*.ts', '!**/d3-sankey/**', '!**/d3-cloud/**'],
   // Transform esm to cjs.
   transformIgnorePatterns: [`<rootDir>/node_modules/(?!(${esm}))`],
 };

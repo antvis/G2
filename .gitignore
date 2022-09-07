@@ -24,3 +24,7 @@ coverage
 
 # Bundle visualizer
 stats.html
+
+# Snapshots error images
+__tests__/integration/snapshots/_*.png
+__tests__/integration/snapshots/_*.svg
