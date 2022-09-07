@@ -9,13 +9,17 @@ module.exports = {
   preset: 'ts-jest/presets/js-with-ts',
   globals: {
     'ts-jest': {
-      tsConfig: {
+      tsconfig: {
         target: 'esnext', // Increase test coverage.
         allowJs: true,
         sourceMap: true,
       },
     },
   },
+  transform: {
+    '^.+\\.[tj]s$': 'ts-jest',
+  },
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'json'],
   collectCoverage: false,
   testRegex: '(/__tests__/integration/.*\\.(test|spec))\\.(ts|tsx|js)$',
   collectCoverageFrom: ['src/**/*.ts', '!**/d3-sankey/**', '!**/d3-cloud/**'],

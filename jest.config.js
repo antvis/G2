@@ -11,7 +11,7 @@ module.exports = {
   preset: 'ts-jest/presets/js-with-ts',
   globals: {
     'ts-jest': {
-      tsConfig: {
+      tsconfig: {
         target: 'esnext', // Increase test coverage.
         allowJs: true,
         sourceMap: true,
