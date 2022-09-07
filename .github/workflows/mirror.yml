@@ -1,7 +1,9 @@
 name: 🤖 Sync to Gitee Mirror
 
 on:
-  page_build
+  push:
+    branches:
+      - gh-pages
 
 jobs:
   build:
