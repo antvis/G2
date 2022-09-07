@@ -1,9 +1,6 @@
 name: 🤖 Sync to Gitee Mirror
 
-on:
-  push:
-    branches:
-      - gh-pages
+on: [page_build, workflow_dispatch]
 
 jobs:
   build:
