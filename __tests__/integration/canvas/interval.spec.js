@@ -2,7 +2,7 @@ const fs = require('fs');
 const { Polygon } = require('@antv/g');
 const { diff, sleep, createGCanvas, writePNG } = require('./util');
 
-import { render } from '../../../src';
+const { render } = require('../../../src');
 
 const CANVAS_SIZE = 600;
 const GOLDEN_IMAGE_DIR = '/snapshots';

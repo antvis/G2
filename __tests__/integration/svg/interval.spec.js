@@ -17,7 +17,7 @@ const fs = require('fs');
 const xmlserializer = require('xmlserializer');
 const { sleep, createGCanvas } = require('./util');
 
-import { render } from '../../../src';
+const { render } = require('../../../src');
 
 const CANVAS_SIZE = 400;
 const GOLDEN_IMAGE_DIR = '/snapshots';
