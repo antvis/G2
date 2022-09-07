@@ -4,12 +4,12 @@ import util from 'util';
 // @see https://github.com/jsdom/jsdom/issues/2524
 if (global.window) {
   // eslint-disable-next-line no-undef
-  Object.defineProperty(window, 'TextEncoder', {
+  Object.defineProperty(global.window, 'TextEncoder', {
     writable: true,
     value: util.TextEncoder,
   });
   // eslint-disable-next-line no-undef
-  Object.defineProperty(window, 'TextDecoder', {
+  Object.defineProperty(global.window, 'TextDecoder', {
     writable: true,
     value: util.TextDecoder,
   });

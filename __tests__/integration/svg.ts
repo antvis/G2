@@ -15,7 +15,10 @@ export async function renderSVG(
   await new Promise<void>((resolve) => {
     render(options, { canvas }, resolve);
   });
-  await sleep(100);
+
+  // Wait for the next tick.
+  await sleep(20);
+
   const svg = xmlserializer.serializeToString(
     //@ts-ignore
     dom.window.document.getElementById('container').children[0],

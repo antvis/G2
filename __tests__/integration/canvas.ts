@@ -17,7 +17,8 @@ export async function renderCanvas(
   await new Promise<void>((resolve) => {
     render(options, { canvas }, resolve);
   });
-  await sleep(100);
+  // Wait for the next tick.
+  await sleep(20);
   await writePNG(nodeCanvas, filename);
   return canvas;
 }

@@ -10,7 +10,7 @@ module.exports = {
   globals: {
     'ts-jest': {
       tsconfig: {
-        target: 'esnext', // Increase test coverage.
+        target: 'es6',
         allowJs: true,
         sourceMap: true,
       },

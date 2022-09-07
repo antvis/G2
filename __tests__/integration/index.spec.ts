@@ -8,12 +8,21 @@ describe('integration', () => {
     it(`[Canvas]: ${name}`, async () => {
       let canvas;
       try {
-        const tempCanvasPath = `${__dirname}/snapshots/_${name}.png`;
-        const targetCanvasPath = `${__dirname}/snapshots/${name}.png`;
+        const actualPath = `${__dirname}/snapshots/${name}-diff.png`;
+        const expectedPath = `${__dirname}/snapshots/${name}.png`;
         const options = await generateOptions();
-        canvas = await renderCanvas(options, tempCanvasPath);
-        expect(diff(tempCanvasPath, targetCanvasPath)).toBe(0);
-        fs.rmSync(tempCanvasPath);
+
+        // Generate golden png if not exists.
+        if (!fs.existsSync(expectedPath)) {
+          console.warn(`! generate ${name}`);
+          canvas = await renderCanvas(options, expectedPath);
+        } else {
+          canvas = await renderCanvas(options, actualPath);
+          expect(diff(actualPath, expectedPath)).toBe(0);
+
+          // Persevere the diff image if do not pass the test.
+          fs.unlinkSync(actualPath);
+        }
       } finally {
         canvas.destroy();
       }
@@ -23,20 +32,28 @@ describe('integration', () => {
   for (const [name, generateOptions] of Object.entries(tests)) {
     it(`[SVG]: ${name}`, async () => {
       let canvas;
-      let svg;
+      let actual;
       try {
-        const targetSVGPath = `${__dirname}/snapshots/${name}.svg`;
+        const expectedPath = `${__dirname}/snapshots/${name}.svg`;
         const options = await generateOptions();
-        [canvas, svg] = await renderSVG(options);
-        const target = fs.readFileSync(targetSVGPath, {
-          encoding: 'utf8',
-          flag: 'r',
-        });
-        expect(target).toBe(svg);
+        [canvas, actual] = await renderSVG(options);
+
+        // Generate golden svg if not exists.
+        if (!fs.existsSync(expectedPath)) {
+          console.warn(`! generate ${name}`);
+          fs.writeFileSync(expectedPath, actual);
+        } else {
+          const expected = fs.readFileSync(expectedPath, {
+            encoding: 'utf8',
+            flag: 'r',
+          });
+          expect(expected).toBe(actual);
+        }
       } catch {
         // Generate error svg to compare.
-        const temSVGGPath = `${__dirname}/snapshots/_${name}.svg`;
-        fs.writeFileSync(temSVGGPath, svg);
+        console.warn(`! generate ${name}`);
+        const diffPath = `${__dirname}/snapshots/${name}-diff.svg`;
+        fs.writeFileSync(diffPath, actual);
       } finally {
         canvas.destroy();
       }

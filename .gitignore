@@ -26,5 +26,5 @@ coverage
 stats.html
 
 # Snapshots error images
-__tests__/integration/snapshots/_*.png
-__tests__/integration/snapshots/_*.svg
+__tests__/integration/snapshots/*-diff.png
+__tests__/integration/snapshots/*-diff.svg
