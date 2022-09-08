@@ -21,7 +21,9 @@
     "size": "limit-size",
     "lint": "eslint ./src ./__tests__ && prettier ./src ./__tests__ --check ",
     "fix": "eslint ./src ./__tests__ --fix && prettier ./src ./__tests__ --write ",
-    "test": "jest --coverage",
+    "test": "run-s test:integration test:unit",
+    "test:unit": "jest --config jest.config.js --coverage",
+    "test:integration": "jest --config jest.node.config.js",
     "test-live": "cross-env DEBUG_MODE=1 jest --watch",
     "build:umd": "rimraf ./dist && rollup -c && npm run size",
     "build:cjs": "rimraf ./lib && tsc --module commonjs --outDir lib",
@@ -43,13 +45,17 @@
     "animation"
   ],
   "devDependencies": {
+    "@antv/g-svg": "^1.7.4",
     "@commitlint/cli": "^11.0.0",
     "@rollup/plugin-commonjs": "^21.0.2",
     "@types/d3-array": "^3.0.2",
     "@types/d3-shape": "^3.0.2",
     "@types/jest": "^26.0.20",
+    "@types/pixelmatch": "^5.2.4",
+    "@types/pngjs": "^6.0.1",
     "@typescript-eslint/eslint-plugin": "^4.18.0",
     "@typescript-eslint/parser": "^4.18.0",
+    "canvas": "^2.9.1",
     "cross-env": "^7.0.3",
     "eslint": "^7.22.0",
     "eslint-plugin-import": "^2.22.1",
@@ -57,9 +63,12 @@
     "husky": "^7.0.0",
     "jest": "^26.0.1",
     "jest-electron": "^0.1.12",
+    "jsdom": "^19.0.0",
     "limit-size": "^0.1.4",
     "lint-staged": "^10.5.4",
     "npm-run-all": "^4.1.5",
+    "pixelmatch": "5.3.0",
+    "pngjs": "^6.0.0",
     "prettier": "^2.2.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
@@ -70,7 +79,8 @@
     "rollup-plugin-uglify": "^6.0.4",
     "rollup-plugin-visualizer": "^5.6.0",
     "ts-jest": "^26.5.1",
-    "typescript": "^4.1.5"
+    "typescript": "^4.1.5",
+    "xmlserializer": "^0.6.1"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
