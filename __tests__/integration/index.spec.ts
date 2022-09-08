@@ -49,11 +49,12 @@ describe('integration', () => {
           });
           expect(expected).toBe(actual);
         }
-      } catch {
+      } catch (error) {
         // Generate error svg to compare.
         console.warn(`! generate ${name}`);
         const diffPath = `${__dirname}/snapshots/${name}-diff.svg`;
         fs.writeFileSync(diffPath, actual);
+        throw error;
       } finally {
         canvas.destroy();
       }
