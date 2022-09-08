@@ -1,4 +1,4 @@
-# 向量（Vector）
+# Vector
 
 Vector 图形是将数据映射成为`箭头`的样式去可视化展示，通过控制箭头的位置、大小、颜色、角度等信息，去可视化一些向量场数据。它具备有以下视觉通道：
 
@@ -13,7 +13,7 @@ Vector 图形标记会将数据通过上述通道映射成向量数据：`[start
 ![vector mark](https://gw.alipayobjects.com/zos/antfincdn/c9nPWlX5Au/vector.png)
 
 
-## Get Started
+## 快速开始
 
 ```js | table "pin: false"
 data = genji.fetchJSON(
@@ -54,7 +54,7 @@ data = genji.fetchJSON(
 | vector  | 向量图形，一般是：箭头 | ![vector shape](https://gw.alipayobjects.com/zos/antfincdn/lmyyvRSApY/a490f7fc-fcba-44f0-baaa-894f8f442c53.png)  |
 
 
-## Usage
+## 使用方式
 
 这里提供一个示例，来可视化[珀林噪声场的泊松盘采样](https://observablehq.com/@observablehq/plot-vector?collection=@observablehq/plot#cell-178)数据。
 
