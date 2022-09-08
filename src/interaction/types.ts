@@ -1,4 +1,4 @@
-import { DisplayObject, Group } from '@antv/g';
+import { DisplayObject } from '@antv/g';
 import {
   G2BaseComponent,
   G2ViewDescriptor,
