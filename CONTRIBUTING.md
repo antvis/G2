@@ -3,6 +3,58 @@
 有任何疑问，欢迎提交 [issue](https://github.com/antvis/g2/issues)，
 或者直接修改提交 [PR](https://github.com/antvis/g2/pulls)!
 
+## 开发
+
+> TODO
+
+## 测试
+
+### 单元测试
+
+> TODO
+
+### 集成测试
+
+和单元测试测试单独的可视化组件不同，集成测试用于测试整个可视化图表。所有的测试案例在 `__tests__/integration/charts` 里面，同时在 `__tests__/integration/index.ts` 里面注册。
+
+每次新增一个测试案例的时候只需要在 `__tests__/integration/charts` 目录下新增一个文件，命名格式为 `[数据名字]-[测试点]`。该文件导出一个函数，该函数的名字和文件名的驼峰形式保持一致，同时返回一个 G2 的 options。这个函数可以是同步的，也可以是异步的。
+
+```js
+// __tests__/integration/charts/sales-basic-interval.ts
+import { data } from '../data/sales';
+
+export async function salesBasicInterval() {
+  return {
+    type: 'interval',
+    data,
+    encode: {
+      x: 'genre',
+      y: 'sold',
+      color: 'genre',
+    },
+  };
+}
+```
+
+创建好对应的测试案例之后需要 `__tests__/integration/index.ts` 中注册。
+
+```js
+// __tests__/integration/charts/index.ts
+export { salesBasicInterval } from './sales-basic-interval';
+```
+
+之后运行 `npm run dev`，这时候可以通过打开的浏览器预览图表。确保图表和预览效果保持一致后，运行 `npm run test:integration` 进行集成测试。
+
+如果一切没有问题的话，会在 `__tests__/integration/snapshots` 额外下生成 `[数据名字]-[测试点].png` 和 `[数据名字]-[测试点].svg` 两个基准图片，用于之后的测试。
+
+```text
+__tests__/integration/snapshots/salesBasicInterval.png
+__tests__/integration/snapshots/salesBasicInterval.svg
+```
+
+如果测试案例不通过，则会生成 `-diff` 标记的图片。如果该图片复合预期，那么删除基准图片，重新运行 `npm run test:integration` 生成新的基准图片；否者修改代码，直到通过测试。
+
+
 ## 提交 issue
 
 - 请确定 issue 的类型。
