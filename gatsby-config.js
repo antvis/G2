@@ -172,14 +172,6 @@ module.exports = {
         }
       },
       {
-        slug: 'map',
-        icon: 'map',
-        title: {
-          zh: '地图',
-          en: 'Maps'
-        }
-      },
-      {
         slug: 'radar',
         icon: 'radar',
         title: {
