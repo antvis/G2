@@ -25,4 +25,19 @@ module.exports = [
       ...(isBundleVis ? [visualizer()] : []),
     ],
   },
+  {
+    input: 'src/index.ts',
+    output: {
+      file: 'dist/g2-lite.min.js',
+      name: 'G2',
+      format: 'umd',
+      sourcemap: false,
+      globals: {
+        '@antv/g': 'window.G',
+        '@antv/g-canvas': 'window.G.Canvas2D',
+      },
+    },
+    external: ['@antv/g', '@antv/g-canvas'],
+    plugins: [nodePolyfills(), resolve(), commonjs(), typescript(), uglify()],
+  },
 ];
