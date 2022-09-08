@@ -10,7 +10,7 @@ Vector 图形是将数据映射成为`箭头`的样式去可视化展示，通�
 Vector 图形标记会将数据通过上述通道映射成向量数据：`[start, end]`。
 
 
-![](https://gw.alipayobjects.com/zos/antfincdn/c9nPWlX5Au/vector.png)
+![vector mark](https://gw.alipayobjects.com/zos/antfincdn/c9nPWlX5Au/vector.png)
 
 ## 开始（Get Started）
 
@@ -50,7 +50,7 @@ data = genji.fetchJSON(
 
 | shape | 描述    | 示例 |
 |-------|--------|------|
-| vector  | 向量图形，一般是：箭头 | ![](https://gw.alipayobjects.com/zos/antfincdn/lmyyvRSApY/a490f7fc-fcba-44f0-baaa-894f8f442c53.png)  |
+| vector  | 向量图形，一般是：箭头 | ![vector shape](https://gw.alipayobjects.com/zos/antfincdn/lmyyvRSApY/a490f7fc-fcba-44f0-baaa-894f8f442c53.png)  |
 
 
 
