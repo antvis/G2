@@ -23,7 +23,11 @@ export async function renderSVG(
     //@ts-ignore
     dom.window.document.getElementById('container').children[0],
   );
-  return [canvas, svg] as const;
+
+  // Remove id="app" to make sure the order of tests
+  // do not affect test result.
+  const pureSVG = svg.replace(/id="[^"]*"/g, '');
+  return [canvas, pureSVG] as const;
 }
 
 function createGCanvas(width: number, height: number) {

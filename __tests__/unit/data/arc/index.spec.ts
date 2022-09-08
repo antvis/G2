@@ -10,3 +10,5 @@ describe('Arc', () => {
     // expect(arc(data)).toBeDefined();
   });
 });
+
+export {};

@@ -113,3 +113,5 @@
 // WordCloud.props = {
 //   category: 'preprocessor',
 // };
+
+export {};
