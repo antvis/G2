@@ -63,7 +63,6 @@ data = genji.fetchJSON(
 poisson = genji.fetchJSON(
   'https://gw.alipayobjects.com/os/antfincdn/OJOgPypkeE/poisson-disk.json',
 );
-console.log(poisson)
 ```
 
 ```js
