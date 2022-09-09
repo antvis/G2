@@ -1,7 +1,8 @@
-import { CanvasEvent } from '@antv/g';
+import { Canvas as GCanvas } from '@antv/g';
+import { Renderer as CanvasRenderer } from '@antv/g-canvas';
+import { Plugin as DragAndDropPlugin } from '@antv/g-plugin-dragndrop';
 import { deepMix } from '@antv/util';
 import { createLibrary } from '../stdlib';
-import { Canvas } from '../renderer';
 import { select } from '../utils/selection';
 import { G2Context, G2ViewTree } from './types/options';
 import { plot } from './plot';
@@ -43,6 +44,18 @@ function inferKeys<T extends G2ViewTree = G2ViewTree>(options: T): T {
   return root;
 }
 
+function Canvas(width: number, height: number): GCanvas {
+  const renderer = new CanvasRenderer();
+  // DragAndDropPlugin is for interaction.
+  renderer.registerPlugin(new DragAndDropPlugin());
+  return new GCanvas({
+    width,
+    height,
+    container: document.createElement('div'),
+    renderer: renderer,
+  });
+}
+
 export function render<T extends G2ViewTree = G2ViewTree>(
   options: T,
   context: G2Context = {},
@@ -51,14 +64,7 @@ export function render<T extends G2ViewTree = G2ViewTree>(
   // Initialize the context if it is not provided.
   const { width = 640, height = 480 } = options;
   const keyed = inferKeys(options);
-  const {
-    canvas = Canvas({
-      width,
-      height,
-      container: document.createElement('div'),
-    }),
-    library = createLibrary(),
-  } = context;
+  const { canvas = Canvas(width, height), library = createLibrary() } = context;
   context.canvas = canvas;
   context.library = library;
 
