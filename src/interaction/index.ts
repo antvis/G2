@@ -16,4 +16,20 @@ export { BrushHighlight } from './builtin/brushHighlight';
 export { BrushVisible } from './builtin/brushVisible';
 export { ActiveRegion } from './builtin/activeRegion';
 export { EllipsisText } from './builtin/ellipsisText';
-export * from './types';
+
+export type {
+  InteractionContext,
+  ActionComponent,
+  InteractionDescriptor,
+  InteractionStep,
+  InteractorOptions,
+  ActionOptions,
+  Action,
+  InteractorAction,
+  Interactor,
+  G2Event,
+  InteractionNamespaces,
+  InteractorComponent,
+  InteractionOptions,
+  InteractionValue,
+} from './types';

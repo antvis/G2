@@ -103,3 +103,4 @@
 // Sankey.props = {
 //   category: 'preprocessor',
 // };
+export {};

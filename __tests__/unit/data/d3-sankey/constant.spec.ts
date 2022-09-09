@@ -8,3 +8,5 @@ describe.skip('constant', () => {
     // expect(constant(0)()).toBe(0);
   });
 });
+
+export {};

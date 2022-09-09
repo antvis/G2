@@ -24,7 +24,7 @@ describe('integration', () => {
           fs.unlinkSync(actualPath);
         }
       } finally {
-        canvas.destroy();
+        if (canvas) canvas.destroy();
       }
     });
   }
@@ -56,7 +56,7 @@ describe('integration', () => {
         fs.writeFileSync(diffPath, actual);
         throw error;
       } finally {
-        canvas.destroy();
+        if (canvas) canvas.destroy();
       }
     });
   }

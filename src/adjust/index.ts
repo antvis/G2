@@ -1,1 +1,2 @@
-export { Pack, PackOptions } from './pack';
+export { Pack } from './pack';
+export type { PackOptions } from './pack';
