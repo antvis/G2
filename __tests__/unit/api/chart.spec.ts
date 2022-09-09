@@ -238,7 +238,7 @@ describe('Chart', () => {
     });
   });
 
-  it.only('chart.render() should render chart', () => {
+  it('chart.render() should render chart', () => {
     const chart = new Chart({
       container: createDiv(),
     });

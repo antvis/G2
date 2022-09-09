@@ -58,9 +58,8 @@ function Canvas(
   plugins = [],
 ) {
   // DragAndDropPlugin is for interaction.
-  if (!plugins.some((d) => d instanceof DragAndDropPlugin)) {
-    plugins.push(new DragAndDropPlugin());
-  }
+  // It is OK to register more than one time, G will handle this.
+  plugins.push(new DragAndDropPlugin());
   plugins.forEach((d) => renderer.registerPlugin(d));
   return new GCanvas({
     container,
