@@ -1,5 +1,4 @@
 import { createLibrary } from '../../../src/stdlib';
-import { Canvas } from '../../../src/renderer';
 import {
   Cartesian,
   Polar,
@@ -224,7 +223,6 @@ describe('stdlib', () => {
       'transform.maybeSize': MaybeSize,
       'transform.maybeZeroY': MaybeZeroY,
       'transform.maybeKey': MaybeKey,
-      'renderer.canvas': Canvas,
       'coordinate.cartesian': Cartesian,
       'coordinate.polar': Polar,
       'coordinate.helix': Helix,

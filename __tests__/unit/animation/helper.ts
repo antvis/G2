@@ -1,12 +1,12 @@
 import { DisplayObject, Rect, Animation as GAnimation } from '@antv/g';
 import { Coordinate } from '@antv/coord';
 import { Animation, CoordinateTransform, G2Theme } from '../../../src/runtime';
-import { Canvas } from '../../../src/renderer';
 import { Cartesian } from '../../../src/coordinate';
+import { Canvas } from '../../utils/canvas';
 
 type Options = {
   animate: Animation;
-  container: string | HTMLElement;
+  container: HTMLElement;
   shape?: DisplayObject;
   transform?: CoordinateTransform[];
   x?: number;
@@ -41,7 +41,7 @@ export function applyAnimation({
         height,
         transformations: [...transform.flat(), Cartesian()[0]],
       });
-      const canvas = Canvas({ width, height, container });
+      const canvas = Canvas(width, height, container);
       await canvas.ready;
 
       canvas.appendChild(shape);

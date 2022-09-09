@@ -15,7 +15,6 @@ import { TransformComponent, Transform } from './transform';
 import { Data, DataComponent } from './data';
 
 export type G2ComponentNamespaces =
-  | 'renderer'
   | 'coordinate'
   | 'encode'
   | 'mark'
@@ -37,7 +36,6 @@ export type G2ComponentNamespaces =
   | 'labelLayout';
 
 export type G2Component =
-  | RendererComponent
   | EncodeComponent
   | InferComponent
   | StatisticComponent
@@ -57,7 +55,6 @@ export type G2Component =
   | LabelLayoutComponent;
 
 export type G2ComponentValue =
-  | Renderer
   | Transform
   | Encode
   | Infer
@@ -82,12 +79,6 @@ export type G2BaseComponent<
   (options?: O): R;
   props?: P;
 };
-
-export type Renderer = Canvas;
-export type RendererComponent<O = Record<string, unknown>> = G2BaseComponent<
-  Renderer,
-  O
->;
 
 export type InferredEncode = {
   type?: string;

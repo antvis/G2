@@ -1,9 +1,9 @@
 import { clone } from '@antv/util';
+import { RendererPlugin, Canvas as GCanvas } from '@antv/g';
 import { Renderer as CanvasRenderer } from '@antv/g-canvas';
-import { RendererPlugin } from '@antv/g';
+import { Plugin as DragAndDropPlugin } from '@antv/g-plugin-dragndrop';
 import { G2Context, render } from '../runtime';
 import { ViewComposition } from '../spec';
-import { Canvas } from '../renderer';
 import { Node } from './node';
 import {
   defineProps,
@@ -48,6 +48,26 @@ function valueOf(node: Node): Record<string, any> {
     ...value,
     type: node.type,
   };
+}
+
+function Canvas(
+  container: HTMLElement,
+  width: number,
+  height: number,
+  renderer = new CanvasRenderer(),
+  plugins = [],
+) {
+  // DragAndDropPlugin is for interaction.
+  if (!plugins.some((d) => d instanceof DragAndDropPlugin)) {
+    plugins.push(new DragAndDropPlugin());
+  }
+  plugins.forEach((d) => renderer.registerPlugin(d));
+  return new GCanvas({
+    container,
+    width,
+    height,
+    renderer,
+  });
 }
 
 export function optionsOf(node: Node): Record<string, any> {
@@ -123,13 +143,13 @@ export class Chart extends Node<ChartOptions> {
     // Create canvas and library if it do not exist.
     const { width = 640, height = 480, renderer, plugins } = options;
     const {
-      canvas = Canvas({
+      canvas = Canvas(
+        document.createElement('div'),
         width,
         height,
-        container: document.createElement('div'),
         renderer,
         plugins,
-      }),
+      ),
     } = this._context;
 
     this._context.canvas = canvas;
