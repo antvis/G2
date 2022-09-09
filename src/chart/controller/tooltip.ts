@@ -3,7 +3,7 @@ import { Crosshair, HtmlTooltip, IGroup } from '../../dependents';
 import { Point, TooltipItem, TooltipOption } from '../../interface';
 import { getAngleByPoint, getDistanceToCenter, isPointInCoordinate, getCoordinateClipCfg } from '../../util/coordinate';
 import { polarToCartesian } from '../../util/graphics';
-import { findItemsFromView, averageArrayXY } from '../../util/tooltip';
+import { findItemsFromView, averageArray } from '../../util/tooltip';
 import { BBox } from '../../util/bbox';
 import { Controller } from './base';
 import Event from '../event';
@@ -322,9 +322,9 @@ export default class Tooltip extends Controller<TooltipOption> {
           if (coordinate.isRect) {
             if (coordinate.isTransposed) {
               item.x = isArray(x) ? last(x) : x;
-              item.y = averageArrayXY(y);
+              item.y = averageArray(y);
             } else {
-              item.x = averageArrayXY(x);
+              item.x = averageArray(x);
               item.y = isArray(y) ? last(y) : y;
             }
           } else {

@@ -26,7 +26,7 @@ function snapEqual(v1: any, v2: any, scale: Scale) {
   return isNumberEqual(value1, value2);
 }
 
-export function averageArrayXY(values: number[] | number) {
+export function averageArray(values: number[] | number) {
   return isArray(values) ? values.reduce((v, i) => v + i) / values.length : values;
 }
 
@@ -429,10 +429,10 @@ function getTooltipItemsByHitShape(geometry, point, title, tooltipCfg: TooltipCf
 
     let items;
     // 自定义几何形状 取 marker x y 的平均值 中心点
-    if (shape.cfg.name.includes('polygon')) {
+    if (shape.get('name').includes('polygon')) {
       let { x, y } = mappingData;
-      x = averageArrayXY(x);
-      y = averageArrayXY(y);
+      x = averageArray(x);
+      y = averageArray(y);
 
       items = getTooltipItems({ ...mappingData, x, y }, geometry, title, showNil);
     } else {
