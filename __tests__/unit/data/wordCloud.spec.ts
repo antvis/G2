@@ -161,3 +161,5 @@ describe.skip('WordCloud', () => {
   //     expect(img instanceof HTMLImageElement).toBe(true);
   //   });
 });
+
+export {};
