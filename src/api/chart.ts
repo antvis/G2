@@ -43,9 +43,8 @@ function normalizeRoot(node: Node) {
 }
 
 function valueOf(node: Node): Record<string, any> {
-  const value = clone(node.value);
   return {
-    ...value,
+    ...node.value,
     type: node.type,
   };
 }

@@ -57,7 +57,7 @@ describe('Node', () => {
     expect(node.children[1]).toBe(n2);
   });
 
-  it('node.call(callback) should apply specified callback to a new cloned node.', () => {
+  it('node.call(callback) should apply specified callback to the node.', () => {
     const node = new Node({ a: 1 });
     const n1 = node.call((node) => {
       node.attr('a', 2);
