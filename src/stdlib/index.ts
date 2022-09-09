@@ -1,5 +1,4 @@
 import { G2Library } from '../runtime';
-import { Canvas } from '../renderer';
 import {
   Cartesian,
   Polar,
@@ -223,7 +222,6 @@ export function createLibrary(): G2Library {
     'transform.maybeSize': MaybeSize,
     'transform.maybeZeroY': MaybeZeroY,
     'transform.maybeKey': MaybeKey,
-    'renderer.canvas': Canvas,
     'coordinate.cartesian': Cartesian,
     'coordinate.polar': Polar,
     'coordinate.helix': Helix,

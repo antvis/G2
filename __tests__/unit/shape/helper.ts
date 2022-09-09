@@ -7,14 +7,14 @@ import {
   G2Theme,
 } from '../../../src/runtime';
 import { Light } from '../../../src/theme';
-import { Canvas } from '../../../src/renderer';
 import { Cartesian } from '../../../src/coordinate';
 import { Vector2 } from '../../../src/utils/vector';
+import { Canvas } from '../../utils/canvas';
 
 type Options = {
   shape: Shape;
   vectors: Vector2[];
-  container: string | HTMLElement;
+  container: HTMLElement;
   value?: Record<string, Primitive>;
   x?: number;
   y?: number;
@@ -47,7 +47,7 @@ export function draw({
   const points = vectors.map((d) => coordinate.map(d)) as Vector2[];
   const shape = shapeFunction(points, value, coordinate, theme);
 
-  const canvas = Canvas({ width, height, container });
+  const canvas = Canvas(width, height, container);
   return new Promise((resolve) => {
     canvas.addEventListener(CanvasEvent.READY, async () => {
       canvas.appendChild(shape);

@@ -1,10 +1,9 @@
 import { Coordinate } from '@antv/coord';
 import { Cartesian } from '../../../src/coordinate';
 import { InteractionContext } from '../../../src/interaction';
-import { Canvas } from '../../../src/renderer';
 import { select } from '../../../src/utils/selection';
 import { createDiv } from '../../utils/dom';
-
+import { Canvas } from '../../utils/canvas';
 export function createContext({
   x = 0,
   y = 0,
@@ -21,7 +20,7 @@ export function createContext({
     transformations: [...transform.flat(), Cartesian()[0]],
   });
 
-  const canvas = Canvas({ width, height, container: createDiv() });
+  const canvas = Canvas(width, height, createDiv());
   const mainLayer = select(canvas.document.documentElement)
     .append('rect')
     .attr('className', 'main');
