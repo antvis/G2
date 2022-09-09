@@ -29,19 +29,18 @@ export class Node<
   }
 
   /**
-   * Apply specified transform to current value and clone a new node.
-   * Mount the cloned node to replace the original one in the tree
-   * and then return it.
+   * Apply specified transform to current value. Mount the node
+   * to replace the original one in the tree and then return it.
    */
   map(transform = (x: Value): Value => x): this {
-    const newValue = transform(clone(this.value));
+    const newValue = transform(this.value as Value);
     this.value = newValue;
     return this;
   }
 
   /**
    * Set or get the specified attribute. It the value is specified, update
-   * the attribute of current value and return a new cloned node. Otherwise
+   * the attribute of current value and return the node. Otherwise
    * return the the attribute of current value.
    */
   attr<T extends Value[keyof Value]>(
@@ -67,7 +66,7 @@ export class Node<
   }
 
   /**
-   * Apply specified callback to a new cloned node.
+   * Apply specified callback to the node value.
    */
   call(
     callback: (node: this, ...params: any[]) => any,
