@@ -37,8 +37,8 @@ function getPath(points: Vector2[], coordinate: Coordinate) {
     // In polar coordinate.
     const center = coordinate.getCenter();
     const [x, y] = center;
-    const startAngle = angle(sub(points[0], center));
-    const endAngle = angle(sub(points[1], center));
+    const startAngle = angle(sub(points[0], center)) - Math.PI / 2;
+    const endAngle = angle(sub(points[1], center)) - Math.PI / 2;
 
     const radiusHigh = dist(center, points[2]);
     const radiusQ3 = dist(center, points[3]);

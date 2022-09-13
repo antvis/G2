@@ -1,16 +1,16 @@
 import { Band } from '@antv/scale';
 import { Vector2, MarkComponent as MC } from '../../runtime';
-import { SchemaGeometry } from '../../spec';
+import { BoxGeometry } from '../../spec';
 import {
   baseGeometryChannels,
   basePostInference,
   basePreInference,
 } from '../utils';
 
-export type SchemaOptions = Omit<SchemaGeometry, 'type'>;
+export type BoxOptions = Omit<BoxGeometry, 'type'>;
 
 /**
- * Convert value for each channel to schema shapes.
+ * Convert value for each channel to box shapes.
  *
  * p0           p2          p1
  *    ──────────┬──────────
@@ -39,7 +39,7 @@ export type SchemaOptions = Omit<SchemaGeometry, 'type'>;
  *   ───────────┴───────────
  * p12         p11           p13
  */
-export const Schema: MC<SchemaOptions> = () => {
+export const Box: MC<BoxOptions> = () => {
   return (index, scale, value, coordinate) => {
     const { x: X, y: Y, y1: Y1, y2: Y2, y3: Y3, y4: Y4, series: S } = value;
 
@@ -86,7 +86,7 @@ export const Schema: MC<SchemaOptions> = () => {
   };
 };
 
-Schema.props = {
+Box.props = {
   defaultShape: 'box',
   defaultLabelShape: 'label',
   channels: [

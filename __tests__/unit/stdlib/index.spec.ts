@@ -25,7 +25,7 @@ import {
   Edge as EdgeGeometry,
   Image as ImageGeometry,
   Polygon as PolygonGeometry,
-  Schema as SchemaGeometry,
+  Box as BoxGeometry,
   Vector as VectorGeometry,
   Link as LinkGeometry,
 } from '../../../src/mark/geometry';
@@ -250,7 +250,7 @@ describe('stdlib', () => {
       'mark.edge': EdgeGeometry,
       'mark.image': ImageGeometry,
       'mark.polygon': PolygonGeometry,
-      'mark.schema': SchemaGeometry,
+      'mark.box': BoxGeometry,
       'mark.vector': VectorGeometry,
       'mark.annotation.text': AnnotationText,
       'mark.annotation.lineX': AnnotationLineX,

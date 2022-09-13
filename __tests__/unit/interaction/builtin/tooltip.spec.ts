@@ -207,7 +207,7 @@ describe('Interactions of tooltip', () => {
 
   it('render({...}) should render box chart with tooltip interaction', () => {
     const chart = render<G2Spec>({
-      type: 'schema',
+      type: 'box',
       data: [
         { x: 'Oceania', y: [1, 9, 16, 22, 24] },
         { x: 'East Europe', y: [1, 5, 8, 12, 16] },

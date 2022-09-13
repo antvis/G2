@@ -1,10 +1,10 @@
 import { G2Spec, render } from '../../../src';
 import { createDiv, mount } from '../../utils/dom';
 
-describe('schema', () => {
-  it('render({...}) should render basic schema with box', () => {
+describe('box', () => {
+  it('render({...}) should render basic box with box shape', () => {
     const chart = render<G2Spec>({
-      type: 'schema',
+      type: 'box',
       data: [
         { x: 'Oceania', y: [1, 9, 16, 22, 24] },
         { x: 'East Europe', y: [1, 5, 8, 12, 16] },
@@ -31,9 +31,9 @@ describe('schema', () => {
     mount(createDiv(), chart);
   });
 
-  it('render({...}) should render schema in polar', () => {
+  it('render({...}) should render box in polar', () => {
     const chart = render<G2Spec>({
-      type: 'schema',
+      type: 'box',
       data: [
         { x: 'Oceania', y: [1, 9, 16, 22, 24] },
         { x: 'East Europe', y: [1, 5, 8, 12, 16] },
@@ -62,9 +62,9 @@ describe('schema', () => {
     mount(createDiv(), chart);
   });
 
-  it('render({...}) should render schema with series', () => {
+  it('render({...}) should render box with series', () => {
     const chart = render<G2Spec>({
-      type: 'schema',
+      type: 'box',
       data: [
         {
           Species: 'I. setosa',

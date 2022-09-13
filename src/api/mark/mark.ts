@@ -8,7 +8,7 @@ import {
   PolygonGeometry,
   ImageGeometry,
   TextGeometry,
-  SchemaGeometry,
+  BoxGeometry,
   LineGeometry,
   AnnotationText as AnnotationTextSpec,
   AnnotationLineX as AnnotationLineXSpec,
@@ -63,8 +63,8 @@ export interface Text extends API<Concrete<TextGeometry>, Text> {
   type: 'text';
 }
 
-export interface Schema extends API<Concrete<SchemaGeometry>, Schema> {
-  type: 'schema';
+export interface Box extends API<Concrete<BoxGeometry>, Box> {
+  type: 'box';
 }
 
 export interface AnnotationText
@@ -193,9 +193,9 @@ export class Text extends Node<TextGeometry> {
 }
 
 @defineProps(props)
-export class Schema extends Node<SchemaGeometry> {
+export class Box extends Node<BoxGeometry> {
   constructor() {
-    super({}, 'schema');
+    super({}, 'box');
   }
 }
 

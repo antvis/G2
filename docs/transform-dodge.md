@@ -71,14 +71,14 @@ The _reverse_ option reverse any of the above orders.
 })();
 ```
 
-## Dodged Schema
+## Dodged Box
 
 ```js
 (() => {
   const chart = new G2.Chart();
 
   chart
-    .schema()
+    .box()
     .data({
       type: 'fetch',
       value: 'https://gw.alipayobjects.com/os/bmw-prod/62fd7bf5-beb5-4791-9b62-6c66fa0204da.json',
