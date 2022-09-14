@@ -1,6 +1,6 @@
 # Box
 
-Box 图形是用来绘制箱线图（boxplot）又叫盒须图、盒式图，通常用来展示一组数据分散情况的统计图，一般包括几种数据：`最小值`、`下四分位数`、`中位数`、`上四分位数`、`最大值`，另外可以结合 `point` mark 绘制异常点数据。
+Box 图形是用来绘制箱线图（boxplot）又叫盒须图、盒式图，通常用来展示一组数据分布情况的统计图，一般包括几种数据：`最小值`、`下四分位数`、`中位数`、`上四分位数`、`最大值`，另外可以结合 `point` mark 绘制异常点数据。
 
 <img alt="box" width="100%" style="max-width: 400px" src="https://gw.alipayobjects.com/zos/antfincdn/f6WEf%24CrgE/20220913111713.jpg" />
 
@@ -8,7 +8,6 @@ Box 特殊的一点在于 `y` 通道对应的数据是一组统计数据的数�
 
 ```text
 /**
- * Convert value for each channel to box shapes.
  *
  * p0           p2          p1
  *    ──────────┬──────────
@@ -210,7 +209,7 @@ coordinate = 'polar';
 
 ## FAQ
 
- - 怎么在前端进行数据分散情况的分析？
+ - 怎么在前端进行数据分布情况的分析？
 
 G2 的 `transform` 可以进行数据的转换，这里就可以实现对数据进行 `最小值`、`下四分位数`、`中位数`、`上四分位数`、`最大值` 的统计，当然也可以调用社区提供的[算法库](https://github.com/antvis/data-set/blob/master/src/transform/aggregate.ts)。
 
