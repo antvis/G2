@@ -2,6 +2,10 @@ import * as fs from 'fs';
 import * as tests from './charts';
 import { renderCanvas, diff } from './canvas';
 import { renderSVG } from './svg';
+import { fetch } from './fetch';
+
+// @ts-ignore
+global.fetch = fetch;
 
 describe('integration', () => {
   for (const [name, generateOptions] of Object.entries(tests)) {
@@ -60,4 +64,9 @@ describe('integration', () => {
       }
     });
   }
+
+  afterAll(() => {
+    // @ts-ignore
+    delete global.fetch;
+  });
 });

@@ -169,6 +169,7 @@ import {
   SelectX,
   SelectY,
   GroupX,
+  SortX,
 } from '../transform';
 import {
   Fetch,
@@ -222,6 +223,7 @@ export function createLibrary(): G2Library {
     'transform.maybeSize': MaybeSize,
     'transform.maybeZeroY': MaybeZeroY,
     'transform.maybeKey': MaybeKey,
+    'transform.sortX': SortX,
     'coordinate.cartesian': Cartesian,
     'coordinate.polar': Polar,
     'coordinate.helix': Helix,
