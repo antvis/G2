@@ -19,7 +19,7 @@ export type Geometry =
   | EdgeGeometry
   | ImageGeometry
   | PolygonGeometry
-  | SchemaGeometry
+  | BoxGeometry
   | VectorGeometry
   | AnnotationText
   | CustomComponent;
@@ -36,7 +36,7 @@ export type GeometryTypes =
   | 'link'
   | 'image'
   | 'polygon'
-  | 'schema'
+  | 'box'
   | 'vector'
   | 'annotation.text'
   | 'annotation.lineX'
@@ -158,7 +158,7 @@ export type ImageGeometry = BaseGeometry<'image', ChannelTypes | 'src'>;
 
 export type PolygonGeometry = BaseGeometry<'polygon'>;
 
-export type SchemaGeometry = BaseGeometry<'schema'>;
+export type BoxGeometry = BaseGeometry<'box'>;
 
 export type VectorGeometry = BaseGeometry<
   'vector',

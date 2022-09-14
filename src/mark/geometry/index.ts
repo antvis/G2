@@ -9,7 +9,7 @@ export { Node } from './node';
 export { Link } from './link';
 export { Image } from './image';
 export { Polygon } from './polygon';
-export { Schema } from './schema';
+export { Box } from './box';
 export { Vector } from './vector';
 
 export type { IntervalOptions } from './interval';
@@ -23,5 +23,5 @@ export type { NodeOptions } from './node';
 export type { LinkOptions } from './link';
 export type { ImageOptions } from './image';
 export type { PolygonOptions } from './polygon';
-export type { SchemaOptions } from './schema';
+export type { BoxOptions } from './box';
 export type { VectorOptions } from './vector';

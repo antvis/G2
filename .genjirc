@@ -34,7 +34,7 @@
         "Link": "mark-link",
         "Image": "mark-image",
         "Polygon": "mark-polygon",
-        "Schema": "mark-schema",
+        "Box": "mark-box",
         "Annotation": "mark-annotation",
         "Component": "mark-component",
         "Mix": "mark-mix"

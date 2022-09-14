@@ -20,7 +20,7 @@ import {
   Polygon,
   Vector,
   Text,
-  Schema,
+  Box,
   AnnotationLineX,
   AnnotationLineY,
   AnnotationRange,
@@ -113,7 +113,7 @@ describe('Chart', () => {
     expect(chart.polygon()).toBeInstanceOf(Polygon);
     expect(chart.image()).toBeInstanceOf(Image);
     expect(chart.text()).toBeInstanceOf(Text);
-    expect(chart.schema()).toBeInstanceOf(Schema);
+    expect(chart.box()).toBeInstanceOf(Box);
     expect(chart.annotationLineX()).toBeInstanceOf(AnnotationLineX);
     expect(chart.annotationLineY()).toBeInstanceOf(AnnotationLineY);
     expect(chart.annotationRange()).toBeInstanceOf(AnnotationRange);
@@ -132,7 +132,7 @@ describe('Chart', () => {
       { type: 'polygon' },
       { type: 'image' },
       { type: 'text' },
-      { type: 'schema' },
+      { type: 'box' },
       { type: 'annotation.lineX' },
       { type: 'annotation.lineY' },
       { type: 'annotation.range' },

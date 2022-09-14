@@ -9,7 +9,7 @@ import {
   Polygon,
   Image,
   Text,
-  Schema,
+  Box,
   AnnotationText,
   AnnotationLineX,
   AnnotationLineY,
@@ -30,7 +30,7 @@ export interface Mark {
   polygon(): Polygon;
   image(): Image;
   text(): Text;
-  schema(): Schema;
+  box(): Box;
   annotationText(): AnnotationText;
   annotationLineX(): AnnotationLineX;
   annotationLineY(): AnnotationLineY;
@@ -51,7 +51,7 @@ export const mark = {
   polygon: Polygon,
   image: Image,
   text: Text,
-  schema: Schema,
+  box: Box,
   annotationText: AnnotationText,
   annotationLineX: AnnotationLineX,
   annotationLineY: AnnotationLineY,

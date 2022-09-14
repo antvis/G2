@@ -38,7 +38,7 @@ export { SmoothArea } from './area/smoothArea';
 export { Link } from './link/link';
 export { Image } from './image/image';
 export { Polygon } from './polygon/polygon';
-export { Box } from './schema/box';
+export { Box } from './box/box';
 // For relation diagram (node and edge).
 export { Point as PointNode } from './node/point';
 export { Polygon as PolygonNode } from './node/polygon';
@@ -93,7 +93,7 @@ export type { SmoothAreaOptions } from './area/smoothArea';
 export type { LinkOptions } from './link/link';
 export type { ImageOptions } from './image/image';
 export type { PolygonOptions } from './polygon/polygon';
-export type { BoxOptions } from './schema/box';
+export type { BoxOptions } from './box/box';
 
 export type { LineOptions as AnnotationLineOptions } from './annotation/line';
 export type { ConnectorOptions as AnnotationConnectorOptions } from './annotation/connector';
