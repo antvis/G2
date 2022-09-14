@@ -502,9 +502,9 @@ describe('statistic', () => {
     mount(createDiv(), chart);
   });
 
-  it('should render normalized dodged schema', () => {
+  it('should render normalized dodged box', () => {
     const chart = render<G2Spec>({
-      type: 'schema',
+      type: 'box',
       data: {
         type: 'fetch',
         value:

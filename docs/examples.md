@@ -30,8 +30,8 @@ genji.preview([
   },
 
   {
-    title: 'Dodge - Schema',
-    path: '/transform-dodge#dodged-schema',
+    title: 'Dodge - Box',
+    path: '/transform-dodge#dodged-box',
     thumbnail:
       'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*igdpTZKSp0UAAAAAAAAAAAAAARQnAQ',
   },
@@ -163,8 +163,8 @@ genji.preview([
       'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*JjfsR6dNUvAAAAAAAAAAAAAAARQnAQ',
   },
   {
-    title: 'Schema',
-    path: '/mark-schema#box-plot',
+    title: 'Box',
+    path: '/mark-box#box-plot',
     thumbnail:
       'https://gw.alipayobjects.com/zos/antfincdn/hLflHDiP4p/9a4aa9ab-6dc6-4020-badd-9d40c46f3a52.png',
   },

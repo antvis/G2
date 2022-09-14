@@ -9,7 +9,7 @@ import {
   Polygon,
   Image,
   Text,
-  Schema,
+  Box,
   AnnotationText,
   AnnotationConnector,
   AnnotationLineX,
@@ -117,9 +117,9 @@ describe('Mark', () => {
     expect(setOptions(node).value).toEqual(getOptions());
   });
 
-  it('Schema() should specify options by API', () => {
-    const node = new Schema();
-    expect(node.type).toBe('schema');
+  it('Box() should specify options by API', () => {
+    const node = new Box();
+    expect(node.type).toBe('box');
     expect(setOptions(node).value).toEqual(getOptions());
   });
 

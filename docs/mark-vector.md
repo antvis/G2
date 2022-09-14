@@ -51,7 +51,7 @@ data = genji.fetchJSON(
 
 | shape | 描述    | 示例 |
 |-------|--------|------|
-| vector  | 向量图形，一般是：箭头 | ![vector shape](https://gw.alipayobjects.com/zos/antfincdn/lmyyvRSApY/a490f7fc-fcba-44f0-baaa-894f8f442c53.png)  |
+| vector  | 向量图形，一般是：箭头 | <img alt="vector shape" height="32" src="https://gw.alipayobjects.com/zos/antfincdn/lmyyvRSApY/a490f7fc-fcba-44f0-baaa-894f8f442c53.png" /> |
 
 
 ## 使用方式

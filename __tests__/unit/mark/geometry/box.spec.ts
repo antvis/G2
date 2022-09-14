@@ -1,10 +1,10 @@
 import { Band } from '../../../../src/scale';
-import { Schema } from '../../../../src/mark/geometry';
+import { Box } from '../../../../src/mark/geometry';
 import { plot } from '../helper';
 
-describe('Schema', () => {
-  it('Schema has expected props', () => {
-    expect(Schema.props).toEqual({
+describe('Box', () => {
+  it('Box has expected props', () => {
+    expect(Box.props).toEqual({
       defaultShape: 'box',
       defaultLabelShape: 'label',
       channels: [
@@ -33,9 +33,9 @@ describe('Schema', () => {
     });
   });
 
-  it('Schema should draw basic box', () => {
+  it('Box should draw basic box', () => {
     const [I, P] = plot({
-      mark: Schema({}),
+      mark: Box({}),
       index: [0, 1],
       scale: {
         x: Band({

@@ -18,7 +18,7 @@ import {
   Polygon,
   Vector,
   Text,
-  Schema,
+  Box,
   AnnotationLineX,
   AnnotationLineY,
   AnnotationRange,
@@ -39,7 +39,7 @@ function expectToCreateMarks(node) {
   expect(node.polygon()).toBeInstanceOf(Polygon);
   expect(node.image()).toBeInstanceOf(Image);
   expect(node.text()).toBeInstanceOf(Text);
-  expect(node.schema()).toBeInstanceOf(Schema);
+  expect(node.box()).toBeInstanceOf(Box);
   expect(node.annotationLineX()).toBeInstanceOf(AnnotationLineX);
   expect(node.annotationLineY()).toBeInstanceOf(AnnotationLineY);
   expect(node.annotationRange()).toBeInstanceOf(AnnotationRange);
