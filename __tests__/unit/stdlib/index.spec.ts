@@ -169,6 +169,7 @@ import {
   SelectX,
   SelectY,
   GroupX,
+  SortX,
 } from '../../../src/transform';
 import {
   Fetch,
@@ -223,6 +224,7 @@ describe('stdlib', () => {
       'transform.maybeSize': MaybeSize,
       'transform.maybeZeroY': MaybeZeroY,
       'transform.maybeKey': MaybeKey,
+      'transform.sortX': SortX,
       'coordinate.cartesian': Cartesian,
       'coordinate.polar': Polar,
       'coordinate.helix': Helix,

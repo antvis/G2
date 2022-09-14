@@ -19,6 +19,7 @@ export { Select } from './Select';
 export { SelectX } from './SelectX';
 export { SelectY } from './SelectY';
 export { GroupX } from './groupX';
+export { SortX } from './sortX';
 
 export type { MaybeZeroY1Options } from './maybeZeroY1';
 export type { MaybeStackYOptions } from './maybeStackY';
@@ -41,3 +42,4 @@ export type { SelectOptions } from './Select';
 export type { SelectXOptions } from './SelectX';
 export type { SelectYOptions } from './SelectY';
 export type { GroupXOptions } from './groupX';
+export type { SortXOptions } from './sortX';

@@ -12,15 +12,8 @@ export type Transform =
   | SelectTransform
   | SelectXTransform
   | SelectYTransform
-  | GroupXTransform;
-
-export type TransformOrder =
-  | 'value'
-  | 'sum'
-  | 'series'
-  | 'maxIndex'
-  | string[]
-  | ((data: Record<string, Primitive>) => Primitive);
+  | GroupXTransform
+  | SortXTransform;
 
 export type TransformTypes =
   | 'dodgeX'
@@ -34,7 +27,16 @@ export type TransformTypes =
   | 'selectY'
   | 'selectX'
   | 'groupX'
+  | 'sortX'
   | TransformComponent;
+
+export type TransformOrder =
+  | 'value'
+  | 'sum'
+  | 'series'
+  | 'maxIndex'
+  | string[]
+  | ((data: Record<string, Primitive>) => Primitive);
 
 export type DodgeXTransform = {
   type?: 'dodgeX';
@@ -115,6 +117,13 @@ export type SelectYTransform = {
   type?: 'selectY';
   groupBy?: string | string[];
   selector?: Selector;
+};
+
+export type SortXTransform = {
+  type?: 'sortX';
+  reverse?: boolean;
+  channel?: string;
+  reducer?: 'max' | 'min' | ((I: number[], V: Primitive[]) => Primitive);
 };
 
 export type Reducer =

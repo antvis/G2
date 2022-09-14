@@ -10,6 +10,7 @@
       "Transform": {
         "Stack": "transform-stack",
         "Dodge": "transform-dodge",
+        "SortX": "transform-sortx",
         "Normalize": "transform-normalize",
         "Symmetry": "transform-symmetry",
         "Jitter": "transform-jitter",
@@ -18,7 +19,9 @@
         "Pack": "transform-pack",
         "StackEnter": "transform-stack-enter"
       },
-      "Scale": "scale",
+      "比例尺（Scale）": {
+        "概述": "scale-overview"
+      },
       "Coordinate": "coordinate",
       "Mark": {
         "Interval": "mark-interval",
