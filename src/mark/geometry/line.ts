@@ -13,6 +13,7 @@ export type LineOptions = Omit<LineGeometry, 'type'>;
 
 const line: Mark = (index, scale, value, coordinate) => {
   const { series: S, x: X, y: Y } = value;
+  const { x, y } = scale;
 
   // Because x and y channel is not strictly required in Line.props,
   // it should throw error with empty x or y channels.
@@ -26,8 +27,12 @@ const line: Mark = (index, scale, value, coordinate) => {
   const I = series.map((group) => group[0]);
 
   // A group of data corresponds to one line.
+  const xoffset = (x?.getBandWidth?.() || 0) / 2;
+  const yoffset = (y?.getBandWidth?.() || 0) / 2;
   const P = Array.from(series, (I) => {
-    return I.map((i) => coordinate.map([+X[i], +Y[i]])) as Vector2[];
+    return I.map((i) =>
+      coordinate.map([+X[i] + xoffset, +Y[i] + yoffset]),
+    ) as Vector2[];
   });
   return [I, P, series];
 };
