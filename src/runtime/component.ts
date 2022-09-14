@@ -35,7 +35,6 @@ export function inferComponent(
   const {
     component: partialComponents = [],
     coordinate = [],
-    adjust,
     title,
     theme,
   } = partialOptions;
@@ -74,7 +73,7 @@ export function inferComponent(
     if (type !== null) {
       const { props } = createGuideComponent(type);
       const { defaultPosition, defaultSize, defaultOrder } = props;
-      const { guide: partialGuide, name } = scale;
+      const { guide: partialGuide, name, formatter } = scale;
       const {
         position = inferComponentPosition(
           name,
@@ -86,7 +85,15 @@ export function inferComponent(
         size = defaultSize,
         order = defaultOrder,
       } = partialGuide;
-      components.push({ ...partialGuide, position, order, size, type, scale });
+      components.push({
+        ...partialGuide,
+        position,
+        order,
+        size,
+        type,
+        scale,
+        formatter,
+      });
     }
   }
 

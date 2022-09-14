@@ -2,6 +2,7 @@ import { Coordinate, Vector2 } from '@antv/coord';
 import { Arc, Linear } from '@antv/gui';
 import { Linear as LinearScale } from '@antv/scale';
 import { deepMix } from '@antv/util';
+import { format } from 'd3-format';
 import { isParallel, isPolar, isTranspose } from '../utils/coordinate';
 import {
   BBox,
@@ -14,7 +15,7 @@ export type AxisOptions = {
   position?: GuideComponentPosition;
   zIndex?: number;
   title?: boolean;
-  formatter?: (d: any) => string;
+  formatter?: (d: any) => string | string;
 };
 
 function inferPosition(
@@ -376,11 +377,13 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
  * @todo Custom style.
  */
 export const Axis: GCC<AxisOptions> = (options) => {
-  const { position } = options;
+  const { position, formatter: f = (d) => `${d}` } = options;
+  const formatter = typeof f === 'string' ? format(f) : f;
+  const normalizedOptions = { ...options, formatter };
   return (scale, value, coordinate, theme) => {
     return position === 'arc'
-      ? ArcAxis(options)(scale, value, coordinate, theme)
-      : LinearAxis(options)(scale, value, coordinate, theme);
+      ? ArcAxis(normalizedOptions)(scale, value, coordinate, theme)
+      : LinearAxis(normalizedOptions)(scale, value, coordinate, theme);
   };
 };
 

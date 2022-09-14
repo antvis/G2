@@ -1,8 +1,8 @@
 import { Canvas } from '@antv/g';
 import { Renderer as CanvasRenderer } from '@antv/g-canvas';
 import { Renderer as SVGRenderer } from '@antv/g-svg';
-import { render } from '../../../src';
-import * as tests from './index';
+import { render } from '../../src';
+import * as tests from './charts/index';
 
 const renderers = {
   canvas: CanvasRenderer,
