@@ -18,6 +18,9 @@ export const Point: MC<PointOptions> = () => {
   return (index, scale, value, coordinate) => {
     const { x: X, y: Y, size: S, dx: DX, dy: DY } = value;
     const [width, height] = coordinate.getSize();
+    const { x, y } = scale;
+    const xoffset = (x?.getBandWidth?.() || 0) / 2;
+    const yoffset = (y?.getBandWidth?.() || 0) / 2;
     const P = Array.from(index, (i) => {
       const dx = +(DX?.[i] || 0);
       const dy = +(DY?.[i] || 0);
@@ -26,8 +29,8 @@ export const Point: MC<PointOptions> = () => {
       const r = +S[i];
       const a = r / width;
       const b = r / height;
-      const p1 = [cx - a, cy - b];
-      const p2 = [cx + a, cy + b];
+      const p1 = [cx - a + xoffset, cy - b + yoffset];
+      const p2 = [cx + a + xoffset, cy + b + yoffset];
       return [coordinate.map(p1), coordinate.map(p2)] as Vector2[];
     });
     return [index, P];
