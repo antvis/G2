@@ -4,7 +4,7 @@ Box 图形是用来绘制箱线图（boxplot）又叫盒须图、盒式图，通
 
 <img alt="box" width="100%" style="max-width: 400px" src="https://gw.alipayobjects.com/zos/antfincdn/f6WEf%24CrgE/20220913111713.jpg" />
 
-Box 的数据通道和常规图形没有太大差异，唯一的区别在于对于 y 通道对应的数据是一组统计数据的数组，最后会将数据一个为箱线图所需求的所有点集合。
+Box 特殊的一点在于 `y` 通道对应的数据是一组统计数据的数组，最后会将数据映射为箱线图所需求的 14 个点集合。
 
 ```text
 /**
@@ -180,7 +180,7 @@ dataWithColor = [
 
 另外，我们也可以在一个 `polar` 坐标系下查看箱线图，自带的 `box` 图形会自动对图形边缘进行平滑处理；也可以增加 `transpose` 让箱线图变成一个横向的。
 
-```js | select "options: { labels: ['polar', 'transpose'], values: ['polar', 'transpose'] }; pin: false"
+```js | radio "options: { labels: ['polar', 'transpose'], values: ['polar', 'transpose'] }; pin: false"
 coordinate = 'polar';
 ```
 
