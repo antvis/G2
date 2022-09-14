@@ -5,9 +5,10 @@ export type FetchConnector = {
   type?: 'fetch';
   value?: string;
   format?: 'json' | 'csv';
-  callback?: (d: any) => any;
   // Useful when format is 'csv'.
   delimiter?: string;
+  /** Automatically infer the data to Javascript type  */
+  autoType?: boolean;
   transform?: DataTransform[];
 };
 
@@ -37,8 +38,8 @@ export type DataTransformTypes =
 
 export type SortByTransform = {
   type?: 'sortBy';
-  fields?: string[];
-  order?: 'DESC' | 'ASC';
+  /** type: [field, order]; order: true => ascend, false => descend */
+  fields?: (string | [string, boolean?])[];
 };
 
 export type PickTransform = {
@@ -60,8 +61,11 @@ export type SubsetTransform = {
 
 export type FilterByTransform = {
   type?: 'filterBy';
-  fields?: string[];
-  callback?: (d: any) => boolean;
+  /**
+   * way1: [[field1, callback1], [field2, callback2], ...]
+   * way2: [field1, field2, field3, callback] All field filtered by the last callback.
+   */
+  fields?: ([string, ((d: any) => boolean)?] | string)[];
 };
 
 export type FoldTransform = {
@@ -70,8 +74,8 @@ export type FoldTransform = {
   as?: string[];
 };
 
-export type ConnectorTransform = {
-  type?: 'connector';
+export type CustomDataTransform = {
+  type?: 'custom';
   callback?: (d: any) => any;
 };
 
@@ -218,4 +222,9 @@ export type ClusterTransform = {
 
 export type TreeTransform = Omit<ClusterTransform, 'type'> & {
   type?: 'tree';
+};
+
+export type MapTransform = {
+  type?: 'map';
+  callback?: (d: any) => any;
 };

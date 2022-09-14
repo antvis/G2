@@ -1,5 +1,6 @@
 import { DataComponent as DC } from '../runtime';
 import { SortByTransform } from '../spec';
+import { normalizeFields } from './utils/fields';
 
 export type SortByOptions = Omit<SortByTransform, 'type'>;
 
@@ -7,15 +8,24 @@ export type SortByOptions = Omit<SortByTransform, 'type'>;
  * Immutable data sort by specified fields.
  */
 export const SortBy: DC<SortByOptions> = (options) => {
-  const { fields: F = [], order = 'ASC' } = options;
+  const { fields: F = [] } = options;
+
+  const processorF = normalizeFields(F);
+
   return (data) => {
-    const asc = (a: any, b: any) =>
-      F.reduce(
-        (eq, f) => (eq !== 0 ? eq : a[f] < b[f] ? -1 : +(a[f] !== b[f])),
-        0,
-      );
-    const desc = (a: any, b: any) => asc(b, a);
-    const comparator = order === 'ASC' ? asc : desc;
+    const comparator = (a: any, b: any) =>
+      processorF.reduce((ret: number, [field, order = true]) => {
+        if (ret !== 0) {
+          return ret;
+        }
+
+        if (order) {
+          return a[field] < b[field] ? -1 : +(a[field] !== b[field]);
+        } else {
+          return a[field] > b[field] ? -1 : +(a[field] !== b[field]);
+        }
+      }, 0);
+
     return [...data].sort(comparator);
   };
 };

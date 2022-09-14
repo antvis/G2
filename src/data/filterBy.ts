@@ -1,5 +1,6 @@
 import { DataComponent as DC } from '../runtime';
 import { FilterByTransform } from '../spec';
+import { normalizeFields } from './utils/fields';
 
 export type FilterByOptions = Omit<FilterByTransform, 'type'>;
 
@@ -12,8 +13,16 @@ function defined(d: any): boolean {
  * It saves datum with every fields defined by default.
  */
 export const FilterBy: DC<FilterByOptions> = (options) => {
-  const { fields: F = [], callback = defined } = options;
-  return (data) => data.filter((d: any) => F.every((f) => callback(d[f])));
+  const { fields: F = [] } = options;
+
+  const processorF = normalizeFields(F);
+
+  return (data) =>
+    data.filter((d: any) => {
+      return processorF.every(([field, callback = defined]) =>
+        callback(d[field]),
+      );
+    });
 };
 
 FilterBy.props = {};

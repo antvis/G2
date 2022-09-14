@@ -130,7 +130,7 @@ export const toGrid = useOverrideAdaptor<G2ViewTree>(() => ({
 export const setData = useOverrideAdaptor<G2ViewTree>((options) => {
   const { data } = options;
   const connector = {
-    type: 'connector',
+    type: 'custom',
     callback: () => {
       const { data, encode } = options;
       const { x, y } = encode;
