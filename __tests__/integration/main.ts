@@ -2,7 +2,7 @@ import { Canvas } from '@antv/g';
 import { Renderer as CanvasRenderer } from '@antv/g-canvas';
 import { Renderer as SVGRenderer } from '@antv/g-svg';
 import { render } from '../../src';
-import * as tests from './charts/index';
+import * as tests from './charts';
 
 const renderers = {
   canvas: CanvasRenderer,
