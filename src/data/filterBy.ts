@@ -15,11 +15,11 @@ function defined(d: any): boolean {
 export const FilterBy: DC<FilterByOptions> = (options) => {
   const { fields: F = [] } = options;
 
-  const processorF = normalizeFields(F);
+  const normalizedF = normalizeFields(F, defined);
 
   return (data) =>
     data.filter((d: any) => {
-      return processorF.every(([field, callback = defined]) =>
+      return normalizedF.every(([field, callback = defined]) =>
         callback(d[field]),
       );
     });

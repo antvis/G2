@@ -10,11 +10,11 @@ export type SortByOptions = Omit<SortByTransform, 'type'>;
 export const SortBy: DC<SortByOptions> = (options) => {
   const { fields: F = [] } = options;
 
-  const processorF = normalizeFields(F);
+  const normalizedF = normalizeFields(F, true);
 
   return (data) => {
     const comparator = (a: any, b: any) =>
-      processorF.reduce((ret: number, [field, order = true]) => {
+      normalizedF.reduce((ret: number, [field, order = true]) => {
         if (ret !== 0) {
           return ret;
         }

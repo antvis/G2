@@ -6,7 +6,7 @@ import { identity } from '../utils/helper';
 export type FetchOptions = Omit<FetchConnector, 'type'>;
 
 export const Fetch: DC<FetchOptions> = (options) => {
-  const { value, format, delimiter = ',', autoType = false } = options;
+  const { value, format, delimiter = ',', autoType = true } = options;
   return async () => {
     const response = await fetch(value);
     if (format === 'csv') {

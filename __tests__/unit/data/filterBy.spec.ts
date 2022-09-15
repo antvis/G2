@@ -48,7 +48,10 @@ describe('FilterBy', () => {
       { a: -1, b: 1 },
     ];
     const r = await transform(data);
-    expect(r).toEqual([{ a: 1, b: 1 }]);
+    expect(r).toEqual([
+      { a: 1, b: 1 },
+      { a: -1, b: 1 },
+    ]);
 
     const transform2 = FilterBy({
       fields: ['a', 'b'],
