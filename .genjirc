@@ -1,13 +1,13 @@
 {
   "title": "G2 5.0",
   "outline": {
-    "Introduction": "introduction",
-    "Tutorials": "tutorials",
-    "Examples": "examples",
-    "API Reference": {
-      "Basic": "basic",
-      "Data": "data",
-      "Transform": {
+    "介绍": "introduction",
+    "教程": "tutorials",
+    "案例": "examples",
+    "API 指引": {
+      "基础": "basic",
+      "数据": "data",
+      "转换": {
         "Stack": "transform-stack",
         "Dodge": "transform-dodge",
         "SortX": "transform-sortx",
@@ -19,11 +19,12 @@
         "Pack": "transform-pack",
         "StackEnter": "transform-stack-enter"
       },
-      "比例尺（Scale）": {
+      "比例尺": {
         "概述": "scale-overview"
       },
-      "Coordinate": "coordinate",
-      "Mark": {
+      "坐标系": "coordinate",
+      "标记": {
+        "概述": "mark-overview",
         "Interval": "mark-interval",
         "Point": "mark-point",
         "Line": "mark-line",
@@ -39,7 +40,7 @@
         "Component": "mark-component",
         "Mix": "mark-mix"
       },
-      "Composition": {
+      "视图复合": {
         "Spatial": "composition-spatial",
         "Rect": "composition-rect",
         "Matrix": "composition-matrix",
@@ -47,18 +48,16 @@
         "Keyframe": "composition-keyframe",
         "More": "composition-more"
       },
-      "Animation": "animation",
-      "Interaction": {
+      "动画": "animation",
+      "交互": {
         "Element": "interaction-element",
         "Component": "interaction-component",
         "Tooltip": "interaction-tooltip",
         "Brush": "interaction-brush",
         "More": "interaction-more"
       },
-      "Label": "label",
-      "Theme": "theme",
-      "Show Case": "show-case",
-      "Register": "register"
+      "主题": "theme",
+      "自定义": "register"
     }
   },
   "domain": "g2-next.antv.vision",
