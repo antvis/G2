@@ -22,9 +22,8 @@
       "比例尺": {
         "概述": "scale-overview"
       },
-      "坐标系": "coordinate",
-      "标记": {
-        "概述": "mark-overview",
+      "Coordinate": "coordinate",
+      "标记（Mark）": {
         "Interval": "mark-interval",
         "Point": "mark-point",
         "Line": "mark-line",
@@ -36,9 +35,13 @@
         "Image": "mark-image",
         "Polygon": "mark-polygon",
         "Box": "mark-box",
+        "Graph": "mark-graph",
         "Annotation": "mark-annotation",
         "Component": "mark-component",
-        "Mix": "mark-mix"
+        "复合（Mix）": {
+          "Graph": "mark-graph",
+          "Mix": "mark-mix"
+        }
       },
       "视图复合": {
         "Spatial": "composition-spatial",

@@ -21,13 +21,11 @@ import {
   Point as PointGeometry,
   Text as TextGeometry,
   Area as AreaGeometry,
-  Edge as EdgeGeometry,
   Image as ImageGeometry,
   Polygon as PolygonGeometry,
   Box as BoxGeometry,
   Vector as VectorGeometry,
   Link as LinkGeometry,
-  Node as NodeGeometry,
 } from '../mark/geometry';
 import {
   AnnotationText,
