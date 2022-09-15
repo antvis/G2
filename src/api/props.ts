@@ -3,35 +3,39 @@ import { isObject, clone } from '@antv/util';
 export type NodePropertyDescriptor = {
   type: 'object' | 'value' | 'array' | 'node' | 'container';
   name: string;
+  key?: string;
   ctor?: new (...args: any[]) => any;
 };
 
-function defineValueProp(Node, { name }: NodePropertyDescriptor) {
+function defineValueProp(Node, { name, key = name }: NodePropertyDescriptor) {
   Node.prototype[name] = function (value) {
-    return this.attr(name, value);
+    return this.attr(key, value);
   };
 }
 
-function defineArrayProp(Node, { name }: NodePropertyDescriptor) {
+function defineArrayProp(Node, { name, key = name }: NodePropertyDescriptor) {
   Node.prototype[name] = function (value) {
     if (Array.isArray(value) || value === undefined) {
-      return this.attr(name, value);
+      return this.attr(key, value);
     }
-    const array = this.attr(name);
+    const array = this.attr(key);
     const newArray = [...(Array.isArray(array) ? array : [])];
     newArray.push(value);
-    return this.attr(name, newArray);
+    return this.attr(key, newArray);
   };
 }
 
-function defineObjectProp(Node, { name }: NodePropertyDescriptor) {
+function defineObjectProp(
+  Node,
+  { name, key: k = name }: NodePropertyDescriptor,
+) {
   Node.prototype[name] = function (key, value) {
     if (isObject(key) || key === undefined) {
-      return this.attr(name, key);
+      return this.attr(k, key);
     }
-    const newObject = clone(this.attr(name) || {});
+    const newObject = clone(this.attr(k) || {});
     newObject[key] = value;
-    return this.attr(name, newObject);
+    return this.attr(k, newObject);
   };
 }
 
