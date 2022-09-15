@@ -1,7 +1,7 @@
 import {
   convertToPath,
   DisplayObject,
-  Animation as GAnimation,
+  IAnimation as GAnimation,
   Path,
 } from '@antv/g';
 import { AnimationComponent as AC } from '../runtime';

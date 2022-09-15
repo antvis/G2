@@ -1,3 +1,4 @@
+import { Coordinate } from '@antv/coord';
 import { AnnotationBadge } from '../../../../src/shape';
 import { mount, createDiv } from '../../../utils/dom';
 import { draw, style } from '../helper';
@@ -10,7 +11,7 @@ describe('AnnotationBadge shape', () => {
   });
 
   it('AnnotationBadge() returns a function draw CustomElement', () => {
-    const shape = AnnotationBadge({})([[0, 0]], {}, null, {
+    const shape = AnnotationBadge({})([[0, 0]], {}, new Coordinate(), {
       defaultColor: 'red',
     });
     expect(shape.style.fill).toBe('red');
@@ -35,8 +36,8 @@ describe('AnnotationBadge shape', () => {
     expect(style(shape, ['x', 'y'])).toEqual({ x: 75, y: 25 });
     expect(shape.style.text).toEqual('hello');
     const badgeMarker = shape.querySelector('.badge-marker');
-    expect(badgeMarker.style.fill).toEqual('steelblue');
-    expect(badgeMarker.style.symbol).toBeInstanceOf(Function);
+    expect(badgeMarker?.style.fill).toEqual('steelblue');
+    expect(badgeMarker?.style.symbol).toBeInstanceOf(Function);
   });
 
   it('AnnotationBadge() returns a function draw badgeAnnotation contains text and support custom style.', async () => {
@@ -61,8 +62,8 @@ describe('AnnotationBadge shape', () => {
       'steelblue',
     );
     const textShape = shape.querySelector('.badge-text');
-    expect(textShape.style.fill).toBe('#fff');
-    expect(textShape.style.fontSize).toBe(10);
+    expect(textShape?.style.fill).toBe('#fff');
+    expect(textShape?.style.fontSize).toBe(10);
   });
 
   it('AnnotationBadge() returns a function draw badge annotation, with built-in marker.', async () => {
@@ -105,8 +106,8 @@ describe('AnnotationBadge shape', () => {
     mount(createDiv(), container);
 
     const badgeMarker = shape.querySelector('.badge-marker');
-    expect(badgeMarker.style.symbol).toBe('triangle');
-    expect(badgeMarker.style.size).toBe(12);
-    expect(badgeMarker.style.stroke).toBe('red');
+    expect(badgeMarker?.style.symbol).toBe('triangle');
+    expect(badgeMarker?.style.size).toBe(12);
+    expect(badgeMarker?.style.stroke).toBe('red');
   });
 });

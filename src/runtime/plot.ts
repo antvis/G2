@@ -1,4 +1,4 @@
-import { DisplayObject, Animation as GAnimation } from '@antv/g';
+import { DisplayObject, IAnimation as GAnimation } from '@antv/g';
 import { upperFirst } from '@antv/util';
 import { format } from 'd3-format';
 import { mapObject } from '../utils/array';
@@ -611,10 +611,10 @@ function createLabelShapeFunction(
   return (data, index, options, element) => {
     const i = I[index];
     const datum = abstractData[i];
-    const { formatter, ...abstractOptions } = options;
+    const { formatter = (d) => `${d}`, ...abstractOptions } = options;
     const visualOptions = mapObject(abstractOptions, (d) => valueOf(datum, d));
     const { shape = defaultLabelShape, text, ...style } = visualOptions;
-    const f = typeof formatter === 'string' ? format(formatter) : format;
+    const f = typeof formatter === 'string' ? format(formatter) : formatter;
     const value = { ...style, element, text: f(text) };
     const shapeFunction = useShape({ type: shape, ...style });
     const { points } = data;
