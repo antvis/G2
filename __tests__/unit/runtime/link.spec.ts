@@ -26,4 +26,32 @@ describe('link', () => {
 
     mount(createDiv(), chart);
   });
+
+  it('render({...}) should render smooth link', () => {
+    const chart = render<G2Spec>({
+      type: 'link',
+      data: [
+        { x1: 50, y1: 200, x2: 200, y2: 300 },
+        { x1: 50, y1: 200, x2: 200, y2: 100 },
+        { x1: 200, y1: 300, x2: 350, y2: 350 },
+        { x1: 200, y1: 300, x2: 350, y2: 250 },
+      ],
+      encode: {
+        x: ['x1', 'x2'],
+        y: ['y1', 'y2'],
+        shape: 'smoothEdge',
+      },
+      scale: {
+        x: { type: 'linear', domain: [0, 400] },
+        y: { type: 'linear', domain: [0, 400] },
+      },
+      style: {
+        lineDash: [1, 0],
+        lineWidth: 1,
+        stroke: 'grey',
+      },
+    });
+
+    mount(createDiv(), chart);
+  });
 });

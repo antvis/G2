@@ -7,6 +7,10 @@ export { Subset } from './subset';
 export { SortBy } from './sortBy';
 export { Inline } from './inline';
 export { Connector } from './connector';
+export { Cluster } from './cluster';
+export { Tree } from './tree';
+export { Sankey } from './sankey';
+export { Arc } from './arc';
 
 export type { FetchOptions } from './fetch';
 export type { FoldOptions } from './fold';
@@ -17,3 +21,7 @@ export type { SubsetOptions } from './subset';
 export type { SortByOptions } from './sortBy';
 export type { InlineOptions } from './inline';
 export type { ConnectorOptions } from './connector';
+export type { ClusterOptions } from './cluster';
+export type { TreeOptions } from './tree';
+export type { SankeyOptions } from './sankey';
+export type { ArcOptions } from './arc';
