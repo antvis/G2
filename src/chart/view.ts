@@ -1978,9 +1978,10 @@ export class View extends Base {
    * @param isUpdate
    */
   private renderComponents(isUpdate: boolean) {
+    const components = this.getComponents();
     // 先全部清空，然后 render
-    for (let i = 0; i < this.getComponents().length; i++) {
-      const co = this.getComponents()[i];
+    for (let i = 0; i < components.length; i++) {
+      const co = components[i];
       (co.component as GroupComponent).render();
     }
   }
