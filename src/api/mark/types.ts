@@ -8,6 +8,7 @@ export type API<Props extends Geometry, Mark> = {
   transform: ArrayAttribute<Props['transform'], Mark>;
   animate: ObjectAttribute<Props['animate'], Mark>;
   key: ValueAttribute<Props['key'], Mark>;
+  label: ArrayAttribute<Props['labels'], Mark>;
   class: ValueAttribute<Props['class'], Mark>;
   style: ObjectAttribute<Props['style'], Mark>;
   facet: ValueAttribute<Props['facet'], Mark>;

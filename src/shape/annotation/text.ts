@@ -111,7 +111,10 @@ class TextShape extends CustomElement<TextShapeStyleProps> {
   private drawBackground() {
     const { background } = this.style;
     if (!background) {
-      this.background && this.removeChild(this.background, true);
+      if (this.background) {
+        this.removeChild(this.background);
+        this.background.destroy();
+      }
       this.background = undefined;
       return;
     }
@@ -138,7 +141,10 @@ class TextShape extends CustomElement<TextShapeStyleProps> {
   private drawConnector() {
     const { connector } = this.style;
     if (!connector) {
-      this.connector && this.removeChild(this.connector, true);
+      if (this.connector) {
+        this.removeChild(this.connector);
+        this.connector.destroy();
+      }
       this.connector = undefined;
       return;
     }
@@ -163,7 +169,10 @@ class TextShape extends CustomElement<TextShapeStyleProps> {
   private drawStartMarker(style?: MarkerStyleProps) {
     const shape = this.startMarkerPoint;
     if (!style) {
-      shape && this.removeChild(shape, true);
+      if (shape) {
+        this.removeChild(shape);
+        shape.destroy();
+      }
       this.startMarkerPoint = undefined;
       return;
     }
@@ -178,7 +187,10 @@ class TextShape extends CustomElement<TextShapeStyleProps> {
   private drawEndMarker(style?: MarkerStyleProps) {
     const shape = this.endMarkerPoint;
     if (!style) {
-      shape && this.removeChild(shape, true);
+      if (shape) {
+        this.removeChild(shape);
+        shape.destroy();
+      }
       this.endMarkerPoint = undefined;
       return;
     }

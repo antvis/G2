@@ -1,4 +1,3 @@
-import { clone } from '@antv/util';
 import { RendererPlugin, Canvas as GCanvas } from '@antv/g';
 import { Renderer as CanvasRenderer } from '@antv/g-canvas';
 import { Plugin as DragAndDropPlugin } from '@antv/g-plugin-dragndrop';

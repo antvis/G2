@@ -1,3 +1,4 @@
+import { Coordinate } from '@antv/coord';
 import { AnnotationText } from '../../../../src/shape';
 import { mount, createDiv } from '../../../utils/dom';
 import { draw, style } from '../helper';
@@ -10,7 +11,7 @@ describe('AnnotationText shape', () => {
   });
 
   it('AnnotationText() returns a function draw CustomElement (textAnnotation)', () => {
-    const shape = AnnotationText({})([[0, 0]], {}, null, {
+    const shape = AnnotationText({})([[0, 0]], {}, new Coordinate(), {
       defaultColor: 'red',
     });
     expect(shape.style.fill).toBe('red');

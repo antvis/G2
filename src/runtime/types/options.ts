@@ -86,6 +86,7 @@ export type G2Mark = {
   dataDomain?: number;
   frame?: boolean;
   style?: Record<string, Primitive>;
+  labels?: Record<string, any>[];
 };
 
 export type G2MarkChildrenCallback = (
