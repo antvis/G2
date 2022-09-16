@@ -20,8 +20,11 @@ describe('#4141', () => {
     const startTime = performance.now();
     const chart = new Chart({
       container: createDiv(),
+      autoFit: true,
+      height: 200,
     });
     chart.data(data);
+    chart.interval().position('type*value');
 
     // 添加文本标注
     data.forEach((item) => {
@@ -31,16 +34,38 @@ describe('#4141', () => {
           position: [item.type, item.value],
           content: item.value,
           offsetY: -30,
+          style: { fill: 'red' },
         })
         .text({
           position: [item.type, item.value],
           content: (item.percent * 100).toFixed(0) + '%',
           offsetY: -12,
+          style: { fill: 'blue' },
         });
     });
 
     chart.render();
+    console.timeEnd('init');
+
     // Actual cost less than 1500ms.
     expect(performance.now() - startTime).toBeLessThan(5000);
+
+    // update annotation
+    chart.getController('annotation').clear(true);
+    data.forEach((item) => {
+      chart
+        .annotation()
+        .text({
+          position: [item.type, item.value],
+          content: item.value,
+          offsetY: -10,
+        })
+        .shape({
+          render() {
+            return 'hello';
+          },
+        });
+    });
+    chart.render();
   });
 });

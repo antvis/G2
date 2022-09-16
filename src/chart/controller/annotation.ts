@@ -73,7 +73,7 @@ export default class Annotation extends Controller<BaseOption[]> {
     return 'annotation';
   }
 
-  public init() { }
+  public init() {}
 
   /**
    * 因为 annotation 需要依赖坐标系信息，所以 render 阶段为空方法，实际的创建逻辑都在 layout 中
@@ -83,15 +83,16 @@ export default class Annotation extends Controller<BaseOption[]> {
   }
 
   // 因为 Annotation 不参与布局，但是渲染的位置依赖于坐标系，所以可以将绘制阶段延迟到 layout() 进行
-  public render() { }
+  public render() {}
 
   /**
    * 更新
    */
   public update() {
-    // 1. 先处理需要在图形渲染之后的辅助组件 需要在 Geometry 完成之后，拿到图形信息
+    // 正常情况下，在 1 之后才执行。需要同步 cache;
+    // 2. 处理需要在图形渲染之后的辅助组件 需要在 Geometry 完成之后，拿到图形信息
     this.onAfterRender(() => {
-      const updated = new Map<BaseOption, ComponentOption>();
+      const updated = new Map<BaseOption, ComponentOption>(this.cache);
       // 先看是否有 regionFilter/shape 要更新
       each(this.option, (option: BaseOption) => {
         if (includes(ANNOTATIONS_AFTER_RENDER, option.type)) {
@@ -105,10 +106,10 @@ export default class Annotation extends Controller<BaseOption[]> {
 
       // 处理完成之后，更新 cache
       // 处理完成之后，销毁删除的
-      this.cache = this.syncCache(updated);
+      this.cache = updated;
     });
 
-    // 2. 处理非 regionFilter
+    // 1. 处理同步渲染的 annotation
     const updateCache = new Map<BaseOption, ComponentOption>();
     each(this.option, (option: BaseOption) => {
       if (!includes(ANNOTATIONS_AFTER_RENDER, option.type)) {
@@ -119,7 +120,7 @@ export default class Annotation extends Controller<BaseOption[]> {
         }
       }
     });
-    this.cache = this.syncCache(updateCache);
+    this.cache = updateCache;
   }
 
   /**
@@ -181,7 +182,7 @@ export default class Annotation extends Controller<BaseOption[]> {
         // 如果 geometry 开启，则监听
         if (g.animateOption) {
           g.once(GEOMETRY_LIFE_CIRCLE.AFTER_DRAW_ANIMATE, () => {
-          doWhat();
+            doWhat();
           });
           done = true;
         }
@@ -719,34 +720,6 @@ export default class Annotation extends Controller<BaseOption[]> {
       }
     }
     return co;
-  }
-
-  /**
-   * 更新缓存，以及销毁组件
-   * @param updated 更新或者创建的组件
-   */
-  private syncCache(updated: Map<BaseOption, ComponentOption>) {
-    const newCache = new Map(this.cache); // clone 一份
-
-    // 将 update 更新到 cache
-    updated.forEach((co: ComponentOption, key: BaseOption) => {
-      newCache.set(key, co);
-    });
-
-    // 另外和 options 进行对比，删除
-    newCache.forEach((co: ComponentOption, key: BaseOption) => {
-      // option 中已经找不到，那么就是删除的
-      if (
-        !find(this.option, (option: BaseOption) => {
-          return key === this.getCacheKey(option);
-        })
-      ) {
-        co.component.destroy();
-        newCache.delete(key);
-      }
-    });
-
-    return newCache;
   }
 
   /**
