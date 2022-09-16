@@ -27,7 +27,7 @@ describe('Polygon', () => {
         { type: 'maybeTitleX' },
         { type: 'maybeTooltipY' },
       ],
-      shapes: ['polygon'],
+      shapes: ['polygon', 'ribbon'],
     });
   });
 

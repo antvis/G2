@@ -36,17 +36,14 @@ export { AnnotationBadge } from './annotation/badge';
 export { Area } from './area/area';
 export { SmoothArea } from './area/smoothArea';
 export { Link } from './link/link';
+export { SmoothEdge } from './link/smoothEdge';
+export { VHVEdge } from './link/vhv';
+export { Arc } from './link/arc';
 export { Image } from './image/image';
 export { Polygon } from './polygon/polygon';
+export { Ribbon } from './polygon/ribbon';
 export { Box } from './box/box';
 // For relation diagram (node and edge).
-export { Point as PointNode } from './node/point';
-export { Polygon as PolygonNode } from './node/polygon';
-export { Edge } from './edge/edge';
-export { SmoothEdge } from './edge/smoothEdge';
-export { VHVEdge } from './edge/vhv';
-export { Arc } from './edge/arc';
-export { Ribbon } from './edge/ribbon';
 
 export { AnnotationLine as AnnotationLine } from './annotation/line';
 export { Connector as AnnotationConnector } from './annotation/connector';
