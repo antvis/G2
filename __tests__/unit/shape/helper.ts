@@ -49,7 +49,7 @@ export function draw({
 
   const canvas = Canvas(width, height, container);
   return new Promise((resolve) => {
-    canvas.addEventListener(CanvasEvent.READY, async () => {
+    canvas.addEventListener(CanvasEvent.READY, () => {
       canvas.appendChild(shape);
       resolve(shape);
     });

@@ -1,4 +1,4 @@
-import { DisplayObject, Rect, Animation as GAnimation } from '@antv/g';
+import { DisplayObject, Rect, IAnimation as GAnimation } from '@antv/g';
 import { Coordinate } from '@antv/coord';
 import { Animation, CoordinateTransform, G2Theme } from '../../../src/runtime';
 import { Cartesian } from '../../../src/coordinate';

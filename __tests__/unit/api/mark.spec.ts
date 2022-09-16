@@ -1,5 +1,4 @@
 import {
-  props,
   Area,
   Interval,
   Point,
@@ -37,7 +36,8 @@ function setOptions(node) {
     .paddingBottom(10)
     .paddingLeft(20)
     .paddingTop(30)
-    .paddingRight(40);
+    .paddingRight(40)
+    .label({ text: 'hello' });
 }
 
 function getOptions() {
@@ -59,6 +59,7 @@ function getOptions() {
     paddingLeft: 20,
     paddingTop: 30,
     paddingRight: 40,
+    labels: [{ text: 'hello' }],
   };
 }
 

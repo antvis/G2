@@ -1,5 +1,6 @@
-import { DisplayObject, Animation as GAnimation } from '@antv/g';
+import { DisplayObject, IAnimation as GAnimation } from '@antv/g';
 import { upperFirst } from '@antv/util';
+import { format } from 'd3-format';
 import { mapObject } from '../utils/array';
 import {
   copyAttributes,
@@ -44,8 +45,12 @@ import {
   LabelLayout,
 } from './types/component';
 import { MarkComponent, Mark, MarkChannel } from './types/mark';
-import { TransformComponent, Transform } from './types/transform';
-import { G2ViewDescriptor, G2MarkState, G2ViewInstance } from './types/common';
+import {
+  G2ViewDescriptor,
+  G2MarkState,
+  G2ViewInstance,
+  Primitive,
+} from './types/common';
 import { useLibrary } from './library';
 import { initializeMark } from './mark';
 import { inferComponent, renderComponent } from './component';
@@ -556,28 +561,32 @@ function plotLabel(
   library: G2Library,
 ) {
   const { markState, labelLayout } = view;
-  const labels = [];
   for (const [mark, state] of markState.entries()) {
-    const { key } = mark;
-    const mainLayer = selection.select(`#${key}`);
+    const { labels = [], key } = mark;
     const shapeFunction = createLabelShapeFunction(mark, state, view, library);
+    const mainLayer = selection.select(`#${key}`);
     mainLayer.selectAll('.element').each(function (data, index) {
-      if (data?.label === undefined) return;
-      const newLabel = shapeFunction(data, index, this);
-      const label = this.getElementById('.label');
-      if (!label) {
-        newLabel.id = 'label';
-        this.appendChild(newLabel);
-        labels.push(newLabel);
-        return;
-      }
-      labels.push(label);
-      // @todo Handle Label with different type.
-      copyAttributes(label, newLabel);
+      if (labels.length === 0) return;
+      select(this)
+        .selectAll('.label')
+        .data(labels, (d) => d.text)
+        .join(
+          (enter) =>
+            enter
+              .append((options) => shapeFunction(data, index, options, this))
+              .attr('class', 'label'),
+          (update) =>
+            update.each(function (options) {
+              // @todo Handle Label with different type.
+              const node = shapeFunction(data, index, options, this);
+              copyAttributes(this, node);
+            }),
+          (exit) => exit.remove(),
+        );
     });
   }
-  // @todo applyLayout
-  if (labelLayout) labelLayout(labels);
+  const plottedLabels = selection.selectAll('.label').nodes();
+  if (labelLayout) labelLayout(plottedLabels);
 }
 
 function createLabelShapeFunction(
@@ -588,9 +597,39 @@ function createLabelShapeFunction(
 ): (
   data: Record<string, any>,
   index: number,
-  element?: DisplayObject,
+  options: Record<string, any>,
+  element: DisplayObject,
 ) => DisplayObject {
-  return createShapeFunction('labelShape', mark, state, view, library);
+  const [useShape] = useLibrary<G2ShapeOptions, ShapeComponent, Shape>(
+    'shape',
+    library,
+  );
+  const { data: abstractData } = mark;
+  const { index: I, data: visualData, defaultLabelShape } = state;
+  const point2d = visualData.map((d) => d.points);
+  const { theme, coordinate } = view;
+  return (data, index, options, element) => {
+    const i = I[index];
+    const datum = abstractData[i];
+    const { formatter = (d) => `${d}`, ...abstractOptions } = options;
+    const visualOptions = mapObject(abstractOptions, (d) => valueOf(datum, d));
+    const { shape = defaultLabelShape, text, ...style } = visualOptions;
+    const f = typeof formatter === 'string' ? format(formatter) : formatter;
+    const value = { ...style, element, text: f(text) };
+    const shapeFunction = useShape({ type: shape, ...style });
+    const { points } = data;
+    return shapeFunction(points, value, coordinate, theme, point2d);
+  };
+}
+
+function valueOf(
+  data: Record<string, any>,
+  value: Primitive | ((d: any) => any),
+) {
+  if (typeof value === 'function') return value(data);
+  if (typeof value !== 'string') return value;
+  if (data[value] !== undefined) return data[value];
+  return value;
 }
 
 function selectFacetElements(
@@ -630,16 +669,6 @@ function createMarkShapeFunction(
   state: G2MarkState,
   view: G2ViewDescriptor,
   library: G2Library,
-): (data: Record<string, any>, index: number) => DisplayObject {
-  return createShapeFunction('shape', mark, state, view, library);
-}
-
-function createShapeFunction(
-  type: 'shape' | 'labelShape',
-  mark: G2Mark,
-  state: G2MarkState,
-  view: G2ViewDescriptor,
-  library: G2Library,
 ): (
   data: Record<string, any>,
   index: number,
@@ -649,18 +678,14 @@ function createShapeFunction(
     'shape',
     library,
   );
-  const upperType = upperFirst(type) as 'Shape' | 'LabelShape';
-  const defaultKey:
-    | 'defaultShape'
-    | 'defaultLabelShape' = `default${upperType}`;
-  const { [defaultKey]: defaultShape, data } = state;
+  const { defaultShape, data } = state;
   const point2d = data.map((d) => d.points);
   const { theme, coordinate } = view;
   const { style } = mark;
-  return (data, index, element?) => {
-    const { [type]: shape, points, ...v } = data;
-    const value = { ...v, index, element };
-    const normalizedShape = normalizeOptions(shape || defaultShape);
+  return (data, index) => {
+    const { shape = defaultShape, points, ...v } = data;
+    const value = { ...v, index };
+    const normalizedShape = normalizeOptions(shape);
     const shapeFunction = useShape({ ...normalizedShape, ...style });
     return shapeFunction(points, value, coordinate, theme, point2d);
   };

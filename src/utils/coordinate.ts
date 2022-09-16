@@ -27,3 +27,7 @@ export function isFisheye(coordinate: Coordinate): boolean {
   const { transformations } = coordinate.getOptions();
   return transformations.some(([type]) => type === 'fisheye');
 }
+
+export function isCircular(coordinate: Coordinate): boolean {
+  return isHelix(coordinate) || isParallel(coordinate);
+}
