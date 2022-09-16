@@ -40,5 +40,5 @@ Link.props = {
     { type: 'maybeTitleX' },
     { type: 'maybeTooltipY' },
   ],
-  shapes: ['link'],
+  shapes: ['link', 'arc', 'vhv', 'smoothEdge'],
 };

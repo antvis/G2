@@ -1,14 +1,12 @@
-// import { tree } from 'd3-hierarchy';
-// import { TransformComponent as TC } from '../runtime';
-// import { TreeTransform } from '../spec';
-// import { hierarchyFunction } from './cluster';
+import { tree } from 'd3-hierarchy';
+import { DataComponent as DC } from '../runtime';
+import { TreeTransform } from '../spec';
+import { hierarchyFunction } from './cluster';
 
-// export type TreeOptions = Omit<TreeTransform, 'type'>;
+export type TreeOptions = Omit<TreeTransform, 'type'>;
 
-// export const Tree: TC<TreeOptions> = hierarchyFunction(tree);
+export const Tree: DC<TreeOptions> = (options) => {
+  return hierarchyFunction(tree)(options);
+};
 
-// Tree.props = {
-//   category: 'preprocessor',
-// };
-
-export {};
+Tree.props = {};
