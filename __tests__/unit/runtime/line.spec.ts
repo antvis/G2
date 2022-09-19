@@ -313,14 +313,17 @@ describe('line', () => {
           type: 'fetch',
           value:
             'https://gw.alipayobjects.com/os/bmw-prod/96cd81b5-54a4-4fe8-b778-502b2114df58.json',
-          callback: ({ Year, ...rest }) => ({
-            Year: new Date(Year),
-            ...rest,
-          }),
           transform: [
             {
+              type: 'map',
+              callback: ({ Year, ...rest }) => ({
+                Year: new Date(Year),
+                ...rest,
+              }),
+            },
+            {
               type: 'filterBy',
-              fields: ['Horsepower', 'Miles_per_Gallon'],
+              fields: [['Horsepower'], ['Miles_per_Gallon']],
             },
           ],
         },
