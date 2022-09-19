@@ -38,7 +38,7 @@
       type: 'fetch',
       value: 'https://gw.alipayobjects.com/os/bmw-prod/87092954-aed4-48b2-93ba-b07b255f04a2.csv',
       format: 'csv',
-      callback: (d) => Object.assign(d, { weight: +d.weight }),
+      autoType: true
     })
     .encode('x', 'to')
     .encode('y', 'from')
@@ -96,7 +96,7 @@
     .data({
       type: 'fetch',
       value: 'https://gw.alipayobjects.com/os/bmw-prod/96cd81b5-54a4-4fe8-b778-502b2114df58.json',
-      callback: (d) => Object.assign(d, { year: new Date(d.year) }),
+      autoType: true,
       transform: [
         {
           type: 'filterBy',

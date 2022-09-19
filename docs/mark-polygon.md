@@ -39,7 +39,7 @@
       value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/voronoi.json',
       transform: [
         {
-          type: 'connector',
+          type: 'custom',
           callback: layout,
         },
       ],
@@ -95,7 +95,7 @@
   chart.data({
     type: 'fetch',
     value: 'https://gw.alipayobjects.com/os/bmw-prod/5155ef81-db23-49f3-b72b-d436a219d289.json',
-    transform: [{ type: 'connector', callback: layout }],
+    transform: [{ type: 'custom', callback: layout }],
   });
 
   chart

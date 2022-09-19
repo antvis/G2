@@ -74,15 +74,15 @@
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/233673d6-9c84-4ba2-98be-992fb1b34593.json',
     transform: [
-      { type: 'connector', callback: flatten },
-      { type: 'connector', callback: layout },
+      { type:'custom', callback: flatten },
+      { type:'custom', callback: layout },
     ],
   });
 
   chart
     .link()
     .data({
-      transform: [{ type: 'connector', callback: links }],
+      transform: [{ type:'custom', callback: links }],
     })
     .encode('x', [(d) => d.source.x, (d) => d.target.x])
     .encode('y', [(d) => d.source.y, (d) => d.target.y])
@@ -93,7 +93,7 @@
   chart
     .point()
     .data({
-      transform: [{ type: 'connector', callback: nodes }],
+      transform: [{ type:'custom', callback: nodes }],
     })
     .encode('x', 'x')
     .encode('y', 'y')
