@@ -1,6 +1,21 @@
+#### 4.2.8 (2022-09-19)
+
+##### Chores
+
+- remove map demo ([#4127](https://github.com/antvis/g2/pull/4127)) ([066df6f8](https://github.com/antvis/g2/commit/066df6f8dbaff9bfa656bdc773b4d185f12383ec))
+
+##### Documentation Changes
+
+- 移除地图 demo ([#4126](https://github.com/antvis/g2/pull/4126)) ([f64209c7](https://github.com/antvis/g2/commit/f64209c744adbf5b4c5332f792d018e7a3e86432))
+
+##### Bug Fixes
+
+- **#4141:** avoid cost O(n^2) to getComponents ([#4149](https://github.com/antvis/g2/pull/4149)) ([8aa52612](https://github.com/antvis/g2/commit/8aa52612d40b9f9508cae9d906a5e874cc35227f))
+
 #### 4.2.6 (2022-08-04)
 
 ##### Documentation Changes
+
 - **md:** 更新钉钉群号 ([#4048](https://github.com/antvis/G2/pull/4048)) ([165747a](https://github.com/antvis/G2/pull/4048/commits/165747adc4c5f596921b8231d62e36ecb2c42ff2))
 
 ##### Bug Fixes
@@ -8,7 +23,6 @@
 - **label:** label 可以配置 是否支持捕获 ([#4064](https://github.com/antvis/G2/pull/4064)) ([7ff3941](https://github.com/antvis/G2/pull/4064/commits/7ff39416cfd6d1b142bf96264fea58a3b6af41f6))
 - **toolitp:** 增加 tooltip marker 回调，以和 point 的不同形状保持一致 ([#4039](https://github.com/antvis/G2/pull/4039)) ([7b16ce7](https://github.com/antvis/G2/pull/4039/commits/7b16ce725da38e74703949c69b1cf458d316aaea))
 - **annotation:** 修复 annotation shape/regionFilter 在 geometries 没有动画没有渲染的问题 ([#4035](https://github.com/antvis/G2/pull/4035)) ([dcb8cf4](https://github.com/antvis/G2/pull/4035/commits/dcb8cf4e0f37c5289c719545e922e8fd5340cc84))
-
 
 #### 4.2.5 (2022-07-06)
 
