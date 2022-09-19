@@ -1,4 +1,4 @@
-import { Rect, Animation } from '@antv/g';
+import { Rect, IAnimation } from '@antv/g';
 import { ScaleInX } from '../../../src/animation';
 import { Transpose } from '../../../src/coordinate';
 import { mount, createDiv } from '../../utils/dom';
@@ -22,12 +22,12 @@ describe('ScaleInX', () => {
       'scale(0.0001, 1)',
       'scale(1, 1)',
     ]);
-    expect(keyframes(animation, 'fillOpacity')).toEqual([0, '', undefined]);
-    expect(keyframes(animation, 'strokeOpacity')).toEqual([0, '', undefined]);
-    expect(keyframes(animation, 'opacity')).toEqual([0, '', undefined]);
+    expect(keyframes(animation, 'fillOpacity')).toEqual([0, '', '']);
+    expect(keyframes(animation, 'strokeOpacity')).toEqual([0, '', '']);
+    expect(keyframes(animation, 'opacity')).toEqual([0, '', '']);
     expect(keyframes(animation, 'offset')).toEqual([null, 0.01, null]);
 
-    await (animation as Animation).finished;
+    await (animation as IAnimation).finished;
     expect(shape.getOrigin()).toEqual(new Float32Array([0, 0, 0]));
   });
 

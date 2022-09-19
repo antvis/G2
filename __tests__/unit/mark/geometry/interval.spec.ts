@@ -23,11 +23,7 @@ describe('Interval', () => {
         { name: 'y', required: true },
         { name: 'series', scale: 'band' },
       ],
-      preInference: [
-        { type: 'maybeZeroY1' },
-        { type: 'maybeZeroX' },
-        { type: 'maybeStackY', series: true },
-      ],
+      preInference: [{ type: 'maybeZeroY1' }, { type: 'maybeZeroX' }],
       postInference: [
         { type: 'maybeKey' },
         { type: 'maybeTitleX' },
