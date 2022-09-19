@@ -510,7 +510,7 @@ describe('statistic', () => {
         value:
           'https://gw.alipayobjects.com/os/bmw-prod/62fd7bf5-beb5-4791-9b62-6c66fa0204da.json',
       },
-      transform: [{ type: 'dodgeX', paddingInner: 0.3, paddingOuter: 0.1 }],
+      transform: [{ type: 'dodgeX', padding: 0.1 }],
       encode: {
         x: 'type',
         y: 'bin',

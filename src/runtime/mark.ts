@@ -1,5 +1,6 @@
 import { group } from 'd3-array';
 import { defined } from '../utils/helper';
+import { unique } from '../utils/array';
 import { useLibrary } from './library';
 import { Channel, G2MarkState, G2Theme } from './types/common';
 import {
@@ -167,12 +168,12 @@ function createChannel(
 function mergeChannel(channels: Channel[]): Channel {
   const target: Channel = {};
   for (const source of channels) {
-    const { value: targetValue = [], field: targetField } = target;
-    const { value: sourceValue = [], field: sourceField } = source;
+    const { value: targetValue = [] } = target;
+    const { value: sourceValue = [] } = source;
     Object.assign(target, source);
     target.value = [...targetValue, ...sourceValue];
-    target.field = sourceField == null ? targetField : sourceField;
   }
+  target.field = unique(channels.flatMap((d) => d.field).filter(defined));
   return target;
 }
 

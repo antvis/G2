@@ -240,6 +240,14 @@ function getGridItems(
   });
 }
 
+function titleContent(field: string | string[]): string {
+  return Array.isArray(field)
+    ? field.length > 1
+      ? field.join(', ')
+      : field[0]
+    : field;
+}
+
 const ArcAxis = (options) => {
   const { position, formatter = (d) => `${d}` } = options;
   return (scale, value, coordinate, theme) => {
@@ -331,6 +339,7 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
             ? {
                 tickPadding: labelOffset,
                 autoHide: false,
+                autoRotate: true,
                 style: {},
               }
             : null,
@@ -352,7 +361,7 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
           ...(field &&
             title && {
               title: {
-                content: Array.isArray(field) ? field[0] : field,
+                content: titleContent(field),
                 titleAnchor: anchor,
                 style: {
                   fontWeight: 'bold',

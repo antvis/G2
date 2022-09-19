@@ -165,6 +165,7 @@ import {
   SelectY,
   GroupX,
   SortX,
+  FlexX,
 } from '../transform';
 import {
   Fetch,
@@ -225,6 +226,7 @@ export function createLibrary(): G2Library {
     'transform.maybeZeroY': MaybeZeroY,
     'transform.maybeKey': MaybeKey,
     'transform.sortX': SortX,
+    'transform.flexX': FlexX,
     'coordinate.cartesian': Cartesian,
     'coordinate.polar': Polar,
     'coordinate.helix': Helix,

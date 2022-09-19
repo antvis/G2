@@ -87,6 +87,7 @@ export type BaseGeometry<
   facet?: boolean;
   frame?: boolean;
   labels?: Record<string, any>[];
+  stack?: boolean;
   animate?: {
     enter?: Animation;
     exit?: Animation;

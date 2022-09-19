@@ -41,6 +41,13 @@ function inferPosition(position: LabelPosition, coordinate: Coordinate) {
   return 'top';
 }
 
+function maybePercentage(x: number | string, size: number) {
+  if (x === undefined) return null;
+  if (typeof x === 'number') return x;
+  const px = +x.replace('%', '');
+  return Number.isNaN(px) ? null : (px / 100) * size;
+}
+
 function inferNonCircularStyle(
   position: LabelPosition,
   points: Vector2[],
@@ -51,20 +58,32 @@ function inferNonCircularStyle(
   const { halfExtents } = getLocalBounds(element);
   const w = halfExtents[0] * 2;
   const h = halfExtents[1] * 2;
-  if (position === 'left')
-    return { x: 0, y: h / 2, textAnchor: 'start', textBaseline: 'middle' };
-  if (position === 'right')
-    return { x: w, y: h / 2, textAnchor: 'end', textBaseline: 'middle' };
-  if (position === 'bottom')
-    return { x: w / 2, y: h, textAnchor: 'center', textBaseline: 'bottom' };
-  if (position === 'inside')
+  const xy = (options) => {
+    const { x, y } = value;
+    const px = maybePercentage(x, w);
+    const py = maybePercentage(y, h);
     return {
+      ...options,
+      ...(px !== null && { x }),
+      ...(py !== null && { y }),
+    };
+  };
+  if (position === 'left')
+    return xy({ x: 0, y: h / 2, textAnchor: 'start', textBaseline: 'middle' });
+  if (position === 'right')
+    return xy({ x: w, y: h / 2, textAnchor: 'end', textBaseline: 'middle' });
+  if (position === 'bottom')
+    return xy({ x: w / 2, y: h, textAnchor: 'center', textBaseline: 'bottom' });
+  if (position === 'inside')
+    return xy({
       x: w / 2,
       y: h / 2,
       textAnchor: 'center',
       textBaseline: 'middle',
-    };
-  return { x: w / 2, y: 0, textAnchor: 'center', textBaseline: 'bottom' };
+    });
+  if (position === 'top')
+    return xy({ x: w / 2, y: 0, textAnchor: 'center', textBaseline: 'bottom' });
+  return xy({});
 }
 
 function inferCircularStyle(
