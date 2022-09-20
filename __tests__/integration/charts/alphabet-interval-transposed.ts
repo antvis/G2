@@ -1,12 +1,11 @@
-import { G2Spec } from '../../../src/';
+import { G2Spec } from '../../../src';
 
-export function alphabetBarChartHorizontal(): G2Spec {
+export function alphabetIntervalTransposed(): G2Spec {
   return {
     type: 'interval',
     data: {
       type: 'fetch',
       value: 'data/alphabet.csv',
-      format: 'csv',
     },
     width: 800,
     height: 600,

@@ -20,6 +20,7 @@ export { SelectX } from './SelectX';
 export { SelectY } from './SelectY';
 export { GroupX } from './groupX';
 export { SortX } from './sortX';
+export { FlexX } from './flexX';
 
 export type { MaybeZeroY1Options } from './maybeZeroY1';
 export type { MaybeStackYOptions } from './maybeStackY';
@@ -43,3 +44,4 @@ export type { SelectXOptions } from './SelectX';
 export type { SelectYOptions } from './SelectY';
 export type { GroupXOptions } from './groupX';
 export type { SortXOptions } from './sortX';
+export type { FlexXOptions } from './flexX';

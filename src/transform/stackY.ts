@@ -7,17 +7,25 @@ import { normalizeComparator, createGroups, applyOrder } from './utils/order';
 export type StackYOptions = Omit<StackYTransform, 'type'>;
 
 /**
- * The stack transform group marks into series by color or series channel,
+ * The stack transform group marks into series by color channel,
  * and then produce new y channel for each series by specified order,
  * say to form vertical "stacks" by specified channels.
  */
 export const StackY: TC<StackYOptions> = (options = {}) => {
-  const { groupBy = 'x', orderBy, reverse = false, y: from = 'y' } = options;
-  return (I, mark, context) => {
+  const {
+    groupBy = 'x',
+    orderBy = null,
+    reverse = false,
+    y: from = 'y',
+    series = true,
+  } = options;
+  return (I, mark) => {
     const { data, encode } = mark;
     const [Y, fy] = columnOf(encode, 'y');
     const [Y1, fy1] = columnOf(encode, 'y1');
-    const [S] = maybeColumnOf(encode, 'series', 'color');
+    const [S] = series
+      ? maybeColumnOf(encode, 'series', 'color')
+      : columnOf(encode, 'color');
 
     // Create groups and apply specified order for each group.
     const groups = createGroups(groupBy, I, mark);
@@ -28,16 +36,33 @@ export const StackY: TC<StackYOptions> = (options = {}) => {
     // Stack y channels to produce new y and y1 channel.
     const newY = new Array(I.length);
     const newY1 = new Array(I.length);
+    const TY = new Array(I.length);
     for (const G of groups) {
       if (reverse) G.reverse();
       // For range interval with specified y and y1.
       const start = Y1 ? +Y1[G[0]] : 0;
-      let py = start; // Positive y for next y to stack on.
-      let ny = start; // Negative y for next y to stack on.
+
+      // Split positive indices of Y and negative Y.
+      const PG = [];
+      const NG = [];
       for (const i of G) {
-        const y = +Y[i] - start;
-        if (y < 0) ny = newY[i] = (newY1[i] = ny) + y;
-        else if (y > 0) py = newY[i] = (newY1[i] = py) + y;
+        const y = (TY[i] = +Y[i] - start);
+        if (y < 0) NG.push(i);
+        else if (y >= 0) PG.push(i);
+      }
+
+      // Stack negative y in reverse order.
+      let ny = start;
+      for (const i of NG.reverse()) {
+        const y = TY[i];
+        ny = newY[i] = (newY1[i] = ny) + y;
+      }
+
+      // Stack positive y in input order.
+      let py = start;
+      for (const i of PG) {
+        const y = TY[i];
+        if (y > 0) py = newY[i] = (newY1[i] = py) + y;
         else newY[i] = newY1[i] = py;
       }
     }

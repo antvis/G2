@@ -45,6 +45,9 @@ export const ScaleInY: AC<ScaleInYOptions> = (options) => {
       },
       {
         transform: `${prefix} scale(1, 1)`.trimStart(),
+        fillOpacity,
+        strokeOpacity,
+        opacity,
       },
     ];
 

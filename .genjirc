@@ -8,22 +8,24 @@
       "基础": "basic",
       "数据": "data",
       "转换": {
-        "Stack": "transform-stack",
-        "Dodge": "transform-dodge",
+        "StackY": "transform-stacky",
+        "DodgeX": "transform-dodgex",
         "SortX": "transform-sortx",
-        "Normalize": "transform-normalize",
+        "NormalizeY": "transform-normalizey",
+        "GroupX": "transform-groupx",
+        "FlexX": "transform-flexx",
         "Symmetry": "transform-symmetry",
         "Jitter": "transform-jitter",
         "Select": "transform-select",
-        "Group": "transform-group",
         "Pack": "transform-pack",
         "StackEnter": "transform-stack-enter"
       },
       "比例尺": {
         "概述": "scale-overview"
       },
-      "Coordinate": "coordinate",
-      "标记（Mark）": {
+      "坐标系": "coordinate",
+      "标记": {
+        "概述": "mark-overview",
         "Interval": "mark-interval",
         "Point": "mark-point",
         "Line": "mark-line",
@@ -35,13 +37,10 @@
         "Image": "mark-image",
         "Polygon": "mark-polygon",
         "Box": "mark-box",
-        "Graph": "mark-graph",
         "Annotation": "mark-annotation",
         "Component": "mark-component",
-        "复合（Mix）": {
-          "Graph": "mark-graph",
-          "Mix": "mark-mix"
-        }
+        "Graph": "mark-graph",
+        "Mix": "mark-mix"
       },
       "视图复合": {
         "Spatial": "composition-spatial",

@@ -1,2 +1,13 @@
-export { alphabetBarChart } from './alphabet-bar-chart';
-export { alphabetBarChartHorizontal } from './alphabet-bar-chart-horizontal';
+export { alphabetInterval } from './alphabet-interval';
+export { alphabetIntervalTransposed } from './alphabet-interval-transposed';
+export { stateAgesIntervalStacked } from './stateages-interval-stacked';
+export { stateAgesIntervalGrouped } from './stateages-interval-grouped';
+export { questionsIntervalDivergingStacked } from './questions-interval-diverging-stacked';
+export { seattleWeatherIntervalAggregated } from './seattle-weather-interval-aggregated';
+export { populationIntervalLayered } from './population-interval-layered';
+export { populationIntervalNormalizedStacked } from './population-interval-normalized-stacked';
+export { profitIntervalRange } from './profit-interval-range';
+export { gdpIntervalFlex } from './gdp-interval-flex';
+export { populationIntervalDiverging } from './population-interval-diverging';
+export { marketIntervalMarimekko } from './market-interval-marimekko';
+export { productIntervalStackedGrouped } from './product-interval-stacked-grouped';
