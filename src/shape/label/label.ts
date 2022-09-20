@@ -103,8 +103,6 @@ function inferNonCircularStyle(
       textAnchor: 'center',
       textBaseline: 'middle',
     });
-  if (position === 'top')
-    return xy({ x: w / 2, y: 0, textAnchor: 'center', textBaseline: 'bottom' });
   return xy({});
 }
 
