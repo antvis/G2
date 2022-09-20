@@ -37,7 +37,12 @@
         "Image": "mark-image",
         "Polygon": "mark-polygon",
         "Box": "mark-box",
-        "Annotation": "mark-annotation",
+        "LineX": "mark-linex",
+        "LineY": "mark-lineY",
+        "Range": "mark-range",
+        "RangeX": "mark-rangeX",
+        "RangeY": "mark-rangeY",
+        "Connector": "mark-connector",
         "Component": "mark-component",
         "Graph": "mark-graph",
         "Mix": "mark-mix"
