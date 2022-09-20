@@ -78,12 +78,24 @@ function inferNonCircularStyle(
       ...(py !== null && { y }),
     };
   };
+  // 4 direction.
   if (position === 'left')
     return xy({ x: 0, y: h / 2, textAnchor: 'start', textBaseline: 'middle' });
   if (position === 'right')
     return xy({ x: w, y: h / 2, textAnchor: 'end', textBaseline: 'middle' });
+  if (position === 'top')
+    return xy({ x: w / 2, y: 0, textAnchor: 'center', textBaseline: 'top' });
   if (position === 'bottom')
     return xy({ x: w / 2, y: h, textAnchor: 'center', textBaseline: 'bottom' });
+  // 4 corner position.
+  if (position === 'top-left')
+    return xy({ x: 0, y: 0, textAnchor: 'start', textBaseline: 'top' });
+  if (position === 'top-right')
+    return xy({ x: w, y: 0, textAnchor: 'end', textBaseline: 'top' });
+  if (position === 'bottom-left')
+    return xy({ x: 0, y: h, textAnchor: 'start', textBaseline: 'bottom' });
+  if (position === 'bottom-right')
+    return xy({ x: w, y: h, textAnchor: 'end', textBaseline: 'bottom' });
   if (position === 'inside')
     return xy({
       x: w / 2,
