@@ -1,4 +1,4 @@
-import { Coordinate, Vector } from '@antv/coord';
+import { Coordinate } from '@antv/coord';
 import { DisplayObject, Text } from '@antv/g';
 import { select } from '../../utils/selection';
 import { ShapeComponent as SC, Vector2 } from '../../runtime';
@@ -10,7 +10,17 @@ import {
   isCircular,
 } from '../../utils/coordinate';
 
-type LabelPosition = 'top' | 'left' | 'right' | 'bottom' | 'inside' | 'outside';
+type LabelPosition =
+  | 'top'
+  | 'left'
+  | 'right'
+  | 'bottom'
+  | 'top-left'
+  | 'top-right'
+  | 'bottom-left'
+  | 'bottom-right'
+  | 'inside'
+  | 'outside';
 
 export type LabelOptions = Record<string, any>;
 
