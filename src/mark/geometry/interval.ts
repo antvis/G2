@@ -60,7 +60,6 @@ Interval.props = {
     ...basePreInference(),
     { type: 'maybeZeroY1' },
     { type: 'maybeZeroX' },
-    { type: 'maybeStackY', series: true },
   ],
   postInference: [
     ...basePostInference(),

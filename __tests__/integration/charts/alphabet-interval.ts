@@ -1,13 +1,12 @@
-import { G2Spec } from '../../../src/';
+import { G2Spec } from '../../../src';
 
-export function alphabetBarChart(): G2Spec {
+export function alphabetInterval(): G2Spec {
   return {
     type: 'interval',
     transform: [{ type: 'sortX', channel: 'y', reverse: true }],
     data: {
       type: 'fetch',
       value: 'data/alphabet.csv',
-      format: 'csv',
     },
     scale: {
       y: { formatter: '.0%' },

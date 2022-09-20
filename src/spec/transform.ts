@@ -13,7 +13,8 @@ export type Transform =
   | SelectXTransform
   | SelectYTransform
   | GroupXTransform
-  | SortXTransform;
+  | SortXTransform
+  | FlexXTransform;
 
 export type TransformTypes =
   | 'dodgeX'
@@ -28,6 +29,7 @@ export type TransformTypes =
   | 'selectX'
   | 'groupX'
   | 'sortX'
+  | 'flexX'
   | TransformComponent;
 
 export type TransformOrder =
@@ -36,6 +38,7 @@ export type TransformOrder =
   | 'series'
   | 'maxIndex'
   | string[]
+  | null
   | ((data: Record<string, Primitive>) => Primitive);
 
 export type DodgeXTransform = {
@@ -43,8 +46,6 @@ export type DodgeXTransform = {
   groupBy?: string | string[];
   reverse?: boolean;
   orderBy?: TransformOrder;
-  paddingInner?: number;
-  paddingOuter?: number;
   padding?: number;
 };
 
@@ -54,6 +55,7 @@ export type StackYTransform = {
   reverse?: boolean;
   orderBy?: TransformOrder;
   y?: 'y' | 'y1';
+  series?: boolean;
 };
 
 export type NormalizeYTransform = {
@@ -68,8 +70,7 @@ export type NormalizeYTransform = {
     | 'mean'
     | 'median'
     | 'min'
-    | 'sum'
-    | 'extent';
+    | 'sum';
 };
 
 export type JitterTransform = {
@@ -123,7 +124,21 @@ export type SortXTransform = {
   type?: 'sortX';
   reverse?: boolean;
   channel?: string;
-  reducer?: 'max' | 'min' | ((I: number[], V: Primitive[]) => Primitive);
+  slice?: number | [number, number];
+  reducer?:
+    | 'max'
+    | 'min'
+    | 'sum'
+    | 'first'
+    | 'last'
+    | ((I: number[], V: Primitive[]) => Primitive);
+};
+
+export type FlexXTransform = {
+  type?: 'flexX';
+  field?: string | ((d: any) => Primitive[]);
+  channel?: string;
+  reducer?: 'sum' | ((I: number[], V: Primitive[]) => Primitive);
 };
 
 export type Reducer =
@@ -139,6 +154,4 @@ export type Reducer =
 
 export type GroupXTransform = {
   type?: 'groupX';
-  orderBy?: ChannelTypes;
-  reverse?: boolean;
 } & { [key in ChannelTypes]?: Reducer };

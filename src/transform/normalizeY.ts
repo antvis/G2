@@ -14,7 +14,6 @@ function normalizeBasis(basis: NormalizeYOptions['basis']) {
     first: (d) => d[0],
     last: (d) => d[d.length - 1],
     mean,
-    extent,
     median,
     sum,
     deviation,

@@ -240,7 +240,7 @@ For more complex situations, G2 use a **view tree** to describe multi-view displ
 
 Each node of the view tree has its own data, space, and time. In the view tree, a single view plot is called a **view node** and a mark is called a **mark node**. The type of the rest nodes is called **composition node** which divides the data domain, spatial domain, and temporal domain for the child node.
 
-The patial composition node always split its space for child spaces and passes the copy of its data, such as [flex node](/composition-spatial#row(flex)). Here we place the scatterplot and bar chart from left to right.
+The patial composition node always split its space for child spaces and passes the copy of its data, such as [flex node](</composition-spatial#row(flex)>). Here we place the scatterplot and bar chart from left to right.
 
 ```js
 (() => {
@@ -378,7 +378,7 @@ For example, we mount some plotted view nodes to a keyframe composition node as 
   const chart = new G2.Chart();
   const keyframe = chart
     .keyframe()
-    .iterationCount('infinite')
+    .iterationCount(10)
     .direction('alternate');
 
   // The first faceted packed scatterplot.
@@ -513,8 +513,6 @@ Existed general purpose visualization tools such as [D3.js](https://github.com/d
 When it comes to interaction, it is always with less concern as well as visual representations. Vega introduces high-level abstractions such as streams and signals to simplify the implementation of interactions. Yet it has a steep learning curve and may be difficult to be specified for complex interaction. Compare to that, G2 only abstract some intuitive action to compose most interactions(hopefully).
 
 What to make G2 better? Come and join us, it is still a work in progress!
-
-What to make G2 better? Come and join us, it is still work in progress!
 
 ## References
 
