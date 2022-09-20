@@ -40,6 +40,7 @@ export function marketIntervalMarimekko(): G2Spec {
         x: 5,
         y: 5,
         textAnchor: 'start',
+        textBaseline: 'bottom',
         dy: '1.5em',
         fontSize: 10,
         fill: '#fff',
