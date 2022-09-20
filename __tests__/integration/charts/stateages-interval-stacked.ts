@@ -6,8 +6,8 @@ export function stateAgesIntervalStacked(): G2Spec {
     paddingLeft: 50,
     width: 800,
     transform: [
-      { type: 'sortX', channel: 'y', reverse: true },
       { type: 'stackY' },
+      { type: 'sortX', channel: 'y', reverse: true },
     ],
     data: {
       type: 'fetch',

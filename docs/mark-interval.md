@@ -174,7 +174,7 @@
     .transform({ type: 'sortX', channel: 'y', reverse: true, slice: 6 })
     .transform({ type: 'dodgeX' })
     .encode('x', 'state')
-    .encode('y', (d) => +d.population)
+    .encode('y', 'population')
     .encode('color', 'age')
     .scale('y', { formatter: '~s' });
 
