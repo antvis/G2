@@ -1,0 +1,56 @@
+# Parallel
+
+Parallel 是平行坐标系变换，将笛卡尔直角坐标系坐标变换为平行坐标系下的坐标。
+
+
+## 快速开始
+
+```js
+(() => {
+  const chart = new G2.Chart({
+    width: 720,
+    paddingLeft: 60,
+  });
+
+  chart.coordinate({ type: 'parallel' });
+
+  chart
+    .line()
+    .data({
+      type: 'fetch',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/96cd81b5-54a4-4fe8-b778-502b2114df58.json',
+      callback: (d) => Object.assign(d, { year: new Date(d.year) }),
+      transform: [
+        {
+          type: 'filterBy',
+          // Filter data with defined Horsepower and Miles_per_Gallon.
+          fields: ['Horsepower', 'Miles_per_Gallon'],
+        },
+      ],
+    })
+    .encode('position', [
+      'Cylinders',
+      'Displacement',
+      'Weight_in_lbs',
+      'Horsepower',
+      'Acceleration',
+      'Miles_per_Gallon',
+      'Year',
+    ])
+    .encode('color', 'Origin')
+    .encode('size', 1.01)
+    .style('strokeOpacity', 0.3)
+    // zIndex of mark is default to 0.
+    // zIndex of component is default to -1.
+    // Set zIndex to 1 for component to draw above marks.
+    .scale('position', { nice: true, guide: { zIndex: 1 } })
+    .scale('position1', { nice: true, guide: { zIndex: 1 } })
+    .scale('position2', { nice: true, guide: { zIndex: 1 } })
+    .scale('position3', { nice: true, guide: { zIndex: 1 } })
+    .scale('position4', { nice: true, guide: { zIndex: 1 } })
+    .scale('position5', { nice: true, guide: { zIndex: 1 } });
+
+  return chart.render().node();
+})();
+```
