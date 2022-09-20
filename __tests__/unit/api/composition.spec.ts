@@ -17,15 +17,14 @@ import {
   Point,
   Polygon,
   Vector,
-  Text,
   Box,
-  AnnotationLineX,
-  AnnotationLineY,
-  AnnotationRange,
-  AnnotationRangeX,
-  AnnotationRangeY,
-  AnnotationText,
-  AnnotationConnector,
+  LineX,
+  LineY,
+  Range,
+  RangeX,
+  RangeY,
+  Text,
+  Connector,
 } from '../../../src/api/mark/mark';
 
 function expectToCreateMarks(node) {
@@ -40,13 +39,12 @@ function expectToCreateMarks(node) {
   expect(node.image()).toBeInstanceOf(Image);
   expect(node.text()).toBeInstanceOf(Text);
   expect(node.box()).toBeInstanceOf(Box);
-  expect(node.annotationLineX()).toBeInstanceOf(AnnotationLineX);
-  expect(node.annotationLineY()).toBeInstanceOf(AnnotationLineY);
-  expect(node.annotationRange()).toBeInstanceOf(AnnotationRange);
-  expect(node.annotationRangeX()).toBeInstanceOf(AnnotationRangeX);
-  expect(node.annotationRangeY()).toBeInstanceOf(AnnotationRangeY);
-  expect(node.annotationText()).toBeInstanceOf(AnnotationText);
-  expect(node.annotationConnector()).toBeInstanceOf(AnnotationConnector);
+  expect(node.lineX()).toBeInstanceOf(LineX);
+  expect(node.lineY()).toBeInstanceOf(LineY);
+  expect(node.range()).toBeInstanceOf(Range);
+  expect(node.rangeX()).toBeInstanceOf(RangeX);
+  expect(node.rangeY()).toBeInstanceOf(RangeY);
+  expect(node.connector()).toBeInstanceOf(Connector);
 }
 
 function expectToCreateCompositions(node) {

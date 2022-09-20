@@ -10,13 +10,12 @@ import {
   Image,
   Text,
   Box,
-  AnnotationText,
-  AnnotationLineX,
-  AnnotationLineY,
-  AnnotationRange,
-  AnnotationRangeX,
-  AnnotationRangeY,
-  AnnotationConnector,
+  LineX,
+  LineY,
+  Range,
+  RangeX,
+  RangeY,
+  Connector,
 } from './mark';
 
 export interface Mark {
@@ -31,13 +30,12 @@ export interface Mark {
   image(): Image;
   text(): Text;
   box(): Box;
-  annotationText(): AnnotationText;
-  annotationLineX(): AnnotationLineX;
-  annotationLineY(): AnnotationLineY;
-  annotationRange(): AnnotationRange;
-  annotationRangeX(): AnnotationRangeX;
-  annotationRangeY(): AnnotationRangeY;
-  annotationConnector(): AnnotationConnector;
+  lineX(): LineX;
+  lineY(): LineY;
+  range(): Range;
+  rangeX(): RangeX;
+  rangeY(): RangeY;
+  connector(): Connector;
 }
 
 export const mark = {
@@ -52,11 +50,10 @@ export const mark = {
   image: Image,
   text: Text,
   box: Box,
-  annotationText: AnnotationText,
-  annotationLineX: AnnotationLineX,
-  annotationLineY: AnnotationLineY,
-  annotationRange: AnnotationRange,
-  annotationRangeX: AnnotationRangeX,
-  annotationRangeY: AnnotationRangeY,
-  annotationConnector: AnnotationConnector,
+  lineX: LineX,
+  lineY: LineY,
+  range: Range,
+  rangeX: RangeX,
+  rangeY: RangeY,
+  connector: Connector,
 };
