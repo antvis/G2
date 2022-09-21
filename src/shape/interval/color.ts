@@ -6,7 +6,7 @@ import { isPolar, isHelix } from '../../utils/coordinate';
 import { select } from '../../utils/selection';
 import { applyStyle, appendPolygon, getArcObject } from '../utils';
 
-export type ColorRectOptions = {
+export type ColorOptions = {
   colorAttribute: 'fill' | 'stroke';
   [key: string]: any;
 };
@@ -19,7 +19,7 @@ export type ColorRectOptions = {
  * for grid geometry.
  * @todo Radius in rect.
  */
-export const ColorRect: SC<ColorRectOptions> = (options) => {
+export const Color: SC<ColorOptions> = (options) => {
   // Render border only when colorAttribute is stroke.
   const { colorAttribute, ...style } = options;
   const lineWidth = colorAttribute === 'stroke' ? 1 : 0;
@@ -57,6 +57,6 @@ export const ColorRect: SC<ColorRectOptions> = (options) => {
 };
 
 // @todo Should Shape have default animations using for ordinal scale?
-ColorRect.props = {
+Color.props = {
   defaultEnterAnimation: 'scaleInY',
 };

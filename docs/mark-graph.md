@@ -30,8 +30,8 @@ treeCoordinate = 'polar';
 ```
 
 
-```js | radio "options: { labels: ['smooth', 'vhv'], values: ['smoothEdge', 'vhvEdge'] }; pin: false"
-treeShape = 'smoothEdge';
+```js | radio "options: { labels: ['smooth', 'vhv'], values: ['smooth', 'vhv'] }; pin: false"
+treeShape = 'smooth';
 ```
 
 ```js

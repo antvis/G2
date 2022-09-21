@@ -27,7 +27,7 @@ describe('Link', () => {
         { type: 'maybeTitleX' },
         { type: 'maybeTooltipY' },
       ],
-      shapes: ['link', 'arc', 'VHVEdge', 'smoothEdge'],
+      shapes: ['link', 'arc', 'vhv', 'smooth'],
     });
   });
 

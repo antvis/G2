@@ -147,7 +147,7 @@ describe('Interaction', () => {
         x: 'height',
         y: 'weight',
         color: 'gender',
-        shape: 'hollowPoint',
+        shape: 'hollow',
       },
       interaction: [{ type: 'elementActive' }],
     });

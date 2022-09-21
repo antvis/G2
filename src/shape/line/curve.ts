@@ -5,13 +5,13 @@ import { select } from '../../utils/selection';
 import { ShapeComponent as SC } from '../../runtime';
 import { applyStyle, computeGradient } from '../utils';
 
-export type CurveLineOptions = {
+export type CurveOptions = {
   curve?: CurveFactory | CurveFactoryLineOnly;
   gradient?: boolean;
   [key: string]: any;
 };
 
-export const CurveLine: SC<CurveLineOptions> = (options) => {
+export const Curve: SC<CurveOptions> = (options) => {
   const { curve, gradient = false, ...style } = options;
   return (points, value, coordinate, theme) => {
     const { defaultColor, defaultSize } = theme;
@@ -39,6 +39,6 @@ export const CurveLine: SC<CurveLineOptions> = (options) => {
   };
 };
 
-CurveLine.props = {
+Curve.props = {
   defaultEnterAnimation: 'fadeIn',
 };

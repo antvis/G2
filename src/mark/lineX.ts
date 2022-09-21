@@ -22,10 +22,10 @@ export const LineX: MC<LineXOptions> = () => {
 };
 
 LineX.props = {
-  defaultShape: 'linkLine',
+  defaultShape: 'line',
   defaultLabelShape: 'label',
   channels: [...baseAnnotationChannels(), { name: 'x', required: true }],
   preInference: [...basePreInference()],
   postInference: [...basePostInference()],
-  shapes: ['linkLine'],
+  shapes: ['line'],
 };

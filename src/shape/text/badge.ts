@@ -6,10 +6,10 @@ import {
 } from '@antv/g';
 import { Marker } from '@antv/gui';
 import { ShapeComponent as SC } from '../../runtime';
-import { applyStyle } from '../../shape/utils';
+import { applyStyle } from '../utils';
 import { select } from '../../utils/selection';
 
-export type AnnotationBadgeOptions = BadgeShapeStyleProps & Record<string, any>;
+export type BadgeOptions = BadgeShapeStyleProps & Record<string, any>;
 
 type BadgeShapeStyleProps = BaseStyleProps & {
   size?: number;
@@ -92,7 +92,7 @@ class BadgeShape extends CustomElement<BadgeShapeStyleProps> {
   }
 }
 
-export const AnnotationBadge: SC<AnnotationBadgeOptions> = (options) => {
+export const Badge: SC<BadgeOptions> = (options) => {
   const { ...style } = options;
   return (points, value, coordinate, theme) => {
     const { defaultColor } = theme;
@@ -109,6 +109,6 @@ export const AnnotationBadge: SC<AnnotationBadgeOptions> = (options) => {
   };
 };
 
-AnnotationBadge.props = {
+Badge.props = {
   defaultEnterAnimation: 'fadeIn',
 };

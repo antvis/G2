@@ -152,7 +152,7 @@ Keyframe composition provide a convent mechanism to author storytelling. It can 
   const padding = (node) => node.paddingRight(86).paddingLeft(54);
   const encode = (node) =>
     node
-      .encode('shape', 'smoothArea')
+      .encode('shape', 'smooth')
       .encode('x', (d) => new Date(d.date))
       .encode('y', 'unemployed')
       .encode('color', 'industry')

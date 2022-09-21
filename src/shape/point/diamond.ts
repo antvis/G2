@@ -1,5 +1,5 @@
 import { ShapeComponent as SC } from '../../runtime';
-import { ColorPoint } from './colorPoint';
+import { Color } from './color';
 
 export type DiamondOptions = Record<string, any>;
 
@@ -7,9 +7,9 @@ export type DiamondOptions = Record<string, any>;
  * ◆
  */
 export const Diamond: SC<DiamondOptions> = (options) => {
-  return ColorPoint({ colorAttribute: 'fill', symbol: 'diamond', ...options });
+  return Color({ colorAttribute: 'fill', symbol: 'diamond', ...options });
 };
 
 Diamond.props = {
-  ...ColorPoint.props,
+  ...Color.props,
 };

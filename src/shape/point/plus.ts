@@ -1,5 +1,5 @@
 import { ShapeComponent as SC } from '../../runtime';
-import { ColorPoint } from './colorPoint';
+import { Color } from './color';
 
 export type PlusOptions = Record<string, any>;
 
@@ -7,9 +7,9 @@ export type PlusOptions = Record<string, any>;
  * +
  */
 export const Plus: SC<PlusOptions> = (options) => {
-  return ColorPoint({ colorAttribute: 'stroke', symbol: 'plus', ...options });
+  return Color({ colorAttribute: 'stroke', symbol: 'plus', ...options });
 };
 
 Plus.props = {
-  ...ColorPoint.props,
+  ...Color.props,
 };

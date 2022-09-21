@@ -64,7 +64,7 @@ describe('statistic', () => {
         x: 'year',
         y: 'sale',
         color: 'type',
-        shape: 'smoothArea',
+        shape: 'smooth',
       },
     });
 
@@ -112,7 +112,7 @@ describe('statistic', () => {
         color: { guide: { autoWrap: true, size: 68, maxRows: 3, cols: 4 } },
       },
       encode: {
-        shape: 'smoothArea',
+        shape: 'smooth',
         x: (d) => new Date(d.date),
         y: 'unemployed',
         color: 'industry',
@@ -135,7 +135,7 @@ describe('statistic', () => {
         y: { guide: { label: { formatter: (d) => `${+d.text / 1000}k` } } },
       },
       encode: {
-        shape: 'smoothArea',
+        shape: 'smooth',
         x: (d) => new Date(d.date),
         y: 'unemployed',
         color: 'industry',
@@ -158,7 +158,7 @@ describe('statistic', () => {
         y: { guide: { label: { formatter: (d) => `${+d.text / 1000}k` } } },
       },
       encode: {
-        shape: 'smoothArea',
+        shape: 'smooth',
         x: (d) => new Date(d.date),
         y: 'unemployed',
         color: 'industry',
@@ -181,7 +181,7 @@ describe('statistic', () => {
         y: { guide: { label: { formatter: (d) => `${+d.text / 1000}k` } } },
       },
       encode: {
-        shape: 'smoothArea',
+        shape: 'smooth',
         x: (d) => new Date(d.date),
         y: 'unemployed',
         color: 'industry',
@@ -204,7 +204,7 @@ describe('statistic', () => {
         y: { guide: { label: { formatter: (d) => `${+d.text / 1000}k` } } },
       },
       encode: {
-        shape: 'smoothArea',
+        shape: 'smooth',
         x: (d) => new Date(d.date),
         y: 'unemployed',
         color: 'industry',
@@ -235,7 +235,7 @@ describe('statistic', () => {
             y: { guide: { label: { formatter: (d) => `${+d.text / 1000}k` } } },
           },
           encode: {
-            shape: 'smoothArea',
+            shape: 'smooth',
             x: (d) => new Date(d.year),
             y: 'revenue',
             color: 'group',
@@ -391,7 +391,7 @@ describe('statistic', () => {
         y: { guide: { label: { formatter: (d) => `${+d.text / 1000}k` } } },
       },
       encode: {
-        shape: 'smoothArea',
+        shape: 'smooth',
         x: (d) => new Date(d.date),
         y: 'unemployed',
         color: 'industry',

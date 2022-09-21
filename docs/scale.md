@@ -188,7 +188,7 @@ The scale for color channel of following point is ordinal scale.
     .encode('x', 'height')
     .encode('y', 'weight')
     .encode('color', 'gender')
-    .encode('shape', 'hollowPoint')
+    .encode('shape', 'hollow')
     .scale('color', { range: ['orange', 'steelblue'] });
 
   return chart.render().node();

@@ -1,19 +1,19 @@
 import { mount, createDiv } from '../../../utils/dom';
 import { draw, style } from '../helper';
 import { Polar } from '../../../../src/coordinate';
-import { AnnotationLine } from '../../../../src/shape';
+import { LineXY } from '../../../../src/shape';
 
-describe('AnnotationLine', () => {
-  it('AnnotationLine has expected defaults', () => {
-    expect(AnnotationLine.props).toEqual({
+describe('LineXY', () => {
+  it('LineXY has expected defaults', () => {
+    expect(LineXY.props).toEqual({
       defaultEnterAnimation: 'fadeIn',
     });
   });
 
-  it('AnnotationLine() returns a function draw line in cartesian coordinate using color as stroke', async () => {
+  it('LineXY() returns a function draw line in cartesian coordinate using color as stroke', async () => {
     const container = document.createElement('div');
     const shape = await draw({
-      shape: AnnotationLine({}),
+      shape: LineXY({}),
       container,
       value: {
         color: 'steelblue',
@@ -32,10 +32,10 @@ describe('AnnotationLine', () => {
     });
   });
 
-  it('AnnotationLine() returns a function draw line using size', async () => {
+  it('LineXY() returns a function draw line using size', async () => {
     const container = document.createElement('div');
     const shape = await draw({
-      shape: AnnotationLine({}),
+      shape: LineXY({}),
       container,
       value: {
         size: 4,
@@ -51,10 +51,10 @@ describe('AnnotationLine', () => {
     expect(shape.style.lineWidth).toBe(4);
   });
 
-  it('AnnotationLine() returns a function draw line with custom styles', async () => {
+  it('LineXY() returns a function draw line with custom styles', async () => {
     const container = document.createElement('div');
     const shape = await draw({
-      shape: AnnotationLine({ stroke: 'red' }),
+      shape: LineXY({ stroke: 'red' }),
       container,
       value: {
         color: 'steelblue',
@@ -73,10 +73,10 @@ describe('AnnotationLine', () => {
     });
   });
 
-  it('AnnotationLine() returns a function draw arc line in polar coordinate', async () => {
+  it('LineXY() returns a function draw arc line in polar coordinate', async () => {
     const container = document.createElement('div');
     const shape = await draw({
-      shape: AnnotationLine({}),
+      shape: LineXY({}),
       container,
       value: {
         color: 'steelblue',

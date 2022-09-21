@@ -6,7 +6,7 @@ import { select } from '../../utils/selection';
 import { applyStyle } from '../utils';
 import * as Symbols from './symbol';
 
-export type ColorPointOptions = {
+export type ColorOptions = {
   colorAttribute: 'fill' | 'stroke';
   symbol: string;
   mode?: 'fixed' | 'auto' | 'normal';
@@ -14,7 +14,7 @@ export type ColorPointOptions = {
 };
 
 function getRadius(
-  mode: ColorPointOptions['mode'],
+  mode: ColorOptions['mode'],
   points: Vector2[],
   value: Record<string, any>,
   coordinate: Coordinate,
@@ -38,7 +38,7 @@ function getOrigin(points: Vector2[]) {
 /**
  * Render point in different coordinate.
  */
-export const ColorPoint: SC<ColorPointOptions> = (options) => {
+export const Color: SC<ColorOptions> = (options) => {
   // Render border only when colorAttribute is stroke.
   const { colorAttribute, symbol, mode = 'auto', ...style } = options;
   const lineWidth = colorAttribute === 'stroke' ? 1 : 0;
@@ -60,6 +60,6 @@ export const ColorPoint: SC<ColorPointOptions> = (options) => {
   };
 };
 
-ColorPoint.props = {
+Color.props = {
   defaultEnterAnimation: 'fadeIn',
 };

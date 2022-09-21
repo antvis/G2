@@ -6,7 +6,7 @@ import { Vector2, ShapeComponent as SC } from '../../runtime';
 import { angle, sub, dist } from '../../utils/vector';
 import { applyStyle, computeGradient } from '../utils';
 
-export type CurveAreaOptions = {
+export type CurveOptions = {
   curve?: CurveFactory;
   gradient?: boolean;
   [key: string]: any;
@@ -35,7 +35,7 @@ function pathTransform(P, value, curve, coordinate): [string, string] {
   }
 }
 
-export const CurveArea: SC<CurveAreaOptions> = (options) => {
+export const Curve: SC<CurveOptions> = (options) => {
   const { curve, gradient = false, ...style } = options;
   return (P, value, coordinate, theme) => {
     const { defaultColor } = theme;
@@ -56,6 +56,6 @@ export const CurveArea: SC<CurveAreaOptions> = (options) => {
   };
 };
 
-CurveArea.props = {
+Curve.props = {
   defaultEnterAnimation: 'fadeIn',
 };

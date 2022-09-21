@@ -616,7 +616,7 @@ function createLabelShapeFunction(
     const { shape = defaultLabelShape, text, ...style } = visualOptions;
     const f = typeof formatter === 'string' ? format(formatter) : formatter;
     const value = { ...style, element, text: f(text) };
-    const shapeFunction = useShape({ type: shape, ...style });
+    const shapeFunction = useShape({ type: `label.${shape}`, ...style });
     const { points } = data;
     return shapeFunction(points, value, coordinate, theme, point2d);
   };
@@ -685,8 +685,7 @@ function createMarkShapeFunction(
   return (data, index) => {
     const { shape = defaultShape, points, ...v } = data;
     const value = { ...v, index };
-    const normalizedShape = normalizeOptions(shape);
-    const shapeFunction = useShape({ ...normalizedShape, ...style });
+    const shapeFunction = useShape({ ...style, type: shapeName(mark, shape) });
     return shapeFunction(points, value, coordinate, theme, point2d);
   };
 }
@@ -718,7 +717,9 @@ function createAnimationFunction(
     | 'defaultEnterAnimation'
     | 'defaultExitAnimation'
     | 'defaultUpdateAnimation' = `default${upperType}Animation`;
-  const { [key]: defaultAnimation } = createShape(defaultShape).props;
+  const { [key]: defaultAnimation } = createShape(
+    shapeName(mark, defaultShape),
+  ).props;
   const { [type]: animate = {} } = mark.animate || {};
   const { [type]: defaultEffectTiming = {} } = theme;
   return (data, from, to) => {
@@ -825,6 +826,11 @@ function applyBBox(selection: Selection) {
     .style('height', (d) => d.innerHeight);
 }
 
+function shapeName(mark: G2Mark, name: string): string {
+  const { type } = mark;
+  return `${type}.${name}`;
+}
+
 /**
  * Draw frame for the plot area of each facet.
  * This is useful for facet.
@@ -857,8 +863,4 @@ function applyMainLayers(selection: Selection, marks: G2Mark[]) {
         (exit) => exit.remove(),
       );
   });
-}
-
-function normalizeOptions(options: string | Record<string, any>) {
-  return typeof options === 'object' ? options : { type: options };
 }

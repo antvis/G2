@@ -22,10 +22,10 @@ export const LineY: MC<LineYOptions> = () => {
 };
 
 LineY.props = {
-  defaultShape: 'linkLine',
+  defaultShape: 'line',
   defaultLabelShape: 'label',
   channels: [...baseAnnotationChannels(), { name: 'y', required: true }],
   preInference: [...basePreInference()],
   postInference: [...basePostInference()],
-  shapes: ['linkLine'],
+  shapes: ['line'],
 };

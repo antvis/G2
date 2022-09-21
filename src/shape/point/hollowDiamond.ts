@@ -1,5 +1,5 @@
 import { ShapeComponent as SC } from '../../runtime';
-import { ColorPoint } from './colorPoint';
+import { Color } from './color';
 
 export type HollowDiamondOptions = Record<string, any>;
 
@@ -7,7 +7,7 @@ export type HollowDiamondOptions = Record<string, any>;
  * ◇
  */
 export const HollowDiamond: SC<HollowDiamondOptions> = (options) => {
-  return ColorPoint({
+  return Color({
     colorAttribute: 'stroke',
     symbol: 'diamond',
     ...options,
@@ -15,5 +15,5 @@ export const HollowDiamond: SC<HollowDiamondOptions> = (options) => {
 };
 
 HollowDiamond.props = {
-  ...ColorPoint.props,
+  ...Color.props,
 };

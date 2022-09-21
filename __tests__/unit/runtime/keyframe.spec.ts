@@ -257,7 +257,7 @@ describe('keyframe', () => {
               frame: false,
               scale: { y: { facet: false }, x: { utc: true } },
               encode: {
-                shape: 'smoothArea',
+                shape: 'smooth',
                 x: (d) => new Date(d.date),
                 y: 'unemployed',
                 color: 'industry',
@@ -277,7 +277,7 @@ describe('keyframe', () => {
           transform: [{ type: 'stackY', reverse: true }],
           scale: { x: { utc: true } },
           encode: {
-            shape: 'smoothArea',
+            shape: 'smooth',
             x: (d) => new Date(d.date),
             y: 'unemployed',
             color: 'industry',
@@ -293,7 +293,7 @@ describe('keyframe', () => {
           scale: { x: { utc: true } },
           data,
           encode: {
-            shape: 'smoothArea',
+            shape: 'smooth',
             x: (d) => new Date(d.date),
             y: 'unemployed',
             color: 'industry',

@@ -1,6 +1,6 @@
 import { curveCatmullRom } from 'd3-shape';
 import { ShapeComponent as SC } from '../../runtime';
-import { CurveLine } from './curveLine';
+import { Curve } from './curve';
 
 export type SmoothOptions = {
   alpha?: number;
@@ -8,9 +8,9 @@ export type SmoothOptions = {
 
 export const Smooth: SC<SmoothOptions> = (options) => {
   const { alpha = 0.5, ...rest } = options;
-  return CurveLine({ curve: curveCatmullRom.alpha(alpha), ...rest });
+  return Curve({ curve: curveCatmullRom.alpha(alpha), ...rest });
 };
 
 Smooth.props = {
-  ...CurveLine.props,
+  ...Curve.props,
 };

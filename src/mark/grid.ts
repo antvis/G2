@@ -52,5 +52,5 @@ Grid.props = {
     { type: 'maybeTitleX' },
     { type: 'maybeTooltipY' },
   ],
-  shapes: ['rect', 'hollowRect'],
+  shapes: ['rect', 'hollow'],
 };

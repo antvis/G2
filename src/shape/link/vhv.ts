@@ -7,7 +7,7 @@ import { isTranspose, isPolar } from '../../utils/coordinate';
 import { Vector2, dist, angle, sub } from '../../utils/vector';
 import { ShapeComponent as SC } from '../../runtime';
 
-export type VHVEdgeOptions = {
+export type VHVOptions = {
   /**
    * The ratio of line corner, default: 1/3.
    */
@@ -62,7 +62,7 @@ function getVHVPath(
 /**
  * Connect 2 points with a VHV line, used in tree.
  */
-export const VHVEdge: SC<VHVEdgeOptions> = (options) => {
+export const VHV: SC<VHVOptions> = (options) => {
   const { cornerRatio = 1 / 3, ...style } = options;
   return (points, value, coordinate, theme) => {
     const { defaultColor } = theme;
@@ -80,6 +80,6 @@ export const VHVEdge: SC<VHVEdgeOptions> = (options) => {
   };
 };
 
-VHVEdge.props = {
+VHV.props = {
   defaultEnterAnimation: 'fadeIn',
 };
