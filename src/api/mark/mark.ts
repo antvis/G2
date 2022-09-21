@@ -10,13 +10,12 @@ import {
   TextGeometry,
   BoxGeometry,
   LineGeometry,
-  AnnotationText as AnnotationTextSpec,
-  AnnotationLineX as AnnotationLineXSpec,
-  AnnotationLineY as AnnotationLineYSpec,
-  AnnotationRange as AnnotationRangeSpec,
-  AnnotationRangeX as AnnotationRangeXSpec,
-  AnnotationRangeY as AnnotationRangeYSpec,
-  AnnotationConnector as AnnotationConnectorSpec,
+  LineXMark,
+  LineYMark,
+  RangeMark,
+  RangeXMark,
+  RangeYMark,
+  ConnectorMark,
 } from '../../spec';
 import { NodePropertyDescriptor, defineProps } from '../props';
 import { Node } from '../node';
@@ -67,38 +66,27 @@ export interface Box extends API<Concrete<BoxGeometry>, Box> {
   type: 'box';
 }
 
-export interface AnnotationText
-  extends API<Concrete<AnnotationTextSpec>, AnnotationText> {
-  type: 'annotation.text';
-}
-
-export interface AnnotationLineX
-  extends API<Concrete<AnnotationLineXSpec>, AnnotationLineX> {
+export interface LineX extends API<Concrete<LineXMark>, LineX> {
   type: 'annotation.lineX';
 }
 
-export interface AnnotationLineY
-  extends API<Concrete<AnnotationLineYSpec>, AnnotationLineY> {
+export interface LineY extends API<Concrete<LineYMark>, LineY> {
   type: 'annotation.lineY';
 }
 
-export interface AnnotationRange
-  extends API<Concrete<AnnotationRangeSpec>, AnnotationRange> {
+export interface Range extends API<Concrete<RangeMark>, Range> {
   type: 'annotation.range';
 }
 
-export interface AnnotationRangeX
-  extends API<Concrete<AnnotationRangeXSpec>, AnnotationRangeX> {
+export interface RangeX extends API<Concrete<RangeXMark>, RangeX> {
   type: 'annotation.rangeX';
 }
 
-export interface AnnotationRangeY
-  extends API<Concrete<AnnotationRangeYSpec>, AnnotationRangeY> {
+export interface RangeY extends API<Concrete<RangeYMark>, RangeY> {
   type: 'annotation.rangeY';
 }
 
-export interface AnnotationConnector
-  extends API<Concrete<AnnotationConnectorSpec>, AnnotationConnector> {
+export interface Connector extends API<Concrete<ConnectorMark>, Connector> {
   type: 'connector';
 }
 
@@ -201,50 +189,43 @@ export class Box extends Node<BoxGeometry> {
 }
 
 @defineProps(props)
-export class AnnotationText extends Node<AnnotationTextSpec> {
+export class LineX extends Node<LineXMark> {
   constructor() {
-    super({}, 'annotation.text');
+    super({}, 'lineX');
   }
 }
 
 @defineProps(props)
-export class AnnotationLineX extends Node<AnnotationLineXSpec> {
+export class LineY extends Node<LineYMark> {
   constructor() {
-    super({}, 'annotation.lineX');
+    super({}, 'lineY');
   }
 }
 
 @defineProps(props)
-export class AnnotationLineY extends Node<AnnotationLineYSpec> {
+export class Range extends Node<RangeMark> {
   constructor() {
-    super({}, 'annotation.lineY');
+    super({}, 'range');
   }
 }
 
 @defineProps(props)
-export class AnnotationRange extends Node<AnnotationRangeSpec> {
+export class RangeX extends Node<RangeXMark> {
   constructor() {
-    super({}, 'annotation.range');
+    super({}, 'rangeX');
   }
 }
 
 @defineProps(props)
-export class AnnotationRangeX extends Node<AnnotationRangeXSpec> {
+export class RangeY extends Node<RangeYMark> {
   constructor() {
-    super({}, 'annotation.rangeX');
+    super({}, 'rangeY');
   }
 }
 
 @defineProps(props)
-export class AnnotationRangeY extends Node<AnnotationRangeYSpec> {
+export class Connector extends Node<ConnectorMark> {
   constructor() {
-    super({}, 'annotation.rangeY');
-  }
-}
-
-@defineProps(props)
-export class AnnotationConnector extends Node<AnnotationConnectorSpec> {
-  constructor() {
-    super({}, 'annotation.connector');
+    super({}, 'connector');
   }
 }

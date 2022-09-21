@@ -103,6 +103,131 @@
 })();
 ```
 
+## Text Annotation
+
+```js
+(() => {
+  const chart = new G2.Chart({
+    height: 300,
+    width: 640,
+  });
+
+  chart.data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/antvdemo/assets/data/blockchain.json',
+    transform: [
+      {
+        type: 'fold',
+        fields: ['blockchain', 'nlp'],
+        as: ['type', 'value'],
+      },
+    ],
+  });
+
+  chart
+    .line()
+    .encode('x', (d) => new Date(d.date))
+    .encode('y', 'value')
+    .encode('color', 'type')
+    .scale('x', { guide: { label: { autoHide: 'greedy', showLast: false } } });
+
+  chart
+    .text()
+    .data([{ date: '2017-12-17', value: 100 }])
+    .encode('x', (d) => new Date(d.date))
+    .encode('y', 'value')
+    .encode(
+      'text',
+      (d) => `${d.date}, 受比特币影响，blockchain 搜索热度达到峰值：${d.value}`,
+    )
+    .style('wordWrap', true)
+    .style('wordWrapWidth', 160)
+    .style('fill', '#2C3542')
+    .style('fillOpacity', 0.65)
+    .style('textAlign', 'left')
+    .style('dy', 30)
+    .style('dx', -174)
+    .style('fontSize', 10)
+    .style('lineWidth', 0)
+    .style('background', {
+      fill: '#416180',
+      fillOpacity: 0.15,
+      radius: 2,
+      padding: [2, 4],
+    })
+    .style('connector', {
+      stroke: '#416180',
+      strokeOpacity: 0.45,
+    });
+
+  return chart.render().node();
+})();
+```
+
+## Badge Annotation
+
+```js
+(() => {
+  const chart = new G2.Chart({
+    height: 300,
+    width: 640,
+  });
+
+  chart.data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/antvdemo/assets/data/blockchain.json',
+    transform: [
+      {
+        type: 'fold',
+        fields: ['blockchain', 'nlp'],
+        as: ['type', 'value'],
+      },
+    ],
+  });
+
+  chart
+    .line()
+    .encode('x', (d) => new Date(d.date))
+    .encode('y', 'value')
+    .encode('color', 'type')
+    .scale('x', {
+      guide: { label: { autoHide: 'greedy', showLast: false } },
+    });
+
+  chart
+    .text()
+    .data([{ date: '2017-12-17', value: 100 }])
+    .encode('x', (d) => new Date(d.date))
+    .encode('y', 'value')
+    // @todo This seems necessary in this example.
+    // The text channel should be the content rather
+    // specify it in the style again.
+    .encode(
+      'text',
+      (d) => `${d.date}, 受比特币影响，blockchain 搜索热度达到峰值：${d.value}`,
+    )
+    .encode('shape', 'annotation.badge')
+    .style('content', 'top')
+    .style('wordWrap', true)
+    .style('wordWrapWidth', 160)
+    .style('fill', '#6395FA')
+    .style('fillOpacity', 0.65)
+    .style('textAlign', 'left')
+    .style('dy', 30)
+    .style('dx', -174)
+    .style('fontSize', 10)
+    .style('connector', {
+      stroke: '#416180',
+      strokeOpacity: 0.45,
+    });
+
+  return chart.render().node();
+})();
+```
+
+
 ## Dependance
 
 ```js | dom "pin: false"

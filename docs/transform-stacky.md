@@ -156,7 +156,7 @@ orderBy = 'value';
       formatter: (d) => `${Math.abs(+d)}`,
     });
 
-  chart.annotationLineY().data([0]).encode('y', 0).style('stroke', 'black');
+  chart.lineY().data([0]).encode('y', 0).style('stroke', 'black');
 
   return chart.render().node();
 })();
