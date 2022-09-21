@@ -21,9 +21,12 @@ describe('Rect', () => {
     });
     mount(createDiv(), container);
 
-    expect(style(shape, ['fill', 'path'])).toEqual({
+    expect(style(shape, ['x', 'y', 'width', 'height', 'fill'])).toEqual({
       fill: 'steelblue',
-      path: 'M0,0L120,0L120,400L0,400Z',
+      height: 400,
+      width: 120,
+      x: 0,
+      y: 0,
     });
   });
 
@@ -44,9 +47,12 @@ describe('Rect', () => {
     });
     mount(createDiv(), container);
 
-    expect(style(shape, ['path', 'fill'])).toEqual({
+    expect(style(shape, ['x', 'y', 'width', 'height', 'fill'])).toEqual({
       fill: 'steelblue',
-      path: 'M120,400L0,400L0,0L120,0Z',
+      height: 400,
+      width: 120,
+      x: 0,
+      y: 0,
     });
   });
 
@@ -68,9 +74,12 @@ describe('Rect', () => {
     });
     mount(createDiv(), container);
 
-    expect(style(shape, ['path', 'fill'])).toEqual({
+    expect(style(shape, ['x', 'y', 'width', 'height', 'fill'])).toEqual({
       fill: 'steelblue',
-      path: 'M600,0L600,80L0,80L0,0Z',
+      height: 80,
+      width: 600,
+      x: 0,
+      y: 0,
     });
   });
 

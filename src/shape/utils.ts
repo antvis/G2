@@ -130,7 +130,7 @@ export function computeGradient(C: string[], X: number[]): string {
   return `linear-gradient(${gradient})`;
 }
 
-function reorder(points: Vector2[]): Vector2[] {
+export function reorder(points: Vector2[]): Vector2[] {
   const [p0, p1, p2, p3] = points;
   return [p3, p0, p1, p2];
 }

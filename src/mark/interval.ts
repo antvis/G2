@@ -9,6 +9,9 @@ import {
 
 export type IntervalOptions = Omit<IntervalGeometry, 'type'>;
 
+function bandWidth(scale: Band, x: any): number {
+  return scale.getBandWidth(scale.invert(x));
+}
 /**
  * Convert value for each channel to rect shapes.
  * p0        p1
@@ -19,22 +22,31 @@ export type IntervalOptions = Omit<IntervalGeometry, 'type'>;
  */
 export const Interval: MC<IntervalOptions> = () => {
   return (index, scale, value, coordinate) => {
-    const { x: X, y: Y, y1: Y1, series: S } = value;
+    const { x: X, y: Y, y1: Y1, series: S, size: SZ } = value;
 
     // Calc width for each interval.
     // The scales for x and series channels must be band scale.
     const x = scale.x as Band;
     const series = scale.series as Band;
+    const [width] = coordinate.getSize();
+    const NSZ = SZ ? SZ.map((d) => +d / width) : null;
+    const x1x2 = !SZ
+      ? (x: number, w: number, i: number) => [x, x + w]
+      : (x: number, w: number, i: number) => {
+          const mx = x + w / 2;
+          const s = NSZ[i];
+          return [mx - s / 2, mx + s / 2];
+        };
 
     // Calc the points of bounding box for the interval.
     // They are start from left-top corner in clock wise order.
     const P = Array.from(index, (i) => {
-      const groupWidth = x.getBandWidth(x.invert(+X[i]));
-      const ratio = series ? series.getBandWidth(series.invert(+S?.[i])) : 1;
+      const groupWidth = bandWidth(x, X[i]);
+      const ratio = series ? bandWidth(series, S?.[i]) : 1;
       const width = groupWidth * ratio;
       const offset = (+S?.[i] || 0) * groupWidth;
-      const x1 = +X[i] + offset;
-      const x2 = x1 + width;
+      const x0 = +X[i] + offset;
+      const [x1, x2] = x1x2(x0, width, i);
       const y1 = +Y[i];
       const y2 = +Y1[i];
       const p1 = [x1, y1];
@@ -55,6 +67,7 @@ Interval.props = {
     { name: 'x', scale: 'band', required: true },
     { name: 'y', required: true },
     { name: 'series', scale: 'band' },
+    { name: 'size' },
   ],
   preInference: [
     ...basePreInference(),

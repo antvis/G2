@@ -8,6 +8,8 @@ export { populationIntervalLayered } from './population-interval-layered';
 export { populationIntervalNormalizedStacked } from './population-interval-normalized-stacked';
 export { profitIntervalRange } from './profit-interval-range';
 export { gdpIntervalFlex } from './gdp-interval-flex';
+export { gdpIntervalVarSize } from './gdp-interval-var-size';
 export { populationIntervalDiverging } from './population-interval-diverging';
 export { marketIntervalMarimekko } from './market-interval-marimekko';
 export { productIntervalStackedGrouped } from './product-interval-stacked-grouped';
+export { commitIntervalFixedCorner } from './commit-interval-fixed-corner';
