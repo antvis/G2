@@ -1,5 +1,5 @@
 import { ShapeComponent as SC } from '../../runtime';
-import { ColorPoint } from './colorPoint';
+import { Color } from './color';
 
 export type CrossOptions = Record<string, any>;
 
@@ -7,9 +7,9 @@ export type CrossOptions = Record<string, any>;
  * ✕
  */
 export const Cross: SC<CrossOptions> = (options) => {
-  return ColorPoint({ colorAttribute: 'stroke', symbol: 'cross', ...options });
+  return Color({ colorAttribute: 'stroke', symbol: 'cross', ...options });
 };
 
 Cross.props = {
-  ...ColorPoint.props,
+  ...Color.props,
 };

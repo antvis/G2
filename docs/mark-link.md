@@ -406,7 +406,7 @@ incdomain = (() => {
     .encode('x', 'm')
     .encode('y', 'f')
     .encode('size', 4)
-    .encode('shape', 'hollowPoint')
+    .encode('shape', 'hollow')
     .style('stroke', '#000');
 
   return chart.render().node();

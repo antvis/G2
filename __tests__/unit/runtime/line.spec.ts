@@ -78,7 +78,7 @@ describe('line', () => {
     mount(createDiv(), chart);
   });
 
-  it('render({...}) should render basic line chart', () => {
+  it.skip('render({...}) should render basic line chart', () => {
     const chart = render<G2Spec>({
       type: 'line',
       data: {

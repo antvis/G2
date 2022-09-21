@@ -31,7 +31,7 @@ function getTransform(coordinate: Coordinate, transform?: Primitive) {
   return `translate(${cx}, ${cy}) ${transform || ''}`;
 }
 
-export const AnnotationLine: SC<LineOptions> = (options) => {
+export const Line: SC<LineOptions> = (options) => {
   const { ...style } = options;
   return (points, value, coordinate, theme) => {
     const { defaultColor, defaultSize } = theme;
@@ -50,6 +50,6 @@ export const AnnotationLine: SC<LineOptions> = (options) => {
   };
 };
 
-AnnotationLine.props = {
+Line.props = {
   defaultEnterAnimation: 'fadeIn',
 };

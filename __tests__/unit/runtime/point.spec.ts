@@ -14,7 +14,7 @@ describe('point', () => {
         x: 'height',
         y: 'weight',
         color: 'gender',
-        shape: 'hollowPoint',
+        shape: 'hollow',
       },
     });
 
@@ -33,7 +33,7 @@ describe('point', () => {
       scale: { y: { guide: null } },
       encode: {
         x: 'height',
-        shape: 'hollowPoint',
+        shape: 'hollow',
       },
     });
 

@@ -57,7 +57,7 @@
     .encode('x', 'year')
     .encode('y', 'sale')
     .encode('color', 'type')
-    .encode('shape', 'smoothArea');
+    .encode('shape', 'smooth');
 
   return chart.render().node();
 })();
@@ -96,7 +96,7 @@
     .encode('x', 'year')
     .encode('y', 'sale')
     .encode('color', 'type')
-    .encode('shape', 'smoothArea');
+    .encode('shape', 'smooth');
 
   return chart.render().node();
 })();
@@ -124,7 +124,7 @@
     .encode('x', 'year')
     .encode('y', 'value')
     .encode('color', 'value')
-    .encode('shape', 'smoothArea')
+    .encode('shape', 'smooth')
     .encode('series', 'a')
     .style('gradient', true);
 
@@ -167,7 +167,7 @@
     .encode('x', 'item')
     .encode('y', 'score')
     .encode('color', 'type')
-    .encode('shape', 'smoothArea')
+    .encode('shape', 'smooth')
     .scale('x', { guide: { type: 'axisX' }, padding: 0.5, align: 0 })
     .scale('y', {
       guide: { type: 'axisY', zIndex: 1 },

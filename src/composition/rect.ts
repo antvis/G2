@@ -112,7 +112,7 @@ export const setAnimation = useDefaultAdaptor<G2ViewTree>(() => ({
 export const setStyle = useOverrideAdaptor<G2ViewTree>(() => ({
   frame: false,
   encode: {
-    shape: 'hollowRect',
+    shape: 'hollow',
   },
   style: {
     lineWidth: 0,

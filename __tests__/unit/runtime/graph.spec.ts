@@ -48,7 +48,7 @@ describe('graph', () => {
           encode: {
             x: ['x'],
             y: ['y'],
-            shape: 'smoothEdge',
+            shape: 'smooth',
           },
           scale: {
             x: { guide: null },
@@ -113,7 +113,7 @@ describe('graph', () => {
           encode: {
             x: ['x'],
             y: ['y'],
-            shape: 'smoothEdge',
+            shape: 'smooth',
           },
           scale: {
             x: { guide: null },
@@ -178,7 +178,7 @@ describe('graph', () => {
           encode: {
             x: ['x'],
             y: ['y'],
-            shape: 'vhvEdge',
+            shape: 'vhv',
           },
           scale: {
             x: { guide: null },

@@ -19,7 +19,7 @@
     })
     .encode('x', 'series');
 
-  rect.point().encode('x', 'x').encode('y', 'y').encode('shape', 'hollowPoint');
+  rect.point().encode('x', 'x').encode('y', 'y').encode('shape', 'hollow');
 
   return chart.render().node();
 })();
@@ -49,7 +49,7 @@
     .encode('x', 'yield')
     .encode('y', 'variety')
     .encode('color', 'year')
-    .encode('shape', 'hollowPoint')
+    .encode('shape', 'hollow')
     .scale('color', { type: 'ordinal' });
 
   return chart.render().node();
@@ -90,7 +90,7 @@
   rect
     .point()
     .call(xy)
-    .encode('shape', 'hollowPoint')
+    .encode('shape', 'hollow')
     .encode('color', 'island');
 
   return chart.render().node();

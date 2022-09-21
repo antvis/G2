@@ -42,7 +42,7 @@ describe('Point', () => {
         'hollowBowtie',
         'hollowDiamond',
         'hollowHexagon',
-        'hollowPoint',
+        'hollow',
         'hollowSquare',
         'hollowTriangle',
         'hollowTriangleDown',

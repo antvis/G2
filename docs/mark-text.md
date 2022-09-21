@@ -208,7 +208,7 @@
       'text',
       (d) => `${d.date}, 受比特币影响，blockchain 搜索热度达到峰值：${d.value}`,
     )
-    .encode('shape', 'annotation.badge')
+    .encode('shape', 'badge')
     .style('content', 'top')
     .style('wordWrap', true)
     .style('wordWrapWidth', 160)

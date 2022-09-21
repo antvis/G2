@@ -1,5 +1,5 @@
 import { ShapeComponent as SC } from '../../runtime';
-import { ColorPoint } from './colorPoint';
+import { Color } from './color';
 
 export type HollowTriangleDownOptions = Record<string, any>;
 
@@ -7,7 +7,7 @@ export type HollowTriangleDownOptions = Record<string, any>;
  * ▽
  */
 export const HollowTriangleDown: SC<HollowTriangleDownOptions> = (options) => {
-  return ColorPoint({
+  return Color({
     colorAttribute: 'stroke',
     symbol: 'triangle-down',
     ...options,
@@ -15,5 +15,5 @@ export const HollowTriangleDown: SC<HollowTriangleDownOptions> = (options) => {
 };
 
 HollowTriangleDown.props = {
-  ...ColorPoint.props,
+  ...Color.props,
 };

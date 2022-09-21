@@ -85,7 +85,7 @@ orderBy = 'value';
     .encode('x', (d) => new Date(d.date))
     .encode('y', 'unemployed')
     .encode('color', 'industry')
-    .encode('shape', 'smoothArea')
+    .encode('shape', 'smooth')
     .scale('x', { field: 'Date', utc: true })
     .scale('y', { formatter: '~s' })
     .scale('color', {
@@ -118,7 +118,7 @@ orderBy = 'value';
     .transform({ type: 'stackY', orderBy: 'maxIndex', reverse: true })
     .call(xy)
     .encode('color', 'group')
-    .encode('shape', 'smoothArea')
+    .encode('shape', 'smooth')
     .scale('y', { formatter: '~s' });
 
   chart

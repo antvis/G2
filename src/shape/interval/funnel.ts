@@ -1,7 +1,7 @@
 import { Coordinate } from '@antv/coord';
 import { isTranspose } from '../../utils/coordinate';
 import { ShapeComponent as SC, Vector2 } from '../../runtime';
-import { ColorRect } from './colorRect';
+import { Color } from './color';
 
 export type FunnelOptions = {
   adjustPoints?: (
@@ -42,7 +42,7 @@ export const Funnel: SC<FunnelOptions> = (options) => {
     const nextPoints = point2d[index + 1];
     const funnelPoints = adjustPoints(points, nextPoints, coordinate);
 
-    return ColorRect({ colorAttribute: 'fill', ...style })(
+    return Color({ colorAttribute: 'fill', ...style })(
       funnelPoints,
       value,
       coordinate,

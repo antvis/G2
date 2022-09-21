@@ -1,7 +1,7 @@
 import { Coordinate } from '@antv/coord';
 import { isTranspose } from '../../utils/coordinate';
 import { ShapeComponent as SC, Vector2 } from '../../runtime';
-import { ColorRect } from './colorRect';
+import { Color } from './color';
 import { Funnel } from './funnel';
 
 export type PyramidOptions = Record<string, any>;

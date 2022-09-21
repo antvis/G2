@@ -42,7 +42,7 @@ In G2, call `chart.mark()` to create a new mark and add it to the chart. Then ca
     .encode('x', 'GDP') // X-position encodes GDP column.
     .encode('y', 'LifeExpectancy') // Y-position encodes LifeExpectancy column.
     .encode('color', (d) => (d.Population > 600e6 ? 'High' : 'Low')) // Color encodes column derived from Population column.
-    .encode('shape', 'hollowPoint') // Shape encodes constant hollowPoint.
+    .encode('shape', 'hollow') // Shape encodes constant hollowPoint.
     .style('lineWidth', 2); // LineWidth fixed to 2.
 
   return chart
@@ -65,7 +65,7 @@ Think of axis and legend as the visualizations for [scales](/introduction#scale)
     .encode('x', 'GDP')
     .encode('y', 'LifeExpectancy')
     .encode('color', (d) => (d.Population > 600e6 ? 'High' : 'Low'))
-    .encode('shape', 'hollowPoint')
+    .encode('shape', 'hollow')
     .scale('color', { field: 'Population' }) // Title legend.
     .scale('x', { guide: { formatter: (d) => `${d / 1000}k` } }) // Format labels of axisX.
     .style('lineWidth', 2);
