@@ -21,13 +21,12 @@ import {
   Vector,
   Text,
   Box,
-  AnnotationLineX,
-  AnnotationLineY,
-  AnnotationRange,
-  AnnotationRangeX,
-  AnnotationRangeY,
-  AnnotationText,
-  AnnotationConnector,
+  LineX,
+  LineY,
+  Range,
+  RangeX,
+  RangeY,
+  Connector,
 } from '../../../src/api/mark/mark';
 import { createDiv } from '../../utils/dom';
 
@@ -114,13 +113,12 @@ describe('Chart', () => {
     expect(chart.image()).toBeInstanceOf(Image);
     expect(chart.text()).toBeInstanceOf(Text);
     expect(chart.box()).toBeInstanceOf(Box);
-    expect(chart.annotationLineX()).toBeInstanceOf(AnnotationLineX);
-    expect(chart.annotationLineY()).toBeInstanceOf(AnnotationLineY);
-    expect(chart.annotationRange()).toBeInstanceOf(AnnotationRange);
-    expect(chart.annotationRangeX()).toBeInstanceOf(AnnotationRangeX);
-    expect(chart.annotationRangeY()).toBeInstanceOf(AnnotationRangeY);
-    expect(chart.annotationText()).toBeInstanceOf(AnnotationText);
-    expect(chart.annotationConnector()).toBeInstanceOf(AnnotationConnector);
+    expect(chart.lineX()).toBeInstanceOf(LineX);
+    expect(chart.lineY()).toBeInstanceOf(LineY);
+    expect(chart.range()).toBeInstanceOf(Range);
+    expect(chart.rangeX()).toBeInstanceOf(RangeX);
+    expect(chart.rangeY()).toBeInstanceOf(RangeY);
+    expect(chart.connector()).toBeInstanceOf(Connector);
     expect(chart.options().children).toEqual([
       { type: 'interval' },
       { type: 'point' },
@@ -133,13 +131,12 @@ describe('Chart', () => {
       { type: 'image' },
       { type: 'text' },
       { type: 'box' },
-      { type: 'annotation.lineX' },
-      { type: 'annotation.lineY' },
-      { type: 'annotation.range' },
-      { type: 'annotation.rangeX' },
-      { type: 'annotation.rangeY' },
-      { type: 'annotation.text' },
-      { type: 'annotation.connector' },
+      { type: 'lineX' },
+      { type: 'lineY' },
+      { type: 'range' },
+      { type: 'rangeX' },
+      { type: 'rangeY' },
+      { type: 'connector' },
     ]);
   });
 

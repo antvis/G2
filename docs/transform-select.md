@@ -94,7 +94,7 @@ The select transform groups marks with specified channels, and filter index by s
     .encode('y', 'Close');
 
   chart
-    .annotationLineY()
+    .lineY()
     .transform({
       type: 'selectY',
       selector: (I, V) => {

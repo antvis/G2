@@ -9,13 +9,12 @@ import {
   Image,
   Text,
   Box,
-  AnnotationText,
-  AnnotationConnector,
-  AnnotationLineX,
-  AnnotationLineY,
-  AnnotationRange,
-  AnnotationRangeX,
-  AnnotationRangeY,
+  Connector,
+  LineX,
+  LineY,
+  Range,
+  RangeX,
+  RangeY,
 } from '../../../src/api/mark/mark';
 
 function setOptions(node) {
@@ -124,45 +123,39 @@ describe('Mark', () => {
     expect(setOptions(node).value).toEqual(getOptions());
   });
 
-  it('AnnotationText() should specify options by API', () => {
-    const node = new AnnotationText();
-    expect(node.type).toBe('annotation.text');
+  it('Connector() should specify options by API', () => {
+    const node = new Connector();
+    expect(node.type).toBe('connector');
     expect(setOptions(node).value).toEqual(getOptions());
   });
 
-  it('AnnotationConnector() should specify options by API', () => {
-    const node = new AnnotationConnector();
-    expect(node.type).toBe('annotation.connector');
+  it('Range() should specify options by API', () => {
+    const node = new Range();
+    expect(node.type).toBe('range');
     expect(setOptions(node).value).toEqual(getOptions());
   });
 
-  it('AnnotationRange() should specify options by API', () => {
-    const node = new AnnotationRange();
-    expect(node.type).toBe('annotation.range');
+  it('RangeX() should specify options by API', () => {
+    const node = new RangeX();
+    expect(node.type).toBe('rangeX');
     expect(setOptions(node).value).toEqual(getOptions());
   });
 
-  it('AnnotationRangeX() should specify options by API', () => {
-    const node = new AnnotationRangeX();
-    expect(node.type).toBe('annotation.rangeX');
+  it('RangeY() should specify options by API', () => {
+    const node = new RangeY();
+    expect(node.type).toBe('rangeY');
     expect(setOptions(node).value).toEqual(getOptions());
   });
 
-  it('AnnotationRangeY() should specify options by API', () => {
-    const node = new AnnotationRangeY();
-    expect(node.type).toBe('annotation.rangeY');
+  it('LineX() should specify options by API', () => {
+    const node = new LineX();
+    expect(node.type).toBe('lineX');
     expect(setOptions(node).value).toEqual(getOptions());
   });
 
-  it('AnnotationLineX() should specify options by API', () => {
-    const node = new AnnotationLineX();
-    expect(node.type).toBe('annotation.lineX');
-    expect(setOptions(node).value).toEqual(getOptions());
-  });
-
-  it('AnnotationLineY() should specify options by API', () => {
-    const node = new AnnotationLineY();
-    expect(node.type).toBe('annotation.lineY');
+  it('LineY() should specify options by API', () => {
+    const node = new LineY();
+    expect(node.type).toBe('lineY');
     expect(setOptions(node).value).toEqual(getOptions());
   });
 });

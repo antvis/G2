@@ -21,7 +21,12 @@ export type Geometry =
   | PolygonGeometry
   | BoxGeometry
   | VectorGeometry
-  | AnnotationText
+  | LineXMark
+  | LineYMark
+  | RangeMark
+  | RangeXMark
+  | RangeYMark
+  | ConnectorMark
   | CustomComponent;
 
 export type GeometryTypes =
@@ -38,13 +43,12 @@ export type GeometryTypes =
   | 'polygon'
   | 'box'
   | 'vector'
-  | 'annotation.text'
-  | 'annotation.lineX'
-  | 'annotation.lineY'
-  | 'annotation.connector'
-  | 'annotation.range'
-  | 'annotation.rangeX'
-  | 'annotation.rangeY'
+  | 'lineX'
+  | 'lineY'
+  | 'connector'
+  | 'range'
+  | 'rangeX'
+  | 'rangeY'
   | MarkComponent;
 
 export type ChannelTypes =
@@ -122,29 +126,17 @@ export type TextGeometry = BaseGeometry<
   | 'textBaseline'
 >;
 
-export type AnnotationText = BaseGeometry<
-  'annotation.text',
-  | ChannelTypes
-  | 'text'
-  | 'fontSize'
-  | 'fontWeight'
-  | 'fontStyle'
-  | 'rotate'
-  | 'fontStyle'
-  | 'textAlign'
-  | 'textBaseline'
->;
+export type LineXMark = BaseGeometry<'lineX', ChannelTypes>;
 
-export type AnnotationLineX = BaseGeometry<'annotation.lineX', ChannelTypes>;
+export type LineYMark = BaseGeometry<'lineY', ChannelTypes>;
 
-export type AnnotationLineY = BaseGeometry<'annotation.lineY', ChannelTypes>;
-export type AnnotationRange = BaseGeometry<'annotation.range', ChannelTypes>;
-export type AnnotationRangeX = BaseGeometry<'annotation.rangeX', ChannelTypes>;
-export type AnnotationRangeY = BaseGeometry<'annotation.rangeY', ChannelTypes>;
-export type AnnotationConnector = BaseGeometry<
-  'annotation.connector',
-  ChannelTypes
->;
+export type RangeMark = BaseGeometry<'range', ChannelTypes>;
+
+export type RangeXMark = BaseGeometry<'rangeX', ChannelTypes>;
+
+export type RangeYMark = BaseGeometry<'rangeY', ChannelTypes>;
+
+export type ConnectorMark = BaseGeometry<'connector', ChannelTypes>;
 
 export type GridGeometry = BaseGeometry<'grid'>;
 
