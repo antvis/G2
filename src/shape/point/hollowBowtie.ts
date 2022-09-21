@@ -1,5 +1,5 @@
 import { ShapeComponent as SC } from '../../runtime';
-import { ColorPoint } from './colorPoint';
+import { Color } from './color';
 
 export type HollowBowtieOptions = Record<string, any>;
 
@@ -7,9 +7,9 @@ export type HollowBowtieOptions = Record<string, any>;
  * ▷◁
  */
 export const HollowBowtie: SC<HollowBowtieOptions> = (options) => {
-  return ColorPoint({ colorAttribute: 'stroke', symbol: 'bowtie', ...options });
+  return Color({ colorAttribute: 'stroke', symbol: 'bowtie', ...options });
 };
 
 HollowBowtie.props = {
-  ...ColorPoint.props,
+  ...Color.props,
 };

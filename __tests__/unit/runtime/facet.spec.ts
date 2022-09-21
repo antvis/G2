@@ -31,7 +31,7 @@ describe('facet', () => {
             encode: {
               x: 'x',
               y: 'y',
-              shape: 'hollowPoint',
+              shape: 'hollow',
             },
           },
         ],
@@ -68,7 +68,7 @@ describe('facet', () => {
               x: 'yield',
               y: 'variety',
               color: 'year',
-              shape: 'hollowPoint',
+              shape: 'hollow',
             },
           },
         ],
@@ -291,7 +291,7 @@ describe('facet', () => {
                 encode: {
                   x: 'culmen_depth_mm',
                   y: 'culmen_length_mm',
-                  shape: 'hollowPoint',
+                  shape: 'hollow',
                 },
               }
             : {
@@ -335,7 +335,7 @@ describe('facet', () => {
           type: 'point',
           encode: {
             color: 'Species',
-            shape: 'hollowPoint',
+            shape: 'hollow',
           },
         },
       ],

@@ -1,5 +1,5 @@
 import { ShapeComponent as SC } from '../../runtime';
-import { ColorPoint } from './colorPoint';
+import { Color } from './color';
 
 export type HyphenOptions = Record<string, any>;
 
@@ -7,9 +7,9 @@ export type HyphenOptions = Record<string, any>;
  * -
  */
 export const Hyphen: SC<HyphenOptions> = (options) => {
-  return ColorPoint({ colorAttribute: 'stroke', symbol: 'hyphen', ...options });
+  return Color({ colorAttribute: 'stroke', symbol: 'hyphen', ...options });
 };
 
 Hyphen.props = {
-  ...ColorPoint.props,
+  ...Color.props,
 };

@@ -1,5 +1,5 @@
 import { ShapeComponent as SC } from '../../runtime';
-import { ColorPoint } from './colorPoint';
+import { Color } from './color';
 
 export type SquareOptions = Record<string, any>;
 
@@ -7,9 +7,9 @@ export type SquareOptions = Record<string, any>;
  * ■
  */
 export const Square: SC<SquareOptions> = (options) => {
-  return ColorPoint({ colorAttribute: 'fill', symbol: 'square', ...options });
+  return Color({ colorAttribute: 'fill', symbol: 'square', ...options });
 };
 
 Square.props = {
-  ...ColorPoint.props,
+  ...Color.props,
 };

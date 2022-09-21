@@ -1,28 +1,28 @@
 import { Coordinate } from '@antv/coord';
-import { AnnotationBadge } from '../../../../src/shape';
+import { Badge } from '../../../../src/shape';
 import { mount, createDiv } from '../../../utils/dom';
 import { draw, style } from '../helper';
 
-describe('AnnotationBadge shape', () => {
-  it('AnnotationBadge has expected defaults', () => {
-    expect(AnnotationBadge.props).toEqual({
+describe('Badge shape', () => {
+  it('Badge has expected defaults', () => {
+    expect(Badge.props).toEqual({
       defaultEnterAnimation: 'fadeIn',
     });
   });
 
-  it('AnnotationBadge() returns a function draw CustomElement', () => {
-    const shape = AnnotationBadge({})([[0, 0]], {}, new Coordinate(), {
+  it('Badge() returns a function draw CustomElement', () => {
+    const shape = Badge({})([[0, 0]], {}, new Coordinate(), {
       defaultColor: 'red',
     });
     expect(shape.style.fill).toBe('red');
   });
 
-  it('AnnotationBadge() returns a function draw badgeAnnotation with text, default using color as fill', async () => {
+  it('Badge() returns a function draw badgeAnnotation with text, default using color as fill', async () => {
     const container = document.createElement('div');
     const shape = await draw({
       width: 150,
       height: 50,
-      shape: AnnotationBadge({}),
+      shape: Badge({}),
       container,
       value: {
         text: 'hello',
@@ -40,12 +40,12 @@ describe('AnnotationBadge shape', () => {
     expect(badgeMarker?.style.symbol).toBeInstanceOf(Function);
   });
 
-  it('AnnotationBadge() returns a function draw badgeAnnotation contains text and support custom style.', async () => {
+  it('Badge() returns a function draw badgeAnnotation contains text and support custom style.', async () => {
     const container = document.createElement('div');
     const shape = await draw({
       width: 150,
       height: 100,
-      shape: AnnotationBadge({
+      shape: Badge({
         stroke: 'steelblue',
         content: 'Top',
         textStyle: { fill: '#fff', fontSize: 10 },
@@ -66,12 +66,12 @@ describe('AnnotationBadge shape', () => {
     expect(textShape?.style.fontSize).toBe(10);
   });
 
-  it('AnnotationBadge() returns a function draw badge annotation, with built-in marker.', async () => {
+  it('Badge() returns a function draw badge annotation, with built-in marker.', async () => {
     const container = document.createElement('div');
     const shape = await draw({
       width: 150,
       height: 100,
-      shape: AnnotationBadge({ size: 12 }),
+      shape: Badge({ size: 12 }),
       container,
       value: {
         text: 'hello',
@@ -87,12 +87,12 @@ describe('AnnotationBadge shape', () => {
     expect(badgeMarker.getBBox().bottom).toBeCloseTo(50);
   });
 
-  it('AnnotationBadge() returns a function draw badge annotation, enable custom marker symbol', async () => {
+  it('Badge() returns a function draw badge annotation, enable custom marker symbol', async () => {
     const container = document.createElement('div');
     const shape = await draw({
       width: 150,
       height: 100,
-      shape: AnnotationBadge({
+      shape: Badge({
         symbol: 'triangle',
         size: 12,
         stroke: 'red',

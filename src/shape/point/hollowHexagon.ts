@@ -1,5 +1,5 @@
 import { ShapeComponent as SC } from '../../runtime';
-import { ColorPoint } from './colorPoint';
+import { Color } from './color';
 
 export type HollowHexagonOptions = Record<string, any>;
 
@@ -7,7 +7,7 @@ export type HollowHexagonOptions = Record<string, any>;
  * ⬡
  */
 export const HollowHexagon: SC<HollowHexagonOptions> = (options) => {
-  return ColorPoint({
+  return Color({
     colorAttribute: 'stroke',
     symbol: 'hexagon',
     ...options,
@@ -15,5 +15,5 @@ export const HollowHexagon: SC<HollowHexagonOptions> = (options) => {
 };
 
 HollowHexagon.props = {
-  ...ColorPoint.props,
+  ...Color.props,
 };

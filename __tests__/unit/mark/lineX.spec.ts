@@ -4,7 +4,7 @@ import { plot } from './helper';
 describe('Line annotation', () => {
   it('LineX has expected props', () => {
     expect(LineX.props).toEqual({
-      defaultShape: 'linkLine',
+      defaultShape: 'line',
       defaultLabelShape: 'label',
       channels: [
         { name: 'color' },
@@ -20,7 +20,7 @@ describe('Line annotation', () => {
       ],
       preInference: [],
       postInference: [{ type: 'maybeKey' }],
-      shapes: ['linkLine'],
+      shapes: ['line'],
     });
   });
 

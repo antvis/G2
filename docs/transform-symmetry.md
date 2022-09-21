@@ -20,7 +20,7 @@ them to be symmetry.
     .encode('x', (d) => new Date(d.date))
     .encode('y', 'unemployed')
     .encode('color', 'industry')
-    .encode('shape', 'smoothArea')
+    .encode('shape', 'smooth')
     .scale('x', { field: 'Date', utc: true })
     .scale('y', { guide: { formatter: (d) => `${+d / 1000}k` } })
     .scale('color', {

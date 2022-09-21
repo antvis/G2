@@ -78,7 +78,7 @@
     .encode('x', (d) => new Date(d.date))
     .encode('y', 'unemployed')
     .encode('color', 'industry')
-    .encode('shape', 'smoothArea')
+    .encode('shape', 'smooth')
     .scale('x', { field: 'Date' })
     .scale('color', {
       guide: { size: 72, autoWrap: true, maxRows: 3, cols: 6 },
@@ -112,7 +112,7 @@
     .encode('x', (d) => new Date(d.date))
     .encode('y', 'unemployed')
     .encode('color', 'industry')
-    .encode('shape', 'smoothArea')
+    .encode('shape', 'smooth')
     .scale('x', { field: 'Date' })
     .scale('color', {
       guide: { size: 72, autoWrap: true, maxRows: 3, cols: 6 },

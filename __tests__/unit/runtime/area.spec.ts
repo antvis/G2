@@ -38,7 +38,7 @@ describe('area', () => {
         x: 'year',
         y: 'value',
         color: 'value',
-        shape: 'smoothArea',
+        shape: 'smooth',
         series: 'a',
       },
       style: {
@@ -57,7 +57,7 @@ describe('area', () => {
         x: 'year',
         y: 'sale',
         color: 'type',
-        shape: 'smoothArea',
+        shape: 'smooth',
       },
     });
 
@@ -94,7 +94,7 @@ describe('area', () => {
         x: 'item',
         y: 'score',
         color: 'type',
-        shape: 'smoothArea',
+        shape: 'smooth',
       },
       scale: {
         x: { guide: { type: 'axisX' }, padding: 0.5, align: 0 },

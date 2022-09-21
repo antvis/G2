@@ -243,7 +243,7 @@ describe('render', () => {
           x: 'genre',
           y: 'sold',
           color: 'genre',
-          shape: 'hollowRect',
+          shape: 'hollow',
         },
       },
       {},

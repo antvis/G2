@@ -30,7 +30,7 @@ data = fetchJSON('https://vega.github.io/editor/data/penguins.json');
   matrix
     .point()
     .encode('color', 'Species')
-    .encode('shape', 'hollowPoint')
+    .encode('shape', 'hollow')
     .animate('enter', { type: null });
 
   return chart.render().node();

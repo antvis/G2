@@ -1,18 +1,18 @@
-import { AnnotationConnector } from '../../../../src/shape';
+import { Connector } from '../../../../src/shape';
 import { mount, createDiv } from '../../../utils/dom';
 import { draw, style } from '../helper';
 
-describe('AnnotationConnector shape', () => {
-  it('AnnotationConnector has expected defaults', () => {
-    expect(AnnotationConnector.props).toEqual({
+describe('Connector shape', () => {
+  it('Connector has expected defaults', () => {
+    expect(Connector.props).toEqual({
       defaultEnterAnimation: 'fadeIn',
     });
   });
 
-  it('AnnotationConnector() should return a function draw connector with arrow', async () => {
+  it('Connector() should return a function draw connector with arrow', async () => {
     const container = document.createElement('div');
     const shape = await draw({
-      shape: AnnotationConnector({ offset: 12 }),
+      shape: Connector({ offset: 12 }),
       container,
       value: {
         color: 'steelblue',
