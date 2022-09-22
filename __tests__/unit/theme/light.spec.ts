@@ -2,7 +2,7 @@ import { Light } from '../../../src/theme';
 
 describe('light', () => {
   it('Light() returns expected defaults', () => {
-    const DEFAULT_COLOR = '#1677FF';
+    const DEFAULT_COLOR = '#5B8FF9';
     expect(Light()).toEqual({
       defaultColor: DEFAULT_COLOR,
       defaultCategory10: 'category10',
@@ -46,7 +46,7 @@ describe('light', () => {
           fillOpacity: 0.95,
           lineWidth: 0,
         },
-        hollowPoint: {
+        hollow: {
           r: 2,
           stroke: DEFAULT_COLOR,
           strokeOpacity: 0.95,
@@ -58,7 +58,7 @@ describe('light', () => {
           fill: DEFAULT_COLOR,
           fillOpacity: 0.95,
         },
-        hollowRect: {
+        hollow: {
           stroke: DEFAULT_COLOR,
           strokeOpacity: 1,
           lineWidth: 2,
@@ -67,7 +67,8 @@ describe('light', () => {
       area: {
         area: {
           fill: DEFAULT_COLOR,
-          fillOpacity: 0.25,
+          fillOpacity: 0.85,
+          lineWidth: 0,
         },
       },
       polygon: {

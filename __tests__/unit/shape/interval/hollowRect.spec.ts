@@ -11,7 +11,7 @@ describe('HollowRect', () => {
       value: {
         color: 'steelblue',
         mark: 'interval',
-        shape: 'hollowRect',
+        shape: 'hollow',
       },
       vectors: [
         [0.1, 0.1],
@@ -37,7 +37,7 @@ describe('HollowRect', () => {
       value: {
         color: 'steelblue',
         mark: 'interval',
-        shape: 'hollowRect',
+        shape: 'hollow',
       },
       vectors: [
         [0.1, 0.1],
