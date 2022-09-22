@@ -4,7 +4,7 @@ import { select } from '../../utils/selection';
 import { isPolar } from '../../utils/coordinate';
 import { Vector2, ShapeComponent as SC } from '../../runtime';
 import { angle, sub, dist } from '../../utils/vector';
-import { applyStyle, computeGradient } from '../utils';
+import { applyStyle, computeGradient, getShapeTheme } from '../utils';
 
 export type CurveOptions = {
   curve?: CurveFactory;
@@ -38,18 +38,22 @@ function pathTransform(P, value, curve, coordinate): [string, string] {
 export const Curve: SC<CurveOptions> = (options) => {
   const { curve, gradient = false, ...style } = options;
   return (P, value, coordinate, theme) => {
-    const { defaultColor } = theme;
-    const {
-      color: colorValue = defaultColor,
-      seriesColor: sc,
-      seriesX: sx,
-    } = value;
+    const { mark, shape, defaultShape } = value;
+    const { fill, stroke, ...shapeTheme } = getShapeTheme(
+      theme,
+      mark,
+      shape,
+      defaultShape,
+    );
+    const { color: colorValue, seriesColor: sc, seriesX: sx } = value;
     const [path, transform] = pathTransform(P, value, curve, coordinate);
-    const color = gradient && sc ? computeGradient(sc, sx) : colorValue;
+    const color = (colorValue: string) =>
+      gradient && sc ? computeGradient(sc, sx) : colorValue;
     return select(new Path({}))
+      .call(applyStyle, shapeTheme)
       .style('d', path)
-      .style('fill', color)
-      .style('stroke', color)
+      .style('fill', color(colorValue || fill))
+      .style('stroke', color(colorValue || stroke))
       .style('transform', transform)
       .call(applyStyle, style)
       .node();

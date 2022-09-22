@@ -23,8 +23,7 @@
     .rangeX()
     .data([{ x1: 0.6, x2: 1 }])
     .encode('x', ['x1', 'x2'])
-    .scale('x', { independent: true, guide: null, domain: [0, 1] })
-    .style('fill', 'rgba(220,220,220,0.3)');
+    .scale('x', { independent: true, guide: null, domain: [0, 1] });
 
   chart
     .line()

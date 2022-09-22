@@ -10,6 +10,8 @@ describe('HollowRect', () => {
       container,
       value: {
         color: 'steelblue',
+        mark: 'interval',
+        shape: 'hollow',
       },
       vectors: [
         [0.1, 0.1],
@@ -23,7 +25,7 @@ describe('HollowRect', () => {
     expect(style(shape, ['stroke', 'lineWidth', 'fill'])).toEqual({
       stroke: 'steelblue',
       fill: '',
-      lineWidth: 1,
+      lineWidth: 2,
     });
   });
 
@@ -34,6 +36,8 @@ describe('HollowRect', () => {
       container,
       value: {
         color: 'steelblue',
+        mark: 'interval',
+        shape: 'hollow',
       },
       vectors: [
         [0.1, 0.1],

@@ -5,7 +5,7 @@ import { isPolar } from '../../utils/coordinate';
 import { select } from '../../utils/selection';
 import { dist } from '../../utils/vector';
 import { Primitive, ShapeComponent as SC, Vector2 } from '../../runtime';
-import { applyStyle } from '../utils';
+import { applyStyle, getShapeTheme } from '../utils';
 
 export type LineOptions = Record<string, any>;
 
@@ -34,13 +34,20 @@ function getTransform(coordinate: Coordinate, transform?: Primitive) {
 export const Line: SC<LineOptions> = (options) => {
   const { ...style } = options;
   return (points, value, coordinate, theme) => {
-    const { defaultColor, defaultSize } = theme;
-    const { color = defaultColor, size = defaultSize } = value;
+    const { mark, shape, defaultShape } = value;
+    const { stroke, lineWidth, ...shapeTheme } = getShapeTheme(
+      theme,
+      mark,
+      shape,
+      defaultShape,
+    );
+    const { color = stroke, size = lineWidth } = value;
 
     const path = getPath(points, coordinate);
     const transform = getTransform(coordinate, value.transform);
 
     return select(new Path({}))
+      .call(applyStyle, shapeTheme)
       .style('d', path)
       .style('stroke', color)
       .style('lineWidth', size)

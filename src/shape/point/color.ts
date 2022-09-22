@@ -3,7 +3,7 @@ import { Coordinate, Vector2 } from '@antv/coord';
 import { isFisheye } from '../../utils/coordinate';
 import { ShapeComponent as SC } from '../../runtime';
 import { select } from '../../utils/selection';
-import { applyStyle } from '../utils';
+import { applyStyle, getShapeTheme } from '../utils';
 import * as Symbols from './symbol';
 
 export type ColorOptions = {
@@ -41,15 +41,22 @@ function getOrigin(points: Vector2[]) {
 export const Color: SC<ColorOptions> = (options) => {
   // Render border only when colorAttribute is stroke.
   const { colorAttribute, symbol, mode = 'auto', ...style } = options;
-  const lineWidth = colorAttribute === 'stroke' ? 1 : 0;
+  const defaultSize = colorAttribute === 'stroke' ? 1 : 0;
   const path = Symbols[symbol] || Symbols.point;
 
   return (points, value, coordinate, theme) => {
-    const { defaultColor } = theme;
+    const { mark, shape, defaultShape } = value;
+    const {
+      [colorAttribute]: defaultColor,
+      lineWidth = defaultSize,
+      ...shapeTheme
+    } = getShapeTheme(theme, mark, shape, defaultShape);
+
     const { color = defaultColor, transform } = value;
     const [cx, cy] = getOrigin(points);
     const r = getRadius(mode, points, value, coordinate);
     return select(new Path())
+      .call(applyStyle, shapeTheme)
       .style('d', path(cx, cy, r))
       .style('lineWidth', lineWidth)
       .style('stroke', color)

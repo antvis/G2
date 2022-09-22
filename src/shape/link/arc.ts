@@ -1,6 +1,6 @@
 import { Path } from '@antv/g';
 import { path as d3path } from 'd3-path';
-import { appendArc, applyStyle } from '../utils';
+import { appendArc, applyStyle, getShapeTheme } from '../utils';
 import { select } from '../../utils/selection';
 import { isPolar } from '../../utils/coordinate';
 import { angle, dist, mid, sub } from '../../utils/vector';
@@ -16,8 +16,14 @@ export type ArcOptions = Record<string, any>;
 export const Arc: SC<ArcOptions> = (options) => {
   const { ...style } = options;
   return (points, value, coordinate, theme) => {
-    const { defaultColor } = theme;
-    const { color = defaultColor, transform } = value;
+    const { mark, shape, defaultShape } = value;
+    const { stroke, ...shapeTheme } = getShapeTheme(
+      theme,
+      mark,
+      shape,
+      defaultShape,
+    );
+    const { color = stroke, transform } = value;
     const [from, to] = points;
 
     const path = d3path();
@@ -33,6 +39,7 @@ export const Arc: SC<ArcOptions> = (options) => {
     }
 
     return select(new Path())
+      .call(applyStyle, shapeTheme)
       .style('d', path.toString())
       .style('stroke', color)
       .style('transform', transform)

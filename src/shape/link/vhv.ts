@@ -1,7 +1,7 @@
 import { Path } from '@antv/g';
 import { path as d3path } from 'd3-path';
 import { Coordinate } from '@antv/coord';
-import { appendArc, applyStyle } from '../utils';
+import { appendArc, applyStyle, getShapeTheme } from '../utils';
 import { select } from '../../utils/selection';
 import { isTranspose, isPolar } from '../../utils/coordinate';
 import { Vector2, dist, angle, sub } from '../../utils/vector';
@@ -65,13 +65,20 @@ function getVHVPath(
 export const VHV: SC<VHVOptions> = (options) => {
   const { cornerRatio = 1 / 3, ...style } = options;
   return (points, value, coordinate, theme) => {
-    const { defaultColor } = theme;
-    const { color = defaultColor, transform } = value;
+    const { mark, shape, defaultShape } = value;
+    const { stroke, ...shapeTheme } = getShapeTheme(
+      theme,
+      mark,
+      shape,
+      defaultShape,
+    );
+    const { color = stroke, transform } = value;
     const [from, to] = points;
 
     const path = getVHVPath(from, to, coordinate, cornerRatio);
 
     return select(new Path())
+      .call(applyStyle, shapeTheme)
       .style('d', path.toString())
       .style('stroke', color)
       .style('transform', transform)

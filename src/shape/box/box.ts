@@ -1,7 +1,7 @@
 import { Path as GPath } from '@antv/g';
 import { path as d3path } from 'd3-path';
 import { Coordinate } from '@antv/coord';
-import { applyStyle } from '../utils';
+import { applyStyle, getShapeTheme } from '../utils';
 import { select } from '../../utils/selection';
 import { ShapeComponent as SC, Vector2 } from '../../runtime';
 import { isPolar } from '../../utils/coordinate';
@@ -76,15 +76,21 @@ function getPath(points: Vector2[], coordinate: Coordinate) {
 export const Box: SC<BoxOptions> = (options) => {
   const { ...style } = options;
   return (points, value, coordinate, theme) => {
-    const { defaultColor } = theme;
-    const { color = defaultColor, transform } = value;
+    const { mark, shape, defaultShape, color, transform } = value;
+    const { fill, stroke, ...shapeTheme } = getShapeTheme(
+      theme,
+      mark,
+      shape,
+      defaultShape,
+    );
 
     const path = getPath(points, coordinate);
 
     return select(new GPath())
+      .call(applyStyle, shapeTheme)
       .style('d', path.toString())
-      .style('stroke', color)
-      .style('fill', color)
+      .style('stroke', color || stroke)
+      .style('fill', color || fill)
       .style('transform', transform)
       .call(applyStyle, style)
       .node();
