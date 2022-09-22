@@ -15,7 +15,7 @@ describe('Interactions of ElementHighlight', () => {
         { genre: 'Shooter', sold: 350, type: 'A' },
         { genre: 'Shooter', sold: 250, type: 'B' },
       ],
-      title: 'ElementActive',
+      title: 'ElementHighlight',
       scale: {
         x: { flex: [1, 2, 3, 4] },
       },
@@ -32,7 +32,7 @@ describe('Interactions of ElementHighlight', () => {
           },
         },
       ],
-      interaction: [{ type: 'elementActive' }],
+      interaction: [{ type: 'elementHighlight' }],
     });
     mount(createDiv(), chart);
   });
