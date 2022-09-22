@@ -2,7 +2,7 @@ import { Path as GPath } from '@antv/g';
 import { Coordinate } from '@antv/coord';
 import { path as d3path } from 'd3-path';
 import { isPolar } from '../../utils/coordinate';
-import { applyStyle, appendPolygon, appendArc } from '../utils';
+import { applyStyle, appendPolygon, appendArc, getShapeTheme } from '../utils';
 import { select } from '../../utils/selection';
 import { dist } from '../../utils/vector';
 import { ShapeComponent as SC, Vector2 } from '../../runtime';
@@ -47,15 +47,21 @@ function getPolygonPath(points: Vector2[], coordinate: Coordinate) {
 export const Polygon: SC<PolygonOptions> = (options) => {
   const { ...style } = options;
   return (points, value, coordinate, theme) => {
-    const { defaultColor } = theme;
-    const { color = defaultColor, transform } = value;
+    const { mark, shape, defaultShape, color, transform } = value;
+    const { fill, stroke, ...shapeTheme } = getShapeTheme(
+      theme,
+      mark,
+      shape,
+      defaultShape,
+    );
 
     const path = getPolygonPath(points, coordinate);
 
     return select(new GPath())
+      .call(applyStyle, shapeTheme)
       .style('d', path.toString())
-      .style('stroke', color)
-      .style('fill', color)
+      .style('stroke', color || stroke)
+      .style('fill', color || fill)
       .style('transform', transform)
       .call(applyStyle, style)
       .node();

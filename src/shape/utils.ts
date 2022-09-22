@@ -1,7 +1,7 @@
 import { Path as D3Path } from 'd3-path';
 import { Coordinate } from '@antv/coord';
 import { Linear } from '@antv/scale';
-import { Primitive, Vector2 } from '../runtime';
+import { G2Theme, Primitive, Vector2 } from '../runtime';
 import { isTranspose } from '../utils/coordinate';
 import { angle, dist, sub } from '../utils/vector';
 import { Selection } from '../utils/selection';
@@ -157,4 +157,19 @@ export function getArcObject(
     innerRadius: dist(p3, center),
     outerRadius: dist(p0, center),
   };
+}
+
+export function getShapeTheme(
+  theme: G2Theme,
+  mark: string,
+  shape: string,
+  defaultShape: string,
+) {
+  const { defaultColor } = theme;
+  const markTheme = theme[mark] || {};
+
+  return (
+    markTheme[shape] ||
+    markTheme[defaultShape] || { fill: defaultColor, stroke: defaultColor }
+  );
 }

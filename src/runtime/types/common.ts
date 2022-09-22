@@ -3,42 +3,9 @@ import { DisplayObject } from '@antv/g';
 import { G2GuideComponentOptions, G2Mark, G2ViewTree } from './options';
 import { LabelLayout, Scale } from './component';
 import { MarkProps } from './mark';
-import { ColumnValue } from './encode';
+import { G2Theme } from './theme';
 
-export type G2Theme = {
-  defaultColor?: string;
-  defaultCategory10?: string;
-  defaultCategory20?: string;
-  defaultSize?: number;
-  elementActiveStroke?: string;
-  labelFill?: string;
-  enter?: {
-    duration?: number;
-    delay?: number;
-    fill?: string;
-  };
-  exit?: {
-    duration?: number;
-    delay?: number;
-    fill?: string;
-  };
-  update?: {
-    duration?: number;
-    delay?: number;
-    fill?: string;
-  };
-  title?: {
-    fill?: string;
-    fontSize?: number;
-    fontWeight?: string;
-  };
-  subtitle?: {
-    fill?: string;
-    fontSize?: number;
-    fontWeight?: string;
-    spacing?: number;
-  };
-};
+export type { G2Theme };
 
 export type G2Title = {
   text?: string;

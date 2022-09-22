@@ -1,4 +1,5 @@
 import { Coordinate } from '@antv/coord';
+import { deepMix } from '@antv/util';
 import {
   CustomElement,
   DisplayObjectConfig,
@@ -10,12 +11,14 @@ import { line as d3line } from 'd3-shape';
 import { isTranspose } from '../../utils/coordinate';
 import { select } from '../../utils/selection';
 import { ShapeComponent as SC, Vector2 } from '../../runtime';
-import { applyStyle, PathCommand } from '../utils';
+import { applyStyle, getShapeTheme, PathCommand } from '../utils';
 
 export type ConnectorOptions = ConnectorPathStyleProps & Record<string, any>;
 
 type MarkerStyleProps = {
-  size?: number;
+  r?: number;
+  fill?: string;
+  fillOpacity?: number;
   symbol?: string | ((x: number, y: number, r: number) => string);
 };
 
@@ -57,9 +60,10 @@ class ConnectorPath extends CustomElement<ConnectorPathStyleProps> {
   }
 
   private drawEndMarker() {
-    const { stroke, endMarker } = this.style;
+    const { stroke, endMarker = {} } = this.style;
+    const { r = 4, ...style } = endMarker;
     this.endMarker = this.endMarker || this.appendChild(new Marker({}));
-    this.endMarker.update({ size: 8, fill: stroke, ...endMarker });
+    this.endMarker.update({ size: r * 2, fill: stroke, ...style });
   }
 }
 
@@ -109,18 +113,31 @@ function getSymbol(points: Vector2[]) {
 }
 
 export const Connector: SC<ConnectorOptions> = (options) => {
-  const { direction = 'upward', offset = 12, endMarker, ...style } = options;
+  const {
+    direction = 'upward',
+    offset = 12,
+    endMarker: endMarkerOptions,
+    ...style
+  } = options;
   return (points, value, coordinate, theme) => {
-    const { defaultColor } = theme;
-    const { color = defaultColor, transform } = value;
+    const { mark, shape, defaultShape } = value;
+    const {
+      fill,
+      stroke = fill,
+      endMarker: endMarkerTheme,
+      ...shapeTheme
+    } = getShapeTheme(theme, mark, shape, defaultShape);
+    const { color, transform } = value;
 
     const P = getPoints(coordinate, points, direction, offset);
     const path = getPath(P, coordinate);
     const [, , , p3] = P;
+    const endMarker = deepMix({}, endMarkerTheme, endMarkerOptions);
 
     return select(new ConnectorPath({}))
+      .call(applyStyle, shapeTheme)
       .style('connectorPath', path)
-      .style('stroke', color)
+      .style('stroke', color || stroke)
       .style('transform', transform)
       .style('endMarker', {
         x: p3[0],
