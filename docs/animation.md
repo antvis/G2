@@ -29,6 +29,7 @@
 
 ## Animation Type
 
+### FadeIn
 ```js
 (() => {
   const chart = new G2.Chart();
@@ -49,6 +50,45 @@
       type: 'fadeIn', //  Specify animation type.
       duration: 2000,
     });
+
+  return chart.render().node();
+})();
+```
+
+### WaveIn
+```js
+(() => {
+  const chart = new G2.Chart({ height: 640 });
+
+  chart.coordinate({ type: 'theta' });
+
+  chart
+    .interval()
+    .transform({ type: 'stackY' })
+    .data({
+      type: 'fetch',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/79fd9317-d2af-4bc4-90fa-9d07357398fd.csv',
+    })
+    .encode('y', 'value')
+    .encode('color', 'name')
+    .style('stroke', 'white')
+    .scale('color', {
+      guide: null,
+      palette: 'spectral',
+      offset: (t) => t * 0.8 + 0.1,
+    })
+    .label({ text: 'name', radius: 0.8, fontSize: 10, fontWeight: 'bold' })
+    .label({
+      text: (d, i, data) => (i < data.length - 3 ? d.value : ''),
+      radius: 0.8,
+      fontSize: 9,
+      dy: '0.75em',
+    })
+    .animate('enter', {
+      type: 'waveIn',
+      duration: 2000,
+  	});
 
   return chart.render().node();
 })();
