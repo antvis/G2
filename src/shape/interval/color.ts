@@ -1,10 +1,10 @@
-import { Path } from '@antv/g';
+import { Path, Rect } from '@antv/g';
 import { arc } from 'd3-shape';
-import { path as d3path } from 'd3-path';
 import { Vector2, ShapeComponent as SC } from '../../runtime';
-import { isPolar, isHelix } from '../../utils/coordinate';
+import { isPolar, isHelix, isTranspose } from '../../utils/coordinate';
 import { select } from '../../utils/selection';
-import { applyStyle, appendPolygon, getArcObject } from '../utils';
+import { sub } from '../.././utils/vector';
+import { applyStyle, getArcObject, getShapeTheme, reorder } from '../utils';
 
 export type ColorOptions = {
   colorAttribute: 'fill' | 'stroke';
@@ -22,21 +22,52 @@ export type ColorOptions = {
 export const Color: SC<ColorOptions> = (options) => {
   // Render border only when colorAttribute is stroke.
   const { colorAttribute, ...style } = options;
-  const lineWidth = colorAttribute === 'stroke' ? 1 : 0;
+  const defaultSize = colorAttribute === 'stroke' ? 1 : 0;
 
   return (points, value, coordinate, theme) => {
-    const { radius = 0 } = style;
-    const { defaultColor } = theme;
+    const {
+      radius = 0,
+      radiusTopLeft = radius,
+      radiusTopRight = radius,
+      radiusBottomRight = radius,
+      radiusBottomLeft = radius,
+    } = style;
+    const { mark, shape, defaultShape } = value;
+    const {
+      [colorAttribute]: defaultColor,
+      lineWidth = defaultSize,
+      stroke = defaultColor,
+      ...shapeTheme
+    } = getShapeTheme(theme, mark, shape, defaultShape);
     const { color = defaultColor } = value;
 
     // Render rect in non-polar coordinate.
     if (!isPolar(coordinate) && !isHelix(coordinate)) {
-      return select(new Path())
+      const [p0, , p2] = isTranspose(coordinate) ? reorder(points) : points;
+      const [x, y] = p0;
+      const [width, height] = sub(p2, p0);
+      // Deal with width or height is negative.
+      const absX = width > 0 ? x : x + width;
+      const absY = height > 0 ? y : y + height;
+      const absWidth = Math.abs(width);
+      const absHeight = Math.abs(height);
+      return select(new Rect({}))
+        .call(applyStyle, shapeTheme)
         .style('lineWidth', lineWidth)
-        .style('d', appendPolygon(d3path(), points).toString())
+        .style('x', absX)
+        .style('y', absY)
+        .style('width', absWidth)
+        .style('height', absHeight)
         .style('stroke', color)
+        .style('stroke', color || stroke)
         .style(colorAttribute, color)
-        .call(applyStyle, style) // The priority of style is higher than encode value.
+        .style('radius', [
+          radiusTopLeft,
+          radiusTopRight,
+          radiusBottomRight,
+          radiusBottomLeft,
+        ])
+        .call(applyStyle, style)
         .node();
     }
 
@@ -47,9 +78,10 @@ export const Color: SC<ColorOptions> = (options) => {
     const path = arc().cornerRadius(radius as number);
 
     return select(new Path({}))
+      .call(applyStyle, shapeTheme)
       .style('path', path(arcObject))
       .style('transform', `translate(${center[0]}, ${center[1]})`)
-      .style('stroke', color)
+      .style('stroke', color || stroke)
       .style(colorAttribute, color)
       .call(applyStyle, style)
       .node();

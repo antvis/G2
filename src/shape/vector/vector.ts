@@ -1,6 +1,6 @@
 import { path as d3path } from 'd3-path';
 import { Path } from '@antv/g';
-import { applyStyle, arrowPoints, ArrowOptions } from '../utils';
+import { applyStyle, arrowPoints, ArrowOptions, getShapeTheme } from '../utils';
 import { select } from '../../utils/selection';
 import { ShapeComponent as SC } from '../../runtime';
 
@@ -18,8 +18,13 @@ export type VectorOptions = {
 export const Vector: SC<VectorOptions> = (options) => {
   const { arrow, ...style } = options;
   return (points, value, coordinate, theme) => {
-    const { defaultColor } = theme;
-    const { color = defaultColor, transform } = value;
+    const { mark, shape, defaultShape, color, transform } = value;
+    const { fill, stroke, ...shapeTheme } = getShapeTheme(
+      theme,
+      mark,
+      shape,
+      defaultShape,
+    );
     const [from, to] = points;
 
     // Calculate arrow end point.
@@ -37,9 +42,10 @@ export const Vector: SC<VectorOptions> = (options) => {
     path.lineTo(...arrow2);
 
     return select(new Path())
+      .call(applyStyle, shapeTheme)
       .style('d', path.toString())
-      .style('stroke', color)
-      .style('fill', color)
+      .style('stroke', color || stroke)
+      .style('fill', color || fill)
       .style('transform', transform)
       .call(applyStyle, style)
       .node();

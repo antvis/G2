@@ -24,9 +24,17 @@
 })();
 ```
 
-## API
+## 选项
 
-> TODO
+> style
+
+| 参数              | 说明       | 类型     | 默认值 |
+| ----------------- | ---------- | -------- | ------ |
+| radius            | 圆角       | `number` | `0`    |
+| radiusTopLeft     | 左上角圆角 | `number` | `0`    |
+| radiusTopRight    | 右上角圆角 | `number` | `0`    |
+| radiusBottomRight | 右下角圆角 | `number` | `0`    |
+| radiusBottomLeft  | 左下角圆角 | `number` | `0`    |
 
 ## 案例
 
@@ -351,7 +359,7 @@
 })();
 ```
 
-### 不等宽条形图
+### 弹性条形图
 
 可以通过 **FlexX** 转化来实现不等宽条形图。
 
@@ -373,6 +381,33 @@
     .encode('x', 'country')
     .encode('y', 'value')
     .encode('color', 'country')
+    .scale('y', { formatter: '~s' });
+
+  return chart.render().node();
+})();
+```
+
+### 不等宽条形图
+
+```js
+(() => {
+  const chart = new G2.Chart({
+    width: 1000,
+    paddingBottom: 100,
+  });
+
+  chart
+    .interval()
+    .data({
+      type: 'fetch',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/90873879-09d7-4842-a493-03fb560267bc.csv',
+    })
+    .encode('x', 'country')
+    .encode('y', 'value')
+    .encode('color', 'country')
+    .encode('size', 'gdp')
+    .scale('size', { range: [10, 60] })
     .scale('y', { formatter: '~s' });
 
   return chart.render().node();
@@ -461,6 +496,32 @@
       d.month === 'Total' ? 'Total' : d.profit > 0 ? 'Increase' : 'Decrease',
     )
     .scale('y', { formatter: '~s' });
+
+  return chart.render().node();
+})();
+```
+
+### 固定宽度的圆角条形图
+
+```js
+(() => {
+  const chart = new G2.Chart();
+
+  chart
+    .interval()
+    .data([
+      { name: 'MODIFY', value: 138, washaway: 0.21014492753623193 },
+      { name: 'PRERELEASE', value: 109, washaway: 0.5596330275229358 },
+      { name: 'RELEASING', value: 48, washaway: 0 },
+    ])
+    .encode('x', 'name')
+    .encode('y', 'value')
+    .encode('color', 'name')
+    .encode('size', 80)
+    .style('radiusTopLeft', 10)
+    .style('radiusTopRight', 20)
+    .style('radiusBottomRight', 30)
+    .style('radiusBottomLeft', 40);
 
   return chart.render().node();
 })();

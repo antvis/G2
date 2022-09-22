@@ -27,6 +27,8 @@ describe('Text shape', () => {
       value: {
         text: 'hello',
         color: 'steelblue',
+        mark: 'text',
+        shape: 'text',
       },
       vectors: [[0.5, 0.5]],
     });

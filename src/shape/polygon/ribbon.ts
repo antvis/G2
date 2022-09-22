@@ -1,7 +1,7 @@
 import { Path as GPath } from '@antv/g';
 import { path as d3path } from 'd3-path';
 import { Coordinate } from '@antv/coord';
-import { appendArc, applyStyle } from '../utils';
+import { appendArc, applyStyle, getShapeTheme } from '../utils';
 import { select } from '../../utils/selection';
 import { isPolar } from '../../utils/coordinate';
 import { dist } from '../../utils/vector';
@@ -73,15 +73,21 @@ function getRibbonPath(points: Vector2[], coordinate: Coordinate) {
 export const Ribbon: SC<RibbonOptions> = (options) => {
   const { ...style } = options;
   return (points, value, coordinate, theme) => {
-    const { defaultColor } = theme;
-    const { color = defaultColor, transform } = value;
+    const { mark, shape, defaultShape, color, transform } = value;
+    const { fill, stroke, ...shapeTheme } = getShapeTheme(
+      theme,
+      mark,
+      shape,
+      defaultShape,
+    );
 
     const path = getRibbonPath(points, coordinate);
 
     return select(new GPath())
+      .call(applyStyle, shapeTheme)
       .style('d', path.toString())
-      .style('fill', color)
-      .style('stroke', color)
+      .style('fill', color || fill)
+      .style('stroke', color || stroke)
       .style('transform', transform)
       .call(applyStyle, style)
       .node();

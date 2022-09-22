@@ -400,6 +400,7 @@ function initializeState(
     labelLayout,
     scale: scaleInstance,
   };
+
   return [view, children];
 }
 
@@ -681,10 +682,10 @@ function createMarkShapeFunction(
   const { defaultShape, data } = state;
   const point2d = data.map((d) => d.points);
   const { theme, coordinate } = view;
-  const { style } = mark;
+  const { type: markType, style } = mark;
   return (data, index) => {
     const { shape = defaultShape, points, ...v } = data;
-    const value = { ...v, index };
+    const value = { ...v, shape, mark: markType, defaultShape, index };
     const shapeFunction = useShape({ ...style, type: shapeName(mark, shape) });
     return shapeFunction(points, value, coordinate, theme, point2d);
   };

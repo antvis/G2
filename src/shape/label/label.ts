@@ -146,7 +146,6 @@ function inferCircularStyle(
 export const Label: SC<LabelOptions> = (options) => {
   return (points, value, coordinate, theme) => {
     const { position, text, ...overrideStyle } = value;
-    const { labelFill: fill } = theme;
     const definedPosition = inferPosition(position, coordinate);
     const inferDefaultStyle = isCircular(coordinate)
       ? inferCircularStyle
@@ -157,11 +156,11 @@ export const Label: SC<LabelOptions> = (options) => {
       value,
       coordinate,
     );
+    const labelTheme =
+      theme[definedPosition === 'inside' ? 'innerLabel' : 'label'];
     return select(new Text())
-      .call(applyStyle, defaultStyle)
+      .call(applyStyle, { ...labelTheme, ...defaultStyle })
       .style('text', `${text}`)
-      .style('fontSize', 12)
-      .style('fill', fill)
       .call(applyStyle, overrideStyle)
       .node();
   };

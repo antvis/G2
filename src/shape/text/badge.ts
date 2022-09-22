@@ -6,7 +6,7 @@ import {
 } from '@antv/g';
 import { Marker } from '@antv/gui';
 import { ShapeComponent as SC } from '../../runtime';
-import { applyStyle } from '../utils';
+import { applyStyle, getShapeTheme } from '../../shape/utils';
 import { select } from '../../utils/selection';
 
 export type BadgeOptions = BadgeShapeStyleProps & Record<string, any>;
@@ -95,15 +95,21 @@ class BadgeShape extends CustomElement<BadgeShapeStyleProps> {
 export const Badge: SC<BadgeOptions> = (options) => {
   const { ...style } = options;
   return (points, value, coordinate, theme) => {
-    const { defaultColor } = theme;
-    const { color = defaultColor, text = '' } = value;
+    const { mark, shape, defaultShape } = value;
+    const {
+      fill,
+      stroke = fill,
+      ...shapeTheme
+    } = getShapeTheme(theme, mark, shape, defaultShape);
+    const { color, text = '' } = value;
     const [[x0, y0]] = points;
     return select(new BadgeShape({}))
+      .call(applyStyle, shapeTheme)
       .style('x', x0)
       .style('y', y0)
       .style('text', String(text))
-      .style('stroke', color)
-      .style('fill', color)
+      .style('stroke', color || stroke)
+      .style('fill', color || fill)
       .call(applyStyle, style)
       .node();
   };
