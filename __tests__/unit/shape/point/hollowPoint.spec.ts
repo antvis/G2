@@ -16,6 +16,8 @@ describe('HollowPoint', () => {
       container,
       value: {
         color: 'steelblue',
+        mark: 'point',
+        shape: 'hollow',
       },
       vectors: [
         [0.2, 0.2],
@@ -38,6 +40,8 @@ describe('HollowPoint', () => {
       container,
       value: {
         color: 'steelblue',
+        mark: 'point',
+        shape: 'hollow',
       },
       vectors: [
         [0.2, 0.2],

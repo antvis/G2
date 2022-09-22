@@ -10,7 +10,7 @@ import {
 } from '@antv/g';
 import { Marker } from '@antv/gui';
 import { ShapeComponent as SC } from '../../runtime';
-import { applyStyle } from '../utils';
+import { applyStyle, getShapeTheme } from '../../shape/utils';
 import { select } from '../../utils/selection';
 
 export type TextOptions = TextShapeStyleProps & Record<string, any>;
@@ -209,21 +209,28 @@ class TextShape extends CustomElement<TextShapeStyleProps> {
 export const Text: SC<TextOptions> = (options) => {
   const { ...style } = options;
   return (points, value, coordinate, theme) => {
-    const { defaultColor } = theme;
+    const { mark, shape, defaultShape } = value;
     const {
-      color = defaultColor,
+      fill,
+      stroke,
+      fontSize: defaultSize,
+      ...shapeTheme
+    } = getShapeTheme(theme, mark, shape, defaultShape);
+    const {
+      color,
       text = '',
-      fontSize = 12,
+      fontSize = defaultSize,
       rotate = 0,
       transform = '',
     } = value;
     const [[x0, y0]] = points;
     return select(new TextShape({}))
+      .call(applyStyle, shapeTheme)
       .style('x', x0)
       .style('y', y0)
       .style('text', String(text))
-      .style('stroke', color)
-      .style('fill', color)
+      .style('stroke', color || stroke)
+      .style('fill', color || fill)
       .style('fontSize', fontSize as any)
       .style('transform', `${transform}rotate(${+rotate}deg)`)
       .call(applyStyle, style)

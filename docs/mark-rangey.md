@@ -15,8 +15,7 @@
   chart
     .rangeY()
     .data([{ 'Mean+stdev': 31.3305571769, 'Mean-stdev': 15.6985885518 }])
-    .encode('y', ['Mean-stdev', 'Mean+stdev'])
-    .style('fill', 'rgba(220,220,220,0.3)');
+    .encode('y', ['Mean-stdev', 'Mean+stdev']);
 
   chart.point().encode('x', 'Horsepower').encode('y', 'Miles_per_Gallon');
 
