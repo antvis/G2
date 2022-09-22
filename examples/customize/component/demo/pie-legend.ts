@@ -90,24 +90,43 @@ chart
   .adjust('stack');
 
 // customize legend
-const $legend = document.getElementById('g2-customize-legend');
-chart.on('afterrender', (e) => {
-  const elements = e.view.getElements();
-  const mappingData = elements.map(e => e.getModel());
+const $legend = document.getElementById('g2-customize-legend') as HTMLElement;
+function createLegend() {
+  // 清空
+  $legend.innerHTML = '';
+  const group = $legend.appendChild(document.createElement('div'));
+  const elements = chart.getElements();
+  const mappingData = elements.map((e) => e.getModel());
+  mappingData.map((datum) => {
+    const color = datum.color;
+    const name = datum.data.item;
+    const value = `${datum.data.count} (${datum.data.percent * 100}%)`;
+    const div = document.createElement('div');
+    group.appendChild(div);
+    div.className = 'legend-item';
+    div.addEventListener('click', () => {
+      // 增加过滤条件。可以做筛选功能
+      chart.filter('item', (item) => item !== name);
+      chart.render(true);
+    });
 
-  $legend.innerHTML = `
-    ${mappingData.map(datum => {
-      const color = datum.color;
-      const name = datum.data.item;
-      const value = `${datum.data.count} (${datum.data.percent * 100}%)`;
-
-      return `<div class="legend-item">
-        <span class="legend-item-marker" style="background: ${color}"></span>
-        <span class="legend-item-name">${name}</span>
-        <span class="legend-item-value">${value}</span>
-      </div>`;
-    }).join('')}
-  `;
+    div.innerHTML = `
+      <span class="legend-item-marker" style="background: ${color}"></span>
+      <span class="legend-item-name">${name}</span>
+      <span class="legend-item-value">${value}</span>`;
+  });
+}
+chart.once('afterrender', (e) => {
+  createLegend();
+});
+chart.once('afterchangedata', (e) => {
+  // 清空过滤条件
+  chart.filter('item', null);
+  createLegend();
 });
 
 chart.render();
+
+setTimeout(() => {
+  chart.changeData(data.slice(0, 3));
+}, 5000);

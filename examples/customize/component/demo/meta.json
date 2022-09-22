@@ -7,9 +7,10 @@
     {
       "filename": "pie-legend.ts",
       "title": {
-        "en": "Pie Legend",
-        "zh": "自定义饼图图例"
+        "en": "Custom legend interaction",
+        "zh": "自定义图例交互"
       },
+      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/FXumtQPY8%24/4f400067-dfde-47bc-8e75-0cd7695bd3b7.png"
     },
     {
