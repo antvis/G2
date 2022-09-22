@@ -400,6 +400,7 @@ function initializeState(
     labelLayout,
     scale: scaleInstance,
   };
+
   return [view, children];
 }
 
