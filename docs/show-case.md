@@ -42,7 +42,7 @@
     .paddingBottom(paddingTop);
   const addAnnotationText = (node, data, style = {}) =>
     node
-      .annotationText()
+      .text()
       .data(data)
       .encode('x', 'x')
       .encode('y', 'y')

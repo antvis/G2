@@ -122,7 +122,7 @@ This example also shows how to draw multiple marks in a single chart. Noticed th
     .style('lineWidth', 1);
 
   chart
-    .annotationText() // Create and add a text annotation to chart.
+    .text() // Create and add a text annotation to chart.
     .transform({ type: 'select', x: selector }) // Select a shape for each series with specified selector.
     .encode('series', 'Continent') // Series channel will group marks into series.
     .encode('size', 'Population')

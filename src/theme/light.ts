@@ -6,7 +6,7 @@ export type LightOptions = Theme;
  * Default theme.
  */
 export const Light: TC<LightOptions> = (options) => {
-  const DEFAULT_COLOR = '#1677FF';
+  const DEFAULT_COLOR = '#5B8FF9';
   const defaultOptions: Theme = {
     defaultColor: DEFAULT_COLOR,
     defaultCategory10: 'category10',
@@ -71,7 +71,8 @@ export const Light: TC<LightOptions> = (options) => {
     area: {
       area: {
         fill: DEFAULT_COLOR,
-        fillOpacity: 0.25,
+        fillOpacity: 0.85,
+        lineWidth: 0,
       },
     },
     polygon: {
