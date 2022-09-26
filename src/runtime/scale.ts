@@ -1,5 +1,7 @@
 import { createInterpolateValue } from '@antv/scale';
 import { extent } from 'd3-array';
+import * as d3ScaleChromatic from 'd3-scale-chromatic';
+import { upperFirst } from '@antv/util';
 import { firstOf, lastOf, unique } from '../utils/array';
 import { defined } from '../utils/helper';
 import { Channel, Primitive, G2Theme, G2MarkState } from './types/common';
@@ -115,11 +117,20 @@ function inferPotentialScale(
   const { field = inferredField, guide = {} } = options;
   const type = inferScaleType(channel, options);
   if (typeof type !== 'string') return options;
+  const domain = inferScaleDomain(type, channel, options);
   return {
     ...options,
     ...inferScaleOptions(type, channel, options, coordinate),
-    domain: inferScaleDomain(type, channel, options),
-    range: inferScaleRange(type, channel, options, shapes, theme, library),
+    domain,
+    range: inferScaleRange(
+      type,
+      channel,
+      options,
+      domain,
+      shapes,
+      theme,
+      library,
+    ),
     guide,
     name,
     field,
@@ -141,6 +152,7 @@ function inferScaleType(
   if (visual) return 'identity';
   if (isObject(value)) return 'identity';
 
+  if (typeof range === 'string') return 'linear';
   if ((domain || range || []).length > 2) return asOrdinalType(name);
   if (domain !== undefined) {
     if (isOrdinal(domain)) return asOrdinalType(name);
@@ -165,6 +177,7 @@ function inferScaleDomain(
     case 'time':
     case 'log':
     case 'pow':
+    case 'sqrt':
     case 'threshold':
       return inferDomainQ(value, options);
     case 'band':
@@ -182,11 +195,13 @@ function inferScaleRange(
   type: string,
   channel: Channel,
   options: G2ScaleOptions,
+  domain: Primitive[],
   shapes: string[],
   theme: G2Theme,
   library: G2Library,
 ) {
   const { range } = options;
+  if (typeof range === 'string') return gradientColors(range);
   if (range !== undefined) return range;
 
   const [usePalette] = useLibrary<G2PaletteOptions, PaletteComponent, Palette>(
@@ -195,10 +210,12 @@ function inferScaleRange(
   );
   const { name, value } = channel;
   const { defaultCategory10: c10, defaultCategory20: c20 } = theme;
-  const defaultPalette = { type: unique(value).length <= 10 ? c10 : c20 };
+  const defaultPalette = unique(value).length <= c10.length ? c10 : c20;
 
-  const { palette: paletteOptions = defaultPalette } = options;
-  const palette = usePalette(paletteOptions);
+  const { palette, offset } = options;
+  const colors =
+    interpolatedColors(palette, domain, offset) ||
+    usePalette({ type: palette || defaultPalette });
 
   switch (type) {
     case 'linear':
@@ -206,12 +223,36 @@ function inferScaleRange(
     case 'point':
     case 'time':
     case 'log':
+    case 'sqrt':
       return inferRangeQ(name, palette);
     case 'ordinal':
-      return name === 'color' ? palette : shapes;
+      return name === 'color' ? colors : shapes;
     default:
       return [];
   }
+}
+
+function gradientColors(range: string): string[] {
+  return range.split('-');
+}
+
+function interpolatedColors(
+  palette: string,
+  domain: Primitive[],
+  offset = (d) => d,
+): string[] {
+  if (!palette) return null;
+  const fullName = upperFirst(palette);
+
+  // If scheme have enough colors, then return pre-defined colors.
+  const scheme = d3ScaleChromatic[`scheme${fullName}`];
+  if (!scheme) return null;
+  const schemeColors = scheme[domain.length];
+  if (schemeColors) return schemeColors;
+
+  // Otherwise interpolate to get full colors.
+  const interpolator = d3ScaleChromatic[`interpolate${fullName}`];
+  return domain.map((_, i) => interpolator(offset(i / domain.length)));
 }
 
 function inferScaleOptions(
@@ -226,6 +267,7 @@ function inferScaleOptions(
     case 'time':
     case 'log':
     case 'pow':
+    case 'sqrt':
       return inferOptionsQ(coordinate, options);
     case 'band':
     case 'point':
@@ -267,8 +309,9 @@ function inferPadding(
   // The scale for enterDelay and enterDuration should has zero padding by default.
   // Because there is no need to add extra delay for the start and the end.
   if (name === 'enterDelay' || name === 'enterDuration') return 0;
-  if (type === 'band')
-    return isPolar(coordinate) || isTheta(coordinate) ? 0 : 0.1;
+  if (type === 'band') {
+    return isTheta(coordinate) ? 0 : 0.1;
+  }
   // Point scale need 0.5 padding to make interval between first and last point
   // equal to other intervals in polar coordinate.
   if (type === 'point') return isPolar(coordinate) ? 0.5 : 0;

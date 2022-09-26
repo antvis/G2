@@ -3,12 +3,7 @@ import { DisplayObject, Text } from '@antv/g';
 import { select } from '../../utils/selection';
 import { ShapeComponent as SC, Vector2 } from '../../runtime';
 import { applyStyle, getArcObject } from '../../shape/utils';
-import {
-  isHelix,
-  isPolar,
-  isTranspose,
-  isCircular,
-} from '../../utils/coordinate';
+import { isTranspose, isCircular } from '../../utils/coordinate';
 
 type LabelPosition =
   | 'top'
@@ -46,8 +41,8 @@ function getLocalBounds(element: DisplayObject) {
 
 function inferPosition(position: LabelPosition, coordinate: Coordinate) {
   if (position !== undefined) return position;
+  if (isCircular(coordinate)) return 'inside';
   if (isTranspose(coordinate)) return 'right';
-  if (isPolar(coordinate) || isHelix(coordinate)) return 'inside';
   return 'top';
 }
 
@@ -127,13 +122,16 @@ function inferCircularStyle(
 
   // @todo Support config by label.offset
   const offset = position === 'inside' ? 0 : 12;
+  const { radius: radiusRatio = 0.5 } = value;
   const radius =
-    (position === 'inside' ? (innerRadius + outerRadius) / 2 : outerRadius) +
-    offset;
+    position === 'inside'
+      ? innerRadius + (outerRadius - innerRadius) * radiusRatio
+      : outerRadius;
+  const finalRadius = radius + offset;
 
   return {
-    x: center[0] + Math.sin(midAngle) * radius - x0,
-    y: center[1] - Math.cos(midAngle) * radius - y0,
+    x: center[0] + Math.sin(midAngle) * finalRadius - x0,
+    y: center[1] - Math.cos(midAngle) * finalRadius - y0,
     textAlign: 'center',
     textBaseline: 'middle',
   };

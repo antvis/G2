@@ -23,6 +23,7 @@ import {
   isReflectY,
   isTheta,
   isHelix,
+  isRadial,
 } from './coordinate';
 import { useLibrary } from './library';
 import { isPosition } from './scale';
@@ -73,18 +74,15 @@ export function inferComponent(
     if (type !== null) {
       const { props } = createGuideComponent(type);
       const { defaultPosition, defaultSize, defaultOrder } = props;
-      const { guide: partialGuide, name, formatter } = scale;
-      const {
-        position = inferComponentPosition(
-          name,
-          type,
-          defaultPosition,
-          partialGuide,
-          coordinate,
-        ),
-        size = defaultSize,
-        order = defaultOrder,
-      } = partialGuide;
+      const { guide: partialGuide, name, formatter, tickFilter } = scale;
+      const position = inferComponentPosition(
+        name,
+        type,
+        defaultPosition,
+        partialGuide,
+        coordinate,
+      );
+      const { size = defaultSize, order = defaultOrder } = partialGuide;
       components.push({
         ...partialGuide,
         position,
@@ -93,6 +91,7 @@ export function inferComponent(
         type,
         scale,
         formatter,
+        tickFilter,
       });
     }
   }
@@ -175,6 +174,7 @@ function inferComponentPosition(
     'top',
     'bottom',
     'centerHorizontal',
+    'center',
   ];
   const ordinalPosition = !positions.includes(guide.position)
     ? defaultPosition
@@ -191,16 +191,26 @@ function inferComponentPosition(
     (type === 'axisX' && isPolar(coordinate) && !isTranspose(coordinate)) ||
     (type === 'axisY' && isPolar(coordinate) && isTranspose(coordinate)) ||
     (type === 'axisY' && isTheta(coordinate)) ||
-    (type === 'axisY' && isHelix(coordinate))
+    (type === 'axisY' && isHelix(coordinate)) ||
+    (type === 'axisY' && isRadial(coordinate))
   ) {
+    if (guide.position === 'bottom') return 'arcInner';
     return 'arc';
   } else if (isPolar(coordinate) && (type === 'axisX' || type === 'axisY')) {
+    return 'arcY';
+  } else if (isRadial(coordinate) && type === 'axisX') {
     return 'arcY';
   } else if (
     (type === 'axisX' && isReflect(coordinate)) ||
     (type === 'axisX' && isReflectY(coordinate))
   ) {
     return 'top';
+  } else if (
+    typeof type === 'string' &&
+    type.startsWith('legend') &&
+    isPolar(coordinate)
+  ) {
+    if (guide.position === 'center') return 'arcCenter';
   }
   return ordinalPosition;
 }

@@ -129,6 +129,7 @@
     "d3-hierarchy": "^3.1.2",
     "d3-shape": "^3.1.0",
     "d3-voronoi": "^1.1.4",
-    "d3-format": "^3.1.0"
+    "d3-format": "^3.1.0",
+    "d3-scale-chromatic": "^3.0.0"
   }
 }
