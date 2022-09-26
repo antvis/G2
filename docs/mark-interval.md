@@ -28,13 +28,14 @@
 
 > style
 
-| 参数              | 说明       | 类型     | 默认值 |
-| ----------------- | ---------- | -------- | ------ |
-| radius            | 圆角       | `number` | `0`    |
-| radiusTopLeft     | 左上角圆角 | `number` | `0`    |
-| radiusTopRight    | 右上角圆角 | `number` | `0`    |
-| radiusBottomRight | 右下角圆角 | `number` | `0`    |
-| radiusBottomLeft  | 左下角圆角 | `number` | `0`    |
+| 参数              | 说明                       | 类型     | 默认值 |
+| ----------------- | -------------------------- | -------- | ------ |
+| radius            | 圆角                       | `number` | `0`    |
+| radiusTopLeft     | 左上角圆角                 | `number` | `0`    |
+| radiusTopRight    | 右上角圆角                 | `number` | `0`    |
+| radiusBottomRight | 右下角圆角                 | `number` | `0`    |
+| radiusBottomLeft  | 左下角圆角                 | `number` | `0`    |
+| inset             | 扇形之间的间隔，单位为角度 | `number` | `0`    |
 
 ## 案例
 
@@ -522,6 +523,264 @@
     .style('radiusTopRight', 20)
     .style('radiusBottomRight', 30)
     .style('radiusBottomLeft', 40);
+
+  return chart.render().node();
+})();
+```
+
+### 饼图
+
+```js
+(() => {
+  const chart = new G2.Chart({ height: 640 });
+
+  chart.coordinate({ type: 'theta' });
+
+  chart
+    .interval()
+    .transform({ type: 'stackY' })
+    .data({
+      type: 'fetch',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/79fd9317-d2af-4bc4-90fa-9d07357398fd.csv',
+    })
+    .encode('y', 'value')
+    .encode('color', 'name')
+    .style('stroke', 'white')
+    .scale('color', {
+      guide: null,
+      palette: 'spectral',
+      offset: (t) => t * 0.8 + 0.1,
+    })
+    .label({ text: 'name', radius: 0.8, fontSize: 10, fontWeight: 'bold' })
+    .label({
+      text: (d, i, data) => (i < data.length - 3 ? d.value : ''),
+      radius: 0.8,
+      fontSize: 9,
+      dy: '0.75em',
+    });
+
+  return chart.render().node();
+})();
+```
+
+### 甜甜圈图
+
+```js
+(() => {
+  const chart = new G2.Chart({ height: 640 });
+
+  chart.coordinate({ type: 'theta', innerRadius: 0.6 });
+
+  chart
+    .interval()
+    .transform({ type: 'stackY' })
+    .data({
+      type: 'fetch',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/79fd9317-d2af-4bc4-90fa-9d07357398fd.csv',
+    })
+    .encode('y', 'value')
+    .encode('color', 'name')
+    .style('stroke', 'white')
+    .style('inset', 1)
+    .style('radius', 10)
+    .scale('color', {
+      guide: null,
+      palette: 'spectral',
+      offset: (t) => t * 0.8 + 0.1,
+    })
+    .label({ text: 'name', fontSize: 10, fontWeight: 'bold' })
+    .label({
+      text: (d, i, data) => (i < data.length - 3 ? d.value : ''),
+      fontSize: 9,
+      dy: '0.75em',
+    });
+
+  return chart.render().node();
+})();
+```
+
+### 玫瑰图
+
+```js
+(() => {
+  const chart = new G2.Chart({ width: 720, height: 720 });
+
+  chart.coordinate({ type: 'polar' });
+
+  chart
+    .interval()
+    .transform({ type: 'groupX', y: 'sum' })
+    .data({
+      type: 'fetch',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/87b2ff47-2a33-4509-869c-dae4cdd81163.csv',
+    })
+    .encode('x', 'year')
+    .encode('y', 'people')
+    .scale('y', {
+      type: 'sqrt',
+      formatter: '~s',
+      tickCount: 5,
+      tickFilter: (d, i) => i !== 0,
+      guide: { direction: 'right' },
+    });
+
+  return chart.render().node();
+})();
+```
+
+### 堆叠玫瑰图
+
+```js
+(() => {
+  const chart = new G2.Chart({
+    width: 800,
+    height: 800,
+  });
+  const colors = [
+    '#98abc5',
+    '#8a89a6',
+    '#7b6888',
+    '#6b486b',
+    '#a05d56',
+    '#d0743c',
+    '#ff8c00',
+  ];
+
+  chart.coordinate({ type: 'polar', innerRadius: 0.4 });
+
+  chart
+    .interval()
+    .data({
+      type: 'fetch',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/d582a447-2057-4a74-97ed-1d73a5459ea4.csv',
+      transform: [
+        {
+          type: 'fold',
+          fields: [
+            'Under 5 Years',
+            '5 to 13 Years',
+            '14 to 17 Years',
+            '18 to 24 Years',
+            '25 to 44 Years',
+            '45 to 64 Years',
+            '65 Years and Over',
+          ],
+          as: ['Age', 'Population'],
+        },
+      ],
+    })
+    .transform({ type: 'stackY' })
+    .encode('x', 'State')
+    .encode('y', 'Population')
+    .encode('color', 'Age')
+    .scale('color', {
+      range: colors,
+      guide: { position: 'center', title: null, dx: 64, dy: 54 },
+    })
+    .scale('y', {
+      type: 'sqrt',
+      formatter: '~s',
+      tickFilter: (_, i) => i !== 0,
+      guide: { direction: 'center' },
+    })
+    .scale('x', { guide: { position: 'bottom' } });
+
+  return chart.render().node();
+})();
+```
+
+```js
+(() => {
+  const chart = new G2.Chart({
+    width: 800,
+    height: 800,
+  });
+  const colors = [
+    '#98abc5',
+    '#8a89a6',
+    '#7b6888',
+    '#6b486b',
+    '#a05d56',
+    '#d0743c',
+    '#ff8c00',
+  ];
+
+  chart.coordinate({ type: 'polar', innerRadius: 0.4 });
+
+  chart
+    .interval()
+    .data({
+      type: 'fetch',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/d582a447-2057-4a74-97ed-1d73a5459ea4.csv',
+      transform: [
+        {
+          type: 'fold',
+          fields: [
+            'Under 5 Years',
+            '5 to 13 Years',
+            '14 to 17 Years',
+            '18 to 24 Years',
+            '25 to 44 Years',
+            '45 to 64 Years',
+            '65 Years and Over',
+          ],
+          as: ['Age', 'Population'],
+        },
+      ],
+    })
+    .transform({ type: 'stackY' })
+    .transform({ type: 'sortX', reverse: true })
+    .encode('x', 'State')
+    .encode('y', 'Population')
+    .encode('color', 'Age')
+    .scale('color', {
+      range: colors,
+      guide: { position: 'center', title: null, dx: 64, dy: 54 },
+    })
+    .scale('y', {
+      type: 'sqrt',
+      formatter: '~s',
+      tickFilter: (_, i) => i !== 0,
+    })
+    .scale('x', { guide: { position: 'bottom' } });
+
+  return chart.render().node();
+})();
+```
+
+### 玉钰图
+
+```js
+(() => {
+  const chart = new G2.Chart();
+
+  chart.coordinate({ type: 'radial', innerRadius: 0.1, endAngle: Math.PI });
+
+  chart
+    .interval()
+    .data([
+      { question: '问题 1', percent: 0.21 },
+      { question: '问题 2', percent: 0.4 },
+      { question: '问题 3', percent: 0.49 },
+      { question: '问题 4', percent: 0.52 },
+      { question: '问题 5', percent: 0.53 },
+      { question: '问题 6', percent: 0.84 },
+      { question: '问题 7', percent: 1.0 },
+      { question: '问题 8', percent: 1.2 },
+    ])
+    .encode('x', 'question')
+    .encode('y', 'percent')
+    .encode('color', 'percent')
+    .style('stroke', 'white')
+    .scale('color', {
+      range: '#BAE7FF-#1890FF-#0050B3',
+    })
+    .scale('y', { tickFilter: (d, i) => i !== 0 });
 
   return chart.render().node();
 })();

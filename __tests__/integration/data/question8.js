@@ -7,4 +7,4 @@ export const question8 = [
   { question: '问题 6', percent: 0.84 },
   { question: '问题 7', percent: 1.0 },
   { question: '问题 8', percent: 1.2 },
-]
+];
