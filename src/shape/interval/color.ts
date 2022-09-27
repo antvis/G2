@@ -13,32 +13,32 @@ export type ColorOptions = {
 
 /**
  * Render rect in different coordinate.
- * @todo Replace d3-arc with custom arc path generator.
  * Calc arc path based on control points directly rather startAngle, endAngle, innerRadius,
  * outerRadius. This is not accurate and will cause bug when the range of y scale is [1, 0]
  * for grid geometry.
- * @todo Radius in rect.
  */
 export const Color: SC<ColorOptions> = (options) => {
   // Render border only when colorAttribute is stroke.
-  const { colorAttribute, ...style } = options;
-  const defaultSize = colorAttribute === 'stroke' ? 1 : 0;
+  const { colorAttribute, inset, ...style } = options;
 
   return (points, value, coordinate, theme) => {
+    const { mark, shape, defaultShape } = value;
+    const { [colorAttribute]: defaultColor, ...shapeTheme } = getShapeTheme(
+      theme,
+      mark,
+      shape,
+      defaultShape,
+    );
+    const defaultLineWidth = shapeTheme.lineWidth || 1;
     const {
+      stroke,
       radius = 0,
       radiusTopLeft = radius,
       radiusTopRight = radius,
       radiusBottomRight = radius,
       radiusBottomLeft = radius,
+      lineWidth = colorAttribute === 'stroke' || stroke ? defaultLineWidth : 0,
     } = style;
-    const { mark, shape, defaultShape } = value;
-    const {
-      [colorAttribute]: defaultColor,
-      lineWidth = defaultSize,
-      stroke = defaultColor,
-      ...shapeTheme
-    } = getShapeTheme(theme, mark, shape, defaultShape);
     const { color = defaultColor } = value;
 
     // Render rect in non-polar coordinate.
@@ -75,13 +75,16 @@ export const Color: SC<ColorOptions> = (options) => {
     const { y, y1 } = value;
     const center = coordinate.getCenter() as Vector2;
     const arcObject = getArcObject(coordinate, points, [y, y1]);
-    const path = arc().cornerRadius(radius as number);
+    const path = arc()
+      .cornerRadius(radius as number)
+      .padAngle((inset * Math.PI) / 180);
 
     return select(new Path({}))
       .call(applyStyle, shapeTheme)
       .style('path', path(arcObject))
       .style('transform', `translate(${center[0]}, ${center[1]})`)
       .style('stroke', color || stroke)
+      .style('lineWidth', lineWidth)
       .style(colorAttribute, color)
       .call(applyStyle, style)
       .node();

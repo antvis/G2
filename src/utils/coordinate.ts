@@ -13,6 +13,14 @@ export function isPolar(coordinate: Coordinate): boolean {
   return transformations.some(([type]) => type === 'polar');
 }
 
+export function isRadial(coordinate: Coordinate): boolean {
+  const { transformations } = coordinate.getOptions();
+  return (
+    transformations.some(([type]) => type.startsWith('reflect')) &&
+    transformations.some(([type]) => type.startsWith('transpose'))
+  );
+}
+
 export function isHelix(coordinate: Coordinate): boolean {
   const { transformations } = coordinate.getOptions();
   return transformations.some(([type]) => type === 'helix');
@@ -29,5 +37,9 @@ export function isFisheye(coordinate: Coordinate): boolean {
 }
 
 export function isCircular(coordinate: Coordinate): boolean {
-  return isHelix(coordinate) || isParallel(coordinate);
+  return isHelix(coordinate) || isPolar(coordinate);
+}
+
+export function isTheta(coordinate: Coordinate): boolean {
+  return isPolar(coordinate) && isTranspose(coordinate);
 }

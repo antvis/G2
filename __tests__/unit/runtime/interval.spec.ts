@@ -474,7 +474,7 @@ describe('render', () => {
           { genre: 'Other', sold: 150 },
         ],
         scale: {
-          color: { palette: { type: 'category20' } },
+          color: { palette: 'category20' },
         },
         encode: {
           x: 'genre',

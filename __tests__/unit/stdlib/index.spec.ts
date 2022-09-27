@@ -12,6 +12,7 @@ import {
   ReflectY,
   FisheyeX,
   FisheyeY,
+  Radial,
 } from '../../../src/coordinate';
 import { Constant, Field, Transform, Column } from '../../../src/encode';
 import {
@@ -67,6 +68,7 @@ import {
   Threshold,
   Quantile,
   Quantize,
+  Sqrt,
 } from '../../../src/scale';
 import {
   Rect as RectShape,
@@ -257,6 +259,7 @@ describe('stdlib', () => {
       'coordinate.fisheye': Fisheye,
       'coordinate.fisheyeX': FisheyeX,
       'coordinate.fisheyeY': FisheyeY,
+      'coordinate.radial': Radial,
       'encode.constant': Constant,
       'encode.field': Field,
       'encode.transform': Transform,
@@ -309,6 +312,7 @@ describe('stdlib', () => {
       'scale.threshold': Threshold,
       'scale.quantile': Quantile,
       'scale.quantize': Quantize,
+      'scale.sqrt': Sqrt,
       'shape.interval.rect': RectShape,
       'shape.interval.hollow': HollowRect,
       'shape.interval.funnel': Funnel,

@@ -10,6 +10,7 @@ import {
   ThresholdOptions,
   QuantileOptions,
   QuantizeOptions,
+  SqrtOptions,
 } from '@antv/scale';
 import { ScaleComponent } from '../runtime';
 import { Palette } from './palette';
@@ -23,6 +24,7 @@ export type Scale =
   | TimeScale
   | LogScale
   | PowScale
+  | SqrtScale
   | ThresholdScale
   | QuantizeScale
   | QuantileScale
@@ -37,6 +39,7 @@ export type ScaleTypes =
   | 'time'
   | 'log'
   | 'pow'
+  | 'sqrt'
   | 'threshold'
   | 'quantize'
   | 'quantile'
@@ -44,13 +47,15 @@ export type ScaleTypes =
 
 export type BaseScale<T extends ScaleTypes, O> = {
   type?: T;
-  palette?: Palette;
+  palette?: Palette['type'] | string;
   // @todo More specific options.
   // @todo Remove null as it can be stored in JSON.
   guide?: Record<string, any> | null;
   field?: string | string[];
   independent?: boolean;
   zero?: boolean;
+  formatter?: string | ((d: any) => string);
+  tickFilter?: (tick: number, index: number, ticks: number[]) => boolean;
 } & O;
 
 export type LinearScale = BaseScale<'linear', LinearOptions>;
@@ -68,6 +73,8 @@ export type TimeScale = BaseScale<'time', TimeOptions>;
 export type LogScale = BaseScale<'log', LogOptions>;
 
 export type PowScale = BaseScale<'pow', PowOptions>;
+
+export type SqrtScale = BaseScale<'sqrt', SqrtOptions>;
 
 export type ThresholdScale = BaseScale<'threshold', ThresholdOptions>;
 

@@ -23,7 +23,14 @@
       "比例尺": {
         "概述": "scale-overview"
       },
-      "坐标系": "coordinate",
+      "坐标系": {
+        "Transpose": "coordinate-transpose",
+        "Polar": "coordinate-polar",
+        "Theta": "coordinate-theta",
+        "Radial": "coordinate-radial",
+        "Fisheye": "coordinate-fisheye",
+        "Parallel": "coordinate-parallel"
+      },
       "标记": {
         "概述": "mark-overview",
         "Interval": "mark-interval",

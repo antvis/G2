@@ -12,6 +12,7 @@ import {
   Reflect,
   ReflectX,
   ReflectY,
+  Radial,
 } from '../coordinate';
 import { Constant, Field, Transform, Column } from '../encode';
 import {
@@ -67,6 +68,7 @@ import {
   Threshold,
   Quantile,
   Quantize,
+  Sqrt,
 } from '../scale';
 import {
   Rect as RectShape,
@@ -256,6 +258,7 @@ export function createLibrary(): G2Library {
     'coordinate.fisheye': Fisheye,
     'coordinate.fisheyeX': FisheyeX,
     'coordinate.fisheyeY': FisheyeY,
+    'coordinate.radial': Radial,
     'encode.constant': Constant,
     'encode.field': Field,
     'encode.transform': Transform,
@@ -305,6 +308,7 @@ export function createLibrary(): G2Library {
     'scale.time': Time,
     'scale.log': Log,
     'scale.pow': Pow,
+    'scale.sqrt': Sqrt,
     'scale.threshold': Threshold,
     'scale.quantile': Quantile,
     'scale.quantize': Quantize,

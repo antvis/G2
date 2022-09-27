@@ -8,6 +8,8 @@ import {
 export type LegendCategoryOptions = {
   position?: GuideComponentPosition;
   formatter?: (d: any) => string;
+  dx?: number;
+  dy?: number;
 };
 
 /**
@@ -15,7 +17,7 @@ export type LegendCategoryOptions = {
  * @todo Custom style.
  */
 export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
-  const { position, formatter = (d) => `${d}` } = options;
+  const { position, formatter = (d) => `${d}`, dx = 0, dy = 0 } = options;
   return (scale, value, coordinate, theme) => {
     const { domain, field, bbox } = value;
     const { x, y, width, height } = bbox;
@@ -30,9 +32,9 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
       {},
       {
         items,
-        x,
-        y,
-        orient: ['right', 'left'].includes(position)
+        x: x + dx,
+        y: y + dy,
+        orient: ['right', 'left', 'arcCenter'].includes(position)
           ? 'vertical'
           : 'horizontal',
         maxWidth: width,
