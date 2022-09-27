@@ -95,8 +95,11 @@ export type GuideComponentPosition =
   | 'bottom'
   | 'right'
   | 'centerHorizontal'
+  | 'center'
   | 'arc'
-  | 'arcY';
+  | 'arcY'
+  | 'arcInner'
+  | 'arcCenter';
 
 export type Layout = {
   paddingLeft?: number;

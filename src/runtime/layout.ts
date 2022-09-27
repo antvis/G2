@@ -86,16 +86,25 @@ export function placeComponents(
     bottom: [pl, height - pb, innerWidth, pb, 0, false, ascending],
     left: [0, pt, pl, innerHeight, 1, true, ascending],
     centerHorizontal: [pl, pt, innerWidth, innerHeight, -1, null, null],
-    arc: [pl, pt, width - pl - pr, height - pt - pb, -1, null, null],
-    arcY: [pl, pt, width - pl - pr, height - pt - pb, -1, null, null],
+    arc: [pl, pt, innerWidth, innerHeight, -1, null, null],
+    arcY: [pl, pt, innerWidth, innerHeight, -1, null, null],
+    arcInner: [pl, pt, innerWidth, innerHeight, -1, null, null],
+    center: [pl, pt, innerWidth, innerHeight, -1, null, null],
+    arcCenter: [pl, pt, innerWidth, innerHeight, -1, null, null],
   };
 
   for (const [key, components] of positionComponents.entries()) {
     const area = section[key];
     if (key === 'centerHorizontal') {
-      placeCenterHorizontal(components, layout, coordinate, area);
-    } else if (key === 'arc' || key === 'arcY') {
+      placeCenterHorizontal(components, coordinate, area);
+    } else if (key === 'arc') {
       placeArc(components, coordinate, area);
+    } else if (key === 'arcY') {
+      placeArcY(components, coordinate, area);
+    } else if (key === 'arcInner') {
+      placeArcInner(components, coordinate, area);
+    } else if (key === 'arcCenter') {
+      placeArcCenter(components, coordinate, area);
     } else {
       placePaddingArea(components, coordinate, area);
     }
@@ -104,12 +113,10 @@ export function placeComponents(
 
 function placeCenterHorizontal(
   components: G2GuideComponentOptions[],
-  layout: Layout,
   coordinate: Coordinate,
   area: SectionArea,
 ): void {
-  const [, y, , height] = area;
-  const { paddingLeft } = layout;
+  const [x, y, , height] = area;
 
   // Create a high dimension vector and map to a list of two-dimension points.
   // [0, 0, 0] -> [x0, 0, x1, 0, x2, 0]
@@ -118,7 +125,7 @@ function placeCenterHorizontal(
 
   // Extract x of each points.
   // [x0, 0, x1, 0, x2, 0] -> [x0, x1, x2]
-  const X = points.filter((_, i) => i % 2 === 0).map((d) => d + paddingLeft);
+  const X = points.filter((_, i) => i % 2 === 0).map((d) => d + x);
 
   // Place each axis by coordinate in parallel coordinate.
   for (let i = 0; i < components.length; i++) {
@@ -177,4 +184,68 @@ function placeArc(
     const component = components[i];
     component.bbox = { x, y, width, height };
   }
+}
+
+function placeArcY(
+  components: G2GuideComponentOptions[],
+  coordinate: Coordinate,
+  area: SectionArea,
+) {
+  const [x, y, , height] = area;
+  const [cx, cy] = coordinate.getCenter();
+  const [innerRadius, outerRadius] = radiusOf(coordinate);
+  const r = height / 2;
+  const y0 = cy - outerRadius * r;
+  const h = (outerRadius - innerRadius) * r;
+  for (let i = 0; i < components.length; i++) {
+    const component = components[i];
+    component.bbox = { x: cx + x, y: y0 + y, width: 0, height: h };
+  }
+}
+
+function placeArcCenter(
+  components: G2GuideComponentOptions[],
+  coordinate: Coordinate,
+  area: SectionArea,
+) {
+  const [x, y, width, height] = area;
+  const [innerRadius] = radiusOf(coordinate);
+  const r = ((height / 2) * innerRadius) / Math.sqrt(2);
+  const cx = x + width / 2;
+  const cy = y + height / 2;
+  for (let i = 0; i < components.length; i++) {
+    const component = components[i];
+    component.bbox = { x: cx - r, y: cy - r, width: r * 2, height: r * 2 };
+  }
+}
+
+function placeArcInner(
+  components: G2GuideComponentOptions[],
+  coordinate: Coordinate,
+  area: SectionArea,
+) {
+  const [x, y, , height] = area;
+  const [cx, cy] = coordinate.getCenter();
+  const [innerRadius] = radiusOf(coordinate);
+  const r = height / 2;
+  const size = innerRadius * r;
+  const x0 = cx - size;
+  const y0 = cy - size;
+  for (let i = 0; i < components.length; i++) {
+    const component = components[i];
+    component.bbox = {
+      x: x + x0,
+      y: y + y0,
+      width: size * 2,
+      height: size * 2,
+    };
+  }
+}
+
+function radiusOf(coordinate: Coordinate): [number, number] {
+  const { transformations } = coordinate.getOptions();
+  const [, , , innerRadius, outerRadius] = transformations.find(
+    (d) => d[0] === 'polar',
+  );
+  return [innerRadius as number, outerRadius as number];
 }

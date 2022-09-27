@@ -14,7 +14,8 @@ export type Coordinate =
   | FisheyeCoordinate
   | FisheyeXCoordinate
   | FisheyeYCoordinate
-  | FisheyeCircularCoordinate;
+  | FisheyeCircularCoordinate
+  | RadialCoordinate;
 
 export type CoordinateTypes =
   | 'polar'
@@ -29,7 +30,8 @@ export type CoordinateTypes =
   | 'fisheye'
   | 'fisheyeX'
   | 'fisheyeY'
-  | 'fisheyeCircular';
+  | 'fisheyeCircular'
+  | 'radial';
 
 export type PolarCoordinate = {
   type?: 'polar';
@@ -71,6 +73,14 @@ export type ThetaCoordinate = {
   outerRadius?: number;
 };
 
+export type RadialCoordinate = {
+  type?: 'radial';
+  startAngle?: number;
+  endAngle?: number;
+  innerRadius?: number;
+  outerRadius?: number;
+};
+
 export type CartesianCoordinate = {
   type?: 'cartesian';
 };
@@ -87,18 +97,21 @@ export type FisheyeCoordinate = {
   distortionY?: number;
   isVisual?: boolean;
 };
+
 export type FisheyeXCoordinate = {
   type?: 'fisheye.x';
   focusX?: number;
   distortionX?: number;
   isVisual?: boolean;
 };
+
 export type FisheyeYCoordinate = {
   type?: 'fisheye.y';
   focusY?: number;
   distortionY?: number;
   isVisual?: boolean;
 };
+
 export type FisheyeCircularCoordinate = {
   type?: 'fisheye.circular';
   focusX?: number;
@@ -107,6 +120,7 @@ export type FisheyeCircularCoordinate = {
   distortion?: number;
   isVisual?: boolean;
 };
+
 export type CustomCoordinate = {
   type: CoordinateComponent;
   [key: string]: any;

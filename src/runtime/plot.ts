@@ -613,7 +613,9 @@ function createLabelShapeFunction(
     const i = I[index];
     const datum = abstractData[i];
     const { formatter = (d) => `${d}`, ...abstractOptions } = options;
-    const visualOptions = mapObject(abstractOptions, (d) => valueOf(datum, d));
+    const visualOptions = mapObject(abstractOptions, (d) =>
+      valueOf(datum, d, i, abstractData),
+    );
     const { shape = defaultLabelShape, text, ...style } = visualOptions;
     const f = typeof formatter === 'string' ? format(formatter) : formatter;
     const value = { ...style, element, text: f(text) };
@@ -624,12 +626,14 @@ function createLabelShapeFunction(
 }
 
 function valueOf(
+  datum: Record<string, any>,
+  value: Primitive | ((d: any, i: number, array: any) => any),
+  i: number,
   data: Record<string, any>,
-  value: Primitive | ((d: any) => any),
 ) {
-  if (typeof value === 'function') return value(data);
+  if (typeof value === 'function') return value(datum, i, data);
   if (typeof value !== 'string') return value;
-  if (data[value] !== undefined) return data[value];
+  if (datum[value] !== undefined) return datum[value];
   return value;
 }
 

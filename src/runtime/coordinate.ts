@@ -58,6 +58,11 @@ export function isReflect(coordinate: G2CoordinateOptions[]) {
   return reflect !== undefined;
 }
 
+export function isRadial(coordinate: G2CoordinateOptions[]) {
+  const reflect = coordinate.find((d) => d.type === 'radial');
+  return reflect !== undefined;
+}
+
 export function isReflectY(coordinate: G2CoordinateOptions[]) {
   const reflect = coordinate.find((d) => d.type === 'reflectY');
   return reflect !== undefined;

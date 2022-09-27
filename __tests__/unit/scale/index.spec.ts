@@ -10,6 +10,7 @@ import {
   Threshold as ThresholdScale,
   Quantile as QuantileScale,
   Quantize as QuantizeScale,
+  Sqrt as SqrtScale,
 } from '@antv/scale';
 import {
   Linear,
@@ -23,6 +24,7 @@ import {
   Threshold,
   Quantile,
   Quantize,
+  Sqrt,
 } from '../../../src/scale';
 
 describe('scale', () => {
@@ -38,5 +40,6 @@ describe('scale', () => {
     expect(Threshold()).toBeInstanceOf(ThresholdScale);
     expect(Quantile()).toBeInstanceOf(QuantileScale);
     expect(Quantize()).toBeInstanceOf(QuantizeScale);
+    expect(Sqrt()).toBeInstanceOf(SqrtScale);
   });
 });

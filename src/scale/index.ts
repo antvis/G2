@@ -9,6 +9,7 @@ export { Pow } from './pow';
 export { Threshold } from './threshold';
 export { Quantile } from './quantile';
 export { Quantize } from './quantize';
+export { Sqrt } from './sqrt';
 
 export type { BandOptions } from './band';
 export type { LinearOptions } from './linear';
@@ -21,3 +22,4 @@ export type { PowOptions } from './pow';
 export type { ThresholdOptions } from './threshold';
 export type { QuantileOptions } from './quantile';
 export type { QuantizeOptions } from './quantize';
+export type { SqrtOptions } from './sqrt';
