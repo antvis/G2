@@ -47,7 +47,7 @@ describe('Badge shape', () => {
       height: 100,
       shape: Badge({
         stroke: 'steelblue',
-        content: 'Top',
+        text: 'Top',
         textStyle: { fill: '#fff', fontSize: 10 },
       }),
       container,

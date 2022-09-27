@@ -201,6 +201,7 @@ import {
   Tree,
   Sankey,
   Arc as ArcTransform,
+  WordCloud,
 } from '../../../src/data';
 import { HideOverlap } from '../../../src/labelLayout';
 
@@ -221,9 +222,8 @@ describe('stdlib', () => {
       'data.tree': Tree,
       'data.sankey': Sankey,
       'data.arc': ArcTransform,
-      // 'transform.wordCloud': WordCloud,
+      'data.wordCloud': WordCloud,
       // 'transform.voronoi': Voronoi,
-      // 'transform.connector': Connector,
       'transform.maybeZeroY1': MaybeZeroY1,
       'transform.maybeZeroX': MaybeZeroX,
       'transform.maybeStackY': MaybeStackY,
