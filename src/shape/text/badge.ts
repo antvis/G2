@@ -16,7 +16,7 @@ type BadgeShapeStyleProps = BaseStyleProps & {
   size?: number;
   symbol?: string | ((x: number, y: number, r: number) => string);
   text?: string;
-  textStyle?: TextStyleProps;
+  textStyle?: Omit<TextStyleProps, 'text'>;
 };
 
 /**
@@ -75,7 +75,7 @@ class BadgeShape extends CustomElement<BadgeShapeStyleProps> {
 
     this.badgeMarker = this.badgeMarker || this.appendChild(new Marker({}));
     this.badgeMarker.className = 'badge-marker';
-    this.badgeMarker.update({ symbol, ...style, x: 0, y: 0 });
+    this.badgeMarker.update({ symbol, ...style, size, x: 0, y: 0 });
   }
 
   private drawText() {
@@ -87,14 +87,13 @@ class BadgeShape extends CustomElement<BadgeShapeStyleProps> {
       .attr('className', 'badge-text')
       .style('x', center.x)
       .style('y', center.y)
+      .style('text', text)
       // Append default value.
       .style('textAlign', 'center')
       .style('textBaseline', 'middle')
-      // Append default value.
       .style('fill', '#333')
       .style('fontSize', 10)
-      .style('text', text)
-      .call(applyStyle, textStyle)
+      .call(applyStyle, textStyle || {})
       .node() as GText;
   }
 }
