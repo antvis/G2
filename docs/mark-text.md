@@ -65,7 +65,7 @@
 | 参数    | 说明                                         | 类型                | 默认值    |
 | ------- | ------------------------------------------- | ------------------- | ------- |
 | size   | 图形的大小                                    | `PathStyleProps`    | -       |
-| symbol | 图形的样式，默认为水滴💧形状                      | `string` | `((x: number, y: number, r: number) => string)`  | -       |
+| symbol | 图形的样式，默认为水滴💧形状                      | `string` \| `((x: number, y: number, r: number) => string)`  | -       |
 | textStyle | 图形上文字的样式                             | `TextStyleProps`    | -       |
 
 
