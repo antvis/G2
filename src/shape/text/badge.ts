@@ -3,6 +3,7 @@ import {
   DisplayObjectConfig,
   Text as GText,
   BaseStyleProps,
+  TextStyleProps,
 } from '@antv/g';
 import { Marker } from '@antv/gui';
 import { ShapeComponent as SC } from '../../runtime';
@@ -14,11 +15,8 @@ export type BadgeOptions = BadgeShapeStyleProps & Record<string, any>;
 type BadgeShapeStyleProps = BaseStyleProps & {
   size?: number;
   symbol?: string | ((x: number, y: number, r: number) => string);
-  content?: string;
-  textStyle?: {
-    fontSize?: number;
-    fill?: string;
-  };
+  text?: string;
+  textStyle?: TextStyleProps;
 };
 
 /**
@@ -67,27 +65,36 @@ class BadgeShape extends CustomElement<BadgeShapeStyleProps> {
 
   private drawMarker() {
     // Do not pass className to children.
-    const { class: className, size = 24, ...style } = this.attributes;
+    const {
+      class: className,
+      size = 24,
+      textStyle,
+      ...style
+    } = this.attributes;
     const symbol = () => getPath(size / 2);
 
     this.badgeMarker = this.badgeMarker || this.appendChild(new Marker({}));
     this.badgeMarker.className = 'badge-marker';
-    this.badgeMarker.update({ symbol, size, ...style, x: 0, y: 0 });
+    this.badgeMarker.update({ symbol, ...style, x: 0, y: 0 });
   }
 
   private drawText() {
     const center = getCenter(this.badgeMarker);
-    const { content: text = '', textStyle } = this.style;
-    const { fontSize = 10, fill = '#333' } = textStyle || {};
+    const { text = '', textStyle } = this.style;
 
     this.badgeText = this.badgeText || this.appendChild(new GText({}));
     select(this.badgeText)
       .attr('className', 'badge-text')
       .style('x', center.x)
       .style('y', center.y)
+      // Append default value.
       .style('textAlign', 'center')
       .style('textBaseline', 'middle')
-      .call(applyStyle, { fill, fontSize, text })
+      // Append default value.
+      .style('fill', '#333')
+      .style('fontSize', 10)
+      .style('text', text)
+      .call(applyStyle, textStyle)
       .node() as GText;
   }
 }
