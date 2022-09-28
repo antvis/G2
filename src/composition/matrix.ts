@@ -10,7 +10,7 @@ import {
   setAnimation,
   setStyle,
   toGrid,
-} from './rect';
+} from './square';
 import { useDefaultAdaptor, useOverrideAdaptor } from './utils';
 
 export type MatrixOptions = Omit<MatrixComposition, 'type'>;

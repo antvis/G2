@@ -4,7 +4,7 @@ import {
   View,
   Keyframe,
   Flex,
-  Rect,
+  Square,
   Matrix,
   Circle,
 } from '../../../src/api/composition';
@@ -176,8 +176,8 @@ describe('Chart', () => {
     expect(chart.options()).toEqual({ type: 'layer' });
     expect(chart.flex()).toBeInstanceOf(Flex);
     expect(chart.options()).toEqual({ type: 'flex' });
-    expect(chart.rect()).toBeInstanceOf(Rect);
-    expect(chart.options()).toEqual({ type: 'rect' });
+    expect(chart.square()).toBeInstanceOf(Square);
+    expect(chart.options()).toEqual({ type: 'square' });
     expect(chart.matrix()).toBeInstanceOf(Matrix);
     expect(chart.options()).toEqual({ type: 'matrix' });
     expect(chart.circle()).toBeInstanceOf(Circle);

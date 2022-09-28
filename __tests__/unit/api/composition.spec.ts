@@ -5,7 +5,7 @@ import {
   Keyframe,
   Layer,
   Matrix,
-  Rect,
+  Square,
 } from '../../../src/api/composition';
 import {
   Area,
@@ -51,7 +51,7 @@ function expectToCreateCompositions(node) {
   expect(node.view()).toBeInstanceOf(View);
   expect(node.layer()).toBeInstanceOf(Layer);
   expect(node.flex()).toBeInstanceOf(Flex);
-  expect(node.rect()).toBeInstanceOf(Rect);
+  expect(node.square()).toBeInstanceOf(Square);
   expect(node.matrix()).toBeInstanceOf(Matrix);
   expect(node.circle()).toBeInstanceOf(Circle);
   expect(node.keyframe()).toBeInstanceOf(Keyframe);
@@ -200,7 +200,7 @@ describe('Composition', () => {
   });
 
   it('Rect() should specify options by API', () => {
-    const node = new Rect();
+    const node = new Square();
     node
       .data([1, 2, 3])
       .key('composition')
@@ -214,7 +214,7 @@ describe('Composition', () => {
       .encode('y', 'name')
       .transform({ type: 'stackY' });
 
-    expect(node.type).toBe('rect');
+    expect(node.type).toBe('square');
     expect(node.value).toEqual({
       data: [1, 2, 3],
       key: 'composition',
