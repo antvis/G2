@@ -3,6 +3,7 @@ import { G2Spec } from '../../../src';
 export function temperaturesPointSequential(): G2Spec {
   return {
     type: 'view',
+    width: 800,
     children: [
       {
         type: 'point',

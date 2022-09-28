@@ -12,7 +12,6 @@ export const MaybeSize: TC<MaybeSizeOptions> = () => {
   return (I, mark) => {
     const { encode } = mark;
     const { size } = encode;
-    console.log(size);
     if (size !== undefined) return [I, mark];
     return [
       I,
