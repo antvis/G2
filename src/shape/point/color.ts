@@ -49,7 +49,7 @@ export const Color: SC<ColorOptions> = (options) => {
     const { mark, shape, defaultShape } = value;
     const {
       [colorAttribute]: defaultColor,
-      lineWidth = 1,
+      lineWidth,
       ...defaults
     } = getShapeTheme(theme, mark, shape, defaultShape);
     const finalLineWidth = style.stroke ? lineWidth || 1 : lineWidth;

@@ -27,7 +27,7 @@ describe('Point', () => {
     expect(shape.nodeName).toBe('path');
     expect(style(shape, ['fill', 'lineWidth'])).toEqual({
       fill: 'steelblue',
-      lineWidth: 0,
+      lineWidth: '',
     });
   });
 
