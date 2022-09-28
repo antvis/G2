@@ -1,8 +1,9 @@
-import { Rect } from '../../../src/composition';
+import { Square } from '../../../src/composition';
+import { G2ViewTree } from '../../../src/runtime';
 
 describe('composition', () => {
-  it('Rect({...}) should accept x and y encode', () => {
-    const composition = Rect();
+  it('Square({...}) should accept x and y encode', () => {
+    const composition = Square();
     const options = {
       transform: [
         {
@@ -36,7 +37,9 @@ describe('composition', () => {
         },
       ],
     };
-    const [{ statistic, children, ...rest }] = composition(options);
+    const [{ statistic, children, ...rest }] = composition(
+      options,
+    ) as G2ViewTree[];
     expect(rest).toEqual({
       scale: {
         x: { paddingOuter: 0, guide: { position: 'top' } },

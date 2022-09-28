@@ -9,7 +9,7 @@ import {
   toGrid,
   setChildren,
   setData,
-} from './rect';
+} from './square';
 import { useDefaultAdaptor } from './utils';
 
 export type CircleOptions = Omit<CircleComposition, 'type'>;

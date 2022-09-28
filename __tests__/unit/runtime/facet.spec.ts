@@ -10,7 +10,7 @@ describe('facet', () => {
           value:
             'https://gw.alipayobjects.com/os/bmw-prod/a0f96c54-d1fa-46c8-b6ef-548e2f700a6d.json',
         },
-        type: 'rect',
+        type: 'square',
         width: 928,
         height: 240,
         paddingLeft: 50,
@@ -50,7 +50,7 @@ describe('facet', () => {
           value:
             'https://gw.alipayobjects.com/os/bmw-prod/90ec29b1-c939-434e-8bbb-ce5fa27c62a7.json',
         },
-        type: 'rect',
+        type: 'square',
         height: 800,
         encode: {
           y: 'site',
@@ -87,7 +87,7 @@ describe('facet', () => {
           value:
             'https://gw.alipayobjects.com/os/bmw-prod/3346929c-d7f4-4a81-8edc-c4c6d028ab96.json',
         },
-        type: 'rect',
+        type: 'square',
         paddingRight: 80,
         paddingBottom: 50,
         paddingLeft: 50,
@@ -274,7 +274,7 @@ describe('facet', () => {
           value:
             'https://gw.alipayobjects.com/os/bmw-prod/3346929c-d7f4-4a81-8edc-c4c6d028ab96.json',
         },
-        type: 'rect',
+        type: 'square',
         paddingRight: 80,
         paddingBottom: 50,
         paddingLeft: 50,
