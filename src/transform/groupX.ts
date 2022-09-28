@@ -18,6 +18,10 @@ type ReducerFunction = (I: number[], V: Primitive[]) => Primitive;
 
 type Formatter = (d: Primitive) => string;
 
+function builtinFormatter(summary: string) {
+  return (d: string) => (d === null ? summary : `${summary} of ${d}`);
+}
+
 function normalizeReducer(reducer: Reducer): [ReducerFunction, Formatter] {
   if (typeof reducer === 'function') return [reducer, null];
   const registry = { mean, max, count, first, last, sum, min, median };
@@ -28,49 +32,49 @@ function normalizeReducer(reducer: Reducer): [ReducerFunction, Formatter] {
 
 function mean(): [ReducerFunction, Formatter] {
   const reducer: ReducerFunction = (I, V) => d3Mean(I, (i) => +V[i]);
-  const formatter: Formatter = (d) => `mean of ${d}`;
+  const formatter: Formatter = builtinFormatter('mean');
   return [reducer, formatter];
 }
 
 function median(): [ReducerFunction, Formatter] {
   const reducer: ReducerFunction = (I, V) => d3Median(I, (i) => +V[i]);
-  const formatter: Formatter = (d) => `median of ${d}`;
+  const formatter: Formatter = builtinFormatter('median');
   return [reducer, formatter];
 }
 
 function max(): [ReducerFunction, Formatter] {
   const reducer: ReducerFunction = (I, V) => d3Max(I, (i) => +V[i]);
-  const formatter: Formatter = (d) => `max of ${d}`;
+  const formatter: Formatter = builtinFormatter('max');
   return [reducer, formatter];
 }
 
 function min(): [ReducerFunction, Formatter] {
   const reducer: ReducerFunction = (I, V) => d3Min(I, (i) => +V[i]);
-  const formatter: Formatter = (d) => `min of ${d}`;
+  const formatter: Formatter = builtinFormatter('min');
   return [reducer, formatter];
 }
 
 function count(): [ReducerFunction, Formatter] {
   const reducer: ReducerFunction = (I, V) => I.length;
-  const formatter: Formatter = (d) => (d === null ? 'count' : `count of ${d}`);
+  const formatter: Formatter = builtinFormatter('count');
   return [reducer, formatter];
 }
 
 function sum(): [ReducerFunction, Formatter] {
   const reducer: ReducerFunction = (I, V) => d3Sum(I, (i) => +V[i]);
-  const formatter: Formatter = (d) => `sum of ${d}`;
+  const formatter: Formatter = builtinFormatter('sum');
   return [reducer, formatter];
 }
 
 function first(): [ReducerFunction, Formatter] {
   const reducer: ReducerFunction = (I, V) => V[I[0]];
-  const formatter: Formatter = (d) => `first of ${d}`;
+  const formatter: Formatter = builtinFormatter('first');
   return [reducer, formatter];
 }
 
 function last(): [ReducerFunction, Formatter] {
   const reducer: ReducerFunction = (I, V) => V[I[I.length - 1]];
-  const formatter: Formatter = (d) => `last of ${d}`;
+  const formatter: Formatter = builtinFormatter('last');
   return [reducer, formatter];
 }
 
