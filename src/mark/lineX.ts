@@ -25,7 +25,7 @@ LineX.props = {
   defaultShape: 'line',
   defaultLabelShape: 'label',
   channels: [...baseAnnotationChannels(), { name: 'x', required: true }],
-  preInference: [...basePreInference()],
+  preInference: [...basePreInference(), { type: 'maybeTupleX' }],
   postInference: [...basePostInference()],
   shapes: ['line'],
 };

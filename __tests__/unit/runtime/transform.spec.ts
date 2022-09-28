@@ -294,7 +294,7 @@ describe('statistic', () => {
           },
         },
         {
-          type: 'annotation.lineY',
+          type: 'lineY',
           // @todo Do not need encode.
           data: [0],
           encode: {
@@ -360,7 +360,7 @@ describe('statistic', () => {
         value:
           'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
       },
-      transform: [{ type: 'jitterY', padding: 0.1 }],
+      transform: [{ type: 'jitterX', padding: 0.1 }],
       paddingLeft: 90,
       scale: {
         x: { padding: 0.5 },
@@ -587,7 +587,7 @@ describe('statistic', () => {
           },
         },
         {
-          type: 'annotation.lineY',
+          type: 'lineY',
           transform: [
             {
               type: 'selectY',

@@ -4,6 +4,7 @@ import {
   baseGeometryChannels,
   basePostInference,
   basePreInference,
+  createBandOffset,
 } from './utils';
 
 export type LinkOptions = Omit<LinkGeometry, 'type'>;
@@ -11,17 +12,14 @@ export type LinkOptions = Omit<LinkGeometry, 'type'>;
 /**
  * Connect `start` to `end` with single line.
  */
-export const Link: MC<LinkOptions> = () => {
+export const Link: MC<LinkOptions> = (options) => {
   return (index, scale, value, coordinate) => {
-    const { x: X, y: Y, x1: X1, y1: Y1 } = value;
-
-    const xoffset = scale.x?.getBandWidth?.() || 0;
-
+    const { x: X, y: Y, x1: X1 = X, y1: Y1 = Y } = value;
+    const offset = createBandOffset(scale, value, options);
     const P = index.map((i) => [
-      coordinate.map([+X[i] + xoffset / 2, +Y[i]]) as Vector2,
-      coordinate.map([+X1[i] + xoffset / 2, +Y1[i]]) as Vector2,
+      coordinate.map(offset([+X[i], +Y[i]], i)) as Vector2,
+      coordinate.map(offset([+X1[i], +Y1[i]], i)) as Vector2,
     ]);
-
     return [index, P];
   };
 };
@@ -34,7 +32,11 @@ Link.props = {
     { name: 'x', required: true },
     { name: 'y', required: true },
   ],
-  preInference: [...basePreInference()],
+  preInference: [
+    ...basePreInference(),
+    { type: 'maybeIdentityY' },
+    { type: 'maybeIdentityX' },
+  ],
   postInference: [
     ...basePostInference(),
     { type: 'maybeTitleX' },

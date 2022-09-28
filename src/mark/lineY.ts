@@ -25,7 +25,7 @@ LineY.props = {
   defaultShape: 'line',
   defaultLabelShape: 'label',
   channels: [...baseAnnotationChannels(), { name: 'y', required: true }],
-  preInference: [...basePreInference()],
+  preInference: [...basePreInference(), { type: 'maybeTupleY' }],
   postInference: [...basePostInference()],
   shapes: ['line'],
 };

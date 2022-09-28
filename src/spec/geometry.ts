@@ -54,6 +54,8 @@ export type GeometryTypes =
 export type ChannelTypes =
   | 'x'
   | 'y'
+  | 'x1'
+  | 'y1'
   | 'color'
   | 'shape'
   | 'enterType'

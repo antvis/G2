@@ -1,5 +1,5 @@
 import { createInterpolateValue } from '@antv/scale';
-import { extent } from 'd3-array';
+import { extent, max } from 'd3-array';
 import * as d3ScaleChromatic from 'd3-scale-chromatic';
 import { upperFirst } from '@antv/util';
 import { firstOf, lastOf, unique } from '../utils/array';
@@ -145,13 +145,10 @@ function inferScaleType(
 ): string | ScaleComponent {
   const { scale, name, value, visual } = channel;
   const { type, domain, range } = options;
-
-  if (scale !== undefined) return scale;
-  if (type !== undefined) return type;
-
   if (visual) return 'identity';
+  if (type !== undefined) return type;
+  if (scale !== undefined) return scale;
   if (isObject(value)) return 'identity';
-
   if (typeof range === 'string') return 'linear';
   if ((domain || range || []).length > 2) return asOrdinalType(name);
   if (domain !== undefined) {
@@ -172,20 +169,27 @@ function inferScaleDomain(
   const { value } = channel;
   const { domain } = options;
   if (domain !== undefined) return domain;
+  const { domainMax, domainMin } = options;
   switch (type) {
     case 'linear':
     case 'time':
     case 'log':
     case 'pow':
     case 'sqrt':
-    case 'threshold':
-      return inferDomainQ(value, options);
+    case 'threshold': {
+      const [d0, d1] = inferDomainQ(value, options);
+      return [domainMin || d0, domainMax || d1];
+    }
     case 'band':
     case 'ordinal':
     case 'point':
       return inferDomainC(value);
     case 'quantile':
       return inferDomainO(value);
+    case 'sequential': {
+      const [d0, d1] = inferDomainS(value);
+      return [domainMin || d0, domainMax || d1];
+    }
     default:
       return [];
   }
@@ -216,17 +220,22 @@ function inferScaleRange(
   const colors =
     interpolatedColors(palette, domain, offset) ||
     usePalette({ type: palette || defaultPalette });
-
+  const { rangeMin, rangeMax } = options;
   switch (type) {
     case 'linear':
-    case 'band':
-    case 'point':
     case 'time':
     case 'log':
-    case 'sqrt':
-      return inferRangeQ(name, palette);
+    case 'sqrt': {
+      const [r0, r1] = inferRangeQ(name, colors);
+      return [rangeMin || r0, rangeMax || r1];
+    }
+    case 'band':
+    case 'point':
+      return [rangeMin || 0, rangeMax || 1];
     case 'ordinal':
       return name === 'color' ? colors : shapes;
+    case 'sequential':
+      return undefined;
     default:
       return [];
   }
@@ -272,9 +281,21 @@ function inferScaleOptions(
     case 'band':
     case 'point':
       return inferOptionsC(type, name, coordinate, options);
+    case 'sequential':
+      return inferOptionsS(options);
     default:
       return options;
   }
+}
+
+function inferOptionsS(options) {
+  const { palette, offset } = options;
+  const name = upperFirst(palette);
+  const interpolator = d3ScaleChromatic[`interpolate${name}`];
+  if (!interpolator) throw new Error(`Unknown palette: ${name}`);
+  return {
+    interpolator: offset ? (x) => interpolator(offset(x)) : interpolator,
+  };
 }
 
 function inferOptionsQ(
@@ -343,6 +364,12 @@ function inferDomainC(value: Primitive[]) {
 function inferDomainO(value: Primitive[]) {
   return inferDomainC(value).sort();
 }
+
+function inferDomainS(value: Primitive[]) {
+  const v = max(value, (d) => Math.abs(+d));
+  return [-v, v];
+}
+
 /**
  * @todo More nice default range for enterDelay and enterDuration.
  * @todo Add default range for some channels?

@@ -4,19 +4,18 @@ import {
   baseGeometryChannels,
   basePostInference,
   basePreInference,
+  createBandOffset,
 } from './utils';
 
 export type TextOptions = Omit<TextGeometry, 'type'>;
 
-export const Text: MC<TextOptions> = () => {
+export const Text: MC<TextOptions> = (options) => {
   return (index, scale, value, coordinate) => {
     const { x: X, y: Y } = value;
-    const { x } = scale;
+    const offset = createBandOffset(scale, value, options);
     const P = Array.from(index, (i) => {
-      const px = +X[i];
-      const py = +Y[i];
-      const xoffset = x?.getBandWidth?.() || 0;
-      return [coordinate.map([px + xoffset / 2, py])] as Vector2[];
+      const p: Vector2 = [+X[i], +Y[i]];
+      return [coordinate.map(offset(p, i))] as Vector2[];
     });
     return [index, P];
   };

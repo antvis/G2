@@ -69,6 +69,7 @@ import {
   Quantile,
   Quantize,
   Sqrt,
+  Sequential,
 } from '../../../src/scale';
 import {
   Rect as RectShape,
@@ -178,7 +179,7 @@ import {
   StackEnter,
   NormalizeY,
   Jitter,
-  JitterY,
+  JitterX,
   SymmetryY,
   Select,
   SelectX,
@@ -235,7 +236,7 @@ describe('stdlib', () => {
       'transform.stackY': StackY,
       'transform.dodgeX': DodgeX,
       'transform.jitter': Jitter,
-      'transform.jitterY': JitterY,
+      'transform.jitterX': JitterX,
       'transform.symmetryY': SymmetryY,
       'transform.stackEnter': StackEnter,
       'transform.normalizeY': NormalizeY,
@@ -314,6 +315,7 @@ describe('stdlib', () => {
       'scale.quantile': Quantile,
       'scale.quantize': Quantize,
       'scale.sqrt': Sqrt,
+      'scale.sequential': Sequential,
       'shape.interval.rect': RectShape,
       'shape.interval.hollow': HollowRect,
       'shape.interval.funnel': Funnel,

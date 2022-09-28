@@ -19,6 +19,7 @@ function getRadius(
   value: Record<string, any>,
   coordinate: Coordinate,
 ) {
+  if (points.length === 1) return undefined;
   const { size } = value;
   if (mode === 'fixed') return size;
   if (mode === 'normal' || isFisheye(coordinate)) {
@@ -31,6 +32,7 @@ function getRadius(
 }
 
 function getOrigin(points: Vector2[]) {
+  if (points.length === 1) return points[0];
   const [[x0, y0], [x2, y2]] = points;
   return [(x0 + x2) / 2, (y0 + y2) / 2];
 }
@@ -41,24 +43,24 @@ function getOrigin(points: Vector2[]) {
 export const Color: SC<ColorOptions> = (options) => {
   // Render border only when colorAttribute is stroke.
   const { colorAttribute, symbol, mode = 'auto', ...style } = options;
-  const defaultSize = colorAttribute === 'stroke' ? 1 : 0;
   const path = Symbols[symbol] || Symbols.point;
 
   return (points, value, coordinate, theme) => {
     const { mark, shape, defaultShape } = value;
     const {
       [colorAttribute]: defaultColor,
-      lineWidth = defaultSize,
-      ...shapeTheme
+      lineWidth = 1,
+      ...defaults
     } = getShapeTheme(theme, mark, shape, defaultShape);
-
+    const finalLineWidth = style.stroke ? lineWidth || 1 : lineWidth;
     const { color = defaultColor, transform } = value;
     const [cx, cy] = getOrigin(points);
     const r = getRadius(mode, points, value, coordinate);
+    const finalRadius = r || style.r || defaults.r;
     return select(new Path())
-      .call(applyStyle, shapeTheme)
-      .style('d', path(cx, cy, r))
-      .style('lineWidth', lineWidth)
+      .call(applyStyle, defaults)
+      .style('d', path(cx, cy, finalRadius))
+      .style('lineWidth', finalLineWidth)
       .style('stroke', color)
       .style('transform', transform)
       .style(colorAttribute, color)

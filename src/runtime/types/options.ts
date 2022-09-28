@@ -52,6 +52,7 @@ export type G2View = {
   y?: number;
   width?: number;
   height?: number;
+  padding?: number;
   paddingLeft?: number;
   paddingRight?: number;
   paddingTop?: number;
