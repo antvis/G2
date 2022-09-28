@@ -14,7 +14,7 @@ export type Node =
   | LayerComposition
   | FlexComposition
   | MatrixComposition
-  | RectComposition
+  | SquareComposition
   | CircleComposition
   | KeyframeComposition;
 
@@ -69,7 +69,7 @@ export type FacetContext = {
   rowValuesLength?: number;
 };
 
-export type RectComposition = {
+export type SquareComposition = {
   transform?: Transform;
   data?: Data;
   paddingLeft?: number;
@@ -77,7 +77,7 @@ export type RectComposition = {
   paddingTop?: number;
   paddingBottom?: number;
   key?: string;
-  type?: 'rect';
+  type?: 'square';
   title?: Title;
   encode?: {
     x?: string;

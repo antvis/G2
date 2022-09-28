@@ -1,6 +1,6 @@
-# Rect
+# Square
 
-## Row Rect
+## Row Square
 
 ```js
 (() => {
@@ -11,21 +11,21 @@
     paddingBottom: 50,
   });
 
-  const rect = chart
-    .rect()
+  const square = chart
+    .square()
     .data({
       type: 'fetch',
       value: 'https://gw.alipayobjects.com/os/bmw-prod/a0f96c54-d1fa-46c8-b6ef-548e2f700a6d.json',
     })
     .encode('x', 'series');
 
-  rect.point().encode('x', 'x').encode('y', 'y').encode('shape', 'hollow');
+  square.point().encode('x', 'x').encode('y', 'y').encode('shape', 'hollow');
 
   return chart.render().node();
 })();
 ```
 
-## Col Rect
+## Col Square
 
 ```js
 (() => {
@@ -36,15 +36,15 @@
     paddingBottom: 60,
   });
 
-  const rect = chart
-    .rect()
+  const square = chart
+    .square()
     .data({
       type: 'fetch',
       value: 'https://gw.alipayobjects.com/os/bmw-prod/90ec29b1-c939-434e-8bbb-ce5fa27c62a7.json',
     })
     .encode('y', 'site');
 
-  rect
+  square
     .point()
     .encode('x', 'yield')
     .encode('y', 'variety')
@@ -56,7 +56,7 @@
 })();
 ```
 
-## Both Rect
+## Both Square
 
 ```js
 (() => {
@@ -70,8 +70,8 @@
     node.encode('x', 'culmen_depth_mm').encode('y', 'culmen_length_mm');
   };
 
-  const rect = chart
-    .rect()
+  const square = chart
+    .square()
     .data({
       type: 'fetch',
       value: 'https://gw.alipayobjects.com/os/bmw-prod/3346929c-d7f4-4a81-8edc-c4c6d028ab96.json',
@@ -79,7 +79,7 @@
     .encode('x', 'sex')
     .encode('y', 'species');
 
-  rect
+  square
     .point()
     .facet(false)
     .frame(false)
@@ -87,7 +87,7 @@
     .encode('size', 2)
     .style('fill', '#ddd');
 
-  rect
+  square
     .point()
     .call(xy)
     .encode('shape', 'hollow')
@@ -124,14 +124,14 @@
   };
   const chart = new G2.Chart();
 
-  const rect = chart
-    .rect()
+  const square = chart
+    .square()
     .data(mockData())
     .encode('x', 'day')
     .encode('y', 'week')
     .scale('x', { domain: days });
 
-  rect
+  square
     .interval()
     .encode('x', 'activity')
     .encode('y', 'value')
@@ -170,15 +170,15 @@
     paddingRight: 100,
   });
 
-  const rect = chart
-    .rect()
+  const square = chart
+    .square()
     .data(mockData())
     .encode('x', 'day')
     .encode('y', 'week')
     .scale('x', { domain: days })
     .scale('color', { guide: { position: 'right', size: 50 } });
 
-  rect
+  square
     .view()
     .coordinate({ type: 'transpose' })
     .coordinate({ type: 'polar', outerRadius: 0.9 })
@@ -200,7 +200,7 @@
       value: 'https://gw.alipayobjects.com/os/bmw-prod/3346929c-d7f4-4a81-8edc-c4c6d028ab96.json',
     },
   ],
-  type: 'rect',
+  type: 'square',
   paddingRight: 80,
   paddingBottom: 50,
   paddingLeft: 50,

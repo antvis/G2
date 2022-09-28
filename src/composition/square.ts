@@ -6,7 +6,7 @@ import {
   G2ViewTree,
   Node,
 } from '../runtime';
-import { RectComposition } from '../spec';
+import { SquareComposition } from '../spec';
 import { calcBBox } from '../utils/vector';
 import { Container } from '../utils/container';
 import { indexOf } from '../utils/array';
@@ -319,9 +319,9 @@ function createGuide(guide, factory) {
   return factory(guide);
 }
 
-export type RectOptions = Omit<RectComposition, 'type'>;
+export type SquareOptions = Omit<SquareComposition, 'type'>;
 
-export const Rect: CC<RectOptions> = () => {
+export const Square: CC<SquareOptions> = () => {
   return (options) => {
     const newOptions = Container.of<G2ViewTree>(options)
       .call(toGrid)
@@ -336,4 +336,4 @@ export const Rect: CC<RectOptions> = () => {
   };
 };
 
-Rect.props = {};
+Square.props = {};

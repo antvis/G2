@@ -56,7 +56,7 @@
       },
       "视图复合": {
         "Spatial": "composition-spatial",
-        "Rect": "composition-rect",
+        "Square": "composition-square",
         "Matrix": "composition-matrix",
         "Unit": "composition-unit",
         "Keyframe": "composition-keyframe",
