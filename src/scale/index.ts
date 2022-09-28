@@ -10,6 +10,7 @@ export { Threshold } from './threshold';
 export { Quantile } from './quantile';
 export { Quantize } from './quantize';
 export { Sqrt } from './sqrt';
+export { Sequential } from './sequential';
 
 export type { BandOptions } from './band';
 export type { LinearOptions } from './linear';
@@ -23,3 +24,4 @@ export type { ThresholdOptions } from './threshold';
 export type { QuantileOptions } from './quantile';
 export type { QuantizeOptions } from './quantize';
 export type { SqrtOptions } from './sqrt';
+export type { SequentialOptions } from './sequential';
