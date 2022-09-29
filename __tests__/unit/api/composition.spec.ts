@@ -23,12 +23,14 @@ import {
   Range,
   RangeX,
   RangeY,
+  Rect,
   Text,
   Connector,
 } from '../../../src/api/mark/mark';
 
 function expectToCreateMarks(node) {
   expect(node.interval()).toBeInstanceOf(Interval);
+  expect(node.rect()).toBeInstanceOf(Rect);
   expect(node.point()).toBeInstanceOf(Point);
   expect(node.area()).toBeInstanceOf(Area);
   expect(node.line()).toBeInstanceOf(Line);

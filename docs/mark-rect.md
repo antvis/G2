@@ -14,7 +14,7 @@
   const layout = (data) => {
     const root = d3.hierarchy(data);
     root.count();
-    d3.treemap().size([width, height]).padding(padding)(root);
+    d3.treemap().size([width, height]).paddingLeft(padding)(root);
     return root
       .descendants()
       .map((d) =>

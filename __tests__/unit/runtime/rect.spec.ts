@@ -12,6 +12,7 @@ describe('rect', () => {
     const treeMapLayout = (data) => {
       const root = hierarchy(data);
       root.count();
+      // @ts-ignore
       treemap().size([width, height]).padding(padding)(root);
       return root
         .descendants()
