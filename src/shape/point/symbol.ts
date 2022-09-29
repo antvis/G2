@@ -27,10 +27,11 @@ export function square(x: number, y: number, r: number) {
  * ◇
  */
 export function diamond(x: number, y: number, r: number) {
+  const hr = r * 0.618;
   return [
-    ['M', x - r, y],
+    ['M', x - hr, y],
     ['L', x, y - r],
-    ['L', x + r, y],
+    ['L', x + hr, y],
     ['L', x, y + r],
     ['Z'],
   ];

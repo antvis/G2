@@ -41,13 +41,25 @@ describe('light', () => {
       },
       point: {
         point: {
-          r: 2,
+          r: 3,
           fill: DEFAULT_COLOR,
           fillOpacity: 0.95,
           lineWidth: 0,
         },
         hollow: {
-          r: 2,
+          r: 3,
+          stroke: DEFAULT_COLOR,
+          strokeOpacity: 0.95,
+          lineWidth: 1,
+        },
+        plus: {
+          r: 3,
+          stroke: DEFAULT_COLOR,
+          strokeOpacity: 0.95,
+          lineWidth: 3,
+        },
+        diamond: {
+          r: 3,
           stroke: DEFAULT_COLOR,
           strokeOpacity: 0.95,
           lineWidth: 1,

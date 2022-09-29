@@ -7,7 +7,7 @@ export type Transform =
   | NormalizeYTransform
   | StackEnterTransform
   | JitterTransform
-  | JitterYTransform
+  | JitterXTransform
   | SymmetryYTransform
   | SelectTransform
   | SelectXTransform
@@ -22,7 +22,7 @@ export type TransformTypes =
   | 'normalizeY'
   | 'stackEnter'
   | 'jitter'
-  | 'jitterY'
+  | 'jitterX'
   | 'symmetryY'
   | 'select'
   | 'selectY'
@@ -75,13 +75,16 @@ export type NormalizeYTransform = {
 
 export type JitterTransform = {
   type?: 'jitter';
+  padding?: number;
   paddingX?: number;
   paddingY?: number;
+  random?: () => number;
 };
 
-export type JitterYTransform = {
-  type?: 'jitterY';
+export type JitterXTransform = {
+  type?: 'jitterX';
   padding?: number;
+  random?: () => number;
 };
 
 export type StackEnterTransform = {

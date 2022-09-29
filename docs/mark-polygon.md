@@ -36,7 +36,8 @@
     .polygon()
     .data({
       type: 'fetch',
-      value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/voronoi.json',
+      value:
+        'https://gw.alipayobjects.com/os/antvdemo/assets/data/voronoi.json',
       transform: [
         {
           type: 'custom',
@@ -94,7 +95,8 @@
 
   chart.data({
     type: 'fetch',
-    value: 'https://gw.alipayobjects.com/os/bmw-prod/5155ef81-db23-49f3-b72b-d436a219d289.json',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/5155ef81-db23-49f3-b72b-d436a219d289.json',
     transform: [{ type: 'custom', callback: layout }],
   });
 
@@ -128,6 +130,7 @@
     .style('dy', '15px')
     .style('dx', '5px')
     .style('fill', 'black')
+    .style('textAnchor', 'start')
     .style('fontSize', 12);
 
   return chart.render().node();

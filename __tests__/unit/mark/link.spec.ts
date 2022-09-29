@@ -21,7 +21,7 @@ describe('Link', () => {
         { name: 'x', required: true },
         { name: 'y', required: true },
       ],
-      preInference: [],
+      preInference: [{ type: 'maybeIdentityY' }, { type: 'maybeIdentityX' }],
       postInference: [
         { type: 'maybeKey' },
         { type: 'maybeTitleX' },

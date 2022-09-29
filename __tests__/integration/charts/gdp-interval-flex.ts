@@ -12,6 +12,7 @@ export function gdpIntervalFlex(): G2Spec {
     transform: [{ type: 'flexX', field: 'gdp' }],
     scale: {
       y: { formatter: '~s' },
+      color: { guide: null },
     },
     encode: {
       x: 'country',

@@ -13,7 +13,6 @@ import {
   Polygon,
   Polyline,
   HTML,
-  convertToPath,
 } from '@antv/g';
 import { group } from 'd3-array';
 import { error } from './helper';
