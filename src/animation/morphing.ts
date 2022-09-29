@@ -6,24 +6,13 @@ import {
 } from '@antv/g';
 import { AnimationComponent as AC } from '../runtime';
 import { Animation } from '../spec';
-import { effectTiming } from './utils';
+import { attributeKeys, attributeOf, effectTiming } from './utils';
 
 export type MorphingOptions = Animation & { split: 'pack' | SplitFunction };
 
 type BBox = [number, number, number, number];
 
 type SplitFunction = (shape: DisplayObject, count: number) => string[];
-
-function attributeOf(shape: DisplayObject, keys: string[]) {
-  const attribute = {};
-  for (const key of keys) {
-    const value = shape.style[key];
-    if (value) {
-      attribute[key] = value;
-    }
-  }
-  return attribute;
-}
 
 function localBBoxOf(shape: DisplayObject): BBox {
   const { min, max } = shape.getLocalBounds();
@@ -98,27 +87,16 @@ function oneToOne(
     return shapeToShape(from, to, timeEffect);
   }
 
-  // @todo Add more attributes need to be transform.
-  // @todo Opacity transform unexpectedly.
-  const keys = [
-    'fill',
-    'stroke',
-    'fillOpacity',
-    'strokeOpacity',
-    'opacity',
-    'lineWidth',
-  ];
   // Convert Path will take transform, anchor, etc into account,
   // so there is no need to specify these attributes in keyframes.
-  // console.log(from.style.path, to.style.path, from.style.transform, to.style.transform)
   const keyframes = [
     {
       path: fromPath,
-      ...attributeOf(from, keys),
+      ...attributeOf(from, attributeKeys),
     },
     {
       path: toPath,
-      ...attributeOf(to, keys),
+      ...attributeOf(to, attributeKeys),
     },
   ];
   const animation = shape.animate(keyframes, timeEffect);

@@ -132,6 +132,7 @@ import {
   FadeIn,
   FadeOut,
   Morphing,
+  WaveIn,
 } from '../../../src/animation';
 import {
   ElementActive,
@@ -376,6 +377,7 @@ describe('stdlib', () => {
       'animation.fadeIn': FadeIn,
       'animation.fadeOut': FadeOut,
       'animation.morphing': Morphing,
+      'animation.waveIn': WaveIn,
       'interaction.elementActive': ElementActive,
       'interaction.elementSelected': ElementSelected,
       'interaction.elementHighlight': ElementHighlight,
