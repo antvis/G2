@@ -11,6 +11,7 @@ import {
   QuantileOptions,
   QuantizeOptions,
   SqrtOptions,
+  SequentialOptions,
 } from '@antv/scale';
 import { ScaleComponent } from '../runtime';
 import { Palette } from './palette';
@@ -28,6 +29,7 @@ export type Scale =
   | ThresholdScale
   | QuantizeScale
   | QuantileScale
+  | SequentialScale
   | CustomScale;
 
 export type ScaleTypes =
@@ -43,11 +45,16 @@ export type ScaleTypes =
   | 'threshold'
   | 'quantize'
   | 'quantile'
+  | 'sequential'
   | ScaleComponent;
 
 export type BaseScale<T extends ScaleTypes, O> = {
   type?: T;
   palette?: Palette['type'] | string;
+  rangeMax?: number;
+  rangeMin?: number;
+  domainMax?: number;
+  domainMix?: number;
   // @todo More specific options.
   // @todo Remove null as it can be stored in JSON.
   guide?: Record<string, any> | null;
@@ -56,6 +63,7 @@ export type BaseScale<T extends ScaleTypes, O> = {
   zero?: boolean;
   formatter?: string | ((d: any) => string);
   tickFilter?: (tick: number, index: number, ticks: number[]) => boolean;
+  offset?: (t: number) => number;
 } & O;
 
 export type LinearScale = BaseScale<'linear', LinearOptions>;
@@ -81,5 +89,7 @@ export type ThresholdScale = BaseScale<'threshold', ThresholdOptions>;
 export type QuantileScale = BaseScale<'quantile', QuantileOptions>;
 
 export type QuantizeScale = BaseScale<'quantize', QuantizeOptions>;
+
+export type SequentialScale = BaseScale<'sequential', SequentialOptions>;
 
 export type CustomScale = BaseScale<ScaleComponent, { [key: string]: any }>;

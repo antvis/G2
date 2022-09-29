@@ -46,6 +46,7 @@ export function flatEncode(
   context: TransformContext,
 ): [number[], G2Mark] {
   const { encode } = mark;
+  if (!encode) return [I, mark];
   const flattenEncode = {};
   for (const [key, value] of Object.entries(encode)) {
     if (Array.isArray(value)) {
@@ -66,6 +67,7 @@ export function inferChannelsType(
   context: TransformContext,
 ): [number[], G2Mark] {
   const { encode, data } = mark;
+  if (!encode) return [I, mark];
   const typedEncode = mapObject(encode, (channel) => {
     if (isTypedChannel(channel)) return channel;
     const type = inferChannelType(data, channel);
@@ -81,6 +83,7 @@ export function maybeVisualChannel(
   context: TransformContext,
 ): [number[], G2Mark] {
   const { encode } = mark;
+  if (!encode) return [I, mark];
   const newEncode = mapObject(encode, (channel, name) => {
     const { type } = channel;
     if (type !== 'constant' || isPosition(name)) return channel;
@@ -95,6 +98,7 @@ export function extractColumns(
   context: TransformContext,
 ): [number[], G2Mark] {
   const { encode, data } = mark;
+  if (!encode) return [I, mark];
   const { library } = context;
   const columnOf = createColumnOf(library);
   const valuedEncode = mapObject(encode, (channel) => columnOf(data, channel));
@@ -107,6 +111,7 @@ export function maybeArrayField(
   context: TransformContext,
 ): [number[], G2Mark] {
   const { encode, ...rest } = mark;
+  if (!encode) return [I, mark];
   const columns = Object.entries(encode);
   const arrayColumns = columns
     .filter(([, channel]) => {

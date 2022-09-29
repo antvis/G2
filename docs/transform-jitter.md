@@ -1,13 +1,8 @@
 # Jitter
 
-The **jitter** transform produce dy channels for marks (especially for point) with ordinal x and y dimension, say to make them jitter in their own space. It is useful to see the density of distribution for data.
+**Jitter** 会生成随机 dy 和 dx 通道对于拥有离散的 x 和 y 通道的标识。视觉上会让点在对应的空间中随机散开，形成扰动的效果。
 
-- _Jitter_ - Produce both dx and y channels.
-- _JitterY_ - Produce only dy channel, which result in produce dy channel in transpose coordinate.
-
-It also support _padding_ option to specify padding of space.
-
-## Jitter Both
+## 开始
 
 ```js
 (() => {
@@ -17,22 +12,27 @@ It also support _padding_ option to specify padding of space.
     .point()
     .data({
       type: 'fetch',
-      value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
+      value:
+        'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
     })
     .transform({ type: 'jitter' })
     .encode('x', 'clarity')
-    .encode('color', 'clarity')
-    .scale('x', { padding: 0.5 })
-    .scale('y', { guide: null })
-    .animate('enter', { type: null });
+    .encode('color', 'clarity');
 
   return chart.render().node();
 })();
 ```
 
-## Jitter In Polar
+## 选项
 
-Specify _paddingX_ and _paddingY_ option for jitter.
+| 参数     | 说明                                          | 类型           | 默认值      |
+| -------- | --------------------------------------------- | -------------- | ----------- |
+| padding  | 空间之间的间隔                                | `number`       | 0           |
+| paddingX | 水平之间的间隔                                | `number`       | 0           |
+| paddingY | 竖直之间的间隔                                | `number`       | 0           |
+| random   | 自定义随机数生成器，需要返回 \[0, 1) 之间的值 | `() => number` | Math.random |
+
+## 案例
 
 ```js
 (() => {
@@ -44,7 +44,8 @@ Specify _paddingX_ and _paddingY_ option for jitter.
     .point()
     .data({
       type: 'fetch',
-      value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
+      value:
+        'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
     })
     .transform({ type: 'jitter', paddingX: 0.05, paddingY: 0.05 })
     .encode('x', 'clarity')
@@ -52,33 +53,6 @@ Specify _paddingX_ and _paddingY_ option for jitter.
     .encode('color', (d) => `(${d.clarity}, ${d.cut})`)
     .scale('x', { padding: 0.5 })
     .scale('y', { padding: 0.5, guide: null })
-    .scale('color', { guide: null });
-
-  return chart.render().node();
-})();
-```
-
-## JitterY
-
-Specify _padding_ option for jitterY.
-
-```js
-(() => {
-  const chart = new G2.Chart({ paddingLeft: 90 });
-
-  chart
-    .point()
-    .data({
-      type: 'fetch',
-      value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
-    })
-    .transform({ type: 'jitterY', padding: 0.1 })
-    .encode('x', 'clarity')
-    .encode('y', 'cut')
-    .encode('shape', 'hyphen')
-    .encode('size', 25)
-    .scale('x', { padding: 0.5 })
-    .scale('y', { padding: 0.5 })
     .scale('color', { guide: null });
 
   return chart.render().node();

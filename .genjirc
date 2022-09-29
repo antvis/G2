@@ -16,6 +16,7 @@
         "FlexX": "transform-flexx",
         "Symmetry": "transform-symmetry",
         "Jitter": "transform-jitter",
+        "JitterX": "transform-jitterx",
         "Select": "transform-select",
         "Pack": "transform-pack",
         "StackEnter": "transform-stack-enter"

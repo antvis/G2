@@ -41,8 +41,14 @@ function computePadding(
     'bottom',
   ];
   const positionComponents = group(components, (d) => d.position);
-  const { paddingLeft, paddingRight, paddingBottom, paddingTop } = options;
-  const padding = {
+  const {
+    padding,
+    paddingLeft = padding,
+    paddingRight = padding,
+    paddingBottom = padding,
+    paddingTop = padding,
+  } = options;
+  const layout = {
     paddingBottom,
     paddingLeft,
     paddingTop,
@@ -50,17 +56,17 @@ function computePadding(
   };
   for (const position of positions) {
     const key = `padding${capitalizeFirst(position)}`;
-    if (padding[key] === undefined) {
+    if (layout[key] === undefined) {
       if (!positionComponents.has(position)) {
-        padding[key] = 30;
+        layout[key] = 30;
       } else {
         const components = positionComponents.get(position);
         const totalSize = components.reduce((sum, { size }) => sum + size, 0);
-        padding[key] = totalSize;
+        layout[key] = totalSize;
       }
     }
   }
-  return padding;
+  return layout;
 }
 
 export function placeComponents(

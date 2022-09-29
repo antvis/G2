@@ -27,6 +27,7 @@ export type ViewComposition = {
   data?: Data;
   key?: string;
   class?: string;
+  padding?: number;
   paddingLeft?: number;
   paddingRight?: number;
   paddingTop?: number;
