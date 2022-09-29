@@ -48,7 +48,7 @@ export const Point: MC<PointOptions> = (options) => {
 };
 
 Point.props = {
-  defaultShape: 'point',
+  defaultShape: 'hollow',
   defaultLabelShape: 'label',
   channels: [
     ...baseGeometryChannels(),
@@ -69,6 +69,13 @@ Point.props = {
     { type: 'maybeTooltipY' },
   ],
   shapes: [
+    'hollow',
+    'hollowDiamond',
+    'hollowHexagon',
+    'hollowSquare',
+    'hollowTriangleDown',
+    'hollowTriangle',
+    'hollowBowtie',
     'point',
     'plus',
     'diamond',
@@ -81,12 +88,5 @@ Point.props = {
     'linePoint',
     'tick',
     'triangleDown',
-    'hollowBowtie',
-    'hollowDiamond',
-    'hollowHexagon',
-    'hollow',
-    'hollowSquare',
-    'hollowTriangle',
-    'hollowTriangleDown',
   ],
 };

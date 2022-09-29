@@ -12,7 +12,6 @@ export function carsPointScatterPlot(): G2Spec {
     encode: {
       x: 'mpg',
       y: 'hp',
-      shape: 'hollow',
       color: 'steelblue',
     },
     labels: [

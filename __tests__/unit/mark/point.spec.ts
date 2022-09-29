@@ -4,7 +4,7 @@ import { plot } from './helper';
 describe('Point', () => {
   it('Point should has expected props', () => {
     expect(Point.props).toEqual({
-      defaultShape: 'point',
+      defaultShape: 'hollow',
       defaultLabelShape: 'label',
       channels: [
         { name: 'color' },
@@ -31,6 +31,13 @@ describe('Point', () => {
         { type: 'maybeTooltipY' },
       ],
       shapes: [
+        'hollow',
+        'hollowDiamond',
+        'hollowHexagon',
+        'hollowSquare',
+        'hollowTriangleDown',
+        'hollowTriangle',
+        'hollowBowtie',
         'point',
         'plus',
         'diamond',
@@ -43,13 +50,6 @@ describe('Point', () => {
         'linePoint',
         'tick',
         'triangleDown',
-        'hollowBowtie',
-        'hollowDiamond',
-        'hollowHexagon',
-        'hollow',
-        'hollowSquare',
-        'hollowTriangle',
-        'hollowTriangleDown',
       ],
     });
   });

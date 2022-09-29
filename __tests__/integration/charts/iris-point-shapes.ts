@@ -15,6 +15,9 @@ export function irisPointShapes(): G2Spec {
       shape: 'category',
       color: 'category',
     },
+    scale: {
+      shape: { range: ['point', 'plus', 'diamond'] },
+    },
     style: {
       r: 5,
     },

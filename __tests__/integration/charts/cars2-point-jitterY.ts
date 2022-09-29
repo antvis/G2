@@ -20,7 +20,6 @@ export function cars2PointJitterY(): G2Spec {
     encode: {
       y: 'Horsepower',
       x: 'Cylinders',
-      shape: 'hollow',
       color: 'Cylinders',
     },
   };

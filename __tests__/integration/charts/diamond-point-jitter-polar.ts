@@ -15,6 +15,7 @@ export function diamondPointJitterPolar(): G2Spec {
     encode: {
       x: 'clarity',
       color: 'clarity',
+      shape: 'point',
     },
   };
 }

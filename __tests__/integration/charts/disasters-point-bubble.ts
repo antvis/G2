@@ -24,6 +24,7 @@ export function disastersPointBubble(): G2Spec {
       y: 'Entity',
       size: 'Deaths',
       color: 'Entity',
+      shape: 'point',
     },
     style: {
       stroke: 'black',

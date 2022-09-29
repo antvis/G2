@@ -32,6 +32,7 @@ export function stateAgesPointDotPlot(): G2Spec {
           x: 'state',
           y: 'population',
           color: 'age',
+          shape: 'point',
         },
       },
     ],

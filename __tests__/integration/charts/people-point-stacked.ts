@@ -23,6 +23,7 @@ export function peoplePointStacked(): G2Spec {
           x: (d) => 2021 - d.birth,
           y: (d) => (d.gender === 'M' ? 1 : -1),
           color: 'gender',
+          shape: 'point',
         },
       },
       {

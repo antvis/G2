@@ -13,6 +13,7 @@ export function intakePointAnnotation(): G2Spec {
           y: 'y',
           color: '#1890ff',
           size: 'z',
+          shape: 'point',
         },
         scale: {
           x: { nice: true },

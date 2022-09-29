@@ -38,6 +38,7 @@ export function flarePointCirclePack(): G2Spec {
       y: 'y',
       size: 'r',
       color: 'depth',
+      shape: 'point',
     },
   };
 }

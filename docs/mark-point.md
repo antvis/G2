@@ -17,8 +17,7 @@
     })
     .encode('x', 'height')
     .encode('y', 'weight')
-    .encode('color', 'gender')
-    .encode('shape', 'hollow');
+    .encode('color', 'gender');
 
   return chart.render().node();
 })();
@@ -47,8 +46,7 @@
       value:
         'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
     })
-    .encode('x', 'height')
-    .encode('shape', 'hollow');
+    .encode('x', 'height');
 
   return chart.render().node();
 })();
@@ -71,7 +69,6 @@
     .scale('y', { nice: true })
     .encode('x', 'mpg')
     .encode('y', 'hp')
-    .encode('shape', 'hollow')
     .encode('color', 'steelblue')
     .label({
       text: 'name',
@@ -116,6 +113,7 @@ Point 的 Size 通道的比例尺默认是 Sqrt 比例尺，是圆的半径。
     .encode('y', 'Entity')
     .encode('size', 'Deaths')
     .encode('color', 'Entity')
+    .encode('shape', 'point')
     .scale('size', { rangeMax: 35 })
     .scale('color', { guide: null })
     .style('stroke', 'black')
@@ -144,6 +142,7 @@ Point 的 Size 通道的比例尺默认是 Sqrt 比例尺，是圆的半径。
     .encode('y', 'LifeExpectancy')
     .encode('size', 'Population')
     .encode('color', 'continent')
+    .encode('shape', 'point')
     .scale('size', { type: 'log', range: [4, 20] })
     .style('fillOpacity', 0.3)
     .style('lineWidth', 1);
@@ -169,6 +168,7 @@ Point 的 Size 通道的比例尺默认是 Sqrt 比例尺，是圆的半径。
     .encode('y', 'y')
     .encode('shape', 'category')
     .encode('color', 'category')
+    .scale('shape', { range: ['point', 'plus', 'diamond'] })
     .style('r', 5);
 
   return chart.render().node();
@@ -192,6 +192,7 @@ Point 的 Size 通道的比例尺默认是 Sqrt 比例尺，是圆的半径。
     .encode('x', (d) => 2021 - d.birth)
     .encode('y', (d) => (d.gender === 'M' ? 1 : -1))
     .encode('color', 'gender')
+    .encode('shape', 'point')
     .scale('color', { field: 'Gender' })
     .scale('x', { field: 'Age →', nice: true })
     .scale('y', {
@@ -222,7 +223,6 @@ Point 的 Size 通道的比例尺默认是 Sqrt 比例尺，是圆的半径。
     .transform({ type: 'jitterX' })
     .encode('y', 'Horsepower')
     .encode('x', 'Cylinders')
-    .encode('shape', 'hollow')
     .encode('color', 'Cylinders')
     .scale('x', { type: 'point' })
     .scale('color', { type: 'ordinal' });
@@ -282,6 +282,7 @@ Point 的 Size 通道的比例尺默认是 Sqrt 比例尺，是圆的半径。
     .encode('y', 'y')
     .encode('color', '#1890ff')
     .encode('size', 'z')
+    .encode('shape', 'point')
     .scale('x', { nice: true })
     .scale('y', { nice: true, domainMax: 165, zero: true })
     .scale('size', { range: [10, 40] })
@@ -340,6 +341,7 @@ Point 的 Size 通道的比例尺默认是 Sqrt 比例尺，是圆的半径。
     .point()
     .scale('color', { palette: 'spectral' })
     .call(xy)
+    .encode('shape', 'point')
     .encode('color', 'age');
 
   return chart.render().node();
@@ -386,7 +388,41 @@ Point 的 Size 通道的比例尺默认是 Sqrt 比例尺，是圆的半径。
     .encode('x', 'x')
     .encode('y', 'y')
     .encode('size', 'r')
-    .encode('color', 'depth');
+    .encode('color', 'depth')
+    .encode('shape', 'point');
+
+  return chart.render().node();
+})();
+```
+
+### 序列散点图
+
+```js
+(() => {
+  const chart = new G2.Chart({
+    width: 800,
+  });
+
+  chart
+    .point()
+    .data({
+      type: 'fetch',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/56b6b137-e04e-4757-8af5-d75bafaef886.csv',
+    })
+    .encode('x', 'date')
+    .encode('y', 'value')
+    .encode('color', 'value')
+    .encode('shape', 'point')
+    .scale('color', {
+      type: 'sequential',
+      palette: 'rdBu',
+      offset: (t) => 1 - t,
+    })
+    .style('stroke', '#000')
+    .style('strokeOpacity', 0.2);
+
+  chart.lineY().data([0]).style('stroke', '#000').style('strokeOpacity', 0.2);
 
   return chart.render().node();
 })();
