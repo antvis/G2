@@ -5,6 +5,7 @@ export type AnimationTypes =
   | 'scaleOutX'
   | 'scaleInY'
   | 'scaleOutY'
+  | 'waveIn'
   | 'morphing';
 
 export type Animation = {

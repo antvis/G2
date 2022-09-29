@@ -47,7 +47,42 @@ Cartesian coordinate will append to coordinate if is not specified.
     .encode('color', 'genre')
     .scale('x', { padding: 0.05 })
     .scale('y', { guide: null })
-    .style('radius', 10);
+    .style('radius', 10)
+    .animate('enter', {
+      type: 'waveIn', //  Specify animation type.
+      duration: 1000,
+    });
+
+  return chart.render().node();
+})();
+```
+
+## Theta
+```js
+(() => {
+  const chart = new G2.Chart();
+
+  chart.coordinate({ type: 'theta' });
+
+  chart
+    .interval()
+    .data([
+      { genre: 'Sports', sold: 275 },
+      { genre: 'Strategy', sold: 115 },
+      { genre: 'Action', sold: 120 },
+      { genre: 'Shooter', sold: 350 },
+      { genre: 'Other', sold: 150 },
+    ])
+  .transform({type:'stackY'})
+    .encode('y', 'sold')
+    .encode('color', 'genre')
+  //  .scale('x', { padding: 0.05 })
+    .scale('y', { guide: null })
+    //.style('radius', 10)
+    .animate('enter', {
+      type: 'waveIn', //  Specify animation type.
+      duration: 1000,
+    });
 
   return chart.render().node();
 })();
