@@ -13,7 +13,7 @@ function getMissingStyle(style: Record<string, any>): Record<string, any> {
     Object.entries(style)
       .filter(([key]) => key.startsWith('missing'))
       .map(([key, value]) => [
-        lowerFirst(/missing([A-Z].*)/.exec(key)?.[1]),
+        lowerFirst(key.replace('missing', '').trim()),
         value,
       ])
       .filter(([key]) => key !== undefined),
@@ -96,7 +96,7 @@ export const Curve: SC<CurveOptions> = (options) => {
       .y((d) => d[1])
       .defined(([x, y]) => defined(x) && defined(y))
       .curve(curve);
-    const [DP, MS] = segmentation(points, defined);
+    const [DP, MS] = segmentation(P, defined);
     const missingStyle = getMissingStyle(style);
     const missing = !!MS.length;
 
