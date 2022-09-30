@@ -43,3 +43,4 @@ export { unemploymentAreaStacked } from './unemployment-area-stacked';
 export { unemploymentAreaNormalizedStacked } from './unemployment-area-normalize-stacked';
 export { unemploymentAreaStreamgraph } from './unemployment-area-streamgraph';
 export { temperatureCompareAreaDifference } from './temperature-compare-area-difference';
+export { populationByStateAreaNormalizeStacked } from './population-by-state-area-normalize-stacked';
