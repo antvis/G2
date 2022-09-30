@@ -36,7 +36,7 @@ describe('light', () => {
         line: {
           stroke: DEFAULT_COLOR,
           strokeOpacity: 1,
-          lineWidth: 2,
+          lineWidth: 1,
         },
       },
       point: {

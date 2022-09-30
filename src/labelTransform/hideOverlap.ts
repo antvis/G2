@@ -1,6 +1,7 @@
 import { DisplayObject } from '@antv/g';
 import { isPolygonsIntersect } from '@antv/path-util';
-import { LabelLayoutComponent as LLC } from '../runtime';
+import { LabelTransformComponent as LLC } from '../runtime';
+import { HideOverlapLabelTransform } from '../spec';
 
 function getPoints(element: DisplayObject) {
   const { min, max } = element.getRenderBounds();
@@ -14,8 +15,10 @@ function getPoints(element: DisplayObject) {
   ];
 }
 
+export type HideOverlapOptions = Omit<HideOverlapLabelTransform, 'type'>;
+
 // @todo Support label shape with priority attribute.
-export const HideOverlap: LLC = () => {
+export const HideOverlap: LLC<HideOverlapOptions> = () => {
   return (labels: DisplayObject[]) => {
     const displayLabels = [];
 

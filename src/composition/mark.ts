@@ -24,7 +24,7 @@ export const Mark: CC<MarkOptions> = () => {
       key,
       frame,
       title,
-      labelLayout,
+      labelTransform,
       ...mark
     } = options;
 
@@ -47,7 +47,7 @@ export const Mark: CC<MarkOptions> = () => {
         interaction,
         frame,
         title,
-        labelLayout,
+        labelTransform,
         marks: [{ ...mark, key: `${key}-0`, data }],
       },
     ];

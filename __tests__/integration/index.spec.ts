@@ -39,7 +39,9 @@ describe('integration', () => {
   for (const [name, generateOptions] of Object.entries(tests)) {
     // @ts-ignore
     if (!generateOptions.skip) {
-      it(`[SVG]: ${name}`, async () => {
+      // Skip SVG snapshot tests as the DOM structure is not stable now.
+      // Run Canvas snapshot tests to make render plot as expected.
+      it.skip(`[SVG]: ${name}`, async () => {
         let canvas;
         let actual;
         try {

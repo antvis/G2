@@ -209,7 +209,7 @@ import {
   Arc as ArcTransform,
   WordCloud,
 } from '../../../src/data';
-import { HideOverlap } from '../../../src/labelLayout';
+import { HideOverlap, DodgeY } from '../../../src/labelTransform';
 
 describe('stdlib', () => {
   it('createLibrary() should returns expected builtin', () => {
@@ -412,7 +412,8 @@ describe('stdlib', () => {
       'composition.circle': Circle,
       'composition.keyframe': Keyframe,
       'adjust.pack': Pack,
-      'labelLayout.hideOverlap': HideOverlap,
+      'labelTransform.hideOverlap': HideOverlap,
+      'labelTransform.dodgeY': DodgeY,
     });
   });
 });

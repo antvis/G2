@@ -1,7 +1,7 @@
 import { Coordinate } from '@antv/coord';
-import { DisplayObject, Text } from '@antv/g';
+import { Text } from '@antv/g';
 import { select } from '../../utils/selection';
-import { ShapeComponent as SC, Vector2 } from '../../runtime';
+import { G2Theme, ShapeComponent as SC, Vector2 } from '../../runtime';
 import { applyStyle, getArcObject } from '../../shape/utils';
 import { isTranspose, isCircular } from '../../utils/coordinate';
 
@@ -18,26 +18,6 @@ type LabelPosition =
   | 'outside';
 
 export type LabelOptions = Record<string, any>;
-
-/**
- * Avoid getting error bounds caused by element animations.
- * @todo Remove this temporary handle method, if runtime supports
- * correct process: drawElement, do label layout and then do
- * transitions together.
- */
-function getLocalBounds(element: DisplayObject) {
-  const cloneElement = element.cloneNode();
-  const animations = element.getAnimations();
-  cloneElement.style.visibility = 'hidden';
-  animations.forEach((animation) => {
-    const keyframes = animation.effect.getKeyframes();
-    cloneElement.attr(keyframes[keyframes.length - 1]);
-  });
-  element.parentNode.appendChild(cloneElement);
-  const bounds = cloneElement.getLocalBounds();
-  cloneElement.destroy();
-  return bounds;
-}
 
 function inferPosition(position: LabelPosition, coordinate: Coordinate) {
   if (position !== undefined) return position;
@@ -59,18 +39,18 @@ function inferNonCircularStyle(
   value: Record<string, any>,
   coordinate: Coordinate,
 ) {
-  const element: DisplayObject = value.element;
-  const { halfExtents } = getLocalBounds(element);
-  const w = halfExtents[0] * 2;
-  const h = halfExtents[1] * 2;
+  const { bounds } = value;
+  const [[x0, y0], [x1, y1]] = bounds;
+  const w = x1 - x0;
+  const h = y1 - y0;
   const xy = (options) => {
-    const { x, y } = value;
-    const px = maybePercentage(x, w);
-    const py = maybePercentage(y, h);
+    const { x: ox, y: oy } = options;
+    const px = maybePercentage(value.x, w);
+    const py = maybePercentage(value.y, h);
     return {
       ...options,
-      ...(px !== null && { x }),
-      ...(py !== null && { y }),
+      x: (px || ox) + x0,
+      y: (py || oy) + y0,
     };
   };
   // 4 direction.
@@ -107,10 +87,6 @@ function inferCircularStyle(
   value: Record<string, any>,
   coordinate: Coordinate,
 ) {
-  const element: DisplayObject = value.element;
-  const { min } = getLocalBounds(element);
-  const [x0, y0] = min;
-
   // Infer the label position in polar coordinate.
   const { y, y1 } = value;
   const arcObject = getArcObject(coordinate, points, [y, y1]);
@@ -120,7 +96,6 @@ function inferCircularStyle(
 
   const center = coordinate.getCenter() as Vector2;
 
-  // @todo Support config by label.offset
   const offset = position === 'inside' ? 0 : 12;
   const { radius: radiusRatio = 0.5 } = value;
   const radius =
@@ -130,10 +105,42 @@ function inferCircularStyle(
   const finalRadius = radius + offset;
 
   return {
-    x: center[0] + Math.sin(midAngle) * finalRadius - x0,
-    y: center[1] - Math.cos(midAngle) * finalRadius - y0,
+    x: center[0] + Math.sin(midAngle) * finalRadius,
+    y: center[1] - Math.cos(midAngle) * finalRadius,
     textAlign: 'center',
     textBaseline: 'middle',
+  };
+}
+
+function getDefaultStyle(
+  points: Vector2[],
+  value: Record<string, any>,
+  coordinate: Coordinate,
+  theme: G2Theme,
+): Record<string, any> {
+  const { bounds } = value;
+  // For series mark, such as line and area.
+  // The bounds for text is defined with only one point.
+  // Use this point as the label position.
+  if (bounds.length === 1) {
+    const [p] = bounds;
+    return {
+      ...theme['label'],
+      x: p[0],
+      y: p[1],
+    };
+  }
+
+  // For non-seres mark, calc position for label based on
+  // position and the bounds of shape.
+  const { position } = value;
+  const p = inferPosition(position, coordinate);
+  const inferDefaultStyle = isCircular(coordinate)
+    ? inferCircularStyle
+    : inferNonCircularStyle;
+  return {
+    ...inferDefaultStyle(p, points, value, coordinate),
+    ...theme[p === 'inside' ? 'innerLabel' : 'label'],
   };
 }
 
@@ -143,21 +150,10 @@ function inferCircularStyle(
  */
 export const Label: SC<LabelOptions> = (options) => {
   return (points, value, coordinate, theme) => {
-    const { position, text, ...overrideStyle } = value;
-    const definedPosition = inferPosition(position, coordinate);
-    const inferDefaultStyle = isCircular(coordinate)
-      ? inferCircularStyle
-      : inferNonCircularStyle;
-    const defaultStyle = inferDefaultStyle(
-      definedPosition,
-      points,
-      value,
-      coordinate,
-    );
-    const labelTheme =
-      theme[definedPosition === 'inside' ? 'innerLabel' : 'label'];
+    const { text, x, y, ...overrideStyle } = value;
+    const defaultStyle = getDefaultStyle(points, value, coordinate, theme);
     return select(new Text())
-      .call(applyStyle, { ...labelTheme, ...defaultStyle })
+      .call(applyStyle, defaultStyle)
       .style('text', `${text}`)
       .call(applyStyle, overrideStyle)
       .node();
