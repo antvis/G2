@@ -13,3 +13,5 @@ export function aaplLineBasic(): G2Spec {
     },
   };
 }
+
+aaplLineBasic.maxError = 100;

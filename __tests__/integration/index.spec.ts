@@ -24,7 +24,11 @@ describe('integration', () => {
             canvas = await renderCanvas(options, expectedPath);
           } else {
             canvas = await renderCanvas(options, actualPath);
-            expect(diff(actualPath, expectedPath)).toBe(0);
+            //@ts-ignore
+            const maxError = generateOptions.maxError || 0;
+            expect(diff(actualPath, expectedPath)).toBeLessThanOrEqual(
+              maxError,
+            );
 
             // Persevere the diff image if do not pass the test.
             fs.unlinkSync(actualPath);

@@ -93,7 +93,7 @@
     .encode('x', 'year')
     .encode('y', 'receipts')
     .encode('series', 'country')
-    .encode('color', '000')
+    .encode('color', '#000')
     .scale('x', { type: 'point', padding: 0.25 })
     .label({
       text: (d) => `${d.country} ${d.receipts}`,
