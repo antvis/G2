@@ -34,3 +34,6 @@ export { aaplLineBasic } from './aapl-line-basic';
 export { unemploymentLineMultiSeries } from './unemployment-line-multi-series';
 export { receiptsLineSlope } from './receipts-line-slope';
 export { stocksLineAggregateLabel } from './stocks-line-aggregate-label';
+export { aaplLineMissing } from './aapl-line-missing';
+export { aaplLineMissingConnect } from './aapl-line-missing-connect';
+export { aaplLineMissingStyled } from './aapl-line-missing-styled';

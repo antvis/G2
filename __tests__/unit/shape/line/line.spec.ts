@@ -58,7 +58,7 @@ describe('Line', () => {
     });
   });
 
-  it('Line() returns a function draw closed line in polar coordinate', async () => {
+  it.only('Line() returns a function draw closed line in polar coordinate', async () => {
     const container = document.createElement('div');
     const shape = await draw({
       shape: Line(),

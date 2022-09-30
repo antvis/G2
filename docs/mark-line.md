@@ -24,7 +24,13 @@
 
 ## 选项
 
-> TODO
+> Style
+
+| 参数                 | 说明                                                                                         | 类型                  | 默认值  |
+| -------------------- | -------------------------------------------------------------------------------------------- | --------------------- | ------- |
+| connectNull          | 是否连接缺失数据区域，当有缺失数据的时候生。效                                               | `boolean`             | `false` |
+| defined              | 是否为有有效点的验证函数，默认当 x 或者 y 为 `undefined`，`null`，`NaN` 的时候返回 `false`。 | `(d: any) => boolean` | -       |
+| `missing[StyleName]` | 连接缺失区域线条的样式。                                                                     | `number`              | `0`     |
 
 ## 案例
 
@@ -72,6 +78,102 @@
       fontSize: 10,
       transform: [{ type: 'dodgeY' }],
     });
+
+  return chart.render().node();
+})();
+```
+
+### 数据缺失折线图
+
+默认不会连接缺失区域。
+
+```js
+(() => {
+  const chart = new G2.Chart();
+
+  chart
+    .line()
+    .data({
+      type: 'fetch',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
+      transform: [
+        // 模拟数据缺失
+        {
+          type: 'map',
+          callback: (d) =>
+            Object.assign(d, {
+              close: d.date.getUTCMonth() < 3 ? NaN : d.close,
+            }),
+        },
+      ],
+    })
+    .encode('x', 'date')
+    .encode('y', 'close');
+
+  return chart.render().node();
+})();
+```
+
+可以通过配置 `connectNull` 来连接缺失区域。
+
+```js
+(() => {
+  const chart = new G2.Chart();
+
+  chart
+    .line()
+    .data({
+      type: 'fetch',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
+      transform: [
+        // 模拟数据缺失
+        {
+          type: 'map',
+          callback: (d) =>
+            Object.assign(d, {
+              close: d.date.getUTCMonth() < 3 ? NaN : d.close,
+            }),
+        },
+      ],
+    })
+    .encode('x', 'date')
+    .encode('y', 'close')
+    .style('connectNull', true);
+
+  return chart.render().node();
+})();
+```
+
+可以通过 `missing[StyleName]` 的方式来配置连接缺失数据区间线段的样式。
+
+```js
+(() => {
+  const chart = new G2.Chart();
+
+  chart
+    .line()
+    .data({
+      type: 'fetch',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
+      transform: [
+        // 模拟数据缺失
+        {
+          type: 'map',
+          callback: (d) =>
+            Object.assign(d, {
+              close: d.date.getUTCMonth() < 3 ? NaN : d.close,
+            }),
+        },
+      ],
+    })
+    .encode('x', 'date')
+    .encode('y', 'close')
+    .style('missingStroke', 'red')
+    .style('missingLineWidth', 10)
+    .style('connectNull', true);
 
   return chart.render().node();
 })();
