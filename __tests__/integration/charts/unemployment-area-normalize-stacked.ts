@@ -1,6 +1,6 @@
 import { G2Spec } from '../../../src';
 
-export function unemploymentAreaStacked(): G2Spec {
+export function unemploymentAreaNormalizedStacked(): G2Spec {
   return {
     width: 800,
     type: 'view',
@@ -11,7 +11,7 @@ export function unemploymentAreaStacked(): G2Spec {
     children: [
       {
         type: 'area',
-        transform: [{ type: 'stackY' }],
+        transform: [{ type: 'stackY' }, { type: 'normalizeY' }],
         encode: {
           x: 'date',
           y: 'unemployed',

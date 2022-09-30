@@ -40,3 +40,6 @@ export { aaplLineMissingStyled } from './aapl-line-missing-styled';
 export { paragraphTextVis } from './paragraph-text-vis';
 export { aaplAreaMissingData } from './aapl-area-missing-data';
 export { unemploymentAreaStacked } from './unemployment-area-stacked';
+export { unemploymentAreaNormalizedStacked } from './unemployment-area-normalize-stacked';
+export { unemploymentAreaStreamgraph } from './unemployment-area-streamgraph';
+export { temperatureCompareAreaDifference } from './temperature-compare-area-difference';
