@@ -9,6 +9,7 @@ export type Transform =
   | JitterTransform
   | JitterXTransform
   | SymmetryYTransform
+  | DiffYTransform
   | SelectTransform
   | SelectXTransform
   | SelectYTransform
@@ -24,6 +25,7 @@ export type TransformTypes =
   | 'jitter'
   | 'jitterX'
   | 'symmetryY'
+  | 'diffY'
   | 'select'
   | 'selectY'
   | 'selectX'
@@ -95,6 +97,12 @@ export type StackEnterTransform = {
 export type SymmetryYTransform = {
   type?: 'symmetryY';
   groupBy?: string | string[];
+};
+
+export type DiffYTransform = {
+  type?: 'diffY';
+  groupBy?: string | string[];
+  series?: boolean;
 };
 
 export type Selector =
