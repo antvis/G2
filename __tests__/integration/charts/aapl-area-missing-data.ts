@@ -64,3 +64,5 @@ export function aaplAreaMissingData(): G2Spec {
     ],
   };
 }
+
+aaplAreaMissingData.maxError = 125;

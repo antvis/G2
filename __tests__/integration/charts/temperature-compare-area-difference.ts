@@ -45,3 +45,5 @@ export function temperatureCompareAreaDifference(): G2Spec {
     ],
   };
 }
+
+temperatureCompareAreaDifference.maxError = 1280;
