@@ -30,3 +30,7 @@ export { intakePointAnnotation } from './intake-point-annotation';
 export { diamondPointJitterPolar } from './diamond-point-jitter-polar';
 export { seattleWeatherPoint1d } from './seattle-weather-point-1d';
 export { flarePointCirclePack } from './flare-point-circle-pack';
+export { aaplLineBasic } from './aapl-line-basic';
+export { unemploymentLineMultiSeries } from './unemployment-line-multi-series';
+export { receiptsLineSlope } from './receipts-line-slope';
+export { stocksLineAggregateLabel } from './stocks-line-aggregate-label';

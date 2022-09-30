@@ -6,7 +6,7 @@ import { Transform } from './transform';
 import { Scale } from './scale';
 import { Title } from './title';
 import { Data } from './data';
-import { LabelLayout } from './labelLayout';
+import { LabelTransform } from './labelTransform';
 
 export type Node =
   | MarkComposition
@@ -39,7 +39,7 @@ export type ViewComposition = {
   theme?: Theme;
   children?: MarkComposition[];
   adjust?: Adjust;
-  labelLayout?: LabelLayout[];
+  labelTransform?: LabelTransform[];
 };
 
 export type LayerComposition = {

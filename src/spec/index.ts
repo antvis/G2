@@ -16,4 +16,4 @@ export * from './animate';
 export * from './interaction';
 export * from './action';
 export * from './composition';
-export * from './labelLayout';
+export * from './labelTransform';

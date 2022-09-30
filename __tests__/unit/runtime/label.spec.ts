@@ -132,7 +132,7 @@ describe('label', () => {
           label: 'weight',
         },
         style: { label: { position: 'inside', textBaseline: 'middle' } },
-        labelLayout: [{ type: 'hideOverlap' }],
+        labelTransform: [{ type: 'hideOverlap' }],
       },
       {},
       () => done(),

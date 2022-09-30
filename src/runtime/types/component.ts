@@ -12,7 +12,7 @@ import { G2ViewTree } from './options';
 import { EncodeComponent, Encode } from './encode';
 import { MarkComponent, Mark } from './mark';
 import { TransformComponent, Transform } from './transform';
-import { Data, DataComponent } from './data';
+import { DataComponent } from './data';
 
 export type G2ComponentNamespaces =
   | 'coordinate'
@@ -33,7 +33,7 @@ export type G2ComponentNamespaces =
   | 'composition'
   | 'adjust'
   | 'data'
-  | 'labelLayout';
+  | 'labelTransform';
 
 export type G2Component =
   | EncodeComponent
@@ -52,7 +52,7 @@ export type G2Component =
   | AdjustComponent
   | TransformComponent
   | DataComponent
-  | LabelLayoutComponent;
+  | LabelTransformComponent;
 
 export type G2ComponentValue =
   | Transform
@@ -207,8 +207,6 @@ export type AdjustComponent<O = Record<string, unknown>> = G2BaseComponent<
   O
 >;
 
-export type LabelLayout = (labels: DisplayObject[]) => DisplayObject[];
-export type LabelLayoutComponent<O = Record<string, unknown>> = G2BaseComponent<
-  LabelLayout,
-  O
->;
+export type LabelTransform = (labels: DisplayObject[]) => DisplayObject[];
+export type LabelTransformComponent<O = Record<string, unknown>> =
+  G2BaseComponent<LabelTransform, O>;
