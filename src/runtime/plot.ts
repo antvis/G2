@@ -1,6 +1,7 @@
 import { DisplayObject, IAnimation as GAnimation } from '@antv/g';
 import { upperFirst } from '@antv/util';
 import { format } from 'd3-format';
+import { Vector2 } from '@antv/coord';
 import { mapObject } from '../utils/array';
 import {
   copyAttributes,
@@ -353,21 +354,13 @@ function initializeState(
     // Calc points and transformation for each data,
     // and then transform visual value to visual data.
     const calcPoints = useMark(mark);
-    const [I, P, S] = calcPoints(index, markScaleInstance, value, coordinate);
-    const definedIndex = [];
-    const definedPoints = [];
-    for (let i = 0; i < I.length; i++) {
-      const d = I[i];
-      const p = P[i];
-      if (p.every(([x, y]) => defined(x) && defined(y))) {
-        definedIndex.push(d);
-        definedPoints.push(p);
-      }
-    }
-    const count = dataDomain || definedIndex.length;
+    const [I, P, S] = filterValid(
+      calcPoints(index, markScaleInstance, value, coordinate),
+    );
+    const count = dataDomain || I.length;
     const T = adjust ? useAdjust(adjust)(P, count, layout) : [];
-    const visualData: Record<string, any>[] = definedIndex.map((d, i) => {
-      const datum = { points: definedPoints[i], transform: T[i], index: d };
+    const visualData: Record<string, any>[] = I.map((d, i) => {
+      const datum = { points: P[i], transform: T[i], index: d };
       for (const [k, V] of Object.entries(value)) {
         datum[k] = V[d];
         if (S) datum[`series${upperFirst(k)}`] = S[i].map((i) => V[i]);
@@ -376,7 +369,7 @@ function initializeState(
       return datum;
     });
     state.data = visualData;
-    state.index = definedIndex;
+    state.index = I;
 
     // Create children options by children callback,
     // and then propagate data to each child.
@@ -621,6 +614,25 @@ function getLabels(
     points,
   }));
   return selector ? selector(F) : F;
+}
+
+function filterValid([I, P, S]: [number[], Vector2[][], number[][]?]): [
+  number[],
+  Vector2[][],
+  number[][]?,
+] {
+  if (S) return [I, P, S];
+  const definedIndex = [];
+  const definedPoints = [];
+  for (let i = 0; i < I.length; i++) {
+    const d = I[i];
+    const p = P[i];
+    if (p.every(([x, y]) => defined(x) && defined(y))) {
+      definedIndex.push(d);
+      definedPoints.push(p);
+    }
+  }
+  return [definedIndex, definedPoints];
 }
 
 function normalizeLabelSelector(

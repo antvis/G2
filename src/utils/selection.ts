@@ -132,16 +132,8 @@ export class Selection<T = any> {
   }
 
   append(node: string | ((data: T, i: number) => G2Element)): Selection<T> {
-    const createElement = (type: string) => {
-      if (this._document) {
-        return this._document.createElement<G2Element, BP>(type, {});
-      }
-      const Ctor = Selection.registry[type];
-      if (Ctor) return new Ctor();
-      return error(`Unknown node type: ${type}`);
-    };
     const callback =
-      typeof node === 'function' ? node : () => createElement(node);
+      typeof node === 'function' ? node : () => this.createElement(node);
 
     const elements = [];
     if (this._data !== null) {
@@ -169,6 +161,19 @@ export class Selection<T = any> {
       }
       return new Selection(elements, null, elements[0], this._document);
     }
+  }
+
+  maybeAppend(id: string, node: string | (() => G2Element)) {
+    const element = this._elements[0];
+    const child = element.getElementById(id) as G2Element;
+    if (child) {
+      return new Selection([child], null, this._parent, this._document);
+    }
+    const newChild =
+      typeof node === 'string' ? this.createElement(node) : node();
+    newChild.id = id;
+    element.appendChild(newChild);
+    return new Selection([newChild], null, this._parent, this._document);
   }
 
   /**
@@ -294,6 +299,14 @@ export class Selection<T = any> {
     );
   }
 
+  createElement(type: string): G2Element {
+    if (this._document) {
+      return this._document.createElement<G2Element, BP>(type, {});
+    }
+    const Ctor = Selection.registry[type];
+    if (Ctor) return new Ctor();
+    return error(`Unknown node type: ${type}`);
+  }
   /**
    * Apply callback for each selection(enter, update, exit)
    * and merge them into one selection.
