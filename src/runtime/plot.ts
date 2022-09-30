@@ -24,7 +24,7 @@ import {
   G2CompositionOptions,
   G2AdjustOptions,
   G2InteractionOptions,
-  G2LabelLayoutOptions,
+  G2LabelTransformOptions,
 } from './types/options';
 import {
   ThemeComponent,
@@ -41,8 +41,8 @@ import {
   Adjust,
   InteractionComponent,
   Interaction,
-  LabelLayoutComponent,
-  LabelLayout,
+  LabelTransformComponent,
+  LabelTransform,
 } from './types/component';
 import { MarkComponent, Mark, MarkChannel } from './types/mark';
 import {
@@ -58,6 +58,15 @@ import { computeLayout, placeComponents } from './layout';
 import { createCoordinate } from './coordinate';
 import { applyScale, syncFacetsScales } from './scale';
 import { applyDataTransform } from './transform';
+import {
+  MAIN_LAYER_CLASS_NAME,
+  LABEL_LAYER_CLASS_NAME,
+  ELEMENT_CLASS_NAME,
+  VIEW_CLASS_NAME,
+  COMPONENT_CLASS_NAME,
+  PLOT_CLASS_NAME,
+  LABEL_CLASS_NAME,
+} from './constant';
 
 export async function plot<T extends G2ViewTree>(
   options: T,
@@ -150,13 +159,13 @@ export async function plot<T extends G2ViewTree>(
   const viewContainer = new Map<G2ViewDescriptor, DisplayObject>();
   const transitions: Promise<void>[] = [];
   selection
-    .selectAll('.view')
+    .selectAll(className(VIEW_CLASS_NAME))
     .data(views, (d) => d.key)
     .join(
       (enter) =>
         enter
           .append('g')
-          .attr('className', 'view')
+          .attr('className', VIEW_CLASS_NAME)
           .attr('id', (view) => view.key)
           .call(applyTranslate)
           .each(function (view) {
@@ -302,20 +311,9 @@ function initializeState(
     'theme',
     library,
   );
-  const [useLabelLayout] = useLibrary<
-    G2LabelLayoutOptions,
-    LabelLayoutComponent,
-    LabelLayout
-  >('labelLayout', library);
 
-  const {
-    key,
-    frame,
-    theme: partialTheme,
-    labelLayout: userLabelLayout = [],
-  } = options;
+  const { key, frame, theme: partialTheme } = options;
   const theme = useTheme(inferTheme(partialTheme));
-  const labelLayout = compose(userLabelLayout.map(useLabelLayout));
 
   // Infer components and compute layout.
   const marks = Array.from(markState.keys());
@@ -369,11 +367,12 @@ function initializeState(
     const count = dataDomain || definedIndex.length;
     const T = adjust ? useAdjust(adjust)(P, count, layout) : [];
     const visualData: Record<string, any>[] = definedIndex.map((d, i) => {
-      const datum = { points: definedPoints[i], transform: T[i] };
+      const datum = { points: definedPoints[i], transform: T[i], index: d };
       for (const [k, V] of Object.entries(value)) {
         datum[k] = V[d];
         if (S) datum[`series${upperFirst(k)}`] = S[i].map((i) => V[i]);
       }
+      if (S) datum['seriesIndex'] = S[i];
       return datum;
     });
     state.data = visualData;
@@ -397,7 +396,6 @@ function initializeState(
     markState,
     key,
     frame,
-    labelLayout,
     scale: scaleInstance,
   };
 
@@ -426,14 +424,14 @@ async function plotView(
   // Render components.
   // @todo renderComponent return ctor and options.
   selection
-    .selectAll('.component')
+    .selectAll(className(COMPONENT_CLASS_NAME))
     .data(components, (d, i) => `${d.type}-${i}`)
     .join(
       (enter) =>
         enter
           .append('g')
           .style('zIndex', ({ zIndex }) => zIndex || -1)
-          .attr('className', 'component')
+          .attr('className', COMPONENT_CLASS_NAME)
           .append((options) =>
             renderComponent(options, coordinate, theme, library),
           ),
@@ -455,35 +453,35 @@ async function plotView(
   // may be multiple main layers for a view, each main layer correspond to one of marks.
   // @todo Test DOM structure.
   selection
-    .selectAll('.plot')
+    .selectAll(className(PLOT_CLASS_NAME))
     .data([layout], () => key)
     .join(
       (enter) =>
         enter
           .append('rect')
-          .attr('className', 'plot')
+          .attr('className', PLOT_CLASS_NAME)
           .style('fill', 'transparent')
-          .call(applyFrame, frame)
-          .call(applyBBox)
-          .call(applyMainLayers, Array.from(markState.keys())),
+          .call(updateFrame, frame)
+          .call(updateBBox)
+          .call(updateLayers, Array.from(markState.keys())),
       (update) =>
         update
-          .call(applyBBox)
-          .call(applyMainLayers, Array.from(markState.keys())),
+          .call(updateBBox)
+          .call(updateLayers, Array.from(markState.keys())),
     );
 
   // Render marks with corresponding data.
   for (const [mark, state] of markState.entries()) {
     const { data } = state;
-    const { key, class: className } = mark;
+    const { key, class: cls } = mark;
     const shapeFunction = createMarkShapeFunction(mark, state, view, library);
     const enterFunction = createEnterFunction(mark, state, view, library);
     const updateFunction = createUpdateFunction(mark, state, view, library);
     const exitFunction = createExitFunction(mark, state, view, library);
-    const facetElements = selectFacetElements(selection, className, 'element');
+    const facetElements = selectFacetElements(selection, cls, 'element');
     const T = selection
       .select(`#${key}`)
-      .selectAll('.element')
+      .selectAll(className(ELEMENT_CLASS_NAME))
       .selectFacetAll(facetElements)
       .data(
         data,
@@ -494,7 +492,7 @@ async function plotView(
         (enter) =>
           enter
             .append(shapeFunction)
-            .attr('className', 'element')
+            .attr('className', ELEMENT_CLASS_NAME)
             .transition(function (data) {
               return enterFunction(data, [this]);
             }),
@@ -524,7 +522,7 @@ async function plotView(
           merge
             // Append elements to be merged.
             .append(shapeFunction)
-            .attr('className', 'element')
+            .attr('className', ELEMENT_CLASS_NAME)
             .transition(function (data) {
               // Remove merged elements after animation finishing.
               const { __fromElements__: fromElements } = this;
@@ -540,7 +538,7 @@ async function plotView(
               const enter = new Selection([], this.__toData__, this.parentNode);
               const toElements = enter
                 .append(shapeFunction)
-                .attr('className', 'element')
+                .attr('className', ELEMENT_CLASS_NAME)
                 .nodes();
               return updateFunction(data, [this], toElements);
             })
@@ -561,33 +559,100 @@ function plotLabel(
   transitions: Promise<void>[],
   library: G2Library,
 ) {
-  const { markState, labelLayout } = view;
+  const [useLabelTransform] = useLibrary<
+    G2LabelTransformOptions,
+    LabelTransformComponent,
+    LabelTransform
+  >('labelTransform', library);
+  const { markState, labelTransform } = view;
+  const labelLayer = selection.select(className(LABEL_LAYER_CLASS_NAME)).node();
   for (const [mark, state] of markState.entries()) {
     const { labels = [], key } = mark;
     const shapeFunction = createLabelShapeFunction(mark, state, view, library);
     const mainLayer = selection.select(`#${key}`);
-    mainLayer.selectAll('.element').each(function (data, index) {
-      if (labels.length === 0) return;
-      select(this)
-        .selectAll('.label')
-        .data(labels, (d) => d.text)
+    for (let i = 0; i < labels.length; i++) {
+      // Get all labels for each mark.
+      const { transform = [], ...options } = labels[i];
+      const allLabels = mainLayer
+        .selectAll('.element')
+        .nodes()
+        .flatMap((e) => getLabels(options, i, e));
+
+      // Plot labels.
+      const shapes = select(labelLayer)
+        .selectAll(className(LABEL_CLASS_NAME))
+        .data(allLabels, (d) => d.key)
         .join(
           (enter) =>
-            enter
-              .append((options) => shapeFunction(data, index, options, this))
-              .attr('class', 'label'),
+            enter.append(shapeFunction).attr('class', LABEL_CLASS_NAME),
           (update) =>
             update.each(function (options) {
               // @todo Handle Label with different type.
-              const node = shapeFunction(data, index, options, this);
+              const node = shapeFunction(options);
               copyAttributes(this, node);
             }),
           (exit) => exit.remove(),
-        );
-    });
+        )
+        .nodes();
+
+      // Apply mark-level transform.
+      const transformFunction = compose(transform.map(useLabelTransform));
+      transformFunction(shapes);
+    }
   }
-  const plottedLabels = selection.selectAll('.label').nodes();
-  if (labelLayout) labelLayout(plottedLabels);
+  // Apply view-level  transform.
+  if (labelTransform) labelTransform(selection.selectAll('.label').nodes());
+}
+
+function getLabels(
+  label: Record<string, any>,
+  labelIndex: number,
+  element: G2Element,
+): Record<string, any>[] {
+  const { seriesIndex: SI, seriesKey, points, key, index } = element.__data__;
+  const bounds = getLocalBounds(element);
+  if (!SI) return [{ ...label, key, bounds, index, points }];
+  const selector = normalizeLabelSelector(label);
+  const F = SI.map((index: number, i: number) => ({
+    ...label,
+    key: `${seriesKey[i]}-${labelIndex}`,
+    bounds: [points[i]],
+    index,
+    points,
+  }));
+  return selector ? selector(F) : F;
+}
+
+function normalizeLabelSelector(
+  label: Record<string, any>,
+): (I: number[]) => number[] {
+  const { selector } = label;
+  if (!selector) return null;
+  if (typeof selector === 'function') return selector;
+  if (selector === 'first') return (I) => [I[0]];
+  if (selector === 'last') return (I) => [I[I.length - 1]];
+  throw new Error(`Unknown selector: ${selector}`);
+}
+
+/**
+ * Avoid getting error bounds caused by element animations.
+ * @todo Remove this temporary handle method, if runtime supports
+ * correct process: drawElement, do label layout and then do
+ * transitions together.
+ */
+function getLocalBounds(element: DisplayObject) {
+  const cloneElement = element.cloneNode();
+  const animations = element.getAnimations();
+  cloneElement.style.visibility = 'hidden';
+  animations.forEach((animation) => {
+    const keyframes = animation.effect.getKeyframes();
+    cloneElement.attr(keyframes[keyframes.length - 1]);
+  });
+  element.parentNode.appendChild(cloneElement);
+  const bounds = cloneElement.getLocalBounds();
+  cloneElement.destroy();
+  const { min, max } = bounds;
+  return [min, max];
 }
 
 function createLabelShapeFunction(
@@ -595,32 +660,26 @@ function createLabelShapeFunction(
   state: G2MarkState,
   view: G2ViewDescriptor,
   library: G2Library,
-): (
-  data: Record<string, any>,
-  index: number,
-  options: Record<string, any>,
-  element: DisplayObject,
-) => DisplayObject {
+): (options: Record<string, any>) => DisplayObject {
   const [useShape] = useLibrary<G2ShapeOptions, ShapeComponent, Shape>(
     'shape',
     library,
   );
   const { data: abstractData } = mark;
-  const { index: I, data: visualData, defaultLabelShape } = state;
+  const { data: visualData, defaultLabelShape } = state;
   const point2d = visualData.map((d) => d.points);
   const { theme, coordinate } = view;
-  return (data, index, options, element) => {
-    const i = I[index];
-    const datum = abstractData[i];
+  return (options) => {
+    const { index, points } = options;
+    const datum = abstractData[index];
     const { formatter = (d) => `${d}`, ...abstractOptions } = options;
     const visualOptions = mapObject(abstractOptions, (d) =>
-      valueOf(datum, d, i, abstractData),
+      valueOf(datum, d, index, abstractData),
     );
     const { shape = defaultLabelShape, text, ...style } = visualOptions;
     const f = typeof formatter === 'string' ? format(formatter) : formatter;
-    const value = { ...style, element, text: f(text) };
+    const value = { ...style, text: f(text) };
     const shapeFunction = useShape({ type: `label.${shape}`, ...style });
-    const { points } = data;
     return shapeFunction(points, value, coordinate, theme, point2d);
   };
 }
@@ -823,7 +882,7 @@ async function applyTransform<T extends G2ViewTree>(
   return { data: newData, ...rest };
 }
 
-function applyBBox(selection: Selection) {
+function updateBBox(selection: Selection) {
   selection
     .style('x', (d) => d.paddingLeft)
     .style('y', (d) => d.paddingTop)
@@ -841,7 +900,7 @@ function shapeName(mark: G2Mark, name: string): string {
  * This is useful for facet.
  * @todo More options for frame style.
  */
-function applyFrame(selection: Selection, frame: boolean) {
+function updateFrame(selection: Selection, frame: boolean) {
   if (!frame) return;
   selection.style('lineWidth', 1).style('stroke', 'black');
 }
@@ -850,22 +909,28 @@ function applyFrame(selection: Selection, frame: boolean) {
  * Create and update layer for each mark.
  * All the layers created here are treated as main layers.
  */
-function applyMainLayers(selection: Selection, marks: G2Mark[]) {
+function updateLayers(selection: Selection, marks: G2Mark[]) {
   const facet = (d) => (d.class !== undefined ? `${d.class}` : '');
-  selection.each(function () {
-    select(this)
-      .selectAll('.main')
-      .data(marks, (d) => d.key)
-      .join(
-        (enter) =>
-          enter
-            .append('g')
-            .attr('className', 'main')
-            .attr('id', (d) => d.key)
-            .style('facet', facet)
-            .style('fill', 'transparent'),
-        (update) => update.style('facet', facet),
-        (exit) => exit.remove(),
-      );
-  });
+  selection
+    .selectAll(className(MAIN_LAYER_CLASS_NAME))
+    .data(marks, (d) => d.key)
+    .join(
+      (enter) =>
+        enter
+          .append('g')
+          .attr('className', MAIN_LAYER_CLASS_NAME)
+          .attr('id', (d) => d.key)
+          .style('facet', facet)
+          .style('fill', 'transparent'),
+      (update) => update.style('facet', facet),
+      (exit) => exit.remove(),
+    );
+
+  const labelLayer = selection.select(className(LABEL_LAYER_CLASS_NAME)).node();
+  if (labelLayer) return;
+  selection.append('g').attr('className', LABEL_LAYER_CLASS_NAME);
+}
+
+function className(name: string): string {
+  return `.${name}`;
 }

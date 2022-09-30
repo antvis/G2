@@ -209,7 +209,7 @@ import {
   Arc as ArcTransform,
   WordCloud,
 } from '../data';
-import { HideOverlap } from '../labelLayout/hideOverlap';
+import { HideOverlap, DodgeY } from '../labelTransform';
 
 export function createLibrary(): G2Library {
   return {
@@ -411,6 +411,7 @@ export function createLibrary(): G2Library {
     'composition.circle': Circle,
     'composition.keyframe': Keyframe,
     'adjust.pack': Pack,
-    'labelLayout.hideOverlap': HideOverlap,
+    'labelTransform.hideOverlap': HideOverlap,
+    'labelTransform.dodgeY': DodgeY,
   };
 }

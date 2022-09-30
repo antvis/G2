@@ -1,6 +1,6 @@
 import { G2Spec } from '../../../src';
 
-function temperaturesPointSequential(): G2Spec {
+export function temperaturesPointSequential(): G2Spec {
   return {
     type: 'view',
     width: 800,
@@ -41,8 +41,4 @@ function temperaturesPointSequential(): G2Spec {
   };
 }
 
-// @todo Remove skip
-// This test always fails duration CI.
-temperaturesPointSequential.skip = true;
-
-export { temperaturesPointSequential };
+temperaturesPointSequential.maxError = 100;
