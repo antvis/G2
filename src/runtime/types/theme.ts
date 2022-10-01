@@ -18,6 +18,7 @@ type ElementStyle = {
 };
 
 type MarkTheme = NestUnion<'interval', ['rect', 'hollowRect'], ElementStyle> &
+  NestUnion<'rect', ['rect', 'hollowRect'], ElementStyle> &
   NestUnion<'line', ['line'], ElementStyle> &
   NestUnion<'point', ['point', 'hollowPoint'], ElementStyle> &
   NestUnion<'text', ['text'], ElementStyle> &
