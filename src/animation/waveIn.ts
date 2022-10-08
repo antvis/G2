@@ -6,6 +6,7 @@ import { Animation } from '../spec';
 import { getArcObject } from '../shape/utils';
 import { isPolar } from '../utils/coordinate';
 import { effectTiming } from './utils';
+import { ScaleInX } from './scaleInX';
 
 export type WaveInOptions = Animation;
 
@@ -28,7 +29,7 @@ export const WaveIn: AC<WaveInOptions> = (options) => {
     const [shape] = from;
 
     if (!isPolar(coordinate)) {
-      return shape.animate([]);
+      return ScaleInX(options)(from, to, value, coordinate, defaults);
     }
 
     const center = coordinate.getCenter();
