@@ -5,9 +5,11 @@ describe('defineProps', () => {
   it('defineProps([...]) should define value prop', () => {
     const N = defineProps([{ type: 'value', name: 'a' }])(Node);
     const n = new N({ a: 1 });
+    expect(n.a()).toBe(1);
     const n1 = n.a(2);
-    expect(n.a()).toBe(2);
     expect(n1.a()).toBe(2);
+    const n2 = n.a(undefined);
+    expect(n2.a()).toBe(undefined);
   });
 
   it('definedProps([...]) should define keyed value prop', () => {
@@ -25,6 +27,16 @@ describe('defineProps', () => {
     expect(n1.a()).toEqual([1, 2]);
     const n2 = n1.a([1, 2, 3]);
     expect(n2.a()).toEqual([1, 2, 3]);
+
+    const arr = [1, 2, 3];
+    const n3 = n2.a(arr);
+    expect(n3.a()).not.toBe(arr);
+    expect(n3.a()).toEqual(arr);
+    arr.push(4);
+    expect(n3.a()).not.toEqual(arr);
+
+    const n4 = n3.a(undefined);
+    expect(n4.a()).toEqual(undefined);
   });
 
   it('definedProps([...]) should define keyed array prop', () => {
@@ -40,10 +52,11 @@ describe('defineProps', () => {
     expect(n.a()).toEqual({ b: 1 });
     const n1 = n.a('b', 2);
     expect(n1.a()).toEqual({ b: 2 });
-    const n2 = n1.a({
-      b: 3,
-    });
+    const n2 = n1.a({ b: 3 });
     expect(n2.a()).toEqual({ b: 3 });
+    expect(n2.a('b')).toEqual(3);
+    const n3 = n2.a(undefined);
+    expect(n3.a()).toEqual(undefined);
   });
 
   it('definedProps([...]) should define keyed object prop', () => {
@@ -51,6 +64,7 @@ describe('defineProps', () => {
     const n = new N({});
     n.a('a', 1);
     expect(n.value).toEqual({ b: { a: 1 } });
+    expect(n.a('a')).toEqual(1);
   });
 
   it('defineProps([...]) should define node prop', () => {
