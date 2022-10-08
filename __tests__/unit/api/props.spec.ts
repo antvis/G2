@@ -30,13 +30,13 @@ describe('defineProps', () => {
 
     const arr = [1, 2, 3];
     const n3 = n2.a(arr);
-    expect(n3.a()).not.toBe(arr);
+    expect(n3.a()).toBe(arr);
     expect(n3.a()).toEqual(arr);
     arr.push(4);
-    expect(n3.a()).not.toEqual(arr);
+    expect(n3.a()).toEqual(arr);
 
     const n4 = n3.a(undefined);
-    expect(n4.a()).toEqual(undefined);
+    expect(n4.a()).toEqual([1, 2, 3, 4, undefined]);
   });
 
   it('definedProps([...]) should define keyed array prop', () => {
@@ -54,7 +54,6 @@ describe('defineProps', () => {
     expect(n1.a()).toEqual({ b: 2 });
     const n2 = n1.a({ b: 3 });
     expect(n2.a()).toEqual({ b: 3 });
-    expect(n2.a('b')).toEqual(3);
     const n3 = n2.a(undefined);
     expect(n3.a()).toEqual(undefined);
   });
@@ -64,7 +63,6 @@ describe('defineProps', () => {
     const n = new N({});
     n.a('a', 1);
     expect(n.value).toEqual({ b: { a: 1 } });
-    expect(n.a('a')).toEqual(1);
   });
 
   it('defineProps([...]) should define node prop', () => {
