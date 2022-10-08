@@ -35,6 +35,7 @@
       "标记": {
         "概述": "mark-overview",
         "Interval": "mark-interval",
+        "Rect": "mark-rect",
         "Point": "mark-point",
         "Line": "mark-line",
         "Area": "mark-area",

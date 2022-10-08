@@ -1,4 +1,5 @@
 export { Interval } from './interval';
+export { Rect } from './rect';
 export { Line } from './line';
 export { Point } from './point';
 export { Text } from './text';
@@ -17,6 +18,7 @@ export { RangeX } from './rangeX';
 export { RangeY } from './rangeY';
 
 export type { IntervalOptions } from './interval';
+export type { RectOptions } from './rect';
 export type { LineOptions } from './line';
 export type { PointOptions } from './point';
 export type { TextOptions } from './text';

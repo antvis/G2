@@ -10,6 +10,7 @@ import { Data } from './data';
 
 export type Geometry =
   | IntervalGeometry
+  | RectGeometry
   | LineGeometry
   | PointGeometry
   | TextGeometry
@@ -31,6 +32,7 @@ export type Geometry =
 
 export type GeometryTypes =
   | 'interval'
+  | 'rect'
   | 'line'
   | 'point'
   | 'text'
@@ -107,6 +109,8 @@ export type IntervalGeometry = BaseGeometry<
   'interval',
   ChannelTypes | 'series'
 >;
+
+export type RectGeometry = BaseGeometry<'rect', ChannelTypes>;
 
 export type LineGeometry = BaseGeometry<
   'line',

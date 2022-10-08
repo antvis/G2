@@ -1,5 +1,6 @@
 import {
   Interval,
+  Rect,
   Point,
   Area,
   Line,
@@ -20,6 +21,7 @@ import {
 
 export interface Mark {
   interval(): Interval;
+  rect(): Rect;
   point(): Point;
   area(): Area;
   line(): Line;
@@ -40,6 +42,7 @@ export interface Mark {
 
 export const mark = {
   interval: Interval,
+  rect: Rect,
   point: Point,
   area: Area,
   line: Line,
