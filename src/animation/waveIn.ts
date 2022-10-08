@@ -40,21 +40,22 @@ export const WaveIn: AC<WaveInOptions> = (options) => {
     const path = arc().cornerRadius(radius as number);
     const arcObject = getArcObject(coordinate, points, [y, y1]);
     const { startAngle, endAngle } = arcObject;
+    const pathForConversion = new Path({});
 
     const createArcPath = (arcParams: {
       startAngle: number;
       endAngle: number;
       innerRadius: number;
       outerRadius: number;
-    }) =>
-      convertToPath(
-        new Path({
-          style: {
-            d: path(arcParams),
-            transform: `translate(${center[0]}, ${center[1]})`,
-          },
-        }),
-      );
+    }) => {
+      pathForConversion.attr({
+        d: path(arcParams),
+        transform: `translate(${center[0]}, ${center[1]})`,
+      });
+      const convertedPathDefinition = convertToPath(pathForConversion);
+      pathForConversion.style.transform = 'none';
+      return convertedPathDefinition;
+    };
 
     const keyframes = [
       // Use custom interpolable CSS property.
