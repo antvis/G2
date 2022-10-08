@@ -33,5 +33,11 @@ export function population2015IntervalPie(): G2Spec {
         dy: '0.75em',
       },
     ],
+    animate: {
+      enter: {
+        type: 'waveIn',
+        duration: 1000,
+      },
+    },
   };
 }
