@@ -36,17 +36,19 @@ export function agesIntervalRadialStacked(): G2Spec {
     transform: [{ type: 'stackY' }],
     coordinate: [{ type: 'polar', innerRadius: 0.4 }],
     scale: {
-      color: {
-        range: colors,
-        guide: { position: 'center', title: null, dx: 64, dy: 54 },
-      },
+      color: { range: colors },
+      y: { type: 'sqrt' },
+    },
+    axis: {
       y: {
-        type: 'sqrt',
-        formatter: '~s',
+        direction: 'center',
         tickFilter: (_, i) => i !== 0,
-        guide: { direction: 'center' },
+        tickFormatter: '~s',
       },
-      x: { guide: { position: 'bottom' } },
+      x: { position: 'bottom' },
+    },
+    legend: {
+      color: { position: 'center', title: null, dx: 64, dy: 44 },
     },
     encode: {
       x: 'State',

@@ -33,6 +33,7 @@ import {
   inferChannelsType,
   maybeArrayField,
   maybeVisualChannel,
+  addGuideToScale,
 } from './transform';
 
 export async function initializeMark(
@@ -139,6 +140,7 @@ async function applyMarkTransform(
     maybeVisualChannel,
     extractColumns,
     maybeArrayField,
+    addGuideToScale,
     ...preInference.map(useTransform),
     ...transform.map(useTransform),
     ...postInference.map(useTransform),

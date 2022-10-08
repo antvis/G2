@@ -22,7 +22,7 @@
     .encode('x', 'country')
     .encode('y', 'value')
     .encode('color', 'country')
-    .scale('y', { formatter: '~s' });
+    .axis('y', { tickFormatter: '~s' });
 
   return chart.render().node();
 })();
@@ -62,7 +62,7 @@
     .encode('x', 'market')
     .encode('y', 'value')
     .encode('color', 'segment')
-    .scale('y', { guide: null })
+    .axis('y', false)
     .scale('x', { paddingOuter: 0, paddingInner: 0.01 })
     .label({
       text: 'segment',

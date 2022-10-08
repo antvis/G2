@@ -16,8 +16,10 @@ export function populationIntervalDiverging(): G2Spec {
     coordinate: [{ type: 'transpose' }],
     scale: {
       color: { type: 'ordinal', range: ['#ca8861', '#675193'] },
-      y: { formatter: '~s' },
       x: { range: [1, 0] },
+    },
+    axis: {
+      y: { tickFormatter: '~s' },
     },
     encode: {
       x: 'age',

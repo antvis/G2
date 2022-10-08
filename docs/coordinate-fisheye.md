@@ -21,23 +21,24 @@
     .encode('size', 'Population')
     .encode('size', 'Population')
     .encode('color', 'continent')
-    .scale('size', { type: 'log', range: [4, 20] })
+    .encode('shape', 'point')
+    .style('fillOpacity', 0.3)
+    .style('lineWidth', 1)
+    .scale('size', { type: 'log', range: [4, 20] });
 
   return chart.render().node();
 })();
 ```
 
-
 ## API
 
-| 参数          | 说明                              | 类型    | 默认值 |
-|--------------|-----------------------------------|--------|--------|
-| focusX       | 鱼眼变换中心点 x 方向位置             | number | 0    |
-| focusY       | 鱼眼变换中心点 y 方向位置             | number | 0    |
-| distortionX  | 鱼眼变换 x 方向畸变大小               | number | 2    |
-| distortionY  | 鱼眼变换 y 方向畸变大小               | number | 2      |
-| isVisual     | focusX 和 focusY 的值是否是视觉坐标点 | boolean | false  |
-
+| 参数        | 说明                                  | 类型    | 默认值 |
+| ----------- | ------------------------------------- | ------- | ------ |
+| focusX      | 鱼眼变换中心点 x 方向位置             | number  | 0      |
+| focusY      | 鱼眼变换中心点 y 方向位置             | number  | 0      |
+| distortionX | 鱼眼变换 x 方向畸变大小               | number  | 2      |
+| distortionY | 鱼眼变换 y 方向畸变大小               | number  | 2      |
+| isVisual    | focusX 和 focusY 的值是否是视觉坐标点 | boolean | false  |
 
 ## 使用方法
 
@@ -59,14 +60,18 @@
     .encode('y', 'LifeExpectancy')
     .encode('size', 'Population')
     .encode('size', 'Population')
+    .encode('shape', 'point')
     .encode('color', 'continent')
-    .scale('size', { type: 'log', range: [4, 20] })
+    .style('fillOpacity', 0.3)
+    .style('lineWidth', 1)
+    .scale('size', { type: 'log', range: [4, 20] });
 
   return chart.render().node();
 })();
 ```
 
 ### 实际坐标的鱼眼变换
+
 ```js
 (() => {
   const chart = new G2.Chart();
@@ -84,7 +89,10 @@
     .encode('size', 'Population')
     .encode('size', 'Population')
     .encode('color', 'continent')
-    .scale('size', { type: 'log', range: [4, 20] })
+    .encode('shape', 'point')
+    .style('fillOpacity', 0.3)
+    .style('lineWidth', 1)
+    .scale('size', { type: 'log', range: [4, 20] });
 
   return chart.render().node();
 })();

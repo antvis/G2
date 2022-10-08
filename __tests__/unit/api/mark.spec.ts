@@ -36,6 +36,8 @@ function setOptions(node) {
     .paddingLeft(20)
     .paddingTop(30)
     .paddingRight(40)
+    .axis('x', { tickCount: 10 })
+    .legend('y', { title: 'hello' })
     .label({ text: 'hello' });
 }
 
@@ -48,6 +50,8 @@ function getOptions() {
     style: { stroke: 'black' },
     animate: { enter: { type: 'scaleInX' } },
     adjust: { type: 'pack' },
+    axis: { x: { tickCount: 10 } },
+    legend: { y: { title: 'hello' } },
     frame: true,
     facet: true,
     key: 'mark',

@@ -23,16 +23,17 @@ export function flarePointCirclePack(): G2Spec {
       transform: [{ type: 'custom', callback: layout }],
     },
     scale: {
-      x: { guide: null, domain: [0, width] },
-      y: { guide: null, domain: [0, height] },
+      x: { domain: [0, width] },
+      y: { domain: [0, height] },
       size: { type: 'identity' },
       color: {
-        guide: null,
         domain: [0, 5],
         range: ['hsl(152,80%,80%)', 'hsl(228,30%,40%)'],
         interpolate: interpolateHcl,
       },
     },
+    axis: false,
+    legend: false,
     encode: {
       x: 'x',
       y: 'y',

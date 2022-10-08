@@ -14,8 +14,8 @@ export function stateAgesIntervalStacked(): G2Spec {
       value: 'data/stateages.csv',
       format: 'csv',
     },
-    scale: {
-      y: { formatter: '~s' },
+    axis: {
+      y: { tickFormatter: '~s' },
     },
     encode: {
       x: 'state',

@@ -16,10 +16,8 @@ export function marketIntervalMarimekko(): G2Spec {
       { type: 'stackY' },
       { type: 'normalizeY' },
     ],
-    scale: {
-      y: { guide: null },
-      x: { paddingOuter: 0, paddingInner: 0.01 },
-    },
+    scale: { x: { paddingOuter: 0, paddingInner: 0.01 } },
+    axis: { y: false },
     encode: {
       x: 'market',
       y: 'value',

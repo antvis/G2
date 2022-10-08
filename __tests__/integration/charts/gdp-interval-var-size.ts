@@ -10,10 +10,9 @@ export function gdpIntervalVarSize(): G2Spec {
       value: 'data/gdp.csv',
     },
     scale: {
-      y: { formatter: '~s' },
       size: { range: [10, 60] },
-      color: { guide: null },
     },
+    legend: { color: false },
     encode: {
       x: 'country',
       y: 'value',

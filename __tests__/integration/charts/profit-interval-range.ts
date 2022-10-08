@@ -6,7 +6,7 @@ export function profitIntervalRange(): G2Spec {
     type: 'interval',
     paddingLeft: 60,
     data: profit,
-    scale: { y: { formatter: '~s' } },
+    axis: { y: { tickFormatter: '~s' } },
     encode: {
       x: 'month',
       y: ['end', 'start'],
