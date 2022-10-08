@@ -19,7 +19,7 @@ export type ColorOptions = {
  */
 export const Color: SC<ColorOptions> = (options) => {
   // Render border only when colorAttribute is stroke.
-  const { colorAttribute, inset, ...style } = options;
+  const { colorAttribute, inset = 0, ...style } = options;
 
   return (points, value, coordinate, theme) => {
     const { mark, shape, defaultShape } = value;
@@ -43,7 +43,9 @@ export const Color: SC<ColorOptions> = (options) => {
 
     // Render rect in non-polar coordinate.
     if (!isPolar(coordinate) && !isHelix(coordinate)) {
-      const [p0, , p2] = isTranspose(coordinate) ? reorder(points) : points;
+      const tpShape = !!isTranspose(coordinate);
+
+      const [p0, , p2] = tpShape ? reorder(points) : points;
       const [x, y] = p0;
       const [width, height] = sub(p2, p0);
       // Deal with width or height is negative.
@@ -51,13 +53,14 @@ export const Color: SC<ColorOptions> = (options) => {
       const absY = height > 0 ? y : y + height;
       const absWidth = Math.abs(width);
       const absHeight = Math.abs(height);
+
       return select(new Rect({}))
         .call(applyStyle, shapeTheme)
         .style('lineWidth', lineWidth)
-        .style('x', absX)
-        .style('y', absY)
-        .style('width', absWidth)
-        .style('height', absHeight)
+        .style('x', tpShape ? absX : absX + inset)
+        .style('y', tpShape ? absY + inset : absY)
+        .style('width', tpShape ? absWidth : absWidth - 2 * inset)
+        .style('height', tpShape ? absHeight - 2 * inset : absHeight)
         .style('stroke', color)
         .style('stroke', color || stroke)
         .style(colorAttribute, color)

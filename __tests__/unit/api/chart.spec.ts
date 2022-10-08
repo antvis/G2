@@ -26,6 +26,7 @@ import {
   Range,
   RangeX,
   RangeY,
+  Rect,
   Connector,
 } from '../../../src/api/mark/mark';
 import { createDiv } from '../../utils/dom';
@@ -103,6 +104,7 @@ describe('Chart', () => {
   it('chart.nodeName() should return expected node ', () => {
     const chart = new Chart();
     expect(chart.interval()).toBeInstanceOf(Interval);
+    expect(chart.rect()).toBeInstanceOf(Rect);
     expect(chart.point()).toBeInstanceOf(Point);
     expect(chart.area()).toBeInstanceOf(Area);
     expect(chart.line()).toBeInstanceOf(Line);
@@ -121,6 +123,7 @@ describe('Chart', () => {
     expect(chart.connector()).toBeInstanceOf(Connector);
     expect(chart.options().children).toEqual([
       { type: 'interval' },
+      { type: 'rect' },
       { type: 'point' },
       { type: 'area' },
       { type: 'line' },

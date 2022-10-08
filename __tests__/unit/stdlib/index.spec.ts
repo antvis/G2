@@ -17,6 +17,7 @@ import {
 import { Constant, Field, Transform, Column } from '../../../src/encode';
 import {
   Interval,
+  Rect,
   Line,
   Point as PointGeometry,
   Text as TextGeometry,
@@ -278,6 +279,7 @@ describe('stdlib', () => {
       'encode.transform': Transform,
       'encode.column': Column,
       'mark.interval': Interval,
+      'mark.rect': Rect,
       'mark.line': Line,
       'mark.point': PointGeometry,
       'mark.text': TextGeometry,
@@ -331,6 +333,8 @@ describe('stdlib', () => {
       'shape.interval.hollow': HollowRect,
       'shape.interval.funnel': Funnel,
       'shape.interval.pyramid': Pyramid,
+      'shape.rect.rect': RectShape,
+      'shape.rect.hollow': HollowRect,
       'shape.grid.grid': RectShape,
       'shape.grid.hollow': HollowRect,
       'shape.line.line': LineShape,

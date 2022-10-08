@@ -26,6 +26,10 @@ export interface Interval extends API<Concrete<IntervalGeometry>, Interval> {
   type: 'interval';
 }
 
+export interface Rect extends API<Concrete<IntervalGeometry>, Rect> {
+  type: 'rect';
+}
+
 export interface Point extends API<Concrete<PointGeometry>, Point> {
   type: 'point';
 }
@@ -115,6 +119,13 @@ export const props: NodePropertyDescriptor[] = [
 export class Interval extends Node<IntervalGeometry> {
   constructor() {
     super({}, 'interval');
+  }
+}
+
+@defineProps(props)
+export class Rect extends Node<IntervalGeometry> {
+  constructor() {
+    super({}, 'rect');
   }
 }
 
