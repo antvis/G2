@@ -8,12 +8,13 @@ import { ShapeComponent as SC } from '../../runtime';
 import { applyStyle, computeGradient, getShapeTheme } from '../utils';
 import { createElement } from '../createElement';
 
-function getMissingStyle(style: Record<string, any>): Record<string, any> {
+function getConnectStyle(style: Record<string, any>): Record<string, any> {
+  const PREFIX = 'connect';
   return Object.fromEntries(
     Object.entries(style)
-      .filter(([key]) => key.startsWith('missing'))
+      .filter(([key]) => key.startsWith(PREFIX))
       .map(([key, value]) => [
-        lowerFirst(key.replace('missing', '').trim()),
+        lowerFirst(key.replace(PREFIX, '').trim()),
         value,
       ])
       .filter(([key]) => key !== undefined),
@@ -32,22 +33,45 @@ const DoublePath = createElement((g) => {
     .call(applyStyle, style2);
 });
 
+/**
+ * Given a points sequence, split it into an array of defined points
+ * and an array of undefined segments.
+ *
+ * Input - [[1, 2], [3, 4], [null, null], [null, null], [5, 6], [null, null], [7, 8]]
+ * Output
+ *  - [[1, 2], [3, 4], [5, 6], [7, 8]]
+ *  - [
+ *      [[3, 4], [5, 6]],
+ *      [[5, 6], [7, 8]]
+ *    ]
+ */
 function segmentation(
   points: Vector2[],
   defined: (d: any) => boolean,
 ): [Vector2[], [Vector2, Vector2][]] {
   const definedPoints = [];
-  const missingSegments = [];
-  let m = false;
-  let dp = null;
+  const segments = [];
+  let m = false; // Is in a undefined sequence.
+  let dp = null; // The previous defined point.
   for (const p of points) {
-    if (defined(p[0]) && defined(p[1])) {
+    // If current point is a undefined point,
+    // enter a undefined sequence.
+    if (!defined(p[0]) || !defined(p[1])) m = true;
+    else {
       definedPoints.push(p);
-      if (m) (m = false), missingSegments.push([dp, p]);
+      // If current point is a defined point,
+      // and is in a undefined sequence, save
+      // the two closest defined points as this
+      // undefined sequence and exit it.
+      if (m) {
+        m = false;
+        segments.push([dp, p]);
+      }
+      // Update the previous defined point.
       dp = p;
-    } else m = true;
+    }
   }
-  return [definedPoints, missingSegments];
+  return [definedPoints, segments];
 }
 
 export type CurveOptions = {
@@ -97,11 +121,11 @@ export const Curve: SC<CurveOptions> = (options) => {
       .defined(([x, y]) => defined(x) && defined(y))
       .curve(curve);
     const [DP, MS] = segmentation(P, defined);
-    const missingStyle = getMissingStyle(style);
+    const connectStyle = getConnectStyle(style);
     const missing = !!MS.length;
 
     // Draw one path of connected defined points.
-    if (!missing || (connectNull && !Object.keys(missingStyle).length)) {
+    if (!missing || (connectNull && !Object.keys(connectStyle).length)) {
       return select(new Path({}))
         .style('d', linePath(DP))
         .call(applyStyle, finalStyle)
@@ -119,16 +143,11 @@ export const Curve: SC<CurveOptions> = (options) => {
     // Draw two path.
     // One for unconnected defined points.
     // One for connected segments.
-    const segmentPath = (segments) =>
-      segments.reduce(
-        (path, [p0, p1]) => path + `M${p0[0]},${p0[1]}L${p1[0]},${p1[1]}`,
-        '',
-      );
-
+    const connectPath = (segments) => segments.map(linePath).join(',');
     return select(new DoublePath())
-      .style('style1', { ...finalStyle, ...missingStyle })
+      .style('style1', { ...finalStyle, ...connectStyle })
       .style('style2', finalStyle)
-      .style('d1', segmentPath(MS))
+      .style('d1', connectPath(MS))
       .style('d2', linePath(P))
       .node();
   };

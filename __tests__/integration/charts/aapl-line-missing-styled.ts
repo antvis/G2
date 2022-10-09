@@ -20,11 +20,12 @@ export function aaplLineMissingStyled(): G2Spec {
     encode: {
       x: 'date',
       y: 'close',
+      shape: 'vh',
     },
     style: {
       connectNull: true,
-      missingLineWidth: 5,
-      missingStroke: 'red',
+      connectLineWidth: 5,
+      connectStroke: 'red',
     },
   };
 }
