@@ -7,9 +7,11 @@ import {
 
 export type LegendCategoryOptions = {
   position?: GuideComponentPosition;
-  formatter?: (d: any) => string;
+  tickFormatter?: (d: any) => string;
   dx?: number;
   dy?: number;
+  title?: string | string[];
+  [key: string]: any;
 };
 
 /**
@@ -17,16 +19,24 @@ export type LegendCategoryOptions = {
  * @todo Custom style.
  */
 export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
-  const { position, formatter = (d) => `${d}`, dx = 0, dy = 0 } = options;
+  const {
+    position,
+    tickFormatter = (d) => `${d}`,
+    dx = 0,
+    dy = 0,
+    title,
+    cols = undefined,
+    autoWrap = false,
+    ...rest
+  } = options;
   return (scale, value, coordinate, theme) => {
-    const { domain, field, bbox } = value;
+    const { domain, bbox } = value;
     const { x, y, width, height } = bbox;
     const items = domain.map((d) => ({
       id: d,
-      name: formatter(d),
+      name: tickFormatter(d),
       color: scale.map(d),
     }));
-    const { cols, autoWrap, ...guideCfg } = scale.getOptions().guide || {};
     const maxItemWidth = autoWrap && cols ? width / cols : undefined;
     const legendStyle = deepMix(
       {},
@@ -60,9 +70,9 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
             },
           },
         },
-        ...(field && {
+        ...(title && {
           title: {
-            content: Array.isArray(field) ? field[0] : field,
+            content: Array.isArray(title) ? title[0] : title,
             style: {
               fontSize: 12,
               fontWeight: 'bold',
@@ -88,7 +98,7 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
           fill: 'transparent',
         },
       },
-      guideCfg,
+      { ...rest },
     );
     return new Category({ className: 'category-legend', style: legendStyle });
   };

@@ -28,8 +28,7 @@ Box 特殊的一点在于 `y` 通道对应的数据是一组统计数据的数�
  *   ───────────┴───────────
  * p12         p11           p13
  */
- ```
-
+```
 
 ## 快速开始
 
@@ -58,27 +57,24 @@ data = [
     .encode('color', 'x')
     .scale('x', { paddingInner: 0.6, paddingOuter: 0.3 })
     .scale('y', { zero: true })
-    .scale('color', { guide: null })
+    .legend(false)
     .style('stroke', 'black');
 
   return chart.render().node();
 })();
 ```
 
-
 ## API
 
 `Box` 对应的 shape 图形有以下：
 
-| shape | 描述    | 示例 |
-|-------|--------|------|
-| box  | 箱线图，又叫盒须图、盒式图 | <img alt="box shape" height="32" src="https://gw.alipayobjects.com/zos/antfincdn/3Yx5VGjRbW/20220913112556.jpg" /> |
-
+| shape | 描述                       | 示例                                                                                                               |
+| ----- | -------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| box   | 箱线图，又叫盒须图、盒式图 | <img alt="box shape" height="32" src="https://gw.alipayobjects.com/zos/antfincdn/3Yx5VGjRbW/20220913112556.jpg" /> |
 
 ## 使用方式
 
 和其他 mark 一样，可以通过指定 `color` 通道，将不同的数据按照颜色分组标记出来。
-
 
 ```js | table "pin: false"
 dataWithColor = [
@@ -183,7 +179,6 @@ dataWithColor = [
 coordinate = 'polar';
 ```
 
-
 ```js
 (() => {
   const chart = new G2.Chart();
@@ -206,22 +201,21 @@ coordinate = 'polar';
 })();
 ```
 
-
 ## FAQ
 
- - 怎么在前端进行数据分布情况的分析？
+- 怎么在前端进行数据分布情况的分析？
 
 G2 的 `transform` 可以进行数据的转换，这里就可以实现对数据进行 `最小值`、`下四分位数`、`中位数`、`上四分位数`、`最大值` 的统计，当然也可以调用社区提供的[算法库](https://github.com/antvis/data-set/blob/master/src/transform/aggregate.ts)。
 
 ```ts
-chart
-  .box()
-  .data({
-    type: 'connector',
-    value: [/* your detail data */],
-    callback: (data) => {
-      // todo: aggregate your data, and return it.
-      return data;
-    }
-  });
+chart.box().data({
+  type: 'connector',
+  value: [
+    /* your detail data */
+  ],
+  callback: (data) => {
+    // todo: aggregate your data, and return it.
+    return data;
+  },
+});
 ```

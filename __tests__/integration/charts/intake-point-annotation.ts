@@ -56,7 +56,7 @@ export function intakePointAnnotation(): G2Spec {
         labels: [
           {
             text: 'Safe fat intake 65g/day',
-            position: 'left-top',
+            position: 'top-left',
             textBaseline: 'bottom',
           },
         ],

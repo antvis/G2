@@ -12,6 +12,8 @@ export type API<Props extends Geometry, Mark> = {
   class: ValueAttribute<Props['class'], Mark>;
   style: ObjectAttribute<Props['style'], Mark>;
   facet: ValueAttribute<Props['facet'], Mark>;
+  axis: ObjectAttribute<Props['axis'], Mark>;
+  legend: ObjectAttribute<Props['legend'], Mark>;
   frame: ValueAttribute<Props['frame'], Mark>;
   adjust: ValueAttribute<Props['adjust'], Mark>;
   coordinate: ArrayAttribute<Props['coordinate'], Mark>;

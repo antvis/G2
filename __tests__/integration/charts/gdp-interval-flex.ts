@@ -10,10 +10,7 @@ export function gdpIntervalFlex(): G2Spec {
       value: 'data/gdp.csv',
     },
     transform: [{ type: 'flexX', field: 'gdp' }],
-    scale: {
-      y: { formatter: '~s' },
-      color: { guide: null },
-    },
+    legend: { color: false },
     encode: {
       x: 'country',
       y: 'value',

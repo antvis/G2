@@ -23,9 +23,10 @@ export function paragraphTextVis(): G2Spec {
           text: 'idx',
         },
         scale: {
-          x: { type: 'band', guide: null },
-          y: { guide: null, domain: [0, 1] },
+          x: { type: 'band' },
+          y: { domain: [0, 1] },
         },
+        axis: false,
         style: {
           wordWrap: true,
           wordWrapWidth: 160,
@@ -51,9 +52,10 @@ export function paragraphTextVis(): G2Spec {
           color: '#1b1e23',
         },
         scale: {
-          x: { type: 'band', guide: null },
-          y: { guide: null, domain: [0, 1] },
+          x: { type: 'band' },
+          y: { domain: [0, 1] },
         },
+        axis: false,
         style: {
           wordWrap: true,
           wordWrapWidth: 160,

@@ -11,8 +11,10 @@ export function stateAgesPointDotPlot(): G2Spec {
       value: 'data/stateage-percentage.csv',
     },
     scale: {
-      y: { formatter: '.0%' },
       color: { palette: 'spectral' },
+    },
+    axis: {
+      y: { tickFormatter: '.0%' },
     },
     children: [
       {

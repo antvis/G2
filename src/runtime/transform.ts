@@ -1,4 +1,5 @@
 import { Primitive } from 'd3-array';
+import { deepMix } from '@antv/util';
 import { indexOf, mapObject } from '../utils/array';
 import { composeAsync, defined } from '../utils/helper';
 import { useLibrary } from './library';
@@ -141,6 +142,28 @@ export function maybeArrayField(
     });
   const newEncode = Object.fromEntries([...columns, ...arrayColumns]);
   return [I, { ...rest, encode: newEncode }];
+}
+
+export function addGuideToScale(
+  I: number[],
+  mark: G2Mark,
+  context: TransformContext,
+): [number[], G2Mark] {
+  const { axis = {}, legend = {} } = mark;
+  const normalize = (guide: boolean | Record<string, any>, channel: string) => {
+    if (typeof guide === 'boolean') return guide ? {} : null;
+    const eachGuide = guide[channel];
+    return eachGuide === undefined || eachGuide ? eachGuide : null;
+  };
+  deepMix(mark, {
+    scale: {
+      x: { guide: normalize(axis, 'x') },
+      y: { guide: normalize(axis, 'y') },
+      color: { guide: normalize(legend, 'color') },
+      size: { guide: normalize(legend, 'size') },
+    },
+  });
+  return [I, mark];
 }
 
 function isTypedChannel(channel): boolean {

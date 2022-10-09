@@ -18,7 +18,7 @@
     .encode('x', 'letter')
     .encode('y', 'frequency')
     .encode('color', 'steelblue')
-    .scale('y', { formatter: '.0%' });
+    .axis('y', { tickFormatter: '.0%' });
 
   return chart.render().node();
 })();
@@ -59,7 +59,7 @@
     .encode('x', 'letter')
     .encode('y', 'frequency')
     .encode('color', 'steelblue')
-    .scale('y', { formatter: '.0%' });
+    .axis('y', { tickFormatter: '.0%' });
 
   return chart.render().node();
 })();
@@ -87,7 +87,7 @@
     .encode('x', 'letter')
     .encode('y', 'frequency')
     .encode('color', 'steelblue')
-    .scale('y', { formatter: '.0%' })
+    .axis('y', { tickFormatter: '.0%' })
     .label({
       text: 'frequency',
       textAnchor: (d) => (+d.frequency > 0.008 ? 'right' : 'start'),
@@ -121,7 +121,7 @@
     .encode('x', 'state')
     .encode('y', 'population')
     .encode('color', 'age')
-    .scale('y', { formatter: '~s' });
+    .axis('y', { tickFormatter: '~s' });
 
   return chart.render().node();
 })();
@@ -154,7 +154,7 @@
     .encode('y', 'people')
     .encode('color', 'sex')
     .scale('color', { type: 'ordinal', range: ['#ca8861', '#675193'] })
-    .scale('y', { formatter: '~s' })
+    .axis('y', { tickFormatter: '~s' })
     .style('fillOpacity', 0.7);
 
   return chart.render().node();
@@ -185,7 +185,7 @@
     .encode('x', 'state')
     .encode('y', 'population')
     .encode('color', 'age')
-    .scale('y', { formatter: '~s' });
+    .axis('y', { tickFormatter: '~s' });
 
   return chart.render().node();
 })();
@@ -218,7 +218,7 @@
     .encode('y', (d) => (d.sex === 1 ? -d.people : d.people))
     .encode('color', 'sex')
     .scale('color', { type: 'ordinal', range: ['#ca8861', '#675193'] })
-    .scale('y', { formatter: '~s' })
+    .axis('y', { tickFormatter: '~s' })
     .scale('x', { range: [1, 0] });
 
   return chart.render().node();
@@ -291,7 +291,7 @@
     .encode('x', 'clarity')
     .encode('y', 'price')
     .encode('color', 'clarity')
-    .scale('y', { formatter: '~s' });
+    .axis('y', { tickFormatter: '~s' });
 
   return chart.render().node();
 })();
@@ -353,7 +353,7 @@
     .encode('y', 'people')
     .encode('color', 'sex')
     .scale('color', { type: 'ordinal', range: ['#ca8861', '#675193'] })
-    .scale('y', { formatter: '.0%' })
+    .axis('y', { tickFormatter: '.0%' })
     .label({ text: 'people', position: 'inside', fill: 'white' });
 
   return chart.render().node();
@@ -382,7 +382,7 @@
     .encode('x', 'country')
     .encode('y', 'value')
     .encode('color', 'country')
-    .scale('y', { formatter: '~s' });
+    .axis('y', { tickFormatter: '~s' });
 
   return chart.render().node();
 })();
@@ -409,7 +409,7 @@
     .encode('color', 'country')
     .encode('size', 'gdp')
     .scale('size', { range: [10, 60] })
-    .scale('y', { formatter: '~s' });
+    .axis('y', { tickFormatter: '~s' });
 
   return chart.render().node();
 })();
@@ -439,7 +439,7 @@
     .encode('x', 'market')
     .encode('y', 'value')
     .encode('color', 'segment')
-    .scale('y', { guide: null })
+    .axis('y', false)
     .scale('x', { paddingOuter: 0, paddingInner: 0.01 })
     .label({
       text: 'segment',
@@ -496,7 +496,7 @@
     .encode('color', (d) =>
       d.month === 'Total' ? 'Total' : d.profit > 0 ? 'Increase' : 'Decrease',
     )
-    .scale('y', { formatter: '~s' });
+    .axis('y', { tickFormatter: '~s' });
 
   return chart.render().node();
 })();
@@ -548,10 +548,10 @@
     .encode('color', 'name')
     .style('stroke', 'white')
     .scale('color', {
-      guide: null,
       palette: 'spectral',
       offset: (t) => t * 0.8 + 0.1,
     })
+    .legend(false)
     .label({ text: 'name', radius: 0.8, fontSize: 10, fontWeight: 'bold' })
     .label({
       text: (d, i, data) => (i < data.length - 3 ? d.value : ''),
@@ -586,10 +586,10 @@
     .style('inset', 1)
     .style('radius', 10)
     .scale('color', {
-      guide: null,
       palette: 'spectral',
       offset: (t) => t * 0.8 + 0.1,
     })
+    .legend(false)
     .label({ text: 'name', fontSize: 10, fontWeight: 'bold' })
     .label({
       text: (d, i, data) => (i < data.length - 3 ? d.value : ''),
@@ -619,12 +619,12 @@
     })
     .encode('x', 'year')
     .encode('y', 'people')
-    .scale('y', {
-      type: 'sqrt',
-      formatter: '~s',
+    .scale('y', { type: 'sqrt' })
+    .axis('y', {
+      tickFormatter: '~s',
       tickCount: 5,
       tickFilter: (d, i) => i !== 0,
-      guide: { direction: 'right' },
+      direction: 'right',
     });
 
   return chart.render().node();
@@ -683,11 +683,13 @@
     })
     .scale('y', {
       type: 'sqrt',
-      formatter: '~s',
-      tickFilter: (_, i) => i !== 0,
-      guide: { direction: 'center' },
     })
-    .scale('x', { guide: { position: 'bottom' } });
+    .axis('y', {
+      tickFormatter: '~s',
+      tickFilter: (_, i) => i !== 0,
+      direction: 'center',
+    })
+    .axis('x', { position: 'bottom' });
 
   return chart.render().node();
 })();
@@ -747,7 +749,7 @@
       formatter: '~s',
       tickFilter: (_, i) => i !== 0,
     })
-    .scale('x', { guide: { position: 'bottom' } });
+    .axis('x', { position: 'bottom' });
 
   return chart.render().node();
 })();

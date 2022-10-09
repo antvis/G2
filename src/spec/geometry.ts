@@ -87,6 +87,8 @@ export type BaseGeometry<
   transform?: Transform[];
   encode?: Partial<Record<C, Encode | Encode[]>>;
   scale?: Partial<Record<C, Scale>>;
+  axis?: Partial<Record<'x' | 'y', Axis | boolean>> | boolean;
+  legend?: Partial<Record<'size' | 'color', Legend | boolean>> | boolean;
   coordinate?: Coordinate[];
   style?: Record<string, any>;
   interaction?: Interaction[];
@@ -104,6 +106,23 @@ export type BaseGeometry<
 };
 
 export type Adjust = { type: 'pack' };
+
+export type Axis = {
+  tickCount?: number;
+  tickFormatter?: any;
+  tickFilter?: any;
+  title?: any;
+  [key: string]: any;
+};
+
+export type Legend = {
+  tickCount?: number;
+  tickFormatter?: any;
+  tickFilter?: any;
+  title?: any;
+  position?: string;
+  [key: string]: any;
+};
 
 export type IntervalGeometry = BaseGeometry<
   'interval',

@@ -1,70 +1,90 @@
 import { arc } from 'd3-shape';
-import { Linear } from '@antv/scale';
-import { convertToPath, Path } from '@antv/g';
-import { G2Element, select } from '../utils/selection';
+import { Path, CSS, PropertySyntax, convertToPath } from '@antv/g';
+import { G2Element } from '../utils/selection';
 import { AnimationComponent as AC } from '../runtime';
 import { Animation } from '../spec';
 import { getArcObject } from '../shape/utils';
 import { isPolar } from '../utils/coordinate';
-import { attributeKeys, attributeOf, effectTiming } from './utils';
+import { effectTiming } from './utils';
 import { ScaleInX } from './scaleInX';
 
-export type WaveInOptions = Animation & {
-  /** Count of keyframe animations */
-  frameCount?: number;
-};
+export type WaveInOptions = Animation;
 
 /**
  * Transform mark from transparent to solid.
  */
 export const WaveIn: AC<WaveInOptions> = (options) => {
   const ZERO = 0.0001;
-  const { frameCount = 10 } = options;
+
+  // @see https://g-next.antv.vision/zh/docs/api/css/css-properties-values-api#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B1%9E%E6%80%A7
+  CSS.registerProperty({
+    name: 'waveInArcAngle',
+    inherits: false,
+    initialValue: '',
+    interpolable: true,
+    syntax: PropertySyntax.NUMBER,
+  });
 
   return (from, to, value, coordinate, defaults) => {
     const [shape] = from;
 
-    // Animation reuse scaleInX in the cartesian coordinate.
     if (!isPolar(coordinate)) {
-      ScaleInX(options)(from, to, value, coordinate, defaults);
-      return shape.animate([], effectTiming(defaults, value, options));
+      return ScaleInX(options)(from, to, value, coordinate, defaults);
     }
 
     const center = coordinate.getCenter();
     const { __data__, style } = shape as G2Element;
-    const { radius = 0, transform } = style;
+    const { radius = 0 } = style;
     const { points, y, y1 } = __data__;
-    const attributes = attributeOf(shape, attributeKeys);
 
     const path = arc().cornerRadius(radius as number);
     const arcObject = getArcObject(coordinate, points, [y, y1]);
     const { startAngle, endAngle } = arcObject;
-    const createArcPath = (arcParams) =>
-      convertToPath(
-        select(new Path({}))
-          .style('path', path(arcParams))
-          .style('transform', `translate(${center[0]}, ${center[1]})`)
-          .node(),
-      );
+    const pathForConversion = new Path({});
 
-    const x = new Linear({
-      domain: [0, frameCount - 1],
-      range: [startAngle + ZERO, endAngle],
-    });
+    const createArcPath = (arcParams: {
+      startAngle: number;
+      endAngle: number;
+      innerRadius: number;
+      outerRadius: number;
+    }) => {
+      pathForConversion.attr({
+        d: path(arcParams),
+        transform: `translate(${center[0]}, ${center[1]})`,
+      });
+      const convertedPathDefinition = convertToPath(pathForConversion);
+      pathForConversion.style.transform = 'none';
+      return convertedPathDefinition;
+    };
 
-    /**
-     * TODO: Use this method of creating new Path temporarily.
-     * Reason: Keyframe transform does not take effect when it has path.
-     */
-    const keyframes = Array.from({ length: frameCount }, (_, i) => ({
-      path: createArcPath({
+    const keyframes = [
+      // Use custom interpolable CSS property.
+      {
+        waveInArcAngle: startAngle + ZERO,
+      },
+      {
+        waveInArcAngle: endAngle,
+      },
+    ];
+    const animation = shape.animate(
+      keyframes,
+      effectTiming(defaults, value, options),
+    );
+
+    animation.onframe = function () {
+      shape.style.path = createArcPath({
         ...arcObject,
-        endAngle: x.map(i),
-      }),
-      ...attributes,
-    }));
+        endAngle: Number(shape.style.waveInArcAngle),
+      });
+    };
+    animation.onfinish = function () {
+      shape.style.path = createArcPath({
+        ...arcObject,
+        endAngle: endAngle,
+      });
+    };
 
-    return shape.animate(keyframes, effectTiming(defaults, value, options));
+    return animation;
   };
 };
 

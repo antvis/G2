@@ -12,11 +12,11 @@ export function population2015IntervalPie(): G2Spec {
     coordinate: [{ type: 'theta' }],
     scale: {
       color: {
-        guide: null,
         palette: 'spectral',
         offset: (t) => t * 0.8 + 0.1,
       },
     },
+    legend: false,
     encode: {
       y: 'value',
       color: 'name',
@@ -33,5 +33,11 @@ export function population2015IntervalPie(): G2Spec {
         dy: '0.75em',
       },
     ],
+    animate: {
+      enter: {
+        type: 'waveIn',
+        duration: 1000,
+      },
+    },
   };
 }

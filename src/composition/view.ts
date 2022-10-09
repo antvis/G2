@@ -14,13 +14,22 @@ export const View: CC<ViewOptions> = () => {
   return (options) => {
     const { children, ...restOptions } = options;
     if (!Array.isArray(children)) return [];
-
-    const { data: viewData, scale: viewScale = {}, ...rest } = restOptions;
-    const marks = children.map(({ data, scale, ...rest }) => ({
-      data: mergeData(data, viewData),
-      scale: deepMix({}, viewScale, scale),
-      ...rest,
-    }));
+    const {
+      data: viewData,
+      scale: viewScale = {},
+      axis: viewAxis = {},
+      legend: viewLegend = {},
+      ...rest
+    } = restOptions;
+    const marks = children.map(
+      ({ data, scale = {}, axis = {}, legend = {}, ...rest }) => ({
+        data: mergeData(data, viewData),
+        scale: deepMix({}, viewScale, scale),
+        axis: axis ? deepMix({}, viewAxis, axis) : axis,
+        legend: legend ? deepMix({}, viewLegend, legend) : legend,
+        ...rest,
+      }),
+    );
     return [{ ...rest, marks, type: 'standardView' }];
   };
 };

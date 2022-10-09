@@ -5,7 +5,6 @@
 - 文本可视化
 - 数据的标注和辅助
 
-
 ## 快速开始
 
 绘制一个简单的柱形图，然后使用 `Text` 标记去绘制数据标签，辅助看数。
@@ -41,33 +40,31 @@
 })();
 ```
 
-
 ## API
 
 `Text` 对应的 shape 图形有以下：
 
-| shape | 描述    | 示例 |
-|-------|--------|------|
-| text  | 文本，具备有丰富的文本可视化属性配置 | <img alt="text shape" height="32" src="https://gw.alipayobjects.com/zos/antfincdn/tJs9C9JWMP/20220927172133.jpg" /> |
-| badge  | 图形，水滴形状的图形，常用于数据的标注 | <img alt="badge shape" height="32" src="https://gw.alipayobjects.com/zos/antfincdn/uiQzZkyTGJ/20220927172207.jpg" /> |
+| shape | 描述                                   | 示例                                                                                                                 |
+| ----- | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| text  | 文本，具备有丰富的文本可视化属性配置   | <img alt="text shape" height="32" src="https://gw.alipayobjects.com/zos/antfincdn/tJs9C9JWMP/20220927172133.jpg" />  |
+| badge | 图形，水滴形状的图形，常用于数据的标注 | <img alt="badge shape" height="32" src="https://gw.alipayobjects.com/zos/antfincdn/uiQzZkyTGJ/20220927172207.jpg" /> |
 
 ### Text 样式配置
 
-| 参数    | 说明                                         | 类型                | 默认值    |
-| ------- | ------------------------------------------- | ------------------- | ------- |
-| connector   | 文本和目标点之间的连接线样式配置              | `PathStyleProps`    | -       |
-| startMarker | 指定生成权重数组的通道                      | `MarkerStyleProps`  | -       |
-| endMarker   | 聚合每一组权重的函数                        | `MarkerStyleProps`  | -       |
-| background  | 聚合每一组权重的函数                        | `RectStyleProps`    | -       |
+| 参数        | 说明                             | 类型               | 默认值 |
+| ----------- | -------------------------------- | ------------------ | ------ |
+| connector   | 文本和目标点之间的连接线样式配置 | `PathStyleProps`   | -      |
+| startMarker | 指定生成权重数组的通道           | `MarkerStyleProps` | -      |
+| endMarker   | 聚合每一组权重的函数             | `MarkerStyleProps` | -      |
+| background  | 聚合每一组权重的函数             | `RectStyleProps`   | -      |
 
 ### Badge 样式配置
 
-| 参数    | 说明                                         | 类型                | 默认值    |
-| ------- | ------------------------------------------- | ------------------- | ------- |
-| size   | 图形的大小                                    | `PathStyleProps`    | -       |
-| symbol | 图形的样式，默认为水滴💧形状                      | `string` \| `((x: number, y: number, r: number) => string)`  | -       |
-| textStyle | 图形上文字的样式                             | `TextStyleProps`    | -       |
-
+| 参数      | 说明                           | 类型                                                        | 默认值 |
+| --------- | ------------------------------ | ----------------------------------------------------------- | ------ |
+| size      | 图形的大小                     | `PathStyleProps`                                            | -      |
+| symbol    | 图形的样式，默认为水滴 💧 形状 | `string` \| `((x: number, y: number, r: number) => string)` | -      |
+| textStyle | 图形上文字的样式               | `TextStyleProps`                                            | -      |
 
 ## 使用方式
 
@@ -121,8 +118,9 @@
     .encode('title', 'name')
     .encode('tooltip', (d) => d.value.toFixed(2))
     .style('textAlign', 'center')
-    .scale('x', { domain: [9, width], guide: null, range: [0, 1] })
-    .scale('y', { domain: [0, height], guide: null, range: [0, 1] })
+    .scale('x', { domain: [9, width], range: [0, 1] })
+    .scale('y', { domain: [0, height], range: [0, 1] })
+    .axis(false)
     .scale('fontSize', { type: 'identity' })
     .scale('rotate', { type: 'identity' })
     .scale('tooltip', { type: 'identity' });
@@ -135,13 +133,12 @@
 
 ```js
 (() => {
-
   const paragraph = [
     'Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people’s hats off—then, I account it high time to get to sea as soon as I can. This is my substitute for pistol and ball. With a philosophical flourish Cato throws himself upon his sword; I quietly take to the ship. There is nothing surprising in this. If they but knew it, almost all men in their degree, some time or other, cherish very nearly the same feelings towards the ocean with me.',
 
     'There now is your insular city of the Manhattoes, belted round by wharves as Indian isles by coral reefs—commerce surrounds it with her surf. Right and left, the streets take you waterward. Its extreme downtown is the battery, where that noble mole is washed by waves, and cooled by breezes, which a few hours previous were out of sight of land. Look at the crowds of water-gazers there.',
 
-    'Circumambulate the city of a dreamy Sabbath afternoon. Go from Corlears Hook to Coenties Slip, and from thence, by Whitehall, northward. What do you see?—Posted like silent sentinels all around the town, stand thousands upon thousands of mortal men fixed in ocean reveries. Some leaning against the spiles; some seated upon the pier-heads; some looking over the bulwarks of ships from China; some high aloft in the rigging, as if striving to get a still better seaward peep. But these are all landsmen; of week days pent up in lath and plaster—tied to counters, nailed to benches, clinched to desks. How then is this? Are the green fields gone? What do they here?'
+    'Circumambulate the city of a dreamy Sabbath afternoon. Go from Corlears Hook to Coenties Slip, and from thence, by Whitehall, northward. What do you see?—Posted like silent sentinels all around the town, stand thousands upon thousands of mortal men fixed in ocean reveries. Some leaning against the spiles; some seated upon the pier-heads; some looking over the bulwarks of ships from China; some high aloft in the rigging, as if striving to get a still better seaward peep. But these are all landsmen; of week days pent up in lath and plaster—tied to counters, nailed to benches, clinched to desks. How then is this? Are the green fields gone? What do they here?',
   ].map((text, idx) => ({ idx, text }));
 
   const chart = new G2.Chart({
@@ -157,11 +154,12 @@
     .encode('x', 'idx')
     .encode('y', 1)
     .encode('text', 'idx')
-    .scale('x', { type: 'band', guide: null })
-    .scale('y', { guide: null, domain: [0, 1] })
+    .scale('x', { type: 'band' })
+    .scale('y', { domain: [0, 1] })
+    .axis(false)
     .style('wordWrap', true)
-    .style('wordWrapWidth', 160)  // width / 3
-    .style('dx', -80)             // -1 * wordWrapWidth / 2
+    .style('wordWrapWidth', 160) // width / 3
+    .style('dx', -80) // -1 * wordWrapWidth / 2
     .style('dy', -20)
     .style('textAlign', 'left')
     .style('textBaseline', 'top')
@@ -180,11 +178,12 @@
     .encode('y', 1)
     .encode('text', 'text')
     .encode('color', '#1b1e23')
-    .scale('x', { type: 'band', guide: null })
-    .scale('y', { guide: null, domain: [0, 1] })
+    .scale('x', { type: 'band' })
+    .scale('y', { domain: [0, 1] })
+    .axis(false)
     .style('wordWrap', true)
-    .style('wordWrapWidth', 160)  // width / 3
-    .style('dx', -80)             // -1 * wordWrapWidth / 2
+    .style('wordWrapWidth', 160) // width / 3
+    .style('dx', -80) // -1 * wordWrapWidth / 2
     .style('textAlign', 'left')
     .style('textBaseline', 'top')
     .style('fontSize', 10)
@@ -223,7 +222,7 @@
     .encode('x', (d) => new Date(d.date))
     .encode('y', 'value')
     .encode('color', 'type')
-    .scale('x', { guide: { label: { autoHide: 'greedy', showLast: false } } });
+    .axis('x', { label: { autoHide: 'greedy', showLast: false } });
 
   chart
     .text()
@@ -289,9 +288,7 @@
     .encode('x', (d) => new Date(d.date))
     .encode('y', 'value')
     .encode('color', 'type')
-    .scale('x', {
-      guide: { label: { autoHide: 'greedy', showLast: false } },
-    });
+    .axis('x', { label: { autoHide: 'greedy', showLast: false } });
 
   chart
     .text()
@@ -309,4 +306,3 @@
 ```
 
 ## FAQ
-
