@@ -88,26 +88,25 @@ export const Curve: SC<CurveOptions> = (options) => {
     curve,
     gradient = false,
     defined = (d) => !Number.isNaN(d) && d !== undefined && d !== null,
-    connectNull = false,
+    connectNulls = false,
     ...style
   } = options;
   return (P, value, coordinate, theme) => {
     const { mark, shape, defaultShape } = value;
-    const { fill, stroke, ...defaults } = getShapeTheme(
+    const { fill: defaultColor, ...defaults } = getShapeTheme(
       theme,
       mark,
       shape,
       defaultShape,
     );
-    const { color: colorValue, seriesColor: sc, seriesX: sx } = value;
+    const { color = defaultColor, seriesColor: sc, seriesX: sx } = value;
     const transform = getTransform(coordinate, value);
-    const color = (colorValue: string) =>
-      gradient && sc ? computeGradient(sc, sx) : colorValue;
+    const fill = gradient && sc ? computeGradient(sc, sx) : color;
 
     const finalStyle = {
       ...defaults,
-      ...(stroke && { stroke }),
-      ...(fill && { fill }),
+      stroke: fill,
+      fill: fill,
       ...(transform && { transform }),
       ...style,
     };
@@ -120,9 +119,6 @@ export const Curve: SC<CurveOptions> = (options) => {
     const getPathNode = (path) => {
       return select(new Path({}))
         .style('d', path)
-        .style('fill', color(colorValue || fill))
-        .style('stroke', color(colorValue || stroke))
-        .style('transform', transform)
         .call(applyStyle, finalStyle)
         .node();
     };
@@ -143,12 +139,12 @@ export const Curve: SC<CurveOptions> = (options) => {
       };
 
       // Draw one area of connected defined points.
-      if (!missing || (connectNull && !Object.keys(connectStyle).length)) {
+      if (!missing || (connectNulls && !Object.keys(connectStyle).length)) {
         return getPathNode(areaPath(DP));
       }
 
       // Draw one area of unconnected defined points.
-      if (missing && !connectNull) {
+      if (missing && !connectNulls) {
         return getPathNode(areaPath(P));
       }
 
@@ -178,12 +174,12 @@ export const Curve: SC<CurveOptions> = (options) => {
       };
 
       // Draw one area of connected defined points.
-      if (!missing || (connectNull && !Object.keys(connectStyle).length)) {
+      if (!missing || (connectNulls && !Object.keys(connectStyle).length)) {
         return getPathNode(areaRadialPath(DP));
       }
 
       // Draw one area of unconnected defined points.
-      if (missing && !connectNull) {
+      if (missing && !connectNulls) {
         return getPathNode(areaRadialPath(P));
       }
 

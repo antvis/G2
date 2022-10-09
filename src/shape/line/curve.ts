@@ -76,7 +76,7 @@ export const Curve: SC<CurveOptions> = (options) => {
     curve,
     gradient = false,
     defined = (d) => !Number.isNaN(d) && d !== undefined && d !== null,
-    connectNull = false,
+    connectNulls = false,
     ...style
   } = options;
   return (points, value, coordinate, theme) => {
@@ -116,7 +116,7 @@ export const Curve: SC<CurveOptions> = (options) => {
     const missing = !!MS.length;
 
     // Draw one path of connected defined points.
-    if (!missing || (connectNull && !Object.keys(connectStyle).length)) {
+    if (!missing || (connectNulls && !Object.keys(connectStyle).length)) {
       return select(new Path({}))
         .style('d', linePath(DP))
         .call(applyStyle, finalStyle)
@@ -124,7 +124,7 @@ export const Curve: SC<CurveOptions> = (options) => {
     }
 
     // Draw one path of unconnected defined points.
-    if (missing && !connectNull) {
+    if (missing && !connectNulls) {
       return select(new Path({}))
         .style('d', linePath(P))
         .call(applyStyle, finalStyle)

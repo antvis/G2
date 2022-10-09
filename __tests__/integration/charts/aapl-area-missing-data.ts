@@ -25,11 +25,11 @@ export function aaplAreaMissingData(): G2Spec {
       x: { type: 'time' },
     },
     style: {
-      connectNull: true,
+      connectNulls: true,
       connectFill: 'grey',
       connectFillOpacity: 0.15,
     },
   };
 }
 
-aaplAreaMissingData.maxError = 125;
+aaplAreaMissingData.maxError = 26186; // todo, #antvis/G#1172

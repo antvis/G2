@@ -28,7 +28,7 @@
 
 | 参数                 | 说明                                                                                         | 类型                  | 默认值  |
 | -------------------- | -------------------------------------------------------------------------------------------- | --------------------- | ------- |
-| connectNull          | 是否连接缺失数据区域，当有缺失数据的时候生。效                                               | `boolean`             | `false` |
+| connectNulls          | 是否连接缺失数据区域，当有缺失数据的时候生。效                                               | `boolean`             | `false` |
 | defined              | 是否为有有效点的验证函数，默认当 x 或者 y 为 `undefined`，`null`，`NaN` 的时候返回 `false`。 | `(d: any) => boolean` | -       |
 | `missing[StyleName]` | 连接缺失区域线条的样式。                                                                     | `number`              | `0`     |
 
@@ -115,7 +115,7 @@
 })();
 ```
 
-可以通过配置 `connectNull` 来连接缺失区域。
+可以通过配置 `connectNulls` 来连接缺失区域。
 
 ```js
 (() => {
@@ -140,7 +140,7 @@
     })
     .encode('x', 'date')
     .encode('y', 'close')
-    .style('connectNull', true);
+    .style('connectNulls', true);
 
   return chart.render().node();
 })();
@@ -173,7 +173,7 @@
     .encode('y', 'close')
     .style('missingStroke', 'red')
     .style('missingLineWidth', 10)
-    .style('connectNull', true);
+    .style('connectNulls', true);
 
   return chart.render().node();
 })();
