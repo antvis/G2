@@ -29,7 +29,7 @@
     .transform({ type: 'groupX', y: 'count' })
     .encode('x', 'clarity')
     .encode('color', 'clarity')
-    .scale('y', { formatter: '~s' });
+    .axis('y', { tickFormatter: '~s' });
 
   return chart.render().node();
 })();
@@ -69,7 +69,7 @@ reducer = 'first';
     .encode('x', 'clarity')
     .encode('y', 'price')
     .encode('color', 'clarity')
-    .scale('y', { formatter: '~s' });
+    .axis('y', { tickFormatter: '~s' });
 
   return chart.render().node();
 })();
@@ -89,7 +89,7 @@ reducer = 'first';
     .encode('x', 'clarity')
     .encode('y', 'price')
     .encode('color', 'clarity')
-    .scale('y', { formatter: '~s' });
+    .axis('y', { tickFormatter: '~s' });
 
   return chart.render().node();
 })();

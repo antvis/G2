@@ -2,7 +2,6 @@
 
 Parallel 是平行坐标系变换，将笛卡尔直角坐标系坐标变换为平行坐标系下的坐标。
 
-
 ## 快速开始
 
 ```js
@@ -44,12 +43,18 @@ Parallel 是平行坐标系变换，将笛卡尔直角坐标系坐标变换为�
     // zIndex of mark is default to 0.
     // zIndex of component is default to -1.
     // Set zIndex to 1 for component to draw above marks.
-    .scale('position', { nice: true, guide: { zIndex: 1 } })
-    .scale('position1', { nice: true, guide: { zIndex: 1 } })
-    .scale('position2', { nice: true, guide: { zIndex: 1 } })
-    .scale('position3', { nice: true, guide: { zIndex: 1 } })
-    .scale('position4', { nice: true, guide: { zIndex: 1 } })
-    .scale('position5', { nice: true, guide: { zIndex: 1 } });
+    .scale('position', { nice: true })
+    .scale('position1', { nice: true })
+    .scale('position2', { nice: true })
+    .scale('position3', { nice: true })
+    .scale('position4', { nice: true })
+    .scale('position5', { nice: true })
+    .axis('position', { zIndex: 1 })
+    .axis('position1', { zIndex: 1 })
+    .axis('position2', { zIndex: 1 })
+    .axis('position3', { zIndex: 1 })
+    .axis('position4', { zIndex: 1 })
+    .axis('position5', { zIndex: 1 });
 
   return chart.render().node();
 })();

@@ -29,7 +29,7 @@ Radial 是一种特殊的极坐标系，常用于绘制玉钰图。
     .scale('color', {
       range: '#BAE7FF-#1890FF-#0050B3',
     })
-    .scale('y', { tickFilter: (d, i) => i !== 0 });
+    .axis('y', { tickFilter: (d, i) => i !== 0 });
 
   return chart.render().node();
 })();

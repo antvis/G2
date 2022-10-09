@@ -6,6 +6,7 @@ import {
 
 export type LegendContinuousOptions = {
   position?: GuideComponentPosition;
+  title?: string | string[];
 };
 
 /**
@@ -13,8 +14,9 @@ export type LegendContinuousOptions = {
  * @todo Custom style.
  */
 export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
+  const { title } = options;
   return (scale, value, coordinate, theme) => {
-    const { field, domain, bbox } = value;
+    const { domain, bbox } = value;
     const { x, y } = bbox;
     const ticks = scale.getTicks?.() || [];
     const [min, max] = domain;
@@ -33,9 +35,9 @@ export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
         max,
         indicator: null,
         handle: null,
-        ...(field && {
+        ...(title && {
           title: {
-            content: Array.isArray(field) ? field[0] : field,
+            content: Array.isArray(title) ? title[0] : title,
             style: {
               fontSize: 12,
             },

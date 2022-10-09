@@ -44,6 +44,10 @@ describe('defineProps', () => {
       b: 3,
     });
     expect(n2.a()).toEqual({ b: 3 });
+    const n3 = n2.a(false);
+    expect(n3.a()).toEqual(false);
+    const n4 = n3.a(null);
+    expect(n4.a()).toEqual(null);
   });
 
   it('definedProps([...]) should define keyed object prop', () => {

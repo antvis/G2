@@ -12,11 +12,11 @@ export function population2015IntervalDonut(): G2Spec {
     coordinate: [{ type: 'theta', innerRadius: 0.6 }],
     scale: {
       color: {
-        guide: null,
         palette: 'spectral',
         offset: (t) => t * 0.8 + 0.1,
       },
     },
+    legend: false,
     encode: {
       y: 'value',
       color: 'name',

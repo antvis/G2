@@ -20,13 +20,13 @@ Polar 是极坐标系变换，将笛卡尔直角坐标系坐标变换为极坐�
     })
     .encode('x', 'year')
     .encode('y', 'people')
-    .scale('y', {
-      type: 'sqrt',
-      formatter: '~s',
+    .axis('y', {
+      tickFormatter: '~s',
       tickCount: 5,
       tickFilter: (d, i) => i !== 0,
-      guide: { direction: 'right' },
-    });
+      direction: 'right',
+    })
+    .scale('y', { type: 'sqrt' });
 
   return chart.render().node();
 })();

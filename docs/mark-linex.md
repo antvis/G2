@@ -45,7 +45,7 @@ LineX 主要用绘制一条竖直方向的辅助线。
 
   chart.lineX().data([65]).style('stroke', '#54545').label({
     text: 'Safe fat intake 65g/day',
-    position: 'left-top',
+    position: 'top-left',
     textBaseline: 'bottom',
   });
 

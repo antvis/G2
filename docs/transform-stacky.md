@@ -42,7 +42,7 @@ The _reverse_ option reverse any of the above orders. And the _y_ option control
     .encode('x', 'state')
     .encode('y', 'population')
     .encode('color', 'age')
-    .scale('y', { formatter: '~s' });
+    .axis('y', { tickFormatter: '~s' });
 
   return chart.render().node();
 })();
@@ -86,11 +86,10 @@ orderBy = 'value';
     .encode('y', 'unemployed')
     .encode('color', 'industry')
     .encode('shape', 'smooth')
-    .scale('x', { field: 'Date', utc: true })
-    .scale('y', { formatter: '~s' })
-    .scale('color', {
-      guide: { size: 72, autoWrap: true, maxRows: 3, cols: 6 },
-    });
+    .scale('x', { utc: true })
+    .axis('x', { title: 'Date' })
+    .axis('y', { tickFormatter: '~s' })
+    .legend('color', { size: 72, autoWrap: true, maxRows: 3, cols: 6 });
 
   return chart.render().node();
 })();
@@ -119,7 +118,7 @@ orderBy = 'value';
     .call(xy)
     .encode('color', 'group')
     .encode('shape', 'smooth')
-    .scale('y', { formatter: '~s' });
+    .axis('y', { tickFormatter: '~s' });
 
   chart
     .line()
@@ -149,12 +148,14 @@ orderBy = 'value';
     .encode('x', (d) => 2021 - d.birth)
     .encode('y', (d) => (d.gender === 'M' ? 1 : -1))
     .encode('color', 'gender')
-    .scale('color', { field: 'Gender' })
-    .scale('x', { field: 'Age →', nice: true })
-    .scale('y', {
-      field: '← Women · Men →',
-      formatter: (d) => `${Math.abs(+d)}`,
-    });
+    .encode('shape', 'point')
+    .legend('color', { title: 'Gender' })
+    .axis('x', { title: 'Age →' })
+    .axis('y', {
+      title: '← Women · Men →',
+      tickFormatter: (d) => `${Math.abs(+d)}`,
+    })
+    .scale('x', { nice: true });
 
   chart.lineY().data([0]).encode('y', 0).style('stroke', 'black');
 

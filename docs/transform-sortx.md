@@ -30,11 +30,11 @@
     .encode('x', 'date')
     .encode('y', 'deaths')
     .encode('color', 'cause')
-    .scale('x', {
-      formatter: (d) =>
+    .axis('x', {
+      tickFormatter: (d) =>
         `${new Date(d).toLocaleString('en', { month: 'narrow' })}`,
     })
-    .scale('y', { formatter: '~s' });
+    .axis('y', { tickFormatter: '~s' });
 
   return chart.render().node();
 })();
@@ -77,11 +77,11 @@ SortX 还具有对数据进行筛选的功能，比如只想展示 Top5 的数�
     .encode('y', 'deaths')
     .encode('color', 'cause')
     .encode('series', 'cause')
-    .scale('x', {
-      formatter: (d) =>
+    .axis('x', {
+      tickFormatter: (d) =>
         `${new Date(d).toLocaleString('en', { month: 'narrow' })}`,
     })
-    .scale('y', { formatter: '~s' });
+    .axis('y', { tickFormatter: '~s' });
 
   return chart.render().node();
 })();

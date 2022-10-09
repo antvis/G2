@@ -82,6 +82,8 @@ export type G2Mark = {
   type?: string | MarkComponent;
   animate?: Record<string, Primitive>;
   facet?: boolean;
+  axis?: boolean | Record<string, any>;
+  legend?: boolean | Record<string, any>;
   filter?: (i: number) => boolean;
   children?: G2MarkChildrenCallback;
   dataDomain?: number;

@@ -30,7 +30,7 @@ function defineObjectProp(
   { name, key: k = name }: NodePropertyDescriptor,
 ) {
   Node.prototype[name] = function (key, value) {
-    if (isObject(key) || key === undefined) {
+    if (isObject(key) || !key) {
       return this.attr(k, key);
     }
     const newObject = clone(this.attr(k) || {});

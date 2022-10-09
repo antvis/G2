@@ -115,7 +115,7 @@ Point 的 Size 通道的比例尺默认是 Sqrt 比例尺，是圆的半径。
     .encode('color', 'Entity')
     .encode('shape', 'point')
     .scale('size', { rangeMax: 35 })
-    .scale('color', { guide: null })
+    .legend(false)
     .style('stroke', 'black')
     .style('opacity', 0.8)
     .style('lineWidth', 1);
@@ -193,12 +193,12 @@ Point 的 Size 通道的比例尺默认是 Sqrt 比例尺，是圆的半径。
     .encode('y', (d) => (d.gender === 'M' ? 1 : -1))
     .encode('color', 'gender')
     .encode('shape', 'point')
-    .scale('color', { field: 'Gender' })
-    .scale('x', { field: 'Age →', nice: true })
-    .scale('y', {
-      field: '← Women · Men →',
-      formatter: (d) => `${Math.abs(+d)}`,
-    });
+    .axis('x', { title: 'Age →', nice: true })
+    .axis('y', {
+      title: '← Women · Men →',
+      tickFormatter: Math.abs,
+    })
+    .legend('color', { title: 'Gender' });
 
   chart.lineY().data([0]).style('stroke', 'black');
 
@@ -245,9 +245,9 @@ Point 的 Size 通道的比例尺默认是 Sqrt 比例尺，是圆的半径。
         'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
     })
     .transform({ type: 'jitter' })
-    .scale('color', { guide: null })
     .encode('x', 'clarity')
-    .encode('color', 'clarity');
+    .encode('color', 'clarity')
+    .legend(false);
 
   return chart.render().node();
 })();
@@ -303,7 +303,7 @@ Point 的 Size 通道的比例尺默认是 Sqrt 比例尺，是圆的半径。
 
   chart.lineX().data([65]).style('stroke', '#54545').label({
     text: 'Safe fat intake 65g/day',
-    position: 'left-top',
+    position: 'top-left',
     textBaseline: 'bottom',
   });
 
@@ -332,7 +332,7 @@ Point 的 Size 通道的比例尺默认是 Sqrt 比例尺，是圆的半径。
 
   chart
     .link()
-    .scale('y', { formatter: '.0%' })
+    .axis('y', { tickFormatter: '.0%' })
     .transform({ type: 'groupX', y: 'min', y1: 'max' })
     .call(xy)
     .style('stroke', '#000');
@@ -376,11 +376,12 @@ Point 的 Size 通道的比例尺默认是 Sqrt 比例尺，是圆的半径。
         'https://gw.alipayobjects.com/os/bmw-prod/bf0d3c4e-7369-4dfb-9e88-df5064223f18.json',
       transform: [{ type: 'custom', callback: layout }],
     })
-    .scale('x', { guide: null, domain: [0, width] })
-    .scale('y', { guide: null, domain: [0, height] })
+    .axis(false)
+    .legend(false)
+    .scale('x', { domain: [0, width] })
+    .scale('y', { domain: [0, height] })
     .scale('size', { type: 'identity' })
     .scale('color', {
-      guide: null,
       domain: [0, 5],
       range: ['hsl(152,80%,80%)', 'hsl(228,30%,40%)'],
       interpolate: d3.interpolateHcl,

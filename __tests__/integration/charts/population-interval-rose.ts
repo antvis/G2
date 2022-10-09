@@ -11,13 +11,13 @@ export function populationIntervalRose(): G2Spec {
     },
     coordinate: [{ type: 'polar' }],
     transform: [{ type: 'groupX', y: 'sum' }],
-    scale: {
+    scale: { y: { type: 'sqrt' } },
+    axis: {
       y: {
-        type: 'sqrt',
-        formatter: '~s',
+        tickFormatter: '~s',
         tickCount: 5,
         tickFilter: (d, i) => i !== 0,
-        guide: { direction: 'right' },
+        direction: 'right',
       },
     },
     encode: {

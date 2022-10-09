@@ -12,8 +12,8 @@ export function stateAgesIntervalGrouped(): G2Spec {
       type: 'fetch',
       value: 'data/stateages.csv',
     },
-    scale: {
-      y: { formatter: '~s' },
+    axis: {
+      y: { tickFormatter: '~s' },
     },
     encode: {
       x: 'state',

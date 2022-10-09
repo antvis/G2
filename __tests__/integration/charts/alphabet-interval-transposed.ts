@@ -11,7 +11,7 @@ export function alphabetIntervalTransposed(): G2Spec {
     height: 600,
     coordinate: [{ type: 'transpose' }],
     transform: [{ type: 'sortX', channel: 'y', reverse: true }],
-    scale: { y: { formatter: '.1%' } },
+    axis: { y: { tickFormatter: '.1%' } },
     encode: {
       x: 'letter',
       y: 'frequency',

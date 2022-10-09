@@ -57,7 +57,7 @@
     .encode('x', 'month')
     .encode('y', 'rainfall')
     .encode('color', 'city')
-    .scale('y', { formatter: '.0%' });
+    .axis('y', { tickFormatter: '.0%' });
 
   return chart.render().node();
 })();
@@ -103,7 +103,7 @@ basis = 'first';
     .encode('x', (d) => new Date(d.Date))
     .encode('y', 'Close')
     .encode('color', 'Symbol')
-    .scale('x', { field: 'Date' });
+    .axis('x', { title: 'Date' });
 
   return chart.render().node();
 })();
@@ -128,10 +128,8 @@ basis = 'first';
     .encode('y', 'unemployed')
     .encode('color', 'industry')
     .encode('shape', 'smooth')
-    .scale('x', { field: 'Date' })
-    .scale('color', {
-      guide: { size: 72, autoWrap: true, maxRows: 3, cols: 6 },
-    });
+    .axis('x', { title: 'Date' })
+    .axis('color', { size: 72, autoWrap: true, maxRows: 3, cols: 6 });
 
   return chart.render().node();
 })();
