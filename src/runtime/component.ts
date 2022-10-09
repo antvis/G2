@@ -74,7 +74,7 @@ export function inferComponent(
     if (type !== null) {
       const { props } = createGuideComponent(type);
       const { defaultPosition, defaultSize, defaultOrder } = props;
-      const { guide: partialGuide, name, formatter, tickFilter } = scale;
+      const { guide: partialGuide, name, field } = scale;
       const position = inferComponentPosition(
         name,
         type,
@@ -84,14 +84,13 @@ export function inferComponent(
       );
       const { size = defaultSize, order = defaultOrder } = partialGuide;
       components.push({
+        title: field,
         ...partialGuide,
         position,
         order,
         size,
         type,
         scale,
-        formatter,
-        tickFilter,
       });
     }
   }

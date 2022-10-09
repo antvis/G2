@@ -51,9 +51,11 @@
     .encode('x', 'clarity')
     .encode('y', 'cut')
     .encode('color', (d) => `(${d.clarity}, ${d.cut})`)
+    .encode('shape', 'point')
+    .axis('y', false)
+    .legend(false)
     .scale('x', { padding: 0.5 })
-    .scale('y', { padding: 0.5, guide: null })
-    .scale('color', { guide: null });
+    .scale('y', { padding: 0.5 });
 
   return chart.render().node();
 })();

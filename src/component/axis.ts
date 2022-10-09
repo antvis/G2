@@ -20,10 +20,12 @@ import {
 export type AxisOptions = {
   position?: GuideComponentPosition;
   zIndex?: number;
-  title?: boolean;
-  formatter?: (d: any) => string;
+  title?: string | string[];
   direction?: 'left' | 'center' | 'right';
-  tickFilter: (datum: any, index: number, array: any) => boolean;
+  tickFormatter?: (d: any) => string;
+  tickFilter?: (datum: any, index: number, array: any) => boolean;
+  tickCount?: number;
+  grid: any;
 };
 
 function inferPosition(
@@ -160,20 +162,25 @@ function getTickPoint(tick: number, position: GuideComponentPosition) {
 function getTicks(
   scale: Scale,
   domain: any[],
+  tickCount: number,
   defaultFormatter: (d: any) => string,
   position: GuideComponentPosition,
   coordinate: Coordinate,
 ) {
+  if (tickCount !== undefined) {
+    scale.update({ tickCount });
+  }
   const ticks = scale.getTicks?.() || domain;
-  const formatter = scale.getFormatter?.() || defaultFormatter;
+  const tickFormatter = scale.getFormatter?.() || defaultFormatter;
 
   if (isPolar(coordinate) || isTranspose(coordinate)) {
     const axisTicks = ticks.map((d) => {
       const offset = scale.getBandWidth?.(d) / 2 || 0;
       const tick = scale.map(d) + offset;
+
       return {
         value: isTranspose(coordinate) && scale.getTicks?.() ? 1 - tick : tick,
-        text: formatter(d),
+        text: tickFormatter(d),
       };
     });
     // @todo GUI should consider the overlap problem for the first
@@ -191,7 +198,7 @@ function getTicks(
     const value = getTickValue(vector, position, coordinate);
     return {
       value: isParallel(coordinate) ? tick : value,
-      text: formatter(d),
+      text: `${tickFormatter(d)}`,
     };
   });
 }
@@ -273,16 +280,28 @@ function titleContent(field: string | string[]): string {
 }
 
 const ArcAxis = (options) => {
-  const { position, formatter = (d) => `${d}`, tickFilter } = options;
+  const {
+    position,
+    tickFormatter = (d) => `${d}`,
+    tickFilter,
+    tickCount,
+    ...rest
+  } = options;
   return (scale, value, coordinate, theme) => {
     const { domain, bbox } = value;
     const { x, y, width, height } = bbox;
     const center: [number, number] = [x + width / 2, y + height / 2];
-    const ticks = getTicks(scale, domain, formatter, position, coordinate);
+    const ticks = getTicks(
+      scale,
+      domain,
+      tickCount,
+      tickFormatter,
+      position,
+      coordinate,
+    );
     const radius = Math.min(width, height) / 2;
     const [startAngle, endAngle] = angleOf(coordinate);
-    const guideOptions = scale.getOptions().guide || {};
-    const { grid: showGrid } = guideOptions;
+    const { grid: showGrid = false } = { ...rest };
     const gridItems = showGrid
       ? getArcGridItems(ticks, center, startAngle, endAngle, radius)
       : [];
@@ -321,7 +340,7 @@ const ArcAxis = (options) => {
             tickPadding: 2,
           },
         },
-        guideOptions,
+        { ...rest },
       ),
     });
   };
@@ -330,13 +349,15 @@ const ArcAxis = (options) => {
 const LinearAxis: GCC<AxisOptions> = (options) => {
   const {
     position,
-    title = true,
-    formatter = (d) => `${d}`,
+    title,
+    tickFormatter = (d) => `${d}`,
     direction = 'left',
+    tickCount,
     tickFilter,
+    ...rest
   } = options;
   return (scale, value, coordinate, theme) => {
-    const { domain, field, bbox } = value;
+    const { domain, bbox } = value;
     const {
       startPos,
       endPos,
@@ -351,13 +372,19 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
       axisLine,
       tickLine = true,
     } = inferPosition(position, direction, bbox, coordinate);
-    const ticks = getTicks(scale, domain, formatter, position, coordinate);
+    const ticks = getTicks(
+      scale,
+      domain,
+      tickCount,
+      tickFormatter,
+      position,
+      coordinate,
+    );
     const anchor =
       position === 'arcY' || scale.getTicks ? titlePosition : 'center';
     const [, cy] = coordinate.getCenter();
-    const guideOptions = scale.getOptions().guide || {};
     // Display axis grid for non-discrete values.
-    const { grid: showGrid = !!scale.getTicks } = guideOptions;
+    const { grid: showGrid = !!scale.getTicks } = rest;
     const gridItems = showGrid
       ? getGridItems(ticks, position, coordinate, startPos, endPos)
       : [];
@@ -398,23 +425,22 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
                 style: { lineWidth: 1, stroke: '#BFBFBF' },
               }
             : null,
-          ...(field &&
-            title && {
-              title: {
-                content: titleContent(field),
-                titleAnchor: anchor,
-                style: {
-                  fontWeight: 'bold',
-                  fillOpacity: 1,
-                  dy: titleOffsetY,
-                  textAnchor: anchor,
-                },
-                titlePadding,
-                rotate: titleRotate,
+          ...(title && {
+            title: {
+              content: titleContent(title),
+              titleAnchor: anchor,
+              style: {
+                fontWeight: 'bold',
+                fillOpacity: 1,
+                dy: titleOffsetY,
+                textAnchor: anchor,
               },
-            }),
+              titlePadding,
+              rotate: titleRotate,
+            },
+          }),
         },
-        guideOptions,
+        { ...rest },
       ),
     });
   };
@@ -426,9 +452,9 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
  * @todo Custom style.
  */
 export const Axis: GCC<AxisOptions> = (options) => {
-  const { position, formatter: f = (d) => `${d}` } = options;
-  const formatter = typeof f === 'string' ? format(f) : f;
-  const normalizedOptions = { ...options, formatter };
+  const { position, tickFormatter: f = (d) => `${d}` } = options;
+  const tickFormatter = typeof f === 'string' ? format(f) : f;
+  const normalizedOptions = { ...options, tickFormatter };
   return (scale, value, coordinate, theme) => {
     return position === 'arc' || position === 'arcInner'
       ? ArcAxis(normalizedOptions)(scale, value, coordinate, theme)

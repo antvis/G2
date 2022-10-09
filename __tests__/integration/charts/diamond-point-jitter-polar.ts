@@ -11,7 +11,7 @@ export function diamondPointJitterPolar(): G2Spec {
     },
     coordinate: [{ type: 'polar' }],
     transform: [{ type: 'jitter', random }],
-    scale: { color: { guide: null } },
+    legend: { color: false },
     encode: {
       x: 'clarity',
       color: 'clarity',

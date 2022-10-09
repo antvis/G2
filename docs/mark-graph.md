@@ -20,7 +20,6 @@ miserables = genji.fetchJSON(
 );
 ```
 
-
 ### 树图（Tree）
 
 在树形结构中，树根结点没有前驱结点，其余每个结点有且只有一个前驱结点。 叶子结点没有后续结点，其余每个结点的后续节点数可以是一个也可以是多个。
@@ -28,7 +27,6 @@ miserables = genji.fetchJSON(
 ```js | radio "options: { labels: ['polar', 'rect'], values: ['polar', 'transpose'] }; pin: false"
 treeCoordinate = 'polar';
 ```
-
 
 ```js | radio "options: { labels: ['smooth', 'vhv'], values: ['smooth', 'vhv'] }; pin: false"
 treeShape = 'smooth';
@@ -51,32 +49,28 @@ treeShape = 'smooth';
   chart
     .link()
     .data({
-      transform: [
-        { type: 'custom', callback: (v) => v.edges },
-      ],
+      transform: [{ type: 'custom', callback: (v) => v.edges }],
     })
     .encode('x', 'x')
     .encode('y', 'y')
     .encode('shape', treeShape)
-    .scale('x', { guide: null })
-    .scale('y', { domain: [0, 1], guide: null })
+    .axis(false)
+    .scale('y', { domain: [0, 1] })
     .style('stroke', 'grey');
 
   chart
     .point()
     .data({
-      transform: [
-        { type: 'custom', callback: (v) => v.nodes },
-      ],
+      transform: [{ type: 'custom', callback: (v) => v.nodes }],
     })
+    .encode('shape', 'point')
     .encode('x', 'x')
     .encode('y', 'y')
-    .encode('size', 2)
+    .encode('size', 2);
 
   return chart.render().node();
 })();
 ```
-
 
 ### 桑基图（Sankey）
 
@@ -232,17 +226,14 @@ sankeyData = {
   chart
     .polygon()
     .data({
-      transform: [
-        { type: 'custom', callback: (v) => v.links },
-      ],
+      transform: [{ type: 'custom', callback: (v) => v.links }],
     })
     .encode('x', 'x')
     .encode('y', 'y')
     .encode('color', (d) => d.source.name)
     .encode('shape', 'ribbon')
-    .scale('x', { guide: null })
-    .scale('y', { guide: null })
-    .scale('color', { guide: null })
+    .axis(false)
+    .legend(false)
     .style('fillOpacity', 0.5)
     .style('stroke', null);
 
@@ -250,22 +241,18 @@ sankeyData = {
   chart
     .polygon()
     .data({
-      transform: [
-        { type: 'custom', callback: (v) => v.nodes },
-      ],
+      transform: [{ type: 'custom', callback: (v) => v.nodes }],
     })
     .encode('x', 'x')
     .encode('y', 'y')
     .encode('color', 'name')
     .encode('shape', 'polygon')
-    .scale('x', { guide: null })
-    .scale('y', { guide: null })
-    .scale('color', { guide: null });
+    .axis(false)
+    .legend(false);
 
   return chart.render().node();
 })();
 ```
-
 
 ### 和弦图（Chord）
 
@@ -288,36 +275,34 @@ sankeyData = {
   chart
     .polygon()
     .data({
-      transform: [
-        { type: 'custom', callback: (v) => v.edges },
-      ],
+      transform: [{ type: 'custom', callback: (v) => v.edges }],
     })
     .encode('x', 'x')
     .encode('y', 'y')
     .encode('color', 'source')
     .encode('shape', 'ribbon')
-    .scale('x', { domain: [0, 1], guide: null })
-    .scale('y', { domain: [0, 1], guide: null })
-    .scale('color', { type: 'ordinal', guide: null })
+    .axis(false)
+    .legend(false)
+    .scale('x', { domain: [0, 1] })
+    .scale('y', { domain: [0, 1] })
+    .scale('color', { type: 'ordinal' })
     .style('opacity', 0.5);
 
   chart
     .polygon()
     .data({
-      transform: [
-        { type: 'custom', callback: (v) => v.nodes },
-      ],
+      transform: [{ type: 'custom', callback: (v) => v.nodes }],
     })
     .encode('x', 'x')
     .encode('y', 'y')
     .encode('size', 'value')
     .encode('color', 'name')
     .encode('shape', 'polygon')
-    .scale('x', { domain: [0, 1], guide: null })
-    .scale('y', { domain: [0, 1], guide: null })
-    .scale('color', { type: 'ordinal', guide: null });
+    .scale('x', { domain: [0, 1] })
+    .scale('y', { domain: [0, 1] })
+    .scale('color', { type: 'ordinal' });
 
-  return chart.render().node()
+  return chart.render().node();
 })();
 ```
 
@@ -329,7 +314,6 @@ sankeyData = {
 arcCoordinate = 'polar';
 ```
 
-
 ```js
 (() => {
   const chart = new G2.Chart({
@@ -339,7 +323,7 @@ arcCoordinate = 'polar';
 
   chart.data({
     value: miserables,
-    transform: [{ type: 'arc', y: arcCoordinate === 'polar' ? 1 : 0.3}],
+    transform: [{ type: 'arc', y: arcCoordinate === 'polar' ? 1 : 0.3 }],
   });
 
   if (arcCoordinate === 'polar') {
@@ -349,32 +333,30 @@ arcCoordinate = 'polar';
   chart
     .link()
     .data({
-      transform: [
-        { type: 'custom', callback: (v) => v.edges },
-      ],
+      transform: [{ type: 'custom', callback: (v) => v.edges }],
     })
     .encode('x', 'x')
     .encode('y', 'y')
     .encode('color', 'source')
     .encode('shape', 'arc')
-    .scale('x', { domain: [0, 1], guide: null })
-    .scale('y', { domain: [0, 1], guide: null })
-    .scale('color', { type: 'ordinal', guide: null })
+    .axis(false)
+    .legend(false)
+    .scale('x', { domain: [0, 1] })
+    .scale('y', { domain: [0, 1] })
+    .scale('color', { type: 'ordinal' })
     .style('opacity', 0.5);
 
   chart
     .point()
     .data({
-      transform: [
-        { type: 'custom', callback: (v) => v.nodes },
-      ],
+      transform: [{ type: 'custom', callback: (v) => v.nodes }],
     })
     .encode('x', 'x')
     .encode('y', 'y')
     .encode('size', 'value')
-    .encode('color', 'name')
+    .encode('color', 'name');
 
-  return chart.render().node()
+  return chart.render().node();
 })();
 ```
 
@@ -427,26 +409,25 @@ arcCoordinate = 'polar';
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/233673d6-9c84-4ba2-98be-992fb1b34593.json',
     transform: [
-      { type:'custom', callback: flatten },
-      { type:'custom', callback: layout },
+      { type: 'custom', callback: flatten },
+      { type: 'custom', callback: layout },
     ],
   });
 
   chart
     .link()
     .data({
-      transform: [{ type:'custom', callback: links }],
+      transform: [{ type: 'custom', callback: links }],
     })
     .encode('x', [(d) => d.source.x, (d) => d.target.x])
     .encode('y', [(d) => d.source.y, (d) => d.target.y])
-    .scale('x', { guide: null })
-    .scale('y', { guide: null })
+    .axis(false)
     .style('stroke', '#ddd');
 
   chart
     .point()
     .data({
-      transform: [{ type:'custom', callback: nodes }],
+      transform: [{ type: 'custom', callback: nodes }],
     })
     .encode('x', 'x')
     .encode('y', 'y')
@@ -459,11 +440,11 @@ arcCoordinate = 'polar';
 })();
 ```
 
-
 ## FAQ
 
+> TODO
 
-## Dependance
+## 依赖
 
 ```js | dom "pin: false"
 d3 = (async () => {

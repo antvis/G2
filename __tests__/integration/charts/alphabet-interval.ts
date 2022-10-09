@@ -8,8 +8,8 @@ export function alphabetInterval(): G2Spec {
       type: 'fetch',
       value: 'data/alphabet.csv',
     },
-    scale: {
-      y: { formatter: '.0%' },
+    axis: {
+      y: { tickFormatter: '.0%' },
     },
     encode: {
       x: 'letter',

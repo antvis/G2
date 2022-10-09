@@ -39,11 +39,11 @@ The _reverse_ option reverse any of the above orders. -->
     .encode('x', 'date')
     .encode('y', 'deaths')
     .encode('color', 'cause')
-    .scale('x', {
-      formatter: (d) =>
+    .axis('x', {
+      tickFormatter: (d) =>
         `${new Date(d).toLocaleString('en', { month: 'narrow' })}`,
     })
-    .scale('y', { formatter: '~s' });
+    .axis('y', { tickFormatter: '~s' });
 
   return chart.render().node();
 })();

@@ -13,11 +13,14 @@ export function peoplePointStacked(): G2Spec {
         },
         transform: [{ type: 'stackY' }],
         scale: {
-          x: { field: 'Age →', nice: true },
+          x: { nice: true },
+        },
+        axis: {
           y: {
-            field: '← Women · Men →',
-            formatter: (d) => `${Math.abs(d)}`,
+            title: '← Women · Men →',
+            tickFormatter: Math.abs,
           },
+          x: { title: 'Age →' },
         },
         encode: {
           x: (d) => 2021 - d.birth,

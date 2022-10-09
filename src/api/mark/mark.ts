@@ -113,6 +113,8 @@ export const props: NodePropertyDescriptor[] = [
   { name: 'paddingBottom', type: 'value' },
   { name: 'paddingTop', type: 'value' },
   { name: 'label', type: 'array', key: 'labels' },
+  { name: 'axis', type: 'object' },
+  { name: 'legend', type: 'object' },
 ];
 
 @defineProps(props)
