@@ -1,25 +1,16 @@
 import { line, CurveFactory, CurveFactoryLineOnly } from 'd3-shape';
 import { Vector2 } from '@antv/coord';
-import { lowerFirst } from '@antv/util';
 import { Path, CustomElement } from '@antv/g';
 import { isPolar } from '../../utils/coordinate';
 import { select } from '../../utils/selection';
 import { ShapeComponent as SC } from '../../runtime';
-import { applyStyle, computeGradient, getShapeTheme } from '../utils';
+import {
+  applyStyle,
+  computeGradient,
+  getShapeTheme,
+  getConnectStyle,
+} from '../utils';
 import { createElement } from '../createElement';
-
-function getConnectStyle(style: Record<string, any>): Record<string, any> {
-  const PREFIX = 'connect';
-  return Object.fromEntries(
-    Object.entries(style)
-      .filter(([key]) => key.startsWith(PREFIX))
-      .map(([key, value]) => [
-        lowerFirst(key.replace(PREFIX, '').trim()),
-        value,
-      ])
-      .filter(([key]) => key !== undefined),
-  );
-}
 
 const DoublePath = createElement((g) => {
   const { d1, d2, style1, style2 } = g.attributes;

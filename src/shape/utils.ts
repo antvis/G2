@@ -1,6 +1,7 @@
 import { Path as D3Path } from 'd3-path';
 import { Coordinate } from '@antv/coord';
 import { Linear } from '@antv/scale';
+import { lowerFirst } from '@antv/util';
 import { G2Theme, Primitive, Vector2 } from '../runtime';
 import { isTranspose } from '../utils/coordinate';
 import { angle, dist, sub } from '../utils/vector';
@@ -172,5 +173,24 @@ export function getShapeTheme(
   return (
     markTheme[shape] ||
     markTheme[defaultShape] || { fill: defaultColor, stroke: defaultColor }
+  );
+}
+
+/**
+ * Pick connectStyle from style.
+ * @param style
+ */
+export function getConnectStyle(
+  style: Record<string, any>,
+): Record<string, any> {
+  const PREFIX = 'connect';
+  return Object.fromEntries(
+    Object.entries(style)
+      .filter(([key]) => key.startsWith(PREFIX))
+      .map(([key, value]) => [
+        lowerFirst(key.replace(PREFIX, '').trim()),
+        value,
+      ])
+      .filter(([key]) => key !== undefined),
   );
 }
