@@ -33,22 +33,41 @@ const DoublePath = createElement((g) => {
     .call(applyStyle, style2);
 });
 
+/**
+ * Given a points sequence, split it into an array of defined points
+ * and an array of undefined segments.
+ *
+ * Input - [[1, 2], [3, 4], [null, null], [null, null], [5, 6], [null, null], [7, 8]]
+ * Output
+ *  - [[1, 2], [3, 4], [5, 6], [7, 8]]
+ *  - [
+ *      [[3, 4], [5, 6]],
+ *      [[5, 6], [7, 8]]
+ *    ]
+ */
 function segmentation(
   points: Vector2[],
   defined: (d: any) => boolean,
 ): [Vector2[], [Vector2, Vector2][]] {
   const definedPoints = [];
   const segments = [];
-  let m = false;
-  let dp = null;
+  let m = false; // Is in a undefined sequence.
+  let dp = null; // The previous defined point.
   for (const p of points) {
+    // If current point is a undefined point,
+    // enter a undefined sequence.
     if (!defined(p[0]) || !defined(p[1])) m = true;
     else {
       definedPoints.push(p);
+      // If current point is a defined point,
+      // and is in a undefined sequence, save
+      // the two closest defined points as this
+      // undefined sequence and exit it.
       if (m) {
         m = false;
         segments.push([dp, p]);
       }
+      // Update the previous defined point.
       dp = p;
     }
   }
