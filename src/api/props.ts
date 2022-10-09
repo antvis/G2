@@ -8,15 +8,15 @@ export type NodePropertyDescriptor = {
 };
 
 function defineValueProp(Node, { name, key = name }: NodePropertyDescriptor) {
-  Node.prototype[name] = function (...args) {
-    return this.attr.apply(this, [key, ...args]);
+  Node.prototype[name] = function (value) {
+    if (arguments.length === 0) return this.attr(key);
+    return this.attr(key, value);
   };
 }
 
 function defineArrayProp(Node, { name, key = name }: NodePropertyDescriptor) {
-  Node.prototype[name] = function (...args) {
-    if (args.length === 0) return this.attr(key);
-    const [value] = args;
+  Node.prototype[name] = function (value) {
+    if (arguments.length === 0) return this.attr(key);
     if (Array.isArray(value)) return this.attr(key, value);
     const array = [...(this.attr(key) || []), value];
     return this.attr(key, array);
@@ -27,10 +27,9 @@ function defineObjectProp(
   Node,
   { name, key: k = name }: NodePropertyDescriptor,
 ) {
-  Node.prototype[name] = function (...args) {
-    if (args.length === 0) return this.attr(k);
-    if (args.length === 1) return this.attr(k, args[0]);
-    const [key, value] = args;
+  Node.prototype[name] = function (key, value) {
+    if (arguments.length === 0) return this.attr(k);
+    if (arguments.length === 1) return this.attr(k, key);
     const obj = this.attr(k) || {};
     obj[key] = value;
     return this.attr(k, obj);
