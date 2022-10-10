@@ -1,25 +1,16 @@
 import { line, CurveFactory, CurveFactoryLineOnly } from 'd3-shape';
 import { Vector2 } from '@antv/coord';
-import { lowerFirst } from '@antv/util';
 import { Path, CustomElement } from '@antv/g';
 import { isPolar } from '../../utils/coordinate';
 import { select } from '../../utils/selection';
 import { ShapeComponent as SC } from '../../runtime';
-import { applyStyle, computeGradient, getShapeTheme } from '../utils';
+import {
+  applyStyle,
+  computeGradient,
+  getShapeTheme,
+  getConnectStyle,
+} from '../utils';
 import { createElement } from '../createElement';
-
-function getConnectStyle(style: Record<string, any>): Record<string, any> {
-  const PREFIX = 'connect';
-  return Object.fromEntries(
-    Object.entries(style)
-      .filter(([key]) => key.startsWith(PREFIX))
-      .map(([key, value]) => [
-        lowerFirst(key.replace(PREFIX, '').trim()),
-        value,
-      ])
-      .filter(([key]) => key !== undefined),
-  );
-}
 
 const DoublePath = createElement((g) => {
   const { d1, d2, style1, style2 } = g.attributes;
@@ -85,7 +76,7 @@ export const Curve: SC<CurveOptions> = (options) => {
     curve,
     gradient = false,
     defined = (d) => !Number.isNaN(d) && d !== undefined && d !== null,
-    connectNull = false,
+    connectNulls = false,
     ...style
   } = options;
   return (points, value, coordinate, theme) => {
@@ -125,7 +116,7 @@ export const Curve: SC<CurveOptions> = (options) => {
     const missing = !!MS.length;
 
     // Draw one path of connected defined points.
-    if (!missing || (connectNull && !Object.keys(connectStyle).length)) {
+    if (!missing || (connectNulls && !Object.keys(connectStyle).length)) {
       return select(new Path({}))
         .style('d', linePath(DP))
         .call(applyStyle, finalStyle)
@@ -133,7 +124,7 @@ export const Curve: SC<CurveOptions> = (options) => {
     }
 
     // Draw one path of unconnected defined points.
-    if (missing && !connectNull) {
+    if (missing && !connectNulls) {
       return select(new Path({}))
         .style('d', linePath(P))
         .call(applyStyle, finalStyle)

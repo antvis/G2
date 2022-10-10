@@ -22,7 +22,7 @@ export function aaplLineMissingConnect(): G2Spec {
       y: 'close',
     },
     style: {
-      connectNull: true,
+      connectNulls: true,
     },
   };
 }
