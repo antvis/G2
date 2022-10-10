@@ -207,61 +207,41 @@ function inferScaleRange(
   const { range } = options;
   if (typeof range === 'string') return gradientColors(range);
   if (range !== undefined) return range;
-
-  const [usePalette] = useLibrary<G2PaletteOptions, PaletteComponent, Palette>(
-    'palette',
-    library,
-  );
-  const { name, value } = channel;
-  const { defaultCategory10: c10, defaultCategory20: c20 } = theme;
-  const defaultPalette = unique(value).length <= c10.length ? c10 : c20;
-
-  const { palette, offset } = options;
-  const colors =
-    interpolatedColors(palette, domain, offset) ||
-    usePalette({ type: palette || defaultPalette });
+  const { name } = channel;
   const { rangeMin, rangeMax } = options;
   switch (type) {
     case 'linear':
     case 'time':
     case 'log':
     case 'sqrt': {
+      const colors = categoricalColors(
+        channel,
+        options,
+        domain,
+        theme,
+        library,
+      );
       const [r0, r1] = inferRangeQ(name, colors);
       return [rangeMin || r0, rangeMax || r1];
     }
     case 'band':
     case 'point':
       return [rangeMin || 0, rangeMax || 1];
-    case 'ordinal':
+    case 'ordinal': {
+      const colors = categoricalColors(
+        channel,
+        options,
+        domain,
+        theme,
+        library,
+      );
       return name === 'color' ? colors : shapes;
+    }
     case 'sequential':
       return undefined;
     default:
       return [];
   }
-}
-
-function gradientColors(range: string): string[] {
-  return range.split('-');
-}
-
-function interpolatedColors(
-  palette: string,
-  domain: Primitive[],
-  offset = (d) => d,
-): string[] {
-  if (!palette) return null;
-  const fullName = upperFirst(palette);
-
-  // If scheme have enough colors, then return pre-defined colors.
-  const scheme = d3ScaleChromatic[`scheme${fullName}`];
-  if (!scheme) return null;
-  const schemeColors = scheme[domain.length];
-  if (schemeColors) return schemeColors;
-
-  // Otherwise interpolate to get full colors.
-  const interpolator = d3ScaleChromatic[`interpolate${fullName}`];
-  return domain.map((_, i) => interpolator(offset(i / domain.length)));
 }
 
 function inferScaleOptions(
@@ -286,6 +266,50 @@ function inferScaleOptions(
     default:
       return options;
   }
+}
+
+function categoricalColors(
+  channel: Channel,
+  options: G2ScaleOptions,
+  domain: Primitive[],
+  theme: G2Theme,
+  library: G2Library,
+) {
+  const [usePalette] = useLibrary<G2PaletteOptions, PaletteComponent, Palette>(
+    'palette',
+    library,
+  );
+  const { value } = channel;
+  const { defaultCategory10: c10, defaultCategory20: c20 } = theme;
+  const defaultPalette = unique(value).length <= c10.length ? c10 : c20;
+  const { palette, offset } = options;
+  const colors =
+    interpolatedColors(palette, domain, offset) ||
+    usePalette({ type: palette || defaultPalette });
+  return colors;
+}
+
+function gradientColors(range: string): string[] {
+  return range.split('-');
+}
+
+function interpolatedColors(
+  palette: string,
+  domain: Primitive[],
+  offset = (d) => d,
+): string[] {
+  if (!palette) return null;
+  const fullName = upperFirst(palette);
+
+  // If scheme have enough colors, then return pre-defined colors.
+  const scheme = d3ScaleChromatic[`scheme${fullName}`];
+  if (!scheme) return null;
+  const schemeColors = scheme[domain.length];
+  if (schemeColors) return schemeColors;
+
+  // Otherwise interpolate to get full colors.
+  const interpolator = d3ScaleChromatic[`interpolate${fullName}`];
+  return domain.map((_, i) => interpolator(offset(i / domain.length)));
 }
 
 function inferOptionsS(options) {
@@ -366,8 +390,8 @@ function inferDomainO(value: Primitive[]) {
 }
 
 function inferDomainS(value: Primitive[]) {
-  const v = max(value, (d) => Math.abs(+d));
-  return [-v, v];
+  const [min, max] = extent(value, (d) => +d);
+  return [min < 0 ? -max : min, max];
 }
 
 /**

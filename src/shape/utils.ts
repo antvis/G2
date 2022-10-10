@@ -1,4 +1,5 @@
 import { Path as D3Path } from 'd3-path';
+import { extent } from 'd3-array';
 import { Coordinate } from '@antv/coord';
 import { Linear } from '@antv/scale';
 import { lowerFirst } from '@antv/util';
@@ -6,6 +7,7 @@ import { G2Theme, Primitive, Vector2 } from '../runtime';
 import { isTranspose } from '../utils/coordinate';
 import { angle, dist, sub } from '../utils/vector';
 import { Selection } from '../utils/selection';
+import { indexOf } from '../utils/array';
 
 type A = ['a' | 'A', number, number, number, number, number, number, number];
 type C = ['c' | 'C', number, number, number, number, number, number];
@@ -123,13 +125,25 @@ export function appendArc(
   return path;
 }
 
-export function computeGradient(C: string[], X: number[]): string {
-  const color = new Linear({
-    domain: [X[0], X[X.length - 1]],
+export function computeGradient(
+  C: string[],
+  X: number[],
+  Y: number[],
+  from: string | boolean = 'y',
+): string {
+  const P = from === 'y' || from === true ? Y : X;
+  const theta = from === 'y' || from === true ? 90 : 0;
+  const I = indexOf(P);
+  const [min, max] = extent(I, (i) => P[i]);
+  const p = new Linear({
+    domain: [min, max],
     range: [0, 100],
   });
-  const gradient = C.map((c, i) => `${c} ${color.map(X[i])}%`).join(',');
-  return `linear-gradient(${gradient})`;
+  const percentage = (i) => p.map(P[i]);
+  const gradient = I.sort((a, b) => percentage(a) - percentage(b))
+    .map((i) => `${C[i]} ${percentage(i)}%`)
+    .join(',');
+  return `linear-gradient(${theta}deg, ${gradient})`;
 }
 
 export function reorder(points: Vector2[]): Vector2[] {

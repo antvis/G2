@@ -95,6 +95,7 @@ export type GuideComponentPosition =
   | 'bottom'
   | 'right'
   | 'centerHorizontal'
+  | 'centerVertical'
   | 'center'
   | 'arc'
   | 'arcY'
