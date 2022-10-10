@@ -6,7 +6,7 @@ import {
   inferColor,
   setAnimation,
   setStyle,
-  toGrid,
+  toCell,
   setChildren,
   setData,
 } from './square';
@@ -81,7 +81,7 @@ function subLayoutCircle(data) {
 export const Circle: CC<CircleComposition> = () => {
   return (options) => {
     const newOptions = Container.of<G2ViewTree>(options)
-      .call(toGrid)
+      .call(toCell)
       .call(setEncode)
       .call(inferColor)
       .call(setCoordinate)

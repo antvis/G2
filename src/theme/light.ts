@@ -93,7 +93,7 @@ export const Light: TC<LightOptions> = (options) => {
         fillOpacity: 0.95,
       },
     },
-    grid: {
+    cell: {
       rect: {
         fill: DEFAULT_COLOR,
         fillOpacity: 0.95,

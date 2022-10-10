@@ -2,7 +2,7 @@ import {
   IntervalGeometry,
   AreaGeometry,
   PointGeometry,
-  GridGeometry,
+  CellGeometry,
   VectorGeometry,
   LinkGeometry,
   PolygonGeometry,
@@ -42,12 +42,12 @@ export interface Line extends API<Concrete<LinkGeometry>, Line> {
   type: 'line';
 }
 
-export interface Grid extends API<Concrete<GridGeometry>, Grid> {
-  type: 'grid';
+export interface Cell extends API<Concrete<CellGeometry>, Cell> {
+  type: 'cell';
 }
 
 export interface Vector extends API<Concrete<VectorGeometry>, Vector> {
-  type: 'grid';
+  type: 'cell';
 }
 
 export interface Link extends API<Concrete<LinkGeometry>, Link> {
@@ -153,9 +153,9 @@ export class Line extends Node<LineGeometry> {
 }
 
 @defineProps(props)
-export class Grid extends Node<GridGeometry> {
+export class Cell extends Node<CellGeometry> {
   constructor() {
-    super({}, 'grid');
+    super({}, 'cell');
   }
 }
 

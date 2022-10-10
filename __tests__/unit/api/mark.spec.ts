@@ -2,7 +2,7 @@ import {
   Area,
   Interval,
   Point,
-  Grid,
+  Cell,
   Vector,
   Link,
   Polygon,
@@ -85,9 +85,9 @@ describe('Mark', () => {
     expect(setOptions(node).value).toEqual(getOptions());
   });
 
-  it('Grid() should specify options by API', () => {
-    const node = new Grid();
-    expect(node.type).toBe('grid');
+  it('Cell() should specify options by API', () => {
+    const node = new Cell();
+    expect(node.type).toBe('cell');
     expect(setOptions(node).value).toEqual(getOptions());
   });
 

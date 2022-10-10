@@ -119,12 +119,12 @@ export const setStyle = useOverrideAdaptor<G2ViewTree>(() => ({
   },
 }));
 
-export const toGrid = useOverrideAdaptor<G2ViewTree>(() => ({
-  type: 'grid',
+export const toCell = useOverrideAdaptor<G2ViewTree>(() => ({
+  type: 'cell',
 }));
 
 /**
- * Do not set grid data directly, the children will get wrong do if do
+ * Do not set cell data directly, the children will get wrong do if do
  * so. Use transform to set new data.
  **/
 export const setData = useOverrideAdaptor<G2ViewTree>((options) => {
@@ -136,20 +136,20 @@ export const setData = useOverrideAdaptor<G2ViewTree>((options) => {
       const { x, y } = encode;
       const X = x ? Array.from(new Set(data.map((d) => d[x]))) : [];
       const Y = y ? Array.from(new Set(data.map((d) => d[y]))) : [];
-      const gridData = () => {
+      const cellData = () => {
         if (X.length && Y.length) {
-          const gridData = [];
+          const cellData = [];
           for (const vx of X) {
             for (const vy of Y) {
-              gridData.push({ [x]: vx, [y]: vy });
+              cellData.push({ [x]: vx, [y]: vy });
             }
           }
-          return gridData;
+          return cellData;
         }
         if (X.length) return X.map((d) => ({ [x]: d }));
         if (Y.length) return Y.map((d) => ({ [y]: d }));
       };
-      return gridData();
+      return cellData();
     },
   };
   return {
@@ -293,10 +293,10 @@ function createGuideXRect(guide) {
     if (rowIndex !== rowValuesLength - 1) return createInnerGuide(guide, data);
     // Only the bottom-left facet show title.
     const title = columnIndex !== columnValuesLength - 1 ? false : undefined;
-    // If data is empty, do not show grid.
-    const grid = data.length ? undefined : null;
+    // If data is empty, do not show cell.
+    const cell = data.length ? undefined : null;
 
-    return deepMix({ title, grid }, guide);
+    return deepMix({ title, cell }, guide);
   };
 }
 
@@ -307,9 +307,9 @@ function createGuideYRect(guide) {
     if (columnIndex !== 0) return createInnerGuide(guide, data);
     // Only the left-top facet show title.
     const title = rowIndex !== 0 ? false : undefined;
-    // If data is empty, do not show grid.
-    const grid = data.length ? undefined : null;
-    return deepMix({ title, grid }, guide);
+    // If data is empty, do not show cell.
+    const cell = data.length ? undefined : null;
+    return deepMix({ title, cell }, guide);
   };
 }
 
@@ -324,7 +324,7 @@ export type SquareOptions = Omit<SquareComposition, 'type'>;
 export const Square: CC<SquareOptions> = () => {
   return (options) => {
     const newOptions = Container.of<G2ViewTree>(options)
-      .call(toGrid)
+      .call(toCell)
       .call(inferColor)
       .call(setAnimation)
       .call(setScale)

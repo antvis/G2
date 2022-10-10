@@ -16,7 +16,7 @@ import {
 } from '../coordinate';
 import { Constant, Field, Transform, Column } from '../encode';
 import {
-  Grid,
+  Cell,
   Interval,
   Rect,
   Line,
@@ -282,7 +282,7 @@ export function createLibrary(): G2Library {
     'mark.line': Line,
     'mark.point': PointGeometry,
     'mark.text': TextGeometry,
-    'mark.grid': Grid,
+    'mark.cell': Cell,
     'mark.area': AreaGeometry,
     'mark.link': LinkGeometry,
     'mark.image': ImageGeometry,
@@ -334,8 +334,8 @@ export function createLibrary(): G2Library {
     'shape.interval.pyramid': Pyramid,
     'shape.rect.rect': RectShape,
     'shape.rect.hollow': HollowRect,
-    'shape.grid.grid': RectShape,
-    'shape.grid.hollow': HollowRect,
+    'shape.cell.cell': RectShape,
+    'shape.cell.hollow': HollowRect,
     'shape.line.line': LineShape,
     'shape.line.hv': HV,
     'shape.line.vh': VH,

@@ -52,7 +52,7 @@
   const chart = new G2.Chart();
 
   chart
-    .grid()
+    .cell()
     .data({
       type: 'fetch',
       value: 'https://gw.alipayobjects.com/os/bmw-prod/87092954-aed4-48b2-93ba-b07b255f04a2.csv',
@@ -72,7 +72,7 @@
 (() => {
   const chart = new G2.Chart();
   chart
-    .grid()
+    .cell()
     .data({
       type: 'fetch',
       value: 'https://gw.alipayobjects.com/os/bmw-prod/87092954-aed4-48b2-93ba-b07b255f04a2.csv',

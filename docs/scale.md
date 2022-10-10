@@ -229,7 +229,7 @@ The scale for color channel of following point is ordinal scale.
   });
 
   chart
-    .grid()
+    .cell()
     .data({
       type: 'fetch',
       value: 'https://gw.alipayobjects.com/os/bmw-prod/89c20fe8-0c6f-46c8-b36b-4cb653dba8ed.json',
@@ -260,7 +260,7 @@ The scale for color channel of following point is ordinal scale.
   });
 
   chart
-    .grid()
+    .cell()
     .data({
       type: 'fetch',
       value: 'https://gw.alipayobjects.com/os/bmw-prod/89c20fe8-0c6f-46c8-b36b-4cb653dba8ed.json',
@@ -291,7 +291,7 @@ The scale for color channel of following point is ordinal scale.
   });
 
   chart
-    .grid()
+    .cell()
     .data({
       type: 'fetch',
       value: 'https://gw.alipayobjects.com/os/bmw-prod/89c20fe8-0c6f-46c8-b36b-4cb653dba8ed.json',

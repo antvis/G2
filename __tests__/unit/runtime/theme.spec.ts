@@ -104,12 +104,12 @@ describe('theme', () => {
     mount(createDiv(), chart);
   });
 
-  it('render({...}) basic grid with default theme', (done) => {
+  it('render({...}) basic cell with default theme', (done) => {
     const chart = render<G2Spec>(
       {
         width: 320,
         height: 180,
-        type: 'grid',
+        type: 'cell',
         data: [
           { name: 'A', course: 'a' },
           { name: 'A', course: 'b' },
