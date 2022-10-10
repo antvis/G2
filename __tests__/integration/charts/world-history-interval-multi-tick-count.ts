@@ -37,6 +37,9 @@ export function worldHistoryIntervalMultiTickCount(): G2Spec {
       y: ['start', 'end'],
       color: 'region',
     },
+    scale: {
+      color: { palette: 'set3' },
+    },
     labels: [
       {
         text: 'civilization',

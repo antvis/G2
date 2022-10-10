@@ -23,3 +23,5 @@ export function temperatures3AreaBandGradient(): G2Spec {
     },
   };
 }
+
+temperatures3AreaBandGradient.maxError = 450;

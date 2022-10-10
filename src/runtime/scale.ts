@@ -304,6 +304,8 @@ function interpolatedColors(
   // If scheme have enough colors, then return pre-defined colors.
   const scheme = d3ScaleChromatic[`scheme${fullName}`];
   if (!scheme) return null;
+  // If is a one dimension array, return it.
+  if (!scheme.some(Array.isArray)) return scheme;
   const schemeColors = scheme[domain.length];
   if (schemeColors) return schemeColors;
 
