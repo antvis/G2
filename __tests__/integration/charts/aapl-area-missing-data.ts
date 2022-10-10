@@ -32,4 +32,4 @@ export function aaplAreaMissingData(): G2Spec {
   };
 }
 
-aaplAreaMissingData.maxError = 26186; // todo, #antvis/G#1172
+aaplAreaMissingData.maxError = 125;

@@ -12,17 +12,16 @@ import {
 } from '../utils';
 import { createElement } from '../createElement';
 
-const MultipleArea = createElement((g) => {
-  const { ds, areaStyle, connectStyle } = g.attributes;
-  // Draw all path.
-  for (let i = 0; i < ds.length; i++) {
-    const d = ds[i];
-    const s = i === 0 ? areaStyle : connectStyle;
-    select(g)
-      .maybeAppend(`area${i}`, () => new Path({}))
-      .style('d', d)
-      .call(applyStyle, s);
-  }
+const DoubleArea = createElement((g) => {
+  const { areaPath, connectPath, areaStyle, connectStyle } = g.attributes;
+  select(g)
+    .maybeAppend('connect-path', () => new Path({}))
+    .style('d', connectPath)
+    .call(applyStyle, connectStyle);
+  select(g)
+    .maybeAppend('area-path', () => new Path({}))
+    .style('d', areaPath)
+    .call(applyStyle, areaStyle);
 });
 
 /**
@@ -151,10 +150,11 @@ export const Curve: SC<CurveOptions> = (options) => {
       // Draw two area.
       // One for unconnected defined points.
       // One for connected segments.
-      return select(new MultipleArea())
+      return select(new DoubleArea())
         .style('areaStyle', finalStyle)
         .style('connectStyle', { ...connectStyle, ...style })
-        .style('ds', [areaPath(P)].concat(MS.map(areaPath)))
+        .style('areaPath', areaPath(P))
+        .style('connectPath', MS.map(areaPath).join(''))
         .node();
     } else {
       /**
@@ -186,10 +186,11 @@ export const Curve: SC<CurveOptions> = (options) => {
       // Draw two area.
       // One for unconnected defined points.
       // One for connected segments.
-      return select(new MultipleArea())
+      return select(new DoubleArea())
         .style('areaStyle', finalStyle)
         .style('connectStyle', { ...connectStyle, ...style })
-        .style('ds', [areaRadialPath(P)].concat(MS.map(areaRadialPath)))
+        .style('areaPath', areaRadialPath(P))
+        .style('connectPath', MS.map(areaRadialPath).join(''))
         .node();
     }
   };
