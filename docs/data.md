@@ -33,7 +33,7 @@
   });
 
   chart
-    .grid()
+    .cell()
     .data({
       type: 'fetch',
       value: 'https://gw.alipayobjects.com/os/bmw-prod/87092954-aed4-48b2-93ba-b07b255f04a2.csv',
@@ -43,8 +43,8 @@
     .encode('x', 'to')
     .encode('y', 'from')
     .encode('color', 'weight')
-    .scale('x', { guide: { label: { style: { fontSize: 10 } }, grid: {} } })
-    .scale('y', { guide: { label: { style: { fontSize: 10 } }, grid: {} } })
+    .scale('x', { guide: { label: { style: { fontSize: 10 } }, cell: {} } })
+    .scale('y', { guide: { label: { style: { fontSize: 10 } }, cell: {} } })
     .scale('color', {
       type: 'quantile',
       range: ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'],

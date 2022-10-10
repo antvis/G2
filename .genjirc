@@ -40,7 +40,7 @@
         "Line": "mark-line",
         "Area": "mark-area",
         "Text": "mark-text",
-        "Grid": "mark-grid",
+        "Cell": "mark-cell",
         "Vector": "mark-vector",
         "Link": "mark-link",
         "Image": "mark-image",

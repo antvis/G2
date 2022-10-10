@@ -14,7 +14,7 @@ export type Geometry =
   | LineGeometry
   | PointGeometry
   | TextGeometry
-  | GridGeometry
+  | CellGeometry
   | AreaGeometry
   | NodeGeometry
   | EdgeGeometry
@@ -36,7 +36,7 @@ export type GeometryTypes =
   | 'line'
   | 'point'
   | 'text'
-  | 'grid'
+  | 'cell'
   | 'area'
   | 'node'
   | 'edge'
@@ -163,7 +163,7 @@ export type RangeYMark = BaseGeometry<'rangeY', ChannelTypes>;
 
 export type ConnectorMark = BaseGeometry<'connector', ChannelTypes>;
 
-export type GridGeometry = BaseGeometry<'grid'>;
+export type CellGeometry = BaseGeometry<'cell'>;
 
 export type AreaGeometry = BaseGeometry<'area', ChannelTypes>;
 

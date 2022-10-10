@@ -1,20 +1,20 @@
 import { Band } from '@antv/scale';
 import { MarkComponent as MC, Vector2 } from '../runtime';
-import { GridGeometry } from '../spec';
+import { CellGeometry } from '../spec';
 import {
   baseGeometryChannels,
   basePostInference,
   basePreInference,
 } from './utils';
 
-export type GridOptions = Omit<GridGeometry, 'type'>;
+export type CellOptions = Omit<CellGeometry, 'type'>;
 
 /**
- * Convert value for each channel to Grid shapes.
- * Calc the bbox of each Grid based on x, y and r.
+ * Convert value for each channel to Cell shapes.
+ * Calc the bbox of each Cell based on x, y and r.
  * This is for allowing their radius can be affected by coordinate(e.g. fisheye).
  */
-export const Grid: MC<GridOptions> = () => {
+export const Cell: MC<CellOptions> = () => {
   return (index, scale, value, coordinate) => {
     const { x: X, y: Y } = value;
     const x = scale.x as Band;
@@ -34,7 +34,7 @@ export const Grid: MC<GridOptions> = () => {
   };
 };
 
-Grid.props = {
+Cell.props = {
   defaultShape: 'rect',
   defaultLabelShape: 'label',
   channels: [

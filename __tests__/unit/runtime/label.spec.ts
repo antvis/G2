@@ -141,10 +141,10 @@ describe('label', () => {
     mount(createDiv(), chart);
   });
 
-  it('render({...} renders grid chart with inside label', (done) => {
+  it('render({...} renders cell chart with inside label', (done) => {
     const chart = render<G2Spec>(
       {
-        type: 'grid',
+        type: 'cell',
         data: [
           { name: 'A', course: 'a' },
           { name: 'A', course: 'b' },

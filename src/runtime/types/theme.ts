@@ -22,7 +22,7 @@ type MarkTheme = NestUnion<'interval', ['rect', 'hollowRect'], ElementStyle> &
   NestUnion<'line', ['line'], ElementStyle> &
   NestUnion<'point', ['point', 'hollowPoint'], ElementStyle> &
   NestUnion<'text', ['text'], ElementStyle> &
-  NestUnion<'grid', ['rect'], ElementStyle> &
+  NestUnion<'cell', ['rect'], ElementStyle> &
   NestUnion<'area', ['area'], ElementStyle> &
   NestUnion<'link', ['link'], ElementStyle> &
   NestUnion<'image', ['image'], ElementStyle> &

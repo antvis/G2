@@ -61,7 +61,7 @@ describe('composition', () => {
         },
       ],
       frame: false,
-      type: 'grid',
+      type: 'cell',
       width: 928,
       height: 240,
       paddingLeft: 50,

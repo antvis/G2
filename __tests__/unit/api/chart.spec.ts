@@ -11,7 +11,7 @@ import {
 import { Layer } from '../../../src/api/composition/layer';
 import {
   Area,
-  Grid,
+  Cell,
   Image,
   Interval,
   Line,
@@ -108,7 +108,7 @@ describe('Chart', () => {
     expect(chart.point()).toBeInstanceOf(Point);
     expect(chart.area()).toBeInstanceOf(Area);
     expect(chart.line()).toBeInstanceOf(Line);
-    expect(chart.grid()).toBeInstanceOf(Grid);
+    expect(chart.cell()).toBeInstanceOf(Cell);
     expect(chart.vector()).toBeInstanceOf(Vector);
     expect(chart.link()).toBeInstanceOf(Link);
     expect(chart.polygon()).toBeInstanceOf(Polygon);
@@ -127,7 +127,7 @@ describe('Chart', () => {
       { type: 'point' },
       { type: 'area' },
       { type: 'line' },
-      { type: 'grid' },
+      { type: 'cell' },
       { type: 'vector' },
       { type: 'link' },
       { type: 'polygon' },
@@ -202,10 +202,10 @@ describe('Chart', () => {
   it('chart.options() should handle date object', () => {
     const chart = new Chart({});
     const date = new Date();
-    chart.grid().data([{ date }]);
+    chart.cell().data([{ date }]);
     expect(chart.options()).toEqual({
       type: 'view',
-      children: [{ type: 'grid', data: [{ date }] }],
+      children: [{ type: 'cell', data: [{ date }] }],
     });
   });
 

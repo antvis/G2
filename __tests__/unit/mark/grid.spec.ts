@@ -1,10 +1,10 @@
-import { Grid } from '../../../src/mark';
+import { Cell } from '../../../src/mark';
 import { Band } from '../../../src/scale';
 import { plot } from './helper';
 
-describe('Grid', () => {
-  it('Grid has expected props', () => {
-    expect(Grid.props).toEqual({
+describe('Cell', () => {
+  it('Cell has expected props', () => {
+    expect(Cell.props).toEqual({
       defaultShape: 'rect',
       defaultLabelShape: 'label',
       channels: [
@@ -32,9 +32,9 @@ describe('Grid', () => {
     });
   });
 
-  it('Grid() returns a function calc points from value', () => {
+  it('Cell() returns a function calc points from value', () => {
     const [I, P] = plot({
-      mark: Grid({}),
+      mark: Cell({}),
       index: [0, 1, 2, 3],
       scale: {
         x: Band({

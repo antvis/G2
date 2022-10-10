@@ -9,7 +9,7 @@ import {
 } from '../../../src/api/composition';
 import {
   Area,
-  Grid,
+  Cell,
   Image,
   Interval,
   Line,
@@ -34,7 +34,7 @@ function expectToCreateMarks(node) {
   expect(node.point()).toBeInstanceOf(Point);
   expect(node.area()).toBeInstanceOf(Area);
   expect(node.line()).toBeInstanceOf(Line);
-  expect(node.grid()).toBeInstanceOf(Grid);
+  expect(node.cell()).toBeInstanceOf(Cell);
   expect(node.vector()).toBeInstanceOf(Vector);
   expect(node.link()).toBeInstanceOf(Link);
   expect(node.polygon()).toBeInstanceOf(Polygon);

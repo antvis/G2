@@ -110,7 +110,7 @@
     .encode('color', () => 'count')
     .scale('y', {
       independent: true,
-      guide: { grid: null },
+      guide: { cell: null },
     });
 
   return chart.render().node();
@@ -136,7 +136,7 @@
     .encode('x', 'time')
     .encode('y', 'value')
     .encode('color', () => 'value')
-    .scale('y', { guide: { grid: null } })
+    .scale('y', { guide: { cell: null } })
     .scale('color', {
       domain: ['value', 'count'],
       range: ['#5B8FF9', '#5AD8A6'],
@@ -149,7 +149,7 @@
     .encode('color', () => 'count')
     .scale('y', {
       independent: true,
-      guide: { position: 'right', grid: null },
+      guide: { position: 'right', cell: null },
     })
     .scale('x', {
       independent: true,
@@ -184,7 +184,7 @@
     .encode('y', 'value')
     .encode('color', () => 'value')
     .encode('series', () => 'value')
-    .scale('y', { guide: { grid: null } })
+    .scale('y', { guide: { cell: null } })
     .scale('color', {
       domain: ['value', 'count'],
       range: ['#5B8FF9', '#5AD8A6'],
@@ -201,7 +201,7 @@
     .encode('series', () => 'count')
     .scale('y', {
       independent: true,
-      guide: { position: 'right', grid: null },
+      guide: { position: 'right', cell: null },
     });
 
   return chart.render().node();
