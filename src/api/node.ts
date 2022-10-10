@@ -47,7 +47,7 @@ export class Node<
     key: keyof Value,
     value?: T,
   ): T extends undefined ? T : this {
-    if (value === undefined) return this.value[key];
+    if (arguments.length === 1) return this.value[key];
     return this.map((v) => ((v[key] = value), v)) as any;
   }
 

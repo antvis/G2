@@ -1,4 +1,4 @@
-import { isObject, clone } from '@antv/util';
+import { isObject, deepMix, get, isString } from '@antv/util';
 
 export type NodePropertyDescriptor = {
   type: 'object' | 'value' | 'array' | 'node' | 'container';
@@ -9,19 +9,17 @@ export type NodePropertyDescriptor = {
 
 function defineValueProp(Node, { name, key = name }: NodePropertyDescriptor) {
   Node.prototype[name] = function (value) {
+    if (arguments.length === 0) return this.attr(key);
     return this.attr(key, value);
   };
 }
 
 function defineArrayProp(Node, { name, key = name }: NodePropertyDescriptor) {
   Node.prototype[name] = function (value) {
-    if (Array.isArray(value) || value === undefined) {
-      return this.attr(key, value);
-    }
-    const array = this.attr(key);
-    const newArray = [...(Array.isArray(array) ? array : [])];
-    newArray.push(value);
-    return this.attr(key, newArray);
+    if (arguments.length === 0) return this.attr(key);
+    if (Array.isArray(value)) return this.attr(key, value);
+    const array = [...(this.attr(key) || []), value];
+    return this.attr(key, array);
   };
 }
 
@@ -30,12 +28,11 @@ function defineObjectProp(
   { name, key: k = name }: NodePropertyDescriptor,
 ) {
   Node.prototype[name] = function (key, value) {
-    if (isObject(key) || !key) {
-      return this.attr(k, key);
-    }
-    const newObject = clone(this.attr(k) || {});
-    newObject[key] = value;
-    return this.attr(k, newObject);
+    if (arguments.length === 0) return this.attr(k);
+    if (arguments.length === 1) return this.attr(k, key);
+    const obj = this.attr(k) || {};
+    obj[key] = value;
+    return this.attr(k, obj);
   };
 }
 
