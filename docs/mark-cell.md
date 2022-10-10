@@ -1,8 +1,8 @@
-# Grid
+# Cell
 
-> The last calendar grid has some performance issues, please wait for it to be rendered.
+> The last calendar cell has some performance issues, please wait for it to be rendered.
 
-## Ordinal Grid
+## Ordinal Cell
 
 ```js
 (() => {
@@ -11,7 +11,7 @@
   });
 
   chart
-    .grid()
+    .cell()
     .data({
       type: 'fetch',
       value:
@@ -34,7 +34,7 @@
 })();
 ```
 
-## Quantize Grid
+## Quantize Cell
 
 ```js
 (() => {
@@ -44,7 +44,7 @@
   });
 
   chart
-    .grid()
+    .cell()
     .data({
       type: 'fetch',
       value:
@@ -67,14 +67,14 @@
 })();
 ```
 
-## Flex Grid
+## Flex Cell
 
 ```js
 (() => {
   const chart = new G2.Chart();
 
   chart
-    .grid()
+    .cell()
     .data([
       { name: 'A', course: 'a' },
       { name: 'A', course: 'b' },
@@ -90,7 +90,7 @@
 })();
 ```
 
-## Calendar Grid
+## Calendar Cell
 
 > This demo has some performance issues, please wait for it to be rendered.
 
@@ -150,7 +150,7 @@
     .encode('x', 'Month');
 
   rect
-    .grid()
+    .cell()
     .encode('x', (d) => week(d.Date))
     .encode('y', (d) => day(d.Date))
     .encode('color', 'Volume')

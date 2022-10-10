@@ -127,8 +127,8 @@ genji.preview([
       'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*ZOKqQqDVV6MAAAAAAAAAAAAAARQnAQ',
   },
   {
-    title: 'Grid',
-    path: '/mark-grid#quantize-grid',
+    title: 'Cell',
+    path: '/mark-cell#quantize-cell',
     thumbnail:
       'https://gw.alipayobjects.com/zos/antfincdn/Z2mUdMCVJ2/294d37a9-4627-458d-beb2-c3a6e5049ca4.png',
   },
@@ -286,7 +286,7 @@ genji.preview([
   },
   {
     title: 'Rect - Calendar Heatmap',
-    path: '/composition-grid#calendar-grid',
+    path: '/composition-cell#calendar-cell',
     thumbnail:
       'https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*EM5JTL0cAK8AAAAAAAAAAAAAARQnAQ',
   },

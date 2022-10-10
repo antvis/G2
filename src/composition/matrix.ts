@@ -9,7 +9,7 @@ import {
   inferColor,
   setAnimation,
   setStyle,
-  toGrid,
+  toCell,
 } from './square';
 import { useDefaultAdaptor, useOverrideAdaptor } from './utils';
 
@@ -157,7 +157,7 @@ function createGuideY(guideY) {
 export const Matrix: CC<MatrixComposition> = () => {
   return (options) => {
     const newOptions = Container.of<G2ViewTree>(options)
-      .call(toGrid)
+      .call(toCell)
       .call(inferColor)
       .call(setChildren)
       .call(setData)

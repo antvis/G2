@@ -239,7 +239,7 @@ describe('view', () => {
           scale: {
             y: {
               independent: true,
-              guide: { position: 'right', grid: false },
+              guide: { position: 'right', cell: false },
             },
           },
           encode: {

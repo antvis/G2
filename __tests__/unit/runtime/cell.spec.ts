@@ -1,10 +1,10 @@
 import { G2Spec, render } from '../../../src';
 import { createDiv, mount } from '../../utils/dom';
 
-describe('grid', () => {
-  it('render({...} should render basic grid', () => {
+describe('cell', () => {
+  it('render({...} should render basic cell', () => {
     const chart = render<G2Spec>({
-      type: 'grid',
+      type: 'cell',
       data: {
         type: 'fetch',
         value:
@@ -30,9 +30,9 @@ describe('grid', () => {
     mount(createDiv(), chart);
   });
 
-  it('render({...}) should render grid with threshold', () => {
+  it('render({...}) should render cell with threshold', () => {
     const chart = render<G2Spec>({
-      type: 'grid',
+      type: 'cell',
       data: {
         type: 'fetch',
         value:
@@ -61,9 +61,9 @@ describe('grid', () => {
     mount(createDiv(), chart);
   });
 
-  it('render({...}) should render grid with quantile', () => {
+  it('render({...}) should render cell with quantile', () => {
     const chart = render<G2Spec>({
-      type: 'grid',
+      type: 'cell',
       data: {
         type: 'fetch',
         value:
@@ -91,9 +91,9 @@ describe('grid', () => {
     mount(createDiv(), chart);
   });
 
-  it('render({...}) should render grid with quantize', () => {
+  it('render({...}) should render cell with quantize', () => {
     const chart = render<G2Spec>({
-      type: 'grid',
+      type: 'cell',
       data: {
         type: 'fetch',
         value:
@@ -122,9 +122,9 @@ describe('grid', () => {
     mount(createDiv(), chart);
   });
 
-  it('render({...}) should render grid with flex band', () => {
+  it('render({...}) should render cell with flex band', () => {
     const chart = render<G2Spec>({
-      type: 'grid',
+      type: 'cell',
       data: [
         { name: 'A', course: 'a' },
         { name: 'A', course: 'b' },

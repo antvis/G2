@@ -4,7 +4,7 @@ import {
   Point,
   Area,
   Line,
-  Grid,
+  Cell,
   Vector,
   Link,
   Polygon,
@@ -25,7 +25,7 @@ export interface Mark {
   point(): Point;
   area(): Area;
   line(): Line;
-  grid(): Grid;
+  cell(): Cell;
   vector(): Vector;
   link(): Link;
   polygon(): Polygon;
@@ -46,7 +46,7 @@ export const mark = {
   point: Point,
   area: Area,
   line: Line,
-  grid: Grid,
+  cell: Cell,
   vector: Vector,
   link: Link,
   polygon: Polygon,
