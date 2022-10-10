@@ -40,6 +40,13 @@ describe('Node', () => {
     expect(n1).toBe(node);
   });
 
+  it('node.attr(key, undefined) should update value to undefined', () => {
+    const node = new Node({ a: 1 });
+    const n1 = node.attr('a', undefined);
+    expect(node.value).toEqual({ a: undefined });
+    expect(n1).toBe(node);
+  });
+
   it('node.attr(key) should return specified attribute.', () => {
     const node = new Node({ a: 1 });
     expect(node.attr('a')).toBe(1);
