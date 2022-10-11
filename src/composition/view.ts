@@ -25,8 +25,8 @@ export const View: CC<ViewOptions> = () => {
       ({ data, scale = {}, axis = {}, legend = {}, ...rest }) => ({
         data: mergeData(data, viewData),
         scale: deepMix({}, viewScale, scale),
-        axis: axis ? deepMix({}, viewAxis, axis) : axis,
-        legend: legend ? deepMix({}, viewLegend, legend) : legend,
+        axis: axis && viewAxis ? deepMix({}, viewAxis, axis) : false,
+        legend: legend && viewLegend ? deepMix({}, viewLegend, legend) : false,
         ...rest,
       }),
     );

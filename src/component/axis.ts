@@ -3,6 +3,7 @@ import { Arc, Linear } from '@antv/gui';
 import { Linear as LinearScale } from '@antv/scale';
 import { deepMix } from '@antv/util';
 import { format } from 'd3-format';
+import { extent } from 'd3-array';
 import {
   isParallel,
   isPolar,
@@ -16,16 +17,23 @@ import {
   GuideComponentPosition,
   Scale,
 } from '../runtime';
+import { subObject } from '../utils/helper';
 
 export type AxisOptions = {
   position?: GuideComponentPosition;
   zIndex?: number;
   title?: string | string[];
   direction?: 'left' | 'center' | 'right';
-  tickFormatter?: (d: any) => string;
+  tickFormatter?: (d: any, index: number, array: any) => string;
   tickFilter?: (datum: any, index: number, array: any) => boolean;
+  tickMethod?: (
+    start: number | Date,
+    end: number | Date,
+    tickCount: number,
+  ) => number[];
   tickCount?: number;
   grid: any;
+  [key: string]: any;
 };
 
 function inferPosition(
@@ -99,6 +107,7 @@ function inferPosition(
       axisLine: false,
     };
   }
+  // position === 'centerVertical'
   return {
     startPos: [x, y + height],
     endPos: [x + width, y + height],
@@ -116,6 +125,14 @@ function angleOf(coordinate: Coordinate): [number, number] {
     (d) => d[0] === 'polar',
   );
   return [(+startAngle * 180) / Math.PI, (+endAngle * 180) / Math.PI];
+}
+
+function radiusOf(coordinate: Coordinate): [number, number] {
+  const { transformations } = coordinate.getOptions();
+  const [, , , innerRadius, outerRadius] = transformations.find(
+    (d) => d[0] === 'polar',
+  );
+  return [+innerRadius, +outerRadius];
 }
 
 function reverseTicks(ticks) {
@@ -154,6 +171,18 @@ function getTickPoint(tick: number, position: GuideComponentPosition) {
   return position === 'bottom' ? [tick, 1] : [0, tick];
 }
 
+function ticksOf(
+  scale: Scale,
+  domain: any[],
+  tickMethod: AxisOptions['tickMethod'],
+) {
+  if (scale.getTicks) return scale.getTicks();
+  if (!tickMethod) return domain;
+  const [min, max] = extent(domain, (d) => +d);
+  const { tickCount } = scale.getOptions();
+  return tickMethod(min, max, tickCount);
+}
+
 /**
  * Calc ticks based on scale and coordinate.
  * @todo Parallel coordinate.
@@ -163,24 +192,30 @@ function getTicks(
   scale: Scale,
   domain: any[],
   tickCount: number,
-  defaultFormatter: (d: any) => string,
+  defaultTickFormatter: AxisOptions['tickFormatter'],
+  tickFilter: AxisOptions['tickFilter'],
+  tickMethod: AxisOptions['tickMethod'],
   position: GuideComponentPosition,
   coordinate: Coordinate,
 ) {
-  if (tickCount !== undefined) {
-    scale.update({ tickCount });
+  if (tickCount !== undefined || tickMethod !== undefined) {
+    scale.update({
+      ...(tickCount && { tickCount }),
+      ...(tickMethod && { tickMethod }),
+    });
   }
-  const ticks = scale.getTicks?.() || domain;
-  const tickFormatter = scale.getFormatter?.() || defaultFormatter;
+
+  const ticks = ticksOf(scale, domain, tickMethod);
+  const filteredTicks = tickFilter ? ticks.filter(tickFilter) : ticks;
+  const tickFormatter = scale.getFormatter?.() || defaultTickFormatter;
 
   if (isPolar(coordinate) || isTranspose(coordinate)) {
-    const axisTicks = ticks.map((d) => {
+    const axisTicks = filteredTicks.map((d, i, array) => {
       const offset = scale.getBandWidth?.(d) / 2 || 0;
       const tick = scale.map(d) + offset;
-
       return {
         value: isTranspose(coordinate) && scale.getTicks?.() ? 1 - tick : tick,
-        text: tickFormatter(d),
+        text: tickFormatter(d, i, array),
       };
     });
     // @todo GUI should consider the overlap problem for the first
@@ -190,7 +225,7 @@ function getTicks(
       : axisTicks;
   }
 
-  return ticks.map((d) => {
+  return filteredTicks.map((d, i, array) => {
     const offset = scale.getBandWidth?.(d) / 2 || 0;
     const tick = scale.map(d) + offset;
     const point = getTickPoint(tick, position);
@@ -198,7 +233,7 @@ function getTicks(
     const value = getTickValue(vector, position, coordinate);
     return {
       value: isParallel(coordinate) ? tick : value,
-      text: `${tickFormatter(d)}`,
+      text: `${tickFormatter(d, i, array)}`,
     };
   });
 }
@@ -234,18 +269,23 @@ function getArcGridItems(
   center: [number, number],
   startAngle: number,
   endAngle: number,
-  radius: number,
+  innerRadius: number,
+  outerRadius: number,
+  coordinate: Coordinate,
 ) {
   const [cx, cy] = center;
+  const [w, h] = coordinate.getSize();
+  const r = Math.min(w, h) / 2;
+  const ir = innerRadius * r;
+  const or = outerRadius * r;
   return ticks.map(({ value }) => {
     const angle = (endAngle - startAngle) * value + startAngle;
+    const dx = Math.cos((angle * Math.PI) / 180);
+    const dy = Math.sin((angle * Math.PI) / 180);
     return {
       points: [
-        [cx, cy],
-        [
-          cx + radius * Math.cos((angle * Math.PI) / 180),
-          cy + radius * Math.sin((angle * Math.PI) / 180),
-        ],
+        [cx + ir * dx, cy + ir * dy],
+        [cx + or * dx, cy + or * dy],
       ],
     };
   });
@@ -285,6 +325,7 @@ const ArcAxis = (options) => {
     tickFormatter = (d) => `${d}`,
     tickFilter,
     tickCount,
+    tickMethod,
     ...rest
   } = options;
   return (scale, value, coordinate, theme) => {
@@ -296,16 +337,27 @@ const ArcAxis = (options) => {
       domain,
       tickCount,
       tickFormatter,
+      tickFilter,
+      tickMethod,
       position,
       coordinate,
     );
+
     const radius = Math.min(width, height) / 2;
     const [startAngle, endAngle] = angleOf(coordinate);
-    const { grid: showGrid = false } = { ...rest };
+    const [innerRadius, outerRadius] = radiusOf(coordinate);
+    const { grid: showGrid = false } = rest;
     const gridItems = showGrid
-      ? getArcGridItems(ticks, center, startAngle, endAngle, radius)
+      ? getArcGridItems(
+          ticks,
+          center,
+          startAngle,
+          endAngle,
+          innerRadius,
+          outerRadius,
+          coordinate,
+        )
       : [];
-
     return new Arc({
       style: deepMix(
         {},
@@ -314,7 +366,7 @@ const ArcAxis = (options) => {
           radius,
           startAngle,
           endAngle,
-          ticks: tickFilter ? ticks.filter(tickFilter) : ticks,
+          ticks,
           verticalFactor: position === 'arc' ? 1 : -1,
           axisLine: {
             style: {
@@ -340,7 +392,6 @@ const ArcAxis = (options) => {
             tickPadding: 2,
           },
         },
-        { ...rest },
       ),
     });
   };
@@ -354,6 +405,7 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
     direction = 'left',
     tickCount,
     tickFilter,
+    tickMethod,
     ...rest
   } = options;
   return (scale, value, coordinate, theme) => {
@@ -377,6 +429,8 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
       domain,
       tickCount,
       tickFormatter,
+      tickFilter,
+      tickMethod,
       position,
       coordinate,
     );
@@ -388,13 +442,15 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
     const gridItems = showGrid
       ? getGridItems(ticks, position, coordinate, startPos, endPos)
       : [];
+
+    const axisLineStyle = subObject(rest, 'line');
     return new Linear({
       style: deepMix(
         {
           startPos,
           endPos,
           verticalFactor,
-          ticks: tickFilter ? ticks.filter(tickFilter) : ticks,
+          ticks,
           label: label
             ? {
                 tickPadding: labelOffset,
@@ -402,10 +458,14 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
                 autoRotate: true,
                 style: {
                   ...(labelAlign && { textAlign: labelAlign }),
+                  ...subObject(rest, 'label'),
                 },
               }
             : null,
-          axisLine: axisLine ? { stroke: '#BFBFBF' } : null,
+          axisLine:
+            axisLine || Object.keys(axisLineStyle).length
+              ? { stroke: '#BFBFBF', style: axisLineStyle }
+              : null,
           grid: {
             items: gridItems,
             lineStyle: {
@@ -422,7 +482,11 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
           tickLine: tickLine
             ? {
                 len: 4,
-                style: { lineWidth: 1, stroke: '#BFBFBF' },
+                style: {
+                  lineWidth: 1,
+                  stroke: '#BFBFBF',
+                  ...subObject(rest, 'tick'),
+                },
               }
             : null,
           ...(title && {
@@ -434,13 +498,14 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
                 fillOpacity: 1,
                 dy: titleOffsetY,
                 textAnchor: anchor,
+                ...subObject(rest, 'title'),
               },
               titlePadding,
               rotate: titleRotate,
             },
           }),
         },
-        { ...rest },
+        rest,
       ),
     });
   };

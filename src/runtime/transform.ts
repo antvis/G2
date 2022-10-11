@@ -155,10 +155,19 @@ export function addGuideToScale(
     const eachGuide = guide[channel];
     return eachGuide === undefined || eachGuide ? eachGuide : null;
   };
+  const axisChannels =
+    typeof axis === 'object'
+      ? Array.from(new Set(['x', 'y', ...Object.keys(axis)]))
+      : ['x', 'y'];
+
   deepMix(mark, {
     scale: {
-      x: { guide: normalize(axis, 'x') },
-      y: { guide: normalize(axis, 'y') },
+      ...Object.fromEntries(
+        axisChannels.map((channel) => [
+          channel,
+          { guide: normalize(axis, channel) },
+        ]),
+      ),
       color: { guide: normalize(legend, 'color') },
       size: { guide: normalize(legend, 'size') },
     },

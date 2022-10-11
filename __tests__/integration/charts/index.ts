@@ -44,3 +44,14 @@ export { unemploymentAreaNormalizedStacked } from './unemployment-area-normalize
 export { unemploymentAreaStreamgraph } from './unemployment-area-streamgraph';
 export { temperatureCompareAreaDifference } from './temperature-compare-area-difference';
 export { populationByStateAreaNormalizeStacked } from './population-by-state-area-normalize-stacked';
+export { temperature1LineVarColor } from './temperature1-line-var-color';
+export { temperature2LineGradientColor } from './temperature2-line-gradient-color';
+export { temperature2LineThreshold } from './temperature2-line-threshold';
+export { aapl2CandlestickChart } from './aapl2-candlestick-chart';
+export { tranLineMultiAxes } from './train-line-multi-axes';
+export { cars3LineParallelHorizontal } from './cars3-line-parallel-horizontal';
+export { cars3LineParallelVertical } from './cars3-line-parallel-vertical';
+export { seasonalWeatherAreaRadial } from './seasonal-weather-area-radial';
+export { worldHistoryIntervalMultiTickCount } from './world-history-interval-multi-tick-count';
+export { stocksAreaGradient } from './stocks-area-gradient';
+export { temperatures3AreaBandGradient } from './temperatures3-area-band-gradient';
