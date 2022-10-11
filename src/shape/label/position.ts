@@ -169,7 +169,7 @@ export function area(
   const next = mid(idx + 1);
 
   // todo: G rotate only support deg.
-  const rotate = (angle(sub(next, prev)) / Math.PI) * 180 - 90;
+  const rotate = (angle(sub(next, prev)) / Math.PI) * 180;
 
   return {
     x: point[0],

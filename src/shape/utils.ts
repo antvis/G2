@@ -5,7 +5,7 @@ import { Linear } from '@antv/scale';
 import { lowerFirst } from '@antv/util';
 import { G2Theme, Primitive, Vector2 } from '../runtime';
 import { isTranspose } from '../utils/coordinate';
-import { angle, dist, sub } from '../utils/vector';
+import { angle, angleWithQuadrant, dist, sub } from '../utils/vector';
 import { Selection } from '../utils/selection';
 import { indexOf } from '../utils/array';
 
@@ -110,8 +110,8 @@ export function appendArc(
   center: Vector2,
   radius: number,
 ) {
-  const startAngle = angle(sub(center, from)) + Math.PI / 2;
-  const endAngle = angle(sub(center, to)) + Math.PI / 2;
+  const startAngle = angle(sub(center, from)) + Math.PI;
+  const endAngle = angle(sub(center, to)) + Math.PI;
 
   path.arc(
     center[0],
@@ -160,8 +160,8 @@ export function getArcObject(
 
   const [y, y1] = Y;
   const center = coordinate.getCenter() as Vector2;
-  const a1 = angle(sub(p0, center));
-  const a2 = angle(sub(p1, center));
+  const a1 = angleWithQuadrant(sub(p0, center));
+  const a2 = angleWithQuadrant(sub(p1, center));
   // There are two situations that a2 === a1:
   // 1. a1 - a2 = 0
   // 2. |a1 - a2| = Math.PI * 2

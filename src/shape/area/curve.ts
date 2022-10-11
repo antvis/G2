@@ -3,7 +3,7 @@ import { Path } from '@antv/g';
 import { select } from '../../utils/selection';
 import { isPolar } from '../../utils/coordinate';
 import { Vector2, ShapeComponent as SC } from '../../runtime';
-import { angle, sub, dist } from '../../utils/vector';
+import { angleWithQuadrant, sub, dist } from '../../utils/vector';
 import { applyStyle, computeGradient, getShapeTheme } from '../utils';
 import { subObject } from '../../utils/helper';
 import { createElement } from '../createElement';
@@ -167,7 +167,7 @@ export const Curve: SC<CurveOptions> = (options) => {
         const Y0 = points.slice(points.length / 2);
 
         return areaRadial()
-          .angle((_, idx) => angle(sub(Y1[idx], center)))
+          .angle((_, idx) => angleWithQuadrant(sub(Y1[idx], center)))
           .outerRadius((_, idx) => dist(Y1[idx], center))
           .innerRadius((_, idx) => dist(Y0[idx], center))
           .defined((_, idx) => [...Y1[idx], ...Y0[idx]].every(defined))

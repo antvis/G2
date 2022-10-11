@@ -1,7 +1,7 @@
 import { CompositionComponent as CC, G2ViewTree } from '../runtime';
 import { CircleComposition } from '../spec';
 import { Container } from '../utils/container';
-import { angle, angleBetween, dist, sub } from '../utils/vector';
+import { angleWithQuadrant, angleBetween, dist, sub } from '../utils/vector';
 import {
   inferColor,
   setAnimation,
@@ -67,7 +67,7 @@ function subLayoutCircle(data) {
   // @todo Compute the right origin if it's not 0,
   // or maybe pass the coordinate to get the right center.
   const [x0, y0] = p2;
-  const a0 = angle(v0);
+  const a0 = angleWithQuadrant(v0);
   const a3 = a0 + a01 / 2;
   const d = ir * t;
   const cx = x0 + d * Math.sin(a3); // center x of inscribed circle
