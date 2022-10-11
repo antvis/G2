@@ -14,7 +14,7 @@ export const TriggerInfoSelection: AC<TriggerInfoSelectionOptions> = (
 
   return (context) => {
     const { event, shared } = context;
-    const pathObjects = event.composedPath() as DisplayObject[];
+    const pathObjects = event.composedPath() as unknown as DisplayObject[];
     // todo. Extend more trigger items, includes: axis-label, continuous-legend, scrollbar, slider and so on.
     const activeItem = pathObjects.find((d) => d.className === 'legend-item');
 
