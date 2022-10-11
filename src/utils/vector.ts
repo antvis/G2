@@ -9,11 +9,19 @@ export function dist([x0, y0]: Vector2, [x1, y1]: Vector2): number {
 }
 
 /**
- * Calculate angle of [x, y] from -Math.PI / 2.
+ * Calculate angle of vector [x, y].
  */
 export function angle([x, y]: Vector2): number {
-  const theta = Math.atan2(y, x) + Math.PI / 2;
-  return theta;
+  return Math.atan2(y, x);
+}
+
+/**
+ * Calculate angle of [x, y]then + Math.PI / 2.
+ * Because of the difference between `Geometric coordinate system` and `Visualization coordinate system`.
+ * @returns
+ */
+export function angleWithQuadrant([x, y]: Vector2): number {
+  return angle([x, y]) + Math.PI / 2;
 }
 
 export function angleBetween(v0: Vector2, v1: Vector2): number {
