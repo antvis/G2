@@ -92,6 +92,7 @@ export function placeComponents(
     bottom: [pl, height - pb, innerWidth, pb, 0, false, ascending],
     left: [0, pt, pl, innerHeight, 1, true, ascending],
     centerHorizontal: [pl, pt, innerWidth, innerHeight, -1, null, null],
+    centerVertical: [pl, pt, innerWidth, innerHeight, -1, null, null],
     arc: [pl, pt, innerWidth, innerHeight, -1, null, null],
     arcY: [pl, pt, innerWidth, innerHeight, -1, null, null],
     arcInner: [pl, pt, innerWidth, innerHeight, -1, null, null],
@@ -103,6 +104,8 @@ export function placeComponents(
     const area = section[key];
     if (key === 'centerHorizontal') {
       placeCenterHorizontal(components, coordinate, area);
+    } else if (key === 'centerVertical') {
+      placeCenterVertical(components, coordinate, area);
     } else if (key === 'arc') {
       placeArc(components, coordinate, area);
     } else if (key === 'arcY') {
@@ -138,6 +141,31 @@ function placeCenterHorizontal(
     const component = components[i];
     const x = X[i];
     const width = X[i + 1] - x;
+    component.bbox = { x, y, width, height };
+  }
+}
+
+function placeCenterVertical(
+  components: G2GuideComponentOptions[],
+  coordinate: Coordinate,
+  area: SectionArea,
+): void {
+  const [x, y, width] = area;
+
+  // Create a high dimension vector and map to a list of two-dimension points.
+  // [0, 0, 0] -> [height, y0, height, y1, height, y2]
+  const vector = new Array(components.length + 1).fill(0);
+  const points = coordinate.map(vector);
+
+  // Extract y of each points.
+  // [x0, 0, x1, 0, x2, 0] -> [x0, x1, x2]
+  const Y = points.filter((_, i) => i % 2 === 1).map((d) => d + y);
+
+  // Place each axis by coordinate in parallel coordinate.
+  for (let i = 0; i < components.length; i++) {
+    const component = components[i];
+    const y = Y[i];
+    const height = Y[i + 1] - y;
     component.bbox = { x, y, width, height };
   }
 }

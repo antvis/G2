@@ -4,12 +4,8 @@ import { select } from '../../utils/selection';
 import { isPolar } from '../../utils/coordinate';
 import { Vector2, ShapeComponent as SC } from '../../runtime';
 import { angle, sub, dist } from '../../utils/vector';
-import {
-  applyStyle,
-  computeGradient,
-  getConnectStyle,
-  getShapeTheme,
-} from '../utils';
+import { applyStyle, computeGradient, getShapeTheme } from '../utils';
+import { subObject } from '../../utils/helper';
 import { createElement } from '../createElement';
 
 const DoubleArea = createElement((g) => {
@@ -78,7 +74,7 @@ function getTransform(coordinate, value) {
 
 export type CurveOptions = {
   curve?: CurveFactory;
-  gradient?: boolean;
+  gradient?: boolean | string;
   [key: string]: any;
 };
 
@@ -98,9 +94,14 @@ export const Curve: SC<CurveOptions> = (options) => {
       shape,
       defaultShape,
     );
-    const { color = defaultColor, seriesColor: sc, seriesX: sx } = value;
+    const {
+      color = defaultColor,
+      seriesColor: sc,
+      seriesX: sx,
+      seriesY: sy,
+    } = value;
     const transform = getTransform(coordinate, value);
-    const fill = gradient && sc ? computeGradient(sc, sx) : color;
+    const fill = gradient && sc ? computeGradient(sc, sx, sy, gradient) : color;
 
     const finalStyle = {
       ...defaults,
@@ -112,7 +113,7 @@ export const Curve: SC<CurveOptions> = (options) => {
 
     const [DP, MS] = segmentation(P, defined);
 
-    const connectStyle = getConnectStyle(style);
+    const connectStyle = subObject(style, 'connect');
     const missing = !!MS.length;
 
     const getPathNode = (path) => {

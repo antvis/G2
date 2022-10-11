@@ -74,24 +74,30 @@ export function inferComponent(
     if (type !== null) {
       const { props } = createGuideComponent(type);
       const { defaultPosition, defaultSize, defaultOrder } = props;
-      const { guide: partialGuide, name, field } = scale;
-      const position = inferComponentPosition(
-        name,
-        type,
-        defaultPosition,
-        partialGuide,
-        coordinate,
-      );
-      const { size = defaultSize, order = defaultOrder } = partialGuide;
-      components.push({
-        title: field,
-        ...partialGuide,
-        position,
-        order,
-        size,
-        type,
-        scale,
-      });
+      const { guide: guideOptions, name, field } = scale;
+      // A scale may have multiple guides.
+      const guides = Array.isArray(guideOptions)
+        ? guideOptions
+        : [guideOptions];
+      for (const partialGuide of guides) {
+        const position = inferComponentPosition(
+          name,
+          type,
+          defaultPosition,
+          partialGuide,
+          coordinate,
+        );
+        const { size = defaultSize, order = defaultOrder } = partialGuide;
+        components.push({
+          title: field,
+          ...partialGuide,
+          position,
+          order,
+          size,
+          type,
+          scale,
+        });
+      }
     }
   }
 
@@ -185,7 +191,11 @@ function inferComponentPosition(
     const match = /position(\d*)/g.exec(name);
     if (match === null) return ordinalPosition;
     const index = +match[1];
-    return index === 0 ? ordinalPosition : 'centerHorizontal';
+    if (isTranspose(coordinate)) {
+      return index === 0 ? 'top' : 'centerVertical';
+    } else {
+      return index === 0 ? ordinalPosition : 'centerHorizontal';
+    }
   } else if (
     (type === 'axisX' && isPolar(coordinate) && !isTranspose(coordinate)) ||
     (type === 'axisY' && isPolar(coordinate) && isTranspose(coordinate)) ||

@@ -1,16 +1,12 @@
 import { line, CurveFactory, CurveFactoryLineOnly } from 'd3-shape';
 import { Vector2 } from '@antv/coord';
-import { Path, CustomElement } from '@antv/g';
+import { Path } from '@antv/g';
 import { isPolar } from '../../utils/coordinate';
 import { select } from '../../utils/selection';
 import { ShapeComponent as SC } from '../../runtime';
-import {
-  applyStyle,
-  computeGradient,
-  getShapeTheme,
-  getConnectStyle,
-} from '../utils';
+import { applyStyle, computeGradient, getShapeTheme } from '../utils';
 import { createElement } from '../createElement';
+import { subObject } from '../../utils/helper';
 
 const DoublePath = createElement((g) => {
   const { d1, d2, style1, style2 } = g.attributes;
@@ -93,8 +89,10 @@ export const Curve: SC<CurveOptions> = (options) => {
       transform,
       seriesColor: sc,
       seriesX: sx,
+      seriesY: sy,
     } = value;
-    const stroke = gradient && sc ? computeGradient(sc, sx) : color;
+    const stroke =
+      gradient && sc ? computeGradient(sc, sx, sy, gradient) : color;
     const finalStyle = {
       ...defaults,
       ...(stroke && { stroke }),
@@ -112,7 +110,7 @@ export const Curve: SC<CurveOptions> = (options) => {
       .defined(([x, y]) => defined(x) && defined(y))
       .curve(curve);
     const [DP, MS] = segmentation(P, defined);
-    const connectStyle = getConnectStyle(style);
+    const connectStyle = subObject(style, 'connect');
     const missing = !!MS.length;
 
     // Draw one path of connected defined points.

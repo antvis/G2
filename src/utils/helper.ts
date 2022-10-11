@@ -1,4 +1,5 @@
 import { DisplayObject } from '@antv/g';
+import { lowerFirst } from '@antv/util';
 
 export function identity<T>(x: T): T {
   return x;
@@ -66,4 +67,19 @@ export function appendTransform(node: DisplayObject, transform: any) {
   const { transform: preTransform } = node.style;
   const prefix = preTransform === 'none' ? '' : preTransform;
   node.style.transform = `${prefix} ${transform}`.trimStart();
+}
+
+export function subObject(
+  obj: Record<string, any>,
+  prefix: string,
+): Record<string, any> {
+  return Object.fromEntries(
+    Object.entries(obj)
+      .filter(([key]) => key.startsWith(prefix))
+      .map(([key, value]) => [
+        lowerFirst(key.replace(prefix, '').trim()),
+        value,
+      ])
+      .filter(([key]) => key !== undefined),
+  );
 }
