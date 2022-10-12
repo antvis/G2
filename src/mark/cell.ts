@@ -35,7 +35,7 @@ export const Cell: MC<CellOptions> = () => {
 };
 
 Cell.props = {
-  defaultShape: 'rect',
+  defaultShape: 'cell',
   defaultLabelShape: 'label',
   channels: [
     ...baseGeometryChannels(),
@@ -46,6 +46,7 @@ Cell.props = {
     ...basePreInference(),
     { type: 'maybeZeroX' },
     { type: 'maybeZeroY' },
+    { type: 'maybeZeroPadding' },
   ],
   postInference: [
     ...basePostInference(),

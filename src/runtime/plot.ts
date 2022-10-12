@@ -57,7 +57,7 @@ import { initializeMark } from './mark';
 import { inferComponent, renderComponent } from './component';
 import { computeLayout, placeComponents } from './layout';
 import { createCoordinate } from './coordinate';
-import { applyScale, syncFacetsScales } from './scale';
+import { applyScale, syncFacetsScales, useRelation } from './scale';
 import { applyDataTransform } from './transform';
 import {
   MAIN_LAYER_CLASS_NAME,
@@ -347,7 +347,12 @@ function initializeState(
     const { index, channels } = state;
 
     // Transform abstract value to visual value by scales.
-    const markScaleInstance = mapObject(scale, useScale);
+    const markScaleInstance = mapObject(scale, (options) => {
+      const { relations } = options;
+      const [conditionalize] = useRelation(relations);
+      const scale = useScale(options);
+      return conditionalize(scale);
+    });
     Object.assign(scaleInstance, markScaleInstance);
     const value = applyScale(channels, markScaleInstance);
 

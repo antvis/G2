@@ -75,6 +75,7 @@ Area.props = {
     ...basePreInference(),
     { type: 'maybeSeries' },
     { type: 'maybeZeroY1' },
+    { type: 'maybeZeroPadding' },
   ],
   postInference: [
     ...basePostInference(),

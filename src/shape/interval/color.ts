@@ -19,7 +19,7 @@ export type ColorOptions = {
  */
 export const Color: SC<ColorOptions> = (options) => {
   // Render border only when colorAttribute is stroke.
-  const { colorAttribute, inset = 0, ...style } = options;
+  const { colorAttribute, ...style } = options;
 
   return (points, value, coordinate, theme) => {
     const { mark, shape, defaultShape } = value;
@@ -37,6 +37,11 @@ export const Color: SC<ColorOptions> = (options) => {
       radiusTopRight = radius,
       radiusBottomRight = radius,
       radiusBottomLeft = radius,
+      inset = 0,
+      insetLeft = inset,
+      insetRight = inset,
+      insetBottom = inset,
+      insetTop = inset,
       lineWidth = colorAttribute === 'stroke' || stroke ? defaultLineWidth : 0,
     } = style;
     const { color = defaultColor } = value;
@@ -53,14 +58,18 @@ export const Color: SC<ColorOptions> = (options) => {
       const absY = height > 0 ? y : y + height;
       const absWidth = Math.abs(width);
       const absHeight = Math.abs(height);
+      const finalX = absX + insetLeft;
+      const finalY = absY + insetTop;
+      const finalWidth = absWidth - (insetLeft + insetRight);
+      const finalHeight = absHeight - (insetTop + insetBottom);
 
       return select(new Rect({}))
         .call(applyStyle, shapeTheme)
         .style('lineWidth', lineWidth)
-        .style('x', tpShape ? absX : absX + inset)
-        .style('y', tpShape ? absY + inset : absY)
-        .style('width', tpShape ? absWidth : absWidth - 2 * inset)
-        .style('height', tpShape ? absHeight - 2 * inset : absHeight)
+        .style('x', finalX)
+        .style('y', finalY)
+        .style('width', finalWidth)
+        .style('height', finalHeight)
         .style('stroke', color)
         .style('stroke', color || stroke)
         .style(colorAttribute, color)

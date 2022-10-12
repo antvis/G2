@@ -14,7 +14,12 @@ export type Transform =
   | SelectXTransform
   | SelectYTransform
   | GroupXTransform
+  | GroupYTransform
+  | GroupColorTransform
   | SortXTransform
+  | SortYTransform
+  | SortColorTransform
+  | GroupTransform
   | FlexXTransform;
 
 export type TransformTypes =
@@ -30,7 +35,12 @@ export type TransformTypes =
   | 'selectY'
   | 'selectX'
   | 'groupX'
+  | 'groupY'
+  | 'group'
+  | 'groupColor'
   | 'sortX'
+  | 'sortColor'
+  | 'sortY'
   | 'flexX'
   | TransformComponent;
 
@@ -131,10 +141,38 @@ export type SelectYTransform = {
   selector?: Selector;
 };
 
+export type SortColorTransform = {
+  type?: 'sortColor';
+  reverse?: boolean;
+  by?: string;
+  slice?: number | [number, number];
+  reducer?:
+    | 'max'
+    | 'min'
+    | 'sum'
+    | 'first'
+    | 'last'
+    | ((I: number[], V: Primitive[]) => Primitive);
+};
+
 export type SortXTransform = {
   type?: 'sortX';
   reverse?: boolean;
-  channel?: string;
+  by?: string;
+  slice?: number | [number, number];
+  reducer?:
+    | 'max'
+    | 'min'
+    | 'sum'
+    | 'first'
+    | 'last'
+    | ((I: number[], V: Primitive[]) => Primitive);
+};
+
+export type SortYTransform = {
+  type?: 'sortY';
+  reverse?: boolean;
+  by?: string;
   slice?: number | [number, number];
   reducer?:
     | 'max'
@@ -165,4 +203,16 @@ export type Reducer =
 
 export type GroupXTransform = {
   type?: 'groupX';
+} & { [key in ChannelTypes]?: Reducer };
+
+export type GroupYTransform = {
+  type?: 'groupY';
+} & { [key in ChannelTypes]?: Reducer };
+
+export type GroupColorTransform = {
+  type?: 'groupColor';
+} & { [key in ChannelTypes]?: Reducer };
+
+export type GroupTransform = {
+  type?: 'group';
 } & { [key in ChannelTypes]?: Reducer };

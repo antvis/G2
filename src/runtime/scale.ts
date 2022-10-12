@@ -1,9 +1,9 @@
 import { createInterpolateValue } from '@antv/scale';
-import { extent, max } from 'd3-array';
+import { extent } from 'd3-array';
 import * as d3ScaleChromatic from 'd3-scale-chromatic';
 import { upperFirst } from '@antv/util';
 import { firstOf, lastOf, unique } from '../utils/array';
-import { defined } from '../utils/helper';
+import { defined, identity } from '../utils/helper';
 import { Channel, Primitive, G2Theme, G2MarkState } from './types/common';
 import {
   G2CoordinateOptions,
@@ -61,6 +61,55 @@ export function applyScale(
     scaledValue[name] = value.map((d) => scaleInstance.map(d));
   }
   return scaledValue;
+}
+
+export function useRelation(
+  relations: [any, any][],
+): [(scale: Scale) => Scale, (scale: Scale) => Scale] {
+  if (!relations || !Array.isArray(relations)) return [identity, identity];
+
+  // Store original map and invert.
+  let map;
+  let invert;
+
+  const conditionalize = (scale: Scale) => {
+    map = scale.map.bind(scale);
+    invert = scale.invert?.bind(scale);
+
+    // Distinguish functions[function, output] and value[vale, output] relations.
+    const funcRelations = relations.filter(([v]) => typeof v === 'function');
+    const valueRelations = relations.filter(([v]) => typeof v !== 'function');
+
+    // Update scale.map
+    const valueOutput = new Map(valueRelations);
+    scale.map = (x) => {
+      for (const [verify, value] of funcRelations) {
+        if (verify(x)) return value;
+      }
+      if (valueOutput.has(x)) return valueOutput.get(x);
+      return map(x);
+    };
+
+    if (!invert) return scale;
+
+    // Update scale.invert
+    const outputValue = new Map(valueRelations.map(([a, b]) => [b, a]));
+    const outputFunc = new Map(funcRelations.map(([a, b]) => [b, a]));
+    scale.invert = (x) => {
+      if (outputFunc.has(x)) return x;
+      if (outputValue.has(x)) return outputValue.get(x);
+      return invert(x);
+    };
+    return scale;
+  };
+
+  const deconditionalize = (scale: Scale) => {
+    if (map !== null) scale.map = map;
+    if (invert !== null) scale.invert = invert;
+    return scale;
+  };
+
+  return [conditionalize, deconditionalize];
 }
 
 export function syncFacetsScales(states: Map<G2Mark, G2MarkState>[]): void {
@@ -342,10 +391,22 @@ function inferOptionsC(
   coordinate: G2CoordinateOptions[],
   options: G2ScaleOptions,
 ): G2ScaleOptions {
-  if (options.padding !== undefined) return options;
+  if (
+    options.padding !== undefined ||
+    options.paddingInner !== undefined ||
+    options.paddingOuter !== undefined
+  ) {
+    return options;
+  }
   const padding = inferPadding(type, name, coordinate);
   const { paddingInner = padding, paddingOuter = padding } = options;
-  return { ...options, paddingInner, paddingOuter, unknown: NaN };
+  return {
+    ...options,
+    paddingInner,
+    paddingOuter,
+    padding,
+    unknown: NaN,
+  };
 }
 
 function inferPadding(
@@ -361,7 +422,7 @@ function inferPadding(
   }
   // Point scale need 0.5 padding to make interval between first and last point
   // equal to other intervals in polar coordinate.
-  if (type === 'point') return isPolar(coordinate) ? 0.5 : 0;
+  if (type === 'point') return 0.5;
   return 0;
 }
 
@@ -495,9 +556,10 @@ function maybeCompatible(
     // The only difference is the method to compute interval between points.
     return 'band';
   } else if (target !== source) {
-    throw new Error(
-      `Incompatible scale type: ${target} !== ${source} for channel: ${channel}`,
-    );
+    return target;
+    // throw new Error(
+    //   `Incompatible scale type: ${target} !== ${source} for channel: ${channel}`,
+    // );
   } else {
     return target;
   }

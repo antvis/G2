@@ -107,6 +107,10 @@ export type Layout = {
   paddingRight?: number;
   paddingBottom?: number;
   paddingTop?: number;
+  insetLeft?: number;
+  insetRight?: number;
+  insetBottom?: number;
+  insetTop?: number;
   width?: number;
   height?: number;
   innerWidth?: number;

@@ -15,11 +15,25 @@ export function computeLayout(
 ): Layout {
   const padding = computePadding(components, options);
   const { paddingLeft, paddingRight, paddingTop, paddingBottom } = padding;
-  const { width, height, x = 0, y = 0 } = options;
+  const {
+    width,
+    height,
+    x = 0,
+    y = 0,
+    inset = 0,
+    insetLeft = inset,
+    insetTop = inset,
+    insetBottom = inset,
+    insetRight = inset,
+  } = options;
   return {
     ...padding,
     width,
     height,
+    insetLeft,
+    insetTop,
+    insetBottom,
+    insetRight,
     innerWidth: width - paddingLeft - paddingRight,
     innerHeight: height - paddingTop - paddingBottom,
     x,

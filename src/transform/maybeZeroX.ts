@@ -17,7 +17,7 @@ export const MaybeZeroX: TC<MaybeZeroXOptions> = () => {
       I,
       deepMix({}, mark, {
         encode: { x: column(constant(I, 0)) },
-        scale: { guide: null },
+        scale: { x: { guide: null } },
       }),
     ];
   };

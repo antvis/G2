@@ -55,3 +55,8 @@ export { seasonalWeatherAreaRadial } from './seasonal-weather-area-radial';
 export { worldHistoryIntervalMultiTickCount } from './world-history-interval-multi-tick-count';
 export { stocksAreaGradient } from './stocks-area-gradient';
 export { temperatures3AreaBandGradient } from './temperatures3-area-band-gradient';
+export { vaccinesCellScaleRelation } from './vaccines-cell-scale-relation';
+export { settleWeatherCellGrouped } from './seattle-weather-cell-grouped';
+export { commitsPointGrouped } from './commits-point-grouped';
+export { penguinsPointLink } from './penguins-point-link';
+export { penguinsIntervalGroupColor } from './penguins-interval-group-color';

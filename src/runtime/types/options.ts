@@ -57,6 +57,11 @@ export type G2View = {
   paddingRight?: number;
   paddingTop?: number;
   paddingBottom?: number;
+  inset?: number;
+  insetLeft?: number;
+  insetTop?: number;
+  insetRight?: number;
+  insetBottom?: number;
   theme?: G2ThemeOptions;
   title?: G2TitleOptions;
   coordinate?: G2CoordinateOptions[];

@@ -5,7 +5,7 @@ export function stateAgesIntervalGrouped(): G2Spec {
     type: 'interval',
     paddingLeft: 50,
     transform: [
-      { type: 'sortX', channel: 'y', reverse: true, reducer: 'sum', slice: 6 },
+      { type: 'sortX', by: 'y', reverse: true, reducer: 'sum', slice: 6 },
       { type: 'dodgeX' },
     ],
     data: {
