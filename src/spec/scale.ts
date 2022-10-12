@@ -55,15 +55,11 @@ export type BaseScale<T extends ScaleTypes, O> = {
   rangeMin?: number;
   domainMax?: number;
   domainMix?: number;
-  // @todo More specific options.
-  // @todo Remove null as it can be stored in JSON.
-  guide?: Record<string, any> | null;
   field?: string | string[];
   independent?: boolean;
   zero?: boolean;
-  formatter?: string | ((d: any) => string);
-  tickFilter?: (tick: number, index: number, ticks: number[]) => boolean;
   offset?: (t: number) => number;
+  relations?: [any, any][];
 } & O;
 
 export type LinearScale = BaseScale<'linear', LinearOptions>;

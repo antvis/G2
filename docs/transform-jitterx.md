@@ -15,7 +15,7 @@
       value:
         'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
     })
-    .transform({ type: 'sortX', channel: 'x', reducer: (I, V) => +V[0] })
+    .transform({ type: 'sortX', by: 'x', reducer: (I, V) => +V[0] })
     .transform({ type: 'jitterX' })
     .encode('y', 'Horsepower')
     .encode('x', 'Cylinders')

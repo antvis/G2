@@ -70,7 +70,8 @@ export type ChannelTypes =
   | 'title'
   | 'key'
   | 'groupKey'
-  | 'label';
+  | 'label'
+  | 'position';
 
 export type BaseGeometry<
   T extends GeometryTypes,
@@ -83,6 +84,12 @@ export type BaseGeometry<
   paddingRight?: number;
   paddingBottom?: number;
   paddingTop?: number;
+  padding?: number;
+  inset?: number;
+  insetLeft?: number;
+  insetBottom?: number;
+  insetTop?: number;
+  insetRight?: number;
   data?: Data;
   transform?: Transform[];
   encode?: Partial<Record<C, Encode | Encode[]>>;

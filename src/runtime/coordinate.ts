@@ -14,15 +14,24 @@ export function createCoordinate(
     CoordinateComponent,
     CoordinateTransform
   >('coordinate', library);
-
-  const { innerHeight, innerWidth } = layout;
+  const {
+    innerHeight,
+    innerWidth,
+    insetLeft,
+    insetTop,
+    insetRight,
+    insetBottom,
+  } = layout;
   const { coordinate: partialTransform = [] } = partialOptions;
   const transform = inferCoordinate(partialTransform);
   const coordinate = new Coordinate({
-    x: 0,
-    y: 0,
-    width: innerWidth,
-    height: innerHeight,
+    // @todo Find a better solution.
+    // Store more layout information for component.
+    ...layout,
+    x: insetLeft,
+    y: insetTop,
+    width: innerWidth - insetLeft - insetRight,
+    height: innerHeight - insetBottom - insetTop,
     transformations: transform.map(useCoordinate).flat(),
   });
   return coordinate;

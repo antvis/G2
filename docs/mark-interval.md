@@ -117,7 +117,7 @@
       format: 'csv',
     })
     .transform({ type: 'stackY' })
-    .transform({ type: 'sortX', channel: 'y', reverse: true })
+    .transform({ type: 'sortX', by: 'y', reverse: true })
     .encode('x', 'state')
     .encode('y', 'population')
     .encode('color', 'age')
@@ -180,7 +180,7 @@
         'https://gw.alipayobjects.com/os/bmw-prod/f129b517-158d-41a9-83a3-3294d639b39e.csv',
       format: 'csv',
     })
-    .transform({ type: 'sortX', channel: 'y', reverse: true, slice: 6 })
+    .transform({ type: 'sortX', by: 'y', reverse: true, slice: 6 })
     .transform({ type: 'dodgeX' })
     .encode('x', 'state')
     .encode('y', 'population')

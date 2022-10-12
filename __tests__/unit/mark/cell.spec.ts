@@ -5,7 +5,7 @@ import { plot } from './helper';
 describe('Cell', () => {
   it('Cell has expected props', () => {
     expect(Cell.props).toEqual({
-      defaultShape: 'rect',
+      defaultShape: 'cell',
       defaultLabelShape: 'label',
       channels: [
         { name: 'color' },
@@ -22,7 +22,11 @@ describe('Cell', () => {
         { name: 'x', required: true, scale: 'band' },
         { name: 'y', required: true, scale: 'band' },
       ],
-      preInference: [{ type: 'maybeZeroX' }, { type: 'maybeZeroY' }],
+      preInference: [
+        { type: 'maybeZeroX' },
+        { type: 'maybeZeroY' },
+        { type: 'maybeZeroPadding' },
+      ],
       postInference: [
         { type: 'maybeKey' },
         { type: 'maybeTitleX' },

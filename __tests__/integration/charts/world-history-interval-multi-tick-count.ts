@@ -13,7 +13,10 @@ export function worldHistoryIntervalMultiTickCount(): G2Spec {
     height: 1000,
     paddingRight: 80,
     coordinate: [{ type: 'transpose' }],
-    transform: [{ type: 'sortX', channel: 'y' }],
+    transform: [
+      { type: 'sortX', by: 'y' },
+      { type: 'sortColor', by: 'y', reducer: 'min' },
+    ],
     axis: {
       y: [
         {
@@ -38,7 +41,7 @@ export function worldHistoryIntervalMultiTickCount(): G2Spec {
       color: 'region',
     },
     scale: {
-      color: { palette: 'set3' },
+      color: { palette: 'set2' },
     },
     labels: [
       {
