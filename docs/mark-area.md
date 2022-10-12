@@ -1,6 +1,10 @@
 # Area
 
-## Basic Area
+`Area` 图形标记大部分场景用来绘制我们常见的面积图，它是在折线图的基础上，将包围的区域使用颜色或者纹理填充，可以用来更好的突出趋势，以及趋势的堆积信息。
+
+在视觉通道设计上，`Area` 除了和 `Line` 不同的地方在于，可以设置 `y` 为长度为 2 的数组，分别代表面积的上边界和下边界，默认下边界为 0。
+
+## 快速开始
 
 ```js
 (() => {
@@ -25,84 +29,120 @@
 })();
 ```
 
-## Stacked Area
+## API
 
-```js
-(() => {
-  const chart = new G2.Chart();
+`Area` 对应的 shape 图形有以下：
 
-  chart
-    .area()
-    .data([
-      { year: '1991', sale: 15468, type: '办公用品' },
-      { year: '1992', sale: 16100, type: '办公用品' },
-      { year: '1993', sale: 15900, type: '办公用品' },
-      { year: '1994', sale: 17409, type: '办公用品' },
-      { year: '1995', sale: 17000, type: '办公用品' },
-      { year: '1996', sale: 31056, type: '办公用品' },
-      { year: '1997', sale: 31982, type: '办公用品' },
-      { year: '1998', sale: 32040, type: '办公用品' },
-      { year: '1999', sale: 33233, type: '办公用品' },
-      { year: '1991', sale: 11468, type: '食品' },
-      { year: '1992', sale: 16100, type: '食品' },
-      { year: '1993', sale: 19900, type: '食品' },
-      { year: '1994', sale: 17409, type: '食品' },
-      { year: '1995', sale: 20000, type: '食品' },
-      { year: '1996', sale: 18056, type: '食品' },
-      { year: '1997', sale: 28982, type: '食品' },
-      { year: '1998', sale: 32040, type: '食品' },
-      { year: '1999', sale: 40233, type: '食品' },
-    ])
-    .transform({ type: 'stackY' })
-    .encode('x', 'year')
-    .encode('y', 'sale')
-    .encode('color', 'type')
-    .encode('shape', 'smooth');
+| shape  | 描述                   | 示例                                                                                                                                        |
+| ------ | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `area` | 直线链接的面积图 | <img alt='area shape' height='32' src='https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*06vFRoelE68AAAAAAAAAAAAAARQnAQ' /> |
+| `smooth` | 平滑曲线的面积图 | <img alt='smooth shape' height='32' src='https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*YaoNSpVhlJ0AAAAAAAAAAAAAARQnAQ' /> |
+| `step` | 阶梯面积图 | <img alt='step shape' height='32' src='https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*Z_6BTI4eycQAAAAAAAAAAAAAARQnAQ' /> |
 
-  return chart.render().node();
-})();
+
+## 使用方式
+
+在这里，可以切换不同的 `shape` 对应的样式和形状。
+
+```js | radio "options: { labels: ['smooth', 'area', 'step'], values: ['smooth', 'area', 'step'] }; pin: false"
+shape = 'smooth';
 ```
 
-## Symmetry Area
+### 分组面积图
 
 ```js
 (() => {
   const chart = new G2.Chart();
-
   chart
     .area()
-    .data([
-      { year: '1991', sale: 15468, type: '办公用品' },
-      { year: '1992', sale: 16100, type: '办公用品' },
-      { year: '1993', sale: 15900, type: '办公用品' },
-      { year: '1994', sale: 17409, type: '办公用品' },
-      { year: '1995', sale: 17000, type: '办公用品' },
-      { year: '1996', sale: 31056, type: '办公用品' },
-      { year: '1997', sale: 31982, type: '办公用品' },
-      { year: '1998', sale: 32040, type: '办公用品' },
-      { year: '1999', sale: 33233, type: '办公用品' },
-      { year: '1991', sale: 11468, type: '食品' },
-      { year: '1992', sale: 16100, type: '食品' },
-      { year: '1993', sale: 19900, type: '食品' },
-      { year: '1994', sale: 17409, type: '食品' },
-      { year: '1995', sale: 20000, type: '食品' },
-      { year: '1996', sale: 18056, type: '食品' },
-      { year: '1997', sale: 28982, type: '食品' },
-      { year: '1998', sale: 32040, type: '食品' },
-      { year: '1999', sale: 40233, type: '食品' },
-    ])
+    .data({
+      type: 'fetch',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/e58c9758-0a09-4527-aa90-fbf175b45925.json'
+    })
+    .encode('x', (d) => new Date(d.date))
+    .encode('y', 'unemployed')
+    .encode('color', 'industry')
+    .encode('shape', shape)
+    .scale('x', { field: 'Date', utc: true })
+    .scale('y', { guide: { formatter: (d) => `${+d / 1000}k` } });
+  return chart.render().node();
+})()
+```
+
+### 堆积面积图
+
+```js
+(() => {
+  const chart = new G2.Chart();
+  chart
+    .area()
+    .data({
+      type: 'fetch',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/e58c9758-0a09-4527-aa90-fbf175b45925.json'
+    })
+    .transform({ type: 'stackY' })
+    // .transform({ type: 'symmetryY' })
+    .encode('x', (d) => new Date(d.date))
+    .encode('y', 'unemployed')
+    .encode('color', 'industry')
+    .encode('shape', shape)
+    .scale('x', { field: 'Date', utc: true })
+    .scale('y', { guide: { formatter: (d) => `${+d / 1000}k` } });
+  return chart.render().node();
+})()
+```
+
+### 对称面积图
+
+```js
+(() => {
+  const chart = new G2.Chart();
+  chart
+    .area()
+    .data({
+      type: 'fetch',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/e58c9758-0a09-4527-aa90-fbf175b45925.json'
+    })
     .transform({ type: 'stackY' })
     .transform({ type: 'symmetryY' })
-    .encode('x', 'year')
-    .encode('y', 'sale')
-    .encode('color', 'type')
-    .encode('shape', 'smooth');
-
+    .encode('x', (d) => new Date(d.date))
+    .encode('y', 'unemployed')
+    .encode('color', 'industry')
+    .encode('shape', shape)
+    .scale('x', { field: 'Date', utc: true })
+    .scale('y', { guide: { formatter: (d) => `${+d / 1000}k` } });
   return chart.render().node();
-})();
+})()
 ```
 
-## Gradient Area
+### 百分比堆积面积图
+
+```js
+(() => {
+  const chart = new G2.Chart();
+  chart
+    .area()
+    .data({
+      type: 'fetch',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/e58c9758-0a09-4527-aa90-fbf175b45925.json'
+    })
+    .transform({ type: 'stackY' })
+    .transform({ type: 'normalizeY' })
+    .encode('x', (d) => new Date(d.date))
+    .encode('y', 'unemployed')
+    .encode('color', 'industry')
+    .encode('shape', shape)
+    .scale('x', { field: 'Date', utc: true })
+    .scale('y', { guide: { formatter: (d) => `${+d / 1000}k` } });
+  return chart.render().node();
+})()
+```
+
+### 渐变色面积图
 
 ```js
 (() => {
@@ -124,7 +164,7 @@
     .encode('x', 'year')
     .encode('y', 'value')
     .encode('color', 'value')
-    .encode('shape', 'smooth')
+    .encode('shape', shape)
     .encode('series', 'a')
     .style('gradient', true);
 
@@ -132,7 +172,7 @@
 })();
 ```
 
-## Area In Polar
+### 雷达图
 
 ```js
 (() => {
@@ -178,3 +218,22 @@
   return chart.render().node();
 })();
 ```
+
+## 实际案例
+
+使用几个社区实际案例来介绍，如果使用 `Area` 图形标记。
+
+### 空数据连接
+
+使用 `connectNulls` 对于空数据进行连接，让异常数据也能很好的可视化在面积图中。
+
+
+### 数据标签
+
+
+
+
+### 颜色区分
+
+
+## FAQ
