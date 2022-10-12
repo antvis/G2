@@ -23,16 +23,15 @@ export const Color: SC<ColorOptions> = (options) => {
 
   return (points, value, coordinate, theme) => {
     const { mark, shape, defaultShape } = value;
-    const { [colorAttribute]: defaultColor, ...shapeTheme } = getShapeTheme(
-      theme,
-      mark,
-      shape,
-      defaultShape,
-    );
+    const {
+      [colorAttribute]: defaultColor,
+      radius: defaultRadius = 0,
+      ...shapeTheme
+    } = getShapeTheme(theme, mark, shape, defaultShape);
     const defaultLineWidth = shapeTheme.lineWidth || 1;
     const {
       stroke,
-      radius = 0,
+      radius = defaultRadius,
       radiusTopLeft = radius,
       radiusTopRight = radius,
       radiusBottomRight = radius,
