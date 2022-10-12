@@ -1,7 +1,7 @@
 import { Coordinate, Vector2 } from '@antv/coord';
 import { Arc, Linear } from '@antv/gui';
 import { Linear as LinearScale } from '@antv/scale';
-import { deepMix } from '@antv/util';
+import { deepMix, size } from '@antv/util';
 import { format } from 'd3-format';
 import { extent } from 'd3-array';
 import {
@@ -135,6 +135,12 @@ function radiusOf(coordinate: Coordinate): [number, number] {
   return [+innerRadius, +outerRadius];
 }
 
+function sizeOf(coordinate: Coordinate): [number, number] {
+  // @ts-ignore
+  const { innerWidth, innerHeight } = coordinate.getOptions();
+  return [innerWidth, innerHeight];
+}
+
 function reverseTicks(ticks) {
   return ticks.map(({ value, text }) => ({ value: 1 - value, text }));
 }
@@ -183,6 +189,28 @@ function ticksOf(
   return tickMethod(min, max, tickCount);
 }
 
+// Set inset for axis.
+function createInset(position, coordinate) {
+  const options = coordinate.getOptions();
+  const {
+    innerWidth,
+    innerHeight,
+    insetTop,
+    insetBottom,
+    insetLeft,
+    insetRight,
+  } = options;
+  const [start, end, size] =
+    position === 'left' || position === 'right'
+      ? [insetTop, insetBottom, innerHeight]
+      : [insetLeft, insetRight, innerWidth];
+  const x = new LinearScale({
+    domain: [0, 1],
+    range: [start / size, 1 - end / size],
+  });
+  return (i) => x.map(i);
+}
+
 /**
  * Calc ticks based on scale and coordinate.
  * @todo Parallel coordinate.
@@ -208,11 +236,12 @@ function getTicks(
   const ticks = ticksOf(scale, domain, tickMethod);
   const filteredTicks = tickFilter ? ticks.filter(tickFilter) : ticks;
   const tickFormatter = scale.getFormatter?.() || defaultTickFormatter;
+  const applyInset = createInset(position, coordinate);
 
   if (isPolar(coordinate) || isTranspose(coordinate)) {
     const axisTicks = filteredTicks.map((d, i, array) => {
       const offset = scale.getBandWidth?.(d) / 2 || 0;
-      const tick = scale.map(d) + offset;
+      const tick = applyInset(scale.map(d) + offset);
       return {
         value: isTranspose(coordinate) && scale.getTicks?.() ? 1 - tick : tick,
         text: tickFormatter(d, i, array),
@@ -227,12 +256,13 @@ function getTicks(
 
   return filteredTicks.map((d, i, array) => {
     const offset = scale.getBandWidth?.(d) / 2 || 0;
-    const tick = scale.map(d) + offset;
-    const point = getTickPoint(tick, position);
-    const vector = coordinate.map(point) as Vector2;
-    const value = getTickValue(vector, position, coordinate);
+    const tick = applyInset(scale.map(d) + offset);
+    // @todo For interaction.
+    // const point = getTickPoint(tick, position);
+    // const vector = coordinate.map(point) as Vector2;
+    // const value = getTickValue(vector, position, coordinate);
     return {
-      value: isParallel(coordinate) ? tick : value,
+      value: tick,
       text: `${tickFormatter(d, i, array)}`,
     };
   });
@@ -247,7 +277,7 @@ function getTickGridItem(
 ) {
   const [sx, sy] = startPos;
   const [ex, ey] = endPos;
-  const [width, height] = coordinate.getSize();
+  const [width, height] = sizeOf(coordinate);
   let x1, x2, y1, y2;
   if (position === 'bottom' || position === 'top') {
     x1 = x2 = sx + (ex - sx) * tick;
@@ -274,7 +304,7 @@ function getArcGridItems(
   coordinate: Coordinate,
 ) {
   const [cx, cy] = center;
-  const [w, h] = coordinate.getSize();
+  const [w, h] = sizeOf(coordinate);
   const r = Math.min(w, h) / 2;
   const ir = innerRadius * r;
   const or = outerRadius * r;
@@ -442,71 +472,68 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
     const gridItems = showGrid
       ? getGridItems(ticks, position, coordinate, startPos, endPos)
       : [];
-
     const axisLineStyle = subObject(rest, 'line');
     return new Linear({
-      style: deepMix(
-        {
-          startPos,
-          endPos,
-          verticalFactor,
-          ticks,
-          label: label
-            ? {
-                tickPadding: labelOffset,
-                autoHide: false,
-                autoRotate: true,
-                style: {
-                  ...(labelAlign && { textAlign: labelAlign }),
-                  ...subObject(rest, 'label'),
-                },
-              }
-            : null,
-          axisLine:
-            axisLine || Object.keys(axisLineStyle).length
-              ? { stroke: '#BFBFBF', style: axisLineStyle }
-              : null,
-          grid: {
-            items: gridItems,
-            lineStyle: {
-              stroke: '#1b1e23',
-              strokeOpacity: 0.05,
-              lineDash: [0, 0],
-            },
-            ...(position === 'arcY' && {
-              type: 'circle',
-              center: [bbox.x, cy + bbox.y],
-              closed: true,
-            }),
-          },
-          tickLine: tickLine
-            ? {
-                len: 4,
-                style: {
-                  lineWidth: 1,
-                  stroke: '#BFBFBF',
-                  ...subObject(rest, 'tick'),
-                },
-              }
-            : null,
-          ...(title && {
-            title: {
-              content: titleContent(title),
-              titleAnchor: anchor,
+      style: deepMix({
+        startPos,
+        endPos,
+        verticalFactor,
+        ticks,
+        label: label
+          ? {
+              tickPadding: labelOffset,
+              autoHide: false,
+              autoRotate: true,
+              ...subObject(rest, 'label'),
               style: {
-                fontWeight: 'bold',
-                fillOpacity: 1,
-                dy: titleOffsetY,
-                textAnchor: anchor,
-                ...subObject(rest, 'title'),
+                ...(labelAlign && { textAlign: labelAlign }),
+                ...subObject(rest, 'label'),
               },
-              titlePadding,
-              rotate: titleRotate,
-            },
+            }
+          : null,
+        axisLine:
+          axisLine || Object.keys(axisLineStyle).length
+            ? { stroke: '#BFBFBF', style: axisLineStyle }
+            : null,
+        grid: {
+          items: gridItems,
+          lineStyle: {
+            stroke: '#1b1e23',
+            strokeOpacity: 0.05,
+            lineDash: [0, 0],
+          },
+          ...(position === 'arcY' && {
+            type: 'circle',
+            center: [bbox.x, cy + bbox.y],
+            closed: true,
           }),
         },
-        rest,
-      ),
+        tickLine: tickLine
+          ? {
+              len: 4,
+              style: {
+                lineWidth: 1,
+                stroke: '#BFBFBF',
+                ...subObject(rest, 'tick'),
+              },
+            }
+          : null,
+        ...(title && {
+          title: {
+            content: titleContent(title),
+            titleAnchor: anchor,
+            style: {
+              fontWeight: 'bold',
+              fillOpacity: 1,
+              dy: titleOffsetY,
+              textAnchor: anchor,
+              ...subObject(rest, 'title'),
+            },
+            titlePadding,
+            rotate: titleRotate,
+          },
+        }),
+      }),
     });
   };
 };
