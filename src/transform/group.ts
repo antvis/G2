@@ -111,12 +111,6 @@ export const Group: TC<GroupOptions> = (options = {}) => {
     });
     const GD = groups.map((I) => data[I[0]]);
     const GI = indexOf(groups);
-    console.log(
-      deepMix({}, mark, {
-        data: GD,
-        encode: Object.fromEntries([...reducedColumns, ...outputs]),
-      }),
-    );
     return [
       GI,
       deepMix({}, mark, {

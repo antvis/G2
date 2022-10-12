@@ -59,6 +59,7 @@ export type BaseScale<T extends ScaleTypes, O> = {
   independent?: boolean;
   zero?: boolean;
   offset?: (t: number) => number;
+  relations?: [any, any][];
 } & O;
 
 export type LinearScale = BaseScale<'linear', LinearOptions>;
