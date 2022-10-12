@@ -3,7 +3,7 @@ import { G2Spec } from '../../../src';
 export function alphabetInterval(): G2Spec {
   return {
     type: 'interval',
-    transform: [{ type: 'sortX', channel: 'y', reverse: true }],
+    transform: [{ type: 'sortX', by: 'y', reverse: true }],
     data: {
       type: 'fetch',
       value: 'data/alphabet.csv',

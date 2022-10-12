@@ -13,10 +13,7 @@ export function cars2PointJitterY(): G2Spec {
       x: { type: 'point' },
       color: { type: 'ordinal' },
     },
-    transform: [
-      { type: 'sortX', channel: 'x', reducer: (I, V) => +V[0] },
-      { type: 'jitterX', random },
-    ],
+    transform: [{ type: 'sortX' }, { type: 'jitterX', random }],
     encode: {
       y: 'Horsepower',
       x: 'Cylinders',

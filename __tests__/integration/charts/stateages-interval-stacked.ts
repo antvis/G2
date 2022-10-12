@@ -5,10 +5,7 @@ export function stateAgesIntervalStacked(): G2Spec {
     type: 'interval',
     paddingLeft: 50,
     width: 800,
-    transform: [
-      { type: 'stackY' },
-      { type: 'sortX', channel: 'y', reverse: true },
-    ],
+    transform: [{ type: 'stackY' }, { type: 'sortX', by: 'y', reverse: true }],
     data: {
       type: 'fetch',
       value: 'data/stateages.csv',

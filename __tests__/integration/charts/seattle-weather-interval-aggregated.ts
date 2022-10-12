@@ -6,7 +6,6 @@ export function seattleWeatherIntervalAggregated(): G2Spec {
     data: {
       type: 'fetch',
       value: 'data/seattle-weather.csv',
-      format: 'csv',
     },
     transform: [
       { type: 'groupX', y: 'count' },
