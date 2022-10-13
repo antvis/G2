@@ -218,7 +218,7 @@ import {
   Arc as ArcTransform,
   WordCloud,
 } from '../data';
-import { HideOverlap, DodgeY } from '../labelTransform';
+import { HideOverlap, DodgeY } from '../label-transform';
 
 export function createLibrary(): G2Library {
   return {
