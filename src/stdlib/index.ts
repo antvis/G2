@@ -136,6 +136,8 @@ import {
   FadeIn,
   FadeOut,
   Morphing,
+  ZoomIn,
+  ZoomOut,
 } from '../animation';
 import {
   ElementActive,
@@ -406,6 +408,8 @@ export function createLibrary(): G2Library {
     'animation.waveIn': WaveIn,
     'animation.fadeIn': FadeIn,
     'animation.fadeOut': FadeOut,
+    'animation.zoomIn': ZoomIn,
+    'animation.zoomOut': ZoomOut,
     'animation.morphing': Morphing,
     'interaction.elementActive': ElementActive,
     'interaction.elementSelected': ElementSelected,
