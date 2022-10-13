@@ -225,15 +225,247 @@ shape = 'smooth';
 
 ### 空数据连接
 
-使用 `connectNulls` 对于空数据进行连接，让异常数据也能很好的可视化在面积图中。
+使用 `connectNulls` 对于空数据进行连接，让异常数据也能很好的可视化在面积图中。我们以一个交易情况的数据为例，模拟每年年初到 3 月份，交易关闭数据为空的情况。
 
+```js | table "pin: false"
+aapl = genji.fetchJSON(
+  'https://assets.antv.antgroup.com/g2/aapl.json',
+).then((data) => {
+  // Mock missing data.
+  return data.map((d) => ({
+    date: new Date(d.date),
+    close: new Date(d.date).getUTCMonth() <= 3 ? NaN : d.close, // Mock missing data.
+  }));
+});
+```
+
+```js
+(() => {
+  const chart = new G2.Chart();
+
+  chart
+    .area()
+    .data(aapl)
+    .encode('x', 'date')
+    .encode('y', 'close')
+    .scale('x', { type: 'time' })
+    .style('connectNulls', true)
+    .style('connectFill', 'grey')
+    .style('connectFillOpacity', 0.15);
+
+  return chart.render().node();
+})();
+```
 
 ### 数据标签
 
+使用面积图专属的 `area` 标签定位，可以让面积图的标签更加美观清晰。这里使用美国各大区、州的收人数据为例，绘制具体的数据标签，并调整标签的位置、角度，让其显示到最优的位置上。
 
+```js | dom "pin: false"
+state = [
+  'Massachusetts',
+  'Connecticut',
+  'Maine',
+  'Rhode Island',
+  'New Hampshire',
+  'Vermont',
+  'New York',
+  'Pennsylvania',
+  'New Jersey',
+  'North Carolina',
+  'Virginia',
+  'Georgia',
+  'Florida',
+  'Maryland',
+  'South Carolina',
+  'West Virginia',
+  'District of Columbia',
+  'Delaware',
+  'Tennessee',
+  'Kentucky',
+  'Alabama',
+  'Mississippi',
+  'Texas',
+  'Louisiana',
+  'Oklahoma',
+  'Arkansas',
+  'Illinois',
+  'Ohio',
+  'Michigan',
+  'Indiana',
+  'Wisconsin',
+  'Missouri',
+  'Minnesota',
+  'Iowa',
+  'Kansas',
+  'Nebraska',
+  'South Dakota',
+  'North Dakota',
+  'Colorado',
+  'Arizona',
+  'Utah',
+  'New Mexico',
+  'Montana',
+  'Idaho',
+  'Nevada',
+  'Wyoming',
+  'California',
+  'Washington',
+  'Oregon',
+  'Hawaii',
+  'Alaska',
+];
+```
 
+```js | dom "pin: false"
+regionStateMap = new Map([
+  ['Alaska', 'Pacific'],
+  ['Alabama', 'East South Central'],
+  ['Arkansas', 'West South Central'],
+  ['Arizona', 'Mountain'],
+  ['California', 'Pacific'],
+  ['Colorado', 'Mountain'],
+  ['Connecticut', 'New England'],
+  ['District of Columbia', 'South Atlantic'],
+  ['Delaware', 'South Atlantic'],
+  ['Florida', 'South Atlantic'],
+  ['Georgia', 'South Atlantic'],
+  ['Hawaii', 'Pacific'],
+  ['Iowa', 'West North Central'],
+  ['Idaho', 'Mountain'],
+  ['Illinois', 'East North Central'],
+  ['Indiana', 'East North Central'],
+  ['Kansas', 'West North Central'],
+  ['Kentucky', 'East South Central'],
+  ['Louisiana', 'West South Central'],
+  ['Massachusetts', 'New England'],
+  ['Maryland', 'South Atlantic'],
+  ['Maine', 'New England'],
+  ['Michigan', 'East North Central'],
+  ['Minnesota', 'West North Central'],
+  ['Missouri', 'West North Central'],
+  ['Mississippi', 'East South Central'],
+  ['Montana', 'Mountain'],
+  ['North Carolina', 'South Atlantic'],
+  ['North Dakota', 'West North Central'],
+  ['Nebraska', 'West North Central'],
+  ['New Hampshire', 'New England'],
+  ['New Jersey', 'Middle Atlantic'],
+  ['New Mexico', 'Mountain'],
+  ['Nevada', 'Mountain'],
+  ['New York', 'Middle Atlantic'],
+  ['Ohio', 'East North Central'],
+  ['Oklahoma', 'West South Central'],
+  ['Oregon', 'Pacific'],
+  ['Pennsylvania', 'Middle Atlantic'],
+  ['Rhode Island', 'New England'],
+  ['South Carolina', 'South Atlantic'],
+  ['South Dakota', 'West North Central'],
+  ['Tennessee', 'East South Central'],
+  ['Texas', 'West South Central'],
+  ['Utah', 'Mountain'],
+  ['Virginia', 'South Atlantic'],
+  ['Vermont', 'New England'],
+  ['Washington', 'Pacific'],
+  ['Wisconsin', 'East North Central'],
+  ['West Virginia', 'South Atlantic'],
+  ['Wyoming', 'Mountain'],
+]);
+```
 
-### 颜色区分
+```js | dom "pin: false"
+populationByState = genji.fetchJSON(
+  'https://assets.antv.antgroup.com/g2/population-by-state.json',
+).then(data => data.map(d => Object.assign({}, d, { date: new Date(d.date) })));
+```
 
+```js
+(() => {
+  const chart = new G2.Chart({ width: 800 });
+
+  chart.data({
+    type: 'inline',
+    value: populationByState,
+    transform: [{
+      type: 'fold',
+      fields: state,
+      as: ['state', 'population'],
+    }, {
+      type: 'map',
+      callback: d => Object.assign({}, d, { region: regionStateMap.get(d.state) }),
+    }],
+  });
+
+  chart
+    .area()
+    .transform([{ type: 'stackY' }, { type: 'normalizeY' }])
+    .encode('x', 'date')
+    .encode('y', 'population')
+    .encode('color', 'region')
+    .encode('series', 'state')
+    .label({
+      text: 'state',
+      position: 'area',
+      selector: 'first',
+      fontSize: 10,
+      transform: [{ type: 'hideOverlap' }],
+    });
+
+  chart
+    .line()
+    .transform([{ type: 'stackY' }, { type: 'normalizeY' }])
+    .encode('x', 'date')
+    .encode('y', 'population')
+    .encode('series', 'state')
+    .style('stroke', '#000')
+    .style('lineWidth', 0.5)
+    .style('fillOpacity', 0.8);
+
+  return chart.render().node();
+})();
+```
+
+### 面积颜色对比
+
+通过两个面积之间的 diff，并赋予不同的颜色，让图形更加容易关注到之间的差别。这里使用`纽约`和`旧金山`的气温情况进行对比，如果纽约的气温高于旧金山，则显示为绿色，否则为红色。
+
+```js | dom "pin: false"
+weather = genji.fetchJSON(
+  'https://assets.antv.antgroup.com/g2/weather.json',
+).then(data => data.map(d => Object.assign({}, d, { date: new Date(d.date) })));
+```
+
+```js
+(() => {
+  const chart = new G2.Chart({ width: 800 });
+
+  chart.data(weather);
+
+  chart
+    .area()
+    .data({
+      transform: [{
+        type: 'fold',
+        fields: ['New York', 'San Francisco'],
+        as: ['city', 'temperature'],
+      }]
+    })
+    .transform([{ type: 'diffY' }]) // 对面积进行 diff 操作
+    .encode('x', 'date')
+    .encode('y', 'temperature')
+    .encode('color', 'city')
+    .encode('shape', 'step')
+    .scale('color', { range: ['#67a9cf', '#ef8a62'] });
+
+  chart
+    .line()
+    .encode('x', 'date')
+    .encode('y', 'San Francisco')
+    .encode('shape', 'hvh')
+    .style('stroke', '#000');
+
+  return chart.render().node();
+})();
+```
 
 ## FAQ
