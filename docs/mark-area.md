@@ -64,8 +64,9 @@ shape = 'smooth';
     .encode('y', 'unemployed')
     .encode('color', 'industry')
     .encode('shape', shape)
-    .scale('x', { field: 'Date', utc: true })
-    .scale('y', { guide: { formatter: (d) => `${+d / 1000}k` } });
+    .scale('x', { utc: true })
+    .axis('x', { title: 'Date' })
+    .axis('y', { tickFormatter: '~s' });
   return chart.render().node();
 })()
 ```
@@ -88,8 +89,10 @@ shape = 'smooth';
     .encode('y', 'unemployed')
     .encode('color', 'industry')
     .encode('shape', shape)
-    .scale('x', { field: 'Date', utc: true })
-    .scale('y', { guide: { formatter: (d) => `${+d / 1000}k` } });
+    .scale('x', { utc: true })
+    .axis('x', { title: 'Date' })
+    .axis('y', { tickFormatter: '~s' });
+
   return chart.render().node();
 })()
 ```
@@ -112,8 +115,10 @@ shape = 'smooth';
     .encode('y', 'unemployed')
     .encode('color', 'industry')
     .encode('shape', shape)
-    .scale('x', { field: 'Date', utc: true })
-    .scale('y', { guide: { formatter: (d) => `${+d / 1000}k` } });
+    .scale('x', { utc: true })
+    .axis('x', { title: 'Date' })
+    .axis('y', { tickFormatter: '~s' });
+
   return chart.render().node();
 })()
 ```
@@ -136,8 +141,10 @@ shape = 'smooth';
     .encode('y', 'unemployed')
     .encode('color', 'industry')
     .encode('shape', shape)
-    .scale('x', { field: 'Date', utc: true })
-    .scale('y', { guide: { formatter: (d) => `${+d / 1000}k` } });
+    .scale('x', { utc: true })
+    .axis('x', { title: 'Date' })
+    .axis('y', { tickFormatter: '~s' });
+
   return chart.render().node();
 })()
 ```
