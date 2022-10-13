@@ -218,7 +218,7 @@ import {
   Arc as ArcTransform,
   WordCloud,
 } from '../../../src/data';
-import { HideOverlap, DodgeY } from '../../../src/labelTransform';
+import { HideOverlap, DodgeY } from '../../../src/label-transform';
 
 describe('stdlib', () => {
   it('createLibrary() should returns expected builtin', () => {
