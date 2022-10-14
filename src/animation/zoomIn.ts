@@ -5,11 +5,31 @@ import { effectTiming } from './utils';
 export type ZoomInOptions = Animation;
 
 export const ZoomIn: AC<ZoomInOptions> = (options) => {
+  // Small enough to hide or show very small part of mark,
+  // but bigger enough to not cause bug.
+  const ZERO = 0.0001;
+
   return (from, to, value, coordinate, defaults) => {
     const [shape] = from;
+    const {
+      transform: prefix,
+      fillOpacity,
+      strokeOpacity,
+      opacity,
+    } = shape.style;
     const keyframes = [
-      { transform: 'scale(0.1)', fillOpacity: 0, strokeOpacity: 0, opacity: 0 },
-      { transform: 'scale(1)' },
+      {
+        transform: `${prefix} scale(${ZERO})`.trimStart(),
+        fillOpacity: 0,
+        strokeOpacity: 0,
+        opacity: 0,
+      },
+      {
+        transform: `${prefix} scale(1)`.trimStart(),
+        fillOpacity,
+        strokeOpacity,
+        opacity,
+      },
     ];
     const { width, height } = shape.getBoundingClientRect();
     // Change transform origin for correct transform.

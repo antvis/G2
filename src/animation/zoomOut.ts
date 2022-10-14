@@ -5,11 +5,21 @@ import { effectTiming } from './utils';
 export type ZoomOutOptions = Animation;
 
 export const ZoomOut: AC<ZoomOutOptions> = (options) => {
+  // Small enough to hide or show very small part of mark,
+  // but bigger enough to not cause bug.
+  const ZERO = 0.0001;
+
   return (from, to, value, coordinate, defaults) => {
     const [shape] = from;
+    const { transform: prefix } = shape.style;
     const keyframes = [
-      { transform: 'scale(1)' },
-      { transform: 'scale(0.1)', fillOpacity: 0, strokeOpacity: 0, opacity: 0 },
+      { transform: `${prefix} scale(1)`.trimStart() },
+      {
+        transform: `${prefix} scale(${ZERO})`.trimStart(),
+        fillOpacity: 0,
+        strokeOpacity: 0,
+        opacity: 0,
+      },
     ];
 
     const { width, height } = shape.getBoundingClientRect();
