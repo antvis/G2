@@ -8,12 +8,8 @@ export const ZoomIn: AC<ZoomInOptions> = (options) => {
   return (from, to, value, coordinate, defaults) => {
     const [shape] = from;
     const keyframes = [
-      {
-        transform: 'scale(0.1)',
-      },
-      {
-        transform: 'scale(1)',
-      },
+      { transform: 'scale(0.1)', fillOpacity: 0, strokeOpacity: 0, opacity: 0 },
+      { transform: 'scale(1)' },
     ];
     const { width, height } = shape.getBoundingClientRect();
     // Change transform origin for correct transform.

@@ -8,12 +8,8 @@ export const ZoomOut: AC<ZoomOutOptions> = (options) => {
   return (from, to, value, coordinate, defaults) => {
     const [shape] = from;
     const keyframes = [
-      {
-        transform: 'scale(1)',
-      },
-      {
-        transform: 'scale(0)',
-      },
+      { transform: 'scale(1)' },
+      { transform: 'scale(0.1)', fillOpacity: 0, strokeOpacity: 0, opacity: 0 },
     ];
 
     const { width, height } = shape.getBoundingClientRect();
