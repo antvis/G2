@@ -1,35 +1,27 @@
 # Animation
 
-## TimeEffect
+在 G2 中，我们提供了 3 种动画场景类型：
 
-```js
-(() => {
-  const chart = new G2.Chart();
+- enter: 入场动画
+- update: 更新动画
+- exit: 出场动画
 
-  chart
-    .interval()
-    .data([
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
-    ])
-    .encode('x', 'genre')
-    .encode('y', 'sold')
-    .encode('color', 'genre')
-    .animate('enter', {
-      duration: 1000, //  Specify effect time by animate options.
-      delay: 300,
-    });
+除了可以通过如下方式为图形配置动画之外，还可以对动画属性进行数据编码。
 
-  return chart.render().node();
-})();
+```markdown
+// 配置入场动画，其他动画场景类型相同
+mark.animate('enter', {
+  type: 'fadeIn', // 动画类型
+  easing: 'easeQuadIn', // 动画缓动效果
+  delay: 100, // 动画延迟执行时间
+  duration: 600 // 动画执行时间
+})
 ```
 
-## Animation Type
+## 动画类型
 
-### FadeIn
+### FadeIn & FadeOut
+
 ```js
 (() => {
   const chart = new G2.Chart();
@@ -56,6 +48,7 @@
 ```
 
 ### WaveIn
+
 ```js
 (() => {
   const chart = new G2.Chart({ height: 640 });
@@ -88,13 +81,123 @@
     .animate('enter', {
       type: 'waveIn',
       duration: 2000,
-  	});
+    });
 
   return chart.render().node();
 })();
 ```
 
-## Encode EnterType
+### ScaleInX & ScaleOutX
+
+```js
+(() => {
+  const chart = new G2.Chart();
+
+  chart
+    .interval()
+    .data([
+      { genre: 'Sports', sold: 275 },
+      { genre: 'Strategy', sold: 115 },
+      { genre: 'Action', sold: 120 },
+      { genre: 'Shooter', sold: 350 },
+      { genre: 'Other', sold: 150 },
+    ])
+    .encode('x', 'genre')
+    .encode('y', 'sold')
+    .encode('color', 'genre')
+    .animate('enter', {
+      type: 'scaleInX', //  Specify animation type.
+      duration: 2000,
+    });
+
+  return chart.render().node();
+})();
+```
+
+### ScaleInY & ScaleOutY
+
+```js
+(() => {
+  const chart = new G2.Chart();
+
+  chart
+    .interval()
+    .data([
+      { genre: 'Sports', sold: 275 },
+      { genre: 'Strategy', sold: 115 },
+      { genre: 'Action', sold: 120 },
+      { genre: 'Shooter', sold: 350 },
+      { genre: 'Other', sold: 150 },
+    ])
+    .encode('x', 'genre')
+    .encode('y', 'sold')
+    .encode('color', 'genre')
+    .animate('enter', {
+      type: 'scaleInY', //  Specify animation type.
+      duration: 2000,
+    });
+
+  return chart.render().node();
+})();
+```
+
+### ZoomIn & ZoomOut
+
+```js
+(() => {
+  const chart = new G2.Chart();
+
+  chart
+    .interval()
+    .data([
+      { genre: 'Sports', sold: 275 },
+      { genre: 'Strategy', sold: 115 },
+      { genre: 'Action', sold: 120 },
+      { genre: 'Shooter', sold: 350 },
+      { genre: 'Other', sold: 150 },
+    ])
+    .encode('x', 'genre')
+    .encode('y', 'sold')
+    .encode('color', 'genre')
+    .animate('enter', {
+      type: 'zoomIn', //  Specify animation type.
+      duration: 2000,
+    });
+
+  return chart.render().node();
+})();
+```
+
+## 动画参数
+
+```js
+(() => {
+  const chart = new G2.Chart();
+
+  chart
+    .interval()
+    .data([
+      { genre: 'Sports', sold: 275 },
+      { genre: 'Strategy', sold: 115 },
+      { genre: 'Action', sold: 120 },
+      { genre: 'Shooter', sold: 350 },
+      { genre: 'Other', sold: 150 },
+    ])
+    .encode('x', 'genre')
+    .encode('y', 'sold')
+    .encode('color', 'genre')
+    .animate('enter', {
+      duration: 1000, //  Specify effect time by animate options.
+      delay: 300,
+    });
+
+  return chart.render().node();
+})();
+```
+
+## 编码动画属性
+
+### Encode EnterType
 
 ```js
 (() => {
@@ -144,7 +247,7 @@
 })();
 ```
 
-## Encode EnterDelay and EnterDuration
+### Encode EnterDelay and EnterDuration
 
 ```js
 (() => {

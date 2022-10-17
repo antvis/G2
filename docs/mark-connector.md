@@ -24,12 +24,12 @@
   chart
     .connector()
     .data([
-      { x1: 'Strategy', x2: 'Action', y1: 115, y2: 120 },
-      { x1: 'Other', x2: 'Shooter', y1: 350, y2: 150 },
+      { x1: 'Sports', x2: 'Strategy', y1: 275, y2: 115 },
     ])
     .encode('x', ['x1', 'x2'])
     .encode('y', ['y1', 'y2'])
-    .style('stroke', '#979797');
+    .style('stroke', '#979797')
+    .label({ text: '下降 58.18%', dy: -15 })
 
   return chart.render().node();
 })();
