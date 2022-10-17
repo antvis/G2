@@ -6,6 +6,8 @@ export { FadeIn } from './fadeIn';
 export { FadeOut } from './fadeOut';
 export { Morphing } from './morphing';
 export { WaveIn } from './waveIn';
+export { ZoomIn } from './zoomIn';
+export { ZoomOut } from './zoomOut';
 
 export type { ScaleInXOptions } from './scaleInX';
 export type { ScaleOutXOptions } from './scaleOutX';
