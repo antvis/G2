@@ -1,4 +1,3 @@
-import { Linear } from '@antv/scale';
 import { G2Spec } from '../../../src';
 
 export function penguinsPointSquare(): G2Spec {
