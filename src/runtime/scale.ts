@@ -194,8 +194,9 @@ function inferScaleType(
 ): string | ScaleComponent {
   const { scale, name, value, visual } = channel;
   const { type, domain, range } = options;
-  if (visual) return 'identity';
   if (type !== undefined) return type;
+  // The priority of visual is higher than default scale type.
+  if (visual) return 'identity';
   if (scale !== undefined) return scale;
   if (isObject(value)) return 'identity';
   if (typeof range === 'string') return 'linear';

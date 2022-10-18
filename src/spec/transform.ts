@@ -20,6 +20,7 @@ export type Transform =
   | SortYTransform
   | SortColorTransform
   | GroupTransform
+  | PackTransform
   | FlexXTransform;
 
 export type TransformTypes =
@@ -42,6 +43,7 @@ export type TransformTypes =
   | 'sortColor'
   | 'sortY'
   | 'flexX'
+  | 'Pack'
   | TransformComponent;
 
 export type TransformOrder =
@@ -152,6 +154,8 @@ export type SortColorTransform = {
     | 'sum'
     | 'first'
     | 'last'
+    | 'mean'
+    | 'median'
     | ((I: number[], V: Primitive[]) => Primitive);
 };
 
@@ -166,6 +170,8 @@ export type SortXTransform = {
     | 'sum'
     | 'first'
     | 'last'
+    | 'mean'
+    | 'median'
     | ((I: number[], V: Primitive[]) => Primitive);
 };
 
@@ -180,6 +186,8 @@ export type SortYTransform = {
     | 'sum'
     | 'first'
     | 'last'
+    | 'mean'
+    | 'median'
     | ((I: number[], V: Primitive[]) => Primitive);
 };
 
@@ -188,6 +196,10 @@ export type FlexXTransform = {
   field?: string | ((d: any) => Primitive[]);
   channel?: string;
   reducer?: 'sum' | ((I: number[], V: Primitive[]) => Primitive);
+};
+
+export type PackTransform = {
+  type?: 'pack';
 };
 
 export type Reducer =

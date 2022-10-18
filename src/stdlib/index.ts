@@ -166,7 +166,6 @@ import {
   Circle,
   Keyframe,
 } from '../composition';
-import { Pack } from '../adjust';
 import {
   MaybeTitleX,
   MaybeTooltipY,
@@ -202,6 +201,7 @@ import {
   GroupY,
   GroupColor,
   SortColor,
+  Pack,
 } from '../transform';
 import {
   Fetch,
@@ -274,6 +274,7 @@ export function createLibrary(): G2Library {
     'transform.maybeTupleX': MaybeTupleX,
     'transform.maybeIdentityY': MaybeIdentityY,
     'transform.maybeIdentityX': MaybeIdentityX,
+    'transform.pack': Pack,
     'coordinate.cartesian': Cartesian,
     'coordinate.polar': Polar,
     'coordinate.helix': Helix,
@@ -434,7 +435,6 @@ export function createLibrary(): G2Library {
     'composition.matrix': Matrix,
     'composition.circle': Circle,
     'composition.keyframe': Keyframe,
-    'adjust.pack': Pack,
     'labelTransform.hideOverlap': HideOverlap,
     'labelTransform.dodgeY': DodgeY,
   };
