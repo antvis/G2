@@ -9,7 +9,7 @@ export type ValueAttribute<V, N> = <T extends V>(
 ) => Chainable<T, V, N>;
 
 export type ObjectAttribute<V, N> = <T extends ValueOf<V>>(
-  key: V | keyof V,
+  key?: V | keyof V,
   value?: T,
 ) => Chainable<T, V, N>;
 

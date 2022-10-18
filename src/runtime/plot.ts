@@ -12,6 +12,7 @@ import {
   compose,
 } from '../utils/helper';
 import { Selection, select, G2Element } from '../utils/selection';
+import { emitEvent, CHART_LIFE_CIRCLE } from '../utils/event';
 import {
   G2ViewTree,
   G2View,
@@ -153,6 +154,9 @@ export async function plot<T extends G2ViewTree>(
     }
   }
 
+  const { on } = options;
+  emitEvent(on, CHART_LIFE_CIRCLE.BEFORE_PAINT);
+
   // Plot chart.
   const viewContainer = new Map<G2ViewDescriptor, DisplayObject>();
   const transitions: Promise<void>[] = [];
@@ -215,6 +219,8 @@ export async function plot<T extends G2ViewTree>(
     });
     transitions.push(keyframe);
   }
+
+  emitEvent(on, CHART_LIFE_CIRCLE.AFTER_PAINT);
 
   // Note!!!
   // The returned promise will never resolved if one of nodeGenerator

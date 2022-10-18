@@ -299,7 +299,7 @@ describe('Chart', () => {
   it('chart.render({...}) should rerender chart with updated data', () => {
     const div = createDiv();
     const button = document.createElement('button');
-    button.innerText = 'Update';
+    button.innerText = 'Update Data';
     div.appendChild(button);
 
     const chart = new Chart({
@@ -313,24 +313,127 @@ describe('Chart', () => {
       { genre: 'Shooter', sold: 350 },
       { genre: 'Other', sold: 150 },
     ]);
-
-    chart
+    const interval = chart
       .interval()
       .encode('x', 'genre')
       .encode('y', 'sold')
       .encode('color', 'genre');
 
     chart.render();
-
     button.onclick = () => {
-      chart.data([
+      interval.changeData([
         { genre: 'Action', sold: 120 },
         { genre: 'Shooter', sold: 350 },
         { genre: 'Other', sold: 150 },
         { genre: 'Sports', sold: 275 },
         { genre: 'Strategy', sold: 115 },
       ]);
-      chart.render();
     };
   });
+});
+
+it('chart.render({...}) should rerender chart with updated size', () => {
+  const div = createDiv();
+  const button = document.createElement('button');
+  button.innerText = 'Update Size';
+  div.appendChild(button);
+
+  const chart = new Chart({
+    container: div,
+    width: 300,
+    height: 600,
+  });
+
+  chart.data([
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ]);
+
+  chart
+    .interval()
+    .encode('x', 'genre')
+    .encode('y', 'sold')
+    .encode('color', 'genre');
+
+  chart.render();
+  button.onclick = () => {
+    chart.changeSize(200, 400);
+  };
+});
+
+it('chart.render({...}) should render with autoFit.', () => {
+  const div = createDiv();
+
+  // button
+  const button = document.createElement('button');
+  button.innerText = 'Change Wrapper Container';
+  div.appendChild(button);
+
+  // wrapperDiv
+  const wrapperDiv = document.createElement('div');
+  wrapperDiv.style.width = '800px';
+  wrapperDiv.style.height = '500px';
+  div.appendChild(wrapperDiv);
+
+  const chart = new Chart({
+    container: wrapperDiv,
+    autoFit: true,
+  });
+
+  chart.data([
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ]);
+
+  chart
+    .interval()
+    .encode('x', 'genre')
+    .encode('y', 'sold')
+    .encode('color', 'genre');
+
+  chart.render();
+
+  button.onclick = () => {
+    wrapperDiv.style.width = '400px';
+    wrapperDiv.style.height = '500px';
+    chart.forceFit();
+  };
+});
+
+it('chart.on({...}) should register chart event.', () => {
+  const div = createDiv();
+
+  const chart = new Chart({
+    container: div,
+  });
+
+  // 1. chart.on('eventName', callback)
+  chart.on('afterrender', () => console.log('afterrender event.'));
+  // 2. chart.on('eventName', [callback])
+  chart.on('beforerender', [
+    () => console.log('beforerender event 1'),
+    () => console.log('beforerender event 2'),
+  ]);
+  chart.data([
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ]);
+
+  chart
+    .interval()
+    .encode('x', 'genre')
+    .encode('y', 'sold')
+    .encode('color', 'genre');
+
+  chart.render();
+  console.log(chart.on());
 });

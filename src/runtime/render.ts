@@ -1,9 +1,11 @@
 import { Canvas as GCanvas } from '@antv/g';
 import { Renderer as CanvasRenderer } from '@antv/g-canvas';
 import { Plugin as DragAndDropPlugin } from '@antv/g-plugin-dragndrop';
-import { deepMix } from '@antv/util';
+import { debounce, deepMix } from '@antv/util';
 import { createLibrary } from '../stdlib';
 import { select } from '../utils/selection';
+import { emitEvent, CHART_LIFE_CIRCLE, offEvent } from '../utils/event';
+import { getChartSize } from '../utils/size';
 import { G2Context, G2ViewTree } from './types/options';
 import { plot } from './plot';
 
@@ -62,25 +64,94 @@ export function render<T extends G2ViewTree = G2ViewTree>(
   callback?: () => void,
 ): HTMLElement {
   // Initialize the context if it is not provided.
-  const { width = 640, height = 480 } = options;
+  const { width = 640, height = 480, autoFit = false, on } = options;
   const keyed = inferKeys(options);
   const { canvas = Canvas(width, height), library = createLibrary() } = context;
   context.canvas = canvas;
   context.library = library;
+
+  if (autoFit && !context.bindAutoFit) {
+    // Bind the autoFit event once.
+    bindAutoFit(options, context);
+    context.bindAutoFit = true;
+  }
+
+  canvas.resize(width, height);
+
+  emitEvent(on, CHART_LIFE_CIRCLE.BEFORE_RENDER);
 
   // Plot the chart and mutate context.
   // Make sure that plot chart after container is ready for every time.
   const selection = select(canvas.document.documentElement);
   canvas.ready
     .then(() => plot<T>({ ...keyed, width, height }, selection, library))
-    .then(callback);
+    .then(callback)
+    .then(() => emitEvent(on, CHART_LIFE_CIRCLE.AFTER_RENDER));
 
   // Return the container HTML element wraps the canvas or svg element.
   return normalizeContainer(canvas.getConfig().container);
+}
+
+export function destroy<T extends G2ViewTree = G2ViewTree>(
+  options: T,
+  context: G2Context = {},
+) {
+  const { on } = options;
+  const { canvas } = context;
+  if (canvas) {
+    canvas.destroy();
+  }
+
+  // Unbind chart events.
+  bindAutoFit(options, context);
+  offEvent(on);
 }
 
 function normalizeContainer(container: HTMLElement | string): HTMLElement {
   return typeof container === 'string'
     ? document.getElementById(container)
     : container;
+}
+
+const onResize = <T extends G2ViewTree = G2ViewTree>(
+  options: T,
+  context: G2Context = {},
+) =>
+  debounce(() => {
+    // Update size.
+    const { width, height, autoFit } = options;
+    const { canvas } = context;
+    const container = canvas.getConfig().container as HTMLElement;
+    const { width: adjustedWidth, height: adjustedHeight } = getChartSize(
+      container,
+      autoFit,
+      width,
+      height,
+    );
+    const newOptions = {
+      ...options,
+      width: adjustedWidth,
+      height: adjustedHeight,
+    };
+    render(newOptions, context);
+  }, 300);
+
+function bindAutoFit<T extends G2ViewTree = G2ViewTree>(
+  options: T,
+  context: G2Context = {},
+) {
+  const { autoFit } = options;
+  if (autoFit) {
+    window.addEventListener('resize', onResize(options, context));
+  }
+}
+
+function unbindAutoFit<T extends G2ViewTree = G2ViewTree>(
+  options: T,
+  context: G2Context = {},
+) {
+  const { autoFit } = options;
+  if (autoFit) {
+    window.removeEventListener('resize', onResize(options, context));
+  }
 }
