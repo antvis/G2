@@ -346,7 +346,7 @@ function getGridItems(
 }
 
 function titleContent(field: string | string[]): string {
-  return Array.isArray(field) ? field.join(', ') : '' + field;
+  return Array.isArray(field) ? field.join(', ') : `${field}`;
 }
 
 const ArcAxis = (options) => {
