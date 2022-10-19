@@ -44,7 +44,6 @@ export const Color: SC<ColorOptions> = (options) => {
   // Render border only when colorAttribute is stroke.
   const { colorAttribute, symbol, mode = 'auto', ...style } = options;
   const path = Symbols[symbol] || Symbols.point;
-
   return (points, value, coordinate, theme) => {
     const { mark, shape, defaultShape } = value;
     const {
@@ -61,8 +60,8 @@ export const Color: SC<ColorOptions> = (options) => {
       .call(applyStyle, defaults)
       .style('d', path(cx, cy, finalRadius))
       .style('lineWidth', finalLineWidth)
-      .style('stroke', color)
       .style('transform', transform)
+      .style('stroke', color)
       .style(colorAttribute, color)
       .call(applyStyle, style)
       .node();

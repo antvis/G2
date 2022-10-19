@@ -166,7 +166,6 @@ import {
   Circle,
   Keyframe,
 } from '../../../src/composition';
-import { Pack } from '../../../src/adjust';
 import {
   MaybeTitleX,
   MaybeTooltipY,
@@ -202,6 +201,7 @@ import {
   Group,
   GroupY,
   GroupColor,
+  Pack,
 } from '../../../src/transform';
 import {
   Fetch,
@@ -275,6 +275,7 @@ describe('stdlib', () => {
       'transform.maybeIdentityY': MaybeIdentityY,
       'transform.maybeIdentityX': MaybeIdentityX,
       'transform.maybeZeroPadding': MaybeZeroPadding,
+      'transform.pack': Pack,
       'coordinate.cartesian': Cartesian,
       'coordinate.polar': Polar,
       'coordinate.helix': Helix,
@@ -435,7 +436,6 @@ describe('stdlib', () => {
       'composition.matrix': Matrix,
       'composition.circle': Circle,
       'composition.keyframe': Keyframe,
-      'adjust.pack': Pack,
       'labelTransform.hideOverlap': HideOverlap,
       'labelTransform.dodgeY': DodgeY,
     });

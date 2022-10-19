@@ -304,10 +304,6 @@ function initializeState(
     'scale',
     library,
   );
-  const [useAdjust] = useLibrary<G2AdjustOptions, AdjustComponent, Adjust>(
-    'adjust',
-    library,
-  );
   const [useTheme] = useLibrary<G2ThemeOptions, ThemeComponent, Theme>(
     'theme',
     library,
@@ -340,9 +336,7 @@ function initializeState(
       // The total count of data (both show and hide)for this facet.
       // This is for unit visualization to sync data domain.
       dataDomain,
-      // @ts-ignore
-      // @todo Remove this when change adjust to transform.
-      adjust,
+      modifier,
     } = mark;
     const { index, channels } = state;
 
@@ -363,7 +357,7 @@ function initializeState(
       calcPoints(index, markScaleInstance, value, coordinate),
     );
     const count = dataDomain || I.length;
-    const T = adjust ? useAdjust(adjust)(P, count, layout) : [];
+    const T = modifier ? modifier(P, count, layout) : [];
     const visualData: Record<string, any>[] = I.map((d, i) => {
       const datum = { points: P[i], transform: T[i], index: d };
       for (const [k, V] of Object.entries(value)) {

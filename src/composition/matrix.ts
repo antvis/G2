@@ -57,27 +57,22 @@ const setChildren = useOverrideAdaptor<G2ViewTree>((options) => {
       const facet = facets[i];
       const children = normalizedChildren[i];
       return children.map((d) => {
-        const { scale, key, encode, ...rest } = d;
+        const { scale, key, encode, axis, ...rest } = d;
         const guideY = scale?.y?.guide;
         const guideX = scale?.x?.guide;
         const defaultScale = {
-          color: { guide: null },
-          x: {
-            guide: { title: { titleAnchor: 'center' } },
-            tickCount: 5,
-            // Do not sync position scales among facets by default.
-            facet: false,
-          },
-          y: {
-            guide: { title: { titleAnchor: 'center' } },
-            // Do not sync position scales among facets by default.
-            tickCount: 5,
-            facet: false,
-          },
+          // Do not sync position scales among facets by default.
+          x: { facet: false },
+          // Do not sync position scales among facets by default.
+          y: { facet: false },
         };
-        const newScale = {
-          x: { guide: createGuideX(guideX)(facet, data) },
-          y: { guide: createGuideY(guideY)(facet, data) },
+        const newAxis = {
+          x: createGuideX(guideX)(facet, data),
+          y: createGuideY(guideY)(facet, data),
+        };
+        const defaultAxis = {
+          x: { titleAnchor: 'center', titleTextAnchor: 'center', tickCount: 5 },
+          y: { titleAnchor: 'center', titleTextAnchor: 'center', tickCount: 5 },
         };
         return {
           data,
@@ -91,7 +86,11 @@ const setChildren = useOverrideAdaptor<G2ViewTree>((options) => {
           paddingTop: 0,
           paddingBottom: 0,
           frame: true,
-          scale: deepMix(defaultScale, scale, newScale),
+          scale: deepMix(defaultScale, scale),
+          axis: deepMix(defaultAxis, axis, newAxis),
+          // Hide all legends for child mark by default,
+          // they are displayed in the top-level.
+          legend: false,
           encode: deepMix({}, encode, {
             x: fx,
             y: fy,
@@ -109,7 +108,7 @@ const setChildren = useOverrideAdaptor<G2ViewTree>((options) => {
 /**
  * @todo Use transform instead of override data directly.
  */
-const setData = (options: G2ViewTree) => {
+const setData = useOverrideAdaptor<G2ViewTree>((options: G2ViewTree) => {
   const { encode, ...rest } = options;
   const {
     position: P = [],
@@ -127,8 +126,12 @@ const setData = (options: G2ViewTree) => {
     ...rest,
     data,
     encode: { ...restEncode, x: '$x', y: '$y' },
+    scale: {
+      ...([X].flat(1).length === 1 && { x: { paddingInner: 0 } }),
+      ...([Y].flat(1).length === 1 && { y: { paddingInner: 0 } }),
+    },
   };
-};
+});
 
 function createGuideX(guideX) {
   if (typeof guideX === 'function') return guideX;

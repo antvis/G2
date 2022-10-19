@@ -23,13 +23,13 @@ export const Color: SC<ColorOptions> = (options) => {
 
   return (points, value, coordinate, theme) => {
     const { mark, shape, defaultShape } = value;
-    const { [colorAttribute]: defaultColor, ...shapeTheme } = getShapeTheme(
+    const { [colorAttribute]: defaultColor, ...defaults } = getShapeTheme(
       theme,
       mark,
       shape,
       defaultShape,
     );
-    const defaultLineWidth = shapeTheme.lineWidth || 1;
+    const defaultLineWidth = defaults.lineWidth || 1;
     const {
       stroke,
       radius = 0,
@@ -64,13 +64,12 @@ export const Color: SC<ColorOptions> = (options) => {
       const finalHeight = absHeight - (insetTop + insetBottom);
 
       return select(new Rect({}))
-        .call(applyStyle, shapeTheme)
+        .call(applyStyle, defaults)
         .style('lineWidth', lineWidth)
         .style('x', finalX)
         .style('y', finalY)
         .style('width', finalWidth)
         .style('height', finalHeight)
-        .style('stroke', color)
         .style('stroke', color || stroke)
         .style(colorAttribute, color)
         .style('radius', [
@@ -92,7 +91,7 @@ export const Color: SC<ColorOptions> = (options) => {
       .padAngle((inset * Math.PI) / 180);
 
     return select(new Path({}))
-      .call(applyStyle, shapeTheme)
+      .call(applyStyle, defaults)
       .style('path', path(arcObject))
       .style('transform', `translate(${center[0]}, ${center[1]})`)
       .style('stroke', color || stroke)
