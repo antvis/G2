@@ -346,7 +346,7 @@ function getGridItems(
 }
 
 function titleContent(field: string | string[]): string {
-  return Array.isArray(field) ? field.join(', ') : field;
+  return Array.isArray(field) ? field.join(', ') : `${field}`;
 }
 
 const ArcAxis = (options) => {
@@ -436,6 +436,7 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
     tickCount,
     tickFilter,
     tickMethod,
+    titleAnchor,
     ...rest
   } = options;
   return (scale, value, coordinate, theme) => {
@@ -449,10 +450,10 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
       titleRotate,
       verticalFactor,
       titleOffsetY,
-      label = true,
       labelAlign,
       axisLine,
-      tickLine = true,
+      label = options.label === undefined ? true : options.label,
+      tickLine = options.tickLine === undefined ? true : options.tickLine,
     } = inferPosition(position, direction, bbox, coordinate);
     const ticks = getTicks(
       scale,
@@ -521,7 +522,8 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
         ...(title && {
           title: {
             content: titleContent(title),
-            titleAnchor: anchor,
+            // content: 'a',
+            titleAnchor: titleAnchor || anchor,
             style: {
               fontWeight: 'bold',
               fillOpacity: 1,

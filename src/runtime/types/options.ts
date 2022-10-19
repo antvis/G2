@@ -92,6 +92,7 @@ export type G2Mark = {
   filter?: (i: number) => boolean;
   children?: G2MarkChildrenCallback;
   dataDomain?: number;
+  modifier?: any;
   frame?: boolean;
   style?: Record<string, Primitive>;
   labels?: Record<string, any>[];

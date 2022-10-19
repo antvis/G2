@@ -94,6 +94,11 @@ describe('light', () => {
           fill: DEFAULT_COLOR,
           fillOpacity: 0.95,
         },
+        hollow: {
+          stroke: DEFAULT_COLOR,
+          strokeOpacity: 1,
+          lineWidth: 2,
+        },
       },
       link: {
         link: {

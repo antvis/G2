@@ -31,6 +31,7 @@ const setScale = useDefaultAdaptor<G2ViewTree>((options) => {
     scale: {
       x: {
         paddingOuter: 0,
+        paddingInner: 0.1,
         guide: x === undefined ? null : { position: 'top' },
         ...(x === undefined && { paddingInner: 0 }),
         ...flexDomain(x, 'x'),
@@ -38,6 +39,7 @@ const setScale = useDefaultAdaptor<G2ViewTree>((options) => {
       y: {
         range: [0, 1],
         paddingOuter: 0,
+        paddingInner: 0.1,
         guide: y === undefined ? null : { position: 'right' },
         ...(y === undefined && { paddingInner: 0 }),
         ...flexDomain(y, 'y'),
@@ -60,23 +62,20 @@ export const inferColor = useDefaultAdaptor<G2ViewTree>(
     const discovered = [options];
     let encodeColor;
     let scaleColor;
+    let legendColor;
     while (discovered.length) {
       const node = discovered.shift();
-      const { children, encode = {}, scale = {} } = node;
+      const { children, encode = {}, scale = {}, legend = {} } = node;
       const { color: c } = encode;
       const { color: cs } = scale;
+      const { color: cl } = legend;
       if (c !== undefined) encodeColor = c;
       if (cs !== undefined) scaleColor = cs;
+      if (cl !== undefined) legendColor = cl;
       if (Array.isArray(children)) {
         discovered.push(...children);
       }
     }
-
-    // Set guide of color scale to null to avoid legend
-    // for mark scale.
-    // @todo Maybe make it optional?
-    const topLevelScaleColor = { ...scaleColor };
-    if (scaleColor) scaleColor.guide = null;
 
     const domainColor = () => {
       const domain = scale?.color?.domain;
@@ -84,18 +83,20 @@ export const inferColor = useDefaultAdaptor<G2ViewTree>(
       if (encodeColor === undefined) return undefined;
       return Array.from(new Set(data.map((d) => d[encodeColor])));
     };
-
     return {
       encode: {
         color: encodeColor,
       },
       scale: {
-        color: deepMix({}, topLevelScaleColor, {
+        color: deepMix({}, scaleColor, {
           domain: domainColor(),
           field: encodeColor,
           // @todo Remove this when pass columnOf to extract color.
           type: 'ordinal',
         }),
+      },
+      legend: {
+        color: deepMix({}, legendColor),
       },
     };
   },
@@ -226,20 +227,31 @@ export const setChildren = useOverrideAdaptor<G2ViewTree>(
         const facetData = facetData2d[i];
         const children = normalizedChildren[i];
         return children.map(
-          ({ scale, key, facet: isFacet = true, ...rest }) => {
+          ({
+            scale,
+            key,
+            facet: isFacet = true,
+            axis = {},
+            legend = {},
+            ...rest
+          }) => {
             const guideY = scale?.y?.guide;
             const guideX = scale?.x?.guide;
             const defaultScale = {
               x: { tickCount: encodeX ? 5 : undefined },
               y: { tickCount: encodeY ? 5 : undefined },
             };
-            const newData = isFacet ? facetData : data;
+            const newData = isFacet
+              ? facetData
+              : facetData.length === 0
+              ? []
+              : data;
             const newScale = {
-              x: { guide: createGuide(guideX, createGuideX)(facet, newData) },
-              y: { guide: createGuide(guideY, createGuideY)(facet, newData) },
-              // Hide all legends for child mark by default,
-              // they are displayed in the top-level.
-              color: { guide: null, domain: facetDomainColor },
+              color: { domain: facetDomainColor },
+            };
+            const newAxis = {
+              x: createGuide(guideX, createGuideX)(facet, newData),
+              y: createGuide(guideY, createGuideY)(facet, newData),
             };
             return {
               key: `${key}-${i}`,
@@ -255,6 +267,10 @@ export const setChildren = useOverrideAdaptor<G2ViewTree>(
               frame: newData.length ? true : false,
               dataDomain: maxDataDomain,
               scale: deepMix(defaultScale, scale, newScale),
+              axis: deepMix({}, axis, newAxis),
+              // Hide all legends for child mark by default,
+              // they are displayed in the top-level.
+              legend: false,
               ...rest,
               ...childOptions,
             };
@@ -274,15 +290,30 @@ function subLayoutRect(data) {
 }
 
 /**
- * Inner guide not show title, tickLine, label and subTickLine, if data is empty, do not show guide.
+ * Inner guide not show title, tickLine, label and subTickLine,
+ * if data is empty, do not show guide.
  */
 export function createInnerGuide(guide, data) {
   return data.length
     ? deepMix(
-        { title: false, tickLine: null, label: null, subTickLine: null },
+        {
+          title: false,
+          tickLine: null,
+          label: null,
+          subTickLine: null,
+        },
         guide,
       )
-    : null;
+    : deepMix(
+        {
+          title: false,
+          tickLine: null,
+          label: null,
+          subTickLine: null,
+          grid: null,
+        },
+        guide,
+      );
 }
 
 function createGuideXRect(guide) {
@@ -294,9 +325,8 @@ function createGuideXRect(guide) {
     // Only the bottom-left facet show title.
     const title = columnIndex !== columnValuesLength - 1 ? false : undefined;
     // If data is empty, do not show cell.
-    const cell = data.length ? undefined : null;
-
-    return deepMix({ title, cell }, guide);
+    const grid = data.length ? undefined : null;
+    return deepMix({ title, grid }, guide);
   };
 }
 
@@ -308,8 +338,8 @@ function createGuideYRect(guide) {
     // Only the left-top facet show title.
     const title = rowIndex !== 0 ? false : undefined;
     // If data is empty, do not show cell.
-    const cell = data.length ? undefined : null;
-    return deepMix({ title, cell }, guide);
+    const grid = data.length ? undefined : null;
+    return deepMix({ title, grid }, guide);
   };
 }
 

@@ -1,7 +1,6 @@
 import { deepMix } from '@antv/util';
-import { Primitive, groupSort, max, min, sum } from 'd3-array';
+import { Primitive, groupSort, max, min, sum, mean, median } from 'd3-array';
 import { TransformComponent as TC } from '../runtime';
-
 import { columnOf } from './utils/helper';
 
 function createReducer(channel, options, encode): (I: number[]) => any {
@@ -11,6 +10,8 @@ function createReducer(channel, options, encode): (I: number[]) => any {
   if (reducer === 'max') return (GI: number[]) => max(GI, (i) => +V[i]);
   if (reducer === 'min') return (GI: number[]) => min(GI, (i) => +V[i]);
   if (reducer === 'sum') return (GI: number[]) => sum(GI, (i) => +V[i]);
+  if (reducer === 'median') return (GI: number[]) => median(GI, (i) => +V[i]);
+  if (reducer === 'mean') return (GI: number[]) => mean(GI, (i) => +V[i]);
   if (reducer === 'first') return (GI: number[]) => V[GI[0]];
   if (reducer === 'last') return (GI: number[]) => V[GI[GI.length - 1]];
   throw new Error(`Unknown reducer: ${reducer}`);
@@ -27,6 +28,8 @@ export type SortOptions = {
     | 'sum'
     | 'first'
     | 'last'
+    | 'mean'
+    | 'median'
     | ((I: number[], V: Primitive[]) => Primitive);
 };
 
