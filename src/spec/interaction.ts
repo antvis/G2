@@ -55,7 +55,7 @@ export type BrushVisibleInteraction = {
 
 export type ElementActiveInteraction = {
   type?: 'elementActive';
-  color?: string;
+  [key: string]: any;
 };
 
 export type ElementSelectedInteraction = {

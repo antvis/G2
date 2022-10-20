@@ -1,7 +1,7 @@
 export { createInteraction } from './create';
 export { createInteractionLibrary } from './stdlib';
 
-export { ElementActive } from './builtin/elementActive';
+export { ElementActive } from './native/elementActive';
 export { ElementSelected } from './builtin/elementSelected';
 export { Tooltip } from './builtin/tooltip';
 export { Fisheye } from './builtin/fisheye';
