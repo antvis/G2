@@ -2,7 +2,18 @@ import { Canvas } from '@antv/g';
 import { Renderer as CanvasRenderer } from '@antv/g-canvas';
 import { Renderer as SVGRenderer } from '@antv/g-svg';
 import { render } from '../../src';
-import * as tests from './charts';
+import * as charts from './charts';
+import * as interactions from './interactions';
+
+const tests = {
+  ...charts,
+  ...Object.fromEntries(
+    Object.entries(interactions).map(([key, value]) => [
+      `interaction-${key}`,
+      value,
+    ]),
+  ),
+};
 
 const renderers = {
   canvas: CanvasRenderer,
