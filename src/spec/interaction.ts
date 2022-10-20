@@ -55,6 +55,7 @@ export type BrushVisibleInteraction = {
 
 export type ElementActiveInteraction = {
   type?: 'elementActive';
+  // @todo: Style supported by G.
   [key: string]: any;
 };
 

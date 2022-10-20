@@ -12,11 +12,12 @@ function elementActive(
   } = {},
 ) {
   // Get elements by specified elements getter.
-  const _ = elements(root);
+  const elementSet = new Set(elements(root));
 
   // Active element and store original style.
   const active = (e) => {
     const element = e.target;
+    if (!elementSet.has(element)) return;
     const style0 = {};
     for (const [key, value] of Object.entries(style)) {
       style0[key] = element.getAttribute(key);
@@ -28,6 +29,7 @@ function elementActive(
   // Restore original style.
   const deactive = (e) => {
     const element = e.target;
+    if (!elementSet.has(element)) return;
     const style0 = store.get(element);
     for (const [key, value] of Object.entries(style0)) {
       element.setAttribute(key, value);
@@ -35,17 +37,19 @@ function elementActive(
     store.delete(element);
   };
 
-  for (const element of _) {
-    element.addEventListener('pointerenter', active);
-    element.addEventListener('pointerleave', deactive);
-  }
-  return root;
+  root.addEventListener('pointerover', active);
+  root.addEventListener('pointerout', deactive);
+
+  return () => {
+    root.removeEventListener('pointerover', active);
+    root.removeEventListener('pointerout', deactive);
+  };
 }
 
 export function ElementActive(options = { lineWidth: 1, color: 'black' }) {
   return (context) => {
     const { container } = context;
-    elementActive(container, {
+    return elementActive(container, {
       ...options,
       store,
       elements: (root) => select(root).selectAll('.element').nodes(),

@@ -11,10 +11,10 @@ describe('alphabet-interval-active', () => {
       ELEMENT_CLASS_NAME,
     ) as DisplayObject[];
     assetElementsStyle([e, ...E], 'fill', 'steelblue');
-    e.dispatchEvent(new CustomEvent('pointerenter'));
+    e.dispatchEvent(new CustomEvent('pointerover'));
     assetElementStyle(e, 'fill', 'red');
     assetElementsStyle(E, 'fill', 'steelblue');
-    e.dispatchEvent(new CustomEvent('pointerleave'));
+    e.dispatchEvent(new CustomEvent('pointerout'));
     assetElementStyle(e, 'fill', 'steelblue');
     assetElementsStyle(E, 'fill', 'steelblue');
   });
