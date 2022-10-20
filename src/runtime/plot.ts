@@ -23,7 +23,6 @@ import {
   G2ShapeOptions,
   G2AnimationOptions,
   G2CompositionOptions,
-  G2AdjustOptions,
   G2InteractionOptions,
   G2LabelTransformOptions,
 } from './types/options';
@@ -38,8 +37,6 @@ import {
   Animation,
   CompositionComponent,
   Composition,
-  AdjustComponent,
-  Adjust,
   InteractionComponent,
   Interaction,
   LabelTransformComponent,
@@ -874,12 +871,12 @@ function inferTheme(theme: G2ThemeOptions = { type: 'light' }): G2ThemeOptions {
 function inferInteraction(
   interaction: G2InteractionOptions[] = [],
 ): G2InteractionOptions[] {
-  const interactions = [...interaction];
-  ['tooltip', 'ellipsisText'].forEach((type) => {
-    if (!interaction.find((d) => d.type === type)) interactions.push({ type });
-  });
+  // const interactions = [...interaction];
+  // ['tooltip', 'ellipsisText'].forEach((type) => {
+  //   if (!interaction.find((d) => d.type === type)) interactions.push({ type });
+  // });
 
-  return interactions;
+  return interaction;
 }
 
 async function applyTransform<T extends G2ViewTree>(
