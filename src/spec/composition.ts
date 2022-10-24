@@ -8,6 +8,8 @@ import { Title } from './title';
 import { Data } from './data';
 import { LabelTransform } from './labelTransform';
 
+type EventType = (...args: any[]) => void;
+
 export type Node =
   | MarkComposition
   | ViewComposition
@@ -24,6 +26,8 @@ export type MarkComposition = Geometry & {
 
 export type ViewComposition = {
   type?: 'view';
+  width?: number;
+  height?: number;
   data?: Data;
   key?: string;
   class?: string;
@@ -40,6 +44,7 @@ export type ViewComposition = {
   children?: MarkComposition[];
   adjust?: Adjust;
   labelTransform?: LabelTransform[];
+  on?: Record<string, EventType | EventType[]>;
 };
 
 export type LayerComposition = {

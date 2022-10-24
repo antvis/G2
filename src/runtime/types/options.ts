@@ -44,6 +44,7 @@ export type G2Library = Record<
 export type G2Context = {
   library?: G2Library;
   canvas?: Canvas;
+  bindAutoFit?: boolean;
 };
 
 export type G2View = {

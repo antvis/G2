@@ -1,8 +1,11 @@
 import { RendererPlugin, Canvas as GCanvas } from '@antv/g';
 import { Renderer as CanvasRenderer } from '@antv/g-canvas';
 import { Plugin as DragAndDropPlugin } from '@antv/g-plugin-dragndrop';
-import { G2Context, render } from '../runtime';
+import { debounce } from '@antv/util';
+import { G2Context, render, destroy } from '../runtime';
 import { ViewComposition } from '../spec';
+import { getChartSize } from '../utils/size';
+import { CHART_LIFE_CIRCLE, emitEvent } from '../utils/event';
 import { Node } from './node';
 import {
   defineProps,
@@ -27,6 +30,14 @@ function normalizeContainer(container: string | HTMLElement): HTMLElement {
     return node;
   }
   return container;
+}
+
+export function removeContainer(container: HTMLElement) {
+  const parent = container.parentNode;
+
+  if (parent) {
+    parent.removeChild(container);
+  }
 }
 
 function normalizeRoot(node: Node) {
@@ -91,6 +102,7 @@ export type ChartOptions = ViewComposition & {
   container?: string | HTMLElement;
   width?: number;
   height?: number;
+  autoFit?: boolean;
   renderer?: CanvasRenderer;
   plugins?: RendererPlugin[];
 };
@@ -101,15 +113,20 @@ export interface Chart extends Composition, Mark {
   render(): void;
   node(): HTMLElement;
   data: ValueAttribute<ChartProps['data'], Chart>;
+  width: ValueAttribute<ChartProps['width'], Chart>;
+  height: ValueAttribute<ChartProps['height'], Chart>;
   coordinate: ArrayAttribute<ChartProps['coordinate'], Chart>;
   interaction: ArrayAttribute<ChartProps['interaction'], Chart>;
   key: ValueAttribute<ChartProps['key'], Chart>;
   transform: ArrayAttribute<ChartProps['transform'], Chart>;
   theme: ObjectAttribute<ChartProps['theme'], Chart>;
+  on: ObjectAttribute<ChartProps['on'], Chart>;
 }
 
 export const props: NodePropertyDescriptor[] = [
   { name: 'data', type: 'value' },
+  { name: 'width', type: 'value' },
+  { name: 'height', type: 'value' },
   { name: 'coordinate', type: 'array' },
   { name: 'interaction', type: 'array' },
   { name: 'theme', type: 'object' },
@@ -117,6 +134,7 @@ export const props: NodePropertyDescriptor[] = [
   { name: 'key', type: 'value' },
   { name: 'transform', type: 'array' },
   { name: 'theme', type: 'object' },
+  { name: 'on', type: 'event' },
   ...nodeProps(mark),
   ...containerProps(composition),
 ];
@@ -124,7 +142,6 @@ export const props: NodePropertyDescriptor[] = [
 @defineProps(props)
 export class Chart extends Node<ChartOptions> {
   private _container: HTMLElement;
-
   private _context: G2Context;
 
   constructor(options: ChartOptions = {}) {
@@ -135,26 +152,39 @@ export class Chart extends Node<ChartOptions> {
   }
 
   render(): Chart {
-    const options = optionsOf(this);
+    if (!this._context.canvas) {
+      // Init width and height.
+      const {
+        width = 640,
+        height = 480,
+        renderer,
+        plugins,
+        autoFit,
+      } = this.options();
+      const { width: adjustedWidth, height: adjustedHeight } = getChartSize(
+        this._container,
+        autoFit,
+        width,
+        height,
+      );
+      this.width(adjustedWidth);
+      this.height(adjustedHeight);
 
-    // Create canvas and library if it do not exist.
-    const { width = 640, height = 480, renderer, plugins } = options;
-    const {
-      canvas = Canvas(
+      // Create canvas if it do not exist.
+      this._context.canvas = Canvas(
         document.createElement('div'),
         width,
         height,
         renderer,
         plugins,
-      ),
-    } = this._context;
+      );
+    }
 
-    this._context.canvas = canvas;
-
-    const node = render(options, this._context);
+    const node = render(this.options(), this._context);
     if (node.parentNode !== this._container) {
       this._container.append(node);
     }
+
     return this;
   }
 
@@ -168,5 +198,50 @@ export class Chart extends Node<ChartOptions> {
 
   context(): G2Context {
     return this._context;
+  }
+
+  destroy() {
+    const options = this.options();
+    const { on } = options;
+    emitEvent(on, CHART_LIFE_CIRCLE.BEFORE_DESTROY);
+    destroy(options, this._context);
+    // Remove the container.
+    removeContainer(this._container);
+    emitEvent(on, CHART_LIFE_CIRCLE.AFTER_DESTROY);
+  }
+
+  clear() {
+    const options = this.options();
+    const { on } = options;
+    emitEvent(on, CHART_LIFE_CIRCLE.BEFORE_CLEAR);
+    destroy(options, this._context);
+    emitEvent(on, CHART_LIFE_CIRCLE.AFTER_CLEAR);
+  }
+
+  forceFit() {
+    const { width, height } = this.options();
+    const { width: adjustedWidth, height: adjustedHeight } = getChartSize(
+      this._container,
+      true,
+      width,
+      height,
+    );
+    this.changeSize(adjustedWidth, adjustedHeight);
+  }
+
+  changeSize(adjustedWidth: number, adjustedHeight: number) {
+    const { width, height, on } = this.options();
+
+    if (width === adjustedWidth && height === adjustedHeight) {
+      return this;
+    }
+
+    emitEvent(on, CHART_LIFE_CIRCLE.BEFORE_CHANGE_SIZE);
+
+    this.width(adjustedWidth);
+    this.height(adjustedHeight);
+    this.render();
+
+    emitEvent(on, CHART_LIFE_CIRCLE.AFTER_CHANGE_SIZE);
   }
 }
