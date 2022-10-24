@@ -1,5 +1,5 @@
 import {
-  applyDefaultsSelectedStyle,
+  applyDefaultsActiveStyle,
   createDatumof,
   selectG2Elements,
 } from './utils';
@@ -16,7 +16,7 @@ export function ElementActiveByX(
     const { container, view } = context;
     const { x: scaleX } = context.view.scale;
     return elementActive(container, {
-      ...applyDefaultsSelectedStyle(options),
+      ...applyDefaultsActiveStyle(options),
       elements: selectG2Elements,
       datum: createDatumof(view),
       groupKey: (element) => {

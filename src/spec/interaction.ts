@@ -55,8 +55,7 @@ export type ElementActiveInteraction = {
   type?: 'elementActive';
   // @todo: Style supported by G.
   link?: boolean;
-  [key: string]: any;
-} & Record<`${'link' | 'selected' | 'unselected'}${any}`, any>;
+} & Record<`${'link' | 'active' | 'inactive'}${any}`, any>;
 
 export type ElementSelectedInteraction = {
   type?: 'elementSelected';
@@ -69,12 +68,12 @@ export type ElementActiveByXInteraction = {
   type?: 'elementActiveByX';
   x?: string;
   link?: boolean;
-} & Record<`${'link' | 'selected' | 'unselected'}${any}`, any>;
+} & Record<`${'link' | 'active' | 'inactive'}${any}`, any>;
 
 export type ElementActiveByColorInteraction = {
   type?: 'elementActiveByColor';
   color?: string;
-} & Record<`${'link' | 'selected' | 'unselected'}${any}`, any>;
+} & Record<`${'link' | 'active' | 'inactive'}${any}`, any>;
 
 export type ElementListHighlightInteraction = {
   type?: 'elementListHighlight';

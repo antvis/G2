@@ -1,5 +1,5 @@
 import {
-  applyDefaultsSelectedStyle,
+  applyDefaultsActiveStyle,
   createDatumof,
   selectG2Elements,
 } from './utils';
@@ -13,7 +13,7 @@ export function ElementActiveByColor(options) {
     const { container, view } = context;
     return elementActive(container, {
       ...options,
-      ...applyDefaultsSelectedStyle(options),
+      ...applyDefaultsActiveStyle(options),
       elements: selectG2Elements,
       datum: createDatumof(view),
       groupKey: (element) => element.__data__.color,

@@ -12,11 +12,11 @@ export function selectG2Elements(root: DisplayObject): DisplayObject[] {
   return select(root).selectAll('.element').nodes();
 }
 
-export function applyDefaultsSelectedStyle(
+export function applyDefaultsActiveStyle(
   style: Record<string, any>,
 ): Record<string, any> {
   if (!style || Object.keys(style).length === 0) {
-    return { selectedLineWidth: 1, selectedStroke: '#000' };
+    return { activeLineWidth: 1, activeStroke: '#000' };
   }
   return style;
 }

@@ -7,7 +7,7 @@ import {
   selectG2Elements,
   useState,
   renderLink,
-  applyDefaultsSelectedStyle,
+  applyDefaultsActiveStyle,
 } from './utils';
 
 export const LINK_CLASS_NAME = 'element-link';
@@ -43,8 +43,8 @@ export function elementActive(
     const group = keyGroup.get(k);
     const groupSet = new Set(group);
     for (const e of elements) {
-      if (groupSet.has(e)) setState(e, 'selected');
-      else setState(e, 'unselected');
+      if (groupSet.has(e)) setState(e, 'active');
+      else setState(e, 'inactive');
     }
     if (link) appendLink(group);
   };
@@ -52,7 +52,7 @@ export function elementActive(
   const pointerout = (event) => {
     const { target: element } = event;
     if (!elementSet.has(element)) return;
-    for (const e of elements) removeState(e, 'unselected', 'selected');
+    for (const e of elements) removeState(e, 'inactive', 'active');
     if (link) removeLink();
   };
 
@@ -69,7 +69,7 @@ export function ElementActive(options) {
   return (context) => {
     const { container, view } = context;
     return elementActive(container, {
-      ...applyDefaultsSelectedStyle(options),
+      ...applyDefaultsActiveStyle(options),
       elements: selectG2Elements,
       datum: createDatumof(view),
     });

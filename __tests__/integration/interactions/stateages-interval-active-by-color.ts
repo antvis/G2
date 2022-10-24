@@ -28,8 +28,8 @@ export function stateAgesIntervalActiveByColor(): G2Spec {
     interaction: [
       {
         type: 'elementActiveByColor',
-        selectedFill: 'red',
-        unselectedOpacity: 0.6,
+        activeFill: 'red',
+        inactiveOpacity: 0.6,
       },
     ],
   };

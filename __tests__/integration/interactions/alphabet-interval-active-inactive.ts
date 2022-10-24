@@ -1,7 +1,7 @@
 import { G2Spec, ELEMENT_CLASS_NAME } from '../../../src';
 import { step } from './utils';
 
-export function alphabetIntervalActiveUnselected(): G2Spec {
+export function alphabetIntervalActiveInactive(): G2Spec {
   return {
     type: 'interval',
     data: {
@@ -19,14 +19,14 @@ export function alphabetIntervalActiveUnselected(): G2Spec {
     interaction: [
       {
         type: 'elementActive',
-        selectedFill: (d) => (d.frequency > 0.05 ? 'red' : 'yellow'),
-        unselectedOpacity: 0.6,
+        activeFill: (d) => (d.frequency > 0.05 ? 'red' : 'yellow'),
+        inactiveOpacity: 0.6,
       },
     ],
   };
 }
 
-alphabetIntervalActiveUnselected.steps = ({ canvas }) => {
+alphabetIntervalActiveInactive.steps = ({ canvas }) => {
   const { document } = canvas;
   const elements = document.getElementsByClassName(ELEMENT_CLASS_NAME);
   const [e1, e2] = elements;
