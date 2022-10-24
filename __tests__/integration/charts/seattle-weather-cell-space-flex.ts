@@ -1,8 +1,8 @@
 import { G2Spec } from '../../../src';
 
-export function seattleWeatherCellFlex(): G2Spec {
+export function seattleWeatherCellSpaceFlex(): G2Spec {
   return {
-    type: 'flex',
+    type: 'spaceFlex',
     width: 900,
     data: {
       type: 'fetch',
@@ -24,7 +24,7 @@ export function seattleWeatherCellFlex(): G2Spec {
         },
       },
       {
-        type: 'flex',
+        type: 'spaceFlex',
         ratio: [2, 1],
         children: [
           {

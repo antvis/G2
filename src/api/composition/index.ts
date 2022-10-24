@@ -1,33 +1,41 @@
 import { defineProps, nodeProps } from '../props';
 import { View } from './view';
-import { Layer } from './layer';
-import { Flex } from './flex';
-import { Square } from './square';
-import { Circle } from './circle';
-import { Matrix } from './matrix';
-import { Keyframe } from './keyframe';
+import { SpaceLayer } from './spaceLayer';
+import { SpaceFlex } from './spaceFlex';
+import { FacetRect } from './facetRect';
+import { FacetCircle } from './facetCircle';
+import { RepeatMatrix } from './repeatMatrix';
+import { TimingKeyframe } from './timingKeyframe';
 
 export const composition = {
   view: View,
-  layer: Layer,
-  flex: Flex,
-  square: Square,
-  circle: Circle,
-  matrix: Matrix,
-  keyframe: Keyframe,
+  spaceLayer: SpaceLayer,
+  spaceFlex: SpaceFlex,
+  facetRect: FacetRect,
+  facetCircle: FacetCircle,
+  repeatMatrix: RepeatMatrix,
+  timingKeyframe: TimingKeyframe,
 };
 
 export interface Composition {
-  layer(): Layer;
   view(): View;
-  flex(): Flex;
-  square(): Square;
-  circle(): Circle;
-  matrix(): Matrix;
-  keyframe(): Keyframe;
+  spaceLayer(): SpaceLayer;
+  spaceFlex(): SpaceFlex;
+  facetRect(): FacetRect;
+  facetCircle(): FacetCircle;
+  repeatMatrix(): RepeatMatrix;
+  timingKeyframe(): TimingKeyframe;
 }
 
-export { View, Layer, Flex, Square, Circle, Matrix, Keyframe };
+export {
+  View,
+  SpaceLayer,
+  SpaceFlex,
+  FacetRect,
+  FacetCircle,
+  RepeatMatrix,
+  TimingKeyframe,
+};
 
 /**
  * Define composition node api for composition node dynamically,

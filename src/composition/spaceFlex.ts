@@ -1,13 +1,13 @@
 import { CompositionComponent as CC } from '../runtime';
-import { FlexComposition } from '../spec';
+import { SpaceFlexComposition } from '../spec';
 import { mergeData } from './utils';
 
-export type FlexOptions = Omit<FlexComposition, 'type'>;
+export type SpaceFlexOptions = Omit<SpaceFlexComposition, 'type'>;
 
 /**
  * @todo Propagate more options to children.
  */
-export const Flex: CC<FlexOptions> = () => {
+export const SpaceFlex: CC<SpaceFlexOptions> = () => {
   return (options) => {
     const { children } = options;
     if (!Array.isArray(children)) return [];
@@ -46,4 +46,4 @@ export const Flex: CC<FlexOptions> = () => {
   };
 };
 
-Flex.props = {};
+SpaceFlex.props = {};

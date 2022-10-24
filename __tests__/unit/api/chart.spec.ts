@@ -2,13 +2,13 @@ import { Canvas } from '@antv/g';
 import { Chart, createLibrary } from '../../../src';
 import {
   View,
-  Keyframe,
-  Flex,
-  Square,
-  Matrix,
-  Circle,
+  TimingKeyframe,
+  SpaceFlex,
+  FacetRect,
+  RepeatMatrix,
+  FacetCircle,
+  SpaceLayer,
 } from '../../../src/api/composition';
-import { Layer } from '../../../src/api/composition/layer';
 import {
   Area,
   Cell,
@@ -146,8 +146,8 @@ describe('Chart', () => {
   it('chart.container() should use last node as root node', () => {
     const chart = new Chart();
     chart.view();
-    chart.layer();
-    expect(chart.layer()).toBeInstanceOf(Layer);
+    chart.spaceLayer();
+    expect(chart.spaceLayer()).toBeInstanceOf(SpaceLayer);
   });
 
   it('chart.container() should set layout options for root node', () => {
@@ -159,9 +159,9 @@ describe('Chart', () => {
       paddingLeft: 30,
       paddingTop: 40,
     });
-    chart.layer();
+    chart.spaceLayer();
     expect(chart.options()).toEqual({
-      type: 'layer',
+      type: 'spaceLayer',
       width: 100,
       height: 120,
       paddingBottom: 10,
@@ -175,18 +175,18 @@ describe('Chart', () => {
     const chart = new Chart();
     expect(chart.view()).toBeInstanceOf(View);
     expect(chart.options()).toEqual({ type: 'view' });
-    expect(chart.layer()).toBeInstanceOf(Layer);
-    expect(chart.options()).toEqual({ type: 'layer' });
-    expect(chart.flex()).toBeInstanceOf(Flex);
-    expect(chart.options()).toEqual({ type: 'flex' });
-    expect(chart.square()).toBeInstanceOf(Square);
-    expect(chart.options()).toEqual({ type: 'square' });
-    expect(chart.matrix()).toBeInstanceOf(Matrix);
-    expect(chart.options()).toEqual({ type: 'matrix' });
-    expect(chart.circle()).toBeInstanceOf(Circle);
-    expect(chart.options()).toEqual({ type: 'circle' });
-    expect(chart.keyframe()).toBeInstanceOf(Keyframe);
-    expect(chart.options()).toEqual({ type: 'keyframe' });
+    expect(chart.spaceLayer()).toBeInstanceOf(SpaceLayer);
+    expect(chart.options()).toEqual({ type: 'spaceLayer' });
+    expect(chart.spaceFlex()).toBeInstanceOf(SpaceFlex);
+    expect(chart.options()).toEqual({ type: 'spaceFlex' });
+    expect(chart.facetRect()).toBeInstanceOf(FacetRect);
+    expect(chart.options()).toEqual({ type: 'facetRect' });
+    expect(chart.repeatMatrix()).toBeInstanceOf(RepeatMatrix);
+    expect(chart.options()).toEqual({ type: 'repeatMatrix' });
+    expect(chart.facetCircle()).toBeInstanceOf(FacetCircle);
+    expect(chart.options()).toEqual({ type: 'facetCircle' });
+    expect(chart.timingKeyframe()).toBeInstanceOf(TimingKeyframe);
+    expect(chart.options()).toEqual({ type: 'timingKeyframe' });
   });
 
   it('chart.options() should return view tree', () => {
@@ -231,19 +231,19 @@ describe('Chart', () => {
   it('chart.nodeName() should build nested view tree', () => {
     const chart = new Chart();
     chart
-      .flex()
+      .spaceFlex()
       .call((node) => node.interval())
       .call((node) =>
         node
-          .flex()
+          .spaceFlex()
           .call((node) => node.line())
           .call((node) => node.point()),
       );
     expect(chart.options()).toEqual({
-      type: 'flex',
+      type: 'spaceFlex',
       children: [
         { type: 'interval' },
-        { type: 'flex', children: [{ type: 'line' }, { type: 'point' }] },
+        { type: 'spaceFlex', children: [{ type: 'line' }, { type: 'point' }] },
       ],
     });
   });

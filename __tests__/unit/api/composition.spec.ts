@@ -1,11 +1,11 @@
 import {
   View,
-  Circle,
-  Flex,
-  Keyframe,
-  Layer,
-  Matrix,
-  Square,
+  FacetCircle,
+  SpaceFlex,
+  TimingKeyframe,
+  SpaceLayer,
+  RepeatMatrix,
+  FacetRect,
 } from '../../../src/api/composition';
 import {
   Area,
@@ -51,12 +51,12 @@ function expectToCreateMarks(node) {
 
 function expectToCreateCompositions(node) {
   expect(node.view()).toBeInstanceOf(View);
-  expect(node.layer()).toBeInstanceOf(Layer);
-  expect(node.flex()).toBeInstanceOf(Flex);
-  expect(node.square()).toBeInstanceOf(Square);
-  expect(node.matrix()).toBeInstanceOf(Matrix);
-  expect(node.circle()).toBeInstanceOf(Circle);
-  expect(node.keyframe()).toBeInstanceOf(Keyframe);
+  expect(node.spaceLayer()).toBeInstanceOf(SpaceLayer);
+  expect(node.spaceFlex()).toBeInstanceOf(SpaceFlex);
+  expect(node.facetRect()).toBeInstanceOf(FacetRect);
+  expect(node.repeatMatrix()).toBeInstanceOf(RepeatMatrix);
+  expect(node.facetCircle()).toBeInstanceOf(FacetCircle);
+  expect(node.timingKeyframe()).toBeInstanceOf(TimingKeyframe);
 }
 
 function expectToCreateNodes(node) {
@@ -93,8 +93,8 @@ describe('Composition', () => {
     expectToCreateMarks(node);
   });
 
-  it('Circle() should specify options by API', () => {
-    const node = new Circle();
+  it('FacetCircle() should specify options by API', () => {
+    const node = new FacetCircle();
     node
       .paddingBottom(10)
       .paddingLeft(10)
@@ -106,7 +106,7 @@ describe('Composition', () => {
       .scale('x', { type: 'log' })
       .transform({ type: 'stackY' });
 
-    expect(node.type).toBe('circle');
+    expect(node.type).toBe('facetCircle');
     expect(node.value).toEqual({
       paddingBottom: 10,
       paddingRight: 10,
@@ -121,8 +121,8 @@ describe('Composition', () => {
     expectToCreateNodes(node);
   });
 
-  it('Flex() should specify options by API', () => {
-    const node = new Flex();
+  it('SpaceFlex() should specify options by API', () => {
+    const node = new SpaceFlex();
     node
       .direction('col')
       .data([1, 2, 3])
@@ -130,7 +130,7 @@ describe('Composition', () => {
       .ratio([1, 2, 3])
       .key('composition');
 
-    expect(node.type).toBe('flex');
+    expect(node.type).toBe('spaceFlex');
     expect(node.value).toEqual({
       direction: 'col',
       data: [1, 2, 3],
@@ -141,8 +141,8 @@ describe('Composition', () => {
     expectToCreateNodes(node);
   });
 
-  it('Keyframe() should specify options by API', () => {
-    const node = new Keyframe();
+  it('TimingKeyframe() should specify options by API', () => {
+    const node = new TimingKeyframe();
     node
       .easing('linear')
       .iterationCount(10)
@@ -150,7 +150,7 @@ describe('Composition', () => {
       .duration(100)
       .key('composition');
 
-    expect(node.type).toBe('keyframe');
+    expect(node.type).toBe('timingKeyframe');
     expect(node.value).toEqual({
       easing: 'linear',
       iterationCount: 10,
@@ -161,11 +161,11 @@ describe('Composition', () => {
     expectToCreateNodes(node);
   });
 
-  it('Layer() should specify options by API', () => {
-    const node = new Layer();
+  it('SpaceLayer() should specify options by API', () => {
+    const node = new SpaceLayer();
     node.data([1, 2, 3]).key('composition');
 
-    expect(node.type).toBe('layer');
+    expect(node.type).toBe('spaceLayer');
     expect(node.value).toEqual({
       data: [1, 2, 3],
       key: 'composition',
@@ -173,8 +173,8 @@ describe('Composition', () => {
     expectToCreateNodes(node);
   });
 
-  it('Matrix() should specify options by API', () => {
-    const node = new Matrix();
+  it('RepeatMatrix() should specify options by API', () => {
+    const node = new RepeatMatrix();
     node
       .data([1, 2, 3])
       .key('composition')
@@ -186,7 +186,7 @@ describe('Composition', () => {
       .encode('y', ['name'])
       .transform({ type: 'stackY' });
 
-    expect(node.type).toBe('matrix');
+    expect(node.type).toBe('repeatMatrix');
     expect(node.value).toEqual({
       data: [1, 2, 3],
       key: 'composition',
@@ -202,7 +202,7 @@ describe('Composition', () => {
   });
 
   it('Rect() should specify options by API', () => {
-    const node = new Square();
+    const node = new FacetRect();
     node
       .data([1, 2, 3])
       .key('composition')
@@ -216,7 +216,7 @@ describe('Composition', () => {
       .encode('y', 'name')
       .transform({ type: 'stackY' });
 
-    expect(node.type).toBe('square');
+    expect(node.type).toBe('facetRect');
     expect(node.value).toEqual({
       data: [1, 2, 3],
       key: 'composition',

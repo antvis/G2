@@ -46,23 +46,23 @@ export function useState(
 
   // Mix style for each state and apply it to element.
   const updateState = (element) => {
-    const { [STATES]: states = [], [ORIGINAL]: ordinal = {} } = element;
+    const { [STATES]: states = [], [ORIGINAL]: original = {} } = element;
     const stateStyle = states.reduce(
       (mixedStyle, state) => ({
         ...mixedStyle,
         ...subObject(style, state),
       }),
-      ordinal,
+      original,
     );
     if (Object.keys(stateStyle).length === 0) return;
     for (const [key, value] of Object.entries(stateStyle)) {
       const currentValue = element.getAttribute(key);
       const v = valueof(value, element);
       element.setAttribute(key, v);
-      // Store the attribute if it does not exist in ordinal.
-      if (!(key in ordinal)) ordinal[key] = currentValue;
+      // Store the attribute if it does not exist in original.
+      if (!(key in original)) original[key] = currentValue;
     }
-    element[ORIGINAL] = ordinal;
+    element[ORIGINAL] = original;
   };
 
   const initState = (element) => {
