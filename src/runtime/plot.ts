@@ -334,6 +334,7 @@ function initializeState(
       // This is for unit visualization to sync data domain.
       dataDomain,
       modifier,
+      key: markKey,
     } = mark;
     const { index, channels } = state;
 
@@ -356,7 +357,7 @@ function initializeState(
     const count = dataDomain || I.length;
     const T = modifier ? modifier(P, count, layout) : [];
     const visualData: Record<string, any>[] = I.map((d, i) => {
-      const datum = { points: P[i], transform: T[i], index: d };
+      const datum = { points: P[i], transform: T[i], index: d, markKey };
       for (const [k, V] of Object.entries(value)) {
         datum[k] = V[d];
         if (S) datum[`series${upperFirst(k)}`] = S[i].map((i) => V[i]);

@@ -1,58 +1,77 @@
-import { select } from '../../utils/selection';
+import { DisplayObject } from '@antv/g';
+import { group } from 'd3-array';
+import { subObject } from '../../utils/helper';
+import {
+  createValueof,
+  createDatumof,
+  selectG2Elements,
+  useState,
+  renderLink,
+  applyDefaultsSelectedStyle,
+} from './utils';
 
-// A WeakMap index origin style of each element by element.
-const store = new WeakMap();
+export const LINK_CLASS_NAME = 'element-link';
 
-function elementActive(
-  root,
+/**
+ * Active a group of elements.
+ */
+export function elementActive(
+  root: DisplayObject,
   {
-    elements = (root) => [], // given root node for chart, returns elements to be active
-    store = new WeakMap(), // a WeakMap index original style of element
-    ...style // active style
-  } = {},
+    elements: elementsof, // given the root of chart returns elements to be manipulated
+    datum, // given each element returns the datum of it
+    groupKey = (d) => d, // group elements by specified key
+    link = false, // draw link or not
+    ...rest
+  }: Record<string, any>,
 ) {
-  // Get elements by specified elements getter.
-  const elementSet = new Set(elements(root));
+  const elements = elementsof(root);
+  const elementSet = new Set(elements);
+  const keyGroup = group(elements, groupKey);
+  const valueof = createValueof(elements, datum);
+  const [appendLink, removeLink] = renderLink(root, {
+    elements,
+    valueof,
+    ...subObject(rest, 'link'),
+  });
+  const { setState, removeState } = useState(rest, valueof);
 
-  // Active element and store original style.
-  const active = (e) => {
-    const element = e.target;
+  const pointerover = (event) => {
+    const { target: element } = event;
     if (!elementSet.has(element)) return;
-    const style0 = {};
-    for (const [key, value] of Object.entries(style)) {
-      style0[key] = element.getAttribute(key);
-      element.setAttribute(key, value);
+    const k = groupKey(element);
+    const group = keyGroup.get(k);
+    const groupSet = new Set(group);
+    for (const e of elements) {
+      if (groupSet.has(e)) setState(e, 'selected');
+      else setState(e, 'unselected');
     }
-    store.set(element, style0);
+    if (link) appendLink(group);
   };
 
-  // Restore original style.
-  const deactive = (e) => {
-    const element = e.target;
+  const pointerout = (event) => {
+    const { target: element } = event;
     if (!elementSet.has(element)) return;
-    const style0 = store.get(element);
-    for (const [key, value] of Object.entries(style0)) {
-      element.setAttribute(key, value);
-    }
-    store.delete(element);
+    for (const e of elements) removeState(e, 'unselected', 'selected');
+    if (link) removeLink();
   };
 
-  root.addEventListener('pointerover', active);
-  root.addEventListener('pointerout', deactive);
+  root.addEventListener('pointerover', pointerover);
+  root.addEventListener('pointerout', pointerout);
 
   return () => {
-    root.removeEventListener('pointerover', active);
-    root.removeEventListener('pointerout', deactive);
+    root.removeEventListener('pointerover', pointerover);
+    root.removeEventListener('pointerout', pointerout);
   };
 }
 
-export function ElementActive(options = { lineWidth: 1, color: 'black' }) {
+export function ElementActive(options) {
   return (context) => {
-    const { container } = context;
+    const { container, view } = context;
     return elementActive(container, {
-      ...options,
-      store,
-      elements: (root) => select(root).selectAll('.element').nodes(),
+      ...applyDefaultsSelectedStyle(options),
+      elements: selectG2Elements,
+      datum: createDatumof(view),
     });
   };
 }

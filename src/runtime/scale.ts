@@ -397,7 +397,7 @@ function inferOptionsC(
     options.paddingInner !== undefined ||
     options.paddingOuter !== undefined
   ) {
-    return options;
+    return { ...options, unknown: NaN };
   }
   const padding = inferPadding(type, name, coordinate);
   const { paddingInner = padding, paddingOuter = padding } = options;
