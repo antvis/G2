@@ -1,7 +1,7 @@
 import { G2Spec, ELEMENT_CLASS_NAME } from '../../../src';
 import { step } from './utils';
 
-export function alphabetIntervalActive(): G2Spec {
+export function alphabetIntervalActiveDefaults(): G2Spec {
   return {
     type: 'interval',
     padding: 0,
@@ -17,20 +17,13 @@ export function alphabetIntervalActive(): G2Spec {
       y: 'frequency',
       color: 'steelblue',
     },
-    interaction: [{ type: 'elementActive', selectedFill: 'red' }],
+    interaction: [{ type: 'elementActive' }],
   };
 }
 
-alphabetIntervalActive.steps = ({ canvas }) => {
+alphabetIntervalActiveDefaults.steps = ({ canvas }) => {
   const { document } = canvas;
   const elements = document.getElementsByClassName(ELEMENT_CLASS_NAME);
-  const [e, e1] = elements;
-  return [
-    step(e, 'pointerover'),
-    step(e, 'pointerout'),
-    step(e, 'pointerover'),
-    step(e, 'pointerout'),
-    step(e1, 'pointerover'),
-    step(e1, 'pointerout'),
-  ];
+  const [e] = elements;
+  return [step(e, 'pointerover')];
 };

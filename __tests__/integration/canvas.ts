@@ -35,7 +35,7 @@ export function diff(src: string, target: string) {
   });
 }
 
-function createGCanvas(width: number, height: number) {
+export function createGCanvas(width: number, height: number) {
   // Create a node-canvas instead of HTMLCanvasElement
   const nodeCanvas = createCanvas(width, height);
   // A standalone offscreen canvas for text metrics
@@ -58,13 +58,13 @@ function createGCanvas(width: number, height: number) {
   ] as const;
 }
 
-function sleep(n: number) {
+export function sleep(n: number) {
   return new Promise((resolve) => {
     setTimeout(resolve, n);
   });
 }
 
-function writePNG(nodeCanvas, path) {
+export function writePNG(nodeCanvas, path) {
   return new Promise<void>((resolve, reject) => {
     const out = fs.createWriteStream(path);
     const stream = nodeCanvas.createPNGStream();

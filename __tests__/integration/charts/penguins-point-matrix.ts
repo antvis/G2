@@ -29,3 +29,6 @@ export function penguinsPointMatrix(): G2Spec {
     ],
   };
 }
+
+// @todo Remove this, it now has some performance issue.
+penguinsPointMatrix.skip = true;
