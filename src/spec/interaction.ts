@@ -4,10 +4,9 @@ import { FisheyeCoordinate } from './coordinate';
 
 export type Interaction =
   | ElementActiveInteraction
+  | ElementActiveByColorInteraction
+  | ElementActiveByXInteraction
   | ElementSelectedInteraction
-  | ElementHighlightInteraction
-  | ElementHighlightByXInteraction
-  | ElementHighlightByColorInteraction
   | ElementListHighlightInteraction
   | LegendActiveInteraction
   | LegendHighlightInteraction
@@ -22,9 +21,8 @@ export type Interaction =
 
 export type InteractionTypes =
   | 'elementActive'
-  | 'elementHighlight'
-  | 'elementHighlightByColor'
-  | 'elementHighlightByX'
+  | 'elementActiveByX'
+  | 'elementActiveByColor'
   | 'elementListHighlight'
   | 'legendActive'
   | 'legendHighlight'
@@ -56,8 +54,8 @@ export type BrushVisibleInteraction = {
 export type ElementActiveInteraction = {
   type?: 'elementActive';
   // @todo: Style supported by G.
-  [key: string]: any;
-};
+  link?: boolean;
+} & Record<`${'link' | 'active' | 'inactive'}${any}`, any>;
 
 export type ElementSelectedInteraction = {
   type?: 'elementSelected';
@@ -66,20 +64,16 @@ export type ElementSelectedInteraction = {
   singleMode?: boolean;
 };
 
-export type ElementHighlightInteraction = {
-  type?: 'elementHighlight';
-  color?: string;
-};
+export type ElementActiveByXInteraction = {
+  type?: 'elementActiveByX';
+  x?: string;
+  link?: boolean;
+} & Record<`${'link' | 'active' | 'inactive'}${any}`, any>;
 
-export type ElementHighlightByXInteraction = {
-  type?: 'elementHighlightByX';
+export type ElementActiveByColorInteraction = {
+  type?: 'elementActiveByColor';
   color?: string;
-};
-
-export type ElementHighlightByColorInteraction = {
-  type?: 'elementHighlightByColor';
-  color?: string;
-};
+} & Record<`${'link' | 'active' | 'inactive'}${any}`, any>;
 
 export type ElementListHighlightInteraction = {
   type?: 'elementListHighlight';

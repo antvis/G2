@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { FisheyeInteraction } from '../../spec';
 import { createInteraction } from '../create';
 

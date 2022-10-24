@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { ActiveRegionInteraction } from '../../spec';
 import { createInteraction } from '../create';
 

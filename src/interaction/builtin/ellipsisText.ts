@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { EllipsisTextInteraction } from '../../spec';
 import { createInteraction } from '../create';
 
