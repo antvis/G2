@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BrushVisibleInteraction } from '../../spec';
 import { createInteraction } from '../create';
 

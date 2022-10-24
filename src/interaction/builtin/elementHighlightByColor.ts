@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { ElementHighlightByColorInteraction } from '../../spec';
 import { createInteraction } from '../create';
 

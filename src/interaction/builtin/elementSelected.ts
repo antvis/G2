@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { ElementSelectedInteraction } from '../../spec';
 import { createInteraction } from '../create';
 

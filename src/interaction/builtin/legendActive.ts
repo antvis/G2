@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { LegendActiveInteraction } from '../../spec';
 import { createInteraction } from '../create';
 

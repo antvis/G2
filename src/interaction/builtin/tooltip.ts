@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { TooltipInteraction } from '../../spec';
 import { createInteraction } from '../create';
 
