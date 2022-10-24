@@ -1,9 +1,9 @@
-import { DisplayObject, Canvas, Document } from '@antv/g';
+import { DisplayObject, Canvas, Document, CustomEvent } from '@antv/g';
 import { G2Context, G2Spec, render } from '../../../src';
 import { fetch } from '../fetch';
 
 // @ts-ignore
-global.fetch = fetch;
+// global.fetch = fetch;
 
 export function assetElementStyle(
   element: DisplayObject,
@@ -30,4 +30,11 @@ export function renderSync(
       resolve((context.canvas as Canvas).document);
     });
   });
+}
+
+export function step(element: DisplayObject, event, skip = false) {
+  return {
+    skip,
+    changeState: () => element.dispatchEvent(new CustomEvent(event)),
+  };
 }

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { ElementListHighlightInteraction } from '../../spec';
 import { createInteraction } from '../create';
 
