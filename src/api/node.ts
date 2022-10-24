@@ -1,4 +1,20 @@
-import { clone } from '@antv/util';
+import { emitEvent, CHART_LIFE_CIRCLE } from '../utils/event';
+import { Chart } from './chart';
+
+/**
+ * BFS nodes and execute callback.
+ */
+function bfs(node: Node, callback?: (...args: any[]) => void) {
+  const discovered: Node[] = [node];
+  while (discovered.length) {
+    const currentNode = discovered.pop();
+    callback && callback(currentNode);
+    const children = currentNode.children || [];
+    for (const child of children) {
+      discovered.push(child);
+    }
+  }
+}
 
 /**
  * Hierarchy container.
@@ -63,6 +79,51 @@ export class Node<
     node.index = this.children.length;
     this.children.push(node);
     return node;
+  }
+
+  /**
+   * Remove current node from parentNode.
+   */
+  remove(): Node {
+    const parent = this.parentNode;
+    if (parent) {
+      const { children } = parent;
+      const index = children.findIndex((item) => item === this);
+      children.splice(index, 1);
+    }
+    return this;
+  }
+
+  getNodeByKey(key: string): Node {
+    let targetNode = null;
+    const callback = (node: Node) => {
+      if (key === node.attr('key')) {
+        targetNode = node;
+      }
+    };
+    bfs(this, callback);
+    return targetNode;
+  }
+
+  getNodesByType(type: string): Node[] {
+    const nodes = [];
+    const callback = (node: Node) => {
+      if (type === node.type) {
+        nodes.push(node);
+      }
+    };
+    bfs(this, callback);
+    return nodes;
+  }
+
+  changeData(data: any) {
+    // Find the root chart and render.
+    let root: Node = this;
+    while (root && root.parentNode) {
+      root = root.parentNode;
+    }
+    this.attr('data', data);
+    (root as Chart).render();
   }
 
   /**
