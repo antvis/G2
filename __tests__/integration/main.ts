@@ -100,6 +100,8 @@ async function plot() {
     height,
     renderer: new renderers[selectRenderer.value](),
   });
+  // @ts-ignore
+  window.__g_instances__ = [canvas];
   currentContainer.append(render(options, { canvas }));
 }
 

@@ -25,6 +25,11 @@ export function computeLayout(
     insetTop = inset,
     insetBottom = inset,
     insetRight = inset,
+    margin = 0,
+    marginLeft = margin,
+    marginBottom = margin,
+    marginTop = margin,
+    marginRight = margin,
   } = options;
   return {
     ...padding,
@@ -34,8 +39,12 @@ export function computeLayout(
     insetTop,
     insetBottom,
     insetRight,
-    innerWidth: width - paddingLeft - paddingRight,
-    innerHeight: height - paddingTop - paddingBottom,
+    innerWidth: width - paddingLeft - paddingRight - marginLeft - marginRight,
+    innerHeight: height - paddingTop - paddingBottom - marginTop - marginBottom,
+    marginLeft,
+    marginBottom,
+    marginTop,
+    marginRight,
     x,
     y,
   };
@@ -90,15 +99,24 @@ export function placeComponents(
 ): void {
   const positionComponents = group(components, (d) => d.position);
   const {
-    paddingLeft: pl,
-    paddingRight: pr,
-    paddingTop: pt,
-    paddingBottom: pb,
+    paddingLeft,
+    paddingRight,
+    paddingTop,
+    paddingBottom,
+    marginLeft,
+    marginTop,
+    marginBottom,
+    marginRight,
     innerHeight,
     innerWidth,
     height,
     width,
   } = layout;
+
+  const pl = paddingLeft + marginLeft;
+  const pt = paddingTop + marginTop;
+  const pr = paddingRight + marginRight;
+  const pb = paddingBottom + marginBottom;
 
   const section: Section = {
     top: [pl, 0, innerWidth, pt, 0, true, ascending],

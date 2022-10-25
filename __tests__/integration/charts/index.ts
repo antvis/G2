@@ -76,3 +76,4 @@ export { titanicPointPackSharedData } from './titanic-point-pack-shared-data';
 export { titanicPointPackSharedSize } from './titanic-point-pack-shared-size';
 export { titanic2PointPack } from './titanic2-point-pack';
 export { titanicPointPackNested } from './titanic-point-pack-nested';
+export { commitsPointGroupedLayout } from './commits-point-grouped-layout';
