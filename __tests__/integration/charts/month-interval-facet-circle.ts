@@ -1,7 +1,7 @@
 import * as d3 from 'd3-random';
 import { G2Spec } from '../../../src';
 
-export function monthIntervalCircle(): G2Spec {
+export function monthIntervalFacetCircle(): G2Spec {
   const random = d3.randomUniform.source(d3.randomLcg(42))(0, 1);
   const M = [
     'Jan.',
@@ -26,7 +26,7 @@ export function monthIntervalCircle(): G2Spec {
     })),
   );
   return {
-    type: 'circle',
+    type: 'facetCircle',
     encode: {
       position: 'month',
     },

@@ -3,10 +3,10 @@ import { autoType } from 'd3-dsv';
 import { groupSort, median } from 'd3-array';
 import { G2Spec } from '../../../src';
 
-export async function barleyPointSquareCol(): Promise<G2Spec> {
+export async function barleyPointFacetRectCol(): Promise<G2Spec> {
   const data = await csv('data/barley.csv', autoType);
   return {
-    type: 'square',
+    type: 'facetRect',
     data: data,
     height: 800,
     encode: {

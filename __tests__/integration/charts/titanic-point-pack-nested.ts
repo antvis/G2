@@ -2,7 +2,7 @@ import { G2Spec } from '../../../src';
 
 export function titanicPointPackNested(): G2Spec {
   return {
-    type: 'square',
+    type: 'facetRect',
     data: {
       type: 'fetch',
       value: 'data/titanic.csv',
@@ -29,7 +29,7 @@ export function titanicPointPackNested(): G2Spec {
     shareSize: true,
     children: [
       {
-        type: 'square',
+        type: 'facetRect',
         encode: { x: 'survived' },
         axis: {
           y: false,
@@ -41,7 +41,7 @@ export function titanicPointPackNested(): G2Spec {
         shareSize: true,
         children: [
           {
-            type: 'square',
+            type: 'facetRect',
             encode: { y: 'sex' },
             shareSize: true,
             axis: {

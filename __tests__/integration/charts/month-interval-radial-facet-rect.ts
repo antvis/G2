@@ -1,7 +1,7 @@
 import * as d3 from 'd3-random';
 import { G2Spec } from '../../../src';
 
-export function monthIntervalRadialSquare(): G2Spec {
+export function monthIntervalRadialFacetRect(): G2Spec {
   const random = d3.randomUniform.source(d3.randomLcg(42))(0, 1);
   const days = ['Sun.', 'Mon.', 'Tues.', 'Wed.', 'Thur.', 'Fri.', 'Sat.'];
   const mockData = () => {
@@ -24,7 +24,7 @@ export function monthIntervalRadialSquare(): G2Spec {
     }).flat(Infinity);
   };
   return {
-    type: 'square',
+    type: 'facetRect',
     width: 800,
     data: mockData(),
     encode: { x: 'day', y: 'week' },

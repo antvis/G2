@@ -1,8 +1,8 @@
 import { G2Spec } from '../../../src';
 
-export function penguinsPointMatrix(): G2Spec {
+export function penguinsPointRepeatMatrix(): G2Spec {
   return {
-    type: 'matrix',
+    type: 'repeatMatrix',
     width: 800,
     height: 800,
     paddingLeft: 60,
@@ -31,4 +31,4 @@ export function penguinsPointMatrix(): G2Spec {
 }
 
 // @todo Remove this, it now has some performance issue.
-penguinsPointMatrix.skip = true;
+penguinsPointRepeatMatrix.skip = true;

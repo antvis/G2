@@ -1,11 +1,11 @@
 import { deepMix } from '@antv/util';
 import { CompositionComponent as CC, G2ViewTree } from '../runtime';
-import { KeyframeComposition } from '../spec';
+import { TimingKeyframeComposition } from '../spec';
 
-export type KeyframeOptions = Omit<KeyframeComposition, 'type'>;
+export type TimingKeyframeOptions = Omit<TimingKeyframeComposition, 'type'>;
 
 function range(
-  direction: KeyframeComposition['direction'],
+  direction: TimingKeyframeComposition['direction'],
   iterationCount: number,
   keyframeCount: number,
 ): [number, number] {
@@ -52,7 +52,7 @@ function setAnimation(node: G2ViewTree, duration: number, easing: string) {
 /**
  * @todo More options, such as fill, totalDuration...
  */
-export const Keyframe: CC<KeyframeOptions> = () => {
+export const TimingKeyframe: CC<TimingKeyframeOptions> = () => {
   return (options) => {
     const {
       children = [],
@@ -87,4 +87,4 @@ export const Keyframe: CC<KeyframeOptions> = () => {
   };
 };
 
-Keyframe.props = {};
+TimingKeyframe.props = {};
