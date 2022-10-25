@@ -36,6 +36,11 @@ export type ViewComposition = {
   paddingRight?: number;
   paddingTop?: number;
   paddingBottom?: number;
+  margin?: number;
+  marginLeft?: number;
+  marginBottom?: number;
+  marginTop?: number;
+  marginRight?: number;
   coordinate?: Coordinate[];
   interaction?: Interaction[];
   transform?: Transform[];
@@ -83,6 +88,11 @@ export type FacetRectComposition = {
   paddingRight?: number;
   paddingTop?: number;
   paddingBottom?: number;
+  margin?: number;
+  marginLeft?: number;
+  marginBottom?: number;
+  marginTop?: number;
+  marginRight?: number;
   key?: string;
   title?: Title;
   encode?: {
@@ -104,6 +114,11 @@ export type RepeatMatrixComposition = {
   paddingRight?: number;
   paddingTop?: number;
   paddingBottom?: number;
+  margin?: number;
+  marginLeft?: number;
+  marginBottom?: number;
+  marginTop?: number;
+  marginRight?: number;
   transform?: Transform;
   title?: Title;
   data?: Data;
@@ -126,6 +141,11 @@ export type FacetCircleComposition = {
   paddingRight?: number;
   paddingTop?: number;
   paddingBottom?: number;
+  margin?: number;
+  marginLeft?: number;
+  marginBottom?: number;
+  marginTop?: number;
+  marginRight?: number;
   transform?: Transform;
   title?: Title;
   data?: Data;

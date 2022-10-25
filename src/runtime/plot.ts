@@ -1,5 +1,5 @@
 import { DisplayObject, IAnimation as GAnimation } from '@antv/g';
-import { upperFirst } from '@antv/util';
+import { deepMix, upperFirst } from '@antv/util';
 import { format } from 'd3-format';
 import { Vector2 } from '@antv/coord';
 import { mapObject } from '../utils/array';
@@ -10,6 +10,8 @@ import {
   useMemo,
   appendTransform,
   compose,
+  maybeSubObject,
+  subObject,
 } from '../utils/helper';
 import { Selection, select, G2Element } from '../utils/selection';
 import { emitEvent, CHART_LIFE_CIRCLE } from '../utils/event';
@@ -65,6 +67,7 @@ import {
   COMPONENT_CLASS_NAME,
   PLOT_CLASS_NAME,
   LABEL_CLASS_NAME,
+  AREA_CLASS_NAME,
 } from './constant';
 
 export async function plot<T extends G2ViewTree>(
@@ -312,7 +315,7 @@ function initializeState(
     library,
   );
 
-  const { key, frame, theme: partialTheme } = options;
+  const { key, frame = false, theme: partialTheme, style = {} } = options;
   const theme = useTheme(inferTheme(partialTheme));
 
   // Infer components and compute layout.
@@ -321,6 +324,9 @@ function initializeState(
   const components = inferComponent(Array.from(scales), options, library);
   const layout = computeLayout(components, options);
   const coordinate = createCoordinate(layout, options, library);
+  const framedStyle = frame
+    ? deepMix({ mainlineWidth: 1, mainStroke: '#000' }, style)
+    : style;
 
   // Place components and mutate their bbox.
   placeComponents(components, coordinate, layout);
@@ -391,8 +397,8 @@ function initializeState(
     components,
     markState,
     key,
-    frame,
     scale: scaleInstance,
+    style: framedStyle,
   };
 
   return [view, children];
@@ -407,15 +413,59 @@ async function plotView(
   transitions: Promise<void>[],
   library: G2Library,
 ): Promise<void> {
-  const {
-    components,
-    theme,
-    layout,
-    markState,
-    coordinate,
-    key,
-    frame = false,
-  } = view;
+  const { components, theme, layout, markState, coordinate, key, style } = view;
+
+  // Render background for the different areas.
+  const { x, y, width, height, ...rest } = layout;
+  const areaKeys = ['view', 'plot', 'main', 'content'];
+  const I = areaKeys.map((_, i) => i);
+  const sizeKeys = ['a', 'margin', 'padding', 'inset'];
+  const areaStyles = areaKeys.map((d) => maybeSubObject(style, d));
+  const areaSizes = sizeKeys.map((d) => subObject(rest, d));
+  const styleArea = (selection) =>
+    selection
+      .style('x', (i) => areaLayouts[i].x)
+      .style('y', (i) => areaLayouts[i].y)
+      .style('width', (i) => areaLayouts[i].width)
+      .style('height', (i) => areaLayouts[i].height)
+      .each(function (i) {
+        applyStyle(select(this), areaStyles[i]);
+      });
+  let px = 0;
+  let py = 0;
+  let pw = width;
+  let ph = height;
+  const areaLayouts = I.map((i) => {
+    const size = areaSizes[i];
+    const { left = 0, top = 0, bottom = 0, right = 0 } = size;
+    px += left;
+    py += top;
+    pw -= left + right;
+    ph -= top + bottom;
+    return {
+      x: px,
+      y: py,
+      width: pw,
+      height: ph,
+    };
+  });
+  selection
+    .selectAll(className(AREA_CLASS_NAME))
+    .data(
+      // Only render area with defined style.
+      I.filter((i) => defined(areaStyles[i])),
+      (i) => areaKeys[i],
+    )
+    .join(
+      (enter) =>
+        enter
+          .append('rect')
+          .attr('className', AREA_CLASS_NAME)
+          .style('zIndex', -2)
+          .call(styleArea),
+      (update) => update.call(styleArea),
+      (exit) => exit.remove(),
+    );
 
   // Render components.
   // @todo renderComponent return ctor and options.
@@ -454,10 +504,8 @@ async function plotView(
     .join(
       (enter) =>
         enter
-          .append('rect')
+          .append('g')
           .attr('className', PLOT_CLASS_NAME)
-          .style('fill', 'transparent')
-          .call(updateFrame, frame)
           .call(updateBBox)
           .call(updateLayers, Array.from(markState.keys())),
       (update) =>
@@ -948,4 +996,13 @@ function updateLayers(selection: Selection, marks: G2Mark[]) {
 
 function className(name: string): string {
   return `.${name}`;
+}
+
+export function applyStyle(
+  selection: Selection,
+  style: Record<string, Primitive>,
+) {
+  for (const [key, value] of Object.entries(style)) {
+    selection.style(key, value);
+  }
 }

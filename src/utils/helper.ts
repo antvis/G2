@@ -73,13 +73,16 @@ export function subObject(
   obj: Record<string, any>,
   prefix: string,
 ): Record<string, any> {
-  return Object.fromEntries(
-    Object.entries(obj)
-      .filter(([key]) => key.startsWith(prefix))
-      .map(([key, value]) => [
-        lowerFirst(key.replace(prefix, '').trim()),
-        value,
-      ])
-      .filter(([key]) => key !== undefined),
-  );
+  return maybeSubObject(obj, prefix) || {};
+}
+
+export function maybeSubObject(
+  obj: Record<string, any>,
+  prefix: string,
+): Record<string, any> {
+  const entries = Object.entries(obj)
+    .filter(([key]) => key.startsWith(prefix))
+    .map(([key, value]) => [lowerFirst(key.replace(prefix, '').trim()), value])
+    .filter(([key]) => key !== undefined);
+  return entries.length === 0 ? null : Object.fromEntries(entries);
 }
