@@ -504,7 +504,9 @@ async function plotView(
     .join(
       (enter) =>
         enter
-          .append('g')
+          // Make this layer interactive, such as click and mousemove events.
+          .append('rect')
+          .style('fill', 'transparent')
           .attr('className', PLOT_CLASS_NAME)
           .call(updateBBox)
           .call(updateLayers, Array.from(markState.keys())),
