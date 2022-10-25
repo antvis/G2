@@ -90,6 +90,11 @@ export type BaseGeometry<
   insetBottom?: number;
   insetTop?: number;
   insetRight?: number;
+  margin?: number;
+  marginLeft?: number;
+  marginBottom?: number;
+  marginTop?: number;
+  marginRight?: number;
   data?: Data;
   transform?: Transform[];
   encode?: Partial<Record<C, Encode | Encode[]>>;

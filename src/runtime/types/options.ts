@@ -63,6 +63,11 @@ export type G2View = {
   insetTop?: number;
   insetRight?: number;
   insetBottom?: number;
+  margin?: number;
+  marginLeft?: number;
+  marginBottom?: number;
+  marginTop?: number;
+  marginRight?: number;
   theme?: G2ThemeOptions;
   title?: G2TitleOptions;
   coordinate?: G2CoordinateOptions[];
@@ -72,6 +77,7 @@ export type G2View = {
   frame?: boolean;
   adjust?: { type?: string; [key: string]: any };
   labelTransform?: G2LabelTransformOptions[];
+  style?: Record<string, any>;
 };
 
 export type G2Mark = {

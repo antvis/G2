@@ -21,6 +21,8 @@ export function createCoordinate(
     insetTop,
     insetRight,
     insetBottom,
+    marginLeft,
+    marginTop,
   } = layout;
   const { coordinate: partialTransform = [] } = partialOptions;
   const transform = inferCoordinate(partialTransform);
@@ -28,8 +30,8 @@ export function createCoordinate(
     // @todo Find a better solution.
     // Store more layout information for component.
     ...layout,
-    x: insetLeft,
-    y: insetTop,
+    x: insetLeft + marginLeft,
+    y: insetTop + marginTop,
     width: innerWidth - insetLeft - insetRight,
     height: innerHeight - insetBottom - insetTop,
     transformations: transform.map(useCoordinate).flat(),

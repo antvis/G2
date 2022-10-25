@@ -22,8 +22,9 @@ export type G2ViewDescriptor = {
   components: G2GuideComponentOptions[];
   layout: Layout;
   key: string;
-  frame: boolean;
   labelTransform?: LabelTransform;
+  // @todo More accurate type.
+  style: Record<string, any>;
 };
 
 export type G2ViewInstance = {
@@ -115,6 +116,11 @@ export type Layout = {
   height?: number;
   innerWidth?: number;
   innerHeight?: number;
+  margin?: number;
+  marginLeft?: number;
+  marginBottom?: number;
+  marginTop?: number;
+  marginRight?: number;
   x?: number;
   y?: number;
 };
