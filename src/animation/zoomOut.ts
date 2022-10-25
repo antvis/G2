@@ -11,9 +11,21 @@ export const ZoomOut: AC<ZoomOutOptions> = (options) => {
 
   return (from, to, value, coordinate, defaults) => {
     const [shape] = from;
-    const { transform: prefix } = shape.style;
+    const {
+      transform: prefix,
+      fillOpacity,
+      strokeOpacity,
+      opacity,
+    } = shape.style;
     const keyframes = [
       { transform: `${prefix} scale(1)`.trimStart() },
+      {
+        transform: `${prefix} scale(${ZERO})`.trimStart(),
+        fillOpacity,
+        strokeOpacity,
+        opacity,
+        offset: 0.99,
+      },
       {
         transform: `${prefix} scale(${ZERO})`.trimStart(),
         fillOpacity: 0,
