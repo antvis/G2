@@ -1,8 +1,8 @@
 import { G2Spec } from '../../../src';
 
-export function penguinsPointSquare(): G2Spec {
+export function penguinsPointFacetRect(): G2Spec {
   return {
-    type: 'square',
+    type: 'facetRect',
     data: {
       type: 'fetch',
       value: 'data/penguins.csv',

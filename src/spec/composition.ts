@@ -13,12 +13,12 @@ type EventType = (...args: any[]) => void;
 export type Node =
   | MarkComposition
   | ViewComposition
-  | LayerComposition
-  | FlexComposition
-  | MatrixComposition
-  | SquareComposition
-  | CircleComposition
-  | KeyframeComposition;
+  | SpaceLayerComposition
+  | SpaceFlexComposition
+  | RepeatMatrixComposition
+  | FacetRectComposition
+  | FacetCircleComposition
+  | TimingKeyframeComposition;
 
 export type MarkComposition = Geometry & {
   title?: Title;
@@ -47,15 +47,15 @@ export type ViewComposition = {
   on?: Record<string, EventType | EventType[]>;
 };
 
-export type LayerComposition = {
-  type?: 'layer';
+export type SpaceLayerComposition = {
+  type?: 'spaceLayer';
   key?: string;
   data?: any;
   children?: Node[];
 };
 
-export type FlexComposition = {
-  type?: 'flex';
+export type SpaceFlexComposition = {
+  type?: 'spaceFlex';
   key?: string;
   data?: Data;
   direction?: 'col' | 'row';
@@ -75,7 +75,8 @@ export type FacetContext = {
   rowValuesLength?: number;
 };
 
-export type SquareComposition = {
+export type FacetRectComposition = {
+  type?: 'facetRect';
   transform?: Transform;
   data?: Data;
   paddingLeft?: number;
@@ -83,7 +84,6 @@ export type SquareComposition = {
   paddingTop?: number;
   paddingBottom?: number;
   key?: string;
-  type?: 'square';
   title?: Title;
   encode?: {
     x?: string;
@@ -98,8 +98,8 @@ export type SquareComposition = {
   children?: Node[] | ((facet: FacetContext) => Node);
 };
 
-export type MatrixComposition = {
-  type?: 'matrix';
+export type RepeatMatrixComposition = {
+  type?: 'repeatMatrix';
   paddingLeft?: number;
   paddingRight?: number;
   paddingTop?: number;
@@ -120,8 +120,8 @@ export type MatrixComposition = {
   children?: Node[] | ((facet: FacetContext) => Node);
 };
 
-export type CircleComposition = {
-  type?: 'matrix';
+export type FacetCircleComposition = {
+  type?: 'facetCircle';
   paddingLeft?: number;
   paddingRight?: number;
   paddingTop?: number;
@@ -140,8 +140,8 @@ export type CircleComposition = {
   children?: Node[] | ((facet: FacetContext) => Node);
 };
 
-export type KeyframeComposition = {
-  type?: 'keyframe';
+export type TimingKeyframeComposition = {
+  type?: 'TimingKeyframe';
   duration?: number;
   key?: string;
   easing?: string;

@@ -1,8 +1,8 @@
 import { G2Spec } from '../../../src';
 
-export function anscombePointSquareRow(): G2Spec {
+export function anscombePointFacetRectRow(): G2Spec {
   return {
-    type: 'square',
+    type: 'facetRect',
     width: 928,
     height: 270,
     paddingBottom: 50,

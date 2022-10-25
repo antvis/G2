@@ -1,6 +1,6 @@
 import { deepMix } from '@antv/util';
 import { CompositionComponent as CC, G2ViewTree, Node } from '../runtime';
-import { MatrixComposition } from '../spec';
+import { RepeatMatrixComposition } from '../spec';
 import { Container } from '../utils/container';
 import { calcBBox } from '../utils/vector';
 import { indexOf } from '../utils/array';
@@ -10,10 +10,10 @@ import {
   setAnimation,
   setStyle,
   toCell,
-} from './square';
+} from './facetRect';
 import { useDefaultAdaptor, useOverrideAdaptor } from './utils';
 
-export type MatrixOptions = Omit<MatrixComposition, 'type'>;
+export type RepeatMatrixOptions = Omit<RepeatMatrixComposition, 'type'>;
 
 const setScale = useDefaultAdaptor<G2ViewTree>((options) => {
   return {
@@ -157,7 +157,7 @@ function createGuideY(guideY) {
  * @todo Layout mode: layer, row, col...
  * @todo Specify show axis or not.
  */
-export const Matrix: CC<MatrixComposition> = () => {
+export const RepeatMatrix: CC<RepeatMatrixComposition> = () => {
   return (options) => {
     const newOptions = Container.of<G2ViewTree>(options)
       .call(toCell)

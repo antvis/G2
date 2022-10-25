@@ -1,5 +1,5 @@
 import { CompositionComponent as CC, G2ViewTree } from '../runtime';
-import { CircleComposition } from '../spec';
+import { FacetCircleComposition } from '../spec';
 import { Container } from '../utils/container';
 import { angleWithQuadrant, angleBetween, dist, sub } from '../utils/vector';
 import {
@@ -9,10 +9,10 @@ import {
   toCell,
   setChildren,
   setData,
-} from './square';
+} from './facetRect';
 import { useDefaultAdaptor } from './utils';
 
-export type CircleOptions = Omit<CircleComposition, 'type'>;
+export type FacetCircleOptions = Omit<FacetCircleComposition, 'type'>;
 
 const setScale = useDefaultAdaptor<G2ViewTree>((options) => {
   return {
@@ -41,7 +41,7 @@ const setEncode = (options) => {
 /**
  * Every facet should do not show both axisX and axisY by default.
  */
-function createGuideCircle(guide) {
+function createGuideFacetCircle(guide) {
   return (facet) => null;
 }
 
@@ -49,7 +49,7 @@ function createGuideCircle(guide) {
  * Use the inscribed circle of the sector as the
  * circumscribed circle of the new bbox.
  */
-function subLayoutCircle(data) {
+function subLayoutFacetCircle(data) {
   const { points } = data;
   const [p0, p1, p2, p3] = points;
 
@@ -78,7 +78,7 @@ function subLayoutCircle(data) {
 /**
  * @todo Pack.
  */
-export const Circle: CC<CircleComposition> = () => {
+export const FacetCircle: CC<FacetCircleComposition> = () => {
   return (options) => {
     const newOptions = Container.of<G2ViewTree>(options)
       .call(toCell)
@@ -88,9 +88,9 @@ export const Circle: CC<CircleComposition> = () => {
       .call(setData)
       .call(
         setChildren,
-        subLayoutCircle,
-        createGuideCircle,
-        createGuideCircle,
+        subLayoutFacetCircle,
+        createGuideFacetCircle,
+        createGuideFacetCircle,
         { frame: false },
       )
       .call(setAnimation)

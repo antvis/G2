@@ -2,7 +2,7 @@ import { G2Spec } from '../../../src';
 
 export function titanicPointPackSharedData(): G2Spec {
   return {
-    type: 'square',
+    type: 'facetRect',
     paddingRight: 50,
     data: {
       type: 'fetch',
