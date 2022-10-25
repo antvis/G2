@@ -737,7 +737,7 @@ function createLabelShapeFunction(
     const datum = abstractData[index];
     const { formatter = (d) => `${d}`, ...abstractOptions } = options;
     const visualOptions = mapObject(abstractOptions, (d) =>
-      valueOf(datum, d, index, abstractData),
+      valueOf(d, datum, index, abstractData),
     );
     const { shape = defaultLabelShape, text, ...style } = visualOptions;
     const f = typeof formatter === 'string' ? format(formatter) : formatter;
@@ -748,8 +748,8 @@ function createLabelShapeFunction(
 }
 
 function valueOf(
-  datum: Record<string, any>,
   value: Primitive | ((d: any, i: number, array: any) => any),
+  datum: Record<string, any>,
   i: number,
   data: Record<string, any>,
 ) {
@@ -805,14 +805,32 @@ function createMarkShapeFunction(
     'shape',
     library,
   );
+  const { data: abstractData } = mark;
   const { defaultShape, data } = state;
   const point2d = data.map((d) => d.points);
   const { theme, coordinate } = view;
-  const { type: markType, style } = mark;
+  const { type: markType, style = {} } = mark;
   return (data, index) => {
-    const { shape = defaultShape, points, ...v } = data;
+    const { shape = defaultShape, points, seriesIndex, ...v } = data;
     const value = { ...v, shape, mark: markType, defaultShape, index };
-    const shapeFunction = useShape({ ...style, type: shapeName(mark, shape) });
+
+    // Get data-driven style.
+    // If it is a series shape, such as area and line,
+    // provides the series of abstract data and indices
+    // for this shape, otherwise the single datum and
+    // index.
+    const abstractDatum = seriesIndex
+      ? seriesIndex.map((i) => abstractData[i])
+      : abstractData[index];
+    const I = seriesIndex ? seriesIndex : index;
+    const visualStyle = mapObject(style, (d) =>
+      valueOf(d, abstractDatum, I, abstractData),
+    );
+
+    const shapeFunction = useShape({
+      ...visualStyle,
+      type: shapeName(mark, shape),
+    });
     return shapeFunction(points, value, coordinate, theme, point2d);
   };
 }
@@ -956,16 +974,6 @@ function updateBBox(selection: Selection) {
 function shapeName(mark: G2Mark, name: string): string {
   const { type } = mark;
   return `${type}.${name}`;
-}
-
-/**
- * Draw frame for the plot area of each facet.
- * This is useful for facet.
- * @todo More options for frame style.
- */
-function updateFrame(selection: Selection, frame: boolean) {
-  if (!frame) return;
-  selection.style('lineWidth', 1).style('stroke', 'black');
 }
 
 /**
