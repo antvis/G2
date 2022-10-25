@@ -21,6 +21,18 @@ export function applyDefaultsActiveStyle(
   return style;
 }
 
+export function createColorKey(view) {
+  return (element) => element.__data__.color;
+}
+
+export function createXKey(view) {
+  const { x: scaleX } = view.scale;
+  return (element) => {
+    const { x } = element.__data__;
+    return scaleX.invert(x);
+  };
+}
+
 export function createDatumof(view: G2ViewDescriptor) {
   const marks = Array.from(view.markState.keys());
   const keyData = new Map(marks.map((mark) => [mark.key, mark.data]));
@@ -72,13 +84,11 @@ export function useState(
   };
 
   /**
-   * Append the states and update element.
+   * Set the states and update element.
    */
   const setState = (element, ...states) => {
     initState(element);
-    for (const state of states) {
-      element[STATES].push(state);
-    }
+    element[STATES] = [...states];
     updateState(element);
   };
 
@@ -124,7 +134,7 @@ export function renderLink(
   { valueof = (d, element) => d, ...style },
 ) {
   const LINK_CLASS_NAME = 'element-link';
-  const append = (elements) => {
+  const append = (elements, key?) => {
     if (elements.length <= 1) return;
     const elementBBoxs = elements.map((d) => [d, d.getBBox()]);
 
@@ -149,7 +159,7 @@ export function renderLink(
         (d) => valueof(d, e0),
       );
       const path = new Path({
-        className: LINK_CLASS_NAME,
+        className: `${LINK_CLASS_NAME}${key ? ' ' + key : ''}`,
         style: {
           d: p.toString(),
           fill,
@@ -160,8 +170,9 @@ export function renderLink(
     }
   };
 
-  const remove = () => {
-    const links = root.getElementsByClassName(LINK_CLASS_NAME);
+  const remove = (key?) => {
+    const className = key || LINK_CLASS_NAME;
+    const links = root.getElementsByClassName(className) || [];
     for (const link of links) link.remove();
   };
 

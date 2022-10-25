@@ -10,8 +10,6 @@ import {
   applyDefaultsActiveStyle,
 } from './utils';
 
-export const LINK_CLASS_NAME = 'element-link';
-
 /**
  * Active a group of elements.
  */

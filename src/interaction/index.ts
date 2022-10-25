@@ -1,9 +1,12 @@
 // export { createInteraction } from './create';
 // export { createInteractionLibrary } from './stdlib';
-
 export { ElementActive } from './native/elementActive';
 export { ElementActiveByX } from './native/elementActiveByX';
 export { ElementActiveByColor } from './native/elementActiveByColor';
+export { ElementSelect } from './native/elementSelect';
+export { ElementSelectByX } from './native/elementSelectByX';
+export { ElementSelectByColor } from './native/elementSelectByColor';
+
 // export { ElementSelected } from './builtin/elementSelected';
 // export { Tooltip } from './builtin/tooltip';
 // export { Fisheye } from './builtin/fisheye';
