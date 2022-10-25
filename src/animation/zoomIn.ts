@@ -25,6 +25,13 @@ export const ZoomIn: AC<ZoomInOptions> = (options) => {
         opacity: 0,
       },
       {
+        transform: `${prefix} scale(${ZERO})`.trimStart(),
+        fillOpacity,
+        strokeOpacity,
+        opacity,
+        offset: 0.01,
+      },
+      {
         transform: `${prefix} scale(1)`.trimStart(),
         fillOpacity,
         strokeOpacity,
