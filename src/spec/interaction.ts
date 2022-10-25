@@ -6,7 +6,7 @@ export type Interaction =
   | ElementActiveInteraction
   | ElementActiveByColorInteraction
   | ElementActiveByXInteraction
-  | ElementSelectedInteraction
+  | ElementSelectInteraction
   | ElementListHighlightInteraction
   | LegendActiveInteraction
   | LegendHighlightInteraction
@@ -17,6 +17,8 @@ export type Interaction =
   | BrushVisibleInteraction
   | ActiveRegionInteraction
   | EllipsisTextInteraction
+  | ElementSelectByColorInteraction
+  | ElementSelectByXInteraction
   | CustomInteraction;
 
 export type InteractionTypes =
@@ -57,12 +59,20 @@ export type ElementActiveInteraction = {
   link?: boolean;
 } & Record<`${'link' | 'active' | 'inactive'}${any}`, any>;
 
-export type ElementSelectedInteraction = {
-  type?: 'elementSelected';
-  color?: string;
-  border?: number;
-  singleMode?: boolean;
-};
+export type ElementSelectInteraction = {
+  type?: 'elementSelect';
+  single?: boolean;
+} & Record<`${'selected' | 'link' | 'unselected'}${any}`, any>;
+
+export type ElementSelectByColorInteraction = {
+  type?: 'elementSelectByColor';
+  single?: boolean;
+} & Record<`${'selected' | 'link' | 'unselected'}${any}`, any>;
+
+export type ElementSelectByXInteraction = {
+  type?: 'elementSelectByX';
+  single?: boolean;
+} & Record<`${'selected' | 'link' | 'unselected'}${any}`, any>;
 
 export type ElementActiveByXInteraction = {
   type?: 'elementActiveByX';

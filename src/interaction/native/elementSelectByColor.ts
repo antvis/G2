@@ -1,19 +1,15 @@
 import {
-  applyDefaultsActiveStyle,
   createDatumof,
   selectG2Elements,
+  applyDefaultsActiveStyle,
   createColorKey,
 } from './utils';
-import { elementActive } from './elementActive';
+import { elementSelect } from './elementSelect';
 
-/**
- * @todo Bind abstract data or data index.
- */
-export function ElementActiveByColor(options) {
+export function ElementSelectByColor(options) {
   return (context) => {
     const { container, view } = context;
-    return elementActive(container, {
-      ...options,
+    return elementSelect(container, {
       ...applyDefaultsActiveStyle(options),
       elements: selectG2Elements,
       datum: createDatumof(view),
