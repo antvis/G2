@@ -194,7 +194,7 @@ export const Light: TC<LightOptions> = (options) => {
       labelSpacing: 8,
       gridStroke: '#416180',
       gridStrokeOpacity: 0.15,
-      gridLineWidth: 1,
+      gridLineWidth: 0.5,
       gridLineDash: [0, 0],
     },
     legend: {

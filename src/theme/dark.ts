@@ -194,7 +194,7 @@ export const Dark: TC<DarkOptions> = (options) => {
       labelSpacing: 8,
       gridStroke: '#FFF',
       gridStrokeOpacity: 0.15,
-      gridLineWidth: 1,
+      gridLineWidth: 0.5,
       gridLineDash: [0, 0],
     },
     legend: {

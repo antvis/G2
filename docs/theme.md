@@ -27,7 +27,7 @@ theme = 'light';
 })();
 ```
 
-```js
+```js | dom "pin: false"
 (() => {
   const chart = new G2.Chart();
   chart.theme({ type: theme });
@@ -53,7 +53,7 @@ theme = 'light';
 })();
 ```
 
-```js
+```js | dom "pin: false"
 (() => {
   const chart = new G2.Chart({
     height: 640,

@@ -498,14 +498,14 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
           axisLine || Object.keys(axisLineStyle).length
             ? {
                 style: {
-                  ...subObject(axisTheme, 'axisLine'),
+                  ...subObject(axisTheme, 'axis'),
                   ...axisLineStyle,
                 },
               }
             : null,
         grid: {
           items: gridItems,
-          lineStyle: subObject(axisTheme, 'gridLine'),
+          lineStyle: subObject(axisTheme, 'grid'),
           ...(position === 'arcY' && {
             type: 'circle',
             center: [bbox.x, cy + bbox.y],
