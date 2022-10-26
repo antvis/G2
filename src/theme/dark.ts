@@ -1,11 +1,11 @@
 import { ThemeComponent as TC, Theme } from '../runtime';
 
-export type LightOptions = Theme;
+export type DarkOptions = Theme;
 
 /**
  * Default theme.
  */
-export const Light: TC<LightOptions> = (options) => {
+export const Dark: TC<DarkOptions> = (options) => {
   const DEFAULT_COLOR = '#5B8FF9';
   const defaultOptions: Theme = {
     defaultColor: DEFAULT_COLOR,
@@ -173,13 +173,13 @@ export const Light: TC<LightOptions> = (options) => {
       disabled: {},
     },
     axis: {
-      titleFill: '#000',
+      titleFill: '#fff',
       titleFillOpacity: 0.65,
       titleFontSize: 12,
       titleFontWeight: 'normal',
       titleSpacing: 12,
-      axisStroke: '#416180',
-      axisStrokeOpacity: 0.45,
+      axisStroke: '#FFF',
+      axisStrokeOpacity: 0.3,
       axisLineWidth: 0.5,
       tickLineStroke: '#BFBFBF',
       tickLineLineWidth: 1,
@@ -187,12 +187,12 @@ export const Light: TC<LightOptions> = (options) => {
       subTickLineStroke: '#D9D9D9',
       subTickLineLineWidth: 1,
       subTickLineLength: 2,
-      labelFill: '#2C3542',
+      labelFill: '#FFF',
       labelFillOpacity: 0.65,
       labelFontSize: 12,
       labelFontWeight: 'lighter',
       labelSpacing: 8,
-      gridStroke: '#416180',
+      gridStroke: '#FFF',
       gridStrokeOpacity: 0.15,
       gridLineWidth: 1,
       gridLineDash: [0, 0],
@@ -205,33 +205,36 @@ export const Light: TC<LightOptions> = (options) => {
       markerFill: DEFAULT_COLOR,
       markerSpacing: 8,
       markerSize: 4,
-      itemNameFill: '#595959',
+      itemNameFill: '#FFF',
+      itemNameFillOpacity: 0.65,
       itemNameFontSize: 12,
       itemNameFontWeight: 'normal',
       itemValueFill: '#595959',
       itemValueFontSize: 12,
       itemValueFontWeight: 'normal',
     },
-    titleFill: '#1D2129',
-    titleFontSize: 14,
+    titleFill: '#FFF',
+    titleFillOpacity: 0.9,
+    titleFontSize: 40,
     titleFontWeight: 'bold',
     titleBaseline: 'top',
     subtitleFill: '#424E66',
     subtitleFontSize: 10,
     subtitleFontWeight: 'normal',
     subtitleBaseline: 'top',
-    labelFill: '#000',
+    labelFill: '#FFF',
     labelFillOpacity: 0.65,
     labelFontSize: 12,
     labelFontWeight: 'normal',
     labelStroke: null,
     innerLabelFill: '#FFF',
-    innerLabelFillOpacity: 0.85,
+    innerLabelFillOpacity: 1,
     innerLabelFontSize: 12,
     innerLabelFontWeight: 'normal',
-    innerLabelStroke: null,
+    innerLabelStroke: '#000',
+    innerLabelLineWidth: 0.5,
   };
   return Object.assign({}, defaultOptions, options);
 };
 
-Light.props = {};
+Dark.props = {};
