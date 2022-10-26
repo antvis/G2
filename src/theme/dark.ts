@@ -198,7 +198,7 @@ export const Dark: TC<DarkOptions> = (options) => {
       gridLineDash: [0, 0],
     },
     legend: {
-      titleFill: '#8C8C8C',
+      titleFill: '#FFF',
       titleFontSize: 12,
       titleLineHeight: 21,
       titleFontWeight: 'bold',
@@ -209,7 +209,8 @@ export const Dark: TC<DarkOptions> = (options) => {
       itemNameFillOpacity: 0.65,
       itemNameFontSize: 12,
       itemNameFontWeight: 'normal',
-      itemValueFill: '#595959',
+      itemValueFill: '#FFF',
+      itemValueFillOpacity: 0.85,
       itemValueFontSize: 12,
       itemValueFontWeight: 'normal',
     },

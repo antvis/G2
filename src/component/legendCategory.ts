@@ -4,6 +4,7 @@ import {
   GuideComponentComponent as GCC,
   GuideComponentPosition,
 } from '../runtime';
+import { subObject } from '../utils/helper';
 
 export type LegendCategoryOptions = {
   position?: GuideComponentPosition;
@@ -38,6 +39,7 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
       color: scale.map(d),
     }));
     const maxItemWidth = autoWrap && cols ? width / cols : undefined;
+    const { legend: legendTheme } = theme;
     const legendStyle = deepMix(
       {},
       {
@@ -55,10 +57,7 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
         spacing: [8, 0],
         itemName: {
           style: {
-            fontSize: 12,
-            fillOpacity: 1,
-            fill: '#000',
-            fontWeight: 'lighter',
+            ...subObject(legendTheme, 'itemName'),
             active: {
               fillOpacity: 0.8,
             },
@@ -73,11 +72,7 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
         ...(title && {
           title: {
             content: Array.isArray(title) ? title[0] : title,
-            style: {
-              fontSize: 12,
-              fontWeight: 'bold',
-              fillOpacity: 1,
-            },
+            style: subObject(legendTheme, 'title'),
           },
         }),
         itemMarker: {
