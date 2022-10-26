@@ -1,7 +1,7 @@
 import { Coordinate, Vector2 } from '@antv/coord';
 import { Arc, Linear } from '@antv/gui';
 import { Linear as LinearScale } from '@antv/scale';
-import { deepMix, size } from '@antv/util';
+import { deepMix } from '@antv/util';
 import { format } from 'd3-format';
 import { extent } from 'd3-array';
 import {
@@ -473,6 +473,8 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
     const gridItems = showGrid
       ? getGridItems(ticks, position, coordinate, startPos, endPos)
       : [];
+
+    const { axis: axisTheme } = theme;
     const axisLineStyle = subObject(rest, 'line');
     return new Linear({
       style: deepMix({
@@ -485,8 +487,8 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
               tickPadding: labelOffset,
               autoHide: false,
               autoRotate: true,
-              ...subObject(rest, 'label'),
               style: {
+                ...subObject(axisTheme, 'label'),
                 ...(labelAlign && { textAlign: labelAlign }),
                 ...subObject(rest, 'label'),
               },
@@ -494,15 +496,16 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
           : null,
         axisLine:
           axisLine || Object.keys(axisLineStyle).length
-            ? { stroke: '#BFBFBF', style: axisLineStyle }
+            ? {
+                style: {
+                  ...subObject(axisTheme, 'axisLine'),
+                  ...axisLineStyle,
+                },
+              }
             : null,
         grid: {
           items: gridItems,
-          lineStyle: {
-            stroke: '#1b1e23',
-            strokeOpacity: 0.05,
-            lineDash: [0, 0],
-          },
+          lineStyle: subObject(axisTheme, 'gridLine'),
           ...(position === 'arcY' && {
             type: 'circle',
             center: [bbox.x, cy + bbox.y],
@@ -513,8 +516,7 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
           ? {
               len: 4,
               style: {
-                lineWidth: 1,
-                stroke: '#BFBFBF',
+                ...subObject(axisTheme, 'tickLine'),
                 ...subObject(rest, 'tick'),
               },
             }
@@ -522,11 +524,9 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
         ...(title && {
           title: {
             content: titleContent(title),
-            // content: 'a',
             titleAnchor: titleAnchor || anchor,
             style: {
-              fontWeight: 'bold',
-              fillOpacity: 1,
+              ...subObject(axisTheme, 'title'),
               dy: titleOffsetY,
               textAnchor: anchor,
               ...subObject(rest, 'title'),

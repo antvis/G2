@@ -73,7 +73,6 @@
     .encode('text', name)
     .style('dy', '15px')
     .style('dx', '5px')
-    .style('fill', 'black')
     .style('textAnchor', 'start')
     .style('fontSize', 12);
 

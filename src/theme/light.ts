@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { ThemeComponent as TC, Theme } from '../runtime';
 
 export type LightOptions = Theme;
@@ -13,28 +14,19 @@ export const Light: TC<LightOptions> = (options) => {
     defaultCategory20: 'category20',
     defaultSize: 1,
     elementActiveStroke: 'black',
-    label: {
-      fill: '#424E66',
-      fontSize: 12,
-    },
-    innerLabel: {
-      fill: 'rgba(255,255,255,0.85)',
-      fontSize: 12,
-    },
     enter: {
       duration: 300,
       fill: 'both',
       delay: 0,
     },
-    title: {
-      fill: '#1D2129',
-      fontSize: 14,
-      fontWeight: 'bold',
-    },
-    subtitle: {
-      fill: '#424E66',
-      fontSize: 10,
-    },
+    titleFill: '#1D2129',
+    titleFontSize: 14,
+    titleFontWeight: 'bold',
+    titleBaseline: 'top',
+    subtitleFill: '#424E66',
+    subtitleFontSize: 10,
+    subtitleFontWeight: 'normal',
+    subtitleBaseline: 'top',
     // --- Theme of mark shape
     line: {
       line: {
@@ -189,6 +181,54 @@ export const Light: TC<LightOptions> = (options) => {
       selected: {},
       disabled: {},
     },
+    axis: {
+      titleFill: '#000',
+      titleFontSize: 12,
+      titleFontWeight: 'bold',
+      titleFillOpacity: 1,
+      titleSpacing: 12,
+      axisStroke: '#416180',
+      axisStrokeOpacity: 0.45,
+      axisLineWidth: 0.5,
+      tickLineStroke: '#BFBFBF',
+      tickLineLineWidth: 1,
+      tickLineLength: 4,
+      subTickLineStroke: '#D9D9D9',
+      subTickLineLineWidth: 1,
+      subTickLineLength: 2,
+      labelFill: '#2C3542',
+      labelFillOpacity: 0.65,
+      labelFontSize: 12,
+      labelFontWeight: 'lighter',
+      labelSpacing: 8,
+      gridStroke: '#416180',
+      gridStrokeOpacity: 0.15,
+      gridLineWidth: 1,
+      gridLineDash: [0, 0],
+    },
+    legend: {
+      titleFill: '#8C8C8C',
+      titleFontSize: 12,
+      titleLineHeight: 21,
+      titleFontWeight: 'bold',
+      markerFill: DEFAULT_COLOR,
+      markerSpacing: 8,
+      markerSize: 4,
+      itemNameFill: '#595959',
+      itemNameFontSize: 12,
+      itemNameFontWeight: 'normal',
+      itemValueFill: '#595959',
+      itemValueFontSize: 12,
+      itemValueFontWeight: 'normal',
+    },
+    labelFill: '#424E66',
+    labelFontSize: 12,
+    labelFontWeight: 'normal',
+    labelStroke: null,
+    innerLabelFill: 'rgba(255,255,255,0.85)',
+    innerLabelFontSize: 12,
+    innerLabelFontWeight: 'normal',
+    innerLabelStroke: null,
   };
   return Object.assign({}, defaultOptions, options);
 };

@@ -2,6 +2,7 @@ import { TextStyleProps } from '@antv/g';
 import { deepMix } from '@antv/util';
 import { applyStyle } from '../shape/utils';
 import { GuideComponentComponent as GCC, G2TitleOptions } from '../runtime';
+import { subObject } from '../utils/helper';
 import { createComponent, maybeAppend } from './utils';
 
 export type TitleComponentOptions = G2TitleOptions;
@@ -22,8 +23,6 @@ const Title = createComponent<TitleStyleProps>({
     const { text, style, subtitle, subtitleStyle } = attributes;
     const title = maybeAppend(container, '.title', 'text')
       .attr('className', 'title')
-      .style('fontSize', 14)
-      .style('textBaseline', 'top')
       .style('text', text)
       .call(applyStyle, style || {})
       .node();
@@ -32,8 +31,6 @@ const Title = createComponent<TitleStyleProps>({
     maybeAppend(container, '.sub-title', 'text')
       .attr('className', 'sub-title')
       .style('y', bounds.max[1] + (subtitleStyle?.spacing || 0))
-      .style('fontSize', 12)
-      .style('textBaseline', 'top')
       .call((selection) => {
         if (!subtitle) return selection.node().remove();
         selection.node().attr({ text: subtitle, ...subtitleStyle });
@@ -53,8 +50,8 @@ export const TitleComponent: GCC<TitleComponentOptions> = (options) => {
       style: deepMix(
         {},
         {
-          style: theme.title,
-          subtitleStyle: theme.subtitle,
+          style: subObject(theme, 'title'),
+          subtitleStyle: subObject(theme, 'subtitleStyle'),
         },
         {
           x,

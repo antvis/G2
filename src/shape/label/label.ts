@@ -2,9 +2,10 @@ import { Coordinate } from '@antv/coord';
 import { Text } from '@antv/g';
 import { select } from '../../utils/selection';
 import { G2Theme, ShapeComponent as SC, Vector2 } from '../../runtime';
-import { applyStyle, getArcObject } from '../../shape/utils';
+import { applyStyle } from '../../shape/utils';
 import { isTranspose, isCircular } from '../../utils/coordinate';
 import { camelCase } from '../../utils/string';
+import { subObject } from '../../utils/helper';
 import { LabelPosition } from './position';
 import * as PositionProcessor from './position';
 
@@ -29,7 +30,7 @@ function getDefaultStyle(
   const p = inferPosition(position, coordinate);
   return {
     ...PositionProcessor[camelCase(p)](p, points, value, coordinate),
-    ...theme[p === 'inside' ? 'innerLabel' : 'label'],
+    ...subObject(theme, p === 'inside' ? 'innerLabel' : 'label'),
   };
 }
 

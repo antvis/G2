@@ -17,6 +17,10 @@ type ElementStyle = {
   r?: number;
 };
 
+type PrefixStyle<T extends string, K extends string = string> = {
+  [key in `${T}${K}`]?: any;
+};
+
 type MarkTheme = NestUnion<'interval', ['rect', 'hollowRect'], ElementStyle> &
   NestUnion<'rect', ['rect', 'hollowRect'], ElementStyle> &
   NestUnion<'line', ['line'], ElementStyle> &
@@ -53,27 +57,13 @@ type InteractionTheme = {
   };
 };
 
-type ComponentTheme = {
-  label?: {
-    fill?: string;
-    [k: string]: any;
+type ComponentTheme = PrefixStyle<'label'> &
+  PrefixStyle<'innerLabel'> &
+  PrefixStyle<'title'> &
+  PrefixStyle<'subtitle'> & {
+    axis?: any;
+    legend?: any;
   };
-  innerLabel?: {
-    fill?: string;
-    [k: string]: any;
-  };
-  title?: {
-    fill?: string;
-    fontSize?: number;
-    fontWeight?: string;
-  };
-  subtitle?: {
-    fill?: string;
-    fontSize?: number;
-    fontWeight?: string;
-    spacing?: number;
-  };
-};
 
 type AnimationTheme = {
   enter?: {
