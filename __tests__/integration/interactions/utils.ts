@@ -32,9 +32,13 @@ export function renderSync(
   });
 }
 
-export function step(element: DisplayObject, event, skip = false) {
+export function step(
+  element: DisplayObject,
+  event,
+  { skip = false, ...rest }: Record<string, any> = {},
+) {
   return {
     skip,
-    changeState: () => element.dispatchEvent(new CustomEvent(event)),
+    changeState: () => element.dispatchEvent(new CustomEvent(event, rest)),
   };
 }

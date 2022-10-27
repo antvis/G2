@@ -32,7 +32,7 @@ alphabetIntervalActiveInactive.steps = ({ canvas }) => {
   const [e1, e2] = elements;
   return [
     step(e1, 'pointerover'),
-    step(e1, 'pointerout', true),
+    step(e1, 'pointerout', { skip: true }),
     step(e2, 'pointerover'),
   ];
 };
