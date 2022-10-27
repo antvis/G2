@@ -119,7 +119,7 @@ import {
   Link,
   Label,
 } from '../shape';
-import { Light } from '../theme';
+import { Light, Dark } from '../theme';
 import {
   AxisX,
   AxisY,
@@ -402,6 +402,7 @@ export function createLibrary(): G2Library {
     'shape.rangeX.range': RectShape,
     'shape.rangeY.range': RectShape,
     'theme.light': Light,
+    'theme.dark': Dark,
     'component.axisX': AxisX,
     'component.axisY': AxisY,
     'component.legendCategory': LegendCategory,

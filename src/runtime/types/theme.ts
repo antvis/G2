@@ -1,3 +1,5 @@
+import { TextStyleProps } from '@antv/g';
+
 type TupleToUnion<T, U> = T extends [infer F, ...infer R]
   ? F extends string
     ? { [key in F]?: U } & TupleToUnion<R, U>
@@ -54,23 +56,12 @@ type InteractionTheme = {
 };
 
 type ComponentTheme = {
-  label?: {
-    fill?: string;
-    [k: string]: any;
-  };
-  innerLabel?: {
-    fill?: string;
-    [k: string]: any;
-  };
-  title?: {
-    fill?: string;
-    fontSize?: number;
-    fontWeight?: string;
-  };
-  subtitle?: {
-    fill?: string;
-    fontSize?: number;
-    fontWeight?: string;
+  axis?: any;
+  legend?: any;
+  label?: Omit<TextStyleProps, 'text'>;
+  innerLabel?: Omit<TextStyleProps, 'text'>;
+  title?: Omit<TextStyleProps, 'text'>;
+  subtitle?: Omit<TextStyleProps, 'text'> & {
     spacing?: number;
   };
 };
