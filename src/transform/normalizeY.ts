@@ -1,5 +1,5 @@
 import { deepMix } from '@antv/util';
-import { mean, extent, deviation, median, sum, max, min } from 'd3-array';
+import { mean, deviation, median, sum, max, min } from 'd3-array';
 import { TransformComponent as TC } from '../runtime';
 import { NormalizeYTransform } from '../spec';
 import { column, columnOf } from './utils/helper';
@@ -8,15 +8,16 @@ import { createGroups } from './utils/order';
 export type NormalizeYOptions = Omit<NormalizeYTransform, 'type'>;
 
 function normalizeBasis(basis: NormalizeYOptions['basis']) {
+  if (typeof basis === 'function') return basis;
   const registry = {
-    min,
-    max,
-    first: (d) => d[0],
-    last: (d) => d[d.length - 1],
-    mean,
-    median,
-    sum,
-    deviation,
+    min: (I, Y) => min(I, (i) => Y[+i]),
+    max: (I, Y) => max(I, (i) => Y[+i]),
+    first: (I, Y) => Y[I[0]],
+    last: (I, Y) => Y[I[I.length - 1]],
+    mean: (I, Y) => mean(I, (i) => Y[+i]),
+    median: (I, Y) => median(I, (i) => Y[+i]),
+    sum: (I, Y) => sum(I, (i) => Y[+i]),
+    deviation: (I, Y) => deviation(I, (i) => Y[+i]),
   };
   return registry[basis] || max;
 }
@@ -36,6 +37,7 @@ export const NormalizeY: TC<NormalizeYOptions> = (options = {}) => {
     const Yn = Object.entries(rest)
       .filter(([k]) => k.startsWith('y'))
       .map(([k]) => [k, columnOf(encode, k)[0]] as const);
+    const [, Y] = Yn.find(([k]) => k === 'y');
     const newYn = Yn.map(([k]) => [k, new Array(I.length)] as const);
 
     // Group marks into series by specified keys.
@@ -44,8 +46,8 @@ export const NormalizeY: TC<NormalizeYOptions> = (options = {}) => {
     // Transform y channels for each group based on basis.
     const basisFunction = normalizeBasis(basis);
     for (const I of groups) {
-      const Y = I.flatMap((i) => Yn.map(([, V]) => +V[i]));
-      const basisValue = basisFunction(Y);
+      // Compute basis only base on y.
+      const basisValue = basisFunction(I, Y);
       for (const i of I) {
         for (let j = 0; j < Yn.length; j++) {
           const [, V] = Yn[j];

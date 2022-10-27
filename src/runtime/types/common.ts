@@ -31,7 +31,7 @@ export type G2ViewInstance = {
   view: G2ViewDescriptor;
   container: DisplayObject;
   options: G2ViewTree;
-  update: (options: G2ViewTree) => Promise<void>;
+  update: (options: G2ViewTree) => Promise<any>;
 };
 
 export type G2MarkState = {

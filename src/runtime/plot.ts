@@ -2,6 +2,7 @@ import { DisplayObject, IAnimation as GAnimation } from '@antv/g';
 import { deepMix, upperFirst } from '@antv/util';
 import { format } from 'd3-format';
 import { Vector2 } from '@antv/coord';
+import { group } from 'd3-array';
 import { mapObject } from '../utils/array';
 import {
   copyAttributes,
@@ -184,11 +185,6 @@ export async function plot<T extends G2ViewTree>(
       (exit) => exit.remove(),
     );
 
-  // Draw label for each element.
-  selection.selectAll('.view').each(function (view) {
-    plotLabel(view, select(this), transitions, library);
-  });
-
   // Apply interaction to entered views.
   const viewInstances = Array.from(viewContainer.entries()).map(
     ([view, container]) => ({
@@ -250,6 +246,10 @@ function createUpdateView(
     for (const child of newChildren) {
       plot(child, selection, library);
     }
+    return {
+      options: newOptions,
+      view: newView,
+    };
   };
 }
 
@@ -594,6 +594,9 @@ async function plotView(
       .transitions();
     transitions.push(...T);
   }
+
+  // Plot label for this view.
+  plotLabel(view, selection, transitions, library);
 }
 
 /**
@@ -612,42 +615,68 @@ function plotLabel(
   >('labelTransform', library);
   const { markState, labelTransform } = view;
   const labelLayer = selection.select(className(LABEL_LAYER_CLASS_NAME)).node();
-  for (const [mark, state] of markState.entries()) {
-    const { labels = [], key } = mark;
+
+  // A Map index shapeFunction by label.
+  const labelShapeFunction = new Map();
+
+  // A Map index options by label.
+  const labelDescriptor = new Map();
+
+  // Get all labels for this view.
+  const labels = Array.from(markState.entries()).flatMap(([mark, state]) => {
+    const { labels: labelOptions = [], key } = mark;
     const shapeFunction = createLabelShapeFunction(mark, state, view, library);
-    const mainLayer = selection.select(`#${key}`);
-    for (let i = 0; i < labels.length; i++) {
-      // Get all labels for each mark.
-      const { transform = [], ...options } = labels[i];
-      const allLabels = mainLayer
-        .selectAll('.element')
-        .nodes()
-        .flatMap((e) => getLabels(options, i, e));
+    const elements = selection
+      .select(`#${key}`)
+      .selectAll(className(ELEMENT_CLASS_NAME))
+      .nodes();
+    return labelOptions.flatMap((labelOption, i) => {
+      const { transform = [], ...options } = labelOption;
+      return elements.flatMap((e) => {
+        const L = getLabels(options, i, e);
+        L.forEach((l) => {
+          labelShapeFunction.set(l, shapeFunction);
+          labelDescriptor.set(l, labelOption);
+        });
+        return L;
+      });
+    });
+  });
 
-      // Plot labels.
-      const shapes = select(labelLayer)
-        .selectAll(className(LABEL_CLASS_NAME))
-        .data(allLabels, (d) => d.key)
-        .join(
-          (enter) =>
-            enter.append(shapeFunction).attr('class', LABEL_CLASS_NAME),
-          (update) =>
-            update.each(function (options) {
-              // @todo Handle Label with different type.
-              const node = shapeFunction(options);
-              copyAttributes(this, node);
-            }),
-          (exit) => exit.remove(),
-        )
-        .nodes();
+  // Render all labels.
+  const labelShapes = select(labelLayer)
+    .selectAll(className(LABEL_CLASS_NAME))
+    .data(labels, (d) => d.key)
+    .join(
+      (enter) =>
+        enter
+          .append((d) => labelShapeFunction.get(d)(d))
+          .attr('className', LABEL_CLASS_NAME),
+      (update) =>
+        update.each(function (d) {
+          // @todo Handle Label with different type.
+          const shapeFunction = labelShapeFunction.get(d);
+          const node = shapeFunction(d);
+          copyAttributes(this, node);
+        }),
+      (exit) => exit.remove(),
+    )
+    .nodes();
 
-      // Apply mark-level transform.
-      const transformFunction = compose(transform.map(useLabelTransform));
-      transformFunction(shapes);
-    }
+  // Apply group-level transforms.
+  const labelGroups = group(labelShapes, (d) =>
+    labelDescriptor.get(d.__data__),
+  );
+  for (const [label, shapes] of labelGroups) {
+    const { transform = [] } = label;
+    const transformFunction = compose(transform.map(useLabelTransform));
+    transformFunction(shapes);
   }
-  // Apply view-level  transform.
-  if (labelTransform) labelTransform(selection.selectAll('.label').nodes());
+
+  // Apply view-level transform.
+  if (labelTransform) {
+    labelTransform(labelShapes);
+  }
 }
 
 function getLabels(
@@ -657,7 +686,9 @@ function getLabels(
 ): Record<string, any>[] {
   const { seriesIndex: SI, seriesKey, points, key, index } = element.__data__;
   const bounds = getLocalBounds(element);
-  if (!SI) return [{ ...label, key, bounds, index, points }];
+  if (!SI) {
+    return [{ ...label, key: `${key}-${labelIndex}`, bounds, index, points }];
+  }
   const selector = normalizeLabelSelector(label);
   const F = SI.map((index: number, i: number) => ({
     ...label,
@@ -1004,8 +1035,8 @@ function updateLayers(selection: Selection, marks: G2Mark[]) {
   selection.append('g').attr('className', LABEL_LAYER_CLASS_NAME);
 }
 
-function className(name: string): string {
-  return `.${name}`;
+function className(...names: string[]): string {
+  return names.map((d) => `.${d}`).join('');
 }
 
 export function applyStyle(
