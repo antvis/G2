@@ -10,6 +10,7 @@ import {
   isTranspose,
   isTheta,
   isRadial,
+  isFisheye,
 } from '../utils/coordinate';
 import {
   BBox,
@@ -148,33 +149,29 @@ function reverseTicks(ticks) {
 /**
  * @todo More position besides bottom and left.
  */
-function getTickValue(
-  vector: [number, number],
-  position: GuideComponentPosition,
-  coordinate: Coordinate,
-) {
+function createFisheye(position, coordinate) {
   const { width, height } = coordinate.getOptions();
-  if (position === 'bottom') {
-    const v = vector[0];
-    const x = new LinearScale({
-      domain: [0, width],
-      range: [0, 1],
-    });
-    return x.map(v);
-  }
-  const v = vector[1];
-  const x = new LinearScale({
-    domain: [0, height],
-    range: [0, 1],
-  });
-  return x.map(v);
-}
-
-/**
- * @todo More position besides bottom and left.
- */
-function getTickPoint(tick: number, position: GuideComponentPosition) {
-  return position === 'bottom' ? [tick, 1] : [0, tick];
+  return (tick) => {
+    if (!isFisheye(coordinate)) return tick;
+    const tickPoint = position === 'bottom' ? [tick, 1] : [0, tick];
+    const vector = coordinate.map(tickPoint);
+    if (position === 'bottom') {
+      const v = vector[0];
+      const x = new LinearScale({
+        domain: [0, width],
+        range: [0, 1],
+      });
+      return x.map(v);
+    } else if (position === 'left') {
+      const v = vector[1];
+      const x = new LinearScale({
+        domain: [0, height],
+        range: [0, 1],
+      });
+      return x.map(v);
+    }
+    return tick;
+  };
 }
 
 function ticksOf(
@@ -187,6 +184,11 @@ function ticksOf(
   const [min, max] = extent(domain, (d) => +d);
   const { tickCount } = scale.getOptions();
   return tickMethod(min, max, tickCount);
+}
+
+function prettyNumber(n: number) {
+  if (typeof n !== 'number') return n;
+  return Math.abs(n) < 1e-15 ? n : parseFloat(n.toFixed(15));
 }
 
 // Set inset for axis.
@@ -237,6 +239,7 @@ function getTicks(
   const filteredTicks = tickFilter ? ticks.filter(tickFilter) : ticks;
   const tickFormatter = scale.getFormatter?.() || defaultTickFormatter;
   const applyInset = createInset(position, coordinate);
+  const applyFisheye = createFisheye(position, coordinate);
 
   if (isPolar(coordinate) || isTranspose(coordinate)) {
     const axisTicks = filteredTicks.map((d, i, array) => {
@@ -256,14 +259,10 @@ function getTicks(
 
   return filteredTicks.map((d, i, array) => {
     const offset = scale.getBandWidth?.(d) / 2 || 0;
-    const tick = applyInset(scale.map(d) + offset);
-    // @todo For interaction.
-    // const point = getTickPoint(tick, position);
-    // const vector = coordinate.map(point) as Vector2;
-    // const value = getTickValue(vector, position, coordinate);
+    const tick = applyFisheye(applyInset(scale.map(d) + offset));
     return {
       value: tick,
-      text: `${tickFormatter(d, i, array)}`,
+      text: `${tickFormatter(prettyNumber(d), i, array)}`,
     };
   });
 }

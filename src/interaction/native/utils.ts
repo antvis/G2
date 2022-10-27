@@ -3,13 +3,34 @@ import { path as d3Path } from 'd3-path';
 import { subObject } from '../../utils/helper';
 import { select } from '../../utils/selection';
 import { mapObject } from '../../utils/array';
-import { G2ViewDescriptor } from '../../runtime';
+import {
+  G2ViewDescriptor,
+  ELEMENT_CLASS_NAME,
+  PLOT_CLASS_NAME,
+} from '../../runtime';
 
 /**
  * Given root of chart returns elements to be manipulated
  */
 export function selectG2Elements(root: DisplayObject): DisplayObject[] {
-  return select(root).selectAll('.element').nodes();
+  return select(root).selectAll(`.${ELEMENT_CLASS_NAME}`).nodes();
+}
+
+export function selectPlotArea(root: DisplayObject): DisplayObject {
+  return select(root).select(`.${PLOT_CLASS_NAME}`).node();
+}
+
+export function mousePosition(target, event) {
+  const { offsetX, offsetY } = event;
+  const bbox = target.getBounds();
+  const {
+    min: [x, y],
+    max: [x1, y1],
+  } = bbox;
+  const isOutX = offsetX < x || offsetX > x1;
+  const isOutY = offsetY < y || offsetY > y1;
+  if (isOutX || isOutY) return null;
+  return [offsetX - x, offsetY - y];
 }
 
 export function applyDefaultsActiveStyle(

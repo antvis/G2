@@ -12,6 +12,7 @@ export type Interaction =
   | LegendHighlightInteraction
   | TooltipInteraction
   | FisheyeInteraction
+  | ChartIndex
   | BrushInteraction
   | BrushHighlightInteraction
   | BrushVisibleInteraction
@@ -25,6 +26,11 @@ export type InteractionTypes =
   | 'elementActive'
   | 'elementActiveByX'
   | 'elementActiveByColor'
+  | 'fisheye'
+  | 'chartIndex'
+  | 'elementSelect'
+  | 'elementSelectByX'
+  | 'elementSelectByColor'
   | 'elementListHighlight'
   | 'legendActive'
   | 'legendHighlight'
@@ -85,6 +91,13 @@ export type ElementActiveByColorInteraction = {
   color?: string;
 } & Record<`${'link' | 'active' | 'inactive'}${any}`, any>;
 
+export type ChartIndex = {
+  type?: 'chartIndex';
+  wait?: number;
+  leading?: boolean;
+  trailing?: boolean;
+} & Record<`${'rule' | 'label'}${any}`, any>;
+
 export type ElementListHighlightInteraction = {
   type?: 'elementListHighlight';
 };
@@ -104,6 +117,9 @@ export type TooltipInteraction = Omit<TooltipAction, 'type'> & {
 
 export type FisheyeInteraction = {
   type?: 'fisheye';
+  wait?: number;
+  leading?: boolean;
+  trailing?: boolean;
 } & Omit<FisheyeCoordinate, 'type'>;
 
 export type ActiveRegionInteraction = {

@@ -6,6 +6,8 @@ export { ElementActiveByColor } from './native/elementActiveByColor';
 export { ElementSelect } from './native/elementSelect';
 export { ElementSelectByX } from './native/elementSelectByX';
 export { ElementSelectByColor } from './native/elementSelectByColor';
+export { ChartIndex } from './native/chartIndex';
+export { Fisheye } from './native/fisheye';
 
 // export { ElementSelected } from './builtin/elementSelected';
 // export { Tooltip } from './builtin/tooltip';
