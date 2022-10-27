@@ -119,7 +119,7 @@ import {
   Link,
   Label,
 } from '../../../src/shape';
-import { Light } from '../../../src/theme';
+import { Light, Dark } from '../../../src/theme';
 import {
   AxisX,
   AxisY,
@@ -403,6 +403,7 @@ describe('stdlib', () => {
       'shape.rangeX.range': RectShape,
       'shape.rangeY.range': RectShape,
       'theme.light': Light,
+      'theme.dark': Dark,
       'component.axisX': AxisX,
       'component.axisY': AxisY,
       'component.legendCategory': LegendCategory,
