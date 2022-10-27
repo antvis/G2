@@ -1,11 +1,11 @@
 import { ThemeComponent as TC, Theme } from '../runtime';
 
-export type LightOptions = Theme;
+export type DarkOptions = Theme;
 
 /**
- * Default theme.
+ * Dark theme.
  */
-export const Light: TC<LightOptions> = (options) => {
+export const Dark: TC<DarkOptions> = (options) => {
   const DEFAULT_COLOR = '#5B8FF9';
   const defaultOptions: Theme = {
     defaultColor: DEFAULT_COLOR,
@@ -173,13 +173,13 @@ export const Light: TC<LightOptions> = (options) => {
       disabled: {},
     },
     axis: {
-      titleFill: '#000',
+      titleFill: '#fff',
       titleFillOpacity: 0.65,
       titleFontSize: 12,
       titleFontWeight: 'normal',
       titleSpacing: 12,
-      axisStroke: '#416180',
-      axisStrokeOpacity: 0.45,
+      axisStroke: '#FFF',
+      axisStrokeOpacity: 0.3,
       axisLineWidth: 0.5,
       tickLineStroke: '#BFBFBF',
       tickLineLineWidth: 1,
@@ -187,35 +187,35 @@ export const Light: TC<LightOptions> = (options) => {
       subTickLineStroke: '#D9D9D9',
       subTickLineLineWidth: 1,
       subTickLineLength: 2,
-      labelFill: '#2C3542',
+      labelFill: '#FFF',
       labelFillOpacity: 0.65,
       labelFontSize: 12,
       labelFontWeight: 'lighter',
       labelSpacing: 8,
-      gridStroke: '#416180',
+      gridStroke: '#FFF',
       gridStrokeOpacity: 0.15,
       gridLineWidth: 0.5,
       gridLineDash: [0, 0],
     },
     legend: {
-      titleFill: '#8C8C8C',
+      titleFill: '#FFF',
       titleFontSize: 12,
       titleLineHeight: 21,
       titleFontWeight: 'bold',
       markerFill: DEFAULT_COLOR,
       markerSpacing: 8,
       markerSize: 4,
-      itemNameFill: '#595959',
+      itemNameFill: '#FFF',
       itemNameFillOpacity: 0.65,
       itemNameFontSize: 12,
-      itemNameFontWeight: 'lighter',
-      itemValueFill: '#595959',
+      itemNameFontWeight: 'normal',
+      itemValueFill: '#FFF',
       itemValueFillOpacity: 0.85,
       itemValueFontSize: 12,
       itemValueFontWeight: 'normal',
     },
     label: {
-      fill: '#000',
+      fill: '#FFF',
       fillOpacity: 0.65,
       fontSize: 12,
       fontWeight: 'normal',
@@ -226,18 +226,19 @@ export const Light: TC<LightOptions> = (options) => {
       fontSize: 12,
       fillOpacity: 0.85,
       fontWeight: 'normal',
-      stroke: null,
+      stroke: '#000',
+      lineWidth: 0.5,
     },
     title: {
-      fill: '#1D2129',
-      fillOpacity: 1,
+      fill: '#FFF',
+      fillOpacity: 0.9,
       fontSize: 40,
       fontWeight: 'bold',
       textBaseline: 'top',
     },
     subtitle: {
-      fill: '#424E66',
-      fillOpacity: 1,
+      fill: '#FFF',
+      fillOpacity: 0.85,
       fontSize: 10,
       fontWeight: 'normal',
       textBaseline: 'top',
@@ -246,4 +247,4 @@ export const Light: TC<LightOptions> = (options) => {
   return Object.assign({}, defaultOptions, options);
 };
 
-Light.props = {};
+Dark.props = {};
