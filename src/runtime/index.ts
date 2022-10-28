@@ -1,5 +1,6 @@
 export * from './constant';
 export { render, destroy } from './render';
+export { renderToMountedElement } from './renderToMountedElement';
 export * from './types/common';
 export * from './types/component';
 export * from './types/options';
