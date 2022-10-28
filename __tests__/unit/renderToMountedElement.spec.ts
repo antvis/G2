@@ -1,5 +1,4 @@
 import { Canvas, Rect } from '@antv/g';
-import type { DisplayObject } from '@antv/g';
 import { Renderer as CanvasRenderer } from '@antv/g-canvas';
 import { Renderer as SvgRenderer } from '@antv/g-svg';
 import { G2Spec, renderToMountedElement } from '../../src';
