@@ -1,4 +1,5 @@
 import { Canvas } from '@antv/g';
+import type { DisplayObject } from '@antv/g';
 import { G2Title, GuideComponentPosition, Layout, Primitive } from './common';
 import {
   G2BaseComponent,
@@ -44,6 +45,7 @@ export type G2Library = Record<
 export type G2Context = {
   library?: G2Library;
   canvas?: Canvas;
+  group?: DisplayObject;
   bindAutoFit?: boolean;
 };
 

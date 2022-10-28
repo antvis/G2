@@ -1,7 +1,7 @@
-import { Canvas as GCanvas } from '@antv/g';
+import { Canvas as GCanvas, DisplayObject, Group } from '@antv/g';
 import { Renderer as CanvasRenderer } from '@antv/g-canvas';
 import { Plugin as DragAndDropPlugin } from '@antv/g-plugin-dragndrop';
-import { debounce, deepMix } from '@antv/util';
+import { debounce, deepMix, isEmpty } from '@antv/util';
 import { createLibrary } from '../stdlib';
 import { select } from '../utils/selection';
 import { emitEvent, CHART_LIFE_CIRCLE, offEvent } from '../utils/event';
@@ -15,7 +15,7 @@ import { plot } from './plot';
  * The key is for incremental render when view tree is changed.
  * @todo Fix custom key equals to inferred key.
  */
-function inferKeys<T extends G2ViewTree = G2ViewTree>(options: T): T {
+export function inferKeys<T extends G2ViewTree = G2ViewTree>(options: T): T {
   const root = deepMix({}, options);
   const nodeParent = new Map<T, T>([[root, null]]);
   const nodeIndex = new Map<T, number>([[null, -1]]);
@@ -92,6 +92,35 @@ export function render<T extends G2ViewTree = G2ViewTree>(
   return normalizeContainer(canvas.getConfig().container);
 }
 
+export function renderToMountedElement<T extends G2ViewTree = G2ViewTree>(
+  options: T,
+  context: G2Context = {},
+  callback?: () => void,
+): DisplayObject {
+  // Initialize the context if it is not provided.
+  const { width = 640, height = 480, on } = options;
+  const keyed = inferKeys(options);
+  const { library = createLibrary(), group = new Group() } = context;
+
+  if (isEmpty(group?.parentElement)) {
+    throw new Error(`Unmounted group`);
+  }
+
+  const selection = select(group);
+  context.group = group;
+  context.library = library;
+
+  emitEvent(on, CHART_LIFE_CIRCLE.BEFORE_RENDER);
+  // Plot the chart and mutate context.
+  // Make sure that plot chart after container is ready for every time.
+  plot<T>({ ...keyed, width, height }, selection, library)
+    .then(callback)
+    .then(() => emitEvent(on, CHART_LIFE_CIRCLE.AFTER_RENDER));
+
+  // Return the Group wraps the canvas or svg element.
+  return group;
+}
+
 export function destroy<T extends G2ViewTree = G2ViewTree>(
   options: T,
   context: G2Context = {},
@@ -136,7 +165,7 @@ const onResize = <T extends G2ViewTree = G2ViewTree>(
     render(newOptions, context);
   }, 300);
 
-function bindAutoFit<T extends G2ViewTree = G2ViewTree>(
+export function bindAutoFit<T extends G2ViewTree = G2ViewTree>(
   options: T,
   context: G2Context = {},
 ) {
