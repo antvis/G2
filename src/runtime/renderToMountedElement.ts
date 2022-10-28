@@ -1,10 +1,11 @@
-import type { DisplayObject } from '@antv/g';
+import { DisplayObject, Group } from '@antv/g';
 import { createLibrary } from '../stdlib';
 import { select } from '../utils/selection';
 import { emitEvent, CHART_LIFE_CIRCLE } from '../utils/event';
+import { isEmpty } from '../data/fold';
 import { G2Context, G2ViewTree } from './types/options';
 import { plot } from './plot';
-import { bindAutoFit, inferKeys } from './render';
+import { inferKeys } from './render';
 
 export function renderToMountedElement<T extends G2ViewTree = G2ViewTree>(
   options: T,
@@ -12,23 +13,17 @@ export function renderToMountedElement<T extends G2ViewTree = G2ViewTree>(
   callback?: () => void,
 ): DisplayObject {
   // Initialize the context if it is not provided.
-  const { width = 640, height = 480, autoFit = false, on } = options;
+  const { width = 640, height = 480, on } = options;
   const keyed = inferKeys(options);
-  const { library = createLibrary(), group } = context;
+  const { library = createLibrary(), group = new Group() } = context;
+
+  if (isEmpty(group?.parentElement)) {
+    throw new Error(`Unmounted group`);
+  }
 
   const selection = select(group);
-  if (!selection) {
-    return;
-  }
-
   context.group = group;
   context.library = library;
-
-  if (autoFit && !context.bindAutoFit) {
-    // Bind the autoFit event once.
-    bindAutoFit(options, context);
-    context.bindAutoFit = true;
-  }
 
   emitEvent(on, CHART_LIFE_CIRCLE.BEFORE_RENDER);
   // Plot the chart and mutate context.
