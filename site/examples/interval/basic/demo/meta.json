@@ -1,0 +1,16 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "basic.ts",
+      "title": {
+        "zh": "基础条形图",
+        "en": "Basic bar plot"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/rWp4Sq5ofk/10256978-7f35-4a4c-b67c-39aaad269bc2.png"
+    }
+  ]
+}
