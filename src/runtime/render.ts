@@ -15,7 +15,7 @@ import { plot } from './plot';
  * The key is for incremental render when view tree is changed.
  * @todo Fix custom key equals to inferred key.
  */
-export function inferKeys<T extends G2ViewTree = G2ViewTree>(options: T): T {
+function inferKeys<T extends G2ViewTree = G2ViewTree>(options: T): T {
   const root = deepMix({}, options);
   const nodeParent = new Map<T, T>([[root, null]]);
   const nodeIndex = new Map<T, number>([[null, -1]]);
