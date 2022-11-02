@@ -80,12 +80,20 @@ export default defineConfig({
     ],
     docs: [
       {
-        slug: 'manual/concepts',
+        slug: 'manual/single-view',
         title: {
-          zh: '可视化基础概念',
-          en: 'Visualization Concepts',
+          zh: '单视图图表',
+          en: 'Single View Plot',
         },
-        order: 2,
+        order: 3,
+      },
+      {
+        slug: 'manual/multi-view',
+        title: {
+          zh: '多视图图表',
+          en: 'Multi-View Plot',
+        },
+        order: 4,
       },
     ],
     tutorials: [
@@ -101,10 +109,34 @@ export default defineConfig({
     ],
     examples: [
       {
-        slug: 'interval',
+        slug: 'single-view',
         title: {
-          zh: '柱形图',
-          en: 'Interval',
+          zh: '单视图图表',
+          en: 'Single View',
+        },
+        icon: 'bar',
+      },
+      {
+        slug: 'multi-view',
+        title: {
+          zh: '复合视图',
+          en: 'Multiple View',
+        },
+        icon: 'bar',
+      },
+      {
+        slug: 'scenario',
+        title: {
+          zh: '场景案例',
+          en: 'Scenario',
+        },
+        icon: 'bar',
+      },
+      {
+        slug: 'others',
+        title: {
+          zh: '其他',
+          en: 'Others',
         },
         icon: 'bar',
       },
