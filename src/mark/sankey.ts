@@ -93,16 +93,7 @@ export const Sankey: CC<SankeyOptions> = (options) => {
   };
 
   return () => {
-    const {
-      data,
-      encode = {},
-      scale,
-      style = {},
-      layout = {},
-      nodeLabels = [],
-      linkLabels = [],
-      animate = {},
-    } = options;
+    const { data, encode = {}, scale, style = {}, layout = {} } = options;
 
     // Initialize data, generating nodes by link if is not specified.
     const { links, nodes } = initializeData(data.value, encode);
@@ -139,19 +130,15 @@ export const Sankey: CC<SankeyOptions> = (options) => {
             dx: (d) => (d.x[0] < 0.5 ? spacing : -spacing),
             ...labelStyle,
           },
-          ...nodeLabels,
         ],
-        animate: subObject(animate, 'node'),
       }),
       deepMix({}, DEFAULT_LINK_OPTIONS, {
         data: linkData,
         encode: linkEncode,
-        labels: linkLabels,
         style: {
           fill: linkEncode.color ? undefined : '#aaa',
           ...subObject(style, 'link'),
         },
-        animate: subObject(animate, 'link'),
       }),
     ];
   };
