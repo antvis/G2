@@ -1,0 +1,16 @@
+{
+  "version": "5.0.0",
+  "scripts": {
+    "start": "dumi dev",
+    "build": "dumi build",
+    "deploy": "gh-pages -d dist",
+    "preview": "dumi preview"
+  },
+  "dependencies": {
+    "@antv/dumi-theme-antv": "^0.3.0-beta.5",
+    "dumi": "^2.0.0-beta.15"
+  },
+  "devDependencies": {
+    "gh-pages": "^4.0.0"
+  }
+}
