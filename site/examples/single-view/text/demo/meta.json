@@ -4,5 +4,29 @@
     "en": "Category"
   },
   "demos": [
+    {
+      "filename": "paragraph.ts",
+      "title": {
+        "zh": "文本段落",
+        "en": "Paragraph"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*0wgoQrNVRR0AAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "poetry.ts",
+      "title": {
+        "zh": "诗词可视化",
+        "en": "Poetry"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*nK-ESIbQ460AAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "train.ts",
+      "title": {
+        "zh": "火车调度",
+        "en": "Train"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*9oS5TKxuK-MAAAAAAAAAAAAADmJ7AQ/original"
+    }
   ]
 }
