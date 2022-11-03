@@ -311,10 +311,6 @@ export default defineConfig({
         img: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*TgV-RZDODJIAAAAAAAAAAABkARQnAQ',
       },
     ],
-    // 代码编辑器设置
-    editor: {
-      size: '30%', // 代码区占比
-    },
   },
   mfsu: false,
   // tnpm 安装的目录会导致 webpack 缓存快照 OOM，暂时禁用
