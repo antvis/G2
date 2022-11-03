@@ -22,8 +22,17 @@ chart
   .area()
   .encode('x', 'year')
   .encode('y', 'value')
-  .axis('y', { tickFormatter: '~s' })
-  .style('opacity', 0.4);
+  .label({
+    text: 'value',
+    fontSize: 10,
+    textAlign: (_, idx, arr) => {
+      if (idx === 0) return 'left';
+      if (idx === arr.length - 1) return 'right';
+      return 'center';
+    },
+  })
+  .style('opacity', 0.4)
+  .axis('y', { tickFormatter: '~s' });
 
 chart.line().encode('x', 'year').encode('y', 'value').axis(false);
 

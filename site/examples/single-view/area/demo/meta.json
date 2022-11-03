@@ -10,7 +10,7 @@
         "zh": "面积图",
         "en": "Area"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*MfcyRp9k47gAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*CQZOQbtnqcYAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "step-area.ts",
@@ -18,7 +18,7 @@
         "zh": "阶梯面积图",
         "en": "Step Area"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*MfcyRp9k47gAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*NRD9RKPyOEsAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "stacked-area.ts",
@@ -26,7 +26,7 @@
         "zh": "堆叠面积图",
         "en": "Stacked Area"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*MfcyRp9k47gAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*O3TaRpybBCgAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "percentage-area.ts",
@@ -34,7 +34,7 @@
         "zh": "百分比堆积面积图",
         "en": "Percentage Area"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*MfcyRp9k47gAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*WZe_T5tyWgoAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "missing-data-area.ts",
@@ -42,15 +42,23 @@
         "zh": "数据缺失面积图",
         "en": "Missing Data Area"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*MfcyRp9k47gAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ns2sS5S_VEAAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "streamgraph.ts",
       "title": {
-        "zh": "Streamgraph",
-        "en": "Streamgraph Area"
+        "zh": "河流图",
+        "en": "Streamgraph"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*MfcyRp9k47gAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Vf-FQZH-5FMAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "label.ts",
+      "title": {
+        "zh": "面积图特殊标签",
+        "en": "Area Label"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ZIamS4KwErEAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "area-difference.ts",
@@ -58,7 +66,7 @@
         "zh": "面积图 Diff",
         "en": "Area Difference"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*MfcyRp9k47gAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*CJn4T4_Rf98AAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }

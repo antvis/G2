@@ -23,8 +23,13 @@ chart
   .encode('x', 'year')
   .encode('y', 'value')
   .encode('shape', 'step') // 'area', 'smooth', 'step'
-  .axis('y', { tickFormatter: '~s' })
-  .style('opacity', 0.4);
+  .label({
+    text: 'value',
+    fontSize: 10,
+    textAlign: 'center',
+  })
+  .style('opacity', 0.4)
+  .axis('y', { tickFormatter: '~s' });
 
 chart
   .line()
