@@ -46,7 +46,13 @@ import {
   LabelTransformComponent,
   LabelTransform,
 } from './types/component';
-import { MarkComponent, Mark, MarkChannel } from './types/mark';
+import {
+  MarkComponent,
+  Mark,
+  MarkChannel,
+  CompositeMark,
+  SingleMark,
+} from './types/mark';
 import {
   G2ViewDescriptor,
   G2MarkState,
@@ -269,7 +275,7 @@ async function initializeMarks(
     'theme',
     library,
   );
-  const [, createMark] = useLibrary<G2MarkOptions, MarkComponent, Mark>(
+  const [useMark, createMark] = useLibrary<G2MarkOptions, MarkComponent, Mark>(
     'mark',
     library,
   );
@@ -278,8 +284,21 @@ async function initializeMarks(
   const theme = useTheme(inferTheme(partialTheme));
   const markState = new Map<G2Mark, G2MarkState>();
   const channelScale = new Map<string, G2ScaleOptions>();
-  for (const partialMark of partialMarks) {
-    const { type = error('G2Mark type is required.') } = partialMark;
+
+  // Convert composite mark to single mark.
+  const flattenMarks: G2Mark[] = partialMarks.flatMap((mark) => {
+    const { type = error('G2Mark type is required.'), key } = mark;
+    const { props } = createMark(type);
+    const { composite = false } = props;
+    if (!composite) return mark;
+    const marks = (useMark as (options: G2MarkOptions) => CompositeMark)(mark)(
+      options,
+    );
+    return marks.map((d, i) => ({ key: `${key}-${i}`, ...d }));
+  });
+
+  for (const partialMark of flattenMarks) {
+    const { type } = partialMark;
     const { props } = createMark(type);
     const markAndState = await initializeMark(
       partialMark,
@@ -362,7 +381,9 @@ function initializeState(
 
     // Calc points and transformation for each data,
     // and then transform visual value to visual data.
-    const calcPoints = useMark(mark);
+    const calcPoints = (useMark as (options: G2MarkOptions) => SingleMark)(
+      mark,
+    );
     const [I, P, S] = filterValid(
       calcPoints(index, markScaleInstance, value, coordinate),
     );

@@ -28,7 +28,7 @@ Text.props = {
     ...baseGeometryChannels(),
     { name: 'x', required: true },
     { name: 'y', required: true },
-    { name: 'text', required: true, scale: 'identity' },
+    { name: 'text', scale: 'identity' },
     { name: 'fontSize' },
     { name: 'rotate' },
   ],
@@ -37,6 +37,7 @@ Text.props = {
     ...basePostInference(),
     { type: 'maybeTitleX' },
     { type: 'maybeTooltipY' },
+    { type: 'maybeTuple' },
   ],
   shapes: ['text', 'badge'],
 };

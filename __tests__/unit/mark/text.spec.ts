@@ -21,7 +21,7 @@ describe('Text', () => {
         { name: 'tooltip', scale: 'identity', independent: true },
         { name: 'x', required: true },
         { name: 'y', required: true },
-        { name: 'text', required: true, scale: 'identity' },
+        { name: 'text', scale: 'identity' },
         { name: 'fontSize' },
         { name: 'rotate' },
       ],
@@ -30,6 +30,7 @@ describe('Text', () => {
         { type: 'maybeKey' },
         { type: 'maybeTitleX' },
         { type: 'maybeTooltipY' },
+        { type: 'maybeTuple' },
       ],
       shapes: ['text', 'badge'],
     });

@@ -16,6 +16,7 @@ export { Connector } from './connector';
 export { Range } from './range';
 export { RangeX } from './rangeX';
 export { RangeY } from './rangeY';
+export { Sankey } from './sankey';
 
 export type { IntervalOptions } from './interval';
 export type { RectOptions } from './rect';
@@ -35,3 +36,4 @@ export type { ConnectorOptions } from './connector';
 export type { RangeOptions } from './range';
 export type { RangeXOptions } from './rangeX';
 export type { RangeYOptions } from './rangeY';
+export type { SankeyOptions } from './sankey';

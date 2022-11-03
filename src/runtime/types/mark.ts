@@ -2,6 +2,7 @@ import { Coordinate, Vector2 } from '@antv/coord';
 import { Primitive } from 'd3-array';
 import { Channel } from './common';
 import { Scale } from './component';
+import { G2Mark, G2View } from './options';
 import { TransformSpec } from './transform';
 
 // @todo Remove any.
@@ -19,9 +20,14 @@ export type MarkProps = {
   preInference?: TransformSpec[];
   postInference?: TransformSpec[];
   shapes: string[];
+  composite?: boolean;
 };
 
-export type Mark = (
+export type Mark = CompositeMark | SingleMark;
+
+export type CompositeMark = (view: G2View) => G2Mark[];
+
+export type SingleMark = (
   I: number[],
   scale: Record<string, Scale>,
   channel: MarkChannel,
