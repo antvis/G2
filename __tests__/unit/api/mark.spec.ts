@@ -16,6 +16,7 @@ import {
   RangeX,
   RangeY,
   Sankey,
+  Treemap,
 } from '../../../src/api/mark/mark';
 
 function setOptions(node) {
@@ -181,6 +182,12 @@ describe('Mark', () => {
   it('Sankey() should specify options by API', () => {
     const node = new Sankey();
     expect(node.type).toBe('sankey');
+    expect(setCompositeOptions(node).value).toEqual(getCompositeOptions());
+  });
+
+  it('Treemap() should specify options by API', () => {
+    const node = new Treemap();
+    expect(node.type).toBe('treemap');
     expect(setCompositeOptions(node).value).toEqual(getCompositeOptions());
   });
 });

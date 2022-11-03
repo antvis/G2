@@ -36,6 +36,7 @@ import {
   Connector,
   Sankey,
   Path,
+  Treemap,
 } from '../../../src/mark';
 import {
   Category10,
@@ -334,6 +335,7 @@ describe('stdlib', () => {
       'mark.rangeY': RangeY,
       'mark.sankey': Sankey,
       'mark.path': Path,
+      'mark.treemap': Treemap,
       'palette.category10': Category10,
       'palette.category20': Category20,
       'palette.sequentialBlue': SequentialBlue,

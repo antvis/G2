@@ -4,6 +4,8 @@ import { G2Spec } from '../../../src';
 
 export async function energySankeyDefaults(): Promise<G2Spec> {
   const links = await csv('data/energy.csv', autoType);
+  console.log(links);
+
   return {
     type: 'sankey',
     data: { value: { links } },
