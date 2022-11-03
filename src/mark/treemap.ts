@@ -1,0 +1,174 @@
+import { deepMix, isArray, isFunction } from '@antv/util';
+import * as d3Hierarchy from 'd3-hierarchy';
+import { subObject } from '../utils/helper';
+import { CompositionComponent as CC } from '../runtime';
+import { TreemapMark } from '../spec';
+
+export type TreemapOptions = Omit<TreemapMark, 'type'>;
+
+type Layout = {
+  tile?:
+    | 'treemapBinary'
+    | 'treemapDice'
+    | 'treemapSlice'
+    | 'treemapSliceDice'
+    | 'treemapSquarify'
+    | 'treemapResquarify';
+  size?: [number, number];
+  round?: boolean;
+  // Ignore the value of the parent node when calculating the total value.
+  ignoreParentValue?: boolean;
+  ratio?: number;
+  padding?: number;
+  paddingInner?: number;
+  paddingOuter?: number;
+  paddingTop?: number;
+  paddingRight?: number;
+  paddingBottom?: number;
+  paddingLeft?: number;
+  sort?(a: any, b: any): number;
+  path?: (d: any) => any;
+  /** The granularity of Display layer.  */
+  layer?: number | ((d: any) => any);
+};
+
+type TreemapData = {
+  name: string;
+  children: TreemapData[];
+  [key: string]: any;
+}[];
+
+function getTileMethod(tile: string, ratio: number) {
+  const tileMethod =
+    tile === 'treemapSquarify'
+      ? d3Hierarchy[tile].ratio(ratio)
+      : d3Hierarchy[tile];
+  if (!tile) {
+    throw new TypeError('Invalid tile method!');
+  }
+  return tileMethod;
+}
+
+function dataTransform(data, layout: Layout, encode): TreemapData {
+  const { value: originalData, path = (d) => d } = data;
+  const { value } = encode;
+  const tileMethod = getTileMethod(layout.tile, layout.ratio);
+
+  // Path need when the data is a flat json structure,
+  // and the tree object structure do not need.
+  const root = isArray(originalData)
+    ? d3Hierarchy.stratify().path(path)(originalData)
+    : d3Hierarchy.hierarchy(originalData);
+  // Calculate the value and sort.
+  value
+    ? root
+        .sum((d) => (layout.ignoreParentValue && d.children ? 0 : d[value]))
+        .sort(layout.sort)
+    : root.count();
+
+  d3Hierarchy
+    .treemap()
+    .tile(tileMethod)
+    .size(layout.size)
+    .round(layout.round)
+    .paddingInner(layout.paddingInner)
+    .paddingOuter(layout.paddingOuter)
+    .paddingTop(layout.paddingTop)
+    .paddingRight(layout.paddingRight)
+    .paddingBottom(layout.paddingBottom)
+    .paddingLeft(layout.paddingLeft)(root);
+
+  return root
+    .descendants()
+    .map((d) =>
+      Object.assign(d, {
+        x: [d.x0, d.x1],
+        y: [d.y0, d.y1],
+      }),
+    )
+    .filter(
+      isFunction(layout.layer)
+        ? layout.layer
+        : (d) => d.height === layout.layer,
+    );
+}
+
+export const Treemap: CC<TreemapOptions> = (options) => {
+  const DEFAULT_LAYOUT_OPTIONS: Layout = {
+    tile: 'treemapSquarify',
+    ratio: 0.5 * (1 + Math.sqrt(5)),
+    size: [1, 1],
+    round: false,
+    ignoreParentValue: true,
+    padding: 0,
+    paddingInner: 0,
+    paddingOuter: 0,
+    paddingTop: 0,
+    paddingRight: 0,
+    paddingBottom: 0,
+    paddingLeft: 0,
+    sort: (a, b) => b.value - a.value,
+    layer: 0,
+  };
+
+  const DEFAULT_OPTIONS = {
+    type: 'rect',
+    axis: false,
+    legend: false,
+    encode: {
+      x: 'x',
+      y: 'y',
+      color: (d) => d.data.parent.name,
+    },
+    scale: {
+      x: { type: 'identity' },
+      y: { type: 'identity' },
+    },
+    style: {
+      stroke: '#fff',
+    },
+  };
+
+  const DEFAULT_LABEL_OPTIONS = {
+    fontSize: 10,
+    text: (d) => d.data.name,
+    position: 'inside',
+    fill: '#000',
+  };
+
+  return () => {
+    const {
+      data,
+      encode = {},
+      scale,
+      style = {},
+      layout = {},
+      labels = [],
+    } = options;
+    const transformedData = dataTransform(
+      data,
+      deepMix({}, DEFAULT_LAYOUT_OPTIONS, layout),
+      encode,
+    );
+
+    const labelStyle = subObject(style, 'label');
+
+    return [
+      deepMix({}, DEFAULT_OPTIONS, {
+        data: transformedData,
+        encode,
+        scale,
+        style,
+        labels: [
+          {
+            ...DEFAULT_LABEL_OPTIONS,
+            ...labelStyle,
+          },
+          ...labels,
+        ],
+      }),
+    ];
+  };
+};
+
+Treemap.props = { composite: true };

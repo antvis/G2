@@ -18,6 +18,7 @@ export { RangeX } from './rangeX';
 export { RangeY } from './rangeY';
 export { Sankey } from './sankey';
 export { Path } from './path';
+export { Treemap } from './treemap';
 
 export type { IntervalOptions } from './interval';
 export type { RectOptions } from './rect';
@@ -38,3 +39,4 @@ export type { RangeOptions } from './range';
 export type { RangeXOptions } from './rangeX';
 export type { RangeYOptions } from './rangeY';
 export type { SankeyOptions } from './sankey';
+export type { TreemapOptions } from './treemap';

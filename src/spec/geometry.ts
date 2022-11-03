@@ -30,6 +30,7 @@ export type Geometry =
   | ConnectorMark
   | SankeyMark
   | PathMark
+  | TreemapMark
   | CustomComponent;
 
 export type GeometryTypes =
@@ -55,6 +56,7 @@ export type GeometryTypes =
   | 'rangeY'
   | 'sankey'
   | 'path'
+  | 'treemap'
   | MarkComponent;
 
 export type ChannelTypes =
@@ -218,5 +220,9 @@ export type SankeyMark = BaseGeometry<
 };
 
 export type PathMark = BaseGeometry<'path', ChannelTypes>;
+
+export type TreemapMark = BaseGeometry<'treemap', 'value' | ChannelTypes> & {
+  layout?: Record<string, any>;
+};
 
 export type CustomComponent = BaseGeometry<MarkComponent>;
