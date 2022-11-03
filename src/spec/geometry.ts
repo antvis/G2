@@ -99,7 +99,6 @@ export type BaseGeometry<
   marginRight?: number;
   data?: Data;
   transform?: Transform[];
-  layout?: Record<string, any>;
   encode?: Partial<Record<C, Encode | Encode[]>>;
   scale?: Partial<Record<C, Scale>>;
   axis?:
@@ -210,6 +209,10 @@ export type SankeyMark = BaseGeometry<
   | 'value'
   | `node${Capitalize<ChannelTypes>}`
   | `link${Capitalize<ChannelTypes>}`
->;
+> & {
+  layout?: Record<string, any>;
+  nodeLabels: Record<string, any>[];
+  linkLabels: Record<string, any>[];
+};
 
 export type CustomComponent = BaseGeometry<MarkComponent>;
