@@ -15,6 +15,7 @@ import {
   Range,
   RangeX,
   RangeY,
+  Sankey,
 } from '../../../src/api/mark/mark';
 
 function setOptions(node) {
@@ -41,6 +42,10 @@ function setOptions(node) {
     .label({ text: 'hello' });
 }
 
+function setCompositeOptions(node) {
+  return node.call(setOptions).layout('a', 10).layout('b', 8);
+}
+
 function getOptions() {
   return {
     data: [1, 2, 3],
@@ -63,6 +68,16 @@ function getOptions() {
     paddingTop: 30,
     paddingRight: 40,
     labels: [{ text: 'hello' }],
+  };
+}
+
+function getCompositeOptions() {
+  return {
+    ...getOptions(),
+    layout: {
+      a: 10,
+      b: 8,
+    },
   };
 }
 
@@ -161,5 +176,11 @@ describe('Mark', () => {
     const node = new LineY();
     expect(node.type).toBe('lineY');
     expect(setOptions(node).value).toEqual(getOptions());
+  });
+
+  it('Sankey() should specify options by API', () => {
+    const node = new Sankey();
+    expect(node.type).toBe('sankey');
+    expect(setCompositeOptions(node).value).toEqual(getCompositeOptions());
   });
 });

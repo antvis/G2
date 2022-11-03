@@ -15,8 +15,8 @@ export function applyDefaults(
   mark: G2Mark,
   context: TransformContext,
 ): [number[], G2Mark] {
-  const { scale = {}, transform = [], ...rest } = mark;
-  return [I, { ...rest, scale, transform }];
+  const { encode = {}, scale = {}, transform = [], ...rest } = mark;
+  return [I, { ...rest, encode, scale, transform }];
 }
 
 export async function applyDataTransform(

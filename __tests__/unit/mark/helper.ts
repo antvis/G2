@@ -37,5 +37,6 @@ export function plot({
     y,
     transformations: [...transform.flat(), Cartesian()[0]],
   });
+  // @ts-ignore
   return mark(index, scale, channel, coordinate);
 }

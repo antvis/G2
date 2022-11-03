@@ -29,7 +29,7 @@ stats.html
 __tests__/integration/snapshots/*-diff.png
 __tests__/integration/snapshots/*-diff.svg
 
-
 # Website cache byb dumi
 site/.dumi/tmp
 site/.dumi/tmp-production
+__tests__/integration/snapshots/**/*-diff.png

@@ -16,6 +16,7 @@ import {
   RangeXMark,
   RangeYMark,
   ConnectorMark,
+  SankeyMark,
 } from '../../spec';
 import { NodePropertyDescriptor, defineProps } from '../props';
 import { Node } from '../node';
@@ -92,6 +93,10 @@ export interface RangeY extends API<Concrete<RangeYMark>, RangeY> {
 
 export interface Connector extends API<Concrete<ConnectorMark>, Connector> {
   type: 'connector';
+}
+
+export interface Sankey extends API<Concrete<SankeyMark>, Sankey> {
+  type: 'sankey';
 }
 
 export const props: NodePropertyDescriptor[] = [
@@ -240,5 +245,12 @@ export class RangeY extends Node<RangeYMark> {
 export class Connector extends Node<ConnectorMark> {
   constructor() {
     super({}, 'connector');
+  }
+}
+
+@defineProps([...props, { name: 'layout', type: 'object' }])
+export class Sankey extends Node<ConnectorMark> {
+  constructor() {
+    super({}, 'sankey');
   }
 }

@@ -28,6 +28,7 @@ export type Geometry =
   | RangeXMark
   | RangeYMark
   | ConnectorMark
+  | SankeyMark
   | CustomComponent;
 
 export type GeometryTypes =
@@ -51,6 +52,7 @@ export type GeometryTypes =
   | 'range'
   | 'rangeX'
   | 'rangeY'
+  | 'sankey'
   | MarkComponent;
 
 export type ChannelTypes =
@@ -199,5 +201,18 @@ export type VectorGeometry = BaseGeometry<
   'vector',
   ChannelTypes | 'rotate' | 'size'
 >;
+
+export type SankeyMark = BaseGeometry<
+  'sankey',
+  | 'source'
+  | 'target'
+  | 'value'
+  | `node${Capitalize<ChannelTypes>}`
+  | `link${Capitalize<ChannelTypes>}`
+> & {
+  layout?: Record<string, any>;
+  nodeLabels: Record<string, any>[];
+  linkLabels: Record<string, any>[];
+};
 
 export type CustomComponent = BaseGeometry<MarkComponent>;
