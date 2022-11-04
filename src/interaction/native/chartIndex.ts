@@ -9,7 +9,6 @@ import {
   bisector,
   group,
 } from 'd3-array';
-import { G2Element } from 'utils/selection';
 import { subObject } from '../../utils/helper';
 import {
   ELEMENT_CLASS_NAME,
@@ -18,6 +17,7 @@ import {
   LABEL_CLASS_NAME,
 } from '../../runtime';
 import { selectPlotArea, mousePosition } from './utils';
+import { G2Element } from '@/utils/selection';
 
 function maybeTransform(options) {
   const { transform = [] } = options;
