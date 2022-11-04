@@ -35,12 +35,11 @@ export function paragraphTextVis(): G2Spec {
           textAlign: 'left',
           textBaseline: 'top',
           fontSize: 12,
-          background: {
-            fill: '#416180',
-            fillOpacity: 0.05,
-            radius: 3,
-            padding: [2, 4],
-          },
+          background: true,
+          backgroundFill: '#416180',
+          backgroundFillOpacity: 0.05,
+          backgroundRadius: 3,
+          backgroundPadding: [2, 4],
         },
       },
       {

@@ -51,20 +51,56 @@
 
 ### Text 样式配置
 
-| 参数        | 说明                             | 类型               | 默认值 |
-| ----------- | -------------------------------- | ------------------ | ------ |
-| connector   | 文本和目标点之间的连接线样式配置 | `PathStyleProps`   | -      |
-| startMarker | 指定生成权重数组的通道           | `MarkerStyleProps` | -      |
-| endMarker   | 聚合每一组权重的函数             | `MarkerStyleProps` | -      |
-| background  | 聚合每一组权重的函数             | `RectStyleProps`   | -      |
+继承 G Text 所有属性样式配置，参考 `TextStyleProps`。更多配置如下：
+
+| 参数        | 说明                                         | 类型      | 默认值 |
+| ----------- | -------------------------------------------- | --------- | ------ |
+| connector   | 是否展示文本和目标点之间的连接线，默认不展示 | `boolean` | -      |
+| background  | 是否展示文本背景框，默认不展示               | `boolean` | -      |
+| startMarker | 是否展示连接线起始端的标记，默认不展示       | `boolean` | -      |
+| endMarker   | 是否展示连接线终止端的标记，默认不展示       | `boolean` | -      |
+
+文本和目标点之间的**连接线样式**配置，格式为: `connector${style}`, 如: `connectorStroke` 代表连接线描边色。
+
+| 参数                | 说明                                             | 类型     | 默认值 |
+| ------------------- | ------------------------------------------------ | -------- | ------ |
+| connectorStroke     | 连接线描边色                                     | `string` | -      |
+| connectorLineWidth  | 连接线描边线宽                                   | `number` | -      |
+| `connector${style}` | 更多连接线样式配置，参考 `PathStyleProps` 属性值 | -        | -      |
+
+**文本背景框样式**配置，格式为: `background${style}`, 如: `backgroundFill` 代表背景框填充色。
+
+| 参数                 | 说明                                             | 类型       | 默认值 |
+| -------------------- | ------------------------------------------------ | ---------- | ------ |
+| backgroundFill       | 背景框填充色                                     | `string`   | -      |
+| backgroundRadius     | 背景框圆角半径                                   | `number`   | -      |
+| backgroundPadding    | 背景框内间距                                     | `number[]` | -      |
+| `background${style}` | 更多背景框样式配置，参考 `RectStyleProps` 属性值 | -          | -      |
+
+连接线两端**标记样式**配置，格式为: `startMarker${style}` 和 `endMarker${style}` , 如: `startMarkerSymbol` 代表连接线起始端标记类型
+
+| 参数                     | 说明                                                      | 类型                          | 默认值 |
+| ------------------------ | --------------------------------------------------------- | ----------------------------- | ------ |
+| startMarkerSymbol        | 连接线起始端标记类型                                      | `string \| ((x,y,r)=>string)` | -      |
+| endMarkerSymbol          | 连接线终止端标记类型                                      | `string \| ((x,y,r)=>string)` | -      |
+| startMarkerSize          | 连接线起始端标记大小，同理 endMarkerSize                  | `number`                      | -      |
+| startMarkerFill          | 连接线起始端标记填充色，同理 endMarkerFill                | `string`                      | -      |
+| startMarkerStroke        | 连接线起始端标记描边色，同理 endMarkerStroke              | `string`                      | -      |
+| startMarkerFillOpacity   | 连接线起始端标记填充色透明度，同理 endMarkerFillOpacity   | `number`                      | -      |
+| startMarkerStrokeOpacity | 连接线起始端标记描边色透明度，同理 endMarkerStrokeOpacity | `number`                      | -      |
 
 ### Badge 样式配置
 
-| 参数      | 说明                           | 类型                                                        | 默认值 |
-| --------- | ------------------------------ | ----------------------------------------------------------- | ------ |
-| size      | 图形的大小                     | `PathStyleProps`                                            | -      |
-| symbol    | 图形的样式，默认为水滴 💧 形状 | `string` \| `((x: number, y: number, r: number) => string)` | -      |
-| textStyle | 图形上文字的样式               | `TextStyleProps`                                            | -      |
+继承 G Text 所有属性样式配置，参考 `TextStyleProps`。更多配置如下：
+
+| 参数                | 说明                           | 类型                                                      | 默认值 |
+| ------------------- | ------------------------------ | --------------------------------------------------------- | ------ |
+| markerSize          | 图形的大小                     | `number`                                                  | -      |
+| markerSymbol        | 图形的样式，默认为水滴 💧 形状 | `string \| ((x: number, y: number, r: number) => string)` | -      |
+| markerFill          | 图形的填充色                   | `string`                                                  | -      |
+| markerStroke        | 图形的描边色                   | `string`                                                  | -      |
+| markerFillOpacity   | 图形的填充色透明度             | `number`                                                  | -      |
+| markerStrokeOpacity | 图形的描边色透明度             | `number`                                                  | -      |
 
 ## 使用方式
 
@@ -160,16 +196,12 @@
     .style('wordWrap', true)
     .style('wordWrapWidth', 160) // width / 3
     .style('dx', -80) // -1 * wordWrapWidth / 2
-    .style('dy', -20)
+    .style('dy', -16)
     .style('textAlign', 'left')
-    .style('textBaseline', 'top')
+    .style('textBaseline', 'middle')
     .style('fontSize', 12)
-    .style('background', {
-      fill: '#416180',
-      fillOpacity: 0.05,
-      radius: 3,
-      padding: [2, 4],
-    });
+    .style('background', true)
+    .style('backgroundRadius', 3);
 
   // Draw paragraph text.
   chart
@@ -242,16 +274,10 @@
     .style('dx', -174)
     .style('fontSize', 10)
     .style('lineWidth', 0)
-    .style('background', {
-      fill: '#416180',
-      fillOpacity: 0.15,
-      radius: 2,
-      padding: [2, 4],
-    })
-    .style('connector', {
-      stroke: '#416180',
-      strokeOpacity: 0.45,
-    });
+    .style('background', true)
+    .style('backgroundRadius', 2)
+    .style('connector', true)
+    .style('connectorStroke', '#416180');
 
   return chart.render().node();
 })();
@@ -297,9 +323,9 @@
     .encode('y', 'value')
     .encode('text', (d) => d.value)
     .encode('shape', 'badge')
-    .style('fill', '#6395FA')
-    .style('fillOpacity', 0.55)
-    .style('textStyle', { fill: 'red' });
+    .style('fill', 'red')
+    .style('markerFill', '#6395FA')
+    .style('markerFillOpacity', 0.55)
 
   return chart.render().node();
 })();

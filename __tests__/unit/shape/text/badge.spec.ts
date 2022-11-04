@@ -1,4 +1,5 @@
 import { Coordinate } from '@antv/coord';
+import { DisplayObject } from '@antv/g';
 import { Badge } from '../../../../src/shape';
 import { mount, createDiv } from '../../../utils/dom';
 import { draw, style } from '../helper';
@@ -34,9 +35,10 @@ describe('Badge shape', () => {
 
     expect(shape.nodeName).toBe('g');
     expect(style(shape, ['x', 'y'])).toEqual({ x: 75, y: 25 });
-    expect(shape.style.text).toEqual('hello');
-    const badgeMarker = shape.querySelector('.badge-marker');
-    expect(badgeMarker?.style.fill).toEqual('steelblue');
+    const textShape = shape.getElementById('text') as DisplayObject;
+    expect(textShape?.style.text).toEqual('hello');
+    expect(textShape?.style.fill).toEqual('steelblue');
+    const badgeMarker = shape.getElementById('marker') as DisplayObject;
     expect(badgeMarker?.style.symbol).toBeInstanceOf(Function);
   });
 
@@ -48,7 +50,8 @@ describe('Badge shape', () => {
       shape: Badge({
         stroke: 'steelblue',
         text: 'Top',
-        textStyle: { fill: '#fff', fontSize: 10 },
+        fill: '#fff',
+        fontSize: 10,
       }),
       container,
       value: {
@@ -58,10 +61,7 @@ describe('Badge shape', () => {
     });
     mount(createDiv(), container);
 
-    expect(shape.querySelector('.badge-marker')!.style.stroke).toBe(
-      'steelblue',
-    );
-    const textShape = shape.querySelector('.badge-text');
+    const textShape = shape.getElementById('text') as DisplayObject;
     expect(textShape?.style.fill).toBe('#fff');
     expect(textShape?.style.fontSize).toBe(10);
   });
@@ -71,7 +71,7 @@ describe('Badge shape', () => {
     const shape = await draw({
       width: 150,
       height: 100,
-      shape: Badge({ size: 12 }),
+      shape: Badge({ markerSize: 12 }),
       container,
       value: {
         text: 'hello',
@@ -80,11 +80,9 @@ describe('Badge shape', () => {
     });
     mount(createDiv(), container);
 
-    const badgeMarker = shape.querySelector('.badge-marker') as any;
-    expect(badgeMarker.style.x).toBe(0);
-    expect(badgeMarker.style.y).toBe(0);
-    expect(badgeMarker.getBBox().width).toBeCloseTo(12);
-    expect(badgeMarker.getBBox().bottom).toBeCloseTo(50);
+    const badgeMarker = shape.getElementById('marker') as DisplayObject;
+    expect(badgeMarker?.getBBox().width).toBeCloseTo(12);
+    expect(badgeMarker?.getBBox().bottom).toBeCloseTo(50);
   });
 
   it('Badge() returns a function draw badge annotation, enable custom marker symbol', async () => {
@@ -93,9 +91,9 @@ describe('Badge shape', () => {
       width: 150,
       height: 100,
       shape: Badge({
-        symbol: 'triangle',
-        size: 12,
-        stroke: 'red',
+        markerSymbol: 'triangle',
+        markerSize: 12,
+        markerStroke: 'red',
       }),
       container,
       value: {
@@ -105,7 +103,7 @@ describe('Badge shape', () => {
     });
     mount(createDiv(), container);
 
-    const badgeMarker = shape.querySelector('.badge-marker');
+    const badgeMarker = shape.getElementById('marker');
     expect(badgeMarker?.style.symbol).toBe('triangle');
     expect(badgeMarker?.style.size).toBe(12);
     expect(badgeMarker?.style.stroke).toBe('red');

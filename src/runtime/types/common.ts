@@ -45,6 +45,11 @@ export type Primitive = number | string | boolean | Date;
 
 export type TabularData = Record<string, Primitive>[];
 
+export type WithPrefix<T, P extends string, F = keyof T> = F extends keyof T &
+  string
+  ? { [key in `${P}${Capitalize<F>}`]?: T[F] }
+  : unknown;
+
 export type EncodeFunction = (
   data: Record<string, MaybeArray<Primitive>>[],
 ) => MaybeArray<Primitive>[];
