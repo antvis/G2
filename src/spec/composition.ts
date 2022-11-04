@@ -1,4 +1,4 @@
-import { Geometry, Adjust } from './geometry';
+import { Geometry, Adjust, ChannelTypes } from './geometry';
 import { Theme } from './theme';
 import { Coordinate } from './coordinate';
 import { Interaction } from './interaction';
@@ -7,6 +7,7 @@ import { Scale } from './scale';
 import { Title } from './title';
 import { Data } from './data';
 import { LabelTransform } from './labelTransform';
+import { Encode } from './encode';
 
 type EventType = (...args: any[]) => void;
 
@@ -18,6 +19,8 @@ export type Node =
   | RepeatMatrixComposition
   | FacetRectComposition
   | FacetCircleComposition
+  | GeoViewComposition
+  | ChoroplethComposition
   | TimingKeyframeComposition;
 
 export type MarkComposition = Geometry & {
@@ -168,4 +171,53 @@ export type TimingKeyframeComposition = {
   iterationCount?: 'infinite' | number;
   direction?: 'normal' | 'reverse' | 'alternate' | 'reverse-alternate';
   children?: Node[];
+};
+
+export type GeoViewComposition = {
+  type?: 'geoView';
+  transform?: Transform;
+  data?: Data;
+  paddingLeft?: number;
+  paddingRight?: number;
+  paddingTop?: number;
+  paddingBottom?: number;
+  margin?: number;
+  marginLeft?: number;
+  marginBottom?: number;
+  marginTop?: number;
+  marginRight?: number;
+  key?: string;
+  title?: Title;
+  // @todo
+  projection?: Record<string, any>;
+  children?: Node[];
+};
+
+export type ChoroplethComposition = {
+  type?: 'choropleth';
+  data?: {
+    value: {
+      lookup: Record<string, any>; // Tabular data
+      feature?: Record<string, any>; // GeoJSON
+      outline?: Record<string, any>; // GeoJSON
+      border?: Record<string, any>; // GeoJSON
+    };
+  };
+  // @todo
+  projection?: Record<string, any>;
+  scale?: Record<string, Scale>;
+  encode?: Record<
+    | `${'feature' | 'outline' | 'border'}${Capitalize<ChannelTypes>}`
+    | 'value'
+    | 'lookupKey',
+    Encode
+  >;
+  style?: Record<
+    `${'feature' | 'outline' | 'border'}${any}`, // @todo
+    any
+  >;
+  animate?: Record<
+    `${'feature' | 'outline' | 'border'}${any}`, // @todo
+    any
+  >;
 };

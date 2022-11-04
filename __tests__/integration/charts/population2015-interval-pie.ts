@@ -41,3 +41,6 @@ export function population2015IntervalPie(): G2Spec {
     },
   };
 }
+
+// @todo The animation has some unexpected behaviors.
+population2015IntervalPie.skip = true;
