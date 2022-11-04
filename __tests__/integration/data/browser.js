@@ -1,6 +1,4 @@
-import { Chart } from '@antv/g2';
-
-const data = [
+export const browser = [
   {
     name: 'Internet Explorer',
     value: 26,
@@ -32,36 +30,3 @@ const data = [
     url: 'https://gw.alipayobjects.com/zos/rmsportal/NjApYXminrnhBgOXyuaK.png',
   },
 ];
-
-const chart = new Chart({
-  container: 'container',
-  autoFit: true,
-});
-
-chart.data(data);
-
-chart
-  .link()
-  .encode('x', ['name', 'name'])
-  .encode('y', (d) => [0, d.value])
-  .style('stroke', '#dfdfdf')
-  .style('lineDash', [2, 2]);
-
-chart
-  .line()
-  .encode('x', 'name')
-  .encode('y', 'value')
-  .encode('shape', 'smooth')
-  .scale('x', { type: 'band' })
-  .scale('y', { domain: [0, 50] })
-  .style('opacity', 0.5);
-
-chart
-  .image()
-  .encode('x', 'name')
-  .encode('y', 'value')
-  .encode('src', 'url')
-  .scale('x', { type: 'band' })
-  .scale('y', { domain: [0, 50] });
-
-chart.render();

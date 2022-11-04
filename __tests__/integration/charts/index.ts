@@ -90,3 +90,4 @@ export { haleChoroplethWorld } from './hale-choropleth-world';
 export { blockChainLineAnnotation } from './blockchain-line-annotation';
 export { blockChainLineBadgeAnnotation } from './blockchain-line-badge-annotation';
 export { windVectorWind } from './wind-vector-wind';
+export { browserImageTrending } from './browser-image-trending';
