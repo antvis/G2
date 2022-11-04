@@ -1,6 +1,7 @@
-import { G2Spec, render } from '../../../src';
 import { SANKEY_DATA } from '../../data/sankey';
 import { createDiv, mount } from '../../utils/dom';
+import { render } from '@/runtime';
+import type { G2Spec } from '@/spec';
 
 describe('graph', () => {
   it('render({...}) should render basic tree', () => {

@@ -1,6 +1,7 @@
-import { G2Spec, render } from '../../../src';
 import { createDiv, mount } from '../../utils/dom';
 import { SALE_OF_YEAR_WITH_TYPE } from '../../data/sales';
+import { render } from '@/runtime';
+import type { G2Spec } from '@/spec';
 
 describe('statistic', () => {
   it('should render normalized stack interval', () => {

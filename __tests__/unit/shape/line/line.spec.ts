@@ -1,7 +1,7 @@
-import { Line } from '../../../../src/shape';
 import { mount, createDiv } from '../../../utils/dom';
 import { draw, style } from '../helper';
-import { Polar } from '../../../../src/coordinate';
+import { Line } from '@/shape';
+import { Polar } from '@/coordinate';
 
 describe('Line', () => {
   it('Line has expected defaults', () => {

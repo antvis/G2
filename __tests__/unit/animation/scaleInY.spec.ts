@@ -1,8 +1,8 @@
 import { Rect, IAnimation } from '@antv/g';
-import { ScaleInY } from '../../../src/animation';
-import { Transpose } from '../../../src/coordinate';
 import { mount, createDiv } from '../../utils/dom';
 import { applyAnimation, keyframes, timing } from './helper';
+import { ScaleInY } from '@/animation';
+import { Transpose } from '@/coordinate';
 
 describe('ScaleInY', () => {
   it('ScaleInY({..}) should change the transform origin and scale', async () => {

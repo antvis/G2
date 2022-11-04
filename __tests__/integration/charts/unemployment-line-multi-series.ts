@@ -1,4 +1,4 @@
-import { G2Spec } from '../../../src';
+import type { G2Spec } from '@/spec';
 
 //@todo Support mix-blend-mode
 export function unemploymentLineMultiSeries(): G2Spec {

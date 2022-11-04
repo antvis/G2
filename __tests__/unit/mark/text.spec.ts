@@ -1,6 +1,6 @@
 import { Band, Linear } from '@antv/scale';
-import { Text } from '../../../src/mark';
 import { plot } from './helper';
+import { Text } from '@/mark';
 
 describe('Text', () => {
   it('Text should has expected props', () => {

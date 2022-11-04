@@ -1,7 +1,8 @@
-import { csv } from 'd3-fetch';
 import { autoType } from 'd3-dsv';
-import { G2Spec, ELEMENT_CLASS_NAME } from '../../../src';
+import { csv } from 'd3-fetch';
 import { step } from './utils';
+import type { G2Spec } from '@/spec';
+import { ELEMENT_CLASS_NAME } from '@/runtime';
 
 export async function gdp2PointFisheye(): Promise<G2Spec> {
   const data = await csv('data/gdp2.csv', autoType);

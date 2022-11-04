@@ -1,4 +1,4 @@
-import { FilterBy } from '../../../src/data';
+import { FilterBy } from '@/data';
 
 describe('FilterBy', () => {
   it('FilterBy({...}) returns a function do nothing with empty fields', async () => {

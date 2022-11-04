@@ -1,4 +1,4 @@
-import { Rename } from '../../../src/data';
+import { Rename } from '@/data';
 
 describe('rename', () => {
   it('Rename({...}) returns function rename data fields', async () => {

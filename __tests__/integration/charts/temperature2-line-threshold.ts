@@ -1,7 +1,7 @@
 import { csv } from 'd3-fetch';
 import { autoType } from 'd3-dsv';
 import { median } from 'd3-array';
-import { G2Spec } from '../../../src';
+import type { G2Spec } from '@/spec';
 
 export async function temperature2LineThreshold(): Promise<G2Spec> {
   const data = await csv('data/temperatures2.csv', autoType);

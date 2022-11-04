@@ -1,5 +1,6 @@
-import { G2Spec, render } from '../../../src';
 import { createDiv, mount } from '../../utils/dom';
+import { render } from '@/runtime';
+import type { G2Spec } from '@/spec';
 
 describe('adjust', () => {
   it('Pack() should pack points with specified x and y channel uniformly', () => {

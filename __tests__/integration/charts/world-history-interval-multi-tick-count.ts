@@ -1,4 +1,4 @@
-import { G2Spec } from '../../../src';
+import type { G2Spec } from '@/spec';
 
 export function worldHistoryIntervalMultiTickCount(): G2Spec {
   const tickFormatter = (d) => Math.abs(d) + (d < 0 ? 'BC' : d > 0 ? 'AC' : '');

@@ -1,4 +1,4 @@
-import { Light } from '../../../src/theme';
+import { Light } from '@/theme';
 
 describe('light', () => {
   it.skip('Light() returns expected defaults', () => {

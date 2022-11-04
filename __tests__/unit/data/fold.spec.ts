@@ -1,4 +1,4 @@
-import { Fold } from '../../../src/data';
+import { Fold } from '@/data';
 
 describe('fold', () => {
   const data = [

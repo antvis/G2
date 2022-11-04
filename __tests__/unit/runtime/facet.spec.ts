@@ -1,5 +1,6 @@
-import { G2Spec, render } from '../../../src';
 import { createDiv, mount } from '../../utils/dom';
+import { render } from '@/runtime';
+import type { G2Spec } from '@/spec';
 
 describe('facet', () => {
   it('render({...} should render row facet', (done) => {

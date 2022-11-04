@@ -1,6 +1,6 @@
-import { Linear } from '../../../src/scale';
-import { RangeY } from '../../../src/mark/rangeY';
 import { plot } from './helper';
+import { Linear } from '@/scale';
+import { RangeY } from '@/mark/rangeY';
 
 describe('RangeY annotation', () => {
   it('RangeY has expected props', () => {

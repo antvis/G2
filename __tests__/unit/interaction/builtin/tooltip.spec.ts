@@ -1,5 +1,6 @@
-import { G2Spec, render } from '../../../../src';
 import { createDiv, mount } from '../../../utils/dom';
+import { render } from '@/runtime';
+import type { G2Spec } from '@/spec';
 
 describe('Interactions of tooltip', () => {
   it('render({...} renders line chart with tooltip interaction', () => {

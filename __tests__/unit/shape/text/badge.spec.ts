@@ -1,8 +1,8 @@
 import { Coordinate } from '@antv/coord';
 import { DisplayObject } from '@antv/g';
-import { Badge } from '../../../../src/shape';
 import { mount, createDiv } from '../../../utils/dom';
 import { draw, style } from '../helper';
+import { Badge } from '@/shape';
 
 describe('Badge shape', () => {
   it('Badge has expected defaults', () => {

@@ -1,11 +1,6 @@
 import { Coordinate, Vector2 } from '@antv/coord';
-import { Cartesian } from '../../../src/coordinate';
-import {
-  CoordinateTransform,
-  Mark,
-  Scale,
-  ChannelValue,
-} from '../../../src/runtime';
+import { Cartesian } from '@/coordinate';
+import { CoordinateTransform, Mark, Scale, ChannelValue } from '@/runtime';
 
 type Options = {
   index: number[];

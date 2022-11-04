@@ -1,7 +1,7 @@
 import { hierarchy, treemap } from 'd3-hierarchy';
-import { G2Spec, render } from '../../../src';
-
 import { createDiv, mount } from '../../utils/dom';
+import { render } from '@/runtime';
+import type { G2Spec } from '@/spec';
 
 describe('rect', () => {
   it.skip('render({...}) should render basic rect', () => {

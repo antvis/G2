@@ -1,4 +1,4 @@
-import { G2Spec } from '../../../src';
+import type { G2Spec } from '@/spec';
 
 export function aaplLineMissingConnect(): G2Spec {
   return {

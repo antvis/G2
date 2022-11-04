@@ -1,5 +1,5 @@
-import { G2Spec } from '../../../src';
 import { question8 } from '../data/question8';
+import type { G2Spec } from '@/spec';
 
 export function question8IntervalRadialGradientColor(): G2Spec {
   return {

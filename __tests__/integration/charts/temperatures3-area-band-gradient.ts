@@ -1,4 +1,4 @@
-import { G2Spec } from '../../../src';
+import type { G2Spec } from '@/spec';
 
 export function temperatures3AreaBandGradient(): G2Spec {
   return {

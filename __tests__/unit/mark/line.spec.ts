@@ -1,6 +1,6 @@
-import { Parallel } from '../../../src/coordinate';
-import { Line } from '../../../src/mark';
 import { plot } from './helper';
+import { Parallel } from '@/coordinate';
+import { Line } from '@/mark';
 
 describe('Line', () => {
   it('Line has expected props', () => {

@@ -1,4 +1,4 @@
-import { Subset } from '../../../src/data';
+import { Subset } from '@/data';
 
 describe('subset', () => {
   it('Subset({...}) returns function to get subset of data', () => {

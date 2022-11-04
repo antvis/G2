@@ -1,5 +1,5 @@
-import { LineX } from '../../../src/mark/lineX';
 import { plot } from './helper';
+import { LineX } from '@/mark/lineX';
 
 describe('Line annotation', () => {
   it('LineX has expected props', () => {

@@ -1,5 +1,5 @@
-import { Area } from '../../../src/mark';
 import { plot } from './helper';
+import { Area } from '@/mark';
 
 describe('Area', () => {
   it('Area has expected props', () => {

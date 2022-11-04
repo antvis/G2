@@ -1,6 +1,6 @@
-import { Smooth } from '../../../../src/shape';
 import { mount, createDiv } from '../../../utils/dom';
 import { draw, style } from '../helper';
+import { Smooth } from '@/shape';
 
 describe('Smooth', () => {
   it('Smooth has expected defaults', () => {

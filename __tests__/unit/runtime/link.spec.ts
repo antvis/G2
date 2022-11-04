@@ -1,5 +1,6 @@
-import { G2Spec, render } from '../../../src';
 import { createDiv, mount } from '../../utils/dom';
+import { render } from '@/runtime';
+import type { G2Spec } from '@/spec';
 
 describe('link', () => {
   it('render({...}) should render basic link', () => {

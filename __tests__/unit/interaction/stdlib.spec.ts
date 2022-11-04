@@ -1,4 +1,4 @@
-import { createInteractionLibrary } from '../../../src/interaction/stdlib';
+import { createInteractionLibrary } from '@/interaction/stdlib';
 import {
   SurfacePointSelection,
   ActiveElement,
@@ -23,11 +23,8 @@ import {
   ActiveRegion,
   Poptip,
   RecordTip,
-} from '../../../src/interaction/action';
-import {
-  MousePosition,
-  TouchPosition,
-} from '../../../src/interaction/interactor';
+} from '@/interaction/action';
+import { MousePosition, TouchPosition } from '@/interaction/interactor';
 
 describe('createInteractionLibrary', () => {
   it('createInteractionLibrary() returns expected action and interactor', () => {

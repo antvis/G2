@@ -6,7 +6,7 @@ import {
   SpaceLayer,
   RepeatMatrix,
   FacetRect,
-} from '../../../src/api/composition';
+} from '@/api/composition';
 import {
   Area,
   Cell,
@@ -26,7 +26,7 @@ import {
   Rect,
   Text,
   Connector,
-} from '../../../src/api/mark/mark';
+} from '@/api/mark/mark';
 
 function expectToCreateMarks(node) {
   expect(node.interval()).toBeInstanceOf(Interval);

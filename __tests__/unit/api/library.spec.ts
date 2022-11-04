@@ -1,6 +1,6 @@
 import { Polygon } from '@antv/g';
-import { register, Chart } from '../../../src/api';
 import { createDiv } from '../../utils/dom';
+import { register, Chart } from '@/api';
 
 describe('register', () => {
   it('register(data.[...]) should register data transform', () => {

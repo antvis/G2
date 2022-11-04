@@ -1,8 +1,8 @@
 import { DisplayObject, Rect, IAnimation as GAnimation } from '@antv/g';
 import { Coordinate } from '@antv/coord';
-import { Animation, CoordinateTransform, G2Theme } from '../../../src/runtime';
-import { Cartesian } from '../../../src/coordinate';
 import { Canvas } from '../../utils/canvas';
+import { Animation, CoordinateTransform, G2Theme } from '@/runtime';
+import { Cartesian } from '@/coordinate';
 
 type Options = {
   animate: Animation;

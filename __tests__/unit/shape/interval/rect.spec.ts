@@ -1,7 +1,7 @@
-import { Polar, Transpose } from '../../../../src/coordinate';
-import { Rect } from '../../../../src/shape';
 import { mount, createDiv } from '../../../utils/dom';
 import { draw, style } from '../helper';
+import { Polar, Transpose } from '@/coordinate';
+import { Rect } from '@/shape';
 
 describe('Rect', () => {
   it('Rect() returns a function drawing rect in cartesian using color as fill', async () => {

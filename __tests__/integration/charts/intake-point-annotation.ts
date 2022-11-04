@@ -1,5 +1,5 @@
-import { G2Spec } from '../../../src';
 import { intake } from '../data/intake';
+import type { G2Spec } from '@/spec';
 
 export function intakePointAnnotation(): G2Spec {
   return {

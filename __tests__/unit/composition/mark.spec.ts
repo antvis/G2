@@ -1,4 +1,4 @@
-import { Mark } from '../../../src/composition';
+import { Mark } from '@/composition';
 
 describe('composition', () => {
   it('Mark({...}) should propagate data and transform to standard Mark', () => {

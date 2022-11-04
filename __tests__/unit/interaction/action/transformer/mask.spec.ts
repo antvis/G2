@@ -1,5 +1,5 @@
-import { Mask } from '../../../../../src/interaction/action/transformer/mask';
 import { createContext } from '../../helper';
+import { Mask } from '@/interaction/action/transformer/mask';
 
 describe('Mask action', () => {
   it('Mask({...}) renders a mask component with resize handles.', async () => {

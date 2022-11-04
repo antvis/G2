@@ -1,6 +1,6 @@
-import { Band } from '../../../src/scale';
-import { Box } from '../../../src/mark';
 import { plot } from './helper';
+import { Band } from '@/scale';
+import { Box } from '@/mark';
 
 describe('Box', () => {
   it('Box has expected props', () => {

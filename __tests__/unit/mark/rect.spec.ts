@@ -1,5 +1,5 @@
-import { Rect } from '../../../src/mark';
 import { plot } from './helper';
+import { Rect } from '@/mark';
 
 describe('Rect', () => {
   it('Rect has expected props', () => {

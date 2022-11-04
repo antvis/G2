@@ -1,5 +1,5 @@
-import { defineProps } from '../../../src/api/props';
-import { Node } from '../../../src/api/node';
+import { defineProps } from '@/api/props';
+import { Node } from '@/api/node';
 
 describe('defineProps', () => {
   it('defineProps([...]) should define value prop', () => {

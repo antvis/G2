@@ -1,5 +1,6 @@
-import { G2Spec, ELEMENT_CLASS_NAME } from '../../../src';
 import { step } from './utils';
+import { ELEMENT_CLASS_NAME, MAIN_LAYER_CLASS_NAME } from '@/runtime';
+import type { G2Spec } from '@/spec';
 
 export function stateAgesIntervalSelectByX(): G2Spec {
   return {

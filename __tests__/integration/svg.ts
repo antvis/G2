@@ -1,9 +1,10 @@
-import xmlserializer from 'xmlserializer';
 import { Canvas } from '@antv/g';
 import { Renderer } from '@antv/g-svg';
 import { createCanvas } from 'canvas';
-import { G2Spec, render } from '../../src';
+import xmlserializer from 'xmlserializer';
 import { JSDOM } from './jsdom';
+import type { G2Spec } from '@/spec';
+import { render } from '@/runtime';
 
 export async function renderSVG(
   options: G2Spec,

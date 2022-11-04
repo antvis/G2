@@ -1,6 +1,6 @@
-import { Point } from '../../../../src/shape';
 import { mount, createDiv } from '../../../utils/dom';
 import { draw, style } from '../helper';
+import { Point } from '@/shape';
 
 describe('Point', () => {
   it('Point has expected defaults', () => {

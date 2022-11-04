@@ -25,7 +25,7 @@ import {
   Quantile,
   Quantize,
   Sqrt,
-} from '../../../src/scale';
+} from '@/scale';
 
 describe('scale', () => {
   it('Scale({..}) returns @antv/scale instance', () => {

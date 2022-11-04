@@ -1,5 +1,5 @@
-import { G2Spec } from '../../../src';
 import { sepal } from '../data/sepal';
+import type { G2Spec } from '@/spec';
 
 export function sepalBoxGroupedBox(): G2Spec {
   return {

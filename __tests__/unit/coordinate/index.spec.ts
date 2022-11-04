@@ -1,10 +1,4 @@
-import {
-  Cartesian,
-  Polar,
-  Transpose,
-  Parallel,
-  Fisheye,
-} from '../../../src/coordinate';
+import { Cartesian, Polar, Transpose, Parallel, Fisheye } from '@/coordinate';
 
 describe('coordinate', () => {
   it('Cartesian() returns expected coordinate transformations', () => {

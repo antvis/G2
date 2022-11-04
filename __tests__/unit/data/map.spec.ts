@@ -1,4 +1,4 @@
-import { Map } from '../../../src/data';
+import { Map } from '@/data';
 
 describe('Map', () => {
   it('Map({...}) returns without callback', async () => {

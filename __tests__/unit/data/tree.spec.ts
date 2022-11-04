@@ -1,4 +1,4 @@
-// import { Tree } from '../../../src/transform';
+// import { Tree } from '@/transform';
 
 describe('Tree', () => {
   it.skip('Tree({...}) returns a function to layout with tree', async () => {

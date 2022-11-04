@@ -1,5 +1,5 @@
-import { Polygon } from '../../../src/mark';
 import { plot } from './helper';
+import { Polygon } from '@/mark';
 
 describe('Polygon', () => {
   it('Polygon has expected props', () => {

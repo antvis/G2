@@ -1,5 +1,5 @@
-import { G2Spec } from '../../../src';
 import { commit } from '../data/commit';
+import type { G2Spec } from '@/spec';
 
 export function commitIntervalFixedCorner(): G2Spec {
   return {

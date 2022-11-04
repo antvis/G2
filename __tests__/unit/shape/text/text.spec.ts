@@ -1,7 +1,7 @@
 import { DisplayObject } from '@antv/g';
-import { Text } from '../../../../src/shape';
 import { mount, createDiv } from '../../../utils/dom';
 import { draw, style } from '../helper';
+import { Text } from '@/shape';
 
 describe('Text shape', () => {
   it('Text has expected defaults', () => {

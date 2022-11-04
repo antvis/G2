@@ -19,7 +19,7 @@ import {
   DivergingRedBlue,
   DivergingGreenRed,
   DivergingRedPurple,
-} from '../../../src/palette';
+} from '@/palette';
 
 describe('palette', () => {
   it('Category10 returns expected colors', () => {

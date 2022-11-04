@@ -1,6 +1,6 @@
-import { HollowRect } from '../../../../src/shape';
 import { mount, createDiv } from '../../../utils/dom';
 import { draw, style } from '../helper';
+import { HollowRect } from '@/shape';
 
 describe('HollowRect', () => {
   it('HollowRect() returns a function drawing rect in cartesian using color as stroke', async () => {

@@ -1,4 +1,4 @@
-import { createLibrary } from '../../../src/stdlib';
+import { createLibrary } from '@/stdlib';
 import {
   Cartesian,
   Polar,
@@ -13,8 +13,8 @@ import {
   FisheyeX,
   FisheyeY,
   Radial,
-} from '../../../src/coordinate';
-import { Constant, Field, Transform, Column } from '../../../src/encode';
+} from '@/coordinate';
+import { Constant, Field, Transform, Column } from '@/encode';
 import {
   Interval,
   Rect,
@@ -36,7 +36,7 @@ import {
   Connector,
   Sankey,
   Path,
-} from '../../../src/mark';
+} from '@/mark';
 import {
   Category10,
   Category20,
@@ -58,7 +58,7 @@ import {
   DivergingRedBlue,
   DivergingGreenRed,
   DivergingRedPurple,
-} from '../../../src/palette';
+} from '@/palette';
 import {
   Linear,
   Ordinal,
@@ -73,7 +73,7 @@ import {
   Quantize,
   Sqrt,
   Sequential,
-} from '../../../src/scale';
+} from '@/scale';
 import {
   Rect as RectShape,
   HollowRect,
@@ -121,15 +121,15 @@ import {
   Link,
   Label,
   Path as PathShape,
-} from '../../../src/shape';
-import { Light, Dark } from '../../../src/theme';
+} from '@/shape';
+import { Light, Dark } from '@/theme';
 import {
   AxisX,
   AxisY,
   LegendCategory,
   LegendContinuous,
   TitleComponent,
-} from '../../../src/component';
+} from '@/component';
 import {
   ScaleInX,
   ScaleOutX,
@@ -141,7 +141,7 @@ import {
   WaveIn,
   ZoomIn,
   ZoomOut,
-} from '../../../src/animation';
+} from '@/animation';
 import {
   ElementActive,
   ElementActiveByColor,
@@ -165,7 +165,7 @@ import {
   // BrushVisible,
   // ActiveRegion,
   // EllipsisText,
-} from '../../../src/interaction';
+} from '@/interaction';
 import {
   SpaceLayer,
   SpaceFlex,
@@ -175,7 +175,7 @@ import {
   FacetRect,
   TimingKeyframe,
   Mark,
-} from '../../../src/composition';
+} from '@/composition';
 import {
   MaybeTitleX,
   MaybeTooltipY,
@@ -213,7 +213,7 @@ import {
   GroupY,
   GroupColor,
   Pack,
-} from '../../../src/transform';
+} from '@/transform';
 import {
   Fetch,
   SortBy,
@@ -230,9 +230,9 @@ import {
   Sankey as SankeyTransform,
   Arc as ArcTransform,
   WordCloud,
-} from '../../../src/data';
-import { HideOverlap, DodgeY } from '../../../src/label-transform';
-import { GeoView, Choropleth } from '../../../src/geo';
+} from '@/data';
+import { HideOverlap, DodgeY } from '@/label-transform';
+import { GeoView, Choropleth } from '@/geo';
 
 describe('stdlib', () => {
   it('createLibrary() should returns expected builtin', () => {

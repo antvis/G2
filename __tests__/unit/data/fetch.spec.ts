@@ -1,4 +1,4 @@
-import { Fetch } from '../../../src/data';
+import { Fetch } from '@/data';
 
 describe('Fetch', () => {
   it('Fetch({...}) returns a function fetching json by default', async () => {

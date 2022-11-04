@@ -6,7 +6,7 @@ import {
   PLOT_CLASS_NAME,
   COMPONENT_CLASS_NAME,
   LABEL_CLASS_NAME,
-} from '../../../src';
+} from '@/runtime';
 
 describe('constant', () => {
   it('has expected constants', () => {

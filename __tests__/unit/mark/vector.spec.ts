@@ -1,5 +1,5 @@
-import { Vector } from '../../../src/mark';
 import { plot } from './helper';
+import { Vector } from '@/mark';
 
 describe('Vector', () => {
   it('Vector has expected props', () => {

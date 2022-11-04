@@ -1,4 +1,4 @@
-import { SortBy } from '../../../src/data';
+import { SortBy } from '@/data';
 
 describe('SortBy', () => {
   it('SortBy({...}) returns function sort data by fields in asc order by default', async () => {

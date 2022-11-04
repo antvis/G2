@@ -1,5 +1,5 @@
 import { path as d3path } from 'd3-path';
-import { appendPolygon } from '../../../src/shape/utils';
+import { appendPolygon } from '@/shape/utils';
 
 describe('utils', () => {
   it('polygon() returns polygon path string', () => {

@@ -1,6 +1,6 @@
-import { Band, Identity, Linear } from '../../../src/scale';
-import { Range } from '../../../src/mark/range';
 import { plot } from './helper';
+import { Band, Identity, Linear } from '@/scale';
+import { Range } from '@/mark/range';
 
 describe('Range annotation', () => {
   it('Range has expected props', () => {

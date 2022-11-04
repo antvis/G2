@@ -1,5 +1,5 @@
-import { Point } from '../../../src/mark';
 import { plot } from './helper';
+import { Point } from '@/mark';
 
 describe('Point', () => {
   it('Point should has expected props', () => {

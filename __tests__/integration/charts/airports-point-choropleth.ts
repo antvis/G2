@@ -1,7 +1,7 @@
 import { csv } from 'd3-fetch';
 import { feature, mesh } from 'topojson';
 import { autoType } from 'd3-dsv';
-import { G2Spec } from '../../../src';
+import type { G2Spec } from '@/spec';
 
 export async function airportsPointChoropleth(): Promise<G2Spec> {
   const us = await fetch('data/us-10m.json').then((res) => res.json());

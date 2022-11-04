@@ -16,7 +16,7 @@ import {
   RangeX,
   RangeY,
   Sankey,
-} from '../../../src/api/mark/mark';
+} from '@/api/mark/mark';
 
 function setOptions(node) {
   return node

@@ -1,8 +1,8 @@
 import { IAnimation, Rect } from '@antv/g';
-import { Polar } from '../../../src/coordinate';
-import { WaveIn } from '../../../src/animation';
 import { mount, createDiv } from '../../utils/dom';
 import { applyAnimation, keyframes, timing } from './helper';
+import { Polar } from '@/coordinate';
+import { WaveIn } from '@/animation';
 
 describe('WaveIn', () => {
   it('WaveIn(options) should take options as priority among options, style and theme', async () => {

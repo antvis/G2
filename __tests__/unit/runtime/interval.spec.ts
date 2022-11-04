@@ -1,8 +1,10 @@
 import { Polygon } from '@antv/g';
-import { G2Spec, Vector2, render, ShapeComponent } from '../../../src';
-import { createLibrary } from '../../../src/stdlib';
 import { SALE_OF_YEAR } from '../../data/sales';
-import { createDiv, mount, unmountAll } from '../../utils/dom';
+import { createDiv, mount } from '../../utils/dom';
+import type { ShapeComponent, Vector2 } from '@/runtime';
+import { render } from '@/runtime';
+import type { G2Spec } from '@/spec';
+import { createLibrary } from '@/stdlib';
 
 describe('render', () => {
   it.skip('render({}) returns a canvas wrapped in HTMLElement with default size', (done) => {

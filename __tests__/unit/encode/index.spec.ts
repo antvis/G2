@@ -1,4 +1,4 @@
-import { Constant, Field, Transform } from '../../../src/encode';
+import { Constant, Field, Transform } from '@/encode';
 
 describe('encode', () => {
   it('Constant({...}) returns a constant function', () => {

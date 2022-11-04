@@ -1,8 +1,8 @@
 import { Rect } from '@antv/g';
-import { FadeOut } from '../../../src/animation';
-import { Transpose } from '../../../src/coordinate';
 import { mount, createDiv } from '../../utils/dom';
 import { applyAnimation, keyframes, timing } from './helper';
+import { FadeOut } from '@/animation';
+import { Transpose } from '@/coordinate';
 
 describe('FadeOut', () => {
   it('FadeOut({..}) should change attributes related to opacity', async () => {

@@ -13,10 +13,10 @@ import {
   HTML,
   CustomEvent,
 } from '@antv/g';
-// import { Canvas } from '../../../src/renderer/canvas';
-import { G2Element, select, Selection } from '../../../src/utils/selection';
+// import { Canvas } from '@/renderer/canvas';
 import { mount, createDiv } from '../../utils/dom';
 import { Canvas } from '../../utils/canvas';
+import { G2Element, select, Selection } from '@/utils/selection';
 
 describe('select', () => {
   it('select(node) should return a new selection with expected defaults', () => {

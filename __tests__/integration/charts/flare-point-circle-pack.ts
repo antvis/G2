@@ -1,6 +1,6 @@
 import { hierarchy, pack } from 'd3-hierarchy';
 import { interpolateHcl } from 'd3-interpolate';
-import { G2Spec } from '../../../src';
+import type { G2Spec } from '@/spec';
 
 export function flarePointCirclePack(): G2Spec {
   const width = 800;

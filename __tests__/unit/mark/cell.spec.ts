@@ -1,6 +1,6 @@
-import { Cell } from '../../../src/mark';
-import { Band } from '../../../src/scale';
 import { plot } from './helper';
+import { Cell } from '@/mark';
+import { Band } from '@/scale';
 
 describe('Cell', () => {
   it('Cell has expected props', () => {

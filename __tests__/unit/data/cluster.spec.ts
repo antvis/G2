@@ -1,4 +1,4 @@
-// import { Cluster } from '../../../src/transform';
+// import { Cluster } from '@/transform';
 
 describe('Cluster', () => {
   it('Cluster({...}) returns a function to layout with cluster', async () => {

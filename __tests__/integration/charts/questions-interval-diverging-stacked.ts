@@ -1,4 +1,4 @@
-import { G2Spec } from '../../../src';
+import type { G2Spec } from '@/spec';
 
 export function questionsIntervalDivergingStacked(): G2Spec {
   const types = [

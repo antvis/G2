@@ -1,15 +1,10 @@
 import { DisplayObject, CanvasEvent } from '@antv/g';
 import { Coordinate } from '@antv/coord';
-import {
-  Shape,
-  CoordinateTransform,
-  Primitive,
-  G2Theme,
-} from '../../../src/runtime';
-import { Light } from '../../../src/theme';
-import { Cartesian } from '../../../src/coordinate';
-import { Vector2 } from '../../../src/utils/vector';
 import { Canvas } from '../../utils/canvas';
+import { Shape, CoordinateTransform, Primitive, G2Theme } from '@/runtime';
+import { Light } from '@/theme';
+import { Cartesian } from '@/coordinate';
+import { Vector2 } from '@/utils/vector';
 
 type Options = {
   shape: Shape;

@@ -1,4 +1,4 @@
-import { Custom } from '../../../src/data';
+import { Custom } from '@/data';
 
 describe('custom', () => {
   it('Custom({...}) returns function preprocess data by specified callback', async () => {

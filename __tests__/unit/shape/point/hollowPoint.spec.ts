@@ -1,6 +1,6 @@
-import { HollowPoint } from '../../../../src/shape';
 import { mount, createDiv } from '../../../utils/dom';
 import { draw, style } from '../helper';
+import { HollowPoint } from '@/shape';
 
 describe('HollowPoint', () => {
   it('HollowPoint has expected defaults', () => {

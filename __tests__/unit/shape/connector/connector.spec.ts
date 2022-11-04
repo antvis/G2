@@ -1,6 +1,6 @@
-import { Connector } from '../../../../src/shape';
 import { mount, createDiv } from '../../../utils/dom';
 import { draw, style } from '../helper';
+import { Connector } from '@/shape';
 
 describe('Connector shape', () => {
   it('Connector has expected defaults', () => {

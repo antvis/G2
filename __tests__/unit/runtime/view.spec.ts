@@ -1,5 +1,6 @@
-import { G2Spec, render } from '../../../src';
 import { createDiv, mount } from '../../utils/dom';
+import { render } from '@/runtime';
+import type { G2Spec } from '@/spec';
 
 describe('view', () => {
   it('render({...}) should render marks with same scales', () => {

@@ -1,5 +1,6 @@
-import { G2Spec, render } from '../../../src';
 import { createDiv, mount } from '../../utils/dom';
+import { render } from '@/runtime';
+import type { G2Spec } from '@/spec';
 
 describe('animation', () => {
   // Don't asset for temporary as the inner data structure of context is not clear now.

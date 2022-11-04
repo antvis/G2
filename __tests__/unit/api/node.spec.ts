@@ -1,4 +1,4 @@
-import { Node } from '../../../src/api/node';
+import { Node } from '@/api/node';
 
 describe('Node', () => {
   it('Node() should have expected defaults', () => {

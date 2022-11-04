@@ -1,7 +1,4 @@
-import {
-  MousePosition,
-  TouchPosition,
-} from '../../../src/interaction/interactor';
+import { MousePosition, TouchPosition } from '@/interaction/interactor';
 
 describe('interactor', () => {
   it('MousePosition() returns expected defaults', () => {

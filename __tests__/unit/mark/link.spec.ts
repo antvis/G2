@@ -1,5 +1,5 @@
-import { Link } from '../../../src/mark';
 import { plot } from './helper';
+import { Link } from '@/mark';
 
 describe('Link', () => {
   it('Link has expected props', () => {

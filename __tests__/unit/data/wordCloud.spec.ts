@@ -1,8 +1,5 @@
-import { WordCloud } from '../../../src/data';
-import {
-  normalizeFontSize,
-  processImageMask,
-} from '../../../src/data/wordCloud';
+import { WordCloud } from '@/data';
+import { normalizeFontSize, processImageMask } from '@/data/wordCloud';
 
 describe('WordCloud', () => {
   it('WordCloud({ ... })', () => {});

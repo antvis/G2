@@ -1,4 +1,4 @@
-// import { Arc } from '../../../../src/transform/utils/arc';
+// import { Arc } from '../@/transform/utils/arc';
 
 describe('Arc', () => {
   it.skip('Arc({...}) returns a function to process arc layout', async () => {

@@ -1,5 +1,7 @@
 import { Canvas } from '@antv/g';
-import { Chart, createLibrary } from '../../../src';
+import { createDiv } from '../../utils/dom';
+import { Chart } from '@/api';
+import { createLibrary } from '@/stdlib';
 import {
   View,
   TimingKeyframe,
@@ -8,7 +10,7 @@ import {
   RepeatMatrix,
   FacetCircle,
   SpaceLayer,
-} from '../../../src/api/composition';
+} from '@/api/composition';
 import {
   Area,
   Cell,
@@ -28,8 +30,7 @@ import {
   RangeY,
   Rect,
   Connector,
-} from '../../../src/api/mark/mark';
-import { createDiv } from '../../utils/dom';
+} from '@/api/mark/mark';
 
 describe('Chart', () => {
   it('Chart() should have expected defaults', () => {

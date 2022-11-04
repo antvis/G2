@@ -1,4 +1,4 @@
-import { View } from '../../../src/composition';
+import { View } from '@/composition';
 
 describe('composition', () => {
   it('View({...}) should propagate data and transform to standard view', () => {

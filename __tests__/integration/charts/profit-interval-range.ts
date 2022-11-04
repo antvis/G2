@@ -1,5 +1,5 @@
-import { G2Spec } from '../../../src';
 import { profit } from '../data/profit';
+import type { G2Spec } from '@/spec';
 
 export function profitIntervalRange(): G2Spec {
   return {

@@ -1,7 +1,7 @@
 import { mount, createDiv } from '../../../utils/dom';
 import { draw, style } from '../helper';
-import { Polar } from '../../../../src/coordinate';
-import { LineXY } from '../../../../src/shape';
+import { Polar } from '@/coordinate';
+import { LineXY } from '@/shape';
 
 describe('LineXY', () => {
   it('LineXY has expected defaults', () => {

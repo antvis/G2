@@ -26,4 +26,8 @@ module.exports = {
   testPathIgnorePatterns: [
     '<rootDir>/__tests__/unit/(statistic|infer|composition|runtime|interaction)',
   ],
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1',
+    '^root/(.*)$': '<rootDir>/src/$1',
+  },
 };

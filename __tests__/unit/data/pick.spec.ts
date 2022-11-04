@@ -1,4 +1,4 @@
-import { Pick } from '../../../src/data';
+import { Pick } from '@/data';
 
 describe('pick', () => {
   it('Pick({...}) returns function pick data by fields', async () => {

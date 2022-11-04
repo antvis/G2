@@ -1,6 +1,6 @@
 import { csv } from 'd3-fetch';
 import { autoType } from 'd3-dsv';
-import { G2Spec } from '../../../src';
+import type { G2Spec } from '@/spec';
 
 export async function tranLineMultiAxes(): Promise<G2Spec> {
   const data = await csv('data/train.csv', autoType);

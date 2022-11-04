@@ -1,6 +1,6 @@
-import { Connector } from '../../../src/mark/connector';
-import { Band } from '../../../src/scale';
 import { plot } from './helper';
+import { Connector } from '@/mark/connector';
+import { Band } from '@/scale';
 
 describe('Connector', () => {
   it('Connector has expected props', () => {

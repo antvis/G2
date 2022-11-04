@@ -1,10 +1,11 @@
 import * as fs from 'fs';
-import { PNG } from 'pngjs';
-import { createCanvas } from 'canvas';
-import pixelmatch from 'pixelmatch';
 import { Canvas } from '@antv/g';
 import { Renderer } from '@antv/g-canvas';
-import { render, G2Spec } from '../../src';
+import { createCanvas } from 'canvas';
+import pixelmatch from 'pixelmatch';
+import { PNG } from 'pngjs';
+import type { G2Spec } from '@/spec';
+import { render } from '@/runtime';
 
 export async function renderCanvas(
   options: G2Spec,

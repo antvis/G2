@@ -1,5 +1,5 @@
 import * as d3 from 'd3-random';
-import { G2Spec } from '../../../src';
+import type { G2Spec } from '@/spec';
 
 export function cars2PointJitterY(): G2Spec {
   const random = d3.randomUniform.source(d3.randomLcg(42))(0, 1);

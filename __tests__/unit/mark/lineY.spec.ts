@@ -1,5 +1,5 @@
-import { LineY } from '../../../src/mark/lineY';
 import { plot } from './helper';
+import { LineY } from '@/mark/lineY';
 
 describe('Line annotation', () => {
   it('LineY has expected props', () => {

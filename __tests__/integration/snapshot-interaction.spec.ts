@@ -1,8 +1,8 @@
 import * as fs from 'fs';
-import { render } from '../../src';
 import * as tests from './interactions';
 import { fetch } from './fetch';
 import { createGCanvas, writePNG, sleep, diff } from './canvas';
+import { render } from '@/runtime';
 
 // @ts-ignore
 global.fetch = fetch;

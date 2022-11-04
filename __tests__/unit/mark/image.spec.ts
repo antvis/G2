@@ -1,5 +1,5 @@
-import { Image } from '../../../src/mark';
 import { plot } from './helper';
+import { Image } from '@/mark';
 
 describe('Image', () => {
   it('Image has expected props', () => {

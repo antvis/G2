@@ -1,5 +1,5 @@
 import { Square } from '../../../src/composition';
-import { G2ViewTree } from '../../../src/runtime';
+import { G2ViewTree } from '@/runtime';
 
 describe('composition', () => {
   it('Square({...}) should accept x and y encode', () => {

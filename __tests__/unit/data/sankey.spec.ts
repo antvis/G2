@@ -1,4 +1,4 @@
-// import { Sankey } from '../../../src/data';
+// import { Sankey } from '@/data';
 
 describe.skip('Sankey', () => {
   it('', () => {});

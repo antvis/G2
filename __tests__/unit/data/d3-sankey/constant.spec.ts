@@ -1,4 +1,4 @@
-// import { constant } from '../../../../src/transform/utils/d3-sankey/constant';
+// import { constant } from '../@/transform/utils/d3-sankey/constant';
 
 describe.skip('constant', () => {
   it('constant(...) returns a function returning a constant value', () => {

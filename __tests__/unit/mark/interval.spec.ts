@@ -1,6 +1,6 @@
-import { Interval } from '../../../src/mark';
-import { Band } from '../../../src/scale';
 import { plot } from './helper';
+import { Interval } from '@/mark';
+import { Band } from '@/scale';
 
 describe('Interval', () => {
   it('Interval has expected props', () => {

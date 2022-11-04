@@ -1,5 +1,5 @@
-import { Button } from '../../../../../src/interaction/action/transformer/button';
 import { createContext } from '../../helper';
+import { Button } from '@/interaction/action/transformer/button';
 
 describe('Button action', () => {
   it('Button({...}) renders a button component', async () => {

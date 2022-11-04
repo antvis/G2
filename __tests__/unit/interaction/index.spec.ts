@@ -1,7 +1,7 @@
-import { InteractionDescriptor as Fisheye } from '../../../src/interaction/builtin/fisheye';
-import { InteractionDescriptor as Tooltip } from '../../../src/interaction/builtin/tooltip';
-import { InteractionDescriptor as ElementActive } from '../../../src/interaction/builtin/elementActive';
-import { InteractionDescriptor as ElementSelected } from '../../../src/interaction/builtin/elementSelected';
+import { InteractionDescriptor as Fisheye } from '@/interaction/builtin/fisheye';
+import { InteractionDescriptor as Tooltip } from '@/interaction/builtin/tooltip';
+import { InteractionDescriptor as ElementActive } from '@/interaction/builtin/elementActive';
+import { InteractionDescriptor as ElementSelected } from '@/interaction/builtin/elementSelected';
 
 describe('interaction', () => {
   it('ElementActive() returns expected defaults', () => {

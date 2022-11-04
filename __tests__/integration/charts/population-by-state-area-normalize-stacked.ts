@@ -1,4 +1,4 @@
-import { G2Spec } from '../../../src';
+import type { G2Spec } from '@/spec';
 
 const RegionMap = new Map([
   ['Alaska', 'Pacific'],
