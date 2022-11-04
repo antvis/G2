@@ -1,6 +1,6 @@
 import { G2Spec } from '../../../src';
 
-export function population2015IntervalPie(): G2Spec {
+export function population2015IntervalDonutLabel(): G2Spec {
   return {
     type: 'interval',
     height: 640,
@@ -9,7 +9,7 @@ export function population2015IntervalPie(): G2Spec {
       value: 'data/population2015.csv',
     },
     transform: [{ type: 'stackY' }],
-    coordinate: [{ type: 'theta' }],
+    coordinate: [{ type: 'theta', innerRadius: 0.6 }],
     scale: {
       color: {
         palette: 'spectral',
@@ -23,24 +23,26 @@ export function population2015IntervalPie(): G2Spec {
     },
     style: {
       stroke: 'white',
+      lineWidth: 1,
     },
     labels: [
-      { text: 'name', radius: 0.8, fontSize: 10, fontWeight: 'bold' },
       {
-        text: (d, i, data) => (i < data.length - 3 ? d.value : ''),
-        radius: 0.8,
-        fontSize: 9,
-        dy: 12,
+        text: 'name',
+        fontSize: 10,
+        fill: '#000',
+        autoRotate: true,
+      },
+      {
+        text: 'value',
+        fontSize: 10,
+        textAlign: 'center',
+        textBaseline: 'bottom',
+        autoRotate: true,
+        rotateToAlignArc: true,
+        connector: false,
+        offset: 4,
+        position: 'outside',
       },
     ],
-    animate: {
-      enter: {
-        type: 'waveIn',
-        duration: 1000,
-      },
-    },
   };
 }
-
-// @todo The animation has some unexpected behaviors.
-population2015IntervalPie.skip = true;

@@ -73,34 +73,86 @@ function inferNonCircularStyle(
   return xy({});
 }
 
+function arcPoint(center: Vector2, angle: number, radius: number): Vector2 {
+  return [
+    center[0] + Math.sin(angle) * radius,
+    center[1] - Math.cos(angle) * radius,
+  ];
+}
+
+function inferRotation(
+  angle: number,
+  autoRotate: boolean,
+  rotateToAlignArc: boolean,
+) {
+  if (!autoRotate) return 0;
+
+  const append = rotateToAlignArc ? 0 : Math.sin(angle) < 0 ? 90 : -90;
+  return (angle / Math.PI) * 180 + append;
+}
+
+function inferConnectorStyle(value: Record<string, any>, angle: number) {
+  // Infer the outside label style in polar coordinate.
+  const { connector = true, connectorDistance, connectorLength2 } = value;
+
+  const sign = Math.sin(angle) < 0 ? -1 : 1;
+  return {
+    connector,
+    connectorPoints: [[0, 0]],
+    dx: connector ? (+connectorDistance + +connectorLength2) * sign : 0,
+  };
+}
+
 function inferCircularStyle(
   position: LabelPosition,
   points: Vector2[],
   value: Record<string, any>,
   coordinate: Coordinate,
 ) {
-  // Infer the label position in polar coordinate.
-  const { y, y1 } = value;
+  const {
+    y,
+    y1,
+    autoRotate,
+    rotateToAlignArc,
+    connector = true,
+    connectorLength,
+    radius: radiusRatio = 0.5,
+    offset,
+    ...rest
+  } = value;
   const arcObject = getArcObject(coordinate, points, [y, y1]);
+  const { startAngle, endAngle } = arcObject;
+  const angle = (startAngle + endAngle) / 2;
+  const center = coordinate.getCenter();
 
-  const { startAngle, endAngle, innerRadius, outerRadius } = arcObject;
-  const midAngle = (startAngle + endAngle) / 2;
+  const xy = (radius: number, finalRadius: number) => {
+    const [x0, y0] = arcPoint(center, angle, radius);
+    const [x, y] = arcPoint(center, angle, finalRadius);
+    return { x0, y0, x, y };
+  };
+  const textStyle = (position: string, sign: boolean) => {
+    const rotate = inferRotation(angle, autoRotate, rotateToAlignArc);
+    if (position === 'inside')
+      return { textAlign: 'center', textBaseline: 'middle', rotate };
+    return {
+      textAlign: sign ? 'end' : 'start',
+      textBaseline: 'middle',
+      rotate,
+    };
+  };
+  const radius = (radiusRatio: number): [number, number] => {
+    const distance = connector ? connectorLength : offset;
+    const { innerRadius, outerRadius } = arcObject;
+    const r0 = innerRadius + (outerRadius - innerRadius) * radiusRatio;
+    const r1 = r0 + distance;
+    return [r0, r1];
+  };
 
-  const center = coordinate.getCenter() as Vector2;
-
-  const offset = position === 'inside' ? 0 : 12;
-  const { radius: radiusRatio = 0.5 } = value;
-  const radius =
-    position === 'inside'
-      ? innerRadius + (outerRadius - innerRadius) * radiusRatio
-      : outerRadius;
-  const finalRadius = radius + offset;
-
+  const [r0, r1] = radius(position === 'inside' ? radiusRatio : 1);
   return {
-    x: center[0] + Math.sin(midAngle) * finalRadius,
-    y: center[1] - Math.cos(midAngle) * finalRadius,
-    textAlign: 'center',
-    textBaseline: 'middle',
+    ...xy(r0, r1),
+    ...textStyle(position, Math.sin(angle) < 0),
+    ...inferConnectorStyle(rest, angle),
   };
 }
 
