@@ -81,3 +81,6 @@ export { alphabetIntervalDataDrivenStyled } from './alphabet-interval-data-drive
 export { unemploymentAreaStackedDataDrivenStyled } from './unemployment-area-stacked-data-driven-styled';
 export { energySankeyDefaults } from './energy-sankey-defaults';
 export { energySankeyCustom } from './energy-sankey-custom';
+export { sepalBoxSimpleBox } from './sepal-box-simple-box';
+export { sepalBoxGroupedBox } from './sepal-box-grouped-box';
+export { sepalBoxPolarBox } from './sepal-box-polar-box';

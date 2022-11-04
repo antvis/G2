@@ -4,5 +4,29 @@
     "en": "Category"
   },
   "demos": [
+    {
+      "filename": "box.ts",
+      "title": {
+        "zh": "箱线图",
+        "en": "Boxplot"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*pU-NQa1PgxQAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "grouped-box.ts",
+      "title": {
+        "zh": "分组箱线图",
+        "en": "Grouped Boxplot"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*5E47Qa9nQaQAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "polar-box.ts",
+      "title": {
+        "zh": "极坐标箱线图",
+        "en": "Polar Boxplot"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*cCMOQ7YsuFkAAAAAAAAAAAAADmJ7AQ/original"
+    }
   ]
 }
