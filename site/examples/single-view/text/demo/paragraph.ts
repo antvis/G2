@@ -29,12 +29,10 @@ chart
   .style('textAlign', 'left')
   .style('textBaseline', 'top')
   .style('fontSize', 12)
-  .style('background', {
-    fill: '#416180',
-    fillOpacity: 0.05,
-    radius: 3,
-    padding: [2, 4],
-  })
+  .style('backgroundFill', '#416180')
+  .style('backgroundFillOpacity', 0.05)
+  .style('backgroundRadius', 3)
+  .style('backgroundPadding', [2, 4])
   .axis(false)
   .legend(false);
 

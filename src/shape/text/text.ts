@@ -1,36 +1,46 @@
 import {
-  CustomElement,
-  DisplayObjectConfig,
   Text as GText,
   TextStyleProps,
   Rect,
   RectStyleProps,
-  Path,
   PathStyleProps,
+  DisplayObject,
 } from '@antv/g';
 import { Marker } from '@antv/gui';
-import { ShapeComponent as SC } from '../../runtime';
+import { ShapeComponent as SC, Vector2, WithPrefix } from '../../runtime';
+import { createElement } from '../../shape/createElement';
 import { applyStyle, getShapeTheme } from '../../shape/utils';
+import { lastOf } from '../../utils/array';
+import { subObject } from '../../utils/helper';
 import { select } from '../../utils/selection';
 
 export type TextOptions = TextShapeStyleProps & Record<string, any>;
 
-type MarkerStyleProps = {
-  size?: number;
-  symbol?: string | ((x: number, y: number, r: number) => string);
-};
+type BackgroundStyleProps = WithPrefix<
+  RectStyleProps & { padding?: number[]; radius?: number },
+  'background'
+>;
 
-type TextShapeStyleProps = Omit<TextStyleProps, 'text'> & {
-  connector?: PathStyleProps;
-  startMarker?: MarkerStyleProps;
-  endMarker?: MarkerStyleProps;
-  background?: Omit<RectStyleProps, 'width' | 'height' | 'x' | 'y'> & {
-    // Padding between background bounds and the text block.
-    padding?: number[];
+type ConnectorStyleProps = WithPrefix<
+  PathStyleProps & { distance?: number; points?: Vector2[] },
+  'connector'
+>;
+
+type MarkerStyleProps<P extends string> = WithPrefix<Record<string, any>, P>;
+
+type TextShapeStyleProps = Omit<TextStyleProps, 'text'> &
+  ConnectorStyleProps &
+  BackgroundStyleProps &
+  MarkerStyleProps<'startMarker'> &
+  MarkerStyleProps<'endMarker'> & {
+    basePoint?: Vector2;
+    background?: boolean;
+    connector?: boolean;
+    startMarker?: boolean;
+    endMarker?: boolean;
   };
-};
 
-function getConnectorPath(shape: GText | Rect) {
+function getConnectorPoint(shape: GText | Rect) {
   const {
     min: [x0, y0],
     max: [x1, y1],
@@ -42,166 +52,99 @@ function getConnectorPath(shape: GText | Rect) {
   if (y0 > 0) y = y0;
   if (y1 < 0) y = y1;
 
-  return [
-    ['M', 0, 0],
-    ['L', x, y],
-  ];
+  return [x, y];
 }
 
-class TextShape extends CustomElement<TextShapeStyleProps> {
-  constructor(config: DisplayObjectConfig<TextShapeStyleProps>) {
-    super(config);
-  }
+function inferBackgroundBounds(textShape: DisplayObject, padding = []) {
+  const [top = 0, right = 0, bottom = top, left = right] = padding;
+  const container = textShape.parentNode as DisplayObject;
 
-  // Callback after connected with canvas, should trigger render.
-  connectedCallback() {
-    this.draw();
-  }
+  const angle = container.getEulerAngles();
+  container.setEulerAngles(0);
+  const { min, halfExtents } = textShape.getLocalBounds();
+  const [x, y] = min;
+  const [hw, hh] = halfExtents;
+  container.setEulerAngles(angle);
 
-  attributeChangedCallback() {
-    this.draw();
-  }
-
-  private textShape!: GText;
-  private background!: Rect;
-  private connector!: Path;
-  private startMarkerPoint!: Marker;
-  private endMarkerPoint!: Marker;
-
-  protected draw() {
-    this.drawText();
-    this.drawBackground();
-    this.drawConnector();
-    this.drawPoints();
-  }
-
-  private get endPoint() {
-    const { connector } = this.style;
-    if (Array.isArray(connector?.path) && connector.path.length) {
-      const [[, x, y]] = connector.path.slice(-1);
-      return { x, y };
-    }
-    return { x: 0, y: 0 };
-  }
-
-  private drawText() {
-    const {
-      // Do not pass className.
-      class: className,
-      connector,
-      startMarker,
-      endMarker,
-      background,
-      transform,
-      textAlign,
-      ...style
-    } = this.attributes;
-    const { x, y } = this.endPoint;
-    this.textShape = select(this.textShape || this.appendChild(new GText({})))
-      .call(applyStyle, style)
-      .style('x', +x)
-      .style('y', +y)
-      .style(
-        'textAlign',
-        textAlign || (x < 0 ? 'right' : x > 0 ? 'left' : 'center'),
-      )
-      .node() as GText;
-  }
-
-  private drawBackground() {
-    const { background } = this.style;
-    if (!background) {
-      if (this.background) {
-        this.removeChild(this.background);
-        this.background.destroy();
-      }
-      this.background = undefined;
-      return;
-    }
-
-    const { padding, ...style } = background;
-    const [top = 0, right = 0, bottom = top, left = right] = padding || [];
-    const angle = this.getEulerAngles();
-    this.setEulerAngles(0);
-    const {
-      min: [x, y],
-      halfExtents: [hw, hh],
-    } = this.textShape.getLocalBounds();
-    this.setEulerAngles(angle);
-    this.background = select(this.background || this.appendChild(new Rect({})))
-      .style('zIndex', -1)
-      .style('x', x - left)
-      .style('y', y - top)
-      .style('width', hw * 2 + left + right)
-      .style('height', hh * 2 + top + bottom)
-      .call(applyStyle, style)
-      .node() as Rect;
-  }
-
-  private drawConnector() {
-    const { connector } = this.style;
-    if (!connector) {
-      if (this.connector) {
-        this.removeChild(this.connector);
-        this.connector.destroy();
-      }
-      this.connector = undefined;
-      return;
-    }
-
-    const path =
-      connector.path || getConnectorPath(this.background || this.textShape);
-    this.connector = select(this.connector || this.appendChild(new Path({})))
-      .style('zIndex', -1)
-      .style('stroke', 'black')
-      .style('lineWidth', 1)
-      .call(applyStyle, connector)
-      .style('path', path)
-      .node() as Path;
-  }
-
-  private drawPoints() {
-    const { startMarker, endMarker } = this.style;
-    this.drawStartMarker(startMarker);
-    this.drawEndMarker(endMarker && { ...endMarker, ...this.endPoint });
-  }
-
-  private drawStartMarker(style?: MarkerStyleProps) {
-    const shape = this.startMarkerPoint;
-    if (!style) {
-      if (shape) {
-        this.removeChild(shape);
-        shape.destroy();
-      }
-      this.startMarkerPoint = undefined;
-      return;
-    }
-    if (!shape) {
-      this.startMarkerPoint = this.appendChild(
-        new Marker({ style: { symbol: 'circle', size: 4 } }),
-      );
-    }
-    this.startMarkerPoint.update(style);
-  }
-
-  private drawEndMarker(style?: MarkerStyleProps) {
-    const shape = this.endMarkerPoint;
-    if (!style) {
-      if (shape) {
-        this.removeChild(shape);
-        shape.destroy();
-      }
-      this.endMarkerPoint = undefined;
-      return;
-    }
-    if (!shape) {
-      this.endMarkerPoint = this.appendChild(
-        new Marker({ style: { symbol: 'circle', size: 4 } }),
-      );
-    }
-    this.endMarkerPoint.update(style);
-  }
+  return {
+    x: x - left,
+    y: y - top,
+    width: hw * 2 + left + right,
+    height: hh * 2 + top + bottom,
+  };
 }
+
+function inferConnectorPath(
+  shape: DisplayObject,
+  point: Vector2,
+  controlPoints: Vector2[],
+  distance = 0,
+) {
+  const [x0, y0] = point;
+  const [x1, y1] = getConnectorPoint(shape);
+
+  const sign = x1 < x0 ? 1 : -1;
+  return [['M', x0, y0]]
+    .concat(controlPoints.map(([x, y]) => ['L', x, y]))
+    .concat([['L', x1 + sign * distance, y1]]);
+}
+
+const TextShape = createElement((g) => {
+  const {
+    // Do not pass className
+    class: className,
+    transform,
+    rotate,
+    x,
+    y,
+    basePoint = [x, y],
+    background,
+    connector,
+    startMarker,
+    endMarker,
+    ...rest
+  } = g.attributes;
+  const { padding, ...backgroundStyle } = subObject(rest, 'background');
+  const {
+    distance,
+    points = [],
+    ...connectorStyle
+  } = subObject(rest, 'connector');
+  const point: Vector2 = [basePoint[0] - +x, basePoint[1] - +y];
+
+  const shape1 = select(g)
+    .maybeAppend('text', 'text')
+    .call(applyStyle, rest)
+    .node();
+
+  const shape2 = select(g)
+    .maybeAppend('background', 'rect')
+    .style('zIndex', -1)
+    .call(applyStyle, inferBackgroundBounds(shape1, padding))
+    .call(applyStyle, background ? backgroundStyle : {})
+    .node();
+
+  const connectorPath = inferConnectorPath(shape2, point, points, distance);
+  select(g)
+    .maybeAppend('connector', 'path')
+    .style('path', connectorPath)
+    .call(applyStyle, connector ? connectorStyle : {});
+
+  const marker1 = subObject(rest, 'startMarker');
+  select(g)
+    .maybeAppend('startMarker', () => new Marker({}))
+    .call((selection) => (selection.node() as Marker).update(marker1))
+    .call((selection) => !startMarker && selection.node().remove());
+
+  const [x1 = 0, y1 = 0] = lastOf(connectorPath).slice(1);
+  const marker2 = subObject(rest, 'endMarker');
+  select(g)
+    .maybeAppend('endMarker', () => new Marker({}))
+    .call((selection) =>
+      (selection.node() as Marker).update({ ...marker2, x: x1, y: y1 }),
+    )
+    .call((selection) => !endMarker && selection.node().remove());
+});
 
 /**
  * todo autoRotate when in polar coordinate
@@ -210,29 +153,24 @@ export const Text: SC<TextOptions> = (options) => {
   const { ...style } = options;
   return (points, value, coordinate, theme) => {
     const { mark, shape, defaultShape } = value;
-    const {
-      fill,
-      stroke,
-      fontSize: defaultSize,
-      ...shapeTheme
-    } = getShapeTheme(theme, mark, shape, defaultShape);
-    const {
-      color,
-      text = '',
-      fontSize = defaultSize,
-      rotate = 0,
-      transform = '',
-    } = value;
+    const shapeTheme = getShapeTheme(theme, mark, shape, defaultShape);
+    const { color, text = '', fontSize, rotate = 0, transform = '' } = value;
+
+    const textStyle = {
+      text: String(text),
+      stroke: color,
+      fill: color,
+      fontSize,
+    };
+
     const [[x0, y0]] = points;
-    return select(new TextShape({}))
-      .call(applyStyle, shapeTheme)
+
+    return select(new TextShape())
       .style('x', x0)
       .style('y', y0)
-      .style('text', String(text))
-      .style('stroke', color || stroke)
-      .style('fill', color || fill)
-      .style('fontSize', fontSize as any)
+      .call(applyStyle, shapeTheme)
       .style('transform', `${transform}rotate(${+rotate}deg)`)
+      .call(applyStyle, textStyle)
       .call(applyStyle, style)
       .node();
   };

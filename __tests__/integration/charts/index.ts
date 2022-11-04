@@ -87,3 +87,5 @@ export { sepalBoxPolarBox } from './sepal-box-polar-box';
 export { airportsPointChoropleth } from './airports-point-choropleth';
 export { unemploymentChoropleth } from './unemployment-choropleth';
 export { haleChoroplethWorld } from './hale-choropleth-world';
+export { blockChainLineAnnotation } from './blockchain-line-annotation';
+export { blockChainLineBadgeAnnotation } from './blockchain-line-badge-annotation';
