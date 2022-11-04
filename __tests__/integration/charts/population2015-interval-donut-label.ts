@@ -42,6 +42,7 @@ export function population2015IntervalDonutLabel(): G2Spec {
         connector: false,
         offset: 4,
         position: 'outside',
+        transform: [{ type: 'hideOverlap' }],
       },
     ],
   };

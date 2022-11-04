@@ -117,8 +117,7 @@ function inferCircularStyle(
     connector = true,
     connectorLength,
     radius: radiusRatio = 0.5,
-    offset,
-    ...rest
+    offset = 0,
   } = value;
   const arcObject = getArcObject(coordinate, points, [y, y1]);
   const { startAngle, endAngle } = arcObject;
@@ -140,19 +139,20 @@ function inferCircularStyle(
       rotate,
     };
   };
-  const radius = (radiusRatio: number): [number, number] => {
-    const distance = connector ? connectorLength : offset;
+  const radius = (): [number, number] => {
+    const ratio = position === 'inside' ? radiusRatio : 1;
+    const distance = (connector ? connectorLength : offset) || 0;
     const { innerRadius, outerRadius } = arcObject;
-    const r0 = innerRadius + (outerRadius - innerRadius) * radiusRatio;
+    const r0 = innerRadius + (outerRadius - innerRadius) * ratio;
     const r1 = r0 + distance;
     return [r0, r1];
   };
 
-  const [r0, r1] = radius(position === 'inside' ? radiusRatio : 1);
+  const [r0, r1] = radius();
   return {
     ...xy(r0, r1),
     ...textStyle(position, Math.sin(angle) < 0),
-    ...inferConnectorStyle(rest, angle),
+    ...inferConnectorStyle(value, angle),
   };
 }
 
