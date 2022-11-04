@@ -30,9 +30,7 @@ export function blockChainLineBadgeAnnotation(): G2Spec {
         type: 'text',
         data: [new Date('2017-12-17'), 100],
         encode: {
-          x: (d) => new Date(d.date),
-          y: 'value',
-          text: (d) => `${d.value}`,
+          text: '100',
           shape: 'badge',
         },
         style: {

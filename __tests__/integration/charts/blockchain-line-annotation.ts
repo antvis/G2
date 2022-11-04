@@ -29,13 +29,8 @@ export function blockChainLineAnnotation(): G2Spec {
       {
         type: 'text',
         data: [new Date('2017-12-17'), 100],
-        encode: {
-          x: (d) => new Date(d.date),
-          y: 'value',
-          text: (d) =>
-            `${d.date}, 受比特币影响，blockchain 搜索热度达到峰值：${d.value}`,
-        },
         style: {
+          text: `2017-12-17, 受比特币影响，blockchain 搜索热度达到峰值：100`,
           wordWrap: true,
           wordWrapWidth: 164,
           dx: -174,
