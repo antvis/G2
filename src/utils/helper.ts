@@ -5,11 +5,17 @@ export function identity<T>(x: T): T {
   return x;
 }
 
+type Func<R> = (x: R, ...args: any[]) => R;
 /**
- * Composes single-argument sync functions from left to right.
+ * Composes functions from left to right.
  */
-export function compose<R>(fns: ((x: R) => R)[]): (x: R) => R {
-  return fns.reduce((composed, fn) => (x) => fn(composed(x)), identity);
+export function compose<R>(fns: Func<R>[]): Func<R> {
+  return fns.reduce(
+    (composed, fn) =>
+      (x, ...args) =>
+        fn(composed(x, ...args), ...args),
+    identity,
+  );
 }
 
 /**
@@ -83,6 +89,13 @@ export function maybeSubObject(
   const entries = Object.entries(obj)
     .filter(([key]) => key.startsWith(prefix))
     .map(([key, value]) => [lowerFirst(key.replace(prefix, '').trim()), value])
-    .filter(([key]) => key !== undefined);
+    .filter(([key]) => !!key);
   return entries.length === 0 ? null : Object.fromEntries(entries);
+}
+
+export function maybePercentage(x: number | string, size: number) {
+  if (x === undefined) return null;
+  if (typeof x === 'number') return x;
+  const px = +x.replace('%', '');
+  return Number.isNaN(px) ? null : (px / 100) * size;
 }

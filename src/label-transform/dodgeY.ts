@@ -16,6 +16,16 @@ function useMap<K, V>() {
 
 export type DodgeYOptions = Omit<DodgeYLabelTransform, 'type'>;
 
+function getBoundsWithoutConnector(shape: DisplayObject) {
+  const node = shape.cloneNode(true);
+  const connectorShape = node.getElementById('connector');
+  connectorShape && node.removeChild(connectorShape);
+  const { min, max } = node.getRenderBounds();
+  node.destroy();
+
+  return { min, max };
+}
+
 /**
  * An iterative dodge method avoids label overlap. (n * log(n))
  */
@@ -31,7 +41,7 @@ export const DodgeY: LLC<DodgeYOptions> = (options) => {
     const [h, setH] = useMap<DisplayObject, number>();
     const [xx, setXX] = useMap<DisplayObject, [number, number]>();
     for (const label of labels) {
-      const { min, max } = label.getRenderBounds();
+      const { min, max } = getBoundsWithoutConnector(label);
       const [x0, y0] = min;
       const [x1, y1] = max;
       setY0(label, y0);

@@ -94,3 +94,4 @@ export { blockChainLineAnnotation } from './blockchain-line-annotation';
 export { blockChainLineBadgeAnnotation } from './blockchain-line-badge-annotation';
 export { windVectorWind } from './wind-vector-wind';
 export { browserImageTrending } from './browser-image-trending';
+export { population2015IntervalSpiderLabel } from './population2015-interval-spider-label';

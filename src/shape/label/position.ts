@@ -3,6 +3,7 @@ import { Coordinate } from '@antv/coord';
 import { Vector2 } from '../../runtime';
 import { getArcObject } from '../../shape/utils';
 import { isCircular } from '../../utils/coordinate';
+import { maybePercentage } from '../../utils/helper';
 import { sub, angle } from '../../utils/vector';
 
 export type LabelPosition =
@@ -17,13 +18,6 @@ export type LabelPosition =
   | 'inside'
   | 'outside'
   | 'area';
-
-function maybePercentage(x: number | string, size: number) {
-  if (x === undefined) return null;
-  if (typeof x === 'number') return x;
-  const px = +x.replace('%', '');
-  return Number.isNaN(px) ? null : (px / 100) * size;
-}
 
 function inferNonCircularStyle(
   position: LabelPosition,
@@ -99,6 +93,7 @@ function inferConnectorStyle(value: Record<string, any>, angle: number) {
   return {
     connector,
     connectorPoints: [[0, 0]],
+    connectorDistance,
     dx: connector ? (+connectorDistance + +connectorLength2) * sign : 0,
   };
 }

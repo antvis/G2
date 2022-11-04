@@ -231,7 +231,7 @@ import {
   Arc as ArcTransform,
   WordCloud,
 } from '../data';
-import { HideOverlap, DodgeY } from '../label-transform';
+import { HideOverlap, DodgeY, Spider } from '../label-transform';
 import { geoLibrary } from '../geo';
 
 export function createLibrary(): G2Library {
@@ -461,6 +461,7 @@ export function createLibrary(): G2Library {
     'composition.timingKeyframe': TimingKeyframe,
     'labelTransform.hideOverlap': HideOverlap,
     'labelTransform.dodgeY': DodgeY,
+    'labelTransform.spider': Spider,
     ...geoLibrary,
   };
 }

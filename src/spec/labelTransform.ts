@@ -10,3 +10,8 @@ export type DodgeYLabelTransform = {
   maxError?: number;
   padding?: number;
 };
+
+export type SpiderLabelTransform = {
+  type?: 'spider';
+  edgeDistance?: string | number;
+};
