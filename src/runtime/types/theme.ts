@@ -1,4 +1,5 @@
-import { TextStyleProps } from '@antv/g';
+import { TextStyleProps, PathStyleProps } from '@antv/g';
+import { WithPrefix } from './common';
 
 type TupleToUnion<T, U> = T extends [infer F, ...infer R]
   ? F extends string
@@ -18,6 +19,18 @@ type ElementStyle = {
   lineWidth?: number;
   r?: number;
 };
+
+type ConnectorStyleProps = PathStyleProps & {
+  length?: number;
+  length2?: number;
+  distance?: number;
+};
+
+type LabelStyleProps = {
+  offset?: number;
+  connector?: boolean;
+} & Omit<TextStyleProps, 'text'> &
+  WithPrefix<ConnectorStyleProps, 'connector'>;
 
 type MarkTheme = NestUnion<'interval', ['rect', 'hollowRect'], ElementStyle> &
   NestUnion<'rect', ['rect', 'hollowRect'], ElementStyle> &
@@ -58,8 +71,8 @@ type InteractionTheme = {
 type ComponentTheme = {
   axis?: any;
   legend?: any;
-  label?: Omit<TextStyleProps, 'text'>;
-  innerLabel?: Omit<TextStyleProps, 'text'>;
+  label?: LabelStyleProps;
+  innerLabel?: LabelStyleProps;
   title?: Omit<TextStyleProps, 'text'>;
   subtitle?: Omit<TextStyleProps, 'text'> & {
     spacing?: number;

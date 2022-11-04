@@ -1,6 +1,6 @@
-import { deepMix, isObject } from '@antv/util';
+import { deepMix } from '@antv/util';
 import { TransformComponent as TC } from '../runtime';
-import { column } from './utils/helper';
+import { column, isObject } from './utils/helper';
 
 export type MaybeTupleOptions = Record<string, never>;
 

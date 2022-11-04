@@ -35,3 +35,8 @@ export function maybeColumnOf(
   }
   return [null, null];
 }
+
+export function isObject(d) {
+  if (d instanceof Date) return false;
+  return typeof d === 'object';
+}

@@ -1,23 +1,16 @@
-import {
-  CustomElement,
-  DisplayObjectConfig,
-  Text as GText,
-  BaseStyleProps,
-  TextStyleProps,
-} from '@antv/g';
+import { TextStyleProps, DisplayObject } from '@antv/g';
 import { Marker } from '@antv/gui';
-import { ShapeComponent as SC } from '../../runtime';
-import { applyStyle, getShapeTheme } from '../../shape/utils';
+import { ShapeComponent as SC, WithPrefix } from '../../runtime';
+import { createElement } from '../../shape/createElement';
+import { subObject } from '../../utils/helper';
 import { select } from '../../utils/selection';
+import { applyStyle, getShapeTheme } from '../../shape/utils';
 
 export type BadgeOptions = BadgeShapeStyleProps & Record<string, any>;
 
-type BadgeShapeStyleProps = BaseStyleProps & {
-  size?: number;
-  symbol?: string | ((x: number, y: number, r: number) => string);
-  text?: string;
-  textStyle?: Omit<TextStyleProps, 'text'>;
-};
+type MarkerStyleProps<P extends string> = WithPrefix<Record<string, any>, P>;
+type BadgeShapeStyleProps = Partial<TextStyleProps> &
+  MarkerStyleProps<'marker'>;
 
 /**
  * Get the path to draw a built-in badge, which is like a balloon.
@@ -36,86 +29,52 @@ function getPath(r: number) {
   ];
 }
 
-function getCenter(shape: Marker) {
+function inferTextPosition(shape: DisplayObject) {
   const { min, max } = shape.getLocalBounds();
-  return { x: (min[0] + max[0]) / 2, y: (min[1] + max[1]) / 2 };
+  return [(min[0] + max[0]) * 0.5, (min[1] + max[1]) * 0.5];
 }
 
-class BadgeShape extends CustomElement<BadgeShapeStyleProps> {
-  constructor(config: DisplayObjectConfig<BadgeShapeStyleProps>) {
-    super(config);
-  }
+const BadgeShape = createElement((g) => {
+  const { class: className, x: x0, y: y0, ...rest } = g.attributes;
 
-  // Callback after connected with canvas, should trigger render.
-  connectedCallback() {
-    this.draw();
-  }
+  const markerStyle = subObject(rest, 'marker');
+  const { size = 24 } = markerStyle;
 
-  attributeChangedCallback() {
-    this.draw();
-  }
+  const symbol = () => getPath(size / 2);
+  const bgShape = select(g)
+    .maybeAppend('marker', () => new Marker({}))
+    .call((selection) =>
+      (selection.node() as Marker).update({ symbol, ...markerStyle }),
+    )
+    .node() as DisplayObject;
 
-  private badgeMarker!: Marker;
-  private badgeText!: GText;
-
-  protected draw() {
-    this.drawMarker();
-    this.drawText();
-  }
-
-  private drawMarker() {
-    // Do not pass className to children.
-    const {
-      class: className,
-      size = 24,
-      textStyle,
-      ...style
-    } = this.attributes;
-    const symbol = () => getPath(size / 2);
-
-    this.badgeMarker = this.badgeMarker || this.appendChild(new Marker({}));
-    this.badgeMarker.className = 'badge-marker';
-    this.badgeMarker.update({ symbol, ...style, size, x: 0, y: 0 });
-  }
-
-  private drawText() {
-    const center = getCenter(this.badgeMarker);
-    const { text = '', textStyle } = this.style;
-
-    this.badgeText = this.badgeText || this.appendChild(new GText({}));
-    select(this.badgeText)
-      .attr('className', 'badge-text')
-      .style('x', center.x)
-      .style('y', center.y)
-      .style('text', text)
-      // Append default value.
-      .style('textAlign', 'center')
-      .style('textBaseline', 'middle')
-      .style('fill', '#333')
-      .style('fontSize', 10)
-      .call(applyStyle, textStyle || {})
-      .node() as GText;
-  }
-}
+  const [x, y] = inferTextPosition(bgShape);
+  select(g)
+    .maybeAppend('text', 'text')
+    .style('x', x)
+    .style('y', y)
+    .call(applyStyle, rest);
+});
 
 export const Badge: SC<BadgeOptions> = (options) => {
   const { ...style } = options;
   return (points, value, coordinate, theme) => {
     const { mark, shape, defaultShape } = value;
-    const {
-      fill,
-      stroke = fill,
-      ...shapeTheme
-    } = getShapeTheme(theme, mark, shape, defaultShape);
+    const shapeTheme = getShapeTheme(theme, mark, shape, defaultShape);
     const { color, text = '' } = value;
+
+    const textStyle = {
+      text: String(text),
+      stroke: color,
+      fill: color,
+    };
+
     const [[x0, y0]] = points;
-    return select(new BadgeShape({}))
+    return select(new BadgeShape())
       .call(applyStyle, shapeTheme)
       .style('x', x0)
       .style('y', y0)
-      .style('text', String(text))
-      .style('stroke', color || stroke)
-      .style('fill', color || fill)
+      .call(applyStyle, textStyle)
       .call(applyStyle, style)
       .node();
   };
