@@ -3,6 +3,7 @@ import * as d3Hierarchy from 'd3-hierarchy';
 import { subObject } from '../utils/helper';
 import { CompositionComponent as CC } from '../runtime';
 import { TreemapMark } from '../spec';
+import { getBBoxSize } from '../utils/size';
 
 export type TreemapOptions = Omit<TreemapMark, 'type'>;
 
@@ -94,49 +95,8 @@ function dataTransform(data, layout: Layout, encode): TreemapData {
 }
 
 export const Treemap: CC<TreemapOptions> = (options) => {
-  const DEFAULT_LAYOUT_OPTIONS: Layout = {
-    tile: 'treemapSquarify',
-    ratio: 0.5 * (1 + Math.sqrt(5)),
-    size: [1, 1],
-    round: false,
-    ignoreParentValue: true,
-    padding: 0,
-    paddingInner: 0,
-    paddingOuter: 0,
-    paddingTop: 0,
-    paddingRight: 0,
-    paddingBottom: 0,
-    paddingLeft: 0,
-    sort: (a, b) => b.value - a.value,
-    layer: 0,
-  };
-
-  const DEFAULT_OPTIONS = {
-    type: 'rect',
-    axis: false,
-    legend: false,
-    encode: {
-      x: 'x',
-      y: 'y',
-      color: (d) => d.data.parent.name,
-    },
-    scale: {
-      x: { type: 'identity' },
-      y: { type: 'identity' },
-    },
-    style: {
-      stroke: '#fff',
-    },
-  };
-
-  const DEFAULT_LABEL_OPTIONS = {
-    fontSize: 10,
-    text: (d) => d.data.name,
-    position: 'inside',
-    fill: '#000',
-  };
-
-  return () => {
+  return (viewOptions) => {
+    const { width, height } = getBBoxSize(viewOptions);
     const {
       data,
       encode = {},
@@ -144,15 +104,59 @@ export const Treemap: CC<TreemapOptions> = (options) => {
       style = {},
       layout = {},
       labels = [],
+      ...resOptions
     } = options;
+
+    const DEFAULT_LAYOUT_OPTIONS: Layout = {
+      tile: 'treemapSquarify',
+      ratio: 0.5 * (1 + Math.sqrt(5)),
+      size: [width, height],
+      round: false,
+      ignoreParentValue: true,
+      padding: 0,
+      paddingInner: 0,
+      paddingOuter: 0,
+      paddingTop: 0,
+      paddingRight: 0,
+      paddingBottom: 0,
+      paddingLeft: 0,
+      sort: (a, b) => b.value - a.value,
+      layer: 0,
+    };
+    const DEFAULT_OPTIONS = {
+      type: 'rect',
+      axis: false,
+      legend: false,
+      encode: {
+        x: 'x',
+        y: 'y',
+        color: (d) => d.data.parent.name,
+      },
+      scale: {
+        x: { domain: [0, width], range: [0, 1] },
+        y: { domain: [0, height], range: [0, 1] },
+      },
+      style: {
+        stroke: '#fff',
+      },
+    };
+    const DEFAULT_LABEL_OPTIONS = {
+      fontSize: 10,
+      text: (d) => d.data.name,
+      position: 'inside',
+      fill: '#000',
+      textOverflow: 'clip',
+      wordWrap: true,
+      maxLines: 1,
+      wordWrapWidth: (d) => d.x1 - d.x0,
+      lineHeight: (d) => d.y1 - d.y0,
+    };
     const transformedData = dataTransform(
       data,
       deepMix({}, DEFAULT_LAYOUT_OPTIONS, layout),
       encode,
     );
-
     const labelStyle = subObject(style, 'label');
-
     return [
       deepMix({}, DEFAULT_OPTIONS, {
         data: transformedData,
@@ -166,6 +170,7 @@ export const Treemap: CC<TreemapOptions> = (options) => {
           },
           ...labels,
         ],
+        ...resOptions,
       }),
     ];
   };
