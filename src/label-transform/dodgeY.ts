@@ -1,7 +1,7 @@
 import { DisplayObject } from '@antv/g';
 import { ascending } from 'd3-array';
-import { DodgeYLabelTransform } from 'spec';
 import { LabelTransformComponent as LLC } from '../runtime';
+import { DodgeYLabelTransform } from '@/spec';
 
 function isSegmentIntersect([a, b], [c, d]) {
   return d > a && b > c;
