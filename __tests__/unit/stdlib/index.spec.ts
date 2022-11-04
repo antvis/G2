@@ -231,7 +231,7 @@ import {
   Arc as ArcTransform,
   WordCloud,
 } from '../../../src/data';
-import { HideOverlap, DodgeY } from '../../../src/label-transform';
+import { HideOverlap, DodgeY, Spider } from '../../../src/label-transform';
 import { GeoView, Choropleth } from '../../../src/geo';
 
 describe('stdlib', () => {
@@ -462,6 +462,7 @@ describe('stdlib', () => {
       'composition.timingKeyframe': TimingKeyframe,
       'labelTransform.hideOverlap': HideOverlap,
       'labelTransform.dodgeY': DodgeY,
+      'labelTransform.spider': Spider,
       'composition.geoView': GeoView,
       'composition.choropleth': Choropleth,
     });
