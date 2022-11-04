@@ -93,7 +93,7 @@ function inferRotation(
 
 function inferConnectorStyle(value: Record<string, any>, angle: number) {
   // Infer the outside label style in polar coordinate.
-  const { connector = true, connectorDistance, connectorLength2 } = value;
+  const { connector = true, connectorDistance = 4, connectorLength2 } = value;
 
   const sign = Math.sin(angle) < 0 ? -1 : 1;
   return {
