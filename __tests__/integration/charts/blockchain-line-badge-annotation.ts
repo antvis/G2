@@ -45,3 +45,5 @@ export function blockChainLineBadgeAnnotation(): G2Spec {
     ],
   };
 }
+
+blockChainLineBadgeAnnotation.maxError = 500;
