@@ -258,6 +258,7 @@ export class Selection<T = any> {
         split.add(element);
         exit.delete(element);
       } else {
+        // @todo Data with non-unique key.
         enter.push(datum);
       }
     }

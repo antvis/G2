@@ -35,6 +35,7 @@ import {
   RangeY,
   Connector,
   Sankey,
+  Path,
 } from '../../../src/mark';
 import {
   Category10,
@@ -119,6 +120,7 @@ import {
   Vector,
   Link,
   Label,
+  Path as PathShape,
 } from '../../../src/shape';
 import { Light, Dark } from '../../../src/theme';
 import {
@@ -230,6 +232,7 @@ import {
   WordCloud,
 } from '../../../src/data';
 import { HideOverlap, DodgeY } from '../../../src/label-transform';
+import { GeoView, Choropleth } from '../../../src/geo';
 
 describe('stdlib', () => {
   it('createLibrary() should returns expected builtin', () => {
@@ -322,6 +325,7 @@ describe('stdlib', () => {
       'mark.rangeX': RangeX,
       'mark.rangeY': RangeY,
       'mark.sankey': Sankey,
+      'mark.path': Path,
       'palette.category10': Category10,
       'palette.category20': Category20,
       'palette.sequentialBlue': SequentialBlue,
@@ -405,6 +409,7 @@ describe('stdlib', () => {
       'shape.lineX.line': LineXY,
       'shape.lineY.line': LineXY,
       'shape.connector.connector': ConnectorShape,
+      'shape.path.path': PathShape,
       'shape.range.range': RectShape,
       'shape.rangeX.range': RectShape,
       'shape.rangeY.range': RectShape,
@@ -457,6 +462,8 @@ describe('stdlib', () => {
       'composition.timingKeyframe': TimingKeyframe,
       'labelTransform.hideOverlap': HideOverlap,
       'labelTransform.dodgeY': DodgeY,
+      'composition.geoView': GeoView,
+      'composition.choropleth': Choropleth,
     });
   });
 });
