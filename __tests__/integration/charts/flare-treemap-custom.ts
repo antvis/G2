@@ -10,6 +10,8 @@ export async function flareTreemapCustom(): Promise<G2Spec> {
     type: 'view',
     height: 900,
     width: 1100,
+    axis: false,
+    legend: false,
     children: [
       {
         type: 'treemap',
@@ -34,12 +36,12 @@ export async function flareTreemapCustom(): Promise<G2Spec> {
               .split('.')
               .pop()
               .split(/(?=[A-Z][a-z])/g)[0];
-            return name.length > 5 ? name.slice(0, 5) + '...' : name;
+            return name;
           },
           labelFill: '#000',
           labelPosition: 'top-left',
-          labelDx: '3px',
-          labelDy: '3px',
+          dx: 3,
+          dy: 3,
           // shape style
           fillOpacity: 0.5,
         },

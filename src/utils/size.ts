@@ -1,3 +1,5 @@
+import { G2ViewTree } from '../runtime';
+
 type Size = {
   width: number;
   height: number;
@@ -58,4 +60,27 @@ export function getChartSize(
     width: size.width,
     height: size.height,
   };
+}
+
+/**
+ * @description Calculate the real canvas size by view options.
+ */
+export function getBBoxSize(options: G2ViewTree): Size {
+  const {
+    height,
+    width,
+    paddingLeft = 0,
+    paddingRight = 0,
+    paddingTop = 0,
+    paddingBottom = 0,
+    marginLeft = 0,
+    marginRight = 0,
+    marginTop = 0,
+    marginBottom = 0,
+  } = options;
+  const finalWidth =
+    width - paddingLeft - paddingRight - marginLeft - marginRight;
+  const finalHeight =
+    height - paddingTop - paddingBottom - marginTop - marginBottom;
+  return { width: finalWidth, height: finalHeight };
 }
