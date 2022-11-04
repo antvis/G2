@@ -19,7 +19,7 @@ export function blockChainLineAnnotation(): G2Spec {
     children: [
       {
         type: 'line',
-        axis: { x: { label: { autoHide: 'greedy', showLast: false } } },
+        axis: { x: { labelAutoHide: 'greedy' } },
         encode: {
           x: (d) => new Date(d.date),
           y: 'value',
@@ -28,17 +28,7 @@ export function blockChainLineAnnotation(): G2Spec {
       },
       {
         type: 'text',
-        data: {
-          transform: [
-            {
-              type: 'filterBy',
-              fields: [
-                ['date', (d) => d === '2017-12-17'],
-                ['value', (d) => d == 100],
-              ],
-            },
-          ],
-        },
+        data: [new Date('2017-12-17'), 100],
         encode: {
           x: (d) => new Date(d.date),
           y: 'value',
