@@ -84,3 +84,6 @@ export { energySankeyCustom } from './energy-sankey-custom';
 export { sepalBoxSimpleBox } from './sepal-box-simple-box';
 export { sepalBoxGroupedBox } from './sepal-box-grouped-box';
 export { sepalBoxPolarBox } from './sepal-box-polar-box';
+export { airportsPointChoropleth } from './airports-point-choropleth';
+export { unemploymentChoropleth } from './unemployment-choropleth';
+export { haleChoroplethWorld } from './hale-choropleth-world';

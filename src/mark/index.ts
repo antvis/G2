@@ -17,6 +17,7 @@ export { Range } from './range';
 export { RangeX } from './rangeX';
 export { RangeY } from './rangeY';
 export { Sankey } from './sankey';
+export { Path } from './path';
 
 export type { IntervalOptions } from './interval';
 export type { RectOptions } from './rect';

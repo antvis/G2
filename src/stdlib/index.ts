@@ -35,6 +35,7 @@ import {
   RangeX,
   RangeY,
   Sankey,
+  Path,
 } from '../mark';
 import {
   Category10,
@@ -119,6 +120,7 @@ import {
   Vector,
   Link,
   Label,
+  Path as PathShape,
 } from '../shape';
 import { Light, Dark } from '../theme';
 import {
@@ -230,6 +232,7 @@ import {
   WordCloud,
 } from '../data';
 import { HideOverlap, DodgeY } from '../label-transform';
+import { geoLibrary } from '../geo';
 
 export function createLibrary(): G2Library {
   return {
@@ -321,6 +324,7 @@ export function createLibrary(): G2Library {
     'mark.rangeX': RangeX,
     'mark.rangeY': RangeY,
     'mark.sankey': Sankey,
+    'mark.path': Path,
     'palette.category10': Category10,
     'palette.category20': Category20,
     'palette.sequentialBlue': SequentialBlue,
@@ -407,6 +411,7 @@ export function createLibrary(): G2Library {
     'shape.range.range': RectShape,
     'shape.rangeX.range': RectShape,
     'shape.rangeY.range': RectShape,
+    'shape.path.path': PathShape,
     'theme.light': Light,
     'theme.dark': Dark,
     'component.axisX': AxisX,
@@ -456,5 +461,6 @@ export function createLibrary(): G2Library {
     'composition.timingKeyframe': TimingKeyframe,
     'labelTransform.hideOverlap': HideOverlap,
     'labelTransform.dodgeY': DodgeY,
+    ...geoLibrary,
   };
 }
