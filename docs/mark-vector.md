@@ -83,9 +83,6 @@ poisson = genji.fetchJSON(
     .encode('rotate', 'rotate')
     .encode('size', 'size')
     .encode('color', 'black')
-    .style({
-      arrow: { size: '40%' },
-    })
     .scale('size', { range: [6, 20] })
     .legend(false)
     .animate('enter', { type: null });
@@ -190,7 +187,7 @@ chart
   .vector()
   .shape('vector')
   .style({
-    arrow: { size: 40 },
-    // arrow: { size: '30%' },
+    arrowSize: 40,
+    // arrowSize: '30%',
   });
 ```

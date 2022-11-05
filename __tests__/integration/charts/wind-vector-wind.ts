@@ -17,7 +17,15 @@ export function windVectorWind(): G2Spec {
       color: ({ u, v }) => Math.hypot(v, u),
     },
     scale: {
-      size: { range: [6, 20] },
+      size: { range: [4, 20] },
+      color: {
+        type: 'sequential',
+        palette: 'viridis',
+      },
+    },
+    axis: {
+      x: { grid: false },
+      y: { grid: false },
     },
     legend: false,
   };

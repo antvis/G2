@@ -4,19 +4,13 @@ import { applyStyle, arrowPoints, ArrowOptions, getShapeTheme } from '../utils';
 import { select } from '../../utils/selection';
 import { ShapeComponent as SC } from '../../runtime';
 
-export type VectorOptions = {
-  /**
-   * Whether draw arrow, Default: false.
-   */
-  arrow?: ArrowOptions;
-  [key: string]: any;
-};
+export type VectorOptions = ArrowOptions;
 
 /**
  * ----->
  */
 export const Vector: SC<VectorOptions> = (options) => {
-  const { arrow, ...style } = options;
+  const { arrowSize = '40%', ...style } = options;
   return (points, value, coordinate, theme) => {
     const { mark, shape, defaultShape, color, transform } = value;
     const { fill, stroke, ...shapeTheme } = getShapeTheme(
@@ -28,7 +22,7 @@ export const Vector: SC<VectorOptions> = (options) => {
     const [from, to] = points;
 
     // Calculate arrow end point.
-    const [arrow1, arrow2] = arrowPoints(from, to, arrow);
+    const [arrow1, arrow2] = arrowPoints(from, to, { arrowSize });
 
     // Draw line
     const path = d3path();

@@ -23,10 +23,9 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/OJOgPypkeE/poisson-disk.json')
       .encode('rotate', 'rotate')
       .encode('size', 'size')
       .encode('color', 'black')
-      .style({
-        arrow: { size: '40%' },
-      })
       .scale('size', { range: [6, 20] })
+      .axis('x', { grid: false })
+      .axis('y', { grid: false })
       .legend(false);
 
     chart.render();

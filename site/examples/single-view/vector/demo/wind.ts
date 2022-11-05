@@ -17,6 +17,9 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/F5VcgnqRku/wind.json')
       .encode('size', ({ u, v }) => Math.hypot(v, u))
       .encode('color', ({ u, v }) => Math.hypot(v, u))
       .scale('size', { range: [6, 20] })
+      .scale('color', { type: 'sequential', palette: 'viridis' })
+      .axis('x', { grid: false })
+      .axis('y', { grid: false })
       .legend(false);
 
     chart.render();
