@@ -4,5 +4,21 @@
     "en": "Category"
   },
   "demos": [
+    {
+      "filename": "voronoi.ts",
+      "title": {
+        "zh": "Voronoi",
+        "en": "Voronoi"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*pohxT40PSroAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "treemap.ts",
+      "title": {
+        "zh": "矩阵树图",
+        "en": "Treemap"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*WKfRQ7tK0aYAAAAAAAAAAAAADmJ7AQ/original"
+    }
   ]
 }
