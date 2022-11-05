@@ -28,8 +28,8 @@ stats.html
 # Snapshots error images
 __tests__/integration/snapshots/*-diff.png
 __tests__/integration/snapshots/*-diff.svg
+__tests__/integration/snapshots/**/*-diff.png
 
 # Website cache byb dumi
 site/.dumi/tmp
 site/.dumi/tmp-production
-__tests__/integration/snapshots/**/*-diff.png

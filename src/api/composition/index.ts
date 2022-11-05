@@ -6,6 +6,8 @@ import { FacetRect } from './facetRect';
 import { FacetCircle } from './facetCircle';
 import { RepeatMatrix } from './repeatMatrix';
 import { TimingKeyframe } from './timingKeyframe';
+import { GeoView } from './geoView';
+import { GeoPath } from './geoPath';
 
 export const composition = {
   view: View,
@@ -15,6 +17,8 @@ export const composition = {
   facetCircle: FacetCircle,
   repeatMatrix: RepeatMatrix,
   timingKeyframe: TimingKeyframe,
+  geoView: GeoView,
+  geoPath: GeoPath,
 };
 
 export interface Composition {
@@ -25,6 +29,8 @@ export interface Composition {
   facetCircle(): FacetCircle;
   repeatMatrix(): RepeatMatrix;
   timingKeyframe(): TimingKeyframe;
+  geoView(): GeoView;
+  geoPath(): GeoPath;
 }
 
 export {
@@ -35,6 +41,8 @@ export {
   FacetCircle,
   RepeatMatrix,
   TimingKeyframe,
+  GeoView,
+  GeoPath,
 };
 
 /**

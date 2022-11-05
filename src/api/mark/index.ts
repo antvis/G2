@@ -17,6 +17,7 @@ import {
   RangeX,
   RangeY,
   Connector,
+  Sankey,
 } from './mark';
 
 export interface Mark {
@@ -59,4 +60,5 @@ export const mark = {
   rangeX: RangeX,
   rangeY: RangeY,
   connector: Connector,
+  sankey: Sankey,
 };

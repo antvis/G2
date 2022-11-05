@@ -121,6 +121,7 @@ import {
   Link,
   Label,
   Path as PathShape,
+  HollowPath,
 } from '../../../src/shape';
 import { Light, Dark } from '../../../src/theme';
 import {
@@ -230,6 +231,7 @@ import {
   Sankey as SankeyTransform,
   Arc as ArcTransform,
   WordCloud,
+  Lookup,
 } from '../../../src/data';
 import {
   HideOverlap,
@@ -237,7 +239,7 @@ import {
   Spider,
   Surround,
 } from '../../../src/label-transform';
-import { GeoView, Choropleth } from '../../../src/geo';
+import { GeoView, GeoPath } from '../../../src/geo';
 
 describe('stdlib', () => {
   it('createLibrary() should returns expected builtin', () => {
@@ -257,6 +259,7 @@ describe('stdlib', () => {
       'data.sankey': SankeyTransform,
       'data.arc': ArcTransform,
       'data.wordCloud': WordCloud,
+      'data.lookup': Lookup,
       // 'transform.voronoi': Voronoi,
       'transform.maybeZeroY1': MaybeZeroY1,
       'transform.maybeZeroX': MaybeZeroX,
@@ -414,10 +417,11 @@ describe('stdlib', () => {
       'shape.lineX.line': LineXY,
       'shape.lineY.line': LineXY,
       'shape.connector.connector': ConnectorShape,
-      'shape.path.path': PathShape,
       'shape.range.range': RectShape,
       'shape.rangeX.range': RectShape,
       'shape.rangeY.range': RectShape,
+      'shape.path.path': PathShape,
+      'shape.path.hollow': HollowPath,
       'theme.light': Light,
       'theme.dark': Dark,
       'component.axisX': AxisX,
@@ -470,7 +474,7 @@ describe('stdlib', () => {
       'labelTransform.spider': Spider,
       'labelTransform.surround': Surround,
       'composition.geoView': GeoView,
-      'composition.choropleth': Choropleth,
+      'composition.geoPath': GeoPath,
     });
   });
 });

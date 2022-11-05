@@ -1,12 +1,12 @@
 import { GeoView } from './geoView';
-import { Choropleth } from './choropleth';
+import { GeoPath } from './geoPath';
 
-export { GeoView, Choropleth };
+export { GeoView, GeoPath };
 
 export type { GeoViewOptions } from './geoView';
-export type { ChoroplethOptions } from './choropleth';
+export type { GeoPathOptions } from './geoPath';
 
 export const geoLibrary = {
   'composition.geoView': GeoView,
-  'composition.choropleth': Choropleth,
+  'composition.geoPath': GeoPath,
 };

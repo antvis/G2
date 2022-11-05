@@ -6,17 +6,23 @@ import { G2Spec } from '../../../src';
 export async function unemploymentChoropleth(): Promise<G2Spec> {
   const us = await fetch('data/us-10m.json').then((res) => res.json());
   const unemployment = await tsv('data/unemployment.tsv', autoType);
-  const counties = feature(us, us.objects.counties);
+  const counties = feature(us, us.objects.counties).features;
   return {
-    type: 'choropleth',
+    type: 'geoPath',
     projection: {
       type: 'albersUsa',
     },
     data: {
-      value: {
-        lookup: unemployment,
-        feature: counties,
-      },
+      value: counties,
+      transform: [
+        {
+          type: 'lookup',
+          key: 'id',
+          from: unemployment,
+          fromKey: 'id',
+          rate: 'rate',
+        },
+      ],
     },
     scale: {
       color: {
@@ -26,9 +32,7 @@ export async function unemploymentChoropleth(): Promise<G2Spec> {
       },
     },
     encode: {
-      value: 'rate',
-      lookupKey: 'id',
-      featureKey: 'id',
+      color: 'rate',
     },
   };
 }

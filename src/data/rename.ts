@@ -11,12 +11,11 @@ export type RenameOptions = Omit<RenameTransform, 'type'>;
  * Immutable data rename by specified fields.
  */
 export const Rename: DC<RenameOptions> = (options) => {
-  const { map } = options;
   return (data) => {
-    if (!map || isEmpty(map)) return data;
+    if (!options || isEmpty(options)) return data;
     const rename = (v: any) =>
       Object.entries(v).reduce(
-        (datum, [key, value]) => ((datum[map[key] || key] = value), datum),
+        (datum, [key, value]) => ((datum[options[key] || key] = value), datum),
         {},
       );
     return data.map(rename);

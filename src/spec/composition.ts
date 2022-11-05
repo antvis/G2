@@ -1,4 +1,4 @@
-import { Geometry, Adjust, ChannelTypes } from './geometry';
+import { Geometry, Adjust } from './geometry';
 import { Theme } from './theme';
 import { Coordinate } from './coordinate';
 import { Interaction } from './interaction';
@@ -20,7 +20,6 @@ export type Node =
   | FacetRectComposition
   | FacetCircleComposition
   | GeoViewComposition
-  | ChoroplethComposition
   | TimingKeyframeComposition;
 
 export type MarkComposition = Geometry & {
@@ -50,9 +49,12 @@ export type ViewComposition = {
   title?: Title;
   theme?: Theme;
   children?: MarkComposition[];
+  scale?: Record<string, Scale>;
   adjust?: Adjust;
   labelTransform?: LabelTransform[];
   on?: Record<string, EventType | EventType[]>;
+  // @todo
+  style?: Record<string, any>;
 };
 
 export type SpaceLayerComposition = {
@@ -173,51 +175,13 @@ export type TimingKeyframeComposition = {
   children?: Node[];
 };
 
-export type GeoViewComposition = {
+export type GeoViewComposition = Omit<ViewComposition, 'type'> & {
   type?: 'geoView';
-  transform?: Transform;
-  data?: Data;
-  paddingLeft?: number;
-  paddingRight?: number;
-  paddingTop?: number;
-  paddingBottom?: number;
-  margin?: number;
-  marginLeft?: number;
-  marginBottom?: number;
-  marginTop?: number;
-  marginRight?: number;
-  key?: string;
-  title?: Title;
   // @todo
   projection?: Record<string, any>;
-  children?: Node[];
 };
 
-export type ChoroplethComposition = {
-  type?: 'choropleth';
-  data?: {
-    value: {
-      lookup: Record<string, any>; // Tabular data
-      feature?: Record<string, any>; // GeoJSON
-      outline?: Record<string, any>; // GeoJSON
-      border?: Record<string, any>; // GeoJSON
-    };
-  };
-  // @todo
-  projection?: Record<string, any>;
-  scale?: Record<string, Scale>;
-  encode?: Record<
-    | `${'feature' | 'outline' | 'border'}${Capitalize<ChannelTypes>}`
-    | 'value'
-    | 'lookupKey',
-    Encode
-  >;
-  style?: Record<
-    `${'feature' | 'outline' | 'border'}${any}`, // @todo
-    any
-  >;
-  animate?: Record<
-    `${'feature' | 'outline' | 'border'}${any}`, // @todo
-    any
-  >;
+export type GeoPathComposition = Omit<GeoViewComposition, 'type'> & {
+  type?: 'geoView';
+  encode?: Record<string, Encode>;
 };

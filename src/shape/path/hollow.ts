@@ -7,12 +7,12 @@ export type PathOptions = {
 };
 
 /**
- * A filled path.
+ * A hollow path.
  */
-export const Path: SC<PathOptions> = (options) => {
-  return Color({ ...options, colorAttribute: 'fill' });
+export const Hollow: SC<PathOptions> = (options) => {
+  return Color({ ...options, fill: 'none', colorAttribute: 'stroke' });
 };
 
-Path.props = {
+Hollow.props = {
   defaultEnterAnimation: 'fadeIn',
 };
