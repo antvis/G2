@@ -1,0 +1,24 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "wind.ts",
+      "title": {
+        "zh": "风向量场",
+        "en": "Wind Vector"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*5NgBQYJrTUEAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "poisson.ts",
+      "title": {
+        "zh": "珀林噪声场",
+        "en": "Perlin noise"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*G0iXRLFFYq0AAAAAAAAAAAAADmJ7AQ/original"
+    }
+  ]
+}

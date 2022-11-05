@@ -51,11 +51,7 @@ export type ArrowOptions = {
   /**
    * Arrow size, can be a px number, or a percentage string. Default: '40%'
    */
-  size?: number | string;
-  /**
-   * todo
-   */
-  symbol?: string;
+  arrowSize?: number | string;
 };
 
 /**
@@ -69,11 +65,11 @@ export function arrowPoints(
   to: Vector2,
   options: ArrowOptions,
 ): [Vector2, Vector2] {
-  const { size } = { size: 8, ...options };
-  const arrowSize =
-    typeof size === 'string'
-      ? (+parseFloat(size) / 100) * dist(from, to)
-      : size;
+  const { arrowSize } = options;
+  const size =
+    typeof arrowSize === 'string'
+      ? (+parseFloat(arrowSize) / 100) * dist(from, to)
+      : arrowSize;
   // TODO Use config from style.
   // Default arrow rotate is 30°.
   const arrowAngle = Math.PI / 6;
@@ -82,14 +78,14 @@ export function arrowPoints(
 
   const arrowAngle1 = Math.PI / 2 - angle - arrowAngle;
   const arrow1: Vector2 = [
-    to[0] - arrowSize * Math.sin(arrowAngle1),
-    to[1] - arrowSize * Math.cos(arrowAngle1),
+    to[0] - size * Math.sin(arrowAngle1),
+    to[1] - size * Math.cos(arrowAngle1),
   ];
 
   const arrowAngle2 = angle - arrowAngle;
   const arrow2: Vector2 = [
-    to[0] - arrowSize * Math.cos(arrowAngle2),
-    to[1] - arrowSize * Math.sin(arrowAngle2),
+    to[0] - size * Math.cos(arrowAngle2),
+    to[1] - size * Math.sin(arrowAngle2),
   ];
 
   return [arrow1, arrow2];
