@@ -15,3 +15,7 @@ export type SpiderLabelTransform = {
   type?: 'spider';
   edgeDistance?: string | number;
 };
+
+export type CircleSurroundLabelTransform = {
+  type?: 'circleSurround';
+};

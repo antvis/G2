@@ -231,7 +231,12 @@ import {
   Arc as ArcTransform,
   WordCloud,
 } from '../data';
-import { HideOverlap, DodgeY, Spider } from '../label-transform';
+import {
+  HideOverlap,
+  DodgeY,
+  Spider,
+  CircleSurround,
+} from '../label-transform';
 import { geoLibrary } from '../geo';
 
 export function createLibrary(): G2Library {
@@ -462,6 +467,7 @@ export function createLibrary(): G2Library {
     'labelTransform.hideOverlap': HideOverlap,
     'labelTransform.dodgeY': DodgeY,
     'labelTransform.spider': Spider,
+    'labelTransform.circleSurround': CircleSurround,
     ...geoLibrary,
   };
 }
