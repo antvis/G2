@@ -1,52 +1,10 @@
 import { Linear } from '@antv/scale';
-import { deepMix, upperFirst } from '@antv/util';
-import { geoPath } from 'd3-geo';
+import { upperFirst } from '@antv/util';
+import { geoPath, geoGraticule10 } from 'd3-geo';
 import { CompositionComponent as CC } from '../runtime';
 import { GeoViewComposition } from '../spec';
-import { defined, subObject } from '../utils/helper';
+
 import * as d3Projection from './d3-projection';
-
-type Encode = 'string' | ((d: any) => any);
-
-/**
- * @todo Export from runtime?
- */
-function field(encode: Encode): (d: any) => any {
-  return typeof encode === 'function' ? encode : (d) => d[encode];
-}
-
-/**
- * @todo Export from runtime?
- */
-function valueof(data: Record<string, any>[], encode: Encode): any[] {
-  return Array.from(data, field(encode));
-}
-
-/**
- * Convert a GeoJSON to FeatureCollection.
- */
-function normalizeFeatureCollection(
-  object: Record<string, any>,
-): Record<string, any> {
-  return object.type === 'FeatureCollection'
-    ? object
-    : { type: 'FeatureCollection', features: [object] };
-}
-
-/**
- * Merge two GeoJSON to a single FeatureCollection.
- */
-function mergeGeoJSON(
-  source: Record<string, any>,
-  target: Record<string, any>,
-): Record<string, any> {
-  const fs = normalizeFeatureCollection(source);
-  const ft = normalizeFeatureCollection(target);
-  return {
-    type: 'FeatureCollection',
-    features: [...fs.features, ...ft.features],
-  };
-}
 
 /**
  * Get projection factory from d3-projection.
@@ -55,8 +13,54 @@ function normalizeProjection(type: string) {
   if (typeof type === 'function') return type;
   const name = `geo${upperFirst(type)}`;
   const projection = d3Projection[name];
-  if (!name) throw new Error(`Unknown project: ${type}`);
+  if (!projection) throw new Error(`Unknown projection: ${type}`);
   return projection;
+}
+
+/**
+ * @see https://github.com/mapbox/geojson-merge/blob/master/index.js
+ */
+function mergeGeoJSON(gjs) {
+  return {
+    type: 'FeatureCollection',
+    features: gjs.flatMap((gj) => normalizeGeoJSON(gj).features),
+  };
+}
+
+function normalizeGeoJSON(gj) {
+  const types = {
+    Point: 'geometry',
+    MultiPoint: 'geometry',
+    LineString: 'geometry',
+    MultiLineString: 'geometry',
+    Polygon: 'geometry',
+    MultiPolygon: 'geometry',
+    GeometryCollection: 'geometry',
+    Feature: 'feature',
+    FeatureCollection: 'featureCollection',
+  };
+  if (!gj || !gj.type) return null;
+  const type = types[gj.type];
+  if (!type) return null;
+  if (type === 'geometry') {
+    return {
+      type: 'FeatureCollection',
+      features: [
+        {
+          type: 'Feature',
+          properties: {},
+          geometry: gj,
+        },
+      ],
+    };
+  } else if (type === 'feature') {
+    return {
+      type: 'FeatureCollection',
+      features: [gj],
+    };
+  } else if (type === 'featureCollection') {
+    return gj;
+  }
 }
 
 /**
@@ -64,10 +68,76 @@ function normalizeProjection(type: string) {
  * @see https://github.com/d3/d3-geo#projections
  * @todo Specify key each by each.
  */
-function setProjection(projection, options) {
+function setProjectionOptions(projection, options) {
   for (const [key, value] of Object.entries(options)) {
     projection[key]?.(value);
   }
+}
+
+function setProjectionSize(projection, nodes, layout, options) {
+  const defaultOutline = () => {
+    const geoNodes = nodes.filter(isGeoPath);
+    // For geoPath with sphere mark, use it as outline.
+    const sphere = geoNodes.find((d) => d.sphere);
+    if (sphere) return { type: 'Sphere' };
+
+    // Merge all GeoJSON as the outline.
+    return mergeGeoJSON(
+      geoNodes.filter((d) => !d.sphere).flatMap((d) => d.data.value),
+    );
+  };
+  const { outline = defaultOutline() } = options;
+  const { size = 'fitExtent' } = options;
+  if (size === 'fitExtent') {
+    return setFitExtent(projection, outline, layout);
+  } else if (size === 'fitWidth') {
+    return setFitWidth(projection, outline, layout);
+  }
+}
+
+function setFitExtent(projection, object, layout) {
+  const { x, y, width, height } = layout;
+  projection.fitExtent(
+    [
+      [x, y],
+      [width, height],
+    ],
+    object,
+  );
+}
+
+function setFitWidth(projection, object, layout) {
+  const { width, height } = layout;
+  const [[x0, y0], [x1, y1]] = geoPath(
+    projection.fitWidth(width, object),
+  ).bounds(object);
+  const dy = Math.ceil(y1 - y0);
+  const l = Math.min(Math.ceil(x1 - x0), dy);
+  const s = (projection.scale() * (l - 1)) / l;
+  const [tx, ty] = projection.translate();
+  const t = ty + (height - dy) / 2;
+  projection.scale(s).translate([tx, t]).precision(0.2);
+}
+
+/**
+ * @todo Remove this.
+ */
+function normalizeDataSource(node) {
+  const { data } = node;
+  if (Array.isArray(data)) return { ...node, data: { value: data } };
+  const { type } = data;
+  if (type === 'graticule10') {
+    return { ...node, data: { value: [geoGraticule10()] } };
+  } else if (type === 'sphere') {
+    // Sphere is not a standard type of GeoJSON.
+    // Mark this geoPath as sphere geoPath.
+    return { ...node, sphere: true, data: { value: [{ type: 'Sphere' }] } };
+  }
+  return node;
+}
+
+function isGeoPath(d) {
+  return d.type === 'geoPath';
 }
 
 export type GeoViewOptions = Omit<GeoViewComposition, 'type'>;
@@ -77,32 +147,13 @@ export type GeoViewOptions = Omit<GeoViewComposition, 'type'>;
  */
 export const GeoView: CC<GeoViewOptions> = () => {
   return (options) => {
-    const { children, projection } = options;
+    const { children, projection = {} } = options;
     if (!Array.isArray(children)) return [];
 
     // Get projection factory.
-    const { type: projectionType, ...projectionOptions } = projection;
-    const createProjection = normalizeProjection(projectionType);
-
-    // Transform choropleth to path.
-    const isChoropleth = (d) => d.type === 'choropleth';
-
-    // The order of key is equal to render order of path.
-    const keys = ['feature', 'border', 'outline'];
-
-    // Merge all features to compute bbox.
-    const features = children
-      .filter(isChoropleth)
-      .flatMap((d) =>
-        Object.entries(d.data.value)
-          .filter(([key, value]) => keys.includes(key) && defined(value))
-          .map(([, value]) => value),
-      )
-      .filter(defined)
-      .reduce((total, value) => mergeGeoJSON(total, value), {
-        type: 'FeatureCollection',
-        features: [],
-      });
+    const { type = 'equalEarth', ...projectionOptions } = projection;
+    const createProjection = normalizeProjection(type);
+    const nodes = children.map(normalizeDataSource);
 
     // Set path generator lazily.
     let path;
@@ -113,15 +164,13 @@ export const GeoView: CC<GeoViewOptions> = () => {
         [
           'custom',
           (x, y, width, height) => {
-            // Create project and path generator.
-            const visual = createProjection().fitExtent(
-              [
-                [x, y],
-                [width, height],
-              ],
-              features,
-            );
-            setProjection(visual, projectionOptions);
+            // Create and set projection.
+            const visual = createProjection();
+            const layout = { x, y, width, height };
+            setProjectionSize(visual, nodes, layout, projectionOptions);
+            setProjectionOptions(visual, projectionOptions);
+
+            // Create path generator.
             path = geoPath(visual);
 
             // Normalize projection and projection.invert,
@@ -132,124 +181,41 @@ export const GeoView: CC<GeoViewOptions> = () => {
             const scaleY = new Linear({
               domain: [y, y + height],
             });
-            const abstract = (point) => {
+            const normalize = (point) => {
               const visualPoint = visual(point);
               if (!visualPoint) return null;
               const [vx, vy] = visualPoint;
               return [scaleX.map(vx), scaleY.map(vy)];
             };
-            const abstractInvert = (point) => {
+            const normalizeInvert = (point) => {
               if (!point) return null;
               const [px, py] = point;
               const visualPoint = [scaleX.invert(px), scaleY.invert(py)];
               return visual.invert(visualPoint);
             };
-
             return {
-              transform: (point) => abstract(point),
-              untransform: (point) => abstractInvert(point),
+              transform: (point) => normalize(point),
+              untransform: (point) => normalizeInvert(point),
             };
           },
         ],
       ];
     }
 
-    // A composite geo mark which contains there single parts:
-    // 1. feature: main path
-    // 2. borders: border path to avoid masking intricate
-    //    features such as islands and inlets
-    // 3. outline: background path
-    function Choropleth(options) {
-      const DEFAULT = {
-        outline: {
-          style: {
-            fill: 'none',
-            stroke: '#000',
-          },
-        },
-        feature: {},
-        border: {
-          style: {
-            fill: 'none',
-            stroke: '#fff',
-          },
-        },
-        unknown: '#ccc',
-      };
-
-      const {
-        data,
-        key: markKey,
-        style = {},
-        encode = {},
-        animate = {},
-        scale,
-      } = options;
-
-      const { value, lookupKey = (d) => d.id, ...restEncode } = encode;
-
-      // Get color encode for existed encode.
-      const colorEncode = {
-        border() {
-          return null;
-        },
-        outline() {
-          return null;
-        },
-        feature(encode) {
-          // Lookup value from lookup data for color value.
-          const { key: featureKey } = encode;
-          const { lookup } = data.value;
-          if (!lookup) return null;
-          const N = valueof(lookup, lookupKey);
-          const V = valueof(lookup, value).map((d) => (d == null ? NaN : +d));
-          const idIndex = new Map(N.map((id, index) => [id, index]));
-          const fk = field(featureKey);
-          return (d) => V[idIndex.get(fk(d))];
+    function GeoPath(options) {
+      const { style } = options;
+      return {
+        ...options,
+        type: 'path',
+        style: {
+          ...style,
+          d: (d) => path(d),
         },
       };
-
-      return keys
-        .filter((key) => data.value[key])
-        .map((key) => {
-          const value = data.value[key];
-          const { features } = normalizeFeatureCollection(value);
-          const subStyle = subObject(style, key);
-          const subAnimate = subObject(animate, key);
-          const { key: ek = (d, i) => d.id || i, ...subEncode } = subObject(
-            restEncode,
-            key,
-          );
-          const color = colorEncode[key]({ key: ek, ...subEncode });
-          const defaults = DEFAULT[key];
-          return {
-            type: 'path',
-            key: `${markKey}-${key}`,
-            data: features,
-            encode: {
-              key: ek,
-              ...(color && { color }),
-              ...subEncode,
-            },
-            scale: deepMix(
-              {
-                color: {
-                  unknown: DEFAULT.unknown,
-                },
-              },
-              scale,
-            ),
-            animate: subAnimate,
-            style: {
-              ...defaults.style,
-              ...subStyle,
-              d: (d) => path(d),
-            },
-          };
-        });
     }
 
-    const t = (d) => (isChoropleth(d) ? Choropleth(d) : d);
+    const t = (d) => (isGeoPath(d) ? GeoPath(d) : d);
+
     return [
       {
         ...options,
@@ -260,7 +226,7 @@ export const GeoView: CC<GeoViewOptions> = () => {
         },
         axis: false,
         coordinate: [{ type: Geo }],
-        children: children.flatMap(t),
+        children: nodes.flatMap(t),
       },
     ];
   };

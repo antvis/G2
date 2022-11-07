@@ -9,7 +9,7 @@ describe('rename', () => {
       { a: 4, b: 1, c: 2 },
     ];
 
-    const p1 = Rename({ map: { a: 'x', c: 'c' } });
+    const p1 = Rename({ a: 'x', c: 'c' });
     expect(p1(data)).toEqual([
       { x: 1, b: 2, c: 3 },
       { x: 2, b: 3, c: 4 },
@@ -21,7 +21,7 @@ describe('rename', () => {
 
     expect(p2(data)).toEqual(data);
 
-    const p3 = Rename({ map: {} });
+    const p3 = Rename({});
     expect(p3(data)).toEqual(data);
   });
 });

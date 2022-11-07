@@ -454,7 +454,14 @@ function inferDomainO(value: Primitive[]) {
 }
 
 function inferDomainS(value: Primitive[]) {
-  const [min, max] = extent(value, (d) => +d);
+  let min = Infinity;
+  let max = -Infinity;
+  for (const d of value) {
+    if (defined(d)) {
+      min = Math.min(min, +d);
+      max = Math.max(max, +d);
+    }
+  }
   return [min < 0 ? -max : min, max];
 }
 

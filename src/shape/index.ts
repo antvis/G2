@@ -44,6 +44,7 @@ export { Line as LineXY } from './lineXY/line';
 export { Connector } from './connector/connector';
 export { Label } from './label/label';
 export { Path } from './path/path';
+export { Hollow as HollowPath } from './path/hollow';
 
 export type { RectOptions } from './interval/rect';
 export type { Hollow as HollowRectOptions } from './interval/hollow';

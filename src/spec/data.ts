@@ -25,6 +25,7 @@ export type DataTransform =
   | SubsetTransform
   | FoldTransform
   | FilterByTransform
+  | LookupTransform
   | CustomTransform;
 
 export type DataTransformTypes =
@@ -49,7 +50,7 @@ export type PickTransform = {
 
 export type RenameTransform = {
   type?: 'rename';
-  map?: Record<string, string>;
+  [key: string]: string;
 };
 
 export type SubsetTransform = {
@@ -77,6 +78,15 @@ export type FoldTransform = {
 export type CustomDataTransform = {
   type?: 'custom';
   callback?: (d: any) => any;
+};
+
+export type LookupTransform = {
+  type?: 'lookup';
+  key?: string | ((d: any) => any);
+  fromKey?: string | ((d: any) => any);
+  from?: Record<string, any>[];
+  unknown?: any;
+  [key: string]: any;
 };
 
 export type CustomTransform = {

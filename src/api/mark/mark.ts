@@ -249,7 +249,7 @@ export class Connector extends Node<ConnectorMark> {
 }
 
 @defineProps([...props, { name: 'layout', type: 'object' }])
-export class Sankey extends Node<ConnectorMark> {
+export class Sankey extends Node<SankeyMark> {
   constructor() {
     super({}, 'sankey');
   }
