@@ -37,6 +37,7 @@ import {
   Sankey,
   Path,
   Treemap,
+  Pack as PackGeometry,
 } from '../../../src/mark';
 import {
   Category10,
@@ -336,6 +337,7 @@ describe('stdlib', () => {
       'mark.sankey': Sankey,
       'mark.path': Path,
       'mark.treemap': Treemap,
+      'mark.pack': PackGeometry,
       'palette.category10': Category10,
       'palette.category20': Category20,
       'palette.sequentialBlue': SequentialBlue,
