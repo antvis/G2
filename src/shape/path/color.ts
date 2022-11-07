@@ -9,7 +9,7 @@ export type ColorOptions = {
 };
 
 /**
- * Connect 2 points with a single line.
+ * Draw a filled or hollow path.
  */
 export const Color: SC<ColorOptions> = (options) => {
   const { arrow, colorAttribute, ...style } = options;
