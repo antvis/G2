@@ -1,5 +1,6 @@
 import { DisplayObject } from '@antv/g';
 import { isPolygonsIntersect } from '@antv/path-util';
+import { ascending } from 'd3-array';
 import { LabelTransformComponent as LLC } from '../runtime';
 import { HideOverlapLabelTransform } from '../spec';
 
@@ -17,24 +18,35 @@ function getPoints(element: DisplayObject) {
 
 export type HideOverlapOptions = Omit<HideOverlapLabelTransform, 'type'>;
 
+function priority(shape: DisplayObject) {
+  return shape.style.priority || 0;
+}
+
+function show(shape: DisplayObject) {
+  shape.style.visibility = 'visible';
+}
+
+function hide(shape: DisplayObject) {
+  shape.style.visibility = 'hidden';
+}
+
 // @todo Support label shape with priority attribute.
 export const HideOverlap: LLC<HideOverlapOptions> = () => {
-  return (labels: DisplayObject[]) => {
+  return (labels: DisplayObject[], coordinate) => {
     const displayLabels = [];
 
     // Label with lower priority will be hidden when overlapped.
-    labels.sort((a, b) => a.style.priority - b.style.priority);
+    labels.sort((a, b) => ascending(priority(a), priority(b)));
 
     for (let i = 0; i < labels.length; i++) {
       const label = labels[i];
-      label.style.visibility = 'visible';
+      show(label);
 
       let overlapping = false;
-
       for (let j = 0; j < displayLabels.length; j++) {
         const existedLabel = displayLabels[j];
         if (isPolygonsIntersect(getPoints(label), getPoints(existedLabel))) {
-          label.style.visibility = 'hidden';
+          hide(label);
           overlapping = true;
           break;
         }

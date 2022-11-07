@@ -688,15 +688,16 @@ function plotLabel(
   const labelGroups = group(labelShapes, (d) =>
     labelDescriptor.get(d.__data__),
   );
+  const { coordinate } = view;
   for (const [label, shapes] of labelGroups) {
     const { transform = [] } = label;
     const transformFunction = compose(transform.map(useLabelTransform));
-    transformFunction(shapes);
+    transformFunction(shapes, coordinate);
   }
 
   // Apply view-level transform.
   if (labelTransform) {
-    labelTransform(labelShapes);
+    labelTransform(labelShapes, coordinate);
   }
 }
 
