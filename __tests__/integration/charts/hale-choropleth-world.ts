@@ -7,7 +7,10 @@ export async function haleChoroplethWorld(): Promise<G2Spec> {
   const world = await fetch('data/countries-50m.json').then((res) =>
     res.json(),
   );
-  const hale = await csv('data/hale.csv', autoType);
+  const hale = (await csv('data/hale.csv', autoType)).map((d) => ({
+    ...d,
+    hale: Number.isNaN(d.hale) ? d.hale : d.hale,
+  }));
   const countries = feature(world, world.objects.countries).features;
   const coutriesmesh = mesh(world, world.objects.countries);
 
