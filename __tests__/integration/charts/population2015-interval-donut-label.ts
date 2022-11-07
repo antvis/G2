@@ -1,6 +1,6 @@
 import { G2Spec } from '../../../src';
 
-export function population2015IntervalDonut(): G2Spec {
+export function population2015IntervalDonutLabel(): G2Spec {
   return {
     type: 'interval',
     height: 640,
@@ -23,15 +23,26 @@ export function population2015IntervalDonut(): G2Spec {
     },
     style: {
       stroke: 'white',
-      inset: 1,
-      radius: 10,
+      lineWidth: 1,
     },
     labels: [
-      { text: 'name', fontSize: 10, fontWeight: 'bold' },
       {
-        text: (d, i, data) => (i < data.length - 3 ? d.value : ''),
-        fontSize: 9,
-        dy: 12,
+        text: 'name',
+        fontSize: 10,
+        fill: '#000',
+        autoRotate: true,
+      },
+      {
+        text: 'value',
+        fontSize: 10,
+        textAlign: 'center',
+        textBaseline: 'bottom',
+        autoRotate: true,
+        rotateToAlignArc: true,
+        connector: false,
+        offset: 4,
+        position: 'outside',
+        transform: [{ type: 'hideOverlap' }],
       },
     ],
   };

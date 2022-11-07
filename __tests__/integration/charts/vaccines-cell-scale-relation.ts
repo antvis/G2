@@ -61,7 +61,7 @@ export function vaccinesCellScaleRelation(): G2Spec {
             textBaseline: 'top',
             fontSize: 10,
             fontWeight: 'bold',
-            dy: '0.7em',
+            dy: 12,
           },
         ],
       },

@@ -33,7 +33,8 @@ type TextShapeStyleProps = Omit<TextStyleProps, 'text'> &
   BackgroundStyleProps &
   MarkerStyleProps<'startMarker'> &
   MarkerStyleProps<'endMarker'> & {
-    basePoint?: Vector2;
+    x0?: number; // x0 represents the x position of relative point, default is equal to x
+    y0?: number;
     background?: boolean;
     connector?: boolean;
     startMarker?: boolean;
@@ -89,7 +90,7 @@ function inferConnectorPath(
     .concat([['L', x1 + sign * distance, y1]]);
 }
 
-const TextShape = createElement((g) => {
+export const TextShape = createElement((g) => {
   const {
     // Do not pass className
     class: className,
@@ -97,7 +98,8 @@ const TextShape = createElement((g) => {
     rotate,
     x,
     y,
-    basePoint = [x, y],
+    x0 = x,
+    y0 = y,
     background,
     connector,
     startMarker,
@@ -110,7 +112,7 @@ const TextShape = createElement((g) => {
     points = [],
     ...connectorStyle
   } = subObject(rest, 'connector');
-  const point: Vector2 = [basePoint[0] - +x, basePoint[1] - +y];
+  const point: Vector2 = [x0 - +x, y0 - +y];
 
   const shape1 = select(g)
     .maybeAppend('text', 'text')

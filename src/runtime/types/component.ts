@@ -69,7 +69,8 @@ export type G2ComponentValue =
   | Animation
   | Interaction
   | Composition
-  | Adjust;
+  | Adjust
+  | LabelTransform;
 
 export type G2BaseComponent<
   R = any,
@@ -208,6 +209,9 @@ export type AdjustComponent<O = Record<string, unknown>> = G2BaseComponent<
   O
 >;
 
-export type LabelTransform = (labels: DisplayObject[]) => DisplayObject[];
+export type LabelTransform = (
+  labels: DisplayObject[],
+  coordinate: Coordinate,
+) => DisplayObject[];
 export type LabelTransformComponent<O = Record<string, unknown>> =
   G2BaseComponent<LabelTransform, O>;

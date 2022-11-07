@@ -1,10 +1,10 @@
 import { Coordinate } from '@antv/coord';
-import { Text } from '@antv/g';
 import { select } from '../../utils/selection';
 import { G2Theme, ShapeComponent as SC, Vector2 } from '../../runtime';
-import { applyStyle, getArcObject } from '../../shape/utils';
+import { applyStyle } from '../../shape/utils';
 import { isTranspose, isCircular } from '../../utils/coordinate';
 import { camelCase } from '../../utils/string';
+import { TextShape } from '../text/text';
 import { LabelPosition } from './position';
 import * as PositionProcessor from './position';
 
@@ -23,13 +23,15 @@ function getDefaultStyle(
   coordinate: Coordinate,
   theme: G2Theme,
 ): Record<string, any> {
-  // For non-seres mark, calc position for label based on
+  // For non-series mark, calc position for label based on
   // position and the bounds of shape.
   const { position } = value;
   const p = inferPosition(position, coordinate);
+  const t = theme[p === 'inside' ? 'innerLabel' : 'label'];
+  const v = Object.assign({}, t, value);
   return {
-    ...PositionProcessor[camelCase(p)](p, points, value, coordinate),
-    ...theme[p === 'inside' ? 'innerLabel' : 'label'],
+    ...t,
+    ...PositionProcessor[camelCase(p)](p, points, v, coordinate),
   };
 }
 
@@ -40,10 +42,16 @@ function getDefaultStyle(
 export const Label: SC<LabelOptions> = (options) => {
   return (points, value, coordinate, theme) => {
     const { text, x, y, ...overrideStyle } = value;
-    const defaultStyle = getDefaultStyle(points, value, coordinate, theme);
-    return select(new Text())
+    const {
+      rotate = 0,
+      transform = '',
+      ...defaultStyle
+    } = getDefaultStyle(points, value, coordinate, theme);
+
+    return select(new TextShape())
       .call(applyStyle, defaultStyle)
       .style('text', `${text}`)
+      .style('transform', `${transform}rotate(${+rotate}deg)`)
       .call(applyStyle, overrideStyle)
       .node();
   };

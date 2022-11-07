@@ -240,7 +240,6 @@ export const Light: TC<LightOptions> = (options) => {
       fontWeight: 'normal',
       stroke: null,
       offset: 8,
-      connectorDistance: 4,
       connectorStroke: '#416180',
       connectorStrokeOpacity: 0.45,
       connectorLineWidth: 1,
