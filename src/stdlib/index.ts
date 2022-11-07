@@ -121,6 +121,7 @@ import {
   Link,
   Label,
   Path as PathShape,
+  HollowPath,
 } from '../shape';
 import { Light, Dark } from '../theme';
 import {
@@ -230,6 +231,7 @@ import {
   Sankey as SankeyTransform,
   Arc as ArcTransform,
   WordCloud,
+  Lookup,
 } from '../data';
 import { HideOverlap, DodgeY, Spider, Surround } from '../label-transform';
 import { geoLibrary } from '../geo';
@@ -251,6 +253,7 @@ export function createLibrary(): G2Library {
     'data.sankey': SankeyTransform,
     'data.arc': ArcTransform,
     'data.wordCloud': WordCloud,
+    'data.lookup': Lookup,
     // 'transform.voronoi': Voronoi,
     'transform.maybeZeroY1': MaybeZeroY1,
     'transform.maybeZeroX': MaybeZeroX,
@@ -412,6 +415,7 @@ export function createLibrary(): G2Library {
     'shape.rangeX.range': RectShape,
     'shape.rangeY.range': RectShape,
     'shape.path.path': PathShape,
+    'shape.path.hollow': HollowPath,
     'theme.light': Light,
     'theme.dark': Dark,
     'component.axisX': AxisX,

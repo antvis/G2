@@ -16,11 +16,17 @@ export interface View extends Mark {
   paddingRight: ValueAttribute<ViewSpec['paddingRight'], View>;
   paddingBottom: ValueAttribute<ViewSpec['paddingBottom'], View>;
   paddingTop: ValueAttribute<ViewSpec['paddingTop'], View>;
+  marginLeft: ValueAttribute<ViewSpec['marginLeft'], View>;
+  marginRight: ValueAttribute<ViewSpec['marginRight'], View>;
+  marginBottom: ValueAttribute<ViewSpec['marginBottom'], View>;
+  marginTop: ValueAttribute<ViewSpec['marginTop'], View>;
   data: ValueAttribute<ViewSpec['data'], View>;
   key: ValueAttribute<ViewSpec['key'], View>;
   coordinate: ArrayAttribute<ViewSpec['coordinate'], View>;
   interaction: ArrayAttribute<ViewSpec['interaction'], View>;
   theme: ObjectAttribute<ViewSpec['theme'], View>;
+  style: ObjectAttribute<ViewSpec['style'], View>;
+  scale: ObjectAttribute<ViewSpec['scale'], View>;
 }
 
 @defineProps([
@@ -28,11 +34,17 @@ export interface View extends Mark {
   { type: 'value', name: 'paddingRight' },
   { type: 'value', name: 'paddingBottom' },
   { type: 'value', name: 'paddingTop' },
+  { type: 'value', name: 'marginLeft' },
+  { type: 'value', name: 'marginRight' },
+  { type: 'value', name: 'marginBottom' },
+  { type: 'value', name: 'marginTop' },
   { type: 'value', name: 'data' },
   { type: 'value', name: 'key' },
   { type: 'array', name: 'coordinate' },
   { type: 'array', name: 'interaction' },
   { type: 'object', name: 'theme' },
+  { type: 'object', name: 'style' },
+  { type: 'object', name: 'scale' },
   ...nodeProps(mark),
 ])
 export class View extends Node<ViewComposition> {

@@ -96,3 +96,6 @@ export { windVectorWind } from './wind-vector-wind';
 export { browserImageTrending } from './browser-image-trending';
 export { population2015IntervalSpiderLabel } from './population2015-interval-spider-label';
 export { populationIntervalRoseSurroundLabel } from './population-interval-rose-surround-label';
+export { countries50mWorldMap } from './countries-50m-world-map';
+export { londonTubeLineGeo } from './london-tube-lines-geo';
+export { countries50mProjectionComparison } from './countries-50m-projection-comparison';

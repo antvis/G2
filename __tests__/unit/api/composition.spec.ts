@@ -6,6 +6,8 @@ import {
   SpaceLayer,
   RepeatMatrix,
   FacetRect,
+  GeoView,
+  GeoPath,
 } from '../../../src/api/composition';
 import {
   Area,
@@ -26,6 +28,7 @@ import {
   Rect,
   Text,
   Connector,
+  Sankey,
 } from '../../../src/api/mark/mark';
 
 function expectToCreateMarks(node) {
@@ -47,6 +50,7 @@ function expectToCreateMarks(node) {
   expect(node.rangeX()).toBeInstanceOf(RangeX);
   expect(node.rangeY()).toBeInstanceOf(RangeY);
   expect(node.connector()).toBeInstanceOf(Connector);
+  expect(node.sankey()).toBeInstanceOf(Sankey);
 }
 
 function expectToCreateCompositions(node) {
@@ -57,6 +61,7 @@ function expectToCreateCompositions(node) {
   expect(node.repeatMatrix()).toBeInstanceOf(RepeatMatrix);
   expect(node.facetCircle()).toBeInstanceOf(FacetCircle);
   expect(node.timingKeyframe()).toBeInstanceOf(TimingKeyframe);
+  expect(node.geoView()).toBeInstanceOf(GeoView);
 }
 
 function expectToCreateNodes(node) {
@@ -73,7 +78,13 @@ describe('Composition', () => {
       .paddingRight(10)
       .paddingTop(10)
       .data([1, 2, 3])
+      .marginBottom(10)
+      .marginLeft(20)
+      .marginTop(30)
+      .marginRight(40)
+      .scale('color', { type: 'linear' })
       .key('composition')
+      .style('plotFill', 'red')
       .coordinate({ type: 'polar' })
       .interaction({ type: 'brush' })
       .theme('defaultColor', 'red');
@@ -84,11 +95,17 @@ describe('Composition', () => {
       paddingRight: 10,
       paddingTop: 10,
       paddingLeft: 10,
+      marginBottom: 10,
+      marginLeft: 20,
+      marginTop: 30,
+      marginRight: 40,
       data: [1, 2, 3],
       key: 'composition',
+      style: { plotFill: 'red' },
       coordinate: [{ type: 'polar' }],
       interaction: [{ type: 'brush' }],
       theme: { defaultColor: 'red' },
+      scale: { color: { type: 'linear' } },
     });
     expectToCreateMarks(node);
   });
@@ -231,5 +248,89 @@ describe('Composition', () => {
       shareSize: true,
     });
     expectToCreateNodes(node);
+  });
+
+  it('GeoView() should specify options by API', () => {
+    const node = new GeoView();
+    node
+      .paddingBottom(10)
+      .paddingLeft(10)
+      .paddingRight(10)
+      .paddingTop(10)
+      .data([1, 2, 3])
+      .marginBottom(10)
+      .marginLeft(20)
+      .marginTop(30)
+      .marginRight(40)
+      .key('composition')
+      .style('plotFill', 'red')
+      .projection({ type: 'foo' })
+      .coordinate({ type: 'polar' })
+      .interaction({ type: 'brush' })
+      .theme('defaultColor', 'red');
+
+    expect(node.type).toBe('geoView');
+    expect(node.value).toEqual({
+      paddingBottom: 10,
+      paddingRight: 10,
+      paddingTop: 10,
+      paddingLeft: 10,
+      marginBottom: 10,
+      marginLeft: 20,
+      marginTop: 30,
+      marginRight: 40,
+      data: [1, 2, 3],
+      key: 'composition',
+      style: { plotFill: 'red' },
+      coordinate: [{ type: 'polar' }],
+      interaction: [{ type: 'brush' }],
+      theme: { defaultColor: 'red' },
+      projection: { type: 'foo' },
+    });
+    expectToCreateMarks(node);
+  });
+
+  it('GeoView() should specify options by API', () => {
+    const node = new GeoPath();
+    node
+      .paddingBottom(10)
+      .paddingLeft(10)
+      .paddingRight(10)
+      .paddingTop(10)
+      .data([1, 2, 3])
+      .marginBottom(10)
+      .marginLeft(20)
+      .marginTop(30)
+      .marginRight(40)
+      .encode('x', 'a')
+      .scale('color', { type: 'linear' })
+      .key('composition')
+      .style('plotFill', 'red')
+      .projection({ type: 'foo' })
+      .coordinate({ type: 'polar' })
+      .interaction({ type: 'brush' })
+      .theme('defaultColor', 'red');
+
+    expect(node.type).toBe('geoPath');
+    expect(node.value).toEqual({
+      paddingBottom: 10,
+      paddingRight: 10,
+      paddingTop: 10,
+      paddingLeft: 10,
+      marginBottom: 10,
+      marginLeft: 20,
+      marginTop: 30,
+      marginRight: 40,
+      data: [1, 2, 3],
+      key: 'composition',
+      style: { plotFill: 'red' },
+      coordinate: [{ type: 'polar' }],
+      interaction: [{ type: 'brush' }],
+      theme: { defaultColor: 'red' },
+      projection: { type: 'foo' },
+      scale: { color: { type: 'linear' } },
+      encode: { x: 'a' },
+    });
+    expectToCreateMarks(node);
   });
 });
