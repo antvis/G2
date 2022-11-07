@@ -95,4 +95,4 @@ export { blockChainLineBadgeAnnotation } from './blockchain-line-badge-annotatio
 export { windVectorWind } from './wind-vector-wind';
 export { browserImageTrending } from './browser-image-trending';
 export { population2015IntervalSpiderLabel } from './population2015-interval-spider-label';
-export { populationIntervalRoseCircleSurroundLabel } from './population-interval-rose-circle-surround-label';
+export { populationIntervalRoseSurroundLabel } from './population-interval-rose-surround-label';

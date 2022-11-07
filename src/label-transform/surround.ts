@@ -1,15 +1,15 @@
 import { DisplayObject } from '@antv/g';
-import { CircleSurroundLabelTransform } from '../spec';
+import { SurroundLabelTransform } from '../spec';
 import { LabelTransformComponent as LLC, Vector2 } from '../runtime';
 import { isCircular } from '../utils/coordinate';
 import { dist } from '../utils/vector';
 
-export type CircleSurroundOptions = Omit<CircleSurroundLabelTransform, 'type'>;
+export type SurroundOptions = Omit<SurroundLabelTransform, 'type'>;
 
 /**
- * CircleSurround label transform only suitable for the labels in polar coordinate.
+ * Surround label transform is used to make labels surround circular.
  */
-export const CircleSurround: LLC<CircleSurroundOptions> = (options) => {
+export const Surround: LLC<SurroundOptions> = (options) => {
   return (labels: DisplayObject[], coordinate) => {
     if (!isCircular(coordinate)) return labels;
 

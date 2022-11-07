@@ -1,6 +1,6 @@
 import { G2Spec } from '../../../src';
 
-export function populationIntervalRoseCircleSurroundLabel(): G2Spec {
+export function populationIntervalRoseSurroundLabel(): G2Spec {
   return {
     type: 'interval',
     width: 720,
@@ -22,7 +22,7 @@ export function populationIntervalRoseCircleSurroundLabel(): G2Spec {
         text: 'year',
         position: 'outside',
         offset: 4,
-        transform: [{ type: 'circleSurround' }],
+        transform: [{ type: 'surround' }],
       },
     ],
   };

@@ -235,7 +235,7 @@ import {
   HideOverlap,
   DodgeY,
   Spider,
-  CircleSurround,
+  Surround,
 } from '../../../src/label-transform';
 import { GeoView, Choropleth } from '../../../src/geo';
 
@@ -468,7 +468,7 @@ describe('stdlib', () => {
       'labelTransform.hideOverlap': HideOverlap,
       'labelTransform.dodgeY': DodgeY,
       'labelTransform.spider': Spider,
-      'labelTransform.circleSurround': CircleSurround,
+      'labelTransform.surround': Surround,
       'composition.geoView': GeoView,
       'composition.choropleth': Choropleth,
     });
