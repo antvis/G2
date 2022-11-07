@@ -8,8 +8,10 @@ export type ValueAttribute<V, N> = <T extends V>(
   value?: T,
 ) => Chainable<T, V, N>;
 
-export type ObjectAttribute<V, N> = <T extends ValueOf<V>>(
-  key?: V | keyof V,
+export type ObjectAttribute<V, N> = <
+  T extends V extends Record<string, any> ? ValueOf<V> : V,
+>(
+  key?: V extends Record<string, any> ? V | keyof V : V,
   value?: T,
 ) => Chainable<T, V, N>;
 

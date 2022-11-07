@@ -4,5 +4,45 @@
     "en": "Category"
   },
   "demos": [
+    {
+      "filename": "pie.ts",
+      "title": {
+        "zh": "饼图",
+        "en": "Pie Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*uQh-RryfSfUAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "donut.ts",
+      "title": {
+        "zh": "甜甜圈图",
+        "en": "Donut Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*wu8VQIWJJ50AAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "rose.ts",
+      "title": {
+        "zh": "玫瑰图",
+        "en": "Rose Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*_DeKSr3oN5sAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "bar-radial.ts",
+      "title": {
+        "zh": "玉钰图",
+        "en": "Radial Bar Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*TVXmRq627aEAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "bar-stacked-radial.ts",
+      "title": {
+        "zh": "堆叠玉钰图",
+        "en": "Radial Stacked Bar Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Lv1oT5JCtrMAAAAAAAAAAAAADmJ7AQ/original"
+    }
   ]
 }
