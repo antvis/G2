@@ -31,6 +31,7 @@ export type Geometry =
   | SankeyMark
   | PathMark
   | TreemapMark
+  | PackMark
   | CustomComponent;
 
 export type GeometryTypes =
@@ -57,6 +58,7 @@ export type GeometryTypes =
   | 'sankey'
   | 'path'
   | 'treemap'
+  | 'pack'
   | MarkComponent;
 
 export type ChannelTypes =
@@ -223,6 +225,12 @@ export type PathMark = BaseGeometry<'path', ChannelTypes>;
 
 export type TreemapMark = BaseGeometry<'treemap', 'value' | ChannelTypes> & {
   layout?: Record<string, any>;
+};
+
+export type PackMark = BaseGeometry<'pack', 'value' | ChannelTypes> & {
+  layout?: Record<string, any>;
+  height?: number;
+  width?: number;
 };
 
 export type CustomComponent = BaseGeometry<MarkComponent>;

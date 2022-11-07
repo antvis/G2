@@ -101,3 +101,4 @@ export { londonTubeLineGeo } from './london-tube-lines-geo';
 export { countries50mProjectionComparison } from './countries-50m-projection-comparison';
 export { flareTreemapDefault } from './flare-treemap-default';
 export { flareTreemapCustom } from './flare-treemap-custom';
+export { flarePack } from './flare-pack';

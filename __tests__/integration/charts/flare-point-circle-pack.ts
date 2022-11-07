@@ -8,7 +8,6 @@ export function flarePointCirclePack(): G2Spec {
   const layout = (data) => {
     const root = hierarchy(data);
     root.count();
-    // @ts-ignore
     pack().size([width, height]).padding(5)(root);
     return root.descendants();
   };
