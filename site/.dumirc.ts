@@ -313,11 +313,6 @@ export default defineConfig({
     ],
   },
   mfsu: false,
-  // tnpm 安装的目录会导致 webpack 缓存快照 OOM，暂时禁用
-  chainWebpack(memo) {
-    memo.delete('cache');
-    return memo;
-  },
   links: [],
   scripts: [],
 });
