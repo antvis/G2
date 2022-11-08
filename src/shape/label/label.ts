@@ -29,9 +29,13 @@ function getDefaultStyle(
   const p = inferPosition(position, coordinate);
   const t = theme[p === 'inside' ? 'innerLabel' : 'label'];
   const v = Object.assign({}, t, value);
+  const processor = PositionProcessor[camelCase(p)];
+  if (!processor) {
+    throw new Error(`Unknown position: ${p}`);
+  }
   return {
     ...t,
-    ...PositionProcessor[camelCase(p)](p, points, v, coordinate),
+    ...processor(p, points, v, coordinate),
   };
 }
 

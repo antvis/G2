@@ -4,5 +4,101 @@
     "en": "Category"
   },
   "demos": [
+    {
+      "filename": "line-basic.ts",
+      "title": {
+        "zh": "普通折线图",
+        "en": "Basic Line Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*jTdCR7wVFZAAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "line-connect-nulls.ts",
+      "title": {
+        "zh": "缺失折线图",
+        "en": "Missing Data Line Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*46DiTJLA2t8AAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "line-series.ts",
+      "title": {
+        "zh": "系列折线图",
+        "en": "Series Line Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*y84BS5AqJLYAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "line-normalized.ts",
+      "title": {
+        "zh": "归一化折线图",
+        "en": "Normalized Line Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*MzXYRqHjHQEAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "line-aggregated-label.ts",
+      "title": {
+        "zh": "聚合折线图",
+        "en": "Aggregated Line Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*-q4yQZ7WtDcAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "line-variable-color.ts",
+      "title": {
+        "zh": "多色折线图",
+        "en": "Variable Color Line Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*WVwSRa-HQAcAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "line-gradient-encoding.ts",
+      "title": {
+        "zh": "颜色编码折线图",
+        "en": "Gradient Encoding Line Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*OwgcQoNg8m8AAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "line-threshold.ts",
+      "title": {
+        "zh": "阈值折线图",
+        "en": "Threshold Line Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*YUrlS4AWYFkAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "line-candle-stick.ts",
+      "title": {
+        "zh": "股票图",
+        "en": "Candle Stick Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*IXIkSa7SW2sAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "line-slope.ts",
+      "title": {
+        "zh": "斜率图",
+        "en": "Slope Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*zrqfRKBLvAsAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "line-parallel-vertical.ts",
+      "title": {
+        "zh": "竖直平行坐标系",
+        "en": "Vertical Parallel"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*aX6WSJw7proAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "line-parallel-horizontal.ts",
+      "title": {
+        "zh": "水平平行坐标系",
+        "en": "Horizontal Parallel"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*SOZOT7Smha0AAAAAAAAAAAAADmJ7AQ"
+    }
   ]
 }

@@ -29,7 +29,6 @@ function setOptions(node) {
     .animate('enter', { type: 'scaleInX' })
     .adjust({ type: 'pack' })
     .facet(true)
-    .frame(true)
     .key('mark')
     .class('mark')
     .coordinate({ type: 'polar' })
@@ -58,7 +57,6 @@ function getOptions() {
     adjust: { type: 'pack' },
     axis: { x: { tickCount: 10 } },
     legend: { y: { title: 'hello' } },
-    frame: true,
     facet: true,
     key: 'mark',
     class: 'mark',

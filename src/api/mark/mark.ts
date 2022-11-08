@@ -108,7 +108,6 @@ export const props: NodePropertyDescriptor[] = [
   { name: 'transform', type: 'array' },
   { name: 'style', type: 'object' },
   { name: 'animate', type: 'object' },
-  { name: 'frame', type: 'value' },
   { name: 'facet', type: 'value' },
   { name: 'adjust', type: 'value' },
   { name: 'coordinate', type: 'array' },
