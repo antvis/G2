@@ -52,6 +52,10 @@ export type ViewComposition = {
   scale?: Record<string, Scale>;
   adjust?: Adjust;
   labelTransform?: LabelTransform[];
+  // @todo
+  axis?: Record<string, any>;
+  // @todo
+  legend?: Record<string, any>;
   on?: Record<string, EventType | EventType[]>;
   // @todo
   style?: Record<string, any>;

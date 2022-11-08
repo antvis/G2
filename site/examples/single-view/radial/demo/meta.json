@@ -43,6 +43,14 @@
         "en": "Radial Stacked Bar Chart"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Lv1oT5JCtrMAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "area-radial.ts",
+      "title": {
+        "zh": "径向面积图",
+        "en": "Radial Area Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*-m-2QolJUt0AAAAAAAAAAAAADmJ7AQ"
     }
   ]
 }
