@@ -4,19 +4,13 @@ import { applyStyle, arrowPoints, ArrowOptions, getShapeTheme } from '../utils';
 import { select } from '../../utils/selection';
 import { ShapeComponent as SC } from '../../runtime';
 
-export type LinkOptions = {
-  /**
-   * Whether draw arrow, Default: false.
-   */
-  arrow?: ArrowOptions;
-  [key: string]: any;
-};
+export type LinkOptions = ArrowOptions;
 
 /**
  * Connect 2 points with a single line.
  */
 export const Link: SC<LinkOptions> = (options) => {
-  const { arrow, ...style } = options;
+  const { arrowSize, ...style } = options;
   return (points, value, coordinate, theme) => {
     const { mark, shape, defaultShape } = value;
     const { stroke, ...shapeTheme } = getShapeTheme(
@@ -34,9 +28,9 @@ export const Link: SC<LinkOptions> = (options) => {
     path.lineTo(...to);
 
     // Draw 2 arrows.
-    if (arrow) {
+    if (arrowSize) {
       // Calculate arrow end point.
-      const [arrow1, arrow2] = arrowPoints(from, to, arrow);
+      const [arrow1, arrow2] = arrowPoints(from, to, { arrowSize });
       path.moveTo(...to);
       path.lineTo(...arrow1);
       path.moveTo(...to);

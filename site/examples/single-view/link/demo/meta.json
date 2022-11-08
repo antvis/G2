@@ -4,5 +4,21 @@
     "en": "Category"
   },
   "demos": [
+    {
+      "filename": "link.ts",
+      "title": {
+        "zh": "向量图",
+        "en": "Link Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*tAvnRKK-8KcAAAAAAAAAAAAADmJ7AQ/fmt.webp"
+    },
+    {
+      "filename": "link-annotation.ts",
+      "title": {
+        "zh": "Link 辅助线",
+        "en": "Link Annotation"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*UQTKTaVEZTsAAAAAAAAAAAAADmJ7AQ/fmt.webp"
+    }
   ]
 }
