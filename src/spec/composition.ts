@@ -43,6 +43,11 @@ export type ViewComposition = {
   marginBottom?: number;
   marginTop?: number;
   marginRight?: number;
+  inset?: number;
+  insetLeft?: number;
+  insetTop?: number;
+  insetBottom?: number;
+  insetRight?: number;
   coordinate?: Coordinate[];
   interaction?: Interaction[];
   transform?: Transform[];
@@ -52,6 +57,10 @@ export type ViewComposition = {
   scale?: Record<string, Scale>;
   adjust?: Adjust;
   labelTransform?: LabelTransform[];
+  // @todo
+  axis?: Record<string, any>;
+  // @todo
+  legend?: Record<string, any>;
   on?: Record<string, EventType | EventType[]>;
   // @todo
   style?: Record<string, any>;

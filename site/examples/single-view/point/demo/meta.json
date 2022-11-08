@@ -4,5 +4,101 @@
     "en": "Category"
   },
   "demos": [
+    {
+      "filename": "point-basic.ts",
+      "title": {
+        "zh": "散点图",
+        "en": "Scatterplot"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*u5aGSoyRDN8AAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "point-one-dimension.ts",
+      "title": {
+        "zh": "一维散点图",
+        "en": "One Dimension Scatterplot"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*SCXXQYObM_AAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "point-strip.ts",
+      "title": {
+        "zh": "带子散点图",
+        "en": "Strip Plot"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*pCUiTouHSbYAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "point-label.ts",
+      "title": {
+        "zh": "标签散点图",
+        "en": "Scatterplot, Labeled"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*m7HITJRLnu8AAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "point-shape.ts",
+      "title": {
+        "zh": "多形状散点图",
+        "en": "Multi-Shape Scatterplot"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*eZdTSrbFVdgAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "point-sequential.ts",
+      "title": {
+        "zh": "渐变色散点图",
+        "en": "Gradient Scatterplot"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*A1N1SbupvX8AAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "point-jitter.ts",
+      "title": {
+        "zh": "扰动散点图",
+        "en": "Jitter Scatterplot"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*0BaMRpu8tN8AAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "point-stacked.ts",
+      "title": {
+        "zh": "堆叠散点图",
+        "en": "Stacked Scatterplot"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*f26KS6m_fHgAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "point-bubble.ts",
+      "title": {
+        "zh": "气泡图",
+        "en": "Bubble Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*TE7xQLXpdUUAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "point-log.ts",
+      "title": {
+        "zh": "对数气泡图",
+        "en": "Log Scatterplot"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*T8Y-T5BlUTgAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "point-aggregated.ts",
+      "title": {
+        "zh": "聚合气泡图",
+        "en": "Aggregated Bubble Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*49cUTYAB3HcAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "point-dot.ts",
+      "title": {
+        "zh": "点图",
+        "en": "Dot Plot"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*RtalTb-DPdkAAAAAAAAAAAAADmJ7AQ"
+    }
   ]
 }

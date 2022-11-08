@@ -8,7 +8,7 @@
       "filename": "step-area.ts",
       "title": {
         "zh": "阶梯面积图",
-        "en": "Step Area"
+        "en": "Step Area Chart"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*NRD9RKPyOEsAAAAAAAAAAAAADmJ7AQ/original"
     },
@@ -16,7 +16,7 @@
       "filename": "area.ts",
       "title": {
         "zh": "面积图",
-        "en": "Area"
+        "en": "Area Chart"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ZxtyTrhyN4sAAAAAAAAAAAAADmJ7AQ/original"
     },
@@ -24,15 +24,23 @@
       "filename": "missing-data-area.ts",
       "title": {
         "zh": "数据缺失面积图",
-        "en": "Missing Data Area"
+        "en": "Missing Data Area Chart"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ns2sS5S_VEAAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "area-gradient.ts",
+      "title": {
+        "zh": "渐变色面积图",
+        "en": "Gradient Area Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*VasvRpYGSLYAAAAAAAAAAAAADmJ7AQ"
     },
     {
       "filename": "stacked-area.ts",
       "title": {
         "zh": "堆叠面积图",
-        "en": "Stacked Area"
+        "en": "Stacked Area Chart"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*O3TaRpybBCgAAAAAAAAAAAAADmJ7AQ/original"
     },
@@ -40,17 +48,9 @@
       "filename": "orderly-area.ts",
       "title": {
         "zh": "彩条图",
-        "en": "Orderly Area"
+        "en": "Stripe Chart"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*HZ1BR6GS6U4AAAAAAAAAAAAADmJ7AQ/original"
-    },
-    {
-      "filename": "cascade-area.ts",
-      "title": {
-        "zh": "层叠面积图",
-        "en": "Cascade Area"
-      },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*3JKERLor91gAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "streamgraph.ts",
@@ -63,10 +63,18 @@
     {
       "filename": "percentage-area.ts",
       "title": {
-        "zh": "百分比堆积面积图",
-        "en": "Percentage Area"
+        "zh": "归一化堆积面积图",
+        "en": "Normalized Area, MaxIndex"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*WZe_T5tyWgoAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "cascade-area.ts",
+      "title": {
+        "zh": "出现顺序堆叠面积图",
+        "en": "Stacked Area"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*3JKERLor91gAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "label.ts",
@@ -83,6 +91,14 @@
         "en": "Area Difference"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*CJn4T4_Rf98AAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "area-band.ts",
+      "title": {
+        "zh": "板子图",
+        "en": "Band Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*2ocsR71h_CIAAAAAAAAAAAAADmJ7AQ"
     }
   ]
 }

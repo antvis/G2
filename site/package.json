@@ -8,9 +8,10 @@
   },
   "dependencies": {
     "@antv/dumi-theme-antv": "^0.3.0-beta.5",
+    "d3-array": "^3.2.0",
+    "d3-geo-projection": "^4.0.0",
     "d3-hierarchy": "^3.1.2",
     "d3-voronoi": "^1.1.4",
-    "d3-geo-projection": "^4.0.0",
     "dumi": "^2.0.0-beta.15",
     "topojson": "^3.0.2"
   },
