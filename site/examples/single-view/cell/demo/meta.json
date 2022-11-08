@@ -1,0 +1,56 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "cell-basic.ts",
+      "title": {
+        "zh": "华夫饼图",
+        "en": "Waffle"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*kaRCT7ik6rkAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "cell-heatmap.ts",
+      "title": {
+        "zh": "热力图",
+        "en": "Heatmap"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*XYedR7WEoUEAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "cell-threshold.ts",
+      "title": {
+        "zh": "阈值热力图",
+        "en": "Threshold Heatmap"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*RcOMSq6qcFAAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "cell-quantile.ts",
+      "title": {
+        "zh": "分位数热力图",
+        "en": "Quantile Heatmap"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*i8u2RLyueqgAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "cell-quantize.ts",
+      "title": {
+        "zh": "量化热力图",
+        "en": "Quantize Heatmap"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*gWiuQqMJ-TAAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "cell-aggregated.ts",
+      "title": {
+        "zh": "聚合热力图",
+        "en": "Aggregated Heatmap"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*Wk4zR40uQesAAAAAAAAAAAAADmJ7AQ"
+    }
+  ]
+}

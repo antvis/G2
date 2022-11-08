@@ -226,6 +226,7 @@ function inferScaleDomain(
     case 'log':
     case 'pow':
     case 'sqrt':
+    case 'quantize':
     case 'threshold': {
       const [d0, d1] = inferDomainQ(value, options);
       return [domainMin || d0, domainMax || d1];
