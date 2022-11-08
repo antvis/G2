@@ -1,5 +1,15 @@
 import { deepMix, isArray, isFunction } from '@antv/util';
-import * as d3Hierarchy from 'd3-hierarchy';
+import {
+  stratify,
+  hierarchy,
+  treemap as treemapLayout,
+  treemapBinary,
+  treemapDice,
+  treemapSlice,
+  treemapSliceDice,
+  treemapSquarify,
+  treemapResquarify,
+} from 'd3-hierarchy';
 import { subObject } from '../utils/helper';
 import { CompositionComponent as CC } from '../runtime';
 import { TreemapMark } from '../spec';
@@ -40,11 +50,17 @@ type TreemapData = {
 }[];
 
 function getTileMethod(tile: string, ratio: number) {
+  const tiles = {
+    treemapBinary,
+    treemapDice,
+    treemapSlice,
+    treemapSliceDice,
+    treemapSquarify,
+    treemapResquarify,
+  };
   const tileMethod =
-    tile === 'treemapSquarify'
-      ? d3Hierarchy[tile].ratio(ratio)
-      : d3Hierarchy[tile];
-  if (!tile) {
+    tile === 'treemapSquarify' ? tiles[tile].ratio(ratio) : tiles[tile];
+  if (!tileMethod) {
     throw new TypeError('Invalid tile method!');
   }
   return tileMethod;
@@ -58,8 +74,8 @@ function dataTransform(data, layout: Layout, encode): TreemapData {
   // Path need when the data is a flat json structure,
   // and the tree object structure do not need.
   const root = isArray(originalData)
-    ? d3Hierarchy.stratify().path(path)(originalData)
-    : d3Hierarchy.hierarchy(originalData);
+    ? stratify().path(path)(originalData)
+    : hierarchy(originalData);
   // Calculate the value and sort.
   value
     ? root
@@ -67,8 +83,7 @@ function dataTransform(data, layout: Layout, encode): TreemapData {
         .sort(layout.sort)
     : root.count();
 
-  d3Hierarchy
-    .treemap()
+  treemapLayout()
     .tile(tileMethod)
     .size(layout.size)
     .round(layout.round)
