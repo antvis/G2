@@ -124,6 +124,7 @@ export interface Chart extends Composition, Mark {
   scale: ObjectAttribute<ChartOptions['scale'], Chart>;
   axis: ObjectAttribute<ChartOptions['axis'], Chart>;
   legend: ObjectAttribute<ChartOptions['legend'], Chart>;
+  style: ObjectAttribute<ChartOptions['style'], Chart>;
 }
 
 export const props: NodePropertyDescriptor[] = [
@@ -141,6 +142,7 @@ export const props: NodePropertyDescriptor[] = [
   { name: 'scale', type: 'object' },
   { name: 'axis', type: 'object' },
   { name: 'legend', type: 'object' },
+  { name: 'style', type: 'object' },
   ...nodeProps(mark),
   ...containerProps(composition),
 ];

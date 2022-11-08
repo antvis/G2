@@ -51,6 +51,22 @@
         "en": "Radial Area Chart"
       },
       "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*-m-2QolJUt0AAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "point-jitter-radial.ts",
+      "title": {
+        "zh": "径向扰动散点图",
+        "en": "Radial Jitter Scatter"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*eJQYQZQ_HZQAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "polar-box.ts",
+      "title": {
+        "zh": "径向箱线图",
+        "en": "Polar Boxplot"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*cCMOQ7YsuFkAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }

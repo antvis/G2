@@ -45,6 +45,7 @@ export interface View extends Mark {
   { type: 'object', name: 'theme' },
   { type: 'object', name: 'style' },
   { type: 'object', name: 'scale' },
+  { name: 'frame', type: 'value' },
   ...nodeProps(mark),
 ])
 export class View extends Node<ViewComposition> {

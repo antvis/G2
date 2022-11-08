@@ -43,6 +43,11 @@ export type ViewComposition = {
   marginBottom?: number;
   marginTop?: number;
   marginRight?: number;
+  inset?: number;
+  insetLeft?: number;
+  insetTop?: number;
+  insetBottom?: number;
+  insetRight?: number;
   coordinate?: Coordinate[];
   interaction?: Interaction[];
   transform?: Transform[];
