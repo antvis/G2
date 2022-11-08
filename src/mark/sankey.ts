@@ -64,7 +64,7 @@ export const Sankey: CC<SankeyOptions> = (options) => {
     },
     scale: {
       x: { type: 'identity' },
-      y: { type: 'identity', domain: [0, 1] },
+      y: { type: 'identity' },
     },
     style: {
       stroke: '#000',

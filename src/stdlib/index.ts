@@ -36,6 +36,7 @@ import {
   RangeY,
   Sankey,
   Path,
+  Treemap,
 } from '../mark';
 import {
   Category10,
@@ -328,6 +329,7 @@ export function createLibrary(): G2Library {
     'mark.rangeY': RangeY,
     'mark.sankey': Sankey,
     'mark.path': Path,
+    'mark.treemap': Treemap,
     'palette.category10': Category10,
     'palette.category20': Category20,
     'palette.sequentialBlue': SequentialBlue,

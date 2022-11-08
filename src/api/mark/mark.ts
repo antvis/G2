@@ -254,3 +254,10 @@ export class Sankey extends Node<SankeyMark> {
     super({}, 'sankey');
   }
 }
+
+@defineProps([...props, { name: 'layout', type: 'object' }])
+export class Treemap extends Node<ConnectorMark> {
+  constructor() {
+    super({}, 'treemap');
+  }
+}
