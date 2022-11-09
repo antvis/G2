@@ -1,6 +1,3 @@
-/**
- * A recreation of this demo:
- */
 import { Chart } from '@antv/g2';
 
 const M = [

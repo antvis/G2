@@ -7,7 +7,7 @@
     {
       "filename": "matrix-col.ts",
       "title": {
-        "zh": "行重复矩阵",
+        "zh": "列重复矩阵",
         "en": "Repeat Matrix, Col"
       },
       "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*MhTMTrLKT5UAAAAAAAAAAAAADmJ7AQ"
