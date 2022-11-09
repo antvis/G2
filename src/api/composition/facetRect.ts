@@ -24,6 +24,8 @@ export interface FacetRect extends Composition, Mark {
   paddingTop: ValueAttribute<FacetRectSpec['paddingTop'], FacetRect>;
   shareData: ValueAttribute<FacetRectSpec['shareData'], FacetRect>;
   shareSize: ValueAttribute<FacetRectSpec['shareSize'], FacetRect>;
+  legend: ObjectAttribute<FacetRectSpec['legend'], FacetRect>;
+  axis: ObjectAttribute<FacetRectSpec['axis'], FacetRect>;
 }
 
 @defineProps([
@@ -38,6 +40,8 @@ export interface FacetRect extends Composition, Mark {
   { type: 'value', name: 'paddingTop' },
   { type: 'value', name: 'shareData' },
   { type: 'value', name: 'shareSize' },
+  { type: 'object', name: 'legend' },
+  { type: 'object', name: 'axis' },
   ...nodeProps(mark),
 ])
 export class FacetRect extends Node<FacetRectComposition> {

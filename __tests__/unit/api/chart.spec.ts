@@ -154,20 +154,44 @@ describe('Chart', () => {
     const chart = new Chart({
       width: 100,
       height: 120,
+      padding: 0,
       paddingBottom: 10,
       paddingRight: 20,
       paddingLeft: 30,
       paddingTop: 40,
+      marginBottom: 10,
+      marginRight: 20,
+      marginLeft: 30,
+      marginTop: 40,
+      margin: 0,
+      insetBottom: 10,
+      insetRight: 20,
+      insetLeft: 30,
+      insetTop: 40,
+      inset: 0,
+      autoFit: true,
     });
     chart.spaceLayer();
     expect(chart.options()).toEqual({
       type: 'spaceLayer',
       width: 100,
       height: 120,
+      padding: 0,
       paddingBottom: 10,
       paddingRight: 20,
       paddingLeft: 30,
       paddingTop: 40,
+      marginBottom: 10,
+      marginRight: 20,
+      marginLeft: 30,
+      marginTop: 40,
+      margin: 0,
+      insetBottom: 10,
+      insetRight: 20,
+      insetLeft: 30,
+      insetTop: 40,
+      inset: 0,
+      autoFit: true,
     });
   });
 
@@ -435,5 +459,4 @@ it('chart.on({...}) should register chart event.', () => {
     .encode('color', 'genre');
 
   chart.render();
-  console.log(chart.on());
 });

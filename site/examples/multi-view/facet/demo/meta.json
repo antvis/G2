@@ -1,0 +1,56 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "rect-row.ts",
+      "title": {
+        "zh": "行矩行分面",
+        "en": "Row Facet Rect"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*duq8TrR0LxcAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "rect-col.ts",
+      "title": {
+        "zh": "列矩行分面",
+        "en": "Col Facet Rect"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*HrOKSpDc7tYAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "rect.ts",
+      "title": {
+        "zh": "矩行分面",
+        "en": "Facet Rect"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*xDR0QKhMLHQAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "rect-bar.ts",
+      "title": {
+        "zh": "日历条形图",
+        "en": "Calendar Bar Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*bsgVT78LDYoAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "rect-pie.ts",
+      "title": {
+        "zh": "日历饼图",
+        "en": "Calendar Pie Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*gB2OR63NPHIAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "circle.ts",
+      "title": {
+        "zh": "圆形分面",
+        "en": "Facet Circle"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*Tsx5RJVrVtsAAAAAAAAAAAAADmJ7AQ"
+    }
+  ]
+}

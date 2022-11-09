@@ -1,0 +1,24 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "matrix-col.ts",
+      "title": {
+        "zh": "列重复矩阵",
+        "en": "Repeat Matrix, Col"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*MhTMTrLKT5UAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "matrix.ts",
+      "title": {
+        "zh": "重复矩阵",
+        "en": "Repeat Matrix"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*We0gRJIdGYUAAAAAAAAAAAAADmJ7AQ"
+    }
+  ]
+}

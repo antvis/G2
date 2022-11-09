@@ -49,6 +49,18 @@ function normalizeRoot(node: Node) {
   root.attr('paddingTop', node.attr('paddingTop'));
   root.attr('paddingBottom', node.attr('paddingBottom'));
   root.attr('paddingRight', node.attr('paddingRight'));
+  root.attr('insetLeft', node.attr('insetLeft'));
+  root.attr('insetRight', node.attr('insetRight'));
+  root.attr('insetBottom', node.attr('insetBottom'));
+  root.attr('insetTop', node.attr('insetTop'));
+  root.attr('marginLeft', node.attr('marginLeft'));
+  root.attr('marginBottom', node.attr('marginBottom'));
+  root.attr('marginTop', node.attr('marginTop'));
+  root.attr('marginRight', node.attr('marginRight'));
+  root.attr('autoFit', node.attr('autoFit'));
+  root.attr('padding', node.attr('padding'));
+  root.attr('margin', node.attr('margin'));
+  root.attr('inset', node.attr('inset'));
   return root;
 }
 
@@ -178,7 +190,7 @@ export class Chart extends Node<ChartOptions> {
       this.width(adjustedWidth);
       this.height(adjustedHeight);
 
-      // Create canvas if it do not exist.
+      // Create canvas if it does not exist.
       this._context.canvas = Canvas(
         document.createElement('div'),
         width,
