@@ -5,7 +5,7 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.coordinate({ type: 'theta', endAngle: Math.PI });
+chart.coordinate({ type: 'radial', endAngle: Math.PI });
 
 chart
   .interval()

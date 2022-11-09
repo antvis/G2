@@ -31,10 +31,18 @@
     {
       "filename": "bar-radial.ts",
       "title": {
-        "zh": "玉钰图",
+        "zh": "玉珏图",
         "en": "Radial Bar Chart"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*TVXmRq627aEAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "bar-cornered-radial.ts",
+      "title": {
+        "zh": "圆角玉珏图",
+        "en": "Cornered Radial Bar Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*7TmbQ7gsvAgAAAAAAAAAAAAADmJ7AQ"
     },
     {
       "filename": "bar-stacked-radial.ts",

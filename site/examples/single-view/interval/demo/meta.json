@@ -141,14 +141,6 @@
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dorbTKo4Ru8AAAAAAAAAAAAADmJ7AQ/original"
     },
     {
-      "filename": "bar-radial.ts",
-      "title": {
-        "zh": "玉珏图",
-        "en": "Radial Bar Chart"
-      },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*7TmbQ7gsvAgAAAAAAAAAAAAADmJ7AQ"
-    },
-    {
       "filename": "bar-dual-axes.ts",
       "title": {
         "zh": "多轴条形图",
