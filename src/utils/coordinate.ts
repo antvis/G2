@@ -16,7 +16,8 @@ export function isPolar(coordinate: Coordinate): boolean {
 export function isRadial(coordinate: Coordinate): boolean {
   const { transformations } = coordinate.getOptions();
   return (
-    transformations.some(([type]) => type.startsWith('reflect')) &&
+    // distinguish radial from theta.
+    transformations.some(([type]) => type === 'reflect') &&
     transformations.some(([type]) => type.startsWith('transpose'))
   );
 }
