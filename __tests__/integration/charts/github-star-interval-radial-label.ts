@@ -13,11 +13,11 @@ export function githubStarIntervalRadialLabel(): G2Spec {
       x: 'name',
       y: 'star',
       color: 'name',
+      size: 40,
     },
-    axis: {
-      y: false,
-    },
+    axis: { y: false },
     legend: false,
+    style: { radius: 20 },
     labels: [
       {
         text: 'star',
