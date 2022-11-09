@@ -231,7 +231,9 @@ describe('Composition', () => {
       .shareSize(true)
       .scale('x', { type: 'log' })
       .encode('y', 'name')
-      .transform({ type: 'stackY' });
+      .transform({ type: 'stackY' })
+      .axis('x', { title: 'a' })
+      .legend('color', { title: 'b' });
 
     expect(node.type).toBe('facetRect');
     expect(node.value).toEqual({
@@ -246,6 +248,8 @@ describe('Composition', () => {
       transform: [{ type: 'stackY' }],
       shareData: true,
       shareSize: true,
+      axis: { x: { title: 'a' } },
+      legend: { color: { title: 'b' } },
     });
     expectToCreateNodes(node);
   });

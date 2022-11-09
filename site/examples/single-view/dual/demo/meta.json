@@ -1,0 +1,16 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "dual-aggregated-line-area.ts",
+      "title": {
+        "zh": "聚合线面双轴图",
+        "en": "Aggregated Dual Line And Area Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*J-lVRamRfgUAAAAAAAAAAAAADmJ7AQ"
+    }
+  ]
+}

@@ -21,4 +21,16 @@ export type API<Props extends Geometry, Mark> = {
   paddingRight: ValueAttribute<Props['paddingRight'], Mark>;
   paddingBottom: ValueAttribute<Props['paddingBottom'], Mark>;
   paddingTop: ValueAttribute<Props['paddingTop'], Mark>;
+  padding: ValueAttribute<Props['padding'], Mark>;
+  insetLeft: ValueAttribute<Props['insetLeft'], Mark>;
+  insetTop: ValueAttribute<Props['insetTop'], Mark>;
+  insetBottom: ValueAttribute<Props['insetBottom'], Mark>;
+  insetRight: ValueAttribute<Props['insetRight'], Mark>;
+  inset: ValueAttribute<Props['inset'], Mark>;
+  marginLeft: ValueAttribute<Props['marginLeft'], Mark>;
+  marginTop: ValueAttribute<Props['marginTop'], Mark>;
+  marginBottom: ValueAttribute<Props['marginBottom'], Mark>;
+  marginRight: ValueAttribute<Props['marginBottom'], Mark>;
+  margin: ValueAttribute<Props['margin'], Mark>;
+  frame: ValueAttribute<Props['frame'], Mark>;
 };

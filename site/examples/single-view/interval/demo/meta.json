@@ -100,6 +100,7 @@
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*fY5CTLQMv4IAAAAAAAAAAAAADmJ7AQ/original"
     },
+
     {
       "filename": "bar-aggregated-normalized-stacked.ts",
       "title": {
@@ -107,6 +108,14 @@
         "en": "Aggregated Normalized Stacked Bar Chart"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*1oZjT4cKSh8AAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "bar-stacked-normalized-1d.ts",
+      "title": {
+        "zh": "一维聚合堆叠条形图",
+        "en": "Aggregated Stacked Bar Chart, 1D"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*6CbxQ6P9bFcAAAAAAAAAAAAADmJ7AQ"
     },
     {
       "filename": "bar-flex.ts",
@@ -147,6 +156,14 @@
         "en": "Dual Axes Bar Chart"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*TehBRbDnoIkAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "bar-multi-measure.ts",
+      "title": {
+        "zh": "多度量条形图",
+        "en": "Multi-Measure Bar Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*-JCwSpV0pAsAAAAAAAAAAAAADmJ7AQ"
     }
   ]
 }

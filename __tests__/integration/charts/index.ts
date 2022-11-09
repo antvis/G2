@@ -104,3 +104,4 @@ export { flareTreemapDefault } from './flare-treemap-default';
 export { flareTreemapCustom } from './flare-treemap-custom';
 export { metrosLinkTrending } from './metros-link-trending';
 export { incomeLinkAnnotation } from './income-link-annotation';
+export { alphabetIntervalSpaceLayer } from './alphabet-interval-space-layer';

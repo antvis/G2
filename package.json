@@ -58,7 +58,7 @@
     "@types/pngjs": "^6.0.1",
     "@typescript-eslint/eslint-plugin": "^4.18.0",
     "@typescript-eslint/parser": "^4.18.0",
-    "canvas": "^2.9.1",
+    "canvas": "^2.10.2",
     "cross-env": "^7.0.3",
     "d3-dsv": "^3.0.1",
     "d3-fetch": "^3.0.1",
