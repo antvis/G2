@@ -116,9 +116,21 @@ export const props: NodePropertyDescriptor[] = [
   { name: 'paddingRight', type: 'value' },
   { name: 'paddingBottom', type: 'value' },
   { name: 'paddingTop', type: 'value' },
+  { name: 'padding', type: 'value' },
+  { name: 'insetLeft', type: 'value' },
+  { name: 'insetRight', type: 'value' },
+  { name: 'insetBottom', type: 'value' },
+  { name: 'insetTop', type: 'value' },
+  { name: 'inset', type: 'value' },
+  { name: 'marginLeft', type: 'value' },
+  { name: 'marginRight', type: 'value' },
+  { name: 'marginBottom', type: 'value' },
+  { name: 'marginTop', type: 'value' },
+  { name: 'margin', type: 'value' },
   { name: 'label', type: 'array', key: 'labels' },
   { name: 'axis', type: 'object' },
   { name: 'legend', type: 'object' },
+  { name: 'frame', type: 'value' },
 ];
 
 @defineProps(props)

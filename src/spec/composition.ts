@@ -120,6 +120,10 @@ export type FacetRectComposition = {
   shareData?: boolean;
   shareSize?: boolean;
   children?: Node[] | ((facet: FacetContext) => Node);
+  // @todo
+  axis?: Record<string, any>;
+  // @todo
+  legend?: Record<string, any>;
 };
 
 export type RepeatMatrixComposition = {
@@ -138,8 +142,8 @@ export type RepeatMatrixComposition = {
   data?: Data;
   key?: string;
   encode?: {
-    x?: string[];
-    y?: string[];
+    x?: string[] | string;
+    y?: string[] | string;
     position?: string[];
   };
   scale?: {

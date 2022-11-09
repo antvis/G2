@@ -4,5 +4,45 @@
     "en": "Category"
   },
   "demos": [
+    {
+      "filename": "basic.ts",
+      "title": {
+        "zh": "基础",
+        "en": "Basic"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*1r3YQYebrW8AAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "share-size.ts",
+      "title": {
+        "zh": "共享尺寸定义域",
+        "en": "Share Size"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*l_XxTJEYVjEAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "share-data.ts",
+      "title": {
+        "zh": "共享数据定义域",
+        "en": "Share Data"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*jOjNTaleRVcAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "2d.ts",
+      "title": {
+        "zh": "二维",
+        "en": "2D"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*LsMJTrDb-wgAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "nested.ts",
+      "title": {
+        "zh": "嵌套",
+        "en": "Nested"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*TKf1TrmsZ6AAAAAAAAAAAAAADmJ7AQ"
+    }
   ]
 }

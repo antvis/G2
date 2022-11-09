@@ -33,10 +33,21 @@ function setOptions(node) {
     .class('mark')
     .coordinate({ type: 'polar' })
     .interaction({ type: 'brush' })
+    .padding(0)
     .paddingBottom(10)
     .paddingLeft(20)
     .paddingTop(30)
     .paddingRight(40)
+    .margin(0)
+    .marginBottom(10)
+    .marginLeft(20)
+    .marginTop(30)
+    .marginRight(40)
+    .inset(0)
+    .insetBottom(10)
+    .insetLeft(20)
+    .insetTop(30)
+    .insetRight(40)
     .axis('x', { tickCount: 10 })
     .legend('y', { title: 'hello' })
     .label({ text: 'hello' });
@@ -62,10 +73,21 @@ function getOptions() {
     class: 'mark',
     coordinate: [{ type: 'polar' }],
     interaction: [{ type: 'brush' }],
+    padding: 0,
     paddingBottom: 10,
     paddingLeft: 20,
     paddingTop: 30,
     paddingRight: 40,
+    inset: 0,
+    insetBottom: 10,
+    insetLeft: 20,
+    insetTop: 30,
+    insetRight: 40,
+    margin: 0,
+    marginBottom: 10,
+    marginLeft: 20,
+    marginTop: 30,
+    marginRight: 40,
     labels: [{ text: 'hello' }],
   };
 }
