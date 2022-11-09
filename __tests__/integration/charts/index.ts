@@ -20,6 +20,7 @@ export { population2015IntervalDonutLabel } from './population2015-interval-donu
 export { agesIntervalRadialStacked } from './ages-interval-radial-stacked';
 export { agesIntervalRadialStackedSorted } from './ages-interval-radial-stacked-sorted';
 export { question8IntervalRadialGradientColor } from './question8-interval-radial-gradient-color';
+export { githubStarIntervalRadialLabel } from './github-star-interval-radial-label';
 export { populationIntervalRose } from './population-interval-rose';
 export { populationIntervalRoseLabel } from './population-interval-rose-label';
 export { carsPointScatterPlot } from './cars-point-scatterplot';
