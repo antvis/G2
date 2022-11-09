@@ -75,6 +75,14 @@
         "en": "Polar Boxplot"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*cCMOQ7YsuFkAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "apple-activity.ts",
+      "title": {
+        "zh": "Apple 活动图",
+        "en": "Apple Activity"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*o3j-SZCiTZwAAAAAAAAAAAAADmJ7AQ"
     }
   ]
 }

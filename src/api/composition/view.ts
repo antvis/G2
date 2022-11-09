@@ -27,6 +27,7 @@ export interface View extends Mark {
   theme: ObjectAttribute<ViewSpec['theme'], View>;
   style: ObjectAttribute<ViewSpec['style'], View>;
   scale: ObjectAttribute<ViewSpec['scale'], View>;
+  axis: ObjectAttribute<ViewSpec['axis'], View>;
 }
 
 @defineProps([
@@ -45,6 +46,7 @@ export interface View extends Mark {
   { type: 'object', name: 'theme' },
   { type: 'object', name: 'style' },
   { type: 'object', name: 'scale' },
+  { type: 'object', name: 'axis' },
   { name: 'frame', type: 'value' },
   ...nodeProps(mark),
 ])
