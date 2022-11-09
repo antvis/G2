@@ -275,4 +275,8 @@ export type PackMark = BaseGeometry<'pack', 'value' | ChannelTypes> & {
   layout?: Record<string, any>;
 };
 
+export type ForceMark = BaseGeometry<'pack', 'value' | ChannelTypes> & {
+  layout?: Record<string, any>;
+};
+
 export type CustomComponent = BaseGeometry<MarkComponent>;
