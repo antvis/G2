@@ -34,6 +34,8 @@ export { SortColor } from './sortColor';
 export { SortY } from './sortY';
 export { FlexX } from './flexX';
 export { Pack } from './pack';
+export { BinX } from './binX';
+export { Bin } from './bin';
 
 export type { MaybeZeroY1Options } from './maybeZeroY1';
 export type { MaybeStackYOptions } from './maybeStackY';
@@ -71,3 +73,5 @@ export type { SortYOptions } from './sortY';
 export type { SortColorOptions } from './sortColor';
 export type { FlexXOptions } from './flexX';
 export type { PackOptions } from './pack';
+export type { BinXOptions } from './binX';
+export type { BinOptions } from './bin';

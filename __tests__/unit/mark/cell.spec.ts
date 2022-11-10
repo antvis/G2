@@ -9,6 +9,7 @@ describe('Cell', () => {
       defaultLabelShape: 'label',
       channels: [
         { name: 'color' },
+        { name: 'opacity' },
         { name: 'shape' },
         { name: 'enterType' },
         { name: 'enterDelay', scaleName: 'enter' },

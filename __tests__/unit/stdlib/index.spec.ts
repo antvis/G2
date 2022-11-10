@@ -216,6 +216,8 @@ import {
   GroupY,
   GroupColor,
   Pack,
+  Bin,
+  BinX,
 } from '../../../src/transform';
 import {
   Fetch,
@@ -272,6 +274,8 @@ describe('stdlib', () => {
       'transform.maybeSeries': MaybeSeries,
       'transform.maybeZeroPadding': MaybeZeroPadding,
       'transform.stackY': StackY,
+      'transform.binX': BinX,
+      'transform.bin': Bin,
       'transform.dodgeX': DodgeX,
       'transform.jitter': Jitter,
       'transform.jitterX': JitterX,

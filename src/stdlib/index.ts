@@ -216,6 +216,8 @@ import {
   GroupColor,
   SortColor,
   Pack,
+  BinX,
+  Bin,
 } from '../transform';
 import {
   Fetch,
@@ -266,6 +268,8 @@ export function createLibrary(): G2Library {
     'transform.maybeSeries': MaybeSeries,
     'transform.maybeZeroPadding': MaybeZeroPadding,
     'transform.stackY': StackY,
+    'transform.binX': BinX,
+    'transform.bin': Bin,
     'transform.dodgeX': DodgeX,
     'transform.jitter': Jitter,
     'transform.jitterX': JitterX,

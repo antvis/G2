@@ -26,6 +26,7 @@ export function createGroups(
   mark: G2Mark,
 ): number[][] {
   const { encode } = mark;
+  if (groupBy === null) return [I];
   const G = normalizeGroupBy(groupBy)
     .map((k) => [k, columnOf(encode, k)?.[0]] as const)
     .filter(([, column]) => defined(column));

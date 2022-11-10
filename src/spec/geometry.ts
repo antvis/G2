@@ -67,6 +67,7 @@ export type ChannelTypes =
   | 'x1'
   | 'y1'
   | 'color'
+  | 'opacity'
   | 'shape'
   | 'enterType'
   | 'enterEasing'

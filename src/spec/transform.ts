@@ -21,6 +21,8 @@ export type Transform =
   | SortColorTransform
   | GroupTransform
   | PackTransform
+  | BinXTransform
+  | BinTransform
   | FlexXTransform;
 
 export type TransformTypes =
@@ -69,6 +71,7 @@ export type StackYTransform = {
   reverse?: boolean;
   orderBy?: TransformOrder;
   y?: 'y' | 'y1';
+  y1?: 'y' | 'y1';
   series?: boolean;
 };
 
@@ -227,4 +230,15 @@ export type GroupColorTransform = {
 
 export type GroupTransform = {
   type?: 'group';
+} & { [key in ChannelTypes]?: Reducer };
+
+export type BinXTransform = {
+  type?: 'binX';
+  thresholds?: number;
+} & { [key in ChannelTypes]?: Reducer };
+
+export type BinTransform = {
+  type?: 'bin';
+  thresholdsX?: number;
+  thresholdsY?: number;
 } & { [key in ChannelTypes]?: Reducer };
