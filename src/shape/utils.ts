@@ -204,3 +204,8 @@ export function getConnectStyle(
       .filter(([key]) => key !== undefined),
   );
 }
+
+export function toOpacityKey(options) {
+  const { opacityKey = 'fill' } = options;
+  return `${opacityKey}Opacity`;
+}

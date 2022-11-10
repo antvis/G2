@@ -15,7 +15,7 @@ chart
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/88c601cd-c1ff-4c9b-90d5-740d0b710b7e.json',
   })
-  .transform({ type: 'stackY' })
+  .transform({ type: 'stackY', y1: 'y' })
   .encode('x', (d) => 2021 - d.birth)
   .encode('y', (d) => (d.gender === 'M' ? 1 : -1))
   .encode('color', 'gender')

@@ -16,7 +16,8 @@ export const StackY: TC<StackYOptions> = (options = {}) => {
     groupBy = 'x',
     orderBy = null,
     reverse = false,
-    y: from = 'y',
+    y: fromY = 'y',
+    y1: fromY1 = 'y1',
     series = true,
   } = options;
   return (I, mark) => {
@@ -68,13 +69,14 @@ export const StackY: TC<StackYOptions> = (options = {}) => {
     }
 
     // Choose new y or y1 channel as the new y channel.
-    const V = from === 'y' ? newY : newY1;
+    const V = fromY === 'y' ? newY : newY1;
+    const V1 = fromY1 === 'y' ? newY : newY1;
     return [
       I,
       deepMix({}, mark, {
         encode: {
           y: column(V, fy),
-          y1: column(newY1, fy1),
+          y1: column(V1, fy1),
         },
       }),
     ];

@@ -11,7 +11,7 @@ export function peoplePointStacked(): G2Spec {
           type: 'fetch',
           value: 'data/people.csv',
         },
-        transform: [{ type: 'stackY' }],
+        transform: [{ type: 'stackY', y1: 'y' }],
         scale: {
           x: { nice: true },
         },

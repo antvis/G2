@@ -478,6 +478,7 @@ function inferRangeQ(name: string, palette: Palette): Primitive[] {
   if (name == 'enterDuration') return [300, 1000];
   if (name.startsWith('y') || name.startsWith('position')) return [1, 0];
   if (name === 'color') return [firstOf(palette), lastOf(palette)];
+  if (name === 'opacity') return [0, 1];
   if (name === 'size') return [1, 10];
   return [0, 1];
 }
