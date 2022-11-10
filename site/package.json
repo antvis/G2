@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@antv/dumi-theme-antv": "^0.3.0-beta.5",
+    "@antv/g-lottie-player": "^0.0.13",
     "d3-array": "^3.2.0",
     "d3-geo-projection": "^4.0.0",
     "d3-hierarchy": "^3.1.2",
