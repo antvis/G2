@@ -1,46 +1,11 @@
 import { deepMix } from '@antv/util';
 import { CompositionComponent as CC } from '../runtime';
 import { SankeyMark } from '../spec';
-import { subObject } from '../utils/helper';
 import { Sankey as SankeyTransform } from '../data/sankey';
+import { subObject } from '../utils/helper';
+import { field, initializeData } from './utils';
 
 export type SankeyOptions = Omit<SankeyMark, 'type'>;
-
-type Encode = 'string' | ((d: any) => any);
-
-function field(encode: Encode): (d: any) => any {
-  return typeof encode === 'function' ? encode : (d) => d[encode];
-}
-
-function valueof(data: Record<string, any>[], encode: Encode): any[] {
-  return Array.from(data, field(encode));
-}
-
-function initializeData(
-  data: { nodes?: any[]; links: any[] },
-  encode: Record<string, Encode>,
-): {
-  links: { target: string; source: string; value: any }[];
-  nodes: { key: string }[];
-} {
-  const {
-    source = (d) => d.source,
-    target = (d) => d.target,
-    value = (d) => d.value,
-  } = encode;
-  const { links, nodes } = data;
-  const LS = valueof(links, source);
-  const LT = valueof(links, target);
-  const LV = valueof(links, value);
-  return {
-    links: links.map((_, i) => ({
-      target: LT[i],
-      source: LS[i],
-      value: LV[i],
-    })),
-    nodes: nodes || Array.from(new Set([...LS, ...LT]), (key) => ({ key })),
-  };
-}
 
 /**
  * @todo Add interaction

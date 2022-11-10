@@ -1,16 +1,11 @@
-import { json } from 'd3-fetch';
 import { G2Spec } from '../../../src';
 
-export async function miserableForceDefault(): Promise<G2Spec> {
-  const data = await json('data/miserable.json');
-  console.log(data);
-
+export function miserableForceDefault(): G2Spec {
   return {
-    type: 'force',
+    type: 'forceGraph',
     data: {
-      value: {
-        data,
-      },
+      type: 'fetch',
+      value: 'data/miserable.json',
     },
   };
 }

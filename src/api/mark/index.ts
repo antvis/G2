@@ -21,6 +21,8 @@ import {
   Treemap,
   Boxplot,
   Shape,
+  Pack,
+  ForceGraph,
 } from './mark';
 
 export interface Mark {
@@ -46,6 +48,8 @@ export interface Mark {
   treemap(): Treemap;
   boxplot(): Boxplot;
   shape(): Shape;
+  pack(): Pack;
+  forceGraph(): ForceGraph;
 }
 
 export const mark = {
@@ -71,4 +75,6 @@ export const mark = {
   treemap: Treemap,
   boxplot: Boxplot,
   shape: Shape,
+  pack: Pack,
+  forceGraph: ForceGraph,
 };

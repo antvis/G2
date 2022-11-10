@@ -32,6 +32,8 @@ import {
   Sankey,
   Treemap,
   Shape,
+  Pack,
+  ForceGraph,
 } from '../../../src/api/mark/mark';
 import { createDiv } from '../../utils/dom';
 
@@ -129,6 +131,8 @@ describe('Chart', () => {
     expect(chart.treemap()).toBeInstanceOf(Treemap);
     expect(chart.boxplot()).toBeInstanceOf(Boxplot);
     expect(chart.shape()).toBeInstanceOf(Shape);
+    expect(chart.pack()).toBeInstanceOf(Pack);
+    expect(chart.forceGraph()).toBeInstanceOf(ForceGraph);
     expect(chart.options().children).toEqual([
       { type: 'interval' },
       { type: 'rect' },
@@ -152,6 +156,8 @@ describe('Chart', () => {
       { type: 'treemap' },
       { type: 'boxplot' },
       { type: 'shape' },
+      { type: 'pack' },
+      { type: 'forceGraph' },
     ]);
   });
 

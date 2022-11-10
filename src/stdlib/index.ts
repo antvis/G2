@@ -39,8 +39,8 @@ import {
   Treemap,
   Pack as PackGeometry,
   Shape,
-  BoxPlot,
-  Force,
+  Boxplot,
+  ForceGraph,
 } from '../mark';
 import {
   Category10,
@@ -351,7 +351,7 @@ export function createLibrary(): G2Library {
     'mark.pack': PackGeometry,
     'mark.boxplot': Boxplot,
     'mark.shape': Shape,
-    'mark.force': Force,
+    'mark.forceGraph': ForceGraph,
     'palette.category10': Category10,
     'palette.category20': Category20,
     'palette.sequentialBlue': SequentialBlue,
