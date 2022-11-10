@@ -12,7 +12,7 @@ describe('Connector shape', () => {
   it('Connector() should return a function draw connector with arrow', async () => {
     const container = document.createElement('div');
     const shape = await draw({
-      shape: Connector({ offset: 12 }),
+      shape: Connector({ connectLength1: 12 }),
       container,
       value: {
         color: 'steelblue',
@@ -25,15 +25,32 @@ describe('Connector shape', () => {
     mount(createDiv(), container);
 
     expect(shape.nodeName).toBe('g');
-    expect(style(shape, ['connectorPath'])).toEqual({
-      connectorPath: 'M60,200L60,188L240,188L240,200',
+    expect(shape.querySelector('.marker')).not.toBeNull();
+    expect(style(shape, ['points'])).toEqual({
+      points: [
+        [60, 200],
+        [60, 188],
+        [240, 188],
+        [240, 200],
+      ],
     });
-    // @ts-ignore
-    expect(shape.endMarker.style.symbol(0, 0, 8)).toEqual([
-      ['M', 0, 0],
-      ['L', -8, -16],
-      ['L', 8, -16],
-      ['Z'],
-    ]);
+  });
+
+  it('Connector() should return a function draw connector without arrow', async () => {
+    const container = document.createElement('div');
+    const shape = await draw({
+      shape: Connector({ endMarker: false }),
+      container,
+      value: {
+        color: 'steelblue',
+      },
+      vectors: [
+        [0.1, 0.5],
+        [0.4, 0.5],
+      ],
+    });
+    mount(createDiv(), container);
+
+    expect(shape.querySelector('.marker')).toBeNull();
   });
 });

@@ -37,7 +37,7 @@ const ConnectorPath = createElement((g) => {
   const {
     points,
     class: className,
-    endMarker,
+    endMarker = true,
     direction,
     ...rest
   } = g.attributes;
@@ -50,12 +50,15 @@ const ConnectorPath = createElement((g) => {
     .style('path', path)
     .style(
       'markerEnd',
-      new Marker({
-        style: {
-          ...markerStyle,
-          symbol: inferSymbol,
-        },
-      }),
+      endMarker
+        ? new Marker({
+            className: 'marker',
+            style: {
+              ...markerStyle,
+              symbol: inferSymbol,
+            },
+          })
+        : null,
     )
     .call(applyStyle, rest);
 });
@@ -95,13 +98,13 @@ function getPoints(
 }
 
 export const Connector: SC<ConnectorOptions> = (options) => {
-  const { offset = 0, ...style } = options;
+  const { offset = 0, connectLength1: length1, ...style } = options;
   return (points, value, coordinate, theme) => {
     const { mark, shape, defaultShape } = value;
     const {
       fill,
       stroke = fill,
-      connectLength1,
+      connectLength1 = length1,
       ...shapeTheme
     } = getShapeTheme(theme, mark, shape, defaultShape);
     const { color, transform } = value;
