@@ -111,3 +111,4 @@ export { athletesRectBinX } from './athletes-rect-binx';
 export { athletesRectBin } from './athletes-rect-bin';
 export { moviesPointBin } from './movies-point-bin';
 export { moviesRectBin } from './movies-rect-bin';
+export { acmeCropIncomeIntervalConnector } from './acme-crop-income-interval-connector';

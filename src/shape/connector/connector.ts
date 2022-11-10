@@ -1,150 +1,118 @@
 import { Coordinate } from '@antv/coord';
-import { deepMix } from '@antv/util';
-import {
-  CustomElement,
-  DisplayObjectConfig,
-  Path,
-  PathStyleProps,
-} from '@antv/g';
+import { PathStyleProps } from '@antv/g';
 import { Marker } from '@antv/gui';
 import { line as d3line } from 'd3-shape';
 import { isTranspose } from '../../utils/coordinate';
 import { select } from '../../utils/selection';
-import { ShapeComponent as SC, Vector2 } from '../../runtime';
+import { ShapeComponent as SC, Vector2, WithPrefix } from '../../runtime';
 import { applyStyle, getShapeTheme, PathCommand } from '../utils';
+import { createElement } from '../../shape/createElement';
+import { subObject } from '../../utils/helper';
 
 export type ConnectorOptions = ConnectorPathStyleProps & Record<string, any>;
 
-type MarkerStyleProps = {
-  r?: number;
-  fill?: string;
-  fillOpacity?: number;
-  symbol?: string | ((x: number, y: number, r: number) => string);
-};
+type MarkerStyleProps<P extends string> = WithPrefix<Record<string, any>, P>;
 
-type ConnectorPathStyleProps = Omit<PathStyleProps, 'path'> & {
-  connectorPath?: PathCommand[];
-  direction?: 'upward' | 'downward';
-  endMarker?: MarkerStyleProps;
-};
+type ConnectorPathStyleProps = Omit<PathStyleProps, 'path'> &
+  MarkerStyleProps<'endMarker'> & {
+    connectorPath?: PathCommand[];
+    endMarker?: boolean;
+  };
 
-class ConnectorPath extends CustomElement<ConnectorPathStyleProps> {
-  constructor(config: DisplayObjectConfig<ConnectorPathStyleProps>) {
-    super(config);
-  }
-
-  // Callback after connected with canvas, should trigger render.
-  connectedCallback() {
-    this.draw();
-  }
-
-  attributeChangedCallback() {
-    this.draw();
-  }
-
-  private connector!: Path;
-  private endMarker!: Marker;
-
-  protected draw() {
-    this.drawPath();
-    this.drawEndMarker();
-  }
-
-  private drawPath() {
-    // Do not copy className to path.
-    const { connectorPath, class: className, ...style } = this.attributes;
-    this.connector = select(this.connector || this.appendChild(new Path({})))
-      .style('path', connectorPath)
-      .call(applyStyle, style)
-      .node() as Path;
-  }
-
-  private drawEndMarker() {
-    const { stroke, endMarker = {} } = this.style;
-    const { r = 4, ...style } = endMarker;
-    this.endMarker = this.endMarker || this.appendChild(new Marker({}));
-    this.endMarker.update({ size: r * 2, fill: stroke, ...style });
-  }
+function inferSymbol(x: number, y: number, r: number) {
+  return [['M', x, y], ['L', x + 2 * r, y - r], ['L', x + 2 * r, y + r], ['Z']];
 }
 
 /**
  * todo support polar later.
  */
-function getPath(points: Vector2[], coordinate: Coordinate) {
+function inferConnectorPath(points: Vector2[]) {
   return d3line()
     .x((d) => d[0])
     .y((d) => d[1])(points);
 }
 
+const ConnectorPath = createElement((g) => {
+  // Do not copy className to path.
+  const {
+    points,
+    class: className,
+    endMarker,
+    direction,
+    ...rest
+  } = g.attributes;
+
+  const markerStyle = subObject(rest, 'endMarker');
+  const path = inferConnectorPath(points);
+
+  select(g)
+    .maybeAppend('connector', 'path')
+    .style('path', path)
+    .style(
+      'markerEnd',
+      new Marker({
+        style: {
+          ...markerStyle,
+          symbol: inferSymbol,
+        },
+      }),
+    )
+    .call(applyStyle, rest);
+});
+
 function getPoints(
   coordinate: Coordinate,
   points: Vector2[],
-  direction: string,
   offset: number,
+  length1 = 0,
 ): Vector2[] {
-  const [from, to] = points;
+  const [[x0, y0], [x1, y1]] = points;
+
   if (isTranspose(coordinate)) {
-    const x =
-      direction === 'downward'
-        ? Math.min(from[0], to[0]) - offset
-        : Math.max(from[0], to[0]) + offset;
-    return [from, [x, from[1]], [x, to[1]], to];
+    const OFFSET = offset;
+    const X0 = x0 + OFFSET;
+    const X1 = x1 + OFFSET;
+    const X = X0 + length1;
+
+    return [
+      [X0, y0],
+      [X, y0],
+      [X, y1],
+      [X1, y1],
+    ];
   }
-  const y =
-    direction === 'downward'
-      ? Math.max(from[1], to[1]) + offset
-      : Math.min(from[1], to[1]) - offset;
-  return [from, [from[0], y], [to[0], y], to];
-}
 
-function toTopArrow(x: number, y: number, r: number) {
-  return [['M', x - r, y + 2 * r], ['L', x, y], ['L', x + r, y + 2 * r], ['Z']];
-}
-function toDownArrow(x: number, y: number, r: number) {
-  return [['M', x, y], ['L', x - r, y - 2 * r], ['L', x + r, y - 2 * r], ['Z']];
-}
-function toLeftArrow(x: number, y: number, r: number) {
-  return [['M', x, y], ['L', x + 2 * r, y - r], ['L', x + 2 * r, y + r], ['Z']];
-}
-
-function getSymbol(points: Vector2[]) {
-  const [, , p2, p3] = points;
-  return p3[0] < p2[0] ? toLeftArrow : p2[1] > p3[1] ? toTopArrow : toDownArrow;
+  const OFFSET = -offset;
+  const Y0 = y0 + OFFSET;
+  const Y1 = y1 + OFFSET;
+  const Y = Y0 + -length1;
+  return [
+    [x0, Y0],
+    [x0, Y],
+    [x1, Y],
+    [x1, Y1],
+  ];
 }
 
 export const Connector: SC<ConnectorOptions> = (options) => {
-  const {
-    direction = 'upward',
-    offset = 12,
-    endMarker: endMarkerOptions,
-    ...style
-  } = options;
+  const { offset = 0, ...style } = options;
   return (points, value, coordinate, theme) => {
     const { mark, shape, defaultShape } = value;
     const {
       fill,
       stroke = fill,
-      endMarker: endMarkerTheme,
+      connectLength1,
       ...shapeTheme
     } = getShapeTheme(theme, mark, shape, defaultShape);
     const { color, transform } = value;
 
-    const P = getPoints(coordinate, points, direction, offset);
-    const path = getPath(P, coordinate);
-    const [, , , p3] = P;
-    const endMarker = deepMix({}, endMarkerTheme, endMarkerOptions);
+    const P = getPoints(coordinate, points, offset, connectLength1);
 
-    return select(new ConnectorPath({}))
+    return select(new ConnectorPath())
       .call(applyStyle, shapeTheme)
-      .style('connectorPath', path)
+      .style('points', P)
       .style('stroke', color || stroke)
       .style('transform', transform)
-      .style('endMarker', {
-        x: p3[0],
-        y: p3[1],
-        symbol: getSymbol(P),
-        ...endMarker,
-      })
       .call(applyStyle, style)
       .node();
   };
