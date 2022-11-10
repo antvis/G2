@@ -1,76 +1,35 @@
 import { group } from 'd3-array';
+import { incomeStatementByRegion } from '../data/incomeStatementByRegion';
 
 export function incomeStatementByRegionIntervalCustom() {
+  const linkData = (data) =>
+    data.reduce((r, d, idx) => {
+      if (idx > 0) {
+        return r.concat({
+          x1: data[idx - 1].x,
+          x2: d.x,
+          value: d.isTotal ? d.end : d.start,
+        });
+      }
+      return r;
+    }, []);
+  const groupData = (data) => {
+    const groups = group(data, (d: any) => d.x);
+    return Array.from(groups.entries()).reduce((r, [k, v]) => {
+      const y = v[v.length - 1].end;
+      return r.concat({
+        x: k,
+        y,
+        value: v.length <= 1 ? y : y - (r.length ? r[r.length - 1].y : 0),
+      });
+    }, [] as any[]);
+  };
+
   return {
     type: 'view',
     width: 800,
     height: 420,
-    data: {
-      value: [
-        ['Revenue', 175000, 140000, 250650],
-        ['Services Revenue', 235050, 225250, 390580],
-        ['Fixed Costs', 177950, 160550, 290890],
-        ['Sales and Marketing Costs', 121050, 105500, 220500],
-        ['Variable Costs', 65890, 55890, 105000],
-      ],
-      transform: [
-        {
-          type: 'custom',
-          callback: (data) => {
-            const result: any[] = [];
-            let total = 0;
-            data.reduce((r, d, idx) => {
-              const prev = idx === 0 ? ['', 0, 0, 0] : data[idx - 1];
-              result.push(
-                {
-                  x: d[0],
-                  type: 'Iowa',
-                  start: total,
-                  end: (total += d[1] - prev[1]),
-                },
-                {
-                  x: d[0],
-                  type: 'Oklahoma',
-                  start: total,
-                  end: (total += d[2] - prev[2]),
-                },
-                {
-                  x: d[0],
-                  type: 'Texas',
-                  start: total,
-                  end: (total += d[3] - prev[3]),
-                },
-              );
-            }, []);
-            result.push({ x: 'Total', isTotal: true, start: 0, end: total });
-            const iowa = data[data.length - 1][3];
-            const oklahoma = data[data.length - 1][2];
-            result.push({
-              x: 'Texas',
-              type: 'Texas',
-              isTotal: true,
-              start: iowa + oklahoma,
-              end: total,
-            });
-            result.push({
-              x: 'Oklahoma',
-              type: 'Oklahoma',
-              isTotal: true,
-              start: iowa,
-              end: iowa + oklahoma,
-            });
-            result.push({
-              x: 'Iowa',
-              type: 'Iowa',
-              isTotal: true,
-              start: 0,
-              end: iowa,
-            });
-            return result;
-          },
-        },
-      ],
-    },
+    data: incomeStatementByRegion,
     axis: {
       x: {
         labelAutoRotate: false,
@@ -90,27 +49,7 @@ export function incomeStatementByRegionIntervalCustom() {
     children: [
       {
         type: 'link',
-        data: {
-          transform: [
-            {
-              type: 'custom',
-              callback: (data) =>
-                data.reduce(
-                  (r, d, idx) =>
-                    r.concat(
-                      idx > 0
-                        ? {
-                            x1: data[idx - 1].x,
-                            x2: d.x,
-                            value: d.isTotal ? d.end : d.start,
-                          }
-                        : [],
-                    ),
-                  [],
-                ),
-            },
-          ],
-        },
+        data: { transform: [{ type: 'custom', callback: linkData }] },
         encode: {
           x: ['x1', 'x2'],
           y: ['value'],
@@ -128,27 +67,7 @@ export function incomeStatementByRegionIntervalCustom() {
       },
       {
         type: 'text',
-        data: {
-          transform: [
-            {
-              type: 'custom',
-              callback: (data) => {
-                const groups = group(data, (d: any) => d.x);
-                return Array.from(groups.entries()).reduce((r, [k, v]) => {
-                  const y = v[v.length - 1].end;
-                  return r.concat({
-                    x: k,
-                    y,
-                    value:
-                      v.length <= 1
-                        ? y
-                        : y - (r.length ? r[r.length - 1].y : 0),
-                  });
-                }, [] as any[]);
-              },
-            },
-          ],
-        },
+        data: { transform: [{ type: 'custom', callback: groupData }] },
         encode: {
           x: 'x',
           text: 'value',

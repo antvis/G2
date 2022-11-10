@@ -179,14 +179,6 @@
         "end": "Income Statement for ACME Crop"
       },
       "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*-a9EQpzBTDMAAAAAAAAAAAAADmJ7AQ"
-    },
-    {
-      "filename": "income-statement-by-region.ts",
-      "title": {
-        "zh": "Income Statement by Region",
-        "end": "Income Statement by Region"
-      },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*a1k7Srem5WIAAAAAAAAAAAAADmJ7AQ"
     }
   ]
 }

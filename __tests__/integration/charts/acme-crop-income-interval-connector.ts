@@ -1,74 +1,44 @@
 import { acmeCropIncome } from '../data/acmeCropIncome';
 
 export function acmeCropIncomeIntervalConnector() {
+  const linkData = (data) =>
+    data.reduce((r, d, idx) => {
+      if (idx > 0) {
+        return r.concat({
+          x1: data[idx - 1].x,
+          x2: d.x,
+          value: d.isTotal ? d.end : d.start,
+        });
+      }
+      return r;
+    }, []);
+  const connectorData = (data) => [
+    {
+      x1: data[0].x,
+      y1: data[0].end,
+      x2: data[data.length - 1].x,
+      y2: data[data.length - 1].end,
+    },
+  ];
+
   return {
     type: 'view',
     paddingBottom: 100,
     paddingLeft: 60,
     paddingTop: 40,
-    data: {
-      value: acmeCropIncome,
-      transform: [
-        {
-          type: 'custom',
-          callback: (data) =>
-            data.reduce((r, d) => {
-              const prev = r[r.length - 1];
-              const v1 = prev ? prev.end : 0;
-              const v2 = (prev ? prev.end : 0) + d.value;
-              const total = prev ? prev.end : 0;
-              return r.concat({
-                ...d,
-                value: d.isTotal ? total : d.value,
-                start: d.isTotal ? 0 : v1,
-                end: d.isTotal ? total : v2,
-              });
-            }, []),
-        },
-      ],
-    },
+    data: acmeCropIncome,
     axis: { x: { title: false, labelRotate: -90 }, y: { tickFormatter: '~s' } },
     legend: false,
     children: [
       {
         type: 'link',
-        data: {
-          transform: [
-            {
-              type: 'custom',
-              callback: (data) =>
-                data.reduce((r, d, idx) => {
-                  if (idx > 0) {
-                    return r.concat({
-                      x1: data[idx - 1].x,
-                      x2: d.x,
-                      value: d.isTotal ? d.end : d.start,
-                    });
-                  }
-                  return r;
-                }, []),
-            },
-          ],
-        },
+        data: { transform: [{ type: 'custom', callback: linkData }] },
         encode: { x: ['x1', 'x2'], y: ['value'] },
         style: { stroke: '#697474', lineDash: [4, 2] },
       },
       {
         type: 'connector',
-        data: {
-          transform: [
-            {
-              type: 'custom',
-              callback: (data) => {
-                const first = data[0];
-                const last = data[data.length - 1];
-                return [
-                  { x1: first.x, y1: first.end, x2: last.x, y2: last.end },
-                ];
-              },
-            },
-          ],
-        },
+        data: { transform: [{ type: 'custom', callback: connectorData }] },
         encode: {
           x: ['x1', 'x2'],
           y: ['y1', 'y2'],
