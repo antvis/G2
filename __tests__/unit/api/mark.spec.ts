@@ -17,6 +17,7 @@ import {
   RangeY,
   Sankey,
   Treemap,
+  BoxPlot,
 } from '../../../src/api/mark/mark';
 
 function setOptions(node) {
@@ -209,5 +210,11 @@ describe('Mark', () => {
     const node = new Treemap();
     expect(node.type).toBe('treemap');
     expect(setCompositeOptions(node).value).toEqual(getCompositeOptions());
+  });
+
+  it('BoxPlot() should specify options by API', () => {
+    const node = new BoxPlot();
+    expect(node.type).toBe('boxPlot');
+    expect(setOptions(node).value).toEqual(getOptions());
   });
 });
