@@ -3,7 +3,7 @@ import { Coordinate, Vector2 } from '@antv/coord';
 import { isFisheye } from '../../utils/coordinate';
 import { ShapeComponent as SC } from '../../runtime';
 import { select } from '../../utils/selection';
-import { applyStyle, getShapeTheme } from '../utils';
+import { applyStyle, getShapeTheme, toOpacityKey } from '../utils';
 import * as Symbols from './symbol';
 
 export type ColorOptions = {
@@ -52,7 +52,7 @@ export const Color: SC<ColorOptions> = (options) => {
       ...defaults
     } = getShapeTheme(theme, mark, shape, defaultShape);
     const finalLineWidth = style.stroke ? lineWidth || 1 : lineWidth;
-    const { color = defaultColor, transform } = value;
+    const { color = defaultColor, transform, opacity } = value;
     const [cx, cy] = getOrigin(points);
     const r = getRadius(mode, points, value, coordinate);
     const finalRadius = r || style.r || defaults.r;
@@ -62,6 +62,7 @@ export const Color: SC<ColorOptions> = (options) => {
       .style('lineWidth', finalLineWidth)
       .style('transform', transform)
       .style('stroke', color)
+      .style(toOpacityKey(options), opacity)
       .style(colorAttribute, color)
       .call(applyStyle, style)
       .node();
