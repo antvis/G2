@@ -22,7 +22,7 @@ chart
       { name: 'X6', star: 3985 },
       { name: 'AVA', star: 1151 },
     ],
-    transform: [{ type: 'sortBy', fields: [['star', false]] }],
+    transform: [{ type: 'sortBy', fields: [['star', true]] }],
   })
   .encode('x', 'name')
   .encode('y', 'star')
@@ -30,6 +30,15 @@ chart
   .encode('color', 'name')
   .encode('size', 40)
   .style('radius', 20)
+  .label({
+    text: 'star',
+    position: 'outside',
+    autoRotate: true,
+    rotateToAlignArc: true,
+    dx: 4,
+  })
+  .axis('x', { title: false })
+  .axis('y', false)
   .animate('enter', { type: 'waveIn', duration: 1000 });
 
 chart.render();
