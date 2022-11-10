@@ -2,7 +2,7 @@ import { maxIndex } from 'd3-array';
 import { Coordinate } from '@antv/coord';
 import { Vector2 } from '../../runtime';
 import { getArcObject } from '../../shape/utils';
-import { isCircular } from '../../utils/coordinate';
+import { isCircular, isRadial } from '../../utils/coordinate';
 import { maybePercentage } from '../../utils/helper';
 import { sub, angle } from '../../utils/vector';
 
@@ -109,15 +109,25 @@ function inferCircularStyle(
     y1,
     autoRotate,
     rotateToAlignArc,
-    connector = true,
+    connector: DEFAULT_CONNECTOR,
     connectorLength,
     radius: radiusRatio = 0.5,
     offset = 0,
   } = value;
   const arcObject = getArcObject(coordinate, points, [y, y1]);
   const { startAngle, endAngle } = arcObject;
-  const angle = (startAngle + endAngle) / 2;
   const center = coordinate.getCenter();
+
+  const angle = (() => {
+    if (isRadial(coordinate) && position !== 'inside') return endAngle;
+    return (startAngle + endAngle) / 2;
+  })();
+
+  const connector = (() => {
+    if (isRadial(coordinate)) return false;
+    if (DEFAULT_CONNECTOR == undefined) return true;
+    return DEFAULT_CONNECTOR;
+  })();
 
   const xy = (radius: number, finalRadius: number) => {
     const [x0, y0] = arcPoint(center, angle, radius);
@@ -129,25 +139,24 @@ function inferCircularStyle(
     if (position === 'inside')
       return { textAlign: 'center', textBaseline: 'middle', rotate };
     return {
-      textAlign: sign ? 'end' : 'start',
+      textAlign: sign ? 'start' : 'end',
       textBaseline: 'middle',
       rotate,
     };
   };
-  const radius = (): [number, number] => {
+  const [r0, r1] = (() => {
     const ratio = position === 'inside' ? radiusRatio : 1;
     const distance = (connector ? connectorLength : offset) || 0;
     const { innerRadius, outerRadius } = arcObject;
     const r0 = innerRadius + (outerRadius - innerRadius) * ratio;
     const r1 = r0 + distance;
     return [r0, r1];
-  };
+  })();
 
-  const [r0, r1] = radius();
   return {
     ...xy(r0, r1),
-    ...textStyle(position, Math.sin(angle) < 0),
-    ...inferConnectorStyle(value, angle),
+    ...textStyle(position, Math.sin(angle) > 0 || isRadial(coordinate)),
+    ...inferConnectorStyle({ ...value, connector }, angle),
   };
 }
 

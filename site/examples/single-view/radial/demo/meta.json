@@ -42,7 +42,7 @@
         "zh": "圆角玉珏图",
         "en": "Cornered Radial Bar Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*7TmbQ7gsvAgAAAAAAAAAAAAADmJ7AQ"
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*1EwTTZgCazgAAAAAAAAAAAAADmJ7AQ"
     },
     {
       "filename": "bar-stacked-radial.ts",
@@ -75,6 +75,14 @@
         "en": "Polar Boxplot"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*cCMOQ7YsuFkAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "apple-activity.ts",
+      "title": {
+        "zh": "Apple 活动图",
+        "en": "Apple Activity"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*o3j-SZCiTZwAAAAAAAAAAAAADmJ7AQ"
     }
   ]
 }
