@@ -95,7 +95,7 @@ Box.props = {
     { name: 'y', required: true },
     { name: 'series', scale: 'band' },
   ],
-  preInference: [...basePreInference()],
+  preInference: [...basePreInference(), { type: 'maybeZeroX' }],
   postInference: [
     ...basePostInference(),
     { type: 'maybeTitleX' },

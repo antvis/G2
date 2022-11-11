@@ -118,4 +118,4 @@ export { morleyBoxExtend } from './morley-box-extend';
 export { penguinsBoxPlotGrouped } from './penguins-boxplot-grouped';
 export { penguinsBoxPlotGroupedExtent } from './penguins-boxplot-grouped-extent';
 export { penguinsBoxPlotGroupedTranspose } from './penguins-boxplot-grouped-transpose';
-export { tablesIntervalAggregated } from './tables-interval-aggregated';
+export { morleyBox1D } from './morley-box-1d';

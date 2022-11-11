@@ -24,7 +24,7 @@ describe('Box', () => {
         { name: 'y', required: true },
         { name: 'series', scale: 'band' },
       ],
-      preInference: [],
+      preInference: [{ type: 'maybeZeroX' }],
       postInference: [
         { type: 'maybeKey' },
         { type: 'maybeTitleX' },
