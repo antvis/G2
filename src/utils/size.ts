@@ -5,7 +5,7 @@ type Size = {
   height: number;
 };
 
-const parseInt10 = (d: string) => parseInt(d);
+const parseInt10 = (d: string) => (d ? parseInt(d) : 0);
 
 /**
  * @description Get the element's bounding size.

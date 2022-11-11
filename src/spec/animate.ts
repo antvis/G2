@@ -8,7 +8,8 @@ export type AnimationTypes =
   | 'waveIn'
   | 'morphing'
   | 'zoomIn'
-  | 'zoomOut';
+  | 'zoomOut'
+  | 'pathIn';
 
 export type Animation = {
   type?: AnimationTypes;
