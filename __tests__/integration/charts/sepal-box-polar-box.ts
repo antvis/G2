@@ -18,6 +18,7 @@ export function sepalBoxPolarBox(): G2Spec {
     },
     style: {
       stroke: 'black',
+      strokeWidth: 2,
     },
   };
 }

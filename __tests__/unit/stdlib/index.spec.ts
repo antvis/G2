@@ -38,6 +38,7 @@ import {
   Path,
   Treemap,
   Pack as PackGeometry,
+  Boxplot,
 } from '../../../src/mark';
 import {
   Category10,
@@ -342,6 +343,7 @@ describe('stdlib', () => {
       'mark.path': Path,
       'mark.treemap': Treemap,
       'mark.pack': PackGeometry,
+      'mark.boxplot': Boxplot,
       'palette.category10': Category10,
       'palette.category20': Category20,
       'palette.sequentialBlue': SequentialBlue,

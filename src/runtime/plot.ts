@@ -285,8 +285,15 @@ async function initializeMarks(
   const markState = new Map<G2Mark, G2MarkState>();
   const channelScale = new Map<string, G2ScaleOptions>();
 
+  // Apply data transform to get data.
+  const dataMarks = [];
+  for (const mark of partialMarks) {
+    const dataMark = await applyTransform(mark, library);
+    dataMarks.push(dataMark);
+  }
+
   // Convert composite mark to single mark.
-  const flattenMarks: G2Mark[] = partialMarks.flatMap((mark) => {
+  const flattenMarks: G2Mark[] = dataMarks.flatMap((mark) => {
     const { type = error('G2Mark type is required.'), key } = mark;
     const { props } = createMark(type);
     const { composite = false } = props;

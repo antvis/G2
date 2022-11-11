@@ -17,24 +17,23 @@ const linkData = (data) =>
 
 const chart = new Chart({ container: 'container', autoFit: true });
 
-chart.data([
-  { x: 'Start', value: 23000000, start: 0, end: 23000000 },
-  { x: 'Jan', value: 2200000, start: 23000000, end: 25200000 },
-  { x: 'Feb', value: -4600000, start: 25200000, end: 20600000 },
-  { x: 'Mar', value: -9100000, start: 20600000, end: 11500000 },
-  { x: 'Apr', value: 3700000, start: 11500000, end: 15200000 },
-  { x: 'May', value: -2100000, start: 15200000, end: 13100000 },
-  { x: 'Jun', value: 5300000, start: 13100000, end: 18400000 },
-  { x: 'Jul', value: 3100000, start: 18400000, end: 21500000 },
-  { x: 'Aug', value: -1500000, start: 21500000, end: 20000000 },
-  { x: 'Sep', value: 4200000, start: 20000000, end: 24200000 },
-  { x: 'Oct', value: 5300000, start: 24200000, end: 29500000 },
-  { x: 'Nov', value: -1500000, start: 29500000, end: 28000000 },
-  { x: 'Dec', value: 5100000, start: 28000000, end: 33100000 },
-  { x: 'End', isTotal: true, value: 33100000, start: 0, end: 33100000 },
-]);
-
 chart
+  .data([
+    { x: 'Start', value: 23000000, start: 0, end: 23000000 },
+    { x: 'Jan', value: 2200000, start: 23000000, end: 25200000 },
+    { x: 'Feb', value: -4600000, start: 25200000, end: 20600000 },
+    { x: 'Mar', value: -9100000, start: 20600000, end: 11500000 },
+    { x: 'Apr', value: 3700000, start: 11500000, end: 15200000 },
+    { x: 'May', value: -2100000, start: 15200000, end: 13100000 },
+    { x: 'Jun', value: 5300000, start: 13100000, end: 18400000 },
+    { x: 'Jul', value: 3100000, start: 18400000, end: 21500000 },
+    { x: 'Aug', value: -1500000, start: 21500000, end: 20000000 },
+    { x: 'Sep', value: 4200000, start: 20000000, end: 24200000 },
+    { x: 'Oct', value: 5300000, start: 24200000, end: 29500000 },
+    { x: 'Nov', value: -1500000, start: 29500000, end: 28000000 },
+    { x: 'Dec', value: 5100000, start: 28000000, end: 33100000 },
+    { x: 'End', isTotal: true, value: 33100000, start: 0, end: 33100000 },
+  ])
   .axis('x', { title: false })
   .axis('y', { tickFormatter: '~s' })
   .legend(null);

@@ -21,6 +21,7 @@ describe('Point', () => {
         { name: 'tooltip', scale: 'identity', independent: true },
         { name: 'x', required: true },
         { name: 'y', required: true },
+        { name: 'series', scale: 'band' },
         { name: 'size', scale: 'sqrt' },
         { name: 'dx', scale: 'identity' },
         { name: 'dy', scale: 'identity' },

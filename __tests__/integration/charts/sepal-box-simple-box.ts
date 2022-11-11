@@ -17,6 +17,7 @@ export function sepalBoxSimpleBox(): G2Spec {
     },
     style: {
       stroke: 'black',
+      strokeWidth: 2,
     },
   };
 }

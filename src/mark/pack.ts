@@ -11,14 +11,15 @@ type PackLayout = {
   size?: [number, number];
   padding?: number;
   sort?(a: any, b: any): number;
+  // @todo
+  path?: any;
 };
 
 const dataTransform = (data, layout: PackLayout, encode) => {
-  const { value: originalData, path = (d) => d } = data;
   const { value } = encode;
-  const root = isArray(originalData)
-    ? stratify().path(path)(originalData)
-    : hierarchy(originalData);
+  const root = isArray(data)
+    ? stratify().path(layout.path)(data)
+    : hierarchy(data);
   value ? root.sum((d) => d[value]).sort(layout.sort) : root.count();
   // @ts-ignore
   packLayout().size(layout.size).padding(layout.padding)(root);
