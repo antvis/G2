@@ -5,6 +5,22 @@
   },
   "demos": [
     {
+      "filename": "line-bar.ts",
+      "title": {
+        "zh": " 柱线混合",
+        "en": "Line Bar Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*GLvKQbqMjTQAAAAAAAAAAAAADmJ7AQ/fmt.webp"
+    },
+    {
+      "filename": "multi-line.ts",
+      "title": {
+        "zh": "多轴图",
+        "en": "Multi Axis Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*BxouQYIIQ0kAAAAAAAAAAAAADmJ7AQ/fmt.webp"
+    },
+    {
       "filename": "dual-aggregated-line-area.ts",
       "title": {
         "zh": "聚合线面双轴图",
