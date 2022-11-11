@@ -1,0 +1,16 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "text-search.ts",
+      "title": {
+        "zh": "Ctrl+F 文本搜索",
+        "en": "Search text by Ctrl+F"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*TehBRbDnoIkAAAAAAAAAAAAADmJ7AQ/original"
+    }
+  ]
+}
