@@ -60,7 +60,7 @@ export type GeometryTypes =
   | 'path'
   | 'treemap'
   | 'pack'
-  | 'boxPlot'
+  | 'boxplot'
   | MarkComponent;
 
 export type ChannelTypes =

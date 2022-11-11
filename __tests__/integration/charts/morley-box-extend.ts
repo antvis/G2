@@ -2,7 +2,7 @@ import { G2Spec } from '../../../src';
 
 export function morleyBoxExtend(): G2Spec {
   return {
-    type: 'boxPlot',
+    type: 'boxplot',
     data: {
       type: 'fetch',
       value: 'data/morley.csv',

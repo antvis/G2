@@ -19,7 +19,7 @@ import {
   Connector,
   Sankey,
   Treemap,
-  BoxPlot,
+  Boxplot,
 } from './mark';
 
 export interface Mark {
@@ -43,7 +43,7 @@ export interface Mark {
   connector(): Connector;
   sankey(): Sankey;
   treemap(): Treemap;
-  boxPlot(): BoxPlot;
+  boxplot(): Boxplot;
 }
 
 export const mark = {
@@ -67,5 +67,5 @@ export const mark = {
   connector: Connector,
   sankey: Sankey,
   treemap: Treemap,
-  boxPlot: BoxPlot,
+  boxplot: Boxplot,
 };

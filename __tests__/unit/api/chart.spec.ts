@@ -28,7 +28,7 @@ import {
   RangeY,
   Rect,
   Connector,
-  BoxPlot,
+  Boxplot,
   Sankey,
   Treemap,
 } from '../../../src/api/mark/mark';
@@ -126,7 +126,7 @@ describe('Chart', () => {
     expect(chart.connector()).toBeInstanceOf(Connector);
     expect(chart.sankey()).toBeInstanceOf(Sankey);
     expect(chart.treemap()).toBeInstanceOf(Treemap);
-    expect(chart.boxPlot()).toBeInstanceOf(BoxPlot);
+    expect(chart.boxplot()).toBeInstanceOf(Boxplot);
     expect(chart.options().children).toEqual([
       { type: 'interval' },
       { type: 'rect' },
@@ -148,7 +148,7 @@ describe('Chart', () => {
       { type: 'connector' },
       { type: 'sankey' },
       { type: 'treemap' },
-      { type: 'boxPlot' },
+      { type: 'boxplot' },
     ]);
   });
 

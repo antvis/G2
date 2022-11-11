@@ -38,7 +38,7 @@ import {
   Path,
   Treemap,
   Pack as PackGeometry,
-  BoxPlot,
+  Boxplot,
 } from '../mark';
 import {
   Category10,
@@ -337,7 +337,7 @@ export function createLibrary(): G2Library {
     'mark.path': Path,
     'mark.treemap': Treemap,
     'mark.pack': PackGeometry,
-    'mark.boxPlot': BoxPlot,
+    'mark.boxplot': Boxplot,
     'palette.category10': Category10,
     'palette.category20': Category20,
     'palette.sequentialBlue': SequentialBlue,

@@ -2,7 +2,7 @@ import { G2Spec } from '../../../src';
 
 export function penguinsBoxPlotGroupedTranspose(): G2Spec {
   return {
-    type: 'boxPlot',
+    type: 'boxplot',
     paddingLeft: 80,
     coordinate: [{ type: 'transpose' }],
     inset: 6,

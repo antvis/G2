@@ -100,8 +100,8 @@ export interface Sankey extends API<Concrete<SankeyMark>, Sankey> {
   type: 'sankey';
 }
 
-export interface BoxPlot extends API<Concrete<BoxPlotMark>, BoxPlot> {
-  type: 'boxPlot';
+export interface Boxplot extends API<Concrete<BoxPlotMark>, Boxplot> {
+  type: 'boxplot';
 }
 
 export const props: NodePropertyDescriptor[] = [
@@ -278,8 +278,8 @@ export class Treemap extends Node<ConnectorMark> {
   }
 }
 @defineProps(props)
-export class BoxPlot extends Node<BoxPlot> {
+export class Boxplot extends Node<Boxplot> {
   constructor() {
-    super({}, 'boxPlot');
+    super({}, 'boxplot');
   }
 }

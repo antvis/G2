@@ -2,7 +2,7 @@ import { G2Spec } from '../../../src';
 
 export function penguinsBoxPlotGrouped(): G2Spec {
   return {
-    type: 'boxPlot',
+    type: 'boxplot',
     inset: 6,
     data: {
       type: 'fetch',

@@ -20,7 +20,7 @@ export { Sankey } from './sankey';
 export { Path } from './path';
 export { Treemap } from './treemap';
 export { Pack } from './pack';
-export { BoxPlot } from './boxplot';
+export { Boxplot } from './boxplot';
 
 export type { IntervalOptions } from './interval';
 export type { RectOptions } from './rect';

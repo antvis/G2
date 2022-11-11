@@ -54,7 +54,7 @@ function OutlierY() {
   };
 }
 
-export const BoxPlot: CC<BoxPlotOptions> = (options) => {
+export const Boxplot: CC<BoxPlotOptions> = (options) => {
   return () => {
     const { data, encode, style = {} } = options;
     const { extend = false, ...restStyle } = style;
@@ -114,6 +114,6 @@ export const BoxPlot: CC<BoxPlotOptions> = (options) => {
   };
 };
 
-BoxPlot.props = {
+Boxplot.props = {
   composite: true,
 };
