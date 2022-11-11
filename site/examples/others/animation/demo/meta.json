@@ -5,6 +5,14 @@
   },
   "demos": [
     {
+      "filename": "pathIn.ts",
+      "title": {
+        "zh": "PathIn",
+        "en": "PathIn"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/raptor/1668167705967/pathIn.gif"
+    },
+    {
       "filename": "fade.ts",
       "title": {
         "zh": "FadeIn & FadeOut",
