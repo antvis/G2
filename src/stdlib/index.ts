@@ -145,6 +145,7 @@ import {
   Morphing,
   ZoomIn,
   ZoomOut,
+  PathIn,
 } from '../animation';
 import {
   // ElementActive,
@@ -442,6 +443,7 @@ export function createLibrary(): G2Library {
     'animation.fadeOut': FadeOut,
     'animation.zoomIn': ZoomIn,
     'animation.zoomOut': ZoomOut,
+    'animation.pathIn': PathIn,
     'animation.morphing': Morphing,
     'interaction.elementActive': ElementActive,
     'interaction.elementActiveByX': ElementActiveByX,

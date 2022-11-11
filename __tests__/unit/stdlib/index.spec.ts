@@ -145,6 +145,7 @@ import {
   WaveIn,
   ZoomIn,
   ZoomOut,
+  PathIn,
 } from '../../../src/animation';
 import {
   ElementActive,
@@ -448,6 +449,7 @@ describe('stdlib', () => {
       'animation.fadeOut': FadeOut,
       'animation.zoomIn': ZoomIn,
       'animation.zoomOut': ZoomOut,
+      'animation.pathIn': PathIn,
       'animation.morphing': Morphing,
       'interaction.elementActive': ElementActive,
       'interaction.elementActiveByX': ElementActiveByX,

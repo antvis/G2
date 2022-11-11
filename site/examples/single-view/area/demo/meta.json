@@ -99,6 +99,14 @@
         "en": "Band Chart"
       },
       "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*2ocsR71h_CIAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "range-spline-area.ts",
+      "title": {
+        "zh": "区间曲线面积图",
+        "en": "Range Spline Area Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*oLjrRb6l8CAAAAAAAAAAAAAADmJ7AQ"
     }
   ]
 }

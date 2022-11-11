@@ -57,7 +57,7 @@ spaceLayer
       .style('shadowOffsetY', -5)
       .animate('enter', {
         type: 'waveIn',
-        easing: 'bounce-in',
+        easing: 'ease-out-bounce',
         duration: 1000,
       }),
   )
