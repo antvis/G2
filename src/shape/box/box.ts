@@ -89,7 +89,7 @@ export const Box: SC<BoxOptions> = (options) => {
     return select(new GPath())
       .call(applyStyle, shapeTheme)
       .style('d', path.toString())
-      .style('stroke', color || stroke)
+      .style('stroke', stroke)
       .style('fill', color || fill)
       .style('transform', transform)
       .call(applyStyle, style)

@@ -67,15 +67,16 @@ function getTileMethod(tile: string, ratio: number) {
 }
 
 function dataTransform(data, layout: Layout, encode): TreemapData {
-  const { value: originalData, path = (d) => d } = data;
+  // const { value: originalData, path = (d) => d } = data;
   const { value } = encode;
   const tileMethod = getTileMethod(layout.tile, layout.ratio);
 
   // Path need when the data is a flat json structure,
   // and the tree object structure do not need.
-  const root = isArray(originalData)
-    ? stratify().path(path)(originalData)
-    : hierarchy(originalData);
+  const root = isArray(data)
+    ? stratify().path(layout.path)(data)
+    : hierarchy(data);
+
   // Calculate the value and sort.
   value
     ? root

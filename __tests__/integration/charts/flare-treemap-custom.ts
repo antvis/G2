@@ -1,11 +1,7 @@
-import { csv } from 'd3-fetch';
-import { autoType } from 'd3-dsv';
 import { schemeTableau10 } from 'd3-scale-chromatic';
 import { G2Spec } from '../../../src';
 
 export async function flareTreemapCustom(): Promise<G2Spec> {
-  const data = await csv('data/flare.csv', autoType);
-
   return {
     type: 'view',
     height: 900,
@@ -16,10 +12,11 @@ export async function flareTreemapCustom(): Promise<G2Spec> {
       {
         type: 'treemap',
         data: {
-          value: data,
-          path: (d) => d.name.replace(/\./g, '/'),
+          type: 'fetch',
+          value: 'data/flare.csv',
         },
         layout: {
+          path: (d) => d.name.replace(/\./g, '/'),
           tile: 'treemapBinary',
         },
         scale: {

@@ -1,6 +1,8 @@
+import { Band } from '@antv/scale';
 import { MarkComponent as MC, Vector2 } from '../runtime';
 import { PointGeometry } from '../spec';
 import {
+  bandWidth,
   baseGeometryChannels,
   basePostInference,
   basePreInference,
@@ -56,6 +58,7 @@ Point.props = {
     ...baseGeometryChannels(),
     { name: 'x', required: true },
     { name: 'y', required: true },
+    { name: 'series', scale: 'band' },
     { name: 'size', scale: 'sqrt' },
     { name: 'dx', scale: 'identity' },
     { name: 'dy', scale: 'identity' },

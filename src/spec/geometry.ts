@@ -32,6 +32,7 @@ export type Geometry =
   | PathMark
   | TreemapMark
   | PackMark
+  | BoxPlotMark
   | CustomComponent;
 
 export type GeometryTypes =
@@ -59,6 +60,7 @@ export type GeometryTypes =
   | 'path'
   | 'treemap'
   | 'pack'
+  | 'boxplot'
   | MarkComponent;
 
 export type ChannelTypes =
@@ -66,6 +68,7 @@ export type ChannelTypes =
   | 'y'
   | 'x1'
   | 'y1'
+  | 'series'
   | 'color'
   | 'opacity'
   | 'shape'
@@ -204,6 +207,8 @@ export type ImageGeometry = BaseGeometry<'image', ChannelTypes | 'src'>;
 export type PolygonGeometry = BaseGeometry<'polygon'>;
 
 export type BoxGeometry = BaseGeometry<'box'>;
+
+export type BoxPlotMark = BaseGeometry<'box'>;
 
 export type VectorGeometry = BaseGeometry<
   'vector',
