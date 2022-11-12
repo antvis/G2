@@ -21,6 +21,7 @@ export { Path } from './path';
 export { Treemap } from './treemap';
 export { Pack } from './pack';
 export { Boxplot } from './boxplot';
+export { Shape } from './shape';
 
 export type { IntervalOptions } from './interval';
 export type { RectOptions } from './rect';
@@ -43,3 +44,4 @@ export type { RangeYOptions } from './rangeY';
 export type { SankeyOptions } from './sankey';
 export type { TreemapOptions } from './treemap';
 export type { PackOptions } from './pack';
+export type { ShapeOptions } from './shape';

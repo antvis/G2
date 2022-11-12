@@ -24,7 +24,7 @@ describe('Image', () => {
         { name: 'src', required: true, scale: 'identity' },
         { name: 'size' },
       ],
-      preInference: [],
+      preInference: [{ type: 'maybeTuple' }, { type: 'maybeVisualPosition' }],
       postInference: [
         { type: 'maybeKey' },
         { type: 'maybeTitleX' },

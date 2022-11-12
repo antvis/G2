@@ -31,6 +31,7 @@ import {
   Boxplot,
   Sankey,
   Treemap,
+  Shape,
 } from '../../../src/api/mark/mark';
 import { createDiv } from '../../utils/dom';
 
@@ -127,6 +128,7 @@ describe('Chart', () => {
     expect(chart.sankey()).toBeInstanceOf(Sankey);
     expect(chart.treemap()).toBeInstanceOf(Treemap);
     expect(chart.boxplot()).toBeInstanceOf(Boxplot);
+    expect(chart.shape()).toBeInstanceOf(Shape);
     expect(chart.options().children).toEqual([
       { type: 'interval' },
       { type: 'rect' },

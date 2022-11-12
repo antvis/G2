@@ -1,16 +1,20 @@
-import { MarkComponent as MC, Vector2 } from '../runtime';
+import { MarkComponent as MC, Vector2, Mark } from '../runtime';
 import { TextGeometry } from '../spec';
 import {
   baseGeometryChannels,
   basePostInference,
   basePreInference,
   createBandOffset,
+  visualMark,
 } from './utils';
 
 export type TextOptions = Omit<TextGeometry, 'type'>;
 
 export const Text: MC<TextOptions> = (options) => {
-  return (index, scale, value, coordinate) => {
+  const { cartesian = false } = options;
+  if (cartesian) return visualMark as Mark;
+  return ((index, scale, value, coordinate) => {
+    if (cartesian) return visualMark(index, scale, value, coordinate);
     const { x: X, y: Y } = value;
     const offset = createBandOffset(scale, value, options);
     const P = Array.from(index, (i) => {
@@ -18,7 +22,7 @@ export const Text: MC<TextOptions> = (options) => {
       return [coordinate.map(offset(p, i))] as Vector2[];
     });
     return [index, P];
-  };
+  }) as Mark;
 };
 
 const shapes = ['text', 'badge'];
@@ -34,11 +38,14 @@ Text.props = {
     { name: 'fontSize' },
     { name: 'rotate' },
   ],
-  preInference: [...basePreInference()],
+  preInference: [
+    ...basePreInference(),
+    { type: 'maybeTuple' },
+    { type: 'maybeVisualPosition' },
+  ],
   postInference: [
     ...basePostInference(),
     { type: 'maybeTitleX' },
     { type: 'maybeTooltipY' },
-    { type: 'maybeTuple' },
   ],
 };

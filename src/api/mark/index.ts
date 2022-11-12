@@ -20,6 +20,7 @@ import {
   Sankey,
   Treemap,
   Boxplot,
+  Shape,
 } from './mark';
 
 export interface Mark {
@@ -44,6 +45,7 @@ export interface Mark {
   sankey(): Sankey;
   treemap(): Treemap;
   boxplot(): Boxplot;
+  shape(): Shape;
 }
 
 export const mark = {
@@ -68,4 +70,5 @@ export const mark = {
   sankey: Sankey,
   treemap: Treemap,
   boxplot: Boxplot,
+  shape: Shape,
 };

@@ -2,31 +2,31 @@ export const browser = [
   {
     name: 'Internet Explorer',
     value: 26,
-    url: 'https://gw.alipayobjects.com/zos/rmsportal/eOYRaLPOmkieVvjyjTzM.png',
+    url: 'data/ie.png',
   },
   {
     name: 'Chrome',
     value: 40,
-    url: 'https://gw.alipayobjects.com/zos/rmsportal/dWJWRLWfpOEbwCyxmZwu.png',
+    url: 'data/chrome.png',
   },
   {
     name: 'Firefox',
     value: 30,
-    url: 'https://gw.alipayobjects.com/zos/rmsportal/ZEPeDluKmAoTioCABBTc.png',
+    url: 'data/firefox.png',
   },
   {
     name: 'Safari',
     value: 24,
-    url: 'https://gw.alipayobjects.com/zos/rmsportal/eZYhlLzqWLAYwOHQAXmc.png',
+    url: 'data/safari.png',
   },
   {
     name: 'Opera',
     value: 15,
-    url: 'https://gw.alipayobjects.com/zos/rmsportal/vXiGOWCGZNKuVVpVYQAw.png',
+    url: 'data/opera.png',
   },
   {
     name: 'Undetectable',
     value: 8,
-    url: 'https://gw.alipayobjects.com/zos/rmsportal/NjApYXminrnhBgOXyuaK.png',
+    url: 'data/undetectable.png',
   },
 ];
