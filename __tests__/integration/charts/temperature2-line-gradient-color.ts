@@ -11,7 +11,7 @@ export function temperature2LineGradientColor(): G2Spec {
     scale: {
       y: { nice: true },
       x: { utc: true },
-      color: { type: 'sequential', palette: 'turbo' },
+      color: { palette: 'turbo' },
     },
     legend: false,
     encode: {

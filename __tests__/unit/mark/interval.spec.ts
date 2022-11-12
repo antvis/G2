@@ -10,7 +10,7 @@ describe('Interval', () => {
       channels: [
         { name: 'color' },
         { name: 'opacity' },
-        { name: 'shape' },
+        { name: 'shape', range: ['rect', 'hollow', 'funnel', 'pyramid'] },
         { name: 'enterType' },
         { name: 'enterDelay', scaleName: 'enter' },
         { name: 'enterDuration', scaleName: 'enter' },
@@ -31,7 +31,6 @@ describe('Interval', () => {
         { type: 'maybeTitleX' },
         { type: 'maybeTooltipY' },
       ],
-      shapes: ['rect', 'hollow', 'funnel', 'pyramid'],
     });
   });
 

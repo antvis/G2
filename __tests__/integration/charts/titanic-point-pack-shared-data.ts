@@ -35,7 +35,6 @@ export function titanicPointPackSharedData(): G2Spec {
         encode: {
           color: 'survived',
           shape: 'point',
-          size: 3, // @todo Remove.
         },
       },
     ],

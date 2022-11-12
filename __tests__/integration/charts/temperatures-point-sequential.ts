@@ -13,7 +13,6 @@ export function temperaturesPointSequential(): G2Spec {
         },
         scale: {
           color: {
-            type: 'sequential',
             palette: 'rdBu',
             offset: (t) => 1 - t,
           },

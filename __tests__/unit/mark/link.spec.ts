@@ -9,7 +9,7 @@ describe('Link', () => {
       channels: [
         { name: 'color' },
         { name: 'opacity' },
-        { name: 'shape' },
+        { name: 'shape', range: ['link', 'arc', 'vhv', 'smooth'] },
         { name: 'enterType' },
         { name: 'enterDelay', scaleName: 'enter' },
         { name: 'enterDuration', scaleName: 'enter' },
@@ -28,7 +28,6 @@ describe('Link', () => {
         { type: 'maybeTitleX' },
         { type: 'maybeTooltipY' },
       ],
-      shapes: ['link', 'arc', 'vhv', 'smooth'],
     });
   });
 

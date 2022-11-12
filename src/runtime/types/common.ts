@@ -34,10 +34,23 @@ export type G2ViewInstance = {
   update: (options: G2ViewTree) => Promise<any>;
 };
 
+export type ChannelGroups = {
+  name?: string;
+  scaleKey?: string;
+  // @todo
+  scale?: Record<string, any>;
+  values?: {
+    name?: string;
+    value?: Primitive[];
+    field?: string;
+  }[];
+};
+
 export type G2MarkState = {
   index?: number[];
   data?: Record<string, any>[];
-} & MarkProps;
+  channels?: ChannelGroups[];
+} & Omit<MarkProps, 'channels'>;
 
 export type MaybeArray<T> = T | T[];
 
@@ -84,6 +97,8 @@ export type Channel = {
   independent?: boolean;
   field?: string | string[];
   visual?: boolean;
+  range?: any[];
+  scaleKey?: string;
 };
 
 export type Vector2 = [number, number];

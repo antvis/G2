@@ -10,7 +10,7 @@ describe('Text', () => {
       channels: [
         { name: 'color' },
         { name: 'opacity' },
-        { name: 'shape' },
+        { name: 'shape', range: ['text', 'badge'] },
         { name: 'enterType' },
         { name: 'enterDelay', scaleName: 'enter' },
         { name: 'enterDuration', scaleName: 'enter' },
@@ -33,7 +33,6 @@ describe('Text', () => {
         { type: 'maybeTooltipY' },
         { type: 'maybeTuple' },
       ],
-      shapes: ['text', 'badge'],
     });
   });
 

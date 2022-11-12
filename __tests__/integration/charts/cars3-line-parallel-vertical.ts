@@ -27,7 +27,7 @@ export function cars3LineParallelVertical(): G2Spec {
       strokeOpacity: 0.4,
     },
     scale: {
-      color: { type: 'sequential', palette: 'brBG', offset: (t) => 1 - t },
+      color: { palette: 'brBG', offset: (t) => 1 - t },
     },
     axis: Object.fromEntries(
       Array.from({ length: position.length }, (_, i) => [

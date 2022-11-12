@@ -10,7 +10,7 @@ describe('Line', () => {
       channels: [
         { name: 'color' },
         { name: 'opacity' },
-        { name: 'shape' },
+        { name: 'shape', range: ['line', 'smooth'] },
         { name: 'enterType' },
         { name: 'enterDelay', scaleName: 'enter' },
         { name: 'enterDuration', scaleName: 'enter' },
@@ -33,7 +33,6 @@ describe('Line', () => {
         { type: 'maybeTooltipY' },
         { type: 'maybeTooltipPosition' },
       ],
-      shapes: ['line', 'smooth'],
     });
   });
 

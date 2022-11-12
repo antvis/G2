@@ -45,6 +45,9 @@ export function incomeStatementByRegionIntervalCustom() {
         range: ['#3c5e79', '#5686ad', '#7bc0f7', '#d6d6d6'],
         guide: { position: 'bottom', title: false },
       },
+      x: {
+        padding: 0.5,
+      },
     },
     children: [
       {

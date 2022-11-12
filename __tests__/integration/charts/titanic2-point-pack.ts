@@ -25,7 +25,6 @@ export function titanic2PointPack(): G2Spec {
         encode: {
           color: 'Survived',
           shape: 'point',
-          size: 3,
         },
       },
     ],

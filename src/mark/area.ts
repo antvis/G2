@@ -61,11 +61,13 @@ export const Area: MC<AreaOptions> = () => {
   };
 };
 
+const shapes = ['area', 'smooth'];
+
 Area.props = {
   defaultShape: 'area',
   defaultLabelShape: 'label',
   channels: [
-    ...baseGeometryChannels(),
+    ...baseGeometryChannels({ shapes }),
     { name: 'x', required: true },
     { name: 'y', required: true },
     { name: 'size' },
@@ -82,5 +84,4 @@ Area.props = {
     { type: 'maybeTitleX' },
     { type: 'maybeTooltipY' },
   ],
-  shapes: ['area', 'smooth'],
 };
