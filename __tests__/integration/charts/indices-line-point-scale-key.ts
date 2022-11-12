@@ -77,3 +77,5 @@ export async function indicesLinePointScaleKey(): Promise<G2Spec> {
     ],
   };
 }
+
+indicesLinePointScaleKey.maxError = 100;
