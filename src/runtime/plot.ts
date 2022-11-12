@@ -221,6 +221,8 @@ export async function plot<T extends G2ViewTree>(
 
   emitEvent(on, CHART_LIFE_CIRCLE.AFTER_PAINT);
 
+  console.log(transitions);
+
   // Note!!!
   // The returned promise will never resolved if one of nodeGenerator
   // never stop to yield node, which may created by a keyframe composition

@@ -151,6 +151,7 @@ describe('Chart', () => {
       { type: 'sankey' },
       { type: 'treemap' },
       { type: 'boxplot' },
+      { type: 'shape' },
     ]);
   });
 

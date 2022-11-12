@@ -31,7 +31,6 @@ describe('Text', () => {
         { type: 'maybeKey' },
         { type: 'maybeTitleX' },
         { type: 'maybeTooltipY' },
-        { type: 'maybeTuple' },
       ],
     });
   });
