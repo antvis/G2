@@ -39,6 +39,7 @@ import {
   Treemap,
   Pack as PackGeometry,
   Boxplot,
+  Shape,
 } from '../mark';
 import {
   Category10,
@@ -125,6 +126,7 @@ import {
   Label,
   Path as PathShape,
   HollowPath,
+  Shape as CustomShape,
 } from '../shape';
 import { Light, Dark } from '../theme';
 import {
@@ -220,6 +222,8 @@ import {
   Pack,
   BinX,
   Bin,
+  MaybeVisualPosition,
+  MaybeFunctionAttribute,
 } from '../transform';
 import {
   Fetch,
@@ -298,6 +302,8 @@ export function createLibrary(): G2Library {
     'transform.maybeIdentityY': MaybeIdentityY,
     'transform.maybeIdentityX': MaybeIdentityX,
     'transform.maybeTuple': MaybeTuple,
+    'transform.maybeVisualPosition': MaybeVisualPosition,
+    'transform.maybeFunctionAttribute': MaybeFunctionAttribute,
     'transform.pack': Pack,
     'coordinate.cartesian': Cartesian,
     'coordinate.polar': Polar,
@@ -339,6 +345,7 @@ export function createLibrary(): G2Library {
     'mark.treemap': Treemap,
     'mark.pack': PackGeometry,
     'mark.boxplot': Boxplot,
+    'mark.shape': Shape,
     'palette.category10': Category10,
     'palette.category20': Category20,
     'palette.sequentialBlue': SequentialBlue,
@@ -421,6 +428,7 @@ export function createLibrary(): G2Library {
     'shape.text.badge': Badge,
     'shape.lineX.line': LineXY,
     'shape.lineY.line': LineXY,
+    'shape.shape.shape': CustomShape,
     'shape.connector.connector': ConnectorShape,
     'shape.range.range': RectShape,
     'shape.rangeX.range': RectShape,

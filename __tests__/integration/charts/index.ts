@@ -121,3 +121,6 @@ export { penguinsBoxPlotGroupedTranspose } from './penguins-boxplot-grouped-tran
 export { morleyBox1D } from './morley-box-1d';
 export { irisPointShapesDefaults } from './iris-point-shapes-defaults';
 export { indicesLinePointScaleKey } from './indices-line-point-scale-key';
+export { population2015IntervalDonutTextAnnotation } from './population2015-interval-donut-text-annotation';
+export { population2015IntervalDonutImageAnnotation } from './population2015-interval-donut-image-annotation';
+export { incomePointCircle } from './income-point-circle';
