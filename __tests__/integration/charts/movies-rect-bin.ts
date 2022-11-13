@@ -12,7 +12,6 @@ export function moviesRectBin(): G2Spec {
     ],
     scale: {
       color: {
-        type: 'sequential',
         palette: 'ylGnBu',
       },
     },

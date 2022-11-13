@@ -1,30 +1,21 @@
-import { group } from 'd3-array';
+import { rollups } from 'd3-array';
 import { defined } from '../utils/helper';
-import { unique } from '../utils/array';
 import { useLibrary } from './library';
-import { Channel, G2MarkState, G2Theme } from './types/common';
+import { G2MarkState } from './types/common';
 import {
-  G2View,
   G2Library,
   G2Mark,
-  G2ScaleOptions,
   G2TransformOptions,
   G2EncodeOptions,
 } from './types/options';
 import { MarkProps } from './types/mark';
-import {
-  NormalizedEncodeSpec,
-  EncodeComponent,
-  Encode,
-  ColumnValue,
-} from './types/encode';
+import { NormalizedEncodeSpec, EncodeComponent, Encode } from './types/encode';
 import {
   ColumnOf,
   TransformContext,
   Transform,
   TransformComponent,
 } from './types/transform';
-import { inferScale } from './scale';
 import {
   applyDefaults,
   applyDataTransform,
@@ -39,9 +30,6 @@ import {
 export async function initializeMark(
   partialMark: G2Mark,
   partialProps: MarkProps,
-  channelScale: Map<string, G2ScaleOptions>,
-  theme: G2Theme,
-  options: G2View,
   library: G2Library,
 ): Promise<[G2Mark, G2MarkState]> {
   // Apply transform to mark to derive indices, data, encode, etc,.
@@ -51,7 +39,8 @@ export async function initializeMark(
     partialProps,
     context,
   );
-  const { data, encode, scale: partialScale = {} } = transformedMark;
+
+  const { encode, scale, data } = transformedMark;
 
   // Skip mark with non-tabular data. Do not skip empty
   // data, they are useful for facet to display axes.
@@ -59,47 +48,63 @@ export async function initializeMark(
     return null;
   }
 
-  // Extract column of data for each channel.
+  // Group non-independent channels with same prefix, such as x1, x2 => x.
+  // For independent channels, dot not group them, such as position1, position2.
   const { channels: channelDescriptors } = partialProps;
-  const nameEncodes = group(
+  const nameChannels = rollups(
     Object.entries(encode).filter(([, value]) => defined(value)),
-    ([key]) => /([^\d]+)\d*$/.exec(key)?.[1],
+    (values) =>
+      values.map(([key, options]) => ({
+        name: key,
+        ...options,
+      })),
+    ([key]) => {
+      const prefix = /([^\d]+)\d*$/.exec(key)?.[1];
+      const descriptor = channelDescriptors.find((d) => d.name === prefix);
+      if (descriptor?.independent) return key;
+      return prefix;
+    },
   );
+
+  // Check required channels and initialize scale options for each channel.
   const channels = channelDescriptors
     .filter((descriptor) => {
       const { name, required } = descriptor;
-      if (nameEncodes.has(name)) return true;
+      if (nameChannels.find(([d]) => d === name)) return true;
       if (required) throw new Error(`Missing encoding for channel: ${name}.`);
       return false;
     })
     .flatMap((descriptor) => {
-      const { name } = descriptor;
-      const encodes = nameEncodes.get(name);
-      return encodes.map((e) => createChannel(descriptor, e));
+      const { name, scale: scaleType, scaleKey, range } = descriptor;
+      const valuesArray = nameChannels.filter(([channel]) =>
+        channel.startsWith(name),
+      );
+      return valuesArray.map(([channel, values], i) => {
+        const visual = values.some((d) => d.visual);
+        const {
+          independent = false,
+          // Use channel name as default scale key.
+          key = channel || scaleKey,
+          // Visual channel use identity scale.
+          type = visual ? 'identity' : scaleType,
+          ...scaleOptions
+        } = scale[channel] || {};
+        return {
+          name: channel,
+          values,
+          // Generate a unique key for independent channel,
+          // which will not group with any other channels.
+          scaleKey: independent ? `_g2_${key}_${i}` : key,
+          scale: {
+            type,
+            range,
+            ...scaleOptions,
+          },
+        };
+      });
     });
 
-  //  Infer scale for each channel.
-  const scale = {};
-  const { coordinate = [] } = options;
-  const scaleChannels = group(channels, (d) => d.scaleName);
-  for (const [scaleName, channels] of scaleChannels.entries()) {
-    const { shapes } = partialProps;
-    const channel = mergeChannel(channels);
-    const { [scaleName]: scaleOptions = {} } = partialScale;
-    scale[scaleName] = inferScale(
-      channel,
-      scaleOptions,
-      coordinate,
-      shapes,
-      theme,
-      channelScale,
-      library,
-    );
-  }
-
-  const mark = { ...transformedMark, scale };
-  const state = { ...partialProps, channels, index: I };
-  return [mark, state];
+  return [transformedMark, { ...partialProps, index: I, channels }];
 }
 
 export function createColumnOf(library: G2Library): ColumnOf {
@@ -151,32 +156,6 @@ async function applyMarkTransform(
     [index, transformedMark] = await t(index, transformedMark, context);
   }
   return [index, transformedMark];
-}
-
-function createChannel(
-  descriptor: Channel,
-  nameEncode: [string, ColumnValue],
-): Channel {
-  const { independent = false, name, scaleName, ...rest } = descriptor;
-  const [encodeName, encode] = nameEncode;
-  return {
-    ...rest,
-    ...encode,
-    name: encodeName,
-    scaleName: scaleName ?? (independent ? encodeName : name),
-  };
-}
-
-function mergeChannel(channels: Channel[]): Channel {
-  const target: Channel = {};
-  for (const source of channels) {
-    const { value: targetValue = [] } = target;
-    const { value: sourceValue = [] } = source;
-    Object.assign(target, source);
-    target.value = [...targetValue, ...sourceValue];
-  }
-  target.field = unique(channels.flatMap((d) => d.field).filter(defined));
-  return target;
 }
 
 function fieldOf(encode: NormalizedEncodeSpec): string {

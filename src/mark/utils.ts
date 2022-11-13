@@ -1,15 +1,18 @@
 import { Band } from '@antv/scale';
-import { Coordinate } from '@antv/coord';
 import { Primitive } from 'd3-array';
 import { Scale } from '../runtime/types/component';
 import { Channel } from '../runtime';
-import { isTranspose } from '../utils/coordinate';
 
-export function baseChannels(): Channel[] {
+export type ChannelOptions = {
+  shapes?: string[];
+};
+
+export function baseChannels(options: ChannelOptions = {}): Channel[] {
+  const { shapes } = options;
   return [
     { name: 'color' },
     { name: 'opacity' },
-    { name: 'shape' },
+    { name: 'shape', range: shapes },
     { name: 'enterType' },
     { name: 'enterDelay', scaleName: 'enter' },
     { name: 'enterDuration', scaleName: 'enter' },
@@ -20,16 +23,18 @@ export function baseChannels(): Channel[] {
   ];
 }
 
-export function baseGeometryChannels(): Channel[] {
+export function baseGeometryChannels(options: ChannelOptions = {}): Channel[] {
   return [
-    ...baseChannels(),
+    ...baseChannels(options),
     { name: 'title', scale: 'identity' },
     { name: 'tooltip', scale: 'identity', independent: true },
   ];
 }
 
-export function baseAnnotationChannels(): Channel[] {
-  return baseChannels();
+export function baseAnnotationChannels(
+  options: ChannelOptions = {},
+): Channel[] {
+  return baseChannels(options);
 }
 
 export function basePreInference() {

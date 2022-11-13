@@ -36,9 +36,10 @@ function markValue(
 ) {
   const [value] = Array.from(markState.entries())
     .filter(([mark]) => mark.type === markName)
-    .map(([, state]) => {
+    .map(([mark]) => {
+      const { encode } = mark;
       const channel = (name) => {
-        const channel = state.channels.find((d) => d.name === name);
+        const channel = encode[name];
         return [name, channel ? channel.value : undefined];
       };
       return Object.fromEntries(channels.map(channel));

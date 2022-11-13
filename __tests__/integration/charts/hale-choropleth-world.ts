@@ -33,8 +33,6 @@ export async function haleChoroplethWorld(): Promise<G2Spec> {
         },
         scale: {
           color: {
-            type: 'sequential',
-            palette: 'ylGnBu',
             unknown: '#ccc',
           },
         },

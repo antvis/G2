@@ -1,6 +1,6 @@
 import { G2Spec } from '../../../src';
 
-export function irisPointShapes(): G2Spec {
+export function irisPointShapesDefaults(): G2Spec {
   return {
     type: 'point',
     width: 1152,
@@ -15,9 +15,6 @@ export function irisPointShapes(): G2Spec {
       shape: 'category',
       color: 'category',
       size: 5,
-    },
-    scale: {
-      shape: { range: ['point', 'plus', 'diamond'] },
     },
   };
 }

@@ -46,13 +46,7 @@ import {
   LabelTransformComponent,
   LabelTransform,
 } from './types/component';
-import {
-  MarkComponent,
-  Mark,
-  MarkChannel,
-  CompositeMark,
-  SingleMark,
-} from './types/mark';
+import { MarkComponent, Mark, CompositeMark, SingleMark } from './types/mark';
 import {
   G2ViewDescriptor,
   G2MarkState,
@@ -64,7 +58,7 @@ import { initializeMark } from './mark';
 import { inferComponent, renderComponent } from './component';
 import { computeLayout, placeComponents } from './layout';
 import { createCoordinate } from './coordinate';
-import { applyScale, syncFacetsScales, useRelation } from './scale';
+import { applyScale, syncFacetsScales, useRelation, inferScale } from './scale';
 import { applyDataTransform } from './transform';
 import {
   MAIN_LAYER_CLASS_NAME,
@@ -280,10 +274,9 @@ async function initializeMarks(
     library,
   );
 
-  const { theme: partialTheme, marks: partialMarks } = options;
+  const { theme: partialTheme, marks: partialMarks, coordinate = [] } = options;
   const theme = useTheme(inferTheme(partialTheme));
   const markState = new Map<G2Mark, G2MarkState>();
-  const channelScale = new Map<string, G2ScaleOptions>();
 
   // Apply data transform to get data.
   const dataMarks = [];
@@ -304,22 +297,49 @@ async function initializeMarks(
     return marks.map((d, i) => ({ key: `${key}-${i}`, ...d }));
   });
 
-  for (const partialMark of flattenMarks) {
-    const { type } = partialMark;
+  // Initialize channels for marks.
+  for (const markOptions of flattenMarks) {
+    const { type } = markOptions;
     const { props } = createMark(type);
-    const markAndState = await initializeMark(
-      partialMark,
-      props,
-      channelScale,
-      theme,
-      options,
-      library,
-    );
+    const markAndState = await initializeMark(markOptions, props, library);
     if (markAndState) {
-      const [mark, state] = markAndState;
-      markState.set(mark, state);
+      const [initializedMark, state] = markAndState;
+      markState.set(initializedMark, state);
     }
   }
+
+  // Group channels by scale key, each group has scale.
+  const scaleChannels = group(
+    Array.from(markState.values()).flatMap((d) => d.channels),
+    ({ scaleKey }) => scaleKey,
+  );
+
+  // Infer scale for each channel groups.
+  for (const channels of scaleChannels.values()) {
+    // Merge scale options for these channels.
+    const scaleOptions = channels.reduce(
+      (total, { scale }) => deepMix(total, scale),
+      {},
+    );
+
+    // Use the fields of the first channel as the title.
+    const { values: FV } = channels[0];
+    const fields = Array.from(new Set(FV.map((d) => d.field).filter(defined)));
+    const options = deepMix(
+      {
+        guide: { title: fields.length === 0 ? undefined : fields },
+        field: fields[0],
+      },
+      scaleOptions,
+    );
+
+    // Use the name of the first channel as the scale name.
+    const { name } = channels[0];
+    const values = channels.flatMap(({ values }) => values.map((d) => d.value));
+    const scale = inferScale(name, values, options, coordinate, theme, library);
+    channels.forEach((channel) => (channel.scale = scale));
+  }
+
   return markState;
 }
 
@@ -345,8 +365,11 @@ function initializeState(
   const theme = useTheme(inferTheme(partialTheme));
 
   // Infer components and compute layout.
-  const marks = Array.from(markState.keys());
-  const scales = new Set(marks.flatMap((d) => Object.values(d.scale)));
+  const states = Array.from(markState.values());
+  const scales = Array.from(
+    new Set(states.flatMap((d) => d.channels.map((d) => d.scale))),
+  );
+
   const components = inferComponent(Array.from(scales), options, library);
   const layout = computeLayout(components, options);
   const coordinate = createCoordinate(layout, options, library);
@@ -365,7 +388,7 @@ function initializeState(
   const children = [];
   for (const [mark, state] of markState.entries()) {
     const {
-      scale,
+      // scale,
       // Callback to create children options based on this mark.
       children: createChildren,
       // The total count of data (both show and hide)for this facet.
@@ -375,6 +398,9 @@ function initializeState(
       key: markKey,
     } = mark;
     const { index, channels } = state;
+    const scale = Object.fromEntries(
+      channels.map(({ name, scale }) => [name, scale]),
+    );
 
     // Transform abstract value to visual value by scales.
     const markScaleInstance = mapObject(scale, (options) => {
@@ -873,7 +899,8 @@ function createMarkShapeFunction(
   const { theme, coordinate } = view;
   const { type: markType, style = {} } = mark;
   return (data, index) => {
-    const { shape = defaultShape, points, seriesIndex, ...v } = data;
+    const { shape: styleShape = defaultShape } = style;
+    const { shape = styleShape, points, seriesIndex, ...v } = data;
     const value = { ...v, shape, mark: markType, defaultShape, index };
 
     // Get data-driven style.

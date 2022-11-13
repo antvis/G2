@@ -21,11 +21,13 @@ export const Text: MC<TextOptions> = (options) => {
   };
 };
 
+const shapes = ['text', 'badge'];
+
 Text.props = {
   defaultShape: 'text',
   defaultLabelShape: 'label',
   channels: [
-    ...baseGeometryChannels(),
+    ...baseGeometryChannels({ shapes }),
     { name: 'x', required: true },
     { name: 'y', required: true },
     { name: 'text', scale: 'identity' },
@@ -39,5 +41,4 @@ Text.props = {
     { type: 'maybeTooltipY' },
     { type: 'maybeTuple' },
   ],
-  shapes: ['text', 'badge'],
 };

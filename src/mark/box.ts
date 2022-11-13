@@ -90,7 +90,7 @@ Box.props = {
   defaultShape: 'box',
   defaultLabelShape: 'label',
   channels: [
-    ...baseGeometryChannels(),
+    ...baseGeometryChannels({ shapes: ['box'] }),
     { name: 'x', scale: 'band', required: true },
     { name: 'y', required: true },
     { name: 'series', scale: 'band' },
@@ -101,5 +101,4 @@ Box.props = {
     { type: 'maybeTitleX' },
     { type: 'maybeTooltipY' },
   ],
-  shapes: ['box'],
 };

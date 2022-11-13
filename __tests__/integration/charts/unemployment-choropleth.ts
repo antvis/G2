@@ -26,8 +26,6 @@ export async function unemploymentChoropleth(): Promise<G2Spec> {
     },
     scale: {
       color: {
-        type: 'sequential',
-        palette: 'ylGnBu',
         unknown: '#fff',
       },
     },

@@ -9,7 +9,7 @@ export function temperatures3AreaBandGradient(): G2Spec {
       value: 'data/temperatures3.csv',
     },
     scale: {
-      color: { type: 'sequential', palette: 'reds' },
+      color: { palette: 'reds' },
     },
     encode: {
       x: 'date',

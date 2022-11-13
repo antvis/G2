@@ -11,7 +11,9 @@ export function visualColumn(value: Primitive[], field?: string) {
 }
 
 export function constant(I: number[], value: any) {
-  return new Array(I.length).fill(value);
+  const array = [];
+  for (const i of I) array[i] = value;
+  return array;
 }
 
 export function columnOf(encode, key: string): [Primitive[], string] {

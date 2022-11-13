@@ -46,7 +46,6 @@ export function seattleWeatherCellSpaceFlex(): G2Spec {
             },
             scale: {
               color: {
-                type: 'sequential',
                 palette: 'gnBu',
               },
             },
