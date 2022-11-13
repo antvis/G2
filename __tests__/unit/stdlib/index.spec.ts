@@ -39,6 +39,7 @@ import {
   Treemap,
   Pack as PackGeometry,
   Boxplot,
+  Shape,
 } from '../../../src/mark';
 import {
   Category10,
@@ -125,6 +126,7 @@ import {
   Label,
   Path as PathShape,
   HollowPath,
+  Shape as CustomShape,
 } from '../../../src/shape';
 import { Light, Dark } from '../../../src/theme';
 import {
@@ -189,6 +191,8 @@ import {
   MaybeStackY,
   MaybeSeries,
   MaybeTooltipPosition,
+  MaybeFunctionAttribute,
+  MaybeVisualPosition,
   MaybeZeroY,
   MaybeSize,
   MaybeKey,
@@ -304,6 +308,8 @@ describe('stdlib', () => {
       'transform.maybeIdentityY': MaybeIdentityY,
       'transform.maybeIdentityX': MaybeIdentityX,
       'transform.maybeTuple': MaybeTuple,
+      'transform.maybeVisualPosition': MaybeVisualPosition,
+      'transform.maybeFunctionAttribute': MaybeFunctionAttribute,
       'transform.pack': Pack,
       'coordinate.cartesian': Cartesian,
       'coordinate.polar': Polar,
@@ -345,6 +351,7 @@ describe('stdlib', () => {
       'mark.treemap': Treemap,
       'mark.pack': PackGeometry,
       'mark.boxplot': Boxplot,
+      'mark.shape': Shape,
       'palette.category10': Category10,
       'palette.category20': Category20,
       'palette.sequentialBlue': SequentialBlue,
@@ -427,6 +434,7 @@ describe('stdlib', () => {
       'shape.text.badge': Badge,
       'shape.lineX.line': LineXY,
       'shape.lineY.line': LineXY,
+      'shape.shape.shape': CustomShape,
       'shape.connector.connector': ConnectorShape,
       'shape.range.range': RectShape,
       'shape.rangeX.range': RectShape,

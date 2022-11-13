@@ -26,12 +26,11 @@ describe('Text', () => {
         { name: 'fontSize' },
         { name: 'rotate' },
       ],
-      preInference: [],
+      preInference: [{ type: 'maybeTuple' }, { type: 'maybeVisualPosition' }],
       postInference: [
         { type: 'maybeKey' },
         { type: 'maybeTitleX' },
         { type: 'maybeTooltipY' },
-        { type: 'maybeTuple' },
       ],
     });
   });
