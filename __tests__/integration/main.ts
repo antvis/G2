@@ -4,12 +4,19 @@ import { Renderer as SVGRenderer } from '@antv/g-svg';
 import { render } from '../../src';
 import * as charts from './charts';
 import * as interactions from './interactions';
+import * as animations from './animations';
 
 const tests = {
   ...charts,
   ...Object.fromEntries(
     Object.entries(interactions).map(([key, value]) => [
       `interaction-${key}`,
+      value,
+    ]),
+  ),
+  ...Object.fromEntries(
+    Object.entries(animations).map(([key, value]) => [
+      `animation-${key}`,
       value,
     ]),
   ),

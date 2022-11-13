@@ -1,4 +1,4 @@
-import { Canvas } from '@antv/g';
+import { Canvas, IAnimation as GAnimation } from '@antv/g';
 import type { DisplayObject } from '@antv/g';
 import { G2Title, GuideComponentPosition, Layout, Primitive } from './common';
 import {
@@ -42,10 +42,12 @@ export type G2Library = Record<
   G2BaseComponent
 >;
 
+// @todo
 export type G2Context = {
   library?: G2Library;
   canvas?: Canvas;
   group?: DisplayObject;
+  animations?: GAnimation[];
   bindAutoFit?: boolean;
 };
 
