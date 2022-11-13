@@ -77,11 +77,13 @@ export const Line: MC<LineOptions> = () => {
   };
 };
 
+const shapes = ['line', 'smooth'];
+
 Line.props = {
   defaultShape: 'line',
   defaultLabelShape: 'label',
   channels: [
-    ...baseGeometryChannels(),
+    ...baseGeometryChannels({ shapes }),
     { name: 'x' },
     { name: 'y' },
     { name: 'position', independent: true },
@@ -95,5 +97,4 @@ Line.props = {
     { type: 'maybeTooltipY' },
     { type: 'maybeTooltipPosition' },
   ],
-  shapes: ['line', 'smooth'],
 };

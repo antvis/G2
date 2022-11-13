@@ -29,8 +29,8 @@ const setChildren = useOverrideAdaptor<G2ViewTree>((options) => {
   const createChildren = (visualData, scale, layout) => {
     const { x: scaleX, y: scaleY } = scale;
     const { paddingLeft, paddingTop } = layout;
-    const { domain: domainX, field: fieldX } = scaleX.getOptions();
-    const { domain: domainY, field: fieldY } = scaleY.getOptions();
+    const { domain: domainX } = scaleX.getOptions();
+    const { domain: domainY } = scaleY.getOptions();
     const index = indexOf(visualData);
     const bboxs = visualData.map(({ points }) => calcBBox(points));
     const values = visualData.map(({ x, y }) => [
@@ -38,11 +38,11 @@ const setChildren = useOverrideAdaptor<G2ViewTree>((options) => {
       scaleY.invert(y),
     ]);
     const facets = values.map(([fx, fy]) => ({
-      columnField: fieldX,
+      columnField: fx,
       columnIndex: domainX.indexOf(fx),
       columnValue: fx,
       columnValuesLength: domainX.length,
-      rowField: fieldY,
+      rowField: fy,
       rowIndex: domainY.indexOf(fy),
       rowValue: fy,
       rowValuesLength: domainY.length,

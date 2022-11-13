@@ -10,7 +10,7 @@ describe('Range annotation', () => {
       channels: [
         { name: 'color' },
         { name: 'opacity' },
-        { name: 'shape' },
+        { name: 'shape', range: ['range'] },
         { name: 'enterType' },
         { name: 'enterDelay', scaleName: 'enter' },
         { name: 'enterDuration', scaleName: 'enter' },
@@ -23,7 +23,6 @@ describe('Range annotation', () => {
       ],
       preInference: [],
       postInference: [{ type: 'maybeKey' }],
-      shapes: ['range'],
     });
   });
 

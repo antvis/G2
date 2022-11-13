@@ -119,3 +119,5 @@ export { penguinsBoxPlotGrouped } from './penguins-boxplot-grouped';
 export { penguinsBoxPlotGroupedExtent } from './penguins-boxplot-grouped-extent';
 export { penguinsBoxPlotGroupedTranspose } from './penguins-boxplot-grouped-transpose';
 export { morleyBox1D } from './morley-box-1d';
+export { irisPointShapesDefaults } from './iris-point-shapes-defaults';
+export { indicesLinePointScaleKey } from './indices-line-point-scale-key';

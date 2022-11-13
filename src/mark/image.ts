@@ -21,11 +21,13 @@ export const Image: MC<ImageOptions> = (options) => {
   };
 };
 
+const shapes = ['image'];
+
 Image.props = {
   defaultShape: 'image',
   defaultLabelShape: 'label',
   channels: [
-    ...baseGeometryChannels(),
+    ...baseGeometryChannels({ shapes }),
     { name: 'x', required: true },
     { name: 'y', required: true },
     { name: 'src', required: true, scale: 'identity' },
@@ -37,5 +39,4 @@ Image.props = {
     { type: 'maybeTitleX' },
     { type: 'maybeTooltipY' },
   ],
-  shapes: ['image'],
 };

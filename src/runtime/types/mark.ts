@@ -19,7 +19,6 @@ export type MarkProps = {
   channels: Channel[];
   preInference?: TransformSpec[];
   postInference?: TransformSpec[];
-  shapes: string[];
   composite?: boolean;
 };
 

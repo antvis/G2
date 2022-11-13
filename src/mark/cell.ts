@@ -34,11 +34,13 @@ export const Cell: MC<CellOptions> = () => {
   };
 };
 
+const shapes = ['rect', 'hollow'];
+
 Cell.props = {
   defaultShape: 'cell',
   defaultLabelShape: 'label',
   channels: [
-    ...baseGeometryChannels(),
+    ...baseGeometryChannels({ shapes }),
     { name: 'x', required: true, scale: 'band' },
     { name: 'y', required: true, scale: 'band' },
   ],
@@ -53,5 +55,4 @@ Cell.props = {
     { type: 'maybeTitleX' },
     { type: 'maybeTooltipY' },
   ],
-  shapes: ['rect', 'hollow'],
 };
