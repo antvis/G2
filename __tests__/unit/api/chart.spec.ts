@@ -28,6 +28,10 @@ import {
   RangeY,
   Rect,
   Connector,
+  Boxplot,
+  Sankey,
+  Treemap,
+  Shape,
 } from '../../../src/api/mark/mark';
 import { createDiv } from '../../utils/dom';
 
@@ -121,6 +125,10 @@ describe('Chart', () => {
     expect(chart.rangeX()).toBeInstanceOf(RangeX);
     expect(chart.rangeY()).toBeInstanceOf(RangeY);
     expect(chart.connector()).toBeInstanceOf(Connector);
+    expect(chart.sankey()).toBeInstanceOf(Sankey);
+    expect(chart.treemap()).toBeInstanceOf(Treemap);
+    expect(chart.boxplot()).toBeInstanceOf(Boxplot);
+    expect(chart.shape()).toBeInstanceOf(Shape);
     expect(chart.options().children).toEqual([
       { type: 'interval' },
       { type: 'rect' },
@@ -140,6 +148,10 @@ describe('Chart', () => {
       { type: 'rangeX' },
       { type: 'rangeY' },
       { type: 'connector' },
+      { type: 'sankey' },
+      { type: 'treemap' },
+      { type: 'boxplot' },
+      { type: 'shape' },
     ]);
   });
 

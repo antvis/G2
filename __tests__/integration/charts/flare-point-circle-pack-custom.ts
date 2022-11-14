@@ -1,20 +1,17 @@
-import { json } from 'd3-fetch';
 import { interpolateHcl } from 'd3-interpolate';
 import { G2Spec } from '../../../src';
 
 export async function flarePointCirclePackCustom(): Promise<G2Spec> {
-  const data = await json('data/flare.json');
   return {
     padding: 20,
     width: 1000,
     height: 1000,
     type: 'pack',
     data: {
-      value: data,
+      type: 'fetch',
+      value: 'data/flare.json',
     },
-    layout: {
-      padding: 5,
-    },
+    layout: { padding: 5 },
     encode: {
       value: 'value',
       color: 'depth',

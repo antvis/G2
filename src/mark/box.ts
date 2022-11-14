@@ -90,16 +90,15 @@ Box.props = {
   defaultShape: 'box',
   defaultLabelShape: 'label',
   channels: [
-    ...baseGeometryChannels(),
+    ...baseGeometryChannels({ shapes: ['box'] }),
     { name: 'x', scale: 'band', required: true },
     { name: 'y', required: true },
     { name: 'series', scale: 'band' },
   ],
-  preInference: [...basePreInference()],
+  preInference: [...basePreInference(), { type: 'maybeZeroX' }],
   postInference: [
     ...basePostInference(),
     { type: 'maybeTitleX' },
     { type: 'maybeTooltipY' },
   ],
-  shapes: ['box'],
 };

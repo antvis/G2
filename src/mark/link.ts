@@ -24,11 +24,13 @@ export const Link: MC<LinkOptions> = (options) => {
   };
 };
 
+const shapes = ['link', 'arc', 'vhv', 'smooth'];
+
 Link.props = {
   defaultShape: 'link',
   defaultLabelShape: 'label',
   channels: [
-    ...baseGeometryChannels(),
+    ...baseGeometryChannels({ shapes }),
     { name: 'x', required: true },
     { name: 'y', required: true },
   ],
@@ -42,5 +44,4 @@ Link.props = {
     { type: 'maybeTitleX' },
     { type: 'maybeTooltipY' },
   ],
-  shapes: ['link', 'arc', 'vhv', 'smooth'],
 };

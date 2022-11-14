@@ -104,8 +104,8 @@ export const Light: TC<LightOptions> = (options) => {
       box: {
         fill: DEFAULT_COLOR,
         fillOpacity: 0.95,
-        stroke: DEFAULT_COLOR,
-        lineWidth: 2,
+        stroke: '#1D2129',
+        lineWidth: 1,
       },
     },
     text: {

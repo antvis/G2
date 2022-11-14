@@ -4,7 +4,7 @@ import * as d3ScaleChromatic from 'd3-scale-chromatic';
 import { upperFirst } from '@antv/util';
 import { firstOf, lastOf, unique } from '../utils/array';
 import { defined, identity } from '../utils/helper';
-import { Channel, Primitive, G2Theme, G2MarkState } from './types/common';
+import { Primitive, G2Theme, G2MarkState, ChannelGroups } from './types/common';
 import {
   G2CoordinateOptions,
   G2Library,
@@ -18,47 +18,38 @@ import {
   Palette,
   Scale,
 } from './types/component';
-import { isPolar, isTheta } from './coordinate';
+import { isTheta } from './coordinate';
 import { useLibrary } from './library';
 import { MarkChannel } from './types/mark';
 
-export function inferScale(
-  channel: Channel,
-  options: G2ScaleOptions,
-  coordinate: G2CoordinateOptions[],
-  shapes: string[],
-  theme: G2Theme,
-  nameScale: Map<string, G2ScaleOptions>,
-  library: G2Library,
-) {
-  const { scaleName } = channel;
-  const potentialScale = inferPotentialScale(
-    channel,
-    options,
-    coordinate,
-    shapes,
-    theme,
-    library,
-  );
-  const { independent } = potentialScale;
-  if (independent) return potentialScale;
-  if (!nameScale.has(scaleName)) {
-    nameScale.set(scaleName, potentialScale);
-    return potentialScale;
-  }
-  const scale = nameScale.get(scaleName);
-  syncScale(scaleName, scale, potentialScale);
-  return scale;
+export function inferScale(name, values, options, coordinate, theme, library) {
+  const { guide = {} } = options;
+  const type = inferScaleType(name, values, options);
+  if (typeof type !== 'string') return options;
+  const domain = inferScaleDomain(type, name, values, options);
+  return {
+    ...options,
+    ...inferScaleOptions(type, name, values, options, coordinate),
+    domain,
+    range: inferScaleRange(type, name, values, options, domain, theme, library),
+    guide,
+    name,
+    type,
+  };
 }
 
 export function applyScale(
-  channels: Channel[],
+  channels: ChannelGroups[],
   scale: Record<string, Scale>,
 ): MarkChannel {
   const scaledValue = {};
-  for (const { scaleName, value, name } of channels) {
+  for (const channel of channels) {
+    const { values, name: scaleName } = channel;
     const scaleInstance = scale[scaleName];
-    scaledValue[name] = value.map((d) => scaleInstance.map(d));
+    for (const value of values) {
+      const { name, value: V } = value;
+      scaledValue[name] = V.map((d) => scaleInstance.map(d));
+    }
   }
   return scaledValue;
 }
@@ -114,17 +105,19 @@ export function useRelation(
 
 export function syncFacetsScales(states: Map<G2Mark, G2MarkState>[]): void {
   const scales = states
-    .flatMap((state) => Array.from(state.keys()))
-    .map((d) => d.scale);
+    .flatMap((d) => Array.from(d.values()))
+    .flatMap((d) => d.channels.map((d) => d.scale));
   syncFacetsScaleByChannel(scales, 'x');
   syncFacetsScaleByChannel(scales, 'y');
 }
 
 function syncFacetsScaleByChannel(
-  scales: Record<string, G2ScaleOptions>[],
+  scales: G2ScaleOptions[],
   channel: 'x' | 'y',
 ): void {
-  const S = scales.map((d) => d[channel]).filter(({ facet = true }) => facet);
+  const S = scales.filter(
+    ({ name, facet = true }) => facet && name === channel,
+  );
   const D = S.flatMap((d) => d.domain);
   const syncedD = S.every(isQuantitativeScale)
     ? extent(D)
@@ -154,69 +147,33 @@ function isDiscreteScale(scale: G2ScaleOptions) {
   return names.includes(type);
 }
 
-function inferPotentialScale(
-  channel: Channel,
-  options: G2ScaleOptions,
-  coordinate: G2CoordinateOptions[],
-  shapes: string[],
-  theme: G2Theme,
-  library: G2Library,
-): G2ScaleOptions {
-  const { name, field: inferredField } = channel;
-  const { field = inferredField, guide = {} } = options;
-  const type = inferScaleType(channel, options);
-  if (typeof type !== 'string') return options;
-  const domain = inferScaleDomain(type, channel, options);
-  return {
-    ...options,
-    ...inferScaleOptions(type, channel, options, coordinate),
-    domain,
-    range: inferScaleRange(
-      type,
-      channel,
-      options,
-      domain,
-      shapes,
-      theme,
-      library,
-    ),
-    guide,
-    name,
-    field,
-    type,
-  };
-}
-
 // @todo More accurate inference for different cases.
 function inferScaleType(
-  channel: Channel,
+  name: string,
+  values: Primitive[][],
   options: G2ScaleOptions,
 ): string | ScaleComponent {
-  const { scale, name, value, visual } = channel;
   const { type, domain, range } = options;
   if (type !== undefined) return type;
-  // The priority of visual is higher than default scale type.
-  if (visual) return 'identity';
-  if (scale !== undefined) return scale;
-  if (isObject(value)) return 'identity';
+
   if (typeof range === 'string') return 'linear';
   if ((domain || range || []).length > 2) return asOrdinalType(name);
   if (domain !== undefined) {
-    if (isOrdinal(domain)) return asOrdinalType(name);
-    if (isTemporal(value)) return 'time';
-    return 'linear';
+    if (isOrdinal([domain])) return asOrdinalType(name);
+    if (isTemporal(values)) return 'time';
+    return asQuantitativeType(name, range);
   }
-  if (isOrdinal(value)) return asOrdinalType(name);
-  if (isTemporal(value)) return 'time';
-  return 'linear';
+  if (isOrdinal(values)) return asOrdinalType(name);
+  if (isTemporal(values)) return 'time';
+  return asQuantitativeType(name, range);
 }
 
 function inferScaleDomain(
   type: string,
-  channel: Channel,
+  name: string,
+  values,
   options: G2ScaleOptions,
 ): Primitive[] {
-  const { value } = channel;
   const { domain } = options;
   if (domain !== undefined) return domain;
   const { domainMax, domainMin } = options;
@@ -228,17 +185,17 @@ function inferScaleDomain(
     case 'sqrt':
     case 'quantize':
     case 'threshold': {
-      const [d0, d1] = inferDomainQ(value, options);
+      const [d0, d1] = inferDomainQ(values, options);
       return [domainMin || d0, domainMax || d1];
     }
     case 'band':
     case 'ordinal':
     case 'point':
-      return inferDomainC(value);
+      return inferDomainC(values);
     case 'quantile':
-      return inferDomainO(value);
+      return inferDomainO(values);
     case 'sequential': {
-      const [d0, d1] = inferDomainS(value);
+      const [d0, d1] = inferDomainS(values);
       return [domainMin || d0, domainMax || d1];
     }
     default:
@@ -248,30 +205,23 @@ function inferScaleDomain(
 
 function inferScaleRange(
   type: string,
-  channel: Channel,
+  name: string,
+  values: Primitive[][],
   options: G2ScaleOptions,
   domain: Primitive[],
-  shapes: string[],
   theme: G2Theme,
   library: G2Library,
 ) {
   const { range } = options;
   if (typeof range === 'string') return gradientColors(range);
   if (range !== undefined) return range;
-  const { name } = channel;
   const { rangeMin, rangeMax } = options;
   switch (type) {
     case 'linear':
     case 'time':
     case 'log':
     case 'sqrt': {
-      const colors = categoricalColors(
-        channel,
-        options,
-        domain,
-        theme,
-        library,
-      );
+      const colors = categoricalColors(values, options, domain, theme, library);
       const [r0, r1] = inferRangeQ(name, colors);
       return [rangeMin || r0, rangeMax || r1];
     }
@@ -279,14 +229,7 @@ function inferScaleRange(
     case 'point':
       return [rangeMin || 0, rangeMax || 1];
     case 'ordinal': {
-      const colors = categoricalColors(
-        channel,
-        options,
-        domain,
-        theme,
-        library,
-      );
-      return name === 'color' ? colors : shapes;
+      return categoricalColors(values, options, domain, theme, library);
     }
     case 'sequential':
       return undefined;
@@ -297,11 +240,11 @@ function inferScaleRange(
 
 function inferScaleOptions(
   type: string,
-  channel: Channel,
+  name: string,
+  values: Primitive[][],
   options: G2ScaleOptions,
   coordinate: G2CoordinateOptions[],
 ): G2ScaleOptions {
-  const { name } = channel;
   switch (type) {
     case 'linear':
     case 'time':
@@ -320,7 +263,7 @@ function inferScaleOptions(
 }
 
 function categoricalColors(
-  channel: Channel,
+  values: Primitive[][],
   options: G2ScaleOptions,
   domain: Primitive[],
   theme: G2Theme,
@@ -330,9 +273,8 @@ function categoricalColors(
     'palette',
     library,
   );
-  const { value } = channel;
   const { defaultCategory10: c10, defaultCategory20: c20 } = theme;
-  const defaultPalette = unique(value).length <= c10.length ? c10 : c20;
+  const defaultPalette = unique(values.flat()).length <= c10.length ? c10 : c20;
   const { palette, offset } = options;
   const colors =
     interpolatedColors(palette, domain, offset) ||
@@ -369,7 +311,7 @@ function interpolatedColors(
 }
 
 function inferOptionsS(options) {
-  const { palette, offset } = options;
+  const { palette = 'ylGnBu', offset } = options;
   const name = upperFirst(palette);
   const interpolator = d3ScaleChromatic[`interpolate${name}`];
   if (!interpolator) throw new Error(`Unknown palette: ${name}`);
@@ -435,43 +377,53 @@ function asOrdinalType(name: string) {
   return isQuantitative(name) ? 'point' : 'ordinal';
 }
 
-function inferDomainQ(value: Primitive[], options: G2ScaleOptions) {
+function asQuantitativeType(name: string, range: Primitive[]) {
+  if (name !== 'color') return 'linear';
+  return range ? 'linear' : 'sequential';
+}
+
+function inferDomainQ(values: Primitive[][], options: G2ScaleOptions) {
   const { zero = false } = options;
-  if (value.length === 0) return [];
   let min = Infinity;
   let max = -Infinity;
-  for (const d of value) {
-    if (defined(d)) {
-      min = Math.min(min, +d);
-      max = Math.max(max, +d);
+  for (const value of values) {
+    for (const d of value) {
+      if (defined(d)) {
+        min = Math.min(min, +d);
+        max = Math.max(max, +d);
+      }
     }
   }
+  if (min === Infinity) return [];
   return zero ? [Math.min(0, min), max] : [min, max];
 }
 
-function inferDomainC(value: Primitive[]) {
-  return Array.from(new Set(value));
+function inferDomainC(values: Primitive[][]) {
+  return Array.from(new Set(values.flat()));
 }
 
-function inferDomainO(value: Primitive[]) {
-  return inferDomainC(value).sort();
+function inferDomainO(values: Primitive[][]) {
+  return inferDomainC(values).sort();
 }
 
-function inferDomainS(value: Primitive[]) {
+function inferDomainS(values: Primitive[][]) {
   let min = Infinity;
   let max = -Infinity;
-  for (const d of value) {
-    if (defined(d)) {
-      min = Math.min(min, +d);
-      max = Math.max(max, +d);
+  for (const value of values) {
+    for (const d of value) {
+      if (defined(d)) {
+        min = Math.min(min, +d);
+        max = Math.max(max, +d);
+      }
     }
   }
+  if (min === Infinity) return [];
   return [min < 0 ? -max : min, max];
 }
 
 /**
  * @todo More nice default range for enterDelay and enterDuration.
- * @todo Add default range for some channels?
+ * @todo Move these to channel definition.
  */
 function inferRangeQ(name: string, palette: Palette): Primitive[] {
   if (name === 'enterDelay') return [0, 1000];
@@ -483,23 +435,22 @@ function inferRangeQ(name: string, palette: Palette): Primitive[] {
   return [0, 1];
 }
 
-function isOrdinal(values: Primitive[]): boolean {
-  return values.some((v) => {
-    const type = typeof v;
+function isOrdinal(values: Primitive[][]): boolean {
+  return some(values, (d) => {
+    const type = typeof d;
     return type === 'string' || type === 'boolean';
   });
 }
 
-function isTemporal(values: Primitive[]): boolean {
-  return values.some((v) => {
-    return v instanceof Date;
-  });
+function isTemporal(values: Primitive[][]): boolean {
+  return some(values, (d) => d instanceof Date);
 }
 
-function isObject(values: Primitive[]): boolean {
-  return values.some((v) => {
-    return typeof v === 'object' && !(v instanceof Date) && v !== null;
-  });
+function some(values, callback) {
+  for (const V of values) {
+    if (V.some(callback)) return true;
+  }
+  return false;
 }
 
 function isQuantitative(name: string): boolean {
@@ -524,101 +475,4 @@ export function isPosition(name: string): boolean {
     name === 'exitDelay' ||
     name === 'exitDuration'
   );
-}
-
-/**
- * Sync the domain and range of two scales with same type.
- */
-function syncScale(
-  channel: string,
-  targetScale: G2ScaleOptions,
-  sourceScale: G2ScaleOptions,
-): void {
-  const {
-    type: targetType,
-    domain: targetDomain,
-    range: targetRange,
-  } = targetScale;
-  const {
-    type: sourceType,
-    domain: sourceDomain,
-    range: sourceRange,
-  } = sourceScale;
-  if (typeof targetType !== 'string' || typeof sourceType !== 'string') return;
-  targetScale.type = maybeCompatible(targetType, sourceType, channel);
-  targetScale.domain = syncDomain(targetType, targetDomain, sourceDomain);
-  targetScale.range = syncRange(targetType, targetRange, sourceRange);
-}
-
-/**
- * @todo Take more quantitative scales besides linear(e.g. log, time, pow) into account.
- */
-function maybeCompatible(
-  target: string,
-  source: string,
-  channel: string,
-): string | never {
-  if (oneOf(target, source, 'linear', 'identity')) {
-    // Quantitative scale and identity scale is compatible for each other and identity scale has higher priority.
-    // This is useful for enterDelay and enterDuration to know whether they are constant or field channel.
-    // If any of them is identity scale, it means one of them is specified as constant channel in encode options.
-    // In this case, assume all of them are identity scales.
-    return 'identity';
-  } else if (oneOf(target, source, 'band', 'point')) {
-    // Band scale and point scale is compatible, because they have same type of domain and range.
-    // The only difference is the method to compute interval between points.
-    return 'band';
-  } else if (target !== source) {
-    return target;
-    // throw new Error(
-    //   `Incompatible scale type: ${target} !== ${source} for channel: ${channel}`,
-    // );
-  } else {
-    return target;
-  }
-}
-
-function oneOf(a: string, b: string, m: string, n: string) {
-  return (a === m && b === n) || (a === n && b === m);
-}
-
-function syncDomain(type: string, target: any[], source: any[]): any[] {
-  switch (type) {
-    case 'linear':
-    case 'pow':
-    case 'log':
-      return syncTupleQ(target, source);
-    case 'band':
-    case 'ordinal':
-      return syncTupleC(target, source);
-    default:
-      return target;
-  }
-}
-
-function syncRange(type: string, target: any[], source: any[]): any[] {
-  switch (type) {
-    case 'linear':
-    case 'band':
-    case 'pow':
-    case 'log':
-      return syncTupleQ(target, source);
-    case 'ordinal':
-      return syncTupleC(target, source);
-    default:
-      return target;
-  }
-}
-
-function syncTupleQ(target: (number | Date)[], source: (number | Date)[]) {
-  const [t0, t1] = target;
-  const [s0, s1] = source;
-  return [Math.min(+t0, +s0), Math.max(+t1, +s1)];
-}
-
-function syncTupleC(
-  target: (string | boolean)[],
-  source: (string | boolean)[],
-) {
-  return Array.from(new Set([...target, ...source]));
 }

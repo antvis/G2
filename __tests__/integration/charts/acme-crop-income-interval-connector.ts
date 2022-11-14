@@ -69,6 +69,9 @@ export function acmeCropIncomeIntervalConnector() {
             domain: ['P', 'N', 'D'],
             range: ['#64b5f6', '#ef6c00', '#96a6a6'],
           },
+          x: {
+            padding: 0.5,
+          },
         },
         style: { stroke: '#697474' },
         labels: [

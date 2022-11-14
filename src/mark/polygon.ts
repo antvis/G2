@@ -36,11 +36,13 @@ export const Polygon: MC<PolygonOptions> = () => {
   };
 };
 
+const shapes = ['polygon', 'ribbon'];
+
 Polygon.props = {
   defaultShape: 'polygon',
   defaultLabelShape: 'label',
   channels: [
-    ...baseGeometryChannels(),
+    ...baseGeometryChannels({ shapes }),
     { name: 'x', required: true },
     { name: 'y', required: true },
   ],
@@ -50,5 +52,4 @@ Polygon.props = {
     { type: 'maybeTitleX' },
     { type: 'maybeTooltipY' },
   ],
-  shapes: ['polygon', 'ribbon'],
 };

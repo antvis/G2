@@ -32,6 +32,8 @@ export type Geometry =
   | PathMark
   | TreemapMark
   | PackMark
+  | BoxPlotMark
+  | ShapeMark
   | CustomComponent;
 
 export type GeometryTypes =
@@ -59,6 +61,8 @@ export type GeometryTypes =
   | 'path'
   | 'treemap'
   | 'pack'
+  | 'boxplot'
+  | 'shape'
   | MarkComponent;
 
 export type ChannelTypes =
@@ -66,6 +70,7 @@ export type ChannelTypes =
   | 'y'
   | 'x1'
   | 'y1'
+  | 'series'
   | 'color'
   | 'opacity'
   | 'shape'
@@ -129,6 +134,7 @@ export type BaseGeometry<
     exit?: Animation;
     update?: Animation;
   };
+  cartesian?: boolean;
 };
 
 export type Adjust = { type: 'pack' };
@@ -204,6 +210,10 @@ export type ImageGeometry = BaseGeometry<'image', ChannelTypes | 'src'>;
 export type PolygonGeometry = BaseGeometry<'polygon'>;
 
 export type BoxGeometry = BaseGeometry<'box'>;
+
+export type BoxPlotMark = BaseGeometry<'box'>;
+
+export type ShapeMark = BaseGeometry<'shape'>;
 
 export type VectorGeometry = BaseGeometry<
   'vector',

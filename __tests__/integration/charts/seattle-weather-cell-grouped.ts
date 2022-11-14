@@ -19,7 +19,6 @@ export function settleWeatherCellGrouped(): G2Spec {
     },
     scale: {
       color: {
-        type: 'sequential',
         palette: 'gnBu',
       },
     },

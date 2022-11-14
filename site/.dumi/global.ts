@@ -9,4 +9,5 @@ if (window) {
   (
     window as any
   ).gPluginRoughCanvasRenderer = require('@antv/g-plugin-rough-canvas-renderer');
+  (window as any).gPluginA11y = require('@antv/g-plugin-a11y');
 }

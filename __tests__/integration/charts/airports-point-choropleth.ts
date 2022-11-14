@@ -29,9 +29,9 @@ export async function airportsPointChoropleth(): Promise<G2Spec> {
           y: 'latitude',
           x: 'longitude',
           shape: 'point',
+          size: 1,
         },
         style: {
-          r: 1,
           fill: 'gray',
         },
       },

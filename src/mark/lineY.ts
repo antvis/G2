@@ -21,11 +21,15 @@ export const LineY: MC<LineYOptions> = () => {
   };
 };
 
+const shapes = ['line'];
+
 LineY.props = {
   defaultShape: 'line',
   defaultLabelShape: 'label',
-  channels: [...baseAnnotationChannels(), { name: 'y', required: true }],
+  channels: [
+    ...baseAnnotationChannels({ shapes }),
+    { name: 'y', required: true },
+  ],
   preInference: [...basePreInference(), { type: 'maybeTupleY' }],
   postInference: [...basePostInference()],
-  shapes: ['line'],
 };

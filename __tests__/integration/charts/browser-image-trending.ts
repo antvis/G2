@@ -12,7 +12,6 @@ export function browserImageTrending(): G2Spec {
           x: ['name', 'name'],
           y: (d) => [0, d.value],
         },
-
         style: {
           opacity: 0.5,
           stroke: '#dfdfdf',
@@ -27,7 +26,6 @@ export function browserImageTrending(): G2Spec {
           shape: 'smooth',
         },
         scale: {
-          x: { type: 'band' },
           y: { domain: [0, 50] },
         },
         style: {
@@ -40,10 +38,6 @@ export function browserImageTrending(): G2Spec {
           x: 'name',
           y: 'value',
           src: 'url',
-        },
-        scale: {
-          x: { type: 'band' },
-          y: { domain: [0, 50] },
         },
       },
     ],

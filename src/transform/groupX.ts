@@ -8,7 +8,7 @@ export type GroupXOptions = Omit<GroupXTransform, 'type'>;
  * The GroupX transform group data by x channel, and aggregate.
  */
 export const GroupX: TC<GroupXOptions> = (options = {}) => {
-  return Group({ ...options, channels: ['x', 'color'] });
+  return Group({ ...options, channels: ['x', 'color', 'series'] });
 };
 
 GroupX.props = {};

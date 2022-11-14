@@ -49,13 +49,36 @@ export const Point: MC<PointOptions> = (options) => {
   };
 };
 
+const shapes = [
+  'hollow',
+  'hollowDiamond',
+  'hollowHexagon',
+  'hollowSquare',
+  'hollowTriangleDown',
+  'hollowTriangle',
+  'hollowBowtie',
+  'point',
+  'plus',
+  'diamond',
+  'square',
+  'triangle',
+  'hexagon',
+  'cross',
+  'bowtie',
+  'hyphen',
+  'linePoint',
+  'tick',
+  'triangleDown',
+];
+
 Point.props = {
   defaultShape: 'hollow',
   defaultLabelShape: 'label',
   channels: [
-    ...baseGeometryChannels(),
+    ...baseGeometryChannels({ shapes }),
     { name: 'x', required: true },
     { name: 'y', required: true },
+    { name: 'series', scale: 'band' },
     { name: 'size', scale: 'sqrt' },
     { name: 'dx', scale: 'identity' },
     { name: 'dy', scale: 'identity' },
@@ -67,28 +90,8 @@ Point.props = {
   ],
   postInference: [
     ...basePostInference(),
+    { type: 'maybeSize' },
     { type: 'maybeTitleX' },
     { type: 'maybeTooltipY' },
-  ],
-  shapes: [
-    'hollow',
-    'hollowDiamond',
-    'hollowHexagon',
-    'hollowSquare',
-    'hollowTriangleDown',
-    'hollowTriangle',
-    'hollowBowtie',
-    'point',
-    'plus',
-    'diamond',
-    'square',
-    'triangle',
-    'hexagon',
-    'cross',
-    'bowtie',
-    'hyphen',
-    'linePoint',
-    'tick',
-    'triangleDown',
   ],
 };

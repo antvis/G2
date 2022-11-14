@@ -9,7 +9,7 @@ describe('Polygon', () => {
       channels: [
         { name: 'color' },
         { name: 'opacity' },
-        { name: 'shape' },
+        { name: 'shape', range: ['polygon', 'ribbon'] },
         { name: 'enterType' },
         { name: 'enterDelay', scaleName: 'enter' },
         { name: 'enterDuration', scaleName: 'enter' },
@@ -28,7 +28,6 @@ describe('Polygon', () => {
         { type: 'maybeTitleX' },
         { type: 'maybeTooltipY' },
       ],
-      shapes: ['polygon', 'ribbon'],
     });
   });
 

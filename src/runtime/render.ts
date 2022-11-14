@@ -84,7 +84,9 @@ export function render<T extends G2ViewTree = G2ViewTree>(
   // Make sure that plot chart after container is ready for every time.
   const selection = select(canvas.document.documentElement);
   canvas.ready
-    .then(() => plot<T>({ ...keyed, width, height }, selection, library))
+    .then(() =>
+      plot<T>({ ...keyed, width, height }, selection, library, context),
+    )
     .then(callback)
     .then(() => emitEvent(on, CHART_LIFE_CIRCLE.AFTER_RENDER));
 
@@ -113,7 +115,7 @@ export function renderToMountedElement<T extends G2ViewTree = G2ViewTree>(
   emitEvent(on, CHART_LIFE_CIRCLE.BEFORE_RENDER);
   // Plot the chart and mutate context.
   // Make sure that plot chart after container is ready for every time.
-  plot<T>({ ...keyed, width, height }, selection, library)
+  plot<T>({ ...keyed, width, height }, selection, library, context)
     .then(callback)
     .then(() => emitEvent(on, CHART_LIFE_CIRCLE.AFTER_RENDER));
 

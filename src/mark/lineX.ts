@@ -21,11 +21,15 @@ export const LineX: MC<LineXOptions> = () => {
   };
 };
 
+const shapes = ['line'];
+
 LineX.props = {
   defaultShape: 'line',
   defaultLabelShape: 'label',
-  channels: [...baseAnnotationChannels(), { name: 'x', required: true }],
+  channels: [
+    ...baseAnnotationChannels({ shapes }),
+    { name: 'x', required: true },
+  ],
   preInference: [...basePreInference(), { type: 'maybeTupleX' }],
   postInference: [...basePostInference()],
-  shapes: ['line'],
 };

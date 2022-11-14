@@ -19,7 +19,6 @@ export function windVectorWind(): G2Spec {
     scale: {
       size: { range: [4, 20] },
       color: {
-        type: 'sequential',
         palette: 'viridis',
       },
     },

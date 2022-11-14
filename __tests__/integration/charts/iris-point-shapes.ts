@@ -14,12 +14,10 @@ export function irisPointShapes(): G2Spec {
       y: 'y',
       shape: 'category',
       color: 'category',
+      size: 5,
     },
     scale: {
       shape: { range: ['point', 'plus', 'diamond'] },
-    },
-    style: {
-      r: 5,
     },
   };
 }

@@ -9,7 +9,7 @@ describe('Line annotation', () => {
       channels: [
         { name: 'color' },
         { name: 'opacity' },
-        { name: 'shape' },
+        { name: 'shape', range: ['line'] },
         { name: 'enterType' },
         { name: 'enterDelay', scaleName: 'enter' },
         { name: 'enterDuration', scaleName: 'enter' },
@@ -21,7 +21,6 @@ describe('Line annotation', () => {
       ],
       preInference: [{ type: 'maybeTupleY' }],
       postInference: [{ type: 'maybeKey' }],
-      shapes: ['line'],
     });
   });
 
