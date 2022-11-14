@@ -13,11 +13,15 @@ export const RangeY: MC<RangeYOptions> = () => {
   return AbstractRange({ extendX: true });
 };
 
+const shapes = ['range'];
+
 RangeY.props = {
   defaultShape: 'range',
   defaultLabelShape: 'label',
-  channels: [...baseAnnotationChannels(), { name: 'y', required: true }],
+  channels: [
+    ...baseAnnotationChannels({ shapes }),
+    { name: 'y', required: true },
+  ],
   preInference: [...basePreInference()],
   postInference: [...basePostInference()],
-  shapes: ['range'],
 };

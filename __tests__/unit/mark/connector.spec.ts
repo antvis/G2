@@ -9,7 +9,8 @@ describe('Connector', () => {
       defaultLabelShape: 'label',
       channels: [
         { name: 'color' },
-        { name: 'shape' },
+        { name: 'opacity' },
+        { name: 'shape', range: ['connector'] },
         { name: 'enterType' },
         { name: 'enterDelay', scaleName: 'enter' },
         { name: 'enterDuration', scaleName: 'enter' },
@@ -22,7 +23,6 @@ describe('Connector', () => {
       ],
       preInference: [],
       postInference: [{ type: 'maybeKey' }],
-      shapes: ['connector'],
     });
   });
 

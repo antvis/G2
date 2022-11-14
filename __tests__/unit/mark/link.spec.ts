@@ -8,7 +8,8 @@ describe('Link', () => {
       defaultLabelShape: 'label',
       channels: [
         { name: 'color' },
-        { name: 'shape' },
+        { name: 'opacity' },
+        { name: 'shape', range: ['link', 'arc', 'vhv', 'smooth'] },
         { name: 'enterType' },
         { name: 'enterDelay', scaleName: 'enter' },
         { name: 'enterDuration', scaleName: 'enter' },
@@ -27,7 +28,6 @@ describe('Link', () => {
         { type: 'maybeTitleX' },
         { type: 'maybeTooltipY' },
       ],
-      shapes: ['link', 'arc', 'vhv', 'smooth'],
     });
   });
 

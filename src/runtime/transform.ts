@@ -190,6 +190,8 @@ function inferChannelType(data: Record<string, Primitive>[], channel): string {
 }
 
 function normalizedDataSource(data) {
+  // Return null as a placeholder.
+  if (!data) return { type: 'inline', value: null };
   if (Array.isArray(data)) return { type: 'inline', value: data };
   const { type = 'inline', ...rest } = data;
   return { ...rest, type };

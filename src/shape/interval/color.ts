@@ -4,7 +4,13 @@ import { Vector2, ShapeComponent as SC } from '../../runtime';
 import { isPolar, isHelix, isTranspose } from '../../utils/coordinate';
 import { select } from '../../utils/selection';
 import { sub } from '../.././utils/vector';
-import { applyStyle, getArcObject, getShapeTheme, reorder } from '../utils';
+import {
+  applyStyle,
+  getArcObject,
+  getShapeTheme,
+  reorder,
+  toOpacityKey,
+} from '../utils';
 
 export type ColorOptions = {
   colorAttribute: 'fill' | 'stroke';
@@ -19,7 +25,7 @@ export type ColorOptions = {
  */
 export const Color: SC<ColorOptions> = (options) => {
   // Render border only when colorAttribute is stroke.
-  const { colorAttribute, ...style } = options;
+  const { colorAttribute, opacityKey = 'fill', ...style } = options;
 
   return (points, value, coordinate, theme) => {
     const { mark, shape, defaultShape } = value;
@@ -44,7 +50,7 @@ export const Color: SC<ColorOptions> = (options) => {
       insetTop = inset,
       lineWidth = colorAttribute === 'stroke' || stroke ? defaultLineWidth : 0,
     } = style;
-    const { color = defaultColor } = value;
+    const { color = defaultColor, opacity } = value;
 
     // Render rect in non-polar coordinate.
     if (!isPolar(coordinate) && !isHelix(coordinate)) {
@@ -71,6 +77,7 @@ export const Color: SC<ColorOptions> = (options) => {
         .style('width', finalWidth)
         .style('height', finalHeight)
         .style('stroke', color || stroke)
+        .style(toOpacityKey(options), opacity)
         .style(colorAttribute, color)
         .style('radius', [
           radiusTopLeft,
@@ -97,6 +104,7 @@ export const Color: SC<ColorOptions> = (options) => {
       .style('stroke', color || stroke)
       .style('lineWidth', lineWidth)
       .style(colorAttribute, color)
+      .style(toOpacityKey(options), opacity)
       .call(applyStyle, style)
       .node();
   };

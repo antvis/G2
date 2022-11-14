@@ -18,6 +18,9 @@ import {
   RangeY,
   Connector,
   Sankey,
+  Treemap,
+  Boxplot,
+  Shape,
 } from './mark';
 
 export interface Mark {
@@ -39,6 +42,10 @@ export interface Mark {
   rangeX(): RangeX;
   rangeY(): RangeY;
   connector(): Connector;
+  sankey(): Sankey;
+  treemap(): Treemap;
+  boxplot(): Boxplot;
+  shape(): Shape;
 }
 
 export const mark = {
@@ -61,4 +68,7 @@ export const mark = {
   rangeY: RangeY,
   connector: Connector,
   sankey: Sankey,
+  treemap: Treemap,
+  boxplot: Boxplot,
+  shape: Shape,
 };

@@ -25,11 +25,13 @@ export const Rect: MC<RectOptions> = () => {
   };
 };
 
+const shapes = ['rect', 'hollow'];
+
 Rect.props = {
   defaultShape: 'rect',
   defaultLabelShape: 'label',
   channels: [
-    ...baseGeometryChannels(),
+    ...baseGeometryChannels({ shapes }),
     { name: 'x', required: true },
     { name: 'y', required: true },
   ],
@@ -39,5 +41,4 @@ Rect.props = {
     { type: 'maybeTitleX' },
     { type: 'maybeTooltipY' },
   ],
-  shapes: ['rect', 'hollow'],
 };

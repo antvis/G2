@@ -8,7 +8,8 @@ describe('Vector', () => {
       defaultLabelShape: 'label',
       channels: [
         { name: 'color' },
-        { name: 'shape' },
+        { name: 'opacity' },
+        { name: 'shape', range: ['vector'] },
         { name: 'enterType' },
         { name: 'enterDelay', scaleName: 'enter' },
         { name: 'enterDuration', scaleName: 'enter' },
@@ -29,7 +30,6 @@ describe('Vector', () => {
         { type: 'maybeTitleX' },
         { type: 'maybeTooltipY' },
       ],
-      shapes: ['vector'],
     });
   });
 

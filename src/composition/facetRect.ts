@@ -90,13 +90,12 @@ export const inferColor = useDefaultAdaptor<G2ViewTree>(
       scale: {
         color: deepMix({}, scaleColor, {
           domain: domainColor(),
-          field: encodeColor,
           // @todo Remove this when pass columnOf to extract color.
           type: 'ordinal',
         }),
       },
       legend: {
-        color: deepMix({}, legendColor),
+        color: deepMix({ title: encodeColor }, legendColor),
       },
     };
   },
@@ -179,6 +178,7 @@ export const setChildren = useOverrideAdaptor<G2ViewTree>(
       shareData = false,
     } = options;
     const { value: data } = dataValue;
+    // Only support field encode now.
     const { x: encodeX, y: encodeY } = encode;
     const { color: facetScaleColor } = facetScale;
     const { domain: facetDomainColor } = facetScaleColor;
@@ -189,8 +189,8 @@ export const setChildren = useOverrideAdaptor<G2ViewTree>(
     ) => {
       const { x: scaleX, y: scaleY } = scale;
       const { paddingLeft, paddingTop } = layout;
-      const { domain: domainX, field: fieldX } = scaleX.getOptions();
-      const { domain: domainY, field: fieldY } = scaleY.getOptions();
+      const { domain: domainX } = scaleX.getOptions();
+      const { domain: domainY } = scaleY.getOptions();
       const index = indexOf(visualData);
       const bboxs = visualData.map(subLayout);
       const values = visualData.map(({ x, y }) => [
@@ -198,7 +198,7 @@ export const setChildren = useOverrideAdaptor<G2ViewTree>(
         scaleY.invert(y),
       ]);
       const filters = values.map(([fx, fy]) => (d) => {
-        const { [fieldX]: x, [fieldY]: y } = d;
+        const { [encodeX]: x, [encodeY]: y } = d;
         const inX = encodeX !== undefined ? x === fx : true;
         const inY = encodeY !== undefined ? y === fy : true;
         return inX && inY;
@@ -208,11 +208,11 @@ export const setChildren = useOverrideAdaptor<G2ViewTree>(
         ? max(facetData2d, (data) => data.length)
         : undefined;
       const facets = values.map(([fx, fy]) => ({
-        columnField: fieldX,
+        columnField: encodeX,
         columnIndex: domainX.indexOf(fx),
         columnValue: fx,
         columnValuesLength: domainX.length,
-        rowField: fieldY,
+        rowField: encodeY,
         rowIndex: domainY.indexOf(fy),
         rowValue: fy,
         rowValuesLength: domainY.length,

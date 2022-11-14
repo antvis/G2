@@ -20,11 +20,15 @@ export const Path: MC<PathOptions> = (options) => {
   };
 };
 
+const shapes = ['path', 'hollow'];
+
 Path.props = {
   defaultShape: 'path',
   defaultLabelShape: 'label',
-  channels: [...baseGeometryChannels(), { name: 'd', scale: 'identity' }],
+  channels: [
+    ...baseGeometryChannels({ shapes }),
+    { name: 'd', scale: 'identity' },
+  ],
   preInference: [...basePreInference()],
   postInference: [...basePostInference()],
-  shapes: ['path', 'hollow'],
 };

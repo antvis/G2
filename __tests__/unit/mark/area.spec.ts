@@ -8,7 +8,8 @@ describe('Area', () => {
       defaultLabelShape: 'label',
       channels: [
         { name: 'color' },
-        { name: 'shape' },
+        { name: 'opacity' },
+        { name: 'shape', range: ['area', 'smooth'] },
         { name: 'enterType' },
         { name: 'enterDelay', scaleName: 'enter' },
         { name: 'enterDuration', scaleName: 'enter' },
@@ -33,7 +34,6 @@ describe('Area', () => {
         { type: 'maybeTitleX' },
         { type: 'maybeTooltipY' },
       ],
-      shapes: ['area', 'smooth'],
     });
   });
 

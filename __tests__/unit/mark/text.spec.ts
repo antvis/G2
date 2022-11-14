@@ -9,7 +9,8 @@ describe('Text', () => {
       defaultLabelShape: 'label',
       channels: [
         { name: 'color' },
-        { name: 'shape' },
+        { name: 'opacity' },
+        { name: 'shape', range: ['text', 'badge'] },
         { name: 'enterType' },
         { name: 'enterDelay', scaleName: 'enter' },
         { name: 'enterDuration', scaleName: 'enter' },
@@ -25,14 +26,12 @@ describe('Text', () => {
         { name: 'fontSize' },
         { name: 'rotate' },
       ],
-      preInference: [],
+      preInference: [{ type: 'maybeTuple' }, { type: 'maybeVisualPosition' }],
       postInference: [
         { type: 'maybeKey' },
         { type: 'maybeTitleX' },
         { type: 'maybeTooltipY' },
-        { type: 'maybeTuple' },
       ],
-      shapes: ['text', 'badge'],
     });
   });
 

@@ -36,11 +36,13 @@ export const Vector: MC<VectorOptions> = () => {
   };
 };
 
+const shapes = ['vector'];
+
 Vector.props = {
   defaultShape: 'vector',
   defaultLabelShape: 'label',
   channels: [
-    ...baseGeometryChannels(),
+    ...baseGeometryChannels({ shapes }),
     { name: 'x', required: true },
     { name: 'y', required: true },
     { name: 'rotate', required: true, scale: 'identity' },
@@ -52,5 +54,4 @@ Vector.props = {
     { type: 'maybeTitleX' },
     { type: 'maybeTooltipY' },
   ],
-  shapes: ['vector'],
 };

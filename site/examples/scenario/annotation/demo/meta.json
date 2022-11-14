@@ -19,6 +19,14 @@
         "en": "Scatter, Point Annotation"
       },
       "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*rWBUQ6_kf8kAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "quadrant-scatter.ts",
+      "title": {
+        "zh": "Quadrant Scatter",
+        "en": "Quadrant Scatter"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*6JLeTLg7YQoAAAAAAAAAAAAADmJ7AQ"
     }
   ]
 }

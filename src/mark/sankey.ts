@@ -105,7 +105,7 @@ export const Sankey: CC<SankeyOptions> = (options) => {
     } = options;
 
     // Initialize data, generating nodes by link if is not specified.
-    const { links, nodes } = initializeData(data.value, encode);
+    const { links, nodes } = initializeData(data, encode);
 
     // Extract encode for node and link.
     const nodeEncode = subObject(encode, 'node');

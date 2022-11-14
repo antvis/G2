@@ -59,11 +59,13 @@ export const Interval: MC<IntervalOptions> = () => {
   };
 };
 
+const shapes = ['rect', 'hollow', 'funnel', 'pyramid'];
+
 Interval.props = {
   defaultShape: 'rect',
   defaultLabelShape: 'label',
   channels: [
-    ...baseGeometryChannels(),
+    ...baseGeometryChannels({ shapes }),
     { name: 'x', scale: 'band', required: true },
     { name: 'y', required: true },
     { name: 'series', scale: 'band' },
@@ -79,5 +81,4 @@ Interval.props = {
     { type: 'maybeTitleX' },
     { type: 'maybeTooltipY' },
   ],
-  shapes: ['rect', 'hollow', 'funnel', 'pyramid'],
 };

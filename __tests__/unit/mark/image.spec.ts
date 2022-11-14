@@ -8,7 +8,8 @@ describe('Image', () => {
       defaultLabelShape: 'label',
       channels: [
         { name: 'color' },
-        { name: 'shape' },
+        { name: 'opacity' },
+        { name: 'shape', range: ['image'] },
         { name: 'enterType' },
         { name: 'enterDelay', scaleName: 'enter' },
         { name: 'enterDuration', scaleName: 'enter' },
@@ -20,16 +21,15 @@ describe('Image', () => {
         { name: 'tooltip', scale: 'identity', independent: true },
         { name: 'x', required: true },
         { name: 'y', required: true },
-        { name: 'src', required: true, scale: 'identity' },
+        { name: 'src', scale: 'identity' },
         { name: 'size' },
       ],
-      preInference: [],
+      preInference: [{ type: 'maybeTuple' }, { type: 'maybeVisualPosition' }],
       postInference: [
         { type: 'maybeKey' },
         { type: 'maybeTitleX' },
         { type: 'maybeTooltipY' },
       ],
-      shapes: ['image'],
     });
   });
 

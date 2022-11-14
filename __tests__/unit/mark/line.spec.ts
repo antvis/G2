@@ -9,7 +9,8 @@ describe('Line', () => {
       defaultLabelShape: 'label',
       channels: [
         { name: 'color' },
-        { name: 'shape' },
+        { name: 'opacity' },
+        { name: 'shape', range: ['line', 'smooth'] },
         { name: 'enterType' },
         { name: 'enterDelay', scaleName: 'enter' },
         { name: 'enterDuration', scaleName: 'enter' },
@@ -32,7 +33,6 @@ describe('Line', () => {
         { type: 'maybeTooltipY' },
         { type: 'maybeTooltipPosition' },
       ],
-      shapes: ['line', 'smooth'],
     });
   });
 

@@ -104,8 +104,8 @@ export const Light: TC<LightOptions> = (options) => {
       box: {
         fill: DEFAULT_COLOR,
         fillOpacity: 0.95,
-        stroke: DEFAULT_COLOR,
-        lineWidth: 2,
+        stroke: '#1D2129',
+        lineWidth: 1,
       },
     },
     text: {
@@ -166,9 +166,11 @@ export const Light: TC<LightOptions> = (options) => {
         stroke: '#416180',
         strokeOpacity: 0.45,
         lineWidth: 1,
-        endMarker: {
-          fillOpacity: 0.85,
-        },
+        connectLength1: 12,
+        endMarker: true,
+        endMarkerSize: 6,
+        endMarkerFill: '#416180',
+        endMarkerFillOpacity: 0.95,
       },
     },
     interaction: {

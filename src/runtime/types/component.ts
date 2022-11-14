@@ -1,4 +1,4 @@
-import { Canvas, DisplayObject, IAnimation as GAnimation } from '@antv/g';
+import { DisplayObject, IAnimation as GAnimation } from '@antv/g';
 import { Transformation, Coordinate } from '@antv/coord';
 import {
   IndexedValue,

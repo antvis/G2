@@ -29,6 +29,7 @@ import {
   G2CompositionOptions,
   G2InteractionOptions,
   G2LabelTransformOptions,
+  G2Context,
 } from './types/options';
 import {
   ThemeComponent,
@@ -46,13 +47,7 @@ import {
   LabelTransformComponent,
   LabelTransform,
 } from './types/component';
-import {
-  MarkComponent,
-  Mark,
-  MarkChannel,
-  CompositeMark,
-  SingleMark,
-} from './types/mark';
+import { MarkComponent, Mark, CompositeMark, SingleMark } from './types/mark';
 import {
   G2ViewDescriptor,
   G2MarkState,
@@ -64,7 +59,7 @@ import { initializeMark } from './mark';
 import { inferComponent, renderComponent } from './component';
 import { computeLayout, placeComponents } from './layout';
 import { createCoordinate } from './coordinate';
-import { applyScale, syncFacetsScales, useRelation } from './scale';
+import { applyScale, syncFacetsScales, useRelation, inferScale } from './scale';
 import { applyDataTransform } from './transform';
 import {
   MAIN_LAYER_CLASS_NAME,
@@ -81,7 +76,8 @@ export async function plot<T extends G2ViewTree>(
   options: T,
   selection: Selection,
   library: G2Library,
-): Promise<void[]> {
+  context: G2Context,
+): Promise<any> {
   const [useComposition] = useLibrary<
     G2CompositionOptions,
     CompositionComponent,
@@ -169,7 +165,7 @@ export async function plot<T extends G2ViewTree>(
 
   // Plot chart.
   const viewContainer = new Map<G2ViewDescriptor, DisplayObject>();
-  const transitions: Promise<void>[] = [];
+  const transitions: GAnimation[] = [];
   selection
     .selectAll(className(VIEW_CLASS_NAME))
     .data(views, (d) => d.key)
@@ -197,7 +193,7 @@ export async function plot<T extends G2ViewTree>(
       view,
       container,
       options: viewNode.get(view),
-      update: createUpdateView(select(container), library),
+      update: createUpdateView(select(container), library, context),
     }),
   );
   for (const target of viewInstances) {
@@ -211,6 +207,7 @@ export async function plot<T extends G2ViewTree>(
 
   // Author animations.
   const { width, height } = options;
+  const keyframes = [];
   for (const nodeGenerator of nodeGenerators) {
     // Delay the rendering of animation keyframe. Different animation
     // created by different nodeGenerator will play in the same time.
@@ -218,12 +215,14 @@ export async function plot<T extends G2ViewTree>(
     const keyframe = new Promise<void>(async (resolve) => {
       for (const node of nodeGenerator) {
         const sizedNode = { width, height, ...node };
-        await plot(sizedNode, selection, library);
+        await plot(sizedNode, selection, library, context);
       }
       resolve();
     });
-    transitions.push(keyframe);
+    keyframes.push(keyframe);
   }
+
+  context.animations = transitions;
 
   emitEvent(on, CHART_LIFE_CIRCLE.AFTER_PAINT);
 
@@ -231,7 +230,8 @@ export async function plot<T extends G2ViewTree>(
   // The returned promise will never resolved if one of nodeGenerator
   // never stop to yield node, which may created by a keyframe composition
   // with iteration count set to infinite.
-  return Promise.all(transitions);
+  const finished = transitions.map(cancel).map((d) => d.finished);
+  return Promise.all([...finished, ...keyframes]);
 }
 
 function applyTranslate(selection: Selection) {
@@ -244,13 +244,14 @@ function applyTranslate(selection: Selection) {
 function createUpdateView(
   selection: Selection,
   library: G2Library,
+  context: G2Context,
 ): G2ViewInstance['update'] {
   return async (newOptions) => {
     const transitions = [];
     const [newView, newChildren] = await initializeView(newOptions, library);
     plotView(newView, selection, transitions, library);
     for (const child of newChildren) {
-      plot(child, selection, library);
+      plot(child, selection, library, context);
     }
     return {
       options: newOptions,
@@ -280,13 +281,19 @@ async function initializeMarks(
     library,
   );
 
-  const { theme: partialTheme, marks: partialMarks } = options;
+  const { theme: partialTheme, marks: partialMarks, coordinate = [] } = options;
   const theme = useTheme(inferTheme(partialTheme));
   const markState = new Map<G2Mark, G2MarkState>();
-  const channelScale = new Map<string, G2ScaleOptions>();
+
+  // Apply data transform to get data.
+  const dataMarks = [];
+  for (const mark of partialMarks) {
+    const dataMark = await applyTransform(mark, library);
+    dataMarks.push(dataMark);
+  }
 
   // Convert composite mark to single mark.
-  const flattenMarks: G2Mark[] = partialMarks.flatMap((mark) => {
+  const flattenMarks: G2Mark[] = dataMarks.flatMap((mark) => {
     const { type = error('G2Mark type is required.'), key } = mark;
     const { props } = createMark(type);
     const { composite = false } = props;
@@ -297,22 +304,49 @@ async function initializeMarks(
     return marks.map((d, i) => ({ key: `${key}-${i}`, ...d }));
   });
 
-  for (const partialMark of flattenMarks) {
-    const { type } = partialMark;
+  // Initialize channels for marks.
+  for (const markOptions of flattenMarks) {
+    const { type } = markOptions;
     const { props } = createMark(type);
-    const markAndState = await initializeMark(
-      partialMark,
-      props,
-      channelScale,
-      theme,
-      options,
-      library,
-    );
+    const markAndState = await initializeMark(markOptions, props, library);
     if (markAndState) {
-      const [mark, state] = markAndState;
-      markState.set(mark, state);
+      const [initializedMark, state] = markAndState;
+      markState.set(initializedMark, state);
     }
   }
+
+  // Group channels by scale key, each group has scale.
+  const scaleChannels = group(
+    Array.from(markState.values()).flatMap((d) => d.channels),
+    ({ scaleKey }) => scaleKey,
+  );
+
+  // Infer scale for each channel groups.
+  for (const channels of scaleChannels.values()) {
+    // Merge scale options for these channels.
+    const scaleOptions = channels.reduce(
+      (total, { scale }) => deepMix(total, scale),
+      {},
+    );
+
+    // Use the fields of the first channel as the title.
+    const { values: FV } = channels[0];
+    const fields = Array.from(new Set(FV.map((d) => d.field).filter(defined)));
+    const options = deepMix(
+      {
+        guide: { title: fields.length === 0 ? undefined : fields },
+        field: fields[0],
+      },
+      scaleOptions,
+    );
+
+    // Use the name of the first channel as the scale name.
+    const { name } = channels[0];
+    const values = channels.flatMap(({ values }) => values.map((d) => d.value));
+    const scale = inferScale(name, values, options, coordinate, theme, library);
+    channels.forEach((channel) => (channel.scale = scale));
+  }
+
   return markState;
 }
 
@@ -338,8 +372,11 @@ function initializeState(
   const theme = useTheme(inferTheme(partialTheme));
 
   // Infer components and compute layout.
-  const marks = Array.from(markState.keys());
-  const scales = new Set(marks.flatMap((d) => Object.values(d.scale)));
+  const states = Array.from(markState.values());
+  const scales = Array.from(
+    new Set(states.flatMap((d) => d.channels.map((d) => d.scale))),
+  );
+
   const components = inferComponent(Array.from(scales), options, library);
   const layout = computeLayout(components, options);
   const coordinate = createCoordinate(layout, options, library);
@@ -358,7 +395,7 @@ function initializeState(
   const children = [];
   for (const [mark, state] of markState.entries()) {
     const {
-      scale,
+      // scale,
       // Callback to create children options based on this mark.
       children: createChildren,
       // The total count of data (both show and hide)for this facet.
@@ -368,6 +405,9 @@ function initializeState(
       key: markKey,
     } = mark;
     const { index, channels } = state;
+    const scale = Object.fromEntries(
+      channels.map(({ name, scale }) => [name, scale]),
+    );
 
     // Transform abstract value to visual value by scales.
     const markScaleInstance = mapObject(scale, (options) => {
@@ -431,7 +471,7 @@ function initializeState(
 async function plotView(
   view: G2ViewDescriptor,
   selection: Selection,
-  transitions: Promise<void>[],
+  transitions: GAnimation[],
   library: G2Library,
 ): Promise<void> {
   const { components, theme, layout, markState, coordinate, key, style } = view;
@@ -613,7 +653,7 @@ async function plotView(
             .remove(),
       )
       .transitions();
-    transitions.push(...T);
+    transitions.push(...T.flat());
   }
 
   // Plot label for this view.
@@ -626,7 +666,7 @@ async function plotView(
 function plotLabel(
   view: G2ViewDescriptor,
   selection: Selection,
-  transitions: Promise<void>[],
+  transitions: GAnimation[],
   library: G2Library,
 ) {
   const [useLabelTransform] = useLibrary<
@@ -866,7 +906,8 @@ function createMarkShapeFunction(
   const { theme, coordinate } = view;
   const { type: markType, style = {} } = mark;
   return (data, index) => {
-    const { shape = defaultShape, points, seriesIndex, ...v } = data;
+    const { shape: styleShape = defaultShape } = style;
+    const { shape = styleShape, points, seriesIndex, ...v } = data;
     const value = { ...v, shape, mark: markType, defaultShape, index };
 
     // Get data-driven style.
@@ -900,7 +941,7 @@ function createAnimationFunction(
   data: Record<string, any>,
   from: DisplayObject[],
   to: DisplayObject[],
-) => Promise<void> {
+) => GAnimation[] {
   const [, createShape] = useLibrary<G2ShapeOptions, ShapeComponent, Shape>(
     'shape',
     library,
@@ -937,8 +978,8 @@ function createAnimationFunction(
     const animateFunction = useAnimation(options);
     const value = { delay, duration, easing };
     const A = animateFunction(from, to, value, coordinate, defaultEffectTiming);
-    if (!Array.isArray(A)) return cancel(A);
-    return Promise.all(A.map(cancel));
+    if (!Array.isArray(A)) return [A];
+    return A;
   };
 }
 
@@ -951,7 +992,7 @@ function createEnterFunction(
   data: Record<string, any>,
   from?: DisplayObject[],
   to?: DisplayObject[],
-) => Promise<void> {
+) => GAnimation[] {
   return createAnimationFunction('enter', mark, state, view, library);
 }
 
@@ -959,10 +1000,11 @@ function createEnterFunction(
  * Animation will not cancel automatically, it should be canceled
  * manually. This is very important for performance.
  */
-function cancel(animation: GAnimation): Promise<any> {
-  return animation.finished.then(() => {
+function cancel(animation: GAnimation): GAnimation {
+  animation.finished.then(() => {
     animation.cancel();
   });
+  return animation;
 }
 
 function createUpdateFunction(
@@ -974,7 +1016,7 @@ function createUpdateFunction(
   data: Record<string, any>,
   from?: DisplayObject[],
   to?: DisplayObject[],
-) => Promise<void> {
+) => GAnimation[] {
   return createAnimationFunction('update', mark, state, view, library);
 }
 
@@ -987,7 +1029,7 @@ function createExitFunction(
   data: Record<string, any>,
   from?: DisplayObject[],
   to?: DisplayObject[],
-) => Promise<void> {
+) => GAnimation[] {
   return createAnimationFunction('exit', mark, state, view, library);
 }
 

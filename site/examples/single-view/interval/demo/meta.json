@@ -100,7 +100,6 @@
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*fY5CTLQMv4IAAAAAAAAAAAAADmJ7AQ/original"
     },
-
     {
       "filename": "bar-aggregated-normalized-stacked.ts",
       "title": {
@@ -164,6 +163,22 @@
         "en": "Multi-Measure Bar Chart"
       },
       "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*-JCwSpV0pAsAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "revenue-flow-waterfall.ts",
+      "title": {
+        "zh": "Revenue Flow Waterfall Chart",
+        "en": "Revenue Flow Waterfall Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*fG4DT7XWNzUAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "acme-crop-income-statement.ts",
+      "title": {
+        "zh": "Income Statement for ACME Crop",
+        "end": "Income Statement for ACME Crop"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*-a9EQpzBTDMAAAAAAAAAAAAADmJ7AQ"
     }
   ]
 }

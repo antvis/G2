@@ -13,15 +13,16 @@ export const Connector: MC<ConnectorOptions> = (...args) => {
   return Link(...args);
 };
 
+const shapes = ['connector'];
+
 Connector.props = {
   defaultShape: 'connector',
   defaultLabelShape: 'label',
   channels: [
-    ...baseAnnotationChannels(),
+    ...baseAnnotationChannels({ shapes }),
     { name: 'x', required: true },
     { name: 'y', required: true },
   ],
   preInference: [...basePreInference()],
   postInference: [...basePostInference()],
-  shapes: ['connector'],
 };

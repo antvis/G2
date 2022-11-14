@@ -16,10 +16,11 @@ export const Image: SC<ImageOptions> = (options) => {
       defaultShape,
     );
     const { color = stroke, src = '', size = 32, transform = '' } = value;
+    const { width = size, height = size } = style;
     const [[x0, y0]] = points;
 
-    const x = x0 - Number(size) / 2;
-    const y = y0 - Number(size) / 2;
+    const x = x0 - Number(width) / 2;
+    const y = y0 - Number(height) / 2;
 
     return select(new GImage())
       .call(applyStyle, shapeTheme)

@@ -9,7 +9,8 @@ describe('RangeY annotation', () => {
       defaultLabelShape: 'label',
       channels: [
         { name: 'color' },
-        { name: 'shape' },
+        { name: 'opacity' },
+        { name: 'shape', range: ['range'] },
         { name: 'enterType' },
         { name: 'enterDelay', scaleName: 'enter' },
         { name: 'enterDuration', scaleName: 'enter' },
@@ -21,7 +22,6 @@ describe('RangeY annotation', () => {
       ],
       preInference: [],
       postInference: [{ type: 'maybeKey' }],
-      shapes: ['range'],
     });
   });
 

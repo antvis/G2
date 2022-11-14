@@ -16,14 +16,16 @@ export type PointOptions = Omit<PointGeometry, 'type'>;
  */
 export const Point: MC<PointOptions> = (options) => {
   return (index, scale, value, coordinate) => {
-    const { x: X, y: Y, size: S, dx: DX, dy: DY } = value;
+    const { x: X, y: Y, x1: X1, y1: Y1, size: S, dx: DX, dy: DY } = value;
     const [width, height] = coordinate.getSize();
     const offset = createBandOffset(scale, value, options);
     const xy: (i: number) => Vector2 = (i) => {
       const dx = +(DX?.[i] || 0);
       const dy = +(DY?.[i] || 0);
-      const cx = +X[i] + dx;
-      const cy = +Y[i] + dy;
+      const x = X1 ? (+X[i] + +X1[i]) / 2 : +X[i];
+      const y = Y1 ? (+Y[i] + +Y1[i]) / 2 : +Y[i];
+      const cx = x + dx;
+      const cy = y + dy;
       return [cx, cy];
     };
     const P = S
@@ -47,13 +49,36 @@ export const Point: MC<PointOptions> = (options) => {
   };
 };
 
+const shapes = [
+  'hollow',
+  'hollowDiamond',
+  'hollowHexagon',
+  'hollowSquare',
+  'hollowTriangleDown',
+  'hollowTriangle',
+  'hollowBowtie',
+  'point',
+  'plus',
+  'diamond',
+  'square',
+  'triangle',
+  'hexagon',
+  'cross',
+  'bowtie',
+  'hyphen',
+  'linePoint',
+  'tick',
+  'triangleDown',
+];
+
 Point.props = {
   defaultShape: 'hollow',
   defaultLabelShape: 'label',
   channels: [
-    ...baseGeometryChannels(),
+    ...baseGeometryChannels({ shapes }),
     { name: 'x', required: true },
     { name: 'y', required: true },
+    { name: 'series', scale: 'band' },
     { name: 'size', scale: 'sqrt' },
     { name: 'dx', scale: 'identity' },
     { name: 'dy', scale: 'identity' },
@@ -65,28 +90,8 @@ Point.props = {
   ],
   postInference: [
     ...basePostInference(),
+    { type: 'maybeSize' },
     { type: 'maybeTitleX' },
     { type: 'maybeTooltipY' },
-  ],
-  shapes: [
-    'hollow',
-    'hollowDiamond',
-    'hollowHexagon',
-    'hollowSquare',
-    'hollowTriangleDown',
-    'hollowTriangle',
-    'hollowBowtie',
-    'point',
-    'plus',
-    'diamond',
-    'square',
-    'triangle',
-    'hexagon',
-    'cross',
-    'bowtie',
-    'hyphen',
-    'linePoint',
-    'tick',
-    'triangleDown',
   ],
 };

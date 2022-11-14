@@ -9,7 +9,8 @@ describe('Box', () => {
       defaultLabelShape: 'label',
       channels: [
         { name: 'color' },
-        { name: 'shape' },
+        { name: 'opacity' },
+        { name: 'shape', range: ['box'] },
         { name: 'enterType' },
         { name: 'enterDelay', scaleName: 'enter' },
         { name: 'enterDuration', scaleName: 'enter' },
@@ -23,13 +24,12 @@ describe('Box', () => {
         { name: 'y', required: true },
         { name: 'series', scale: 'band' },
       ],
-      preInference: [],
+      preInference: [{ type: 'maybeZeroX' }],
       postInference: [
         { type: 'maybeKey' },
         { type: 'maybeTitleX' },
         { type: 'maybeTooltipY' },
       ],
-      shapes: ['box'],
     });
   });
 
