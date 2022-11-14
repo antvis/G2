@@ -8,7 +8,15 @@ import { createGCanvas, writePNG, sleep, diff } from './canvas';
 global.fetch = fetch;
 
 describe('integration', () => {
-  for (const [n, generateOptions] of Object.entries(tests)) {
+  // Filter tests with only.
+  const onlyTests = Object.entries(tests).filter(
+    // @ts-ignore
+    ([, { only = false }]) => only,
+  );
+  const finalTests =
+    onlyTests.length === 0 ? tests : Object.fromEntries(onlyTests);
+
+  for (const [n, generateOptions] of Object.entries(finalTests)) {
     const name = n.replace(/[A-Z]/g, (d) => '-' + d.toLowerCase());
 
     // @ts-ignore

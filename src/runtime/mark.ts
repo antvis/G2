@@ -84,7 +84,7 @@ export async function initializeMark(
         const {
           independent = false,
           // Use channel name as default scale key.
-          key = channel || scaleKey,
+          key = scaleKey || channel,
           // Visual channel use identity scale.
           type = visual ? 'identity' : scaleType,
           ...scaleOptions

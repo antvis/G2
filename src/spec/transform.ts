@@ -106,7 +106,11 @@ export type JitterXTransform = {
 
 export type StackEnterTransform = {
   type?: 'stackEnter';
-  by?: string[];
+  groupBy?: string[] | string;
+  orderBy?: string;
+  reverse?: boolean;
+  duration?: number;
+  reducer?: (I: number[], V: any[]) => any;
 };
 
 export type SymmetryYTransform = {

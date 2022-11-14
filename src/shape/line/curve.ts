@@ -71,6 +71,8 @@ export const Curve: SC<CurveOptions> = (options) => {
   const {
     curve,
     gradient = false,
+    // The color for each segment.
+    gradientColor = 'between',
     defined = (d) => !Number.isNaN(d) && d !== undefined && d !== null,
     connectNulls = false,
     ...style
@@ -92,7 +94,9 @@ export const Curve: SC<CurveOptions> = (options) => {
       seriesY: sy,
     } = value;
     const stroke =
-      gradient && sc ? computeGradient(sc, sx, sy, gradient) : color;
+      gradient && sc
+        ? computeGradient(sc, sx, sy, gradient, gradientColor)
+        : color;
     const finalStyle = {
       ...defaults,
       ...(stroke && { stroke }),

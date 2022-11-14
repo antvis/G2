@@ -121,23 +121,45 @@ export function appendArc(
   return path;
 }
 
+/**
+ * @todo Fix wrong key point.
+ */
 export function computeGradient(
   C: string[],
   X: number[],
   Y: number[],
   from: string | boolean = 'y',
+  mode: 'between' | 'start' | 'end' = 'between',
 ): string {
   const P = from === 'y' || from === true ? Y : X;
   const theta = from === 'y' || from === true ? 90 : 0;
   const I = indexOf(P);
   const [min, max] = extent(I, (i) => P[i]);
+  // This need to improve for non-uniform distributed colors.
   const p = new Linear({
     domain: [min, max],
     range: [0, 100],
   });
+
   const percentage = (i) => p.map(P[i]);
+
+  const gradientMode = {
+    // Interpolate the colors for this segment.
+    between: (i: number) => `${C[i]} ${percentage(i)}%`,
+    // Use the color of the start point as the color for this segment.
+    start: (i: number) =>
+      i === 0
+        ? `${C[i]} ${percentage(i)}%`
+        : `${C[i - 1]} ${percentage(i)}%, ${C[i]} ${percentage(i)}%`,
+    // Use the color of the end point as the color for this segment.
+    end: (i: number) =>
+      i === C.length - 1
+        ? `${C[i]} ${percentage(i)}%`
+        : `${C[i]} ${percentage(i)}%, ${C[i + 1]} ${percentage(i)}%`,
+  };
+
   const gradient = I.sort((a, b) => percentage(a) - percentage(b))
-    .map((i) => `${C[i]} ${percentage(i)}%`)
+    .map(gradientMode[mode] || gradientMode['between'])
     .join(',');
   return `linear-gradient(${theta}deg, ${gradient})`;
 }

@@ -9,6 +9,8 @@ export { WaveIn } from './waveIn';
 export { ZoomIn } from './zoomIn';
 export { ZoomOut } from './zoomOut';
 export { PathIn } from './pathIn';
+export { GrowInX } from './growInX';
+export { GrowInY } from './growInY';
 
 export type { ScaleInXOptions } from './scaleInX';
 export type { ScaleOutXOptions } from './scaleOutX';
@@ -19,3 +21,5 @@ export type { FadeOutOptions } from './fadeOut';
 export type { MorphingOptions } from './morphing';
 export type { WaveInOptions } from './waveIn';
 export type { PathInOptions } from './pathIn';
+export type { GrowInXOptions } from './growInX';
+export type { GrowInYOptions } from './growInY';
