@@ -1,6 +1,6 @@
 import { IAnimation, Path } from '@antv/g';
-import { Animation } from '../spec';
 import { AnimationComponent as AC } from '../runtime';
+import { Animation } from './types';
 import { ScaleInY } from './scaleInY';
 
 export type GrowInYOptions = Animation;

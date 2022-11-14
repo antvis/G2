@@ -10,7 +10,7 @@ export type PathOptions = {
  * A hollow path.
  */
 export const Hollow: SC<PathOptions> = (options) => {
-  return Color({ ...options, fill: 'none', colorAttribute: 'stroke' });
+  return Color({ fill: 'none', colorAttribute: 'stroke', ...options });
 };
 
 Hollow.props = {

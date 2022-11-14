@@ -1,6 +1,6 @@
 import { G2Spec } from '../../../src';
 
-export function alphabetIntervalScaleInY(): G2Spec {
+export function alphabetIntervalNonAnimateEnter(): G2Spec {
   return {
     type: 'interval',
     transform: [{ type: 'sortX', by: 'y', reverse: true }],
@@ -17,9 +17,10 @@ export function alphabetIntervalScaleInY(): G2Spec {
       color: 'steelblue',
     },
     animate: {
-      enterDuration: 1000,
+      enterType: null,
     },
   };
 }
 
-alphabetIntervalScaleInY.intervals = [[500]];
+// Only test the first state and last state.
+alphabetIntervalNonAnimateEnter.intervals = [[]];

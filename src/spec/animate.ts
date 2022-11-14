@@ -11,12 +11,7 @@ export type AnimationTypes =
   | 'zoomOut'
   | 'pathIn'
   | 'growInX'
-  | 'growInY';
-
-export type Animation = {
-  type?: AnimationTypes;
-  duration?: number;
-  delay?: number;
-  easing?: string;
-  fill?: 'forwards' | 'none' | 'backwards' | 'forwards' | 'both' | 'auto';
-};
+  | 'growInY'
+  | null
+  | undefined
+  | false;

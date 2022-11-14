@@ -1,5 +1,5 @@
-import { Animation } from '../spec';
 import { AnimationComponent as AC } from '../runtime';
+import { Animation } from './types';
 import { effectTiming } from './utils';
 
 export type ZoomInOptions = Animation;

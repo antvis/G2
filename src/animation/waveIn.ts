@@ -2,9 +2,9 @@ import { arc } from 'd3-shape';
 import { Path, CSS, PropertySyntax, convertToPath } from '@antv/g';
 import { G2Element } from '../utils/selection';
 import { AnimationComponent as AC } from '../runtime';
-import { Animation } from '../spec';
 import { getArcObject } from '../shape/utils';
 import { isPolar } from '../utils/coordinate';
+import { Animation } from './types';
 import { effectTiming } from './utils';
 import { ScaleInX } from './scaleInX';
 
