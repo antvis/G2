@@ -9,7 +9,9 @@ export type AnimationTypes =
   | 'morphing'
   | 'zoomIn'
   | 'zoomOut'
-  | 'pathIn';
+  | 'pathIn'
+  | 'growInX'
+  | 'growInY';
 
 export type Animation = {
   type?: AnimationTypes;

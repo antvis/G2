@@ -90,7 +90,11 @@ Line.props = {
     { name: 'size' },
     { name: 'series', scale: 'identity' },
   ],
-  preInference: [...basePreInference(), { type: 'maybeSeries' }],
+  preInference: [
+    ...basePreInference(),
+    { type: 'maybeSeries' },
+    { type: 'maybeGradient' },
+  ],
   postInference: [
     ...basePostInference(),
     { type: 'maybeTitleX' },

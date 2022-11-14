@@ -148,6 +148,8 @@ import {
   ZoomIn,
   ZoomOut,
   PathIn,
+  GrowInX,
+  GrowInY,
 } from '../animation';
 import {
   // ElementActive,
@@ -224,6 +226,7 @@ import {
   Bin,
   MaybeVisualPosition,
   MaybeFunctionAttribute,
+  MaybeGradient,
 } from '../transform';
 import {
   Fetch,
@@ -304,6 +307,7 @@ export function createLibrary(): G2Library {
     'transform.maybeTuple': MaybeTuple,
     'transform.maybeVisualPosition': MaybeVisualPosition,
     'transform.maybeFunctionAttribute': MaybeFunctionAttribute,
+    'transform.maybeGradient': MaybeGradient,
     'transform.pack': Pack,
     'coordinate.cartesian': Cartesian,
     'coordinate.polar': Polar,
@@ -453,6 +457,8 @@ export function createLibrary(): G2Library {
     'animation.zoomOut': ZoomOut,
     'animation.pathIn': PathIn,
     'animation.morphing': Morphing,
+    'animation.growInX': GrowInX,
+    'animation.growInY': GrowInY,
     'interaction.elementActive': ElementActive,
     'interaction.elementActiveByX': ElementActiveByX,
     'interaction.elementActiveByColor': ElementActiveByColor,
