@@ -19,6 +19,22 @@
         "en": "Sketchy Bar Chart"
       },
       "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*-A5CR4gpOX8AAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "rough-radial.ts",
+      "title": {
+        "zh": "手绘风格的饼图",
+        "en": "Sketchy Raidal Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*kJuuQ47YUicAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "rough-line.ts",
+      "title": {
+        "zh": "手绘风格的折线图",
+        "en": "Sketchy Line Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*erkgSbo9OdMAAAAAAAAAAAAADmJ7AQ"
     }
   ]
 }
