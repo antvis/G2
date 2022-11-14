@@ -17,8 +17,7 @@ const processData = (data) =>
 chart
   .data({
     type: 'fetch',
-    value:
-      'https://cdn.anychart.com/samples/combined-chart/range-spline-area-and-marker-chart/data.json',
+    value: 'https://assets.antv.antgroup.com/g2/range-spline-area.json',
     transform: [{ type: 'custom', callback: processData }],
   })
   .axis('y', { title: false })

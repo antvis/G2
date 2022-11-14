@@ -31,7 +31,7 @@ chart
     text: (d, i, data) => (i < data.length - 3 ? d.value : ''),
     radius: 0.8,
     fontSize: 9,
-    dy: '0.75em',
+    dy: 12,
   });
 
 chart.render();
