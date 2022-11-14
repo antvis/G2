@@ -23,6 +23,7 @@ export { Pack } from './pack';
 export { Boxplot } from './boxplot';
 export { Shape } from './shape';
 export { ForceGraph } from './forceGraph';
+export { Tree } from './tree';
 
 export type { IntervalOptions } from './interval';
 export type { RectOptions } from './rect';
@@ -47,3 +48,4 @@ export type { TreemapOptions } from './treemap';
 export type { PackOptions } from './pack';
 export type { ShapeOptions } from './shape';
 export type { ForceGraphOptions } from './forceGraph';
+export type { TreeOptions } from './tree';

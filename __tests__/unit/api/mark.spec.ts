@@ -21,6 +21,7 @@ import {
   Shape,
   Pack,
   ForceGraph,
+  Tree,
 } from '../../../src/api/mark/mark';
 
 function setOptions(node) {
@@ -236,6 +237,12 @@ describe('Mark', () => {
   it('ForceGraph() should specify options by API', () => {
     const node = new ForceGraph();
     expect(node.type).toBe('forceGraph');
+    expect(setCompositeOptions(node).value).toEqual(getCompositeOptions());
+  });
+
+  it('Tree() should specify options by API', () => {
+    const node = new Tree();
+    expect(node.type).toBe('tree');
     expect(setCompositeOptions(node).value).toEqual(getCompositeOptions());
   });
 });

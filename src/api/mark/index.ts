@@ -23,6 +23,7 @@ import {
   Shape,
   Pack,
   ForceGraph,
+  Tree,
 } from './mark';
 
 export interface Mark {
@@ -50,6 +51,7 @@ export interface Mark {
   shape(): Shape;
   pack(): Pack;
   forceGraph(): ForceGraph;
+  tree(): Tree;
 }
 
 export const mark = {
@@ -77,4 +79,5 @@ export const mark = {
   shape: Shape,
   pack: Pack,
   forceGraph: ForceGraph,
+  tree: Tree,
 };

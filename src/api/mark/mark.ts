@@ -22,6 +22,7 @@ import {
   TreemapMark,
   ForceGraphMark,
   PackMark,
+  TreeMark,
 } from '../../spec';
 import { NodePropertyDescriptor, defineProps } from '../props';
 import { Node } from '../node';
@@ -121,6 +122,10 @@ export interface Pack extends API<Concrete<PackMark>, Pack> {
 
 export interface ForceGraph extends API<Concrete<ForceGraphMark>, ForceGraph> {
   type: 'forceGraph';
+}
+
+export interface Tree extends API<Concrete<TreeMark>, Tree> {
+  type: 'tree';
 }
 
 export const props: NodePropertyDescriptor[] = [
@@ -321,5 +326,12 @@ export class Pack extends Node<Pack> {
 export class ForceGraph extends Node<ForceGraph> {
   constructor() {
     super({}, 'forceGraph');
+  }
+}
+
+@defineProps([...props, { name: 'layout', type: 'object' }])
+export class Tree extends Node<Tree> {
+  constructor() {
+    super({}, 'tree');
   }
 }

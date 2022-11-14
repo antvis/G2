@@ -1,7 +1,5 @@
-import { deepMix, isArray, isFunction } from '@antv/util';
+import { deepMix } from '@antv/util';
 import {
-  stratify,
-  hierarchy,
   treemap as treemapLayout,
   treemapBinary,
   treemapDice,
@@ -14,6 +12,7 @@ import { subObject } from '../utils/helper';
 import { CompositionComponent as CC } from '../runtime';
 import { TreemapMark } from '../spec';
 import { getBBoxSize } from '../utils/size';
+import { generateHierarchyRoot } from './utils';
 
 export type TreemapOptions = Omit<TreemapMark, 'type'>;
 
@@ -67,15 +66,9 @@ function getTileMethod(tile: string, ratio: number) {
 }
 
 function dataTransform(data, layout: Layout, encode): TreemapData {
-  // const { value: originalData, path = (d) => d } = data;
   const { value } = encode;
   const tileMethod = getTileMethod(layout.tile, layout.ratio);
-
-  // Path need when the data is a flat json structure,
-  // and the tree object structure do not need.
-  const root = isArray(data)
-    ? stratify().path(layout.path)(data)
-    : hierarchy(data);
+  const root = generateHierarchyRoot(data, layout.path);
 
   // Calculate the value and sort.
   value
@@ -86,6 +79,7 @@ function dataTransform(data, layout: Layout, encode): TreemapData {
 
   treemapLayout()
     .tile(tileMethod)
+    // @ts-ignore
     .size(layout.size)
     .round(layout.round)
     .paddingInner(layout.paddingInner)
@@ -104,7 +98,7 @@ function dataTransform(data, layout: Layout, encode): TreemapData {
       }),
     )
     .filter(
-      isFunction(layout.layer)
+      typeof layout.layer === 'function'
         ? layout.layer
         : (d) => d.height === layout.layer,
     );

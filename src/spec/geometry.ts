@@ -6,7 +6,7 @@ import { Coordinate } from './coordinate';
 import { AnimationTypes } from './animate';
 import { Interaction } from './interaction';
 import { Theme } from './theme';
-import { Data } from './data';
+import { ClusterTransform, Data } from './data';
 
 export type Geometry =
   | IntervalGeometry
@@ -35,6 +35,7 @@ export type Geometry =
   | BoxPlotMark
   | ShapeMark
   | ForceGraphMark
+  | TreeMark
   | CustomComponent;
 
 export type GeometryTypes =
@@ -65,6 +66,7 @@ export type GeometryTypes =
   | 'boxplot'
   | 'shape'
   | 'forceGraph'
+  | 'tree'
   | MarkComponent;
 
 export type ChannelTypes =
@@ -278,15 +280,20 @@ export type PackMark = BaseGeometry<'pack', 'value' | ChannelTypes> & {
 };
 
 export type ForceGraphMark = BaseGeometry<
-  'pack',
+  'forceGraph',
   | 'source'
   | 'target'
   | 'value'
-  | 'nodeRadius'
   | `node${Capitalize<ChannelTypes>}`
   | `link${Capitalize<ChannelTypes>}`
 > & {
   layout?: Record<string, any>;
+  nodeLabels: Record<string, any>[];
+  linkLabels: Record<string, any>[];
+};
+
+export type TreeMark = BaseGeometry<'tree', 'value' | ChannelTypes> & {
+  layout?: Omit<ClusterTransform, 'type'>;
   nodeLabels: Record<string, any>[];
   linkLabels: Record<string, any>[];
 };
