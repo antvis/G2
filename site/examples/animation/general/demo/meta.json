@@ -1,0 +1,56 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "path-in.ts",
+      "title": {
+        "zh": "PathIn",
+        "en": "PathIn"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/raptor/1668167705967/pathIn.gif"
+    },
+    {
+      "filename": "fade.ts",
+      "title": {
+        "zh": "FadeIn & FadeOut",
+        "en": "FadeIn & FadeOut"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/raptor/1667976930984/fadeIn.gif"
+    },
+    {
+      "filename": "scale-x.ts",
+      "title": {
+        "zh": "ScaleInX & ScaleOutX",
+        "en": "ScaleInX & ScaleOutX"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/raptor/1667976930984/scaleInX.gif"
+    },
+    {
+      "filename": "scale-y.ts",
+      "title": {
+        "zh": "ScaleInY & ScaleOutY",
+        "en": "ScaleInY & ScaleOutY"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/raptor/1667976930984/scaleInY.gif"
+    },
+    {
+      "filename": "wave-in.ts",
+      "title": {
+        "zh": "WaveIn",
+        "en": "WaveIn"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/raptor/1667976930984/waveIn.gif"
+    },
+    {
+      "filename": "zoom-in.ts",
+      "title": {
+        "zh": "ZoomIn",
+        "en": "ZoomIn"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/raptor/1667976930984/zoomIn.gif"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "acme-crop-income-statement.ts",
+      "title": {
+        "zh": "Income Statement for ACME Crop",
+        "end": "Income Statement for ACME Crop"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*-a9EQpzBTDMAAAAAAAAAAAAADmJ7AQ"
+    }
+  ]
+}

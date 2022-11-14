@@ -1,0 +1,40 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "line.ts",
+      "title": {
+        "zh": "手绘折线图",
+        "en": "Sketchy Line Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*erkgSbo9OdMAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "point.ts",
+      "title": {
+        "zh": "手绘散点图",
+        "en": "Sketchy Scatterplot"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*lm6wQITH9YEAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "interval.ts",
+      "title": {
+        "zh": "手绘条形图",
+        "en": "Sketchy Bar Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*-A5CR4gpOX8AAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "radial.ts",
+      "title": {
+        "zh": "手绘饼图",
+        "en": "Sketchy Raidal Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*kJuuQ47YUicAAAAAAAAAAAAADmJ7AQ"
+    }
+  ]
+}
