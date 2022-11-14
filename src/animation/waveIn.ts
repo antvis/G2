@@ -34,7 +34,7 @@ export const WaveIn: AC<WaveInOptions> = (options) => {
 
     const center = coordinate.getCenter();
     const { __data__, style } = shape as G2Element;
-    const { radius = 0 } = style;
+    const { radius = 0, fillOpacity, strokeOpacity, opacity } = style;
     const { points, y, y1 } = __data__;
 
     const path = arc().cornerRadius(radius as number);
@@ -61,9 +61,22 @@ export const WaveIn: AC<WaveInOptions> = (options) => {
       // Use custom interpolable CSS property.
       {
         waveInArcAngle: startAngle + ZERO,
+        fillOpacity: 0,
+        strokeOpacity: 0,
+        opacity: 0,
+      },
+      {
+        waveInArcAngle: startAngle + ZERO,
+        fillOpacity,
+        strokeOpacity,
+        opacity,
+        offset: 0.01,
       },
       {
         waveInArcAngle: endAngle,
+        fillOpacity,
+        strokeOpacity,
+        opacity,
       },
     ];
     const animation = shape.animate(
