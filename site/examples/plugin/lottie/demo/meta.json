@@ -1,0 +1,16 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "lottie.ts",
+      "title": {
+        "zh": "Lottie",
+        "en": "Lottie"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/raptor/1668077308397/Nov-10-2022%25252018-48-07.gif"
+    }
+  ]
+}

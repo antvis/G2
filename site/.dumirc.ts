@@ -109,34 +109,98 @@ export default defineConfig({
     ],
     examples: [
       {
-        slug: 'single-view',
+        slug: 'general',
         title: {
-          zh: '单视图图表',
-          en: 'Single View',
+          zh: '基础',
+          en: 'General',
         },
         icon: 'bar',
       },
       {
-        slug: 'multi-view',
+        slug: 'composition',
         title: {
           zh: '复合视图',
-          en: 'Multiple View',
+          en: 'Composition',
         },
         icon: 'bar',
       },
       {
-        slug: 'scenario',
+        slug: 'unit',
         title: {
-          zh: '场景案例',
-          en: 'Scenario',
+          zh: '单元可视化',
+          en: 'Unit',
         },
         icon: 'bar',
       },
       {
-        slug: 'others',
+        slug: 'analysis',
         title: {
-          zh: '其他',
-          en: 'Others',
+          zh: '数据分析',
+          en: 'Analysis',
+        },
+        icon: 'bar',
+      },
+      {
+        slug: 'annotation',
+        title: {
+          zh: '数据标注',
+          en: 'Annotation',
+        },
+        icon: 'bar',
+      },
+      {
+        slug: 'animation',
+        title: {
+          zh: '动画',
+          en: 'Animation',
+        },
+        icon: 'bar',
+      },
+      {
+        slug: 'interaction',
+        title: {
+          zh: '交互',
+          en: 'Interaction',
+        },
+        icon: 'bar',
+      },
+      {
+        slug: 'graph',
+        title: {
+          zh: '图',
+          en: 'Graph',
+        },
+        icon: 'bar',
+      },
+      {
+        slug: 'geo',
+        title: {
+          zh: '地图',
+          en: 'Geo',
+        },
+        icon: 'bar',
+      },
+      {
+        slug: 'component',
+        title: {
+          zh: '组件',
+          en: 'Component',
+        },
+        icon: 'bar',
+      },
+      {
+        slug: 'Theme',
+        title: {
+          zh: '主题',
+          en: 'Theme',
+        },
+        icon: 'bar',
+      },
+      {
+        slug: 'plugin',
+        title: {
+          zh: '插件',
+          en: 'Plugin',
         },
         icon: 'bar',
       },
