@@ -13,6 +13,7 @@ import {
   Polygon,
   Polyline,
   HTML,
+  IAnimation as GAnimation,
 } from '@antv/g';
 import { group } from 'd3-array';
 import { error } from './helper';
@@ -65,7 +66,7 @@ export class Selection<T = any> {
   private _merge: Selection;
   private _split: Selection;
   private _document: IDocument;
-  private _transitions: Promise<void>[];
+  private _transitions: (GAnimation | GAnimation[])[];
   private _facetElements: G2Element[];
 
   constructor(
@@ -80,7 +81,7 @@ export class Selection<T = any> {
       null,
       null,
     ],
-    transitions: Promise<void>[] = [],
+    transitions: (GAnimation | GAnimation[])[] = [],
     updateElements: G2Element[] = [],
   ) {
     this._elements = Array.from(elements);
@@ -338,7 +339,8 @@ export class Selection<T = any> {
       const element = this._elements[i];
       const transition = this._transitions[i];
       if (transition) {
-        transition.then(() => element.remove());
+        const T = Array.isArray(transition) ? transition : [transition];
+        T.map((d) => d.finished.then(() => element.remove()));
       } else {
         element.remove();
       }
@@ -407,7 +409,7 @@ export class Selection<T = any> {
     return this._elements;
   }
 
-  transitions(): Promise<void>[] {
+  transitions(): (GAnimation | GAnimation[])[] {
     return this._transitions;
   }
 

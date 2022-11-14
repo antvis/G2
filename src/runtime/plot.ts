@@ -29,6 +29,7 @@ import {
   G2CompositionOptions,
   G2InteractionOptions,
   G2LabelTransformOptions,
+  G2Context,
 } from './types/options';
 import {
   ThemeComponent,
@@ -75,7 +76,8 @@ export async function plot<T extends G2ViewTree>(
   options: T,
   selection: Selection,
   library: G2Library,
-): Promise<void[]> {
+  context: G2Context,
+): Promise<any> {
   const [useComposition] = useLibrary<
     G2CompositionOptions,
     CompositionComponent,
@@ -163,7 +165,7 @@ export async function plot<T extends G2ViewTree>(
 
   // Plot chart.
   const viewContainer = new Map<G2ViewDescriptor, DisplayObject>();
-  const transitions: Promise<void>[] = [];
+  const transitions: GAnimation[] = [];
   selection
     .selectAll(className(VIEW_CLASS_NAME))
     .data(views, (d) => d.key)
@@ -191,7 +193,7 @@ export async function plot<T extends G2ViewTree>(
       view,
       container,
       options: viewNode.get(view),
-      update: createUpdateView(select(container), library),
+      update: createUpdateView(select(container), library, context),
     }),
   );
   for (const target of viewInstances) {
@@ -205,6 +207,7 @@ export async function plot<T extends G2ViewTree>(
 
   // Author animations.
   const { width, height } = options;
+  const keyframes = [];
   for (const nodeGenerator of nodeGenerators) {
     // Delay the rendering of animation keyframe. Different animation
     // created by different nodeGenerator will play in the same time.
@@ -212,12 +215,14 @@ export async function plot<T extends G2ViewTree>(
     const keyframe = new Promise<void>(async (resolve) => {
       for (const node of nodeGenerator) {
         const sizedNode = { width, height, ...node };
-        await plot(sizedNode, selection, library);
+        await plot(sizedNode, selection, library, context);
       }
       resolve();
     });
-    transitions.push(keyframe);
+    keyframes.push(keyframe);
   }
+
+  context.animations = transitions;
 
   emitEvent(on, CHART_LIFE_CIRCLE.AFTER_PAINT);
 
@@ -225,7 +230,8 @@ export async function plot<T extends G2ViewTree>(
   // The returned promise will never resolved if one of nodeGenerator
   // never stop to yield node, which may created by a keyframe composition
   // with iteration count set to infinite.
-  return Promise.all(transitions);
+  const finished = transitions.map(cancel).map((d) => d.finished);
+  return Promise.all([...finished, ...keyframes]);
 }
 
 function applyTranslate(selection: Selection) {
@@ -238,13 +244,14 @@ function applyTranslate(selection: Selection) {
 function createUpdateView(
   selection: Selection,
   library: G2Library,
+  context: G2Context,
 ): G2ViewInstance['update'] {
   return async (newOptions) => {
     const transitions = [];
     const [newView, newChildren] = await initializeView(newOptions, library);
     plotView(newView, selection, transitions, library);
     for (const child of newChildren) {
-      plot(child, selection, library);
+      plot(child, selection, library, context);
     }
     return {
       options: newOptions,
@@ -464,7 +471,7 @@ function initializeState(
 async function plotView(
   view: G2ViewDescriptor,
   selection: Selection,
-  transitions: Promise<void>[],
+  transitions: GAnimation[],
   library: G2Library,
 ): Promise<void> {
   const { components, theme, layout, markState, coordinate, key, style } = view;
@@ -646,7 +653,7 @@ async function plotView(
             .remove(),
       )
       .transitions();
-    transitions.push(...T);
+    transitions.push(...T.flat());
   }
 
   // Plot label for this view.
@@ -659,7 +666,7 @@ async function plotView(
 function plotLabel(
   view: G2ViewDescriptor,
   selection: Selection,
-  transitions: Promise<void>[],
+  transitions: GAnimation[],
   library: G2Library,
 ) {
   const [useLabelTransform] = useLibrary<
@@ -934,7 +941,7 @@ function createAnimationFunction(
   data: Record<string, any>,
   from: DisplayObject[],
   to: DisplayObject[],
-) => Promise<void> {
+) => GAnimation[] {
   const [, createShape] = useLibrary<G2ShapeOptions, ShapeComponent, Shape>(
     'shape',
     library,
@@ -971,8 +978,8 @@ function createAnimationFunction(
     const animateFunction = useAnimation(options);
     const value = { delay, duration, easing };
     const A = animateFunction(from, to, value, coordinate, defaultEffectTiming);
-    if (!Array.isArray(A)) return cancel(A);
-    return Promise.all(A.map(cancel));
+    if (!Array.isArray(A)) return [A];
+    return A;
   };
 }
 
@@ -985,7 +992,7 @@ function createEnterFunction(
   data: Record<string, any>,
   from?: DisplayObject[],
   to?: DisplayObject[],
-) => Promise<void> {
+) => GAnimation[] {
   return createAnimationFunction('enter', mark, state, view, library);
 }
 
@@ -993,10 +1000,11 @@ function createEnterFunction(
  * Animation will not cancel automatically, it should be canceled
  * manually. This is very important for performance.
  */
-function cancel(animation: GAnimation): Promise<any> {
-  return animation.finished.then(() => {
+function cancel(animation: GAnimation): GAnimation {
+  animation.finished.then(() => {
     animation.cancel();
   });
+  return animation;
 }
 
 function createUpdateFunction(
@@ -1008,7 +1016,7 @@ function createUpdateFunction(
   data: Record<string, any>,
   from?: DisplayObject[],
   to?: DisplayObject[],
-) => Promise<void> {
+) => GAnimation[] {
   return createAnimationFunction('update', mark, state, view, library);
 }
 
@@ -1021,7 +1029,7 @@ function createExitFunction(
   data: Record<string, any>,
   from?: DisplayObject[],
   to?: DisplayObject[],
-) => Promise<void> {
+) => GAnimation[] {
   return createAnimationFunction('exit', mark, state, view, library);
 }
 
