@@ -36,24 +36,16 @@ WebFont.load({
       .encode('color', (d) =>
         d.month === 'Total' ? 'Total' : d.profit > 0 ? 'Increase' : 'Decrease',
       )
-      .style({
-        strokeWidth: 2,
-        fillStyle: 'zigzag',
+      .style('strokeWidth', 2)
+      .style('fillStyle', 'zigzag')
+      .axis('x', {
+        titleFontSize: 15,
+        titleFontFamily: 'Gaegu',
       })
-      .axis({
-        x: {
-          grid: false,
-          titleFontSize: 15,
-          titleFontFamily: 'Gaegu',
-          // tickFontFamily: 'Gaegu',
-        },
-        y: {
-          grid: false,
-          titleFontSize: 15,
-          titleFontFamily: 'Gaegu',
-          // tickFontFamily: 'Gaegu',
-          tickFormatter: '~s',
-        },
+      .axis('y', {
+        titleFontSize: 15,
+        titleFontFamily: 'Gaegu',
+        tickFormatter: '~s',
       });
 
     chart.render();

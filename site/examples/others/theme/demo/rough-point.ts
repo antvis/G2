@@ -23,19 +23,13 @@ WebFont.load({
       .encode('x', 'height')
       .encode('y', 'weight')
       .encode('color', 'gender')
-      .axis({
-        x: {
-          grid: false,
-          titleFontSize: 15,
-          titleFontFamily: 'Gaegu',
-          // tickFontFamily: 'Gaegu',
-        },
-        y: {
-          grid: false,
-          titleFontSize: 15,
-          titleFontFamily: 'Gaegu',
-          // tickFontFamily: 'Gaegu',
-        },
+      .axis('x', {
+        titleFontSize: 15,
+        titleFontFamily: 'Gaegu',
+      })
+      .axis('y', {
+        titleFontSize: 15,
+        titleFontFamily: 'Gaegu',
       });
 
     chart.render();
