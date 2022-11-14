@@ -125,6 +125,14 @@ export default defineConfig({
         icon: 'bar',
       },
       {
+        slug: 'unit',
+        title: {
+          zh: '单元可视化',
+          en: 'Unit',
+        },
+        icon: 'bar',
+      },
+      {
         slug: 'analysis',
         title: {
           zh: '数据分析',
@@ -169,14 +177,6 @@ export default defineConfig({
         title: {
           zh: '地图',
           en: 'Geo',
-        },
-        icon: 'bar',
-      },
-      {
-        slug: 'unit',
-        title: {
-          zh: '单元可视化',
-          en: 'Unit',
         },
         icon: 'bar',
       },
