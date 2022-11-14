@@ -25,10 +25,8 @@ WebFont.load({
       })
       .encode('y', 'value')
       .encode('color', 'name')
-      .style('stroke', 'white')
-      .style('strokeWidth', '4')
-      .style('fillStyle', (_, index) => {
-        return [
+      .scale('color', {
+        range: [
           'hachure',
           'solid',
           'zigzag',
@@ -36,8 +34,12 @@ WebFont.load({
           'dots',
           'dashed',
           'zigzag-line',
-        ][index % 7];
+        ],
       })
+      .style('fill', 'black')
+      .style('stroke', 'black')
+      .style('strokeWidth', '4')
+      .style('colorAttribute', 'fillStyle')
       .legend(false)
       .label({
         text: 'name',
@@ -46,6 +48,7 @@ WebFont.load({
         fontWeight: 'bold',
         fontFamily: 'Gaegu',
         fill: 'black',
+        stroke: 'white',
       })
       .label({
         text: (d, i, data) => (i < data.length - 3 ? d.value : ''),
@@ -53,6 +56,7 @@ WebFont.load({
         fontSize: 12,
         fontFamily: 'Gaegu',
         fill: 'black',
+        stroke: 'white',
         dy: '0.75em',
       });
 
