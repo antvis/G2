@@ -32,7 +32,7 @@ chart
   .label({
     text: (d, i, data) => (i < data.length - 3 ? d.value : ''),
     fontSize: 9,
-    dy: '0.75em',
+    dy: 12,
   });
 
 chart.render();

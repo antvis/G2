@@ -5,6 +5,22 @@
   },
   "demos": [
     {
+      "filename": "line-text.ts",
+      "title": {
+        "zh": "文本标记的折线图",
+        "en": "Line, Text Annotation"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*pQq2S7Ns2MUAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "line-badge.ts",
+      "title": {
+        "zh": "Badge 标记的折线图",
+        "en": "Line, Badge Annotation"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*pgeoRLW4bEcAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
       "filename": "point-line.ts",
       "title": {
         "zh": "线标记的散点图",

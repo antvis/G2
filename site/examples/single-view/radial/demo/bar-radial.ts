@@ -26,6 +26,7 @@ chart
   .scale('color', {
     range: '#BAE7FF-#1890FF-#0050B3',
   })
-  .axis('y', { tickFilter: (d, i) => i !== 0 });
+  .axis('y', { tickFilter: (d, i) => i !== 0 })
+  .animate('enter', { type: 'waveIn', duration: 800 });
 
 chart.render();
