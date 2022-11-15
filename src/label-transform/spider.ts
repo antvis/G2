@@ -3,6 +3,7 @@ import { SpiderLabelTransform } from '../spec';
 import { LabelTransformComponent as LLC } from '../runtime';
 import { isCircular } from '../utils/coordinate';
 import { maybePercentage } from '../utils/helper';
+import { sub } from '../utils/vector';
 
 export type SpiderOptions = Omit<SpiderLabelTransform, 'type'>;
 
@@ -14,20 +15,22 @@ export const Spider: LLC<SpiderOptions> = (options) => {
   return (labels: DisplayObject[], coordinate) => {
     if (!isCircular(coordinate)) return labels;
 
-    const { x, width } = coordinate.getOptions();
-    const [cx, cy] = coordinate.getCenter();
+    const { x: coordX, width } = coordinate.getOptions();
+    const center = coordinate.getCenter();
     const margin = maybePercentage(edgeDistance, width);
 
-    const edgeX = x + margin;
-    const x1 = x + width - margin;
+    const edgeX = coordX + margin;
+    const edgeX1 = coordX + width - margin;
     labels.forEach((label) => {
-      const { x, x0, y0 } = label.style;
-      const dx = x <= cx ? edgeX - x : x1 - x;
+      const { x: originX, x0, y0 } = label.style;
+      const dx = originX <= center[0] ? edgeX - originX : edgeX1 - originX;
       label.style.x += dx;
 
-      const p1y = label.style.y;
-      const p1x = (x0 - cx) / ((y0 - cy) / (p1y - y0)) + x0;
-      label.style.connectorPoints = [[p1x - label.style.x, 0]];
+      const { x, y } = label.style;
+      const p0 = sub([x0, y0], center);
+      const p1 = sub([0, y], center);
+      const p1x = p0[1] ? (p0[0] * p1[1]) / p0[1] + center[0] : x;
+      label.style.connectorPoints = [[p1x - x, 0]];
     });
     return labels;
   };
