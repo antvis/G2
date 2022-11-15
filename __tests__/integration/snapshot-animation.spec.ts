@@ -7,6 +7,10 @@ import { createGCanvas, writePNG, sleep, diff } from './canvas';
 // @ts-ignore
 global.fetch = fetch;
 
+function defined(d) {
+  return d !== null;
+}
+
 describe('integration', () => {
   // Filter tests with only.
   const onlyTests = Object.entries(tests).filter(
@@ -46,7 +50,6 @@ describe('integration', () => {
 
               //@ts-ignore
               const maxError = generateOptions.maxError || 0;
-              diff(actualPath, expectedPath);
               expect(diff(actualPath, expectedPath)).toBeLessThanOrEqual(
                 maxError,
               );
@@ -73,9 +76,15 @@ describe('integration', () => {
               return;
             }
 
+            // Skip non animation.
+            if (context.animations?.filter(defined).length === 0) return;
+
             // Asset the fist state of this keyframe.
             // @ts-ignore
-            for (const animation of context.animations) animation.pause();
+            for (const animation of context.animations?.filter(defined)) {
+              animation.pause();
+            }
+
             await sleep(20);
             await asset(`${frameCount}-0`);
 
@@ -84,7 +93,7 @@ describe('integration', () => {
               // Wait this interval finishing.
               const interval = intervals[i];
               // @ts-ignore
-              for (const animation of context.animations) {
+              for (const animation of context.animations?.filter(defined)) {
                 animation.currentTime = interval;
                 await sleep(20);
               }
@@ -94,7 +103,7 @@ describe('integration', () => {
             // Update frame count.
             frameCount++;
             // @ts-ignore
-            for (const animation of context.animations) {
+            for (const animation of context.animations?.filter(defined)) {
               animation.finish();
               await sleep(20);
             }
@@ -117,11 +126,17 @@ describe('integration', () => {
           });
 
           // Asset the last state of this animation.
-          frameCount--;
-          const last = I[frameCount] as number[];
-          if (last) {
+          if (frameCount === 0) {
+            // For non animation.
             await sleep(20);
-            await asset(`${frameCount}-${last.length + 1}`);
+            await asset(`0-0`);
+          } else {
+            frameCount--;
+            const last = I[frameCount] as number[];
+            if (last) {
+              await sleep(20);
+              await asset(`${frameCount}-${last.length + 1}`);
+            }
           }
         } finally {
           if (canvas) canvas.destroy();

@@ -19,6 +19,7 @@ chart
   .transform({ type: 'stackY' })
   .encode('color', 'genre')
   .encode('y', 'sold')
-  .animate('enter', { type: 'waveIn', duration: 1000 });
+  .animate('enterType', 'waveIn')
+  .animate('enterDuration', 1000);
 
 chart.render();

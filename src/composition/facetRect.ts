@@ -103,9 +103,7 @@ export const inferColor = useDefaultAdaptor<G2ViewTree>(
 
 export const setAnimation = useDefaultAdaptor<G2ViewTree>(() => ({
   animate: {
-    enter: {
-      type: 'fadeIn',
-    },
+    enterType: 'fadeIn',
   },
 }));
 

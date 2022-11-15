@@ -14,9 +14,7 @@ export function fruitsIntervalStackEnterColorX(): G2Spec {
       enterDuration: 1000,
     },
     animate: {
-      enter: {
-        duration: 600,
-      },
+      enterDuration: 600,
     },
   };
 }

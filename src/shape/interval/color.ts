@@ -25,7 +25,7 @@ export type ColorOptions = {
  */
 export const Color: SC<ColorOptions> = (options) => {
   // Render border only when colorAttribute is stroke.
-  const { colorAttribute, opacityKey = 'fill', ...style } = options;
+  const { colorAttribute, opacityAttribute = 'fill', ...style } = options;
 
   return (points, value, coordinate, theme) => {
     const { mark, shape, defaultShape } = value;

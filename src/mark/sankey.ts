@@ -141,7 +141,8 @@ export const Sankey: CC<SankeyOptions> = (options) => {
           },
           ...nodeLabels,
         ],
-        animate: subObject(animate, 'node'),
+        animate:
+          typeof animate === 'object' ? subObject(animate, 'node') : animate,
       }),
       deepMix({}, DEFAULT_LINK_OPTIONS, {
         data: linkData,
@@ -151,7 +152,8 @@ export const Sankey: CC<SankeyOptions> = (options) => {
           fill: linkEncode.color ? undefined : '#aaa',
           ...subObject(style, 'link'),
         },
-        animate: subObject(animate, 'link'),
+        animate:
+          typeof animate === 'object' ? subObject(animate, 'link') : animate,
       }),
     ];
   };

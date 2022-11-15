@@ -5,7 +5,7 @@ import {
   Path,
 } from '@antv/g';
 import { AnimationComponent as AC } from '../runtime';
-import { Animation } from '../spec';
+import { Animation } from './types';
 import { attributeKeys, attributeOf, effectTiming } from './utils';
 
 export type MorphingOptions = Animation & { split: 'pack' | SplitFunction };

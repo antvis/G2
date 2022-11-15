@@ -175,6 +175,23 @@ export function addGuideToScale(
   return [I, mark];
 }
 
+export function maybeNonAnimate(
+  I: number[],
+  mark: G2Mark,
+  context: TransformContext,
+): [number[], G2Mark] {
+  const { animate } = mark;
+  if (animate || animate === undefined) return [I, mark];
+  deepMix(mark, {
+    animate: {
+      enterType: null,
+      exitType: null,
+      updateType: null,
+    },
+  });
+  return [I, mark];
+}
+
 function isTypedChannel(channel): boolean {
   if (typeof channel !== 'object' || channel instanceof Date) return false;
   const { type } = channel;

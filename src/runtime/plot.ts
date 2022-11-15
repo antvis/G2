@@ -230,7 +230,10 @@ export async function plot<T extends G2ViewTree>(
   // The returned promise will never resolved if one of nodeGenerator
   // never stop to yield node, which may created by a keyframe composition
   // with iteration count set to infinite.
-  const finished = transitions.map(cancel).map((d) => d.finished);
+  const finished = transitions
+    .filter(defined)
+    .map(cancel)
+    .map((d) => d.finished);
   return Promise.all([...finished, ...keyframes]);
 }
 
@@ -961,8 +964,8 @@ function createAnimationFunction(
   const { [key]: defaultAnimation } = createShape(
     shapeName(mark, defaultShape),
   ).props;
-  const { [type]: animate = {} } = mark.animate || {};
   const { [type]: defaultEffectTiming = {} } = theme;
+  const animate = subObject(mark.animate || {}, type);
   return (data, from, to) => {
     const {
       [`${type}Type`]: animation,
