@@ -71,7 +71,6 @@ chart.render();
 chart
   .link()
   // ...
-  .shape('vector')
   .style({
     arrowSize: 40,
     // arrowSize: '30%',
