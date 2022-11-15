@@ -95,7 +95,7 @@ export async function initializeMark(
           values,
           // Generate a unique key for independent channel,
           // which will not group with any other channels.
-          scaleKey: independent ? `_g2_${key}_${i}` : key,
+          scaleKey: independent ? Symbol('independent') : key,
           scale: {
             type,
             range,
