@@ -51,7 +51,7 @@ export const Dark: TC<DarkOptions> = (options) => {
     // --- Theme of mark shape
     line: {
       line: {
-        fillOpacity: 0,
+        fill: '',
         strokeOpacity: 1,
         lineWidth: 1,
       },
@@ -64,19 +64,19 @@ export const Dark: TC<DarkOptions> = (options) => {
       },
       hollow: {
         r: 3,
-        fillOpacity: 0,
+        fill: '',
         strokeOpacity: 0.95,
         lineWidth: 1,
       },
       plus: {
         r: 3,
-        fillOpacity: 0,
+        fill: '',
         strokeOpacity: 0.95,
         lineWidth: 3,
       },
       diamond: {
         r: 3,
-        fillOpacity: 0,
+        fill: '',
         strokeOpacity: 0.95,
         lineWidth: 1,
       },
@@ -86,7 +86,7 @@ export const Dark: TC<DarkOptions> = (options) => {
         fillOpacity: 0.95,
       },
       hollow: {
-        fillOpacity: 0,
+        fill: '',
         strokeOpacity: 1,
         lineWidth: 2,
       },
@@ -107,14 +107,14 @@ export const Dark: TC<DarkOptions> = (options) => {
         fillOpacity: 0.95,
       },
       hollow: {
-        fillOpacity: 0,
+        fill: '',
         strokeOpacity: 1,
         lineWidth: 2,
       },
     },
     link: {
       link: {
-        fillOpacity: 0,
+        fill: '',
         strokeOpacity: 1,
       },
     },

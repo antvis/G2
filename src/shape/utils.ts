@@ -205,8 +205,7 @@ export function getShapeTheme(
   return Object.assign(
     {},
     { fill: defaultColor, stroke: defaultColor },
-    markTheme[defaultShape],
-    markTheme[shape],
+    markTheme[shape] || markTheme[defaultShape],
   );
 }
 
