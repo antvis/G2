@@ -15,16 +15,19 @@ export const Spider: LLC<SpiderOptions> = (options) => {
     if (!isCircular(coordinate)) return labels;
 
     const { x, width } = coordinate.getOptions();
-    const center = coordinate.getCenter();
-    const distance = maybePercentage(edgeDistance, width);
+    const [cx, cy] = coordinate.getCenter();
+    const margin = maybePercentage(edgeDistance, width);
 
-    const x0 = x + distance;
-    const x1 = x + width - distance;
+    const edgeX = x + margin;
+    const x1 = x + width - margin;
     labels.forEach((label) => {
-      const { x } = label.style;
-      const dx = x <= center[0] ? x0 - x : x1 - x;
-      // Change `dx` instead of `x` position, because the path of connector is relative to the `x` position.
-      label.style.dx = dx;
+      const { x, x0, y0 } = label.style;
+      const dx = x <= cx ? edgeX - x : x1 - x;
+      label.style.x += dx;
+
+      const p1y = label.style.y;
+      const p1x = (x0 - cx) / ((y0 - cy) / (p1y - y0)) + x0;
+      label.style.connectorPoints = [[p1x - label.style.x, 0]];
     });
     return labels;
   };

@@ -1,8 +1,8 @@
 import { DisplayObject } from '@antv/g';
 import { SurroundLabelTransform } from '../spec';
-import { LabelTransformComponent as LLC, Vector2 } from '../runtime';
+import { LabelTransformComponent as LLC } from '../runtime';
 import { isCircular } from '../utils/coordinate';
-import { dist } from '../utils/vector';
+import { dist, angleWithQuadrant } from '../utils/vector';
 
 export type SurroundOptions = Omit<SurroundLabelTransform, 'type'>;
 
@@ -15,24 +15,22 @@ export const Surround: LLC<SurroundOptions> = (options) => {
 
     const center = coordinate.getCenter();
     const radius = labels.reduce((r, label) => {
-      const { x, y } = label.style;
-      return Math.max(r, dist(center, [x, y]));
+      const { x0, y0, offset = 0 } = label.style;
+      return Math.max(r, dist(center, [x0, y0])) + offset;
     }, 0);
 
-    const angle = ([x, y]: Vector2, [x0, y0]: Vector2) => {
-      if (x === x0) return Math.PI;
-      const append = x > x0 ? Math.PI / 2 : -Math.PI / 2;
-      return Math.atan((y - y0) / (x - x0)) + append;
-    };
-
     labels.forEach((label) => {
-      const { x, x0, y, y0 } = label.style;
+      const { x0, y0, connector, connectorLength2 = 0 } = label.style;
+      const labelAngle = angleWithQuadrant([x0 - center[0], y0 - center[1]]);
+      const length2 = connector
+        ? connectorLength2 * (Math.sin(labelAngle) < 0 ? -1 : 1)
+        : 0;
 
-      const labelAngle = angle([x, y], [x0, y0]);
       const newX = center[0] + Math.sin(labelAngle) * radius;
       const newY = center[1] - Math.cos(labelAngle) * radius;
-      label.style.x = newX;
+      label.style.x = newX + length2;
       label.style.y = newY;
+      label.style.connectorPoints = [[-length2, 0]];
     });
 
     return labels;
