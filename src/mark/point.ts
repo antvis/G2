@@ -66,7 +66,7 @@ const shapes = [
   'cross',
   'bowtie',
   'hyphen',
-  'linePoint',
+  'line',
   'tick',
   'triangleDown',
 ];

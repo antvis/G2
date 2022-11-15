@@ -76,7 +76,7 @@ describe('point', () => {
       scale: { y: { guide: null } },
       encode: {
         x: 'height',
-        shape: 'linePoint',
+        shape: 'line',
         size: 40,
       },
       style: {
