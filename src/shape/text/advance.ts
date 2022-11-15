@@ -11,7 +11,7 @@ import { Marker } from '@antv/gui';
 import { line } from 'd3-shape';
 import { WithPrefix } from '../../runtime';
 import { createElement } from '../createElement';
-import { applyStyle } from '../../shape/utils';
+import { applyStyle } from '../utils';
 import { subObject } from '../../utils/helper';
 import { select } from '../../utils/selection';
 import { dist } from '../../utils/vector';
@@ -117,7 +117,7 @@ function inferConnectorPath(
   return line()(P);
 }
 
-export const AdvancedText = createElement((g) => {
+export const Advance = createElement((g) => {
   const {
     // Do not pass className
     class: className,

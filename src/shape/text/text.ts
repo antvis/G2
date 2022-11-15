@@ -1,7 +1,7 @@
 import { ShapeComponent as SC } from '../../runtime';
 import { applyStyle, getShapeTheme } from '../../shape/utils';
 import { select } from '../../utils/selection';
-import { AdvancedText } from './advancedText';
+import { Advance } from './advance';
 
 export type TextOptions = Record<string, any>;
 
@@ -24,7 +24,7 @@ export const Text: SC<TextOptions> = (options) => {
 
     const [[x0, y0]] = points;
 
-    return select(new AdvancedText())
+    return select(new Advance())
       .style('x', x0)
       .style('y', y0)
       .call(applyStyle, shapeTheme)
