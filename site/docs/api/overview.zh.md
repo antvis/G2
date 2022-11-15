@@ -3,7 +3,7 @@ title: 概览
 order: 1
 ---
 
-G2 是一个简介的、渐进式可视化语法，文档将按照下面的顺序去分别介绍每一个模块，你可以把它当做一个字典去搜索和查询。
+G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的顺序去分别介绍每一个模块，你可以把它当做一个字典去搜索和查询。
 
 * [Overview](./overview) - 所有 API 文档的一句话概览。
 * [Chart](./chart) - 提供简洁的命令式 API，一句话生成一个图表。
@@ -15,7 +15,7 @@ G2 是一个简介的、渐进式可视化语法，文档将按照下面的顺�
   * [data.map](./scale/map) - 
   * [custom](./scale/custom) - 
 * Mark - 介绍不同图形标记 mark 的配置和用法。
-  * [mark.interval](./mark/interval) - 
+  * [mark.interval](/api/mark/interval) - 通常用来绘制柱、条形图，饼图等相关图表。
   * [mark.point](./mark/point) - 
   * [mark.line](./mark/line) - 
   * [mark.area](./mark/area) - 

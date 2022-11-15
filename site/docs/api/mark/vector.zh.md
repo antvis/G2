@@ -15,7 +15,6 @@ Vector 图形标记会将数据通过上述通道映射成向量数据：`[start
 
 <img alt="vector" src="https://gw.alipayobjects.com/zos/antfincdn/c9nPWlX5Au/vector.png" width="300" />
 
-
 ## 开始使用
 
 <img alt="wind vector" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*6fDIT50ZKnEAAAAAAAAAAAAADmJ7AQ/fmt.webp" width="600" />
