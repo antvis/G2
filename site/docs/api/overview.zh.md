@@ -15,7 +15,7 @@ G2 是一个简介的、渐进式可视化语法，文档将按照下面的顺�
   * [data.map](./scale/map) - 
   * [custom](./scale/custom) - 
 * Mark - 介绍不同图形标记 mark 的配置和用法。
-  * [mark.interval](./mark/interval) - 
+  * [mark.interval](/api/mark/interval) - 通常用来绘制柱、条形图，饼图等相关图表。
   * [mark.point](./mark/point) - 
   * [mark.line](./mark/line) - 
   * [mark.area](./mark/area) - 
