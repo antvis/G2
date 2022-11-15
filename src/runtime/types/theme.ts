@@ -71,8 +71,11 @@ type InteractionTheme = {
 type ComponentTheme = {
   axis?: any;
   legend?: any;
+  continuousLegend?: any;
   label?: LabelStyleProps;
   innerLabel?: LabelStyleProps;
+  slider?: any;
+  scrollbar?: any;
   title?: Omit<TextStyleProps, 'text'>;
   subtitle?: Omit<TextStyleProps, 'text'> & {
     spacing?: number;
