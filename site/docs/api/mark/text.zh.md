@@ -1,26 +1,24 @@
 ---
-title: vector
+title: text
 order: 1
 ---
 
-Vector 图形是将数据映射成为`箭头`的样式去可视化展示，通过控制箭头的位置、大小、颜色、角度等信息，去可视化一些向量场数据。它具备有以下视觉通道：
+文字是传达信息最传统的方式，`Text` 标记具备有大量的视觉映射通道：`x`，`y`，`color`，`fontSize`，`rotate` 等，除此之外，还有大量的文本样式相关的配置，可以通过可视化映射的方式，让文本可视化具备有更强的表达性。一般用于几个场景：
 
-- `x`：水平方向的位置，对 x 轴刻度对应
-- `y`：垂直方向的位置，对 y 轴刻度对应，位置锚点定位为箭头的中心
-- `color`：箭头的颜色
-- `size`：箭头的长度
-- `rotate`：箭头的旋转角度，起始角度为直角坐标系中的 `右边`，旋转方向为 `顺时针`
-
-Vector 图形标记会将数据通过上述通道映射成向量数据：`[start, end]`。
-
-<img alt="vector" src="https://gw.alipayobjects.com/zos/antfincdn/c9nPWlX5Au/vector.png" width="300" />
-
+- 文本可视化
+- 数据的标注和辅助
 
 ## 开始使用
 
-<img alt="wind vector" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*6fDIT50ZKnEAAAAAAAAAAAAADmJ7AQ/fmt.webp" width="600" />
+绘制一个简单的柱形图，然后使用 `Text` 标记去绘制数据标签，辅助看数。
+
+<img alt="link" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*tS0KTYqmb1QAAAAAAAAAAAAADmJ7AQ/fmt.webp" width="600" />
+
 
 ```ts
+/**
+ * A recreation of this demo: https://observablehq.com/@d3/bar-chart
+ */
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -28,22 +26,26 @@ const chart = new Chart({
   autoFit: true,
 });
 
+chart.data({
+  type: 'fetch',
+  value:
+    'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
+});
+
 chart
-  .vector()
-  .data({
-    type: 'fetch',
-    value: 'https://gw.alipayobjects.com/os/antfincdn/F5VcgnqRku/wind.json',
-  })
-  .encode('x', 'longitude')
-  .encode('y', 'latitude')
-  .encode('rotate', ({ u, v }) => (Math.atan2(v, u) * 180) / Math.PI)
-  .encode('size', ({ u, v }) => Math.hypot(v, u))
-  .encode('color', ({ u, v }) => Math.hypot(v, u))
-  .scale('size', { range: [6, 20] })
-  .scale('color', { type: 'sequential', palette: 'viridis' })
-  .axis('x', { grid: false })
-  .axis('y', { grid: false })
-  .legend(false);
+  .interval()
+  .encode('x', 'letter')
+  .encode('y', 'frequency')
+  .axis('y', { tickFormatter: '.0%' });
+
+chart
+  .text()
+  .encode('x', 'letter')
+  .encode('y', 'frequency')
+  .encode('text', 'frequency')
+  .style('fill', 'black')
+  .style('textAlign', 'center')
+  .style('dy', -5);
 
 chart.render();
 ```
@@ -54,11 +56,17 @@ chart.render();
 
 目前仅有一种同名的图形 `vector`，下面描述一下所有的 `style` 配置项。
 
+
 ### vector
 
-| 属性            | 描述                                           | 类型                 | 默认值      |
-|----------------|------------------------------------------------|---------------------|------------|
-| arrowSize      | 箭头图标的大小，可以指定像素值、也可以指定箭头长度的相对值。          | `string` \| `number`  | '40%'      |
+| 属性            | 描述                                           | 类型                     | 默认值      |
+|----------------|------------------------------------------------|-------------------------|------------|
+| fontSize      | 文字大小                                          | `number` \| `Function<number>`             |   -   |
+| fontFamily    | 文字字体                                          | `string` \| `Function<string>`             |   -   |
+| fontWeight    | 字体粗细                                          | `number` \| `Function<number>`             |   -   |
+| lineHeight    | 文字的行高                                         | `number` \| `Function<number>`            |   -   |
+| textAlign     | 设置文本内容的当前对齐方式, 支持的属性：`center` \| `end` \| `left` \| `right` \| `start`，默认值为`start`   | `string` \| `Function<string>`    |   -   |
+| textBaseline  | 设置在绘制文本时使用的当前文本基线, 支持的属性:`top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging`。默认值为`bottom` | `string` \| `Function<string>`   |   -   |
 | fill          | 图形的填充色                                      | `string` \| `Function<string>`              |   -   |
 | fillOpacity   | 图形的填充透明度                                   | `number` \| `Function<number>`              |   -   |
 | stroke        | 图形的描边                                        | `string` \| `Function<string>`              |   -   |

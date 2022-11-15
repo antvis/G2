@@ -1,26 +1,18 @@
 ---
-title: vector
+title: link
 order: 1
 ---
 
-Vector 图形是将数据映射成为`箭头`的样式去可视化展示，通过控制箭头的位置、大小、颜色、角度等信息，去可视化一些向量场数据。它具备有以下视觉通道：
-
-- `x`：水平方向的位置，对 x 轴刻度对应
-- `y`：垂直方向的位置，对 y 轴刻度对应，位置锚点定位为箭头的中心
-- `color`：箭头的颜色
-- `size`：箭头的长度
-- `rotate`：箭头的旋转角度，起始角度为直角坐标系中的 `右边`，旋转方向为 `顺时针`
-
-Vector 图形标记会将数据通过上述通道映射成向量数据：`[start, end]`。
-
-<img alt="vector" src="https://gw.alipayobjects.com/zos/antfincdn/c9nPWlX5Au/vector.png" width="300" />
-
+`Link` 标记使用两个用 (x, y) 定位的点，绘制一条带方向的直线。通过指定 `x`，`y` 通道为长度为 2 的字段数组即可。
 
 ## 开始使用
 
-<img alt="wind vector" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*6fDIT50ZKnEAAAAAAAAAAAAADmJ7AQ/fmt.webp" width="600" />
+<img alt="link" src="https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*tAvnRKK-8KcAAAAAAAAAAAAADmJ7AQ/fmt.webp" width="600" />
 
 ```ts
+/**
+ * A recreation of this demo: https://observablehq.com/@observablehq/plot-link?collection=@observablehq/plot
+ */
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -29,20 +21,17 @@ const chart = new Chart({
 });
 
 chart
-  .vector()
+  .link()
   .data({
     type: 'fetch',
-    value: 'https://gw.alipayobjects.com/os/antfincdn/F5VcgnqRku/wind.json',
+    value: 'https://gw.alipayobjects.com/os/antfincdn/SM13%24lHuYH/metros.json',
   })
-  .encode('x', 'longitude')
-  .encode('y', 'latitude')
-  .encode('rotate', ({ u, v }) => (Math.atan2(v, u) * 180) / Math.PI)
-  .encode('size', ({ u, v }) => Math.hypot(v, u))
-  .encode('color', ({ u, v }) => Math.hypot(v, u))
-  .scale('size', { range: [6, 20] })
-  .scale('color', { type: 'sequential', palette: 'viridis' })
-  .axis('x', { grid: false })
-  .axis('y', { grid: false })
+  .encode('x', ['POP_1980', 'POP_2015'])
+  .encode('y', ['R90_10_1980', 'R90_10_2015'])
+  .encode('color', (d) => d.R90_10_2015 - d.R90_10_1980)
+  .scale('x', { type: 'log' })
+  .style('arrowSize', 6)
+  .axis('x', { tickFormatter: '~s', label: { autoHide: true } })
   .legend(false);
 
 chart.render();
@@ -52,9 +41,9 @@ chart.render();
 
 ## 选项
 
-目前仅有一种同名的图形 `vector`，下面描述一下所有的 `style` 配置项。
+目前仅有一种同名的图形 `link`，下面描述一下所有的 `style` 配置项。
 
-### vector
+### link
 
 | 属性            | 描述                                           | 类型                 | 默认值      |
 |----------------|------------------------------------------------|---------------------|------------|
@@ -80,7 +69,7 @@ chart.render();
 
 ```ts
 chart
-  .vector()
+  .link()
   // ...
   .shape('vector')
   .style({
