@@ -1,5 +1,5 @@
 ---
-title: Interval
+title: interval
 order: 1
 ---
 

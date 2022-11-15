@@ -22,7 +22,7 @@ G2 是一个简介的、渐进式可视化语法，文档将按照下面的顺�
   * [mark.cell](./mark/cell) - 
   * [mark.rect](./mark/rect) - 
   * [mark.link](./mark/link) - 
-  * [mark.vector](./mark/vector) - 
+  * [mark.vector](/api/mark/vector) - 用 `start`，`end` 两个点来表示一个向量，通常用于绘制具备向量含义的数据，比如风向量场等。
   * [mark.polygon](./mark/polygon) - 
   * [mark.box](./mark/box) - 
   * [mark.boxplot](./mark/boxplot) - 
