@@ -15,7 +15,10 @@ const linkData = (data) =>
     return r;
   }, []);
 
-const chart = new Chart({ container: 'container', autoFit: true });
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
 
 chart
   .data([

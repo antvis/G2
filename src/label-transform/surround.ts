@@ -16,8 +16,14 @@ export const Surround: LLC<SurroundOptions> = (options) => {
     const center = coordinate.getCenter();
     const radius = labels.reduce((r, label) => {
       const { x0, y0, offset = 0 } = label.style;
-      return Math.max(r, dist(center, [x0, y0])) + offset;
+      return Math.max(r, dist(center, [x0, y0]) + offset);
     }, 0);
+
+    console.log(
+      'radius',
+      radius,
+      labels.map((d) => d.style.offset),
+    );
 
     labels.forEach((label) => {
       const { x0, y0, connector, connectorLength2 = 0 } = label.style;
