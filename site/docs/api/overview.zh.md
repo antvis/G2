@@ -26,7 +26,7 @@ G2 是一个简介的、渐进式可视化语法，文档将按照下面的顺�
   * [mark.polygon](./mark/polygon) - 
   * [mark.box](./mark/box) - 
   * [mark.boxplot](./mark/boxplot) - 
-  * [mark.text](./mark/text) - 
+  * [mark.text](/api/mark/text) - 
   * [mark.image](/api/mark/image) - 
   * [mark.shape](./mark/shape) - 
   * [mark.interval](./mark/interval) - 
