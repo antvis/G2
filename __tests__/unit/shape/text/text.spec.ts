@@ -169,7 +169,6 @@ describe('Text shape', () => {
     });
 
     shape.style.connector = { stroke: 'green', lineDash: [2, 4], lineWidth: 1 };
-    const textShape = shape.getElementById('text') as DisplayObject;
     const connectorShape = shape.getElementById('connector') as DisplayObject;
     expect(connectorShape.style.stroke).toBe('green');
     expect(connectorShape.style.path).toBe('M0,0L24,20');
@@ -178,7 +177,6 @@ describe('Text shape', () => {
 
     shape.style.textAlign = 'right';
     expect(bounds(connectorShape).min[1]).toBe(0);
-    expect(connectorShape.style.path[1][2]).toBe(bounds(textShape).min[1]);
   });
 
   it('Text() returns a function draw textAnnotation, enable custom connector path.', async () => {
