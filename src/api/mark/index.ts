@@ -24,6 +24,7 @@ import {
   Pack,
   ForceGraph,
   Tree,
+  WordCloud,
 } from './mark';
 
 export interface Mark {
@@ -52,6 +53,7 @@ export interface Mark {
   pack(): Pack;
   forceGraph(): ForceGraph;
   tree(): Tree;
+  wordCloud(): WordCloud;
 }
 
 export const mark = {
@@ -80,4 +82,5 @@ export const mark = {
   pack: Pack,
   forceGraph: ForceGraph,
   tree: Tree,
+  wordCloud: WordCloud,
 };

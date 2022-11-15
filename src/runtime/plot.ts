@@ -296,16 +296,18 @@ async function initializeMarks(
   }
 
   // Convert composite mark to single mark.
-  const flattenMarks: G2Mark[] = dataMarks.flatMap((mark) => {
-    const { type = error('G2Mark type is required.'), key } = mark;
-    const { props } = createMark(type);
-    const { composite = false } = props;
-    if (!composite) return mark;
-    const marks = (useMark as (options: G2MarkOptions) => CompositeMark)(mark)(
-      options,
-    );
-    return marks.map((d, i) => ({ key: `${key}-${i}`, ...d }));
-  });
+  const flattenMarks = await Promise.all(
+    dataMarks.map(async (mark) => {
+      const { type = error('G2Mark type is required.'), key } = mark;
+      const { props } = createMark(type);
+      const { composite = false } = props;
+      if (!composite) return mark;
+      const marks = await (
+        useMark as (options: G2MarkOptions) => CompositeMark
+      )(mark)(options);
+      return marks.map((d, i) => ({ key: `${key}-${i}`, ...d }));
+    }),
+  ).then((res) => res.flat());
 
   // Initialize channels for marks.
   for (const markOptions of flattenMarks) {

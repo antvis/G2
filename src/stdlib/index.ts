@@ -42,6 +42,7 @@ import {
   Boxplot,
   ForceGraph,
   Tree as TreeGeometry,
+  WordCloud as WordCloudGeometry,
 } from '../mark';
 import {
   Category10,
@@ -354,6 +355,7 @@ export function createLibrary(): G2Library {
     'mark.shape': Shape,
     'mark.forceGraph': ForceGraph,
     'mark.tree': TreeGeometry,
+    'mark.wordCloud': WordCloudGeometry,
     'palette.category10': Category10,
     'palette.category20': Category20,
     'palette.sequentialBlue': SequentialBlue,

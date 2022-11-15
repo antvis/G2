@@ -23,6 +23,7 @@ import {
   ForceGraphMark,
   PackMark,
   TreeMark,
+  WordCloudMark,
 } from '../../spec';
 import { NodePropertyDescriptor, defineProps } from '../props';
 import { Node } from '../node';
@@ -126,6 +127,10 @@ export interface ForceGraph extends API<Concrete<ForceGraphMark>, ForceGraph> {
 
 export interface Tree extends API<Concrete<TreeMark>, Tree> {
   type: 'tree';
+}
+
+export interface WordCloud extends API<Concrete<WordCloudMark>, WordCloud> {
+  type: 'wordCloud';
 }
 
 export const props: NodePropertyDescriptor[] = [
@@ -333,5 +338,12 @@ export class ForceGraph extends Node<ForceGraph> {
 export class Tree extends Node<Tree> {
   constructor() {
     super({}, 'tree');
+  }
+}
+
+@defineProps([...props, { name: 'layout', type: 'object' }])
+export class WordCloud extends Node<WordCloud> {
+  constructor() {
+    super({}, 'wordCloud');
   }
 }

@@ -33,6 +33,7 @@ import {
   Pack,
   ForceGraph,
   Tree,
+  WordCloud,
 } from '../../../src/api/mark/mark';
 
 function expectToCreateMarks(node) {
@@ -59,6 +60,7 @@ function expectToCreateMarks(node) {
   expect(node.pack()).toBeInstanceOf(Pack);
   expect(node.forceGraph()).toBeInstanceOf(ForceGraph);
   expect(node.tree()).toBeInstanceOf(Tree);
+  expect(node.wordCloud()).toBeInstanceOf(WordCloud);
 }
 
 function expectToCreateCompositions(node) {

@@ -36,6 +36,7 @@ export type Geometry =
   | ShapeMark
   | ForceGraphMark
   | TreeMark
+  | WordCloudMark
   | CustomComponent;
 
 export type GeometryTypes =
@@ -67,6 +68,7 @@ export type GeometryTypes =
   | 'shape'
   | 'forceGraph'
   | 'tree'
+  | 'wordCloud'
   | MarkComponent;
 
 export type ChannelTypes =
@@ -296,6 +298,13 @@ export type TreeMark = BaseGeometry<'tree', 'value' | ChannelTypes> & {
   layout?: Omit<ClusterTransform, 'type'>;
   nodeLabels: Record<string, any>[];
   linkLabels: Record<string, any>[];
+};
+
+export type WordCloudMark = BaseGeometry<
+  'wordCloud',
+  'value' | ChannelTypes
+> & {
+  layout?: Record<string, any>;
 };
 
 export type CustomComponent = BaseGeometry<MarkComponent>;
