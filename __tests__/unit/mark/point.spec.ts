@@ -28,7 +28,7 @@ describe('Point', () => {
             'cross',
             'bowtie',
             'hyphen',
-            'linePoint',
+            'line',
             'tick',
             'triangleDown',
           ],
