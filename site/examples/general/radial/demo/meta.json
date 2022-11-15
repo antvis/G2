@@ -21,12 +21,28 @@
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*wu8VQIWJJ50AAAAAAAAAAAAADmJ7AQ/original"
     },
     {
+      "filename": "spider-label.ts",
+      "title": {
+        "zh": "饼图, 蜘蛛布局标签",
+        "en": "Pie Chart, Spider Label"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*gC20SLxWVicAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
       "filename": "rose.ts",
       "title": {
         "zh": "玫瑰图",
         "en": "Rose Chart"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*_DeKSr3oN5sAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "rose-label.ts",
+      "title": {
+        "zh": "玫瑰图标签",
+        "en": "Rose Chart, Label"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Cx8zT7vT5bUAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "bar-radial.ts",
