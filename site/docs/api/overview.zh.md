@@ -19,8 +19,8 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
   * [mark.point](/api/mark/point) - 主要用于绘制散点图，利用点的粒度来分析数据的分布情况。
   * [mark.line](/api/mark/line) - 根据一系列的点，绘制折线，通常用来绘制折线图。
   * [mark.area](/api/mark/area) - 通常用来绘制我们常见的面积图，通过填充，可以更好突出趋势堆积信息。
-  * [mark.cell](./mark/cell) - 
-  * [mark.rect](./mark/rect) - 
+  * [mark.cell](/api/mark/cell) - 根据 x, y 将空间划分成一个子空间，然后进行可视化绘制。
+  * [mark.rect](/api/mark/rect) - 使用两组 x，两组 y 来定位一个矩形区域，常用于直方图、矩阵树图、聚合热力图等。
   * [mark.link](/api/mark/link) - 标记使用两个用 (x, y) 定位的点，绘制一条带方向的直线。通过指定 `x`，`y` 通道为长度为 2 的字段数组即可。
   * [mark.vector](/api/mark/vector) - 用 `start`，`end` 两个点来表示一个向量，通常用于绘制具备向量含义的数据，比如风向量场等。
   * [mark.polygon](/api/mark/polygon) - 利用多组 (x, y) 数据点，在画布中绘制闭合的多边形，通常结合一些社区布局算法使用。
