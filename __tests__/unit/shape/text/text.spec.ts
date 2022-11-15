@@ -57,7 +57,7 @@ describe('Text shape', () => {
     });
     mount(createDiv(), container);
 
-    expect(shape.childNodes.length).toBe(5);
+    expect(shape.childNodes.length).toBe(3);
   });
 
   it('Text() returns a function draw textAnnotation, enable custom text style includes rotate.', async () => {
@@ -172,10 +172,7 @@ describe('Text shape', () => {
     const textShape = shape.getElementById('text') as DisplayObject;
     const connectorShape = shape.getElementById('connector') as DisplayObject;
     expect(connectorShape.style.stroke).toBe('green');
-    expect(connectorShape.style.path).toEqual([
-      ['M', 0, 0],
-      ['L', 24, 20],
-    ]);
+    expect(connectorShape.style.path).toBe('M0,0L24,20');
     expect(connectorShape.style.lineDash).toEqual([2, 4]);
     expect(bounds(connectorShape).min[1]).toBe(0);
 
