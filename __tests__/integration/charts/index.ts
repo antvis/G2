@@ -126,3 +126,4 @@ export { population2015IntervalDonutImageAnnotation } from './population2015-int
 export { incomePointCircle } from './income-point-circle';
 export { miserableForceDefault } from './miserable-force-default';
 export { miserableForceCustom } from './miserable-force-custom';
+export { weatherLineMultiAxes } from './weather-line-multi-axes';
