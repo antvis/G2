@@ -24,6 +24,7 @@ const BLACK_COLORS = {
   6: '#0F0F0F',
 };
 
+const BACKGROUND_COLOR = '#141414';
 const STROKE_COLOR = '#F9FBFD';
 
 /**
@@ -42,10 +43,15 @@ export const Dark: TC<DarkOptions> = (options) => {
       fill: 'both',
       delay: 0,
     },
+    // --- Theme of area style
+    viewFill: BACKGROUND_COLOR,
+    plotFill: 'transparent',
+    mainFill: 'transparent',
+    contentFill: 'transparent',
     // --- Theme of mark shape
     line: {
       line: {
-        stroke: DEFAULT_COLOR,
+        fillOpacity: 0,
         strokeOpacity: 1,
         lineWidth: 1,
       },
@@ -53,80 +59,72 @@ export const Dark: TC<DarkOptions> = (options) => {
     point: {
       point: {
         r: 3,
-        fill: DEFAULT_COLOR,
         fillOpacity: 0.95,
         lineWidth: 0,
       },
       hollow: {
         r: 3,
-        stroke: DEFAULT_COLOR,
+        fillOpacity: 0,
         strokeOpacity: 0.95,
         lineWidth: 1,
       },
       plus: {
         r: 3,
-        stroke: DEFAULT_COLOR,
+        fillOpacity: 0,
         strokeOpacity: 0.95,
         lineWidth: 3,
       },
       diamond: {
         r: 3,
-        stroke: DEFAULT_COLOR,
+        fillOpacity: 0,
         strokeOpacity: 0.95,
         lineWidth: 1,
       },
     },
     interval: {
       rect: {
-        fill: DEFAULT_COLOR,
         fillOpacity: 0.95,
       },
       hollow: {
-        stroke: DEFAULT_COLOR,
+        fillOpacity: 0,
         strokeOpacity: 1,
         lineWidth: 2,
       },
     },
     area: {
       area: {
-        fill: DEFAULT_COLOR,
         fillOpacity: 0.85,
         lineWidth: 0,
       },
     },
     polygon: {
       polygon: {
-        fill: DEFAULT_COLOR,
         fillOpacity: 0.95,
       },
     },
     cell: {
       rect: {
-        fill: DEFAULT_COLOR,
         fillOpacity: 0.95,
       },
       hollow: {
-        stroke: DEFAULT_COLOR,
+        fillOpacity: 0,
         strokeOpacity: 1,
         lineWidth: 2,
       },
     },
     link: {
       link: {
-        stroke: DEFAULT_COLOR,
+        fillOpacity: 0,
         strokeOpacity: 1,
       },
     },
     vector: {
       vector: {
-        fill: DEFAULT_COLOR,
-        stroke: DEFAULT_COLOR,
         fillOpacity: 1,
       },
     },
     box: {
       box: {
-        fill: DEFAULT_COLOR,
         fillOpacity: 0.95,
         stroke: '#1D2129',
         lineWidth: 1,
@@ -148,7 +146,6 @@ export const Dark: TC<DarkOptions> = (options) => {
         endMarkerSize: 4,
       },
       badge: {
-        fill: DEFAULT_COLOR,
         fillOpacity: 0.65,
         fontSize: 10,
         textAlign: 'center',
@@ -293,8 +290,8 @@ export const Dark: TC<DarkOptions> = (options) => {
       // [todo] legend rail
     },
     label: {
-      fill: BLACK_COLORS[65],
-      fillOpacity: 1,
+      fill: BLACK_COLORS[100],
+      fillOpacity: 0.65,
       fontSize: 12,
       fontWeight: 'normal',
       stroke: null,

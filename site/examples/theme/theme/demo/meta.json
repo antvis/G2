@@ -4,5 +4,29 @@
     "en": "Category"
   },
   "demos": [
+    {
+      "filename": "default-color.ts",
+      "title": {
+        "zh": "默认色",
+        "en": "Default Color"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*89_CTI_hpaoAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "palette.ts",
+      "title": {
+        "zh": "主题色板",
+        "en": "Theme Palette"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*s83tRZVsdTMAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "dark.ts",
+      "title": {
+        "zh": "暗色主题",
+        "en": "Dark Theme"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*75B7Qov83a0AAAAAAAAAAAAADmJ7AQ/original"
+    }
   ]
 }
