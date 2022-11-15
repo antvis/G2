@@ -34,6 +34,7 @@ export type Geometry =
   | PackMark
   | BoxPlotMark
   | ShapeMark
+  | ForceGraphMark
   | CustomComponent;
 
 export type GeometryTypes =
@@ -63,6 +64,7 @@ export type GeometryTypes =
   | 'pack'
   | 'boxplot'
   | 'shape'
+  | 'forceGraph'
   | MarkComponent;
 
 export type ChannelTypes =
@@ -273,6 +275,20 @@ export type TreemapMark = BaseGeometry<'treemap', 'value' | ChannelTypes> & {
 
 export type PackMark = BaseGeometry<'pack', 'value' | ChannelTypes> & {
   layout?: Record<string, any>;
+};
+
+export type ForceGraphMark = BaseGeometry<
+  'pack',
+  | 'source'
+  | 'target'
+  | 'value'
+  | 'nodeRadius'
+  | `node${Capitalize<ChannelTypes>}`
+  | `link${Capitalize<ChannelTypes>}`
+> & {
+  layout?: Record<string, any>;
+  nodeLabels: Record<string, any>[];
+  linkLabels: Record<string, any>[];
 };
 
 export type CustomComponent = BaseGeometry<MarkComponent>;

@@ -124,3 +124,5 @@ export { indicesLinePointScaleKey } from './indices-line-point-scale-key';
 export { population2015IntervalDonutTextAnnotation } from './population2015-interval-donut-text-annotation';
 export { population2015IntervalDonutImageAnnotation } from './population2015-interval-donut-image-annotation';
 export { incomePointCircle } from './income-point-circle';
+export { miserableForceDefault } from './miserable-force-default';
+export { miserableForceCustom } from './miserable-force-custom';

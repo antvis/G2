@@ -40,6 +40,7 @@ import {
   Pack as PackGeometry,
   Boxplot,
   Shape,
+  ForceGraph,
 } from '../../../src/mark';
 import {
   Category10,
@@ -356,6 +357,7 @@ describe('stdlib', () => {
       'mark.pack': PackGeometry,
       'mark.boxplot': Boxplot,
       'mark.shape': Shape,
+      'mark.forceGraph': ForceGraph,
       'palette.category10': Category10,
       'palette.category20': Category20,
       'palette.sequentialBlue': SequentialBlue,
