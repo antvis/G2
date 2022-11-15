@@ -4,7 +4,7 @@ import { G2Theme, ShapeComponent as SC, Vector2 } from '../../runtime';
 import { applyStyle } from '../../shape/utils';
 import { isTranspose, isCircular } from '../../utils/coordinate';
 import { camelCase } from '../../utils/string';
-import { TextShape } from '../text/text';
+import { Advance } from '../text/advance';
 import { LabelPosition } from './position';
 import * as PositionProcessor from './position';
 
@@ -52,10 +52,11 @@ export const Label: SC<LabelOptions> = (options) => {
       ...defaultStyle
     } = getDefaultStyle(points, value, coordinate, theme);
 
-    return select(new TextShape())
+    return select(new Advance())
       .call(applyStyle, defaultStyle)
       .style('text', `${text}`)
       .style('transform', `${transform}rotate(${+rotate}deg)`)
+      .style('coordCenter', coordinate.getCenter())
       .call(applyStyle, overrideStyle)
       .node();
   };
