@@ -1,4 +1,6 @@
 ---
 title: Chart
-order: 1
+order: 2
 ---
+
+<embed src="@/docs/api/chart.zh.md"></embed>

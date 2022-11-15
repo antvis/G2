@@ -1,5 +1,5 @@
 ---
-title: Chart
+title: theme
 order: 2
 ---
 
