@@ -1,49 +1,82 @@
 ---
-title: vector
+title: image
 order: 1
 ---
 
-Vector 图形是将数据映射成为`箭头`的样式去可视化展示，通过控制箭头的位置、大小、颜色、角度等信息，去可视化一些向量场数据。它具备有以下视觉通道：
-
-- `x`：水平方向的位置，对 x 轴刻度对应
-- `y`：垂直方向的位置，对 y 轴刻度对应，位置锚点定位为箭头的中心
-- `color`：箭头的颜色
-- `size`：箭头的长度
-- `rotate`：箭头的旋转角度，起始角度为直角坐标系中的 `右边`，旋转方向为 `顺时针`
-
-Vector 图形标记会将数据通过上述通道映射成向量数据：`[start, end]`。
-
-<img alt="vector" src="https://gw.alipayobjects.com/zos/antfincdn/c9nPWlX5Au/vector.png" width="300" />
-
+`Image` 标记和 [Point](/api/mark/point) 标记很类似，都是以 `x`，`y` 数据通道作为位置居中定位，区别在于 `Image` 提供一个特殊的 `src` 数据通道，来指定图片的远程地址或者 base64。
 
 ## 开始使用
 
-<img alt="wind vector" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*6fDIT50ZKnEAAAAAAAAAAAAADmJ7AQ/fmt.webp" width="600" />
+这里有一个简单的浏览器占比数据，我们对它进行可视化，便于看到不同浏览器的占比对比。
+
+<img alt="image" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*fLQ2R4lOY3IAAAAAAAAAAAAADmJ7AQ/fmt.webp" width="600" />
 
 ```ts
 import { Chart } from '@antv/g2';
+
+const data = [
+  {
+    name: 'Internet Explorer',
+    value: 26,
+    url: 'https://gw.alipayobjects.com/zos/rmsportal/eOYRaLPOmkieVvjyjTzM.png',
+  },
+  {
+    name: 'Chrome',
+    value: 40,
+    url: 'https://gw.alipayobjects.com/zos/rmsportal/dWJWRLWfpOEbwCyxmZwu.png',
+  },
+  {
+    name: 'Firefox',
+    value: 30,
+    url: 'https://gw.alipayobjects.com/zos/rmsportal/ZEPeDluKmAoTioCABBTc.png',
+  },
+  {
+    name: 'Safari',
+    value: 24,
+    url: 'https://gw.alipayobjects.com/zos/rmsportal/eZYhlLzqWLAYwOHQAXmc.png',
+  },
+  {
+    name: 'Opera',
+    value: 15,
+    url: 'https://gw.alipayobjects.com/zos/rmsportal/vXiGOWCGZNKuVVpVYQAw.png',
+  },
+  {
+    name: 'Undetectable',
+    value: 8,
+    url: 'https://gw.alipayobjects.com/zos/rmsportal/NjApYXminrnhBgOXyuaK.png',
+  },
+];
 
 const chart = new Chart({
   container: 'container',
   autoFit: true,
 });
 
+chart.data(data);
+
 chart
-  .vector()
-  .data({
-    type: 'fetch',
-    value: 'https://gw.alipayobjects.com/os/antfincdn/F5VcgnqRku/wind.json',
-  })
-  .encode('x', 'longitude')
-  .encode('y', 'latitude')
-  .encode('rotate', ({ u, v }) => (Math.atan2(v, u) * 180) / Math.PI)
-  .encode('size', ({ u, v }) => Math.hypot(v, u))
-  .encode('color', ({ u, v }) => Math.hypot(v, u))
-  .scale('size', { range: [6, 20] })
-  .scale('color', { type: 'sequential', palette: 'viridis' })
-  .axis('x', { grid: false })
-  .axis('y', { grid: false })
-  .legend(false);
+  .link()
+  .encode('x', ['name', 'name'])
+  .encode('y', (d) => [0, d.value])
+  .style('stroke', '#dfdfdf')
+  .style('lineDash', [2, 2]);
+
+chart
+  .line()
+  .encode('x', 'name')
+  .encode('y', 'value')
+  .encode('shape', 'smooth')
+  .scale('x', { type: 'band' })
+  .scale('y', { domain: [0, 50] })
+  .style('opacity', 0.5);
+
+chart
+  .image()
+  .encode('x', 'name')
+  .encode('y', 'value')
+  .encode('src', 'url')
+  .scale('x', { type: 'band' })
+  .scale('y', { domain: [0, 50] });
 
 chart.render();
 ```
@@ -58,7 +91,6 @@ chart.render();
 
 | 属性            | 描述                                           | 类型                 | 默认值      |
 |----------------|------------------------------------------------|---------------------|------------|
-| arrowSize      | 箭头图标的大小，可以指定像素值、也可以指定箭头长度的相对值。          | `string` \| `number`  | '40%'      |
 | fill          | 图形的填充色                                      | `string` \| `Function<string>`              |   -   |
 | fillOpacity   | 图形的填充透明度                                   | `number` \| `Function<number>`              |   -   |
 | stroke        | 图形的描边                                        | `string` \| `Function<string>`              |   -   |
@@ -74,17 +106,6 @@ chart.render();
 
 ## FAQ
 
-- 怎么指定箭头图标的长度？
+- 图片的 src 通道支持哪些数据类型？
 
-有两种指定箭头图标长度的方式，一种是通过填写像素值，比如 `40`，来指定为固定长度；另外一种是通过指定一个百分比，比如 `30%`，来指定参考箭头长度的相对长度。默认值为 `40%`。如下示例：
-
-```ts
-chart
-  .vector()
-  // ...
-  .shape('vector')
-  .style({
-    arrowSize: 40,
-    // arrowSize: '30%',
-  });
-```
+最终的绘制都是调用 G 去渲染，所以支持的数据类型和 G 的原子 Image 图形保持一致，支持：`远程地址`、`base64`、`blob`、`file`。
