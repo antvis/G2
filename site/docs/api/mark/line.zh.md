@@ -1,15 +1,13 @@
 ---
-title: area
+title: line
 order: 1
 ---
 
-`Area` 图形标记大部分场景用来绘制我们常见的面积图，它是在折线图的基础上，将包围的区域使用颜色或者纹理填充，可以用来更好的突出趋势，以及趋势的堆积信息。
-
-在视觉通道设计上，`Area` 除了和 `Line` 不同的地方在于，可以设置 `y` 为长度为 2 的数组，分别代表面积的上边界和下边界，默认下边界为 0。
+根据一系列的点，绘制折线，通常用来绘制折线图，最常用的 mark 之一。
 
 ## 开始使用
 
-<img alt="area" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ZxtyTrhyN4sAAAAAAAAAAAAADmJ7AQ/original" width="600" />
+<img alt="line" src="https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*jTdCR7wVFZAAAAAAAAAAAAAADmJ7AQ" width="600" />
 
 ```ts
 import { Chart } from '@antv/g2';
@@ -19,19 +17,15 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.data({
-  type: 'fetch',
-  value: 'https://assets.antv.antgroup.com/g2/aapl.json',
-  transform: [{
-    type: 'map',
-    callback: d => ({
-      ...d,
-    date: new Date(d.date),
-    }),
-  }],
-});
-
-chart.area().encode('x', 'date').encode('y', 'close');
+chart
+  .line()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
+  })
+  .encode('x', 'date')
+  .encode('y', 'close');
 
 chart.render();
 ```
@@ -40,15 +34,17 @@ chart.render();
 
 ## 选项
 
-目前 area 有以下几个内置 shape 图形，默认为 `area`。
+目前 line 有以下几个内置 shape 图形，默认为 `line`。
 
 | 图形            | 描述                                           | 示例                 |
 |----------------|------------------------------------------------|---------------------|
-| area           | 绘制直线连接的面积图                              |       |
-| smooth         | 绘制平滑曲线的面积图                              |       |
-| step           | 绘制阶梯面积图                                   |       |
+| line           | 绘制直线连接的折线图                              |       |
+| smooth         | 绘制平滑曲线的折线图                              |       |
+| vh             | 绘制阶梯折线图，先竖线后横线连接                    |       |
+| hv             | 绘制阶梯面积图，先横线后竖线连接                    |       |
+| hvh            | 绘制阶梯面积图，竖横竖，中点连接                    |       |
 
-### area
+### line
 
 | 属性               | 描述                                           | 类型                 | 默认值      |
 |-------------------|------------------------------------------------|---------------------|------------|
@@ -70,21 +66,16 @@ chart.render();
 
 ### smooth
 
-和 `area` 配置相同。
+和 `line` 配置相同。
 
-### step
+### vh
 
-和 `area` 配置相同。
+和 `line` 配置相同。
 
-## FAQ
+### hv
 
-- 使用 connectNulls 功能时，怎么决定什么样的数据为空值？
+和 `line` 配置相同。
 
-可以使用 `defined` 配置去决定是否为非空值，默认 NaN、undefined、null 为空值。假设需要数据为 `0` 的时候是空值连接。
+### hvh
 
-```ts
-chart
-  .area()
-  // ...
-  .style('defined', (v) => v === 0);
-```
+和 `line` 配置相同。
