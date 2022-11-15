@@ -44,7 +44,7 @@ export default defineConfig({
     navs: [
       // 头部的菜单列表
       {
-        slug: 'manual/getting-started',
+        slug: 'docs/manual/introduction',
         title: {
           zh: '教程',
           en: 'Tutorials',
@@ -52,7 +52,7 @@ export default defineConfig({
         order: 2,
       },
       {
-        slug: 'api/chart',
+        slug: 'docs/api/overview',
         title: {
           zh: 'API',
           en: 'API',
@@ -79,6 +79,7 @@ export default defineConfig({
       },
     ],
     docs: [
+      // manual
       {
         slug: 'manual/single-view',
         title: {
@@ -90,21 +91,124 @@ export default defineConfig({
       {
         slug: 'manual/multi-view',
         title: {
-          zh: '多视图图表',
-          en: 'Multi-View Plot',
+          zh: '复合视图图表',
+          en: 'Multi- View Plot',
         },
         order: 4,
       },
-    ],
-    tutorials: [
-      // 一个 🌰
+      // api
       {
-        slug: 'manual/about',
+        slug: 'api/data',
         title: {
-          zh: '关于',
-          en: 'About',
+          zh: 'Data',
+          en: '数据',
         },
-        order: 1,
+        order: 3,
+      },
+      {
+        slug: 'api/mark',
+        title: {
+          zh: 'Mark',
+          en: 'Mark',
+        },
+        order: 4,
+      },
+      {
+        slug: 'api/transform',
+        title: {
+          zh: 'Transform',
+          en: 'Transform',
+        },
+        order: 5,
+      },
+      {
+        slug: 'api/scale',
+        title: {
+          zh: 'Scale',
+          en: '比例尺',
+        },
+        order: 6,
+      },
+      {
+        slug: 'api/coordinate',
+        title: {
+          zh: 'Coordinate',
+          en: '坐标系',
+        },
+        order: 7,
+      },
+      {
+        slug: 'api/composition',
+        title: {
+          zh: 'Composition',
+          en: 'Composition',
+        },
+        order: 8,
+      },
+      {
+        slug: 'api/component',
+        title: {
+          zh: 'Component',
+          en: '组件',
+        },
+        order: 9,
+      },
+      {
+        slug: 'api/label',
+        title: {
+          zh: 'Label',
+          en: '数据标签',
+        },
+        order: 10,
+      },
+
+      {
+        slug: 'api/animation',
+        title: {
+          zh: 'Animation',
+          en: '动画',
+        },
+        order: 11,
+      },
+      {
+        slug: 'api/interaction',
+        title: {
+          zh: 'Interaction',
+          en: '交互',
+        },
+        order: 12,
+      },
+      {
+        slug: 'api/graph',
+        title: {
+          zh: 'Graph',
+          en: '图',
+        },
+        order: 13,
+      },
+      {
+        slug: 'api/geo',
+        title: {
+          zh: 'Geo',
+          en: '地图',
+        },
+        order: 14,
+      },
+      {
+        slug: 'api/theme',
+        title: {
+          zh: 'Theme',
+          en: '主题',
+        },
+        order: 15,
+      },
+      {
+        slug: 'api/plugin',
+        title: {
+          zh: 'Plugin',
+          en: '扩展插件',
+        },
+        order: 15,
       },
     ],
     examples: [
