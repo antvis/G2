@@ -94,3 +94,39 @@ export function visualMark(index: number[], scale, value, coordinate) {
   });
   return [index, P];
 }
+
+type Encode = 'string' | ((d: any) => any);
+
+export function field(encode: Encode): (d: any) => any {
+  return typeof encode === 'function' ? encode : (d) => d[encode];
+}
+
+export function valueof(data: Record<string, any>[], encode: Encode): any[] {
+  return Array.from(data, field(encode));
+}
+
+export function initializeData(
+  data: { nodes?: any[]; links: any[] },
+  encode: Record<string, Encode>,
+): {
+  links: { target: string; source: string; value: any }[];
+  nodes: { key: string }[];
+} {
+  const {
+    source = (d) => d.source,
+    target = (d) => d.target,
+    value = (d) => d.value,
+  } = encode;
+  const { links, nodes } = data;
+  const LS = valueof(links, source);
+  const LT = valueof(links, target);
+  const LV = valueof(links, value);
+  return {
+    links: links.map((_, i) => ({
+      target: LT[i],
+      source: LS[i],
+      value: LV[i],
+    })),
+    nodes: nodes || Array.from(new Set([...LS, ...LT]), (key) => ({ key })),
+  };
+}

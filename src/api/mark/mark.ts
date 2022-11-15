@@ -19,6 +19,9 @@ import {
   SankeyMark,
   BoxPlotMark,
   ShapeMark,
+  TreemapMark,
+  ForceGraphMark,
+  PackMark,
 } from '../../spec';
 import { NodePropertyDescriptor, defineProps } from '../props';
 import { Node } from '../node';
@@ -107,6 +110,17 @@ export interface Boxplot extends API<Concrete<BoxPlotMark>, Boxplot> {
 
 export interface Shape extends API<Concrete<ShapeMark>, Shape> {
   type: 'shape';
+}
+
+export interface Treemap extends API<Concrete<TreemapMark>, Treemap> {
+  type: 'treemap';
+}
+export interface Pack extends API<Concrete<PackMark>, Pack> {
+  type: 'pack';
+}
+
+export interface ForceGraph extends API<Concrete<ForceGraphMark>, ForceGraph> {
+  type: 'forceGraph';
 }
 
 export const props: NodePropertyDescriptor[] = [
@@ -293,5 +307,19 @@ export class Treemap extends Node<ConnectorMark> {
 export class Boxplot extends Node<Boxplot> {
   constructor() {
     super({}, 'boxplot');
+  }
+}
+
+@defineProps([...props, { name: 'layout', type: 'object' }])
+export class Pack extends Node<Pack> {
+  constructor() {
+    super({}, 'pack');
+  }
+}
+
+@defineProps([...props, { name: 'layout', type: 'object' }])
+export class ForceGraph extends Node<ForceGraph> {
+  constructor() {
+    super({}, 'forceGraph');
   }
 }

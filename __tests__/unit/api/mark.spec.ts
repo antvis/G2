@@ -19,6 +19,8 @@ import {
   Treemap,
   Boxplot,
   Shape,
+  Pack,
+  ForceGraph,
 } from '../../../src/api/mark/mark';
 
 function setOptions(node) {
@@ -223,5 +225,17 @@ describe('Mark', () => {
     const node = new Shape();
     expect(node.type).toBe('shape');
     expect(setOptions(node).value).toEqual(getOptions());
+  });
+
+  it('Pack() should specify options by API', () => {
+    const node = new Pack();
+    expect(node.type).toBe('pack');
+    expect(setCompositeOptions(node).value).toEqual(getCompositeOptions());
+  });
+
+  it('ForceGraph() should specify options by API', () => {
+    const node = new ForceGraph();
+    expect(node.type).toBe('forceGraph');
+    expect(setCompositeOptions(node).value).toEqual(getCompositeOptions());
   });
 });

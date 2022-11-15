@@ -29,6 +29,9 @@ import {
   Text,
   Connector,
   Sankey,
+  Treemap,
+  Pack,
+  ForceGraph,
 } from '../../../src/api/mark/mark';
 
 function expectToCreateMarks(node) {
@@ -51,6 +54,9 @@ function expectToCreateMarks(node) {
   expect(node.rangeY()).toBeInstanceOf(RangeY);
   expect(node.connector()).toBeInstanceOf(Connector);
   expect(node.sankey()).toBeInstanceOf(Sankey);
+  expect(node.treemap()).toBeInstanceOf(Treemap);
+  expect(node.pack()).toBeInstanceOf(Pack);
+  expect(node.forceGraph()).toBeInstanceOf(ForceGraph);
 }
 
 function expectToCreateCompositions(node) {
