@@ -3,7 +3,7 @@ import { Encode } from './encode';
 import { Transform } from './transform';
 import { Scale } from './scale';
 import { Coordinate } from './coordinate';
-import { Animation } from './animate';
+import { AnimationTypes } from './animate';
 import { Interaction } from './interaction';
 import { Theme } from './theme';
 import { Data } from './data';
@@ -129,11 +129,43 @@ export type BaseGeometry<
   frame?: boolean;
   labels?: Record<string, any>[];
   stack?: boolean;
-  animate?: {
-    enter?: Animation;
-    exit?: Animation;
-    update?: Animation;
-  };
+  animate?:
+    | boolean
+    | {
+        enterType?: AnimationTypes;
+        enterDuration?: number;
+        enterDelay?: number;
+        enterEasing?: string;
+        enterFill?:
+          | 'forwards'
+          | 'none'
+          | 'backwards'
+          | 'forwards'
+          | 'both'
+          | 'auto';
+        updateType?: AnimationTypes;
+        updateDuration?: number;
+        updateDelay?: number;
+        updateEasing?: string;
+        updateFill?:
+          | 'forwards'
+          | 'none'
+          | 'backwards'
+          | 'forwards'
+          | 'both'
+          | 'auto';
+        exitType?: AnimationTypes;
+        exitDuration?: number;
+        exitDelay?: number;
+        exitEasing?: string;
+        exitFill?:
+          | 'forwards'
+          | 'none'
+          | 'backwards'
+          | 'forwards'
+          | 'both'
+          | 'auto';
+      };
   cartesian?: boolean;
 };
 

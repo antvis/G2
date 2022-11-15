@@ -228,6 +228,6 @@ export function getConnectStyle(
 }
 
 export function toOpacityKey(options) {
-  const { opacityKey = 'fill' } = options;
-  return `${opacityKey}Opacity`;
+  const { opacityAttribute = 'fill' } = options;
+  return `${opacityAttribute}Opacity`;
 }

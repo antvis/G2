@@ -25,6 +25,7 @@ import {
   maybeArrayField,
   maybeVisualChannel,
   addGuideToScale,
+  maybeNonAnimate,
 } from './transform';
 
 export async function initializeMark(
@@ -145,6 +146,7 @@ async function applyMarkTransform(
     maybeVisualChannel,
     extractColumns,
     maybeArrayField,
+    maybeNonAnimate,
     addGuideToScale,
     ...preInference.map(useTransform),
     ...transform.map(useTransform),

@@ -32,14 +32,12 @@ function setAnimation(node: G2ViewTree, duration: number, easing: string) {
     const n = discovered.pop();
     n.animate = deepMix(
       {
-        enter: { duration },
-        update: {
-          duration,
-          type: 'morphing',
-          easing,
-          fill: 'both',
-        },
-        exit: { duration },
+        enterDuration: duration,
+        updateDuration: duration,
+        updateType: 'morphing',
+        updateEasing: easing,
+        updateFill: 'both',
+        exitDuration: duration,
       },
       n.animate || {},
     );

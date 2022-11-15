@@ -27,10 +27,8 @@ export function doughnutPurchasesLinePathIn(): G2Spec {
           gradientColor: 'start',
         },
         animate: {
-          enter: {
-            type: 'pathIn',
-            duration: 3000,
-          },
+          enterType: 'pathIn',
+          enterDuration: 3000,
         },
       },
       {

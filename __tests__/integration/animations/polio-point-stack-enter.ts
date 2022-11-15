@@ -55,9 +55,7 @@ export function polioPointStackEnter(): G2Spec {
           fill: '#666',
         },
         animate: {
-          enter: {
-            delay: 5000,
-          },
+          enterDelay: 5000,
         },
       },
       {
@@ -72,9 +70,7 @@ export function polioPointStackEnter(): G2Spec {
           dy: 30,
         },
         animate: {
-          enter: {
-            delay: 5400,
-          },
+          enterDelay: 5400,
         },
       },
     ],

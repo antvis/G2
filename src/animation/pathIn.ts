@@ -1,6 +1,6 @@
 import { Line } from '@antv/g';
 import { AnimationComponent as AC } from '../runtime';
-import { Animation } from '../spec';
+import { Animation } from './types';
 import { effectTiming } from './utils';
 
 export type PathInOptions = Animation;

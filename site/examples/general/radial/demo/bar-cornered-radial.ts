@@ -39,6 +39,7 @@ chart
   })
   .axis('x', { title: false })
   .axis('y', false)
-  .animate('enter', { type: 'waveIn', duration: 1000 });
+  .animate('enterType', 'waveIn')
+  .animate('enterDuration', 1000);
 
 chart.render();

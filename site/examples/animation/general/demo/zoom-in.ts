@@ -19,8 +19,9 @@ chart
   .encode('shape', 'point')
   .scale('size', { range: [4, 65] })
   .scale('y', { domain: [65, 90] })
-  .animate('enter', { type: 'zoomIn', duration: 1000 })
   .style('fillOpacity', 0.3)
-  .style('lineWidth', 1);
+  .style('lineWidth', 1)
+  .animate('enterType', 'zoomIn')
+  .animate('enterDuration', 1000);
 
 chart.render();

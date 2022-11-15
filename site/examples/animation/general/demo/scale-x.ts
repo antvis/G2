@@ -17,7 +17,9 @@ chart
   .encode('x', 'genre')
   .encode('y', 'sold')
   .encode('color', 'genre')
-  .animate('enter', { type: 'scaleInX', duration: 1000 })
-  .animate('exit', { type: 'scaleOutX', duration: 2000 });
+  .animate('enterType', 'scaleInX')
+  .animate('enterDuration', 1000)
+  .animate('exitType', 'scaleOutX')
+  .animate('exitDuration', 2000);
 
 chart.render();
