@@ -7,7 +7,7 @@ order: 1
 
 ## 开始使用
 
-<img alt="wind vector" src="https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*tAvnRKK-8KcAAAAAAAAAAAAADmJ7AQ/fmt.webp" width="600" />
+<img alt="link" src="https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*tAvnRKK-8KcAAAAAAAAAAAAADmJ7AQ/fmt.webp" width="600" />
 
 ```ts
 /**
