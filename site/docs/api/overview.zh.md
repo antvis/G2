@@ -81,12 +81,12 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
   * [coordinate.transpose](./scale/transpose) - 
   * [coordinate.fisheye](./scale/fisheye) - 
 * Composition - 视图复合相关的内容。
-  * [spaceLayer](./scale/spaceLayer) - 
-  * [spaceFlex](./scale/spaceFlex) - 
-  * [facetRect](./scale/facetRect) - 
-  * [facetCircle](./scale/facetCircle) - 
-  * [repeatMatrix](./scale/repeatMatrix) - 
-  * [timingKeyframe](./scale/timingKeyframe) - 
+  * [spaceLayer](/api/composition/spacelayer) - 
+  * [spaceFlex](/api/composition/spaceflex) - 
+  * [facetRect](/api/composition/facetrect) - 
+  * [facetCircle](/api/composition/facetcircle) - 
+  * [repeatMatrix](/api/composition/repeatmatrix) - 
+  * [timingKeyframe](/api/composition/timingkeyframe) - 
 * Component - 图表组件相关的内容。
   * [axisX](./scale/axisX) - 
   * [axisY](./scale/axisY) - 
