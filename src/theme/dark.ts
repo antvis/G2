@@ -146,7 +146,9 @@ export const Dark: TC<DarkOptions> = (options) => {
         endMarkerSize: 4,
       },
       badge: {
+        fill: '#1D2129',
         fillOpacity: 0.65,
+        strokeWidth: 0,
         fontSize: 10,
         textAlign: 'center',
         textBaseline: 'middle',

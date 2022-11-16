@@ -135,7 +135,7 @@ export const Light: TC<LightOptions> = (options) => {
         // fill: BLACK_COLORS[65],
         fill: '#1D2129',
         fontSize: 12,
-        lineWidth: 0,
+        strokeWidth: 0,
         connectorStroke: STROKE_COLOR,
         connectorStrokeOpacity: 0.45,
         connectorLineWidth: 1,
@@ -148,7 +148,9 @@ export const Light: TC<LightOptions> = (options) => {
         endMarkerSize: 4,
       },
       badge: {
+        fill: '#1D2129',
         fillOpacity: 0.65,
+        strokeWidth: 0,
         fontSize: 10,
         textAlign: 'center',
         textBaseline: 'middle',
