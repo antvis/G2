@@ -9,7 +9,7 @@ order: 1
 
 绘制一个常见的柱饼结合的图表。
 
-<img alt="area" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*qPbkQb8c6F4AAAAAAAAAAAAADmJ7AQ/original" width="600" />
+<img alt="spaceLayer" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*qPbkQb8c6F4AAAAAAAAAAAAADmJ7AQ/original" width="600" />
 
 ```ts
 import { Chart } from '@antv/g2';
@@ -53,6 +53,3 @@ chart.render();
 ## 选项
 
 无额外配置项。
-
-## FAQ
-
