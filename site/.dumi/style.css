@@ -1,0 +1,9 @@
+.demo-card-screenshot {
+  background-size: cover !important;
+  padding-top: 62.5% !important;
+  transition: background-position 2s !important;
+}
+
+.demo-card-screenshot:hover {
+  background-position: right bottom !important;
+}
