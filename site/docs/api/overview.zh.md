@@ -47,7 +47,7 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
   * [transform.diffY](/api/transform/diffy) - 对 y 和 y1 通道求差集。
   * [transform.dodgeX](/api/transform/dodgex) - 生成 series 通道值为 color 通道的值，根据 series 通道实现分组效果。
   * [transform.flexX](/api/transform/flexx) - 根据指定通道设置 x 比例尺的 flex 属性，实现不等宽矩形的效果。
-  * [transform.group](./transform/group) - 对离散的 x 和 连续的 y 通道进行分组，并且对通道根据指定的 Redcuer 进行聚合。
+  * [transform.group](/api/transform/group) - 对离散的 x 和 连续的 y 通道进行分组，并且对通道根据指定的 Redcuer 进行聚合。
   * [transform.groupColor](./transform/groupColor) - 对离散的 color 通道进行分组，并且对通道根据指定的 Redcuer 进行聚合。
   * [transform.groupX](./transform/groupX) - 对离散的 x 通道进行分组，并且对通道根据指定的 Redcuer 进行聚合。
   * [transform.groupY](./transform/groupY) - 对离散的 y 通道进行分组，并且对通道根据指定的 Redcuer 进行聚合。
