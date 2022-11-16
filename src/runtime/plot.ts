@@ -914,7 +914,7 @@ function createMarkShapeFunction(
   const { type: markType, style = {} } = mark;
   return (data, index) => {
     const { shape: styleShape = defaultShape } = style;
-    const { shape = styleShape, points, seriesIndex, ...v } = data;
+    const { shape = styleShape, points, seriesIndex, index: i, ...v } = data;
     const value = { ...v, shape, mark: markType, defaultShape, index };
 
     // Get data-driven style.
@@ -924,8 +924,9 @@ function createMarkShapeFunction(
     // index.
     const abstractDatum = seriesIndex
       ? seriesIndex.map((i) => abstractData[i])
-      : abstractData[index];
-    const I = seriesIndex ? seriesIndex : index;
+      : abstractData[i];
+
+    const I = seriesIndex ? seriesIndex : i;
     const visualStyle = mapObject(style, (d) =>
       valueOf(d, abstractDatum, I, abstractData),
     );
