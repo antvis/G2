@@ -81,12 +81,12 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
   * [coordinate.transpose](./scale/transpose) - 
   * [coordinate.fisheye](./scale/fisheye) - 
 * Composition - 视图复合相关的内容。
-  * [spaceLayer](/api/composition/spacelayer) - 
-  * [spaceFlex](/api/composition/spaceflex) - 
-  * [facetRect](/api/composition/facetrect) - 
-  * [facetCircle](/api/composition/facetcircle) - 
-  * [repeatMatrix](/api/composition/repeatmatrix) - 
-  * [timingKeyframe](/api/composition/timingkeyframe) - 
+  * [spaceLayer](/api/composition/spacelayer) - 对空间不做任何划分，多个视图使用同一个空间区域，常用于视图的层叠。
+  * [spaceFlex](/api/composition/spaceflex) - 使用类似 css flex 的布局方式来划分空间区域，常用于多图表对比的视图。
+  * [facetRect](/api/composition/facetrect) - 用 row、column 字段维值对空间和数据进行划分，在各个子空间可视化数据片段。
+  * [facetCircle](/api/composition/facetcircle) - 根据字段分片数据，利用圆形划分空间，然就进行各个分面的数据可视化。
+  * [repeatMatrix](/api/composition/repeatmatrix) - 根据字段的数量对空间进行划分和可视化。
+  * [timingKeyframe](/api/composition/timingkeyframe) - 在不同时间片之间播放不懂的可视化视图帧。
 * Component - 图表组件相关的内容。
   * [axisX](./scale/axisX) - 
   * [axisY](./scale/axisY) - 

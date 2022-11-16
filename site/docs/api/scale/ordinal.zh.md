@@ -41,7 +41,7 @@ chart
   // ...
   .encode('color', 'type')
   .scale('color', {
-    type: 'odinal',
+    type: 'ordinal',
     range: ['red', 'green', 'blue'],
   });
 ```
