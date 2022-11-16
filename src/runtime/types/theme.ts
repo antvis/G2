@@ -71,8 +71,11 @@ type InteractionTheme = {
 type ComponentTheme = {
   axis?: any;
   legend?: any;
+  continuousLegend?: any;
   label?: LabelStyleProps;
   innerLabel?: LabelStyleProps;
+  slider?: any;
+  scrollbar?: any;
   title?: Omit<TextStyleProps, 'text'>;
   subtitle?: Omit<TextStyleProps, 'text'> & {
     spacing?: number;
@@ -97,6 +100,14 @@ type AnimationTheme = {
   };
 };
 
+type AreaTheme = {
+  fill?: string;
+  fillOpacity?: number;
+  stroke?: string;
+  strokeOpacity?: number;
+  lineWidth?: number;
+};
+
 export type G2Theme = {
   backgroundColor?: string;
   defaultColor?: string;
@@ -107,4 +118,8 @@ export type G2Theme = {
 } & MarkTheme &
   ComponentTheme &
   AnimationTheme &
-  InteractionTheme;
+  InteractionTheme &
+  WithPrefix<AreaTheme, 'view'> &
+  WithPrefix<AreaTheme, 'plot'> &
+  WithPrefix<AreaTheme, 'main'> &
+  WithPrefix<AreaTheme, 'content'>;
