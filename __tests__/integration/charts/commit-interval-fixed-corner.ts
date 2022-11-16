@@ -14,8 +14,8 @@ export function commitIntervalFixedCorner(): G2Spec {
     style: {
       radiusTopLeft: 10,
       radiusTopRight: 20,
-      radiusBottomLeft: 30,
-      radiusBottomRight: 40,
+      radiusBottomRight: 30,
+      radiusBottomLeft: 40,
     },
   };
 }

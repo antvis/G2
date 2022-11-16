@@ -25,8 +25,8 @@ export function stateAgesIntervalStackedCornered(): G2Spec {
     style: {
       radiusTopLeft: 25,
       radiusTopRight: 20,
-      radiusBottomLeft: 15,
-      radiusBottomRight: 10,
+      radiusBottomRight: 15,
+      radiusBottomLeft: 0,
     },
   };
 }

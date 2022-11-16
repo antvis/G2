@@ -23,12 +23,14 @@ export function stateAgesIntervalStackedCorneredAll(): G2Spec {
       color: 'age',
     },
     style: {
-      radiusTop: true,
-      radiusBottom: true,
       radiusTopLeft: 25,
       radiusTopRight: 20,
-      radiusBottomLeft: 15,
-      radiusBottomRight: 10,
+      radiusBottomRight: 15,
+      radiusBottomLeft: 10,
+      innerRadiusTopLeft: 5,
+      innerRadiusTopRight: 10,
+      innerRadiusBottomRight: 15,
+      innerRadiusBottomLeft: 20,
     },
   };
 }

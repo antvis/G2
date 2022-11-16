@@ -28,8 +28,8 @@ export const Color: SC<ColorOptions> = (options) => {
   const {
     colorAttribute,
     opacityAttribute = 'fill',
-    radiusTop,
-    radiusBottom,
+    first = true,
+    last = true,
     ...style
   } = options;
 
@@ -49,6 +49,11 @@ export const Color: SC<ColorOptions> = (options) => {
       radiusTopRight = radius,
       radiusBottomRight = radius,
       radiusBottomLeft = radius,
+      innerRadius = 0,
+      innerRadiusTopLeft = innerRadius,
+      innerRadiusTopRight = innerRadius,
+      innerRadiusBottomRight = innerRadius,
+      innerRadiusBottomLeft = innerRadius,
       inset = 0,
       insetLeft = inset,
       insetRight = inset,
@@ -74,7 +79,6 @@ export const Color: SC<ColorOptions> = (options) => {
       const finalY = absY + insetTop;
       const finalWidth = absWidth - (insetLeft + insetRight);
       const finalHeight = absHeight - (insetTop + insetBottom);
-      const radius = (show, v) => (show === undefined || show ? v : 0);
 
       return select(new Rect({}))
         .call(applyStyle, defaults)
@@ -87,10 +91,10 @@ export const Color: SC<ColorOptions> = (options) => {
         .style(toOpacityKey(options), opacity)
         .style(colorAttribute, color)
         .style('radius', [
-          radius(radiusTop, radiusTopLeft),
-          radius(radiusTop, radiusTopRight),
-          radius(radiusBottom, radiusBottomLeft),
-          radius(radiusBottom, radiusBottomRight),
+          first ? radiusTopLeft : innerRadiusTopLeft,
+          first ? radiusTopRight : innerRadiusTopRight,
+          last ? radiusBottomRight : innerRadiusBottomRight,
+          last ? radiusBottomLeft : innerRadiusBottomLeft,
         ])
         .call(applyStyle, style)
         .node();

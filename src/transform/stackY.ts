@@ -84,8 +84,8 @@ export const StackY: TC<StackYOptions> = (options = {}) => {
           y1: column(V1, fy1),
         },
         style: {
-          radiusTop: (_, i) => F.has(i),
-          radiusBottom: (_, i) => L.has(i),
+          first: (_, i) => F.has(i),
+          last: (_, i) => L.has(i),
           ...style,
         },
       }),
