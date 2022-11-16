@@ -34,6 +34,7 @@ import {
   Shape,
   Pack,
   ForceGraph,
+  Tree,
 } from '../../../src/api/mark/mark';
 import { createDiv } from '../../utils/dom';
 
@@ -133,6 +134,7 @@ describe('Chart', () => {
     expect(chart.shape()).toBeInstanceOf(Shape);
     expect(chart.pack()).toBeInstanceOf(Pack);
     expect(chart.forceGraph()).toBeInstanceOf(ForceGraph);
+    expect(chart.tree()).toBeInstanceOf(Tree);
     expect(chart.options().children).toEqual([
       { type: 'interval' },
       { type: 'rect' },
@@ -158,6 +160,7 @@ describe('Chart', () => {
       { type: 'shape' },
       { type: 'pack' },
       { type: 'forceGraph' },
+      { type: 'tree' },
     ]);
   });
 

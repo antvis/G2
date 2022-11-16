@@ -32,6 +32,7 @@ import {
   Treemap,
   Pack,
   ForceGraph,
+  Tree,
 } from '../../../src/api/mark/mark';
 
 function expectToCreateMarks(node) {
@@ -57,6 +58,7 @@ function expectToCreateMarks(node) {
   expect(node.treemap()).toBeInstanceOf(Treemap);
   expect(node.pack()).toBeInstanceOf(Pack);
   expect(node.forceGraph()).toBeInstanceOf(ForceGraph);
+  expect(node.tree()).toBeInstanceOf(Tree);
 }
 
 function expectToCreateCompositions(node) {

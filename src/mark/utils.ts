@@ -1,4 +1,5 @@
 import { Band } from '@antv/scale';
+import { stratify, hierarchy } from 'd3-hierarchy';
 import { Primitive } from 'd3-array';
 import { Vector2 } from '@antv/coord';
 import { Scale } from '../runtime/types/component';
@@ -129,4 +130,20 @@ export function initializeData(
     })),
     nodes: nodes || Array.from(new Set([...LS, ...LT]), (key) => ({ key })),
   };
+}
+
+/**
+ * @description Path need when the data is a flat json structure,
+ * and the tree object structure do not need.
+ */
+export function generateHierarchyRoot(
+  data: any[] | Record<string, any>,
+  path: (d: any) => any,
+) {
+  if (Array.isArray(data)) {
+    return typeof path === 'function'
+      ? stratify().path(path)(data)
+      : stratify()(data);
+  }
+  return hierarchy(data);
 }
