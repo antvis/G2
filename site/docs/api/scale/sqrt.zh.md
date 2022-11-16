@@ -1,13 +1,11 @@
 ---
-title: linear
+title: sqrt
 order: 1
 ---
 
-针对连续数据，对数据进行连续映射的比例尺，本质是一个线性公式：`y = ax + b`，从一个数值范围映射到另外一个数值范围。
+sqrt 是指数固定为 `0.5` 的 [pow](/api/scale/pow) 比例尺，它的映射函数为 `y = x ^ 0.5 + b`。
 
 ## 开始使用
-
-linear 比例尺常规用于将数据映射到归一化坐标上。
 
 ```ts
 chart
@@ -15,13 +13,10 @@ chart
   .encode('x', 'year')
   .encode('y', 'sale')
   .scale('y', {
-    type: 'linear',
-    range: [0.2, 0.8],
+    type: 'sqrt',
     /* 其他配置项 */
   });
 ```
-
-这个例子中会将 y 通道的比例尺设置它的映射方式，从而影响到图形在画布上的位置。
 
 ## 选项
 
@@ -36,20 +31,4 @@ chart
 | clamp       | 将映射值限定在 range 的范围内                                     | `boolean` | `false` |
 | nice        | 扩展 domain 范围，让输出的 tick 展示得更加友好                     | `boolean` | `false` |
 | interpolate | 自定义差值函数                                                  | `(a: number, b: number) => (t: number) => T` | `(a, b) => (t) => a * (1 - t) + b * t` |
-
-## FAQ
-
-- 怎么自定义 y 轴的刻度？
-
-比如只需要在刻度上显示 0, 100, 600，那就以下方式设置 y 比例尺。
-
-```ts
-chart
-  .line()
-  // ...
-  .scale('y', {
-    type: 'linear',
-    domain: [0, 700],
-    tickMethod: () => [0, 100, 600]
-  });
-```
+| exponent      | 设定指数                                                    | `number` | `0.5` |
