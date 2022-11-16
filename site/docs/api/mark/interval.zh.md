@@ -62,11 +62,16 @@ chart.render();
 
 | 属性            | 描述                                           | 类型                 | 默认值      |
 |----------------|------------------------------------------------|---------------------|------------|
-| radius            | 矩形的四个圆角大小                                 | `number` \| `Function<number>`  | 0      |
-| radiusTopLeft     | 左上角的圆角                                      | `number` \| `Function<number>`  | 0      |
-| radiusTopRight    | 右上角的圆角                                      | `number` \| `Function<number>`  | 0      |
-| radiusBottomRight | 右下角的圆角                                      | `number` \| `Function<number>`  | 0      |
-| radiusBottomLeft  | 左下角的圆角                                      | `number` \| `Function<number>`  | 0      |
+| radius            | 外层矩形的四个圆角大小                                 | `number` \| `Function<number>`  | 0      |
+| radiusTopLeft     | 外层左上角的圆角                                      | `number` \| `Function<number>`  | 0      |
+| radiusTopRight    | 外层右上角的圆角                                      | `number` \| `Function<number>`  | 0      |
+| radiusBottomRight | 外层右下角的圆角                                      | `number` \| `Function<number>`  | 0      |
+| radiusBottomLeft  | 外层左下角的圆角                                      | `number` \| `Function<number>`  | 0      |
+| innerRadius       | 内层矩形的四个圆角大小                                 | `number` \| `Function<number>`  | 0      |
+| innerRadiusTopLeft| 内层左上角的圆角                                      | `number` \| `Function<number>`  | 0      |
+| innerRadiusTopRight| 内层右上角的圆角                                      | `number` \| `Function<number>`  | 0      |
+| innerRadiusBottomRight| 内层右下角的圆角                                      | `number` \| `Function<number>`  | 0      |
+| innerRadiusBottomLeft| 内层左下角的圆角                                      | `number` \| `Function<number>`  | 0      |
 | inset             | 矩形四个方向的内边距                               | `number` \| `Function<number>`  | 0      |
 | insetLeft         | 左边的内间距                                      | `number` \| `Function<number>`  | 0      |
 | insetRight        | 右边的内间距                                      | `number` \| `Function<number>`  | 0      |
