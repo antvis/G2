@@ -3,6 +3,8 @@ require('./style.css');
 if (window) {
   (window as any).g2 = require('../../src');
   (window as any).d3Hierarchy = require('d3-hierarchy');
+  (window as any).d3ScaleChromatic = require('d3-scale-chromatic');
+  (window as any).d3Interpolate = require('d3-interpolate');
   (window as any).d3Voronoi = require('d3-voronoi');
   (window as any).d3Array = require('d3-array');
   (window as any).d3GeoProjection = require('d3-geo-projection');

@@ -14,6 +14,7 @@ export const Fetch: DC<FetchOptions> = (options) => {
   } = options;
   return async () => {
     const response = await fetch(value);
+
     if (format === 'csv') {
       // @see: https://github.com/d3/d3-dsv#dsv_parse
       const str = await response.text();
