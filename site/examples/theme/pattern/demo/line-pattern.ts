@@ -28,7 +28,7 @@ chart
   .style('radius', 4)
   .style('stroke', '#fff')
   .style('lineWidth', 4)
-  .style('fill', (d, idx) => ({
+  .style('fill', (_, idx) => ({
     image: drawPattern(idx),
     repetition: 'repeat',
   }))
