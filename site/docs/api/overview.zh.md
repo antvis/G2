@@ -49,8 +49,8 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
   * [transform.flexX](/api/transform/flexx) - 根据指定通道设置 x 比例尺的 flex 属性，实现不等宽矩形的效果。
   * [transform.group](/api/transform/group) - 对离散的 x 和 连续的 y 通道进行分组，并且对通道根据指定的 Redcuer 进行聚合。
   * [transform.groupColor](/api/transform/groupcolor) - 对离散的 color 通道进行分组，并且对通道根据指定的 Redcuer 进行聚合。
-  * [transform.groupX](./transform/groupX) - 对离散的 x 通道进行分组，并且对通道根据指定的 Redcuer 进行聚合。
-  * [transform.groupY](./transform/groupY) - 对离散的 y 通道进行分组，并且对通道根据指定的 Redcuer 进行聚合。
+  * [transform.groupX](/api/transform/groupx) - 对离散的 x 通道进行分组，并且对通道根据指定的 Redcuer 进行聚合。
+  * [transform.groupY](/api/transform/groupy) - 对离散的 y 通道进行分组，并且对通道根据指定的 Redcuer 进行聚合。
   * [transform.jitter](./transform/jitter) - 根据离散的 x 和 离散的 y 比例尺，生成 dy 和 dx 通道，实现在某个区域散开的效果。
   * [transform.jitterX](./transform/jitterX) - 根据离散的 x 比例尺，生成 dx 通道，实现在某个区域的 x 方向散开的效果。
   * [transform.normalizeY](./transform/normalizeY) - 对 y 和 y1 通道根据指定的 basis 进行归一化处理。
