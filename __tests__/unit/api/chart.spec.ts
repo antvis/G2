@@ -35,6 +35,7 @@ import {
   Pack,
   ForceGraph,
   Tree,
+  WordCloud,
 } from '../../../src/api/mark/mark';
 import { createDiv } from '../../utils/dom';
 
@@ -135,6 +136,7 @@ describe('Chart', () => {
     expect(chart.pack()).toBeInstanceOf(Pack);
     expect(chart.forceGraph()).toBeInstanceOf(ForceGraph);
     expect(chart.tree()).toBeInstanceOf(Tree);
+    expect(chart.wordCloud()).toBeInstanceOf(WordCloud);
     expect(chart.options().children).toEqual([
       { type: 'interval' },
       { type: 'rect' },
@@ -161,6 +163,7 @@ describe('Chart', () => {
       { type: 'pack' },
       { type: 'forceGraph' },
       { type: 'tree' },
+      { type: 'wordCloud' },
     ]);
   });
 

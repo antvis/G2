@@ -22,6 +22,7 @@ import {
   Pack,
   ForceGraph,
   Tree,
+  WordCloud,
 } from '../../../src/api/mark/mark';
 
 function setOptions(node) {
@@ -243,6 +244,11 @@ describe('Mark', () => {
   it('Tree() should specify options by API', () => {
     const node = new Tree();
     expect(node.type).toBe('tree');
+  });
+
+  it('WordCloud() should specify options by API', () => {
+    const node = new WordCloud();
+    expect(node.type).toBe('wordCloud');
     expect(setCompositeOptions(node).value).toEqual(getCompositeOptions());
   });
 });

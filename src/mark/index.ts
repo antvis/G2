@@ -24,6 +24,7 @@ export { Boxplot } from './boxplot';
 export { Shape } from './shape';
 export { ForceGraph } from './forceGraph';
 export { Tree } from './tree';
+export { WordCloud } from './wordCloud';
 
 export type { IntervalOptions } from './interval';
 export type { RectOptions } from './rect';
@@ -49,3 +50,4 @@ export type { PackOptions } from './pack';
 export type { ShapeOptions } from './shape';
 export type { ForceGraphOptions } from './forceGraph';
 export type { TreeOptions } from './tree';
+export type { WordCloudOptions } from './wordCloud';
