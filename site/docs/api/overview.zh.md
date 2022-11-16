@@ -44,7 +44,7 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
 * Transform - 对视觉通道 encode 进行变换。
   * [transform.bin](/api/transform/bin) - 对连续的 x 和 连续的 y 通道进行分箱，并且对通道根据指定的 redcuer 进行聚合。
   * [transform.binX](/api/transform/binx) - 对 x 通道进行分箱，如果希望对 y 通道进行分箱，使用 binX + transpose 坐标系。
-  * [transform.diffY](./transform/diffY) - 对 y 和 y1 通道求差集。
+  * [transform.diffY](/api/transform/diffy) - 对 y 和 y1 通道求差集。
   * [transform.dodgeX](./transform/dodgeX) - 生成 series 通道值为 color 通道的值，根据 series 通道实现分组效果。
   * [transform.flexX](./transform/flexX) - 根据指定通道设置 x 比例尺的 flex 属性，实现不等宽矩形的效果。
   * [transform.group](./transform/group) - 对离散的 x 和 连续的 y 通道进行分组，并且对通道根据指定的 Redcuer 进行聚合。
