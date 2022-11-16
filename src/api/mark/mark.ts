@@ -313,6 +313,7 @@ export class Treemap extends Node<ConnectorMark> {
     super({}, 'treemap');
   }
 }
+
 @defineProps(props)
 export class Boxplot extends Node<Boxplot> {
   constructor() {

@@ -173,6 +173,7 @@ export type BaseGeometry<
           | 'auto';
       };
   cartesian?: boolean;
+  layout?: Record<string, any>;
 };
 
 export type Adjust = { type: 'pack' };
@@ -285,6 +286,7 @@ export type ForceGraphMark = BaseGeometry<
   'forceGraph',
   | 'source'
   | 'target'
+  | 'color'
   | 'value'
   | `node${Capitalize<ChannelTypes>}`
   | `link${Capitalize<ChannelTypes>}`

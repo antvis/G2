@@ -33,4 +33,5 @@ export type API<Props extends Geometry, Mark> = {
   marginRight: ValueAttribute<Props['marginBottom'], Mark>;
   margin: ValueAttribute<Props['margin'], Mark>;
   frame: ValueAttribute<Props['frame'], Mark>;
+  layout?: ObjectAttribute<Props['layout'], Mark>;
 };

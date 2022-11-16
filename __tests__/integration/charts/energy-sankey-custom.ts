@@ -5,6 +5,7 @@ import { G2Spec } from '../../../src';
 
 export async function energySankeyCustom(): Promise<G2Spec> {
   const links = await csv('data/energy.csv', autoType);
+
   const mockData = () => {
     const LS = links.map((d) => d.source);
     const LT = links.map((d) => d.target);
