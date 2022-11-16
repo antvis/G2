@@ -65,7 +65,7 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
   * [transform.stackY](./transform/stackY) - 按照指定通道分组，对每组的 y 和 y1 通道进行堆叠，实现堆叠效果。
   * [transform.symmetryY](./transform/symmetryY) - 按照指定通道分组，给每组的 y 和 y1 通道添加偏移，实现对称效果。
 * Scale - 比例尺相关的介绍
-  * [scale.linear](./scale/linear) - 针对连续数据，对数据进行连续映射的比例尺。
+  * [scale.linear](/api/scale/linear) - 针对连续数据，对数据进行连续映射的比例尺。
   * [scale.sqrt](./scale/sqrt) - 指数固定为 `0.5` 的 `pow` 比例尺。
   * [scale.pow](./scale/pow) - 类似于 `linear` 比例尺，但是映射函数为指数函数（exponential）。
   * [scale.log](./scale/log) - 类似于 `linear` 比例尺，但是映射函数为对数函数（logarithmic）。
