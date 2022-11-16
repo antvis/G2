@@ -132,3 +132,5 @@ export { flareTreeCustom } from './flare-tree-custom';
 export { philosophyWordCloudCustom } from './philosophy-wordCloud-custom';
 export { philosophyWordCloudDefault } from './philosophy-wordCloud-default';
 export { philosophyWordCloudImage } from './philosophy-wordCloud-image';
+export { stateAgesIntervalStackedCornered } from './stateages-interval-stacked-cornered';
+export { stateAgesIntervalStackedCorneredAll } from './stateages-interval-stacked-cornered-all';

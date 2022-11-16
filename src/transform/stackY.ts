@@ -21,7 +21,7 @@ export const StackY: TC<StackYOptions> = (options = {}) => {
     series = true,
   } = options;
   return (I, mark) => {
-    const { data, encode } = mark;
+    const { data, encode, style = {} } = mark;
     const [Y, fy] = columnOf(encode, 'y');
     const [Y1, fy1] = columnOf(encode, 'y1');
     const [S] = series
@@ -68,6 +68,11 @@ export const StackY: TC<StackYOptions> = (options = {}) => {
       }
     }
 
+    // Only set top radius for the first layer,
+    // and set bottom radius for the last layer.
+    const F = new Set(groups.map((G) => G[G.length - 1]));
+    const L = new Set(groups.map((G) => G[0]));
+
     // Choose new y or y1 channel as the new y channel.
     const V = fromY === 'y' ? newY : newY1;
     const V1 = fromY1 === 'y' ? newY : newY1;
@@ -77,6 +82,11 @@ export const StackY: TC<StackYOptions> = (options = {}) => {
         encode: {
           y: column(V, fy),
           y1: column(V1, fy1),
+        },
+        style: {
+          radiusTop: (_, i) => F.has(i),
+          radiusBottom: (_, i) => L.has(i),
+          ...style,
         },
       }),
     ];

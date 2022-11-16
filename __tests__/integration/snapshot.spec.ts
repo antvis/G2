@@ -8,7 +8,6 @@ import { fetch } from './fetch';
 global.fetch = fetch;
 
 describe('integration', () => {
-  console.log(Object.entries(tests));
   for (const [name, generateOptions] of Object.entries(tests)) {
     // @ts-ignore
     if (!generateOptions.skip) {

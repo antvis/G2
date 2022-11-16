@@ -25,7 +25,13 @@ export type ColorOptions = {
  */
 export const Color: SC<ColorOptions> = (options) => {
   // Render border only when colorAttribute is stroke.
-  const { colorAttribute, opacityAttribute = 'fill', ...style } = options;
+  const {
+    colorAttribute,
+    opacityAttribute = 'fill',
+    radiusTop,
+    radiusBottom,
+    ...style
+  } = options;
 
   return (points, value, coordinate, theme) => {
     const { mark, shape, defaultShape } = value;
@@ -68,6 +74,7 @@ export const Color: SC<ColorOptions> = (options) => {
       const finalY = absY + insetTop;
       const finalWidth = absWidth - (insetLeft + insetRight);
       const finalHeight = absHeight - (insetTop + insetBottom);
+      const radius = (show, v) => (show === undefined || show ? v : 0);
 
       return select(new Rect({}))
         .call(applyStyle, defaults)
@@ -80,10 +87,10 @@ export const Color: SC<ColorOptions> = (options) => {
         .style(toOpacityKey(options), opacity)
         .style(colorAttribute, color)
         .style('radius', [
-          radiusTopLeft,
-          radiusTopRight,
-          radiusBottomRight,
-          radiusBottomLeft,
+          radius(radiusTop, radiusTopLeft),
+          radius(radiusTop, radiusTopRight),
+          radius(radiusBottom, radiusBottomLeft),
+          radius(radiusBottom, radiusBottomRight),
         ])
         .call(applyStyle, style)
         .node();
