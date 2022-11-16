@@ -1,11 +1,6 @@
 import { Chart, register } from '@antv/g2';
 
-const chart = new Chart({
-  container: 'container',
-  autoFit: true,
-});
-
-const colors = [
+register('palette.customPalette', () => [
   '#1677FF',
   '#39C8AE',
   '#C7B1FB',
@@ -16,9 +11,12 @@ const colors = [
   '#765CE7',
   '#65799B',
   '#C4CD2A',
-];
+]);
 
-register('palette.customPalette', () => colors);
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
 
 chart.theme({
   defaultCategory10: 'customPalette',
