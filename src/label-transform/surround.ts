@@ -18,13 +18,6 @@ export const Surround: LLC<SurroundOptions> = (options) => {
       const { x0, y0, offset = 0 } = label.style;
       return Math.max(r, dist(center, [x0, y0]) + offset);
     }, 0);
-
-    console.log(
-      'radius',
-      radius,
-      labels.map((d) => d.style.offset),
-    );
-
     labels.forEach((label) => {
       const { x0, y0, connector, connectorLength2 = 0 } = label.style;
       const labelAngle = angleWithQuadrant([x0 - center[0], y0 - center[1]]);
