@@ -69,7 +69,7 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
   * [scale.sqrt](/api/scale/sqrt) - 指数固定为 `0.5` 的 `pow` 比例尺。
   * [scale.pow](/api/scale/pow) - 类似于 `linear` 比例尺，但是映射函数为指数函数（exponential）。
   * [scale.log](/api/scale/log) - 类似于 `linear` 比例尺，但是映射函数为对数函数（logarithmic）。
-  * [scale.ordinal](./scale/ordinal) - 将离散的数据映射到另外一个离散数据中。
+  * [scale.ordinal](/api/scale/ordinal) - 将离散的数据映射到另外一个离散数据中。
   * [scale.quantize](./scale/quantize) - 类似于 `threshold`，但是计算切片的方式是基于元素的数据值。
   * [scale.quantile](./scale/quantile) - 类似于 `threshold`， 但是计算切片的方式是基于元素在数据中的索引。
   * [scale.threshold](./scale/threshold) - 将连续的值域范围划分为多个切片，并将这些切片映射到一个离散的数据中。
