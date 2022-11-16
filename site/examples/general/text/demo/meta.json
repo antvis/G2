@@ -27,6 +27,22 @@
         "en": "Train"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*9oS5TKxuK-MAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "wordCloud.ts",
+      "title": {
+        "zh": "词云图",
+        "en": "WordCloud"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*2uvpTI0lHiYAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "wordCloud-mask.ts",
+      "title": {
+        "zh": "带图片遮罩的词云图",
+        "en": "WordCloud with image mask"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*zDm0SJEQSHwAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }

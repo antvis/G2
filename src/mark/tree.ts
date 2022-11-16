@@ -2,12 +2,15 @@ import { deepMix } from '@antv/util';
 import { subObject } from '../utils/helper';
 import { CompositionComponent as CC } from '../runtime';
 import { TreeMark } from '../spec';
-import { Tree as TreeTransform } from '../data/tree';
+import {
+  Tree as TreeTransform,
+  TreeOptions as TreeTransformOptions,
+} from '../data/tree';
 
 export type TreeOptions = Omit<TreeMark, 'type'>;
 
 export const Tree: CC<TreeOptions> = (options) => {
-  const DEFAULT_LAYOUT_OPTIONS = {
+  const DEFAULT_LAYOUT_OPTIONS: TreeTransformOptions = {
     sortBy: (a, b) => b.value - a.value,
   };
   const DEFAULT_NODE_OPTIONS = {

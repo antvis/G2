@@ -4,5 +4,21 @@
     "en": "Category"
   },
   "demos": [
+    {
+      "filename": "forceGraph.ts",
+      "title": {
+        "zh": "力导向图",
+        "en": "forceGraph"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*nbN4TYyfq70AAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "forceGraph-disjoint.ts",
+      "title": {
+        "zh": "不相交力导向图",
+        "en": "forceGraph with disjoint"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*0eUHS6s10m8AAAAAAAAAAAAADmJ7AQ/original"
+    }
   ]
 }
