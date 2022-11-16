@@ -4,12 +4,11 @@
  * We use a range mark to highlight the values beyond a threshold
  */
 import { Chart } from '@antv/g2';
-import { greatest } from 'd3-array';
 
-function threshold(data) {
-  const max = greatest(data, (a, b) => a['Value'] - b['Value']) as any;
-  const { Day: x, Value: y } = max;
-  return [{ x: [x, x], y: [300, y] }];
+function overThreshold(data, threshold) {
+  return data
+    .filter((d) => d['Value'] >= threshold)
+    .map(({ Day: x, Value: y }) => ({ x: [x, x], y: [threshold, y] }));
 }
 
 const chart = new Chart({
@@ -41,7 +40,11 @@ chart.interval().encode('x', 'Day').encode('y', 'Value');
 
 chart
   .range()
-  .data({ transform: [{ type: 'custom', callback: threshold }] })
+  .data({
+    transform: [
+      { type: 'custom', callback: (data) => overThreshold(data, 300) },
+    ],
+  })
   .encode('x', 'x')
   .encode('y', 'y')
   .encode('color', '#F4664A');
