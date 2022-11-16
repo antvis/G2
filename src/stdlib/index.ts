@@ -41,6 +41,7 @@ import {
   Shape,
   Boxplot,
   ForceGraph,
+  Tree as TreeGeometry,
 } from '../mark';
 import {
   Category10,
@@ -352,6 +353,7 @@ export function createLibrary(): G2Library {
     'mark.boxplot': Boxplot,
     'mark.shape': Shape,
     'mark.forceGraph': ForceGraph,
+    'mark.tree': TreeGeometry,
     'palette.category10': Category10,
     'palette.category20': Category20,
     'palette.sequentialBlue': SequentialBlue,

@@ -41,6 +41,7 @@ import {
   Boxplot,
   Shape,
   ForceGraph,
+  Tree as TreeGeometry,
 } from '../../../src/mark';
 import {
   Category10,
@@ -358,6 +359,7 @@ describe('stdlib', () => {
       'mark.boxplot': Boxplot,
       'mark.shape': Shape,
       'mark.forceGraph': ForceGraph,
+      'mark.tree': TreeGeometry,
       'palette.category10': Category10,
       'palette.category20': Category20,
       'palette.sequentialBlue': SequentialBlue,
