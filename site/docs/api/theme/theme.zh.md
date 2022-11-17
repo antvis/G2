@@ -112,7 +112,7 @@ G2 主题 token 较多，下面按照通用属性、动画属性、视图容器�
 | -------- | -------------------- | ------------------------------------------------------------------------- |
 | interval | 默认图形为 interval. | 更多 shape 类型以及 shape 样式定义见: [Interval Mark](/api/mark/interval) |
 | line     | 默认图形为 line.     | 更多 shape 类型以及 shape 样式定义见: [Line Mark](/api/mark/line)         |
-| point    | 默认图形为 hollow.   | 更多 shape 类型以及 shape 样式定义见: [Point Mark](/api/mark/line)        |
+| point    | 默认图形为 hollow.   | 更多 shape 类型以及 shape 样式定义见: [Point Mark](/api/mark/point)        |
 | area     | 默认图形为 area.     | 更多 shape 类型以及 shape 样式定义见: [Area Mark](/api/mark/area)         |
 | cell     | 默认图形为 rect.     | 更多 shape 类型以及 shape 样式定义见: [Cell Mark](/api/mark/cell)         |
 | text     | 默认图形为 text.     | 更多 shape 类型以及 shape 样式定义见: [Text Mark](/api/mark/text)         |
@@ -124,4 +124,4 @@ G2 主题 token 较多，下面按照通用属性、动画属性、视图容器�
 
 ### 图表组件
 
-目前 G2 内置的图表组件有: axis, legend, continuousLegend, label, innerLabel（position 为 inside 的 label 组件）等，详细主题配置见图表组件 API 文档.
+目前 G2 内置的图表组件有: axis, legend, continuousLegend, label, innerLabel（position 为 inside 的 label 组件）等，详细主题配置见图表组件 [API](/api/component/overview) 文档.
