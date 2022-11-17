@@ -16,14 +16,12 @@ chart
       'https://gw.alipayobjects.com/os/antvdemo/assets/data/antv-keywords.json',
   })
   .layout({
-    padding: 0,
     imageMask:
       'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*LKU4TYEiB-4AAAAAAAAAAAAADmJ7AQ/original',
     fontSize: 10,
   })
   .encode('color', 'name')
   .encode('text', 'name')
-  .axis(false)
-  .legend(false);
+  .axis(false);
 
 chart.render();
