@@ -1,3 +1,6 @@
+/**
+ * A recreation of this demo: https://g2plot.antv.antgroup.com/examples/plugin/pattern/#heatmap-cookie-pattern
+ */
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -43,40 +46,52 @@ function applyStyle(ctx, style) {
   return Object.entries(style).forEach(([k, v]) => (ctx[k] = v));
 }
 
-function drawRectangle(ctx, w, h, fill) {
-  ctx.fillStyle = fill;
+function createCanvas(w, h) {
+  const canvas = document.createElement('canvas');
+  const dpr = window.devicePixelRatio;
+  canvas.width = w * dpr;
+  canvas.height = h * dpr;
+  canvas.style.width = `${w}px`;
+  canvas.style.height = `${h}px`;
+  canvas.getContext('2d').scale(dpr, dpr);
+
+  return canvas;
+}
+
+function drawRect(ctx, w, h, fill) {
+  applyStyle(ctx, { fillStyle: fill });
   ctx.fillRect(0, 0, w, h);
 }
 
-function drawLinePattern(ctx, color, w, h, cross = false) {
-  applyStyle(ctx, { globalAlpha: 1, strokeStyle: color });
-  applyStyle(ctx, { lineWidth: 1, lineCap: 'square' });
-  const lineTo = (x0, y0, x1, y1) => (ctx.moveTo(x0, y0), ctx.lineTo(x1, y1));
-  lineTo(0, -h, w * 2, h);
-  lineTo(-w, -h, w, h);
-  lineTo(-w, 0, w, h * 2);
+function drawLinePattern(ctx, color, width, height, cross = false) {
+  applyStyle(ctx, { globalAlpha: 1, strokeStyle: color, strokeOpacity: 0.9 });
+  applyStyle(ctx, { lineWidth: 0.5, lineCap: 'square' });
+
+  const d = `
+       M 0 ${-height} L ${width * 2} ${height}
+       M ${-width} ${-height} L ${width} ${height}
+       M ${-width} 0 L ${width} ${height * 2}`;
+  ctx.stroke(new Path2D(d));
+
   if (cross) {
-    lineTo(w * 2, -h, 0, h);
-    lineTo(w, -h, -w, h);
-    lineTo(w, 0, -w, h * 2);
+    const d1 = `
+         M ${-width} ${height} L ${width} ${-height}
+         M ${-width} ${height * 2} L ${width * 2} ${-height}
+         M 0 ${height * 2} L ${width * 2} 0`;
+    ctx.stroke(new Path2D(d1));
   }
-  ctx.stroke();
 }
 
-const drawPattern = (fill, stroke, cross = false, density = false) => {
-  const patternCanvas = document.createElement('canvas');
-  const size = density ? 5 : 10;
-  const w = Math.abs(size / Math.sin(Math.PI / 4));
-  const h = size / Math.sin(Math.PI / 4);
-  patternCanvas.width = w;
-  patternCanvas.height = h;
-  patternCanvas.style.width = `${w / 2}px`;
-  patternCanvas.style.height = `${h / 2}px`;
+const drawPattern = (color, stroke, cross = false, density = false) => {
+  const spacing = density ? 3 : 5;
+  const width = Math.abs(spacing / Math.sin(Math.PI / 4));
+  const height = spacing / Math.sin(Math.PI / 4);
 
-  const ctx = patternCanvas.getContext('2d');
+  const canvas = createCanvas(width, height);
+  const ctx = canvas.getContext('2d');
 
-  drawRectangle(ctx, w, h, fill);
-  drawLinePattern(ctx, stroke, w, h, cross);
+  drawRect(ctx, width, height, color);
+  drawLinePattern(ctx, stroke, width, height, cross);
 
-  return patternCanvas;
+  return canvas;
 };
