@@ -1,13 +1,13 @@
 ---
-title: bin
+title: binX
 order: 1
 ---
 
-对连续的 x 和 连续的 y 通道进行分箱，并且对通道根据指定的 redcuer 进行聚合。
+对 x 通道进行分箱，如果希望对 y 通道进行分箱，使用 binX + transpose 坐标系。
 
 ## 开始使用
 
-在对应的 mark 中有 transform 方法可以使用 bin 变换。
+在对应的 mark 中有 transform 方法可以使用 binX 变换。
 
 ```ts
 chart
@@ -15,7 +15,7 @@ chart
   .encode('x', 'x')
   // ...
   .transform({
-    type: 'bin',
+    type: 'binX',
     /* options */
   });
 ```
@@ -24,8 +24,7 @@ chart
 
 | 属性               | 描述                                           | 类型                 | 默认值                 |
 |-------------------|------------------------------------------------|---------------------|-----------------------|
-| thresholdsX       | 对 x 分箱的数量                                  | `number`            | `d3.thresholdScott`      |  
-| thresholdsY       | 对 y 分箱的数量                                  | `number`            | `d3.thresholdScott`      |
+| thresholds        | 对 x 分箱的数量                                  | `number`            | `d3.thresholdScott`      |  
 | [channel]         | 输出到具体 mark 的 channel 数据的聚合方式          | `Reducer`           |                       |
 
 ```ts

@@ -49,11 +49,11 @@ chart.render();
 ```
 
 效果如下，可以看到原本的填充色活泼了起来！
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*cYjCSLzqBVAAAAAAAAAAAAAADmJ7AQ/original" alt="sketchy barchart" width="500">
+<img alt="rough" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*cYjCSLzqBVAAAAAAAAAAAAAADmJ7AQ/original" alt="sketchy barchart" width="500">
 
 当然 `fillStyle` 还有很多填充方式，下图展示了目前支持的所有效果。更多选项详见 [@antv/g-plugin-rough-canvas-renderer 文档](https://g.antv.antgroup.com/plugins/rough-canvas-renderer#fillstyle)：
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*vcwuS6mTGBUAAAAAAAAAAAAADmJ7AQ/original" alt="fillStyle in rough.js" width="500">
+<img alt="rough" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*vcwuS6mTGBUAAAAAAAAAAAAADmJ7AQ/original" alt="fillStyle in rough.js" width="500">
 
 最后，选择一款手绘风格的字体能让整体风格趋于统一。在上面的[示例](/examples/plugin/rough/#interval)中我们选择了 `'Gaegu'`，可以参考[如何加载外部字体](https://g.antv.antgroup.com/api/basic/text#%E5%8A%A0%E8%BD%BD%E5%AD%97%E4%BD%93)。
 
@@ -92,4 +92,4 @@ chart
 
 效果如下：
 
-<img src="https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*kJuuQ47YUicAAAAAAAAAAAAADmJ7AQ" alt="fillStyle in a11y" width="300">
+<img alt="rough" src="https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*kJuuQ47YUicAAAAAAAAAAAAADmJ7AQ" alt="fillStyle in a11y" width="300">

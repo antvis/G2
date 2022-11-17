@@ -1,27 +1,30 @@
 import { Chart } from '@antv/g2';
 
-fetch('https://assets.antv.antgroup.com/g2/unemployment-by-industry.json')
-  .then((res) => res.json())
-  .then((data) =>
-    data.map((d) => ({
-      ...d,
-      date: new Date(d.date),
-    })),
-  )
-  .then((data) => {
-    const chart = new Chart({
-      container: 'container',
-      autoFit: true,
-    });
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
 
-    chart.data(data);
+chart.data({
+  type: 'fetch',
+  value: 'https://assets.antv.antgroup.com/g2/unemployment-by-industry.json',
+  transform: [
+    {
+      type: 'map',
+      callback: (d) => ({
+        ...d,
+        date: new Date(d.date),
+      }),
+    },
+  ],
+});
 
-    chart
-      .area()
-      .transform([{ type: 'stackY' }, { type: 'symmetryY' }])
-      .encode('x', 'date')
-      .encode('y', 'unemployed')
-      .encode('color', 'industry');
+chart
+  .area()
+  .transform({ type: 'stackY' })
+  .transform({ type: 'symmetryY' })
+  .encode('x', 'date')
+  .encode('y', 'unemployed')
+  .encode('color', 'industry');
 
-    chart.render();
-  });
+chart.render();

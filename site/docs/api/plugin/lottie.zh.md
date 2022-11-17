@@ -42,6 +42,6 @@ import { loadAnimation } from '@antv/g-lottie-player';
 
 效果如下：
 
-<img src="https://gw.alipayobjects.com/zos/raptor/1668509306888/Nov-15-2022%25252018-48-05.gif" alt="lottie animation">
+<img alt="lottie" src="https://gw.alipayobjects.com/zos/raptor/1668509306888/Nov-15-2022%25252018-48-05.gif" alt="lottie animation">
 
 更多动画控制选项可以参考：[Lottie Animation 文档](https://g.antv.antgroup.com/api/animation/lottie#lottieanimation)。
