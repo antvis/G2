@@ -136,7 +136,6 @@ export const Treemap: CC<TreemapOptions> = (options) => {
     const DEFAULT_OPTIONS = {
       type: 'rect',
       axis: false,
-      legend: false,
       encode: {
         x: 'x',
         y: 'y',
