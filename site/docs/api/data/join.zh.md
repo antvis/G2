@@ -26,7 +26,7 @@ chart
       {
         type: 'join',
         join: joinData,
-        on: (a, b) => a.a = b.c,
+        on: (a, b) => a.a === b.c,
         select: ['d', 'e'],
       },
     ],
