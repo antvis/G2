@@ -60,6 +60,7 @@ chart
   .encode('color', 'event')
   .scale('color', { independent: true, range: ['#FAAD14', '#30BF78'] })
   .style('fillOpacity', 0.75);
+
 chart
   .line()
   .encode('x', (d) => new Date(d.year))

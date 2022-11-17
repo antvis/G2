@@ -5,12 +5,6 @@
  */
 import { Chart } from '@antv/g2';
 
-function overThreshold(data, threshold) {
-  return data
-    .filter((d) => d['Value'] >= threshold)
-    .map(({ Day: x, Value: y }) => ({ x: [x, x], y: [threshold, y] }));
-}
-
 const chart = new Chart({
   container: 'container',
   autoFit: true,
@@ -42,14 +36,17 @@ chart
   .range()
   .data({
     transform: [
-      { type: 'custom', callback: (data) => overThreshold(data, 300) },
+      {
+        type: 'custom',
+        callback: (data) => overThreshold(data, 300),
+      },
     ],
   })
   .encode('x', 'x')
   .encode('y', 'y')
   .encode('color', '#F4664A');
 
-chart.lineY().encode('y', 300).style('stroke', '#000').label({
+chart.lineY().data([200]).style('stroke', '#000').label({
   text: 'hazardous',
   position: 'right',
   textBaseline: 'bottom',
@@ -58,3 +55,9 @@ chart.lineY().encode('y', 300).style('stroke', '#000').label({
 });
 
 chart.render();
+
+// Process data.
+const overThreshold = (data, threshold) =>
+  data
+    .filter((d) => d['Value'] >= threshold)
+    .map(({ Day: x, Value: y }) => ({ x: [x, x], y: [threshold, y] }));
