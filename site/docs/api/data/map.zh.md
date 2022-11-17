@@ -3,19 +3,36 @@ title: map
 order: 1
 ---
 
-对数据进行过滤。
+对数据进行过滤。类似于 [Array.prototypo.map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)。
 
 ## 开始使用
 
 ```ts
+const data = [
+  { a: 1, b: 2, c: 3 },
+  { a: 4, b: 5, c: 6 },
+];
+
 chart
   .data({
-    type: 'map',
-    callback: (datum) => {
-      /* your code */
-      return newDatum;
-    },
+    type: 'inline',
+    value: data,
+    transform: [
+      {
+        type: 'map',
+        callback: (datum, idx) => { ...datam, idx },
+      },
+    ],
   });
+```
+
+上述例子处理之后，数据变成为：
+
+```js
+[
+  { a: 1, b: 2, c: 3, idx: 0 },
+  { a: 4, b: 5, c: 6, idx: 1 },
+];
 ```
 
 ## 配置
