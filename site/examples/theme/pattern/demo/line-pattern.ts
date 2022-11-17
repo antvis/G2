@@ -1,3 +1,6 @@
+/**
+ * A recreation of this demo: https://nivo.rocks/pie/
+ */
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -25,7 +28,7 @@ chart
     position: 'outside',
     fontWeight: 'bold',
   })
-  .style('radius', 4)
+  .style('radius', 6)
   .style('stroke', '#fff')
   .style('lineWidth', 4)
   .style('fill', (_, idx) => ({
@@ -39,32 +42,53 @@ chart.render();
 // === Draw pattern ===
 const colors = ['#e8c1a0', '#f47560', '#f1e15b', '#e8a838', '#61cdbb'];
 
-const drawPattern = (idx) => {
-  const patternCanvas = document.createElement('canvas');
-  const color = colors[(idx + colors.length) % colors.length];
-  const w = Math.abs(8 / Math.sin(Math.PI / 4));
-  const h = 8 / Math.sin(Math.PI / 4);
-  patternCanvas.width = w;
-  patternCanvas.height = h;
-  patternCanvas.style.width = `${w / 2}px`;
-  patternCanvas.style.height = `${h / 2}px`;
+function applyStyle(ctx, style) {
+  return Object.entries(style).forEach(([k, v]) => (ctx[k] = v));
+}
 
-  const ctx = patternCanvas.getContext('2d');
-  const applyStyle = (style) =>
-    Object.entries(style).forEach(([k, v]) => (ctx[k] = v));
+const createCanvas = (w, h) => {
+  const canvas = document.createElement('canvas');
+  const dpr = window.devicePixelRatio;
 
-  applyStyle({ globalAlpha: 0.65, fillStyle: color });
-  ctx.beginPath();
+  canvas.width = w * dpr;
+  canvas.height = h * dpr;
+  canvas.style.width = `${w}px`;
+  canvas.style.height = `${h}px`;
+
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  return canvas;
+};
+
+function drawRect(ctx, w, h, color) {
+  applyStyle(ctx, { globalAlpha: 0.65, fillStyle: color });
   ctx.fillRect(0, 0, w, h);
-  ctx.fill();
+}
 
-  applyStyle({ globalAlpha: 1, strokeStyle: color });
-  applyStyle({ lineWidth: 3, lineCap: 'square' });
-  const lineTo = (x0, y0, x1, y1) => (ctx.moveTo(x0, y0), ctx.lineTo(x1, y1));
-  lineTo(0, -h, w * 2, h);
-  lineTo(-w, -h, w, h);
-  lineTo(-w, 0, w, h * 2);
-  ctx.stroke();
+function drawLine(ctx, d, color) {
+  applyStyle(ctx, { globalAlpha: 1, strokeStyle: color });
+  applyStyle(ctx, { lineWidth: 2, lineCap: 'square' });
 
-  return patternCanvas;
+  ctx.stroke(new Path2D(d));
+}
+
+const drawPattern = (idx) => {
+  const spacing = 5;
+  const width = Math.abs(spacing / Math.sin(Math.PI / 4));
+  const height = spacing / Math.sin(Math.PI / 4);
+
+  const canvas = createCanvas(width, height);
+  const ctx = canvas.getContext('2d');
+
+  const d = `
+    M 0 ${-height} L ${width * 2} ${height}
+    M ${-width} ${-height} L ${width} ${height}
+    M ${-width} 0 L ${width} ${height * 2}`;
+
+  const color = colors[(idx + colors.length) % colors.length];
+  drawRect(ctx, width, height, color);
+  drawLine(ctx, d, color);
+
+  return canvas;
 };
