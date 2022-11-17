@@ -70,21 +70,21 @@ G2 主题 token 较多，下面按照通用属性、动画属性、图形元素�
 }
 ```
 
-目前 G2 内置了 10+ Mark 几何标记图形，同时每种 mark 类型也有关联的 shape 图形。如果 mark 指定的 shape 在主题中没有定义的话，会取 mark 的默认 shape 的主题定义。
+目前 G2 内置了 10+ mark 几何标记图形，同时每种 mark 类型也有关联的 shape 图形。如果 mark 指定的 shape 在主题中没有定义的话，会取 mark 的默认 shape 的主题定义。
 
-| 几何标记 | 默认图形             | 描述                                                                      |
-| -------- | -------------------- | ------------------------------------------------------------------------- |
-| interval | 默认图形为 interval. | 更多 shape 类型以及 shape 样式定义见: [Interval Mark](/api/mark/interval) |
-| line     | 默认图形为 line.     | 更多 shape 类型以及 shape 样式定义见: [Line Mark](/api/mark/line)         |
-| point    | 默认图形为 hollow.   | 更多 shape 类型以及 shape 样式定义见: [Point Mark](/api/mark/point)        |
-| area     | 默认图形为 area.     | 更多 shape 类型以及 shape 样式定义见: [Area Mark](/api/mark/area)         |
-| cell     | 默认图形为 rect.     | 更多 shape 类型以及 shape 样式定义见: [Cell Mark](/api/mark/cell)         |
-| text     | 默认图形为 text.     | 更多 shape 类型以及 shape 样式定义见: [Text Mark](/api/mark/text)         |
-| image    | 默认图形为 image.    | 更多 shape 类型以及 shape 样式定义见: [Image Mark](/api/mark/image)       |
-| link     | 默认图形为 link.     | 更多 shape 类型以及 shape 样式定义见: [Link Mark](/api/mark/link)         |
-| box      | 默认图形为 box.      | 更多 shape 类型以及 shape 样式定义见: [Box Mark](/api/mark/box)           |
-| polygon  | 默认图形为 polygon.  | 更多 shape 类型以及 shape 样式定义见: [Polygon Mark](/api/mark/polygon)   |
-| vector   | 默认图形为 vector.   | 更多 shape 类型以及 shape 样式定义见: [Vector Mark](/api/mark/vector)     |
+| 几何标记                       | 默认图形 |
+| ------------------------------ | -------- |
+| [interval](/api/mark/interval) | interval |
+| [line](/api/mark/line)         | line     |
+| [point](/api/mark/point)       | hollow   |
+| [area](/api/mark/area)         | area     |
+| [cell](/api/mark/cell)         | rect     |
+| [text](/api/mark/text)         | text     |
+| [image](/api/mark/image)       | image    |
+| [link](/api/mark/link)         | link     |
+| [box](/api/mark/box)           | box      |
+| [polygon](/api/mark/polygon)   | polygon  |
+| [vector](/api/mark/vector)     | vector   |
 
 ### 图表组件
 
