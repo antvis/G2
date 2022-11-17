@@ -148,18 +148,18 @@ Mark 以及 Chart 共享的 API
 
 ### 生命周期事件
 
-图表渲染的生命周期有：
-
-- `beforerender`
-- `afterrender`
-- `beforepaint`
-- `afterpaint`
-- `beforechangedata`
-- `afterchangedata`
-- `beforechangesize`
-- `afterchangesize`
-- `beforedestroy`
-- `afterdestroy`
+| 事件               | 描述                             |
+| ------------------ | -------------------------------- |
+| `beforerender`     | 图表渲染前执行该事件             |
+| `afterrender`      | 图表渲染后执行该事件             |
+| `beforepaint`      | 图表布局计算后，绘制前执行该事件 |
+| `afterpaint`       | 图表绘制后执行该事件             |
+| `beforechangedata` | 图表更新数据前执行该事件         |
+| `afterchangedata`  | 图表更新数据后执行该事件         |
+| `beforechangesize` | 图表更新尺寸前执行该事件         |
+| `afterchangesize`  | 图表更新尺寸后执行该事件         |
+| `beforedestroy`    | 图表销毁前执行该事件             |
+| `afterdestroy`     | 图表销毁后执行该事件             |
 
 通过 `chart.on()` 来申明生命周期事件。例如：
 
