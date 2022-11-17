@@ -42,28 +42,28 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
   * [mark.tree](./mark/tree) - 
   * [mark.wordcloud](./mark/wordcloud) - 
 * Transform - 对视觉通道 encode 进行变换。
-  * [transform.bin](./transform/bin) - 对连续的 x 和 连续的 y 通道进行分箱，并且对通道根据指定的 redcuer 进行聚合。
-  * [transform.binX](./transform/binX) - 对 x 通道进行分箱，如果希望对 y 通道进行分箱，使用 binX + transpose 坐标系。
-  * [transform.diffY](./transform/diffY) - 对 y 和 y1 通道求差集。
-  * [transform.dodgeX](./transform/dodgeX) - 生成 series 通道值为 color 通道的值，根据 series 通道实现分组效果。
-  * [transform.flexX](./transform/flexX) - 根据指定通道设置 x 比例尺的 flex 属性，实现不等宽矩形的效果。
-  * [transform.group](./transform/group) - 对离散的 x 和 连续的 y 通道进行分组，并且对通道根据指定的 Redcuer 进行聚合。
-  * [transform.groupColor](./transform/groupColor) - 对离散的 color 通道进行分组，并且对通道根据指定的 Redcuer 进行聚合。
-  * [transform.groupX](./transform/groupX) - 对离散的 x 通道进行分组，并且对通道根据指定的 Redcuer 进行聚合。
-  * [transform.groupY](./transform/groupY) - 对离散的 y 通道进行分组，并且对通道根据指定的 Redcuer 进行聚合。
-  * [transform.jitter](./transform/jitter) - 根据离散的 x 和 离散的 y 比例尺，生成 dy 和 dx 通道，实现在某个区域散开的效果。
-  * [transform.jitterX](./transform/jitterX) - 根据离散的 x 比例尺，生成 dx 通道，实现在某个区域的 x 方向散开的效果。
-  * [transform.normalizeY](./transform/normalizeY) - 对 y 和 y1 通道根据指定的 basis 进行归一化处理。
-  * [transform.select](./transform/select) - 按照指定通道进行分组，根据指定通道和 selector 从每组选择出数据。
-  * [transform.selectX](./transform/selectX) - 按照指定通道进行分组，根据 x 通道和 selector 从每组选择出数据。
-  * [transform.selectY](./transform/selectY) - 按照指定的通道进行分组，根据 y 通道和 selector 从每组选择出数据。
-  * [transform.pack](./transform/pack) - 生成 transform 和 scale 属性，从而让图形在空间中紧凑排列。
-  * [transform.sortColor](./transform/sortColor) - 对离散的 color 比例尺的定义域根据指定通道排序。
-  * [transform.sortX](./transform/sortX) - 对离散的 x 比例尺的定义域根据指定通道排序。
-  * [transform.sortY](./transform/sortY) - 对离散的 y 比例尺的定义域根据指定通道排序。
-  * [transform.stackEnter](./transform/stackEnter) - 对 enterDuration 和 enterDelay 通道进行堆叠，实现分组动画的效果。
-  * [transform.stackY](./transform/stackY) - 按照指定通道分组，对每组的 y 和 y1 通道进行堆叠，实现堆叠效果。
-  * [transform.symmetryY](./transform/symmetryY) - 按照指定通道分组，给每组的 y 和 y1 通道添加偏移，实现对称效果。
+  * [transform.bin](/api/transform/bin) - 对连续的 x 和 连续的 y 通道进行分箱，并且对通道根据指定的 redcuer 进行聚合。
+  * [transform.binX](/api/transform/binx) - 对 x 通道进行分箱，如果希望对 y 通道进行分箱，使用 binX + transpose 坐标系。
+  * [transform.diffY](/api/transform/diffy) - 对 y 和 y1 通道求差集。
+  * [transform.dodgeX](/api/transform/dodgex) - 生成 series 通道值为 color 通道的值，根据 series 通道实现分组效果。
+  * [transform.flexX](/api/transform/flexx) - 根据指定通道设置 x 比例尺的 flex 属性，实现不等宽矩形的效果。
+  * [transform.group](/api/transform/group) - 对离散的 x 和 连续的 y 通道进行分组，并且对通道根据指定的 Redcuer 进行聚合。
+  * [transform.groupColor](/api/transform/groupcolor) - 对离散的 color 通道进行分组，并且对通道根据指定的 Redcuer 进行聚合。
+  * [transform.groupX](/api/transform/groupx) - 对离散的 x 通道进行分组，并且对通道根据指定的 Redcuer 进行聚合。
+  * [transform.groupY](/api/transform/groupy) - 对离散的 y 通道进行分组，并且对通道根据指定的 Redcuer 进行聚合。
+  * [transform.jitter](/api/transform/jitter) - 根据离散的 x 和 离散的 y 比例尺，生成 dy 和 dx 通道，实现在某个区域散开的效果。
+  * [transform.jitterX](/api/transform/jitterx) - 根据离散的 x 比例尺，生成 dx 通道，实现在某个区域的 x 方向散开的效果。
+  * [transform.normalizeY](/api/transform/normalizey) - 对 y 和 y1 通道根据指定的 basis 进行归一化处理。
+  * [transform.select](/api/transform/select) - 按照指定通道进行分组，根据指定通道和 selector 从每组选择出数据。
+  * [transform.selectX](/api/transform/selectx) - 按照指定通道进行分组，根据 x 通道和 selector 从每组选择出数据。
+  * [transform.selectY](/api/transform/selecty) - 按照指定的通道进行分组，根据 y 通道和 selector 从每组选择出数据。
+  * [transform.pack](/api/transform/pack) - 生成 transform 和 scale 属性，从而让图形在空间中紧凑排列。
+  * [transform.sortColor](/api/transform/sortcolor) - 对离散的 color 比例尺的定义域根据指定通道排序。
+  * [transform.sortX](/api/transform/sortx) - 对离散的 x 比例尺的定义域根据指定通道排序。
+  * [transform.sortY](/api/transform/sorty) - 对离散的 y 比例尺的定义域根据指定通道排序。
+  * [transform.stackEnter](/api/transform/stackenter) - 对 enterDuration 和 enterDelay 通道进行堆叠，实现分组动画的效果。
+  * [transform.stackY](/api/transform/stacky) - 按照指定通道分组，对每组的 y 和 y1 通道进行堆叠，实现堆叠效果。
+  * [transform.symmetryY](/api/transform/symmetryy) - 按照指定通道分组，给每组的 y 和 y1 通道添加偏移，实现对称效果。
 * Scale - 比例尺相关的介绍
   * [scale.linear](/api/scale/linear) - 针对连续数据，对数据进行连续映射的比例尺。
   * [scale.sqrt](/api/scale/sqrt) - 指数固定为 `0.5` 的 `pow` 比例尺。
