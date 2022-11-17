@@ -3,26 +3,6 @@
  */
 import { Chart } from '@antv/g2';
 
-const linkData = (data) =>
-  data.reduce((r, d, idx) => {
-    if (idx > 0) {
-      return r.concat({
-        x1: data[idx - 1].x,
-        x2: d.x,
-        value: d.isTotal ? d.end : d.start,
-      });
-    }
-    return r;
-  }, []);
-const connectorData = (data) => [
-  {
-    x1: data[0].x,
-    y1: data[0].end,
-    x2: data[data.length - 1].x,
-    y2: data[data.length - 1].end,
-  },
-];
-
 const chart = new Chart({
   container: 'container',
   paddingBottom: 120,
@@ -89,3 +69,25 @@ chart
   });
 
 chart.render();
+
+// Process data.
+const linkData = (data) =>
+  data.reduce((r, d, idx) => {
+    if (idx > 0) {
+      return r.concat({
+        x1: data[idx - 1].x,
+        x2: d.x,
+        value: d.isTotal ? d.end : d.start,
+      });
+    }
+    return r;
+  }, []);
+
+const connectorData = (data) => [
+  {
+    x1: data[0].x,
+    y1: data[0].end,
+    x2: data[data.length - 1].x,
+    y2: data[data.length - 1].end,
+  },
+];

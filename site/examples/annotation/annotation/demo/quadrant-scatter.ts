@@ -8,8 +8,9 @@ chart.data({
     'https://gw.alipayobjects.com/os/bmw-prod/0b37279d-1674-42b4-b285-29683747ad9a.json',
 });
 
-chart.lineX().data([0]).style('zIndex', -1);
-chart.lineY().data([0]).style('zIndex', -1);
+chart.lineX().data([0]);
+chart.lineY().data([0]);
+
 chart
   .range()
   .data([
@@ -27,6 +28,7 @@ chart
     guide: null,
   })
   .style('fillOpacity', 0.2);
+
 chart
   .point()
   .encode('x', 'change in female rate')
