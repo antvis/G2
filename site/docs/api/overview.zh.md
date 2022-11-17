@@ -58,9 +58,9 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
   * [transform.selectX](/api/transform/selectx) - 按照指定通道进行分组，根据 x 通道和 selector 从每组选择出数据。
   * [transform.selectY](/api/transform/selecty) - 按照指定的通道进行分组，根据 y 通道和 selector 从每组选择出数据。
   * [transform.pack](./transform/pack) - 生成 transform 和 scale 属性，从而让图形在空间中紧凑排列。
-  * [transform.sortColor](./transform/sortColor) - 对离散的 color 比例尺的定义域根据指定通道排序。
-  * [transform.sortX](./transform/sortX) - 对离散的 x 比例尺的定义域根据指定通道排序。
-  * [transform.sortY](./transform/sortY) - 对离散的 y 比例尺的定义域根据指定通道排序。
+  * [transform.sortColor](/api/transform/sortcolor) - 对离散的 color 比例尺的定义域根据指定通道排序。
+  * [transform.sortX](/api/transform/sortx) - 对离散的 x 比例尺的定义域根据指定通道排序。
+  * [transform.sortY](/api/transform/sorty) - 对离散的 y 比例尺的定义域根据指定通道排序。
   * [transform.stackEnter](./transform/stackEnter) - 对 enterDuration 和 enterDelay 通道进行堆叠，实现分组动画的效果。
   * [transform.stackY](./transform/stackY) - 按照指定通道分组，对每组的 y 和 y1 通道进行堆叠，实现堆叠效果。
   * [transform.symmetryY](./transform/symmetryY) - 按照指定通道分组，给每组的 y 和 y1 通道添加偏移，实现对称效果。
