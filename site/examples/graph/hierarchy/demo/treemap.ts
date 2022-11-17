@@ -19,9 +19,7 @@ chart
   })
   .encode('value', 'size')
   .encode('color', (d) => d.parent.data.name.split('.')[1])
-  .encode('legend', (d) => d.parent.data.name.split('.')[1])
   .scale('color', { range: schemeTableau10 })
-  .axis(false)
   .style(
     'labelText',
     (d) =>

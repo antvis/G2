@@ -9,6 +9,15 @@ import {
 
 export type WordCloudOptions = Omit<WordCloudMark, 'type'>;
 
+function initializeData(data, encode) {
+  const { text = 'text', value = 'value' } = encode;
+  return data.map((d) => ({
+    ...d,
+    text: d[text],
+    value: data[value],
+  }));
+}
+
 export const WordCloud: CC<WordCloudOptions> = (options) => {
   return async (viewOptions) => {
     const { width, height } = getBBoxSize(viewOptions);
@@ -22,11 +31,9 @@ export const WordCloud: CC<WordCloudOptions> = (options) => {
     } = options;
     const DEFAULT_LAYOUT_OPTIONS: WordCloudTransformOptions = {
       size: [width, height],
-      padding: 2,
     };
     const DEFAULT_OPTIONS = {
       axis: false,
-      legend: false,
       type: 'text',
       encode: {
         x: 'x',
@@ -45,10 +52,11 @@ export const WordCloud: CC<WordCloudOptions> = (options) => {
         textAlign: 'center',
       },
     };
+    const initializedData = initializeData(data, encode);
     const transformData = await WordCloudTransform({
       ...DEFAULT_LAYOUT_OPTIONS,
       ...layout,
-    })(data);
+    })(initializedData);
 
     return [
       deepMix({}, DEFAULT_OPTIONS, {
