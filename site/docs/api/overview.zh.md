@@ -61,8 +61,8 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
   * [transform.sortColor](/api/transform/sortcolor) - 对离散的 color 比例尺的定义域根据指定通道排序。
   * [transform.sortX](/api/transform/sortx) - 对离散的 x 比例尺的定义域根据指定通道排序。
   * [transform.sortY](/api/transform/sorty) - 对离散的 y 比例尺的定义域根据指定通道排序。
-  * [transform.stackEnter](./transform/stackEnter) - 对 enterDuration 和 enterDelay 通道进行堆叠，实现分组动画的效果。
-  * [transform.stackY](./transform/stackY) - 按照指定通道分组，对每组的 y 和 y1 通道进行堆叠，实现堆叠效果。
+  * [transform.stackEnter](/api/transform/stackenter) - 对 enterDuration 和 enterDelay 通道进行堆叠，实现分组动画的效果。
+  * [transform.stackY](/api/transform/stacky) - 按照指定通道分组，对每组的 y 和 y1 通道进行堆叠，实现堆叠效果。
   * [transform.symmetryY](./transform/symmetryY) - 按照指定通道分组，给每组的 y 和 y1 通道添加偏移，实现对称效果。
 * Scale - 比例尺相关的介绍
   * [scale.linear](/api/scale/linear) - 针对连续数据，对数据进行连续映射的比例尺。
