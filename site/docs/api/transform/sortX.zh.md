@@ -7,7 +7,7 @@ order: 1
 
 ## 开始使用
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*TehBRbDnoIkAAAAAAAAAAAAADmJ7AQ/original" width="500" />
+<img alt="sortX" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*TehBRbDnoIkAAAAAAAAAAAAADmJ7AQ/original" width="500" />
 
 ```ts
 import { Chart } from '@antv/g2';

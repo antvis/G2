@@ -7,7 +7,7 @@ order: 1
 
 ## 开始使用
 
-<img src="https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*RtalTb-DPdkAAAAAAAAAAAAADmJ7AQ" width="400" />
+<img alt="groupX" src="https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*RtalTb-DPdkAAAAAAAAAAAAADmJ7AQ" width="400" />
 
 在对应的 mark 中有 transform 方法可以使用数据的变换。
 

@@ -11,7 +11,7 @@ Label 是将图形的一些数据信息，比如值，名称等映射到图形�
 
 ## 开始使用
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Cx8zT7vT5bUAAAAAAAAAAAAADmJ7AQ/original" width="400" alt="revenue-flow-waterfall" />
+<img alt="label" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Cx8zT7vT5bUAAAAAAAAAAAAADmJ7AQ/original" width="400" alt="revenue-flow-waterfall" />
 
 ```ts
 import { Chart } from '@antv/g2';

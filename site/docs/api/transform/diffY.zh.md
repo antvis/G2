@@ -7,7 +7,7 @@ order: 1
 
 ## 开始使用
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*CJn4T4_Rf98AAAAAAAAAAAAADmJ7AQ/original" width="600" />
+<img alt="diffY" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*CJn4T4_Rf98AAAAAAAAAAAAADmJ7AQ/original" width="600" />
 
 在对应的 mark 中有 transform 方法可以使用数据的变换。
 

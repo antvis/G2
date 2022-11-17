@@ -7,7 +7,7 @@ order: 1
 
 ## 开始使用
 
-<img src="https://gw.alipayobjects.com/zos/raptor/1668659773138/stackenter.gif" width="600" />
+<img alt="stackEnter" src="https://gw.alipayobjects.com/zos/raptor/1668659773138/stackenter.gif" width="600" />
 
 ```ts
 import { Chart } from '@antv/g2';
