@@ -9,7 +9,9 @@ const chart = new Chart({
   paddingBottom: 150,
 });
 
-chart.theme({ defaultColor: '#ED6DC6' });
+chart.theme({
+  defaultColor: '#ED6DC6',
+});
 
 chart
   .point()

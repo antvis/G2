@@ -27,6 +27,14 @@
         "en": "Dark Theme"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*75B7Qov83a0AAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "layout-area.ts",
+      "title": {
+        "zh": "布局区域",
+        "en": "Layout Area"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*IOiTQ47rrzwAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }
