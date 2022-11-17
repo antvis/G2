@@ -134,7 +134,7 @@ export function destroy<T extends G2ViewTree = G2ViewTree>(
   }
 
   // Unbind chart events.
-  bindAutoFit(options, context);
+  unbindAutoFit(options, context);
   offEvent(on);
 }
 
