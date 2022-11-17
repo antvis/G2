@@ -26,7 +26,7 @@ chart.render(); // 渲染图表
 
 ## 选项
 
-G2 主题 token 较多，下面按照通用属性、动画属性、视图容器、图形元素、图表组件等若进行分类介绍
+G2 主题 token 较多，下面按照通用属性、动画属性、图形元素、图表组件等进行分类介绍
 
 ### 通用属性
 
@@ -53,42 +53,6 @@ G2 主题 token 较多，下面按照通用属性、动画属性、视图容器�
 | delay    | `number` | 开始动画前的延迟，以毫秒为单位，默认值为 0，因此动画会立即开始。 |
 | easing   | `string` | 缓动函数                                                         |        |
 | fill     | `string` | 离场动画配置                                                     | 'both' |
-
-### 视图容器
-
-在 G2 5.0 中 View 是最小的图表单元，它的视图区域组成如下:
-
-- 视图区域（View Area）-下图中蓝色 + 橙色 + 红色 + 青色部分，样式通过 `view${Style}` 的形式声明。蓝色部分的大小通过 margin 声明，该区域用于固定组件到视图边的距离，类似 4.0 中的 appendPadding。
-- 绘制区域（Plot Area）- 下图中橙色 + 红色 + 青色部分，样式通过 `plot${Style}` 的形式声明。橙色部分的大小通过 padding 声明，该区域用于绘制组件。
-- 主区域（Main Area）- 下图中红色 + 青色部分，样式通过 `main${Style}` 的形式声明。红色部分的大小通过 inset 声明，用于制造组件和 Mark 之间的呼吸区域（Breathing Room），对于散点图尤其有用。
-- 内容区域（Content Area）- 下图中青色部分，青色部分的大小由 view 的大小去掉 margin，padding 以及 inset 得到。样式通过 `content${Style}` 的形式声明。主要用于绘制 Mark。
-
-<img alt="view-area" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*IOiTQ47rrzwAAAAAAAAAAAAADmJ7AQ/original" width="800" />
-
-详细可见 [DEMO](/examples/Theme/theme/#layout-area)
-
-| 属性                 | 描述                 | 类型     | 默认值                                                |
-| -------------------- | -------------------- | -------- | ----------------------------------------------------- |
-| viewFill             | 视图区域填充色       | `string` | light 主题下为 `transparent`, dark 主题下为 `#141414` |
-| viewFillOpacity      | 视图区域填充色透明度 | `number` | -                                                     |
-| viewStroke           | 视图区域描边色       | `string` | -                                                     |
-| viewStrokeWidth      | 视图区域描边色宽度   | `number` | -                                                     |
-| viewStrokeOpacity    | 视图区域描边色透明度 | `number` | -                                                     |
-| plotFill             | 绘制区域填充色       | `string` | -                                                     |
-| plotFillOpacity      | 绘制区域填充色透明度 | `number` | -                                                     |
-| plotStroke           | 绘制区域描边色       | `string` | -                                                     |
-| plotStrokeWidth      | 绘制区域描边色宽度   | `number` | -                                                     |
-| plotStrokeOpacity    | 绘制区域描边色透明度 | `number` | -                                                     |
-| mainFill             | 主区域填充色         | `string` | -                                                     |
-| mainFillOpacity      | 主区域填充色透明度   | `number` | -                                                     |
-| mainStroke           | 主区域描边色         | `string` | -                                                     |
-| mainStrokeWidth      | 主区域描边色宽度     | `number` | -                                                     |
-| mainStrokeOpacity    | 主区域描边色透明度   | `number` | -                                                     |
-| contentFill          | 内容区域填充色       | `string` | -                                                     |
-| contentFillOpacity   | 内容区域填充色透明度 | `number` | -                                                     |
-| contentStroke        | 内容区域描边色       | `string` | -                                                     |
-| contentStrokeWidth   | 内容区域描边色宽度   | `number` | -                                                     |
-| contentStrokeOpacity | 内容区域描边色透明度 | `number` | -                                                     |
 
 ### 图形元素
 

@@ -101,7 +101,7 @@ Label 继承 G Text 所有属性样式配置，此外还有 `position`, `selecto
 
 在笛卡尔坐标系下，支持 9 种位置：`'top'`, `'left'`, `'right'`, `'bottom'`, `'top-left'`, `'top-right'`, `'bottom-left'`, `'bottom-right'`, `'inside'`。
 
-非笛卡尔坐标系下，支持 `'outside'`, `'insider'` 两种，此外，还有特殊的 `area` 适用于面积图，见 [面积图特殊标签](/zh/examples/general/area/#label)
+非笛卡尔坐标系下，支持 `'outside'`, `'inside'` 两种，此外，还有特殊的 `area` 适用于面积图，见 [面积图特殊标签](/zh/examples/general/area/#label)
 
 ### selector 如何使用？
 
