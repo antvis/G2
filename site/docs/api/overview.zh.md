@@ -5,14 +5,14 @@ order: 1
 
 G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的顺序去分别介绍每一个模块，你可以把它当做一个字典去搜索和查询。
 
-* [Overview](./overview) - 所有 API 文档的一句话概览。
+* [Overview](/api/overview) - 所有 API 文档的一句话概览。
 * [Chart](./chart) - 提供简洁的命令式 API，一句话生成一个图表。
 * [Data](/api/data/overview) - 介绍不同数据载入的方式和数据变换。
-  * [data.sortBy](/api/data/sortby) - 对数据进行指定字段排序。
+  * [data.sort](/api/data/sort) - 对数据进行指定字段排序。
   * [data.pick](/api/data/pick) - 从数据中挑选出部分字段组成新的数据。
   * [data.rename](/api/data/rename) - 重命名数据中的一些字段。
   * [data.fold](/api/data/fold) - 将多个字段打包成按照指定的 key value 组织形式。
-  * [data.filterBy](/api/data/filterby) - 对数据进行指定条件的过滤。
+  * [data.filter](/api/data/filter) - 对数据进行指定条件的过滤。
   * [data.subset](/api/data/subset) - 从数据量、数据字段上抽取数据子集。
   * [data.map](/api/data/map) - 对数据进行过滤。
   * [data.lookup](/api/data/lookup) - 使用键值，将多份数据连接到一起。

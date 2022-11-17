@@ -71,11 +71,11 @@ chart.data({
 
 | 名称 | 描述 |
 | ------------------------------------| ----------------------------------------------------------- |
-| [sortBy](/api/data/sortby)          | 数据排序                                                     |
+| [sort](/api/data/sort)              | 数据排序                                                     |
 | [pick](/api/data/pick)              | 数据抽取                                                     |
 | [rename](/api/data/rename)          | 数据字段重命名                                                |
 | [fold](/api/data/fold)              | 将多个字段打包为 key value object 形式                         |
-| [filterBy](/api/data/filterby)      | 数据过滤                                                     |
+| [filter](/api/data/filter)          | 数据过滤                                                     |
 | [subset](/api/data/subset)          | 抽取数据子集，可以是数据字段和数据量上                            |
 | [map](/api/data/map)                | 数据 map 的操作                                              |
 | [lookup](/api/data/lookup)          | 根据多份数据根据键值连接到一起                                  |
