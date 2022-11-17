@@ -5,15 +5,18 @@ order: 1
 
 G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的顺序去分别介绍每一个模块，你可以把它当做一个字典去搜索和查询。
 
-* [Overview](./overview) - 所有 API 文档的一句话概览。
+* [Overview](/api/overview) - 所有 API 文档的一句话概览。
 * [Chart](./chart) - 提供简洁的命令式 API，一句话生成一个图表。
-* [Data](./data/overview) - 介绍不同载入数据的方式和数据变换。
-  * [data.sortBy](./scale/sortBy) - 
-  * [data.filterBy](./scale/filterBy) - 
-  * [data.fold](./scale/fold) - 
-  * [data.lookup](./scale/lookup) - 
-  * [data.map](./scale/map) - 
-  * [custom](./scale/custom) - 
+* [Data](/api/data/overview) - 介绍不同数据载入的方式和数据变换。
+  * [data.sort](/api/data/sort) - 对数据进行指定字段排序。
+  * [data.pick](/api/data/pick) - 从数据中挑选出部分字段组成新的数据。
+  * [data.rename](/api/data/rename) - 重命名数据中的一些字段。
+  * [data.fold](/api/data/fold) - 将多个字段打包成按照指定的 key value 组织形式。
+  * [data.filter](/api/data/filter) - 对数据进行指定条件的过滤。
+  * [data.subset](/api/data/subset) - 从原数据集中按照数据量、数据字段抽取数据子集。
+  * [data.map](/api/data/map) - 对数据进行过滤。
+  * [data.join](/api/data/join) - 类似 SQL 的方式，将两份数据连接到一起。
+  * [data.custom](/api/data/custom) - 使用自定义的方式对数据进行变换。
 * Mark - 介绍不同图形标记 mark 的配置和用法。
   * [mark.interval](/api/mark/interval) - 通常用来绘制柱、条形图，饼图等相关图表。
   * [mark.point](/api/mark/point) - 主要用于绘制散点图，利用点的粒度来分析数据的分布情况。

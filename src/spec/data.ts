@@ -26,15 +26,19 @@ export type DataTransform =
   | FoldTransform
   | FilterByTransform
   | LookupTransform
+  | MapTransform
   | CustomTransform;
 
 export type DataTransformTypes =
   | 'sortBy'
-  | 'fetch'
-  | 'filterBy'
   | 'pick'
+  | 'rename'
+  | 'subset'
   | 'fold'
-  | 'connector'
+  | 'filterBy'
+  | 'lookup'
+  | 'map'
+  | 'custom'
   | DataComponent;
 
 export type SortByTransform = {
