@@ -9,7 +9,7 @@ chart
   .data({
     type: 'fetch',
     value:
-      'https://cdn.anychart.com/samples/quadrant-charts/top-30-countries-by-quality-of-life/data.json',
+      'https://assets.antv.antgroup.com/g2/top-30-countries-by-quality-of-life.json',
   })
   .axis('x', false)
   .axis('y', false)
