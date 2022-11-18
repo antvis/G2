@@ -32,12 +32,11 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
   * [mark.text](/api/mark/text) - 通过指定文本的样式通道，可以在画布上绘制和数据绑定的文本字符。
   * [mark.image](/api/mark/image) - 利用 `src` 通道在画布上绘制图片。
   * [mark.shape](./mark/shape) - 
-  * [mark.interval](./mark/interval) - 
-  * [mark.lineX](./mark/lineX) - 
-  * [mark.lineY](./mark/lineY) - 
-  * [mark.range](./mark/range) - 
-  * [mark.rangeX](./mark/rangeX) - 
-  * [mark.rangeY](./mark/rangeY) - 
+  * [mark.lineX](/api/mark/linex) - 指定 `x` 通道来绘制垂直于 x 轴的辅助线，常用于绘制平均值或其他聚合数据辅助线。
+  * [mark.lineY](/api/mark/liney) - 指定 `y` 通道来绘制垂直于 y 轴的辅助线，常用于绘制平均值或其他聚合数据辅助线。
+  * [mark.range](/api/mark/range) - 使用一组 `x`(x1, x2) 和一组 `y`(y1, y2) 来定位一个矩形区域，常用于绘制辅助背景区域。
+  * [mark.rangeX](/api/mark/rangex) - 使用一组 `x`(x1, x2) 来定位一个绘制于 x 轴的矩形区域，常用于绘高亮指定区域的辅助区域。
+  * [mark.rangeY](/api/mark/rangey) - 使用一组 `y`(y1, y2) 来定位一个绘制于 y 轴的矩形区域，常用于绘高亮指定区域的辅助区域。
   * [mark.sankey](./mark/sankey) - 
   * [mark.treemap](./mark/treemap) - 
   * [mark.pack](./mark/pack) - 
@@ -94,7 +93,7 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
   * [facetCircle](/api/composition/facetcircle) - 根据字段分片数据，利用圆形划分空间，然就进行各个分面的数据可视化。
   * [repeatMatrix](/api/composition/repeatmatrix) - 根据字段的数量对空间进行划分和可视化。
   * [timingKeyframe](/api/composition/timingkeyframe) - 在不同时间片之间播放不同的可视化视图帧。
-* Component - 图表组件相关的内容。
+* [Component](/api/component/overview) - 图表组件相关的内容。
   * [axisX](./scale/axisX) - 
   * [axisY](./scale/axisY) - 
   * [legendCateogry](./scale/legendCateogry) - 
