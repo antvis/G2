@@ -11,7 +11,7 @@ order: 5
 
 一个比较常见的复合方式是 `chart.faceLayer`：将多个图表重叠在一起。使用场景是这些视图拥有的不同的坐标系，比如下面的条形图和饼图。
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*SFM9T40m2cEAAAAAAAAAAAAADmJ7AQ/original" width="640px">
+<img alt="space" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*SFM9T40m2cEAAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
 ```js
 const layer = chart.spaceLayer();
@@ -52,7 +52,7 @@ layer
 
 同时也可以使用 `chart.spaceFlex` 去让视图水平或者竖直排列。
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ycN9TY08CCIAAAAAAAAAAAAADmJ7AQ/original" width="800px">
+<img alt="flex" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ycN9TY08CCIAAAAAAAAAAAAADmJ7AQ/original" width="800px">
 
 ```js
 const flex = chart.spaceFlex();
@@ -95,7 +95,7 @@ flex
 
 **分面复合（Facet Composition）** 和空间复合的不同在于：它还会对数据划分，每个视图展现原始数据的一个子集。
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*WedLRZpSzRcAAAAAAAAAAAAADmJ7AQ/original" width="100%">
+<img alt="facet" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*WedLRZpSzRcAAAAAAAAAAAAADmJ7AQ/original" width="100%">
 
 ```js
 const facetRect = chart
@@ -121,7 +121,7 @@ facetRect
 
 **重复复合（Repeat Composition）** 和分面的区别在于：它的每个视图展现的是全量数据，只不过会对编码进行重复，从而绘制出多个视图。
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*32qdTJ7MBtsAAAAAAAAAAAAADmJ7AQ/original" width="100%">
+<img alt="repeat" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*32qdTJ7MBtsAAAAAAAAAAAAADmJ7AQ/original" width="100%">
 
 ```js
 const repeatMatrix = chart

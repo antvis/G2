@@ -95,4 +95,4 @@ G2 也提供了 UMD 版本，可以直接通过 CDN 加载，然后直接使用�
 
 不管使用哪种方式，如果你绘制出了如下的条形图，那么表示一切顺利，探索可视化和 G2 的旅程正式开始。
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*lYi_Q68dG_EAAAAAAAAAAAAADmJ7AQ/original" width="640px"/>
+<img alt="preview" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*lYi_Q68dG_EAAAAAAAAAAAAADmJ7AQ/original" width="640px"/>

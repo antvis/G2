@@ -9,7 +9,7 @@ order: 6
 
 比如根据如下的数据绘制条形图，发现条重叠了。
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*m5S6QKI-f7YAAAAAAAAAAAAADmJ7AQ/original" width="640px">
+<img alt="layer" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*m5S6QKI-f7YAAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
 ```js
 chart
@@ -39,7 +39,7 @@ chart
 
 这时候声明一个 stackY 去修改 interval 标识的 y 通道，从而在视觉上产生了堆叠的效果，而得到了我们的堆叠条形图。
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ACL6TqxKw2cAAAAAAAAAAAAADmJ7AQ/original" width="640px">
+<img alt="stack-y" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ACL6TqxKw2cAAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
 ```js
 chart
@@ -55,7 +55,7 @@ chart
 
 首先我们如下绘制一个散点图，展现了企鹅 culmen_depth_mm 和 culmen_length_mm 的相关性。
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*1rEdS62svv4AAAAAAAAAAAAADmJ7AQ/original" width="640px">
+<img alt="point" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*1rEdS62svv4AAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
 ```js
 chart
@@ -70,7 +70,7 @@ chart
 
 这时如果希望看企鹅 culmen_depth_mm 的分布情况，就可以使用 bin 对数据进行分箱。
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*HSxYRoWU6y4AAAAAAAAAAAAADmJ7AQ/original" width="640px">
+<img alt="bin" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*HSxYRoWU6y4AAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
 ```js
 chart
@@ -93,7 +93,7 @@ bin 主要是用来聚合数值类型的数据，group 主要针对离散数据�
 
 标识转换既可以发生在数据空间，也可以发生在屏幕空间。上面的转换都是发生在数据空间的，因为转换过程并不需要感知空间的信息，但是下面的 pack 就是在屏幕空间转换，因为它需要感知每个 circle 的半径。
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*HWXPS6a6pOQAAAAAAAAAAAAADmJ7AQ/original" width="640px">
+<img alt="pack" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*HWXPS6a6pOQAAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
 ```js
 chart.factRect().point().transform({ typ: 'pack' });
@@ -103,7 +103,7 @@ chart.factRect().point().transform({ typ: 'pack' });
 
 在 G2 中通过 `mark.transform` 去指定每一个标识的转换，该属性是数组属性，意味着可以声明一系列转换。上面的企鹅的例子中，我们多考虑一个数据维度：企鹅的性别，就可以连续声明 bin 和 stack 转换。
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ndHkRrtkCSIAAAAAAAAAAAAADmJ7AQ/original" width="640px">
+<img alt="multi" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ndHkRrtkCSIAAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
 ```js
 chart

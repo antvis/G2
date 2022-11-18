@@ -37,7 +37,7 @@ const chart = new Chart({
 
 G2 中的视图模型定义了一个视图的划分方式，划分得到的不同区域会绘制不同的东西，也通过不同的选项去设置。现在可以简单的把视图理解为一个图表。G2 的视图模型如下：
 
-![view model](https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*IOiTQ47rrzwAAAAAAAAAAAAADmJ7AQ/original)
+<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*IOiTQ47rrzwAAAAAAAAAAAAADmJ7AQ/original" alt="view-model" width="100%">
 
 - **视图区域（View Area）**：下图中蓝色 + 橙色 + 红色 + 青色部分，其中蓝色部分被称为**外边距区域**，主要用于固定组件（坐标轴、图例等）到边界的距离。
 - **绘制区域（Plot Area）**：下图中橙色 + 红色 + 青色部分，橙色部分被称为**内边距区域**，该区域用于绘制组件。

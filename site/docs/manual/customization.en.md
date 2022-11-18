@@ -3,4 +3,4 @@ title: Customization
 order: 8
 ---
 
-> TODO
+<embed src="@/docs/manual/customization.zh.md"></embed>

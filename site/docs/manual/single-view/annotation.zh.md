@@ -9,7 +9,7 @@ order: 9
 
 最简单的标注方法就是通过数据标签的形式，调用 `mark.label` 可以给标识产生的每个图形元素都添加一个数据标签。同时每个标识可以有多个数据标签。
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*VHwCRK8P2I0AAAAAAAAAAAAADmJ7AQ/original" width="640px">
+<img alt="label" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*VHwCRK8P2I0AAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
 ```js
 chart
@@ -42,7 +42,7 @@ chart
 - **last** - 最后一个
 - `function` - 自定义选择器
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*VavRQ5qR3i8AAAAAAAAAAAAADmJ7AQ/original" width="640px">
+<img alt="line" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*VavRQ5qR3i8AAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
 ```js
 chart
@@ -67,7 +67,7 @@ chart
 
 某些标识也也可以用来做标注，比如 text，image 等标识。而 select 标识转换提供了从一组图形中选择图形的能力。比如在下面的例子中，标注出了每个大陆 Continent 中，GDP 最大的国家。
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*qDIQQ7yR078AAAAAAAAAAAAADmJ7AQ/original" width="640px">
+<img alt="select" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*qDIQQ7yR078AAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
 ```js
 chart.data({
@@ -100,7 +100,7 @@ chart
 
 对于标注来说一个问题就是定位到合适的位置，在 G2 中可以通过 `mark.data` 去指定数据驱动的定位。比如下面的例子中希望标注每天糖和脂肪的安全摄入量，就可以如下实现。
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*OOG-SKGwGWMAAAAAAAAAAAAADmJ7AQ/original" width="640px">
+<img alt="data" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*OOG-SKGwGWMAAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
 ```js
 chart
@@ -131,7 +131,7 @@ chart
 - **百分比字符串**：内容区域的百分比。
 - **数字**：像素为单位的坐标。
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*hK5OQr4Kv6YAAAAAAAAAAAAADmJ7AQ/original" width="640px">
+<img alt="relative" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*hK5OQr4Kv6YAAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
 ```js
 chart
@@ -158,7 +158,7 @@ chart.text().style({
 });
 ```
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*QZc2Q4k-4oIAAAAAAAAAAAAADmJ7AQ/original" width="640px">
+<img alt="absolute" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*QZc2Q4k-4oIAAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
 ```js
 // 相对定位

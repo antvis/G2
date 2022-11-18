@@ -17,13 +17,13 @@ G2 是一个简洁的渐进式语法，主要用于制作基于网页的可视�
 
 "Talk is cheap, show me the code"，那么接下来看看基于下面这个简单的数据集，G2 能做出什么可视化效果。
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*U-tfTa2m98EAAAAAAAAAAAAADmJ7AQ/original" width="100%">
+<img alt="data" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*U-tfTa2m98EAAAAAAAAAAAAADmJ7AQ/original" width="100%">
 
 ## 标识
 
 **标识**是 G2 中最小的视觉单元，G2 中的所有图表都是由不同标识构成的。
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*jT--SYkfcGoAAAAAAAAAAAAADmJ7AQ/original" width="640px">
+<img alt="point" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*jT--SYkfcGoAAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
 ```js
 // 创建标识
@@ -34,7 +34,7 @@ chart.point().data(data).encode('x', 'GDP').encode('y', 'LifeExpectancy');
 
 **转换**会改变数据和标识的展现形式，多用于数据分析。
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Wb8oTb-csMAAAAAAAAAAAAAADmJ7AQ/original" width="640px">
+<img alt="bin" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Wb8oTb-csMAAAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
 ```js
 chart
@@ -51,7 +51,7 @@ chart
 
 比例尺用于控制标识的视觉样式。
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*I5rmTbr0350AAAAAAAAAAAAADmJ7AQ/original" width="640px">
+<img alt="scale" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*I5rmTbr0350AAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
 ```js
 chart
@@ -70,7 +70,7 @@ chart
 
 **坐标系**会改变图表的展示形式。
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Yr3FQZd0wc0AAAAAAAAAAAAADmJ7AQ/original" width="640px">
+<img alt="coordinate" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Yr3FQZd0wc0AAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
 ```js
 // 声明坐标系
@@ -88,7 +88,7 @@ chart
 
 **视图复合**用于制作多视图图表。
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*owcrT7GY20sAAAAAAAAAAAAADmJ7AQ/original" width="640px">
+<img alt="composition" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*owcrT7GY20sAAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
 ```js
 // 声明复合方式
@@ -105,7 +105,7 @@ rect
 
 **动画**支持分组动画和关键帧动画。
 
-<img src="https://gw.alipayobjects.com/zos/raptor/1668754073133/intro-animation.gif" width="640px">
+<img alt="animation" src="https://gw.alipayobjects.com/zos/raptor/1668754073133/intro-animation.gif" width="640px">
 
 ```js
 const keyframe = chart
@@ -142,7 +142,7 @@ keyframe
 
 交互可以按需探索数据。
 
-<img src="https://gw.alipayobjects.com/zos/raptor/1668754097488/intro-interaction.gif" width="640px">
+<img alt="interaction" src="https://gw.alipayobjects.com/zos/raptor/1668754097488/intro-interaction.gif" width="640px">
 
 ```js
 // 声明交互

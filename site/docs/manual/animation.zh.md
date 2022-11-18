@@ -22,7 +22,7 @@ order: 6
 
 一个完整的动画属性的形式是 `${type}${Attribute}`，比如 `enterType`。
 
-<img src="https://gw.alipayobjects.com/zos/raptor/1668747253595/animation-scale-in-y.gif" width="640">
+<img alt="animation-scale-in-y" src="https://gw.alipayobjects.com/zos/raptor/1668747253595/animation-scale-in-y.gif" width="640">
 
 ```js
 chart
@@ -45,7 +45,7 @@ chart
 
 在 G2 中动画属性也可以作为一种通道，也可以编码数据。比如下面甘特图中，每个条的出现和持续时间是和数据线性相关的。
 
-<img src="https://gw.alipayobjects.com/zos/raptor/1668747204996/bar-range-stack-enter.gif" width="640">
+<img alt="bar-range-stack-enter" src="https://gw.alipayobjects.com/zos/raptor/1668747204996/bar-range-stack-enter.gif" width="640">
 
 ```js
 chart
@@ -71,7 +71,7 @@ chart
 
 G2 也提供了 stackEnter 标识转换来实现分组动画，该标识转换会先将图形进行分组，然后将它们的出现时间和持续时间在空间上进行堆叠，从而实现依次出现的效果。
 
-<img src="https://gw.alipayobjects.com/zos/raptor/1668747160997/bar-stack-enter.gif" width="640">
+<img alt="bar-stack-enter" src="https://gw.alipayobjects.com/zos/raptor/1668747160997/bar-stack-enter.gif" width="640">
 
 ```js
 chart
@@ -97,7 +97,7 @@ chart
 
 上面的动画都是过度动画，不涉及到数据的更新，G2 也提供了制作关键帧动画的能力。使用 `chart.timingKeyframe` 创建一个时间容器，用于放置一系列视图，它会对这些视图中有关系的图形元素应用平滑的过渡效果。而对应关系通过 **key** 和 **groupKey** 两个通道指定。
 
-<img src="https://gw.alipayobjects.com/zos/raptor/1668748141424/keyframe-split-and-merge.gif" width="640">
+<img alt="keyframe-split-and-merge" src="https://gw.alipayobjects.com/zos/raptor/1668748141424/keyframe-split-and-merge.gif" width="640">
 
 ```js
 const data = await fetch('data/people.json').then((res) => res.json());

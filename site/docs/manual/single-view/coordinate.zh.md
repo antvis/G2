@@ -17,7 +17,7 @@ chart
 
 比较常用的一种变换是转置变换 transpose，主要用来改变图表的方向。比如绘制水平的条形图。
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*z2dxSKtvMfUAAAAAAAAAAAAADmJ7AQ/original" width="640px">
+<img alt="transpose" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*z2dxSKtvMfUAAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
 ```js
 chart.coordinate({ type: 'transpose' }); // 指定 transpose
@@ -41,7 +41,7 @@ chart
 
 比如可以使用 interval 标识和 polar 坐标系变换绘制玫瑰图。
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*LZ2TSaewI6kAAAAAAAAAAAAADmJ7AQ/original" width="640px">
+<img alt="radial" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*LZ2TSaewI6kAAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
 ```js
 chart.coordinate({ type: 'polar' });
@@ -63,7 +63,7 @@ chart
 
 也可以使用 interval 标识和 theta 坐标系来绘制饼图。
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*_qI8SZSzadMAAAAAAAAAAAAADmJ7AQ/original" width="640px">
+<img alt="theta" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*_qI8SZSzadMAAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
 ```js
 chart.coordinate({ type: 'theta' });
@@ -84,7 +84,7 @@ chart
 
 还可以使用 interval 标识和 radial 坐标系来绘制玉块图。
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*tCBoSavK98UAAAAAAAAAAAAADmJ7AQ/original" width="640px">
+<img alt="radial" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*tCBoSavK98UAAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
 ```js
 chart.coordinate({ type: 'radial', endAngle: Math.PI });
@@ -102,15 +102,15 @@ chart
   .encode('y', 'sold')
   .encode('color', 'genre')
   .axis('y', false)
-    .legend('color', false);
-  .axis('x', { title: null })
+  .legend('color', false)
+  .axis('x', { title: null });
 ```
 
 ## 高级变换
 
 除了前面的比较基础的坐标系变换之外，还有一些稍微高级一点的坐标系变换，比如平行坐标系 parallel。
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*uVKiRqrxogcAAAAAAAAAAAAADmJ7AQ/original" width="640px">
+<img alt="parallel" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*uVKiRqrxogcAAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
 ```js
 const axis = {

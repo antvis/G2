@@ -3,4 +3,4 @@ title: Theme
 order: 9
 ---
 
-> TODO
+<embed src="@/docs/manual/theme.zh.md"></embed>

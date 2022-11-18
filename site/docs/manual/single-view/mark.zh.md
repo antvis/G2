@@ -9,7 +9,7 @@ order: 4
 
 **标识（Mark）** 是一个模版，会生成一些列**数据驱动**的图形，其中每个图形对应一个或者多个**数据项（Data Item）**。比如下面的散点图里只有一个 point 标识，而这个标识生成了多个圆。
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*w6uhQ7zFaOcAAAAAAAAAAAAADmJ7AQ/original" width="640px">
+<img alt="point" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*w6uhQ7zFaOcAAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
 ```js
 import { Chart } from '@antv/g2';
@@ -34,7 +34,7 @@ chart.render();
 
 而在下面的折线图中，一个条线对应多个数据项。
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ZMM5RYzZz4UAAAAAAAAAAAAADmJ7AQ/original" width="640px">
+<img alt="line" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ZMM5RYzZz4UAAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
 ```js
 chart
@@ -54,7 +54,7 @@ chart
 
 为了控制标识的样式，我们往往会把一列数据和它的视觉属性绑定。比如在下面的例子中，我们把数据中 height 一列数据和 x 属性绑定，weight 列数据数据和 y 属性绑定，gender 列数据和 color 属性绑定。
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*vRbaQ6u4570AAAAAAAAAAAAADmJ7AQ/original" width="100%">
+<img alt="channel" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*vRbaQ6u4570AAAAAAAAAAAAADmJ7AQ/original" width="100%">
 
 ```js
 chart
@@ -98,7 +98,7 @@ interval.encode('x', { type: 'column', value: [1, 2, 3] }); // 完整写法
 
 在下面的例子，我们从原始数据中派生了一列新的数据去作为颜色的列数据，也生成了一列常量数据作为形状通道绑定的列。
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*7KPEQo4EB8MAAAAAAAAAAAAADmJ7AQ/original" width="640px">
+<img alt="bubble" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*7KPEQo4EB8MAAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
 ```js
 chart
@@ -110,7 +110,7 @@ chart
 
 对于一些大数据的场景，使用数组列会更适合，下面是一个简单的例子。
 
-<img width="640px" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*BsVwRo-YOLIAAAAAAAAAAAAADmJ7AQ/original">
+<img alt="sin" width="640px" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*BsVwRo-YOLIAAAAAAAAAAAAADmJ7AQ/original">
 
 ```js
 const I = [0, 1, 2, 3, 4];
@@ -127,7 +127,7 @@ chart
 
 当然，对于空间通道来说：x 和 y 通道，往往不只需要一列数据，比如一个瀑布图，这个时候可以通过数组给一个通道指定多个列。
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*vJt8R7caqwUAAAAAAAAAAAAADmJ7AQ/original" width="640px">
+<img alt="bar-range" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*vJt8R7caqwUAAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
 ```js
 chart
@@ -180,7 +180,7 @@ chart.encode('y', 'end').encode('y1', 'start');
 - `mark.encode` 设置的通道会特殊一点，要么是该标识独有的，比如 image 的 src 通道；要么就是有一些特殊逻辑，比如 x 通道会影响 x 方向坐标轴的生成。
 - `mark.encode` 更倾向于去设置和数据有关的通道，但是 `mark.style` 更倾向于去设置和数据无关的通道。虽然 `mark.style` 也同样支持回调去设置数据驱动的通道。
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*9WKjQKY9F1sAAAAAAAAAAAAADmJ7AQ/original" width="640px">
+<img alt="style" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*9WKjQKY9F1sAAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
 ```js
 chart
@@ -202,7 +202,7 @@ chart
 
 通过上面的例子不难发现，在 G2 中通过 `chart.nodeName` 的形式向图表里面添加标识，每调用一次都会向图表中添加一个标识。下面的例子中给图表添加了 line 和 point 两个标识。
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dV4rRJ0dXt8AAAAAAAAAAAAADmJ7AQ/original" width="640px">
+<img alt="mark-multi" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dV4rRJ0dXt8AAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
 ```js
 const data = [
@@ -226,7 +226,7 @@ chart.point().data(data).encode('x', 'year').encode('y', 'value'); // 添加 poi
 
 普通的标识主要用于绘制简单的图表，比如上面绘制的散点图和条形图。但是对于某些复杂图表，用普通的标识绘制就很麻烦了。为了降低使用成本，G2 内置了一系列复合标识，能更方便地去绘制复杂图表。
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Zcb1QZ_qaSEAAAAAAAAAAAAADmJ7AQ/original" width="100%">
+<img alt="composite" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Zcb1QZ_qaSEAAAAAAAAAAAAADmJ7AQ/original" width="100%">
 
 ```js
 chart
@@ -259,7 +259,7 @@ chart
 
 比如下面折线图加点的例子。
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*XqLASKvKeKgAAAAAAAAAAAAADmJ7AQ/original" width="640px">
+<img alt="component" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*XqLASKvKeKgAAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
 ```js
 import { Chart } from '@antv/g2';

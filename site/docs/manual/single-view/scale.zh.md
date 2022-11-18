@@ -25,9 +25,9 @@ chart.interval().scale(
 
 第一种比例尺是连续比例尺，主要针对是连续数据，比较常见的连续比例尺有：linear，time，log 等。比如下面的散点图的 x 和 y 通道都是使用了 linear 比例尺。
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*U-tfTa2m98EAAAAAAAAAAAAADmJ7AQ/original" width="100%">
+<img alt="data" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*U-tfTa2m98EAAAAAAAAAAAAADmJ7AQ/original" width="100%">
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*jT--SYkfcGoAAAAAAAAAAAAADmJ7AQ/original" width="640px">
+<img alt="continuous" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*jT--SYkfcGoAAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
 ```js
 chart
@@ -41,7 +41,7 @@ chart
 
 第二种比例尺是序数比例尺，主要针对离散数据，比较常见的序数比例尺有：ordinal，point 等。比如下面的条形图的 color 通道就是用了 ordinal 比例尺。
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*2cLsQbws-s0AAAAAAAAAAAAADmJ7AQ/original" width="640px">
+<img alt="ordinal" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*2cLsQbws-s0AAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
 ```js
 chart
@@ -66,7 +66,7 @@ chart
 
 第三种比例尺是离散化比例尺，该比例尺主要针对连续数据，会将它们离散化之后再映射，比如 threshold，quantize 等。下面的 color 通道就用了 quantile 比例尺。
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*pPtiRYZXEMYAAAAAAAAAAAAADmJ7AQ/original" width="640px">
+<img alt="threshold" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*pPtiRYZXEMYAAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
 ```js
 chart
