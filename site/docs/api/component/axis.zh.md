@@ -94,7 +94,7 @@ chart.render();
 | labelTransforms | 刻度值转换，避免文本之间发生重叠。当前支持超长文本缩略、重叠刻度值隐藏、自动旋转                                  | `Overlap[]`                                                         | `\-`         |
 | label[Style]    | 刻度值样式                                                                                                        | 与 text `style` 一致，样式支持回调形式 `(datum, index, data)=> any` | `\-`         |
 
-```typescript
+```ts
 export interface Overlap {
   /** 避免刻度值重叠时的额外边距 */
   margin?: number[];
@@ -130,12 +130,12 @@ export interface HideOverlapCfg extends Overlap {
 
 在不同坐标系下网格线会具有不同的样式
 
-| 样式                                                                                                                                        | 场景标签            |
-| ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------- |
-| <img alt="linear-grid" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*i-2xTLMLU3EAAAAAAAAAAAAADmJ7AQ/original" width="200" />  | `直角坐标系`        |
-| <img alt="circle-grid" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*gkAKQ4XTErQAAAAAAAAAAAAADmJ7AQ/original" width="200" />  | `极坐标系`          |
-| <img alt="polar-grid" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*4Tv3RIrDWvgAAAAAAAAAAAAADmJ7AQ/original" width="200" />   | `极坐标系`          |
-| <img alt="polygon-grid" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*gZLeRpTXiRAAAAAAAAAAAAAADmJ7AQ/original" width="200" /> | `极坐标系` `雷达图` |
+| 场景标签            | 样式                                                                                                                                        |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `直角坐标系`        | <img alt="linear-grid" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*i-2xTLMLU3EAAAAAAAAAAAAADmJ7AQ/original" width="200" />  |
+| `极坐标系`          | <img alt="circle-grid" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*gkAKQ4XTErQAAAAAAAAAAAAADmJ7AQ/original" width="200" />  |
+| `极坐标系`          | <img alt="polar-grid" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*4Tv3RIrDWvgAAAAAAAAAAAAADmJ7AQ/original" width="200" />   |
+| `极坐标系` `雷达图` | <img alt="polygon-grid" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*gZLeRpTXiRAAAAAAAAAAAAAADmJ7AQ/original" width="200" /> |
 
 | 属性         | 描述           | 类型                                                     | 默认值  |
 | ------------ | -------------- | -------------------------------------------------------- | ------- |
