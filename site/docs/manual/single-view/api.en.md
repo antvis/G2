@@ -1,4 +1,4 @@
 ---
-title: Facet
+title: Data
 order: 2
 ---
