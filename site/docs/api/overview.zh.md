@@ -100,19 +100,7 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
   * [legendCateogry](./scale/legendCateogry) - 
   * [legendContiuous](./scale/legendContiuous) - 
 * [Label](/api/label/overview) - 数据标签相关的内容
-* Animation - 动画相关的内容。
-  * [animation.fadeIn](./scale/fadeIn) - 
-  * [animation.fadeOut](./scale/fadeOut) - 
-  * [animation.growInX](./scale/growInX) - 
-  * [animation.growInY](./scale/growInY) - 
-  * [animation.pathIn](./scale/pathIn) - 
-  * [animation.scaleInX](./scale/scaleInX) - 
-  * [animation.scaleInY](./scale/scaleInY) - 
-  * [animation.scaleOutX](./scale/scaleOutX) - 
-  * [animation.scaleOutY](./scale/scaleOutY) - 
-  * [animation.waveIn](./scale/waveIn) - 
-  * [animation.zoomIn](./scale/zoomIn) - 
-  * [animation.zoomOut](./scale/zoomOut) - 
+* [Animation](/api/animation/overview) - 动画相关的内容。
 * Interaction - 交互相关内容。
 * [Graph]() - 
 * [Geo]() - 
