@@ -1,6 +1,6 @@
 ---
 title: range
-order: 16
+order: 1
 ---
 
 <embed src="@/docs/api/mark/range.zh.md"></embed>

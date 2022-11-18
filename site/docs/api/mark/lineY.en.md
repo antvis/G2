@@ -1,6 +1,6 @@
 ---
 title: lineY
-order: 15
+order: 1
 ---
 
 <embed src="@/docs/api/mark/lineY.zh.md"></embed>

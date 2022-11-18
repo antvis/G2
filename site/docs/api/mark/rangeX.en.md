@@ -1,6 +1,6 @@
 ---
 title: rangeX
-order: 17
+order: 1
 ---
 
 <embed src="@/docs/api/mark/rangeX.zh.md"></embed>

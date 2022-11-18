@@ -1,6 +1,6 @@
 ---
 title: lineX
-order: 14
+order: 1
 ---
 
 <embed src="@/docs/api/mark/lineX.zh.md"></embed>
