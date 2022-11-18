@@ -1,4 +1,6 @@
 ---
 title: Coordinate
-order: 6
+order: 8
 ---
+
+<embed src="@/docs/manual/single-view/coordinate.zh.md"></embed>

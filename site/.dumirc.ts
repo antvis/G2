@@ -83,18 +83,10 @@ export default defineConfig({
       {
         slug: 'manual/single-view',
         title: {
-          zh: '单视图图表',
-          en: 'Single View Plot',
+          zh: '基础',
+          en: 'General',
         },
         order: 3,
-      },
-      {
-        slug: 'manual/multi-view',
-        title: {
-          zh: '复合视图图表',
-          en: 'Multi- View Plot',
-        },
-        order: 4,
       },
       // api
       {

@@ -1,4 +1,6 @@
 ---
 title: Scale
-order: 5
+order: 7
 ---
+
+<embed src="@/docs/manual/single-view/scale.zh.md"></embed>
