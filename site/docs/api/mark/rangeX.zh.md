@@ -7,10 +7,50 @@ order: 1
 
 ## 开始使用
 
-<img alt="rangeX" src="" width="600" />
+<img alt="rangeX" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dmYgTY3kxDoAAAAAAAAAAAAADmJ7AQ/original" width="600" />
 
 ```ts
+/**
+ * A recreation of this demo: https://vega.github.io/vega-lite/examples/layer_falkensee.html
+ */
+import { Chart } from '@antv/g2';
 
+const chart = new Chart({
+  container: 'container',
+  height: 360,
+  paddingLeft: 60,
+});
+
+chart.data({
+  type: 'fetch',
+  value: 'https://assets.antv.antgroup.com/g2/year-population.json',
+});
+
+chart
+  .rangeX()
+  .data([
+    { year: [new Date('1933'), new Date('1945')], event: 'Nazi Rule' },
+    { year: [new Date('1948'), new Date('1989')], event: 'GDR (East Germany)' },
+  ])
+  .encode('x', 'year')
+  .encode('color', 'event')
+  .scale('color', { independent: true, range: ['#FAAD14', '#30BF78'] })
+  .style('fillOpacity', 0.75);
+
+chart
+  .line()
+  .encode('x', (d) => new Date(d.year))
+  .encode('y', 'population')
+  .encode('color', '#333');
+
+chart
+  .point()
+  .encode('x', (d) => new Date(d.year))
+  .encode('y', 'population')
+  .encode('color', '#333')
+  .style('lineWidth', 1.5);
+
+chart.render();
 ```
 
 更多的案例，可以查看[图表示例](/examples)页面。
@@ -23,16 +63,6 @@ order: 1
 
 | 属性            | 描述                                           | 类型                 | 默认值      |
 |----------------|------------------------------------------------|---------------------|------------|
-| radius            | 矩形的四个圆角大小                                 | `number` \| `Function<number>`  | 0      |
-| radiusTopLeft     | 左上角的圆角                                      | `number` \| `Function<number>`  | 0      |
-| radiusTopRight    | 右上角的圆角                                      | `number` \| `Function<number>`  | 0      |
-| radiusBottomRight | 右下角的圆角                                      | `number` \| `Function<number>`  | 0      |
-| radiusBottomLeft  | 左下角的圆角                                      | `number` \| `Function<number>`  | 0      |
-| inset             | 矩形四个方向的内边距                               | `number` \| `Function<number>`  | 0      |
-| insetLeft         | 左边的内间距                                      | `number` \| `Function<number>`  | 0      |
-| insetRight        | 右边的内间距                                      | `number` \| `Function<number>`  | 0      |
-| insetBottom       | 下面的内间距                                      | `number` \| `Function<number>`  | 0      |
-| insetTop          | 上面的内间距                                      | `number` \| `Function<number>`  | 0      |
 | fill          | 图形的填充色                                      | `string` \| `Function<string>`              |   -   |
 | fillOpacity   | 图形的填充透明度                                   | `number` \| `Function<number>`              |   -   |
 | stroke        | 图形的描边                                        | `string` \| `Function<string>`              |   -   |

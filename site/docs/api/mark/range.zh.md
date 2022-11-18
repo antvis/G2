@@ -72,16 +72,6 @@ chart.render();
 
 | 属性            | 描述                                           | 类型                 | 默认值      |
 |----------------|------------------------------------------------|---------------------|------------|
-| radius            | 矩形的四个圆角大小                                 | `number` \| `Function<number>`  | 0      |
-| radiusTopLeft     | 左上角的圆角                                      | `number` \| `Function<number>`  | 0      |
-| radiusTopRight    | 右上角的圆角                                      | `number` \| `Function<number>`  | 0      |
-| radiusBottomRight | 右下角的圆角                                      | `number` \| `Function<number>`  | 0      |
-| radiusBottomLeft  | 左下角的圆角                                      | `number` \| `Function<number>`  | 0      |
-| inset             | 矩形四个方向的内边距                               | `number` \| `Function<number>`  | 0      |
-| insetLeft         | 左边的内间距                                      | `number` \| `Function<number>`  | 0      |
-| insetRight        | 右边的内间距                                      | `number` \| `Function<number>`  | 0      |
-| insetBottom       | 下面的内间距                                      | `number` \| `Function<number>`  | 0      |
-| insetTop          | 上面的内间距                                      | `number` \| `Function<number>`  | 0      |
 | fill          | 图形的填充色                                      | `string` \| `Function<string>`              |   -   |
 | fillOpacity   | 图形的填充透明度                                   | `number` \| `Function<number>`              |   -   |
 | stroke        | 图形的描边                                        | `string` \| `Function<string>`              |   -   |
