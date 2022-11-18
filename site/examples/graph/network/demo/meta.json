@@ -15,7 +15,7 @@
     {
       "filename": "forceGraph-disjoint.ts",
       "title": {
-        "zh": "不相交力导向图",
+        "zh": "离散力导向图",
         "en": "forceGraph with disjoint"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*0eUHS6s10m8AAAAAAAAAAAAADmJ7AQ/original"
