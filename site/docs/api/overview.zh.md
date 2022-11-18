@@ -99,28 +99,12 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
   * [axisY](./scale/axisY) - 
   * [legendCateogry](./scale/legendCateogry) - 
   * [legendContiuous](./scale/legendContiuous) - 
-* Label - 数据标签相关的内容
-  * [label.dodgeY](./scale/dodgeY) - 
-  * [label.hideOverlap](./scale/hideOverlap) - 
-  * [label.spider](./scale/spider) - 
-  * [label.surround](./scale/surround) - 
-* Animation - 动画相关的内容。
-  * [animation.fadeIn](./scale/fadeIn) - 
-  * [animation.fadeOut](./scale/fadeOut) - 
-  * [animation.growInX](./scale/growInX) - 
-  * [animation.growInY](./scale/growInY) - 
-  * [animation.pathIn](./scale/pathIn) - 
-  * [animation.scaleInX](./scale/scaleInX) - 
-  * [animation.scaleInY](./scale/scaleInY) - 
-  * [animation.scaleOutX](./scale/scaleOutX) - 
-  * [animation.scaleOutY](./scale/scaleOutY) - 
-  * [animation.waveIn](./scale/waveIn) - 
-  * [animation.zoomIn](./scale/zoomIn) - 
-  * [animation.zoomOut](./scale/zoomOut) - 
+* [Label](/api/label/overview) - 数据标签相关的内容
+* [Animation](/api/animation/overview) - 动画相关的内容。
 * Interaction - 交互相关内容。
 * [Graph]() - 
 * [Geo]() - 
-* [Theme](./theme) - 主题相关内容。
+* [Theme](/api/theme/theme) - 主题相关内容。
 * Plugin - 基于 G 插件相关的内容。
   * [rough](/api/plugin/rough) - 绘制手绘图的插件。
   * [lottie](/api/plugin/lottie) - 可以在图表中播放 lottie 动画的插件。
