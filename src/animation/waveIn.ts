@@ -34,10 +34,20 @@ export const WaveIn: AC<WaveInOptions> = (options) => {
 
     const center = coordinate.getCenter();
     const { __data__, style } = shape as G2Element;
-    const { radius = 0, fillOpacity, strokeOpacity, opacity } = style;
+    const {
+      radius = 0,
+      inset = 0,
+      fillOpacity,
+      strokeOpacity,
+      opacity,
+      ...args
+    } = style;
+
     const { points, y, y1 } = __data__;
 
-    const path = arc().cornerRadius(radius as number);
+    const path = arc()
+      .cornerRadius(radius as number)
+      .padAngle((inset * Math.PI) / 180);
     const arcObject = getArcObject(coordinate, points, [y, y1]);
     const { startAngle, endAngle } = arcObject;
     const pathForConversion = new Path({});
