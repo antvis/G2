@@ -103,7 +103,9 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
 * [Animation](/api/animation/overview) - 动画相关的内容。
 * Interaction - 交互相关内容。
 * [Graph]() - 
-* [Geo]() - 
+* Geo - 地图相关的图形绘制。
+  * [geoPath](/api/geo/geopath) - 可以用来结合 geojson 绘制地图。 
+  * [geoView](/api/geo/geoview) - 绘制地图的容器，用于多 geoPath 图层叠加。
 * [Theme](/api/theme/theme) - 主题相关内容。
 * Plugin - 基于 G 插件相关的内容。
   * [rough](/api/plugin/rough) - 绘制手绘图的插件。
