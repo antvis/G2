@@ -1,4 +1,6 @@
 ---
 title: Interaction
-order: 5
+order: 7
 ---
+
+<embed src="@/docs/manual/interaction.zh.md"></embed>

@@ -1,4 +1,6 @@
 ---
 title: Theme
-order: 7
+order: 9
 ---
+
+<embed src="@/docs/manual/theme.zh.md"></embed>
