@@ -1,0 +1,48 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "binx.ts",
+      "title": {
+        "zh": "直方图",
+        "en": "Histogram"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*sE4kQYzbhS8AAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "binx-color.ts",
+      "title": {
+        "zh": "颜色分类直方图",
+        "en": "Histogram with Color"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*sk8XRJTkuwYAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "bin-color.ts",
+      "title": {
+        "zh": "颜色分箱",
+        "en": "Bin Color Channel"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*oyXhQKobcMMAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "bin-opacity.ts",
+      "title": {
+        "zh": "透明度分箱",
+        "en": "Bin Opacity Channel"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*T_YISqIQuasAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "bin-size.ts",
+      "title": {
+        "zh": "大小分箱",
+        "en": "Bin Size Channel"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*CWRPSrX4bEcAAAAAAAAAAAAADmJ7AQ/original"
+    }
+  ]
+}
