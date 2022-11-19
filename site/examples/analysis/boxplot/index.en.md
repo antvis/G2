@@ -1,4 +1,4 @@
 ---
-title: Analysis
+title: Boxplot
 order: 1
 ---
