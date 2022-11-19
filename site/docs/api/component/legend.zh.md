@@ -108,15 +108,15 @@ chart.render();
 
 ### 刻度值
 
-| 属性           | 描述                                                                  | 类型                         | 默认值       |
-| -------------- | --------------------------------------------------------------------- | ---------------------------- | ------------ |
-| showLabel      | 是否显示刻度值                                                        | `boolean`                    | `true`       |
-| labelDirection | 刻度值位于色带的位置，参考 axis `direction`                           | `'positive'` \| `'negative'` | `'positive'` |
-| labelSpacing   | 刻度值到色带的间距                                                    | `number`                     | `5`          |
-| labelFormatter | 刻度值格式化                                                          |                              |              |
-| labelFilter    | 刻度值过滤                                                            |                              |              |
-| labelAlign     | 刻度值对齐位置<br/> - `'value'` 对齐到刻度<br/>- `'range'` 对齐到范围 | `'value'`\|`'range'`         | `'value'`    |
-| label[Style]   | 刻度值样式                                                            | 与 text `style` 一致         |              |
+| 属性           | 描述                                                                  | 类型                            | 默认值       |
+| -------------- | --------------------------------------------------------------------- | ------------------------------- | ------------ |
+| showLabel      | 是否显示刻度值                                                        | `boolean`                       | `true`       |
+| labelDirection | 刻度值位于色带的位置，参考 axis `direction`                           | `'positive'` \| `'negative'`    | `'positive'` |
+| labelSpacing   | 刻度值到色带的间距                                                    | `number`                        | `5`          |
+| labelFormatter | 刻度值格式化                                                          | `(datum, index, data)=>string`  | `\-`         |
+| labelFilter    | 刻度值过滤                                                            | `(datum, index, data)=>boolean` | `\-`         |
+| labelAlign     | 刻度值对齐位置<br/> - `'value'` 对齐到刻度<br/>- `'range'` 对齐到范围 | `'value'`\|`'range'`            | `'value'`    |
+| label[Style]   | 刻度值样式                                                            | 与 text `style` 一致            |              |
 
 <b>刻度值对齐方式</b>
 
