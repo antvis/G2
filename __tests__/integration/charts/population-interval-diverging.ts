@@ -8,8 +8,8 @@ export function populationIntervalDiverging(): G2Spec {
       value: 'data/population.csv',
       transform: [
         {
-          type: 'filterBy',
-          fields: [['year', (d) => d === 2000]],
+          type: 'filter',
+          callback: (d) => d.year === 2000,
         },
       ],
     },

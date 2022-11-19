@@ -24,8 +24,8 @@ export type DataTransform =
   | RenameTransform
   | SubsetTransform
   | FoldTransform
-  | FilterByTransform
   | JoinTransform
+  | FilterTransform
   | MapTransform
   | CustomTransform;
 
@@ -35,8 +35,8 @@ export type DataTransformTypes =
   | 'rename'
   | 'subset'
   | 'fold'
-  | 'filterBy'
   | 'join'
+  | 'filter'
   | 'map'
   | 'custom'
   | DataComponent;
@@ -64,13 +64,12 @@ export type SubsetTransform = {
   fields?: string[];
 };
 
-export type FilterByTransform = {
-  type?: 'filterBy';
+export type FilterTransform = {
+  type?: 'filter';
   /**
-   * way1: [[field1, callback1], [field2, callback2], ...]
-   * way2: [field1, field2, field3, callback] All field filtered by the last callback.
+   * The filter condition, same with [Array.prototype.filter](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/filter).
    */
-  fields?: ([string, ((d: any) => boolean)?] | string)[];
+  callback?: (v: any, idx: number, arr: any[]) => boolean;
 };
 
 export type FoldTransform = {

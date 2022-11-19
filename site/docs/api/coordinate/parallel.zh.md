@@ -28,8 +28,8 @@ chart
     callback: (d) => Object.assign(d, { year: new Date(d.year) }),
     transform: [
       {
-        type: 'filterBy',
-        fields: ['Horsepower', 'Miles_per_Gallon'],
+        type: 'filter',
+        callback: (d) => defined(d.Horsepower) && defined(d.Miles_per_Gallon),
       },
     ],
   })

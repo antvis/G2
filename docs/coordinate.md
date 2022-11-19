@@ -133,9 +133,9 @@ Cartesian coordinate will append to coordinate if is not specified.
       callback: (d) => Object.assign(d, { year: new Date(d.year) }),
       transform: [
         {
-          type: 'filterBy',
+          type: 'filter',
           // Filter data with defined Horsepower and Miles_per_Gallon.
-          fields: ['Horsepower', 'Miles_per_Gallon'],
+          callback: (d) => defined(d.Horsepower) && defined(d.Miles_per_Gallon),
         },
       ],
     })
