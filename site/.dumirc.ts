@@ -12,15 +12,18 @@ export default defineConfig({
   ], // 网站 favicon
   metas: [
     // 自定义 meta 标签
-    { name: 'keywords', content: 'dumi-theme-antv' },
-    { name: 'description', content: '基于 dumi2 的 AntV 官网主题包' },
+    {
+      name: 'keywords',
+      content: 'G2, AntV, 图形语法, 交互语法, 动画语法, 可视化语法',
+    },
+    { name: 'description', content: '简洁的渐进式可视化语法。' },
   ],
   themeConfig: {
     title: 'G2',
     description: 'The Grammar of Visualization in JavaScript',
     defaultLanguage: 'zh', // 默认语言
     isAntVSite: false, // 是否是 AntV 的大官网
-    siteUrl: 'https://g2.antv.vision/', // 官网地址
+    siteUrl: 'https://g2.antv.antgroup.com/', // 官网地址
     githubUrl: repository.url, // GitHub 地址
     showSearch: true, // 是否显示搜索框
     showGithubCorner: true, // 是否显示头部的 GitHub icon
@@ -75,7 +78,7 @@ export default defineConfig({
           zh: 'G2Plot',
           en: 'G2Plot (A charting library)',
         },
-        url: 'https://g2plot.antv.vision',
+        url: 'https://g2plot.antv.antgroup.com/',
       },
     ],
     docs: [
