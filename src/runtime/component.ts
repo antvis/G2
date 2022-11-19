@@ -35,7 +35,7 @@ export function inferComponent(
 ): G2GuideComponentOptions[] {
   const {
     component: partialComponents = [],
-    coordinate = [],
+    coordinates = [],
     title,
     theme,
   } = partialOptions;
@@ -45,11 +45,8 @@ export function inferComponent(
     GuideComponent
   >('component', library);
 
-  // For view with adjust, the position channel is meaningless for visualization,
-  // so there is no need to show axis.
   const displayedScales = scales.filter(({ guide, name }) => {
     if (guide === null) return false;
-    if (isAdjust(partialOptions) && isPosition(name)) return false;
     return true;
   });
   const components = [...partialComponents];
@@ -70,7 +67,7 @@ export function inferComponent(
   }
 
   for (const scale of displayedScales) {
-    const type = inferComponentType(scale, coordinate);
+    const type = inferComponentType(scale, coordinates);
     if (type !== null) {
       const { props } = createGuideComponent(type);
       const { defaultPosition, defaultSize, defaultOrder } = props;
@@ -85,7 +82,7 @@ export function inferComponent(
           type,
           defaultPosition,
           partialGuide,
-          coordinate,
+          coordinates,
         );
         const { size = defaultSize, order = defaultOrder } = partialGuide;
         components.push({
@@ -106,7 +103,7 @@ export function inferComponent(
 
 export function renderComponent(
   component: G2GuideComponentOptions,
-  coordinate: Coordinate,
+  coordinates: Coordinate,
   theme: G2Theme,
   library: G2Library,
 ) {
@@ -124,14 +121,7 @@ export function renderComponent(
   const { field, domain } = scaleDescriptor || {};
   const value = { field, domain, bbox };
   const render = useGuideComponent(options);
-  return render(scale, value, coordinate, theme);
-}
-
-// @todo Remove this function when change adjust to transform.
-function isAdjust(options: G2View): boolean {
-  const { marks = [] } = options;
-  //@ts-ignore
-  return marks.some((mark) => typeof mark.adjust === 'object');
+  return render(scale, value, coordinates, theme);
 }
 
 // @todo Render axis in polar with parallel coordinate.
@@ -171,7 +161,7 @@ function inferComponentPosition(
   type: string | GuideComponentComponent,
   defaultPosition: GuideComponentPosition,
   guide: G2GuideComponentOptions,
-  coordinate: G2CoordinateOptions[],
+  coordinates: G2CoordinateOptions[],
 ): GuideComponentPosition {
   const positions: GuideComponentPosition[] = [
     'left',
@@ -187,37 +177,37 @@ function inferComponentPosition(
 
   // There are multiple axes for parallel coordinate.
   // Place the first one in the border area and put others in the center.
-  if (type === 'axisY' && isParallel(coordinate)) {
+  if (type === 'axisY' && isParallel(coordinates)) {
     const match = /position(\d*)/g.exec(name);
     if (match === null) return ordinalPosition;
     const index = +match[1];
-    if (isTranspose(coordinate)) {
+    if (isTranspose(coordinates)) {
       return index === 0 ? 'top' : 'centerVertical';
     } else {
       return index === 0 ? ordinalPosition : 'centerHorizontal';
     }
   } else if (
-    (type === 'axisX' && isPolar(coordinate) && !isTranspose(coordinate)) ||
-    (type === 'axisY' && isPolar(coordinate) && isTranspose(coordinate)) ||
-    (type === 'axisY' && isTheta(coordinate)) ||
-    (type === 'axisY' && isHelix(coordinate)) ||
-    (type === 'axisY' && isRadial(coordinate))
+    (type === 'axisX' && isPolar(coordinates) && !isTranspose(coordinates)) ||
+    (type === 'axisY' && isPolar(coordinates) && isTranspose(coordinates)) ||
+    (type === 'axisY' && isTheta(coordinates)) ||
+    (type === 'axisY' && isHelix(coordinates)) ||
+    (type === 'axisY' && isRadial(coordinates))
   ) {
     if (guide.position === 'bottom') return 'arcInner';
     return 'arc';
-  } else if (isPolar(coordinate) && (type === 'axisX' || type === 'axisY')) {
+  } else if (isPolar(coordinates) && (type === 'axisX' || type === 'axisY')) {
     return 'arcY';
-  } else if (isRadial(coordinate) && type === 'axisX') {
+  } else if (isRadial(coordinates) && type === 'axisX') {
     return 'arcY';
   } else if (
-    (type === 'axisX' && isReflect(coordinate)) ||
-    (type === 'axisX' && isReflectY(coordinate))
+    (type === 'axisX' && isReflect(coordinates)) ||
+    (type === 'axisX' && isReflectY(coordinates))
   ) {
     return 'top';
   } else if (
     typeof type === 'string' &&
     type.startsWith('legend') &&
-    isPolar(coordinate)
+    isPolar(coordinates)
   ) {
     if (guide.position === 'center') return 'arcCenter';
   }

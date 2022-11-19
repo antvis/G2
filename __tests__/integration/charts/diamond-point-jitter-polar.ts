@@ -9,7 +9,7 @@ export function diamondPointJitterPolar(): G2Spec {
       type: 'fetch',
       value: 'data/diamond.csv',
     },
-    coordinate: [{ type: 'polar' }],
+    coordinates: [{ type: 'polar' }],
     transform: [{ type: 'jitter', random }],
     legend: { color: false },
     encode: {

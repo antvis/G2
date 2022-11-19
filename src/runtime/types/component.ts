@@ -31,7 +31,6 @@ export type G2ComponentNamespaces =
   | 'interaction'
   | 'interactor'
   | 'composition'
-  | 'adjust'
   | 'data'
   | 'labelTransform';
 

@@ -17,7 +17,7 @@ export function alphabetIntervalSelectSingle(): G2Spec {
       y: 'frequency',
       color: 'steelblue',
     },
-    interaction: [
+    interactions: [
       {
         type: 'elementSelect',
         selectedFill: 'red',

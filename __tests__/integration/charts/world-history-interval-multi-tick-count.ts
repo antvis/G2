@@ -12,7 +12,7 @@ export function worldHistoryIntervalMultiTickCount(): G2Spec {
     width: 900,
     height: 1000,
     paddingRight: 80,
-    coordinate: [{ type: 'transpose' }],
+    coordinates: [{ type: 'transpose' }],
     transform: [
       { type: 'sortX', by: 'y' },
       { type: 'sortColor', by: 'y', reducer: 'min' },

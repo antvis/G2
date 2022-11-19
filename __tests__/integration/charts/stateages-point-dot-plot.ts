@@ -5,7 +5,7 @@ export function stateAgesPointDotPlot(): G2Spec {
     type: 'view',
     width: 800,
     height: 1200,
-    coordinate: [{ type: 'transpose' }],
+    coordinates: [{ type: 'transpose' }],
     data: {
       type: 'fetch',
       value: 'data/stateage-percentage.csv',

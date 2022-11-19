@@ -48,14 +48,13 @@ export type ViewComposition = {
   insetTop?: number;
   insetBottom?: number;
   insetRight?: number;
-  coordinate?: Coordinate[];
-  interaction?: Interaction[];
+  coordinates?: Coordinate[];
+  interactions?: Interaction[];
   transform?: Transform[];
   title?: Title;
   theme?: Theme;
   children?: MarkComposition[];
   scale?: Record<string, Scale>;
-  adjust?: Adjust;
   labelTransform?: LabelTransform[];
   // @todo
   axis?: Record<string, any>;

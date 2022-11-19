@@ -22,14 +22,14 @@ import { isTheta } from './coordinate';
 import { useLibrary } from './library';
 import { MarkChannel } from './types/mark';
 
-export function inferScale(name, values, options, coordinate, theme, library) {
+export function inferScale(name, values, options, coordinates, theme, library) {
   const { guide = {} } = options;
   const type = inferScaleType(name, values, options);
   if (typeof type !== 'string') return options;
   const domain = inferScaleDomain(type, name, values, options);
   return {
     ...options,
-    ...inferScaleOptions(type, name, values, options, coordinate),
+    ...inferScaleOptions(type, name, values, options, coordinates),
     domain,
     range: inferScaleRange(type, name, values, options, domain, theme, library),
     guide,
@@ -243,7 +243,7 @@ function inferScaleOptions(
   name: string,
   values: Primitive[][],
   options: G2ScaleOptions,
-  coordinate: G2CoordinateOptions[],
+  coordinates: G2CoordinateOptions[],
 ): G2ScaleOptions {
   switch (type) {
     case 'linear':
@@ -251,10 +251,10 @@ function inferScaleOptions(
     case 'log':
     case 'pow':
     case 'sqrt':
-      return inferOptionsQ(coordinate, options);
+      return inferOptionsQ(coordinates, options);
     case 'band':
     case 'point':
-      return inferOptionsC(type, name, coordinate, options);
+      return inferOptionsC(type, name, coordinates, options);
     case 'sequential':
       return inferOptionsS(options);
     default:
@@ -321,7 +321,7 @@ function inferOptionsS(options) {
 }
 
 function inferOptionsQ(
-  coordinate: G2CoordinateOptions[],
+  coordinates: G2CoordinateOptions[],
   options: G2ScaleOptions,
 ): G2ScaleOptions {
   const {
@@ -335,7 +335,7 @@ function inferOptionsQ(
 function inferOptionsC(
   type: string,
   name: string,
-  coordinate: G2CoordinateOptions[],
+  coordinates: G2CoordinateOptions[],
   options: G2ScaleOptions,
 ): G2ScaleOptions {
   if (
@@ -345,7 +345,7 @@ function inferOptionsC(
   ) {
     return { ...options, unknown: NaN };
   }
-  const padding = inferPadding(type, name, coordinate);
+  const padding = inferPadding(type, name, coordinates);
   const { paddingInner = padding, paddingOuter = padding } = options;
   return {
     ...options,
@@ -359,13 +359,13 @@ function inferOptionsC(
 function inferPadding(
   type: string,
   name: string,
-  coordinate: G2CoordinateOptions[],
+  coordinates: G2CoordinateOptions[],
 ): number {
   // The scale for enterDelay and enterDuration should has zero padding by default.
   // Because there is no need to add extra delay for the start and the end.
   if (name === 'enterDelay' || name === 'enterDuration') return 0;
   if (type === 'band') {
-    return isTheta(coordinate) ? 0 : 0.1;
+    return isTheta(coordinates) ? 0 : 0.1;
   }
   // Point scale need 0.5 padding to make interval between first and last point
   // equal to other intervals in polar coordinate.

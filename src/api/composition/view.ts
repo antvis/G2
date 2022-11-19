@@ -22,8 +22,8 @@ export interface View extends Mark {
   marginTop: ValueAttribute<ViewSpec['marginTop'], View>;
   data: ValueAttribute<ViewSpec['data'], View>;
   key: ValueAttribute<ViewSpec['key'], View>;
-  coordinate: ArrayAttribute<ViewSpec['coordinate'], View>;
-  interaction: ArrayAttribute<ViewSpec['interaction'], View>;
+  coordinate: ArrayAttribute<ViewSpec['coordinates'], View>;
+  interaction: ArrayAttribute<ViewSpec['interactions'], View>;
   theme: ObjectAttribute<ViewSpec['theme'], View>;
   style: ObjectAttribute<ViewSpec['style'], View>;
   scale: ObjectAttribute<ViewSpec['scale'], View>;
@@ -41,8 +41,8 @@ export interface View extends Mark {
   { type: 'value', name: 'marginTop' },
   { type: 'value', name: 'data' },
   { type: 'value', name: 'key' },
-  { type: 'array', name: 'coordinate' },
-  { type: 'array', name: 'interaction' },
+  { type: 'array', name: 'coordinate', key: 'coordinates' },
+  { type: 'array', name: 'interaction', key: 'interactions' },
   { type: 'object', name: 'theme' },
   { type: 'object', name: 'style' },
   { type: 'object', name: 'scale' },

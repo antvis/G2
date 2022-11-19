@@ -33,7 +33,6 @@ function setOptions(node) {
     .transform({ type: 'stackY' })
     .style('stroke', 'black')
     .animate('enterType', 'scaleInX')
-    .adjust({ type: 'pack' })
     .facet(true)
     .key('mark')
     .class('mark')
@@ -71,14 +70,13 @@ function getOptions() {
     transform: [{ type: 'stackY' }],
     style: { stroke: 'black' },
     animate: { enterType: 'scaleInX' },
-    adjust: { type: 'pack' },
     axis: { x: { tickCount: 10 } },
     legend: { y: { title: 'hello' } },
     facet: true,
     key: 'mark',
     class: 'mark',
-    coordinate: [{ type: 'polar' }],
-    interaction: [{ type: 'brush' }],
+    coordinates: [{ type: 'polar' }],
+    interactions: [{ type: 'brush' }],
     padding: 0,
     paddingBottom: 10,
     paddingLeft: 20,
