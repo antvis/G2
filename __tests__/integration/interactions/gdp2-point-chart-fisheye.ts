@@ -29,7 +29,7 @@ export async function gdp2PointFisheye(): Promise<G2Spec> {
         },
       },
     ],
-    interaction: [{ type: 'fisheye' }],
+    interactions: [{ type: 'fisheye' }],
   };
 }
 

@@ -25,7 +25,7 @@ export function stateAgesIntervalActiveByColorLinked(): G2Spec {
     scale: {
       x: { paddingInner: 0.2 },
     },
-    interaction: [
+    interactions: [
       {
         type: 'elementActiveByColor',
         link: true,

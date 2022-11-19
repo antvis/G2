@@ -9,7 +9,7 @@ export function population2015IntervalPie(): G2Spec {
       value: 'data/population2015.csv',
     },
     transform: [{ type: 'stackY' }],
-    coordinate: [{ type: 'theta' }],
+    coordinates: [{ type: 'theta' }],
     scale: {
       color: {
         palette: 'spectral',

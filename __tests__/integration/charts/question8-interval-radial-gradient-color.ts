@@ -11,7 +11,7 @@ export function question8IntervalRadialGradientColor(): G2Spec {
     axis: {
       y: { tickFilter: (d, i) => i !== 0 },
     },
-    coordinate: [{ type: 'radial', innerRadius: 0.1, endAngle: Math.PI }],
+    coordinates: [{ type: 'radial', innerRadius: 0.1, endAngle: Math.PI }],
     encode: {
       x: 'question',
       y: 'percent',

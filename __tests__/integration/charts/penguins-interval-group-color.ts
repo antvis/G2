@@ -8,7 +8,7 @@ export function penguinsIntervalGroupColor(): G2Spec {
       value: 'data/penguins.csv',
     },
     height: 120,
-    coordinate: [{ type: 'transpose' }],
+    coordinates: [{ type: 'transpose' }],
     transform: [
       { type: 'groupColor', y: 'count' },
       { type: 'stackY' },

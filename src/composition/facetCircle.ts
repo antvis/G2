@@ -25,7 +25,7 @@ const setScale = useDefaultAdaptor<G2ViewTree>((options) => {
 
 const setCoordinate = useDefaultAdaptor((options: G2ViewTree) => {
   return {
-    coordinate: [{ type: 'polar' }],
+    coordinates: [{ type: 'polar' }],
   };
 });
 
@@ -65,7 +65,7 @@ function subLayoutFacetCircle(data) {
 
   // This assume the innerRadius of polar is 0.
   // @todo Compute the right origin if it's not 0,
-  // or maybe pass the coordinate to get the right center.
+  // or maybe pass the coordinates to get the right center.
   const [x0, y0] = p2;
   const a0 = angleWithQuadrant(v0);
   const a3 = a0 + a01 / 2;

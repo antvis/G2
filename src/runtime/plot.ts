@@ -198,8 +198,8 @@ export async function plot<T extends G2ViewTree>(
   );
   for (const target of viewInstances) {
     const { options } = target;
-    const { interaction } = options;
-    for (const option of inferInteraction(interaction)) {
+    const { interactions } = options;
+    for (const option of inferInteraction(interactions)) {
       const interaction = useInteraction(option);
       interaction(target, viewInstances);
     }
@@ -284,7 +284,11 @@ async function initializeMarks(
     library,
   );
 
-  const { theme: partialTheme, marks: partialMarks, coordinate = [] } = options;
+  const {
+    theme: partialTheme,
+    marks: partialMarks,
+    coordinates = [],
+  } = options;
   const theme = useTheme(inferTheme(partialTheme));
   const markState = new Map<G2Mark, G2MarkState>();
 
@@ -348,7 +352,14 @@ async function initializeMarks(
     // Use the name of the first channel as the scale name.
     const { name } = channels[0];
     const values = channels.flatMap(({ values }) => values.map((d) => d.value));
-    const scale = inferScale(name, values, options, coordinate, theme, library);
+    const scale = inferScale(
+      name,
+      values,
+      options,
+      coordinates,
+      theme,
+      library,
+    );
     channels.forEach((channel) => (channel.scale = scale));
   }
 
@@ -1047,14 +1058,13 @@ function inferTheme(theme: G2ThemeOptions = { type: 'light' }): G2ThemeOptions {
 }
 
 function inferInteraction(
-  interaction: G2InteractionOptions[] = [],
+  interactions: G2InteractionOptions[] = [],
 ): G2InteractionOptions[] {
   // const interactions = [...interaction];
   // ['tooltip', 'ellipsisText'].forEach((type) => {
   //   if (!interaction.find((d) => d.type === type)) interactions.push({ type });
   // });
-
-  return interaction;
+  return interactions;
 }
 
 async function applyTransform<T extends G2ViewTree>(

@@ -74,12 +74,11 @@ export type G2View = {
   marginRight?: number;
   theme?: G2ThemeOptions;
   title?: G2TitleOptions;
-  coordinate?: G2CoordinateOptions[];
+  coordinates?: G2CoordinateOptions[];
   component?: G2GuideComponentOptions[];
-  interaction?: G2InteractionOptions[];
+  interactions?: G2InteractionOptions[];
   marks?: G2Mark[];
   frame?: boolean;
-  adjust?: { type?: string; [key: string]: any };
   labelTransform?: G2LabelTransformOptions[];
   style?: Record<string, any>;
 };

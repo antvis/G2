@@ -5,7 +5,7 @@ export async function flareTreeDefault(): Promise<G2Spec> {
     width: 800,
     height: 800,
     type: 'tree',
-    coordinate: [{ type: 'transpose' }],
+    coordinates: [{ type: 'transpose' }],
     data: {
       type: 'fetch',
       value: 'data/flare.json',

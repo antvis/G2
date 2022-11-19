@@ -225,7 +225,7 @@ export const GeoView: CC<GeoViewOptions> = () => {
           y: { type: 'identity' },
         },
         axis: false,
-        coordinate: [{ type: Geo }],
+        coordinates: [{ type: Geo }],
         children: nodes.flatMap(t),
       },
     ];

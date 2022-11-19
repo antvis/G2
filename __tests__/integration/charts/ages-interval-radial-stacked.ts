@@ -34,7 +34,7 @@ export function agesIntervalRadialStacked(): G2Spec {
       ],
     },
     transform: [{ type: 'stackY' }],
-    coordinate: [{ type: 'polar', innerRadius: 0.4 }],
+    coordinates: [{ type: 'polar', innerRadius: 0.4 }],
     scale: {
       color: { range: colors },
       y: { type: 'sqrt' },

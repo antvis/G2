@@ -29,7 +29,7 @@ export function stateAgesIntervalSelectByColorSingle(): G2Spec {
     scale: {
       x: { paddingInner: 0.2 },
     },
-    interaction: [
+    interactions: [
       {
         type: 'elementSelectByColor',
         link: true,

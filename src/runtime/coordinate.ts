@@ -24,7 +24,7 @@ export function createCoordinate(
     marginLeft,
     marginTop,
   } = layout;
-  const { coordinate: partialTransform = [] } = partialOptions;
+  const { coordinates: partialTransform = [] } = partialOptions;
   const transform = inferCoordinate(partialTransform);
   const coordinate = new Coordinate({
     // @todo Find a better solution.
@@ -39,49 +39,49 @@ export function createCoordinate(
   return coordinate;
 }
 
-export function isPolar(coordinate: G2CoordinateOptions[]) {
-  const polar = coordinate.find((d) => d.type === 'polar');
+export function isPolar(coordinates: G2CoordinateOptions[]) {
+  const polar = coordinates.find((d) => d.type === 'polar');
   return polar !== undefined;
 }
 
-export function isHelix(coordinate: G2CoordinateOptions[]) {
-  const polar = coordinate.find((d) => d.type === 'helix');
+export function isHelix(coordinates: G2CoordinateOptions[]) {
+  const polar = coordinates.find((d) => d.type === 'helix');
   return polar !== undefined;
 }
 
-export function isTranspose(coordinate: G2CoordinateOptions[]) {
-  const transposes = coordinate.filter(({ type }) => type === 'transpose');
+export function isTranspose(coordinates: G2CoordinateOptions[]) {
+  const transposes = coordinates.filter(({ type }) => type === 'transpose');
   return transposes.length % 2 === 1;
 }
 
-export function isParallel(coordinate: G2CoordinateOptions[]) {
-  const parallel = coordinate.find((d) => d.type === 'parallel');
+export function isParallel(coordinates: G2CoordinateOptions[]) {
+  const parallel = coordinates.find((d) => d.type === 'parallel');
   return parallel !== undefined;
 }
 
-export function isTheta(coordinate: G2CoordinateOptions[]) {
-  const reflect = coordinate.find((d) => d.type === 'theta');
+export function isTheta(coordinates: G2CoordinateOptions[]) {
+  const reflect = coordinates.find((d) => d.type === 'theta');
   return reflect !== undefined;
 }
 
-export function isReflect(coordinate: G2CoordinateOptions[]) {
-  const reflect = coordinate.find((d) => d.type === 'reflect');
+export function isReflect(coordinates: G2CoordinateOptions[]) {
+  const reflect = coordinates.find((d) => d.type === 'reflect');
   return reflect !== undefined;
 }
 
-export function isRadial(coordinate: G2CoordinateOptions[]) {
-  const reflect = coordinate.find((d) => d.type === 'radial');
+export function isRadial(coordinates: G2CoordinateOptions[]) {
+  const reflect = coordinates.find((d) => d.type === 'radial');
   return reflect !== undefined;
 }
 
-export function isReflectY(coordinate: G2CoordinateOptions[]) {
-  const reflect = coordinate.find((d) => d.type === 'reflectY');
+export function isReflectY(coordinates: G2CoordinateOptions[]) {
+  const reflect = coordinates.find((d) => d.type === 'reflectY');
   return reflect !== undefined;
 }
 
 function inferCoordinate(
-  coordinate: G2CoordinateOptions[],
+  coordinates: G2CoordinateOptions[],
 ): G2CoordinateOptions[] {
-  if (coordinate.find((d) => d.type === 'cartesian')) return coordinate;
-  return [...coordinate, { type: 'cartesian' }];
+  if (coordinates.find((d) => d.type === 'cartesian')) return coordinates;
+  return [...coordinates, { type: 'cartesian' }];
 }

@@ -5,7 +5,7 @@ export async function flareTreeCustom(): Promise<G2Spec> {
     width: 800,
     height: 1500,
     type: 'tree',
-    coordinate: [{ type: 'transpose' }],
+    coordinates: [{ type: 'transpose' }],
     layout: {
       sortBy: (a, b) => a.value - b.value,
     },
