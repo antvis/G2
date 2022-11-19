@@ -1,4 +1,4 @@
-# FilterBy
+# Filter
 
 根据字段和对应函数对数据进行筛选。
 
@@ -18,7 +18,7 @@
         { genre: 'Shooter', sold: 350 },
         { genre: 'Other', sold: 150 },
       ],
-      transform: [{ type: 'filterBy', fields: [['sold', d => d > 200]] }],
+      transform: [{ type: 'filter', fields: [['sold', d => d > 200]] }],
     })
     .encode('x', 'genre')
     .encode('y', 'sold');
@@ -51,10 +51,10 @@
       { a: 1, b: 4 },
     ],
       // 1
-      transform: [{ type: 'filterBy', fields: [['a', d => d > 0]] }],
+      transform: [{ type: 'filter', fields: [['a', d => d > 0]] }],
 
       // 2
-      transform: [{ type: 'filterBy', fields: [['a', d => d > 0], ['b', d => d < 0]] }],
+      transform: [{ type: 'filter', fields: [['a', d => d > 0], ['b', d => d < 0]] }],
     })
     .encode('x', 'genre')
     .encode('y', 'sold');

@@ -8,7 +8,7 @@ export function populationIntervalNormalizedStacked(): G2Spec {
       value: 'data/population.csv',
       transform: [
         {
-          type: 'filterBy',
+          type: 'filter',
           fields: [['year', (d) => d === 2000]],
         },
       ],

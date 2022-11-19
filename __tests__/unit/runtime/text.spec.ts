@@ -44,7 +44,7 @@ describe('render', () => {
     mount(createDiv(), chart);
   });
 
-  it('render({...} renders text annotation on specified point of line by filterBy transform.', () => {
+  it('render({...} renders text annotation on specified point of line by filter transform.', () => {
     const chart = render<G2Spec>(
       {
         type: 'view',
@@ -69,7 +69,7 @@ describe('render', () => {
             data: {
               transform: [
                 {
-                  type: 'filterBy',
+                  type: 'filter',
                   fields: [['sold', (d) => d > 300]],
                 },
               ],
@@ -123,7 +123,7 @@ describe('render', () => {
             data: {
               transform: [
                 {
-                  type: 'filterBy',
+                  type: 'filter',
                   fields: [['sold', (d) => d > 300]],
                 },
               ],
@@ -303,7 +303,7 @@ describe('render', () => {
           data: {
             transform: [
               {
-                type: 'filterBy',
+                type: 'filter',
                 fields: [
                   ['date', (d) => d === 'March 2008' || d === 'March 2019'],
                 ],

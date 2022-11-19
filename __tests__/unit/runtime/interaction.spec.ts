@@ -80,7 +80,7 @@ describe('Interaction', () => {
         }),
         transform: [
           {
-            type: 'filterBy',
+            type: 'filter',
             fields: ['Horsepower', 'Miles_per_Gallon'],
           },
         ],

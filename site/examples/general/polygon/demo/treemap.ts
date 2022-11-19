@@ -59,7 +59,7 @@ chart
   .text()
   .data({
     transform: [
-      { type: 'filterBy', fields: ['height'], callback: (d) => d === 0 },
+      { type: 'filter', fields: ['height'], callback: (d) => d === 0 },
     ],
   })
   .encode('x', (d) => d.x[0])

@@ -24,8 +24,8 @@ export type DataTransform =
   | RenameTransform
   | SubsetTransform
   | FoldTransform
-  | FilterByTransform
   | JoinTransform
+  | FilterTransform
   | MapTransform
   | CustomTransform;
 
@@ -35,8 +35,13 @@ export type DataTransformTypes =
   | 'rename'
   | 'subset'
   | 'fold'
+<<<<<<< HEAD
   | 'filterBy'
   | 'join'
+=======
+  | 'filter'
+  | 'lookup'
+>>>>>>> 7962e358 (refactor: rename data.filterBy to data.filter)
   | 'map'
   | 'custom'
   | DataComponent;
@@ -64,8 +69,8 @@ export type SubsetTransform = {
   fields?: string[];
 };
 
-export type FilterByTransform = {
-  type?: 'filterBy';
+export type FilterTransform = {
+  type?: 'filter';
   /**
    * way1: [[field1, callback1], [field2, callback2], ...]
    * way2: [field1, field2, field3, callback] All field filtered by the last callback.

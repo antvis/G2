@@ -1,8 +1,8 @@
 import { DataComponent as DC } from '../runtime';
-import { FilterByTransform } from '../spec';
+import { FilterTransform } from '../spec';
 import { normalizeFields } from './utils/fields';
 
-export type FilterByOptions = Omit<FilterByTransform, 'type'>;
+export type FilterOptions = Omit<FilterTransform, 'type'>;
 
 function defined(d: any): boolean {
   return d !== undefined && d !== null && !Number.isNaN(d);
@@ -12,7 +12,7 @@ function defined(d: any): boolean {
  * Filter data by specified fields and filter callback for each fields.
  * It saves datum with every fields defined by default.
  */
-export const FilterBy: DC<FilterByOptions> = (options) => {
+export const Filter: DC<FilterOptions> = (options) => {
   const { fields: F = [] } = options;
 
   const normalizedF = normalizeFields(F, defined);
@@ -25,4 +25,4 @@ export const FilterBy: DC<FilterByOptions> = (options) => {
     });
 };
 
-FilterBy.props = {};
+Filter.props = {};

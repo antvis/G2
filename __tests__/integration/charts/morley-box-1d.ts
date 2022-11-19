@@ -9,7 +9,7 @@ export function morleyBox1D(): G2Spec {
     data: {
       type: 'fetch',
       value: 'data/morley.csv',
-      transform: [{ type: 'filterBy', fields: [['Expt', (d) => d === 1]] }],
+      transform: [{ type: 'filter', fields: [['Expt', (d) => d === 1]] }],
     },
     encode: {
       y: 'Speed',

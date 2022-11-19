@@ -41,7 +41,7 @@ function intersects(bounds: any, bounds2: any) {
 }
 
 export const ElementSelection: AC<ElementSelectionOptions> = (options) => {
-  const { trigger, filterBy: field, multiple, toggle } = options;
+  const { trigger, filter: field, multiple, toggle } = options;
 
   return (context) => {
     const {

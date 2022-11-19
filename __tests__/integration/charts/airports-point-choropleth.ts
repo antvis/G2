@@ -41,7 +41,7 @@ export async function airportsPointChoropleth(): Promise<G2Spec> {
           value: flights,
           transform: [
             {
-              type: 'filterBy',
+              type: 'filter',
               fields: [['origin', (d) => d === 'SEA']],
             },
             {

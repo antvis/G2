@@ -104,7 +104,7 @@ Point 的 Size 通道的比例尺默认是 Sqrt 比例尺，是圆的半径。
         'https://gw.alipayobjects.com/os/bmw-prod/2b48887c-56fb-437e-a91c-6f48e80e5a91.csv',
       transform: [
         {
-          type: 'filterBy',
+          type: 'filter',
           fields: [['Entity', (d) => d !== 'All natural disasters']],
         },
       ],

@@ -144,7 +144,7 @@
       format: 'csv',
       transform: [
         {
-          type: 'filterBy',
+          type: 'filter',
           fields: [['year', (d) => d === 2000]],
         },
       ],
@@ -209,7 +209,7 @@
         'https://gw.alipayobjects.com/os/bmw-prod/87b2ff47-2a33-4509-869c-dae4cdd81163.csv',
       transform: [
         {
-          type: 'filterBy',
+          type: 'filter',
           fields: [['year', (d) => d === 2000]],
         },
       ],
@@ -341,7 +341,7 @@
         'https://gw.alipayobjects.com/os/bmw-prod/87b2ff47-2a33-4509-869c-dae4cdd81163.csv',
       transform: [
         {
-          type: 'filterBy',
+          type: 'filter',
           fields: [['year', (d) => d === 2000]],
         },
       ],

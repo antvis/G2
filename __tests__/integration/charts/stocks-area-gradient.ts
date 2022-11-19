@@ -9,7 +9,7 @@ export function stocksAreaGradient(): G2Spec {
       type: 'fetch',
       value: 'data/stocks.csv',
       transform: [
-        { type: 'filterBy', fields: [['symbol', (d) => d === 'GOOG']] },
+        { type: 'filter', fields: [['symbol', (d) => d === 'GOOG']] },
       ],
     },
     scale: { y: { nice: true } },

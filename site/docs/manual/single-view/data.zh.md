@@ -118,7 +118,7 @@ node.data({
 node.data({
   type: 'xxx',
   value: 'xxx',
-  transform: [{ type: 'filterBy', fields: ['a', 'b'] }],
+  transform: [{ type: 'filter', fields: ['a', 'b'] }],
 });
 ```
 

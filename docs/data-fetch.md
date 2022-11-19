@@ -80,7 +80,7 @@
       autoType: true,
       transform: [
         {
-          type: 'filterBy',
+          type: 'filter',
           fields: ['weight', d => d > 100]
         }
       ]

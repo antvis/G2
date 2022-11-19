@@ -46,7 +46,7 @@ Promise.all([
       value: flights,
       transform: [
         {
-          type: 'filterBy',
+          type: 'filter',
           fields: [['origin', (d) => d === 'SEA']],
         },
         {

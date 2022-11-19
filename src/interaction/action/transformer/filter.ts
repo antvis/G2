@@ -4,7 +4,7 @@ import { FilterAction } from '../../../spec';
 export type FilterOptions = Omit<FilterAction, 'type'>;
 
 /**
- * @todo filterBy `x` and `y`, now is only compare `x`
+ * @todo filter `x` and `y`, now is only compare `x`
  */
 export const Filter: AC<FilterOptions> = (options) => {
   const { reset } = options;
@@ -32,7 +32,7 @@ export const Filter: AC<FilterOptions> = (options) => {
         const transform = [...shared.originTransform];
         const { field: xField } = scaleX.getOptions();
         transform.push({
-          type: 'filterBy',
+          type: 'filter',
           fields: [xField],
           callback: (x) =>
             isBandScale ? data.includes(x) : x >= min && x <= max,

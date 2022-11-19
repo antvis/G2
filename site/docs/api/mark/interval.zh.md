@@ -29,7 +29,7 @@ chart
     format: 'csv',
     transform: [
       {
-        type: 'filterBy',
+        type: 'filter',
         fields: [['year', (d) => d === 2000]],
       },
     ],
