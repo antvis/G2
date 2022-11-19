@@ -47,13 +47,9 @@ chart
   .encode('x', 'State')
   .encode('y', 'Population')
   .encode('color', 'Age')
-  .scale('color', {
-    range: colors,
-    guide: { position: 'center', title: null, dx: 64, dy: 54 },
-  })
-  .scale('y', {
-    type: 'sqrt',
-  })
+  .scale('color', { range: colors })
+  .legend('color', { position: 'center', title: null, dx: 64, dy: 54 })
+  .scale('y', { type: 'sqrt' })
   .axis('y', {
     tickFormatter: '~s',
     tickFilter: (_, i) => i !== 0,

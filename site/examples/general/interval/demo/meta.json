@@ -53,6 +53,14 @@
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*RJvHRpHoFmYAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
+      "filename": "bar-diverging-stacked.ts",
+      "title": {
+        "zh": "发散堆叠条形图",
+        "en": "Diverging Stacked Bar Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*tf9URrBBvvAAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
       "filename": "bar-normalized-stacked.ts",
       "title": {
         "zh": "归一化堆叠条形图",
