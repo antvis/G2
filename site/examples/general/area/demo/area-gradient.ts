@@ -11,7 +11,12 @@ const chart = new Chart({
 chart.data({
   type: 'fetch',
   value: 'https://assets.antv.antgroup.com/g2/stocks.json',
-  transform: [{ type: 'filterBy', fields: [['symbol', (d) => d === 'GOOG']] }],
+  transform: [
+    {
+      type: 'filter',
+      callback: (d) => d.symbol === 'GOOD',
+    },
+  ],
 });
 
 chart

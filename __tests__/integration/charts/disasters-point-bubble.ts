@@ -10,8 +10,8 @@ export function disastersPointBubble(): G2Spec {
       value: 'data/disasters.csv',
       transform: [
         {
-          type: 'filterBy',
-          fields: [['Entity', (d) => d !== 'All natural disasters']],
+          type: 'filter',
+          callback: (d) => d.Entity !== 'All natural disasters',
         },
       ],
     },

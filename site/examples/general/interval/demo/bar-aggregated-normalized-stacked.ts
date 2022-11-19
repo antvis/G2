@@ -18,8 +18,8 @@ chart
       'https://gw.alipayobjects.com/os/bmw-prod/87b2ff47-2a33-4509-869c-dae4cdd81163.csv',
     transform: [
       {
-        type: 'filterBy',
-        fields: [['year', (d) => d === 2000]],
+        type: 'filter',
+        callback: (d) => d.year === 2000,
       },
     ],
   })

@@ -1,6 +1,6 @@
 export { Fetch } from './fetch';
 export { Fold } from './fold';
-export { FilterBy } from './filterBy';
+export { Filter } from './filter';
 export { Pick } from './pick';
 export { Rename } from './rename';
 export { Subset } from './subset';
@@ -17,7 +17,7 @@ export { Join } from './join';
 
 export type { FetchOptions } from './fetch';
 export type { FoldOptions } from './fold';
-export type { FilterByOptions } from './filterBy';
+export type { FilterOptions } from './filter';
 export type { PickOptions } from './pick';
 export type { RenameOptions } from './rename';
 export type { SubsetOptions } from './subset';

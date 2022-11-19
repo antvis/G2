@@ -102,7 +102,7 @@ export type TooltipAction = {
 export type ElementSelectionAction = {
   type?: 'elementSelection';
   trigger?: 'item' | 'axis' | 'triggerInfo' | 'rect-mask' | 'polygon-mask';
-  filterBy?: 'x' | 'color';
+  filter?: 'x' | 'color';
   toggle?: boolean;
   multiple?: boolean;
 };

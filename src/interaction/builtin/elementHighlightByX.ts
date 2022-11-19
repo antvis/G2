@@ -14,7 +14,7 @@ export const InteractionDescriptor = (
     {
       trigger: 'plot:pointermove',
       action: [
-        { type: 'elementSelection', filterBy: 'x' },
+        { type: 'elementSelection', filter: 'x' },
         { type: 'highlightElement', ...options },
       ],
     },

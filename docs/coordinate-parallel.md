@@ -22,9 +22,8 @@ Parallel 是平行坐标系变换，将笛卡尔直角坐标系坐标变换为�
       callback: (d) => Object.assign(d, { year: new Date(d.year) }),
       transform: [
         {
-          type: 'filterBy',
-          // Filter data with defined Horsepower and Miles_per_Gallon.
-          fields: ['Horsepower', 'Miles_per_Gallon'],
+          type: 'filter',
+          callback: (d) => defined(d.Horsepower) && defined(d.Miles_per_Gallon),
         },
       ],
     })

@@ -9,8 +9,8 @@ export function populationIntervalLayered(): G2Spec {
       format: 'csv',
       transform: [
         {
-          type: 'filterBy',
-          fields: [['year', (d) => d === 2000]],
+          type: 'filter',
+          callback: (d) => d.year === 2000,
         },
       ],
     },

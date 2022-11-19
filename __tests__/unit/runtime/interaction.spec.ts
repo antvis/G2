@@ -1,5 +1,6 @@
 import { G2Spec, render } from '../../../src';
 import { createDiv, mount } from '../../utils/dom';
+import { defined } from '../../../src/data/filter';
 
 describe('Interaction', () => {
   it('render({...} renders chart with tooltip', () => {
@@ -80,8 +81,9 @@ describe('Interaction', () => {
         }),
         transform: [
           {
-            type: 'filterBy',
-            fields: ['Horsepower', 'Miles_per_Gallon'],
+            type: 'filter',
+            callback: (d) =>
+              defined(d.Horsepower) && defined(d.Miles_per_Gallon),
           },
         ],
       },

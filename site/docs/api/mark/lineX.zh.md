@@ -24,7 +24,10 @@ const chart = new Chart({
 chart.data({
   type: 'fetch',
   value: 'https://assets.antv.antgroup.com/g2/movies.json',
-  transform: [{ type: 'filterBy', fields: [['IMDB Rating', (d) => d > 0]] }],
+  transform: [{
+    type: 'filter',
+    callback: (d) => d[IMDB Rating] > 0,
+  }],
 });
 
 chart
