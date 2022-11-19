@@ -29,11 +29,10 @@ Promise.all([
       value: countries,
       transform: [
         {
-          type: 'lookup',
-          key: (d) => d.properties.name,
-          from: hale,
-          fromKey: 'name',
-          hale: 'hale',
+          type: 'join',
+          join: hale,
+          on: [(d) => d.properties.name, 'name'],
+          select: ['hale'],
         },
       ],
     })

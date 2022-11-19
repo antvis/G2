@@ -38,7 +38,7 @@ Promise.all([
         {
           type: 'join',
           join: unemployment,
-          on: (a, b) => a.id === b.id,
+          on: ['id', 'id'],
           select: ['rate'],
         },
       ],
