@@ -30,7 +30,7 @@ chart
   .encode('color', 'Entity')
   .encode('shape', 'point')
   .scale('size', { rangeMax: 35 })
-  .scale('color', { guide: null })
+  .legend(false)
   .style('stroke', 'black')
   .style('opacity', 0.8)
   .style('lineWidth', 1);

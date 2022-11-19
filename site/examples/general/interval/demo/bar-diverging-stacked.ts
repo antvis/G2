@@ -34,8 +34,8 @@ chart
   .scale('y', { domainMin: -100, domainMax: 100 })
   .scale('color', {
     range: ['#97e3d5', '#61cdbb', '#e25c3b', '#f47560'],
-    guide: { title: false },
   })
+  .legend('color', { title: false })
   .label({
     text: 'value',
     position: 'inside',
@@ -57,24 +57,19 @@ chart
   .style('stroke', '#e25c3b')
   .style('strokeOpacity', 1);
 
-chart
-  .text()
-  .data([
-    { x: 0, y: 0.2, text: 'lost' },
-    { x: 0, y: 0.75, text: 'gain' },
-  ])
-  .encode('text', 'text')
-  .encode('x', 'x')
-  .encode('y', 'y')
-  .encode('color', 'text')
-  .axis('x', false)
-  .axis('y', false)
-  .scale('x', { domain: [0, 1], independent: true })
-  .scale('y', { domain: [0, 1], independent: true })
-  .scale('color', { range: ['#e25c3b', '#61cdbb'], independent: true })
-  .style('fontWeight', 'bold')
-  .style('dy', -10)
-  .style('transform', 'rotate(-90)')
-  .legend(false);
+chart.call(titleLeft, '20%', 'lost', '#61cdbb');
+chart.call(titleLeft, '75%', 'gain', '#e25c3b');
+
+function titleLeft(node, y, text, fill) {
+  node
+    .text()
+    .style('x', 0)
+    .style('y', y)
+    .style('text', text)
+    .style('fontWeight', 'bold')
+    .style('dy', -10)
+    .style('transform', 'rotate(-90)')
+    .style('fill', fill);
+}
 
 chart.render();

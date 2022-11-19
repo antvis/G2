@@ -25,8 +25,8 @@ chart
   .scale('color', {
     range: ['#d8d0c0', '#a3dda1'],
     independent: true,
-    guide: null,
   })
+  .legend(false)
   .style('fillOpacity', 0.2);
 
 chart
