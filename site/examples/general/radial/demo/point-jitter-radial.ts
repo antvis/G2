@@ -17,8 +17,8 @@ chart
     value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
   })
   .transform({ type: 'jitter' })
-  .scale('color', { guide: null })
   .encode('x', 'clarity')
-  .encode('color', 'clarity');
+  .encode('color', 'clarity')
+  .legend(false);
 
 chart.render();

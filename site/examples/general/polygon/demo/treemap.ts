@@ -43,9 +43,10 @@ chart
   .encode('color', (d) => d.parent.data.name)
   .encode('tooltip', (d) => d.parent.data.name)
   .encode('title', '')
-  .scale('x', { domain: [0, 1], guide: null })
-  .scale('y', { domain: [0, 1], guide: null, range: [0, 1] })
+  .scale('x', { domain: [0, 1] })
+  .scale('y', { domain: [0, 1], range: [0, 1] })
   .scale('size', { type: 'identity' })
+  .axis(false)
   .legend('color', {
     field: '学派',
     size: 72,

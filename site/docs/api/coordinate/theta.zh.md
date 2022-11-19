@@ -28,10 +28,10 @@ chart
   .encode('color', 'name')
   .style('stroke', 'white')
   .scale('color', {
-    guide: null,
     palette: 'spectral',
     offset: (t) => t * 0.8 + 0.1,
   })
+  .legend(false)
   .label({
     text: 'name',
     radius: 0.8,
