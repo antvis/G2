@@ -35,13 +35,8 @@ export type DataTransformTypes =
   | 'rename'
   | 'subset'
   | 'fold'
-<<<<<<< HEAD
-  | 'filterBy'
   | 'join'
-=======
   | 'filter'
-  | 'lookup'
->>>>>>> 7962e358 (refactor: rename data.filterBy to data.filter)
   | 'map'
   | 'custom'
   | DataComponent;
