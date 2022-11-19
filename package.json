@@ -15,8 +15,6 @@
   ],
   "scripts": {
     "dev": "vite",
-    "start": "genji-notebook dev",
-    "deploy": "genji-notebook deploy",
     "clean": "rimraf lib esm dist",
     "lint-staged": "lint-staged",
     "size": "limit-size",
@@ -68,7 +66,6 @@
     "d3-random": "^3.0.1",
     "eslint": "^7.22.0",
     "eslint-plugin-import": "^2.22.1",
-    "genji-notebook": "^0.1.1",
     "husky": "^7.0.0",
     "jest": "^26.0.1",
     "jest-electron": "^0.1.12",
