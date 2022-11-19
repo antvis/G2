@@ -9,7 +9,7 @@ export function alphabetIntervalTransposed(): G2Spec {
     },
     width: 800,
     height: 600,
-    coordinate: [{ type: 'transpose' }],
+    coordinates: [{ type: 'transpose' }],
     transform: [{ type: 'sortX', by: 'y', reverse: true }],
     axis: { y: { tickFormatter: '.1%' } },
     encode: {

@@ -4,7 +4,7 @@ export function population2015IntervalDonutTextAnnotation(): G2Spec {
   return {
     type: 'view',
     height: 640,
-    coordinate: [{ type: 'theta', innerRadius: 0.6 }],
+    coordinates: [{ type: 'theta', innerRadius: 0.6 }],
     children: [
       {
         type: 'interval',

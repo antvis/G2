@@ -11,7 +11,7 @@ export function eventsIntervalEncode(): G2Spec {
     paddingTop: 60,
     paddingLeft: 100,
     data: events,
-    coordinate: [{ type: 'transpose' }],
+    coordinates: [{ type: 'transpose' }],
     scale: {
       enterDuration: {
         zero: true,

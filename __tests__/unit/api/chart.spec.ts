@@ -102,8 +102,8 @@ describe('Chart', () => {
       type: 'view',
       data: [1, 2, 3],
       key: 'composition',
-      coordinate: [{ type: 'polar' }],
-      interaction: [{ type: 'brush' }],
+      coordinates: [{ type: 'polar' }],
+      interactions: [{ type: 'brush' }],
       transform: [{ type: 'stackY' }],
       theme: { defaultColor: 'red' },
     });

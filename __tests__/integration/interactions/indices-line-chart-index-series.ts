@@ -30,7 +30,7 @@ export async function indicesLineChartIndexSeries(): Promise<G2Spec> {
         fontSize: 10,
       },
     ],
-    interaction: [
+    interactions: [
       {
         type: 'chartIndex',
         ruleStroke: '#aaa',

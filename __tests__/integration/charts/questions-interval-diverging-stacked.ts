@@ -11,7 +11,7 @@ export function questionsIntervalDivergingStacked(): G2Spec {
   const colors = ['#c30d24', '#f3a583', '#cccccc', '#94c6da', '#1770ab'];
   return {
     type: 'interval',
-    coordinate: [{ type: 'transpose' }],
+    coordinates: [{ type: 'transpose' }],
     paddingLeft: 80,
     data: {
       type: 'fetch',

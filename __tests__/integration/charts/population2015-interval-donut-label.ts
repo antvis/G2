@@ -9,7 +9,7 @@ export function population2015IntervalDonutLabel(): G2Spec {
       value: 'data/population2015.csv',
     },
     transform: [{ type: 'stackY' }],
-    coordinate: [{ type: 'theta', innerRadius: 0.6 }],
+    coordinates: [{ type: 'theta', innerRadius: 0.6 }],
     scale: {
       color: {
         palette: 'spectral',

@@ -5,7 +5,7 @@ export function sepalBoxPolarBox(): G2Spec {
   return {
     type: 'box',
     data: sepalByRegion,
-    coordinate: [{ type: 'polar', innerRadius: 0.2 }],
+    coordinates: [{ type: 'polar', innerRadius: 0.2 }],
     encode: {
       x: 'x',
       y: 'y',

@@ -9,7 +9,7 @@ export function population2015IntervalSpiderLabel(): G2Spec {
       value: 'data/population2015.csv',
     },
     transform: [{ type: 'stackY' }],
-    coordinate: [{ type: 'theta', outerRadius: 0.8 }],
+    coordinates: [{ type: 'theta', outerRadius: 0.8 }],
     scale: {
       color: {
         palette: 'spectral',

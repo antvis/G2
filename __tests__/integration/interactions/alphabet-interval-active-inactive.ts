@@ -16,7 +16,7 @@ export function alphabetIntervalActiveInactive(): G2Spec {
       y: 'frequency',
       color: 'steelblue',
     },
-    interaction: [
+    interactions: [
       {
         type: 'elementActive',
         activeFill: (d) => (d.frequency > 0.05 ? 'red' : 'yellow'),

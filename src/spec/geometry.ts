@@ -126,11 +126,10 @@ export type BaseGeometry<
       >
     | boolean;
   legend?: Partial<Record<'size' | 'color', Legend | boolean>> | boolean;
-  coordinate?: Coordinate[];
+  coordinates?: Coordinate[];
   style?: Record<string, any>;
-  interaction?: Interaction[];
+  interactions?: Interaction[];
   theme?: Theme;
-  adjust?: Adjust;
   facet?: boolean;
   frame?: boolean;
   labels?: Record<string, any>[];
