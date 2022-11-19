@@ -70,7 +70,7 @@ describe('render', () => {
               transform: [
                 {
                   type: 'filter',
-                  fields: [['sold', (d) => d > 300]],
+                  callback: (d) => d.sold > 300,
                 },
               ],
             },
@@ -124,7 +124,7 @@ describe('render', () => {
               transform: [
                 {
                   type: 'filter',
-                  fields: [['sold', (d) => d > 300]],
+                  callback: (d) => d.sold > 300,
                 },
               ],
             },
@@ -304,9 +304,8 @@ describe('render', () => {
             transform: [
               {
                 type: 'filter',
-                fields: [
-                  ['date', (d) => d === 'March 2008' || d === 'March 2019'],
-                ],
+                callback: (d) =>
+                  d.date === 'March 2008' || d.date === 'March 2019',
               },
             ],
           },

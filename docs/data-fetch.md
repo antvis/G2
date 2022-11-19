@@ -81,7 +81,7 @@
       transform: [
         {
           type: 'filter',
-          fields: ['weight', d => d > 100]
+          callback: (d) => d.weight > 100,
         }
       ]
     })

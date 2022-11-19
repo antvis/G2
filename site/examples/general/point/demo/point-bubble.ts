@@ -20,7 +20,7 @@ chart
     transform: [
       {
         type: 'filter',
-        fields: [['Entity', (d) => d !== 'All natural disasters']],
+        callback: (d) => d.Entity !== 'All natural disasters',
       },
     ],
   })

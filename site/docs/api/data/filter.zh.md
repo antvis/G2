@@ -20,7 +20,7 @@ chart
     transform: [
       {
         type: 'filter',
-        callback: (datum) => datum.a < 3,
+        callback: (d) => d.a < 3,
       },
     ],
   });
@@ -38,4 +38,4 @@ chart
 
 | 属性 | 描述 | 类型 | 默认值|
 | -------------| ----------------------------------------------------------- | -----------------------------| --------------------|
-| callback     |  函数，传入当前数据，输出处理后的数据                             | `(datum: any) => boolean`    | `(d) => d !== undefined && d !== null && !Number.isNaN(d)`          |
+| callback     |  函数，传入当前数据，输出处理后的数据                             | `(d: any, idx: number, arr: any[]) => boolean`    | `(d) => d !== undefined && d !== null && !Number.isNaN(d)`          |

@@ -11,7 +11,7 @@ export function disastersPointBubble(): G2Spec {
       transform: [
         {
           type: 'filter',
-          fields: [['Entity', (d) => d !== 'All natural disasters']],
+          callback: (d) => d.Entity !== 'All natural disasters',
         },
       ],
     },

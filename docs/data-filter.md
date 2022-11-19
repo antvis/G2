@@ -18,7 +18,10 @@
         { genre: 'Shooter', sold: 350 },
         { genre: 'Other', sold: 150 },
       ],
-      transform: [{ type: 'filter', fields: [['sold', d => d > 200]] }],
+      transform: [{
+        type: 'filter',
+        callback: (d) => d.sold > 200,
+      }],
     })
     .encode('x', 'genre')
     .encode('y', 'sold');
@@ -51,10 +54,16 @@
       { a: 1, b: 4 },
     ],
       // 1
-      transform: [{ type: 'filter', fields: [['a', d => d > 0]] }],
+      transform: [{
+        type: 'filter',
+        callback: (d) => d.a > 0,
+      }],
 
       // 2
-      transform: [{ type: 'filter', fields: [['a', d => d > 0], ['b', d => d < 0]] }],
+      transform: [{
+        type: 'filter',
+        callback: (d) => d.a > 0 && d.b < 0,
+      }],
     })
     .encode('x', 'genre')
     .encode('y', 'sold');

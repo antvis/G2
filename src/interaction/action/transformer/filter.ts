@@ -33,9 +33,10 @@ export const Filter: AC<FilterOptions> = (options) => {
         const { field: xField } = scaleX.getOptions();
         transform.push({
           type: 'filter',
-          fields: [xField],
-          callback: (x) =>
-            isBandScale ? data.includes(x) : x >= min && x <= max,
+          callback: (d) => {
+            const x = d[xField];
+            return isBandScale ? data.includes(x) : x >= min && x <= max;
+          },
         });
         const { data } = plotOptions.marks[0];
         if (Array.isArray(data)) {

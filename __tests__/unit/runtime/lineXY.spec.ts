@@ -39,7 +39,7 @@ describe('line annotation', () => {
             transform: [
               {
                 type: 'filter',
-                fields: [['year', (d) => d === '1995' || d === '1998']],
+                callback: (d) => d.year === '1995' || d.year === '1998',
               },
             ],
           },
@@ -100,7 +100,7 @@ describe('line annotation', () => {
             transform: [
               {
                 type: 'filter',
-                fields: [['temperature', (d) => d > 14 && d < 15]],
+                callback: (d) => d.temperature > 14 && d.temperature < 15,
               },
             ],
           },
@@ -115,7 +115,7 @@ describe('line annotation', () => {
             transform: [
               {
                 type: 'filter',
-                fields: [['month', (d) => d === 'Jun']],
+                callback: (d) => d.month === 'Jun',
               },
             ],
           },

@@ -101,7 +101,7 @@
         {
           type: 'filter',
           // Filter data with defined Horsepower and Miles_per_Gallon.
-          fields: ['Horsepower', 'Miles_per_Gallon'],
+          callback: (d) => defined(d.Horsepower) && defined(d.Miles_per_Gallon),
         },
       ],
     })

@@ -18,7 +18,7 @@ chart
     transform: [
       {
         type: 'filter',
-        fields: [['year', (d) => d === 2000]],
+        callback: (d) => d.year === 2000,
       },
     ],
   })

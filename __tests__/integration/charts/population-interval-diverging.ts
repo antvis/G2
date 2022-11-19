@@ -9,7 +9,7 @@ export function populationIntervalDiverging(): G2Spec {
       transform: [
         {
           type: 'filter',
-          fields: [['year', (d) => d === 2000]],
+          callback: (d) => d.year === 2000,
         },
       ],
     },

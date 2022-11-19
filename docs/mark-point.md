@@ -105,7 +105,7 @@ Point 的 Size 通道的比例尺默认是 Sqrt 比例尺，是圆的半径。
       transform: [
         {
           type: 'filter',
-          fields: [['Entity', (d) => d !== 'All natural disasters']],
+          callback: (d) => d.Entity !== 'All natural disasters',
         },
       ],
     })

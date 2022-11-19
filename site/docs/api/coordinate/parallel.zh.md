@@ -29,7 +29,7 @@ chart
     transform: [
       {
         type: 'filter',
-        fields: ['Horsepower', 'Miles_per_Gallon'],
+        callback: (d) => defined(d.Horsepower) && defined(d.Miles_per_Gallon),
       },
     ],
   })

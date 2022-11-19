@@ -118,7 +118,10 @@ node.data({
 node.data({
   type: 'xxx',
   value: 'xxx',
-  transform: [{ type: 'filter', fields: ['a', 'b'] }],
+  transform: [{
+    type: 'filter',
+    callback: (d, idx, arr) => true,
+  }],
 });
 ```
 

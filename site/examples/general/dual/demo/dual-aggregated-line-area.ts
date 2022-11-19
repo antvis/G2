@@ -12,7 +12,10 @@ chart.data({
   type: 'fetch',
   value: 'https://assets.antv.antgroup.com/g2/weather.json',
   transform: [
-    { type: 'filter', fields: [['location', (d) => d === 'Seattle']] },
+    {
+      type: 'filter',
+      callback: (d) => d.location === 'Seattle',
+    },
   ],
 });
 

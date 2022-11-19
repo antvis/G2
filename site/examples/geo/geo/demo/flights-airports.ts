@@ -47,7 +47,7 @@ Promise.all([
       transform: [
         {
           type: 'filter',
-          fields: [['origin', (d) => d === 'SEA']],
+          callback: (d) => d.origin === 'SEA',
         },
         {
           type: 'join',

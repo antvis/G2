@@ -11,7 +11,7 @@ export async function indicesLinePointScaleKey(): Promise<G2Spec> {
       transform: [
         {
           type: 'filter',
-          fields: [['Symbol', (d) => d === symbol]],
+          callback: (d) => d.Symbol === symbol,
         },
       ],
     },
@@ -35,7 +35,7 @@ export async function indicesLinePointScaleKey(): Promise<G2Spec> {
       transform: [
         {
           type: 'filter',
-          fields: [['Symbol', (d) => d === symbol]],
+          callback: (d) => d.Symbol === symbol,
         },
       ],
     },

@@ -7,7 +7,10 @@ export function weatherLineAreaDualAxis(): G2Spec {
       type: 'fetch',
       value: 'data/weather.csv',
       transform: [
-        { type: 'filter', fields: [['location', (d) => d === 'Seattle']] },
+        {
+          type: 'filter',
+          callback: (d) => d.location === 'Seattle',
+        },
       ],
     },
     children: [
