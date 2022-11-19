@@ -27,11 +27,10 @@ Promise.all([
       value: counties,
       transform: [
         {
-          type: 'lookup',
-          key: 'id',
-          from: unemployment,
-          fromKey: 'id',
-          rate: 'rate',
+          type: 'join',
+          join: unemployment,
+          on: ['id', 'id'],
+          select: ['rate'],
         },
       ],
     })

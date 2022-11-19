@@ -247,7 +247,7 @@ import {
   Sankey as SankeyTransform,
   Arc as ArcTransform,
   WordCloud,
-  Lookup,
+  Join,
 } from '../data';
 import { HideOverlap, DodgeY, Spider, Surround } from '../label-transform';
 import { geoLibrary } from '../geo';
@@ -269,7 +269,7 @@ export function createLibrary(): G2Library {
     'data.sankey': SankeyTransform,
     'data.arc': ArcTransform,
     'data.wordCloud': WordCloud,
-    'data.lookup': Lookup,
+    'data.join': Join,
     // 'transform.voronoi': Voronoi,
     'transform.maybeZeroY1': MaybeZeroY1,
     'transform.maybeZeroX': MaybeZeroX,

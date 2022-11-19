@@ -247,7 +247,7 @@ import {
   Sankey as SankeyTransform,
   Arc as ArcTransform,
   WordCloud,
-  Lookup,
+  Join,
 } from '../../../src/data';
 import {
   HideOverlap,
@@ -275,7 +275,7 @@ describe('stdlib', () => {
       'data.sankey': SankeyTransform,
       'data.arc': ArcTransform,
       'data.wordCloud': WordCloud,
-      'data.lookup': Lookup,
+      'data.join': Join,
       // 'transform.voronoi': Voronoi,
       'transform.maybeZeroY1': MaybeZeroY1,
       'transform.maybeZeroX': MaybeZeroX,

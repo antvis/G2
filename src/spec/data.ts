@@ -25,7 +25,7 @@ export type DataTransform =
   | SubsetTransform
   | FoldTransform
   | FilterByTransform
-  | LookupTransform
+  | JoinTransform
   | MapTransform
   | CustomTransform;
 
@@ -36,7 +36,7 @@ export type DataTransformTypes =
   | 'subset'
   | 'fold'
   | 'filterBy'
-  | 'lookup'
+  | 'join'
   | 'map'
   | 'custom'
   | DataComponent;
@@ -84,13 +84,28 @@ export type CustomDataTransform = {
   callback?: (d: any) => any;
 };
 
-export type LookupTransform = {
-  type?: 'lookup';
-  key?: string | ((d: any) => any);
-  fromKey?: string | ((d: any) => any);
-  from?: Record<string, any>[];
+export type JoinTransform = {
+  type?: 'join';
+  /**
+   * The dataset to be joined.
+   */
+  join: Record<string, any>[];
+  /**
+   * Join keys of 2 dataset, [k1, k2] means join on ds1.k1 === ds2.k2.
+   */
+  on: [string | ((d: any) => string), string | ((d: any) => string)];
+  /**
+   * Select fields from joined dataset.
+   */
+  select: string[];
+  /**
+   * Rename the select fields, default: keep the original name.
+   */
+  as?: string[];
+  /**
+   * When not matched, use `unknown` instead.
+   */
   unknown?: any;
-  [key: string]: any;
 };
 
 export type CustomTransform = {
