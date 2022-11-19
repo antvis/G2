@@ -4,5 +4,53 @@
     "en": "Category"
   },
   "demos": [
+    {
+      "filename": "line.ts",
+      "title": {
+        "zh": "折线图动画",
+        "en": "Line with Animation"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/raptor/1668858139680/line-animation.gif"
+    },
+    {
+      "filename": "interval.ts",
+      "title": {
+        "zh": "柱形图动画",
+        "en": "Column with Animation"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/raptor/1668858139680/interval-animation.gif"
+    },
+    {
+      "filename": "interval-polar.ts",
+      "title": {
+        "zh": "玫瑰图动画",
+        "en": "Animation in Polar"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/raptor/1668858320153/interval-polar-animation.gif"
+    },
+    {
+      "filename": "area.ts",
+      "title": {
+        "zh": "面积图动画",
+        "en": "Area with Animation"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/raptor/1668858139680/area-animation.gif"
+    },
+    {
+      "filename": "gantt.ts",
+      "title": {
+        "zh": "甘特图动画",
+        "en": "Gantt with Animation"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/raptor/1668858139680/gantt-animation.gif"
+    },
+    {
+      "filename": "point.ts",
+      "title": {
+        "zh": "点图动画",
+        "en": " Point with Animation"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/raptor/1668858139680/point-animation.gif"
+    }
   ]
 }
