@@ -36,3 +36,7 @@ export function maybeAppend<T>(
   }
   return select(parent).select(selector);
 }
+
+export function titleContent(field: string | string[]): string {
+  return Array.isArray(field) ? field.join(', ') : `${field || ''}`;
+}
