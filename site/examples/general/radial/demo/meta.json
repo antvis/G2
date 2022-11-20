@@ -99,6 +99,14 @@
         "en": "Apple Activity"
       },
       "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*o3j-SZCiTZwAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "radar.ts",
+      "title": {
+        "zh": "雷达图",
+        "en": "Radar"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*-xcxS7E8sKcAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }
