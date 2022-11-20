@@ -1,8 +1,8 @@
 // export { createInteraction } from './create';
 // export { createInteractionLibrary } from './stdlib';
-export { ElementActive } from './native/elementActive';
-export { ElementActiveByX } from './native/elementActiveByX';
-export { ElementActiveByColor } from './native/elementActiveByColor';
+export { ElementHighlight } from './native/elementHighlight';
+export { ElementHighlightByX } from './native/elementHighlightByX';
+export { ElementHighlightByColor } from './native/elementHighlightByColor';
 export { ElementSelect } from './native/elementSelect';
 export { ElementSelectByX } from './native/elementSelectByX';
 export { ElementSelectByColor } from './native/elementSelectByColor';

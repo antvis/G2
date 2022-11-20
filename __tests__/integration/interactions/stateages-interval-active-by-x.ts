@@ -22,9 +22,9 @@ export function stateAgesIntervalActiveByX(): G2Spec {
     },
     interactions: [
       {
-        type: 'elementActiveByX',
-        activeFill: 'red',
-        inactiveOpacity: 0.6,
+        type: 'elementHighlightByX',
+        highlightedFill: 'red',
+        unhighlightedOpacity: 0.6,
       },
     ],
   };

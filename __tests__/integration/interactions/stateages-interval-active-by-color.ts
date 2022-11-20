@@ -27,9 +27,9 @@ export function stateAgesIntervalActiveByColor(): G2Spec {
     },
     interactions: [
       {
-        type: 'elementActiveByColor',
-        activeFill: 'red',
-        inactiveOpacity: 0.6,
+        type: 'elementHighlightByColor',
+        highlightedFill: 'red',
+        unhighlightedOpacity: 0.6,
       },
     ],
   };
