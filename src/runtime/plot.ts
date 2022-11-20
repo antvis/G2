@@ -574,10 +574,12 @@ async function plotView(
         }),
     );
 
+  const animationExtent = computeAnimationExtent(markState);
+
   // Main layer is for showing the main visual representation such as marks. There
   // may be multiple main layers for a view, each main layer correspond to one of marks.
   // @todo Test DOM structure.
-  selection
+  const T = selection
     .selectAll(className(PLOT_CLASS_NAME))
     .data([layout], () => key)
     .join(
@@ -591,9 +593,15 @@ async function plotView(
           .call(updateLayers, Array.from(markState.keys())),
       (update) =>
         update
-          .call(updateBBox)
-          .call(updateLayers, Array.from(markState.keys())),
-    );
+          .call(updateLayers, Array.from(markState.keys()))
+          .call((selection) => {
+            return animationExtent
+              ? animateBBox(selection, animationExtent)
+              : updateBBox(selection);
+          }),
+    )
+    .transitions();
+  transitions.push(...T.flat());
 
   // Render marks with corresponding data.
   for (const [mark, state] of markState.entries()) {
@@ -632,8 +640,6 @@ async function plotView(
               maybeFacetElement(this, parent, origin);
               const node = shapeFunction(data, index);
               const animation = updateFunction(data, [this], [node]);
-              // @todo Handle element with different type.
-              if (animation === null) copyAttributes(this, node);
               return animation;
             });
           }),
@@ -872,6 +878,57 @@ function valueOf(
   return value;
 }
 
+/**
+ * Compute max duration for this frame.
+ */
+function computeAnimationExtent(markState): [number, number] {
+  let maxDuration = -Infinity;
+  let minDelay = Infinity;
+  for (const [mark, state] of markState) {
+    const { animate = {} } = mark;
+    const { data } = state;
+    const {
+      updateType: defaultUpdateType,
+      updateDuration: defaultUpdateDuration = 300,
+      updateDelay: defaultUpdateDelay = 0,
+      enterType: defaultEnterType,
+      enterDuration: defaultEnterDuration = 300,
+      enterDelay: defaultEnterDelay = 0,
+      exitType: defaultExitType,
+      exitDuration: defaultExitDuration = 300,
+      exitDelay: defaultExitDelay = 0,
+    } = animate;
+    for (const d of data) {
+      const {
+        updateType = defaultUpdateType,
+        updateDuration = defaultUpdateDuration,
+        updateDelay = defaultUpdateDelay,
+        enterType = defaultEnterType,
+        enterDuration = defaultEnterDuration,
+        enterDelay = defaultEnterDelay,
+        exitDuration = defaultExitDuration,
+        exitDelay = defaultExitDelay,
+        exitType = defaultExitType,
+      } = d;
+
+      if (updateType === undefined || updateType) {
+        maxDuration = Math.max(maxDuration, updateDuration + updateDelay);
+        minDelay = Math.min(minDelay, updateDelay);
+      }
+      if (exitType === undefined || exitType) {
+        maxDuration = Math.max(maxDuration, exitDuration + exitDelay);
+        minDelay = Math.min(minDelay, exitDelay);
+      }
+      if (enterType === undefined || enterType) {
+        maxDuration = Math.max(maxDuration, enterDuration + enterDelay);
+        minDelay = Math.min(minDelay, enterDelay);
+      }
+    }
+  }
+  if (maxDuration === -Infinity) return null;
+  return [minDelay, maxDuration - minDelay];
+}
+
 function selectFacetElements(
   selection: Selection,
   facetClassName: string,
@@ -1084,6 +1141,29 @@ function updateBBox(selection: Selection) {
     .style('y', (d) => d.paddingTop)
     .style('width', (d) => d.innerWidth)
     .style('height', (d) => d.innerHeight);
+}
+
+function animateBBox(selection: Selection, extent: [number, number]) {
+  const [delay, duration] = extent;
+  selection.transition(function (data) {
+    const { x, y, width, height } = this.style;
+    const { paddingLeft, paddingTop, innerWidth, innerHeight } = data;
+    const keyframes = [
+      {
+        x,
+        y,
+        width,
+        height,
+      },
+      {
+        x: paddingLeft,
+        y: paddingTop,
+        width: innerWidth,
+        height: innerHeight,
+      },
+    ];
+    return this.animate(keyframes, { delay, duration, fill: 'both' });
+  });
 }
 
 function shapeName(mark: G2Mark, name: string): string {

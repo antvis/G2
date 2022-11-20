@@ -89,4 +89,6 @@ export const VHV: SC<VHVOptions> = (options) => {
 
 VHV.props = {
   defaultEnterAnimation: 'fadeIn',
+  defaultUpdateAnimation: 'morphing',
+  defaultExitAnimation: 'fadeOut',
 };

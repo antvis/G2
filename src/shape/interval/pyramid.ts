@@ -46,5 +46,5 @@ export const Pyramid: SC<PyramidOptions> = (options) => {
 };
 
 Pyramid.props = {
-  defaultEnterAnimation: 'fadeIn',
+  ...Color.props,
 };

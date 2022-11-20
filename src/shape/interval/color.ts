@@ -125,4 +125,6 @@ export const Color: SC<ColorOptions> = (options) => {
 // @todo Should Shape have default animations using for ordinal scale?
 Color.props = {
   defaultEnterAnimation: 'scaleInY',
+  defaultUpdateAnimation: 'morphing',
+  defaultExitAnimation: 'fadeOut',
 };

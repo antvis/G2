@@ -45,4 +45,6 @@ export const Smooth: SC<SmoothOptions> = (options) => {
 
 Smooth.props = {
   defaultEnterAnimation: 'fadeIn',
+  defaultUpdateAnimation: 'morphing',
+  defaultExitAnimation: 'fadeOut',
 };
