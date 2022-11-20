@@ -10,10 +10,10 @@ export function gainLostIntervalCornered(): G2Spec {
         {
           type: 'fold',
           fields: [
-            'gained <= 100$',
-            'gained > 100$',
             'lost > 100$',
             'lost <= 100$',
+            'gained <= 100$',
+            'gained > 100$',
           ],
           as: ['key', 'value'],
         },
@@ -32,7 +32,13 @@ export function gainLostIntervalCornered(): G2Spec {
           x: { padding: 0.2 },
           y: { domainMin: -100, domainMax: 100 },
           color: {
-            range: ['#97e3d5', '#61cdbb', '#e25c3b', '#f47560'],
+            domain: [
+              'lost > 100$',
+              'lost <= 100$',
+              'gained <= 100$',
+              'gained > 100$',
+            ],
+            range: ['#e25c3b', '#f47560', '#97e3d5', '#61cdbb'],
           },
         },
         legend: {
@@ -73,7 +79,7 @@ export function gainLostIntervalCornered(): G2Spec {
         style: {
           x: 0,
           y: '20%',
-          text: 'lost',
+          text: 'gain',
           fontWeight: 'bold',
           dy: -10,
           transform: 'rotate(-90)',
@@ -85,7 +91,7 @@ export function gainLostIntervalCornered(): G2Spec {
         style: {
           x: 0,
           y: '70%',
-          text: 'gain',
+          text: 'lost',
           fontWeight: 'bold',
           dy: -10,
           transform: 'rotate(-90)',

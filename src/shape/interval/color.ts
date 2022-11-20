@@ -88,7 +88,7 @@ export const Color: SC<ColorOptions> = (options) => {
         .style('y', finalY)
         .style('width', finalWidth)
         .style('height', finalHeight)
-        .style('stroke', color || stroke)
+        .style('stroke', stroke === undefined ? color : stroke)
         .style(toOpacityKey(options), opacity)
         .style(colorAttribute, color)
         .style('radius', [
