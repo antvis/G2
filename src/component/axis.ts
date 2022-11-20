@@ -1,7 +1,7 @@
 import { Coordinate, Vector2 } from '@antv/coord';
-import { Arc, Linear } from '@antv/gui';
+import { Axis as AxisComponent, AxisStyleProps } from '@antv/gui';
 import { Linear as LinearScale } from '@antv/scale';
-import { deepMix, size } from '@antv/util';
+import { deepMix } from '@antv/util';
 import { format } from 'd3-format';
 import { extent } from 'd3-array';
 import {
@@ -18,7 +18,7 @@ import {
   GuideComponentPosition,
   Scale,
 } from '../runtime';
-import { subObject } from '../utils/helper';
+import { titleContent } from './utils';
 
 export type AxisOptions = {
   position?: GuideComponentPosition;
@@ -36,89 +36,6 @@ export type AxisOptions = {
   grid: any;
   [key: string]: any;
 };
-
-function inferPosition(
-  position: GuideComponentPosition,
-  direction: string,
-  bbox: BBox,
-  coordinate: Coordinate,
-): {
-  startPos: [number, number];
-  endPos: [number, number];
-  labelOffset: number;
-  titlePosition: 'start' | 'end' | 'center';
-  titlePadding: number;
-  titleRotate: number;
-  verticalFactor: 1 | -1;
-  titleOffsetY?: number;
-  labelAlign?: 'start' | 'end' | 'center' | 'left' | 'right';
-  label?: boolean;
-  axisLine?: boolean;
-  tickLine?: boolean;
-} {
-  const { x, y, width, height } = bbox;
-  if (position === 'bottom') {
-    return {
-      startPos: [x, y],
-      endPos: [x + width, y],
-      labelOffset: 8,
-      titlePosition: 'end',
-      titlePadding: 2,
-      titleRotate: 0,
-      verticalFactor: 1,
-    };
-  } else if (position === 'left' || position === 'centerHorizontal') {
-    return {
-      startPos: [x + width, y],
-      endPos: [x + width, y + height],
-      titlePosition: 'center',
-      titlePadding: 6,
-      titleRotate: -90,
-      labelAlign: 'end',
-      labelOffset: 4,
-      verticalFactor: -1,
-    };
-  } else if (position === 'right') {
-    return {
-      startPos: [x, y],
-      endPos: [x, y + height],
-      titlePosition: 'center',
-      titlePadding: 16,
-      titleRotate: -90,
-      labelAlign: 'start',
-      labelOffset: 4,
-      verticalFactor: 1,
-    };
-  } else if (position === 'arcY') {
-    return {
-      startPos: [x, y],
-      endPos: [x + width, y + height],
-      titlePosition: 'start',
-      titlePadding: 4,
-      titleOffsetY: -5,
-      titleRotate: 0,
-      labelOffset: direction === 'left' ? 4 : direction === 'right' ? -4 : 0,
-      verticalFactor: -1,
-      labelAlign:
-        direction === 'center'
-          ? 'center'
-          : direction === 'right'
-          ? 'start'
-          : undefined,
-      axisLine: false,
-    };
-  }
-  // position === 'centerVertical'
-  return {
-    startPos: [x, y + height],
-    endPos: [x + width, y + height],
-    titlePosition: 'end',
-    titlePadding: 2,
-    titleRotate: 0,
-    labelOffset: 4,
-    verticalFactor: -1,
-  };
-}
 
 function angleOf(coordinate: Coordinate): [number, number] {
   const { transformations } = coordinate.getOptions();
@@ -143,7 +60,7 @@ function sizeOf(coordinate: Coordinate): [number, number] {
 }
 
 function reverseTicks(ticks) {
-  return ticks.map(({ value, text }) => ({ value: 1 - value, text }));
+  return ticks.map(({ value, ...rest }) => ({ value: 1 - value, ...rest }));
 }
 
 /**
@@ -247,7 +164,8 @@ function getTicks(
       const tick = applyInset(scale.map(d) + offset);
       return {
         value: isTranspose(coordinate) && scale.getTicks?.() ? 1 - tick : tick,
-        text: tickFormatter(d, i, array),
+        label: tickFormatter(d, i, array),
+        id: String(i),
       };
     });
     // @todo GUI should consider the overlap problem for the first
@@ -262,99 +180,202 @@ function getTicks(
     const tick = applyFisheye(applyInset(scale.map(d) + offset));
     return {
       value: tick,
-      text: `${tickFormatter(prettyNumber(d), i, array)}`,
+      label: `${tickFormatter(prettyNumber(d), i, array)}`,
+      id: String(i),
     };
   });
 }
 
-function getTickGridItem(
-  tick: number,
-  position: GuideComponentPosition,
-  coordinate: Coordinate,
-  startPos: Vector2,
-  endPos: Vector2,
-) {
-  const [sx, sy] = startPos;
-  const [ex, ey] = endPos;
+function getGridLength(position: GuideComponentPosition, coordinate) {
   const [width, height] = sizeOf(coordinate);
-  let x1, x2, y1, y2;
-  if (position === 'bottom' || position === 'top') {
-    x1 = x2 = sx + (ex - sx) * tick;
-    y1 = sy;
-    y2 = position === 'bottom' ? sy - height : sy + height;
-  } else {
-    y1 = y2 = sy + (ey - sy) * tick;
-    x1 = sx;
-    x2 = position === 'left' ? sx + width : sx - width;
-  }
-  return [
-    [x1, y1],
-    [x2, y2],
-  ];
+  if (position === 'bottom' || position === 'top') return height;
+  return width;
 }
 
-function getArcGridItems(
-  ticks: any[],
-  center: [number, number],
-  startAngle: number,
-  endAngle: number,
+function labelTransforms(autoHide?: boolean, autoRotate?: boolean) {
+  const transforms = [];
+  if (autoHide) transforms.push({ type: 'hide' });
+  if (autoRotate)
+    transforms.push({ type: 'rotate', optionalAngles: [0, 30, 45, 60, 90] });
+  return transforms;
+}
+
+function inferArcStyle(
+  position: GuideComponentPosition,
   innerRadius: number,
   outerRadius: number,
   coordinate: Coordinate,
 ) {
-  const [cx, cy] = center;
   const [w, h] = sizeOf(coordinate);
   const r = Math.min(w, h) / 2;
-  const ir = innerRadius * r;
-  const or = outerRadius * r;
-  return ticks.map(({ value }) => {
-    const angle = (endAngle - startAngle) * value + startAngle;
-    const dx = Math.cos((angle * Math.PI) / 180);
-    const dy = Math.sin((angle * Math.PI) / 180);
+
+  const common = {
+    titleFillOpacity: 0,
+    titlePosition: 'inner',
+    showLine: false,
+    showTick: true,
+    gridLength: (outerRadius - innerRadius) * r,
+  };
+
+  if (position === 'arcInner') {
+    const [w, h] = sizeOf(coordinate);
+    const r = Math.min(w, h) / 2;
     return {
-      points: [
-        [cx + ir * dx, cy + ir * dy],
-        [cx + or * dx, cy + or * dy],
-      ],
+      ...common,
+      labelAlign: 'perpendicular',
+      labelDirection: 'positive',
+      labelSpacing: 4,
+      tickDirection: 'positive',
+      gridDirection: 'negative',
     };
-  });
+  }
+
+  return {
+    ...common,
+    labelAlign: 'parallel',
+    labelDirection: 'negative',
+    labelSpacing: 8,
+    tickDirection: 'negative',
+    gridDirection: 'positive',
+  };
 }
 
-/**
- * @todo render grid in arcY positioned axis.
- */
-function getGridItems(
-  ticks: any[],
+function inferGrid(value: boolean, coordinate: Coordinate, scale: Scale) {
+  if (isTheta(coordinate) || isParallel(coordinate)) return false;
+  // Display axis grid for non-discrete values.
+  return value === undefined ? !!scale.getTicks : value;
+}
+
+function inferStyle(
   position: GuideComponentPosition,
-  coordinate: any,
-  startPos: Vector2,
-  endPos: Vector2,
-) {
-  if (isTheta(coordinate) || isParallel(coordinate)) return [];
-  return ticks.map((tick) => {
-    const points = getTickGridItem(
-      tick.value,
-      position,
-      coordinate,
-      startPos,
-      endPos,
-    );
-    const finalPoints = isPolar(coordinate) ? [points[0]] : points;
-    return { points: finalPoints };
-  });
-}
+  direction: string,
+  bbox: BBox,
+  coordinate: Coordinate,
+  scale: Scale,
+): {
+  type: 'linear';
+  startPos: [number, number];
+  endPos: [number, number];
+  labelSpacing: number;
+  titlePosition: AxisStyleProps['titlePosition'];
+  titleTextBaseline: 'top' | 'bottom' | 'middle';
+  titleSpacing?: number;
+  titleTransform: string;
+  titleTransformOrigin: string;
+  labelDirection: 'negative' | 'positive';
+  tickDirection: 'negative' | 'positive';
+  showLabel?: boolean;
+  showTick?: boolean;
+  gridLength: number;
+  gridDirection: 'negative' | 'positive';
+  gridConnect?: string;
+  gridType?: string;
+  gridCenter?: Vector2;
+  gridControlAngles?: number[];
+  girdClosed?: true;
+} {
+  const gridLength = getGridLength(position, coordinate);
+  const [, cy] = coordinate.getCenter();
+  const { x, y, width, height } = bbox;
 
-function titleContent(field: string | string[]): string {
-  return Array.isArray(field) ? field.join(', ') : `${field}`;
+  const common = {
+    type: 'linear' as const,
+    lineArrow: null,
+    titleTransform: undefined,
+    // @ts-ignore
+    titleTransformOrigin: 'center',
+    labelAlign: 'horizontal',
+    gridLength,
+  };
+
+  if (position === 'bottom') {
+    return {
+      ...common,
+      startPos: [x, y],
+      endPos: [x + width, y],
+      titlePosition: scale.getTicks ? 'right-bottom' : 'bottom',
+      titleTransform: scale.getTicks ? 'translate(-100,0)' : undefined,
+      titleSpacing: 2,
+      titleTextBaseline: 'bottom',
+      labelSpacing: 12,
+      labelDirection: 'positive',
+      tickDirection: 'positive',
+      gridDirection: 'negative',
+    };
+  } else if (position === 'left' || position === 'centerHorizontal') {
+    return {
+      ...common,
+      startPos: [x + width, y],
+      endPos: [x + width, y + height],
+      titleSpacing: 0,
+      titleTextBaseline: 'middle',
+      titlePosition: 'left',
+      titleTransform: `translate(50%, 0) rotate(-90)`,
+      labelSpacing: 4,
+      labelDirection: 'positive',
+      tickDirection: 'positive',
+      gridDirection: 'negative',
+    };
+  } else if (position === 'right') {
+    return {
+      ...common,
+      endPos: [x, y + height],
+      startPos: [x, y],
+      titlePosition: 'right',
+      titleSpacing: 10,
+      titleTextBaseline: 'top',
+      titleTransform: `translate(-50%, 0) rotate(-90)`,
+      labelSpacing: 4,
+      labelDirection: 'negative',
+      tickDirection: 'negative',
+      gridDirection: 'negative',
+    };
+  } else if (position === 'arcY') {
+    return {
+      ...common,
+      startPos: [x, y],
+      endPos: [x + width, y + height],
+      titlePosition: 'top',
+      titleSpacing: -5,
+      titleTextBaseline: 'bottom',
+      labelDirection: 'positive',
+      tickDirection: 'positive',
+      showTick: direction === 'center' ? false : true,
+      labelSpacing: direction === 'center' ? 0 : 4,
+      gridDirection: 'negative',
+      gridConnect: 'arc',
+      gridType: 'surround',
+      gridCenter: [bbox.x, cy + bbox.y],
+      gridControlAngles: [90, 180, 360],
+      girdClosed: true,
+    };
+  }
+
+  return {
+    ...common,
+    startPos: [x, y + height],
+    endPos: [x + width, y + height],
+    titlePosition: 'top',
+    titleSpacing: 0,
+    titleTextBaseline: 'middle',
+    labelSpacing: 8,
+    labelDirection: 'negative',
+    tickDirection: 'negative',
+    gridDirection: 'positive',
+  };
 }
 
 const ArcAxis = (options) => {
   const {
+    order,
+    size,
     position,
     tickFormatter = (d) => `${d}`,
     tickFilter,
     tickCount,
     tickMethod,
+    title,
+    grid: showGrid = false,
     ...rest
   } = options;
   return (scale, value, coordinate, theme) => {
@@ -375,59 +396,34 @@ const ArcAxis = (options) => {
     const radius = Math.min(width, height) / 2;
     const [startAngle, endAngle] = angleOf(coordinate);
     const [innerRadius, outerRadius] = radiusOf(coordinate);
-    const { grid: showGrid = false } = rest;
-    const gridItems = showGrid
-      ? getArcGridItems(
-          ticks,
-          center,
-          startAngle,
-          endAngle,
-          innerRadius,
-          outerRadius,
-          coordinate,
-        )
-      : [];
-    return new Arc({
-      style: deepMix(
-        {},
-        {
-          center,
-          radius,
-          startAngle,
-          endAngle,
-          ticks,
-          verticalFactor: position === 'arc' ? 1 : -1,
-          axisLine: {
-            style: {
-              lineWidth: 0,
-              strokeOpacity: 0,
-            },
-          },
-          grid: {
-            items: gridItems,
-            lineStyle: {
-              stroke: '#1b1e23',
-              strokeOpacity: 0.1,
-              lineDash: [0, 0],
-            },
-          },
-          tickLine: {
-            len: 4,
-            style: { lineWidth: 1, stroke: '#BFBFBF' },
-          },
-          label: {
-            // @todo fix bug in @antv/gui related to tangential.
-            align: position === 'arcInner' ? 'radial' : 'tangential',
-            tickPadding: 2,
-          },
-        },
-      ),
+
+    const defaultStyle = inferArcStyle(
+      position,
+      innerRadius,
+      outerRadius,
+      coordinate,
+    );
+    const { axis: axisTheme } = theme;
+    return new AxisComponent({
+      style: deepMix({}, axisTheme, defaultStyle, {
+        type: 'arc',
+        center,
+        radius,
+        angleRange: [startAngle, endAngle],
+        data: ticks,
+        title: titleContent(title),
+        showGrid,
+        ...rest,
+      }),
     });
   };
 };
 
 const LinearAxis: GCC<AxisOptions> = (options) => {
   const {
+    order,
+    size,
+    transform,
     position,
     title,
     tickFormatter = (d) => `${d}`,
@@ -435,25 +431,18 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
     tickCount,
     tickFilter,
     tickMethod,
-    titleAnchor,
+    labelAutoHide = false,
+    labelAutoRotate = false,
+    // @todo rename to axisLine for G2 user?
+    showLine = false,
+    grid,
     ...rest
   } = options;
+
   return (scale, value, coordinate, theme) => {
     const { domain, bbox } = value;
-    const {
-      startPos,
-      endPos,
-      labelOffset,
-      titlePosition,
-      titlePadding,
-      titleRotate,
-      verticalFactor,
-      titleOffsetY,
-      labelAlign,
-      axisLine,
-      label = options.label === undefined ? true : options.label,
-      tickLine = options.tickLine === undefined ? true : options.tickLine,
-    } = inferPosition(position, direction, bbox, coordinate);
+
+    const { axis: axisTheme } = theme;
     const ticks = getTicks(
       scale,
       domain,
@@ -464,77 +453,33 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
       position,
       coordinate,
     );
-    const anchor =
-      position === 'arcY' || scale.getTicks ? titlePosition : 'center';
-    const [, cy] = coordinate.getCenter();
-    // Display axis grid for non-discrete values.
-    const { grid: showGrid = !!scale.getTicks } = rest;
-    const gridItems = showGrid
-      ? getGridItems(ticks, position, coordinate, startPos, endPos)
-      : [];
-    const axisLineStyle = subObject(rest, 'line');
-    return new Linear({
-      style: deepMix({
-        startPos,
-        endPos,
-        verticalFactor,
-        ticks,
-        label: label
-          ? {
-              tickPadding: labelOffset,
-              autoHide: false,
-              autoRotate: true,
-              ...subObject(rest, 'label'),
-              style: {
-                ...(labelAlign && { textAlign: labelAlign }),
-                ...subObject(rest, 'label'),
-              },
-            }
-          : null,
-        axisLine:
-          axisLine || Object.keys(axisLineStyle).length
-            ? { stroke: '#BFBFBF', style: axisLineStyle }
-            : null,
-        grid: {
-          items: gridItems,
-          lineStyle: {
-            stroke: '#1b1e23',
-            strokeOpacity: 0.05,
-            lineDash: [0, 0],
-          },
-          ...(position === 'arcY' && {
-            type: 'circle',
-            center: [bbox.x, cy + bbox.y],
-            closed: true,
-          }),
-        },
-        tickLine: tickLine
-          ? {
-              len: 4,
-              style: {
-                lineWidth: 1,
-                stroke: '#BFBFBF',
-                ...subObject(rest, 'tick'),
-              },
-            }
-          : null,
-        ...(title && {
-          title: {
-            content: titleContent(title),
-            // content: 'a',
-            titleAnchor: titleAnchor || anchor,
-            style: {
-              fontWeight: 'bold',
-              fillOpacity: 1,
-              dy: titleOffsetY,
-              textAnchor: anchor,
-              ...subObject(rest, 'title'),
-            },
-            titlePadding,
-            rotate: titleRotate,
-          },
-        }),
-      }),
+
+    const showGrid = inferGrid(grid, coordinate, scale);
+
+    const {
+      showLabel = options.label === undefined ? true : options.label,
+      showTick = options.tickLine === undefined ? true : options.tickLine,
+      ...defaultStyle
+    } = inferStyle(position, direction, bbox, coordinate, scale);
+
+    const axisStyle = {
+      ...defaultStyle,
+      data: ticks,
+      title: titleContent(title),
+      showLabel,
+      labelTransforms: labelTransforms(labelAutoHide, labelAutoRotate),
+      showGrid,
+      showTick,
+      ...rest,
+      // Always showLine, make title could align the end of axis.
+      showLine: true,
+      ...(!showLine ? { lineOpacity: 0 } : null),
+      // lineStrokeOpacity: 1,
+      // lineStroke: 'red',
+      // lineLineWidth: 4,
+    } as AxisStyleProps;
+    return new AxisComponent({
+      style: deepMix({}, axisTheme, axisStyle),
     });
   };
 };

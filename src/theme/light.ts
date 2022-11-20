@@ -224,16 +224,16 @@ export const Light: TC<LightOptions> = (options) => {
       titleFill: BLACK_COLORS[65],
       titleFillOpacity: 1,
       titleFontSize: 12,
-      titleFontWeight: 'normal',
+      titleFontWeight: 'bold', // 'lighter',
       titleSpacing: 12,
       // axis line
       lineStroke: BLACK_COLORS[25],
       lineStrokeOpacity: 0.45,
       lineLineWidth: 0.5,
       // axis tickLine
-      tickLineStroke: BLACK_COLORS[25],
-      tickLineLineWidth: 1,
-      tickLineLength: 4,
+      tickStroke: '#BFBFBF', // BLACK_COLORS[25],
+      tickLineWidth: 1,
+      tickLength: 4,
       // axis label
       labelFill: BLACK_COLORS[45],
       labelFillOpacity: 1,
@@ -241,8 +241,8 @@ export const Light: TC<LightOptions> = (options) => {
       labelFontWeight: 'lighter',
       labelSpacing: 8, // spacing between label and it's tick
       // axis grid
-      gridStroke: BLACK_COLORS[15],
-      gridStrokeOpacity: 1,
+      gridStroke: '#1b1e23', // BLACK_COLORS[15],
+      gridStrokeOpacity: 0.1, // 1,
       gridLineWidth: 0.5,
       gridLineDash: [0, 0],
     },

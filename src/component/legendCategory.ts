@@ -4,6 +4,7 @@ import {
   GuideComponentComponent as GCC,
   GuideComponentPosition,
 } from '../runtime';
+import { titleContent } from './utils';
 
 export type LegendCategoryOptions = {
   position?: GuideComponentPosition;
@@ -14,18 +15,30 @@ export type LegendCategoryOptions = {
   [key: string]: any;
 };
 
+const circle = (x, y, r) => {
+  return [
+    ['M', x - r, y],
+    ['A', r, r, 0, 1, 0, x + r, y],
+    ['A', r, r, 0, 1, 0, x - r, y],
+    ['Z'],
+  ];
+};
+
 /**
  * Guide Component for ordinal color scale.
  * @todo Custom style.
  */
 export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
   const {
+    order,
+    size,
     position,
     tickFormatter = (d) => `${d}`,
     dx = 0,
     dy = 0,
     title,
-    cols = undefined,
+    gridCol = undefined,
+    gridRow = undefined,
     autoWrap = false,
     ...rest
   } = options;
@@ -34,73 +47,44 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
     const { x, y, width, height } = bbox;
     const items = domain.map((d) => ({
       id: d,
-      name: tickFormatter(d),
+      label: tickFormatter(d),
+      value: '',
       color: scale.map(d),
     }));
-    const maxItemWidth = autoWrap && cols ? width / cols : undefined;
+
     const legendStyle = deepMix(
       {},
       {
-        items,
+        data: items,
         x: x + dx,
         y: y + dy,
         orient: ['right', 'left', 'arcCenter'].includes(position)
           ? 'vertical'
           : 'horizontal',
-        maxWidth: width,
-        maxHeight: height,
-        autoWrap,
-        maxItemWidth,
-        itemWidth: maxItemWidth,
-        spacing: [8, 0],
-        itemName: {
-          style: {
-            fontSize: 12,
-            fillOpacity: 1,
-            fill: '#000',
-            fontWeight: 'lighter',
-            active: {
-              fillOpacity: 0.8,
-            },
-            inactive: {
-              fill: '#d8d8d8',
-            },
-            unchecked: {
-              fill: '#d8d8d8',
-            },
-          },
-        },
-        ...(title && {
-          title: {
-            content: Array.isArray(title) ? title[0] : title,
-            style: {
-              fontSize: 12,
-              fontWeight: 'bold',
-              fillOpacity: 1,
-            },
-          },
-        }),
-        itemMarker: {
-          size: 8,
-          symbol: 'circle',
-          style: {
-            fillOpacity: 1,
-            inactive: {
-              fillOpacity: 0.2,
-            },
-            unchecked: {
-              fill: '#d8d8d8',
-              stroke: '#d8d8d8',
-            },
-          },
-        },
-        itemBackgroundStyle: {
-          fill: 'transparent',
-        },
+        width,
+        height,
+        // Grid layout.
+        // @todo flex or grid layout.
+        layout: 'flex',
+        gridCol: 1,
+        gridRow: 10,
+
+        rowPadding: 0,
+        colPadding: 8,
+        itemSpacing: 5, // spacing between marker and label
+        titleText: titleContent(title),
+        titleFontSize: 12,
+        titleFontWeight: 'bold',
+        titleFillOpacity: 1,
+        itemMarkerFill: (d) => (d ? d.color : '#fff'),
+        itemMarkerFillOpacity: 1,
+        // @todo GUI should support itemMarkerSize.
+        itemMarkerSize: 4,
+        itemMarkerD: circle(4, 4, 4),
       },
       { ...rest },
     );
-    return new Category({ className: 'category-legend', style: legendStyle });
+    return new Category({ style: legendStyle });
   };
 };
 
