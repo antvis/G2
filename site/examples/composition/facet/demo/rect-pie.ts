@@ -33,7 +33,7 @@ const facetRect = chart
   .encode('y', 'week')
   .scale('x', { domain: days })
   .legend('color', { position: 'right', size: 50 })
-  .paddingRight(100);
+  .attr('paddingRight', 100);
 
 facetRect
   .view()

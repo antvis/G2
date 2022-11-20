@@ -149,6 +149,10 @@ export type RepeatMatrixComposition = {
     x?: Scale;
     y?: Scale;
   };
+  // @todo
+  axis?: Record<string, any>;
+  // @todo
+  legend?: Record<string, any>;
   children?: Node[] | ((facet: FacetContext) => Node);
 };
 
@@ -175,6 +179,10 @@ export type FacetCircleComposition = {
     y?: Scale;
   };
   children?: Node[] | ((facet: FacetContext) => Node);
+  // @todo
+  axis?: Record<string, any>;
+  // @todo
+  legend?: Record<string, any>;
 };
 
 export type TimingKeyframeComposition = {

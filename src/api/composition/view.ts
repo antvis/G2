@@ -12,42 +12,25 @@ import { mark, Mark } from '../mark';
 type ViewSpec = Concrete<ViewComposition>;
 
 export interface View extends Mark {
-  paddingLeft: ValueAttribute<ViewSpec['paddingLeft'], View>;
-  paddingRight: ValueAttribute<ViewSpec['paddingRight'], View>;
-  paddingBottom: ValueAttribute<ViewSpec['paddingBottom'], View>;
-  paddingTop: ValueAttribute<ViewSpec['paddingTop'], View>;
-  marginLeft: ValueAttribute<ViewSpec['marginLeft'], View>;
-  marginRight: ValueAttribute<ViewSpec['marginRight'], View>;
-  marginBottom: ValueAttribute<ViewSpec['marginBottom'], View>;
-  marginTop: ValueAttribute<ViewSpec['marginTop'], View>;
   data: ValueAttribute<ViewSpec['data'], View>;
-  key: ValueAttribute<ViewSpec['key'], View>;
   coordinate: ArrayAttribute<ViewSpec['coordinates'], View>;
   interaction: ArrayAttribute<ViewSpec['interactions'], View>;
   theme: ObjectAttribute<ViewSpec['theme'], View>;
   style: ObjectAttribute<ViewSpec['style'], View>;
   scale: ObjectAttribute<ViewSpec['scale'], View>;
   axis: ObjectAttribute<ViewSpec['axis'], View>;
+  legend: ObjectAttribute<ViewSpec['legend'], View>;
 }
 
 @defineProps([
-  { type: 'value', name: 'paddingLeft' },
-  { type: 'value', name: 'paddingRight' },
-  { type: 'value', name: 'paddingBottom' },
-  { type: 'value', name: 'paddingTop' },
-  { type: 'value', name: 'marginLeft' },
-  { type: 'value', name: 'marginRight' },
-  { type: 'value', name: 'marginBottom' },
-  { type: 'value', name: 'marginTop' },
   { type: 'value', name: 'data' },
-  { type: 'value', name: 'key' },
   { type: 'array', name: 'coordinate', key: 'coordinates' },
   { type: 'array', name: 'interaction', key: 'interactions' },
   { type: 'object', name: 'theme' },
   { type: 'object', name: 'style' },
   { type: 'object', name: 'scale' },
   { type: 'object', name: 'axis' },
-  { name: 'frame', type: 'value' },
+  { type: 'object', name: 'legend' },
   ...nodeProps(mark),
 ])
 export class View extends Node<ViewComposition> {

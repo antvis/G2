@@ -28,7 +28,7 @@ const facetRect = chart
     ],
   })
   .encode('y', 'pclass')
-  .shareSize(true);
+  .attr('shareSize', true);
 
 const facetRect2 = facetRect
   .facetRect()
@@ -38,12 +38,12 @@ const facetRect2 = facetRect
     tickFormatter: (d) => (d === '1' ? 'Yes' : 'No'),
     position: 'bottom',
   })
-  .shareSize(true);
+  .attr('shareSize', true);
 
 const facetRect3 = facetRect2
   .facetRect()
   .encode('y', 'sex')
-  .shareSize(true)
+  .attr('shareSize', true)
   .axis('x', false)
   .axis('y', { position: 'left' });
 

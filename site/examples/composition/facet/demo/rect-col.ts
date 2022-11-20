@@ -17,9 +17,9 @@ fetch('https://assets.antv.antgroup.com/g2/barley.json')
 
     const facetRect = chart
       .facetRect()
-      .paddingLeft(130)
-      .paddingRight(120)
-      .paddingBottom(60)
+      .attr('paddingLeft', 130)
+      .attr('paddingRight', 120)
+      .attr('paddingBottom', 60)
       .data(data)
       .encode('y', 'site')
       .scale('y', {
@@ -32,8 +32,8 @@ fetch('https://assets.antv.antgroup.com/g2/barley.json')
 
     facetRect
       .point()
-      .insetLeft(5)
-      .insetRight(5)
+      .attr('insetLeft', 5)
+      .attr('insetRight', 5)
       .scale('color', { type: 'ordinal' })
       .scale('y', {
         domain: groupSort<any, any>(

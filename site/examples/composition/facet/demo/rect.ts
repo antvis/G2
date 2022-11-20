@@ -36,11 +36,10 @@ const facetRect = chart
 
 facetRect
   .point()
-  .facet(false)
-  .frame(false)
+  .attr('facet', false)
+  .attr('frame', false)
   .encode('x', 'culmen_depth_mm')
   .encode('y', 'culmen_length_mm')
-  .style('r', 3)
   .style('fill', '#ddd')
   .style('stroke', 'none');
 
