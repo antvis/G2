@@ -640,6 +640,7 @@ async function plotView(
               maybeFacetElement(this, parent, origin);
               const node = shapeFunction(data, index);
               const animation = updateFunction(data, [this], [node]);
+              if (animation === null) copyAttributes(this, node);
               return animation;
             });
           }),

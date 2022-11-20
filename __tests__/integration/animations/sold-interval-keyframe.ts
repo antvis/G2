@@ -32,4 +32,3 @@ export function soldIntervalKeyframe(): G2Spec {
 }
 
 soldIntervalKeyframe.intervals = [false, [500], [500], [500], [500]];
-soldIntervalKeyframe.only = true;
