@@ -21,7 +21,7 @@ const chart = new Chart({
 
 const facetRect = chart
   .facetRect()
-  .paddingBottom(50)
+  .attr('paddingBottom', 50)
   .data({
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/anscombe.json',
@@ -30,10 +30,10 @@ const facetRect = chart
 
 facetRect
   .point()
-  .inset(10)
   .encode('x', 'x')
   .encode('y', 'y')
-  .style('stroke', '#000');
+  .style('stroke', '#000')
+  .attr('inset', 10);
 
 chart.render();
 ```
@@ -44,41 +44,37 @@ chart.render();
 
 facetRect 的底层实现和 mark 一致，所以在配置上有很多是一样的。
 
-| 属性 | 描述 | 类型 | 默认值|
-| -------------| ----------------------------------------------------------- | ---------------| ----------|
-| data         |  参考 [data](/api/data) 相关介绍                              | `Data`         |           |
-| encode       |  通道设置，见下表                                              |                |           |
-| padding      |  padding 大小                                                | `number`       |  0        |
-| paddingLeft  |                                                             | `number`        |  0        |
-| paddingRight |                                                             | `number`        |  0        |
-| paddingTop   |                                                             | `number`        |  0        |
-| paddingBottom |                                                            | `number`        |  0        |
-| margin       |  margin                                                     | `number`        |  0        |
-| marginLeft   |                                                             | `number`        |  0        |
-| marginRight  |                                                             | `number`        |  0        |
-| marginTop    |                                                             | `number`        |  0        |
-| marginBottom |                                                             | `number`        |  0        |
-| title        | 参考 [title](/api/title) 相关介绍                             |                 |           |
-| scale        | 参考 [scale](/api/scale/linear) 相关介绍                      |                 |           |
+| 属性          | 描述                                     | 类型     | 默认值 |
+| ------------- | ---------------------------------------- | -------- | ------ |
+| data          | 参考 [data](/api/data) 相关介绍          | `Data`   |        |
+| encode        | 通道设置，见下表                         |          |        |
+| padding       | padding 大小                             | `number` | 0      |
+| paddingLeft   |                                          | `number` | 0      |
+| paddingRight  |                                          | `number` | 0      |
+| paddingTop    |                                          | `number` | 0      |
+| paddingBottom |                                          | `number` | 0      |
+| margin        | margin                                   | `number` | 0      |
+| marginLeft    |                                          | `number` | 0      |
+| marginRight   |                                          | `number` | 0      |
+| marginTop     |                                          | `number` | 0      |
+| marginBottom  |                                          | `number` | 0      |
+| title         | 参考 [title](/api/title) 相关介绍        |          |        |
+| scale         | 参考 [scale](/api/scale/linear) 相关介绍 |          |        |
 
 `facetRect` 对应的配置都可以使用 API 进行设置，例如：
 
 ```ts
-chart
-  .facetRect()
-  .data([1, 2, 3])
-  .encode('x', 'type');
+chart.facetRect().data([1, 2, 3]).encode('x', 'type');
 ```
 
 ### encode
 
 对于 facetRect 有自己独特的 encode 通道。
 
-| 通道 | 描述 | 类型 | 默认值|
-| -------------| ----------------------------------------------------------- | -----------------------------------------| ----------|
-| x            |  指定 x 方向上分面的字段，可以是常年、字段名、回调函数               | `string` \| `(d, idx, arr) => any`       |           |
-| y            |  指定 x 方向上分面的字段，可以是常年、字段名、回调函数               | `string` \| `(d, idx, arr) => any`       |           |
-
+| 通道 | 描述                                                  | 类型                               | 默认值 |
+| ---- | ----------------------------------------------------- | ---------------------------------- | ------ |
+| x    | 指定 x 方向上分面的字段，可以是常年、字段名、回调函数 | `string` \| `(d, idx, arr) => any` |        |
+| y    | 指定 x 方向上分面的字段，可以是常年、字段名、回调函数 | `string` \| `(d, idx, arr) => any` |        |
 
 ## FAQ
 

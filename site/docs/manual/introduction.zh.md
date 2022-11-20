@@ -110,13 +110,13 @@ rect
 ```js
 const keyframe = chart
   .timingKeyframe()
-  .iterationCount(10)
-  .direction('alternate');
+  .attr('iterationCount', 10)
+  .attr('direction', 'alternate');
 
 // The third scatterplot.
 keyframe
   .point()
-  .paddingLeft(50)
+  .attr('paddingLeft', 50)
   .data(data)
   .transform({ type: 'stackEnter', groupBy: 'color' })
   .encode('x', 'GDP')
@@ -131,7 +131,7 @@ keyframe
 keyframe
   .interval()
   .data(data)
-  .paddingLeft(50)
+  .attr('paddingLeft', 50)
   .encode('x', 'Continent')
   .encode('key', 'Continent')
   .encode('color', 'Continent')

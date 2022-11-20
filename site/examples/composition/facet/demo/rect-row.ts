@@ -12,7 +12,7 @@ const chart = new Chart({
 
 const facetRect = chart
   .facetRect()
-  .paddingBottom(50)
+  .attr('paddingBottom', 50)
   .data({
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/anscombe.json',
@@ -21,7 +21,7 @@ const facetRect = chart
 
 facetRect
   .point()
-  .inset(10)
+  .attr('inset', 10)
   .encode('x', 'x')
   .encode('y', 'y')
   .style('stroke', '#000');

@@ -25,7 +25,7 @@ const facetRect = chart
     ],
   })
   .encode('x', 'pclass')
-  .shareData(true);
+  .attr('shareData', true);
 
 facetRect
   .point()

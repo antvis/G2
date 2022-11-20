@@ -105,9 +105,9 @@ const data = await fetch('data/people.json').then((res) => res.json());
 // 参考 css animation 的描述
 const keyframe = chart
   .timingKeyframe() // 创建容器
-  .iterationCount(2) // 迭代次数
-  .direction('alternate') // 方向
-  .duration(1000); // 持续时间
+  .attr('iterationCount', 2) // 迭代次数
+  .attr('direction', 'alternate') // 方向
+  .attr('duration', 1000); // 持续时间
 
 keyframe
   .interval()

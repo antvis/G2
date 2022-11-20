@@ -137,33 +137,14 @@ export const props: NodePropertyDescriptor[] = [
   { name: 'encode', type: 'object' },
   { name: 'scale', type: 'object' },
   { name: 'data', type: 'value' },
-  { name: 'key', type: 'value' },
-  { name: 'class', type: 'value' },
   { name: 'transform', type: 'array' },
   { name: 'style', type: 'object' },
   { name: 'animate', type: 'object' },
-  { name: 'facet', type: 'value' },
   { name: 'coordinate', type: 'array', key: 'coordinates' },
   { name: 'interaction', type: 'array', key: 'interactions' },
-  { name: 'paddingLeft', type: 'value' },
-  { name: 'paddingRight', type: 'value' },
-  { name: 'paddingBottom', type: 'value' },
-  { name: 'paddingTop', type: 'value' },
-  { name: 'padding', type: 'value' },
-  { name: 'insetLeft', type: 'value' },
-  { name: 'insetRight', type: 'value' },
-  { name: 'insetBottom', type: 'value' },
-  { name: 'insetTop', type: 'value' },
-  { name: 'inset', type: 'value' },
-  { name: 'marginLeft', type: 'value' },
-  { name: 'marginRight', type: 'value' },
-  { name: 'marginBottom', type: 'value' },
-  { name: 'marginTop', type: 'value' },
-  { name: 'margin', type: 'value' },
   { name: 'label', type: 'array', key: 'labels' },
   { name: 'axis', type: 'object' },
   { name: 'legend', type: 'object' },
-  { name: 'frame', type: 'value' },
 ];
 
 @defineProps(props)
@@ -299,14 +280,14 @@ export class Shape extends Node<ShapeMark> {
   }
 }
 
-@defineProps([...props, { name: 'layout', type: 'object' }])
+@defineProps([...props, { name: 'layout', type: 'value' }])
 export class Sankey extends Node<SankeyMark> {
   constructor() {
     super({}, 'sankey');
   }
 }
 
-@defineProps([...props, { name: 'layout', type: 'object' }])
+@defineProps([...props, { name: 'layout', type: 'value' }])
 export class Treemap extends Node<ConnectorMark> {
   constructor() {
     super({}, 'treemap');
@@ -320,21 +301,21 @@ export class Boxplot extends Node<Boxplot> {
   }
 }
 
-@defineProps([...props, { name: 'layout', type: 'object' }])
+@defineProps([...props, { name: 'layout', type: 'value' }])
 export class Pack extends Node<Pack> {
   constructor() {
     super({}, 'pack');
   }
 }
 
-@defineProps([...props, { name: 'layout', type: 'object' }])
+@defineProps([...props, { name: 'layout', type: 'value' }])
 export class ForceGraph extends Node<ForceGraph> {
   constructor() {
     super({}, 'forceGraph');
   }
 }
 
-@defineProps([...props, { name: 'layout', type: 'object' }])
+@defineProps([...props, { name: 'layout', type: 'value' }])
 export class Tree extends Node<Tree> {
   constructor() {
     super({}, 'tree');

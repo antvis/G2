@@ -92,7 +92,7 @@ describe('Chart', () => {
     const chart = new Chart();
     chart
       .data([1, 2, 3])
-      .key('composition')
+      .attr('key', 'composition')
       .coordinate({ type: 'polar' })
       .interaction({ type: 'elementHighlight' })
       .transform({ type: 'stackY' })
