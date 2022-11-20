@@ -7,7 +7,7 @@ import {
   selectG2Elements,
   useState,
   renderLink,
-  applyDefaultsActiveStyle,
+  applyDefaultsHighlightedStyle,
 } from './utils';
 
 /**
@@ -105,7 +105,7 @@ export function ElementSelect(options) {
   return (context) => {
     const { container, view } = context;
     return elementSelect(container, {
-      ...applyDefaultsActiveStyle(options),
+      ...applyDefaultsHighlightedStyle(options),
       elements: selectG2Elements,
       datum: createDatumof(view),
     });
