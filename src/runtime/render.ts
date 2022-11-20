@@ -164,7 +164,7 @@ const onResize = <T extends G2ViewTree = G2ViewTree>(
       width: adjustedWidth,
       height: adjustedHeight,
     };
-    render(newOptions, context);
+    if (newOptions.width && newOptions.height) render(newOptions, context);
   }, 300);
 
 export function bindAutoFit<T extends G2ViewTree = G2ViewTree>(
