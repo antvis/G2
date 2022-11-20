@@ -6,13 +6,15 @@ export type MaybeVisualPositionOptions = Record<string, never>;
 
 /**
  * Set visual position with style.x and style.y.
+ * The priority of style.x, style.y is higher than data.
  */
 export const MaybeVisualPosition: TC<MaybeVisualPositionOptions> = () => {
   return (I, mark) => {
-    const { data } = mark;
-    if (data) return [I, mark];
-    const { style, ...restMark } = mark;
-    const { x = 0, y = 0, ...rest } = style;
+    const { data, style = {}, ...restMark } = mark;
+    const { x: x0, y: y0, ...rest } = style;
+    if (x0 == undefined || y0 == undefined) return [I, mark];
+    const x = x0 || 0;
+    const y = y0 || 0;
     return [
       [0],
       deepMix({}, restMark, {

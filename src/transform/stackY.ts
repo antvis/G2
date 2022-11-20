@@ -38,6 +38,8 @@ export const StackY: TC<StackYOptions> = (options = {}) => {
     const newY = new Array(I.length);
     const newY1 = new Array(I.length);
     const TY = new Array(I.length);
+    const F = [];
+    const L = [];
     for (const G of groups) {
       if (reverse) G.reverse();
       // For range interval with specified y and y1.
@@ -51,6 +53,18 @@ export const StackY: TC<StackYOptions> = (options = {}) => {
         if (y < 0) NG.push(i);
         else if (y >= 0) PG.push(i);
       }
+
+      // Store the first and last layer.
+      const FG = PG.length > 0 ? PG : NG;
+      const LG = NG.length > 0 ? NG : PG;
+      let i = PG.length - 1;
+      let j = 0;
+      // Find the last non-zero index.
+      while (i > 0 && Y[FG[i]] === 0) i--;
+      // Find the first non-zero index.
+      while (j < LG.length - 1 && Y[LG[j]] === 0) j++;
+      F.push(FG[i]);
+      L.push(LG[j]);
 
       // Stack negative y in reverse order.
       let ny = start;
@@ -70,8 +84,8 @@ export const StackY: TC<StackYOptions> = (options = {}) => {
 
     // Only set top radius for the first layer,
     // and set bottom radius for the last layer.
-    const F = new Set(groups.map((G) => G[G.length - 1]));
-    const L = new Set(groups.map((G) => G[0]));
+    const FS = new Set(F);
+    const LS = new Set(L);
 
     // Choose new y or y1 channel as the new y channel.
     const V = fromY === 'y' ? newY : newY1;
@@ -84,8 +98,8 @@ export const StackY: TC<StackYOptions> = (options = {}) => {
           y1: column(V1, fy1),
         },
         style: {
-          first: (_, i) => F.has(i),
-          last: (_, i) => L.has(i),
+          first: (_, i) => FS.has(i),
+          last: (_, i) => LS.has(i),
           ...style,
         },
       }),
