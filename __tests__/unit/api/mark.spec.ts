@@ -37,7 +37,7 @@ function setOptions(node) {
     .key('mark')
     .class('mark')
     .coordinate({ type: 'polar' })
-    .interaction({ type: 'brush' })
+    .interaction({ type: 'elementHighlight' })
     .padding(0)
     .paddingBottom(10)
     .paddingLeft(20)
@@ -76,7 +76,7 @@ function getOptions() {
     key: 'mark',
     class: 'mark',
     coordinates: [{ type: 'polar' }],
-    interactions: [{ type: 'brush' }],
+    interactions: [{ type: 'elementHighlight' }],
     padding: 0,
     paddingBottom: 10,
     paddingLeft: 20,
