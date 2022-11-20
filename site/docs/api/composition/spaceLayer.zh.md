@@ -28,7 +28,7 @@ const layer = chart.spaceLayer().data({
 // 柱图
 layer
   .interval()
-  .paddingLeft(50)
+  .attr('paddingLeft', 50)
   .transform({ type: 'sortX', reverse: true, by: 'y' })
   .encode('x', 'letter')
   .encode('y', 'frequency')
@@ -37,8 +37,8 @@ layer
 // 饼图
 layer
   .interval()
-  .paddingLeft(400)
-  .paddingBottom(200)
+  .attr('paddingLeft', 400)
+  .attr('paddingBottom', 200)
   .coordinate({ type: 'theta' })
   .transform({ type: 'stackY' })
   .legend(false)

@@ -8,21 +8,10 @@ import { Composition } from './index';
 type SpaceFlexSpec = Concrete<SpaceFlexComposition>;
 
 export interface SpaceFlex extends Composition, Mark {
-  key: ValueAttribute<SpaceFlexSpec['key'], SpaceFlex>;
   data: ValueAttribute<SpaceFlexSpec['data'], SpaceFlex>;
-  direction: ValueAttribute<SpaceFlexSpec['direction'], SpaceFlex>;
-  ratio: ValueAttribute<SpaceFlexSpec['ratio'], SpaceFlex>;
-  padding: ValueAttribute<SpaceFlexSpec['padding'], SpaceFlex>;
 }
 
-@defineProps([
-  { type: 'value', name: 'data' },
-  { type: 'value', name: 'key' },
-  { type: 'value', name: 'padding' },
-  { type: 'value', name: 'ratio' },
-  { type: 'value', name: 'direction' },
-  ...nodeProps(mark),
-])
+@defineProps([{ type: 'value', name: 'data' }, ...nodeProps(mark)])
 export class SpaceFlex extends Node<SpaceFlexSpec> {
   constructor() {
     super({}, 'spaceFlex');

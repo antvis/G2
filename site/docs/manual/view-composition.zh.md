@@ -33,8 +33,8 @@ layer
 // 饼图
 layer
   .view() // 创建一个视图
-  .paddingLeft(300) // 设置位置
-  .paddingBottom(250)
+  .attr('paddingLeft', 300) // 设置位置
+  .attr('paddingBottom', 250)
   .coordinate({ type: 'theta' }) // 指定坐标系
   .interval() // 创建一个 interval
   .transform({ type: 'stackY' })
@@ -100,7 +100,7 @@ flex
 ```js
 const facetRect = chart
   .facetRect()
-  .paddingBottom(50)
+  .attr('paddingBottom', 50)
   .data({
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/anscombe.json',
@@ -111,7 +111,7 @@ const facetRect = chart
 
 facetRect
   .point()
-  .inset(10)
+  .attr('inset', 10)
   .encode('x', 'x')
   .encode('y', 'y')
   .style('stroke', '#000');

@@ -33,33 +33,36 @@ function setOptions(node) {
     .transform({ type: 'stackY' })
     .style('stroke', 'black')
     .animate('enterType', 'scaleInX')
-    .facet(true)
-    .key('mark')
-    .class('mark')
+    .attr('facet', true)
+    .attr('key', 'mark')
+    .attr('class', 'mark')
     .coordinate({ type: 'polar' })
     .interaction({ type: 'elementHighlight' })
-    .padding(0)
-    .paddingBottom(10)
-    .paddingLeft(20)
-    .paddingTop(30)
-    .paddingRight(40)
-    .margin(0)
-    .marginBottom(10)
-    .marginLeft(20)
-    .marginTop(30)
-    .marginRight(40)
-    .inset(0)
-    .insetBottom(10)
-    .insetLeft(20)
-    .insetTop(30)
-    .insetRight(40)
+    .attr('padding', 0)
+    .attr('paddingBottom', 10)
+    .attr('paddingLeft', 20)
+    .attr('paddingTop', 30)
+    .attr('paddingRight', 40)
+    .attr('margin', 0)
+    .attr('marginBottom', 10)
+    .attr('marginLeft', 20)
+    .attr('marginTop', 30)
+    .attr('marginRight', 40)
+    .attr('inset', 0)
+    .attr('insetBottom', 10)
+    .attr('insetLeft', 20)
+    .attr('insetTop', 30)
+    .attr('insetRight', 40)
     .axis('x', { tickCount: 10 })
     .legend('y', { title: 'hello' })
     .label({ text: 'hello' });
 }
 
 function setCompositeOptions(node) {
-  return node.call(setOptions).layout('a', 10).layout('b', 8);
+  return node.call(setOptions).layout({
+    a: 10,
+    b: 8,
+  });
 }
 
 function getOptions() {

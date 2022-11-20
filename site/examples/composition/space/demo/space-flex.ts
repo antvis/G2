@@ -11,13 +11,13 @@ const flex = chart
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/seattle-weather.json',
   })
-  .direction('col')
-  .ratio([1, 2]);
+  .attr('direction', 'col')
+  .attr('ratio', [1, 2]);
 
 flex
   .interval()
-  .paddingBottom(0)
-  .paddingRight(300)
+  .attr('paddingBottom', 0)
+  .attr('paddingRight', 300)
   .transform({ type: 'groupX', y: 'max' })
   .axis('x', false)
   .encode('x', (d) => new Date(d.date).getUTCDate())
@@ -26,12 +26,12 @@ flex
 
 flex
   .spaceFlex()
-  .ratio([2, 1])
+  .attr('ratio', [2, 1])
   .call((node) =>
     node
       .cell()
-      .paddingRight(0)
-      .paddingBottom(50)
+      .attr('paddingRight', 0)
+      .attr('paddingBottom', 50)
       .transform({ type: 'group', color: 'max' })
       .encode('x', (d) => new Date(d.date).getUTCDate())
       .encode('y', (d) => new Date(d.date).getUTCMonth())
@@ -47,7 +47,7 @@ flex
   .call((node) =>
     node
       .interval()
-      .paddingBottom(50)
+      .attr('paddingBottom', 50)
       .transform({ type: 'groupX', y: 'max' })
       .coordinate({ type: 'transpose' })
       .axis('x', false)

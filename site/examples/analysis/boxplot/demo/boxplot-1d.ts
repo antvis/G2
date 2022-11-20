@@ -3,6 +3,7 @@ import { Chart } from '@antv/g2';
 const chart = new Chart({
   container: 'container',
   height: 120,
+  inset: 6,
 });
 
 chart.coordinate({ type: 'transpose' });
@@ -16,7 +17,6 @@ chart
   })
   .encode('y', 'Speed')
   .style('boxFill', '#aaa')
-  .style('pointStroke', '#000')
-  .inset(6);
+  .style('pointStroke', '#000');
 
 chart.render();

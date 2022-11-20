@@ -83,17 +83,17 @@ describe('Composition', () => {
   it('View() should specify options by API', () => {
     const node = new View();
     node
-      .paddingBottom(10)
-      .paddingLeft(10)
-      .paddingRight(10)
-      .paddingTop(10)
+      .attr('paddingBottom', 10)
+      .attr('paddingLeft', 10)
+      .attr('paddingRight', 10)
+      .attr('paddingTop', 10)
       .data([1, 2, 3])
-      .marginBottom(10)
-      .marginLeft(20)
-      .marginTop(30)
-      .marginRight(40)
+      .attr('marginBottom', 10)
+      .attr('marginLeft', 20)
+      .attr('marginTop', 30)
+      .attr('marginRight', 40)
       .scale('color', { type: 'linear' })
-      .key('composition')
+      .attr('key', 'composition')
       .style('plotFill', 'red')
       .coordinate({ type: 'polar' })
       .interaction({ type: 'elementHighlight' })
@@ -123,12 +123,12 @@ describe('Composition', () => {
   it('FacetCircle() should specify options by API', () => {
     const node = new FacetCircle();
     node
-      .paddingBottom(10)
-      .paddingLeft(10)
-      .paddingRight(10)
-      .paddingTop(10)
+      .attr('paddingBottom', 10)
+      .attr('paddingLeft', 10)
+      .attr('paddingRight', 10)
+      .attr('paddingTop', 10)
       .data([1, 2, 3])
-      .key('composition')
+      .attr('key', 'composition')
       .encode('position', 'name')
       .scale('x', { type: 'log' })
       .transform({ type: 'stackY' });
@@ -151,11 +151,11 @@ describe('Composition', () => {
   it('SpaceFlex() should specify options by API', () => {
     const node = new SpaceFlex();
     node
-      .direction('col')
+      .attr('direction', 'col')
       .data([1, 2, 3])
-      .padding(10)
-      .ratio([1, 2, 3])
-      .key('composition');
+      .attr('padding', 10)
+      .attr('ratio', [1, 2, 3])
+      .attr('key', 'composition');
 
     expect(node.type).toBe('spaceFlex');
     expect(node.value).toEqual({
@@ -171,11 +171,11 @@ describe('Composition', () => {
   it('TimingKeyframe() should specify options by API', () => {
     const node = new TimingKeyframe();
     node
-      .easing('linear')
-      .iterationCount(10)
-      .direction('alternate')
-      .duration(100)
-      .key('composition');
+      .attr('easing', 'linear')
+      .attr('iterationCount', 10)
+      .attr('direction', 'alternate')
+      .attr('duration', 100)
+      .attr('key', 'composition');
 
     expect(node.type).toBe('timingKeyframe');
     expect(node.value).toEqual({
@@ -190,7 +190,7 @@ describe('Composition', () => {
 
   it('SpaceLayer() should specify options by API', () => {
     const node = new SpaceLayer();
-    node.data([1, 2, 3]).key('composition');
+    node.data([1, 2, 3]).attr('key', 'composition');
 
     expect(node.type).toBe('spaceLayer');
     expect(node.value).toEqual({
@@ -204,11 +204,11 @@ describe('Composition', () => {
     const node = new RepeatMatrix();
     node
       .data([1, 2, 3])
-      .key('composition')
-      .paddingBottom(10)
-      .paddingLeft(10)
-      .paddingRight(10)
-      .paddingTop(10)
+      .attr('key', 'composition')
+      .attr('paddingBottom', 10)
+      .attr('paddingLeft', 10)
+      .attr('paddingRight', 10)
+      .attr('paddingTop', 10)
       .scale('x', { type: 'log' })
       .encode('y', ['name'])
       .transform({ type: 'stackY' });
@@ -232,13 +232,13 @@ describe('Composition', () => {
     const node = new FacetRect();
     node
       .data([1, 2, 3])
-      .key('composition')
-      .paddingBottom(10)
-      .paddingLeft(10)
-      .paddingRight(10)
-      .paddingTop(10)
-      .shareData(true)
-      .shareSize(true)
+      .attr('key', 'composition')
+      .attr('paddingBottom', 10)
+      .attr('paddingLeft', 10)
+      .attr('paddingRight', 10)
+      .attr('paddingTop', 10)
+      .attr('shareData', true)
+      .attr('shareSize', true)
       .scale('x', { type: 'log' })
       .encode('y', 'name')
       .transform({ type: 'stackY' })
@@ -267,16 +267,16 @@ describe('Composition', () => {
   it('GeoView() should specify options by API', () => {
     const node = new GeoView();
     node
-      .paddingBottom(10)
-      .paddingLeft(10)
-      .paddingRight(10)
-      .paddingTop(10)
+      .attr('paddingBottom', 10)
+      .attr('paddingLeft', 10)
+      .attr('paddingRight', 10)
+      .attr('paddingTop', 10)
       .data([1, 2, 3])
-      .marginBottom(10)
-      .marginLeft(20)
-      .marginTop(30)
-      .marginRight(40)
-      .key('composition')
+      .attr('marginBottom', 10)
+      .attr('marginLeft', 20)
+      .attr('marginTop', 30)
+      .attr('marginRight', 40)
+      .attr('key', 'composition')
       .style('plotFill', 'red')
       .projection({ type: 'foo' })
       .coordinate({ type: 'polar' })
@@ -307,18 +307,18 @@ describe('Composition', () => {
   it('GeoView() should specify options by API', () => {
     const node = new GeoPath();
     node
-      .paddingBottom(10)
-      .paddingLeft(10)
-      .paddingRight(10)
-      .paddingTop(10)
+      .attr('paddingBottom', 10)
+      .attr('paddingLeft', 10)
+      .attr('paddingRight', 10)
+      .attr('paddingTop', 10)
       .data([1, 2, 3])
-      .marginBottom(10)
-      .marginLeft(20)
-      .marginTop(30)
-      .marginRight(40)
+      .attr('marginBottom', 10)
+      .attr('marginLeft', 20)
+      .attr('marginTop', 30)
+      .attr('marginRight', 40)
       .encode('x', 'a')
       .scale('color', { type: 'linear' })
-      .key('composition')
+      .attr('key', 'composition')
       .style('plotFill', 'red')
       .projection({ type: 'foo' })
       .coordinate({ type: 'polar' })

@@ -75,18 +75,18 @@ interval.encode(); // {'x': 'name', 'y': 'value'}
 
 ## 值属性方法
 
-**值属性方法**会给选项添加一个键值对，其中键是方法名，值是方法的第一个参数。
+**值属性方法**会给选项添加一个键值对，其中键是方法名，值是方法的第一个参数。这些方法名都是 G2 重要的概念，比如 data。
 
 ```js
-interval().frame(true);
+interval().data([1, 2, 3]);
 ```
 
 ```js
-interval().frame(); // true
+interval().data(); // [1, 2, 3]
 
 const options = {
   type: 'interval',
-  frame: true,
+  data: [1, 2, 3],
 };
 ```
 
@@ -140,6 +140,18 @@ const options = {
 
 ```js
 interval().transform([{ type: 'stackY' }, { type: 'normalizeY' }]);
+```
+
+## attr
+
+`node.attr` 会给选项添加一个键值对，其中键是第一个参数，值是方法的第二个参数。这些都是一些通用配置。
+
+```js
+interval.attr('paddingLeft', 10);
+```
+
+```js
+interval.attr('paddingLeft'); // 10
 ```
 
 ## call 语法

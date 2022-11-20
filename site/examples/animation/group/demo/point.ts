@@ -33,7 +33,7 @@ chart
     range: ['hsl(152,80%,80%)', 'hsl(228,30%,40%)'],
     interpolate: interpolateHcl,
   })
-  .padding(0)
+  .attr('padding', 0)
   .axis(false);
 
 chart
