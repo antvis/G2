@@ -60,6 +60,7 @@ export const Color: SC<ColorOptions> = (options) => {
       insetBottom = inset,
       insetTop = inset,
       lineWidth = colorAttribute === 'stroke' || stroke ? defaultLineWidth : 0,
+      ...rest
     } = style;
     const { color = defaultColor, opacity } = value;
 
@@ -87,7 +88,7 @@ export const Color: SC<ColorOptions> = (options) => {
         .style('y', finalY)
         .style('width', finalWidth)
         .style('height', finalHeight)
-        .style('stroke', color || stroke)
+        .style('stroke', stroke === undefined ? color : stroke)
         .style(toOpacityKey(options), opacity)
         .style(colorAttribute, color)
         .style('radius', [
@@ -96,7 +97,7 @@ export const Color: SC<ColorOptions> = (options) => {
           last ? radiusBottomRight : innerRadiusBottomRight,
           last ? radiusBottomLeft : innerRadiusBottomLeft,
         ])
-        .call(applyStyle, style)
+        .call(applyStyle, rest)
         .node();
     }
 

@@ -134,3 +134,4 @@ export { philosophyWordCloudDefault } from './philosophy-wordCloud-default';
 export { philosophyWordCloudImage } from './philosophy-wordCloud-image';
 export { stateAgesIntervalStackedCornered } from './stateages-interval-stacked-cornered';
 export { stateAgesIntervalStackedCorneredAll } from './stateages-interval-stacked-cornered-all';
+export { gainLostIntervalCornered } from './gain-lost-interval-cornered';

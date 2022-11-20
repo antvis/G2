@@ -17,10 +17,10 @@ chart
       {
         type: 'fold',
         fields: [
-          'gained <= 100$',
-          'gained > 100$',
           'lost > 100$',
           'lost <= 100$',
+          'gained <= 100$',
+          'gained > 100$',
         ],
         as: ['key', 'value'],
       },
@@ -33,6 +33,7 @@ chart
   .scale('x', { padding: 0.2 })
   .scale('y', { domainMin: -100, domainMax: 100 })
   .scale('color', {
+    domain: ['lost > 100$', 'lost <= 100$', 'gained <= 100$', 'gained > 100$'],
     range: ['#97e3d5', '#61cdbb', '#e25c3b', '#f47560'],
   })
   .legend('color', { title: false })
@@ -48,7 +49,8 @@ chart
     position: 'right',
     title: false,
     tickFormatter: (v) => `${v}%`,
-  });
+  })
+  .style('radius', 10);
 
 chart
   .lineY()
@@ -57,8 +59,8 @@ chart
   .style('stroke', '#e25c3b')
   .style('strokeOpacity', 1);
 
-chart.call(titleLeft, '20%', 'lost', '#61cdbb');
-chart.call(titleLeft, '75%', 'gain', '#e25c3b');
+chart.call(titleLeft, '75%', 'lost', '#61cdbb');
+chart.call(titleLeft, '20%', 'gain', '#e25c3b');
 
 function titleLeft(node, y, text, fill) {
   node
