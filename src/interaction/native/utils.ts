@@ -33,11 +33,11 @@ export function mousePosition(target, event) {
   return [offsetX - x, offsetY - y];
 }
 
-export function applyDefaultsActiveStyle(
+export function applyDefaultsHighlightedStyle(
   style: Record<string, any>,
 ): Record<string, any> {
   if (!style || Object.keys(style).length === 0) {
-    return { activeLineWidth: 1, activeStroke: '#000' };
+    return { highlightedLineWidth: 1, highlightedStroke: '#000' };
   }
   return style;
 }

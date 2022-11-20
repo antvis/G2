@@ -18,9 +18,9 @@ export function alphabetIntervalActiveInactive(): G2Spec {
     },
     interactions: [
       {
-        type: 'elementActive',
-        activeFill: (d) => (d.frequency > 0.05 ? 'red' : 'yellow'),
-        inactiveOpacity: 0.6,
+        type: 'elementHighlight',
+        highlightedFill: (d) => (d.frequency > 0.05 ? 'red' : 'yellow'),
+        unhighlightedOpacity: 0.6,
       },
     ],
   };

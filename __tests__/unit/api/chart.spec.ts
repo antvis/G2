@@ -94,7 +94,7 @@ describe('Chart', () => {
       .data([1, 2, 3])
       .key('composition')
       .coordinate({ type: 'polar' })
-      .interaction({ type: 'brush' })
+      .interaction({ type: 'elementHighlight' })
       .transform({ type: 'stackY' })
       .theme('defaultColor', 'red');
 
@@ -103,7 +103,7 @@ describe('Chart', () => {
       data: [1, 2, 3],
       key: 'composition',
       coordinates: [{ type: 'polar' }],
-      interactions: [{ type: 'brush' }],
+      interactions: [{ type: 'elementHighlight' }],
       transform: [{ type: 'stackY' }],
       theme: { defaultColor: 'red' },
     });

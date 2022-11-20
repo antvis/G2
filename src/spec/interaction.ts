@@ -3,45 +3,47 @@ import { ActiveRegionAction, PoptipAction, TooltipAction } from './action';
 import { FisheyeCoordinate } from './coordinate';
 
 export type Interaction =
-  | ElementActiveInteraction
-  | ElementActiveByColorInteraction
-  | ElementActiveByXInteraction
+  | ElementHighlightInteraction
+  | ElementHighlightByColorInteraction
+  | ElementHighlightByXInteraction
+  | ElementSelectByColorInteraction
+  | ElementSelectByXInteraction
   | ElementSelectInteraction
-  | ElementListHighlightInteraction
-  | LegendActiveInteraction
-  | LegendHighlightInteraction
   | TooltipInteraction
   | FisheyeInteraction
   | ChartIndex
-  | BrushInteraction
-  | BrushHighlightInteraction
-  | BrushVisibleInteraction
-  | ActiveRegionInteraction
-  | EllipsisTextInteraction
-  | ElementSelectByColorInteraction
-  | ElementSelectByXInteraction
   | CustomInteraction;
+// | ElementListHighlightInteraction
+// | LegendActiveInteraction
+// | LegendHighlightInteraction
+
+// | BrushInteraction
+// | BrushHighlightInteraction
+// | BrushVisibleInteraction
+// | ActiveRegionInteraction
+// | EllipsisTextInteraction
 
 export type InteractionTypes =
-  | 'elementActive'
-  | 'elementActiveByX'
-  | 'elementActiveByColor'
+  | 'elementHighlight'
+  | 'elementHighlightByX'
+  | 'elementHighlightByColor'
   | 'fisheye'
   | 'chartIndex'
   | 'elementSelect'
   | 'elementSelectByX'
   | 'elementSelectByColor'
-  | 'elementListHighlight'
-  | 'legendActive'
-  | 'legendHighlight'
-  | 'tooltip'
-  | 'brush'
-  | 'brushHighlight'
-  | 'brushVisible'
   | 'fisheye'
-  | 'activeRegion'
-  | 'ellipsisText'
   | InteractionComponent;
+// | 'elementListHighlight'
+// | 'legendActive'
+// | 'legendHighlight'
+// | 'tooltip'
+// | 'brush'
+// | 'brushHighlight'
+// | 'brushVisible'
+
+// | 'activeRegion'
+// | 'ellipsisText'
 
 export type BrushInteraction = {
   type?: 'brush';
@@ -59,11 +61,11 @@ export type BrushVisibleInteraction = {
   brushType?: 'rect' | 'rectX' | 'rectY' | 'polygon';
 };
 
-export type ElementActiveInteraction = {
-  type?: 'elementActive';
+export type ElementHighlightInteraction = {
+  type?: 'elementHighlight';
   // @todo: Style supported by G.
   link?: boolean;
-} & Record<`${'link' | 'active' | 'inactive'}${any}`, any>;
+} & Record<`${'link' | 'highlighted' | 'unhighlighted'}${any}`, any>;
 
 export type ElementSelectInteraction = {
   type?: 'elementSelect';
@@ -80,16 +82,16 @@ export type ElementSelectByXInteraction = {
   single?: boolean;
 } & Record<`${'selected' | 'link' | 'unselected'}${any}`, any>;
 
-export type ElementActiveByXInteraction = {
-  type?: 'elementActiveByX';
+export type ElementHighlightByXInteraction = {
+  type?: 'elementHighlightByX';
   x?: string;
   link?: boolean;
-} & Record<`${'link' | 'active' | 'inactive'}${any}`, any>;
+} & Record<`${'link' | 'highlighted' | 'unhighlighted'}${any}`, any>;
 
-export type ElementActiveByColorInteraction = {
-  type?: 'elementActiveByColor';
+export type ElementHighlightByColorInteraction = {
+  type?: 'elementHighlightByColor';
   color?: string;
-} & Record<`${'link' | 'active' | 'inactive'}${any}`, any>;
+} & Record<`${'link' | 'highlighted' | 'unhighlighted'}${any}`, any>;
 
 export type ChartIndex = {
   type?: 'chartIndex';

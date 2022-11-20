@@ -7,13 +7,13 @@ import {
   selectG2Elements,
   useState,
   renderLink,
-  applyDefaultsActiveStyle,
+  applyDefaultsHighlightedStyle,
 } from './utils';
 
 /**
- * Active a group of elements.
+ * highlight a group of elements.
  */
-export function elementActive(
+export function elementHighlight(
   root: DisplayObject,
   {
     elements: elementsof, // given the root of chart returns elements to be manipulated
@@ -41,8 +41,8 @@ export function elementActive(
     const group = keyGroup.get(k);
     const groupSet = new Set(group);
     for (const e of elements) {
-      if (groupSet.has(e)) setState(e, 'active');
-      else setState(e, 'inactive');
+      if (groupSet.has(e)) setState(e, 'highlighted');
+      else setState(e, 'unhighlighted');
     }
     if (link) appendLink(group);
   };
@@ -50,7 +50,7 @@ export function elementActive(
   const pointerout = (event) => {
     const { target: element } = event;
     if (!elementSet.has(element)) return;
-    for (const e of elements) removeState(e, 'inactive', 'active');
+    for (const e of elements) removeState(e, 'unhighlighted', 'highlighted');
     if (link) removeLink();
   };
 
@@ -63,11 +63,11 @@ export function elementActive(
   };
 }
 
-export function ElementActive(options) {
+export function ElementHighlight(options) {
   return (context) => {
     const { container, view } = context;
-    return elementActive(container, {
-      ...applyDefaultsActiveStyle(options),
+    return elementHighlight(container, {
+      ...applyDefaultsHighlightedStyle(options),
       elements: selectG2Elements,
       datum: createDatumof(view),
     });
