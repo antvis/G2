@@ -46,7 +46,7 @@ chart
   .encode('y', 'y')
   .encode('color', '#F4664A');
 
-chart.lineY().data([200]).style('stroke', '#000').label({
+chart.lineY().data([300]).style('stroke', '#000').label({
   text: 'hazardous',
   position: 'right',
   textBaseline: 'bottom',
