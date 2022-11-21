@@ -5,6 +5,7 @@ import {
   baseGeometryChannels,
   basePostInference,
   basePreInference,
+  tooltip2d,
 } from './utils';
 
 export type CellOptions = Omit<CellGeometry, 'type'>;
@@ -50,9 +51,5 @@ Cell.props = {
     { type: 'maybeZeroY' },
     { type: 'maybeZeroPadding' },
   ],
-  postInference: [
-    ...basePostInference(),
-    { type: 'maybeTitleX' },
-    { type: 'maybeTooltipY' },
-  ],
+  postInference: [...basePostInference(), ...tooltip2d()],
 };

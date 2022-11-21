@@ -5,6 +5,7 @@ import {
   basePostInference,
   basePreInference,
   createBandOffset,
+  tooltip2d,
 } from './utils';
 
 export type PointOptions = Omit<PointGeometry, 'type'>;
@@ -91,7 +92,6 @@ Point.props = {
   postInference: [
     ...basePostInference(),
     { type: 'maybeSize' },
-    { type: 'maybeTitleX' },
-    { type: 'maybeTooltipY' },
+    ...tooltip2d(),
   ],
 };
