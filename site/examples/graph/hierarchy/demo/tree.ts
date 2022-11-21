@@ -6,8 +6,9 @@ const chart = new Chart({
   width: 800,
   paddingLeft: 40,
   paddingRight: 60,
-  coordinate: [{ type: 'transpose' }],
 });
+
+chart.coordinate({ type: 'transpose' });
 
 chart
   .tree()

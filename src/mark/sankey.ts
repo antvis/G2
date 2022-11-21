@@ -108,6 +108,7 @@ export const Sankey: CC<SankeyOptions> = (options) => {
         ],
         animate:
           typeof animate === 'object' ? subObject(animate, 'node') : animate,
+        axis: false,
       }),
       deepMix({}, DEFAULT_LINK_OPTIONS, {
         data: linkData,

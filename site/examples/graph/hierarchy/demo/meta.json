@@ -5,14 +5,6 @@
   },
   "demos": [
     {
-      "filename": "sankey.ts",
-      "title": {
-        "zh": "桑基图",
-        "en": "Sankey"
-      },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dACBR7ANcfEAAAAAAAAAAAAADmJ7AQ/original"
-    },
-    {
       "filename": "treemap.ts",
       "title": {
         "zh": "矩阵树图",
@@ -21,20 +13,20 @@
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*BD2zQIr7D5MAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
-      "filename": "tree.ts",
-      "title": {
-        "zh": "树图",
-        "en": "Tree"
-      },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*MQL0S54pP7kAAAAAAAAAAAAADmJ7AQ/original"
-    },
-    {
       "filename": "circle-packing.ts",
       "title": {
         "zh": "打包图",
         "en": "Circle Packing"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*epG0TaxEVTsAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "tree.ts",
+      "title": {
+        "zh": "树图",
+        "en": "Tree"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*MQL0S54pP7kAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }
