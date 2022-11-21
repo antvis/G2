@@ -3,7 +3,8 @@ import { schemeTableau10 } from 'd3-scale-chromatic';
 
 const chart = new Chart({
   container: 'container',
-  autoFit: true,
+  height: 900,
+  width: 1100,
 });
 
 chart

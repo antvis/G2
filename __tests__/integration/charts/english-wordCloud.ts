@@ -5,14 +5,19 @@ import { text } from '../data/txt-wordCloud';
 export function englishWordCloud(): G2Spec {
   const random = randomUniform.source(randomLcg(47))(0, 1);
   return {
-    type: 'wordCloud',
+    type: 'view',
     padding: 0,
-    layout: {
-      rotate: 0,
-      random,
-    },
-    data: {
-      value: text,
-    },
+    children: [
+      {
+        type: 'wordCloud',
+        layout: {
+          rotate: 0,
+          random,
+        },
+        data: {
+          value: text,
+        },
+      },
+    ],
   };
 }

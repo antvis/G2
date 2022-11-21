@@ -21,7 +21,6 @@ chart
     fontSize: 10,
   })
   .encode('color', 'name')
-  .encode('text', 'name')
-  .axis(false);
+  .encode('text', 'name');
 
 chart.render();

@@ -3,7 +3,8 @@ import { interpolateHcl } from 'd3-interpolate';
 
 const chart = new Chart({
   container: 'container',
-  autoFit: true,
+  width: 1000,
+  height: 1000,
   padding: 20,
 });
 
@@ -25,8 +26,6 @@ chart
   })
   .style('labelText', (d) =>
     d.r >= 10 && d.height === 0 ? `${d.data.name}` : '',
-  )
-  .axis(false)
-  .legend(false);
+  );
 
 chart.render();

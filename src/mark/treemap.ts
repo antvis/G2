@@ -180,6 +180,7 @@ export const Treemap: CC<TreemapOptions> = (options) => {
           ...labels,
         ],
         ...resOptions,
+        axis: false,
       }),
     ];
   };

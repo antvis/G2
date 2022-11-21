@@ -5,6 +5,14 @@
   },
   "demos": [
     {
+      "filename": "sankey.ts",
+      "title": {
+        "zh": "桑基图",
+        "en": "Sankey"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dACBR7ANcfEAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
       "filename": "forceGraph.ts",
       "title": {
         "zh": "力导向图",

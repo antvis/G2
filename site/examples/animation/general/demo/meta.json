@@ -51,14 +51,6 @@
         "en": "ZoomIn"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/raptor/1667976930984/zoomIn.gif"
-    },
-    {
-      "filename": "stack-enter.ts",
-      "title": {
-        "zh": "StackEnter",
-        "en": "StackEnter"
-      },
-      "screenshot": "https://gw.alipayobjects.com/zos/raptor/1668659773138/stackenter.gif"
     }
   ]
 }
