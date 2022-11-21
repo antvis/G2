@@ -3,7 +3,7 @@ title: 坐标系变换
 order: 8
 ---
 
-坐标系变换是一系列点转换。在 G2 中，标识的位置通道 x 和 y 会经过比例尺的映射到 `[0, 1]` 的范围，这之后会应用坐标系变换，从而改变标识的空间展示形式。
+坐标系变换是一系列点转换。在 G2 中，标记的位置通道 x 和 y 会经过比例尺的映射到 `[0, 1]` 的范围，这之后会应用坐标系变换，从而改变标记的空间展示形式。
 
 在 G2 中坐标系通过 `chart.coordinate` 去声明，和 `mark.transform` 一样，都是数组属性，所以可以声明多个。
 
@@ -39,7 +39,7 @@ chart
 
 另一类变换就是径向变换，这类坐标系变换都是把图表从笛卡尔坐标系转换到极坐标系下，用于绘制一系列“圆”形的图。
 
-比如可以使用 interval 标识和 polar 坐标系变换绘制玫瑰图。
+比如可以使用 interval 标记和 polar 坐标系变换绘制玫瑰图。
 
 <img alt="radial" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*LZ2TSaewI6kAAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
@@ -61,7 +61,7 @@ chart
   .axis('y', false);
 ```
 
-也可以使用 interval 标识和 theta 坐标系来绘制饼图。
+也可以使用 interval 标记和 theta 坐标系来绘制饼图。
 
 <img alt="theta" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*_qI8SZSzadMAAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
@@ -82,7 +82,7 @@ chart
   .encode('color', 'genre');
 ```
 
-还可以使用 interval 标识和 radial 坐标系来绘制玉块图。
+还可以使用 interval 标记和 radial 坐标系来绘制玉块图。
 
 <img alt="radial" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*tCBoSavK98UAAAAAAAAAAAAADmJ7AQ/original" width="640px">
 

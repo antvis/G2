@@ -7,7 +7,7 @@ G2 是一个简洁的渐进式语法，主要用于制作基于网页的可视�
 
 这篇文章将给大家简单介绍一下 G2 的能力和以下核心概念：
 
-- **标识（Mark）**：绘制数据驱动的图形
+- **标记（Mark）**：绘制数据驱动的图形
 - **转换（Transform）**：派生数据
 - **比例尺（Scale）**：将抽象的数据映射为视觉数据
 - **坐标系（Coordinate**）：对空间通道应用点变换
@@ -19,20 +19,20 @@ G2 是一个简洁的渐进式语法，主要用于制作基于网页的可视�
 
 <img alt="data" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*U-tfTa2m98EAAAAAAAAAAAAADmJ7AQ/original" width="100%">
 
-## 标识
+## 标记
 
-**标识**是 G2 中最小的视觉单元，G2 中的所有图表都是由不同标识构成的。
+**标记**是 G2 中最小的视觉单元，G2 中的所有图表都是由不同标记构成的。
 
 <img alt="point" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*jT--SYkfcGoAAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
 ```js
-// 创建标识
+// 创建标记
 chart.point().data(data).encode('x', 'GDP').encode('y', 'LifeExpectancy');
 ```
 
 ## 转换
 
-**转换**会改变数据和标识的展现形式，多用于数据分析。
+**转换**会改变数据和标记的展现形式，多用于数据分析。
 
 <img alt="bin" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Wb8oTb-csMAAAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
@@ -49,7 +49,7 @@ chart
 
 ## 比例尺
 
-比例尺用于控制标识的视觉样式。
+比例尺用于控制标记的视觉样式。
 
 <img alt="scale" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*I5rmTbr0350AAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
@@ -166,7 +166,7 @@ chart
 
 G2 名字和设计理念都来自于图形语法《[The Grammar of Graphisc](https://book.douban.com/subject/10123863/)》
 
-该理论的核心在于：拒绝图表分类，用一些基本图形和一系列可视化组件（比例尺，坐标系等）去描述一个图表。得益于此，大大提高了 G2 能制作出图表的种类，也改变了 G2 使用者思考图表的方式：图表不再是一个不可分割的整体，而是可以被具有不同用途的标识组合出来的。
+该理论的核心在于：拒绝图表分类，用一些基本图形和一系列可视化组件（比例尺，坐标系等）去描述一个图表。得益于此，大大提高了 G2 能制作出图表的种类，也改变了 G2 使用者思考图表的方式：图表不再是一个不可分割的整体，而是可以被具有不同用途的标记组合出来的。
 
 G2 的可视化语法在原本图形语法基础上做了以下的改变：
 
