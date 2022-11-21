@@ -91,7 +91,7 @@ chart.render();
 
 ### 滑动窗口
 
-滑动窗口标识了当前的值选取范围，通过与滑动窗口交互能够对视图中的值范围进行选择。
+滑动窗口标记了当前的值选取范围，通过与滑动窗口交互能够对视图中的值范围进行选择。
 
  <img alt="slider-window" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*eAnbT6OFQlwAAAAAAAAAAAAADmJ7AQ/original" width="300" />
 
