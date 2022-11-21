@@ -13,30 +13,35 @@ export function miserableForceCustom(): G2Spec {
     };
   };
   return {
-    type: 'forceGraph',
+    type: 'view',
     width: 800,
     height: 800,
-    data: {
-      type: 'fetch',
-      value: 'data/miserableDisjoint.json',
-      transform: [{ type: 'custom', callback: mockData }],
-    },
-    layout: {
-      joint: false,
-    },
-    encode: {
-      source: 's',
-      target: 't',
-      value: 'v',
-      nodeKey: 'id',
-      linkKey: 'id',
-    },
-    scale: {
-      color: { range: schemeTableau10 },
-    },
-    style: {
-      linkStroke: '#000',
-      nodeLineWidth: 0,
-    },
+    children: [
+      {
+        type: 'forceGraph',
+        data: {
+          type: 'fetch',
+          value: 'data/miserableDisjoint.json',
+          transform: [{ type: 'custom', callback: mockData }],
+        },
+        layout: {
+          joint: false,
+        },
+        encode: {
+          source: 's',
+          target: 't',
+          value: 'v',
+          nodeKey: 'id',
+          linkKey: 'id',
+        },
+        scale: {
+          color: { range: schemeTableau10 },
+        },
+        style: {
+          linkStroke: '#000',
+          nodeLineWidth: 0,
+        },
+      },
+    ],
   };
 }

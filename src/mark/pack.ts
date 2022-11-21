@@ -96,6 +96,7 @@ export const Pack: CC<PackOptions> = (markOptions) => {
           ...labels,
         ],
         ...resOptions,
+        axis: false,
       }),
     ];
   };

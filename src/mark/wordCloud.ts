@@ -65,6 +65,7 @@ export const WordCloud: CC<WordCloudOptions> = (options) => {
         scale,
         style,
         ...resOptions,
+        axis: false,
       }),
     ];
   };

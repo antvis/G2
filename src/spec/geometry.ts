@@ -265,6 +265,7 @@ export type SankeyMark = BaseGeometry<
   | 'value'
   | `node${Capitalize<ChannelTypes>}`
   | `link${Capitalize<ChannelTypes>}`
+  | ChannelTypes
 > & {
   layout?: Record<string, any>;
   nodeLabels: Record<string, any>[];
@@ -303,7 +304,7 @@ export type TreeMark = BaseGeometry<'tree', 'value' | ChannelTypes> & {
 
 export type WordCloudMark = BaseGeometry<
   'wordCloud',
-  'value' | ChannelTypes
+  'value' | ChannelTypes | 'text'
 > & {
   layout?: Record<string, any>;
 };

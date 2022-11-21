@@ -15,7 +15,6 @@ chart
   .layout({
     spiral: 'rectangular',
   })
-  .encode('color', 'text')
-  .axis(false);
+  .encode('color', 'text');
 
 chart.render();
