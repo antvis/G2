@@ -22,7 +22,7 @@ chart
     { x: 'Net Income', isTotal: true, value: 1994450, start: 0, end: 1994450 },
   ])
   .axis('x', { title: false, labelRotate: -90 })
-  .axis('y', { tickFormatter: '~s' })
+  .axis('y', { labelFormatter: '~s' })
   .legend(null);
 
 chart

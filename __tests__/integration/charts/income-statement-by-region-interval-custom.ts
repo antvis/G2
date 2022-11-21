@@ -37,7 +37,7 @@ export function incomeStatementByRegionIntervalCustom() {
         labelFontSize: 10,
         title: false,
       },
-      y: { tickFormatter: '~s', title: false },
+      y: { labelFormatter: '~s', title: false },
     },
     scale: {
       color: {

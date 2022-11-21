@@ -30,7 +30,7 @@ chart
   .encode('x', 'state')
   .encode('y', 'population')
   .encode('color', 'age')
-  .axis('y', { tickFormatter: '~s' });
+  .axis('y', { labelFormatter: '~s' });
 
 chart.render();
 ```

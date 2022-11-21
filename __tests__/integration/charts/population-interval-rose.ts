@@ -14,7 +14,7 @@ export function populationIntervalRose(): G2Spec {
     scale: { y: { type: 'sqrt' } },
     axis: {
       y: {
-        tickFormatter: '~s',
+        labelFormatter: '~s',
         tickCount: 5,
         tickFilter: (d, i) => i !== 0,
         direction: 'right',

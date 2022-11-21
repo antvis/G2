@@ -32,7 +32,7 @@ chart
     labelStroke: '#fff',
     labelStrokeWidth: 5,
     title: null,
-    tickFormatter: (d, i, array) =>
+    labelFormatter: (d, i, array) =>
       i === array.length - 1 ? `${d}°F` : `${d}`,
   })
   .axis('x', {

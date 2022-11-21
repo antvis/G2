@@ -30,7 +30,7 @@ chart
   .transform({ type: 'groupColor', y: 'count' })
   .transform({ type: 'stackY' })
   .transform({ type: 'normalizeY' })
-  .axis('y', { tickFormatter: '.0%' })
+  .axis('y', { labelFormatter: '.0%' })
   .encode('color', 'sex')
   .label({ text: 'sex', position: 'inside' });
 

@@ -27,7 +27,7 @@ chart
   .encode('y', (d) => (d.sex === 1 ? -d.people : d.people))
   .encode('color', 'sex')
   .scale('color', { type: 'ordinal', range: ['#ca8861', '#675193'] })
-  .axis('y', { tickFormatter: '~s' })
+  .axis('y', { labelFormatter: '~s' })
   .scale('x', { range: [1, 0] });
 
 chart.render();

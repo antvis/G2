@@ -18,7 +18,7 @@ export function populationIntervalNormalizedStacked(): G2Spec {
     scale: {
       color: { type: 'ordinal', range: ['#ca8861', '#675193'] },
     },
-    axis: { y: { tickFormatter: '.0%' } },
+    axis: { y: { labelFormatter: '.0%' } },
     encode: {
       x: 'age',
       y: 'people',

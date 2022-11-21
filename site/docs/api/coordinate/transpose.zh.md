@@ -31,7 +31,7 @@ chart
   .encode('x', 'letter')
   .encode('y', 'frequency')
   .encode('color', 'steelblue')
-  .axis('y', { tickFormatter: '.0%' })
+  .axis('y', { labelFormatter: '.0%' })
   .label({
     text: 'frequency',
     textAnchor: (d) => (+d.frequency > 0.008 ? 'right' : 'start'),

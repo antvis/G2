@@ -24,8 +24,8 @@ export function incomePointCircle() {
           y: 'f',
         },
         axis: {
-          x: { tickFormatter: '~s' },
-          y: { tickFormatter: '~s' },
+          x: { labelFormatter: '~s' },
+          y: { labelFormatter: '~s' },
         },
       },
       {

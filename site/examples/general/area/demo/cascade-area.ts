@@ -19,7 +19,7 @@ chart
   .encode('series', 'format')
   .encode('color', 'group')
   .encode('shape', 'smooth')
-  .axis('y', { tickFormatter: '~s' });
+  .axis('y', { labelFormatter: '~s' });
 
 chart
   .line()

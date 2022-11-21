@@ -179,7 +179,7 @@ export type Adjust = { type: 'pack' };
 
 export type Axis = {
   tickCount?: number;
-  tickFormatter?: any;
+  labelFormatter?: any;
   tickFilter?: any;
   title?: any;
   [key: string]: any;
@@ -187,7 +187,7 @@ export type Axis = {
 
 export type Legend = {
   tickCount?: number;
-  tickFormatter?: any;
+  labelFormatter?: any;
   tickFilter?: any;
   title?: any;
   position?: string;
