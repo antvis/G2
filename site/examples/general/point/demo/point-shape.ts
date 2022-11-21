@@ -19,7 +19,7 @@ chart
   .encode('y', 'y')
   .encode('shape', 'category')
   .encode('color', 'category')
-  .scale('shape', { range: ['point', 'plus', 'diamond'] })
-  .style('r', 5);
+  .encode('size', 5)
+  .scale('shape', { range: ['point', 'plus', 'diamond'] });
 
 chart.render();

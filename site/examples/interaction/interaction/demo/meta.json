@@ -4,5 +4,53 @@
     "en": "Category"
   },
   "demos": [
+    {
+      "filename": "tooltip.ts",
+      "title": {
+        "zh": "提示",
+        "en": "Tooltip"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/raptor/1669041818314/tooltip1d.gif"
+    },
+    {
+      "filename": "tooltip2d.ts",
+      "title": {
+        "zh": "多维度提示",
+        "en": "Tooltip 2D"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/raptor/1669041837078/tooltip2d.gif"
+    },
+    {
+      "filename": "tooltip-series.ts",
+      "title": {
+        "zh": "系列提示",
+        "en": "Tooltip Series"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/raptor/1669041851542/series.gif"
+    },
+    {
+      "filename": "tooltip-custom.ts",
+      "title": {
+        "zh": "自定义提示",
+        "en": "Custom Tooltip"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/raptor/1669041870958/custom.gif"
+    },
+    {
+      "filename": "chart-index.ts",
+      "title": {
+        "zh": "索引图",
+        "en": "Chart Index"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/raptor/1669041887727/chart-index.gif"
+    },
+    {
+      "filename": "fisheye.ts",
+      "title": {
+        "zh": "鱼眼",
+        "en": "Fisheye"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/raptor/1669041902028/fisheye.gif"
+    }
   ]
 }
