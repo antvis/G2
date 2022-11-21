@@ -35,7 +35,7 @@ const facetRect2 = facetRect
   .encode('x', 'survived')
   .axis('y', false)
   .axis('x', {
-    tickFormatter: (d) => (d === '1' ? 'Yes' : 'No'),
+    labelFormatter: (d) => (d === '1' ? 'Yes' : 'No'),
     position: 'bottom',
   })
   .attr('shareSize', true);
@@ -50,7 +50,7 @@ const facetRect3 = facetRect2
 facetRect3
   .point()
   .transform({ type: 'pack' })
-  .legend('color', { tickFormatter: (d) => (d === '1' ? 'Yes' : 'No') })
+  .legend('color', { labelFormatter: (d) => (d === '1' ? 'Yes' : 'No') })
   .encode('color', 'survived')
   .encode('shape', 'point')
   .encode('size', 3);

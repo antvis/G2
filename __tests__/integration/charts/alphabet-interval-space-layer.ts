@@ -13,7 +13,7 @@ export function alphabetIntervalSpaceLayer(): G2Spec {
         paddingLeft: 50,
         transform: [{ type: 'sortX', by: 'y', reverse: true }],
         axis: {
-          y: { tickFormatter: '.0%' },
+          y: { labelFormatter: '.0%' },
         },
         scale: {
           color: {

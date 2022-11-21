@@ -172,7 +172,7 @@ const bar = (data) => ({
     key: 'symbol',
   },
   axis: {
-    y: { tickFormatter: '~s' },
+    y: { labelFormatter: '~s' },
   },
 });
 

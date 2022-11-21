@@ -38,7 +38,7 @@ chart
     { x: 'End', isTotal: true, value: 33100000, start: 0, end: 33100000 },
   ])
   .axis('x', { title: false })
-  .axis('y', { tickFormatter: '~s' })
+  .axis('y', { labelFormatter: '~s' })
   .legend(null);
 
 chart

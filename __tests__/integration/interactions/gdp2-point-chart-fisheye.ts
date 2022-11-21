@@ -15,7 +15,7 @@ export async function gdp2PointFisheye(): Promise<G2Spec> {
           size: { type: 'log', range: [4, 20] },
         },
         legend: false,
-        axis: { y: { tickFormatter: '~s' } },
+        axis: { y: { labelFormatter: '~s' } },
         encode: {
           x: 'LifeExpectancy',
           y: 'GDP',

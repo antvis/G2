@@ -1,7 +1,8 @@
 import { G2Spec } from '../../../src';
 
 export function worldHistoryIntervalMultiTickCount(): G2Spec {
-  const tickFormatter = (d) => Math.abs(d) + (d < 0 ? 'BC' : d > 0 ? 'AC' : '');
+  const labelFormatter = (d) =>
+    Math.abs(d) + (d < 0 ? 'BC' : d > 0 ? 'AC' : '');
   const left = (d) => d.end > -1500 && d.start > -3000;
   return {
     type: 'interval',
@@ -21,14 +22,14 @@ export function worldHistoryIntervalMultiTickCount(): G2Spec {
       y: [
         {
           tickCount: 5,
-          tickFormatter,
+          labelFormatter,
           grid: null,
           title: null,
           labelTextAlign: 'start',
         },
         {
           position: 'top',
-          tickFormatter,
+          labelFormatter,
           title: null,
           labelTextAlign: 'start',
         },

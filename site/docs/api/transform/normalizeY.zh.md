@@ -38,7 +38,7 @@ chart
   .encode('y', 'people')
   .encode('color', 'sex')
   .scale('color', { type: 'ordinal', range: ['#ca8861', '#675193'] })
-  .axis('y', { tickFormatter: '.0%' })
+  .axis('y', { labelFormatter: '.0%' })
   .label({ text: 'people', position: 'inside', fill: 'white' });
 
 chart.render();

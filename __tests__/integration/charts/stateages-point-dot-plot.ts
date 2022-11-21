@@ -14,7 +14,7 @@ export function stateAgesPointDotPlot(): G2Spec {
       color: { palette: 'spectral' },
     },
     axis: {
-      y: { tickFormatter: '.0%' },
+      y: { labelFormatter: '.0%' },
     },
     children: [
       {

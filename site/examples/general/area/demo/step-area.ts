@@ -34,7 +34,7 @@ chart
     },
   })
   .style('opacity', 0.4)
-  .axis('y', { tickFormatter: '~s' });
+  .axis('y', { labelFormatter: '~s' });
 
 chart
   .line()

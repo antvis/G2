@@ -27,7 +27,7 @@ chart
   .encode('y', 'people')
   .encode('color', 'sex')
   .scale('color', { type: 'ordinal', range: ['#ca8861', '#675193'] })
-  .axis('y', { tickFormatter: '~s' })
+  .axis('y', { labelFormatter: '~s' })
   .style('fillOpacity', 0.7);
 
 chart.render();

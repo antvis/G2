@@ -18,6 +18,6 @@ chart
   .encode('color', 'country')
   .encode('size', 'gdp')
   .scale('size', { range: [10, 60] })
-  .axis('y', { tickFormatter: '~s' });
+  .axis('y', { labelFormatter: '~s' });
 
 chart.render();

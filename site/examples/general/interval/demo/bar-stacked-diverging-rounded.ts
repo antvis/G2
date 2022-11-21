@@ -48,7 +48,7 @@ chart
   .axis('y', {
     position: 'right',
     title: false,
-    tickFormatter: (v) => `${v}%`,
+    labelFormatter: (v) => `${v}%`,
   })
   .style('radius', 10);
 

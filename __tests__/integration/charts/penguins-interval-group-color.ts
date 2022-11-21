@@ -14,7 +14,7 @@ export function penguinsIntervalGroupColor(): G2Spec {
       { type: 'stackY' },
       { type: 'normalizeY' },
     ],
-    axis: { y: { tickFormatter: '.0%' } },
+    axis: { y: { labelFormatter: '.0%' } },
     encode: {
       color: 'sex',
     },

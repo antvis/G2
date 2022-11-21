@@ -17,7 +17,7 @@ chart.data({
 chart
   .interval()
   .transform({ type: 'groupX', y: 'sum' })
-  .axis('y', { tickFormatter: '~s' })
+  .axis('y', { labelFormatter: '~s' })
   .axis('x', { labelRotate: 90 })
   .encode('x', 'Major Genre')
   .encode('y', 'Worldwide Gross')

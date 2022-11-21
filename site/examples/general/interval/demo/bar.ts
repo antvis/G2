@@ -21,7 +21,7 @@ chart
   .transform({ type: 'sortX', reverse: true })
   .encode('x', 'letter')
   .encode('y', 'frequency')
-  .axis('y', { tickFormatter: '.0%' })
+  .axis('y', { labelFormatter: '.0%' })
   .label({
     text: 'frequency',
     textAnchor: (d) => (+d.frequency > 0.008 ? 'right' : 'start'),

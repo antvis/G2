@@ -18,7 +18,7 @@ export function peoplePointStacked(): G2Spec {
         axis: {
           y: {
             title: '← Women · Men →',
-            tickFormatter: Math.abs,
+            labelFormatter: Math.abs,
           },
           x: { title: 'Age →' },
         },
