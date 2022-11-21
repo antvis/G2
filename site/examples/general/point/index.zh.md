@@ -1,4 +1,4 @@
 ---
-title: 点图
+title: Point
 order: 3
 ---

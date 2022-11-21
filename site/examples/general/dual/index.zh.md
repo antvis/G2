@@ -1,4 +1,4 @@
 ---
-title: 多轴图
+title: Dual
 order: 6
 ---

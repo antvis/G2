@@ -14,12 +14,12 @@ order: 2
 
 ```bash
 # 通过 NPM 安装
-npm install @antv/g2
+npm install @antv/g2@beta
 ```
 
 ```bash
 # 通过 Yarn 安装
-yarn add @antv/g2
+yarn add @antv/g2@beta
 ```
 
 安装成功之后给 G2 提供一个容器:
@@ -33,7 +33,7 @@ yarn add @antv/g2
 ```js
 import { Chart } from '@antv/g2';
 
-// 将要可视化的表格数据
+// 准备数据
 const data = [
   { genre: 'Sports', sold: 275 },
   { genre: 'Strategy', sold: 115 },
@@ -42,19 +42,19 @@ const data = [
   { genre: 'Other', sold: 150 },
 ];
 
-// 实例化图表并且指定容器的 id
+// 初始化图表实例
 const chart = new Chart({
-  container: 'chart',
+  container: 'container',
 });
 
 // 声明可视化
 chart
-  .interval() // 创建一个 Interval 的视觉元素，并且添加到图表中
-  .data(data) // 给这个视觉元素绑定数据
-  .encode('x', 'genre') // 将 genre 对应的列数据和 x 位置通道绑定
-  .encode('y', 'sold'); // 将 sold 对应的列数据和 y 位置通道绑定
+  .interval() // 创建一个 Interval 标记
+  .data(data) // 绑定数据
+  .encode('x', 'genre') // 编码 x 通道
+  .encode('y', 'sold'); // 编码 y 通道
 
-// 将可视化渲染进指定的容器
+// 渲染可视化
 chart.render();
 ```
 
@@ -63,9 +63,9 @@ chart.render();
 G2 也提供了 UMD 版本，可以直接通过 CDN 加载，然后直接使用。这个时候的 `Chart` 对象可以通过命名空间 `G2` 去访问。
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@antv/g2@5"></script>
+<script src="https://unpkg.com/@antv/g2@5.0.0-beta.0/dist/g2.min.js"></script>
 <script>
-  // 将要可视化的表格数据
+  // 准备数据
   const data = [
     { genre: 'Sports', sold: 275 },
     { genre: 'Strategy', sold: 115 },
@@ -74,19 +74,19 @@ G2 也提供了 UMD 版本，可以直接通过 CDN 加载，然后直接使用�
     { genre: 'Other', sold: 150 },
   ];
 
-  // 实例化图表并且指定容器的 id
+  // 初始化图表实例
   const chart = new G2.Chart({
-    container: 'chart',
+    container: 'container',
   });
 
   // 声明可视化
   chart
-    .interval() // 创建一个 Interval 的视觉元素，并且添加到图表中
-    .data(data) // 给这个视觉元素绑定数据
-    .encode('x', 'genre') // 将 genre 对应的列数据和 x 位置通道绑定
-    .encode('y', 'sold'); // 将 sold 对应的列数据和 y 位置通道绑定
+    .interval() // 创建一个 Interval 标记
+    .data(data) // 绑定数据
+    .encode('x', 'genre') // 编码 x 通道
+    .encode('y', 'sold'); // 编码 y 通道
 
-  // 将可视化渲染进指定的容器
+  // 渲染可视化
   chart.render();
 </script>
 ```

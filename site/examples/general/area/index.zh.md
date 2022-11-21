@@ -1,4 +1,4 @@
 ---
-title: 面积图
+title: Area
 order: 4
 ---

@@ -1,4 +1,4 @@
 ---
-title: Bin / BinX
+title: Bin
 order: 1
 ---

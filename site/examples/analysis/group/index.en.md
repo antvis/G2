@@ -1,4 +1,4 @@
 ---
-title: Boxplot
+title: Group
 order: 1
 ---

@@ -1,4 +1,4 @@
 ---
-title: 向量图
+title: Vector
 order: 12
 ---

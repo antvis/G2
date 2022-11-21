@@ -1,4 +1,4 @@
 ---
-title: Interval
+title: Group
 order: 1
 ---

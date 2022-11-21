@@ -15,24 +15,24 @@
     {
       "filename": "fade.ts",
       "title": {
-        "zh": "FadeIn & FadeOut",
-        "en": "FadeIn & FadeOut"
+        "zh": "FadeIn",
+        "en": "FadeIn"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/raptor/1667976930984/fadeIn.gif"
     },
     {
       "filename": "scale-x.ts",
       "title": {
-        "zh": "ScaleInX & ScaleOutX",
-        "en": "ScaleInX & ScaleOutX"
+        "zh": "ScaleInX",
+        "en": "ScaleInX"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/raptor/1667976930984/scaleInX.gif"
     },
     {
       "filename": "scale-y.ts",
       "title": {
-        "zh": "ScaleInY & ScaleOutY",
-        "en": "ScaleInY & ScaleOutY"
+        "zh": "ScaleInY",
+        "en": "ScaleInY"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/raptor/1667976930984/scaleInY.gif"
     },

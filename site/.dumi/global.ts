@@ -1,6 +1,6 @@
 require('./style.css');
 require('./github-markdown-light.css');
-require('./prism-one-dark.css');
+require('./prism-one-light.css');
 
 if (window) {
   (window as any).g2 = require('../../src');
