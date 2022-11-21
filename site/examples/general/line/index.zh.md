@@ -1,4 +1,4 @@
 ---
-title: 折线图
+title: Line
 order: 2
 ---
