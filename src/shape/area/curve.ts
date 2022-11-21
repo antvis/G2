@@ -199,4 +199,6 @@ export const Curve: SC<CurveOptions> = (options) => {
 
 Curve.props = {
   defaultEnterAnimation: 'fadeIn',
+  defaultUpdateAnimation: 'morphing',
+  defaultExitAnimation: 'fadeOut',
 };

@@ -38,4 +38,6 @@ export const Image: SC<ImageOptions> = (options) => {
 
 Image.props = {
   defaultEnterAnimation: 'fadeIn',
+  defaultUpdateAnimation: 'morphing',
+  defaultExitAnimation: 'fadeOut',
 };

@@ -59,4 +59,6 @@ export const Line: SC<LineOptions> = (options) => {
 
 Line.props = {
   defaultEnterAnimation: 'fadeIn',
+  defaultUpdateAnimation: 'morphing',
+  defaultExitAnimation: 'fadeOut',
 };

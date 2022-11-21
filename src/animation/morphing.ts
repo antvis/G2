@@ -65,14 +65,57 @@ function normalizeSplit(
 }
 
 /**
- * @todo After @antv/g supports smooth transition between transform attributes.
+ * Translate and scale.
  */
 function shapeToShape(
   from: DisplayObject,
   to: DisplayObject,
   timeEffect: Record<string, any>,
 ): GAnimation {
-  return null;
+  const [x0, y0, w0, h0] = localBBoxOf(from);
+  const [x1, y1, w1, h1] = localBBoxOf(to);
+  const dx = x1 - x0;
+  const dy = y1 - y0;
+  const sx = w1 / w0;
+  const sy = h1 / h0;
+  const keyframes = [
+    {
+      transform: `translate(0, 0) scale(1, 1)`,
+      ...attributeOf(from, attributeKeys),
+    },
+    {
+      transform: `translate(${dx}, ${dy}) scale(${sx}, ${sy})`,
+      ...attributeOf(to, attributeKeys),
+    },
+  ];
+  const animation = from.animate(keyframes, timeEffect);
+  animation.finished.then(() => replaceChild(to, from));
+  return animation;
+}
+
+/**
+ * Replace object and copy className and __data__
+ */
+function replaceChild(newChild: DisplayObject, oldChild: DisplayObject) {
+  newChild['__data__'] = oldChild['__data__'];
+  newChild.className = oldChild.className;
+  oldChild.parentNode.replaceChild(newChild, oldChild);
+}
+
+/**
+ * Replace element with a path shape.
+ */
+function maybePath(node: DisplayObject, d: string): DisplayObject {
+  const { nodeName } = node;
+  if (nodeName === 'path') return node;
+  const path = new Path({
+    style: {
+      ...attributeOf(node, attributeKeys),
+      d,
+    },
+  });
+  replaceChild(path, node);
+  return path;
 }
 
 function oneToOne(
@@ -81,12 +124,18 @@ function oneToOne(
   to: DisplayObject,
   timeEffect: Record<string, any>,
 ) {
+  // If the nodeTypes of from and to are equal,
+  // or non of them can convert to path,
+  // the apply shape to shape animation.
+  const { nodeName: fromName } = from;
+  const { nodeName: toName } = to;
   const fromPath = convertToPath(from);
   const toPath = convertToPath(to);
-  if (fromPath === undefined || toPath === undefined) {
-    return shapeToShape(from, to, timeEffect);
-  }
+  const isSameNodes = fromName === toName && fromName !== 'path';
+  const hasNonPathNode = fromPath === undefined || toPath === undefined;
+  if (isSameNodes || hasNonPathNode) return shapeToShape(from, to, timeEffect);
 
+  const pathShape = maybePath(shape, fromPath);
   // Convert Path will take transform, anchor, etc into account,
   // so there is no need to specify these attributes in keyframes.
   const keyframes = [
@@ -99,13 +148,13 @@ function oneToOne(
       ...attributeOf(to, attributeKeys),
     },
   ];
-  const animation = shape.animate(keyframes, timeEffect);
+  const animation = pathShape.animate(keyframes, timeEffect);
 
   // Remove transform because it already applied in path
   // converted by convertToPath.
   // @todo Remove this scale(1, 1)
-  shape.style.transform = 'scale(1, 1)';
-  shape.style.transform = 'none';
+  pathShape.style.transform = 'scale(1, 1)';
+  pathShape.style.transform = 'none';
   return animation;
 }
 
@@ -122,7 +171,7 @@ function oneToMultiple(
     const path = new Path({
       style: {
         path: D[i],
-        fill: from.style.fill,
+        ...attributeOf(from, attributeKeys),
       },
     });
     return oneToOne(shape, path, shape, timeEffect);
@@ -161,7 +210,7 @@ function multipleToOne(
 
 /**
  * Morphing animations.
- * @todo Support ore split function.
+ * @todo Support more split function.
  */
 export const Morphing: AC<MorphingOptions> = (options) => {
   return (from, to, value, coordinate, defaults) => {

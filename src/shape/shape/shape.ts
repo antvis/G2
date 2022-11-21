@@ -20,4 +20,6 @@ export const Shape: SC<ShapeOptions> = (options) => {
 
 Shape.props = {
   defaultEnterAnimation: 'fadeIn',
+  defaultUpdateAnimation: 'morphing',
+  defaultExitAnimation: 'fadeOut',
 };

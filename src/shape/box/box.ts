@@ -99,4 +99,6 @@ export const Box: SC<BoxOptions> = (options) => {
 
 Box.props = {
   defaultEnterAnimation: 'fadeIn',
+  defaultUpdateAnimation: 'morphing',
+  defaultExitAnimation: 'fadeOut',
 };

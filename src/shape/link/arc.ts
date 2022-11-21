@@ -50,4 +50,6 @@ export const Arc: SC<ArcOptions> = (options) => {
 
 Arc.props = {
   defaultEnterAnimation: 'fadeIn',
+  defaultUpdateAnimation: 'morphing',
+  defaultExitAnimation: 'fadeOut',
 };

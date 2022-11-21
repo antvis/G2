@@ -82,4 +82,6 @@ export const Badge: SC<BadgeOptions> = (options) => {
 
 Badge.props = {
   defaultEnterAnimation: 'fadeIn',
+  defaultUpdateAnimation: 'morphing',
+  defaultExitAnimation: 'fadeOut',
 };

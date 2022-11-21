@@ -48,4 +48,6 @@ export const Vector: SC<VectorOptions> = (options) => {
 
 Vector.props = {
   defaultEnterAnimation: 'fadeIn',
+  defaultUpdateAnimation: 'morphing',
+  defaultExitAnimation: 'fadeOut',
 };
