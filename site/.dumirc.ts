@@ -213,23 +213,7 @@ export default defineConfig({
           zh: '基础',
           en: 'General',
         },
-        icon: 'bar',
-      },
-      {
-        slug: 'composition',
-        title: {
-          zh: '复合视图',
-          en: 'Composition',
-        },
-        icon: 'bar',
-      },
-      {
-        slug: 'unit',
-        title: {
-          zh: '单元可视化',
-          en: 'Unit',
-        },
-        icon: 'bar',
+        icon: 'other',
       },
       {
         slug: 'analysis',
@@ -237,7 +221,7 @@ export default defineConfig({
           zh: '数据分析',
           en: 'Analysis',
         },
-        icon: 'bar',
+        icon: 'other',
       },
       {
         slug: 'annotation',
@@ -245,7 +229,7 @@ export default defineConfig({
           zh: '数据标注',
           en: 'Annotation',
         },
-        icon: 'bar',
+        icon: 'other',
       },
       {
         slug: 'animation',
@@ -253,7 +237,7 @@ export default defineConfig({
           zh: '动画',
           en: 'Animation',
         },
-        icon: 'bar',
+        icon: 'other',
       },
       {
         slug: 'interaction',
@@ -261,7 +245,7 @@ export default defineConfig({
           zh: '交互',
           en: 'Interaction',
         },
-        icon: 'bar',
+        icon: 'other',
       },
       {
         slug: 'graph',
@@ -269,7 +253,7 @@ export default defineConfig({
           zh: '图',
           en: 'Graph',
         },
-        icon: 'bar',
+        icon: 'other',
       },
       {
         slug: 'geo',
@@ -277,23 +261,39 @@ export default defineConfig({
           zh: '地图',
           en: 'Geo',
         },
-        icon: 'bar',
+        icon: 'other',
       },
       {
-        slug: 'component',
+        slug: 'composition',
         title: {
-          zh: '组件',
-          en: 'Component',
+          zh: '复合视图',
+          en: 'Composition',
         },
-        icon: 'bar',
+        icon: 'other',
       },
+      {
+        slug: 'unit',
+        title: {
+          zh: '单元可视化',
+          en: 'Unit',
+        },
+        icon: 'other',
+      },
+      // {
+      //   slug: 'component',
+      //   title: {
+      //     zh: '组件',
+      //     en: 'Component',
+      //   },
+      //   icon: 'other',
+      // },
       {
         slug: 'Theme',
         title: {
           zh: '主题',
           en: 'Theme',
         },
-        icon: 'bar',
+        icon: 'other',
       },
       {
         slug: 'plugin',
@@ -301,7 +301,7 @@ export default defineConfig({
           zh: '插件',
           en: 'Plugin',
         },
-        icon: 'bar',
+        icon: 'other',
       },
     ],
     playground: {

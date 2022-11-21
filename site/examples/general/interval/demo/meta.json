@@ -53,14 +53,6 @@
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*RJvHRpHoFmYAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
-      "filename": "bar-stacked-diverging-rounded.ts",
-      "title": {
-        "zh": "圆角发散堆叠条形图",
-        "en": "Rounded Diverging Stacked Bar Chart"
-      },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*DVqDQaFExcAAAAAAAAAAAAAADmJ7AQ/original"
-    },
-    {
       "filename": "bar-normalized-stacked.ts",
       "title": {
         "zh": "归一化堆叠条形图",
@@ -76,54 +68,7 @@
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*FrshQpaS4f0AAAAAAAAAAAAADmJ7AQ/original"
     },
-    {
-      "filename": "bar-layered.ts",
-      "title": {
-        "zh": "层叠条形图",
-        "en": "Layered Bar Chart"
-      },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*HYb2Rqy2ZCIAAAAAAAAAAAAADmJ7AQ/original"
-    },
-    {
-      "filename": "bar-stacked-diverging.ts",
-      "title": {
-        "zh": "发散堆叠条形图",
-        "en": "Diverging Stacked Bar Chart"
-      },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*UbIuS5Xz51wAAAAAAAAAAAAADmJ7AQ/original"
-    },
-    {
-      "filename": "bar-aggregated.ts",
-      "title": {
-        "zh": "聚合条形图",
-        "en": "Aggregated Bar Chart"
-      },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*BhULSZiZisIAAAAAAAAAAAAADmJ7AQ/original"
-    },
-    {
-      "filename": "bar-aggregated-stacked.ts",
-      "title": {
-        "zh": "聚合堆叠条形图",
-        "en": "Aggregated Stacked Bar Chart"
-      },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*fY5CTLQMv4IAAAAAAAAAAAAADmJ7AQ/original"
-    },
-    {
-      "filename": "bar-aggregated-normalized-stacked.ts",
-      "title": {
-        "zh": "聚合归一化堆叠条形图",
-        "en": "Aggregated Normalized Stacked Bar Chart"
-      },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*1oZjT4cKSh8AAAAAAAAAAAAADmJ7AQ/original"
-    },
-    {
-      "filename": "bar-stacked-normalized-1d.ts",
-      "title": {
-        "zh": "一维聚合堆叠条形图",
-        "en": "Aggregated Stacked Bar Chart, 1D"
-      },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*6CbxQ6P9bFcAAAAAAAAAAAAADmJ7AQ"
-    },
+
     {
       "filename": "bar-flex.ts",
       "title": {
@@ -149,14 +94,6 @@
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*yANXQZce0W8AAAAAAAAAAAAADmJ7AQ/original"
     },
     {
-      "filename": "bar-fixed-cornered.ts",
-      "title": {
-        "zh": "固定宽度圆角条形图",
-        "en": "Cornered Fixed Width Bar Chart"
-      },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dorbTKo4Ru8AAAAAAAAAAAAADmJ7AQ/original"
-    },
-    {
       "filename": "bar-dual-axes.ts",
       "title": {
         "zh": "多轴条形图",
@@ -165,20 +102,20 @@
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*TehBRbDnoIkAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
-      "filename": "bar-multi-measure.ts",
+      "filename": "bar-fixed-cornered.ts",
       "title": {
-        "zh": "多度量条形图",
-        "en": "Multi-Measure Bar Chart"
+        "zh": "固定宽度圆角条形图",
+        "en": "Cornered Fixed Width Bar Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*-JCwSpV0pAsAAAAAAAAAAAAADmJ7AQ"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dorbTKo4Ru8AAAAAAAAAAAAADmJ7AQ/original"
     },
     {
-      "filename": "revenue-flow-waterfall.ts",
+      "filename": "bar-stacked-diverging-rounded.ts",
       "title": {
-        "zh": "Revenue Flow Waterfall Chart",
-        "en": "Revenue Flow Waterfall Chart"
+        "zh": "圆角发散堆叠条形图",
+        "en": "Rounded Diverging Stacked Bar Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*fG4DT7XWNzUAAAAAAAAAAAAADmJ7AQ"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*DVqDQaFExcAAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }

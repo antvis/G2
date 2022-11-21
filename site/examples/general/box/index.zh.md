@@ -1,4 +1,4 @@
 ---
-title: 箱线图
+title: Box
 order: 13
 ---

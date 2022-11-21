@@ -1,0 +1,64 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "bar-layered.ts",
+      "title": {
+        "zh": "层叠条形图",
+        "en": "Layered Bar Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*HYb2Rqy2ZCIAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "bar-stacked-diverging.ts",
+      "title": {
+        "zh": "发散堆叠条形图",
+        "en": "Diverging Stacked Bar Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*UbIuS5Xz51wAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "bar-aggregated.ts",
+      "title": {
+        "zh": "聚合条形图",
+        "en": "Aggregated Bar Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*BhULSZiZisIAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "bar-aggregated-stacked.ts",
+      "title": {
+        "zh": "聚合堆叠条形图",
+        "en": "Aggregated Stacked Bar Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*fY5CTLQMv4IAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "bar-aggregated-normalized-stacked.ts",
+      "title": {
+        "zh": "聚合归一化堆叠条形图",
+        "en": "Aggregated Normalized Stacked Bar Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*1oZjT4cKSh8AAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "bar-stacked-normalized-1d.ts",
+      "title": {
+        "zh": "一维聚合堆叠条形图",
+        "en": "Aggregated Stacked Bar Chart, 1D"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*6CbxQ6P9bFcAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "bar-multi-measure.ts",
+      "title": {
+        "zh": "多度量条形图",
+        "en": "Multi-Measure Bar Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*-JCwSpV0pAsAAAAAAAAAAAAADmJ7AQ"
+    }
+  ]
+}

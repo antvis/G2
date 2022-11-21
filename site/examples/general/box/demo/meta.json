@@ -7,7 +7,7 @@
     {
       "filename": "box.ts",
       "title": {
-        "zh": "箱线图",
+        "zh": "预处理箱线图",
         "en": "Boxplot"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*pU-NQa1PgxQAAAAAAAAAAAAADmJ7AQ/original"
@@ -15,10 +15,42 @@
     {
       "filename": "grouped-box.ts",
       "title": {
-        "zh": "分组箱线图",
+        "zh": "预处理分组箱线图",
         "en": "Grouped Boxplot"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*5E47Qa9nQaQAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "boxplot.ts",
+      "title": {
+        "zh": "无异常点箱线图",
+        "en": "Boxplot"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xoCiQYXmOewAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "boxplot-outlier.ts",
+      "title": {
+        "zh": "带异常点箱线图",
+        "en": "Boxplot with Outlier"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*yeZuSY9YIEAAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "grouped-boxplot-outlier.ts",
+      "title": {
+        "zh": "带异常点分组箱线图",
+        "en": "grouped Boxplot with Outlier"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ex7XR4hQTOYAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "boxplot-1d.ts",
+      "title": {
+        "zh": "一维箱线图",
+        "en": "Boxplot 1d"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ZOhpRaAAFpkAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }
