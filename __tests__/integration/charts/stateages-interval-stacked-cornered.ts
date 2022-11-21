@@ -15,7 +15,7 @@ export function stateAgesIntervalStackedCornered(): G2Spec {
       format: 'csv',
     },
     axis: {
-      y: { tickFormatter: '~s' },
+      y: { labelFormatter: '~s' },
     },
     encode: {
       x: 'state',

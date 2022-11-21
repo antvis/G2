@@ -34,7 +34,7 @@ export function titanicPointPackNested(): G2Spec {
         axis: {
           y: false,
           x: {
-            tickFormatter: (d) => (d === '1' ? 'Yes' : 'No'),
+            labelFormatter: (d) => (d === '1' ? 'Yes' : 'No'),
             position: 'bottom',
           },
         },
@@ -57,7 +57,7 @@ export function titanicPointPackNested(): G2Spec {
                     transform: [{ type: 'pack' }],
                     legend: {
                       color: {
-                        tickFormatter: (d) => (d === '1' ? 'Yes' : 'No'),
+                        labelFormatter: (d) => (d === '1' ? 'Yes' : 'No'),
                       },
                     },
                     encode: {

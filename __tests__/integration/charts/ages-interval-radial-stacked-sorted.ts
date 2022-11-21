@@ -40,7 +40,7 @@ export function agesIntervalRadialStackedSorted(): G2Spec {
       y: { type: 'sqrt' },
     },
     axis: {
-      y: { tickFormatter: '~s', tickFilter: (_, i) => i !== 0 },
+      y: { labelFormatter: '~s', tickFilter: (_, i) => i !== 0 },
       x: { position: 'bottom' },
     },
     legend: {

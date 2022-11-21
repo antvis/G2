@@ -7,7 +7,7 @@ export async function tranLineMultiAxes(): Promise<G2Spec> {
   const distanceName = new Map(data.map((d) => [d.distance, d.name]));
   const xAxis = {
     tickMethod: () => Array.from(distanceName.keys()),
-    tickFormatter: (d) => distanceName.get(d),
+    labelFormatter: (d) => distanceName.get(d),
     title: null,
   };
   return {

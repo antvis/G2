@@ -30,7 +30,7 @@ export function titanicPointPackSharedData(): G2Spec {
         type: 'point',
         transform: [{ type: 'pack' }],
         legend: {
-          color: { tickFormatter: (d) => (d === '1' ? 'Yes' : 'No') },
+          color: { labelFormatter: (d) => (d === '1' ? 'Yes' : 'No') },
         },
         encode: {
           color: 'survived',

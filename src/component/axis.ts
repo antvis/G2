@@ -25,7 +25,7 @@ export type AxisOptions = {
   zIndex?: number;
   title?: string | string[];
   direction?: 'left' | 'center' | 'right';
-  tickFormatter?: (d: any, index: number, array: any) => string;
+  labelFormatter?: (d: any, index: number, array: any) => string;
   tickFilter?: (datum: any, index: number, array: any) => boolean;
   tickMethod?: (
     start: number | Date,
@@ -222,7 +222,7 @@ function getTicks(
   scale: Scale,
   domain: any[],
   tickCount: number,
-  defaultTickFormatter: AxisOptions['tickFormatter'],
+  defaultTickFormatter: AxisOptions['labelFormatter'],
   tickFilter: AxisOptions['tickFilter'],
   tickMethod: AxisOptions['tickMethod'],
   position: GuideComponentPosition,
@@ -237,7 +237,7 @@ function getTicks(
 
   const ticks = ticksOf(scale, domain, tickMethod);
   const filteredTicks = tickFilter ? ticks.filter(tickFilter) : ticks;
-  const tickFormatter = scale.getFormatter?.() || defaultTickFormatter;
+  const labelFormatter = scale.getFormatter?.() || defaultTickFormatter;
   const applyInset = createInset(position, coordinate);
   const applyFisheye = createFisheye(position, coordinate);
 
@@ -247,7 +247,7 @@ function getTicks(
       const tick = applyInset(scale.map(d) + offset);
       return {
         value: isTranspose(coordinate) && scale.getTicks?.() ? 1 - tick : tick,
-        text: tickFormatter(d, i, array),
+        text: labelFormatter(d, i, array),
       };
     });
     // @todo GUI should consider the overlap problem for the first
@@ -262,7 +262,7 @@ function getTicks(
     const tick = applyFisheye(applyInset(scale.map(d) + offset));
     return {
       value: tick,
-      text: `${tickFormatter(prettyNumber(d), i, array)}`,
+      text: `${labelFormatter(prettyNumber(d), i, array)}`,
     };
   });
 }
@@ -351,7 +351,7 @@ function titleContent(field: string | string[]): string {
 const ArcAxis = (options) => {
   const {
     position,
-    tickFormatter = (d) => `${d}`,
+    labelFormatter = (d) => `${d}`,
     tickFilter,
     tickCount,
     tickMethod,
@@ -365,7 +365,7 @@ const ArcAxis = (options) => {
       scale,
       domain,
       tickCount,
-      tickFormatter,
+      labelFormatter,
       tickFilter,
       tickMethod,
       position,
@@ -401,6 +401,7 @@ const ArcAxis = (options) => {
             style: {
               lineWidth: 0,
               strokeOpacity: 0,
+              ...subObject(rest, 'line'),
             },
           },
           grid: {
@@ -409,16 +410,22 @@ const ArcAxis = (options) => {
               stroke: '#1b1e23',
               strokeOpacity: 0.1,
               lineDash: [0, 0],
+              ...subObject(rest, 'grid'),
             },
           },
           tickLine: {
             len: 4,
-            style: { lineWidth: 1, stroke: '#BFBFBF' },
+            style: {
+              lineWidth: 1,
+              stroke: '#BFBFBF',
+              ...subObject(rest, 'tick'),
+            },
           },
           label: {
             // @todo fix bug in @antv/gui related to tangential.
             align: position === 'arcInner' ? 'radial' : 'tangential',
             tickPadding: 2,
+            style: subObject(rest, 'label'),
           },
         },
       ),
@@ -426,11 +433,19 @@ const ArcAxis = (options) => {
   };
 };
 
+/***
+ * Four parts:
+ * - line
+ * - tick
+ * - label
+ * - grid
+ * - title
+ */
 const LinearAxis: GCC<AxisOptions> = (options) => {
   const {
     position,
     title,
-    tickFormatter = (d) => `${d}`,
+    labelFormatter = (d) => `${d}`,
     direction = 'left',
     tickCount,
     tickFilter,
@@ -458,7 +473,7 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
       scale,
       domain,
       tickCount,
-      tickFormatter,
+      labelFormatter,
       tickFilter,
       tickMethod,
       position,
@@ -501,6 +516,7 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
             stroke: '#1b1e23',
             strokeOpacity: 0.05,
             lineDash: [0, 0],
+            ...subObject(rest, 'grid'),
           },
           ...(position === 'arcY' && {
             type: 'circle',
@@ -545,9 +561,9 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
  * @todo Custom style.
  */
 export const Axis: GCC<AxisOptions> = (options) => {
-  const { position, tickFormatter: f = (d) => `${d}` } = options;
-  const tickFormatter = typeof f === 'string' ? format(f) : f;
-  const normalizedOptions = { ...options, tickFormatter };
+  const { position, labelFormatter: f = (d) => `${d}` } = options;
+  const labelFormatter = typeof f === 'string' ? format(f) : f;
+  const normalizedOptions = { ...options, labelFormatter };
   return (scale, value, coordinate, theme) => {
     return position === 'arc' || position === 'arcInner'
       ? ArcAxis(normalizedOptions)(scale, value, coordinate, theme)

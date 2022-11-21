@@ -11,3 +11,13 @@ export { stateAgesIntervalSelectByColorSingle } from './stateages-interval-selec
 export { stateAgesIntervalSelectByX } from './stateages-interval-select-by-x';
 export { gdp2PointFisheye } from './gdp2-point-chart-fisheye';
 export { indicesLineChartIndexSeries } from './indices-line-chart-index-series';
+export { alphabetIntervalTooltip1d } from './alphabet-interval-tooltip-1d';
+export { stateAgesIntervalTooltipShared } from './stateages-interval-tooltip-shared';
+export { bodyPointTooltip2d } from './body-point-tooltip-2d';
+export { cars3LineParallelVerticalXd } from './cars3-line-tooltip-xd';
+export { alphabetIntervalTooltipMulti } from './alphabet-interval-tooltip-multi';
+export { alphabetIntervalTooltipTitle } from './alphabet-interval-tooltip-title';
+export { aaplLineTooltip } from './aapl-line-tooltip';
+export { indicesLineTooltip } from './indices-line-tooltip';
+export { temperaturesLineTooltipDiscrete } from './temperatures-line-tooltip-discrete';
+export { morleyBoxTooltip } from './morley-box-tooltip';

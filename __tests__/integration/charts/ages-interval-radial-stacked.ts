@@ -43,7 +43,7 @@ export function agesIntervalRadialStacked(): G2Spec {
       y: {
         direction: 'center',
         tickFilter: (_, i) => i !== 0,
-        tickFormatter: '~s',
+        labelFormatter: '~s',
       },
       x: { position: 'bottom' },
     },

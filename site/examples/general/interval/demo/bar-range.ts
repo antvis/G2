@@ -28,6 +28,6 @@ chart
   .encode('color', (d) =>
     d.month === 'Total' ? 'Total' : d.profit > 0 ? 'Increase' : 'Decrease',
   )
-  .axis('y', { tickFormatter: '~s' });
+  .axis('y', { labelFormatter: '~s' });
 
 chart.render();

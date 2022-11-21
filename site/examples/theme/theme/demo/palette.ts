@@ -37,7 +37,7 @@ chart
   .encode('shape', 'smooth')
   .scale('x', { utc: true })
   .axis('x', { title: 'Date' })
-  .axis('y', { tickFormatter: '~s' })
+  .axis('y', { labelFormatter: '~s' })
   .legend('color', { size: 72, autoWrap: true, maxRows: 3, cols: 6 });
 
 chart.render();

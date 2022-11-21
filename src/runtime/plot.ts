@@ -198,8 +198,7 @@ export async function plot<T extends G2ViewTree>(
   );
   for (const target of viewInstances) {
     const { options } = target;
-    const { interactions } = options;
-    for (const option of inferInteraction(interactions)) {
+    for (const option of inferInteraction(options)) {
       const interaction = useInteraction(option);
       interaction(target, viewInstances);
     }
@@ -1115,13 +1114,19 @@ function inferTheme(theme: G2ThemeOptions = { type: 'light' }): G2ThemeOptions {
   return { ...theme, type };
 }
 
-function inferInteraction(
-  interactions: G2InteractionOptions[] = [],
-): G2InteractionOptions[] {
-  // const interactions = [...interaction];
-  // ['tooltip', 'ellipsisText'].forEach((type) => {
-  //   if (!interaction.find((d) => d.type === type)) interactions.push({ type });
-  // });
+/**
+ * @todo Infer builtin tooltips.
+ */
+function inferInteraction(view: G2View): G2InteractionOptions[] {
+  const { interactions = [] } = view;
+  // const BUILTINS: [string, boolean][] = [['tooltip', tooltip]];
+  // const newInteractions = [...interactions];
+  // const typeInteraction = new Map(interactions.map((d) => [d.type, d]));
+  // for (const [type, show] of BUILTINS) {
+  //   if (!typeInteraction.has(type) && show) {
+  //     newInteractions.push({ type });
+  //   }
+  // }
   return interactions;
 }
 

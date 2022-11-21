@@ -19,7 +19,7 @@ export function populationIntervalDiverging(): G2Spec {
       x: { range: [1, 0] },
     },
     axis: {
-      y: { tickFormatter: '~s' },
+      y: { labelFormatter: '~s' },
     },
     encode: {
       x: 'age',

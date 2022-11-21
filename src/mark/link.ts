@@ -5,6 +5,7 @@ import {
   basePostInference,
   basePreInference,
   createBandOffset,
+  tooltip2d,
 } from './utils';
 
 export type LinkOptions = Omit<LinkGeometry, 'type'>;
@@ -39,9 +40,5 @@ Link.props = {
     { type: 'maybeIdentityY' },
     { type: 'maybeIdentityX' },
   ],
-  postInference: [
-    ...basePostInference(),
-    { type: 'maybeTitleX' },
-    { type: 'maybeTooltipY' },
-  ],
+  postInference: [...basePostInference(), ...tooltip2d()],
 };

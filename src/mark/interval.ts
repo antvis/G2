@@ -5,6 +5,7 @@ import {
   baseGeometryChannels,
   basePostInference,
   basePreInference,
+  tooltip1d,
 } from './utils';
 
 export type IntervalOptions = Omit<IntervalGeometry, 'type'>;
@@ -76,9 +77,8 @@ Interval.props = {
     { type: 'maybeZeroY1' },
     { type: 'maybeZeroX' },
   ],
-  postInference: [
-    ...basePostInference(),
-    { type: 'maybeTitleX' },
-    { type: 'maybeTooltipY' },
-  ],
+  postInference: [...basePostInference(), ...tooltip1d()],
+  interaction: {
+    shareTooltip: true,
+  },
 };

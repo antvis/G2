@@ -19,7 +19,7 @@ chart
   .encode('color', (d) => d.R90_10_2015 - d.R90_10_1980)
   .scale('x', { type: 'log' })
   .style('arrowSize', 6)
-  .axis('x', { tickFormatter: '~s', label: { autoHide: true } })
+  .axis('x', { labelFormatter: '~s', label: { autoHide: true } })
   .legend(false);
 
 chart.render();

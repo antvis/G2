@@ -137,3 +137,4 @@ export { stateAgesIntervalStackedCorneredAll } from './stateages-interval-stacke
 export { gainLostIntervalCornered } from './gain-lost-interval-cornered';
 export { scoreByItemAreaRadar } from './score-by-item-area-radar';
 export { englishWordCloud } from './english-wordCloud';
+export { scoreByItemAreaRadarCustom } from './score-by-item-area-radar-custom';

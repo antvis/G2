@@ -27,7 +27,10 @@ export function acmeCropIncomeIntervalConnector() {
     paddingLeft: 60,
     paddingTop: 40,
     data: acmeCropIncome,
-    axis: { x: { title: false, labelRotate: -90 }, y: { tickFormatter: '~s' } },
+    axis: {
+      x: { title: false, labelRotate: -90 },
+      y: { labelFormatter: '~s' },
+    },
     legend: false,
     children: [
       {

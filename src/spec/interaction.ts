@@ -33,6 +33,7 @@ export type InteractionTypes =
   | 'elementSelectByX'
   | 'elementSelectByColor'
   | 'fisheye'
+  | 'tooltip'
   | InteractionComponent;
 // | 'elementListHighlight'
 // | 'legendActive'
@@ -115,6 +116,9 @@ export type LegendHighlightInteraction = {
 export type TooltipInteraction = Omit<TooltipAction, 'type'> & {
   type?: 'tooltip';
   shared?: boolean;
+  series?: boolean;
+  // @todo
+  item?: any;
 };
 
 export type FisheyeInteraction = {
