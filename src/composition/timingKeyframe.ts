@@ -34,10 +34,11 @@ function setAnimation(node: G2ViewTree, duration: number, easing: string) {
       {
         enterDuration: duration,
         updateDuration: duration,
-        updateType: 'morphing',
-        updateEasing: easing,
-        updateFill: 'both',
         exitDuration: duration,
+        updateEasing: easing,
+        updateType: 'morphing',
+        updateFill: 'both',
+        exitType: 'fadeOut',
       },
       n.animate || {},
     );

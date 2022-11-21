@@ -15,4 +15,6 @@ export const Path: SC<PathOptions> = (options) => {
 
 Path.props = {
   defaultEnterAnimation: 'fadeIn',
+  defaultUpdateAnimation: 'morphing',
+  defaultExitAnimation: 'fadeOut',
 };

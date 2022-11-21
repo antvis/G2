@@ -123,4 +123,6 @@ export const Connector: SC<ConnectorOptions> = (options) => {
 
 Connector.props = {
   defaultEnterAnimation: 'fadeIn',
+  defaultUpdateAnimation: 'morphing',
+  defaultExitAnimation: 'fadeOut',
 };

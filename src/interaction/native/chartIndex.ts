@@ -149,6 +149,8 @@ export function ChartIndex({
         const i = I[bisector((i) => X[+i]).center(I, date)];
         return Y[i];
       };
+      // Disable animation.
+      for (const mark of clonedOptions.marks) mark.animate = false;
       const newState = await update(clonedOptions);
       newView = newState.view;
     };

@@ -54,5 +54,5 @@ export const Funnel: SC<FunnelOptions> = (options) => {
 };
 
 Funnel.props = {
-  defaultEnterAnimation: 'fadeIn',
+  ...Color.props,
 };

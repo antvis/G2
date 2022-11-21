@@ -49,4 +49,6 @@ export const Link: SC<LinkOptions> = (options) => {
 
 Link.props = {
   defaultEnterAnimation: 'fadeIn',
+  defaultUpdateAnimation: 'morphing',
+  defaultExitAnimation: 'fadeOut',
 };

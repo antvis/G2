@@ -33,4 +33,6 @@ export const Color: SC<ColorOptions> = (options) => {
 
 Color.props = {
   defaultEnterAnimation: 'fadeIn',
+  defaultUpdateAnimation: 'morphing',
+  defaultExitAnimation: 'fadeOut',
 };

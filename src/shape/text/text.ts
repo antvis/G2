@@ -38,4 +38,6 @@ export const Text: SC<TextOptions> = (options) => {
 
 Text.props = {
   defaultEnterAnimation: 'fadeIn',
+  defaultUpdateAnimation: 'morphing',
+  defaultExitAnimation: 'fadeOut',
 };

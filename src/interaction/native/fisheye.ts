@@ -24,7 +24,9 @@ export function Fisheye({
     const plotArea = selectPlotArea(container);
 
     // Clone options and mutate it.
-    const clonedOptions = deepMix({}, options, { animate: false });
+    // Disable animation.
+    const clonedOptions = deepMix({}, options);
+    for (const mark of clonedOptions.marks) mark.animate = false;
     const updateFocus = throttle(
       (event) => {
         const focus = mousePosition(plotArea, event);

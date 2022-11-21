@@ -15,4 +15,6 @@ export const Hollow: SC<PathOptions> = (options) => {
 
 Hollow.props = {
   defaultEnterAnimation: 'fadeIn',
+  defaultUpdateAnimation: 'morphing',
+  defaultExitAnimation: 'fadeOut',
 };
