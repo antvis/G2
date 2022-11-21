@@ -14,7 +14,7 @@ function initializeData(data, encode) {
   return data.map((d) => ({
     ...d,
     text: d[text],
-    value: data[value],
+    value: d[value],
   }));
 }
 
