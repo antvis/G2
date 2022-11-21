@@ -8,7 +8,15 @@ import { createGCanvas, writePNG, sleep, diff } from './canvas';
 global.fetch = fetch;
 
 describe('integration', () => {
-  for (const [n, generateOptions] of Object.entries(tests)) {
+  // Filter tests with only.
+  const onlyTests = Object.entries(tests).filter(
+    // @ts-ignore
+    ([, { only = false }]) => only,
+  );
+  const finalTests =
+    onlyTests.length === 0 ? tests : Object.fromEntries(onlyTests);
+
+  for (const [n, generateOptions] of Object.entries(finalTests)) {
     const name = n.replace(/[A-Z]/g, (d) => '-' + d.toLowerCase());
 
     // @ts-ignore
@@ -27,9 +35,11 @@ describe('integration', () => {
           await sleep(20);
 
           // Get steps.
+          // @ts-ignore
           if (!generateOptions.steps) {
             throw new Error(`Missing steps for ${n}`);
           }
+          // @ts-ignore
           const steps = generateOptions.steps({ canvas });
 
           // Mark sure has expected snapshot dir.
@@ -39,7 +49,7 @@ describe('integration', () => {
           for (let i = 0; i < steps.length; i++) {
             // Dispatch event and wait for the next tick and rerender.
             const { changeState, skip } = steps[i];
-            changeState();
+            await changeState();
             await sleep(100);
 
             // If do not skip this state, asset it after dispatch the event.

@@ -20,6 +20,11 @@ export type MarkProps = {
   preInference?: TransformSpec[];
   postInference?: TransformSpec[];
   composite?: boolean;
+  interaction?: {
+    shareTooltip?: boolean;
+    seriesTooltip?: boolean;
+    showCrosshairs?: boolean;
+  };
 };
 
 export type Mark = CompositeMark | SingleMark;

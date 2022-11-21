@@ -33,6 +33,27 @@ export function baseGeometryChannels(options: ChannelOptions = {}): Channel[] {
   ];
 }
 
+export function tooltip2d() {
+  return [
+    { type: 'maybeTitle', channel: 'color' },
+    { type: 'maybeTooltip', channel: ['x', 'y'] },
+  ];
+}
+
+export function tooltip1d() {
+  return [
+    { type: 'maybeTitle', channel: 'x' },
+    { type: 'maybeTooltip', channel: ['y'] },
+  ];
+}
+
+export function tooltipXd() {
+  return [
+    { type: 'maybeTitle', channel: 'color' },
+    { type: 'maybeTooltip', channel: ['position'] },
+  ];
+}
+
 export function baseAnnotationChannels(
   options: ChannelOptions = {},
 ): Channel[] {

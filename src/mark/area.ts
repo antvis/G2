@@ -5,6 +5,7 @@ import {
   baseGeometryChannels,
   basePostInference,
   basePreInference,
+  tooltip1d,
 } from './utils';
 
 export type AreaOptions = Omit<AreaGeometry, 'type'>;
@@ -79,9 +80,10 @@ Area.props = {
     { type: 'maybeZeroY1' },
     { type: 'maybeZeroPadding' },
   ],
-  postInference: [
-    ...basePostInference(),
-    { type: 'maybeTitleX' },
-    { type: 'maybeTooltipY' },
-  ],
+  postInference: [...basePostInference(), ...tooltip1d()],
+  interaction: {
+    shareTooltip: true,
+    seriesTooltip: true,
+    showCrosshairs: true,
+  },
 };

@@ -7,6 +7,8 @@ import {
   baseGeometryChannels,
   basePostInference,
   basePreInference,
+  tooltip1d,
+  tooltipXd,
 } from './utils';
 
 export type LineOptions = Omit<LineGeometry, 'type'>;
@@ -95,10 +97,10 @@ Line.props = {
     { type: 'maybeSeries' },
     { type: 'maybeGradient' },
   ],
-  postInference: [
-    ...basePostInference(),
-    { type: 'maybeTitleX' },
-    { type: 'maybeTooltipY' },
-    { type: 'maybeTooltipPosition' },
-  ],
+  postInference: [...basePostInference(), ...tooltip1d(), ...tooltipXd()],
+  interaction: {
+    shareTooltip: true,
+    seriesTooltip: true,
+    showCrosshairs: true,
+  },
 };

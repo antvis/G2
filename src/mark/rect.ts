@@ -4,6 +4,7 @@ import {
   baseGeometryChannels,
   basePostInference,
   basePreInference,
+  tooltip1d,
 } from './utils';
 
 export type RectOptions = Omit<RectGeometry, 'type'>;
@@ -36,9 +37,8 @@ Rect.props = {
     { name: 'y', required: true },
   ],
   preInference: [...basePreInference(), { type: 'maybeZeroY1' }],
-  postInference: [
-    ...basePostInference(),
-    { type: 'maybeTitleX' },
-    { type: 'maybeTooltipY' },
-  ],
+  postInference: [...basePostInference(), ...tooltip1d()],
+  interaction: {
+    shareTooltip: true,
+  },
 };

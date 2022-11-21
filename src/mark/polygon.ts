@@ -4,6 +4,7 @@ import {
   baseGeometryChannels,
   basePostInference,
   basePreInference,
+  tooltip2d,
 } from './utils';
 
 export type PolygonOptions = Omit<PolygonGeometry, 'type'>;
@@ -47,9 +48,5 @@ Polygon.props = {
     { name: 'y', required: true },
   ],
   preInference: [...basePreInference()],
-  postInference: [
-    ...basePostInference(),
-    { type: 'maybeTitleX' },
-    { type: 'maybeTooltipY' },
-  ],
+  postInference: [...basePostInference(), ...tooltip2d()],
 };
