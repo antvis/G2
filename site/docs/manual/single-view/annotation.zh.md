@@ -7,7 +7,7 @@ order: 9
 
 ## 数据标签
 
-最简单的标注方法就是通过数据标签的形式，调用 `mark.label` 可以给标识产生的每个图形元素都添加一个数据标签。同时每个标识可以有多个数据标签。
+最简单的标注方法就是通过数据标签的形式，调用 `mark.label` 可以给标记产生的每个图形元素都添加一个数据标签。同时每个标记可以有多个数据标签。
 
 <img alt="label" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*VHwCRK8P2I0AAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
@@ -36,7 +36,7 @@ chart
   });
 ```
 
-对于一个图形对应多个数据项的标识来说，我们可以通过 `selector` 去选择需要保留的标识。目前支持的值如下：
+对于一个图形对应多个数据项的标记来说，我们可以通过 `selector` 去选择需要保留的标记。目前支持的值如下：
 
 - **first** - 第一个
 - **last** - 最后一个
@@ -63,9 +63,9 @@ chart
   });
 ```
 
-## 标识和标识转换
+## 标记和标记转换
 
-某些标识也也可以用来做标注，比如 text，image 等标识。而 select 标识转换提供了从一组图形中选择图形的能力。比如在下面的例子中，标注出了每个大陆 Continent 中，GDP 最大的国家。
+某些标记也也可以用来做标注，比如 text，image 等标记。而 select 标记转换提供了从一组图形中选择图形的能力。比如在下面的例子中，标注出了每个大陆 Continent 中，GDP 最大的国家。
 
 <img alt="select" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*qDIQQ7yR078AAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
@@ -94,7 +94,7 @@ chart
   .style('textAlign', 'end');
 ```
 
-对于简单的标识，只是文本，不需要分组，使用数据标签就可以，否者可以考虑上面的方式。
+对于简单的标记，只是文本，不需要分组，使用数据标签就可以，否者可以考虑上面的方式。
 
 ## 数据驱动的定位
 

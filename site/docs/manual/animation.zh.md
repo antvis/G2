@@ -7,7 +7,7 @@ order: 6
 
 ## 动画属性
 
-标识是通过 `mark.animate` 指定动画属性的，一共有三个部分的动画可以指定：
+标记是通过 `mark.animate` 指定动画属性的，一共有三个部分的动画可以指定：
 
 - **enter** - 新增的图形
 - **update** - 更新的图形
@@ -69,7 +69,7 @@ chart
 
 ## 分组动画
 
-G2 也提供了 stackEnter 标识转换来实现分组动画，该标识转换会先将图形进行分组，然后将它们的出现时间和持续时间在空间上进行堆叠，从而实现依次出现的效果。
+G2 也提供了 stackEnter 标记转换来实现分组动画，该标记转换会先将图形进行分组，然后将它们的出现时间和持续时间在空间上进行堆叠，从而实现依次出现的效果。
 
 <img alt="bar-stack-enter" src="https://gw.alipayobjects.com/zos/raptor/1668747160997/bar-stack-enter.gif" width="640">
 
