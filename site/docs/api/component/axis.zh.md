@@ -10,7 +10,7 @@ order: 1
 G2 会根据当前绘制的视图类型自动选择合适的坐标轴，目前支持直角坐标系坐标轴与极坐标系坐标轴。
 
 <img alt="axis" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*OM85QbMVPlQAAAAAAAAAAAAADmJ7AQ/original" width="400" />
-
+<br/>
 <img alt="axis" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*e6W3S69WPygAAAAAAAAAAAAADmJ7AQ/original" width="200" />
 
 ```ts
