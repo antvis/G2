@@ -45,7 +45,7 @@ WebFont.load({
       .axis('y', {
         titleFontSize: 15,
         titleFontFamily: 'Gaegu',
-        tickFormatter: '~s',
+        labelFormatter: '~s',
       });
 
     chart.render();

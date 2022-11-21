@@ -29,7 +29,7 @@ const facetRect = chart
 facetRect
   .point()
   .transform({ type: 'pack' })
-  .legend('color', { tickFormatter: (d) => (d === '1' ? 'Yes' : 'No') })
+  .legend('color', { labelFormatter: (d) => (d === '1' ? 'Yes' : 'No') })
   .encode('color', 'survived')
   .encode('shape', 'point')
   .encode('size', 3);

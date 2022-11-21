@@ -51,7 +51,7 @@ chart
   .legend('color', { position: 'center', title: null, dx: 64, dy: 54 })
   .scale('y', { type: 'sqrt' })
   .axis('y', {
-    tickFormatter: '~s',
+    labelFormatter: '~s',
     tickFilter: (_, i) => i !== 0,
     direction: 'center',
   })

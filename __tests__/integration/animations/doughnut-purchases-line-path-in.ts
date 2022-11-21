@@ -20,7 +20,7 @@ export function doughnutPurchasesLinePathIn(): G2Spec {
           enterDuration: 3000,
         },
         scale: { y: { zero: true, nice: true } },
-        axis: { y: { tickFormatter: '~s' } },
+        axis: { y: { labelFormatter: '~s' } },
         style: {
           shape: 'smooth',
           gradient: 'x',

@@ -20,6 +20,6 @@ chart
   .encode('x', 'country')
   .encode('y', 'value')
   .encode('color', 'country')
-  .axis('y', { tickFormatter: '~s' });
+  .axis('y', { labelFormatter: '~s' });
 
 chart.render();

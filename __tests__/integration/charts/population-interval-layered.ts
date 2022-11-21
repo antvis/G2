@@ -18,7 +18,7 @@ export function populationIntervalLayered(): G2Spec {
     scale: {
       color: { type: 'ordinal', range: ['#ca8861', '#675193'] },
     },
-    axis: { y: { tickFormatter: '~s' } },
+    axis: { y: { labelFormatter: '~s' } },
     encode: {
       x: 'age',
       y: 'people',

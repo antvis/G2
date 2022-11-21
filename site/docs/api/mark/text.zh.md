@@ -35,7 +35,7 @@ chart
   .interval()
   .encode('x', 'letter')
   .encode('y', 'frequency')
-  .axis('y', { tickFormatter: '.0%' });
+  .axis('y', { labelFormatter: '.0%' });
 
 chart
   .text()

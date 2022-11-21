@@ -9,7 +9,7 @@ export function alphabetIntervalDataDrivenStyled(): G2Spec {
       value: 'data/alphabet.csv',
     },
     axis: {
-      y: { tickFormatter: '.0%' },
+      y: { labelFormatter: '.0%' },
     },
     encode: {
       x: 'letter',

@@ -24,7 +24,7 @@ chart
   .style('gradientColor', 'start')
   .animate('enterType', 'pathIn')
   .animate('enterDuration', 3000)
-  .axis('y', { tickFormatter: '~s' });
+  .axis('y', { labelFormatter: '~s' });
 
 chart
   .point()

@@ -19,6 +19,6 @@ chart
   .encode('x', 'clarity')
   .encode('y', 'price')
   .encode('color', 'clarity')
-  .axis('y', { tickFormatter: '~s' });
+  .axis('y', { labelFormatter: '~s' });
 
 chart.render();

@@ -12,7 +12,7 @@ order: 1
 ```ts
 import { Chart } from '@antv/g2';
 
-const tickFormatter = (d) => Math.abs(d) + (d < 0 ? 'BC' : d > 0 ? 'AC' : '');
+const labelFormatter = (d) => Math.abs(d) + (d < 0 ? 'BC' : d > 0 ? 'AC' : '');
 const left = (d) => d.end > -1500 && d.start > -3000;
 
 const chart = new Chart({
@@ -35,14 +35,14 @@ chart
   .axis('y', [
     {
       tickCount: 5,
-      tickFormatter,
+      labelFormatter,
       grid: null,
       title: null,
       labelTextAlign: 'start',
     },
     {
       position: 'top',
-      tickFormatter,
+      labelFormatter,
       title: null,
       labelTextAlign: 'start',
     },

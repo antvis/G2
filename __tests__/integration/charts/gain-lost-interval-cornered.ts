@@ -48,7 +48,7 @@ export function gainLostIntervalCornered(): G2Spec {
           y: {
             position: 'right',
             title: false,
-            tickFormatter: (v) => `${v}%`,
+            labelFormatter: (v) => `${v}%`,
           },
         },
         labels: [

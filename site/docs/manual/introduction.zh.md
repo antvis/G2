@@ -157,7 +157,7 @@ chart
   .encode('color', 'Continent')
   .encode('shape', 'point')
   .scale('size', { type: 'log', range: [4, 20] })
-  .axis('x', { tickFormatter: '~s' })
+  .axis('x', { labelFormatter: '~s' })
   .style('fillOpacity', 0.3)
   .style('lineWidth', 1);
 ```

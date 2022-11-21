@@ -7,7 +7,7 @@ import {
 
 export type LegendCategoryOptions = {
   position?: GuideComponentPosition;
-  tickFormatter?: (d: any) => string;
+  labelFormatter?: (d: any) => string;
   dx?: number;
   dy?: number;
   title?: string | string[];
@@ -21,7 +21,7 @@ export type LegendCategoryOptions = {
 export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
   const {
     position,
-    tickFormatter = (d) => `${d}`,
+    labelFormatter = (d) => `${d}`,
     dx = 0,
     dy = 0,
     title,
@@ -34,7 +34,7 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
     const { x, y, width, height } = bbox;
     const items = domain.map((d) => ({
       id: d,
-      name: tickFormatter(d),
+      name: labelFormatter(d),
       color: scale.map(d),
     }));
     const maxItemWidth = autoWrap && cols ? width / cols : undefined;

@@ -152,7 +152,7 @@ chart
   .encode('color', (d) =>
     d.month === 'Total' ? 'Total' : d.profit > 0 ? 'Increase' : 'Decrease',
   )
-  .axis('y', { tickFormatter: '~s' });
+  .axis('y', { labelFormatter: '~s' });
 ```
 
 同时也可以通过 `${channel}${index}` 的形式去分别指定：
@@ -195,7 +195,7 @@ chart
   .style('fill', 'steelblue') // 设置和数据无关的通道
   .style('strokeWidth', (d) => (d.frequency > 0.1 ? 2 : 1)) // 设置和数据有关的通道
   .style('stroke', (d) => (d.frequency > 0.1 ? 'red' : 'black'))
-  .axis('y', { tickFormatter: '.0%' });
+  .axis('y', { labelFormatter: '.0%' });
 ```
 
 ## 多个标识
