@@ -38,7 +38,7 @@ Promise.all([
     .encode('y', 'latitude')
     .encode('color', 'gray')
     .encode('shape', 'point')
-    .style('r', 1);
+    .encode('size', 1);
 
   geoView
     .link()

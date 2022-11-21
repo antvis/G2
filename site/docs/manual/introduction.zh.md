@@ -5,7 +5,7 @@ order: 1
 
 G2 是一个简洁的渐进式语法，主要用于制作基于网页的可视化。它提供了一套函数风格式、声明形式的 API 和组件化的编程范式，希望能帮助用户能快速完成**报表搭建**、**数据探索**、**可视化叙事**等多样化的需求。
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*FW0gRrLzlMgAAAAAAAAAAAAADmJ7AQ/original" width="100%">
+<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*FW0gRrLzlMgAAAAAAAAAAAAADmJ7AQ/original" width="100%" alt="preview">
 
 这篇文章将给大家简单介绍一下 G2 的能力和以下核心概念：
 
