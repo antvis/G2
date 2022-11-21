@@ -4,6 +4,7 @@ import {
   baseGeometryChannels,
   basePostInference,
   basePreInference,
+  tooltip2d,
 } from './utils';
 
 export type VectorOptions = Omit<VectorGeometry, 'type'>;
@@ -49,9 +50,5 @@ Vector.props = {
     { name: 'size', required: true },
   ],
   preInference: [...basePreInference()],
-  postInference: [
-    ...basePostInference(),
-    { type: 'maybeTitleX' },
-    { type: 'maybeTooltipY' },
-  ],
+  postInference: [...basePostInference(), ...tooltip2d()],
 };

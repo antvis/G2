@@ -5,6 +5,7 @@ import {
   baseGeometryChannels,
   basePostInference,
   basePreInference,
+  tooltip1d,
 } from './utils';
 
 export type BoxOptions = Omit<BoxGeometry, 'type'>;
@@ -96,9 +97,8 @@ Box.props = {
     { name: 'series', scale: 'band' },
   ],
   preInference: [...basePreInference(), { type: 'maybeZeroX' }],
-  postInference: [
-    ...basePostInference(),
-    { type: 'maybeTitleX' },
-    { type: 'maybeTooltipY' },
-  ],
+  postInference: [...basePostInference(), ...tooltip1d()],
+  interaction: {
+    shareTooltip: true,
+  },
 };

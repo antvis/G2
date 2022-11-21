@@ -3,7 +3,7 @@ import { TransformComponent as TC } from '../runtime';
 import { column, columnOf } from './utils/helper';
 
 export type MaybeTooltipOptions = {
-  channel: string;
+  channel: string | string[];
 };
 
 /**
@@ -15,18 +15,22 @@ export const MaybeTooltip: TC<MaybeTooltipOptions> = (options) => {
     const { encode } = mark;
     const { tooltip } = encode;
     if (tooltip !== undefined) return [I, mark];
-    const entries = Object.entries(encode)
-      .filter(([key]) => key.startsWith(channel))
-      .flatMap(([key]) => {
-        const match = new RegExp(`${channel}(\\d*)`).exec(key);
-        const index = match[1];
-        const [V, fv] = columnOf(encode, key);
-        const E = [[key, column(V)]];
-        if (V && fv !== null) {
-          E.push([`tooltip${index}`, column(V, fv)]);
-        }
-        return E;
-      });
+    const channels = Array.isArray(channel) ? channel : [channel];
+    let index = 0;
+    const entries = channels.flatMap((channel) =>
+      Object.entries(encode)
+        .filter(([key]) => key.startsWith(channel))
+        .flatMap(([key]) => {
+          const [V, fv] = columnOf(encode, key);
+          const E = [[key, column(V)]];
+          // Only show channel with field.
+          if (V && fv !== null) {
+            E.push([`tooltip${index === 0 ? '' : index}`, column(V, fv)]);
+            index++;
+          }
+          return E;
+        }),
+    );
     return [I, deepMix({}, mark, { encode: Object.fromEntries(entries) })];
   };
 };

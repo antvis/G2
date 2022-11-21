@@ -5,6 +5,7 @@ import {
   basePostInference,
   basePreInference,
   createBandOffset,
+  tooltip2d,
   visualMark,
 } from './utils';
 
@@ -43,9 +44,5 @@ Text.props = {
     { type: 'maybeTuple' },
     { type: 'maybeVisualPosition' },
   ],
-  postInference: [
-    ...basePostInference(),
-    { type: 'maybeTitleX' },
-    { type: 'maybeTooltipY' },
-  ],
+  postInference: [...basePostInference(), ...tooltip2d()],
 };

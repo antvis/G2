@@ -401,6 +401,7 @@ const ArcAxis = (options) => {
             style: {
               lineWidth: 0,
               strokeOpacity: 0,
+              ...subObject(rest, 'line'),
             },
           },
           grid: {
@@ -409,16 +410,22 @@ const ArcAxis = (options) => {
               stroke: '#1b1e23',
               strokeOpacity: 0.1,
               lineDash: [0, 0],
+              ...subObject(rest, 'grid'),
             },
           },
           tickLine: {
             len: 4,
-            style: { lineWidth: 1, stroke: '#BFBFBF' },
+            style: {
+              lineWidth: 1,
+              stroke: '#BFBFBF',
+              ...subObject(rest, 'tick'),
+            },
           },
           label: {
             // @todo fix bug in @antv/gui related to tangential.
             align: position === 'arcInner' ? 'radial' : 'tangential',
             tickPadding: 2,
+            style: subObject(rest, 'label'),
           },
         },
       ),
@@ -426,6 +433,14 @@ const ArcAxis = (options) => {
   };
 };
 
+/***
+ * Four parts:
+ * - line
+ * - tick
+ * - label
+ * - grid
+ * - title
+ */
 const LinearAxis: GCC<AxisOptions> = (options) => {
   const {
     position,
@@ -501,6 +516,7 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
             stroke: '#1b1e23',
             strokeOpacity: 0.05,
             lineDash: [0, 0],
+            ...subObject(rest, 'grid'),
           },
           ...(position === 'arcY' && {
             type: 'circle',
