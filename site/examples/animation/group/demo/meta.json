@@ -37,14 +37,6 @@
       "screenshot": "https://gw.alipayobjects.com/zos/raptor/1668858139680/area-animation.gif"
     },
     {
-      "filename": "gantt.ts",
-      "title": {
-        "zh": "甘特图动画",
-        "en": "Gantt with Animation"
-      },
-      "screenshot": "https://gw.alipayobjects.com/zos/raptor/1668858139680/gantt-animation.gif"
-    },
-    {
       "filename": "point.ts",
       "title": {
         "zh": "点图动画",

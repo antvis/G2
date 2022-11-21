@@ -4,5 +4,37 @@
     "en": "Category"
   },
   "demos": [
+    {
+      "filename": "gantt.ts",
+      "title": {
+        "zh": "甘特图动画",
+        "en": "Gantt with Animation"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/raptor/1668858139680/gantt-animation.gif"
+    },
+    {
+      "filename": "interval-keyframe.ts",
+      "title": {
+        "zh": "条帧动画",
+        "en": "Interval Keyframe"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/raptor/1669043171106/sex-keyframe.gif"
+    },
+    {
+      "filename": "point-keyframe.ts",
+      "title": {
+        "zh": "点帧动画",
+        "en": "Point Keyframe"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/raptor/1669043493952/point-keyframe.gif"
+    },
+    {
+      "filename": "facet-keyframe.ts",
+      "title": {
+        "zh": "分面帧动画",
+        "en": "Facet Keyframe"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/raptor/1669043955155/facet-keyframe.gif"
+    }
   ]
 }
