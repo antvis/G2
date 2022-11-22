@@ -112,6 +112,16 @@ export const Light: TC<LightOptions> = (options) => {
         lineWidth: 2,
       },
     },
+    rect: {
+      rect: {
+        fillOpacity: 0.95,
+      },
+      hollow: {
+        fill: '',
+        strokeOpacity: 1,
+        lineWidth: 2,
+      },
+    },
     link: {
       link: {
         fill: '',

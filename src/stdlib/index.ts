@@ -394,7 +394,7 @@ export function createLibrary(): G2Library {
     'shape.interval.pyramid': Pyramid,
     'shape.rect.rect': RectShape,
     'shape.rect.hollow': HollowRect,
-    'shape.cell.cell': RectShape,
+    'shape.cell.rect': RectShape,
     'shape.cell.hollow': HollowRect,
     'shape.line.line': LineShape,
     'shape.line.hv': HV,
