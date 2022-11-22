@@ -288,7 +288,7 @@ export default defineConfig({
       //   icon: 'other',
       // },
       {
-        slug: 'Theme',
+        slug: 'theme',
         title: {
           zh: '主题',
           en: 'Theme',
@@ -355,7 +355,7 @@ export default defineConfig({
             zh: '开始使用',
             en: 'Getting Started',
           },
-          link: `/docs/manual/getting-started`,
+          link: `/manual/getting-started`,
         },
       ],
     },
@@ -367,11 +367,11 @@ export default defineConfig({
           en: 'Forum',
         },
         title: {
-          zh: 'AntV 芒种日 图新物：GraphInsight 发布',
-          en: 'AntV Seeds Day Graph New: GraphInsight Released',
+          zh: '远方 · 远芳 AntV 2022 年度发布',
+          en: 'Yuanyuan · Yuanfang AntV 2022 Annual Release',
         },
-        date: '2022.06.06',
-        link: 'https://github.com/antvis/GraphInsight',
+        date: '2022.11.22',
+        link: 'https://www.yuque.com/antv/blog/1122_6',
       },
       {
         type: {
@@ -379,11 +379,11 @@ export default defineConfig({
           en: 'Forum',
         },
         title: {
-          zh: 'SEE Conf 2022 支付宝体验科技大会',
-          en: 'SEE Conf 2022 Alipay Experience Technology Conference',
+          zh: 'AntV 芒种日 图新物：GraphInsight 发布',
+          en: 'AntV Seeds Day Graph New: GraphInsight Released',
         },
-        date: '2022.01.08',
-        link: 'https://seeconf.antfin.com/',
+        date: '2022.06.06',
+        link: 'https://github.com/antvis/GraphInsight',
       },
     ],
     /** 首页特性介绍 */
@@ -434,7 +434,7 @@ export default defineConfig({
           zh: '真实的数据可视化案例，我们将它们归纳为一个个故事性的设计模板，让用户达到开箱即用的效果。',
           en: 'Real data visualization cases, we summarize them into story-based design templates, allowing users to achieve out-of-the-box effects.',
         },
-        link: `/examples/gallery`,
+        link: `/examples`,
         image:
           'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*hDrgRb7ma4EAAAAAAAAAAABkARQnAQ',
       },
