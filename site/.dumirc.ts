@@ -35,7 +35,7 @@ export default defineConfig({
     showAPIDoc: true, // 是否在 demo 页展示API文档
     versions: {
       // 历史版本以及切换下拉菜单
-      [version]: 'https://g2.antv.vision/',
+      [version]: 'https://g2.antv.antgroup.com',
       '4.x': 'https://g2-v4.antv.vision/',
       '3.x': 'https://g2-v3.antv.vision/',
       '2.x': 'https://antv.vision/old-site/g2/doc/index.html',
@@ -336,8 +336,8 @@ export default defineConfig({
         en: 'G2, a Visualization Grammar',
       },
       description: {
-        zh: 'G2 一套面向常规统计图表，以数据驱动的高交互可视化图形语法，具有高度的易用性和扩展性。使用 G2，你可以无需关注图表各种繁琐的实现细节，一条语句即可使用 Canvas 或 SVG 构建出各种各样的可交互的统计图表。',
-        en: 'G2 is a highly interactive data-driven visualization grammar for statistical charts. with a high level of usability and scalability. It provides a set of grammars, takes users beyond a limited set of charts to an almost unlimited world of graphical forms. With G2, you can describe the visual appearance and interactive behavior of a visualization just by one statement, and generate web-based views using Canvas or SVG.',
+        zh: 'G2 是一套简洁的渐进式可视化语法，用于报表搭建、数据探索以及可视化叙事。',
+        en: 'G2 is a concise and progressive visualization grammar for dashboard building, data exploration and storytelling.',
       },
       image:
         'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*wo_LToatmbwAAAAAAAAAAABkARQnAQ',

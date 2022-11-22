@@ -17,7 +17,7 @@
     "d3-interpolate": "^3.0.1",
     "d3-scale-chromatic": "^3.0.0",
     "d3-voronoi": "^1.1.4",
-    "dumi": "^2.0.0-beta.15",
+    "dumi": "^2.0.0",
     "topojson": "^3.0.2",
     "webfontloader": "1.6.28"
   },
