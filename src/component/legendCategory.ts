@@ -37,8 +37,8 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
     dx = 0,
     dy = 0,
     title,
-    gridCol = undefined,
-    gridRow = undefined,
+    gridCol,
+    gridRow,
     autoWrap = false,
     ...rest
   } = options;
@@ -52,6 +52,18 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
       color: scale.map(d),
     }));
 
+    let [_gridRow, _gridCol] = [gridRow, gridCol];
+    if (!(gridCol || gridRow)) {
+      const limit = 100;
+      [_gridRow, _gridCol] = {
+        arcCenter: [limit, 1],
+        top: [1, limit],
+        bottom: [1, limit],
+        left: [limit, 1],
+        right: [limit, 1],
+      }[position];
+    }
+
     const legendStyle = deepMix(
       {},
       {
@@ -62,11 +74,11 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
           ? 'vertical'
           : 'horizontal',
         // Flex layout.
-        maxWidth: width,
-        maxHeight: height,
+        width,
+        height,
         // Grid layout.
-        gridCol,
-        gridRow,
+        gridCol: _gridCol,
+        gridRow: _gridRow,
         rowPadding: 0,
         colPadding: 8,
         itemSpacing: 5, // spacing between marker and label

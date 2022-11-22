@@ -263,6 +263,7 @@ function inferStyle(
   titleTransform: string;
   titleTransformOrigin: string;
   labelDirection: 'negative' | 'positive';
+  labelTransform?: string;
   tickDirection: 'negative' | 'positive';
   showLabel?: boolean;
   showTick?: boolean;
@@ -294,8 +295,8 @@ function inferStyle(
       startPos: [x, y],
       endPos: [x + width, y],
       titlePosition: scale.getTicks ? 'right-bottom' : 'bottom',
-      titleTransform: scale.getTicks ? 'translate("-100%", 0)' : undefined,
-      titleSpacing: 2,
+      titleTransform: scale.getTicks ? 'translate(-100%, 0)' : undefined,
+      titleSpacing: 10,
       titleTextBaseline: 'bottom',
       labelSpacing: 12,
       labelDirection: 'positive',
@@ -307,10 +308,10 @@ function inferStyle(
       ...common,
       startPos: [x + width, y],
       endPos: [x + width, y + height],
-      titleSpacing: 0,
+      titleSpacing: 10,
       titleTextBaseline: 'middle',
       titlePosition: 'left',
-      titleTransform: `translate("50%", 0) rotate(-90)`,
+      titleTransform: `translate(50%, 0) rotate(-90)`,
       labelSpacing: 4,
       labelDirection: 'positive',
       tickDirection: 'positive',
@@ -322,9 +323,9 @@ function inferStyle(
       endPos: [x, y + height],
       startPos: [x, y],
       titlePosition: 'right',
-      titleSpacing: 10,
+      titleSpacing: 0,
       titleTextBaseline: 'top',
-      titleTransform: `translate("-50%", 0) rotate(-90)`,
+      titleTransform: `translate(-50%, 0) rotate(-90)`,
       labelSpacing: 4,
       labelDirection: 'negative',
       tickDirection: 'negative',
@@ -336,9 +337,10 @@ function inferStyle(
       startPos: [x, y],
       endPos: [x + width, y + height],
       titlePosition: 'top',
-      titleSpacing: -5,
+      titleSpacing: 0,
       titleTextBaseline: 'bottom',
       labelDirection: 'positive',
+      labelTransform: direction === 'center' ? 'translate(50%, 0)' : '',
       tickDirection: 'positive',
       showTick: direction === 'center' ? false : true,
       labelSpacing: direction === 'center' ? 0 : 4,
@@ -492,7 +494,10 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
 export const Axis: GCC<AxisOptions> = (options) => {
   const { position, tickFormatter: f = (d) => `${d}` } = options;
   const tickFormatter = typeof f === 'string' ? format(f) : f;
-  const normalizedOptions = { ...options, tickFormatter };
+  const normalizedOptions = {
+    ...options,
+    tickFormatter,
+  };
   return (scale, value, coordinate, theme) => {
     return position === 'arc' || position === 'arcInner'
       ? ArcAxis(normalizedOptions)(scale, value, coordinate, theme)

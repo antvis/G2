@@ -48,7 +48,7 @@ export function agesIntervalRadialStacked(): G2Spec {
       x: { position: 'bottom' },
     },
     legend: {
-      color: { position: 'center', title: null, dx: 64, dy: 44, gridCol: 1 },
+      color: { position: 'center', title: null, dx: 64, dy: 44 },
     },
     encode: {
       x: 'State',
