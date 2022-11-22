@@ -177,7 +177,7 @@ function draw(data) {
   // 绘制指标数字
   chart.annotation().text({
     position: ['50%', '85%'],
-    content: '合格率',
+    content: '盘点覆盖率',
     style: {
       fontSize: 20,
       fill: '#545454',
