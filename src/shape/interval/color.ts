@@ -37,14 +37,14 @@ export const Color: SC<ColorOptions> = (options) => {
     const { mark, shape, defaultShape } = value;
     const {
       [colorAttribute]: defaultColor,
-      radius: dftR = 0,
+      radius: defaultRadius = 0,
       ...defaults
     } = getShapeTheme(theme, mark, shape, defaultShape);
 
     const defaultLineWidth = defaults.lineWidth || 1;
     const {
       stroke,
-      radius = dftR,
+      radius = defaultRadius,
       radiusTopLeft = radius,
       radiusTopRight = radius,
       radiusBottomRight = radius,
