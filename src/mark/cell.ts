@@ -35,7 +35,7 @@ export const Cell: MC<CellOptions> = () => {
   };
 };
 
-const shapes = ['rect', 'hollow'];
+const shapes = ['cell', 'hollow'];
 
 Cell.props = {
   defaultShape: 'cell',
