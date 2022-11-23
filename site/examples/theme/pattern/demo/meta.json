@@ -5,18 +5,42 @@
   },
   "demos": [
     {
-      "filename": "line-pattern.ts",
+      "filename": "lines-pattern.ts",
       "title": {
-        "zh": "Line Pattern",
-        "en": "Line Pattern"
+        "zh": "Lines Pattern",
+        "en": "Lines Pattern"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Pf4HQJPkQxYAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
-      "filename": "custom-pattern.ts",
+      "filename": "dots-pattern.ts",
       "title": {
-        "zh": "自定义 Pattern",
-        "en": "Custom Pattern"
+        "zh": "Dots Pattern",
+        "en": "Dots Pattern"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xqeOR6l10bUAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "squares-pattern.ts",
+      "title": {
+        "zh": "Squares Pattern",
+        "en": "Squares Pattern"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*YFY0T5U18PEAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "custom-pattern-with-g-api.ts",
+      "title": {
+        "zh": "使用 G API 自定义 Pattern",
+        "en": "Custom Pattern with G API"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*W33JRoaMGPoAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "custom-pattern-with-canvas.ts",
+      "title": {
+        "zh": "使用原生 Canvas API 自定义 Pattern",
+        "en": "Custom Pattern with raw Canvas API"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*W33JRoaMGPoAAAAAAAAAAAAADmJ7AQ/original"
     }

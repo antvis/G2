@@ -12,6 +12,7 @@ if (window) {
   (window as any).d3GeoProjection = require('d3-geo-projection');
   (window as any).topojson = require('topojson');
   (window as any).gLottiePlayer = require('@antv/g-lottie-player');
+  (window as any).gPattern = require('@antv/g-pattern');
   (window as any).webfontloader = require('webfontloader');
   (
     window as any
