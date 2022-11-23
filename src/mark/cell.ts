@@ -35,10 +35,10 @@ export const Cell: MC<CellOptions> = () => {
   };
 };
 
-const shapes = ['rect', 'hollow'];
+const shapes = ['cell', 'hollow'];
 
 Cell.props = {
-  defaultShape: 'rect',
+  defaultShape: 'cell',
   defaultLabelShape: 'label',
   channels: [
     ...baseGeometryChannels({ shapes }),

@@ -103,7 +103,7 @@ export const Light: TC<LightOptions> = (options) => {
       },
     },
     cell: {
-      rect: {
+      cell: {
         fillOpacity: 0.95,
       },
       hollow: {
