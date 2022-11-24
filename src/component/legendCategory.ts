@@ -80,7 +80,7 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
       gridRow: _gridRow,
       rowPadding: 0,
       colPadding: 8,
-      titleText: titleContent(title),
+      // titleText: titleContent(title),
       itemMarkerFill: (d) => (d ? d.color : '#fff'),
       itemMarkerFillOpacity: 1,
       // @todo GUI should support itemMarkerSize.

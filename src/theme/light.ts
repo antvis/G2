@@ -268,8 +268,6 @@ export const Light: TC<LightOptions> = (options) => {
     },
     legend: {
       padding: 8,
-      // legend title
-      showTitle: false,
       titleFill: BLACK_COLORS[45],
       titleFontSize: 12,
       titleFontWeight: 'normal',
