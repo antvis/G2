@@ -238,10 +238,10 @@ export const Dark: TC<DarkOptions> = (options) => {
       lineStroke: BLACK_COLORS[25],
       lineStrokeOpacity: 0.45,
       lineLineWidth: 0.5,
-      // axis tickLine
-      tickLineStroke: BLACK_COLORS[25],
-      tickLineLineWidth: 1,
-      tickLineLength: 4,
+      // axis tick line
+      tickStroke: BLACK_COLORS[25],
+      tickLineWidth: 1,
+      tickLength: 4,
       // axis label
       labelFill: BLACK_COLORS[45],
       labelFillOpacity: 1,

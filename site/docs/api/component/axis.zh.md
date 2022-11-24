@@ -63,7 +63,7 @@ chart.render();
 
 | 属性            | 描述                             | 类型                 | 默认值 |
 | --------------- | -------------------------------- | -------------------- | ------ |
-| showLine        | 是否显示轴线                     | `boolean`            | `true` |
+| line        | 是否显示轴线                     | `boolean`            | `true` |
 | lineExtension   | 轴线两侧的延长线                 | [`number`, `number`] | `\-`   |
 | lineArrow       | 定义轴线箭头形状，默认为箭头形状 | `DisplayObject`      | `\-`   |
 | lineArrowOffset | 箭头偏移长度                     | `number`             | `15`   |
@@ -74,7 +74,7 @@ chart.render();
 
 | 属性          | 描述                                                                                                     | 类型                                                              | 默认值       |
 | ------------- | -------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- | ------------ |
-| showTick      | 是否显示刻度                                                                                             | `boolean`                                                         | `true`       |
+| tick      | 是否显示刻度                                                                                             | `boolean`                                                         | `true`       |
 | tickDirection | 刻度朝向，为 `positive` 时，位于侧轴方向（即主轴顺时针 90 度方向）, 为 `negative` 时，刻度位于侧轴负方向 | `'positive'` \| `'negative'`                                      | `'positive'` |
 | tickLength    | 轴线长度                                                                                                 | `number`\|`(datum, index, data)=>number`                          | `15`         |
 | tickFilter    | 刻度线过滤                                                                                               | `(datum, index, data)=>boolean`                                   | `\-`         |
@@ -85,7 +85,7 @@ chart.render();
 
 | 属性            | 描述                                                                                                              | 类型                                                                | 默认值       |
 | --------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------ |
-| showLabel       | 是否显示刻度值                                                                                                    | `boolean`                                                           | `\-`         |
+| label       | 是否显示刻度值                                                                                                    | `boolean`                                                           | `\-`         |
 | labelAlign      | 刻度值对齐方式<br/>- 'horizontal' 始终保持水平<br/> - 'parallel' 平行于坐标轴<br/> - 'perpendicular' 垂直于坐标轴 | `'horizontal'` \| `'parallel'` \| `'perpendicular'`                 | `'parallel'` |
 | labelDirection  | 刻度值位于轴线的位置，参考`tickDirection`                                                                         | `'positive'` \| `'negative'`                                        | `'positive'` |
 | labelSpacing    | 刻度值到其对应刻度的间距                                                                                          | `number`                                                            | `0`          |
@@ -139,7 +139,7 @@ export interface HideOverlapCfg extends Overlap {
 
 | 属性         | 描述           | 类型                                                     | 默认值  |
 | ------------ | -------------- | -------------------------------------------------------- | ------- |
-| showGrid     | 是否显示网格线 | `boolean`                                                | `false` |
+| grid     | 是否显示网格线 | `boolean`                                                | `false` |
 | gridFilter   | 网格线过滤     | `(datum, index, data)=> boolean`                         | `\-`    |
 | gridLength   | 网格线长度     | `number` \| `(datum, index, data)=> number`              | `0`     |
 | gridAreaFill | 网格线区域颜色 | `string` \| `string[]`\| `(datum, index, data)=> string` | `\-`    |

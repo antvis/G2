@@ -283,7 +283,6 @@ function inferStyle(
     type: 'linear' as const,
     lineArrow: null,
     titleTransform: undefined,
-    // @ts-ignore
     titleTransformOrigin: 'center',
     labelAlign: 'horizontal',
     gridLength,
@@ -342,7 +341,7 @@ function inferStyle(
       labelDirection: 'positive',
       labelTransform: direction === 'center' ? 'translate(50%, 0)' : '',
       tickDirection: 'positive',
-      showTick: direction === 'center' ? false : true,
+      // showTick: direction === 'center' ? false : true,
       labelSpacing: direction === 'center' ? 0 : 4,
       gridDirection: 'negative',
       gridConnect: 'arc',
@@ -428,14 +427,6 @@ const ArcAxis = (options) => {
   };
 };
 
-/***
- * Four parts:
- * - line
- * - tick
- * - label
- * - grid
- * - title
- */
 const LinearAxis: GCC<AxisOptions> = (options) => {
   const {
     order,
@@ -450,10 +441,9 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
     tickMethod,
     labelAutoHide = false,
     labelAutoRotate = false,
-    // @todo rename to axisLine for G2 user?
-    showLine = false,
     grid,
-    ...rest
+    line: showLine = false,
+    ...userDefinitions
   } = options;
 
   return (scale, value, coordinate, theme) => {
@@ -475,7 +465,7 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
 
     const {
       showLabel = options.label === undefined ? true : options.label,
-      showTick = options.tickLine === undefined ? true : options.tickLine,
+      showTick = options.tick === undefined ? true : options.tick,
       ...defaultStyle
     } = inferStyle(position, direction, bbox, coordinate, scale);
 
@@ -498,7 +488,7 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
       titleFontWeight: 'bold',
       titleFill: '#000',
       titleFillOpacity: 1,
-      ...rest,
+      ...userDefinitions,
       // Always showLine, make title could align the end of axis.
       showLine: true,
       ...(!showLine ? { lineOpacity: 0 } : null),
