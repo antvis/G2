@@ -43,6 +43,14 @@
         "en": "Bin Size Channel"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*CWRPSrX4bEcAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "poisson.ts",
+      "title": {
+        "zh": "泊松分布",
+        "en": "Poisson distribution"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*JGWJSYvn8okAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }
