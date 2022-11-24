@@ -107,6 +107,22 @@
         "en": "Revenue Flow Waterfall Chart"
       },
       "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*fG4DT7XWNzUAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "region-filter-line.ts",
+      "title": {
+        "zh": "Line Chart, with RegionFilter",
+        "en": "Line Chart, with RegionFilter"
+      },
+      "screenshot": ""
+    },
+    {
+      "filename": "region-filter-area.ts",
+      "title": {
+        "zh": "Area Chart, with RegionFilter",
+        "en": "Area Chart, with RegionFilter"
+      },
+      "screenshot": ""
     }
   ]
 }
