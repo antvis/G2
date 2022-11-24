@@ -3,7 +3,7 @@ import {
   GuideComponentComponent as GCC,
   GuideComponentPosition,
 } from '../runtime';
-import { titleContent } from './utils';
+// import { titleContent } from './utils';
 
 export type LegendCategoryOptions = {
   position?: GuideComponentPosition;
@@ -72,9 +72,6 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
         : 'horizontal',
       width,
       height,
-      // Grid layout.
-      // @todo flex or grid layout.
-      layout: 'flex',
       // Grid layout.
       gridCol: _gridCol,
       gridRow: _gridRow,
