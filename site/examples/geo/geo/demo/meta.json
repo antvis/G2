@@ -13,14 +13,6 @@
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*vcI7RqX24U0AAAAAAAAAAAAADmJ7AQ/original"
     },
     {
-      "filename": "choropleth-world.ts",
-      "title": {
-        "zh": "世界行政地图",
-        "en": "World Choropleth"
-      },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*PdkwS40NjUUAAAAAAAAAAAAADmJ7AQ/original"
-    },
-    {
       "filename": "flights-airports.ts",
       "title": {
         "zh": "航班机场图",
