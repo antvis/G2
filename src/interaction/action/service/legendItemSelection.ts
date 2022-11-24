@@ -1,4 +1,3 @@
-import { Category } from '@antv/gui';
 import { ActionComponent as AC } from '../../types';
 import { LegendItemSelectionAction } from '../../../spec';
 
@@ -14,7 +13,7 @@ export const LegendItemSelection: AC<LegendItemSelectionOptions> = (
 
   return (context) => {
     const { shared, selection, scale } = context;
-    const legend = selection.select('.category-legend').node() as Category;
+    const legend = selection.select('.category-legend').node() as any;
 
     if (from === 'triggerInfo') {
       shared.selectedLegendItems = shared.triggerInfo.map(({ id }) =>
