@@ -13,8 +13,8 @@ export function moviesIntervalMultipleMeasure(): G2Spec {
         type: 'interval',
         transform: [{ type: 'groupX', y: 'sum' }],
         axis: {
-          y: { labelFormatter: '~s' },
-          x: { labelRotate: 90 },
+          y: { tickFormatter: '~s' },
+          x: { labelTransform: 'rotate(90)' },
         },
         encode: {
           x: 'Major Genre',

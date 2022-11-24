@@ -272,7 +272,6 @@ export const Light: TC<LightOptions> = (options) => {
       showTitle: false,
       titleFill: BLACK_COLORS[45],
       titleFontSize: 12,
-      titleLineHeight: 21,
       titleFontWeight: 'normal',
       titleSpacing: 4,
       // legend marker
@@ -300,7 +299,6 @@ export const Light: TC<LightOptions> = (options) => {
     continuousLegend: {
       labelFill: BLACK_COLORS[45],
       labelFontSize: 12,
-      labelLineHeight: 12,
       labelFontWeight: 'normal',
       handleWidth: 10,
       handleHeight: 12,
@@ -309,7 +307,6 @@ export const Light: TC<LightOptions> = (options) => {
       handleMarkerLineWidth: 1,
       handleLabelFill: BLACK_COLORS[45],
       handleLabelFontSize: 12,
-      handleLabelLineHeight: 12,
       handleLabelFontWeight: 'normal',
       // [todo] legend rail
     },

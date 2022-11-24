@@ -28,8 +28,8 @@ export function acmeCropIncomeIntervalConnector() {
     paddingTop: 40,
     data: acmeCropIncome,
     axis: {
-      x: { title: false, labelRotate: -90 },
-      y: { labelFormatter: '~s' },
+      x: { title: false, labelTransform: 'rotate(-90)' },
+      y: { tickFormatter: '~s' },
     },
     legend: false,
     children: [

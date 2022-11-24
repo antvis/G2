@@ -1,9 +1,9 @@
 import { Category } from '@antv/gui';
-import { deepMix } from '@antv/util';
 import {
   GuideComponentComponent as GCC,
   GuideComponentPosition,
 } from '../runtime';
+import { titleContent } from './utils';
 
 export type LegendCategoryOptions = {
   position?: GuideComponentPosition;
@@ -14,18 +14,30 @@ export type LegendCategoryOptions = {
   [key: string]: any;
 };
 
+const circle = (x, y, r) => {
+  return [
+    ['M', x - r, y],
+    ['A', r, r, 0, 1, 0, x + r, y],
+    ['A', r, r, 0, 1, 0, x - r, y],
+    ['Z'],
+  ];
+};
+
 /**
  * Guide Component for ordinal color scale.
  * @todo Custom style.
  */
 export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
   const {
+    order,
+    size,
     position,
-    labelFormatter = (d) => `${d}`,
+    tickFormatter = (d) => `${d}`,
     dx = 0,
     dy = 0,
     title,
-    cols = undefined,
+    gridCol,
+    gridRow,
     autoWrap = false,
     ...rest
   } = options;
@@ -34,73 +46,63 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
     const { x, y, width, height } = bbox;
     const items = domain.map((d) => ({
       id: d,
-      name: labelFormatter(d),
+      label: tickFormatter(d),
+      value: '',
       color: scale.map(d),
     }));
-    const maxItemWidth = autoWrap && cols ? width / cols : undefined;
-    const legendStyle = deepMix(
-      {},
-      {
-        items,
-        x: x + dx,
-        y: y + dy,
-        orient: ['right', 'left', 'arcCenter'].includes(position)
-          ? 'vertical'
-          : 'horizontal',
-        maxWidth: width,
-        maxHeight: height,
-        autoWrap,
-        maxItemWidth,
-        itemWidth: maxItemWidth,
-        spacing: [8, 0],
-        itemName: {
-          style: {
-            fontSize: 12,
-            fillOpacity: 1,
-            fill: '#000',
-            fontWeight: 'lighter',
-            active: {
-              fillOpacity: 0.8,
-            },
-            inactive: {
-              fill: '#d8d8d8',
-            },
-            unchecked: {
-              fill: '#d8d8d8',
-            },
-          },
-        },
-        ...(title && {
-          title: {
-            content: Array.isArray(title) ? title[0] : title,
-            style: {
-              fontSize: 12,
-              fontWeight: 'bold',
-              fillOpacity: 1,
-            },
-          },
-        }),
-        itemMarker: {
-          size: 8,
-          symbol: 'circle',
-          style: {
-            fillOpacity: 1,
-            inactive: {
-              fillOpacity: 0.2,
-            },
-            unchecked: {
-              fill: '#d8d8d8',
-              stroke: '#d8d8d8',
-            },
-          },
-        },
-        itemBackgroundStyle: {
-          fill: 'transparent',
-        },
-      },
-      { ...rest },
-    );
-    return new Category({ className: 'category-legend', style: legendStyle });
+
+    let [_gridRow, _gridCol] = [gridRow, gridCol];
+    if (!(gridCol || gridRow)) {
+      const limit = 100;
+      [_gridRow, _gridCol] = {
+        arcCenter: [limit, 1],
+        top: [1, limit],
+        bottom: [1, limit],
+        left: [limit, 1],
+        right: [limit, 1],
+      }[position];
+    }
+
+    const legendStyle = {
+      data: items,
+      x: x + dx,
+      y: y + dy,
+      orient: ['right', 'left', 'arcCenter'].includes(position)
+        ? 'vertical'
+        : 'horizontal',
+      width,
+      height,
+      // Grid layout.
+      // @todo flex or grid layout.
+      layout: 'flex',
+      // Grid layout.
+      gridCol: _gridCol,
+      gridRow: _gridRow,
+      rowPadding: 0,
+      colPadding: 8,
+      titleText: titleContent(title),
+      itemMarkerFill: (d) => (d ? d.color : '#fff'),
+      itemMarkerFillOpacity: 1,
+      // @todo GUI should support itemMarkerSize.
+      itemMarkerSize: 4,
+      itemMarkerD: circle(4, 4, 4),
+      // @todo should remove later, and get default style from theme definition.
+      titleFill: '#000',
+      titleFontSize: 12,
+      titleFontWeight: 'bold',
+      titleFillOpacity: 1,
+      itemLabelFill: '#000',
+      itemLabelFillOpacity: 1,
+      itemLabelFontSize: 12,
+      // @todo Spacing between marker and label, should rename to markerSpacing
+      itemSpacing: 5,
+    };
+
+    const { legend: legendTheme = {} } = theme;
+
+    return new Category({
+      style: Object.assign({}, legendTheme, legendStyle, rest),
+    });
   };
 };
 

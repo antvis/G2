@@ -298,7 +298,6 @@ export function createInnerGuide(guide, data) {
           title: false,
           tickLine: null,
           label: null,
-          subTickLine: null,
         },
         guide,
       )
@@ -307,7 +306,6 @@ export function createInnerGuide(guide, data) {
           title: false,
           tickLine: null,
           label: null,
-          subTickLine: null,
           grid: null,
         },
         guide,

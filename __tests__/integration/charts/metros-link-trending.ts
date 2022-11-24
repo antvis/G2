@@ -19,7 +19,7 @@ export function metrosLinkTrending(): G2Spec {
       arrowSize: 6,
     },
     axis: {
-      x: { labelFormatter: '~s', label: { autoHide: true } },
+      x: { tickFormatter: '~s', label: { autoRotate: true, autoHide: true } },
     },
     legend: false,
   };
