@@ -13,6 +13,7 @@ chart
   .data(new Array(5000).fill(0).map(random))
   .encode('x', (d) => d)
   .transform({ type: 'binX', y: 'count' })
-  .style('inset', 0.1);
+  .style('stroke', 'white')
+  .style('fill', 'steelblue');
 
 chart.render();
