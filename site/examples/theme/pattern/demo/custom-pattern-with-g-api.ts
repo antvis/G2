@@ -10,40 +10,8 @@ const chart = new Chart({
   paddingBottom: 80,
 });
 
-chart
-  .cell()
-  .data({
-    type: 'fetch',
-    value:
-      'https://gw.alipayobjects.com/os/bmw-prod/68d3f380-089e-4683-ab9e-4493200198f9.json',
-  })
-  .encode('x', 'name')
-  .encode('y', 'country')
-  .encode('color', '#edaa53')
-  .style('radius', '50%')
-  .style('inset', 1)
-  .style('shadowBlur', 10)
-  .style('shadowColor', 'rgba(0,0,0,0.3)')
-  .style('fill', ({ value }) => {
-    const { document } = chart.context().canvas;
-
-    const pattern1 = drawPattern(document, '#edaa53', '#44120c', true, true);
-    const pattern2 = drawPattern(document, '#edaa53', '#44120c', true);
-    const pattern3 = drawPattern(document, '#edaa53', '#fff');
-    return {
-      image:
-        60 <= value && value < 90
-          ? pattern1
-          : value >= 50
-          ? pattern2
-          : pattern3,
-      repetition: 'repeat',
-    };
-  });
-
-chart.render();
-
-const drawPattern = (
+// create pattern with G API
+const createPattern = (
   document,
   color,
   stroke,
@@ -92,3 +60,41 @@ const drawPattern = (
 
   return background;
 };
+// create patterns before chart gets rendered
+let pattern1;
+let pattern2;
+let pattern3;
+chart.on('beforerender', () => {
+  const { document } = chart.context().canvas;
+  pattern1 = createPattern(document, '#edaa53', '#44120c', true, true);
+  pattern2 = createPattern(document, '#edaa53', '#44120c', true);
+  pattern3 = createPattern(document, '#edaa53', '#fff');
+});
+
+chart
+  .cell()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/68d3f380-089e-4683-ab9e-4493200198f9.json',
+  })
+  .encode('x', 'name')
+  .encode('y', 'country')
+  .encode('color', '#edaa53')
+  .style('radius', '50%')
+  .style('inset', 1)
+  .style('shadowBlur', 10)
+  .style('shadowColor', 'rgba(0,0,0,0.3)')
+  .style('fill', ({ value }) => {
+    return {
+      image:
+        60 <= value && value < 90
+          ? pattern1
+          : value >= 50
+          ? pattern2
+          : pattern3,
+      repetition: 'repeat',
+    };
+  });
+
+chart.render();
