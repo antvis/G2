@@ -1,0 +1,32 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "canvas.ts",
+      "title": {
+        "zh": "Canvas 渲染器",
+        "en": "Canvas Renderer"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*WUZgSL9cWnEAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "svg.ts",
+      "title": {
+        "zh": "SVG 渲染器",
+        "en": "SVG Renderer"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*WUZgSL9cWnEAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "webgl.ts",
+      "title": {
+        "zh": "WebGL 渲染器",
+        "en": "WebGL Renderer"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*WUZgSL9cWnEAAAAAAAAAAAAADmJ7AQ/original"
+    }
+  ]
+}
