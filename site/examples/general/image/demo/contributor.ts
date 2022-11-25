@@ -38,7 +38,6 @@ const Avatars = [
   'https://gw.alipayobjects.com/zos/antfincdn/c9K5r1m%26y9/d0b8a090-f034-43e6-aeeb-f59cb6c7c33c.png',
   'https://gw.alipayobjects.com/zos/antfincdn/L%261dAufvjL/IMG_1477.JPG',
   'https://gw.alipayobjects.com/zos/antfincdn/NkfCEL7RTL/7cdd44fc-8624-4b6c-8947-67f78e79142f.png',
-  'https://ch-resources.oss-cn-shanghai.aliyuncs.com/images/avatar/observedobserver.png',
   'https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*dl_gToTY6msAAAAAAAAAAABkARQnAQ',
   'https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*QFEMTaidg9QAAAAAAAAAAABkARQnAQ',
   'https://gw.alipayobjects.com/zos/antfincdn/KGawdl9Ahq/touxiang.JPG',
