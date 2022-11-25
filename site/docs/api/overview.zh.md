@@ -103,5 +103,6 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
   - [chart.geoView](/api/geo/geoview) - 绘制地图的容器，用于多 geoPath 图层叠加。
 - [Theme](/api/theme/theme) - 主题相关内容。
 - Plugin - 基于 G 插件相关的内容。
+  - [renderer](/api/plugin/renderer) - `Canvas`、`SVG`、`WebGL` 三大渲染器。
   - [rough](/api/plugin/rough) - 绘制手绘图的插件。
   - [lottie](/api/plugin/lottie) - 可以在图表中播放 lottie 动画的插件。
