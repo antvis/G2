@@ -1,5 +1,5 @@
 {
-  "version": "5.0.0",
+  "version": "5.0.0-beta.1",
   "scripts": {
     "start": "dumi dev",
     "build": "dumi build",
@@ -26,5 +26,9 @@
   },
   "devDependencies": {
     "gh-pages": "^4.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/antvis/g2"
   }
 }
