@@ -1,6 +1,10 @@
 name: Deploy G2 4.x site
 
 on:
+  pull_request:
+    branches:
+      - master
+  push:
   workflow_dispatch:
 
 jobs:
