@@ -14,9 +14,10 @@ module.exports = {
   siteMetadata: {
     title: 'G2',
     description: 'The Grammar of Graphics in JavaScript',
-    siteUrl: 'https://g2.antv.vision',
+    siteUrl: 'https://g2.antv.antgroup.com',
     githubUrl: repository.url,
     versions: {
+      '5.x': 'https://g2.antv.antgroup.com',
       [version]: 'https://g2.antv.vision/',
       '3.x': 'https://g2-v3.antv.vision/',
       '2.x': 'https://antv.vision/old-site/g2/doc/index.html',

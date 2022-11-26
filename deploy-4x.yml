@@ -1,0 +1,34 @@
+name: Deploy G2 4.x site
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # change to macOS-latest if need to run ci/test
+    steps:
+      - uses: actions/checkout@v2
+      - run: yarn install
+      - run: npm run lint
+
+  publish-site:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: yarn install
+      - run: npm run site:build
+      - run: |
+          git checkout master
+          cd public
+          git init
+          git config --local user.name antv
+          git config --local user.email antv@antfin.com
+          git add .
+          git commit -m "manual deploy 4.x site"
+      - uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{secrets.PERSONAL_ACCESS_TOKEN}}
+          directory: public
+          branch: 4.x-site
+          force: true
