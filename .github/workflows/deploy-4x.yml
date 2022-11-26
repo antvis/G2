@@ -1,10 +1,6 @@
 name: Deploy G2 4.x site
 
 on:
-  pull_request:
-    branches:
-      - master
-  push:
   workflow_dispatch:
 
 jobs:
@@ -20,10 +16,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - run: git checkout master
       - run: yarn install
       - run: npm run site:build
       - run: |
-          git checkout master
           cd public
           git init
           git config --local user.name antv
