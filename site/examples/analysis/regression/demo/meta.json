@@ -1,0 +1,48 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "linear-regression.ts",
+      "title": {
+        "zh": "线性回归线",
+        "en": "Linear Regression"
+      },
+      "screenshot": ""
+    },
+    {
+      "filename": "quadratic-regression.ts",
+      "title": {
+        "zh": "二项式回归线",
+        "en": "Quadratic Regression"
+      },
+      "screenshot": ""
+    },
+    {
+      "filename": "exponential-regression.ts",
+      "title": {
+        "zh": "指数回归线",
+        "en": "Exponential Regression"
+      },
+      "screenshot": ""
+    },
+    {
+      "filename": "logarithmic-regression.ts",
+      "title": {
+        "zh": "对数回归线",
+        "en": "Logarithmic Regression"
+      },
+      "screenshot": ""
+    },
+    {
+      "filename": "polynomial-regression.ts",
+      "title": {
+        "zh": "多项式回归线",
+        "en": "Polynomial Regression"
+      },
+      "screenshot": ""
+    }
+  ]
+}
