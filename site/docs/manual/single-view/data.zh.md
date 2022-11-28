@@ -139,6 +139,10 @@ node.data({
 });
 ```
 
+## FAQ
+
+- 如何使用第三方库绘制统计回归线？
+
 借助自定义数据转换能力，我们可以使用外部的数据处理相关的库。下面的例子中，我们使用第三方库 [d3-regression](https://github.com/HarryStevens/d3-regression) 来生成线性统计回归线：
 
 ```js
