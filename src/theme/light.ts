@@ -255,8 +255,8 @@ export const Light: TC<LightOptions> = (options) => {
       tickLineWidth: 1,
       tickLength: 4,
       // axis label
-      labelFill: BLACK_COLORS[45],
-      labelFillOpacity: 1,
+      labelFill: BLACK_COLORS[100],
+      labelFillOpacity: 0.65,
       labelFontSize: 12,
       labelFontWeight: 'lighter',
       labelSpacing: 8, // spacing between label and it's tick
