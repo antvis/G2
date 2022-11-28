@@ -138,3 +138,21 @@ node.data({
   transform: [{ type: 'custom', callback: sum }],
 });
 ```
+
+借助自定义数据转换能力，我们可以使用外部的数据处理相关的库。下面的例子中，我们使用第三方库 [d3-regression](https://github.com/HarryStevens/d3-regression) 来生成线性统计回归线：
+
+```js
+import { regressionLinear } from 'd3-regression';
+
+node.data({
+  // 利用 D3 的 regressionLinear 对数据进行线性回归处理
+  transform: [
+    {
+      type: 'custom',
+      callback: regressionLinear(),
+    },
+  ],
+});
+```
+
+更多统计回归线案例见 [数据分析-regression](/examples#analysis-regression)
