@@ -248,7 +248,7 @@ export const Light: TC<LightOptions> = (options) => {
       labelSpacing: 8, // spacing between label and it's tick
       // axis grid
       gridStroke: COLORS.BLACK,
-      gridStrokeOpacity: 0.1,
+      gridStrokeOpacity: 0.05,
       gridLineWidth: 0.5,
       gridLineDash: [0, 0],
     },
