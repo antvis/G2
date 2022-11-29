@@ -328,7 +328,7 @@ function inferStyle(
       labelSpacing: 4,
       labelDirection: 'negative',
       tickDirection: 'negative',
-      gridDirection: 'negative',
+      gridDirection: 'positive',
     };
   } else if (position === 'arcY') {
     return {
@@ -477,17 +477,6 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
       labelTransforms: labelTransforms(labelAutoHide, labelAutoRotate),
       showGrid,
       showTick,
-      // @todo should remove later, and get default style from theme definition.
-      lineStroke: '#BFBFBF',
-      gridStroke: '#1b1e23',
-      gridStrokeOpacity: 0.05,
-      gridLineDash: [0, 0],
-      tickStroke: '#BFBFBF',
-      tickLength: 4,
-      tickLineWidth: 1,
-      titleFontWeight: 'bold',
-      titleFill: '#000',
-      titleFillOpacity: 1,
       ...userDefinitions,
       // Always showLine, make title could align the end of axis.
       showLine: true,

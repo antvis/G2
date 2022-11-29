@@ -83,14 +83,6 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
       // @todo GUI should support itemMarkerSize.
       itemMarkerSize: 4,
       itemMarkerD: circle(4, 4, 4),
-      // @todo should remove later, and get default style from theme definition.
-      titleFill: '#000',
-      titleFontSize: 12,
-      titleFontWeight: 'bold',
-      titleFillOpacity: 1,
-      itemLabelFill: '#000',
-      itemLabelFillOpacity: 1,
-      itemLabelFontSize: 12,
       // @todo Spacing between marker and label, should rename to markerSpacing
       itemSpacing: 5,
     };
