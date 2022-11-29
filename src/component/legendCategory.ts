@@ -32,7 +32,7 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
     order,
     size,
     position,
-    tickFormatter = (d) => `${d}`,
+    labelFormatter = (d) => `${d}`,
     dx = 0,
     dy = 0,
     title,
@@ -46,7 +46,7 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
     const { x, y, width, height } = bbox;
     const items = domain.map((d) => ({
       id: d,
-      label: tickFormatter(d),
+      label: labelFormatter(d),
       value: '',
       color: scale.map(d),
     }));

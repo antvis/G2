@@ -78,7 +78,7 @@ chart.render();
 | tickDirection | 刻度朝向，为 `positive` 时，位于侧轴方向（即主轴顺时针 90 度方向）, 为 `negative` 时，刻度位于侧轴负方向 | `'positive'` \| `'negative'`                                      | `'positive'` |
 | tickLength    | 轴线长度                                                                                                 | `number`\|`(datum, index, data)=>number`                          | `15`         |
 | tickFilter    | 刻度线过滤                                                                                               | `(datum, index, data)=>boolean`                                   | `\-`         |
-| tickFormatter | 刻度线格式化，可用于自定义刻度样式，回调函数中会额外返回该刻度的方向                                     | `DisplayObject` \| `(datum, index, data, Vector)=> DisplayObject` | `\-`         |
+| labelFormatter | 刻度线格式化，可用于自定义刻度样式，回调函数中会额外返回该刻度的方向                                     | `DisplayObject` \| `(datum, index, data, Vector)=> DisplayObject` | `\-`         |
 | tick[Style]   | 刻度线样式                                                                                               | 与 line `style` 一致                                              | `\-`         |
 
 ### 刻度值
