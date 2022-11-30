@@ -26,13 +26,28 @@ export async function renderCanvas(
 /**
  * diff between PNGs
  */
-export function diff(src: string, target: string) {
+export function diff(src: string, target: string, showMismatchedPixels = true) {
   const img1 = PNG.sync.read(fs.readFileSync(src));
   const img2 = PNG.sync.read(fs.readFileSync(target));
   const { width, height } = img1;
-  return pixelmatch(img1.data, img2.data, null, width, height, {
+
+  let diffPNG: PNG | null = null;
+  let output: Buffer | null = null;
+  if (showMismatchedPixels) {
+    diffPNG = new PNG({ width, height });
+    output = diffPNG.data;
+  }
+
+  // @see https://github.com/mapbox/pixelmatch#pixelmatchimg1-img2-output-width-height-options
+  const mismatch = pixelmatch(img1.data, img2.data, output, width, height, {
     threshold: 0.1,
   });
+
+  if (showMismatchedPixels && mismatch && diffPNG) {
+    fs.writeFileSync(`${target}.diff.png`, PNG.sync.write(diffPNG));
+  }
+
+  return mismatch;
 }
 
 export function createGCanvas(width: number, height: number) {
