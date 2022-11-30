@@ -14,3 +14,4 @@ export { alphabetIntervalNonAnimateEnter } from './alphabet-interval-non-animate
 export { stocksKeyframe } from './stocks-keyframe';
 export { sexIntervalKeyframe } from './sex-interval-keyframe';
 export { soldIntervalKeyframe } from './sold-interval-keyframe';
+export { aaplAreaKeyframe } from './aapl-area-keyframe';

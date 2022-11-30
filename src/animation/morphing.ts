@@ -73,23 +73,27 @@ function shapeToShape(
   timeEffect: Record<string, any>,
 ): GAnimation {
   const [x0, y0, w0, h0] = localBBoxOf(from);
+
+  // Replace first to get right bbox after mounting.
+  replaceChild(to, from);
+
+  // Apply translate and scale transform.
   const [x1, y1, w1, h1] = localBBoxOf(to);
-  const dx = x1 - x0;
-  const dy = y1 - y0;
-  const sx = w1 / w0;
-  const sy = h1 / h0;
+  const dx = x0 - x1;
+  const dy = y0 - y1;
+  const sx = w0 / w1;
+  const sy = h0 / h1;
   const keyframes = [
     {
-      transform: `translate(0, 0) scale(1, 1)`,
+      transform: `translate(${dx}, ${dy}) scale(${sx}, ${sy})`,
       ...attributeOf(from, attributeKeys),
     },
     {
-      transform: `translate(${dx}, ${dy}) scale(${sx}, ${sy})`,
+      transform: `translate(0, 0) scale(1, 1)`,
       ...attributeOf(to, attributeKeys),
     },
   ];
-  const animation = from.animate(keyframes, timeEffect);
-  animation.finished.then(() => replaceChild(to, from));
+  const animation = to.animate(keyframes, timeEffect);
   return animation;
 }
 
