@@ -91,6 +91,14 @@ export default defineConfig({
         },
         order: 3,
       },
+      {
+        slug: 'manual/theme',
+        title: {
+          zh: '主题风格',
+          en: 'Theme & Style',
+        },
+        order: 10,
+      },
       // api
       {
         slug: 'api/data',
