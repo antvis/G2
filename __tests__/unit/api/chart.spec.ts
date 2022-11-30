@@ -68,7 +68,9 @@ describe('Chart', () => {
 
   it('Chart({...}) should support undefined container', () => {
     const chart = new Chart();
-    expect(chart['_container'].nodeName).toBe('DIV');
+    const defaultContainer = chart['_container'];
+    expect(defaultContainer.nodeName).toBe('DIV');
+    expect(defaultContainer.parentNode).toBeNull();
   });
 
   it('Chart({...}) should override default value', () => {
@@ -297,8 +299,9 @@ describe('Chart', () => {
   });
 
   it('chart.render() should render chart', () => {
+    const container = createDiv();
     const chart = new Chart({
-      container: createDiv(),
+      container,
     });
 
     chart.data([
@@ -316,6 +319,7 @@ describe('Chart', () => {
       .encode('color', 'genre');
 
     expect(chart.render()).toBe(chart);
+    expect(chart.context().canvas?.getConfig().container).toBe(container);
   });
 
   it('chart.context() should return rendering context', () => {

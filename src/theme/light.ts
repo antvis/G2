@@ -43,6 +43,16 @@ export const Light: TC<LightOptions> = (options) => {
       fill: 'both',
       delay: 0,
     },
+    update: {
+      duration: 300,
+      fill: 'both',
+      delay: 0,
+    },
+    exit: {
+      duration: 300,
+      fill: 'both',
+      delay: 0,
+    },
     // --- Theme of area style
     viewFill: BACKGROUND_COLOR,
     plotFill: 'transparent',

@@ -192,7 +192,7 @@ export class Chart extends Node<ChartOptions> {
 
       // Create canvas if it does not exist.
       this._context.canvas = Canvas(
-        document.createElement('div'),
+        this._container,
         width,
         height,
         renderer,
@@ -200,10 +200,7 @@ export class Chart extends Node<ChartOptions> {
       );
     }
 
-    const node = render(this.options(), this._context);
-    if (node.parentNode !== this._container) {
-      this._container.append(node);
-    }
+    render(this.options(), this._context);
 
     return this;
   }
