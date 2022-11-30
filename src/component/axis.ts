@@ -63,9 +63,6 @@ function reverseTicks(ticks) {
   return ticks.map(({ value, ...rest }) => ({ value: 1 - value, ...rest }));
 }
 
-/**
- * @todo More position besides bottom and left.
- */
 function createFisheye(position, coordinate) {
   const { width, height } = coordinate.getOptions();
   return (tick) => {
@@ -132,8 +129,6 @@ function createInset(position, coordinate) {
 
 /**
  * Calc ticks based on scale and coordinate.
- * @todo Parallel coordinate.
- * @todo More position besides bottom and left.
  */
 function getTicks(
   scale: Scale,
@@ -341,7 +336,6 @@ function inferStyle(
       labelDirection: 'positive',
       labelTransform: direction === 'center' ? 'translate(50%, 0)' : '',
       tickDirection: 'positive',
-      // showTick: direction === 'center' ? false : true,
       labelSpacing: direction === 'center' ? 0 : 4,
       gridDirection: 'negative',
       gridConnect: 'arc',
@@ -414,13 +408,6 @@ const ArcAxis = (options) => {
         data: ticks,
         title: titleContent(title),
         showGrid,
-        // @todo should remove later, and get default style from theme definition.
-        gridStroke: '#1b1e23',
-        gridLineDash: [0, 0],
-        gridStrokeOpacity: 0.1,
-        tickStroke: '#BFBFBF',
-        tickLength: 4,
-        tickLineWidth: 1,
         ...rest,
       }),
     });
@@ -491,8 +478,6 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
 
 /**
  * Guide Component for position channel(e.g. x, y).
- * @todo Render Circular in polar coordinate.
- * @todo Custom style.
  */
 export const Axis: GCC<AxisOptions> = (options) => {
   const { position, labelFormatter: f = (d) => `${d}` } = options;

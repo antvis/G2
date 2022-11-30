@@ -3,7 +3,7 @@ import {
   GuideComponentComponent as GCC,
   GuideComponentPosition,
 } from '../runtime';
-// import { titleContent } from './utils';
+import { titleContent } from './utils';
 
 export type LegendCategoryOptions = {
   position?: GuideComponentPosition;
@@ -23,9 +23,25 @@ const circle = (x, y, r) => {
   ];
 };
 
+function inferLayout(
+  position: GuideComponentPosition,
+  gridRow?: number,
+  gridCol?: number,
+): [number, number] {
+  const [gridRowLimit, gridColLimit] = [gridRow || 100, gridCol || 100];
+  const config = {
+    top: [1, gridColLimit],
+    bottom: [1, gridColLimit],
+    left: [gridRowLimit, 1],
+    right: [gridRowLimit, 1],
+    arcCenter: [gridRowLimit, 1],
+  }[position];
+
+  return config || [gridRow, gridCol];
+}
+
 /**
  * Guide Component for ordinal color scale.
- * @todo Custom style.
  */
 export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
   const {
@@ -38,7 +54,7 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
     title,
     gridCol,
     gridRow,
-    autoWrap = false,
+    showTitle,
     ...rest
   } = options;
   return (scale, value, coordinate, theme) => {
@@ -51,17 +67,12 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
       color: scale.map(d),
     }));
 
-    let [_gridRow, _gridCol] = [gridRow, gridCol];
-    if (!(gridCol || gridRow)) {
-      const limit = 100;
-      [_gridRow, _gridCol] = {
-        arcCenter: [limit, 1],
-        top: [1, limit],
-        bottom: [1, limit],
-        left: [limit, 1],
-        right: [limit, 1],
-      }[position];
-    }
+    // Calc layout config
+    const [finalGridRow, finalGridCol] = inferLayout(
+      position,
+      gridRow,
+      gridCol,
+    );
 
     const legendStyle = {
       data: items,
@@ -72,12 +83,11 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
         : 'horizontal',
       width,
       height,
-      // Grid layout.
-      gridCol: _gridCol,
-      gridRow: _gridRow,
+      gridCol: finalGridCol,
+      gridRow: finalGridRow,
       rowPadding: 0,
       colPadding: 8,
-      // titleText: titleContent(title),
+      titleText: showTitle ? titleContent(title) : '',
       itemMarkerFill: (d) => (d ? d.color : '#fff'),
       itemMarkerFillOpacity: 1,
       // @todo GUI should support itemMarkerSize.
