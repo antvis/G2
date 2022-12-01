@@ -71,8 +71,8 @@ const setChildren = useOverrideAdaptor<G2ViewTree>((options) => {
           y: createGuideY(guideY)(facet, data),
         };
         const defaultAxis = {
-          x: { titleAnchor: 'center', titleTextAnchor: 'center', tickCount: 5 },
-          y: { titleAnchor: 'center', titleTextAnchor: 'center', tickCount: 5 },
+          x: { tickCount: 5 },
+          y: { tickCount: 5 },
         };
         return {
           data,

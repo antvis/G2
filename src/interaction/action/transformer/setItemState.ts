@@ -1,10 +1,9 @@
-import { Category } from '@antv/gui';
 import { ActionComponent as AC } from '../../types';
 import { SetItemStateAction } from '../../../spec';
 
 export type SetItemStateOptions = Omit<SetItemStateAction, 'type'>;
 
-function highlightLegendItems(legend: Category, items) {
+function highlightLegendItems(legend: any, items) {
   const itemStates = legend?.getItemsStates() || [];
 
   if (items.length) {
@@ -22,7 +21,7 @@ export const SetItemState: AC<SetItemStateOptions> = (options) => {
 
     if (items.includes('legendItem')) {
       const { selectedLegendItems: selectedItems = [] } = shared;
-      const legend = selection.select('.category-legend').node() as Category;
+      const legend = selection.select('.category-legend').node() as any;
       if (state === 'highlight') {
         highlightLegendItems(legend, selectedItems);
       } else {
