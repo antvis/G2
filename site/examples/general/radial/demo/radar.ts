@@ -40,6 +40,7 @@ chart
   .encode('x', 'item')
   .encode('y', 'score')
   .encode('color', 'type')
+  .encode('shape', 'smooth')
   .style('fillOpacity', 0.5);
 
 chart
@@ -47,6 +48,7 @@ chart
   .encode('x', 'item')
   .encode('y', 'score')
   .encode('color', 'type')
+  .encode('shape', 'smooth')
   .style('lineWidth', 2);
 
 chart.render();

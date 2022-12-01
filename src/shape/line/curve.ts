@@ -1,12 +1,18 @@
-import { line, CurveFactory, CurveFactoryLineOnly } from 'd3-shape';
+import { line, lineRadial, CurveFactory, CurveFactoryLineOnly } from 'd3-shape';
 import { Vector2 } from '@antv/coord';
 import { Path } from '@antv/g';
 import { isPolar } from '../../utils/coordinate';
 import { select } from '../../utils/selection';
 import { ShapeComponent as SC } from '../../runtime';
-import { applyStyle, computeGradient, getShapeTheme } from '../utils';
+import {
+  applyStyle,
+  computeGradient,
+  getShapeTheme,
+  getTransform,
+} from '../utils';
 import { createElement } from '../createElement';
 import { subObject } from '../../utils/helper';
+import { angleWithQuadrant, dist, sub } from '../../utils/vector';
 
 const DoublePath = createElement((g) => {
   const { d1, d2, style1, style2 } = g.attributes;
@@ -77,7 +83,7 @@ export const Curve: SC<CurveOptions> = (options) => {
     connectNulls = false,
     ...style
   } = options;
-  return (points, value, coordinate, theme) => {
+  return (P, value, coordinate, theme) => {
     // Compute styles.
     const { mark, shape, defaultShape } = value;
     const {
@@ -88,7 +94,6 @@ export const Curve: SC<CurveOptions> = (options) => {
     const {
       color = defaultColor,
       size = defaultSize,
-      transform,
       seriesColor: sc,
       seriesX: sx,
       seriesY: sy,
@@ -97,6 +102,7 @@ export const Curve: SC<CurveOptions> = (options) => {
       gradient && sc
         ? computeGradient(sc, sx, sy, gradient, gradientColor)
         : color;
+    const transform = getTransform(coordinate, value);
     const finalStyle = {
       ...defaults,
       ...(stroke && { stroke }),
@@ -106,13 +112,22 @@ export const Curve: SC<CurveOptions> = (options) => {
     };
 
     // Compute points and segments.
-    // Append first point to draw close line in polar coordinate.
-    const P = isPolar(coordinate) ? [...points, points[0]] : points;
-    const linePath = line()
-      .x((d) => d[0])
-      .y((d) => d[1])
-      .defined(([x, y]) => defined(x) && defined(y))
-      .curve(curve);
+    let linePath;
+    if (isPolar(coordinate)) {
+      const center = coordinate.getCenter() as Vector2;
+      linePath = (points) =>
+        lineRadial()
+          .angle((_, idx) => angleWithQuadrant(sub(points[idx], center)))
+          .radius((_, idx) => dist(points[idx], center))
+          .defined(([x, y]) => defined(x) && defined(y))
+          .curve(curve)(points);
+    } else {
+      linePath = line()
+        .x((d) => d[0])
+        .y((d) => d[1])
+        .defined(([x, y]) => defined(x) && defined(y))
+        .curve(curve);
+    }
     const [DP, MS] = segmentation(P, defined);
     const connectStyle = subObject(style, 'connect');
     const missing = !!MS.length;

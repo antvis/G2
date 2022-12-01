@@ -4,7 +4,7 @@ import { Coordinate } from '@antv/coord';
 import { Linear } from '@antv/scale';
 import { lowerFirst } from '@antv/util';
 import { G2Theme, Primitive, Vector2 } from '../runtime';
-import { isTranspose } from '../utils/coordinate';
+import { isPolar, isTranspose } from '../utils/coordinate';
 import { angle, angleWithQuadrant, dist, sub } from '../utils/vector';
 import { Selection } from '../utils/selection';
 import { indexOf } from '../utils/array';
@@ -231,4 +231,11 @@ export function getConnectStyle(
 export function toOpacityKey(options) {
   const { opacityAttribute = 'fill' } = options;
   return `${opacityAttribute}Opacity`;
+}
+
+export function getTransform(coordinate, value) {
+  if (!isPolar(coordinate)) return '';
+  const center = coordinate.getCenter() as Vector2;
+  const { transform: suffix } = value;
+  return `translate(${center[0]}, ${center[1]}) ${suffix || ''}`;
 }

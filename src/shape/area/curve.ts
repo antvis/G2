@@ -4,7 +4,12 @@ import { select } from '../../utils/selection';
 import { isPolar } from '../../utils/coordinate';
 import { Vector2, ShapeComponent as SC } from '../../runtime';
 import { angleWithQuadrant, sub, dist } from '../../utils/vector';
-import { applyStyle, computeGradient, getShapeTheme } from '../utils';
+import {
+  applyStyle,
+  computeGradient,
+  getShapeTheme,
+  getTransform,
+} from '../utils';
 import { subObject } from '../../utils/helper';
 import { createElement } from '../createElement';
 
@@ -63,13 +68,6 @@ function segmentation(
     }
   }
   return [definedPointsY1.concat(definedPointsY0), segments];
-}
-
-function getTransform(coordinate, value) {
-  if (!isPolar(coordinate)) return '';
-  const center = coordinate.getCenter() as Vector2;
-  const { transform: suffix } = value;
-  return `translate(${center[0]}, ${center[1]}) ${suffix || ''}`;
 }
 
 export type CurveOptions = {
