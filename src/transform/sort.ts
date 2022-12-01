@@ -1,5 +1,15 @@
 import { deepMix } from '@antv/util';
-import { Primitive, groupSort, max, min, sum, mean, median } from 'd3-array';
+import {
+  Primitive,
+  groupSort,
+  max,
+  min,
+  sum,
+  mean,
+  median,
+  sort,
+  index,
+} from 'd3-array';
 import { TransformComponent as TC } from '../runtime';
 import { columnOf } from './utils/helper';
 
@@ -15,6 +25,15 @@ function createReducer(channel, options, encode): (I: number[]) => any {
   if (reducer === 'first') return (GI: number[]) => V[GI[0]];
   if (reducer === 'last') return (GI: number[]) => V[GI[GI.length - 1]];
   throw new Error(`Unknown reducer: ${reducer}`);
+}
+
+function sortIByDomain(
+  I: number[],
+  sorted: Primitive[],
+  original: Primitive[],
+): number[] {
+  const map = index(sorted, (v) => v);
+  return sort(I, (i) => map.get(original[i]));
 }
 
 export type SortOptions = {
@@ -44,11 +63,12 @@ export const Sort: TC<SortOptions> = (options = {}) => {
     const [T] = columnOf(encode, channel);
     const normalizeReducer = createReducer(channel, rest, encode);
     const sortedDomain = groupSort(I, normalizeReducer, (i) => T[i]);
+    const sortedI = sortIByDomain(I, sortedDomain, T);
     if (reverse) sortedDomain.reverse();
     const s = typeof slice === 'number' ? [0, slice] : slice;
     const slicedDomain = slice ? sortedDomain.slice(...s) : sortedDomain;
     return [
-      I,
+      sortedI,
       deepMix(mark, {
         scale: {
           [channel]: {
