@@ -136,6 +136,7 @@ export { stateAgesIntervalStackedCornered } from './stateages-interval-stacked-c
 export { stateAgesIntervalStackedCorneredAll } from './stateages-interval-stacked-cornered-all';
 export { gainLostIntervalCornered } from './gain-lost-interval-cornered';
 export { scoreByItemAreaRadar } from './score-by-item-area-radar';
+export { scoreByItemAreaSmoothRadar } from './score-by-item-area-smooth-radar';
 export { englishWordCloud } from './english-wordCloud';
 export { scoreByItemAreaRadarCustom } from './score-by-item-area-radar-custom';
 export { forecastRangeAreaLine } from './forecast-range-area-line';
