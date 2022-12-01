@@ -24,6 +24,7 @@ export type AxisOptions = {
   position?: GuideComponentPosition;
   zIndex?: number;
   title?: string | string[];
+  d;
   direction?: 'left' | 'center' | 'right';
   labelFormatter?: (d: any, index: number, array: any) => string;
   tickFilter?: (datum: any, index: number, array: any) => boolean;
@@ -262,6 +263,7 @@ function inferStyle(
   tickDirection: 'negative' | 'positive';
   showLabel?: boolean;
   showTick?: boolean;
+  showLine?: boolean;
   gridLength: number;
   gridDirection: 'negative' | 'positive';
   gridConnect?: string;
@@ -310,6 +312,7 @@ function inferStyle(
       labelDirection: 'positive',
       tickDirection: 'positive',
       gridDirection: 'negative',
+      showLine: position === 'centerHorizontal' ? true : undefined,
     };
   } else if (position === 'right') {
     return {
@@ -333,9 +336,9 @@ function inferStyle(
       titlePosition: 'top',
       titleSpacing: 0,
       titleTextBaseline: 'bottom',
-      labelDirection: 'positive',
+      labelDirection: direction === 'right' ? 'negative' : 'positive',
       labelTransform: direction === 'center' ? 'translate(50%, 0)' : '',
-      tickDirection: 'positive',
+      tickDirection: direction === 'right' ? 'negative' : 'positive',
       labelSpacing: direction === 'center' ? 0 : 4,
       gridDirection: 'negative',
       gridConnect: 'arc',
@@ -357,6 +360,7 @@ function inferStyle(
     labelDirection: 'negative',
     tickDirection: 'negative',
     gridDirection: 'positive',
+    showLine: position === 'centerVertical' ? true : undefined,
   };
 }
 
@@ -427,9 +431,8 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
     tickFilter,
     tickMethod,
     labelAutoHide = false,
-    labelAutoRotate = false,
+    labelAutoRotate = true,
     grid,
-    line: showLine = false,
     ...userDefinitions
   } = options;
 
@@ -453,6 +456,7 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
     const {
       showLabel = options.label === undefined ? true : options.label,
       showTick = options.tick === undefined ? true : options.tick,
+      showLine = options.line === undefined ? false : options.line,
       ...defaultStyle
     } = inferStyle(position, direction, bbox, coordinate, scale);
 

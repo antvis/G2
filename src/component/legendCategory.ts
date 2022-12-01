@@ -14,15 +14,6 @@ export type LegendCategoryOptions = {
   [key: string]: any;
 };
 
-const circle = (x, y, r) => {
-  return [
-    ['M', x - r, y],
-    ['A', r, r, 0, 1, 0, x + r, y],
-    ['A', r, r, 0, 1, 0, x - r, y],
-    ['Z'],
-  ];
-};
-
 function inferLayout(
   position: GuideComponentPosition,
   gridRow?: number,
@@ -54,7 +45,6 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
     title,
     gridCol,
     gridRow,
-    showTitle,
     ...rest
   } = options;
   return (scale, value, coordinate, theme) => {
@@ -87,18 +77,11 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
       gridRow: finalGridRow,
       rowPadding: 0,
       colPadding: 8,
-      titleText: showTitle ? titleContent(title) : '',
+      titleText: titleContent(title),
       itemMarkerFill: (d) => (d ? d.color : '#fff'),
-      itemMarkerFillOpacity: 1,
-      // @todo GUI should support itemMarkerSize.
-      itemMarkerSize: 4,
-      itemMarkerD: circle(4, 4, 4),
-      // @todo Spacing between marker and label, should rename to markerSpacing
-      itemSpacing: 5,
     };
 
     const { legend: legendTheme = {} } = theme;
-
     return new Category({
       style: Object.assign({}, legendTheme, legendStyle, rest),
     });
