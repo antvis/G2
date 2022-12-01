@@ -3,22 +3,21 @@
  */
 import { Chart } from '@antv/g2';
 
-const chart = new Chart({ container: 'container' });
-
-const processData = (data) =>
-  data.map((d) => ({
-    x: d[0],
-    low: d[1],
-    high: d[2],
-    v2: d[3],
-    v3: d[4],
-  }));
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
 
 chart
   .data({
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/range-spline-area.json',
-    transform: [{ type: 'custom', callback: processData }],
+    transform: [
+      {
+        type: 'map',
+        callback: ([x, low, high, v2, v3]) => ({ x, low, high, v2, v3 }),
+      },
+    ],
   })
   .axis('y', { title: false })
   .scale('x', { type: 'linear', tickCount: 10 });
@@ -31,12 +30,14 @@ chart
   .style('fillOpacity', 0.65)
   .style('fill', '#64b5f6')
   .style('lineWidth', 1);
+
 chart
   .point()
   .encode('x', 'x')
   .encode('y', 'v2')
   .encode('size', 2)
   .encode('shape', 'point');
+
 chart
   .line()
   .encode('x', 'x')

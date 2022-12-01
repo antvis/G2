@@ -14,7 +14,7 @@ chart.data({
   transform: [
     {
       type: 'filter',
-      callback: (d) => d.symbol === 'GOOD',
+      callback: (d) => d.symbol === 'GOOG',
     },
   ],
 });
