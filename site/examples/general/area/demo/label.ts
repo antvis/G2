@@ -108,61 +108,54 @@ const RegionStateMap = new Map([
   ['Wyoming', 'Mountain'],
 ]);
 
-fetch('https://assets.antv.antgroup.com/g2/population-by-state.json')
-  .then((res) => res.json())
-  // Mock missing data. Set NaN from Jan. to Mar.
-  .then((data) =>
-    data.map((d) => ({
-      ...d,
-      date: new Date(d.date),
-    })),
-  )
-  .then((populationByState) => {
-    const chart = new Chart({
-      container: 'container',
-      autoFit: true,
-    });
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
 
-    chart.data({
-      type: 'inline',
-      value: populationByState,
-      transform: [
-        {
-          type: 'fold',
-          fields: States,
-          as: ['state', 'population'],
-        },
-        {
-          type: 'map',
-          callback: (d) =>
-            Object.assign({}, d, { region: RegionStateMap.get(d.state) }),
-        },
-      ],
-    });
-    chart
-      .area()
-      .transform([{ type: 'stackY' }, { type: 'normalizeY' }])
-      .encode('x', 'date')
-      .encode('y', 'population')
-      .encode('color', 'region')
-      .encode('series', 'state')
-      .label({
-        text: 'state',
-        position: 'area', // `area` type positon used here.
-        selector: 'first',
-        fontSize: 10,
-        transform: [{ type: 'hideOverlap' }],
-      });
+chart.data({
+  type: 'fetch',
+  value: 'https://assets.antv.antgroup.com/g2/population-by-state.json',
+  transform: [
+    {
+      type: 'fold',
+      fields: States,
+      as: ['state', 'population'],
+    },
+    {
+      type: 'map',
+      callback: (d) => ({
+        ...d,
+        region: RegionStateMap.get(d.state),
+        date: new Date(d.date),
+      }),
+    },
+  ],
+});
 
-    chart
-      .line()
-      .transform([{ type: 'stackY' }, { type: 'normalizeY' }])
-      .encode('x', 'date')
-      .encode('y', 'population')
-      .encode('series', 'state')
-      .style('stroke', '#000')
-      .style('lineWidth', 0.5)
-      .style('fillOpacity', 0.8);
-
-    chart.render();
+chart
+  .area()
+  .transform([{ type: 'stackY' }, { type: 'normalizeY' }])
+  .encode('x', 'date')
+  .encode('y', 'population')
+  .encode('color', 'region')
+  .encode('series', 'state')
+  .label({
+    text: 'state',
+    position: 'area', // `area` type positon used here.
+    selector: 'first',
+    fontSize: 10,
+    transform: [{ type: 'hideOverlap' }],
   });
+
+chart
+  .line()
+  .transform([{ type: 'stackY' }, { type: 'normalizeY' }])
+  .encode('x', 'date')
+  .encode('y', 'population')
+  .encode('series', 'state')
+  .style('stroke', '#000')
+  .style('lineWidth', 0.5)
+  .style('fillOpacity', 0.8);
+
+chart.render();
