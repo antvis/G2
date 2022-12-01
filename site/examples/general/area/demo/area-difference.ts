@@ -8,15 +8,6 @@ const chart = new Chart({
 chart.data({
   type: 'fetch',
   value: 'https://assets.antv.antgroup.com/g2/temperature-compare.json',
-  transforms: [
-    {
-      type: 'map',
-      callback: (d) => (d) => ({
-        ...d,
-        date: new Date(d.date),
-      }),
-    },
-  ],
 });
 
 chart
@@ -31,7 +22,7 @@ chart
     ],
   })
   .transform([{ type: 'diffY' }]) // Diff the 2 area shape.
-  .encode('x', 'date')
+  .encode('x', (d) => new Date(d.date))
   .encode('y', 'temperature')
   .encode('color', 'city')
   .encode('shape', 'step')
@@ -39,7 +30,7 @@ chart
 
 chart
   .line()
-  .encode('x', 'date')
+  .encode('x', (d) => new Date(d.date))
   .encode('y', 'San Francisco')
   .encode('shape', 'hvh')
   .style('stroke', '#000');
