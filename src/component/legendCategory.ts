@@ -1,9 +1,9 @@
 import { Category } from '@antv/gui';
-import { deepMix } from '@antv/util';
 import {
   GuideComponentComponent as GCC,
   GuideComponentPosition,
 } from '../runtime';
+import { titleContent } from './utils';
 
 export type LegendCategoryOptions = {
   position?: GuideComponentPosition;
@@ -14,19 +14,37 @@ export type LegendCategoryOptions = {
   [key: string]: any;
 };
 
+function inferLayout(
+  position: GuideComponentPosition,
+  gridRow?: number,
+  gridCol?: number,
+): [number, number] {
+  const [gridRowLimit, gridColLimit] = [gridRow || 100, gridCol || 100];
+  const config = {
+    top: [1, gridColLimit],
+    bottom: [1, gridColLimit],
+    left: [gridRowLimit, 1],
+    right: [gridRowLimit, 1],
+    arcCenter: [gridRowLimit, 1],
+  }[position];
+
+  return config || [gridRow, gridCol];
+}
+
 /**
  * Guide Component for ordinal color scale.
- * @todo Custom style.
  */
 export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
   const {
+    order,
+    size,
     position,
     labelFormatter = (d) => `${d}`,
     dx = 0,
     dy = 0,
     title,
-    cols = undefined,
-    autoWrap = false,
+    gridCol,
+    gridRow,
     ...rest
   } = options;
   return (scale, value, coordinate, theme) => {
@@ -34,73 +52,39 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
     const { x, y, width, height } = bbox;
     const items = domain.map((d) => ({
       id: d,
-      name: labelFormatter(d),
+      label: labelFormatter(d),
+      value: '',
       color: scale.map(d),
     }));
-    const maxItemWidth = autoWrap && cols ? width / cols : undefined;
-    const legendStyle = deepMix(
-      {},
-      {
-        items,
-        x: x + dx,
-        y: y + dy,
-        orient: ['right', 'left', 'arcCenter'].includes(position)
-          ? 'vertical'
-          : 'horizontal',
-        maxWidth: width,
-        maxHeight: height,
-        autoWrap,
-        maxItemWidth,
-        itemWidth: maxItemWidth,
-        spacing: [8, 0],
-        itemName: {
-          style: {
-            fontSize: 12,
-            fillOpacity: 1,
-            fill: '#000',
-            fontWeight: 'lighter',
-            active: {
-              fillOpacity: 0.8,
-            },
-            inactive: {
-              fill: '#d8d8d8',
-            },
-            unchecked: {
-              fill: '#d8d8d8',
-            },
-          },
-        },
-        ...(title && {
-          title: {
-            content: Array.isArray(title) ? title[0] : title,
-            style: {
-              fontSize: 12,
-              fontWeight: 'bold',
-              fillOpacity: 1,
-            },
-          },
-        }),
-        itemMarker: {
-          size: 8,
-          symbol: 'circle',
-          style: {
-            fillOpacity: 1,
-            inactive: {
-              fillOpacity: 0.2,
-            },
-            unchecked: {
-              fill: '#d8d8d8',
-              stroke: '#d8d8d8',
-            },
-          },
-        },
-        itemBackgroundStyle: {
-          fill: 'transparent',
-        },
-      },
-      { ...rest },
+
+    // Calc layout config
+    const [finalGridRow, finalGridCol] = inferLayout(
+      position,
+      gridRow,
+      gridCol,
     );
-    return new Category({ className: 'category-legend', style: legendStyle });
+
+    const legendStyle = {
+      data: items,
+      x: x + dx,
+      y: y + dy,
+      orient: ['right', 'left', 'arcCenter'].includes(position)
+        ? 'vertical'
+        : 'horizontal',
+      width,
+      height,
+      gridCol: finalGridCol,
+      gridRow: finalGridRow,
+      rowPadding: 0,
+      colPadding: 8,
+      titleText: titleContent(title),
+      itemMarkerFill: (d) => (d ? d.color : '#fff'),
+    };
+
+    const { legend: legendTheme = {} } = theme;
+    return new Category({
+      style: Object.assign({}, legendTheme, legendStyle, rest),
+    });
   };
 };
 

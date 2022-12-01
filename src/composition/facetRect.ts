@@ -296,18 +296,16 @@ export function createInnerGuide(guide, data) {
     ? deepMix(
         {
           title: false,
-          tickLine: null,
+          tick: null,
           label: null,
-          subTickLine: null,
         },
         guide,
       )
     : deepMix(
         {
           title: false,
-          tickLine: null,
+          tick: null,
           label: null,
-          subTickLine: null,
           grid: null,
         },
         guide,
