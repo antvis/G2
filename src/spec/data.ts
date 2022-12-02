@@ -27,6 +27,7 @@ export type DataTransform =
   | JoinTransform
   | FilterTransform
   | MapTransform
+  | SamplingTransform
   | CustomTransform;
 
 export type DataTransformTypes =
@@ -38,6 +39,7 @@ export type DataTransformTypes =
   | 'join'
   | 'filter'
   | 'map'
+  | 'sampling'
   | 'custom'
   | DataComponent;
 
@@ -255,4 +257,22 @@ export type TreeTransform = Omit<ClusterTransform, 'type'> & {
 export type MapTransform = {
   type?: 'map';
   callback?: (d: any) => any;
+};
+
+export type SamplingTransform = {
+  type?: 'sampling';
+  thresholds?: number;
+  groupBy?: string | string[];
+  fields: string | string[];
+  strategy?:
+    | 'none'
+    | 'lttb'
+    | 'mean'
+    | 'median'
+    | 'max'
+    | 'min'
+    | 'sum'
+    | 'first'
+    | 'last'
+    | ((frames: number[]) => number);
 };

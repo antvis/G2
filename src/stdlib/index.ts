@@ -248,6 +248,7 @@ import {
   Arc as ArcTransform,
   WordCloud,
   Join,
+  Sampling,
 } from '../data';
 import { HideOverlap, DodgeY, Spider, Surround } from '../label-transform';
 import { geoLibrary } from '../geo';
@@ -270,6 +271,7 @@ export function createLibrary(): G2Library {
     'data.arc': ArcTransform,
     'data.wordCloud': WordCloud,
     'data.join': Join,
+    'data.sampling': Sampling,
     // 'transform.voronoi': Voronoi,
     'transform.maybeZeroY1': MaybeZeroY1,
     'transform.maybeZeroX': MaybeZeroX,
