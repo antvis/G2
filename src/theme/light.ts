@@ -9,7 +9,6 @@ const COLORS = {
 };
 
 const BACKGROUND_COLOR = 'transparent';
-const STROKE_COLOR = '#416180';
 
 /**
  * Default theme.
@@ -48,6 +47,7 @@ export const Light: TC<LightOptions> = (options) => {
         fill: '',
         strokeOpacity: 1,
         lineWidth: 1,
+        connectStroke: '#aaa',
       },
     },
     point: {
@@ -89,6 +89,8 @@ export const Light: TC<LightOptions> = (options) => {
       area: {
         fillOpacity: 0.85,
         lineWidth: 0,
+        connectFill: COLORS.BLACK,
+        connectFillOpacity: 0.1,
       },
     },
     polygon: {
@@ -136,14 +138,14 @@ export const Light: TC<LightOptions> = (options) => {
     },
     text: {
       text: {
-        // fill: COLORS.BLACK,FillOpacity: 0.65,
+        // fill: COLORS.BLACK,fillOpacity: 0.65,
         fill: '#1D2129',
         fontSize: 12,
         strokeWidth: 0,
-        connectorStroke: STROKE_COLOR,
+        connectorStroke: COLORS.STROKE,
         connectorStrokeOpacity: 0.45,
         connectorLineWidth: 1,
-        backgroundFill: STROKE_COLOR,
+        backgroundFill: COLORS.STROKE,
         backgroundFillOpacity: 0.15,
         backgroundPadding: [2, 4],
         startMarkerSymbol: 'circle',
@@ -158,48 +160,48 @@ export const Light: TC<LightOptions> = (options) => {
         fontSize: 10,
         textAlign: 'center',
         textBaseline: 'middle',
-        markerFill: STROKE_COLOR,
+        markerFill: COLORS.STROKE,
         markerFillOpacity: 0.25,
         markerStrokeOpacity: 0,
       },
     },
     lineX: {
       line: {
-        stroke: STROKE_COLOR,
+        stroke: COLORS.STROKE,
         strokeOpacity: 0.45,
         lineWidth: 1,
       },
     },
     lineY: {
       line: {
-        stroke: STROKE_COLOR,
+        stroke: COLORS.STROKE,
         strokeOpacity: 0.45,
         lineWidth: 1,
       },
     },
     rangeX: {
       range: {
-        fill: STROKE_COLOR,
+        fill: COLORS.STROKE,
         fillOpacity: 0.15,
         lineWidth: 0,
       },
     },
     rangeY: {
       range: {
-        fill: STROKE_COLOR,
+        fill: COLORS.STROKE,
         fillOpacity: 0.15,
         lineWidth: 0,
       },
     },
     connector: {
       connector: {
-        stroke: STROKE_COLOR,
+        stroke: COLORS.STROKE,
         strokeOpacity: 0.45,
         lineWidth: 1,
         connectLength1: 12,
         endMarker: true,
         endMarkerSize: 6,
-        endMarkerFill: STROKE_COLOR,
+        endMarkerFill: COLORS.STROKE,
         endMarkerFillOpacity: 0.95,
       },
     },
@@ -232,7 +234,6 @@ export const Light: TC<LightOptions> = (options) => {
       titleSpacing: 12,
       // axis line
       lineStroke: COLORS.BLACK,
-      FillOpacity: 0.25,
       lineStrokeOpacity: 0.45,
       lineLineWidth: 0.5,
       // axis tick line
@@ -276,7 +277,7 @@ export const Light: TC<LightOptions> = (options) => {
       itemBackgroundFill: 'transparent',
       // [todo] rename legend navigator
       navButtonFill: COLORS.BLACK,
-      navButtonFillOpacity: 1,
+      navButtonFillOpacity: 0.45,
       navPageNumFill: COLORS.BLACK,
       navPageNumFillOpacity: 0.45,
       navPageNumFontSize: 12,
@@ -285,7 +286,7 @@ export const Light: TC<LightOptions> = (options) => {
     },
     continuousLegend: {
       labelFill: COLORS.BLACK,
-      FillOpacity: 0.45,
+      labelFillOpacity: 0.45,
       labelFontSize: 12,
       labelFontWeight: 'normal',
       handleWidth: 10,
@@ -308,7 +309,7 @@ export const Light: TC<LightOptions> = (options) => {
       fontWeight: 'normal',
       stroke: null,
       offset: 12,
-      connectorStroke: STROKE_COLOR,
+      connectorStroke: COLORS.BLACK,
       connectorStrokeOpacity: 0.45,
       connectorLineWidth: 1,
       connectorLength2: 8,
@@ -324,7 +325,7 @@ export const Light: TC<LightOptions> = (options) => {
     },
     slider: {
       railHeight: 16,
-      railFill: STROKE_COLOR,
+      railFill: COLORS.STROKE,
       railFillOpacity: 0.05,
       railForegroundFill: DEFAULT_COLOR,
       railForegroundFillOpacity: 0.15,

@@ -111,7 +111,7 @@ export const Curve: SC<CurveOptions> = (options) => {
 
     const [DP, MS] = segmentation(P, defined);
 
-    const connectStyle = subObject(style, 'connect');
+    const connectStyle = subObject(finalStyle, 'connect');
     const missing = !!MS.length;
 
     const getPathNode = (path) => {
