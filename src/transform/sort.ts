@@ -53,16 +53,13 @@ export type SortOptions = {
     | ((I: number[], V: Primitive[]) => Primitive);
 };
 
-function sortQuantitative(
-  I,
-  mark,
-  options,
-  normalizeReducer,
-): [number[], G2Mark] {
-  const { reverse, slice } = options;
-  const sortedI = groupSort(I, normalizeReducer, (i: number) => i);
+function sortQuantitative(I, mark, options): [number[], G2Mark] {
+  const { reverse, slice, channel } = options;
+  const { encode } = mark;
+  const [V] = columnOf(encode, channel);
+  const sortedI = sort(I, (i: number) => V[i]);
   if (reverse) sortedI.reverse();
-  const s = typeof slice === 'number' ? [0, slice] : slice;
+  // const s = typeof slice === 'number' ? [0, slice] : slice;
   return [sortedI, mark];
 }
 
@@ -103,12 +100,13 @@ export const Sort: TC<SortOptions> = (options = {}) => {
     const [T] = columnOf(encode, channel);
     const normalizeReducer = createReducer(channel, rest, encode);
     if (strategy === 'quantitative') {
-      return sortQuantitative(
-        I,
-        mark,
-        { reverse, slice, channel, strategy, ...rest },
-        normalizeReducer,
-      );
+      return sortQuantitative(I, mark, {
+        reverse,
+        slice,
+        channel,
+        strategy,
+        ...rest,
+      });
     }
     return sortOrdinal(I, mark, { reverse, slice, channel }, normalizeReducer);
   };
