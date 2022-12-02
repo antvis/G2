@@ -71,6 +71,7 @@ chart.render();
 | by                | 指定排序的通道                                   | `string`                          | `y`                   |
 | slice             | 选择一个分片范围                                  | `number \| [number, number]`      | `y`                   |
 | reducer           | 分组聚合，用于比较大小                             | `Reducer`                         | `max`                 |
+| strategy          | 分组之后 reducer 处理的策略                       | `'ordinal'` \| `'quantitative'`   | `quantitative`                 |
 
 ```ts
 type Primitive = number | string | boolean | Date;

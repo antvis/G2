@@ -107,6 +107,7 @@ export { metrosLinkTrending } from './metros-link-trending';
 export { incomeLinkAnnotation } from './income-link-annotation';
 export { alphabetIntervalSpaceLayer } from './alphabet-interval-space-layer';
 export { unemployment2RectBinX } from './unemployment2-rect-binx';
+export { unemployment2LineBinXSortX } from './unemployment2-line-binx-sortx';
 export { athletesRectBinX } from './athletes-rect-binx';
 export { athletesRectBin } from './athletes-rect-bin';
 export { moviesPointBin } from './movies-point-bin';
