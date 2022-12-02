@@ -1,4 +1,4 @@
-import { DataComponent, Primitive, Vector2 } from '../runtime';
+import { DataComponent, Vector2 } from '../runtime';
 export type Data = FetchConnector | InlineConnector | any;
 
 export type FetchConnector = {
