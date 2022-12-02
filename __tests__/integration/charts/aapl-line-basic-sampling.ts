@@ -6,18 +6,18 @@ export function aaplLineBasicSampling(): G2Spec {
     data: {
       type: 'fetch',
       value: 'data/aapl.csv',
-      transform: [
-        {
-          type: 'sampling',
-          fields: ['y'],
-          thresholds: 100,
-        },
-      ],
     },
     encode: {
       x: 'date',
       y: 'close',
     },
+    transform: [
+      {
+        type: 'sampling',
+        thresholds: 100,
+        y: 'mean',
+      },
+    ],
   };
 }
 

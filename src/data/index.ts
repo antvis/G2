@@ -14,7 +14,6 @@ export { Sankey } from './sankey';
 export { Arc } from './arc';
 export { WordCloud } from './wordCloud';
 export { Join } from './join';
-export { Sampling } from './sampling';
 
 export type { FetchOptions } from './fetch';
 export type { FoldOptions } from './fold';
@@ -32,4 +31,3 @@ export type { SankeyOptions } from './sankey';
 export type { ArcOptions } from './arc';
 export type { WordCloudOptions } from './wordCloud';
 export type { JoinOptions } from './join';
-export type { SamplingOptions } from './sampling';

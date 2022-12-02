@@ -6,26 +6,22 @@ export function housePricePointSampling(): G2Spec {
     data: {
       type: 'fetch',
       value: 'data/house-price-area.json',
-      transform: [
-        {
-          type: 'custom',
-          callback: (data) => data.map((d) => ({ x: d[0], y: d[1] })),
-        },
-        {
-          type: 'sampling',
-          fields: ['x', 'y'],
-          thresholds: 1000,
-          strategy: 'median',
-        },
-      ],
     },
     encode: {
-      x: 'x',
-      y: 'y',
+      x: (d) => d[0],
+      y: (d) => d[1],
       shape: 'point',
       color: '#24b7f2',
       size: 2,
     },
+    transform: [
+      {
+        type: 'sampling',
+        thresholds: 1000,
+        x: 'median',
+        y: 'median',
+      },
+    ],
   };
 }
 

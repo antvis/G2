@@ -94,6 +94,8 @@ export const GroupN: TC<GroupNOptions> = (options = {}) => {
   return (I, mark) => {
     const { data, encode } = mark;
     const groups = groupBy(I, mark);
+    if (!groups) return [I, mark];
+
     const outputs = Object.entries(rest).map(([channel, reducer]) => {
       const [reducerFunction, formatter] = normalizeReducer(reducer);
       const [V, field] = columnOf(encode, channel);
