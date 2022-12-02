@@ -248,6 +248,7 @@ import {
   Arc as ArcTransform,
   WordCloud,
   Join,
+  Sampling,
 } from '../../../src/data';
 import {
   HideOverlap,
@@ -276,6 +277,7 @@ describe('stdlib', () => {
       'data.arc': ArcTransform,
       'data.wordCloud': WordCloud,
       'data.join': Join,
+      'data.sampling': Sampling,
       // 'transform.voronoi': Voronoi,
       'transform.maybeZeroY1': MaybeZeroY1,
       'transform.maybeZeroX': MaybeZeroX,
