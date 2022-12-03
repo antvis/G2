@@ -230,6 +230,7 @@ import {
   BinX,
   MaybeTitle,
   MaybeTooltip,
+  Sampling,
 } from '../../../src/transform';
 import {
   Fetch,
