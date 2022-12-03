@@ -3,7 +3,7 @@ title: groupColor
 order: 1
 ---
 
-对离散的 color 通道进行分组，并且对通道根据指定的 Redcuer 进行聚合。
+对离散的 color 通道进行分组，并且对通道根据指定的 Reducer 进行聚合。
 
 ## 开始使用
 
