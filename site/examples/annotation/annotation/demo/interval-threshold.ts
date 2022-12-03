@@ -57,7 +57,8 @@ chart.lineY().data([300]).style('stroke', '#000').label({
 chart.render();
 
 // Process data.
-const overThreshold = (data, threshold) =>
-  data
+function overThreshold(data, threshold) {
+  return data
     .filter((d) => d['Value'] >= threshold)
     .map(({ Day: x, Value: y }) => ({ x: [x, x], y: [threshold, y] }));
+}
