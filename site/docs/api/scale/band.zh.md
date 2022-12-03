@@ -3,7 +3,7 @@ title: band
 order: 1
 ---
 
-band 是特殊的 [ordinal](/api/sclae/ordinal) 比例尺，它的值域范围是一个连续的范围。
+band 是特殊的 [ordinal](/api/scale/ordinal) 比例尺，它的值域范围是一个连续的范围。
 
 ## 开始使用
 

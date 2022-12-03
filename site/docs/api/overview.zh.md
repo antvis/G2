@@ -21,8 +21,8 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
   - [mark.point](/api/mark/point) - 主要用于绘制散点图，利用点的粒度来分析数据的分布情况。
   - [mark.line](/api/mark/line) - 根据一系列的点，绘制折线，通常用来绘制折线图。
   - [mark.area](/api/mark/area) - 通常用来绘制我们常见的面积图，通过填充，可以更好突出趋势堆积信息。
-  - [mark.cell](/api/mark/cell) - 根据 x, y 将空间划分成一个子空间，然后进行可视化绘制。
-  - [mark.rect](/api/mark/rect) - 使用两组 x，两组 y 来定位一个矩形区域，常用于直方图、矩阵树图、聚合热力图等。
+  - [mark.cell](/api/mark/cell) - 根据 x, y 将空间划分成一个子空间，然后进行可视化绘制，常见于一些方块图，如日历图、聚合热力图等。
+  - [mark.rect](/api/mark/rect) - 使用两组 x，两组 y 来定位一个矩形区域，常用于直方图、矩阵树图等。
   - [mark.link](/api/mark/link) - 标记使用两个用 (x, y) 定位的点，绘制一条带方向的直线。通过指定 `x`，`y` 通道为长度为 2 的字段数组即可。
   - [mark.vector](/api/mark/vector) - 用 `start`，`end` 两个点来表示一个向量，通常用于绘制具备向量含义的数据，比如风向量场等。
   - [mark.polygon](/api/mark/polygon) - 利用多组 (x, y) 数据点，在画布中绘制闭合的多边形，通常结合一些社区布局算法使用。
@@ -36,9 +36,9 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
   - [mark.range](/api/mark/range) - 使用一组 `x`(x1, x2) 和一组 `y`(y1, y2) 来定位一个矩形区域，常用于绘制辅助背景区域。
   - [mark.rangeX](/api/mark/rangex) - 使用一组 `x`(x1, x2) 来定位一个绘制于 x 轴的矩形区域，常用于绘高亮指定区域的辅助区域。
   - [mark.rangeY](/api/mark/rangey) - 使用一组 `y`(y1, y2) 来定位一个绘制于 y 轴的矩形区域，常用于绘高亮指定区域的辅助区域。
-  - [mark.wordcloud](./mark/wordcloud) - 绘制词语图。
+  - [mark.wordcloud](./mark/wordcloud) - 绘制词云图。
 - Transform - 对视觉通道 encode 进行变换。
-  - [transform.bin](/api/transform/bin) - 对连续的 x 和 连续的 y 通道进行分箱，并且对通道根据指定的 redcuer 进行聚合。
+  - [transform.bin](/api/transform/bin) - 对连续的 x 和 连续的 y 通道进行分箱，并且对通道根据指定的 reducer 进行聚合。
   - [transform.binX](/api/transform/binx) - 对 x 通道进行分箱，如果希望对 y 通道进行分箱，使用 binX + transpose 坐标系。
   - [transform.diffY](/api/transform/diffy) - 对 y 和 y1 通道求差集。
   - [transform.dodgeX](/api/transform/dodgex) - 生成 series 通道值为 color 通道的值，根据 series 通道实现分组效果。
@@ -59,26 +59,26 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
   - [transform.sortY](/api/transform/sorty) - 对离散的 y 比例尺的定义域根据指定通道排序。
   - [transform.stackEnter](/api/transform/stackenter) - 对 enterDuration 和 enterDelay 通道进行堆叠，实现分组动画的效果。
   - [transform.stackY](/api/transform/stacky) - 按照指定通道分组，对每组的 y 和 y1 通道进行堆叠，实现堆叠效果。
-  - [transform.symmetryY](/api/transform/symmetryy) - 按照指定通道分组，给每组的 y 和 y1 通道添加偏移，实现对称效果。
+  - [transform.symmetryY](/api/transform/symmetry) - 按照指定通道分组，给每组的 y 和 y1 通道添加偏移，实现对称效果。
 - Scale - 比例尺相关的介绍
-  - [scale.band](/api/scale/band) - 特殊的 [ordinal](/api/sclae/ordinal) 比例尺，它的值域范围是一个连续的范围。
+  - [scale.band](/api/scale/band) - 特殊的 [ordinal](/api/scale/ordinal) 比例尺，它的值域范围是一个连续的范围。
   - [scale.linear](/api/scale/linear) - 针对连续数据，对数据进行连续映射的比例尺。
   - [scale.sqrt](/api/scale/sqrt) - 指数固定为 `0.5` 的 `pow` 比例尺。
   - [scale.pow](/api/scale/pow) - 类似于 `linear` 比例尺，但是映射函数为指数函数（exponential）。
   - [scale.log](/api/scale/log) - 类似于 `linear` 比例尺，但是映射函数为对数函数（logarithmic）。
   - [scale.ordinal](/api/scale/ordinal) - 将离散的数据映射到另外一个离散数据中。
-  - [scale.point](/api/scale/point) - 特殊 [band](/api/sclae/band) 比例尺，固定配置 `bandWith = 0`。
+  - [scale.point](/api/scale/point) - 特殊 [band](/api/scale/band) 比例尺，固定配置 `bandWith = 0`。
   - [scale.quantize](/api/scale/quantize) - 类似于 `threshold`，但是计算切片的方式是基于元素的数据值。
   - [scale.quantile](/api/scale/quantile) - 类似于 `threshold`， 但是计算切片的方式是基于元素在数据中的索引。
   - [scale.threshold](/api/scale/threshold) - 将连续的值域范围划分为多个切片，并将这些切片映射到一个离散的数据中。
-  - [scale.time](/api/scale/time) - 特殊的 [linear](/api/sclae/linear) 比例尺，它的值域是一组有时间顺序的数据。
+  - [scale.time](/api/scale/time) - 特殊的 [linear](/api/scale/linear) 比例尺，它的值域是一组有时间顺序的数据。
 - Coordinate - 坐标系相关的介绍。
-  - [coordinate.polar](./scale/polar) - 常用于绘制玫瑰图等。
-  - [coordinate.theta](./scale/theta) - 常用于绘制饼图等。
-  - [coordinate.radial](./scale/radial) - 常用于绘制玉块图等。
-  - [coordinate.parallel](./scale/parallel) - 绘制平行坐标系。
-  - [coordinate.transpose](./scale/transpose) - 改变图表绘制方向。
-  - [coordinate.fisheye](./scale/fisheye) - 鱼眼坐标系。
+  - [coordinate.polar](/api/coordinate/polar) - 常用于绘制玫瑰图等。
+  - [coordinate.theta](/api/coordinate/theta) - 常用于绘制饼图等。
+  - [coordinate.radial](/api/coordinate/radial) - 常用于绘制玉珏图等。
+  - [coordinate.parallel](/api/coordinate/parallel) - 绘制平行坐标系。
+  - [coordinate.transpose](/api/coordinate/transpose) - 改变图表绘制方向。
+  - [coordinate.fisheye](/api/coordinate/fisheye) - 鱼眼坐标系。
 - Composition - 视图复合相关的内容。
   - [composition.spaceLayer](/api/composition/spacelayer) - 对空间不做任何划分，多个视图使用同一个空间区域，常用于视图的层叠。
   - [composition.spaceFlex](/api/composition/spaceflex) - 使用类似 css flex 的布局方式来划分空间区域，常用于多图表对比的视图。
@@ -87,8 +87,8 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
   - [composition.repeatMatrix](/api/composition/repeatmatrix) - 根据字段的数量对空间进行划分和可视化。
   - [composition.timingKeyframe](/api/composition/timingkeyframe) - 在不同时间片之间播放不同的可视化视图帧。
 - [Component](/api/component/overview) - 图表组件相关的内容。
-  - [mark.axis](./scale/axis) - 坐标轴
-  - [mark.legend](./scale/legend) - 图例
+  - [mark.axis](/api/component/axis) - 坐标轴
+  - [mark.legend](/api/component/legend) - 图例
 - [Label](/api/label/overview) - 数据标签相关的内容
 - [Animation](/api/animation/overview) - 动画相关的内容。
 - [Interaction](/api/interaction/overview) - 交互相关内容。
