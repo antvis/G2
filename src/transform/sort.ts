@@ -85,7 +85,6 @@ export const Sort: TC<SortOptions> = (options = {}) => {
         reverse,
         slice,
         channel,
-        ordinal,
         ...rest,
       });
     }
