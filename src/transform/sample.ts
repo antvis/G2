@@ -1,5 +1,4 @@
-import { max } from 'd3-array';
-import { TransformComponent as TC, G2Mark, Primitive } from '../runtime';
+import { TransformComponent as TC, Primitive } from '../runtime';
 import { SampleTransform } from '../spec';
 import { createGroups } from './utils/order';
 import { GroupN } from './groupN';

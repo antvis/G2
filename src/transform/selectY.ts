@@ -1,6 +1,6 @@
 import { TransformComponent as TC } from '../runtime';
 import { SelectYTransform } from '../spec';
-import { Select } from './Select';
+import { Select } from './select';
 
 export type SelectYOptions = Omit<SelectYTransform, 'type'>;
 
