@@ -29,6 +29,7 @@ chart
   .style('textAlign', 'left')
   .style('textBaseline', 'top')
   .style('fontSize', 12)
+  .style('background', true)
   .style('backgroundFill', '#416180')
   .style('backgroundFillOpacity', 0.05)
   .style('backgroundRadius', 3)

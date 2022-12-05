@@ -3,7 +3,7 @@ title: groupY
 order: 1
 ---
 
-对离散的 y 通道进行分组，并且对通道根据指定的 Redcuer 进行聚合。等效于 `chanels = ['y']` 的 [group](/api/transform/group)。
+对离散的 y 通道进行分组，并且对通道根据指定的 Reducer 进行聚合。等效于 `chanels = ['y']` 的 [group](/api/transform/group)。
 
 ## 开始使用
 

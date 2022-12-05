@@ -82,7 +82,7 @@ chart
   .encode('color', 'genre');
 ```
 
-还可以使用 interval 标记和 radial 坐标系来绘制玉块图。
+还可以使用 interval 标记和 radial 坐标系来绘制玉珏图。
 
 <img alt="radial" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*tCBoSavK98UAAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
