@@ -1,6 +1,15 @@
 import { deepMix } from '@antv/util';
-import { Primitive, groupSort, max, min, sum, mean, median } from 'd3-array';
-import { TransformComponent as TC } from '../runtime';
+import {
+  Primitive,
+  groupSort,
+  max,
+  min,
+  sum,
+  mean,
+  median,
+  sort,
+} from 'd3-array';
+import { G2Mark, TransformComponent as TC } from '../runtime';
 import { columnOf } from './utils/helper';
 
 function createReducer(channel, options, encode): (I: number[]) => any {
@@ -22,6 +31,7 @@ export type SortOptions = {
   reverse?: boolean;
   channel?: string;
   slice?: number | [number, number];
+  ordinal?: boolean;
   reducer?:
     | 'max'
     | 'min'
@@ -33,30 +43,52 @@ export type SortOptions = {
     | ((I: number[], V: Primitive[]) => Primitive);
 };
 
+function sortQuantitative(I, mark, options): [number[], G2Mark] {
+  const { reverse, slice, channel } = options;
+  const { encode } = mark;
+  const [V] = columnOf(encode, channel);
+  const sortedI = sort(I, (i: number) => V[i]);
+  if (reverse) sortedI.reverse();
+  // const s = typeof slice === 'number' ? [0, slice] : slice;
+  return [sortedI, mark];
+}
+
+function sortOrdinal(I, mark, options): [number[], G2Mark] {
+  const { reverse, slice, channel, ...rest } = options;
+  const { encode } = mark;
+  const [T] = columnOf(encode, channel);
+  const normalizeReducer = createReducer(channel, rest, encode);
+  const sortedDomain = groupSort(I, normalizeReducer, (i: number) => T[i]);
+  if (reverse) sortedDomain.reverse();
+  const s = typeof slice === 'number' ? [0, slice] : slice;
+  const slicedDomain = slice ? sortedDomain.slice(...s) : sortedDomain;
+  return [
+    I,
+    deepMix(mark, {
+      scale: {
+        [channel]: {
+          domain: slicedDomain,
+        },
+      },
+    }),
+  ];
+}
+
 /**
  * Sort marks groups by groups.
- * @todo Add more reducers: first, last, etc,.
  */
 export const Sort: TC<SortOptions> = (options = {}) => {
-  const { reverse = false, slice, channel, ...rest } = options;
+  const { reverse = false, slice, channel, ordinal = true, ...rest } = options;
   return (I, mark) => {
-    const { encode } = mark;
-    const [T] = columnOf(encode, channel);
-    const normalizeReducer = createReducer(channel, rest, encode);
-    const sortedDomain = groupSort(I, normalizeReducer, (i) => T[i]);
-    if (reverse) sortedDomain.reverse();
-    const s = typeof slice === 'number' ? [0, slice] : slice;
-    const slicedDomain = slice ? sortedDomain.slice(...s) : sortedDomain;
-    return [
-      I,
-      deepMix(mark, {
-        scale: {
-          [channel]: {
-            domain: slicedDomain,
-          },
-        },
-      }),
-    ];
+    if (!ordinal) {
+      return sortQuantitative(I, mark, {
+        reverse,
+        slice,
+        channel,
+        ...rest,
+      });
+    }
+    return sortOrdinal(I, mark, { reverse, slice, channel, ...rest });
   };
 };
 
