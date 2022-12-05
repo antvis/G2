@@ -8,7 +8,6 @@ import {
   mean,
   median,
   sort,
-  index,
 } from 'd3-array';
 import { G2Mark, TransformComponent as TC } from '../runtime';
 import { columnOf } from './utils/helper';
@@ -27,21 +26,12 @@ function createReducer(channel, options, encode): (I: number[]) => any {
   throw new Error(`Unknown reducer: ${reducer}`);
 }
 
-function sortIByDomain(
-  I: number[],
-  sorted: Primitive[],
-  original: Primitive[],
-): number[] {
-  const map = index(sorted, (v) => v);
-  return sort(I, (i) => map.get(original[i]));
-}
-
 export type SortOptions = {
   by?: string;
   reverse?: boolean;
   channel?: string;
   slice?: number | [number, number];
-  strategy?: 'ordinal' | 'quantitative';
+  ordinal?: boolean;
   reducer?:
     | 'max'
     | 'min'
@@ -63,17 +53,17 @@ function sortQuantitative(I, mark, options): [number[], G2Mark] {
   return [sortedI, mark];
 }
 
-function sortOrdinal(I, mark, options, normalizeReducer): [number[], G2Mark] {
-  const { reverse, slice, channel } = options;
+function sortOrdinal(I, mark, options): [number[], G2Mark] {
+  const { reverse, slice, channel, ...rest } = options;
   const { encode } = mark;
   const [T] = columnOf(encode, channel);
+  const normalizeReducer = createReducer(channel, rest, encode);
   const sortedDomain = groupSort(I, normalizeReducer, (i: number) => T[i]);
-  const sortedI = sortIByDomain(I, sortedDomain, T);
   if (reverse) sortedDomain.reverse();
   const s = typeof slice === 'number' ? [0, slice] : slice;
   const slicedDomain = slice ? sortedDomain.slice(...s) : sortedDomain;
   return [
-    sortedI,
+    I,
     deepMix(mark, {
       scale: {
         [channel]: {
@@ -88,27 +78,18 @@ function sortOrdinal(I, mark, options, normalizeReducer): [number[], G2Mark] {
  * Sort marks groups by groups.
  */
 export const Sort: TC<SortOptions> = (options = {}) => {
-  const {
-    reverse = false,
-    slice,
-    channel,
-    strategy = 'ordinal',
-    ...rest
-  } = options;
+  const { reverse = false, slice, channel, ordinal = true, ...rest } = options;
   return (I, mark) => {
-    const { encode } = mark;
-    const [T] = columnOf(encode, channel);
-    const normalizeReducer = createReducer(channel, rest, encode);
-    if (strategy === 'quantitative') {
+    if (!ordinal) {
       return sortQuantitative(I, mark, {
         reverse,
         slice,
         channel,
-        strategy,
+        ordinal,
         ...rest,
       });
     }
-    return sortOrdinal(I, mark, { reverse, slice, channel }, normalizeReducer);
+    return sortOrdinal(I, mark, { reverse, slice, channel, ...rest });
   };
 };
 
