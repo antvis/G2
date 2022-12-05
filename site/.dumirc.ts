@@ -94,8 +94,8 @@ export default defineConfig({
       {
         slug: 'manual/theme',
         title: {
-          zh: '主题风格',
-          en: 'Theme & Style',
+          zh: '风格',
+          en: 'Style',
         },
         order: 10,
       },
