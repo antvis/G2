@@ -173,6 +173,7 @@ export type SortXTransform = {
   reverse?: boolean;
   by?: string;
   slice?: number | [number, number];
+  ordinal?: boolean;
   reducer?:
     | 'max'
     | 'min'
