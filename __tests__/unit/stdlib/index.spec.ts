@@ -230,6 +230,7 @@ import {
   BinX,
   MaybeTitle,
   MaybeTooltip,
+  Sample,
 } from '../../../src/transform';
 import {
   Fetch,
@@ -317,6 +318,7 @@ describe('stdlib', () => {
       'transform.maybeFunctionAttribute': MaybeFunctionAttribute,
       'transform.maybeGradient': MaybeGradient,
       'transform.pack': Pack,
+      'transform.sample': Sample,
       'coordinate.cartesian': Cartesian,
       'coordinate.polar': Polar,
       'coordinate.helix': Helix,

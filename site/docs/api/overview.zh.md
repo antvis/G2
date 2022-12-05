@@ -54,6 +54,7 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
   - [transform.selectX](/api/transform/selectx) - 按照指定通道进行分组，根据 x 通道和 selector 从每组选择出数据。
   - [transform.selectY](/api/transform/selecty) - 按照指定的通道进行分组，根据 y 通道和 selector 从每组选择出数据。
   - [transform.pack](/api/transform/pack) - 生成 transform 和 scale 属性，从而让图形在空间中紧凑排列。
+  - [transform.sample](/api/transform/sample) - 当数据量远大于屏幕像素的时候，开启一些内置的采样策略，提升图表绘制性能。
   - [transform.sortColor](/api/transform/sortcolor) - 对离散的 color 比例尺的定义域根据指定通道排序。
   - [transform.sortX](/api/transform/sortx) - 对离散的 x 比例尺的定义域根据指定通道排序。
   - [transform.sortY](/api/transform/sorty) - 对离散的 y 比例尺的定义域根据指定通道排序。
