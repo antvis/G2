@@ -94,10 +94,18 @@ export default defineConfig({
       {
         slug: 'manual/theme',
         title: {
-          zh: '主题风格',
-          en: 'Theme & Style',
+          zh: '风格',
+          en: 'Style',
         },
         order: 10,
+      },
+      {
+        slug: 'manual/more',
+        title: {
+          zh: '更多',
+          en: 'More',
+        },
+        order: 11,
       },
       // api
       {
