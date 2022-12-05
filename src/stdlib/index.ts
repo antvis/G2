@@ -230,6 +230,7 @@ import {
   MaybeFunctionAttribute,
   MaybeGradient,
   MaybeTooltip,
+  Sample,
 } from '../transform';
 import {
   Fetch,
@@ -311,6 +312,7 @@ export function createLibrary(): G2Library {
     'transform.maybeGradient': MaybeGradient,
     'transform.maybeTooltip': MaybeTooltip,
     'transform.pack': Pack,
+    'transform.sample': Sample,
     'coordinate.cartesian': Cartesian,
     'coordinate.polar': Polar,
     'coordinate.helix': Helix,
