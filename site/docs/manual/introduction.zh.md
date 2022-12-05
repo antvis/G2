@@ -166,7 +166,7 @@ chart
 
 ## 可视化语法
 
-G2 名字和设计理念都来自于图形语法《[The Grammar of Graphisc](https://book.douban.com/subject/10123863/)》
+G2 名字和设计理念都来自于图形语法《[The Grammar of Graphics](https://book.douban.com/subject/10123863/)》
 
 该理论的核心在于：拒绝图表分类，用一些基本图形和一系列可视化组件（比例尺，坐标系等）去描述一个图表。得益于此，大大提高了 G2 能制作出图表的种类，也改变了 G2 使用者思考图表的方式：图表不再是一个不可分割的整体，而是可以被具有不同用途的标记组合出来的。
 
