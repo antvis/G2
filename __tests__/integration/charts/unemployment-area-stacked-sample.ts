@@ -30,4 +30,4 @@ export function unemploymentAreaStackedSample(): G2Spec {
   };
 }
 
-unemploymentAreaStackedSample.maxError = 100;
+unemploymentAreaStackedSample.maxError = 192;
