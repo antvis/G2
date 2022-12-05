@@ -99,6 +99,14 @@ export default defineConfig({
         },
         order: 10,
       },
+      {
+        slug: 'manual/more',
+        title: {
+          zh: '更多',
+          en: 'More',
+        },
+        order: 11,
+      },
       // api
       {
         slug: 'api/data',

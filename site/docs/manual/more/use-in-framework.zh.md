@@ -11,9 +11,9 @@ order: 11
 
 ```js
 // 渲染条形图
-function renderBarChart() {
+function renderBarChart(container) {
   const chart = new Chart({
-    container: 'container',
+    container,
   });
 
   // 准备数据
@@ -60,6 +60,8 @@ function updateBarChart(chart) {
 }
 ```
 
+这里需要注意的是，在框架中不推荐使用 `new Chart({ container: 'id' })` 的形式去指定容器，而是直接使用 HTML 元素作为容器：`new Chart({ container: HTMLContainer })`。这样是为了防止出现不同组件拥有相同的 id，从而不能预期渲染的问题。
+
 接下来我们就来看看如何在框架中使用这两个函数。
 
 ## Vue
@@ -94,7 +96,7 @@ function updateBarChart(chart) {
 <!-- components/G2Demo.vue -->
 <template>
   <div>
-    <div id="container"></div>
+    <div ref="container"></div>
     <button @click="onClick">Update Data</button>
   </div>
 </template>
@@ -102,7 +104,7 @@ function updateBarChart(chart) {
 <script>
   import { Chart } from '@antv/g2';
 
-  function renderBarChart() {
+  function renderBarChart(container) {
     // 如上
   }
 
@@ -115,7 +117,7 @@ function updateBarChart(chart) {
     props: {},
     mounted() {
       // 保存图表实例
-      this.chart = renderBarChart();
+      this.chart = renderBarChart(this.$refs.container);
     },
     methods: {
       onClick() {
@@ -132,19 +134,21 @@ function updateBarChart(chart) {
 
 ```html
 <script setup>
-  import { onMounted } from 'vue';
+  import { onMounted, ref } from 'vue';
   import { Chart } from '@antv/g2';
 
   let chart;
+  const container = ref(null);
+
   onMounted(() => {
-    chart = renderBarChart();
+    chart = renderBarChart(container.value);
   });
 
   function onClick() {
     updateBarChart(chart);
   }
 
-  function renderBarChart() {
+  function renderBarChart(container) {
     // 如上
   }
 
@@ -185,15 +189,16 @@ import { Chart } from '@antv/g2';
 import { useEffect, useRef } from 'react';
 
 export default function G2Demo() {
+  const container = useRef(null);
   const chart = useRef(null);
 
   useEffect(() => {
     if (!chart.current) {
-      chart.current = renderBarChart();
+      chart.current = renderBarChart(container.current);
     }
-  });
+  }, []);
 
-  function renderBarChart() {
+  function renderBarChart(container) {
     // 如上
   }
 
@@ -203,7 +208,7 @@ export default function G2Demo() {
 
   return (
     <div className="App">
-      <div id="container"></div>
+      <div ref={container}></div>
       <button onClick={() => updateBarChart(chart.current)}>Update Data</button>
     </div>
   );
