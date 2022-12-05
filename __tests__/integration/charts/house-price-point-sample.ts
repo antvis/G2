@@ -1,6 +1,6 @@
 import { G2Spec } from '../../../src';
 
-export function housePricePointSampling(): G2Spec {
+export function housePricePointSample(): G2Spec {
   return {
     type: 'point',
     data: {
@@ -16,7 +16,7 @@ export function housePricePointSampling(): G2Spec {
     },
     transform: [
       {
-        type: 'sampling',
+        type: 'sample',
         thresholds: 1000,
         x: 'median',
         y: 'median',
@@ -25,4 +25,4 @@ export function housePricePointSampling(): G2Spec {
   };
 }
 
-housePricePointSampling.maxError = 100;
+housePricePointSample.maxError = 100;

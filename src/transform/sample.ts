@@ -1,10 +1,10 @@
 import { max } from 'd3-array';
 import { TransformComponent as TC, G2Mark, Primitive } from '../runtime';
-import { SamplingTransform } from '../spec';
+import { SampleTransform } from '../spec';
 import { createGroups } from './utils/order';
 import { GroupN } from './groupN';
 
-export type SamplingOptions = Omit<SamplingTransform, 'type'>;
+export type SampleOptions = Omit<SampleTransform, 'type'>;
 
 /**
  * Split the array into frame with each frameSize.
@@ -20,10 +20,10 @@ function getFrames(I: Primitive[], frameSize: number) {
 }
 
 /**
- * The sampling transform groups marks with specified groupBy fields, and
- * sampling data for each group when data.length >= threshold(default = 2000).
+ * The sample transform groups marks with specified groupBy fields, and
+ * sample data for each group when data.length >= threshold(default = 2000).
  */
-export const Sampling: TC<SamplingOptions> = (options = {}) => {
+export const Sample: TC<SampleOptions> = (options = {}) => {
   const { groupBy: by, thresholds = 2000, ...rest } = options;
 
   const groupBy = (I, mark) => {
@@ -42,4 +42,4 @@ export const Sampling: TC<SamplingOptions> = (options = {}) => {
   return GroupN({ ...rest, groupBy });
 };
 
-Sampling.props = {};
+Sample.props = {};

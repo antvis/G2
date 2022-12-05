@@ -1,5 +1,5 @@
 ---
-title: sampling
+title: sample
 order: 1
 ---
 
@@ -7,9 +7,9 @@ order: 1
 
 ## 开始
 
-这是使用 `sampling` 的示例
+这是使用 `sample` 的示例
 
-<img alt="sampling" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Qs_nRauYpbQAAAAAAAAAAAAADmJ7AQ/original" width="600" />
+<img alt="sample" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Qs_nRauYpbQAAAAAAAAAAAAADmJ7AQ/original" width="600" />
 
 ```js
 import { Chart } from '@antv/g2';
@@ -25,7 +25,7 @@ chart
   .encode('x', 'x')
   .encode('y', 'y')
   .transform([
-    type: 'sampling',
+    type: 'sample',
     thresholds: 500,
     y: 'max',
   ])
@@ -66,6 +66,6 @@ chart
   .encode('x', 'x')
   .encode('y', 'y')
   .transfrom([
-    { type: 'sampling', y: strategy },
+    { type: 'sample', y: strategy },
   ])
 ```

@@ -23,7 +23,7 @@ export type Transform =
   | PackTransform
   | BinXTransform
   | BinTransform
-  | SamplingTransform
+  | SampleTransform
   | FlexXTransform;
 
 export type TransformTypes =
@@ -47,7 +47,7 @@ export type TransformTypes =
   | 'sortY'
   | 'flexX'
   | 'pack'
-  | 'sampling'
+  | 'sample'
   | TransformComponent;
 
 export type TransformOrder =
@@ -249,8 +249,8 @@ export type BinTransform = {
   thresholdsY?: number;
 } & { [key in ChannelTypes]?: Reducer };
 
-export type SamplingTransform = {
-  type?: 'sampling';
+export type SampleTransform = {
+  type?: 'sample';
   groupBy?: string | string[];
   thresholds?: number;
 } & { [key in ChannelTypes]?: Reducer };

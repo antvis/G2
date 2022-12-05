@@ -1,6 +1,6 @@
 import { G2Spec } from '../../../src';
 
-export function unemploymentAreaStackedSampling(): G2Spec {
+export function unemploymentAreaStackedSample(): G2Spec {
   return {
     width: 800,
     type: 'view',
@@ -12,13 +12,13 @@ export function unemploymentAreaStackedSampling(): G2Spec {
       {
         type: 'area',
         transform: [
-          { type: 'stackY' },
           {
-            type: 'sampling',
+            type: 'sample',
             thresholds: 30,
             groupBy: 'color',
             y: 'max',
           },
+          { type: 'stackY' },
         ],
         encode: {
           x: 'date',
@@ -30,4 +30,4 @@ export function unemploymentAreaStackedSampling(): G2Spec {
   };
 }
 
-unemploymentAreaStackedSampling.maxError = 100;
+unemploymentAreaStackedSample.maxError = 100;

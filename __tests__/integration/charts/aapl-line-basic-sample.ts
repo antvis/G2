@@ -1,6 +1,6 @@
 import { G2Spec } from '../../../src';
 
-export function aaplLineBasicSampling(): G2Spec {
+export function aaplLineBasicSample(): G2Spec {
   return {
     type: 'line',
     data: {
@@ -13,7 +13,7 @@ export function aaplLineBasicSampling(): G2Spec {
     },
     transform: [
       {
-        type: 'sampling',
+        type: 'sample',
         thresholds: 100,
         y: 'mean',
       },
@@ -21,4 +21,4 @@ export function aaplLineBasicSampling(): G2Spec {
   };
 }
 
-aaplLineBasicSampling.maxError = 100;
+aaplLineBasicSample.maxError = 100;
