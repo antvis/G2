@@ -100,6 +100,7 @@ export type G2Mark = {
   facet?: boolean;
   axis?: boolean | Record<string, any>;
   legend?: boolean | Record<string, any>;
+  slider?: Record<string, any>;
   filter?: (i: number) => boolean;
   children?: G2MarkChildrenCallback;
   dataDomain?: number;

@@ -144,3 +144,4 @@ export { englishWordCloud } from './english-wordCloud';
 export { scoreByItemAreaRadarCustom } from './score-by-item-area-radar-custom';
 export { forecastRangeAreaLine } from './forecast-range-area-line';
 export { housePricePointSample } from './house-price-point-sample';
+export { aaplLineSlider } from './aapl-line-slider';

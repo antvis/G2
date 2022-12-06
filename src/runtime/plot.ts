@@ -396,7 +396,7 @@ function initializeState(
   const layout = computeLayout(components, options);
   const coordinate = createCoordinate(layout, options, library);
   const framedStyle = frame
-    ? deepMix({ mainlineWidth: 1, mainStroke: '#000' }, style)
+    ? deepMix({ mainLineWidth: 1, mainStroke: '#000' }, style)
     : style;
 
   // Place components and mutate their bbox.
