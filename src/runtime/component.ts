@@ -224,9 +224,12 @@ function inferTitleComponentSize(options: G2TitleOptions) {
   return (text ? titleSize + 4 : 0) + (subtitle ? subtitleSize + spacing : 0);
 }
 
-function inferSliderType(type: string) {
-  if (type === 'x') return 'sliderX';
-  if (type === 'y') return 'sliderY';
+function inferSliderType(
+  name: string,
+  coordinates: G2CoordinateOptions[] = [],
+) {
+  if (name === 'x') return isTranspose(coordinates) ? 'sliderY' : 'sliderX';
+  if (name === 'y') return isTranspose(coordinates) ? 'sliderX' : 'sliderY';
   return null;
 }
 
@@ -241,7 +244,7 @@ function createSliders(
     GuideComponent
   >('component', library);
 
-  const { marks } = partialOptions;
+  const { marks, coordinates } = partialOptions;
   const nameScale = new Map(scales.map((scale) => [scale.name, scale]));
 
   return marks
@@ -250,7 +253,7 @@ function createSliders(
       const { slider } = mark;
       return Object.entries(slider).map(([channelName, options]) => {
         const scale = nameScale.get(channelName);
-        const componentType = inferSliderType(channelName);
+        const componentType = inferSliderType(channelName, coordinates);
         if (!scale || !componentType) return;
 
         const { props } = createGuideComponent(componentType);
