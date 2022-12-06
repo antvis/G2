@@ -141,13 +141,7 @@ export type BaseGeometry<
         enterDuration?: number;
         enterDelay?: number;
         enterEasing?: string;
-        enterFill?:
-          | 'forwards'
-          | 'none'
-          | 'backwards'
-          | 'forwards'
-          | 'both'
-          | 'auto';
+        enterFill?: 'forwards' | 'none' | 'backwards' | 'both' | 'auto';
         updateType?: AnimationTypes;
         updateDuration?: number;
         updateDelay?: number;

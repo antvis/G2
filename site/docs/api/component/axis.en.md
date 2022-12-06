@@ -1,5 +1,5 @@
 ---
-title: Axis
+title: axis
 order: 1
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: Legend
+title: legend
 order: 2
 ---
 

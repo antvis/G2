@@ -49,7 +49,7 @@ chart.render();
 
 更多的案例，可以查看[图表示例](/examples)页面。
 
-## 配置
+## 选项
 
 repeatMatrix 的底层实现和 mark 一致，所以在配置上有很多是一样的。
 

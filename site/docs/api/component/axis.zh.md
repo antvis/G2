@@ -1,5 +1,5 @@
 ---
-title: 坐标轴
+title: axis
 order: 1
 ---
 
