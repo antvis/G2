@@ -1,11 +1,21 @@
 import * as fs from 'fs';
-import { render } from '../../src';
+import { G2Spec, render } from '../../src';
 import * as tests from './interactions';
 import { fetch } from './fetch';
 import { createGCanvas, writePNG, sleep, diff } from './canvas';
 
 // @ts-ignore
 global.fetch = fetch;
+
+function closeAnimation(options): G2Spec {
+  const { children } = options;
+  if (!children) return { ...options, animate: false };
+  const newChildren = children.map((d) => ({ ...d, animate: false }));
+  return {
+    ...options,
+    children: newChildren,
+  };
+}
 
 describe('integration', () => {
   // Filter tests with only.
@@ -26,7 +36,13 @@ describe('integration', () => {
         let nodeCanvas;
         try {
           // Render chart.
-          const options = await generateOptions();
+          const raw = await generateOptions();
+
+          // Close the animation duration test for interaction,
+          // make than there is no need to wait for the animation finished
+          // before take snapshots.
+          // @ts-ignore
+          const options = generateOptions.animate ? raw : closeAnimation(raw);
           const { width = 640, height = 480 } = options;
           [canvas, nodeCanvas] = createGCanvas(width, height);
           await new Promise<void>((resolve) => {

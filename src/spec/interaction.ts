@@ -1,3 +1,4 @@
+import { ChannelTypes } from 'spec';
 import { InteractionComponent } from '../runtime';
 import { ActiveRegionAction, PoptipAction, TooltipAction } from './action';
 import { FisheyeCoordinate } from './coordinate';
@@ -12,7 +13,8 @@ export type Interaction =
   | TooltipInteraction
   | FisheyeInteraction
   | ChartIndex
-  | CustomInteraction;
+  | CustomInteraction
+  | LegendFilterInteraction;
 // | ElementListHighlightInteraction
 // | LegendActiveInteraction
 // | LegendHighlightInteraction
@@ -34,6 +36,7 @@ export type InteractionTypes =
   | 'elementSelectByColor'
   | 'fisheye'
   | 'tooltip'
+  | 'legendFilter'
   | InteractionComponent;
 // | 'elementListHighlight'
 // | 'legendActive'
@@ -93,6 +96,11 @@ export type ElementHighlightByColorInteraction = {
   type?: 'elementHighlightByColor';
   color?: string;
 } & Record<`${'link' | 'highlighted' | 'unhighlighted'}${any}`, any>;
+
+export type LegendFilterInteraction = {
+  type?: 'legendFilter';
+  channel?: ChannelTypes;
+} & Record<`${'marker' | 'label'}Unselected${any}`, any>;
 
 export type ChartIndex = {
   type?: 'chartIndex';

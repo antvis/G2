@@ -1,7 +1,7 @@
 import { DataComponent as DC } from '../runtime';
-import { FilterTransform } from '../spec';
+import { FilterDataTransform } from '../spec';
 
-export type FilterOptions = Omit<FilterTransform, 'type'>;
+export type FilterDataOptions = Omit<FilterDataTransform, 'type'>;
 
 export function defined(d: any): boolean {
   return d !== undefined && d !== null && !Number.isNaN(d);
@@ -11,7 +11,7 @@ export function defined(d: any): boolean {
  * Filter data by specified fields and filter callback for each fields.
  * It saves datum with every fields defined by default.
  */
-export const Filter: DC<FilterOptions> = (options) => {
+export const Filter: DC<FilterDataOptions> = (options) => {
   const { callback = defined } = options;
   return (data) => data.filter(callback);
 };
