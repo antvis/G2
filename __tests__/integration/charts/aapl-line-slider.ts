@@ -18,10 +18,10 @@ export function aaplLineSlider(): G2Spec {
     },
     slider: {
       x: {
-        formatter: (d) => new Date(d).toLocaleDateString(),
+        labelFormatter: (d) => new Date(d).toLocaleDateString(),
       },
       y: {
-        formatter: '~s',
+        labelFormatter: '~s',
       },
     },
   };

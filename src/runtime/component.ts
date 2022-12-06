@@ -1,6 +1,5 @@
 import { Coordinate } from '@antv/coord';
 import { deepMix } from '@antv/util';
-import { group } from 'd3-array';
 import {
   G2ScaleOptions,
   G2CoordinateOptions,
@@ -228,41 +227,43 @@ function inferTitleComponentSize(options: G2TitleOptions) {
 function inferSliderType(type: string) {
   if (type === 'x') return 'sliderX';
   if (type === 'y') return 'sliderY';
-
   return null;
 }
 
-function createSliders(options: G2View, scales: G2ScaleOptions[], library) {
+function createSliders(
+  partialOptions: G2View,
+  scales: G2ScaleOptions[],
+  library,
+) {
   const [, createGuideComponent] = useLibrary<
     G2GuideComponentOptions,
     GuideComponentComponent,
     GuideComponent
   >('component', library);
 
-  const { marks } = options;
-  const scaleMap = group(scales, (d) => d.name);
+  const { marks } = partialOptions;
+  const nameScale = new Map(scales.map((scale) => [scale.name, scale]));
 
-  return marks.reduce((r, mark) => {
-    if (mark.slider) {
-      Object.entries(mark.slider || {}).forEach(
-        ([scaleType, sliderOptions]) => {
-          const scale = scaleMap.get(scaleType)[0];
-          const componentType = inferSliderType(scaleType);
-          if (!scale || !componentType) return;
+  return marks
+    .filter((d) => d.slider)
+    .flatMap((mark) => {
+      const { slider } = mark;
+      return Object.entries(slider).map(([channelName, options]) => {
+        const scale = nameScale.get(channelName);
+        const componentType = inferSliderType(channelName);
+        if (!scale || !componentType) return;
 
-          const { props } = createGuideComponent(componentType);
-          const { defaultPosition, defaultSize, defaultOrder } = props;
-          r.push({
-            position: defaultPosition,
-            size: defaultSize,
-            order: defaultOrder,
-            type: componentType,
-            ...sliderOptions,
-            scale,
-          });
-        },
-      );
-    }
-    return r;
-  }, [] as G2GuideComponentOptions[]);
+        const { props } = createGuideComponent(componentType);
+        const { defaultPosition, defaultSize, defaultOrder } = props;
+        return {
+          position: defaultPosition,
+          size: defaultSize,
+          order: defaultOrder,
+          type: componentType,
+          ...options,
+          scale,
+        };
+      });
+    })
+    .filter((d) => !!d);
 }

@@ -11,13 +11,17 @@ export type SliderOptions = {
  * Slider component.
  */
 export const Slider: GCC<SliderOptions> = (options) => {
-  const { orient, formatter } = options;
+  const { orient, labelFormatter } = options;
 
   return (scale, value, coordinate, theme) => {
     const { bbox } = value;
     const { x, y, width, height } = bbox;
     const { slider: sliderTheme } = theme;
     const defaultFormatter = scale.getFormatter?.() || ((v) => v);
+    const formatter =
+      typeof labelFormatter === 'string'
+        ? format(labelFormatter)
+        : labelFormatter;
 
     return new SliderComponent({
       className: 'slider',
@@ -28,10 +32,8 @@ export const Slider: GCC<SliderOptions> = (options) => {
         orient,
         values: [0, 1],
         formatter: (v) => {
-          const origin = scale.invert(v);
-          const f =
-            typeof formatter === 'string' ? format(formatter) : formatter;
-          return f ? f(origin) : defaultFormatter(origin);
+          const f = formatter || defaultFormatter;
+          return f(scale.invert(v));
         },
       }),
     });
