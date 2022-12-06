@@ -90,7 +90,8 @@ describe('Component', () => {
     const axes = chart.getComponents().filter((co) => co.type === COMPONENT_TYPE.AXIS);
     expect(axes.length).toBe(2);
     // @ts-ignore
-    expect(axes[0].component.cfg.ticks.length).toBe(4);
+    expect(axes[0].component.cfg.ticks.length).toBe(5);
+    expect(axes[0].component.cfg.ticks[4].name).toBe('');
     // @ts-ignore
     expect(axes[1].component.cfg.verticalFactor).toBe(1);
   });

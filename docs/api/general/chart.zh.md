@@ -113,10 +113,6 @@ view.filter('city', (value: any, datum: Datum) => value !== '杭州');
 view.filter('city', null);
 ```
 
-### view.filterData()
-
-将 data 数据进行过滤。
-
 ```sign
 filterData(data: Data): Data;
 ```

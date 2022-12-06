@@ -620,7 +620,7 @@ export default class Axis extends Controller<Option> {
     const ticks = scale.getTicks().map((tick) => ({ id: `${tick.tickValue}`, name: tick.text, value: tick.value }));
     if (!scale.isCategory && Math.abs(coordinate.endAngle - coordinate.startAngle) === Math.PI * 2) {
       // x 轴对应的值如果是非 cat 类型，在整圆的情况下坐标轴第一个和最后一个文本会重叠，默认只展示第一个文本
-      ticks.pop();
+      if (ticks.length) ticks[ticks.length - 1].name = '';
     }
 
     const titleText = getAxisTitleText(scale, axisOption);
