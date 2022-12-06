@@ -144,7 +144,11 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/xXg6cUV0lV/column.json').then(d
     padding: [20, 40]
   });
 
-  chart.data(data.map((d, idx) => ({ ...d, [LATEST_FLAG]: idx === data.length - 1 })));
+  data.forEach((d, idx) => {
+    d[LATEST_FLAG] = idx === data.length - 1;
+  });
+
+  chart.data(data);
   chart.axis('month', {
     label: {
       autoHide: true,
