@@ -1,5 +1,5 @@
 ---
-title: 渲染器
+title: renderer
 order: 1
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: 图例
+title: legend
 order: 2
 ---
 
@@ -37,7 +37,7 @@ chart
   .encode('y', 'people')
   .encode('color', 'sex')
   .scale('color', { type: 'ordinal', range: ['#ca8861', '#675193'] })
-  .legend('people', {
+  .legend('y', {
     ribbonLen: 200,
     ribbonSize: 30,
     labelFormatter: (datum, index, data) => datum.people.toLocaleString(),

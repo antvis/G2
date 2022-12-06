@@ -1,5 +1,5 @@
 ---
-title: circle-packing
+title: pack
 order: 1
 ---
 

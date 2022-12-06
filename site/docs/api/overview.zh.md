@@ -87,12 +87,21 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
   - [composition.facetCircle](/api/composition/facetcircle) - 根据字段分片数据，利用圆形划分空间，然就进行各个分面的数据可视化。
   - [composition.repeatMatrix](/api/composition/repeatmatrix) - 根据字段的数量对空间进行划分和可视化。
   - [composition.timingKeyframe](/api/composition/timingkeyframe) - 在不同时间片之间播放不同的可视化视图帧。
-- [Component](/api/component/overview) - 图表组件相关的内容。
-  - [mark.axis](/api/component/axis) - 坐标轴
-  - [mark.legend](/api/component/legend) - 图例
-- [Label](/api/label/overview) - 数据标签相关的内容
+- Component - 图表组件相关的内容。
+  - [mark.axis](./scale/axis) - 绘制坐标轴。
+  - [mark.legend](./scale/legend) - 绘制图例。
+- [Label](/api/label/overview) - 绘制数据标签。
 - [Animation](/api/animation/overview) - 动画相关的内容。
-- [Interaction](/api/interaction/overview) - 交互相关内容。
+- Interaction - 交互相关内容。
+  - [interaction.tooltip](/api/interaction/tooltip) - 展现提示信息。
+  - [interaction.elementHighlight](/api/interaction/elementhighlight) - 高亮元素。
+  - [interaction.elementHighlightByX](/api/interaction/elementhighlightbyx) - 高亮具有相同 x 通道值的元素。
+  - [interaction.elementHighlightByColor](/api/interaction/elementhighlightbycolor) - 高亮具有相同 color 通道的元素。
+  - [interaction.elementSelect](/api/interaction/elementselect) - 选择元素。
+  - [interaction.elementSelectByX](/api/interaction/elementselectbyx) - 选择拥有相同 x 通道值的元素。
+  - [interaction.elementSelectByColor](/api/interaction/elementselectbycolor) - 选择拥有相同 color 通道值的元素。
+  - [interaction.fisheye](/api/interaction/fisheye) - 鱼眼交互。
+  - [interaction.charIndex](/api/interaction/chartindex) - 索引图表。
 - Graph- 关系图相关的绘制。
   - [mark.sankey](./mark/sankey) - 绘制桑基图。
   - [mark.treemap](./mark/treemap) - 绘制矩阵树图。
