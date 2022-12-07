@@ -44,7 +44,7 @@ const data = [
 
 // 初始化图表实例
 const chart = new Chart({
-  container: 'container',
+  container: 'chart',
 });
 
 // 声明可视化
@@ -76,7 +76,7 @@ G2 也提供了 UMD 版本，可以直接通过 CDN 加载，然后直接使用�
 
   // 初始化图表实例
   const chart = new G2.Chart({
-    container: 'container',
+    container: 'chart',
   });
 
   // 声明可视化
