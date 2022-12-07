@@ -145,6 +145,7 @@ export const props: NodePropertyDescriptor[] = [
   { name: 'label', type: 'array', key: 'labels' },
   { name: 'axis', type: 'object' },
   { name: 'legend', type: 'object' },
+  { name: 'slider', type: 'object' },
 ];
 
 @defineProps(props)
