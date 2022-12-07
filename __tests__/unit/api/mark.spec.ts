@@ -55,6 +55,7 @@ function setOptions(node) {
     .attr('insetRight', 40)
     .axis('x', { tickCount: 10 })
     .legend('y', { title: 'hello' })
+    .slider('x', {})
     .label({ text: 'hello' });
 }
 
@@ -75,6 +76,7 @@ function getOptions() {
     animate: { enterType: 'scaleInX' },
     axis: { x: { tickCount: 10 } },
     legend: { y: { title: 'hello' } },
+    slider: { x: {} },
     facet: true,
     key: 'mark',
     class: 'mark',
