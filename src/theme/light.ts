@@ -324,8 +324,7 @@ export const Light: TC<LightOptions> = (options) => {
       offset: 0,
     },
     slider: {
-      // todo maybe should rename to railHeight
-      size: 16,
+      railSize: 16,
       backgroundFill: COLORS.STROKE,
       backgroundFillOpacity: 1,
       selectionFill: DEFAULT_COLOR,

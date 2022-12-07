@@ -1,6 +1,7 @@
 import { Slider as SliderComponent } from '@antv/gui';
 import { format } from 'd3-format';
-import { GuideComponentComponent as GCC } from '../runtime';
+import { least } from 'd3-array';
+import { GuideComponentComponent as GCC, Scale } from '../runtime';
 
 export type SliderOptions = {
   orient: 'horizontal' | 'vertical';
@@ -11,12 +12,13 @@ export type SliderOptions = {
  * Slider component.
  */
 export const Slider: GCC<SliderOptions> = (options) => {
-  const { orient, labelFormatter } = options;
+  // do not pass size.
+  const { orient, labelFormatter, size, ...rest } = options;
 
   return (scale, value, coordinate, theme) => {
     const { bbox } = value;
     const { x, y, width, height } = bbox;
-    const { slider: sliderTheme } = theme;
+    const { slider: sliderTheme = {} } = theme;
     const defaultFormatter = scale.getFormatter?.() || ((v) => v);
     const formatter =
       typeof labelFormatter === 'string'
@@ -30,15 +32,29 @@ export const Slider: GCC<SliderOptions> = (options) => {
         y,
         length: orient === 'horizontal' ? width : height,
         orient,
-        values: [0, 1],
         formatter: (v) => {
           const f = formatter || defaultFormatter;
-          return f(scale.invert(v));
+          const tick = invertTick(scale, v);
+          return f(tick);
         },
+        // @todo GUI should rename size to railSize
+        size: sliderTheme.railSize,
+        ...rest,
       }),
     });
   };
 };
+
+/**
+ * Translate [0,1] value to origin value.
+ */
+function invertTick(scale: Scale, v: number) {
+  if (!scale.getBandWidth) return scale.invert(v);
+  // @ts-ignore  @todo should support in scale
+  const range = scale.adjustedRange as number[];
+  const abs = (v) => Math.abs(v);
+  return scale.invert(least(range, (a, b) => abs(a - v) - abs(b - v)));
+}
 
 Slider.props = {
   defaultPosition: 'bottom',
