@@ -23,3 +23,4 @@ export { temperaturesLineTooltipDiscrete } from './temperatures-line-tooltip-dis
 export { morleyBoxTooltip } from './morley-box-tooltip';
 export { temperaturesLineLegendFilterOrdinal } from './temperatures-line-legend-filter-ordinal';
 export { profitIntervalLegendFilterOrdinal } from './profit-interval-legend-filter-ordinal';
+export { indicesLineChartFacetTooltip } from './indices-line-chart-facet-tooltip';

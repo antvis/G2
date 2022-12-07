@@ -147,13 +147,13 @@ function groupItems(
   };
 }
 
-function updateRuleY(root, points, { height, ...rest }) {
+function updateRuleY(root, points, { height, startX, startY, ...rest }) {
   const X = points.map((p) => p[0]);
   const x = mean(X);
-  const x1 = x;
-  const x2 = x;
-  const y1 = 0;
-  const y2 = height;
+  const x1 = x + startX;
+  const x2 = x + startX;
+  const y1 = startY;
+  const y2 = height - startY;
   const createLine = () => {
     const line = new Line({
       style: {
@@ -217,8 +217,10 @@ export function seriesTooltip(
     trailing = false,
     scale,
     coordinate,
-    showCrosshairs,
+    crosshairs,
     item,
+    startX = 0,
+    startY = 0,
     ...rest
   }: Record<string, any>,
 ) {
@@ -252,10 +254,11 @@ export function seriesTooltip(
 
   const update = throttle(
     (event) => {
-      const focus = mousePosition(root, event);
+      const mouse = mousePosition(root, event);
       const bbox = root.getBounds();
       const x = bbox.min[0];
       const y = bbox.min[1];
+      const focus = [mouse[0] - startX, mouse[1] - startY];
       if (!focus) return;
       const data = elements.map((element) => {
         const sortedX = elementSortedX.get(element);
@@ -267,8 +270,10 @@ export function seriesTooltip(
       const dataItems = data.map((d) => d[0]);
       const points = data.map((d) => d[1]);
       const tooltipData = groupItems(elements, item, scale, dataItems);
-      showTooltip(root, tooltipData, focus[0] + x, focus[1] + y);
-      if (showCrosshairs) updateRuleY(root, points, { ...ruleStyle, height });
+      showTooltip(root, tooltipData, mouse[0] + x, mouse[1] + y);
+      if (crosshairs) {
+        updateRuleY(root, points, { ...ruleStyle, height, startX, startY });
+      }
     },
     wait,
     { leading, trailing },
@@ -276,7 +281,7 @@ export function seriesTooltip(
 
   const hide = () => {
     hideTooltip(root);
-    if (showCrosshairs) hideRuleY(root);
+    if (crosshairs) hideRuleY(root);
   };
 
   root.addEventListener('pointerenter', update);
@@ -346,29 +351,65 @@ export function tooltip(
 export function Tooltip(options) {
   const {
     shared,
-    showCrosshairs,
+    crosshairs,
     series,
     name,
     item = () => ({}),
+    facet = false,
     ...rest
   } = options;
-  return (context) => {
-    const { container, view } = context;
+  return (target, viewInstances) => {
+    const { container, view } = target;
     const { scale, markState, coordinate } = view;
+
     // Get default value from mark states.
     const defaultSeries = interactionKeyof(markState, 'seriesTooltip');
-    const defaultShowCrosshairs = interactionKeyof(markState, 'showCrosshairs');
+    const defaultShowCrosshairs = interactionKeyof(markState, 'crosshairs');
     const plotArea = selectPlotArea(container);
-    if (maybeValue(series, defaultSeries)) {
+    const isSeries = maybeValue(series, defaultSeries);
+
+    // For non-facet and series tooltip.
+    if (isSeries && !facet) {
       return seriesTooltip(plotArea, {
         ...rest,
         elements: selectG2Elements,
         scale,
         coordinate,
-        showCrosshairs: maybeValue(showCrosshairs, defaultShowCrosshairs),
+        crosshairs: maybeValue(crosshairs, defaultShowCrosshairs),
         item,
       });
     }
+
+    // For facet and series tooltip.
+    if (isSeries && facet) {
+      // Get sub view instances for this view.
+      const facetInstances = viewInstances.filter(
+        (d) => d !== target && d.options.parentKey === target.options.key,
+      );
+      const elements = facetInstances.flatMap(({ container }) =>
+        selectG2Elements(container),
+      );
+      // Use the scale of the first view.
+      const scale = facetInstances[0].view.scale;
+      const bbox = plotArea.getBounds();
+      const startX = bbox.min[0];
+      const startY = bbox.min[1];
+
+      // @todo Nested structure rather than flat structure for facet?
+      // Add listener to the root area.
+      // @ts-ignore
+      return seriesTooltip(plotArea.parentNode.parentNode, {
+        ...rest,
+        elements: () => elements,
+        scale,
+        coordinate,
+        crosshairs: maybeValue(crosshairs, defaultShowCrosshairs),
+        item,
+        startX,
+        startY,
+      });
+    }
+
     return tooltip(plotArea, {
       ...rest,
       elements: selectG2Elements,
