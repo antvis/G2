@@ -11,7 +11,7 @@ const chart = new Chart({
 
 chart.data({
   type: 'fetch',
-  value: 'https://site-data-pre.alipay.com/g2/linear-regression.json',
+  value: 'https://assets.antv.antgroup.com/g2/linear-regression.json',
 });
 
 chart
