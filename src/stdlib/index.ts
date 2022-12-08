@@ -138,6 +138,8 @@ import {
   LegendCategory,
   LegendContinuous,
   TitleComponent,
+  SliderX,
+  SliderY,
 } from '../component';
 import {
   ScaleInX,
@@ -456,6 +458,8 @@ export function createLibrary(): G2Library {
     'component.legendCategory': LegendCategory,
     'component.legendContinuous': LegendContinuous,
     'component.title': TitleComponent,
+    'component.sliderX': SliderX,
+    'component.sliderY': SliderY,
     'animation.scaleInX': ScaleInX,
     'animation.scaleOutX': ScaleOutX,
     'animation.scaleInY': ScaleInY,

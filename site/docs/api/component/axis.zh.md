@@ -3,8 +3,6 @@ title: axis
 order: 1
 ---
 
-`Axis`
-
 ## 开始使用
 
 G2 会根据当前绘制的视图类型自动选择合适的坐标轴，目前支持直角坐标系坐标轴与极坐标系坐标轴。
@@ -52,18 +50,18 @@ chart.render();
 
 ### 标题
 
-| 属性          | 描述                                                           | 类型                                     | 默认值    |
-| ------------- | -------------------------------------------------------------- | ---------------------------------------- | --------- |
-| title         | 标题，支持一段文本或自定义图形                                 | `string` \| `number` \| `DisplayObject`  | `\-`      |
-| titleSpacing  | 标题到坐标轴的距离                                             | `number`                                 | `10`      |
-| titlePosition | 标题相对坐标轴的位置，支持首字母简写形式，如`'top'`简写为`'t'` | `'top'`\|`'bottom'`\|`'left'`\|`'right'` | `'lb'`    |
-| title[Style]  | 标题对应的样式属性                                             | 与 text `style` 一致                     | `\-`      |
+| 属性          | 描述                                                           | 类型                                     | 默认值 |
+| ------------- | -------------------------------------------------------------- | ---------------------------------------- | ------ |
+| title         | 标题，支持一段文本或自定义图形                                 | `string` \| `number` \| `DisplayObject`  | `\-`   |
+| titleSpacing  | 标题到坐标轴的距离                                             | `number`                                 | `10`   |
+| titlePosition | 标题相对坐标轴的位置，支持首字母简写形式，如`'top'`简写为`'t'` | `'top'`\|`'bottom'`\|`'left'`\|`'right'` | `'lb'` |
+| title[Style]  | 标题对应的样式属性                                             | 与 text `style` 一致                     | `\-`   |
 
 ### 轴线
 
 | 属性            | 描述                             | 类型                 | 默认值 |
 | --------------- | -------------------------------- | -------------------- | ------ |
-| line        | 是否显示轴线                     | `boolean`            | `true` |
+| line            | 是否显示轴线                     | `boolean`            | `true` |
 | lineExtension   | 轴线两侧的延长线                 | [`number`, `number`] | `\-`   |
 | lineArrow       | 定义轴线箭头形状，默认为箭头形状 | `DisplayObject`      | `\-`   |
 | lineArrowOffset | 箭头偏移长度                     | `number`             | `15`   |
@@ -72,20 +70,20 @@ chart.render();
 
 ### 刻度
 
-| 属性          | 描述                                                                                                     | 类型                                                              | 默认值       |
-| ------------- | -------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- | ------------ |
-| tick      | 是否显示刻度                                                                                             | `boolean`                                                         | `true`       |
-| tickDirection | 刻度朝向，为 `positive` 时，位于侧轴方向（即主轴顺时针 90 度方向）, 为 `negative` 时，刻度位于侧轴负方向 | `'positive'` \| `'negative'`                                      | `'positive'` |
-| tickLength    | 轴线长度                                                                                                 | `number`\|`(datum, index, data)=>number`                          | `15`         |
-| tickFilter    | 刻度线过滤                                                                                               | `(datum, index, data)=>boolean`                                   | `\-`         |
+| 属性           | 描述                                                                                                     | 类型                                                              | 默认值       |
+| -------------- | -------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- | ------------ |
+| tick           | 是否显示刻度                                                                                             | `boolean`                                                         | `true`       |
+| tickDirection  | 刻度朝向，为 `positive` 时，位于侧轴方向（即主轴顺时针 90 度方向）, 为 `negative` 时，刻度位于侧轴负方向 | `'positive'` \| `'negative'`                                      | `'positive'` |
+| tickLength     | 轴线长度                                                                                                 | `number`\|`(datum, index, data)=>number`                          | `15`         |
+| tickFilter     | 刻度线过滤                                                                                               | `(datum, index, data)=>boolean`                                   | `\-`         |
 | labelFormatter | 刻度线格式化，可用于自定义刻度样式，回调函数中会额外返回该刻度的方向                                     | `DisplayObject` \| `(datum, index, data, Vector)=> DisplayObject` | `\-`         |
-| tick[Style]   | 刻度线样式                                                                                               | 与 line `style` 一致                                              | `\-`         |
+| tick[Style]    | 刻度线样式                                                                                               | 与 line `style` 一致                                              | `\-`         |
 
 ### 刻度值
 
 | 属性            | 描述                                                                                                              | 类型                                                                | 默认值       |
 | --------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------ |
-| label       | 是否显示刻度值                                                                                                    | `boolean`                                                           | `\-`         |
+| label           | 是否显示刻度值                                                                                                    | `boolean`                                                           | `\-`         |
 | labelAlign      | 刻度值对齐方式<br/>- 'horizontal' 始终保持水平<br/> - 'parallel' 平行于坐标轴<br/> - 'perpendicular' 垂直于坐标轴 | `'horizontal'` \| `'parallel'` \| `'perpendicular'`                 | `'parallel'` |
 | labelDirection  | 刻度值位于轴线的位置，参考`tickDirection`                                                                         | `'positive'` \| `'negative'`                                        | `'positive'` |
 | labelSpacing    | 刻度值到其对应刻度的间距                                                                                          | `number`                                                            | `0`          |
@@ -139,7 +137,7 @@ export interface HideOverlapCfg extends Overlap {
 
 | 属性         | 描述           | 类型                                                     | 默认值  |
 | ------------ | -------------- | -------------------------------------------------------- | ------- |
-| grid     | 是否显示网格线 | `boolean`                                                | `false` |
+| grid         | 是否显示网格线 | `boolean`                                                | `false` |
 | gridFilter   | 网格线过滤     | `(datum, index, data)=> boolean`                         | `\-`    |
 | gridLength   | 网格线长度     | `number` \| `(datum, index, data)=> number`              | `0`     |
 | gridAreaFill | 网格线区域颜色 | `string` \| `string[]`\| `(datum, index, data)=> string` | `\-`    |

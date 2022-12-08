@@ -137,6 +137,8 @@ import {
   AxisY,
   LegendCategory,
   LegendContinuous,
+  SliderX,
+  SliderY,
   TitleComponent,
 } from '../../../src/component';
 import {
@@ -462,6 +464,8 @@ describe('stdlib', () => {
       'component.legendCategory': LegendCategory,
       'component.legendContinuous': LegendContinuous,
       'component.title': TitleComponent,
+      'component.sliderX': SliderX,
+      'component.sliderY': SliderY,
       'animation.scaleInX': ScaleInX,
       'animation.scaleOutX': ScaleOutX,
       'animation.scaleInY': ScaleInY,

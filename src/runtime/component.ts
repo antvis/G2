@@ -26,7 +26,6 @@ import {
   isRadial,
 } from './coordinate';
 import { useLibrary } from './library';
-import { isPosition } from './scale';
 
 export function inferComponent(
   scales: G2ScaleOptions[],
@@ -49,7 +48,8 @@ export function inferComponent(
     if (guide === null) return false;
     return true;
   });
-  const components = [...partialComponents];
+  const sliders = createSliders(partialOptions, scales, library);
+  const components = [...partialComponents, ...sliders];
   if (title) {
     const { props } = createGuideComponent('title');
     const { defaultPosition, defaultOrder, defaultSize } = props;
@@ -222,4 +222,51 @@ function inferTitleComponentSize(options: G2TitleOptions) {
   const spacing = subtitleStyle?.spacing || 0;
   // Extra 4px spacing.
   return (text ? titleSize + 4 : 0) + (subtitle ? subtitleSize + spacing : 0);
+}
+
+function inferSliderType(
+  name: string,
+  coordinates: G2CoordinateOptions[] = [],
+) {
+  if (name === 'x') return isTranspose(coordinates) ? 'sliderY' : 'sliderX';
+  if (name === 'y') return isTranspose(coordinates) ? 'sliderX' : 'sliderY';
+  return null;
+}
+
+function createSliders(
+  partialOptions: G2View,
+  scales: G2ScaleOptions[],
+  library,
+) {
+  const [, createGuideComponent] = useLibrary<
+    G2GuideComponentOptions,
+    GuideComponentComponent,
+    GuideComponent
+  >('component', library);
+
+  const { marks, coordinates } = partialOptions;
+  const nameScale = new Map(scales.map((scale) => [scale.name, scale]));
+
+  return marks
+    .filter((d) => d.slider)
+    .flatMap((mark) => {
+      const { slider } = mark;
+      return Object.entries(slider).map(([channelName, options]) => {
+        const scale = nameScale.get(channelName);
+        const componentType = inferSliderType(channelName, coordinates);
+        if (!scale || !componentType) return;
+
+        const { props } = createGuideComponent(componentType);
+        const { defaultPosition, defaultSize, defaultOrder } = props;
+        return {
+          position: defaultPosition,
+          size: defaultSize,
+          order: defaultOrder,
+          type: componentType,
+          ...options,
+          scale,
+        };
+      });
+    })
+    .filter((d) => !!d);
 }

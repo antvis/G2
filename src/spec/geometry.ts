@@ -126,6 +126,7 @@ export type BaseGeometry<
       >
     | boolean;
   legend?: Partial<Record<'size' | 'color', Legend | boolean>> | boolean;
+  slider?: Partial<Record<'x' | 'y', any>>;
   coordinates?: Coordinate[];
   style?: Record<string, any>;
   interactions?: Interaction[];
