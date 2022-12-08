@@ -23,7 +23,7 @@ export function getContainerSize(container: HTMLElement): Size {
   const widthPadding =
     parseInt10(style.paddingLeft) + parseInt10(style.paddingRight);
   const heightPadding =
-    parseInt10(style.paddingLeft) + parseInt10(style.paddingRight);
+    parseInt10(style.paddingTop) + parseInt10(style.paddingBottom);
 
   return {
     width: wrapperWidth - widthPadding,
