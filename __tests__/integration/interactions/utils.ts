@@ -39,6 +39,8 @@ export function step(
 ) {
   return {
     skip,
-    changeState: () => element.dispatchEvent(new CustomEvent(event, rest)),
+    changeState: async () => {
+      element.dispatchEvent(new CustomEvent(event, rest));
+    },
   };
 }

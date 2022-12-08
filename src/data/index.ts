@@ -17,7 +17,7 @@ export { Join } from './join';
 
 export type { FetchOptions } from './fetch';
 export type { FoldOptions } from './fold';
-export type { FilterOptions } from './filter';
+export type { FilterDataOptions } from './filter';
 export type { PickOptions } from './pick';
 export type { RenameOptions } from './rename';
 export type { SubsetOptions } from './subset';

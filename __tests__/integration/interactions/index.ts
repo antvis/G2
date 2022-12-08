@@ -21,3 +21,5 @@ export { aaplLineTooltip } from './aapl-line-tooltip';
 export { indicesLineTooltip } from './indices-line-tooltip';
 export { temperaturesLineTooltipDiscrete } from './temperatures-line-tooltip-discrete';
 export { morleyBoxTooltip } from './morley-box-tooltip';
+export { temperaturesLineLegendFilterOrdinal } from './temperatures-line-legend-filter-ordinal';
+export { profitIntervalLegendFilterOrdinal } from './profit-interval-legend-filter-ordinal';

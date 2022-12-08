@@ -24,7 +24,8 @@ export type Transform =
   | BinXTransform
   | BinTransform
   | SampleTransform
-  | FlexXTransform;
+  | FlexXTransform
+  | FilterTransform;
 
 export type TransformTypes =
   | 'dodgeX'
@@ -48,6 +49,7 @@ export type TransformTypes =
   | 'flexX'
   | 'pack'
   | 'sample'
+  | 'filter'
   | TransformComponent;
 
 export type TransformOrder =
@@ -255,3 +257,9 @@ export type SampleTransform = {
   groupBy?: string | string[];
   thresholds?: number;
 } & { [key in ChannelTypes]?: Reducer };
+
+export type FilterTransform = {
+  type?: 'filter';
+} & {
+  [key in ChannelTypes]?: any[] | ((v: Primitive) => boolean);
+};

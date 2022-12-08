@@ -39,6 +39,7 @@ export { Pack } from './pack';
 export { BinX } from './binX';
 export { Bin } from './bin';
 export { Sample } from './sample';
+export { Filter } from './filter';
 
 export type { MaybeZeroY1Options } from './maybeZeroY1';
 export type { MaybeStackYOptions } from './maybeStackY';
@@ -81,3 +82,4 @@ export type { PackOptions } from './pack';
 export type { BinXOptions } from './binX';
 export type { BinOptions } from './bin';
 export type { SampleOptions } from './sample';
+export type { FilterOptions } from './filter';

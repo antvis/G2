@@ -164,6 +164,7 @@ import {
   Fisheye as ChartFisheye,
   ChartIndex,
   Tooltip,
+  LegendFilter,
   // ElementSelected,
   // Tooltip,
   // Fisheye as FisheyeInteraction,
@@ -231,6 +232,7 @@ import {
   MaybeTitle,
   MaybeTooltip,
   Sample,
+  Filter as FilterTransform,
 } from '../../../src/transform';
 import {
   Fetch,
@@ -319,6 +321,7 @@ describe('stdlib', () => {
       'transform.maybeGradient': MaybeGradient,
       'transform.pack': Pack,
       'transform.sample': Sample,
+      'transform.filter': FilterTransform,
       'coordinate.cartesian': Cartesian,
       'coordinate.polar': Polar,
       'coordinate.helix': Helix,
@@ -481,6 +484,7 @@ describe('stdlib', () => {
       'interaction.fisheye': ChartFisheye,
       'interaction.chartIndex': ChartIndex,
       'interaction.tooltip': Tooltip,
+      'interaction.legendFilter': LegendFilter,
       // 'interaction.elementSelected': ElementSelected,
       // 'interaction.elementHighlight': ElementHighlight,
       // 'interaction.elementHighlightByX': ElementHighlightByX,
