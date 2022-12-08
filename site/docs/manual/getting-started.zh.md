@@ -25,7 +25,7 @@ yarn add @antv/g2@beta
 安装成功之后给 G2 提供一个容器:
 
 ```html
-<div id="chart"></div>
+<div id="container"></div>
 ```
 
 然后输入如下代码：
