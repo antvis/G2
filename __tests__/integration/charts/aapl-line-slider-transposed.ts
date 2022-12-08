@@ -1,3 +1,4 @@
+import { format } from 'fecha';
 import { G2Spec } from '../../../src';
 
 export function aaplLineSliderTransponsed(): G2Spec {
@@ -19,7 +20,7 @@ export function aaplLineSliderTransponsed(): G2Spec {
     },
     slider: {
       x: {
-        labelFormatter: (d) => new Date(d).toLocaleDateString(),
+        labelFormatter: (d) => format(d, 'YYYY/M/D'),
       },
       y: {
         labelFormatter: '~s',
