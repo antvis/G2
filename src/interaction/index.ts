@@ -9,6 +9,9 @@ export { ElementSelectByColor } from './native/elementSelectByColor';
 export { ChartIndex } from './native/chartIndex';
 export { Fisheye } from './native/fisheye';
 export { Tooltip } from './native/tooltip';
+export { LegendFilter } from './native/legendFilter';
+
+export { LEGEND_ITEMS_CLASS_NAME } from './native/legendFilter';
 
 // export { ElementSelected } from './builtin/elementSelected';
 // export { Tooltip } from './builtin/tooltip';

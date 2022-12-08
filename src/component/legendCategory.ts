@@ -83,6 +83,7 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
 
     const { legend: legendTheme = {} } = theme;
     return new Category({
+      className: 'legend-category',
       style: Object.assign({}, legendTheme, legendStyle, rest),
     });
   };

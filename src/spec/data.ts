@@ -25,7 +25,7 @@ export type DataTransform =
   | SubsetTransform
   | FoldTransform
   | JoinTransform
-  | FilterTransform
+  | FilterDataTransform
   | MapTransform
   | CustomTransform;
 
@@ -64,7 +64,7 @@ export type SubsetTransform = {
   fields?: string[];
 };
 
-export type FilterTransform = {
+export type FilterDataTransform = {
   type?: 'filter';
   /**
    * The filter condition, same with [Array.prototype.filter](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/filter).
