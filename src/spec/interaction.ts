@@ -125,6 +125,7 @@ export type TooltipInteraction = Omit<TooltipAction, 'type'> & {
   type?: 'tooltip';
   shared?: boolean;
   series?: boolean;
+  facet?: boolean;
   // @todo
   item?: any;
 };

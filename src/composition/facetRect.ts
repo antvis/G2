@@ -174,6 +174,7 @@ export const setChildren = useOverrideAdaptor<G2ViewTree>(
       x: originX = 0,
       y: originY = 0,
       shareData = false,
+      key: viewKey,
     } = options;
     const { value: data } = dataValue;
     // Only support field encode now.
@@ -256,6 +257,7 @@ export const setChildren = useOverrideAdaptor<G2ViewTree>(
               data: newData,
               x: left + paddingLeft + originX,
               y: top + paddingTop + originY,
+              parentKey: viewKey,
               width,
               height,
               paddingLeft: 0,

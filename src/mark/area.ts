@@ -84,6 +84,6 @@ Area.props = {
   interaction: {
     shareTooltip: true,
     seriesTooltip: true,
-    showCrosshairs: true,
+    crosshairs: true,
   },
 };
