@@ -23,7 +23,7 @@ export type MarkProps = {
   interaction?: {
     shareTooltip?: boolean;
     seriesTooltip?: boolean;
-    showCrosshairs?: boolean;
+    crosshairs?: boolean;
   };
 };
 

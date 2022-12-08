@@ -25,7 +25,13 @@ const setScale = useDefaultAdaptor<G2ViewTree>((options) => {
 });
 
 const setChildren = useOverrideAdaptor<G2ViewTree>((options) => {
-  const { data, children, x: originX = 0, y: originY = 0 } = options;
+  const {
+    data,
+    children,
+    x: originX = 0,
+    y: originY = 0,
+    key: viewKey,
+  } = options;
   const createChildren = (visualData, scale, layout) => {
     const { x: scaleX, y: scaleY } = scale;
     const { paddingLeft, paddingTop } = layout;
@@ -76,6 +82,7 @@ const setChildren = useOverrideAdaptor<G2ViewTree>((options) => {
         };
         return {
           data,
+          parentKey: viewKey,
           key: `${key}-${i}`,
           x: left + paddingLeft + originX,
           y: top + paddingTop + originY,

@@ -10,7 +10,7 @@ export function temperaturesLineTooltipDiscrete(): G2Spec {
       y: 'temperature',
       color: 'city',
     },
-    interactions: [{ type: 'tooltip', showCrosshairs: false }],
+    interactions: [{ type: 'tooltip', crosshairs: false }],
   };
 }
 
