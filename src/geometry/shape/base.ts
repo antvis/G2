@@ -109,6 +109,12 @@ const ShapeBase = {
   parsePath(path: string): PathCommand[] {
     const coordinate = this.coordinate;
     let parsedPath = parsePathString(path);
+    // svg path 会存在精度问题
+    parsedPath.forEach(path => {
+      path.forEach((p, idx) => {
+        path[idx] = idx === 0 ? p : Number(p.toFixed(3));
+      });
+    });
     if (coordinate.isPolar) {
       parsedPath = convertPolarPath(coordinate, parsedPath);
     } else {
