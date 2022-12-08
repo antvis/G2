@@ -718,8 +718,8 @@ function plotLabel(
     const elements = selection
       .select(`#${key}`)
       .selectAll(className(ELEMENT_CLASS_NAME))
-      // Only select the valid element.
       .nodes()
+      // Only select the valid element.
       .filter((n) => !n.__removed__);
     return labelOptions.flatMap((labelOption, i) => {
       const { transform = [], ...options } = labelOption;
