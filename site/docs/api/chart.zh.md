@@ -98,7 +98,7 @@ Mark 以及 Chart 共享的 API
 
 ### `node.legend()`
 
-设置图形的图例，具体见 [legend](/api/component/legend/overview)。
+设置图形的图例，具体见 [legend](/api/component/legend)。
 
 ### `node.tooltip()`
 
@@ -106,7 +106,11 @@ Mark 以及 Chart 共享的 API
 
 ### `node.axis()`
 
-设置图形的坐标轴，具体见 [axis](/api/component/axis/overview)。
+设置图形的坐标轴，具体见 [axis](/api/component/axis)。
+
+### `node.slider()`
+
+设置图形的坐标轴，具体见 [slider](/api/component/slider)。
 
 ### `node.label()`
 

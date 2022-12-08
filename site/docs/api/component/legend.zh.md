@@ -3,8 +3,6 @@ title: legend
 order: 2
 ---
 
-`Legend`
-
 ## 开始使用
 
 G2 会根据传入的数据类型自动选择合适的图例样式。
@@ -215,15 +213,15 @@ chart.render();
 
 <img alt="flow layout" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Lb43QoUm8ZEAAAAAAAAAAAAADmJ7AQ/original" width="400" />
 
-| 属性       | 描述                                                         | 类型               | 默认值   |
-| ---------- | ------------------------------------------------------------ | ------------------ | -------- |
-| layout     | 布局方式，网格布局、流式布局                                 | `'flex'`\|`'grid'` | `'flex'` |
-| width      | 图例区域高度，超出该高度后图例项会分页显示                   | `number`           | `1000`   |
-| height     | 图例区域宽度，超出该宽度后图例项会换行显示                   | `number`           | `100`    |
-| gridRow    | 指定每页显示的图例项数量                                     | `number`           | `1`      |
+| 属性       | 描述                                             | 类型               | 默认值   |
+| ---------- | ------------------------------------------------ | ------------------ | -------- |
+| layout     | 布局方式，网格布局、流式布局                     | `'flex'`\|`'grid'` | `'flex'` |
+| width      | 图例区域高度，超出该高度后图例项会分页显示       | `number`           | `1000`   |
+| height     | 图例区域宽度，超出该宽度后图例项会换行显示       | `number`           | `100`    |
+| gridRow    | 指定每页显示的图例项数量                         | `number`           | `1`      |
 | gridCol    | 指定每列显示的图例项数量，为空时表示列数不受限制 | `number`           | `\-`     |
-| colPadding | 图例项之间的横向间隔                                         | `number`           | `0`      |
-| rowPadding | 图例项之间的纵向间隔                                         | `number`           | `0`      |
+| colPadding | 图例项之间的横向间隔                             | `number`           | `0`      |
+| rowPadding | 图例项之间的纵向间隔                             | `number`           | `0`      |
 
 ### 分页显示
 
