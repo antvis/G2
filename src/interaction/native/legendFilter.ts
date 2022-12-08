@@ -159,8 +159,10 @@ export function LegendFilter({ channel: selectedChannel, ...rest }) {
         // which will skip for mark without color channel.
         const newMarks = marks.map((mark) => {
           const { transform = [] } = mark;
-          const newTransform = [...transform];
-          newTransform.push({ type: 'filter', [channel]: value });
+          const newTransform = [
+            { type: 'filter', [channel]: value },
+            ...transform,
+          ];
           return deepMix({}, mark, {
             transform: newTransform,
             // Set domain of scale to preserve legends.
