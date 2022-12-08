@@ -9,7 +9,7 @@ chart
   .rect()
   .data({
     type: 'fetch',
-    value: 'https://site-data-pre.alipay.com/g2/unemployment2.json',
+    value: 'https://assets.antv.antgroup.com/g2/unemployment2.json',
   })
   .encode('x', 'rate')
   .transform({ type: 'binX', y: 'count' })
