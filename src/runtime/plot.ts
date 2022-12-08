@@ -643,12 +643,16 @@ async function plotView(
               return animation;
             });
           }),
-        (exit) =>
-          exit
+        (exit) => {
+          return exit
+            .each(function () {
+              this.__removed__ = true;
+            })
             .transition(function (data) {
               return exitFunction(data, [this]);
             })
-            .remove(),
+            .remove();
+        },
         (merge) =>
           merge
             // Append elements to be merged.
@@ -714,7 +718,9 @@ function plotLabel(
     const elements = selection
       .select(`#${key}`)
       .selectAll(className(ELEMENT_CLASS_NAME))
-      .nodes();
+      // Only select the valid element.
+      .nodes()
+      .filter((n) => !n.__removed__);
     return labelOptions.flatMap((labelOption, i) => {
       const { transform = [], ...options } = labelOption;
       return elements.flatMap((e) => {

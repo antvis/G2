@@ -27,6 +27,8 @@ export type G2Element = DisplayObject & {
   __fromElements__?: DisplayObject[];
   // Whether to update parent if it in update selection.
   __facet__?: boolean;
+  // Whether is removed in G2, but also exist in G dom.
+  __removed__?: boolean;
 };
 
 export function select<T = any>(node: DisplayObject) {
