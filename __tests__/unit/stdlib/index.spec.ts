@@ -239,6 +239,7 @@ import {
 import {
   Fetch,
   SortBy,
+  Sort,
   Filter,
   Map,
   Pick,
@@ -268,6 +269,7 @@ describe('stdlib', () => {
       'data.fetch': Fetch,
       'data.inline': Inline,
       'data.sortBy': SortBy,
+      'data.sort': Sort,
       'data.filter': Filter,
       'data.pick': Pick,
       'data.rename': Rename,

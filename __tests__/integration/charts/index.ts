@@ -1,4 +1,5 @@
 export { alphabetInterval } from './alphabet-interval';
+export { alphabetIntervalDataSort } from './alphabet-interval-data-sort';
 export { gammaRandomLineSortXQuantitative } from './gamma-random-line-sortx-quantitative';
 export { alphabetIntervalTransposed } from './alphabet-interval-transposed';
 export { stateAgesIntervalStacked } from './stateages-interval-stacked';

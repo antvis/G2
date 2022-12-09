@@ -253,6 +253,7 @@ import {
   Arc as ArcTransform,
   WordCloud,
   Join,
+  Sort,
 } from '../data';
 import { HideOverlap, DodgeY, Spider, Surround } from '../label-transform';
 import { geoLibrary } from '../geo';
@@ -262,6 +263,7 @@ export function createLibrary(): G2Library {
     'data.fetch': Fetch,
     'data.inline': Inline,
     'data.sortBy': SortBy,
+    'data.sort': Sort,
     'data.filter': DataFilter,
     'data.pick': Pick,
     'data.rename': Rename,
