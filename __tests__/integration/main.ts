@@ -99,8 +99,10 @@ async function plot() {
   }
   currentContainer = document.createElement('div');
   app.append(currentContainer);
-  const options = await tests[selectChart.value]();
+  const generate = tests[selectChart.value];
+  const options = await generate();
   const { width = 640, height = 480 } = options;
+  const dom = generate.dom?.();
   canvas = new Canvas({
     container: document.createElement('div'),
     width,
@@ -110,6 +112,7 @@ async function plot() {
   // @ts-ignore
   window.__g_instances__ = [canvas];
   currentContainer.append(render(options, { canvas }));
+  if (dom instanceof HTMLElement) currentContainer.append(dom);
 }
 
 function createOption(key) {
