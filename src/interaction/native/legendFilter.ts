@@ -1,7 +1,7 @@
 import { DisplayObject } from '@antv/g';
 import { deepMix } from '@antv/util';
 import { subObject } from '../../utils/helper';
-import { useState } from './utils';
+import { createValueof, useState } from './utils';
 
 export const CATEGORY_LEGEND_CLASS_NAME = 'legend-category';
 
@@ -34,6 +34,26 @@ function legendsOf(root) {
   return root.getElementsByClassName(LEGEND_ITEMS_CLASS_NAME);
 }
 
+function builtInAccessors(selectedLegend) {
+  // Get the value and scale type from legend.
+  const { data } = selectedLegend.attributes;
+  const { __data__ } = selectedLegend.parentNode;
+  const { name: channel } = __data__.scale;
+  return [
+    channel,
+    {
+      legends: legendsOf,
+      marker: labelOf,
+      label: markerOf,
+      datum: (d) => {
+        const { __data__: datum } = d;
+        const { index } = datum;
+        return data[index].label;
+      },
+    },
+  ] as any;
+}
+
 function legendFilter(
   root: DisplayObject,
   {
@@ -41,7 +61,8 @@ function legendFilter(
     marker: markerOf, // given the legend returns the marker
     label: labelOf, // given the legend returns the label
     datum, // given the legend returns the value
-    filter, // invoke when dispatch filter event
+    filter, // invoke when dispatch filter event,
+    setAttribute, // setter for set element style,
     ...options // style options
   },
 ) {
@@ -60,10 +81,18 @@ function legendFilter(
       : options;
   const markerStyle = subObject(style, 'marker');
   const labelStyle = subObject(style, 'label');
-  const { setState: setM, removeState: removeM } = useState(markerStyle);
-  const { setState: setL, removeState: removeL } = useState(labelStyle);
+  const { setState: setM, removeState: removeM } = useState(
+    markerStyle,
+    undefined,
+    setAttribute,
+  );
+  const { setState: setL, removeState: removeL } = useState(
+    labelStyle,
+    undefined,
+    setAttribute,
+  );
 
-  const items = legends(root);
+  const items: DisplayObject[] = Array.from(legends(root));
   const selectedValues = items.map(datum);
   const updateLegendState = () => {
     for (const item of items) {
@@ -118,43 +147,35 @@ function legendFilter(
   };
 }
 
-export function LegendFilter({ channel: selectedChannel, ...rest }) {
+export function LegendFilter({ channel, ...rest }) {
   return (context) => {
     const { container, view, options: viewOptions, update } = context;
 
+    // Use the first legend if channel is not specified,
+    // or use the first legend bind to specified channel.
     const legends = container.getElementsByClassName(
       CATEGORY_LEGEND_CLASS_NAME,
     );
-
-    // Use the first legend if channel is not specified,
-    // or use the first legend bind to specified channel.
-    const selectedLegend = !selectedChannel
+    const selectedLegend = !channel
       ? legends[0]
       : legends.find((d) => {
           const { __data__ } = d.parentNode;
-          return __data__.scale.name === selectedChannel;
+          return __data__.scale.name === channel;
         });
 
-    // Get the value and scale type from legend.
-    const { data } = selectedLegend.attributes;
-    const { __data__ } = selectedLegend.parentNode;
-    const { name: channel } = __data__.scale;
+    // Skip if there is no legend.
+    const [selectedChannel, accessors] = selectedLegend
+      ? builtInAccessors(selectedLegend)
+      : [null, {}];
+    if (selectedChannel) channel = selectedChannel;
 
     // Apply common legend filter.
     return legendFilter(container, {
-      legends: legendsOf,
-      marker: labelOf,
-      label: markerOf,
-      datum: (d) => {
-        const { __data__: datum } = d;
-        const { index } = datum;
-        return data[index].label;
-      },
+      ...accessors,
       filter: async (value) => {
         const { scale } = view;
         const { [channel]: scaleOrdinal } = scale;
         const { marks } = viewOptions;
-
         // Add filter transform for every marks,
         // which will skip for mark without color channel.
         const newMarks = marks.map((mark) => {

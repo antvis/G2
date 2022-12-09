@@ -73,6 +73,7 @@ export function createDatumof(view: G2ViewDescriptor) {
 export function useState(
   style: Record<string, any>,
   valueof = (d, element) => d,
+  setAttribute = (element, key, v) => element.setAttribute(key, v),
 ) {
   const STATES = '__states__';
   const ORIGINAL = '__ordinal__';
@@ -91,7 +92,7 @@ export function useState(
     for (const [key, value] of Object.entries(stateStyle)) {
       const currentValue = element.getAttribute(key);
       const v = valueof(value, element);
-      element.setAttribute(key, v);
+      setAttribute(element, key, v);
       // Store the attribute if it does not exist in original.
       if (!(key in original)) original[key] = currentValue;
     }
