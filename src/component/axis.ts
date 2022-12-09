@@ -1,5 +1,5 @@
-import { Coordinate, Vector2 } from '@antv/coord';
-import { Axis as AxisComponent, AxisStyleProps } from '@antv/gui';
+import { Coordinate } from '@antv/coord';
+import { Axis as AxisComponent } from '@antv/gui';
 import { Linear as LinearScale } from '@antv/scale';
 import { deepMix } from '@antv/util';
 import { format } from 'd3-format';
@@ -12,6 +12,7 @@ import {
   isRadial,
   isFisheye,
 } from '../utils/coordinate';
+import { capitalizeFirst } from '../utils/helper';
 import {
   BBox,
   GuideComponentComponent as GCC,
@@ -242,124 +243,46 @@ function inferGrid(value: boolean, coordinate: Coordinate, scale: Scale) {
   return value === undefined ? !!scale.getTicks : value;
 }
 
-function inferStyle(
+function inferOverrideStyle(
   position: GuideComponentPosition,
-  direction: string,
   bbox: BBox,
   coordinate: Coordinate,
-  scale: Scale,
 ): {
-  type: 'linear';
   startPos: [number, number];
   endPos: [number, number];
-  labelSpacing: number;
-  titlePosition: AxisStyleProps['titlePosition'];
-  titleTextBaseline: 'top' | 'bottom' | 'middle';
-  titleSpacing?: number;
-  titleTransform: string;
-  titleTransformOrigin: string;
-  labelDirection: 'negative' | 'positive';
-  labelTransform?: string;
-  tickDirection: 'negative' | 'positive';
-  showLabel?: boolean;
-  showTick?: boolean;
   showLine?: boolean;
-  gridLength: number;
-  gridDirection: 'negative' | 'positive';
-  gridConnect?: string;
-  gridType?: string;
-  gridCenter?: Vector2;
-  gridControlAngles?: number[];
-  girdClosed?: true;
+  [k: string]: any;
 } {
-  const gridLength = getGridLength(position, coordinate);
   const [, cy] = coordinate.getCenter();
   const { x, y, width, height } = bbox;
 
-  const common = {
-    type: 'linear' as const,
-    lineArrow: null,
-    titleTransform: undefined,
-    titleTransformOrigin: 'center',
-    labelAlign: 'horizontal',
-    gridLength,
-  };
-
   if (position === 'bottom') {
     return {
-      ...common,
       startPos: [x, y],
       endPos: [x + width, y],
-      titlePosition: scale.getTicks ? 'right-bottom' : 'bottom',
-      titleTransform: scale.getTicks ? 'translate(-100%, 0)' : undefined,
-      titleSpacing: 10,
-      titleTextBaseline: 'bottom',
-      labelSpacing: 12,
-      labelDirection: 'positive',
-      tickDirection: 'positive',
-      gridDirection: 'negative',
     };
   } else if (position === 'left' || position === 'centerHorizontal') {
     return {
-      ...common,
       startPos: [x + width, y],
       endPos: [x + width, y + height],
-      titleSpacing: 10,
-      titleTextBaseline: 'middle',
-      titlePosition: 'left',
-      titleTransform: `translate(50%, 0) rotate(-90)`,
-      labelSpacing: 4,
-      labelDirection: 'positive',
-      tickDirection: 'positive',
-      gridDirection: 'negative',
       showLine: position === 'centerHorizontal' ? true : undefined,
     };
   } else if (position === 'right') {
     return {
-      ...common,
       endPos: [x, y + height],
       startPos: [x, y],
-      titlePosition: 'right',
-      titleSpacing: 0,
-      titleTextBaseline: 'top',
-      titleTransform: `translate(-50%, 0) rotate(-90)`,
-      labelSpacing: 4,
-      labelDirection: 'negative',
-      tickDirection: 'negative',
-      gridDirection: 'positive',
     };
   } else if (position === 'arcY') {
     return {
-      ...common,
       startPos: [x, y],
       endPos: [x + width, y + height],
-      titlePosition: 'top',
-      titleSpacing: 0,
-      titleTextBaseline: 'bottom',
-      labelDirection: direction === 'right' ? 'negative' : 'positive',
-      labelTransform: direction === 'center' ? 'translate(50%, 0)' : '',
-      tickDirection: direction === 'right' ? 'negative' : 'positive',
-      labelSpacing: direction === 'center' ? 0 : 4,
-      gridDirection: 'negative',
-      gridConnect: 'arc',
-      gridType: 'surround',
       gridCenter: [bbox.x, cy + bbox.y],
-      gridControlAngles: [90, 180, 360],
-      girdClosed: true,
     };
   }
 
   return {
-    ...common,
     startPos: [x, y + height],
     endPos: [x + width, y + height],
-    titlePosition: 'top',
-    titleSpacing: 0,
-    titleTextBaseline: 'middle',
-    labelSpacing: 8,
-    labelDirection: 'negative',
-    tickDirection: 'negative',
-    gridDirection: 'positive',
     showLine: position === 'centerVertical' ? true : undefined,
   };
 }
@@ -418,6 +341,35 @@ const ArcAxis = (options) => {
   };
 };
 
+function inferDefaultStyle(scale, theme, position, direction) {
+  const p = position === 'centerHorizontal' ? 'left' : position;
+
+  const themeStyle = Object.assign(
+    {},
+    theme.axis,
+    theme[`axis${capitalizeFirst(p)}`] || theme.axisTop,
+  );
+
+  if (position === 'bottom') {
+    return {
+      ...themeStyle,
+      titlePosition: scale.getTicks ? 'right-bottom' : 'bottom',
+      titleTransformOrigin: 'center',
+      titleTransform: scale.getTicks ? 'translate(-100%, 0)' : undefined,
+    };
+  } else if (position === 'arcY') {
+    return {
+      ...themeStyle,
+      labelDirection: direction === 'right' ? 'negative' : 'positive',
+      labelTransform: direction === 'center' ? 'translate(50%, 0)' : '',
+      tickDirection: direction === 'right' ? 'negative' : 'positive',
+      labelSpacing: direction === 'center' ? 0 : 4,
+    };
+  }
+
+  return themeStyle;
+}
+
 const LinearAxis: GCC<AxisOptions> = (options) => {
   const {
     order,
@@ -433,13 +385,14 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
     labelAutoHide = false,
     labelAutoRotate = true,
     grid,
+    label: showLabel = true,
+    tick: showTick = true,
     ...userDefinitions
   } = options;
 
   return (scale, value, coordinate, theme) => {
     const { domain, bbox } = value;
 
-    const { axis: axisTheme } = theme;
     const ticks = getTicks(
       scale,
       domain,
@@ -452,31 +405,33 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
     );
 
     const showGrid = inferGrid(grid, coordinate, scale);
+    const gridLength = getGridLength(position, coordinate);
 
     const {
-      showLabel = options.label === undefined ? true : options.label,
-      showTick = options.tick === undefined ? true : options.tick,
       showLine = options.line === undefined ? false : options.line,
-      ...defaultStyle
-    } = inferStyle(position, direction, bbox, coordinate, scale);
+      ...overrideStyle
+    } = inferOverrideStyle(position, bbox, coordinate);
+
+    const defaultStyle = inferDefaultStyle(scale, theme, position, direction);
 
     const axisStyle = {
       ...defaultStyle,
+      type: 'linear' as const,
       data: ticks,
       title: titleContent(title),
       showLabel,
       labelTransforms: labelTransforms(labelAutoHide, labelAutoRotate),
       showGrid,
       showTick,
+      gridLength,
       ...userDefinitions,
       // Always showLine, make title could align the end of axis.
       showLine: true,
       ...(!showLine ? { lineOpacity: 0 } : null),
-    } as AxisStyleProps;
+      ...overrideStyle,
+    };
 
-    return new AxisComponent({
-      style: Object.assign({}, axisTheme, axisStyle),
-    });
+    return new AxisComponent({ style: axisStyle });
   };
 };
 
