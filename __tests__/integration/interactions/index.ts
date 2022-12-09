@@ -24,4 +24,4 @@ export { morleyBoxTooltip } from './morley-box-tooltip';
 export { temperaturesLineLegendFilterOrdinal } from './temperatures-line-legend-filter-ordinal';
 export { profitIntervalLegendFilterOrdinal } from './profit-interval-legend-filter-ordinal';
 export { indicesLineChartFacetTooltip } from './indices-line-chart-facet-tooltip';
-export { profitCustomIntervalLegendFilter } from './profit-interval-custom-legend-filter';
+// export { profitCustomIntervalLegendFilter } from './profit-interval-custom-legend-filter';
