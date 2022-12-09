@@ -20,6 +20,7 @@ export type InlineConnector = {
 
 export type DataTransform =
   | SortByTransform
+  | SortTransform
   | PickTransform
   | RenameTransform
   | SubsetTransform
@@ -31,6 +32,7 @@ export type DataTransform =
 
 export type DataTransformTypes =
   | 'sortBy'
+  | 'sort'
   | 'pick'
   | 'rename'
   | 'subset'
@@ -70,6 +72,14 @@ export type FilterDataTransform = {
    * The filter condition, same with [Array.prototype.filter](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/filter).
    */
   callback?: (v: any, idx: number, arr: any[]) => boolean;
+};
+
+export type SortTransform = {
+  type?: 'sort';
+  /**
+   * The sort comparator, same with [Array.prototype.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort).
+   */
+  callback?: (a: any, b: any) => number;
 };
 
 export type FoldTransform = {
