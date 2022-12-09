@@ -166,7 +166,7 @@ chart.render();
 | 事件类型    | 描述                       | 类型                                             |
 | ----------- | -------------------------- | ------------------------------------------------ |
 | valuechange | 滑动窗口选取范围改变时触发 | `(range: [number, number])=>void`                |
-| indicated   | 指示器值改变时触发         | `(value: number, range: [number, number])=>void` |
+| indicate   | 指示器值改变时触发         | `(value: number, range: [number, number])=>void` |
 
 ## 基础选项
 

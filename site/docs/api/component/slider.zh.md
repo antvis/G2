@@ -51,21 +51,24 @@ chart.render();
 | ----------------------- | ------------------------------ | ------------------------------ | ------------ |
 | orient                  | 缩略轴朝向，横向及纵向         | `'horizontal'` \| `'vertical'` | 'horizontal' |
 | values                  | 初始选区范围，位于 0 ～ 1 区间 | `[number, number]`             | -            |
+| slidable                | 是否允许拖动选取和手柄         | `boolean`                      | true         |
+| brushable               | 是否启用刷选                   | `boolean`                      | true         |
 | padding                 | 迷你图的内边距                 | `number` \| `number[]`         | 0            |
-| selectionFill           | 缩略轴选区填充色               | `string`                       |              |
-| selectionFillOpacity    | 缩略轴选区填充色透明度         | `number`                       |              |
-| selectionStroke         | 缩略轴选区描边色               | `string`                       |              |
-| selectionStrokeOpacity  | 缩略轴选区描边色透明度         | `number`                       |              |
-| backgroundFill          | 缩略轴背景填充色               | `string`                       |              |
-| backgroundFillOpacity   | 缩略轴背景填充色透明度         | `number`                       |              |
-| backgroundStroke        | 缩略轴背景描边色               | `string`                       |              |
-| backgroundStrokeOpacity | 缩略轴背景描边色透明度         | `number`                       |              |
+| selectionFill           | 缩略轴选区填充色               | `string`                       | -            |
+| selectionFillOpacity    | 缩略轴选区填充色透明度         | `number`                       | -            |
+| selectionStroke         | 缩略轴选区描边色               | `string`                       | –            |
+| selectionStrokeOpacity  | 缩略轴选区描边色透明度         | `number`                       | –            |
+| backgroundFill          | 缩略轴背景填充色               | `string`                       | –            |
+| backgroundFillOpacity   | 缩略轴背景填充色透明度         | `number`                       | –            |
+| backgroundStroke        | 缩略轴背景描边色               | `string`                       | –            |
+| backgroundStrokeOpacity | 缩略轴背景描边色透明度         | `number`                       | –            |
 
 ### 拖动手柄
 
 | 属性                     | 描述                     | 类型                      | 默认值 |
 | ------------------------ | ------------------------ | ------------------------- | ------ |
 | showHandle               | 是否显示拖动手柄         | `boolean`                 | true   |
+| showLabel                | 是否显示拖动手柄文本     | `boolean`                 | true   |
 | formatter                | 拖动手柄标签格式化       | `(value: number)=>string` | -      |
 | handleIconSize           | 缩略轴手柄大小           | `number`                  | 10     |
 | handleIconFill           | 缩略轴手柄填充色         | `string`                  | -      |
@@ -83,10 +86,9 @@ chart.render();
 
 ### 事件
 
-| 属性          | 描述                             | 类型                                                          | 默认值 |
-| ------------- | -------------------------------- | ------------------------------------------------------------- | ------ |
-| onValueChange | 选区发生变化时触发，事件回调函数 | `(value: [number, number], oldValue: [number, number])=>void` | -      |
-| valuechange   | 选区发生变化时触发，通过事件监听 |                                                               | -      |
+| 属性        | 描述                             | 类型          |
+| ----------- | -------------------------------- | ------------- |
+| valuechange | 选区发生变化时触发，通过事件监听 | `function(e)` |
 
 ```ts
 import { Chart } from '@antv/g2';
@@ -110,5 +112,5 @@ chart
 
 chart.render();
 
-chart.on('slider:valuechange', () => {});
+chart.querySelector('.slider').addEventListener('valuechange', () => {});
 ```
