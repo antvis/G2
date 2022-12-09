@@ -22,4 +22,5 @@ if (window) {
   (window as any).gPluginA11y = require('@antv/g-plugin-a11y');
   (window as any).gSvg = require('@antv/g-svg');
   (window as any).gWebgl = require('@antv/g-webgl');
+  (window as any).fecha = require('fecha');
 }
