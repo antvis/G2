@@ -50,47 +50,63 @@ chart.render();
 
 ### 标题
 
-| 属性          | 描述                                                           | 类型                                     | 默认值 |
-| ------------- | -------------------------------------------------------------- | ---------------------------------------- | ------ |
-| title         | 标题，支持一段文本或自定义图形                                 | `string` \| `number` \| `DisplayObject`  | `\-`   |
-| titleSpacing  | 标题到坐标轴的距离                                             | `number`                                 | `10`   |
-| titlePosition | 标题相对坐标轴的位置，支持首字母简写形式，如`'top'`简写为`'t'` | `'top'`\|`'bottom'`\|`'left'`\|`'right'` | `'lb'` |
-| title[Style]  | 标题对应的样式属性                                             | 与 text `style` 一致                     | `\-`   |
+| 属性               | 描述                                                           | 类型                                     | 默认值 |
+| ------------------ | -------------------------------------------------------------- | ---------------------------------------- | ------ |
+| title              | 标题，支持一段文本或自定义图形                                 | `string` \| `number` \| `DisplayObject`  | -      |
+| titleSpacing       | 标题到坐标轴的距离                                             | `number`                                 | 10     |
+| titlePosition      | 标题相对坐标轴的位置，支持首字母简写形式，如`'top'`简写为`'t'` | `'top'`\|`'bottom'`\|`'left'`\|`'right'` | `'lb'` |
+| titleFontSize      | 标题文字大小                                                   | `number`                                 | -      |
+| titleFontFamily    | 标题文字字体                                                   | `string`                                 | -      |
+| titleFontWeight    | 标题字体粗细                                                   | `number`                                 | -      |
+| titleStroke        | 标题字体颜色                                                     | `string`                                 | -      |
+| titleStrokeOpacity | 标题透明度                                               | `number`                                 | -      |
 
 ### 轴线
 
-| 属性            | 描述                             | 类型                 | 默认值 |
-| --------------- | -------------------------------- | -------------------- | ------ |
-| line            | 是否显示轴线                     | `boolean`            | `true` |
-| lineExtension   | 轴线两侧的延长线                 | [`number`, `number`] | `\-`   |
-| lineArrow       | 定义轴线箭头形状，默认为箭头形状 | `DisplayObject`      | `\-`   |
-| lineArrowOffset | 箭头偏移长度                     | `number`             | `15`   |
-| lineArrowSize   | 箭头尺寸                         | `number`             | `\-`   |
-| line[Style]     | 轴线样式                         | 与 line `style` 一致 | `\-`   |
+| 属性              | 描述                                                                                                              | 类型               | 默认值 |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------ | ------ |
+| line              | 是否显示轴线                                                                                                      | `boolean`          | true   |
+| lineExtension     | 轴线两侧的延长线                                                                                                  | `[number, number]` | -      |
+| lineArrow         | 定义轴线箭头形状，默认为箭头形状                                                                                  | `DisplayObject`    | -      |
+| lineArrowOffset   | 箭头偏移长度                                                                                                      | `number`           | 15     |
+| lineArrowSize     | 箭头尺寸                                                                                                          | `number`           | -      |
+| lineLineWidth     | 轴线宽度                                                                                                          | `number`           | -      |
+| lineLineDash      | 轴线描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0, 0]的效果为没有描边。 | `[number,number]`  | -      |
+| lineStroke        | 轴线描边色                                                                                                        | `string`           | -      |
+| lineStrokeOpacity | 轴线描边色透明度                                                                                                  | `number`           | -      |
 
 ### 刻度
 
-| 属性           | 描述                                                                                                     | 类型                                                              | 默认值       |
-| -------------- | -------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- | ------------ |
-| tick           | 是否显示刻度                                                                                             | `boolean`                                                         | `true`       |
-| tickDirection  | 刻度朝向，为 `positive` 时，位于侧轴方向（即主轴顺时针 90 度方向）, 为 `negative` 时，刻度位于侧轴负方向 | `'positive'` \| `'negative'`                                      | `'positive'` |
-| tickLength     | 轴线长度                                                                                                 | `number`\|`(datum, index, data)=>number`                          | `15`         |
-| tickFilter     | 刻度线过滤                                                                                               | `(datum, index, data)=>boolean`                                   | `\-`         |
-| labelFormatter | 刻度线格式化，可用于自定义刻度样式，回调函数中会额外返回该刻度的方向                                     | `DisplayObject` \| `(datum, index, data, Vector)=> DisplayObject` | `\-`         |
-| tick[Style]    | 刻度线样式                                                                                               | 与 line `style` 一致                                              | `\-`         |
+| 属性              | 描述                                                                                                                | 类型                                                                 | 默认值     |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- | ---------- |
+| tick              | 是否显示刻度                                                                                                        | `boolean`                                                            | true       |
+| tickDirection     | 刻度朝向，为 `positive` 时，位于侧轴方向（即主轴顺时针 90 度方向）, 为 `negative` 时，刻度位于侧轴负方向            | `'positive'` \| `'negative'`                                         | 'positive' |
+| tickLength        | 轴线长度                                                                                                            | `number`\|`(datum, index, data)=>number`                             | 15         |
+| tickFilter        | 刻度线过滤                                                                                                          | `(datum, index, data)=>boolean`                                      | -          |
+| labelFormatter    | 刻度线格式化，可用于自定义刻度样式，回调函数中会额外返回该刻度的方向                                                | `DisplayObject` \| `(datum, index, data, Vector)=> DisplayObject`    | -          |
+| tickLineWidth     | 刻度线宽度                                                                                                          | `number` \| `(datum, index, data, Vector)=>number`                   | -          |
+| tickLineDash      | 刻度线描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0, 0]的效果为没有描边。 | `[number,number]` \| `(datum, index, data, Vector)=>[number,number]` | -          |
+| tickStroke        | 刻度线颜色                                                                                                          | `string` \| `(datum, index, data, Vector)=>string`                   | -          |
+| tickStrokeOpacity | 刻度线透明度                                                                                                        | `number` \| `(datum, index, data, Vector)=>number`                   | -          |
 
 ### 刻度值
 
-| 属性            | 描述                                                                                                              | 类型                                                                | 默认值       |
-| --------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------ |
-| label           | 是否显示刻度值                                                                                                    | `boolean`                                                           | `\-`         |
-| labelAlign      | 刻度值对齐方式<br/>- 'horizontal' 始终保持水平<br/> - 'parallel' 平行于坐标轴<br/> - 'perpendicular' 垂直于坐标轴 | `'horizontal'` \| `'parallel'` \| `'perpendicular'`                 | `'parallel'` |
-| labelDirection  | 刻度值位于轴线的位置，参考`tickDirection`                                                                         | `'positive'` \| `'negative'`                                        | `'positive'` |
-| labelSpacing    | 刻度值到其对应刻度的间距                                                                                          | `number`                                                            | `0`          |
-| labelFilter     | 刻度值过滤                                                                                                        | `(datum, index, data)=> boolean`                                    | `\-`         |
-| labelFormatter  | 刻度值线格式化                                                                                                    | `DisplayObject` \| `(datum, index, data, Vector)=> DisplayObject`   | `\-`         |
-| labelTransforms | 刻度值转换，避免文本之间发生重叠。当前支持超长文本缩略、重叠刻度值隐藏、自动旋转                                  | `Overlap[]`                                                         | `\-`         |
-| label[Style]    | 刻度值样式                                                                                                        | 与 text `style` 一致，样式支持回调形式 `(datum, index, data)=> any` | `\-`         |
+| 属性               | 描述                                                                                                                | 类型                                                              | 默认值     |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- | ---------- |
+| label              | 是否显示刻度值                                                                                                      | `boolean`                                                         | -          |
+| labelAlign         | 刻度值对齐方式<br/>- 'horizontal' 始终保持水平<br/> - 'parallel' 平行于坐标轴<br/> - 'perpendicular' 垂直于坐标轴   | `'horizontal'` \| `'parallel'` \| `'perpendicular'`               | 'parallel' |
+| labelDirection     | 刻度值位于轴线的位置，参考`tickDirection`                                                                           | `'positive'` \| `'negative'`                                      | 'positive' |
+| labelSpacing       | 刻度值到其对应刻度的间距                                                                                            | `number`                                                          | 0          |
+| labelFilter        | 刻度值过滤                                                                                                          | `(datum, index, data)=> boolean`                                  | -          |
+| labelFormatter     | 刻度值线格式化                                                                                                      | `DisplayObject` \| `(datum, index, data, Vector)=> DisplayObject` | -          |
+| labelTransforms    | 刻度值转换，避免文本之间发生重叠。当前支持超长文本缩略、重叠刻度值隐藏、自动旋转                                    | `Overlap[]`                                                       | -          |
+| labelLineWidth     | 刻度值宽度                                                                                                          | `number` \|`(datum, index, data)=>number`                         | -          |
+| labelLineDash      | 刻度值描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0, 0]的效果为没有描边。 | `[number,number]` \| `(datum, index, data)=>[number, number]`     | -          |
+| labelFontSize      | 刻度值文字大小                                                                                                      | `number` \| `(datum, index, data)=>number`                        | -          |
+| labelFontFamily    | 刻度值文字字体                                                                                                      | `string` \| `(datum, index, data)=>string`                        | -          |
+| labelFontWeight    | 刻度值字体粗细                                                                                                      | `number` \|`(datum, index, data)=>number`                         | -          |
+| labelStroke        | 刻度值字体颜色                                                                                                      | `string` \| `(datum, index, data)=>string`                        | -          |
+| labelStrokeOpacity | 刻度值文本透明度                                                                                                    | `number` \| `(datum, index, data)=>number`                        | -          |
 
 ```ts
 export interface Overlap {
@@ -135,10 +151,13 @@ export interface HideOverlapCfg extends Overlap {
 | `极坐标系`          | <img alt="polar-grid" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*4Tv3RIrDWvgAAAAAAAAAAAAADmJ7AQ/original" width="200" />   |
 | `极坐标系` `雷达图` | <img alt="polygon-grid" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*gZLeRpTXiRAAAAAAAAAAAAAADmJ7AQ/original" width="200" /> |
 
-| 属性         | 描述           | 类型                                                     | 默认值  |
-| ------------ | -------------- | -------------------------------------------------------- | ------- |
-| grid         | 是否显示网格线 | `boolean`                                                | `false` |
-| gridFilter   | 网格线过滤     | `(datum, index, data)=> boolean`                         | `\-`    |
-| gridLength   | 网格线长度     | `number` \| `(datum, index, data)=> number`              | `0`     |
-| gridAreaFill | 网格线区域颜色 | `string` \| `string[]`\| `(datum, index, data)=> string` | `\-`    |
-| grid[Style]  | 网格线样式     | 与 line `style` 一致                                     | `\-`    |
+| 属性              | 描述                                                                                                                | 类型                                                     | 默认值 |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- | ------ |
+| grid              | 是否显示网格线                                                                                                      | `boolean`                                                | false  |
+| gridFilter        | 网格线过滤                                                                                                          | `(datum, index, data)=> boolean`                         | -      |
+| gridLength        | 网格线长度                                                                                                          | `number` \| `(datum, index, data)=> number`              | 0      |
+| gridAreaFill      | 网格线区域颜色                                                                                                      | `string` \| `string[]`\| `(datum, index, data)=> string` | -      |
+| gridLineWidth     | 网格线宽度                                                                                                          | `number`                                                 | -      |
+| gridLineDash      | 网格线描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0, 0]的效果为没有描边。 | `[number,number]`                                        | -      |
+| gridStroke        | 网格线颜色                                                                                                          | `string`                                                 | -      |
+| gridStrokeOpacity | 网格线透明度                                                                                                        | `number`                                                 | -      |

@@ -63,9 +63,9 @@ Label 继承 G Text 所有属性样式配置，此外还有 `position`, `selecto
 | fill          | 图形的填充色                                      | `string` \| `Function<string>`              |   -   |
 | fillOpacity   | 图形的填充透明度                                   | `number` \| `Function<number>`              |   -   |
 | stroke        | 图形的描边                                        | `string` \| `Function<string>`              |   -   |
+| strokeOpacity   | 描边透明度                                        | `number` \| `Function<number>`              |   -   |
 | lineWidth     | 图形描边的宽度                                    | `number` \| `Function<number>`               |   -   |
 | lineDash      | 描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0, 0]的效果为没有描边。 | `[number,number]` \| `Function<[number, number]>` |   -   |
-| lineOpacity   | 描边透明度                                        | `number` \| `Function<number>`              |   -   |
 | opacity       | 图形的整体透明度                                   | `number` \| `Function<number>`              |   -   |
 | shadowColor   | 图形阴影颜色                                      | `string` \| `Function<string>`              |   -   |
 | shadowBlur    | 图形阴影的高斯模糊系数                              | `number` \| `Function<number>`              |   -   |
