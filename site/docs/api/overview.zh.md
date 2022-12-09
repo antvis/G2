@@ -40,7 +40,7 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
 - [mark.boxplot](/api/mark/boxplot) - 用来绘制箱线图，并且内置数据的聚合操作。
 - [mark.text](/api/mark/text) - 通过指定文本的样式通道，可以在画布上绘制和数据绑定的文本字符。
 - [mark.image](/api/mark/image) - 利用 `src` 通道在画布上绘制图片。
-- [mark.shape](./mark/shape) -
+- [mark.shape](/api/mark/shape) - 使用自定义函数灵活绘制自定义图形。
 - [mark.lineX](/api/mark/linex) - 指定 `x` 通道来绘制垂直于 x 轴的辅助线，常用于绘制平均值或其他聚合数据辅助线。
 - [mark.lineY](/api/mark/liney) - 指定 `y` 通道来绘制垂直于 y 轴的辅助线，常用于绘制平均值或其他聚合数据辅助线。
 - [mark.range](/api/mark/range) - 使用一组 `x`(x1, x2) 和一组 `y`(y1, y2) 来定位一个矩形区域，常用于绘制高亮指定区域的辅助区域。

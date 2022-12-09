@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@antv/dumi-theme-antv": "^0.3.0",
+    "@antv/g": "^5.15.1",
     "@antv/g-lottie-player": "^0.0.13",
     "@antv/g-pattern": "^0.0.3",
     "@antv/g-plugin-a11y": "^0.4.27",
