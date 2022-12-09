@@ -100,6 +100,7 @@ export type ElementHighlightByColorInteraction = {
 export type LegendFilterInteraction = {
   type?: 'legendFilter';
   channel?: ChannelTypes;
+  [key: string]: any; // @todo
 } & Record<`${'marker' | 'label'}Unselected${any}`, any>;
 
 export type ChartIndex = {
