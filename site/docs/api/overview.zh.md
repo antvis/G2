@@ -37,7 +37,7 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
 - [mark.vector](/api/mark/vector) - 用 `start`，`end` 两个点来表示一个向量，通常用于绘制具备向量含义的数据，比如风向量场等。
 - [mark.polygon](/api/mark/polygon) - 利用多组 (x, y) 数据点，在画布中绘制闭合的多边形，通常结合一些社区布局算法使用。
 - [mark.box](/api/mark/box) - 用来绘制箱线图，通常用来展示一组数据分布情况的统计图。
-- [mark.boxplot](./mark/boxplot) -
+- [mark.boxplot](/api/mark/boxplot) - 用来绘制箱线图，并且内置数据的聚合操作。
 - [mark.text](/api/mark/text) - 通过指定文本的样式通道，可以在画布上绘制和数据绑定的文本字符。
 - [mark.image](/api/mark/image) - 利用 `src` 通道在画布上绘制图片。
 - [mark.shape](./mark/shape) -
