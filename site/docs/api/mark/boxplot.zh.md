@@ -44,7 +44,7 @@ chart.render();
 
 | 属性               | 描述                                           | 类型                 | 默认值      |
 |-------------------|------------------------------------------------|---------------------|------------|
-| extend            | 数据展示模式，`true` 的时候，Q1 Q4 点分别最小、最大值，否则按照本文概述的图来计算    | `boolean` | false  |
+| extend            | 数据展示模式，`true` 的时候，Q1 Q4 点分别最小、最大值，否则按照本文概述的图来计算    | `boolean` | `false`  |
 | pointFill          | 图形的填充色                                      | `string` \| `Function<string>`              |   -   |
 | pointFillOpacity   | 图形的填充透明度                                   | `number` \| `Function<number>`              |   -   |
 | pointStroke        | 图形的描边                                        | `string` \| `Function<string>`              |   -   |
