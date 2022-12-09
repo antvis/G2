@@ -13,6 +13,7 @@ if (window) {
   (window as any).d3GeoProjection = require('d3-geo-projection');
   (window as any).d3Random = require('d3-random');
   (window as any).topojson = require('topojson');
+  (window as any).g = require('@antv/g');
   (window as any).gLottiePlayer = require('@antv/g-lottie-player');
   (window as any).gPattern = require('@antv/g-pattern');
   (window as any).webfontloader = require('webfontloader');
@@ -22,4 +23,5 @@ if (window) {
   (window as any).gPluginA11y = require('@antv/g-plugin-a11y');
   (window as any).gSvg = require('@antv/g-svg');
   (window as any).gWebgl = require('@antv/g-webgl');
+  (window as any).fecha = require('fecha');
 }

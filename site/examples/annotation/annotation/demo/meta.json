@@ -107,6 +107,14 @@
         "en": "Revenue Flow Waterfall Chart"
       },
       "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*fG4DT7XWNzUAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "watermark.ts",
+      "title": {
+        "zh": "徽章水印",
+        "en": "Watermark"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*aIpTRZ-_b9wAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }
