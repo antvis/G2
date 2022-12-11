@@ -2,9 +2,6 @@ name: Deploy
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - master
 
 jobs:
   deploy-site:
@@ -13,7 +10,7 @@ jobs:
       - uses: actions/checkout@v2
       - run: yarn install
       - run: cd site && yarn install
-      - run: npm run site:build
+      - run: cd site && npm run build
       - run: cp ./site/CNAME ./site/dist/CNAME
       - run: |
           cd site/dist
