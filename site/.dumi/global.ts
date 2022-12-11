@@ -25,3 +25,10 @@ if (window) {
   (window as any).gWebgl = require('@antv/g-webgl');
   (window as any).fecha = require('fecha');
 }
+
+if (location.origin !== 'g2-site-pre.alipay.com') {
+  (window as any).location.href = location.href.replace(
+    location.origin,
+    'https://g2.antv.antgroup.com',
+  );
+}

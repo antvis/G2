@@ -27,6 +27,7 @@
     "build:cjs": "rimraf ./lib && tsc --module commonjs --outDir lib",
     "build:esm": "rimraf ./esm && tsc --module ESNext --outDir esm",
     "build": "run-p build:*",
+    "site:build": "cd site && npm run build",
     "bundle-vis": "cross-env BUNDLE_VIS=1 run-p build:umd",
     "ci": "run-s lint test build",
     "prepublishOnly": "npm run ci",
