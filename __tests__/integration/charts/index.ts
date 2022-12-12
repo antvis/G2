@@ -147,3 +147,4 @@ export { forecastRangeAreaLine } from './forecast-range-area-line';
 export { housePricePointSample } from './house-price-point-sample';
 export { aaplLineSlider } from './aapl-line-slider';
 export { aaplLineSliderTransponsed } from './aapl-line-slider-transposed';
+export { indicesLineChartFacetAxis } from './indices-line-chart-fact-axis';
