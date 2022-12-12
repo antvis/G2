@@ -234,8 +234,8 @@ export const setChildren = useOverrideAdaptor<G2ViewTree>(
             legend = {},
             ...rest
           }) => {
-            const guideY = scale?.y?.guide;
-            const guideX = scale?.x?.guide;
+            const guideY = scale?.y?.guide || axis.y;
+            const guideX = scale?.x?.guide || axis.x;
             const defaultScale = {
               x: { tickCount: encodeX ? 5 : undefined },
               y: { tickCount: encodeY ? 5 : undefined },
