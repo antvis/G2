@@ -1,11 +1,18 @@
 ---
-desc: 组件标题配置
+desc: 组件标题选项
 ---
 
-| 属性          | 描述                                                | 类型                                                                                                                                   | 默认值 |
-| ------------- | --------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ------ |
-| titleText     | 标题文本内容                                        | `string`                                                                                                                               | `\-`   |
-| titleSpacing  | 标题到内容区域的间距                                | `number` \| `number[]`                                                                                                                 | `0`    |
-| titleInset    | 标题文本内边距                                      | `number` \| `number[]`                                                                                                                 | `0`    |
-| titlePosition | 标题所处位置。可采用简写形式，如`'i'` 表示`'inner'` | `'top'` \| `'bottom'` \|`'left'` \|`'right'` \|`'left-top'` \|`'left-bottom'` \|`'right-top'` \|`'right-bottom'` \|`'inner'` \| `'lt'` | `\-`   |
-| title[Style]  | 标题对应的样式属性                                  | 与 text `style` 一致                                                                                                                   | `\-`   |
+| 属性               | 描述                                                                                                              | 类型                                                                                                                                   | 默认值 |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ------ |
+| titleText          | 标题文本内容                                                                                                      | `string`                                                                                                                               | -      |
+| titleSpacing       | 标题到内容区域的间距                                                                                              | `number` \| `number[]`                                                                                                                 | 0      |
+| titleInset         | 标题文本内边距                                                                                                    | `number` \| `number[]`                                                                                                                 | 0      |
+| titlePosition      | 标题所处位置。可采用简写形式，如`'i'` 表示`'inner'`                                                               | `'top'` \| `'bottom'` \|`'left'` \|`'right'` \|`'left-top'` \|`'left-bottom'` \|`'right-top'` \|`'right-bottom'` \|`'inner'` \| `'lt'` | -      |
+| title[Style]       | 标题对应的样式属性                                                                                                | 与 text `style` 一致                                                                                                                   | -      |
+| titleLineWidth     | 标题宽度                                                                                                          | `number`                                                                                                                               | -      |
+| titleLineDash      | 标题描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0, 0]的效果为没有描边。 | `[number,number]`                                                                                                                      | -      |
+| titleFontSize      | 标题文字大小                                                                                                      | `number`                                                                                                                               | -      |
+| titleFontFamily    | 标题文字字体                                                                                                      | `string`                                                                                                                               | -      |
+| titleFontWeight    | 标题字体粗细                                                                                                      | `number`                                                                                                                               | -      |
+| titleStroke        | 标题字体颜色                                                                                                      | `string`                                                                                                                               | -      |
+| titleStrokeOpacity | 标题描文本透明度                                                                                                  | `number`                                                                                                                               | -      |

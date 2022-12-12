@@ -37,37 +37,80 @@ chart
   })
   .encode('x', 'date')
   .encode('y', 'close')
-  // 开启 X 方向缩略轴
-  .slider('x', {});
+  // 开启 Y 方向缩略轴
+  .slider('y', {});
 
 chart.render();
 ```
 
 ## 选项
 
-| 属性                     | 描述                           | 类型            | 默认值 |
-| ------------------------ | ------------------------------ | --------------- | ------ |
-| values                   | 默认起始、结束位置             | [number,number] | [0, 1] |
-| selectionFill            | 缩略轴选区填充色               | string          |        |
-| selectionFillOpacity     | 缩略轴选区填充色透明度         | number          |        |
-| selectionStroke          | 缩略轴选区描边色               | string          |        |
-| selectionStrokeOpacity   | 缩略轴选区描边色透明度         | number          |        |
-| backgroundFill           | 缩略轴背景填充色               | string          |        |
-| backgroundFillOpacity    | 缩略轴背景填充色透明度         | number          |        |
-| backgroundStroke         | 缩略轴背景描边色               | string          |        |
-| backgroundStrokeOpacity  | 缩略轴背景描边色透明度         | number          |        |
-| handleIconSize           | 缩略轴手柄大小                 | number          | 10     |
-| handleIconFill           | 缩略轴手柄填充色               | string          |        |
-| handleIconFillOpacity    | 缩略轴手柄填充色透明度         | number          |        |
-| handleIconStroke         | 缩略轴手柄描边色               | string          |        |
-| handleIconStrokeOpacity  | 缩略轴手柄描边色透明度         | number          |        |
-| handleLabelFontSize      | 缩略轴手柄标签字体大小         | number          |        |
-| handleLabelFontWeight    | 缩略轴手柄标签字体权重高       | number\|string  |        |
-| handleLabelFill          | 缩略轴手柄标签字体填充色       | string          |        |
-| handleLabelFillOpacity   | 缩略轴手柄标签字体填充色透明   | number          |        |
-| handleLabelStroke        | 缩略轴手柄标签字体描边色       | string          |        |
-| handleLabelStrokeOpacity | 缩略轴手柄标签字体描边色透明度 | number          |        |
+### 基本
 
-<!--                     | size                           | 缩略轴大小。横向上代表高度，纵向上代表宽度 | number   |     | -->
+| 属性                    | 描述                           | 类型                           | 默认值       |
+| ----------------------- | ------------------------------ | ------------------------------ | ------------ |
+| orient                  | 缩略轴朝向，横向及纵向         | `'horizontal'` \| `'vertical'` | 'horizontal' |
+| values                  | 初始选区范围，位于 0 ～ 1 区间 | `[number, number]`             | -            |
+| slidable                | 是否允许拖动选取和手柄         | `boolean`                      | true         |
+| brushable               | 是否启用刷选                   | `boolean`                      | true         |
+| padding                 | 迷你图的内边距                 | `number` \| `number[]`         | 0            |
+| selectionFill           | 缩略轴选区填充色               | `string`                       | -            |
+| selectionFillOpacity    | 缩略轴选区填充色透明度         | `number`                       | -            |
+| selectionStroke         | 缩略轴选区描边色               | `string`                       | –            |
+| selectionStrokeOpacity  | 缩略轴选区描边色透明度         | `number`                       | –            |
+| backgroundFill          | 缩略轴背景填充色               | `string`                       | –            |
+| backgroundFillOpacity   | 缩略轴背景填充色透明度         | `number`                       | –            |
+| backgroundStroke        | 缩略轴背景描边色               | `string`                       | –            |
+| backgroundStrokeOpacity | 缩略轴背景描边色透明度         | `number`                       | –            |
 
-<!-- ## 事件 -->
+### 拖动手柄
+
+| 属性                     | 描述                     | 类型                      | 默认值 |
+| ------------------------ | ------------------------ | ------------------------- | ------ |
+| showHandle               | 是否显示拖动手柄         | `boolean`                 | true   |
+| showLabel                | 是否显示拖动手柄文本     | `boolean`                 | true   |
+| formatter                | 拖动手柄标签格式化       | `(value: number)=>string` | -      |
+| handleIconSize           | 缩略轴手柄大小           | `number`                  | 10     |
+| handleIconFill           | 缩略轴手柄填充色         | `string`                  | -      |
+| handleIconFillOpacity    | 缩略轴手柄填充色透明度   | `number`                  | -      |
+| handleIconStroke         | 缩略轴手柄描边色         | `string`                  | -      |
+| handleIconStrokeOpacity  | 缩略轴手柄描边色透明度   | `number`                  | -      |
+| handleLabelFontSize      | 缩略轴手柄标签字体大小   | `number`                  | -      |
+| handleLabelFontWeight    | 缩略轴手柄标签字体权重高 | `number` \| `string`      | -      |
+| handleLabelStroke        | 缩略轴手柄标签字体颜色   | `string`                  | -      |
+| handleLabelStrokeOpacity | 缩略轴手柄标签字体透明度 | `number`                  | -      |
+
+### 迷你图
+
+<embed src="@/docs/api/common/sparkline.zh.md"></embed>
+
+### 事件
+
+| 属性        | 描述                             | 类型          |
+| ----------- | -------------------------------- | ------------- |
+| valuechange | 选区发生变化时触发，通过事件监听 | `function(e)` |
+
+```ts
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart
+  .line()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
+  })
+  .encode('x', 'date')
+  .encode('y', 'close')
+  // 开启 Y 轴缩略轴
+  .slider('x', {});
+
+chart.render();
+
+chart.querySelector('.slider').addEventListener('valuechange', () => {});
+```
