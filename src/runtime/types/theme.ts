@@ -70,6 +70,11 @@ type InteractionTheme = {
 
 type ComponentTheme = {
   axis?: any;
+  axisArcY?: any;
+  axisTop?: any;
+  axisBottom?: any;
+  axisLeft?: any;
+  axisRight?: any;
   legend?: any;
   continuousLegend?: any;
   label?: LabelStyleProps;

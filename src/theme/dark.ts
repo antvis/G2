@@ -9,7 +9,6 @@ const COLORS = {
 };
 
 const BACKGROUND_COLOR = '#141414';
-const STROKE_COLOR = '#416180';
 
 /**
  * Dark theme.
@@ -143,10 +142,10 @@ export const Dark: TC<DarkOptions> = (options) => {
         fillOpacity: 0.65,
         fontSize: 12,
         strokeWidth: 0,
-        connectorStroke: STROKE_COLOR,
+        connectorStroke: COLORS.STROKE,
         connectorStrokeOpacity: 0.45,
         connectorLineWidth: 1,
-        backgroundFill: STROKE_COLOR,
+        backgroundFill: COLORS.STROKE,
         backgroundFillOpacity: 0.15,
         backgroundPadding: [2, 4],
         startMarkerSymbol: 'circle',
@@ -161,48 +160,48 @@ export const Dark: TC<DarkOptions> = (options) => {
         fontSize: 10,
         textAlign: 'center',
         textBaseline: 'middle',
-        markerFill: STROKE_COLOR,
+        markerFill: COLORS.STROKE,
         markerFillOpacity: 0.25,
         markerStrokeOpacity: 0,
       },
     },
     lineX: {
       line: {
-        stroke: STROKE_COLOR,
+        stroke: COLORS.STROKE,
         strokeOpacity: 0.45,
         lineWidth: 1,
       },
     },
     lineY: {
       line: {
-        stroke: STROKE_COLOR,
+        stroke: COLORS.STROKE,
         strokeOpacity: 0.45,
         lineWidth: 1,
       },
     },
     rangeX: {
       range: {
-        fill: STROKE_COLOR,
+        fill: COLORS.STROKE,
         fillOpacity: 0.15,
         lineWidth: 0,
       },
     },
     rangeY: {
       range: {
-        fill: STROKE_COLOR,
+        fill: COLORS.STROKE,
         fillOpacity: 0.15,
         lineWidth: 0,
       },
     },
     connector: {
       connector: {
-        stroke: STROKE_COLOR,
+        stroke: COLORS.STROKE,
         strokeOpacity: 0.45,
         lineWidth: 1,
         connectLength1: 12,
         endMarker: true,
         endMarkerSize: 6,
-        endMarkerFill: STROKE_COLOR,
+        endMarkerFill: COLORS.STROKE,
         endMarkerFillOpacity: 0.95,
       },
     },
@@ -237,6 +236,7 @@ export const Dark: TC<DarkOptions> = (options) => {
       lineStroke: COLORS.BLACK,
       lineStrokeOpacity: 0.45,
       lineLineWidth: 0.5,
+      lineArrow: null,
       // axis tick line
       tickStroke: COLORS.BLACK,
       tickStrokeOpacity: 0.25,
@@ -248,11 +248,62 @@ export const Dark: TC<DarkOptions> = (options) => {
       labelFontSize: 12,
       labelFontWeight: 'lighter',
       labelSpacing: 8, // spacing between label and it's tick
+      labelAlign: 'horizontal',
       // axis grid
       gridStroke: COLORS.BLACK,
       gridStrokeOpacity: 0.05,
       gridLineWidth: 0.5,
       gridLineDash: [0, 0],
+      titleTransformOrigin: 'center',
+    },
+    axisTop: {
+      titlePosition: 'top',
+      titleSpacing: 0,
+      titleTextBaseline: 'middle',
+      labelSpacing: 8,
+      labelDirection: 'negative',
+      tickDirection: 'negative',
+      gridDirection: 'positive',
+    },
+    axisBottom: {
+      titleSpacing: 10,
+      titleTextBaseline: 'bottom',
+      labelSpacing: 12,
+      labelDirection: 'positive',
+      tickDirection: 'positive',
+      gridDirection: 'negative',
+    },
+    axisLeft: {
+      titleTextBaseline: 'middle',
+      titleSpacing: 10,
+      titlePosition: 'left',
+      titleTransformOrigin: 'center',
+      titleTransform: `translate(50%, 0) rotate(-90)`,
+      labelSpacing: 4,
+      labelDirection: 'positive',
+      tickDirection: 'positive',
+      gridDirection: 'negative',
+    },
+    axisRight: {
+      titleTextBaseline: 'top',
+      titleSpacing: 0,
+      titlePosition: 'right',
+      titleTransformOrigin: 'center',
+      titleTransform: `translate(-50%, 0) rotate(-90)`,
+      labelSpacing: 4,
+      labelDirection: 'negative',
+      tickDirection: 'negative',
+      gridDirection: 'positive',
+    },
+    axisArcY: {
+      titlePosition: 'top',
+      titleSpacing: 0,
+      titleTextBaseline: 'bottom',
+      gridDirection: 'negative',
+      gridConnect: 'arc',
+      gridControlAngles: [90, 180, 360],
+      gridType: 'surround',
+      girdClosed: true,
     },
     legend: {
       padding: 8,
@@ -276,7 +327,6 @@ export const Dark: TC<DarkOptions> = (options) => {
       itemValueFontSize: 12,
       itemValueFontWeight: 'normal',
       itemBackgroundFill: 'transparent',
-      // [todo] support navButtonSize
       navButtonFill: COLORS.BLACK,
       navButtonFillOpacity: 0.45,
       navPageNumFill: COLORS.BLACK,
@@ -325,23 +375,22 @@ export const Dark: TC<DarkOptions> = (options) => {
       offset: 0,
     },
     slider: {
-      railHeight: 16,
-      railFill: STROKE_COLOR,
-      railFillOpacity: 0.05,
-      railForegroundFill: DEFAULT_COLOR,
-      railForegroundFillOpacity: 0.15,
-      handleHeight: 24,
-      handleWidth: 10,
-      handleFill: '#f7f7f7',
-      handleFillOpacity: 1,
-      handleStroke: COLORS.BLACK,
-      handleStrokeOpacity: 0.25,
-      handleLineWidth: 1,
-      handleRadius: 2,
-      textFill: COLORS.BLACK,
-      textFillOpacity: 0.45,
-      textFontSize: 12,
-      textFontWeight: 'normal',
+      railSize: 16,
+      backgroundFill: COLORS.STROKE,
+      backgroundFillOpacity: 1,
+      selectionFill: DEFAULT_COLOR,
+      selectionFillOpacity: 0.15,
+      handleIconSize: 10,
+      handleIconFill: '#f7f7f7',
+      handleIconFillOpacity: 1,
+      handleIconStroke: COLORS.BLACK,
+      handleIconStrokeOpacity: 0.25,
+      handleIconLineWidth: 1,
+      handleIconRadius: 2,
+      handleLabelFill: COLORS.BLACK,
+      handleLabelFillOpacity: 0.45,
+      handleLabelFontSize: 12,
+      handleLabelFontWeight: 'normal',
     },
     scrollbar: {},
     title: {
@@ -361,5 +410,7 @@ export const Dark: TC<DarkOptions> = (options) => {
   };
   return Object.assign({}, defaultOptions, options);
 };
+
+Dark.props = {};
 
 Dark.props = {};
