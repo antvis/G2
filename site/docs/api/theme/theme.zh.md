@@ -86,6 +86,47 @@ G2 主题 token 较多，下面按照通用属性、动画属性、图形元素�
 | [polygon](/api/mark/polygon)   | polygon  |
 | [vector](/api/mark/vector)     | vector   |
 
-### 图表组件
+### 坐标轴
 
-目前 G2 内置的图表组件有: axis, legend, continuousLegend, label, innerLabel（position 为 inside 的 label 组件）等，详细主题配置见图表组件 [API](/api/component/overview) 文档.
+axis 主题还支持根据轴位置定义，如下：均继承 axis 通用样式
+
+| 属性       | 描述                                             | 类型      | 默认值 |
+| ---------- | ------------------------------------------------ | --------- | ------ |
+| axis       | 坐标轴通用主题样式                               | AxisStyle | -      |
+| axisTop    | position 为 top 的轴样式                         | AxisStyle | -      |
+| axisBottom | position 为 bottom 的轴样式                      | AxisStyle | -      |
+| axisLeft   | position 为 left 的轴样式                        | AxisStyle | -      |
+| axisRight  | position 为 right 的轴样式                       | AxisStyle | -      |
+| axisArcY   | position 为 arcY 的轴样式，通常在 polar 坐标系下 | AxisStyle | -      |
+
+AxisStyle 配置详见 [Axis](/api/component/axis) API。
+
+### 图例
+
+| 属性             | 描述             | 类型        | 默认值 |
+| ---------------- | ---------------- | ----------- | ------ |
+| legend           | 图例主题样式     | LegendStyle | -      |
+| continuousLegend | 连续图例主题样式 | LegendStyle | -      |
+
+LegendStyle 配置详见 [Legend](/api/component/legend) API。
+
+### 标签
+
+| 属性       | 描述                             | 类型       | 默认值 |
+| ---------- | -------------------------------- | ---------- | ------ |
+| label      | 标签主题样式                     | LabelStyle | -      |
+| innerLabel | position 为 inner 的标签主题样式 | LabelStyle | -      |
+
+LabelStyle 配置详见 [Label](/api/label/overview) API。
+
+### 缩略轴
+
+| 属性   | 描述           | 类型        | 默认值 |
+| ------ | -------------- | ----------- | ------ |
+| slider | 缩略轴主题样式 | SliderStyle | -      |
+
+SliderStyle 配置详见 [Slider](/api/component/slider) API。
+
+<!-- ### 滚动条 -->
+
+<!-- ### 时间条 -->
