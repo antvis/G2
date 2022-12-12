@@ -111,15 +111,15 @@ export default defineConfig({
       {
         slug: 'api/data',
         title: {
-          zh: 'Data',
-          en: '数据',
+          zh: '数据 - Data',
+          en: 'Data',
         },
         order: 3,
       },
       {
         slug: 'api/mark',
         title: {
-          zh: 'Mark',
+          zh: '图形 - Mark',
           en: 'Mark',
         },
         order: 4,
@@ -127,7 +127,7 @@ export default defineConfig({
       {
         slug: 'api/transform',
         title: {
-          zh: 'Transform',
+          zh: '变换 - Transform',
           en: 'Transform',
         },
         order: 5,
@@ -135,23 +135,23 @@ export default defineConfig({
       {
         slug: 'api/scale',
         title: {
-          zh: 'Scale',
-          en: '比例尺',
+          zh: '比例尺 - Scale',
+          en: 'Scale',
         },
         order: 6,
       },
       {
         slug: 'api/coordinate',
         title: {
-          zh: 'Coordinate',
-          en: '坐标系',
+          zh: '坐标系 - Coordinate',
+          en: 'Coordinate',
         },
         order: 7,
       },
       {
         slug: 'api/composition',
         title: {
-          zh: 'Composition',
+          zh: '复合 - Composition',
           en: 'Composition',
         },
         order: 8,
@@ -159,16 +159,16 @@ export default defineConfig({
       {
         slug: 'api/component',
         title: {
-          zh: 'Component',
-          en: '组件',
+          zh: '组件 - Component',
+          en: 'Component',
         },
         order: 9,
       },
       {
         slug: 'api/label',
         title: {
-          zh: 'Label',
-          en: '数据标签',
+          zh: '数据标签 - Label',
+          en: 'Label',
         },
         order: 10,
       },
@@ -176,48 +176,48 @@ export default defineConfig({
       {
         slug: 'api/animation',
         title: {
-          zh: 'Animation',
-          en: '动画',
+          zh: '动画 - Animation',
+          en: 'Animation',
         },
         order: 11,
       },
       {
         slug: 'api/interaction',
         title: {
-          zh: 'Interaction',
-          en: '交互',
+          zh: '交互 - Interaction',
+          en: 'Interaction',
         },
         order: 12,
       },
       {
         slug: 'api/graph',
         title: {
-          zh: 'Graph',
-          en: '图',
+          zh: '图 - Graph',
+          en: 'Graph',
         },
         order: 13,
       },
       {
         slug: 'api/geo',
         title: {
-          zh: 'Geo',
-          en: '地图',
+          zh: '地图 - Geo',
+          en: 'Geo',
         },
         order: 14,
       },
       {
         slug: 'api/theme',
         title: {
-          zh: 'Theme',
-          en: '主题',
+          zh: '主题 - Theme',
+          en: 'Theme',
         },
         order: 15,
       },
       {
         slug: 'api/plugin',
         title: {
-          zh: 'Plugin',
-          en: '扩展插件',
+          zh: '插件扩展 - Plugin',
+          en: 'Plugin',
         },
         order: 15,
       },
