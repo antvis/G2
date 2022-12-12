@@ -25,3 +25,13 @@ if (window) {
   (window as any).gWebgl = require('@antv/g-webgl');
   (window as any).fecha = require('fecha');
 }
+
+if (
+  location.origin === 'g2.antv.vision' ||
+  location.origin === 'antv-g2.gitee.io'
+) {
+  (window as any).location.href = location.href.replace(
+    location.origin,
+    'https://g2.antv.antgroup.com',
+  );
+}
