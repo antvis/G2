@@ -1,7 +1,17 @@
-export type LabelTransform = HideOverlapLabelTransform | DodgeYLabelTransform;
+import { DisplayObject } from '@antv/g';
 
-export type HideOverlapLabelTransform = {
-  type?: 'hideOverlap';
+export type LabelTransform =
+  | OverlapHideTransform
+  | DodgeYLabelTransform
+  | ContrastReverseTransform
+  | OverflowHideTransform;
+
+export type OverlapHideTransform = {
+  type?: 'overlapHide';
+  /**
+   * The hide priority, is the comparator for label.sort().
+   */
+  priority?: (a: DisplayObject, b: DisplayObject) => number;
 };
 
 export type DodgeYLabelTransform = {

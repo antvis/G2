@@ -256,12 +256,12 @@ import {
   Join,
 } from '../../../src/data';
 import {
-  HideOverlap,
   DodgeY,
   Spider,
   Surround,
   OverflowHide,
   ContrastReverse,
+  OverlapHide,
 } from '../../../src/label-transform';
 import { GeoView, GeoPath } from '../../../src/geo';
 
@@ -515,7 +515,7 @@ describe('stdlib', () => {
       'composition.repeatMatrix': RepeatMatrix,
       'composition.facetCircle': FacetCircle,
       'composition.timingKeyframe': TimingKeyframe,
-      'labelTransform.hideOverlap': HideOverlap,
+      'labelTransform.overlapHide': OverlapHide,
       'labelTransform.dodgeY': DodgeY,
       'labelTransform.spider': Spider,
       'labelTransform.surround': Surround,

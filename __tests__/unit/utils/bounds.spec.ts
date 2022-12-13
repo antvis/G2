@@ -61,5 +61,31 @@ describe('bounds', () => {
     ).toBe(true);
   });
 
-  it('isOverlap sshould return whether bounds overlap with another bounds', () => {});
+  it('isOverlap sshould return whether bounds overlap with another bounds', () => {
+    expect(
+      isOverlap(
+        [
+          [0, 0],
+          [21, 21],
+        ],
+        [
+          [0, 0],
+          [20, 20],
+        ],
+      ),
+    ).toBe(true);
+
+    expect(
+      isOverlap(
+        [
+          [0, 0],
+          [1, 1],
+        ],
+        [
+          [2, 2],
+          [20, 20],
+        ],
+      ),
+    ).toBe(false);
+  });
 });

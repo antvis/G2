@@ -1,7 +1,7 @@
 import { DisplayObject } from '@antv/g';
 import { OverflowHideTransform } from '../spec';
 import { LabelTransformComponent as LLC } from '../runtime';
-import { isOverflow } from '../utils/bounds';
+import { isOverflow, parseAABB } from '../utils/bounds';
 
 export type OverflowHideOptions = Omit<OverflowHideTransform, 'type'>;
 
@@ -11,15 +11,11 @@ export type OverflowHideOptions = Omit<OverflowHideTransform, 'type'>;
 export const OverflowHide: LLC<OverflowHideOptions> = (options) => {
   return (labels: DisplayObject[], coordinate) => {
     labels.forEach((l) => {
+      l.attr('visibility', 'visible');
+
       const bounds = l.attr('bounds');
-      const { min, max } = l.getLocalBounds();
-      const overflow = isOverflow(
-        [
-          [min[0], min[1]],
-          [max[0], max[1]],
-        ],
-        bounds,
-      );
+      const b = l.getLocalBounds();
+      const overflow = isOverflow(parseAABB(b), bounds);
       if (overflow) l.attr('visibility', 'hidden');
     });
     return labels;

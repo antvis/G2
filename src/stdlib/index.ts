@@ -256,12 +256,12 @@ import {
   Sort,
 } from '../data';
 import {
-  HideOverlap,
   DodgeY,
   Spider,
   Surround,
   OverflowHide,
   ContrastReverse,
+  OverlapHide,
 } from '../label-transform';
 import { geoLibrary } from '../geo';
 
@@ -514,7 +514,7 @@ export function createLibrary(): G2Library {
     'composition.repeatMatrix': RepeatMatrix,
     'composition.facetCircle': FacetCircle,
     'composition.timingKeyframe': TimingKeyframe,
-    'labelTransform.hideOverlap': HideOverlap,
+    'labelTransform.overlapHide': OverlapHide,
     'labelTransform.dodgeY': DodgeY,
     'labelTransform.spider': Spider,
     'labelTransform.surround': Surround,

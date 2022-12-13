@@ -1,8 +1,17 @@
+import { AABB } from '@antv/g';
 import { Vector2 } from './vector';
 
 type Min = Vector2;
 type Max = Vector2;
 export type Bounds = [Min, Max];
+
+export function parseAABB(min2: AABB): Bounds {
+  const { min, max } = min2;
+  return [
+    [min[0], min[1]],
+    [max[0], max[1]],
+  ];
+}
 
 /**
  * Whether the `point` in `bounds`.
@@ -32,6 +41,12 @@ export function isOverflow(b1: Bounds, b2: Bounds): boolean {
  * @returns
  */
 export function isOverlap(b1: Bounds, b2: Bounds): boolean {
-  // todo
-  return true;
+  const [min1, max1] = b1;
+  const [min2, max2] = b2;
+  return (
+    min1[0] < max2[0] &&
+    max1[0] > min2[0] &&
+    min1[1] < max2[1] &&
+    max1[1] > min2[1]
+  );
 }
