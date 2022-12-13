@@ -1,4 +1,5 @@
 export { alphabetInterval } from './alphabet-interval';
+export { alphabetIntervalLabelOverflowHide } from './alphabet-interval-label-overflow-hide';
 export { alphabetIntervalDataSort } from './alphabet-interval-data-sort';
 export { gammaRandomLineSortXQuantitative } from './gamma-random-line-sortx-quantitative';
 export { alphabetIntervalTransposed } from './alphabet-interval-transposed';

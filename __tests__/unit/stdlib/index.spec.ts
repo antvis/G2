@@ -260,6 +260,9 @@ import {
   DodgeY,
   Spider,
   Surround,
+  OverflowHide,
+  ContrastHide,
+  ContrastReverse,
 } from '../../../src/label-transform';
 import { GeoView, GeoPath } from '../../../src/geo';
 
@@ -517,6 +520,9 @@ describe('stdlib', () => {
       'labelTransform.dodgeY': DodgeY,
       'labelTransform.spider': Spider,
       'labelTransform.surround': Surround,
+      'labelTransform.overflowHide': OverflowHide,
+      'labelTransform.contrastHide': ContrastHide,
+      'labelTransform.contrastReverse': ContrastReverse,
       'composition.geoView': GeoView,
       'composition.geoPath': GeoPath,
     });

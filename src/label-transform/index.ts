@@ -5,7 +5,6 @@ export { Surround } from './surround';
 export { ContrastHide } from './contrastHide';
 export { ContrastReverse } from './contrastReverse';
 export { OverflowHide } from './overflowHide';
-export { OverflowShrink } from './overflowShrink';
 
 export type { HideOverlapOptions } from './hideOverlap';
 export type { DodgeYOptions } from './dodgeY';
@@ -14,4 +13,3 @@ export type { SurroundOptions } from './surround';
 export type { ContrastHideOptions } from './contrastHide';
 export type { ContrastReverseOptions } from './contrastReverse';
 export type { OverflowHideOptions } from './overflowHide';
-export type { OverflowShrinkOptions } from './overflowShrink';
