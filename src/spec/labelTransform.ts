@@ -20,21 +20,19 @@ export type SurroundLabelTransform = {
   type?: 'surround';
 };
 
-export type ContrastHideTransform = {
-  type: 'contrastHide';
-  threshold?: number;
-};
-
 export type ContrastReverseTransform = {
   type: 'contrastReverse';
+  /**
+   * Transform when the contrast ratio < threshold.
+   * Default is `4.5`.
+   */
   threshold?: number;
+  /**
+   * The optional color palette, default is [#000, #fff].
+   */
+  palette?: string[];
 };
 
 export type OverflowHideTransform = {
   type: 'overflowHide';
-};
-
-export type OverflowShrinkTransform = {
-  type: 'overflowShirink';
-  minFontSize?: number;
 };

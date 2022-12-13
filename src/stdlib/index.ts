@@ -261,7 +261,6 @@ import {
   Spider,
   Surround,
   OverflowHide,
-  ContrastHide,
   ContrastReverse,
 } from '../label-transform';
 import { geoLibrary } from '../geo';
@@ -520,7 +519,6 @@ export function createLibrary(): G2Library {
     'labelTransform.spider': Spider,
     'labelTransform.surround': Surround,
     'labelTransform.overflowHide': OverflowHide,
-    'labelTransform.contrastHide': ContrastHide,
     'labelTransform.contrastReverse': ContrastReverse,
     ...geoLibrary,
   };
