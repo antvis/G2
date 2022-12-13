@@ -19,3 +19,22 @@ export type SpiderLabelTransform = {
 export type SurroundLabelTransform = {
   type?: 'surround';
 };
+
+export type ContrastHideTransform = {
+  type: 'contrastHide';
+  threshold?: number;
+};
+
+export type ContrastReverseTransform = {
+  type: 'contrastReverse';
+  threshold?: number;
+};
+
+export type OverflowHideTransform = {
+  type: 'overflowHide';
+};
+
+export type OverflowShrinkTransform = {
+  type: 'overflowShirink';
+  minFontSize?: number;
+};
