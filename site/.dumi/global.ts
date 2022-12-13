@@ -27,8 +27,8 @@ if (window) {
 }
 
 if (
-  location.origin === 'g2.antv.vision' ||
-  location.origin === 'antv-g2.gitee.io'
+  location.host === 'g2.antv.vision' ||
+  location.host === 'antv-g2.gitee.io'
 ) {
   (window as any).location.href = location.href.replace(
     location.origin,
