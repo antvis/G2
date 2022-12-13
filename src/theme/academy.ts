@@ -1,24 +1,21 @@
 import { ThemeComponent as TC, Theme } from '../runtime';
 
-export type LightOptions = Theme;
+export type AcademyOptions = Theme;
 
 const COLORS = {
   BLACK: '#000',
   WHITE: '#fff',
-  STROKE: '#416180',
+  STROKE: '#888',
 };
 
 const BACKGROUND_COLOR = 'transparent';
 
-/**
- * Default theme.
- */
-export const Light: TC<LightOptions> = (options) => {
-  const DEFAULT_COLOR = '#5B8FF9';
+export const Academy: TC<AcademyOptions> = (options) => {
+  const DEFAULT_COLOR = '#4e79a7';
   const defaultOptions: Theme = {
     defaultColor: DEFAULT_COLOR,
-    defaultCategory10: 'category10',
-    defaultCategory20: 'category20',
+    defaultCategory10: 'schemeTableau10',
+    defaultCategory20: 'schemeTableau10',
     defaultSize: 1,
     elementActiveStroke: COLORS.BLACK,
     enter: {
@@ -132,15 +129,14 @@ export const Light: TC<LightOptions> = (options) => {
     box: {
       box: {
         fillOpacity: 0.95,
-        stroke: COLORS.BLACK,
+        stroke: '#1D2129',
         lineWidth: 1,
       },
     },
     text: {
       text: {
-        // fill: COLORS.BLACK,fillOpacity: 0.65,
         fill: '#1D2129',
-        fontSize: 12,
+        fontSize: 10,
         strokeWidth: 0,
         connectorStroke: COLORS.STROKE,
         connectorStrokeOpacity: 0.45,
@@ -228,30 +224,30 @@ export const Light: TC<LightOptions> = (options) => {
     axis: {
       // axis title
       titleFill: COLORS.BLACK,
-      titleFillOpacity: 0.65,
-      titleFontSize: 12,
-      titleFontWeight: 'normal',
+      titleFillOpacity: 1,
+      titleFontSize: 11,
+      titleFontWeight: 'bold',
       titleSpacing: 12,
-      // axis line
-      lineStroke: COLORS.BLACK,
-      lineStrokeOpacity: 0.45,
-      lineLineWidth: 0.5,
+      line: true,
+      lineStroke: COLORS.STROKE,
+      lineStrokeOpacity: 1,
+      lineLineWidth: 1,
       lineArrow: null,
       // axis tick line
-      tickStroke: COLORS.BLACK,
-      tickStrokeOpacity: 0.25,
+      tickStroke: COLORS.STROKE,
+      tickStrokeOpacity: 1,
       tickLineWidth: 1,
-      tickLength: 4,
-      // axis label
+      tickLength: 5,
       labelFill: COLORS.BLACK,
-      labelFillOpacity: 0.65,
-      labelFontSize: 12,
+      labelFillOpacity: 1,
+      labelFontSize: 10,
+      labelAutoRotate: false,
       labelFontWeight: 'lighter',
-      labelSpacing: 8, // spacing between label and it's tick
+      labelSpacing: 8,
       labelAlign: 'horizontal',
       // axis grid
-      gridStroke: COLORS.BLACK,
-      gridStrokeOpacity: 0.05,
+      gridStroke: '#ddd',
+      gridStrokeOpacity: 1,
       gridLineWidth: 0.5,
       gridLineDash: [0, 0],
       titleTransformOrigin: 'center',
@@ -307,11 +303,11 @@ export const Light: TC<LightOptions> = (options) => {
     },
     legend: {
       padding: 8,
-      showTitle: false,
+      showTitle: true,
       titleFill: COLORS.BLACK,
-      titleFillOpacity: 0.45,
-      titleFontSize: 12,
-      titleFontWeight: 'normal',
+      titleFillOpacity: 1,
+      titleFontSize: 11,
+      titleFontWeight: 'bold',
       titleSpacing: 4,
       // legend marker
       itemMarkerFill: DEFAULT_COLOR,
@@ -319,27 +315,28 @@ export const Light: TC<LightOptions> = (options) => {
       itemMarkerSize: 8,
       itemSpacing: [5, 8],
       itemLabelFill: COLORS.BLACK,
-      itemLabelFillOpacity: 0.65,
-      itemLabelFontSize: 12,
+      itemLabelFillOpacity: 1,
+      itemLabelFontSize: 10,
       itemLabelFontWeight: 'normal',
       itemValueFill: COLORS.BLACK,
-      itemValueFillOpacity: 0.65,
-      itemValueFontSize: 12,
+      itemValueFillOpacity: 1,
+      itemValueFontSize: 10,
       itemValueFontWeight: 'normal',
       itemBackgroundFill: 'transparent',
       // [todo] rename legend navigator
       navButtonFill: COLORS.BLACK,
       navButtonFillOpacity: 0.45,
+      navButtonSize: 6,
       navPageNumFill: COLORS.BLACK,
       navPageNumFillOpacity: 0.45,
-      navPageNumFontSize: 12,
+      navPageNumFontSize: 10,
       // others
       backgroundFill: 'transparent',
     },
     continuousLegend: {
       labelFill: COLORS.BLACK,
       labelFillOpacity: 0.45,
-      labelFontSize: 12,
+      labelFontSize: 10,
       labelFontWeight: 'normal',
       handleWidth: 10,
       handleHeight: 12,
@@ -350,14 +347,13 @@ export const Light: TC<LightOptions> = (options) => {
       handleMarkerLineWidth: 1,
       handleLabelFill: COLORS.BLACK,
       handleLabelFillOpacity: 0.45,
-      handleLabelFontSize: 12,
+      handleLabelFontSize: 10,
       handleLabelFontWeight: 'normal',
-      // [todo] legend rail
     },
     label: {
       fill: COLORS.BLACK,
       fillOpacity: 0.65,
-      fontSize: 12,
+      fontSize: 10,
       fontWeight: 'normal',
       stroke: null,
       offset: 12,
@@ -369,16 +365,16 @@ export const Light: TC<LightOptions> = (options) => {
     },
     innerLabel: {
       fill: COLORS.WHITE,
-      fontSize: 12,
+      fontSize: 10,
       fillOpacity: 0.85,
       fontWeight: 'normal',
       stroke: null,
       offset: 0,
     },
     slider: {
-      railSize: 16,
+      trackSize: 16,
       backgroundFill: COLORS.STROKE,
-      backgroundFillOpacity: 1,
+      backgroundFillOpacity: 0.05,
       selectionFill: DEFAULT_COLOR,
       selectionFillOpacity: 0.15,
       handleIconSize: 10,
@@ -390,7 +386,7 @@ export const Light: TC<LightOptions> = (options) => {
       handleIconRadius: 2,
       handleLabelFill: COLORS.BLACK,
       handleLabelFillOpacity: 0.45,
-      handleLabelFontSize: 12,
+      handleLabelFontSize: 10,
       handleLabelFontWeight: 'normal',
     },
     scrollbar: {},
@@ -412,4 +408,4 @@ export const Light: TC<LightOptions> = (options) => {
   return Object.assign({}, defaultOptions, options);
 };
 
-Light.props = {};
+Academy.props = {};

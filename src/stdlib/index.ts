@@ -47,6 +47,7 @@ import {
 import {
   Category10,
   Category20,
+  SchemeTableau10,
   SequentialBlue,
   SequentialDarkBlue,
   SequentialGreen,
@@ -131,7 +132,7 @@ import {
   HollowPath,
   Shape as CustomShape,
 } from '../shape';
-import { Light, Dark } from '../theme';
+import { Light, Dark, Academy } from '../theme';
 import {
   AxisX,
   AxisY,
@@ -366,6 +367,7 @@ export function createLibrary(): G2Library {
     'mark.wordCloud': WordCloudGeometry,
     'palette.category10': Category10,
     'palette.category20': Category20,
+    'palette.schemeTableau10': SchemeTableau10,
     'palette.sequentialBlue': SequentialBlue,
     'palette.sequentialDarkBlue': SequentialDarkBlue,
     'palette.sequentialGreen': SequentialGreen,
@@ -455,6 +457,7 @@ export function createLibrary(): G2Library {
     'shape.path.hollow': HollowPath,
     'theme.light': Light,
     'theme.dark': Dark,
+    'theme.academy': Academy,
     'component.axisX': AxisX,
     'component.axisY': AxisY,
     'component.legendCategory': LegendCategory,

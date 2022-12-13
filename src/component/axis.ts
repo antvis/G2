@@ -382,11 +382,6 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
     tickCount,
     tickFilter,
     tickMethod,
-    labelAutoHide = false,
-    labelAutoRotate = true,
-    grid,
-    label: showLabel = true,
-    tick: showTick = true,
     ...userDefinitions
   } = options;
 
@@ -404,15 +399,24 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
       coordinate,
     );
 
+    const defaultStyle = inferDefaultStyle(scale, theme, position, direction);
+    const {
+      labelAutoRotate = true,
+      labelAutoHide = false,
+      label: showLabel = true,
+      tick: showTick = true,
+      line = false,
+      grid,
+    } = Object.assign({}, defaultStyle, userDefinitions);
+
     const showGrid = inferGrid(grid, coordinate, scale);
     const gridLength = getGridLength(position, coordinate);
 
-    const {
-      showLine = options.line === undefined ? false : options.line,
-      ...overrideStyle
-    } = inferOverrideStyle(position, bbox, coordinate);
-
-    const defaultStyle = inferDefaultStyle(scale, theme, position, direction);
+    const { showLine = line, ...overrideStyle } = inferOverrideStyle(
+      position,
+      bbox,
+      coordinate,
+    );
 
     const axisStyle = {
       ...defaultStyle,

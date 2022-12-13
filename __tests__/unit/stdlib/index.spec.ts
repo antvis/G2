@@ -47,6 +47,7 @@ import {
 import {
   Category10,
   Category20,
+  SchemeTableau10,
   SequentialBlue,
   SequentialDarkBlue,
   SequentialGreen,
@@ -131,7 +132,7 @@ import {
   HollowPath,
   Shape as CustomShape,
 } from '../../../src/shape';
-import { Light, Dark } from '../../../src/theme';
+import { Light, Dark, Academy } from '../../../src/theme';
 import {
   AxisX,
   AxisY,
@@ -372,6 +373,7 @@ describe('stdlib', () => {
       'mark.wordCloud': WordCloudGeometry,
       'palette.category10': Category10,
       'palette.category20': Category20,
+      'palette.schemeTableau10': SchemeTableau10,
       'palette.sequentialBlue': SequentialBlue,
       'palette.sequentialDarkBlue': SequentialDarkBlue,
       'palette.sequentialGreen': SequentialGreen,
@@ -461,6 +463,7 @@ describe('stdlib', () => {
       'shape.path.hollow': HollowPath,
       'theme.light': Light,
       'theme.dark': Dark,
+      'theme.academy': Academy,
       'component.axisX': AxisX,
       'component.axisY': AxisY,
       'component.legendCategory': LegendCategory,
