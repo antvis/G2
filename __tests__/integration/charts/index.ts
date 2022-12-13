@@ -148,3 +148,4 @@ export { housePricePointSample } from './house-price-point-sample';
 export { aaplLineSlider } from './aapl-line-slider';
 export { aaplLineSliderTransponsed } from './aapl-line-slider-transposed';
 export { indicesLineChartFacetAxis } from './indices-line-chart-fact-axis';
+export { aaplLineClip } from './aapl-line-clip';

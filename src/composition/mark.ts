@@ -36,6 +36,7 @@ export const Mark: CC<MarkOptions> = () => {
       title,
       labelTransform,
       parentKey,
+      clip,
       ...mark
     } = options;
 
@@ -70,6 +71,7 @@ export const Mark: CC<MarkOptions> = () => {
         marginTop,
         marginRight,
         parentKey,
+        clip,
         marks: [{ ...mark, key: `${key}-0`, data }],
       },
     ];

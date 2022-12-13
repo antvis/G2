@@ -1,4 +1,4 @@
-import { DisplayObject, IAnimation as GAnimation } from '@antv/g';
+import { DisplayObject, IAnimation as GAnimation, Rect } from '@antv/g';
 import { deepMix, upperFirst } from '@antv/util';
 import { format } from 'd3-format';
 import { Vector2 } from '@antv/coord';
@@ -383,7 +383,8 @@ function initializeState(
     library,
   );
 
-  const { key, frame = false, theme: partialTheme, style = {} } = options;
+  const { key, frame = false, theme: partialTheme, clip, style = {} } = options;
+
   const theme = useTheme(inferTheme(partialTheme));
 
   // Infer components and compute layout.
@@ -473,6 +474,7 @@ function initializeState(
     components,
     markState,
     key,
+    clip,
     scale: scaleInstance,
     style: framedStyle,
   };
@@ -489,7 +491,8 @@ async function plotView(
   transitions: GAnimation[],
   library: G2Library,
 ): Promise<void> {
-  const { components, theme, layout, markState, coordinate, key, style } = view;
+  const { components, theme, layout, markState, coordinate, key, style, clip } =
+    view;
 
   // Render background for the different areas.
   const { x, y, width, height, ...rest } = layout;
@@ -589,7 +592,8 @@ async function plotView(
           .style('fill', 'transparent')
           .attr('className', PLOT_CLASS_NAME)
           .call(updateBBox)
-          .call(updateLayers, Array.from(markState.keys())),
+          .call(updateLayers, Array.from(markState.keys()))
+          .call((selection) => applyClip(selection, clip)),
       (update) =>
         update
           .call(updateLayers, Array.from(markState.keys()))
@@ -597,7 +601,8 @@ async function plotView(
             return animationExtent
               ? animateBBox(selection, animationExtent)
               : updateBBox(selection);
-          }),
+          })
+          .call((selection) => applyClip(selection, clip)),
     )
     .transitions();
   transitions.push(...T.flat());
@@ -1211,6 +1216,22 @@ function updateLayers(selection: Selection, marks: G2Mark[]) {
 
 function className(...names: string[]): string {
   return names.map((d) => `.${d}`).join('');
+}
+
+function applyClip(selection, clip?: boolean) {
+  if (!selection.node()) return;
+  selection.each(function (data) {
+    const {
+      paddingTop: y,
+      paddingLeft: x,
+      innerWidth: width,
+      innerHeight: height,
+    } = data;
+    this.attr(
+      'clipPath',
+      clip ? new Rect({ style: { x, y, width, height } }) : undefined,
+    );
+  });
 }
 
 export function applyStyle(

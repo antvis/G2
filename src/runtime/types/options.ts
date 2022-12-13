@@ -82,6 +82,7 @@ export type G2View = {
   labelTransform?: G2LabelTransformOptions[];
   style?: Record<string, any>;
   tooltip?: boolean;
+  clip?: boolean;
 };
 
 export type G2Mark = {

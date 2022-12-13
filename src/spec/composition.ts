@@ -63,6 +63,7 @@ export type ViewComposition = {
   on?: Record<string, EventType | EventType[]>;
   // @todo
   style?: Record<string, any>;
+  clip?: boolean;
 };
 
 export type SpaceLayerComposition = {

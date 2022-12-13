@@ -22,6 +22,7 @@ export type G2ViewDescriptor = {
   components: G2GuideComponentOptions[];
   layout: Layout;
   key: string;
+  clip: boolean;
   labelTransform?: LabelTransform;
   // @todo More accurate type.
   style: Record<string, any>;
