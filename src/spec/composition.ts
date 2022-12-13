@@ -24,6 +24,7 @@ export type Node =
 
 export type MarkComposition = Geometry & {
   title?: Title;
+  clip?: boolean;
 };
 
 export type ViewComposition = {
@@ -63,6 +64,7 @@ export type ViewComposition = {
   on?: Record<string, EventType | EventType[]>;
   // @todo
   style?: Record<string, any>;
+  clip?: boolean;
 };
 
 export type SpaceLayerComposition = {
