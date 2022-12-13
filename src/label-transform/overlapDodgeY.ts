@@ -1,7 +1,9 @@
 import { DisplayObject } from '@antv/g';
 import { ascending } from 'd3-array';
-import { DodgeYLabelTransform } from 'spec';
+import { OverlapDodgeYTransform } from '../spec';
 import { LabelTransformComponent as LLC } from '../runtime';
+
+export type OverlapDodgeYOptions = Omit<OverlapDodgeYTransform, 'type'>;
 
 function isSegmentIntersect([a, b], [c, d]) {
   return d > a && b > c;
@@ -13,8 +15,6 @@ function useMap<K, V>() {
   const set = (key: K, value: V) => map.set(key, value);
   return [get, set] as const;
 }
-
-export type DodgeYOptions = Omit<DodgeYLabelTransform, 'type'>;
 
 function getBoundsWithoutConnector(shape: DisplayObject) {
   const node = shape.cloneNode(true);
@@ -29,8 +29,8 @@ function getBoundsWithoutConnector(shape: DisplayObject) {
 /**
  * An iterative dodge method avoids label overlap. (n * log(n))
  */
-export const DodgeY: LLC<DodgeYOptions> = (options) => {
-  const { maxIter = 10, maxError = 0.1, padding = 1 } = options;
+export const OverlapDodgeY: LLC<OverlapDodgeYOptions> = (options) => {
+  const { maxIterator = 10, maxError = 0.1, padding = 1 } = options;
   return (labels: DisplayObject[]) => {
     const n = labels.length;
     if (n <= 1) return labels;
@@ -51,7 +51,7 @@ export const DodgeY: LLC<DodgeYOptions> = (options) => {
     }
 
     // Offsets position Y.
-    for (let iter = 0; iter < maxIter; iter++) {
+    for (let iter = 0; iter < maxIterator; iter++) {
       labels.sort((a, b) => ascending(y(a), y(b)));
       let error = 0;
       for (let i = 0; i < n - 1; i++) {

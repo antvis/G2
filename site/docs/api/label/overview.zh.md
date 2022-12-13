@@ -42,7 +42,7 @@ chart
   .label({
     text: 'people',
     position: 'outside',
-    transform: [{ type: 'dodgeY' }],
+    transform: [{ type: 'overlapDodgeY' }],
   });
 
 chart.render();
@@ -150,6 +150,6 @@ function CustomLabelTransform() {
 }
 // 使用
 {
-  transform: [{ type: CustomLabelTransform }, { type: 'dodgeY' }],
+  transform: [{ type: CustomLabelTransform }, { type: 'overlapDodgeY' }],
 }
 ``` -->

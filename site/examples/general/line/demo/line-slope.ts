@@ -26,14 +26,14 @@ chart
     selector: 'first',
     fontSize: 10,
     dx: -3,
-    transform: [{ type: 'dodgeY' }],
+    transform: [{ type: 'overlapDodgeY' }],
   })
   .label({
     text: (d) => `${d.receipts} ${d.country}`,
     selector: 'last',
     fontSize: 10,
     dx: 3,
-    transform: [{ type: 'dodgeY' }],
+    transform: [{ type: 'overlapDodgeY' }],
   });
 
 chart.render();

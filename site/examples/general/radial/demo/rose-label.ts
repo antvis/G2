@@ -27,7 +27,7 @@ chart
     text: 'people',
     position: 'outside',
     formatter: '~s',
-    transform: [{ type: 'dodgeY' }],
+    transform: [{ type: 'overlapDodgeY' }],
   });
 
 chart.render();

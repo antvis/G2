@@ -22,7 +22,7 @@ export function stocksLineAggregateLabel(): G2Spec {
       {
         text: 'price',
         fontSize: 10,
-        transform: [{ type: 'dodgeY' }],
+        transform: [{ type: 'overlapDodgeY' }],
       },
     ],
   };

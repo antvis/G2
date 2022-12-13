@@ -256,7 +256,7 @@ import {
   Sort,
 } from '../data';
 import {
-  DodgeY,
+  OverlapDodgeY,
   Spider,
   Surround,
   OverflowHide,
@@ -515,7 +515,7 @@ export function createLibrary(): G2Library {
     'composition.facetCircle': FacetCircle,
     'composition.timingKeyframe': TimingKeyframe,
     'labelTransform.overlapHide': OverlapHide,
-    'labelTransform.dodgeY': DodgeY,
+    'labelTransform.overlapDodgeY': OverlapDodgeY,
     'labelTransform.spider': Spider,
     'labelTransform.surround': Surround,
     'labelTransform.overflowHide': OverflowHide,

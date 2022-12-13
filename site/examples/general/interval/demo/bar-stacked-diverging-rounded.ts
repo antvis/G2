@@ -43,7 +43,7 @@ chart
     fill: '#000',
     fontSize: 10,
     formatter: (v) => (v ? `${v}%` : ''),
-    transform: [{ type: 'dodgeY' }],
+    transform: [{ type: 'overlapDodgeY' }],
   })
   .axis('y', {
     position: 'right',

@@ -28,7 +28,7 @@ WebFont.load({
         text: 'price',
         fontSize: 10,
         fontFamily: 'Gaegu',
-        transform: [{ type: 'dodgeY' }],
+        transform: [{ type: 'overlapDodgeY' }],
       })
       .style('roughness', 2);
 

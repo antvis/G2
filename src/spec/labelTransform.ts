@@ -2,7 +2,7 @@ import { DisplayObject } from '@antv/g';
 
 export type LabelTransform =
   | OverlapHideTransform
-  | DodgeYLabelTransform
+  | OverlapDodgeYTransform
   | ContrastReverseTransform
   | OverflowHideTransform;
 
@@ -14,9 +14,9 @@ export type OverlapHideTransform = {
   priority?: (a: DisplayObject, b: DisplayObject) => number;
 };
 
-export type DodgeYLabelTransform = {
-  type?: 'dodgeY';
-  maxIter?: number;
+export type OverlapDodgeYTransform = {
+  type?: 'overlapDodgeY';
+  maxIterator?: number;
   maxError?: number;
   padding?: number;
 };
