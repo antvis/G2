@@ -21,15 +21,6 @@ export type OverlapDodgeYTransform = {
   padding?: number;
 };
 
-export type SpiderLabelTransform = {
-  type?: 'spider';
-  edgeDistance?: string | number;
-};
-
-export type SurroundLabelTransform = {
-  type?: 'surround';
-};
-
 export type ContrastReverseTransform = {
   type: 'contrastReverse';
   /**

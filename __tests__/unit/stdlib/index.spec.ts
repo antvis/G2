@@ -256,8 +256,6 @@ import {
   Join,
 } from '../../../src/data';
 import {
-  Spider,
-  Surround,
   OverflowHide,
   ContrastReverse,
   OverlapHide,
@@ -517,8 +515,6 @@ describe('stdlib', () => {
       'composition.timingKeyframe': TimingKeyframe,
       'labelTransform.overlapHide': OverlapHide,
       'labelTransform.overlapDodgeY': OverlapDodgeY,
-      'labelTransform.spider': Spider,
-      'labelTransform.surround': Surround,
       'labelTransform.overflowHide': OverflowHide,
       'labelTransform.contrastReverse': ContrastReverse,
       'composition.geoView': GeoView,

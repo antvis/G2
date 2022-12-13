@@ -44,3 +44,15 @@ export function isCircular(coordinate: Coordinate): boolean {
 export function isTheta(coordinate: Coordinate): boolean {
   return isPolar(coordinate) && isTranspose(coordinate);
 }
+
+export function getRadius(coordinate: Coordinate): number {
+  if (isCircular(coordinate)) {
+    const [width, height] = coordinate.getSize();
+    const polar = coordinate
+      .getOptions()
+      .transformations.find((t) => t[0] === 'polar');
+    // coordinate.size * outerRadius.
+    if (polar) return (Math.max(width, height) / 2) * polar[4];
+  }
+  return 0;
+}

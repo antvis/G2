@@ -257,8 +257,6 @@ import {
 } from '../data';
 import {
   OverlapDodgeY,
-  Spider,
-  Surround,
   OverflowHide,
   ContrastReverse,
   OverlapHide,
@@ -516,8 +514,6 @@ export function createLibrary(): G2Library {
     'composition.timingKeyframe': TimingKeyframe,
     'labelTransform.overlapHide': OverlapHide,
     'labelTransform.overlapDodgeY': OverlapDodgeY,
-    'labelTransform.spider': Spider,
-    'labelTransform.surround': Surround,
     'labelTransform.overflowHide': OverflowHide,
     'labelTransform.contrastReverse': ContrastReverse,
     ...geoLibrary,

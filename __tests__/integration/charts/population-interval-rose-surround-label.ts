@@ -20,9 +20,8 @@ export function populationIntervalRoseSurroundLabel(): G2Spec {
     labels: [
       {
         text: 'year',
-        position: 'outside',
+        position: 'surround',
         offset: 12,
-        transform: [{ type: 'surround' }],
       },
     ],
   };
