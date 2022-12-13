@@ -9,7 +9,7 @@ export function aaplLineClip(): G2Spec {
       value: 'data/aapl.csv',
     },
     scale: {
-      // simulate zoom
+      // Specify scale domain to simulate zoom.
       x: { domain: [new Date('2009'), new Date('2011')] },
       y: { domain: [100, 350] },
     },

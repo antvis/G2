@@ -593,7 +593,7 @@ async function plotView(
           .attr('className', PLOT_CLASS_NAME)
           .call(updateBBox)
           .call(updateLayers, Array.from(markState.keys()))
-          .call((selection) => applyClip(selection, clip)),
+          .call(applyClip, clip),
       (update) =>
         update
           .call(updateLayers, Array.from(markState.keys()))
@@ -602,7 +602,7 @@ async function plotView(
               ? animateBBox(selection, animationExtent)
               : updateBBox(selection);
           })
-          .call((selection) => applyClip(selection, clip)),
+          .call(applyClip, clip),
     )
     .transitions();
   transitions.push(...T.flat());
@@ -1220,17 +1220,15 @@ function className(...names: string[]): string {
 
 function applyClip(selection, clip?: boolean) {
   if (!selection.node()) return;
-  selection.each(function (data) {
+  selection.style('clipPath', (data) => {
+    if (!clip) return;
     const {
       paddingTop: y,
       paddingLeft: x,
       innerWidth: width,
       innerHeight: height,
     } = data;
-    this.attr(
-      'clipPath',
-      clip ? new Rect({ style: { x, y, width, height } }) : undefined,
-    );
+    return new Rect({ style: { x, y, width, height } });
   });
 }
 
