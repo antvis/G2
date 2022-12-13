@@ -2,6 +2,9 @@ name: Deploy
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+     - v5
 
 jobs:
   deploy-site:
