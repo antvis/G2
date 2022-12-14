@@ -10,7 +10,7 @@ const chart = new Chart({
   paddingLeft: 50,
 });
 
-// Apply Dark Theme
+// Apply dark theme.
 chart.theme({ type: 'dark' });
 
 chart.coordinate({ type: 'theta', innerRadius: 0.25, outerRadius: 0.8 });

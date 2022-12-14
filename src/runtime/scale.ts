@@ -275,11 +275,15 @@ function categoricalColors(
   );
   const { defaultCategory10: c10, defaultCategory20: c20 } = theme;
   const defaultPalette = unique(values.flat()).length <= c10.length ? c10 : c20;
-  const { palette, offset } = options;
-  const colors =
-    interpolatedColors(palette, domain, offset) ||
-    usePalette({ type: palette || defaultPalette });
-  return colors;
+  const { palette = defaultPalette, offset } = options;
+  // Built-in palettes have higher priority.
+  try {
+    return usePalette({ type: palette });
+  } catch (e) {
+    console.warn(`'palette ${palette} load failed !!!'`);
+  }
+
+  return interpolatedColors(palette, domain, offset);
 }
 
 function gradientColors(range: string): string[] {

@@ -23,10 +23,18 @@
     {
       "filename": "dark.ts",
       "title": {
-        "zh": "暗色主题",
-        "en": "Dark Theme"
+        "zh": "暗色风格",
+        "en": "Dark Style"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*75B7Qov83a0AAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "academy.ts",
+      "title": {
+        "zh": "学术风格",
+        "en": "Academy Theme"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*lin8SZ8z5fUAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "layout-area.ts",
