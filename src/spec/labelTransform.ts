@@ -16,7 +16,7 @@ export type OverlapHideTransform = {
 
 export type OverlapDodgeYTransform = {
   type?: 'overlapDodgeY';
-  maxIterators?: number;
+  maxIterations?: number;
   maxError?: number;
   padding?: number;
 };
