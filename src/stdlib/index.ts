@@ -131,7 +131,7 @@ import {
   HollowPath,
   Shape as CustomShape,
 } from '../shape';
-import { Light, Dark } from '../theme';
+import { Light, Dark, Academy } from '../theme';
 import {
   AxisX,
   AxisY,
@@ -460,6 +460,7 @@ export function createLibrary(): G2Library {
     'shape.path.hollow': HollowPath,
     'theme.light': Light,
     'theme.dark': Dark,
+    'theme.academy': Academy,
     'component.axisX': AxisX,
     'component.axisY': AxisY,
     'component.legendCategory': LegendCategory,

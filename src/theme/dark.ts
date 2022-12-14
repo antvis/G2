@@ -132,7 +132,7 @@ export const Dark: TC<DarkOptions> = (options) => {
     box: {
       box: {
         fillOpacity: 0.95,
-        stroke: '#1D2129',
+        stroke: COLORS.BLACK,
         lineWidth: 1,
       },
     },
