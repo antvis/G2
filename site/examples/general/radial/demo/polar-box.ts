@@ -25,8 +25,9 @@ chart
   .encode('y', 'y')
   .encode('color', 'x')
   .scale('x', { paddingInner: 0.6, paddingOuter: 0.3 })
-  .scale('y', { zero: true, tickCount: 5 })
-  .legend(false)
-  .style('stroke', 'black');
+  .scale('y', { zero: true })
+  .style('stroke', 'black')
+  .axis('y', { tickCount: 5 })
+  .legend(false);
 
 chart.render();
