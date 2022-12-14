@@ -24,14 +24,14 @@ export function receiptsLineSlope(): G2Spec {
         selector: 'first',
         fontSize: 10,
         dx: -3,
-        transform: [{ type: 'dodgeY' }],
+        transform: [{ type: 'overlapDodgeY' }],
       },
       {
         text: (d) => `${d.receipts} ${d.country}`,
         selector: 'last',
         fontSize: 10,
         dx: 3,
-        transform: [{ type: 'dodgeY' }],
+        transform: [{ type: 'overlapDodgeY' }],
       },
     ],
   };

@@ -42,7 +42,7 @@ chart
   .label({
     text: 'people',
     position: 'outside',
-    transform: [{ type: 'dodgeY' }],
+    transform: [{ type: 'overlapDodgeY' }],
   });
 
 chart.render();
@@ -130,7 +130,7 @@ selector 选择器可以对系列数据进行过滤索引。
 | transform type | 用途                                                    | 使用前                                                                                                              | 使用后                                                                                                      |
 | -------------- | ------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
 | `dodgeY`       | 对在 x 方向相交的标签在 y 方向上进行调整，防止标签重叠  | ![without-dodgeY](https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*l8U_TaHjx_cAAAAAAAAAAAAADmJ7AQ/original)   | ![dodgeY](https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*-q4yQZ7WtDcAAAAAAAAAAAAADmJ7AQ)        |
-| `hideOverlap`  | 对相交的标签进行隐藏，默认保留前一个，隐藏后一个        | ![without-overlap](https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*GPM5Q6c6E0EAAAAAAAAAAAAADmJ7AQ/original)  | ![overlap](https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*U-zfSYRR8FQAAAAAAAAAAAAADmJ7AQ/original)  |
+| `overlapHide`  | 对相交的标签进行隐藏，默认保留前一个，隐藏后一个        | ![without-overlap](https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*GPM5Q6c6E0EAAAAAAAAAAAAADmJ7AQ/original)  | ![overlap](https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*U-zfSYRR8FQAAAAAAAAAAAAADmJ7AQ/original)  |
 | `spider`       | 调整标签沿坐标轴边沿两端对齐，适用于 polar 坐标系       | ![without-spider](https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*zadTTJI2nOEAAAAAAAAAAAAADmJ7AQ/original)   | ![spider](https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*gC20SLxWVicAAAAAAAAAAAAADmJ7AQ/original)   |
 | `surround`     | 调整标签环形环绕做坐标系，适用于 polar 坐标系下的玫瑰图 | ![without-surround](https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Cx8zT7vT5bUAAAAAAAAAAAAADmJ7AQ/original) | ![surround](https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*lRJqTLldgRYAAAAAAAAAAAAADmJ7AQ/original) |
 
@@ -150,6 +150,6 @@ function CustomLabelTransform() {
 }
 // 使用
 {
-  transform: [{ type: CustomLabelTransform }, { type: 'dodgeY' }],
+  transform: [{ type: CustomLabelTransform }, { type: 'overlapDodgeY' }],
 }
 ``` -->

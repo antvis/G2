@@ -1,10 +1,9 @@
-import { maxIndex } from 'd3-array';
 import { Coordinate } from '@antv/coord';
-import { Vector2 } from '../../runtime';
-import { getArcObject } from '../../shape/utils';
-import { isCircular, isRadial } from '../../utils/coordinate';
-import { maybePercentage } from '../../utils/helper';
-import { sub, angle, mid } from '../../utils/vector';
+import { Vector2 } from '../../../runtime';
+import { getArcObject } from '../../../shape/utils';
+import { isCircular, isRadial } from '../../../utils/coordinate';
+import { maybePercentage } from '../../../utils/helper';
+import { mid } from '../../../utils/vector';
 
 export type LabelPosition =
   | 'top'
@@ -17,9 +16,11 @@ export type LabelPosition =
   | 'bottom-right'
   | 'inside'
   | 'outside'
-  | 'area';
+  | 'area'
+  | 'spider'
+  | 'surround';
 
-function inferNonCircularStyle(
+export function inferNonCircularStyle(
   position: LabelPosition,
   points: Vector2[],
   value: Record<string, any>,
@@ -66,7 +67,7 @@ function inferNonCircularStyle(
   });
 }
 
-function inferRadialStyle(
+export function inferRadialStyle(
   position: LabelPosition,
   points: Vector2[],
   value: Record<string, any>,
@@ -114,7 +115,7 @@ function inferRotation(
   return (angle / Math.PI) * 180 + append;
 }
 
-function inferCircularStyle(
+export function inferCircularStyle(
   position: LabelPosition,
   points: Vector2[],
   value: Record<string, any>,
@@ -193,7 +194,7 @@ function inferIdentityStyle(position, points, value, coordinate) {
   };
 }
 
-function getDefaultStyle(
+export function getDefaultStyle(
   position: LabelPosition,
   points: Vector2[],
   value: Record<string, any>,
@@ -215,49 +216,4 @@ function getDefaultStyle(
     : inferNonCircularStyle;
 
   return inferDefaultStyle(position, points, value, coordinate);
-}
-
-export const top = getDefaultStyle;
-export const bottom = getDefaultStyle;
-export const right = getDefaultStyle;
-export const left = getDefaultStyle;
-export const topLeft = getDefaultStyle;
-export const topRight = getDefaultStyle;
-export const bottomLeft = getDefaultStyle;
-export const bottomRight = getDefaultStyle;
-export const inside = getDefaultStyle;
-export const outside = getDefaultStyle;
-
-/**
- * Only for Area label.
- */
-export function area(
-  position: LabelPosition,
-  points: Vector2[],
-  value: Record<string, any>,
-  coordinate: Coordinate,
-) {
-  const l = points.length / 2;
-  const Y1 = points.slice(0, l);
-  const Y0 = points.slice(l);
-  // Get the maximal space for label.
-  let idx = maxIndex(Y1, (p, i) => Math.abs(p[1] - Y0[i][1]));
-  // Do not show label at first and last.
-  idx = Math.max(Math.min(idx, l - 2), 1);
-
-  const mid = (i: number): Vector2 => [Y1[i][0], (Y1[i][1] + Y0[i][1]) / 2];
-  const point = mid(idx);
-  const prev = mid(idx - 1);
-  const next = mid(idx + 1);
-
-  // todo: G rotate only support deg.
-  const rotate = (angle(sub(next, prev)) / Math.PI) * 180;
-
-  return {
-    x: point[0],
-    y: point[1],
-    transform: `rotate(${rotate}deg)`,
-    textAlign: 'center',
-    textBaseline: 'middle',
-  };
 }

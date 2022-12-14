@@ -784,7 +784,16 @@ function getLabels(
   const { seriesIndex: SI, seriesKey, points, key, index } = element.__data__;
   const bounds = getLocalBounds(element);
   if (!SI) {
-    return [{ ...label, key: `${key}-${labelIndex}`, bounds, index, points }];
+    return [
+      {
+        ...label,
+        key: `${key}-${labelIndex}`,
+        bounds,
+        index,
+        points,
+        dependentElement: element,
+      },
+    ];
   }
   const selector = normalizeLabelSelector(label);
   const F = SI.map((index: number, i: number) => ({
@@ -793,6 +802,7 @@ function getLabels(
     bounds: [points[i]],
     index,
     points,
+    dependentElement: element,
   }));
   return selector ? selector(F) : F;
 }

@@ -5,7 +5,7 @@ import { applyStyle } from '../../shape/utils';
 import { isTranspose, isCircular } from '../../utils/coordinate';
 import { camelCase } from '../../utils/string';
 import { Advance } from '../text/advance';
-import { LabelPosition } from './position';
+import { LabelPosition } from './position/default';
 import * as PositionProcessor from './position';
 
 export type LabelOptions = Record<string, any>;
@@ -22,6 +22,7 @@ function getDefaultStyle(
   value: Record<string, any>,
   coordinate: Coordinate,
   theme: G2Theme,
+  options: LabelOptions,
 ): Record<string, any> {
   // For non-series mark, calc position for label based on
   // position and the bounds of shape.
@@ -35,7 +36,7 @@ function getDefaultStyle(
   }
   return {
     ...t,
-    ...processor(p, points, v, coordinate),
+    ...processor(p, points, v, coordinate, options),
   };
 }
 
@@ -50,7 +51,7 @@ export const Label: SC<LabelOptions> = (options) => {
       rotate = 0,
       transform = '',
       ...defaultStyle
-    } = getDefaultStyle(points, value, coordinate, theme);
+    } = getDefaultStyle(points, value, coordinate, theme, options);
 
     return select(new Advance())
       .call(applyStyle, defaultStyle)

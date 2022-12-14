@@ -34,13 +34,12 @@ chart
   })
   .label({
     text: 'id',
-    position: 'outside',
+    position: 'spider',
     fontWeight: 'bold',
     textBaseline: 'bottom',
     textAlign: (d) => (['c', 'sass'].includes(d.id) ? 'end' : 'start'),
     dy: -4,
     connectorDistance: 0,
-    transform: [{ type: 'spider' }],
   })
   .style('radius', 4)
   .style('inset', 1)

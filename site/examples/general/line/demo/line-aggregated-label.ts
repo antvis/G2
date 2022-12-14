@@ -22,7 +22,7 @@ chart
   .label({
     text: 'price',
     fontSize: 10,
-    transform: [{ type: 'dodgeY' }],
+    transform: [{ type: 'overlapDodgeY' }],
   });
 
 chart.render();
