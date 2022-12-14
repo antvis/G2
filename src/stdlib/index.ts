@@ -255,7 +255,12 @@ import {
   Join,
   Sort,
 } from '../data';
-import { HideOverlap, DodgeY, Spider, Surround } from '../label-transform';
+import {
+  OverlapDodgeY,
+  OverflowHide,
+  ContrastReverse,
+  OverlapHide,
+} from '../label-transform';
 import { geoLibrary } from '../geo';
 
 export function createLibrary(): G2Library {
@@ -507,10 +512,10 @@ export function createLibrary(): G2Library {
     'composition.repeatMatrix': RepeatMatrix,
     'composition.facetCircle': FacetCircle,
     'composition.timingKeyframe': TimingKeyframe,
-    'labelTransform.hideOverlap': HideOverlap,
-    'labelTransform.dodgeY': DodgeY,
-    'labelTransform.spider': Spider,
-    'labelTransform.surround': Surround,
+    'labelTransform.overlapHide': OverlapHide,
+    'labelTransform.overlapDodgeY': OverlapDodgeY,
+    'labelTransform.overflowHide': OverflowHide,
+    'labelTransform.contrastReverse': ContrastReverse,
     ...geoLibrary,
   };
 }

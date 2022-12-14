@@ -31,7 +31,7 @@ export function population2015IntervalPieLabel(): G2Spec {
         // Not to display label connector.
         // connector: false,
         offset: 12,
-        transform: [{ type: 'hideOverlap' }],
+        transform: [{ type: 'overlapHide' }],
       },
     ],
   };

@@ -1,4 +1,6 @@
 export { alphabetInterval } from './alphabet-interval';
+export { alphabetIntervalLabelOverflowHide } from './alphabet-interval-label-overflow-hide';
+export { alphabetIntervalLabelContrastReverse } from './alphabet-interval-label-contrast-reverse';
 export { alphabetIntervalDataSort } from './alphabet-interval-data-sort';
 export { gammaRandomLineSortXQuantitative } from './gamma-random-line-sortx-quantitative';
 export { alphabetIntervalTransposed } from './alphabet-interval-transposed';
@@ -38,6 +40,7 @@ export { seattleWeatherPoint1d } from './seattle-weather-point-1d';
 export { flarePointCirclePackDefault } from './flare-point-circle-pack-default';
 export { flarePointCirclePackCustom } from './flare-point-circle-pack-custom';
 export { aaplLineBasic } from './aapl-line-basic';
+export { aaplLineBasicLabelOverlapHide } from './aapl-line-basic-label-overlap-hide';
 export { aaplLineBasicSample } from './aapl-line-basic-sample';
 export { unemploymentLineMultiSeries } from './unemployment-line-multi-series';
 export { receiptsLineSlope } from './receipts-line-slope';

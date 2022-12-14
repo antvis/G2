@@ -27,10 +27,11 @@ export function population2015IntervalSpiderLabel(): G2Spec {
     labels: [
       {
         text: 'name',
-        position: 'outside',
+        position: 'spider',
+        edgeDistance: 20,
         connectorDistance: 4,
         offset: 12,
-        transform: [{ type: 'spider', edgeDistance: 20 }, { type: 'dodgeY' }],
+        transform: [{ type: 'overlapDodgeY' }],
       },
     ],
   };
