@@ -29,5 +29,6 @@ chart
     formatter: '~s',
     transform: [{ type: 'overlapDodgeY' }],
   });
+  .animate('enterType', 'waveIn');
 
 chart.render();

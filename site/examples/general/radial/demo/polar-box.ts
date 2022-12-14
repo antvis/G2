@@ -16,6 +16,8 @@ const chart = new Chart({
   autoFit: true,
 });
 
+chart.coordinate({ type: 'polar', innerRadius: 0.2 });
+
 chart
   .box()
   .data(data)
@@ -23,10 +25,8 @@ chart
   .encode('y', 'y')
   .encode('color', 'x')
   .scale('x', { paddingInner: 0.6, paddingOuter: 0.3 })
-  .scale('y', { zero: true })
+  .scale('y', { zero: true, tickCount: 5 })
   .legend(false)
   .style('stroke', 'black');
-
-chart.coordinate({ type: 'polar', innerRadius: 0.2 });
 
 chart.render();

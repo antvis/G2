@@ -25,13 +25,14 @@ chart
     palette: 'spectral',
     offset: (t) => t * 0.8 + 0.1,
   })
-  .legend(false)
   .label({ text: 'name', radius: 0.8, fontSize: 10, fontWeight: 'bold' })
   .label({
     text: (d, i, data) => (i < data.length - 3 ? d.value : ''),
     radius: 0.8,
     fontSize: 9,
     dy: 12,
-  });
+  })
+  .animate('enterType', 'waveIn')
+  .legend(false);
 
 chart.render();
