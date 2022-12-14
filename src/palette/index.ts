@@ -1,6 +1,6 @@
 export { Category10 } from './category10';
 export { Category20 } from './category20';
-export { SchemeTableau10 } from './schemeTableau10';
+export { Tableau10 } from './tableau10';
 export { SequentialBlue } from './sequentialBlue';
 export { SequentialDarkBlue } from './sequentialDarkBlue';
 export { SequentialGreen } from './sequentialGreen';

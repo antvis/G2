@@ -47,7 +47,7 @@ import {
 import {
   Category10,
   Category20,
-  SchemeTableau10,
+  Tableau10,
   SequentialBlue,
   SequentialDarkBlue,
   SequentialGreen,
@@ -367,7 +367,7 @@ export function createLibrary(): G2Library {
     'mark.wordCloud': WordCloudGeometry,
     'palette.category10': Category10,
     'palette.category20': Category20,
-    'palette.schemeTableau10': SchemeTableau10,
+    'palette.tableau10': Tableau10,
     'palette.sequentialBlue': SequentialBlue,
     'palette.sequentialDarkBlue': SequentialDarkBlue,
     'palette.sequentialGreen': SequentialGreen,

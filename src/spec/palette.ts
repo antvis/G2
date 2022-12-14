@@ -14,8 +14,8 @@ export type Category20Palette = {
   type?: 'category20';
 };
 
-export type SchemeTableau10Palette = {
-  type?: 'schemeTableau10';
+export type Tableau10Palette = {
+  type?: 'tableau10';
 };
 
 // ------ Sequential Single ------

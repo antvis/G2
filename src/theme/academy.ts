@@ -14,8 +14,8 @@ export const Academy: TC<AcademyOptions> = (options) => {
   const DEFAULT_COLOR = '#4e79a7';
   const defaultOptions: Theme = {
     defaultColor: DEFAULT_COLOR,
-    defaultCategory10: 'schemeTableau10',
-    defaultCategory20: 'schemeTableau10',
+    defaultCategory10: 'tableau10',
+    defaultCategory20: 'tableau10',
     defaultSize: 1,
     elementActiveStroke: COLORS.BLACK,
     enter: {
