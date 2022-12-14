@@ -28,7 +28,7 @@ chart
     position: 'outside',
     formatter: '~s',
     transform: [{ type: 'overlapDodgeY' }],
-  });
+  })
   .animate('enterType', 'waveIn');
 
 chart.render();
