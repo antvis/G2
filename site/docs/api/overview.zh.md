@@ -121,25 +121,30 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
 
 ## [Label](/api/label/overview)
 
-绘制数据标签。
+绘制数据标签和标签属性的变换。
+
+- [label.contrastReverse](/api/label/contrastreverse) - 标签颜色在图形背景上对比度低的情况下，从指定色板选择一个对比度最优的颜色。
+- [label.overflowHide](/api/label/overflowhide) - 对于标签在图形上放置不下的时候，隐藏标签。
+- [label.overlapDodgeY](/api/label/overlapdodgey) - 对位置碰撞的标签在 y 方向上进行调整，防止标签重叠。
+- [label.overlapHide](/api/label/overlaphide) - 对位置碰撞的标签进行隐藏，默认保留前一个，隐藏后一个。 
 
 ## [Animation](/api/animation/overview)
 
 动画相关的内容。
 
-- [animation.fadeIn](/api/animation/fadeIn) - 渐现动画。
-- [animation.fadeOut](/api/animation/fadeOut) - 渐隐动画。
-- [animation.growInX](/api/animation/growInX) - 容器沿着 x 方向放大的矩阵动画，多用于 G.Group 容器类进行动画。
-- [animation.growInY](/api/animation/growInY) - 容器沿着 y 方向放大的矩阵动画，多用于 G.Group 容器类进行动画。
+- [animation.fadeIn](/api/animation/fadein) - 渐现动画。
+- [animation.fadeOut](/api/animation/fadeout) - 渐隐动画。
+- [animation.growInX](/api/animation/growinx) - 容器沿着 x 方向放大的矩阵动画，多用于 G.Group 容器类进行动画。
+- [animation.growInY](/api/animation/growiny) - 容器沿着 y 方向放大的矩阵动画，多用于 G.Group 容器类进行动画。
 - [animation.morphing](/api/animation/morphing) - 图形之间的形变动画。
-- [animation.pathIn](/api/animation/pathIn) - Path 路径入场动画。
-- [animation.scaleInX](/api/animation/scaleInX) - 单个图形沿着 x 方向的生长动画。
-- [animation.scaleInY](/api/animation/scaleInY) - 单个图形沿着 y 方向的生长动画。
-- [animation.scaleOutX](/api/animation/scaleOutX) - 单个图形沿着 x 方向的消退动画。
-- [animation.scaleOutY](/api/animation/scaleOutY) - 单个图形沿着 y 方向的消退动画。
-- [animation.waveIn](/api/animation/waveIn) - 划入入场动画效果，不同坐标系下效果不同。
-- [animation.zoomIn](/api/animation/zoomIn) - 沿着图形中心点的放大动画。
-- [animation.zoomOut](/api/animation/zoomOut) - 沿着图形中心点的缩小动画。
+- [animation.pathIn](/api/animation/pathin) - Path 路径入场动画。
+- [animation.scaleInX](/api/animation/scaleinx) - 单个图形沿着 x 方向的生长动画。
+- [animation.scaleInY](/api/animation/scaleiny) - 单个图形沿着 y 方向的生长动画。
+- [animation.scaleOutX](/api/animation/scaleoutx) - 单个图形沿着 x 方向的消退动画。
+- [animation.scaleOutY](/api/animation/scaleouty) - 单个图形沿着 y 方向的消退动画。
+- [animation.waveIn](/api/animation/wavein) - 划入入场动画效果，不同坐标系下效果不同。
+- [animation.zoomIn](/api/animation/zoomin) - 沿着图形中心点的放大动画。
+- [animation.zoomOut](/api/animation/zoomout) - 沿着图形中心点的缩小动画。
 
 ## Interaction
 
