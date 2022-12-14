@@ -24,6 +24,7 @@ chart
     tickCount: 5,
     tickFilter: (d, i) => i !== 0,
     direction: 'right',
-  });
+  })
+  .animate('enterType', 'waveIn');
 
 chart.render();

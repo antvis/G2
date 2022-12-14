@@ -44,6 +44,7 @@ chart
   .style('radius', 4)
   .style('stroke', '#fff')
   .style('lineWidth', 2)
+  .animate('enterType', 'waveIn')
   .legend(false);
 
 chart.render();

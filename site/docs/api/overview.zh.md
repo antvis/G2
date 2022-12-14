@@ -5,7 +5,7 @@ order: 1
 
 G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的顺序去分别介绍每一个模块，你可以把它当做一个字典去搜索和查询。
 
-## [Chart](./chart)
+## [Chart](/api/chart)
 
 提供简洁的命令式 API，一句话生成一个图表。
 
@@ -46,7 +46,7 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
 - [mark.range](/api/mark/range) - 使用一组 `x`(x1, x2) 和一组 `y`(y1, y2) 来定位一个矩形区域，常用于绘制高亮指定区域的辅助区域。
 - [mark.rangeX](/api/mark/rangex) - 使用一组 `x`(x1, x2) 来定位一个垂直于 x 轴的矩形区域，常用于绘制高亮指定区域的辅助区域。
 - [mark.rangeY](/api/mark/rangey) - 使用一组 `y`(y1, y2) 来定位一个垂直于 y 轴的矩形区域，常用于绘制高亮指定区域的辅助区域。
-- [mark.wordcloud](./mark/wordcloud) - 绘制词云图。
+- [mark.wordcloud](/api/mark/wordcloud) - 绘制词云图。
 
 ## Transform
 
@@ -102,7 +102,9 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
 - [coordinate.parallel](/api/coordinate/parallel) - 绘制平行坐标系。
 - [coordinate.transpose](/api/coordinate/transpose) - 改变图表绘制方向。
 - [coordinate.fisheye](/api/coordinate/fisheye) - 鱼眼坐标系。
-- Composition - 视图复合相关的内容。
+
+视图复合相关的内容。
+
 - [composition.spaceLayer](/api/composition/spacelayer) - 对空间不做任何划分，多个视图使用同一个空间区域，常用于视图的层叠。
 - [composition.spaceFlex](/api/composition/spaceflex) - 使用类似 css flex 的布局方式来划分空间区域，常用于多图表对比的视图。
 - [composition.facetRect](/api/composition/facetrect) - 用 row、column 字段维值对空间和数据进行划分，在各个子空间可视化数据片段。
@@ -119,11 +121,30 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
 
 ## [Label](/api/label/overview)
 
-绘制数据标签。
+绘制数据标签和标签属性的变换。
+
+- [label.contrastReverse](/api/label/contrastreverse) - 标签颜色在图形背景上对比度低的情况下，从指定色板选择一个对比度最优的颜色。
+- [label.overflowHide](/api/label/overflowhide) - 对于标签在图形上放置不下的时候，隐藏标签。
+- [label.overlapDodgeY](/api/label/overlapdodgey) - 对位置碰撞的标签在 y 方向上进行调整，防止标签重叠。
+- [label.overlapHide](/api/label/overlaphide) - 对位置碰撞的标签进行隐藏，默认保留前一个，隐藏后一个。 
 
 ## [Animation](/api/animation/overview)
 
 动画相关的内容。
+
+- [animation.fadeIn](/api/animation/fadein) - 渐现动画。
+- [animation.fadeOut](/api/animation/fadeout) - 渐隐动画。
+- [animation.growInX](/api/animation/growinx) - 容器沿着 x 方向放大的矩阵动画，多用于 G.Group 容器类进行动画。
+- [animation.growInY](/api/animation/growiny) - 容器沿着 y 方向放大的矩阵动画，多用于 G.Group 容器类进行动画。
+- [animation.morphing](/api/animation/morphing) - 图形之间的形变动画。
+- [animation.pathIn](/api/animation/pathin) - Path 路径入场动画。
+- [animation.scaleInX](/api/animation/scaleinx) - 单个图形沿着 x 方向的生长动画。
+- [animation.scaleInY](/api/animation/scaleiny) - 单个图形沿着 y 方向的生长动画。
+- [animation.scaleOutX](/api/animation/scaleoutx) - 单个图形沿着 x 方向的消退动画。
+- [animation.scaleOutY](/api/animation/scaleouty) - 单个图形沿着 y 方向的消退动画。
+- [animation.waveIn](/api/animation/wavein) - 划入入场动画效果，不同坐标系下效果不同。
+- [animation.zoomIn](/api/animation/zoomin) - 沿着图形中心点的放大动画。
+- [animation.zoomOut](/api/animation/zoomout) - 沿着图形中心点的缩小动画。
 
 ## Interaction
 
@@ -143,11 +164,11 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
 
 关系图相关的绘制。
 
-- [mark.sankey](./mark/graph/sankey) - 绘制桑基图。
-- [mark.treemap](./mark/graph/treemap) - 绘制矩阵树图。
-- [mark.pack](./mark/graph/pack) - 绘制打包图。
-- [mark.forceGraph](./mark/graph/forcegraph) - 绘制力导向图。
-- [mark.tree](./mark/graph/tree) - 绘制树图。
+- [mark.sankey](/api/graph/sankey) - 绘制桑基图。
+- [mark.treemap](/api/graph/treemap) - 绘制矩阵树图。
+- [mark.pack](/api/graph/pack) - 绘制打包图。
+- [mark.forceGraph](/api/graph/forcegraph) - 绘制力导向图。
+- [mark.tree](/api/graph/tree) - 绘制树图。
 
 ## Geo
 

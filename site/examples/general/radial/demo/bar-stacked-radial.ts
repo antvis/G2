@@ -55,6 +55,7 @@ chart
     tickFilter: (_, i) => i !== 0,
     direction: 'center',
   })
-  .axis('x', { position: 'bottom' });
+  .axis('x', { position: 'bottom' })
+  .animate('enterType', 'waveIn');
 
 chart.render();
