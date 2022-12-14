@@ -46,24 +46,7 @@ chart
 
 ### 动画类型 Type
 
-动画类型 `Type` 本质是设置动画的方式，会影响的视觉属性。
-
-| 属性 | 预览 | 描述 |
-| -------------| ----------------------------------------------------------- | -----------------|
-| fadeIn         | ![fade-in.gif](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*LTRRRL8JwfQAAAAAAAAAAABkARQnAQ)             | 渐现动画。                                                       |
-| fadeOut        | ![fade-out.gif](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*s4Y4S5JJ6WEAAAAAAAAAAABkARQnAQ)            | 渐隐动画。                                                       |
-| growInX        | ![grow-in-x.gif](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*vhRVSLxDqU8AAAAAAAAAAABkARQnAQ)           | 容器沿着 x 方向放大的矩阵动画，多用于 G.Group 容器类进行动画。          |
-| growInY        | ![grow-in-y.gif](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*L6mkQa3aG64AAAAAAAAAAABkARQnAQ)           | 容器沿着 y 方向放大的矩阵动画，多用于 G.Group 容器类进行动画。          |
-| scaleInX       | ![scale-in-x.gif](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*oiaGTLx-dNcAAAAAAAAAAABkARQnAQ)          | 单个图形沿着 x 方向的生长动画。                                     |
-| scaleOutX      | ![scale-in-y.gif](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*T6mLTY3o9OoAAAAAAAAAAABkARQnAQ)          | 单个图形沿着 x 方向的消退动画。                                     |
-| scaleInY       |  同上                                                                                                              | 单个图形沿着 y 方向的生长动画。                                     |
-| scaleOutY      |  同上                                                                                                              | 单个图形沿着 y 方向的消退动画。                                     |
-| waveIn         | ![wave-in-p.gif](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*W5CdQIWw-M4AAAAAAAAAAABkARQnAQ)![wave-in-r.gif](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*z9jjQY-lHcwAAAAAAAAAAABkARQnAQ) | 划入入场动画效果，不同坐标系下效果不同。                         |
-| zoomIn         | ![zoom-in.gif](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*wc4dQp4E6vkAAAAAAAAAAABkARQnAQ)             | 沿着图形中心点的放大动画。                                          |
-| zoomOut        | ![zoom-out.gif](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*PZ2gTrkV29YAAAAAAAAAAABkARQnAQ)            | 沿着图形中心点的缩小动画。                                          |
-| pathIn         | ![path-in.gif](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*gxZ1RIIMtdIAAAAAAAAAAABkARQnAQ)             | path 路径入场动画。                                               |
-| morphing       | ![morphing.gif](https://gw.alipayobjects.com/zos/raptor/1670815385405/animation.gif)                              | 图形之间的形变动画                                                 |
-| null / undefined / false   |                                                                                                           | 关闭动画                                                         |
+动画类型 `Type` 本质是设置动画的方式，会影响的视觉属性。这里具体可以看对应的文档 [Animation](/api/overview#animation)。当然也可以设置为 `null`，`undefined`，`false`，代表关闭动画。
 
 ### 缓动函数 Easing
 
