@@ -99,9 +99,15 @@ Label 继承 G Text 所有属性样式配置，此外还有 `position`, `selecto
 
 ### 支持哪些 position？
 
-在笛卡尔坐标系下，支持 9 种位置：`'top'`, `'left'`, `'right'`, `'bottom'`, `'top-left'`, `'top-right'`, `'bottom-left'`, `'bottom-right'`, `'inside'`。
+在笛卡尔坐标系下，支持 9 种位置：`'top'`, `'left'`, `'right'`, `'bottom'`, `'top-left'`, `'top-right'`, `'bottom-left'`, `'bottom-right'`, `'inside'`。非笛卡尔坐标系下，支持 `'outside'`, `'inside'` 两种。
 
-非笛卡尔坐标系下，支持 `'outside'`, `'inside'` 两种，此外，还有特殊的 `area` 适用于面积图，见 [面积图特殊标签](/zh/examples/general/area/#label)
+此外，针对面积图提供特殊 `area`，见 [面积图特殊标签](/zh/examples/general/area/#label)。针对 radial 类型的图标，增加了 `spider`、`surround` 两种类型。
+
+| position | 用途              | 使用前                 | 使用后                          |
+| -------- | ---------------- | --------------------- | ------------------------------ |
+| `spider`       | 调整标签沿坐标轴边沿两端对齐，适用于 polar 坐标系       | ![without-spider](https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*zadTTJI2nOEAAAAAAAAAAAAADmJ7AQ/original)   | ![spider](https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*gC20SLxWVicAAAAAAAAAAAAADmJ7AQ/original)   |
+| `surround`     | 调整标签环形环绕做坐标系，适用于 polar 坐标系下的玫瑰图 | ![without-surround](https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Cx8zT7vT5bUAAAAAAAAAAAAADmJ7AQ/original) | ![surround](https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*lRJqTLldgRYAAAAAAAAAAAAADmJ7AQ/original) |
+| `area`     | 将面积图的标签显示在面积区域中心，并设置一定的旋转角度 |  | ![area](https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ZIamS4KwErEAAAAAAAAAAAAADmJ7AQ/original) |
 
 ### selector 如何使用？
 
@@ -123,33 +129,6 @@ selector 选择器可以对系列数据进行过滤索引。
 }
 ```
 
-### 支持哪些 transform？
+### 支持哪些 transform ？
 
-目前支持的 label transform 如下:
-
-| transform type | 用途                                                    | 使用前                                                                                                              | 使用后                                                                                                      |
-| -------------- | ------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| `dodgeY`       | 对在 x 方向相交的标签在 y 方向上进行调整，防止标签重叠  | ![without-dodgeY](https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*l8U_TaHjx_cAAAAAAAAAAAAADmJ7AQ/original)   | ![dodgeY](https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*-q4yQZ7WtDcAAAAAAAAAAAAADmJ7AQ)        |
-| `overlapHide`  | 对相交的标签进行隐藏，默认保留前一个，隐藏后一个        | ![without-overlap](https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*GPM5Q6c6E0EAAAAAAAAAAAAADmJ7AQ/original)  | ![overlap](https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*U-zfSYRR8FQAAAAAAAAAAAAADmJ7AQ/original)  |
-| `spider`       | 调整标签沿坐标轴边沿两端对齐，适用于 polar 坐标系       | ![without-spider](https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*zadTTJI2nOEAAAAAAAAAAAAADmJ7AQ/original)   | ![spider](https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*gC20SLxWVicAAAAAAAAAAAAADmJ7AQ/original)   |
-| `surround`     | 调整标签环形环绕做坐标系，适用于 polar 坐标系下的玫瑰图 | ![without-surround](https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Cx8zT7vT5bUAAAAAAAAAAAAADmJ7AQ/original) | ![surround](https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*lRJqTLldgRYAAAAAAAAAAAAADmJ7AQ/original) |
-
-<!-- ### 如何自定义标签布局？
-
-示例，将标签显示在坐标系右侧 10px 位置
-
-```ts
-function CustomLabelTransform() {
-  return (labels, coordinate) => {
-    const { x, width } = coordinate.getOptions();
-    return labels.map(label => {
-      label.style.x = x + width - 10;
-      label.style.textAlign = 'end'
-    });
-  }
-}
-// 使用
-{
-  transform: [{ type: CustomLabelTransform }, { type: 'overlapDodgeY' }],
-}
-``` -->
+所有的 transform 有单独具体的文档，具体参考 [Label.transform](/api/overview#label)。
