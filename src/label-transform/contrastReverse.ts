@@ -2,7 +2,7 @@ import { DisplayObject } from '@antv/g';
 import { maxIndex } from 'd3-array';
 import { ContrastReverseTransform } from '../spec';
 import { LabelTransformComponent as LLC } from '../runtime';
-import { parseColor } from '../utils/color';
+import { parseToRGB } from '../utils/color';
 
 export type ContrastReverseOptions = Omit<ContrastReverseTransform, 'type'>;
 
@@ -33,7 +33,7 @@ function contrast(foreground, background): number {
  * Reverse color for max contrast.
  */
 function mostContrast(color, palette: string[]): string {
-  const i = maxIndex(palette, (c) => contrast(color, parseColor(c)));
+  const i = maxIndex(palette, (c) => contrast(color, parseToRGB(c)));
   return palette[i];
 }
 

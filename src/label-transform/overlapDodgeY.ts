@@ -30,7 +30,7 @@ function getBoundsWithoutConnector(shape: DisplayObject) {
  * An iterative dodge method avoids label overlap. (n * log(n))
  */
 export const OverlapDodgeY: LLC<OverlapDodgeYOptions> = (options) => {
-  const { maxIterator = 10, maxError = 0.1, padding = 1 } = options;
+  const { maxIterators = 10, maxError = 0.1, padding = 1 } = options;
   return (labels: DisplayObject[]) => {
     const n = labels.length;
     if (n <= 1) return labels;
@@ -51,7 +51,7 @@ export const OverlapDodgeY: LLC<OverlapDodgeYOptions> = (options) => {
     }
 
     // Offsets position Y.
-    for (let iter = 0; iter < maxIterator; iter++) {
+    for (let iter = 0; iter < maxIterators; iter++) {
       labels.sort((a, b) => ascending(y(a), y(b)));
       let error = 0;
       for (let i = 0; i < n - 1; i++) {
