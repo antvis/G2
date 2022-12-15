@@ -15,6 +15,7 @@
     "@antv/g-plugin-rough-canvas-renderer": "^1.7.27",
     "@antv/g-svg": "^1.8.27",
     "@antv/g-webgl": "^1.7.33",
+    "antd": "^5.0.3",
     "d3-array": "^3.2.0",
     "d3-geo-projection": "^4.0.0",
     "d3-hierarchy": "^3.1.2",

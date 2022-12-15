@@ -1,0 +1,48 @@
+@font-face {
+  font-family: 'Gaegu';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.googleapis.com/css?family=Gaegu)
+}
+
+.gallery-page {
+  width: 100%;
+  display: flex;
+  background-color: #eaf2f6;
+  &.theme-dark {
+    background-color: rgba(20,20,20,.92);
+  }
+
+  @media screen and (max-width:375px) {
+    width: calc(100% - 40px);
+  }
+
+  .config-panel-affix {
+    position: fixed;
+    top: 64px;
+    right: 20px;
+    width: 100px;
+  }
+
+  .demos-view-container {
+    width: calc(100% - 164px);
+    margin: 20px 140px 20px 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 16px;
+    row-gap: 16px;
+    min-height: 400px;
+  }
+
+  @media screen and (max-width:1440px){
+    .demos-view-container {
+      grid-template-columns: 1fr 1fr;
+    }
+  } 
+
+  @media screen and (max-width:768px){
+    .demos-view-container {
+      grid-template-columns: 1fr;
+    }
+  }  
+}
