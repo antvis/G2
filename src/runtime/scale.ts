@@ -280,10 +280,10 @@ function categoricalColors(
   try {
     return usePalette({ type: palette });
   } catch (e) {
-    console.warn(`'palette ${palette} load failed !!!'`);
+    const colors = interpolatedColors(palette, domain, offset);
+    if (colors) return colors;
+    throw new Error(`Unknown Component: ${palette} `);
   }
-
-  return interpolatedColors(palette, domain, offset);
 }
 
 function gradientColors(range: string): string[] {
