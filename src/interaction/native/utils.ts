@@ -33,6 +33,19 @@ export function mousePosition(target, event) {
   return [offsetX - x, offsetY - y];
 }
 
+export function mousePositionClamp(target, event) {
+  const { offsetX, offsetY } = event;
+  const bbox = target.getBounds();
+  const {
+    min: [x, y],
+    max: [x1, y1],
+  } = bbox;
+  return [
+    Math.min(x1, Math.max(x, offsetX)) - x,
+    Math.min(y1, Math.max(y, offsetY)) - y,
+  ];
+}
+
 export function applyDefaultsHighlightedStyle(
   style: Record<string, any>,
 ): Record<string, any> {
@@ -199,4 +212,15 @@ export function renderLink(
   };
 
   return [append, remove] as const;
+}
+
+export function setCursor(root, cursor) {
+  // @ts-ignore
+  const canvas = root.getRootNode().defaultView;
+  const dom = canvas.getContextService().getDomElement();
+  if (dom?.style) dom.style.cursor = cursor;
+}
+
+export function restoreCursor(root) {
+  setCursor(root, 'default');
 }

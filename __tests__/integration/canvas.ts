@@ -4,6 +4,7 @@ import { createCanvas } from 'canvas';
 import pixelmatch from 'pixelmatch';
 import { Canvas } from '@antv/g';
 import { Renderer } from '@antv/g-canvas';
+import { Plugin as DragAndDropPlugin } from '@antv/g-plugin-dragndrop';
 import { render, G2Spec } from '../../src';
 
 export async function renderCanvas(
@@ -60,6 +61,9 @@ export function createGCanvas(width: number, height: number) {
   const renderer = new Renderer();
   const domInteractionPlugin = renderer.getPlugin('dom-interaction');
   renderer.unregisterPlugin(domInteractionPlugin);
+  renderer.registerPlugin(
+    new DragAndDropPlugin({ dragstartDistanceThreshold: 10 }),
+  );
 
   return [
     new Canvas({

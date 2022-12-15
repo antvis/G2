@@ -14,7 +14,10 @@ export type Interaction =
   | FisheyeInteraction
   | ChartIndex
   | CustomInteraction
-  | LegendFilterInteraction;
+  | LegendFilterInteraction
+  | BrushHighlightInteraction
+  | BrushXHighlightInteraction
+  | BrushYHighlightInteraction;
 // | ElementListHighlightInteraction
 // | LegendActiveInteraction
 // | LegendHighlightInteraction
@@ -37,6 +40,9 @@ export type InteractionTypes =
   | 'fisheye'
   | 'tooltip'
   | 'legendFilter'
+  | 'brushXHighlight'
+  | 'brushYHighlight'
+  | 'brushHighlight'
   | InteractionComponent;
 // | 'elementListHighlight'
 // | 'legendActive'
@@ -56,9 +62,15 @@ export type BrushInteraction = {
 
 export type BrushHighlightInteraction = {
   type?: 'brushHighlight';
-  brushType?: 'rect' | 'rectX' | 'rectY' | 'polygon';
-  multiple?: boolean;
-};
+} & Record<`${'mask' | 'highlighted' | 'unhighlighted'}${any}`, any>;
+
+export type BrushXHighlightInteraction = {
+  type?: 'brushXHighlight';
+} & Record<`${'mask' | 'highlighted' | 'unhighlighted'}${any}`, any>;
+
+export type BrushYHighlightInteraction = {
+  type?: 'brushYHighlight';
+} & Record<`${'mask' | 'highlighted' | 'unhighlighted'}${any}`, any>;
 
 export type BrushVisibleInteraction = {
   type?: 'brushVisible';
