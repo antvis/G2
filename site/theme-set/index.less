@@ -5,8 +5,10 @@
   src: url(https://fonts.googleapis.com/css?family=Gaegu)
 }
 
-.gallery-page {
+.page-theme-set {
   width: 100%;
+  height: 100%;
+  overflow: hidden;
   display: flex;
   background-color: #eaf2f6;
   &.theme-dark {
@@ -16,17 +18,41 @@
   @media screen and (max-width:375px) {
     width: calc(100% - 40px);
   }
+  
+  .sider-trigger {
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    border-radius: 13px;
+    top: 160px;
+    left: -13px;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 2;
+    box-shadow: 0 0 2px rgba(0, 0 ,0, 0.08);
+  }
 
-  .config-panel-affix {
-    position: fixed;
-    top: 64px;
-    right: 20px;
-    width: 100px;
+  // 重写侧边样式
+  .ant-layout-sider-collapsed {
+    flex: 0 0 0 !important;
+    min-width: 0 !important;
+
+    .sider-trigger {
+      transform: rotate(180deg);
+
+      svg {
+        transform: translateX(4px) scale(0.8);
+      }
+    }
   }
 
   .demos-view-container {
-    width: calc(100% - 164px);
-    margin: 20px 140px 20px 24px;
+    width: calc(100% - 48px);
+    margin: 20px 24px 20px 24px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     column-gap: 16px;

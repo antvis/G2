@@ -2,6 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "jsx": "react",
+    "lib": ["dom"],
     "paths": {
       "@antv/g2": ["../src/index.ts"]
     }
