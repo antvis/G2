@@ -3,9 +3,9 @@ import {
   ThemeComponent,
 } from '../runtime/types/component';
 
-export type Theme = LightTheme | DarkTheme | CustomTheme;
+export type Theme = LightTheme | DarkTheme | AcademyTheme | CustomTheme;
 
-export type ThemeTypes = 'light' | 'dark' | ThemeComponent;
+export type ThemeTypes = 'light' | 'dark' | 'academy' | ThemeComponent;
 
 export type LightTheme = {
   type?: 'light';
@@ -13,6 +13,10 @@ export type LightTheme = {
 
 export type DarkTheme = {
   type?: 'dark';
+} & ThemeOptions;
+
+export type AcademyTheme = {
+  type?: 'academy';
 } & ThemeOptions;
 
 export type CustomTheme = {

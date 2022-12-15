@@ -131,7 +131,7 @@ import {
   HollowPath,
   Shape as CustomShape,
 } from '../../../src/shape';
-import { Light, Dark } from '../../../src/theme';
+import { Light, Dark, Academy } from '../../../src/theme';
 import {
   AxisX,
   AxisY,
@@ -461,6 +461,7 @@ describe('stdlib', () => {
       'shape.path.hollow': HollowPath,
       'theme.light': Light,
       'theme.dark': Dark,
+      'theme.academy': Academy,
       'component.axisX': AxisX,
       'component.axisY': AxisY,
       'component.legendCategory': LegendCategory,
