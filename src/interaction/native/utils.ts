@@ -16,6 +16,13 @@ export function selectG2Elements(root: DisplayObject): DisplayObject[] {
   return select(root).selectAll(`.${ELEMENT_CLASS_NAME}`).nodes();
 }
 
+export function selectFacetG2Elements(target, viewInstances): DisplayObject[] {
+  const facetInstances = viewInstances.filter(
+    (d) => d !== target && d.options.parentKey === target.options.key,
+  );
+  return facetInstances.flatMap(({ container }) => selectG2Elements(container));
+}
+
 export function selectPlotArea(root: DisplayObject): DisplayObject {
   return select(root).select(`.${PLOT_CLASS_NAME}`).node();
 }

@@ -1,4 +1,4 @@
-import { DisplayObject, Rect } from '@antv/g';
+import { DisplayObject, Rect, Path } from '@antv/g';
 import { subObject } from '../../utils/helper';
 import {
   selectG2Elements,
@@ -8,6 +8,7 @@ import {
   createValueof,
   setCursor,
   mousePositionClamp,
+  selectFacetG2Elements,
 } from './utils';
 
 function intersect(bbox1: any, bbox2: any) {
@@ -28,15 +29,23 @@ function normalizeBounds(x, y, x1, y1, extent) {
 
 export function brush(
   root: DisplayObject,
-  { brushed, brushend, brushRegion, ...style }: Record<string, any>,
+  {
+    brushed,
+    brushend,
+    brushRegion,
+    extent,
+    reverse = false,
+    ...style
+  }: Record<string, any>,
 ) {
   let start = null; // Start point of mask.
   let end = null; // End point of mask.
   let moveStart = null; // Start point of moving mask.
   let mask = null; // Mask instance.
+  let background = null;
   let resizing = false;
 
-  const { width, height } = root.getBBox();
+  const [originX, originY, width, height] = extent;
 
   setCursor(root, 'crosshair');
   root.style.draggable = true; // Make it response to drag event.
@@ -44,7 +53,32 @@ export function brush(
   // Remove old mask and init new mask.
   const initMask = (x, y) => {
     if (mask) mask.remove();
+    if (background) background.remove();
     start = [x, y];
+    if (reverse) return initReverseMask();
+    initNormalMask();
+  };
+
+  const initReverseMask = () => {
+    background = new Path({
+      style: {
+        ...style,
+        pointerEvents: 'none',
+      },
+    });
+    mask = new Rect({
+      // @ts-ignore
+      style: {
+        draggable: true,
+        fill: 'transparent',
+      },
+      className: 'mask',
+    });
+    root.appendChild(background);
+    root.appendChild(mask);
+  };
+
+  const initNormalMask = () => {
     mask = new Rect({
       // @ts-ignore
       style: {
@@ -58,18 +92,19 @@ export function brush(
 
   // Remove mask and reset states.
   const removeMask = () => {
-    mask.remove();
+    if (mask) mask.remove();
+    if (background) background.remove();
     start = null;
-    mask = null;
     end = null;
     moveStart = null;
     resizing = false;
+    mask = null;
+    background = null;
     brushend();
   };
 
   // Update mask and invoke brushend callback.
   const updateMask = (start, end) => {
-    const extent = [0, 0, width, height];
     const [x, y, x1, y1] = normalizeBounds(
       start[0],
       start[1],
@@ -78,24 +113,40 @@ export function brush(
       extent,
     );
     const [fx, fy, fx1, fy1] = brushRegion(x, y, x1, y1, extent);
-    mask.style.x = fx;
-    mask.style.y = fy;
-    mask.style.width = fx1 - fx;
-    mask.style.height = fy1 - fy;
+    if (reverse) updateReverseMask(fx, fy, fx1, fy1);
+    else updateNormalMask(fx, fy, fx1, fy1);
     brushed(fx, fy, fx1, fy1);
+  };
+
+  const updateNormalMask = (x, y, x1, y1) => {
+    mask.style.x = x;
+    mask.style.y = y;
+    mask.style.width = x1 - x;
+    mask.style.height = y1 - y;
+  };
+
+  const updateReverseMask = (x, y, x1, y1) => {
+    background.style.d = `
+      M${originX},${originY}L${width},${originY}L${width},${height}L${originX},${height}Z
+      M${x},${y}L${x},${y1}L${x1},${y1}L${x1},${y}Z
+    `;
+    mask.style.x = x;
+    mask.style.y = y;
+    mask.style.width = x1 - x;
+    mask.style.height = y1 - y;
   };
 
   // Move and update mask.
   const moveMask = (current) => {
     const clip = (dt, start, end, min, max) => {
-      if (dt + start < min) return -start;
+      if (dt + start < min) return min - start;
       if (dt + end > max) return max - end;
       return dt;
     };
     const dx = current[0] - moveStart[0];
     const dy = current[1] - moveStart[1];
-    const dx1 = clip(dx, start[0], end[0], 0, width);
-    const dy1 = clip(dy, start[1], end[1], 0, height);
+    const dx1 = clip(dx, start[0], end[0], originX, width);
+    const dy1 = clip(dy, start[1], end[1], originY, height);
     const currentStart = [start[0] + dx1, start[1] + dy1];
     const currentEnd = [end[0] + dx1, end[1] + dy1];
     updateMask(currentStart, currentEnd);
@@ -106,7 +157,10 @@ export function brush(
   const dragstart = (event) => {
     const { target } = event;
     const [offsetX, offsetY] = mousePositionClamp(root, event);
-    if (target === mask) return (moveStart = [offsetX, offsetY]);
+    if (target === mask) {
+      moveStart = [offsetX, offsetY];
+      return;
+    }
     initMask(offsetX, offsetY);
     resizing = true;
   };
@@ -123,7 +177,14 @@ export function brush(
   // If target is plot area, finish resizing.
   // If target is mask, finish moving mask.
   const dragend = (event) => {
-    if (moveStart) return (moveStart = null);
+    if (moveStart) {
+      moveStart = null;
+      // Update start and end;
+      const { x, y, width, height } = mask.style;
+      start = [x, y];
+      end = [x + width, y + height];
+      return;
+    }
     end = mousePositionClamp(root, event);
     updateMask(start, end);
     resizing = false;
@@ -150,6 +211,7 @@ export function brush(
 
   return () => {
     if (mask) mask.remove();
+    if (background) background.remove();
     root.removeEventListener('dragstart', dragstart);
     root.removeEventListener('drag', drag);
     root.removeEventListener('dragend', dragend);
@@ -160,48 +222,125 @@ export function brush(
 
 export function brushHighlight(
   root,
-  { elements: elementof, datum, brushRegion, ...rest },
+  {
+    elements: elementof,
+    datum,
+    brushRegion,
+    extent: optionalExtent,
+    reverse,
+    series = false,
+    ...rest
+  },
 ) {
   const elements = elementof(root);
   const valueof = createValueof(elements, datum);
   const brushStyle = subObject(rest, 'mask');
   const { setState, removeState } = useState(rest, valueof);
+  const clonedElement = new Map();
+  const {
+    width: rootWidth,
+    height: rootHeight,
+    x: ordinalX,
+    y: ordinalY,
+  } = root.getBBox();
+  const extent = optionalExtent
+    ? optionalExtent
+    : [0, 0, rootWidth, rootHeight];
+
+  const seriesBrushend = () => {
+    for (const element of elements) removeState(element, 'unhighlighted');
+    for (const cloned of clonedElement.values()) cloned.remove();
+    clonedElement.clear();
+  };
+
+  const brushend = () => {
+    for (const element of elements) {
+      removeState(element, 'highlighted', 'unhighlighted');
+    }
+  };
+
+  const brushed = (x, y, x1, y1) => {
+    for (const element of elements) {
+      const { min, max } = element.getLocalBounds();
+      const [ex, ey] = min;
+      const [ex1, ey1] = max;
+      if (!intersect([ex, ey, ex1, ey1], [x, y, x1, y1])) {
+        setState(element, 'unhighlighted');
+      } else {
+        setState(element, 'highlighted');
+      }
+    }
+  };
+
+  const seriesBrushed = (x, y, x1, y1) => {
+    const clone = (element) => {
+      const cloned = element.cloneNode();
+      element.parentNode.appendChild(cloned);
+      clonedElement.set(element, cloned);
+      return cloned;
+    };
+    for (const element of elements) {
+      const cloned = clonedElement.get(element) || clone(element);
+      cloned.style.clipPath = new Rect({
+        style: {
+          x: x + ordinalX,
+          y: y + ordinalY,
+          width: x1 - x,
+          height: y1 - y,
+        },
+      });
+      setState(element, 'unhighlighted');
+      setState(cloned, 'highlighted');
+    }
+  };
+
   return brush(root, {
     ...brushStyle,
+    extent,
     brushRegion,
-    brushend: () => {
-      for (const element of elements) {
-        removeState(element, 'highlighted', 'unhighlighted');
-      }
-    },
-    brushed: (x, y, x1, y1) => {
-      for (const element of elements) {
-        const { min, max } = element.getLocalBounds();
-        const [ex, ey] = min;
-        const [ex1, ey1] = max;
-        if (!intersect([ex, ey, ex1, ey1], [x, y, x1, y1])) {
-          setState(element, 'unhighlighted');
-        } else {
-          setState(element, 'highlighted');
-        }
-      }
-    },
+    reverse,
+    brushend: series ? seriesBrushend : brushend,
+    brushed: series ? seriesBrushed : brushed,
   });
 }
 
-export function BrushHighlight(options) {
-  return (context) => {
-    const { container, view } = context;
+export function BrushHighlight({ facet, ...rest }) {
+  return (target, viewInstances) => {
+    const { container, view } = target;
     const plotArea = selectPlotArea(container);
-    return brushHighlight(plotArea, {
-      elements: selectG2Elements,
-      datum: createDatumof(view),
-      brushRegion: (x, y, x1, y1) => [x, y, x1, y1],
+    const defaultOptions = {
       maskFill: '#777',
       maskFillOpacity: '0.3',
       maskStroke: '#fff',
       unhighlightedOpacity: 0.5,
-      ...options,
+      reverse: false,
+    };
+    if (facet) {
+      const bbox = plotArea.getBounds();
+      const x = bbox.min[0];
+      const y = bbox.min[1];
+      const x1 = bbox.max[0];
+      const y1 = bbox.max[1];
+      return brushHighlight(plotArea.parentNode.parentNode, {
+        elements: () => selectFacetG2Elements(target, viewInstances),
+        datum: createDatumof(view),
+        brushRegion: (x, y, x1, y1) => [x, y, x1, y1],
+        maskFill: '#777',
+        maskFillOpacity: '0.3',
+        maskStroke: '#fff',
+        unhighlightedOpacity: 0.5,
+        extent: [x, y, x1, y1],
+        ...defaultOptions,
+        ...rest,
+      });
+    }
+    return brushHighlight(plotArea, {
+      elements: selectG2Elements,
+      datum: createDatumof(view),
+      brushRegion: (x, y, x1, y1) => [x, y, x1, y1],
+      extent: undefined,
+      ...defaultOptions,
+      ...rest,
     });
   };
 }

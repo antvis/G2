@@ -62,14 +62,26 @@ export type BrushInteraction = {
 
 export type BrushHighlightInteraction = {
   type?: 'brushHighlight';
+  reverse?: boolean;
+  shared?: boolean;
+  series?: boolean;
+  facet?: boolean;
 } & Record<`${'mask' | 'highlighted' | 'unhighlighted'}${any}`, any>;
 
 export type BrushXHighlightInteraction = {
   type?: 'brushXHighlight';
+  reverse?: boolean;
+  shared?: boolean;
+  series?: boolean;
+  facet?: boolean;
 } & Record<`${'mask' | 'highlighted' | 'unhighlighted'}${any}`, any>;
 
 export type BrushYHighlightInteraction = {
   type?: 'brushYHighlight';
+  reverse?: boolean;
+  shared?: boolean;
+  series?: boolean;
+  facet?: boolean;
 } & Record<`${'mask' | 'highlighted' | 'unhighlighted'}${any}`, any>;
 
 export type BrushVisibleInteraction = {

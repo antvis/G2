@@ -20,7 +20,6 @@ export function penguinsPointBrushY(): G2Spec {
 penguinsPointBrushY.steps = ({ canvas }) => {
   const { document } = canvas;
   const plot = document.getElementsByClassName(PLOT_CLASS_NAME)[0];
-
   return [
     {
       changeState: () => {
@@ -29,5 +28,3 @@ penguinsPointBrushY.steps = ({ canvas }) => {
     },
   ];
 };
-
-penguinsPointBrushY.only = true;

@@ -17,34 +17,6 @@ export function penguinsPointBrush(): G2Spec {
   };
 }
 
-penguinsPointBrush.steps = ({ canvas }) => {
-  const { document } = canvas;
-  const plot = document.getElementsByClassName(PLOT_CLASS_NAME)[0];
-
-  return [
-    {
-      changeState: () => {
-        brush(plot, 100, 100, 200, 200);
-      },
-    },
-    {
-      changeState: () => {
-        brush(plot, 250, 250, 400, 400);
-      },
-    },
-    {
-      changeState: () => {
-        dragMask(plot, 300, 300, 0, 0);
-      },
-    },
-    {
-      changeState: () => {
-        dragMask(plot, 100, 100, 640, 480);
-      },
-    },
-  ];
-};
-
 export function brush(plot, x, y, x1, y1) {
   plot.dispatchEvent(
     new CustomEvent('dragstart', {
@@ -79,3 +51,31 @@ export function dragMask(plot, x, y, x1, y1) {
     }),
   );
 }
+
+penguinsPointBrush.steps = ({ canvas }) => {
+  const { document } = canvas;
+  const plot = document.getElementsByClassName(PLOT_CLASS_NAME)[0];
+
+  return [
+    {
+      changeState: () => {
+        brush(plot, 100, 100, 200, 200);
+      },
+    },
+    {
+      changeState: () => {
+        brush(plot, 250, 250, 400, 400);
+      },
+    },
+    {
+      changeState: () => {
+        dragMask(plot, 300, 300, 0, 0);
+      },
+    },
+    {
+      changeState: () => {
+        dragMask(plot, 100, 100, 640, 480);
+      },
+    },
+  ];
+};

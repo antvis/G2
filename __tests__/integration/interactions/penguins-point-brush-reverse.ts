@@ -1,7 +1,7 @@
 import { G2Spec, PLOT_CLASS_NAME } from '../../../src';
 import { brush } from './penguins-point-brush';
 
-export function penguinsPointBrushX(): G2Spec {
+export function penguinsPointBrushReverse(): G2Spec {
   return {
     type: 'point',
     data: {
@@ -14,23 +14,23 @@ export function penguinsPointBrushX(): G2Spec {
       y: 'culmen_depth_mm',
     },
     interactions: [
-      {
-        type: 'brushXHighlight',
-        unhighlightedStroke: 'gray',
-        maskFill: 'red',
-        maskFillOpacity: 0.2,
-      },
+      { type: 'brushHighlight', unhighlightedStroke: 'gray', reverse: true },
     ],
   };
 }
 
-penguinsPointBrushX.steps = ({ canvas }) => {
+penguinsPointBrushReverse.steps = ({ canvas }) => {
   const { document } = canvas;
   const plot = document.getElementsByClassName(PLOT_CLASS_NAME)[0];
   return [
     {
       changeState: () => {
         brush(plot, 100, 100, 200, 200);
+      },
+    },
+    {
+      changeState: () => {
+        brush(plot, 250, 250, 400, 400);
       },
     },
   ];
