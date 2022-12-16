@@ -92,10 +92,6 @@ Mark 以及 Chart 共享的 API
 
 设置图形每个通道的比例尺，具体见 [scale](/api/scale/overview)。
 
-### `node.coordinate()`
-
-设置图形的坐标变换，具体见 [coordinate](/api/coordinate/overview)。
-
 ### `node.legend()`
 
 设置图形的图例，具体见 [legend](/api/component/legend)。

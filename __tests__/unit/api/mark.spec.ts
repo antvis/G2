@@ -36,8 +36,6 @@ function setOptions(node) {
     .attr('facet', true)
     .attr('key', 'mark')
     .attr('class', 'mark')
-    .coordinate({ type: 'polar' })
-    .interaction({ type: 'elementHighlight' })
     .attr('padding', 0)
     .attr('paddingBottom', 10)
     .attr('paddingLeft', 20)
@@ -80,8 +78,6 @@ function getOptions() {
     facet: true,
     key: 'mark',
     class: 'mark',
-    coordinates: [{ type: 'polar' }],
-    interactions: [{ type: 'elementHighlight' }],
     padding: 0,
     paddingBottom: 10,
     paddingLeft: 20,
