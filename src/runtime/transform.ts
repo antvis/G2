@@ -193,7 +193,13 @@ export function maybeNonAnimate(
 }
 
 function isTypedChannel(channel): boolean {
-  if (typeof channel !== 'object' || channel instanceof Date) return false;
+  if (
+    typeof channel !== 'object' ||
+    channel instanceof Date ||
+    channel === null
+  ) {
+    return false;
+  }
   const { type } = channel;
   return defined(type);
 }

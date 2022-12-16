@@ -92,7 +92,8 @@ export type ChannelTypes =
   | 'groupKey'
   | 'label'
   | 'position'
-  | 'series';
+  | 'series'
+  | `tooltip${number}`;
 
 export type BaseGeometry<
   T extends GeometryTypes,
