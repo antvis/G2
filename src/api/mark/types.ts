@@ -12,7 +12,5 @@ export type API<Props extends Geometry, Mark> = {
   axis: ObjectAttribute<Props['axis'], Mark>;
   slider: ObjectAttribute<Props['slider'], Mark>;
   legend: ObjectAttribute<Props['legend'], Mark>;
-  coordinate: ArrayAttribute<Props['coordinates'], Mark>;
-  interaction: ArrayAttribute<Props['interactions'], Mark>;
   layout: ValueAttribute<Props['layout'], Mark>;
 };
