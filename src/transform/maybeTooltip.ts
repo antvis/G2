@@ -25,7 +25,9 @@ export const MaybeTooltip: TC<MaybeTooltipOptions> = (options) => {
           const E = [[key, column(V)]];
           // Only show channel with field.
           if (V && fv !== null) {
-            E.push([`tooltip${index === 0 ? '' : index}`, column(V, fv)]);
+            const T = V.map((v) => ({ value: v, field: fv }));
+            //@ts-ignore
+            E.push([`tooltip${index === 0 ? '' : index}`, column(T, fv)]);
             index++;
           }
           return E;
