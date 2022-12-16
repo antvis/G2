@@ -1,7 +1,7 @@
 import { DisplayObject } from '@antv/g';
 import { deepMix } from '@antv/util';
 import { subObject } from '../../utils/helper';
-import { createValueof, useState } from './utils';
+import { useState, setCursor, restoreCursor } from './utils';
 
 export const CATEGORY_LEGEND_CLASS_NAME = 'legend-category';
 
@@ -10,17 +10,6 @@ export const LEGEND_ITEMS_CLASS_NAME = 'items-item';
 export const LEGEND_MAKER_CLASS_NAME = 'legend-category-item-marker';
 
 export const LEGEND_LABEL_CLASS_NAME = 'legend-category-item-label';
-
-function setCursor(root, cursor) {
-  // @ts-ignore
-  const canvas = root.getRootNode().defaultView;
-  const dom = canvas.getContextService().getDomElement();
-  dom.style.cursor = cursor;
-}
-
-function restoreCursor(root) {
-  setCursor(root, 'default');
-}
 
 function markerOf(item) {
   return item.getElementsByClassName(LEGEND_MAKER_CLASS_NAME)[0];

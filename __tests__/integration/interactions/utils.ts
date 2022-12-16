@@ -1,6 +1,5 @@
 import { DisplayObject, Canvas, Document, CustomEvent } from '@antv/g';
 import { G2Context, G2Spec, render } from '../../../src';
-import { fetch } from '../fetch';
 
 // @ts-ignore
 // global.fetch = fetch;
