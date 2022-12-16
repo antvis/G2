@@ -1,6 +1,6 @@
 import { G2Spec } from '../../../src';
 
-export function cars3LineParallelVerticalXd(): G2Spec {
+export function cars3LineTooltipXd(): G2Spec {
   const position = [
     'economy (mpg)',
     'cylinders',
@@ -57,4 +57,4 @@ export function cars3LineParallelVerticalXd(): G2Spec {
   };
 }
 
-cars3LineParallelVerticalXd.skip = true;
+cars3LineTooltipXd.skip = true;

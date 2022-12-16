@@ -1,0 +1,50 @@
+import { csv } from 'd3-fetch';
+import { autoType } from 'd3-dsv';
+import { G2Spec } from '../../../src';
+
+export async function indicesLinePointTooltipReverse(): Promise<G2Spec> {
+  const raw = await csv('data/indices.csv', autoType);
+  const symbols = ['AAPL', 'AMZN'];
+  const data = raw.filter((d) => {
+    const date = new Date(d.Date);
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    return year < 2014 && month < 5 && symbols.includes(d.Symbol);
+  });
+  return {
+    type: 'view',
+    width: 800,
+    paddingLeft: 60,
+    data: data.reverse(),
+    children: [
+      {
+        type: 'line',
+        axis: {
+          y: { labelAutoRotate: false },
+        },
+        legend: false,
+        encode: {
+          x: 'Date',
+          y: 'Close',
+          color: 'Symbol',
+          key: 'Symbol',
+          title: null,
+          tooltip: null,
+        },
+      },
+      {
+        type: 'point',
+        encode: {
+          x: 'Date',
+          y: 'Close',
+          color: 'Symbol',
+          key: 'Symbol',
+          tooltip: (d) => new Date(d.Date).toLocaleDateString(),
+        },
+      },
+    ],
+    interactions: [{ type: 'tooltip' }],
+  };
+}
+
+indicesLinePointTooltipReverse.skip = true;

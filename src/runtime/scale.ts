@@ -3,7 +3,7 @@ import { extent } from 'd3-array';
 import * as d3ScaleChromatic from 'd3-scale-chromatic';
 import { upperFirst } from '@antv/util';
 import { firstOf, lastOf, unique } from '../utils/array';
-import { defined, identity } from '../utils/helper';
+import { defined, identity, isStrictObject } from '../utils/helper';
 import { Primitive, G2Theme, G2MarkState, ChannelGroups } from './types/common';
 import {
   G2CoordinateOptions,
@@ -155,7 +155,7 @@ function inferScaleType(
 ): string | ScaleComponent {
   const { type, domain, range } = options;
   if (type !== undefined) return type;
-
+  if (isObject(values)) return 'identity';
   if (typeof range === 'string') return 'linear';
   if ((domain || range || []).length > 2) return asOrdinalType(name);
   if (domain !== undefined) {
@@ -448,6 +448,10 @@ function isOrdinal(values: Primitive[][]): boolean {
 
 function isTemporal(values: Primitive[][]): boolean {
   return some(values, (d) => d instanceof Date);
+}
+
+function isObject(values: Primitive[][]): boolean {
+  return some(values, isStrictObject);
 }
 
 function some(values, callback) {

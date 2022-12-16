@@ -1,8 +1,9 @@
 import { DisplayObject, IElement, Line } from '@antv/g';
-import { sort, bisectCenter, group, mean } from 'd3-array';
+import { sort, group, mean, range, bisector } from 'd3-array';
 import { lowerFirst, throttle } from '@antv/util';
 import { Tooltip as TooltipComponent } from '@antv/gui';
-import { defined, subObject } from '../../utils/helper';
+import { Identity } from '@antv/scale';
+import { defined, subObject, isStrictObject } from '../../utils/helper';
 import {
   selectG2Elements,
   createXKey,
@@ -83,16 +84,24 @@ function filterDefined(obj) {
 function singleItem(element, item, scale) {
   const { __data__: datum } = element;
   const { title, ...rest } = datum;
-  const color = itemColorof(element);
+  const defaultColor = itemColorOf(element);
   const items = Object.entries(rest)
     .filter(([key]) => key.startsWith('tooltip'))
     .map(([key, d]: any) => {
-      const { field, title = field } = scale[key].getOptions();
+      const { field: f, title = f } = scale[key].getOptions();
+      const {
+        field = undefined,
+        color = defaultColor,
+        name = field || title,
+        value,
+        ...rest
+      } = normalizeTooltip(d);
       return {
+        ...rest,
         color,
-        name: title,
-        value: d === undefined ? d : `${d}`,
-        ...filterDefined(item({ channel: key, value: d })),
+        name,
+        value,
+        ...filterDefined(item({ channel: key, value })),
       };
     })
     .filter(({ value }) => value !== undefined);
@@ -102,20 +111,27 @@ function singleItem(element, item, scale) {
   };
 }
 
-function groupTitleof(scale, datum) {
+function groupNameOf(scale, datum) {
   const { color: scaleColor, series: scaleSeries } = scale;
   const { color, series } = datum;
-  if (scaleColor && scaleColor.invert) return scaleColor.invert(color);
-  if (scaleSeries && scaleSeries.invert) return scaleSeries.invert(series);
+  const invertAble = (scale) => {
+    return scale && scale.invert && !(scale instanceof Identity);
+  };
+  if (invertAble(scaleColor)) return scaleColor.invert(color);
+  if (invertAble(scaleSeries)) return scaleSeries.invert(series);
   return null;
 }
 
-function itemColorof(element) {
+function itemColorOf(element) {
   const fill = element.getAttribute('fill');
   const stroke = element.getAttribute('stroke');
   const { __data__: datum } = element;
   const { color = fill || stroke } = datum;
   return color;
+}
+
+function normalizeTooltip(d) {
+  return isStrictObject(d) ? d : { value: d === undefined ? d : `${d}` };
 }
 
 function groupItems(
@@ -128,15 +144,23 @@ function groupItems(
   const items = data.flatMap((datum, i) => {
     const element = elements[i];
     const { title, ...rest } = datum;
-    const color = itemColorof(element);
+    const defaultColor = itemColorOf(element);
     return Object.entries(rest)
       .filter(([key]) => key.startsWith('tooltip'))
       .map(([key, d]: any) => {
-        const { field, title = field } = scale[key].getOptions();
+        const { field: f, title = f } = scale[key].getOptions();
+        const {
+          field = undefined,
+          color = defaultColor,
+          name = groupNameOf(scale, datum) || field || title,
+          value,
+          ...rest
+        } = normalizeTooltip(d);
         return {
+          ...rest,
+          name,
           color,
-          name: groupTitleof(scale, datum) || title,
-          value: d === undefined ? d : `${d}`,
+          value,
           ...filterDefined(item({ channel: key, value: d })),
         };
       })
@@ -227,18 +251,63 @@ export function seriesTooltip(
 ) {
   const elements = elementsof(root);
   const [, height] = sizeof(root);
+
+  // Split elements into series elements and item elements.
+  const seriesElements = [];
+  const itemElements = [];
+  for (const element of elements) {
+    const { __data__: data } = element;
+    const { seriesX } = data;
+    if (seriesX) seriesElements.push(element);
+    else itemElements.push(element);
+  }
+
+  // Get sortedIndex and X for each series elements
   const elementSortedX = new Map(
-    elements.map((element) => {
+    seriesElements.map((element) => {
       const { __data__: data } = element;
       const { seriesX } = data;
-      return [element, sort(seriesX)];
+      const seriesIndex = seriesX.map((_, i) => i);
+      const sortedIndex = sort(seriesIndex, (i) => seriesX[+i]);
+      return [element, [sortedIndex, seriesX]];
     }),
   );
-  const ruleStyle = subObject(rest, 'crosshairs');
 
-  const indexByFocus = (focus, X) => {
+  // Get sortedIndex and X for all item items.
+  const itemIndex = itemElements.map((_, i) => i);
+  const itemX = itemElements.map((element) => {
+    const { __data__: data } = element;
+    return data.x;
+  });
+  const itemSortedIndex = sort(itemIndex, (i) => itemX[i]);
+
+  const ruleStyle = subObject(rest, 'crosshairs');
+  const { x: scaleX } = scale;
+
+  // Apply offset for band scale x.
+  const offsetX = scaleX?.getBandWidth ? scaleX.getBandWidth() / 2 : 0;
+
+  const indexByFocus = (focus, I, X) => {
     const [normalizedX] = coordinate.invert(focus);
-    return bisectCenter(X, normalizedX);
+    const search = bisector((i) => X[+i]).center;
+    const i = search(I, normalizedX - offsetX);
+    return I[i];
+  };
+
+  const indicesByFocus = (focus, I, X) => {
+    const len = I.length;
+    if (len === 0) return [];
+    const [normalizedX] = coordinate.invert(focus);
+    const x = normalizedX - offsetX;
+    const search = bisector((i) => X[+i]).center;
+    const center = search(I, x);
+
+    // Find the least index and greatest index of X[center]
+    let left = center;
+    let right = center;
+    while (left - 1 > 0 && X[I[left - 1]] == X[I[center]]) left--;
+    while (right + 1 < len && X[I[right + 1]] === X[I[center]]) right++;
+    return range(left, right + 1).map((i) => I[i]);
   };
 
   const seriesData = (element, index) => {
@@ -261,18 +330,35 @@ export function seriesTooltip(
       const y = bbox.min[1];
       const focus = [mouse[0] - startX, mouse[1] - startY];
       if (!focus) return;
-      const data = elements.map((element) => {
-        const sortedX = elementSortedX.get(element);
-        const index = indexByFocus(focus, sortedX);
+      // Get selected item element.
+      const selectedItemIndices = indicesByFocus(focus, itemSortedIndex, itemX);
+      const selectedItems = selectedItemIndices.map((i) => itemElements[i]);
+
+      // Get selected data item from both series element and item element.
+      const selectedSeriesData = seriesElements.map((element) => {
+        const [sortedIndex, X] = elementSortedX.get(element);
+        const index = indexByFocus(focus, sortedIndex, X);
         const d = seriesData(element, index);
         const { x, y } = d;
-        return [d, coordinate.map([x, y])] as const;
+        return [d, coordinate.map([x + offsetX, y])] as const;
       });
-      const dataItems = data.map((d) => d[0]);
-      const points = data.map((d) => d[1]);
-      const tooltipData = groupItems(elements, item, scale, dataItems);
+      const selectedData = [
+        ...selectedSeriesData.map((d) => d[0]),
+        ...selectedItems.map((d) => d.__data__),
+      ];
+
+      // Get the displayed tooltip data.
+      const selectedElements = [...seriesElements, ...selectedItems];
+      const tooltipData = groupItems(
+        selectedElements,
+        item,
+        scale,
+        selectedData,
+      );
+
       showTooltip(root, tooltipData, mouse[0] + x, mouse[1] + y);
       if (crosshairs) {
+        const points = selectedSeriesData.map((d) => d[1]);
         updateRuleY(root, points, { ...ruleStyle, height, startX, startY });
       }
     },

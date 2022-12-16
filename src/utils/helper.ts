@@ -99,3 +99,7 @@ export function maybePercentage(x: number | string, size: number) {
   const px = +x.replace('%', '');
   return Number.isNaN(px) ? null : (px / 100) * size;
 }
+
+export function isStrictObject(d: any): boolean {
+  return typeof d === 'object' && !(d instanceof Date) && d !== null;
+}
