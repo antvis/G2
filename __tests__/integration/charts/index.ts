@@ -154,3 +154,4 @@ export { indicesLineChartFacetAxis } from './indices-line-chart-fact-axis';
 export { aaplLineClip } from './aapl-line-clip';
 export { githubStarIntervalPalette } from './github-star-interval-palette';
 export { githubStarIntervalThemeAcademy } from './github-star-interval-theme-academy';
+export { ordersLineMissingField } from './orders-line-missing-field';

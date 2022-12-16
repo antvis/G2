@@ -200,10 +200,13 @@ function isTypedChannel(channel): boolean {
 
 function inferChannelType(data: Record<string, Primitive>[], channel): string {
   if (typeof channel === 'function') return 'transform';
-  if (typeof channel === 'string' && data?.[0]?.[channel] !== undefined) {
-    return 'field';
-  }
+  if (typeof channel === 'string' && isField(data, channel)) return 'field';
   return 'constant';
+}
+
+function isField(data: Record<string, Primitive>[], value: string): boolean {
+  if (!Array.isArray(data)) return false;
+  return data.some((d) => d[value] !== undefined);
 }
 
 function normalizedDataSource(data) {
