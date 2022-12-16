@@ -3,6 +3,7 @@
   "scripts": {
     "start": "dumi dev",
     "build": "dumi build",
+    "analyze": "ANALYZE=1 dumi build",
     "deploy": "gh-pages -d dist",
     "preview": "dumi preview"
   },
