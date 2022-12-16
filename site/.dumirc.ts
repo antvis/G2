@@ -71,7 +71,7 @@ export default defineConfig({
         order: 0,
       },
       {
-        slug: 'theme-set',
+        slug: 'theme',
         title: {
           zh: '主题',
           en: 'Theme',
@@ -504,5 +504,6 @@ export default defineConfig({
   styles: ['https://fonts.googleapis.com/css?family=Gaegu'],
   alias: {
     '@antv/g2': require.resolve('../src/index.ts'),
+    // '@antv/g2': (window as any).g2,
   },
 });

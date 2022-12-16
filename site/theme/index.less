@@ -6,7 +6,7 @@
 }
 
 .page-theme-set {
-  width: 100%;
+  width: 100vw;
   height: 100%;
   overflow: hidden;
   display: flex;
@@ -17,8 +17,42 @@
 
   @media screen and (max-width:375px) {
     width: calc(100% - 40px);
+    padding: 0 20px;
   }
-  
+
+  .demos-view-container {
+    margin: 20px 24px 20px 24px;
+    flex: 1;
+    flex-shrink: 1;
+    min-height: 400px;
+
+    > div {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+      column-gap: 16px;
+      row-gap: 16px;
+
+      > div {
+        width: 100%;
+      }
+    }
+  }
+ 
+
+  // 重写侧边样式
+  .ant-layout-sider-collapsed {
+    flex: 0 !important;
+    min-width: 0 !important;
+
+    .sider-trigger {
+      transform: rotate(180deg);
+
+      svg {
+        transform: translateX(4px) scale(0.8);
+      }
+    }
+  }
+    
   .sider-trigger {
     position: absolute;
     width: 26px;
@@ -36,39 +70,4 @@
     box-shadow: 0 0 2px rgba(0, 0 ,0, 0.08);
   }
 
-  // 重写侧边样式
-  .ant-layout-sider-collapsed {
-    flex: 0 0 0 !important;
-    min-width: 0 !important;
-
-    .sider-trigger {
-      transform: rotate(180deg);
-
-      svg {
-        transform: translateX(4px) scale(0.8);
-      }
-    }
-  }
-
-  .demos-view-container {
-    width: calc(100% - 48px);
-    margin: 20px 24px 20px 24px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    column-gap: 16px;
-    row-gap: 16px;
-    min-height: 400px;
-  }
-
-  @media screen and (max-width:1440px){
-    .demos-view-container {
-      grid-template-columns: 1fr 1fr;
-    }
-  } 
-
-  @media screen and (max-width:768px){
-    .demos-view-container {
-      grid-template-columns: 1fr;
-    }
-  }  
 }

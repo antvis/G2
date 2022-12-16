@@ -11,7 +11,9 @@ const Page: React.FC = () => {
 
   return (
     <div className={`page-theme-set theme-${theme}`}>
-      <DemosView className="demos-view-container" theme={theme} />
+      <div className="demos-view-container">
+        <DemosView theme={theme} />
+      </div>
       <Layout.Sider
         collapsed={collapsed}
         theme="light"
@@ -22,7 +24,7 @@ const Page: React.FC = () => {
       >
         <RightOutlined
           className="sider-trigger"
-          onClick={() => toggleCollapsed((old) => !old)}
+          onClick={() => toggleCollapsed(!collapsed)}
         />
         <ConfigPanel
           theme={theme}

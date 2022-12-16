@@ -8,7 +8,7 @@ import { BarRange } from './bar-range';
 import { lineBar } from './line-bar';
 import { spiderLabel } from './spider-label';
 import { roseLabel } from './rose-label';
-import { groupedBox } from './groupedBox';
+import { groupedBox } from './grouped-box';
 import { treemap } from './treemap';
 // import { barAggregated } from './bar-aggregated';
 // import { sankey } from './sankey';

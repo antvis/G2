@@ -20,7 +20,6 @@ export const missingDataArea = (container, theme, plugins = []) => {
     .encode('x', (d) => new Date(d.date))
     // Mock missing data. Set NaN from Jan. to Mar.
     .encode('y', (d) => (new Date(d.date).getUTCMonth() <= 3 ? NaN : d.close))
-    .scale('x', { type: 'time' })
     .style('connectNulls', true);
 
   chart.render();

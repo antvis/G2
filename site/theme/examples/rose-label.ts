@@ -24,8 +24,7 @@ export const roseLabel = (container, theme, plugins = []) => {
     .encode('y', 'people')
     .scale('y', { type: 'sqrt' })
     .scale('x', { padding: 0 })
-    .axis('y', false)
-    .axis('x', false)
+    .axis(false)
     .label({
       text: 'people',
       position: 'outside',

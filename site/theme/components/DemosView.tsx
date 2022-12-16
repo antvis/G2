@@ -22,6 +22,20 @@ const DemoContainer = ({ theme, className = '', render }) => {
     }
   }, [theme]);
 
+  React.useLayoutEffect(() => {
+    const el = domRef.current;
+
+    const resizeObserver = new ResizeObserver((entries) => {
+      entries.forEach(() => {
+        const chart = chartRef.current;
+        chart && chart.forceFit();
+      });
+    });
+
+    resizeObserver.observe(el);
+    return () => resizeObserver.disconnect();
+  }, []);
+
   return <div ref={domRef} className={className} />;
 };
 
