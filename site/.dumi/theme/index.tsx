@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Layout } from 'antd';
-import { RightOutlined, UpOutlined } from '@ant-design/icons';
+import { RightOutlined } from '@ant-design/icons';
 import { ConfigPanel } from './components/ConfigPanel';
 import { DemosView } from './components/DemosView';
 import './index.less';

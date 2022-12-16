@@ -1,3 +1,3 @@
-import Gallery from './theme.zh';
+import ThemePage from './theme.zh';
 
-export default Gallery;
+export default ThemePage;
