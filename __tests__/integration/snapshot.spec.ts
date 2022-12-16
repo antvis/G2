@@ -8,7 +8,15 @@ import { fetch } from './fetch';
 global.fetch = fetch;
 
 describe('integration', () => {
-  for (const [name, generateOptions] of Object.entries(tests)) {
+  // Filter tests with only.
+  const onlyTests = Object.entries(tests).filter(
+    // @ts-ignore
+    ([, { only = false }]) => only,
+  );
+  const finalTests =
+    onlyTests.length === 0 ? tests : Object.fromEntries(onlyTests);
+
+  for (const [name, generateOptions] of Object.entries(finalTests)) {
     // @ts-ignore
     if (!generateOptions.skip) {
       it(`[Canvas]: ${name}`, async () => {
