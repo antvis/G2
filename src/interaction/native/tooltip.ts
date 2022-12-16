@@ -8,6 +8,7 @@ import {
   createXKey,
   selectPlotArea,
   mousePosition,
+  selectFacetG2Elements,
 } from './utils';
 
 function getContainer(group: IElement) {
@@ -386,9 +387,7 @@ export function Tooltip(options) {
       const facetInstances = viewInstances.filter(
         (d) => d !== target && d.options.parentKey === target.options.key,
       );
-      const elements = facetInstances.flatMap(({ container }) =>
-        selectG2Elements(container),
-      );
+      const elements = selectFacetG2Elements(target, viewInstances);
       // Use the scale of the first view.
       const scale = facetInstances[0].view.scale;
       const bbox = plotArea.getBounds();

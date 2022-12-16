@@ -25,3 +25,9 @@ export { temperaturesLineLegendFilterOrdinal } from './temperatures-line-legend-
 export { profitIntervalLegendFilterOrdinal } from './profit-interval-legend-filter-ordinal';
 export { indicesLineChartFacetTooltip } from './indices-line-chart-facet-tooltip';
 // export { profitCustomIntervalLegendFilter } from './profit-interval-custom-legend-filter';
+export { penguinsPointBrush } from './penguins-point-brush';
+export { penguinsPointBrushX } from './penguins-point-brush-x';
+export { penguinsPointBrushY } from './penguins-point-brush-y';
+export { indicesLineChartFacetBrushShared } from './indices-line-chart-facet-brush-shared';
+export { indicesLineBrushSeries } from './indices-line-brush-series';
+export { penguinsPointBrushReverse } from './penguins-point-brush-reverse';

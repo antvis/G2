@@ -1,5 +1,6 @@
 import { Canvas } from '@antv/g';
 import { Renderer as CanvasRenderer } from '@antv/g-canvas';
+import { Plugin as DragAndDropPlugin } from '@antv/g-plugin-dragndrop';
 import { Renderer as SVGRenderer } from '@antv/g-svg';
 import { render } from '../../src';
 import * as charts from './charts';
@@ -103,11 +104,15 @@ async function plot() {
   const options = await generate();
   const { width = 640, height = 480 } = options;
   const dom = generate.dom?.();
+  const renderer = new renderers[selectRenderer.value]();
+  renderer.registerPlugin(
+    new DragAndDropPlugin({ dragstartDistanceThreshold: 10 }),
+  );
   canvas = new Canvas({
     container: document.createElement('div'),
     width,
     height,
-    renderer: new renderers[selectRenderer.value](),
+    renderer,
   });
   // @ts-ignore
   window.__g_instances__ = [canvas];

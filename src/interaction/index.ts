@@ -10,6 +10,9 @@ export { ChartIndex } from './native/chartIndex';
 export { Fisheye } from './native/fisheye';
 export { Tooltip } from './native/tooltip';
 export { LegendFilter } from './native/legendFilter';
+export { BrushHighlight } from './native/brushHighlight';
+export { BrushXHighlight } from './native/brushXHighlight';
+export { BrushYHighlight } from './native/brushYHighlight';
 
 export { LEGEND_ITEMS_CLASS_NAME } from './native/legendFilter';
 
