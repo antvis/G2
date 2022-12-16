@@ -281,6 +281,7 @@ export const Dark: TC<DarkOptions> = (options) => {
       titleTransform: `translate(50%, 0) rotate(-90)`,
       labelSpacing: 4,
       labelDirection: 'positive',
+      labelAutoRotate: false,
       tickDirection: 'positive',
       gridDirection: 'negative',
     },
