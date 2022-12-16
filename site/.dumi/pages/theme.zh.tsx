@@ -1,9 +1,9 @@
 import React from 'react';
-import Page from '../../theme';
+import Page from '../theme';
 import { Header } from '@antv/dumi-theme-antv/dist/slots/Header';
 import { Footer } from '@antv/dumi-theme-antv/dist/slots/Footer';
 
-const ThemeSet: React.FC = () => {
+const ThemePage: React.FC = () => {
   return (
     <>
       <Header />
@@ -13,4 +13,4 @@ const ThemeSet: React.FC = () => {
   );
 };
 
-export default ThemeSet;
+export default ThemePage;
