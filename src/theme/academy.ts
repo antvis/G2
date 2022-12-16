@@ -299,7 +299,7 @@ export const Academy: TC<AcademyOptions> = (options) => {
     },
     legend: {
       padding: 8,
-      showTitle: true,
+      showTitle: false,
       titleFill: COLORS.BLACK,
       titleFillOpacity: 1,
       titleFontSize: 11,
@@ -330,6 +330,7 @@ export const Academy: TC<AcademyOptions> = (options) => {
       backgroundFill: 'transparent',
     },
     continuousLegend: {
+      showTitle: false,
       labelFill: COLORS.BLACK,
       labelFillOpacity: 0.45,
       labelFontSize: 10,

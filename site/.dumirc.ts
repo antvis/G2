@@ -70,6 +70,13 @@ export default defineConfig({
         },
         order: 0,
       },
+      {
+        slug: 'theme',
+        title: {
+          zh: '主题',
+          en: 'Theme',
+        },
+      },
     ],
     ecosystems: [
       // 头部的菜单中的「周边生态」
@@ -494,4 +501,9 @@ export default defineConfig({
   mfsu: false,
   links: [],
   scripts: [],
+  styles: ['https://fonts.googleapis.com/css?family=Gaegu'],
+  alias: {
+    '@antv/g2': require.resolve('../src/index.ts'),
+    // '@antv/g2': (window as any).g2,
+  },
 });
