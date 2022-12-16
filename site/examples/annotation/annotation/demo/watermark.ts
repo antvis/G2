@@ -1,4 +1,3 @@
-import { Group, Circle, Text, Path } from '@antv/g';
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -36,8 +35,12 @@ chart.shape().style('x', '80%').style('y', '70%').style('render', watermark);
 chart.render();
 
 function watermark({ x, y }) {
-  const g = new Group();
-  const c1 = new Circle({
+  const {
+    canvas: { document },
+  } = chart.context();
+
+  const g = document.createElement('g', {});
+  const c1 = document.createElement('circle', {
     style: {
       cx: x,
       cy: y,
@@ -47,7 +50,7 @@ function watermark({ x, y }) {
       opacity: 0.3,
     },
   });
-  const c2 = new Circle({
+  const c2 = document.createElement('circle', {
     style: {
       cx: x,
       cy: y,
@@ -58,7 +61,7 @@ function watermark({ x, y }) {
     },
   });
 
-  const text = new Text({
+  const text = document.createElement('text', {
     style: {
       x,
       y,
