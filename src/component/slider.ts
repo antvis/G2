@@ -30,15 +30,13 @@ export const Slider: GCC<SliderOptions> = (options) => {
       style: Object.assign({}, sliderTheme, {
         x,
         y,
-        length: orient === 'horizontal' ? width : height,
+        trackLength: orient === 'horizontal' ? width : height,
         orient,
         formatter: (v) => {
           const f = formatter || defaultFormatter;
           const tick = invertTick(scale, v);
           return f(tick);
         },
-        // @todo GUI should rename size to railSize
-        size: sliderTheme.railSize,
         ...rest,
       }),
     });
