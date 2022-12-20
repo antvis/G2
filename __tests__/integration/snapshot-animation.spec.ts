@@ -40,8 +40,9 @@ describe('integration', () => {
 
           // Asset interval
           const asset = async (i) => {
-            const actualPath = `${dir}/interval${i}-diff.png`;
+            const actualPath = `${dir}/interval${i}-actual.png`;
             const expectedPath = `${dir}/interval${i}.png`;
+            const diffPath = `${dir}/interval${i}-diff.png`;
             if (!fs.existsSync(expectedPath)) {
               console.warn(`! generate ${name}-${i}`);
               await writePNG(nodeCanvas, expectedPath);
@@ -50,9 +51,9 @@ describe('integration', () => {
 
               //@ts-ignore
               const maxError = generateOptions.maxError || 0;
-              expect(diff(actualPath, expectedPath)).toBeLessThanOrEqual(
-                maxError,
-              );
+              expect(
+                diff(actualPath, expectedPath, diffPath),
+              ).toBeLessThanOrEqual(maxError);
 
               // Persevere the diff image if do not pass the test.
               fs.unlinkSync(actualPath);

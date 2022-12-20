@@ -22,8 +22,9 @@ describe('integration', () => {
       it(`[Canvas]: ${name}`, async () => {
         let canvas;
         try {
-          const actualPath = `${__dirname}/snapshots/${name}-diff.png`;
+          const actualPath = `${__dirname}/snapshots/${name}-actual.png`;
           const expectedPath = `${__dirname}/snapshots/${name}.png`;
+          const diffPath = `${__dirname}/snapshots/${name}-diff.png`;
           const options = await generateOptions();
 
           // Generate golden png if not exists.
@@ -34,9 +35,9 @@ describe('integration', () => {
             canvas = await renderCanvas(options, actualPath);
             //@ts-ignore
             const maxError = generateOptions.maxError || 0;
-            expect(diff(actualPath, expectedPath)).toBeLessThanOrEqual(
-              maxError,
-            );
+            expect(
+              diff(actualPath, expectedPath, diffPath),
+            ).toBeLessThanOrEqual(maxError);
 
             // Persevere the diff image if do not pass the test.
             fs.unlinkSync(actualPath);
@@ -75,7 +76,7 @@ describe('integration', () => {
         } catch (error) {
           // Generate error svg to compare.
           console.warn(`! generate ${name}`);
-          const diffPath = `${__dirname}/snapshots/${name}-diff.svg`;
+          const diffPath = `${__dirname}/snapshots/${name}-actual.svg`;
           fs.writeFileSync(diffPath, actual);
           throw error;
         } finally {
