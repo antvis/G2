@@ -1,7 +1,8 @@
 import { G2Spec } from '../../../src';
 import { weather } from '../data/weather';
+import { seriesTooltipSteps } from './utils';
 
-export function weatherLineIntervalTooltip(): G2Spec {
+export function weatherLineInterval(): G2Spec {
   return {
     type: 'view',
     data: weather,
@@ -74,4 +75,4 @@ export function weatherLineIntervalTooltip(): G2Spec {
   };
 }
 
-weatherLineIntervalTooltip.skip = true;
+weatherLineInterval.steps = seriesTooltipSteps([300, 300]);

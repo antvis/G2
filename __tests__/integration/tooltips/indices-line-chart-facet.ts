@@ -1,8 +1,9 @@
 import { csv } from 'd3-fetch';
 import { autoType } from 'd3-dsv';
 import { G2Spec } from '../../../src';
+import { seriesTooltipSteps } from './utils';
 
-export async function indicesLineChartFacetTooltip(): Promise<G2Spec> {
+export async function indicesLineChartFacet(): Promise<G2Spec> {
   const data = await csv('data/indices.csv', autoType);
   return {
     type: 'facetRect',
@@ -35,4 +36,4 @@ export async function indicesLineChartFacetTooltip(): Promise<G2Spec> {
   };
 }
 
-indicesLineChartFacetTooltip.skip = true;
+indicesLineChartFacet.steps = seriesTooltipSteps([100, 300], [500, 300]);
