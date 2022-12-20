@@ -32,8 +32,8 @@ function builtInAccessors(selectedLegend) {
     channel,
     {
       legends: legendsOf,
-      marker: labelOf,
-      label: markerOf,
+      marker: markerOf,
+      label: labelOf,
       datum: (d) => {
         const { __data__: datum } = d;
         const { index } = datum;

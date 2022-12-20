@@ -330,7 +330,7 @@ export const Light: TC<LightOptions> = (options) => {
       itemBackgroundFill: 'transparent',
       // [todo] rename legend navigator
       navButtonFill: COLORS.BLACK,
-      navButtonFillOpacity: 0.45,
+      navButtonFillOpacity: 0.65,
       navPageNumFill: COLORS.BLACK,
       navPageNumFillOpacity: 0.45,
       navPageNumFontSize: 12,

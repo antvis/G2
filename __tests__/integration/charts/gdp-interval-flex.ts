@@ -16,5 +16,10 @@ export function gdpIntervalFlex(): G2Spec {
       y: 'value',
       color: 'country',
     },
+    axis: {
+      x: {
+        labelTransform: 'rotate(90deg)',
+      },
+    },
   };
 }
