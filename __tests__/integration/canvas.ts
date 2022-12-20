@@ -27,7 +27,12 @@ export async function renderCanvas(
 /**
  * diff between PNGs
  */
-export function diff(src: string, target: string, showMismatchedPixels = true) {
+export function diff(
+  src: string,
+  target: string,
+  diff: string,
+  showMismatchedPixels = true,
+) {
   const img1 = PNG.sync.read(fs.readFileSync(src));
   const img2 = PNG.sync.read(fs.readFileSync(target));
   const { width, height } = img1;
@@ -45,7 +50,7 @@ export function diff(src: string, target: string, showMismatchedPixels = true) {
   });
 
   if (showMismatchedPixels && mismatch && diffPNG) {
-    fs.writeFileSync(`${target}.diff.png`, PNG.sync.write(diffPNG));
+    fs.writeFileSync(diff, PNG.sync.write(diffPNG));
   }
 
   return mismatch;

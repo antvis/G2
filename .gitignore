@@ -26,13 +26,8 @@ coverage
 stats.html
 
 # Snapshots error images
-__tests__/integration/snapshots/*-diff.png
-__tests__/integration/snapshots/*-diff.svg
-__tests__/integration/snapshots/**/*-diff.png
-
-# Show mismatched pixels
-__tests__/integration/snapshots/*.diff.png
-__tests__/integration/snapshots/**/*.diff.png
+__tests__/integration/snapshots/**/*-actual.*
+__tests__/integration/snapshots/**/*-diff.*
 
 # Website cache byb dumi
 site/.dumi/tmp

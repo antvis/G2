@@ -70,8 +70,9 @@ describe('integration', () => {
 
             // If do not skip this state, asset it after dispatch the event.
             if (!skip) {
-              const actualPath = `${dir}/step${i}-diff.png`;
+              const actualPath = `${dir}/step${i}-actual.png`;
               const expectedPath = `${dir}/step${i}.png`;
+              const diffPath = `${dir}/step${i}-diff.png`;
               if (!fs.existsSync(expectedPath)) {
                 console.warn(`! generate ${name}-${i}`);
                 await writePNG(nodeCanvas, expectedPath);
@@ -79,9 +80,9 @@ describe('integration', () => {
                 await writePNG(nodeCanvas, actualPath);
                 //@ts-ignore
                 const maxError = generateOptions.maxError || 0;
-                expect(diff(actualPath, expectedPath)).toBeLessThanOrEqual(
-                  maxError,
-                );
+                expect(
+                  diff(actualPath, expectedPath, diffPath),
+                ).toBeLessThanOrEqual(maxError);
                 // Persevere the diff image if do not pass the test.
                 fs.unlinkSync(actualPath);
               }
