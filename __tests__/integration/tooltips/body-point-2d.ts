@@ -20,10 +20,6 @@ export function bodyPoint2d(): G2Spec {
         },
       },
     ],
-    style: {
-      viewFill: 'steelblue',
-      mainFill: 'white',
-    },
     interactions: [{ type: 'tooltip' }],
   };
 }

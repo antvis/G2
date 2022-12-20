@@ -22,7 +22,7 @@ export async function indicesLineReverse(): Promise<G2Spec> {
           y: 'Close',
           color: 'Symbol',
           key: 'Symbol',
-          title: (d) => new Date(d.Date).toLocaleDateString(),
+          title: (d) => new Date(d.Date).toUTCString(),
         },
       },
     ],
