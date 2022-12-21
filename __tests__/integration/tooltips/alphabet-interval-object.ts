@@ -1,6 +1,7 @@
 import { G2Spec } from '../../../src';
+import { tooltipSteps } from './utils';
 
-export function alphabetIntervalTooltip1d(): G2Spec {
+export function alphabetIntervalObject(): G2Spec {
   return {
     type: 'view',
     children: [
@@ -17,6 +18,16 @@ export function alphabetIntervalTooltip1d(): G2Spec {
           x: 'letter',
           y: 'frequency',
           color: 'steelblue',
+          tooltip: (d) => ({
+            color: 'red',
+            value: d.frequency,
+            name: 'F',
+          }),
+          tooltip1: (d) => ({
+            color: 'yellow',
+            value: d.letter,
+            name: 'L',
+          }),
         },
       },
     ],
@@ -24,4 +35,4 @@ export function alphabetIntervalTooltip1d(): G2Spec {
   };
 }
 
-alphabetIntervalTooltip1d.skip = true;
+alphabetIntervalObject.steps = tooltipSteps(0);

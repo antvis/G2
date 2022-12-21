@@ -1,6 +1,7 @@
 import { G2Spec } from '../../../src';
+import { tooltipSteps } from './utils';
 
-export function morleyBoxTooltip(): G2Spec {
+export function morleyBox(): G2Spec {
   const names = {
     tooltip: 'min',
     tooltip1: 'q1',
@@ -41,4 +42,4 @@ export function morleyBoxTooltip(): G2Spec {
   };
 }
 
-morleyBoxTooltip.skip = true;
+morleyBox.steps = tooltipSteps(0);

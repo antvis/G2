@@ -17,7 +17,7 @@ function closeAnimation(options): G2Spec {
   };
 }
 
-describe('integration', () => {
+describe('Interactions', () => {
   // Filter tests with only.
   const onlyTests = Object.entries(tests).filter(
     // @ts-ignore
@@ -64,6 +64,7 @@ describe('integration', () => {
 
           for (let i = 0; i < steps.length; i++) {
             // Dispatch event and wait for the next tick and rerender.
+            // @ts-ignore
             const { changeState, skip } = steps[i];
             await changeState();
             await sleep(100);

@@ -1,8 +1,9 @@
 import { csv } from 'd3-fetch';
 import { autoType } from 'd3-dsv';
 import { G2Spec } from '../../../src';
+import { seriesTooltipSteps } from './utils';
 
-export async function indicesLinePointTooltipReverse(): Promise<G2Spec> {
+export async function indicesLinePointReverse(): Promise<G2Spec> {
   const raw = await csv('data/indices.csv', autoType);
   const symbols = ['AAPL', 'AMZN'];
   const data = raw.filter((d) => {
@@ -39,7 +40,7 @@ export async function indicesLinePointTooltipReverse(): Promise<G2Spec> {
           y: 'Close',
           color: 'Symbol',
           key: 'Symbol',
-          tooltip: (d) => new Date(d.Date).toLocaleDateString(),
+          tooltip: (d) => new Date(d.Date).toUTCString(),
         },
       },
     ],
@@ -47,4 +48,4 @@ export async function indicesLinePointTooltipReverse(): Promise<G2Spec> {
   };
 }
 
-indicesLinePointTooltipReverse.skip = true;
+indicesLinePointReverse.steps = seriesTooltipSteps([100, 300], [500, 300]);

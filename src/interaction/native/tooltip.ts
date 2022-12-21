@@ -36,6 +36,7 @@ function createTooltip(root, x0, y0) {
         width: x1 - x,
         height: y1 - y,
       },
+      title: ' ',
       position: 'bottom-right',
       offset: [10, 10],
       style: {
@@ -48,18 +49,18 @@ function createTooltip(root, x0, y0) {
       },
     },
   });
+  // @ts-ignore
   const container = getContainer(root);
   container.appendChild(tooltipElement.HTMLTooltipElement);
   return tooltipElement;
 }
 
 function showTooltip(root, data, x, y) {
-  const tooltipElement = root.tooltipElement || createTooltip(root, x, y);
+  const { tooltipElement = createTooltip(root, x, y) } = root;
   const { items, title } = data;
   tooltipElement.show();
+  tooltipElement.position = [x, y];
   tooltipElement.update({
-    x,
-    y,
     items,
     title,
   });
@@ -325,6 +326,7 @@ export function seriesTooltip(
   const update = throttle(
     (event) => {
       const mouse = mousePosition(root, event);
+      if (!mouse) return;
       const bbox = root.getBounds();
       const x = bbox.min[0];
       const y = bbox.min[1];

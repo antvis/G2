@@ -1,6 +1,7 @@
 import { G2Spec } from '../../../src';
+import { seriesTooltipSteps } from './utils';
 
-export function aaplLineTooltip(): G2Spec {
+export function aaplLine(): G2Spec {
   return {
     type: 'view',
     children: [
@@ -13,6 +14,7 @@ export function aaplLineTooltip(): G2Spec {
         encode: {
           x: 'date',
           y: 'close',
+          title: (d) => new Date(d.date).toUTCString(),
         },
       },
     ],
@@ -20,4 +22,4 @@ export function aaplLineTooltip(): G2Spec {
   };
 }
 
-aaplLineTooltip.skip = true;
+aaplLine.steps = seriesTooltipSteps([200, 300]);

@@ -1,6 +1,7 @@
 import { G2Spec } from '../../../src';
+import { tooltipSteps } from './utils';
 
-export function bodyPointTooltip2d(): G2Spec {
+export function bodyPoint2d(): G2Spec {
   return {
     type: 'view',
     children: [
@@ -19,12 +20,8 @@ export function bodyPointTooltip2d(): G2Spec {
         },
       },
     ],
-    style: {
-      viewFill: 'steelblue',
-      mainFill: 'white',
-    },
     interactions: [{ type: 'tooltip' }],
   };
 }
 
-bodyPointTooltip2d.skip = true;
+bodyPoint2d.steps = tooltipSteps(0);

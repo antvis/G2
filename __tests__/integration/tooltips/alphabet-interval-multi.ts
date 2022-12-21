@@ -1,6 +1,7 @@
 import { G2Spec } from '../../../src';
+import { tooltipSteps } from './utils';
 
-export function alphabetIntervalTooltipTitle(): G2Spec {
+export function alphabetIntervalMulti(): G2Spec {
   return {
     type: 'view',
     children: [
@@ -17,7 +18,7 @@ export function alphabetIntervalTooltipTitle(): G2Spec {
           x: 'letter',
           y: 'frequency',
           color: 'steelblue',
-          title: 'letter',
+          tooltip: ['letter', 'frequency'],
         },
       },
     ],
@@ -25,4 +26,4 @@ export function alphabetIntervalTooltipTitle(): G2Spec {
   };
 }
 
-alphabetIntervalTooltipTitle.skip = true;
+alphabetIntervalMulti.steps = tooltipSteps(0);

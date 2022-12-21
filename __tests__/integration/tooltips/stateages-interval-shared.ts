@@ -1,6 +1,7 @@
 import { G2Spec } from '../../../src';
+import { tooltipSteps } from './utils';
 
-export function stateAgesIntervalTooltipShared(): G2Spec {
+export function stateAgesIntervalShared(): G2Spec {
   return {
     type: 'view',
     children: [
@@ -28,4 +29,4 @@ export function stateAgesIntervalTooltipShared(): G2Spec {
   };
 }
 
-stateAgesIntervalTooltipShared.skip = true;
+stateAgesIntervalShared.steps = tooltipSteps(0);

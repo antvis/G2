@@ -1,8 +1,9 @@
 import { csv } from 'd3-fetch';
 import { autoType } from 'd3-dsv';
 import { G2Spec } from '../../../src';
+import { seriesTooltipSteps } from './utils';
 
-export async function indicesLineTooltip(): Promise<G2Spec> {
+export async function indicesLine(): Promise<G2Spec> {
   const data = await csv('data/indices.csv', autoType);
   return {
     type: 'view',
@@ -22,7 +23,7 @@ export async function indicesLineTooltip(): Promise<G2Spec> {
           y: 'Close',
           color: 'Symbol',
           key: 'Symbol',
-          title: (d) => new Date(d.Date).toLocaleDateString(),
+          title: (d) => new Date(d.Date).toUTCString(),
         },
       },
     ],
@@ -30,4 +31,4 @@ export async function indicesLineTooltip(): Promise<G2Spec> {
   };
 }
 
-indicesLineTooltip.skip = true;
+indicesLine.steps = seriesTooltipSteps([200, 300]);

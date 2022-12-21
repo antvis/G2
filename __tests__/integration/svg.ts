@@ -3,7 +3,6 @@ import { Canvas } from '@antv/g';
 import { Renderer } from '@antv/g-svg';
 import { createCanvas } from 'canvas';
 import { G2Spec, render } from '../../src';
-import { JSDOM } from './jsdom';
 
 export async function renderSVG(
   options: G2Spec,
@@ -30,17 +29,8 @@ export async function renderSVG(
   return [canvas, pureSVG] as const;
 }
 
-function createGCanvas(width: number, height: number) {
-  const dom = new JSDOM(`
-  <div id="container">
-  </div>
-  `);
-  // @ts-ignore
-  global.window = dom.window;
-  // @ts-ignore
-  global.document = dom.window.document;
-
-  // A standalone offscreen canvas for text metrics
+export function createGCanvas(width: number, height: number) {
+  // A standalone offscreen canvas for text metrics.
   const offscreenNodeCanvas = createCanvas(1, 1);
 
   // Create a renderer, unregister plugin relative to DOM.
@@ -48,19 +38,17 @@ function createGCanvas(width: number, height: number) {
   const domInteractionPlugin = renderer.getPlugin('dom-interaction');
   renderer.unregisterPlugin(domInteractionPlugin);
 
+  const container = document.createElement('div');
+
   return [
     new Canvas({
-      container: 'container',
+      container,
       width,
       height,
       renderer,
-      // @ts-ignore
-      document: dom.window.document,
       offscreenCanvas: offscreenNodeCanvas as any,
-      requestAnimationFrame: dom.window.requestAnimationFrame,
-      cancelAnimationFrame: dom.window.cancelAnimationFrame,
     }),
-    dom,
+    container,
   ] as const;
 }
 

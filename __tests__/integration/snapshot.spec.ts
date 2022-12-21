@@ -7,7 +7,7 @@ import { fetch } from './fetch';
 // @ts-ignore
 global.fetch = fetch;
 
-describe('integration', () => {
+describe('Charts', () => {
   // Filter tests with only.
   const onlyTests = Object.entries(tests).filter(
     // @ts-ignore
