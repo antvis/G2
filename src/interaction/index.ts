@@ -13,6 +13,7 @@ export { LegendFilter } from './native/legendFilter';
 export { BrushHighlight } from './native/brushHighlight';
 export { BrushXHighlight } from './native/brushXHighlight';
 export { BrushYHighlight } from './native/brushYHighlight';
+export { BrushAxisHighlight } from './native/brushAxisHighlight';
 
 export { LEGEND_ITEMS_CLASS_NAME } from './native/legendFilter';
 

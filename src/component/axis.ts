@@ -371,6 +371,18 @@ function inferDefaultStyle(scale, theme, position, direction) {
   return themeStyle;
 }
 
+function isHorizontal(position): boolean {
+  switch (position) {
+    case 'top':
+    case 'bottom':
+    // @todo Why centerVertical is horizontal?
+    case 'centerVertical':
+      return true;
+    default:
+      return false;
+  }
+}
+
 const LinearAxis: GCC<AxisOptions> = (options) => {
   const {
     order,
@@ -436,7 +448,13 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
       ...overrideStyle,
     };
 
-    return new AxisComponent({ style: axisStyle });
+    return new AxisComponent({
+      className: 'axis',
+      style: {
+        ...axisStyle,
+        horizontal: isHorizontal(position),
+      },
+    });
   };
 };
 

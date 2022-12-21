@@ -27,14 +27,22 @@ function normalizeBounds(x, y, x1, y1, extent) {
   ];
 }
 
+function bboxOf(root: DisplayObject) {
+  const { width, height } = root.getBBox();
+  return [0, 0, width, height];
+}
+
 export function brush(
   root: DisplayObject,
   {
-    brushed,
-    brushend,
-    brushRegion,
-    extent,
+    brushed = () => {},
+    brushend = () => {},
+    extent = bboxOf(root),
+    brushRegion = (x, y, x1, y1, extent) => [x, y, x1, y1],
     reverse = false,
+    fill = '#777',
+    fillOpacity = '0.3',
+    stroke = '#fff',
     ...style
   }: Record<string, any>,
 ) {
@@ -63,6 +71,9 @@ export function brush(
     background = new Path({
       style: {
         ...style,
+        fill,
+        fillOpacity,
+        stroke,
         pointerEvents: 'none',
       },
     });
@@ -83,6 +94,9 @@ export function brush(
       // @ts-ignore
       style: {
         ...style,
+        fill,
+        fillOpacity,
+        stroke,
         draggable: true, // Make it response to drag event.
       },
       className: 'mask',
@@ -203,11 +217,16 @@ export function brush(
     else setCursor(root, 'crosshair');
   };
 
+  const pointerleave = () => {
+    setCursor(root, 'default');
+  };
+
   root.addEventListener('dragstart', dragstart);
   root.addEventListener('drag', drag);
   root.addEventListener('dragend', dragend);
   root.addEventListener('click', click);
   root.addEventListener('pointermove', pointermove);
+  root.addEventListener('pointerleave', pointerleave);
 
   return () => {
     if (mask) mask.remove();
@@ -217,6 +236,7 @@ export function brush(
     root.removeEventListener('dragend', dragend);
     root.removeEventListener('click', click);
     root.removeEventListener('pointermove', pointermove);
+    root.removeEventListener('pointerleave', pointerleave);
   };
 }
 

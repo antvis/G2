@@ -17,7 +17,8 @@ export type Interaction =
   | LegendFilterInteraction
   | BrushHighlightInteraction
   | BrushXHighlightInteraction
-  | BrushYHighlightInteraction;
+  | BrushYHighlightInteraction
+  | BrushAxisHighlightInteraction;
 // | ElementListHighlightInteraction
 // | LegendActiveInteraction
 // | LegendHighlightInteraction
@@ -82,6 +83,11 @@ export type BrushYHighlightInteraction = {
   shared?: boolean;
   series?: boolean;
   facet?: boolean;
+} & Record<`${'mask' | 'highlighted' | 'unhighlighted'}${any}`, any>;
+
+export type BrushAxisHighlightInteraction = {
+  type?: 'brushAxisHighlight';
+  reverse?: boolean;
 } & Record<`${'mask' | 'highlighted' | 'unhighlighted'}${any}`, any>;
 
 export type BrushVisibleInteraction = {

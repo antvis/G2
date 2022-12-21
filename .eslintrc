@@ -23,6 +23,7 @@
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/no-unused-vars": "off",
+    "no-fallthrough": "off",
     "import/no-unresolved": "off",
     "no-multiple-empty-lines": 1,
     "import/order": "warn",
