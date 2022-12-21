@@ -11,7 +11,7 @@ function defined(d) {
   return d !== null;
 }
 
-describe('integration', () => {
+describe('Animations', () => {
   // Filter tests with only.
   const onlyTests = Object.entries(tests).filter(
     // @ts-ignore

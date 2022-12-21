@@ -1,7 +1,8 @@
 import { G2Spec } from '../../../src';
 import { temperatures } from '../data/temperatures';
+import { seriesTooltipSteps } from './utils';
 
-export function temperaturesLineTooltipDiscrete(): G2Spec {
+export function temperaturesLineDiscrete(): G2Spec {
   return {
     type: 'line',
     data: temperatures,
@@ -14,4 +15,4 @@ export function temperaturesLineTooltipDiscrete(): G2Spec {
   };
 }
 
-temperaturesLineTooltipDiscrete.skip = true;
+temperaturesLineDiscrete.steps = seriesTooltipSteps([200, 300]);

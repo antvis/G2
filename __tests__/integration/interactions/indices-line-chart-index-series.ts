@@ -38,7 +38,7 @@ export async function indicesLineChartIndexSeries(): Promise<G2Spec> {
         labelTextAlign: 'center',
         labelStroke: '#fff',
         labelLineWidth: 5,
-        labelFormatter: (d) => `${d.toLocaleDateString()}`,
+        labelFormatter: (d) => `${d.toUTCString()}`,
       },
     ],
   };

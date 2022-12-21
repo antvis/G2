@@ -6,21 +6,13 @@ import { render } from '../../src';
 import * as charts from './charts';
 import * as interactions from './interactions';
 import * as animations from './animations';
+import * as tooltips from './tooltips';
 
 const tests = {
   ...charts,
-  ...Object.fromEntries(
-    Object.entries(interactions).map(([key, value]) => [
-      `interaction-${key}`,
-      value,
-    ]),
-  ),
-  ...Object.fromEntries(
-    Object.entries(animations).map(([key, value]) => [
-      `animation-${key}`,
-      value,
-    ]),
-  ),
+  ...namespace(tooltips, 'tooltip'),
+  ...namespace(interactions, 'interactions'),
+  ...namespace(animations, 'animations'),
 };
 
 const renderers = {
@@ -125,4 +117,10 @@ function createOption(key) {
   option.value = key;
   option.textContent = key;
   return option;
+}
+
+function namespace(object, name) {
+  return Object.fromEntries(
+    Object.entries(object).map(([key, value]) => [`${name}-${key}`, value]),
+  );
 }

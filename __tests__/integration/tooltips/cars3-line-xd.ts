@@ -1,6 +1,7 @@
 import { G2Spec } from '../../../src';
+import { tooltipSteps } from './utils';
 
-export function cars3LineTooltipXd(): G2Spec {
+export function cars3LineXd(): G2Spec {
   const position = [
     'economy (mpg)',
     'cylinders',
@@ -57,4 +58,4 @@ export function cars3LineTooltipXd(): G2Spec {
   };
 }
 
-cars3LineTooltipXd.skip = true;
+cars3LineXd.steps = tooltipSteps(0);
