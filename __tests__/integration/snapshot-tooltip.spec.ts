@@ -60,7 +60,9 @@ describe('Tooltips', () => {
             const tooltip = container.getElementsByClassName('tooltip')[0];
             if (!skip && tooltip) {
               const expectedPath = `${dir}/step${i}.html`;
-              actual = format(xmlserializer.serializeToString(tooltip));
+              actual = format(xmlserializer.serializeToString(tooltip), {
+                parser: 'babel',
+              });
               if (!fs.existsSync(expectedPath)) {
                 console.warn(`! generate ${name}-${i}`);
                 await fs.writeFileSync(expectedPath, actual);
