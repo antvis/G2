@@ -52,7 +52,7 @@ describe('integration', () => {
               //@ts-ignore
               const maxError = generateOptions.maxError || 0;
               expect(
-                diff(actualPath, expectedPath, diffPath),
+                diff(actualPath, expectedPath, diffPath, maxError),
               ).toBeLessThanOrEqual(maxError);
 
               // Persevere the diff image if do not pass the test.

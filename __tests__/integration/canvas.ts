@@ -31,6 +31,7 @@ export function diff(
   src: string,
   target: string,
   diff: string,
+  maxError = 0,
   showMismatchedPixels = true,
 ) {
   const img1 = PNG.sync.read(fs.readFileSync(src));
@@ -49,7 +50,7 @@ export function diff(
     threshold: 0.1,
   });
 
-  if (showMismatchedPixels && mismatch && diffPNG) {
+  if (showMismatchedPixels && mismatch > maxError && diffPNG) {
     fs.writeFileSync(diff, PNG.sync.write(diffPNG));
   }
 
