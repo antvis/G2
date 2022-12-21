@@ -364,6 +364,7 @@ function inferDefaultStyle(scale, theme, position, direction) {
       labelTransform: direction === 'center' ? 'translate(50%, 0)' : '',
       tickDirection: direction === 'right' ? 'negative' : 'positive',
       labelSpacing: direction === 'center' ? 0 : 4,
+      tick: direction === 'center' ? false : undefined,
     };
   }
 

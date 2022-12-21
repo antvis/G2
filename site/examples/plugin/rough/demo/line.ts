@@ -30,6 +30,8 @@ WebFont.load({
         fontFamily: 'Gaegu',
         transform: [{ type: 'overlapDodgeY' }],
       })
+      .axis('x', { tickStroke: '#cdcdcd', gridStroke: '#efefef' })
+      .axis('y', { tickStroke: '#cdcdcd', gridStroke: '#efefef' })
       .style('roughness', 2);
 
     chart.render();

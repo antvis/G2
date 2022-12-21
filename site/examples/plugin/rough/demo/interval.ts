@@ -41,11 +41,14 @@ WebFont.load({
       .axis('x', {
         titleFontSize: 15,
         titleFontFamily: 'Gaegu',
+        tickStroke: '#cdcdcd',
       })
       .axis('y', {
         titleFontSize: 15,
         titleFontFamily: 'Gaegu',
         labelFormatter: '~s',
+        tickStroke: '#cdcdcd',
+        gridStroke: '#efefef',
       });
 
     chart.render();
