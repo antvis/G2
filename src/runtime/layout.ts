@@ -123,8 +123,8 @@ export function placeComponents(
     right: [width - pr, pt, pr, innerHeight, 1, false, ascending],
     bottom: [pl, height - pb, innerWidth, pb, 0, false, ascending],
     left: [0, pt, pl, innerHeight, 1, true, ascending],
-    centerHorizontal: [pl, pt, innerWidth, innerHeight, -1, null, null],
     centerVertical: [pl, pt, innerWidth, innerHeight, -1, null, null],
+    centerHorizontal: [pl, pt, innerWidth, innerHeight, -1, null, null],
     arc: [pl, pt, innerWidth, innerHeight, -1, null, null],
     arcY: [pl, pt, innerWidth, innerHeight, -1, null, null],
     arcInner: [pl, pt, innerWidth, innerHeight, -1, null, null],
@@ -134,10 +134,10 @@ export function placeComponents(
 
   for (const [key, components] of positionComponents.entries()) {
     const area = section[key];
-    if (key === 'centerHorizontal') {
-      placeCenterHorizontal(components, coordinate, area);
-    } else if (key === 'centerVertical') {
+    if (key === 'centerVertical') {
       placeCenterVertical(components, coordinate, area);
+    } else if (key === 'centerHorizontal') {
+      placeCenterHorizontal(components, coordinate, area);
     } else if (key === 'arc') {
       placeArc(components, coordinate, area);
     } else if (key === 'arcY') {
@@ -152,7 +152,7 @@ export function placeComponents(
   }
 }
 
-function placeCenterHorizontal(
+function placeCenterVertical(
   components: G2GuideComponentOptions[],
   coordinate: Coordinate,
   area: SectionArea,
@@ -177,7 +177,7 @@ function placeCenterHorizontal(
   }
 }
 
-function placeCenterVertical(
+function placeCenterHorizontal(
   components: G2GuideComponentOptions[],
   coordinate: Coordinate,
   area: SectionArea,
