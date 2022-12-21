@@ -376,7 +376,7 @@ export const Dark: TC<DarkOptions> = (options) => {
       offset: 0,
     },
     slider: {
-      railSize: 16,
+      trackSize: 16,
       backgroundFill: COLORS.STROKE,
       backgroundFillOpacity: 1,
       selectionFill: DEFAULT_COLOR,
