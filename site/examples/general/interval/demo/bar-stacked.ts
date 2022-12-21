@@ -21,6 +21,10 @@ chart
   .encode('x', 'state')
   .encode('y', 'population')
   .encode('color', 'age')
+  .axis('x', {
+    labelTransform: 'rotate(90deg)',
+    labelSpacing: 4,
+  })
   .axis('y', { labelFormatter: '~s' });
 
 chart.render();

@@ -24,8 +24,9 @@ const spaceLayer = chart.spaceLayer().data([
 ]);
 
 spaceLayer
-  .interval()
+  .view()
   .coordinate({ type: 'radial', innerRadius: 0.2 })
+  .interval()
   .encode('x', 'name')
   .encode('y', 1)
   .encode('size', 52)
