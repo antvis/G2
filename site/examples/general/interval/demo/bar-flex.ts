@@ -20,6 +20,10 @@ chart
   .encode('x', 'country')
   .encode('y', 'value')
   .encode('color', 'country')
+  .axis('x', {
+    labelTransform: 'rotate(90deg)',
+    labelSpacing: 4,
+  })
   .axis('y', { labelFormatter: '~s' });
 
 chart.render();
