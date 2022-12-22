@@ -1,5 +1,5 @@
-import { ChannelTypes } from 'spec';
 import { InteractionComponent } from '../runtime';
+import { ChannelTypes } from './geometry';
 import { ActiveRegionAction, PoptipAction, TooltipAction } from './action';
 import { FisheyeCoordinate } from './coordinate';
 

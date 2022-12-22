@@ -32,19 +32,19 @@ export { LEGEND_ITEMS_CLASS_NAME } from './native/legendFilter';
 // export { ActiveRegion } from './builtin/activeRegion';
 // export { EllipsisText } from './builtin/ellipsisText';
 
-// export type {
-//   InteractionContext,
-//   ActionComponent,
-//   InteractionDescriptor,
-//   InteractionStep,
-//   InteractorOptions,
-//   ActionOptions,
-//   Action,
-//   InteractorAction,
-//   Interactor,
-//   G2Event,
-//   InteractionNamespaces,
-//   InteractorComponent,
-//   InteractionOptions,
-//   InteractionValue,
-// } from './types';
+export type {
+  InteractionContext,
+  ActionComponent,
+  InteractionDescriptor,
+  InteractionStep,
+  InteractorOptions,
+  ActionOptions,
+  Action,
+  InteractorAction,
+  Interactor,
+  G2Event,
+  InteractionNamespaces,
+  InteractorComponent,
+  InteractionOptions,
+  InteractionValue,
+} from './types';
