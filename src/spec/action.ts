@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { ActionComponent } from '../interaction';
 import { FisheyeCoordinate } from './coordinate';
 
