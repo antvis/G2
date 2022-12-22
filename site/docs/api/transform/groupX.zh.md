@@ -3,7 +3,7 @@ title: groupX
 order: 1
 ---
 
-对离散的 x 通道进行分组，并且对通道根据指定的 Reducer 进行聚合。等效于 `chanels = ['x']` 的 [group](/api/transform/group)。
+对离散的 x 通道进行分组，并且对通道根据指定的 Reducer 进行聚合。等效于 `channels = ['x']` 的 [group](/api/transform/group)。
 
 ## 开始使用
 
@@ -49,9 +49,9 @@ chart.render();
 
 ## 选项
 
-| 属性               | 描述                                           | 类型                     | 默认值                 |
-|-------------------|------------------------------------------------|-------------------------|-----------------------|
-| [channel]         | 输出到具体 mark 的 channel 数据的聚合方式          | `Reducer`               |                       |
+| 属性      | 描述                                      | 类型      | 默认值 |
+| --------- | ----------------------------------------- | --------- | ------ |
+| [channel] | 输出到具体 mark 的 channel 数据的聚合方式 | `Reducer` |        |
 
 ```ts
 type Primitive = number | string | boolean | Date;
