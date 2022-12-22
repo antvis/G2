@@ -20,3 +20,6 @@ export { penguinsPointBrushY } from './penguins-point-brush-y';
 export { indicesLineChartFacetBrushShared } from './indices-line-chart-facet-brush-shared';
 export { indicesLineBrushSeries } from './indices-line-brush-series';
 export { penguinsPointBrushReverse } from './penguins-point-brush-reverse';
+export { cars3LineBrushAxis } from './cars3-line-brush-axis';
+export { cars3LineVerticalBrushAxis } from './cars3-line-vertical-brush-axis';
+export { penguinsPointBrushAxis } from './penguins-point-brush-axis';

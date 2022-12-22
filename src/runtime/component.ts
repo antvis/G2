@@ -168,7 +168,7 @@ function inferComponentPosition(
     'right',
     'top',
     'bottom',
-    'centerHorizontal',
+    'centerVertical',
     'center',
   ];
   const ordinalPosition = !positions.includes(guide.position)
@@ -182,9 +182,9 @@ function inferComponentPosition(
     if (match === null) return ordinalPosition;
     const index = +match[1];
     if (isTranspose(coordinates)) {
-      return index === 0 ? 'top' : 'centerVertical';
+      return index === 0 ? 'top' : 'centerHorizontal';
     } else {
-      return index === 0 ? ordinalPosition : 'centerHorizontal';
+      return index === 0 ? ordinalPosition : 'centerVertical';
     }
   } else if (
     (type === 'axisX' && isPolar(coordinates) && !isTranspose(coordinates)) ||

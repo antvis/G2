@@ -261,11 +261,11 @@ function inferOverrideStyle(
       startPos: [x, y],
       endPos: [x + width, y],
     };
-  } else if (position === 'left' || position === 'centerHorizontal') {
+  } else if (position === 'left' || position === 'centerVertical') {
     return {
       startPos: [x + width, y],
       endPos: [x + width, y + height],
-      showLine: position === 'centerHorizontal' ? true : undefined,
+      showLine: position === 'centerVertical' ? true : undefined,
     };
   } else if (position === 'right') {
     return {
@@ -283,7 +283,7 @@ function inferOverrideStyle(
   return {
     startPos: [x, y + height],
     endPos: [x + width, y + height],
-    showLine: position === 'centerVertical' ? true : undefined,
+    showLine: position === 'centerHorizontal' ? true : undefined,
   };
 }
 
@@ -342,7 +342,7 @@ const ArcAxis = (options) => {
 };
 
 function inferDefaultStyle(scale, theme, position, direction) {
-  const p = position === 'centerHorizontal' ? 'left' : position;
+  const p = position === 'centerVertical' ? 'left' : position;
 
   const themeStyle = Object.assign(
     {},
@@ -369,6 +369,17 @@ function inferDefaultStyle(scale, theme, position, direction) {
   }
 
   return themeStyle;
+}
+
+function isHorizontal(position): boolean {
+  switch (position) {
+    case 'top':
+    case 'bottom':
+    case 'centerHorizontal':
+      return true;
+    default:
+      return false;
+  }
 }
 
 const LinearAxis: GCC<AxisOptions> = (options) => {
@@ -436,7 +447,13 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
       ...overrideStyle,
     };
 
-    return new AxisComponent({ style: axisStyle });
+    return new AxisComponent({
+      className: 'axis',
+      style: {
+        ...axisStyle,
+        horizontal: isHorizontal(position),
+      },
+    });
   };
 };
 
