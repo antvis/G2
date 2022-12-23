@@ -1,4 +1,5 @@
 import * as fs from 'fs';
+import throat from 'throat';
 import * as tests from './charts';
 import { renderCanvas, diff } from './canvas';
 import { renderSVG } from './svg';
@@ -6,6 +7,7 @@ import { fetch } from './fetch';
 
 // @ts-ignore
 global.fetch = fetch;
+const lock = throat(4);
 
 describe('Charts', () => {
   // Filter tests with only.
@@ -30,9 +32,13 @@ describe('Charts', () => {
           // Generate golden png if not exists.
           if (!fs.existsSync(expectedPath)) {
             console.warn(`! generate ${name}`);
-            canvas = await renderCanvas(options, expectedPath);
+            canvas = await lock(
+              async () => await renderCanvas(options, expectedPath),
+            );
           } else {
-            canvas = await renderCanvas(options, actualPath);
+            canvas = await lock(
+              async () => await renderCanvas(options, actualPath),
+            );
             //@ts-ignore
             const maxError = generateOptions.maxError || 0;
             expect(
