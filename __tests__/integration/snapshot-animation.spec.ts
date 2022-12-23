@@ -1,4 +1,5 @@
 import * as fs from 'fs';
+import throat from 'throat';
 import { G2Context, render } from '../../src';
 import * as tests from './animations';
 import { fetch } from './fetch';
@@ -6,6 +7,7 @@ import { createGCanvas, writePNG, sleep, diff } from './canvas';
 
 // @ts-ignore
 global.fetch = fetch;
+const lock = throat(4);
 
 function defined(d) {
   return d !== null;
@@ -62,7 +64,10 @@ describe('Animations', () => {
 
           const options = await generateOptions();
           const { width = 640, height = 480 } = options;
-          [canvas, nodeCanvas] = createGCanvas(width, height);
+          // @ts-ignore
+          [canvas, nodeCanvas] = lock(
+            async () => await createGCanvas(width, height),
+          );
           const context: G2Context = { canvas };
 
           let frameCount = 0;

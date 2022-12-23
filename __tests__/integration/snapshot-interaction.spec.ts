@@ -1,4 +1,5 @@
 import * as fs from 'fs';
+import throat from 'throat';
 import { G2Spec, render } from '../../src';
 import * as tests from './interactions';
 import { fetch } from './fetch';
@@ -6,6 +7,7 @@ import { createGCanvas, writePNG, sleep, diff } from './canvas';
 
 // @ts-ignore
 global.fetch = fetch;
+const lock = throat(4);
 
 function closeAnimation(options): G2Spec {
   const { children } = options;
@@ -44,7 +46,10 @@ describe('Interactions', () => {
           // @ts-ignore
           const options = generateOptions.animate ? raw : closeAnimation(raw);
           const { width = 640, height = 480 } = options;
-          [canvas, nodeCanvas] = createGCanvas(width, height);
+          // @ts-ignore
+          [canvas, nodeCanvas] = lock(
+            async () => await createGCanvas(width, height),
+          );
           await new Promise<void>((resolve) => {
             render(options, { canvas }, resolve);
           });

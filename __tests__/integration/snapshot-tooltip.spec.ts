@@ -1,4 +1,5 @@
 import * as fs from 'fs';
+import throat from 'throat';
 import xmlserializer from 'xmlserializer';
 import { format } from 'prettier';
 import { render } from '../../src';
@@ -8,6 +9,7 @@ import { fetch } from './fetch';
 
 // @ts-ignore
 global.fetch = fetch;
+const lock = throat(4);
 
 describe('Tooltips', () => {
   // Filter tests with only.
@@ -28,7 +30,9 @@ describe('Tooltips', () => {
         const options = await generateOptions();
         const { width = 640, height = 480 } = options;
         // @ts-ignore
-        const [canvas, container] = createGCanvas(width, height);
+        const [canvas, container] = lock(
+          async () => await createGCanvas(width, height),
+        );
         // setContainer(options, container);
         await new Promise<void>((resolve) => {
           render(options, { canvas }, resolve);
