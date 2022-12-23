@@ -30,7 +30,7 @@ describe('Tooltips', () => {
         const options = await generateOptions();
         const { width = 640, height = 480 } = options;
         // @ts-ignore
-        const [canvas, container] = lock(
+        const [canvas, container] = await lock(
           async () => await createGCanvas(width, height),
         );
         // setContainer(options, container);

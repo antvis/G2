@@ -47,7 +47,7 @@ describe('Interactions', () => {
           const options = generateOptions.animate ? raw : closeAnimation(raw);
           const { width = 640, height = 480 } = options;
           // @ts-ignore
-          [canvas, nodeCanvas] = lock(
+          [canvas, nodeCanvas] = await lock(
             async () => await createGCanvas(width, height),
           );
           await new Promise<void>((resolve) => {

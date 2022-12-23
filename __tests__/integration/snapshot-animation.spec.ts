@@ -65,7 +65,7 @@ describe('Animations', () => {
           const options = await generateOptions();
           const { width = 640, height = 480 } = options;
           // @ts-ignore
-          [canvas, nodeCanvas] = lock(
+          [canvas, nodeCanvas] = await lock(
             async () => await createGCanvas(width, height),
           );
           const context: G2Context = { canvas };
