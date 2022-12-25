@@ -85,7 +85,7 @@ export function inferRadialStyle(
     const [p0, p1] = points;
     const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
     const [x, y] =
-      position === 'inside' ? arcPoint(center, angle, radius) : mid(p0, p1);
+      position === 'inside' ? pointOfArc(center, angle, radius) : mid(p0, p1);
     return { x, y };
   })();
 
@@ -97,25 +97,21 @@ export function inferRadialStyle(
   };
 }
 
-function arcPoint(center: Vector2, angle: number, radius: number): Vector2 {
+export function pointOfArc(center: Vector2, angle, radius): Vector2 {
   return [
     center[0] + Math.sin(angle) * radius,
     center[1] - Math.cos(angle) * radius,
   ];
 }
 
-function inferRotation(
-  angle: number,
-  autoRotate: boolean,
-  rotateToAlignArc: boolean,
-) {
+export function inferRotation(angle, autoRotate, rotateToAlignArc) {
   if (!autoRotate) return 0;
 
   const append = rotateToAlignArc ? 0 : Math.sin(angle) < 0 ? 90 : -90;
   return (angle / Math.PI) * 180 + append;
 }
 
-export function inferCircularStyle(
+function inferInnerCircularStyle(
   position: LabelPosition,
   points: Vector2[],
   value: Record<string, any>,
@@ -126,9 +122,6 @@ export function inferCircularStyle(
     y1,
     autoRotate,
     rotateToAlignArc,
-    connector = true,
-    connectorLength2 = 0,
-    connectorDistance = 0,
     radius: radiusRatio = 0.5,
     offset = 0,
   } = value;
@@ -137,55 +130,22 @@ export function inferCircularStyle(
   const center = coordinate.getCenter();
 
   const angle = (startAngle + endAngle) / 2;
+  const rotate = inferRotation(angle, autoRotate, rotateToAlignArc);
 
-  const textStyle = (position: string, sign: boolean) => {
-    const rotate = inferRotation(angle, autoRotate, rotateToAlignArc);
-    if (position === 'inside')
-      return { textAlign: 'center', textBaseline: 'middle', rotate };
-    return {
-      textAlign: sign ? 'start' : 'end',
-      textBaseline: 'middle',
-      rotate,
-    };
-  };
-  const [r0, r1] = (() => {
-    const ratio = position === 'inside' ? radiusRatio : 1;
-    const { innerRadius, outerRadius } = arcObject;
-    const r0 = innerRadius + (outerRadius - innerRadius) * ratio;
-    const r1 = r0 + offset;
-    return [r0, r1];
-  })();
-  const sign = Math.sin(angle) > 0 ? 1 : -1;
-
-  const [p0, p1, ...connectorPoints] = ((
-    radius: number,
-    finalRadius: number,
-  ) => {
-    const [x0, y0] = arcPoint(center, angle, radius);
-    const [x, y] = arcPoint(center, angle, finalRadius);
-    const length2 = connector ? sign * connectorLength2 : 0;
-    const p0 = [x0, y0];
-    const p1 = [x + length2, y];
-    return [p0, p1, [-length2, 0]] as Vector2[];
-  })(r0, r1);
-
-  const connectorStyle = {
-    connector,
-    connectorPoints,
-    dx: connector ? +connectorDistance * sign : 0,
-  };
-
-  const toPoint = (v: Vector2, x = 'x', y = 'y') => ({ [x]: v[0], [y]: v[1] });
+  const textStyle = { textAlign: 'center', textBaseline: 'middle', rotate };
+  const { innerRadius, outerRadius } = arcObject;
+  const r0 = innerRadius + (outerRadius - innerRadius) * radiusRatio;
+  const r1 = r0 + offset;
+  const [x0, y0] = pointOfArc(center, angle, r1);
 
   return {
-    ...toPoint(p0, 'x0', 'y0'),
-    ...toPoint(p1),
-    ...textStyle(position, sign > 0 || isRadial(coordinate)),
-    ...connectorStyle,
+    x: x0,
+    y: y0,
+    ...textStyle,
   };
 }
 
-function inferIdentityStyle(position, points, value, coordinate) {
+export function inferIdentityStyle(position, points, value, coordinate) {
   const { bounds } = value;
   const [p] = bounds;
   return {
@@ -212,7 +172,7 @@ export function getDefaultStyle(
   const inferDefaultStyle = isRadial(coordinate)
     ? inferRadialStyle
     : isCircular(coordinate)
-    ? inferCircularStyle
+    ? inferInnerCircularStyle
     : inferNonCircularStyle;
 
   return inferDefaultStyle(position, points, value, coordinate);
