@@ -35,13 +35,13 @@ export const Line: SC<LineOptions> = (options) => {
   const { ...style } = options;
   return (points, value, coordinate, theme) => {
     const { mark, shape, defaultShape } = value;
-    const { stroke, lineWidth, ...shapeTheme } = getShapeTheme(
+    const { defaultColor, lineWidth, ...shapeTheme } = getShapeTheme(
       theme,
       mark,
       shape,
       defaultShape,
     );
-    const { color = stroke, size = lineWidth } = value;
+    const { color = defaultColor, size = lineWidth } = value;
 
     const path = getPath(points, coordinate);
     const transform = getTransform(coordinate, value.transform);

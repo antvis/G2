@@ -60,13 +60,18 @@ export const Badge: SC<BadgeOptions> = (options) => {
   const { ...style } = options;
   return (points, value, coordinate, theme) => {
     const { mark, shape, defaultShape } = value;
-    const shapeTheme = getShapeTheme(theme, mark, shape, defaultShape);
+    const { defaultColor, ...shapeTheme } = getShapeTheme(
+      theme,
+      mark,
+      shape,
+      defaultShape,
+    );
     const { color, text = '' } = value;
 
     const textStyle = {
       text: String(text),
-      stroke: color,
-      fill: color,
+      stroke: color || defaultColor,
+      fill: color || defaultColor,
     };
 
     const [[x0, y0]] = points;

@@ -36,7 +36,8 @@ export const Color: SC<ColorOptions> = (options) => {
   return (points, value, coordinate, theme) => {
     const { mark, shape, defaultShape } = value;
     const {
-      [colorAttribute]: defaultColor,
+      // [colorAttribute]: defaultColor,
+      defaultColor,
       radius: defaultRadius = 0,
       ...defaults
     } = getShapeTheme(theme, mark, shape, defaultShape);

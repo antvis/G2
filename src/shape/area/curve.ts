@@ -86,7 +86,7 @@ export const Curve: SC<CurveOptions> = (options) => {
   } = options;
   return (P, value, coordinate, theme) => {
     const { mark, shape, defaultShape } = value;
-    const { fill: defaultColor, ...defaults } = getShapeTheme(
+    const { defaultColor, ...defaults } = getShapeTheme(
       theme,
       mark,
       shape,

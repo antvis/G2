@@ -46,11 +46,12 @@ export const Color: SC<ColorOptions> = (options) => {
   const path = Symbols[symbol] || Symbols.point;
   return (points, value, coordinate, theme) => {
     const { mark, shape, defaultShape } = value;
-    const {
-      [colorAttribute]: defaultColor,
-      lineWidth,
-      ...defaults
-    } = getShapeTheme(theme, mark, shape, defaultShape);
+    const { defaultColor, lineWidth, ...defaults } = getShapeTheme(
+      theme,
+      mark,
+      shape,
+      defaultShape,
+    );
     const finalLineWidth = style.stroke ? lineWidth || 1 : lineWidth;
     const { color = defaultColor, transform, opacity } = value;
     const [cx, cy] = getOrigin(points);

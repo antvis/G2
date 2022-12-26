@@ -102,8 +102,7 @@ export const Connector: SC<ConnectorOptions> = (options) => {
   return (points, value, coordinate, theme) => {
     const { mark, shape, defaultShape } = value;
     const {
-      fill,
-      stroke = fill,
+      defaultColor,
       connectLength1 = length1,
       ...shapeTheme
     } = getShapeTheme(theme, mark, shape, defaultShape);
@@ -114,7 +113,7 @@ export const Connector: SC<ConnectorOptions> = (options) => {
     return select(new ConnectorPath())
       .call(applyStyle, shapeTheme)
       .style('points', P)
-      .style('stroke', color || stroke)
+      .style('stroke', color || defaultColor)
       .style('transform', transform)
       .call(applyStyle, style)
       .node();
