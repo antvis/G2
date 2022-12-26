@@ -1,9 +1,8 @@
 import { Coordinate } from '@antv/coord';
-import { sub } from '../../../utils/vector';
 import { Vector2 } from '../../../runtime';
 import { isCircular } from '../../../utils/coordinate';
-import { maybePercentage } from '../../../utils/helper';
-import { inferCircularStyle, LabelPosition } from './default';
+import { LabelPosition } from './default';
+import { inferOutsideCircularStyle, radiusOf, angleOf } from './outside';
 
 /**
  * Spider label transform only suitable for the labels in polar coordinate, labels should distinguish coordinate type.
@@ -13,34 +12,28 @@ export function spider(
   points: Vector2[],
   value: Record<string, any>,
   coordinate: Coordinate,
-  options,
 ) {
   if (!isCircular(coordinate)) return {};
-  const { edgeDistance = 0 } = options;
+  const { connectorLength, connectorLength2, connectorDistance } = value;
 
-  const { ...style }: any = inferCircularStyle(
+  const { ...style }: any = inferOutsideCircularStyle(
     'outside',
     points,
     value,
     coordinate,
   );
-  const { x: coordX, width } = coordinate.getOptions();
   const center = coordinate.getCenter();
-  // todo: How to configure spider.
-  const margin = maybePercentage(edgeDistance, width);
+  const radius = radiusOf(points, value, coordinate);
+  const angle = angleOf(points, value, coordinate);
+  const radius1 = radius + connectorLength + connectorLength2;
+  const sign = Math.sin(angle) > 0 ? 1 : -1;
 
-  const edgeX = coordX + margin;
-  const edgeX1 = coordX + width - margin;
+  const newX = center[0] + (radius1 + +connectorDistance) * sign;
 
-  const { x: originX, x0, y0 } = style;
-  const dx = originX <= center[0] ? edgeX - originX : edgeX1 - originX;
+  const { x: originX } = style;
+  const dx = newX - originX;
   style.x += dx;
-
-  const { x, y } = style;
-  const p0 = sub([x0, y0], center);
-  const p1 = sub([0, y], center);
-  const p1x = p0[1] ? (p0[0] * p1[1]) / p0[1] + center[0] : x;
-  style.connectorPoints = [[p1x - x, 0]];
+  style.connectorPoints[0][0] -= dx;
 
   return style;
 }
