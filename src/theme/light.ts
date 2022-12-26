@@ -359,6 +359,7 @@ export const Light: TC<LightOptions> = (options) => {
       connectorStroke: COLORS.BLACK,
       connectorStrokeOpacity: 0.45,
       connectorLineWidth: 1,
+      connectorLength: 12,
       connectorLength2: 8,
       connectorDistance: 4,
     },

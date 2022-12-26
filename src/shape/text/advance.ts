@@ -99,7 +99,10 @@ function inferConnectorPath(
     ]);
   }
 
-  const P: any = [[x0 - x1, y0 - y1]].concat(controlPoints).concat([[0, 0]]);
+  const P: any = [[x0 - x1, y0 - y1]].concat(
+    controlPoints.length ? controlPoints : [0, 0],
+  );
+
   const p0 = [coordCenter[0] - x1, coordCenter[1] - y1] as Vector2;
   const [p1, p2] = P;
   // If angle is smaller than 90, which will cause connector overlap with element.
