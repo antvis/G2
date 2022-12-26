@@ -47,7 +47,6 @@ export const Dark: TC<DarkOptions> = (options) => {
         fill: '',
         strokeOpacity: 1,
         lineWidth: 1,
-        connectStroke: '#666',
       },
     },
     point: {
@@ -89,8 +88,6 @@ export const Dark: TC<DarkOptions> = (options) => {
       area: {
         fillOpacity: 0.85,
         lineWidth: 0,
-        connectFill: COLORS.BLACK,
-        connectFillOpacity: 0.1,
       },
     },
     polygon: {
