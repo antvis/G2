@@ -87,7 +87,7 @@ export const Curve: SC<CurveOptions> = (options) => {
     // Compute styles.
     const { mark, shape, defaultShape } = value;
     const {
-      stroke: defaultColor,
+      defaultColor,
       lineWidth: defaultSize,
       ...defaults
     } = getShapeTheme(theme, mark, shape, defaultShape);

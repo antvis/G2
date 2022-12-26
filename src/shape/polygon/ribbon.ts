@@ -74,7 +74,7 @@ export const Ribbon: SC<RibbonOptions> = (options) => {
   const { ...style } = options;
   return (points, value, coordinate, theme) => {
     const { mark, shape, defaultShape, color, transform } = value;
-    const { fill, stroke, ...shapeTheme } = getShapeTheme(
+    const { defaultColor, ...shapeTheme } = getShapeTheme(
       theme,
       mark,
       shape,
@@ -86,8 +86,8 @@ export const Ribbon: SC<RibbonOptions> = (options) => {
     return select(new GPath())
       .call(applyStyle, shapeTheme)
       .style('d', path.toString())
-      .style('fill', color || fill)
-      .style('stroke', color || stroke)
+      .style('fill', color || defaultColor)
+      .style('stroke', color || defaultColor)
       .style('transform', transform)
       .call(applyStyle, style)
       .node();
