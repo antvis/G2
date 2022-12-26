@@ -13,7 +13,7 @@ export const Vector: SC<VectorOptions> = (options) => {
   const { arrowSize = '40%', ...style } = options;
   return (points, value, coordinate, theme) => {
     const { mark, shape, defaultShape, color, transform } = value;
-    const { fill, stroke, ...shapeTheme } = getShapeTheme(
+    const { defaultColor, ...shapeTheme } = getShapeTheme(
       theme,
       mark,
       shape,
@@ -38,8 +38,8 @@ export const Vector: SC<VectorOptions> = (options) => {
     return select(new Path())
       .call(applyStyle, shapeTheme)
       .style('d', path.toString())
-      .style('stroke', color || stroke)
-      .style('fill', color || fill)
+      .style('stroke', color || defaultColor)
+      .style('fill', color || defaultColor)
       .style('transform', transform)
       .call(applyStyle, style)
       .node();

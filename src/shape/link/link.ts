@@ -13,13 +13,13 @@ export const Link: SC<LinkOptions> = (options) => {
   const { arrowSize, ...style } = options;
   return (points, value, coordinate, theme) => {
     const { mark, shape, defaultShape } = value;
-    const { stroke, ...shapeTheme } = getShapeTheme(
+    const { defaultColor, ...shapeTheme } = getShapeTheme(
       theme,
       mark,
       shape,
       defaultShape,
     );
-    const { color = stroke, transform } = value;
+    const { color = defaultColor, transform } = value;
     const [from, to] = points;
 
     // Draw line

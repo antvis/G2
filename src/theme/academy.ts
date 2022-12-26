@@ -55,19 +55,16 @@ export const Academy: TC<AcademyOptions> = (options) => {
       },
       hollow: {
         r: 3,
-        fill: '',
         strokeOpacity: 0.95,
         lineWidth: 1,
       },
       plus: {
         r: 3,
-        fill: '',
         strokeOpacity: 0.95,
         lineWidth: 3,
       },
       diamond: {
         r: 3,
-        fill: '',
         strokeOpacity: 0.95,
         lineWidth: 1,
       },

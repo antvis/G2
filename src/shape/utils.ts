@@ -193,6 +193,10 @@ export function getArcObject(
   };
 }
 
+/**
+ * Get the mark.shape's style object.
+ * @returns
+ */
 export function getShapeTheme(
   theme: G2Theme,
   mark: string,
@@ -201,12 +205,14 @@ export function getShapeTheme(
 ) {
   const { defaultColor } = theme;
   const markTheme = theme[mark] || {};
+  const shapeTheme = markTheme[shape] || markTheme[defaultShape];
 
-  return Object.assign(
-    {},
-    { fill: defaultColor, stroke: defaultColor },
-    markTheme[shape] || markTheme[defaultShape],
-  );
+  return Object.assign({ defaultColor }, shapeTheme);
+  // return Object.assign(
+  //   {},
+  //   { fill: defaultColor, stroke: defaultColor },
+  //   markTheme[shape] || markTheme[defaultShape],
+  // );
 }
 
 /**

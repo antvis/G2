@@ -12,7 +12,7 @@ export const Text: SC<TextOptions> = (options) => {
   const { ...style } = options;
   return (points, value, coordinate, theme) => {
     const { mark, shape, defaultShape } = value;
-    const shapeTheme = getShapeTheme(theme, mark, shape, defaultShape);
+    const { ...shapeTheme } = getShapeTheme(theme, mark, shape, defaultShape);
     const { color, text = '', fontSize, rotate = 0, transform = '' } = value;
 
     const textStyle = {

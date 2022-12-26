@@ -9,13 +9,13 @@ export const Image: SC<ImageOptions> = (options) => {
   const { ...style } = options;
   return (points, value, coordinate, theme) => {
     const { mark, shape, defaultShape } = value;
-    const { stroke, ...shapeTheme } = getShapeTheme(
+    const { defaultColor, ...shapeTheme } = getShapeTheme(
       theme,
       mark,
       shape,
       defaultShape,
     );
-    const { color = stroke, src = '', size = 32, transform = '' } = value;
+    const { color = defaultColor, src = '', size = 32, transform = '' } = value;
     const { width = size, height = size } = style;
     const [[x0, y0]] = points;
 

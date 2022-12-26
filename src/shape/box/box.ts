@@ -77,12 +77,12 @@ export const Box: SC<BoxOptions> = (options) => {
   const { ...style } = options;
   return (points, value, coordinate, theme) => {
     const { mark, shape, defaultShape, color, transform } = value;
-    const { fill, stroke, ...shapeTheme } = getShapeTheme(
-      theme,
-      mark,
-      shape,
-      defaultShape,
-    );
+    const {
+      defaultColor,
+      fill = defaultColor,
+      stroke = defaultColor,
+      ...shapeTheme
+    } = getShapeTheme(theme, mark, shape, defaultShape);
 
     const path = getPath(points, coordinate);
 

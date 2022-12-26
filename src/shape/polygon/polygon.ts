@@ -48,7 +48,7 @@ export const Polygon: SC<PolygonOptions> = (options) => {
   const { ...style } = options;
   return (points, value, coordinate, theme) => {
     const { mark, shape, defaultShape, color, transform } = value;
-    const { fill, stroke, ...shapeTheme } = getShapeTheme(
+    const { defaultColor, ...shapeTheme } = getShapeTheme(
       theme,
       mark,
       shape,
@@ -60,8 +60,8 @@ export const Polygon: SC<PolygonOptions> = (options) => {
     return select(new GPath())
       .call(applyStyle, shapeTheme)
       .style('d', path.toString())
-      .style('stroke', color || stroke)
-      .style('fill', color || fill)
+      .style('stroke', color || defaultColor)
+      .style('fill', color || defaultColor)
       .style('transform', transform)
       .call(applyStyle, style)
       .node();
