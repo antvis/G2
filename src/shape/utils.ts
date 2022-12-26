@@ -208,11 +208,6 @@ export function getShapeTheme(
   const shapeTheme = markTheme[shape] || markTheme[defaultShape];
 
   return Object.assign({ defaultColor }, shapeTheme);
-  // return Object.assign(
-  //   {},
-  //   { fill: defaultColor, stroke: defaultColor },
-  //   markTheme[shape] || markTheme[defaultShape],
-  // );
 }
 
 /**
