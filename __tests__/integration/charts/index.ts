@@ -148,6 +148,7 @@ export { englishWordCloud } from './english-wordCloud';
 export { scoreByItemAreaRadarCustom } from './score-by-item-area-radar-custom';
 export { forecastRangeAreaLine } from './forecast-range-area-line';
 export { housePricePointSample } from './house-price-point-sample';
+export { housePricePointShapes } from './house-price-point-shapes';
 export { aaplLineSlider } from './aapl-line-slider';
 export { aaplLineSliderTransponsed } from './aapl-line-slider-transposed';
 export { indicesLineChartFacetAxis } from './indices-line-chart-fact-axis';
