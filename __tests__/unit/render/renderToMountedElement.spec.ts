@@ -68,8 +68,8 @@ describe('renderToMountedElement', () => {
       {
         type: 'interval',
         title: {
-          size: 40,
-          text: 'Chart Title',
+          height: 40,
+          title: 'Chart Title',
           subtitle: 'Chart Subtitle: description, description.',
           subtitleStyle: { fill: 'pink' },
         },
