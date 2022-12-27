@@ -18,9 +18,7 @@ function pick(v: any, fields: string[] = []) {
  */
 export const Pick: DC<PickOptions> = (options) => {
   const { fields } = options;
-  return (data) => {
-    return data.map((d) => pick(d, fields));
-  };
+  return (data) => data.map((d) => pick(d, fields));
 };
 
 Pick.props = {};
