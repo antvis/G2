@@ -76,7 +76,7 @@ chart.data({
 | [rename](/api/data/rename)          | 数据字段重命名                                                |
 | [fold](/api/data/fold)              | 将多个字段打包为 key value object 形式                         |
 | [filter](/api/data/filter)          | 数据过滤                                                     |
-| [subset](/api/data/subset)          | 抽取数据子集，可以是数据字段和数据量上                            |
+| [slice](/api/data/slice)            | 从数组中抽取数据子集                                           |
 | [map](/api/data/map)                | 数据 map 的操作                                              |
 | [join](/api/data/join)              | 类似 SQL 的方式，将两份数据连接到一起                            |
 | [custom](/api/data/custom)          | 自定义函数处理数据                                            |
