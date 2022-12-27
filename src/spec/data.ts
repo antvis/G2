@@ -23,11 +23,11 @@ export type DataTransform =
   | SortTransform
   | PickTransform
   | RenameTransform
-  | SubsetTransform
   | FoldTransform
   | JoinTransform
   | FilterDataTransform
   | MapTransform
+  | SliceTransform
   | CustomTransform;
 
 export type DataTransformTypes =
@@ -35,11 +35,11 @@ export type DataTransformTypes =
   | 'sort'
   | 'pick'
   | 'rename'
-  | 'subset'
   | 'fold'
   | 'join'
   | 'filter'
   | 'map'
+  | 'slice'
   | 'custom'
   | DataComponent;
 
@@ -59,19 +59,24 @@ export type RenameTransform = {
   [key: string]: string;
 };
 
-export type SubsetTransform = {
-  type?: 'subset';
-  start?: number;
-  end?: number;
-  fields?: string[];
-};
-
 export type FilterDataTransform = {
   type?: 'filter';
   /**
    * The filter condition, same with [Array.prototype.filter](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/filter).
    */
   callback?: (v: any, idx: number, arr: any[]) => boolean;
+};
+
+export type SliceTransform = {
+  type?: 'slice';
+  /**
+   * The start index for slice. Default is 0.
+   */
+  start?: number;
+  /**
+   * The end index for slice. Default is arr.length - 1
+   */
+  end?: number;
 };
 
 export type SortTransform = {
