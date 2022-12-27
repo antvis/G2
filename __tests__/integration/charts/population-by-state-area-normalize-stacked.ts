@@ -118,7 +118,8 @@ export function populationByStateAreaNormalizeStacked(): G2Spec {
             'Hawaii',
             'Alaska',
           ],
-          as: ['state', 'population'],
+          key: 'state',
+          value: 'population',
         },
         {
           type: 'map',
