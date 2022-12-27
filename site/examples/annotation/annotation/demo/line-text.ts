@@ -2,7 +2,7 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  height: 400,
+  autoFit: true,
 });
 
 chart
