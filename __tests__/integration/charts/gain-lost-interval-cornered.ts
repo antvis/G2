@@ -15,7 +15,6 @@ export function gainLostIntervalCornered(): G2Spec {
             'gained <= 100$',
             'gained > 100$',
           ],
-          as: ['key', 'value'],
         },
       ],
     },

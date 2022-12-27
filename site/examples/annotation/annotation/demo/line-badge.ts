@@ -11,7 +11,8 @@ chart
       {
         type: 'fold',
         fields: ['blockchain', 'nlp'],
-        as: ['type', 'value'],
+        key: 'type',
+        value: 'value',
       },
     ],
   })
