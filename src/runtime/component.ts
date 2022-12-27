@@ -53,15 +53,12 @@ export function inferComponent(
   if (title) {
     const { props } = createGuideComponent('title');
     const { defaultPosition, defaultOrder, defaultSize } = props;
-    const titleOptions = typeof title === 'string' ? { text: title } : title;
-    const size = inferTitleComponentSize(
-      deepMix({ size: defaultSize }, theme, titleOptions),
-    );
+    const titleOptions = typeof title === 'string' ? { title } : title;
     components.push({
       type: 'title',
       position: defaultPosition,
       order: defaultOrder,
-      size,
+      size: defaultSize,
       ...titleOptions,
     });
   }
@@ -212,16 +209,6 @@ function inferComponentPosition(
     if (guide.position === 'center') return 'arcCenter';
   }
   return ordinalPosition;
-}
-
-function inferTitleComponentSize(options: G2TitleOptions) {
-  const { size, text, subtitle, style, subtitleStyle } = options;
-  if (size) return size;
-  const titleSize = style?.fontSize ?? 14;
-  const subtitleSize = subtitleStyle?.fontSize ?? 12;
-  const spacing = subtitleStyle?.spacing || 0;
-  // Extra 4px spacing.
-  return (text ? titleSize + 4 : 0) + (subtitle ? subtitleSize + spacing : 0);
 }
 
 /**

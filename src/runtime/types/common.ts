@@ -1,5 +1,5 @@
 import { Coordinate } from '@antv/coord';
-import { DisplayObject } from '@antv/g';
+import { DisplayObject, TextStyleProps } from '@antv/g';
 import { G2GuideComponentOptions, G2Mark, G2ViewTree } from './options';
 import { LabelTransform, Scale } from './component';
 import { MarkProps } from './mark';
@@ -8,10 +8,34 @@ import { G2Theme } from './theme';
 export type { G2Theme };
 
 export type G2Title = {
-  text?: string;
+  /**
+   * Height of title, default is 30.
+   */
+  height?: number;
+  /**
+   * Text of title.
+   */
+  title?: string;
+  /**
+   * G.Text style for title.
+   */
+  style?: Omit<TextStyleProps, 'x' | 'y' | 'text'>;
+  /**
+   * Text of subtitle.
+   */
   subtitle?: string | null;
-  style?: Record<string, any>;
-  subtitleStyle?: Record<string, any>;
+  /**
+   * G.Text style for subtitle.
+   */
+  subtitleStyle?: Omit<TextStyleProps, 'x' | 'y' | 'text'>;
+  /**
+   * Align method for title.
+   */
+  align?: 'left' | 'center' | 'right';
+  /**
+   * The vertical spacing between title and subtitle, default is 2.
+   */
+  spacing?: number;
 };
 
 export type G2ViewDescriptor = {

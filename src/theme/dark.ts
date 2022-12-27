@@ -392,14 +392,14 @@ export const Dark: TC<DarkOptions> = (options) => {
     title: {
       fill: COLORS.BLACK,
       fillOpacity: 0.85,
-      fontSize: 24,
+      fontSize: 14,
       fontWeight: 'bold',
       textBaseline: 'top',
     },
     subtitle: {
       fill: COLORS.BLACK,
       fillOpacity: 0.65,
-      fontSize: 10,
+      fontSize: 12,
       fontWeight: 'normal',
       textBaseline: 'top',
     },

@@ -31,9 +31,12 @@ chart.render();
 
 | 属性               | 描述                                                           | 类型                                     | 默认值 |
 | ------------------ | ------------------------------------------------------------- | ---------------------------------------- | ------ |
-| title              | 标题文本                                                       | `string`                                 | -      |
-| style              | 标题文本的样式                                                  | `GTextStyle`                             | -     |
-| subtitle           | 副标题文本                                                     | `string`                                  | -      |
-| subtitleStyle      | 副标题文本的样式                                                 | `GTextStyle`                             | -     |
+| title              | 标题文本                                                       | `string`                                 | -       |
+| style              | 标题文本的样式                                                  | `GTextStyle`                             | -       |
+| subtitle           | 副标题文本                                                     | `string`                                  | -       |
+| subtitleStyle      | 副标题文本的样式                                                | `GTextStyle`                              | -       |
+| height             | 标题的高度                                                     | `number`                                  | `36`    |
+| align              | 标题的对齐方式                                                  | `left` \| `center` \| `right`             | `left`  |
+| spacing            | 主标题、副标题之间的上下间距                                      | `number`                                  | `2`     |
 
 对于 `GTextStyle` 是 G 中文本组件的的样式配置属性，可以参考 [G Text](https://g.antv.antgroup.com/api/basic/text) 文档。
