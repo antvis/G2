@@ -161,3 +161,4 @@ export { ordersLineMissingField } from './orders-line-missing-field';
 export { gdp2BoxplotLog } from './gdp2-boxplot-log';
 export { aaplLineScrollbar } from './aapl-line-scrollbar';
 export { alphabetIntervalRenderToMountedGroup } from './alphabet-interval-render-to-mounted-element';
+export { weatherLineMultiSlider } from './weather-line-multi-slider';
