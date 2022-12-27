@@ -22,7 +22,6 @@ chart
           'gained <= 100$',
           'gained > 100$',
         ],
-        as: ['key', 'value'],
       },
     ],
   })

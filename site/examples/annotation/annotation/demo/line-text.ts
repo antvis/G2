@@ -2,7 +2,7 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  height: 400,
+  autoFit: true,
 });
 
 chart
@@ -14,7 +14,8 @@ chart
       {
         type: 'fold',
         fields: ['blockchain', 'nlp'],
-        as: ['type', 'value'],
+        key: 'type',
+        value: 'value',
       },
     ],
   })

@@ -18,7 +18,7 @@ describe('fold', () => {
   });
 
   it('Fold({...}) returns a function collapses data with specified `as`', async () => {
-    const fold = Fold({ fields: ['gold', 'silver'], as: ['k', 'v'] });
+    const fold = Fold({ fields: ['gold', 'silver'], key: 'k', value: 'v' });
     expect(await fold(data)).toEqual([
       { k: 'gold', v: 10, country: 'USA', gold: 10, silver: 20 },
       { k: 'silver', v: 20, country: 'USA', gold: 10, silver: 20 },

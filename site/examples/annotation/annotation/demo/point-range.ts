@@ -28,7 +28,8 @@ chart
   .scale('y', { independent: true, domain: [0, 1] })
   .style('stroke', '#5B8FF9')
   .style('strokeWidth', 1)
-  .style('fillOpacity', 0.15);
+  .style('fillOpacity', 0.15)
+  .animate(false);
 
 chart
   .point()

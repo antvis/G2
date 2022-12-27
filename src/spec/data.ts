@@ -89,8 +89,18 @@ export type SortTransform = {
 
 export type FoldTransform = {
   type?: 'fold';
+  /**
+   * Set fields will be folded.
+   */
   fields?: string[];
-  as?: string[];
+  /**
+   * Fold key field, default is `key`.
+   */
+  key?: string;
+  /**
+   * Fold value field, default is `value`.
+   */
+  value?: string;
 };
 
 export type CustomDataTransform = {

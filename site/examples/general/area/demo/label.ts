@@ -120,7 +120,8 @@ chart.data({
     {
       type: 'fold',
       fields: States,
-      as: ['state', 'population'],
+      key: 'state',
+      value: 'population',
     },
     {
       type: 'map',

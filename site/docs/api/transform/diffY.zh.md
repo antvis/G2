@@ -40,7 +40,8 @@ chart
       {
         type: 'fold',
         fields: ['New York', 'San Francisco'],
-        as: ['city', 'temperature'],
+        key: 'city',
+        value: 'temperature',
       },
     ],
   })

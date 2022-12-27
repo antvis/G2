@@ -1,6 +1,9 @@
 import { Chart } from '@antv/g2';
 
-const chart = new Chart({ container: 'container', autoFit: true });
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
 
 chart
   .data({
@@ -11,7 +14,8 @@ chart
       {
         type: 'fold',
         fields: ['blockchain', 'nlp'],
-        as: ['type', 'value'],
+        key: 'type',
+        value: 'value',
       },
     ],
   })

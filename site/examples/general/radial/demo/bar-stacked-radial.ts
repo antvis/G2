@@ -39,7 +39,8 @@ chart
           '45 to 64 Years',
           '65 Years and Over',
         ],
-        as: ['Age', 'Population'],
+        key: 'Age',
+        value: 'Population',
       },
     ],
   })

@@ -26,8 +26,9 @@ chart
     range: ['#d8d0c0', '#a3dda1'],
     independent: true,
   })
-  .legend(false)
-  .style('fillOpacity', 0.2);
+  .style('fillOpacity', 0.2)
+  .animate(false)
+  .legend(false);
 
 chart
   .point()
