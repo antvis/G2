@@ -48,7 +48,7 @@ export function inferComponent(
     if (guide === null) return false;
     return true;
   });
-  const sliders = createSliders(partialOptions, scales, library);
+  const sliders = inferScrollComponents(partialOptions, scales, library);
   const components = [...partialComponents, ...sliders];
   if (title) {
     const { props } = createGuideComponent('title');
@@ -224,16 +224,19 @@ function inferTitleComponentSize(options: G2TitleOptions) {
   return (text ? titleSize + 4 : 0) + (subtitle ? subtitleSize + spacing : 0);
 }
 
-function inferSliderType(
-  name: string,
-  coordinates: G2CoordinateOptions[] = [],
-) {
-  if (name === 'x') return isTranspose(coordinates) ? 'sliderY' : 'sliderX';
-  if (name === 'y') return isTranspose(coordinates) ? 'sliderX' : 'sliderY';
+/**
+ * Infer scroll component type.
+ */
+function inferSCType(name: string, type: string, coordinates = []) {
+  if (name === 'x') return isTranspose(coordinates) ? `${type}Y` : `${type}X`;
+  if (name === 'y') return isTranspose(coordinates) ? `${type}X` : `${type}Y`;
   return null;
 }
 
-function createSliders(
+/**
+ * Infer scroll components, such as slider and scrollbar.
+ */
+function inferScrollComponents(
   partialOptions: G2View,
   scales: G2ScaleOptions[],
   library,
@@ -247,26 +250,34 @@ function createSliders(
   const { marks, coordinates } = partialOptions;
   const nameScale = new Map(scales.map((scale) => [scale.name, scale]));
 
-  return marks
-    .filter((d) => d.slider)
-    .flatMap((mark) => {
-      const { slider } = mark;
-      return Object.entries(slider).map(([channelName, options]) => {
-        const scale = nameScale.get(channelName);
-        const componentType = inferSliderType(channelName, coordinates);
-        if (!scale || !componentType) return;
+  function normalized(type: string, componentOptions: Record<string, any>) {
+    return Object.entries(componentOptions).map(([channelName, options]) => {
+      const scale = nameScale.get(channelName);
+      const componentType = inferSCType(channelName, type, coordinates);
+      if (!scale || !componentType) return;
 
-        const { props } = createGuideComponent(componentType);
-        const { defaultPosition, defaultSize, defaultOrder } = props;
-        return {
-          position: defaultPosition,
-          size: defaultSize,
-          order: defaultOrder,
-          type: componentType,
-          ...options,
-          scale,
-        };
-      });
+      const { props } = createGuideComponent(componentType);
+      const { defaultPosition, defaultSize, defaultOrder } = props;
+      return {
+        position: defaultPosition,
+        size: defaultSize,
+        order: defaultOrder,
+        type: componentType,
+        ...options,
+        scale,
+      };
+    });
+  }
+
+  return marks
+    .filter((d) => d.slider || d.scrollbar)
+    .flatMap((mark) => {
+      const { slider = {}, scrollbar = {} } = mark;
+
+      return [
+        ...normalized('slider', slider),
+        ...normalized('scrollbar', scrollbar),
+      ];
     })
     .filter((d) => !!d);
 }

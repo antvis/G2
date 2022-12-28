@@ -102,6 +102,7 @@ export type G2Mark = {
   axis?: boolean | Record<string, any>;
   legend?: boolean | Record<string, any>;
   slider?: Record<string, any>;
+  scrollbar?: Record<string, any>;
   filter?: (i: number) => boolean;
   children?: G2MarkChildrenCallback;
   dataDomain?: number;
