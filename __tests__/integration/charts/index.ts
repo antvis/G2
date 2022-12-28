@@ -50,6 +50,7 @@ export { aaplLineMissingConnect } from './aapl-line-missing-connect';
 export { aaplLineMissingStyled } from './aapl-line-missing-styled';
 export { paragraphTextVis } from './paragraph-text-vis';
 export { aaplAreaMissingData } from './aapl-area-missing-data';
+export { aaplAreaMissingDataTranspose } from './aapl-area-missing-data-transpose';
 export { unemploymentAreaStacked } from './unemployment-area-stacked';
 export { unemploymentAreaStackedSample } from './unemployment-area-stacked-sample';
 export { unemploymentAreaNormalizedStacked } from './unemployment-area-normalize-stacked';

@@ -1,7 +1,7 @@
 import { area, areaRadial, CurveFactory } from 'd3-shape';
 import { Path } from '@antv/g';
 import { select } from '../../utils/selection';
-import { isPolar } from '../../utils/coordinate';
+import { isPolar, isTranspose } from '../../utils/coordinate';
 import { Vector2, ShapeComponent as SC } from '../../runtime';
 import { angleWithQuadrant, sub, dist } from '../../utils/vector';
 import {
@@ -128,12 +128,19 @@ export const Curve: SC<CurveOptions> = (options) => {
       const areaPath = (points) => {
         const Y1 = points.slice(0, points.length / 2);
         const Y0 = points.slice(points.length / 2);
-        return area()
-          .x((_, idx) => Y1[idx][0])
-          .y1((_, idx) => Y1[idx][1])
-          .y0((_, idx) => Y0[idx][1])
-          .defined((_, idx) => [...Y1[idx], ...Y0[idx]].every(defined))
-          .curve(curve)(Y1);
+        return isTranspose(coordinate)
+          ? area()
+              .y((_, idx) => Y1[idx][1])
+              .x1((_, idx) => Y1[idx][0])
+              .x0((_, idx) => Y0[idx][0])
+              .defined((_, idx) => [...Y1[idx], ...Y0[idx]].every(defined))
+              .curve(curve)(Y1)
+          : area()
+              .x((_, idx) => Y1[idx][0])
+              .y1((_, idx) => Y1[idx][1])
+              .y0((_, idx) => Y0[idx][1])
+              .defined((_, idx) => [...Y1[idx], ...Y0[idx]].every(defined))
+              .curve(curve)(Y1);
       };
 
       // Draw one area of connected defined points.
