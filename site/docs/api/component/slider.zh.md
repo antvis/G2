@@ -107,10 +107,16 @@ chart
   })
   .encode('x', 'date')
   .encode('y', 'close')
-  // 开启 Y 轴缩略轴
+  // 开启 X 轴缩略轴
   .slider('x', {});
 
-chart.render();
+chart.on('afterrender', () => {
+  const { canvas } = chart.context();
+  const { document } = canvas;
+  document.querySelector('.slider').addEventListener('valuechange', (evt) => {
+    console.info(evt.detail)
+  });
+});
 
-chart.querySelector('.slider').addEventListener('valuechange', () => {});
+chart.render();
 ```

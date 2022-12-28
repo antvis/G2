@@ -1,4 +1,3 @@
-import { format } from 'fecha';
 import { G2Spec } from '../../../src';
 
 export function aaplLineScrollbar(): G2Spec {
