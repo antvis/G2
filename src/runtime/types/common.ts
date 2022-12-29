@@ -1,5 +1,5 @@
 import { Coordinate } from '@antv/coord';
-import { DisplayObject } from '@antv/g';
+import { DisplayObject, TextStyleProps } from '@antv/g';
 import { G2GuideComponentOptions, G2Mark, G2ViewTree } from './options';
 import { LabelTransform, Scale } from './component';
 import { MarkProps } from './mark';
@@ -8,11 +8,28 @@ import { G2Theme } from './theme';
 export type { G2Theme };
 
 export type G2Title = {
-  text?: string;
+  /**
+   * Height of title, default is 36.
+   */
+  size?: number;
+  /**
+   * Text of title.
+   */
+  title?: string;
+  /**
+   * Text of subtitle.
+   */
   subtitle?: string | null;
-  style?: Record<string, any>;
-  subtitleStyle?: Record<string, any>;
-};
+  /**
+   * Align method for title.
+   */
+  align?: 'left' | 'center' | 'right';
+  /**
+   * The vertical spacing between title and subtitle, default is 2.
+   */
+  spacing?: number;
+} & WithPrefix<Omit<TextStyleProps, 'x' | 'y' | 'text'>, 'title'> & // G.Text style for title.
+  WithPrefix<Omit<TextStyleProps, 'x' | 'y' | 'text'>, 'subtitle'>; // G.Text style for subtitle.
 
 export type G2ViewDescriptor = {
   scale: Record<string, Scale>;
@@ -59,10 +76,9 @@ export type Primitive = number | string | boolean | Date;
 
 export type TabularData = Record<string, Primitive>[];
 
-export type WithPrefix<T, P extends string, F = keyof T> = F extends keyof T &
-  string
-  ? { [key in `${P}${Capitalize<F>}`]?: T[F] }
-  : unknown;
+export type WithPrefix<O extends Record<string, any>, P extends string> = {
+  [K in keyof O as `${P}${Capitalize<K & string>}`]?: O[K];
+};
 
 export type EncodeFunction = (
   data: Record<string, MaybeArray<Primitive>>[],

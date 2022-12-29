@@ -181,9 +181,5 @@ export type G2CompositionOptions = G2BaseComponentOptions<CompositionComponent>;
 export type G2AdjustOptions = G2BaseComponentOptions<AdjustComponent>;
 export type G2LabelTransformOptions =
   G2BaseComponentOptions<LabelTransformComponent>;
-export type G2TitleOptions = G2Title & {
-  position?: GuideComponentPosition;
-  size?: number;
-  zIndex?: number;
-};
+export type G2TitleOptions = G2Title;
 export type G2DataOptions = G2BaseComponent<DataComponent>;

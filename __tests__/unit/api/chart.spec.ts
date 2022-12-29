@@ -259,6 +259,22 @@ describe('Chart', () => {
     });
   });
 
+  it('chart.title() should set title options', () => {
+    const chart = new Chart({});
+
+    chart.title('This is a title.');
+    expect(chart.options().title).toEqual('This is a title.');
+
+    chart.title({
+      title: 'This is a main title,',
+      subtitle: 'This is a subtitle.',
+    });
+    expect(chart.options().title).toEqual({
+      title: 'This is a main title,',
+      subtitle: 'This is a subtitle.',
+    });
+  });
+
   it('chart.nodeName() should build view tree', () => {
     const chart = new Chart();
     chart.interval();

@@ -3,10 +3,6 @@ import { SliceTransform } from '../spec';
 
 export type SliceOptions = Omit<SliceTransform, 'type'>;
 
-export function defined(d: any): boolean {
-  return d !== undefined && d !== null && !Number.isNaN(d);
-}
-
 /**
  * Slice data between `start` ~ `end`.
  * Same with https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice
