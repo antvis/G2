@@ -5,6 +5,8 @@ export { LegendContinuous } from './legendContinuous';
 export { TitleComponent } from './title';
 export { SliderX } from './sliderX';
 export { SliderY } from './sliderY';
+export { ScrollbarX } from './scrollbarX';
+export { ScrollbarY } from './scrollbarY';
 
 export type { AxisXOptions } from './axisX';
 export type { AxisYOptions } from './axisY';
