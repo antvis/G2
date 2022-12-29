@@ -7,7 +7,7 @@ import {
   useState,
   createValueof,
   setCursor,
-  mousePositionClamp,
+  brushMousePosition,
   selectFacetG2Elements,
 } from './utils';
 
@@ -36,7 +36,8 @@ export function brush(
   root: DisplayObject,
   {
     brushed = () => {},
-    brushend = () => {},
+    brushended = () => {},
+    brushcreated = () => {},
     extent = bboxOf(root),
     brushRegion = (x, y, x1, y1, extent) => [x, y, x1, y1],
     reverse = false,
@@ -114,10 +115,10 @@ export function brush(
     resizing = false;
     mask = null;
     background = null;
-    brushend();
+    brushended();
   };
 
-  // Update mask and invoke brushend callback.
+  // Update mask and invoke brushended callback.
   const updateMask = (start, end) => {
     const [x, y, x1, y1] = normalizeBounds(
       start[0],
@@ -130,6 +131,7 @@ export function brush(
     if (reverse) updateReverseMask(fx, fy, fx1, fy1);
     else updateNormalMask(fx, fy, fx1, fy1);
     brushed(fx, fy, fx1, fy1);
+    return [fx, fy, fx1, fy1];
   };
 
   const updateNormalMask = (x, y, x1, y1) => {
@@ -170,7 +172,7 @@ export function brush(
   // If target is mask, about to update position.
   const dragstart = (event) => {
     const { target } = event;
-    const [offsetX, offsetY] = mousePositionClamp(root, event);
+    const [offsetX, offsetY] = brushMousePosition(root, event);
     if (target === mask) {
       moveStart = [offsetX, offsetY];
       return;
@@ -182,7 +184,7 @@ export function brush(
   // If target is plot area, resize mask.
   // If target is mask, move mask.
   const drag = (event) => {
-    const mouse = mousePositionClamp(root, event);
+    const mouse = brushMousePosition(root, event);
     if (!start) return;
     if (moveStart) return moveMask(mouse);
     updateMask(start, mouse);
@@ -199,9 +201,10 @@ export function brush(
       end = [x + width, y + height];
       return;
     }
-    end = mousePositionClamp(root, event);
-    updateMask(start, end);
+    end = brushMousePosition(root, event);
+    const [fx, fy, fx1, fy1] = updateMask(start, end);
     resizing = false;
+    brushcreated(fx, fy, fx1, fy1);
   };
 
   // Hide mask.
@@ -228,15 +231,21 @@ export function brush(
   root.addEventListener('pointermove', pointermove);
   root.addEventListener('pointerleave', pointerleave);
 
-  return () => {
-    if (mask) mask.remove();
-    if (background) background.remove();
-    root.removeEventListener('dragstart', dragstart);
-    root.removeEventListener('drag', drag);
-    root.removeEventListener('dragend', dragend);
-    root.removeEventListener('click', click);
-    root.removeEventListener('pointermove', pointermove);
-    root.removeEventListener('pointerleave', pointerleave);
+  return {
+    mask,
+    remove() {
+      if (mask) removeMask();
+    },
+    destroy() {
+      if (mask) mask.remove();
+      if (background) background.remove();
+      root.removeEventListener('dragstart', dragstart);
+      root.removeEventListener('drag', drag);
+      root.removeEventListener('dragend', dragend);
+      root.removeEventListener('click', click);
+      root.removeEventListener('pointermove', pointermove);
+      root.removeEventListener('pointerleave', pointerleave);
+    },
   };
 }
 
@@ -273,7 +282,7 @@ export function brushHighlight(
     clonedElement.clear();
   };
 
-  const brushend = () => {
+  const brushended = () => {
     for (const element of elements) {
       removeState(element, 'highlighted', 'unhighlighted');
     }
@@ -319,7 +328,7 @@ export function brushHighlight(
     extent,
     brushRegion,
     reverse,
-    brushend: series ? seriesBrushend : brushend,
+    brushended: series ? seriesBrushend : brushended,
     brushed: series ? seriesBrushed : brushed,
   });
 }

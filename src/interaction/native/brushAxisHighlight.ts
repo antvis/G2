@@ -159,7 +159,7 @@ export function brushAxisHighlight(
       ...brushStyle,
       reverse,
       brushRegion,
-      brushend() {
+      brushended() {
         axisExtent.delete(axis);
         updateElement();
       },

@@ -14,6 +14,9 @@ export { BrushHighlight } from './native/brushHighlight';
 export { BrushXHighlight } from './native/brushXHighlight';
 export { BrushYHighlight } from './native/brushYHighlight';
 export { BrushAxisHighlight } from './native/brushAxisHighlight';
+export { BrushFilter } from './native/brushFilter';
+export { BrushXFilter } from './native/brushXFilter';
+export { BrushYFilter } from './native/brushYFilter';
 
 export { LEGEND_ITEMS_CLASS_NAME } from './native/legendFilter';
 

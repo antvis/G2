@@ -23,3 +23,8 @@ export { penguinsPointBrushReverse } from './penguins-point-brush-reverse';
 export { cars3LineBrushAxis } from './cars3-line-brush-axis';
 export { cars3LineVerticalBrushAxis } from './cars3-line-vertical-brush-axis';
 export { penguinsPointBrushAxis } from './penguins-point-brush-axis';
+export { penguinsPointBrushFilter } from './penguins-point-brush-filter';
+export { settleWeatherCellBrushFilter } from './seattle-weather-cell-brush-filter';
+export { profitIntervalBrushFilter } from './profit-interval-brush-filter';
+export { penguinsPointBrushXFilter } from './penguins-point-brush-x-filter';
+export { penguinsPointBrushYFilter } from './penguins-point-brush-y-filter';

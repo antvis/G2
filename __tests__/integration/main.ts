@@ -98,7 +98,7 @@ async function plot() {
   const dom = generate.dom?.();
   const renderer = new renderers[selectRenderer.value]();
   renderer.registerPlugin(
-    new DragAndDropPlugin({ dragstartDistanceThreshold: 10 }),
+    new DragAndDropPlugin({ dragstartDistanceThreshold: 1 }),
   );
   canvas = new Canvas({
     container: document.createElement('div'),

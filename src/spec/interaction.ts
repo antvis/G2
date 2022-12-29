@@ -18,7 +18,10 @@ export type Interaction =
   | BrushHighlightInteraction
   | BrushXHighlightInteraction
   | BrushYHighlightInteraction
-  | BrushAxisHighlightInteraction;
+  | BrushAxisHighlightInteraction
+  | BrushFilter
+  | BrushYFilter
+  | BrushXFilter;
 // | ElementListHighlightInteraction
 // | LegendActiveInteraction
 // | LegendHighlightInteraction
@@ -44,6 +47,9 @@ export type InteractionTypes =
   | 'brushXHighlight'
   | 'brushYHighlight'
   | 'brushHighlight'
+  | 'brushFilter'
+  | 'brushXFilter'
+  | 'brushYFilter'
   | InteractionComponent;
 // | 'elementListHighlight'
 // | 'legendActive'
@@ -87,6 +93,21 @@ export type BrushYHighlightInteraction = {
 
 export type BrushAxisHighlightInteraction = {
   type?: 'brushAxisHighlight';
+  reverse?: boolean;
+} & Record<`${'mask' | 'highlighted' | 'unhighlighted'}${any}`, any>;
+
+export type BrushFilter = {
+  type?: 'brushFilter';
+  reverse?: boolean;
+} & Record<`${'mask' | 'highlighted' | 'unhighlighted'}${any}`, any>;
+
+export type BrushXFilter = {
+  type?: 'brushXFilter';
+  reverse?: boolean;
+} & Record<`${'mask' | 'highlighted' | 'unhighlighted'}${any}`, any>;
+
+export type BrushYFilter = {
+  type?: 'brushYFilter';
   reverse?: boolean;
 } & Record<`${'mask' | 'highlighted' | 'unhighlighted'}${any}`, any>;
 

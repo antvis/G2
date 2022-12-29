@@ -40,17 +40,32 @@ export function mousePosition(target, event) {
   return [offsetX - x, offsetY - y];
 }
 
-export function mousePositionClamp(target, event) {
+/**
+ * @todo Pass bbox rather than calc it here.
+ */
+export function brushMousePosition(target, event) {
   const { offsetX, offsetY } = event;
-  const bbox = target.getBounds();
-  const {
-    min: [x, y],
-    max: [x1, y1],
-  } = bbox;
+  const [x, y, x1, y1] = boundsOfBrushArea(target);
   return [
     Math.min(x1, Math.max(x, offsetX)) - x,
     Math.min(y1, Math.max(y, offsetY)) - y,
   ];
+}
+
+export function boundsOfBrushArea(target) {
+  const { nodeName } = target;
+  if (nodeName !== 'rect') {
+    const bbox = target.getBounds();
+    const {
+      min: [x, y],
+      max: [x1, y1],
+    } = bbox;
+    return [x, y, x1, y1];
+  }
+  const { x, y, width, height } = target.style;
+  const x1 = x + width;
+  const y1 = y + height;
+  return [x, y, x1, y1];
 }
 
 export function applyDefaultsHighlightedStyle(
