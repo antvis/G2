@@ -237,8 +237,7 @@ export function brush(
       if (mask) removeMask();
     },
     destroy() {
-      if (mask) mask.remove();
-      if (background) background.remove();
+      if (mask) removeMask();
       root.removeEventListener('dragstart', dragstart);
       root.removeEventListener('drag', drag);
       root.removeEventListener('dragend', dragend);
@@ -249,19 +248,41 @@ export function brush(
   };
 }
 
+function selectSiblingContainers(target, viewInstances, brushKey) {
+  return viewInstances
+    .filter((d) => {
+      if (d === target) return false;
+      const { interactions = [] } = d.options;
+      return interactions.find((d) => d.brushKey === brushKey);
+    })
+    .map((d) => selectPlotArea(d.container));
+}
+
+/**
+ * @todo Brush over view for series view.
+ * @todo Test perf.
+ */
 export function brushHighlight(
   root,
   {
     elements: elementof,
+    siblings: siblingsof = (root) => [],
     datum,
     brushRegion,
     extent: optionalExtent,
     reverse,
     series = false,
+    key = (d) => d,
+    bboxOf = (root) => {
+      const { x, y, width, height } = root.style;
+      return { x, y, width, height };
+    },
     ...rest
   },
 ) {
   const elements = elementof(root);
+  const siblings = siblingsof(root);
+  const siblingElements = siblings.flatMap(elementof);
   const valueof = createValueof(elements, datum);
   const brushStyle = subObject(rest, 'mask');
   const { setState, removeState } = useState(rest, valueof);
@@ -271,24 +292,25 @@ export function brushHighlight(
     height: rootHeight,
     x: ordinalX,
     y: ordinalY,
-  } = root.getBBox();
+  } = bboxOf(root);
   const extent = optionalExtent
     ? optionalExtent
     : [0, 0, rootWidth, rootHeight];
 
-  const seriesBrushend = () => {
-    for (const element of elements) removeState(element, 'unhighlighted');
-    for (const cloned of clonedElement.values()) cloned.remove();
-    clonedElement.clear();
-  };
-
   const brushended = () => {
-    for (const element of elements) {
+    for (const element of [...elements, ...siblingElements]) {
       removeState(element, 'highlighted', 'unhighlighted');
     }
   };
 
   const brushed = (x, y, x1, y1) => {
+    // Hide brush for the sibling view.
+    for (const sibling of siblings) sibling.brush?.remove();
+
+    // Store the key of the highlighted element.
+    const keys = new Set();
+
+    // Highlight and store selected elements.
     for (const element of elements) {
       const { min, max } = element.getLocalBounds();
       const [ex, ey] = min;
@@ -297,8 +319,21 @@ export function brushHighlight(
         setState(element, 'unhighlighted');
       } else {
         setState(element, 'highlighted');
+        keys.add(key(element));
       }
     }
+
+    // Highlight elements with same key in sibling view.
+    for (const element of siblingElements) {
+      if (keys.has(key(element))) setState(element, 'highlighted');
+      else setState(element, 'unhighlighted');
+    }
+  };
+
+  const seriesBrushend = () => {
+    for (const element of elements) removeState(element, 'unhighlighted');
+    for (const cloned of clonedElement.values()) cloned.remove();
+    clonedElement.clear();
   };
 
   const seriesBrushed = (x, y, x1, y1) => {
@@ -333,7 +368,7 @@ export function brushHighlight(
   });
 }
 
-export function BrushHighlight({ facet, ...rest }) {
+export function BrushHighlight({ facet, brushKey, ...rest }) {
   return (target, viewInstances) => {
     const { container, view } = target;
     const plotArea = selectPlotArea(container);
@@ -363,13 +398,22 @@ export function BrushHighlight({ facet, ...rest }) {
         ...rest,
       });
     }
-    return brushHighlight(plotArea, {
+
+    const brush = brushHighlight(plotArea, {
       elements: selectG2Elements,
+      key: (element) => element.__data__.key,
+      siblings: () => selectSiblingContainers(target, viewInstances, brushKey),
       datum: createDatumof(view),
       brushRegion: (x, y, x1, y1) => [x, y, x1, y1],
       extent: undefined,
       ...defaultOptions,
       ...rest,
     });
+
+    // Bind brush to the view it belongs to.
+    //@ts-ignore
+    plotArea.brush = brush;
+
+    return () => brush.destroy();
   };
 }

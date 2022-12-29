@@ -69,6 +69,7 @@ export type BrushInteraction = {
 
 export type BrushHighlightInteraction = {
   type?: 'brushHighlight';
+  brushKey?: string;
   reverse?: boolean;
   shared?: boolean;
   series?: boolean;
@@ -77,6 +78,7 @@ export type BrushHighlightInteraction = {
 
 export type BrushXHighlightInteraction = {
   type?: 'brushXHighlight';
+  brushKey?: string;
   reverse?: boolean;
   shared?: boolean;
   series?: boolean;
@@ -85,6 +87,7 @@ export type BrushXHighlightInteraction = {
 
 export type BrushYHighlightInteraction = {
   type?: 'brushYHighlight';
+  brushKey?: string;
   reverse?: boolean;
   shared?: boolean;
   series?: boolean;
