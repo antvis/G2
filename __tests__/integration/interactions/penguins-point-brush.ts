@@ -52,6 +52,25 @@ export function dragMask(plot, x, y, x1, y1) {
   );
 }
 
+export function dblclick(plot, x = 200, y = 200) {
+  plot.dispatchEvent(
+    new CustomEvent('click', {
+      // @ts-ignore
+      offsetX: x,
+      offsetY: y,
+      timeStamp: Date.now(),
+    }),
+  );
+  plot.dispatchEvent(
+    new CustomEvent('click', {
+      // @ts-ignore
+      offsetX: x,
+      offsetY: y,
+      timeStamp: Date.now(),
+    }),
+  );
+}
+
 penguinsPointBrush.steps = ({ canvas }) => {
   const { document } = canvas;
   const plot = document.getElementsByClassName(PLOT_CLASS_NAME)[0];
