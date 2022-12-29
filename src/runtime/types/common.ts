@@ -11,7 +11,7 @@ export type G2Title = {
   /**
    * Height of title, default is 36.
    */
-  height?: number;
+  size?: number;
   /**
    * Text of title.
    */
