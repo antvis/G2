@@ -9,7 +9,7 @@ export type { G2Theme };
 
 export type G2Title = {
   /**
-   * Height of title, default is 30.
+   * Height of title, default is 36.
    */
   height?: number;
   /**
@@ -28,10 +28,10 @@ export type G2Title = {
    * The vertical spacing between title and subtitle, default is 2.
    */
   spacing?: number;
-} & /**
+}
+/**
  * G.Text style for title.
- */
-WithPrefix<Omit<TextStyleProps, 'x' | 'y' | 'text'>, 'title'> &
+ */ & WithPrefix<Omit<TextStyleProps, 'x' | 'y' | 'text'>, 'title'> &
   /**
    * G.Text style for subtitle.
    */
@@ -82,7 +82,7 @@ export type Primitive = number | string | boolean | Date;
 
 export type TabularData = Record<string, Primitive>[];
 
-export type WithPrefix<O extends Record<string, unknown>, P extends string> = {
+export type WithPrefix<O extends Record<string, any>, P extends string> = {
   [K in keyof O as `${P}${Capitalize<K & string>}`]?: O[K];
 };
 

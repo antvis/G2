@@ -71,7 +71,7 @@ describe('renderToMountedElement', () => {
           height: 40,
           title: 'Chart Title',
           subtitle: 'Chart Subtitle: description, description.',
-          subtitleStyle: { fill: 'pink' },
+          subtitleFill: 'pink',
         },
         data: [
           { genre: 'Sports', sold: 275 },
