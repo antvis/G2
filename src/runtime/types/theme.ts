@@ -1,5 +1,5 @@
 import { TextStyleProps, PathStyleProps } from '@antv/g';
-import { WithPrefix } from './common';
+import { G2Title, WithPrefix } from './common';
 
 type TupleToUnion<T, U> = T extends [infer F, ...infer R]
   ? F extends string
@@ -81,10 +81,7 @@ type ComponentTheme = {
   innerLabel?: LabelStyleProps;
   slider?: any;
   scrollbar?: any;
-  title?: Omit<TextStyleProps, 'text'>;
-  subtitle?: Omit<TextStyleProps, 'text'> & {
-    spacing?: number;
-  };
+  title?: Partial<G2Title>;
 };
 
 type AnimationTheme = {

@@ -69,9 +69,9 @@ describe('renderToMountedElement', () => {
         type: 'interval',
         title: {
           size: 40,
-          text: 'Chart Title',
+          title: 'Chart Title',
           subtitle: 'Chart Subtitle: description, description.',
-          subtitleStyle: { fill: 'pink' },
+          subtitleFill: 'pink',
         },
         data: [
           { genre: 'Sports', sold: 275 },

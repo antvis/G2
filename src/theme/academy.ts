@@ -386,18 +386,16 @@ export const Academy: TC<AcademyOptions> = (options) => {
     },
     scrollbar: {},
     title: {
-      fill: COLORS.BLACK,
-      fillOpacity: 0.85,
-      fontSize: 24,
-      fontWeight: 'bold',
-      textBaseline: 'top',
-    },
-    subtitle: {
-      fill: COLORS.BLACK,
-      fillOpacity: 0.65,
-      fontSize: 10,
-      fontWeight: 'normal',
-      textBaseline: 'top',
+      titleFill: COLORS.BLACK,
+      titleFillOpacity: 0.85,
+      titleFontSize: 14,
+      titleFontWeight: 'bold',
+      titleTextBaseline: 'top',
+      subtitleFill: COLORS.BLACK,
+      subtitleFillOpacity: 0.65,
+      subtitleFontSize: 12,
+      subtitleFontWeight: 'normal',
+      subtitleTextBaseline: 'top',
     },
   };
   return Object.assign({}, defaultOptions, options);

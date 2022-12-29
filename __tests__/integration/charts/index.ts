@@ -1,4 +1,5 @@
 export { alphabetInterval } from './alphabet-interval';
+export { alphabetIntervalTitle } from './alphabet-interval-title';
 export { alphabetIntervalLabelOverflowHide } from './alphabet-interval-label-overflow-hide';
 export { alphabetIntervalLabelContrastReverse } from './alphabet-interval-label-contrast-reverse';
 export { alphabetIntervalDataSort } from './alphabet-interval-data-sort';

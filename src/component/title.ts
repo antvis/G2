@@ -1,42 +1,85 @@
-import { TextStyleProps } from '@antv/g';
 import { deepMix } from '@antv/util';
 import { applyStyle } from '../shape/utils';
+import { subObject } from '../utils/helper';
 import { GuideComponentComponent as GCC, G2TitleOptions } from '../runtime';
 import { createComponent, maybeAppend } from './utils';
 
 export type TitleComponentOptions = G2TitleOptions;
 
-type TitleStyleProps = {
-  x?: number;
-  y?: number;
-  text?: string;
-  style?: Omit<TextStyleProps, 'x' | 'y' | 'text'>;
-  subtitle?: string | null;
-  subtitleStyle?: Omit<TextStyleProps, 'x' | 'y' | 'text'> & {
-    spacing?: number;
-  };
+type TitleStyleProps = G2TitleOptions & {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
 };
+
+function inferStyleByAlign(
+  x: number,
+  y: number,
+  width: number,
+  align: TitleStyleProps['align'],
+) {
+  switch (align) {
+    case 'center':
+      return {
+        x: x + width / 2,
+        y,
+        textAlign: 'middle',
+      };
+    case 'right':
+      return {
+        x: x + width,
+        y,
+        textAlign: 'right',
+      };
+    default:
+      return {
+        x,
+        y,
+        textAlign: 'left',
+      };
+  }
+}
 
 const Title = createComponent<TitleStyleProps>({
   render(attributes, container) {
-    const { text, style, subtitle, subtitleStyle } = attributes;
-    const title = maybeAppend(container, '.title', 'text')
+    const {
+      x,
+      y,
+      width,
+      title,
+      subtitle,
+      spacing = 2,
+      align = 'left',
+      ...rest
+    } = attributes;
+
+    const titleStyle = subObject(rest, 'title');
+    const subtitleStyle = subObject(rest, 'subtitle');
+
+    const mainTitle = maybeAppend(container, '.title', 'text')
       .attr('className', 'title')
-      .style('fontSize', 14)
-      .style('textBaseline', 'top')
-      .style('text', text)
-      .call(applyStyle, style || {})
+      .call(applyStyle, {
+        ...inferStyleByAlign(0, y, width, align),
+        fontSize: 14,
+        textBaseline: 'top',
+        text: title,
+        ...titleStyle,
+      })
       .node();
 
-    const bounds = title.getLocalBounds();
+    const bounds = mainTitle.getLocalBounds();
     maybeAppend(container, '.sub-title', 'text')
       .attr('className', 'sub-title')
-      .style('y', bounds.max[1] + (subtitleStyle?.spacing || 0))
-      .style('fontSize', 12)
-      .style('textBaseline', 'top')
       .call((selection) => {
         if (!subtitle) return selection.node().remove();
-        selection.node().attr({ text: subtitle, ...subtitleStyle });
+        selection.node().attr({
+          ...inferStyleByAlign(0, bounds.max[1] + spacing, width, align),
+          fontSize: 12,
+          textBaseline: 'top',
+          text: subtitle,
+          ...subtitleStyle,
+        });
       });
   },
 });
@@ -45,24 +88,20 @@ const Title = createComponent<TitleStyleProps>({
  * Title Component.
  */
 export const TitleComponent: GCC<TitleComponentOptions> = (options) => {
-  const { text, style, subtitle, subtitleStyle } = options;
-
   return (scale, value, coordinate, theme) => {
-    const { x, y } = value.bbox;
+    const { x, y, width, height } = value.bbox;
     return new Title({
       style: deepMix(
         {},
         {
           style: theme.title,
-          subtitleStyle: theme.subtitle,
         },
         {
           x,
           y,
-          style,
-          text,
-          subtitle,
-          subtitleStyle,
+          width,
+          height,
+          ...options,
         },
       ),
     });
@@ -72,5 +111,5 @@ export const TitleComponent: GCC<TitleComponentOptions> = (options) => {
 TitleComponent.props = {
   defaultPosition: 'top',
   defaultOrder: 2,
-  defaultSize: 30,
+  defaultSize: 36,
 };

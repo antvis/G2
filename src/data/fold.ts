@@ -16,10 +16,8 @@ export const Fold: DC<FoldOptions> = (options) => {
   const { fields, key = 'key', value = 'value' } = options;
   return (data) => {
     if (isEmpty(fields)) return data;
-    return data.reduce(
-      (r, d) =>
-        r.concat(fields.map((f) => ({ ...d, [key]: f, [value]: d[f] }))),
-      [],
+    return data.flatMap((d) =>
+      fields.map((f) => ({ ...d, [key]: f, [value]: d[f] })),
     );
   };
 };
