@@ -32,11 +32,11 @@ chart.render();
 | 属性               | 描述                                                           | 类型                                     | 默认值 |
 | ------------------ | ------------------------------------------------------------- | ---------------------------------------- | ------ |
 | title              | 标题文本                                                       | `string`                                 | -       |
-| style              | 标题文本的样式                                                  | `GTextStyle`                             | -       |
 | subtitle           | 副标题文本                                                     | `string`                                  | -       |
-| subtitleStyle      | 副标题文本的样式                                                | `GTextStyle`                              | -       |
 | height             | 标题的高度                                                     | `number`                                  | `36`    |
 | align              | 标题的对齐方式                                                  | `left` \| `center` \| `right`             | `left`  |
 | spacing            | 主标题、副标题之间的上下间距                                      | `number`                                  | `2`     |
+| title[GTextStyle]  | 标题文本的样式                                                  | `GTextStyle`                             | -       |
+| subtitle[GTextStyle] | 副标题文本的样式                                                | `GTextStyle`                              | -       |
 
-对于 `GTextStyle` 是 G 中文本组件的的样式配置属性，可以参考 [G Text](https://g.antv.antgroup.com/api/basic/text) 文档。
+对于 `GTextStyle` 是 G 中文本组件的的样式配置属性，可以参考 [G Text](https://g.antv.antgroup.com/api/basic/text) 文档。G2 的标题组件将 `GTextStyle` 增加前缀后拍平，比如如果需要设置标题的颜色，在 G 中，设置 `fill` 属性来设置文本属性，那么就是设置 `titleFill`、`subtitleFill` 属性内设置。

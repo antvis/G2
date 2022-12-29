@@ -404,18 +404,16 @@ export const Light: TC<LightOptions> = (options) => {
       thumbHighlightedFillOpacity: 0.2,
     },
     title: {
-      fill: COLORS.BLACK,
-      fillOpacity: 0.85,
-      fontSize: 14,
-      fontWeight: 'bold',
-      textBaseline: 'top',
-    },
-    subtitle: {
-      fill: COLORS.BLACK,
-      fillOpacity: 0.65,
-      fontSize: 12,
-      fontWeight: 'normal',
-      textBaseline: 'top',
+      titleFill: COLORS.BLACK,
+      titleFillOpacity: 0.85,
+      titleFontSize: 14,
+      titleFontWeight: 'bold',
+      titleTextBaseline: 'top',
+      subtitleFill: COLORS.BLACK,
+      subtitleFillOpacity: 0.65,
+      subtitleFontSize: 12,
+      subtitleFontWeight: 'normal',
+      subtitleTextBaseline: 'top',
     },
   };
   return Object.assign({}, defaultOptions, options);

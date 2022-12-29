@@ -17,17 +17,9 @@ export type G2Title = {
    */
   title?: string;
   /**
-   * G.Text style for title.
-   */
-  style?: Omit<TextStyleProps, 'x' | 'y' | 'text'>;
-  /**
    * Text of subtitle.
    */
   subtitle?: string | null;
-  /**
-   * G.Text style for subtitle.
-   */
-  subtitleStyle?: Omit<TextStyleProps, 'x' | 'y' | 'text'>;
   /**
    * Align method for title.
    */
@@ -36,7 +28,14 @@ export type G2Title = {
    * The vertical spacing between title and subtitle, default is 2.
    */
   spacing?: number;
-};
+} & /**
+ * G.Text style for title.
+ */
+WithPrefix<Omit<TextStyleProps, 'x' | 'y' | 'text'>, 'title'> &
+  /**
+   * G.Text style for subtitle.
+   */
+  WithPrefix<Omit<TextStyleProps, 'x' | 'y' | 'text'>, 'subtitle'>;
 
 export type G2ViewDescriptor = {
   scale: Record<string, Scale>;
@@ -83,10 +82,9 @@ export type Primitive = number | string | boolean | Date;
 
 export type TabularData = Record<string, Primitive>[];
 
-export type WithPrefix<T, P extends string, F = keyof T> = F extends keyof T &
-  string
-  ? { [key in `${P}${Capitalize<F>}`]?: T[F] }
-  : unknown;
+export type WithPrefix<O extends Record<string, unknown>, P extends string> = {
+  [K in keyof O as `${P}${Capitalize<K & string>}`]?: O[K];
+};
 
 export type EncodeFunction = (
   data: Record<string, MaybeArray<Primitive>>[],
