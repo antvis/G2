@@ -1231,7 +1231,7 @@ function className(...names: string[]): string {
 function applyClip(selection, clip?: boolean) {
   if (!selection.node()) return;
   selection.style('clipPath', (data) => {
-    if (!clip) return;
+    if (!clip) return null;
     const {
       paddingTop: y,
       paddingLeft: x,

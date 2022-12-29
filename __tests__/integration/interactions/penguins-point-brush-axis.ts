@@ -1,5 +1,4 @@
-import { CustomEvent } from '@antv/g';
-import { G2Spec, PLOT_CLASS_NAME } from '../../../src';
+import { G2Spec } from '../../../src';
 import { AXIS_HOT_AREA_CLASS_NAME } from '../../../src/interaction/native/brushAxisHighlight';
 import { brush } from './penguins-point-brush';
 
@@ -36,5 +35,3 @@ penguinsPointBrushAxis.steps = ({ canvas }) => {
     },
   ];
 };
-
-penguinsPointBrushAxis.only = true;
