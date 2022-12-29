@@ -54,6 +54,7 @@ function setOptions(node) {
     .axis('x', { tickCount: 10 })
     .legend('y', { title: 'hello' })
     .slider('x', {})
+    .scrollbar('x', {})
     .label({ text: 'hello' });
 }
 
@@ -75,6 +76,7 @@ function getOptions() {
     axis: { x: { tickCount: 10 } },
     legend: { y: { title: 'hello' } },
     slider: { x: {} },
+    scrollbar: { x: {} },
     facet: true,
     key: 'mark',
     class: 'mark',

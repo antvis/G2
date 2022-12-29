@@ -140,6 +140,8 @@ import {
   TitleComponent,
   SliderX,
   SliderY,
+  ScrollbarX,
+  ScrollbarY,
 } from '../component';
 import {
   ScaleInX,
@@ -472,6 +474,8 @@ export function createLibrary(): G2Library {
     'component.title': TitleComponent,
     'component.sliderX': SliderX,
     'component.sliderY': SliderY,
+    'component.scrollbarX': ScrollbarX,
+    'component.scrollbarY': ScrollbarY,
     'animation.scaleInX': ScaleInX,
     'animation.scaleOutX': ScaleOutX,
     'animation.scaleInY': ScaleInY,

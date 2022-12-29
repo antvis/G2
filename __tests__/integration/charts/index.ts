@@ -157,3 +157,4 @@ export { githubStarIntervalPalette } from './github-star-interval-palette';
 export { githubStarIntervalThemeAcademy } from './github-star-interval-theme-academy';
 export { ordersLineMissingField } from './orders-line-missing-field';
 export { gdp2BoxplotLog } from './gdp2-boxplot-log';
+export { aaplLineScrollbar } from './aapl-line-scrollbar';

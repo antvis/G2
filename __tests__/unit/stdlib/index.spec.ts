@@ -139,6 +139,8 @@ import {
   LegendContinuous,
   SliderX,
   SliderY,
+  ScrollbarX,
+  ScrollbarY,
   TitleComponent,
 } from '../../../src/component';
 import {
@@ -473,6 +475,8 @@ describe('stdlib', () => {
       'component.title': TitleComponent,
       'component.sliderX': SliderX,
       'component.sliderY': SliderY,
+      'component.scrollbarX': ScrollbarX,
+      'component.scrollbarY': ScrollbarY,
       'animation.scaleInX': ScaleInX,
       'animation.scaleOutX': ScaleOutX,
       'animation.scaleInY': ScaleInY,
