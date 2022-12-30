@@ -54,18 +54,18 @@ export function brushMousePosition(target, event) {
 
 export function boundsOfBrushArea(target) {
   const { nodeName } = target;
-  if (nodeName !== 'rect') {
-    const bbox = target.getBounds();
-    const {
-      min: [x, y],
-      max: [x1, y1],
-    } = bbox;
-    return [x, y, x1, y1];
-  }
-  const { x, y, width, height } = target.style;
-  const x1 = x + width;
-  const y1 = y + height;
-  return [x, y, x1, y1];
+  const bbox = target.getBounds();
+  const {
+    min: [x0, y0],
+    max: [x1, y1],
+  } = bbox;
+  if (nodeName !== 'rect') return [x0, y0, x1, y1];
+  const { x: tx, y: ty, width, height } = target.style;
+  const tx0 = tx + x0;
+  const ty0 = ty + y0;
+  const x3 = tx0 + width;
+  const y3 = ty0 + height;
+  return [tx0, ty0, x3, y3];
 }
 
 export function applyDefaultsHighlightedStyle(

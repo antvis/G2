@@ -28,3 +28,4 @@ export { settleWeatherCellBrushFilter } from './seattle-weather-cell-brush-filte
 export { profitIntervalBrushFilter } from './profit-interval-brush-filter';
 export { penguinsPointBrushXFilter } from './penguins-point-brush-x-filter';
 export { penguinsPointBrushYFilter } from './penguins-point-brush-y-filter';
+export { penguinsPointBrushMatrix } from './penguins-point-brush-matrix';
