@@ -3,8 +3,6 @@ title: category
 order: 1
 ---
 
-`Category`
-
 ## 开始使用
 
 使用离散数据绘制视图时采用的图例类型。
