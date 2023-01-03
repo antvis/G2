@@ -1204,6 +1204,11 @@ function shapeName(mark: G2Mark, name: string): string {
  */
 function updateLayers(selection: Selection, marks: G2Mark[]) {
   const facet = (d) => (d.class !== undefined ? `${d.class}` : '');
+
+  // Skip for empty selection, it can't append nodes.
+  const nodes = selection.nodes();
+  if (nodes.length === 0) return;
+
   selection
     .selectAll(className(MAIN_LAYER_CLASS_NAME))
     .data(marks, (d) => d.key)
