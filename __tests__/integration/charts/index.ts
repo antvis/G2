@@ -159,3 +159,4 @@ export { githubStarIntervalThemeAcademy } from './github-star-interval-theme-aca
 export { ordersLineMissingField } from './orders-line-missing-field';
 export { gdp2BoxplotLog } from './gdp2-boxplot-log';
 export { aaplLineScrollbar } from './aapl-line-scrollbar';
+export { alphabetIntervalRenderToMountedGroup } from './alphabet-interval-render-to-mounted-element';

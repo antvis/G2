@@ -6,17 +6,18 @@ import { Canvas } from '@antv/g';
 import { Renderer } from '@antv/g-canvas';
 import { Plugin as DragAndDropPlugin } from '@antv/g-plugin-dragndrop';
 import { render, G2Spec } from '../../src';
+import { renderChartToMountedElement } from './common';
 
-export async function renderCanvas(
+export async function renderAndSaveCanvas(
   options: G2Spec,
   filename: string,
-  defaultWidth = 640,
-  defaultHeight = 480,
+  mounted = false,
 ) {
-  const { width = defaultWidth, height = defaultHeight } = options;
+  const { width = 640, height = 480 } = options;
   const [canvas, nodeCanvas] = createGCanvas(width, height);
+  const renderFunction = mounted ? renderChartToMountedElement : render;
   await new Promise<void>((resolve) => {
-    render(options, { canvas }, resolve);
+    renderFunction(options, { canvas }, resolve);
   });
   // Wait for the next tick.
   await sleep(20);
