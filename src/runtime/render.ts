@@ -1,7 +1,7 @@
 import { Canvas as GCanvas, DisplayObject, Group } from '@antv/g';
 import { Renderer as CanvasRenderer } from '@antv/g-canvas';
 import { Plugin as DragAndDropPlugin } from '@antv/g-plugin-dragndrop';
-import { debounce, deepMix, isEmpty } from '@antv/util';
+import { debounce, deepMix } from '@antv/util';
 import { createLibrary } from '../stdlib';
 import { select } from '../utils/selection';
 import { emitEvent, CHART_LIFE_CIRCLE, offEvent } from '../utils/event';
@@ -104,8 +104,10 @@ export function renderToMountedElement<T extends G2ViewTree = G2ViewTree>(
   const keyed = inferKeys(options);
   const { library = createLibrary(), group = new Group() } = context;
 
-  if (isEmpty(group?.parentElement)) {
-    throw new Error(`Unmounted group`);
+  if (!group?.parentElement) {
+    throw new Error(
+      `renderToMountedElement can't render chart to unmounted group.`,
+    );
   }
 
   const selection = select(group);
