@@ -42,7 +42,7 @@ export function weatherLineMultiSlider(): G2Spec {
         },
         axis: {
           y: {
-            titleFill: '#EE6666',
+            titleFill: '#5470C6',
             title: 'Temperature (°C)',
             grid: null,
           },
