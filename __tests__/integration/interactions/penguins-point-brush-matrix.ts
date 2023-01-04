@@ -64,5 +64,3 @@ penguinsPointBrushMatrix.steps = ({ canvas }) => {
     },
   ];
 };
-
-penguinsPointBrushMatrix.only = true;
