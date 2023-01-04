@@ -16,3 +16,4 @@ export { sexIntervalKeyframe } from './sex-interval-keyframe';
 export { soldIntervalKeyframe } from './sold-interval-keyframe';
 export { soldIntervalPieKeyframe } from './sold-interval-pie-keyframe';
 export { aaplAreaKeyframe } from './aapl-area-keyframe';
+export { profitIntervalRange } from './profit-interval-range';
