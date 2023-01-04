@@ -5,6 +5,7 @@ import { render } from '../../src';
 import * as tests from './tooltips';
 import { sleep, createGCanvas } from './svg';
 import { fetch } from './fetch';
+import { renderChartToMountedElement } from './common';
 
 // @ts-ignore
 global.fetch = fetch;
@@ -26,12 +27,14 @@ describe('Tooltips', () => {
       // Run Canvas snapshot tests to make render plot as expected.
       it(`[Tooltip]: ${name}`, async () => {
         const options = await generateOptions();
+        // @ts-ignore
+        const { mounted = false } = generateOptions;
         const { width = 640, height = 480 } = options;
         // @ts-ignore
         const [canvas, container] = createGCanvas(width, height);
-        // setContainer(options, container);
+        const renderFunction = mounted ? renderChartToMountedElement : render;
         await new Promise<void>((resolve) => {
-          render(options, { canvas }, resolve);
+          renderFunction(options, { canvas }, resolve);
         });
         await sleep(20);
 

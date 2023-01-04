@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as tests from './charts';
-import { renderCanvas, diff } from './canvas';
+import { renderAndSaveCanvas, diff } from './canvas';
 import { renderSVG } from './svg';
 import { fetch } from './fetch';
 
@@ -26,13 +26,15 @@ describe('Charts', () => {
           const expectedPath = `${__dirname}/snapshots/${name}.png`;
           const diffPath = `${__dirname}/snapshots/${name}-diff.png`;
           const options = await generateOptions();
+          // @ts-ignore
+          const { mounted = false } = generateOptions;
 
           // Generate golden png if not exists.
           if (!fs.existsSync(expectedPath)) {
             console.warn(`! generate ${name}`);
-            canvas = await renderCanvas(options, expectedPath);
+            canvas = await renderAndSaveCanvas(options, expectedPath, mounted);
           } else {
-            canvas = await renderCanvas(options, actualPath);
+            canvas = await renderAndSaveCanvas(options, actualPath, mounted);
             //@ts-ignore
             const maxError = generateOptions.maxError || 0;
             expect(

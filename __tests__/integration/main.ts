@@ -1,8 +1,9 @@
-import { Canvas } from '@antv/g';
+import { Canvas, Text, Group } from '@antv/g';
 import { Renderer as CanvasRenderer } from '@antv/g-canvas';
 import { Plugin as DragAndDropPlugin } from '@antv/g-plugin-dragndrop';
 import { Renderer as SVGRenderer } from '@antv/g-svg';
 import { render } from '../../src';
+import { renderChartToMountedElement } from './common';
 import * as charts from './charts';
 import * as interactions from './interactions';
 import * as animations from './animations';
@@ -93,6 +94,7 @@ async function plot() {
   currentContainer = document.createElement('div');
   app.append(currentContainer);
   const generate = tests[selectChart.value];
+  const { mounted = false } = generate;
   const options = await generate();
   const { width = 640, height = 480 } = options;
   const dom = generate.dom?.();
@@ -108,7 +110,9 @@ async function plot() {
   });
   // @ts-ignore
   window.__g_instances__ = [canvas];
-  currentContainer.append(render(options, { canvas }));
+  const renderChart = mounted ? renderChartToMountedElement : render;
+  const node = renderChart(options, { canvas });
+  if (node instanceof HTMLElement) currentContainer.append(node);
   if (dom instanceof HTMLElement) currentContainer.append(dom);
 }
 
