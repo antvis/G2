@@ -155,7 +155,7 @@ export interface HideOverlapCfg extends Overlap {
 | ----------------- | ------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- | ------ |
 | grid              | 是否显示网格线                                                                                                      | `boolean`                                                | false  |
 | gridFilter        | 网格线过滤                                                                                                          | `(datum, index, data)=> boolean`                         | -      |
-| gridLength        | 网格线长度                                                                                                          | `number` \| `(datum, index, data)=> number`              | 0      |
+| gridLength        | 网格线长度。一般情况下，不需要用户配置。                                                                                                          | `number` \| `(datum, index, data)=> number`              | 0      |
 | gridAreaFill      | 网格线区域颜色                                                                                                      | `string` \| `string[]`\| `(datum, index, data)=> string` | -      |
 | gridLineWidth     | 网格线宽度                                                                                                          | `number`                                                 | -      |
 | gridLineDash      | 网格线描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0, 0]的效果为没有描边。 | `[number,number]`                                        | -      |
