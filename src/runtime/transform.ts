@@ -149,7 +149,7 @@ export function addGuideToScale(
   mark: G2Mark,
   context: TransformContext,
 ): [number[], G2Mark] {
-  const { axis = {}, legend = {}, slider = {} } = mark;
+  const { axis = {}, legend = {}, slider = {}, scrollbar = {} } = mark;
   const normalize = (guide: boolean | Record<string, any>, channel: string) => {
     if (typeof guide === 'boolean') return guide ? {} : null;
     const eachGuide = guide[channel];
@@ -167,8 +167,8 @@ export function addGuideToScale(
           channel,
           {
             guide: normalize(axis, channel),
-            // @todo Maybe should be merged into the options of guide.
             slider: normalize(slider, channel),
+            scrollbar: normalize(scrollbar, channel),
           },
         ]),
       ),
