@@ -1,10 +1,11 @@
 import { G2Spec } from '../../../src';
 import { weather } from '../data/weather';
 
-export function weatherLineMultiAxes(): G2Spec {
+export function weatherLineMultiScrollbar(): G2Spec {
   return {
     type: 'view',
     data: weather,
+    paddingLeft: 180,
     children: [
       {
         type: 'line',
@@ -24,6 +25,7 @@ export function weatherLineMultiAxes(): G2Spec {
             grid: null,
           },
         },
+        scrollbar: { y: {} },
       },
       {
         type: 'interval',
@@ -33,7 +35,7 @@ export function weatherLineMultiAxes(): G2Spec {
           color: '#5470C6',
         },
         scale: {
-          y: { independent: true, domainMax: 200 },
+          y: { domainMax: 200 },
         },
         style: {
           fillOpacity: 0.8,
@@ -45,6 +47,7 @@ export function weatherLineMultiAxes(): G2Spec {
             grid: null,
           },
         },
+        scrollbar: { y: { position: 'right' } },
       },
       {
         type: 'line',
@@ -52,9 +55,6 @@ export function weatherLineMultiAxes(): G2Spec {
           x: 'Month',
           y: 'Precipitation',
           color: '#91CC75',
-        },
-        scale: {
-          y: { independent: true },
         },
         style: {
           lineWidth: 2,
