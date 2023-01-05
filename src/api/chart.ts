@@ -170,6 +170,7 @@ export class Chart extends Node<ChartOptions> {
     super(rest, 'view');
     this._container = normalizeContainer(container);
     this._context = { library };
+    this.bindAutoFit();
   }
 
   render(): Chart {
@@ -200,7 +201,6 @@ export class Chart extends Node<ChartOptions> {
         plugins,
       );
     }
-
     render(this.options(), this._context);
 
     return this;
@@ -222,6 +222,7 @@ export class Chart extends Node<ChartOptions> {
     const options = this.options();
     const { on } = options;
     emitEvent(on, CHART_LIFE_CIRCLE.BEFORE_DESTROY);
+    this.unbindAutoFit();
     destroy(options, this._context);
     // Remove the container.
     removeContainer(this._container);
@@ -237,29 +238,48 @@ export class Chart extends Node<ChartOptions> {
   }
 
   forceFit() {
-    const { width, height } = this.options();
+    const { width, height, autoFit } = this.options();
     const { width: adjustedWidth, height: adjustedHeight } = getChartSize(
       this._container,
-      true,
+      autoFit,
       width,
       height,
     );
-    this.changeSize(adjustedWidth, adjustedHeight);
+    if (adjustedHeight && adjustedWidth) {
+      this.changeSize(adjustedWidth, adjustedHeight);
+    }
   }
 
   changeSize(adjustedWidth: number, adjustedHeight: number) {
     const { width, height, on } = this.options();
-
     if (width === adjustedWidth && height === adjustedHeight) {
       return this;
     }
 
     emitEvent(on, CHART_LIFE_CIRCLE.BEFORE_CHANGE_SIZE);
-
     this.width(adjustedWidth);
     this.height(adjustedHeight);
     this.render();
-
     emitEvent(on, CHART_LIFE_CIRCLE.AFTER_CHANGE_SIZE);
+  }
+
+  private onResize = debounce(() => {
+    this.forceFit();
+  }, 300);
+
+  private bindAutoFit() {
+    const options = this.options();
+    const { autoFit } = options;
+    if (autoFit) {
+      window.addEventListener('resize', this.onResize);
+    }
+  }
+
+  private unbindAutoFit() {
+    const options = this.options();
+    const { autoFit } = options;
+    if (autoFit) {
+      window.removeEventListener('resize', this.onResize);
+    }
   }
 }

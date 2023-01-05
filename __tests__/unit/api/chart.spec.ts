@@ -504,3 +504,39 @@ it('chart.on({...}) should register chart event.', () => {
 
   chart.render();
 });
+
+it('chart should render after window resize.', (done) => {
+  const div = createDiv();
+
+  const chart = new Chart({
+    container: div,
+    autoFit: true,
+  });
+  chart.data([
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ]);
+  chart
+    .interval()
+    .encode('x', 'genre')
+    .encode('y', 'sold')
+    .encode('color', 'genre');
+
+  const fn = jest.fn();
+  const render = chart.render.bind(chart);
+  chart.render = () => {
+    fn();
+    return render();
+  };
+  chart.render();
+  div.style.width = '100px';
+  div.style.height = '100px';
+  window.dispatchEvent(new Event('resize'));
+  setTimeout(() => {
+    expect(fn).toHaveBeenCalledTimes(2);
+    done();
+  }, 400);
+});
