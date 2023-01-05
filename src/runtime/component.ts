@@ -234,36 +234,37 @@ function inferScrollComponents(
     GuideComponent
   >('component', library);
 
-  const { marks, coordinates } = partialOptions;
-  const nameScale = new Map(scales.map((scale) => [scale.name, scale]));
+  const { coordinates } = partialOptions;
 
-  function normalized(type: string, componentOptions: Record<string, any>) {
-    return Object.entries(componentOptions).map(([channelName, options]) => {
-      const scale = nameScale.get(channelName);
-      const componentType = inferSCType(channelName, type, coordinates);
-      if (!scale || !componentType) return;
+  function normalized(
+    type: string,
+    channelName: string,
+    scale: G2ScaleOptions,
+    options: Record<string, any>,
+  ) {
+    const componentType = inferSCType(channelName, type, coordinates);
+    if (!options || !componentType) return;
 
-      const { props } = createGuideComponent(componentType);
-      const { defaultPosition, defaultSize, defaultOrder } = props;
-      return {
-        position: defaultPosition,
-        size: defaultSize,
-        order: defaultOrder,
-        type: componentType,
-        ...options,
-        scale,
-      };
-    });
+    const { props } = createGuideComponent(componentType);
+    const { defaultPosition, defaultSize, defaultOrder } = props;
+    return {
+      position: defaultPosition,
+      size: defaultSize,
+      order: defaultOrder,
+      type: componentType,
+      ...options,
+      scale,
+    };
   }
 
-  return marks
+  return scales
     .filter((d) => d.slider || d.scrollbar)
-    .flatMap((mark) => {
-      const { slider = {}, scrollbar = {} } = mark;
+    .flatMap((scale) => {
+      const { slider, scrollbar, name: channelName } = scale;
 
       return [
-        ...normalized('slider', slider),
-        ...normalized('scrollbar', scrollbar),
+        normalized('slider', channelName, scale, slider),
+        normalized('scrollbar', channelName, scale, scrollbar),
       ];
     })
     .filter((d) => !!d);

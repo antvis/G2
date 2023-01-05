@@ -149,7 +149,7 @@ export function addGuideToScale(
   mark: G2Mark,
   context: TransformContext,
 ): [number[], G2Mark] {
-  const { axis = {}, legend = {} } = mark;
+  const { axis = {}, legend = {}, slider = {}, scrollbar = {} } = mark;
   const normalize = (guide: boolean | Record<string, any>, channel: string) => {
     if (typeof guide === 'boolean') return guide ? {} : null;
     const eachGuide = guide[channel];
@@ -165,7 +165,11 @@ export function addGuideToScale(
       ...Object.fromEntries(
         axisChannels.map((channel) => [
           channel,
-          { guide: normalize(axis, channel) },
+          {
+            guide: normalize(axis, channel),
+            slider: normalize(slider, channel),
+            scrollbar: normalize(scrollbar, channel),
+          },
         ]),
       ),
       color: { guide: normalize(legend, 'color') },
