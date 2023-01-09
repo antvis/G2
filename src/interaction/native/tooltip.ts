@@ -72,10 +72,6 @@ function hideTooltip(root) {
   if (tooltipElement) tooltipElement.hide();
 }
 
-function unique(data) {
-  return Array.from(new Set(data));
-}
-
 function filterDefined(obj) {
   return Object.fromEntries(
     Object.entries(obj).filter(([, value]) => defined(value)),
@@ -135,13 +131,20 @@ function normalizeTooltip(d) {
   return isStrictObject(d) ? d : { value: d === undefined ? d : `${d}` };
 }
 
+function uniqueTitles(titles) {
+  const valueTitle = new Map(
+    titles.map((d) => [d instanceof Date ? +d : d, d]),
+  );
+  return Array.from(valueTitle.values());
+}
+
 function groupItems(
   elements,
   item,
   scale,
   data = elements.map((d) => d['__data__']),
 ) {
-  const T = unique(data.map((d) => d.title)).filter(defined);
+  const T = uniqueTitles(data.map((d) => d.title)).filter(defined);
   const items = data.flatMap((datum, i) => {
     const element = elements[i];
     const { title, ...rest } = datum;
