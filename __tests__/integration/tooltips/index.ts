@@ -15,3 +15,4 @@ export { indicesLinePointReverse } from './indices-line-point-reverse';
 export { alphabetIntervalObject } from './alphabet-interval-object';
 export { weatherLineInterval } from './weather-line-interval';
 export { alphabetInterval1dMounted } from './alphabet-interval-1d-mounted';
+export { indicesLineItems } from './indices-line-items';
