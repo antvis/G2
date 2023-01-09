@@ -162,7 +162,7 @@ function groupItems(
           name,
           color,
           value,
-          ...filterDefined(item({ channel: key, value: d })),
+          ...filterDefined(item({ channel: key, value })),
         };
       })
       .filter(({ value }) => value !== undefined);
