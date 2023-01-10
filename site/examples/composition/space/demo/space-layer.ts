@@ -27,10 +27,11 @@ layer
   .call(scaleColor);
 
 layer
-  .interval()
+  .view()
   .attr('paddingLeft', 400)
   .attr('paddingBottom', 200)
   .coordinate({ type: 'theta' })
+  .interval()
   .transform({ type: 'stackY' })
   .legend(false)
   .scale('color', {
