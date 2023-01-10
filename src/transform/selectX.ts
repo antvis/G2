@@ -9,7 +9,7 @@ export type SelectXOptions = Omit<SelectXTransform, 'type'>;
  */
 export const SelectX: TC<SelectXOptions> = (options = {}) => {
   const { selector, ...rest } = options;
-  return Select({ x: selector, ...rest });
+  return Select({ channel: 'x', selector, ...rest });
 };
 
 SelectX.props = {};

@@ -39,11 +39,10 @@ function normalizeSelector(selector: Selector): SelectorFunction {
  * pull a single or multiple values out of each series.
  */
 export const Select: TC<SelectOptions> = (options = {}) => {
-  const { groupBy = 'series', ...rest } = options;
+  const { groupBy = 'series', channel, selector } = options;
   return (I, mark) => {
     const { encode } = mark;
     const groups = createGroups(groupBy, I, mark);
-    const [channel, selector] = Object.entries(rest)[0];
     const [V] = columnOf(encode, channel);
     const selectFunction = normalizeSelector(selector);
     return [groups.flatMap((GI) => selectFunction(GI, V as number[])), mark];
