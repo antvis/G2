@@ -23,6 +23,7 @@ const renderers = {
 const app = document.getElementById('app') as HTMLElement;
 let currentContainer = document.createElement('div');
 let canvas;
+let prevDestroy;
 
 // Select for chart.
 const selectChart = document.createElement('select') as HTMLSelectElement;
@@ -87,14 +88,19 @@ app.append(span);
 plot();
 
 async function plot() {
+  // Init.
   if (currentContainer) {
     currentContainer.remove();
     if (canvas) canvas.destroy();
+    if (prevDestroy) prevDestroy();
   }
   currentContainer = document.createElement('div');
   app.append(currentContainer);
   const generate = tests[selectChart.value];
-  const { mounted = false } = generate;
+  const { mounted = false, before, destroy } = generate;
+  prevDestroy = destroy;
+
+  // Render chart.
   const options = await generate();
   const { width = 640, height = 480 } = options;
   const dom = generate.dom?.();
@@ -108,10 +114,14 @@ async function plot() {
     height,
     renderer,
   });
+
   // @ts-ignore
   window.__g_instances__ = [canvas];
   const renderChart = mounted ? renderChartToMountedElement : render;
+  before?.();
   const node = renderChart(options, { canvas });
+
+  // Append nodes.
   if (node instanceof HTMLElement) currentContainer.append(node);
   if (dom instanceof HTMLElement) currentContainer.append(dom);
 }

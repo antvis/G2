@@ -19,7 +19,9 @@ describe('Tooltips', () => {
   const finalTests =
     onlyTests.length === 0 ? tests : Object.fromEntries(onlyTests);
 
+  let prevDestroy;
   for (const [n, generateOptions] of Object.entries(finalTests)) {
+    prevDestroy?.();
     const name = `tooltip-${n}`;
     // @ts-ignore
     if (!generateOptions.skip) {
@@ -27,8 +29,16 @@ describe('Tooltips', () => {
       // Run Canvas snapshot tests to make render plot as expected.
       it(`[Tooltip]: ${name}`, async () => {
         const options = await generateOptions();
-        // @ts-ignore
-        const { mounted = false } = generateOptions;
+        const {
+          mounted = false,
+          steps: generateSteps,
+          before,
+          destroy,
+        } = generateOptions as any;
+        prevDestroy = destroy;
+
+        // Render Chart.
+        before?.();
         const { width = 640, height = 480 } = options;
         // @ts-ignore
         const [canvas, container] = createGCanvas(width, height);
@@ -40,11 +50,11 @@ describe('Tooltips', () => {
 
         // Get steps.
         // @ts-ignore
-        if (!generateOptions.steps) {
+        if (!generateSteps) {
           throw new Error(`Missing steps for ${name}`);
         }
         // @ts-ignore
-        const steps = generateOptions.steps({ canvas });
+        const steps = generateSteps({ canvas });
 
         // Mark sure has expected snapshot dir.
         const dir = `${__dirname}/snapshots/${name}`;
