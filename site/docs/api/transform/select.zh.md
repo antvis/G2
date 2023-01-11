@@ -39,7 +39,7 @@ chart
   .encode('series', 'Symbol')
   .encode('color', 'Symbol')
   .encode('text', 'Symbol')
-  .transform({ type: 'select', series: 'last' })
+  .transform({ type: 'select', channel: 'series', selector: 'last' })
   .style('dx', 12)
 
 chart.render();
@@ -50,7 +50,8 @@ chart.render();
 | 属性               | 描述                                           | 类型                     | 默认值                 |
 |-------------------|------------------------------------------------|-------------------------|-----------------------|
 | groupBy           | 针对指定的通道进行分组                             | `string` \| `string[]`  | `series`              |  
-| [channel]         | 针对每个分组，使用指定的通道进行指定的数据抽取，输出到对应的通道 | `Selector`       |                       |
+| channel           | 针对每个分组，使用指定的通道进行指定的数据抽取        | `string`                  |                       |
+| selector          | 针对每个分组，指定对应的数据抽取操作                 | `Selector`                | `first`                      |
 
 ```ts
 type Selector =
