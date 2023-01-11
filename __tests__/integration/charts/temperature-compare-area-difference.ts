@@ -26,7 +26,7 @@ export function temperatureCompareAreaDifference(): G2Spec {
           x: 'date',
           y: 'temperature',
           color: 'city',
-          shape: 'step',
+          shape: 'hvh',
         },
         scale: {
           color: { range: ['#67a9cf', '#ef8a62'] },

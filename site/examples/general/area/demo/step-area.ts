@@ -23,7 +23,7 @@ chart
   .area()
   .encode('x', 'year')
   .encode('y', 'value')
-  .encode('shape', 'step') // 'area', 'smooth', 'step'
+  .encode('shape', 'hvh') // 'area', 'smooth', 'hvh', 'vh', 'hv'
   .label({
     text: 'value',
     fontSize: 10,

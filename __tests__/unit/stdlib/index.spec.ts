@@ -130,6 +130,7 @@ import {
   Path as PathShape,
   HollowPath,
   Shape as CustomShape,
+  AreaHVH,
 } from '../../../src/shape';
 import { Light, Dark, Academy } from '../../../src/theme';
 import {
@@ -448,7 +449,7 @@ describe('stdlib', () => {
       'shape.text.text': Text,
       'shape.area.area': Area,
       'shape.area.smooth': SmoothArea,
-      'shape.area.step': Step,
+      'shape.area.hvh': AreaHVH,
       'shape.link.smooth': SmoothEdge,
       'shape.link.vhv': VHVEdge,
       'shape.link.arc': Arc,
