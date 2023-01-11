@@ -140,7 +140,9 @@ export type Selector =
 export type SelectTransform = {
   type?: 'select';
   groupBy?: string | string[];
-} & { [key in ChannelTypes]?: Selector };
+  channel?: ChannelTypes;
+  selector?: Selector;
+};
 
 export type SelectXTransform = {
   type?: 'selectX';
