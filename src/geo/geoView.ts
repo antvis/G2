@@ -4,7 +4,7 @@ import { geoPath, geoGraticule10 } from 'd3-geo';
 import { CompositionComponent as CC } from '../runtime';
 import { GeoViewComposition } from '../spec';
 
-import * as d3Projection from './d3-projection';
+import * as d3Projection from './d3Projection';
 
 /**
  * Get projection factory from d3-projection.
