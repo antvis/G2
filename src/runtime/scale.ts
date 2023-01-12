@@ -103,6 +103,20 @@ export function useRelation(
   return [conditionalize, deconditionalize];
 }
 
+export function useRelationScale(
+  options: Record<string, any>,
+  library: G2Library,
+) {
+  const [useScale] = useLibrary<G2ScaleOptions, ScaleComponent, Scale>(
+    'scale',
+    library,
+  );
+  const { relations } = options;
+  const [conditionalize] = useRelation(relations);
+  const scale = useScale(options);
+  return conditionalize(scale);
+}
+
 export function syncFacetsScales(states: Map<G2Mark, G2MarkState>[]): void {
   const scales = states
     .flatMap((d) => Array.from(d.values()))

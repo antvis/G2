@@ -1,31 +1,25 @@
 import { Coordinate } from '@antv/coord';
-import { deepMix } from '@antv/util';
 import {
-  G2ScaleOptions,
-  G2CoordinateOptions,
-  G2Library,
-  G2GuideComponentOptions,
-  G2View,
-  G2TitleOptions,
-} from './types/options';
-import {
-  GuideComponentComponent,
-  GuideComponent,
-  ScaleComponent,
-  Scale,
-} from './types/component';
-import { G2Theme, GuideComponentPosition } from './types/common';
-import {
-  isPolar,
-  isTranspose,
+  isHelix,
   isParallel,
+  isPolar,
+  isRadial,
   isReflect,
   isReflectY,
   isTheta,
-  isHelix,
-  isRadial,
+  isTranspose,
 } from './coordinate';
 import { useLibrary } from './library';
+import { useRelationScale } from './scale';
+import { G2Theme, GuideComponentPosition } from './types/common';
+import { GuideComponent, GuideComponentComponent } from './types/component';
+import {
+  G2CoordinateOptions,
+  G2GuideComponentOptions,
+  G2Library,
+  G2ScaleOptions,
+  G2View,
+} from './types/options';
 
 export function inferComponent(
   scales: G2ScaleOptions[],
@@ -104,17 +98,16 @@ export function renderComponent(
   theme: G2Theme,
   library: G2Library,
 ) {
-  const [useScale] = useLibrary<G2ScaleOptions, ScaleComponent, Scale>(
-    'scale',
-    library,
-  );
   const [useGuideComponent] = useLibrary<
     G2GuideComponentOptions,
     GuideComponentComponent,
     GuideComponent
   >('component', library);
   const { scale: scaleDescriptor, bbox, ...options } = component;
-  const scale = scaleDescriptor ? useScale(scaleDescriptor) : null;
+  const scale = scaleDescriptor
+    ? useRelationScale(scaleDescriptor, library)
+    : null;
+
   const { field, domain } = scaleDescriptor || {};
   const value = { field, domain, bbox };
   const render = useGuideComponent(options);
