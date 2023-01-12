@@ -170,6 +170,7 @@ export type BaseGeometry<
       };
   cartesian?: boolean;
   layout?: Record<string, any>;
+  zIndex?: number;
 };
 
 export type Adjust = { type: 'pack' };
