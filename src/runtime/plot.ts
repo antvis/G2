@@ -203,6 +203,7 @@ export async function plot<T extends G2ViewTree>(
       interaction(target, viewInstances);
     }
   }
+  context.views = views;
 
   // Author animations.
   const { width, height } = options;
@@ -361,7 +362,6 @@ async function initializeMarks(
     );
     channels.forEach((channel) => (channel.scale = scale));
   }
-
   return markState;
 }
 

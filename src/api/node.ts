@@ -1,4 +1,13 @@
-import { emitEvent, CHART_LIFE_CIRCLE } from '../utils/event';
+import { Coordinate } from '@antv/coord';
+import { DisplayObject } from '@antv/g';
+import { select } from '../utils/selection';
+import {
+  ChannelGroups,
+  DataOptions,
+  G2MarkState,
+  G2Theme,
+  G2ViewDescriptor,
+} from '../runtime';
 import { Chart } from './chart';
 
 /**
@@ -14,6 +23,10 @@ function bfs(node: Node, callback?: (...args: any[]) => void) {
       discovered.push(child);
     }
   }
+}
+
+export function selectNodeGroup(root: DisplayObject, key: string) {
+  return select(root).select(`#${key}`).node();
 }
 
 /**
@@ -82,6 +95,17 @@ export class Node<
   }
 
   /**
+   * Apply specified callback to the node value.
+   */
+  call(
+    callback: (node: this, ...params: any[]) => any,
+    ...params: any[]
+  ): this {
+    callback(this.map(), ...params);
+    return this;
+  }
+
+  /**
    * Remove current node from parentNode.
    */
   remove(): Node {
@@ -116,24 +140,92 @@ export class Node<
     return nodes;
   }
 
-  changeData(data: any) {
-    // Find the root chart and render.
-    let root: Node = this;
-    while (root && root.parentNode) {
-      root = root.parentNode;
+  /**
+   * Find the root Node.
+   */
+  findRoot(): Chart {
+    let _root: Node = this;
+    while (_root && _root.parentNode) {
+      _root = _root.parentNode;
     }
-    this.attr('data', data);
-    (root as Chart).render();
+    return _root as Chart;
   }
 
   /**
-   * Apply specified callback to the node value.
+   * Change the node data and re-render.
    */
-  call(
-    callback: (node: this, ...params: any[]) => any,
-    ...params: any[]
-  ): this {
-    callback(this.map(), ...params);
-    return this;
+  changeData(data: DataOptions[]) {
+    this.attr('data', data as Value[keyof Value]);
+    const chart = this.findRoot();
+    chart.render();
+  }
+
+  /**
+   * Get render view instance.
+   */
+  getView(): G2ViewDescriptor {
+    const chart = this.findRoot();
+    return chart.getView();
+  }
+
+  /**
+   * Get render theme options.
+   */
+  getTheme(): G2Theme {
+    return this.getView()?.theme;
+  }
+
+  /**
+   * Get mark from chart views.
+   */
+  getMark(): G2MarkState {
+    const chartView = this.getView();
+    if (!chartView) return undefined;
+    const { markState } = chartView;
+    const markKey = Array.from(markState.keys()).find(
+      (item) => item.key === this.attr('key'),
+    );
+    return markState.get(markKey);
+  }
+
+  getScales(): ChannelGroups[] {
+    return this.getMark()?.channels;
+  }
+
+  getScale(channel: string): ChannelGroups {
+    const channels = this.getScales();
+    return channels?.find((cha) => cha.name === channel);
+  }
+
+  /**
+   * Get render coordinate options.
+   */
+  getCoordinate(): Coordinate {
+    return this.getView()?.coordinate;
+  }
+
+  getGroup(): DisplayObject {
+    const key = this.attr('key');
+    if (!key) return undefined;
+    const chart = this.findRoot();
+    return selectNodeGroup(chart.getGroup(), key);
+  }
+
+  /**
+   * Show the node.
+   */
+  show() {
+    const group = this.getGroup();
+    if (!group) return;
+    !group.isVisible() && group.setAttribute('visibility', 'visible');
+  }
+
+  /**
+   * Hide the node.
+   */
+  hide() {
+    const group = this.getGroup();
+    if (!group) return;
+    group.isVisible() && group.setAttribute('visibility', 'hidden');
   }
 }

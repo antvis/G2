@@ -1,5 +1,5 @@
 import { ViewComposition } from '../../spec';
-import { defineProps, nodeProps } from '../props';
+import { containerProps, defineProps, nodeProps } from '../props';
 import {
   ValueAttribute,
   ObjectAttribute,

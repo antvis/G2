@@ -20,3 +20,8 @@ export type ArrayAttribute<V, N> = <T extends V | ElementOf<V>>(
 ) => Chainable<T, V, N>;
 
 export type Concrete<T> = { [Key in keyof T]-?: T[Key] };
+
+export type Point = {
+  readonly x: number;
+  readonly y: number;
+};

@@ -1,8 +1,8 @@
-import { RendererPlugin, Canvas as GCanvas } from '@antv/g';
+import { RendererPlugin, Canvas as GCanvas, DisplayObject } from '@antv/g';
 import { Renderer as CanvasRenderer } from '@antv/g-canvas';
 import { Plugin as DragAndDropPlugin } from '@antv/g-plugin-dragndrop';
 import { debounce } from '@antv/util';
-import { G2Context, render, destroy } from '../runtime';
+import { G2Context, render, destroy, G2ViewDescriptor } from '../runtime';
 import { ViewComposition } from '../spec';
 import { getChartSize } from '../utils/size';
 import { CHART_LIFE_CIRCLE, emitEvent } from '../utils/event';
@@ -206,18 +206,59 @@ export class Chart extends Node<ChartOptions> {
     return this;
   }
 
+  /**
+   * Get chart options.
+   */
   options() {
     return optionsOf(this);
   }
 
+  /**
+   * Get the DOM container.
+   */
   node(): HTMLElement {
     return this._container;
   }
 
+  /**
+   * Get context information.
+   */
   context(): G2Context {
     return this._context;
   }
 
+  /**
+   * Get render view instance.
+   */
+  getView(): G2ViewDescriptor {
+    const { views } = this.context();
+    if (!views?.length) return undefined;
+    return views.find((view) => view.key === this.attr('key'));
+  }
+
+  getGroup(): DisplayObject {
+    return this.context()?.canvas?.getRoot();
+  }
+
+  /**
+   * Change the chart size and re-render.
+   */
+  changeSize(adjustedWidth: number, adjustedHeight: number) {
+    const { width, height, on } = this.options();
+    if (width === adjustedWidth && height === adjustedHeight) {
+      return this;
+    }
+
+    emitEvent(on, CHART_LIFE_CIRCLE.BEFORE_CHANGE_SIZE);
+    this.width(adjustedWidth);
+    this.height(adjustedHeight);
+    this.render();
+    emitEvent(on, CHART_LIFE_CIRCLE.AFTER_CHANGE_SIZE);
+  }
+
+  /**
+   * Destroy the chart, unbind the event, and destroy the created canvas instance.
+   */
   destroy() {
     const options = this.options();
     const { on } = options;
@@ -237,6 +278,9 @@ export class Chart extends Node<ChartOptions> {
     emitEvent(on, CHART_LIFE_CIRCLE.AFTER_CLEAR);
   }
 
+  /**
+   * Automatically resize the canvas according to the size of the container.
+   */
   forceFit() {
     const { width, height, autoFit } = this.options();
     const { width: adjustedWidth, height: adjustedHeight } = getChartSize(
@@ -250,19 +294,9 @@ export class Chart extends Node<ChartOptions> {
     }
   }
 
-  changeSize(adjustedWidth: number, adjustedHeight: number) {
-    const { width, height, on } = this.options();
-    if (width === adjustedWidth && height === adjustedHeight) {
-      return this;
-    }
-
-    emitEvent(on, CHART_LIFE_CIRCLE.BEFORE_CHANGE_SIZE);
-    this.width(adjustedWidth);
-    this.height(adjustedHeight);
-    this.render();
-    emitEvent(on, CHART_LIFE_CIRCLE.AFTER_CHANGE_SIZE);
-  }
-
+  /**
+   * when the container size changed, change the chart size props and re-render.
+   */
   private onResize = debounce(() => {
     this.forceFit();
   }, 300);
