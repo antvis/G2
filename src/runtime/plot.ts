@@ -1220,8 +1220,13 @@ function updateLayers(selection: Selection, marks: G2Mark[]) {
           .attr('className', MAIN_LAYER_CLASS_NAME)
           .attr('id', (d) => d.key)
           .style('facet', facet)
-          .style('fill', 'transparent'),
-      (update) => update.style('facet', facet),
+          .style('fill', 'transparent')
+          .style('zIndex', (d) => d.zIndex ?? 0),
+      (update) =>
+        update
+          .style('facet', facet)
+          .style('fill', 'transparent')
+          .style('zIndex', (d) => d.zIndex ?? 0),
       (exit) => exit.remove(),
     );
 
