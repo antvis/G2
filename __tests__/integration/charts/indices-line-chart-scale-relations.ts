@@ -7,7 +7,7 @@ export function indicesLineChartScaleRelations(): G2Spec {
       type: 'fetch',
       value: 'data/indices.csv',
     },
-    transforms: [
+    transform: [
       {
         type: 'normalizeY',
         basis: 'first',
@@ -28,11 +28,13 @@ export function indicesLineChartScaleRelations(): G2Spec {
     axis: {
       y: { title: '↑ Change in price (%)' },
     },
-    label: {
-      text: 'Symbol',
-      selector: 'last',
-      fontSize: 10,
-    },
+    labels: [
+      {
+        text: 'Symbol',
+        selector: 'last',
+        fontSize: 10,
+      },
+    ],
   };
 }
 
