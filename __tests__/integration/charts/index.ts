@@ -154,6 +154,7 @@ export { housePricePointShapes } from './house-price-point-shapes';
 export { aaplLineSlider } from './aapl-line-slider';
 export { aaplLineSliderTransponsed } from './aapl-line-slider-transposed';
 export { indicesLineChartFacetAxis } from './indices-line-chart-fact-axis';
+export { indicesLineChartScaleRelations } from './indices-line-chart-scale-relations';
 export { aaplLineClip } from './aapl-line-clip';
 export { githubStarIntervalPalette } from './github-star-interval-palette';
 export { githubStarIntervalThemeAcademy } from './github-star-interval-theme-academy';
