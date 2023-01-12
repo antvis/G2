@@ -1,76 +1,81 @@
+import { Vector2 } from '@antv/coord';
 import { DisplayObject, IAnimation as GAnimation, Rect } from '@antv/g';
 import { deepMix, upperFirst } from '@antv/util';
-import { format } from 'd3-format';
-import { Vector2 } from '@antv/coord';
 import { group } from 'd3-array';
+import { format } from 'd3-format';
 import { mapObject } from '../utils/array';
+import { CHART_LIFE_CIRCLE, emitEvent } from '../utils/event';
 import {
-  copyAttributes,
-  error,
-  defined,
-  useMemo,
   appendTransform,
   compose,
+  copyAttributes,
+  defined,
+  error,
   maybeSubObject,
   subObject,
+  useMemo,
 } from '../utils/helper';
-import { Selection, select, G2Element } from '../utils/selection';
-import { emitEvent, CHART_LIFE_CIRCLE } from '../utils/event';
+import { G2Element, select, Selection } from '../utils/selection';
+import { inferComponent, renderComponent } from './component';
 import {
-  G2ViewTree,
-  G2View,
-  G2MarkOptions,
-  G2ScaleOptions,
-  G2ThemeOptions,
-  G2Mark,
-  G2Library,
-  G2ShapeOptions,
-  G2AnimationOptions,
-  G2CompositionOptions,
-  G2InteractionOptions,
-  G2LabelTransformOptions,
-  G2Context,
-} from './types/options';
+  AREA_CLASS_NAME,
+  COMPONENT_CLASS_NAME,
+  ELEMENT_CLASS_NAME,
+  LABEL_CLASS_NAME,
+  LABEL_LAYER_CLASS_NAME,
+  MAIN_LAYER_CLASS_NAME,
+  PLOT_CLASS_NAME,
+  VIEW_CLASS_NAME,
+} from './constant';
+import { createCoordinate } from './coordinate';
+import { computeLayout, placeComponents } from './layout';
+import { useLibrary } from './library';
+import { initializeMark } from './mark';
 import {
-  ThemeComponent,
-  Theme,
-  ScaleComponent,
-  Scale,
-  Shape,
-  ShapeComponent,
-  AnimationComponent,
-  Animation,
-  CompositionComponent,
-  Composition,
-  InteractionComponent,
-  Interaction,
-  LabelTransformComponent,
-  LabelTransform,
-} from './types/component';
-import { MarkComponent, Mark, CompositeMark, SingleMark } from './types/mark';
+  applyScale,
+  inferScale,
+  syncFacetsScales,
+  useRelationScale,
+} from './scale';
+import { applyDataTransform } from './transform';
 import {
-  G2ViewDescriptor,
   G2MarkState,
+  G2ViewDescriptor,
   G2ViewInstance,
   Primitive,
 } from './types/common';
-import { useLibrary } from './library';
-import { initializeMark } from './mark';
-import { inferComponent, renderComponent } from './component';
-import { computeLayout, placeComponents } from './layout';
-import { createCoordinate } from './coordinate';
-import { applyScale, syncFacetsScales, useRelation, inferScale } from './scale';
-import { applyDataTransform } from './transform';
 import {
-  MAIN_LAYER_CLASS_NAME,
-  LABEL_LAYER_CLASS_NAME,
-  ELEMENT_CLASS_NAME,
-  VIEW_CLASS_NAME,
-  COMPONENT_CLASS_NAME,
-  PLOT_CLASS_NAME,
-  LABEL_CLASS_NAME,
-  AREA_CLASS_NAME,
-} from './constant';
+  Animation,
+  AnimationComponent,
+  Composition,
+  CompositionComponent,
+  Interaction,
+  InteractionComponent,
+  LabelTransform,
+  LabelTransformComponent,
+  Scale,
+  ScaleComponent,
+  Shape,
+  ShapeComponent,
+  Theme,
+  ThemeComponent,
+} from './types/component';
+import { CompositeMark, Mark, MarkComponent, SingleMark } from './types/mark';
+import {
+  G2AnimationOptions,
+  G2CompositionOptions,
+  G2Context,
+  G2InteractionOptions,
+  G2LabelTransformOptions,
+  G2Library,
+  G2Mark,
+  G2MarkOptions,
+  G2ScaleOptions,
+  G2ShapeOptions,
+  G2ThemeOptions,
+  G2View,
+  G2ViewTree,
+} from './types/options';
 
 export async function plot<T extends G2ViewTree>(
   options: T,
@@ -424,13 +429,9 @@ function initializeState(
     const scale = Object.fromEntries(
       channels.map(({ name, scale }) => [name, scale]),
     );
-
     // Transform abstract value to visual value by scales.
     const markScaleInstance = mapObject(scale, (options) => {
-      const { relations } = options;
-      const [conditionalize] = useRelation(relations);
-      const scale = useScale(options);
-      return conditionalize(scale);
+      return useRelationScale(options, library);
     });
     Object.assign(scaleInstance, markScaleInstance);
     const value = applyScale(channels, markScaleInstance);
