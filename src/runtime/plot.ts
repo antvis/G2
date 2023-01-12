@@ -1221,7 +1221,11 @@ function updateLayers(selection: Selection, marks: G2Mark[]) {
           .style('facet', facet)
           .style('fill', 'transparent')
           .style('zIndex', (d) => d.zIndex ?? 0),
-      (update) => update.style('facet', facet),
+      (update) =>
+        update
+          .style('facet', facet)
+          .style('fill', 'transparent')
+          .style('zIndex', (d) => d.zIndex ?? 0),
       (exit) => exit.remove(),
     );
 
