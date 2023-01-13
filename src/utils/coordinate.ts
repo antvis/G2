@@ -37,6 +37,10 @@ export function isFisheye(coordinate: Coordinate): boolean {
   return transformations.some(([type]) => type === 'fisheye');
 }
 
+export function isRadar(coordinate: Coordinate): boolean {
+  return isParallel(coordinate) && isPolar(coordinate);
+}
+
 export function isCircular(coordinate: Coordinate): boolean {
   return isHelix(coordinate) || isPolar(coordinate);
 }

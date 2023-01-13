@@ -55,7 +55,7 @@ function invertTick(scale: Scale, v: number) {
 }
 
 Slider.props = {
-  defaultPosition: 'bottom',
+  defaultPosition: { anchor: 'bottom' },
   defaultSize: 24,
   defaultOrder: 1,
 };

@@ -1,12 +1,12 @@
 import { Category } from '@antv/gui';
 import {
   GuideComponentComponent as GCC,
-  GuideComponentPosition,
+  GuideComponentPosition as GCP,
 } from '../runtime';
 import { titleContent } from './utils';
 
 export type LegendCategoryOptions = {
-  position?: GuideComponentPosition;
+  position?: GCP;
   labelFormatter?: (d: any) => string;
   dx?: number;
   dy?: number;
@@ -15,18 +15,19 @@ export type LegendCategoryOptions = {
 };
 
 function inferLayout(
-  position: GuideComponentPosition,
+  position: GCP,
   gridRow?: number,
   gridCol?: number,
 ): [number, number] {
   const [gridRowLimit, gridColLimit] = [gridRow || 100, gridCol || 100];
+  const { anchor } = position;
   const config = {
     top: [1, gridColLimit],
     bottom: [1, gridColLimit],
     left: [gridRowLimit, 1],
     right: [gridRowLimit, 1],
     arcCenter: [gridRowLimit, 1],
-  }[position];
+  }[anchor];
 
   return config || [gridRow, gridCol];
 }
@@ -64,11 +65,12 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
       gridCol,
     );
 
+    const { anchor } = position;
     const legendStyle = {
       data: items,
       x: x + dx,
       y: y + dy,
-      orient: ['right', 'left', 'arcCenter'].includes(position)
+      orient: ['right', 'left', 'arcCenter'].includes(anchor)
         ? 'vertical'
         : 'horizontal',
       width,
@@ -90,7 +92,7 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
 };
 
 LegendCategory.props = {
-  defaultPosition: 'top',
+  defaultPosition: { anchor: 'top' },
   defaultOrder: 1,
   defaultSize: 40,
 };

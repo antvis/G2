@@ -35,7 +35,7 @@ export const Scrollbar: GCC<ScrollbarOptions> = (options) => {
 };
 
 Scrollbar.props = {
-  defaultPosition: 'bottom',
+  defaultPosition: { anchor: 'bottom' },
   defaultSize: 24,
   defaultOrder: 1,
 };

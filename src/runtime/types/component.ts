@@ -1,18 +1,18 @@
+import { Coordinate, Transformation } from '@antv/coord';
 import { DisplayObject, IAnimation as GAnimation } from '@antv/g';
-import { Transformation, Coordinate } from '@antv/coord';
 import {
-  IndexedValue,
   G2Theme,
-  Vector2,
-  GuideComponentPosition,
-  Layout,
   G2ViewInstance,
+  GuideComponentPosition,
+  IndexedValue,
+  Layout,
+  Vector2,
 } from './common';
-import { G2ViewTree } from './options';
-import { EncodeComponent, Encode } from './encode';
-import { MarkComponent, Mark } from './mark';
-import { TransformComponent, Transform } from './transform';
 import { DataComponent } from './data';
+import { Encode, EncodeComponent } from './encode';
+import { Mark, MarkComponent } from './mark';
+import { G2ViewTree } from './options';
+import { Transform, TransformComponent } from './transform';
 
 export type G2ComponentNamespaces =
   | 'coordinate'
@@ -162,7 +162,7 @@ export type GuideComponent = (
   theme: G2Theme,
 ) => DisplayObject;
 export type GuideComponentProps = {
-  defaultPosition: GuideComponentPosition;
+  defaultPosition?: GuideComponentPosition;
   defaultSize: number;
   defaultOrder: number;
 };

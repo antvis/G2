@@ -1,12 +1,12 @@
 import { Continuous } from '@antv/gui';
 import {
   GuideComponentComponent as GCC,
-  GuideComponentPosition,
+  GuideComponentPosition as GCP,
 } from '../runtime';
 import { titleContent } from './utils';
 
 export type LegendContinuousOptions = {
-  position?: GuideComponentPosition;
+  position?: GCP;
   title?: string | string[];
 };
 
@@ -49,7 +49,7 @@ export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
 };
 
 LegendContinuous.props = {
-  defaultPosition: 'top',
+  defaultPosition: { anchor: 'top' },
   defaultOrder: 1,
   defaultSize: 40,
 };

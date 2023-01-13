@@ -63,6 +63,7 @@ export { temperature2LineGradientColor } from './temperature2-line-gradient-colo
 export { temperature2LineThreshold } from './temperature2-line-threshold';
 export { aapl2CandlestickChart } from './aapl2-candlestick-chart';
 export { tranLineMultiAxes } from './train-line-multi-axes';
+export { cars3LineRadar } from './cars3-line-radar';
 export { cars3LineParallelHorizontal } from './cars3-line-parallel-horizontal';
 export { cars3LineParallelVertical } from './cars3-line-parallel-vertical';
 export { seasonalWeatherAreaRadial } from './seasonal-weather-area-radial';

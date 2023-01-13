@@ -127,18 +127,32 @@ export type BBox = {
   height?: number;
 };
 
-export type GuideComponentPosition =
+export type GuideComponentAnchor =
   | 'top'
-  | 'left'
   | 'bottom'
+  | 'left'
   | 'right'
-  | 'centerVertical'
-  | 'centerHorizontal'
   | 'center'
-  | 'arc'
-  | 'arcY'
-  | 'arcInner'
-  | 'arcCenter';
+  /** arc axis only */
+  | 'inner'
+  | 'outer';
+
+export type GuideComponentAlign =
+  | 'start'
+  | 'middle'
+  | 'end'
+  // alias
+  | 'left'
+  | 'center'
+  | 'right';
+
+export type GuideComponentOrientation = 'horizontal' | 'vertical' | number;
+
+export type GuideComponentPosition = {
+  anchor: GuideComponentAnchor;
+  align?: GuideComponentAlign;
+  orientation?: GuideComponentOrientation;
+};
 
 export type Layout = {
   paddingLeft?: number;
@@ -162,15 +176,16 @@ export type Layout = {
   y?: number;
 };
 
-// @todo Using emus.
+export type Direction = 'horizontal' | 'vertical' | 'center';
+
 export type SectionArea = [
   x: number,
   y: number,
   width: number,
   height: number,
-  direction: 0 | 1 | -1, // horizontal: 1, vertical: 0, center: -1
+  direction: Direction,
   reverse: boolean,
   comparator: (a: Primitive, b: Primitive) => number,
 ];
 
-export type Section = Record<GuideComponentPosition, SectionArea>;
+export type Section = Record<GuideComponentAnchor, SectionArea>;

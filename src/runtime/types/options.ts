@@ -1,29 +1,29 @@
-import { Canvas, IAnimation as GAnimation } from '@antv/g';
 import type { DisplayObject } from '@antv/g';
+import { Canvas, IAnimation as GAnimation } from '@antv/g';
 import { G2Title, GuideComponentPosition, Layout, Primitive } from './common';
 import {
+  AdjustComponent,
+  AnimationComponent,
+  CompositionComponent,
+  CoordinateComponent,
   G2BaseComponent,
+  G2ComponentNamespaces,
+  GuideComponentComponent,
+  InferComponent,
+  InteractionComponent,
+  LabelTransformComponent,
+  PaletteComponent,
+  Scale,
+  ScaleComponent,
+  ShapeComponent,
   StatisticComponent,
   ThemeComponent,
-  G2ComponentNamespaces,
-  CoordinateComponent,
-  ScaleComponent,
-  InferComponent,
-  ShapeComponent,
-  PaletteComponent,
-  GuideComponentComponent,
-  AnimationComponent,
-  InteractionComponent,
-  CompositionComponent,
-  AdjustComponent,
-  Scale,
-  LabelTransformComponent,
 } from './component';
 
-import { TransformComponent } from './transform';
+import { DataComponent } from './data';
 import { EncodeComponent } from './encode';
 import { MarkComponent } from './mark';
-import { DataComponent } from './data';
+import { TransformComponent } from './transform';
 
 export type G2ViewTree = {
   width?: number;

@@ -12,5 +12,5 @@ export const SliderY: GCC<SliderYOptions> = (options) => {
 
 SliderY.props = {
   ...Slider.props,
-  defaultPosition: 'left',
+  defaultPosition: { anchor: 'left' },
 };

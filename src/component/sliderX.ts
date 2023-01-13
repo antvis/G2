@@ -12,5 +12,5 @@ export const SliderX: GCC<SliderXOptions> = (options) => {
 
 SliderX.props = {
   ...Slider.props,
-  defaultPosition: 'bottom',
+  defaultPosition: { anchor: 'bottom' },
 };

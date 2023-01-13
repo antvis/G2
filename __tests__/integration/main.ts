@@ -34,7 +34,7 @@ selectChart.onchange = () => {
   history.pushState({ value }, '', `?name=${value}`);
   plot();
 };
-document.onkeydown = (event) => {
+document.body.onkeydown = (event) => {
   if (event.metaKey || event.ctrlKey || event.altKey || event.shiftKey) return;
   switch (event.key) {
     case 'ArrowLeft': {

@@ -1,16 +1,16 @@
 import { GuideComponentComponent as GCC } from '../runtime';
-import { Axis, AxisOptions } from './axis';
+import { AxisOptions, LinearAxis } from './axis';
 
 export type AxisYOptions = AxisOptions;
 
 /**
- * Axis component bind to y scale.
+ * LinearAxis component bind to y scale.
  */
 export const AxisY: GCC<AxisYOptions> = (options) => {
-  return Axis(options);
+  return LinearAxis(options);
 };
 
 AxisY.props = {
-  ...Axis.props,
-  defaultPosition: 'left',
+  ...LinearAxis.props,
+  defaultPosition: { anchor: 'left' },
 };

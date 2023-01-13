@@ -39,6 +39,10 @@ export function createCoordinate(
   return coordinate;
 }
 
+/**
+ * todo 没有考虑重复问题
+ */
+
 export function isPolar(coordinates: G2CoordinateOptions[]) {
   const polar = coordinates.find((d) => d.type === 'polar');
   return polar !== undefined;
@@ -49,6 +53,9 @@ export function isHelix(coordinates: G2CoordinateOptions[]) {
   return polar !== undefined;
 }
 
+/**
+ * todo 转置次数有影响
+ */
 export function isTranspose(coordinates: G2CoordinateOptions[]) {
   const transposes = coordinates.filter(({ type }) => type === 'transpose');
   return transposes.length % 2 === 1;
@@ -74,6 +81,13 @@ export function isRadial(coordinates: G2CoordinateOptions[]) {
   return reflect !== undefined;
 }
 
+export function isRadar(coordinates: G2CoordinateOptions[]) {
+  return isParallel(coordinates) && isPolar(coordinates);
+}
+
+/**
+ * todo Y 方向反转对应的轴没有反转
+ */
 export function isReflectY(coordinates: G2CoordinateOptions[]) {
   const reflect = coordinates.find((d) => d.type === 'reflectY');
   return reflect !== undefined;

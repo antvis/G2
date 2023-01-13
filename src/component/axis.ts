@@ -2,30 +2,31 @@ import { Coordinate } from '@antv/coord';
 import { Axis as AxisComponent } from '@antv/gui';
 import { Linear as LinearScale } from '@antv/scale';
 import { deepMix } from '@antv/util';
-import { format } from 'd3-format';
 import { extent } from 'd3-array';
-import {
-  isParallel,
-  isPolar,
-  isTranspose,
-  isTheta,
-  isRadial,
-  isFisheye,
-} from '../utils/coordinate';
-import { capitalizeFirst } from '../utils/helper';
+import { format } from 'd3-format';
 import {
   BBox,
+  G2Theme,
   GuideComponentComponent as GCC,
-  GuideComponentPosition,
+  GuideComponentPosition as GCP,
   Scale,
 } from '../runtime';
+import {
+  isFisheye,
+  isParallel,
+  isPolar,
+  isRadar,
+  isRadial,
+  isTheta,
+  isTranspose,
+} from '../utils/coordinate';
+import { capitalizeFirst } from '../utils/helper';
 import { titleContent } from './utils';
 
 export type AxisOptions = {
-  position?: GuideComponentPosition;
+  position?: GCP;
   zIndex?: number;
   title?: string | string[];
-  d;
   direction?: 'left' | 'center' | 'right';
   labelFormatter?: (d: any, index: number, array: any) => string;
   tickFilter?: (datum: any, index: number, array: any) => boolean;
@@ -139,7 +140,7 @@ function getTicks(
   defaultTickFormatter: AxisOptions['labelFormatter'],
   tickFilter: AxisOptions['tickFilter'],
   tickMethod: AxisOptions['tickMethod'],
-  position: GuideComponentPosition,
+  position: GCP,
   coordinate: Coordinate,
 ) {
   if (tickCount !== undefined || tickMethod !== undefined) {
@@ -149,6 +150,7 @@ function getTicks(
     });
   }
 
+  const { anchor } = position;
   const ticks = ticksOf(scale, domain, tickMethod);
   const filteredTicks = tickFilter ? ticks.filter(tickFilter) : ticks;
   const labelFormatter = scale.getFormatter?.() || defaultTickFormatter;
@@ -167,7 +169,7 @@ function getTicks(
     });
     // @todo GUI should consider the overlap problem for the first
     // and label of arc axis.
-    return isRadial(coordinate) && position === 'arcY'
+    return isRadial(coordinate) && anchor === 'center'
       ? reverseTicks(axisTicks)
       : axisTicks;
   }
@@ -183,9 +185,10 @@ function getTicks(
   });
 }
 
-function getGridLength(position: GuideComponentPosition, coordinate) {
+function getGridLength(position: GCP, coordinate) {
   const [width, height] = sizeOf(coordinate);
-  if (position === 'bottom' || position === 'top') return height;
+  const { anchor } = position;
+  if (['bottom', 'top'].includes(anchor)) return height;
   return width;
 }
 
@@ -198,11 +201,12 @@ function labelTransforms(autoHide?: boolean, autoRotate?: boolean) {
 }
 
 function inferArcStyle(
-  position: GuideComponentPosition,
+  position: GCP,
   innerRadius: number,
   outerRadius: number,
   coordinate: Coordinate,
 ) {
+  const { anchor } = position;
   const [w, h] = sizeOf(coordinate);
   const r = Math.min(w, h) / 2;
 
@@ -214,7 +218,7 @@ function inferArcStyle(
     gridLength: (outerRadius - innerRadius) * r,
   };
 
-  if (position === 'arcInner') {
+  if (anchor === 'inner') {
     const [w, h] = sizeOf(coordinate);
     const r = Math.min(w, h) / 2;
     return {
@@ -227,6 +231,7 @@ function inferArcStyle(
     };
   }
 
+  // arc outer
   return {
     ...common,
     labelAlign: 'parallel',
@@ -244,50 +249,80 @@ function inferGrid(value: boolean, coordinate: Coordinate, scale: Scale) {
 }
 
 function inferOverrideStyle(
-  position: GuideComponentPosition,
+  position: GCP,
   bbox: BBox,
   coordinate: Coordinate,
 ): {
-  startPos: [number, number];
-  endPos: [number, number];
+  startPos?: [number, number];
+  endPos?: [number, number];
   showLine?: boolean;
   [k: string]: any;
 } {
+  const { anchor, orientation } = position;
   const [, cy] = coordinate.getCenter();
   const { x, y, width, height } = bbox;
 
-  if (position === 'bottom') {
+  if (anchor === 'bottom') {
     return {
       startPos: [x, y],
       endPos: [x + width, y],
     };
-  } else if (position === 'left' || position === 'centerVertical') {
+  }
+  if (anchor === 'left') {
     return {
       startPos: [x + width, y],
       endPos: [x + width, y + height],
-      showLine: position === 'centerVertical' ? true : undefined,
     };
-  } else if (position === 'right') {
+  }
+  if (anchor === 'right') {
     return {
       endPos: [x, y + height],
       startPos: [x, y],
     };
-  } else if (position === 'arcY') {
+  }
+  if (anchor === 'top') {
     return {
-      startPos: [x, y],
+      startPos: [x, y + height],
       endPos: [x + width, y + height],
-      gridCenter: [bbox.x, cy + bbox.y],
     };
   }
+  if (anchor === 'center') {
+    if (isPolar(coordinate)) {
+      return {
+        startPos: [x, y],
+        endPos: [x, y + height],
+        gridCenter: [bbox.x, cy + bbox.y],
+      };
+    }
+    // 可能是平行坐标系下雷达图的 axis、非水平/垂直的坐标轴
+    if (isRadar(coordinate)) {
+      return {};
+    }
+  }
 
-  return {
-    startPos: [x, y + height],
-    endPos: [x + width, y + height],
-    showLine: position === 'centerHorizontal' ? true : undefined,
-  };
+  // polyfill, once position is not specified, it will be treated as parallel system position
+  if (!position) {
+    if (orientation === 'vertical') {
+      return {
+        startPos: [x + width, y],
+        endPos: [x + width, y + height],
+        showLine: true,
+      };
+    }
+    if (orientation === 'horizontal') {
+      return {
+        startPos: [x, y + height],
+        endPos: [x + width, y + height],
+        showLine: true,
+      };
+    }
+  }
+
+  // position is 'inner' or 'outer'
+  return {};
 }
 
-const ArcAxis = (options) => {
+const ArcAxisComponent: GCC<AxisOptions> = (options) => {
   const {
     order,
     size,
@@ -341,23 +376,27 @@ const ArcAxis = (options) => {
   };
 };
 
-function inferDefaultStyle(scale, theme, position, direction) {
-  const p = position === 'centerVertical' ? 'left' : position;
-
+function inferDefaultStyle(
+  scale: Scale,
+  theme: G2Theme,
+  direction,
+  position: GCP,
+) {
+  const { anchor } = position;
   const themeStyle = Object.assign(
     {},
     theme.axis,
-    theme[`axis${capitalizeFirst(p)}`] || theme.axisTop,
+    theme[`axis${capitalizeFirst(anchor)}`] || theme.axisLeft,
   );
 
-  if (position === 'bottom') {
+  if (anchor === 'bottom') {
     return {
       ...themeStyle,
       titlePosition: scale.getTicks ? 'right-bottom' : 'bottom',
       titleTransformOrigin: 'center',
       titleTransform: scale.getTicks ? 'translate(-100%, 0)' : undefined,
     };
-  } else if (position === 'arcY') {
+  } else if (anchor === 'center' && orientation) {
     return {
       ...themeStyle,
       labelDirection: direction === 'right' ? 'negative' : 'positive',
@@ -371,23 +410,13 @@ function inferDefaultStyle(scale, theme, position, direction) {
   return themeStyle;
 }
 
-function isHorizontal(position): boolean {
-  switch (position) {
-    case 'top':
-    case 'bottom':
-    case 'centerHorizontal':
-      return true;
-    default:
-      return false;
-  }
-}
-
-const LinearAxis: GCC<AxisOptions> = (options) => {
+const LinearAxisComponent: GCC<AxisOptions> = (options) => {
   const {
     order,
     size,
     transform,
     position,
+    orientation,
     title,
     labelFormatter = (d) => `${d}`,
     direction = 'left',
@@ -411,7 +440,7 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
       coordinate,
     );
 
-    const defaultStyle = inferDefaultStyle(scale, theme, position, direction);
+    const defaultStyle = inferDefaultStyle(scale, theme, direction, position);
     const {
       labelAutoRotate = true,
       labelAutoHide = false,
@@ -449,30 +478,37 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
 
     return new AxisComponent({
       className: 'axis',
-      style: {
-        ...axisStyle,
-        horizontal: isHorizontal(position),
-      },
+      style: axisStyle,
     });
   };
 };
 
-/**
- * Guide Component for position channel(e.g. x, y).
- */
-export const Axis: GCC<AxisOptions> = (options) => {
-  const { position, labelFormatter: f = (d) => `${d}` } = options;
-  const labelFormatter = typeof f === 'string' ? format(f) : f;
-  const normalizedOptions = { ...options, labelFormatter };
-  return (scale, value, coordinate, theme) => {
-    return position === 'arc' || position === 'arcInner'
-      ? ArcAxis(normalizedOptions)(scale, value, coordinate, theme)
-      : LinearAxis(normalizedOptions)(scale, value, coordinate, theme);
+const axisFactor: (
+  axis: typeof ArcAxisComponent | typeof LinearAxisComponent,
+) => GCC<AxisOptions> = (axis) => {
+  return (options) => {
+    const { labelFormatter: f = (d) => `${d}` } = options;
+    const labelFormatter = typeof f === 'string' ? format(f) : f;
+    const normalizedOptions = { ...options, labelFormatter };
+    return (scale, value, coordinate, theme) =>
+      axis(normalizedOptions)(scale, value, coordinate, theme);
   };
 };
 
-Axis.props = {
-  defaultPosition: 'left',
+export const LinearAxis = axisFactor(LinearAxisComponent);
+
+export const ArcAxis = axisFactor(ArcAxisComponent);
+
+LinearAxis.props = {
+  defaultPosition: {
+    anchor: 'center',
+  },
+  defaultSize: 45,
+  defaultOrder: 0,
+};
+
+ArcAxis.props = {
+  defaultPosition: { anchor: 'outer' },
   defaultSize: 45,
   defaultOrder: 0,
 };

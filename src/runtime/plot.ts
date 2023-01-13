@@ -590,6 +590,7 @@ async function plotView(
         enter
           // Make this layer interactive, such as click and mousemove events.
           .append('rect')
+          // todo zIndex
           .style('fill', 'transparent')
           .attr('className', PLOT_CLASS_NAME)
           .call(updateBBox)
