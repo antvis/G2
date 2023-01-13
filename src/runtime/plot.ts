@@ -362,6 +362,7 @@ async function initializeMarks(
     );
     channels.forEach((channel) => (channel.scale = scale));
   }
+
   return markState;
 }
 
