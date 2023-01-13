@@ -1,5 +1,6 @@
-import type { DisplayObject } from '@antv/g';
 import EventEmitter from '@antv/event-emitter';
+import type { DisplayObject } from '@antv/g';
+import { Canvas, IAnimation as GAnimation } from '@antv/g';
 import {
   G2Title,
   G2ViewDescriptor,
