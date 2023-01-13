@@ -169,7 +169,8 @@ export async function plot<T extends G2ViewTree>(
   emitEvent(on, CHART_LIFE_CIRCLE.BEFORE_PAINT);
 
   // Plot chart.
-  const viewContainer = new Map<G2ViewDescriptor, DisplayObject>();
+  const enterContainer = new Map<G2ViewDescriptor, DisplayObject>();
+  const updateContainer = new Map<G2ViewDescriptor, DisplayObject>();
   const transitions: GAnimation[] = [];
   selection
     .selectAll(className(VIEW_CLASS_NAME))
@@ -183,29 +184,68 @@ export async function plot<T extends G2ViewTree>(
           .call(applyTranslate)
           .each(function (view) {
             plotView(view, select(this), transitions, library);
-            viewContainer.set(view, this);
+            enterContainer.set(view, this);
           }),
       (update) =>
         update.call(applyTranslate).each(function (view) {
           plotView(view, select(this), transitions, library);
+          updateContainer.set(view, this);
         }),
-      (exit) => exit.remove(),
+      (exit) =>
+        exit
+          .each(function () {
+            // Remove existed interactions.
+            const interactions = this['nameInteraction'].values();
+            for (const interaction of interactions) {
+              interaction.destroy();
+            }
+          })
+          .remove(),
     );
 
-  // Apply interaction to entered views.
-  const viewInstances = Array.from(viewContainer.entries()).map(
-    ([view, container]) => ({
+  // Apply interactions.
+  const viewInstanceof = (
+    viewContainer: Map<G2ViewDescriptor, DisplayObject>,
+  ) => {
+    return Array.from(viewContainer.entries()).map(([view, container]) => ({
       view,
       container,
       options: viewNode.get(view),
       update: createUpdateView(select(container), library, context),
-    }),
-  );
-  for (const target of viewInstances) {
+    }));
+  };
+
+  // Interactions for enter views.
+  const enterViewInstances = viewInstanceof(enterContainer);
+  for (const target of enterViewInstances) {
     const { options } = target;
+
+    // A Map index interaction by interaction name.
+    const nameInteraction = new Map();
+    target.container['nameInteraction'] = nameInteraction;
+
+    // Apply interactions.
     for (const option of inferInteraction(options)) {
       const interaction = useInteraction(option);
-      interaction(target, viewInstances);
+      const destroy = interaction(target, enterViewInstances);
+      nameInteraction.set(option.type, { destroy });
+    }
+  }
+
+  // Interactions for update views.
+  const updateViewInstances = viewInstanceof(updateContainer);
+  for (const target of updateViewInstances) {
+    const { options, container } = target;
+    const nameInteraction = container['nameInteraction'];
+    for (const option of inferInteraction(options)) {
+      // Remove interaction for existed views.
+      const prevInteraction = nameInteraction.get(option.type);
+      if (prevInteraction) prevInteraction.destroy();
+
+      // Apply new interaction.
+      const interaction = useInteraction(option);
+      const destroy = interaction(target, updateViewInstances);
+      nameInteraction.set(options.type, { destroy });
     }
   }
 

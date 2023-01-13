@@ -72,6 +72,14 @@ function hideTooltip(root) {
   if (tooltipElement) tooltipElement.hide();
 }
 
+function destroyTooltip(root) {
+  const { tooltipElement } = root;
+  if (tooltipElement) {
+    tooltipElement.destroy();
+    root.tooltipElement = undefined;
+  }
+}
+
 function filterDefined(obj) {
   return Object.fromEntries(
     Object.entries(obj).filter(([, value]) => defined(value)),
@@ -384,6 +392,8 @@ export function seriesTooltip(
     root.removeEventListener('pointerover', update);
     root.removeEventListener('pointerout', update);
     root.removeEventListener('pointerleave', hide);
+    destroyTooltip(root);
+    if (crosshairs) hideRuleY(root);
   };
 }
 
@@ -437,6 +447,7 @@ export function tooltip(
     root.removeEventListener('pointerover', pointerover);
     root.removeEventListener('pointermove', pointerover);
     root.removeEventListener('pointerout', pointerout);
+    destroyTooltip(root);
   };
 }
 
