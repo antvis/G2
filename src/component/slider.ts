@@ -2,6 +2,7 @@ import { Slider as SliderComponent } from '@antv/gui';
 import { format } from 'd3-format';
 import { least } from 'd3-array';
 import { GuideComponentComponent as GCC, Scale } from '../runtime';
+import { invert } from '../utils/scale';
 
 export type SliderOptions = {
   orient: 'horizontal' | 'vertical';
@@ -34,7 +35,8 @@ export const Slider: GCC<SliderOptions> = (options) => {
         orient,
         formatter: (v) => {
           const f = formatter || defaultFormatter;
-          const tick = invertTick(scale, v);
+          // @todo Pass index to distinguish the left and the right value.
+          const tick = invert(scale, v, true);
           return f(tick);
         },
         ...rest,
@@ -42,17 +44,6 @@ export const Slider: GCC<SliderOptions> = (options) => {
     });
   };
 };
-
-/**
- * Translate [0,1] value to origin value.
- */
-function invertTick(scale: Scale, v: number) {
-  if (!scale.getBandWidth) return scale.invert(v);
-  // @ts-ignore  @todo should support in scale
-  const range = scale.adjustedRange as number[];
-  const abs = (v) => Math.abs(v);
-  return scale.invert(least(range, (a, b) => abs(a - v) - abs(b - v)));
-}
 
 Slider.props = {
   defaultPosition: 'bottom',
