@@ -13,10 +13,10 @@ function clampPoint(point) {
 class DimRect extends RectMask {
   protected dim = 'x';
   protected inPlot = true;
-  protected getRegion(): Region {
+  public getRegion(_points?: number[]): Region {
     let start = null;
     let end = null;
-    const points = this.points;
+    const points = _points ?? this.points;
     const dim = this.dim;
     const coord = this.context.view.getCoordinate();
     const normalStart = coord.invert(head(points));

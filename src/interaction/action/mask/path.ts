@@ -7,8 +7,8 @@ import MaskBase from './base';
  */
 class PathMask extends MaskBase {
   // 生成 mask 的路径
-  protected getMaskPath() {
-    const points = this.points;
+  public getMaskPath(_points?: number[]) {
+    const points = _points ?? this.points;
     const path = [];
     if (points.length) {
       each(points, (point, index) => {
@@ -23,9 +23,9 @@ class PathMask extends MaskBase {
     return path;
   }
 
-  protected getMaskAttrs() {
+  public getMaskAttrs(_points?: number[]) {
     return {
-      path: this.getMaskPath(),
+      path: this.getMaskPath(_points),
     };
   }
 

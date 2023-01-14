@@ -8,16 +8,16 @@ import MaskBase from './base';
  */
 class RectMask extends MaskBase {
   protected shapeType = 'rect';
-  protected getRegion(): Region {
-    const points = this.points;
+  public getRegion(_points?: number[]): Region {
+    const points = _points ?? this.points;
     return {
       start: head(points),
       end: last(points),
     };
   }
   // 添加图形
-  protected getMaskAttrs() {
-    const { start, end } = this.getRegion();
+  public getMaskAttrs(_points?: number[]) {
+    const { start, end } = this.getRegion(_points);
     const x = Math.min(start.x, end.x);
     const y = Math.min(start.y, end.y);
     const width = Math.abs(end.x - start.x);
