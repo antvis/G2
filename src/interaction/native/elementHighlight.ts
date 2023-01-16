@@ -60,6 +60,7 @@ export function elementHighlight(
   return () => {
     root.removeEventListener('pointerover', pointerover);
     root.removeEventListener('pointerout', pointerout);
+    removeLink();
   };
 }
 
