@@ -1,8 +1,8 @@
 import { deepMix } from '@antv/util';
-import { bisectLeft, sort } from 'd3-array';
 import { subObject } from '../../utils/helper';
-import { selectPlotArea } from './utils';
+import { invert, domainOf } from '../../utils/scale';
 import { brush as createBrush } from './brushHighlight';
+import { selectPlotArea } from './utils';
 
 // Mock dblclick events.
 function dblclick(interval = 300) {
@@ -64,37 +64,7 @@ export function brushFilter(
   };
 }
 
-function isOrdinalScale(scale) {
-  return scale.getBandWidth;
-}
-
-function constrain(x, lo, hi) {
-  return Math.min(hi, Math.max(lo, x));
-}
-
-function invert(scale, x, start) {
-  if (!isOrdinalScale(scale)) return scale.invert(x);
-  const { adjustedRange } = scale;
-  const { domain } = scale.getOptions();
-  const offset = start ? -1 : 0;
-  const step = scale.getStep();
-  const range = start ? adjustedRange : adjustedRange.map((d) => d + step);
-  // R[i0 - 1] < x <= R[i0]
-  const i0 = bisectLeft(range, x);
-  const i1 = constrain(i0 + offset, 0, domain.length - 1);
-  return domain[i1];
-}
-
-function domainOf(scale, values) {
-  if (!isOrdinalScale(scale)) return sort(values);
-  const { domain } = scale.getOptions();
-  const [v1, v2] = values;
-  const start = domain.indexOf(v1);
-  const end = domain.indexOf(v2);
-  return domain.slice(start, end + 1);
-}
-
-export function BrushFilter({ ...rest }) {
+export function BrushFilter({ hideX = true, hideY = true, ...rest }) {
   return (target, viewInstances) => {
     const { container, view, options: viewOptions, update } = target;
     const plotArea = selectPlotArea(container);
@@ -130,12 +100,22 @@ export function BrushFilter({ ...rest }) {
         // Update the domain of x and y scale to filter data.
         const { marks } = viewOptions;
         const newMarks = marks.map((mark) =>
-          deepMix({}, mark, {
-            scale: {
-              x: { domain: domainOf(scaleX, [p0[0], p1[0]]) },
-              y: { domain: domainOf(scaleY, [p0[1], p1[1]]) },
+          deepMix(
+            {
+              // Hide label to keep smooth transition.
+              axis: {
+                ...(hideX && { x: { labelTransforms: [{ type: 'hide' }] } }),
+                ...(hideY && { y: { labelTransforms: [{ type: 'hide' }] } }),
+              },
             },
-          }),
+            mark,
+            {
+              scale: {
+                x: { domain: domainOf(scaleX, [p0[0], p1[0]]) },
+                y: { domain: domainOf(scaleY, [p0[1], p1[1]]) },
+              },
+            },
+          ),
         );
 
         // Rerender and update view.

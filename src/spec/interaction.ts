@@ -21,7 +21,8 @@ export type Interaction =
   | BrushAxisHighlightInteraction
   | BrushFilter
   | BrushYFilter
-  | BrushXFilter;
+  | BrushXFilter
+  | SliderFilter;
 // | ElementListHighlightInteraction
 // | LegendActiveInteraction
 // | LegendHighlightInteraction
@@ -50,6 +51,7 @@ export type InteractionTypes =
   | 'brushFilter'
   | 'brushXFilter'
   | 'brushYFilter'
+  | 'sliderFilter'
   | InteractionComponent;
 // | 'elementListHighlight'
 // | 'legendActive'
@@ -163,6 +165,13 @@ export type ChartIndex = {
   leading?: boolean;
   trailing?: boolean;
 } & Record<`${'rule' | 'label'}${any}`, any>;
+
+export type SliderFilter = {
+  type?: 'sliderFilter';
+  wait?: number;
+  leading?: boolean;
+  trailing?: boolean;
+};
 
 export type ElementListHighlightInteraction = {
   type?: 'elementListHighlight';
