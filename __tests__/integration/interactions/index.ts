@@ -29,3 +29,5 @@ export { profitIntervalBrushFilter } from './profit-interval-brush-filter';
 export { penguinsPointBrushXFilter } from './penguins-point-brush-x-filter';
 export { penguinsPointBrushYFilter } from './penguins-point-brush-y-filter';
 export { penguinsPointBrushMatrix } from './penguins-point-brush-matrix';
+export { aaplLineSliderFilter } from './appl-line-slider-filter';
+export { profitIntervalSliderFilter } from './profit-interval-slider-filter';

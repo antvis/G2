@@ -98,6 +98,7 @@ export function elementSelect(
 
   return () => {
     root.removeEventListener('click', click);
+    removeLink();
   };
 }
 
