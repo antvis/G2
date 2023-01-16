@@ -1,9 +1,8 @@
 import { SpaceFlexComposition } from '../../spec';
 import { defineProps, nodeProps } from '../props';
 import { ValueAttribute, Concrete } from '../types';
-import { Node } from '../node';
 import { mark, Mark } from '../mark';
-import { Composition } from './index';
+import { Composition, Base } from './index';
 
 type SpaceFlexSpec = Concrete<SpaceFlexComposition>;
 
@@ -12,7 +11,7 @@ export interface SpaceFlex extends Composition, Mark {
 }
 
 @defineProps([{ type: 'value', name: 'data' }, ...nodeProps(mark)])
-export class SpaceFlex extends Node<SpaceFlexSpec> {
+export class SpaceFlex extends Base<SpaceFlexSpec> {
   constructor() {
     super({}, 'spaceFlex');
   }
