@@ -6,9 +6,8 @@ import {
   ArrayAttribute,
   ObjectAttribute,
 } from '../types';
-import { Node } from '../node';
 import { mark, Mark } from '../mark';
-import { Composition } from './index';
+import { Composition, Base } from './index';
 
 type RepeatMatrixSpec = Concrete<RepeatMatrixComposition>;
 
@@ -30,7 +29,7 @@ export interface RepeatMatrix extends Composition, Mark {
   { type: 'object', name: 'legend' },
   ...nodeProps(mark),
 ])
-export class RepeatMatrix extends Node<RepeatMatrixComposition> {
+export class RepeatMatrix extends Base<RepeatMatrixComposition> {
   constructor() {
     super({}, 'repeatMatrix');
   }

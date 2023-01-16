@@ -6,8 +6,8 @@ import {
   ArrayAttribute,
   Concrete,
 } from '../types';
-import { Node } from '../node';
 import { mark, Mark } from '../mark';
+import { Base } from './base';
 
 type ViewSpec = Concrete<ViewComposition>;
 
@@ -33,8 +33,10 @@ export interface View extends Mark {
   { type: 'object', name: 'legend' },
   ...nodeProps(mark),
 ])
-export class View extends Node<ViewComposition> {
-  constructor() {
-    super({}, 'view');
+export class View<
+  ViewProps extends ViewComposition = ViewComposition,
+> extends Base<ViewProps> {
+  constructor(options = {}, type = 'view') {
+    super(options, type);
   }
 }

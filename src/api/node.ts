@@ -1,4 +1,3 @@
-import { emitEvent, CHART_LIFE_CIRCLE } from '../utils/event';
 import { Chart } from './chart';
 
 /**
@@ -116,16 +115,6 @@ export class Node<
     return nodes;
   }
 
-  changeData(data: any) {
-    // Find the root chart and render.
-    let root: Node = this;
-    while (root && root.parentNode) {
-      root = root.parentNode;
-    }
-    this.attr('data', data);
-    (root as Chart).render();
-  }
-
   /**
    * Apply specified callback to the node value.
    */
@@ -135,5 +124,14 @@ export class Node<
   ): this {
     callback(this.map(), ...params);
     return this;
+  }
+
+  root(): Chart {
+    // Find the root chart and render.
+    let root: Node = this;
+    while (root && root.parentNode) {
+      root = root.parentNode;
+    }
+    return root as Chart;
   }
 }

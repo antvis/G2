@@ -20,7 +20,7 @@ import {
   ObjectAttribute,
 } from './types';
 import { mark, Mark } from './mark';
-import { composition, Composition } from './composition';
+import { composition, Composition, View } from './composition';
 import { library } from './library';
 
 function normalizeContainer(container: string | HTMLElement): HTMLElement {
@@ -161,7 +161,7 @@ export const props: NodePropertyDescriptor[] = [
 ];
 
 @defineProps(props)
-export class Chart extends Node<ChartOptions> {
+export class Chart extends View<ChartOptions> {
   private _container: HTMLElement;
   private _context: G2Context;
 
