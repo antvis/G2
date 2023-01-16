@@ -67,6 +67,14 @@
         "en": "Multiple view brush highlight"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*dXxcQJo8c7sAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "range-multi-highlight.ts",
+      "title": {
+        "zh": "多框选高亮",
+        "en": "Brush multiple highlight"
+      },
+      "screenshot": "https://img.alicdn.com/imgextra/i2/O1CN01PVHFdF1x5aSdxkVLS_!!6000000006392-1-tps-694-476.gif"
     }
   ]
 }
