@@ -6,9 +6,8 @@ import {
   ArrayAttribute,
   Concrete,
 } from '../types';
-import { Node } from '../node';
 import { mark, Mark } from '../mark';
-import { Composition } from './index';
+import { Composition, Base } from './index';
 
 type GeoPathSpec = Concrete<GeoPathComposition>;
 
@@ -36,7 +35,7 @@ export interface GeoPath extends Mark, Composition {
   { type: 'object', name: 'legend' },
   ...nodeProps(mark),
 ])
-export class GeoPath extends Node<GeoPathComposition> {
+export class GeoPath extends Base<GeoPathComposition> {
   constructor() {
     super({}, 'geoPath');
   }
