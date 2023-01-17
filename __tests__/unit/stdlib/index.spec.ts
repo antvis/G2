@@ -113,7 +113,9 @@ import {
   Connector as ConnectorShape,
   Area,
   SmoothArea,
-  Step,
+  HVHArea,
+  HVArea,
+  VHArea,
   SmoothEdge,
   VHVEdge,
   Arc,
@@ -130,7 +132,6 @@ import {
   Path as PathShape,
   HollowPath,
   Shape as CustomShape,
-  AreaHVH,
 } from '../../../src/shape';
 import { Light, Dark, Academy } from '../../../src/theme';
 import {
@@ -449,7 +450,9 @@ describe('stdlib', () => {
       'shape.text.text': Text,
       'shape.area.area': Area,
       'shape.area.smooth': SmoothArea,
-      'shape.area.hvh': AreaHVH,
+      'shape.area.hvh': HVHArea,
+      'shape.area.vh': VHArea,
+      'shape.area.hv': HVArea,
       'shape.link.smooth': SmoothEdge,
       'shape.link.vhv': VHVEdge,
       'shape.link.arc': Arc,

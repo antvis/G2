@@ -62,7 +62,7 @@ export const Area: MC<AreaOptions> = () => {
   };
 };
 
-const shapes = ['area', 'smooth', 'hvh'];
+const shapes = ['area', 'smooth', 'hvh', 'hv', 'vh'];
 
 Area.props = {
   defaultShape: 'area',
