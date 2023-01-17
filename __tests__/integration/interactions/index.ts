@@ -31,3 +31,8 @@ export { penguinsPointBrushYFilter } from './penguins-point-brush-y-filter';
 export { penguinsPointBrushMatrix } from './penguins-point-brush-matrix';
 export { aaplLineSliderFilter } from './appl-line-slider-filter';
 export { profitIntervalSliderFilter } from './profit-interval-slider-filter';
+export { alphabetIntervalHighlightBackground } from './alphabet-interval-highlight-background';
+export { alphabetIntervalHighlightBackgroundStyle } from './alphabet-interval-highlight-background-style';
+export { waffleCellHighlightBackground } from './waffle-cell-highlight-background';
+export { stateAgesIntervalHighlightGroupBackground } from './stateages-interval-highlight-group-background';
+export { stateAgesIntervalHighlightColorBackground } from './stateages-interval-highlight-color-background';

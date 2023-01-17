@@ -43,3 +43,12 @@ export function step(
     },
   };
 }
+
+export function disableDelay(options): G2Spec {
+  const { interactions = [] } = options;
+  const newInteractions = interactions.map((d) => ({ ...d, delay: 0 }));
+  return {
+    ...options,
+    interactions: newInteractions,
+  };
+}
