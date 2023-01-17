@@ -11,23 +11,65 @@ import { ComponentOption, IInteractionContext, LooseObject } from '../../interfa
 function getMaskBBox(context: IInteractionContext, tolerance: number) {
   const event = context.event;
   const maskShape = event.target;
+  return getMaskBBoxByShape(maskShape, tolerance);
+}
+
+/**
+ * 如果 mask BBox 过小则不返回
+ */
+function isValidMaskBBox(maskShape, tolerance: number) {
   const maskBBox = maskShape.getCanvasBBox();
-  // 如果 bbox 过小则不返回
-  if (!(maskBBox.width >= tolerance || maskBBox.height >= tolerance)) {
-    return null;
-  }
-  return maskBBox;
+  const { width, height } = maskBBox;
+  return width > 0 && height > 0 && (width >= tolerance || height >= tolerance);
+}
+
+/**
+ * 通过 maskShape 获取 mask 的 canvasBBox
+ * @param maskShape
+ * @param tolerance
+ * @returns
+ */
+function getMaskBBoxByShape(maskShape, tolerance: number) {
+  const maskBBox = maskShape.getCanvasBBox();
+  return isValidMaskBBox(maskShape, tolerance) ? maskBBox : null;
+}
+
+/**
+ * 获取 multiple 模式下 mask 的 canvasBBox 数组
+ * @param context 上下文
+ * @param tolerance box 宽高小于则不返回
+ * @returns
+ */
+function getMultiMaskBBoxList(context: IInteractionContext, tolerance: number) {
+  const { maskShapes } = context.event;
+  return maskShapes.map((maskShape) => getMaskBBoxByShape(maskShape, tolerance)).filter((bBox) => !!bBox);
 }
 
 function getMaskPath(context: IInteractionContext, tolerance: number) {
   const event = context.event;
   const maskShape = event.target;
-  const maskBBox = maskShape.getCanvasBBox();
-  // 如果 bbox 过小则不返回
-  if (!(maskBBox.width >= tolerance || maskBBox.height >= tolerance)) {
-    return null;
-  }
-  return maskShape.attr('path');
+  return getMaskPathByMaskShape(maskShape, tolerance);
+}
+
+/**
+ * 通过 maskShape 获取 mask path
+ * @param maskShape
+ * @param tolerance box 宽高小于则不返回
+ * @returns
+ */
+function getMaskPathByMaskShape(maskShape, tolerance: number) {
+  return isValidMaskBBox(maskShape, tolerance) ? maskShape.attr('path') : null;
+}
+
+/**
+ * 获取 multiple 模式下 mask path 数组
+ * @param context 上下文
+ * @param tolerance box 宽高小于则不返回
+ * @returns
+ */
+function getMultiMaskPathList(context: IInteractionContext, tolerance: number) {
+  const { maskShapes } = context.event;
+  return maskShapes.map((maskShape) => getMaskPathByMaskShape(maskShape, tolerance));
 }
 
 /**
@@ -95,7 +137,16 @@ export function isSlider(delegateObject: LooseObject): boolean {
 export function isMask(context: IInteractionContext): boolean {
   const event = context.event;
   const target = event.target;
-  return target && target.get('name') === 'mask';
+  return (target && target?.get('name') === 'mask') || isMultipleMask(context);
+}
+
+/**
+ * 是否由 multiple mask 触发
+ * @param context
+ * @returns
+ */
+export function isMultipleMask(context: IInteractionContext): boolean {
+  return context.event.target?.get('name') === 'multi-mask';
 }
 
 /**
@@ -105,6 +156,13 @@ export function isMask(context: IInteractionContext): boolean {
  */
 export function getMaskedElements(context: IInteractionContext, tolerance: number): Element[] {
   const target = context.event.target;
+
+  // multiple 模式下
+  if (isMultipleMask(context)) {
+    return getMultiMaskedElements(context, tolerance);
+  }
+
+  // 正常模式下
   if (target.get('type') === 'path') {
     const maskPath = getMaskPath(context, tolerance);
     if (!maskPath) {
@@ -121,14 +179,52 @@ export function getMaskedElements(context: IInteractionContext, tolerance: numbe
 }
 
 /**
+ * 获取 multiple 模式下被 mask 遮挡的 elements
+ * @param context 上下文
+ * @returns
+ */
+function getMultiMaskedElements(context: IInteractionContext, tolerance: number): Element[] {
+  const { target } = context.event;
+  if (target.get('type') === 'path') {
+    const maskPathList = getMultiMaskPathList(context, tolerance);
+    if (maskPathList.length > 0) {
+      return maskPathList.flatMap((maskPath) => getElementsByPath(context.view, maskPath));
+    }
+    return null;
+  }
+  const maskBBoxList = getMultiMaskBBoxList(context, tolerance);
+  if (maskBBoxList.length > 0) {
+    return maskBBoxList.flatMap((maskBBox) => getIntersectElements(context.view, maskBBox));
+  }
+  return null;
+}
+
+/**
  * @ignore
  */
 export function getSiblingMaskElements(context: IInteractionContext, sibling: View, tolerance: number) {
+  // multiple 模式下
+  if (isMultipleMask(context)) {
+    return getSiblingMultiMaskedElements(context, sibling, tolerance);
+  }
+
+  // 正常模式下
   const maskBBox = getMaskBBox(context, tolerance);
   // 如果 bbox 过小则不返回
   if (!maskBBox) {
     return null;
   }
+  return getSiblingMaskElementsByBBox(maskBBox, context, sibling);
+}
+
+/**
+ * 通过 mashBBox 获取 sibling 模式下被 mask 遮挡的 elements
+ * @param maskBBox
+ * @param context 上下文
+ * @param sibling sibling view
+ * @returns
+ */
+function getSiblingMaskElementsByBBox(maskBBox, context: IInteractionContext, sibling: View) {
   const view = context.view;
   const start = getSiblingPoint(view, sibling, { x: maskBBox.x, y: maskBBox.y });
   const end = getSiblingPoint(view, sibling, { x: maskBBox.maxX, y: maskBBox.maxY });
@@ -139,6 +235,21 @@ export function getSiblingMaskElements(context: IInteractionContext, sibling: Vi
     maxY: end.y,
   };
   return getIntersectElements(sibling, box);
+}
+
+/**
+ * 获取 sibling 模式下被 multiple mask 遮挡的 elements
+ * @param context 上下文
+ * @param sibling sibling view
+ * @param tolerance box 宽高小于则不返回
+ * @returns
+ */
+function getSiblingMultiMaskedElements(context: IInteractionContext, sibling: View, tolerance: number): Element[] {
+  const maskBBoxList = getMultiMaskBBoxList(context, tolerance);
+  if (maskBBoxList.length > 0) {
+    return maskBBoxList.flatMap((maskBBox) => getSiblingMaskElementsByBBox(maskBBox, context, sibling));
+  }
+  return null;
 }
 
 /**
