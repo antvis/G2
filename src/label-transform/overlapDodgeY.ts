@@ -2,6 +2,7 @@ import { DisplayObject } from '@antv/g';
 import { ascending } from 'd3-array';
 import { OverlapDodgeYTransform } from '../spec';
 import { LabelTransformComponent as LLC } from '../runtime';
+import { defined } from '../utils/helper';
 
 export type OverlapDodgeYOptions = Omit<OverlapDodgeYTransform, 'type'>;
 
@@ -16,13 +17,19 @@ function useMap<K, V>() {
   return [get, set] as const;
 }
 
+/**
+ * @todo fixme
+ */
 function getBoundsWithoutConnector(shape: DisplayObject) {
+  // Remove this line when @antv/g fixed
+  // https://github.com/antvis/G/pull/1269#pullrequestreview-1251209956
+  if (!defined(shape.style.stroke)) shape.style.stroke = '';
+
   const node = shape.cloneNode(true);
   const connectorShape = node.getElementById('connector');
   connectorShape && node.removeChild(connectorShape);
   const { min, max } = node.getRenderBounds();
   node.destroy();
-
   return { min, max };
 }
 
