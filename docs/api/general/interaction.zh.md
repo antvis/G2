@@ -1027,6 +1027,39 @@ registerInteraction('element-brush', {
 - hide() 隐藏遮罩层
 - end() 结束框选
 
+#### rect-multi-mask
+
+在画布上进行框选，支持反复框选，出现多个矩形的遮罩：
+
+- start() 开始框选
+- show() 显示遮罩层
+- resize() 改变大小
+- hide() 隐藏遮罩层
+- end() 结束框选
+- clear() 清除框选
+
+#### circle-multi-mask
+
+在画布上进行框选，支持反复框选，出现多个圆形的遮罩：
+
+- start() 开始框选
+- show() 显示遮罩层
+- resize() 改变大小
+- hide() 隐藏遮罩层
+- end() 结束框选
+- clear() 清除框选
+
+#### path-multi-mask
+
+在画布上进行框选，在多个点上形成 path，支持反复框选，出现多个 path 遮罩：
+
+- start() 开始框选
+- show() 显示遮罩层
+- addPoint() 添加一个点
+- hide() 隐藏遮罩层
+- end() 结束框选
+- clear() 清除框选
+
 #### reset-button
 
 在画布右上角出现一个恢复按钮，按钮图形上有 name: 'reset-button'，仅有两个方法：
