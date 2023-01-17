@@ -207,6 +207,12 @@ import PathMask from './interaction/action/mask/path';
 import RectMask from './interaction/action/mask/rect';
 import SmoothPathMask from './interaction/action/mask/smooth-path';
 
+import RectMultiMask from './interaction/action/mask/multiple/rect';
+import DimRectMultiMask from './interaction/action/mask/multiple/dim-rect';
+import CircleMultiMask from './interaction/action/mask/multiple/circle';
+import PathMultiMask from './interaction/action/mask/multiple/path';
+import SmoothPathMultiMask from './interaction/action/mask/multiple/smooth-path';
+
 import CursorAction from './interaction/action/cursor';
 import DataFilter from './interaction/action/data/filter';
 import DataRangeFilter, { BRUSH_FILTER_EVENTS } from './interaction/action/data/range-filter';
@@ -270,6 +276,13 @@ registerAction('circle-mask', CircleMask);
 registerAction('path-mask', PathMask);
 registerAction('smooth-path-mask', SmoothPathMask);
 
+registerAction('rect-multi-mask', RectMultiMask);
+registerAction('x-rect-multi-mask', DimRectMultiMask, { dim: 'x' });
+registerAction('y-rect-multi-mask', DimRectMultiMask, { dim: 'y' });
+registerAction('circle-multi-mask', CircleMultiMask);
+registerAction('path-multi-mask', PathMultiMask);
+registerAction('smooth-path-multi-mask', SmoothPathMultiMask);
+
 registerAction('cursor', CursorAction);
 registerAction('data-filter', DataFilter);
 
@@ -298,6 +311,7 @@ registerAction('mousewheel-scroll', MousewheelScroll);
 
 // 注册默认的 Interaction 交互行为
 import { registerInteraction } from './core';
+import { isMultipleMask } from './interaction/action/util';
 
 function isPointInView(context: IInteractionContext) {
   return context.isInPlot();
@@ -557,6 +571,62 @@ registerInteraction('element-path-highlight', {
   processing: [{ trigger: 'mousemove', action: 'path-mask:addPoint' }],
   end: [{ trigger: 'mouseup', action: 'path-mask:end' }],
   rollback: [{ trigger: 'dblclick', action: 'path-mask:hide' }],
+});
+
+registerInteraction('brush-x-multi', {
+  showEnable: [
+    { trigger: 'plot:mouseenter', action: 'cursor:crosshair' },
+    { trigger: 'mask:mouseenter', action: 'cursor:move' },
+    { trigger: 'plot:mouseleave', action: 'cursor:default' },
+    { trigger: 'mask:mouseleave', action: 'cursor:crosshair' },
+  ],
+  start: [
+    {
+      trigger: 'mousedown',
+      isEnable: isPointInView,
+      action: ['x-rect-multi-mask:start', 'x-rect-multi-mask:show'],
+    },
+    {
+      trigger: 'mask:dragstart',
+      action: ['x-rect-multi-mask:moveStart'],
+    },
+  ],
+  processing: [
+    {
+      trigger: 'mousemove',
+      isEnable: (context) => !isMultipleMask(context),
+      action: ['x-rect-multi-mask:resize'],
+    },
+    {
+      trigger: 'multi-mask:change',
+      action: 'element-range-highlight:highlight',
+    },
+    {
+      trigger: 'mask:drag',
+      action: ['x-rect-multi-mask:move'],
+    },
+  ],
+  end: [
+    {
+      trigger: 'mouseup',
+      action: ['x-rect-multi-mask:end'],
+    },
+    { trigger: 'mask:dragend', action: ['x-rect-multi-mask:moveEnd'] },
+  ],
+  rollback: [
+    {
+      trigger: 'dblclick',
+      action: ['x-rect-multi-mask:clear', 'cursor:crosshair'],
+    },
+    {
+      trigger: 'multi-mask:clearAll',
+      action: ['element-range-highlight:clear'],
+    },
+    {
+      trigger: 'multi-mask:clearSingle',
+      action: ['element-range-highlight:highlight'],
+    },
+  ],
 });
 
 // 点击选中，允许取消
