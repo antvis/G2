@@ -398,145 +398,177 @@ describe('Chart', () => {
       ]);
     };
   });
-});
 
-it('chart.render({...}) should rerender chart with updated size', () => {
-  const div = createDiv();
-  const button = document.createElement('button');
-  button.innerText = 'Update Size';
-  div.appendChild(button);
+  it('chart.render({...}) should rerender chart with updated size', () => {
+    const div = createDiv();
+    const button = document.createElement('button');
+    button.innerText = 'Update Size';
+    div.appendChild(button);
 
-  const chart = new Chart({
-    container: div,
-    width: 300,
-    height: 600,
+    const chart = new Chart({
+      container: div,
+      width: 300,
+      height: 600,
+    });
+
+    chart.data([
+      { genre: 'Sports', sold: 275 },
+      { genre: 'Strategy', sold: 115 },
+      { genre: 'Action', sold: 120 },
+      { genre: 'Shooter', sold: 350 },
+      { genre: 'Other', sold: 150 },
+    ]);
+
+    chart
+      .interval()
+      .encode('x', 'genre')
+      .encode('y', 'sold')
+      .encode('color', 'genre');
+
+    chart.render();
+    button.onclick = () => {
+      chart.changeSize(200, 400);
+    };
   });
 
-  chart.data([
-    { genre: 'Sports', sold: 275 },
-    { genre: 'Strategy', sold: 115 },
-    { genre: 'Action', sold: 120 },
-    { genre: 'Shooter', sold: 350 },
-    { genre: 'Other', sold: 150 },
-  ]);
+  it('chart.render({...}) should render with autoFit.', () => {
+    const div = createDiv();
 
-  chart
-    .interval()
-    .encode('x', 'genre')
-    .encode('y', 'sold')
-    .encode('color', 'genre');
+    // button
+    const button = document.createElement('button');
+    button.innerText = 'Change Wrapper Container';
+    div.appendChild(button);
 
-  chart.render();
-  button.onclick = () => {
-    chart.changeSize(200, 400);
-  };
-});
-
-it('chart.render({...}) should render with autoFit.', () => {
-  const div = createDiv();
-
-  // button
-  const button = document.createElement('button');
-  button.innerText = 'Change Wrapper Container';
-  div.appendChild(button);
-
-  // wrapperDiv
-  const wrapperDiv = document.createElement('div');
-  wrapperDiv.style.width = '800px';
-  wrapperDiv.style.height = '500px';
-  div.appendChild(wrapperDiv);
-
-  const chart = new Chart({
-    container: wrapperDiv,
-    autoFit: true,
-  });
-
-  chart.data([
-    { genre: 'Sports', sold: 275 },
-    { genre: 'Strategy', sold: 115 },
-    { genre: 'Action', sold: 120 },
-    { genre: 'Shooter', sold: 350 },
-    { genre: 'Other', sold: 150 },
-  ]);
-
-  chart
-    .interval()
-    .encode('x', 'genre')
-    .encode('y', 'sold')
-    .encode('color', 'genre');
-
-  chart.render();
-
-  button.onclick = () => {
-    wrapperDiv.style.width = '400px';
+    // wrapperDiv
+    const wrapperDiv = document.createElement('div');
+    wrapperDiv.style.width = '800px';
     wrapperDiv.style.height = '500px';
-    chart.forceFit();
-  };
-});
+    div.appendChild(wrapperDiv);
 
-it('chart.on({...}) should register chart event.', () => {
-  const div = createDiv();
+    const chart = new Chart({
+      container: wrapperDiv,
+      autoFit: true,
+    });
 
-  const chart = new Chart({
-    container: div,
+    chart.data([
+      { genre: 'Sports', sold: 275 },
+      { genre: 'Strategy', sold: 115 },
+      { genre: 'Action', sold: 120 },
+      { genre: 'Shooter', sold: 350 },
+      { genre: 'Other', sold: 150 },
+    ]);
+
+    chart
+      .interval()
+      .encode('x', 'genre')
+      .encode('y', 'sold')
+      .encode('color', 'genre');
+
+    chart.render();
+
+    button.onclick = () => {
+      wrapperDiv.style.width = '400px';
+      wrapperDiv.style.height = '500px';
+      chart.forceFit();
+    };
   });
 
-  // 1. chart.on('eventName', callback)
-  chart.on('afterrender', () => console.log('afterrender event.'));
-  // 2. chart.on('eventName', [callback])
-  chart.on('beforerender', [
-    () => console.log('beforerender event 1'),
-    () => console.log('beforerender event 2'),
-  ]);
-  chart.data([
-    { genre: 'Sports', sold: 275 },
-    { genre: 'Strategy', sold: 115 },
-    { genre: 'Action', sold: 120 },
-    { genre: 'Shooter', sold: 350 },
-    { genre: 'Other', sold: 150 },
-  ]);
+  it('chart.on({...}) should register chart event.', () => {
+    const div = createDiv();
 
-  chart
-    .interval()
-    .encode('x', 'genre')
-    .encode('y', 'sold')
-    .encode('color', 'genre');
+    const chart = new Chart({
+      container: div,
+    });
 
-  chart.render();
-});
+    // 1. chart.on('eventName', callback)
+    chart.on('afterrender', () => console.log('afterrender event.'));
+    // 2. chart.on('eventName', [callback])
+    chart.on('beforerender', [
+      () => console.log('beforerender event 1'),
+      () => console.log('beforerender event 2'),
+    ]);
+    chart.data([
+      { genre: 'Sports', sold: 275 },
+      { genre: 'Strategy', sold: 115 },
+      { genre: 'Action', sold: 120 },
+      { genre: 'Shooter', sold: 350 },
+      { genre: 'Other', sold: 150 },
+    ]);
 
-it('chart should render after window resize.', (done) => {
-  const div = createDiv();
+    chart
+      .interval()
+      .encode('x', 'genre')
+      .encode('y', 'sold')
+      .encode('color', 'genre');
 
-  const chart = new Chart({
-    container: div,
-    autoFit: true,
+    chart.render();
   });
-  chart.data([
-    { genre: 'Sports', sold: 275 },
-    { genre: 'Strategy', sold: 115 },
-    { genre: 'Action', sold: 120 },
-    { genre: 'Shooter', sold: 350 },
-    { genre: 'Other', sold: 150 },
-  ]);
-  chart
-    .interval()
-    .encode('x', 'genre')
-    .encode('y', 'sold')
-    .encode('color', 'genre');
 
-  const fn = jest.fn();
-  const render = chart.render.bind(chart);
-  chart.render = () => {
-    fn();
-    return render();
-  };
-  chart.render();
-  div.style.width = '100px';
-  div.style.height = '100px';
-  window.dispatchEvent(new Event('resize'));
-  setTimeout(() => {
-    expect(fn).toHaveBeenCalledTimes(2);
-    done();
-  }, 400);
+  it('chart should render after window resize.', (done) => {
+    const div = createDiv();
+
+    const chart = new Chart({
+      container: div,
+      autoFit: true,
+    });
+    chart.data([
+      { genre: 'Sports', sold: 275 },
+      { genre: 'Strategy', sold: 115 },
+      { genre: 'Action', sold: 120 },
+      { genre: 'Shooter', sold: 350 },
+      { genre: 'Other', sold: 150 },
+    ]);
+    chart
+      .interval()
+      .encode('x', 'genre')
+      .encode('y', 'sold')
+      .encode('color', 'genre');
+
+    const fn = jest.fn();
+    const render = chart.render.bind(chart);
+    chart.render = () => {
+      fn();
+      return render();
+    };
+    chart.render();
+    div.style.width = '100px';
+    div.style.height = '100px';
+    window.dispatchEvent(new Event('resize'));
+    setTimeout(() => {
+      expect(fn).toHaveBeenCalledTimes(2);
+      done();
+    }, 400);
+  });
+
+  it('get instance information after chart render.', (done) => {
+    const div = createDiv();
+    const chart = new Chart({
+      container: div,
+      autoFit: true,
+      key: '$$chart$$',
+    });
+    chart.data([
+      { genre: 'Sports', sold: 275 },
+      { genre: 'Strategy', sold: 115 },
+      { genre: 'Action', sold: 120 },
+      { genre: 'Shooter', sold: 350 },
+      { genre: 'Other', sold: 150 },
+    ]);
+    chart
+      .interval()
+      .attr('key', 'interval')
+      .encode('x', 'genre')
+      .encode('y', 'sold')
+      .encode('color', 'genre');
+    chart.render();
+    setTimeout(() => {
+      const context = chart.context();
+      const view = context.views?.find((v) => v.key === chart.attr('key'));
+      expect(chart.getView()).toEqual(view);
+      expect(chart.getCoordinate()).toEqual(view?.coordinate);
+      expect(chart.getTheme()).toEqual(view?.theme);
+      expect(chart.getGroup().id).toEqual(chart.attr('key'));
+      done();
+    }, 300);
+  });
 });
