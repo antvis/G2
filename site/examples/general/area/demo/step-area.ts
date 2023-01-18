@@ -36,11 +36,6 @@ chart
   .style('opacity', 0.4)
   .axis('y', { labelFormatter: '~s' });
 
-chart
-  .line()
-  .encode('x', 'year')
-  .encode('y', 'value')
-  .encode('shape', 'hvh') // 'line', 'smooth', 'vh', 'hv', 'hvh'
-  .axis(false);
+chart.line().encode('x', 'year').encode('y', 'value').encode('shape', 'hvh'); // 'line', 'smooth', 'vh', 'hv', 'hvh'
 
 chart.render();
