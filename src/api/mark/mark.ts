@@ -27,8 +27,8 @@ import {
   WordCloudMark,
 } from '../../spec';
 import { NodePropertyDescriptor, defineProps } from '../props';
-import { Node } from '../node';
 import { Concrete } from '../types';
+import { MarkBase } from './base';
 import { API } from './types';
 
 export interface Interval extends API<Concrete<IntervalGeometry>, Interval> {
@@ -147,25 +147,6 @@ export const props: NodePropertyDescriptor[] = [
   { name: 'slider', type: 'object' },
   { name: 'scrollbar', type: 'object' },
 ];
-
-export class MarkBase<
-  Value extends Record<string, any> = Record<string, any>,
-  ParentValue extends Record<string, any> = Record<string, any>,
-  ChildValue extends Record<string, any> = Record<string, any>,
-> extends Node<Value, ParentValue, ChildValue> {
-  changeData(data) {
-    const chart = this.root();
-    if (!chart) return;
-    this.attr('data', data);
-    chart?.render();
-  }
-
-  getMark() {}
-
-  getScale() {}
-
-  getGroup() {}
-}
 
 @defineProps(props)
 export class Interval extends MarkBase<IntervalGeometry> {
