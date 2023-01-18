@@ -125,7 +125,11 @@ export type ElementHighlightInteraction = {
   type?: 'elementHighlight';
   // @todo: Style supported by G.
   link?: boolean;
-} & Record<`${'link' | 'highlighted' | 'unhighlighted'}${any}`, any>;
+  background?: boolean;
+} & Record<
+  `${'link' | 'highlighted' | 'unhighlighted' | 'background'}${any}`,
+  any
+>;
 
 export type ElementSelectInteraction = {
   type?: 'elementSelect';
@@ -146,12 +150,20 @@ export type ElementHighlightByXInteraction = {
   type?: 'elementHighlightByX';
   x?: string;
   link?: boolean;
-} & Record<`${'link' | 'highlighted' | 'unhighlighted'}${any}`, any>;
+  background?: boolean;
+} & Record<
+  `${'link' | 'highlighted' | 'unhighlighted' | 'background'}${any}`,
+  any
+>;
 
 export type ElementHighlightByColorInteraction = {
   type?: 'elementHighlightByColor';
   color?: string;
-} & Record<`${'link' | 'highlighted' | 'unhighlighted'}${any}`, any>;
+  background?: boolean;
+} & Record<
+  `${'link' | 'highlighted' | 'unhighlighted' | 'background'}${any}`,
+  any
+>;
 
 export type LegendFilterInteraction = {
   type?: 'legendFilter';
