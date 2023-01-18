@@ -14,7 +14,7 @@ export function temperatures3AreaBandGradient(): G2Spec {
     encode: {
       x: 'date',
       y: ['low', 'high'],
-      shape: 'step',
+      shape: 'hvh',
       color: (d) => d.high - d.low,
       series: () => undefined,
     },
