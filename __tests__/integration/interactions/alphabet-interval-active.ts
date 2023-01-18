@@ -1,5 +1,5 @@
 import { G2Spec, ELEMENT_CLASS_NAME } from '../../../src';
-import { step } from './utils';
+import { step, disableDelay } from './utils';
 
 export function alphabetIntervalActive(): G2Spec {
   return {
@@ -20,6 +20,8 @@ export function alphabetIntervalActive(): G2Spec {
     interactions: [{ type: 'elementHighlight', highlightedFill: 'red' }],
   };
 }
+
+alphabetIntervalActive.preprocess = disableDelay;
 
 alphabetIntervalActive.steps = ({ canvas }) => {
   const { document } = canvas;

@@ -7,7 +7,7 @@ import { createGCanvas, writePNG, sleep, diff } from './canvas';
 // @ts-ignore
 global.fetch = fetch;
 
-function closeAnimation(options): G2Spec {
+function disableAnimation(options): G2Spec {
   const { children } = options;
   if (!children) return { ...options, animate: false };
   const newChildren = children.map((d) => ({ ...d, animate: false }));
@@ -37,12 +37,14 @@ describe('Interactions', () => {
         try {
           // Render chart.
           const raw = await generateOptions();
+          // @ts-ignore
+          const { preprocess = (d) => d } = generateOptions;
 
-          // Close the animation duration test for interaction,
+          // Disable animation and delay duration test for interaction,
           // make than there is no need to wait for the animation finished
           // before take snapshots.
           // @ts-ignore
-          const options = generateOptions.animate ? raw : closeAnimation(raw);
+          const options = preprocess(disableAnimation(raw));
           const { width = 640, height = 480 } = options;
           [canvas, nodeCanvas] = createGCanvas(width, height);
           await new Promise<void>((resolve) => {

@@ -1,11 +1,11 @@
 import { bisectLeft, sort } from 'd3-array';
 
-function isOrdinalScale(scale) {
-  return scale.getBandWidth;
-}
-
 function constrain(x, lo, hi) {
   return Math.min(hi, Math.max(lo, x));
+}
+
+export function isOrdinalScale(scale) {
+  return scale.getBandWidth;
 }
 
 export function invert(scale, x, start) {

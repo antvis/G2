@@ -8,6 +8,8 @@ import {
   useState,
   renderLink,
   applyDefaultsHighlightedStyle,
+  renderBackground,
+  selectPlotArea,
 } from './utils';
 
 /**
@@ -20,6 +22,10 @@ export function elementHighlight(
     datum, // given each element returns the datum of it
     groupKey = (d) => d, // group elements by specified key
     link = false, // draw link or not
+    background = false, // draw background or not
+    delay = 60, // delay to unhighlighted element
+    scale,
+    coordinate,
     ...rest
   }: Record<string, any>,
 ) {
@@ -32,45 +38,85 @@ export function elementHighlight(
     valueof,
     ...subObject(rest, 'link'),
   });
+  const [appendBackground, removeBackground, isBackground] = renderBackground({
+    scale,
+    coordinate,
+    background,
+    valueof,
+    ...subObject(rest, 'background'),
+  });
   const { setState, removeState } = useState(rest, valueof);
 
+  let out; // Timer for delaying unhighlighted.
   const pointerover = (event) => {
     const { target: element } = event;
     if (!elementSet.has(element)) return;
+    if (out) clearTimeout(out);
     const k = groupKey(element);
     const group = keyGroup.get(k);
     const groupSet = new Set(group);
     for (const e of elements) {
       if (groupSet.has(e)) setState(e, 'highlighted');
       else setState(e, 'unhighlighted');
+      if (e !== element) removeBackground(e);
     }
+    appendBackground(element);
     if (link) appendLink(group);
+  };
+
+  const delayUnhighlighted = () => {
+    if (out) clearTimeout(out);
+    out = setTimeout(() => {
+      unhighlighted();
+      out = null;
+    }, delay);
+  };
+
+  const unhighlighted = () => {
+    for (const e of elements) {
+      removeState(e, 'unhighlighted', 'highlighted');
+      removeBackground(e);
+    }
+    if (link) removeLink();
   };
 
   const pointerout = (event) => {
     const { target: element } = event;
-    if (!elementSet.has(element)) return;
-    for (const e of elements) removeState(e, 'unhighlighted', 'highlighted');
-    if (link) removeLink();
+    if (background && !isBackground(element)) return;
+    if (!background && !elementSet.has(element)) return;
+    if (delay > 0) delayUnhighlighted();
+    else unhighlighted();
+  };
+
+  const pointerleave = () => {
+    unhighlighted();
   };
 
   root.addEventListener('pointerover', pointerover);
   root.addEventListener('pointerout', pointerout);
+  root.addEventListener('pointerleave', pointerleave);
 
   return () => {
     root.removeEventListener('pointerover', pointerover);
     root.removeEventListener('pointerout', pointerout);
-    removeLink();
+    root.removeEventListener('pointerleave', pointerleave);
+    if (link) removeLink();
+    for (const e of elements) removeBackground(e);
   };
 }
 
-export function ElementHighlight(options) {
+export function ElementHighlight({ delay, ...rest }) {
   return (context) => {
     const { container, view } = context;
-    return elementHighlight(container, {
-      ...applyDefaultsHighlightedStyle(options),
+    const { scale, coordinate } = view;
+    const plotArea = selectPlotArea(container);
+    return elementHighlight(plotArea, {
+      ...applyDefaultsHighlightedStyle(rest),
       elements: selectG2Elements,
       datum: createDatumof(view),
+      scale,
+      coordinate,
+      delay,
     });
   };
 }
