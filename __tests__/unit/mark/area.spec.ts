@@ -9,7 +9,7 @@ describe('Area', () => {
       channels: [
         { name: 'color' },
         { name: 'opacity' },
-        { name: 'shape', range: ['area', 'smooth', 'step'] },
+        { name: 'shape', range: ['area', 'smooth', 'hvh', 'hv', 'vh'] },
         { name: 'enterType' },
         { name: 'enterDelay', scaleName: 'enter' },
         { name: 'enterDuration', scaleName: 'enter' },
