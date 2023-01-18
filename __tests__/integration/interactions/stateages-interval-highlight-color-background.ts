@@ -1,11 +1,9 @@
 import { G2Spec, ELEMENT_CLASS_NAME } from '../../../src';
-import { step, disableDelay } from './utils';
+import { step } from './utils';
 
-export function stateAgesIntervalActiveByColorLinked(): G2Spec {
+export function stateAgesIntervalHighlightColorBackground(): G2Spec {
   return {
     type: 'interval',
-    padding: 0,
-    width: 800,
     transform: [
       { type: 'stackY' },
       { type: 'sortX', by: 'y', reverse: true, slice: 5 },
@@ -15,8 +13,6 @@ export function stateAgesIntervalActiveByColorLinked(): G2Spec {
       value: 'data/stateages.csv',
       format: 'csv',
     },
-    axis: false,
-    legend: false,
     encode: {
       x: 'state',
       y: 'population',
@@ -25,25 +21,23 @@ export function stateAgesIntervalActiveByColorLinked(): G2Spec {
     scale: {
       x: { paddingInner: 0.2 },
     },
+    axis: {
+      y: { labelFormatter: '~s' },
+    },
     interactions: [
       {
         type: 'elementHighlightByColor',
-        link: true,
-        linkFill: (d) => (d.state === 'CA' ? 'red' : undefined),
-        highlightedStroke: '#000',
-        highlightedStrokeWidth: 1,
+        highlightedFill: 'red',
         unhighlightedOpacity: 0.6,
-        linkFillOpacity: 0.5,
+        background: true,
       },
     ],
   };
 }
 
-stateAgesIntervalActiveByColorLinked.preprocess = disableDelay;
-
-stateAgesIntervalActiveByColorLinked.steps = ({ canvas }) => {
+stateAgesIntervalHighlightColorBackground.steps = ({ canvas }) => {
   const { document } = canvas;
   const elements = document.getElementsByClassName(ELEMENT_CLASS_NAME);
   const [e1] = elements;
-  return [step(e1, 'pointerover'), step(e1, 'pointerout')];
+  return [step(e1, 'pointerover')];
 };

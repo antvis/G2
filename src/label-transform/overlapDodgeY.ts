@@ -17,14 +17,7 @@ function useMap<K, V>() {
   return [get, set] as const;
 }
 
-/**
- * @todo fixme
- */
 function getBoundsWithoutConnector(shape: DisplayObject) {
-  // Remove this line when @antv/g fixed
-  // https://github.com/antvis/G/pull/1269#pullrequestreview-1251209956
-  if (!defined(shape.style.stroke)) shape.style.stroke = '';
-
   const node = shape.cloneNode(true);
   const connectorShape = node.getElementById('connector');
   connectorShape && node.removeChild(connectorShape);

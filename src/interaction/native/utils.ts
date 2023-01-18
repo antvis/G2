@@ -1,4 +1,4 @@
-import { DisplayObject, Path } from '@antv/g';
+import { DisplayObject, Path, Rect } from '@antv/g';
 import { path as d3Path } from 'd3-path';
 import { subObject } from '../../utils/helper';
 import { select } from '../../utils/selection';
@@ -8,6 +8,7 @@ import {
   ELEMENT_CLASS_NAME,
   PLOT_CLASS_NAME,
 } from '../../runtime';
+import { isOrdinalScale } from '../../utils/scale';
 
 /**
  * Given root of chart returns elements to be manipulated
@@ -228,6 +229,104 @@ export function renderLink(
   };
 
   return [append, remove] as const;
+}
+
+/**
+ * @todo Different coordinates.
+ * @todo Other marks link point, area, line, etc.
+ */
+export function renderBackground({
+  background,
+  scale,
+  coordinate,
+  valueof,
+  padding = 0.001,
+  ...rest
+}) {
+  const BACKGROUND_CLASS_NAME = 'element-background';
+
+  // Don't have background.
+  if (!background) return [() => {}, () => {}];
+
+  const [width, height] = coordinate.getSize();
+
+  const backgroundOf = (element) => {
+    if (element.background) return element.background;
+    const background = new Rect({
+      // @ts-ignore
+      style: {
+        zIndex: -1,
+      },
+      className: BACKGROUND_CLASS_NAME,
+    });
+    element.background = background;
+    element.parentNode.append(background);
+    return background;
+  };
+
+  const extentOf = (scale, x) => {
+    const ax = scale.invert(x);
+    const mid = x + scale.getBandWidth(ax) / 2;
+    const half = scale.getStep(ax) / 2;
+    const offset = half * padding;
+    return [mid - half + offset, mid + half - offset];
+  };
+
+  const sizeXOf = (element) => {
+    const { x: scaleX } = scale;
+    if (!isOrdinalScale(scaleX)) return [0, width];
+    const { __data__: data } = element;
+    const { x } = data;
+    const [e1, e2] = extentOf(scaleX, x);
+    const [x1] = coordinate.map([e1, 0]);
+    const [x2] = coordinate.map([e2, 0]);
+    return [x1, x2];
+  };
+
+  const sizeYOf = (element) => {
+    const { y: scaleY } = scale;
+    if (!isOrdinalScale(scaleY)) return [0, height];
+    const { __data__: data } = element;
+    const { y } = data;
+    const [e1, e2] = extentOf(scaleY, y);
+    const [, y1] = coordinate.map([0, e1]);
+    const [, y2] = coordinate.map([0, e2]);
+    return [y1, y2];
+  };
+
+  const dimensionOf = (element) => {
+    const [x1, x2] = sizeXOf(element);
+    const [y1, y2] = sizeYOf(element);
+    return [x1, y1, x2 - x1, y2 - y1];
+  };
+
+  const append = (element) => {
+    const [x, y, width, height] = dimensionOf(element);
+    const background = backgroundOf(element);
+    const {
+      fill = '#CCD6EC',
+      fillOpacity = 0.3,
+      ...style
+    } = mapObject(rest, (d) => valueof(d, element));
+    background.style.x = x;
+    background.style.y = y;
+    background.style.width = width;
+    background.style.height = height;
+    for (const [name, key] of Object.entries({ ...style, fill, fillOpacity })) {
+      background.style[name] = key;
+    }
+  };
+
+  const remove = (element) => {
+    element.background?.remove();
+    element.background = null;
+  };
+
+  const is = (element) => {
+    return element.className === BACKGROUND_CLASS_NAME;
+  };
+
+  return [append, remove, is] as const;
 }
 
 export function setCursor(root, cursor) {
