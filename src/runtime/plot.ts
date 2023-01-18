@@ -266,6 +266,7 @@ export async function plot<T extends G2ViewTree>(
     keyframes.push(keyframe);
   }
 
+  context.views = views;
   context.animations = transitions;
 
   emitEvent(on, CHART_LIFE_CIRCLE.AFTER_PAINT);

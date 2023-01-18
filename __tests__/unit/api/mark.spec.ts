@@ -1,3 +1,4 @@
+import { Chart, G2Mark } from '../../../src';
 import {
   Area,
   Interval,
@@ -24,6 +25,7 @@ import {
   Tree,
   WordCloud,
 } from '../../../src/api/mark/mark';
+import { createDiv } from '../../utils/dom';
 
 function setOptions(node) {
   return node
@@ -108,6 +110,43 @@ function getCompositeOptions() {
     },
   };
 }
+
+describe('MarkBase', () => {
+  it('get instance information after chart render.', (done) => {
+    const div = createDiv();
+    const chart = new Chart({
+      container: div,
+      autoFit: true,
+      key: '$$chart$$',
+    });
+    chart.data([
+      { genre: 'Sports', sold: 275 },
+      { genre: 'Strategy', sold: 115 },
+      { genre: 'Action', sold: 120 },
+      { genre: 'Shooter', sold: 350 },
+      { genre: 'Other', sold: 150 },
+    ]);
+    const interval = chart
+      .interval()
+      .attr('key', 'interval')
+      .encode('x', 'genre')
+      .encode('y', 'sold')
+      .encode('color', 'genre');
+    chart.render();
+    setTimeout(() => {
+      const view = chart.getView();
+      expect(interval.getScale()).toEqual(view?.scale);
+      expect(interval.getGroup().id).toEqual(interval.attr('key'));
+      expect(interval.getScaleByChannel('x')).toEqual(view?.scale['x']);
+
+      const markKey = Array.from(view.markState.keys()).find(
+        (item) => item.key === interval.attr('key'),
+      ) as G2Mark;
+      expect(interval.getMark()).toEqual(view?.markState.get(markKey));
+      done();
+    }, 300);
+  });
+});
 
 describe('Mark', () => {
   it('Interval() should specify options by API', () => {

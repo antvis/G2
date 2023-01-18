@@ -1,6 +1,11 @@
 import type { DisplayObject } from '@antv/g';
-import { Canvas, IAnimation as GAnimation } from '@antv/g';
-import { G2Title, GuideComponentPosition, Layout, Primitive } from './common';
+import {
+  G2Title,
+  G2ViewDescriptor,
+  GuideComponentPosition,
+  Layout,
+  Primitive,
+} from './common';
 import {
   AdjustComponent,
   AnimationComponent,
@@ -48,7 +53,7 @@ export type G2Context = {
   canvas?: Canvas;
   group?: DisplayObject;
   animations?: GAnimation[];
-  bindAutoFit?: boolean;
+  views?: G2ViewDescriptor[];
 };
 
 export type G2View = {
