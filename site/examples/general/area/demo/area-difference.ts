@@ -26,7 +26,7 @@ chart
   .encode('x', (d) => new Date(d.date))
   .encode('y', 'temperature')
   .encode('color', 'city')
-  .encode('shape', 'step')
+  .encode('shape', 'hvh')
   .scale('color', { range: ['#67a9cf', '#ef8a62'] });
 
 chart
