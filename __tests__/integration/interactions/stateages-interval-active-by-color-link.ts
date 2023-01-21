@@ -1,7 +1,7 @@
 import { G2Spec, ELEMENT_CLASS_NAME } from '../../../src';
 import { step, disableDelay } from './utils';
 
-export function stateAgesIntervalActiveByColorLinked(): G2Spec {
+export function stateAgesIntervalActiveByColorLink(): G2Spec {
   return {
     type: 'interval',
     padding: 0,
@@ -39,11 +39,17 @@ export function stateAgesIntervalActiveByColorLinked(): G2Spec {
   };
 }
 
-stateAgesIntervalActiveByColorLinked.preprocess = disableDelay;
+stateAgesIntervalActiveByColorLink.preprocess = disableDelay;
 
-stateAgesIntervalActiveByColorLinked.steps = ({ canvas }) => {
+stateAgesIntervalActiveByColorLink.steps = ({ canvas }) => {
   const { document } = canvas;
   const elements = document.getElementsByClassName(ELEMENT_CLASS_NAME);
-  const [e1] = elements;
-  return [step(e1, 'pointerover'), step(e1, 'pointerout')];
+  const [e1, ...rest] = elements;
+  const e2 = rest.find((d) => d.__data__.color !== e1.__data__.color);
+  return [
+    step(e1, 'pointerover'),
+    step(e1, 'pointerout'),
+    step(e2, 'pointerover'),
+    step(e2, 'pointerout'),
+  ];
 };

@@ -1,5 +1,6 @@
 import { DisplayObject, Path, Rect } from '@antv/g';
 import { path as d3Path } from 'd3-path';
+import { sort } from 'd3-array';
 import { subObject } from '../../utils/helper';
 import { select } from '../../utils/selection';
 import { mapObject } from '../../utils/array';
@@ -182,26 +183,36 @@ export function createValueof(elements, datum) {
   };
 }
 
-export function renderLink(
-  root: DisplayObject,
-  { valueof = (d, element) => d, ...style },
-) {
+export function renderLink({
+  link = false,
+  valueof = (d, element) => d,
+  ...style
+}) {
   const LINK_CLASS_NAME = 'element-link';
-  const append = (elements, key?) => {
+
+  if (!link) return [() => {}, () => {}];
+
+  const append = (elements) => {
     if (elements.length <= 1) return;
-    const elementBBoxs = elements.map((d) => [d, d.getBBox()]);
+    const elementBBox = new Map<DisplayObject, any>(
+      elements.map((d) => [d, d.getBBox()]),
+    );
 
     // Sort elements from top to bottom, left to right.
-    elementBBoxs.sort(([, b0], [, b1]) => {
+    const sortedElements = sort<DisplayObject>(elements, (e0, e1) => {
+      const b0: any = elementBBox.get(e0);
+      const b1: any = elementBBox.get(e1);
       const { x: x0, y: y0 } = b0;
       const { x: x1, y: y1 } = b1;
       return x0 - x1 === 0 ? y0 - y1 : x0 - x1;
     });
 
-    for (let i = 1; i < elementBBoxs.length; i++) {
+    for (let i = 1; i < sortedElements.length; i++) {
       const p = d3Path();
-      const [e0, b0] = elementBBoxs[i - 1];
-      const [, b1] = elementBBoxs[i];
+      const e0 = sortedElements[i - 1];
+      const e1 = sortedElements[i];
+      const b0 = elementBBox.get(e0);
+      const b1 = elementBBox.get(e1);
       p.moveTo(b0.x + b0.width, b0.y);
       p.lineTo(b1.x, b1.y);
       p.lineTo(b1.x, b1.y + b1.height);
@@ -211,22 +222,26 @@ export function renderLink(
         style,
         (d) => valueof(d, e0),
       );
-      const path = new Path({
-        className: `${LINK_CLASS_NAME}${key ? ' ' + key : ''}`,
+      const link = new Path({
+        className: LINK_CLASS_NAME,
         style: {
           d: p.toString(),
           fill,
+          zIndex: -2,
           ...rest,
         },
       });
-      root.appendChild(path);
+      // @ts-ignore
+      e0.link?.remove();
+      e0.parentNode.appendChild(link);
+      // @ts-ignore
+      e0.link = link;
     }
   };
 
-  const remove = (key?) => {
-    const className = key || LINK_CLASS_NAME;
-    const links = root.getElementsByClassName(className) || [];
-    for (const link of links) link.remove();
+  const remove = (element) => {
+    element.link?.remove();
+    element.link = null;
   };
 
   return [append, remove] as const;

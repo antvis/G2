@@ -24,8 +24,6 @@ export function penguinsPointHighlight(): G2Spec {
   };
 }
 
-penguinsPointHighlight.only = true;
-
 penguinsPointHighlight.preprocess = disableDelay;
 
 penguinsPointHighlight.steps = ({ canvas }) => {

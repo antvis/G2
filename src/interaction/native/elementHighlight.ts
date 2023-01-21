@@ -33,9 +33,10 @@ export function elementHighlight(
   const elementSet = new Set(elements);
   const keyGroup = group(elements, groupKey);
   const valueof = createValueof(elements, datum);
-  const [appendLink, removeLink] = renderLink(root, {
+  const [appendLink, removeLink] = renderLink({
     elements,
     valueof,
+    link,
     ...subObject(rest, 'link'),
   });
   const [appendBackground, removeBackground, isBackground] = renderBackground({
@@ -57,11 +58,14 @@ export function elementHighlight(
     const groupSet = new Set(group);
     for (const e of elements) {
       if (groupSet.has(e)) setState(e, 'highlighted');
-      else setState(e, 'unhighlighted');
+      else {
+        setState(e, 'unhighlighted');
+        removeLink(e);
+      }
       if (e !== element) removeBackground(e);
     }
     appendBackground(element);
-    if (link) appendLink(group);
+    appendLink(group);
   };
 
   const delayUnhighlighted = () => {
@@ -76,8 +80,8 @@ export function elementHighlight(
     for (const e of elements) {
       removeState(e, 'unhighlighted', 'highlighted');
       removeBackground(e);
+      removeLink(e);
     }
-    if (link) removeLink();
   };
 
   const pointerout = (event) => {
@@ -100,8 +104,10 @@ export function elementHighlight(
     root.removeEventListener('pointerover', pointerover);
     root.removeEventListener('pointerout', pointerout);
     root.removeEventListener('pointerleave', pointerleave);
-    if (link) removeLink();
-    for (const e of elements) removeBackground(e);
+    for (const e of elements) {
+      removeBackground(e);
+      removeLink(e);
+    }
   };
 }
 
