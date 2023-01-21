@@ -275,7 +275,7 @@ export function renderBackground({
     return [e1, e2];
   };
 
-  const shapeOf = (element, style) => {
+  const bandShapeOf = (element, style) => {
     const [x1, x2] = sizeXOf(element);
     const [y1, y2] = sizeYOf(element);
     const points = [
@@ -289,6 +289,28 @@ export function renderBackground({
     return rect(points, { y: dy, y1: dy1 }, coordinate, style);
   };
 
+  // Shape without ordinal style.
+  // Clone and scale it.
+  const cloneShapeOf = (element, style) => {
+    const {
+      transform = 'scale(1.2, 1.2)',
+      transformOrigin = 'center center',
+      stroke = '',
+      ...rest
+    } = style;
+    const finalStyle = { transform, transformOrigin, stroke, ...rest };
+    const shape = element.cloneNode(true);
+    for (const [key, value] of Object.entries(finalStyle)) {
+      shape.style[key] = value;
+    }
+    return shape;
+  };
+
+  const isOrdinalShape = () => {
+    const { x, y } = scale;
+    return [x, y].some(isOrdinalScale);
+  };
+
   const append = (element) => {
     if (element.background) element.background.remove();
     const {
@@ -297,7 +319,14 @@ export function renderBackground({
       zIndex = -2,
       ...style
     } = mapObject(rest, (d) => valueof(d, element));
-    const shape = shapeOf(element, { ...style, fill, fillOpacity, zIndex });
+    const finalStyle = {
+      ...style,
+      fill,
+      fillOpacity,
+      zIndex,
+    };
+    const shapeOf = isOrdinalShape() ? bandShapeOf : cloneShapeOf;
+    const shape = shapeOf(element, finalStyle);
     shape.className = BACKGROUND_CLASS_NAME;
     element.parentNode.appendChild(shape);
     element.background = shape;

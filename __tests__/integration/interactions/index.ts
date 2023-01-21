@@ -38,3 +38,4 @@ export { stateAgesIntervalHighlightGroupBackground } from './stateages-interval-
 export { stateAgesIntervalHighlightColorBackground } from './stateages-interval-highlight-color-background';
 export { alphabetIntervalHighlightBackgroundTranspose } from './alphabet-interval-highlight-background-transpose';
 export { alphabetIntervalHighlightBackgroundPolar } from './alphabet-interval-highlight-background-polar';
+export { penguinsPointHighlight } from './penguins-point-highlight';
