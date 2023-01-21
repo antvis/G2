@@ -12,6 +12,9 @@ import {
 } from '../../runtime';
 import { isOrdinalScale } from '../../utils/scale';
 import { rect } from '../../shape/interval/color';
+import { isPolar, isTranspose } from '../../utils/coordinate';
+import { reorder } from '../../shape/utils';
+import { angle, angleBetween, sub } from '../../utils/vector';
 
 /**
  * Given root of chart returns elements to be manipulated
@@ -251,6 +254,29 @@ export function renderLink({
   };
 
   return [append, remove] as const;
+}
+
+// Apply translate to mock slice out.
+export function offsetTransform(element, offset, coordinate) {
+  const append = (t) => {
+    const { transform } = element.style;
+    return transform ? `${transform} ${t}` : t;
+  };
+  if (isPolar(coordinate)) {
+    const { points } = element.__data__;
+    const [p0, p1] = isTranspose(coordinate) ? reorder(points) : points;
+    const center = coordinate.getCenter();
+    const v0 = sub(p0, center);
+    const v1 = sub(p1, center);
+    const a0 = angle(v0);
+    const da = angleBetween(v0, v1);
+    const amid = a0 + da / 2;
+    const dx = offset * Math.cos(amid);
+    const dy = offset * Math.sin(amid);
+    return append(`translate(${dx}, ${dy})`);
+  }
+  if (isTranspose(coordinate)) return append(`translate(${offset}, 0)`);
+  return append(`translate(0, ${-offset})`);
 }
 
 export function renderBackground({

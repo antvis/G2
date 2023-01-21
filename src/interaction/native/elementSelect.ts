@@ -21,6 +21,7 @@ export function elementSelect(
     groupKey = (d) => d, // group elements by specified key
     link = false, // draw link or not
     single = false, // single select or not
+    coordinate,
     ...rest
   }: Record<string, any>,
 ) {
@@ -32,6 +33,7 @@ export function elementSelect(
     link,
     elements,
     valueof,
+    coordinate,
     ...subObject(rest, 'link'),
   });
   const { setState, removeState, hasState } = useState(rest, valueof);
@@ -111,10 +113,12 @@ export function elementSelect(
 export function ElementSelect(options) {
   return (context) => {
     const { container, view } = context;
+    const { coordinate } = view;
     return elementSelect(container, {
       ...applyDefaultsHighlightedStyle(options),
       elements: selectG2Elements,
       datum: createDatumof(view),
+      coordinate,
     });
   };
 }

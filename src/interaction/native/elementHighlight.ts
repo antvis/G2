@@ -1,5 +1,6 @@
 import { DisplayObject } from '@antv/g';
 import { group } from 'd3-array';
+import { isPolar, isTranspose } from '../../utils/coordinate';
 import { subObject } from '../../utils/helper';
 import {
   createValueof,
@@ -10,6 +11,7 @@ import {
   applyDefaultsHighlightedStyle,
   renderBackground,
   selectPlotArea,
+  offsetTransform,
 } from './utils';
 
 /**
@@ -26,6 +28,7 @@ export function elementHighlight(
     delay = 60, // delay to unhighlighted element
     scale,
     coordinate,
+    offset = 0,
     ...rest
   }: Record<string, any>,
 ) {
@@ -47,7 +50,16 @@ export function elementHighlight(
     valueof,
     ...subObject(rest, 'background'),
   });
-  const { setState, removeState } = useState(rest, valueof);
+  const elementStyle = {
+    ...(offset !== 0 && {
+      // Apply translate to mock slice out.
+      highlightedTransform: (_, i) => {
+        return offsetTransform(elements[i], offset, coordinate);
+      },
+    }),
+    ...rest,
+  };
+  const { setState, removeState, hasState } = useState(elementStyle, valueof);
 
   let out; // Timer for delaying unhighlighted.
   const pointerover = (event) => {
@@ -58,8 +70,9 @@ export function elementHighlight(
     const group = keyGroup.get(k);
     const groupSet = new Set(group);
     for (const e of elements) {
-      if (groupSet.has(e)) setState(e, 'highlighted');
-      else {
+      if (groupSet.has(e)) {
+        if (!hasState(e, 'highlighted')) setState(e, 'highlighted');
+      } else {
         setState(e, 'unhighlighted');
         removeLink(e);
       }

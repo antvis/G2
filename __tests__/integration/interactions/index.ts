@@ -41,3 +41,6 @@ export { alphabetIntervalHighlightBackgroundPolar } from './alphabet-interval-hi
 export { penguinsPointHighlight } from './penguins-point-highlight';
 export { stateAgesIntervalHighlightLinkTranspose } from './stateages-interval-highlight-link-transpose';
 export { stateAgesIntervalHighlightLinkPolar } from './stateages-interval-highlight-link-polar';
+export { alphabetIntervalHighlightOffset } from './alphabet-interval-highlight-offset';
+export { alphabetIntervalHighlightOffsetTranspose } from './alphabet-interval-highlight-offset-transpose';
+export { alphabetIntervalHighlightOffsetPolar } from './alphabet-interval-highlight-offset-polar';
