@@ -36,3 +36,5 @@ export { alphabetIntervalHighlightBackgroundStyle } from './alphabet-interval-hi
 export { waffleCellHighlightBackground } from './waffle-cell-highlight-background';
 export { stateAgesIntervalHighlightGroupBackground } from './stateages-interval-highlight-group-background';
 export { stateAgesIntervalHighlightColorBackground } from './stateages-interval-highlight-color-background';
+export { alphabetIntervalHighlightBackgroundTranspose } from './alphabet-interval-highlight-background-transpose';
+export { alphabetIntervalHighlightBackgroundPolar } from './alphabet-interval-highlight-background-polar';

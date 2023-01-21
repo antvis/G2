@@ -9,6 +9,7 @@ import {
   PLOT_CLASS_NAME,
 } from '../../runtime';
 import { isOrdinalScale } from '../../utils/scale';
+import { rect } from '../../shape/interval/color';
 
 /**
  * Given root of chart returns elements to be manipulated
@@ -248,22 +249,6 @@ export function renderBackground({
   // Don't have background.
   if (!background) return [() => {}, () => {}];
 
-  const [width, height] = coordinate.getSize();
-
-  const backgroundOf = (element) => {
-    if (element.background) return element.background;
-    const background = new Rect({
-      // @ts-ignore
-      style: {
-        zIndex: -1,
-      },
-      className: BACKGROUND_CLASS_NAME,
-    });
-    element.background = background;
-    element.parentNode.append(background);
-    return background;
-  };
-
   const extentOf = (scale, x) => {
     const ax = scale.invert(x);
     const mid = x + scale.getBandWidth(ax) / 2;
@@ -274,47 +259,48 @@ export function renderBackground({
 
   const sizeXOf = (element) => {
     const { x: scaleX } = scale;
-    if (!isOrdinalScale(scaleX)) return [0, width];
+    if (!isOrdinalScale(scaleX)) return [0, 1];
     const { __data__: data } = element;
     const { x } = data;
     const [e1, e2] = extentOf(scaleX, x);
-    const [x1] = coordinate.map([e1, 0]);
-    const [x2] = coordinate.map([e2, 0]);
-    return [x1, x2];
+    return [e1, e2];
   };
 
   const sizeYOf = (element) => {
     const { y: scaleY } = scale;
-    if (!isOrdinalScale(scaleY)) return [0, height];
+    if (!isOrdinalScale(scaleY)) return [0, 1];
     const { __data__: data } = element;
     const { y } = data;
     const [e1, e2] = extentOf(scaleY, y);
-    const [, y1] = coordinate.map([0, e1]);
-    const [, y2] = coordinate.map([0, e2]);
-    return [y1, y2];
+    return [e1, e2];
   };
 
-  const dimensionOf = (element) => {
+  const shapeOf = (element, style) => {
     const [x1, x2] = sizeXOf(element);
     const [y1, y2] = sizeYOf(element);
-    return [x1, y1, x2 - x1, y2 - y1];
+    const points = [
+      [x1, y1],
+      [x2, y1],
+      [x2, y2],
+      [x1, y2],
+    ].map((d) => coordinate.map(d));
+    const { __data__: data } = element;
+    const { y: dy, y1: dy1 } = data;
+    return rect(points, { y: dy, y1: dy1 }, coordinate, style);
   };
 
   const append = (element) => {
-    const [x, y, width, height] = dimensionOf(element);
-    const background = backgroundOf(element);
+    if (element.background) element.background.remove();
     const {
       fill = '#CCD6EC',
       fillOpacity = 0.3,
+      zIndex = -2,
       ...style
     } = mapObject(rest, (d) => valueof(d, element));
-    background.style.x = x;
-    background.style.y = y;
-    background.style.width = width;
-    background.style.height = height;
-    for (const [name, key] of Object.entries({ ...style, fill, fillOpacity })) {
-      background.style[name] = key;
-    }
+    const shape = shapeOf(element, { ...style, fill, fillOpacity, zIndex });
+    shape.className = BACKGROUND_CLASS_NAME;
+    element.parentNode.appendChild(shape);
+    element.background = shape;
   };
 
   const remove = (element) => {
