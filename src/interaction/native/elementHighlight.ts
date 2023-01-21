@@ -37,6 +37,7 @@ export function elementHighlight(
     elements,
     valueof,
     link,
+    coordinate,
     ...subObject(rest, 'link'),
   });
   const [appendBackground, removeBackground, isBackground] = renderBackground({

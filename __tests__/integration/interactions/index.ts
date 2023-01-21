@@ -39,3 +39,5 @@ export { stateAgesIntervalHighlightColorBackground } from './stateages-interval-
 export { alphabetIntervalHighlightBackgroundTranspose } from './alphabet-interval-highlight-background-transpose';
 export { alphabetIntervalHighlightBackgroundPolar } from './alphabet-interval-highlight-background-polar';
 export { penguinsPointHighlight } from './penguins-point-highlight';
+export { stateAgesIntervalHighlightLinkTranspose } from './stateages-interval-highlight-link-transpose';
+export { stateAgesIntervalHighlightLinkPolar } from './stateages-interval-highlight-link-polar';

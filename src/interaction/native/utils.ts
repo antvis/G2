@@ -1,8 +1,9 @@
-import { DisplayObject, Path, Rect } from '@antv/g';
+import { DisplayObject, Path } from '@antv/g';
 import { path as d3Path } from 'd3-path';
 import { sort } from 'd3-array';
+import { Vector2 } from '@antv/coord';
 import { subObject } from '../../utils/helper';
-import { select } from '../../utils/selection';
+import { G2Element, select } from '../../utils/selection';
 import { mapObject } from '../../utils/array';
 import {
   G2ViewDescriptor,
@@ -186,37 +187,42 @@ export function createValueof(elements, datum) {
 export function renderLink({
   link = false,
   valueof = (d, element) => d,
+  coordinate,
   ...style
 }) {
   const LINK_CLASS_NAME = 'element-link';
 
   if (!link) return [() => {}, () => {}];
 
+  const pointsOf = (element) => element.__data__.points;
+
+  const pathPointsOf = (P0, P1) => {
+    const [, p1, p2] = P0;
+    const [p0, , , p3] = P1;
+    const P: Vector2[] = [p1, p0, p3, p2];
+    return P;
+  };
+
   const append = (elements) => {
     if (elements.length <= 1) return;
-    const elementBBox = new Map<DisplayObject, any>(
-      elements.map((d) => [d, d.getBBox()]),
-    );
 
-    // Sort elements from top to bottom, left to right.
-    const sortedElements = sort<DisplayObject>(elements, (e0, e1) => {
-      const b0: any = elementBBox.get(e0);
-      const b1: any = elementBBox.get(e1);
-      const { x: x0, y: y0 } = b0;
-      const { x: x1, y: y1 } = b1;
-      return x0 - x1 === 0 ? y0 - y1 : x0 - x1;
+    // Sort elements by normalized x to avoid cross.
+    const sortedElements = sort<G2Element>(elements, (e0, e1) => {
+      const { x: x0 } = e0.__data__;
+      const { x: x1 } = e1.__data__;
+      const dx = x0 - x1;
+      return dx;
     });
 
     for (let i = 1; i < sortedElements.length; i++) {
       const p = d3Path();
       const e0 = sortedElements[i - 1];
       const e1 = sortedElements[i];
-      const b0 = elementBBox.get(e0);
-      const b1 = elementBBox.get(e1);
-      p.moveTo(b0.x + b0.width, b0.y);
-      p.lineTo(b1.x, b1.y);
-      p.lineTo(b1.x, b1.y + b1.height);
-      p.lineTo(b0.x + b0.width, b0.y + b0.height);
+      const [p0, p1, p2, p3] = pathPointsOf(pointsOf(e0), pointsOf(e1));
+      p.moveTo(...p0);
+      p.lineTo(...p1);
+      p.lineTo(...p2);
+      p.lineTo(...p3);
       p.closePath();
       const { fill = e0.getAttribute('fill'), ...rest } = mapObject(
         style,
@@ -247,10 +253,6 @@ export function renderLink({
   return [append, remove] as const;
 }
 
-/**
- * @todo Different coordinates.
- * @todo Other marks link point, area, line, etc.
- */
 export function renderBackground({
   background,
   scale,
