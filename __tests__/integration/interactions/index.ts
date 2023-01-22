@@ -44,3 +44,5 @@ export { stateAgesIntervalHighlightLinkPolar } from './stateages-interval-highli
 export { alphabetIntervalHighlightOffset } from './alphabet-interval-highlight-offset';
 export { alphabetIntervalHighlightOffsetTranspose } from './alphabet-interval-highlight-offset-transpose';
 export { alphabetIntervalHighlightOffsetPolar } from './alphabet-interval-highlight-offset-polar';
+export { alphabetIntervalSelectSingleBackground } from './alphabet-interval-select-single-background';
+export { alphabetIntervalSelectBackground } from './alphabet-interval-select-background';

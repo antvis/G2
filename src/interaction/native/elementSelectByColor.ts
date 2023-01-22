@@ -3,13 +3,16 @@ import {
   selectG2Elements,
   applyDefaultsHighlightedStyle,
   createColorKey,
+  selectPlotArea,
 } from './utils';
 import { elementSelect } from './elementSelect';
 
 export function ElementSelectByColor(options) {
   return (context) => {
     const { container, view } = context;
-    return elementSelect(container, {
+    const plot = selectPlotArea(container);
+    return elementSelect(plot, {
+      ...options,
       ...applyDefaultsHighlightedStyle(options),
       elements: selectG2Elements,
       datum: createDatumof(view),

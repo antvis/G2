@@ -135,7 +135,8 @@ export type ElementHighlightInteraction = {
 export type ElementSelectInteraction = {
   type?: 'elementSelect';
   single?: boolean;
-} & Record<`${'selected' | 'link' | 'unselected'}${any}`, any>;
+  background?: true;
+} & Record<`${'selected' | 'link' | 'unselected' | 'background'}${any}`, any>;
 
 export type ElementSelectByColorInteraction = {
   type?: 'elementSelectByColor';
@@ -145,7 +146,8 @@ export type ElementSelectByColorInteraction = {
 export type ElementSelectByXInteraction = {
   type?: 'elementSelectByX';
   single?: boolean;
-} & Record<`${'selected' | 'link' | 'unselected'}${any}`, any>;
+  background?: true;
+} & Record<`${'selected' | 'link' | 'unselected' | 'background'}${any}`, any>;
 
 export type ElementHighlightByXInteraction = {
   type?: 'elementHighlightByX';

@@ -8,6 +8,8 @@ import {
   useState,
   renderLink,
   applyDefaultsHighlightedStyle,
+  renderBackground,
+  selectPlotArea,
 } from './utils';
 
 /**
@@ -22,6 +24,8 @@ export function elementSelect(
     link = false, // draw link or not
     single = false, // single select or not
     coordinate,
+    background = false,
+    scale,
     ...rest
   }: Record<string, any>,
 ) {
@@ -36,11 +40,20 @@ export function elementSelect(
     coordinate,
     ...subObject(rest, 'link'),
   });
+
+  const [appendBackground, removeBackground] = renderBackground({
+    background,
+    coordinate,
+    scale,
+    valueof,
+    ...subObject(rest, 'background'),
+  });
   const { setState, removeState, hasState } = useState(rest, valueof);
   const clear = () => {
     for (const e of elements) {
       removeState(e, 'selected', 'unselected');
       removeLink(e);
+      removeBackground(e);
     }
     return;
   };
@@ -58,8 +71,10 @@ export function elementSelect(
           setState(e, 'unselected');
           removeLink(e);
         }
+        if (e !== element) removeBackground(e);
       }
       appendLink(group);
+      appendBackground(element);
     }
   };
 
@@ -75,6 +90,7 @@ export function elementSelect(
       }
       // Append link for each group only once.
       if (!hasSelectedGroup && link) appendLink(group);
+      appendBackground(element);
     } else {
       // If there is no selected elements after resetting this group,
       // clear the states.
@@ -87,6 +103,7 @@ export function elementSelect(
       for (const e of group) {
         setState(e, 'unselected');
         removeLink(e);
+        removeBackground(e);
       }
     }
   };
@@ -113,12 +130,15 @@ export function elementSelect(
 export function ElementSelect(options) {
   return (context) => {
     const { container, view } = context;
-    const { coordinate } = view;
-    return elementSelect(container, {
+    const { coordinate, scale } = view;
+    const plotArea = selectPlotArea(container);
+    return elementSelect(plotArea, {
+      ...options,
       ...applyDefaultsHighlightedStyle(options),
       elements: selectG2Elements,
       datum: createDatumof(view),
       coordinate,
+      scale,
     });
   };
 }
