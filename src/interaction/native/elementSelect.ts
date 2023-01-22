@@ -10,6 +10,7 @@ import {
   applyDefaultsHighlightedStyle,
   renderBackground,
   selectPlotArea,
+  offsetTransform,
 } from './utils';
 
 /**
@@ -25,6 +26,7 @@ export function elementSelect(
     single = false, // single select or not
     coordinate,
     background = false,
+    offset = 0,
     scale,
     ...rest
   }: Record<string, any>,
@@ -48,7 +50,18 @@ export function elementSelect(
     valueof,
     ...subObject(rest, 'background'),
   });
-  const { setState, removeState, hasState } = useState(rest, valueof);
+
+  const elementStyle = {
+    ...(offset !== 0 && {
+      // Apply translate to mock slice out.
+      selectedTransform: (_, i) => {
+        return offsetTransform(elements[i], offset, coordinate);
+      },
+    }),
+    ...rest,
+  };
+  const { setState, removeState, hasState } = useState(elementStyle, valueof);
+
   const clear = () => {
     for (const e of elements) {
       removeState(e, 'selected', 'unselected');

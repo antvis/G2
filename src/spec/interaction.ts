@@ -136,17 +136,20 @@ export type ElementSelectInteraction = {
   type?: 'elementSelect';
   single?: boolean;
   background?: true;
+  offset?: number;
 } & Record<`${'selected' | 'link' | 'unselected' | 'background'}${any}`, any>;
 
 export type ElementSelectByColorInteraction = {
   type?: 'elementSelectByColor';
   single?: boolean;
+  offset?: number;
 } & Record<`${'selected' | 'link' | 'unselected'}${any}`, any>;
 
 export type ElementSelectByXInteraction = {
   type?: 'elementSelectByX';
   single?: boolean;
   background?: true;
+  offset?: number;
 } & Record<`${'selected' | 'link' | 'unselected' | 'background'}${any}`, any>;
 
 export type ElementHighlightByXInteraction = {

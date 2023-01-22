@@ -46,3 +46,4 @@ export { alphabetIntervalHighlightOffsetTranspose } from './alphabet-interval-hi
 export { alphabetIntervalHighlightOffsetPolar } from './alphabet-interval-highlight-offset-polar';
 export { alphabetIntervalSelectSingleBackground } from './alphabet-interval-select-single-background';
 export { alphabetIntervalSelectBackground } from './alphabet-interval-select-background';
+export { alphabetIntervalSelectOffsetPolar } from './alphabet-interval-select-offset-polar';
