@@ -12,9 +12,10 @@ export type Interaction =
   | ElementSelectInteraction
   | TooltipInteraction
   | FisheyeInteraction
-  | ChartIndex
+  | ChartIndexInteraction
   | CustomInteraction
   | LegendFilterInteraction
+  | LegendHighlightInteraction
   | BrushHighlightInteraction
   | BrushXHighlightInteraction
   | BrushYHighlightInteraction
@@ -45,6 +46,7 @@ export type InteractionTypes =
   | 'fisheye'
   | 'tooltip'
   | 'legendFilter'
+  | 'legendHighlight'
   | 'brushXHighlight'
   | 'brushYHighlight'
   | 'brushHighlight'
@@ -180,7 +182,12 @@ export type LegendFilterInteraction = {
   [key: string]: any; // @todo
 } & Record<`${'marker' | 'label'}Unselected${any}`, any>;
 
-export type ChartIndex = {
+export type LegendHighlightInteraction = {
+  type?: 'legendHighlight';
+  [key: string]: any; // @todo
+} & Record<`${'marker' | 'label'}Unhighlighted${any}`, any>;
+
+export type ChartIndexInteraction = {
   type?: 'chartIndex';
   wait?: number;
   leading?: boolean;
@@ -200,10 +207,6 @@ export type ElementListHighlightInteraction = {
 
 export type LegendActiveInteraction = {
   type?: 'legendActive';
-};
-
-export type LegendHighlightInteraction = {
-  type?: 'legendHighlight';
 };
 
 export type TooltipInteraction = Omit<TooltipAction, 'type'> & {

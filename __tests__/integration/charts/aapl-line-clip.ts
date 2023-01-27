@@ -20,4 +20,4 @@ export function aaplLineClip(): G2Spec {
   };
 }
 
-aaplLineClip.maxError = 100;
+aaplLineClip.maxError = 500;
