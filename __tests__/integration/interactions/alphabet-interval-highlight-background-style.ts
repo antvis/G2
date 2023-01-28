@@ -23,7 +23,7 @@ export function alphabetIntervalHighlightBackgroundStyle(): G2Spec {
         type: 'elementHighlight',
         background: true,
         backgroundPadding: 0.2,
-        backgroundRadius: [10, 10, 10, 10],
+        backgroundRadius: 10,
         backgroundFill: (d) => (d.frequency > 0.12 ? 'red' : undefined),
       },
     ],

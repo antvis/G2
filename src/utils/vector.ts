@@ -16,7 +16,7 @@ export function angle([x, y]: Vector2): number {
 }
 
 /**
- * Calculate angle of [x, y]then + Math.PI / 2.
+ * Calculate angle of [x, y], then + Math.PI / 2.
  * Because of the difference between `Geometric coordinate system` and `Visualization coordinate system`.
  * @returns
  */
