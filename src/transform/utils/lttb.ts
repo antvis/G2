@@ -13,6 +13,8 @@ export function lttb(
     return I;
   }
 
+  const x = (i: number) => X[I[i]] * 1;
+  const y = (i: number) => Y[I[i]] * 1;
   const sampled = [];
 
   // Bucket size. Leave room for start and end data points.
@@ -35,8 +37,8 @@ export function lttb(
     const size = end - start;
 
     for (; start < end; start++) {
-      avgX += X[start] * 1;
-      avgY += Y[start] * 1;
+      avgX += x(start);
+      avgY += y(start);
     }
     avgX /= size;
     avgY /= size;
@@ -46,14 +48,14 @@ export function lttb(
     const frameEnd = Math.floor((i + 1) * every) + 1;
 
     // Point a.
-    const pointA = [X[a] * 1, Y[a] * 1];
+    const pointA = [x(a), y(a)];
     maxArea = area = -1;
     for (; frameStart < frameEnd; frameStart++) {
       // Calculate triangle area over three buckets.
       area =
         Math.abs(
-          (pointA[0] - avgX) * (Y[frameStart] - pointA[1]) -
-            (pointA[0] - X[frameStart]) * (avgY - pointA[0]),
+          (pointA[0] - avgX) * (x(frameStart) - pointA[1]) -
+            (pointA[0] - y(frameStart)) * (avgY - pointA[0]),
         ) * 0.5;
       if (area > maxArea) {
         maxArea = area;
