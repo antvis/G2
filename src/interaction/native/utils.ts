@@ -1,7 +1,9 @@
-import { DisplayObject, Path, Rect } from '@antv/g';
+import { DisplayObject, Path } from '@antv/g';
 import { path as d3Path } from 'd3-path';
+import { sort } from 'd3-array';
+import { Vector2 } from '@antv/coord';
 import { subObject } from '../../utils/helper';
-import { select } from '../../utils/selection';
+import { G2Element, select } from '../../utils/selection';
 import { mapObject } from '../../utils/array';
 import {
   G2ViewDescriptor,
@@ -9,6 +11,10 @@ import {
   PLOT_CLASS_NAME,
 } from '../../runtime';
 import { isOrdinalScale } from '../../utils/scale';
+import { rect } from '../../shape/interval/color';
+import { isPolar, isTranspose } from '../../utils/coordinate';
+import { reorder } from '../../shape/utils';
+import { angle, angleBetween, sub } from '../../utils/vector';
 
 /**
  * Given root of chart returns elements to be manipulated
@@ -181,60 +187,98 @@ export function createValueof(elements, datum) {
   };
 }
 
-export function renderLink(
-  root: DisplayObject,
-  { valueof = (d, element) => d, ...style },
-) {
+export function renderLink({
+  link = false,
+  valueof = (d, element) => d,
+  coordinate,
+  ...style
+}) {
   const LINK_CLASS_NAME = 'element-link';
-  const append = (elements, key?) => {
-    if (elements.length <= 1) return;
-    const elementBBoxs = elements.map((d) => [d, d.getBBox()]);
 
-    // Sort elements from top to bottom, left to right.
-    elementBBoxs.sort(([, b0], [, b1]) => {
-      const { x: x0, y: y0 } = b0;
-      const { x: x1, y: y1 } = b1;
-      return x0 - x1 === 0 ? y0 - y1 : x0 - x1;
+  if (!link) return [() => {}, () => {}];
+
+  const pointsOf = (element) => element.__data__.points;
+
+  const pathPointsOf = (P0, P1) => {
+    const [, p1, p2] = P0;
+    const [p0, , , p3] = P1;
+    const P: Vector2[] = [p1, p0, p3, p2];
+    return P;
+  };
+
+  const append = (elements) => {
+    if (elements.length <= 1) return;
+
+    // Sort elements by normalized x to avoid cross.
+    const sortedElements = sort<G2Element>(elements, (e0, e1) => {
+      const { x: x0 } = e0.__data__;
+      const { x: x1 } = e1.__data__;
+      const dx = x0 - x1;
+      return dx;
     });
 
-    for (let i = 1; i < elementBBoxs.length; i++) {
+    for (let i = 1; i < sortedElements.length; i++) {
       const p = d3Path();
-      const [e0, b0] = elementBBoxs[i - 1];
-      const [, b1] = elementBBoxs[i];
-      p.moveTo(b0.x + b0.width, b0.y);
-      p.lineTo(b1.x, b1.y);
-      p.lineTo(b1.x, b1.y + b1.height);
-      p.lineTo(b0.x + b0.width, b0.y + b0.height);
+      const e0 = sortedElements[i - 1];
+      const e1 = sortedElements[i];
+      const [p0, p1, p2, p3] = pathPointsOf(pointsOf(e0), pointsOf(e1));
+      p.moveTo(...p0);
+      p.lineTo(...p1);
+      p.lineTo(...p2);
+      p.lineTo(...p3);
       p.closePath();
       const { fill = e0.getAttribute('fill'), ...rest } = mapObject(
         style,
         (d) => valueof(d, e0),
       );
-      const path = new Path({
-        className: `${LINK_CLASS_NAME}${key ? ' ' + key : ''}`,
+      const link = new Path({
+        className: LINK_CLASS_NAME,
         style: {
           d: p.toString(),
           fill,
+          zIndex: -2,
           ...rest,
         },
       });
-      root.appendChild(path);
+      // @ts-ignore
+      e0.link?.remove();
+      e0.parentNode.appendChild(link);
+      // @ts-ignore
+      e0.link = link;
     }
   };
 
-  const remove = (key?) => {
-    const className = key || LINK_CLASS_NAME;
-    const links = root.getElementsByClassName(className) || [];
-    for (const link of links) link.remove();
+  const remove = (element) => {
+    element.link?.remove();
+    element.link = null;
   };
 
   return [append, remove] as const;
 }
 
-/**
- * @todo Different coordinates.
- * @todo Other marks link point, area, line, etc.
- */
+// Apply translate to mock slice out.
+export function offsetTransform(element, offset, coordinate) {
+  const append = (t) => {
+    const { transform } = element.style;
+    return transform ? `${transform} ${t}` : t;
+  };
+  if (isPolar(coordinate)) {
+    const { points } = element.__data__;
+    const [p0, p1] = isTranspose(coordinate) ? reorder(points) : points;
+    const center = coordinate.getCenter();
+    const v0 = sub(p0, center);
+    const v1 = sub(p1, center);
+    const a0 = angle(v0);
+    const da = angleBetween(v0, v1);
+    const amid = a0 + da / 2;
+    const dx = offset * Math.cos(amid);
+    const dy = offset * Math.sin(amid);
+    return append(`translate(${dx}, ${dy})`);
+  }
+  if (isTranspose(coordinate)) return append(`translate(${offset}, 0)`);
+  return append(`translate(0, ${-offset})`);
+}
+
 export function renderBackground({
   background,
   scale,
@@ -248,22 +292,6 @@ export function renderBackground({
   // Don't have background.
   if (!background) return [() => {}, () => {}];
 
-  const [width, height] = coordinate.getSize();
-
-  const backgroundOf = (element) => {
-    if (element.background) return element.background;
-    const background = new Rect({
-      // @ts-ignore
-      style: {
-        zIndex: -1,
-      },
-      className: BACKGROUND_CLASS_NAME,
-    });
-    element.background = background;
-    element.parentNode.append(background);
-    return background;
-  };
-
   const extentOf = (scale, x) => {
     const ax = scale.invert(x);
     const mid = x + scale.getBandWidth(ax) / 2;
@@ -274,47 +302,77 @@ export function renderBackground({
 
   const sizeXOf = (element) => {
     const { x: scaleX } = scale;
-    if (!isOrdinalScale(scaleX)) return [0, width];
+    if (!isOrdinalScale(scaleX)) return [0, 1];
     const { __data__: data } = element;
     const { x } = data;
     const [e1, e2] = extentOf(scaleX, x);
-    const [x1] = coordinate.map([e1, 0]);
-    const [x2] = coordinate.map([e2, 0]);
-    return [x1, x2];
+    return [e1, e2];
   };
 
   const sizeYOf = (element) => {
     const { y: scaleY } = scale;
-    if (!isOrdinalScale(scaleY)) return [0, height];
+    if (!isOrdinalScale(scaleY)) return [0, 1];
     const { __data__: data } = element;
     const { y } = data;
     const [e1, e2] = extentOf(scaleY, y);
-    const [, y1] = coordinate.map([0, e1]);
-    const [, y2] = coordinate.map([0, e2]);
-    return [y1, y2];
+    return [e1, e2];
   };
 
-  const dimensionOf = (element) => {
+  const bandShapeOf = (element, style) => {
     const [x1, x2] = sizeXOf(element);
     const [y1, y2] = sizeYOf(element);
-    return [x1, y1, x2 - x1, y2 - y1];
+    const points = [
+      [x1, y1],
+      [x2, y1],
+      [x2, y2],
+      [x1, y2],
+    ].map((d) => coordinate.map(d));
+    const { __data__: data } = element;
+    const { y: dy, y1: dy1 } = data;
+    return rect(points, { y: dy, y1: dy1 }, coordinate, style);
+  };
+
+  // Shape without ordinal style.
+  // Clone and scale it.
+  const cloneShapeOf = (element, style) => {
+    const {
+      transform = 'scale(1.2, 1.2)',
+      transformOrigin = 'center center',
+      stroke = '',
+      ...rest
+    } = style;
+    const finalStyle = { transform, transformOrigin, stroke, ...rest };
+    const shape = element.cloneNode(true);
+    for (const [key, value] of Object.entries(finalStyle)) {
+      shape.style[key] = value;
+    }
+    return shape;
+  };
+
+  const isOrdinalShape = () => {
+    const { x, y } = scale;
+    return [x, y].some(isOrdinalScale);
   };
 
   const append = (element) => {
-    const [x, y, width, height] = dimensionOf(element);
-    const background = backgroundOf(element);
+    if (element.background) element.background.remove();
     const {
       fill = '#CCD6EC',
       fillOpacity = 0.3,
+      zIndex = -2,
       ...style
     } = mapObject(rest, (d) => valueof(d, element));
-    background.style.x = x;
-    background.style.y = y;
-    background.style.width = width;
-    background.style.height = height;
-    for (const [name, key] of Object.entries({ ...style, fill, fillOpacity })) {
-      background.style[name] = key;
-    }
+    const finalStyle = {
+      ...style,
+      fill,
+      fillOpacity,
+      zIndex,
+    };
+    const shapeOf = isOrdinalShape() ? bandShapeOf : cloneShapeOf;
+    const shape = shapeOf(element, finalStyle);
+    shape.className = BACKGROUND_CLASS_NAME;
+    element.parentNode.appendChild(shape);
+    element.background = shape;
   };
 
   const remove = (element) => {

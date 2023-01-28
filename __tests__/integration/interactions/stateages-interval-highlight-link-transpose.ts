@@ -1,26 +1,28 @@
 import { G2Spec, ELEMENT_CLASS_NAME } from '../../../src';
 import { step, disableDelay } from './utils';
 
-export function stateAgesIntervalActiveByColorLinked(): G2Spec {
+export function stateAgesIntervalHighlightLinkTranspose(): G2Spec {
   return {
     type: 'interval',
-    padding: 0,
-    width: 800,
+    height: 600,
     transform: [
       { type: 'stackY' },
       { type: 'sortX', by: 'y', reverse: true, slice: 5 },
     ],
+    coordinates: [{ type: 'transpose' }],
     data: {
       type: 'fetch',
       value: 'data/stateages.csv',
       format: 'csv',
     },
-    axis: false,
     legend: false,
     encode: {
       x: 'state',
       y: 'population',
       color: 'age',
+    },
+    axis: {
+      y: { labelFormatter: '~s' },
     },
     scale: {
       x: { paddingInner: 0.2 },
@@ -39,9 +41,9 @@ export function stateAgesIntervalActiveByColorLinked(): G2Spec {
   };
 }
 
-stateAgesIntervalActiveByColorLinked.preprocess = disableDelay;
+stateAgesIntervalHighlightLinkTranspose.preprocess = disableDelay;
 
-stateAgesIntervalActiveByColorLinked.steps = ({ canvas }) => {
+stateAgesIntervalHighlightLinkTranspose.steps = ({ canvas }) => {
   const { document } = canvas;
   const elements = document.getElementsByClassName(ELEMENT_CLASS_NAME);
   const [e1] = elements;
