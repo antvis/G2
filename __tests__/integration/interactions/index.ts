@@ -1,7 +1,7 @@
 export { alphabetIntervalActive } from './alphabet-interval-active';
 export { alphabetIntervalActiveDefaults } from './alphabet-interval-active-defaults';
 export { alphabetIntervalActiveInactive } from './alphabet-interval-active-inactive';
-export { stateAgesIntervalActiveByColorLinked } from './stateages-interval-active-by-color-linked';
+export { stateAgesIntervalActiveByColorLink } from './stateages-interval-active-by-color-link';
 export { stateAgesIntervalActiveByColor } from './stateages-interval-active-by-color';
 export { stateAgesIntervalActiveByX } from './stateages-interval-active-by-x';
 export { alphabetIntervalSelect } from './alphabet-interval-select';
@@ -36,3 +36,11 @@ export { alphabetIntervalHighlightBackgroundStyle } from './alphabet-interval-hi
 export { waffleCellHighlightBackground } from './waffle-cell-highlight-background';
 export { stateAgesIntervalHighlightGroupBackground } from './stateages-interval-highlight-group-background';
 export { stateAgesIntervalHighlightColorBackground } from './stateages-interval-highlight-color-background';
+export { alphabetIntervalHighlightBackgroundTranspose } from './alphabet-interval-highlight-background-transpose';
+export { alphabetIntervalHighlightBackgroundPolar } from './alphabet-interval-highlight-background-polar';
+export { penguinsPointHighlight } from './penguins-point-highlight';
+export { stateAgesIntervalHighlightLinkTranspose } from './stateages-interval-highlight-link-transpose';
+export { stateAgesIntervalHighlightLinkPolar } from './stateages-interval-highlight-link-polar';
+export { alphabetIntervalHighlightOffset } from './alphabet-interval-highlight-offset';
+export { alphabetIntervalHighlightOffsetTranspose } from './alphabet-interval-highlight-offset-transpose';
+export { alphabetIntervalHighlightOffsetPolar } from './alphabet-interval-highlight-offset-polar';

@@ -21,6 +21,7 @@ export function elementSelect(
     groupKey = (d) => d, // group elements by specified key
     link = false, // draw link or not
     single = false, // single select or not
+    coordinate,
     ...rest
   }: Record<string, any>,
 ) {
@@ -28,15 +29,19 @@ export function elementSelect(
   const elementSet = new Set(elements);
   const keyGroup = group(elements, groupKey);
   const valueof = createValueof(elements, datum);
-  const [appendLink, removeLink] = renderLink(root, {
+  const [appendLink, removeLink] = renderLink({
+    link,
     elements,
     valueof,
+    coordinate,
     ...subObject(rest, 'link'),
   });
   const { setState, removeState, hasState } = useState(rest, valueof);
   const clear = () => {
-    for (const e of elements) removeState(e, 'selected', 'unselected');
-    if (link) removeLink();
+    for (const e of elements) {
+      removeState(e, 'selected', 'unselected');
+      removeLink(e);
+    }
     return;
   };
 
@@ -49,13 +54,12 @@ export function elementSelect(
       const groupSet = new Set(group);
       for (const e of elements) {
         if (groupSet.has(e)) setState(e, 'selected');
-        else setState(e, 'unselected');
+        else {
+          setState(e, 'unselected');
+          removeLink(e);
+        }
       }
-      // Remove all links and append link for this group.
-      if (link) {
-        removeLink();
-        appendLink(group);
-      }
+      appendLink(group);
     }
   };
 
@@ -70,7 +74,7 @@ export function elementSelect(
         else if (!hasState(e, 'selected')) setState(e, 'unselected');
       }
       // Append link for each group only once.
-      if (!hasSelectedGroup && link) appendLink(group, k);
+      if (!hasSelectedGroup && link) appendLink(group);
     } else {
       // If there is no selected elements after resetting this group,
       // clear the states.
@@ -80,8 +84,10 @@ export function elementSelect(
       if (!hasSelected) return clear();
       // If there are still some selected elements after resetting this group,
       // only remove the link.
-      for (const e of group) setState(e, 'unselected');
-      if (link) removeLink(k);
+      for (const e of group) {
+        setState(e, 'unselected');
+        removeLink(e);
+      }
     }
   };
 
@@ -98,17 +104,21 @@ export function elementSelect(
 
   return () => {
     root.removeEventListener('click', click);
-    removeLink();
+    for (const e of elements) {
+      removeLink(e);
+    }
   };
 }
 
 export function ElementSelect(options) {
   return (context) => {
     const { container, view } = context;
+    const { coordinate } = view;
     return elementSelect(container, {
       ...applyDefaultsHighlightedStyle(options),
       elements: selectG2Elements,
       datum: createDatumof(view),
+      coordinate,
     });
   };
 }

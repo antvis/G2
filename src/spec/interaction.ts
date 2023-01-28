@@ -126,6 +126,7 @@ export type ElementHighlightInteraction = {
   // @todo: Style supported by G.
   link?: boolean;
   background?: boolean;
+  offset?: number;
 } & Record<
   `${'link' | 'highlighted' | 'unhighlighted' | 'background'}${any}`,
   any
@@ -151,6 +152,7 @@ export type ElementHighlightByXInteraction = {
   x?: string;
   link?: boolean;
   background?: boolean;
+  offset?: number;
 } & Record<
   `${'link' | 'highlighted' | 'unhighlighted' | 'background'}${any}`,
   any
@@ -160,6 +162,8 @@ export type ElementHighlightByColorInteraction = {
   type?: 'elementHighlightByColor';
   color?: string;
   background?: boolean;
+  link?: boolean;
+  offset?: number;
 } & Record<
   `${'link' | 'highlighted' | 'unhighlighted' | 'background'}${any}`,
   any
