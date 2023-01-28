@@ -1,14 +1,46 @@
+// @ts-ignore medianIndex exist in d3-array@3.2.0, but @types/d3-array Expired.
+import { maxIndex, minIndex, medianIndex } from 'd3-array';
 import { TransformComponent as TC, Primitive } from '../runtime';
-import { SampleTransform } from '../spec';
+import { SampleTransform, SampleFunction } from '../spec';
 import { createGroups } from './utils/order';
-import { GroupN } from './groupN';
+import { columnOf } from './utils/helper';
+import { lttb } from './utils/lttb';
 
 export type SampleOptions = Omit<SampleTransform, 'type'>;
+
+function normalizeSample(
+  strategy: SampleTransform['strategy'],
+): SampleFunction {
+  if (typeof strategy === 'function') return strategy;
+  if (strategy === 'lttb') return lttb;
+
+  const strategies = {
+    first: (f: number[]) => [f[0]],
+    last: (f: number[]) => [f[f.length - 1]],
+    min: (f: number[], X: number[], Y: number[]) => [
+      f[minIndex(f, (i) => Y[i])],
+    ],
+    max: (f: number[], X: number[], Y: number[]) => [
+      f[maxIndex(f, (i) => Y[i])],
+    ],
+    median: (f: number[], X: number[], Y: number[]) => [
+      f[medianIndex(f, (i) => Y[i])],
+    ],
+  };
+  const sampleFunction = strategies[strategy] || strategies.median;
+  return (I: number[], X: number[], Y: number[], thresholds: number) => {
+    // Sepreate group to frames, then sample each frame.
+    // Keep more data as possible.
+    const frameSize = Math.max(1, Math.floor(I.length / thresholds));
+    const frames = getFrames(I, frameSize);
+    return frames.flatMap((frame) => sampleFunction(frame, X, Y));
+  };
+}
 
 /**
  * Split the array into frame with each frameSize.
  */
-function getFrames(I: Primitive[], frameSize: number) {
+function getFrames(I: Primitive[], frameSize: number): number[][] {
   const size = I.length;
   const frames = [];
   let i = 0;
@@ -23,22 +55,26 @@ function getFrames(I: Primitive[], frameSize: number) {
  * sample data for each group when data.length >= threshold(default = 2000).
  */
 export const Sample: TC<SampleOptions> = (options = {}) => {
-  const { groupBy: by, thresholds = 2000, ...rest } = options;
+  const {
+    strategy = 'median',
+    thresholds = 2000,
+    groupBy = 'series',
+  } = options;
+  const sampleFunction = normalizeSample(strategy);
 
-  const groupBy = (I, mark) => {
-    const groups = createGroups(by, I, mark);
-    // Skip
-    if (groups.every((g) => g.length <= thresholds)) return null;
+  return (I, mark) => {
+    const { encode } = mark;
+    const groups = createGroups(groupBy, I, mark);
+    const [X] = columnOf(encode, 'x');
+    const [Y] = columnOf(encode, 'y');
 
-    return groups.flatMap((g) => {
-      // Keep more data as possible.
-      // After sampled, the length of each group.
-      const frameSize = Math.max(1, Math.floor(g.length / thresholds));
-      const frames = getFrames(g, frameSize);
-      return frames;
-    });
+    return [
+      groups.flatMap((g) =>
+        sampleFunction(g, X as number[], Y as number[], thresholds),
+      ),
+      mark,
+    ];
   };
-  return GroupN({ ...rest, groupBy });
 };
 
 Sample.props = {};

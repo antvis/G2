@@ -254,11 +254,36 @@ export type BinTransform = {
   thresholdsY?: number;
 } & { [key in ChannelTypes]?: Reducer };
 
+export type SampleFunction = (
+  I: number[],
+  X: number[],
+  Y: number[],
+  thresholds: number,
+) => number[];
+
 export type SampleTransform = {
   type?: 'sample';
-  groupBy?: string | string[];
+  /**
+   * Sample strategy. Default is 'median'.
+   */
+  strategy?:
+    | 'lttb'
+    | 'median'
+    | 'max'
+    | 'min'
+    | 'first'
+    | 'last'
+    | SampleFunction;
+  /**
+   * The thresholds of sample, when data size great then thresholds, sample will take effect.
+   * Default is 2000.
+   */
   thresholds?: number;
-} & { [key in ChannelTypes]?: Reducer };
+  /**
+   * Group data by fields, for series data.
+   */
+  groupBy?: string | string[];
+};
 
 export type FilterTransform = {
   type?: 'filter';

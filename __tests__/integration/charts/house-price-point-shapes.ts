@@ -40,8 +40,6 @@ export function housePricePointShapes(): G2Spec {
       {
         type: 'sample',
         thresholds: 400,
-        x: 'median',
-        y: 'median',
       },
     ],
   };
