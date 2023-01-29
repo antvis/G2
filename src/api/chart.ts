@@ -2,10 +2,11 @@ import { RendererPlugin, Canvas as GCanvas } from '@antv/g';
 import { Renderer as CanvasRenderer } from '@antv/g-canvas';
 import { Plugin as DragAndDropPlugin } from '@antv/g-plugin-dragndrop';
 import { debounce } from '@antv/util';
+import EventEmitter from '@antv/event-emitter';
 import { G2Context, render, destroy } from '../runtime';
 import { ViewComposition } from '../spec';
 import { getChartSize } from '../utils/size';
-import { CHART_LIFE_CIRCLE, emitEvent } from '../utils/event';
+import { CHART_LIFE_CIRCLE } from '../utils/event';
 import { Node } from './node';
 import {
   defineProps,
@@ -133,7 +134,6 @@ export interface Chart extends Composition, Mark {
   transform: ArrayAttribute<ChartProps['transform'], Chart>;
   theme: ObjectAttribute<ChartProps['theme'], Chart>;
   title: ObjectAttribute<ChartProps['title'], Chart>;
-  on: ObjectAttribute<ChartProps['on'], Chart>;
   scale: ObjectAttribute<ChartOptions['scale'], Chart>;
   axis: ObjectAttribute<ChartOptions['axis'], Chart>;
   legend: ObjectAttribute<ChartOptions['legend'], Chart>;
@@ -151,7 +151,6 @@ export const props: NodePropertyDescriptor[] = [
   { name: 'key', type: 'value' },
   { name: 'transform', type: 'array' },
   { name: 'theme', type: 'object' },
-  { name: 'on', type: 'event' },
   { name: 'scale', type: 'object' },
   { name: 'axis', type: 'object' },
   { name: 'legend', type: 'object' },
@@ -164,12 +163,15 @@ export const props: NodePropertyDescriptor[] = [
 export class Chart extends View<ChartOptions> {
   private _container: HTMLElement;
   private _context: G2Context;
+  private _dispatch: EventEmitter;
+  public finished: Promise<void>;
 
   constructor(options: ChartOptions = {}) {
     const { container, ...rest } = options;
     super(rest, 'view');
     this._container = normalizeContainer(container);
-    this._context = { library };
+    this._dispatch = new EventEmitter();
+    this._context = { library, dispatch: this._dispatch };
     this.bindAutoFit();
   }
 
@@ -201,7 +203,10 @@ export class Chart extends View<ChartOptions> {
         plugins,
       );
     }
-    render(this.options(), this._context);
+
+    this.finished = new Promise((resolve) => {
+      render(this.options(), this._context, resolve);
+    });
 
     return this;
   }
@@ -218,23 +223,41 @@ export class Chart extends View<ChartOptions> {
     return this._context;
   }
 
+  on(event: string, callback: (...args: any[]) => any, once?: boolean): this {
+    this._dispatch.on(event, callback, once);
+    return this;
+  }
+
+  once(event: string, callback: (...args: any[]) => any): this {
+    this._dispatch.once(event, callback);
+    return this;
+  }
+
+  emit(event: string, ...args: any[]): this {
+    this._dispatch.emit(event, ...args);
+    return this;
+  }
+
+  off(event?: string, callback?: (...args: any[]) => any) {
+    this._dispatch.off(event, callback);
+    return this;
+  }
+
   destroy() {
     const options = this.options();
-    const { on } = options;
-    emitEvent(on, CHART_LIFE_CIRCLE.BEFORE_DESTROY);
+    this.emit(CHART_LIFE_CIRCLE.BEFORE_DESTROY);
     this.unbindAutoFit();
     destroy(options, this._context);
     // Remove the container.
     removeContainer(this._container);
-    emitEvent(on, CHART_LIFE_CIRCLE.AFTER_DESTROY);
+    this.emit(CHART_LIFE_CIRCLE.AFTER_DESTROY);
   }
 
   clear() {
     const options = this.options();
-    const { on } = options;
-    emitEvent(on, CHART_LIFE_CIRCLE.BEFORE_CLEAR);
+    this.emit(CHART_LIFE_CIRCLE.BEFORE_CLEAR);
     destroy(options, this._context);
-    emitEvent(on, CHART_LIFE_CIRCLE.AFTER_CLEAR);
+    this.emit(CHART_LIFE_CIRCLE.AFTER_CLEAR);
   }
 
   forceFit() {
@@ -256,11 +279,12 @@ export class Chart extends View<ChartOptions> {
       return this;
     }
 
-    emitEvent(on, CHART_LIFE_CIRCLE.BEFORE_CHANGE_SIZE);
+    this.emit(CHART_LIFE_CIRCLE.BEFORE_CHANGE_SIZE);
     this.width(adjustedWidth);
     this.height(adjustedHeight);
-    this.render();
-    emitEvent(on, CHART_LIFE_CIRCLE.AFTER_CHANGE_SIZE);
+    this.render().finished.then(() => {
+      this.emit(CHART_LIFE_CIRCLE.AFTER_CHANGE_SIZE);
+    });
   }
 
   private onResize = debounce(() => {
