@@ -44,6 +44,7 @@ export { aaplLineBasic } from './aapl-line-basic';
 export { aaplLineBasicLabelOverlapHide } from './aapl-line-basic-label-overlap-hide';
 export { aaplLineBasicSample } from './aapl-line-basic-sample';
 export { aaplLineAreaBasicSample } from './aapl-line-area-basic-sample';
+export { aaplLinePointBasicSample } from './aapl-line-point-basic-sample';
 export { unemploymentLineMultiSeries } from './unemployment-line-multi-series';
 export { receiptsLineSlope } from './receipts-line-slope';
 export { stocksLineAggregateLabel } from './stocks-line-aggregate-label';
