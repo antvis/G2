@@ -15,7 +15,7 @@ export function aaplLineBasicSample(): G2Spec {
       {
         type: 'sample',
         thresholds: 100,
-        y: 'mean',
+        strategy: 'lttb',
       },
     ],
   };
