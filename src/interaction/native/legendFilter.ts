@@ -11,16 +11,20 @@ export const LEGEND_MAKER_CLASS_NAME = 'legend-category-item-marker';
 
 export const LEGEND_LABEL_CLASS_NAME = 'legend-category-item-label';
 
-function markerOf(item) {
+export function markerOf(item) {
   return item.getElementsByClassName(LEGEND_MAKER_CLASS_NAME)[0];
 }
 
-function labelOf(item) {
+export function labelOf(item) {
   return item.getElementsByClassName(LEGEND_LABEL_CLASS_NAME)[0];
 }
 
-function legendsOf(root) {
+export function itemsOf(root) {
   return root.getElementsByClassName(LEGEND_ITEMS_CLASS_NAME);
+}
+
+export function legendsOf(root) {
+  return root.getElementsByClassName(CATEGORY_LEGEND_CLASS_NAME);
 }
 
 function builtInAccessors(selectedLegend) {
@@ -31,7 +35,7 @@ function builtInAccessors(selectedLegend) {
   return [
     channel,
     {
-      legends: legendsOf,
+      legends: itemsOf,
       marker: markerOf,
       label: labelOf,
       datum: (d) => {
