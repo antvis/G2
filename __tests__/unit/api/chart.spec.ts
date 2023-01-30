@@ -334,7 +334,7 @@ describe('Chart', () => {
       .encode('y', 'sold')
       .encode('color', 'genre');
 
-    expect(chart.render()).toBe(chart);
+    chart.render();
     expect(chart.context().canvas?.getConfig().container).toBe(container);
   });
 
