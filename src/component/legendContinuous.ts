@@ -8,7 +8,20 @@ import { titleContent } from './utils';
 export type LegendContinuousOptions = {
   position?: GCP;
   title?: string | string[];
+  [key: string]: any;
 };
+
+function inferContinuousLayout(options: LegendContinuousOptions) {
+  const { position = 'top', size, length = 200 } = options;
+  const layouts = {
+    left: ['vertical', size, length],
+    right: ['vertical', size, length],
+    top: ['horizontal', length, size],
+    bottom: ['horizontal', length, size],
+  };
+  const [orient, width, height] = layouts[position];
+  return { orient, width, height };
+}
 
 /**
  * Guide Component for continuous color scale.
@@ -30,17 +43,14 @@ export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
         {
           x,
           y,
-          width: 400,
-          height: 300,
           data: [{ value: min }, { value: max }],
           titleText: titleContent(title),
           titleFontSize: 12,
-          ribbonLen: 120,
-          ribbonSize: 12,
           ribbonColor: domain.map((d) => scale.map(d)),
           showHandle: false,
           showIndicator: false,
           labelAlign: 'value',
+          ...inferContinuousLayout(options),
         },
         rest,
       ),
@@ -51,5 +61,5 @@ export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
 LegendContinuous.props = {
   defaultPosition: { anchor: 'top' },
   defaultOrder: 1,
-  defaultSize: 40,
+  defaultSize: 50,
 };
