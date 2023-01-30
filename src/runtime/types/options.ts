@@ -1,4 +1,5 @@
 import type { DisplayObject } from '@antv/g';
+import EventEmitter from '@antv/event-emitter';
 import {
   G2Title,
   G2ViewDescriptor,
@@ -51,6 +52,7 @@ export type G2Library = Record<
 export type G2Context = {
   library?: G2Library;
   canvas?: Canvas;
+  emitter?: EventEmitter;
   group?: DisplayObject;
   animations?: GAnimation[];
   views?: G2ViewDescriptor[];

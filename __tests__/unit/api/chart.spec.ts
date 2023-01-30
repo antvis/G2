@@ -334,7 +334,7 @@ describe('Chart', () => {
       .encode('y', 'sold')
       .encode('color', 'genre');
 
-    expect(chart.render()).toBe(chart);
+    chart.render();
     expect(chart.context().canvas?.getConfig().container).toBe(container);
   });
 
@@ -397,6 +397,31 @@ describe('Chart', () => {
         { genre: 'Strategy', sold: 115 },
       ]);
     };
+  });
+
+  it('chart.render() should return promise', (done) => {
+    const chart = new Chart({
+      container: createDiv(),
+    });
+
+    chart.data([
+      { genre: 'Sports', sold: 275 },
+      { genre: 'Strategy', sold: 115 },
+      { genre: 'Action', sold: 120 },
+      { genre: 'Shooter', sold: 350 },
+      { genre: 'Other', sold: 150 },
+    ]);
+
+    chart
+      .interval()
+      .encode('x', 'genre')
+      .encode('y', 'sold')
+      .encode('color', 'genre');
+
+    chart.render().then((c) => {
+      expect(c).toBe(chart);
+      done();
+    });
   });
 
   it('chart.render({...}) should rerender chart with updated size', () => {
@@ -473,20 +498,13 @@ describe('Chart', () => {
     };
   });
 
-  it('chart.on({...}) should register chart event.', () => {
+  it('chart.on(event, callback) should register chart event.', (done) => {
     const div = createDiv();
 
     const chart = new Chart({
       container: div,
     });
 
-    // 1. chart.on('eventName', callback)
-    chart.on('afterrender', () => console.log('afterrender event.'));
-    // 2. chart.on('eventName', [callback])
-    chart.on('beforerender', [
-      () => console.log('beforerender event 1'),
-      () => console.log('beforerender event 2'),
-    ]);
     chart.data([
       { genre: 'Sports', sold: 275 },
       { genre: 'Strategy', sold: 115 },
@@ -501,7 +519,47 @@ describe('Chart', () => {
       .encode('y', 'sold')
       .encode('color', 'genre');
 
+    let beforerender = false;
+    let beforepaint = false;
+    let afterpaint = false;
+    chart
+      .on('beforerender', () => (beforerender = true))
+      .on('beforepaint', () => (beforepaint = true))
+      .on('afterpaint', () => (afterpaint = true))
+      .on('afterrender', () => {
+        expect(beforerender).toBe(true);
+        expect(beforepaint).toBe(true);
+        expect(afterpaint).toBe(true);
+        done();
+      });
+
     chart.render();
+  });
+
+  it('chart.once(event, callback) should call callback once.', () => {
+    const chart = new Chart();
+    let count = 0;
+    chart.once('foo', () => count++);
+    chart.emit('foo');
+    chart.emit('foo');
+    expect(count).toBe(1);
+  });
+
+  it('chart.emit(event, ...params) should emit event.', () => {
+    const chart = new Chart();
+    let sum = 0;
+    chart.on('foo', (a, b) => (sum = a + b));
+    chart.emit('foo', 1, 2);
+    expect(sum).toBe(3);
+  });
+
+  it('chart.off(event) should remove event.', () => {
+    const chart = new Chart();
+    let count = 0;
+    chart.on('foo', () => count++);
+    chart.off('foo');
+    chart.emit('foo');
+    expect(count).toBe(0);
   });
 
   it('chart should render after window resize.', (done) => {

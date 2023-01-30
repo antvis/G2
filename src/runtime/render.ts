@@ -2,9 +2,10 @@ import { Canvas as GCanvas, DisplayObject, Group } from '@antv/g';
 import { Renderer as CanvasRenderer } from '@antv/g-canvas';
 import { Plugin as DragAndDropPlugin } from '@antv/g-plugin-dragndrop';
 import { deepMix } from '@antv/util';
+import EventEmitter from '@antv/event-emitter';
 import { createLibrary } from '../stdlib';
 import { select } from '../utils/selection';
-import { emitEvent, CHART_LIFE_CIRCLE, offEvent } from '../utils/event';
+import { CHART_LIFE_CIRCLE } from '../utils/event';
 import { G2Context, G2ViewTree } from './types/options';
 import { plot } from './plot';
 
@@ -65,12 +66,17 @@ export function render<T extends G2ViewTree = G2ViewTree>(
   // Initialize the context if it is not provided.
   const { width = 640, height = 480, on } = options;
   const keyed = inferKeys(options);
-  const { canvas = Canvas(width, height), library = createLibrary() } = context;
+  const {
+    canvas = Canvas(width, height),
+    library = createLibrary(),
+    emitter = new EventEmitter(),
+  } = context;
   context.canvas = canvas;
   context.library = library;
+  context.emitter = emitter;
   canvas.resize(width, height);
 
-  emitEvent(on, CHART_LIFE_CIRCLE.BEFORE_RENDER);
+  emitter.emit(CHART_LIFE_CIRCLE.BEFORE_RENDER);
 
   // Plot the chart and mutate context.
   // Make sure that plot chart after container is ready for every time.
@@ -79,8 +85,10 @@ export function render<T extends G2ViewTree = G2ViewTree>(
     .then(() =>
       plot<T>({ ...keyed, width, height }, selection, library, context),
     )
-    .then(callback)
-    .then(() => emitEvent(on, CHART_LIFE_CIRCLE.AFTER_RENDER));
+    .then(() => {
+      emitter.emit(CHART_LIFE_CIRCLE.AFTER_RENDER);
+      callback?.();
+    });
 
   // Return the container HTML element wraps the canvas or svg element.
   return normalizeContainer(canvas.getConfig().container);
@@ -94,7 +102,11 @@ export function renderToMountedElement<T extends G2ViewTree = G2ViewTree>(
   // Initialize the context if it is not provided.
   const { width = 640, height = 480, on } = options;
   const keyed = inferKeys(options);
-  const { library = createLibrary(), group = new Group() } = context;
+  const {
+    library = createLibrary(),
+    group = new Group(),
+    emitter = new EventEmitter(),
+  } = context;
 
   if (!group?.parentElement) {
     throw new Error(
@@ -105,13 +117,15 @@ export function renderToMountedElement<T extends G2ViewTree = G2ViewTree>(
   const selection = select(group);
   context.group = group;
   context.library = library;
+  context.emitter = emitter;
 
-  emitEvent(on, CHART_LIFE_CIRCLE.BEFORE_RENDER);
+  emitter.emit(CHART_LIFE_CIRCLE.BEFORE_RENDER);
   // Plot the chart and mutate context.
   // Make sure that plot chart after container is ready for every time.
-  plot<T>({ ...keyed, width, height }, selection, library, context)
-    .then(callback)
-    .then(() => emitEvent(on, CHART_LIFE_CIRCLE.AFTER_RENDER));
+  plot<T>({ ...keyed, width, height }, selection, library, context).then(() => {
+    emitter.emit(CHART_LIFE_CIRCLE.AFTER_RENDER);
+    callback?.();
+  });
 
   // Return the Group wraps the canvas or svg element.
   return group;
@@ -121,12 +135,11 @@ export function destroy<T extends G2ViewTree = G2ViewTree>(
   options: T,
   context: G2Context = {},
 ) {
-  const { on } = options;
-  const { canvas } = context;
+  const { canvas, emitter } = context;
   if (canvas) {
     canvas.destroy();
   }
-  offEvent(on);
+  emitter.off();
 }
 
 function normalizeContainer(container: HTMLElement | string): HTMLElement {
