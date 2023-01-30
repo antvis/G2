@@ -273,10 +273,17 @@ function inferOverrideStyle(
       startPos: [x, y],
     };
   } else if (position === 'arcY') {
+    const [startAngle, endAngle] = angleOf(coordinate);
     return {
       startPos: [x, y],
       endPos: [x + width, y + height],
       gridCenter: [bbox.x, cy + bbox.y],
+      gridControlAngles: new Array(3)
+        .fill(0)
+        .map(
+          (d, i, arr) =>
+            90 + startAngle + ((endAngle - startAngle) / (arr.length - 1)) * i,
+        ),
     };
   }
 
