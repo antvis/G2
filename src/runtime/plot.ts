@@ -165,7 +165,7 @@ export async function plot<T extends G2ViewTree>(
     }
   }
 
-  context.dispatch.emit(CHART_LIFE_CIRCLE.BEFORE_PAINT);
+  context.emitter.emit(CHART_LIFE_CIRCLE.BEFORE_PAINT);
 
   // Plot chart.
   const enterContainer = new Map<G2ViewDescriptor, DisplayObject>();
@@ -268,7 +268,7 @@ export async function plot<T extends G2ViewTree>(
   context.views = views;
   context.animations = transitions;
 
-  context.dispatch.emit(CHART_LIFE_CIRCLE.AFTER_PAINT);
+  context.emitter.emit(CHART_LIFE_CIRCLE.AFTER_PAINT);
 
   // Note!!!
   // The returned promise will never resolved if one of nodeGenerator

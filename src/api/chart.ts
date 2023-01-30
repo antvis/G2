@@ -163,19 +163,18 @@ export const props: NodePropertyDescriptor[] = [
 export class Chart extends View<ChartOptions> {
   private _container: HTMLElement;
   private _context: G2Context;
-  private _dispatch: EventEmitter;
-  public finished: Promise<void>;
+  private _emitter: EventEmitter;
 
   constructor(options: ChartOptions = {}) {
     const { container, ...rest } = options;
     super(rest, 'view');
     this._container = normalizeContainer(container);
-    this._dispatch = new EventEmitter();
-    this._context = { library, dispatch: this._dispatch };
+    this._emitter = new EventEmitter();
+    this._context = { library, emitter: this._emitter };
     this.bindAutoFit();
   }
 
-  render(): Chart {
+  render(): Promise<Chart> {
     if (!this._context.canvas) {
       // Init width and height.
       const {
@@ -204,11 +203,9 @@ export class Chart extends View<ChartOptions> {
       );
     }
 
-    this.finished = new Promise((resolve) => {
-      render(this.options(), this._context, resolve);
+    return new Promise((resolve) => {
+      render(this.options(), this._context, () => resolve(this));
     });
-
-    return this;
   }
 
   options() {
@@ -224,22 +221,22 @@ export class Chart extends View<ChartOptions> {
   }
 
   on(event: string, callback: (...args: any[]) => any, once?: boolean): this {
-    this._dispatch.on(event, callback, once);
+    this._emitter.on(event, callback, once);
     return this;
   }
 
   once(event: string, callback: (...args: any[]) => any): this {
-    this._dispatch.once(event, callback);
+    this._emitter.once(event, callback);
     return this;
   }
 
   emit(event: string, ...args: any[]): this {
-    this._dispatch.emit(event, ...args);
+    this._emitter.emit(event, ...args);
     return this;
   }
 
   off(event?: string, callback?: (...args: any[]) => any) {
-    this._dispatch.off(event, callback);
+    this._emitter.off(event, callback);
     return this;
   }
 
@@ -282,7 +279,7 @@ export class Chart extends View<ChartOptions> {
     this.emit(CHART_LIFE_CIRCLE.BEFORE_CHANGE_SIZE);
     this.width(adjustedWidth);
     this.height(adjustedHeight);
-    this.render().finished.then(() => {
+    return this.render().then(() => {
       this.emit(CHART_LIFE_CIRCLE.AFTER_CHANGE_SIZE);
     });
   }

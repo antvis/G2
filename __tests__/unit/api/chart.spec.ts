@@ -399,7 +399,7 @@ describe('Chart', () => {
     };
   });
 
-  it('chart.render() should update finished promise', (done) => {
+  it('chart.render() should return promise', (done) => {
     const chart = new Chart({
       container: createDiv(),
     });
@@ -418,7 +418,10 @@ describe('Chart', () => {
       .encode('y', 'sold')
       .encode('color', 'genre');
 
-    chart.render().finished.then(() => done());
+    chart.render().then((c) => {
+      expect(c).toBe(chart);
+      done();
+    });
   });
 
   it('chart.render({...}) should rerender chart with updated size', () => {

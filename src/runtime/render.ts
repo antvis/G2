@@ -69,14 +69,14 @@ export function render<T extends G2ViewTree = G2ViewTree>(
   const {
     canvas = Canvas(width, height),
     library = createLibrary(),
-    dispatch = new EventEmitter(),
+    emitter = new EventEmitter(),
   } = context;
   context.canvas = canvas;
   context.library = library;
-  context.dispatch = dispatch;
+  context.emitter = emitter;
   canvas.resize(width, height);
 
-  dispatch.emit(CHART_LIFE_CIRCLE.BEFORE_RENDER);
+  emitter.emit(CHART_LIFE_CIRCLE.BEFORE_RENDER);
 
   // Plot the chart and mutate context.
   // Make sure that plot chart after container is ready for every time.
@@ -85,8 +85,10 @@ export function render<T extends G2ViewTree = G2ViewTree>(
     .then(() =>
       plot<T>({ ...keyed, width, height }, selection, library, context),
     )
-    .then(() => dispatch.emit(CHART_LIFE_CIRCLE.AFTER_RENDER))
-    .then(callback);
+    .then(() => {
+      emitter.emit(CHART_LIFE_CIRCLE.AFTER_RENDER);
+      callback?.();
+    });
 
   // Return the container HTML element wraps the canvas or svg element.
   return normalizeContainer(canvas.getConfig().container);
@@ -103,7 +105,7 @@ export function renderToMountedElement<T extends G2ViewTree = G2ViewTree>(
   const {
     library = createLibrary(),
     group = new Group(),
-    dispatch = new EventEmitter(),
+    emitter = new EventEmitter(),
   } = context;
 
   if (!group?.parentElement) {
@@ -115,14 +117,15 @@ export function renderToMountedElement<T extends G2ViewTree = G2ViewTree>(
   const selection = select(group);
   context.group = group;
   context.library = library;
-  context.dispatch = dispatch;
+  context.emitter = emitter;
 
-  dispatch.emit(CHART_LIFE_CIRCLE.BEFORE_RENDER);
+  emitter.emit(CHART_LIFE_CIRCLE.BEFORE_RENDER);
   // Plot the chart and mutate context.
   // Make sure that plot chart after container is ready for every time.
-  plot<T>({ ...keyed, width, height }, selection, library, context)
-    .then(() => dispatch.emit(CHART_LIFE_CIRCLE.AFTER_RENDER))
-    .then(callback);
+  plot<T>({ ...keyed, width, height }, selection, library, context).then(() => {
+    emitter.emit(CHART_LIFE_CIRCLE.AFTER_RENDER);
+    callback?.();
+  });
 
   // Return the Group wraps the canvas or svg element.
   return group;
@@ -132,11 +135,11 @@ export function destroy<T extends G2ViewTree = G2ViewTree>(
   options: T,
   context: G2Context = {},
 ) {
-  const { canvas, dispatch } = context;
+  const { canvas, emitter } = context;
   if (canvas) {
     canvas.destroy();
   }
-  dispatch.off();
+  emitter.off();
 }
 
 function normalizeContainer(container: HTMLElement | string): HTMLElement {

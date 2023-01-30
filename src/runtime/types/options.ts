@@ -53,7 +53,7 @@ export type G2Library = Record<
 export type G2Context = {
   library?: G2Library;
   canvas?: Canvas;
-  dispatch?: EventEmitter;
+  emitter?: EventEmitter;
   group?: DisplayObject;
   animations?: GAnimation[];
   views?: G2ViewDescriptor[];
