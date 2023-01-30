@@ -166,10 +166,6 @@ import {
   GrowInY,
 } from '../animation';
 import {
-  // ElementHighlight,
-  // ElementSelected,
-  // Tooltip,
-  // Fisheye as FisheyeInteraction,
   ElementHighlight,
   ElementHighlightByX,
   ElementHighlightByColor,
@@ -180,6 +176,7 @@ import {
   Fisheye as ChartFisheye,
   Tooltip,
   LegendFilter,
+  LegendHighlight,
   BrushHighlight,
   BrushXHighlight,
   BrushYHighlight,
@@ -517,6 +514,7 @@ export function createLibrary(): G2Library {
     'interaction.chartIndex': ChartIndex,
     'interaction.tooltip': Tooltip,
     'interaction.legendFilter': LegendFilter,
+    'interaction.legendHighlight': LegendHighlight,
     'interaction.brushHighlight': BrushHighlight,
     'interaction.brushXHighlight': BrushXHighlight,
     'interaction.brushYHighlight': BrushYHighlight,

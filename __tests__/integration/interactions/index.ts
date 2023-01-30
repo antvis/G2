@@ -47,3 +47,4 @@ export { alphabetIntervalHighlightOffsetPolar } from './alphabet-interval-highli
 export { alphabetIntervalSelectSingleBackground } from './alphabet-interval-select-single-background';
 export { alphabetIntervalSelectBackground } from './alphabet-interval-select-background';
 export { alphabetIntervalSelectOffsetPolar } from './alphabet-interval-select-offset-polar';
+export { profitIntervalLegendHighlight } from './profit-interval-legend-highlight';
