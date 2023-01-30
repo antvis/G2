@@ -61,7 +61,6 @@ export type ViewComposition = {
   axis?: Record<string, any>;
   // @todo
   legend?: Record<string, any>;
-  on?: Record<string, EventType | EventType[]>;
   // @todo
   style?: Record<string, any>;
   clip?: boolean;

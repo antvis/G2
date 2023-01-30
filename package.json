@@ -121,6 +121,7 @@
   },
   "dependencies": {
     "@antv/coord": "^0.4.1",
+    "@antv/event-emitter": "^0.1.3",
     "@antv/g": "^5.7.4",
     "@antv/g-canvas": "^1.7.4",
     "@antv/g-plugin-dragndrop": "^1.6.1",
