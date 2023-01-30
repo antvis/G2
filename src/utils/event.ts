@@ -18,29 +18,3 @@ export enum CHART_LIFE_CIRCLE {
   BEFORE_CHANGE_SIZE = 'beforechangesize',
   AFTER_CHANGE_SIZE = 'afterchangesize',
 }
-
-export function emitEvent(
-  event: Record<string, EventListener[]>,
-  eventName: string,
-  ...args: any[]
-) {
-  if (!event) return;
-  const listeners = event[eventName] || [];
-  listeners.forEach((listener) => {
-    listener.apply(this, args);
-  });
-}
-
-export function offEvent(
-  event: Record<string, EventListener[]>,
-  eventName?: string,
-) {
-  if (!event) return;
-  // Unbind all event.
-  if (!eventName) {
-    event = {};
-    return;
-  }
-
-  delete event[eventName];
-}

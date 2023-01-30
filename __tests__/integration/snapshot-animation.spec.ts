@@ -1,4 +1,5 @@
 import * as fs from 'fs';
+import EventEmitter from '@antv/event-emitter';
 import { G2Context, render } from '../../src';
 import * as tests from './animations';
 import { fetch } from './fetch';
@@ -63,7 +64,8 @@ describe('Animations', () => {
           const options = await generateOptions();
           const { width = 640, height = 480 } = options;
           [canvas, nodeCanvas] = createGCanvas(width, height);
-          const context: G2Context = { canvas };
+          const emitter = new EventEmitter();
+          const context: G2Context = { canvas, emitter };
 
           let frameCount = 0;
           const { intervals: I } = generateOptions;
@@ -113,17 +115,8 @@ describe('Animations', () => {
           // Render chart and listen afterpaint event for every node.
           // eslint-disable-next-line no-async-promise-executor
           await new Promise<void>(async (resolve) => {
-            const on = { afterpaint: [onframe] };
-            // @ts-ignore
-            const { children, ...rest } = options;
-            const listenedOptions = {
-              ...rest,
-              ...(children && {
-                children: children.map((d) => ({ ...d, on })),
-              }),
-              on,
-            };
-            render(listenedOptions, context, resolve);
+            emitter.on('afterpaint', onframe);
+            render(options, context, resolve);
           });
 
           // Asset the last state of this animation.
