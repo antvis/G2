@@ -127,32 +127,24 @@ export type BBox = {
   height?: number;
 };
 
-export type GuideComponentAnchor =
+export type GuidePrimitivePosition =
   | 'top'
   | 'bottom'
   | 'left'
   | 'right'
   | 'center'
-  /** arc axis only */
   | 'inner'
   | 'outer';
-
-export type GuideComponentAlign =
-  | 'start'
-  | 'middle'
-  | 'end'
-  // alias
-  | 'left'
-  | 'center'
-  | 'right';
+export type GuideCompositePosition =
+  | 'top-left'
+  | 'top-right'
+  | 'bottom-left'
+  | 'bottom-right';
+export type GuideComponentPosition =
+  | GuidePrimitivePosition
+  | GuideCompositePosition;
 
 export type GuideComponentOrientation = 'horizontal' | 'vertical' | number;
-
-export type GuideComponentPosition = {
-  anchor: GuideComponentAnchor;
-  align?: GuideComponentAlign;
-  orientation?: GuideComponentOrientation;
-};
 
 export type Layout = {
   paddingLeft?: number;
@@ -178,6 +170,12 @@ export type Layout = {
 
 export type Direction = 'horizontal' | 'vertical' | 'center';
 
+export type FlexLayout = {
+  flexDirection?: 'row' | 'column';
+  justifyContent?: 'flex-start' | 'flex-end' | 'center';
+  alignItems?: 'flex-start' | 'flex-end' | 'center';
+};
+
 export type SectionArea = [
   x: number,
   y: number,
@@ -188,4 +186,4 @@ export type SectionArea = [
   comparator: (a: Primitive, b: Primitive) => number,
 ];
 
-export type Section = Record<GuideComponentAnchor, SectionArea>;
+export type Section = Record<GuideComponentPosition, SectionArea>;

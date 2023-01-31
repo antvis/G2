@@ -12,5 +12,5 @@ export const ScrollbarX: GCC<ScrollbarXOptions> = (options) => {
 
 ScrollbarX.props = {
   ...Scrollbar.props,
-  defaultPosition: { anchor: 'bottom' },
+  defaultPosition: 'bottom',
 };

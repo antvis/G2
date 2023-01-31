@@ -8,7 +8,8 @@ export function cars3LineRadar(): G2Spec {
     'power (hp)',
     'weight (lb)',
     '0-60 mph (s)',
-    'year',
+    // 'year',
+    'economy (mpg)',
   ];
   return {
     type: 'line',
@@ -27,7 +28,15 @@ export function cars3LineRadar(): G2Spec {
       strokeOpacity: 0.4,
     },
     scale: {
-      color: { palette: 'brBG', offset: (t) => 1 - t },
+      color: {
+        palette: 'GnBu',
+        offset: (t) => 1 - t,
+      },
+    },
+    legend: {
+      color: {
+        position: 'bottom',
+      },
     },
     axis: Object.fromEntries(
       Array.from({ length: position.length }, (_, i) => [

@@ -7,17 +7,12 @@ export const LegendContinuousSize: GCC<LegendContinuousSizeOptions> = (
   options,
 ) => {
   return LegendContinuous(
-    Object.assign(
-      {},
-      {
-        type: 'size',
-      },
-      options,
-    ),
+    Object.assign({}, { type: 'size', labelShowTick: false }, options),
   );
 };
 
 LegendContinuousSize.props = {
   ...LegendContinuous.props,
-  defaultPosition: { anchor: 'top', orientation: 'horizontal' },
+  defaultPosition: 'top',
+  defaultOrientation: 'horizontal',
 };

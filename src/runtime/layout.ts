@@ -1,10 +1,11 @@
 import { Coordinate } from '@antv/coord';
 import { ascending, group } from 'd3-array';
-import { isNumber } from '_@antv_util@3.3.2@@antv/util';
-import { isParallel, isPolar, isRadar } from '../utils/coordinate';
+import { isParallel, isPolar, isRadar, radiusOf } from '../utils/coordinate';
 import { capitalizeFirst } from '../utils/helper';
+import { devide } from '../utils/array';
 import {
   GuideComponentPosition as GCP,
+  GuideComponentOrientation as GCO,
   Layout,
   Section,
   SectionArea,
@@ -33,6 +34,7 @@ export function computeLayout(
     marginTop = margin,
     marginRight = margin,
   } = options;
+
   return {
     ...padding,
     width,
@@ -59,8 +61,17 @@ function computePadding(
   components: G2GuideComponentOptions[],
   options: G2View,
 ) {
-  const anchors: GCP['anchor'][] = ['left', 'right', 'top', 'bottom'];
-  const positionComponents = group(components, (d) => d.position.anchor);
+  const positions: GCP[] = [
+    'left',
+    'right',
+    'top',
+    'bottom',
+    'top-left',
+    'top-right',
+    'bottom-left',
+    'bottom-right',
+  ];
+  const positionComponents = group(components, (d) => d.position);
   const {
     padding,
     paddingLeft = padding,
@@ -74,13 +85,13 @@ function computePadding(
     paddingTop,
     paddingRight,
   };
-  for (const anchor of anchors) {
-    const key = `padding${capitalizeFirst(anchor)}`;
+  for (const position of positions) {
+    const key = `padding${capitalizeFirst(position)}`;
     if (layout[key] === undefined) {
-      if (!positionComponents.has(anchor)) {
+      if (!positionComponents.has(position)) {
         layout[key] = 30;
       } else {
-        const components = positionComponents.get(anchor);
+        const components = positionComponents.get(position);
         const totalSize = components.reduce((sum, { size }) => sum + size, 0);
         layout[key] = totalSize;
       }
@@ -120,84 +131,114 @@ export function placeComponents(
     right: [width - pr, pt, pr, innerHeight, 'horizontal', false, ascending],
     bottom: [pl, height - pb, innerWidth, pb, 'vertical', false, ascending],
     left: [0, pt, pl, innerHeight, 'horizontal', true, ascending],
+    'top-left': [pl, 0, innerWidth, pt, 'vertical', true, ascending],
+    'top-right': [pl, 0, innerWidth, pt, 'vertical', true, ascending],
+    'bottom-left': [
+      pl,
+      height - pb,
+      innerWidth,
+      pb,
+      'vertical',
+      false,
+      ascending,
+    ],
+    'bottom-right': [
+      pl,
+      height - pb,
+      innerWidth,
+      pb,
+      'vertical',
+      false,
+      ascending,
+    ],
     center: [pl, pt, innerWidth, innerHeight, 'center', null, null],
     inner: [pl, pt, innerWidth, innerHeight, 'center', null, null],
     outer: [pl, pt, innerWidth, innerHeight, 'center', null, null],
   };
-
   for (const [position, components] of positionComponents.entries()) {
-    const { anchor } = position;
-    const area = section[anchor];
+    const area = section[position];
+
     /**
+     * @description non-entity components: axis in the center, inner, outer, component in the center
+     * @description entity components: other components
      * @description no volumn components take up no extra space
      */
-    const [nonCollisionComponents, generalComponents]: [
-      G2GuideComponentOptions[],
-      G2GuideComponentOptions[],
-    ] = components.reduce(
-      (acc, curr) => {
-        if (typeof curr.type === 'string') {
-          if (curr.type.startsWith('axis')) {
-            if (['center', 'inner', 'outer'].includes(anchor)) {
-              acc[0].push(curr);
-            }
-          } else if (anchor === 'center') acc[0].push(curr);
-          else acc[1].push(curr);
-        } else acc[1].push(curr);
-        return acc;
+
+    const [nonEntityComponents, entityComponents] = devide(
+      components,
+      (component) => {
+        if (typeof component.type !== 'string') return false;
+        if (position === 'center') return true;
+        if (
+          component.type.startsWith('axis') &&
+          ['inner', 'outer'].includes(position)
+        ) {
+          return true;
+        }
+        return false;
       },
-      [[], []],
     );
 
-    if (nonCollisionComponents.length) {
-      placeNonCollisionComponents(
-        nonCollisionComponents,
-        coordinate,
-        area,
-        position,
-      );
+    if (nonEntityComponents.length) {
+      placeNonEntityComponents(nonEntityComponents, coordinate, area, position);
     }
-    if (generalComponents.length) {
+    if (entityComponents.length) {
       placePaddingArea(components, coordinate, area);
     }
   }
 }
 
-function placeNonCollisionComponents(
+function placeNonEntityComponents(
   components: G2GuideComponentOptions[],
   coordinate: Coordinate,
   area: SectionArea,
   position: GCP,
 ) {
-  // in current stage, only center/inner/outer axis components have no volumn
-  placeNonCollisionAxis(components, coordinate, area, position);
+  const [axisComponents, nonAxisComponents] = devide(
+    components,
+    (component) => {
+      if (
+        typeof component.type === 'string' &&
+        component.type.startsWith('axis')
+      ) {
+        return true;
+      }
+      return false;
+    },
+  );
+
+  placeNonEntityAxis(axisComponents, coordinate, area, position);
+  // in current stage, only legend component which located in the center can be placed
+  placeCenter(nonAxisComponents, coordinate, area);
 }
 
-function placeNonCollisionAxis(
+function placeNonEntityAxis(
   components: G2GuideComponentOptions[],
   coordinate: Coordinate,
   area: SectionArea,
   position: GCP,
 ) {
-  const { anchor } = position;
-  if (anchor === 'center') {
-    if (isPolar(coordinate)) {
-      placeArcLinear(components, coordinate, area, position);
-    }
-    if (isParallel(coordinate)) {
-      placeParallel(components, coordinate, area, position);
-    }
+  if (position === 'center') {
     if (isRadar(coordinate)) {
-      placeRadar(components, coordinate, area, position);
+      placeAxisRadar(components, coordinate, area, position);
+    } else if (isPolar(coordinate)) {
+      placeArcLinear(components, coordinate, area);
+    } else if (isParallel(coordinate)) {
+      placeAxisParallel(
+        components,
+        coordinate,
+        area,
+        components[0].orientation, // assume that all components have the same orientation
+      );
     }
-  } else if (anchor === 'inner') {
-    placeArcInner(components, coordinate, area);
-  } else if (anchor === 'outer') {
-    placeArcOuter(components, coordinate, area);
+  } else if (position === 'inner') {
+    placeAxisArcInner(components, coordinate, area);
+  } else if (position === 'outer') {
+    placeAxisArcOuter(components, coordinate, area);
   }
 }
 
-function placeArcInner(
+function placeAxisArcInner(
   components: G2GuideComponentOptions[],
   coordinate: Coordinate,
   area: SectionArea,
@@ -220,7 +261,7 @@ function placeArcInner(
   }
 }
 
-function placeArcOuter(
+function placeAxisArcOuter(
   components: G2GuideComponentOptions[],
   coordinate: Coordinate,
   area: SectionArea,
@@ -238,44 +279,27 @@ function placeArcLinear(
   components: G2GuideComponentOptions[],
   coordinate: Coordinate,
   area: SectionArea,
-  position: GCP,
 ) {
   const [x, y, width, height] = area;
-  const [cx, cy] = coordinate.getCenter();
-  const [innerRadius, outerRadius] = radiusOf(coordinate);
-  const r = height / 2;
-  const y0 = cy - outerRadius * r;
-  const h = (outerRadius - innerRadius) * r;
-  const { orientation } = position;
-
-  let bbox;
-  if (orientation === 'vertical') {
-    bbox = { x: cx + x, y: y0 + y, width: 0, height: h };
-  } else if (orientation === 'horizontal') {
-    bbox = { x: cx + x, y: y0 + y, width: h, height: 0 };
-  } else {
-    bbox = { x: cx + x, y: y0 + y, width, height };
-  }
   for (const component of components) {
-    component.bbox = bbox;
+    component.bbox = { x: x, y, width, height };
   }
 }
 
-function placeParallel(
+function placeAxisParallel(
   components: G2GuideComponentOptions[],
   coordinate: Coordinate,
   area: SectionArea,
-  position: GCP,
+  orientation: GCO,
 ) {
-  const { orientation } = position;
   if (orientation === 'horizontal') {
-    placeParallelHorizontal(components, coordinate, area);
+    placeAxisParallelHorizontal(components, coordinate, area);
   } else if (orientation === 'vertical') {
-    placeParallelVertical(components, coordinate, area);
+    placeAxisParallelVertical(components, coordinate, area);
   }
 }
 
-function placeParallelVertical(
+function placeAxisParallelVertical(
   components: G2GuideComponentOptions[],
   coordinate: Coordinate,
   area: SectionArea,
@@ -300,7 +324,7 @@ function placeParallelVertical(
   }
 }
 
-function placeParallelHorizontal(
+function placeAxisParallelHorizontal(
   components: G2GuideComponentOptions[],
   coordinate: Coordinate,
   area: SectionArea,
@@ -327,7 +351,7 @@ function placeParallelHorizontal(
   // override style
 }
 
-function placeRadar(
+function placeAxisRadar(
   components: G2GuideComponentOptions[],
   coordinate: Coordinate,
   area: SectionArea,
@@ -336,6 +360,10 @@ function placeRadar(
   const [x, y, width, height] = area;
   for (const component of components) {
     component.bbox = { x, y, width, height };
+    component.radar = {
+      index: components.indexOf(component),
+      count: components.length,
+    };
   }
 }
 
@@ -343,7 +371,7 @@ function placePaddingArea(
   components: G2GuideComponentOptions[],
   coordinate: Coordinate,
   area: SectionArea,
-): void {
+) {
   const [x, y, width, height, direction, reverse, comparator] = area;
   const [
     mainStartKey,
@@ -385,6 +413,7 @@ function placeCenter(
   coordinate: Coordinate,
   area: SectionArea,
 ) {
+  if (components.length === 0) return;
   const [x, y, width, height] = area;
   const [innerRadius] = radiusOf(coordinate);
   const r = ((height / 2) * innerRadius) / Math.sqrt(2);
@@ -394,12 +423,4 @@ function placeCenter(
     const component = components[i];
     component.bbox = { x: cx - r, y: cy - r, width: r * 2, height: r * 2 };
   }
-}
-
-function radiusOf(coordinate: Coordinate): [number, number] {
-  const { transformations } = coordinate.getOptions();
-  const [, , , innerRadius, outerRadius] = transformations.find(
-    (d) => d[0] === 'polar',
-  );
-  return [innerRadius as number, outerRadius as number];
 }

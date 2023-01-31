@@ -7,7 +7,7 @@ export enum ContinuousScale {
   sequential = 'sequential',
 }
 
-export enum CategoryScale {
+export enum DistributionScale {
   threshold = 'threshold',
   quantize = 'quantize',
   quantile = 'quantile',

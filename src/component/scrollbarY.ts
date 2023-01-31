@@ -12,5 +12,5 @@ export const ScrollbarY: GCC<ScrollbarYOptions> = (options) => {
 
 ScrollbarY.props = {
   ...Scrollbar.props,
-  defaultPosition: { anchor: 'left' },
+  defaultPosition: 'left',
 };

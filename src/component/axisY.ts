@@ -12,5 +12,5 @@ export const AxisY: GCC<AxisYOptions> = (options) => {
 
 AxisY.props = {
   ...LinearAxis.props,
-  defaultPosition: { anchor: 'left' },
+  defaultPosition: 'left',
 };

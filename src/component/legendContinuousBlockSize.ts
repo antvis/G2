@@ -9,10 +9,7 @@ export const LegendContinuousBlockSize: GCC<
   return LegendContinuous(
     Object.assign(
       {},
-      {
-        type: 'size',
-        block: true,
-      },
+      { type: 'size', block: true, labelShowTick: false },
       options,
     ),
   );
@@ -20,5 +17,6 @@ export const LegendContinuousBlockSize: GCC<
 
 LegendContinuousBlockSize.props = {
   ...LegendContinuous.props,
-  defaultPosition: { anchor: 'top', orientation: 'horizontal' },
+  defaultPosition: 'top',
+  defaultOrientation: 'horizontal',
 };

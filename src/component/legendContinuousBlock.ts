@@ -6,18 +6,17 @@ export type LegendContinuousBlockOptions = LegendContinuousOptions;
 export const LegendContinuousBlock: GCC<LegendContinuousBlockOptions> = (
   options,
 ) => {
-  return LegendContinuous(
-    Object.assign(
-      {},
-      {
-        block: true,
-      },
-      options,
-    ),
-  );
+  return (scale, value, coordinate, theme) =>
+    LegendContinuous(Object.assign({}, { block: true }, options))(
+      scale,
+      value,
+      coordinate,
+      theme,
+    );
 };
 
 LegendContinuousBlock.props = {
   ...LegendContinuous.props,
-  defaultPosition: { anchor: 'top', orientation: 'horizontal' },
+  defaultPosition: 'top',
+  defaultOrientation: 'horizontal',
 };

@@ -12,5 +12,5 @@ export const AxisArc: GCC<AxisYOptions> = (options) => {
 
 AxisArc.props = {
   ...ArcAxis.props,
-  defaultPosition: { anchor: 'left' },
+  defaultPosition: 'left',
 };

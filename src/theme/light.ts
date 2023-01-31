@@ -290,15 +290,22 @@ export const Light: TC<LightOptions> = (options) => {
       tickDirection: 'negative',
       gridDirection: 'positive',
     },
-    axisArcY: {
+    axisLinear: {
       titlePosition: 'top',
       titleSpacing: 0,
       titleTextBaseline: 'bottom',
       gridDirection: 'negative',
       gridConnect: 'arc',
-      gridControlAngles: [90, 180, 360],
       gridType: 'surround',
       girdClosed: true,
+    },
+    axisRadar: {
+      titlePosition: 'start',
+      showTick: false,
+      showLabel: false,
+      gridType: 'surround',
+      girdClosed: true,
+      gridStrokeOpacity: 0.3,
     },
     legend: {
       padding: 8,
@@ -347,6 +354,8 @@ export const Light: TC<LightOptions> = (options) => {
       handleLabelFillOpacity: 0.45,
       handleLabelFontSize: 12,
       handleLabelFontWeight: 'normal',
+      labelShowTick: true,
+      labelSpacing: 8,
       // [todo] legend rail
     },
     label: {

@@ -2,7 +2,10 @@
  * @see https://github.com/antvis/G2/discussions/4557
  */
 import { Coordinate } from '@antv/coord';
+import { head, last } from '@antv/util';
+import { getPolarOptions, getRadialOptions } from '../coordinate';
 import {
+  coordOf,
   isHelix,
   isParallel,
   isPolar,
@@ -14,8 +17,12 @@ import {
   isTranspose,
 } from './coordinate';
 import { useLibrary } from './library';
-import { useRelationScale } from './scale';
-import { G2Theme, GuideComponentPosition as GCP } from './types/common';
+import { isValidScale, useRelationScale } from './scale';
+import {
+  G2Theme,
+  GuideComponentOrientation as GCO,
+  GuideComponentPosition as GCP,
+} from './types/common';
 import {
   GuideComponent,
   GuideComponentComponent as GCC,
@@ -27,7 +34,11 @@ import {
   G2ScaleOptions,
   G2View,
 } from './types/options';
-import { CategoryScale, ContinuousScale, DiscreteScale } from './types/scale';
+import {
+  DistributionScale,
+  ContinuousScale,
+  DiscreteScale,
+} from './types/scale';
 
 export function inferComponent(
   scales: G2ScaleOptions[],
@@ -54,11 +65,13 @@ export function inferComponent(
   const components = [...partialComponents, ...sliders];
   if (title) {
     const { props } = createGuideComponent('title');
-    const { defaultPosition, defaultOrder, defaultSize } = props;
+    const { defaultPosition, defaultOrientation, defaultOrder, defaultSize } =
+      props;
     const titleOptions = typeof title === 'string' ? { title } : title;
     components.push({
       type: 'title',
       position: defaultPosition,
+      orientation: defaultOrientation,
       order: defaultOrder,
       size: defaultSize,
       ...titleOptions,
@@ -69,25 +82,35 @@ export function inferComponent(
     const type = inferComponentType(scale, coordinates);
     if (type !== null) {
       const { props } = createGuideComponent(type);
-      const { defaultPosition, defaultSize, defaultOrder } = props;
+      const { defaultPosition, defaultOrientation, defaultSize, defaultOrder } =
+        props;
       const { guide: guideOptions, name, field } = scale;
       // A scale may have multiple guides.
       const guides = Array.isArray(guideOptions)
         ? guideOptions
         : [guideOptions];
       for (const partialGuide of guides) {
-        const position = inferComponentPosition(
+        const [position, orientation] = inferComponentPositionAndOrientation(
           name,
           type,
           defaultPosition,
+          defaultOrientation,
           partialGuide,
+          guides,
+          displayedScales,
           coordinates,
         );
+
+        // Skip if position and orientation are not specified.
+        // @example the last axis of radar chart
+        if (!position && !orientation) continue;
+
         const { size = defaultSize, order = defaultOrder } = partialGuide;
         components.push({
           title: field,
           ...partialGuide,
           position,
+          orientation,
           order,
           size,
           type,
@@ -112,70 +135,71 @@ export function renderComponent(
     GuideComponent
   >('component', library);
   const { scale: scaleDescriptor, bbox, ...options } = component;
+
   const scale = scaleDescriptor
     ? useRelationScale(scaleDescriptor, library)
     : null;
 
   const { field, domain } = scaleDescriptor || {};
-  const value = { field, domain, bbox };
+  const value = { field, domain, bbox, scale: scaleDescriptor, library };
   const render = useGuideComponent(options);
   return render(scale, value, coordinates, theme);
 }
 
-// @todo Render axis in polar with parallel coordinate.  雷达图
-// @todo Infer legend for shape.
 function inferComponentType(
   scale: G2ScaleOptions,
   coordinates: G2CoordinateOptions[],
 ) {
   const { name, guide, type: scaleType } = scale;
   const { type } = guide;
+
   if (type !== undefined) return type;
+  if (!isValidScale(scale)) return null;
   const scaleCategories = {
     continuous: Object.keys(ContinuousScale),
-    category: Object.keys(CategoryScale),
+    distribution: Object.keys(DistributionScale),
     discrete: Object.keys(DiscreteScale),
   };
 
   const generalComponentInfer = {
     color: {
       continuous: 'legendContinuous',
-      category: 'legendContinuousBlock',
+      distribution: 'legendContinuousBlock',
       discrete: 'legendCategory',
     },
-    opacity: {
-      continuous: 'legendContinuous',
-      category: 'legendContinuousBlock',
-      discrete: 'legendCategory',
-    },
+    // opacity: {
+    //   continuous: 'legendContinuous',
+    //   distribution: 'legendContinuousBlock',
+    //   discrete: 'legendCategory',
+    // },
     shape: {
       continuous: null,
-      category: null,
+      distribution: null,
       discrete: 'legendCategory',
     },
     size: {
       continuous: 'legendContinuousSize',
-      category: 'continuousBlockSize',
+      distribution: 'continuousBlockSize',
       discrete: 'legendCategory',
     },
   };
 
   if (Object.keys(generalComponentInfer).includes(name)) {
-    const scaleCat = Object.entries(scaleCategories).find(([cat, list]) =>
+    const kindOfScale = Object.entries(scaleCategories).find(([cat, list]) =>
       list.includes(scaleType as string),
     );
-    if (!scaleCat) return null;
-    return generalComponentInfer[name][scaleCat[0]];
+    if (!kindOfScale) return null;
+    return generalComponentInfer[name][head(kindOfScale)] as string;
   }
 
   // todo wait for gui provide helix axis
-  // theta doesn't need axis
+  if (isHelix(coordinates) || isTheta(coordinates)) return null;
   if (
-    (isTranspose(coordinates) && isPolar(coordinates)) ||
-    isHelix(coordinates) ||
-    isTheta(coordinates)
-  )
+    isTranspose(coordinates) &&
+    (isPolar(coordinates) || isRadial(coordinates))
+  ) {
     return null;
+  }
   // infer axis
   if (name.startsWith('x')) {
     if (isPolar(coordinates)) return 'axisArc';
@@ -188,82 +212,127 @@ function inferComponentType(
     return isTranspose(coordinates) ? 'axisX' : 'axisY';
   }
   if (name.startsWith('position')) {
-    if (isRadar(coordinates)) return 'axisLinear';
+    if (isRadar(coordinates)) return 'axisRadar';
     if (!isPolar(coordinates)) return 'axisY';
   }
 
   return null;
 }
 
-function inferAxisPosition(
+function angleOf(coordinates: G2CoordinateOptions[]) {
+  const polar = coordOf(coordinates, 'polar');
+  if (polar.length) {
+    const { startAngle, endAngle } = getPolarOptions(last(polar));
+    return [startAngle, endAngle];
+  }
+  const radial = coordOf(coordinates, 'radial');
+  if (radial.length) {
+    const { startAngle, endAngle } = getRadialOptions(last(radial));
+    return [startAngle, endAngle];
+  }
+  return [-Math.PI / 2, (Math.PI / 2) * 3];
+}
+
+/**
+ * match index of position
+ */
+function matchPosition(name: string) {
+  const match = /position(\d*)/g.exec(name);
+  if (!match) return null;
+  return +match[1];
+}
+
+function inferAxisPositionAndOrientation(
   name: string,
   type: string,
-  ordinalPosition: GCP,
+  ordinalPosition: [GCP, GCO],
   guide: G2GuideComponentOptions,
+  guides: G2GuideComponentOptions[],
+  scales: G2ScaleOptions[],
   coordinates: G2CoordinateOptions[],
-): GCP {
+): [GCP, GCO] {
+  // todo, in current resolution, the radar chart is implement by parallel + polar coordinate.
+  // implementation plan to be confirmed.
+  // in current implementation, it must to add the first position encode to it's last.
+  // so we won't render the last axis repeatly.
+  if (type === 'axisRadar') {
+    const positions = scales.filter((scale) =>
+      scale.name.startsWith('position'),
+    );
+    const index = matchPosition(name);
+    if (name === last(positions).name || index === null) return [null, null];
+    // infer radar axis orientation
+    const [startAngle, endAngle] = angleOf(coordinates);
+    const angle =
+      ((endAngle - startAngle) / (positions.length - 1)) * index + startAngle;
+    return ['center', angle];
+  }
+
   // There are multiple axes for parallel coordinate.
   // Place the first one in the border area and put others in the center.
   if (type === 'axisY' && isParallel(coordinates)) {
     // name looks like `position${number}`
-    const match = /position(\d*)/g.exec(name);
-    if (match === null) return ordinalPosition;
-    const index = +match[1];
+    const index = matchPosition(name);
+    if (index === null) return ordinalPosition;
+
     if (isTranspose(coordinates)) {
-      return index === 0
-        ? { anchor: 'top' }
-        : { anchor: 'center', orientation: 'horizontal' };
+      return index === 0 ? ['top', null] : ['center', 'horizontal'];
     }
-    return index === 0
-      ? ordinalPosition
-      : { anchor: 'center', orientation: 'vertical' };
+    return index === 0 ? ordinalPosition : ['center', 'vertical'];
   }
 
-  // in non-cartesian coordinate systems, infer the arc axis
-  if (
-    (type === 'axisX' && isPolar(coordinates) && !isTranspose(coordinates)) ||
-    (type === 'axisY' && isPolar(coordinates) && isTranspose(coordinates)) ||
-    (type === 'axisY' && isTheta(coordinates)) ||
-    (type === 'axisY' && isHelix(coordinates)) ||
-    (type === 'axisY' && isRadial(coordinates))
-  ) {
-    if (ordinalPosition[0] === 'inner') {
-      return { anchor: 'inner' };
-    }
-    return { anchor: 'outer' };
+  // in non-cartesian coordinate systems, infer the arc axis angle
+  if (type === 'axisLinear') {
+    const [startAngle] = angleOf(coordinates);
+    return ['center', startAngle];
   }
 
-  if (isPolar(coordinates) && type === 'axisY') {
-    return { anchor: 'center' };
+  if (type === 'axisArc') {
+    if (ordinalPosition[0] === 'inner') return ['inner', null];
+    return ['outer', null];
   }
 
-  if (isRadial(coordinates) && type === 'axisX') {
-    return { anchor: 'center' };
-  }
-
+  if (isPolar(coordinates)) return ['center', null];
+  if (isRadial(coordinates)) return ['center', null];
   if (
     (type === 'axisX' && isReflect(coordinates)) ||
     (type === 'axisX' && isReflectY(coordinates))
   ) {
-    return { anchor: 'top' };
+    return ['top', null];
   }
 
-  if (type === 'axisX') return { anchor: 'bottom' };
-  return { anchor: 'left' };
+  // if (type === 'axisX') return ['bottom', null];
+  return ordinalPosition;
 }
 
 // @todo Infer position by coordinates.
-function inferComponentPosition(
+function inferComponentPositionAndOrientation(
   name: string,
   type: string | GCC,
   defaultPosition: GCP,
+  defaultOrientation: GCO,
   guide: G2GuideComponentOptions,
+  guides: G2GuideComponentOptions[],
+  scales: G2ScaleOptions[],
   coordinates: G2CoordinateOptions[],
-): GCP {
-  const ordinalPosition = guide.position || defaultPosition;
+): [GCP, GCO] {
+  const [startAngle] = angleOf(coordinates);
+
+  const ordinalPositionAndOrientation: [GCP, GCO] = [
+    guide.position || defaultPosition,
+    startAngle ?? defaultOrientation,
+  ];
 
   if (typeof type === 'string' && type.startsWith('axis')) {
-    return inferAxisPosition(name, type, ordinalPosition, guide, coordinates);
+    return inferAxisPositionAndOrientation(
+      name,
+      type,
+      ordinalPositionAndOrientation,
+      guide,
+      guides,
+      scales,
+      coordinates,
+    );
   }
 
   if (
@@ -271,11 +340,10 @@ function inferComponentPosition(
     type.startsWith('legend') &&
     isPolar(coordinates)
   ) {
-    if (guide.anchor === 'center')
-      return { anchor: 'center', orientation: 'vertical' };
+    if (guide.position === 'center') return ['center', 'vertical'];
   }
   // for general component, use default position
-  return ordinalPosition;
+  return ordinalPositionAndOrientation;
 }
 
 function inferSrollableType(name: string, type: string, coordinates = []) {

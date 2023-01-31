@@ -14,6 +14,13 @@ export function settleWeatherCellGrouped(): G2Spec {
       y: (d) => new Date(d.date).getUTCMonth(),
       color: 'temp_max',
     },
+    legend: {
+      color: {
+        layout: {
+          justifyContent: 'flex-start',
+        },
+      },
+    },
     style: {
       inset: 0.5,
     },

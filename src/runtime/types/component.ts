@@ -1,9 +1,17 @@
 import { Coordinate, Transformation } from '@antv/coord';
 import { DisplayObject, IAnimation as GAnimation } from '@antv/g';
 import {
+  G2View,
+  G2GuideComponentOptions,
+  G2CoordinateOptions,
+  G2ScaleOptions,
+  G2ViewTree,
+} from './options';
+import {
   G2Theme,
   G2ViewInstance,
   GuideComponentPosition,
+  GuideComponentOrientation,
   IndexedValue,
   Layout,
   Vector2,
@@ -11,7 +19,6 @@ import {
 import { DataComponent } from './data';
 import { Encode, EncodeComponent } from './encode';
 import { Mark, MarkComponent } from './mark';
-import { G2ViewTree } from './options';
 import { Transform, TransformComponent } from './transform';
 
 export type G2ComponentNamespaces =
@@ -163,6 +170,7 @@ export type GuideComponent = (
 ) => DisplayObject;
 export type GuideComponentProps = {
   defaultPosition?: GuideComponentPosition;
+  defaultOrientation?: GuideComponentOrientation;
   defaultSize: number;
   defaultOrder: number;
 };
@@ -217,3 +225,59 @@ export type LabelTransform = (
 ) => DisplayObject[];
 export type LabelTransformComponent<O = Record<string, unknown>> =
   G2BaseComponent<LabelTransform, O>;
+declare const a: Scale;
+
+type G2ComponentRuntime = [
+  scale: Scale,
+  coordinate: Coordinate,
+  theme: G2Theme,
+  options: G2GuideComponentOptions,
+  context: {
+    bbox: DOMRect;
+    isHelix: boolean;
+    isPolar: boolean;
+    isRadar: boolean;
+    isRadial: boolean;
+    isReflect: boolean;
+    isReflectY: boolean;
+    isTheta: boolean;
+    isTranspose: boolean;
+  },
+];
+export type G2ComponentController<C extends DisplayObject = DisplayObject> = {
+  key: string;
+  meta: {
+    position?: 'absolute' | 'relative';
+  };
+  enable: (
+    scales: G2ScaleOptions[],
+    coordinates: G2CoordinateOptions[],
+    options: G2View,
+    context: {
+      isHelix: boolean;
+      isPolar: boolean;
+      isRadar: boolean;
+      isRadial: boolean;
+      isReflect: boolean;
+      isReflectY: boolean;
+      isTheta: boolean;
+      isTranspose: boolean;
+    },
+  ) => boolean;
+  render: (...args: G2ComponentRuntime) => C;
+  hooks: {
+    beforeRender?: (...args: G2ComponentRuntime) => void;
+    afterRender?: (...args: G2ComponentRuntime) => void;
+    beforeUpdate?: (...args: G2ComponentRuntime) => void;
+    afterUpdate?: (...args: G2ComponentRuntime) => void;
+    beforeLayout?: (...args: G2ComponentRuntime) => void;
+    afterLayout?: (...args: G2ComponentRuntime) => void;
+    beforeDestroy?: (...args: G2ComponentRuntime) => void;
+    afterDestroy?: (...args: G2ComponentRuntime) => void;
+  };
+};
+
+export type RigsterComponent = (
+  key: string,
+  component: G2ComponentController,
+) => void;

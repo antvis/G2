@@ -109,7 +109,7 @@ export const TitleComponent: GCC<TitleComponentOptions> = (options) => {
 };
 
 TitleComponent.props = {
-  defaultPosition: { anchor: 'top' },
+  defaultPosition: 'top',
   defaultOrder: 2,
   defaultSize: 36,
 };

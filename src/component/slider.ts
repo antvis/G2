@@ -46,7 +46,7 @@ export const Slider: GCC<SliderOptions> = (options) => {
 };
 
 Slider.props = {
-  defaultPosition: { anchor: 'bottom' },
+  defaultPosition: 'bottom',
   defaultSize: 24,
   defaultOrder: 1,
 };

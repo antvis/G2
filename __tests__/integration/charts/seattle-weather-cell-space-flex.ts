@@ -49,6 +49,13 @@ export function seattleWeatherCellSpaceFlex(): G2Spec {
                 palette: 'gnBu',
               },
             },
+            legend: {
+              color: {
+                layout: {
+                  justifyContent: 'flex-start',
+                },
+              },
+            },
           },
           {
             type: 'interval',
