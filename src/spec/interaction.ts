@@ -20,10 +20,11 @@ export type Interaction =
   | BrushXHighlightInteraction
   | BrushYHighlightInteraction
   | BrushAxisHighlightInteraction
-  | BrushFilter
-  | BrushYFilter
-  | BrushXFilter
-  | SliderFilter;
+  | BrushFilterInteraction
+  | BrushYFilterInteraction
+  | BrushXFilterInteraction
+  | SliderFilterInteraction
+  | PoptipInteraction;
 // | ElementListHighlightInteraction
 // | LegendActiveInteraction
 // | LegendHighlightInteraction
@@ -54,6 +55,7 @@ export type InteractionTypes =
   | 'brushXFilter'
   | 'brushYFilter'
   | 'sliderFilter'
+  | 'poptip'
   | InteractionComponent;
 // | 'elementListHighlight'
 // | 'legendActive'
@@ -103,17 +105,17 @@ export type BrushAxisHighlightInteraction = {
   reverse?: boolean;
 } & Record<`${'mask' | 'highlighted' | 'unhighlighted'}${any}`, any>;
 
-export type BrushFilter = {
+export type BrushFilterInteraction = {
   type?: 'brushFilter';
   reverse?: boolean;
 } & Record<`${'mask' | 'highlighted' | 'unhighlighted'}${any}`, any>;
 
-export type BrushXFilter = {
+export type BrushXFilterInteraction = {
   type?: 'brushXFilter';
   reverse?: boolean;
 } & Record<`${'mask' | 'highlighted' | 'unhighlighted'}${any}`, any>;
 
-export type BrushYFilter = {
+export type BrushYFilterInteraction = {
   type?: 'brushYFilter';
   reverse?: boolean;
 } & Record<`${'mask' | 'highlighted' | 'unhighlighted'}${any}`, any>;
@@ -176,6 +178,12 @@ export type ElementHighlightByColorInteraction = {
   any
 >;
 
+export type PoptipInteraction = {
+  type?: 'poptip';
+  offsetX?: number;
+  offsetY?: number;
+} & Record<`tip${any}`, any>;
+
 export type LegendFilterInteraction = {
   type?: 'legendFilter';
   channel?: ChannelTypes;
@@ -194,7 +202,7 @@ export type ChartIndexInteraction = {
   trailing?: boolean;
 } & Record<`${'rule' | 'label'}${any}`, any>;
 
-export type SliderFilter = {
+export type SliderFilterInteraction = {
   type?: 'sliderFilter';
   wait?: number;
   leading?: boolean;
