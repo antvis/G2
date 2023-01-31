@@ -23,7 +23,7 @@ export default defineConfig({
     description: 'The Grammar of Visualization in JavaScript',
     defaultLanguage: 'zh', // 默认语言
     isAntVSite: false, // 是否是 AntV 的大官网
-    siteUrl: 'https://g2.antv.antgroup.com/', // 官网地址
+    siteUrl: 'https://antv.antgroup.com/', // 官网首页地址
     githubUrl: repository.url, // GitHub 地址
     showSearch: true, // 是否显示搜索框
     showGithubCorner: true, // 是否显示头部的 GitHub icon
