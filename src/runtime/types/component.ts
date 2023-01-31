@@ -225,7 +225,6 @@ export type LabelTransform = (
 ) => DisplayObject[];
 export type LabelTransformComponent<O = Record<string, unknown>> =
   G2BaseComponent<LabelTransform, O>;
-declare const a: Scale;
 
 type G2ComponentRuntime = [
   scale: Scale,
@@ -244,40 +243,3 @@ type G2ComponentRuntime = [
     isTranspose: boolean;
   },
 ];
-export type G2ComponentController<C extends DisplayObject = DisplayObject> = {
-  key: string;
-  meta: {
-    position?: 'absolute' | 'relative';
-  };
-  enable: (
-    scales: G2ScaleOptions[],
-    coordinates: G2CoordinateOptions[],
-    options: G2View,
-    context: {
-      isHelix: boolean;
-      isPolar: boolean;
-      isRadar: boolean;
-      isRadial: boolean;
-      isReflect: boolean;
-      isReflectY: boolean;
-      isTheta: boolean;
-      isTranspose: boolean;
-    },
-  ) => boolean;
-  render: (...args: G2ComponentRuntime) => C;
-  hooks: {
-    beforeRender?: (...args: G2ComponentRuntime) => void;
-    afterRender?: (...args: G2ComponentRuntime) => void;
-    beforeUpdate?: (...args: G2ComponentRuntime) => void;
-    afterUpdate?: (...args: G2ComponentRuntime) => void;
-    beforeLayout?: (...args: G2ComponentRuntime) => void;
-    afterLayout?: (...args: G2ComponentRuntime) => void;
-    beforeDestroy?: (...args: G2ComponentRuntime) => void;
-    afterDestroy?: (...args: G2ComponentRuntime) => void;
-  };
-};
-
-export type RigsterComponent = (
-  key: string,
-  component: G2ComponentController,
-) => void;

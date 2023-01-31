@@ -18,9 +18,7 @@ module.exports = {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'json'],
   collectCoverage: false,
-  // testRegex: '(/__tests__/integration/.*\\.(test|spec))\\.(ts|tsx|js)$',
-  testRegex: '/__tests__/integration/snapshot-interaction.spec.ts',
-
+  testRegex: '(/__tests__/integration/.*\\.(test|spec))\\.(ts|tsx|js)$',
   // Transform esm to cjs.
   transformIgnorePatterns: [`<rootDir>/node_modules/(?!(${esm}))`],
 };
