@@ -16,3 +16,5 @@ export { alphabetIntervalObject } from './alphabet-interval-object';
 export { weatherLineInterval } from './weather-line-interval';
 export { alphabetInterval1dMounted } from './alphabet-interval-1d-mounted';
 export { indicesLineItems } from './indices-line-items';
+export { flareTreemapPoptip } from './flare-treemap-poptip';
+export { flareTreemapPoptipCustom } from './flare-treemap-poptip-custom';

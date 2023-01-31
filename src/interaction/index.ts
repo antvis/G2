@@ -19,6 +19,7 @@ export { BrushFilter } from './native/brushFilter';
 export { BrushXFilter } from './native/brushXFilter';
 export { BrushYFilter } from './native/brushYFilter';
 export { SliderFilter } from './native/sliderFilter';
+export { Poptip } from './native/poptip';
 
 export { LEGEND_ITEMS_CLASS_NAME } from './native/legendFilter';
 
