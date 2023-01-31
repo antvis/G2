@@ -126,7 +126,9 @@ export type BaseGeometry<
         Record<'x' | 'y' | 'position' | `position${number}`, Axis | boolean>
       >
     | boolean;
-  legend?: Partial<Record<'size' | 'color', Legend | boolean>> | boolean;
+  legend?:
+    | Partial<Record<'size' | 'color' | 'shape' | 'opacity', Legend | boolean>>
+    | boolean;
   slider?: Partial<Record<'x' | 'y', any>>;
   scrollbar?: Partial<Record<'x' | 'y', any>>;
   coordinates?: Coordinate[];

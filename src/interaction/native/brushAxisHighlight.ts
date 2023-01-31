@@ -185,7 +185,15 @@ export function BrushAxisHighlight(options) {
       offsetY: y0,
       offsetX: x0,
       points: (element) => element.__data__.points,
-      horizontal: (axis) => axis.attributes.horizontal,
+      horizontal: (axis) => {
+        const {
+          startPos: [sx, sy],
+          endPos: [ex, ey],
+        } = axis.attributes;
+        // attention, non-horizontal does not mean vertical
+        // it may has a specific degree angle
+        return sx !== ex && sy === ey;
+      },
       datum: createDatumof(view),
       unhighlightedOpacity: 0.5,
       ...options,

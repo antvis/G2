@@ -1,5 +1,6 @@
 import { CustomElement, DisplayObjectConfig, Group } from '@antv/g';
 import { deepMix } from '@antv/util';
+import { Layout } from '@antv/gui';
 import { select, Selection, G2Element } from '../utils/selection';
 import { GuideComponentPosition, FlexLayout } from '../runtime';
 
@@ -73,4 +74,10 @@ export function inferComponentLayout(
     [flexDirection, justifyContent, alignItems] = layout[position];
   }
   return { display: 'flex', flexDirection, justifyContent, alignItems };
+}
+
+export class G2Layout extends Layout {
+  update(...args: any[]) {
+    (this.children?.[0] as any)?.update(...args);
+  }
 }

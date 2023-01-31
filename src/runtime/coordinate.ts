@@ -47,7 +47,7 @@ export function coordOf(
 }
 
 /**
- * todo 没有考虑重复问题
+ * todo Duplication is not considered
  */
 
 export function isPolar(coordinates: G2CoordinateOptions[]) {
@@ -59,7 +59,7 @@ export function isHelix(coordinates: G2CoordinateOptions[]) {
 }
 
 /**
- * todo 转置次数有影响
+ * todo The number of transposes matters
  */
 export function isTranspose(coordinates: G2CoordinateOptions[]) {
   return coordOf(coordinates, 'transpose').length % 2 === 1;
@@ -86,7 +86,7 @@ export function isRadar(coordinates: G2CoordinateOptions[]) {
 }
 
 /**
- * todo Y 方向反转对应的轴没有反转
+ * todo The axis corresponding to the Y reversal is not reversed
  */
 export function isReflectY(coordinates: G2CoordinateOptions[]) {
   return coordOf(coordinates, 'reflectY').length > 0;

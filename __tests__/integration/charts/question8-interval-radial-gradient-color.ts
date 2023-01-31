@@ -12,11 +12,13 @@ export function question8IntervalRadialGradientColor(): G2Spec {
     },
     legend: {
       color: {
-        position: 'right',
+        position: 'bottom',
         length: 300,
+        labelShowTick: false,
+        labelFilter: (datum, index, data) =>
+          index === 0 || index === data.length - 1,
         layout: {
           justifyContent: 'center',
-          alignItems: 'flex-start',
         },
       },
     },

@@ -45,7 +45,7 @@ export function agesIntervalRadialStackedSorted(): G2Spec {
       x: { position: 'inner' },
     },
     legend: {
-      color: { position: 'center' },
+      color: { position: 'center', gridCol: 1 },
     },
     encode: {
       x: 'State',

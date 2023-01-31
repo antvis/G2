@@ -11,6 +11,7 @@ export function moviesPointBin(): G2Spec {
     transform: [
       { type: 'bin', size: 'count', thresholdsX: 10, thresholdsY: 10 },
     ],
+    legend: false,
     encode: {
       x: 'IMDB Rating',
       y: 'Rotten Tomatoes Rating',

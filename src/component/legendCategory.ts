@@ -1,5 +1,5 @@
 import { Coordinate } from '@antv/coord';
-import { Category, Layout } from '@antv/gui';
+import { Category } from '@antv/gui';
 import type {
   FlexLayout,
   G2Library,
@@ -12,7 +12,7 @@ import type {
 import { useLibrary } from '../runtime/library';
 import { Shape, ShapeComponent } from '../runtime/types/component';
 import { G2ShapeOptions } from '../runtime/types/options';
-import { inferComponentLayout, titleContent } from './utils';
+import { G2Layout, inferComponentLayout, titleContent } from './utils';
 
 export type LegendCategoryOptions = {
   dx?: number;
@@ -150,7 +150,7 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
 
     const { legend: legendTheme = {} } = theme;
 
-    const layoutWrapper = new Layout({
+    const layoutWrapper = new G2Layout({
       style: {
         x: x + dx,
         y: y + dy,

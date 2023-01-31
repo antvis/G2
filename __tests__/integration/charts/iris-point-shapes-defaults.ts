@@ -9,6 +9,7 @@ export function irisPointShapesDefaults(): G2Spec {
       type: 'fetch',
       value: 'data/iris.csv',
     },
+    legend: { shape: false },
     encode: {
       x: 'x',
       y: 'y',

@@ -1,13 +1,13 @@
 import { Threshold, Quantize, Quantile } from '@antv/scale';
 import { head, last } from '@antv/util';
-import { Continuous, Layout } from '@antv/gui';
+import { Continuous } from '@antv/gui';
 import type {
   GuideComponentComponent as GCC,
   GuideComponentPosition as GCP,
   FlexLayout,
   Scale,
 } from '../runtime';
-import { titleContent, inferComponentLayout } from './utils';
+import { G2Layout, titleContent, inferComponentLayout } from './utils';
 
 export type LegendContinuousOptions = {
   layout?: FlexLayout;
@@ -79,7 +79,7 @@ export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
       position,
       value.scale?.guide?.layout,
     );
-    const layoutWrapper = new Layout({
+    const layoutWrapper = new G2Layout({
       style: {
         x: x + dx,
         y: y + dy,

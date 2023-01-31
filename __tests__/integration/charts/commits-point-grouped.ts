@@ -13,6 +13,7 @@ export function commitsPointGrouped(): G2Spec {
       x: { title: 'time (hours)' },
       y: { title: 'time (day)', grid: true },
     },
+    legend: { size: false },
     scale: {
       y: { type: 'point' },
       x: { tickCount: 24 },

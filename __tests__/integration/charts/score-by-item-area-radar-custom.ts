@@ -23,6 +23,7 @@ export function scoreByItemAreaRadarCustom(): G2Spec {
       x: { padding: 0.5, align: 0 },
       y: { tickCount: 5 },
     },
+    legend: { color: { layout: { justifyContent: 'flex-start' } } },
     children: [
       {
         type: 'area',
