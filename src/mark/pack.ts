@@ -74,7 +74,6 @@ export const Pack: CC<PackOptions> = (markOptions) => {
       wordWrap: true,
       maxLines: 1,
       wordWrapWidth: (d) => d.r * 2,
-      lineHeight: (d) => d.r * 2,
     };
     const transformedData = dataTransform(
       data,

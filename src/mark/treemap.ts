@@ -158,7 +158,6 @@ export const Treemap: CC<TreemapOptions> = (options) => {
       wordWrap: true,
       maxLines: 1,
       wordWrapWidth: (d) => d.x1 - d.x0,
-      lineHeight: (d) => d.y1 - d.y0,
     };
     const transformedData = dataTransform(
       data,

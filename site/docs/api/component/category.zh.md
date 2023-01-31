@@ -30,7 +30,7 @@ chart
   .encode('y', 'people')
   .encode('color', 'sex')
   .scale('color', { type: 'ordinal', range: ['#ca8861', '#675193'] })
-  .legend('sex', {
+  .legend('color', {
     width: 80,
     gridRow: 1,
     height: 128,

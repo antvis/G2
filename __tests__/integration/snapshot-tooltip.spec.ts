@@ -34,6 +34,7 @@ describe('Tooltips', () => {
           steps: generateSteps,
           before,
           destroy,
+          className = 'tooltip',
         } = generateOptions as any;
         prevDestroy = destroy;
 
@@ -70,12 +71,17 @@ describe('Tooltips', () => {
             await sleep(100);
 
             // If do not skip this state, asset it after dispatch the event.
-            const tooltip = container.getElementsByClassName('tooltip')[0];
+            const tooltip = container.getElementsByClassName(className)[0];
             if (!skip && tooltip) {
               const expectedPath = `${dir}/step${i}.html`;
-              actual = format(xmlserializer.serializeToString(tooltip), {
-                parser: 'babel',
-              });
+              actual = format(
+                xmlserializer
+                  .serializeToString(tooltip)
+                  .replace(/id="[^"]*"/g, ''),
+                {
+                  parser: 'babel',
+                },
+              );
               if (!fs.existsSync(expectedPath)) {
                 console.warn(`! generate ${name}-${i}`);
                 await fs.writeFileSync(expectedPath, actual);
