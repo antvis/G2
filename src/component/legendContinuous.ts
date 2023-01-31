@@ -48,7 +48,7 @@ function inferContinuousConfig(scale: Scale) {
 
   // for linear, pow, sqrt, log, time, utc scale
   return {
-    data: [...domain].map((value) => ({ value })),
+    data: scale.getTicks().map((value) => ({ value })),
     color: range,
   };
 }

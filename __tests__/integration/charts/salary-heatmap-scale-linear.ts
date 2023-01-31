@@ -13,6 +13,7 @@ export function salaryHeatmapScaleLinear(): G2Spec {
     scale: {
       color: {
         type: 'linear',
+        tickCount: 4,
         range: ['#eee', '#f00'],
       },
     },

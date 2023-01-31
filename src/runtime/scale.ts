@@ -234,6 +234,7 @@ function inferScaleRange(
     case 'linear':
     case 'time':
     case 'log':
+    case 'pow':
     case 'sqrt': {
       const colors = categoricalColors(values, options, domain, theme, library);
       const [r0, r1] = inferRangeQ(name, colors);
@@ -502,9 +503,7 @@ export function isPosition(name: string): boolean {
 export function isValidScale(scale: G2ScaleOptions) {
   if (!scale || !scale.type) return false;
   if (typeof scale.type === 'function') return true;
-
-  const { type, domain, range, tickCount, base, exponent, interpolator } =
-    scale;
+  const { type, domain, range, interpolator } = scale;
   const isValidDomain = domain && domain.length > 0;
   const isValidRange = range && range.length > 0;
 
@@ -512,7 +511,9 @@ export function isValidScale(scale: G2ScaleOptions) {
     [
       'linear',
       'sqrt',
+      'log',
       'time',
+      'pow',
       'threshold',
       'quantize',
       'quantile',
@@ -534,28 +535,7 @@ export function isValidScale(scale: G2ScaleOptions) {
     return true;
   }
 
-  if (['constant', 'identity'].includes(type) && isValidRange && !!tickCount) {
-    return true;
-  }
-
-  if (
-    ['log'].includes(type) &&
-    isValidDomain &&
-    isValidRange &&
-    !!tickCount &&
-    !!base
-  ) {
-    return true;
-  }
-  if (
-    ['pow'].includes(type) &&
-    isValidDomain &&
-    isValidRange &&
-    !!tickCount &&
-    !!exponent
-  ) {
-    return true;
-  }
+  if (['constant', 'identity'].includes(type) && isValidRange) return true;
 
   return false;
 }

@@ -146,15 +146,9 @@ export function renderComponent(
   return render(scale, value, coordinates, theme);
 }
 
-function inferComponentType(
-  scale: G2ScaleOptions,
-  coordinates: G2CoordinateOptions[],
-) {
-  const { name, guide, type: scaleType } = scale;
-  const { type } = guide;
+function inferLegendComponentType(scale: G2ScaleOptions) {
+  const { name, type: scaleType } = scale;
 
-  if (type !== undefined) return type;
-  if (!isValidScale(scale)) return null;
   const scaleCategories = {
     continuous: Object.keys(ContinuousScale),
     distribution: Object.keys(DistributionScale),
@@ -191,15 +185,21 @@ function inferComponentType(
     if (!kindOfScale) return null;
     return generalComponentInfer[name][head(kindOfScale)] as string;
   }
+  return null;
+}
 
+function inferAxisComponentType(
+  scale: G2ScaleOptions,
+  coordinates: G2CoordinateOptions[],
+) {
+  const { name } = scale;
   // todo wait for gui provide helix axis
   if (isHelix(coordinates) || isTheta(coordinates)) return null;
   if (
     isTranspose(coordinates) &&
     (isPolar(coordinates) || isRadial(coordinates))
-  ) {
+  )
     return null;
-  }
   // infer axis
   if (name.startsWith('x')) {
     if (isPolar(coordinates)) return 'axisArc';
@@ -215,8 +215,25 @@ function inferComponentType(
     if (isRadar(coordinates)) return 'axisRadar';
     if (!isPolar(coordinates)) return 'axisY';
   }
-
   return null;
+}
+
+function inferComponentType(
+  scale: G2ScaleOptions,
+  coordinates: G2CoordinateOptions[],
+) {
+  const {
+    guide: { type },
+  } = scale;
+
+  if (type !== undefined) return type;
+  if (!isValidScale(scale)) return null;
+
+  return (
+    inferLegendComponentType(scale) ||
+    inferAxisComponentType(scale, coordinates) ||
+    null
+  );
 }
 
 function angleOf(coordinates: G2CoordinateOptions[]) {

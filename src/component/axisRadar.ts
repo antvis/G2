@@ -47,7 +47,8 @@ function inferAxisStyle(
     gridConnect: 'line',
     gridControlAngles: new Array(radar.count).fill(0).map((_, i) => {
       const angle = (endAngle - startAngle) / radar.count;
-      return startAngle + angle * (i + 0.5);
+      // the zero angle of grid is 90 degree
+      return startAngle + angle * i + 90;
     }),
   };
 }

@@ -7,7 +7,16 @@ export const LegendContinuousSize: GCC<LegendContinuousSizeOptions> = (
   options,
 ) => {
   return LegendContinuous(
-    Object.assign({}, { type: 'size', labelShowTick: false }, options),
+    Object.assign(
+      {},
+      {
+        type: 'size',
+        labelShowTick: false,
+        labelFilter: (datum, index, data) =>
+          index === 0 || index === data.length - 1,
+      },
+      options,
+    ),
   );
 };
 
