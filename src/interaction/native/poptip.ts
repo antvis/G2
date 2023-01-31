@@ -12,7 +12,7 @@ const defaultTipStyle = {
   backgroundColor: 'rgba(0,0,0,0.75)',
   color: '#fff',
   width: 'max-content',
-  padding: '4px',
+  padding: '1px 4px',
   fontSize: '12px',
   borderRadius: '2.5px',
   boxShadow:
