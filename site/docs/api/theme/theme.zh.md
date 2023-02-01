@@ -97,7 +97,7 @@ axis 主题还支持根据轴位置定义，如下：均继承 axis 通用样式
 | axisBottom | position 为 bottom 的轴样式                      | AxisStyle | -      |
 | axisLeft   | position 为 left 的轴样式                        | AxisStyle | -      |
 | axisRight  | position 为 right 的轴样式                       | AxisStyle | -      |
-| axisArcY   | position 为 arcY 的轴样式，通常在 polar 坐标系下 | AxisStyle | -      |
+| axisLinear   | position 为 arcY 的轴样式，通常在 polar 坐标系下 | AxisStyle | -      |
 
 AxisStyle 配置详见 [Axis](/api/component/axis) API。
 

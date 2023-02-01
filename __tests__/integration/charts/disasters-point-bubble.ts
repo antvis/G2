@@ -16,7 +16,7 @@ export function disastersPointBubble(): G2Spec {
       ],
     },
     scale: { size: { rangeMax: 35 } },
-    legend: { color: false },
+    legend: false,
     encode: {
       x: 'Year',
       y: 'Entity',

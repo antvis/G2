@@ -234,6 +234,7 @@ function inferScaleRange(
     case 'linear':
     case 'time':
     case 'log':
+    case 'pow':
     case 'sqrt': {
       const colors = categoricalColors(values, options, domain, theme, library);
       const [r0, r1] = inferRangeQ(name, colors);
@@ -497,4 +498,44 @@ export function isPosition(name: string): boolean {
     name === 'exitDelay' ||
     name === 'exitDuration'
   );
+}
+
+export function isValidScale(scale: G2ScaleOptions) {
+  if (!scale || !scale.type) return false;
+  if (typeof scale.type === 'function') return true;
+  const { type, domain, range, interpolator } = scale;
+  const isValidDomain = domain && domain.length > 0;
+  const isValidRange = range && range.length > 0;
+
+  if (
+    [
+      'linear',
+      'sqrt',
+      'log',
+      'time',
+      'pow',
+      'threshold',
+      'quantize',
+      'quantile',
+      'ordinal',
+      'band',
+      'point',
+    ].includes(type) &&
+    isValidDomain &&
+    isValidRange
+  ) {
+    return true;
+  }
+
+  if (
+    ['sequential'].includes(type) &&
+    isValidDomain &&
+    (isValidRange || interpolator)
+  ) {
+    return true;
+  }
+
+  if (['constant', 'identity'].includes(type) && isValidRange) return true;
+
+  return false;
 }

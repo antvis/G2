@@ -17,7 +17,7 @@ export type FacetCircleOptions = Omit<FacetCircleComposition, 'type'>;
 const setScale = useDefaultAdaptor<G2ViewTree>((options) => {
   return {
     scale: {
-      x: { guide: { type: 'axisX' }, paddingOuter: 0, paddingInner: 0.1 },
+      x: { guide: { type: 'axisArc' }, paddingOuter: 0, paddingInner: 0.1 },
       y: { guide: null, range: [0, 1], paddingOuter: 0, paddingInner: 0.1 },
     },
   };

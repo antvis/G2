@@ -31,6 +31,7 @@ export function commitsPointGroupedLayout(): G2Spec {
           y: { type: 'point' },
           x: { tickCount: 24 },
         },
+        legend: false,
         transform: [{ type: 'group', size: 'sum' }, { type: 'sortY' }],
         encode: {
           x: (d) => d.time.getUTCHours(),

@@ -2,30 +2,34 @@ import { Coordinate } from '@antv/coord';
 import { Axis as AxisComponent } from '@antv/gui';
 import { Linear as LinearScale } from '@antv/scale';
 import { deepMix } from '@antv/util';
-import { format } from 'd3-format';
 import { extent } from 'd3-array';
-import {
-  isParallel,
-  isPolar,
-  isTranspose,
-  isTheta,
-  isRadial,
-  isFisheye,
-} from '../utils/coordinate';
-import { capitalizeFirst } from '../utils/helper';
+import { format } from 'd3-format';
 import {
   BBox,
+  G2Theme,
   GuideComponentComponent as GCC,
-  GuideComponentPosition,
+  GuideComponentOrientation as GCO,
+  GuideComponentPosition as GCP,
   Scale,
 } from '../runtime';
+import {
+  angleOf,
+  isFisheye,
+  isParallel,
+  isPolar,
+  isRadial,
+  isTheta,
+  isTranspose,
+  nonCartesian,
+  radiusOf,
+} from '../utils/coordinate';
+import { capitalizeFirst } from '../utils/helper';
 import { titleContent } from './utils';
 
 export type AxisOptions = {
-  position?: GuideComponentPosition;
+  position?: GCP;
   zIndex?: number;
   title?: string | string[];
-  d;
   direction?: 'left' | 'center' | 'right';
   labelFormatter?: (d: any, index: number, array: any) => string;
   tickFilter?: (datum: any, index: number, array: any) => boolean;
@@ -36,24 +40,10 @@ export type AxisOptions = {
   ) => number[];
   tickCount?: number;
   grid: any;
+  // options won't be overridden
+  important: Record<string, any>;
   [key: string]: any;
 };
-
-function angleOf(coordinate: Coordinate): [number, number] {
-  const { transformations } = coordinate.getOptions();
-  const [, startAngle, endAngle] = transformations.find(
-    (d) => d[0] === 'polar',
-  );
-  return [(+startAngle * 180) / Math.PI, (+endAngle * 180) / Math.PI];
-}
-
-function radiusOf(coordinate: Coordinate): [number, number] {
-  const { transformations } = coordinate.getOptions();
-  const [, , , innerRadius, outerRadius] = transformations.find(
-    (d) => d[0] === 'polar',
-  );
-  return [+innerRadius, +outerRadius];
-}
 
 function sizeOf(coordinate: Coordinate): [number, number] {
   // @ts-ignore
@@ -139,7 +129,7 @@ function getTicks(
   defaultTickFormatter: AxisOptions['labelFormatter'],
   tickFilter: AxisOptions['tickFilter'],
   tickMethod: AxisOptions['tickMethod'],
-  position: GuideComponentPosition,
+  position: GCP,
   coordinate: Coordinate,
 ) {
   if (tickCount !== undefined || tickMethod !== undefined) {
@@ -167,7 +157,7 @@ function getTicks(
     });
     // @todo GUI should consider the overlap problem for the first
     // and label of arc axis.
-    return isRadial(coordinate) && position === 'arcY'
+    return isRadial(coordinate) && position === 'center'
       ? reverseTicks(axisTicks)
       : axisTicks;
   }
@@ -183,9 +173,9 @@ function getTicks(
   });
 }
 
-function getGridLength(position: GuideComponentPosition, coordinate) {
+function inferGridLength(position: GCP, coordinate: Coordinate) {
   const [width, height] = sizeOf(coordinate);
-  if (position === 'bottom' || position === 'top') return height;
+  if (position.includes('bottom') || position.includes('top')) return height;
   return width;
 }
 
@@ -198,15 +188,24 @@ function labelTransforms(autoHide?: boolean, autoRotate?: boolean) {
 }
 
 function inferArcStyle(
-  position: GuideComponentPosition,
+  position: GCP,
+  bbox: BBox,
   innerRadius: number,
   outerRadius: number,
   coordinate: Coordinate,
 ) {
+  const { x, y, width, height } = bbox;
+  const center: [number, number] = [x + width / 2, y + height / 2];
+  const radius = Math.min(width, height) / 2;
+  const [startAngle, endAngle] = angleOf(coordinate);
+
   const [w, h] = sizeOf(coordinate);
   const r = Math.min(w, h) / 2;
 
   const common = {
+    center,
+    radius,
+    angleRange: [startAngle, endAngle],
     titleFillOpacity: 0,
     titlePosition: 'inner',
     showLine: false,
@@ -214,7 +213,7 @@ function inferArcStyle(
     gridLength: (outerRadius - innerRadius) * r,
   };
 
-  if (position === 'arcInner') {
+  if (position === 'inner') {
     const [w, h] = sizeOf(coordinate);
     const r = Math.min(w, h) / 2;
     return {
@@ -227,6 +226,7 @@ function inferArcStyle(
     };
   }
 
+  // arc outer
   return {
     ...common,
     labelAlign: 'parallel',
@@ -243,74 +243,111 @@ function inferGrid(value: boolean, coordinate: Coordinate, scale: Scale) {
   return value === undefined ? !!scale.getTicks : value;
 }
 
-function inferOverrideStyle(
-  position: GuideComponentPosition,
+function inferAxisLinearOverrideStyle(
+  position: GCP,
+  orientation: GCO,
   bbox: BBox,
   coordinate: Coordinate,
 ): {
-  startPos: [number, number];
-  endPos: [number, number];
+  startPos?: [number, number];
+  endPos?: [number, number];
   showLine?: boolean;
   [k: string]: any;
 } {
-  const [, cy] = coordinate.getCenter();
   const { x, y, width, height } = bbox;
 
   if (position === 'bottom') {
-    return {
-      startPos: [x, y],
-      endPos: [x + width, y],
-    };
-  } else if (position === 'left' || position === 'centerVertical') {
-    return {
-      startPos: [x + width, y],
-      endPos: [x + width, y + height],
-      showLine: position === 'centerVertical' ? true : undefined,
-    };
-  } else if (position === 'right') {
-    return {
-      endPos: [x, y + height],
-      startPos: [x, y],
-    };
-  } else if (position === 'arcY') {
-    const [startAngle, endAngle] = angleOf(coordinate);
-    return {
-      startPos: [x, y],
-      endPos: [x + width, y + height],
-      gridCenter: [bbox.x, cy + bbox.y],
-      gridControlAngles: new Array(3)
-        .fill(0)
-        .map(
-          (d, i, arr) =>
-            90 + startAngle + ((endAngle - startAngle) / (arr.length - 1)) * i,
-        ),
-    };
+    return { startPos: [x, y], endPos: [x + width, y] };
+  }
+  if (position === 'left') {
+    return { startPos: [x + width, y], endPos: [x + width, y + height] };
+  }
+  if (position === 'right') {
+    return { endPos: [x, y + height], startPos: [x, y] };
+  }
+  if (position === 'top') {
+    return { startPos: [x, y + height], endPos: [x + width, y + height] };
+  }
+  // linear axis, maybe in parallel, polar, radial or radar systems.
+  if (position === 'center') {
+    // axisY
+    if (orientation === 'vertical') {
+      return {
+        startPos: [x + width, y],
+        endPos: [x + width, y + height],
+        showLine: true,
+      };
+    }
+    // axisX
+    else if (orientation === 'horizontal') {
+      return {
+        startPos: [x, y + height],
+        endPos: [x + width, y + height],
+        showLine: true,
+      };
+    }
+    // axis with rotate
+    else if (typeof orientation === 'number') {
+      const [cx, cy] = coordinate.getCenter();
+      const [innerRadius, outerRadius] = radiusOf(coordinate);
+      const [startAngle, endAngle] = angleOf(coordinate);
+      const r = height / 2;
+
+      const innerR = innerRadius * r;
+      const outerR = outerRadius * r;
+
+      const [actualCx, actualCy] = [cx + x, cy + y];
+      const [cos, sin] = [Math.cos(orientation), Math.sin(orientation)];
+
+      const startPos: [number, number] = [
+        actualCx + outerR * cos,
+        actualCy + outerR * sin,
+      ];
+      const endPos: [number, number] = [
+        actualCx + innerR * cos,
+        actualCy + innerR * sin,
+      ];
+
+      return {
+        startPos,
+        endPos,
+        gridClosed: endAngle - startAngle === 360,
+        gridCenter: [cx + x, y + cy],
+        gridControlAngles: new Array(3)
+          .fill(0)
+          .map(
+            (d, i, arr) =>
+              90 +
+              startAngle +
+              ((endAngle - startAngle) / (arr.length - 1)) * i,
+          ),
+      };
+    }
   }
 
-  return {
-    startPos: [x, y + height],
-    endPos: [x + width, y + height],
-    showLine: position === 'centerHorizontal' ? true : undefined,
-  };
+  // position is inner or outer for arc axis won't be here
+
+  return {};
 }
 
-const ArcAxis = (options) => {
+const ArcAxisComponent: GCC<AxisOptions> = (options) => {
   const {
     order,
     size,
     position,
+    orientation,
     labelFormatter = (d) => `${d}`,
     tickFilter,
     tickCount,
     tickMethod,
     title,
     grid: showGrid = false,
+    important = {},
     ...rest
   } = options;
   return (scale, value, coordinate, theme) => {
     const { domain, bbox } = value;
-    const { x, y, width, height } = bbox;
-    const center: [number, number] = [x + width / 2, y + height / 2];
+
     const ticks = getTicks(
       scale,
       domain,
@@ -322,39 +359,65 @@ const ArcAxis = (options) => {
       coordinate,
     );
 
-    const radius = Math.min(width, height) / 2;
-    const [startAngle, endAngle] = angleOf(coordinate);
     const [innerRadius, outerRadius] = radiusOf(coordinate);
 
     const defaultStyle = inferArcStyle(
       position,
+      bbox,
       innerRadius,
       outerRadius,
       coordinate,
     );
+
     const { axis: axisTheme } = theme;
     return new AxisComponent({
       style: deepMix({}, axisTheme, defaultStyle, {
         type: 'arc',
-        center,
-        radius,
-        angleRange: [startAngle, endAngle],
         data: ticks,
         title: titleContent(title),
         showGrid,
         ...rest,
+        ...important,
       }),
     });
   };
 };
 
-function inferDefaultStyle(scale, theme, position, direction) {
-  const p = position === 'centerVertical' ? 'left' : position;
+function inferThemeStyle(
+  scale: Scale,
+  coordinate: Coordinate,
+  theme: G2Theme,
+  direction,
+  position: GCP,
+  orientation: GCO,
+) {
+  const baseStyle = theme.axis;
+  let furtherStyle = theme.axisTop;
+  if (['top', 'right', 'bottom', 'left'].includes(position)) {
+    furtherStyle = theme[`axis${capitalizeFirst(position)}`];
+  } else if (nonCartesian(coordinate)) {
+    if (position === 'center') {
+      furtherStyle = theme.axisLinear;
+    }
+  }
+  return Object.assign({}, baseStyle, furtherStyle);
+}
 
-  const themeStyle = Object.assign(
-    {},
-    theme.axis,
-    theme[`axis${capitalizeFirst(p)}`] || theme.axisTop,
+function inferDefaultStyle(
+  scale: Scale,
+  coordinate: Coordinate,
+  theme: G2Theme,
+  direction,
+  position: GCP,
+  orientation: GCO,
+) {
+  const themeStyle = inferThemeStyle(
+    scale,
+    coordinate,
+    theme,
+    direction,
+    position,
+    orientation,
   );
 
   if (position === 'bottom') {
@@ -364,7 +427,8 @@ function inferDefaultStyle(scale, theme, position, direction) {
       titleTransformOrigin: 'center',
       titleTransform: scale.getTicks ? 'translate(-100%, 0)' : undefined,
     };
-  } else if (position === 'arcY') {
+  }
+  if (position === 'center') {
     return {
       ...themeStyle,
       labelDirection: direction === 'right' ? 'negative' : 'positive',
@@ -374,33 +438,23 @@ function inferDefaultStyle(scale, theme, position, direction) {
       tick: direction === 'center' ? false : undefined,
     };
   }
-
   return themeStyle;
 }
 
-function isHorizontal(position): boolean {
-  switch (position) {
-    case 'top':
-    case 'bottom':
-    case 'centerHorizontal':
-      return true;
-    default:
-      return false;
-  }
-}
-
-const LinearAxis: GCC<AxisOptions> = (options) => {
+const LinearAxisComponent: GCC<AxisOptions> = (options) => {
   const {
     order,
     size,
     transform,
     position,
+    orientation,
     title,
     labelFormatter = (d) => `${d}`,
     direction = 'left',
     tickCount,
     tickFilter,
     tickMethod,
+    important = {},
     ...userDefinitions
   } = options;
 
@@ -418,7 +472,14 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
       coordinate,
     );
 
-    const defaultStyle = inferDefaultStyle(scale, theme, position, direction);
+    const defaultStyle = inferDefaultStyle(
+      scale,
+      coordinate,
+      theme,
+      direction,
+      position,
+      orientation,
+    );
     const {
       labelAutoRotate = true,
       labelAutoHide = false,
@@ -429,14 +490,14 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
     } = Object.assign({}, defaultStyle, userDefinitions);
 
     const showGrid = inferGrid(grid, coordinate, scale);
-    const gridLength = getGridLength(position, coordinate);
+    const gridLength = inferGridLength(position, coordinate);
 
-    const { showLine = line, ...overrideStyle } = inferOverrideStyle(
+    const { showLine = line, ...overrideStyle } = inferAxisLinearOverrideStyle(
       position,
+      orientation,
       bbox,
       coordinate,
     );
-
     const axisStyle = {
       ...defaultStyle,
       type: 'linear' as const,
@@ -452,34 +513,41 @@ const LinearAxis: GCC<AxisOptions> = (options) => {
       showLine: true,
       ...(!showLine ? { lineOpacity: 0 } : null),
       ...overrideStyle,
+      ...important,
     };
 
     return new AxisComponent({
       className: 'axis',
-      style: {
-        ...axisStyle,
-        horizontal: isHorizontal(position),
-      },
+      style: axisStyle,
     });
   };
 };
 
-/**
- * Guide Component for position channel(e.g. x, y).
- */
-export const Axis: GCC<AxisOptions> = (options) => {
-  const { position, labelFormatter: f = (d) => `${d}` } = options;
-  const labelFormatter = typeof f === 'string' ? format(f) : f;
-  const normalizedOptions = { ...options, labelFormatter };
-  return (scale, value, coordinate, theme) => {
-    return position === 'arc' || position === 'arcInner'
-      ? ArcAxis(normalizedOptions)(scale, value, coordinate, theme)
-      : LinearAxis(normalizedOptions)(scale, value, coordinate, theme);
+const axisFactor: (
+  axis: typeof ArcAxisComponent | typeof LinearAxisComponent,
+) => GCC<AxisOptions> = (axis) => {
+  return (options) => {
+    const { labelFormatter: f = (d) => `${d}` } = options;
+    const labelFormatter = typeof f === 'string' ? format(f) : f;
+    const normalizedOptions = { ...options, labelFormatter };
+    return (scale, value, coordinate, theme) =>
+      axis(normalizedOptions)(scale, value, coordinate, theme);
   };
 };
 
-Axis.props = {
-  defaultPosition: 'left',
+export const LinearAxis = axisFactor(LinearAxisComponent);
+
+export const ArcAxis = axisFactor(ArcAxisComponent);
+
+LinearAxis.props = {
+  defaultPosition: 'center',
+  defaultSize: 45,
+  defaultOrder: 0,
+};
+
+ArcAxis.props = {
+  defaultPosition: 'outer',
+  defaultOrientation: 'vertical',
   defaultSize: 45,
   defaultOrder: 0,
 };

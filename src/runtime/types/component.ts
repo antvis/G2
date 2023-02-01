@@ -1,18 +1,25 @@
+import { Coordinate, Transformation } from '@antv/coord';
 import { DisplayObject, IAnimation as GAnimation } from '@antv/g';
-import { Transformation, Coordinate } from '@antv/coord';
 import {
-  IndexedValue,
+  G2View,
+  G2GuideComponentOptions,
+  G2CoordinateOptions,
+  G2ScaleOptions,
+  G2ViewTree,
+} from './options';
+import {
   G2Theme,
-  Vector2,
-  GuideComponentPosition,
-  Layout,
   G2ViewInstance,
+  GuideComponentPosition,
+  GuideComponentOrientation,
+  IndexedValue,
+  Layout,
+  Vector2,
 } from './common';
-import { G2ViewTree } from './options';
-import { EncodeComponent, Encode } from './encode';
-import { MarkComponent, Mark } from './mark';
-import { TransformComponent, Transform } from './transform';
 import { DataComponent } from './data';
+import { Encode, EncodeComponent } from './encode';
+import { Mark, MarkComponent } from './mark';
+import { Transform, TransformComponent } from './transform';
 
 export type G2ComponentNamespaces =
   | 'coordinate'
@@ -162,7 +169,8 @@ export type GuideComponent = (
   theme: G2Theme,
 ) => DisplayObject;
 export type GuideComponentProps = {
-  defaultPosition: GuideComponentPosition;
+  defaultPosition?: GuideComponentPosition;
+  defaultOrientation?: GuideComponentOrientation;
   defaultSize: number;
   defaultOrder: number;
 };
@@ -217,3 +225,21 @@ export type LabelTransform = (
 ) => DisplayObject[];
 export type LabelTransformComponent<O = Record<string, unknown>> =
   G2BaseComponent<LabelTransform, O>;
+
+type G2ComponentRuntime = [
+  scale: Scale,
+  coordinate: Coordinate,
+  theme: G2Theme,
+  options: G2GuideComponentOptions,
+  context: {
+    bbox: DOMRect;
+    isHelix: boolean;
+    isPolar: boolean;
+    isRadar: boolean;
+    isRadial: boolean;
+    isReflect: boolean;
+    isReflectY: boolean;
+    isTheta: boolean;
+    isTranspose: boolean;
+  },
+];

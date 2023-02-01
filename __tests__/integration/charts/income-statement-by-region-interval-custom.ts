@@ -43,10 +43,15 @@ export function incomeStatementByRegionIntervalCustom() {
       color: {
         domain: ['Texas', 'Oklahoma', 'Iowa'],
         range: ['#3c5e79', '#5686ad', '#7bc0f7', '#d6d6d6'],
-        guide: { position: 'bottom', title: false },
       },
       x: {
         padding: 0.5,
+      },
+    },
+    legend: {
+      color: {
+        position: 'bottom',
+        title: false,
       },
     },
     children: [

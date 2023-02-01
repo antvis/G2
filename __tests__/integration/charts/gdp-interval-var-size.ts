@@ -12,7 +12,7 @@ export function gdpIntervalVarSize(): G2Spec {
     scale: {
       size: { range: [10, 60] },
     },
-    legend: { color: false },
+    legend: false,
     encode: {
       x: 'country',
       y: 'value',

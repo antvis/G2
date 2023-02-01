@@ -34,6 +34,7 @@ export function cars3LineBrushAxis(): G2Spec {
         scale: {
           color: { palette: 'brBG', offset: (t) => 1 - t },
         },
+        legend: false,
         axis: Object.fromEntries(
           Array.from({ length: position.length }, (_, i) => [
             `position${i === 0 ? '' : i}`,
@@ -66,12 +67,12 @@ cars3LineBrushAxis.steps = ({ canvas }) => {
   return [
     {
       changeState: () => {
-        brush(axis1, 50, 10, 400, 10);
+        brush(axis1, 50, 60, 400, 60);
       },
     },
     {
       changeState: () => {
-        brush(axis2, 200, 10, 300, 10);
+        brush(axis2, 200, 60, 300, 60);
       },
     },
   ];

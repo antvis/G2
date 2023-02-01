@@ -64,6 +64,7 @@ export { temperature2LineGradientColor } from './temperature2-line-gradient-colo
 export { temperature2LineThreshold } from './temperature2-line-threshold';
 export { aapl2CandlestickChart } from './aapl2-candlestick-chart';
 export { tranLineMultiAxes } from './train-line-multi-axes';
+export { cars3LineRadar } from './cars3-line-radar';
 export { cars3LineParallelHorizontal } from './cars3-line-parallel-horizontal';
 export { cars3LineParallelVertical } from './cars3-line-parallel-vertical';
 export { seasonalWeatherAreaRadial } from './seasonal-weather-area-radial';
@@ -86,6 +87,10 @@ export { weatherLineRepeatMatrixCol } from './weather-line-repeat-matrix-col';
 export { weatherLineAreaDualAxis } from './weather-line-area-dual-axis';
 export { moviesIntervalMultipleMeasure } from './movies-interval-multiple-measure';
 export { seattleWeatherCellSpaceFlex } from './seattle-weather-cell-space-flex';
+export { salaryHeatmapScaleLinear } from './salary-heatmap-scale-linear';
+export { salaryHeatmapScaleThreshold } from './salary-heatmap-scale-threshold';
+export { salaryHeatmapScaleQuantize } from './salary-heatmap-scale-quantize';
+export { salaryHeatmapScaleQuantile } from './salary-heatmap-scale-quantile';
 export { monthIntervalFacetCircle } from './month-interval-facet-circle';
 export { titanicPointPack } from './titanic-point-pack';
 export { titanicPointPackSharedData } from './titanic-point-pack-shared-data';

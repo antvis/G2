@@ -37,12 +37,25 @@ export function isFisheye(coordinate: Coordinate): boolean {
   return transformations.some(([type]) => type === 'fisheye');
 }
 
+export function isRadar(coordinate: Coordinate): boolean {
+  return isParallel(coordinate) && isPolar(coordinate);
+}
+
 export function isCircular(coordinate: Coordinate): boolean {
   return isHelix(coordinate) || isPolar(coordinate);
 }
 
 export function isTheta(coordinate: Coordinate): boolean {
   return isPolar(coordinate) && isTranspose(coordinate);
+}
+
+export function nonCartesian(coordinate: Coordinate): boolean {
+  return (
+    isPolar(coordinate) ||
+    isParallel(coordinate) ||
+    isRadial(coordinate) ||
+    isTheta(coordinate)
+  );
 }
 
 export function getRadius(coordinate: Coordinate): number {
@@ -55,4 +68,20 @@ export function getRadius(coordinate: Coordinate): number {
     if (polar) return (Math.max(width, height) / 2) * polar[4];
   }
   return 0;
+}
+
+export function radiusOf(coordinate: Coordinate): [number, number] {
+  const { transformations } = coordinate.getOptions();
+  const [, , , innerRadius, outerRadius] = transformations.find(
+    (d) => d[0] === 'polar',
+  );
+  return [+innerRadius, +outerRadius];
+}
+
+export function angleOf(coordinate: Coordinate): [number, number] {
+  const { transformations } = coordinate.getOptions();
+  const [, startAngle, endAngle] = transformations.find(
+    (d) => d[0] === 'polar',
+  );
+  return [(+startAngle * 180) / Math.PI, (+endAngle * 180) / Math.PI];
 }

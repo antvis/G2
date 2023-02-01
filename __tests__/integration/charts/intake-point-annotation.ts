@@ -20,6 +20,7 @@ export function intakePointAnnotation(): G2Spec {
           y: { nice: true, domainMax: 165, zero: true },
           size: { range: [10, 40] },
         },
+        legend: { size: false },
         style: {
           stroke: '#1890ff',
           fillOpacity: 0.3,

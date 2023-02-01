@@ -6,7 +6,21 @@ export function question8IntervalRadialGradientColor(): G2Spec {
     type: 'interval',
     data: question8,
     scale: {
-      color: { range: '#BAE7FF-#1890FF-#0050B3' },
+      color: {
+        range: '#BAE7FF-#1890FF-#0050B3',
+      },
+    },
+    legend: {
+      color: {
+        position: 'bottom',
+        length: 300,
+        labelShowTick: false,
+        labelFilter: (datum, index, data) =>
+          index === 0 || index === data.length - 1,
+        layout: {
+          justifyContent: 'center',
+        },
+      },
     },
     axis: {
       y: { tickFilter: (d, i) => i !== 0 },

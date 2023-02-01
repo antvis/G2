@@ -48,3 +48,14 @@ export function isFlatArray<T>(array: (T | T[])[]): array is T[] {
 export function unique<T>(array: T[]): T[] {
   return Array.from(new Set(array));
 }
+
+export function devide<T>(
+  array: T[],
+  callbackfn: (item: T) => boolean,
+): [T[], T[]] {
+  const result: [T[], T[]] = [[], []];
+  array.forEach((item) => {
+    result[callbackfn(item) ? 0 : 1].push(item);
+  });
+  return result;
+}

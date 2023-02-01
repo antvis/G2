@@ -72,7 +72,7 @@ cars3LineVerticalBrushAxis.steps = ({ canvas }) => {
   return [
     {
       changeState: () => {
-        brush(axis1, 10, 50, 10, 400);
+        brush(axis1, 10, 80, 10, 400);
       },
     },
     {

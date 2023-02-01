@@ -27,7 +27,16 @@ export function cars3LineParallelHorizontal(): G2Spec {
       strokeOpacity: 0.4,
     },
     scale: {
-      color: { palette: 'brBG', offset: (t) => 1 - t },
+      color: {
+        palette: 'brBG',
+        offset: (t) => 1 - t,
+      },
+    },
+    legend: {
+      color: {
+        length: 300,
+        position: 'top',
+      },
     },
     axis: Object.fromEntries(
       Array.from({ length: position.length }, (_, i) => [
@@ -38,6 +47,9 @@ export function cars3LineParallelHorizontal(): G2Spec {
           labelStrokeWidth: 5,
           labelFontSize: 10,
           labelStrokeLineJoin: 'round',
+          titleSpacing: 15,
+          titlePosition: 'right',
+          titleTransform: 'translate(-50%, 0) rotate(-90)',
           titleStroke: '#fff',
           titleFontSize: 10,
           titleStrokeWidth: 5,

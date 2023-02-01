@@ -1,12 +1,12 @@
 export { Cartesian } from './cartesian';
-export { Polar } from './polar';
+export { Polar, getPolarOptions } from './polar';
 export { Helix } from './helix';
 export { Transpose } from './transpose';
 export { Reflect } from './reflect';
 export { ReflectX } from './reflectX';
 export { ReflectY } from './reflectY';
-export { Theta } from './theta';
-export { Radial } from './radial';
+export { Theta, getThetaOptions } from './theta';
+export { Radial, getRadialOptions } from './radial';
 export { Parallel } from './parallel';
 export { Fisheye } from './fisheye';
 export { FisheyeX } from './fisheyeX';
