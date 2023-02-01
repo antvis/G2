@@ -126,6 +126,7 @@ export { alphabetIntervalSpaceLayer } from './alphabet-interval-space-layer';
 export { unemployment2RectBinX } from './unemployment2-rect-binx';
 export { athletesRectBinX } from './athletes-rect-binx';
 export { athletesRectBin } from './athletes-rect-bin';
+export { athletesRectBinItemMarker } from './athletes-rect-bin-item-marker';
 export { moviesPointBin } from './movies-point-bin';
 export { moviesRectBin } from './movies-rect-bin';
 export { acmeCropIncomeIntervalConnector } from './acme-crop-income-interval-connector';

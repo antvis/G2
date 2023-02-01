@@ -1,4 +1,5 @@
-import { Coordinate } from '@antv/coord';
+import type { Coordinate } from '@antv/coord';
+import type { DisplayObject } from '@antv/g';
 import { Category } from '@antv/gui';
 import type {
   FlexLayout,
@@ -11,7 +12,7 @@ import type {
 } from '../runtime';
 import { useLibrary } from '../runtime/library';
 import { Shape, ShapeComponent } from '../runtime/types/component';
-import { G2ShapeOptions } from '../runtime/types/options';
+import type { G2ShapeOptions } from '../runtime/types/options';
 import { G2Layout, inferComponentLayout, titleContent } from './utils';
 
 export type LegendCategoryOptions = {
@@ -48,7 +49,51 @@ function inferLayout(
   }
 }
 
-function inferCategoryConfig(
+function createShape(
+  shape: string,
+  library: G2Library,
+  coordinate: Coordinate,
+  theme: G2Theme,
+  style: Record<string, any> = {},
+) {
+  const [useShape] = useLibrary<G2ShapeOptions, ShapeComponent, Shape>(
+    'shape',
+    library,
+  );
+  return () =>
+    useShape({ type: `point.${shape}` })(
+      [
+        [0, 0],
+        [0, 0],
+      ],
+      { size: 6, ...style },
+      coordinate,
+      theme,
+    );
+}
+
+function inferItemMarker(
+  scale: Scale,
+  options: LegendCategoryOptions,
+  library: G2Library,
+  coordinate: Coordinate,
+  theme: G2Theme,
+): ((datum: any, i: number, data: any) => () => DisplayObject) | undefined {
+  const { name, range } = scale.getOptions();
+  const { itemMarker } = options;
+  if (name === 'shape' && !itemMarker) {
+    return (d, i) => createShape(range[i], library, coordinate, theme, {});
+  }
+  if (typeof itemMarker === 'function') {
+    return itemMarker;
+  }
+  if (typeof itemMarker === 'string') {
+    return () => createShape(itemMarker, library, coordinate, theme);
+  }
+  return undefined;
+}
+
+function inferCategoryStyle(
   scale: Scale,
   options: LegendCategoryOptions,
   library: G2Library,
@@ -56,10 +101,25 @@ function inferCategoryConfig(
   theme: G2Theme,
 ) {
   const { labelFormatter = (d) => `${d}` } = options;
-  const { name, domain, range } = scale.getOptions();
+  const { name, domain } = scale.getOptions();
+
+  const itemMarker = inferItemMarker(
+    scale,
+    options,
+    library,
+    coordinate,
+    theme,
+  );
+  const baseStyle = {
+    itemMarker,
+    itemMarkerFill: (d) => (d ? d.color : '#fff'),
+    itemMarkerStroke: (d) => (d ? d.color : '#fff'),
+  };
+  console.log('baseStyle', baseStyle);
 
   if (name === 'color') {
     return {
+      ...baseStyle,
       data: domain.map((d) => ({
         id: d,
         label: labelFormatter(d),
@@ -69,33 +129,16 @@ function inferCategoryConfig(
   }
 
   if (name === 'shape') {
-    const defaultColor = '#eee';
-    const [useShape] = useLibrary<G2ShapeOptions, ShapeComponent, Shape>(
-      'shape',
-      library,
-    );
-
     return {
-      data: domain.map((d, i) => ({
+      ...baseStyle,
+      data: domain.map((d) => ({
         id: d,
         label: labelFormatter(d),
-        color: defaultColor,
-        shape: () =>
-          useShape({ type: `point.${range[i]}` })(
-            [
-              [0, 0],
-              [0, 0],
-            ],
-            { size: 6, color: defaultColor },
-            coordinate,
-            theme,
-          ),
       })),
-      itemMarker: (d) => d.shape,
     };
   }
 
-  return {};
+  return baseStyle;
 }
 
 /**
@@ -107,6 +150,7 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
     size,
     position,
     orientation,
+    itemMarker,
     labelFormatter,
     dx = 0,
     dy = 0,
@@ -133,7 +177,6 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
     );
 
     const legendStyle = {
-      // data: items,
       orient: ['right', 'left', 'center'].includes(position)
         ? 'vertical'
         : 'horizontal',
@@ -144,8 +187,7 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
       rowPadding: 0,
       colPadding: 8,
       titleText: titleContent(title),
-      itemMarkerFill: (d) => (d ? d.color : '#fff'),
-      ...inferCategoryConfig(scale, options, library, coordinate, theme),
+      ...inferCategoryStyle(scale, options, library, coordinate, theme),
     };
 
     const { legend: legendTheme = {} } = theme;

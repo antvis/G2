@@ -86,6 +86,7 @@ function legendFilter(
       ? {
           labelUnselectedFill: '#aaa',
           markerUnselectedFill: '#aaa',
+          markerUnselectedStroke: '#aaa',
         }
       : options;
   const markerStyle = subObject(style, 'marker');
