@@ -3,7 +3,7 @@ import { G2Spec } from '../../../src';
 export function commitsPointGrouped(): G2Spec {
   return {
     type: 'point',
-    height: 240,
+    height: 300,
     inset: 10,
     data: {
       type: 'fetch',
@@ -13,9 +13,13 @@ export function commitsPointGrouped(): G2Spec {
       x: { title: 'time (hours)' },
       y: { title: 'time (day)', grid: true },
     },
+    legend: { size: false },
     scale: {
       y: { type: 'point' },
       x: { tickCount: 24 },
+      color: {
+        palette: 'rdBu',
+      },
     },
     transform: [{ type: 'group', size: 'sum' }, { type: 'sortY' }],
     encode: {
@@ -23,9 +27,7 @@ export function commitsPointGrouped(): G2Spec {
       y: (d) => d.time.getUTCDay(),
       size: 'count',
       shape: 'point',
-    },
-    style: {
-      fill: 'steelblue',
+      color: 'count',
     },
     frame: true,
   };

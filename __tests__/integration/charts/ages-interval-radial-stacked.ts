@@ -46,10 +46,13 @@ export function agesIntervalRadialStacked(): G2Spec {
         tickFilter: (_, i) => i !== 0,
         labelFormatter: '~s',
       },
-      x: { position: 'bottom' },
+      x: { position: 'inner' },
     },
     legend: {
-      color: { position: 'center', title: null, dx: 64, dy: 44, gridCol: 1 },
+      color: {
+        position: 'center',
+        gridCol: 1,
+      },
     },
     encode: {
       x: 'State',

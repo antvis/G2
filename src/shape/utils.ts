@@ -1,3 +1,4 @@
+import { Path } from '@antv/g';
 import { Path as D3Path } from 'd3-path';
 import { extent } from 'd3-array';
 import { Coordinate } from '@antv/coord';
@@ -8,6 +9,7 @@ import { isPolar, isTranspose } from '../utils/coordinate';
 import { angle, angleWithQuadrant, dist, sub } from '../utils/vector';
 import { Selection } from '../utils/selection';
 import { indexOf } from '../utils/array';
+import * as Symbols from './point/symbol';
 
 type A = ['a' | 'A', number, number, number, number, number, number, number];
 type C = ['c' | 'C', number, number, number, number, number, number];

@@ -1,34 +1,149 @@
+import type { Coordinate } from '@antv/coord';
+import type { DisplayObject } from '@antv/g';
 import { Category } from '@antv/gui';
-import {
+import { format } from 'd3-format';
+import type {
+  FlexLayout,
+  G2Library,
+  G2Theme,
   GuideComponentComponent as GCC,
-  GuideComponentPosition,
+  GuideComponentOrientation as GCO,
+  GuideComponentPosition as GCP,
+  Scale,
 } from '../runtime';
-import { titleContent } from './utils';
+import { useLibrary } from '../runtime/library';
+import { Shape, ShapeComponent } from '../runtime/types/component';
+import type { G2ShapeOptions } from '../runtime/types/options';
+import { G2Layout, inferComponentLayout, titleContent } from './utils';
 
 export type LegendCategoryOptions = {
-  position?: GuideComponentPosition;
-  labelFormatter?: (d: any) => string;
   dx?: number;
   dy?: number;
+  labelFormatter?: (d: any) => string;
+  layout?: FlexLayout;
+  orientation?: GCO;
+  position?: GCP;
   title?: string | string[];
   [key: string]: any;
 };
 
 function inferLayout(
-  position: GuideComponentPosition,
+  position: GCP,
   gridRow?: number,
   gridCol?: number,
 ): [number, number] {
   const [gridRowLimit, gridColLimit] = [gridRow || 100, gridCol || 100];
-  const config = {
-    top: [1, gridColLimit],
-    bottom: [1, gridColLimit],
-    left: [gridRowLimit, 1],
-    right: [gridRowLimit, 1],
-    arcCenter: [gridRowLimit, 1],
-  }[position];
 
-  return config || [gridRow, gridCol];
+  switch (position) {
+    case 'top':
+    case 'bottom':
+    case 'top-left':
+    case 'top-right':
+    case 'bottom-left':
+    case 'bottom-right':
+      return [1, gridColLimit];
+    case 'left':
+    case 'right':
+      return [gridRowLimit, 1];
+    default:
+      return [gridRow, gridCol];
+  }
+}
+
+function createShape(
+  shape: string,
+  library: G2Library,
+  coordinate: Coordinate,
+  theme: G2Theme,
+  style: Record<string, any> = {},
+) {
+  const [useShape] = useLibrary<G2ShapeOptions, ShapeComponent, Shape>(
+    'shape',
+    library,
+  );
+  return () =>
+    useShape({ type: `point.${shape}` })(
+      [
+        [0, 0],
+        [0, 0],
+      ],
+      { size: 6, ...style },
+      coordinate,
+      theme,
+    );
+}
+
+function inferItemMarker(
+  scale: Scale,
+  options: LegendCategoryOptions,
+  library: G2Library,
+  coordinate: Coordinate,
+  theme: G2Theme,
+): ((datum: any, i: number, data: any) => () => DisplayObject) | undefined {
+  const { name, range } = scale.getOptions();
+  const { itemMarker } = options;
+  if (name === 'shape' && !itemMarker) {
+    return (d, i) => createShape(range[i], library, coordinate, theme, {});
+  }
+  if (typeof itemMarker === 'function') {
+    return itemMarker;
+  }
+  if (typeof itemMarker === 'string') {
+    return () => createShape(itemMarker, library, coordinate, theme);
+  }
+  return undefined;
+}
+
+function inferCategoryStyle(
+  scale: Scale,
+  options: LegendCategoryOptions,
+  library: G2Library,
+  coordinate: Coordinate,
+  theme: G2Theme,
+) {
+  const { labelFormatter = (d) => `${d}` } = options;
+  const { name, domain } = scale.getOptions();
+
+  const itemMarker = inferItemMarker(
+    scale,
+    options,
+    library,
+    coordinate,
+    theme,
+  );
+  const baseStyle = {
+    itemMarker,
+    itemMarkerFill: (d) => (d ? d.color : '#fff'),
+    itemMarkerStroke: (d) => (d ? d.color : '#fff'),
+  };
+
+  const finalLabelFormatter =
+    typeof labelFormatter === 'string'
+      ? format(labelFormatter)
+      : labelFormatter;
+
+  if (name === 'color') {
+    return {
+      ...baseStyle,
+      data: domain.map((d) => ({
+        id: d,
+        label: finalLabelFormatter(d),
+        color: scale.map(d),
+      })),
+    };
+  }
+
+  if (name === 'shape') {
+    return {
+      ...baseStyle,
+      data: domain.map((d) => ({
+        id: d,
+        label: finalLabelFormatter(d),
+      })),
+    };
+  }
+
+  return baseStyle;
 }
 
 /**
@@ -39,25 +154,27 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
     order,
     size,
     position,
-    labelFormatter = (d) => `${d}`,
+    orientation,
+    itemMarker,
+    labelFormatter,
     dx = 0,
     dy = 0,
     title,
     gridCol,
     gridRow,
+    layout,
     ...rest
   } = options;
-  return (scale, value, coordinate, theme) => {
-    const { domain, bbox } = value;
-    const { x, y, width, height } = bbox;
-    const items = domain.map((d) => ({
-      id: d,
-      label: labelFormatter(d),
-      value: '',
-      color: scale.map(d),
-    }));
 
-    // Calc layout config
+  return (scale, value, coordinate, theme) => {
+    const { library, bbox } = value;
+    const { x, y, width, height } = bbox;
+
+    const finalLayout = inferComponentLayout(
+      position,
+      value.scale?.guide?.layout,
+    );
+
     const [finalGridRow, finalGridCol] = inferLayout(
       position,
       gridRow,
@@ -65,10 +182,7 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
     );
 
     const legendStyle = {
-      data: items,
-      x: x + dx,
-      y: y + dy,
-      orient: ['right', 'left', 'arcCenter'].includes(position)
+      orient: ['right', 'left', 'center'].includes(position)
         ? 'vertical'
         : 'horizontal',
       width,
@@ -78,14 +192,28 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
       rowPadding: 0,
       colPadding: 8,
       titleText: titleContent(title),
-      itemMarkerFill: (d) => (d ? d.color : '#fff'),
+      ...inferCategoryStyle(scale, options, library, coordinate, theme),
     };
 
     const { legend: legendTheme = {} } = theme;
-    return new Category({
-      className: 'legend-category',
-      style: Object.assign({}, legendTheme, legendStyle, rest),
+
+    const layoutWrapper = new G2Layout({
+      style: {
+        x: x + dx,
+        y: y + dy,
+        width,
+        height,
+        ...finalLayout,
+      },
     });
+    layoutWrapper.appendChild(
+      new Category({
+        className: 'legend-category',
+        style: Object.assign({}, legendTheme, legendStyle, rest),
+      }),
+    );
+
+    return layoutWrapper;
   };
 };
 

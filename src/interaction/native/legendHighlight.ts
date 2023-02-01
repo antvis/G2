@@ -1,7 +1,7 @@
 import { group } from 'd3-array';
 import { subObject } from '../../utils/helper';
 import { selectG2Elements, useState } from './utils';
-import { markerOf, labelOf, itemsOf, legendsOf } from './legendFilter';
+import { markerOf, labelOf, itemsOf, legendsOf, dataOf } from './legendFilter';
 
 export function LegendHighlight({ channel, ...rest }) {
   return (context) => {
@@ -9,8 +9,7 @@ export function LegendHighlight({ channel, ...rest }) {
     const legends = legendsOf(container);
     const elements = selectG2Elements(container);
     const channelOf = (legend) => {
-      const { __data__ } = legend.parentNode;
-      return __data__.scale.name;
+      return dataOf(legend).scale.name;
     };
     const scaleOf = (channel) => {
       const {

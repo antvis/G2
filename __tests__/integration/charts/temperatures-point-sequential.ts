@@ -23,6 +23,7 @@ export function temperaturesPointSequential(): G2Spec {
           color: 'value',
           shape: 'point',
         },
+        legend: { color: false },
         style: {
           stroke: '#000',
           strokeOpacity: 0.2,
