@@ -1,6 +1,7 @@
 import type { Coordinate } from '@antv/coord';
 import type { DisplayObject } from '@antv/g';
 import { Category } from '@antv/gui';
+import { format } from 'd3-format';
 import type {
   FlexLayout,
   G2Library,
@@ -115,14 +116,18 @@ function inferCategoryStyle(
     itemMarkerFill: (d) => (d ? d.color : '#fff'),
     itemMarkerStroke: (d) => (d ? d.color : '#fff'),
   };
-  console.log('baseStyle', baseStyle);
+
+  const finalLabelFormatter =
+    typeof labelFormatter === 'string'
+      ? format(labelFormatter)
+      : labelFormatter;
 
   if (name === 'color') {
     return {
       ...baseStyle,
       data: domain.map((d) => ({
         id: d,
-        label: labelFormatter(d),
+        label: finalLabelFormatter(d),
         color: scale.map(d),
       })),
     };
@@ -133,7 +138,7 @@ function inferCategoryStyle(
       ...baseStyle,
       data: domain.map((d) => ({
         id: d,
-        label: labelFormatter(d),
+        label: finalLabelFormatter(d),
       })),
     };
   }

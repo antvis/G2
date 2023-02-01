@@ -286,7 +286,6 @@ export const Academy: TC<AcademyOptions> = (options) => {
     },
     axisLinear: {
       titlePosition: 'top',
-      titleSpacing: 0,
       titleTextBaseline: 'bottom',
       gridDirection: 'negative',
       gridConnect: 'arc',

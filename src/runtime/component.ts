@@ -2,8 +2,12 @@
  * @see https://github.com/antvis/G2/discussions/4557
  */
 import { Coordinate } from '@antv/coord';
-import { head, last } from '@antv/util';
-import { getPolarOptions, getRadialOptions } from '../coordinate';
+import {
+  getPolarOptions,
+  getRadialOptions,
+  type PolarOptions,
+  type RadialOptions,
+} from '../coordinate';
 import {
   coordOf,
   isHelix,
@@ -35,9 +39,9 @@ import {
   G2View,
 } from './types/options';
 import {
-  DistributionScale,
   ContinuousScale,
   DiscreteScale,
+  DistributionScale,
 } from './types/scale';
 
 export function inferComponent(
@@ -183,7 +187,7 @@ function inferLegendComponentType(scale: G2ScaleOptions) {
       list.includes(scaleType as string),
     );
     if (!kindOfScale) return null;
-    return generalComponentInfer[name][head(kindOfScale)] as string;
+    return generalComponentInfer[name][kindOfScale[0]] as string;
   }
   return null;
 }
@@ -239,12 +243,14 @@ function inferComponentType(
 function angleOf(coordinates: G2CoordinateOptions[]) {
   const polar = coordOf(coordinates, 'polar');
   if (polar.length) {
-    const { startAngle, endAngle } = getPolarOptions(last(polar));
+    const lastPolar = polar[polar.length - 1] as PolarOptions;
+    const { startAngle, endAngle } = getPolarOptions(lastPolar);
     return [startAngle, endAngle];
   }
-  const radial = coordOf(coordinates, 'radial');
+  const radial = coordOf(coordinates, 'radial') as RadialOptions[];
   if (radial.length) {
-    const { startAngle, endAngle } = getRadialOptions(last(radial));
+    const lastRadial = radial[radial.length - 1];
+    const { startAngle, endAngle } = getRadialOptions(lastRadial);
     return [startAngle, endAngle];
   }
   return [-Math.PI / 2, (Math.PI / 2) * 3];
@@ -277,7 +283,8 @@ function inferAxisPositionAndOrientation(
       scale.name.startsWith('position'),
     );
     const index = matchPosition(name);
-    if (name === last(positions).name || index === null) return [null, null];
+    if (name === positions.slice(-1)[0].name || index === null)
+      return [null, null];
     // infer radar axis orientation
     const [startAngle, endAngle] = angleOf(coordinates);
     const angle =

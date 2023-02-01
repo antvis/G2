@@ -12,9 +12,6 @@ export function temperatures3AreaBandGradient(): G2Spec {
       color: { palette: 'reds' },
     },
     legend: false,
-    // legend: {
-    //   color: { labelFormatter: (d) => `${(+d.label).toFixed(0)}` },
-    // },
     encode: {
       x: 'date',
       y: ['low', 'high'],

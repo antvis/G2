@@ -49,7 +49,7 @@ export function unique<T>(array: T[]): T[] {
   return Array.from(new Set(array));
 }
 
-export function devide<T>(
+export function divide<T>(
   array: T[],
   callbackfn: (item: T) => boolean,
 ): [T[], T[]] {

@@ -18,7 +18,7 @@ export function salaryHeatmapScaleQuantize(): G2Spec {
     },
     legend: {
       color: {
-        labelFormatter: (datum: any) => (datum.label / 1000).toFixed(0) + 'K',
+        labelFormatter: '.0s',
         layout: {
           justifyContent: 'flex-start',
         },

@@ -292,7 +292,6 @@ export const Dark: TC<DarkOptions> = (options) => {
     },
     axisLinear: {
       titlePosition: 'top',
-      titleSpacing: 0,
       titleTextBaseline: 'bottom',
       gridDirection: 'negative',
       gridConnect: 'arc',

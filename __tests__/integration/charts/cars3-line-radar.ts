@@ -34,7 +34,7 @@ export function cars3LineRadar(): G2Spec {
     legend: {
       color: {
         position: 'bottom',
-        labelFormatter: (d) => `${d.label / 1000}K`,
+        labelFormatter: '~s',
       },
     },
     axis: Object.fromEntries(

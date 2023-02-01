@@ -2,7 +2,7 @@ import { Coordinate } from '@antv/coord';
 import { ascending, group } from 'd3-array';
 import { isParallel, isPolar, isRadar, radiusOf } from '../utils/coordinate';
 import { capitalizeFirst } from '../utils/helper';
-import { devide } from '../utils/array';
+import { divide } from '../utils/array';
 import {
   GuideComponentPosition as GCP,
   GuideComponentOrientation as GCO,
@@ -164,7 +164,7 @@ export function placeComponents(
      * @description no volumn components take up no extra space
      */
 
-    const [nonEntityComponents, entityComponents] = devide(
+    const [nonEntityComponents, entityComponents] = divide(
       components,
       (component) => {
         if (typeof component.type !== 'string') return false;
@@ -194,7 +194,7 @@ function placeNonEntityComponents(
   area: SectionArea,
   position: GCP,
 ) {
-  const [axisComponents, nonAxisComponents] = devide(
+  const [axisComponents, nonAxisComponents] = divide(
     components,
     (component) => {
       if (

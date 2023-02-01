@@ -49,7 +49,7 @@ export function isTheta(coordinate: Coordinate): boolean {
   return isPolar(coordinate) && isTranspose(coordinate);
 }
 
-export function nonCartesian(coordinate: Coordinate): boolean {
+export function isNonCartesian(coordinate: Coordinate): boolean {
   return (
     isPolar(coordinate) ||
     isParallel(coordinate) ||

@@ -1,20 +1,20 @@
-export enum ContinuousScale {
-  linear = 'linear',
-  identity = 'identity',
-  log = 'log',
-  pow = 'pow',
-  sqrt = 'sqrt',
-  sequential = 'sequential',
-}
+export const ContinuousScale = {
+  linear: 'linear',
+  identity: 'identity',
+  log: 'log',
+  pow: 'pow',
+  sqrt: 'sqrt',
+  sequential: 'sequential',
+} as const;
 
-export enum DistributionScale {
-  threshold = 'threshold',
-  quantize = 'quantize',
-  quantile = 'quantile',
-}
+export const DistributionScale = {
+  threshold: 'threshold',
+  quantize: 'quantize',
+  quantile: 'quantile',
+} as const;
 
-export enum DiscreteScale {
-  ordinal = 'ordinal',
-  band = 'band',
-  point = 'point',
-}
+export const DiscreteScale = {
+  ordinal: 'ordinal',
+  band: 'band',
+  point: 'point',
+} as const;

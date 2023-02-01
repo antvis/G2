@@ -20,7 +20,7 @@ import {
   isRadial,
   isTheta,
   isTranspose,
-  nonCartesian,
+  isNonCartesian,
   radiusOf,
 } from '../utils/coordinate';
 import { capitalizeFirst } from '../utils/helper';
@@ -90,6 +90,14 @@ function ticksOf(
   const [min, max] = extent(domain, (d) => +d);
   const { tickCount } = scale.getOptions();
   return tickMethod(min, max, tickCount);
+}
+
+function isHorizontal(orientation: GCO) {
+  return orientation === 'horizontal' || orientation === 0;
+}
+
+function isVertical(orientation: GCO) {
+  return orientation === 'vertical' || orientation === -Math.PI / 2;
 }
 
 function prettyNumber(n: number) {
@@ -392,13 +400,10 @@ function inferThemeStyle(
   orientation: GCO,
 ) {
   const baseStyle = theme.axis;
-  let furtherStyle = theme.axisTop;
+  let furtherStyle = theme.axisLinear;
+
   if (['top', 'right', 'bottom', 'left'].includes(position)) {
     furtherStyle = theme[`axis${capitalizeFirst(position)}`];
-  } else if (nonCartesian(coordinate)) {
-    if (position === 'center') {
-      furtherStyle = theme.axisLinear;
-    }
   }
   return Object.assign({}, baseStyle, furtherStyle);
 }
@@ -435,6 +440,7 @@ function inferDefaultStyle(
       labelTransform: direction === 'center' ? 'translate(50%, 0)' : '',
       tickDirection: direction === 'right' ? 'negative' : 'positive',
       labelSpacing: direction === 'center' ? 0 : 4,
+      titleSpacing: isVertical(orientation) ? 10 : 0,
       tick: direction === 'center' ? false : undefined,
     };
   }

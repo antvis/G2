@@ -293,7 +293,6 @@ export const Light: TC<LightOptions> = (options) => {
     axisLinear: {
       titlePosition: 'top',
       titleSpacing: 0,
-      titleTextBaseline: 'bottom',
       gridDirection: 'negative',
       gridConnect: 'arc',
       gridType: 'surround',

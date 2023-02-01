@@ -1,6 +1,6 @@
 import { Threshold, Quantize, Quantile } from '@antv/scale';
-import { head, last } from '@antv/util';
 import { Continuous } from '@antv/gui';
+import { format } from 'd3-format';
 import type {
   GuideComponentComponent as GCC,
   GuideComponentPosition as GCP,
@@ -20,7 +20,7 @@ function inferContinuousConfig(scale: Scale) {
   const { domain, range } = scale.getOptions();
 
   if (scale instanceof Threshold) {
-    const [min, max] = [head(domain), last(domain)];
+    const [min, max] = [domain[0], domain.slice(-1)[0]];
     const thresholds = (scale as any).thresholds as number[];
     // for quantize, quantile scale
     if (scale instanceof Quantize || scale instanceof Quantile) {
@@ -70,7 +70,15 @@ function inferContinuousLayout(options: LegendContinuousOptions) {
  * @todo Custom style.
  */
 export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
-  const { title, dx = 0, dy = 0, position, layout, ...rest } = options;
+  const {
+    title,
+    dx = 0,
+    dy = 0,
+    position,
+    layout,
+    labelFormatter,
+    ...rest
+  } = options;
   return (scale, value, coordinate, theme) => {
     const { bbox } = value;
     const { x, y, width, height } = bbox;
@@ -104,6 +112,10 @@ export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
             showHandle: false,
             showIndicator: false,
             labelAlign: 'value',
+            labelFormatter:
+              typeof labelFormatter === 'string'
+                ? (d) => format(labelFormatter)(d.label)
+                : labelFormatter,
             ...inferContinuousLayout(options),
             ...inferContinuousConfig(scale),
           },
