@@ -1,16 +1,19 @@
+import { Axis } from '@antv/gui';
 import { GuideComponentComponent as GCC } from '../runtime';
-import { Axis, AxisOptions } from './axis';
+import { LinearAxis, AxisOptions } from './axis';
 
 export type AxisXOptions = AxisOptions;
 
 /**
- * Axis component bind to x scale.
+ * LinearAxis component bind to x scale.
  */
 export const AxisX: GCC<AxisXOptions> = (options) => {
-  return Axis(options);
+  return LinearAxis(options);
 };
 
 AxisX.props = {
-  ...Axis.props,
+  ...LinearAxis.props,
   defaultPosition: 'bottom',
 };
+
+export function axisXConfig() {}

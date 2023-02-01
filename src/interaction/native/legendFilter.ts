@@ -27,11 +27,27 @@ export function legendsOf(root) {
   return root.getElementsByClassName(CATEGORY_LEGEND_CLASS_NAME);
 }
 
+export function dataOf(root) {
+  // legend -> layout -> container
+  let parent = root.parentNode;
+  while (parent && !parent.__data__) {
+    parent = parent.parentNode;
+  }
+  return parent.__data__;
+}
+
+export function attributesOf(root) {
+  let child = root;
+  while (child && !child.attr('class').startsWith('legend')) {
+    child = child.children[0];
+  }
+  return child.attributes;
+}
+
 function builtInAccessors(selectedLegend) {
   // Get the value and scale type from legend.
-  const { data } = selectedLegend.attributes;
-  const { __data__ } = selectedLegend.parentNode;
-  const { name: channel } = __data__.scale;
+  const { data } = attributesOf(selectedLegend);
+  const { name: channel } = dataOf(selectedLegend).scale;
   return [
     channel,
     {
@@ -70,6 +86,7 @@ function legendFilter(
       ? {
           labelUnselectedFill: '#aaa',
           markerUnselectedFill: '#aaa',
+          markerUnselectedStroke: '#aaa',
         }
       : options;
   const markerStyle = subObject(style, 'marker');

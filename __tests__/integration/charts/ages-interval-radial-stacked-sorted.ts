@@ -42,10 +42,10 @@ export function agesIntervalRadialStackedSorted(): G2Spec {
     },
     axis: {
       y: { labelFormatter: '~s', tickFilter: (_, i) => i !== 0 },
-      x: { position: 'bottom' },
+      x: { position: 'inner' },
     },
     legend: {
-      color: { position: 'center', title: null, dx: 64, dy: 44 },
+      color: { position: 'center', gridCol: 1 },
     },
     encode: {
       x: 'State',

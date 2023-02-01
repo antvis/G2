@@ -23,6 +23,7 @@ export function deathsRoseStackEnter(): G2Spec {
       y: 'Death',
       color: 'Type',
     },
+    legend: { color: { layout: { justifyContent: 'flex-start' } } },
     animate: {
       enterType: 'waveIn',
     },

@@ -29,10 +29,19 @@ export function monthIntervalRadialFacetRect(): G2Spec {
     data: mockData(),
     encode: { x: 'day', y: 'week' },
     scale: {
-      x: { domain: days },
+      x: {
+        domain: days,
+      },
     },
     legend: {
-      color: { position: 'right', size: 50 },
+      color: {
+        position: 'right',
+        size: 50,
+        layout: {
+          flexDirection: 'column',
+          justifyContent: 'flex-start',
+        },
+      },
     },
     paddingRight: 100,
     children: [

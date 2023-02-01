@@ -127,18 +127,24 @@ export type BBox = {
   height?: number;
 };
 
-export type GuideComponentPosition =
+export type GuidePrimitivePosition =
   | 'top'
-  | 'left'
   | 'bottom'
+  | 'left'
   | 'right'
-  | 'centerVertical'
-  | 'centerHorizontal'
   | 'center'
-  | 'arc'
-  | 'arcY'
-  | 'arcInner'
-  | 'arcCenter';
+  | 'inner'
+  | 'outer';
+export type GuideCompositePosition =
+  | 'top-left'
+  | 'top-right'
+  | 'bottom-left'
+  | 'bottom-right';
+export type GuideComponentPosition =
+  | GuidePrimitivePosition
+  | GuideCompositePosition;
+
+export type GuideComponentOrientation = 'horizontal' | 'vertical' | number;
 
 export type Layout = {
   paddingLeft?: number;
@@ -162,13 +168,20 @@ export type Layout = {
   y?: number;
 };
 
-// @todo Using emus.
+export type Direction = 'horizontal' | 'vertical' | 'center';
+
+export type FlexLayout = {
+  flexDirection?: 'row' | 'column';
+  justifyContent?: 'flex-start' | 'flex-end' | 'center';
+  alignItems?: 'flex-start' | 'flex-end' | 'center';
+};
+
 export type SectionArea = [
   x: number,
   y: number,
   width: number,
   height: number,
-  direction: 0 | 1 | -1, // horizontal: 1, vertical: 0, center: -1
+  direction: Direction,
   reverse: boolean,
   comparator: (a: Primitive, b: Primitive) => number,
 ];

@@ -174,6 +174,9 @@ export function addGuideToScale(
       ),
       color: { guide: normalize(legend, 'color') },
       size: { guide: normalize(legend, 'size') },
+      shape: { guide: normalize(legend, 'shape') },
+      // fixme: opacity is conflict with DisplayObject.opacity
+      // opacity: { guide: normalize(legend, 'opacity') },
     },
   });
   return [I, mark];
