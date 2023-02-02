@@ -3,7 +3,7 @@ import { Renderer as CanvasRenderer } from '@antv/g-canvas';
 import { Plugin as DragAndDropPlugin } from '@antv/g-plugin-dragndrop';
 import { Renderer as SVGRenderer } from '@antv/g-svg';
 import { render } from '../../src';
-import { renderChartToMountedElement } from './common';
+import { renderToMountedElement } from './utils/renderToMountedElement';
 import * as charts from './charts';
 import * as interactions from './interactions';
 import * as animations from './animations';
@@ -117,7 +117,7 @@ async function plot() {
 
   // @ts-ignore
   window.__g_instances__ = [canvas];
-  const renderChart = mounted ? renderChartToMountedElement : render;
+  const renderChart = mounted ? renderToMountedElement : render;
   before?.();
   const node = renderChart(options, { canvas });
 

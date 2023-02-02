@@ -39,6 +39,6 @@ indicesLine.before = () => {
   Date.prototype.toString = Date.prototype.toUTCString;
 };
 
-indicesLine.destroy = () => {
+indicesLine.after = () => {
   Date.prototype.toString = toString;
 };

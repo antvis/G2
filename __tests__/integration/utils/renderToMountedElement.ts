@@ -1,7 +1,7 @@
 import { Text, Group } from '@antv/g';
-import { renderToMountedElement } from '../../src';
+import { renderToMountedElement as r } from '../../../src';
 
-export function renderChartToMountedElement(
+export function renderToMountedElement(
   options,
   { canvas },
   resolve = () => {},
@@ -17,7 +17,7 @@ export function renderChartToMountedElement(
     );
     const group = new Group({});
     canvas.appendChild(group);
-    renderToMountedElement(options, { group }, resolve);
+    r(options, { group }, resolve);
   });
   return canvas.getConfig().container;
 }
