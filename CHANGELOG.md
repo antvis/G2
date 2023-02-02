@@ -1,3 +1,15 @@
+#### 4.2.9 (2023-02-02)
+
+##### New Features
+
+- multiple mask actions ([#4589](https://github.com/antvis/g2/pull/4589)) ([02e9c659](https://github.com/antvis/g2/commit/02e9c659c65803b3bedebb6900b2e1bced7ce9a4))
+
+##### Bug Fixes
+
+- **test:** transform esm to cmjs in node_modules ([#4586](https://github.com/antvis/g2/pull/4586)) ([f129b350](https://github.com/antvis/g2/commit/f129b350056e873c6d68a22b46d47f0ae9f4f916))
+
+##### Other Changes
+
 #### 4.2.8 (2022-09-19)
 
 ##### Chores
