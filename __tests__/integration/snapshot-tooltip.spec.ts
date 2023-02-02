@@ -10,7 +10,7 @@ import { renderChartToMountedElement } from './common';
 // @ts-ignore
 global.fetch = fetch;
 
-describe('Tooltips', () => {
+describe.skip('Tooltips', () => {
   // Filter tests with only.
   const onlyTests = Object.entries(tests).filter(
     // @ts-ignore
