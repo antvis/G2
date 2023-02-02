@@ -1,13 +1,13 @@
-import { Threshold, Quantize, Quantile } from '@antv/scale';
 import { Continuous } from '@antv/gui';
+import { Quantile, Quantize, Threshold } from '@antv/scale';
 import { format } from 'd3-format';
 import type {
+  FlexLayout,
   GuideComponentComponent as GCC,
   GuideComponentPosition as GCP,
-  FlexLayout,
   Scale,
 } from '../runtime';
-import { G2Layout, titleContent, inferComponentLayout } from './utils';
+import { G2Layout, inferComponentLayout, titleContent } from './utils';
 
 export type LegendContinuousOptions = {
   layout?: FlexLayout;
@@ -16,11 +16,12 @@ export type LegendContinuousOptions = {
   [key: string]: any;
 };
 
-function inferContinuousConfig(scale: Scale) {
+function inferContinuousConfig(scale: Scale, options: LegendContinuousOptions) {
   const { domain, range } = scale.getOptions();
+  const { length = LegendContinuous.props.defaultLength } = options;
+  const [min, max] = [domain[0], domain.slice(-1)[0]];
 
   if (scale instanceof Threshold) {
-    const [min, max] = [domain[0], domain.slice(-1)[0]];
     const thresholds = (scale as any).thresholds as number[];
     // for quantize, quantile scale
     if (scale instanceof Quantize || scale instanceof Quantile) {
@@ -49,12 +50,19 @@ function inferContinuousConfig(scale: Scale) {
   // for linear, pow, sqrt, log, time, utc scale
   return {
     data: scale.getTicks().map((value) => ({ value })),
-    color: range,
+    color: new Array(length)
+      .fill(0)
+      .map((d, i) => scale.map(((max - min) / (length - 1)) * i + min)),
   };
 }
 
 function inferContinuousLayout(options: LegendContinuousOptions) {
-  const { position = 'top', size, length = 200 } = options;
+  const {
+    position = 'top',
+    size,
+    length = LegendContinuous.props.defaultLength,
+  } = options;
+
   const layouts = {
     left: ['vertical', size, length],
     right: ['vertical', size, length],
@@ -117,7 +125,7 @@ export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
                 ? (d) => format(labelFormatter)(d.label)
                 : labelFormatter,
             ...inferContinuousLayout(options),
-            ...inferContinuousConfig(scale),
+            ...inferContinuousConfig(scale, options),
           },
           rest,
         ),
@@ -133,4 +141,5 @@ LegendContinuous.props = {
   defaultOrientation: 'vertical',
   defaultOrder: 1,
   defaultSize: 60,
+  defaultLength: 200,
 };
