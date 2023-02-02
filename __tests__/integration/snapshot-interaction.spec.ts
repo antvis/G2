@@ -41,7 +41,7 @@ describe('Interactions', () => {
 
         // Asset each state.
         // @ts-ignore
-        const steps = generateOptions.steps({ canvas: gCanvas });
+        const steps = S({ canvas: gCanvas });
         const dir = `${__dirname}/snapshots/${kebabCase(name)}`;
         for (let i = 0; i < steps.length; i++) {
           // Dispatch event and wait for the next tick and rerender.

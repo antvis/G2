@@ -89,7 +89,7 @@ export async function toMatchCanvasSnapshot(
     }
   } catch (e) {
     return {
-      message: () => `unknown error ${e}`,
+      message: () => `${e}`,
       pass: false,
     };
   }
