@@ -1,112 +1,53 @@
-import * as fs from 'fs';
-import xmlserializer from 'xmlserializer';
-import { format } from 'prettier';
-import { render } from '../../src';
-import * as tests from './tooltips';
-import { sleep, createGCanvas } from './svg';
-import { fetch } from './fetch';
-import { renderChartToMountedElement } from './common';
-
-// @ts-ignore
-global.fetch = fetch;
+import { Canvas } from '@antv/g';
+import * as chartTests from './tooltips';
+import { kebabCase } from './utils/kebabCase';
+import { filterTests } from './utils/filterTests';
+import { renderSpec } from './utils/renderSpec';
+import { createDOMGCanvas } from './utils/createDOMGCanvas';
+import { sleep } from './utils/sleep';
+import './utils/useSnapshotMatchers';
+import './utils/useCustomFetch';
 
 describe('Tooltips', () => {
-  // Filter tests with only.
-  const onlyTests = Object.entries(tests).filter(
-    // @ts-ignore
-    ([, { only = false }]) => only,
-  );
-  const finalTests =
-    onlyTests.length === 0 ? tests : Object.fromEntries(onlyTests);
-
-  let prevDestroy;
-  for (const [n, generateOptions] of Object.entries(finalTests)) {
-    prevDestroy?.();
-    const name = `tooltip-${n}`;
-    // @ts-ignore
-    if (!generateOptions.skip) {
-      // Skip SVG snapshot tests as the DOM structure is not stable now.
-      // Run Canvas snapshot tests to make render plot as expected.
-      it(`[Tooltip]: ${name}`, async () => {
-        const options = await generateOptions();
-        const {
-          mounted = false,
-          steps: generateSteps,
-          before,
-          destroy,
-          className = 'tooltip',
-        } = generateOptions as any;
-        prevDestroy = destroy;
-
-        // Render Chart.
-        before?.();
-        const { width = 640, height = 480 } = options;
+  const tests = filterTests(chartTests);
+  for (const [name, generateOptions] of tests) {
+    let gCanvas: Canvas;
+    it(`[Tooltip]: ${name}`, async () => {
+      try {
         // @ts-ignore
-        const [canvas, container] = createGCanvas(width, height);
-        const renderFunction = mounted ? renderChartToMountedElement : render;
-        await new Promise<void>((resolve) => {
-          renderFunction(options, { canvas }, resolve);
-        });
-        await sleep(20);
-
-        // Get steps.
-        // @ts-ignore
-        if (!generateSteps) {
+        const { steps: S } = generateOptions;
+        if (!S) {
           throw new Error(`Missing steps for ${name}`);
         }
+
         // @ts-ignore
-        const steps = generateSteps({ canvas });
+        const { className = 'tooltip' } = generateOptions;
 
-        // Mark sure has expected snapshot dir.
-        const dir = `${__dirname}/snapshots/${name}`;
-        if (!fs.existsSync(dir)) fs.mkdirSync(dir);
+        // Render chart.
+        // @ts-ignore
+        generateOptions.before?.();
+        gCanvas = await renderSpec(
+          generateOptions,
+          undefined,
+          createDOMGCanvas,
+        );
 
+        // Asset each state.
+        const steps = S({ canvas: gCanvas });
+        const dir = `${__dirname}/snapshots/tooltip-${kebabCase(name)}`;
         for (let i = 0; i < steps.length; i++) {
-          let actual;
-          try {
-            // Dispatch event and wait for the next tick and rerender.
-            // @ts-ignore
-            const { changeState, skip } = steps[i];
-            await changeState();
-            await sleep(100);
-
-            // If do not skip this state, asset it after dispatch the event.
-            const tooltip = container.getElementsByClassName(className)[0];
-            if (!skip && tooltip) {
-              const expectedPath = `${dir}/step${i}.html`;
-              actual = format(
-                xmlserializer
-                  .serializeToString(tooltip)
-                  .replace(/id="[^"]*"/g, ''),
-                {
-                  parser: 'babel',
-                },
-              );
-              if (!fs.existsSync(expectedPath)) {
-                console.warn(`! generate ${name}-${i}`);
-                await fs.writeFileSync(expectedPath, actual);
-              } else {
-                const expected = fs.readFileSync(expectedPath, {
-                  encoding: 'utf8',
-                  flag: 'r',
-                });
-                expect(actual).toBe(expected);
-              }
-            }
-          } catch (error) {
-            // Generate error svg to compare.
-            console.warn(`! generate ${name}`);
-            const actualPath = `${dir}/step${i}-actual.html`;
-            if (actual) fs.writeFileSync(actualPath, actual);
-            throw error;
-          }
+          const { changeState } = steps[i];
+          await changeState();
+          await sleep(100);
+          await expect(gCanvas).toMatchDOMSnapshot(dir, `step${i}`, {
+            selector: `.${className}`,
+          });
         }
-      });
-    }
+      } finally {
+        gCanvas?.destroy();
+        // @ts-ignore
+        generateOptions.after?.();
+      }
+    });
   }
-
-  afterAll(() => {
-    // @ts-ignore
-    delete global.fetch;
-  });
 });
