@@ -173,6 +173,7 @@ export type GuideComponentProps = {
   defaultOrientation?: GuideComponentOrientation;
   defaultSize: number;
   defaultOrder: number;
+  [key: string]: any;
 };
 export type GuideComponentComponent<O = Record<string, unknown>> =
   G2BaseComponent<GuideComponent, O, GuideComponentProps>;
