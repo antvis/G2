@@ -5,7 +5,7 @@ import {
 import {
   toMatchDOMSnapshot,
   ToMatchDOMSnapshotOptions,
-} from './toMatcDOMSnapshot';
+} from './toMatchDOMSnapshot';
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
