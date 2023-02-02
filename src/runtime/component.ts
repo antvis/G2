@@ -2,6 +2,7 @@
  * @see https://github.com/antvis/G2/discussions/4557
  */
 import { Coordinate } from '@antv/coord';
+import { defined } from '../utils/helper';
 import {
   getPolarOptions,
   getRadialOptions,
@@ -82,47 +83,45 @@ export function inferComponent(
     });
   }
 
-  for (const scale of displayedScales) {
-    const type = inferComponentType(scale, coordinates);
-    if (type !== null) {
-      const { props } = createGuideComponent(type);
-      const { defaultPosition, defaultOrientation, defaultSize, defaultOrder } =
-        props;
-      const { guide: guideOptions, name, field } = scale;
-      // A scale may have multiple guides.
-      const guides = Array.isArray(guideOptions)
-        ? guideOptions
-        : [guideOptions];
-      for (const partialGuide of guides) {
-        const [position, orientation] = inferComponentPositionAndOrientation(
-          name,
-          type,
-          defaultPosition,
-          defaultOrientation,
-          partialGuide,
-          guides,
-          displayedScales,
-          coordinates,
-        );
+  const inferedComponents = inferComponentsType(displayedScales, coordinates);
 
-        // Skip if position and orientation are not specified.
-        // @example the last axis of radar chart
-        if (!position && !orientation) continue;
+  inferedComponents.forEach(([type, relativeScales]) => {
+    const { props } = createGuideComponent(type);
+    const { defaultPosition, defaultOrientation, defaultSize, defaultOrder } =
+      props;
+    // todo to be comfirm if the scale can be merged
+    const scale: G2ScaleOptions = Object.assign({}, ...relativeScales);
+    const { guide: guideOptions, field } = scale;
+    // A scale may have multiple guides.
+    const guides = Array.isArray(guideOptions) ? guideOptions : [guideOptions];
+    for (const partialGuide of guides) {
+      const [position, orientation] = inferComponentPositionAndOrientation(
+        type,
+        defaultPosition,
+        defaultOrientation,
+        partialGuide,
+        relativeScales,
+        displayedScales,
+        coordinates,
+      );
 
-        const { size = defaultSize, order = defaultOrder } = partialGuide;
-        components.push({
-          title: field,
-          ...partialGuide,
-          position,
-          orientation,
-          order,
-          size,
-          type,
-          scale,
-        });
-      }
+      // Skip if position and orientation are not specified.
+      // @example the last axis of radar chart
+      if (!position && !orientation) continue;
+
+      const { size = defaultSize, order = defaultOrder } = partialGuide;
+      components.push({
+        title: field,
+        ...partialGuide,
+        position,
+        orientation,
+        order,
+        size,
+        type,
+        scales: relativeScales,
+      });
     }
-  }
+  });
 
   return components;
 }
@@ -138,106 +137,109 @@ export function renderComponent(
     GCC,
     GuideComponent
   >('component', library);
-  const { scale: scaleDescriptor, bbox, ...options } = component;
-
-  const scale = scaleDescriptor
-    ? useRelationScale(scaleDescriptor, library)
-    : null;
-
-  const { field, domain } = scaleDescriptor || {};
-  const value = { field, domain, bbox, scale: scaleDescriptor, library };
+  const { scales: scaleDescriptors = [], bbox, ...options } = component;
+  const scales = scaleDescriptors.map((descriptor) =>
+    useRelationScale(descriptor, library),
+  );
+  const value = { bbox, scales: scaleDescriptors, library };
   const render = useGuideComponent(options);
-  return render(scale, value, coordinates, theme);
+  return render(scales, value, coordinates, theme);
 }
 
-function inferLegendComponentType(scale: G2ScaleOptions) {
-  const { name, type: scaleType } = scale;
+function inferLegendComponentType(
+  scales: G2ScaleOptions[],
+  coordinates: G2CoordinateOptions[],
+) {
+  return scales
+    .map((scale) => {
+      const { name, type: scaleType } = scale;
+      const scaleCategories = {
+        continuous: Object.keys(ContinuousScale),
+        distribution: Object.keys(DistributionScale),
+        discrete: Object.keys(DiscreteScale),
+      };
 
-  const scaleCategories = {
-    continuous: Object.keys(ContinuousScale),
-    distribution: Object.keys(DistributionScale),
-    discrete: Object.keys(DiscreteScale),
-  };
+      const generalComponentInfer = {
+        color: {
+          continuous: 'legendContinuous',
+          distribution: 'legendContinuousBlock',
+          discrete: 'legendCategory',
+        },
+        // opacity: {
+        //   continuous: 'legendContinuous',
+        //   distribution: 'legendContinuousBlock',
+        //   discrete: 'legendCategory',
+        // },
+        shape: {
+          continuous: null,
+          distribution: null,
+          discrete: 'legendCategory',
+        },
+        size: {
+          continuous: 'legendContinuousSize',
+          distribution: 'continuousBlockSize',
+          discrete: 'legendCategory',
+        },
+      };
 
-  const generalComponentInfer = {
-    color: {
-      continuous: 'legendContinuous',
-      distribution: 'legendContinuousBlock',
-      discrete: 'legendCategory',
-    },
-    // opacity: {
-    //   continuous: 'legendContinuous',
-    //   distribution: 'legendContinuousBlock',
-    //   discrete: 'legendCategory',
-    // },
-    shape: {
-      continuous: null,
-      distribution: null,
-      discrete: 'legendCategory',
-    },
-    size: {
-      continuous: 'legendContinuousSize',
-      distribution: 'continuousBlockSize',
-      discrete: 'legendCategory',
-    },
-  };
-
-  if (Object.keys(generalComponentInfer).includes(name)) {
-    const kindOfScale = Object.entries(scaleCategories).find(([cat, list]) =>
-      list.includes(scaleType as string),
-    );
-    if (!kindOfScale) return null;
-    return generalComponentInfer[name][kindOfScale[0]] as string;
-  }
-  return null;
+      if (Object.keys(generalComponentInfer).includes(name)) {
+        const kindOfScale = Object.entries(scaleCategories).find(
+          ([cat, list]) => list.includes(scaleType as string),
+        );
+        if (!kindOfScale) return null;
+        const component = generalComponentInfer[name][kindOfScale[0]];
+        if (!component) return null;
+        return [component, [scale]];
+      }
+      return null;
+    })
+    .filter(defined) as [string | GCC, G2ScaleOptions[]][];
 }
 
 function inferAxisComponentType(
-  scale: G2ScaleOptions,
+  scales: G2ScaleOptions[],
   coordinates: G2CoordinateOptions[],
 ) {
-  const { name } = scale;
-  // todo wait for gui provide helix axis
-  if (isHelix(coordinates) || isTheta(coordinates)) return null;
-  if (
-    isTranspose(coordinates) &&
-    (isPolar(coordinates) || isRadial(coordinates))
-  )
-    return null;
-  // infer axis
-  if (name.startsWith('x')) {
-    if (isPolar(coordinates)) return 'axisArc';
-    if (isRadial(coordinates)) return 'axisLinear';
-    return isTranspose(coordinates) ? 'axisY' : 'axisX';
-  }
-  if (name.startsWith('y')) {
-    if (isPolar(coordinates)) return 'axisLinear';
-    if (isRadial(coordinates)) return 'axisArc';
-    return isTranspose(coordinates) ? 'axisX' : 'axisY';
-  }
-  if (name.startsWith('position')) {
-    if (isRadar(coordinates)) return 'axisRadar';
-    if (!isPolar(coordinates)) return 'axisY';
-  }
-  return null;
+  return scales
+    .map((scale) => {
+      const { name } = scale;
+      // todo wait for gui provide helix axis
+      if (isHelix(coordinates) || isTheta(coordinates)) return null;
+      if (
+        isTranspose(coordinates) &&
+        (isPolar(coordinates) || isRadial(coordinates))
+      )
+        return null;
+      // infer axis
+      if (name.startsWith('x')) {
+        if (isPolar(coordinates)) return ['axisArc', [scale]];
+        if (isRadial(coordinates)) return ['axisLinear', [scale]];
+        return [isTranspose(coordinates) ? 'axisY' : 'axisX', [scale]];
+      }
+      if (name.startsWith('y')) {
+        if (isPolar(coordinates)) return ['axisLinear', [scale]];
+        if (isRadial(coordinates)) return ['axisArc', [scale]];
+        return [isTranspose(coordinates) ? 'axisX' : 'axisY', [scale]];
+      }
+      if (name.startsWith('position')) {
+        if (isRadar(coordinates)) return ['axisRadar', [scale]];
+        if (!isPolar(coordinates)) return ['axisY', [scale]];
+      }
+      return null;
+    })
+    .filter(defined) as [string | GCC, G2ScaleOptions[]][];
 }
 
-function inferComponentType(
-  scale: G2ScaleOptions,
+function inferComponentsType(
+  scales: G2ScaleOptions[],
   coordinates: G2CoordinateOptions[],
-) {
-  const {
-    guide: { type },
-  } = scale;
+): [string | GCC, G2ScaleOptions[]][] {
+  const avaliableScales = scales.filter((scale) => isValidScale(scale));
 
-  if (type !== undefined) return type;
-  if (!isValidScale(scale)) return null;
-
-  return (
-    inferLegendComponentType(scale) ||
-    inferAxisComponentType(scale, coordinates) ||
-    null
-  );
+  return [
+    ...inferLegendComponentType(avaliableScales, coordinates),
+    ...inferAxisComponentType(avaliableScales, coordinates),
+  ];
 }
 
 function angleOf(coordinates: G2CoordinateOptions[]) {
@@ -266,14 +268,14 @@ function matchPosition(name: string) {
 }
 
 function inferAxisPositionAndOrientation(
-  name: string,
   type: string,
   ordinalPosition: [GCP, GCO],
-  guide: G2GuideComponentOptions,
-  guides: G2GuideComponentOptions[],
+  relativeScales: G2ScaleOptions[],
   scales: G2ScaleOptions[],
   coordinates: G2CoordinateOptions[],
 ): [GCP, GCO] {
+  // a axis only has one scale
+  const { name } = relativeScales[0];
   // todo, in current resolution, the radar chart is implement by parallel + polar coordinate.
   // implementation plan to be confirmed.
   // in current implementation, it must to add the first position encode to it's last.
@@ -331,17 +333,15 @@ function inferAxisPositionAndOrientation(
 
 // @todo Infer position by coordinates.
 function inferComponentPositionAndOrientation(
-  name: string,
   type: string | GCC,
   defaultPosition: GCP,
   defaultOrientation: GCO,
   guide: G2GuideComponentOptions,
-  guides: G2GuideComponentOptions[],
+  relativeScales: G2ScaleOptions[],
   scales: G2ScaleOptions[],
   coordinates: G2CoordinateOptions[],
 ): [GCP, GCO] {
   const [startAngle] = angleOf(coordinates);
-
   const ordinalPositionAndOrientation: [GCP, GCO] = [
     guide.position || defaultPosition,
     startAngle ?? defaultOrientation,
@@ -349,11 +349,9 @@ function inferComponentPositionAndOrientation(
 
   if (typeof type === 'string' && type.startsWith('axis')) {
     return inferAxisPositionAndOrientation(
-      name,
       type,
       ordinalPositionAndOrientation,
-      guide,
-      guides,
+      relativeScales,
       scales,
       coordinates,
     );
@@ -382,7 +380,7 @@ function inferSrollableType(name: string, type: string, coordinates = []) {
 function inferScrollableComponents(
   partialOptions: G2View,
   scales: G2ScaleOptions[],
-  library,
+  library: G2Library,
 ): G2GuideComponentOptions[] {
   const [, createGuideComponent] = useLibrary<
     G2GuideComponentOptions,
@@ -409,10 +407,9 @@ function inferScrollableComponents(
       order: defaultOrder,
       type: componentType,
       ...options,
-      scale,
+      scales: [scale],
     };
   }
-
   return scales
     .filter((d) => d.slider || d.scrollbar)
     .flatMap((scale) => {

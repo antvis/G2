@@ -95,7 +95,7 @@ function inferItemMarker(
 }
 
 function inferCategoryStyle(
-  scale: Scale,
+  [scale]: Scale[],
   options: LegendCategoryOptions,
   library: G2Library,
   coordinate: Coordinate,
@@ -166,13 +166,13 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
     ...rest
   } = options;
 
-  return (scale, value, coordinate, theme) => {
+  return (scales, value, coordinate, theme) => {
     const { library, bbox } = value;
     const { x, y, width, height } = bbox;
 
     const finalLayout = inferComponentLayout(
       position,
-      value.scale?.guide?.layout,
+      value.scales?.[0]?.guide?.layout,
     );
 
     const [finalGridRow, finalGridCol] = inferLayout(
@@ -192,11 +192,10 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
       rowPadding: 0,
       colPadding: 8,
       titleText: titleContent(title),
-      ...inferCategoryStyle(scale, options, library, coordinate, theme),
+      ...inferCategoryStyle(scales, options, library, coordinate, theme),
     };
 
     const { legend: legendTheme = {} } = theme;
-
     const layoutWrapper = new G2Layout({
       style: {
         x: x + dx,

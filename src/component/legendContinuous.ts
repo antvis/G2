@@ -16,7 +16,10 @@ export type LegendContinuousOptions = {
   [key: string]: any;
 };
 
-function inferContinuousConfig(scale: Scale, options: LegendContinuousOptions) {
+function inferContinuousConfig(
+  [scale]: Scale[],
+  options: LegendContinuousOptions,
+) {
   const { domain, range } = scale.getOptions();
   const { length = LegendContinuous.props.defaultLength } = options;
   const [min, max] = [domain[0], domain.slice(-1)[0]];
@@ -87,13 +90,13 @@ export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
     labelFormatter,
     ...rest
   } = options;
-  return (scale, value, coordinate, theme) => {
+  return (scales, value, coordinate, theme) => {
     const { bbox } = value;
     const { x, y, width, height } = bbox;
 
     const finalLayout = inferComponentLayout(
       position,
-      value.scale?.guide?.layout,
+      value.scales?.[0]?.guide?.layout,
     );
     const layoutWrapper = new G2Layout({
       style: {
@@ -125,7 +128,7 @@ export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
                 ? (d) => format(labelFormatter)(d.label)
                 : labelFormatter,
             ...inferContinuousLayout(options),
-            ...inferContinuousConfig(scale, options),
+            ...inferContinuousConfig(scales, options),
           },
           rest,
         ),
