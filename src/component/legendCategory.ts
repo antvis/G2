@@ -14,7 +14,7 @@ import type {
 import { useLibrary } from '../runtime/library';
 import { Shape, ShapeComponent } from '../runtime/types/component';
 import type { G2ShapeOptions } from '../runtime/types/options';
-import { G2Layout, inferComponentLayout, titleContent } from './utils';
+import { G2Layout, inferComponentLayout, titleContent, scaleOf } from './utils';
 
 export type LegendCategoryOptions = {
   dx?: number;
@@ -74,47 +74,53 @@ function createShape(
 }
 
 function inferItemMarker(
-  scale: Scale,
+  scales: Scale[],
   options: LegendCategoryOptions,
   library: G2Library,
   coordinate: Coordinate,
   theme: G2Theme,
 ): ((datum: any, i: number, data: any) => () => DisplayObject) | undefined {
-  const { name, range } = scale.getOptions();
+  const shapeScale = scaleOf(scales, 'shape');
+
   const { itemMarker } = options;
-  if (name === 'shape' && !itemMarker) {
-    return (d, i) => createShape(range[i], library, coordinate, theme, {});
+  if (shapeScale && !itemMarker) {
+    const { range } = shapeScale.getOptions();
+
+    return (d, i) =>
+      createShape(range[i], library, coordinate, theme, {
+        color: d.color,
+      });
   }
   if (typeof itemMarker === 'function') {
     return itemMarker;
   }
-  if (typeof itemMarker === 'string') {
-    return () => createShape(itemMarker, library, coordinate, theme);
+  return (d, i) =>
+    createShape(itemMarker || 'point', library, coordinate, theme, {
+      color: d.color,
+    });
+}
+
+function inferItemMarkerOpacity(scales: Scale[]) {
+  const scale = scaleOf(scales, 'opacity');
+  if (scale) {
+    const { range } = scale.getOptions();
+    return (d, i) => range[i];
   }
   return undefined;
 }
 
 function inferCategoryStyle(
-  scale: Scale,
+  scales: Scale[],
   options: LegendCategoryOptions,
   library: G2Library,
   coordinate: Coordinate,
   theme: G2Theme,
 ) {
   const { labelFormatter = (d) => `${d}` } = options;
-  const { name, domain } = scale.getOptions();
 
-  const itemMarker = inferItemMarker(
-    scale,
-    options,
-    library,
-    coordinate,
-    theme,
-  );
   const baseStyle = {
-    itemMarker,
-    itemMarkerFill: (d) => (d ? d.color : '#fff'),
-    itemMarkerStroke: (d) => (d ? d.color : '#fff'),
+    itemMarker: inferItemMarker(scales, options, library, coordinate, theme),
+    itemMarkerOpacity: inferItemMarkerOpacity(scales),
   };
 
   const finalLabelFormatter =
@@ -122,28 +128,17 @@ function inferCategoryStyle(
       ? format(labelFormatter)
       : labelFormatter;
 
-  if (name === 'color') {
-    return {
-      ...baseStyle,
-      data: domain.map((d) => ({
-        id: d,
-        label: finalLabelFormatter(d),
-        color: scale.map(d),
-      })),
-    };
-  }
+  // here must exists a color scale
+  const scale = scaleOf(scales, 'color');
 
-  if (name === 'shape') {
-    return {
-      ...baseStyle,
-      data: domain.map((d) => ({
-        id: d,
-        label: finalLabelFormatter(d),
-      })),
-    };
-  }
-
-  return baseStyle;
+  return {
+    ...baseStyle,
+    data: scale.getOptions().domain.map((d) => ({
+      id: d,
+      label: finalLabelFormatter(d),
+      color: scale.map(d),
+    })),
+  };
 }
 
 /**
@@ -166,13 +161,13 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
     ...rest
   } = options;
 
-  return (scale, value, coordinate, theme) => {
+  return (scales, value, coordinate, theme) => {
     const { library, bbox } = value;
     const { x, y, width, height } = bbox;
 
     const finalLayout = inferComponentLayout(
       position,
-      value.scale?.guide?.layout,
+      value.scales?.[0]?.guide?.layout,
     );
 
     const [finalGridRow, finalGridCol] = inferLayout(
@@ -192,11 +187,10 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
       rowPadding: 0,
       colPadding: 8,
       titleText: titleContent(title),
-      ...inferCategoryStyle(scale, options, library, coordinate, theme),
+      ...inferCategoryStyle(scales, options, library, coordinate, theme),
     };
 
     const { legend: legendTheme = {} } = theme;
-
     const layoutWrapper = new G2Layout({
       style: {
         x: x + dx,
@@ -212,7 +206,6 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
         style: Object.assign({}, legendTheme, legendStyle, rest),
       }),
     );
-
     return layoutWrapper;
   };
 };

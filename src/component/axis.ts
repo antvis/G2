@@ -353,9 +353,9 @@ const ArcAxisComponent: GCC<AxisOptions> = (options) => {
     important = {},
     ...rest
   } = options;
-  return (scale, value, coordinate, theme) => {
-    const { domain, bbox } = value;
-
+  return ([scale], value, coordinate, theme) => {
+    const { bbox } = value;
+    const { domain } = scale.getOptions();
     const ticks = getTicks(
       scale,
       domain,
@@ -464,8 +464,9 @@ const LinearAxisComponent: GCC<AxisOptions> = (options) => {
     ...userDefinitions
   } = options;
 
-  return (scale, value, coordinate, theme) => {
-    const { domain, bbox } = value;
+  return ([scale], value, coordinate, theme) => {
+    const { bbox } = value;
+    const { domain } = scale.getOptions();
 
     const ticks = getTicks(
       scale,
@@ -536,8 +537,7 @@ const axisFactor: (
     const { labelFormatter: f = (d) => `${d}` } = options;
     const labelFormatter = typeof f === 'string' ? format(f) : f;
     const normalizedOptions = { ...options, labelFormatter };
-    return (scale, value, coordinate, theme) =>
-      axis(normalizedOptions)(scale, value, coordinate, theme);
+    return (...args) => axis(normalizedOptions)(...args);
   };
 };
 

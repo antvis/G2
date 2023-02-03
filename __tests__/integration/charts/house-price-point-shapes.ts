@@ -36,7 +36,6 @@ export function housePricePointShapes(): G2Spec {
       color: '#24b7f2',
       size: 4,
     },
-    legend: false,
     transform: [
       {
         type: 'sample',

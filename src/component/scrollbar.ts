@@ -12,7 +12,7 @@ export type ScrollbarOptions = {
 export const Scrollbar: GCC<ScrollbarOptions> = (options) => {
   const { orient, labelFormatter, ...rest } = options;
 
-  return (scale, value, coordinate, theme) => {
+  return (scales, value, coordinate, theme) => {
     const { bbox } = value;
     const { x, y, width, height } = bbox;
     const { scrollbar: scrollbarTheme = {} } = theme;

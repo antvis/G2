@@ -16,7 +16,7 @@ export const Slider: GCC<SliderOptions> = (options) => {
   // do not pass size.
   const { orient, labelFormatter, size, ...rest } = options;
 
-  return (scale, value, coordinate, theme) => {
+  return ([scale], value, coordinate, theme) => {
     const { bbox } = value;
     const { x, y, width, height } = bbox;
     const { slider: sliderTheme = {} } = theme;

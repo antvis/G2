@@ -309,7 +309,7 @@ export const Academy: TC<AcademyOptions> = (options) => {
       titleFontWeight: 'bold',
       titleSpacing: 4,
       // legend marker
-      itemMarkerFill: DEFAULT_COLOR,
+      // itemMarkerFill: DEFAULT_COLOR,
       itemMarkerFillOpacity: 1,
       itemMarkerSize: 8,
       itemSpacing: [5, 4],

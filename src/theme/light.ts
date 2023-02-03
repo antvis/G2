@@ -315,7 +315,7 @@ export const Light: TC<LightOptions> = (options) => {
       titleFontWeight: 'normal',
       titleSpacing: 4,
       // legend marker
-      itemMarkerFill: DEFAULT_COLOR,
+      // itemMarkerFill: DEFAULT_COLOR,
       itemMarkerFillOpacity: 1,
       itemMarkerSize: 8,
       itemSpacing: [5, 8],

@@ -24,7 +24,7 @@ function inferSymbol(x: number, y: number, r: number) {
 }
 
 /**
- * todo support polar later.
+ * @todo support polar later.
  */
 function inferConnectorPath(points: Vector2[]) {
   return d3line()
