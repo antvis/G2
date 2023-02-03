@@ -59,3 +59,31 @@ export function divide<T>(
   });
   return result;
 }
+
+function comb<T>(array: T[], len = array.length): T[][] {
+  if (len === 1) return array.map((item) => [item]);
+  const result: T[][] = [];
+  for (let i = 0; i < array.length; i++) {
+    const rest = array.slice(i + 1);
+    const restComb = comb(rest, len - 1);
+    restComb.forEach((comb) => {
+      result.push([array[i], ...comb]);
+    });
+  }
+  return result;
+}
+
+/**
+ * get all combinations of two elements in an array
+ * @example [1, 2, 3] => [[1], [2], [3], [1, 2], [1, 3], [2, 3], [1, 2, 3]]
+ * @param array
+ * @returns
+ */
+export function combine<T>(array: T[]): T[][] {
+  if (array.length === 1) return [array];
+  const result: T[][] = [];
+  for (let i = 1; i <= array.length; i++) {
+    result.push(...comb(array, i));
+  }
+  return result;
+}

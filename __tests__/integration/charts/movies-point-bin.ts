@@ -9,9 +9,14 @@ export function moviesPointBin(): G2Spec {
       value: 'data/movies.csv',
     },
     transform: [
-      { type: 'bin', size: 'count', thresholdsX: 10, thresholdsY: 10 },
+      {
+        type: 'bin',
+        size: 'count',
+        color: 'count',
+        thresholdsX: 10,
+        thresholdsY: 10,
+      },
     ],
-    legend: false,
     encode: {
       x: 'IMDB Rating',
       y: 'Rotten Tomatoes Rating',

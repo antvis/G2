@@ -2,6 +2,8 @@
  * @see https://github.com/antvis/G2/discussions/4557
  */
 import { Coordinate } from '@antv/coord';
+import { group } from 'd3-array';
+import { isEqual } from '@antv/util';
 import { defined } from '../utils/helper';
 import {
   getPolarOptions,
@@ -9,6 +11,7 @@ import {
   type PolarOptions,
   type RadialOptions,
 } from '../coordinate';
+import { combine } from '../utils/array';
 import {
   coordOf,
   isHelix,
@@ -150,50 +153,98 @@ function inferLegendComponentType(
   scales: G2ScaleOptions[],
   coordinates: G2CoordinateOptions[],
 ) {
-  return scales
-    .map((scale) => {
-      const { name, type: scaleType } = scale;
-      const scaleCategories = {
-        continuous: Object.keys(ContinuousScale),
-        distribution: Object.keys(DistributionScale),
-        discrete: Object.keys(DiscreteScale),
-      };
+  const scalesByField = group(scales, (d) => d.field || d.name);
 
-      const generalComponentInfer = {
-        color: {
-          continuous: 'legendContinuous',
-          distribution: 'legendContinuousBlock',
-          discrete: 'legendCategory',
-        },
-        // opacity: {
-        //   continuous: 'legendContinuous',
-        //   distribution: 'legendContinuousBlock',
-        //   discrete: 'legendCategory',
-        // },
-        shape: {
-          continuous: null,
-          distribution: null,
-          discrete: 'legendCategory',
-        },
-        size: {
-          continuous: 'legendContinuousSize',
-          distribution: 'continuousBlockSize',
-          discrete: 'legendCategory',
-        },
-      };
+  const createStrategy = <T>(arr: T[], main: T): T[][] => {
+    const result = combine(arr);
+    result.forEach((c) => c.unshift(main));
+    result.push([main]);
+    return result.sort((a, b) => b.length - a.length);
+  };
 
-      if (Object.keys(generalComponentInfer).includes(name)) {
-        const kindOfScale = Object.entries(scaleCategories).find(
-          ([cat, list]) => list.includes(scaleType as string),
-        );
-        if (!kindOfScale) return null;
-        const component = generalComponentInfer[name][kindOfScale[0]];
-        if (!component) return null;
-        return [component, [scale]];
+  // [legend type, [[channels, scale types]]][]
+  const strategy: [string, [string, string][][]][] = [
+    [
+      'legendCategory',
+      createStrategy(
+        [
+          // todo now haven't provide constant scale of color channel
+          // so won't display the single shape scale
+          ['shape', 'discrete'],
+          ['size', 'discrete'],
+          ['opacity', 'discrete'],
+        ],
+        ['color', 'discrete'],
+      ),
+    ],
+    [
+      'legendContinuousSize',
+      [
+        [
+          ['color', 'continuous'],
+          ['opacity', 'continuous'],
+          ['size', 'continuous'],
+        ],
+        [
+          ['color', 'continuous'],
+          ['size', 'continuous'],
+        ],
+      ],
+    ],
+    [
+      'legendContinuousBlockSize',
+      [
+        [
+          ['color', 'distribution'],
+          ['opacity', 'distribution'],
+          ['size', 'distribution'],
+        ],
+        [
+          ['color', 'distribution'],
+          ['size', 'distribution'],
+        ],
+      ],
+    ],
+    [
+      'legendContinuousBlock',
+      createStrategy([['opacity', 'continuous']], ['color', 'distribution']),
+    ],
+    [
+      'legendContinuous',
+      createStrategy([['opacity', 'continuous']], ['color', 'continuous']),
+    ],
+  ];
+
+  function getScaleType(scale: G2ScaleOptions): string {
+    const { type } = scale;
+    if (typeof type !== 'string') return null;
+    if (type in ContinuousScale) return 'continuous';
+    if (type in DiscreteScale) return 'discrete';
+    if (type in DistributionScale) return 'distribution';
+    return null;
+  }
+
+  const components = Array.from(scalesByField)
+    .map(([, scs]) => {
+      const combinations = combine(scs).sort((a, b) => b.length - a.length);
+      const options = combinations.map((combination) => ({
+        combination,
+        option: combination.map((scale) => [scale.name, getScaleType(scale)]),
+      }));
+
+      const sort = (arr: string[][]) =>
+        arr.sort((a, b) => a[0].localeCompare(b[0]));
+      for (const [componentType, accords] of strategy) {
+        for (const { option, combination } of options) {
+          if (accords.some((accord) => isEqual(sort(accord), sort(option)))) {
+            return [componentType, combination] as [string, G2ScaleOptions[]];
+          }
+        }
       }
       return null;
     })
-    .filter(defined) as [string | GCC, G2ScaleOptions[]][];
+    .filter(defined);
+  return components;
 }
 
 function inferAxisComponentType(

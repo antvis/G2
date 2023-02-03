@@ -2,7 +2,7 @@ import { CustomElement, DisplayObjectConfig, Group } from '@antv/g';
 import { deepMix } from '@antv/util';
 import { Layout } from '@antv/gui';
 import { select, Selection, G2Element } from '../utils/selection';
-import { GuideComponentPosition, FlexLayout } from '../runtime';
+import { GuideComponentPosition, FlexLayout, Scale } from '../runtime';
 
 type Descriptor<T> = {
   render?: (attributes: T, container: CustomElement<T>) => void;
@@ -80,4 +80,8 @@ export class G2Layout extends Layout {
   update(...args: any[]) {
     (this.children?.[0] as any)?.update(...args);
   }
+}
+
+export function scaleOf(scales: Scale[], type: string): Scale | undefined {
+  return scales.filter((s) => s.getOptions().name === type)?.[0];
 }
