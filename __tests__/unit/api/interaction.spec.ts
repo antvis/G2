@@ -1,53 +1,45 @@
-import { Chart, VIEW_CLASS_NAME } from '../../../src';
-import { createDiv } from '../../utils/dom';
+import { VIEW_CLASS_NAME, Chart } from '../../../src';
 
 describe('Interaction', () => {
-  it('interaction should be destroy before rerendering', (done) => {
-    const chart = new Chart({
-      container: createDiv(),
-    });
+  it('should clear interaction after resize', async () => {
+    const chart = new Chart({});
 
-    let rerendered = false;
-    let resized = false;
-    const fn = jest.fn();
-    chart.on('afterrender', () => {
-      if (rerendered && resized) return;
-      if (!rerendered) {
-        rerendered = true;
-        const { canvas } = chart.context();
-        // @ts-ignore
-        const [view] = canvas.document.getElementsByClassName(VIEW_CLASS_NAME);
-        const nameInteraction = view['nameInteraction'];
-        const interaction = nameInteraction.get('tooltip');
-        const { destroy } = interaction;
-        const newDestroy = () => {
-          destroy();
-          fn();
-        };
-        interaction.destroy = newDestroy;
-        chart.changeSize(600, 600);
-        return;
-      }
-      if (!resized) {
-        resized = true;
-        expect(fn).toBeCalledTimes(1);
-        done();
-      }
-    });
-
-    chart
-      .interval()
-      .data([
+    chart.data({
+      value: [
         { genre: 'Sports', sold: 275 },
         { genre: 'Strategy', sold: 115 },
         { genre: 'Action', sold: 120 },
         { genre: 'Shooter', sold: 350 },
         { genre: 'Other', sold: 150 },
-      ])
+      ],
+    });
+
+    chart
+      .interval()
       .encode('x', 'genre')
-      .encode('y', 'sold');
+      .encode('y', 'sold')
+      .encode('color', 'genre');
 
     chart.interaction({ type: 'tooltip' });
-    chart.render();
+    await chart.render();
+
+    const { canvas } = chart.context();
+    const fn = jest.fn();
+
+    // Update interaction hook.
+    // @ts-ignore
+    const [view] = canvas.document.getElementsByClassName(VIEW_CLASS_NAME);
+    const nameInteraction = view['nameInteraction'];
+    const interaction = nameInteraction.get('tooltip');
+    const { destroy } = interaction;
+    const newDestroy = () => {
+      destroy();
+      fn();
+    };
+    interaction.destroy = newDestroy;
+
+    // Update size to call destroy.
+    await chart.changeSize(600, 600);
+    expect(fn).toBeCalledTimes(1);
   });
 });

@@ -113,6 +113,7 @@ export function optionsOf(node: Node): Record<string, any> {
 
 export type ChartOptions = ViewComposition & {
   container?: string | HTMLElement;
+  canvas?: GCanvas;
   width?: number;
   height?: number;
   autoFit?: boolean;
@@ -166,11 +167,11 @@ export class Chart extends View<ChartOptions> {
   private _emitter: EventEmitter;
 
   constructor(options: ChartOptions = {}) {
-    const { container, ...rest } = options;
+    const { container, canvas, ...rest } = options;
     super(rest, 'view');
     this._container = normalizeContainer(container);
     this._emitter = new EventEmitter();
-    this._context = { library, emitter: this._emitter };
+    this._context = { library, emitter: this._emitter, canvas };
     this.bindAutoFit();
   }
 
@@ -270,18 +271,19 @@ export class Chart extends View<ChartOptions> {
     }
   }
 
-  changeSize(adjustedWidth: number, adjustedHeight: number) {
+  changeSize(adjustedWidth: number, adjustedHeight: number): Promise<Chart> {
     const { width, height, on } = this.options();
     if (width === adjustedWidth && height === adjustedHeight) {
-      return this;
+      return Promise.resolve(this);
     }
-
     this.emit(CHART_LIFE_CIRCLE.BEFORE_CHANGE_SIZE);
     this.width(adjustedWidth);
     this.height(adjustedHeight);
-    return this.render().then(() => {
+    const finished = this.render();
+    finished.then(() => {
       this.emit(CHART_LIFE_CIRCLE.AFTER_CHANGE_SIZE);
     });
+    return finished;
   }
 
   private onResize = debounce(() => {

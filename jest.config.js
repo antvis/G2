@@ -5,9 +5,7 @@ const esm = ['internmap', 'd3-*', 'lodash-es']
   .join('|');
 
 module.exports = {
-  runner: 'jest-electron/runner',
-  testEnvironment: 'jest-electron/environment',
-  testTimeout: 30000,
+  testTimeout: 50000,
   preset: 'ts-jest/presets/js-with-ts',
   globals: {
     'ts-jest': {
@@ -18,12 +16,10 @@ module.exports = {
       },
     },
   },
-  collectCoverage: false,
-  testRegex: '(/__tests__/unit/.*\\.(test|spec))\\.ts$',
   collectCoverageFrom: ['src/**/*.ts', '!**/d3-sankey/**', '!**/d3-cloud/**'],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'json'],
+  collectCoverage: false,
+  testRegex: '(/__tests__/.*\\.(test|spec))\\.(ts|tsx|js)$',
   // Transform esm to cjs.
   transformIgnorePatterns: [`<rootDir>/node_modules/(?!(${esm}))`],
-  testPathIgnorePatterns: [
-    '<rootDir>/__tests__/unit/(statistic|infer|composition|interaction|runtime|interaction|mark|shape)',
-  ],
 };

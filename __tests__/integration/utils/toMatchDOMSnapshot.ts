@@ -22,10 +22,11 @@ export async function toMatchDOMSnapshot(
   const container = gCanvas.getConfig().container as HTMLElement;
   const dom = selector ? container.querySelector(selector) : container;
   if (!dom) return { pass: true, message: () => `empty ${name}` };
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir);
 
   let actual;
   try {
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+
     actual = format(
       xmlserializer.serializeToString(dom).replace(/id="[^"]*"/g, ''),
       {

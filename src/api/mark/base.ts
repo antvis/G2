@@ -11,7 +11,7 @@ export class MarkBase<
     const chart = this.root();
     if (!chart) return;
     this.attr('data', data);
-    chart?.render();
+    return chart?.render();
   }
 
   /**
