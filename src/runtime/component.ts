@@ -92,7 +92,7 @@ export function inferComponent(
     const { props } = createGuideComponent(type);
     const { defaultPosition, defaultOrientation, defaultSize, defaultOrder } =
       props;
-    // todo to be comfirm if the scale can be merged
+    // @todo to be comfirm if the scale can be merged.
     const scale: G2ScaleOptions = Object.assign({}, ...relativeScales);
     const { guide: guideOptions, field } = scale;
     // A scale may have multiple guides.
@@ -168,8 +168,8 @@ function inferLegendComponentType(
       'legendCategory',
       createStrategy(
         [
-          // todo now haven't provide constant scale of color channel
-          // so won't display the single shape scale
+          // @todo now haven't provide constant scale of color channel,
+          // so won't display the single shape scale.
           ['shape', 'discrete'],
           ['size', 'discrete'],
           ['opacity', 'discrete'],

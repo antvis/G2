@@ -7,7 +7,7 @@ import type {
   GuideComponentPosition as GCP,
   Scale,
 } from '../runtime';
-import { G2Layout, inferComponentLayout, titleContent } from './utils';
+import { G2Layout, inferComponentLayout, titleContent, scaleOf } from './utils';
 
 export type LegendContinuousOptions = {
   layout?: FlexLayout;
@@ -17,17 +17,18 @@ export type LegendContinuousOptions = {
 };
 
 function inferContinuousConfig(
-  [scale]: Scale[],
+  scales: Scale[],
   options: LegendContinuousOptions,
 ) {
-  const { domain, range } = scale.getOptions();
+  const colorScale = scaleOf(scales, 'color');
+  const { domain, range } = colorScale.getOptions();
   const { length = LegendContinuous.props.defaultLength } = options;
   const [min, max] = [domain[0], domain.slice(-1)[0]];
 
-  if (scale instanceof Threshold) {
-    const thresholds = (scale as any).thresholds as number[];
+  if (colorScale instanceof Threshold) {
+    const thresholds = (colorScale as any).thresholds as number[];
     // for quantize, quantile scale
-    if (scale instanceof Quantize || scale instanceof Quantile) {
+    if (colorScale instanceof Quantize || colorScale instanceof Quantile) {
       return {
         data: [min, ...thresholds, max].map((value, index) => ({
           value: value / max,
@@ -51,11 +52,18 @@ function inferContinuousConfig(
   }
 
   // for linear, pow, sqrt, log, time, utc scale
+  const opacityScale = scaleOf(scales, 'opacity');
   return {
-    data: scale.getTicks().map((value) => ({ value })),
-    color: new Array(length)
-      .fill(0)
-      .map((d, i) => scale.map(((max - min) / (length - 1)) * i + min)),
+    data: colorScale.getTicks().map((value) => ({ value })),
+    color: new Array(length).fill(0).map((d, i) => {
+      const value = ((max - min) / (length - 1)) * i + min;
+      const color = colorScale.map(value);
+      const opacity = opacityScale ? opacityScale.map(value) : 1;
+      return color.replace(
+        /rgb[a]*\(([\d]{1,3}), ([\d]{1,3}), ([\d]{1,3})[\S\s]*\)/,
+        (match, p1, p2, p3) => `rgba(${p1}, ${p2}, ${p3}, ${opacity})`,
+      );
+    }),
   };
 }
 
