@@ -129,6 +129,7 @@ export { athletesRectBin } from './athletes-rect-bin';
 export { athletesRectBinItemMarker } from './athletes-rect-bin-item-marker';
 export { moviesPointBin } from './movies-point-bin';
 export { moviesRectBin } from './movies-rect-bin';
+export { moviesRectBinOpacity } from './movies-rect-bin-opacity';
 export { acmeCropIncomeIntervalConnector } from './acme-crop-income-interval-connector';
 export { incomeStatementByRegionIntervalCustom } from './income-statement-by-region-interval-custom';
 export { morleyBox } from './morley-box';

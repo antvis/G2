@@ -1,9 +1,8 @@
 import { G2Spec } from '../../../src';
 
-export function moviesPointBin(): G2Spec {
+export function moviesRectBinOpacity(): G2Spec {
   return {
-    type: 'point',
-    width: 480,
+    type: 'rect',
     data: {
       type: 'fetch',
       value: 'data/movies.csv',
@@ -11,16 +10,20 @@ export function moviesPointBin(): G2Spec {
     transform: [
       {
         type: 'bin',
-        size: 'count',
         color: 'count',
-        thresholdsX: 10,
-        thresholdsY: 10,
+        opacity: 'count',
+        thresholdsX: 30,
+        thresholdsY: 20,
       },
     ],
+    scale: {
+      color: {
+        palette: 'ylGnBu',
+      },
+    },
     encode: {
       x: 'IMDB Rating',
       y: 'Rotten Tomatoes Rating',
-      shape: 'point',
     },
   };
 }

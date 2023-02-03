@@ -163,7 +163,7 @@ export type ThemeComponent<O = Record<string, unknown>> = G2BaseComponent<
 >;
 
 export type GuideComponent = (
-  scale: Scale,
+  scales: Scale[],
   style: Record<string, any>,
   coordinate: Coordinate,
   theme: G2Theme,
@@ -226,21 +226,3 @@ export type LabelTransform = (
 ) => DisplayObject[];
 export type LabelTransformComponent<O = Record<string, unknown>> =
   G2BaseComponent<LabelTransform, O>;
-
-type G2ComponentRuntime = [
-  scale: Scale,
-  coordinate: Coordinate,
-  theme: G2Theme,
-  options: G2GuideComponentOptions,
-  context: {
-    bbox: DOMRect;
-    isHelix: boolean;
-    isPolar: boolean;
-    isRadar: boolean;
-    isRadial: boolean;
-    isReflect: boolean;
-    isReflectY: boolean;
-    isTheta: boolean;
-    isTranspose: boolean;
-  },
-];

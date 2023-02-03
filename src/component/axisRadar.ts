@@ -36,7 +36,7 @@ function inferAxisStyle(
 ) {
   const { radar } = options;
   const {
-    scale: { name },
+    scales: [{ name }],
   } = value;
   const [startAngle, endAngle] = angleOf(coordinate);
   const { axisRadar: radarTheme = {} } = theme;
@@ -55,7 +55,7 @@ function inferAxisStyle(
 
 export const AxisRadar: GCC<AxisRadarOptions> = (options) => {
   const { important = {}, ...restOptions } = options;
-  return (scale, value, coordinate, theme) => {
+  return (scales, value, coordinate, theme) => {
     return LinearAxis({
       ...restOptions,
       ...inferTitleTransform(options.orientation),
@@ -63,7 +63,7 @@ export const AxisRadar: GCC<AxisRadarOptions> = (options) => {
         ...inferAxisStyle(options, theme, coordinate, value),
         ...important,
       },
-    })(scale, value, coordinate, theme);
+    })(scales, value, coordinate, theme);
   };
 };
 

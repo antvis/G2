@@ -9,7 +9,7 @@ export function LegendHighlight({ channel, ...rest }) {
     const legends = legendsOf(container);
     const elements = selectG2Elements(container);
     const channelOf = (legend) => {
-      return dataOf(legend).scale.name;
+      return dataOf(legend).scales[0].name;
     };
     const scaleOf = (channel) => {
       const {

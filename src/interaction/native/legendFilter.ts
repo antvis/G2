@@ -47,7 +47,8 @@ export function attributesOf(root) {
 function builtInAccessors(selectedLegend) {
   // Get the value and scale type from legend.
   const { data } = attributesOf(selectedLegend);
-  const { name: channel } = dataOf(selectedLegend).scale;
+  // In theory, scales' channels are the same
+  const { name: channel } = dataOf(selectedLegend).scales[0];
   return [
     channel,
     {
