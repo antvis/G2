@@ -28,4 +28,8 @@ describe('chart.options.autoFit', () => {
     await sleep(20);
     await expect(canvas).toMatchCanvasSnapshot(dir, 'step1');
   });
+
+  afterAll(() => {
+    canvas?.destroy();
+  });
 });

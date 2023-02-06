@@ -3,16 +3,23 @@ import { sleep } from '../utils/sleep';
 import { basicIntervalMarkChangeData as render } from './basic-interval-mark-change-data';
 import '../utils/useSnapshotMatchers';
 
-it('mark.changeData(width, height) should rerender expected chart', async () => {
+describe('mark.changeData', () => {
   const canvas = createNodeGCanvas(640, 480);
-  const { finished, button, chart } = render({
-    canvas,
-    container: document.createElement('div'),
+
+  it('mark.changeData(width, height) should rerender expected chart', async () => {
+    const { finished, button, chart } = render({
+      canvas,
+      container: document.createElement('div'),
+    });
+    await finished;
+    button.dispatchEvent(new CustomEvent('click'));
+    await new Promise<void>((resolve) => chart.on('afterrender', resolve));
+    const dir = `${__dirname}/../snapshots-api`;
+    await sleep(20);
+    await expect(canvas).toMatchCanvasSnapshot(dir, render.name);
   });
-  await finished;
-  button.dispatchEvent(new CustomEvent('click'));
-  await new Promise<void>((resolve) => chart.on('afterrender', resolve));
-  const dir = `${__dirname}/../snapshots-api`;
-  await sleep(20);
-  await expect(canvas).toMatchCanvasSnapshot(dir, render.name);
+
+  afterAll(() => {
+    canvas?.destroy();
+  });
 });
