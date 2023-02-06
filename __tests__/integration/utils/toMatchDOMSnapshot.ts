@@ -17,6 +17,7 @@ export async function toMatchDOMSnapshot(
   options: ToMatchDOMSnapshotOptions = {},
 ): Promise<{ message: () => string; pass: boolean }> {
   const { selector, fileFormat = 'html' } = options;
+  const namePath = path.join(dir, name);
   const actualPath = path.join(dir, `${name}-actual.${fileFormat}`);
   const expectedPath = path.join(dir, `${name}.${fileFormat}`);
   const container = gCanvas.getConfig().container as HTMLElement;
@@ -35,10 +36,10 @@ export async function toMatchDOMSnapshot(
     );
 
     if (!fs.existsSync(expectedPath)) {
-      console.warn(`! generate ${name}`);
+      console.warn(`! generate ${namePath}`);
       await fs.writeFileSync(expectedPath, actual);
       return {
-        message: () => `generate ${name}`,
+        message: () => `generate ${namePath}`,
         pass: true,
       };
     } else {
@@ -49,7 +50,7 @@ export async function toMatchDOMSnapshot(
       if (actual === expected) {
         if (fs.existsSync(actualPath)) fs.unlinkSync(actualPath);
         return {
-          message: () => `match ${name}`,
+          message: () => `match ${namePath}`,
           pass: true,
         };
       }
@@ -57,7 +58,7 @@ export async function toMatchDOMSnapshot(
       // Perverse actual file.
       if (actual) fs.writeFileSync(actualPath, actual);
       return {
-        message: () => `mismatch ${name}`,
+        message: () => `mismatch ${namePath}`,
         pass: false,
       };
     }

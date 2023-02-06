@@ -1,2 +1,2 @@
-__tests__/integration/data/*
+__tests__/data/*
 __tests__/integration/snapshots/**/*
