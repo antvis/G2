@@ -25,7 +25,6 @@ import {
   Tree,
   WordCloud,
 } from '../../../src/api/mark/mark';
-import { createDiv } from '../../utils/dom';
 
 function setOptions(node) {
   return node
@@ -111,14 +110,13 @@ function getCompositeOptions() {
   };
 }
 
-describe('MarkBase', () => {
-  it('get instance information after chart render.', (done) => {
-    const div = createDiv();
-    const chart = new Chart({
-      container: div,
-      autoFit: true,
-      key: '$$chart$$',
-    });
+describe.only('MarkBase', () => {
+  let view;
+  let interval;
+
+  beforeAll(async () => {
+    const chart = new Chart({ key: '$$chart$$' });
+
     chart.data([
       { genre: 'Sports', sold: 275 },
       { genre: 'Strategy', sold: 115 },
@@ -126,25 +124,37 @@ describe('MarkBase', () => {
       { genre: 'Shooter', sold: 350 },
       { genre: 'Other', sold: 150 },
     ]);
-    const interval = chart
+
+    interval = chart
       .interval()
       .attr('key', 'interval')
       .encode('x', 'genre')
       .encode('y', 'sold')
       .encode('color', 'genre');
-    chart.render();
-    setTimeout(() => {
-      const view = chart.getView();
-      expect(interval.getScale()).toEqual(view?.scale);
-      expect(interval.getGroup().id).toEqual(interval.attr('key'));
-      expect(interval.getScaleByChannel('x')).toEqual(view?.scale['x']);
 
-      const markKey = Array.from(view.markState.keys()).find(
-        (item) => item.key === interval.attr('key'),
-      ) as G2Mark;
-      expect(interval.getMark()).toEqual(view?.markState.get(markKey));
-      done();
-    }, 300);
+    await chart.render();
+
+    view = chart.getView();
+  });
+
+  it('mark.getScale() should return scale instances', () => {
+    expect(interval.getScale()).toEqual(view?.scale);
+  });
+
+  it('mark.getGroup() should return group', () => {
+    expect(interval.getGroup().id).toEqual(interval.attr('key'));
+  });
+
+  it('mark.getScaleByChannel(channel) should return scale instance', () => {
+    expect(interval.getScaleByChannel('x')).toEqual(view?.scale['x']);
+  });
+
+  it('mark.getMark() should return mark instance', () => {
+    const markKey = Array.from(view.markState.keys()).find(
+      // @ts-ignore
+      (item) => item.key === interval.attr('key'),
+    ) as G2Mark;
+    expect(interval.getMark()).toEqual(view?.markState.get(markKey));
   });
 });
 

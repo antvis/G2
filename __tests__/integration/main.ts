@@ -1,4 +1,4 @@
-import { Canvas, Text, Group } from '@antv/g';
+import { Canvas } from '@antv/g';
 import { Renderer as CanvasRenderer } from '@antv/g-canvas';
 import { Plugin as DragAndDropPlugin } from '@antv/g-plugin-dragndrop';
 import { Renderer as SVGRenderer } from '@antv/g-svg';
@@ -8,12 +8,14 @@ import * as charts from './charts';
 import * as interactions from './interactions';
 import * as animations from './animations';
 import * as tooltips from './tooltips';
+import * as apis from './apis';
 
 const tests = {
-  ...charts,
-  ...namespace(tooltips, 'tooltip'),
-  ...namespace(interactions, 'interactions'),
-  ...namespace(animations, 'animations'),
+  ...createSpecRender(charts),
+  ...createSpecRender(namespace(tooltips, 'tooltip')),
+  ...createSpecRender(namespace(interactions, 'interaction')),
+  ...createSpecRender(namespace(animations, 'animation')),
+  ...createAPIRender(namespace(apis, 'api')),
 };
 
 const renderers = {
@@ -23,7 +25,7 @@ const renderers = {
 const app = document.getElementById('app') as HTMLElement;
 let currentContainer = document.createElement('div');
 let canvas;
-let prevDestroy;
+let prevAfter;
 
 // Select for chart.
 const selectChart = document.createElement('select') as HTMLSelectElement;
@@ -88,42 +90,15 @@ app.append(span);
 plot();
 
 async function plot() {
-  // Init.
   if (currentContainer) {
     currentContainer.remove();
     if (canvas) canvas.destroy();
-    if (prevDestroy) prevDestroy();
+    if (prevAfter) prevAfter();
   }
   currentContainer = document.createElement('div');
   app.append(currentContainer);
-  const generate = tests[selectChart.value];
-  const { mounted = false, before, destroy } = generate;
-  prevDestroy = destroy;
-
-  // Render chart.
-  const options = await generate();
-  const { width = 640, height = 480 } = options;
-  const dom = generate.dom?.();
-  const renderer = new renderers[selectRenderer.value]();
-  renderer.registerPlugin(
-    new DragAndDropPlugin({ dragstartDistanceThreshold: 1 }),
-  );
-  canvas = new Canvas({
-    container: document.createElement('div'),
-    width,
-    height,
-    renderer,
-  });
-
-  // @ts-ignore
-  window.__g_instances__ = [canvas];
-  const renderChart = mounted ? renderToMountedElement : render;
-  before?.();
-  const node = renderChart(options, { canvas });
-
-  // Append nodes.
-  if (node instanceof HTMLElement) currentContainer.append(node);
-  if (dom instanceof HTMLElement) currentContainer.append(dom);
+  const render = tests[selectChart.value];
+  render(currentContainer);
 }
 
 function createOption(key) {
@@ -136,5 +111,56 @@ function createOption(key) {
 function namespace(object, name) {
   return Object.fromEntries(
     Object.entries(object).map(([key, value]) => [`${name}-${key}`, value]),
+  );
+}
+
+function createSpecRender(object) {
+  const specRender = (generate) => {
+    return async (container) => {
+      // Select render is necessary for spec tests.
+      selectRenderer.style.display = 'inline';
+
+      const { mounted = false, before, after } = generate;
+      prevAfter = after;
+      const options = await generate();
+      const { width = 640, height = 480 } = options;
+      const dom = generate.dom?.();
+      const renderer = new renderers[selectRenderer.value]();
+      renderer.registerPlugin(
+        new DragAndDropPlugin({ dragstartDistanceThreshold: 1 }),
+      );
+      canvas = new Canvas({
+        container: document.createElement('div'),
+        width,
+        height,
+        renderer,
+      });
+
+      // @ts-ignore
+      window.__g_instances__ = [canvas];
+      const renderChart = mounted ? renderToMountedElement : render;
+      before?.();
+      const node = renderChart(options, { canvas }, () => after?.());
+
+      // Append nodes.
+      if (node instanceof HTMLElement) container.append(node);
+      if (dom instanceof HTMLElement) container.append(dom);
+    };
+  };
+  return Object.fromEntries(
+    Object.entries(object).map(([key, value]) => [key, specRender(value)]),
+  );
+}
+
+function createAPIRender(object) {
+  const apiRender = (render) => {
+    return (container) => {
+      // Select render is unnecessary for api tests.
+      selectRenderer.style.display = 'none';
+      render({ container });
+    };
+  };
+  return Object.fromEntries(
+    Object.entries(object).map(([key, value]) => [key, apiRender(value)]),
   );
 }

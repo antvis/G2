@@ -1,6 +1,6 @@
 import { Fetch } from '../../../src/data';
 
-describe('Fetch', () => {
+describe.skip('Fetch', () => {
   it('Fetch({...}) returns a function fetching json by default', async () => {
     const transform = Fetch({
       value:

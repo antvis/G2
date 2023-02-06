@@ -37,7 +37,6 @@ import {
   Tree,
   WordCloud,
 } from '../../../src/api/mark/mark';
-import { createDiv } from '../../utils/dom';
 
 describe('Chart', () => {
   it('Chart() should have expected defaults', () => {
@@ -49,7 +48,7 @@ describe('Chart', () => {
   });
 
   it('Chart({...}) should support HTML container', () => {
-    const container = createDiv();
+    const container = document.createElement('div');
     const chart = new Chart({
       container,
     });
@@ -83,7 +82,7 @@ describe('Chart', () => {
   });
 
   it('chart.node() should return container', () => {
-    const container = createDiv();
+    const container = document.createElement('div');
     const chart = new Chart({
       container,
     });
@@ -314,34 +313,8 @@ describe('Chart', () => {
     });
   });
 
-  it('chart.render() should render chart', () => {
-    const container = createDiv();
-    const chart = new Chart({
-      container,
-    });
-
-    chart.data([
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
-    ]);
-
-    chart
-      .interval()
-      .encode('x', 'genre')
-      .encode('y', 'sold')
-      .encode('color', 'genre');
-
-    chart.render();
-    expect(chart.context().canvas?.getConfig().container).toBe(container);
-  });
-
   it('chart.context() should return rendering context', () => {
-    const chart = new Chart({
-      container: createDiv(),
-    });
+    const chart = new Chart({});
 
     chart.data([
       { genre: 'Sports', sold: 275 },
@@ -364,45 +337,8 @@ describe('Chart', () => {
     expect(context.canvas).toBeInstanceOf(Canvas);
   });
 
-  it('chart.render({...}) should rerender chart with updated data', () => {
-    const div = createDiv();
-    const button = document.createElement('button');
-    button.innerText = 'Update Data';
-    div.appendChild(button);
-
-    const chart = new Chart({
-      container: div,
-    });
-
-    chart.data([
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
-    ]);
-    const interval = chart
-      .interval()
-      .encode('x', 'genre')
-      .encode('y', 'sold')
-      .encode('color', 'genre');
-
-    chart.render();
-    button.onclick = () => {
-      interval.changeData([
-        { genre: 'Action', sold: 120 },
-        { genre: 'Shooter', sold: 350 },
-        { genre: 'Other', sold: 150 },
-        { genre: 'Sports', sold: 275 },
-        { genre: 'Strategy', sold: 115 },
-      ]);
-    };
-  });
-
   it('chart.render() should return promise', (done) => {
-    const chart = new Chart({
-      container: createDiv(),
-    });
+    const chart = new Chart();
 
     chart.data([
       { genre: 'Sports', sold: 275 },
@@ -424,86 +360,8 @@ describe('Chart', () => {
     });
   });
 
-  it('chart.render({...}) should rerender chart with updated size', () => {
-    const div = createDiv();
-    const button = document.createElement('button');
-    button.innerText = 'Update Size';
-    div.appendChild(button);
-
-    const chart = new Chart({
-      container: div,
-      width: 300,
-      height: 600,
-    });
-
-    chart.data([
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
-    ]);
-
-    chart
-      .interval()
-      .encode('x', 'genre')
-      .encode('y', 'sold')
-      .encode('color', 'genre');
-
-    chart.render();
-    button.onclick = () => {
-      chart.changeSize(200, 400);
-    };
-  });
-
-  it('chart.render({...}) should render with autoFit.', () => {
-    const div = createDiv();
-
-    // button
-    const button = document.createElement('button');
-    button.innerText = 'Change Wrapper Container';
-    div.appendChild(button);
-
-    // wrapperDiv
-    const wrapperDiv = document.createElement('div');
-    wrapperDiv.style.width = '800px';
-    wrapperDiv.style.height = '500px';
-    div.appendChild(wrapperDiv);
-
-    const chart = new Chart({
-      container: wrapperDiv,
-      autoFit: true,
-    });
-
-    chart.data([
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
-    ]);
-
-    chart
-      .interval()
-      .encode('x', 'genre')
-      .encode('y', 'sold')
-      .encode('color', 'genre');
-
-    chart.render();
-
-    button.onclick = () => {
-      wrapperDiv.style.width = '400px';
-      wrapperDiv.style.height = '500px';
-      chart.forceFit();
-    };
-  });
-
   it('chart.on(event, callback) should register chart event.', (done) => {
-    const div = createDiv();
-
-    const chart = new Chart({
-      container: div,
-    });
+    const chart = new Chart();
 
     chart.data([
       { genre: 'Sports', sold: 275 },
@@ -563,12 +421,13 @@ describe('Chart', () => {
   });
 
   it('chart should render after window resize.', (done) => {
-    const div = createDiv();
+    const div = document.createElement('div');
 
     const chart = new Chart({
       container: div,
       autoFit: true,
     });
+
     chart.data([
       { genre: 'Sports', sold: 275 },
       { genre: 'Strategy', sold: 115 },
@@ -576,12 +435,14 @@ describe('Chart', () => {
       { genre: 'Shooter', sold: 350 },
       { genre: 'Other', sold: 150 },
     ]);
+
     chart
       .interval()
       .encode('x', 'genre')
       .encode('y', 'sold')
       .encode('color', 'genre');
 
+    // Track chart render;
     const fn = jest.fn();
     const render = chart.render.bind(chart);
     chart.render = () => {
@@ -589,22 +450,21 @@ describe('Chart', () => {
       return render();
     };
     chart.render();
+
+    // Mock resize window.
     div.style.width = '100px';
     div.style.height = '100px';
     window.dispatchEvent(new Event('resize'));
-    setTimeout(() => {
+
+    // Listen.
+    chart.on('afterchangesize', () => {
       expect(fn).toHaveBeenCalledTimes(2);
       done();
-    }, 400);
+    });
   });
 
-  it('get instance information after chart render.', (done) => {
-    const div = createDiv();
-    const chart = new Chart({
-      container: div,
-      autoFit: true,
-      key: '$$chart$$',
-    });
+  it('get instance information after chart render.', async () => {
+    const chart = new Chart({ key: '$$chart$$' });
     chart.data([
       { genre: 'Sports', sold: 275 },
       { genre: 'Strategy', sold: 115 },
@@ -618,15 +478,12 @@ describe('Chart', () => {
       .encode('x', 'genre')
       .encode('y', 'sold')
       .encode('color', 'genre');
-    chart.render();
-    setTimeout(() => {
-      const context = chart.context();
-      const view = context.views?.find((v) => v.key === chart.attr('key'));
-      expect(chart.getView()).toEqual(view);
-      expect(chart.getCoordinate()).toEqual(view?.coordinate);
-      expect(chart.getTheme()).toEqual(view?.theme);
-      expect(chart.getGroup().id).toEqual(chart.attr('key'));
-      done();
-    }, 300);
+    await chart.render();
+    const context = chart.context();
+    const view = context.views?.find((v) => v.key === chart.attr('key'));
+    expect(chart.getView()).toEqual(view);
+    expect(chart.getCoordinate()).toEqual(view?.coordinate);
+    expect(chart.getTheme()).toEqual(view?.theme);
+    expect(chart.getGroup().id).toEqual(chart.attr('key'));
   });
 });
