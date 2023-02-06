@@ -62,8 +62,8 @@ export async function toMatchCanvasSnapshot(
   const expectedPath = path.join(dir, `${name}.png`);
   const diffPath = path.join(dir, `${name}-diff.png`);
   const canvas = gCanvas.getConfig().canvas;
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir);
   try {
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
     if (!fs.existsSync(expectedPath)) {
       console.warn(`! generate ${name}`);
       await writePNG(canvas, expectedPath);

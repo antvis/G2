@@ -12,15 +12,28 @@ import {
   Polyline,
   HTML,
   CustomEvent,
+  Canvas,
 } from '@antv/g';
-// import { Canvas } from '../../../src/renderer/canvas';
+import { Renderer } from '@antv/g-canvas';
+
 import { G2Element, select, Selection } from '../../../src/utils/selection';
-import { mount, createDiv } from '../../utils/dom';
-import { Canvas } from '../../utils/canvas';
+
+function createCanvas(
+  width,
+  height,
+  container = document.createElement('div'),
+) {
+  return new Canvas({
+    width,
+    height,
+    container,
+    renderer: new Renderer(),
+  });
+}
 
 describe('select', () => {
   it('select(node) should return a new selection with expected defaults', () => {
-    const canvas = Canvas(300, 200, document.createElement('div'));
+    const canvas = createCanvas(300, 200);
     const selection = select(canvas.document.documentElement);
     expect(selection).toBeInstanceOf(Selection);
 
@@ -53,7 +66,7 @@ describe('select', () => {
   });
 
   it('Selection.select(selector) should return a new selection with the first match element selected', async () => {
-    const canvas = Canvas(300, 200, document.createElement('div'));
+    const canvas = createCanvas(300, 200);
 
     await canvas.ready;
 
@@ -75,7 +88,7 @@ describe('select', () => {
   });
 
   it('Selection.selectAll(selector) should returns a new selection with all match element selected', async () => {
-    const canvas = Canvas(300, 200, document.createElement('div'));
+    const canvas = createCanvas(300, 200);
 
     await canvas.ready;
 
@@ -97,7 +110,7 @@ describe('select', () => {
   });
 
   it('Selection.append(node) should append node to each selected elements for non-empty selection and return the new selection', async () => {
-    const canvas = Canvas(300, 200, document.createElement('div'));
+    const canvas = createCanvas(300, 200);
 
     await canvas.ready;
 
@@ -439,9 +452,7 @@ describe('select', () => {
 
   it('Selection.on() should register event', async () => {
     const container = document.createElement('div');
-    const canvas = Canvas(300, 200, container);
-
-    mount(createDiv(), container);
+    const canvas = createCanvas(300, 200, container);
 
     await canvas.ready;
 
