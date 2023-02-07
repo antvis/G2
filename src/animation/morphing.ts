@@ -122,6 +122,27 @@ function maybePath(node: DisplayObject, d: string): DisplayObject {
   return path;
 }
 
+function hasUniqueString(search: string, pattern: string): boolean {
+  const first = search.indexOf(pattern);
+  const last = search.lastIndexOf(pattern);
+  return first === last;
+}
+
+// Path definition with multiple m and M command has sub path.
+// eg. 'M10,10...M20,20', 'm10,10...m20,20'
+function hasSubPath(path: string): boolean {
+  return !hasUniqueString(path, 'm') || !hasUniqueString(path, 'M');
+}
+
+function shape2path(shape: DisplayObject): string {
+  const path = convertToPath(shape);
+  if (!path) return;
+  // Path definition with sub path can't do path morphing animation,
+  // so skip this kind of path.
+  if (hasSubPath(path)) return;
+  return path;
+}
+
 function oneToOne(
   shape: DisplayObject,
   from: DisplayObject,
@@ -133,8 +154,8 @@ function oneToOne(
   // the apply shape to shape animation.
   const { nodeName: fromName } = from;
   const { nodeName: toName } = to;
-  const fromPath = convertToPath(from);
-  const toPath = convertToPath(to);
+  const fromPath = shape2path(from);
+  const toPath = shape2path(to);
   const isSameNodes = fromName === toName && fromName !== 'path';
   const hasNonPathNode = fromPath === undefined || toPath === undefined;
   if (isSameNodes || hasNonPathNode) return shapeToShape(from, to, timeEffect);

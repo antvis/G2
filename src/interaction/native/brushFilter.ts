@@ -60,7 +60,7 @@ export function brushFilter(
 
   return () => {
     brush.destroy();
-    root.removeEventListener('dblclick', click);
+    root.removeEventListener('click', click);
   };
 }
 
