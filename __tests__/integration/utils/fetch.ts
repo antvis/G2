@@ -2,7 +2,7 @@ import * as path from 'path';
 import { promises as fs } from 'fs';
 
 export async function fetch(url: string) {
-  return createResponse(path.resolve('__tests__/integration', url));
+  return createResponse(path.resolve('__tests__', url));
 }
 
 function createResponse(url: string) {
