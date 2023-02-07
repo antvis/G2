@@ -290,8 +290,8 @@ registerAction('brush', DataRangeFilter);
 registerAction('brush-x', DataRangeFilter, { dims: ['x'] });
 registerAction('brush-y', DataRangeFilter, { dims: ['y'] });
 registerAction('sibling-filter', SiblingFilter);
-registerAction('sibling-x-filter', SiblingFilter);
-registerAction('sibling-y-filter', SiblingFilter);
+registerAction('sibling-x-filter', SiblingFilter, { dims: 'x' });
+registerAction('sibling-y-filter', SiblingFilter, { dims: 'y' });
 
 registerAction('element-filter', ElementFilter);
 registerAction('element-sibling-filter', ElementSiblingFilter);
