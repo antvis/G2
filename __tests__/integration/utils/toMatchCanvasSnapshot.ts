@@ -58,6 +58,7 @@ export async function toMatchCanvasSnapshot(
   options: ToMatchCanvasSnapshotOptions = {},
 ): Promise<{ message: () => string; pass: boolean }> {
   const { maxError = 0 } = options;
+  const namePath = path.join(dir, name);
   const actualPath = path.join(dir, `${name}-actual.png`);
   const expectedPath = path.join(dir, `${name}.png`);
   const diffPath = path.join(dir, `${name}-diff.png`);
@@ -65,10 +66,10 @@ export async function toMatchCanvasSnapshot(
   try {
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
     if (!fs.existsSync(expectedPath)) {
-      console.warn(`! generate ${name}`);
+      console.warn(`! generate ${namePath}`);
       await writePNG(canvas, expectedPath);
       return {
-        message: () => `generate ${name}`,
+        message: () => `generate ${namePath}`,
         pass: true,
       };
     } else {
@@ -78,12 +79,12 @@ export async function toMatchCanvasSnapshot(
         if (fs.existsSync(diffPath)) fs.unlinkSync(diffPath);
         fs.unlinkSync(actualPath);
         return {
-          message: () => `match ${name}`,
+          message: () => `match ${namePath}`,
           pass: true,
         };
       }
       return {
-        message: () => `mismatch ${name}`,
+        message: () => `mismatch ${namePath}`,
         pass: false,
       };
     }
