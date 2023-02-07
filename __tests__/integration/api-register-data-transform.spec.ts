@@ -1,4 +1,4 @@
-import { basicIntervalRegisterDataTransform as render } from '../plots/api/basic-interval-register-data-transform';
+import { registerDataTransform as render } from '../plots/api/register-data-transform';
 import { createNodeGCanvas } from './utils/createNodeGCanvas';
 import { sleep } from './utils/sleep';
 import './utils/useSnapshotMatchers';

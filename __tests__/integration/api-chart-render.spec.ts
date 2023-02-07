@@ -1,4 +1,4 @@
-import { basicIntervalChartRender as render } from '../plots/api/basic-interval-chart-render';
+import { chartRender as render } from '../plots/api/chart-render';
 import { createNodeGCanvas } from './utils/createNodeGCanvas';
 import { sleep } from './utils/sleep';
 import './utils/useSnapshotMatchers';

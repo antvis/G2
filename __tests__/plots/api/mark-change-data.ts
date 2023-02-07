@@ -1,6 +1,6 @@
 import { Chart } from '../../../src';
 
-export function basicIntervalMarkChangeData(context) {
+export function markChangeData(context) {
   const { container, canvas } = context;
 
   const button = document.createElement('button');

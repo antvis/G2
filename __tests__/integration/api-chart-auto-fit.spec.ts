@@ -1,4 +1,4 @@
-import { basicIntervalChartAutoFit as render } from '../plots/api/basic-interval-chart-auto-fit';
+import { chartAutoFit as render } from '../plots/api/chart-auto-fit';
 import { createNodeGCanvas } from './utils/createNodeGCanvas';
 import { sleep } from './utils/sleep';
 import { kebabCase } from './utils/kebabCase';

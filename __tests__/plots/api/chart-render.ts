@@ -1,6 +1,6 @@
 import { Chart } from '../../../src/api';
 
-export function basicIntervalChartRender(context) {
+export function chartRender(context) {
   const { container, canvas } = context;
 
   const chart = new Chart({

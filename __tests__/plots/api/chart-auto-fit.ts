@@ -1,18 +1,22 @@
 import { Chart } from '../../../src';
 
-export function basicIntervalChartChangeSize(context) {
+export function chartAutoFit(context) {
   const { container, canvas } = context;
 
+  // button
   const button = document.createElement('button');
-  button.innerText = 'Update Size';
-  button.style.display = 'block';
+  button.innerText = 'Change Wrapper Container';
   container.appendChild(button);
 
-  const div = document.createElement('div');
-  container.appendChild(div);
+  // wrapperDiv
+  const wrapperDiv = document.createElement('div');
+  wrapperDiv.style.width = '800px';
+  wrapperDiv.style.height = '500px';
+  container.appendChild(wrapperDiv);
 
   const chart = new Chart({
-    container: div,
+    container: wrapperDiv,
+    autoFit: true,
     canvas,
   });
 
@@ -33,7 +37,9 @@ export function basicIntervalChartChangeSize(context) {
   const finished = chart.render();
 
   button.onclick = () => {
-    chart.changeSize(400, 300);
+    wrapperDiv.style.width = '400px';
+    wrapperDiv.style.height = '500px';
+    chart.forceFit();
   };
 
   return { chart, button, finished };

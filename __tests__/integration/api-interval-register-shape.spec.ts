@@ -1,4 +1,4 @@
-import { basicIntervalRegisterShape as render } from '../plots/api/basic-interval-register-shape';
+import { registerShape as render } from '../plots/api/register-shape';
 import { createNodeGCanvas } from './utils/createNodeGCanvas';
 import { sleep } from './utils/sleep';
 import './utils/useSnapshotMatchers';

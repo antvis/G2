@@ -1,6 +1,6 @@
 import { register, Chart } from '../../../src/api';
 
-export function basicIntervalRegisterDataTransform(context) {
+export function registerDataTransform(context) {
   const { container, canvas } = context;
 
   register('data.double', (options) => {

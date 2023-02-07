@@ -1,7 +1,7 @@
 import { Polygon } from '@antv/g';
 import { register, Chart } from '../../../src/api';
 
-export function basicIntervalRegisterShape(context) {
+export function registerShape(context) {
   const { container, canvas } = context;
   register('shape.interval.triangle', (style) => {
     return (P, value, coordinate, theme) => {
