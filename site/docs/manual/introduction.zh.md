@@ -148,7 +148,7 @@ keyframe
 
 ```js
 // 声明交互
-chart.interaction({ type: 'fisheye' });
+chart.interaction('fisheye');
 
 chart
   .point()

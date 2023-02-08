@@ -12,7 +12,7 @@ describe('defineProps', () => {
     expect(n2.a()).toBe(undefined);
   });
 
-  it('definedProps([...]) should define keyed value prop', () => {
+  it('defineProps([...]) should define keyed value prop', () => {
     const N = defineProps([{ type: 'value', name: 'a', key: 'b' }])(Node);
     const n = new N({});
     n.a(2);
@@ -39,7 +39,7 @@ describe('defineProps', () => {
     expect(n4.a()).toEqual([1, 2, 3, 4, undefined]);
   });
 
-  it('definedProps([...]) should define keyed array prop', () => {
+  it('defineProps([...]) should define keyed array prop', () => {
     const N = defineProps([{ type: 'array', name: 'a', key: 'b' }])(Node);
     const n = new N({});
     n.a(2);
@@ -62,7 +62,16 @@ describe('defineProps', () => {
     expect(n5.a()).toEqual(undefined);
   });
 
-  it('definedProps([...]) should define keyed object prop', () => {
+  it('defineProps([...]) should define boolean object prop', () => {
+    const N = defineProps([{ type: 'object', name: 'a' }])(Node);
+    const n = new N();
+    n.a('b');
+    expect(n.a()).toEqual({ b: true });
+    n.a('b', false);
+    expect(n.a()).toEqual({ b: false });
+  });
+
+  it('defineProps([...]) should define keyed object prop', () => {
     const N = defineProps([{ type: 'object', name: 'a', key: 'b' }])(Node);
     const n = new N({});
     n.a('a', 1);
@@ -78,7 +87,7 @@ describe('defineProps', () => {
     expect(n1).toBeInstanceOf(Node);
   });
 
-  it('definedProps([...]) should define container prop', () => {
+  it('defineProps([...]) should define container prop', () => {
     const N = defineProps([{ type: 'container', ctor: Node, name: 'a' }])(Node);
     const n = new N();
     const n1 = n.a();

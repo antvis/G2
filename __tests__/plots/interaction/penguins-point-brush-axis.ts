@@ -14,7 +14,11 @@ export function penguinsPointBrushAxis(): G2Spec {
       x: 'culmen_length_mm',
       y: 'culmen_depth_mm',
     },
-    interactions: [{ type: 'brushAxisHighlight', unhighlightedStroke: 'gray' }],
+    interaction: {
+      brushAxisHighlight: {
+        unhighlightedStroke: 'gray',
+      },
+    },
   };
 }
 

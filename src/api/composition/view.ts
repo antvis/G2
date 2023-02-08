@@ -14,7 +14,7 @@ type ViewSpec = Concrete<ViewComposition>;
 export interface View extends Mark {
   data: ValueAttribute<ViewSpec['data'], View>;
   coordinate: ArrayAttribute<ViewSpec['coordinates'], View>;
-  interaction: ArrayAttribute<ViewSpec['interactions'], View>;
+  interaction: ObjectAttribute<ViewSpec['interaction'], View>;
   theme: ObjectAttribute<ViewSpec['theme'], View>;
   style: ObjectAttribute<ViewSpec['style'], View>;
   scale: ObjectAttribute<ViewSpec['scale'], View>;
@@ -25,7 +25,7 @@ export interface View extends Mark {
 @defineProps([
   { type: 'value', name: 'data' },
   { type: 'array', name: 'coordinate', key: 'coordinates' },
-  { type: 'array', name: 'interaction', key: 'interactions' },
+  { type: 'object', name: 'interaction' },
   { type: 'object', name: 'theme' },
   { type: 'object', name: 'style' },
   { type: 'object', name: 'scale' },

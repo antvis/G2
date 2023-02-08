@@ -28,7 +28,9 @@ export function temperaturesLineLegendFilterOrdinal(): G2Spec {
         },
       },
     ],
-    interactions: [{ type: 'legendFilter' }],
+    interaction: {
+      legendFilter: true,
+    },
   };
 }
 

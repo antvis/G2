@@ -252,8 +252,10 @@ function selectSiblingContainers(target, viewInstances, brushKey) {
   return viewInstances
     .filter((d) => {
       if (d === target) return false;
-      const { interactions = [] } = d.options;
-      return interactions.find((d) => d.brushKey === brushKey);
+      const { interaction = {} } = d.options;
+      return Object.values(interaction as Record<string, any>).find(
+        (d) => d.brushKey === brushKey,
+      );
     })
     .map((d) => selectPlotArea(d.container));
 }

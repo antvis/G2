@@ -11,8 +11,8 @@ order: 7
 
 ```js
 chart
-  .interaction({ type: 'elementHighlight' }) // 图形高亮
-  .interaction({ type: 'tooltip' }); // 提示信息
+  .interaction('elementHighlight') // 图形高亮
+  .interaction('tooltip'); // 提示信息
 ```
 
 ## 自定义交互

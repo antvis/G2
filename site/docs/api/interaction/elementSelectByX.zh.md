@@ -31,8 +31,7 @@ chart
   .encode('color', 'age')
   .axis('y', { labelFormatter: '~s' });
 
-chart.interaction({
-  type: 'elementSelectByX',
+chart.interaction('elementSelectByX', {
   selectedFill: 'red',
   unselectedOpacity: 0.5,
 });

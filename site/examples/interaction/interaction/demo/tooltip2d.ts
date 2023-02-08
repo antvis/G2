@@ -16,6 +16,6 @@ chart
   .encode('y', 'weight')
   .encode('color', 'gender');
 
-chart.interaction({ type: 'tooltip' });
+chart.interaction('tooltip');
 
 chart.render();

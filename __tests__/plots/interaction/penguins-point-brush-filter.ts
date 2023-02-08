@@ -13,7 +13,11 @@ export function penguinsPointBrushFilter(): G2Spec {
       x: 'culmen_length_mm',
       y: 'culmen_depth_mm',
     },
-    interactions: [{ type: 'brushFilter', unhighlightedStroke: 'gray' }],
+    interaction: {
+      brushFilter: {
+        unhighlightedStroke: 'gray',
+      },
+    },
   };
 }
 

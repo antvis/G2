@@ -29,16 +29,15 @@ export function morleyBox(): G2Spec {
         },
       },
     ],
-    interactions: [
-      {
-        type: 'tooltip',
+    interaction: {
+      tooltip: {
         item: ({ channel, value }) => ({
           name: names[channel],
           color: channel === 'tooltip4' ? 'red' : undefined,
           value: `${value / 1000}k`,
         }),
       },
-    ],
+    },
   };
 }
 

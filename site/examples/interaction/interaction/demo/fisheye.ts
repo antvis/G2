@@ -19,6 +19,6 @@ chart
   .style('fillOpacity', 0.3)
   .style('lineWidth', 1);
 
-chart.interaction({ type: 'fisheye' });
+chart.interaction('fisheye');
 
 chart.render();

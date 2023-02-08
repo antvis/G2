@@ -56,7 +56,11 @@ export function cars3LineBrushAxis(): G2Spec {
         ),
       },
     ],
-    interactions: [{ type: 'brushAxisHighlight', unhighlightedStroke: 'grey' }],
+    interaction: {
+      brushAxisHighlight: {
+        unhighlightedStroke: 'grey',
+      },
+    },
   };
 }
 

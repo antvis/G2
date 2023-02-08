@@ -27,9 +27,12 @@ export async function indicesLineBrushSeries(): Promise<G2Spec> {
         },
       },
     ],
-    interactions: [
-      { type: 'brushHighlight', series: true, highlightedStroke: 'red' },
-    ],
+    interaction: {
+      brushHighlight: {
+        series: true,
+        highlightedStroke: 'red',
+      },
+    },
   };
 }
 

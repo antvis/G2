@@ -24,7 +24,9 @@ export function aaplLineSliderFilter(): G2Spec {
       x: { labelFormatter: (d) => format(d, 'YYYY/M/D') },
       y: { labelFormatter: '~s' },
     },
-    interactions: [{ type: 'sliderFilter' }],
+    interaction: {
+      sliderFilter: true,
+    },
   };
 }
 

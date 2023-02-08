@@ -26,7 +26,9 @@ export async function indicesLineReverse(): Promise<G2Spec> {
         },
       },
     ],
-    interactions: [{ type: 'tooltip' }],
+    interaction: {
+      tooltip: true,
+    },
   };
 }
 

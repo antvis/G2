@@ -26,7 +26,7 @@ chart
   .encode('y', 'frequency')
   .axis('y', { labelFormatter: '.0%' });
 
-chart.interaction({ type: 'tooltip' });
+chart.interaction('tooltip');
 
 chart.render();
 ```

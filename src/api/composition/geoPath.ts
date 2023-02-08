@@ -15,7 +15,7 @@ export interface GeoPath extends Mark, Composition {
   projection: ValueAttribute<GeoPathSpec['projection'], GeoPath>;
   data: ValueAttribute<GeoPathSpec['data'], GeoPath>;
   coordinate: ArrayAttribute<GeoPathSpec['coordinates'], GeoPath>;
-  interaction: ArrayAttribute<GeoPathSpec['interactions'], GeoPath>;
+  interaction: ObjectAttribute<GeoPathSpec['interaction'], GeoPath>;
   style: ObjectAttribute<GeoPathSpec['style'], GeoPath>;
   theme: ObjectAttribute<GeoPathSpec['theme'], GeoPath>;
   scale: ObjectAttribute<GeoPathSpec['scale'], GeoPath>;
@@ -27,7 +27,7 @@ export interface GeoPath extends Mark, Composition {
   { type: 'value', name: 'data' },
   { type: 'value', name: 'projection' },
   { type: 'array', name: 'coordinate', key: 'coordinates' },
-  { type: 'array', name: 'interaction', key: 'interactions' },
+  { type: 'object', name: 'interaction' },
   { type: 'object', name: 'theme' },
   { type: 'object', name: 'style' },
   { type: 'object', name: 'scale' },

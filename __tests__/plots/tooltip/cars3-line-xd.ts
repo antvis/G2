@@ -54,7 +54,11 @@ export function cars3LineXd(): G2Spec {
         ),
       },
     ],
-    interactions: [{ type: 'tooltip', series: false }],
+    interaction: {
+      tooltip: {
+        series: false,
+      },
+    },
   };
 }
 
