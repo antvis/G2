@@ -338,12 +338,15 @@ export class Selection<T = any> {
     // Remove node immediately if there is no transition,
     // otherwise wait until transition finished.
     for (let i = 0; i < this._elements.length; i++) {
-      const element = this._elements[i];
       const transition = this._transitions[i];
       if (transition) {
         const T = Array.isArray(transition) ? transition : [transition];
-        T.map((d) => d.finished.then(() => element.remove()));
+        Promise.all(T.map((d) => d.finished)).then(() => {
+          const element = this._elements[i];
+          element.remove();
+        });
       } else {
+        const element = this._elements[i];
         element.remove();
       }
     }
