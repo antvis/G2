@@ -7,6 +7,7 @@ import { AnimationTypes } from './animate';
 import { Interaction } from './interaction';
 import { Theme } from './theme';
 import { ClusterTransform, Data } from './data';
+import { Literal2Object } from './utils';
 
 export type Geometry =
   | IntervalGeometry
@@ -133,7 +134,7 @@ export type BaseGeometry<
   scrollbar?: Partial<Record<'x' | 'y', any>>;
   coordinates?: Coordinate[];
   style?: Record<string, any>;
-  interactions?: Interaction[];
+  interaction?: Literal2Object<Interaction>;
   theme?: Theme;
   facet?: boolean;
   frame?: boolean;

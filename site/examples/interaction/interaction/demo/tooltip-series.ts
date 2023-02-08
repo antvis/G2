@@ -23,8 +23,7 @@ chart
     fontSize: 10,
   });
 
-chart.interaction({
-  type: 'tooltip',
+chart.interaction('tooltip', {
   item: ({ value }) => ({ value: value.toFixed(1) }),
 });
 

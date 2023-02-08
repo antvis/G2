@@ -20,7 +20,9 @@ export function alphabetIntervalHighlightBackgroundPolar(): G2Spec {
     axis: {
       y: false,
     },
-    interactions: [{ type: 'elementHighlight', background: true }],
+    interaction: {
+      elementHighlight: { background: true },
+    },
   };
 }
 

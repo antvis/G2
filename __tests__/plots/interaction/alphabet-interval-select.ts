@@ -20,9 +20,12 @@ export function alphabetIntervalSelect(): G2Spec {
       y: 'frequency',
       color: 'steelblue',
     },
-    interactions: [
-      { type: 'elementSelect', selectedFill: 'red', unselectedOpacity: 0.6 },
-    ],
+    interaction: {
+      elementSelect: {
+        selectedFill: 'red',
+        unselectedOpacity: 0.6,
+      },
+    },
   };
 }
 

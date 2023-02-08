@@ -30,7 +30,6 @@ export function aaplAreaMissingDataTranspose(): G2Spec {
       connectFill: 'grey',
       connectFillOpacity: 0.15,
     },
-    interactions: [{ type: 'tooltip' }],
   };
 }
 

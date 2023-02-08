@@ -13,14 +13,13 @@ export function penguinsPointHighlight(): G2Spec {
       x: 'culmen_length_mm',
       y: 'culmen_depth_mm',
     },
-    interactions: [
-      {
-        type: 'elementHighlight',
+    interaction: {
+      elementHighlight: {
         background: true,
         backgroundTransform: 'scale(3, 3)',
         backgroundFill: 'red',
       },
-    ],
+    },
   };
 }
 

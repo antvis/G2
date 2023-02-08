@@ -18,14 +18,13 @@ export function alphabetIntervalSelectOffsetPolar(): G2Spec {
       y: { nice: true },
     },
     axis: { y: false },
-    interactions: [
-      {
-        type: 'elementSelect',
+    interaction: {
+      elementSelect: {
         selectedFill: 'red',
         unselectedOpacity: 0.6,
         offset: 10,
       },
-    ],
+    },
   };
 }
 

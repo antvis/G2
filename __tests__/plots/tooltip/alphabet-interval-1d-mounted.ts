@@ -19,7 +19,9 @@ export function alphabetInterval1dMounted(): G2Spec {
         },
       },
     ],
-    interactions: [{ type: 'tooltip' }],
+    interaction: {
+      tooltip: true,
+    },
   };
 }
 

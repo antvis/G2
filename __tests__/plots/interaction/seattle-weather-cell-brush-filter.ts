@@ -23,7 +23,9 @@ export function settleWeatherCellBrushFilter(): G2Spec {
         palette: 'gnBu',
       },
     },
-    interactions: [{ type: 'brushFilter' }],
+    interaction: {
+      brushFilter: true,
+    },
   };
 }
 

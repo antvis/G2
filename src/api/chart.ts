@@ -130,7 +130,7 @@ export interface Chart extends Composition, Mark {
   width: ValueAttribute<ChartProps['width'], Chart>;
   height: ValueAttribute<ChartProps['height'], Chart>;
   coordinate: ArrayAttribute<ChartProps['coordinates'], Chart>;
-  interaction: ArrayAttribute<ChartProps['interactions'], Chart>;
+  interaction: ObjectAttribute<ChartProps['interaction'], Chart>;
   key: ValueAttribute<ChartProps['key'], Chart>;
   transform: ArrayAttribute<ChartProps['transform'], Chart>;
   theme: ObjectAttribute<ChartProps['theme'], Chart>;
@@ -146,7 +146,7 @@ export const props: NodePropertyDescriptor[] = [
   { name: 'width', type: 'value' },
   { name: 'height', type: 'value' },
   { name: 'coordinate', type: 'array', key: 'coordinates' },
-  { name: 'interaction', type: 'array', key: 'interactions' },
+  { name: 'interaction', type: 'object' },
   { name: 'theme', type: 'object' },
   { name: 'title', type: 'value' },
   { name: 'key', type: 'value' },

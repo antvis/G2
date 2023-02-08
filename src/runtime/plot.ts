@@ -523,9 +523,6 @@ function initializeState(
   return [view, children];
 }
 
-/**
- * @todo Extract className as constants.
- */
 async function plotView(
   view: G2ViewDescriptor,
   selection: Selection,
@@ -1183,16 +1180,15 @@ function inferTheme(theme: G2ThemeOptions = { type: 'light' }): G2ThemeOptions {
  * @todo Infer builtin tooltips.
  */
 function inferInteraction(view: G2View): G2InteractionOptions[] {
-  const { interactions = [] } = view;
-  // const BUILTINS: [string, boolean][] = [['tooltip', tooltip]];
-  // const newInteractions = [...interactions];
-  // const typeInteraction = new Map(interactions.map((d) => [d.type, d]));
-  // for (const [type, show] of BUILTINS) {
-  //   if (!typeInteraction.has(type) && show) {
-  //     newInteractions.push({ type });
-  //   }
-  // }
-  return interactions;
+  const defaults = {};
+  const { interaction = {} } = view;
+  const all = deepMix(defaults, interaction);
+  return Object.entries(all)
+    .filter((d) => !!d[1])
+    .map(([key, value]) => ({
+      type: key,
+      ...(value as Record<string, any>),
+    }));
 }
 
 async function applyTransform<T extends G2ViewTree>(

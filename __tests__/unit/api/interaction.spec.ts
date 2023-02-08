@@ -20,7 +20,7 @@ describe('Interaction', () => {
       .encode('y', 'sold')
       .encode('color', 'genre');
 
-    chart.interaction({ type: 'tooltip' });
+    chart.interaction('tooltip');
     await chart.render();
 
     const { canvas } = chart.context();

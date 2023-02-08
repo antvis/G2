@@ -6,7 +6,9 @@ export function weatherLineInterval(): G2Spec {
   return {
     type: 'view',
     data: weather,
-    interactions: [{ type: 'tooltip' }],
+    interaction: {
+      tooltip: true,
+    },
     children: [
       {
         type: 'line',

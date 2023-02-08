@@ -29,7 +29,9 @@ export function temperaturesLinePointDiscrete(): G2Spec {
         },
       },
     ],
-    interactions: [{ type: 'tooltip' }],
+    interaction: {
+      tooltip: true,
+    },
   };
 }
 

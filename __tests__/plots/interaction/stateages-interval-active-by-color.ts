@@ -25,13 +25,12 @@ export function stateAgesIntervalActiveByColor(): G2Spec {
     scale: {
       x: { paddingInner: 0.2 },
     },
-    interactions: [
-      {
-        type: 'elementHighlightByColor',
+    interaction: {
+      elementHighlightByColor: {
         highlightedFill: 'red',
         unhighlightedOpacity: 0.6,
       },
-    ],
+    },
   };
 }
 

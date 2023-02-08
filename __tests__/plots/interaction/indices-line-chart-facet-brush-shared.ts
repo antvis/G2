@@ -30,16 +30,15 @@ export async function indicesLineChartFacetBrushShared(): Promise<G2Spec> {
         },
       },
     ],
-    interactions: [
-      {
-        type: 'brushXHighlight',
+    interaction: {
+      brushXHighlight: {
         facet: true,
         shared: true,
         reverse: true,
         series: true,
         unhighlightedStrokeOpacity: '0.3',
       },
-    ],
+    },
   };
 }
 

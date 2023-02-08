@@ -41,7 +41,9 @@ export async function flareTreemapPoptip(): Promise<G2Spec> {
         },
       },
     ],
-    interactions: [{ type: 'poptip' }],
+    interaction: {
+      poptip: true,
+    },
   };
 }
 

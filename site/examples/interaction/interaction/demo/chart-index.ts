@@ -24,8 +24,7 @@ chart
     fontSize: 10,
   });
 
-chart.interaction({
-  type: 'chartIndex',
+chart.interaction('chartIndex', {
   ruleStroke: '#aaa',
   labelDx: 5,
   labelTextAlign: 'center',

@@ -8,8 +8,7 @@ import { Title } from './title';
 import { Data } from './data';
 import { LabelTransform } from './labelTransform';
 import { Encode } from './encode';
-
-type EventType = (...args: any[]) => void;
+import { Literal2Object } from './utils';
 
 export type Node =
   | MarkComposition
@@ -50,7 +49,7 @@ export type ViewComposition = {
   insetBottom?: number;
   insetRight?: number;
   coordinates?: Coordinate[];
-  interactions?: Interaction[];
+  interaction?: Literal2Object<Interaction>;
   transform?: Transform[];
   title?: Title;
   theme?: Theme;

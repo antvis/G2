@@ -19,7 +19,9 @@ export function profitIntervalSliderFilter(): G2Spec {
       x: true,
       y: { labelFormatter: '~s' },
     },
-    interactions: [{ type: 'sliderFilter' }],
+    interaction: {
+      sliderFilter: true,
+    },
   };
 }
 
