@@ -1,5 +1,5 @@
 import { ext } from '@antv/matrix-util';
-import { each } from '@antv/util';
+import { each, isFunction } from '@antv/util';
 import { IGroup, IShape } from '../../dependents';
 import { GAnimateCfg } from '../../interface';
 import { AnimateExtraCfg } from '../interface';
@@ -46,6 +46,7 @@ function doShapeZoom(shape: IShape | IGroup, animateCfg: GAnimateCfg, type: 'zoo
           ...animateCfg,
           callback: () => {
             shape.remove(true);
+            isFunction(animateCfg.callback) && animateCfg.callback();
           },
         }
       );
