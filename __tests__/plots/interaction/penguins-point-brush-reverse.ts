@@ -13,9 +13,12 @@ export function penguinsPointBrushReverse(): G2Spec {
       x: 'culmen_length_mm',
       y: 'culmen_depth_mm',
     },
-    interactions: [
-      { type: 'brushHighlight', unhighlightedStroke: 'gray', reverse: true },
-    ],
+    interaction: {
+      brushHighlight: {
+        unhighlightedStroke: 'gray',
+        reverse: true,
+      },
+    },
   };
 }
 

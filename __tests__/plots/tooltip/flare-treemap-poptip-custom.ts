@@ -41,7 +41,11 @@ export async function flareTreemapPoptipCustom(): Promise<G2Spec> {
         },
       },
     ],
-    interactions: [{ type: 'poptip', tipBackgroundColor: 'red' }],
+    interaction: {
+      poptip: {
+        tipBackgroundColor: 'red',
+      },
+    },
   };
 }
 

@@ -17,16 +17,15 @@ export function alphabetIntervalSelectBackground(): G2Spec {
       x: { padding: 0.5 },
       y: { nice: true },
     },
-    interactions: [
-      {
-        type: 'elementSelect',
+    interaction: {
+      elementSelect: {
         selectedFill: 'red',
         unselectedOpacity: 0.6,
         background: true,
         backgroundPadding: 0.25,
         backgroundRadius: 10,
       },
-    ],
+    },
   };
 }
 

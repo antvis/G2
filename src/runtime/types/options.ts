@@ -84,7 +84,7 @@ export type G2View = {
   title?: G2TitleOptions;
   coordinates?: G2CoordinateOptions[];
   component?: G2GuideComponentOptions[];
-  interactions?: G2InteractionOptions[];
+  interaction?: Record<string, any>;
   marks?: G2Mark[];
   frame?: boolean;
   labelTransform?: G2LabelTransformOptions[];

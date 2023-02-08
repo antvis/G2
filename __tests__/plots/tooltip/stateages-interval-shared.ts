@@ -25,7 +25,11 @@ export function stateAgesIntervalShared(): G2Spec {
         },
       },
     ],
-    interactions: [{ type: 'tooltip', shared: true }],
+    interaction: {
+      tooltip: {
+        shared: true,
+      },
+    },
   };
 }
 

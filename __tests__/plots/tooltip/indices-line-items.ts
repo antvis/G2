@@ -27,9 +27,11 @@ export async function indicesLineItems(): Promise<G2Spec> {
         },
       },
     ],
-    interactions: [
-      { type: 'tooltip', item: ({ value }) => ({ value: value.toFixed(1) }) },
-    ],
+    interaction: {
+      tooltip: {
+        item: ({ value }) => ({ value: value.toFixed(1) }),
+      },
+    },
   };
 }
 

@@ -17,15 +17,14 @@ export function alphabetIntervalSelectSingleBackground(): G2Spec {
       x: { padding: 0.5 },
       y: { nice: true },
     },
-    interactions: [
-      {
-        type: 'elementSelect',
+    interaction: {
+      elementSelect: {
         selectedFill: 'red',
         unselectedOpacity: 0.6,
         single: true,
         background: true,
       },
-    ],
+    },
   };
 }
 

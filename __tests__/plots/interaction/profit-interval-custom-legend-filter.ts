@@ -14,9 +14,8 @@ export function profitCustomIntervalLegendFilter(): G2Spec {
       color: (d) =>
         d.month === 'Total' ? 'Total' : d.profit > 0 ? 'Increase' : 'Decrease',
     },
-    interactions: [
-      {
-        type: 'legendFilter',
+    interaction: {
+      legendFilter: {
         channel: 'color',
         legends: () => document.getElementsByClassName('legend'),
         label: (item) => item.getElementsByClassName('label')[0],
@@ -26,7 +25,7 @@ export function profitCustomIntervalLegendFilter(): G2Spec {
         labelUnselectedColor: '#aaa',
         markerUnselectedColor: '#aaa',
       },
-    ],
+    },
   };
 }
 

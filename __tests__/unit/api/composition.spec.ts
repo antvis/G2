@@ -96,7 +96,7 @@ describe('Composition', () => {
       .attr('key', 'composition')
       .style('plotFill', 'red')
       .coordinate({ type: 'polar' })
-      .interaction({ type: 'elementHighlight' })
+      .interaction('elementHighlight', { background: true })
       .theme('defaultColor', 'red');
 
     expect(node.type).toBe('view');
@@ -113,7 +113,11 @@ describe('Composition', () => {
       key: 'composition',
       style: { plotFill: 'red' },
       coordinates: [{ type: 'polar' }],
-      interactions: [{ type: 'elementHighlight' }],
+      interaction: {
+        elementHighlight: {
+          background: true,
+        },
+      },
       theme: { defaultColor: 'red' },
       scale: { color: { type: 'linear' } },
     });
@@ -280,7 +284,7 @@ describe('Composition', () => {
       .style('plotFill', 'red')
       .projection({ type: 'foo' })
       .coordinate({ type: 'polar' })
-      .interaction({ type: 'elementHighlight' })
+      .interaction('elementHighlight', { background: true })
       .theme('defaultColor', 'red');
 
     expect(node.type).toBe('geoView');
@@ -297,7 +301,11 @@ describe('Composition', () => {
       key: 'composition',
       style: { plotFill: 'red' },
       coordinates: [{ type: 'polar' }],
-      interactions: [{ type: 'elementHighlight' }],
+      interaction: {
+        elementHighlight: {
+          background: true,
+        },
+      },
       theme: { defaultColor: 'red' },
       projection: { type: 'foo' },
     });
@@ -322,7 +330,7 @@ describe('Composition', () => {
       .style('plotFill', 'red')
       .projection({ type: 'foo' })
       .coordinate({ type: 'polar' })
-      .interaction({ type: 'elementHighlight' })
+      .interaction('elementHighlight', { background: true })
       .theme('defaultColor', 'red');
 
     expect(node.type).toBe('geoPath');
@@ -339,7 +347,7 @@ describe('Composition', () => {
       key: 'composition',
       style: { plotFill: 'red' },
       coordinates: [{ type: 'polar' }],
-      interactions: [{ type: 'elementHighlight' }],
+      interaction: { elementHighlight: { background: true } },
       theme: { defaultColor: 'red' },
       projection: { type: 'foo' },
       scale: { color: { type: 'linear' } },

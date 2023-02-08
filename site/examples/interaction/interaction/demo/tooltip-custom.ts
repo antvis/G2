@@ -23,8 +23,7 @@ chart
   .encode('x', 'Expt')
   .encode('y', 'Speed');
 
-chart.interaction({
-  type: 'tooltip',
+chart.interaction('tooltip', {
   item: ({ channel, value }) => ({
     name: names[channel],
     color: channel === 'tooltip4' ? 'red' : undefined,

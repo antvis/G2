@@ -20,7 +20,9 @@ export function bodyPoint2d(): G2Spec {
         },
       },
     ],
-    interactions: [{ type: 'tooltip' }],
+    interaction: {
+      tooltip: true,
+    },
   };
 }
 

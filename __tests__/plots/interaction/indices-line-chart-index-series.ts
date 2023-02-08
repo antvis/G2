@@ -30,9 +30,8 @@ export async function indicesLineChartIndexSeries(): Promise<G2Spec> {
         fontSize: 10,
       },
     ],
-    interactions: [
-      {
-        type: 'chartIndex',
+    interaction: {
+      chartIndex: {
         ruleStroke: '#aaa',
         labelDx: 5,
         labelTextAlign: 'center',
@@ -40,7 +39,7 @@ export async function indicesLineChartIndexSeries(): Promise<G2Spec> {
         labelLineWidth: 5,
         labelFormatter: (d) => `${d.toUTCString()}`,
       },
-    ],
+    },
   };
 }
 

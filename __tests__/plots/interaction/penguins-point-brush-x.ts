@@ -13,14 +13,13 @@ export function penguinsPointBrushX(): G2Spec {
       x: 'culmen_length_mm',
       y: 'culmen_depth_mm',
     },
-    interactions: [
-      {
-        type: 'brushXHighlight',
+    interaction: {
+      brushXHighlight: {
         unhighlightedStroke: 'gray',
         maskFill: 'red',
         maskFillOpacity: 0.2,
       },
-    ],
+    },
   };
 }
 

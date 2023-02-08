@@ -16,13 +16,12 @@ export function alphabetIntervalActiveInactive(): G2Spec {
       y: 'frequency',
       color: 'steelblue',
     },
-    interactions: [
-      {
-        type: 'elementHighlight',
+    interaction: {
+      elementHighlight: {
         highlightedFill: (d) => (d.frequency > 0.05 ? 'red' : 'yellow'),
         unhighlightedOpacity: 0.6,
       },
-    ],
+    },
   };
 }
 

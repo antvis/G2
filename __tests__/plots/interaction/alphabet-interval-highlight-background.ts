@@ -18,7 +18,9 @@ export function alphabetIntervalHighlightBackground(): G2Spec {
       x: { padding: 0.5 },
       y: { nice: true },
     },
-    interactions: [{ type: 'elementHighlight', background: true }],
+    interaction: {
+      elementHighlight: { background: true },
+    },
   };
 }
 

@@ -25,9 +25,8 @@ export function stateAgesIntervalSelectByColor(): G2Spec {
     scale: {
       x: { paddingInner: 0.2 },
     },
-    interactions: [
-      {
-        type: 'elementSelectByColor',
+    interaction: {
+      elementSelectByColor: {
         link: true,
         linkFill: (d) => (d.state === 'CA' ? 'red' : undefined),
         selectedStroke: '#000',
@@ -35,7 +34,7 @@ export function stateAgesIntervalSelectByColor(): G2Spec {
         unselectedOpacity: 0.6,
         linkFillOpacity: 0.5,
       },
-    ],
+    },
   };
 }
 

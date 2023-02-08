@@ -30,8 +30,7 @@ chart
   .encode('color', 'age')
   .axis('y', { labelFormatter: '~s' });
 
-chart.interaction({
-  type: 'elementSelectByColor',
+chart.interaction('elementSelectByColor', {
   selectedFill: 'red',
   unselectedOpacity: 0.5,
   linkFillOpacity: 0.5,

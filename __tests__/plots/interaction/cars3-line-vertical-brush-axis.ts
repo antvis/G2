@@ -57,14 +57,13 @@ export function cars3LineVerticalBrushAxis(): G2Spec {
         ),
       },
     ],
-    interactions: [
-      {
-        type: 'brushAxisHighlight',
+    interaction: {
+      brushAxisHighlight: {
         unhighlightedStroke: 'grey',
         maskFill: 'red',
         maskOpacity: 0.8,
       },
-    ],
+    },
   };
 }
 

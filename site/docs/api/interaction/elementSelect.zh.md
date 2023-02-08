@@ -26,8 +26,7 @@ chart
   .encode('y', 'frequency')
   .axis('y', { labelFormatter: '.0%' });
 
-chart.interaction({
-  type: 'elementSelect',
+chart.interaction('elementSelect', {
   selectedFill: 'orange',
   unselectedOpacity: 0.5,
 });

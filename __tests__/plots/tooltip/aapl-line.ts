@@ -18,7 +18,9 @@ export function aaplLine(): G2Spec {
         },
       },
     ],
-    interactions: [{ type: 'tooltip' }],
+    interaction: {
+      tooltip: true,
+    },
   };
 }
 

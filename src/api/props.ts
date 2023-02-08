@@ -27,9 +27,11 @@ function defineObjectProp(
 ) {
   Node.prototype[name] = function (key, value) {
     if (arguments.length === 0) return this.attr(k);
-    if (arguments.length === 1) return this.attr(k, key);
+    if (arguments.length === 1 && typeof key !== 'string') {
+      return this.attr(k, key);
+    }
     const obj = this.attr(k) || {};
-    obj[key] = value;
+    obj[key] = arguments.length === 1 ? true : value;
     return this.attr(k, obj);
   };
 }

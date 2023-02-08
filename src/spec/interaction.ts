@@ -1,6 +1,5 @@
 import { InteractionComponent } from '../runtime';
 import { ChannelTypes } from './geometry';
-import { ActiveRegionAction, PoptipAction, TooltipAction } from './action';
 import { FisheyeCoordinate } from './coordinate';
 
 export type Interaction =
@@ -25,15 +24,6 @@ export type Interaction =
   | BrushXFilterInteraction
   | SliderFilterInteraction
   | PoptipInteraction;
-// | ElementListHighlightInteraction
-// | LegendActiveInteraction
-// | LegendHighlightInteraction
-
-// | BrushInteraction
-// | BrushHighlightInteraction
-// | BrushVisibleInteraction
-// | ActiveRegionInteraction
-// | EllipsisTextInteraction
 
 export type InteractionTypes =
   | 'elementHighlight'
@@ -57,16 +47,6 @@ export type InteractionTypes =
   | 'sliderFilter'
   | 'poptip'
   | InteractionComponent;
-// | 'elementListHighlight'
-// | 'legendActive'
-// | 'legendHighlight'
-// | 'tooltip'
-// | 'brush'
-// | 'brushHighlight'
-// | 'brushVisible'
-
-// | 'activeRegion'
-// | 'ellipsisText'
 
 export type BrushInteraction = {
   type?: 'brush';
@@ -209,19 +189,12 @@ export type SliderFilterInteraction = {
   trailing?: boolean;
 };
 
-export type ElementListHighlightInteraction = {
-  type?: 'elementListHighlight';
-};
-
-export type LegendActiveInteraction = {
-  type?: 'legendActive';
-};
-
-export type TooltipInteraction = Omit<TooltipAction, 'type'> & {
+export type TooltipInteraction = {
   type?: 'tooltip';
   shared?: boolean;
   series?: boolean;
   facet?: boolean;
+  crosshairs?: boolean;
   // @todo
   item?: any;
 };
@@ -232,14 +205,6 @@ export type FisheyeInteraction = {
   leading?: boolean;
   trailing?: boolean;
 } & Omit<FisheyeCoordinate, 'type'>;
-
-export type ActiveRegionInteraction = {
-  type?: 'activeRegion';
-} & Omit<ActiveRegionAction, 'type' | 'clear'>;
-
-export type EllipsisTextInteraction = {
-  type?: 'ellipsisText';
-} & Omit<PoptipAction, 'type'>;
 
 export type CustomInteraction = {
   type?: InteractionComponent;

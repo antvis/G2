@@ -30,9 +30,13 @@ export async function indicesLineChartFacet(): Promise<G2Spec> {
         },
       },
     ],
-    interactions: [
-      { type: 'tooltip', series: true, facet: true, crosshairs: true },
-    ],
+    interaction: {
+      tooltip: {
+        series: true,
+        facet: true,
+        crosshairs: true,
+      },
+    },
   };
 }
 

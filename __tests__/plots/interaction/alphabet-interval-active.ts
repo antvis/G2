@@ -17,7 +17,9 @@ export function alphabetIntervalActive(): G2Spec {
       y: 'frequency',
       color: 'steelblue',
     },
-    interactions: [{ type: 'elementHighlight', highlightedFill: 'red' }],
+    interaction: {
+      elementHighlight: { highlightedFill: 'red' },
+    },
   };
 }
 
