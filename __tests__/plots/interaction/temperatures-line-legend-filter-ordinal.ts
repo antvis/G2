@@ -7,6 +7,7 @@ export function temperaturesLineLegendFilterOrdinal(): G2Spec {
   return {
     type: 'view',
     data: temperatures,
+    axis: { y: { animate: false } },
     children: [
       {
         type: 'line',

@@ -65,6 +65,7 @@ import {
   G2AnimationOptions,
   G2CompositionOptions,
   G2Context,
+  G2GuideComponentOptions,
   G2InteractionOptions,
   G2LabelTransformOptions,
   G2Library,
@@ -586,9 +587,14 @@ async function plotView(
       (exit) => exit.remove(),
     );
 
+  const animationExtent = computeAnimationExtent(markState);
+
+  const componentAnimateOptions = animationExtent
+    ? { duration: animationExtent[1] }
+    : false;
   // Render components.
   // @todo renderComponent return ctor and options.
-  selection
+  const componentsTransitions = selection
     .selectAll(className(COMPONENT_CLASS_NAME))
     .data(components, (d, i) => `${d.type}-${i}`)
     .join(
@@ -598,25 +604,31 @@ async function plotView(
           .style('zIndex', ({ zIndex }) => zIndex || -1)
           .attr('className', COMPONENT_CLASS_NAME)
           .append((options) =>
-            renderComponent(options, coordinate, theme, library),
+            renderComponent(
+              deepMix({ animate: componentAnimateOptions }, options),
+              coordinate,
+              theme,
+              library,
+            ),
           ),
       (update) =>
-        update.each(function (options) {
+        update.transition(function (options: G2GuideComponentOptions) {
           const { preserve = false } = options;
           if (preserve) return;
           const newComponent = renderComponent(
-            options,
+            deepMix({ animate: componentAnimateOptions }, options),
             coordinate,
             theme,
             library,
           );
           const { attributes } = newComponent;
           const [node] = this.childNodes;
-          node.update({ ...attributes });
+          return node.update(attributes);
         }),
-    );
+    )
+    .transitions();
 
-  const animationExtent = computeAnimationExtent(markState);
+  transitions.push(...componentsTransitions.flat().filter(defined));
 
   // Main layer is for showing the main visual representation such as marks. There
   // may be multiple main layers for a view, each main layer correspond to one of marks.

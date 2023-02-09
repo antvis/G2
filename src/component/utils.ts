@@ -79,7 +79,8 @@ export function inferComponentLayout(
 export class G2Layout extends Layout {
   update(options: any) {
     this.attr(options);
-    (this.children?.[0] as any)?.update(options);
+    const { width, height, ...restOptions } = options;
+    (this.children?.[0] as any)?.update(restOptions);
   }
 }
 
