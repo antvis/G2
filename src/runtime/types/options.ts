@@ -118,6 +118,7 @@ export type G2Mark = {
   frame?: boolean;
   style?: Record<string, Primitive>;
   labels?: Record<string, any>[];
+  interaction?: Record<string, any>;
 };
 
 export type G2MarkChildrenCallback = (

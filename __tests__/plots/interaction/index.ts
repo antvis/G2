@@ -48,3 +48,4 @@ export { alphabetIntervalSelectSingleBackground } from './alphabet-interval-sele
 export { alphabetIntervalSelectBackground } from './alphabet-interval-select-background';
 export { alphabetIntervalSelectOffsetPolar } from './alphabet-interval-select-offset-polar';
 export { profitIntervalLegendHighlight } from './profit-interval-legend-highlight';
+export { alphabetIntervalBubbleInteraction } from './alphabet-interval-bubble-interaction';
