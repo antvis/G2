@@ -49,14 +49,14 @@ chart
   .encode('y', 'Population')
   .encode('color', 'Age')
   .scale('color', { range: colors })
-  .legend('color', { position: 'center', title: null, dx: 64, dy: 54 })
+  .legend('color', { position: 'center', title: null })
   .scale('y', { type: 'sqrt' })
   .axis('y', {
     labelFormatter: '~s',
     tickFilter: (_, i) => i !== 0,
     direction: 'center',
   })
-  .axis('x', { position: 'bottom' })
+  .axis('x', { position: 'inner' })
   .animate('enterType', 'waveIn');
 
 chart.render();

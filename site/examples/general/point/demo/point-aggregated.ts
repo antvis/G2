@@ -25,6 +25,7 @@ chart
   .encode('x', (d) => new Date(d.time).getUTCHours())
   .encode('y', (d) => new Date(d.time).getUTCDay())
   .encode('size', 'count')
+  .encode('color', 'count')
   .encode('shape', 'point');
 
 chart.render();

@@ -39,6 +39,7 @@ chart
   .scale('color', {
     range: '#BAE7FF-#1890FF-#0050B3',
   })
+  .legend({ color: { length: 400, position: 'bottom' } })
   .axis('y', {
     tickFilter: (d, i) => i !== 0,
   });

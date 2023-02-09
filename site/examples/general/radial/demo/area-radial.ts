@@ -37,7 +37,7 @@ chart
   })
   .axis('x', {
     grid: true,
-    position: 'bottom',
+    position: 'inner',
   })
   .scale('x', { utc: true });
 

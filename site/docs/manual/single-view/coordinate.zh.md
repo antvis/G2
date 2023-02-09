@@ -123,6 +123,8 @@ const axis = {
   titleFontSize: 10,
   titleStrokeWidth: 5,
   titleStrokeLineJoin: 'round',
+  titlePosition: 'right',
+  titleTransform: 'translate(-50%, 0) rotate(-90)',
   lineStroke: 'black',
   tickStroke: 'black',
   lineStrokeWidth: 1,
@@ -154,6 +156,9 @@ chart
     type: 'sequential',
     palette: 'brBG',
     offset: (t) => 1 - t,
+  })
+  .legend({
+    color: { length: 400 },
   })
   .axis('position', axis)
   .axis('position1', axis)

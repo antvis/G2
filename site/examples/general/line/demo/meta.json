@@ -99,6 +99,14 @@
         "en": "Horizontal Parallel"
       },
       "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*SOZOT7Smha0AAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "line-radar.ts",
+      "title": {
+        "zh": "雷达图",
+        "en": "Radar Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*4sqyTZUFCNkAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }

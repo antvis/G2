@@ -356,4 +356,4 @@ chart
   .encode('shape', 'hollow')
   .style('stroke', '#000');
 
-chart.render().node();
+chart.render();

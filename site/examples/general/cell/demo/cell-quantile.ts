@@ -15,6 +15,7 @@ chart
     transform: [{ type: 'map', callback: (d) => ({ salary: d }) }],
   })
   .scale('color', { type: 'quantile', range: ['#eee', 'pink', 'red'] })
+  .legend({ color: { length: 400, labelFormatter: '.0s' } })
   .encode('y', (_, i) => (i % 5) + 1)
   .encode('x', (_, i) => ((i / 5) | 0) + 1)
   .encode('color', 'salary')
