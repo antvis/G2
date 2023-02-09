@@ -1181,8 +1181,12 @@ function inferTheme(theme: G2ThemeOptions = { type: 'light' }): G2ThemeOptions {
  */
 function inferInteraction(view: G2View): G2InteractionOptions[] {
   const defaults = {};
-  const { interaction = {} } = view;
-  const all = deepMix(defaults, interaction);
+  const { interaction = {}, marks = [] } = view;
+  const markInteractions = marks.map((d) => d.interaction || {});
+  const all = [defaults, interaction, ...markInteractions].reduce(
+    (total, value) => deepMix(total, value),
+    {},
+  );
   return Object.entries(all)
     .filter((d) => !!d[1])
     .map(([key, value]) => ({
