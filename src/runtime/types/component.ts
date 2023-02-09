@@ -1,12 +1,6 @@
 import { Coordinate, Transformation } from '@antv/coord';
 import { DisplayObject, IAnimation as GAnimation } from '@antv/g';
-import {
-  G2View,
-  G2GuideComponentOptions,
-  G2CoordinateOptions,
-  G2ScaleOptions,
-  G2ViewTree,
-} from './options';
+import { G2ViewTree } from './options';
 import {
   G2Theme,
   G2ViewInstance,
