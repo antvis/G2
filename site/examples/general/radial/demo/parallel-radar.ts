@@ -23,7 +23,7 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.coordinate({ type: 'parallel' }).coordinate({ type: 'polar' });
+chart.coordinate({ type: 'radar' });
 
 chart
   .line()
