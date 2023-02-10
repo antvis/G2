@@ -8,7 +8,7 @@ export async function countries50mWorldMap(): Promise<G2Spec> {
   const land = feature(world, world.objects.land).features;
   return {
     type: 'geoView',
-    projection: { type: 'orthographic' },
+    coordinate: { type: 'orthographic' },
     children: [
       {
         type: 'geoPath',

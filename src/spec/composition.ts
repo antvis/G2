@@ -198,7 +198,7 @@ export type TimingKeyframeComposition = {
 export type GeoViewComposition = Omit<ViewComposition, 'type'> & {
   type?: 'geoView';
   // @todo
-  projection?: Record<string, any>;
+  coordinate?: Record<string, any>;
 };
 
 export type GeoPathComposition = Omit<GeoViewComposition, 'type'> & {

@@ -10,7 +10,8 @@ export type Coordinate =
   | ParallelCoordinate
   | FisheyeCoordinate
   | RadialCoordinate
-  | RadarCoordinate;
+  | RadarCoordinate
+  | GeoCoordinate;
 
 export type CoordinateTypes =
   | 'polar'
@@ -21,7 +22,8 @@ export type CoordinateTypes =
   | 'parallel'
   | 'fisheye'
   | 'radial'
-  | 'radar';
+  | 'radar'
+  | string;
 
 export type CoordinateTransform = TransposeCoordinate | FisheyeCoordinate;
 
@@ -77,6 +79,11 @@ export type ParallelCoordinate = {
 
 export type TransposeCoordinate = {
   type?: 'transpose';
+};
+
+export type GeoCoordinate = {
+  type: string;
+  [key: string]: any; // @todo d3-geo types
 };
 
 export type FisheyeCoordinate = {

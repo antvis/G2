@@ -12,7 +12,6 @@ import { Composition, Base } from './index';
 type GeoPathSpec = Concrete<GeoPathComposition>;
 
 export interface GeoPath extends Mark, Composition {
-  projection: ValueAttribute<GeoPathSpec['projection'], GeoPath>;
   data: ValueAttribute<GeoPathSpec['data'], GeoPath>;
   coordinate: ValueAttribute<GeoPathSpec['coordinate'], GeoPath>;
   interaction: ObjectAttribute<GeoPathSpec['interaction'], GeoPath>;
@@ -25,7 +24,6 @@ export interface GeoPath extends Mark, Composition {
 
 @defineProps([
   { type: 'value', name: 'data' },
-  { type: 'value', name: 'projection' },
   { type: 'value', name: 'coordinate' },
   { type: 'object', name: 'interaction' },
   { type: 'object', name: 'theme' },

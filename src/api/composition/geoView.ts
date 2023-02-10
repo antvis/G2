@@ -12,7 +12,6 @@ import { Composition, Base } from './index';
 type GeoViewSpec = Concrete<GeoViewComposition>;
 
 export interface GeoView extends Mark, Composition {
-  projection: ValueAttribute<GeoViewSpec['projection'], GeoView>;
   data: ValueAttribute<GeoViewSpec['data'], GeoView>;
   key: ValueAttribute<GeoViewSpec['key'], GeoView>;
   coordinate: ArrayAttribute<GeoViewSpec['coordinate'], GeoView>;
@@ -25,7 +24,6 @@ export interface GeoView extends Mark, Composition {
 
 @defineProps([
   { type: 'value', name: 'data' },
-  { type: 'value', name: 'projection' },
   { type: 'value', name: 'coordinate' },
   { type: 'object', name: 'interaction' },
   { type: 'object', name: 'theme' },

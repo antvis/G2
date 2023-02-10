@@ -282,7 +282,6 @@ describe('Composition', () => {
       .attr('marginRight', 40)
       .attr('key', 'composition')
       .style('plotFill', 'red')
-      .projection({ type: 'foo' })
       .coordinate({ type: 'polar' })
       .interaction('elementHighlight', { background: true })
       .theme('defaultColor', 'red');
@@ -307,7 +306,6 @@ describe('Composition', () => {
         },
       },
       theme: { defaultColor: 'red' },
-      projection: { type: 'foo' },
     });
     expectToCreateMarks(node);
   });
@@ -328,7 +326,6 @@ describe('Composition', () => {
       .scale('color', { type: 'linear' })
       .attr('key', 'composition')
       .style('plotFill', 'red')
-      .projection({ type: 'foo' })
       .coordinate({ type: 'polar' })
       .interaction('elementHighlight', { background: true })
       .theme('defaultColor', 'red');
@@ -349,7 +346,6 @@ describe('Composition', () => {
       coordinate: { type: 'polar' },
       interaction: { elementHighlight: { background: true } },
       theme: { defaultColor: 'red' },
-      projection: { type: 'foo' },
       scale: { color: { type: 'linear' } },
       encode: { x: 'a' },
     });

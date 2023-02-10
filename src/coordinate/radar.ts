@@ -6,7 +6,7 @@ import { Parallel } from './parallel';
 export type RadarOptions = RadarCoordinate;
 
 /**
- * Theta = Transpose + Polar.
+ *  Radar = Parallel + Polar.
  */
 export const Radar: CC<RadarOptions> = (options) => {
   const {

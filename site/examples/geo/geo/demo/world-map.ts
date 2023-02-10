@@ -14,7 +14,7 @@ fetch('https://assets.antv.antgroup.com/g2/countries-50m.json')
       autoFit: true,
     });
 
-    const geoView = chart.geoView().projection({ type: 'orthographic' });
+    const geoView = chart.geoView().coordinate({ type: 'orthographic' });
 
     geoView
       .geoPath()

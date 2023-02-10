@@ -10,7 +10,7 @@ export async function countries50mProjectionComparison(): Promise<G2Spec> {
   const worldMap = (projection, color, opacity = 0.7) => {
     return {
       type: 'geoView',
-      projection: {
+      coordinate: {
         type: projection,
         size: 'fitWidth',
       },
