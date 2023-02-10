@@ -35,7 +35,8 @@ chart
   .scale('x', { padding: 0.5, align: 0 })
   .scale('y', { tickCount: 5 })
   .axis('x', { grid: true })
-  .axis('y', { zIndex: 1, title: false });
+  .axis('y', { zIndex: 1, title: false })
+  .legend({ color: { layout: { justifyContent: 'flex-start' } } });
 
 chart
   .area()

@@ -28,6 +28,7 @@ chart
     formatter: '~s',
     transform: [{ type: 'overlapDodgeY' }],
   })
+  .legend({ color: { length: 400 } })
   .animate('enterType', 'waveIn');
 
 chart.render();

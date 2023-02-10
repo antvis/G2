@@ -14,6 +14,7 @@ chart
   .encode('x', 'weight')
   .encode('y', 'height')
   .encode('color', 'sex')
+  .legend({ color: { itemMarker: 'square' } })
   .transform({ type: 'bin', opacity: 'count' })
   .style('inset', 0.5);
 

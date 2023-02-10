@@ -23,7 +23,7 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.coordinate({ type: 'parallel' }).coordinate({ type: 'transpose' });
+chart.coordinate({ type: 'parallel' }).coordinate({ type: 'polar' });
 
 chart
   .line()
@@ -49,7 +49,7 @@ chart
     offset: (t) => 1 - t,
   })
   .legend({
-    color: { length: 400 },
+    color: { position: 'bottom', labelFormatter: '~s' },
   })
   .axis('position', axis)
   .axis('position1', axis)

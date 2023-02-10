@@ -8,6 +8,7 @@ export function penguinsPointBrushFilter(): G2Spec {
       type: 'fetch',
       value: 'data/penguins.csv',
     },
+    axis: { x: { animate: false }, y: { animate: false } },
     encode: {
       color: 'species',
       x: 'culmen_length_mm',
