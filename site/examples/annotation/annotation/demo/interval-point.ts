@@ -6,7 +6,7 @@ const chart = new Chart({
   paddingRight: 60,
 });
 
-chart.coordinate({ type: 'transpose' });
+chart.coordinate({ transform: [{ type: 'transpose' }] });
 
 chart.data([
   { x: 'Jan', tick: 9.3, value: 11.5 },

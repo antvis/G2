@@ -15,7 +15,7 @@ export interface GeoView extends Mark, Composition {
   projection: ValueAttribute<GeoViewSpec['projection'], GeoView>;
   data: ValueAttribute<GeoViewSpec['data'], GeoView>;
   key: ValueAttribute<GeoViewSpec['key'], GeoView>;
-  coordinate: ArrayAttribute<GeoViewSpec['coordinates'], GeoView>;
+  coordinate: ArrayAttribute<GeoViewSpec['coordinate'], GeoView>;
   interaction: ObjectAttribute<GeoViewSpec['interaction'], GeoView>;
   style: ObjectAttribute<GeoViewSpec['style'], GeoView>;
   theme: ObjectAttribute<GeoViewSpec['theme'], GeoView>;
@@ -26,7 +26,7 @@ export interface GeoView extends Mark, Composition {
 @defineProps([
   { type: 'value', name: 'data' },
   { type: 'value', name: 'projection' },
-  { type: 'array', name: 'coordinate', key: 'coordinates' },
+  { type: 'value', name: 'coordinate' },
   { type: 'object', name: 'interaction' },
   { type: 'object', name: 'theme' },
   { type: 'object', name: 'style' },

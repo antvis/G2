@@ -48,7 +48,7 @@ export function monthIntervalRadialFacetRect(): G2Spec {
       {
         type: 'interval',
         transform: [{ type: 'stackY' }],
-        coordinates: [{ type: 'theta' }],
+        coordinate: { type: 'theta' },
         scale: { y: { facet: false } },
         encode: {
           y: 'value',

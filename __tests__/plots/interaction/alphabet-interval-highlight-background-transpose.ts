@@ -8,7 +8,7 @@ export function alphabetIntervalHighlightBackgroundTranspose(): G2Spec {
       type: 'fetch',
       value: 'data/alphabet.csv',
     },
-    coordinates: [{ type: 'transpose' }],
+    coordinate: { transform: [{ type: 'transpose' }] },
     encode: {
       x: 'letter',
       y: 'frequency',

@@ -112,7 +112,7 @@ describe('Composition', () => {
       data: [1, 2, 3],
       key: 'composition',
       style: { plotFill: 'red' },
-      coordinates: [{ type: 'polar' }],
+      coordinate: { type: 'polar' },
       interaction: {
         elementHighlight: {
           background: true,
@@ -300,7 +300,7 @@ describe('Composition', () => {
       data: [1, 2, 3],
       key: 'composition',
       style: { plotFill: 'red' },
-      coordinates: [{ type: 'polar' }],
+      coordinate: { type: 'polar' },
       interaction: {
         elementHighlight: {
           background: true,
@@ -346,7 +346,7 @@ describe('Composition', () => {
       data: [1, 2, 3],
       key: 'composition',
       style: { plotFill: 'red' },
-      coordinates: [{ type: 'polar' }],
+      coordinate: { type: 'polar' },
       interaction: { elementHighlight: { background: true } },
       theme: { defaultColor: 'red' },
       projection: { type: 'foo' },

@@ -17,7 +17,7 @@ export function cars3LineParallelVertical(): G2Spec {
       type: 'fetch',
       value: 'data/cars3.csv',
     },
-    coordinates: [{ type: 'parallel' }, { type: 'transpose' }],
+    coordinate: { type: 'parallel', transform: [{ type: 'transpose' }] },
     encode: {
       position,
       color: 'cylinders',

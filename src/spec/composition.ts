@@ -1,6 +1,6 @@
 import { Geometry, Adjust } from './geometry';
 import { Theme } from './theme';
-import { Coordinate } from './coordinate';
+import { Coordinate, CoordinateTransform } from './coordinate';
 import { Interaction } from './interaction';
 import { Transform } from './transform';
 import { Scale } from './scale';
@@ -48,7 +48,7 @@ export type ViewComposition = {
   insetTop?: number;
   insetBottom?: number;
   insetRight?: number;
-  coordinates?: Coordinate[];
+  coordinate?: Coordinate & { transform?: CoordinateTransform[] };
   interaction?: Literal2Object<Interaction>;
   transform?: Transform[];
   title?: Title;

@@ -8,7 +8,7 @@ const chart = new Chart({
   height: 120,
 });
 
-chart.coordinate({ type: 'transpose' });
+chart.coordinate({ transform: [{ type: 'transpose' }] });
 
 chart
   .interval()

@@ -10,7 +10,7 @@ const chart = new Chart({
   height: 1000,
 });
 
-chart.coordinate({ type: 'transpose' });
+chart.coordinate({ transform: [{ type: 'transpose' }] });
 
 chart
   .interval()

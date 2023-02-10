@@ -6,7 +6,7 @@ const chart = new Chart({
   inset: 6,
 });
 
-chart.coordinate({ type: 'transpose' });
+chart.coordinate({ transform: [{ type: 'transpose' }] });
 
 chart
   .boxplot()

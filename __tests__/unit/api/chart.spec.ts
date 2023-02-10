@@ -103,7 +103,7 @@ describe('Chart', () => {
       type: 'view',
       data: [1, 2, 3],
       key: 'composition',
-      coordinates: [{ type: 'polar' }],
+      coordinate: { type: 'polar' },
       transform: [{ type: 'stackY' }],
       theme: { defaultColor: 'red' },
       interaction: {

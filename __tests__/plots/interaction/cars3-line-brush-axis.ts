@@ -15,7 +15,7 @@ export function cars3LineBrushAxis(): G2Spec {
   return {
     type: 'view',
     height: 800,
-    coordinates: [{ type: 'parallel' }, { type: 'transpose' }],
+    coordinate: { type: 'parallel', transform: [{ type: 'transpose' }] },
     children: [
       {
         type: 'line',

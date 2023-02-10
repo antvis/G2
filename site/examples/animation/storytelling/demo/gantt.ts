@@ -21,7 +21,7 @@ const chart = new Chart({
   paddingLeft: 100,
 });
 
-chart.coordinate({ type: 'transpose' });
+chart.coordinate({ transform: [{ type: 'transpose' }] });
 
 chart
   .interval()

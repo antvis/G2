@@ -18,7 +18,7 @@ export function cars3LineRadar(): G2Spec {
       type: 'fetch',
       value: 'data/cars3.csv',
     },
-    coordinates: [{ type: 'parallel' }, { type: 'polar' }],
+    coordinate: { type: 'radar' },
     encode: {
       position,
       color: 'weight (lb)',

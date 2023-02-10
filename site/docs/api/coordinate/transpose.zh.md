@@ -14,7 +14,7 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart();
 
-chart.coordinate({ type: 'transpose' });
+chart.coordinate({ transform: [{ type: 'transpose' }] });
 
 chart
   .interval()

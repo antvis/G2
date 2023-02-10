@@ -2,7 +2,7 @@ import { MarkComponent } from '../runtime';
 import { Encode } from './encode';
 import { Transform } from './transform';
 import { Scale } from './scale';
-import { Coordinate } from './coordinate';
+import { Coordinate, CoordinateTransform } from './coordinate';
 import { AnimationTypes } from './animate';
 import { Interaction } from './interaction';
 import { Theme } from './theme';
@@ -132,7 +132,7 @@ export type BaseGeometry<
     | boolean;
   slider?: Partial<Record<'x' | 'y', any>>;
   scrollbar?: Partial<Record<'x' | 'y', any>>;
-  coordinates?: Coordinate[];
+  coordinate?: Coordinate & { transform?: CoordinateTransform[] };
   style?: Record<string, any>;
   interaction?: Literal2Object<Interaction>;
   theme?: Theme;

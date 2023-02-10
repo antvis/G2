@@ -2,12 +2,14 @@ import { throttle, deepMix } from '@antv/util';
 import { selectPlotArea, mousePosition } from './utils';
 
 function maybeCoordinate(options) {
-  const { coordinates = [] } = options;
-  const fisheye = coordinates.find((d) => d.type === 'fisheye');
+  const { coordinate = {} } = options;
+  const { transform = [] } = coordinate;
+  const fisheye = transform.find((d) => d.type === 'fisheye');
   if (fisheye) return fisheye;
   const newFisheye = { type: 'fisheye' };
-  coordinates.push(newFisheye);
-  options.coordinates = coordinates;
+  transform.push(newFisheye);
+  coordinate.transform = transform;
+  options.coordinate = coordinate;
   return newFisheye;
 }
 

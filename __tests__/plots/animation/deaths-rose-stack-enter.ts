@@ -10,7 +10,7 @@ export function deathsRoseStackEnter(): G2Spec {
       type: 'fetch',
       value: 'data/deaths.json',
     },
-    coordinates: [{ type: 'polar' }],
+    coordinate: { type: 'polar' },
     transform: [
       { type: 'stackY' },
       { type: 'stackEnter', groupBy: ['color', 'x'], duration: 3000 },
