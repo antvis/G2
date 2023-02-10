@@ -33,6 +33,7 @@ chart
   .encode('color', 'sex')
   .scale('color', { type: 'ordinal', range: ['#ca8861', '#675193'] })
   .axis('x', {
+    animate: { duration: 500 },
     labelAlign: 'parallel',
     labelDirection: 'positive',
     labelSpacing: 10,
@@ -58,8 +59,8 @@ chart.render();
 | titleFontSize      | 标题文字大小                                                   | `number`                                 | -      |
 | titleFontFamily    | 标题文字字体                                                   | `string`                                 | -      |
 | titleFontWeight    | 标题字体粗细                                                   | `number`                                 | -      |
-| titleStroke        | 标题字体颜色                                                     | `string`                                 | -      |
-| titleStrokeOpacity | 标题透明度                                               | `number`                                 | -      |
+| titleStroke        | 标题字体颜色                                                   | `string`                                 | -      |
+| titleStrokeOpacity | 标题透明度                                                     | `number`                                 | -      |
 
 ### 轴线
 
@@ -147,17 +148,35 @@ export interface HideOverlapCfg extends Overlap {
 | 场景标签            | 样式                                                                                                                                        |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
 | `直角坐标系`        | <img alt="linear-grid" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*i-2xTLMLU3EAAAAAAAAAAAAADmJ7AQ/original" width="200" />  |
-| `极坐标系`          | <img alt="circle-grid" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*gkAKQ4XTErQAAAAAAAAAAAAADmJ7AQ/original" width="200" />  |
-| `极坐标系`          | <img alt="polar-grid" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*4Tv3RIrDWvgAAAAAAAAAAAAADmJ7AQ/original" width="200" />   |
-| `极坐标系` `雷达图` | <img alt="polygon-grid" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*gZLeRpTXiRAAAAAAAAAAAAAADmJ7AQ/original" width="200" /> |
+| `极坐标系`          | <img alt="circle-grid" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*gkAKQ4XTErQAAAAAAAAAAAAADmJ7AQ/original" width="100" />  |
+| `极坐标系`          | <img alt="polar-grid" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*4Tv3RIrDWvgAAAAAAAAAAAAADmJ7AQ/original" width="100" />   |
+| `极坐标系` `雷达图` | <img alt="polygon-grid" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*gZLeRpTXiRAAAAAAAAAAAAAADmJ7AQ/original" width="100" /> |
 
 | 属性              | 描述                                                                                                                | 类型                                                     | 默认值 |
 | ----------------- | ------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- | ------ |
 | grid              | 是否显示网格线                                                                                                      | `boolean`                                                | false  |
 | gridFilter        | 网格线过滤                                                                                                          | `(datum, index, data)=> boolean`                         | -      |
-| gridLength        | 网格线长度。一般情况下，不需要用户配置。                                                                                                          | `number` \| `(datum, index, data)=> number`              | 0      |
+| gridLength        | 网格线长度。一般情况下，不需要用户配置。                                                                            | `number` \| `(datum, index, data)=> number`              | 0      |
 | gridAreaFill      | 网格线区域颜色                                                                                                      | `string` \| `string[]`\| `(datum, index, data)=> string` | -      |
 | gridLineWidth     | 网格线宽度                                                                                                          | `number`                                                 | -      |
 | gridLineDash      | 网格线描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0, 0]的效果为没有描边。 | `[number,number]`                                        | -      |
 | gridStroke        | 网格线颜色                                                                                                          | `string`                                                 | -      |
 | gridStrokeOpacity | 网格线透明度                                                                                                        | `number`                                                 | -      |
+
+### 网格线
+
+支持设置更新时的动画效果
+
+| 属性    | 描述         | 类型                        | 默认值 |
+| ------- | ------------ | --------------------------- | ------ |
+| animate | 是否开启动画 | `boolean` \| `EffectTiming` | -      |
+
+EffectTiming 支持配置的属性如下：
+
+| 属性     | 描述                           | 类型     | 默认值 |
+| -------- | ------------------------------ | -------- | ------ |
+| delay    | 延迟执行时间 (ms)              | `number` | -      |
+| duration | 动画持续时间 (ms)              | `number` | -      |
+| easing   | 动画的缓动函数                 | `Easing` | -      |
+| endDelay | 延迟执行时间 (ms)              | `number` | -      |
+| fill     | 动画处于非运行状态时的展示效果 | `Fill`   | -      |

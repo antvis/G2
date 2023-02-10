@@ -107,6 +107,14 @@
         "en": "Radar"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*-xcxS7E8sKcAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "parallel-radar.ts",
+      "title": {
+        "zh": "雷达图",
+        "en": "Radar"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*4sqyTZUFCNkAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }

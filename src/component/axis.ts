@@ -323,12 +323,7 @@ function inferAxisLinearOverrideStyle(
         gridCenter: [cx + x, y + cy],
         gridControlAngles: new Array(3)
           .fill(0)
-          .map(
-            (d, i, arr) =>
-              90 +
-              startAngle +
-              ((endAngle - startAngle) / (arr.length - 1)) * i,
-          ),
+          .map((d, i, arr) => ((endAngle - startAngle) / (arr.length - 1)) * i),
       };
     }
   }
@@ -449,18 +444,18 @@ function inferDefaultStyle(
 
 const LinearAxisComponent: GCC<AxisOptions> = (options) => {
   const {
-    order,
-    size,
-    transform,
-    position,
-    orientation,
-    title,
-    labelFormatter = (d) => `${d}`,
     direction = 'left',
+    important = {},
+    labelFormatter = (d) => `${d}`,
+    order,
+    orientation,
+    position,
+    size,
     tickCount,
     tickFilter,
     tickMethod,
-    important = {},
+    title,
+    transform,
     ...userDefinitions
   } = options;
 

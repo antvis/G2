@@ -39,6 +39,7 @@ flex
       .style('inset', 0.5)
       .axis('x', { title: 'Date' })
       .axis('y', { title: 'Month' })
+      .legend({ color: false })
       .scale('color', {
         type: 'sequential',
         palette: 'gnBu',

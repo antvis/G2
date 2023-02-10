@@ -27,6 +27,7 @@ chart
     range: '#BAE7FF-#1890FF-#0050B3',
   })
   .axis('y', { tickFilter: (d, i) => i !== 0 })
+  .legend({ color: { length: 400, position: 'bottom' } })
   .animate('enterType', 'waveIn')
   .animate('enterDuration', 800);
 

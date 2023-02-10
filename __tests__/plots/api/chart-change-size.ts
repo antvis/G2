@@ -28,7 +28,8 @@ export function chartChangeSize(context) {
     .interval()
     .encode('x', 'genre')
     .encode('y', 'sold')
-    .encode('color', 'genre');
+    .encode('color', 'genre')
+    .axis({ x: { animate: false }, y: { animate: false } });
 
   const finished = chart.render();
 

@@ -53,6 +53,7 @@ flex
       .style('inset', 0.5)
       .axis('x', { title: 'Date' })
       .axis('y', { title: 'Month' })
+      .legend({ color: false })
       .scale('color', {
         type: 'sequential',
         palette: 'gnBu',
@@ -79,19 +80,16 @@ chart.render();
 
 当前 flex 主要提供了最核心的两个配置，便于空间分片。
 
-| 属性 | 描述 | 类型 | 默认值|
-| -------------| ----------------------------------------------------------- | ---------------| ----------|
-| ratio        | 设置 flex 容器中的子元素占用空间的比例                           | `number[]`      | 均分      |
-| direction    | 设置 flex 划分空间的方向                                       | `col` \| `row` | `row`     |
-| data         | flex 容器的数据                                               | `Data`         |           |
+| 属性      | 描述                                   | 类型           | 默认值 |
+| --------- | -------------------------------------- | -------------- | ------ |
+| ratio     | 设置 flex 容器中的子元素占用空间的比例 | `number[]`     | 均分   |
+| direction | 设置 flex 划分空间的方向               | `col` \| `row` | `row`  |
+| data      | flex 容器的数据                        | `Data`         |        |
 
 `spaceFlex` 对应的配置都可以使用 API 进行设置，例如：
 
 ```ts
-chart
-  .spaceFlex()
-  .attr('ratio', [1, 2, 3])
-  .attr('direction', 'col');
+chart.spaceFlex().attr('ratio', [1, 2, 3]).attr('direction', 'col');
 ```
 
 ## FAQ
