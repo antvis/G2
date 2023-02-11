@@ -43,17 +43,21 @@ chart
   .label({
     text: '1963',
     position: 'bottom',
-    textBaseline: 'top',
-    dy: '0.1em',
-    fontSize: 10,
+    style: {
+      textBaseline: 'top',
+      dy: '0.1em',
+      fontSize: 10,
+    },
   })
   .label({
     text: 'Measles vaccine introduced',
     position: 'bottom',
-    textBaseline: 'top',
-    fontSize: 10,
-    fontWeight: 'bold',
-    dy: '0.7em',
+    style: {
+      textBaseline: 'top',
+      fontSize: 10,
+      fontWeight: 'bold',
+      dy: '0.7em',
+    },
   });
 
 chart.render();

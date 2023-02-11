@@ -26,11 +26,13 @@ chart
   .encode('shape', 'hvh') // 'area', 'smooth', 'hvh', 'vh', 'hv'
   .label({
     text: 'value',
-    fontSize: 10,
-    textAlign: (_, idx, arr) => {
-      if (idx === 0) return 'left';
-      if (idx === arr.length - 1) return 'right';
-      return 'center';
+    style: {
+      fontSize: 10,
+      textAlign: (_, idx, arr) => {
+        if (idx === 0) return 'left';
+        if (idx === arr.length - 1) return 'right';
+        return 'center';
+      },
     },
   })
   .style('opacity', 0.4)

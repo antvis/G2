@@ -41,8 +41,10 @@ chart
   .label({
     text: (d) => `${d.y2 - d.y1}`,
     formatter: '~s',
-    fontSize: 10,
-    dy: 2,
+    style: {
+      fontSize: 10,
+      dy: 2,
+    },
   })
   .style({ stroke: '#697474', offset: 16 });
 
@@ -63,9 +65,11 @@ chart
     text: 'value',
     formatter: '~s',
     position: (d) => (d.value > 0 ? 'top' : 'bottom'),
-    textBaseline: (d) => (d.value > 0 ? 'bottom' : 'top'),
-    fontSize: 10,
-    dy: (d) => (d.value > 0 ? -4 : 4),
+    style: {
+      textBaseline: (d) => (d.value > 0 ? 'bottom' : 'top'),
+      fontSize: 10,
+      dy: (d) => (d.value > 0 ? -4 : 4),
+    },
   });
 
 chart.render();

@@ -65,9 +65,11 @@ chart
     text: 'value',
     formatter: '~s',
     position: (d) => (d.value > 0 ? 'top' : 'bottom'),
-    textBaseline: (d) => (d.value > 0 ? 'bottom' : 'top'),
-    fontSize: 10,
-    dy: (d) => (d.value > 0 ? -4 : 4),
+    style: {
+      textBaseline: (d) => (d.value > 0 ? 'bottom' : 'top'),
+      fontSize: 10,
+      dy: (d) => (d.value > 0 ? -4 : 4),
+    },
   });
 
 chart.render();

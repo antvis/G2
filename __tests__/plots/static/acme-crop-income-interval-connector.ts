@@ -50,8 +50,10 @@ export function acmeCropIncomeIntervalConnector() {
           {
             text: (d) => `${d.y2 - d.y1}`,
             formatter: '~s',
-            fontSize: 10,
-            dy: 2,
+            style: {
+              fontSize: 10,
+              dy: 2,
+            },
           },
         ],
         style: {
@@ -82,9 +84,11 @@ export function acmeCropIncomeIntervalConnector() {
             text: 'value',
             formatter: '~s',
             position: (d) => (d.value > 0 ? 'top' : 'bottom'),
-            textBaseline: (d) => (d.value > 0 ? 'bottom' : 'top'),
-            fontSize: 10,
-            dy: (d) => (d.value > 0 ? -4 : 4),
+            style: {
+              textBaseline: (d) => (d.value > 0 ? 'bottom' : 'top'),
+              fontSize: 10,
+              dy: (d) => (d.value > 0 ? -4 : 4),
+            },
           },
         ],
       },

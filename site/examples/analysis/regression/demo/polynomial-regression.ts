@@ -51,8 +51,10 @@ chart
   .label({
     text: 'y=0.24x^3 + −3.00x^2 + 13.45x + 139.77\nThe coefficient of determination, or R^2, is 0.92',
     selector: 'last',
-    textAlign: 'end',
-    dx: -8,
+    style: {
+      textAlign: 'end',
+      dx: -8,
+    },
   });
 
 chart.render();

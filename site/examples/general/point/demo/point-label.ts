@@ -22,13 +22,15 @@ chart
   .encode('color', 'steelblue')
   .label({
     text: 'name',
-    stroke: '#fff',
-    textAnchor: 'start',
-    textBaseline: 'middle',
-    dx: 10,
-    position: 'left',
-    fontSize: 10,
-    lineWidth: 2,
+    style: {
+      stroke: '#fff',
+      textAnchor: 'start',
+      textBaseline: 'middle',
+      dx: 10,
+      position: 'left',
+      fontSize: 10,
+      lineWidth: 2,
+    },
   });
 
 chart.render();

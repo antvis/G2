@@ -931,9 +931,15 @@ function createLabelShapeFunction(
   return (options) => {
     const { index, points } = options;
     const datum = abstractData[index];
-    const { formatter = (d) => `${d}`, ...abstractOptions } = options;
-    const visualOptions = mapObject(abstractOptions, (d) =>
-      valueOf(d, datum, index, abstractData),
+    const {
+      formatter = (d) => `${d}`,
+      transform,
+      style: abstractStyle,
+      ...abstractOptions
+    } = options;
+    const visualOptions = mapObject(
+      { ...abstractOptions, ...abstractStyle } as Record<string, any>,
+      (d) => valueOf(d, datum, index, abstractData),
     );
     const { shape = defaultLabelShape, text, ...style } = visualOptions;
     const f = typeof formatter === 'string' ? format(formatter) : formatter;

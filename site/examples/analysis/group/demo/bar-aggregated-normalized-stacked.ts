@@ -31,6 +31,6 @@ chart
   .encode('color', 'sex')
   .scale('color', { type: 'ordinal', range: ['#ca8861', '#675193'] })
   .axis('y', { labelFormatter: '.0%' })
-  .label({ text: 'people', position: 'inside', fill: 'white' });
+  .label({ text: 'people', position: 'inside', style: { fill: 'white' } });
 
 chart.render();

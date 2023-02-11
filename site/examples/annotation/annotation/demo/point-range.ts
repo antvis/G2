@@ -38,6 +38,6 @@ chart
   .encode('shape', 'point')
   .scale('x', { domain: [137.5, 212] })
   .scale('y', { domain: [0, 80] })
-  .label({ text: 'name', fontSize: 10, dy: 6 });
+  .label({ text: 'name', style: { fontSize: 10, dy: 6 } });
 
 chart.render();
