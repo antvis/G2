@@ -56,7 +56,9 @@ function setOptions(node) {
     .legend('y', { title: 'hello' })
     .slider('x', {})
     .scrollbar('x', {})
-    .label({ text: 'hello' });
+    .label({ text: 'hello' })
+    .coordinate({ type: 'polar' })
+    .interaction({ type: 'tooltip' });
 }
 
 function setCompositeOptions(node) {
@@ -97,6 +99,8 @@ function getOptions() {
     marginTop: 30,
     marginRight: 40,
     labels: [{ text: 'hello' }],
+    coordinate: { type: 'polar' },
+    interaction: { type: 'tooltip' },
   };
 }
 
