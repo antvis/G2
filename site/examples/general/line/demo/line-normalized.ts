@@ -21,7 +21,9 @@ chart
   .label({
     text: 'Symbol',
     selector: 'last',
-    fontSize: 10,
+    style: {
+      fontSize: 10,
+    },
   });
 
 chart.render();

@@ -35,7 +35,9 @@ chart
     position: 'outside',
     autoRotate: true,
     rotateToAlignArc: true,
-    dx: 4,
+    style: {
+      dx: 4,
+    },
   })
   .axis('x', { title: false })
   .axis('y', false)

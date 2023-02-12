@@ -2,7 +2,7 @@ import { G2Spec } from '../../../src';
 import { income } from '../../data/income';
 
 const incdomain = (() => {
-  const elements = []
+  const elements = ([] as any[])
     .concat(
       income.map((v) => v.m),
       income.map((v) => v.f),
@@ -27,9 +27,11 @@ export function incomeLinkAnnotation(): G2Spec {
           {
             position: 'top-right',
             text: (v) => `${v * 100}%`,
-            dx: 4,
-            textAlign: 'start',
-            textBaseline: 'middle',
+            style: {
+              dx: 4,
+              textAlign: 'start',
+              textBaseline: 'middle',
+            },
           },
         ],
         style: {
@@ -47,9 +49,11 @@ export function incomeLinkAnnotation(): G2Spec {
           {
             position: 'top-right',
             text: (v) => `${v * 100}%`,
-            dx: 4,
-            textAlign: 'start',
-            textBaseline: 'middle',
+            style: {
+              dx: 4,
+              textAlign: 'start',
+              textBaseline: 'middle',
+            },
           },
         ],
         style: {

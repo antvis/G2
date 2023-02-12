@@ -26,9 +26,11 @@ WebFont.load({
       .encode('color', 'symbol')
       .label({
         text: 'price',
-        fontSize: 10,
-        fontFamily: 'Gaegu',
         transform: [{ type: 'overlapDodgeY' }],
+        style: {
+          fontSize: 10,
+          fontFamily: 'Gaegu',
+        },
       })
       .axis('x', { tickStroke: '#cdcdcd', gridStroke: '#efefef' })
       .axis('y', { tickStroke: '#cdcdcd', gridStroke: '#efefef' })

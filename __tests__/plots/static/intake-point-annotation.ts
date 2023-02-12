@@ -29,8 +29,10 @@ export function intakePointAnnotation(): G2Spec {
           {
             text: 'name',
             position: 'inside',
-            fill: '#1890ff',
-            stroke: '#fff',
+            style: {
+              fill: '#1890ff',
+              stroke: '#fff',
+            },
           },
         ],
       },
@@ -58,7 +60,9 @@ export function intakePointAnnotation(): G2Spec {
           {
             text: 'Safe fat intake 65g/day',
             position: 'top-left',
-            textBaseline: 'bottom',
+            style: {
+              textBaseline: 'bottom',
+            },
           },
         ],
       },

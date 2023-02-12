@@ -50,17 +50,21 @@ export function vaccinesCellScaleRelation(): G2Spec {
           {
             text: '1963',
             position: 'bottom',
-            textBaseline: 'top',
-            dy: '0.1em',
-            fontSize: 10,
+            style: {
+              dy: '0.1em',
+              fontSize: 10,
+              textBaseline: 'top',
+            },
           },
           {
             text: 'Measles vaccine introduced',
             position: 'bottom',
-            textBaseline: 'top',
-            fontSize: 10,
-            fontWeight: 'bold',
-            dy: 12,
+            style: {
+              textBaseline: 'top',
+              fontSize: 10,
+              fontWeight: 'bold',
+              dy: 12,
+            },
           },
         ],
       },

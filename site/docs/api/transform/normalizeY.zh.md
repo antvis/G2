@@ -39,17 +39,17 @@ chart
   .encode('color', 'sex')
   .scale('color', { type: 'ordinal', range: ['#ca8861', '#675193'] })
   .axis('y', { labelFormatter: '.0%' })
-  .label({ text: 'people', position: 'inside', fill: 'white' });
+  .label({ text: 'people', position: 'inside', style: { fill: 'white' } });
 
 chart.render();
 ```
 
 ## 选项
 
-| 属性               | 描述                                           | 类型                     | 默认值                 |
-|-------------------|------------------------------------------------|-------------------------|-----------------------|
-| groupBy           | 按照哪个通道分组数据                              | `string` \| `string[]`   | `x`                   |  
-| basis             | 使用某一个聚合数据进行归一化计算                    | `Basis`                  | `max`                 |
+| 属性    | 描述                             | 类型                   | 默认值 |
+| ------- | -------------------------------- | ---------------------- | ------ |
+| groupBy | 按照哪个通道分组数据             | `string` \| `string[]` | `x`    |
+| basis   | 使用某一个聚合数据进行归一化计算 | `Basis`                | `max`  |
 
 ```ts
 type Basis =

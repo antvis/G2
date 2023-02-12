@@ -29,17 +29,21 @@ chart
   .encode('color', 'id')
   .label({
     text: 'value',
-    fontWeight: 'bold',
     offset: 14,
+    style: {
+      fontWeight: 'bold',
+    },
   })
   .label({
     text: 'id',
     position: 'spider',
-    fontWeight: 'bold',
-    textBaseline: 'bottom',
-    textAlign: (d) => (['c', 'sass'].includes(d.id) ? 'end' : 'start'),
-    dy: -4,
     connectorDistance: 0,
+    style: {
+      fontWeight: 'bold',
+      textBaseline: 'bottom',
+      textAlign: (d) => (['c', 'sass'].includes(d.id) ? 'end' : 'start'),
+      dy: -4,
+    },
   })
   .style('radius', 4)
   .style('inset', 1)

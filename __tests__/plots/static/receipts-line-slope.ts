@@ -20,18 +20,22 @@ export function receiptsLineSlope(): G2Spec {
     labels: [
       {
         text: (d) => `${d.country} ${d.receipts}`,
-        textAnchor: 'end',
         selector: 'first',
-        fontSize: 10,
-        dx: -3,
         transform: [{ type: 'overlapDodgeY' }],
+        style: {
+          fontSize: 10,
+          dx: -3,
+          textAnchor: 'end',
+        },
       },
       {
         text: (d) => `${d.receipts} ${d.country}`,
         selector: 'last',
-        fontSize: 10,
-        dx: 3,
         transform: [{ type: 'overlapDodgeY' }],
+        style: {
+          fontSize: 10,
+          dx: 3,
+        },
       },
     ],
   };

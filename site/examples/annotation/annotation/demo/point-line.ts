@@ -37,19 +37,33 @@ chart
   .label({
     text: 'name',
     position: 'inside',
-    fill: '#1890ff',
-    stroke: '#fff',
+    style: {
+      fill: '#1890ff',
+      stroke: '#fff',
+    },
   });
 
-chart.lineY().data([50]).style('stroke', '#54545').label({
-  text: 'Safe sugar intake 50g/day',
-  position: 'right',
-  textBaseline: 'bottom',
-});
+chart
+  .lineY()
+  .data([50])
+  .style('stroke', '#54545')
+  .label({
+    text: 'Safe sugar intake 50g/day',
+    position: 'right',
+    style: {
+      textBaseline: 'bottom',
+    },
+  });
 
-chart.lineX().data([65]).style('stroke', '#54545').label({
-  text: 'Safe fat intake 65g/day',
-  position: 'top-left',
-  textBaseline: 'bottom',
-});
+chart
+  .lineX()
+  .data([65])
+  .style('stroke', '#54545')
+  .label({
+    text: 'Safe fat intake 65g/day',
+    position: 'top-left',
+    style: {
+      textBaseline: 'bottom',
+    },
+  });
 chart.render();
