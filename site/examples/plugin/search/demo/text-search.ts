@@ -31,9 +31,11 @@ chart
   .label({
     text: 'civilization',
     position: (d) => (left(d) ? 'left' : 'right'),
-    textAlign: (d) => (left(d) ? 'end' : 'start'),
-    dx: (d) => (left(d) ? -5 : 5),
-    fontSize: 10,
+    style: {
+      textAlign: (d) => (left(d) ? 'end' : 'start'),
+      dx: (d) => (left(d) ? -5 : 5),
+      fontSize: 10,
+    },
   });
 
 chart.render();

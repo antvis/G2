@@ -46,13 +46,19 @@ chart
   .encode('y', 'y')
   .encode('color', '#F4664A');
 
-chart.lineY().data([300]).style('stroke', '#000').label({
-  text: 'hazardous',
-  position: 'right',
-  textBaseline: 'bottom',
-  dy: -2,
-  stroke: '#fff',
-});
+chart
+  .lineY()
+  .data([300])
+  .style('stroke', '#000')
+  .label({
+    text: 'hazardous',
+    position: 'right',
+    style: {
+      textBaseline: 'bottom',
+      dy: -2,
+      stroke: '#fff',
+    },
+  });
 
 chart.render();
 

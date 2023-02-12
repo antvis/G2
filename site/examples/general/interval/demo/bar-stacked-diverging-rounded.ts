@@ -39,10 +39,12 @@ chart
   .label({
     text: 'value',
     position: 'inside',
-    fill: '#000',
-    fontSize: 10,
     formatter: (v) => (v ? `${v}%` : ''),
     transform: [{ type: 'overlapDodgeY' }],
+    style: {
+      fill: '#000',
+      fontSize: 10,
+    },
   })
   .axis('y', {
     position: 'right',

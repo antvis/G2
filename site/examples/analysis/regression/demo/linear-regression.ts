@@ -41,8 +41,10 @@ chart
     text: 'y = 1.7x+3.01',
     selector: 'last',
     position: 'right',
-    textAlign: 'end',
-    dy: -8,
+    style: {
+      textAlign: 'end',
+      dy: -8,
+    },
   });
 
 chart.render();

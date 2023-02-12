@@ -35,14 +35,18 @@ chart
   .label({
     text: 'name',
     radius: 0.8,
-    fontSize: 10,
-    fontWeight: 'bold',
+    style: {
+      fontSize: 10,
+      fontWeight: 'bold',
+    },
   })
   .label({
     text: (d, i, data) => (i < data.length - 3 ? d.value : ''),
     radius: 0.8,
-    fontSize: 9,
-    dy: '0.75em',
+    style: {
+      fontSize: 9,
+      dy: '0.75em',
+    },
   });
 
 chart.render();

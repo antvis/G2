@@ -145,8 +145,10 @@ chart
     text: 'state',
     position: 'area', // `area` type positon used here.
     selector: 'first',
-    fontSize: 10,
     transform: [{ type: 'overlapHide' }],
+    style: {
+      fontSize: 10,
+    },
   });
 
 chart

@@ -21,8 +21,10 @@ chart
   .encode('color', 'symbol')
   .label({
     text: 'price',
-    fontSize: 10,
     transform: [{ type: 'overlapDodgeY' }],
+    style: {
+      fontSize: 10,
+    },
   });
 
 chart.render();

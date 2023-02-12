@@ -20,10 +20,12 @@ export function alphabetIntervalTransposed(): G2Spec {
     labels: [
       {
         text: 'frequency',
-        textAnchor: (d) => (+d.frequency > 0.008 ? 'right' : 'start'),
-        fill: (d) => (+d.frequency > 0.008 ? '#fff' : '#000'),
-        dx: (d) => (+d.frequency > 0.008 ? '-5px' : '5px'),
         formatter: '.1%',
+        style: {
+          textAnchor: (d) => (+d.frequency > 0.008 ? 'right' : 'start'),
+          fill: (d) => (+d.frequency > 0.008 ? '#fff' : '#000'),
+          dx: (d) => (+d.frequency > 0.008 ? '-5px' : '5px'),
+        },
       },
     ],
   };

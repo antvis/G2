@@ -21,7 +21,6 @@ export function alphabetIntervalLabelContrastReverse(): G2Spec {
         text: 'frequency',
         position: 'inside',
         formatter: '.0%',
-        fill: '#000',
         transform: [
           {
             type: 'contrastReverse',
@@ -29,6 +28,9 @@ export function alphabetIntervalLabelContrastReverse(): G2Spec {
             palette: ['#00FF00', '#ffff00'], // Use full color string to avoid screenshot error.
           },
         ],
+        style: {
+          fill: '#000',
+        },
       },
     ],
   };

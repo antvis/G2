@@ -29,7 +29,9 @@ chart
   .label({
     text: 'id',
     position: 'outside',
-    fontWeight: 'bold',
+    style: {
+      fontWeight: 'bold',
+    },
   })
   .style('radius', 6)
   .style('stroke', '#fff')

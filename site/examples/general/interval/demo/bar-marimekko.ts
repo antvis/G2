@@ -28,21 +28,25 @@ chart
   .scale('x', { paddingOuter: 0, paddingInner: 0.01 })
   .label({
     text: 'segment',
-    x: 5,
-    y: 5,
-    textAnchor: 'start',
-    textBaseline: 'top',
-    fontSize: 10,
-    fill: '#fff',
+    style: {
+      x: 5,
+      y: 5,
+      textAnchor: 'start',
+      textBaseline: 'top',
+      fontSize: 10,
+      fill: '#fff',
+    },
   })
   .label({
     text: 'value',
-    x: 5,
-    y: 5,
-    textAnchor: 'start',
-    dy: '1.5em',
-    fontSize: 10,
-    fill: '#fff',
+    style: {
+      x: 5,
+      y: 5,
+      textAnchor: 'start',
+      dy: '1.5em',
+      fontSize: 10,
+      fill: '#fff',
+    },
   });
 
 chart.render();

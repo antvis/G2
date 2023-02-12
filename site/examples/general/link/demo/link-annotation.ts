@@ -326,9 +326,11 @@ chart
   .label({
     position: 'top-right',
     text: (v) => `${v * 100}%`,
-    dx: 4,
-    textAlign: 'start',
-    textBaseline: 'middle',
+    style: {
+      dx: 4,
+      textAlign: 'start',
+      textBaseline: 'middle',
+    },
   })
   .style('stroke', '#000');
 
@@ -340,9 +342,11 @@ chart
   .label({
     position: 'top-right',
     text: (v) => `${v * 100}%`,
-    dx: 4,
-    textAlign: 'start',
-    textBaseline: 'middle',
+    style: {
+      dx: 4,
+      textAlign: 'start',
+      textBaseline: 'middle',
+    },
   })
   .style('stroke', '#000')
   .style('opacity', 0.2);

@@ -26,13 +26,17 @@ chart
   // 声明第一个 label
   .label({
     text: 'genre', // 指定绑定的字段
-    dy: -15, // 指定样式
+    style: {
+      dy: -15, // 指定样式
+    },
   })
   // 声明第二个 label
   .label({
     text: 'sold', // 指定绑定的字段
-    fill: '#fff', // 指定样式
-    dy: 5,
+    style: {
+      fill: '#fff', // 指定样式
+      dy: 5,
+    },
   });
 ```
 
@@ -59,7 +63,9 @@ chart
   .label({
     text: 'Symbol',
     selector: 'last', // 选择最后一个
-    fontSize: 10,
+    style: {
+      fontSize: 10,
+    },
   });
 ```
 
@@ -110,7 +116,9 @@ chart
   .label({
     text: 'Safe sugar intake 50g/day',
     position: 'right',
-    textBaseline: 'bottom',
+    style: {
+      textBaseline: 'bottom',
+    },
   });
 
 chart
@@ -120,7 +128,9 @@ chart
   .label({
     text: 'Safe fat intake 65g/day',
     position: 'top-left',
-    textBaseline: 'bottom',
+    style: {
+      textBaseline: 'bottom',
+    },
   });
 ```
 

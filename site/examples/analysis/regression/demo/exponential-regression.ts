@@ -42,7 +42,9 @@ chart
   .label({
     text: 'y = 3477.32^(0.18x)\nThe coefficient of determination, or R^2, is 0.998',
     selector: 'last',
-    textAlign: 'end',
+    style: {
+      textAlign: 'end',
+    },
   });
 
 chart.render();

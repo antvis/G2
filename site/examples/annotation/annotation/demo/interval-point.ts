@@ -34,9 +34,11 @@ chart
   .label({
     text: 'value',
     position: 'right',
-    dx: 4,
-    textAlign: 'start',
     formatter: (v) => `${v}min`,
+    style: {
+      dx: 4,
+      textAlign: 'start',
+    },
   });
 
 chart

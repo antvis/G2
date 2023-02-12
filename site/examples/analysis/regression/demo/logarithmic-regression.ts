@@ -44,7 +44,9 @@ chart
   .label({
     text: 'y = 0.881·ln(x) + 4.173\nThe coefficient of determination, or R^22, is 0.958',
     selector: 'last',
-    textAlign: 'end',
+    style: {
+      textAlign: 'end',
+    },
   });
 
 chart.render();

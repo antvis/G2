@@ -44,20 +44,24 @@ WebFont.load({
       .label({
         text: 'name',
         radius: 0.8,
-        fontSize: 10,
-        fontWeight: 'bold',
-        fontFamily: 'Gaegu',
-        fill: 'black',
-        stroke: 'white',
+        style: {
+          fontSize: 10,
+          fontWeight: 'bold',
+          fontFamily: 'Gaegu',
+          fill: 'black',
+          stroke: 'white',
+        },
       })
       .label({
         text: (d, i, data) => (i < data.length - 3 ? d.value : ''),
         radius: 0.8,
-        fontSize: 12,
-        fontFamily: 'Gaegu',
-        fill: 'black',
-        stroke: 'white',
-        dy: '0.75em',
+        style: {
+          fontSize: 12,
+          fontFamily: 'Gaegu',
+          fill: 'black',
+          stroke: 'white',
+          dy: '0.75em',
+        },
       });
 
     chart.render();
