@@ -141,6 +141,8 @@ export const props: NodePropertyDescriptor[] = [
   { name: 'transform', type: 'array' },
   { name: 'style', type: 'object' },
   { name: 'animate', type: 'object' },
+  { name: 'coordinate', type: 'object' },
+  { name: 'interaction', type: 'object' },
   { name: 'label', type: 'array', key: 'labels' },
   { name: 'axis', type: 'object' },
   { name: 'legend', type: 'object' },
