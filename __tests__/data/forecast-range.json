@@ -1,4 +1,4 @@
-export const forecastRangeData = [
+[
   [
     "01-01",
     -0.489863522578899,

@@ -1,29 +1,18 @@
 import { G2Spec } from '../../../src';
-import { forecastRangeData } from '../../data/forecast-range';
-
-const processData = (data) =>
-  data.map((d) => ({
-    x: d[0],
-    low: d[1],
-    high: d[2],
-    v2: d[3],
-    v3: d[4],
-  }));
 
 export function forecastRangeAreaLine(): G2Spec {
   return {
     type: 'view',
     data: {
-      value: forecastRangeData,
-      transform: [{ type: 'custom', callback: processData }],
+      type: 'fetch',
+      value: 'data/forecast-range.json',
     },
-    axis: { y: { title: false, labelFormatter: (d) => `${d}M` } },
+    encode: { x: (d) => new Date(d[0]) },
     children: [
       {
         type: 'area',
         encode: {
-          x: (d) => new Date(d.x),
-          y: ['low', 'high'],
+          y: [(d) => d[1], (d) => d[2]],
           shape: 'smooth',
         },
         style: {
@@ -34,8 +23,7 @@ export function forecastRangeAreaLine(): G2Spec {
       {
         type: 'line',
         encode: {
-          x: (d) => new Date(d.x),
-          y: 'v2',
+          y: (d) => d[3],
           color: '#FF6B3B',
           shape: 'smooth',
         },
@@ -43,8 +31,7 @@ export function forecastRangeAreaLine(): G2Spec {
       {
         type: 'line',
         encode: {
-          x: (d) => new Date(d.x),
-          y: 'v3',
+          y: (d) => d[4],
           color: '#5B8FF9',
         },
         style: {
@@ -54,13 +41,13 @@ export function forecastRangeAreaLine(): G2Spec {
       {
         type: 'point',
         data: [
-          { x: '01-08', v3: 0.417885699969663 },
-          { x: '01-23', v3: 0.706678090635692 },
-          { x: '03-12', v3: 6.0515889109663 },
+          ['01-08', 0.417885699969663],
+          ['01-23', 0.706678090635692],
+          ['03-12', 6.0515889109663],
         ],
         encode: {
-          x: (d) => new Date(d.x),
-          y: 'v3',
+          x: (d) => new Date(d[0]),
+          y: (d) => d[1],
           color: '#FF6B3B',
           shape: 'point',
           size: 3,

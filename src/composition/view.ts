@@ -20,12 +20,24 @@ export const View: CC<ViewOptions> = () => {
       axis: viewAxis = {},
       legend: viewLegend = {},
       coordinate: viewCoordinate = {},
+      encode: viewEncode = {},
+      transform: viewTransform = [],
       ...rest
     } = restOptions;
     const marks = children.map(
-      ({ data, scale = {}, axis = {}, legend = {}, ...rest }) => ({
+      ({
+        data,
+        scale = {},
+        axis = {},
+        legend = {},
+        encode = {},
+        transform = [],
+        ...rest
+      }) => ({
         data: mergeData(data, viewData),
         scale: deepMix({}, viewScale, scale),
+        encode: deepMix({}, viewEncode, encode),
+        transform: [...viewTransform, ...transform],
         axis: axis && viewAxis ? deepMix({}, viewAxis, axis) : false,
         legend: legend && viewLegend ? deepMix({}, viewLegend, legend) : false,
         ...rest,
