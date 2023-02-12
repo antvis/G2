@@ -20,9 +20,11 @@ export function weatherLineMultiSlider(): G2Spec {
         },
         axis: {
           y: {
-            titleFill: '#EE6666',
             title: 'Temperature (°C)',
             grid: null,
+            style: {
+              titleFill: '#EE6666',
+            },
           },
         },
         slider: { y: {} },
@@ -42,9 +44,11 @@ export function weatherLineMultiSlider(): G2Spec {
         },
         axis: {
           y: {
-            titleFill: '#5470C6',
             title: 'Temperature (°C)',
             grid: null,
+            style: {
+              titleFill: '#5470C6',
+            },
           },
         },
         slider: { y: { size: 40 } },
@@ -63,9 +67,11 @@ export function weatherLineMultiSlider(): G2Spec {
         axis: {
           y: {
             position: 'right',
-            titleFill: '#91CC75',
             title: 'Precipitation (ml)',
             grid: null,
+            style: {
+              titleFill: '#91CC75',
+            },
           },
         },
         slider: { y: { position: 'right' } },

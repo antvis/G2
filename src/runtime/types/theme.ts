@@ -82,7 +82,7 @@ type ComponentTheme = {
   innerLabel?: LabelStyleProps;
   slider?: any;
   scrollbar?: any;
-  title?: Partial<G2Title>;
+  title?: any; // @todo
 };
 
 type AnimationTheme = {

@@ -113,19 +113,21 @@ chart
 ```js
 const axis = {
   zIndex: 1,
-  labelStroke: '#fff',
-  labelStrokeWidth: 5,
-  labelFontSize: 10,
-  labelStrokeLineJoin: 'round',
-  titleStroke: '#fff',
-  titleFontSize: 10,
-  titleStrokeWidth: 5,
-  titleStrokeLineJoin: 'round',
-  titlePosition: 'right',
-  titleTransform: 'translate(-50%, 0) rotate(-90)',
-  lineStroke: 'black',
-  tickStroke: 'black',
-  lineStrokeWidth: 1,
+  style: {
+    labelStroke: '#fff',
+    labelStrokeWidth: 5,
+    labelFontSize: 10,
+    labelStrokeLineJoin: 'round',
+    titleStroke: '#fff',
+    titleFontSize: 10,
+    titleStrokeWidth: 5,
+    titleStrokeLineJoin: 'round',
+    titlePosition: 'right',
+    titleTransform: 'translate(-50%, 0) rotate(-90)',
+    lineStroke: 'black',
+    tickStroke: 'black',
+    lineStrokeWidth: 1,
+  },
 };
 
 chart.coordinate({ type: 'parallel' }); // 指定平行坐标系变换

@@ -29,11 +29,13 @@ chart
   .axis('y', {
     zIndex: 1,
     direction: 'center',
-    labelStroke: '#fff',
-    labelStrokeWidth: 5,
     title: null,
     labelFormatter: (d, i, array) =>
       i === array.length - 1 ? `${d}°F` : `${d}`,
+    style: {
+      labelStroke: '#fff',
+      labelStrokeWidth: 5,
+    },
   })
   .axis('x', {
     grid: true,

@@ -51,11 +51,11 @@ const Title = createComponent<TitleStyleProps>({
       subtitle,
       spacing = 2,
       align = 'left',
-      ...rest
+      style,
     } = attributes;
 
-    const titleStyle = subObject(rest, 'title');
-    const subtitleStyle = subObject(rest, 'subtitle');
+    const titleStyle = subObject(style, 'title');
+    const subtitleStyle = subObject(style, 'subtitle');
 
     const mainTitle = maybeAppend(container, '.title', 'text')
       .attr('className', 'title')

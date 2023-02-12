@@ -10,7 +10,7 @@ export type ScrollbarOptions = {
  * Scrollbar component.
  */
 export const Scrollbar: GCC<ScrollbarOptions> = (options) => {
-  const { orient, labelFormatter, ...rest } = options;
+  const { orient, labelFormatter, style, ...rest } = options;
 
   return (scales, value, coordinate, theme) => {
     const { bbox } = value;
@@ -20,6 +20,7 @@ export const Scrollbar: GCC<ScrollbarOptions> = (options) => {
     return new ScrollbarComponent({
       className: 'scrollbar',
       style: Object.assign({}, scrollbarTheme, {
+        ...style,
         x,
         y,
         trackLength: orient === 'horizontal' ? width : height,
