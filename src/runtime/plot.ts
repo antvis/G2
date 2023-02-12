@@ -53,8 +53,6 @@ import {
   InteractionComponent,
   LabelTransform,
   LabelTransformComponent,
-  Scale,
-  ScaleComponent,
   Shape,
   ShapeComponent,
   Theme,
@@ -71,7 +69,6 @@ import {
   G2Library,
   G2Mark,
   G2MarkOptions,
-  G2ScaleOptions,
   G2ShapeOptions,
   G2ThemeOptions,
   G2View,
@@ -421,10 +418,6 @@ function initializeState(
 ): [G2ViewDescriptor, G2ViewTree[]] {
   const [useMark] = useLibrary<G2MarkOptions, MarkComponent, Mark>(
     'mark',
-    library,
-  );
-  const [useScale] = useLibrary<G2ScaleOptions, ScaleComponent, Scale>(
-    'scale',
     library,
   );
   const [useTheme] = useLibrary<G2ThemeOptions, ThemeComponent, Theme>(

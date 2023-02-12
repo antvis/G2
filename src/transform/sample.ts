@@ -58,7 +58,7 @@ export const Sample: TC<SampleOptions> = (options = {}) => {
   const {
     strategy = 'median',
     thresholds = 2000,
-    groupBy = 'series',
+    groupBy = ['series', 'color'],
   } = options;
   const sampleFunction = normalizeSample(strategy);
 
