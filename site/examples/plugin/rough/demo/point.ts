@@ -24,16 +24,20 @@ WebFont.load({
       .encode('y', 'weight')
       .encode('color', 'gender')
       .axis('x', {
-        titleFontSize: 15,
-        titleFontFamily: 'Gaegu',
-        tickStroke: '#cdcdcd',
-        gridStroke: '#efefef',
+        style: {
+          titleFontSize: 15,
+          titleFontFamily: 'Gaegu',
+          tickStroke: '#cdcdcd',
+          gridStroke: '#efefef',
+        },
       })
       .axis('y', {
-        titleFontSize: 15,
-        titleFontFamily: 'Gaegu',
-        tickStroke: '#cdcdcd',
-        gridStroke: '#efefef',
+        style: {
+          titleFontSize: 15,
+          titleFontFamily: 'Gaegu',
+          tickStroke: '#cdcdcd',
+          gridStroke: '#efefef',
+        },
       });
 
     chart.render();

@@ -21,7 +21,7 @@ chart
   .interval()
   .encode('x', 'time')
   .encode('y', 'waiting')
-  .axis('y', { titleFill: '#5B8FF9', title: 'Waiting' });
+  .axis('y', { title: 'Waiting', style: { titleFill: '#5B8FF9' } });
 
 chart
   .line()
@@ -35,7 +35,9 @@ chart
     position: 'right',
     grid: null,
     title: 'People',
-    titleFill: '#fdae6b',
+    style: {
+      titleFill: '#fdae6b',
+    },
   });
 
 chart.render();

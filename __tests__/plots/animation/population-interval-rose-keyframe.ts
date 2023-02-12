@@ -43,11 +43,13 @@ export async function populationIntervalRoseKeyframe(): Promise<G2Spec> {
         encode: { x: 'year', y: 'people' },
         axis: {
           y: {
-            labelTransform: 'rotate(45)',
             labelFormatter: '~s',
             tickCount: 5,
             tickFilter: (d, i) => i !== 0,
             direction: 'right',
+            style: {
+              labelTransform: 'rotate(45)',
+            },
           },
         },
       },
