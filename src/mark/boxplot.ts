@@ -56,7 +56,7 @@ function OutlierY() {
 
 export const Boxplot: CC<BoxPlotOptions> = (options) => {
   return () => {
-    const { data, encode, style = {}, ...rest } = options;
+    const { data, encode, style = {}, transform, ...rest } = options;
     const { extend = false, ...restStyle } = style;
     const { y } = encode;
     const encodeY = { y, y1: y, y2: y, y3: y, y4: y };
