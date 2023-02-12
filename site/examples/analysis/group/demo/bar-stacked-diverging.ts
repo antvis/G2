@@ -18,7 +18,7 @@ const types = [
 ];
 const colors = ['#c30d24', '#f3a583', '#cccccc', '#94c6da', '#1770ab'];
 
-chart.coordinate({ type: 'transpose' });
+chart.coordinate({ transform: [{ type: 'transpose' }] });
 
 chart
   .interval()

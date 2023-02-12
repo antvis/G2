@@ -5,7 +5,7 @@ export function morleyBox1D(): G2Spec {
     type: 'boxplot',
     inset: 6,
     height: 120,
-    coordinates: [{ type: 'transpose' }],
+    coordinate: { transform: [{ type: 'transpose' }] },
     data: {
       type: 'fetch',
       value: 'data/morley.csv',

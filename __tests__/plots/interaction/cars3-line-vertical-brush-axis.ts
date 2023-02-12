@@ -14,7 +14,7 @@ export function cars3LineVerticalBrushAxis(): G2Spec {
   ];
   return {
     type: 'view',
-    coordinates: [{ type: 'parallel' }],
+    coordinate: { type: 'parallel' },
     children: [
       {
         type: 'line',

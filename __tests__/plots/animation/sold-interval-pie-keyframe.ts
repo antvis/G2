@@ -10,7 +10,7 @@ export function soldIntervalPieKeyframe(): G2Spec {
       {
         type: 'interval',
         data: sold,
-        coordinates: [{ type: 'theta', innerRadius: 0.45, outerRadius: 0.8 }],
+        coordinate: { type: 'theta', innerRadius: 0.45, outerRadius: 0.8 },
         transform: [{ type: 'stackY' }],
         encode: {
           y: 'sold',
@@ -29,7 +29,7 @@ export function soldIntervalPieKeyframe(): G2Spec {
       {
         type: 'interval',
         data: sold.slice(0, 4),
-        coordinates: [{ type: 'theta', innerRadius: 0.45, outerRadius: 0.8 }],
+        coordinate: { type: 'theta', innerRadius: 0.45, outerRadius: 0.8 },
         transform: [{ type: 'stackY' }],
         encode: {
           y: 'sold',

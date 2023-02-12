@@ -13,7 +13,7 @@ export function populationIntervalNormalizedStacked(): G2Spec {
         },
       ],
     },
-    coordinates: [{ type: 'transpose' }],
+    coordinate: { transform: [{ type: 'transpose' }] },
     transform: [{ type: 'stackY' }, { type: 'normalizeY' }],
     scale: {
       color: { type: 'ordinal', range: ['#ca8861', '#675193'] },

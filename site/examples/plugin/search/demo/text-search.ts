@@ -13,7 +13,7 @@ const chart = new Chart({
   plugins: [plugin],
 });
 
-chart.coordinate({ type: 'transpose' });
+chart.coordinate({ transform: [{ type: 'transpose' }] });
 
 chart
   .interval()

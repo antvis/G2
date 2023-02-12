@@ -112,7 +112,7 @@ describe('Composition', () => {
       data: [1, 2, 3],
       key: 'composition',
       style: { plotFill: 'red' },
-      coordinates: [{ type: 'polar' }],
+      coordinate: { type: 'polar' },
       interaction: {
         elementHighlight: {
           background: true,
@@ -282,7 +282,6 @@ describe('Composition', () => {
       .attr('marginRight', 40)
       .attr('key', 'composition')
       .style('plotFill', 'red')
-      .projection({ type: 'foo' })
       .coordinate({ type: 'polar' })
       .interaction('elementHighlight', { background: true })
       .theme('defaultColor', 'red');
@@ -300,14 +299,13 @@ describe('Composition', () => {
       data: [1, 2, 3],
       key: 'composition',
       style: { plotFill: 'red' },
-      coordinates: [{ type: 'polar' }],
+      coordinate: { type: 'polar' },
       interaction: {
         elementHighlight: {
           background: true,
         },
       },
       theme: { defaultColor: 'red' },
-      projection: { type: 'foo' },
     });
     expectToCreateMarks(node);
   });
@@ -328,7 +326,6 @@ describe('Composition', () => {
       .scale('color', { type: 'linear' })
       .attr('key', 'composition')
       .style('plotFill', 'red')
-      .projection({ type: 'foo' })
       .coordinate({ type: 'polar' })
       .interaction('elementHighlight', { background: true })
       .theme('defaultColor', 'red');
@@ -346,10 +343,9 @@ describe('Composition', () => {
       data: [1, 2, 3],
       key: 'composition',
       style: { plotFill: 'red' },
-      coordinates: [{ type: 'polar' }],
+      coordinate: { type: 'polar' },
       interaction: { elementHighlight: { background: true } },
       theme: { defaultColor: 'red' },
-      projection: { type: 'foo' },
       scale: { color: { type: 'linear' } },
       encode: { x: 'a' },
     });

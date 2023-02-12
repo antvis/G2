@@ -1,7 +1,6 @@
 import { CoordinateComponent as CC } from '../runtime';
 import { RadialCoordinate } from '../spec';
 import { Polar } from './polar';
-import { Reflect } from './reflect';
 
 export type RadialOptions = Omit<RadialCoordinate, 'type'>;
 
@@ -23,7 +22,9 @@ export const Radial: CC<RadialOptions> = (options) => {
     getRadialOptions(options);
   return [
     ['transpose'],
-    ...Reflect(),
+    ['translate', 0.5, 0.5],
+    ['reflect'],
+    ['translate', -0.5, -0.5],
     ...Polar({ startAngle, endAngle, innerRadius, outerRadius }),
   ];
 };

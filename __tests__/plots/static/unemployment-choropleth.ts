@@ -9,7 +9,7 @@ export async function unemploymentChoropleth(): Promise<G2Spec> {
   const counties = feature(us, us.objects.counties).features;
   return {
     type: 'geoPath',
-    projection: {
+    coordinate: {
       type: 'albersUsa',
     },
     data: {

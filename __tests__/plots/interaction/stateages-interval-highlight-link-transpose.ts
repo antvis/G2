@@ -9,7 +9,7 @@ export function stateAgesIntervalHighlightLinkTranspose(): G2Spec {
       { type: 'stackY' },
       { type: 'sortX', by: 'y', reverse: true, slice: 5 },
     ],
-    coordinates: [{ type: 'transpose' }],
+    coordinate: { transform: [{ type: 'transpose' }] },
     data: {
       type: 'fetch',
       value: 'data/stateages.csv',

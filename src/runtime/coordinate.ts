@@ -39,6 +39,23 @@ export function createCoordinate(
   return coordinate;
 }
 
+export function coordinate2Transform(node: G2View, library: G2Library): G2View {
+  // @ts-ignore
+  const { coordinate = {}, ...rest } = node;
+  const { type, transform = [], ...options } = coordinate;
+  if (!type) return { ...rest, coordinates: transform };
+  const [, createCoordinate] = useLibrary<
+    G2CoordinateOptions,
+    CoordinateComponent,
+    CoordinateTransform
+  >('coordinate', library);
+  const { transform: isTransform = false } = createCoordinate(type).props || {};
+  if (isTransform) {
+    throw new Error(`Unknown coordinate: ${type}.`);
+  }
+  return { ...rest, coordinates: [{ type, ...options }, ...transform] };
+}
+
 export function coordOf(
   coordinates: G2CoordinateOptions[],
   type: string,
@@ -82,7 +99,7 @@ export function isRadial(coordinates: G2CoordinateOptions[]) {
 }
 
 export function isRadar(coordinates: G2CoordinateOptions[]) {
-  return isParallel(coordinates) && isPolar(coordinates);
+  return coordOf(coordinates, 'radar').length > 0;
 }
 
 /**

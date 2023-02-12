@@ -4,7 +4,7 @@ export function aaplAreaMissingDataTranspose(): G2Spec {
   return {
     width: 800,
     type: 'area',
-    coordinates: [{ type: 'transpose' }],
+    coordinate: { transform: [{ type: 'transpose' }] },
     data: {
       type: 'fetch',
       value: 'data/aapl.csv',

@@ -23,7 +23,7 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.coordinate({ type: 'parallel' }).coordinate({ type: 'transpose' });
+chart.coordinate({ type: 'parallel', transform: [{ type: 'transpose' }] });
 
 chart
   .line()

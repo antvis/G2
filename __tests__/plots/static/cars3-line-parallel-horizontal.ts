@@ -17,7 +17,7 @@ export function cars3LineParallelHorizontal(): G2Spec {
       type: 'fetch',
       value: 'data/cars3.csv',
     },
-    coordinates: [{ type: 'parallel' }],
+    coordinate: { type: 'parallel' },
     encode: {
       position,
       color: 'weight (lb)',

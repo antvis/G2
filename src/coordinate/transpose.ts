@@ -13,4 +13,4 @@ export const Transpose: CC<TransposeOptions> = () => [
   ['translate', -0.5, -0.5],
 ];
 
-Transpose.props = {};
+Transpose.props = { transform: true };

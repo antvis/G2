@@ -11,7 +11,7 @@ fetch('https://assets.antv.antgroup.com/g2/countries-50m.json')
     const land = feature(world, world.objects.land).features;
 
     const worldMap = (node, projection, color, opacity = 0.7) => {
-      const geoView = node.geoView().projection({
+      const geoView = node.geoView().coordinate({
         type: projection,
         size: 'fitWidth',
       });

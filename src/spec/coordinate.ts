@@ -5,33 +5,29 @@ export type Coordinate =
   | HelixCoordinate
   | TransposeCoordinate
   | ThetaCoordinate
-  | ReflectCoordinate
-  | ReflectXCoordinate
-  | ReflectYCoordinate
   | CustomCoordinate
   | CartesianCoordinate
   | ParallelCoordinate
   | FisheyeCoordinate
-  | FisheyeXCoordinate
-  | FisheyeYCoordinate
-  | FisheyeCircularCoordinate
-  | RadialCoordinate;
+  | RadialCoordinate
+  | RadarCoordinate
+  | GeoCoordinate;
 
 export type CoordinateTypes =
   | 'polar'
   | 'helix'
   | 'transpose'
   | 'theta'
-  | 'reflect'
-  | 'reflectX'
-  | 'reflectY'
   | 'cartesian'
   | 'parallel'
   | 'fisheye'
-  | 'fisheyeX'
-  | 'fisheyeY'
-  | 'fisheyeCircular'
-  | 'radial';
+  | 'radial'
+  | 'radar'
+  | string;
+
+export type CoordinateTransform = TransposeCoordinate | FisheyeCoordinate;
+
+export type CoordinateTransformTypes = 'transpose' | 'fisheye';
 
 export type PolarCoordinate = {
   type?: 'polar';
@@ -49,20 +45,12 @@ export type HelixCoordinate = {
   outerRadius?: number;
 };
 
-export type ReflectCoordinate = {
-  type?: 'reflect';
-};
-
-export type ReflectXCoordinate = {
-  type?: 'reflect.x';
-};
-
-export type ReflectYCoordinate = {
-  type?: 'reflect.y';
-};
-
-export type TransposeCoordinate = {
-  type?: 'transpose';
+export type RadarCoordinate = {
+  type?: 'radar';
+  startAngle?: number;
+  endAngle?: number;
+  innerRadius?: number;
+  outerRadius?: number;
 };
 
 export type ThetaCoordinate = {
@@ -89,35 +77,21 @@ export type ParallelCoordinate = {
   type?: 'parallel';
 };
 
+export type TransposeCoordinate = {
+  type?: 'transpose';
+};
+
+export type GeoCoordinate = {
+  type: string;
+  [key: string]: any; // @todo d3-geo types
+};
+
 export type FisheyeCoordinate = {
   type?: 'fisheye';
   focusX?: number;
   focusY?: number;
   distortionX?: number;
   distortionY?: number;
-  isVisual?: boolean;
-};
-
-export type FisheyeXCoordinate = {
-  type?: 'fisheye.x';
-  focusX?: number;
-  distortionX?: number;
-  isVisual?: boolean;
-};
-
-export type FisheyeYCoordinate = {
-  type?: 'fisheye.y';
-  focusY?: number;
-  distortionY?: number;
-  isVisual?: boolean;
-};
-
-export type FisheyeCircularCoordinate = {
-  type?: 'fisheye.circular';
-  focusX?: number;
-  focusY?: number;
-  radius?: number;
-  distortion?: number;
   isVisual?: boolean;
 };
 

@@ -4,7 +4,7 @@ export function penguinsBoxPlotGroupedTranspose(): G2Spec {
   return {
     type: 'boxplot',
     paddingLeft: 80,
-    coordinates: [{ type: 'transpose' }],
+    coordinate: { transform: [{ type: 'transpose' }] },
     inset: 6,
     data: {
       type: 'fetch',

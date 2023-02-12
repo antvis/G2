@@ -61,7 +61,7 @@ const chart = new Chart({
   height: 300,
 });
 
-chart.coordinate({ type: 'transpose' });
+chart.coordinate({ transform: [{ type: 'transpose' }] });
 
 chart
   .interval()

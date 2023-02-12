@@ -9,7 +9,7 @@ export function aaplLineSliderTransponsed(): G2Spec {
       type: 'fetch',
       value: 'data/aapl.csv',
     },
-    coordinates: [{ type: 'transpose' }],
+    coordinate: { transform: [{ type: 'transpose' }] },
     encode: {
       x: (d) => new Date(d.date),
       y: 'close',

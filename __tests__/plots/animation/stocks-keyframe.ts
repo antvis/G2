@@ -180,7 +180,7 @@ const pie = (data) => ({
   type: 'interval',
   data,
   transform: [{ type: 'groupX', y: 'sum' }, { type: 'stackY' }],
-  coordinates: [{ type: 'theta' }],
+  coordinate: { type: 'theta' },
   encode: {
     y: 'price',
     color: 'symbol',
@@ -195,7 +195,7 @@ const rose = (data) => ({
   type: 'interval',
   data,
   transform: [{ type: 'groupX', y: 'sum' }],
-  coordinates: [{ type: 'polar' }],
+  coordinate: { type: 'polar' },
   encode: {
     x: 'symbol',
     y: 'price',

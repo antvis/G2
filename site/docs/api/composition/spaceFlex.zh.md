@@ -64,7 +64,7 @@ flex
       .interval()
       .attr('paddingBottom', 50)
       .transform({ type: 'groupX', y: 'max' })
-      .coordinate({ type: 'transpose' })
+      .coordinate({ transform: [{ type: 'transpose' }] });
       .axis('x', false)
       .encode('x', (d) => new Date(d.date).getUTCMonth())
       .encode('y', 'temp_max')

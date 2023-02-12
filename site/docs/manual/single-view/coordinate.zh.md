@@ -8,9 +8,7 @@ order: 8
 在 G2 中坐标系通过 `chart.coordinate` 去声明，和 `mark.transform` 一样，都是数组属性，所以可以声明多个。
 
 ```js
-chart
-  .coordinate({ type: 'polar' }) // 指定第一个坐标系变换
-  .coordinate({ type: 'transpose' }); // 指定第二个坐标系变换
+chart.coordinate({ type: 'polar', transform: [{ type: 'transpose' }] });
 ```
 
 ## 转置变换
@@ -20,7 +18,7 @@ chart
 <img alt="transpose" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*z2dxSKtvMfUAAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
 ```js
-chart.coordinate({ type: 'transpose' }); // 指定 transpose
+chart.coordinate({ transform: [{ type: 'transpose' }] }); // 指定 transpose
 
 chart
   .interval()

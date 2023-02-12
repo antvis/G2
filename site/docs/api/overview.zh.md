@@ -100,6 +100,9 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
 - [coordinate.theta](/api/coordinate/theta) - 常用于绘制饼图等。
 - [coordinate.radial](/api/coordinate/radial) - 常用于绘制玉珏图等。
 - [coordinate.parallel](/api/coordinate/parallel) - 绘制平行坐标系。
+
+以下是支持的坐标系变换。
+
 - [coordinate.transpose](/api/coordinate/transpose) - 改变图表绘制方向。
 - [coordinate.fisheye](/api/coordinate/fisheye) - 鱼眼坐标系。
 
@@ -127,7 +130,7 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
 - [label.contrastReverse](/api/label/contrastreverse) - 标签颜色在图形背景上对比度低的情况下，从指定色板选择一个对比度最优的颜色。
 - [label.overflowHide](/api/label/overflowhide) - 对于标签在图形上放置不下的时候，隐藏标签。
 - [label.overlapDodgeY](/api/label/overlapdodgey) - 对位置碰撞的标签在 y 方向上进行调整，防止标签重叠。
-- [label.overlapHide](/api/label/overlaphide) - 对位置碰撞的标签进行隐藏，默认保留前一个，隐藏后一个。 
+- [label.overlapHide](/api/label/overlaphide) - 对位置碰撞的标签进行隐藏，默认保留前一个，隐藏后一个。
 
 ## [Animation](/api/animation/overview)
 
