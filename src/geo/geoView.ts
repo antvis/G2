@@ -13,7 +13,7 @@ function normalizeProjection(type: string) {
   if (typeof type === 'function') return type;
   const name = `geo${upperFirst(type)}`;
   const projection = d3Projection[name];
-  if (!projection) throw new Error(`Unknown projection: ${type}`);
+  if (!projection) throw new Error(`Unknown coordinate: ${type}`);
   return projection;
 }
 
@@ -147,7 +147,7 @@ export type GeoViewOptions = Omit<GeoViewComposition, 'type'>;
  */
 export const GeoView: CC<GeoViewOptions> = () => {
   return (options) => {
-    const { children, projection = {} } = options;
+    const { children, coordinate: projection = {} } = options;
     if (!Array.isArray(children)) return [];
 
     // Get projection factory.
@@ -225,7 +225,7 @@ export const GeoView: CC<GeoViewOptions> = () => {
           y: { type: 'identity' },
         },
         axis: false,
-        coordinates: [{ type: Geo }],
+        coordinate: { type: Geo },
         children: nodes.flatMap(t),
       },
     ];

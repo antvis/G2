@@ -20,7 +20,7 @@ const chart = new Chart({
   height: 1200,
 });
 
-chart.coordinate({ type: 'transpose' });
+chart.coordinate({ transform: [{ type: 'transpose' }] });
 
 chart.data({
   type: 'fetch',

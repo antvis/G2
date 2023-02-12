@@ -12,9 +12,11 @@ export async function populationIntervalRoseKeyframe(): Promise<G2Spec> {
           type: 'fetch',
           value: 'data/population.csv',
         },
-        coordinates: [
-          { type: 'polar', outerRadius: 0.85, startAngle: -Math.PI / 2 },
-        ],
+        coordinate: {
+          type: 'polar',
+          outerRadius: 0.85,
+          startAngle: -Math.PI / 2,
+        },
         transform: [{ type: 'groupX', y: 'sum' }],
         animate: { enterType: 'waveIn' },
         scale: { y: { type: 'sqrt' } },
@@ -34,7 +36,7 @@ export async function populationIntervalRoseKeyframe(): Promise<G2Spec> {
           type: 'fetch',
           value: 'data/population.csv',
         },
-        coordinates: [{ type: 'polar', outerRadius: 0.85, startAngle: 0 }],
+        coordinate: { type: 'polar', outerRadius: 0.85, startAngle: 0 },
         transform: [{ type: 'groupX', y: 'sum' }],
         animate: { enterType: 'waveIn' },
         scale: { y: { type: 'sqrt' } },

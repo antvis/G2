@@ -13,7 +13,7 @@ export function populationIntervalDiverging(): G2Spec {
         },
       ],
     },
-    coordinates: [{ type: 'transpose' }],
+    coordinate: { transform: [{ type: 'transpose' }] },
     scale: {
       color: { type: 'ordinal', range: ['#ca8861', '#675193'] },
       x: { range: [1, 0] },

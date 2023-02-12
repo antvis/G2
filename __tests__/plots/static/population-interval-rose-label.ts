@@ -9,7 +9,7 @@ export function populationIntervalRoseLabel(): G2Spec {
       type: 'fetch',
       value: 'data/population.csv',
     },
-    coordinates: [{ type: 'polar', outerRadius: 0.85 }],
+    coordinate: { type: 'polar', outerRadius: 0.85 },
     transform: [{ type: 'groupX', y: 'sum' }],
     scale: { y: { type: 'sqrt' } },
     encode: {

@@ -7,12 +7,8 @@ import {
   Fisheye,
   Helix,
   Theta,
-  Reflect,
-  ReflectX,
-  ReflectY,
-  FisheyeX,
-  FisheyeY,
   Radial,
+  Radar,
 } from '../../../src/coordinate';
 import { Constant, Field, Transform, Column } from '../../../src/encode';
 import {
@@ -351,13 +347,9 @@ describe('stdlib', () => {
       'coordinate.helix': Helix,
       'coordinate.transpose': Transpose,
       'coordinate.theta': Theta,
-      'coordinate.reflect': Reflect,
-      'coordinate.reflectX': ReflectX,
-      'coordinate.reflectY': ReflectY,
       'coordinate.parallel': Parallel,
+      'coordinate.radar': Radar,
       'coordinate.fisheye': Fisheye,
-      'coordinate.fisheyeX': FisheyeX,
-      'coordinate.fisheyeY': FisheyeY,
       'coordinate.radial': Radial,
       'encode.constant': Constant,
       'encode.field': Field,

@@ -23,7 +23,7 @@ Promise.all([
     autoFit: true,
   });
 
-  const geoView = chart.geoView().projection({ type: 'albersUsa' });
+  const geoView = chart.geoView().coordinate({ type: 'albersUsa' });
 
   geoView
     .geoPath()

@@ -11,7 +11,7 @@ const chart = new Chart({
 
 const xy = (node) => node.encode('x', 'state').encode('y', 'population');
 
-chart.coordinate({ type: 'transpose' });
+chart.coordinate({ transform: [{ type: 'transpose' }] });
 
 chart.data({
   type: 'fetch',

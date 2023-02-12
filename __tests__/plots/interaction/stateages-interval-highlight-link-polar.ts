@@ -9,7 +9,7 @@ export function stateAgesIntervalHighlightLinkPolar(): G2Spec {
       { type: 'stackY' },
       { type: 'sortX', by: 'y', reverse: true, slice: 5 },
     ],
-    coordinates: [{ type: 'polar' }],
+    coordinate: { type: 'polar' },
     data: {
       type: 'fetch',
       value: 'data/stateages.csv',

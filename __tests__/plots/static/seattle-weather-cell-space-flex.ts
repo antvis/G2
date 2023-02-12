@@ -55,7 +55,7 @@ export function seattleWeatherCellSpaceFlex(): G2Spec {
             type: 'interval',
             paddingBottom: 50,
             transform: [{ type: 'groupX', y: 'max' }],
-            coordinates: [{ type: 'transpose' }],
+            coordinate: { transform: [{ type: 'transpose' }] },
             axis: { x: false },
             encode: {
               x: (d) => new Date(d.date).getUTCMonth(),

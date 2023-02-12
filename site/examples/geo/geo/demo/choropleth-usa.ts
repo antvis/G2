@@ -22,7 +22,7 @@ Promise.all([
 
   chart
     .geoPath()
-    .projection({ type: 'albersUsa' })
+    .coordinate({ type: 'albersUsa' })
     .data({
       value: counties,
       transform: [

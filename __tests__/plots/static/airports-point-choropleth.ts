@@ -1,5 +1,5 @@
 import { csv } from 'd3-fetch';
-import { feature, mesh } from 'topojson';
+import { feature } from 'topojson';
 import { autoType } from 'd3-dsv';
 import { G2Spec } from '../../../src';
 
@@ -10,7 +10,7 @@ export async function airportsPointChoropleth(): Promise<G2Spec> {
   const states = feature(us, us.objects.states).features;
   return {
     type: 'geoView',
-    projection: {
+    coordinate: {
       type: 'albersUsa',
     },
     children: [

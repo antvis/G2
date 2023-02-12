@@ -8,7 +8,7 @@ export function alphabetIntervalHighlightOffsetPolar(): G2Spec {
       type: 'fetch',
       value: 'data/alphabet.csv',
     },
-    coordinates: [{ type: 'polar' }],
+    coordinate: { type: 'polar' },
     encode: {
       x: 'letter',
       y: 'frequency',

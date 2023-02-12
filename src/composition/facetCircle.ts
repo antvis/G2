@@ -25,7 +25,7 @@ const setScale = useDefaultAdaptor<G2ViewTree>((options) => {
 
 const setCoordinate = useDefaultAdaptor((options: G2ViewTree) => {
   return {
-    coordinates: [{ type: 'polar' }],
+    coordinate: { type: 'polar' },
   };
 });
 

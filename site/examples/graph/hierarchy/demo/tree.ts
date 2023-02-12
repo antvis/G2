@@ -8,7 +8,7 @@ const chart = new Chart({
   paddingRight: 60,
 });
 
-chart.coordinate({ type: 'transpose' });
+chart.coordinate({ transform: [{ type: 'transpose' }] });
 
 chart
   .tree()

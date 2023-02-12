@@ -17,7 +17,7 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.coordinate({ type: 'transpose' });
+chart.coordinate({ transform: [{ type: 'transpose' }] });
 
 chart
   .interval()

@@ -117,9 +117,13 @@ export type ScaleComponent<O = Record<string, unknown>> = G2BaseComponent<
 >;
 
 export type CoordinateTransform = Transformation[];
+export type CoordinateProps = {
+  transform?: boolean;
+};
 export type CoordinateComponent<O = Record<string, unknown>> = G2BaseComponent<
   CoordinateTransform,
-  O
+  O,
+  CoordinateProps
 >;
 
 export type Palette = string[];

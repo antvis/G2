@@ -5,7 +5,7 @@ export function scoreByItemAreaRadarCustom(): G2Spec {
   return {
     type: 'view',
     data: scoreByItem,
-    coordinates: [{ type: 'polar' }],
+    coordinate: { type: 'polar' },
     axis: {
       x: { grid: true },
       y: {

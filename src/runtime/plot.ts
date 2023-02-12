@@ -27,7 +27,7 @@ import {
   PLOT_CLASS_NAME,
   VIEW_CLASS_NAME,
 } from './constant';
-import { createCoordinate } from './coordinate';
+import { coordinate2Transform, createCoordinate } from './coordinate';
 import { computeLayout, placeComponents } from './layout';
 import { useLibrary } from './library';
 import { initializeMark } from './mark';
@@ -137,7 +137,9 @@ export async function plot<T extends G2ViewTree>(
 
       // Transform children, they will be transformed into
       // standardView if they are mark or view node.
-      const transformedNodes = children.flatMap(transform);
+      const transformedNodes = children
+        .flatMap(transform)
+        .map((d) => coordinate2Transform(d, library));
       discovered.push(...transformedNodes);
 
       // Only StandardView can be treated as facet and it
@@ -312,8 +314,9 @@ async function initializeView(
   options: G2View,
   library: G2Library,
 ): Promise<[G2ViewDescriptor, G2ViewTree[]]> {
-  const state = await initializeMarks(options, library);
-  return initializeState(state, options, library);
+  const transformedOptions = coordinate2Transform(options, library);
+  const state = await initializeMarks(transformedOptions, library);
+  return initializeState(state, transformedOptions, library);
 }
 
 async function initializeMarks(

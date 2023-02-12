@@ -31,7 +31,7 @@ export function alphabetIntervalSpaceLayer(): G2Spec {
         type: 'interval',
         paddingLeft: 400,
         paddingBottom: 200,
-        coordinates: [{ type: 'theta' }],
+        coordinate: { type: 'theta' },
         transform: [{ type: 'stackY' }],
         encode: {
           y: 'frequency',
