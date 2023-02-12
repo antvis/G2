@@ -25,7 +25,10 @@ chart
   .encode('x', (d) => new Date(d.date).getUTCMonth())
   .encode('y', ['temp_max', 'temp_min'])
   .scale('y', { nice: true })
-  .axis('y', { titleFill: '#85C5A6', title: 'Avg. Temperature (°C)' })
+  .axis('y', {
+    title: 'Avg. Temperature (°C)',
+    style: { titleFill: '#85C5A6' },
+  })
   .style('fill', '#85c5A6')
   .style('fillOpacity', 0.3);
 
@@ -41,7 +44,9 @@ chart
     position: 'right',
     grid: null,
     title: 'Precipitation (inches)',
-    titleFill: 'steelblue',
+    style: {
+      titleFill: 'steelblue',
+    },
   });
 
 chart.render();

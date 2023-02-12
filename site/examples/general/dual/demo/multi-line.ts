@@ -90,9 +90,11 @@ chart
   .encode('shape', 'smooth')
   .scale('y', { independent: true, domainMax: 30 })
   .axis('y', {
-    titleFill: '#EE6666',
     title: 'Temperature (°C)',
     grid: null,
+    style: {
+      titleFill: '#EE6666',
+    },
   });
 
 chart
@@ -104,8 +106,10 @@ chart
   .style('fillOpacity', 0.8)
   .axis('y', {
     position: 'right',
-    titleFill: '#5470C6',
     title: 'Evaporation (ml)',
+    style: {
+      titleFill: '#5470C6',
+    },
   });
 
 chart
@@ -118,9 +122,11 @@ chart
   .style('lineDash', [2, 2])
   .axis('y', {
     position: 'right',
-    titleFill: '#91CC75',
     title: 'Precipitation (ml)',
     grid: null,
+    style: {
+      titleFill: '#91CC75',
+    },
   });
 
 chart.render();

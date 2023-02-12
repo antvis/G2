@@ -20,9 +20,11 @@ export function weatherLineMultiScrollbar(): G2Spec {
         },
         axis: {
           y: {
-            titleFill: '#EE6666',
             title: 'Temperature (°C)',
             grid: null,
+            style: {
+              titleFill: '#EE6666',
+            },
           },
         },
         scrollbar: { y: {} },
@@ -42,9 +44,11 @@ export function weatherLineMultiScrollbar(): G2Spec {
         },
         axis: {
           y: {
-            titleFill: '#5470C6',
             title: 'Temperature (°C)',
             grid: null,
+            style: {
+              titleFill: '#5470C6',
+            },
           },
         },
         scrollbar: { y: { position: 'right' } },
@@ -63,9 +67,11 @@ export function weatherLineMultiScrollbar(): G2Spec {
         axis: {
           y: {
             position: 'right',
-            titleFill: '#91CC75',
             title: 'Precipitation (ml)',
             grid: null,
+            style: {
+              titleFill: '#91CC75',
+            },
           },
         },
       },
