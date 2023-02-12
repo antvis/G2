@@ -175,3 +175,4 @@ export { aaplLineScrollbar } from './aapl-line-scrollbar';
 export { alphabetIntervalRenderToMountedGroup } from './alphabet-interval-render-to-mounted-element';
 export { weatherLineMultiSlider } from './weather-line-multi-slider';
 export { weatherLineMultiScrollbar } from './weather-line-multi-scrollbar';
+export { population2015IntervalBubbleCoordinate } from './population2015-interval-bubble-coordinate';
