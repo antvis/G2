@@ -40,7 +40,6 @@ export const WaveIn: AC<WaveInOptions> = (options) => {
       fillOpacity,
       strokeOpacity,
       opacity,
-      ...args
     } = style;
 
     const { points, y, y1 } = __data__;

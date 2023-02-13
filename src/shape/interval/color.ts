@@ -79,6 +79,8 @@ export function rect(
   return select(new Path({}))
     .style('path', path(arcObject))
     .style('transform', `translate(${center[0]}, ${center[1]})`)
+    .style('radius', radius)
+    .style('inset', inset)
     .call(applyStyle, rest)
     .node();
 }
