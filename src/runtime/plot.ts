@@ -424,8 +424,20 @@ function initializeState(
     'theme',
     library,
   );
+  const [useLabelTransform] = useLibrary<
+    G2LabelTransformOptions,
+    LabelTransformComponent,
+    LabelTransform
+  >('labelTransform', library);
 
-  const { key, frame = false, theme: partialTheme, clip, style = {} } = options;
+  const {
+    key,
+    frame = false,
+    theme: partialTheme,
+    clip,
+    style = {},
+    labelTransform = [],
+  } = options;
 
   const theme = useTheme(inferTheme(partialTheme));
 
@@ -515,6 +527,9 @@ function initializeState(
     clip,
     scale: scaleInstance,
     style: framedStyle,
+    labelTransform: composeLabelTransform(
+      labelTransform.map(useLabelTransform),
+    ),
   };
 
   return [view, children];
@@ -815,7 +830,9 @@ function plotLabel(
   const { coordinate } = view;
   for (const [label, shapes] of labelGroups) {
     const { transform = [] } = label;
-    const transformFunction = compose(transform.map(useLabelTransform));
+    const transformFunction = composeLabelTransform(
+      transform.map(useLabelTransform),
+    );
     transformFunction(shapes, coordinate);
   }
 
@@ -823,6 +840,15 @@ function plotLabel(
   if (labelTransform) {
     labelTransform(labelShapes, coordinate);
   }
+}
+
+function composeLabelTransform(transform: LabelTransform[]): LabelTransform {
+  return (labels, coordinate) => {
+    for (const t of transform) {
+      labels = t(labels, coordinate);
+    }
+    return labels;
+  };
 }
 
 function getLabels(
