@@ -40,7 +40,7 @@ export type G2ViewDescriptor = {
   layout: Layout;
   key: string;
   clip: boolean;
-  labelTransform?: LabelTransform;
+  labelTransform: LabelTransform;
   // @todo More accurate type.
   style: Record<string, any>;
 };
