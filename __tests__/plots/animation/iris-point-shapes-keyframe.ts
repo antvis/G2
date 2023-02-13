@@ -28,6 +28,4 @@ export function irisPointShapesKeyframe(): G2Spec {
   };
 }
 
-irisPointShapesKeyframe.only = true;
-
 irisPointShapesKeyframe.intervals = [false, false, [333, 666]];
