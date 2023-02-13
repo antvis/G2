@@ -19,3 +19,4 @@ export { aaplAreaKeyframe } from './aapl-area-keyframe';
 export { profitIntervalRange } from './profit-interval-range';
 export { irisPointShapesKeyframe } from './iris-point-shapes-keyframe';
 export { populationIntervalRoseKeyframe } from './population-interval-rose-keyframe';
+export { population2015IntervalWaveInRadius } from './population2015-interval-wave-in-radius';
