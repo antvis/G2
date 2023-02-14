@@ -24,12 +24,11 @@ chart
   })
   .encode('x', 'letter')
   .encode('y', 'frequency')
-  .axis('y', { labelFormatter: '.0%' });
+  .axis('y', { labelFormatter: '.0%' })
+  .state('active', { fill: 'orange' })
+  .state('inactive', { opacity: 0.5 });
 
-chart.interaction('elementHighlight', {
-  highlightedFill: 'orange',
-  unhighlightedOpacity: 0.5,
-});
+chart.interaction('elementHighlight', true);
 
 chart.render();
 ```

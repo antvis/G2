@@ -28,12 +28,11 @@ chart
   .encode('x', 'state')
   .encode('y', 'population')
   .encode('color', 'age')
-  .axis('y', { labelFormatter: '~s' });
+  .axis('y', { labelFormatter: '~s' })
+  .state('active', { fill: 'red', linkFillOpacity: 0.5 })
+  .state('inactive', { opacity: 0.5 });
 
 chart.interaction('elementHighlightByColor', {
-  highlightedFill: 'red',
-  unhighightedOpacity: 0.5,
-  linkFillOpacity: 0.5,
   link: true,
 });
 
