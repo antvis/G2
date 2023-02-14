@@ -35,6 +35,9 @@ export function cars3LineBrushAxis(): G2Spec {
           color: { palette: 'brBG', offset: (t) => 1 - t },
         },
         legend: false,
+        state: {
+          inactive: { stroke: 'grey', opacity: 0.5 },
+        },
         axis: Object.fromEntries(
           Array.from({ length: position.length }, (_, i) => [
             `position${i === 0 ? '' : i}`,
@@ -57,9 +60,7 @@ export function cars3LineBrushAxis(): G2Spec {
       },
     ],
     interaction: {
-      brushAxisHighlight: {
-        unhighlightedStroke: 'grey',
-      },
+      brushAxisHighlight: true,
     },
   };
 }

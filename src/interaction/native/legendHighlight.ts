@@ -1,11 +1,17 @@
 import { group } from 'd3-array';
 import { subObject } from '../../utils/helper';
-import { selectG2Elements, useState } from './utils';
+import {
+  mergeState,
+  selectG2Elements,
+  useState,
+  createValueof,
+  createDatumof,
+} from './utils';
 import { markerOf, labelOf, itemsOf, legendsOf, dataOf } from './legendFilter';
 
-export function LegendHighlight({ channel, ...rest }) {
+export function LegendHighlight() {
   return (context) => {
-    const { container, view } = context;
+    const { container, view, options } = context;
     const legends = legendsOf(container);
     const elements = selectG2Elements(container);
     const channelOf = (legend) => {
@@ -17,6 +23,10 @@ export function LegendHighlight({ channel, ...rest }) {
       } = view;
       return scale;
     };
+    const markState = mergeState(options, ['active', 'inactive']);
+    const valueof = createValueof(elements, createDatumof(view));
+
+    // Bind events for each legend.
     for (const legend of legends) {
       const datumOf = (item) => {
         const { data } = legend.attributes;
@@ -30,9 +40,13 @@ export function LegendHighlight({ channel, ...rest }) {
       const elementGroup = group<any, any>(elements, (d) =>
         scale.invert(d.__data__[channel]),
       );
-      const { setState, removeState } = useState(rest);
-      const markerStyle = subObject(rest, 'marker');
-      const labelStyle = subObject(rest, 'label');
+      const { state: legendState = {} } = legend.attributes;
+      const { inactive = {} } = legendState;
+      const { setState, removeState } = useState(markState, valueof);
+
+      // Handle styles of inner item.
+      const markerStyle = { inactive: subObject(inactive, 'marker') };
+      const labelStyle = { inactive: subObject(inactive, 'label') };
       const { setState: setM, removeState: removeM } = useState(markerStyle);
       const { setState: setL, removeState: removeL } = useState(labelStyle);
       const updateLegendState = (highlight) => {
@@ -40,11 +54,11 @@ export function LegendHighlight({ channel, ...rest }) {
           const marker = markerOf(item);
           const label = labelOf(item);
           if (item === highlight || highlight === null) {
-            removeM(marker, 'unhighlighted');
-            removeL(label, 'unhighlighted');
+            removeM(marker, 'inactive');
+            removeL(label, 'inactive');
           } else {
-            setM(marker, 'unhighlighted');
-            setL(label, 'unhighlighted');
+            setM(marker, 'inactive');
+            setL(label, 'inactive');
           }
         }
       };
@@ -57,8 +71,8 @@ export function LegendHighlight({ channel, ...rest }) {
           const value = datumOf(item);
           const elementSet = new Set(elementGroup.get(value));
           for (const e of elements) {
-            if (elementSet.has(e)) setState(e, 'highlighted');
-            else setState(e, 'unhighlighted');
+            if (elementSet.has(e)) setState(e, 'active');
+            else setState(e, 'inactive');
           }
           updateLegendState(item);
         };
@@ -69,7 +83,7 @@ export function LegendHighlight({ channel, ...rest }) {
       // Add listener for the legend group.
       const pointerleave = () => {
         for (const e of elements) {
-          removeState(e, 'unhighlighted', 'highlighted');
+          removeState(e, 'inactive', 'active');
         }
         updateLegendState(null);
       };

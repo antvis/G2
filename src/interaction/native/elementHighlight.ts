@@ -1,6 +1,6 @@
 import { DisplayObject } from '@antv/g';
+import { deepMix } from '@antv/util';
 import { group } from 'd3-array';
-import { isPolar, isTranspose } from '../../utils/coordinate';
 import { subObject } from '../../utils/helper';
 import {
   createValueof,
@@ -8,9 +8,9 @@ import {
   selectG2Elements,
   useState,
   renderLink,
-  applyDefaultsHighlightedStyle,
   renderBackground,
   selectPlotArea,
+  mergeState,
   offsetTransform,
 } from './utils';
 
@@ -28,8 +28,7 @@ export function elementHighlight(
     delay = 60, // delay to unhighlighted element
     scale,
     coordinate,
-    offset = 0,
-    ...rest
+    state = {},
   }: Record<string, any>,
 ) {
   const elements = elementsof(root);
@@ -41,24 +40,29 @@ export function elementHighlight(
     valueof,
     link,
     coordinate,
-    ...subObject(rest, 'link'),
+    ...subObject(state.active, 'link'),
   });
   const [appendBackground, removeBackground, isBackground] = renderBackground({
     scale,
     coordinate,
     background,
     valueof,
-    ...subObject(rest, 'background'),
+    ...subObject(state.active, 'background'),
   });
-  const elementStyle = {
-    ...(offset !== 0 && {
-      // Apply translate to mock slice out.
-      highlightedTransform: (_, i) => {
-        return offsetTransform(elements[i], offset, coordinate);
-      },
-    }),
-    ...rest,
-  };
+
+  const elementStyle = deepMix(state, {
+    active: {
+      ...(state.active?.offset && {
+        //Apply translate to mock slice out.
+        transform: (...params) => {
+          const value = state.active.offset(...params);
+          const [, i] = params;
+          return offsetTransform(elements[i], value, coordinate);
+        },
+      }),
+    },
+  });
+
   const { setState, removeState, hasState } = useState(elementStyle, valueof);
 
   let out; // Timer for delaying unhighlighted.
@@ -71,9 +75,9 @@ export function elementHighlight(
     const groupSet = new Set(group);
     for (const e of elements) {
       if (groupSet.has(e)) {
-        if (!hasState(e, 'highlighted')) setState(e, 'highlighted');
+        if (!hasState(e, 'active')) setState(e, 'active');
       } else {
-        setState(e, 'unhighlighted');
+        setState(e, 'inactive');
         removeLink(e);
       }
       if (e !== element) removeBackground(e);
@@ -92,7 +96,7 @@ export function elementHighlight(
 
   const unhighlighted = () => {
     for (const e of elements) {
-      removeState(e, 'unhighlighted', 'highlighted');
+      removeState(e, 'active', 'inactive');
       removeBackground(e);
       removeLink(e);
     }
@@ -125,18 +129,31 @@ export function elementHighlight(
   };
 }
 
-export function ElementHighlight({ delay, ...rest }) {
+export function ElementHighlight({
+  delay,
+  createGroup,
+  background = false,
+  link = false,
+  ...rest
+}) {
   return (context) => {
-    const { container, view } = context;
+    const { container, view, options } = context;
     const { scale, coordinate } = view;
     const plotArea = selectPlotArea(container);
     return elementHighlight(plotArea, {
-      ...applyDefaultsHighlightedStyle(rest),
       elements: selectG2Elements,
       datum: createDatumof(view),
-      scale,
+      groupKey: createGroup ? createGroup(view) : undefined,
       coordinate,
+      scale,
+      state: mergeState(options, [
+        ['active', background ? {} : { lineWidth: '1', stroke: '#000' }],
+        'inactive',
+      ]),
+      background,
+      link,
       delay,
+      ...rest,
     });
   };
 }

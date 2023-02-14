@@ -18,10 +18,14 @@ export function waffleCellHighlightBackground(): G2Spec {
       inset: 5,
       stroke: '#000',
     },
+    state: {
+      active: {
+        backgroundFill: 'red',
+      },
+    },
     interaction: {
       elementHighlight: {
         background: true,
-        backgroundFill: 'red',
       },
     },
   };

@@ -9,6 +9,11 @@ export function profitIntervalLegendFilterOrdinal(): G2Spec {
     type: 'interval',
     data: profit,
     axis: { x: { animate: false }, y: { labelFormatter: '~s' } },
+    legend: {
+      color: {
+        state: { unselected: { labelOpacity: 0.5, markerOpacity: 0.5 } },
+      },
+    },
     encode: {
       x: 'month',
       y: ['end', 'start'],
@@ -16,10 +21,7 @@ export function profitIntervalLegendFilterOrdinal(): G2Spec {
         d.month === 'Total' ? 'Total' : d.profit > 0 ? 'Increase' : 'Decrease',
     },
     interaction: {
-      legendFilter: {
-        labelUnselectedOpacity: 0.5,
-        markerUnselectedOpacity: 0.5,
-      },
+      legendFilter: true,
     },
   };
 }

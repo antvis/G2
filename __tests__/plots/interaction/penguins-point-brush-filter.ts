@@ -14,10 +14,11 @@ export function penguinsPointBrushFilter(): G2Spec {
       x: 'culmen_length_mm',
       y: 'culmen_depth_mm',
     },
+    state: {
+      inactive: { stroke: 'gray' },
+    },
     interaction: {
-      brushFilter: {
-        unhighlightedStroke: 'gray',
-      },
+      brushFilter: true,
     },
   };
 }

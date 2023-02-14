@@ -25,11 +25,9 @@ export function stateAgesIntervalActiveByColor(): G2Spec {
     scale: {
       x: { paddingInner: 0.2 },
     },
+    state: { active: { fill: 'red' }, inactive: { opacity: 0.6 } },
     interaction: {
-      elementHighlightByColor: {
-        highlightedFill: 'red',
-        unhighlightedOpacity: 0.6,
-      },
+      elementHighlightByColor: true,
     },
   };
 }

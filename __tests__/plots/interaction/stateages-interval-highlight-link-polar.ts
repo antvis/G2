@@ -22,13 +22,19 @@ export function stateAgesIntervalHighlightLinkPolar(): G2Spec {
       color: 'age',
     },
     axis: { y: false },
+    state: {
+      active: {
+        stroke: '#000',
+        strokeWidth: 1,
+        linkFillOpacity: 0.5,
+      },
+      inactive: {
+        opacity: 0.6,
+      },
+    },
     interaction: {
       elementHighlightByColor: {
         link: true,
-        highlightedStroke: '#000',
-        highlightedStrokeWidth: 1,
-        unhighlightedOpacity: 0.6,
-        linkFillOpacity: 0.5,
       },
     },
   };

@@ -49,3 +49,4 @@ export { alphabetIntervalSelectBackground } from './alphabet-interval-select-bac
 export { alphabetIntervalSelectOffsetPolar } from './alphabet-interval-select-offset-polar';
 export { profitIntervalLegendHighlight } from './profit-interval-legend-highlight';
 export { alphabetIntervalBubbleInteraction } from './alphabet-interval-bubble-interaction';
+export { moviesIntervalHighlightMultipleState } from './movies-interval-highlight-multiple-state';

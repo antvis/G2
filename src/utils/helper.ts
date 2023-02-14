@@ -1,5 +1,5 @@
 import { DisplayObject } from '@antv/g';
-import { lowerFirst } from '@antv/util';
+import { lowerFirst, upperFirst } from '@antv/util';
 
 export function identity<T>(x: T): T {
   return x;
@@ -86,11 +86,22 @@ export function maybeSubObject(
   obj: Record<string, any>,
   prefix: string,
 ): Record<string, any> {
-  const entries = Object.entries(obj)
+  const entries = Object.entries(obj || {})
     .filter(([key]) => key.startsWith(prefix))
     .map(([key, value]) => [lowerFirst(key.replace(prefix, '').trim()), value])
     .filter(([key]) => !!key);
   return entries.length === 0 ? null : Object.fromEntries(entries);
+}
+
+export function prefixObject(
+  obj: Record<string, any>,
+  prefix: string,
+): Record<string, any> {
+  return Object.fromEntries(
+    Object.entries(obj).map(([key, value]) => {
+      return [`${prefix}${upperFirst(key)}`, value];
+    }),
+  );
 }
 
 export function maybePercentage(x: number | string, size: number) {

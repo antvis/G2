@@ -1,4 +1,4 @@
-import { Geometry, Adjust } from './geometry';
+import { Geometry } from './geometry';
 import { Theme } from './theme';
 import { Coordinate, CoordinateTransform } from './coordinate';
 import { Interaction } from './interaction';

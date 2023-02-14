@@ -20,7 +20,6 @@ import {
   isRadial,
   isTheta,
   isTranspose,
-  isNonCartesian,
   radiusOf,
 } from '../utils/coordinate';
 import { capitalizeFirst } from '../utils/helper';

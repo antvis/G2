@@ -17,10 +17,12 @@ export function alphabetIntervalSelectSingle(): G2Spec {
       y: 'frequency',
       color: 'steelblue',
     },
+    state: {
+      selected: { fill: 'red' },
+      unselected: { opacity: 0.6 },
+    },
     interaction: {
       elementSelect: {
-        selectedFill: 'red',
-        unselectedOpacity: 0.6,
         single: true,
       },
     },
