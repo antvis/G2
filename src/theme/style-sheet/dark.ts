@@ -357,22 +357,22 @@ export const createDarkStyleSheet = (cfg: StyleSheetCfg = {}) => {
 
     // -------------------- Slider 组件样式--------------------
     /** slider 滑道高度 */
-    cSliderRailHieght: 16,
+    cSliderRailHieght: 20,
     /** slider 滑道背景色 */
     cSliderBackgroundFillColor: '#416180',
     /** slider 滑道背景色透明度 */
     cSliderBackgroundFillOpacity: 0.05,
     /** slider 滑道前景色 */
-    cSliderForegroundFillColor: '#5B8FF9',
+    cSliderForegroundFillColor: '#3485F8',
     /** slider 滑道前景色透明度 */
-    cSliderForegroundFillOpacity: 0.15,
+    cSliderForegroundFillOpacity: 0.06,
     // slider handlerStyle 手柄样式
     /** slider 手柄高度 */
-    cSliderHandlerHeight: 24,
+    cSliderHandlerHeight: 12,
     /** Slider 手柄宽度 */
-    cSliderHandlerWidth: 10,
+    cSliderHandlerWidth: 6,
     /** Slider 手柄背景色 */
-    cSliderHandlerFillColor: '#F7F7F7',
+    cSliderHandlerFillColor: '#FFF',
     /** Slider 手柄背景色透明度 */
     cSliderHandlerFillOpacity: 1,
     /** Slider 手柄高亮背景色 */

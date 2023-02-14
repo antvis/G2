@@ -193,7 +193,7 @@ export default class Slider extends Controller<SliderOption> {
    */
   private getSliderCfg() {
     let cfg: Writeable<SliderCfg> & { x: number; y: number; width: number; minText: string; maxText: string } = {
-      height: 16,
+      height: 20,
       start: 0,
       end: 1,
       minText: '',
