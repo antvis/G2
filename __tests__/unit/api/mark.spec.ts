@@ -58,7 +58,9 @@ function setOptions(node) {
     .scrollbar('x', {})
     .label({ text: 'hello' })
     .coordinate({ type: 'polar' })
-    .interaction({ type: 'tooltip' });
+    .interaction({ type: 'tooltip' })
+    .state('active', { fill: 'red' })
+    .state('inactive', { fill: 'blue' });
 }
 
 function setCompositeOptions(node) {
@@ -101,6 +103,10 @@ function getOptions() {
     labels: [{ text: 'hello' }],
     coordinate: { type: 'polar' },
     interaction: { type: 'tooltip' },
+    state: {
+      active: { fill: 'red' },
+      inactive: { fill: 'blue' },
+    },
   };
 }
 
