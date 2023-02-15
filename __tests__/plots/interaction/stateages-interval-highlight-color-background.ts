@@ -24,10 +24,12 @@ export function stateAgesIntervalHighlightColorBackground(): G2Spec {
     axis: {
       y: { labelFormatter: '~s' },
     },
+    state: {
+      active: { fill: 'red' },
+      inactive: { opacity: 0.6 },
+    },
     interaction: {
       elementHighlightByColor: {
-        highlightedFill: 'red',
-        unhighlightedOpacity: 0.6,
         background: true,
       },
     },

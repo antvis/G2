@@ -20,11 +20,12 @@ export function stateAgesIntervalSelectByX(): G2Spec {
       y: 'population',
       color: 'age',
     },
+    state: {
+      selected: { fill: 'red' },
+      unselected: { opacity: 0.6 },
+    },
     interaction: {
-      elementSelectByX: {
-        selectedFill: 'red',
-        unselectedOpacity: 0.6,
-      },
+      elementSelectByX: true,
     },
   };
 }

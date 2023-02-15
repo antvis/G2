@@ -24,12 +24,11 @@ chart
   })
   .encode('x', 'letter')
   .encode('y', 'frequency')
-  .axis('y', { labelFormatter: '.0%' });
+  .axis('y', { labelFormatter: '.0%' })
+  .state('selected', { fill: 'orange' })
+  .state('unselected', { opacity: 0.5 });
 
-chart.interaction('elementSelect', {
-  selectedFill: 'orange',
-  unselectedOpacity: 0.5,
-});
+chart.interaction('elementSelect', true);
 
 chart.render();
 ```

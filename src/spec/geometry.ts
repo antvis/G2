@@ -122,13 +122,22 @@ export type BaseGeometry<
   transform?: Transform[];
   encode?: Partial<Record<C, Encode | Encode[]>>;
   scale?: Partial<Record<C, Scale>>;
+  state?: StateOptions;
   axis?:
     | Partial<
-        Record<'x' | 'y' | 'position' | `position${number}`, Axis | boolean>
+        Record<
+          'x' | 'y' | 'position' | `position${number}`,
+          (Axis & { state?: StateOptions }) | boolean
+        >
       >
     | boolean;
   legend?:
-    | Partial<Record<'size' | 'color' | 'shape' | 'opacity', Legend | boolean>>
+    | Partial<
+        Record<
+          'size' | 'color' | 'shape' | 'opacity',
+          (Legend & { state?: StateOptions }) | boolean
+        >
+      >
     | boolean;
   slider?: Partial<Record<'x' | 'y', any>>;
   scrollbar?: Partial<Record<'x' | 'y', any>>;
@@ -176,7 +185,12 @@ export type BaseGeometry<
   zIndex?: number;
 };
 
-export type Adjust = { type: 'pack' };
+type StateOptions = {
+  active?: Record<string, any>; // @todo
+  selected?: Record<string, any>; // @todo
+  inactive?: Record<string, any>; // @todo
+  unselected?: Record<string, any>; // @todo
+};
 
 export type Axis = {
   tickCount?: number;

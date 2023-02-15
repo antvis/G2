@@ -34,12 +34,16 @@ export function penguinsPointBrushMatrix(): G2Spec {
           transform: 'scale(1, 1)',
           transformOrigin: 'center center',
         },
+        state: {
+          inactive: {
+            fill: 'black',
+            fillOpacity: 0.5,
+            transform: 'scale(0.5, 0.5)',
+          },
+        },
         interaction: {
           brushHighlight: {
             brushKey: 'point',
-            unhighlightedFill: 'black',
-            unhighlightedFillOpacity: 1,
-            unhighlightedTransform: 'scale(0.5, 0.5)',
           },
         },
       },

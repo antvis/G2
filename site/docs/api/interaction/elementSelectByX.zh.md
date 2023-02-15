@@ -29,12 +29,11 @@ chart
   .encode('x', 'state')
   .encode('y', 'population')
   .encode('color', 'age')
-  .axis('y', { labelFormatter: '~s' });
+  .axis('y', { labelFormatter: '~s' })
+  .state('selected', { fill: 'red' })
+  .state('unselected', { opacity: 0.5 });
 
-chart.interaction('elementSelectByX', {
-  selectedFill: 'red',
-  unselectedOpacity: 0.5,
-});
+chart.interaction('elementSelectByX', true);
 
 chart.render();
 ```

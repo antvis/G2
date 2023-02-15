@@ -1,5 +1,6 @@
 import { DisplayObject } from '@antv/g';
 import { group } from 'd3-array';
+import { deepMix } from '@antv/util';
 import { subObject } from '../../utils/helper';
 import {
   createValueof,
@@ -7,10 +8,10 @@ import {
   selectG2Elements,
   useState,
   renderLink,
-  applyDefaultsHighlightedStyle,
   renderBackground,
   selectPlotArea,
   offsetTransform,
+  mergeState,
 } from './utils';
 
 /**
@@ -26,9 +27,8 @@ export function elementSelect(
     single = false, // single select or not
     coordinate,
     background = false,
-    offset = 0,
     scale,
-    ...rest
+    state = {},
   }: Record<string, any>,
 ) {
   const elements = elementsof(root);
@@ -40,7 +40,7 @@ export function elementSelect(
     elements,
     valueof,
     coordinate,
-    ...subObject(rest, 'link'),
+    ...subObject(state.selected, 'link'),
   });
 
   const [appendBackground, removeBackground] = renderBackground({
@@ -48,18 +48,22 @@ export function elementSelect(
     coordinate,
     scale,
     valueof,
-    ...subObject(rest, 'background'),
+    ...subObject(state.selected, 'background'),
   });
 
-  const elementStyle = {
-    ...(offset !== 0 && {
-      // Apply translate to mock slice out.
-      selectedTransform: (_, i) => {
-        return offsetTransform(elements[i], offset, coordinate);
-      },
-    }),
-    ...rest,
-  };
+  const elementStyle = deepMix(state, {
+    selected: {
+      ...(state.selected?.offset && {
+        //Apply translate to mock slice out.
+        transform: (...params) => {
+          const value = state.selected.offset(...params);
+          const [, i] = params;
+          return offsetTransform(elements[i], value, coordinate);
+        },
+      }),
+    },
+  });
+
   const { setState, removeState, hasState } = useState(elementStyle, valueof);
 
   const clear = () => {
@@ -140,18 +144,29 @@ export function elementSelect(
   };
 }
 
-export function ElementSelect(options) {
+export function ElementSelect({
+  createGroup,
+  background = false,
+  link = false,
+  ...rest
+}) {
   return (context) => {
-    const { container, view } = context;
+    const { container, view, options } = context;
     const { coordinate, scale } = view;
     const plotArea = selectPlotArea(container);
     return elementSelect(plotArea, {
-      ...options,
-      ...applyDefaultsHighlightedStyle(options),
       elements: selectG2Elements,
       datum: createDatumof(view),
+      groupKey: createGroup ? createGroup(view) : undefined,
       coordinate,
       scale,
+      state: mergeState(options, [
+        ['selected', background ? {} : { lineWidth: '1', stroke: '#000' }],
+        'unselected',
+      ]),
+      background,
+      link,
+      ...rest,
     });
   };
 }

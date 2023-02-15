@@ -9,6 +9,8 @@ import {
   setCursor,
   brushMousePosition,
   selectFacetG2Elements,
+  mergeState,
+  selectFacetViews,
 } from './utils';
 
 function intersect(bbox1: any, bbox2: any) {
@@ -248,16 +250,26 @@ export function brush(
   };
 }
 
+function selectSiblingViews(target, viewInstances, brushKey) {
+  return viewInstances.filter((d) => {
+    if (d === target) return false;
+    const { interaction = {} } = d.options;
+    return Object.values(interaction as Record<string, any>).find(
+      (d) => d.brushKey === brushKey,
+    );
+  });
+}
+
 function selectSiblingContainers(target, viewInstances, brushKey) {
-  return viewInstances
-    .filter((d) => {
-      if (d === target) return false;
-      const { interaction = {} } = d.options;
-      return Object.values(interaction as Record<string, any>).find(
-        (d) => d.brushKey === brushKey,
-      );
-    })
-    .map((d) => selectPlotArea(d.container));
+  return selectSiblingViews(target, viewInstances, brushKey).map((d) =>
+    selectPlotArea(d.container),
+  );
+}
+
+function selectSiblingOptions(target, viewInstances, brushKey) {
+  return selectSiblingViews(target, viewInstances, brushKey).map(
+    (d) => d.options,
+  );
 }
 
 /**
@@ -279,6 +291,7 @@ export function brushHighlight(
       const { x, y, width, height } = root.style;
       return { x, y, width, height };
     },
+    state = {},
     ...rest
   },
 ) {
@@ -287,7 +300,7 @@ export function brushHighlight(
   const siblingElements = siblings.flatMap(elementof);
   const valueof = createValueof(elements, datum);
   const brushStyle = subObject(rest, 'mask');
-  const { setState, removeState } = useState(rest, valueof);
+  const { setState, removeState } = useState(state, valueof);
   const clonedElement = new Map();
   const {
     width: rootWidth,
@@ -301,7 +314,7 @@ export function brushHighlight(
 
   const brushended = () => {
     for (const element of [...elements, ...siblingElements]) {
-      removeState(element, 'highlighted', 'unhighlighted');
+      removeState(element, 'active', 'inactive');
     }
   };
 
@@ -309,7 +322,7 @@ export function brushHighlight(
     // Hide brush for the sibling view.
     for (const sibling of siblings) sibling.brush?.remove();
 
-    // Store the key of the highlighted element.
+    // Store the key of the active element.
     const keys = new Set();
 
     // Highlight and store selected elements.
@@ -318,22 +331,22 @@ export function brushHighlight(
       const [ex, ey] = min;
       const [ex1, ey1] = max;
       if (!intersect([ex, ey, ex1, ey1], [x, y, x1, y1])) {
-        setState(element, 'unhighlighted');
+        setState(element, 'inactive');
       } else {
-        setState(element, 'highlighted');
+        setState(element, 'active');
         keys.add(key(element));
       }
     }
 
     // Highlight elements with same key in sibling view.
     for (const element of siblingElements) {
-      if (keys.has(key(element))) setState(element, 'highlighted');
-      else setState(element, 'unhighlighted');
+      if (keys.has(key(element))) setState(element, 'active');
+      else setState(element, 'inactive');
     }
   };
 
   const seriesBrushend = () => {
-    for (const element of elements) removeState(element, 'unhighlighted');
+    for (const element of elements) removeState(element, 'inactive');
     for (const cloned of clonedElement.values()) cloned.remove();
     clonedElement.clear();
   };
@@ -341,6 +354,7 @@ export function brushHighlight(
   const seriesBrushed = (x, y, x1, y1) => {
     const clone = (element) => {
       const cloned = element.cloneNode();
+      cloned.__data__ = element.__data__;
       element.parentNode.appendChild(cloned);
       clonedElement.set(element, cloned);
       return cloned;
@@ -355,8 +369,8 @@ export function brushHighlight(
           height: y1 - y,
         },
       });
-      setState(element, 'unhighlighted');
-      setState(cloned, 'highlighted');
+      setState(element, 'inactive');
+      setState(cloned, 'active');
     }
   };
 
@@ -372,15 +386,16 @@ export function brushHighlight(
 
 export function BrushHighlight({ facet, brushKey, ...rest }) {
   return (target, viewInstances) => {
-    const { container, view } = target;
+    const { container, view, options } = target;
     const plotArea = selectPlotArea(container);
     const defaultOptions = {
       maskFill: '#777',
       maskFillOpacity: '0.3',
       maskStroke: '#fff',
-      unhighlightedOpacity: 0.5,
       reverse: false,
     };
+    const defaultStates = ['active', ['inactive', { opacity: 0.5 }]];
+
     if (facet) {
       const bbox = plotArea.getBounds();
       const x = bbox.min[0];
@@ -389,13 +404,15 @@ export function BrushHighlight({ facet, brushKey, ...rest }) {
       const y1 = bbox.max[1];
       return brushHighlight(plotArea.parentNode.parentNode, {
         elements: () => selectFacetG2Elements(target, viewInstances),
-        datum: createDatumof(view),
+        datum: createDatumof(
+          selectFacetViews(target, viewInstances).map((d) => d.view),
+        ),
         brushRegion: (x, y, x1, y1) => [x, y, x1, y1],
-        maskFill: '#777',
-        maskFillOpacity: '0.3',
-        maskStroke: '#fff',
-        unhighlightedOpacity: 0.5,
         extent: [x, y, x1, y1],
+        state: mergeState(
+          selectFacetViews(target, viewInstances).map((d) => d.options),
+          defaultStates,
+        ),
         ...defaultOptions,
         ...rest,
       });
@@ -405,9 +422,18 @@ export function BrushHighlight({ facet, brushKey, ...rest }) {
       elements: selectG2Elements,
       key: (element) => element.__data__.key,
       siblings: () => selectSiblingContainers(target, viewInstances, brushKey),
-      datum: createDatumof(view),
+      datum: createDatumof([
+        view,
+        ...selectSiblingViews(target, viewInstances, brushKey).map(
+          (d) => d.view,
+        ),
+      ]),
       brushRegion: (x, y, x1, y1) => [x, y, x1, y1],
       extent: undefined,
+      state: mergeState(
+        [options, ...selectSiblingOptions(target, viewInstances, brushKey)],
+        defaultStates,
+      ),
       ...defaultOptions,
       ...rest,
     });

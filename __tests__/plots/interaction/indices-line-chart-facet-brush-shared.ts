@@ -28,6 +28,9 @@ export async function indicesLineChartFacetBrushShared(): Promise<G2Spec> {
           key: 'Symbol',
           title: (d) => new Date(d.Date).toUTCString(),
         },
+        state: {
+          inactive: { opacity: '0.3' },
+        },
       },
     ],
     interaction: {
@@ -36,7 +39,6 @@ export async function indicesLineChartFacetBrushShared(): Promise<G2Spec> {
         shared: true,
         reverse: true,
         series: true,
-        unhighlightedStrokeOpacity: '0.3',
       },
     },
   };

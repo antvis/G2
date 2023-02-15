@@ -16,11 +16,14 @@ export function alphabetIntervalActiveInactive(): G2Spec {
       y: 'frequency',
       color: 'steelblue',
     },
-    interaction: {
-      elementHighlight: {
-        highlightedFill: (d) => (d.frequency > 0.05 ? 'red' : 'yellow'),
-        unhighlightedOpacity: 0.6,
+    state: {
+      active: {
+        fill: (d) => (d.frequency > 0.05 ? 'red' : 'yellow'),
       },
+      inactive: { opacity: 0.6 },
+    },
+    interaction: {
+      elementHighlight: true,
     },
   };
 }
