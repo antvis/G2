@@ -73,7 +73,7 @@ function legendFilter(
     datum, // given the legend returns the value
     filter, // invoke when dispatch filter event,
     setAttribute, // setter for set element style,
-    ...options // style options
+    state = {} as Record<string, any>, // state options
   },
 ) {
   // Index handler by item.
@@ -81,17 +81,15 @@ function legendFilter(
   const itemPointerenter = new Map();
   const itemPointerout = new Map();
 
-  // State and styles.
-  const style =
-    Object.keys(options).length === 0
-      ? {
-          labelUnselectedFill: '#aaa',
-          markerUnselectedFill: '#aaa',
-          markerUnselectedStroke: '#aaa',
-        }
-      : options;
-  const markerStyle = subObject(style, 'marker');
-  const labelStyle = subObject(style, 'label');
+  const {
+    unselected = {
+      markerStroke: '#aaa',
+      markerFill: '#aaa',
+      labelFill: '#aaa',
+    },
+  } = state;
+  const markerStyle = { unselected: subObject(unselected, 'marker') };
+  const labelStyle = { unselected: subObject(unselected, 'label') };
   const { setState: setM, removeState: removeM } = useState(
     markerStyle,
     undefined,
@@ -164,9 +162,7 @@ export function LegendFilter({ channel, ...rest }) {
 
     // Use the first legend if channel is not specified,
     // or use the first legend bind to specified channel.
-    const legends = container.getElementsByClassName(
-      CATEGORY_LEGEND_CLASS_NAME,
-    );
+    const legends = legendsOf(container);
     const selectedLegend = !channel
       ? legends[0]
       : legends.find((d) => {
@@ -211,6 +207,7 @@ export function LegendFilter({ channel, ...rest }) {
         };
         return update(newOptions);
       },
+      state: selectedLegend.attributes.state,
       ...rest,
     });
   };

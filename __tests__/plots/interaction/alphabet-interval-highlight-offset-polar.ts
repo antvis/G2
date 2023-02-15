@@ -18,8 +18,11 @@ export function alphabetIntervalHighlightOffsetPolar(): G2Spec {
       y: { nice: true },
     },
     axis: { y: false },
+    state: {
+      active: { offset: 10 },
+    },
     interaction: {
-      elementHighlight: { offset: 10 },
+      elementHighlight: true,
     },
   };
 }

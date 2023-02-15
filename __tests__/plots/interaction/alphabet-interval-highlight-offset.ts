@@ -16,8 +16,11 @@ export function alphabetIntervalHighlightOffset(): G2Spec {
     scale: {
       y: { nice: true },
     },
+    state: {
+      active: { offset: 10 },
+    },
     interaction: {
-      elementHighlight: { offset: 10 },
+      elementHighlight: true,
     },
   };
 }

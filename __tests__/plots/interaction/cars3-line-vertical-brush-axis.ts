@@ -33,6 +33,9 @@ export function cars3LineVerticalBrushAxis(): G2Spec {
         scale: {
           color: { palette: 'brBG', offset: (t) => 1 - t },
         },
+        state: {
+          inactive: { stroke: 'grey', opacity: 0.5 },
+        },
         legend: false,
         axis: Object.fromEntries(
           Array.from({ length: position.length }, (_, i) => [
@@ -59,7 +62,6 @@ export function cars3LineVerticalBrushAxis(): G2Spec {
     ],
     interaction: {
       brushAxisHighlight: {
-        unhighlightedStroke: 'grey',
         maskFill: 'red',
         maskOpacity: 0.8,
       },

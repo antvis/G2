@@ -16,12 +16,12 @@ export function profitIntervalLegendHighlight(): G2Spec {
       color: (d) =>
         d.month === 'Total' ? 'Total' : d.profit > 0 ? 'Increase' : 'Decrease',
     },
+    state: { inactive: { opacity: 0.5 } },
+    legend: {
+      color: { state: { inactive: { labelOpacity: 0.5, markerOpacity: 0.5 } } },
+    },
     interaction: {
-      legendHighlight: {
-        unhighlightedOpacity: 0.5,
-        labelUnhighlightedOpacity: 0.5,
-        markerUnhighlightedOpacity: 0.5,
-      },
+      legendHighlight: true,
     },
   };
 }

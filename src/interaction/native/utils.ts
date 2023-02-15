@@ -2,7 +2,6 @@ import { DisplayObject, Path } from '@antv/g';
 import { path as d3Path } from 'd3-path';
 import { sort } from 'd3-array';
 import { Vector2 } from '@antv/coord';
-import { subObject } from '../../utils/helper';
 import { G2Element, select } from '../../utils/selection';
 import { mapObject } from '../../utils/array';
 import {
@@ -24,10 +23,15 @@ export function selectG2Elements(root: DisplayObject): DisplayObject[] {
 }
 
 export function selectFacetG2Elements(target, viewInstances): DisplayObject[] {
-  const facetInstances = viewInstances.filter(
+  return selectFacetViews(target, viewInstances).flatMap(({ container }) =>
+    selectG2Elements(container),
+  );
+}
+
+export function selectFacetViews(target, viewInstances) {
+  return viewInstances.filter(
     (d) => d !== target && d.options.parentKey === target.options.key,
   );
-  return facetInstances.flatMap(({ container }) => selectG2Elements(container));
 }
 
 export function selectPlotArea(root: DisplayObject): DisplayObject {
@@ -69,15 +73,6 @@ export function boundsOfBrushArea(target) {
   return [x0, y0, x1, y1];
 }
 
-export function applyDefaultsHighlightedStyle(
-  style: Record<string, any>,
-): Record<string, any> {
-  if (!style || Object.keys(style).length === 0) {
-    return { highlightedLineWidth: 1, highlightedStroke: '#000' };
-  }
-  return style;
-}
-
 export function createColorKey(view) {
   return (element) => element.__data__.color;
 }
@@ -90,12 +85,17 @@ export function createXKey(view) {
   };
 }
 
-export function createDatumof(view: G2ViewDescriptor) {
-  const marks = Array.from(view.markState.keys());
-  const keyData = new Map(marks.map((mark) => [mark.key, mark.data]));
+export function createDatumof(view: G2ViewDescriptor | G2ViewDescriptor[]) {
+  const views = Array.isArray(view) ? view : [view];
+  const keyData = new Map(
+    views.flatMap((view) => {
+      const marks = Array.from(view.markState.keys());
+      return marks.map((mark) => [keyed(view.key, mark.key), mark.data]);
+    }),
+  );
   return (element) => {
-    const { index, markKey } = element.__data__;
-    const data = keyData.get(markKey);
+    const { index, markKey, viewKey } = element.__data__;
+    const data = keyData.get(keyed(viewKey, markKey));
     return data[index];
   };
 }
@@ -120,7 +120,7 @@ export function useState(
     const stateStyle = states.reduce(
       (mixedStyle, state) => ({
         ...mixedStyle,
-        ...subObject(style, state),
+        ...style[state],
       }),
       original,
     );
@@ -176,14 +176,65 @@ export function useState(
   };
 }
 
+function isEmptyObject(obj: any): boolean {
+  if (obj === undefined) return true;
+  if (typeof obj !== 'object') return false;
+  return Object.keys(obj).length === 0;
+}
+
+// A function to generate key for mark each view.
+function keyed(viewKey, markKey) {
+  return `${viewKey},${markKey}`;
+}
+
+export function mergeState(options, states) {
+  // Index state by mark key and view key.
+  const views = Array.isArray(options) ? options : [options];
+  const markState = views.flatMap((view) =>
+    view.marks.map((mark) => [keyed(view.key, mark.key), mark.state]),
+  );
+
+  const state = {};
+  // Update each specified state.
+  for (const descriptor of states) {
+    const [key, defaults] = Array.isArray(descriptor)
+      ? descriptor
+      : [descriptor, {}];
+
+    // Update each specified mark state.
+    state[key] = markState.reduce((merged, mark) => {
+      // Normalize state.
+      const [markKey, markState = {}] = mark;
+      const selectedState = isEmptyObject(markState[key])
+        ? defaults
+        : markState[key];
+
+      // Update each state attribute.
+      for (const [attr, value] of Object.entries(selectedState)) {
+        const oldValue = merged[attr];
+        const newValue = (data, index, array, element) => {
+          const k = keyed(element.__data__.viewKey, element.__data__.markKey);
+          if (markKey !== k) return oldValue?.(data, index, array, element);
+          if (typeof value !== 'function') return value;
+          return value(data, index, array, element);
+        };
+        merged[attr] = newValue;
+      }
+      return merged;
+    }, {});
+  }
+  return state;
+}
+
+// @todo Support elements from different view.
 export function createValueof(elements, datum) {
   const elementIndex = new Map(elements.map((d, i) => [d, i]));
+  const fa = datum ? elements.map(datum) : elements;
   return (d, e) => {
     if (typeof d !== 'function') return d;
     const i = elementIndex.get(e);
     const fe = datum ? datum(e) : e;
-    const fa = datum ? elements.map(datum) : elements;
-    return d(fe, i, fa);
+    return d(fe, i, fa, e);
   };
 }
 
@@ -284,7 +335,6 @@ export function renderBackground({
   scale,
   coordinate,
   valueof,
-  padding = 0.001,
   ...rest
 }) {
   const BACKGROUND_CLASS_NAME = 'element-background';
@@ -292,7 +342,7 @@ export function renderBackground({
   // Don't have background.
   if (!background) return [() => {}, () => {}];
 
-  const extentOf = (scale, x) => {
+  const extentOf = (scale, x, padding) => {
     const ax = scale.invert(x);
     const mid = x + scale.getBandWidth(ax) / 2;
     const half = scale.getStep(ax) / 2;
@@ -300,27 +350,28 @@ export function renderBackground({
     return [mid - half + offset, mid + half - offset];
   };
 
-  const sizeXOf = (element) => {
+  const sizeXOf = (element, padding) => {
     const { x: scaleX } = scale;
     if (!isOrdinalScale(scaleX)) return [0, 1];
     const { __data__: data } = element;
     const { x } = data;
-    const [e1, e2] = extentOf(scaleX, x);
+    const [e1, e2] = extentOf(scaleX, x, padding);
     return [e1, e2];
   };
 
-  const sizeYOf = (element) => {
+  const sizeYOf = (element, padding) => {
     const { y: scaleY } = scale;
     if (!isOrdinalScale(scaleY)) return [0, 1];
     const { __data__: data } = element;
     const { y } = data;
-    const [e1, e2] = extentOf(scaleY, y);
+    const [e1, e2] = extentOf(scaleY, y, padding);
     return [e1, e2];
   };
 
   const bandShapeOf = (element, style) => {
-    const [x1, x2] = sizeXOf(element);
-    const [y1, y2] = sizeYOf(element);
+    const { padding } = style;
+    const [x1, x2] = sizeXOf(element, padding);
+    const [y1, y2] = sizeYOf(element, padding);
     const points = [
       [x1, y1],
       [x2, y1],
@@ -360,6 +411,7 @@ export function renderBackground({
       fill = '#CCD6EC',
       fillOpacity = 0.3,
       zIndex = -2,
+      padding = 0.001,
       ...style
     } = mapObject(rest, (d) => valueof(d, element));
     const finalStyle = {
@@ -367,6 +419,7 @@ export function renderBackground({
       fill,
       fillOpacity,
       zIndex,
+      padding,
     };
     const shapeOf = isOrdinalShape() ? bandShapeOf : cloneShapeOf;
     const shape = shapeOf(element, finalStyle);

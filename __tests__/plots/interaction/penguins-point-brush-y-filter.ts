@@ -14,9 +14,7 @@ export function penguinsPointBrushYFilter(): G2Spec {
       y: 'culmen_depth_mm',
     },
     interaction: {
-      brushYFilter: {
-        unhighlightedStroke: 'gray',
-      },
+      brushYFilter: true,
     },
   };
 }

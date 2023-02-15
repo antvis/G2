@@ -9,6 +9,7 @@ import {
   createValueof,
   useState,
   selectPlotArea,
+  mergeState,
 } from './utils';
 
 export const AXIS_CLASS_NAME = 'axis';
@@ -116,13 +117,14 @@ export function brushAxisHighlight(
     offsetY, // offsetY for shape area
     offsetX, // offsetX for shape area
     reverse = false,
+    state = {},
     ...rest // style
   },
 ) {
   const elements = elementsOf(root);
   const axes = axesOf(root);
   const valueof = createValueof(elements, datum);
-  const { setState } = useState(rest, valueof);
+  const { setState } = useState(state, valueof);
   const axisExtent = new Map();
   const brushStyle = subObject(rest, 'mask');
 
@@ -138,8 +140,8 @@ export function brushAxisHighlight(
   const updateElement = () => {
     for (const element of elements) {
       const points = pointsOf(element);
-      if (brushed(points)) setState(element, 'highlighted');
-      else setState(element, 'unhighlighted');
+      if (brushed(points)) setState(element, 'active');
+      else setState(element, 'inactive');
     }
   };
 
@@ -176,7 +178,7 @@ export function brushAxisHighlight(
  */
 export function BrushAxisHighlight(options) {
   return (target) => {
-    const { container, view } = target;
+    const { container, view, options: viewOptions } = target;
     const plotArea = selectPlotArea(container);
     const { x: x0, y: y0 } = plotArea.getBBox();
     return brushAxisHighlight(container, {
@@ -195,7 +197,10 @@ export function BrushAxisHighlight(options) {
         return sx !== ex && sy === ey;
       },
       datum: createDatumof(view),
-      unhighlightedOpacity: 0.5,
+      state: mergeState(viewOptions, [
+        'active',
+        ['inactive', { opacity: 0.5 }],
+      ]),
       ...options,
     });
   };

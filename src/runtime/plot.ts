@@ -496,7 +496,13 @@ function initializeState(
     const count = dataDomain || I.length;
     const T = modifier ? modifier(P, count, layout) : [];
     const visualData: Record<string, any>[] = I.map((d, i) => {
-      const datum = { points: P[i], transform: T[i], index: d, markKey };
+      const datum = {
+        points: P[i],
+        transform: T[i],
+        index: d,
+        markKey,
+        viewKey: key,
+      };
       for (const [k, V] of Object.entries(value)) {
         datum[k] = V[d];
         if (S) datum[`series${upperFirst(k)}`] = S[i].map((i) => V[i]);

@@ -25,12 +25,14 @@ export async function indicesLineBrushSeries(): Promise<G2Spec> {
           key: 'Symbol',
           title: (d) => new Date(d.Date).toUTCString(),
         },
+        state: {
+          active: { stroke: 'red' },
+        },
       },
     ],
     interaction: {
       brushHighlight: {
         series: true,
-        highlightedStroke: 'red',
       },
     },
   };

@@ -9,6 +9,7 @@ export type API<Props extends Geometry, Mark> = {
   animate: ObjectAttribute<Props['animate'], Mark>;
   label: ArrayAttribute<Props['labels'], Mark>;
   style: ObjectAttribute<Props['style'], Mark>;
+  state: ObjectAttribute<Props['state'], Mark>;
   axis: ObjectAttribute<Props['axis'], Mark>;
   coordinate: ValueAttribute<Props['coordinate'], Mark>;
   interaction: ObjectAttribute<Props['interaction'], Mark>;

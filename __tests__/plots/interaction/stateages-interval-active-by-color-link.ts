@@ -25,14 +25,20 @@ export function stateAgesIntervalActiveByColorLink(): G2Spec {
     scale: {
       x: { paddingInner: 0.2 },
     },
+    state: {
+      active: {
+        stroke: '#000',
+        strokeWidth: 1,
+        linkFillOpacity: 0.5,
+        linkFill: (d) => (d.state === 'CA' ? 'red' : undefined),
+      },
+      inactive: {
+        opacity: 0.6,
+      },
+    },
     interaction: {
       elementHighlightByColor: {
         link: true,
-        linkFill: (d) => (d.state === 'CA' ? 'red' : undefined),
-        highlightedStroke: '#000',
-        highlightedStrokeWidth: 1,
-        unhighlightedOpacity: 0.6,
-        linkFillOpacity: 0.5,
       },
     },
   };
