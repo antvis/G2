@@ -19,7 +19,10 @@ import { angle, angleBetween, sub } from '../../utils/vector';
  * Given root of chart returns elements to be manipulated
  */
 export function selectG2Elements(root: DisplayObject): DisplayObject[] {
-  return select(root).selectAll(`.${ELEMENT_CLASS_NAME}`).nodes();
+  return select(root)
+    .selectAll(`.${ELEMENT_CLASS_NAME}`)
+    .nodes()
+    .filter((d) => !d.__removed__);
 }
 
 export function selectFacetG2Elements(target, viewInstances): DisplayObject[] {

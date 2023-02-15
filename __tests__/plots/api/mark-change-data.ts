@@ -40,5 +40,5 @@ export function markChangeData(context) {
     ]);
   };
 
-  return { chart, finished, button };
+  return { chart, finished, button, canvas: chart.context().canvas };
 }

@@ -157,7 +157,9 @@ function createAPIRender(object) {
     return (container) => {
       // Select render is unnecessary for api tests.
       selectRenderer.style.display = 'none';
-      render({ container });
+      const { canvas } = render({ container });
+      // @ts-ignore
+      if (canvas instanceof Canvas) window.__g_instances__ = [canvas];
     };
   };
   return Object.fromEntries(
