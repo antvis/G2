@@ -18,6 +18,7 @@ const shapes = ['connector'];
 Connector.props = {
   defaultShape: 'connector',
   defaultLabelShape: 'label',
+  composite: false,
   channels: [
     ...baseAnnotationChannels({ shapes }),
     { name: 'x', required: true },

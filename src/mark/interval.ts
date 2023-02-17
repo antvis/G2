@@ -65,6 +65,7 @@ const shapes = ['rect', 'hollow', 'funnel', 'pyramid'];
 Interval.props = {
   defaultShape: 'rect',
   defaultLabelShape: 'label',
+  composite: false,
   channels: [
     ...baseGeometryChannels({ shapes }),
     { name: 'x', scale: 'band', required: true },

@@ -19,7 +19,6 @@ export const View: CC<ViewOptions> = () => {
       scale: viewScale = {},
       axis: viewAxis = {},
       legend: viewLegend = {},
-      coordinate: viewCoordinate = {},
       encode: viewEncode = {},
       transform: viewTransform = [],
       ...rest
@@ -43,14 +42,7 @@ export const View: CC<ViewOptions> = () => {
         ...rest,
       }),
     );
-    const markCoordinates = children.map((d) => d.coordinate || {});
-    const newCoordinate = [...markCoordinates, viewCoordinate].reduceRight(
-      (prev, cur) => deepMix(prev, cur),
-      {},
-    );
-    return [
-      { ...rest, marks, type: 'standardView', coordinate: newCoordinate },
-    ];
+    return [{ ...rest, marks, type: 'standardView' }];
   };
 };
 

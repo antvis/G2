@@ -90,6 +90,7 @@ export const Box: MC<BoxOptions> = () => {
 Box.props = {
   defaultShape: 'box',
   defaultLabelShape: 'label',
+  composite: false,
   channels: [
     ...baseGeometryChannels({ shapes: ['box'] }),
     { name: 'x', scale: 'band', required: true },

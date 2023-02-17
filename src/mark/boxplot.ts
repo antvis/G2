@@ -116,6 +116,4 @@ export const Boxplot: CC<BoxPlotOptions> = (options) => {
   };
 };
 
-Boxplot.props = {
-  composite: true,
-};
+Boxplot.props = {};

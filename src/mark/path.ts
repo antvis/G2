@@ -25,6 +25,7 @@ const shapes = ['path', 'hollow'];
 Path.props = {
   defaultShape: 'path',
   defaultLabelShape: 'label',
+  composite: false,
   channels: [
     ...baseGeometryChannels({ shapes }),
     { name: 'd', scale: 'identity' },

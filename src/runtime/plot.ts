@@ -7,7 +7,6 @@ import { mapObject } from '../utils/array';
 import { CHART_LIFE_CIRCLE } from '../utils/event';
 import {
   appendTransform,
-  compose,
   copyAttributes,
   defined,
   error,
@@ -100,6 +99,12 @@ export async function plot<T extends G2ViewTree>(
   );
   const typeOf = (node: G2ViewTree) => {
     const { type } = node;
+    if (typeof type === 'function') {
+      // @ts-ignore
+      const { props = {} } = type;
+      const { composite = true } = props;
+      if (composite) return 'mark';
+    }
     return typeof type === 'string' && marks.has(type) ? 'mark' : type;
   };
   const isMark = (node: G2ViewTree) => typeOf(node) === 'mark';
@@ -311,9 +316,71 @@ async function initializeView(
   options: G2View,
   library: G2Library,
 ): Promise<[G2ViewDescriptor, G2ViewTree[]]> {
-  const transformedOptions = coordinate2Transform(options, library);
+  const flattenOptions = await transformMarks(options, library);
+  const mergedOptions = bubbleOptions(flattenOptions);
+  const transformedOptions = coordinate2Transform(mergedOptions, library);
   const state = await initializeMarks(transformedOptions, library);
   return initializeState(state, transformedOptions, library);
+}
+
+function bubbleOptions(options: G2View): G2View {
+  const {
+    coordinate: viewCoordinate = {},
+    interaction: viewInteraction = {},
+    marks,
+    ...rest
+  } = options;
+  const markCoordinates = marks.map((d) => d.coordinate || {});
+  const markInteractions = marks.map((d) => d.interaction || {});
+  const newCoordinate = [...markCoordinates, viewCoordinate].reduceRight(
+    (prev, cur) => deepMix(prev, cur),
+    {},
+  );
+  const newInteraction = [viewInteraction, ...markInteractions].reduce(
+    (prev, cur) => deepMix(prev, cur),
+    {},
+  );
+  return {
+    ...rest,
+    marks,
+    coordinate: newCoordinate,
+    interaction: newInteraction,
+  };
+}
+
+async function transformMarks(
+  options: G2View,
+  library: G2Library,
+): Promise<G2View> {
+  const [useMark, createMark] = useLibrary<G2MarkOptions, MarkComponent, Mark>(
+    'mark',
+    library,
+  );
+
+  const { marks } = options;
+  const flattenMarks = [];
+  const discovered = [...marks];
+
+  // Pre order traversal.
+  while (discovered.length) {
+    const [node] = discovered.splice(0, 1);
+    // Apply data transform to get data.
+    const mark = (await applyTransform(node, library)) as G2Mark;
+    const { type = error('G2Mark type is required.'), key } = mark;
+    const { props = {} } = createMark(type);
+    const { composite = true } = props;
+    if (!composite) flattenMarks.push(mark);
+    else {
+      // Convert composite mark to marks.
+      const marks = await (
+        useMark as (options: G2MarkOptions) => CompositeMark
+      )(mark)(options);
+      const M = Array.isArray(marks) ? marks : [marks];
+      discovered.unshift(...M.map((d, i) => ({ key: `${key}-${i}`, ...d })));
+    }
+  }
+
+  return { ...options, marks: flattenMarks };
 }
 
 async function initializeMarks(
@@ -324,7 +391,7 @@ async function initializeMarks(
     'theme',
     library,
   );
-  const [useMark, createMark] = useLibrary<G2MarkOptions, MarkComponent, Mark>(
+  const [, createMark] = useLibrary<G2MarkOptions, MarkComponent, Mark>(
     'mark',
     library,
   );
@@ -337,31 +404,10 @@ async function initializeMarks(
   const theme = useTheme(inferTheme(partialTheme));
   const markState = new Map<G2Mark, G2MarkState>();
 
-  // Apply data transform to get data.
-  const dataMarks = [];
-  for (const mark of partialMarks) {
-    const dataMark = await applyTransform(mark, library);
-    dataMarks.push(dataMark);
-  }
-
-  // Convert composite mark to single mark.
-  const flattenMarks = await Promise.all(
-    dataMarks.map(async (mark) => {
-      const { type = error('G2Mark type is required.'), key } = mark;
-      const { props } = createMark(type);
-      const { composite = false } = props;
-      if (!composite) return mark;
-      const marks = await (
-        useMark as (options: G2MarkOptions) => CompositeMark
-      )(mark)(options);
-      return marks.map((d, i) => ({ key: `${key}-${i}`, ...d }));
-    }),
-  ).then((res) => res.flat());
-
   // Initialize channels for marks.
-  for (const markOptions of flattenMarks) {
+  for (const markOptions of partialMarks) {
     const { type } = markOptions;
-    const { props } = createMark(type);
+    const { props = {} } = createMark(type);
     const markAndState = await initializeMark(markOptions, props, library);
     if (markAndState) {
       const [initializedMark, state] = markAndState;
@@ -1227,13 +1273,8 @@ function inferTheme(theme: G2ThemeOptions = { type: 'light' }): G2ThemeOptions {
  */
 function inferInteraction(view: G2View): G2InteractionOptions[] {
   const defaults = {};
-  const { interaction = {}, marks = [] } = view;
-  const markInteractions = marks.map((d) => d.interaction || {});
-  const all = [defaults, interaction, ...markInteractions].reduce(
-    (total, value) => deepMix(total, value),
-    {},
-  );
-  return Object.entries(all)
+  const { interaction = {} } = view;
+  return Object.entries(deepMix(defaults, interaction))
     .filter((d) => !!d[1])
     .map(([key, value]) => ({
       type: key,

@@ -24,6 +24,7 @@ export const Shape: MC<ShapeOptions> = (options) => {
 Shape.props = {
   defaultShape: 'shape',
   defaultLabelShape: 'label',
+  composite: false,
   channels: [
     { name: 'x', required: true },
     { name: 'y', required: true },

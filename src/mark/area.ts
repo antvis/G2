@@ -67,6 +67,7 @@ const shapes = ['area', 'smooth', 'hvh', 'hv', 'vh'];
 Area.props = {
   defaultShape: 'area',
   defaultLabelShape: 'label',
+  composite: false,
   channels: [
     ...baseGeometryChannels({ shapes }),
     { name: 'x', required: true },

@@ -130,4 +130,4 @@ export const ForceGraph: CC<ForceGraphOptions> = (options) => {
   };
 };
 
-ForceGraph.props = { composite: true };
+ForceGraph.props = {};
