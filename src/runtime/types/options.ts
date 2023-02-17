@@ -83,6 +83,7 @@ export type G2View = {
   theme?: G2ThemeOptions;
   title?: G2TitleOptions;
   coordinates?: G2CoordinateOptions[];
+  coordinate?: Record<string, any>;
   component?: G2GuideComponentOptions[];
   interaction?: Record<string, any>;
   marks?: G2Mark[];
@@ -119,6 +120,7 @@ export type G2Mark = {
   style?: Record<string, Primitive>;
   labels?: Record<string, any>[];
   interaction?: Record<string, any>;
+  coordinate?: Record<string, any>;
 };
 
 export type G2MarkChildrenCallback = (

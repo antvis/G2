@@ -31,6 +31,7 @@ const shapes = ['rect', 'hollow'];
 Rect.props = {
   defaultShape: 'rect',
   defaultLabelShape: 'label',
+  composite: false,
   channels: [
     ...baseGeometryChannels({ shapes }),
     { name: 'x', required: true },

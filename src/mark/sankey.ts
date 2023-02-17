@@ -125,4 +125,4 @@ export const Sankey: CC<SankeyOptions> = (options) => {
   };
 };
 
-Sankey.props = { composite: true };
+Sankey.props = {};

@@ -84,6 +84,7 @@ const shapes = ['line', 'smooth'];
 Line.props = {
   defaultShape: 'line',
   defaultLabelShape: 'label',
+  composite: false,
   channels: [
     ...baseGeometryChannels({ shapes }),
     { name: 'x' },

@@ -42,6 +42,7 @@ const shapes = ['polygon', 'ribbon'];
 Polygon.props = {
   defaultShape: 'polygon',
   defaultLabelShape: 'label',
+  composite: false,
   channels: [
     ...baseGeometryChannels({ shapes }),
     { name: 'x', required: true },

@@ -75,6 +75,7 @@ const shapes = [
 Point.props = {
   defaultShape: 'hollow',
   defaultLabelShape: 'label',
+  composite: false,
   channels: [
     ...baseGeometryChannels({ shapes }),
     { name: 'x', required: true },

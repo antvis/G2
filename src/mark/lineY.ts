@@ -26,6 +26,7 @@ const shapes = ['line'];
 LineY.props = {
   defaultShape: 'line',
   defaultLabelShape: 'label',
+  composite: false,
   channels: [
     ...baseAnnotationChannels({ shapes }),
     { name: 'y', required: true },

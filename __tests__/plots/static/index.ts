@@ -179,3 +179,7 @@ export { population2015IntervalBubbleCoordinate } from './population2015-interva
 export { fuelLineEncodePropagate } from './fuel-line-encode-propagate';
 export { fuelLineTransformPropagate } from './fuel-line-transform-propagate';
 export { weatherLineViewLabelTransform } from './weather-line-view-label-transform';
+export { population2015IntervalHOMViewLevel } from './population2015-interval-hom-view-level';
+export { population2015IntervalHOMMarkLevel } from './population2015-interval-hom-mark-level';
+export { population2015IntervalHOMNested } from './population2015-interval-hom-nested';
+export { population2015IntervalHOMMultiple } from './population2015-interval-hom-multiple';

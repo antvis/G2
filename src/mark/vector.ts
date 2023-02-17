@@ -42,6 +42,7 @@ const shapes = ['vector'];
 Vector.props = {
   defaultShape: 'vector',
   defaultLabelShape: 'label',
+  composite: false,
   channels: [
     ...baseGeometryChannels({ shapes }),
     { name: 'x', required: true },

@@ -83,4 +83,4 @@ export const Tree: CC<TreeOptions> = (options) => {
   };
 };
 
-Tree.props = { composite: true };
+Tree.props = {};

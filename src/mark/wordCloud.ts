@@ -71,4 +71,4 @@ export const WordCloud: CC<WordCloudOptions> = (options) => {
   };
 };
 
-WordCloud.props = { composite: true };
+WordCloud.props = {};

@@ -101,4 +101,4 @@ export const Pack: CC<PackOptions> = (markOptions) => {
   };
 };
 
-Pack.props = { composite: true };
+Pack.props = {};

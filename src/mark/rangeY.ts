@@ -18,6 +18,7 @@ const shapes = ['range'];
 RangeY.props = {
   defaultShape: 'range',
   defaultLabelShape: 'label',
+  composite: false,
   channels: [
     ...baseAnnotationChannels({ shapes }),
     { name: 'y', required: true },
