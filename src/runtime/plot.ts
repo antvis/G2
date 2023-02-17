@@ -7,7 +7,6 @@ import { mapObject } from '../utils/array';
 import { CHART_LIFE_CIRCLE } from '../utils/event';
 import {
   appendTransform,
-  compose,
   copyAttributes,
   defined,
   error,
@@ -100,6 +99,8 @@ export async function plot<T extends G2ViewTree>(
   );
   const typeOf = (node: G2ViewTree) => {
     const { type } = node;
+    // @ts-ignore
+    if (typeof type === 'function' && type.props.composite) return 'mark';
     return typeof type === 'string' && marks.has(type) ? 'mark' : type;
   };
   const isMark = (node: G2ViewTree) => typeOf(node) === 'mark';
@@ -311,31 +312,48 @@ async function initializeView(
   options: G2View,
   library: G2Library,
 ): Promise<[G2ViewDescriptor, G2ViewTree[]]> {
-  const transformedOptions = coordinate2Transform(options, library);
+  const flattenOptions = await transformMarks(options, library);
+  const mergedOptions = bubbleOptions(flattenOptions);
+  const transformedOptions = coordinate2Transform(mergedOptions, library);
   const state = await initializeMarks(transformedOptions, library);
   return initializeState(state, transformedOptions, library);
 }
 
-async function initializeMarks(
+function bubbleOptions(options: G2View): G2View {
+  const {
+    coordinate: viewCoordinate = {},
+    interaction: viewInteraction = {},
+    marks,
+    ...rest
+  } = options;
+  const markCoordinates = marks.map((d) => d.coordinate || {});
+  const markInteractions = marks.map((d) => d.interaction || {});
+  const newCoordinate = [...markCoordinates, viewCoordinate].reduceRight(
+    (prev, cur) => deepMix(prev, cur),
+    {},
+  );
+  const newInteraction = [viewInteraction, ...markInteractions].reduce(
+    (prev, cur) => deepMix(prev, cur),
+    {},
+  );
+  return {
+    ...rest,
+    marks,
+    coordinate: newCoordinate,
+    interaction: newInteraction,
+  };
+}
+
+async function transformMarks(
   options: G2View,
   library: G2Library,
-): Promise<Map<G2Mark, G2MarkState>> {
-  const [useTheme] = useLibrary<G2ThemeOptions, ThemeComponent, Theme>(
-    'theme',
-    library,
-  );
+): Promise<G2View> {
   const [useMark, createMark] = useLibrary<G2MarkOptions, MarkComponent, Mark>(
     'mark',
     library,
   );
 
-  const {
-    theme: partialTheme,
-    marks: partialMarks,
-    coordinates = [],
-  } = options;
-  const theme = useTheme(inferTheme(partialTheme));
-  const markState = new Map<G2Mark, G2MarkState>();
+  const { marks: partialMarks } = options;
 
   // Apply data transform to get data.
   const dataMarks = [];
@@ -354,12 +372,37 @@ async function initializeMarks(
       const marks = await (
         useMark as (options: G2MarkOptions) => CompositeMark
       )(mark)(options);
-      return marks.map((d, i) => ({ key: `${key}-${i}`, ...d }));
+      const M = Array.isArray(marks) ? marks : [marks];
+      return M.map((d, i) => ({ key: `${key}-${i}`, ...d }));
     }),
   ).then((res) => res.flat());
 
+  return { ...options, marks: flattenMarks };
+}
+
+async function initializeMarks(
+  options: G2View,
+  library: G2Library,
+): Promise<Map<G2Mark, G2MarkState>> {
+  const [useTheme] = useLibrary<G2ThemeOptions, ThemeComponent, Theme>(
+    'theme',
+    library,
+  );
+  const [, createMark] = useLibrary<G2MarkOptions, MarkComponent, Mark>(
+    'mark',
+    library,
+  );
+
+  const {
+    theme: partialTheme,
+    marks: partialMarks,
+    coordinates = [],
+  } = options;
+  const theme = useTheme(inferTheme(partialTheme));
+  const markState = new Map<G2Mark, G2MarkState>();
+
   // Initialize channels for marks.
-  for (const markOptions of flattenMarks) {
+  for (const markOptions of partialMarks) {
     const { type } = markOptions;
     const { props } = createMark(type);
     const markAndState = await initializeMark(markOptions, props, library);
@@ -1227,13 +1270,8 @@ function inferTheme(theme: G2ThemeOptions = { type: 'light' }): G2ThemeOptions {
  */
 function inferInteraction(view: G2View): G2InteractionOptions[] {
   const defaults = {};
-  const { interaction = {}, marks = [] } = view;
-  const markInteractions = marks.map((d) => d.interaction || {});
-  const all = [defaults, interaction, ...markInteractions].reduce(
-    (total, value) => deepMix(total, value),
-    {},
-  );
-  return Object.entries(all)
+  const { interaction = {} } = view;
+  return Object.entries(deepMix(defaults, interaction))
     .filter((d) => !!d[1])
     .map(([key, value]) => ({
       type: key,
