@@ -353,29 +353,28 @@ async function transformMarks(
     library,
   );
 
-  const { marks: partialMarks } = options;
+  const { marks } = options;
+  const flattenMarks = [];
+  const discovered = [...marks];
 
-  // Apply data transform to get data.
-  const dataMarks = [];
-  for (const mark of partialMarks) {
-    const dataMark = await applyTransform(mark, library);
-    dataMarks.push(dataMark);
-  }
-
-  // Convert composite mark to single mark.
-  const flattenMarks = await Promise.all(
-    dataMarks.map(async (mark) => {
-      const { type = error('G2Mark type is required.'), key } = mark;
-      const { props } = createMark(type);
-      const { composite = false } = props;
-      if (!composite) return mark;
+  // Pre order traversal.
+  while (discovered.length) {
+    const [node] = discovered.splice(0, 1);
+    // Apply data transform to get data.
+    const mark = (await applyTransform(node, library)) as G2Mark;
+    const { type = error('G2Mark type is required.'), key } = mark;
+    const { props } = createMark(type);
+    const { composite = false } = props;
+    if (!composite) flattenMarks.push(mark);
+    else {
+      // Convert composite mark to marks.
       const marks = await (
         useMark as (options: G2MarkOptions) => CompositeMark
       )(mark)(options);
       const M = Array.isArray(marks) ? marks : [marks];
-      return M.map((d, i) => ({ key: `${key}-${i}`, ...d }));
-    }),
-  ).then((res) => res.flat());
+      discovered.unshift(...M.map((d, i) => ({ key: `${key}-${i}`, ...d })));
+    }
+  }
 
   return { ...options, marks: flattenMarks };
 }

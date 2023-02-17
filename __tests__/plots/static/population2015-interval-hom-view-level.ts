@@ -3,14 +3,14 @@ import { G2Spec } from '../../../src';
 
 export function Pie(options) {
   const { encode = {}, ...rest } = options;
-  const { value } = encode;
+  const { value, ...restEncode } = encode;
   return () => {
     return deepMix(rest, {
       type: 'interval',
       transform: [{ type: 'stackY' }],
       coordinate: { type: 'theta' },
       encode: {
-        ...encode,
+        ...restEncode,
         y: value,
       },
     });
