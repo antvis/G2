@@ -17,8 +17,6 @@ export function Pie(options) {
   };
 }
 
-Pie.props = { composite: true };
-
 export function population2015IntervalHOMViewLevel(): G2Spec {
   return {
     type: 'view',

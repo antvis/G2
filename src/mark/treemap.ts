@@ -185,4 +185,4 @@ export const Treemap: CC<TreemapOptions> = (options) => {
   };
 };
 
-Treemap.props = { composite: true };
+Treemap.props = {};

@@ -11,8 +11,6 @@ export function SpectralPie(options) {
   };
 }
 
-SpectralPie.props = { composite: true };
-
 export function population2015IntervalHOMNested(): G2Spec {
   return {
     type: SpectralPie,

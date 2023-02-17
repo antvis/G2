@@ -40,6 +40,7 @@ const shapes = ['cell', 'hollow'];
 Cell.props = {
   defaultShape: 'cell',
   defaultLabelShape: 'label',
+  composite: false,
   channels: [
     ...baseGeometryChannels({ shapes }),
     { name: 'x', required: true, scale: 'band' },

@@ -30,6 +30,7 @@ const shapes = ['link', 'arc', 'vhv', 'smooth'];
 Link.props = {
   defaultShape: 'link',
   defaultLabelShape: 'label',
+  composite: false,
   channels: [
     ...baseGeometryChannels({ shapes }),
     { name: 'x', required: true },

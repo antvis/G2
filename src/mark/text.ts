@@ -31,6 +31,7 @@ const shapes = ['text', 'badge'];
 Text.props = {
   defaultShape: 'text',
   defaultLabelShape: 'label',
+  composite: false,
   channels: [
     ...baseGeometryChannels({ shapes }),
     { name: 'x', required: true },

@@ -99,8 +99,12 @@ export async function plot<T extends G2ViewTree>(
   );
   const typeOf = (node: G2ViewTree) => {
     const { type } = node;
-    // @ts-ignore
-    if (typeof type === 'function' && type.props.composite) return 'mark';
+    if (typeof type === 'function') {
+      // @ts-ignore
+      const { props = {} } = type;
+      const { composite = true } = props;
+      if (composite) return 'mark';
+    }
     return typeof type === 'string' && marks.has(type) ? 'mark' : type;
   };
   const isMark = (node: G2ViewTree) => typeOf(node) === 'mark';
@@ -363,8 +367,8 @@ async function transformMarks(
     // Apply data transform to get data.
     const mark = (await applyTransform(node, library)) as G2Mark;
     const { type = error('G2Mark type is required.'), key } = mark;
-    const { props } = createMark(type);
-    const { composite = false } = props;
+    const { props = {} } = createMark(type);
+    const { composite = true } = props;
     if (!composite) flattenMarks.push(mark);
     else {
       // Convert composite mark to marks.
@@ -403,7 +407,7 @@ async function initializeMarks(
   // Initialize channels for marks.
   for (const markOptions of partialMarks) {
     const { type } = markOptions;
-    const { props } = createMark(type);
+    const { props = {} } = createMark(type);
     const markAndState = await initializeMark(markOptions, props, library);
     if (markAndState) {
       const [initializedMark, state] = markAndState;

@@ -19,8 +19,6 @@ function CenterText(options) {
   });
 }
 
-CenterText.props = { composite: true };
-
 export function population2015IntervalHOMMultiple(): G2Spec {
   return {
     type: 'view',

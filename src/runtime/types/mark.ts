@@ -10,7 +10,7 @@ export type MarkOptions = Record<string, any>;
 
 export type MarkComponent<O extends MarkOptions = MarkOptions> = {
   (options?: O): Mark;
-  props: MarkProps;
+  props?: MarkProps;
 };
 
 export type MarkProps = {
