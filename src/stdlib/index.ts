@@ -76,6 +76,7 @@ import {
   Quantize,
   Sqrt,
   Sequential,
+  Constant as ConstantScale,
 } from '../scale';
 import {
   Rect as RectShape,
@@ -410,6 +411,7 @@ export function createLibrary(): G2Library {
     'scale.quantile': Quantile,
     'scale.quantize': Quantize,
     'scale.sequential': Sequential,
+    'scale.constant': ConstantScale,
     'shape.interval.rect': RectShape,
     'shape.interval.hollow': HollowRect,
     'shape.interval.funnel': Funnel,

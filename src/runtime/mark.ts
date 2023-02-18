@@ -82,23 +82,27 @@ export async function initializeMark(
       );
       return valuesArray.map(([channel, values], i) => {
         const visual = values.some((d) => d.visual);
+        const constant = values.some((d) => d.constant);
         const {
           independent = false,
           // Use channel name as default scale key.
           key = scaleKey || channel,
           // Visual channel use identity scale.
-          type = visual ? 'identity' : scaleType,
+          type = constant ? 'constant' : visual ? 'identity' : scaleType,
           ...scaleOptions
         } = scale[channel] || {};
+        // For constant scale, infer range from data.
+        const isConstant = type === 'constant';
+        const finalRange = isConstant ? undefined : range;
         return {
           name: channel,
           values,
           // Generate a unique key for independent channel,
           // which will not group with any other channels.
-          scaleKey: independent ? Symbol('independent') : key,
+          scaleKey: independent || isConstant ? Symbol('independent') : key,
           scale: {
             type,
-            range,
+            range: finalRange,
             ...scaleOptions,
           },
         };

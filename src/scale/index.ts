@@ -11,6 +11,7 @@ export { Quantile } from './quantile';
 export { Quantize } from './quantize';
 export { Sqrt } from './sqrt';
 export { Sequential } from './sequential';
+export { Constant } from './constant';
 
 export type { BandOptions } from './band';
 export type { LinearOptions } from './linear';
@@ -25,3 +26,4 @@ export type { QuantileOptions } from './quantile';
 export type { QuantizeOptions } from './quantize';
 export type { SqrtOptions } from './sqrt';
 export type { SequentialOptions } from './sequential';
+export type { ConstantOptions } from './constant';

@@ -2,7 +2,7 @@ import { DisplayObject, IElement, Line } from '@antv/g';
 import { sort, group, mean, range, bisector } from 'd3-array';
 import { lowerFirst, throttle } from '@antv/util';
 import { Tooltip as TooltipComponent } from '@antv/gui';
-import { Identity } from '@antv/scale';
+import { Constant, Identity } from '@antv/scale';
 import { defined, subObject, isStrictObject } from '../../utils/helper';
 import {
   selectG2Elements,
@@ -120,7 +120,12 @@ function groupNameOf(scale, datum) {
   const { color: scaleColor, series: scaleSeries } = scale;
   const { color, series } = datum;
   const invertAble = (scale) => {
-    return scale && scale.invert && !(scale instanceof Identity);
+    return (
+      scale &&
+      scale.invert &&
+      !(scale instanceof Identity) &&
+      !(scale instanceof Constant)
+    );
   };
   if (invertAble(scaleColor)) return scaleColor.invert(color);
   if (invertAble(scaleSeries)) return scaleSeries.invert(series);
@@ -136,7 +141,11 @@ function itemColorOf(element) {
 }
 
 function normalizeTooltip(d) {
-  return isStrictObject(d) ? d : { value: d === undefined ? d : `${d}` };
+  return isStrictObject(d)
+    ? d
+    : d === null || d === undefined
+    ? { value: d }
+    : { value: `${d}` };
 }
 
 function uniqueTitles(titles) {
@@ -176,7 +185,7 @@ function groupItems(
           ...filterDefined(item({ channel: key, value })),
         };
       })
-      .filter(({ value }) => value !== undefined);
+      .filter(({ value }) => defined(value));
   });
   return {
     ...(T.length > 0 && { title: T.join(',') }),
