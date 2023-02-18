@@ -82,12 +82,13 @@ export async function initializeMark(
       );
       return valuesArray.map(([channel, values], i) => {
         const visual = values.some((d) => d.visual);
+        const constant = values.some((d) => d.constant);
         const {
           independent = false,
           // Use channel name as default scale key.
           key = scaleKey || channel,
           // Visual channel use identity scale.
-          type = visual ? 'identity' : scaleType,
+          type = constant ? 'constant' : visual ? 'identity' : scaleType,
           ...scaleOptions
         } = scale[channel] || {};
         return {
