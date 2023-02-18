@@ -77,7 +77,6 @@ export function inferChannelsType(
   return [I, { ...mark, encode: typedEncode }];
 }
 
-// @todo Move visual property to style instead of flagging visual.
 export function maybeVisualChannel(
   I: number[],
   mark: G2Mark,
@@ -88,7 +87,7 @@ export function maybeVisualChannel(
   const newEncode = mapObject(encode, (channel, name) => {
     const { type } = channel;
     if (type !== 'constant' || isPosition(name)) return channel;
-    return { ...channel, visual: true };
+    return { ...channel, constant: true };
   });
   return [I, { ...mark, encode: newEncode }];
 }

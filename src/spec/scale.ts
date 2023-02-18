@@ -12,6 +12,7 @@ import {
   QuantizeOptions,
   SqrtOptions,
   SequentialOptions,
+  ConstantOptions,
 } from '@antv/scale';
 import { ScaleComponent } from '../runtime';
 import { Palette } from './palette';
@@ -30,7 +31,8 @@ export type Scale =
   | QuantizeScale
   | QuantileScale
   | SequentialScale
-  | CustomScale;
+  | CustomScale
+  | ConstantScale;
 
 export type ScaleTypes =
   | 'linear'
@@ -46,6 +48,7 @@ export type ScaleTypes =
   | 'quantize'
   | 'quantile'
   | 'sequential'
+  | 'constant'
   | ScaleComponent;
 
 export type BaseScale<T extends ScaleTypes, O> = {
@@ -87,5 +90,7 @@ export type QuantileScale = BaseScale<'quantile', QuantileOptions>;
 export type QuantizeScale = BaseScale<'quantize', QuantizeOptions>;
 
 export type SequentialScale = BaseScale<'sequential', SequentialOptions>;
+
+export type ConstantScale = BaseScale<'constant', ConstantOptions>;
 
 export type CustomScale = BaseScale<ScaleComponent, { [key: string]: any }>;
