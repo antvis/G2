@@ -76,6 +76,7 @@ import {
   Quantize,
   Sqrt,
   Sequential,
+  Constant as ConstantScale,
 } from '../../../src/scale';
 import {
   Rect as RectShape,
@@ -415,6 +416,7 @@ describe('stdlib', () => {
       'scale.quantile': Quantile,
       'scale.quantize': Quantize,
       'scale.sequential': Sequential,
+      'scale.constant': ConstantScale,
       'shape.interval.rect': RectShape,
       'shape.interval.hollow': HollowRect,
       'shape.interval.funnel': Funnel,

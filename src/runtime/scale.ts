@@ -248,6 +248,8 @@ function inferScaleRange(
     }
     case 'sequential':
       return undefined;
+    case 'constant':
+      return [values[0][0]];
     default:
       return [];
   }
