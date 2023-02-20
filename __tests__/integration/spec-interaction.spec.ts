@@ -1,5 +1,5 @@
 import { Canvas } from '@antv/g';
-import { set } from '@antv/util';
+import { deepMix } from '@antv/util';
 import { G2Spec } from '../../src';
 import * as chartTests from '../plots/interaction';
 import { filterTests } from './utils/filterTests';
@@ -14,9 +14,11 @@ describe('Interactions', () => {
     const { children } = options;
     if (!children) return { ...options, animate: false };
     const newChildren = children.map((d) => {
-      set(d, ['axis', 'x'], { ...(d?.axis?.x || {}), animate: false });
-      set(d, ['axis', 'y'], { ...d?.axis?.y, animate: false });
-      return { ...d, animate: false };
+      return deepMix(
+        d,
+        { animate: false },
+        { axis: { x: { animate: false }, y: { animate: false } } },
+      );
     });
     return {
       ...options,
