@@ -7,7 +7,7 @@ export type SliderXOptions = SliderOptions;
  * SliderX component.
  */
 export const SliderX: GCC<SliderXOptions> = (options) => {
-  return Slider({ ...options, orient: 'horizontal' });
+  return Slider({ ...options, orientation: 'horizontal' });
 };
 
 SliderX.props = {

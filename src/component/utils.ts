@@ -80,10 +80,30 @@ export class G2Layout extends Layout {
   update(options: any) {
     this.attr(options);
     const { width, height, ...restOptions } = options;
-    (this.children?.[0] as any)?.update(restOptions);
+    (this.children?.[0] as any)?.update({ ...adaptor(restOptions) });
   }
 }
 
 export function scaleOf(scales: Scale[], type: string): Scale | undefined {
   return scales.filter((s) => s.getOptions().name === type)?.[0];
+}
+
+export function adaptor(style: Record<string, any>) {
+  const newStyle: any = {
+    style: {},
+  };
+  const reserveProperty = ['animate', 'data', 'interactions', 'layout'];
+  Object.entries(style).forEach(([key, value]) => {
+    if (
+      key.startsWith('show') ||
+      key.endsWith('Filter') ||
+      key.endsWith('Formatter') ||
+      key === 'formatter'
+    ) {
+      newStyle[key] = value;
+    } else if (key === 'labelTransforms') newStyle['labelTransform'] = value;
+    else if (reserveProperty.some((k) => k === key)) newStyle[key] = value;
+    else newStyle.style[key] = value;
+  });
+  return newStyle;
 }

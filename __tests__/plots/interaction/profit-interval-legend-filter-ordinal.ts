@@ -8,7 +8,7 @@ export function profitIntervalLegendFilterOrdinal(): G2Spec {
     paddingLeft: 60,
     type: 'interval',
     data: profit,
-    axis: { x: { animate: false }, y: { labelFormatter: '~s' } },
+    axis: { y: { labelFormatter: '~s' } },
     legend: {
       color: {
         state: { unselected: { labelOpacity: 0.5, markerOpacity: 0.5 } },

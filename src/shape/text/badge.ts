@@ -41,11 +41,13 @@ const BadgeShape = createElement((g) => {
   const { size = 24 } = markerStyle;
 
   const symbol = () => getPath(size / 2);
+  const style = {
+    style: { symbol, ...markerStyle },
+  };
+
   const bgShape = select(g)
-    .maybeAppend('marker', () => new Marker({}))
-    .call((selection) =>
-      (selection.node() as Marker).update({ symbol, ...markerStyle }),
-    )
+    .maybeAppend('marker', () => new Marker({ style }))
+    .call((selection) => (selection.node() as Marker).update(style))
     .node() as DisplayObject;
 
   const [x, y] = inferTextPosition(bgShape);

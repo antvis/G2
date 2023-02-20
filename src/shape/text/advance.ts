@@ -167,13 +167,17 @@ export const Advance = createElement((g) => {
     startMarker &&
     new Marker({
       id: 'startMarker',
-      style: { x: 0, y: 0, ...(subObject(rest, 'startMarker') as any) },
+      style: {
+        style: { x: 0, y: 0, ...(subObject(rest, 'startMarker') as any) },
+      },
     });
   const markerEnd =
     endMarker &&
     new Marker({
       id: 'endMarker',
-      style: { x: 0, y: 0, ...(subObject(rest, 'endMarker') as any) },
+      style: {
+        style: { x: 0, y: 0, ...(subObject(rest, 'endMarker') as any) },
+      },
     });
   select(g)
     .maybeAppend('connector', 'path')

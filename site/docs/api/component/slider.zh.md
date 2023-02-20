@@ -49,7 +49,7 @@ chart.render();
 
 | 属性                    | 描述                           | 类型                           | 默认值       |
 | ----------------------- | ------------------------------ | ------------------------------ | ------------ |
-| orient                  | 缩略轴朝向，横向及纵向         | `'horizontal'` \| `'vertical'` | 'horizontal' |
+| orientation                  | 缩略轴朝向，横向及纵向         | `'horizontal'` \| `'vertical'` | 'horizontal' |
 | values                  | 初始选区范围，位于 0 ～ 1 区间 | `[number, number]`             | -            |
 | slidable                | 是否允许拖动选取和手柄         | `boolean`                      | true         |
 | brushable               | 是否启用刷选                   | `boolean`                      | true         |

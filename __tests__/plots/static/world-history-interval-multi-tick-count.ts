@@ -26,7 +26,7 @@ export function worldHistoryIntervalMultiTickCount(): G2Spec {
           grid: null,
           title: null,
           style: {
-            labelTextAlign: 'start',
+            labelTextAlign: 'center',
           },
         },
         {
@@ -34,7 +34,7 @@ export function worldHistoryIntervalMultiTickCount(): G2Spec {
           labelFormatter,
           title: null,
           style: {
-            labelTextAlign: 'start',
+            labelTextAlign: 'center',
           },
         },
       ],

@@ -28,7 +28,7 @@ type TooltipData = {
   x: number;
   y: number;
   title: string;
-  items: TooltipItem[];
+  data: TooltipItem[];
 };
 
 function getContainer(group: IElement) {
@@ -127,7 +127,7 @@ function renderCrosshair(
   }
 
   const { follow, ...options } = crosshairsCfg;
-  const { x, y, items } = tooltipData;
+  const { x, y, data: items } = tooltipData;
 
   const point = (follow ? [x, y] : [items[0].x, items[0].y]) as Vector2;
   const data = getCrosshairCfgOfPoint(coordinate, point, options);
@@ -162,8 +162,7 @@ function renderMarkers(
     return;
   }
 
-  const { items } = tooltipData;
-  const data = items.map((item) => {
+  const data = tooltipData.data.map((item) => {
     const { x, y, color } = item;
     return {
       cx: x,
@@ -204,19 +203,21 @@ function createTooltipComponent(
     tooltip = new TooltipComponent({
       className: 'tooltip',
       style: {
-        container: { x: 0, y: 0 },
-        items: [],
-        bounding,
-        position: 'bottom-right',
-        offset: [10, 10],
+        data: [],
         style: {
-          '.tooltip': {
-            'max-width': '170px',
-          },
-          '.tooltip-title': {
-            overflow: 'hidden',
-            'white-space': 'nowrap',
-            'text-overflow': 'ellipsis',
+          container: { x: 0, y: 0 },
+          bounding,
+          position: 'bottom-right',
+          offset: [10, 10],
+          style: {
+            '.tooltip': {
+              'max-width': '170px',
+            },
+            '.tooltip-title': {
+              overflow: 'hidden',
+              'white-space': 'nowrap',
+              'text-overflow': 'ellipsis',
+            },
           },
         },
       },
@@ -335,7 +336,7 @@ function getTooltipData(
         y: mouseY,
         // Default use the first one.
         title: items[0].title,
-        items,
+        data: items,
       }
     : null;
 }
@@ -378,14 +379,16 @@ export const Tooltip: AC<TooltipOptions> = (options) => {
     if (!data) {
       hideTooltip(transientLayer);
     } else {
-      const { title, items } = data;
+      const { title, data: items } = data;
       tooltipComponent.update({
-        x: mouseX,
-        y: mouseY,
-        title,
-        position: 'bottom-right',
-        offset: [14, 10],
-        items,
+        style: {
+          x: mouseX,
+          y: mouseY,
+          title,
+          position: 'bottom-right',
+          offset: [14, 10],
+        },
+        data: items,
       });
       tooltipComponent.show();
     }

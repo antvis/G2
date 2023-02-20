@@ -1,24 +1,29 @@
 import { Canvas } from '@antv/g';
+import { set } from '@antv/util';
 import { G2Spec } from '../../src';
 import * as chartTests from '../plots/interaction';
-import { kebabCase } from './utils/kebabCase';
 import { filterTests } from './utils/filterTests';
-import { sleep } from './utils/sleep';
+import { kebabCase } from './utils/kebabCase';
 import { renderSpec } from './utils/renderSpec';
-import './utils/useSnapshotMatchers';
+import { sleep } from './utils/sleep';
 import './utils/useCustomFetch';
-
-function disableAnimation(options): G2Spec {
-  const { children } = options;
-  if (!children) return { ...options, animate: false };
-  const newChildren = children.map((d) => ({ ...d, animate: false }));
-  return {
-    ...options,
-    children: newChildren,
-  };
-}
+import './utils/useSnapshotMatchers';
 
 describe('Interactions', () => {
+  function disableAnimation(options): G2Spec {
+    const { children } = options;
+    if (!children) return { ...options, animate: false };
+    const newChildren = children.map((d) => {
+      set(d, ['axis', 'x'], { ...(d?.axis?.x || {}), animate: false });
+      set(d, ['axis', 'y'], { ...d?.axis?.y, animate: false });
+      return { ...d, animate: false };
+    });
+    return {
+      ...options,
+      children: newChildren,
+    };
+  }
+
   const tests = filterTests(chartTests);
   for (const [name, generateOptions] of tests) {
     let gCanvas: Canvas | undefined;

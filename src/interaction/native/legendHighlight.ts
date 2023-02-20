@@ -40,7 +40,7 @@ export function LegendHighlight() {
       const elementGroup = group<any, any>(elements, (d) =>
         scale.invert(d.__data__[channel]),
       );
-      const { state: legendState = {} } = legend.attributes;
+      const { state: legendState = {} } = legend.attributes.style;
       const { inactive = {} } = legendState;
       const { setState, removeState } = useState(markState, valueof);
 
