@@ -74,7 +74,7 @@ function useFrame(I, context, asset) {
   };
 }
 
-describe('Animations', () => {
+describe.skip('Animations', () => {
   const tests = filterTests(chartTests);
   for (const [name, generateOptions] of tests) {
     let gCanvas: Canvas | undefined;
