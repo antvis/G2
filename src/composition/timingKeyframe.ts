@@ -39,6 +39,8 @@ function setAnimation(node: G2ViewTree, duration: number, easing: string) {
         updateType: 'morphing',
         updateFill: 'both',
         exitType: 'fadeOut',
+        easing,
+        duration,
       },
       n.animate || {},
     );

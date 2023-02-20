@@ -54,8 +54,10 @@ const ConnectorPath = createElement((g) => {
         ? new Marker({
             className: 'marker',
             style: {
-              ...markerStyle,
-              symbol: inferSymbol,
+              style: {
+                ...markerStyle,
+                symbol: inferSymbol,
+              },
             },
           })
         : null,

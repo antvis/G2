@@ -7,7 +7,13 @@ import type {
   GuideComponentPosition as GCP,
   Scale,
 } from '../runtime';
-import { G2Layout, inferComponentLayout, titleContent, scaleOf } from './utils';
+import {
+  G2Layout,
+  inferComponentLayout,
+  titleContent,
+  scaleOf,
+  adaptor,
+} from './utils';
 
 export type LegendContinuousOptions = {
   layout?: FlexLayout;
@@ -80,8 +86,8 @@ function inferContinuousLayout(options: LegendContinuousOptions) {
     top: ['horizontal', length, size],
     bottom: ['horizontal', length, size],
   };
-  const [orient, width, height] = layouts[position];
-  return { orient, width, height };
+  const [orientation, width, height] = layouts[position];
+  return { orientation, width, height };
 }
 
 /**
@@ -96,6 +102,7 @@ export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
     position,
     layout,
     labelFormatter,
+    orientation: _orientation,
     ...rest
   } = options;
   return (scales, value, coordinate, theme) => {
@@ -117,28 +124,29 @@ export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
     });
 
     const { continuousLegend: legendTheme = {} } = theme;
-
     layoutWrapper.appendChild(
       new Continuous({
-        style: Object.assign(
-          {},
-          legendTheme,
-          {
-            x,
-            y,
-            titleText: titleContent(title),
-            titleFontSize: 12,
-            showHandle: false,
-            showIndicator: false,
-            labelAlign: 'value',
-            labelFormatter:
-              typeof labelFormatter === 'string'
-                ? (d) => format(labelFormatter)(d.label)
-                : labelFormatter,
-            ...inferContinuousLayout(options),
-            ...inferContinuousConfig(scales, options),
-          },
-          rest,
+        style: adaptor(
+          Object.assign(
+            {},
+            legendTheme,
+            {
+              x,
+              y,
+              titleText: titleContent(title),
+              titleFontSize: 12,
+              showHandle: false,
+              showIndicator: false,
+              labelAlign: 'value',
+              labelFormatter:
+                typeof labelFormatter === 'string'
+                  ? (d) => format(labelFormatter)(d.label)
+                  : labelFormatter,
+              ...inferContinuousLayout(options),
+              ...inferContinuousConfig(scales, options),
+            },
+            rest,
+          ),
         ),
       }),
     );

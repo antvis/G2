@@ -353,7 +353,7 @@ export const Light: TC<LightOptions> = (options) => {
       handleLabelFillOpacity: 0.45,
       handleLabelFontSize: 12,
       handleLabelFontWeight: 'normal',
-      labelShowTick: true,
+      showTick: true,
       labelSpacing: 8,
       // [todo] legend rail
     },

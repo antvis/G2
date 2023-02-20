@@ -191,7 +191,7 @@ export function BrushAxisHighlight(options) {
         const {
           startPos: [sx, sy],
           endPos: [ex, ey],
-        } = axis.attributes;
+        } = axis.attributes.style;
         // attention, non-horizontal does not mean vertical
         // it may has a specific degree angle
         return sx !== ex && sy === ey;

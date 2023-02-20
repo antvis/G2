@@ -23,7 +23,7 @@ import {
   radiusOf,
 } from '../utils/coordinate';
 import { capitalizeFirst } from '../utils/helper';
-import { titleContent } from './utils';
+import { titleContent, adaptor } from './utils';
 
 export type AxisOptions = {
   position?: GCP;
@@ -212,7 +212,8 @@ function inferArcStyle(
   const common = {
     center,
     radius,
-    angleRange: [startAngle, endAngle],
+    startAngle,
+    endAngle,
     titleFillOpacity: 0,
     titlePosition: 'inner',
     showLine: false,
@@ -374,15 +375,17 @@ const ArcAxisComponent: GCC<AxisOptions> = (options) => {
 
     const { axis: axisTheme } = theme;
     return new AxisComponent({
-      style: deepMix({}, axisTheme, defaultStyle, {
-        type: 'arc',
-        data: ticks,
-        title: titleContent(title),
-        showGrid,
-        ...style,
-        ...rest,
-        ...important,
-      }),
+      style: adaptor(
+        deepMix({}, axisTheme, defaultStyle, {
+          type: 'arc',
+          data: ticks,
+          titleText: titleContent(title),
+          showGrid,
+          ...style,
+          ...rest,
+          ...important,
+        }),
+      ),
     });
   };
 };
@@ -507,7 +510,7 @@ const LinearAxisComponent: GCC<AxisOptions> = (options) => {
       ...style,
       type: 'linear' as const,
       data: ticks,
-      title: titleContent(title),
+      titleText: titleContent(title),
       showLabel,
       labelTransforms: labelTransforms(labelAutoHide, labelAutoRotate),
       showGrid,
@@ -523,7 +526,7 @@ const LinearAxisComponent: GCC<AxisOptions> = (options) => {
 
     return new AxisComponent({
       className: 'axis',
-      style: axisStyle,
+      style: adaptor(axisStyle),
     });
   };
 };

@@ -207,7 +207,7 @@ export function LegendFilter({ channel, ...rest }) {
         };
         return update(newOptions);
       },
-      state: selectedLegend.attributes.state,
+      state: selectedLegend.attributes.style.state,
       ...rest,
     });
   };

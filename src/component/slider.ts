@@ -1,11 +1,11 @@
 import { Slider as SliderComponent } from '@antv/gui';
 import { format } from 'd3-format';
-import { least } from 'd3-array';
 import { GuideComponentComponent as GCC, Scale } from '../runtime';
 import { invert } from '../utils/scale';
+import { adaptor } from './utils';
 
 export type SliderOptions = {
-  orient: 'horizontal' | 'vertical';
+  orientation: 'horizontal' | 'vertical';
   [key: string]: any;
 };
 
@@ -14,7 +14,7 @@ export type SliderOptions = {
  */
 export const Slider: GCC<SliderOptions> = (options) => {
   // do not pass size.
-  const { orient, labelFormatter, size, style, ...rest } = options;
+  const { orientation, labelFormatter, size, style, ...rest } = options;
 
   return ([scale], value, coordinate, theme) => {
     const { bbox } = value;
@@ -28,20 +28,22 @@ export const Slider: GCC<SliderOptions> = (options) => {
 
     return new SliderComponent({
       className: 'slider',
-      style: Object.assign({}, sliderTheme, {
-        x,
-        y,
-        trackLength: orient === 'horizontal' ? width : height,
-        orient,
-        formatter: (v) => {
-          const f = formatter || defaultFormatter;
-          // @todo Pass index to distinguish the left and the right value.
-          const tick = invert(scale, v, true);
-          return f(tick);
-        },
-        ...style,
-        ...rest,
-      }),
+      style: adaptor(
+        Object.assign({}, sliderTheme, {
+          x,
+          y,
+          trackLength: orientation === 'horizontal' ? width : height,
+          orientation,
+          formatter: (v) => {
+            const f = formatter || defaultFormatter;
+            // @todo Pass index to distinguish the left and the right value.
+            const tick = invert(scale, v, true);
+            return f(tick);
+          },
+          ...style,
+          ...rest,
+        }),
+      ),
     });
   };
 };

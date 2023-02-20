@@ -14,7 +14,13 @@ import type {
 import { useLibrary } from '../runtime/library';
 import { Shape, ShapeComponent } from '../runtime/types/component';
 import type { G2ShapeOptions } from '../runtime/types/options';
-import { G2Layout, inferComponentLayout, titleContent, scaleOf } from './utils';
+import {
+  G2Layout,
+  inferComponentLayout,
+  titleContent,
+  scaleOf,
+  adaptor,
+} from './utils';
 
 export type LegendCategoryOptions = {
   dx?: number;
@@ -177,7 +183,7 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
     );
 
     const legendStyle = {
-      orient: ['right', 'left', 'center'].includes(position)
+      orientation: ['right', 'left', 'center'].includes(position)
         ? 'vertical'
         : 'horizontal',
       width,
@@ -203,7 +209,7 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
     layoutWrapper.appendChild(
       new Category({
         className: 'legend-category',
-        style: Object.assign({}, legendTheme, legendStyle, rest),
+        style: adaptor(Object.assign({}, legendTheme, legendStyle, rest)),
       }),
     );
     return layoutWrapper;

@@ -26,25 +26,27 @@ function createTooltip(root, x0, y0) {
   const tooltipElement = new TooltipComponent({
     className: 'tooltip',
     style: {
-      x: x0,
-      y: y0,
-      container: { x: 0, y: 0 },
-      items: [],
-      bounding: {
-        x,
-        y,
-        width: x1 - x,
-        height: y1 - y,
-      },
-      title: ' ',
-      position: 'bottom-right',
-      offset: [10, 10],
+      data: [],
       style: {
-        '.tooltip': {},
-        '.tooltip-title': {
-          overflow: 'hidden',
-          'white-space': 'nowrap',
-          'text-overflow': 'ellipsis',
+        x: x0,
+        y: y0,
+        container: { x: 0, y: 0 },
+        bounding: {
+          x,
+          y,
+          width: x1 - x,
+          height: y1 - y,
+        },
+        title: ' ',
+        position: 'bottom-right',
+        offset: [10, 10],
+        style: {
+          '.tooltip': {},
+          '.tooltip-title': {
+            overflow: 'hidden',
+            'white-space': 'nowrap',
+            'text-overflow': 'ellipsis',
+          },
         },
       },
     },
@@ -57,12 +59,14 @@ function createTooltip(root, x0, y0) {
 
 function showTooltip(root, data, x, y) {
   const { tooltipElement = createTooltip(root, x, y) } = root;
-  const { items, title } = data;
+  const { title } = data;
   tooltipElement.show();
   tooltipElement.position = [x, y];
   tooltipElement.update({
-    items,
-    title,
+    data: data.data,
+    style: {
+      title,
+    },
   });
   root.tooltipElement = tooltipElement;
 }
@@ -90,7 +94,7 @@ function singleItem(element, item, scale) {
   const { __data__: datum } = element;
   const { title, ...rest } = datum;
   const defaultColor = itemColorOf(element);
-  const items = Object.entries(rest)
+  const data = Object.entries(rest)
     .filter(([key]) => key.startsWith('tooltip'))
     .map(([key, d]: any) => {
       const { field: f, title = f } = scale[key].getOptions();
@@ -112,7 +116,7 @@ function singleItem(element, item, scale) {
     .filter(({ value }) => value !== undefined);
   return {
     ...(title && { title }),
-    items,
+    data,
   };
 }
 
@@ -189,7 +193,7 @@ function groupItems(
   });
   return {
     ...(T.length > 0 && { title: T.join(',') }),
-    items,
+    data: items,
   };
 }
 
