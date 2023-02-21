@@ -1,7 +1,6 @@
 import { Canvas } from '@antv/g';
-import { deepMix } from '@antv/util';
-import { G2Spec } from '../../src';
 import * as chartTests from '../plots/interaction';
+import { disableAnimation } from './utils/disableAnimation';
 import { filterTests } from './utils/filterTests';
 import { kebabCase } from './utils/kebabCase';
 import { renderSpec } from './utils/renderSpec';
@@ -10,22 +9,6 @@ import './utils/useCustomFetch';
 import './utils/useSnapshotMatchers';
 
 describe('Interactions', () => {
-  function disableAnimation(options): G2Spec {
-    const { children } = options;
-    if (!children) return { ...options, animate: false };
-    const newChildren = children.map((d) => {
-      return deepMix(
-        d,
-        { animate: false },
-        { axis: { x: { animate: false }, y: { animate: false } } },
-      );
-    });
-    return {
-      ...options,
-      children: newChildren,
-    };
-  }
-
   const tests = filterTests(chartTests);
   for (const [name, generateOptions] of tests) {
     let gCanvas: Canvas | undefined;
