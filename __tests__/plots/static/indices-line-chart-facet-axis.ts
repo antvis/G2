@@ -23,12 +23,13 @@ export async function indicesLineChartFacetAxis(): Promise<G2Spec> {
           y: { labelAutoRotate: false },
           x: ({ rowIndex }) =>
             rowIndex === 0
-              ? { position: 'top' }
+              ? { position: 'top', animate: false }
               : {
                   tickLine: false,
                   tick: false,
                   title: false,
                   label: false,
+                  animate: false,
                 },
         },
         encode: {
