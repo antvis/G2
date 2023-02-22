@@ -19,7 +19,7 @@
     "size": "limit-size",
     "lint": "eslint ./src ./__tests__ && prettier ./src ./__tests__ --check ",
     "fix": "eslint ./src ./__tests__ --fix && prettier ./src ./__tests__ --write ",
-    "test": "run-s test:unit test:integration",
+    "test": "node --expose-gc --max-old-space-size=4096 node_modules/jest/bin/jest __tests__/ --coverage -i  --logHeapUsage",
     "test:unit": "node --expose-gc --max-old-space-size=4096 node_modules/jest/bin/jest __tests__/unit/ --coverage -i  --logHeapUsage",
     "test:integration": "node --expose-gc --max-old-space-size=4096 node_modules/jest/bin/jest __tests__/integration/ --coverage -i  --logHeapUsage",
     "test-live": "cross-env DEBUG_MODE=1 jest --watch",
