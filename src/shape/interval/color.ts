@@ -147,13 +147,17 @@ export const Color: SC<ColorOptions> = (options) => {
       insetTop,
     };
 
-    return select(rect(points, value, coordinate, extendedStyle))
-      .call(applyStyle, { ...defaults, ...rest })
-      .style(toOpacityKey(options), opacity)
-      .style(colorAttribute, color)
-      .style('lineWidth', lineWidth)
-      .style('stroke', stroke === undefined ? color : stroke)
-      .node();
+    return (
+      select(rect(points, value, coordinate, extendedStyle))
+        .call(applyStyle, defaults)
+        .style(colorAttribute, color)
+        .style(toOpacityKey(options), opacity)
+        .style('lineWidth', lineWidth)
+        .style('stroke', stroke === undefined ? color : stroke)
+        // shape.style has higher priority.
+        .call(applyStyle, rest)
+        .node()
+    );
   };
 };
 
