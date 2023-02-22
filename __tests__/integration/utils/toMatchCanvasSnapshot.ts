@@ -84,7 +84,7 @@ export async function toMatchCanvasSnapshot(
         };
       }
       return {
-        message: () => `mismatch ${namePath}`,
+        message: () => `mismatch ${namePath} (error: ${error}) `,
         pass: false,
       };
     }
