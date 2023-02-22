@@ -34,3 +34,5 @@ alphabetIntervalHighlightOffsetPolar.steps = ({ canvas }) => {
   const elements = document.getElementsByClassName(ELEMENT_CLASS_NAME);
   return elements.map((e) => step(e, 'pointerover'));
 };
+
+alphabetIntervalHighlightOffsetPolar.maxError = 10;
