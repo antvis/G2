@@ -14,8 +14,8 @@ export class Base<
    * Get view instance by key.
    */
   getView(): G2ViewDescriptor {
-    const chart = this.root();
-    const { views } = chart.context();
+    const chart = this.getRoot();
+    const { views } = chart.getContext();
     if (!views?.length) return undefined;
     return views.find((view) => view.key === this.attr('key'));
   }
@@ -31,8 +31,8 @@ export class Base<
   getGroup(): DisplayObject {
     const key = this.attr('key');
     if (!key) return undefined;
-    const chart = this.root();
-    const chartGroup = chart.context().canvas.getRoot();
+    const chart = this.getRoot();
+    const chartGroup = chart.getContext().canvas.getRoot();
     return chartGroup.getElementById(key);
   }
 

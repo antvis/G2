@@ -26,7 +26,7 @@ chart
 chart.render();
 
 (async () => {
-  const { canvas } = chart.context();
+  const { canvas } = chart.getContext();
   await canvas.ready;
 
   const lottieJSON = await fetch(
