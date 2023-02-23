@@ -213,11 +213,11 @@ export class Chart extends View<ChartOptions> {
     return optionsOf(this);
   }
 
-  node(): HTMLElement {
+  getContainer(): HTMLElement {
     return this._container;
   }
 
-  context(): G2Context {
+  getContext(): G2Context {
     return this._context;
   }
 

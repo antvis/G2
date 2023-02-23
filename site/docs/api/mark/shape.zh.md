@@ -19,7 +19,7 @@ function point(style) {
 
   const {
     canvas: { document },
-  } = chart.context();
+  } = chart.getContext();
 
   return document.createElement('circle', {
     style: {

@@ -23,7 +23,7 @@ describe('Interaction', () => {
     chart.interaction('tooltip');
     await chart.render();
 
-    const { canvas } = chart.context();
+    const { canvas } = chart.getContext();
     const fn = jest.fn();
 
     // Update interaction hook.

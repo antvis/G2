@@ -37,7 +37,7 @@ chart.render();
 function watermark({ x, y }) {
   const {
     canvas: { document },
-  } = chart.context();
+  } = chart.getContext();
 
   const g = document.createElement('g', {});
   const c1 = document.createElement('circle', {

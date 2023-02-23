@@ -126,7 +126,7 @@ export class Node<
     return this;
   }
 
-  root(): Chart {
+  getRoot(): Chart {
     // Find the root chart and render.
     let root: Node = this;
     while (root && root.parentNode) {
