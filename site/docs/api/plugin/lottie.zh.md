@@ -22,7 +22,7 @@ import { loadAnimation } from '@antv/g-lottie-player';
 
 (async () => {
   // 从上下文中获取画布
-  const { canvas } = chart.context();
+  const { canvas } = chart.getContext();
   await canvas.ready;
 
   // 加载 Lottie 文件

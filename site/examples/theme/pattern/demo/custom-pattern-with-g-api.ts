@@ -65,7 +65,7 @@ let pattern1;
 let pattern2;
 let pattern3;
 chart.on('beforerender', () => {
-  const { document } = chart.context().canvas;
+  const { document } = chart.getContext().canvas;
   pattern1 = createPattern(document, '#edaa53', '#44120c', true, true);
   pattern2 = createPattern(document, '#edaa53', '#44120c', true);
   pattern3 = createPattern(document, '#edaa53', '#fff');

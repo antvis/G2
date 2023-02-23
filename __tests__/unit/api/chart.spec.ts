@@ -81,12 +81,12 @@ describe('Chart', () => {
     });
   });
 
-  it('chart.node() should return container', () => {
+  it('chart.getContainer() should return container', () => {
     const container = document.createElement('div');
     const chart = new Chart({
       container,
     });
-    expect(chart.node()).toBe(container);
+    expect(chart.getContainer()).toBe(container);
   });
 
   it('chart.[attr](...) should specify options by API', () => {
@@ -315,7 +315,7 @@ describe('Chart', () => {
     });
   });
 
-  it('chart.context() should return rendering context', () => {
+  it('chart.getContext() should return rendering context', () => {
     const chart = new Chart({});
 
     chart.data([
@@ -332,7 +332,7 @@ describe('Chart', () => {
       .encode('y', 'sold')
       .encode('color', 'genre');
 
-    const context = chart.context();
+    const context = chart.getContext();
     expect(context.canvas).toBeUndefined();
     expect(context.library).toEqual(createLibrary());
     chart.render();
@@ -481,7 +481,7 @@ describe('Chart', () => {
       .encode('y', 'sold')
       .encode('color', 'genre');
     await chart.render();
-    const context = chart.context();
+    const context = chart.getContext();
     const view = context.views?.find((v) => v.key === chart.attr('key'));
     expect(chart.getView()).toEqual(view);
     expect(chart.getCoordinate()).toEqual(view?.coordinate);

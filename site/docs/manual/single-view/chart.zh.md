@@ -62,7 +62,7 @@ const chart = new Chart();
 // 声明可视化
 // ...
 
-const container = chart.node(); // 获得挂载的容器
+const container = chart.getContainer(); // 获得挂载的容器
 document.getElementById('chart').appendChild(container);
 ```
 

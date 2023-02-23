@@ -111,10 +111,10 @@ chart
   .slider('x', {});
 
 chart.on('afterrender', () => {
-  const { canvas } = chart.context();
+  const { canvas } = chart.getContext();
   const { document } = canvas;
   document.querySelector('.slider').addEventListener('valuechange', (evt) => {
-    console.info(evt.detail)
+    console.info(evt.detail);
   });
 });
 

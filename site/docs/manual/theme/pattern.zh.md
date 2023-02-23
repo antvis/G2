@@ -4,17 +4,18 @@ order: 10
 ---
 
 相比单调的填充色，使用纹理填充能丰富表现力，在无障碍和黑白打印场景下也有不错的应用。为此我们提供了以下三种方式，按使用成本从简到难依次为：
-* 使用内置纹理
-* 使用 G API 自定义纹理
-* 使用其它纹理来源
+
+- 使用内置纹理
+- 使用 G API 自定义纹理
+- 使用其它纹理来源
 
 ## 使用内置纹理
 
 我们在 [g-pattern](https://g.antv.antgroup.com/api/css/pattern#g-pattern) 中内置了常见的三种纹理，通过参数可以便捷地调整外观，这也是最简单的一种纹理使用方式：
 
-* [dots](https://g.antv.antgroup.com/api/css/pattern#dots) 由圆点构成
-* [lines](https://g.antv.antgroup.com/api/css/pattern#lines) 由直线构成
-* [squares](https://g.antv.antgroup.com/api/css/pattern#squares) 由正方形构成
+- [dots](https://g.antv.antgroup.com/api/css/pattern#dots) 由圆点构成
+- [lines](https://g.antv.antgroup.com/api/css/pattern#lines) 由直线构成
+- [squares](https://g.antv.antgroup.com/api/css/pattern#squares) 由正方形构成
 
 使用方式如下，首先安装依赖：
 
@@ -23,28 +24,29 @@ $ npm install @antv/g-pattern  --save;
 ```
 
 然后就可以使用其中的内置纹理了。在该[示例](/zh/examples/theme/pattern#lines-pattern)中：
-* 我们使用了 [lines](https://g.antv.antgroup.com/api/css/pattern#lines)，设置了背景颜色、透明度、直线颜色以及间距等属性
-* 通过 [repetition](https://g.antv.antgroup.com/api/css/pattern#repetition) 指定了平铺方式为水平和垂直方向
-* 通过 [transform](https://g.antv.antgroup.com/api/css/pattern#transform) 让纹理顺时针旋转 30 度
+
+- 我们使用了 [lines](https://g.antv.antgroup.com/api/css/pattern#lines)，设置了背景颜色、透明度、直线颜色以及间距等属性
+- 通过 [repetition](https://g.antv.antgroup.com/api/css/pattern#repetition) 指定了平铺方式为水平和垂直方向
+- 通过 [transform](https://g.antv.antgroup.com/api/css/pattern#transform) 让纹理顺时针旋转 30 度
 
 ```js
 import { lines } from '@antv/g-pattern';
 
 chart
-//... 省略其它命令式调用
-.style('fill', (_, idx) => {
+  //... 省略其它命令式调用
+  .style('fill', (_, idx) => {
     return {
-        image: lines({
-            backgroundColor: colors[idx],
-            backgroundOpacity: 0.65,
-            stroke: colors[idx],
-            lineWidth: 4,
-            spacing: 5,
-        }),
-        repetition: 'repeat',
-        transform: 'rotate(30deg)',
+      image: lines({
+        backgroundColor: colors[idx],
+        backgroundOpacity: 0.65,
+        stroke: colors[idx],
+        lineWidth: 4,
+        spacing: 5,
+      }),
+      repetition: 'repeat',
+      transform: 'rotate(30deg)',
     };
-})
+  });
 ```
 
 效果如下：
@@ -61,7 +63,7 @@ chart
 
 ```js
 .style('fill', ({ value }) => {
-    const { document } = chart.context().canvas;
+    const { document } = chart.getContext().canvas;
     const background = document.createElement('rect', {
         style: {
             width,
@@ -100,10 +102,10 @@ chart
 
 可以参考 [G API](https://g.antv.antgroup.com/api/css/pattern#image)，其它可用的纹理来源包括：
 
-* 图片 URL，例如 `'http://example.png'`
-* HTMLImageElement
-* HTMLCanvasElement
-* HTMLVideoElement
+- 图片 URL，例如 `'http://example.png'`
+- HTMLImageElement
+- HTMLCanvasElement
+- HTMLVideoElement
 
 其中图片 URL、HTMLImageElement、HTMLVideoElement 都是静态资源，而 HTMLCanvasElement 可用于程序化生成纹理，效果如下：
 
@@ -120,7 +122,7 @@ drawLinePattern(ctx, stroke, width, height, cross);
 
 // 使用
 chart.style('fill', ({ value }) => {
-    return { image: canvas, repetition: 'repeat' };
+  return { image: canvas, repetition: 'repeat' };
 });
 ```
 

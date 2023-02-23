@@ -27,7 +27,7 @@ const chart = new Chart();
 // ...
 
 // 获得 G Canvas 实例
-const { canvas } = chart.context();
+const { canvas } = chart.getContext();
 
 // 找到图形元素
 const elements = canvas.document.getElementsByClassName(ELEMENT_CLASS_NAME);

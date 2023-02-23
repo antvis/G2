@@ -60,7 +60,7 @@ chart.render();
 
 获取图表的配置项。
 
-### `chart.node()`
+### `chart.getContainer()`
 
 获取图表的 HTML 容器。
 

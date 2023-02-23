@@ -31,7 +31,7 @@ chart
   .encode('x', 'date')
   .encode('y', 'close')
   // 开启 X 轴方向上的滚动条
-  .scrollbar('x', {})
+  .scrollbar('x', {});
 
 chart.render();
 ```
@@ -83,10 +83,10 @@ chart
   .scrollbar('x', {});
 
 chart.on('afterrender', () => {
-  const { canvas } = chart.context();
+  const { canvas } = chart.getContext();
   const { document } = canvas;
   document.querySelector('.slider').addEventListener('valuechange', (evt) => {
-    console.info(evt.detail)
+    console.info(evt.detail);
   });
 });
 

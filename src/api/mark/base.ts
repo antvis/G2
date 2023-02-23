@@ -8,7 +8,7 @@ export class MarkBase<
   ChildValue extends Record<string, any> = Record<string, any>,
 > extends Node<Value, ParentValue, ChildValue> {
   changeData(data: any) {
-    const chart = this.root();
+    const chart = this.getRoot();
     if (!chart) return;
     this.attr('data', data);
     return chart?.render();
@@ -18,7 +18,7 @@ export class MarkBase<
    * Get mark from chart views.
    */
   getMark(): G2MarkState {
-    const chartView = this.root()?.getView();
+    const chartView = this.getRoot()?.getView();
     if (!chartView) return undefined;
     const { markState } = chartView;
     const markKey = Array.from(markState.keys()).find(
@@ -31,7 +31,7 @@ export class MarkBase<
    * Get all scales instance.
    */
   getScale(): Record<string, Scale> {
-    const chartView = this.root()?.getView();
+    const chartView = this.getRoot()?.getView();
     if (!chartView) return undefined;
     return chartView?.scale;
   }
@@ -40,7 +40,7 @@ export class MarkBase<
    * Get the scale instance by channel.
    */
   getScaleByChannel(channel: string): Scale {
-    const chartView = this.root()?.getView();
+    const chartView = this.getRoot()?.getView();
     if (!chartView) return undefined;
     return chartView?.scale?.[channel];
   }
@@ -51,8 +51,8 @@ export class MarkBase<
   getGroup(): DisplayObject {
     const key = this.attr('key');
     if (!key) return undefined;
-    const chart = this.root();
-    const chartGroup = chart.context().canvas.getRoot();
+    const chart = this.getRoot();
+    const chartGroup = chart.getContext().canvas.getRoot();
     return chartGroup.getElementById(key);
   }
 }
