@@ -7,7 +7,7 @@ import {
   ObjectAttribute,
 } from '../types';
 import { mark, Mark } from '../mark';
-import { Composition, Base } from './index';
+import { Composition, CompositionNode } from './index';
 
 type FacetCircleSpec = Concrete<FacetCircleComposition>;
 
@@ -29,7 +29,7 @@ export interface FacetCircle extends Composition, Mark {
   { type: 'object', name: 'axis' },
   ...nodeProps(mark),
 ])
-export class FacetCircle extends Base<FacetCircleComposition> {
+export class FacetCircle extends CompositionNode<FacetCircleComposition> {
   constructor() {
     super({}, 'facetCircle');
   }
