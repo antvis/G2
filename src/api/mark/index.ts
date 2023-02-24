@@ -56,6 +56,8 @@ export interface Mark {
   wordCloud(): WordCloud;
 }
 
+export { MarkNode } from './base';
+
 export const mark = {
   interval: Interval,
   rect: Rect,

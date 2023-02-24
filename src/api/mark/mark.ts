@@ -28,7 +28,7 @@ import {
 } from '../../spec';
 import { NodePropertyDescriptor, defineProps } from '../props';
 import { Concrete } from '../types';
-import { MarkBase } from './base';
+import { MarkNode } from './base';
 import { API } from './types';
 
 export interface Interval extends API<Concrete<IntervalGeometry>, Interval> {
@@ -152,182 +152,182 @@ export const props: NodePropertyDescriptor[] = [
 ];
 
 @defineProps(props)
-export class Interval extends MarkBase<IntervalGeometry> {
+export class Interval extends MarkNode<IntervalGeometry> {
   constructor() {
     super({}, 'interval');
   }
 }
 
 @defineProps(props)
-export class Rect extends MarkBase<RectGeometry> {
+export class Rect extends MarkNode<RectGeometry> {
   constructor() {
     super({}, 'rect');
   }
 }
 
 @defineProps(props)
-export class Point extends MarkBase<PointGeometry> {
+export class Point extends MarkNode<PointGeometry> {
   constructor() {
     super({}, 'point');
   }
 }
 
 @defineProps(props)
-export class Area extends MarkBase<AreaGeometry> {
+export class Area extends MarkNode<AreaGeometry> {
   constructor() {
     super({}, 'area');
   }
 }
 
 @defineProps(props)
-export class Line extends MarkBase<LineGeometry> {
+export class Line extends MarkNode<LineGeometry> {
   constructor() {
     super({}, 'line');
   }
 }
 
 @defineProps(props)
-export class Cell extends MarkBase<CellGeometry> {
+export class Cell extends MarkNode<CellGeometry> {
   constructor() {
     super({}, 'cell');
   }
 }
 
 @defineProps(props)
-export class Vector extends MarkBase<VectorGeometry> {
+export class Vector extends MarkNode<VectorGeometry> {
   constructor() {
     super({}, 'vector');
   }
 }
 
 @defineProps(props)
-export class Link extends MarkBase<LinkGeometry> {
+export class Link extends MarkNode<LinkGeometry> {
   constructor() {
     super({}, 'link');
   }
 }
 
 @defineProps(props)
-export class Polygon extends MarkBase<PolygonGeometry> {
+export class Polygon extends MarkNode<PolygonGeometry> {
   constructor() {
     super({}, 'polygon');
   }
 }
 
 @defineProps(props)
-export class Image extends MarkBase<ImageGeometry> {
+export class Image extends MarkNode<ImageGeometry> {
   constructor() {
     super({}, 'image');
   }
 }
 
 @defineProps(props)
-export class Text extends MarkBase<TextGeometry> {
+export class Text extends MarkNode<TextGeometry> {
   constructor() {
     super({}, 'text');
   }
 }
 
 @defineProps(props)
-export class Box extends MarkBase<BoxGeometry> {
+export class Box extends MarkNode<BoxGeometry> {
   constructor() {
     super({}, 'box');
   }
 }
 
 @defineProps(props)
-export class LineX extends MarkBase<LineXMark> {
+export class LineX extends MarkNode<LineXMark> {
   constructor() {
     super({}, 'lineX');
   }
 }
 
 @defineProps(props)
-export class LineY extends MarkBase<LineYMark> {
+export class LineY extends MarkNode<LineYMark> {
   constructor() {
     super({}, 'lineY');
   }
 }
 
 @defineProps(props)
-export class Range extends MarkBase<RangeMark> {
+export class Range extends MarkNode<RangeMark> {
   constructor() {
     super({}, 'range');
   }
 }
 
 @defineProps(props)
-export class RangeX extends MarkBase<RangeXMark> {
+export class RangeX extends MarkNode<RangeXMark> {
   constructor() {
     super({}, 'rangeX');
   }
 }
 
 @defineProps(props)
-export class RangeY extends MarkBase<RangeYMark> {
+export class RangeY extends MarkNode<RangeYMark> {
   constructor() {
     super({}, 'rangeY');
   }
 }
 
 @defineProps(props)
-export class Connector extends MarkBase<ConnectorMark> {
+export class Connector extends MarkNode<ConnectorMark> {
   constructor() {
     super({}, 'connector');
   }
 }
 
 @defineProps(props)
-export class Shape extends MarkBase<ShapeMark> {
+export class Shape extends MarkNode<ShapeMark> {
   constructor() {
     super({}, 'shape');
   }
 }
 
 @defineProps([...props, { name: 'layout', type: 'value' }])
-export class Sankey extends MarkBase<SankeyMark> {
+export class Sankey extends MarkNode<SankeyMark> {
   constructor() {
     super({}, 'sankey');
   }
 }
 
 @defineProps([...props, { name: 'layout', type: 'value' }])
-export class Treemap extends MarkBase<ConnectorMark> {
+export class Treemap extends MarkNode<ConnectorMark> {
   constructor() {
     super({}, 'treemap');
   }
 }
 
 @defineProps(props)
-export class Boxplot extends MarkBase<Boxplot> {
+export class Boxplot extends MarkNode<Boxplot> {
   constructor() {
     super({}, 'boxplot');
   }
 }
 
 @defineProps([...props, { name: 'layout', type: 'value' }])
-export class Pack extends MarkBase<Pack> {
+export class Pack extends MarkNode<Pack> {
   constructor() {
     super({}, 'pack');
   }
 }
 
 @defineProps([...props, { name: 'layout', type: 'value' }])
-export class ForceGraph extends MarkBase<ForceGraph> {
+export class ForceGraph extends MarkNode<ForceGraph> {
   constructor() {
     super({}, 'forceGraph');
   }
 }
 
 @defineProps([...props, { name: 'layout', type: 'value' }])
-export class Tree extends MarkBase<Tree> {
+export class Tree extends MarkNode<Tree> {
   constructor() {
     super({}, 'tree');
   }
 }
 
 @defineProps([...props, { name: 'layout', type: 'object' }])
-export class WordCloud extends MarkBase<WordCloud> {
+export class WordCloud extends MarkNode<WordCloud> {
   constructor() {
     super({}, 'wordCloud');
   }

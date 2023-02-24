@@ -120,7 +120,7 @@ function getCompositeOptions() {
   };
 }
 
-describe.only('MarkBase', () => {
+describe('MarkNode', () => {
   let view;
   let interval;
 

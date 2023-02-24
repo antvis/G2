@@ -7,7 +7,7 @@ import {
   ObjectAttribute,
 } from '../types';
 import { mark, Mark } from '../mark';
-import { Composition, Base } from './index';
+import { Composition, CompositionNode } from './index';
 
 type FacetRectSpec = Concrete<FacetRectComposition>;
 
@@ -29,7 +29,7 @@ export interface FacetRect extends Composition, Mark {
   { type: 'object', name: 'axis' },
   ...nodeProps(mark),
 ])
-export class FacetRect extends Base<FacetRectComposition> {
+export class FacetRect extends CompositionNode<FacetRectComposition> {
   constructor() {
     super({}, 'facetRect');
   }

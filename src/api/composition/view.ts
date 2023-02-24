@@ -7,7 +7,7 @@ import {
   Concrete,
 } from '../types';
 import { mark, Mark } from '../mark';
-import { Base } from './base';
+import { CompositionNode } from './base';
 
 type ViewSpec = Concrete<ViewComposition>;
 
@@ -35,7 +35,7 @@ export interface View extends Mark {
 ])
 export class View<
   ViewProps extends ViewComposition = ViewComposition,
-> extends Base<ViewProps> {
+> extends CompositionNode<ViewProps> {
   constructor(options = {}, type = 'view') {
     super(options, type);
   }

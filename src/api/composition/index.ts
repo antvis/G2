@@ -1,5 +1,5 @@
 import { defineProps, nodeProps } from '../props';
-import { Base } from './base';
+import { CompositionNode } from './base';
 import { View } from './view';
 import { SpaceLayer } from './spaceLayer';
 import { SpaceFlex } from './spaceFlex';
@@ -35,7 +35,7 @@ export interface Composition {
 }
 
 export {
-  Base,
+  CompositionNode,
   View,
   SpaceLayer,
   SpaceFlex,
