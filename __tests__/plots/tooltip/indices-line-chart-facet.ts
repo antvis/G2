@@ -26,6 +26,8 @@ export async function indicesLineChartFacet(): Promise<G2Spec> {
           y: 'Close',
           color: 'Symbol',
           key: 'Symbol',
+        },
+        tooltip: {
           title: (d) => new Date(d.Date).toUTCString(),
         },
       },

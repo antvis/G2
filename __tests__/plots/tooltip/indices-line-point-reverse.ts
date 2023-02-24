@@ -29,9 +29,8 @@ export async function indicesLinePointReverse(): Promise<G2Spec> {
           y: 'Close',
           color: 'Symbol',
           key: 'Symbol',
-          title: null,
-          tooltip: null,
         },
+        tooltip: null,
       },
       {
         type: 'point',
@@ -40,8 +39,8 @@ export async function indicesLinePointReverse(): Promise<G2Spec> {
           y: 'Close',
           color: 'Symbol',
           key: 'Symbol',
-          tooltip: (d) => new Date(d.Date).toUTCString(),
         },
+        tooltip: (d) => new Date(d.Date).toUTCString(),
       },
     ],
     interaction: {

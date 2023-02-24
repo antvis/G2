@@ -26,11 +26,7 @@ export function baseChannels(options: ChannelOptions = {}): Channel[] {
 }
 
 export function baseGeometryChannels(options: ChannelOptions = {}): Channel[] {
-  return [
-    ...baseChannels(options),
-    { name: 'title', scale: 'identity' },
-    { name: 'tooltip', scale: 'identity', independent: true },
-  ];
+  return [...baseChannels(options), { name: 'title', scale: 'identity' }];
 }
 
 export function tooltip2d() {

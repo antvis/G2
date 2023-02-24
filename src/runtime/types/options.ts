@@ -112,6 +112,7 @@ export type G2Mark = {
   legend?: boolean | Record<string, any>;
   slider?: Record<string, any>;
   scrollbar?: Record<string, any>;
+  tooltip?: any; // @todo
   filter?: (i: number) => boolean;
   children?: G2MarkChildrenCallback;
   dataDomain?: number;

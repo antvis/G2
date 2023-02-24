@@ -1,7 +1,7 @@
 import { G2Spec } from '../../../src';
 import { tooltipSteps } from './utils';
 
-export function alphabetIntervalMulti(): G2Spec {
+export function alphabetIntervalMultiField(): G2Spec {
   return {
     type: 'view',
     children: [
@@ -19,7 +19,7 @@ export function alphabetIntervalMulti(): G2Spec {
           y: 'frequency',
           color: 'steelblue',
         },
-        tooltip: ['letter', 'frequency'],
+        tooltip: [{ field: 'letter' }, { field: 'frequency' }],
       },
     ],
     interaction: {
@@ -28,4 +28,4 @@ export function alphabetIntervalMulti(): G2Spec {
   };
 }
 
-alphabetIntervalMulti.steps = tooltipSteps(0);
+alphabetIntervalMultiField.steps = tooltipSteps(0);

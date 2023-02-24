@@ -23,14 +23,17 @@ export async function indicesLineItems(): Promise<G2Spec> {
           y: 'Close',
           color: 'Symbol',
           key: 'Symbol',
+        },
+        tooltip: {
           title: (d) => new Date(d.Date).toUTCString(),
+          items: [
+            (d, i, D, V) => ({ name: 'Close', value: V.y.value[i].toFixed(1) }),
+          ],
         },
       },
     ],
     interaction: {
-      tooltip: {
-        item: ({ value }) => ({ value: value.toFixed(1) }),
-      },
+      tooltip: true,
     },
   };
 }

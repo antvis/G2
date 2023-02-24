@@ -18,6 +18,8 @@ export function alphabetIntervalTitle(): G2Spec {
           x: 'letter',
           y: 'frequency',
           color: 'steelblue',
+        },
+        tooltip: {
           title: 'frequency',
         },
       },

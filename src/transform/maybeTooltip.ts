@@ -12,28 +12,23 @@ export type MaybeTooltipOptions = {
 export const MaybeTooltip: TC<MaybeTooltipOptions> = (options) => {
   const { channel } = options;
   return (I, mark) => {
-    const { encode } = mark;
-    const { tooltip } = encode;
-    if (tooltip !== undefined) return [I, mark];
+    const { encode, tooltip } = mark;
+    if (tooltip === null) return [I, mark];
+    const { items = [] } = tooltip;
+    if (items.length > 0) return [I, mark];
     const channels = Array.isArray(channel) ? channel : [channel];
-    let index = 0;
-    const entries = channels.flatMap((channel) =>
-      Object.entries(encode)
-        .filter(([key]) => key.startsWith(channel))
-        .flatMap(([key]) => {
+    const newItems = channels.flatMap((channel) =>
+      Object.keys(encode)
+        .filter((key) => key.startsWith(channel))
+        .map((key) => {
           const [V, fv] = columnOf(encode, key);
-          const E = [[key, column(V)]];
           // Only show channel with field.
-          if (V && fv !== null) {
-            const T = V.map((v) => ({ value: v, field: fv }));
-            //@ts-ignore
-            E.push([`tooltip${index === 0 ? '' : index}`, column(T, fv)]);
-            index++;
-          }
-          return E;
-        }),
+          if (V && fv !== null) return V.map((v) => ({ value: v, name: fv }));
+          return null;
+        })
+        .filter((d) => d !== null),
     );
-    return [I, deepMix({}, mark, { encode: Object.fromEntries(entries) })];
+    return [I, deepMix({}, mark, { tooltip: { items: newItems } })];
   };
 };
 

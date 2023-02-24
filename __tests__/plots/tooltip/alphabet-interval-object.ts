@@ -18,17 +18,19 @@ export function alphabetIntervalObject(): G2Spec {
           x: 'letter',
           y: 'frequency',
           color: 'steelblue',
-          tooltip: (d) => ({
+        },
+        tooltip: [
+          (d) => ({
             color: 'red',
             value: d.frequency,
             name: 'F',
           }),
-          tooltip1: (d) => ({
+          (d) => ({
             color: 'yellow',
             value: d.letter,
             name: 'L',
           }),
-        },
+        ],
       },
     ],
     interaction: {
