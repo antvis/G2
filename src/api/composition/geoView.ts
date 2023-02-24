@@ -7,7 +7,7 @@ import {
   Concrete,
 } from '../types';
 import { mark, Mark } from '../mark';
-import { Composition, Base } from './index';
+import { Composition, CompositionNode } from './index';
 
 type GeoViewSpec = Concrete<GeoViewComposition>;
 
@@ -32,7 +32,7 @@ export interface GeoView extends Mark, Composition {
   { type: 'object', name: 'legend' },
   ...nodeProps(mark),
 ])
-export class GeoView extends Base<GeoViewComposition> {
+export class GeoView extends CompositionNode<GeoViewComposition> {
   constructor() {
     super({}, 'geoView');
   }

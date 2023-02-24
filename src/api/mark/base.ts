@@ -2,7 +2,7 @@ import { DisplayObject } from '@antv/g';
 import { Node } from '../node';
 import { G2MarkState, Scale } from '../../runtime';
 
-export class MarkBase<
+export class MarkNode<
   Value extends Record<string, any> = Record<string, any>,
   ParentValue extends Record<string, any> = Record<string, any>,
   ChildValue extends Record<string, any> = Record<string, any>,

@@ -2,7 +2,7 @@ import { SpaceLayerComposition } from '../../spec';
 import { defineProps, nodeProps } from '../props';
 import { ValueAttribute, Concrete } from '../types';
 import { mark, Mark } from '../mark';
-import { Composition, Base } from './index';
+import { Composition, CompositionNode } from './index';
 
 type SpaceLayerSpec = Concrete<SpaceLayerComposition>;
 
@@ -11,7 +11,7 @@ export interface SpaceLayer extends Composition, Mark {
 }
 
 @defineProps([{ type: 'value', name: 'data' }, ...nodeProps(mark)])
-export class SpaceLayer extends Base<SpaceLayerComposition> {
+export class SpaceLayer extends CompositionNode<SpaceLayerComposition> {
   constructor() {
     super({}, 'spaceLayer');
   }
