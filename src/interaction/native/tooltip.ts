@@ -80,12 +80,6 @@ function destroyTooltip(root) {
   }
 }
 
-function filterDefined(obj) {
-  return Object.fromEntries(
-    Object.entries(obj).filter(([, value]) => defined(value)),
-  );
-}
-
 function singleItem(element) {
   const { __data__: datum } = element;
   const { title, items = [] } = datum;
