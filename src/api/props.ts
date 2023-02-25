@@ -1,5 +1,7 @@
+import { isStrictObject } from '../utils/helper';
+
 export type NodePropertyDescriptor = {
-  type: 'object' | 'value' | 'array' | 'node' | 'container' | 'event';
+  type: 'object' | 'value' | 'array' | 'node' | 'container' | 'mix';
   name: string;
   key?: string;
   ctor?: new (...args: any[]) => any;
@@ -36,6 +38,24 @@ function defineObjectProp(
   };
 }
 
+function defineMixProp(Node, { name }: NodePropertyDescriptor) {
+  Node.prototype[name] = function (key) {
+    if (arguments.length === 0) return this.attr(name);
+    if (Array.isArray(key)) return this.attr(name, { items: key });
+    if (
+      isStrictObject(key) &&
+      (key.title !== undefined || key.items !== undefined)
+    ) {
+      return this.attr(name, key);
+    }
+    const obj = this.attr(name) || {};
+    const { items = [] } = obj;
+    items.push(key);
+    obj.items = items;
+    return this.attr(name, obj);
+  };
+}
+
 function defineNodeProp(Node, { name, ctor }: NodePropertyDescriptor) {
   Node.prototype[name] = function () {
     return this.append(ctor);
@@ -62,6 +82,7 @@ export function defineProps(descriptors: NodePropertyDescriptor[]) {
       else if (type === 'object') defineObjectProp(Node, descriptor);
       else if (type === 'node') defineNodeProp(Node, descriptor);
       else if (type === 'container') defineContainerProp(Node, descriptor);
+      else if (type === 'mix') defineMixProp(Node, descriptor);
     }
     return Node;
   };

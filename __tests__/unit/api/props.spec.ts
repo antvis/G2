@@ -96,4 +96,27 @@ describe('defineProps', () => {
     expect(n1).toBeInstanceOf(Node);
     expect(n.type).toBeNull();
   });
+
+  it('definedProps([...]) should define mix prop', () => {
+    const N = defineProps([{ type: 'mix', name: 'mix' }])(Node);
+    const n = new N();
+    n.mix('a');
+    n.mix('b');
+    expect(n.mix()).toEqual({ items: ['a', 'b'] });
+    n.mix(['c', 'd']);
+    expect(n.mix()).toEqual({ items: ['c', 'd'] });
+    n.mix({ items: ['f', 'g'] });
+    expect(n.mix()).toEqual({
+      items: ['f', 'g'],
+    });
+    n.mix({ title: 'hello' });
+    expect(n.mix()).toEqual({
+      title: 'hello',
+    });
+    n.mix({ name: 'min', channel: 'y' });
+    expect(n.mix()).toEqual({
+      title: 'hello',
+      items: [{ name: 'min', channel: 'y' }],
+    });
+  });
 });

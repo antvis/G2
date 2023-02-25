@@ -41,8 +41,10 @@ chart
   .encode('y', 'y')
   .encode('size', 'r')
   .encode('color', (d) => d.parent.data.name)
-  .encode('tooltip', (d) => d.parent.data.name)
-  .encode('title', '')
+  .tooltip({
+    title: '',
+    items: [(d) => d.parent.data.name],
+  })
   .scale('x', { domain: [0, 1] })
   .scale('y', { domain: [0, 1], range: [0, 1] })
   .scale('size', { type: 'identity' })

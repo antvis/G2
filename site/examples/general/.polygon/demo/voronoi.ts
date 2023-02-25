@@ -45,7 +45,6 @@ chart
   .encode('color', (d) => d.data.value)
   .scale('x', { domain: [0, 800] })
   .scale('y', { domain: [0, 600] })
-  .scale('tooltip', { field: 'value' })
   .axis(false)
   .style('stroke', '#fff')
   .style('fillOpacity', 0.65);
