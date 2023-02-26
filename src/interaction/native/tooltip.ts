@@ -276,8 +276,12 @@ export function seriesTooltip(
 
   const indexByFocus = (focus, I, X) => {
     const [normalizedX] = coordinate.invert(focus);
+    const finalX = normalizedX - offsetX;
+    const [minX, maxX] = [X[0], X[X.length - 1]].sort();
+    // Skip x out of range.
+    if (finalX < minX || finalX > maxX) return null;
     const search = bisector((i) => X[+i]).center;
-    const i = search(I, normalizedX - offsetX);
+    const i = search(I, finalX);
     return I[i];
   };
 
@@ -323,21 +327,33 @@ export function seriesTooltip(
       const selectedItems = selectedItemIndices.map((i) => itemElements[i]);
 
       // Get selected data item from both series element and item element.
-      const selectedSeriesData = seriesElements.map((element) => {
+      const selectedSeriesElements = [];
+      const selectedSeriesData = [];
+      for (const element of seriesElements) {
         const [sortedIndex, X] = elementSortedX.get(element);
         const index = indexByFocus(focus, sortedIndex, X);
-        const d = seriesData(element, index);
-        const { x, y } = d;
-        return [d, coordinate.map([x + offsetX, y])] as const;
-      });
+        if (index !== null) {
+          selectedSeriesElements.push(element);
+          const d = seriesData(element, index);
+          const { x, y } = d;
+          const p = coordinate.map([x + offsetX, y]);
+          selectedSeriesData.push([d, p] as const);
+        }
+      }
       const selectedData = [
         ...selectedSeriesData.map((d) => d[0]),
         ...selectedItems.map((d) => d.__data__),
       ];
 
       // Get the displayed tooltip data.
-      const selectedElements = [...seriesElements, ...selectedItems];
+      const selectedElements = [...selectedSeriesElements, ...selectedItems];
       const tooltipData = groupItems(selectedElements, scale, selectedData);
+
+      // Hide tooltip with no selected tooltip.
+      if (selectedElements.length === 0) {
+        hide();
+        return;
+      }
 
       showTooltip(root, tooltipData, mouse[0] + x, mouse[1] + y);
       if (crosshairs) {
