@@ -23,3 +23,4 @@ export { alphabetIntervalMultiField } from './alphabet-interval-multi-field';
 export { alphabetIntervalFull } from './alphabet-interval-full';
 export { languagesIntervalStack } from './languages-interval-stack';
 export { alphabetIntervalChannel } from './alphabet-interval-channel';
+export { unemploymentAreaStack } from './unemployment-area-stack';

@@ -243,6 +243,12 @@ export function seriesTooltip(
     else itemElements.push(element);
   }
 
+  // Sorted elements from top to bottom visually.
+  seriesElements.sort((a, b) => {
+    const minY = (d) => d.getBounds().min[1];
+    return minY(a) - minY(b);
+  });
+
   // Get sortedIndex and X for each series elements
   const elementSortedX = new Map(
     seriesElements.map((element) => {
