@@ -25,3 +25,4 @@ export { languagesIntervalStack } from './languages-interval-stack';
 export { alphabetIntervalChannel } from './alphabet-interval-channel';
 export { unemploymentAreaStack } from './unemployment-area-stack';
 export { symbolsLineMissingData } from './symbols-line-missing-data';
+export { forecastRangeAreaLine } from './forecast-range-area-line';

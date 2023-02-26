@@ -20,9 +20,12 @@ export const MaybeTooltip: TC<MaybeTooltipOptions> = (options) => {
       Object.keys(encode)
         .filter((key) => key.startsWith(channel))
         .map((key) => {
-          const { field } = encode[key];
-          if (!field) return null;
-          return { field };
+          const { field, value, inferred = false } = encode[key];
+          // Do not show inferred column.
+          if (inferred) return null;
+          if (field) return { field };
+          if (value) return { channel: key };
+          return null;
         })
         .filter((d) => d !== null),
     );

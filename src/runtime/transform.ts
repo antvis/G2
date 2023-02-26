@@ -145,7 +145,7 @@ export function extractTooltip(
       const { field, channel, color, name = field } = item;
       const channelField = channel && encode[channel].field;
       return I.map((i) => ({
-        name: name || channelField,
+        name: name || channelField || channel,
         color,
         value: field
           ? data[i][field]
