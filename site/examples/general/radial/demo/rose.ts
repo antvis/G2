@@ -25,6 +25,6 @@ chart
     tickFilter: (d, i) => i !== 0,
     direction: 'right',
   })
-  .animate('enterType', 'waveIn');
+  .animate('enter', { type: 'waveIn' });
 
 chart.render();

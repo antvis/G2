@@ -106,7 +106,11 @@ export type G2Mark = {
   scale?: Record<string, G2ScaleOptions>;
   encode?: Record<string, any | G2EncodeOptions>;
   type?: string | MarkComponent;
-  animate?: Record<string, Primitive>;
+  animate?: {
+    enter?: Record<string, Primitive>;
+    update?: Record<string, Primitive>;
+    exit?: Record<string, Primitive>;
+  };
   facet?: boolean;
   axis?: boolean | Record<string, any>;
   legend?: boolean | Record<string, any>;

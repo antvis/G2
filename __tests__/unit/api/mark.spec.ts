@@ -33,7 +33,7 @@ function setOptions(node) {
     .scale('x', { domain: [0, 1] })
     .transform({ type: 'stackY' })
     .style('stroke', 'black')
-    .animate('enterType', 'scaleInX')
+    .animate('enter', { type: 'scaleInX' })
     .attr('facet', true)
     .attr('key', 'mark')
     .attr('class', 'mark')
@@ -77,7 +77,7 @@ function getOptions() {
     scale: { x: { domain: [0, 1] } },
     transform: [{ type: 'stackY' }],
     style: { stroke: 'black' },
-    animate: { enterType: 'scaleInX' },
+    animate: { enter: { type: 'scaleInX' } },
     axis: { x: { tickCount: 10 } },
     legend: { y: { title: 'hello' } },
     slider: { x: {} },

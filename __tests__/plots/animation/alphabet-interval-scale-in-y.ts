@@ -17,7 +17,9 @@ export function alphabetIntervalScaleInY(): G2Spec {
       color: 'steelblue',
     },
     animate: {
-      enterDuration: 1000,
+      enter: {
+        duration: 1000,
+      },
     },
   };
 }

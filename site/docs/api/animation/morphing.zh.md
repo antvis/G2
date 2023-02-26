@@ -13,5 +13,5 @@ order: 1
 chart
   .area()
   /* ... */
-  .animate('enterType', 'morphing');
+  .animate('enter', { type: 'morphing' });
 ```

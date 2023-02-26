@@ -37,8 +37,10 @@ chart
   .encode('x', 'genre')
   .encode('y', 'sold')
   .encode('color', 'genre')
-  .animate('enterType', 'scaleInY') // 指定入场动画的类型
-  .animate('enterDuration', 1000); // 指定入场动画的执行时间
+  .animate('enter', {
+    type: 'scaleInY', // 指定入场动画的类型
+    duration: 1000, // 指定入场动画的执行时间
+  });
 ```
 
 ## 动画编码

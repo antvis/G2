@@ -28,7 +28,6 @@ chart
   })
   .axis('y', { tickFilter: (d, i) => i !== 0 })
   .legend({ color: { length: 400, position: 'bottom' } })
-  .animate('enterType', 'waveIn')
-  .animate('enterDuration', 800);
+  .animate('enter', { type: 'waveIn', duration: 800 });
 
 chart.render();

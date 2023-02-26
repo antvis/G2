@@ -152,33 +152,9 @@ export type BaseGeometry<
   animate?:
     | boolean
     | {
-        enterType?: AnimationTypes;
-        enterDuration?: number;
-        enterDelay?: number;
-        enterEasing?: string;
-        enterFill?: 'forwards' | 'none' | 'backwards' | 'both' | 'auto';
-        updateType?: AnimationTypes;
-        updateDuration?: number;
-        updateDelay?: number;
-        updateEasing?: string;
-        updateFill?:
-          | 'forwards'
-          | 'none'
-          | 'backwards'
-          | 'forwards'
-          | 'both'
-          | 'auto';
-        exitType?: AnimationTypes;
-        exitDuration?: number;
-        exitDelay?: number;
-        exitEasing?: string;
-        exitFill?:
-          | 'forwards'
-          | 'none'
-          | 'backwards'
-          | 'forwards'
-          | 'both'
-          | 'auto';
+        enter?: Animation | null | boolean;
+        update?: Animation | null | boolean;
+        exit?: Animation | null | boolean;
       };
   cartesian?: boolean;
   layout?: Record<string, any>;
@@ -190,6 +166,14 @@ type StateOptions = {
   selected?: Record<string, any>; // @todo
   inactive?: Record<string, any>; // @todo
   unselected?: Record<string, any>; // @todo
+};
+
+export type Animation = {
+  type?: AnimationTypes;
+  duration?: number;
+  delay?: number;
+  easing?: string;
+  fill?: 'forwards' | 'none' | 'backwards' | 'both' | 'auto';
 };
 
 export type Axis = {

@@ -14,7 +14,9 @@ export function fruitsIntervalStackEnterDefaults(): G2Spec {
       enterDuration: 1000,
     },
     animate: {
-      enterDuration: 1000,
+      enter: {
+        duration: 1000,
+      },
     },
   };
 }

@@ -20,6 +20,6 @@ chart
   .encode('shape', 'smooth')
   .transform({ type: 'stackEnter', groupBy: 'color', duration: 5000 })
   .transform({ type: 'stackY', orderBy: 'value' })
-  .animate('enterType', 'growInX');
+  .animate('enter', { type: 'growInX' });
 
 chart.render();

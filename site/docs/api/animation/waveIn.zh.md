@@ -14,5 +14,5 @@ order: 1
 chart
   .interval()
   /* ... */
-  .animate('enterType', 'waveIn');
+  .animate('enter', { type: 'waveIn' });
 ```

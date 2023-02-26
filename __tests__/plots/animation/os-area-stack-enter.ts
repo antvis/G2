@@ -23,7 +23,9 @@ export function osAreaStackEnter(): G2Spec {
       shape: 'smooth',
     },
     animate: {
-      enterType: 'growInX',
+      enter: {
+        type: 'growInX',
+      },
     },
   };
 }

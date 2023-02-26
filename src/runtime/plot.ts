@@ -1041,17 +1041,22 @@ function computeAnimationExtent(markState): [number, number] {
   for (const [mark, state] of markState) {
     const { animate = {} } = mark;
     const { data } = state;
+    const { enter = {}, update = {}, exit = {} } = animate;
     const {
-      updateType: defaultUpdateType,
-      updateDuration: defaultUpdateDuration = 300,
-      updateDelay: defaultUpdateDelay = 0,
-      enterType: defaultEnterType,
-      enterDuration: defaultEnterDuration = 300,
-      enterDelay: defaultEnterDelay = 0,
-      exitType: defaultExitType,
-      exitDuration: defaultExitDuration = 300,
-      exitDelay: defaultExitDelay = 0,
-    } = animate;
+      type: defaultUpdateType,
+      duration: defaultUpdateDuration = 300,
+      delay: defaultUpdateDelay = 0,
+    } = update;
+    const {
+      type: defaultEnterType,
+      duration: defaultEnterDuration = 300,
+      delay: defaultEnterDelay = 0,
+    } = enter;
+    const {
+      type: defaultExitType,
+      duration: defaultExitDuration = 300,
+      delay: defaultExitDelay = 0,
+    } = exit;
     for (const d of data) {
       const {
         updateType = defaultUpdateType,
@@ -1192,7 +1197,7 @@ function createAnimationFunction(
     shapeName(mark, defaultShape),
   ).props;
   const { [type]: defaultEffectTiming = {} } = theme;
-  const animate = subObject(mark.animate || {}, type);
+  const animate = mark.animate?.[type] || {};
   return (data, from, to) => {
     const {
       [`${type}Type`]: animation,

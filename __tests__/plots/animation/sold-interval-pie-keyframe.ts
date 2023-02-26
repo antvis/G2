@@ -23,7 +23,7 @@ export function soldIntervalPieKeyframe(): G2Spec {
           },
         ],
         animate: {
-          enterType: 'waveIn',
+          enter: { type: 'waveIn' },
         },
       },
       {
@@ -42,7 +42,7 @@ export function soldIntervalPieKeyframe(): G2Spec {
           },
         ],
         animate: {
-          enterType: 'waveIn',
+          enter: { type: 'waveIn' },
         },
       },
     ],
