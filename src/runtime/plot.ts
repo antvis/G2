@@ -383,7 +383,7 @@ async function transformMarks(
         useMark as (options: G2MarkOptions) => CompositeMark
       )(mark)(options);
       const M = Array.isArray(marks) ? marks : [marks];
-      discovered.unshift(...M.map((d, i) => ({ key: `${key}-${i}`, ...d })));
+      discovered.unshift(...M.map((d, i) => ({ ...d, key: `${key}-${i}` })));
     }
   }
 
