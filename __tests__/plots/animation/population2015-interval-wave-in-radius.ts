@@ -30,7 +30,7 @@ export function population2015IntervalWaveInRadius(): G2Spec {
           radius: 10,
         },
         animate: {
-          enterType: 'waveIn',
+          enter: { type: 'waveIn' },
         },
       },
     ],

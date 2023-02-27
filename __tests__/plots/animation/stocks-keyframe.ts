@@ -21,7 +21,7 @@ const facetLine = (data) => ({
       frame: false,
       scale: { y: { zero: true, tickCount: 3 } },
       animate: {
-        enterType: 'pathIn',
+        enter: { type: 'pathIn' },
       },
     },
   ],
@@ -59,7 +59,7 @@ const facetArea = (data) => ({
       },
       scale: { y: { facet: false, zero: true, tickCount: 3 } },
       animate: {
-        exitType: 'fadeOut',
+        exit: { type: 'fadeOut' },
       },
     },
   ],

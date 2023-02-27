@@ -13,5 +13,5 @@ order: 1
 chart
   .line()
   /* ... */
-  .animate('enterType', 'pathIn');
+  .animate('enter', { type: 'pathIn' });
 ```

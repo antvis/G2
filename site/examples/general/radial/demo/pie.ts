@@ -38,7 +38,7 @@ chart
       dy: 12,
     },
   })
-  .animate('enterType', 'waveIn')
+  .animate('enter', { type: 'waveIn' })
   .legend(false);
 
 chart.render();

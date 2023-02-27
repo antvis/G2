@@ -13,5 +13,5 @@ order: 1
 chart
   .interval()
   /* ... */
-  .animate('exitType', 'scaleOutY');
+  .animate('exit', { type: 'scaleOutY' });
 ```

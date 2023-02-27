@@ -24,7 +24,9 @@ export function deathsRoseStackEnter(): G2Spec {
     },
     legend: { color: { layout: { justifyContent: 'flex-start' } } },
     animate: {
-      enterType: 'waveIn',
+      enter: {
+        type: 'waveIn',
+      },
     },
   };
 }

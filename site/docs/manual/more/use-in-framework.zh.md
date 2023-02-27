@@ -32,7 +32,7 @@ function renderBarChart(container) {
     .encode('x', 'genre') // 编码 x 通道
     .encode('y', 'sold') // 编码 y 通道
     .encode('key', 'genre') // 指定 key
-    .animate('updateDuration', 300); // 指定更新动画的时间
+    .animate('update', { duration: 300 }); // 指定更新动画的时间
 
   // 渲染可视化
   chart.render();

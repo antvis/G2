@@ -18,10 +18,8 @@ chart
   .encode('x', 'genre')
   .encode('y', 'sold')
   .encode('color', 'genre')
-  .animate('enterType', 'fadeIn')
-  .animate('enterDuration', 1000)
-  .animate('exitType', 'fadeOut')
-  .animate('exitDuration', 2000);
+  .animate('enter', { type: 'fadeIn', duration: 1000 })
+  .animate('exit', { type: 'fadeOut', duration: 2000 });
 
 chart.render();
 

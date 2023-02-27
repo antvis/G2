@@ -22,8 +22,7 @@ chart
   .scale('y', { zero: true, nice: true })
   .style('gradient', 'x')
   .style('gradientColor', 'start')
-  .animate('enterType', 'pathIn')
-  .animate('enterDuration', 3000)
+  .animate('enter', { type: 'pathIn', duration: 3000 })
   .axis('y', { labelFormatter: '~s' });
 
 chart
@@ -33,7 +32,7 @@ chart
   .encode('y', 'count')
   .encode('color', 'year')
   .encode('shape', 'point')
-  .animate('enterDuration', 300);
+  .animate('enter', { duration: 300 });
 
 chart
   .text()
@@ -41,7 +40,7 @@ chart
   .encode('x', 'year')
   .encode('y', 'count')
   .encode('text', 'year')
-  .animate('enterDuration', 300)
+  .animate('enter', { duration: 300 })
   .style('strokeWidth', 5)
   .style('stroke', '#fff')
   .style('textAlign', 'center')

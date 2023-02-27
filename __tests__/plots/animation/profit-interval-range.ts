@@ -52,7 +52,7 @@ export async function profitIntervalRange(): Promise<G2Spec> {
             data: [{ y: [0, 2000000] }],
             encode: { y: 'y' },
             animate: {
-              enterType: 'fadeIn',
+              enter: { type: 'fadeIn' },
             },
           },
         ],

@@ -35,8 +35,7 @@ spaceLayer
   .axis('x', false)
   .axis('y', false)
   .style('fillOpacity', 0.25)
-  .animate('enterType', 'waveIn')
-  .animate('enterDuration', 400);
+  .animate('enter', { type: 'waveIn', duration: 400 });
 
 spaceLayer
   .view()
@@ -57,9 +56,11 @@ spaceLayer
       .style('shadowBlur', 20)
       .style('shadowOffsetX', -2)
       .style('shadowOffsetY', -5)
-      .animate('enterType', 'waveIn')
-      .animate('enterEasing', 'easing-out-bounce')
-      .animate('enterDuration', 1000),
+      .animate('enter', {
+        type: 'waveIn',
+        easing: 'easing-out-bounce',
+        duration: 1000,
+      }),
   )
   .call((node) =>
     node

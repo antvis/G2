@@ -57,6 +57,6 @@ chart
     direction: 'center',
   })
   .axis('x', { position: 'inner' })
-  .animate('enterType', 'waveIn');
+  .animate('enter', { type: 'waveIn' });
 
 chart.render();

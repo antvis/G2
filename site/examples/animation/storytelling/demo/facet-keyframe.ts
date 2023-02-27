@@ -37,7 +37,7 @@ fetch(
       .call(utcX)
       .scale('y', { facet: false })
       .style('fillOpacity', 1)
-      .animate('enterType', 'scaleInY');
+      .animate('enter', { type: 'scaleInY' });
 
     keyframe
       .area()

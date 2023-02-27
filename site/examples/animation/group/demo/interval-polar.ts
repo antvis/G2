@@ -24,7 +24,7 @@ chart
   .scale('y', {
     type: 'sqrt',
   })
-  .animate('enterType', 'waveIn')
+  .animate('enter', { type: 'waveIn' })
   .axis('y', false);
 
 chart.render();

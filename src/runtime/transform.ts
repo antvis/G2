@@ -190,9 +190,9 @@ export function maybeNonAnimate(
   if (animate || animate === undefined) return [I, mark];
   deepMix(mark, {
     animate: {
-      enterType: null,
-      exitType: null,
-      updateType: null,
+      enter: { type: null },
+      exit: { type: null },
+      update: { type: null },
     },
   });
   return [I, mark];
