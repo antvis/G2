@@ -21,7 +21,6 @@ chart
   .scale('y', { domain: [65, 90] })
   .style('fillOpacity', 0.3)
   .style('lineWidth', 1)
-  .animate('enterType', 'zoomIn')
-  .animate('enterDuration', 1000);
+  .animate('enter', { type: 'zoomIn', duration: 1000 });
 
 chart.render();

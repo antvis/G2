@@ -13,5 +13,5 @@ order: 1
 chart
   .interval()
   /* ... */
-  .animate('enterType', 'scaleInX');
+  .animate('enter', { type: 'scaleInX' });
 ```

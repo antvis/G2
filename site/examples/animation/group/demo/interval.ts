@@ -22,7 +22,7 @@ chart
   .encode('y', 'value')
   .encode('color', 'type')
   .encode('color', 'type')
-  .animate('enterDuration', 500)
+  .animate('enter', { duration: 500 })
   .axis('y', false);
 
 chart.render();

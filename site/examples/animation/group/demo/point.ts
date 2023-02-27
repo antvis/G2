@@ -44,7 +44,7 @@ chart
   .style('textAlign', 'center')
   .style('fontSize', 24)
   .style('fill', '#666')
-  .animate('enterDelay', 2000);
+  .animate('enter', { delay: 2000 });
 
 chart
   .text()
@@ -55,6 +55,6 @@ chart
   .style('fontSize', 18)
   .style('fill', '#666')
   .style('dy', '30')
-  .animate('enterDelay', 2400);
+  .animate('enter', { delay: 2400 });
 
 chart.render();

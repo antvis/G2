@@ -17,7 +17,6 @@ chart
   })
   .encode('x', 'date')
   .encode('y', 'close')
-  .animate('enterType', 'pathIn')
-  .animate('enterDuration', 1000);
+  .animate('enter', { type: 'pathIn', duration: 1000 });
 
 chart.render();

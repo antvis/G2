@@ -13,5 +13,5 @@ order: 1
 chart
   .interval()
   /* ... */
-  .animate('exitType', 'fadeOut');
+  .animate('exit', { type: 'fadeOut' });
 ```

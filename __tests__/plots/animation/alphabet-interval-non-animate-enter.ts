@@ -17,7 +17,7 @@ export function alphabetIntervalNonAnimateEnter(): G2Spec {
       color: 'steelblue',
     },
     animate: {
-      enterType: null,
+      enter: false,
     },
   };
 }

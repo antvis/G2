@@ -47,8 +47,7 @@ chart
   })
   .style('radius', 4)
   .style('inset', 1)
-  .animate('enterType', 'waveIn')
-  .animate('enterDuration', 1000)
+  .animate('enter', { type: 'waveIn', duration: 1000 })
   .legend(false);
 
 chart.render();
