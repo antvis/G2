@@ -1,3 +1,4 @@
+import { HOMMarkType } from '../../spec';
 import {
   Interval,
   Rect,
@@ -25,9 +26,11 @@ import {
   ForceGraph,
   Tree,
   WordCloud,
+  HOMMark,
 } from './mark';
 
 export interface Mark {
+  mark(HOMMark: HOMMarkType): HOMMark;
   interval(): Interval;
   rect(): Rect;
   point(): Point;
@@ -59,6 +62,7 @@ export interface Mark {
 export { MarkNode } from './base';
 
 export const mark = {
+  mark: HOMMark,
   interval: Interval,
   rect: Rect,
   point: Point,

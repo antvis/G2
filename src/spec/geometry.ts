@@ -193,6 +193,10 @@ export type Legend = {
   [key: string]: any;
 };
 
+export type HOMMarkType = (options: Record<string, any>) => () => any[];
+
+export type HOMMarkGeometry = BaseGeometry<HOMMarkType>;
+
 export type IntervalGeometry = BaseGeometry<
   'interval',
   ChannelTypes | 'series'

@@ -57,8 +57,12 @@ function defineMixProp(Node, { name }: NodePropertyDescriptor) {
 }
 
 function defineNodeProp(Node, { name, ctor }: NodePropertyDescriptor) {
-  Node.prototype[name] = function () {
-    return this.append(ctor);
+  Node.prototype[name] = function (hocMark?) {
+    const node = this.append(ctor);
+    if (name === 'mark') {
+      node.type = hocMark;
+    }
+    return node;
   };
 }
 
