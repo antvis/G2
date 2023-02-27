@@ -1,10 +1,11 @@
 import * as echarts from 'echarts';
+import type { Chart } from '../types';
 
-export function echartsCanvas(data, { start, end }) {
+export const echartsCanvas: Chart = (data, { start, end }) => {
   const data1 = data.map((d) => [d.date, d.value]);
   start();
   const node = document.createElement('div');
-  const myChart = echarts.init(node, null, { width: 640, height: 480 });
+  const myChart = echarts.init(node, undefined, { width: 640, height: 480 });
   myChart.setOption({
     xAxis: {},
     yAxis: {},
@@ -20,4 +21,4 @@ export function echartsCanvas(data, { start, end }) {
     animation: false,
   });
   end(node);
-}
+};

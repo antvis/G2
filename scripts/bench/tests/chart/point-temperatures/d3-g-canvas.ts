@@ -2,6 +2,7 @@
 import * as d3 from 'd3';
 import { Canvas } from '@antv/g';
 import { Renderer } from '@antv/g-canvas';
+import type { Chart } from '../types';
 
 // Copyright 2021 Observable, Inc.
 // Released under the ISC license.
@@ -155,11 +156,11 @@ export async function Scatterplot(
   return div;
 }
 
-export async function d3GCanvas(data, { start, end }) {
+export const d3GCanvas: Chart = async (data, { start, end }) => {
   start();
   const node = await Scatterplot(data, {
     x: (d) => d.date,
     y: (d) => d.value,
   });
   end(node);
-}
+};

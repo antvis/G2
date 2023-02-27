@@ -1,8 +1,9 @@
 // @ts-nocheck
 import { Renderer } from '@antv/g-svg';
 import { Scatterplot } from './d3-g-canvas';
+import type { Chart } from '../types';
 
-export async function d3GSVG(data, { start, end }) {
+export const d3GSVG: Chart = async (data, { start, end }) => {
   start();
   const node = await Scatterplot(data, {
     x: (d) => d.date,
@@ -10,4 +11,4 @@ export async function d3GSVG(data, { start, end }) {
     renderer: new Renderer(),
   });
   end(node);
-}
+};

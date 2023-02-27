@@ -9,6 +9,7 @@ export default defineConfig({
   resolve: {
     alias: [
       { find: '@antv/g2v5', replacement: path.resolve('../../src/index.ts') },
+      { find: '@', replacement: './' },
     ],
   },
 });

@@ -1,8 +1,8 @@
-/* eslint-disable */
 import { render } from '@antv/g2v5';
+import type { Chart } from '../types';
 
-export function g2V5CanvasSpec(data, { start, end }) {
-  let node;
+export const g2V5CanvasSpec: Chart = (data, { start, end }) => {
+  let node: HTMLElement;
   start();
   node = render(
     {
@@ -14,12 +14,11 @@ export function g2V5CanvasSpec(data, { start, end }) {
       },
       style: {
         stroke: 'black',
+        fill: 'white',
       },
-      animate: {
-        enter: { type: null },
-      },
+      animate: false,
     },
     undefined,
     () => end(node),
   );
-}
+};
