@@ -1,6 +1,7 @@
 import { Chart } from '@antv/g2v5';
+import type { Chart as ChartType } from '../types';
 
-export function g2V5CanvasAPI(data, { start, end }) {
+export const g2V5CanvasAPI: ChartType = (data, { start, end }) => {
   // start();
   // const node = document.createElement('div');
   // const chart = new Chart({
@@ -15,4 +16,4 @@ export function g2V5CanvasAPI(data, { start, end }) {
   //   .style('stroke', 'black')
   //   .animate('enter', { type: null });
   // chart.render();
-}
+};

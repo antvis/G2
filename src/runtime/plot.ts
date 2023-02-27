@@ -293,7 +293,7 @@ function applyTranslate(selection: Selection) {
   );
 }
 
-function createUpdateView(
+export function createUpdateView(
   selection: Selection,
   library: G2Library,
   context: G2Context,
@@ -312,7 +312,7 @@ function createUpdateView(
   };
 }
 
-async function initializeView(
+export async function initializeView(
   options: G2View,
   library: G2Library,
 ): Promise<[G2ViewDescriptor, G2ViewTree[]]> {
@@ -390,7 +390,7 @@ async function transformMarks(
   return { ...options, marks: flattenMarks };
 }
 
-async function initializeMarks(
+export async function initializeMarks(
   options: G2View,
   library: G2Library,
 ): Promise<Map<G2Mark, G2MarkState>> {
@@ -464,7 +464,7 @@ async function initializeMarks(
   return markState;
 }
 
-function initializeState(
+export function initializeState(
   markState: Map<G2Mark, G2MarkState>,
   options: G2View,
   library: G2Library,
@@ -604,7 +604,7 @@ function initializeState(
   return [view, children];
 }
 
-async function plotView(
+export async function plotView(
   view: G2ViewDescriptor,
   selection: Selection,
   transitions: GAnimation[],

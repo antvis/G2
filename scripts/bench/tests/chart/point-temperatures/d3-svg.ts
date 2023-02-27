@@ -1,5 +1,6 @@
 // @ts-nocheck
 import * as d3 from 'd3';
+import type { Chart } from '../types';
 
 // Copyright 2021 Observable, Inc.
 // Released under the ISC license.
@@ -141,11 +142,11 @@ function Scatterplot(
   return svg.node();
 }
 
-export function d3SVG(data, { start, end }) {
+export const d3SVG: Chart = (data, { start, end }) => {
   start();
   const node = Scatterplot(data, {
     x: (d) => d.date,
     y: (d) => d.value,
   });
   end(node);
-}
+};
