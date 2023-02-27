@@ -322,11 +322,13 @@ export type TooltipItem =
   | string
   | { name?: string; color?: string; channel?: string; field?: string }
   | Encodeable<Primitive>
-  | Encodeable<{
-      name?: string;
-      color?: string;
-      value?: Primitive;
-    }>;
+  | Encodeable<TooltipItemValue>;
+
+export type TooltipItemValue = {
+  name?: string;
+  color?: string;
+  value?: Primitive;
+};
 
 export type Encodeable<T> =
   | T
