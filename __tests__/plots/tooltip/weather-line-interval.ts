@@ -77,4 +77,4 @@ export function weatherLineInterval(): G2Spec {
   };
 }
 
-weatherLineInterval.steps = seriesTooltipSteps([300, 300]);
+weatherLineInterval.steps = seriesTooltipSteps([300, 300], [320, 300]);

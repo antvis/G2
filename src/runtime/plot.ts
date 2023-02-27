@@ -317,7 +317,14 @@ async function initializeView(
   library: G2Library,
 ): Promise<[G2ViewDescriptor, G2ViewTree[]]> {
   const flattenOptions = await transformMarks(options, library);
+
   const mergedOptions = bubbleOptions(flattenOptions);
+  // @todo Remove this.
+  // !!! NOTE: Mute original view options.
+  // Update interaction and coordinate for this view.
+  options.interaction = mergedOptions.interaction;
+  options.coordinate = mergedOptions.coordinate;
+
   const transformedOptions = coordinate2Transform(mergedOptions, library);
   const state = await initializeMarks(transformedOptions, library);
   return initializeState(state, transformedOptions, library);

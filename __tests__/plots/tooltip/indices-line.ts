@@ -24,6 +24,7 @@ export async function indicesLine(): Promise<G2Spec> {
           color: 'Symbol',
           key: 'Symbol',
         },
+        tooltip: { channel: 'y' },
       },
     ],
     interaction: {

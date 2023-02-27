@@ -22,18 +22,19 @@ export async function toMatchDOMSnapshot(
   const expectedPath = path.join(dir, `${name}.${fileFormat}`);
   const container = gCanvas.getConfig().container as HTMLElement;
   const dom = selector ? container.querySelector(selector) : container;
-  if (!dom) return { pass: true, message: () => `empty ${name}` };
 
   let actual;
   try {
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 
-    actual = format(
-      xmlserializer.serializeToString(dom).replace(/id="[^"]*"/g, ''),
-      {
-        parser: 'babel',
-      },
-    );
+    actual = dom
+      ? format(
+          xmlserializer.serializeToString(dom).replace(/id="[^"]*"/g, ''),
+          {
+            parser: 'babel',
+          },
+        )
+      : 'null';
 
     if (!fs.existsSync(expectedPath)) {
       console.warn(`! generate ${namePath}`);

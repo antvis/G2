@@ -1,6 +1,6 @@
 import { deepMix } from '@antv/util';
 import { TransformComponent as TC } from '../runtime';
-import { column, constant } from './utils/helper';
+import { inferredColumn, constant } from './utils/helper';
 
 export type MaybeZeroYOptions = Record<string, never>;
 
@@ -15,7 +15,7 @@ export const MaybeZeroY: TC<MaybeZeroYOptions> = () => {
     return [
       I,
       deepMix({}, mark, {
-        encode: { y: column(constant(I, 0)) },
+        encode: { y: inferredColumn(constant(I, 0)) },
         scale: { y: { guide: null } },
       }),
     ];
