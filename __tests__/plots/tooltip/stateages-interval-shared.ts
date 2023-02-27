@@ -16,7 +16,6 @@ export function stateAgesIntervalShared(): G2Spec {
           type: 'fetch',
           value: 'data/stateages.csv',
         },
-        axis: false,
         legend: false,
         encode: {
           x: 'state',

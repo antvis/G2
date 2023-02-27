@@ -520,7 +520,7 @@ function initializeState(
       modifier,
       key: markKey,
     } = mark;
-    const { index, channels } = state;
+    const { index, channels, tooltip } = state;
     const scale = Object.fromEntries(
       channels.map(({ name, scale }) => [name, scale]),
     );
@@ -541,6 +541,8 @@ function initializeState(
     );
     const count = dataDomain || I.length;
     const T = modifier ? modifier(P, count, layout) : [];
+    const titleOf = (i) => tooltip.title?.[i]?.value;
+    const itemsOf = (i) => tooltip.items.map((V) => V[i]);
     const visualData: Record<string, any>[] = I.map((d, i) => {
       const datum = {
         points: P[i],
@@ -548,12 +550,20 @@ function initializeState(
         index: d,
         markKey,
         viewKey: key,
+        ...(tooltip && {
+          title: titleOf(d),
+          items: itemsOf(d),
+        }),
       };
       for (const [k, V] of Object.entries(value)) {
         datum[k] = V[d];
         if (S) datum[`series${upperFirst(k)}`] = S[i].map((i) => V[i]);
       }
       if (S) datum['seriesIndex'] = S[i];
+      if (S && tooltip) {
+        datum['seriesItems'] = S[i].map((si) => itemsOf(si));
+        datum['seriesTitle'] = S[i].map((si) => titleOf(si));
+      }
       return datum;
     });
     state.data = visualData;

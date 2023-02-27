@@ -14,6 +14,8 @@ export function aaplLine(): G2Spec {
         encode: {
           x: 'date',
           y: 'close',
+        },
+        tooltip: {
           title: (d) => new Date(d.date).toUTCString(),
         },
       },

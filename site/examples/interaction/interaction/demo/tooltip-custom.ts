@@ -6,14 +6,6 @@ const chart = new Chart({
   inset: 6,
 });
 
-const names = {
-  tooltip: 'min',
-  tooltip1: 'q1',
-  tooltip2: 'q2',
-  tooltip3: 'q3',
-  tooltip4: 'max',
-};
-
 chart
   .boxplot()
   .data({
@@ -21,14 +13,13 @@ chart
     value: 'https://assets.antv.antgroup.com/g2/morley.json',
   })
   .encode('x', 'Expt')
-  .encode('y', 'Speed');
+  .encode('y', 'Speed')
+  .tooltip({ name: 'min', channel: 'y' })
+  .tooltip({ name: 'q1', channel: 'y1' })
+  .tooltip({ name: 'q2', channel: 'y2' })
+  .tooltip({ name: 'q3', channel: 'y3' })
+  .tooltip({ name: 'max', color: 'red', channel: 'y4' });
 
-chart.interaction('tooltip', {
-  item: ({ channel, value }) => ({
-    name: names[channel],
-    color: channel === 'tooltip4' ? 'red' : undefined,
-    value: `${value / 1000}k`,
-  }),
-});
+chart.interaction('tooltip', true);
 
 chart.render();

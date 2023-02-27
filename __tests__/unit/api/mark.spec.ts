@@ -54,6 +54,8 @@ function setOptions(node) {
     .attr('insetRight', 40)
     .axis('x', { tickCount: 10 })
     .legend('y', { title: 'hello' })
+    .tooltip('a')
+    .tooltip('b')
     .slider('x', {})
     .scrollbar('x', {})
     .label({ text: 'hello' })
@@ -107,6 +109,7 @@ function getOptions() {
       active: { fill: 'red' },
       inactive: { fill: 'blue' },
     },
+    tooltip: { items: ['a', 'b'] },
   };
 }
 

@@ -2,13 +2,7 @@ import { G2Spec } from '../../../src';
 import { tooltipSteps } from './utils';
 
 export function morleyBox(): G2Spec {
-  const names = {
-    tooltip: 'min',
-    tooltip1: 'q1',
-    tooltip2: 'q2',
-    tooltip3: 'q3',
-    tooltip4: 'max',
-  };
+  const format = (d) => `${d / 1000}k`;
   return {
     type: 'view',
     children: [
@@ -27,16 +21,33 @@ export function morleyBox(): G2Spec {
           boxFill: '#aaa',
           pointStroke: '#000',
         },
+        tooltip: [
+          (d, i, D, V) => ({
+            name: 'min',
+            value: format(V.y.value[i]),
+          }),
+          (d, i, D, V) => ({
+            name: 'q1',
+            value: format(V.y1.value[i]),
+          }),
+          (d, i, D, V) => ({
+            name: 'q2',
+            value: format(V.y2.value[i]),
+          }),
+          (d, i, D, V) => ({
+            name: 'q3',
+            value: format(V.y3.value[i]),
+          }),
+          (d, i, D, V) => ({
+            name: 'max',
+            color: 'red',
+            value: format(V.y4.value[i]),
+          }),
+        ],
       },
     ],
     interaction: {
-      tooltip: {
-        item: ({ channel, value }) => ({
-          name: names[channel],
-          color: channel === 'tooltip4' ? 'red' : undefined,
-          value: `${value / 1000}k`,
-        }),
-      },
+      tooltip: true,
     },
   };
 }

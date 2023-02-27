@@ -1,4 +1,4 @@
-import { MarkComponent } from '../runtime';
+import { MarkComponent, Primitive } from '../runtime';
 import { Encode } from './encode';
 import { Transform } from './transform';
 import { Scale } from './scale';
@@ -93,8 +93,7 @@ export type ChannelTypes =
   | 'groupKey'
   | 'label'
   | 'position'
-  | 'series'
-  | `tooltip${number}`;
+  | 'series';
 
 export type BaseGeometry<
   T extends GeometryTypes,
@@ -149,6 +148,7 @@ export type BaseGeometry<
   frame?: boolean;
   labels?: Record<string, any>[];
   stack?: boolean;
+  tooltip?: Tooltip;
   animate?:
     | boolean
     | {
@@ -309,3 +309,25 @@ export type WordCloudMark = BaseGeometry<
 };
 
 export type CustomComponent = BaseGeometry<MarkComponent>;
+
+export type Tooltip =
+  | TooltipItem
+  | TooltipItem[]
+  | { title?: Encodeable<TooltipTitle>; items?: TooltipItem[] }
+  | null;
+
+export type TooltipTitle = string | { field?: string; channel?: string };
+
+export type TooltipItem =
+  | string
+  | { name?: string; color?: string; channel?: string; field?: string }
+  | Encodeable<Primitive>
+  | Encodeable<{
+      name?: string;
+      color?: string;
+      value?: Primitive;
+    }>;
+
+export type Encodeable<T> =
+  | T
+  | ((d: any, index: number, data: any[], column: any) => T);

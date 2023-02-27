@@ -112,5 +112,10 @@ export function maybePercentage(x: number | string, size: number) {
 }
 
 export function isStrictObject(d: any): boolean {
-  return typeof d === 'object' && !(d instanceof Date) && d !== null;
+  return (
+    typeof d === 'object' &&
+    !(d instanceof Date) &&
+    d !== null &&
+    !Array.isArray(d)
+  );
 }

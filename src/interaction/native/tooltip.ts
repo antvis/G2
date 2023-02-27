@@ -86,33 +86,16 @@ function filterDefined(obj) {
   );
 }
 
-function singleItem(element, item, scale) {
+function singleItem(element) {
   const { __data__: datum } = element;
-  const { title, ...rest } = datum;
-  const defaultColor = itemColorOf(element);
-  const items = Object.entries(rest)
-    .filter(([key]) => key.startsWith('tooltip'))
-    .map(([key, d]: any) => {
-      const { field: f, title = f } = scale[key].getOptions();
-      const {
-        field = undefined,
-        color = defaultColor,
-        name = field || title,
-        value,
-        ...rest
-      } = normalizeTooltip(d);
-      return {
-        ...rest,
-        color,
-        name,
-        value,
-        ...filterDefined(item({ channel: key, value })),
-      };
-    })
-    .filter(({ value }) => value !== undefined);
+  const { title, items = [] } = datum;
+  const newItems = items.map(({ color = itemColorOf(element), ...item }) => ({
+    ...item,
+    color,
+  }));
   return {
     ...(title && { title }),
-    items,
+    items: newItems,
   };
 }
 
@@ -157,39 +140,22 @@ function uniqueTitles(titles) {
 
 function groupItems(
   elements,
-  item,
   scale,
   data = elements.map((d) => d['__data__']),
 ) {
   const T = uniqueTitles(data.map((d) => d.title)).filter(defined);
-  const items = data.flatMap((datum, i) => {
+  const newItems = data.flatMap((datum, i) => {
     const element = elements[i];
-    const { title, ...rest } = datum;
-    const defaultColor = itemColorOf(element);
-    return Object.entries(rest)
-      .filter(([key]) => key.startsWith('tooltip'))
-      .map(([key, d]: any) => {
-        const { field: f, title = f } = scale[key].getOptions();
-        const {
-          field = undefined,
-          color = defaultColor,
-          name = groupNameOf(scale, datum) || field || title,
-          value,
-          ...rest
-        } = normalizeTooltip(d);
-        return {
-          ...rest,
-          name,
-          color,
-          value,
-          ...filterDefined(item({ channel: key, value })),
-        };
-      })
-      .filter(({ value }) => defined(value));
+    const { items = [], title } = datum;
+    return items.map(({ color = itemColorOf(element), name, ...item }) => ({
+      ...item,
+      color,
+      name: groupNameOf(scale, datum) || name || title,
+    }));
   });
   return {
     ...(T.length > 0 && { title: T.join(',') }),
-    items,
+    items: newItems,
   };
 }
 
@@ -335,7 +301,7 @@ export function seriesTooltip(
     const { __data__: data } = element;
     return Object.fromEntries(
       Object.entries(data)
-        .filter(([key]) => key.startsWith('series'))
+        .filter(([key]) => key.startsWith('series') && key !== 'series')
         .map(([key, V]) => {
           const d = V[index];
           return [lowerFirst(key.replace('series', '')), d];
@@ -371,12 +337,7 @@ export function seriesTooltip(
 
       // Get the displayed tooltip data.
       const selectedElements = [...seriesElements, ...selectedItems];
-      const tooltipData = groupItems(
-        selectedElements,
-        item,
-        scale,
-        selectedData,
-      );
+      const tooltipData = groupItems(selectedElements, scale, selectedData);
 
       showTooltip(root, tooltipData, mouse[0] + x, mouse[1] + y);
       if (crosshairs) {
@@ -418,7 +379,6 @@ export function tooltip(
     leading = true,
     trailing = false,
     groupKey = (d) => d, // group elements by specified key
-    item,
   }: Record<string, any>,
 ) {
   const elements = elementsof(root);
@@ -432,9 +392,7 @@ export function tooltip(
       const k = groupKey(element);
       const group = keyGroup.get(k);
       const data =
-        group.length === 1
-          ? singleItem(group[0], item, scale)
-          : groupItems(group, item, scale);
+        group.length === 1 ? singleItem(group[0]) : groupItems(group, scale);
       const { offsetX, offsetY } = event;
       showTooltip(root, data, offsetX, offsetY);
     },

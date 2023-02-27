@@ -149,6 +149,7 @@ export const props: NodePropertyDescriptor[] = [
   { name: 'slider', type: 'object' },
   { name: 'scrollbar', type: 'object' },
   { name: 'state', type: 'object' },
+  { name: 'tooltip', type: 'mix' },
 ];
 
 @defineProps(props)

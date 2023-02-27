@@ -26,6 +26,8 @@ import {
   maybeVisualChannel,
   addGuideToScale,
   maybeNonAnimate,
+  normalizeTooltip,
+  extractTooltip,
 } from './transform';
 
 export async function initializeMark(
@@ -41,7 +43,7 @@ export async function initializeMark(
     context,
   );
 
-  const { encode, scale, data } = transformedMark;
+  const { encode, scale, data, tooltip } = transformedMark;
 
   // Skip mark with non-tabular data. Do not skip empty
   // data, they are useful for facet to display axes.
@@ -109,7 +111,7 @@ export async function initializeMark(
       });
     });
 
-  return [transformedMark, { ...partialProps, index: I, channels }];
+  return [transformedMark, { ...partialProps, index: I, channels, tooltip }];
 }
 
 export function createColumnOf(library: G2Library): ColumnOf {
@@ -152,9 +154,11 @@ async function applyMarkTransform(
     maybeArrayField,
     maybeNonAnimate,
     addGuideToScale,
+    normalizeTooltip,
     ...preInference.map(useTransform),
     ...transform.map(useTransform),
     ...postInference.map(useTransform),
+    extractTooltip,
   ];
   let index = [];
   let transformedMark = mark;

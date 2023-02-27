@@ -1,10 +1,8 @@
 import { DisplayObject } from '@antv/g';
 import { Coordinate } from '@antv/coord';
-import { defineProps } from '../props';
 import { Node } from '../node';
 import { G2Theme, G2ViewDescriptor } from '../../runtime';
 
-@defineProps([{ name: 'on', type: 'event' }])
 export class CompositionNode<
   Value extends Record<string, any> = Record<string, any>,
   ParentValue extends Record<string, any> = Record<string, any>,
