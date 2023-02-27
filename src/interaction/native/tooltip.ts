@@ -55,7 +55,7 @@ function createTooltip(root, x0, y0) {
   return tooltipElement;
 }
 
-function showTooltip(root, data, x, y) {
+function showTooltip(root, data, x, y, render, event) {
   const { tooltipElement = createTooltip(root, x, y) } = root;
   const { items, title } = data;
   tooltipElement.show();
@@ -63,6 +63,9 @@ function showTooltip(root, data, x, y) {
   tooltipElement.update({
     items,
     title,
+    ...(render !== undefined && {
+      customContent: render(event, { items, title }),
+    }),
   });
   root.tooltipElement = tooltipElement;
 }
@@ -225,6 +228,7 @@ export function seriesTooltip(
     coordinate,
     crosshairs,
     item,
+    render,
     startX = 0,
     startY = 0,
     ...rest
@@ -350,7 +354,7 @@ export function seriesTooltip(
         return;
       }
 
-      showTooltip(root, tooltipData, mouse[0] + x, mouse[1] + y);
+      showTooltip(root, tooltipData, mouse[0] + x, mouse[1] + y, render, event);
       if (crosshairs) {
         const points = selectedSeriesData.map((d) => d[1]);
         updateRuleY(root, points, { ...ruleStyle, height, startX, startY });
@@ -386,6 +390,7 @@ export function tooltip(
   {
     elements: elementsof,
     scale,
+    render,
     wait = 50,
     leading = true,
     trailing = false,
@@ -405,7 +410,7 @@ export function tooltip(
       const data =
         group.length === 1 ? singleItem(group[0]) : groupItems(group, scale);
       const { offsetX, offsetY } = event;
-      showTooltip(root, data, offsetX, offsetY);
+      showTooltip(root, data, offsetX, offsetY, render, event);
     },
     wait,
     { leading, trailing },

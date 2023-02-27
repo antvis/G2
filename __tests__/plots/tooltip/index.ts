@@ -26,3 +26,6 @@ export { alphabetIntervalChannel } from './alphabet-interval-channel';
 export { unemploymentAreaStack } from './unemployment-area-stack';
 export { symbolsLineMissingData } from './symbols-line-missing-data';
 export { forecastRangeAreaLine } from './forecast-range-area-line';
+export { alphabetIntervalCustomDom } from './alphabet-interval-custom-dom';
+export { alphabetIntervalCustomString } from './alphabet-interval-custom-string';
+export { indicesLineCustom } from './indices-line-custom';
