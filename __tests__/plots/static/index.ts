@@ -184,3 +184,4 @@ export { population2015IntervalHOMMarkLevel } from './population2015-interval-ho
 export { population2015IntervalHOMNested } from './population2015-interval-hom-nested';
 export { population2015IntervalHOMMultiple } from './population2015-interval-hom-multiple';
 export { alphabetIntervalFill } from './alphabet-interval-fill';
+export { commitsPointGroupedConstant } from './commits-point-grouped-constant';
