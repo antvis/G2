@@ -80,12 +80,6 @@ function destroyTooltip(root) {
   }
 }
 
-function filterDefined(obj) {
-  return Object.fromEntries(
-    Object.entries(obj).filter(([, value]) => defined(value)),
-  );
-}
-
 function singleItem(element) {
   const { __data__: datum } = element;
   const { title, items = [] } = datum;
@@ -249,6 +243,12 @@ export function seriesTooltip(
     else itemElements.push(element);
   }
 
+  // Sorted elements from top to bottom visually.
+  seriesElements.sort((a, b) => {
+    const minY = (d) => d.getBounds().min[1];
+    return minY(a) - minY(b);
+  });
+
   // Get sortedIndex and X for each series elements
   const elementSortedX = new Map(
     seriesElements.map((element) => {
@@ -276,25 +276,25 @@ export function seriesTooltip(
 
   const indexByFocus = (focus, I, X) => {
     const [normalizedX] = coordinate.invert(focus);
+    const finalX = normalizedX - offsetX;
+    const [minX, maxX] = sort([X[0], X[X.length - 1]]);
+    // Skip x out of range.
+    if (finalX < minX || finalX > maxX) return null;
     const search = bisector((i) => X[+i]).center;
-    const i = search(I, normalizedX - offsetX);
+    const i = search(I, finalX);
     return I[i];
   };
 
-  const indicesByFocus = (focus, I, X) => {
-    const len = I.length;
-    if (len === 0) return [];
-    const [normalizedX] = coordinate.invert(focus);
-    const x = normalizedX - offsetX;
-    const search = bisector((i) => X[+i]).center;
-    const center = search(I, x);
-
-    // Find the least index and greatest index of X[center]
-    let left = center;
-    let right = center;
-    while (left - 1 > 0 && X[I[left - 1]] == X[I[center]]) left--;
-    while (right + 1 < len && X[I[right + 1]] === X[I[center]]) right++;
-    return range(left, right + 1).map((i) => I[i]);
+  const elementsByFocus = (focus, elements) => {
+    const x = focus[0];
+    const extent = (d) => {
+      const { min, max } = d.getLocalBounds();
+      return sort([min[0], max[0]]);
+    };
+    return elements.filter((element) => {
+      const [min, max] = extent(element);
+      return x >= min && x <= max;
+    });
   };
 
   const seriesData = (element, index) => {
@@ -319,25 +319,36 @@ export function seriesTooltip(
       const focus = [mouse[0] - startX, mouse[1] - startY];
       if (!focus) return;
       // Get selected item element.
-      const selectedItemIndices = indicesByFocus(focus, itemSortedIndex, itemX);
-      const selectedItems = selectedItemIndices.map((i) => itemElements[i]);
+      const selectedItems = elementsByFocus(focus, itemElements);
 
       // Get selected data item from both series element and item element.
-      const selectedSeriesData = seriesElements.map((element) => {
+      const selectedSeriesElements = [];
+      const selectedSeriesData = [];
+      for (const element of seriesElements) {
         const [sortedIndex, X] = elementSortedX.get(element);
         const index = indexByFocus(focus, sortedIndex, X);
-        const d = seriesData(element, index);
-        const { x, y } = d;
-        return [d, coordinate.map([x + offsetX, y])] as const;
-      });
+        if (index !== null) {
+          selectedSeriesElements.push(element);
+          const d = seriesData(element, index);
+          const { x, y } = d;
+          const p = coordinate.map([x + offsetX, y]);
+          selectedSeriesData.push([d, p] as const);
+        }
+      }
       const selectedData = [
         ...selectedSeriesData.map((d) => d[0]),
         ...selectedItems.map((d) => d.__data__),
       ];
 
       // Get the displayed tooltip data.
-      const selectedElements = [...seriesElements, ...selectedItems];
+      const selectedElements = [...selectedSeriesElements, ...selectedItems];
       const tooltipData = groupItems(selectedElements, scale, selectedData);
+
+      // Hide tooltip with no selected tooltip.
+      if (selectedElements.length === 0) {
+        hide();
+        return;
+      }
 
       showTooltip(root, tooltipData, mouse[0] + x, mouse[1] + y);
       if (crosshairs) {

@@ -5,6 +5,11 @@ export function column(value: Primitive[], field?: string) {
   return { type: 'column', value, field };
 }
 
+export function inferredColumn(value: Primitive[], field?: string) {
+  const c = column(value, field);
+  return { ...c, inferred: true };
+}
+
 export function visualColumn(value: Primitive[], field?: string) {
   if (value === null) return undefined;
   return { type: 'column', value, field, visual: true };

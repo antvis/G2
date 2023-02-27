@@ -114,11 +114,18 @@ export function normalizeTooltip(
   context: TransformContext,
 ): [number[], G2Mark] {
   const { tooltip = {} } = mark;
+  const isFullTooltip = (tooltip) => {
+    if (Object.keys(tooltip).length === 0) return true;
+    const { title, items } = tooltip;
+    return title !== undefined || items !== undefined;
+  };
   if (tooltip === null) return [I, mark];
   if (Array.isArray(tooltip)) {
     return [I, { ...mark, tooltip: { items: tooltip } }];
   }
-  if (isStrictObject(tooltip)) return [I, { ...mark, tooltip }];
+  if (isStrictObject(tooltip) && isFullTooltip(tooltip)) {
+    return [I, { ...mark, tooltip }];
+  }
   return [I, { ...mark, tooltip: { items: [tooltip] } }];
 }
 
@@ -136,8 +143,9 @@ export function extractTooltip(
     }
     if (isStrictObject(item)) {
       const { field, channel, color, name = field } = item;
+      const channelField = channel && encode[channel].field;
       return I.map((i) => ({
-        name,
+        name: name || channelField || channel,
         color,
         value: field
           ? data[i][field]

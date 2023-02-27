@@ -6,7 +6,7 @@ export function alphabetIntervalBubbleInteraction(): G2Spec {
     type: 'view',
     interaction: {
       elementHighlight: {
-        background: false,
+        background: true,
       },
     },
     children: [
@@ -21,7 +21,9 @@ export function alphabetIntervalBubbleInteraction(): G2Spec {
           y: 'frequency',
         },
         interaction: {
-          elementHighlight: true,
+          elementHighlight: {
+            background: false,
+          },
         },
       },
     ],

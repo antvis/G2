@@ -1,6 +1,5 @@
 import { deepMix } from '@antv/util';
 import { TransformComponent as TC } from '../runtime';
-import { column, columnOf } from './utils/helper';
 
 export type MaybeTooltipOptions = {
   channel: string | string[];
@@ -21,9 +20,11 @@ export const MaybeTooltip: TC<MaybeTooltipOptions> = (options) => {
       Object.keys(encode)
         .filter((key) => key.startsWith(channel))
         .map((key) => {
-          const [V, fv] = columnOf(encode, key);
-          // Only show channel with field.
-          if (V && fv !== null) return V.map((v) => ({ value: v, name: fv }));
+          const { field, value, inferred = false } = encode[key];
+          // Do not show inferred column.
+          if (inferred) return null;
+          if (field) return { field };
+          if (value) return { channel: key };
           return null;
         })
         .filter((d) => d !== null),
