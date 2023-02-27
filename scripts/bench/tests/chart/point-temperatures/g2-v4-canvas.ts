@@ -1,6 +1,7 @@
 import { Chart } from '@antv/g2';
+import type { Chart as ChartType } from '../types';
 
-export function g2V4Canvas(data, { start, end }) {
+export const g2V4Canvas: ChartType = (data, { start, end }) => {
   start();
   const node = document.createElement('div');
   const chart = new Chart({
@@ -16,4 +17,4 @@ export function g2V4Canvas(data, { start, end }) {
   chart.render();
 
   end(node);
-}
+};
