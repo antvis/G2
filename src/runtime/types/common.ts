@@ -68,6 +68,7 @@ export type G2MarkState = {
   index?: number[];
   data?: Record<string, any>[];
   channels?: ChannelGroups[];
+  tooltip?: any; // @todo
 } & Omit<MarkProps, 'channels'>;
 
 export type MaybeArray<T> = T | T[];

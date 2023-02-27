@@ -1,7 +1,7 @@
 import { Primitive } from 'd3-array';
 import { deepMix } from '@antv/util';
 import { indexOf, mapObject } from '../utils/array';
-import { composeAsync, defined } from '../utils/helper';
+import { composeAsync, defined, isStrictObject } from '../utils/helper';
 import { useLibrary } from './library';
 import { createColumnOf } from './mark';
 import { Data, DataComponent } from './types/data';
@@ -103,6 +103,65 @@ export function extractColumns(
   const columnOf = createColumnOf(library);
   const valuedEncode = mapObject(encode, (channel) => columnOf(data, channel));
   return [I, { ...mark, encode: valuedEncode }];
+}
+
+/**
+ * Normalize mark.tooltip to {title, items}.
+ */
+export function normalizeTooltip(
+  I: number[],
+  mark: G2Mark,
+  context: TransformContext,
+): [number[], G2Mark] {
+  const { tooltip = {} } = mark;
+  if (tooltip === null) return [I, mark];
+  if (Array.isArray(tooltip)) {
+    return [I, { ...mark, tooltip: { items: tooltip } }];
+  }
+  if (isStrictObject(tooltip)) return [I, { ...mark, tooltip }];
+  return [I, { ...mark, tooltip: { items: [tooltip] } }];
+}
+
+export function extractTooltip(
+  I: number[],
+  mark: G2Mark,
+  context: TransformContext,
+): [number[], G2Mark] {
+  const { data, encode, tooltip = {} } = mark;
+  if (tooltip === null) return [I, mark];
+  const valueOf = (item) => {
+    if (!item) return item;
+    if (typeof item === 'string') {
+      return I.map((i) => ({ name: item, value: data[i][item] }));
+    }
+    if (isStrictObject(item)) {
+      const { field, channel, color, name = field } = item;
+      return I.map((i) => ({
+        name,
+        color,
+        value: field
+          ? data[i][field]
+          : channel
+          ? encode[channel].value[i]
+          : null,
+      }));
+    }
+    if (typeof item === 'function') {
+      return I.map((i) => {
+        const v = item(data[i], i, data, encode);
+        if (isStrictObject(v)) return v;
+        return { value: v };
+      });
+    }
+    return item;
+  };
+  const { title, items = [], ...rest } = tooltip;
+  const newTooltip = {
+    title: valueOf(title),
+    items: items.map(valueOf),
+    ...rest,
+  };
+  return [I, { ...mark, tooltip: newTooltip }];
 }
 
 export function maybeArrayField(

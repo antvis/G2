@@ -17,4 +17,5 @@ export type API<Props extends Geometry, Mark> = {
   scrollbar: ObjectAttribute<Props['scrollbar'], Mark>;
   legend: ObjectAttribute<Props['legend'], Mark>;
   layout: ValueAttribute<Props['layout'], Mark>;
+  tooltip: ValueAttribute<Props['tooltip'], Mark>;
 };

@@ -21,12 +21,9 @@ export function temperaturesLinePointDiscrete(): G2Spec {
           x: 'month',
           y: 'temperature',
           color: 'city',
-          tooltip: null,
-          title: null,
         },
-        style: {
-          fill: 'white',
-        },
+        tooltip: null,
+        style: { fill: 'white' },
       },
     ],
     interaction: {

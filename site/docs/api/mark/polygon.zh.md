@@ -58,7 +58,6 @@ chart
   .scale('x', { domain: [0, 800] })
   .scale('y', { domain: [0, 600] })
   .axis(false)
-  .scale('tooltip', { field: 'value' })
   .style('stroke', '#fff')
   .style('fillOpacity', 0.65);
 

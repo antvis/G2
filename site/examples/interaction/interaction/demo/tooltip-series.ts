@@ -15,8 +15,16 @@ chart
   .encode('x', (d) => new Date(d.Date))
   .encode('y', 'Close')
   .encode('color', 'Symbol')
-  .encode('title', (d) => d.Date.toLocaleString())
   .axis('y', { title: '↑ Change in price (%)' })
+  .tooltip({
+    title: (d) => new Date(d.Date).toUTCString(),
+    items: [
+      (d, i, data, column) => ({
+        name: 'Close',
+        value: column.y.value[i].toFixed(1),
+      }),
+    ],
+  })
   .label({
     text: 'Symbol',
     selector: 'last',
@@ -25,8 +33,6 @@ chart
     },
   });
 
-chart.interaction('tooltip', {
-  item: ({ value }) => ({ value: value.toFixed(1) }),
-});
+chart.interaction('tooltip', true);
 
 chart.render();

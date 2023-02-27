@@ -18,3 +18,6 @@ export { alphabetInterval1dMounted } from './alphabet-interval-1d-mounted';
 export { indicesLineItems } from './indices-line-items';
 export { flareTreemapPoptip } from './flare-treemap-poptip';
 export { flareTreemapPoptipCustom } from './flare-treemap-poptip-custom';
+export { morleyBoxChannel } from './morley-box-channel';
+export { alphabetIntervalMultiField } from './alphabet-interval-multi-field';
+export { alphabetIntervalFull } from './alphabet-interval-full';
