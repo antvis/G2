@@ -1,5 +1,5 @@
 import { InteractionComponent } from '../runtime';
-import { ChannelTypes } from './geometry';
+import { ChannelTypes, TooltipItemValue } from './geometry';
 import { FisheyeCoordinate } from './coordinate';
 
 export type Interaction =
@@ -197,6 +197,10 @@ export type TooltipInteraction = {
   crosshairs?: boolean;
   // @todo
   item?: any;
+  render?: (
+    event, // @todo
+    options: { title: 'string'; items: TooltipItemValue[] },
+  ) => HTMLElement | string;
 };
 
 export type FisheyeInteraction = {
