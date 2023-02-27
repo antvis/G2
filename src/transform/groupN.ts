@@ -9,7 +9,7 @@ import {
 import { TransformComponent as TC, Primitive, G2Mark } from '../runtime';
 import { GroupTransform, Reducer } from '../spec';
 import { indexOf } from '../utils/array';
-import { columnOf, column } from './utils/helper';
+import { columnOf, column, nonConstantColumn } from './utils/helper';
 
 export type GroupNOptions = Omit<
   GroupTransform & {
@@ -100,7 +100,7 @@ export const GroupN: TC<GroupNOptions> = (options = {}) => {
       const [reducerFunction, formatter] = normalizeReducer(reducer);
       const [V, field] = columnOf(encode, channel);
       const RV = groups.map((I) => reducerFunction(I, V ?? data));
-      return [channel, column(RV, formatter?.(field) || field)];
+      return [channel, nonConstantColumn(RV, formatter?.(field) || field)];
     });
     const reducedColumns = Object.keys(encode).map((key) => {
       const [V, fv] = columnOf(encode, key);

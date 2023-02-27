@@ -10,6 +10,11 @@ export function visualColumn(value: Primitive[], field?: string) {
   return { type: 'column', value, field, visual: true };
 }
 
+export function nonConstantColumn(value: Primitive[], field?: string) {
+  const c = column(value, field);
+  return { ...c, constant: false };
+}
+
 export function constant(I: number[], value: any) {
   const array = [];
   for (const i of I) array[i] = value;
