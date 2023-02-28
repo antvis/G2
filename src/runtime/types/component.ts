@@ -1,5 +1,6 @@
 import { Coordinate, Transformation } from '@antv/coord';
 import { DisplayObject, IAnimation as GAnimation } from '@antv/g';
+import EventEmitter from '@antv/event-emitter';
 import { G2ViewTree } from './options';
 import {
   G2Theme,
@@ -191,6 +192,7 @@ export type AnimationComponent<O = Record<string, unknown>> = G2BaseComponent<
 export type Interaction = (
   target: G2ViewInstance,
   viewInstances: G2ViewInstance[],
+  emitter?: EventEmitter,
 ) => void;
 export type InteractionComponent<O = Record<string, unknown>> = G2BaseComponent<
   Interaction,
