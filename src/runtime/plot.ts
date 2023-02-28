@@ -231,7 +231,7 @@ export async function plot<T extends G2ViewTree>(
     // Apply interactions.
     for (const option of inferInteraction(options)) {
       const interaction = useInteraction(option);
-      const destroy = interaction(target, enterViewInstances);
+      const destroy = interaction(target, enterViewInstances, context.emitter);
       nameInteraction.set(option.type, { destroy });
     }
   }
@@ -248,7 +248,7 @@ export async function plot<T extends G2ViewTree>(
 
       // Apply new interaction.
       const interaction = useInteraction(option);
-      const destroy = interaction(target, updateViewInstances);
+      const destroy = interaction(target, updateViewInstances, context.emitter);
       nameInteraction.set(options.type, { destroy });
     }
   }
@@ -743,12 +743,14 @@ async function plotView(
   // Render marks with corresponding data.
   for (const [mark, state] of markState.entries()) {
     const { data } = state;
-    const { key, class: cls } = mark;
+    const { key, class: cls, type } = mark;
     const shapeFunction = createMarkShapeFunction(mark, state, view, library);
     const enterFunction = createEnterFunction(mark, state, view, library);
     const updateFunction = createUpdateFunction(mark, state, view, library);
     const exitFunction = createExitFunction(mark, state, view, library);
     const facetElements = selectFacetElements(selection, cls, 'element');
+    const classNames = [ELEMENT_CLASS_NAME];
+    if (typeof type === 'string') classNames.push(type);
     const T = selection
       .select(`#${key}`)
       .selectAll(className(ELEMENT_CLASS_NAME))
@@ -762,7 +764,7 @@ async function plotView(
         (enter) =>
           enter
             .append(shapeFunction)
-            .attr('className', ELEMENT_CLASS_NAME)
+            .attr('className', classNames.join(' '))
             .transition(function (data) {
               return enterFunction(data, [this]);
             }),
@@ -1294,7 +1296,9 @@ function inferTheme(theme: G2ThemeOptions = { type: 'light' }): G2ThemeOptions {
  * @todo Infer builtin tooltips.
  */
 function inferInteraction(view: G2View): G2InteractionOptions[] {
-  const defaults = {};
+  const defaults = {
+    event: true,
+  };
   const { interaction = {} } = view;
   return Object.entries(deepMix(defaults, interaction))
     .filter((d) => !!d[1])
