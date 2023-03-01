@@ -242,3 +242,9 @@ export function getTransform(coordinate, value) {
   const { transform: suffix } = value;
   return `translate(${center[0]}, ${center[1]}) ${suffix || ''}`;
 }
+
+export function getOrigin(points: Vector2[]) {
+  if (points.length === 1) return points[0];
+  const [[x0, y0], [x2, y2]] = points;
+  return [(x0 + x2) / 2, (y0 + y2) / 2];
+}

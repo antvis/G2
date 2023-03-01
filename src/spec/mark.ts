@@ -80,6 +80,7 @@ export type MarkTypes =
   | 'forceGraph'
   | 'tree'
   | 'wordCloud'
+  | 'gauge'
   | MarkComponent;
 
 export type ChannelTypes =
@@ -361,5 +362,14 @@ export type WordCloudMark = BaseMark<
       | ((type: 'word', details?: { cloud; word }) => void);
   };
 };
+
+export type GaugeMark = BaseMark<
+  'gauge',
+  | `arc${Capitalize<ChannelTypes>}`
+  | `indicator${Capitalize<ChannelTypes>}`
+  | `pointer${Capitalize<ChannelTypes>}`
+  | `pin${Capitalize<ChannelTypes>}`
+  | ChannelTypes
+>;
 
 export type CustomMark = BaseMark<MarkComponent, ChannelTypes>;
