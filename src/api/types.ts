@@ -13,7 +13,9 @@ export type ObjectAttribute<V, N> = <
 >(
   key?: V extends Record<string, any> ? V | keyof V : V,
   value?: T,
-) => Chainable<T, V, N>;
+) => V extends Record<string, any> | boolean
+  ? Chainable<V, V, N> // For mark.axis({ x: {} }) and mark.axis(false)
+  : Chainable<T, V, N>; // For mark.axis('x', {})
 
 export type ArrayAttribute<V, N> = <T extends V | ElementOf<V>>(
   value?: T,
