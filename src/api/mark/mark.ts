@@ -25,6 +25,7 @@ import {
   PackMark,
   TreeMark,
   WordCloudMark,
+  HOMMarkGeometry,
 } from '../../spec';
 import { NodePropertyDescriptor, defineProps } from '../props';
 import { Concrete } from '../types';
@@ -134,6 +135,10 @@ export interface WordCloud extends API<Concrete<WordCloudMark>, WordCloud> {
   type: 'wordCloud';
 }
 
+export interface HOMMark extends API<Concrete<HOMMarkGeometry>, HOMMark> {
+  type: 'interval';
+}
+
 export const props: NodePropertyDescriptor[] = [
   { name: 'encode', type: 'object' },
   { name: 'scale', type: 'object' },
@@ -151,6 +156,13 @@ export const props: NodePropertyDescriptor[] = [
   { name: 'state', type: 'object' },
   { name: 'tooltip', type: 'mix' },
 ];
+
+@defineProps(props)
+export class HOMMark extends MarkNode<HOMMark> {
+  constructor() {
+    super({});
+  }
+}
 
 @defineProps(props)
 export class Interval extends MarkNode<IntervalGeometry> {
