@@ -184,7 +184,7 @@ export class Chart extends View<ChartOptions> {
         renderer,
         plugins,
         autoFit,
-      } = this.options();
+      } = this.getOptions();
       const { width: adjustedWidth, height: adjustedHeight } = getChartSize(
         this._container,
         autoFit,
@@ -205,11 +205,11 @@ export class Chart extends View<ChartOptions> {
     }
 
     return new Promise((resolve) => {
-      render(this.options(), this._context, () => resolve(this));
+      render(this.getOptions(), this._context, () => resolve(this));
     });
   }
 
-  options() {
+  getOptions() {
     return optionsOf(this);
   }
 
@@ -242,7 +242,7 @@ export class Chart extends View<ChartOptions> {
   }
 
   destroy() {
-    const options = this.options();
+    const options = this.getOptions();
     this.emit(CHART_LIFE_CIRCLE.BEFORE_DESTROY);
     this.unbindAutoFit();
     destroy(options, this._context);
@@ -252,14 +252,14 @@ export class Chart extends View<ChartOptions> {
   }
 
   clear() {
-    const options = this.options();
+    const options = this.getOptions();
     this.emit(CHART_LIFE_CIRCLE.BEFORE_CLEAR);
     destroy(options, this._context);
     this.emit(CHART_LIFE_CIRCLE.AFTER_CLEAR);
   }
 
   forceFit() {
-    const { width, height, autoFit } = this.options();
+    const { width, height, autoFit } = this.getOptions();
     const { width: adjustedWidth, height: adjustedHeight } = getChartSize(
       this._container,
       autoFit,
@@ -272,7 +272,7 @@ export class Chart extends View<ChartOptions> {
   }
 
   changeSize(adjustedWidth: number, adjustedHeight: number): Promise<Chart> {
-    const { width, height, on } = this.options();
+    const { width, height, on } = this.getOptions();
     if (width === adjustedWidth && height === adjustedHeight) {
       return Promise.resolve(this);
     }
@@ -291,7 +291,7 @@ export class Chart extends View<ChartOptions> {
   }, 300);
 
   private bindAutoFit() {
-    const options = this.options();
+    const options = this.getOptions();
     const { autoFit } = options;
     if (autoFit) {
       window.addEventListener('resize', this.onResize);
@@ -299,7 +299,7 @@ export class Chart extends View<ChartOptions> {
   }
 
   private unbindAutoFit() {
-    const options = this.options();
+    const options = this.getOptions();
     const { autoFit } = options;
     if (autoFit) {
       window.removeEventListener('resize', this.onResize);
