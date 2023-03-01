@@ -26,7 +26,27 @@ import {
   WordCloud,
 } from '../../../src/api/mark/mark';
 
-function setOptions(node) {
+type Mark =
+  | Area
+  | Interval
+  | Point
+  | Cell
+  | Vector
+  | Link
+  | Polygon
+  | Image
+  | Text
+  | Box
+  | Connector
+  | LineX
+  | LineY
+  | Range
+  | RangeX
+  | RangeY
+  | Boxplot
+  | Shape;
+
+function setOptions(node: Mark) {
   return node
     .data([1, 2, 3])
     .encode('x', 'name')
@@ -52,15 +72,16 @@ function setOptions(node) {
     .attr('insetLeft', 20)
     .attr('insetTop', 30)
     .attr('insetRight', 40)
+    .axis(false)
     .axis('x', { tickCount: 10 })
-    .legend('y', { title: 'hello' })
+    .legend('color', { title: 'hello' })
     .tooltip('a')
     .tooltip('b')
     .slider('x', {})
     .scrollbar('x', {})
     .label({ text: 'hello' })
     .coordinate({ type: 'polar' })
-    .interaction({ type: 'tooltip' })
+    .interaction('tooltip')
     .state('active', { fill: 'red' })
     .state('inactive', { fill: 'blue' });
 }
@@ -81,7 +102,7 @@ function getOptions() {
     style: { stroke: 'black' },
     animate: { enter: { type: 'scaleInX' } },
     axis: { x: { tickCount: 10 } },
-    legend: { y: { title: 'hello' } },
+    legend: { color: { title: 'hello' } },
     slider: { x: {} },
     scrollbar: { x: {} },
     facet: true,
@@ -104,7 +125,7 @@ function getOptions() {
     marginRight: 40,
     labels: [{ text: 'hello' }],
     coordinate: { type: 'polar' },
-    interaction: { type: 'tooltip' },
+    interaction: { tooltip: true },
     state: {
       active: { fill: 'red' },
       inactive: { fill: 'blue' },
@@ -268,6 +289,18 @@ describe('Mark', () => {
     expect(setOptions(node).value).toEqual(getOptions());
   });
 
+  it('Shape() should specify options by API', () => {
+    const node = new Shape();
+    expect(node.type).toBe('shape');
+    expect(setOptions(node).value).toEqual(getOptions());
+  });
+
+  it('Boxplot() should specify options by API', () => {
+    const node = new Boxplot();
+    expect(node.type).toBe('boxplot');
+    expect(setOptions(node).value).toEqual(getOptions());
+  });
+
   it('Sankey() should specify options by API', () => {
     const node = new Sankey();
     expect(node.type).toBe('sankey');
@@ -278,18 +311,6 @@ describe('Mark', () => {
     const node = new Treemap();
     expect(node.type).toBe('treemap');
     expect(setCompositeOptions(node).value).toEqual(getCompositeOptions());
-  });
-
-  it('Boxplot() should specify options by API', () => {
-    const node = new Boxplot();
-    expect(node.type).toBe('boxplot');
-    expect(setOptions(node).value).toEqual(getOptions());
-  });
-
-  it('Shape() should specify options by API', () => {
-    const node = new Shape();
-    expect(node.type).toBe('shape');
-    expect(setOptions(node).value).toEqual(getOptions());
   });
 
   it('Pack() should specify options by API', () => {
@@ -307,6 +328,7 @@ describe('Mark', () => {
   it('Tree() should specify options by API', () => {
     const node = new Tree();
     expect(node.type).toBe('tree');
+    expect(setCompositeOptions(node).value).toEqual(getCompositeOptions());
   });
 
   it('WordCloud() should specify options by API', () => {
