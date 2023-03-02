@@ -1,7 +1,6 @@
-import { CustomEvent } from '@antv/g';
 import { chartOnSeriesElement as render } from '../plots/api/chart-on-series-element';
 import { createDOMGCanvas } from './utils/createDOMGCanvas';
-import { sleep } from './utils/sleep';
+import { dispatchEvent, createPromise, receiveExpectData } from './utils/event';
 import './utils/useSnapshotMatchers';
 
 const data = [
@@ -69,27 +68,23 @@ const data = [
 
 describe('chart.on', () => {
   const canvas = createDOMGCanvas(640, 480);
+  const { finished, chart } = render({ canvas });
+  chart.off();
 
   it('chart.on("element:click", callback) should provide data for series element', async () => {
-    const { finished, chart } = render({ canvas });
     await finished;
-    await sleep(20);
+    const [fired, resolve] = createPromise();
+    chart.on('element:click', receiveExpectData(resolve, data));
+    dispatchEvent(canvas, 'click', { detail: 1 });
+    await fired;
+  });
 
-    await new Promise<void>((resolve) => {
-      let count = 0;
-      const click = (event) => {
-        count++;
-        expect(event.data.data).toEqual(data);
-        if (count >= 2) resolve();
-      };
-
-      chart.off();
-      chart.on('element:click', click);
-      chart.on('line:click', click);
-
-      const [element] = canvas.document.getElementsByClassName('element');
-      element.dispatchEvent(new CustomEvent('click'));
-    });
+  it('chart.on("line:click", callback) should provide data for series element', async () => {
+    await finished;
+    const [fired, resolve] = createPromise();
+    chart.on('line:click', receiveExpectData(resolve, data));
+    dispatchEvent(canvas, 'click', { detail: 1 });
+    await fired;
   });
 
   afterAll(() => {
