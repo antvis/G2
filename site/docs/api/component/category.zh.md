@@ -35,7 +35,9 @@ chart
     gridRow: 1,
     height: 128,
     navLoop: true,
-    itemMarkerFill: 'transparent',
+    style: {
+      itemMarkerFill: 'transparent',
+    },
   });
 
 chart.render();

@@ -19,7 +19,10 @@ chart
   .encode('color', (d) => d.R90_10_2015 - d.R90_10_1980)
   .scale('x', { type: 'log' })
   .style('arrowSize', 6)
-  .axis('x', { labelFormatter: '~s', labelTransform: 'rotate(90deg)' })
+  .axis('x', {
+    labelFormatter: '~s',
+    style: { labelTransform: 'rotate(90deg)' },
+  })
   .legend(false);
 
 chart.render();

@@ -28,8 +28,13 @@ export type G2Title = {
    * The vertical spacing between title and subtitle, default is 2.
    */
   spacing?: number;
-} & WithPrefix<Omit<TextStyleProps, 'x' | 'y' | 'text'>, 'title'> & // G.Text style for title.
-  WithPrefix<Omit<TextStyleProps, 'x' | 'y' | 'text'>, 'subtitle'>; // G.Text style for subtitle.
+
+  /**
+   * Styles.
+   */
+  style?: WithPrefix<Omit<TextStyleProps, 'x' | 'y' | 'text'>, 'title'> & // G.Text style for title.
+    WithPrefix<Omit<TextStyleProps, 'x' | 'y' | 'text'>, 'subtitle'>; // G.Text style for subtitle.
+};
 
 export type G2ViewDescriptor = {
   scale: Record<string, Scale>;

@@ -21,7 +21,7 @@ chart
     { x: 'Taxes', value: 490000, start: 1504450, end: 1994450 },
     { x: 'Net Income', isTotal: true, value: 1994450, start: 0, end: 1994450 },
   ])
-  .axis('x', { title: false, labelTransform: 'rotate(-90)' })
+  .axis('x', { title: false, style: { labelTransform: 'rotate(-90)' } })
   .axis('y', { labelFormatter: '~s' })
   .legend(null);
 
