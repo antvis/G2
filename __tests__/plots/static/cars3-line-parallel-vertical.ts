@@ -36,6 +36,7 @@ export function cars3LineParallelVertical(): G2Spec {
     legend: {
       color: {
         position: 'top',
+        layout: { justifyContent: 'center' },
         size: 50,
         length: 300,
         labelSpacing: 0,

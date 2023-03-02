@@ -7,7 +7,13 @@ import type {
   GuideComponentPosition as GCP,
   Scale,
 } from '../runtime';
-import { G2Layout, inferComponentLayout, titleContent, scaleOf } from './utils';
+import {
+  G2Layout,
+  inferComponentLayout,
+  inferComponentShape,
+  scaleOf,
+  titleContent,
+} from './utils';
 
 export type LegendContinuousOptions = {
   layout?: FlexLayout;
@@ -18,23 +24,26 @@ export type LegendContinuousOptions = {
 
 function inferContinuousConfig(
   scales: Scale[],
+  value: Record<string, any>,
   options: LegendContinuousOptions,
 ) {
   const colorScale = scaleOf(scales, 'color');
   const { domain, range } = colorScale.getOptions();
-  const { length = LegendContinuous.props.defaultLength } = options;
   const [min, max] = [domain[0], domain.slice(-1)[0]];
+  const { orient, width, height, length } = inferComponentShape(value, options);
+  const shape = { orient, width, height };
 
   if (colorScale instanceof Threshold) {
     const thresholds = (colorScale as any).thresholds as number[];
     // for quantize, quantile scale
     if (colorScale instanceof Quantize || colorScale instanceof Quantile) {
       return {
+        color: range,
+        ...shape,
         data: [min, ...thresholds, max].map((value, index) => ({
           value: value / max,
           label: value,
         })),
-        color: range,
       };
     }
     // for threshhold
@@ -44,6 +53,7 @@ function inferContinuousConfig(
     }));
     return {
       data,
+      ...shape,
       color: range,
       labelFilter: (datum, index) => {
         return index > 0 && index < data.length - 1;
@@ -54,6 +64,7 @@ function inferContinuousConfig(
   // for linear, pow, sqrt, log, time, utc scale
   const opacityScale = scaleOf(scales, 'opacity');
   return {
+    ...shape,
     data: colorScale.getTicks().map((value) => ({ value })),
     color: new Array(length).fill(0).map((d, i) => {
       const value = ((max - min) / (length - 1)) * i + min;
@@ -67,35 +78,21 @@ function inferContinuousConfig(
   };
 }
 
-function inferContinuousLayout(options: LegendContinuousOptions) {
-  const {
-    position = 'top',
-    size,
-    length = LegendContinuous.props.defaultLength,
-  } = options;
-
-  const layouts = {
-    left: ['vertical', size, length],
-    right: ['vertical', size, length],
-    top: ['horizontal', length, size],
-    bottom: ['horizontal', length, size],
-  };
-  const [orient, width, height] = layouts[position];
-  return { orient, width, height };
-}
-
 /**
  * Guide Component for continuous color scale.
  * @todo Custom style.
  */
 export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
   const {
-    title,
     dx = 0,
     dy = 0,
-    position,
-    layout,
     labelFormatter,
+    layout,
+    order,
+    orientation,
+    position,
+    size,
+    title,
     ...rest
   } = options;
   return (scales, value, coordinate, theme) => {
@@ -135,8 +132,7 @@ export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
               typeof labelFormatter === 'string'
                 ? (d) => format(labelFormatter)(d.label)
                 : labelFormatter,
-            ...inferContinuousLayout(options),
-            ...inferContinuousConfig(scales, options),
+            ...inferContinuousConfig(scales, value, options),
           },
           rest,
         ),

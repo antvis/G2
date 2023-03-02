@@ -36,6 +36,9 @@ export function cars3LineParallelHorizontal(): G2Spec {
       color: {
         length: 300,
         position: 'top',
+        layout: {
+          justifyContent: 'center',
+        },
       },
     },
     axis: Object.fromEntries(

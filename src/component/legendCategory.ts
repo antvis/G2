@@ -14,7 +14,13 @@ import type {
 import { useLibrary } from '../runtime/library';
 import { Shape, ShapeComponent } from '../runtime/types/component';
 import type { G2ShapeOptions } from '../runtime/types/options';
-import { G2Layout, inferComponentLayout, titleContent, scaleOf } from './utils';
+import {
+  G2Layout,
+  inferComponentLayout,
+  inferComponentShape,
+  titleContent,
+  scaleOf,
+} from './utils';
 
 export type LegendCategoryOptions = {
   dx?: number;
@@ -141,6 +147,21 @@ function inferCategoryStyle(
   };
 }
 
+function inferLegendShape(
+  value: Record<string, any>,
+  options: LegendCategoryOptions,
+) {
+  const { position } = options;
+  if (position === 'center') {
+    const { bbox } = value;
+    // to be comfirm: if position is center, we should use the width and height of user definition.
+    const { width, height } = bbox;
+    return { width, height };
+  }
+  const { width, height } = inferComponentShape(value, options);
+  return { width, height };
+}
+
 /**
  * Guide Component for ordinal color scale.
  */
@@ -163,7 +184,8 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
 
   return (scales, value, coordinate, theme) => {
     const { library, bbox } = value;
-    const { x, y, width, height } = bbox;
+    const { x, y } = bbox;
+    const { width, height } = inferLegendShape(value, options);
 
     const finalLayout = inferComponentLayout(
       position,
