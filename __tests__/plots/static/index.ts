@@ -186,3 +186,4 @@ export { population2015IntervalHOMMultiple } from './population2015-interval-hom
 export { alphabetIntervalFill } from './alphabet-interval-fill';
 export { commitsPointGroupedConstant } from './commits-point-grouped-constant';
 export { soldHOMMultiple } from './sold-hom-multiple';
+export { soldIntervalCustomShape } from './sold-interval-custom-shape';
