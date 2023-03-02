@@ -1350,9 +1350,10 @@ function animateBBox(selection: Selection, extent: [number, number]) {
   });
 }
 
-function shapeName(mark: G2Mark, name: string): string {
+function shapeName(mark, name) {
   const { type } = mark;
-  return `${type}.${name}`;
+  if (typeof name === 'string') return `${type}.${name}`;
+  return name;
 }
 
 /**
