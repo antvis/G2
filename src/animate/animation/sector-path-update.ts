@@ -1,5 +1,5 @@
 import { getArcParams } from '@antv/g-canvas';
-import { isNumberEqual, isEqual } from '@antv/util';
+import { isNumberEqual, isEqual, isFunction } from '@antv/util';
 
 import { IShape, PathCommand } from '../../dependents';
 import { GAnimateCfg } from '../../interface';
@@ -153,6 +153,7 @@ export function sectorPathUpdate(shape: IShape, animateCfg: GAnimateCfg, cfg: An
       callback: () => {
         // 将 path 保持原始态，否则会影响 setState() 的动画
         shape.attr('path', path);
+        isFunction(animateCfg.callback) && animateCfg.callback();
       },
     }
   );
