@@ -46,8 +46,10 @@ export async function indicesLinePointScaleKey(): Promise<G2Spec> {
       y: {
         position: 'right',
         grid: false,
-        titleFill: 'orange',
         title: 'Normalized Close',
+        style: {
+          titleFill: 'orange',
+        },
       },
     },
     transform: [{ type: 'normalizeY', groupBy: 'color' }],
@@ -72,7 +74,9 @@ export async function indicesLinePointScaleKey(): Promise<G2Spec> {
     children: [
       line('AAPL'),
       line('AMZN'),
+      // @ts-ignore
       normalizePoint('IBM'),
+      // @ts-ignore
       normalizePoint('MSFT'),
     ],
   };

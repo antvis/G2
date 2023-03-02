@@ -14,7 +14,7 @@ export type SliderOptions = {
  */
 export const Slider: GCC<SliderOptions> = (options) => {
   // do not pass size.
-  const { orient, labelFormatter, size, ...rest } = options;
+  const { orient, labelFormatter, size, style, ...rest } = options;
 
   return ([scale], value, coordinate, theme) => {
     const { bbox } = value;
@@ -39,6 +39,7 @@ export const Slider: GCC<SliderOptions> = (options) => {
           const tick = invert(scale, v, true);
           return f(tick);
         },
+        ...style,
         ...rest,
       }),
     });

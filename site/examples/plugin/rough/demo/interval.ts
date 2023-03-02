@@ -39,16 +39,20 @@ WebFont.load({
       .style('strokeWidth', 2)
       .style('fillStyle', 'zigzag')
       .axis('x', {
-        titleFontSize: 15,
-        titleFontFamily: 'Gaegu',
-        tickStroke: '#cdcdcd',
+        style: {
+          titleFontSize: 15,
+          titleFontFamily: 'Gaegu',
+          tickStroke: '#cdcdcd',
+        },
       })
       .axis('y', {
-        titleFontSize: 15,
-        titleFontFamily: 'Gaegu',
         labelFormatter: '~s',
-        tickStroke: '#cdcdcd',
-        gridStroke: '#efefef',
+        style: {
+          titleFontSize: 15,
+          titleFontFamily: 'Gaegu',
+          tickStroke: '#cdcdcd',
+          gridStroke: '#efefef',
+        },
       });
 
     chart.render();
