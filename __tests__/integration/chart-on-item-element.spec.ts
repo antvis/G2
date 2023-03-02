@@ -33,6 +33,14 @@ describe('chart.on', () => {
     await fired;
   });
 
+  it('chart.on("interval:pointertap", callback) should provide datum for item element', async () => {
+    await finished;
+    const [fired, resolve] = createPromise();
+    chart.on('interval:pointertap', receiveExpectData(resolve));
+    dispatchEvent(canvas, 'pointertap');
+    await fired;
+  });
+
   it('chart.on("interval:pointerdown", callback) should provide datum for item element', async () => {
     await finished;
     const [fired, resolve] = createPromise();
@@ -65,19 +73,35 @@ describe('chart.on', () => {
     await fired;
   });
 
-  it('chart.on("interval:rightdown", callback) should provide datum for item element', async () => {
+  it('chart.on("interval:pointermove", callback) should provide datum for item element', async () => {
     await finished;
     const [fired, resolve] = createPromise();
-    chart.on('interval:rightdown', receiveExpectData(resolve));
-    dispatchEvent(canvas, 'rightdown');
+    chart.on('interval:pointermove', receiveExpectData(resolve));
+    dispatchEvent(canvas, 'pointermove');
     await fired;
   });
 
-  it('chart.on("interval:rightup", callback) should provide datum for item element', async () => {
+  it('chart.on("interval:pointerenter", callback) should provide datum for item element', async () => {
     await finished;
     const [fired, resolve] = createPromise();
-    chart.on('interval:rightup', receiveExpectData(resolve));
-    dispatchEvent(canvas, 'rightup');
+    chart.on('interval:pointerenter', receiveExpectData(resolve));
+    dispatchEvent(canvas, 'pointerenter');
+    await fired;
+  });
+
+  it('chart.on("interval:pointerleave", callback) should provide datum for item element', async () => {
+    await finished;
+    const [fired, resolve] = createPromise();
+    chart.on('interval:pointerleave', receiveExpectData(resolve));
+    dispatchEvent(canvas, 'pointerleave');
+    await fired;
+  });
+
+  it('chart.on("interval:pointerupoutside", callback) should provide datum for item element', async () => {
+    await finished;
+    const [fired, resolve] = createPromise();
+    chart.on('interval:pointerupoutside', receiveExpectData(resolve));
+    dispatchEvent(canvas, 'pointerupoutside');
     await fired;
   });
 
@@ -102,6 +126,38 @@ describe('chart.on', () => {
     const [fired, resolve] = createPromise();
     chart.on('interval:drag', receiveExpectData(resolve));
     dispatchEvent(canvas, 'drag');
+    await fired;
+  });
+
+  it('chart.on("interval:dragenter", callback) should provide datum for item element', async () => {
+    await finished;
+    const [fired, resolve] = createPromise();
+    chart.on('interval:dragenter', receiveExpectData(resolve));
+    dispatchEvent(canvas, 'dragenter');
+    await fired;
+  });
+
+  it('chart.on("interval:dragleave", callback) should provide datum for item element', async () => {
+    await finished;
+    const [fired, resolve] = createPromise();
+    chart.on('interval:dragleave', receiveExpectData(resolve));
+    dispatchEvent(canvas, 'dragleave');
+    await fired;
+  });
+
+  it('chart.on("interval:dragover", callback) should provide datum for item element', async () => {
+    await finished;
+    const [fired, resolve] = createPromise();
+    chart.on('interval:dragover', receiveExpectData(resolve));
+    dispatchEvent(canvas, 'dragover');
+    await fired;
+  });
+
+  it('chart.on("interval:drop", callback) should provide datum for item element', async () => {
+    await finished;
+    const [fired, resolve] = createPromise();
+    chart.on('interval:drop', receiveExpectData(resolve));
+    dispatchEvent(canvas, 'drop');
     await fired;
   });
 
