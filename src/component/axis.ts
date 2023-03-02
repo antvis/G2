@@ -412,14 +412,6 @@ function inferDefaultStyle(
     orientation,
   );
 
-  if (position === 'bottom') {
-    return {
-      ...themeStyle,
-      titlePosition: scale.getTicks ? 'right-bottom' : 'bottom',
-      titleTransformOrigin: 'center',
-      titleTransform: scale.getTicks ? 'translate(-100%, 0)' : undefined,
-    };
-  }
   if (position === 'center') {
     return {
       ...themeStyle,
