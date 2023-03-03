@@ -25,7 +25,7 @@ import { mark, Mark } from './mark';
 import { composition, Composition, View } from './composition';
 import { library } from './library';
 
-export const SpecExternalKeys = ['container', 'renderer'];
+export const SPEC_EXTERNAL_KEYS = ['container', 'renderer'];
 
 function normalizeContainer(container: string | HTMLElement): HTMLElement {
   if (container === undefined) return document.createElement('div');
@@ -212,15 +212,32 @@ export class Chart extends View<ChartOptions> {
       render(this.options(), this._context, () => resolve(this));
     });
   }
-
-  options(options?: G2ViewTree): G2ViewTree {
-    if (options) {
-      this._options = deepMix(
-        this._options || {},
-        omit(options, SpecExternalKeys),
-      );
+  /**
+   * @overload
+   * @returns {G2ViewTree}
+   */
+  options(): G2ViewTree;
+  /**
+   * @overload
+   * @param {G2ViewTree} options
+   * @returns {Chart}
+   */
+  options(options: G2ViewTree): Chart;
+  /**
+   * @overload
+   * @param {G2ViewTree} [options]
+   * @returns {Chart|G2ViewTree}
+   */
+  options(options?: G2ViewTree): Chart | G2ViewTree {
+    if (arguments.length === 0) {
+      return this._options || optionsOf(this);
     }
-    return this._options || optionsOf(this);
+    this._options = deepMix(
+      this._options || {},
+      omit(options, SPEC_EXTERNAL_KEYS),
+    );
+
+    return this;
   }
 
   getContainer(): HTMLElement {

@@ -25,7 +25,7 @@ describe('chart.options', () => {
     chart.options({
       width: 480,
     });
-    chart.render();
+    await chart.render();
     await sleep(20);
     await expect(canvas).toMatchCanvasSnapshot(dir, 'step1');
   });
