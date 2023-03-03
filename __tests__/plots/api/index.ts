@@ -7,3 +7,4 @@ export { markChangeDataTooltip } from './mark-change-data-tooltip';
 export { chartOnItemElement } from './chart-on-item-element';
 export { chartOnSeriesElement } from './chart-on-series-element';
 export { chartHOMMark } from './chart-hom-mark';
+export { chartOptions } from './chart-options';

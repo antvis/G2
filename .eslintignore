@@ -1,0 +1,6 @@
+dist
+es
+lib
+node_modules
+*.ejs
+*.min.js

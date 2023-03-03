@@ -1,12 +1,13 @@
 import { RendererPlugin, Canvas as GCanvas } from '@antv/g';
 import { Renderer as CanvasRenderer } from '@antv/g-canvas';
 import { Plugin as DragAndDropPlugin } from '@antv/g-plugin-dragndrop';
-import { debounce } from '@antv/util';
+import { debounce, deepMix, omit } from '@antv/util';
 import EventEmitter from '@antv/event-emitter';
 import { G2Context, render, destroy } from '../runtime';
 import { ViewComposition } from '../spec';
 import { getChartSize } from '../utils/size';
 import { CHART_LIFE_CIRCLE } from '../utils/event';
+import { G2ViewTree } from '../runtime/types/options';
 import { Node } from './node';
 import {
   defineProps,
@@ -23,6 +24,8 @@ import {
 import { mark, Mark } from './mark';
 import { composition, Composition, View } from './composition';
 import { library } from './library';
+
+export const SpecExternalKeys = ['container', 'renderer'];
 
 function normalizeContainer(container: string | HTMLElement): HTMLElement {
   if (container === undefined) return document.createElement('div');
@@ -165,6 +168,7 @@ export class Chart extends View<ChartOptions> {
   private _container: HTMLElement;
   private _context: G2Context;
   private _emitter: EventEmitter;
+  private _options: G2ViewTree;
 
   constructor(options: ChartOptions = {}) {
     const { container, canvas, ...rest } = options;
@@ -184,7 +188,7 @@ export class Chart extends View<ChartOptions> {
         renderer,
         plugins,
         autoFit,
-      } = this.getOptions();
+      } = this.options();
       const { width: adjustedWidth, height: adjustedHeight } = getChartSize(
         this._container,
         autoFit,
@@ -205,12 +209,18 @@ export class Chart extends View<ChartOptions> {
     }
 
     return new Promise((resolve) => {
-      render(this.getOptions(), this._context, () => resolve(this));
+      render(this.options(), this._context, () => resolve(this));
     });
   }
 
-  getOptions() {
-    return optionsOf(this);
+  options(options?: G2ViewTree): G2ViewTree {
+    if (options) {
+      this._options = deepMix(
+        this._options || {},
+        omit(options, SpecExternalKeys),
+      );
+    }
+    return this._options || optionsOf(this);
   }
 
   getContainer(): HTMLElement {
@@ -242,7 +252,7 @@ export class Chart extends View<ChartOptions> {
   }
 
   destroy() {
-    const options = this.getOptions();
+    const options = this.options();
     this.emit(CHART_LIFE_CIRCLE.BEFORE_DESTROY);
     this.unbindAutoFit();
     destroy(options, this._context);
@@ -252,14 +262,14 @@ export class Chart extends View<ChartOptions> {
   }
 
   clear() {
-    const options = this.getOptions();
+    const options = this.options();
     this.emit(CHART_LIFE_CIRCLE.BEFORE_CLEAR);
     destroy(options, this._context);
     this.emit(CHART_LIFE_CIRCLE.AFTER_CLEAR);
   }
 
   forceFit() {
-    const { width, height, autoFit } = this.getOptions();
+    const { width, height, autoFit } = this.options();
     const { width: adjustedWidth, height: adjustedHeight } = getChartSize(
       this._container,
       autoFit,
@@ -272,7 +282,7 @@ export class Chart extends View<ChartOptions> {
   }
 
   changeSize(adjustedWidth: number, adjustedHeight: number): Promise<Chart> {
-    const { width, height, on } = this.getOptions();
+    const { width, height, on } = this.options();
     if (width === adjustedWidth && height === adjustedHeight) {
       return Promise.resolve(this);
     }
@@ -291,7 +301,7 @@ export class Chart extends View<ChartOptions> {
   }, 300);
 
   private bindAutoFit() {
-    const options = this.getOptions();
+    const options = this.options();
     const { autoFit } = options;
     if (autoFit) {
       window.addEventListener('resize', this.onResize);
@@ -299,7 +309,7 @@ export class Chart extends View<ChartOptions> {
   }
 
   private unbindAutoFit() {
-    const options = this.getOptions();
+    const options = this.options();
     const { autoFit } = options;
     if (autoFit) {
       window.removeEventListener('resize', this.onResize);

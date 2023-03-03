@@ -89,7 +89,7 @@ describe('Chart', () => {
     expect(chart.getContainer()).toBe(container);
   });
 
-  it('chart.[attr](...) should specify getOptions by API', () => {
+  it('chart.[attr](...) should specify options by API', () => {
     const chart = new Chart();
     chart
       .data([1, 2, 3])
@@ -99,7 +99,7 @@ describe('Chart', () => {
       .transform({ type: 'stackY' })
       .theme('defaultColor', 'red');
 
-    expect(chart.getOptions()).toEqual({
+    expect(chart.options()).toEqual({
       type: 'view',
       data: [1, 2, 3],
       key: 'composition',
@@ -140,7 +140,7 @@ describe('Chart', () => {
     expect(chart.forceGraph()).toBeInstanceOf(ForceGraph);
     expect(chart.tree()).toBeInstanceOf(Tree);
     expect(chart.wordCloud()).toBeInstanceOf(WordCloud);
-    expect(chart.getOptions().children).toEqual([
+    expect(chart.options().children).toEqual([
       { type: 'interval' },
       { type: 'rect' },
       { type: 'point' },
@@ -199,7 +199,7 @@ describe('Chart', () => {
       autoFit: true,
     });
     chart.spaceLayer();
-    expect(chart.getOptions()).toEqual({
+    expect(chart.options()).toEqual({
       type: 'spaceLayer',
       width: 100,
       height: 120,
@@ -225,36 +225,36 @@ describe('Chart', () => {
   it('chart.container() should return expected container', () => {
     const chart = new Chart();
     expect(chart.view()).toBeInstanceOf(View);
-    expect(chart.getOptions()).toEqual({ type: 'view' });
+    expect(chart.options()).toEqual({ type: 'view' });
     expect(chart.spaceLayer()).toBeInstanceOf(SpaceLayer);
-    expect(chart.getOptions()).toEqual({ type: 'spaceLayer' });
+    expect(chart.options()).toEqual({ type: 'spaceLayer' });
     expect(chart.spaceFlex()).toBeInstanceOf(SpaceFlex);
-    expect(chart.getOptions()).toEqual({ type: 'spaceFlex' });
+    expect(chart.options()).toEqual({ type: 'spaceFlex' });
     expect(chart.facetRect()).toBeInstanceOf(FacetRect);
-    expect(chart.getOptions()).toEqual({ type: 'facetRect' });
+    expect(chart.options()).toEqual({ type: 'facetRect' });
     expect(chart.repeatMatrix()).toBeInstanceOf(RepeatMatrix);
-    expect(chart.getOptions()).toEqual({ type: 'repeatMatrix' });
+    expect(chart.options()).toEqual({ type: 'repeatMatrix' });
     expect(chart.facetCircle()).toBeInstanceOf(FacetCircle);
-    expect(chart.getOptions()).toEqual({ type: 'facetCircle' });
+    expect(chart.options()).toEqual({ type: 'facetCircle' });
     expect(chart.timingKeyframe()).toBeInstanceOf(TimingKeyframe);
-    expect(chart.getOptions()).toEqual({ type: 'timingKeyframe' });
+    expect(chart.options()).toEqual({ type: 'timingKeyframe' });
   });
 
-  it('chart.getOptions() should return view tree', () => {
+  it('chart.options() should return view tree', () => {
     const chart = new Chart();
     chart.interval();
     chart.point();
-    expect(chart.getOptions()).toEqual({
+    expect(chart.options()).toEqual({
       type: 'view',
       children: [{ type: 'interval' }, { type: 'point' }],
     });
   });
 
-  it('chart.getOptions() should handle date object', () => {
+  it('chart.options() should handle date object', () => {
     const chart = new Chart({});
     const date = new Date();
     chart.cell().data([{ date }]);
-    expect(chart.getOptions()).toEqual({
+    expect(chart.options()).toEqual({
       type: 'view',
       children: [{ type: 'cell', data: [{ date }] }],
     });
@@ -264,13 +264,13 @@ describe('Chart', () => {
     const chart = new Chart({});
 
     chart.title('This is a title.');
-    expect(chart.getOptions().title).toEqual('This is a title.');
+    expect(chart.options().title).toEqual('This is a title.');
 
     chart.title({
       title: 'This is a main title,',
       subtitle: 'This is a subtitle.',
     });
-    expect(chart.getOptions().title).toEqual({
+    expect(chart.options().title).toEqual({
       title: 'This is a main title,',
       subtitle: 'This is a subtitle.',
     });
@@ -280,7 +280,7 @@ describe('Chart', () => {
     const chart = new Chart();
     chart.interval();
     chart.point();
-    expect(chart.getOptions()).toEqual({
+    expect(chart.options()).toEqual({
       type: 'view',
       children: [{ type: 'interval' }, { type: 'point' }],
     });
@@ -289,7 +289,7 @@ describe('Chart', () => {
   it('chart.call(chart => chart.nodeName()) should build view tree', () => {
     const chart = new Chart();
     chart.call((chart) => chart.interval()).call((chart) => chart.point());
-    expect(chart.getOptions()).toEqual({
+    expect(chart.options()).toEqual({
       type: 'view',
       children: [{ type: 'interval' }, { type: 'point' }],
     });
@@ -306,7 +306,7 @@ describe('Chart', () => {
           .call((node) => node.line())
           .call((node) => node.point()),
       );
-    expect(chart.getOptions()).toEqual({
+    expect(chart.options()).toEqual({
       type: 'spaceFlex',
       children: [
         { type: 'interval' },
