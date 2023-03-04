@@ -86,6 +86,10 @@ function setOptions(node: Mark) {
     .state('inactive', { fill: 'blue' });
 }
 
+function setOptions2(node: Mark) {
+  return node.tooltip(false);
+}
+
 function setCompositeOptions(node) {
   return node.call(setOptions).layout({
     a: 10,
@@ -134,6 +138,13 @@ function getOptions() {
   };
 }
 
+function getOptions2() {
+  return {
+    ...getOptions(),
+    tooltip: false,
+  };
+}
+
 function getCompositeOptions() {
   return {
     ...getOptions(),
@@ -144,7 +155,7 @@ function getCompositeOptions() {
   };
 }
 
-describe('MarkNode', () => {
+describe('mark.get[Instance]()', () => {
   let view;
   let interval;
 
@@ -192,107 +203,124 @@ describe('MarkNode', () => {
   });
 });
 
-describe('Mark', () => {
+describe('mark.[node]()', () => {
   it('Interval() should specify options by API', () => {
     const node = new Interval();
     expect(node.type).toBe('interval');
     expect(setOptions(node).value).toEqual(getOptions());
+    expect(setOptions2(node).value).toEqual(getOptions2());
   });
 
   it('Point() should specify options by API', () => {
     const node = new Point();
     expect(node.type).toBe('point');
     expect(setOptions(node).value).toEqual(getOptions());
+    expect(setOptions2(node).value).toEqual(getOptions2());
   });
 
   it('Area() should specify options by API', () => {
     const node = new Area();
     expect(node.type).toBe('area');
     expect(setOptions(node).value).toEqual(getOptions());
+    expect(setOptions2(node).value).toEqual(getOptions2());
   });
 
   it('Cell() should specify options by API', () => {
     const node = new Cell();
     expect(node.type).toBe('cell');
     expect(setOptions(node).value).toEqual(getOptions());
+    expect(setOptions2(node).value).toEqual(getOptions2());
   });
 
   it('Vector() should specify options by API', () => {
     const node = new Vector();
     expect(node.type).toBe('vector');
     expect(setOptions(node).value).toEqual(getOptions());
+    expect(setOptions2(node).value).toEqual(getOptions2());
   });
 
   it('Link() should specify options by API', () => {
     const node = new Link();
     expect(node.type).toBe('link');
     expect(setOptions(node).value).toEqual(getOptions());
+    expect(setOptions2(node).value).toEqual(getOptions2());
   });
 
   it('Polygon() should specify options by API', () => {
     const node = new Polygon();
     expect(node.type).toBe('polygon');
     expect(setOptions(node).value).toEqual(getOptions());
+    expect(setOptions2(node).value).toEqual(getOptions2());
   });
 
   it('Image() should specify options by API', () => {
     const node = new Image();
     expect(node.type).toBe('image');
     expect(setOptions(node).value).toEqual(getOptions());
+    expect(setOptions2(node).value).toEqual(getOptions2());
   });
 
   it('Text() should specify options by API', () => {
     const node = new Text();
     expect(node.type).toBe('text');
     expect(setOptions(node).value).toEqual(getOptions());
+    expect(setOptions2(node).value).toEqual(getOptions2());
   });
 
   it('Box() should specify options by API', () => {
     const node = new Box();
     expect(node.type).toBe('box');
     expect(setOptions(node).value).toEqual(getOptions());
+    expect(setOptions2(node).value).toEqual(getOptions2());
   });
 
   it('Connector() should specify options by API', () => {
     const node = new Connector();
     expect(node.type).toBe('connector');
     expect(setOptions(node).value).toEqual(getOptions());
+    expect(setOptions2(node).value).toEqual(getOptions2());
   });
 
   it('Range() should specify options by API', () => {
     const node = new Range();
     expect(node.type).toBe('range');
     expect(setOptions(node).value).toEqual(getOptions());
+    expect(setOptions2(node).value).toEqual(getOptions2());
   });
 
   it('RangeX() should specify options by API', () => {
     const node = new RangeX();
     expect(node.type).toBe('rangeX');
     expect(setOptions(node).value).toEqual(getOptions());
+    expect(setOptions2(node).value).toEqual(getOptions2());
   });
 
   it('RangeY() should specify options by API', () => {
     const node = new RangeY();
     expect(node.type).toBe('rangeY');
     expect(setOptions(node).value).toEqual(getOptions());
+    expect(setOptions2(node).value).toEqual(getOptions2());
   });
 
   it('LineX() should specify options by API', () => {
     const node = new LineX();
     expect(node.type).toBe('lineX');
     expect(setOptions(node).value).toEqual(getOptions());
+    expect(setOptions2(node).value).toEqual(getOptions2());
   });
 
   it('LineY() should specify options by API', () => {
     const node = new LineY();
     expect(node.type).toBe('lineY');
     expect(setOptions(node).value).toEqual(getOptions());
+    expect(setOptions2(node).value).toEqual(getOptions2());
   });
 
   it('Shape() should specify options by API', () => {
     const node = new Shape();
     expect(node.type).toBe('shape');
     expect(setOptions(node).value).toEqual(getOptions());
+    expect(setOptions2(node).value).toEqual(getOptions2());
   });
 
   it('Boxplot() should specify options by API', () => {

@@ -12,7 +12,7 @@ export const MaybeTooltip: TC<MaybeTooltipOptions> = (options) => {
   const { channel } = options;
   return (I, mark) => {
     const { encode, tooltip } = mark;
-    if (tooltip === null) return [I, mark];
+    if (tooltip === null || tooltip === false) return [I, mark];
     const { items = [] } = tooltip;
     if (items.length > 0) return [I, mark];
     const channels = Array.isArray(channel) ? channel : [channel];

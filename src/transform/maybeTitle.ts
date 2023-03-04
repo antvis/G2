@@ -14,7 +14,7 @@ export const MaybeTitle: TC<MaybeTitleOptions> = (options = {}) => {
   return (I, mark) => {
     const { encode } = mark;
     const { tooltip } = mark;
-    if (tooltip === null) return [I, mark];
+    if (tooltip === null || tooltip === false) return [I, mark];
     const { title } = tooltip;
     if (title !== undefined) return [I, mark];
     const [T, ft] = columnOf(encode, channel);

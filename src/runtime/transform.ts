@@ -119,7 +119,7 @@ export function normalizeTooltip(
     const { title, items } = tooltip;
     return title !== undefined || items !== undefined;
   };
-  if (tooltip === null) return [I, mark];
+  if (tooltip === null || tooltip === false) return [I, mark];
   if (Array.isArray(tooltip)) {
     return [I, { ...mark, tooltip: { items: tooltip } }];
   }
@@ -135,7 +135,7 @@ export function extractTooltip(
   context: TransformContext,
 ): [number[], G2Mark] {
   const { data, encode, tooltip = {} } = mark;
-  if (tooltip === null) return [I, mark];
+  if (tooltip === null || tooltip === false) return [I, mark];
   const valueOf = (item) => {
     if (!item) return item;
     if (typeof item === 'string') {
