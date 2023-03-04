@@ -24,9 +24,6 @@ export function alphabetIntervalTitle(): G2Spec {
         },
       },
     ],
-    interaction: {
-      tooltip: true,
-    },
   };
 }
 

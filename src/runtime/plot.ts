@@ -1298,6 +1298,7 @@ function inferTheme(theme: G2ThemeOptions = { type: 'light' }): G2ThemeOptions {
 function inferInteraction(view: G2View): G2InteractionOptions[] {
   const defaults = {
     event: true,
+    tooltip: true,
   };
   const { interaction = {} } = view;
   return Object.entries(deepMix(defaults, interaction))

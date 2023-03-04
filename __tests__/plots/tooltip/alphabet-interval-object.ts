@@ -33,9 +33,6 @@ export function alphabetIntervalObject(): G2Spec {
         ],
       },
     ],
-    interaction: {
-      tooltip: true,
-    },
   };
 }
 

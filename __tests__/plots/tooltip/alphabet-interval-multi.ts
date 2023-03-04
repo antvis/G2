@@ -22,9 +22,6 @@ export function alphabetIntervalMulti(): G2Spec {
         tooltip: ['letter', 'frequency'],
       },
     ],
-    interaction: {
-      tooltip: true,
-    },
   };
 }
 

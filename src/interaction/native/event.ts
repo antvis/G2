@@ -22,7 +22,7 @@ function bubblesEvent(eventType, view, emitter, predicate = (event) => true) {
   return (e) => {
     if (!predicate(e)) return;
     const { target } = e;
-    const { classList } = target;
+    const { classList = [] } = target;
     const [elementType, markType] = classList;
     if (elementType === 'element') {
       updateData(e, target, view);

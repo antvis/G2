@@ -12,9 +12,6 @@ export function languagesIntervalStack(): G2Spec {
       y: 'value',
       color: 'id',
     },
-    interaction: {
-      tooltip: true,
-    },
   };
 }
 

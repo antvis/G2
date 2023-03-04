@@ -29,9 +29,6 @@ export function morleyBoxChannel(): G2Spec {
         ],
       },
     ],
-    interaction: {
-      tooltip: true,
-    },
   };
 }
 
