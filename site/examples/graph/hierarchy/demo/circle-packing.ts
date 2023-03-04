@@ -24,6 +24,7 @@ chart
     range: ['hsl(152,80%,80%)', 'hsl(228,30%,40%)'],
     interpolate: interpolateHcl,
   })
+  .legend(false)
   .style('labelText', (d) =>
     d.r >= 10 && d.height === 0 ? `${d.data.name}` : '',
   );

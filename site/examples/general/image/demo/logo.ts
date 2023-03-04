@@ -62,6 +62,7 @@ chart
   .encode('y', 'value')
   .encode('src', 'url')
   .scale('x', { type: 'band' })
-  .scale('y', { domain: [0, 50] });
+  .scale('y', { domain: [0, 50] })
+  .tooltip(false);
 
 chart.render();

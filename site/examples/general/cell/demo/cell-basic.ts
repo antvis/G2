@@ -17,6 +17,7 @@ chart
   .encode('y', 'y')
   .encode('color', 'index')
   .style('stroke', '#000')
-  .style('inset', 2);
+  .style('inset', 2)
+  .animate('enter', { type: 'fadeIn' });
 
 chart.render();

@@ -58,6 +58,7 @@ chart
       fontWeight: 'bold',
       dy: '0.7em',
     },
-  });
+  })
+  .tooltip(false);
 
 chart.render();

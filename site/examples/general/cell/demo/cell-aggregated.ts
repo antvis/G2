@@ -22,6 +22,7 @@ chart
   .scale('color', {
     type: 'sequential',
     palette: 'gnBu',
-  });
+  })
+  .animate('enter', { type: 'fadeIn' });
 
 chart.render();

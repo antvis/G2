@@ -36,7 +36,8 @@ chart
   .encode('x', 'x')
   .encode('y', 'v2')
   .encode('size', 2)
-  .encode('shape', 'point');
+  .encode('shape', 'point')
+  .tooltip('v2');
 
 chart
   .line()

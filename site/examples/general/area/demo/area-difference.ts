@@ -34,6 +34,7 @@ chart
   .encode('x', (d) => new Date(d.date))
   .encode('y', 'San Francisco')
   .encode('shape', 'hvh')
-  .style('stroke', '#000');
+  .style('stroke', '#000')
+  .tooltip(false);
 
 chart.render();

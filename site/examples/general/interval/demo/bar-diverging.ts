@@ -27,7 +27,9 @@ chart
   .encode('y', (d) => (d.sex === 1 ? -d.people : d.people))
   .encode('color', 'sex')
   .scale('color', { type: 'ordinal', range: ['#ca8861', '#675193'] })
+  .scale('x', { range: [1, 0] })
   .axis('y', { labelFormatter: '~s' })
-  .scale('x', { range: [1, 0] });
+  .legend('color', { labelFormatter: (d) => (d === 1 ? 'Male' : 'Female') })
+  .tooltip((d) => ({ value: d.people, name: d.sex === 1 ? 'Male' : 'Female' }));
 
 chart.render();

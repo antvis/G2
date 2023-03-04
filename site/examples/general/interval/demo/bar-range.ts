@@ -28,6 +28,7 @@ chart
   .encode('color', (d) =>
     d.month === 'Total' ? 'Total' : d.profit > 0 ? 'Increase' : 'Decrease',
   )
-  .axis('y', { labelFormatter: '~s' });
+  .axis('y', { labelFormatter: '~s' })
+  .tooltip(['start', 'end']);
 
 chart.render();

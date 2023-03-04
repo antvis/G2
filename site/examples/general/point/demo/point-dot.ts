@@ -24,13 +24,17 @@ chart
   .scale('y', { formatter: '.0%' })
   .transform({ type: 'groupX', y: 'min', y1: 'max' })
   .call(xy)
-  .style('stroke', '#000');
+  .style('stroke', '#000')
+  .tooltip(false);
 
 chart
   .point()
   .scale('color', { palette: 'spectral' })
   .call(xy)
   .encode('shape', 'point')
-  .encode('color', 'age');
+  .encode('color', 'age')
+  .tooltip('population');
+
+chart.interaction('tooltip', { shared: true });
 
 chart.render();

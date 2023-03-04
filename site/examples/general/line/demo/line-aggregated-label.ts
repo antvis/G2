@@ -25,6 +25,7 @@ chart
     style: {
       fontSize: 10,
     },
-  });
+  })
+  .tooltip({ channel: 'y' });
 
 chart.render();
