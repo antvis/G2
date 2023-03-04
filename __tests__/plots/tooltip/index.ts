@@ -29,3 +29,4 @@ export { forecastRangeAreaLine } from './forecast-range-area-line';
 export { alphabetIntervalCustomDom } from './alphabet-interval-custom-dom';
 export { alphabetIntervalCustomString } from './alphabet-interval-custom-string';
 export { indicesLineCustom } from './indices-line-custom';
+export { stateAgesIntervalNormalized } from './stateages-interval-normalized';
