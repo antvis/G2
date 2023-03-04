@@ -20,12 +20,14 @@ chart
   .encode('y', (d) => (d.gender === 'M' ? 1 : -1))
   .encode('color', 'gender')
   .encode('shape', 'point')
-  .scale('color', { field: 'Gender' })
-  .scale('x', { field: 'Age →', nice: true })
-  .scale('y', {
-    field: '← Women · Men →',
-    formatter: (d) => `${Math.abs(+d)}`,
-  });
+  .scale('x', { nice: true })
+  .axis('y', {
+    title: '← Women · Men →',
+    labelFormatter: (d) => `${Math.abs(+d)}`,
+  })
+  .axis('x', { title: 'Age →' })
+  .legend('color', { title: 'Gender' })
+  .tooltip({ channel: 'x', name: 'age' });
 
 chart.lineY().data([0]).style('stroke', 'black');
 

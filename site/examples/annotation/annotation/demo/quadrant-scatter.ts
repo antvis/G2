@@ -28,7 +28,8 @@ chart
   })
   .style('fillOpacity', 0.2)
   .animate(false)
-  .legend(false);
+  .legend(false)
+  .tooltip(false);
 
 chart
   .point()

@@ -20,6 +20,7 @@ chart
   .encode('x', (_, i) => ((i / 5) | 0) + 1)
   .encode('color', 'salary')
   .style('stroke', '#000')
-  .style('inset', 2);
+  .style('inset', 2)
+  .animate('enter', { type: 'fadeIn' });
 
 chart.render();

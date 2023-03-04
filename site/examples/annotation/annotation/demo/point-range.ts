@@ -29,7 +29,8 @@ chart
   .style('stroke', '#5B8FF9')
   .style('strokeWidth', 1)
   .style('fillOpacity', 0.15)
-  .animate(false);
+  .animate(false)
+  .tooltip(false);
 
 chart
   .point()

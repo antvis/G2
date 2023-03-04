@@ -28,4 +28,8 @@ chart
   .axis('y', { labelFormatter: '~s' })
   .axis('x', { zIndex: 1 });
 
+chart
+  .interaction('tooltip', { shared: true })
+  .interaction('elementHighlight', { background: true });
+
 chart.render();

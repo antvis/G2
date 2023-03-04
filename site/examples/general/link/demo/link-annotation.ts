@@ -323,6 +323,7 @@ chart
   .data([1])
   .encode('x', [() => incdomain[0], () => incdomain[1]])
   .encode('y', [() => incdomain[0], () => incdomain[1]])
+  .tooltip(false)
   .label({
     position: 'top-right',
     text: (v) => `${v * 100}%`,
@@ -339,6 +340,7 @@ chart
   .data([0.6, 0.7, 0.8, 0.9])
   .encode('x', [() => incdomain[0], () => incdomain[1]])
   .encode('y', [(v) => v * incdomain[0], (v) => v * incdomain[1]])
+  .tooltip(false)
   .label({
     position: 'top-right',
     text: (v) => `${v * 100}%`,

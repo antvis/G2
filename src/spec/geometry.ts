@@ -336,4 +336,4 @@ export type TooltipItemValue = {
 
 export type Encodeable<T> =
   | T
-  | ((d: any, index: number, data: any[], column: any) => T);
+  | ((d: any, index?: number, data?: any[], column?: any) => T);

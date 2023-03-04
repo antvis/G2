@@ -23,7 +23,8 @@ chart
   .encode('x', 'year')
   .encode('color', 'event')
   .scale('color', { independent: true, range: ['#FAAD14', '#30BF78'] })
-  .style('fillOpacity', 0.75);
+  .style('fillOpacity', 0.75)
+  .tooltip(false);
 
 chart
   .line()
@@ -36,6 +37,7 @@ chart
   .encode('x', (d) => new Date(d.year))
   .encode('y', 'population')
   .encode('color', '#333')
-  .style('lineWidth', 1.5);
+  .style('lineWidth', 1.5)
+  .tooltip(false);
 
 chart.render();
