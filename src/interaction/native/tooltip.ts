@@ -109,6 +109,8 @@ function groupNameOf(scale, datum) {
   };
   if (invertAble(scaleColor)) return scaleColor.invert(color);
   if (invertAble(scaleSeries)) return scaleSeries.invert(series);
+  // For non constant color channel.
+  if (series && series !== color) return series;
   return null;
 }
 

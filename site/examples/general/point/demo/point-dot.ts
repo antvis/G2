@@ -33,7 +33,10 @@ chart
   .call(xy)
   .encode('shape', 'point')
   .encode('color', 'age')
-  .tooltip('population');
+  .tooltip({
+    title: 'state',
+    items: ['population'],
+  });
 
 chart.interaction('tooltip', { shared: true });
 
