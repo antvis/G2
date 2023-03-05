@@ -250,7 +250,7 @@ describe('Chart', () => {
     });
   });
 
-  it('chart.options() should handle date object', () => {
+  it('chart.options(options) should handle date object', () => {
     const chart = new Chart({});
     const date = new Date();
     chart.cell().data([{ date }]);
@@ -258,6 +258,11 @@ describe('Chart', () => {
       type: 'view',
       children: [{ type: 'cell', data: [{ date }] }],
     });
+  });
+
+  it('chart.options(options) should return this chart instance', () => {
+    const chart = new Chart({});
+    expect(chart.options({ width: 800 })).toBe(chart);
   });
 
   it('chart.title() should set title options', () => {

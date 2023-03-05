@@ -28,5 +28,3 @@ export function chartOptions(context) {
 
   return { chart, finished };
 }
-
-chartOptions.only = true;
