@@ -1,6 +1,5 @@
 import { deepMix } from '@antv/util';
 import { TransformComponent as TC } from '../runtime';
-import { column, columnOf } from './utils/helper';
 
 export type MaybeZeroPaddingOptions = Record<string, never>;
 

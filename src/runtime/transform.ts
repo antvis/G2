@@ -186,7 +186,7 @@ export function extractTooltip(
   const { title, items = [], ...rest } = tooltip;
   const newTooltip = {
     title: valueOf(title),
-    items: items.map(valueOf),
+    items: Array.isArray(items) ? items.map(valueOf) : [],
     ...rest,
   };
   return [I, { ...mark, tooltip: newTooltip }];

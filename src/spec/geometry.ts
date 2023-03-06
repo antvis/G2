@@ -317,7 +317,7 @@ export type CustomComponent = BaseGeometry<MarkComponent>;
 export type Tooltip =
   | TooltipItem
   | TooltipItem[]
-  | { title?: Encodeable<TooltipTitle>; items?: TooltipItem[] }
+  | { title?: Encodeable<TooltipTitle>; items?: TooltipItem[] | null | false }
   | null;
 
 export type TooltipTitle = string | { field?: string; channel?: string };
