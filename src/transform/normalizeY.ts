@@ -57,7 +57,10 @@ export const NormalizeY: TC<NormalizeYOptions> = (options = {}) => {
       }
     }
 
-    const hasTooltip = tooltip?.items && tooltip?.items.length !== 0;
+    const specifiedTooltip =
+      tooltip === null ||
+      tooltip === false ||
+      (tooltip?.items && tooltip?.items.length !== 0);
     return [
       I,
       deepMix({}, mark, {
@@ -65,7 +68,7 @@ export const NormalizeY: TC<NormalizeYOptions> = (options = {}) => {
           newYn.map(([k, v]) => [k, column(v, columnOf(encode, k)[1])]),
         ),
         // Infer tooltip item.
-        ...(!hasTooltip &&
+        ...(!specifiedTooltip &&
           encode.y0 && {
             tooltip: { items: [{ channel: 'y0' }] },
           }),

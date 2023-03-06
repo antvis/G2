@@ -197,6 +197,7 @@ export type TooltipInteraction = {
   crosshairs?: boolean;
   groupName?: boolean;
   sort?: (d: TooltipItemValue) => any;
+  filter?: (d: TooltipItemValue) => any;
   render?: (
     event, // @todo
     options: { title: 'string'; items: TooltipItemValue[] },

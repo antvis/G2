@@ -107,10 +107,10 @@ function groupNameOf(scale, datum) {
       !(scale instanceof Constant)
     );
   };
-  if (invertAble(scaleColor)) return scaleColor.invert(color);
-  if (invertAble(scaleSeries)) return scaleSeries.invert(series);
   // For non constant color channel.
+  if (invertAble(scaleSeries)) return scaleSeries.invert(series);
   if (series && series !== color) return series;
+  if (invertAble(scaleColor)) return scaleColor.invert(color);
   return null;
 }
 
@@ -224,6 +224,7 @@ export function seriesTooltip(
   {
     elements: elementsof,
     sort: sortFunction,
+    filter: filterFunction,
     groupName = true,
     wait = 50,
     leading = true,
@@ -349,9 +350,12 @@ export function seriesTooltip(
         selectedData,
       );
 
-      // Sort items.
+      // Sort items and filter items.
       if (sortFunction) {
         tooltipData.items.sort((a, b) => sortFunction(a) - sortFunction(b));
+      }
+      if (filterFunction) {
+        tooltipData.items = tooltipData.items.filter(filterFunction);
       }
 
       // Hide tooltip with no selected tooltip.
@@ -399,6 +403,7 @@ export function tooltip(
     render,
     groupName = true,
     sort: sortFunction,
+    filter: filterFunction,
     wait = 50,
     leading = true,
     trailing = false,
@@ -420,9 +425,12 @@ export function tooltip(
           ? singleItem(group[0])
           : groupItems(group, scale, groupName);
 
-      // Sort items.
+      // Sort items and sort.
       if (sortFunction) {
         data.items.sort((a, b) => sortFunction(a) - sortFunction(b));
+      }
+      if (filterFunction) {
+        data.items = data.items.filter(filterFunction);
       }
 
       const { offsetX, offsetY } = event;

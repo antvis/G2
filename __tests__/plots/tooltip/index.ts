@@ -35,3 +35,5 @@ export { indicesLineFormatter } from './indices-line-formatter';
 export { aapl2CandlestickChart } from './aapl2-candlestick-chart';
 export { valueAreaLineUnique } from './value-area-line-unique';
 export { alphabetIntervalNullItems } from './alphabet-interval-null-items';
+export { cassetteAreaSeries } from './cassette-area-series';
+export { populationByStateAreaNormalizeStacked } from './population-by-state-area-normalize-stacked';
