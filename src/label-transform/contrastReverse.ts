@@ -1,10 +1,13 @@
 import { DisplayObject } from '@antv/g';
 import { maxIndex } from 'd3-array';
-import { ContrastReverseTransform } from '../spec';
+import { ContrastReverseLabelTransform } from '../spec';
 import { LabelTransformComponent as LLC } from '../runtime';
 import { parseToRGB } from '../utils/color';
 
-export type ContrastReverseOptions = Omit<ContrastReverseTransform, 'type'>;
+export type ContrastReverseOptions = Omit<
+  ContrastReverseLabelTransform,
+  'type'
+>;
 
 function getsRGB(s: number) {
   let c = s / 255;

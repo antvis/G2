@@ -3,3 +3,14 @@ export type Literal2Object<Literal extends { type?: any }> = Partial<{
     ? Omit<Literal, 'type'> | boolean
     : never;
 }>;
+
+export type UsePrefix<
+  Prefix extends string,
+  Obj extends Record<string, unknown>,
+> = {
+  [Property in keyof Obj as `${Prefix}${Capitalize<
+    string & Property
+  >}`]: Obj[Property];
+};
+
+export type Closeable<T> = T | boolean | null;

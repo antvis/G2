@@ -1,57 +1,21 @@
-// export { createInteraction } from './create';
-// export { createInteractionLibrary } from './stdlib';
-export { ElementHighlight } from './native/elementHighlight';
-export { ElementHighlightByX } from './native/elementHighlightByX';
-export { ElementHighlightByColor } from './native/elementHighlightByColor';
-export { ElementSelect } from './native/elementSelect';
-export { ElementSelectByX } from './native/elementSelectByX';
-export { ElementSelectByColor } from './native/elementSelectByColor';
-export { ChartIndex } from './native/chartIndex';
-export { Fisheye } from './native/fisheye';
-export { Tooltip } from './native/tooltip';
-export { LegendFilter } from './native/legendFilter';
-export { LegendHighlight } from './native/legendHighlight';
-export { BrushHighlight } from './native/brushHighlight';
-export { BrushXHighlight } from './native/brushXHighlight';
-export { BrushYHighlight } from './native/brushYHighlight';
-export { BrushAxisHighlight } from './native/brushAxisHighlight';
-export { BrushFilter } from './native/brushFilter';
-export { BrushXFilter } from './native/brushXFilter';
-export { BrushYFilter } from './native/brushYFilter';
-export { SliderFilter } from './native/sliderFilter';
-export { Poptip } from './native/poptip';
-export { Event } from './native/event';
-
-export { LEGEND_ITEMS_CLASS_NAME } from './native/legendFilter';
-
-// export { ElementSelected } from './builtin/elementSelected';
-// export { Tooltip } from './builtin/tooltip';
-// export { Fisheye } from './builtin/fisheye';
-// export { ElementHighlight } from './builtin/elementHighlight';
-// export { ElementListHighlight } from './builtin/elementListHighlight';
-// export { ElementHighlightByX } from './builtin/elementHighlightByX';
-// export { ElementHighlightByColor } from './builtin/elementHighlightByColor';
-// export { LegendActive } from './builtin/legendActive';
-// export { LegendHighlight } from './builtin/legendHighlight';
-// export { Brush } from './builtin/brush';
-// export { BrushHighlight } from './builtin/brushHighlight';
-// export { BrushVisible } from './builtin/brushVisible';
-// export { ActiveRegion } from './builtin/activeRegion';
-// export { EllipsisText } from './builtin/ellipsisText';
-
-export type {
-  InteractionContext,
-  ActionComponent,
-  InteractionDescriptor,
-  InteractionStep,
-  InteractorOptions,
-  ActionOptions,
-  Action,
-  InteractorAction,
-  Interactor,
-  G2Event,
-  InteractionNamespaces,
-  InteractorComponent,
-  InteractionOptions,
-  InteractionValue,
-} from './types';
+export { ElementHighlight } from './elementHighlight';
+export { ElementHighlightByX } from './elementHighlightByX';
+export { ElementHighlightByColor } from './elementHighlightByColor';
+export { ElementSelect } from './elementSelect';
+export { ElementSelectByX } from './elementSelectByX';
+export { ElementSelectByColor } from './elementSelectByColor';
+export { ChartIndex } from './chartIndex';
+export { Fisheye } from './fisheye';
+export { Tooltip } from './tooltip';
+export { LegendFilter } from './legendFilter';
+export { LegendHighlight } from './legendHighlight';
+export { BrushHighlight } from './brushHighlight';
+export { BrushXHighlight } from './brushXHighlight';
+export { BrushYHighlight } from './brushYHighlight';
+export { BrushAxisHighlight } from './brushAxisHighlight';
+export { BrushFilter } from './brushFilter';
+export { BrushXFilter } from './brushXFilter';
+export { BrushYFilter } from './brushYFilter';
+export { SliderFilter } from './sliderFilter';
+export { Poptip } from './poptip';
+export { Event } from './event';

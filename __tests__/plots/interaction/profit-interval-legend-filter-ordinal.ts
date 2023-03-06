@@ -1,5 +1,5 @@
 import { G2Spec } from '../../../src';
-import { LEGEND_ITEMS_CLASS_NAME } from '../../../src/interaction';
+import { LEGEND_ITEMS_CLASS_NAME } from '../../../src/interaction/legendFilter';
 import { profit } from '../../data/profit';
 import { step } from './utils';
 

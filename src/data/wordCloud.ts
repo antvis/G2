@@ -1,10 +1,9 @@
 import { min, max } from 'd3-array';
 import { DataComponent as DC } from '../runtime';
-import { WordCloudTransform } from '../spec';
 import { tagCloud } from './utils/d3-cloud';
 import { flow } from './utils/flow';
 
-export type WordCloudOptions = Omit<WordCloudTransform, 'type'>;
+export type WordCloudOptions = Omit<Record<string, any>, 'type'>;
 
 const DEFAULT_OPTIONS: Partial<WordCloudOptions> = {
   size: [500, 500],

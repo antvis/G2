@@ -1,5 +1,5 @@
 import { MarkComponent as MC, Vector2 } from '../runtime';
-import { RectGeometry } from '../spec';
+import { RectMark } from '../spec';
 import {
   baseGeometryChannels,
   basePostInference,
@@ -7,7 +7,7 @@ import {
   tooltip1d,
 } from './utils';
 
-export type RectOptions = Omit<RectGeometry, 'type'>;
+export type RectOptions = Omit<RectMark, 'type'>;
 
 export const Rect: MC<RectOptions> = () => {
   return (index, scale, value, coordinate) => {

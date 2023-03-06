@@ -1,5 +1,5 @@
 import { CompositionComponent as CC } from '../runtime';
-import { MarkComposition } from '../spec';
+import { Mark as MarkComposition } from '../spec';
 
 export type MarkOptions = Omit<MarkComposition, 'type'>;
 

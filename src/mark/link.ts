@@ -1,5 +1,5 @@
 import { MarkComponent as MC, Vector2 } from '../runtime';
-import { LinkGeometry } from '../spec';
+import { LineMark } from '../spec';
 import {
   baseGeometryChannels,
   basePostInference,
@@ -8,7 +8,7 @@ import {
   tooltip2d,
 } from './utils';
 
-export type LinkOptions = Omit<LinkGeometry, 'type'>;
+export type LinkOptions = Omit<LineMark, 'type'>;
 
 /**
  * Connect `start` to `end` with single line.
