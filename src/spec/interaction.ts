@@ -195,8 +195,8 @@ export type TooltipInteraction = {
   series?: boolean;
   facet?: boolean;
   crosshairs?: boolean;
-  // @todo
-  item?: any;
+  groupName?: boolean;
+  sort?: (d: TooltipItemValue) => any;
   render?: (
     event, // @todo
     options: { title: 'string'; items: TooltipItemValue[] },

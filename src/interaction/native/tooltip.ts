@@ -1,5 +1,5 @@
 import { DisplayObject, IElement, Line } from '@antv/g';
-import { sort, group, mean, range, bisector } from 'd3-array';
+import { sort, group, mean, bisector } from 'd3-array';
 import { lowerFirst, throttle } from '@antv/util';
 import { Tooltip as TooltipComponent } from '@antv/gui';
 import { Constant, Identity } from '@antv/scale';
@@ -122,35 +122,31 @@ function itemColorOf(element) {
   return color;
 }
 
-function normalizeTooltip(d) {
-  return isStrictObject(d)
-    ? d
-    : d === null || d === undefined
-    ? { value: d }
-    : { value: `${d}` };
-}
-
-function uniqueTitles(titles) {
-  const valueTitle = new Map(
-    titles.map((d) => [d instanceof Date ? +d : d, d]),
-  );
-  return Array.from(valueTitle.values());
+function unique(items) {
+  const valueName = new Map(items.map((d) => [d instanceof Date ? +d : d, d]));
+  return Array.from(valueName.values());
 }
 
 function groupItems(
   elements,
   scale,
+  groupName = true,
   data = elements.map((d) => d['__data__']),
 ) {
-  const T = uniqueTitles(data.map((d) => d.title)).filter(defined);
+  const T = unique(data.map((d) => d.title)).filter(defined);
   const newItems = data.flatMap((datum, i) => {
     const element = elements[i];
     const { items = [], title } = datum;
-    return items.map(({ color = itemColorOf(element), name, ...item }) => ({
-      ...item,
-      color,
-      name: groupNameOf(scale, datum) || name || title,
-    }));
+    return items.map(({ color = itemColorOf(element), name, ...item }) => {
+      const name1 = groupName
+        ? groupNameOf(scale, datum) || name
+        : name || groupNameOf(scale, datum);
+      return {
+        ...item,
+        color,
+        name: name1 || title,
+      };
+    });
   });
   return {
     ...(T.length > 0 && { title: T.join(',') }),
@@ -223,6 +219,8 @@ export function seriesTooltip(
   root: DisplayObject,
   {
     elements: elementsof,
+    sort: sortFunction,
+    groupName = true,
     wait = 50,
     leading = true,
     trailing = false,
@@ -265,14 +263,6 @@ export function seriesTooltip(
       return [element, [sortedIndex, seriesX]];
     }),
   );
-
-  // Get sortedIndex and X for all item items.
-  const itemIndex = itemElements.map((_, i) => i);
-  const itemX = itemElements.map((element) => {
-    const { __data__: data } = element;
-    return data.x;
-  });
-  const itemSortedIndex = sort(itemIndex, (i) => itemX[i]);
 
   const ruleStyle = subObject(rest, 'crosshairs');
   const { x: scaleX } = scale;
@@ -348,7 +338,17 @@ export function seriesTooltip(
 
       // Get the displayed tooltip data.
       const selectedElements = [...selectedSeriesElements, ...selectedItems];
-      const tooltipData = groupItems(selectedElements, scale, selectedData);
+      const tooltipData = groupItems(
+        selectedElements,
+        scale,
+        groupName,
+        selectedData,
+      );
+
+      // Sort items.
+      if (sortFunction) {
+        tooltipData.items.sort((a, b) => sortFunction(a) - sortFunction(b));
+      }
 
       // Hide tooltip with no selected tooltip.
       if (selectedElements.length === 0) {
@@ -393,6 +393,8 @@ export function tooltip(
     elements: elementsof,
     scale,
     render,
+    groupName = true,
+    sort: sortFunction,
     wait = 50,
     leading = true,
     trailing = false,
@@ -410,7 +412,15 @@ export function tooltip(
       const k = groupKey(element);
       const group = keyGroup.get(k);
       const data =
-        group.length === 1 ? singleItem(group[0]) : groupItems(group, scale);
+        group.length === 1
+          ? singleItem(group[0])
+          : groupItems(group, scale, groupName);
+
+      // Sort items.
+      if (sortFunction) {
+        data.items.sort((a, b) => sortFunction(a) - sortFunction(b));
+      }
+
       const { offsetX, offsetY } = event;
       showTooltip(root, data, offsetX, offsetY, render, event);
     },
