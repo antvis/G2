@@ -26,6 +26,6 @@ chart
       fontSize: 10,
     },
   })
-  .tooltip({ channel: 'y' });
+  .tooltip({ channel: 'y', valueFormatter: '~s' });
 
 chart.render();

@@ -1,5 +1,6 @@
 import { Primitive } from 'd3-array';
 import { deepMix } from '@antv/util';
+import { format } from 'd3-format';
 import { indexOf, mapObject } from '../utils/array';
 import { composeAsync, defined, isStrictObject } from '../utils/helper';
 import { useLibrary } from './library';
@@ -142,17 +143,36 @@ export function extractTooltip(
       return I.map((i) => ({ name: item, value: data[i][item] }));
     }
     if (isStrictObject(item)) {
-      const { field, channel, color, name = field } = item;
-      const channelField = channel && encode[channel].field;
-      return I.map((i) => ({
-        name: name || channelField || channel,
+      const {
+        field,
+        channel,
         color,
-        value: field
+        name = field,
+        valueFormatter = (d) => d,
+      } = item;
+
+      // Support d3-format.
+      const normalizedValueFormatter =
+        typeof valueFormatter === 'string'
+          ? format(valueFormatter)
+          : valueFormatter;
+
+      // Field name.
+      const channelField = channel && encode[channel].field;
+      const name1 = name || channelField || channel;
+
+      return I.map((i) => {
+        const value1 = field
           ? data[i][field]
           : channel
           ? encode[channel].value[i]
-          : null,
-      }));
+          : null;
+        return {
+          name: name1,
+          value: normalizedValueFormatter(value1),
+          color,
+        };
+      });
     }
     if (typeof item === 'function') {
       return I.map((i) => {

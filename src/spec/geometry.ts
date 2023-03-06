@@ -324,7 +324,13 @@ export type TooltipTitle = string | { field?: string; channel?: string };
 
 export type TooltipItem =
   | string
-  | { name?: string; color?: string; channel?: string; field?: string }
+  | {
+      name?: string;
+      color?: string;
+      channel?: string;
+      field?: string;
+      valueFormatter?: string | ((d: any) => string);
+    }
   | Encodeable<Primitive>
   | Encodeable<TooltipItemValue>;
 

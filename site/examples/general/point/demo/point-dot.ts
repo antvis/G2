@@ -21,7 +21,7 @@ chart.data({
 
 chart
   .link()
-  .scale('y', { formatter: '.0%' })
+  .scale('y', { labelFormatter: '.0%' })
   .transform({ type: 'groupX', y: 'min', y1: 'max' })
   .call(xy)
   .style('stroke', '#000')

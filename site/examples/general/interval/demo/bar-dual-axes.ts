@@ -50,8 +50,8 @@ chart
     },
   })
   .tooltip([
-    (d) => ({ name: 'start', value: labelFormatter(d.start) }),
-    (d) => ({ name: 'end', value: labelFormatter(d.end) }),
+    { name: 'start', field: 'start', valueFormatter: labelFormatter },
+    { name: 'end', field: 'end', valueFormatter: labelFormatter },
   ]);
 
 chart.render();
