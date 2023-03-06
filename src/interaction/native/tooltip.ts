@@ -122,8 +122,8 @@ function itemColorOf(element) {
   return color;
 }
 
-function unique(items) {
-  const valueName = new Map(items.map((d) => [d instanceof Date ? +d : d, d]));
+function unique(items, key = (d) => d) {
+  const valueName = new Map(items.map((d) => [key(d), d]));
   return Array.from(valueName.values());
 }
 
@@ -133,7 +133,11 @@ function groupItems(
   groupName = true,
   data = elements.map((d) => d['__data__']),
 ) {
-  const T = unique(data.map((d) => d.title)).filter(defined);
+  const key = (d) => (d instanceof Date ? +d : d);
+  const T = unique(
+    data.map((d) => d.title),
+    key,
+  ).filter(defined);
   const newItems = data.flatMap((datum, i) => {
     const element = elements[i];
     const { items = [], title } = datum;
@@ -150,7 +154,7 @@ function groupItems(
   });
   return {
     ...(T.length > 0 && { title: T.join(',') }),
-    items: newItems,
+    items: unique(newItems, (d) => `(${key(d.name)}, ${key(d.value)})`),
   };
 }
 

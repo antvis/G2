@@ -33,3 +33,4 @@ export { stateAgesIntervalNormalized } from './stateages-interval-normalized';
 export { indicesLineSeries } from './indices-line-series';
 export { indicesLineFormatter } from './indices-line-formatter';
 export { aapl2CandlestickChart } from './aapl2-candlestick-chart';
+export { valueAreaLineUnique } from './value-area-line-unique';
