@@ -62,7 +62,7 @@ function showTooltip(root, data, x, y, render, event) {
   tooltipElement.position = [x, y];
   tooltipElement.update({
     items,
-    title,
+    title: title === undefined ? '' : title,
     ...(render !== undefined && {
       customContent: render(event, { items, title }),
     }),
@@ -216,6 +216,12 @@ function maybeValue(specified, defaults) {
   return specified === undefined ? defaults : specified;
 }
 
+function isEmptyTooltipData(data) {
+  const { title, items } = data;
+  if (items.length === 0 && title === undefined) return true;
+  return false;
+}
+
 /**
  * Show tooltip for series item.
  */
@@ -359,7 +365,7 @@ export function seriesTooltip(
       }
 
       // Hide tooltip with no selected tooltip.
-      if (selectedElements.length === 0) {
+      if (selectedElements.length === 0 || isEmptyTooltipData(tooltipData)) {
         hide();
         return;
       }
@@ -431,6 +437,11 @@ export function tooltip(
       }
       if (filterFunction) {
         data.items = data.items.filter(filterFunction);
+      }
+
+      if (isEmptyTooltipData(data)) {
+        hideTooltip(root);
+        return;
       }
 
       const { offsetX, offsetY } = event;

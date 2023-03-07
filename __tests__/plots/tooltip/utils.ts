@@ -31,3 +31,16 @@ export function tooltipSteps(...index) {
     return steps;
   };
 }
+
+export function tooltipStepsByClassName(className, ...index) {
+  return ({ canvas }) => {
+    const { document } = canvas;
+    const elements = document.getElementsByClassName(className);
+    const steps = index.map((i) => ({
+      changeState: async () => {
+        elements[i].dispatchEvent(new CustomEvent('pointerover'));
+      },
+    }));
+    return steps;
+  };
+}
