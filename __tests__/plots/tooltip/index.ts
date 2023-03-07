@@ -38,3 +38,5 @@ export { alphabetIntervalNullItems } from './alphabet-interval-null-items';
 export { cassetteAreaSeries } from './cassette-area-series';
 export { populationByStateAreaNormalizeStacked } from './population-by-state-area-normalize-stacked';
 export { intakePointAnnotation } from './intake-point-annotation';
+export { unemployment2RectBinX } from './unemployment2-rect-binx';
+export { seattleWeatherIntervalAggregated } from './seattle-weather-interval-aggregated';

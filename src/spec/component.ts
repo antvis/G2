@@ -75,7 +75,9 @@ export type TooltipComponent =
   | { title?: Encodeable<TooltipTitle>; items?: TooltipItem[] | null | false }
   | null;
 
-export type TooltipTitle = string | { field?: string; channel?: string };
+export type TooltipTitle =
+  | string
+  | { field?: string; channel?: string; value?: string };
 
 export type TooltipItem =
   | string
@@ -84,6 +86,7 @@ export type TooltipItem =
       color?: string;
       channel?: string;
       field?: string;
+      value?: string;
       valueFormatter?: string | ((d: any) => string);
     }
   | Encodeable<Primitive>

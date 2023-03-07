@@ -28,6 +28,7 @@ chart
   .encode('color', 'sex')
   .scale('color', { type: 'ordinal', range: ['#ca8861', '#675193'] })
   .axis('y', { labelFormatter: '~s' })
-  .style('fillOpacity', 0.7);
+  .style('fillOpacity', 0.7)
+  .tooltip({ channel: 'y', valueFormatter: '~s' });
 
 chart.render();
