@@ -164,7 +164,7 @@ function updateRuleY(root, points, { height, startX, startY, ...rest }) {
   const x1 = x + startX;
   const x2 = x + startX;
   const y1 = startY;
-  const y2 = height - startY;
+  const y2 = startY + height;
   const createLine = () => {
     const line = new Line({
       style: {
@@ -194,15 +194,6 @@ function hideRuleY(root) {
     root.ruleY.remove();
     root.ruleY = undefined;
   }
-}
-
-function sizeof(root) {
-  const bbox = root.getBounds();
-  const {
-    min: [minX, minY],
-    max: [maxX, maxY],
-  } = bbox;
-  return [maxX - minX, maxY - minY];
 }
 
 function interactionKeyof(markState, key) {
@@ -238,15 +229,15 @@ export function seriesTooltip(
     scale,
     coordinate,
     crosshairs,
-    item,
     render,
     startX = 0,
     startY = 0,
-    ...rest
+    body = true,
+    style,
   }: Record<string, any>,
 ) {
   const elements = elementsof(root);
-  const [, height] = sizeof(root);
+  const [, height] = coordinate.getSize();
 
   // Split elements into series elements and item elements.
   const seriesElements = [];
@@ -275,7 +266,7 @@ export function seriesTooltip(
     }),
   );
 
-  const ruleStyle = subObject(rest, 'crosshairs');
+  const ruleStyle = subObject(style, 'crosshairs');
   const { x: scaleX } = scale;
 
   // Apply offset for band scale x.
@@ -370,7 +361,17 @@ export function seriesTooltip(
         return;
       }
 
-      showTooltip(root, tooltipData, mouse[0] + x, mouse[1] + y, render, event);
+      if (body) {
+        showTooltip(
+          root,
+          tooltipData,
+          mouse[0] + x,
+          mouse[1] + y,
+          render,
+          event,
+        );
+      }
+
       if (crosshairs) {
         const points = selectedSeriesData.map((d) => d[1]);
         updateRuleY(root, points, { ...ruleStyle, height, startX, startY });

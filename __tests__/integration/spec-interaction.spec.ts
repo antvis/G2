@@ -47,13 +47,19 @@ describe('Interactions', () => {
         }
 
         // Disable animations and delays.
-        // @ts-ignore
-        const { maxError = 0, preprocess = (d) => d } = generateOptions;
+        const {
+          // @ts-ignore
+          maxError = 0,
+          // @ts-ignore
+          preprocess = (d) => d,
+          // @ts-ignore
+          tooltip = false,
+        } = generateOptions;
         // @ts-ignore
         generateOptions.preprocess = compose([
           preprocess,
           disableAnimation,
-          disableTooltip,
+          tooltip ? (d) => d : disableTooltip,
         ]);
 
         // Render chart.

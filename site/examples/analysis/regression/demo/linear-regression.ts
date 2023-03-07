@@ -45,6 +45,9 @@ chart
       textAlign: 'end',
       dy: -8,
     },
-  });
+  })
+  .tooltip(false);
+
+chart.interaction('tooltip', { series: false });
 
 chart.render();
