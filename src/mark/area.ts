@@ -1,6 +1,6 @@
 import { group } from 'd3-array';
 import { MarkComponent as MC } from '../runtime';
-import { AreaGeometry } from '../spec';
+import { AreaMark } from '../spec';
 import {
   baseGeometryChannels,
   basePostInference,
@@ -8,7 +8,7 @@ import {
   tooltip1d,
 } from './utils';
 
-export type AreaOptions = Omit<AreaGeometry, 'type'>;
+export type AreaOptions = Omit<AreaMark, 'type'>;
 
 /*
  * Convert value for each channel to area shapes.

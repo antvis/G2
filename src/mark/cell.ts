@@ -1,6 +1,6 @@
 import { Band } from '@antv/scale';
 import { MarkComponent as MC, Vector2 } from '../runtime';
-import { CellGeometry } from '../spec';
+import { CellMark } from '../spec';
 import {
   baseGeometryChannels,
   basePostInference,
@@ -8,7 +8,7 @@ import {
   tooltip2d,
 } from './utils';
 
-export type CellOptions = Omit<CellGeometry, 'type'>;
+export type CellOptions = Omit<CellMark, 'type'>;
 
 /**
  * Convert value for each channel to Cell shapes.

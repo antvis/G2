@@ -1,16 +1,16 @@
 import {
-  IntervalGeometry,
-  RectGeometry,
-  AreaGeometry,
-  PointGeometry,
-  CellGeometry,
-  VectorGeometry,
-  LinkGeometry,
-  PolygonGeometry,
-  ImageGeometry,
-  TextGeometry,
-  BoxGeometry,
-  LineGeometry,
+  IntervalMark,
+  RectMark,
+  AreaMark,
+  PointMark,
+  CellMark,
+  VectorMark,
+  LinkMark,
+  PolygonMark,
+  ImageMark,
+  TextMark,
+  BoxMark,
+  LineMark,
   LineXMark,
   LineYMark,
   RangeMark,
@@ -25,58 +25,58 @@ import {
   PackMark,
   TreeMark,
   WordCloudMark,
-  HOMMarkGeometry,
+  HOMMarkMark,
 } from '../../spec';
 import { NodePropertyDescriptor, defineProps } from '../props';
 import { Concrete } from '../types';
 import { MarkNode } from './base';
 import { API } from './types';
 
-export interface Interval extends API<Concrete<IntervalGeometry>, Interval> {
+export interface Interval extends API<Concrete<IntervalMark>, Interval> {
   type: 'interval';
 }
 
-export interface Rect extends API<Concrete<RectGeometry>, Rect> {
+export interface Rect extends API<Concrete<RectMark>, Rect> {
   type: 'rect';
 }
 
-export interface Point extends API<Concrete<PointGeometry>, Point> {
+export interface Point extends API<Concrete<PointMark>, Point> {
   type: 'point';
 }
 
-export interface Area extends API<Concrete<AreaGeometry>, Area> {
+export interface Area extends API<Concrete<AreaMark>, Area> {
   type: 'area';
 }
 
-export interface Line extends API<Concrete<LinkGeometry>, Line> {
+export interface Line extends API<Concrete<LinkMark>, Line> {
   type: 'line';
 }
 
-export interface Cell extends API<Concrete<CellGeometry>, Cell> {
+export interface Cell extends API<Concrete<CellMark>, Cell> {
   type: 'cell';
 }
 
-export interface Vector extends API<Concrete<VectorGeometry>, Vector> {
+export interface Vector extends API<Concrete<VectorMark>, Vector> {
   type: 'cell';
 }
 
-export interface Link extends API<Concrete<LinkGeometry>, Link> {
+export interface Link extends API<Concrete<LinkMark>, Link> {
   type: 'link';
 }
 
-export interface Polygon extends API<Concrete<PolygonGeometry>, Polygon> {
+export interface Polygon extends API<Concrete<PolygonMark>, Polygon> {
   type: 'polygon';
 }
 
-export interface Image extends API<Concrete<ImageGeometry>, Image> {
+export interface Image extends API<Concrete<ImageMark>, Image> {
   type: 'image';
 }
 
-export interface Text extends API<Concrete<TextGeometry>, Text> {
+export interface Text extends API<Concrete<TextMark>, Text> {
   type: 'text';
 }
 
-export interface Box extends API<Concrete<BoxGeometry>, Box> {
+export interface Box extends API<Concrete<BoxMark>, Box> {
   type: 'box';
 }
 
@@ -135,7 +135,7 @@ export interface WordCloud extends API<Concrete<WordCloudMark>, WordCloud> {
   type: 'wordCloud';
 }
 
-export interface HOMMark extends API<Concrete<HOMMarkGeometry>, HOMMark> {
+export interface HOMMark extends API<Concrete<HOMMarkMark>, HOMMark> {
   type: 'interval';
 }
 
@@ -165,84 +165,84 @@ export class HOMMark extends MarkNode<HOMMark> {
 }
 
 @defineProps(props)
-export class Interval extends MarkNode<IntervalGeometry> {
+export class Interval extends MarkNode<IntervalMark> {
   constructor() {
     super({}, 'interval');
   }
 }
 
 @defineProps(props)
-export class Rect extends MarkNode<RectGeometry> {
+export class Rect extends MarkNode<RectMark> {
   constructor() {
     super({}, 'rect');
   }
 }
 
 @defineProps(props)
-export class Point extends MarkNode<PointGeometry> {
+export class Point extends MarkNode<PointMark> {
   constructor() {
     super({}, 'point');
   }
 }
 
 @defineProps(props)
-export class Area extends MarkNode<AreaGeometry> {
+export class Area extends MarkNode<AreaMark> {
   constructor() {
     super({}, 'area');
   }
 }
 
 @defineProps(props)
-export class Line extends MarkNode<LineGeometry> {
+export class Line extends MarkNode<LineMark> {
   constructor() {
     super({}, 'line');
   }
 }
 
 @defineProps(props)
-export class Cell extends MarkNode<CellGeometry> {
+export class Cell extends MarkNode<CellMark> {
   constructor() {
     super({}, 'cell');
   }
 }
 
 @defineProps(props)
-export class Vector extends MarkNode<VectorGeometry> {
+export class Vector extends MarkNode<VectorMark> {
   constructor() {
     super({}, 'vector');
   }
 }
 
 @defineProps(props)
-export class Link extends MarkNode<LinkGeometry> {
+export class Link extends MarkNode<LinkMark> {
   constructor() {
     super({}, 'link');
   }
 }
 
 @defineProps(props)
-export class Polygon extends MarkNode<PolygonGeometry> {
+export class Polygon extends MarkNode<PolygonMark> {
   constructor() {
     super({}, 'polygon');
   }
 }
 
 @defineProps(props)
-export class Image extends MarkNode<ImageGeometry> {
+export class Image extends MarkNode<ImageMark> {
   constructor() {
     super({}, 'image');
   }
 }
 
 @defineProps(props)
-export class Text extends MarkNode<TextGeometry> {
+export class Text extends MarkNode<TextMark> {
   constructor() {
     super({}, 'text');
   }
 }
 
 @defineProps(props)
-export class Box extends MarkNode<BoxGeometry> {
+export class Box extends MarkNode<BoxMark> {
   constructor() {
     super({}, 'box');
   }

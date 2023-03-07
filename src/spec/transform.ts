@@ -1,5 +1,5 @@
 import { TransformComponent, Primitive } from '../runtime';
-import { ChannelTypes } from './geometry';
+import { ChannelTypes } from './mark';
 
 export type Transform =
   | StackYTransform

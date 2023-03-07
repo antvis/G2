@@ -1,5 +1,5 @@
 import { MarkComponent as MC, Vector2, Mark } from '../runtime';
-import { TextGeometry } from '../spec';
+import { TextMark } from '../spec';
 import {
   baseGeometryChannels,
   basePostInference,
@@ -9,7 +9,7 @@ import {
   visualMark,
 } from './utils';
 
-export type TextOptions = Omit<TextGeometry, 'type'>;
+export type TextOptions = Omit<TextMark, 'type'>;
 
 export const Text: MC<TextOptions> = (options) => {
   const { cartesian = false } = options;

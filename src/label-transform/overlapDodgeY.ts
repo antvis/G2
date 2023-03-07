@@ -1,10 +1,10 @@
 import { DisplayObject } from '@antv/g';
 import { ascending } from 'd3-array';
-import { OverlapDodgeYTransform } from '../spec';
+import { OverlapDodgeYLabelTransform } from '../spec';
 import { LabelTransformComponent as LLC } from '../runtime';
 import { defined } from '../utils/helper';
 
-export type OverlapDodgeYOptions = Omit<OverlapDodgeYTransform, 'type'>;
+export type OverlapDodgeYOptions = Omit<OverlapDodgeYLabelTransform, 'type'>;
 
 function isSegmentIntersect([a, b], [c, d]) {
   return d > a && b > c;

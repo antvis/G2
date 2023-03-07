@@ -1,4 +1,5 @@
-import { Chart, G2Mark } from '../../../src';
+import { Chart } from '../../../src';
+import { G2Mark } from '../../../src/runtime';
 import {
   Area,
   Interval,

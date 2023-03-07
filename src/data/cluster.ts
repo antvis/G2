@@ -1,8 +1,7 @@
 import { cluster, hierarchy } from 'd3-hierarchy';
 import { DataComponent as DC } from '../runtime';
-import { ClusterTransform } from '../spec';
 
-export type ClusterOptions = Omit<ClusterTransform, 'type'>;
+export type ClusterOptions = Omit<Record<string, any>, 'type'>;
 
 export const hierarchyFunction = (layoutFunction) => (options) => {
   return (data) => {
