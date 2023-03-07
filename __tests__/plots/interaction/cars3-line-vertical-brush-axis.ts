@@ -1,5 +1,5 @@
 import { G2Spec } from '../../../src';
-import { AXIS_HOT_AREA_CLASS_NAME } from '../../../src/interaction/native/brushAxisHighlight';
+import { AXIS_HOT_AREA_CLASS_NAME } from '../../../src/interaction/brushAxisHighlight';
 import { brush } from './penguins-point-brush';
 
 export function cars3LineVerticalBrushAxis(): G2Spec {

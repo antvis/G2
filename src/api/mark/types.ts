@@ -1,7 +1,7 @@
 import { ValueAttribute, ObjectAttribute, ArrayAttribute } from '../types';
-import { Geometry } from '../../spec';
+import { Mark as MarkProps } from '../../spec';
 
-export type API<Props extends Geometry, Mark> = {
+export type API<Props extends MarkProps, Mark> = {
   data: ValueAttribute<Props['data'], Mark>;
   encode: ObjectAttribute<Props['encode'], Mark>;
   scale: ObjectAttribute<Props['scale'], Mark>;

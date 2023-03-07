@@ -1,9 +1,9 @@
 import { DisplayObject } from '@antv/g';
 import { LabelTransformComponent as LLC } from '../runtime';
-import { OverlapHideTransform } from '../spec';
+import { OverlapHideLabelTransform } from '../spec';
 import { isOverlap, parseAABB } from '../utils/bounds';
 
-export type OverlapHideOptions = Omit<OverlapHideTransform, 'type'>;
+export type OverlapHideOptions = Omit<OverlapHideLabelTransform, 'type'>;
 
 /**
  * Hide the label when overlap.

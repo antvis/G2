@@ -1,5 +1,5 @@
 import { MarkComponent as MC, Vector2 } from '../runtime';
-import { PointGeometry } from '../spec';
+import { PointMark } from '../spec';
 import {
   baseGeometryChannels,
   basePostInference,
@@ -8,7 +8,7 @@ import {
   tooltip2d,
 } from './utils';
 
-export type PointOptions = Omit<PointGeometry, 'type'>;
+export type PointOptions = Omit<PointMark, 'type'>;
 
 /**
  * Convert value for each channel to point shapes.

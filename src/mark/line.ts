@@ -2,7 +2,7 @@ import { Vector } from '@antv/coord';
 import { group } from 'd3-array';
 import { isParallel } from '../utils/coordinate';
 import { Mark, MarkComponent as MC, Vector2 } from '../runtime';
-import { LineGeometry } from '../spec';
+import { LineMark } from '../spec';
 import {
   baseGeometryChannels,
   basePostInference,
@@ -11,7 +11,7 @@ import {
   tooltipXd,
 } from './utils';
 
-export type LineOptions = Omit<LineGeometry, 'type'>;
+export type LineOptions = Omit<LineMark, 'type'>;
 
 const line: Mark = (index, scale, value, coordinate) => {
   const { series: S, x: X, y: Y } = value;

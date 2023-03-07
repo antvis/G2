@@ -1,12 +1,12 @@
 import { DisplayObject } from '@antv/g';
 
 export type LabelTransform =
-  | OverlapHideTransform
-  | OverlapDodgeYTransform
-  | ContrastReverseTransform
-  | OverflowHideTransform;
+  | OverlapHideLabelTransform
+  | OverlapDodgeYLabelTransform
+  | ContrastReverseLabelTransform
+  | OverflowHideLabelTransform;
 
-export type OverlapHideTransform = {
+export type OverlapHideLabelTransform = {
   type?: 'overlapHide';
   /**
    * The hide priority, is the comparator for label.sort().
@@ -14,14 +14,14 @@ export type OverlapHideTransform = {
   priority?: (a: DisplayObject, b: DisplayObject) => number;
 };
 
-export type OverlapDodgeYTransform = {
+export type OverlapDodgeYLabelTransform = {
   type?: 'overlapDodgeY';
   maxIterations?: number;
   maxError?: number;
   padding?: number;
 };
 
-export type ContrastReverseTransform = {
+export type ContrastReverseLabelTransform = {
   type: 'contrastReverse';
   /**
    * Transform when the contrast ratio < threshold.
@@ -34,6 +34,6 @@ export type ContrastReverseTransform = {
   palette?: string[];
 };
 
-export type OverflowHideTransform = {
+export type OverflowHideLabelTransform = {
   type: 'overflowHide';
 };

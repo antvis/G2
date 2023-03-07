@@ -1,30 +1,35 @@
-import { Geometry } from './geometry';
 import { Theme } from './theme';
-import { Coordinate, CoordinateTransform } from './coordinate';
+import { Coordinate } from './coordinate';
 import { Interaction } from './interaction';
 import { Transform } from './transform';
 import { Scale } from './scale';
-import { Title } from './title';
 import { Data } from './data';
 import { LabelTransform } from './labelTransform';
-import { Encode } from './encode';
 import { Literal2Object } from './utils';
+import { TitleComponent } from './component';
+import { Mark } from './mark';
 
-export type Node =
-  | MarkComposition
+export type Composition =
   | ViewComposition
+  | GeoViewComposition
+  | GeoPathComposition
   | SpaceLayerComposition
   | SpaceFlexComposition
   | RepeatMatrixComposition
   | FacetRectComposition
   | FacetCircleComposition
-  | GeoViewComposition
   | TimingKeyframeComposition;
 
-export type MarkComposition = Geometry & {
-  title?: Title;
-  clip?: boolean;
-};
+export type CompositionTypes =
+  | 'view'
+  | 'getView'
+  | 'geoPath'
+  | 'spaceLayer'
+  | 'spaceFlex'
+  | 'facetRect'
+  | 'facetCircle'
+  | 'repeatMatrix'
+  | 'timingKeyframe';
 
 export type ViewComposition = {
   type?: 'view';
@@ -48,12 +53,12 @@ export type ViewComposition = {
   insetTop?: number;
   insetBottom?: number;
   insetRight?: number;
-  coordinate?: Coordinate & { transform?: CoordinateTransform[] };
+  coordinate?: Coordinate;
   interaction?: Literal2Object<Interaction>;
   transform?: Transform[];
-  title?: Title;
+  title?: string | TitleComponent;
   theme?: Theme;
-  children?: MarkComposition[];
+  children?: Mark[];
   scale?: Record<string, Scale>;
   labelTransform?: LabelTransform[];
   // @todo
@@ -63,6 +68,19 @@ export type ViewComposition = {
   // @todo
   style?: Record<string, any>;
   clip?: boolean;
+};
+
+export type GeoViewComposition = Omit<ViewComposition, 'type'> & {
+  type?: 'geoView';
+  // @todo
+  coordinate?: Record<string, any>;
+};
+
+export type GeoPathComposition = Omit<ViewComposition, 'type'> & {
+  type?: 'geoPath';
+  // @todo
+  coordinate?: Record<string, any>;
+  [key: string]: any; // @todo
 };
 
 export type SpaceLayerComposition = {
@@ -107,7 +125,7 @@ export type FacetRectComposition = {
   marginTop?: number;
   marginRight?: number;
   key?: string;
-  title?: Title;
+  title?: string | TitleComponent;
   encode?: {
     x?: string;
     y?: string;
@@ -115,6 +133,7 @@ export type FacetRectComposition = {
   scale?: {
     x?: Scale;
     y?: Scale;
+    color?: Scale;
   };
   shareData?: boolean;
   shareSize?: boolean;
@@ -137,7 +156,7 @@ export type RepeatMatrixComposition = {
   marginTop?: number;
   marginRight?: number;
   transform?: Transform;
-  title?: Title;
+  title?: string | TitleComponent;
   data?: Data;
   key?: string;
   encode?: {
@@ -148,6 +167,7 @@ export type RepeatMatrixComposition = {
   scale?: {
     x?: Scale;
     y?: Scale;
+    color?: Scale;
   };
   // @todo
   axis?: Record<string, any>;
@@ -168,7 +188,7 @@ export type FacetCircleComposition = {
   marginTop?: number;
   marginRight?: number;
   transform?: Transform;
-  title?: Title;
+  title?: string | TitleComponent;
   data?: Data;
   key?: string;
   encode?: {
@@ -177,6 +197,7 @@ export type FacetCircleComposition = {
   scale?: {
     x?: Scale;
     y?: Scale;
+    color?: Scale;
   };
   children?: Node[] | ((facet: FacetContext) => Node);
   // @todo
@@ -186,7 +207,7 @@ export type FacetCircleComposition = {
 };
 
 export type TimingKeyframeComposition = {
-  type?: 'TimingKeyframe';
+  type?: 'timingKeyframe';
   duration?: number;
   key?: string;
   easing?: string;
@@ -195,13 +216,4 @@ export type TimingKeyframeComposition = {
   children?: Node[];
 };
 
-export type GeoViewComposition = Omit<ViewComposition, 'type'> & {
-  type?: 'geoView';
-  // @todo
-  coordinate?: Record<string, any>;
-};
-
-export type GeoPathComposition = Omit<GeoViewComposition, 'type'> & {
-  type?: 'geoView';
-  encode?: Record<string, Encode>;
-};
+type Node = Mark | Composition;

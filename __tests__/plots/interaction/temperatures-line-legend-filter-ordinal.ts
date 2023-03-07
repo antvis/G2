@@ -1,6 +1,6 @@
 import { G2Spec } from '../../../src';
 import { temperatures } from '../../data/temperatures';
-import { LEGEND_ITEMS_CLASS_NAME } from '../../../src/interaction';
+import { LEGEND_ITEMS_CLASS_NAME } from '../../../src/interaction/legendFilter';
 import { step } from './utils';
 
 export function temperaturesLineLegendFilterOrdinal(): G2Spec {

@@ -1,6 +1,7 @@
 import { InteractionComponent } from '../runtime';
-import { ChannelTypes, TooltipItemValue } from './geometry';
-import { FisheyeCoordinate } from './coordinate';
+import { FisheyeCoordinate } from './coordinateTransform';
+import { TooltipItemValue } from './component';
+import { AtheisticChanelTypes } from './mark';
 
 export type Interaction =
   | ElementHighlightInteraction
@@ -166,7 +167,7 @@ export type PoptipInteraction = {
 
 export type LegendFilterInteraction = {
   type?: 'legendFilter';
-  channel?: ChannelTypes;
+  channel?: AtheisticChanelTypes;
   [key: string]: any; // @todo
 } & Record<`${'marker' | 'label'}Unselected${any}`, any>;
 

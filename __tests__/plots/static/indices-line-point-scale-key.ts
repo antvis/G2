@@ -4,30 +4,31 @@ import { G2Spec } from '../../../src';
 
 export async function indicesLinePointScaleKey(): Promise<G2Spec> {
   const data = await csv('data/indices.csv', autoType);
-  const line = (symbol) => ({
-    type: 'line',
-    legend: false,
-    data: {
-      transform: [
-        {
-          type: 'filter',
-          callback: (d) => d.Symbol === symbol,
-        },
-      ],
-    },
-    scale: {
-      y: { key: 'line' },
-    },
-    axis: {
-      y: { titleFill: 'steelblue' },
-    },
-    encode: {
-      x: 'Date',
-      y: 'Close',
-      color: 'Symbol',
-      key: 'Symbol',
-    },
-  });
+  const line = (symbol) =>
+    ({
+      type: 'line',
+      legend: false,
+      data: {
+        transform: [
+          {
+            type: 'filter',
+            callback: (d) => d.Symbol === symbol,
+          },
+        ],
+      },
+      scale: {
+        y: { key: 'line' },
+      },
+      axis: {
+        y: { titleFill: 'steelblue' },
+      },
+      encode: {
+        x: 'Date',
+        y: 'Close',
+        color: 'Symbol',
+        key: 'Symbol',
+      },
+    } as const);
   const normalizePoint = (symbol) => ({
     type: 'point',
     legend: false,
