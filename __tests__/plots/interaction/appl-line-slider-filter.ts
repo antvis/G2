@@ -1,8 +1,7 @@
 import { format } from 'fecha';
 import { CustomEvent } from '@antv/g';
 import { G2Spec } from '../../../src';
-
-import { SLIDER_CLASS_NAME } from '../../../src/interaction/native/sliderFilter';
+import { SLIDER_CLASS_NAME } from '../../../src/interaction/sliderFilter';
 
 export function aaplLineSliderFilter(): G2Spec {
   return {

@@ -1,11 +1,6 @@
 import { GeoPathComposition } from '../../spec';
 import { defineProps, nodeProps } from '../props';
-import {
-  ValueAttribute,
-  ObjectAttribute,
-  ArrayAttribute,
-  Concrete,
-} from '../types';
+import { ValueAttribute, ObjectAttribute, Concrete } from '../types';
 import { mark, Mark } from '../mark';
 import { Composition, CompositionNode } from './index';
 

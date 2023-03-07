@@ -137,7 +137,7 @@ export interface Chart extends Composition, Mark {
   key: ValueAttribute<ChartProps['key'], Chart>;
   transform: ArrayAttribute<ChartProps['transform'], Chart>;
   theme: ObjectAttribute<ChartProps['theme'], Chart>;
-  title: ObjectAttribute<ChartProps['title'], Chart>;
+  title: ValueAttribute<ChartProps['title'], Chart>;
   scale: ObjectAttribute<ChartOptions['scale'], Chart>;
   axis: ObjectAttribute<ChartOptions['axis'], Chart>;
   legend: ObjectAttribute<ChartOptions['legend'], Chart>;

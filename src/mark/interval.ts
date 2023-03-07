@@ -1,6 +1,6 @@
 import { Band } from '@antv/scale';
 import { MarkComponent as MC, Vector2 } from '../runtime';
-import { IntervalGeometry } from '../spec';
+import { IntervalMark } from '../spec';
 import {
   baseGeometryChannels,
   basePostInference,
@@ -8,7 +8,7 @@ import {
   tooltip1d,
 } from './utils';
 
-export type IntervalOptions = Omit<IntervalGeometry, 'type'>;
+export type IntervalOptions = Omit<IntervalMark, 'type'>;
 
 function bandWidth(scale: Band, x: any): number {
   return scale.getBandWidth(scale.invert(x));

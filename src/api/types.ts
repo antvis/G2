@@ -2,7 +2,7 @@ type ValueOf<T> = T[keyof T];
 
 type ElementOf<T> = T extends Array<any> ? T[number] : never;
 
-type Chainable<K, V, N> = K extends undefined ? V : N;
+type Chainable<K, V, N> = K extends never ? V : N;
 
 export type ValueAttribute<V, N> = <T extends V>(
   value?: T,

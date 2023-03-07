@@ -1,5 +1,4 @@
 import { DataComponent as DC } from '../runtime';
-import { SankeyTransform } from '../spec';
 import { sankey, left, right, center, justify } from './utils/d3-sankey';
 
 const DEFAULT_OPTIONS: Partial<SankeyOptions> = {
@@ -27,7 +26,7 @@ function getNodeAlignFunction(nodeAlign: SankeyOptions['nodeAlign']) {
   return justify;
 }
 
-export type SankeyOptions = Omit<SankeyTransform, 'type'>;
+export type SankeyOptions = Omit<Record<string, any>, 'type'>;
 
 /**
  * Compute the node and edge position, return a graph representing the Sankey layout. All will be normalized to [[0, 0], [1, 1]]

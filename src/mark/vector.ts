@@ -1,5 +1,5 @@
 import { MarkComponent as MC, Vector2 } from '../runtime';
-import { VectorGeometry } from '../spec';
+import { VectorMark } from '../spec';
 import {
   baseGeometryChannels,
   basePostInference,
@@ -7,7 +7,7 @@ import {
   tooltip2d,
 } from './utils';
 
-export type VectorOptions = Omit<VectorGeometry, 'type'>;
+export type VectorOptions = Omit<VectorMark, 'type'>;
 
 /**
  * Convert value for each channel to start, end.

@@ -1,6 +1,6 @@
 import { G2Spec } from '../../../src';
 import { profit } from '../../data/profit';
-import { SLIDER_CLASS_NAME } from '../../../src/interaction/native/sliderFilter';
+import { SLIDER_CLASS_NAME } from '../../../src/interaction/sliderFilter';
 import { dispatchValueChange } from './appl-line-slider-filter';
 
 export function profitIntervalSliderFilter(): G2Spec {

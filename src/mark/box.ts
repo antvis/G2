@@ -1,6 +1,6 @@
 import { Band } from '@antv/scale';
 import { Vector2, MarkComponent as MC } from '../runtime';
-import { BoxGeometry } from '../spec';
+import { BoxMark } from '../spec';
 import {
   baseGeometryChannels,
   basePostInference,
@@ -8,7 +8,7 @@ import {
   tooltip1d,
 } from './utils';
 
-export type BoxOptions = Omit<BoxGeometry, 'type'>;
+export type BoxOptions = Omit<BoxMark, 'type'>;
 
 /**
  * Convert value for each channel to box shapes.

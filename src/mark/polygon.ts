@@ -1,5 +1,5 @@
 import { Vector2, MarkComponent as MC } from '../runtime';
-import { PolygonGeometry } from '../spec';
+import { PolygonMark } from '../spec';
 import {
   baseGeometryChannels,
   basePostInference,
@@ -7,7 +7,7 @@ import {
   tooltip2d,
 } from './utils';
 
-export type PolygonOptions = Omit<PolygonGeometry, 'type'>;
+export type PolygonOptions = Omit<PolygonMark, 'type'>;
 
 /**
  * Convert value for each channel to polygon shapes.

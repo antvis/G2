@@ -1,14 +1,13 @@
 import { CoordinateComponent } from '../runtime';
+import { CoordinateTransform } from './coordinateTransform';
 
 export type Coordinate =
   | PolarCoordinate
   | HelixCoordinate
-  | TransposeCoordinate
   | ThetaCoordinate
   | CustomCoordinate
   | CartesianCoordinate
   | ParallelCoordinate
-  | FisheyeCoordinate
   | RadialCoordinate
   | RadarCoordinate
   | GeoCoordinate;
@@ -25,77 +24,62 @@ export type CoordinateTypes =
   | 'radar'
   | string;
 
-export type CoordinateTransform = TransposeCoordinate | FisheyeCoordinate;
+export type BaseCoordinate<T> = T & { transform?: CoordinateTransform[] };
 
-export type CoordinateTransformTypes = 'transpose' | 'fisheye';
-
-export type PolarCoordinate = {
+export type PolarCoordinate = BaseCoordinate<{
   type?: 'polar';
   startAngle?: number;
   endAngle?: number;
   innerRadius?: number;
   outerRadius?: number;
-};
+}>;
 
-export type HelixCoordinate = {
+export type HelixCoordinate = BaseCoordinate<{
   type?: 'helix';
   startAngle?: number;
   endAngle?: number;
   innerRadius?: number;
   outerRadius?: number;
-};
+}>;
 
-export type RadarCoordinate = {
+export type RadarCoordinate = BaseCoordinate<{
   type?: 'radar';
   startAngle?: number;
   endAngle?: number;
   innerRadius?: number;
   outerRadius?: number;
-};
+}>;
 
-export type ThetaCoordinate = {
+export type ThetaCoordinate = BaseCoordinate<{
   type?: 'theta';
   startAngle?: number;
   endAngle?: number;
   innerRadius?: number;
   outerRadius?: number;
-};
+}>;
 
-export type RadialCoordinate = {
+export type RadialCoordinate = BaseCoordinate<{
   type?: 'radial';
   startAngle?: number;
   endAngle?: number;
   innerRadius?: number;
   outerRadius?: number;
-};
+}>;
 
-export type CartesianCoordinate = {
+export type CartesianCoordinate = BaseCoordinate<{
   type?: 'cartesian';
-};
+}>;
 
-export type ParallelCoordinate = {
+export type ParallelCoordinate = BaseCoordinate<{
   type?: 'parallel';
-};
+}>;
 
-export type TransposeCoordinate = {
-  type?: 'transpose';
-};
-
-export type GeoCoordinate = {
+export type GeoCoordinate = BaseCoordinate<{
   type: string;
   [key: string]: any; // @todo d3-geo types
-};
+}>;
 
-export type FisheyeCoordinate = {
-  type?: 'fisheye';
-  focusX?: number;
-  focusY?: number;
-  distortionX?: number;
-  distortionY?: number;
-  isVisual?: boolean;
-};
-
-export type CustomCoordinate = {
+export type CustomCoordinate = BaseCoordinate<{
   type: CoordinateComponent;
   [key: string]: any;
-};
+}>;

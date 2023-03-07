@@ -1,5 +1,5 @@
 import { Mark, MarkComponent as MC, Vector2 } from '../runtime';
-import { ImageGeometry } from '../spec';
+import { ImageMark } from '../spec';
 import {
   baseGeometryChannels,
   basePostInference,
@@ -9,7 +9,7 @@ import {
   visualMark,
 } from './utils';
 
-export type ImageOptions = Omit<ImageGeometry, 'type'>;
+export type ImageOptions = Omit<ImageMark, 'type'>;
 
 export const Image: MC<ImageOptions> = (options) => {
   const { cartesian } = options;
