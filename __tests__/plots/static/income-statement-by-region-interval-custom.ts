@@ -53,6 +53,7 @@ export function incomeStatementByRegionIntervalCustom() {
     legend: {
       color: {
         position: 'bottom',
+        layout: { justifyContent: 'center' },
         title: false,
       },
     },

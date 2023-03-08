@@ -33,6 +33,8 @@ export function cars3LineRadar(): G2Spec {
     },
     legend: {
       color: {
+        length: 200,
+        layout: { justifyContent: 'center' },
         position: 'bottom',
         labelFormatter: '~s',
       },

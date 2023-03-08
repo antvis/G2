@@ -260,6 +260,7 @@ export const Light: TC<LightOptions> = (options) => {
       gridDirection: 'positive',
     },
     axisBottom: {
+      titlePosition: 'bottom',
       titleSpacing: 10,
       titleTextBaseline: 'bottom',
       labelSpacing: 12,

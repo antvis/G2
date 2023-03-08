@@ -260,6 +260,7 @@ export const Dark: TC<DarkOptions> = (options) => {
       gridDirection: 'positive',
     },
     axisBottom: {
+      titlePosition: 'bottom',
       titleSpacing: 10,
       titleTextBaseline: 'bottom',
       labelSpacing: 12,

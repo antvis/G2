@@ -51,7 +51,12 @@ chart
     offset: (t) => 1 - t,
   })
   .legend({
-    color: { position: 'bottom', labelFormatter: '~s' },
+    color: {
+      position: 'bottom',
+      labelFormatter: '~s',
+      length: 200,
+      layout: { justifyContent: 'center' },
+    },
   })
   .axis('position', axis)
   .axis('position1', axis)

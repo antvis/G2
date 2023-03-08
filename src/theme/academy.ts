@@ -255,6 +255,7 @@ export const Academy: TC<AcademyOptions> = (options) => {
       gridDirection: 'positive',
     },
     axisBottom: {
+      titlePosition: 'bottom',
       titleSpacing: 4,
       titleTextBaseline: 'bottom',
       labelSpacing: 8,

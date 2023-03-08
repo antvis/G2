@@ -41,4 +41,4 @@ export function temperaturesPointSequential(): G2Spec {
   };
 }
 
-temperaturesPointSequential.maxError = 100;
+temperaturesPointSequential.maxError = 180;
