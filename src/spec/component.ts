@@ -72,7 +72,11 @@ export type ScrollbarComponent = any; // @todo
 export type TooltipComponent =
   | TooltipItem
   | TooltipItem[]
-  | { title?: Encodeable<TooltipTitle>; items?: TooltipItem[] | null | false }
+  | {
+      title?: Encodeable<TooltipTitle>;
+      items?: TooltipItem[] | null | false;
+      [key: string]: any;
+    }
   | null;
 
 export type TooltipTitle =

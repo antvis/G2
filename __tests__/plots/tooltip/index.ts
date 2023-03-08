@@ -41,3 +41,5 @@ export { intakePointAnnotation } from './intake-point-annotation';
 export { unemployment2RectBinX } from './unemployment2-rect-binx';
 export { seattleWeatherIntervalAggregated } from './seattle-weather-interval-aggregated';
 export { temperature2LineThreshold } from './temperature2-line-threshold';
+export { morleyBoxDefault } from './morley-box-default';
+export { morleyBoxDefaultExtend } from './morley-box-default-extend';

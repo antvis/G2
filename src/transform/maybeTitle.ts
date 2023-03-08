@@ -1,4 +1,5 @@
 import { deepMix } from '@antv/util';
+import { isUnset } from '../utils/helper';
 import { TransformComponent as TC } from '../runtime';
 import { columnOf } from './utils/helper';
 
@@ -14,7 +15,7 @@ export const MaybeTitle: TC<MaybeTitleOptions> = (options = {}) => {
   return (I, mark) => {
     const { encode } = mark;
     const { tooltip } = mark;
-    if (tooltip === null || tooltip === false) return [I, mark];
+    if (isUnset(tooltip)) return [I, mark];
     const { title } = tooltip;
     if (title !== undefined) return [I, mark];
     const titles = Object.keys(encode)
