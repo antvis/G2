@@ -173,3 +173,8 @@ export function subTooltip(tooltip, name, defaults = {}, main = false) {
   const sub = subObject(tooltip, name);
   return deepMix(defaults, sub);
 }
+
+export function maybeTooltip(tooltip, defaults = {}) {
+  if (isUnset(tooltip)) return tooltip;
+  return deepMix(defaults, tooltip);
+}
