@@ -110,7 +110,12 @@ function groupNameOf(scale, datum) {
   // For non constant color channel.
   if (invertAble(scaleSeries)) return scaleSeries.invert(series);
   if (series && series !== color) return series;
-  if (invertAble(scaleColor)) return scaleColor.invert(color);
+  if (invertAble(scaleColor)) {
+    const name = scaleColor.invert(color);
+    // For threshold scale.
+    if (Array.isArray(name)) return null;
+    return name;
+  }
   return null;
 }
 

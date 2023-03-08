@@ -21,14 +21,16 @@ chart
   .point()
   .encode('x', 'body_mass_g')
   .encode('y', 'species')
-  .style('stroke', '#000');
+  .style('stroke', '#000')
+  .tooltip({ channel: 'x' });
 
 chart
   .link()
   .transform({ type: 'groupY', x: 'min', x1: 'max' })
   .encode('x', 'body_mass_g')
   .encode('y', 'species')
-  .style('stroke', '#000');
+  .style('stroke', '#000')
+  .tooltip(false);
 
 chart
   .point()
@@ -37,6 +39,7 @@ chart
   .encode('x', 'body_mass_g')
   .encode('shape', 'line')
   .encode('size', 12)
-  .style('stroke', 'red');
+  .style('stroke', 'red')
+  .tooltip({ channel: 'x' });
 
 chart.render();

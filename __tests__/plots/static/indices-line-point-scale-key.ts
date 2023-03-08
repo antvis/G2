@@ -28,6 +28,7 @@ export async function indicesLinePointScaleKey(): Promise<G2Spec> {
         color: 'Symbol',
         key: 'Symbol',
       },
+      tooltip: { channel: 'y' },
     } as const);
   const normalizePoint = (symbol) => ({
     type: 'point',
@@ -60,6 +61,7 @@ export async function indicesLinePointScaleKey(): Promise<G2Spec> {
       color: 'Symbol',
       key: 'Symbol',
     },
+    tooltip: false,
   });
   return {
     type: 'view',
