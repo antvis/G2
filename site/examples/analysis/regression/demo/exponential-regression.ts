@@ -40,7 +40,7 @@ chart
   .style('stroke', '#30BF78')
   .style('lineWidth', 2)
   .label({
-    text: 'y = 3477.32^(0.18x)\nThe coefficient of determination, or R^2, is 0.998',
+    text: 'y = 3477.32e^(0.18x)\nThe coefficient of determination, or R^2, is 0.998',
     selector: 'last',
     style: {
       textAlign: 'end',
