@@ -22,8 +22,15 @@ jobs:
 
       - name: Upload Snapshot
         if: ${{ failure() }}
+        env:
+          REF_NAME: ${{ github.ref_name }}
+          GITHUB_WORKSPACE: ${{ github.workspace }}
+          OSS_REGION: ${{ secrets.OSS_REGION }}
+          OSS_ACCESS_KEY_ID: ${{ secrets.OSS_ACCESS_KEY_ID }}
+          OSS_ACCESS_KEY_SECRET: ${{ secrets.OSS_ACCESS_KEY_SECRET }}
+          OSS_BUCKET: ${{ secrets.OSS_BUCKET }}
         run: |
-          npm run upload ${{ github.workspace }} ${{ secrets.OSS_REGION }} ${{ secrets.OSS_ACCESS_KEY_ID }} ${{ secrets.OSS_ACCESS_KEY_SECRET }} ${{ secrets.OSS_BUCKET }}
+          npm run upload
 
       - name: Update coverall
         if: ${{ success() }}
