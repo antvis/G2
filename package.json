@@ -30,7 +30,8 @@
     "bundle-vis": "cross-env BUNDLE_VIS=1 run-p build:umd",
     "ci": "run-s lint test build",
     "prepublishOnly": "npm run ci",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "upload": "node scripts/uploadSnapshot.js"
   },
   "keywords": [
     "antv",
@@ -55,6 +56,8 @@
     "@types/pngjs": "^6.0.1",
     "@typescript-eslint/eslint-plugin": "^4.18.0",
     "@typescript-eslint/parser": "^4.18.0",
+    "ali-oss": "^6.17.1",
+    "archiver": "^5.3.1",
     "canvas": "^2.10.2",
     "cross-env": "^7.0.3",
     "d3-dsv": "^3.0.1",
