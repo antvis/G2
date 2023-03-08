@@ -15,11 +15,12 @@ import { useLibrary } from '../runtime/library';
 import { Shape, ShapeComponent } from '../runtime/types/component';
 import type { G2ShapeOptions } from '../runtime/types/options';
 import {
+  domainOf,
   G2Layout,
   inferComponentLayout,
   inferComponentShape,
-  titleContent,
   scaleOf,
+  titleContent,
 } from './utils';
 
 export type LegendCategoryOptions = {
@@ -90,10 +91,10 @@ function inferItemMarker(
 
   const { itemMarker } = options;
   if (shapeScale && !itemMarker) {
-    const { range } = shapeScale.getOptions();
+    const { domain } = shapeScale.getOptions();
 
     return (d, i) =>
-      createShape(range[i], library, coordinate, theme, {
+      createShape(shapeScale.map(domain[i]), library, coordinate, theme, {
         color: d.color,
       });
   }
@@ -115,6 +116,14 @@ function inferItemMarkerOpacity(scales: Scale[]) {
   return undefined;
 }
 
+function inferItemMarkerSize(scales: Scale[]) {
+  const scale = scaleOf(scales, 'size');
+  // only support constant size scale.
+  // size in category legend means the marker radius.
+  if (scale) return scale.map(NaN) * 2;
+  return 8;
+}
+
 function inferCategoryStyle(
   scales: Scale[],
   options: LegendCategoryOptions,
@@ -126,6 +135,7 @@ function inferCategoryStyle(
 
   const baseStyle = {
     itemMarker: inferItemMarker(scales, options, library, coordinate, theme),
+    itemMarkerSize: inferItemMarkerSize(scales),
     itemMarkerOpacity: inferItemMarkerOpacity(scales),
   };
 
@@ -135,14 +145,15 @@ function inferCategoryStyle(
       : labelFormatter;
 
   // here must exists a color scale
-  const scale = scaleOf(scales, 'color');
+  const colorScale = scaleOf(scales, 'color');
+  const domain = domainOf(scales);
 
   return {
     ...baseStyle,
-    data: scale.getOptions().domain.map((d) => ({
+    data: domain.map((d) => ({
       id: d,
       label: finalLabelFormatter(d),
-      color: scale.map(d),
+      color: colorScale.map(d),
     })),
   };
 }
@@ -222,6 +233,7 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
         ...finalLayout,
       },
     });
+
     layoutWrapper.appendChild(
       new Category({
         className: 'legend-category',

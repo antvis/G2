@@ -1,12 +1,11 @@
 import { Coordinate, Transformation } from '@antv/coord';
-import { DisplayObject, IAnimation as GAnimation } from '@antv/g';
 import EventEmitter from '@antv/event-emitter';
-import { G2ViewTree } from './options';
+import { DisplayObject, IAnimation as GAnimation } from '@antv/g';
 import {
   G2Theme,
   G2ViewInstance,
-  GuideComponentPosition,
   GuideComponentOrientation,
+  GuideComponentPosition,
   IndexedValue,
   Layout,
   Vector2,
@@ -14,6 +13,7 @@ import {
 import { DataComponent } from './data';
 import { Encode, EncodeComponent } from './encode';
 import { Mark, MarkComponent } from './mark';
+import { G2ViewTree } from './options';
 import { Transform, TransformComponent } from './transform';
 
 export type G2ComponentNamespaces =
