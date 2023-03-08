@@ -20,8 +20,13 @@ jobs:
           npm install
           npm run ci
 
+      - name: Upload Snapshot
+        if: ${{ failure() }}
+        run: |
+          npm run upload ${{ github.workspace }} ${{ secrets.OSS_REGION }} ${{ secrets.OSS_ACCESS_KEY_ID }} ${{ secrets.OSS_ACCESS_KEY_SECRET }} ${{ secrets.OSS_BUCKET }}
+
       - name: Update coverall
-        if: success()
+        if: ${{ success() }}
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
