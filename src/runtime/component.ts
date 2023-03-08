@@ -43,6 +43,7 @@ import {
   G2View,
 } from './types/options';
 import {
+  ConstantScale,
   ContinuousScale,
   DiscreteScale,
   DistributionScale,
@@ -153,8 +154,29 @@ function inferLegendComponentType(
   scales: G2ScaleOptions[],
   coordinates: G2CoordinateOptions[],
 ) {
-  const scalesByField = group(scales, (d) => d.field || d.name);
+  const acceptScales = scales.filter((scale) =>
+    typeof scale.type === 'string'
+      ? ['shape', 'size', 'color', 'opacity'].includes(scale.name)
+      : true,
+  );
 
+  // exclude the scales that all type are constant
+  const scalesByField = new Map(
+    Array.from(
+      group(acceptScales, (d) => d.field || '__internal_unset__'),
+    ).filter(([_, scales]) =>
+      scales.some((scale) => scale.type !== 'constant'),
+    ),
+  ) as Map<string, G2ScaleOptions[]>;
+
+  if (scalesByField.size === 0) return [];
+
+  /**
+   *
+   * @param arr
+   * @param main necessary channel
+   * @returns
+   */
   const createStrategy = <T>(arr: T[], main: T): T[][] => {
     const result = combine(arr);
     result.forEach((c) => c.unshift(main));
@@ -162,21 +184,44 @@ function inferLegendComponentType(
     return result.sort((a, b) => b.length - a.length);
   };
 
+  const createCategoryStrategy = () => {
+    // category legend only support constant size
+    const color = [
+      ['color', 'discrete'],
+      ['color', 'constant'],
+    ];
+    const shape = [
+      ['shape', 'discrete'],
+      ['shape', 'constant'],
+    ];
+    const size = [['size', 'constant']];
+    const opacity = [
+      ['opacity', 'discrete'],
+      ['opacity', 'constant'],
+    ];
+
+    const stg: [string, string][][] = [];
+    for (const cr of color) {
+      for (const sp of shape) {
+        for (const sz of size) {
+          for (const op of opacity) {
+            if (![cr, sp, sz, op].every((d) => d[1] === 'constant')) {
+              stg.push(
+                ...(createStrategy([sp, sz, op], cr) as [string, string][][]),
+              );
+            }
+          }
+        }
+      }
+    }
+    // refactor above code
+
+    return stg.sort((a, b) => b.length - a.length);
+  };
+
   // [legend type, [[channels, scale types]]][]
   const strategy: [string, [string, string][][]][] = [
-    [
-      'legendCategory',
-      createStrategy(
-        [
-          // @todo now haven't provide constant scale of color channel,
-          // so won't display the single shape scale.
-          ['shape', 'discrete'],
-          ['size', 'discrete'],
-          ['opacity', 'discrete'],
-        ],
-        ['color', 'discrete'],
-      ),
-    ],
+    ['legendCategory', createCategoryStrategy()],
     [
       'legendContinuousSize',
       [
@@ -186,7 +231,16 @@ function inferLegendComponentType(
           ['size', 'continuous'],
         ],
         [
+          ['color', 'constant'],
+          ['opacity', 'continuous'],
+          ['size', 'continuous'],
+        ],
+        [
           ['color', 'continuous'],
+          ['size', 'continuous'],
+        ],
+        [
+          ['color', 'constant'],
           ['size', 'continuous'],
         ],
       ],
@@ -214,18 +268,18 @@ function inferLegendComponentType(
       createStrategy([['opacity', 'continuous']], ['color', 'continuous']),
     ],
   ];
-
   function getScaleType(scale: G2ScaleOptions): string {
     const { type } = scale;
     if (typeof type !== 'string') return null;
     if (type in ContinuousScale) return 'continuous';
     if (type in DiscreteScale) return 'discrete';
     if (type in DistributionScale) return 'distribution';
+    if (type in ConstantScale) return 'constant';
     return null;
   }
 
   const components = Array.from(scalesByField)
-    .map(([, scs]) => {
+    .map(([channel, scs]) => {
       const combinations = combine(scs).sort((a, b) => b.length - a.length);
       const options = combinations.map((combination) => ({
         combination,
@@ -286,7 +340,6 @@ function inferComponentsType(
   coordinates: G2CoordinateOptions[],
 ): [string | GCC, G2ScaleOptions[]][] {
   const avaliableScales = scales.filter((scale) => isValidScale(scale));
-
   return [
     ...inferLegendComponentType(avaliableScales, coordinates),
     ...inferAxisComponentType(avaliableScales, coordinates),
