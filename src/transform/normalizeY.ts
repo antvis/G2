@@ -30,7 +30,7 @@ function normalizeBasis(basis: NormalizeYOptions['basis']) {
 export const NormalizeY: TC<NormalizeYOptions> = (options = {}) => {
   const { groupBy = 'x', basis = 'max' } = options;
   return (I, mark) => {
-    const { encode } = mark;
+    const { encode, tooltip } = mark;
     const { x, ...rest } = encode;
 
     // Extract and create new channels starts with y, such as y, y1.
@@ -57,12 +57,21 @@ export const NormalizeY: TC<NormalizeYOptions> = (options = {}) => {
       }
     }
 
+    const specifiedTooltip =
+      tooltip === null ||
+      tooltip === false ||
+      (tooltip?.items && tooltip?.items.length !== 0);
     return [
       I,
       deepMix({}, mark, {
         encode: Object.fromEntries(
           newYn.map(([k, v]) => [k, column(v, columnOf(encode, k)[1])]),
         ),
+        // Infer tooltip item.
+        ...(!specifiedTooltip &&
+          encode.y0 && {
+            tooltip: { items: [{ channel: 'y0' }] },
+          }),
       }),
     ];
   };

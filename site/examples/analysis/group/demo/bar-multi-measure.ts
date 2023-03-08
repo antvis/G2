@@ -22,7 +22,8 @@ chart
   .encode('x', 'Major Genre')
   .encode('y', 'Worldwide Gross')
   .encode('series', () => 'Worldwide Gross')
-  .encode('color', () => 'Worldwide Gross');
+  .encode('color', () => 'Worldwide Gross')
+  .tooltip({ channel: 'y', valueFormatter: '~s' });
 
 chart
   .interval()
@@ -30,6 +31,7 @@ chart
   .encode('x', 'Major Genre')
   .encode('y', 'US Gross')
   .encode('color', () => 'US Gross')
-  .encode('series', () => 'US Gross');
+  .encode('series', () => 'US Gross')
+  .tooltip({ channel: 'y', valueFormatter: '~s' });
 
 chart.render();

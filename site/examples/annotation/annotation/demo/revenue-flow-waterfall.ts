@@ -46,7 +46,8 @@ chart
   .data({ transform: [{ type: 'custom', callback: linkData }] })
   .encode('x', ['x1', 'x2'])
   .encode('y', 'value')
-  .style('stroke', '#697474');
+  .style('stroke', '#697474')
+  .tooltip(false);
 
 chart
   .interval()

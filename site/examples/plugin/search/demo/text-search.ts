@@ -3,6 +3,7 @@ import { Plugin } from '@antv/g-plugin-a11y';
 
 const plugin = new Plugin({ enableExtractingText: true });
 
+const labelFormatter = (d) => Math.abs(d) + (d < 0 ? 'BC' : d > 0 ? 'AC' : '');
 const left = (d) => d.end > -1500 && d.start > -3000;
 
 const chart = new Chart({
@@ -36,6 +37,10 @@ chart
       dx: (d) => (left(d) ? -5 : 5),
       fontSize: 10,
     },
-  });
+  })
+  .tooltip([
+    { name: 'start', field: 'start', valueFormatter: labelFormatter },
+    { name: 'end', field: 'end', valueFormatter: labelFormatter },
+  ]);
 
 chart.render();

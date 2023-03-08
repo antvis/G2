@@ -50,3 +50,5 @@ export { alphabetIntervalSelectOffsetPolar } from './alphabet-interval-select-of
 export { profitIntervalLegendHighlight } from './profit-interval-legend-highlight';
 export { alphabetIntervalBubbleInteraction } from './alphabet-interval-bubble-interaction';
 export { moviesIntervalHighlightMultipleState } from './movies-interval-highlight-multiple-state';
+export { pointsPointRegressionQuad } from './points-point-regression-quad';
+export { indicesLineChartFacet } from './indices-line-chart-facet';

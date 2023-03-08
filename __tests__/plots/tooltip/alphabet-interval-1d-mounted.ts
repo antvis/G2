@@ -19,9 +19,6 @@ export function alphabetInterval1dMounted(): G2Spec {
         },
       },
     ],
-    interaction: {
-      tooltip: true,
-    },
   };
 }
 

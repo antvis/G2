@@ -1,5 +1,6 @@
 import { Primitive } from 'd3-array';
 import { deepMix } from '@antv/util';
+import { format } from 'd3-format';
 import { indexOf, mapObject } from '../utils/array';
 import { composeAsync, defined, isStrictObject } from '../utils/helper';
 import { useLibrary } from './library';
@@ -119,7 +120,7 @@ export function normalizeTooltip(
     const { title, items } = tooltip;
     return title !== undefined || items !== undefined;
   };
-  if (tooltip === null) return [I, mark];
+  if (tooltip === null || tooltip === false) return [I, mark];
   if (Array.isArray(tooltip)) {
     return [I, { ...mark, tooltip: { items: tooltip } }];
   }
@@ -135,24 +136,43 @@ export function extractTooltip(
   context: TransformContext,
 ): [number[], G2Mark] {
   const { data, encode, tooltip = {} } = mark;
-  if (tooltip === null) return [I, mark];
+  if (tooltip === null || tooltip === false) return [I, mark];
   const valueOf = (item) => {
     if (!item) return item;
     if (typeof item === 'string') {
       return I.map((i) => ({ name: item, value: data[i][item] }));
     }
     if (isStrictObject(item)) {
-      const { field, channel, color, name = field } = item;
-      const channelField = channel && encode[channel].field;
-      return I.map((i) => ({
-        name: name || channelField || channel,
+      const {
+        field,
+        channel,
         color,
-        value: field
+        name = field,
+        valueFormatter = (d) => d,
+      } = item;
+
+      // Support d3-format.
+      const normalizedValueFormatter =
+        typeof valueFormatter === 'string'
+          ? format(valueFormatter)
+          : valueFormatter;
+
+      // Field name.
+      const channelField = channel && encode[channel].field;
+      const name1 = name || channelField || channel;
+
+      return I.map((i) => {
+        const value1 = field
           ? data[i][field]
           : channel
           ? encode[channel].value[i]
-          : null,
-      }));
+          : null;
+        return {
+          name: name1,
+          value: normalizedValueFormatter(value1),
+          color,
+        };
+      });
     }
     if (typeof item === 'function') {
       return I.map((i) => {
@@ -166,7 +186,7 @@ export function extractTooltip(
   const { title, items = [], ...rest } = tooltip;
   const newTooltip = {
     title: valueOf(title),
-    items: items.map(valueOf),
+    items: Array.isArray(items) ? items.map(valueOf) : [],
     ...rest,
   };
   return [I, { ...mark, tooltip: newTooltip }];

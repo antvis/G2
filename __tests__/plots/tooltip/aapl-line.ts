@@ -20,9 +20,6 @@ export function aaplLine(): G2Spec {
         },
       },
     ],
-    interaction: {
-      tooltip: true,
-    },
   };
 }
 

@@ -21,9 +21,6 @@ export function alphabetInterval1d(): G2Spec {
         },
       },
     ],
-    interaction: {
-      tooltip: true,
-    },
   };
 }
 

@@ -21,6 +21,7 @@ chart
   .transform({ type: 'normalizeY' })
   .axis('y', { labelFormatter: '.0%' })
   .encode('color', 'sex')
-  .label({ text: 'sex', position: 'inside' });
+  .label({ text: 'sex', position: 'inside' })
+  .tooltip({ channel: 'y', valueFormatter: '.0%' });
 
 chart.render();

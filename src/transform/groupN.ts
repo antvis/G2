@@ -96,11 +96,27 @@ export const GroupN: TC<GroupNOptions> = (options = {}) => {
     const groups = groupBy(I, mark);
     if (!groups) return [I, mark];
 
+    // Extract field from from channel
+    // x1 from x, y1 from y, etc,.
+    const maybeFrom = (field, reducer) => {
+      if (field) return field;
+      const { from } = reducer;
+      if (!from) return field;
+      const [, field1] = columnOf(encode, from);
+      return field1;
+    };
     const outputs = Object.entries(rest).map(([channel, reducer]) => {
       const [reducerFunction, formatter] = normalizeReducer(reducer);
       const [V, field] = columnOf(encode, channel);
+      const field1 = maybeFrom(field, reducer);
       const RV = groups.map((I) => reducerFunction(I, V ?? data));
-      return [channel, nonConstantColumn(RV, formatter?.(field) || field)];
+      return [
+        channel,
+        {
+          ...nonConstantColumn(RV, formatter?.(field1) || field1),
+          aggregate: true,
+        },
+      ];
     });
     const reducedColumns = Object.keys(encode).map((key) => {
       const [V, fv] = columnOf(encode, key);

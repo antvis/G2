@@ -1,5 +1,5 @@
 import { DisplayObject, IElement, Line } from '@antv/g';
-import { sort, group, mean, range, bisector } from 'd3-array';
+import { sort, group, mean, bisector } from 'd3-array';
 import { lowerFirst, throttle } from '@antv/util';
 import { Tooltip as TooltipComponent } from '@antv/gui';
 import { Constant, Identity } from '@antv/scale';
@@ -62,7 +62,7 @@ function showTooltip(root, data, x, y, render, event) {
   tooltipElement.position = [x, y];
   tooltipElement.update({
     items,
-    title,
+    title: title === undefined ? '' : title,
     ...(render !== undefined && {
       customContent: render(event, { items, title }),
     }),
@@ -107,8 +107,15 @@ function groupNameOf(scale, datum) {
       !(scale instanceof Constant)
     );
   };
-  if (invertAble(scaleColor)) return scaleColor.invert(color);
+  // For non constant color channel.
   if (invertAble(scaleSeries)) return scaleSeries.invert(series);
+  if (series && series !== color) return series;
+  if (invertAble(scaleColor)) {
+    const name = scaleColor.invert(color);
+    // For threshold scale.
+    if (Array.isArray(name)) return null;
+    return name;
+  }
   return null;
 }
 
@@ -120,39 +127,39 @@ function itemColorOf(element) {
   return color;
 }
 
-function normalizeTooltip(d) {
-  return isStrictObject(d)
-    ? d
-    : d === null || d === undefined
-    ? { value: d }
-    : { value: `${d}` };
-}
-
-function uniqueTitles(titles) {
-  const valueTitle = new Map(
-    titles.map((d) => [d instanceof Date ? +d : d, d]),
-  );
-  return Array.from(valueTitle.values());
+function unique(items, key = (d) => d) {
+  const valueName = new Map(items.map((d) => [key(d), d]));
+  return Array.from(valueName.values());
 }
 
 function groupItems(
   elements,
   scale,
+  groupName = true,
   data = elements.map((d) => d['__data__']),
 ) {
-  const T = uniqueTitles(data.map((d) => d.title)).filter(defined);
+  const key = (d) => (d instanceof Date ? +d : d);
+  const T = unique(
+    data.map((d) => d.title),
+    key,
+  ).filter(defined);
   const newItems = data.flatMap((datum, i) => {
     const element = elements[i];
     const { items = [], title } = datum;
-    return items.map(({ color = itemColorOf(element), name, ...item }) => ({
-      ...item,
-      color,
-      name: groupNameOf(scale, datum) || name || title,
-    }));
+    return items.map(({ color = itemColorOf(element), name, ...item }) => {
+      const name1 = groupName
+        ? groupNameOf(scale, datum) || name
+        : name || groupNameOf(scale, datum);
+      return {
+        ...item,
+        color,
+        name: name1 || title,
+      };
+    });
   });
   return {
     ...(T.length > 0 && { title: T.join(',') }),
-    items: newItems,
+    items: unique(newItems, (d) => `(${key(d.name)}, ${key(d.value)})`),
   };
 }
 
@@ -162,7 +169,7 @@ function updateRuleY(root, points, { height, startX, startY, ...rest }) {
   const x1 = x + startX;
   const x2 = x + startX;
   const y1 = startY;
-  const y2 = height - startY;
+  const y2 = startY + height;
   const createLine = () => {
     const line = new Line({
       style: {
@@ -194,15 +201,6 @@ function hideRuleY(root) {
   }
 }
 
-function sizeof(root) {
-  const bbox = root.getBounds();
-  const {
-    min: [minX, minY],
-    max: [maxX, maxY],
-  } = bbox;
-  return [maxX - minX, maxY - minY];
-}
-
 function interactionKeyof(markState, key) {
   return Array.from(markState.values()).some(
     // @ts-ignore
@@ -214,6 +212,12 @@ function maybeValue(specified, defaults) {
   return specified === undefined ? defaults : specified;
 }
 
+function isEmptyTooltipData(data) {
+  const { title, items } = data;
+  if (items.length === 0 && title === undefined) return true;
+  return false;
+}
+
 /**
  * Show tooltip for series item.
  */
@@ -221,21 +225,24 @@ export function seriesTooltip(
   root: DisplayObject,
   {
     elements: elementsof,
+    sort: sortFunction,
+    filter: filterFunction,
+    groupName = true,
     wait = 50,
     leading = true,
     trailing = false,
     scale,
     coordinate,
     crosshairs,
-    item,
     render,
     startX = 0,
     startY = 0,
-    ...rest
+    body = true,
+    style,
   }: Record<string, any>,
 ) {
   const elements = elementsof(root);
-  const [, height] = sizeof(root);
+  const [, height] = coordinate.getSize();
 
   // Split elements into series elements and item elements.
   const seriesElements = [];
@@ -264,15 +271,7 @@ export function seriesTooltip(
     }),
   );
 
-  // Get sortedIndex and X for all item items.
-  const itemIndex = itemElements.map((_, i) => i);
-  const itemX = itemElements.map((element) => {
-    const { __data__: data } = element;
-    return data.x;
-  });
-  const itemSortedIndex = sort(itemIndex, (i) => itemX[i]);
-
-  const ruleStyle = subObject(rest, 'crosshairs');
+  const ruleStyle = subObject(style, 'crosshairs');
   const { x: scaleX } = scale;
 
   // Apply offset for band scale x.
@@ -346,15 +345,38 @@ export function seriesTooltip(
 
       // Get the displayed tooltip data.
       const selectedElements = [...selectedSeriesElements, ...selectedItems];
-      const tooltipData = groupItems(selectedElements, scale, selectedData);
+      const tooltipData = groupItems(
+        selectedElements,
+        scale,
+        groupName,
+        selectedData,
+      );
+
+      // Sort items and filter items.
+      if (sortFunction) {
+        tooltipData.items.sort((a, b) => sortFunction(a) - sortFunction(b));
+      }
+      if (filterFunction) {
+        tooltipData.items = tooltipData.items.filter(filterFunction);
+      }
 
       // Hide tooltip with no selected tooltip.
-      if (selectedElements.length === 0) {
+      if (selectedElements.length === 0 || isEmptyTooltipData(tooltipData)) {
         hide();
         return;
       }
 
-      showTooltip(root, tooltipData, mouse[0] + x, mouse[1] + y, render, event);
+      if (body) {
+        showTooltip(
+          root,
+          tooltipData,
+          mouse[0] + x,
+          mouse[1] + y,
+          render,
+          event,
+        );
+      }
+
       if (crosshairs) {
         const points = selectedSeriesData.map((d) => d[1]);
         updateRuleY(root, points, { ...ruleStyle, height, startX, startY });
@@ -391,6 +413,9 @@ export function tooltip(
     elements: elementsof,
     scale,
     render,
+    groupName = true,
+    sort: sortFunction,
+    filter: filterFunction,
     wait = 50,
     leading = true,
     trailing = false,
@@ -408,7 +433,23 @@ export function tooltip(
       const k = groupKey(element);
       const group = keyGroup.get(k);
       const data =
-        group.length === 1 ? singleItem(group[0]) : groupItems(group, scale);
+        group.length === 1
+          ? singleItem(group[0])
+          : groupItems(group, scale, groupName);
+
+      // Sort items and sort.
+      if (sortFunction) {
+        data.items.sort((a, b) => sortFunction(a) - sortFunction(b));
+      }
+      if (filterFunction) {
+        data.items = data.items.filter(filterFunction);
+      }
+
+      if (isEmptyTooltipData(data)) {
+        hideTooltip(root);
+        return;
+      }
+
       const { offsetX, offsetY } = event;
       showTooltip(root, data, offsetX, offsetY, render, event);
     },

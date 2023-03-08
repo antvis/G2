@@ -31,7 +31,11 @@ chart
   .link()
   .encode('x', 'Date')
   .encode('y', ['Low', 'High'])
-  .style('stroke', 'black');
+  .style('stroke', 'black')
+  .tooltip([
+    { field: 'Low', name: 'low' },
+    { field: 'High', name: 'high' },
+  ]);
 
 chart
   .link()
@@ -41,6 +45,12 @@ chart
   .style('radius', 2)
   .style('fillOpacity', 1)
   .style('lineWidth', 4)
-  .style('lineCap', 'round');
+  .style('lineCap', 'round')
+  .tooltip([
+    { field: 'Open', name: 'open' },
+    { field: 'Close', name: 'close' },
+  ]);
+
+chart.interaction('tooltip', { shared: true, groupName: false });
 
 chart.render();

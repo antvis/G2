@@ -47,6 +47,7 @@ chart
   .encode('y', 'tick')
   .encode('shape', 'line')
   .encode('size', 15)
-  .style('stroke', 'red');
+  .style('stroke', 'red')
+  .tooltip(false);
 
 chart.render();

@@ -20,4 +20,6 @@ chart
   .encode('series', 'division')
   .encode('color', 'steelblue');
 
+chart.interaction('tooltip', { filter: (d, i) => i < 10 });
+
 chart.render();

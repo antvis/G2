@@ -1,7 +1,12 @@
 import { deepMix } from '@antv/util';
 import { TransformComponent as TC } from '../runtime';
 import { StackYTransform } from '../spec';
-import { column, columnOf, maybeColumnOf } from './utils/helper';
+import {
+  column,
+  columnOf,
+  inferredColumn,
+  maybeColumnOf,
+} from './utils/helper';
 import { normalizeComparator, createGroups, applyOrder } from './utils/order';
 
 export type StackYOptions = Omit<StackYTransform, 'type'>;
@@ -94,6 +99,7 @@ export const StackY: TC<StackYOptions> = (options = {}) => {
       I,
       deepMix({}, mark, {
         encode: {
+          y0: inferredColumn(Y, fy), // Store original Y.
           y: column(V, fy),
           y1: column(V1, fy1),
         },

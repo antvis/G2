@@ -16,6 +16,19 @@ chart
   .encode('color', 'sex')
   .legend({ color: { itemMarker: 'square' } })
   .transform({ type: 'bin', opacity: 'count' })
-  .style('inset', 0.5);
+  .style('inset', 0.5)
+  .tooltip({
+    title: { channel: 'opacity' },
+    items: [
+      (d, i, data, column) => ({
+        name: 'weight',
+        value: `${column.x.value[i]}, ${column.x1.value[i]}`,
+      }),
+      (d, i, data, column) => ({
+        name: 'height',
+        value: `${column.y.value[i]}, ${column.y1.value[i]}`,
+      }),
+    ],
+  });
 
 chart.render();

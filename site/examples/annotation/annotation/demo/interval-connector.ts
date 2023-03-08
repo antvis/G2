@@ -31,7 +31,8 @@ chart
   .encode('x', ['x1', 'x2'])
   .encode('y', 'value')
   .style('stroke', '#697474')
-  .style('lineDash', [4, 2]);
+  .style('lineDash', [4, 2])
+  .tooltip(false);
 
 chart
   .connector()
@@ -46,7 +47,8 @@ chart
       dy: 2,
     },
   })
-  .style({ stroke: '#697474', offset: 16 });
+  .style({ stroke: '#697474', offset: 16 })
+  .tooltip(false);
 
 chart
   .interval()

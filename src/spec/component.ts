@@ -72,14 +72,23 @@ export type ScrollbarComponent = any; // @todo
 export type TooltipComponent =
   | TooltipItem
   | TooltipItem[]
-  | { title?: Encodeable<TooltipTitle>; items?: TooltipItem[] }
+  | { title?: Encodeable<TooltipTitle>; items?: TooltipItem[] | null | false }
   | null;
 
-export type TooltipTitle = string | { field?: string; channel?: string };
+export type TooltipTitle =
+  | string
+  | { field?: string; channel?: string; value?: string };
 
 export type TooltipItem =
   | string
-  | { name?: string; color?: string; channel?: string; field?: string }
+  | {
+      name?: string;
+      color?: string;
+      channel?: string;
+      field?: string;
+      value?: string;
+      valueFormatter?: string | ((d: any) => string);
+    }
   | Encodeable<Primitive>
   | Encodeable<TooltipItemValue>;
 
@@ -91,4 +100,4 @@ export type TooltipItemValue = {
 
 export type Encodeable<T> =
   | T
-  | ((d: any, index: number, data: any[], column: any) => T);
+  | ((d: any, index?: number, data?: any[], column?: any) => T);

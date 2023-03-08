@@ -48,7 +48,7 @@ flex
   .call((node) =>
     node
       .view()
-      .coordinate({ type: 'transpose' })
+      .coordinate({ transform: [{ type: 'transpose' }] })
       .interval()
       .attr('paddingBottom', 50)
       .transform({ type: 'groupX', y: 'max' })

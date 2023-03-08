@@ -30,7 +30,9 @@ chart
     style: { titleFill: '#85C5A6' },
   })
   .style('fill', '#85c5A6')
-  .style('fillOpacity', 0.3);
+  .style('fillOpacity', 0.3)
+  .tooltip({ channel: 'y', valueFormatter: '.1f' })
+  .tooltip({ channel: 'y1', valueFormatter: '.1f' });
 
 chart
   .line()
@@ -47,6 +49,7 @@ chart
     style: {
       titleFill: 'steelblue',
     },
-  });
+  })
+  .tooltip({ channel: 'y', valueFormatter: '.1f' });
 
 chart.render();

@@ -25,6 +25,10 @@ facetRect
   .transform({ type: 'pack' })
   .encode('color', 'Survived')
   .encode('shape', 'point')
-  .encode('size', 3);
+  .encode('size', 3)
+  .tooltip({
+    title: '',
+    items: ['pclass', 'survived'],
+  });
 
 chart.render();

@@ -33,6 +33,10 @@ facetRect
   .legend('color', { labelFormatter: (d) => (d === '1' ? 'Yes' : 'No') })
   .encode('color', 'survived')
   .encode('shape', 'point')
-  .encode('size', 3);
+  .encode('size', 3)
+  .tooltip({
+    title: '',
+    items: ['pclass', 'survived'],
+  });
 
 chart.render();
