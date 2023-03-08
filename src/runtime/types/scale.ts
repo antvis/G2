@@ -18,3 +18,7 @@ export const DiscreteScale = {
   band: 'band',
   point: 'point',
 } as const;
+
+export const ConstantScale = {
+  constant: 'constant',
+} as const;

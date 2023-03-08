@@ -68,6 +68,7 @@ import {
   G2Library,
   G2Mark,
   G2MarkOptions,
+  G2ScaleOptions,
   G2ShapeOptions,
   G2ThemeOptions,
   G2View,
@@ -500,7 +501,11 @@ function initializeState(
     new Set(states.flatMap((d) => d.channels.map((d) => d.scale))),
   );
 
-  const components = inferComponent(Array.from(scales), options, library);
+  const components = inferComponent(
+    inferComponentScales(Array.from(scales), states, markState),
+    options,
+    library,
+  );
   const layout = computeLayout(components, options);
   const coordinate = createCoordinate(layout, options, library);
   const framedStyle = frame
@@ -1409,6 +1414,48 @@ function applyClip(selection, clip?: boolean) {
     } = data;
     return new Rect({ style: { x, y, width, height } });
   });
+}
+
+function inferComponentScales(
+  scales: G2ScaleOptions[],
+  states: G2MarkState[],
+  markState: Map<G2Mark, G2MarkState>,
+): G2ScaleOptions[] {
+  // add shape scale to state.
+
+  // for cell, omit shape scale.
+  // @todo support shape scale for cell.
+  for (const [key] of markState.entries()) {
+    if (key.type === 'cell') {
+      return scales.filter((scale) => scale.name !== 'shape');
+    }
+  }
+
+  // can't infer shape scale if there are multiple states.
+  if (states.length !== 1 || scales.some((scale) => scale.name === 'shape')) {
+    return scales;
+  }
+
+  const { defaultShape: shape } = states[0];
+  const acceptMarkTypes = ['point', 'line', 'rect', 'hollow'];
+  if (!acceptMarkTypes.includes(shape)) return scales;
+  const shapeMap = {
+    point: 'point',
+    line: 'hyphen',
+    rect: 'square',
+    hollow: 'hollow',
+  };
+
+  // create shape scale
+  const field = scales.find((scale) => scale.name === 'color')?.field || null;
+  const shapeScale = {
+    field,
+    name: 'shape',
+    type: 'constant',
+    domain: [],
+    range: [shapeMap[shape]],
+  };
+  return [...scales, shapeScale];
 }
 
 export function applyStyle(

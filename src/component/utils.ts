@@ -118,3 +118,10 @@ export function inferComponentShape(
   const [width, height] = isHorizontal ? [length, size] : [size, length];
   return { orient, width, height, size, length };
 }
+
+export function domainOf(scales: Scale[]): any[] {
+  // to get a available scale's domain
+  return scales
+    .find((scale) => scale.getOptions().domain.length > 0)
+    .getOptions().domain;
+}
