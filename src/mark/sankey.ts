@@ -3,7 +3,7 @@ import { CompositionComponent as CC } from '../runtime';
 import { SankeyMark } from '../spec';
 import { Sankey as SankeyTransform } from '../data/sankey';
 import { subObject } from '../utils/helper';
-import { field, initializeData } from './utils';
+import { field, initializeData, subTooltip } from './utils';
 
 export type SankeyOptions = Omit<SankeyMark, 'type'>;
 
@@ -67,6 +67,7 @@ export const Sankey: CC<SankeyOptions> = (options) => {
       nodeLabels = [],
       linkLabels = [],
       animate = {},
+      tooltip = {},
     } = options;
 
     // Initialize data, generating nodes by link if is not specified.
@@ -91,6 +92,20 @@ export const Sankey: CC<SankeyOptions> = (options) => {
       ...labelStyle
     } = subObject(style, 'label');
 
+    const key1 = field(nodeKey);
+
+    const nodeTooltip = subTooltip(tooltip, 'node', {
+      title: key1,
+      items: [{ field: 'value' }],
+    });
+    const linkTooltip = subTooltip(tooltip, 'link', {
+      title: '',
+      items: [
+        (d) => ({ name: 'source', value: key1(d.source) }),
+        (d) => ({ name: 'target', value: key1(d.target) }),
+      ],
+    });
+
     return [
       deepMix({}, DEFAULT_NODE_OPTIONS, {
         data: nodeData,
@@ -106,6 +121,7 @@ export const Sankey: CC<SankeyOptions> = (options) => {
           },
           ...nodeLabels,
         ],
+        tooltip: nodeTooltip,
         animate:
           typeof animate === 'object' ? subObject(animate, 'node') : animate,
         axis: false,
@@ -118,6 +134,7 @@ export const Sankey: CC<SankeyOptions> = (options) => {
           fill: linkEncode.color ? undefined : '#aaa',
           ...subObject(style, 'link'),
         },
+        tooltip: linkTooltip,
         animate:
           typeof animate === 'object' ? subObject(animate, 'link') : animate,
       }),
