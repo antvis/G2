@@ -23,7 +23,7 @@ import {
   radiusOf,
 } from '../utils/coordinate';
 import { capitalizeFirst } from '../utils/helper';
-import { titleContent } from './utils';
+import { titleContent, isVertical } from './utils';
 
 export type AxisOptions = {
   position?: GCP;
@@ -89,14 +89,6 @@ function ticksOf(
   const [min, max] = extent(domain, (d) => +d);
   const { tickCount } = scale.getOptions();
   return tickMethod(min, max, tickCount);
-}
-
-function isHorizontal(orientation: GCO) {
-  return orientation === 'horizontal' || orientation === 0;
-}
-
-function isVertical(orientation: GCO) {
-  return orientation === 'vertical' || orientation === -Math.PI / 2;
 }
 
 function prettyNumber(n: number) {
@@ -420,14 +412,6 @@ function inferDefaultStyle(
     orientation,
   );
 
-  if (position === 'bottom') {
-    return {
-      ...themeStyle,
-      titlePosition: scale.getTicks ? 'right-bottom' : 'bottom',
-      titleTransformOrigin: 'center',
-      titleTransform: scale.getTicks ? 'translate(-100%, 0)' : undefined,
-    };
-  }
   if (position === 'center') {
     return {
       ...themeStyle,

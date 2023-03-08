@@ -1,8 +1,13 @@
 import { CustomElement, DisplayObjectConfig, Group } from '@antv/g';
-import { deepMix } from '@antv/util';
 import { Layout } from '@antv/gui';
-import { select, Selection, G2Element } from '../utils/selection';
-import { GuideComponentPosition, FlexLayout, Scale } from '../runtime';
+import { deepMix } from '@antv/util';
+import {
+  FlexLayout,
+  GuideComponentOrientation,
+  GuideComponentPosition,
+  Scale,
+} from '../runtime';
+import { G2Element, select, Selection } from '../utils/selection';
 
 type Descriptor<T> = {
   render?: (attributes: T, container: CustomElement<T>) => void;
@@ -63,8 +68,8 @@ export function inferComponentLayout(
   let { flexDirection, justifyContent, alignItems } = preset;
 
   const layout = {
-    top: ['row', 'center', 'center'],
-    bottom: ['row', 'center', 'center'],
+    top: ['row', 'flex-start', 'center'],
+    bottom: ['row', 'flex-start', 'center'],
     left: ['colunm', 'center', 'center'],
     right: ['colunm', 'center', 'center'],
     center: ['column', 'center', 'center'],
@@ -86,4 +91,30 @@ export class G2Layout extends Layout {
 
 export function scaleOf(scales: Scale[], type: string): Scale | undefined {
   return scales.filter((s) => s.getOptions().name === type)?.[0];
+}
+
+export function isHorizontal(orientation: GuideComponentOrientation) {
+  return orientation === 'horizontal' || orientation === 0;
+}
+
+export function isVertical(orientation: GuideComponentOrientation) {
+  return orientation === 'vertical' || orientation === -Math.PI / 2;
+}
+
+export function inferComponentShape(
+  value: Record<string, any>,
+  options: Record<string, any>,
+) {
+  const { bbox } = value;
+  const {
+    position = 'top',
+    size: userDefinedSize,
+    length: userDefinedLength,
+  } = options;
+  const isHorizontal = ['top', 'bottom', 'center'].includes(position);
+  const size = userDefinedSize || (isHorizontal ? bbox.height : bbox.width);
+  const length = userDefinedLength || (isHorizontal ? bbox.width : bbox.height);
+  const orient = isHorizontal ? 'horizontal' : 'vertical';
+  const [width, height] = isHorizontal ? [length, size] : [size, length];
+  return { orient, width, height, size, length };
 }

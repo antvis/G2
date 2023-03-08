@@ -49,7 +49,7 @@ chart
   .encode('y', 'Population')
   .encode('color', 'Age')
   .scale('color', { range: colors })
-  .legend('color', { position: 'center', title: null })
+  .legend('color', { position: 'center', display: 'grid', gridCol: 1 })
   .scale('y', { type: 'sqrt' })
   .axis('y', {
     labelFormatter: '~s',

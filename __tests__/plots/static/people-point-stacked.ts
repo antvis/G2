@@ -20,7 +20,11 @@ export function peoplePointStacked(): G2Spec {
             title: '← Women · Men →',
             labelFormatter: Math.abs,
           },
-          x: { title: 'Age →' },
+          x: {
+            title: 'Age →',
+            titlePosition: 'left-bottom',
+            titleTransform: 'translate(100%, 0)',
+          },
         },
         encode: {
           x: (d) => 2021 - d.birth,
