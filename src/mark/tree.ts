@@ -56,10 +56,15 @@ export const Tree: CC<TreeOptions> = (options) => {
       field: valueEncode,
     })(data);
 
-    const nodeTooltip = subTooltip(tooltip, 'node', {
-      title: 'name',
-      items: ['value'],
-    });
+    const nodeTooltip = subTooltip(
+      tooltip,
+      'node',
+      {
+        title: 'name',
+        items: ['value'],
+      },
+      true,
+    );
 
     const linkTooltip = subTooltip(tooltip, 'link', {
       title: '',

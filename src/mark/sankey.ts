@@ -94,10 +94,15 @@ export const Sankey: CC<SankeyOptions> = (options) => {
 
     const key1 = field(nodeKey);
 
-    const nodeTooltip = subTooltip(tooltip, 'node', {
-      title: key1,
-      items: [{ field: 'value' }],
-    });
+    const nodeTooltip = subTooltip(
+      tooltip,
+      'node',
+      {
+        title: key1,
+        items: [{ field: 'value' }],
+      },
+      true,
+    );
     const linkTooltip = subTooltip(tooltip, 'link', {
       title: '',
       items: [

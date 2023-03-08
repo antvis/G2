@@ -47,3 +47,4 @@ export { flareTreemapDefault } from './flare-treemap-default';
 export { flarePointCirclePackCustom } from './flare-point-circle-pack-custom';
 export { flareTreeCustom } from './flare-tree-custom';
 export { energySankeyCustom } from './energy-sankey-custom';
+export { miserableForceCustom } from './miserable-force-custom';

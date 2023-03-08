@@ -10,7 +10,7 @@ import { deepMix } from '@antv/util';
 import { subObject } from '../utils/helper';
 import { CompositionComponent as CC } from '../runtime';
 import { ForceGraphMark } from '../spec';
-import { field, initializeData } from './utils';
+import { field, initializeData, subTooltip } from './utils';
 
 export type ForceGraphOptions = Omit<ForceGraphMark, 'type'>;
 
@@ -89,14 +89,17 @@ export const ForceGraph: CC<ForceGraphOptions> = (options) => {
     };
     const {
       data,
-      encode = {},
+      encode: e = {},
       scale,
       style = {},
       layout = {},
       nodeLabels = [],
       linkLabels = [],
       animate = {},
+      tooltip = {},
     } = options;
+    const { nodeKey = (d) => d.id, linkKey = (d) => d.id, ...restEncode } = e;
+    const encode = { nodeKey, linkKey, ...restEncode };
     const nodeEncode = subObject(encode, 'node');
     const linkEncode = subObject(encode, 'link');
     const { links, nodes } = initializeData(data, encode);
@@ -105,12 +108,27 @@ export const ForceGraph: CC<ForceGraphOptions> = (options) => {
       deepMix({}, DEFAULT_LAYOUT_OPTIONS, layout),
       encode,
     );
+    const linkTooltip = subTooltip(tooltip, 'link', {
+      items: [
+        (d) => ({ name: 'source', value: field(linkKey)(d.source) }),
+        (d) => ({ name: 'target', value: field(linkKey)(d.target) }),
+      ],
+    });
+    const nodeTooltip = subTooltip(
+      tooltip,
+      'node',
+      {
+        items: [(d) => ({ name: 'key', value: field(nodeKey)(d) })],
+      },
+      true,
+    );
     return [
       deepMix({}, DEFAULT_LINK_OPTIONS, {
         data: linksData,
         encode: linkEncode,
         labels: linkLabels,
         style: subObject(style, 'link'),
+        tooltip: linkTooltip,
         animate:
           typeof animate === 'object' ? subObject(animate, 'link') : animate,
       }),
@@ -119,6 +137,7 @@ export const ForceGraph: CC<ForceGraphOptions> = (options) => {
         encode: { ...nodeEncode },
         scale,
         style: subObject(style, 'node'),
+        tooltip: nodeTooltip,
         labels: [
           { ...DEFAULT_LABEL_OPTIONS, ...subObject(style, 'label') },
           ...nodeLabels,
