@@ -44,3 +44,4 @@ export { temperature2LineThreshold } from './temperature2-line-threshold';
 export { morleyBoxDefault } from './morley-box-default';
 export { morleyBoxDefaultExtend } from './morley-box-default-extend';
 export { flareTreemapDefault } from './flare-treemap-default';
+export { flarePointCirclePackCustom } from './flare-point-circle-pack-custom';
