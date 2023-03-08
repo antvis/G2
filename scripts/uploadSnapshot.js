@@ -6,9 +6,10 @@ const archiver = require('archiver');
 async function zipSnapshots(dir, filename) {
   return new Promise((resolve) => {
     const output = fs.createWriteStream(filename);
+    let fileIndex = -1;
 
     output.on('close', function () {
-      if (archive.pointer() === 0) resolve(false);
+      if (fileIndex === -1) resolve(false);
       else resolve(true);
     });
 
@@ -22,8 +23,6 @@ async function zipSnapshots(dir, filename) {
 
     archive.pipe(output);
 
-    let fileIndex = 0;
-
     const expects = new Set([]);
 
     function zipFiles(folder) {
@@ -34,12 +33,12 @@ async function zipSnapshots(dir, filename) {
         if (fileStat.isFile()) {
           const f = path.parse(filePath);
           if (f.name.endsWith('-diff') || f.name.endsWith('-actual')) {
+            fileIndex++;
             const expectFilePath = filePath
               .replace('-diff', '')
               .replace('-actual', '');
             expects.add(expectFilePath);
             archive.file(filePath, { name: `${fileIndex}-${f.base}` });
-            fileIndex++;
           }
         }
         if (fileStat.isDirectory()) {
@@ -52,21 +51,21 @@ async function zipSnapshots(dir, filename) {
 
     // zip expects
     for (const expectFilePath of expects) {
+      fileIndex++;
       const f = path.parse(expectFilePath);
       archive.file(expectFilePath, { name: `${fileIndex}-${f.base}` });
-      fileIndex++;
     }
 
     archive.finalize();
   });
 }
 
-async function put(file, secrets) {
+async function put(file) {
   const client = new OSS({
-    region: secrets[0],
-    accessKeyId: secrets[1],
-    accessKeySecret: secrets[2],
-    bucket: secrets[3],
+    region: process.env.OSS_REGION,
+    accessKeyId: process.env.OSS_ACCESS_KEY_ID,
+    accessKeySecret: process.env.OSS_ACCESS_KEY_SECRET,
+    bucket: process.env.OSS_BUCKET,
   });
   try {
     await client.put(path.parse(file).base, path.normalize(file), {
@@ -78,8 +77,25 @@ async function put(file, secrets) {
   }
 }
 
-async function uploadSnapshot(root, secrets) {
-  const zipFilePath = path.join(root, new Date().getTime() + '.zip');
+function toFileName(str) {
+  return JSON.stringify(str)
+    .replace(/\"|\\/g, '')
+    .replace(/[\/:*?"<>|]/g, '_')
+    .replace(/ /g, '_');
+}
+
+function getZipName() {
+  const title = process.env.REF_NAME || 'unknown';
+  return (
+    toFileName(title) +
+    '-' +
+    new Date().toLocaleString('zh-CN').replace(/\/|:/g, '-').replace(' ', '_')
+  );
+}
+
+async function uploadSnapshot() {
+  const root = process.env.GITHUB_WORKSPACE;
+  const zipFilePath = path.join(root, getZipName() + '.zip');
 
   const hasPackFile = await zipSnapshots(
     path.join(root, '/__tests__/integration/snapshots'),
@@ -87,16 +103,18 @@ async function uploadSnapshot(root, secrets) {
   );
 
   if (hasPackFile) {
-    await put(zipFilePath, secrets);
+    await put(zipFilePath);
   } else {
+    fs.unlinkSync(zipFilePath);
     console.log('no diff snapshot files found');
   }
 }
 
 function main() {
-  const [root, ...secrets] = process.argv.slice(2);
-  if (secrets.length === 4) {
-    uploadSnapshot(root, secrets);
+  const { OSS_REGION, OSS_ACCESS_KEY_ID, OSS_ACCESS_KEY_SECRET, OSS_BUCKET } =
+    process.env;
+  if (OSS_REGION && OSS_ACCESS_KEY_ID && OSS_ACCESS_KEY_SECRET && OSS_BUCKET) {
+    uploadSnapshot();
   } else console.log('skip upload');
 }
 
