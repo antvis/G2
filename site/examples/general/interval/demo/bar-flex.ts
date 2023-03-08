@@ -26,6 +26,7 @@ chart
       labelTransform: 'rotate(90deg)',
     },
   })
-  .axis('y', { labelFormatter: '~s' });
+  .axis('y', { labelFormatter: '~s' })
+  .tooltip(['value', 'gdp']);
 
 chart.render();

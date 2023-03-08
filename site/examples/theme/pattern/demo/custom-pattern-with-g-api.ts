@@ -95,6 +95,7 @@ chart
           : pattern3,
       repetition: 'repeat',
     };
-  });
+  })
+  .animate('enter', { type: 'fadeIn' });
 
 chart.render();

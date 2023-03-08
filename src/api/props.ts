@@ -48,6 +48,7 @@ function defineMixProp(Node, { name }: NodePropertyDescriptor) {
     ) {
       return this.attr(name, key);
     }
+    if (key === null || key === false) return this.attr(name, key);
     const obj = this.attr(name) || {};
     const { items = [] } = obj;
     items.push(key);

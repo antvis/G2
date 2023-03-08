@@ -5,6 +5,7 @@ import { kebabCase } from './utils/kebabCase';
 import { filterTests } from './utils/filterTests';
 import { sleep } from './utils/sleep';
 import { renderSpec } from './utils/renderSpec';
+import { compose } from './utils/compose';
 import './utils/useSnapshotMatchers';
 import './utils/useCustomFetch';
 
@@ -16,6 +17,21 @@ function disableAnimation(options): G2Spec {
     ...options,
     children: newChildren,
   };
+}
+
+function disableTooltip(options): G2Spec {
+  const discovered = [options];
+  while (discovered.length) {
+    const node = discovered.pop();
+    node.interaction = {
+      ...node.interaction,
+      tooltip: false,
+    };
+    if (node.children) {
+      discovered.push(...node.children);
+    }
+  }
+  return options;
 }
 
 describe('Interactions', () => {
@@ -31,10 +47,20 @@ describe('Interactions', () => {
         }
 
         // Disable animations and delays.
+        const {
+          // @ts-ignore
+          maxError = 0,
+          // @ts-ignore
+          preprocess = (d) => d,
+          // @ts-ignore
+          tooltip = false,
+        } = generateOptions;
         // @ts-ignore
-        const { maxError = 0, preprocess = (d) => d } = generateOptions;
-        // @ts-ignore
-        generateOptions.preprocess = (d) => disableAnimation(preprocess(d));
+        generateOptions.preprocess = compose([
+          preprocess,
+          disableAnimation,
+          tooltip ? (d) => d : disableTooltip,
+        ]);
 
         // Render chart.
         const gCanvas = await renderSpec(generateOptions);

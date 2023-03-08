@@ -26,9 +26,6 @@ export async function indicesLineReverse(): Promise<G2Spec> {
         tooltip: { title: (d) => new Date(d.Date).toUTCString() },
       },
     ],
-    interaction: {
-      tooltip: true,
-    },
   };
 }
 

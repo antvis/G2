@@ -30,6 +30,7 @@ export async function indicesLineChartFacet(): Promise<G2Spec> {
         tooltip: {
           title: (d) => new Date(d.Date).toUTCString(),
         },
+        interaction: { tooltip: false },
       },
     ],
     interaction: {

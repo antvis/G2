@@ -11,9 +11,6 @@ export function symbolsLineMissingData(): G2Spec {
       y: 'close',
       color: 'symbol',
     },
-    interaction: {
-      tooltip: true,
-    },
   };
 }
 

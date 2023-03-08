@@ -28,6 +28,9 @@ chart
   .encode('y', 'revenue')
   .encode('series', 'format')
   .encode('shape', 'smooth')
-  .style('stroke', 'white');
+  .style('stroke', 'white')
+  .tooltip(false);
+
+chart.interaction('tooltip', { filter: (d) => parseInt(d.value) > 0 });
 
 chart.render();

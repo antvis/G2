@@ -26,7 +26,11 @@ chart
     offset: (t) => 1 - t,
   })
   .style('stroke', '#000')
-  .style('strokeOpacity', 0.2);
+  .style('strokeOpacity', 0.2)
+  .tooltip([
+    { channel: 'x', name: 'year', valueFormatter: (d) => d.getFullYear() },
+    { channel: 'y' },
+  ]);
 
 chart.lineY().data([0]).style('stroke', '#000').style('strokeOpacity', 0.2);
 

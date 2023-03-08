@@ -86,12 +86,12 @@ export const Bin: TC<BinOptions> = (options = {}) => {
     // Bin channel and reducer.
     ...Object.fromEntries(
       binChannels.flatMap((channel) => {
+        const start = ([i]) => +channelIndexKey[channel].get(i).split(',')[0];
+        const end = ([i]) => +channelIndexKey[channel].get(i).split(',')[1];
+        end.from = channel;
         return [
-          [channel, ([i]) => +channelIndexKey[channel].get(i).split(',')[0]],
-          [
-            `${channel}1`,
-            ([i]) => +channelIndexKey[channel].get(i).split(',')[1],
-          ],
+          [channel, start],
+          [`${channel}1`, end],
         ];
       }),
     ),

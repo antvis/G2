@@ -45,6 +45,7 @@ chart
     startMarker: true,
     startMarkerFill: '#2C3542',
     startMarkerFillOpacity: 0.65,
-  });
+  })
+  .tooltip(false);
 
 chart.render();

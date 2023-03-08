@@ -48,6 +48,10 @@ chart
       dx: (d) => (left(d) ? -5 : 5),
       fontSize: 10,
     },
-  });
+  })
+  .tooltip([
+    { name: 'start', field: 'start', valueFormatter: labelFormatter },
+    { name: 'end', field: 'end', valueFormatter: labelFormatter },
+  ]);
 
 chart.render();

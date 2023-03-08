@@ -149,7 +149,8 @@ chart
     style: {
       fontSize: 10,
     },
-  });
+  })
+  .tooltip({ channel: 'y', valueFormatter: (d) => d.toFixed(3) });
 
 chart
   .line()
@@ -159,6 +160,7 @@ chart
   .encode('series', 'state')
   .style('stroke', '#000')
   .style('lineWidth', 0.5)
-  .style('fillOpacity', 0.8);
+  .style('fillOpacity', 0.8)
+  .tooltip(false);
 
 chart.render();

@@ -22,9 +22,6 @@ export function alphabetIntervalChannel(): G2Spec {
         tooltip: { channel: 'y' },
       },
     ],
-    interaction: {
-      tooltip: true,
-    },
   };
 }
 

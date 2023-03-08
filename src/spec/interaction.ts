@@ -195,11 +195,16 @@ export type TooltipInteraction = {
   shared?: boolean;
   series?: boolean;
   facet?: boolean;
+  body?: boolean;
   crosshairs?: boolean;
+  groupName?: boolean;
+  sort?: (d: TooltipItemValue) => any;
+  filter?: (d: TooltipItemValue) => any;
   render?: (
     event, // @todo
     options: { title: 'string'; items: TooltipItemValue[] },
   ) => HTMLElement | string;
+  style?: Record<`crosshairs${any}`, any>;
 };
 
 export type FisheyeInteraction = {

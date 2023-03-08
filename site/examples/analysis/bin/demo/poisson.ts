@@ -14,6 +14,11 @@ chart
   .encode('x', (d) => d)
   .transform({ type: 'binX', y: 'count' })
   .style('stroke', 'white')
-  .style('fill', 'steelblue');
+  .style('fill', 'steelblue')
+  .tooltip({
+    title: (d, i, data, column) => ({
+      value: `${column.x.value[i]} ~ ${column.x1.value[i]}`,
+    }),
+  });
 
 chart.render();

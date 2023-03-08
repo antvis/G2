@@ -24,4 +24,8 @@ chart
   .encode('color', 'age')
   .axis('y', { labelFormatter: '~s' });
 
+chart
+  .interaction('tooltip', { shared: true })
+  .interaction('elementHighlightByColor', { background: true });
+
 chart.render();

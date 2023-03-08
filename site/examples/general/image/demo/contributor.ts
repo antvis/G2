@@ -82,6 +82,7 @@ chart
   .encode('y', 'y')
   .encode('src', (_, idx) => Avatars[idx % Avatars.length])
   .encode('size', 48)
-  .axis(false);
+  .axis(false)
+  .tooltip(false);
 
 chart.render();
