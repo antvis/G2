@@ -50,3 +50,4 @@ export { energySankeyCustom } from './energy-sankey-custom';
 export { miserableForceCustom } from './miserable-force-custom';
 export { unemploymentChoropleth } from './unemployment-choropleth';
 export { londonTubeLineGeo } from './london-tube-lines-geo';
+export { windVectorWind } from './wind-vector-wind';

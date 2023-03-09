@@ -39,7 +39,6 @@ export const Vector: SC<VectorOptions> = (options) => {
       .call(applyStyle, shapeTheme)
       .style('d', path.toString())
       .style('stroke', color || defaultColor)
-      .style('fill', color || defaultColor)
       .style('transform', transform)
       .call(applyStyle, style)
       .node();
