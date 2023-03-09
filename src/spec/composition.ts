@@ -33,6 +33,8 @@ export type CompositionTypes =
 
 export type ViewComposition = {
   type?: 'view';
+  x?: number;
+  y?: number;
   width?: number;
   height?: number;
   data?: Data;

@@ -11,14 +11,20 @@ export const SpaceLayer: CC<SpaceLayerOptions> = () => {
   return (options) => {
     const { children } = options;
     if (!Array.isArray(children)) return [];
-    const { x = 0, y = 0, width, height, data: layerData } = options;
-    return children.map(({ data, ...rest }) => ({
+    const {
+      x: viewX = 0,
+      y: viewY = 0,
+      width: viewWidth,
+      height: viewHeight,
+      data: layerData,
+    } = options;
+    return children.map(({ data, x, y, width, height, ...rest }) => ({
       ...rest,
       data: mergeData(data, layerData),
-      x,
-      y,
-      width,
-      height,
+      x: x ?? viewX,
+      y: y ?? viewY,
+      width: width ?? viewWidth,
+      height: height ?? viewHeight,
     }));
   };
 };
