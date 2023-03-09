@@ -55,8 +55,10 @@ function createTooltip(root, x0, y0) {
   return tooltipElement;
 }
 
-function showTooltip(root, data, x, y, render, event) {
-  const { tooltipElement = createTooltip(root, x, y) } = root;
+function showTooltip(root, data, x, y, render, event, single) {
+  // All the views share the same tooltip.
+  const container = single ? getContainer(root) : root;
+  const { tooltipElement = createTooltip(root, x, y) } = container;
   const { items, title } = data;
   tooltipElement.show();
   tooltipElement.position = [x, y];
@@ -67,11 +69,12 @@ function showTooltip(root, data, x, y, render, event) {
       customContent: render(event, { items, title }),
     }),
   });
-  root.tooltipElement = tooltipElement;
+  container.tooltipElement = tooltipElement;
 }
 
-function hideTooltip(root) {
-  const { tooltipElement } = root;
+function hideTooltip(root, single) {
+  const container = single ? getContainer(root) : root;
+  const { tooltipElement } = container;
   if (tooltipElement) tooltipElement.hide();
 }
 
@@ -242,6 +245,7 @@ export function seriesTooltip(
     startX = 0,
     startY = 0,
     body = true,
+    single = true,
     style,
   }: Record<string, any>,
 ) {
@@ -378,6 +382,7 @@ export function seriesTooltip(
           mouse[1] + y,
           render,
           event,
+          single,
         );
       }
 
@@ -391,7 +396,7 @@ export function seriesTooltip(
   ) as (...args: any[]) => void;
 
   const hide = () => {
-    hideTooltip(root);
+    hideTooltip(root, single);
     if (crosshairs) hideRuleY(root);
   };
 
@@ -424,6 +429,7 @@ export function tooltip(
     leading = true,
     trailing = false,
     groupKey = (d) => d, // group elements by specified key
+    single = true,
   }: Record<string, any>,
 ) {
   const elements = elementsof(root);
@@ -450,12 +456,12 @@ export function tooltip(
       }
 
       if (isEmptyTooltipData(data)) {
-        hideTooltip(root);
+        hideTooltip(root, single);
         return;
       }
 
       const { offsetX, offsetY } = event;
-      showTooltip(root, data, offsetX, offsetY, render, event);
+      showTooltip(root, data, offsetX, offsetY, render, event, single);
     },
     wait,
     { leading, trailing },
@@ -464,7 +470,7 @@ export function tooltip(
   const pointerout = (event) => {
     const { target: element } = event;
     if (!elementSet.has(element)) return;
-    hideTooltip(root);
+    hideTooltip(root, single);
   };
 
   root.addEventListener('pointerover', pointerover);
