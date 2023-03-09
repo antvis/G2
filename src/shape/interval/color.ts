@@ -150,6 +150,7 @@ export const Color: SC<ColorOptions> = (options) => {
     return (
       select(rect(points, value, coordinate, extendedStyle))
         .call(applyStyle, defaults)
+        .style('fill', 'transparent')
         .style(colorAttribute, color)
         .style(toOpacityKey(options), opacity)
         .style('lineWidth', lineWidth)

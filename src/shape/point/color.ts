@@ -59,6 +59,7 @@ export const Color: SC<ColorOptions> = (options) => {
     const finalRadius = r || style.r || defaults.r;
     return select(new Path())
       .call(applyStyle, defaults)
+      .style('fill', 'transparent')
       .style('d', path(cx, cy, finalRadius))
       .style('lineWidth', finalLineWidth)
       .style('transform', transform)
