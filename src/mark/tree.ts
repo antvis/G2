@@ -6,7 +6,7 @@ import {
   Tree as TreeTransform,
   TreeOptions as TreeTransformOptions,
 } from '../data/tree';
-import { subTooltip } from './utils';
+import { subTooltip } from '../utils/tooltip';
 
 export type TreeOptions = Omit<TreeMark, 'type'>;
 

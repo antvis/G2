@@ -86,10 +86,12 @@ function destroyTooltip(root) {
 function singleItem(element) {
   const { __data__: datum } = element;
   const { title, items = [] } = datum;
-  const newItems = items.map(({ color = itemColorOf(element), ...item }) => ({
-    ...item,
-    color,
-  }));
+  const newItems = items
+    .filter(defined)
+    .map(({ color = itemColorOf(element), ...item }) => ({
+      ...item,
+      color,
+    }));
   return {
     ...(title && { title }),
     items: newItems,
@@ -146,16 +148,18 @@ function groupItems(
   const newItems = data.flatMap((datum, i) => {
     const element = elements[i];
     const { items = [], title } = datum;
-    return items.map(({ color = itemColorOf(element), name, ...item }) => {
-      const name1 = groupName
-        ? groupNameOf(scale, datum) || name
-        : name || groupNameOf(scale, datum);
-      return {
-        ...item,
-        color,
-        name: name1 || title,
-      };
-    });
+    return items
+      .filter(defined)
+      .map(({ color = itemColorOf(element), name, ...item }) => {
+        const name1 = groupName
+          ? groupNameOf(scale, datum) || name
+          : name || groupNameOf(scale, datum);
+        return {
+          ...item,
+          color,
+          name: name1 || title,
+        };
+      });
   });
   return {
     ...(T.length > 0 && { title: T.join(',') }),

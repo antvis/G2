@@ -1,6 +1,7 @@
 import { Linear } from '@antv/scale';
 import { upperFirst } from '@antv/util';
 import { geoPath, geoGraticule10 } from 'd3-geo';
+import { maybeTooltip } from '../utils/tooltip';
 import { CompositionComponent as CC } from '../runtime';
 import { GeoViewComposition } from '../spec';
 
@@ -203,10 +204,14 @@ export const GeoView: CC<GeoViewOptions> = () => {
     }
 
     function GeoPath(options) {
-      const { style } = options;
+      const { style, tooltip = {} } = options;
       return {
         ...options,
         type: 'path',
+        tooltip: maybeTooltip(tooltip, {
+          title: 'id',
+          items: [{ channel: 'color' }],
+        }),
         style: {
           ...style,
           d: (d) => path(d),

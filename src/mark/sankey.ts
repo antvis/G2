@@ -3,7 +3,8 @@ import { CompositionComponent as CC } from '../runtime';
 import { SankeyMark } from '../spec';
 import { Sankey as SankeyTransform } from '../data/sankey';
 import { subObject } from '../utils/helper';
-import { field, initializeData, subTooltip } from './utils';
+import { subTooltip } from '../utils/tooltip';
+import { field, initializeData } from './utils';
 
 export type SankeyOptions = Omit<SankeyMark, 'type'>;
 
