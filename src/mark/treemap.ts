@@ -12,7 +12,8 @@ import { subObject } from '../utils/helper';
 import { CompositionComponent as CC } from '../runtime';
 import { TreemapMark } from '../spec';
 import { getBBoxSize } from '../utils/size';
-import { generateHierarchyRoot, field, maybeTooltip } from './utils';
+import { maybeTooltip } from '../utils/tooltip';
+import { generateHierarchyRoot, field } from './utils';
 
 export type TreemapOptions = Omit<TreemapMark, 'type'>;
 

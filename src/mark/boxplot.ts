@@ -2,7 +2,7 @@ import { min as d3Min, max as d3Max, quantile, group } from 'd3-array';
 import { CompositionComponent as CC } from '../runtime';
 import { BoxPlotMark } from '../spec';
 import { subObject } from '../utils/helper';
-import { subTooltip } from './utils';
+import { subTooltip } from '../utils/tooltip';
 
 export type BoxPlotOptions = Omit<BoxPlotMark, 'type'>;
 

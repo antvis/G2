@@ -8,6 +8,7 @@ import {
   isStrictObject,
   isUnset,
 } from '../utils/helper';
+import { isFullTooltip } from '../utils/tooltip';
 import { useLibrary } from './library';
 import { createColumnOf } from './mark';
 import { Data, DataComponent } from './types/data';
@@ -120,11 +121,6 @@ export function normalizeTooltip(
   context: TransformContext,
 ): [number[], G2Mark] {
   const { tooltip = {} } = mark;
-  const isFullTooltip = (tooltip) => {
-    if (Object.keys(tooltip).length === 0) return true;
-    const { title, items } = tooltip;
-    return title !== undefined || items !== undefined;
-  };
   if (isUnset(tooltip)) return [I, mark];
   if (Array.isArray(tooltip)) {
     return [I, { ...mark, tooltip: { items: tooltip } }];
@@ -163,21 +159,24 @@ export function extractTooltip(
           : valueFormatter;
 
       // Field name.
-      const channelField = channel && encode[channel].field;
+      const definedChannel = channel && encode[channel];
+      const channelField = definedChannel && encode[channel].field;
       const name1 = name || channelField || channel;
 
       const values = [];
       for (const i of I) {
         const value1 = field
           ? data[i][field]
-          : channel
+          : definedChannel
           ? encode[channel].value[i]
           : null;
-        values[i] = {
-          name: name1,
-          value: normalizedValueFormatter(value1),
-          color,
-        };
+        if (value1) {
+          values[i] = {
+            name: name1,
+            color,
+            value: normalizedValueFormatter(value1),
+          };
+        }
       }
       return values;
     }
