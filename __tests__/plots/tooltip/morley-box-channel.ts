@@ -1,5 +1,5 @@
 import { G2Spec } from '../../../src';
-import { tooltipSteps } from './utils';
+import { tooltipStepsByClassName } from './utils';
 
 export function morleyBoxChannel(): G2Spec {
   return {
@@ -20,16 +20,25 @@ export function morleyBoxChannel(): G2Spec {
           boxFill: '#aaa',
           pointStroke: '#000',
         },
-        tooltip: [
-          { name: 'min', channel: 'y' },
-          { name: 'q1', channel: 'y1' },
-          { name: 'q2', channel: 'y2' },
-          { name: 'q3', channel: 'y3' },
-          { name: 'max', color: 'red', channel: 'y4' },
-        ],
+        tooltip: {
+          boxTitle: { channel: 'y4' },
+          boxItems: [
+            { name: 'min', channel: 'y' },
+            { name: 'q1', channel: 'y1' },
+            { name: 'q2', channel: 'y2' },
+            { name: 'q3', channel: 'y3' },
+            { name: 'max', color: 'red', channel: 'y4' },
+          ],
+          pointTitle: { channel: 'y' },
+          pointItems: [{ channel: 'x' }],
+        },
       },
     ],
   };
 }
 
-morleyBoxChannel.steps = tooltipSteps(0);
+morleyBoxChannel.steps = ({ canvas }) => {
+  const box = tooltipStepsByClassName('box', 0);
+  const point = tooltipStepsByClassName('point', 0);
+  return [...box({ canvas }), ...point({ canvas })];
+};

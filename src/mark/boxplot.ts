@@ -2,6 +2,7 @@ import { min as d3Min, max as d3Max, quantile, group } from 'd3-array';
 import { CompositionComponent as CC } from '../runtime';
 import { BoxPlotMark } from '../spec';
 import { subObject } from '../utils/helper';
+import { subTooltip } from './utils';
 
 export type BoxPlotOptions = Omit<BoxPlotMark, 'type'>;
 
@@ -56,11 +57,38 @@ function OutlierY() {
 
 export const Boxplot: CC<BoxPlotOptions> = (options) => {
   return () => {
-    const { data, encode, style = {}, transform, ...rest } = options;
+    const {
+      data,
+      encode,
+      style = {},
+      tooltip = {},
+      transform,
+      ...rest
+    } = options;
     const { extend = false, ...restStyle } = style;
     const { y } = encode;
     const encodeY = { y, y1: y, y2: y, y3: y, y4: y };
     const qy = { y1: q1, y2: q2, y3: q3 };
+
+    // Tooltips.
+    const boxTooltip = subTooltip(
+      tooltip,
+      'box',
+      {
+        items: [
+          { channel: 'y', name: 'min' },
+          { channel: 'y1', name: 'q1' },
+          { channel: 'y2', name: 'q2' },
+          { channel: 'y3', name: 'q3' },
+          { channel: 'y4', name: 'max' },
+        ],
+      },
+      true,
+    );
+    const pointTooltip = subTooltip(tooltip, 'point', {
+      title: { channel: 'x' },
+      items: [{ name: 'outlier', channel: 'y' }],
+    });
 
     // Only show min and max instead of lower and upper.
     // Only draw a box.
@@ -79,6 +107,7 @@ export const Boxplot: CC<BoxPlotOptions> = (options) => {
           ],
           encode: { ...encode, ...encodeY },
           style: restStyle,
+          tooltip: boxTooltip,
           ...rest,
         },
       ];
@@ -100,6 +129,7 @@ export const Boxplot: CC<BoxPlotOptions> = (options) => {
         ],
         encode: { ...encode, ...encodeY },
         style: boxStyle,
+        tooltip: boxTooltip,
         ...rest,
       },
       // Draw outliers.
@@ -108,9 +138,8 @@ export const Boxplot: CC<BoxPlotOptions> = (options) => {
         data: data,
         transform: [{ type: OutlierY }],
         encode,
-        style: {
-          ...pointStyle,
-        },
+        style: { ...pointStyle },
+        tooltip: pointTooltip,
       },
     ];
   };

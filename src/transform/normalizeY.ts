@@ -1,5 +1,6 @@
 import { deepMix } from '@antv/util';
 import { mean, deviation, median, sum, max, min } from 'd3-array';
+import { isUnset } from '../utils/helper';
 import { TransformComponent as TC } from '../runtime';
 import { NormalizeYTransform } from '../spec';
 import { column, columnOf } from './utils/helper';
@@ -58,9 +59,7 @@ export const NormalizeY: TC<NormalizeYOptions> = (options = {}) => {
     }
 
     const specifiedTooltip =
-      tooltip === null ||
-      tooltip === false ||
-      (tooltip?.items && tooltip?.items.length !== 0);
+      isUnset(tooltip) || (tooltip?.items && tooltip?.items.length !== 0);
     return [
       I,
       deepMix({}, mark, {

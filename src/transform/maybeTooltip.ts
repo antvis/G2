@@ -1,4 +1,5 @@
 import { deepMix } from '@antv/util';
+import { isUnset } from '../utils/helper';
 import { TransformComponent as TC } from '../runtime';
 
 export type MaybeTooltipOptions = {
@@ -12,7 +13,7 @@ export const MaybeTooltip: TC<MaybeTooltipOptions> = (options) => {
   const { channel } = options;
   return (I, mark) => {
     const { encode, tooltip } = mark;
-    if (tooltip === null || tooltip === false) return [I, mark];
+    if (isUnset(tooltip)) return [I, mark];
     const { items = [] } = tooltip;
     if (!items || items.length > 0) return [I, mark];
     const channels = Array.isArray(channel) ? channel : [channel];

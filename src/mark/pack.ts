@@ -4,6 +4,7 @@ import { CompositionComponent as CC } from '../runtime';
 import { subObject } from '../utils/helper';
 import { PackMark } from '../spec';
 import { getBBoxSize } from '../utils/size';
+import { field, maybeTooltip } from './utils';
 
 export type PackOptions = Omit<PackMark, 'type'>;
 
@@ -20,7 +21,7 @@ const dataTransform = (data, layout: PackLayout, encode) => {
   const root = isArray(data)
     ? stratify().path(layout.path)(data)
     : hierarchy(data);
-  value ? root.sum((d) => d[value]).sort(layout.sort) : root.count();
+  value ? root.sum((d) => field(value)(d)).sort(layout.sort) : root.count();
   // @ts-ignore
   packLayout().size(layout.size).padding(layout.padding)(root);
   return root.descendants();
@@ -36,6 +37,7 @@ export const Pack: CC<PackOptions> = (markOptions) => {
       style = {},
       layout = {},
       labels = [],
+      tooltip = {},
       ...resOptions
     } = markOptions;
     const DEFAULT_LAYOUT_OPTIONS: PackLayout = {
@@ -75,6 +77,11 @@ export const Pack: CC<PackOptions> = (markOptions) => {
       maxLines: 1,
       wordWrapWidth: (d) => d.r * 2,
     };
+    const DEFAULT_TOOLTIP_OPTIONS = {
+      title: (d) => d.data.name,
+      items: [{ field: 'value' }],
+    };
+
     const transformedData = dataTransform(
       data,
       deepMix({}, DEFAULT_LAYOUT_OPTIONS, layout),
@@ -95,6 +102,7 @@ export const Pack: CC<PackOptions> = (markOptions) => {
           ...labels,
         ],
         ...resOptions,
+        tooltip: maybeTooltip(tooltip, DEFAULT_TOOLTIP_OPTIONS),
         axis: false,
       }),
     ];

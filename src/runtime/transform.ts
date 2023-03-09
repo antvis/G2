@@ -2,7 +2,12 @@ import { Primitive } from 'd3-array';
 import { deepMix } from '@antv/util';
 import { format } from 'd3-format';
 import { indexOf, mapObject } from '../utils/array';
-import { composeAsync, defined, isStrictObject } from '../utils/helper';
+import {
+  composeAsync,
+  defined,
+  isStrictObject,
+  isUnset,
+} from '../utils/helper';
 import { useLibrary } from './library';
 import { createColumnOf } from './mark';
 import { Data, DataComponent } from './types/data';
@@ -120,7 +125,7 @@ export function normalizeTooltip(
     const { title, items } = tooltip;
     return title !== undefined || items !== undefined;
   };
-  if (tooltip === null || tooltip === false) return [I, mark];
+  if (isUnset(tooltip)) return [I, mark];
   if (Array.isArray(tooltip)) {
     return [I, { ...mark, tooltip: { items: tooltip } }];
   }
@@ -136,7 +141,7 @@ export function extractTooltip(
   context: TransformContext,
 ): [number[], G2Mark] {
   const { data, encode, tooltip = {} } = mark;
-  if (tooltip === null || tooltip === false) return [I, mark];
+  if (isUnset(tooltip)) return [I, mark];
   const valueOf = (item) => {
     if (!item) return item;
     if (typeof item === 'string') {
@@ -161,25 +166,29 @@ export function extractTooltip(
       const channelField = channel && encode[channel].field;
       const name1 = name || channelField || channel;
 
-      return I.map((i) => {
+      const values = [];
+      for (const i of I) {
         const value1 = field
           ? data[i][field]
           : channel
           ? encode[channel].value[i]
           : null;
-        return {
+        values[i] = {
           name: name1,
           value: normalizedValueFormatter(value1),
           color,
         };
-      });
+      }
+      return values;
     }
     if (typeof item === 'function') {
-      return I.map((i) => {
+      const values = [];
+      for (const i of I) {
         const v = item(data[i], i, data, encode);
-        if (isStrictObject(v)) return v;
-        return { value: v };
-      });
+        if (isStrictObject(v)) values[i] = v;
+        else values[i] = { value: v };
+      }
+      return values;
     }
     return item;
   };
