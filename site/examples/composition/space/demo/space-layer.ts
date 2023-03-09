@@ -28,8 +28,10 @@ layer
 
 layer
   .view()
-  .attr('paddingLeft', 400)
-  .attr('paddingBottom', 200)
+  .attr('x', 300)
+  .attr('y', 50)
+  .attr('width', 300)
+  .attr('height', 300)
   .coordinate({ type: 'theta' })
   .interval()
   .transform({ type: 'stackY' })

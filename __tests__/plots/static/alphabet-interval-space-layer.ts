@@ -29,8 +29,10 @@ export function alphabetIntervalSpaceLayer(): G2Spec {
       },
       {
         type: 'interval',
-        paddingLeft: 400,
-        paddingBottom: 200,
+        x: 300,
+        y: 50,
+        width: 300,
+        height: 300,
         coordinate: { type: 'theta' },
         transform: [{ type: 'stackY' }],
         encode: {

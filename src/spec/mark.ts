@@ -118,6 +118,10 @@ export type BaseMark<T extends MarkTypes, C extends string = ChannelTypes> = {
   type?: T | string;
   class?: string;
   key?: string;
+  x?: number;
+  y?: number;
+  width?: number;
+  height?: number;
   paddingLeft?: number;
   paddingRight?: number;
   paddingBottom?: number;
