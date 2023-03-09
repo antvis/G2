@@ -3,7 +3,7 @@ import { sort, group, mean, bisector } from 'd3-array';
 import { lowerFirst, throttle } from '@antv/util';
 import { Tooltip as TooltipComponent } from '@antv/gui';
 import { Constant, Identity } from '@antv/scale';
-import { defined, subObject, isStrictObject } from '../utils/helper';
+import { defined, subObject } from '../utils/helper';
 import {
   selectG2Elements,
   createXKey,
@@ -128,7 +128,7 @@ function itemColorOf(element) {
   const fill = element.getAttribute('fill');
   const stroke = element.getAttribute('stroke');
   const { __data__: datum } = element;
-  const { color = fill || stroke } = datum;
+  const { color = fill && fill !== 'transparent' ? fill : stroke } = datum;
   return color;
 }
 
