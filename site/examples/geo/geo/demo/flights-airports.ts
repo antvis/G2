@@ -53,13 +53,15 @@ Promise.all([
           type: 'join',
           join: airports,
           on: ['origin', 'iata'],
-          select: ['origin_latitude', 'origin_longitude'],
+          select: ['latitude', 'longitude'],
+          as: ['origin_latitude', 'origin_longitude'],
         },
         {
           type: 'join',
           join: airports,
-          on: ['destination', 'iaiatata'],
-          select: ['dest_latitude', 'dest_longitude'],
+          on: ['destination', 'iata'],
+          select: ['latitude', 'longitude'],
+          as: ['dest_latitude', 'dest_longitude'],
         },
       ],
     })

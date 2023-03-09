@@ -10,7 +10,8 @@ import { deepMix } from '@antv/util';
 import { subObject } from '../utils/helper';
 import { CompositionComponent as CC } from '../runtime';
 import { ForceGraphMark } from '../spec';
-import { field, initializeData, subTooltip } from './utils';
+import { subTooltip } from '../utils/tooltip';
+import { field, initializeData } from './utils';
 
 export type ForceGraphOptions = Omit<ForceGraphMark, 'type'>;
 
