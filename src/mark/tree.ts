@@ -6,6 +6,7 @@ import {
   Tree as TreeTransform,
   TreeOptions as TreeTransformOptions,
 } from '../data/tree';
+import { subTooltip } from './utils';
 
 export type TreeOptions = Omit<TreeMark, 'type'>;
 
@@ -46,6 +47,7 @@ export const Tree: CC<TreeOptions> = (options) => {
       nodeLabels = [],
       linkLabels = [],
       animate = {},
+      tooltip = {},
     } = options;
     const valueEncode = encode?.value;
     const { nodes, edges } = TreeTransform({
@@ -54,6 +56,24 @@ export const Tree: CC<TreeOptions> = (options) => {
       field: valueEncode,
     })(data);
 
+    const nodeTooltip = subTooltip(
+      tooltip,
+      'node',
+      {
+        title: 'name',
+        items: ['value'],
+      },
+      true,
+    );
+
+    const linkTooltip = subTooltip(tooltip, 'link', {
+      title: '',
+      items: [
+        (d) => ({ name: 'source', value: d.source.name }),
+        (d) => ({ name: 'target', value: d.target.name }),
+      ],
+    });
+
     return [
       deepMix({}, DEFAULT_LINK_OPTIONS, {
         data: edges,
@@ -61,6 +81,7 @@ export const Tree: CC<TreeOptions> = (options) => {
         scale: subObject(scale, 'link'),
         labels: linkLabels,
         style: { stroke: '#999', ...subObject(style, 'link') },
+        tooltip: linkTooltip,
         animate:
           typeof animate === 'object' ? subObject(animate, 'link') : animate,
       }),
@@ -76,6 +97,7 @@ export const Tree: CC<TreeOptions> = (options) => {
           ...nodeLabels,
         ],
         style: { ...subObject(style, 'node') },
+        tooltip: nodeTooltip,
         animate:
           typeof animate === 'object' ? subObject(animate, 'node') : animate,
       }),

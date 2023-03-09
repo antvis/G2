@@ -12,7 +12,7 @@ import { subObject } from '../utils/helper';
 import { CompositionComponent as CC } from '../runtime';
 import { TreemapMark } from '../spec';
 import { getBBoxSize } from '../utils/size';
-import { generateHierarchyRoot } from './utils';
+import { generateHierarchyRoot, field, maybeTooltip } from './utils';
 
 export type TreemapOptions = Omit<TreemapMark, 'type'>;
 
@@ -73,7 +73,9 @@ function dataTransform(data, layout: Layout, encode): TreemapData {
   // Calculate the value and sort.
   value
     ? root
-        .sum((d) => (layout.ignoreParentValue && d.children ? 0 : d[value]))
+        .sum((d) =>
+          layout.ignoreParentValue && d.children ? 0 : field(value)(d),
+        )
         .sort(layout.sort)
     : root.count();
 
@@ -114,9 +116,11 @@ export const Treemap: CC<TreemapOptions> = (options) => {
       style = {},
       layout = {},
       labels = [],
+      tooltip = {},
       ...resOptions
     } = options;
 
+    // Defaults
     const DEFAULT_LAYOUT_OPTIONS: Layout = {
       tile: 'treemapSquarify',
       ratio: 0.5 * (1 + Math.sqrt(5)),
@@ -159,11 +163,19 @@ export const Treemap: CC<TreemapOptions> = (options) => {
       maxLines: 1,
       wordWrapWidth: (d) => d.x1 - d.x0,
     };
+    const DEFAULT_TOOLTIP_OPTIONS = {
+      title: (d) => d.data.name,
+      items: [{ field: 'value' }],
+    };
+
+    // Data
     const transformedData = dataTransform(
       data,
       deepMix({}, DEFAULT_LAYOUT_OPTIONS, layout),
       encode,
     );
+
+    // Label
     const labelStyle = subObject(style, 'label');
     return [
       deepMix({}, DEFAULT_OPTIONS, {
@@ -179,6 +191,7 @@ export const Treemap: CC<TreemapOptions> = (options) => {
           ...labels,
         ],
         ...resOptions,
+        tooltip: maybeTooltip(tooltip, DEFAULT_TOOLTIP_OPTIONS),
         axis: false,
       }),
     ];

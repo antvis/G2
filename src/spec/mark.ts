@@ -14,6 +14,8 @@ import {
   SliderComponent,
   TitleComponent,
   TooltipComponent,
+  TooltipItem,
+  TooltipTitle,
 } from './component';
 import { Closeable, Literal2Object } from './utils';
 

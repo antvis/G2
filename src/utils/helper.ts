@@ -119,3 +119,7 @@ export function isStrictObject(d: any): boolean {
     !Array.isArray(d)
   );
 }
+
+export function isUnset(value) {
+  return value === null || value === false;
+}

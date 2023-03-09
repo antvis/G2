@@ -21,29 +21,31 @@ export function morleyBox(): G2Spec {
           boxFill: '#aaa',
           pointStroke: '#000',
         },
-        tooltip: [
-          (d, i, D, V) => ({
-            name: 'min',
-            value: format(V.y.value[i as number]),
-          }),
-          (d, i, D, V) => ({
-            name: 'q1',
-            value: format(V.y1.value[i as number]),
-          }),
-          (d, i, D, V) => ({
-            name: 'q2',
-            value: format(V.y2.value[i as number]),
-          }),
-          (d, i, D, V) => ({
-            name: 'q3',
-            value: format(V.y3.value[i as number]),
-          }),
-          (d, i, D, V) => ({
-            name: 'max',
-            color: 'red',
-            value: format(V.y4.value[i as number]),
-          }),
-        ],
+        tooltip: {
+          boxItems: [
+            (d, i, D, V) => ({
+              name: 'min',
+              value: format(V.y.value[i as number]),
+            }),
+            (d, i, D, V) => ({
+              name: 'q1',
+              value: format(V.y1.value[i as number]),
+            }),
+            (d, i, D, V) => ({
+              name: 'q2',
+              value: format(V.y2.value[i as number]),
+            }),
+            (d, i, D, V) => ({
+              name: 'q3',
+              value: format(V.y3.value[i as number]),
+            }),
+            (d, i, D, V) => ({
+              name: 'max',
+              color: 'red',
+              value: format(V.y4.value[i as number]),
+            }),
+          ],
+        },
       },
     ],
   };
