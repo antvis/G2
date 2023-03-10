@@ -62,6 +62,7 @@ chart
   .encode('x', 'date')
   .encode('y', 'avg')
   .style('stroke', 'steelblue')
-  .style('strokeWidth', 1.5);
+  .style('strokeWidth', 1.5)
+  .tooltip({ channel: 'y', valueFormatter: '.1f' });
 
 chart.render();

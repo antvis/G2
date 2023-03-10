@@ -4,7 +4,8 @@ import { lowerFirst, throttle } from '@antv/util';
 import { Tooltip as TooltipComponent } from '@antv/gui';
 import { Constant, Identity } from '@antv/scale';
 import { defined, subObject } from '../utils/helper';
-import { isTranspose } from '../utils/coordinate';
+import { isTranspose, isPolar } from '../utils/coordinate';
+import { angleWithQuadrant, angle, angleBetween, sub } from '../utils/vector';
 import {
   selectG2Elements,
   createXKey,
@@ -174,15 +175,34 @@ function groupItems(
 function updateRuleY(
   root,
   points,
-  { height, width, startX, startY, transposed, ...rest },
+  { height, width, startX, startY, transposed, polar, ...rest },
 ) {
-  const X = points.map((p) => p[0]);
+  const defaults = {
+    lineWidth: 1,
+    stroke: '#1b1e23',
+    strokeOpacity: 0.5,
+    ...rest,
+  };
   const Y = points.map((p) => p[1]);
-  const x = mean(X);
+  const X = points.map((p) => p[0]);
   const y = mean(Y);
-  const [x1, x2, y1, y2] = transposed
-    ? [startX, startX + width, y + startY, y + startY]
-    : [x + startX, x + startX, startY, startY + height];
+  const x = mean(X);
+  const pointsOf = () => {
+    if (polar) {
+      const cx = startX + width / 2;
+      const cy = startY + height / 2;
+      const r = Math.min(width, height) / 2;
+      const a = angle(sub([x, y], [cx, cy]));
+      const x0 = cx + r * Math.cos(a);
+      const y0 = cy + r * Math.sin(a);
+      return [cx, x0, cy, y0];
+    }
+    if (transposed) {
+      return [startX, startX + width, y + startY, y + startY];
+    }
+    return [x + startX, x + startX, startY, startY + height];
+  };
+  const [x1, x2, y1, y2] = pointsOf();
   const createLine = () => {
     const line = new Line({
       style: {
@@ -190,10 +210,7 @@ function updateRuleY(
         x2,
         y1,
         y2,
-        lineWidth: 1,
-        stroke: '#1b1e23',
-        strokeOpacity: 0.5,
-        ...rest,
+        ...defaults,
       },
     });
     root.appendChild(line);
@@ -257,6 +274,7 @@ export function seriesTooltip(
 ) {
   const elements = elementsof(root);
   const transposed = isTranspose(coordinate);
+  const polar = isPolar(coordinate);
   const [width, height] = coordinate.getSize();
 
   // Split elements into series elements and item elements.
@@ -405,6 +423,7 @@ export function seriesTooltip(
           startX,
           startY,
           transposed,
+          polar,
         });
       }
     },

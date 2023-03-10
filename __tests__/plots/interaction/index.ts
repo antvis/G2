@@ -53,3 +53,4 @@ export { moviesIntervalHighlightMultipleState } from './movies-interval-highligh
 export { pointsPointRegressionQuad } from './points-point-regression-quad';
 export { indicesLineChartFacet } from './indices-line-chart-facet';
 export { pointsPointRegressionQuadTranspose } from './points-point-regression-quad-transpose';
+export { scoreByItemAreaRadar } from './score-by-item-area-radar';
