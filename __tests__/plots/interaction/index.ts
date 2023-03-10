@@ -54,3 +54,4 @@ export { pointsPointRegressionQuad } from './points-point-regression-quad';
 export { indicesLineChartFacet } from './indices-line-chart-facet';
 export { pointsPointRegressionQuadTranspose } from './points-point-regression-quad-transpose';
 export { scoreByItemAreaRadar } from './score-by-item-area-radar';
+export { pointsPointRegressionQuadInset } from './points-point-regression-quad-inset';
