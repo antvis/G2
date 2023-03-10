@@ -26,6 +26,7 @@ import {
   TreeMark,
   WordCloudMark,
   HOMMarkMark,
+  GaugeMark,
 } from '../../spec';
 import { NodePropertyDescriptor, defineProps } from '../props';
 import { Concrete } from '../types';
@@ -133,6 +134,10 @@ export interface Tree extends API<Concrete<TreeMark>, Tree> {
 
 export interface WordCloud extends API<Concrete<WordCloudMark>, WordCloud> {
   type: 'wordCloud';
+}
+
+export interface Gauge extends API<Concrete<GaugeMark>, Gauge> {
+  type: 'gauge';
 }
 
 export interface HOMMark extends API<Concrete<HOMMarkMark>, HOMMark> {
@@ -305,7 +310,7 @@ export class Sankey extends MarkNode<SankeyMark> {
 }
 
 @defineProps([...props, { name: 'layout', type: 'value' }])
-export class Treemap extends MarkNode<ConnectorMark> {
+export class Treemap extends MarkNode<TreemapMark> {
   constructor() {
     super({}, 'treemap');
   }
@@ -319,29 +324,36 @@ export class Boxplot extends MarkNode<BoxPlotMark> {
 }
 
 @defineProps([...props, { name: 'layout', type: 'value' }])
-export class Pack extends MarkNode<Pack> {
+export class Pack extends MarkNode<PackMark> {
   constructor() {
     super({}, 'pack');
   }
 }
 
 @defineProps([...props, { name: 'layout', type: 'value' }])
-export class ForceGraph extends MarkNode<ForceGraph> {
+export class ForceGraph extends MarkNode<ForceGraphMark> {
   constructor() {
     super({}, 'forceGraph');
   }
 }
 
 @defineProps([...props, { name: 'layout', type: 'value' }])
-export class Tree extends MarkNode<Tree> {
+export class Tree extends MarkNode<TreeMark> {
   constructor() {
     super({}, 'tree');
   }
 }
 
 @defineProps([...props, { name: 'layout', type: 'object' }])
-export class WordCloud extends MarkNode<WordCloud> {
+export class WordCloud extends MarkNode<WordCloudMark> {
   constructor() {
     super({}, 'wordCloud');
+  }
+}
+
+@defineProps(props)
+export class Gauge extends MarkNode<GaugeMark> {
+  constructor() {
+    super({}, 'gauge');
   }
 }

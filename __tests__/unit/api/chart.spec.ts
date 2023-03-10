@@ -36,6 +36,7 @@ import {
   ForceGraph,
   Tree,
   WordCloud,
+  Gauge,
 } from '../../../src/api/mark/mark';
 
 describe('Chart', () => {
@@ -140,6 +141,7 @@ describe('Chart', () => {
     expect(chart.forceGraph()).toBeInstanceOf(ForceGraph);
     expect(chart.tree()).toBeInstanceOf(Tree);
     expect(chart.wordCloud()).toBeInstanceOf(WordCloud);
+    expect(chart.gauge()).toBeInstanceOf(Gauge);
     expect(chart.options().children).toEqual([
       { type: 'interval' },
       { type: 'rect' },
@@ -167,6 +169,7 @@ describe('Chart', () => {
       { type: 'forceGraph' },
       { type: 'tree' },
       { type: 'wordCloud' },
+      { type: 'gauge' },
     ]);
   });
 
