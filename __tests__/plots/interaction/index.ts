@@ -52,3 +52,4 @@ export { alphabetIntervalBubbleInteraction } from './alphabet-interval-bubble-in
 export { moviesIntervalHighlightMultipleState } from './movies-interval-highlight-multiple-state';
 export { pointsPointRegressionQuad } from './points-point-regression-quad';
 export { indicesLineChartFacet } from './indices-line-chart-facet';
+export { pointsPointRegressionQuadTranspose } from './points-point-regression-quad-transpose';

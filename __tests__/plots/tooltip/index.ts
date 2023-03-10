@@ -51,3 +51,4 @@ export { miserableForceCustom } from './miserable-force-custom';
 export { unemploymentChoropleth } from './unemployment-choropleth';
 export { londonTubeLineGeo } from './london-tube-lines-geo';
 export { windVectorWind } from './wind-vector-wind';
+export { forecastRangeAreaLineTranspose } from './forecast-range-area-line-transpose';
