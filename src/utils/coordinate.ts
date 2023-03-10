@@ -78,10 +78,22 @@ export function radiusOf(coordinate: Coordinate): [number, number] {
   return [+innerRadius, +outerRadius];
 }
 
-export function angleOf(coordinate: Coordinate): [number, number] {
+export function angleOf(
+  coordinate: Coordinate,
+  isRadius = true,
+): [number, number] {
   const { transformations } = coordinate.getOptions();
   const [, startAngle, endAngle] = transformations.find(
     (d) => d[0] === 'polar',
   );
-  return [(+startAngle * 180) / Math.PI, (+endAngle * 180) / Math.PI];
+
+  return isRadius
+    ? [(+startAngle * 180) / Math.PI, (+endAngle * 180) / Math.PI]
+    : ([startAngle, endAngle] as [number, number]);
+}
+
+export function getTransformOptions(coordinate: Coordinate, type: string) {
+  const { transformations } = coordinate.getOptions();
+  const [, ...args] = transformations.find((d) => d[0] === type);
+  return args;
 }

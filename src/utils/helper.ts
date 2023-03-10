@@ -1,5 +1,5 @@
 import { DisplayObject } from '@antv/g';
-import { lowerFirst, upperFirst } from '@antv/util';
+import { lowerFirst, startsWith, upperFirst } from '@antv/util';
 
 export function identity<T>(x: T): T {
   return x;
@@ -101,6 +101,17 @@ export function prefixObject(
     Object.entries(obj).map(([key, value]) => {
       return [`${prefix}${upperFirst(key)}`, value];
     }),
+  );
+}
+
+export function filterPrefixObject(
+  obj: Record<string, any>,
+  prefix: string[],
+): Record<string, any> {
+  return Object.fromEntries(
+    Object.entries(obj).filter(([key]) =>
+      prefix.find((p) => key.startsWith(p)),
+    ),
   );
 }
 

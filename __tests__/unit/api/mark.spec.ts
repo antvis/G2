@@ -25,8 +25,12 @@ import {
   ForceGraph,
   Tree,
   WordCloud,
+  Gauge,
 } from '../../../src/api/mark/mark';
 
+/**
+ * @todo Fix the type error.
+ */
 type Mark =
   | Area
   | Interval
@@ -42,10 +46,7 @@ type Mark =
   | LineX
   | LineY
   | Range
-  | RangeX
-  | RangeY
-  | Boxplot
-  | Shape;
+  | any;
 
 function setOptions(node: Mark) {
   return node
@@ -364,5 +365,11 @@ describe('mark.[node]()', () => {
     const node = new WordCloud();
     expect(node.type).toBe('wordCloud');
     expect(setCompositeOptions(node).value).toEqual(getCompositeOptions());
+  });
+
+  it('Gauge() should specify options by API', () => {
+    const node = new Gauge();
+    expect(node.type).toBe('gauge');
+    expect(setOptions(node).value).toEqual(getOptions());
   });
 });

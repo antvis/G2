@@ -3,7 +3,7 @@ import { Coordinate, Vector2 } from '@antv/coord';
 import { isFisheye } from '../../utils/coordinate';
 import { ShapeComponent as SC } from '../../runtime';
 import { select } from '../../utils/selection';
-import { applyStyle, getShapeTheme, toOpacityKey } from '../utils';
+import { applyStyle, getOrigin, getShapeTheme, toOpacityKey } from '../utils';
 import * as Symbols from './symbol';
 
 export type ColorOptions = {
@@ -29,12 +29,6 @@ function getRadius(
     return Math.max(0, (a + b) / 2);
   }
   return size;
-}
-
-function getOrigin(points: Vector2[]) {
-  if (points.length === 1) return points[0];
-  const [[x0, y0], [x2, y2]] = points;
-  return [(x0 + x2) / 2, (y0 + y2) / 2];
 }
 
 /**

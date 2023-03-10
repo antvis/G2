@@ -25,6 +25,7 @@ export { Shape } from './shape';
 export { ForceGraph } from './forceGraph';
 export { Tree } from './tree';
 export { WordCloud } from './wordCloud';
+export { Gauge } from './gauge';
 
 export type { IntervalOptions } from './interval';
 export type { RectOptions } from './rect';
@@ -51,3 +52,4 @@ export type { ShapeOptions } from './shape';
 export type { ForceGraphOptions } from './forceGraph';
 export type { TreeOptions } from './tree';
 export type { WordCloudOptions } from './wordCloud';
+export type { GaugeOptions } from './gauge';

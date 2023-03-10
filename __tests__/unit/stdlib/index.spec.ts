@@ -39,6 +39,7 @@ import {
   ForceGraph,
   Tree as TreeGeometry,
   WordCloud as WordCloudGeometry,
+  Gauge,
 } from '../../../src/mark';
 import { Category10, Category20 } from '../../../src/palette';
 import {
@@ -363,6 +364,7 @@ describe('stdlib', () => {
       'mark.forceGraph': ForceGraph,
       'mark.tree': TreeGeometry,
       'mark.wordCloud': WordCloudGeometry,
+      'mark.gauge': Gauge,
       'palette.category10': Category10,
       'palette.category20': Category20,
       'scale.linear': Linear,
