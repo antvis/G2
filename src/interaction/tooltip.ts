@@ -4,6 +4,8 @@ import { lowerFirst, throttle } from '@antv/util';
 import { Tooltip as TooltipComponent } from '@antv/gui';
 import { Constant, Identity } from '@antv/scale';
 import { defined, subObject } from '../utils/helper';
+import { isTranspose, isPolar } from '../utils/coordinate';
+import { angleWithQuadrant, angle, angleBetween, sub } from '../utils/vector';
 import {
   selectG2Elements,
   createXKey,
@@ -170,13 +172,37 @@ function groupItems(
   };
 }
 
-function updateRuleY(root, points, { height, startX, startY, ...rest }) {
+function updateRuleY(
+  root,
+  points,
+  { height, width, startX, startY, transposed, polar, ...rest },
+) {
+  const defaults = {
+    lineWidth: 1,
+    stroke: '#1b1e23',
+    strokeOpacity: 0.5,
+    ...rest,
+  };
+  const Y = points.map((p) => p[1]);
   const X = points.map((p) => p[0]);
+  const y = mean(Y);
   const x = mean(X);
-  const x1 = x + startX;
-  const x2 = x + startX;
-  const y1 = startY;
-  const y2 = startY + height;
+  const pointsOf = () => {
+    if (polar) {
+      const cx = startX + width / 2;
+      const cy = startY + height / 2;
+      const r = Math.min(width, height) / 2;
+      const a = angle(sub([x, y], [cx, cy]));
+      const x0 = cx + r * Math.cos(a);
+      const y0 = cy + r * Math.sin(a);
+      return [cx, x0, cy, y0];
+    }
+    if (transposed) {
+      return [startX, startX + width, y + startY, y + startY];
+    }
+    return [x + startX, x + startX, startY, startY + height];
+  };
+  const [x1, x2, y1, y2] = pointsOf();
   const createLine = () => {
     const line = new Line({
       style: {
@@ -184,10 +210,7 @@ function updateRuleY(root, points, { height, startX, startY, ...rest }) {
         x2,
         y1,
         y2,
-        lineWidth: 1,
-        stroke: '#1b1e23',
-        strokeOpacity: 0.5,
-        ...rest,
+        ...defaults,
       },
     });
     root.appendChild(line);
@@ -234,23 +257,25 @@ export function seriesTooltip(
     elements: elementsof,
     sort: sortFunction,
     filter: filterFunction,
-    groupName = true,
-    wait = 50,
-    leading = true,
-    trailing = false,
     scale,
     coordinate,
     crosshairs,
     render,
+    style,
+    groupName = true,
+    wait = 50,
+    leading = true,
+    trailing = false,
     startX = 0,
     startY = 0,
     body = true,
     single = true,
-    style,
   }: Record<string, any>,
 ) {
   const elements = elementsof(root);
-  const [, height] = coordinate.getSize();
+  const transposed = isTranspose(coordinate);
+  const polar = isPolar(coordinate);
+  const [width, height] = coordinate.getSize();
 
   // Split elements into series elements and item elements.
   const seriesElements = [];
@@ -262,10 +287,12 @@ export function seriesTooltip(
     else itemElements.push(element);
   }
 
-  // Sorted elements from top to bottom visually.
+  // Sorted elements from top to bottom visually,
+  // or from right to left in transpose coordinate.
   seriesElements.sort((a, b) => {
-    const minY = (d) => d.getBounds().min[1];
-    return minY(a) - minY(b);
+    const index = transposed ? 0 : 1;
+    const minY = (d) => d.getBounds().min[index];
+    return transposed ? minY(b) - minY(a) : minY(a) - minY(b);
   });
 
   // Get sortedIndex and X for each series elements
@@ -297,10 +324,11 @@ export function seriesTooltip(
   };
 
   const elementsByFocus = (focus, elements) => {
-    const x = focus[0];
+    const index = transposed ? 1 : 0;
+    const x = focus[index];
     const extent = (d) => {
       const { min, max } = d.getLocalBounds();
-      return sort([min[0], max[0]]);
+      return sort([min[index], max[index]]);
     };
     return elements.filter((element) => {
       const [min, max] = extent(element);
@@ -388,7 +416,15 @@ export function seriesTooltip(
 
       if (crosshairs) {
         const points = selectedSeriesData.map((d) => d[1]);
-        updateRuleY(root, points, { ...ruleStyle, height, startX, startY });
+        updateRuleY(root, points, {
+          ...ruleStyle,
+          width,
+          height,
+          startX,
+          startY,
+          transposed,
+          polar,
+        });
       }
     },
     wait,
