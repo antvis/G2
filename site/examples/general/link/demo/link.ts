@@ -23,6 +23,7 @@ chart
     labelFormatter: '~s',
     style: { labelTransform: 'rotate(90deg)' },
   })
-  .legend(false);
+  .legend(false)
+  .tooltip({ title: { channel: 'color', valueFormatter: '.1f' } });
 
 chart.render();

@@ -62,4 +62,6 @@ chart
   .axis('position6', axis)
   .axis('position7', axis);
 
+chart.interaction('tooltip', { series: false });
+
 chart.render();

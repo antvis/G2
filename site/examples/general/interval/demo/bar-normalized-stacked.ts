@@ -26,6 +26,7 @@ chart
   .encode('x', 'state')
   .encode('y', 'population')
   .encode('color', 'age')
-  .axis('y', { labelFormatter: '.0%' });
+  .axis('y', { labelFormatter: '.0%' })
+  .tooltip({ channel: 'y0', valueFormatter: '.0%' });
 
 chart.render();

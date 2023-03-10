@@ -26,7 +26,11 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/OJOgPypkeE/poisson-disk.json')
       .scale('size', { range: [6, 20] })
       .axis('x', { grid: false })
       .axis('y', { grid: false })
-      .legend(false);
+      .legend(false)
+      .tooltip([
+        { channel: 'x', valueFormatter: '.2f' },
+        { channel: 'y', valueFormatter: '.2f' },
+      ]);
 
     chart.render();
   });

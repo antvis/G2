@@ -18,7 +18,8 @@ chart
   .transform({ type: 'groupX', y: 'mean' })
   .encode('x', (d) => new Date(d.date).getUTCMonth())
   .encode('y', 'precipitation')
-  .scale('y', { tickCount: 5, domainMax: 6 });
+  .scale('y', { tickCount: 5, domainMax: 6 })
+  .tooltip({ channel: 'y', valueFormatter: '.2f' });
 
 chart
   .lineY()

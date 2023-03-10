@@ -29,6 +29,7 @@ chart
     transform: [{ type: 'overlapDodgeY' }],
   })
   .legend({ color: { length: 400 } })
-  .animate('enter', { type: 'waveIn' });
+  .animate('enter', { type: 'waveIn' })
+  .tooltip({ channel: 'y', valueFormatter: '~s' });
 
 chart.render();

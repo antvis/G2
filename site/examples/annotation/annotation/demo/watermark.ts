@@ -28,7 +28,9 @@ chart
   .encode('color', (d) =>
     d.month === 'Total' ? 'Total' : d.profit > 0 ? 'Increase' : 'Decrease',
   )
-  .axis('y', { labelFormatter: '~s' });
+  .axis('y', { labelFormatter: '~s' })
+  .tooltip({ channel: 'y', valueFormatter: '~s' })
+  .tooltip({ channel: 'y1', valueFormatter: '~s' });
 
 chart.shape().style('x', '80%').style('y', '70%').style('render', watermark);
 

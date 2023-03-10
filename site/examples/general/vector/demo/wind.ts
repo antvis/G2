@@ -20,6 +20,7 @@ chart
   .scale('color', { type: 'sequential', palette: 'viridis' })
   .axis('x', { grid: false })
   .axis('y', { grid: false })
-  .legend(false);
+  .legend(false)
+  .tooltip({ title: { channel: 'color', valueFormatter: '.1f' } });
 
 chart.render();
