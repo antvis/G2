@@ -61,7 +61,7 @@ WebFont.load({
           fontFamily: 'Gaegu',
           fill: 'black',
           stroke: 'white',
-          dy: '0.75em',
+          dy: 8,
         },
       });
 

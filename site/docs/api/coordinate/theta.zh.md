@@ -45,7 +45,7 @@ chart
     radius: 0.8,
     style: {
       fontSize: 9,
-      dy: '0.75em',
+      dy: 8,
     },
   });
 

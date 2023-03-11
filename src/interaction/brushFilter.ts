@@ -104,8 +104,8 @@ export function BrushFilter({ hideX = true, hideY = true, ...rest }) {
             {
               // Hide label to keep smooth transition.
               axis: {
-                ...(hideX && { x: { labelTransform: [{ type: 'hide' }] } }),
-                ...(hideY && { y: { labelTransform: [{ type: 'hide' }] } }),
+                ...(hideX && { x: { labelOverlap: [{ type: 'hide' }] } }),
+                ...(hideY && { y: { labelOverlap: [{ type: 'hide' }] } }),
               },
             },
             mark,

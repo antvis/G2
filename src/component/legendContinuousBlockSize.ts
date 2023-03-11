@@ -7,11 +7,7 @@ export const LegendContinuousBlockSize: GCC<
   LegendContinuousBlockSizeOptions
 > = (options) => {
   return LegendContinuous(
-    Object.assign(
-      {},
-      { type: 'size', block: true, labelShowTick: false },
-      options,
-    ),
+    Object.assign({}, { type: 'size', block: true, showTick: false }, options),
   );
 };
 

@@ -2,7 +2,7 @@ import { Scrollbar as ScrollbarComponent } from '@antv/gui';
 import { GuideComponentComponent as GCC } from '../runtime';
 
 export type ScrollbarOptions = {
-  orient: 'horizontal' | 'vertical';
+  orientation: 'horizontal' | 'vertical';
   [key: string]: any;
 };
 
@@ -10,7 +10,7 @@ export type ScrollbarOptions = {
  * Scrollbar component.
  */
 export const Scrollbar: GCC<ScrollbarOptions> = (options) => {
-  const { orient, labelFormatter, style, ...rest } = options;
+  const { orientation, labelFormatter, style, ...rest } = options;
 
   return (scales, value, coordinate, theme) => {
     const { bbox } = value;
@@ -23,13 +23,13 @@ export const Scrollbar: GCC<ScrollbarOptions> = (options) => {
         ...style,
         x,
         y,
-        trackLength: orient === 'horizontal' ? width : height,
+        trackLength: orientation === 'horizontal' ? width : height,
         ...rest,
-        orient,
+        orientation,
         value: 0,
         // @todo Get actual length of content.
         contentLength: 1500,
-        viewportLength: orient === 'horizontal' ? width : height,
+        viewportLength: orientation === 'horizontal' ? width : height,
       }),
     });
   };

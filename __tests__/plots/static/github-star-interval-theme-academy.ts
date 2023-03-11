@@ -12,7 +12,6 @@ export function githubStarIntervalThemeAcademy(): G2Spec {
       transform: [{ type: 'sortBy', fields: [['star', true]] }],
     },
     legend: { color: false },
-    axis: { x: { zIndex: 1 } },
     encode: {
       x: 'name',
       y: 'star',

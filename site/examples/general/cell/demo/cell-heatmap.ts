@@ -47,7 +47,6 @@ chart
     position: 'bottom',
     style: {
       textBaseline: 'top',
-      dy: '0.1em',
       fontSize: 10,
     },
   })
@@ -58,7 +57,7 @@ chart
       textBaseline: 'top',
       fontSize: 10,
       fontWeight: 'bold',
-      dy: '0.7em',
+      dy: 10,
     },
   })
   .tooltip(false);

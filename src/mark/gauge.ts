@@ -51,7 +51,7 @@ function dataTransform(data, scale) {
 
 function getTextContent(textStyle, { target, total }) {
   const { content } = textStyle;
-  return content ? content(target, total) : target;
+  return content ? content(target, total) : target.toString();
 }
 
 const indicatorShape: SC<ColorOptions> = (options) => {

@@ -7,7 +7,7 @@ export type ScrollbarYOptions = ScrollbarOptions;
  * ScrollbarY component.
  */
 export const ScrollbarY: GCC<ScrollbarYOptions> = (options) => {
-  return Scrollbar({ ...options, orient: 'vertical' });
+  return Scrollbar({ ...options, orientation: 'vertical' });
 };
 
 ScrollbarY.props = {

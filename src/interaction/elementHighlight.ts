@@ -3,15 +3,15 @@ import { deepMix } from '@antv/util';
 import { group } from 'd3-array';
 import { subObject } from '../utils/helper';
 import {
-  createValueof,
   createDatumof,
-  selectG2Elements,
-  useState,
-  renderLink,
-  renderBackground,
-  selectPlotArea,
+  createValueof,
   mergeState,
   offsetTransform,
+  renderBackground,
+  renderLink,
+  selectG2Elements,
+  selectPlotArea,
+  useState,
 } from './utils';
 
 /**

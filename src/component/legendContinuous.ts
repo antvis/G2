@@ -31,13 +31,13 @@ function inferContinuousConfig(
   const colorScale = scaleOf(scales, 'color');
   const { domain, range } = colorScale.getOptions();
   const [min, max] = [domain[0], domain.slice(-1)[0]];
-  const { orient, width, height, length } = inferComponentShape(
+  const { orientation, width, height, length } = inferComponentShape(
     value,
     options,
     component,
   );
 
-  const shape = { orient, width, height };
+  const shape = { orientation, width, height };
 
   if (colorScale instanceof Threshold) {
     const thresholds = (colorScale as any).thresholds as number[];

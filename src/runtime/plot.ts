@@ -726,7 +726,7 @@ async function plotView(
         enter
           // Make this layer interactive, such as click and mousemove events.
           .append('rect')
-          // todo zIndex
+          .style('zIndex', 0)
           .style('fill', 'transparent')
           .attr('className', PLOT_CLASS_NAME)
           .call(updateBBox)
@@ -1122,7 +1122,10 @@ function selectFacetElements(
 ): DisplayObject[] {
   const group = selection.node().parentElement;
   return group
-    .findAll((node) => node.style.facet === facetClassName)
+    .findAll(
+      (node) =>
+        node.style.facet !== undefined && node.style.facet === facetClassName,
+    )
     .flatMap((node) => node.getElementsByClassName(elementClassName));
 }
 
@@ -1186,6 +1189,7 @@ function createMarkShapeFunction(
     );
 
     const shapeFunction = useShape({
+      // zIndex: 0,
       ...visualStyle,
       type: shapeName(mark, shape),
     });
@@ -1400,7 +1404,10 @@ function updateLayers(selection: Selection, marks: G2Mark[]) {
 
   const labelLayer = selection.select(className(LABEL_LAYER_CLASS_NAME)).node();
   if (labelLayer) return;
-  selection.append('g').attr('className', LABEL_LAYER_CLASS_NAME);
+  selection
+    .append('g')
+    .attr('className', LABEL_LAYER_CLASS_NAME)
+    .style('zIndex', 0);
 }
 
 function className(...names: string[]): string {

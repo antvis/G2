@@ -210,7 +210,7 @@ function multipleToOne(
   split: SplitFunction,
 ) {
   const D = split(to, from.length);
-  const { fillOpacity, strokeOpacity, opacity } = to.style;
+  const { fillOpacity = 1, strokeOpacity = 1, opacity = 1 } = to.style;
   const keyframes = [
     { fillOpacity: 0, strokeOpacity: 0, opacity: 0 },
     { fillOpacity: 0, strokeOpacity: 0, opacity: 0, offset: 0.99 },

@@ -32,7 +32,7 @@ export function area(
   return {
     x: point[0],
     y: point[1],
-    transform: `rotate(${rotate}deg)`,
+    transform: `rotate(${rotate})`,
     textAlign: 'center',
     textBaseline: 'middle',
   };

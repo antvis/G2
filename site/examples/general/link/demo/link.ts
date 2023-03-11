@@ -22,7 +22,7 @@ chart
   .style('arrowSize', 6)
   .axis('x', {
     labelFormatter: '~s',
-    style: { labelTransform: 'rotate(90deg)' },
+    style: { labelTransform: 'rotate(90)' },
   })
   .legend(false)
   .tooltip({ title: { channel: 'color', valueFormatter: '.1f' } });
