@@ -3,6 +3,7 @@ import { Layout } from '@antv/gui';
 import { deepMix } from '@antv/util';
 import {
   FlexLayout,
+  GuideComponentComponent,
   GuideComponentOrientation,
   GuideComponentPosition,
   Scale,
@@ -104,6 +105,7 @@ export function isVertical(orientation: GuideComponentOrientation) {
 export function inferComponentShape(
   value: Record<string, any>,
   options: Record<string, any>,
+  component: GuideComponentComponent,
 ) {
   const { bbox } = value;
   const {
@@ -112,8 +114,12 @@ export function inferComponentShape(
     length: userDefinedLength,
   } = options;
   const isHorizontal = ['top', 'bottom', 'center'].includes(position);
-  const size = userDefinedSize || (isHorizontal ? bbox.height : bbox.width);
-  const length = userDefinedLength || (isHorizontal ? bbox.width : bbox.height);
+  const [bboxSize, bboxLength] = isHorizontal
+    ? [bbox.height, bbox.width]
+    : [bbox.width, bbox.height];
+  const { defaultSize, defaultLength } = component.props;
+  const size = userDefinedSize || defaultSize || bboxSize;
+  const length = userDefinedLength || defaultLength || bboxLength;
   const orient = isHorizontal ? 'horizontal' : 'vertical';
   const [width, height] = isHorizontal ? [length, size] : [size, length];
   return { orient, width, height, size, length };
