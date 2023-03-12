@@ -2,7 +2,7 @@ import { min as d3Min, max as d3Max, quantile, group } from 'd3-array';
 import { CompositionComponent as CC } from '../runtime';
 import { BoxPlotMark } from '../spec';
 import { subObject } from '../utils/helper';
-import { subTooltip } from '../utils/tooltip';
+import { maybeAnimation, subTooltip } from '../utils/mark';
 
 export type BoxPlotOptions = Omit<BoxPlotMark, 'type'>;
 
@@ -63,6 +63,7 @@ export const Boxplot: CC<BoxPlotOptions> = (options) => {
       style = {},
       tooltip = {},
       transform,
+      animate,
       ...rest
     } = options;
     const { extend = false, ...restStyle } = style;
@@ -130,6 +131,7 @@ export const Boxplot: CC<BoxPlotOptions> = (options) => {
         encode: { ...encode, ...encodeY },
         style: boxStyle,
         tooltip: boxTooltip,
+        animate: maybeAnimation(animate, 'box'),
         ...rest,
       },
       // Draw outliers.
@@ -140,6 +142,7 @@ export const Boxplot: CC<BoxPlotOptions> = (options) => {
         encode,
         style: { ...pointStyle },
         tooltip: pointTooltip,
+        animate: maybeAnimation(animate, 'point'),
       },
     ];
   };

@@ -14,8 +14,6 @@ import {
   SliderComponent,
   TitleComponent,
   TooltipComponent,
-  TooltipItem,
-  TooltipTitle,
 } from './component';
 import { Closeable, Literal2Object } from './utils';
 
@@ -210,7 +208,7 @@ export type RangeYMark = BaseMark<'rangeY', ChannelTypes>;
 
 export type ConnectorMark = BaseMark<'connector', ChannelTypes>;
 
-export type CellMark = BaseMark<'cell'>;
+export type CellMark = BaseMark<'cell', ChannelTypes>;
 
 export type AreaMark = BaseMark<'area', ChannelTypes>;
 

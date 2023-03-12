@@ -6,7 +6,7 @@ import {
   Tree as TreeTransform,
   TreeOptions as TreeTransformOptions,
 } from '../data/tree';
-import { subTooltip } from '../utils/tooltip';
+import { maybeAnimation, subTooltip } from '../utils/mark';
 
 export type TreeOptions = Omit<TreeMark, 'type'>;
 
@@ -82,8 +82,7 @@ export const Tree: CC<TreeOptions> = (options) => {
         labels: linkLabels,
         style: { stroke: '#999', ...subObject(style, 'link') },
         tooltip: linkTooltip,
-        animate:
-          typeof animate === 'object' ? subObject(animate, 'link') : animate,
+        animate: maybeAnimation(animate, 'link'),
       }),
       deepMix({}, DEFAULT_NODE_OPTIONS, {
         data: nodes,
@@ -98,8 +97,7 @@ export const Tree: CC<TreeOptions> = (options) => {
         ],
         style: { ...subObject(style, 'node') },
         tooltip: nodeTooltip,
-        animate:
-          typeof animate === 'object' ? subObject(animate, 'node') : animate,
+        animate: maybeAnimation(animate, 'node'),
       }),
     ];
   };

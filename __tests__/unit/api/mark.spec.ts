@@ -28,9 +28,6 @@ import {
   Gauge,
 } from '../../../src/api/mark/mark';
 
-/**
- * @todo Fix the type error.
- */
 type Mark =
   | Area
   | Interval
@@ -46,7 +43,9 @@ type Mark =
   | LineX
   | LineY
   | Range
-  | any;
+  | RangeX
+  | RangeY
+  | Shape;
 
 function setOptions(node: Mark) {
   return node
@@ -88,11 +87,16 @@ function setOptions(node: Mark) {
     .state('inactive', { fill: 'blue' });
 }
 
+// @todo Fix type errors.
+function setCompositeOptions(node) {
+  return node.call(setOptions);
+}
+
 function setOptions2(node: Mark) {
   return node.tooltip(false);
 }
 
-function setCompositeOptions(node) {
+function setLayoutOptions(node) {
   return node.call(setOptions).layout({
     a: 10,
     b: 8,
@@ -147,7 +151,7 @@ function getOptions2() {
   };
 }
 
-function getCompositeOptions() {
+function getLayoutOptions() {
   return {
     ...getOptions(),
     layout: {
@@ -328,48 +332,48 @@ describe('mark.[node]()', () => {
   it('Boxplot() should specify options by API', () => {
     const node = new Boxplot();
     expect(node.type).toBe('boxplot');
-    expect(setOptions(node).value).toEqual(getOptions());
+    expect(setCompositeOptions(node).value).toEqual(getOptions());
   });
 
   it('Sankey() should specify options by API', () => {
     const node = new Sankey();
     expect(node.type).toBe('sankey');
-    expect(setCompositeOptions(node).value).toEqual(getCompositeOptions());
+    expect(setLayoutOptions(node).value).toEqual(getLayoutOptions());
   });
 
   it('Treemap() should specify options by API', () => {
     const node = new Treemap();
     expect(node.type).toBe('treemap');
-    expect(setCompositeOptions(node).value).toEqual(getCompositeOptions());
+    expect(setLayoutOptions(node).value).toEqual(getLayoutOptions());
   });
 
   it('Pack() should specify options by API', () => {
     const node = new Pack();
     expect(node.type).toBe('pack');
-    expect(setCompositeOptions(node).value).toEqual(getCompositeOptions());
+    expect(setLayoutOptions(node).value).toEqual(getLayoutOptions());
   });
 
   it('ForceGraph() should specify options by API', () => {
     const node = new ForceGraph();
     expect(node.type).toBe('forceGraph');
-    expect(setCompositeOptions(node).value).toEqual(getCompositeOptions());
+    expect(setLayoutOptions(node).value).toEqual(getLayoutOptions());
   });
 
   it('Tree() should specify options by API', () => {
     const node = new Tree();
     expect(node.type).toBe('tree');
-    expect(setCompositeOptions(node).value).toEqual(getCompositeOptions());
+    expect(setLayoutOptions(node).value).toEqual(getLayoutOptions());
   });
 
   it('WordCloud() should specify options by API', () => {
     const node = new WordCloud();
     expect(node.type).toBe('wordCloud');
-    expect(setCompositeOptions(node).value).toEqual(getCompositeOptions());
+    expect(setLayoutOptions(node).value).toEqual(getLayoutOptions());
   });
 
   it('Gauge() should specify options by API', () => {
     const node = new Gauge();
     expect(node.type).toBe('gauge');
-    expect(setOptions(node).value).toEqual(getOptions());
+    expect(setCompositeOptions(node).value).toEqual(getOptions());
   });
 });
