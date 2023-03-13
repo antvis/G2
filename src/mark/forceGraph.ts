@@ -10,7 +10,7 @@ import { deepMix } from '@antv/util';
 import { subObject } from '../utils/helper';
 import { CompositionComponent as CC } from '../runtime';
 import { ForceGraphMark } from '../spec';
-import { subTooltip } from '../utils/tooltip';
+import { maybeAnimation, subTooltip } from '../utils/mark';
 import { field, initializeData } from './utils';
 
 export type ForceGraphOptions = Omit<ForceGraphMark, 'type'>;
@@ -130,8 +130,7 @@ export const ForceGraph: CC<ForceGraphOptions> = (options) => {
         labels: linkLabels,
         style: subObject(style, 'link'),
         tooltip: linkTooltip,
-        animate:
-          typeof animate === 'object' ? subObject(animate, 'link') : animate,
+        animate: maybeAnimation(animate, 'link'),
       }),
       deepMix({}, DEFAULT_NODE_OPTIONS, {
         data: nodesData,
@@ -143,8 +142,7 @@ export const ForceGraph: CC<ForceGraphOptions> = (options) => {
           { ...DEFAULT_LABEL_OPTIONS, ...subObject(style, 'label') },
           ...nodeLabels,
         ],
-        animate:
-          typeof animate === 'object' ? subObject(animate, 'node') : animate,
+        animate: maybeAnimation(animate, 'link'),
       }),
     ];
   };

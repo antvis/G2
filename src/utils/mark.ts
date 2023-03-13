@@ -20,3 +20,7 @@ export function isFullTooltip(tooltip) {
   const { title, items } = tooltip;
   return title !== undefined || items !== undefined;
 }
+
+export function maybeAnimation(animate, sub) {
+  return typeof animate === 'object' ? subObject(animate, sub) : animate;
+}
