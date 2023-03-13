@@ -26,11 +26,17 @@ function inferContinuousConfig(
   scales: Scale[],
   value: Record<string, any>,
   options: LegendContinuousOptions,
+  component: GCC,
 ) {
   const colorScale = scaleOf(scales, 'color');
   const { domain, range } = colorScale.getOptions();
   const [min, max] = [domain[0], domain.slice(-1)[0]];
-  const { orient, width, height, length } = inferComponentShape(value, options);
+  const { orient, width, height, length } = inferComponentShape(
+    value,
+    options,
+    component,
+  );
+
   const shape = { orient, width, height };
 
   if (colorScale instanceof Threshold) {
@@ -121,8 +127,6 @@ export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
           {},
           legendTheme,
           {
-            x,
-            y,
             titleText: titleContent(title),
             titleFontSize: 12,
             showHandle: false,
@@ -132,7 +136,7 @@ export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
               typeof labelFormatter === 'string'
                 ? (d) => format(labelFormatter)(d.label)
                 : labelFormatter,
-            ...inferContinuousConfig(scales, value, options),
+            ...inferContinuousConfig(scales, value, options, LegendContinuous),
           },
           rest,
         ),
@@ -148,5 +152,5 @@ LegendContinuous.props = {
   defaultOrientation: 'vertical',
   defaultOrder: 1,
   defaultSize: 60,
-  defaultLength: 200,
+  defaultLength: 300,
 };

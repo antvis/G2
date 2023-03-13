@@ -161,6 +161,7 @@ function inferCategoryStyle(
 function inferLegendShape(
   value: Record<string, any>,
   options: LegendCategoryOptions,
+  component: GCC,
 ) {
   const { position } = options;
   if (position === 'center') {
@@ -169,7 +170,7 @@ function inferLegendShape(
     const { width, height } = bbox;
     return { width, height };
   }
-  const { width, height } = inferComponentShape(value, options);
+  const { width, height } = inferComponentShape(value, options, component);
   return { width, height };
 }
 
@@ -196,7 +197,7 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
   return (scales, value, coordinate, theme) => {
     const { library, bbox } = value;
     const { x, y } = bbox;
-    const { width, height } = inferLegendShape(value, options);
+    const { width, height } = inferLegendShape(value, options, LegendCategory);
 
     const finalLayout = inferComponentLayout(
       position,
@@ -228,8 +229,8 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
       style: {
         x: x + dx,
         y: y + dy,
-        width,
-        height,
+        width: bbox.width,
+        height: bbox.height,
         ...finalLayout,
       },
     });
