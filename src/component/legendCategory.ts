@@ -68,16 +68,24 @@ function createShape(
     'shape',
     library,
   );
-  return () =>
-    useShape({ type: `point.${shape}` })(
-      [
-        [0, 0],
-        [0, 0],
-      ],
-      { size: 6, ...style },
-      coordinate,
-      theme,
-    );
+  const shapeOptions = [
+    [
+      [0, 0],
+      [0, 0],
+    ],
+    { size: 6, ...style },
+    coordinate,
+    theme,
+  ];
+  return () => {
+    try {
+      // @ts-ignore
+      return useShape({ type: `point.${shape}` })(...shapeOptions);
+    } catch (e) {
+      // @ts-ignore
+      return useShape({ type: 'point.point' })(...shapeOptions);
+    }
+  };
 }
 
 function inferItemMarker(
