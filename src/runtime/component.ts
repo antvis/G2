@@ -154,19 +154,36 @@ function inferLegendComponentType(
   scales: G2ScaleOptions[],
   coordinates: G2CoordinateOptions[],
 ) {
-  const acceptScales = scales.filter((scale) =>
-    typeof scale.type === 'string'
-      ? ['shape', 'size', 'color', 'opacity'].includes(scale.name)
-      : true,
-  );
+  const acceptScales = scales
+    .filter((scale) =>
+      typeof scale.type === 'string'
+        ? ['shape', 'size', 'color', 'opacity'].includes(scale.name)
+        : true,
+    )
+    // not support constant size scale
+    .filter((scale) => !(scale.type === 'constant' && scale.name === 'size'));
+
+  // scale with undefined field
+  const undefinedScales = acceptScales.filter((scale) => !scale.field);
+  const definedScales = acceptScales.filter((scale) => !!scale.field);
 
   // exclude the scales that all type are constant
   const scalesByField = new Map(
-    Array.from(
-      group(acceptScales, (d) => d.field || '__internal_unset__'),
-    ).filter(([_, scales]) =>
-      scales.some((scale) => scale.type !== 'constant'),
-    ),
+    Array.from(group(definedScales, (d) => d.field))
+      .map(
+        ([field, scales]) =>
+          [
+            field,
+            [
+              ...scales,
+              ...undefinedScales.filter((scale) => scale.type === 'constant'),
+            ],
+          ] as const,
+      )
+      .concat([[undefined, undefinedScales]])
+      .filter(([field, scales]) =>
+        scales.some((scale) => scale.type !== 'constant'),
+      ),
   ) as Map<string, G2ScaleOptions[]>;
 
   if (scalesByField.size === 0) return [];
