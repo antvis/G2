@@ -27,6 +27,7 @@ WebFont.load({
         style: {
           titleFontSize: 15,
           titleFontFamily: 'Gaegu',
+          labelFontFamily: 'Gaegu',
           tickStroke: '#cdcdcd',
           gridStroke: '#efefef',
         },
@@ -35,10 +36,12 @@ WebFont.load({
         style: {
           titleFontSize: 15,
           titleFontFamily: 'Gaegu',
+          labelFontFamily: 'Gaegu',
           tickStroke: '#cdcdcd',
           gridStroke: '#efefef',
         },
-      });
+      })
+      .legend({ color: { itemLabelFontFamily: 'Gaegu' } });
 
     chart.render();
   },

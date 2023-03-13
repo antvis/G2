@@ -32,8 +32,22 @@ WebFont.load({
           fontFamily: 'Gaegu',
         },
       })
-      .axis('x', { style: { tickStroke: '#cdcdcd', gridStroke: '#efefef' } })
-      .axis('y', { style: { tickStroke: '#cdcdcd', gridStroke: '#efefef' } })
+      .axis('x', {
+        style: {
+          tickStroke: '#cdcdcd',
+          gridStroke: '#efefef',
+          labelFontFamily: 'Gaegu',
+        },
+      })
+      .axis('y', {
+        style: {
+          tickStroke: '#cdcdcd',
+          gridStroke: '#efefef',
+          titleFontFamily: 'Gaegu',
+          labelFontFamily: 'Gaegu',
+        },
+      })
+      .legend({ color: { itemLabelFontFamily: 'Gaegu' } })
       .style('roughness', 2);
 
     chart.render();
