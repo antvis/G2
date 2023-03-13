@@ -57,7 +57,7 @@ export type BaseScale<T extends ScaleTypes, O> = {
   rangeMax?: number;
   rangeMin?: number;
   domainMax?: number;
-  domainMix?: number;
+  domainMin?: number;
   field?: string | string[];
   independent?: boolean;
   zero?: boolean;
