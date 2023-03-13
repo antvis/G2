@@ -19,6 +19,7 @@ chart
   .encode('x', 'clarity')
   .encode('y', 'price')
   .encode('color', 'clarity')
-  .axis('y', { labelFormatter: '~s' });
+  .axis('y', { labelFormatter: '~s' })
+  .tooltip({ channel: 'y', valueFormatter: '~s' });
 
 chart.render();
