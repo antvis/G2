@@ -47,6 +47,10 @@ chart
   .scale('y', { domain: [-30, 20] })
   .scale('size', { range: [4, 30] })
   .style('stroke', '#bbb')
-  .style('fillOpacity', 0.8);
+  .style('fillOpacity', 0.8)
+  .tooltip([
+    { channel: 'x', valueFormatter: '.1f' },
+    { channel: 'y', valueFormatter: '.1f' },
+  ]);
 
 chart.render();

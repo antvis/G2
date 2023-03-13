@@ -34,7 +34,8 @@ chart
   .encode('x', 'year')
   .encode('y', 'name')
   .encode('color', 'value')
-  .style('inset', 0.5);
+  .style('inset', 0.5)
+  .tooltip({ title: { channel: 'color', valueFormatter: '.2f' } });
 
 chart
   .lineX()

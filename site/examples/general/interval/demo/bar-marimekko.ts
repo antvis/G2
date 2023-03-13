@@ -26,6 +26,7 @@ chart
   .encode('color', 'segment')
   .axis('y', false)
   .scale('x', { paddingOuter: 0, paddingInner: 0.01 })
+  .tooltip('value')
   .label({
     text: 'segment',
     style: {

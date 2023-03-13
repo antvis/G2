@@ -5,7 +5,7 @@ import { Tooltip as TooltipComponent } from '@antv/gui';
 import { Constant, Identity } from '@antv/scale';
 import { defined, subObject } from '../utils/helper';
 import { isTranspose, isPolar } from '../utils/coordinate';
-import { angleWithQuadrant, angle, angleBetween, sub } from '../utils/vector';
+import { angle, sub } from '../utils/vector';
 import {
   selectG2Elements,
   createXKey,
@@ -275,7 +275,7 @@ export function seriesTooltip(
   const elements = elementsof(root);
   const transposed = isTranspose(coordinate);
   const polar = isPolar(coordinate);
-  const [width, height] = coordinate.getSize();
+  const { innerWidth: width, innerHeight: height } = coordinate.getOptions();
 
   // Split elements into series elements and item elements.
   const seriesElements = [];

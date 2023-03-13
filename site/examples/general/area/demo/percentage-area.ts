@@ -15,6 +15,7 @@ chart
   .transform([{ type: 'stackY' }, { type: 'normalizeY' }])
   .encode('x', (d) => new Date(d.date))
   .encode('y', 'unemployed')
-  .encode('color', 'industry');
+  .encode('color', 'industry')
+  .tooltip({ channel: 'y0', valueFormatter: '.3f' });
 
 chart.render();

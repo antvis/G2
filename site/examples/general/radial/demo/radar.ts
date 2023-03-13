@@ -25,7 +25,7 @@ const data = [
 
 const chart = new Chart({
   container: 'container',
-  height: 400,
+  autoFit: true,
 });
 
 chart.coordinate({ type: 'polar' });
@@ -35,8 +35,7 @@ chart
   .scale('x', { padding: 0.5, align: 0 })
   .scale('y', { tickCount: 5 })
   .axis('x', { grid: true })
-  .axis('y', { zIndex: 1, title: false })
-  .legend({ color: { layout: { justifyContent: 'flex-start' } } });
+  .axis('y', { zIndex: 1, title: false });
 
 chart
   .area()
@@ -44,7 +43,8 @@ chart
   .encode('y', 'score')
   .encode('color', 'type')
   .encode('shape', 'smooth')
-  .style('fillOpacity', 0.5);
+  .style('fillOpacity', 0.5)
+  .scale('y', { domainMax: 80 });
 
 chart
   .line()
@@ -53,5 +53,7 @@ chart
   .encode('color', 'type')
   .encode('shape', 'smooth')
   .style('lineWidth', 2);
+
+chart.interaction('tooltip', { style: { crosshairsLineDash: [4, 4] } });
 
 chart.render();

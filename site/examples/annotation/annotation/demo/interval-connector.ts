@@ -72,7 +72,9 @@ chart
       fontSize: 10,
       dy: (d) => (d.value > 0 ? -4 : 4),
     },
-  });
+  })
+  .tooltip({ channel: 'y', valueFormatter: '~s' })
+  .tooltip({ channel: 'y1', valueFormatter: '~s' });
 
 chart.render();
 

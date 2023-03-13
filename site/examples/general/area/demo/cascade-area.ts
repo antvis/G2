@@ -19,7 +19,8 @@ chart
   .encode('series', 'format')
   .encode('color', 'group')
   .encode('shape', 'smooth')
-  .axis('y', { labelFormatter: '~s' });
+  .axis('y', { labelFormatter: '~s' })
+  .tooltip({ channel: 'y', valueFormatter: '.2f' });
 
 chart
   .line()

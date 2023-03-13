@@ -25,6 +25,7 @@ chart
     tickFilter: (d, i) => i !== 0,
     direction: 'right',
   })
-  .animate('enter', { type: 'waveIn' });
+  .animate('enter', { type: 'waveIn' })
+  .tooltip({ channel: 'y', valueFormatter: '~s' });
 
 chart.render();
