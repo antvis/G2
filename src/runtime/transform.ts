@@ -8,7 +8,7 @@ import {
   isStrictObject,
   isUnset,
 } from '../utils/helper';
-import { isFullTooltip } from '../utils/tooltip';
+import { isFullTooltip } from '../utils/mark';
 import { useLibrary } from './library';
 import { createColumnOf } from './mark';
 import { Data, DataComponent } from './types/data';

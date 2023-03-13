@@ -4,7 +4,7 @@ import { CompositionComponent as CC } from '../runtime';
 import { subObject } from '../utils/helper';
 import { PackMark } from '../spec';
 import { getBBoxSize } from '../utils/size';
-import { maybeTooltip } from '../utils/tooltip';
+import { maybeTooltip } from '../utils/mark';
 import { field } from './utils';
 
 export type PackOptions = Omit<PackMark, 'type'>;

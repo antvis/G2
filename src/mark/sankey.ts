@@ -3,7 +3,7 @@ import { CompositionComponent as CC } from '../runtime';
 import { SankeyMark } from '../spec';
 import { Sankey as SankeyTransform } from '../data/sankey';
 import { subObject } from '../utils/helper';
-import { subTooltip } from '../utils/tooltip';
+import { subTooltip, maybeAnimation } from '../utils/mark';
 import { field, initializeData } from './utils';
 
 export type SankeyOptions = Omit<SankeyMark, 'type'>;
@@ -128,8 +128,7 @@ export const Sankey: CC<SankeyOptions> = (options) => {
           ...nodeLabels,
         ],
         tooltip: nodeTooltip,
-        animate:
-          typeof animate === 'object' ? subObject(animate, 'node') : animate,
+        animate: maybeAnimation(animate, 'node'),
         axis: false,
       }),
       deepMix({}, DEFAULT_LINK_OPTIONS, {
@@ -141,8 +140,7 @@ export const Sankey: CC<SankeyOptions> = (options) => {
           ...subObject(style, 'link'),
         },
         tooltip: linkTooltip,
-        animate:
-          typeof animate === 'object' ? subObject(animate, 'link') : animate,
+        animate: maybeAnimation(animate, 'link'),
       }),
     ];
   };
