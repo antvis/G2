@@ -38,6 +38,7 @@ export async function haleChoroplethWorld(): Promise<G2Spec> {
         encode: {
           color: 'hale',
         },
+        legend: { color: { layout: { justifyContent: 'center' } } },
       },
       {
         type: 'geoPath',

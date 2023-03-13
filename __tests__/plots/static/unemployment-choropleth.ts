@@ -31,5 +31,6 @@ export async function unemploymentChoropleth(): Promise<G2Spec> {
     encode: {
       color: 'rate',
     },
+    legend: { color: { layout: { justifyContent: 'center' } } },
   };
 }

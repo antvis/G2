@@ -39,7 +39,8 @@ Promise.all([
       palette: 'ylGnBu',
       unknown: '#fff',
     })
-    .encode('color', 'rate');
+    .encode('color', 'rate')
+    .legend({ color: { layout: { justifyContent: 'center' } } });
 
   chart.render();
 });
