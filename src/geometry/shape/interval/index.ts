@@ -32,6 +32,7 @@ registerShape('interval', 'rect', {
           ...backgroundStyle,
           path: backgroundPath,
         },
+        capture: false,
         zIndex: -1,
         name: BACKGROUND_SHAPE,
       });
