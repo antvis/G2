@@ -1292,8 +1292,10 @@ function createExitFunction(
   return createAnimationFunction('exit', mark, state, view, library);
 }
 
-function inferTheme(theme: G2ThemeOptions = { type: 'light' }): G2ThemeOptions {
-  const { type = 'light' } = theme;
+function inferTheme(
+  theme: G2ThemeOptions = { type: 'classic' },
+): G2ThemeOptions {
+  const { type = 'classic' } = theme;
   return { ...theme, type };
 }
 

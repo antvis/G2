@@ -4,10 +4,7 @@ import { temperatures } from '../../data/temperatures';
 export function chartOnSeriesElement(context) {
   const { container, canvas } = context;
 
-  const chart = new Chart({
-    container,
-    canvas,
-  });
+  const chart = new Chart({ theme: 'classic', container, canvas });
 
   chart.data(temperatures);
 

@@ -166,7 +166,7 @@ describe('mark.get[Instance]()', () => {
   let interval;
 
   beforeAll(async () => {
-    const chart = new Chart({ key: '$$chart$$' });
+    const chart = new Chart({ theme: 'classic', key: '$$chart$$' });
 
     chart.data([
       { genre: 'Sports', sold: 275 },

@@ -3,6 +3,7 @@ import { Renderer } from '@antv/g-webgl';
 
 const chart = new Chart({
   container: 'container',
+  theme: 'classic',
   autoFit: true,
   renderer: new Renderer(),
 });

@@ -38,6 +38,7 @@ fetch('https://assets.antv.antgroup.com/g2/countries-50m.json')
 
     const chart = new Chart({
       container: 'container',
+      theme: 'classic',
       autoFit: true,
     });
 

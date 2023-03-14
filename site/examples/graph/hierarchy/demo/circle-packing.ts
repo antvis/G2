@@ -3,6 +3,7 @@ import { interpolateHcl } from 'd3-interpolate';
 
 const chart = new Chart({
   container: 'container',
+  theme: 'classic',
   width: 1000,
   height: 1000,
   padding: 20,
