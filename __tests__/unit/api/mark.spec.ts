@@ -26,6 +26,7 @@ import {
   Tree,
   WordCloud,
   Gauge,
+  Bullet,
 } from '../../../src/api/mark/mark';
 
 type Mark =
@@ -374,6 +375,12 @@ describe('mark.[node]()', () => {
   it('Gauge() should specify options by API', () => {
     const node = new Gauge();
     expect(node.type).toBe('gauge');
+    expect(setCompositeOptions(node).value).toEqual(getOptions());
+  });
+
+  it('Bullet() should specify options by API', () => {
+    const node = new Bullet();
+    expect(node.type).toBe('bullet');
     expect(setCompositeOptions(node).value).toEqual(getOptions());
   });
 });

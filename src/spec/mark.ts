@@ -46,6 +46,8 @@ export type Mark =
   | ForceGraphMark
   | TreeMark
   | WordCloudMark
+  | GaugeMark
+  | BulletMark
   | CustomMark;
 
 export type MarkTypes =
@@ -79,6 +81,7 @@ export type MarkTypes =
   | 'tree'
   | 'wordCloud'
   | 'gauge'
+  | 'bullet'
   | MarkComponent;
 
 export type ChannelTypes =
@@ -369,5 +372,7 @@ export type GaugeMark = BaseMark<
   | `pin${Capitalize<ChannelTypes>}`
   | ChannelTypes
 >;
+
+export type BulletMark = BaseMark<'bullet', 'target' | 'actual' | ChannelTypes>;
 
 export type CustomMark = BaseMark<MarkComponent, ChannelTypes>;

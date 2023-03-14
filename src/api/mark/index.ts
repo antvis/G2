@@ -28,6 +28,7 @@ import {
   WordCloud,
   HOMMark,
   Gauge,
+  Bullet,
 } from './mark';
 
 export interface Mark {
@@ -59,6 +60,7 @@ export interface Mark {
   tree(): Tree;
   wordCloud(): WordCloud;
   gauge(): Gauge;
+  bullet(): Bullet;
 }
 
 export { MarkNode } from './base';
@@ -92,4 +94,5 @@ export const mark = {
   tree: Tree,
   wordCloud: WordCloud,
   gauge: Gauge,
+  bullet: Bullet,
 };

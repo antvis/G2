@@ -437,7 +437,7 @@ async function initializeMarks(
     theme: partialTheme,
     marks: partialMarks,
     coordinates = [],
-  } = options;
+  } = await transformMarks(options, library);
   const theme = useTheme(inferTheme(partialTheme));
   const markState = new Map<G2Mark, G2MarkState>();
 

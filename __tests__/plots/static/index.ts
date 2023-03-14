@@ -192,4 +192,8 @@ export { soldIntervalCustomShape } from './sold-interval-custom-shape';
 export { gaugeDefault } from './gauge-default';
 export { gaugeCustomColor } from './gauge-custom-color';
 export { gaugeCustomShape } from './gauge-custom-shape';
+export { bulletDefault } from './bullet-default';
+export { bulletCustomColor } from './bullet-custom-color';
+export { bulletSpace } from './bullet-space';
+export { bulletGroup } from './bullet-group';
 export { scoreByItemAreaRadarSize } from './score-by-item-area-radar-size';
