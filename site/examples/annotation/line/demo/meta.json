@@ -1,0 +1,56 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "histogram-mean-line.ts",
+      "title": {
+        "zh": "平均值线标注的直方图",
+        "en": "Histogram, Annotation Mean Value with LineX"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*T2VvTr67-rgAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "interval-mean-line.ts",
+      "title": {
+        "zh": "平均值线标注的柱状图",
+        "en": "Interval, Annotation Mean Value with LineY"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xOtPSbS6mloAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "interval-threshold.ts",
+      "title": {
+        "zh": "突出超出阈值的柱状图",
+        "en": "Interval, Highlight Values beyond a Threshold"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*_aDnS7HNhysAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "point-line.ts",
+      "title": {
+        "zh": "线标记的散点图",
+        "en": "Scatter, Line Annotation"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*b1rZRaTe42sAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "point-point.ts",
+      "title": {
+        "zh": "点标记的散点图",
+        "en": "Scatter, Point Annotation"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*rWBUQ6_kf8kAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "quadrant-scatter.ts",
+      "title": {
+        "zh": "区域标记的四象限散点图",
+        "en": "Quadrant Scatter, Range Annotation"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*6JLeTLg7YQoAAAAAAAAAAAAADmJ7AQ"
+    }
+  ]
+}
