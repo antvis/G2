@@ -12,11 +12,15 @@ Radial 是一种特殊的极坐标系，常用于绘制玉钰图。
 ```js
 import { Chart } from '@antv/g2';
 
-const chart = new Chart();
+const chart = new Chart({
+  container: 'container',
+  theme: 'classic',
+  autoFit: true,
+  height: 500,
+});
 
 chart.coordinate({
   type: 'radial',
-  theme: 'classic',
   innerRadius: 0.1,
   endAngle: Math.PI,
 });
@@ -40,7 +44,13 @@ chart
   .scale('color', {
     range: '#BAE7FF-#1890FF-#0050B3',
   })
-  .legend({ color: { length: 400, position: 'bottom' } })
+  .legend({
+    color: {
+      length: 400,
+      position: 'bottom',
+      layout: { justifyContent: 'center' },
+    },
+  })
   .axis('y', {
     tickFilter: (d, i) => i !== 0,
   });

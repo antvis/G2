@@ -1,5 +1,5 @@
 ---
-title: vector - 向量
+title: vector
 order: 1
 ---
 
