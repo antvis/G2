@@ -29,7 +29,7 @@ chart
     formatter: '~s',
     transform: [{ type: 'overlapDodgeY' }],
   })
-  .legend({ color: { length: 400 } })
+  .legend({ color: { length: 400, layout: { justifyContent: 'center' } } })
   .animate('enter', { type: 'waveIn' })
   .tooltip({ channel: 'y', valueFormatter: '~s' });
 

@@ -5,46 +5,6 @@
   },
   "demos": [
     {
-      "filename": "pie.ts",
-      "title": {
-        "zh": "饼图",
-        "en": "Pie Chart"
-      },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*uQh-RryfSfUAAAAAAAAAAAAADmJ7AQ/original"
-    },
-    {
-      "filename": "donut.ts",
-      "title": {
-        "zh": "甜甜圈图",
-        "en": "Donut Chart"
-      },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*wu8VQIWJJ50AAAAAAAAAAAAADmJ7AQ/original"
-    },
-    {
-      "filename": "spider-label.ts",
-      "title": {
-        "zh": "饼图, 蜘蛛布局标签",
-        "en": "Pie Chart, Spider Label"
-      },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*gC20SLxWVicAAAAAAAAAAAAADmJ7AQ/original"
-    },
-    {
-      "filename": "rose.ts",
-      "title": {
-        "zh": "玫瑰图",
-        "en": "Rose Chart"
-      },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*_DeKSr3oN5sAAAAAAAAAAAAADmJ7AQ/original"
-    },
-    {
-      "filename": "rose-label.ts",
-      "title": {
-        "zh": "玫瑰图标签",
-        "en": "Rose Chart, Label"
-      },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Cx8zT7vT5bUAAAAAAAAAAAAADmJ7AQ/original"
-    },
-    {
       "filename": "bar-radial.ts",
       "title": {
         "zh": "玉珏图",
@@ -61,60 +21,12 @@
       "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*1EwTTZgCazgAAAAAAAAAAAAADmJ7AQ"
     },
     {
-      "filename": "bar-stacked-radial.ts",
-      "title": {
-        "zh": "堆叠玉钰图",
-        "en": "Radial Stacked Bar Chart"
-      },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Lv1oT5JCtrMAAAAAAAAAAAAADmJ7AQ/original"
-    },
-    {
-      "filename": "area-radial.ts",
-      "title": {
-        "zh": "径向面积图",
-        "en": "Radial Area Chart"
-      },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*-m-2QolJUt0AAAAAAAAAAAAADmJ7AQ"
-    },
-    {
-      "filename": "point-jitter-radial.ts",
-      "title": {
-        "zh": "径向扰动散点图",
-        "en": "Radial Jitter Scatter"
-      },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*eJQYQZQ_HZQAAAAAAAAAAAAADmJ7AQ"
-    },
-    {
-      "filename": "polar-box.ts",
-      "title": {
-        "zh": "径向箱线图",
-        "en": "Polar Boxplot"
-      },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*cCMOQ7YsuFkAAAAAAAAAAAAADmJ7AQ/original"
-    },
-    {
       "filename": "apple-activity.ts",
       "title": {
         "zh": "Apple 活动图",
         "en": "Apple Activity"
       },
       "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*o3j-SZCiTZwAAAAAAAAAAAAADmJ7AQ"
-    },
-    {
-      "filename": "radar.ts",
-      "title": {
-        "zh": "雷达图",
-        "en": "Radar"
-      },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*-xcxS7E8sKcAAAAAAAAAAAAADmJ7AQ/original"
-    },
-    {
-      "filename": "parallel-radar.ts",
-      "title": {
-        "zh": "雷达图",
-        "en": "Radar"
-      },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*4sqyTZUFCNkAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }

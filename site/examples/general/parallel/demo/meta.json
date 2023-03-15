@@ -1,0 +1,24 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "line-parallel-vertical.ts",
+      "title": {
+        "zh": "竖直平行坐标系",
+        "en": "Vertical Parallel"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*aX6WSJw7proAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "line-parallel-horizontal.ts",
+      "title": {
+        "zh": "水平平行坐标系",
+        "en": "Horizontal Parallel"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*SOZOT7Smha0AAAAAAAAAAAAADmJ7AQ"
+    }
+  ]
+}

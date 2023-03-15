@@ -1,0 +1,32 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "bubble-sort.ts",
+      "title": {
+        "zh": "冒泡排序",
+        "en": "Bubble Sort"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*b5Q8R6DHJZMAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "selection-sort.ts",
+      "title": {
+        "zh": "选择排序",
+        "en": "Selection Sort"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*vLkWQLJInTIAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "insertion-sort.ts",
+      "title": {
+        "zh": "插入排序",
+        "en": "Insertion Sort"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*EYwETpVBlA0AAAAAAAAAAAAADmJ7AQ/original"
+    }
+  ]
+}
