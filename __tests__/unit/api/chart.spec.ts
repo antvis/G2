@@ -50,9 +50,7 @@ describe('Chart', () => {
 
   it('Chart({...}) should support HTML container', () => {
     const container = document.createElement('div');
-    const chart = new Chart({
-      container,
-    });
+    const chart = new Chart({ container });
     expect(chart['_container']).toBe(container);
   });
 
@@ -60,9 +58,7 @@ describe('Chart', () => {
     const div = document.createElement('div');
     div.setAttribute('id', 'root');
     document.body.appendChild(div);
-    const chart = new Chart({
-      container: 'root',
-    });
+    const chart = new Chart({ container: 'root' });
     expect(chart['_container']).toBe(div);
   });
 
@@ -74,9 +70,7 @@ describe('Chart', () => {
   });
 
   it('Chart({...}) should override default value', () => {
-    const chart = new Chart({
-      data: [1, 2, 3],
-    });
+    const chart = new Chart({ data: [1, 2, 3] });
     expect(chart.value).toEqual({
       data: [1, 2, 3],
     });
@@ -84,9 +78,7 @@ describe('Chart', () => {
 
   it('chart.getContainer() should return container', () => {
     const container = document.createElement('div');
-    const chart = new Chart({
-      container,
-    });
+    const chart = new Chart({ container });
     expect(chart.getContainer()).toBe(container);
   });
 
@@ -254,7 +246,7 @@ describe('Chart', () => {
   });
 
   it('chart.options(options) should handle date object', () => {
-    const chart = new Chart({});
+    const chart = new Chart();
     const date = new Date();
     chart.cell().data([{ date }]);
     expect(chart.options()).toEqual({
@@ -264,12 +256,12 @@ describe('Chart', () => {
   });
 
   it('chart.options(options) should return this chart instance', () => {
-    const chart = new Chart({});
+    const chart = new Chart();
     expect(chart.options({ width: 800 })).toBe(chart);
   });
 
   it('chart.title() should set title options', () => {
-    const chart = new Chart({});
+    const chart = new Chart();
 
     chart.title('This is a title.');
     expect(chart.options().title).toEqual('This is a title.');
@@ -324,7 +316,7 @@ describe('Chart', () => {
   });
 
   it('chart.getContext() should return rendering context', () => {
-    const chart = new Chart({});
+    const chart = new Chart({ theme: 'classic' });
 
     chart.data([
       { genre: 'Sports', sold: 275 },
@@ -348,7 +340,7 @@ describe('Chart', () => {
   });
 
   it('chart.render() should return promise', (done) => {
-    const chart = new Chart();
+    const chart = new Chart({ theme: 'classic' });
 
     chart.data([
       { genre: 'Sports', sold: 275 },
@@ -371,7 +363,7 @@ describe('Chart', () => {
   });
 
   it('chart.on(event, callback) should register chart event.', (done) => {
-    const chart = new Chart();
+    const chart = new Chart({ theme: 'classic' });
 
     chart.data([
       { genre: 'Sports', sold: 275 },
@@ -432,8 +424,8 @@ describe('Chart', () => {
 
   it('chart should render after window resize.', (done) => {
     const div = document.createElement('div');
-
     const chart = new Chart({
+      theme: 'classic',
       container: div,
       autoFit: true,
     });
@@ -474,7 +466,7 @@ describe('Chart', () => {
   });
 
   it('get instance information after chart render.', async () => {
-    const chart = new Chart({ key: '$$chart$$' });
+    const chart = new Chart({ theme: 'classic', key: '$$chart$$' });
     chart.data([
       { genre: 'Sports', sold: 275 },
       { genre: 'Strategy', sold: 115 },

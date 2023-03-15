@@ -7,6 +7,7 @@ const toNaN = (d) => (d === 'NaN' ? NaN : d);
 
 const chart = new Chart({
   container: 'container',
+  theme: 'classic',
   width: 800,
   height: 800,
   paddingLeft: 60,

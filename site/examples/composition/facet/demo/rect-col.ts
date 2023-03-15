@@ -9,6 +9,7 @@ fetch('https://assets.antv.antgroup.com/g2/barley.json')
   .then((data) => {
     const chart = new Chart({
       container: 'container',
+      theme: 'classic',
       height: 800,
       paddingLeft: 130,
       paddingRight: 120,

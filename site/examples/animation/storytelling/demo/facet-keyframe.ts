@@ -7,6 +7,7 @@ fetch(
   .then((data) => {
     const chart = new Chart({
       container: 'container',
+      theme: 'classic',
       width: 800,
     });
     const padding = (node) =>

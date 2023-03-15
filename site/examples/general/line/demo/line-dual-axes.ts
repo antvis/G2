@@ -8,6 +8,7 @@ fetch('https://assets.antv.antgroup.com/g2/train.json')
   .then((data) => {
     const chart = new Chart({
       container: 'container',
+      theme: 'classic',
       width: 800,
       height: 1000,
       paddingLeft: 60,

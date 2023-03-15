@@ -122,6 +122,7 @@ export type ChartOptions = ViewComposition & {
   autoFit?: boolean;
   renderer?: CanvasRenderer;
   plugins?: RendererPlugin[];
+  theme?: string;
 };
 
 type ChartProps = Concrete<ViewComposition>;
@@ -154,7 +155,6 @@ export const props: NodePropertyDescriptor[] = [
   { name: 'title', type: 'value' },
   { name: 'key', type: 'value' },
   { name: 'transform', type: 'array' },
-  { name: 'theme', type: 'object' },
   { name: 'scale', type: 'object' },
   { name: 'axis', type: 'object' },
   { name: 'legend', type: 'object' },

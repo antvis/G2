@@ -11,6 +11,7 @@ const fruits = [
 
 const chart = new Chart({
   container: 'container',
+  theme: 'classic',
 });
 
 chart
