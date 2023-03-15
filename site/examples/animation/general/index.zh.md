@@ -1,4 +1,4 @@
 ---
-title: 基础动画
+title: 过渡动画
 order: 1
 ---

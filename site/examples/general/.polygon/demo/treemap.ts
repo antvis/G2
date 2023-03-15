@@ -22,7 +22,6 @@ const name = (d) => {
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
   paddingLeft: 4,
   paddingBottom: 4,

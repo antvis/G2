@@ -51,6 +51,14 @@
         "en": "Boxplot 1d"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ZOhpRaAAFpkAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "polar-box.ts",
+      "title": {
+        "zh": "径向箱线图",
+        "en": "Polar Boxplot"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*cCMOQ7YsuFkAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }

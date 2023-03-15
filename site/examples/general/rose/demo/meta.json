@@ -1,0 +1,24 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "rose.ts",
+      "title": {
+        "zh": "玫瑰图",
+        "en": "Rose Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*_DeKSr3oN5sAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "rose-label.ts",
+      "title": {
+        "zh": "玫瑰图标签",
+        "en": "Rose Chart, Label"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Cx8zT7vT5bUAAAAAAAAAAAAADmJ7AQ/original"
+    }
+  ]
+}
