@@ -134,12 +134,27 @@ export const Color: SC<ColorOptions> = (options) => {
 
     // Extended style, which is not supported by native g shape,
     // should apply at first.
+    const standardDirRadius = [
+      first ? radiusTopLeft : innerRadiusTopLeft,
+      first ? radiusTopRight : innerRadiusTopRight,
+      last ? radiusBottomRight : innerRadiusBottomRight,
+      last ? radiusBottomLeft : innerRadiusBottomLeft,
+    ];
+    const standardDir = [
+      'radiusTopLeft',
+      'radiusTopRight',
+      'radiusBottomRight',
+      'radiusBottomLeft',
+    ];
+    // Transpose: rotate it clockwise by 90.
+    if (isTranspose(coordinate)) {
+      standardDir.push(standardDir.shift());
+    }
     const extendedStyle = {
       radius,
-      radiusTopLeft: first ? radiusTopLeft : innerRadiusTopLeft,
-      radiusTopRight: first ? radiusTopRight : innerRadiusTopRight,
-      radiusBottomRight: last ? radiusBottomRight : innerRadiusBottomRight,
-      radiusBottomLeft: last ? radiusBottomLeft : innerRadiusBottomLeft,
+      ...Object.fromEntries(
+        standardDir.map((d, i) => [d, standardDirRadius[i]]),
+      ),
       inset,
       insetLeft,
       insetRight,

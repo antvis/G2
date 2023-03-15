@@ -76,6 +76,7 @@ export { settleWeatherCellGrouped } from './seattle-weather-cell-grouped';
 export { commitsPointGrouped } from './commits-point-grouped';
 export { penguinsPointLink } from './penguins-point-link';
 export { penguinsIntervalGroupColor } from './penguins-interval-group-color';
+export { penguinsIntervalTransposeGroupColor } from './penguins-interval-transpose-group-color';
 export { penguinsPointRepeatMatrix } from './penguins-point-repeat-matrix';
 export { anscombePointFacetRectRow } from './anscombe-point-facet-rect-row';
 export { barleyPointFacetRectCol } from './barley-point-facet-rect-col';
