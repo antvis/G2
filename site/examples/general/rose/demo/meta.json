@@ -13,6 +13,14 @@
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*_DeKSr3oN5sAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
+      "filename": "stacked-rose.ts",
+      "title": {
+        "zh": "堆积玫瑰图",
+        "en": "Stacked Rose Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Lv1oT5JCtrMAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
       "filename": "rose-label.ts",
       "title": {
         "zh": "玫瑰图标签",

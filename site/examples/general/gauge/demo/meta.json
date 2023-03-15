@@ -3,5 +3,22 @@
     "zh": "中文分类",
     "en": "Category"
   },
-  "demos": []
+  "demos": [
+    {
+      "filename": "gauge-default.ts",
+      "title": {
+        "zh": "仪表盘",
+        "en": "Gauge Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*hpjTRr6LM7IAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "gauge-custom-shape.ts",
+      "title": {
+        "zh": "自定义仪表盘指示器",
+        "en": "Custom Shape Gauge Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*VSrGTYrM954AAAAAAAAAAAAADmJ7AQ/original"
+    }
+  ]
 }

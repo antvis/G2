@@ -171,6 +171,7 @@ export const Gauge: CC<GaugeOptions> = (options) => {
       scale = {},
       style = {},
       animate = {},
+      transform = [],
       ...resOptions
     } = options;
     const {
