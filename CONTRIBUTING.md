@@ -1,26 +1,40 @@
-# 代码贡献规范
+# 代码贡献指引
 
 有任何疑问，欢迎提交 [issue](https://github.com/antvis/g2/issues)，
 或者直接修改提交 [PR](https://github.com/antvis/g2/pulls)!
 
 ## 开发
 
-> TODO
+G2 使用了 [Vite](https://vitejs.dev/) 来搭建预览环境，通过 `npm run dev` 可以打开预览界面。预览界面可以预览 [`__tests__/plots`](./__tests__/plots) 下面的所有图表案例，并且通过下拉框进行切换。图表案例根据关注点不同，分为以下几类：
 
-## 测试
+- **animation** - 动画相关的案例，放在 [`__tests__/plots/animation`](./__tests__/plots/animation/) 下面。
+- **api** - Chart API 相关的案例，放在 [`__tests__/plots/tooltip`](./__tests__/plots/tooltip) 下面。
+- **interaction** - 交互相关的案例，放在 [`__tests__/plots/interaction`](./__tests__/plots/interaction) 下面。
+- **static** - 静态绘制相关的案例，放在 [`__tests__/plots/static`](./__tests__/plots/static/) 下面。
+- **tooltip** - tooltip 相关的案例，放在 [`__tests__/plots/tooltip`](./__tests__/plots/tooltip/) 下面。
 
-### 单元测试
-
-> TODO
-
-### 集成测试
-
-和单元测试测试单独的可视化组件不同，集成测试用于测试整个可视化图表。所有的测试案例在 `__tests__/integration/charts` 里面，同时在 `__tests__/integration/index.ts` 里面注册。
-
-每次新增一个测试案例的时候只需要在 `__tests__/integration/charts` 目录下新增一个文件，命名格式为 `[数据名字]-[测试点]`。该文件导出一个函数，该函数的名字和文件名的驼峰形式保持一致，同时返回一个 G2 的 options。这个函数可以是同步的，也可以是异步的。
+在开始开发的时候，首先需要确定即将实现的功能或者修复的 BUG 是属于上面的哪一个分类，然后在对应的分类文件夹下新增一个文件，输入对应的代码，并且在对应的 index.js 注册，这样就可以在预览环境里里面预览了。
 
 ```js
-// __tests__/integration/charts/sales-basic-interval.ts
+// __tests__/integration/plots/static/test-case.ts
+// 在 static 下增加一个分类
+import { data } from '../data/sales';
+
+export async function testCase() {
+  // ...
+}
+```
+
+```js
+// __tests__/integration/plots/static/index.ts
+// 在 static 里面的 index.js 注册案例
+export { testCase } from './test-case';
+```
+
+对于 animation，interaction，static 和 tooltip 这四个分类来说，图表案例的命名格式是`[数据名字]-[mark 名字]-[测试点]`。该文件导出一个函数，该函数的名字和文件名的驼峰形式保持一致，同时返回一个 G2 的 options。这个函数可以是同步的，也可以是异步的。
+
+```js
+// __tests__/integration/plots/static/sales-basic-interval.ts
 import { data } from '../data/sales';
 
 export async function salesBasicInterval() {
@@ -36,24 +50,165 @@ export async function salesBasicInterval() {
 }
 ```
 
-创建好对应的测试案例之后需要 `__tests__/integration/index.ts` 中注册。
+对于 api 这个分类来说，图表案例的命名格式 `[api-name]-[测试点]`。该文件导出一个函数，可以通过函数的参数获得对应的 container 和 canvas 对象，用于实例化 Chart 对象。该函数可以返回任意值用于测试断言。
 
 ```js
-// __tests__/integration/charts/index.ts
-export { salesBasicInterval } from './sales-basic-interval';
+import { Chart } from '../../../src/api';
+import { data } from '../data/basic';
+
+export function chartRender(context) {
+  // 获得 container 和 canvas 对象
+  const { container, canvas } = context;
+
+  // 实例化图表
+  const chart = new Chart({
+    container,
+    canvas,
+  });
+
+  chart
+    // 声明可视化
+    .interval()
+    .data(data)
+    .encode('x', 'genre')
+    .encode('y', 'sold');
+
+  // 渲染图表
+  const finished = chart.render();
+
+  // 返回任意值
+  return { finished };
+}
 ```
 
-之后运行 `npm run dev`，这时候可以通过打开的浏览器预览图表。确保图表和预览效果保持一致后，运行 `npm run test:integration` 进行集成测试。
+对于案例中的数据，如果是数据是内联数据，可以在 [`__tests__/data/`](./__tests__/data/) 创建一个 `[name].js` 文件，并且在图表案例中通过 `import` 使用，参考上面的例子。如果数据是 JSON 或者 CSV 等格式的数据，同样在 [`__tests/data/`](./__tests__/data/) 创建一个 `[name].[format]` 的文件，只不过通过 G2 提供的 `fetch` 能力去获得数据。
 
-如果一切没有问题的话，会在 `__tests__/integration/snapshots` 额外下生成 `[数据名字]-[测试点].png` 和 `[数据名字]-[测试点].svg` 两个基准图片，用于之后的测试。
+```js
+export async function salesBasicInterval() {
+  return {
+    type: 'interval',
+    data: {
+      type: 'fetch',
+      value: 'data/[name].[format]',
+    },
+    // ...
+  };
+}
+```
+
+**注意，为了保证测试的独立性，不要使用远程数据。**
+
+```js
+export async function salesBasicInterval() {
+  return {
+    data: {
+      type: 'fetch',
+      value: 'https://xxx', // ❌
+    },
+    // ...
+  };
+}
+```
+
+## 测试
+
+G2 的测试有两个部分：
+
+- **单元测试**：测试纯数据模块或者功能，在 [`__tests__/unit/`](./__tests__/unit/) 下面。
+- **集成测试**：测试整个可视化图表的渲染结果，在 [`__tests__/integration/`](./__tests__/integration/) 下面。
+
+### 单元测试
+
+在 G2 中有一系列模块参与把抽象的数据转换成视觉模块的流程，比如 scale、coordinate 和 transform 等，对于这类模块来说，需要去断言这个转换过程。
+
+在进行单元测试的时候，首先在对应的模块文件夹下增加一个测试文件，按照如下的格式书写测试。
+
+```ts
+describe('ModuleName', () => {
+  it('foo(...params) should ....', () => {
+    // 测试逻辑
+  });
+});
+```
+
+最后通过运行 `npm run test:unit` 保证测试的正确性。
+
+### 集成测试
+
+和单元测试测试单独的模块不同，集成测试用于测试整个可视化图表。所有的测试案例和预览案例 [`__tests__/plots`](./__tests__/plots/) 里面的保持一致。
+
+对于 animation，interaction，static 和 tooltip 这四个分类来说，并不需要新增测试文件，它们会分别在下面四个测试文件中统一测试：
+
+- **animation** - [`__tests__/integration/spec-animation.spec.ts`](./__tests__/integration/spec-animation.spec.ts)
+- **interaction** - [`__tests__/integration/spec-interaction.spec.ts`](./__tests__/integration/spec-interaction.spec.ts)
+- **static** - [`__tests__/integration/spec-static.spec.ts`](./__tests__/integration/spec-static.spec.ts)
+- **tooltip** - [`__tests__/integration/spec-tooltip.spec.ts`](./__tests__/integration/spec-tooltip.spec.ts)
+
+默认所有的案例都会测试，在调试过程中，可以通过给导出函数增加范围控制属性 `only` 和 `skip` 来控制测试的范围。
+
+```js
+// static
+export async function salesBasicInterval() {
+  // ...
+}
+```
+
+```js
+// static 下的文件只有它会被测试
+salesBasicInterval.only = true;
+```
+
+```js
+// 跳过这个测试案例
+salesBasicInterval.skip = true;
+```
+
+注意：**调试完成之后，需要把对应的范围控制属性去掉，防止改变测试范围。**
+
+当运行 `npm run test:integration` 的时候，会对每一个测试案例渲染的结果进行截图，然后和 [`__tests__/integration/snapshots`](./__tests__/integration/snapshots/) 里面的基准图片进行比较。如果其中的测试案例没有对应的截图，那么会生成基准图片，并且通过测试；否者只有当两者的误差在一定范围内的时候才能通过测试。
+
+对于一对一的测试来说，截图的名字和测试文件导出的函数名对应。
+
+```js
+// static
+export async function salesBasicInterval() {
+  // ...
+}
+```
 
 ```text
-__tests__/integration/snapshots/salesBasicInterval.png
-__tests__/integration/snapshots/salesBasicInterval.svg
+__tests__/integration/snapshots/static/salesBasicInterval.png
 ```
 
-如果测试案例不通过，则会生成 `-diff` 标记的图片。如果该图片复合预期，那么删除基准图片，重新运行 `npm run test:integration` 生成新的基准图片；否者修改代码，直到通过测试。
+对于一对多的测试来说，截图存在的文件名字和测试文件导出的函数名对应。
 
+```js
+// interaction
+export async function salesBasicIntervalElementHighlight() {
+  // ...
+}
+```
+
+```text
+__tests__/integration/snapshots/static/salesBasicIntervalElementHighlight/step0.png
+__tests__/integration/snapshots/static/salesBasicIntervalElementHighlight/step1.png
+```
+
+如果测试案例不通过，则会生成 `-diff` 标记的图片。如果该图片复合预期，那么删除基准图片，重新运行 `npm run test:integration` 生成新的基准图片；否者修改代码，直到通过测试。注意：**新增测试案例之后，一定要本地生成基准图片之后，再把代码推到远程，否者对应的 PR 不会合并。**
+
+由于截图存在一定误差，对于复杂图表来说，CI 环境和本地环境的误差可能较大，如果该误差在容忍范围内，可以通过给测试案例导出函数增加 `maxError` 去通过测试。
+
+```js
+// static
+export async function salesBasicInterval() {
+  // ...
+}
+
+// 误差在 1000 以下都会通过测试
+salesBasicInterval.maxError = 1000;
+```
+
+对于 api 下面的测试，仍然需要在 [`__tests__/integration/`](./__tests__/integration/) 下面增加对应的测试文件，如果需要截图的话，需要显式的调用 `expect.toMatchCanvasSnapshot` 或者 `expect.toMatchSVGSnapshot`，参考：[`__tests__/integration/api-chart-render.spec.ts`](./__tests__/integration/api-chart-render.spec.ts)。
 
 ## 提交 issue
 
