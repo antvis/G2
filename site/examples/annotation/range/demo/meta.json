@@ -1,0 +1,24 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "point-range.ts",
+      "title": {
+        "zh": "区域标记的散点图",
+        "en": "Point, Range Annotation"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*55rRTr9NWXsAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "line-range.ts",
+      "title": {
+        "zh": "区间标注的折线图",
+        "en": "Line, Range Annotation"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dmYgTY3kxDoAAAAAAAAAAAAADmJ7AQ/original"
+    }
+  ]
+}

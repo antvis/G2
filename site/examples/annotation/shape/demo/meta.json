@@ -1,0 +1,32 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "interval-point.ts",
+      "title": {
+        "zh": "点标记的条形图",
+        "en": "Interval, Point Annotation"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*wvDFSJTsnrwAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "line-badge.ts",
+      "title": {
+        "zh": "徽章标记的折线图",
+        "en": "Line, Badge Annotation"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*pgeoRLW4bEcAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "watermark.ts",
+      "title": {
+        "zh": "徽章水印",
+        "en": "Watermark"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*aIpTRZ-_b9wAAAAAAAAAAAAADmJ7AQ/original"
+    }
+  ]
+}

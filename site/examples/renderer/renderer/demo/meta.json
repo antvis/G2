@@ -19,14 +19,6 @@
         "en": "SVG Renderer"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*WUZgSL9cWnEAAAAAAAAAAAAADmJ7AQ/original"
-    },
-    {
-      "filename": "webgl.ts",
-      "title": {
-        "zh": "WebGL 渲染器",
-        "en": "WebGL Renderer"
-      },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*WUZgSL9cWnEAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }

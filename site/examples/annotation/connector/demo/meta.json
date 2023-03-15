@@ -1,0 +1,24 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "interval-connector.ts",
+      "title": {
+        "zh": "链接线标记的瀑布图",
+        "end": "Interval, Connector Annotation"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*-a9EQpzBTDMAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "revenue-flow-waterfall.ts",
+      "title": {
+        "zh": "线标记的瀑布图",
+        "en": "Revenue Flow Waterfall Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*fG4DT7XWNzUAAAAAAAAAAAAADmJ7AQ"
+    }
+  ]
+}
