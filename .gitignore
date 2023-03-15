@@ -32,3 +32,5 @@ __tests__/integration/snapshots/**/*-diff.*
 # Website cache byb dumi
 site/.dumi/tmp
 site/.dumi/tmp-production
+
+.vscode
