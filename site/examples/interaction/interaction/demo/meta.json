@@ -5,6 +5,46 @@
   },
   "demos": [
     {
+      "filename": "highlight.ts",
+      "title": {
+        "zh": "高亮",
+        "en": "Highlight"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*h3zzSqWMrDkAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "select.ts",
+      "title": {
+        "zh": "选择",
+        "en": "Select"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*gwt_SpgIGsMAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "brush.ts",
+      "title": {
+        "zh": "刷选",
+        "en": "Brush"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*XbQtTrYgA88AAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "legend.ts",
+      "title": {
+        "zh": "图例",
+        "en": "Legend"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*MFXURoAPyocAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "slider.ts",
+      "title": {
+        "zh": "缩略轴",
+        "en": "Slider"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xZAVSKcWzrwAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
       "filename": "tooltip.ts",
       "title": {
         "zh": "提示",

@@ -270,14 +270,14 @@ export default defineConfig({
         },
         icon: 'other',
       },
-      // {
-      //   slug: 'component',
-      //   title: {
-      //     zh: '组件',
-      //     en: 'Component',
-      //   },
-      //   icon: 'other',
-      // },
+      {
+        slug: 'component',
+        title: {
+          zh: '组件',
+          en: 'Component',
+        },
+        icon: 'other',
+      },
       {
         slug: 'animation',
         title: {

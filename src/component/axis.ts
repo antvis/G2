@@ -150,7 +150,7 @@ function getTicks(
       const tick = applyInset(scale.map(d) + offset);
       return {
         value: isTranspose(coordinate) && scale.getTicks?.() ? 1 - tick : tick,
-        label: labelFormatter(d, i, array),
+        label: labelFormatter(prettyNumber(d), i, array),
         id: String(i),
       };
     });
@@ -166,7 +166,7 @@ function getTicks(
     const tick = applyFisheye(applyInset(scale.map(d) + offset));
     return {
       value: tick,
-      label: `${labelFormatter(prettyNumber(d), i, array)}`,
+      label: labelFormatter(prettyNumber(d), i, array),
       id: String(i),
     };
   });

@@ -70,6 +70,7 @@ export type ViewComposition = {
   // @todo
   style?: Record<string, any>;
   clip?: boolean;
+  state?: Record<string, any>;
 };
 
 export type GeoViewComposition = Omit<ViewComposition, 'type'> & {
