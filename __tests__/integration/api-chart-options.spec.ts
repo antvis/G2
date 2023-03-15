@@ -22,9 +22,7 @@ describe('chart.options', () => {
   });
 
   it('chart.options({ width: 480 }) should update chart._options', async () => {
-    chart.options({
-      width: 480,
-    });
+    chart.options({ theme: 'classic', width: 480 });
     await chart.render();
     await sleep(20);
     await expect(canvas).toMatchCanvasSnapshot(dir, 'step1');

@@ -3,15 +3,10 @@ import { Chart } from '../../../src';
 export function chartOptions(context) {
   const { container, canvas } = context;
 
-  const div = document.createElement('div');
-  container.appendChild(div);
-
-  const chart = new Chart({
-    container: div,
-    canvas,
-  });
+  const chart = new Chart({ container, canvas });
 
   chart.options({
+    theme: 'classic',
     type: 'line',
     clip: true,
     data: {

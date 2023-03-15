@@ -6,6 +6,7 @@ import EventEmitter from '@antv/event-emitter';
 import { createLibrary } from '../stdlib';
 import { select } from '../utils/selection';
 import { CHART_LIFE_CIRCLE } from '../utils/event';
+import { error } from '../utils/helper';
 import { G2Context, G2ViewTree } from './types/options';
 import { plot } from './plot';
 
@@ -64,7 +65,10 @@ export function render<T extends G2ViewTree = G2ViewTree>(
   callback?: () => void,
 ): HTMLElement {
   // Initialize the context if it is not provided.
-  const { width = 640, height = 480, on } = options;
+  const { width = 640, height = 480, theme } = options;
+  if (!theme) {
+    error('ChartOptions.theme is required, such as classic.');
+  }
   const keyed = inferKeys(options);
   const {
     canvas = Canvas(width, height),

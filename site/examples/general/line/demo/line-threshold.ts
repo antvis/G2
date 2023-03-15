@@ -14,6 +14,7 @@ fetch('https://assets.antv.antgroup.com/g2/temperatures2.json')
 
     const chart = new Chart({
       container: 'container',
+      theme: 'classic',
       autoFit: true,
     });
 

@@ -3,6 +3,7 @@ import { loadAnimation } from '@antv/g-lottie-player';
 
 const chart = new Chart({
   container: 'container',
+  theme: 'classic',
   autoFit: true,
 });
 

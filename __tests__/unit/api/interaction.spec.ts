@@ -2,7 +2,7 @@ import { VIEW_CLASS_NAME, Chart } from '../../../src';
 
 describe('Interaction', () => {
   it('should clear interaction after resize', async () => {
-    const chart = new Chart({});
+    const chart = new Chart({ theme: 'classic' });
 
     chart.data({
       value: [

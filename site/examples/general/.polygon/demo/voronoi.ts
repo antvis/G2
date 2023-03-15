@@ -21,6 +21,7 @@ const layout = (data) => {
 
 const chart = new Chart({
   container: 'container',
+  theme: 'classic',
   autoFit: true,
   paddingLeft: 0,
   paddingRight: 0,

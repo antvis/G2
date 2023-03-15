@@ -15,6 +15,7 @@ export function chartAutoFit(context) {
   container.appendChild(wrapperDiv);
 
   const chart = new Chart({
+    theme: 'classic',
     container: wrapperDiv,
     autoFit: true,
     canvas,

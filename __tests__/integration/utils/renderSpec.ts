@@ -17,7 +17,7 @@ export async function renderSpec(
   context.canvas = gCanvas;
   await new Promise<Canvas>((resolve) =>
     // @ts-ignore
-    renderFunction(options, context, resolve),
+    renderFunction({ theme: 'classic', ...options }, context, resolve),
   );
   // Wait for the next tick.
   await sleep(20);

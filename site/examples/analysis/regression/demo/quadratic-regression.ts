@@ -6,6 +6,7 @@ import { regressionQuad } from 'd3-regression';
 
 const chart = new Chart({
   container: 'container',
+  theme: 'classic',
   autoFit: true,
 });
 
