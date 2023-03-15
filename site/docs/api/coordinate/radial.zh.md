@@ -16,6 +16,7 @@ const chart = new Chart();
 
 chart.coordinate({
   type: 'radial',
+  theme: 'classic',
   innerRadius: 0.1,
   endAngle: Math.PI,
 });

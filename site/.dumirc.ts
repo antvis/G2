@@ -199,7 +199,7 @@ export default defineConfig({
       {
         slug: 'api/graph',
         title: {
-          zh: '图 - Graph',
+          zh: '关系图 - Graph',
           en: 'Graph',
         },
         order: 13,
@@ -247,6 +247,22 @@ export default defineConfig({
         icon: 'other',
       },
       {
+        slug: 'graph',
+        title: {
+          zh: '关系图',
+          en: 'Graph',
+        },
+        icon: 'other',
+      },
+      {
+        slug: 'geo',
+        title: {
+          zh: '地理',
+          en: 'Geo',
+        },
+        icon: 'other',
+      },
+      {
         slug: 'annotation',
         title: {
           zh: '数据标注',
@@ -254,6 +270,14 @@ export default defineConfig({
         },
         icon: 'other',
       },
+      // {
+      //   slug: 'component',
+      //   title: {
+      //     zh: '组件',
+      //     en: 'Component',
+      //   },
+      //   icon: 'other',
+      // },
       {
         slug: 'animation',
         title: {
@@ -263,26 +287,26 @@ export default defineConfig({
         icon: 'other',
       },
       {
+        slug: 'storytelling',
+        title: {
+          zh: '可视化叙事',
+          en: 'Stroytelling',
+        },
+        icon: 'other',
+      },
+      {
+        slug: 'algorithm',
+        title: {
+          zh: '算法可视化',
+          en: 'Algorithm Vis',
+        },
+        icon: 'other',
+      },
+      {
         slug: 'interaction',
         title: {
           zh: '交互',
           en: 'Interaction',
-        },
-        icon: 'other',
-      },
-      {
-        slug: 'graph',
-        title: {
-          zh: '图',
-          en: 'Graph',
-        },
-        icon: 'other',
-      },
-      {
-        slug: 'geo',
-        title: {
-          zh: '地图',
-          en: 'Geo',
         },
         icon: 'other',
       },
@@ -302,27 +326,27 @@ export default defineConfig({
         },
         icon: 'other',
       },
-      // {
-      //   slug: 'component',
-      //   title: {
-      //     zh: '组件',
-      //     en: 'Component',
-      //   },
-      //   icon: 'other',
-      // },
       {
-        slug: 'theme',
+        slug: 'style',
         title: {
-          zh: '主题',
-          en: 'Theme',
+          zh: '风格',
+          en: 'Style',
         },
         icon: 'other',
       },
       {
-        slug: 'plugin',
+        slug: 'renderer',
         title: {
-          zh: '插件',
-          en: 'Plugin',
+          zh: '渲染器',
+          en: 'Renderer',
+        },
+        icon: 'other',
+      },
+      {
+        slug: 'accessible',
+        title: {
+          zh: '无障碍',
+          en: 'Accessible',
         },
         icon: 'other',
       },

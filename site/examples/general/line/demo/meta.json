@@ -69,36 +69,12 @@
       "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*YUrlS4AWYFkAAAAAAAAAAAAADmJ7AQ"
     },
     {
-      "filename": "line-candle-stick.ts",
-      "title": {
-        "zh": "股票图",
-        "en": "Candle Stick Chart"
-      },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*IXIkSa7SW2sAAAAAAAAAAAAADmJ7AQ"
-    },
-    {
       "filename": "line-slope.ts",
       "title": {
         "zh": "斜率图",
         "en": "Slope Chart"
       },
       "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*zrqfRKBLvAsAAAAAAAAAAAAADmJ7AQ"
-    },
-    {
-      "filename": "line-parallel-vertical.ts",
-      "title": {
-        "zh": "竖直平行坐标系",
-        "en": "Vertical Parallel"
-      },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*aX6WSJw7proAAAAAAAAAAAAADmJ7AQ"
-    },
-    {
-      "filename": "line-parallel-horizontal.ts",
-      "title": {
-        "zh": "水平平行坐标系",
-        "en": "Horizontal Parallel"
-      },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*SOZOT7Smha0AAAAAAAAAAAAADmJ7AQ"
     }
   ]
 }

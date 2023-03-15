@@ -1,0 +1,16 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "line-candle-stick.ts",
+      "title": {
+        "zh": "股票图",
+        "en": "Candle Stick Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*IXIkSa7SW2sAAAAAAAAAAAAADmJ7AQ"
+    }
+  ]
+}

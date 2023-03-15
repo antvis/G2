@@ -1,0 +1,40 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "pie.ts",
+      "title": {
+        "zh": "饼图",
+        "en": "Pie Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*uQh-RryfSfUAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "donut.ts",
+      "title": {
+        "zh": "甜甜圈图",
+        "en": "Donut Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*wu8VQIWJJ50AAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "spider-label.ts",
+      "title": {
+        "zh": "饼图, 蜘蛛布局标签",
+        "en": "Pie Chart, Spider Label"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*gC20SLxWVicAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "point-jitter-radial.ts",
+      "title": {
+        "zh": "径向扰动散点图",
+        "en": "Radial Jitter Scatter"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*eJQYQZQ_HZQAAAAAAAAAAAAADmJ7AQ"
+    }
+  ]
+}

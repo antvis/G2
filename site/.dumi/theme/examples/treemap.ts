@@ -3,6 +3,7 @@ import { Chart } from '@antv/g2';
 export const treemap = (container, theme, plugins = []) => {
   const chart = new Chart({
     container,
+    theme: 'classic',
     autoFit: true,
     plugins,
   });

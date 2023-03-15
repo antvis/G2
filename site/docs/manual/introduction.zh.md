@@ -19,7 +19,7 @@ G2 是一个简洁的渐进式语法，主要用于制作基于网页的可视�
 
 "Talk is cheap, show me the code"，那么接下来看看基于下面这个简单的数据集，G2 能做出什么可视化效果。
 
-<img alt="data" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*U-tfTa2m98EAAAAAAAAAAAAADmJ7AQ/original" width="100%">
+<img alt="data" style="max-width: 800px" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*U-tfTa2m98EAAAAAAAAAAAAADmJ7AQ/original" width="100%">
 
 ## 标记
 
