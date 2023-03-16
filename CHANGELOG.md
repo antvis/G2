@@ -1,3 +1,11 @@
+#### 4.2.10 (2023-03-16)
+
+##### Bug Fixes
+
+* **interval:**  设置backgroundShape capture 为 true, 避免交互时被捕捉(如 element-selected) ([#4714](https://github.com/antvis/g2/pull/4714)) ([c717014d](https://github.com/antvis/g2/commit/c717014dfa8220635ded10c966f5bd577212ce96))
+* **animate:**  部分动画覆盖 callback 配置导致外部的 callback 配置失效 ([#4678](https://github.com/antvis/g2/pull/4678)) ([9d1a25f1](https://github.com/antvis/g2/commit/9d1a25f15ba2cca594ee57d817a8f05ce5a80e60))
+*  修复 sibling-x-filter，sibling-y-filter 过滤全部数据的问题 ([#4617](https://github.com/antvis/g2/pull/4617)) ([bc57583f](https://github.com/antvis/g2/commit/bc57583f8c2ac9e36d2fb0c8e444a192f8ce3267))
+
 #### 4.2.9 (2023-02-02)
 
 ##### New Features
