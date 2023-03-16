@@ -62,7 +62,8 @@ function Canvas(width: number, height: number): GCanvas {
 export function render<T extends G2ViewTree = G2ViewTree>(
   options: T,
   context: G2Context = {},
-  callback?: () => void,
+  resolve?: () => void,
+  reject?: (e: Error) => void,
 ): HTMLElement {
   // Initialize the context if it is not provided.
   const { width = 640, height = 480, theme } = options;
@@ -91,7 +92,10 @@ export function render<T extends G2ViewTree = G2ViewTree>(
     )
     .then(() => {
       emitter.emit(CHART_LIFE_CIRCLE.AFTER_RENDER);
-      callback?.();
+      resolve?.();
+    })
+    .catch((e) => {
+      reject?.(e);
     });
 
   // Return the container HTML element wraps the canvas or svg element.

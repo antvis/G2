@@ -488,4 +488,10 @@ describe('Chart', () => {
     expect(chart.getTheme()).toEqual(view?.theme);
     expect(chart.getGroup().id).toEqual(chart.attr('key'));
   });
+
+  it('chart render before theme option must be specified.', async () => {
+    // 捕获渲染异常
+    const chart = new Chart({});
+    await expect(chart.render()).rejects.toThrowError();
+  });
 });
