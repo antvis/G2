@@ -65,6 +65,7 @@ function normalizeRoot(node: Node) {
   root.attr('padding', node.attr('padding'));
   root.attr('margin', node.attr('margin'));
   root.attr('inset', node.attr('inset'));
+  root.attr('theme', node.attr('theme'));
   return root;
 }
 
@@ -233,10 +234,9 @@ export class Chart extends View<ChartOptions> {
       return this._options || optionsOf(this);
     }
     this._options = deepMix(
-      this._options || {},
+      this._options || optionsOf(this),
       omit(options, SPEC_EXTERNAL_KEYS),
     );
-
     return this;
   }
 
