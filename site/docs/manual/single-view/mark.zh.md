@@ -16,6 +16,7 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
+  theme: 'classic',
 });
 
 chart
@@ -172,6 +173,30 @@ chart.encode('y', 'end').encode('y1', 'start');
 - **size** - 大小，不同的标记有不同的函数
 - **series** - 系列，用于分成系列
 - **key** - 唯一标记，用于数据更新
+
+## 传递性
+
+通道编码具有传递性，chart 实例上的编码会传递给其拥有的标记。
+
+```js
+chart.line().encode('x', 'date').encode('y', 'value');
+chart.point().encode('x', 'date').encode('y', 'value');
+```
+
+上面的写法等价于：
+
+```js
+chart.encode('x', 'date').encode('y', 'value');
+chart.line();
+chart.point();
+```
+
+当标记编码和 chart 实例上的编码上冲突的时候，chart 实例上的编码不会生效。
+
+```js
+chart.encode('x', 'date');
+chart.line().encode('x', 'value'); // 最后渲染的时候还是 x 绑定的字段还是 value，而不是 date
+```
 
 ## 样式
 

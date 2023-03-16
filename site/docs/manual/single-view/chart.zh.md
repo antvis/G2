@@ -19,7 +19,7 @@ const chart = new Chart({
 
 ## 图表选项
 
-**图表选项**用于指定图表的一些全局的信息，比如挂载的容器，宽度，高度等。当然这些选项都是**可选的**。
+**图表选项**用于指定图表的一些全局的信息，比如挂载的容器，宽度，高度等。除了 theme 属性之外，其他这些选项都是**可选的**。
 
 ```js
 // 不指定任何选项
@@ -30,6 +30,7 @@ const chart = new Chart({
   width: 800, // 图表高度
   height: 400, // 图表宽度
   container: 'chart', // 挂载容器的 ID
+  theme: 'classic',
 });
 ```
 
@@ -51,13 +52,14 @@ const chart = new Chart({
 // 或者
 const chart = new Chart({
   container: document.getElementById('chart'), // 指定挂载容器
+  theme: 'classic',
 });
 ```
 
 第二种，手动挂载。
 
 ```js
-const chart = new Chart();
+const chart = new Chart({ theme: 'classic' });
 
 // 声明可视化
 // ...
@@ -74,13 +76,21 @@ document.getElementById('chart').appendChild(container);
 // 创建图表实例
 const chart = new Chart({
   container: 'chart',
+  theme: 'classic',
 });
 
 // 声明可视化
 // ...
 
 // 渲染
-chart.render();
+chart
+  .render()
+  .then(() => {
+    // 渲染成功
+  })
+  .catch(() => {
+    // 渲染失败
+  });
 ```
 
 ## 更新图表

@@ -66,7 +66,10 @@ const data = [
 ];
 
 // Instantiate a new chart.
-const chart = new Chart();
+const chart = new Chart({
+  container: 'container',
+  theme: 'classic',
+});
 
 // Specify visualization.
 chart

@@ -58,7 +58,8 @@ export type BaseScale<T extends ScaleTypes, O> = {
   rangeMin?: number;
   domainMax?: number;
   domainMin?: number;
-  field?: string | string[];
+  key?: string;
+  facet?: boolean;
   independent?: boolean;
   zero?: boolean;
   offset?: (t: number) => number;

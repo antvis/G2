@@ -1,6 +1,6 @@
 ---
 title: 在框架中使用
-order: 11
+order: 1
 ---
 
 这里简单介绍在一些前端框架中使用 G2 的方法。我们将用不同的框架实现以下的条形图更新效果。
@@ -14,6 +14,7 @@ order: 11
 function renderBarChart(container) {
   const chart = new Chart({
     container,
+    theme: 'classic',
   });
 
   // 准备数据
