@@ -1,5 +1,5 @@
 ---
-title: 比例尺和辅助组件
+title: 比例尺
 order: 7
 ---
 
@@ -89,61 +89,54 @@ chart
   .style('inset', 2);
 ```
 
-## 辅助组件
+## 条件映射
 
-**辅助组件（Guide）** 是对比例尺的可视化，用来帮助用户更好的理解图表。不同种类的通道有不同的辅助组件。
-
-### 空间通道和坐标轴
-
-G2 中有三种空间通道：x，y 和 position，空间通道的辅助组件都是**坐标轴（Axis)** 。在 G2 中每个标记都有自己的坐标轴，通过 `mark.axis` 去设置。
+可以通过 `scale.relations` 去指定一系列映射规则，这个优先级别会高于 domain 到 range 的默认映射方式。比如对于 color 通道来讲，如果希望特定的值映射为特定的颜色，或者处理异常值，这个配置会很有用。
 
 ```js
-// 设置 x 方向的坐标轴
-interval.axis('x', {
-  tickCount: 5, // 指定坐标刻度数量
-  title: 'hello', // 指定坐标标题
-  labelFormatter: (d) => d.toFixed(2), // 指定 label 格式化函数
+chart.interval().scale('color', {
+  relations: [
+    ['dog', 'red'], // dog 恒等映射为红色
+    [(d) => d === undefined, 'grey'], // 如果是值为 undefined，那么为灰色
+  ],
 });
-
-// 隐藏 y 方向坐标轴
-interval.axis('y', false);
-
-// 隐藏所有坐标轴
-interval.axis(false);
 ```
 
-每个空间通道也可以和多条坐标轴绑定。
+## 传递性
+
+比例尺具有传递性，chart 实例的比例尺会传递给所拥有的标记。
 
 ```js
-// 设置多条 x 方向的坐标轴
-interval.axis('y', [
-  // 一条 x 轴放在上面
-  {
-    tickCount: 5,
-    position: 'top',
-  },
-  // 一条 x 轴放在下面
-  {
-    title: 'hello',
-    position: 'bottom',
-  },
-]);
+chart.interval().scale('x', { type: 'linear' });
 ```
 
-### 其余通道和图例
-
-G2 种的 color，opacity，size，shape 通道的辅助组件是**图例（Legend）** 。在 G2 中，标记的图例由 `mark.legend` 去设置。
+和下面的写法等效：
 
 ```js
-// 设置 color 的图例
-interval.legend('color', {});
+chart.scale('x', { type: 'linear' });
+chart.interval();
+```
 
-// 设置 size 的图例
-interval.size('size', {});
+## 比例尺同步
 
-// 隐藏 size 的图例
-interval.size('size', false);
+同一个视图中的标记相同通道的比例尺会默认是同步的。如果希望不同步（比如绘制双轴图的时候），就需要设置 `scale.independent` 为 `true`，设置了该属性的比例尺不会和任何比例尺同步。下面的例子中的 interval 和 line 的 y 通道会使用两个不同的比例尺，从而会生成两个不同的坐标轴。
 
-// 隐藏所有比例尺
-interval.legend(false);
+```js
+chart.interval().data(data1).scale('y', { independent: true });
+
+chart
+  .line()
+  .data(data2)
+  .scale('y', { type: 'log' })
+  .axis('y', { position: 'right' }); // 设置在图表右侧
+```
+
+如果希望比例尺分组同步，可以声明 `scale.key`，拥有相同 key 的 scale 会同步。下面的例子中 i1 和 l1 的 y 通道对应的比例尺会同步；i2 和 l2 对应的比例尺会同步。
+
+```js
+const i1 = chart.interval().data(data1).scale('y', { key: 'data1' });
+const l1 = chart.line().data(data1).scale('y', { key: 'data1' });
+
+const i2 = chart.interval().data(data2).scale('y', { key: 'data2' });
+const l2 = chart.line().data(data2).scale('y', { key: 'data2' });
 ```

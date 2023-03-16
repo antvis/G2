@@ -20,8 +20,6 @@ order: 6
 - **delay** - 延迟时间
 - **easing** - 缓动函数
 
-一个完整的动画属性的形式是 `${type}${Attribute}`，比如 `enterType`。
-
 <img alt="animation-scale-in-y" src="https://gw.alipayobjects.com/zos/raptor/1668747253595/animation-scale-in-y.gif" width="640">
 
 ```js

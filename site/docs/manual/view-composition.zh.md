@@ -3,7 +3,7 @@ title: 视图复合
 order: 5
 ---
 
-**视图复合（View Composition）** 提供了在一个可视化中绘制多个图表的能力。G2 定义了一个**视图树（View Graph）** 去描述**多视图图表（Multi-View Plot）**，通过 `mark.[node]` 的形式去声明层次结构。
+**视图复合（View Composition）** 提供了在一个可视化中绘制多个图表的能力。G2 定义了一个**视图树（View Graph）** 去描述**多视图图表（Multi-View Plot）**，通过 `composition.[node]` 的形式去声明层次结构。
 
 ## 空间
 
@@ -18,7 +18,6 @@ const layer = chart.spaceLayer();
 
 // 条形图
 layer
-  .view() // 创建一个视图
   .interval()
   .data([
     { genre: 'Shooter', sold: 350 },
@@ -32,11 +31,10 @@ layer
 
 // 饼图
 layer
-  .view() // 创建一个视图
+  .interval() // 创建一个 interval
   .attr('paddingLeft', 300) // 设置位置
   .attr('paddingBottom', 250)
   .coordinate({ type: 'theta' }) // 指定坐标系
-  .interval() // 创建一个 interval
   .transform({ type: 'stackY' })
   .data([
     { genre: 'Shooter', sold: 350 },
@@ -59,7 +57,6 @@ const flex = chart.spaceFlex();
 
 // 条形图
 flex
-  .view() // 创建一个视图
   .interval()
   .data([
     { genre: 'Shooter', sold: 350 },
@@ -73,9 +70,8 @@ flex
 
 // 饼图
 flex
-  .view() // 创建一个视图
-  .coordinate({ type: 'theta' }) // 指定坐标系
   .interval() // 创建一个 interval
+  .coordinate({ type: 'theta' }) // 指定坐标系
   .transform({ type: 'stackY' })
   .data([
     { genre: 'Shooter', sold: 350 },

@@ -1,5 +1,5 @@
 ---
-title: 图表宽高和视图模型
+title: 图表宽高
 order: 3
 ---
 
@@ -8,7 +8,7 @@ order: 3
 在声明图表选项的时候没有指定宽高的时候，G2 会使用 **640px** 作为宽，**480px** 作为高。
 
 ```js
-const chart = new Chart();
+const chart = new Chart({ theme: 'classic' });
 ```
 
 ## 指定宽高
@@ -17,6 +17,7 @@ const chart = new Chart();
 
 ```js
 const chart = new Chart({
+  theme: 'classic',
   width: 500,
   height: 300,
 });
@@ -30,6 +31,7 @@ const chart = new Chart({
 const chart = new Chart({
   container: 'chart',
   autoFit: true,
+  theme: 'classic',
 });
 ```
 
@@ -66,6 +68,7 @@ G2 中的视图模型定义了一个视图的划分方式，划分得到的不�
 
 ```js
 const chart = new Chart({
+  theme: 'classic',
   height: 300,
   // 橙色部分大小
   paddingLeft: 50,
