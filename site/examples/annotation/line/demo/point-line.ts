@@ -27,7 +27,6 @@ chart
   ])
   .encode('x', 'x')
   .encode('y', 'y')
-  .encode('color', '#1890ff')
   .encode('size', 'z')
   .encode('shape', 'point')
   .scale('x', { nice: true })
@@ -35,6 +34,7 @@ chart
   .scale('size', { range: [10, 40] })
   .style('stroke', '#1890ff')
   .style('fillOpacity', 0.3)
+  .style('fill', '#1890ff')
   .label({
     text: 'name',
     position: 'inside',
