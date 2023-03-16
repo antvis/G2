@@ -1,41 +1,26 @@
 ---
-title: 坐标系变换
+title: 坐标系
 order: 8
 ---
 
-坐标系变换是一系列点转换。在 G2 中，标记的位置通道 x 和 y 会经过比例尺的映射到 `[0, 1]` 的范围，这之后会应用坐标系变换，从而改变标记的空间展示形式。
+坐标系会执行一系列点转换。在 G2 中，标记的位置通道 x 和 y 会经过比例尺的映射到 `[0, 1]` 的范围，这之后会使用坐标系将点转换为画布坐标，从而改变标记的空间展示形式。
 
-在 G2 中坐标系通过 `chart.coordinate` 去声明，和 `mark.transform` 一样，都是数组属性，所以可以声明多个。
-
-```js
-chart.coordinate({ type: 'polar', transform: [{ type: 'transpose' }] });
-```
-
-## 转置变换
-
-比较常用的一种变换是转置变换 transpose，主要用来改变图表的方向。比如绘制水平的条形图。
-
-<img alt="transpose" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*z2dxSKtvMfUAAAAAAAAAAAAADmJ7AQ/original" width="640px">
+在 G2 中坐标系通过 `chart.coordinate` 去声明，该属性是一个值属性。每一个视图只能拥有一个坐标系，坐标系除了本身的属性之外，还包含一系列坐标系变换。
 
 ```js
-chart.coordinate({ transform: [{ type: 'transpose' }] }); // 指定 transpose
-
-chart
-  .interval()
-  .data([
-    { genre: 'Sports', sold: 275 },
-    { genre: 'Strategy', sold: 115 },
-    { genre: 'Action', sold: 120 },
-    { genre: 'Shooter', sold: 350 },
-    { genre: 'Other', sold: 150 },
-  ])
-  .encode('x', 'genre')
-  .encode('y', 'sold');
+chart.coordinate({
+  type: 'polar',
+  innerRadius: 0.6,
+  outerRadius: 0.8,
+  transform: [{ type: 'transpose' }], // 坐标系变换
+});
 ```
 
-## 径向变换
+## 径向坐标系
 
-另一类变换就是径向变换，这类坐标系变换都是把图表从笛卡尔坐标系转换到极坐标系下，用于绘制一系列“圆”形的图。
+默认的坐标系是笛卡尔坐标系，除此之外，还有一类坐标系是把图表转换到极坐标系下，用于绘制一系列“圆”形的图，这类坐标系被称为**径向坐标系（Radial Coordinate）**。
+
+### Polar
 
 比如可以使用 interval 标记和 polar 坐标系变换绘制玫瑰图。
 
@@ -59,6 +44,8 @@ chart
   .axis('y', false);
 ```
 
+### Theta
+
 也可以使用 interval 标记和 theta 坐标系来绘制饼图。
 
 <img alt="theta" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*_qI8SZSzadMAAAAAAAAAAAAADmJ7AQ/original" width="640px">
@@ -79,6 +66,8 @@ chart
   .encode('y', 'sold')
   .encode('color', 'genre');
 ```
+
+### Radial
 
 还可以使用 interval 标记和 radial 坐标系来绘制玉珏图。
 
@@ -104,7 +93,7 @@ chart
   .axis('x', { title: null });
 ```
 
-## 高级变换
+## 平行坐标系
 
 除了前面的比较基础的坐标系变换之外，还有一些稍微高级一点的坐标系变换，比如平行坐标系 parallel。
 
@@ -168,4 +157,72 @@ chart
   .axis('position5', axis)
   .axis('position6', axis)
   .axis('position7', axis);
+```
+
+## 坐标系变换
+
+上面的坐标系都可以和坐标系变换结合使用。
+
+### Transpose
+
+比较常用的一种变换是转置变换 transpose，主要用来改变图表的方向。比如绘制水平的条形图。
+
+<img alt="transpose" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*z2dxSKtvMfUAAAAAAAAAAAAADmJ7AQ/original" width="640px">
+
+```js
+chart.coordinate({ transform: [{ type: 'transpose' }] }); // 指定 transpose
+
+chart
+  .interval()
+  .data([
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ])
+  .encode('x', 'genre')
+  .encode('y', 'sold');
+```
+
+### Fisheye
+
+还有一种设置焦点的坐标系叫鱼眼，下面是使用方式。
+
+<img alt="interaction" src="https://gw.alipayobjects.com/zos/raptor/1668754097488/intro-interaction.gif" width="640px">
+
+```js
+// 声明交互
+chart.interaction('fisheye');
+
+chart
+  .point()
+  .data(data)
+  .encode('x', 'GDP')
+  .encode('y', 'LifeExpectancy')
+  .encode('size', 'Population')
+  .encode('color', 'Continent')
+  .encode('shape', 'point')
+  .scale('size', { type: 'log', range: [4, 20] })
+  .axis('x', { labelFormatter: '~s' })
+  .style('fillOpacity', 0.3)
+  .style('lineWidth', 1);
+```
+
+## 冒泡
+
+坐标系拥有冒泡性，chart 实例的坐标系会它的标记所设置的坐标系覆盖，并且第一个标记所对应的坐标系优先级最高。
+
+```js
+chart.coordinate({ type: 'theta' });
+chart.line().coordinate({ type: 'polar' });
+chart.area().coordinate({ type: 'radial' });
+```
+
+和下面的情况等价：
+
+```js
+chart.coordinate({ type: 'polar' });
+chart.line();
+chart.area():
 ```

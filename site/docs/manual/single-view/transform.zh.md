@@ -1,13 +1,19 @@
 ---
-title: 标记转换和数据分析
+title: 转换
 order: 6
 ---
 
-标记转换（Mark Transform）提供了一个方便的机制，去转换数据和标记的选项，主要用于分析数据。标记转换的本质是一个函数，这个函数会**筛选** 、**修改** 、**聚合**和**产生**新的通道值。
+**标记转换（Mark Transform）** 提供了一个方便的机制，去转换数据和标记的选项，主要用于分析数据。标记转换的本质是一个函数，这个函数会**筛选** 、**修改** 、**聚合**和**产生**新的通道值。
+
+在 G2 中通过 `mark.transform` 去指定每一个标记的转换，该属性是数组属性。
+
+```js
+interval.transform({ type: 'stackY' }).transform({ type: 'sortX' });
+```
 
 ## 防止重叠
 
-比如根据如下的数据绘制条形图，发现条重叠了。
+转换的一个作用是防治重叠。比如根据如下的数据绘制条形图，发现条重叠了。
 
 <img alt="layer" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*m5S6QKI-f7YAAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
@@ -101,7 +107,7 @@ chart.factRect().point().transform({ typ: 'pack' });
 
 ## 多个转换
 
-在 G2 中通过 `mark.transform` 去指定每一个标记的转换，该属性是数组属性，意味着可以声明一系列转换。上面的企鹅的例子中，我们多考虑一个数据维度：企鹅的性别，就可以连续声明 bin 和 stack 转换。
+我们也可以同时声明多个转换。比如在上面的企鹅的例子中，我们多考虑一个数据维度：企鹅的性别，就可以连续声明 bin 和 stack 转换。
 
 <img alt="multi" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ndHkRrtkCSIAAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
@@ -117,4 +123,21 @@ chart
   .transform({ type: 'binX', y: 'count' }) // 声明 bin 转换
   .transform({ type: 'stackY', orderBy: 'sum', reverse: true }) // 声明 stack 转换
   .style('insetLeft', 1);
+```
+
+## 传递性
+
+转换也具有传递性，chart 实例拥有的转换会传递给所有拥有的标记。
+
+```js
+chart.line().transform({ type: 'stackY' });
+chart.area().transform({ type: 'stackY' });
+```
+
+和下面的写法等价：
+
+```js
+chart.transform({ type: 'stackY' });
+chart.line();
+chart.area();
 ```
