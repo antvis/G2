@@ -209,8 +209,12 @@ export class Chart extends View<ChartOptions> {
       );
     }
 
-    return new Promise((resolve) => {
-      render(this.options(), this._context, () => resolve(this));
+    return new Promise((resolve, reject) => {
+      try {
+        render(this.options(), this._context, () => resolve(this), reject);
+      } catch (e) {
+        reject(e);
+      }
     });
   }
   /**
