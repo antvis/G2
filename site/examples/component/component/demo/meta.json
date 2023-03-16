@@ -4,5 +4,29 @@
     "en": "Category"
   },
   "demos": [
+    {
+      "filename": "axis.ts",
+      "title": {
+        "zh": "坐标轴",
+        "en": "Axis"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*_nL3RJIScmcAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "category.ts",
+      "title": {
+        "zh": "分类图例",
+        "en": "Category Legend"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*CekZQbAwP8gAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "Continuous.ts",
+      "title": {
+        "zh": "连续图例",
+        "en": "Continuous Legend"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*QXuAQ7COJwcAAAAAAAAAAAAADmJ7AQ/original"
+    }
   ]
 }
