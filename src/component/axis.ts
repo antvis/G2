@@ -141,6 +141,7 @@ function getTicks(
   const ticks = ticksOf(scale, domain, tickMethod);
   const filteredTicks = tickFilter ? ticks.filter(tickFilter) : ticks;
   const labelFormatter = scale.getFormatter?.() || defaultTickFormatter;
+  const toString = (d) => (typeof d === 'object' ? d : String(d));
   const applyInset = createInset(position, coordinate);
   const applyFisheye = createFisheye(position, coordinate);
 
@@ -150,7 +151,7 @@ function getTicks(
       const tick = applyInset(scale.map(d) + offset);
       return {
         value: isTranspose(coordinate) && scale.getTicks?.() ? 1 - tick : tick,
-        label: labelFormatter(d, i, array),
+        label: toString(labelFormatter(prettyNumber(d), i, array)),
         id: String(i),
       };
     });
@@ -166,7 +167,7 @@ function getTicks(
     const tick = applyFisheye(applyInset(scale.map(d) + offset));
     return {
       value: tick,
-      label: `${labelFormatter(prettyNumber(d), i, array)}`,
+      label: toString(labelFormatter(prettyNumber(d), i, array)),
       id: String(i),
     };
   });
