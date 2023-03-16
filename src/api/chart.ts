@@ -38,7 +38,6 @@ function normalizeContainer(container: string | HTMLElement): HTMLElement {
 
 export function removeContainer(container: HTMLElement) {
   const parent = container.parentNode;
-
   if (parent) {
     parent.removeChild(container);
   }
@@ -272,21 +271,22 @@ export class Chart extends View<ChartOptions> {
     return this;
   }
 
+  clear() {
+    const options = this.options();
+    this.emit(ChartEvent.BEFORE_CLEAR);
+    this._options = {};
+    destroy(options, this._context, false);
+    this.emit(ChartEvent.AFTER_CLEAR);
+  }
+
   destroy() {
     const options = this.options();
     this.emit(ChartEvent.BEFORE_DESTROY);
     this.unbindAutoFit();
-    destroy(options, this._context);
-    // Remove the container.
+    this._options = {};
+    destroy(options, this._context, true);
     removeContainer(this._container);
     this.emit(ChartEvent.AFTER_DESTROY);
-  }
-
-  clear() {
-    const options = this.options();
-    this.emit(ChartEvent.BEFORE_CLEAR);
-    destroy(options, this._context);
-    this.emit(ChartEvent.AFTER_CLEAR);
   }
 
   forceFit() {

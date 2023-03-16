@@ -1,5 +1,5 @@
 import { Canvas } from '@antv/g';
-import { Chart, createLibrary } from '../../../src';
+import { Chart, createLibrary, VIEW_CLASS_NAME } from '../../../src';
 import {
   View,
   TimingKeyframe,
@@ -71,9 +71,7 @@ describe('Chart', () => {
 
   it('Chart({...}) should override default value', () => {
     const chart = new Chart({ data: [1, 2, 3] });
-    expect(chart.value).toEqual({
-      data: [1, 2, 3],
-    });
+    expect(chart.value).toEqual({ data: [1, 2, 3] });
   });
 
   it('chart.getContainer() should return container', () => {
@@ -493,5 +491,94 @@ describe('Chart', () => {
     // 捕获渲染异常
     const chart = new Chart({});
     await expect(chart.render()).rejects.toThrowError();
+  });
+
+  it('chart.destroy()', async (done) => {
+    const chart = new Chart({ theme: 'classic', key: 'chart' });
+    chart.data([
+      { genre: 'Sports', sold: 275 },
+      { genre: 'Strategy', sold: 115 },
+      { genre: 'Action', sold: 120 },
+      { genre: 'Shooter', sold: 350 },
+      { genre: 'Other', sold: 150 },
+    ]);
+    chart
+      .interval()
+      .attr('key', 'interval')
+      .encode('x', 'genre')
+      .encode('y', 'sold')
+      .encode('color', 'genre');
+
+    chart.on('afterrender', () => {
+      setTimeout(() => {
+        expect(chart.getGroup().id).toEqual(chart.attr('key'));
+        chart.destroy();
+        expect(chart.getGroup()).toEqual(null);
+        done();
+      }, 200);
+    });
+
+    await chart.render();
+  });
+
+  it('chart.clear()', async (done) => {
+    const chart = new Chart({ theme: 'classic', key: 'chart' });
+    chart.data([
+      { genre: 'Sports', sold: 275 },
+      { genre: 'Strategy', sold: 115 },
+      { genre: 'Action', sold: 120 },
+      { genre: 'Shooter', sold: 350 },
+      { genre: 'Other', sold: 150 },
+    ]);
+    chart
+      .interval()
+      .attr('key', 'interval')
+      .encode('x', 'genre')
+      .encode('y', 'sold')
+      .encode('color', 'genre');
+
+    chart.on('afterrender', () => {
+      setTimeout(() => {
+        expect(chart.getGroup().id).toEqual(chart.attr('key'));
+        chart.clear();
+        expect(chart.getGroup()).toEqual(null);
+        done();
+      }, 200);
+    });
+
+    await chart.render();
+  });
+
+  it('chart.clear() should clear interaction', async () => {
+    const chart = new Chart({ theme: 'classic' });
+    chart.data([
+      { genre: 'Sports', sold: 275 },
+      { genre: 'Strategy', sold: 115 },
+      { genre: 'Action', sold: 120 },
+      { genre: 'Shooter', sold: 350 },
+      { genre: 'Other', sold: 150 },
+    ]);
+    chart
+      .interval()
+      .encode('x', 'genre')
+      .encode('y', 'sold')
+      .encode('color', 'genre')
+      .interaction('tooltip');
+    await chart.render();
+
+    const { canvas } = chart.getContext();
+    const fn = jest.fn();
+    // @ts-ignore
+    const [view] = canvas.document.getElementsByClassName(VIEW_CLASS_NAME);
+    const nameInteraction = view['nameInteraction'];
+    const interaction = nameInteraction.get('tooltip');
+    const { destroy } = interaction;
+    const newDestroy = () => {
+      destroy();
+      fn();
+    };
+    interaction.destroy = newDestroy;
+    chart.clear();
+    expect(fn).toBeCalledTimes(1);
   });
 });
