@@ -26,6 +26,7 @@ import { composition, Composition, View } from './composition';
 import { library } from './library';
 
 export const SPEC_EXTERNAL_KEYS = ['container', 'renderer'];
+export const G2_CHART_KEY = 'G2_CHART_KEY';
 
 function normalizeContainer(container: string | HTMLElement): HTMLElement {
   if (container === undefined) return document.createElement('div');
@@ -171,8 +172,9 @@ export class Chart extends View<ChartOptions> {
   private _options: G2ViewTree;
 
   constructor(options: ChartOptions = {}) {
-    const { container, canvas, ...rest } = options;
+    const { container, canvas, key = G2_CHART_KEY, ...rest } = options;
     super(rest, 'view');
+    this.attr('key', key);
     this._container = normalizeContainer(container);
     this._emitter = new EventEmitter();
     this._context = { library, emitter: this._emitter, canvas };
