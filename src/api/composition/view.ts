@@ -31,7 +31,6 @@ export interface View extends Mark {
   { type: 'object', name: 'scale' },
   { type: 'object', name: 'axis' },
   { type: 'object', name: 'legend' },
-  { type: 'object', name: 'state' },
   ...nodeProps(mark),
 ])
 export class View<

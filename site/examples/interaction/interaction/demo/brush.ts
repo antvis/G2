@@ -17,6 +17,6 @@ chart
   .encode('y', 'weight')
   .encode('color', 'gender')
   .state({ inactive: { stroke: 'gray', opacity: 0.5 } })
-  .interaction({ brushHighlight: true });
+  .interaction('brushHighlight', true);
 
 chart.render();

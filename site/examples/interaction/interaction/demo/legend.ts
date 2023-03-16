@@ -30,6 +30,6 @@ chart
     d.month === 'Total' ? 'Total' : d.profit > 0 ? 'Increase' : 'Decrease',
   )
   .axis('y', { labelFormatter: '~s' })
-  .interaction({ legendFilter: true });
+  .interaction('legendFilter', true);
 
 chart.render();

@@ -21,8 +21,6 @@ chart
     selected: { fill: '#f4bb51' },
     unselected: { opacity: 0.6 },
   })
-  .interaction({
-    elementSelect: true,
-  });
+  .interaction('elementSelect', true);
 
 chart.render();

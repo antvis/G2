@@ -22,8 +22,6 @@ chart
     x: { labelFormatter: (d) => format(d, 'YYYY/M/D') },
     y: { labelFormatter: '~s' },
   })
-  .interaction({
-    sliderFilter: true,
-  });
+  .interaction('sliderFilter', true);
 
 chart.render();

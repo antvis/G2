@@ -17,8 +17,6 @@ chart
   .encode('x', 'letter')
   .encode('y', 'frequency')
   .axis('y', { labelFormatter: '.0%' })
-  .interaction({
-    elementHighlight: { background: true },
-  });
+  .interaction('elementHighlight', { background: true });
 
 chart.render();
