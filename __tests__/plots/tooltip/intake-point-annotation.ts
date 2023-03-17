@@ -1,6 +1,6 @@
 import { G2Spec } from '../../../src';
 import { intake } from '../../data/intake';
-import { tooltipStepsByClassName } from './utils';
+import { tooltipStepsByMarkType } from './utils';
 
 export function intakePointAnnotation(): G2Spec {
   return {
@@ -71,4 +71,4 @@ export function intakePointAnnotation(): G2Spec {
   };
 }
 
-intakePointAnnotation.steps = tooltipStepsByClassName('lineY', 0);
+intakePointAnnotation.steps = tooltipStepsByMarkType('lineY', 0);

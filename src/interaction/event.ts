@@ -22,8 +22,7 @@ function bubblesEvent(eventType, view, emitter, predicate = (event) => true) {
   return (e) => {
     if (!predicate(e)) return;
     const { target } = e;
-    const { classList = [] } = target;
-    const [elementType, markType] = classList;
+    const { className: elementType, markType } = target;
     if (elementType === 'element') {
       updateData(e, target, view);
       emitter.emit(`element:${eventType}`, e);

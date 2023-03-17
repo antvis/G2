@@ -32,10 +32,12 @@ export function tooltipSteps(...index) {
   };
 }
 
-export function tooltipStepsByClassName(className, ...index) {
+export function tooltipStepsByMarkType(markType, ...index) {
   return ({ canvas }) => {
     const { document } = canvas;
-    const elements = document.getElementsByClassName(className);
+    const elements = document.findAll(
+      (element) => element.markType === markType,
+    );
     const steps = index.map((i) => ({
       changeState: async () => {
         elements[i].dispatchEvent(new CustomEvent('pointerover'));

@@ -1,5 +1,5 @@
 import { G2Spec } from '../../../src';
-import { tooltipStepsByClassName } from './utils';
+import { tooltipStepsByMarkType } from './utils';
 
 export async function flareTreeCustom(): Promise<G2Spec> {
   return {
@@ -40,7 +40,7 @@ export async function flareTreeCustom(): Promise<G2Spec> {
 }
 
 flareTreeCustom.steps = ({ canvas }) => {
-  const point = tooltipStepsByClassName('point', 0);
-  const link = tooltipStepsByClassName('link', 0);
+  const point = tooltipStepsByMarkType('point', 0);
+  const link = tooltipStepsByMarkType('link', 0);
   return [...point({ canvas }), ...link({ canvas })];
 };
