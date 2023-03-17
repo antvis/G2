@@ -754,8 +754,6 @@ async function plotView(
     const updateFunction = createUpdateFunction(mark, state, view, library);
     const exitFunction = createExitFunction(mark, state, view, library);
     const facetElements = selectFacetElements(selection, cls, 'element');
-    const classNames = [ELEMENT_CLASS_NAME];
-    if (typeof type === 'string') classNames.push(type);
     const T = selection
       .select(`#${key}`)
       .selectAll(className(ELEMENT_CLASS_NAME))
@@ -769,7 +767,10 @@ async function plotView(
         (enter) =>
           enter
             .append(shapeFunction)
-            .attr('className', classNames.join(' '))
+            // Note!!! Only one className can be set.
+            // Using attribute as alternative for other classNames.
+            .attr('className', ELEMENT_CLASS_NAME)
+            .attr('markType', type)
             .transition(function (data) {
               return enterFunction(data, [this]);
             }),
@@ -803,6 +804,7 @@ async function plotView(
             // Append elements to be merged.
             .append(shapeFunction)
             .attr('className', ELEMENT_CLASS_NAME)
+            .attr('markType', type)
             .transition(function (data) {
               // Remove merged elements after animation finishing.
               const { __fromElements__: fromElements } = this;
@@ -819,6 +821,7 @@ async function plotView(
               const toElements = enter
                 .append(shapeFunction)
                 .attr('className', ELEMENT_CLASS_NAME)
+                .attr('markType', type)
                 .nodes();
               return updateFunction(data, [this], toElements);
             })
