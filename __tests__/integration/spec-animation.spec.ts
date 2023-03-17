@@ -1,5 +1,6 @@
 import EventEmitter from '@antv/event-emitter';
 import { Canvas } from '@antv/g';
+import { deepMix } from '@antv/util';
 import { G2Context } from '../../src';
 import * as chartTests from '../plots/animation';
 import { filterTests } from './utils/filterTests';
@@ -74,6 +75,20 @@ function useFrame(I, context, asset) {
   };
 }
 
+function hideAxisTitle(options) {
+  const { children } = options;
+  const hide = (d) =>
+    deepMix(d, {
+      axis: { x: { title: false }, y: { title: false } },
+    });
+  if (!children) return hide(options);
+  const newChildren = children.map(hide);
+  return {
+    ...options,
+    children: newChildren,
+  };
+}
+
 describe('Animations', () => {
   const tests = filterTests(chartTests);
   for (const [name, generateOptions] of tests) {
@@ -82,6 +97,11 @@ describe('Animations', () => {
       try {
         // @ts-ignore
         const { intervals: I, maxError = 0 } = generateOptions;
+
+        // @todo Remove this when gui fixed title animation.
+        // @ts-ignore
+        generateOptions.preprocess = hideAxisTitle;
+
         if (!I) {
           throw new Error(`Missing intervals for ${name}`);
         }

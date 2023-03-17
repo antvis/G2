@@ -1,6 +1,6 @@
 import { schemeTableau10 } from 'd3-scale-chromatic';
 import { G2Spec } from '../../../src';
-import { tooltipStepsByClassName } from './utils';
+import { tooltipStepsByMarkType } from './utils';
 
 export function miserableForceCustom(): G2Spec {
   const mockData = (data) => {
@@ -48,7 +48,7 @@ export function miserableForceCustom(): G2Spec {
 }
 
 miserableForceCustom.steps = ({ canvas }) => {
-  const link = tooltipStepsByClassName('link', 0);
-  const point = tooltipStepsByClassName('point', 0);
+  const link = tooltipStepsByMarkType('link', 0);
+  const point = tooltipStepsByMarkType('point', 0);
   return [...link({ canvas }), ...point({ canvas })];
 };

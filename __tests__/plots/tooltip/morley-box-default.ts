@@ -1,5 +1,5 @@
 import { G2Spec } from '../../../src';
-import { tooltipStepsByClassName } from './utils';
+import { tooltipStepsByMarkType } from './utils';
 
 export function morleyBoxDefault(): G2Spec {
   return {
@@ -21,7 +21,7 @@ export function morleyBoxDefault(): G2Spec {
 }
 
 morleyBoxDefault.steps = ({ canvas }) => {
-  const box = tooltipStepsByClassName('box', 0);
-  const point = tooltipStepsByClassName('point', 0);
+  const box = tooltipStepsByMarkType('box', 0);
+  const point = tooltipStepsByMarkType('point', 0);
   return [...box({ canvas }), ...point({ canvas })];
 };
