@@ -8,16 +8,7 @@ import { renderSpec } from './utils/renderSpec';
 import { compose } from './utils/compose';
 import './utils/useSnapshotMatchers';
 import './utils/useCustomFetch';
-
-function disableAnimation(options): G2Spec {
-  const { children } = options;
-  if (!children) return { ...options, animate: false };
-  const newChildren = children.map((d) => ({ ...d, animate: false }));
-  return {
-    ...options,
-    children: newChildren,
-  };
-}
+import { disableAnimation } from './utils/preprocess';
 
 function disableTooltip(options): G2Spec {
   const discovered = [options];

@@ -7,6 +7,7 @@ import { createDOMGCanvas } from './utils/createDOMGCanvas';
 import { sleep } from './utils/sleep';
 import './utils/useSnapshotMatchers';
 import './utils/useCustomFetch';
+import { disableAnimation } from './utils/preprocess';
 
 describe('Tooltips', () => {
   const tests = filterTests(chartTests);
@@ -22,6 +23,8 @@ describe('Tooltips', () => {
 
         // @ts-ignore
         const { className = 'tooltip' } = generateOptions;
+        // @ts-ignore
+        generateOptions.preprocess = disableAnimation;
 
         // Render chart.
         // @ts-ignore
@@ -36,12 +39,14 @@ describe('Tooltips', () => {
         const steps = S({ canvas: gCanvas });
         const dir = `${__dirname}/snapshots/tooltip/${kebabCase(name)}`;
         for (let i = 0; i < steps.length; i++) {
-          const { changeState } = steps[i];
-          await changeState();
-          await sleep(100);
-          await expect(gCanvas).toMatchDOMSnapshot(dir, `step${i}`, {
-            selector: `.${className}`,
-          });
+          const { changeState, skip = false } = steps[i];
+          if (!skip) {
+            await changeState();
+            await sleep(100);
+            await expect(gCanvas).toMatchDOMSnapshot(dir, `step${i}`, {
+              selector: `.${className}`,
+            });
+          }
         }
       } finally {
         gCanvas?.destroy();

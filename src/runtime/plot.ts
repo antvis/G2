@@ -303,14 +303,43 @@ function createUpdateView(
     const transitions = [];
     const [newView, newChildren] = await initializeView(newOptions, library);
     plotView(newView, selection, transitions, library);
+    updateTooltip(selection, newOptions, newView, library, context);
     for (const child of newChildren) {
       plot(child, selection, library, context);
     }
-    return {
-      options: newOptions,
-      view: newView,
-    };
+    return { options: newOptions, view: newView };
   };
+}
+
+function updateTooltip(selection, options, view, library, context) {
+  const [useInteraction] = useLibrary<
+    G2InteractionOptions,
+    InteractionComponent,
+    Interaction
+  >('interaction', library);
+
+  // Instances for tooltip.
+  const container = selection.node();
+  const nameInteraction = container['nameInteraction'];
+  const { interaction } = options;
+  const tooltipOptions = inferInteraction(interaction).find(
+    (d) => d.type === 'tooltip',
+  );
+
+  // Destroy older tooltip.
+  const tooltip = nameInteraction.get('tooltip');
+  if (!tooltip) return;
+  tooltip.destroy?.();
+
+  // Apply new tooltip interaction.
+  const applyTooltip = useInteraction(tooltipOptions);
+  const target = {
+    options,
+    view,
+    container: selection.node(),
+    update: (options) => Promise.resolve(options),
+  };
+  applyTooltip(target, [], context.emitter);
 }
 
 async function initializeView(
@@ -1306,11 +1335,10 @@ function createExitFunction(
   return createAnimationFunction('exit', mark, state, view, library);
 }
 
-function inferTheme(
-  theme: G2ThemeOptions = { type: 'classic' },
-): G2ThemeOptions {
-  const { type = 'classic' } = theme;
-  return { ...theme, type };
+function inferTheme(theme: G2ThemeOptions = {}): G2ThemeOptions {
+  if (typeof theme === 'string') return { type: theme };
+  const { type = 'classic', ...rest } = theme;
+  return { ...rest, type };
 }
 
 /**

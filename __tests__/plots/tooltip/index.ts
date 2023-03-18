@@ -53,3 +53,5 @@ export { londonTubeLineGeo } from './london-tube-lines-geo';
 export { windVectorWind } from './wind-vector-wind';
 export { forecastRangeAreaLineTranspose } from './forecast-range-area-line-transpose';
 export { scoreByItemAreaRadar } from './score-by-item-area-radar';
+export { profitIntervalLegendFilterOrdinal } from './profit-interval-legend-filter-ordinal';
+export { aaplLineSliderFilter } from './appl-line-slider-filter';
