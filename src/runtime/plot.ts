@@ -749,13 +749,18 @@ async function plotView(
   for (const [mark, state] of markState.entries()) {
     const { data } = state;
     const { key, class: cls, type } = mark;
+    const viewNode = selection.select(`#${key}`);
     const shapeFunction = createMarkShapeFunction(mark, state, view, library);
     const enterFunction = createEnterFunction(mark, state, view, library);
     const updateFunction = createUpdateFunction(mark, state, view, library);
     const exitFunction = createExitFunction(mark, state, view, library);
-    const facetElements = selectFacetElements(selection, cls, 'element');
-    const T = selection
-      .select(`#${key}`)
+    const facetElements = selectFacetElements(
+      selection,
+      viewNode,
+      cls,
+      'element',
+    );
+    const T = viewNode
       .selectAll(className(ELEMENT_CLASS_NAME))
       .selectFacetAll(facetElements)
       .data(
@@ -1117,6 +1122,7 @@ function computeAnimationExtent(markState): [number, number] {
 
 function selectFacetElements(
   selection: Selection,
+  current: Selection,
   facetClassName: string,
   elementClassName: string,
 ): DisplayObject[] {
@@ -1124,7 +1130,9 @@ function selectFacetElements(
   return group
     .findAll(
       (node) =>
-        node.style.facet !== undefined && node.style.facet === facetClassName,
+        node.style.facet !== undefined &&
+        node.style.facet === facetClassName &&
+        node !== current.node(), // Exclude current view.
     )
     .flatMap((node) => node.getElementsByClassName(elementClassName));
 }

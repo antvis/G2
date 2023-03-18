@@ -71,7 +71,8 @@ export function useMemo<T = unknown, U = unknown>(
 
 export function appendTransform(node: DisplayObject, transform: any) {
   const { transform: preTransform } = node.style;
-  const prefix = preTransform === 'none' ? '' : preTransform;
+  const unset = (d) => d === 'none' || d === undefined;
+  const prefix = unset(preTransform) ? '' : preTransform;
   node.style.transform = `${prefix} ${transform}`.trimStart();
 }
 
