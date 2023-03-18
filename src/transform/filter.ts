@@ -41,7 +41,10 @@ export const Filter: TC<FilterOptions> = (options = {}) => {
         },
       ];
     });
-    return [I, deepMix({}, mark, { encode: Object.fromEntries(newEncodes) })];
+    return [
+      newIndex,
+      deepMix({}, mark, { encode: Object.fromEntries(newEncodes) }),
+    ];
   };
 };
 

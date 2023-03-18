@@ -44,26 +44,6 @@ export function attributesOf(root) {
   return child.attributes;
 }
 
-function builtInAccessors(selectedLegend) {
-  // Get the value and scale type from legend.
-  const { data } = attributesOf(selectedLegend);
-  // In theory, scales' channels are the same
-  const { name: channel } = dataOf(selectedLegend).scales[0];
-  return [
-    channel,
-    {
-      legends: itemsOf,
-      marker: markerOf,
-      label: labelOf,
-      datum: (d) => {
-        const { __data__: datum } = d;
-        const { index } = datum;
-        return data[index].label;
-      },
-    },
-  ] as any;
-}
-
 function legendFilter(
   root: DisplayObject,
   {
@@ -72,7 +52,6 @@ function legendFilter(
     label: labelOf, // given the legend returns the label
     datum, // given the legend returns the value
     filter, // invoke when dispatch filter event,
-    setAttribute, // setter for set element style,
     state = {} as Record<string, any>, // state options
   },
 ) {
@@ -93,12 +72,10 @@ function legendFilter(
   const { setState: setM, removeState: removeM } = useState(
     markerStyle,
     undefined,
-    setAttribute,
   );
   const { setState: setL, removeState: removeL } = useState(
     labelStyle,
     undefined,
-    setAttribute,
   );
 
   const items: DisplayObject[] = Array.from(legends(root));
@@ -156,59 +133,57 @@ function legendFilter(
   };
 }
 
-export function LegendFilter({ channel, ...rest }) {
+export function LegendFilter() {
   return (context) => {
     const { container, view, options: viewOptions, update } = context;
 
-    // Use the first legend if channel is not specified,
-    // or use the first legend bind to specified channel.
     const legends = legendsOf(container);
-    const selectedLegend = !channel
-      ? legends[0]
-      : legends.find((d) => {
-          const { __data__ } = d.parentNode;
-          return __data__.scale.name === channel;
-        });
+    if (!legends.length) return () => {};
 
-    // Skip if there is no legend.
-    const [selectedChannel, accessors] = selectedLegend
-      ? builtInAccessors(selectedLegend)
-      : [null, {}];
-    if (selectedChannel) channel = selectedChannel;
-
-    // Apply common legend filter.
-    return legendFilter(container, {
-      ...accessors,
-      filter: async (value) => {
-        const { scale } = view;
-        const { [channel]: scaleOrdinal } = scale;
-        const { marks } = viewOptions;
-        // Add filter transform for every marks,
-        // which will skip for mark without color channel.
-        const newMarks = marks.map((mark) => {
-          const { transform = [] } = mark;
-          const newTransform = [
-            { type: 'filter', [channel]: value },
-            ...transform,
-          ];
-          return deepMix({}, mark, {
-            transform: newTransform,
-            // Set domain of scale to preserve legends.
-            scale: {
-              [channel]: {
-                domain: scaleOrdinal.getOptions().domain,
+    const removes = legends.map((legend) => {
+      const { name: channel, domain } = dataOf(legend).scales[0];
+      return legendFilter(container, {
+        legends: itemsOf,
+        marker: markerOf,
+        label: labelOf,
+        datum: (d) => {
+          const { __data__: datum } = d;
+          const { index } = datum;
+          return domain[index];
+        },
+        filter: async (value) => {
+          const { scale } = view;
+          const { [channel]: scaleOrdinal } = scale;
+          const { marks } = viewOptions;
+          // Add filter transform for every marks,
+          // which will skip for mark without color channel.
+          const newMarks = marks.map((mark) => {
+            const { transform = [] } = mark;
+            const newTransform = [
+              { type: 'filter', [channel]: value },
+              ...transform,
+            ];
+            return deepMix({}, mark, {
+              transform: newTransform,
+              // Set domain of scale to preserve legends.
+              scale: {
+                [channel]: {
+                  domain: scaleOrdinal.getOptions().domain,
+                },
               },
-            },
+            });
           });
-        });
-        const newOptions = {
-          ...viewOptions,
-          marks: newMarks,
-        };
-        return update(newOptions);
-      },
-      state: selectedLegend.attributes.state,
-      ...rest,
+          const newOptions = {
+            ...viewOptions,
+            marks: newMarks,
+          };
+          return update(newOptions);
+        },
+        state: legend.attributes.state,
+      });
     });
+    return () => {
+      removes.forEach((remove) => remove());
+    };
   };
 }

@@ -1,11 +1,9 @@
 import { Band } from '@antv/scale';
 import { stratify, hierarchy } from 'd3-hierarchy';
 import { Primitive } from 'd3-array';
-import { deepMix } from '@antv/util';
 import { Vector2 } from '@antv/coord';
 import { Scale } from '../runtime/types/component';
 import { Channel } from '../runtime';
-import { isUnset, subObject } from '../utils/helper';
 
 export type ChannelOptions = {
   shapes?: string[];
@@ -59,11 +57,11 @@ export function baseAnnotationChannels(
 }
 
 export function basePreInference() {
-  return [];
+  return [{ type: 'maybeKey' }];
 }
 
 export function basePostInference() {
-  return [{ type: 'maybeKey' }];
+  return [];
 }
 
 export function bandWidth(scale: Band, x: any): number {
