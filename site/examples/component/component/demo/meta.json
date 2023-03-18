@@ -7,7 +7,7 @@
     {
       "filename": "axis.ts",
       "title": {
-        "zh": "坐标轴",
+        "zh": "自定义坐标轴",
         "en": "Axis"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*_nL3RJIScmcAAAAAAAAAAAAADmJ7AQ/original"
@@ -15,13 +15,13 @@
     {
       "filename": "category.ts",
       "title": {
-        "zh": "分类图例",
+        "zh": "自定义图例",
         "en": "Category Legend"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*CekZQbAwP8gAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*oB8RRYc9l2IAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
-      "filename": "Continuous.ts",
+      "filename": "continuous.ts",
       "title": {
         "zh": "连续图例",
         "en": "Continuous Legend"
