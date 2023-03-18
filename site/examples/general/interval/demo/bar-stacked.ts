@@ -25,7 +25,7 @@ chart
   .axis('x', {
     labelSpacing: 4,
     style: {
-      labelTransform: 'rotate(90deg)',
+      labelTransform: 'rotate(90)',
     },
   })
   .axis('y', { labelFormatter: '~s' });

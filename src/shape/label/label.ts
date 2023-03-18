@@ -56,7 +56,7 @@ export const Label: SC<LabelOptions> = (options) => {
     return select(new Advance())
       .call(applyStyle, defaultStyle)
       .style('text', `${text}`)
-      .style('transform', `${transform}rotate(${+rotate}deg)`)
+      .style('transform', `${transform}rotate(${+rotate})`)
       .style('coordCenter', coordinate.getCenter())
       .call(applyStyle, overrideStyle)
       .node();

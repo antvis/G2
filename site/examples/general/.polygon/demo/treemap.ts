@@ -70,8 +70,8 @@ chart
   .encode('x', (d) => d.x[0])
   .encode('y', (d) => d.y[0])
   .encode('text', name)
-  .style('dy', '15px')
-  .style('dx', '5px')
+  .style('dy', 15)
+  .style('dx', 5)
   .style('fill', 'black')
   .style('textAnchor', 'start')
   .style('fontSize', 12);

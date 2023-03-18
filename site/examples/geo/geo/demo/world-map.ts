@@ -17,19 +17,11 @@ fetch('https://assets.antv.antgroup.com/g2/countries-50m.json')
 
     const geoView = chart.geoView().coordinate({ type: 'orthographic' });
 
-    geoView
-      .geoPath()
-      .data({ type: 'graticule10' })
-      .style('fill', 'none')
-      .style('stroke', '#ccc');
+    geoView.geoPath().data({ type: 'graticule10' }).style('stroke', '#ccc');
 
     geoView.geoPath().data(land).style('fill', 'black');
 
-    geoView
-      .geoPath()
-      .data({ type: 'sphere' })
-      .style('fill', 'none')
-      .style('stroke', 'black');
+    geoView.geoPath().data({ type: 'sphere' }).style('stroke', 'black');
 
     chart.render();
   });

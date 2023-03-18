@@ -219,7 +219,7 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
     );
 
     const legendStyle = {
-      orient: ['right', 'left', 'center'].includes(position)
+      orientation: ['right', 'left', 'center'].includes(position)
         ? 'vertical'
         : 'horizontal',
       width,

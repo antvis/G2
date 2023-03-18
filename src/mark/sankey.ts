@@ -48,7 +48,7 @@ export const Sankey: CC<SankeyOptions> = (options) => {
     },
     style: {
       fillOpacity: 0.5,
-      stroke: null,
+      stroke: undefined,
     },
   };
 
@@ -137,6 +137,7 @@ export const Sankey: CC<SankeyOptions> = (options) => {
         labels: linkLabels,
         style: {
           fill: linkEncode.color ? undefined : '#aaa',
+          strokeWidth: 0,
           ...subObject(style, 'link'),
         },
         tooltip: linkTooltip,

@@ -31,14 +31,14 @@ function createTooltip(root, x0, y0) {
       x: x0,
       y: y0,
       container: { x: 0, y: 0 },
-      items: [],
+      data: [],
       bounding: {
         x,
         y,
         width: x1 - x,
         height: y1 - y,
       },
-      title: ' ',
+      title: '',
       position: 'bottom-right',
       offset: [10, 10],
       style: {
@@ -61,14 +61,14 @@ function showTooltip(root, data, x, y, render, event, single) {
   // All the views share the same tooltip.
   const container = single ? getContainer(root) : root;
   const { tooltipElement = createTooltip(root, x, y) } = container;
-  const { items, title } = data;
-  tooltipElement.show();
-  tooltipElement.position = [x, y];
+  const { items, title = '' } = data;
   tooltipElement.update({
-    items,
-    title: title === undefined ? '' : title,
+    x,
+    y,
+    data: items,
+    title,
     ...(render !== undefined && {
-      customContent: render(event, { items, title }),
+      content: render(event, { items, title }),
     }),
   });
   container.tooltipElement = tooltipElement;

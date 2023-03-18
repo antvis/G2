@@ -45,7 +45,7 @@ chart
       x: 5,
       y: 5,
       textAnchor: 'start',
-      dy: '1.5em',
+      dy: 15,
       fontSize: 10,
       fill: '#fff',
     },

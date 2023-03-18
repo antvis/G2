@@ -33,3 +33,5 @@ export async function peopleIntervalSplitMerge(): Promise<G2Spec> {
 }
 
 peopleIntervalSplitMerge.intervals = [false, [500], [500]];
+
+peopleIntervalSplitMerge.maxError = 10;

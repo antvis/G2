@@ -17,10 +17,10 @@ export const ScaleInX: AC<ScaleInXOptions> = (options) => {
     const [shape] = from;
     const { height } = shape.getBoundingClientRect();
     const {
-      transform: prefix,
-      fillOpacity,
-      strokeOpacity,
-      opacity,
+      transform: prefix = '',
+      fillOpacity = 1,
+      strokeOpacity = 1,
+      opacity = 1,
     } = shape.style;
     const [transformOrigin, transform]: [[number, number], string] =
       isTranspose(coordinate)

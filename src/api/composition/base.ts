@@ -1,7 +1,8 @@
-import { DisplayObject } from '@antv/g';
 import { Coordinate } from '@antv/coord';
-import { Node } from '../node';
+import { DisplayObject } from '@antv/g';
 import { G2Theme, G2ViewDescriptor } from '../../runtime';
+import { hide, show } from '../../utils/style';
+import { Node } from '../node';
 
 export class CompositionNode<
   Value extends Record<string, any> = Record<string, any>,
@@ -40,7 +41,7 @@ export class CompositionNode<
   show() {
     const group = this.getGroup();
     if (!group) return;
-    !group.isVisible() && group.setAttribute('visibility', 'visible');
+    !group.isVisible() && show(group);
   }
 
   /**
@@ -49,6 +50,6 @@ export class CompositionNode<
   hide() {
     const group = this.getGroup();
     if (!group) return;
-    group.isVisible() && group.setAttribute('visibility', 'hidden');
+    group.isVisible() && hide(group);
   }
 }

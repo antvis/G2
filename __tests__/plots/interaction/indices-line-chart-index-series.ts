@@ -39,6 +39,7 @@ export async function indicesLineChartIndexSeries(): Promise<G2Spec> {
         labelTextAlign: 'center',
         labelStroke: '#fff',
         labelLineWidth: 5,
+        labelTextBaseline: 'middle',
         labelFormatter: (d) => `${d.toUTCString()}`,
       },
     },

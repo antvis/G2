@@ -25,15 +25,10 @@ fetch('https://assets.antv.antgroup.com/g2/countries-50m.json')
       geoView
         .geoPath()
         .data({ type: 'graticule10' })
-        .style('fill', 'none')
         .style('stroke', color)
         .style('strokeOpacity', 0.3);
 
-      geoView
-        .geoPath()
-        .data({ type: 'sphere' })
-        .style('fill', 'none')
-        .style('stroke', color);
+      geoView.geoPath().data({ type: 'sphere' }).style('stroke', color);
     };
 
     const chart = new Chart({

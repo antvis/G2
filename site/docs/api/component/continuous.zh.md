@@ -76,7 +76,7 @@ chart.render();
 
 | 属性                | 描述                             | 类型                           | 默认值       |
 | ------------------- | -------------------------------- | ------------------------------ | ------------ |
-| orient              | 色带朝向，横向及纵向             | `'horizontal'` \| `'vertical'` | 'horizontal' |
+| orientation              | 色带朝向，横向及纵向             | `'horizontal'` \| `'vertical'` | 'horizontal' |
 | color               | 色带颜色，为数组时会从中按序取色 | `string[]` \| `interpolate`    | -            |
 | block               | 是否按区间显示                   | `boolean`                      | false        |
 | type                | 连续图例类型                     | `'size'` \| `'color'`          | 'color'      |
@@ -99,7 +99,7 @@ chart.render();
 | range                     | 默认选择范围         | `[number, number]`           | [min, max] |
 | step                      | 单次滑动步长         | `number`                       | 1          |
 | showHandle                | 是否显示滑动手柄     | `boolean`                      | true       |
-| handleShowLabel           | 是否显示手柄文本     | `boolean`                      | true       |
+| showHandleLabel           | 是否显示手柄文本     | `boolean`                      | true       |
 | handleMarkerFill          | 手柄图标颜色         | `string`                       | -          |
 | handleMarkerFillOpacity   | 手柄图标色透明度     | `number`                       | -          |
 | handleMarkerStroke        | 手柄图标描边色       | `string`                       | -          |

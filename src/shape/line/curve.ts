@@ -135,7 +135,7 @@ export const Curve: SC<CurveOptions> = (options) => {
     // Draw one path of connected defined points.
     if (!missing || (connectNulls && !Object.keys(connectStyle).length)) {
       return select(new Path({}))
-        .style('d', linePath(DP))
+        .style('d', linePath(DP) || [])
         .call(applyStyle, finalStyle)
         .node();
     }

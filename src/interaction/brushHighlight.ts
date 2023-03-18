@@ -83,8 +83,11 @@ export function brush(
     mask = new Rect({
       // @ts-ignore
       style: {
+        x: 0,
+        y: 0,
+        width: 0,
+        height: 0,
         draggable: true,
-        fill: 'transparent',
       },
       className: 'mask',
     });
@@ -96,6 +99,8 @@ export function brush(
     mask = new Rect({
       // @ts-ignore
       style: {
+        x: 0,
+        y: 0,
         ...style,
         fill,
         fillOpacity,
@@ -305,8 +310,8 @@ export function brushHighlight(
   const {
     width: rootWidth,
     height: rootHeight,
-    x: ordinalX,
-    y: ordinalY,
+    x: ordinalX = 0,
+    y: ordinalY = 0,
   } = bboxOf(root);
   const extent = optionalExtent
     ? optionalExtent

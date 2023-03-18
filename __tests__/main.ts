@@ -26,11 +26,19 @@ const app = document.getElementById('app') as HTMLElement;
 let currentContainer = document.createElement('div');
 let canvas;
 let prevAfter;
+const normalizeName = (name: string) => name.replace(/-/g, '').toLowerCase();
+const renderOptions = (keyword = '') => {
+  const matched = Object.keys(tests)
+    .filter((key) => normalizeName(key).includes(normalizeName(keyword)))
+    .map(createOption);
+  selectChart.replaceChildren(...matched);
+  selectChart.value = '';
+};
 
 // Select for chart.
 const selectChart = document.createElement('select') as HTMLSelectElement;
 selectChart.style.margin = '1em';
-selectChart.append(...Object.keys(tests).map(createOption));
+renderOptions();
 selectChart.onchange = () => {
   const { value } = selectChart;
   history.pushState({ value }, '', `?name=${value}`);
@@ -70,6 +78,15 @@ selectRenderer.onchange = () => {
   plot();
 };
 
+// Search input
+const searchInput = document.createElement('input');
+searchInput.style.margin = '1em';
+searchInput.placeholder = 'Search test case';
+searchInput.onkeyup = () => {
+  const { value } = searchInput;
+  renderOptions(value);
+};
+
 // Span for tips.
 const span = document.createElement('span');
 span.textContent = 'Press left or right to view more.';
@@ -85,6 +102,7 @@ addEventListener('popstate', (event) => {
 const initialValue = new URL(location).searchParams.get('name') as string;
 if (tests[initialValue]) selectChart.value = initialValue;
 app.append(selectChart);
+app.append(searchInput);
 app.append(selectRenderer);
 app.append(span);
 plot();

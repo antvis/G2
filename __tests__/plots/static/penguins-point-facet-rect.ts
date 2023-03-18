@@ -27,7 +27,7 @@ export function penguinsPointFacetRect(): G2Spec {
         style: {
           r: 3,
           fill: '#ddd',
-          stroke: 'none',
+          strokeWidth: 0,
         },
       },
       {

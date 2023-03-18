@@ -48,7 +48,7 @@ chart
         isStagger: true,
       }),
       repetition: 'repeat',
-      transform: 'rotate(30deg)',
+      transform: 'rotate(30)',
     };
   })
   .legend(false);
