@@ -44,7 +44,7 @@ export function selectPlotArea(root: DisplayObject): DisplayObject {
 
 export function mousePosition(target, event) {
   const { offsetX, offsetY } = event;
-  const bbox = target.getBounds();
+  const bbox = target.getRenderBounds();
   const {
     min: [x, y],
     max: [x1, y1],

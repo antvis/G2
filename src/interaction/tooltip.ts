@@ -352,7 +352,7 @@ export function seriesTooltip(
     (event) => {
       const mouse = mousePosition(root, event);
       if (!mouse) return;
-      const bbox = root.getBounds();
+      const bbox = root.getRenderBounds();
       const x = bbox.min[0];
       const y = bbox.min[1];
       const focus = [mouse[0] - startX, mouse[1] - startY];
@@ -441,8 +441,8 @@ export function seriesTooltip(
   root.addEventListener('pointerleave', hide);
 
   return () => {
-    root.removeEventListener('pointerover', update);
-    root.removeEventListener('pointerout', update);
+    root.removeEventListener('pointerenter', update);
+    root.removeEventListener('pointermove', update);
     root.removeEventListener('pointerleave', hide);
     destroyTooltip(root);
     if (crosshairs) hideRuleY(root);
