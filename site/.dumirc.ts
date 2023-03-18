@@ -218,7 +218,7 @@ export default defineConfig({
           zh: '主题 - Theme',
           en: 'Theme',
         },
-        order: 15,
+        order: 16,
       },
       {
         slug: 'api/plugin',
@@ -226,7 +226,7 @@ export default defineConfig({
           zh: '插件扩展 - Plugin',
           en: 'Plugin',
         },
-        order: 15,
+        order: 17,
       },
     ],
     examples: [

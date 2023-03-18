@@ -6,7 +6,7 @@ import EventEmitter from '@antv/event-emitter';
 import { G2Context, render, destroy } from '../runtime';
 import { ViewComposition } from '../spec';
 import { getChartSize } from '../utils/size';
-import { CHART_LIFE_CIRCLE } from '../utils/event';
+import { ChartEvent } from '../utils/event';
 import { G2ViewTree } from '../runtime/types/options';
 import { Node } from './node';
 import {
@@ -274,19 +274,19 @@ export class Chart extends View<ChartOptions> {
 
   destroy() {
     const options = this.options();
-    this.emit(CHART_LIFE_CIRCLE.BEFORE_DESTROY);
+    this.emit(ChartEvent.BEFORE_DESTROY);
     this.unbindAutoFit();
     destroy(options, this._context);
     // Remove the container.
     removeContainer(this._container);
-    this.emit(CHART_LIFE_CIRCLE.AFTER_DESTROY);
+    this.emit(ChartEvent.AFTER_DESTROY);
   }
 
   clear() {
     const options = this.options();
-    this.emit(CHART_LIFE_CIRCLE.BEFORE_CLEAR);
+    this.emit(ChartEvent.BEFORE_CLEAR);
     destroy(options, this._context);
-    this.emit(CHART_LIFE_CIRCLE.AFTER_CLEAR);
+    this.emit(ChartEvent.AFTER_CLEAR);
   }
 
   forceFit() {
@@ -307,12 +307,12 @@ export class Chart extends View<ChartOptions> {
     if (width === adjustedWidth && height === adjustedHeight) {
       return Promise.resolve(this);
     }
-    this.emit(CHART_LIFE_CIRCLE.BEFORE_CHANGE_SIZE);
+    this.emit(ChartEvent.BEFORE_CHANGE_SIZE);
     this.width(adjustedWidth);
     this.height(adjustedHeight);
     const finished = this.render();
     finished.then(() => {
-      this.emit(CHART_LIFE_CIRCLE.AFTER_CHANGE_SIZE);
+      this.emit(ChartEvent.AFTER_CHANGE_SIZE);
     });
     return finished;
   }

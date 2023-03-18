@@ -77,6 +77,14 @@
       "screenshot": "https://gw.alipayobjects.com/zos/raptor/1669041870958/custom.gif"
     },
     {
+      "filename": "tooltip-render.ts",
+      "title": {
+        "zh": "自定义渲染内容",
+        "en": "Custom Tooltip Rendering"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*WcxIS4inFuoAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
       "filename": "chart-index.ts",
       "title": {
         "zh": "索引图",
