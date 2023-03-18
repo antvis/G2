@@ -30,6 +30,7 @@ chart
   .encode('y', 'revenue')
   .encode('series', 'format')
   .encode('shape', 'smooth')
+  .encode('color', 'group') // For legendFilter.
   .style('stroke', 'white')
   .tooltip(false);
 

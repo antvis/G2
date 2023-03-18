@@ -20,9 +20,6 @@ export function profitIntervalLegendFilterOrdinal(): G2Spec {
       color: (d) =>
         d.month === 'Total' ? 'Total' : d.profit > 0 ? 'Increase' : 'Decrease',
     },
-    interaction: {
-      legendFilter: true,
-    },
   };
 }
 

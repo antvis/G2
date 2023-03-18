@@ -159,6 +159,7 @@ chart
   .encode('x', 'date')
   .encode('y', 'population')
   .encode('series', 'state')
+  .encode('color', 'region') // For LegendFilter.
   .style('stroke', '#000')
   .style('lineWidth', 0.5)
   .style('fillOpacity', 0.8)

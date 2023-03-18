@@ -67,7 +67,7 @@ chart.call(titleLeft, '20%', 'gain', '#e25c3b');
 function titleLeft(node, y, text, fill) {
   node
     .text()
-    .style('x', 0)
+    .style('x', -10)
     .style('y', y)
     .style('text', text)
     .style('fontWeight', 'bold')

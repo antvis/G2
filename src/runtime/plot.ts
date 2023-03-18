@@ -1322,6 +1322,7 @@ function inferInteraction(view: G2View): G2InteractionOptions[] {
     tooltip: true,
     // @todo Inferred by slider self.
     sliderFilter: true,
+    legendFilter: true,
   };
   const { interaction = {} } = view;
   return Object.entries(deepMix(defaults, interaction))

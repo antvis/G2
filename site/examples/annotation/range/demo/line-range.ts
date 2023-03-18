@@ -41,4 +41,6 @@ chart
   .style('lineWidth', 1.5)
   .tooltip(false);
 
+chart.interaction('legendFilter', false);
+
 chart.render();

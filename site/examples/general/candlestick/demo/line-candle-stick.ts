@@ -32,6 +32,7 @@ chart
   .link()
   .encode('x', 'Date')
   .encode('y', ['Low', 'High'])
+  .encode('color', (d) => Math.sign(d.Close - d.Open)) // For LegendFilter.
   .style('stroke', 'black')
   .tooltip({
     title: (d) => d.Date.toLocaleString(),
