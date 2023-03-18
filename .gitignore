@@ -33,4 +33,5 @@ __tests__/integration/snapshots/**/*-diff.*
 site/.dumi/tmp
 site/.dumi/tmp-production
 
+# Editor
 .vscode
