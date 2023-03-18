@@ -245,7 +245,7 @@ export async function plot<T extends G2ViewTree>(
     for (const option of inferInteraction(options)) {
       // Remove interaction for existed views.
       const prevInteraction = nameInteraction.get(option.type);
-      if (prevInteraction) prevInteraction.destroy();
+      if (prevInteraction) prevInteraction.destroy?.();
 
       // Apply new interaction.
       const interaction = useInteraction(option);
@@ -1312,6 +1312,8 @@ function inferInteraction(view: G2View): G2InteractionOptions[] {
   const defaults = {
     event: true,
     tooltip: true,
+    // @todo Inferred by slider self.
+    sliderFilter: true,
   };
   const { interaction = {} } = view;
   return Object.entries(deepMix(defaults, interaction))
