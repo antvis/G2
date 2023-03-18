@@ -3,7 +3,7 @@ import { Chart } from '@antv/g2';
 const chart = new Chart({
   container: 'container',
   theme: 'classic',
-  height: 300,
+  height: 360,
 });
 
 chart

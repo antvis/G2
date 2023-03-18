@@ -4,6 +4,8 @@ const chart = new Chart({
   container: 'container',
   theme: 'classic',
   autoFit: true,
+  insetTop: 30,
+  paddingBottom: 100,
 });
 
 const logo = [
@@ -65,7 +67,7 @@ const logo = [
   ],
   [
     '腾讯会议',
-    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*K7-FT4RYRqIAAAAAAAAAAAAADmJ7AQ/original',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xbPXR7snu44AAAAAAAAAAAAADmJ7AQ/original',
   ],
   [
     '网易云音乐',
@@ -101,14 +103,12 @@ chart
   .interval()
   .data(logo)
   .encode('x', (d) => d[0])
-  .encode('y', 1)
+  .encode('y', () => Math.random())
   .encode('color', (d) => d[1])
-  .axis({ x: false, y: false })
-  .style({ fill: 'transparent' })
+  .scale('y', { nice: true })
   .legend({
     color: {
       itemMarker: (_, index) => () => {
-        console.log(_);
         const { document } = chart.getContext().canvas;
         const image = document.createElement('image', {
           style: {

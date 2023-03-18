@@ -12,9 +12,10 @@ const chart = new Chart({
   marginRight: 20,
   marginBottom: 10,
   inset: 10,
+  clip: true,
 });
 
-chart.theme({
+chart.style({
   viewFill: '#4e79a7',
   plotFill: '#f28e2c',
   mainFill: '#e15759',
