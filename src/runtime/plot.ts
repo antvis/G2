@@ -1189,7 +1189,6 @@ function createMarkShapeFunction(
     );
 
     const shapeFunction = useShape({
-      // zIndex: 0,
       ...visualStyle,
       type: shapeName(mark, shape),
     });
