@@ -28,7 +28,7 @@ export const Text: SC<TextOptions> = (options) => {
       .style('x', x0)
       .style('y', y0)
       .call(applyStyle, shapeTheme)
-      .style('transform', `${transform}rotate(${+rotate}deg)`)
+      .style('transform', `${transform}rotate(${+rotate})`)
       .style('coordCenter', coordinate.getCenter())
       .call(applyStyle, textStyle)
       .call(applyStyle, style)

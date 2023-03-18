@@ -120,9 +120,9 @@ export function inferComponentShape(
   const { defaultSize, defaultLength } = component.props;
   const size = userDefinedSize || defaultSize || bboxSize;
   const length = userDefinedLength || defaultLength || bboxLength;
-  const orient = isHorizontal ? 'horizontal' : 'vertical';
+  const orientation = isHorizontal ? 'horizontal' : 'vertical';
   const [width, height] = isHorizontal ? [length, size] : [size, length];
-  return { orient, width, height, size, length };
+  return { orientation, width, height, size, length };
 }
 
 export function domainOf(scales: Scale[]): any[] {

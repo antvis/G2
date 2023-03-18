@@ -144,10 +144,10 @@ export const Advance = createElement((g) => {
     [+x0, +y0],
     [+x, +y],
   ];
-
   const shape1 = select(g)
     .maybeAppend('text', 'text')
-    .call(applyStyle, rest)
+    .style('zIndex', 0)
+    .call(applyStyle, { textBaseline: 'middle', ...rest })
     .node();
 
   const shape2 = select(g)
@@ -177,6 +177,7 @@ export const Advance = createElement((g) => {
     });
   select(g)
     .maybeAppend('connector', 'path')
+    .style('zIndex', 0)
     .style('path', connectorPath)
     .style('markerStart', markerStart)
     .style('markerEnd', markerEnd)

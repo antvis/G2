@@ -214,7 +214,7 @@ export const GeoView: CC<GeoViewOptions> = () => {
         }),
         style: {
           ...style,
-          d: (d) => path(d),
+          d: (d) => path(d) || [],
         },
       };
     }

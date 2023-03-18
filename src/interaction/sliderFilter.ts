@@ -10,8 +10,8 @@ function filterDataByDomain(options, scaleOptions) {
       {
         // Hide label to keep smooth transition.
         axis: {
-          x: { labelTransform: [{ type: 'hide' }] },
-          y: { labelTransform: [{ type: 'hide' }] },
+          x: { labelOverlap: [{ type: 'hide' }] },
+          y: { labelOverlap: [{ type: 'hide' }] },
         },
       },
       mark,
@@ -69,7 +69,7 @@ export function SliderFilter({
     };
 
     for (const slider of sliders) {
-      const { orient } = slider.attributes;
+      const { orientation } = slider.attributes;
 
       const onValueChange = throttle(
         async (event) => {
@@ -78,13 +78,13 @@ export function SliderFilter({
           filtering = true;
 
           // Update domain of the current channel.
-          const channel0 = orient === 'vertical' ? 'y' : 'x';
+          const channel0 = orientation === 'vertical' ? 'y' : 'x';
           const scale0 = scale[channel0];
           const domain0 = abstractValue(values, scale0);
           channelDomain[channel0] = domain0;
 
           // Get domain of the other channel.
-          const channel1 = orient === 'vertical' ? 'x' : 'y';
+          const channel1 = orientation === 'vertical' ? 'x' : 'y';
           const domain1 = channelDomain[channel1];
 
           // Filter data.

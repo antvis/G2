@@ -32,6 +32,7 @@ export async function flareTreeCustom(): Promise<G2Spec> {
           labelDx: (d) => (d.height === 0 ? 5 : -5),
           labelBackground: true,
           labelBackgroundFill: '#fff',
+          labelBackgroundOpacity: 0.8,
         },
       },
     ],

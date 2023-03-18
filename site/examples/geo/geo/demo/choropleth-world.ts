@@ -44,17 +44,9 @@ Promise.all([
     })
     .encode('color', 'hale');
 
-  geoView
-    .geoPath()
-    .data([coutriesmesh])
-    .style('fill', 'none')
-    .style('stroke', '#fff');
+  geoView.geoPath().data([coutriesmesh]).style('stroke', '#fff');
 
-  geoView
-    .geoPath()
-    .data({ type: 'sphere' })
-    .style('fill', 'none')
-    .style('stroke', '#000');
+  geoView.geoPath().data({ type: 'sphere' }).style('stroke', '#000');
 
   chart.render();
 });

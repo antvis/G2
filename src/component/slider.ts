@@ -1,11 +1,10 @@
 import { Slider as SliderComponent } from '@antv/gui';
 import { format } from 'd3-format';
-import { least } from 'd3-array';
-import { GuideComponentComponent as GCC, Scale } from '../runtime';
+import { GuideComponentComponent as GCC } from '../runtime';
 import { invert } from '../utils/scale';
 
 export type SliderOptions = {
-  orient: 'horizontal' | 'vertical';
+  orientation: 'horizontal' | 'vertical';
   [key: string]: any;
 };
 
@@ -14,13 +13,13 @@ export type SliderOptions = {
  */
 export const Slider: GCC<SliderOptions> = (options) => {
   // do not pass size.
-  const { orient, labelFormatter, size, style, ...rest } = options;
+  const { orientation, labelFormatter, size, style, ...rest } = options;
 
   return ([scale], value, coordinate, theme) => {
     const { bbox } = value;
     const { x, y, width, height } = bbox;
     const { slider: sliderTheme = {} } = theme;
-    const defaultFormatter = scale.getFormatter?.() || ((v) => v);
+    const defaultFormatter = scale.getFormatter?.() || ((v) => v.toString());
     const formatter =
       typeof labelFormatter === 'string'
         ? format(labelFormatter)
@@ -31,8 +30,8 @@ export const Slider: GCC<SliderOptions> = (options) => {
       style: Object.assign({}, sliderTheme, {
         x,
         y,
-        trackLength: orient === 'horizontal' ? width : height,
-        orient,
+        trackLength: orientation === 'horizontal' ? width : height,
+        orientation,
         formatter: (v) => {
           const f = formatter || defaultFormatter;
           // @todo Pass index to distinguish the left and the right value.

@@ -10,7 +10,7 @@ export type FadeInOptions = Animation;
 export const FadeIn: AC<FadeInOptions> = (options) => {
   return (from, to, value, coordinate, defaults) => {
     const [shape] = from;
-    const { fillOpacity, strokeOpacity, opacity } = shape.style;
+    const { fillOpacity = 1, strokeOpacity = 1, opacity = 1 } = shape.style;
 
     const keyframes = [
       { fillOpacity: 0, strokeOpacity: 0, opacity: 0 },

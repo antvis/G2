@@ -12,6 +12,7 @@ import {
 import { isOrdinalScale } from '../utils/scale';
 import { rect } from '../shape/interval/color';
 import { isPolar, isTranspose } from '../utils/coordinate';
+import { getStyle } from '../utils/style';
 import { reorder } from '../shape/utils';
 import { angle, angleBetween, sub } from '../utils/vector';
 
@@ -129,7 +130,7 @@ export function useState(
     );
     if (Object.keys(stateStyle).length === 0) return;
     for (const [key, value] of Object.entries(stateStyle)) {
-      const currentValue = element.getAttribute(key);
+      const currentValue = getStyle(element, key);
       const v = valueof(value, element);
       setAttribute(element, key, v);
       // Store the attribute if it does not exist in original.
@@ -160,7 +161,7 @@ export function useState(
     initState(element);
     for (const state of states) {
       const index = element[STATES].indexOf(state);
-      if (state !== -1) {
+      if (index !== -1) {
         element[STATES].splice(index, 1);
       }
     }
@@ -415,6 +416,7 @@ export function renderBackground({
       fillOpacity = 0.3,
       zIndex = -2,
       padding = 0.001,
+      strokeWidth = 0,
       ...style
     } = mapObject(rest, (d) => valueof(d, element));
     const finalStyle = {
@@ -423,6 +425,7 @@ export function renderBackground({
       fillOpacity,
       zIndex,
       padding,
+      strokeWidth,
     };
     const shapeOf = isOrdinalShape() ? bandShapeOf : cloneShapeOf;
     const shape = shapeOf(element, finalStyle);

@@ -1,6 +1,6 @@
 import fs from 'fs';
-import cors from 'cors';
 import path from 'path';
+import cors from 'cors';
 import express from 'express';
 
 const app = express();
@@ -12,8 +12,8 @@ app.use(express.urlencoded({ extended: true }));
 const reportsPath = './reports';
 
 const now = () => {
-  var currentdate = new Date();
-  var datetime =
+  const currentdate = new Date();
+  const datetime =
     currentdate.getFullYear() +
     '-' +
     (currentdate.getMonth() + 1) +
@@ -28,6 +28,15 @@ const now = () => {
   return datetime;
 };
 
+function toCSV(arr: any[]) {
+  const head = Object.keys(arr[0]);
+  const csv =
+    head.join(',') +
+    '\n' +
+    arr.map((item) => Object.values(item).join(',')).join('\n');
+  return csv;
+}
+
 app.get('/', (req, res) => {
   res.send('Connection established');
 });
@@ -39,6 +48,8 @@ app.listen(3000, () => {
 app.post('/report', async (req, res) => {
   const { name, data } = req.body;
   const filePath = path.join(reportsPath, name + '-' + now() + '.json');
-  fs.writeFileSync(filePath, JSON.stringify(data));
+  const csvPath = filePath.replace('.json', '.csv');
+  // fs.writeFileSync(filePath, JSON.stringify(data));
+  fs.writeFileSync(csvPath, toCSV(data));
   res.json({ success: true });
 });

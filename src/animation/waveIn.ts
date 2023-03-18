@@ -37,9 +37,9 @@ export const WaveIn: AC<WaveInOptions> = (options) => {
     const {
       radius = 0,
       inset = 0,
-      fillOpacity,
-      strokeOpacity,
-      opacity,
+      fillOpacity = 1,
+      strokeOpacity = 1,
+      opacity = 1,
     } = style;
 
     const { points, y, y1 } = __data__;
@@ -62,7 +62,7 @@ export const WaveIn: AC<WaveInOptions> = (options) => {
         transform: `translate(${center[0]}, ${center[1]})`,
       });
       const convertedPathDefinition = convertToPath(pathForConversion);
-      pathForConversion.style.transform = 'none';
+      pathForConversion.style.transform = '';
       return convertedPathDefinition;
     };
 
