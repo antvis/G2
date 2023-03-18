@@ -54,7 +54,7 @@ export function SliderFilter({
   return (context) => {
     const { container, view, options, update } = context;
     const sliders = container.getElementsByClassName(SLIDER_CLASS_NAME);
-    if (!sliders.length) return;
+    if (!sliders.length) return () => {};
 
     let filtering = false;
     const { scale } = view;
