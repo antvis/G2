@@ -14,3 +14,4 @@ export type { G2Context } from './runtime';
 export { createLibrary } from './stdlib';
 export { Chart, MarkNode, CompositionNode, register } from './api';
 export * from './spec';
+export { ChartEvent } from './utils/event';

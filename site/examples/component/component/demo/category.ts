@@ -121,7 +121,7 @@ chart
         return image;
       },
       itemMarkerSize: 40,
-      itemLabel: (_, index) => logo[index][0],
+      itemLabelText: (_, index) => logo[index][0],
     },
   })
   .tooltip(false);

@@ -23,6 +23,7 @@ if (window) {
   (window as any).gSvg = require('@antv/g-svg');
   (window as any).gWebgl = require('@antv/g-webgl');
   (window as any).fecha = require('fecha');
+  (window as any).React = require('react');
 }
 
 if (

@@ -28,6 +28,7 @@ chart
         value: `${column.y.value[i]}, ${column.y1.value[i]}`,
       }),
     ],
+    render: () => '1',
   });
 
 chart.render();

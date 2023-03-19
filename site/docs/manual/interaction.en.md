@@ -1,6 +1,6 @@
 ---
 title: Interaction
-order: 7
+order: 8
 ---
 
 <embed src="@/docs/manual/interaction.zh.md"></embed>

@@ -1,6 +1,6 @@
 ---
 title: 交互
-order: 7
+order: 8
 ---
 
 **交互（Interaction）** 提供了按需探索数据的能力。在 G2 中通过 `node.interaction` 去给当前节点指定交互，同样可以声明多个交互。
