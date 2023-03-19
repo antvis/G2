@@ -1,3 +1,5 @@
+import { ChartEvent } from '../utils/event';
+
 function dataOf(element, view) {
   const { __data__: datum } = element;
   const { markKey, index, seriesIndex } = datum;
@@ -40,33 +42,42 @@ export function Event() {
     const { container, view } = context;
 
     // Click events.
-    const click = bubblesEvent('click', view, emitter, (e) => e.detail === 1);
+    const click = bubblesEvent(
+      ChartEvent.CLICK,
+      view,
+      emitter,
+      (e) => e.detail === 1,
+    );
     const dblclick = bubblesEvent(
-      'dblclick',
+      ChartEvent.DBLCLICK,
       view,
       emitter,
       (e) => e.detail === 2,
     );
 
     // Pointer events.
-    const pointertap = bubblesEvent('pointertap', view, emitter);
-    const pointerdown = bubblesEvent('pointerdown', view, emitter);
-    const pointerup = bubblesEvent('pointerup', view, emitter);
-    const pointerover = bubblesEvent('pointerover', view, emitter);
-    const pointerout = bubblesEvent('pointerout', view, emitter);
-    const pointermove = bubblesEvent('pointermove', view, emitter);
-    const pointerenter = bubblesEvent('pointerenter', view, emitter);
-    const pointerleave = bubblesEvent('pointerleave', view, emitter);
-    const pointerupoutside = bubblesEvent('pointerupoutside', view, emitter);
+    const pointertap = bubblesEvent(ChartEvent.POINTER_TAP, view, emitter);
+    const pointerdown = bubblesEvent(ChartEvent.POINTER_DOWN, view, emitter);
+    const pointerup = bubblesEvent(ChartEvent.POINTER_UP, view, emitter);
+    const pointerover = bubblesEvent(ChartEvent.POINTER_OVER, view, emitter);
+    const pointerout = bubblesEvent(ChartEvent.POINTER_OUT, view, emitter);
+    const pointermove = bubblesEvent(ChartEvent.POINTER_MOVE, view, emitter);
+    const pointerenter = bubblesEvent(ChartEvent.POINTER_ENTER, view, emitter);
+    const pointerleave = bubblesEvent(ChartEvent.POINTER_LEAVE, view, emitter);
+    const pointerupoutside = bubblesEvent(
+      ChartEvent.POINTER_UPOUTSIDE,
+      view,
+      emitter,
+    );
 
     // Drag and drop events.
-    const dragstart = bubblesEvent('dragstart', view, emitter);
-    const drag = bubblesEvent('drag', view, emitter);
-    const dragend = bubblesEvent('dragend', view, emitter);
-    const dragenter = bubblesEvent('dragenter', view, emitter);
-    const dragleave = bubblesEvent('dragleave', view, emitter);
-    const dragover = bubblesEvent('dragover', view, emitter);
-    const drop = bubblesEvent('drop', view, emitter);
+    const dragstart = bubblesEvent(ChartEvent.DRAG_START, view, emitter);
+    const drag = bubblesEvent(ChartEvent.DRAG, view, emitter);
+    const dragend = bubblesEvent(ChartEvent.DRAG_END, view, emitter);
+    const dragenter = bubblesEvent(ChartEvent.DRAG_ENTER, view, emitter);
+    const dragleave = bubblesEvent(ChartEvent.DRAG_LEAVE, view, emitter);
+    const dragover = bubblesEvent(ChartEvent.DRAG_OVER, view, emitter);
+    const drop = bubblesEvent(ChartEvent.DROP, view, emitter);
 
     // For legacy usage.
     container.addEventListener('click', click);

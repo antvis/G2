@@ -1,3 +1,4 @@
+import type { TooltipStyleProps } from '@antv/gui';
 import { InteractionComponent } from '../runtime';
 import { FisheyeCoordinate } from './coordinateTransform';
 import { TooltipItemValue } from './component';
@@ -198,6 +199,8 @@ export type TooltipInteraction = {
   body?: boolean;
   crosshairs?: boolean;
   groupName?: boolean;
+  position?: TooltipStyleProps['position'];
+  // enterable?: boolean;
   sort?: (d: TooltipItemValue) => any;
   filter?: (d: TooltipItemValue) => any;
   render?: (

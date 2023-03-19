@@ -1,6 +1,6 @@
 ---
 title: Animation
-order: 6
+order: 7
 ---
 
 <embed src="@/docs/manual/animation.zh.md"></embed>

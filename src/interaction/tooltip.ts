@@ -19,7 +19,7 @@ function getContainer(group: IElement) {
   return group.getRootNode().defaultView.getConfig().container;
 }
 
-function createTooltip(root, x0, y0) {
+function createTooltip(root, x0, y0, position, enterable) {
   const bbox = root.getBounds();
   const {
     min: [x, y],
@@ -38,8 +38,9 @@ function createTooltip(root, x0, y0) {
         width: x1 - x,
         height: y1 - y,
       },
+      position,
+      enterable,
       title: '',
-      position: 'bottom-right',
       offset: [10, 10],
       style: {
         '.tooltip': {},
@@ -57,16 +58,29 @@ function createTooltip(root, x0, y0) {
   return tooltipElement;
 }
 
-function showTooltip(root, data, x, y, render, event, single) {
+function showTooltip({
+  root,
+  data,
+  x,
+  y,
+  render,
+  event,
+  single,
+  position = 'right-bottom',
+  enterable = false,
+}) {
   // All the views share the same tooltip.
   const container = single ? getContainer(root) : root;
-  const { tooltipElement = createTooltip(root, x, y) } = container;
+  const { tooltipElement = createTooltip(root, x, y, position, enterable) } =
+    container;
   const { items, title = '' } = data;
   tooltipElement.update({
     x,
     y,
     data: items,
     title,
+    position,
+    enterable,
     ...(render !== undefined && {
       content: render(event, { items, title }),
     }),
@@ -270,6 +284,8 @@ export function seriesTooltip(
     startY = 0,
     body = true,
     single = true,
+    position,
+    enterable,
   }: Record<string, any>,
 ) {
   const elements = elementsof(root);
@@ -403,15 +419,17 @@ export function seriesTooltip(
       }
 
       if (body) {
-        showTooltip(
+        showTooltip({
           root,
-          tooltipData,
-          mouse[0] + x,
-          mouse[1] + y,
+          data: tooltipData,
+          x: mouse[0] + x,
+          y: mouse[1] + y,
           render,
           event,
           single,
-        );
+          position,
+          enterable,
+        });
       }
 
       if (crosshairs) {
@@ -466,6 +484,8 @@ export function tooltip(
     trailing = false,
     groupKey = (d) => d, // group elements by specified key
     single = true,
+    position,
+    enterable,
   }: Record<string, any>,
 ) {
   const elements = elementsof(root);
@@ -497,7 +517,17 @@ export function tooltip(
       }
 
       const { offsetX, offsetY } = event;
-      showTooltip(root, data, offsetX, offsetY, render, event, single);
+      showTooltip({
+        root,
+        data,
+        x: offsetX,
+        y: offsetY,
+        render,
+        event,
+        single,
+        position,
+        enterable,
+      });
     },
     wait,
     { leading, trailing },

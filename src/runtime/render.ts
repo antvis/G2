@@ -5,7 +5,7 @@ import { deepMix } from '@antv/util';
 import EventEmitter from '@antv/event-emitter';
 import { createLibrary } from '../stdlib';
 import { select } from '../utils/selection';
-import { CHART_LIFE_CIRCLE } from '../utils/event';
+import { ChartEvent } from '../utils/event';
 import { error } from '../utils/helper';
 import { G2Context, G2ViewTree } from './types/options';
 import { plot } from './plot';
@@ -81,7 +81,7 @@ export function render<T extends G2ViewTree = G2ViewTree>(
   context.emitter = emitter;
   canvas.resize(width, height);
 
-  emitter.emit(CHART_LIFE_CIRCLE.BEFORE_RENDER);
+  emitter.emit(ChartEvent.BEFORE_RENDER);
 
   // Plot the chart and mutate context.
   // Make sure that plot chart after container is ready for every time.
@@ -91,7 +91,7 @@ export function render<T extends G2ViewTree = G2ViewTree>(
       plot<T>({ ...keyed, width, height }, selection, library, context),
     )
     .then(() => {
-      emitter.emit(CHART_LIFE_CIRCLE.AFTER_RENDER);
+      emitter.emit(ChartEvent.AFTER_RENDER);
       resolve?.();
     })
     .catch((e) => {
@@ -127,11 +127,11 @@ export function renderToMountedElement<T extends G2ViewTree = G2ViewTree>(
   context.library = library;
   context.emitter = emitter;
 
-  emitter.emit(CHART_LIFE_CIRCLE.BEFORE_RENDER);
+  emitter.emit(ChartEvent.BEFORE_RENDER);
   // Plot the chart and mutate context.
   // Make sure that plot chart after container is ready for every time.
   plot<T>({ ...keyed, width, height }, selection, library, context).then(() => {
-    emitter.emit(CHART_LIFE_CIRCLE.AFTER_RENDER);
+    emitter.emit(ChartEvent.AFTER_RENDER);
     callback?.();
   });
 

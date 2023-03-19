@@ -4,7 +4,7 @@ import { deepMix, upperFirst } from '@antv/util';
 import { group } from 'd3-array';
 import { format } from 'd3-format';
 import { mapObject } from '../utils/array';
-import { CHART_LIFE_CIRCLE } from '../utils/event';
+import { ChartEvent } from '../utils/event';
 import {
   appendTransform,
   copyAttributes,
@@ -171,7 +171,7 @@ export async function plot<T extends G2ViewTree>(
     }
   }
 
-  context.emitter.emit(CHART_LIFE_CIRCLE.BEFORE_PAINT);
+  context.emitter.emit(ChartEvent.BEFORE_PAINT);
 
   // Plot chart.
   const enterContainer = new Map<G2ViewDescriptor, DisplayObject>();
@@ -274,7 +274,7 @@ export async function plot<T extends G2ViewTree>(
   context.views = views;
   context.animations = transitions;
 
-  context.emitter.emit(CHART_LIFE_CIRCLE.AFTER_PAINT);
+  context.emitter.emit(ChartEvent.AFTER_PAINT);
 
   // Note!!!
   // The returned promise will never resolved if one of nodeGenerator
