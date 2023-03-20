@@ -10,7 +10,7 @@
         "zh": "平均值线标注的直方图",
         "en": "Histogram, Annotation Mean Value with LineX"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*T2VvTr67-rgAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*kuFOR5JKe3gAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "interval-mean-line.ts",
@@ -18,7 +18,7 @@
         "zh": "平均值线标注的柱状图",
         "en": "Interval, Annotation Mean Value with LineY"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xOtPSbS6mloAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*kmcqRo4tfmcAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "interval-threshold.ts",
@@ -26,7 +26,7 @@
         "zh": "突出超出阈值的柱状图",
         "en": "Interval, Highlight Values beyond a Threshold"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*_aDnS7HNhysAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xZ7dTLAW1uEAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "point-line.ts",
@@ -34,7 +34,7 @@
         "zh": "线标记的散点图",
         "en": "Scatter, Line Annotation"
       },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*b1rZRaTe42sAAAAAAAAAAAAADmJ7AQ"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*KsPIR7q6BO0AAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "point-point.ts",
@@ -51,6 +51,14 @@
         "en": "Quadrant Scatter, Range Annotation"
       },
       "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*6JLeTLg7YQoAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "anomaly-area-line.ts",
+      "title": {
+        "zh": "异动趋势图",
+        "en": "Anomaly Trend Line, Area Annotation"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*nyVFQb9QBBkAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }
