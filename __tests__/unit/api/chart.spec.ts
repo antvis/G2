@@ -1,5 +1,6 @@
 import { Canvas } from '@antv/g';
-import { Chart, createLibrary } from '../../../src';
+import { Chart, createLibrary, VIEW_CLASS_NAME } from '../../../src';
+import { G2_CHART_KEY } from '../../../src/api/chart';
 import {
   View,
   TimingKeyframe,
@@ -44,7 +45,7 @@ describe('Chart', () => {
     const chart = new Chart();
     expect(chart.type).toBe('view');
     expect(chart.parentNode).toBeNull();
-    expect(chart.value).toEqual({});
+    expect(chart.value).toEqual({ key: G2_CHART_KEY });
     expect(chart['_container'].nodeName).toBe('DIV');
   });
 
@@ -70,10 +71,8 @@ describe('Chart', () => {
   });
 
   it('Chart({...}) should override default value', () => {
-    const chart = new Chart({ data: [1, 2, 3] });
-    expect(chart.value).toEqual({
-      data: [1, 2, 3],
-    });
+    const chart = new Chart({ data: [1, 2, 3], key: 'chart' });
+    expect(chart.value).toEqual({ data: [1, 2, 3], key: 'chart' });
   });
 
   it('chart.getContainer() should return container', () => {
@@ -241,6 +240,7 @@ describe('Chart', () => {
     chart.point();
     expect(chart.options()).toEqual({
       type: 'view',
+      key: G2_CHART_KEY,
       children: [{ type: 'interval' }, { type: 'point' }],
     });
   });
@@ -251,6 +251,7 @@ describe('Chart', () => {
     chart.cell().data([{ date }]);
     expect(chart.options()).toEqual({
       type: 'view',
+      key: G2_CHART_KEY,
       children: [{ type: 'cell', data: [{ date }] }],
     });
   });
@@ -282,6 +283,7 @@ describe('Chart', () => {
     chart.point();
     expect(chart.options()).toEqual({
       type: 'view',
+      key: G2_CHART_KEY,
       children: [{ type: 'interval' }, { type: 'point' }],
     });
   });
@@ -291,6 +293,7 @@ describe('Chart', () => {
     chart.call((chart) => chart.interval()).call((chart) => chart.point());
     expect(chart.options()).toEqual({
       type: 'view',
+      key: G2_CHART_KEY,
       children: [{ type: 'interval' }, { type: 'point' }],
     });
   });
@@ -466,7 +469,7 @@ describe('Chart', () => {
   });
 
   it('get instance information after chart render.', async () => {
-    const chart = new Chart({ theme: 'classic', key: '$$chart$$' });
+    const chart = new Chart({ theme: 'classic' });
     chart.data([
       { genre: 'Sports', sold: 275 },
       { genre: 'Strategy', sold: 115 },
@@ -493,5 +496,82 @@ describe('Chart', () => {
     // 捕获渲染异常
     const chart = new Chart({});
     await expect(chart.render()).rejects.toThrowError();
+  });
+
+  it('chart.destroy()', async () => {
+    const chart = new Chart({ theme: 'classic' });
+    chart.data([
+      { genre: 'Sports', sold: 275 },
+      { genre: 'Strategy', sold: 115 },
+      { genre: 'Action', sold: 120 },
+      { genre: 'Shooter', sold: 350 },
+      { genre: 'Other', sold: 150 },
+    ]);
+    chart
+      .interval()
+      .attr('key', 'interval')
+      .encode('x', 'genre')
+      .encode('y', 'sold')
+      .encode('color', 'genre');
+
+    await chart.render();
+    expect(chart.getGroup().id).toEqual(chart.attr('key'));
+    chart.destroy();
+    expect(chart.getGroup()).toEqual(null);
+  });
+
+  it('chart.clear()', async () => {
+    const chart = new Chart({ theme: 'classic' });
+    chart.data([
+      { genre: 'Sports', sold: 275 },
+      { genre: 'Strategy', sold: 115 },
+      { genre: 'Action', sold: 120 },
+      { genre: 'Shooter', sold: 350 },
+      { genre: 'Other', sold: 150 },
+    ]);
+    chart
+      .interval()
+      .attr('key', 'interval')
+      .encode('x', 'genre')
+      .encode('y', 'sold')
+      .encode('color', 'genre');
+
+    await chart.render();
+    expect(chart.getGroup().id).toEqual(chart.attr('key'));
+    chart.clear();
+    expect(chart.getGroup()).toEqual(null);
+  });
+
+  it('chart.clear() should clear interaction', async () => {
+    const chart = new Chart({ theme: 'classic' });
+    chart.data([
+      { genre: 'Sports', sold: 275 },
+      { genre: 'Strategy', sold: 115 },
+      { genre: 'Action', sold: 120 },
+      { genre: 'Shooter', sold: 350 },
+      { genre: 'Other', sold: 150 },
+    ]);
+    chart
+      .interval()
+      .encode('x', 'genre')
+      .encode('y', 'sold')
+      .encode('color', 'genre')
+      .interaction('tooltip');
+    await chart.render();
+
+    const { canvas } = chart.getContext();
+    const fn = jest.fn();
+    // @ts-ignore
+    const [view] = canvas.document.getElementsByClassName(VIEW_CLASS_NAME);
+    const nameInteraction = view['nameInteraction'];
+    const interaction = nameInteraction.get('tooltip');
+    const { destroy } = interaction;
+    const newDestroy = () => {
+      destroy();
+      fn();
+    };
+    interaction.destroy = newDestroy;
+    chart.clear();
+    expect(fn).toBeCalledTimes(1);
   });
 });

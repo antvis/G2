@@ -26,6 +26,7 @@ import { composition, Composition, View } from './composition';
 import { library } from './library';
 
 export const SPEC_EXTERNAL_KEYS = ['container', 'renderer'];
+export const G2_CHART_KEY = 'G2_CHART_KEY';
 
 function normalizeContainer(container: string | HTMLElement): HTMLElement {
   if (container === undefined) return document.createElement('div');
@@ -38,7 +39,6 @@ function normalizeContainer(container: string | HTMLElement): HTMLElement {
 
 export function removeContainer(container: HTMLElement) {
   const parent = container.parentNode;
-
   if (parent) {
     parent.removeChild(container);
   }
@@ -172,8 +172,9 @@ export class Chart extends View<ChartOptions> {
   private _options: G2ViewTree;
 
   constructor(options: ChartOptions = {}) {
-    const { container, canvas, ...rest } = options;
+    const { container, canvas, key = G2_CHART_KEY, ...rest } = options;
     super(rest, 'view');
+    this.attr('key', key);
     this._container = normalizeContainer(container);
     this._emitter = new EventEmitter();
     this._context = { library, emitter: this._emitter, canvas };
@@ -272,21 +273,22 @@ export class Chart extends View<ChartOptions> {
     return this;
   }
 
+  clear() {
+    const options = this.options();
+    this.emit(ChartEvent.BEFORE_CLEAR);
+    this._options = {};
+    destroy(options, this._context, false);
+    this.emit(ChartEvent.AFTER_CLEAR);
+  }
+
   destroy() {
     const options = this.options();
     this.emit(ChartEvent.BEFORE_DESTROY);
     this.unbindAutoFit();
-    destroy(options, this._context);
-    // Remove the container.
+    this._options = {};
+    destroy(options, this._context, true);
     removeContainer(this._container);
     this.emit(ChartEvent.AFTER_DESTROY);
-  }
-
-  clear() {
-    const options = this.options();
-    this.emit(ChartEvent.BEFORE_CLEAR);
-    destroy(options, this._context);
-    this.emit(ChartEvent.AFTER_CLEAR);
   }
 
   forceFit() {
