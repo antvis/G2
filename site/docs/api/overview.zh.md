@@ -10,16 +10,6 @@ order: 1
 ### 创建可视化
 
 - [new Chart](/api/chart#开始使用) - 创建 Chart 实例。
-- [chart.**attr**](/api/chart#attr) - 设置或获取 chart 的属性。
-- [chart.**options**](/api/chart#options) - 设置或获得视图上的属性。
-- [chart.**data**](/spec/data/overview) - 添加 data 到该视图。
-- [chart.**transform**](/spec/transform/overview) - 添加 transform 到该视图。
-- [chart.**theme**](/spec/theme/overview) - 设置 theme 到该视图。
-- [chart.**style**](/spec/style/overview) - 设置 style 到该视图。
-- [chart.**scale**](/spec/scale/overview) - 设置 scale 到该视图。
-- [chart.**coordinate**](/spec/coordinate/overview) - 声明该视图的 coordinate。
-- [chart.**axis**](/spec/axis/overview) - 设置或获取该复合视图的 axis。
-- [chart.**legend**](/spec/legend/overview) - 设置或获取该复合视图的 legend。
 - [chart.**interval**](/spec/mark/interval) - 添加 interval 标记到该视图。
 - [chart.**rect**](/spec/mark/rect) - 添加 rect 标记到该视图。
 - [chart.**point**](/spec/mark/point) - 添加 point 标记到该视图。
@@ -55,6 +45,19 @@ order: 1
 - [chart.**geoView**](/spec/mark/geoView) - 添加 geoView 到该视图。
 - [chart.**geoPath**](/spec/mark/geoPath) - 添加 geoPath 到该视图。
 
+### 设置属性
+
+- [chart.**attr**](/api/chart#attr) - 设置或获取 chart 的属性。
+- [chart.**options**](/api/chart#options) - 设置或获得视图上的属性。
+- [chart.**data**](/spec/data/overview) - 添加 data 到该视图。
+- [chart.**transform**](/spec/transform/overview) - 添加 transform 到该视图。
+- [chart.**theme**](/spec/theme/overview) - 设置 theme 到该视图。
+- [chart.**style**](/spec/style/overview) - 设置 style 到该视图。
+- [chart.**scale**](/spec/scale/overview) - 设置 scale 到该视图。
+- [chart.**coordinate**](/spec/coordinate/overview) - 声明该视图的 coordinate。
+- [chart.**axis**](/spec/axis/overview) - 设置或获取该复合视图的 axis。
+- [chart.**legend**](/spec/legend/overview) - 设置或获取该复合视图的 legend。
+
 ### 获取实例
 
 - [chart.**getNodeByKey**](/api/chart#nodegetnodesbykeykey-string-node) - 根据 key 获取 children 对象。
@@ -84,9 +87,9 @@ order: 1
 - [chart.**emit**](/api/chart#emit) - 触发视图事件。
 - [chart.**off**](/api/chart#off) - 销毁视图事件。
 
-## Mark
+## [Mark](/api/mark)
 
-### 创建可视化
+### 设置属性
 
 - [mark.**attr**](/api/mark#attr) - 设置或获取 mark 的属性。
 - [mark.**data**](/spec/data/overview) - 设置或获取 mark 的 data。
@@ -107,20 +110,10 @@ order: 1
 - [mark.**getScaleByChannel**](/api/chart#getscalebychannel) - 获得 scale 实例。
 - [mark.**getGroup**](/api/chart#chartgetgroup) - 获得 canvas group 实例。
 
-## View
+## [View](/api/view)
 
 ### 创建可视化
 
-- [view.**attr**](/api/view#attr) - 设置或获取该复合视图的属性。
-- [view.**coordinate**](/spec/coordinate/overview) - 声明该复合视图的 coordinate。
-- [view.**data**](/spec/data/overview) - 设置或获取该复合视图的 data。
-- [view.**transform**](/spec/transform/overview) - 设置或获取该复合视图的 transform。
-- [view.**interaction**](/spec/interaction/overview) - 设置或获取 view 的 interaction。
-- [view.**theme**](/spec/theme/overview) - 设置或获取该复合视图的主题。
-- [view.**style**](/spec/style/overview) - 设置或获取该复合视图的 style。
-- [view.**scale**](/spec/scale/overview) - 设置或获取该复合视图的 scale。
-- [view.**axis**](/spec/axis/overview) - 设置或获取该复合视图的 axis。
-- [view.**legend**](/spec/legend/overview) - 设置或获取该复合视图的 legend。
 - [view.**interval**](/spec/mark/interval) - 添加 interval 标记到该复合视图。
 - [view.**rect**](/spec/mark/rect) - 添加 rect 标记到该复合视图。
 - [view.**point**](/spec/mark/point) - 添加 point 标记到该复合视图。
@@ -147,6 +140,19 @@ order: 1
 - [view.**wordCloud**](/spec/mark/wordCloud) - 添加 wordCloud 标记到该复合视图。
 - [view.**gauge**](/spec/mark/gauge) - 添加 gauge 标记到该复合视图。
 
+### 设置属性
+
+- [view.**attr**](/api/view#attr) - 设置或获取该复合视图的属性。
+- [view.**coordinate**](/spec/coordinate/overview) - 声明该复合视图的 coordinate。
+- [view.**data**](/spec/data/overview) - 设置或获取该复合视图的 data。
+- [view.**transform**](/spec/transform/overview) - 设置或获取该复合视图的 transform。
+- [view.**interaction**](/spec/interaction/overview) - 设置或获取 view 的 interaction。
+- [view.**theme**](/spec/theme/overview) - 设置或获取该复合视图的主题。
+- [view.**style**](/spec/style/overview) - 设置或获取该复合视图的 style。
+- [view.**scale**](/spec/scale/overview) - 设置或获取该复合视图的 scale。
+- [view.**axis**](/spec/axis/overview) - 设置或获取该复合视图的 axis。
+- [view.**legend**](/spec/legend/overview) - 设置或获取该复合视图的 legend。
+
 ### 获取实例
 
 - [view.**getNodeByKey**](/api/chart#nodegetnodesbykeykey-string-node) - 根据 key 获取 children 对象。
@@ -156,19 +162,10 @@ order: 1
 - [view.**getTheme**](/api/chart#chartgettheme) - 获得复合视图的 theme 实例。
 - [view.**getGroup**](/api/chart#chartgetgroup) - 获得复合视图的 canvas group 实例。
 
-## GeoView
+## [GeoView](/api/geoview)
 
 ### 创建可视化
 
-- [geoView.**attr**](/api/geoView#attr) - 设置或获取该复合视图的属性。
-- [geoView.**data**](/spec/data/overview) - 设置或获取该复合视图的 data。
-- [geoView.**transform**](/spec/transform/overview) - 设置或获取该复合视图的 transform。
-- [geoView.**coordinate**](/spec/coordinate/overview) - 设置或获取该复合视图的 coordinate。
-- [geoView.**theme**](/spec/theme/overview) - 设置或获取该复合视图的主题。
-- [geoView.**style**](/spec/style/overview) - 设置或获取该复合视图的 style。
-- [geoView.**scale**](/spec/scale/overview) - 设置或获取该复合视图的 scale。
-- [geoView.**axis**](/spec/axis/overview) - 设置或获取该复合视图的 axis。
-- [geoView.**legend**](/spec/legend/overview) - 设置或获取该复合视图的 legend。
 - [geoView.**view**](/spec/mark/view) - 添加 view 标记到该复合视图。
 - [geoView.**interval**](/spec/mark/interval) - 添加 interval 标记到该复合视图。
 - [geoView.**rect**](/spec/mark/rect) - 添加 rect 标记到该复合视图。
@@ -196,21 +193,22 @@ order: 1
 - [geoView.**wordCloud**](/spec/mark/wordCloud) - 添加 wordCloud 标记到该视图。
 - [geoView.**gauge**](/spec/mark/gauge) - 添加 gauge 标记到该视图。
 
-### 获取实例
+### 设置属性
 
-- [geoView.**getNodeByKey**](/api/chart#nodegetnodesbykeykey-string-node) - 根据 key 获取 children 对象。
-- [geoView.**getNodeByType**](/api/chart#nodegetnodesbytypetype-string-node) - 根据 key 获取 children 对象组。
-- [geoView.**getView**](/api/chart#chartgetview) - 获得复合视图的 view 实例。
-- [geoView.**getCoordinate**](/api/chart#chartgetcoordinate) - 获得复合视图的 coordinate 实例。
-- [geoView.**getTheme**](/api/chart#chartgettheme) - 获得复合视图的 theme 实例。
-- [geoView.**getGroup**](/api/chart#chartgetgroup) - 获得复合视图的 canvas group 实例。
+- [geoView.**attr**](/api/geoView#attr) - 设置或获取该复合视图的属性。
+- [geoView.**data**](/spec/data/overview) - 设置或获取该复合视图的 data。
+- [geoView.**transform**](/spec/transform/overview) - 设置或获取该复合视图的 transform。
+- [geoView.**coordinate**](/spec/coordinate/overview) - 设置或获取该复合视图的 coordinate。
+- [geoView.**theme**](/spec/theme/overview) - 设置或获取该复合视图的主题。
+- [geoView.**style**](/spec/style/overview) - 设置或获取该复合视图的 style。
+- [geoView.**scale**](/spec/scale/overview) - 设置或获取该复合视图的 scale。
+- [geoView.**axis**](/spec/axis/overview) - 设置或获取该复合视图的 axis。
+- [geoView.**legend**](/spec/legend/overview) - 设置或获取该复合视图的 legend。
 
-## SpaceLayer
+## [SpaceLayer](/api/spacelayer)
 
 ### 创建可视化
 
-- [spaceLayer.**attr**](/api/spaceLayer#attr) - 设置或获取该复合视图的属性。
-- [spaceLayer.**data**](/spec/data/overview) - 设置或获取该复合视图的 data。
 - [spaceLayer.**view**](/spec/mark/view) - 添加 view 标记到该复合视图。
 - [spaceLayer.**interval**](/spec/mark/interval) - 添加 interval 标记到该复合视图。
 - [spaceLayer.**rect**](/spec/mark/rect) - 添加 rect 标记到该复合视图。
@@ -238,21 +236,15 @@ order: 1
 - [spaceLayer.**wordCloud**](/spec/mark/wordCloud) - 添加 wordCloud 标记到该视图。
 - [spaceLayer.**gauge**](/spec/mark/gauge) - 添加 gauge 标记到该视图。
 
-### 获取实例
+### 设置属性
 
-- [spaceLayer.**getNodeByKey**](/api/chart#nodegetnodesbykeykey-string-node) - 根据 key 获取 children 对象。
-- [spaceLayer.**getNodeByType**](/api/chart#nodegetnodesbytypetype-string-node) - 根据 key 获取 children 对象组。
-- [spaceLayer.**getView**](/api/chart#chartgetView) - 获得复合视图的 view 实例。
-- [spaceLayer.**getCoordinate**](/api/chart#chartgetCoordinate) - 获得复合视图的 coordinate 实例。
-- [spaceLayer.**getTheme**](/api/chart#chartgetTheme) - 获得复合视图的 theme 实例。
-- [spaceLayer.**getGroup**](/api/chart#chartgetGroup) - 获得复合视图的 canvas group 实例。
+- [spaceLayer.**attr**](/api/spaceLayer#attr) - 设置或获取该复合视图的属性。
+- [spaceLayer.**data**](/spec/data/overview) - 设置或获取该复合视图的 data。
 
-## SpaceFlex
+## [SpaceFlex](/api/spaceflex)
 
 ### 创建可视化
 
-- [spaceFlex.**attr**](/api/spaceFlex#attr) - 设置或获取该复合视图的属性。
-- [spaceFlex.**data**](/spec/data/overview) - 设置或获取该复合视图的 data。
 - [spaceFlex.**view**](/spec/mark/view) - 添加 view 标记到该复合视图。
 - [spaceFlex.**interval**](/spec/mark/interval) - 添加 interval 标记到该复合视图。
 - [spaceFlex.**rect**](/spec/mark/rect) - 添加 rect 标记到该复合视图。
@@ -280,27 +272,15 @@ order: 1
 - [spaceFlex.**wordCloud**](/spec/mark/wordCloud) - 添加 wordCloud 标记到该视图。
 - [spaceFlex.**gauge**](/spec/mark/gauge) - 添加 gauge 标记到该视图。
 
-### 获取实例
+### 设置属性
 
-- [spaceFlex.**getNodeByKey**](/api/chart#nodegetnodesbykeykey-string-node) - 根据 key 获取 children 对象。
-- [spaceFlex.**getNodeByType**](/api/chart#nodegetnodesbytypetype-string-node) - 根据 key 获取 children 对象组。
-- [spaceFlex.**getView**](/api/chart#chartgetView) - 获得复合视图的 view 实例。
-- [spaceFlex.**getCoordinate**](/api/chart#chartgetCoordinate) - 获得复合视图的 coordinate 实例。
-- [spaceFlex.**getTheme**](/api/chart#chartgetTheme) - 获得复合视图的 theme 实例。
-- [spaceFlex.**getGroup**](/api/chart#chartgetGroup) - 获得复合视图的 canvas group 实例。
+- [spaceFlex.**attr**](/api/spaceFlex#attr) - 设置或获取该复合视图的属性。
+- [spaceFlex.**data**](/spec/data/overview) - 设置或获取该复合视图的 data。
 
-## FacetRect
+## [FacetRect](/api/facetrect)
 
 ### 创建可视化
 
-- [facetRect.**attr**](/api/facetRect#attr) - 设置或获取该复合视图的属性。
-- [facetRect.**data**](/spec/data/overview) - 设置或获取该复合视图的 data。
-- [facetRect.**transform**](/spec/transform/overview) - 设置或获取该复合视图的 transform。
-- [facetRect.**theme**](/spec/theme/overview) - 设置或获取该复合视图的主题。
-- [facetRect.**style**](/spec/style/overview) - 设置或获取该复合视图的 style。
-- [facetRect.**scale**](/spec/scale/overview) - 设置或获取该复合视图的 scale。
-- [facetRect.**axis**](/spec/axis/overview) - 设置或获取该复合视图的 axis。
-- [facetRect.**legend**](/spec/legend/overview) - 设置或获取该复合视图的 legend。
 - [facetRect.**view**](/spec/mark/view) - 添加 view 标记到该复合视图。
 - [facetRect.**interval**](/spec/mark/interval) - 添加 interval 标记到该复合视图。
 - [facetRect.**rect**](/spec/mark/rect) - 添加 rect 标记到该复合视图。
@@ -328,27 +308,21 @@ order: 1
 - [facetRect.**wordCloud**](/spec/mark/wordCloud) - 添加 wordCloud 标记到该视图。
 - [facetRect.**gauge**](/spec/mark/gauge) - 添加 gauge 标记到该视图。
 
-### 获取实例
+### 设置属性
 
-- [facetRect.**getNodeByKey**](/api/chart#nodegetnodesbykeykey-string-node) - 根据 key 获取 children 对象。
-- [facetRect.**getNodeByType**](/api/chart#nodegetnodesbytypetype-string-node) - 根据 key 获取 children 对象组。
-- [facetRect.**getView**](/api/chart#chartgetView) - 获得复合视图的 view 实例。
-- [facetRect.**getCoordinate**](/api/chart#chartgetCoordinate) - 获得复合视图的 coordinate 实例。
-- [facetRect.**getTheme**](/api/chart#chartgetTheme) - 获得复合视图的 theme 实例。
-- [facetRect.**getGroup**](/api/chart#chartgetGroup) - 获得复合视图的 canvas group 实例。
+- [facetRect.**attr**](/api/facetRect#attr) - 设置或获取该复合视图的属性。
+- [facetRect.**data**](/spec/data/overview) - 设置或获取该复合视图的 data。
+- [facetRect.**transform**](/spec/transform/overview) - 设置或获取该复合视图的 transform。
+- [facetRect.**theme**](/spec/theme/overview) - 设置或获取该复合视图的主题。
+- [facetRect.**style**](/spec/style/overview) - 设置或获取该复合视图的 style。
+- [facetRect.**scale**](/spec/scale/overview) - 设置或获取该复合视图的 scale。
+- [facetRect.**axis**](/spec/axis/overview) - 设置或获取该复合视图的 axis。
+- [facetRect.**legend**](/spec/legend/overview) - 设置或获取该复合视图的 legend。
 
-## FacetCircle
+## [FacetCircle](/api/facetcircle)
 
 ### 创建可视化
 
-- [facetCircle.**attr**](/api/facetCircle#attr) - 设置或获取该复合视图的属性。
-- [facetCircle.**data**](/spec/data/overview) - 设置或获取该复合视图的 data。
-- [facetCircle.**transform**](/spec/transform/overview) - 设置或获取该复合视图的 transform。
-- [facetCircle.**theme**](/spec/theme/overview) - 设置或获取该复合视图的主题。
-- [facetCircle.**style**](/spec/style/overview) - 设置或获取该复合视图的 style。
-- [facetCircle.**scale**](/spec/scale/overview) - 设置或获取该复合视图的 scale。
-- [facetCircle.**axis**](/spec/axis/overview) - 设置或获取该复合视图的 axis。
-- [facetCircle.**legend**](/spec/legend/overview) - 设置或获取该复合视图的 legend。
 - [facetCircle.**view**](/spec/mark/view) - 添加 view 标记到该复合视图。
 - [facetCircle.**interval**](/spec/mark/interval) - 添加 interval 标记到该复合视图。
 - [facetCircle.**rect**](/spec/mark/rect) - 添加 rect 标记到该复合视图。
@@ -376,27 +350,21 @@ order: 1
 - [facetCircle.**wordCloud**](/spec/mark/wordCloud) - 添加 wordCloud 标记到该视图。
 - [facetCircle.**gauge**](/spec/mark/gauge) - 添加 gauge 标记到该视图。
 
-### 获取实例
+### 设置属性
 
-- [facetCircle.**getNodeByKey**](/api/chart#nodegetnodesbykeykey-string-node) - 根据 key 获取 children 对象。
-- [facetCircle.**getNodeByType**](/api/chart#nodegetnodesbytypetype-string-node) - 根据 key 获取 children 对象组。
-- [facetCircle.**getView**](/api/chart#chartgetView) - 获得复合视图的 view 实例。
-- [facetCircle.**getCoordinate**](/api/chart#chartgetCoordinate) - 获得复合视图的 coordinate 实例。
-- [facetCircle.**getTheme**](/api/chart#chartgetTheme) - 获得复合视图的 theme 实例。
-- [facetCircle.**getGroup**](/api/chart#chartgetGroup) - 获得复合视图的 canvas group 实例。
+- [facetCircle.**attr**](/api/facetCircle#attr) - 设置或获取该复合视图的属性。
+- [facetCircle.**data**](/spec/data/overview) - 设置或获取该复合视图的 data。
+- [facetCircle.**transform**](/spec/transform/overview) - 设置或获取该复合视图的 transform。
+- [facetCircle.**theme**](/spec/theme/overview) - 设置或获取该复合视图的主题。
+- [facetCircle.**style**](/spec/style/overview) - 设置或获取该复合视图的 style。
+- [facetCircle.**scale**](/spec/scale/overview) - 设置或获取该复合视图的 scale。
+- [facetCircle.**axis**](/spec/axis/overview) - 设置或获取该复合视图的 axis。
+- [facetCircle.**legend**](/spec/legend/overview) - 设置或获取该复合视图的 legend。
 
-## RepeatMatrix
+## [RepeatMatrix](/api/repeatmatrix)
 
 ### 创建可视化
 
-- [repeatMatrix.**attr**](/api/repeatMatrix#attr) - 设置或获取该复合视图的属性。
-- [repeatMatrix.**data**](/spec/data/overview) - 设置或获取该复合视图的 data。
-- [repeatMatrix.**transform**](/spec/transform/overview) - 设置或获取该复合视图的 transform。
-- [repeatMatrix.**theme**](/spec/theme/overview) - 设置或获取该复合视图的主题。
-- [repeatMatrix.**style**](/spec/style/overview) - 设置或获取该复合视图的 style。
-- [repeatMatrix.**scale**](/spec/scale/overview) - 设置或获取该复合视图的 scale。
-- [repeatMatrix.**axis**](/spec/axis/overview) - 设置或获取该复合视图的 axis。
-- [repeatMatrix.**legend**](/spec/legend/overview) - 设置或获取该复合视图的 legend。
 - [repeatMatrix.**view**](/spec/mark/view) - 添加 view 标记到该复合视图。
 - [repeatMatrix.**interval**](/spec/mark/interval) - 添加 interval 标记到该复合视图。
 - [repeatMatrix.**rect**](/spec/mark/rect) - 添加 rect 标记到该复合视图。
@@ -424,20 +392,21 @@ order: 1
 - [repeatMatrix.**wordCloud**](/spec/mark/wordCloud) - 添加 wordCloud 标记到该视图。
 - [repeatMatrix.**gauge**](/spec/mark/gauge) - 添加 gauge 标记到该视图。
 
-### 获取实例
+### 设置属性
 
-- [repeatMatrix.**getNodeByKey**](/api/chart#nodegetnodesbykeykey-string-node) - 根据 key 获取 children 对象。
-- [repeatMatrix.**getNodeByType**](/api/chart#nodegetnodesbytypetype-string-node) - 根据 key 获取 children 对象组。
-- [repeatMatrix.**getView**](/api/chart#chartgetView) - 获得复合视图的 view 实例。
-- [repeatMatrix.**getCoordinate**](/api/chart#chartgetCoordinate) - 获得复合视图的 coordinate 实例。
-- [repeatMatrix.**getTheme**](/api/chart#chartgetTheme) - 获得复合视图的 theme 实例。
-- [repeatMatrix.**getGroup**](/api/chart#chartgetGroup) - 获得复合视图的 canvas group 实例。
+- [repeatMatrix.**attr**](/api/repeatMatrix#attr) - 设置或获取该复合视图的属性。
+- [repeatMatrix.**data**](/spec/data/overview) - 设置或获取该复合视图的 data。
+- [repeatMatrix.**transform**](/spec/transform/overview) - 设置或获取该复合视图的 transform。
+- [repeatMatrix.**theme**](/spec/theme/overview) - 设置或获取该复合视图的主题。
+- [repeatMatrix.**style**](/spec/style/overview) - 设置或获取该复合视图的 style。
+- [repeatMatrix.**scale**](/spec/scale/overview) - 设置或获取该复合视图的 scale。
+- [repeatMatrix.**axis**](/spec/axis/overview) - 设置或获取该复合视图的 axis。
+- [repeatMatrix.**legend**](/spec/legend/overview) - 设置或获取该复合视图的 legend。
 
-## TimingKeyframe
+## [TimingKeyframe](/api/timingkeyframe)
 
 ### 创建可视化
 
-- [timingKeyFrame.**attr**](/api/timingKeyFrame#attr) - 设置或获取该复合视图的属性。
 - [timingKeyFrame.**interval**](/spec/mark/interval) - 添加 interval 标记到该复合视图。
 - [timingKeyFrame.**rect**](/spec/mark/rect) - 添加 rect 标记到该复合视图。
 - [timingKeyFrame.**point**](/spec/mark/point) - 添加 point 标记到该复合视图。
@@ -464,11 +433,6 @@ order: 1
 - [timingKeyFrame.**wordCloud**](/spec/mark/wordCloud) - 添加 wordCloud 标记到该视图。
 - [timingKeyFrame.**gauge**](/spec/mark/gauge) - 添加 gauge 标记到该视图。
 
-### 获取实例
+### 设置属性
 
-- [timingKeyFrame.**getNodeByKey**](/api/chart#nodegetnodesbykeykey-string-node) - 根据 key 获取 children 对象。
-- [timingKeyFrame.**getNodeByType**](/api/chart#nodegetnodesbytypetype-string-node) - 根据 key 获取 children 对象组。
-- [timingKeyFrame.**getView**](/api/chart#chartgetView) - 获得复合视图的 view 实例。
-- [timingKeyFrame.**getCoordinate**](/api/chart#chartgetCoordinate) - 获得复合视图的 coordinate 实例。
-- [timingKeyFrame.**getTheme**](/api/chart#chartgetTheme) - 获得复合视图的 theme 实例。
-- [timingKeyFrame.**getGroup**](/api/chart#chartgetGroup) - 获得复合视图的 canvas group 实例。
+- [timingKeyFrame.**attr**](/api/timingKeyFrame#attr) - 设置或获取该复合视图的属性。
