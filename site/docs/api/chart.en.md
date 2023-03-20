@@ -3,4 +3,4 @@ title: Chart
 order: 2
 ---
 
-<embed src="@/docs/api/chart.zh.md"></embed>
+<!-- <embed src="@/docs/spec/chart.zh.md"></embed> -->
