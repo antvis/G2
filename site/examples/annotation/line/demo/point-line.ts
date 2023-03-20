@@ -47,24 +47,38 @@ chart
 chart
   .lineY()
   .data([50])
-  .style('stroke', '#54545')
+  .style('stroke', '#000')
+  .style('strokeOpacity', 0.45)
+  .style('lineDash', [3, 3])
   .label({
     text: 'Safe sugar intake 50g/day',
     position: 'right',
     style: {
       textBaseline: 'bottom',
+      fill: '#000',
+      fillOpacity: 0.45,
+      background: true,
+      backgroundFill: '#000',
+      backgroundOpacity: 0.15,
     },
   });
 
 chart
   .lineX()
   .data([65])
-  .style('stroke', '#54545')
+  .style('stroke', '#000')
+  .style('strokeOpacity', 0.45)
+  .style('lineDash', [3, 3])
   .label({
     text: 'Safe fat intake 65g/day',
     position: 'top-left',
     style: {
       textBaseline: 'bottom',
+      fill: '#000',
+      fillOpacity: 0.45,
+      background: true,
+      backgroundFill: '#000',
+      backgroundOpacity: 0.15,
     },
   });
 chart.render();

@@ -28,6 +28,7 @@ chart
   .encode('y', 'precipitation')
   .style('stroke', '#F4664A')
   .style('strokeOpacity', 1)
-  .style('lineWidth', 2);
+  .style('lineWidth', 2)
+  .style('lineDash', [3, 3]);
 
 chart.render();
