@@ -52,13 +52,21 @@ export default defineConfig({
           zh: '教程',
           en: 'Tutorials',
         },
-        order: 2,
+        order: 3,
       },
       {
         slug: 'docs/api/overview',
         title: {
           zh: 'API',
           en: 'API',
+        },
+        order: 2,
+      },
+      {
+        slug: 'docs/spec/overview',
+        title: {
+          zh: '文档',
+          en: 'Documentation',
         },
         order: 1,
       },
@@ -114,9 +122,9 @@ export default defineConfig({
         },
         order: 11,
       },
-      // api
+      // docs
       {
-        slug: 'api/data',
+        slug: 'spec/data',
         title: {
           zh: '数据 - Data',
           en: 'Data',
@@ -124,7 +132,7 @@ export default defineConfig({
         order: 3,
       },
       {
-        slug: 'api/mark',
+        slug: 'spec/mark',
         title: {
           zh: '图形 - Mark',
           en: 'Mark',
@@ -132,7 +140,7 @@ export default defineConfig({
         order: 4,
       },
       {
-        slug: 'api/transform',
+        slug: 'spec/transform',
         title: {
           zh: '变换 - Transform',
           en: 'Transform',
@@ -140,7 +148,7 @@ export default defineConfig({
         order: 5,
       },
       {
-        slug: 'api/scale',
+        slug: 'spec/scale',
         title: {
           zh: '比例尺 - Scale',
           en: 'Scale',
@@ -148,7 +156,7 @@ export default defineConfig({
         order: 6,
       },
       {
-        slug: 'api/coordinate',
+        slug: 'spec/coordinate',
         title: {
           zh: '坐标系 - Coordinate',
           en: 'Coordinate',
@@ -156,7 +164,7 @@ export default defineConfig({
         order: 7,
       },
       {
-        slug: 'api/composition',
+        slug: 'spec/composition',
         title: {
           zh: '复合 - Composition',
           en: 'Composition',
@@ -164,7 +172,7 @@ export default defineConfig({
         order: 8,
       },
       {
-        slug: 'api/component',
+        slug: 'spec/component',
         title: {
           zh: '组件 - Component',
           en: 'Component',
@@ -172,7 +180,7 @@ export default defineConfig({
         order: 9,
       },
       {
-        slug: 'api/label',
+        slug: 'spec/label',
         title: {
           zh: '数据标签 - Label',
           en: 'Label',
@@ -181,7 +189,7 @@ export default defineConfig({
       },
 
       {
-        slug: 'api/animation',
+        slug: 'spec/animation',
         title: {
           zh: '动画 - Animation',
           en: 'Animation',
@@ -189,7 +197,7 @@ export default defineConfig({
         order: 11,
       },
       {
-        slug: 'api/interaction',
+        slug: 'spec/interaction',
         title: {
           zh: '交互 - Interaction',
           en: 'Interaction',
@@ -197,7 +205,7 @@ export default defineConfig({
         order: 12,
       },
       {
-        slug: 'api/graph',
+        slug: 'spec/graph',
         title: {
           zh: '关系图 - Graph',
           en: 'Graph',
@@ -205,7 +213,7 @@ export default defineConfig({
         order: 13,
       },
       {
-        slug: 'api/geo',
+        slug: 'spec/geo',
         title: {
           zh: '地图 - Geo',
           en: 'Geo',
@@ -213,7 +221,7 @@ export default defineConfig({
         order: 14,
       },
       {
-        slug: 'api/theme',
+        slug: 'spec/theme',
         title: {
           zh: '主题 - Theme',
           en: 'Theme',
@@ -221,7 +229,7 @@ export default defineConfig({
         order: 16,
       },
       {
-        slug: 'api/plugin',
+        slug: 'spec/plugin',
         title: {
           zh: '插件扩展 - Plugin',
           en: 'Plugin',

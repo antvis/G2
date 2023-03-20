@@ -1,1 +1,0 @@
-<embed src="@/docs/api/common/style.zh.md"></embed>
