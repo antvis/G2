@@ -76,6 +76,58 @@ chart.render();
 
 销毁图表容器和 Canvas 画布。
 
+### `chart.clear()`
+
+清空图表配置和 Canvas 画布。
+
+### `chart.getContext()`
+
+返回 chart 的 context 信息。
+
+### `chart.getContainer()`
+
+返回 chart canvas 的外部 container。
+
+### `chart.getView()`
+
+返回 chart 渲染时的 view 实例。
+
+### `chart.getCoordinate()`
+
+返回 chart 渲染时的 coordinate 实例。
+
+### `chart.getTheme()`
+
+返回 chart 渲染时的 theme 实例。
+
+### `chart.getGroup()`
+
+返回 chart 渲染时的 canvas group 实例。
+
+### `chart.getScale()`
+
+返回 chart 渲染时所有的 scale 实例。
+
+### `chart.getScaleByChannel()`
+
+通过通道名称查找返回 chart 渲染时对应的 scale 实例。
+
+### `chart.on()`
+
+监听 chart 上的事件。
+
+### `chart.once()`
+
+监听 chart 上的事件，仅触发一次。
+
+### `chart.emit()`
+
+触发 chart 上的事件。
+
+### `chart.off()`
+
+写在 chart 上的监听事件。
+
 ## Node API
 
 Mark 以及 Chart 共享的 API
@@ -119,6 +171,14 @@ Mark 以及 Chart 共享的 API
 ### `node.theme()`
 
 设置图形的主题，具体见 [style](/api/theme/overview)。
+
+### `node.show()`
+
+显示当前节点渲染的图形。
+
+### `node.hide()`
+
+隐藏当前节点渲染的图形。
 
 ### `node.changeData(data:Datum[])`
 
