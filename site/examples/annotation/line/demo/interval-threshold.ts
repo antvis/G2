@@ -50,14 +50,17 @@ chart
 chart
   .lineY()
   .data([300])
-  .style('stroke', '#000')
+  .style('stroke', '#F4664A')
+  .style('lineDash', [3, 3])
   .label({
     text: 'hazardous',
     position: 'right',
     style: {
       textBaseline: 'bottom',
-      dy: -2,
-      stroke: '#fff',
+      fill: '#F4664A',
+      background: true,
+      backgroundFill: '#F4664A',
+      backgroundOpacity: 0.25,
     },
   });
 
