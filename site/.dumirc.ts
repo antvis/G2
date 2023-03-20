@@ -271,6 +271,14 @@ export default defineConfig({
         icon: 'other',
       },
       {
+        slug: 'composition',
+        title: {
+          zh: '复合视图',
+          en: 'Composition',
+        },
+        icon: 'other',
+      },
+      {
         slug: 'component',
         title: {
           zh: '组件',
@@ -287,6 +295,14 @@ export default defineConfig({
         icon: 'other',
       },
       {
+        slug: 'interaction',
+        title: {
+          zh: '交互',
+          en: 'Interaction',
+        },
+        icon: 'other',
+      },
+      {
         slug: 'storytelling',
         title: {
           zh: '可视化叙事',
@@ -299,22 +315,6 @@ export default defineConfig({
         title: {
           zh: '算法可视化',
           en: 'Algorithm Vis',
-        },
-        icon: 'other',
-      },
-      {
-        slug: 'interaction',
-        title: {
-          zh: '交互',
-          en: 'Interaction',
-        },
-        icon: 'other',
-      },
-      {
-        slug: 'composition',
-        title: {
-          zh: '复合视图',
-          en: 'Composition',
         },
         icon: 'other',
       },
