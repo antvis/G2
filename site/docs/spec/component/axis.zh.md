@@ -41,7 +41,7 @@ chart
     labelTransforms: [{ type: 'hide' }],
     lineLineWidth: 5,
     lineStroke: '#675193',
-    showGrid: true,
+    grid: true,
   });
 
 chart.render();
@@ -84,7 +84,7 @@ chart.render();
 | tickDirection     | 刻度朝向，为 `positive` 时，位于侧轴方向（即主轴顺时针 90 度方向）, 为 `negative` 时，刻度位于侧轴负方向            | `'positive'` \| `'negative'`                                         | 'positive' |
 | tickLength        | 轴线长度                                                                                                            | `number`\|`(datum, index, data)=>number`                             | 15         |
 | tickFilter        | 刻度线过滤                                                                                                          | `(datum, index, data)=>boolean`                                      | -          |
-| labelFormatter    | 刻度线格式化，可用于自定义刻度样式，回调函数中会额外返回该刻度的方向                                                | `DisplayObject` \| `(datum, index, data, Vector)=> DisplayObject`    | -          |
+| tickFormatter     | 刻度线格式化，可用于自定义刻度样式，回调函数中会额外返回该刻度的方向                                                | `DisplayObject` \| `(datum, index, data, Vector)=> DisplayObject`    | -          |
 | tickLineWidth     | 刻度线宽度                                                                                                          | `number` \| `(datum, index, data, Vector)=>number`                   | -          |
 | tickLineDash      | 刻度线描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0, 0]的效果为没有描边。 | `[number,number]` \| `(datum, index, data, Vector)=>[number,number]` | -          |
 | tickStroke        | 刻度线颜色                                                                                                          | `string` \| `(datum, index, data, Vector)=>string`                   | -          |
@@ -100,7 +100,10 @@ chart.render();
 | labelSpacing       | 刻度值到其对应刻度的间距                                                                                            | `number`                                                          | 0          |
 | labelFilter        | 刻度值过滤                                                                                                          | `(datum, index, data)=> boolean`                                  | -          |
 | labelFormatter     | 刻度值线格式化                                                                                                      | `DisplayObject` \| `(datum, index, data, Vector)=> DisplayObject` | -          |
-| labelTransforms    | 刻度值转换，避免文本之间发生重叠。当前支持超长文本缩略、重叠刻度值隐藏、自动旋转                                    | `Overlap[]`                                                       | -          |
+| labelOverlap       | 刻度值转换，避免文本之间发生重叠。当前支持超长文本缩略、重叠刻度值隐藏、自动旋转                                    | `boolean`                                                         | -          |
+| labelAutoHide      | 自动隐藏重叠的刻度值                                                                                                | `number` \| `(datum, index, data)=>number`                        | -          |
+| labelAutoRotate    | 自动旋转刻度值                                                                                                      | `boolean`                                                         | -          |
+| labelAutoEllipsis  | 自动缩略刻度值                                                                                                      | `boolean`                                                         | -          |
 | labelLineWidth     | 刻度值宽度                                                                                                          | `number` \|`(datum, index, data)=>number`                         | -          |
 | labelLineDash      | 刻度值描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0, 0]的效果为没有描边。 | `[number,number]` \| `(datum, index, data)=>[number, number]`     | -          |
 | labelFontSize      | 刻度值文字大小                                                                                                      | `number` \| `(datum, index, data)=>number`                        | -          |

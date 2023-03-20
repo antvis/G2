@@ -98,8 +98,8 @@ chart.render();
 | slidable                  | 窗口是否可以滑动     | `boolean`                      | true       |
 | range                     | 默认选择范围         | `[number, number]`           | [min, max] |
 | step                      | 单次滑动步长         | `number`                       | 1          |
-| showHandle                | 是否显示滑动手柄     | `boolean`                      | true       |
-| showHandleLabel           | 是否显示手柄文本     | `boolean`                      | true       |
+| handle                | 是否显示滑动手柄     | `boolean`                      | true       |
+| handleLabel           | 是否显示手柄文本     | `boolean`                      | true       |
 | handleMarkerFill          | 手柄图标颜色         | `string`                       | -          |
 | handleMarkerFillOpacity   | 手柄图标色透明度     | `number`                       | -          |
 | handleMarkerStroke        | 手柄图标描边色       | `string`                       | -          |
@@ -117,7 +117,7 @@ chart.render();
 
 | 属性               | 描述                                                                  | 类型                            | 默认值     |
 | ------------------ | --------------------------------------------------------------------- | ------------------------------- | ---------- |
-| showLabel          | 是否显示刻度值                                                        | `boolean`                       | true`      |
+| label          | 是否显示刻度值                                                        | `boolean`                       | true`      |
 | labelDirection     | 刻度值位于色带的位置，参考 axis `direction`                           | `'positive'` \| `'negative'`    | 'positive' |
 | labelSpacing       | 刻度值到色带的间距                                                    | `number`                        | 5          |
 | labelFormatter     | 刻度值格式化                                                          | `(datum, index, data)=>string`  | -          |
@@ -147,7 +147,7 @@ chart.render();
 
 | 属性                             | 描述                     | 类型                               | 默认值 |
 | -------------------------------- | ------------------------ | ---------------------------------- | ------ |
-| showIndicator                    | 是否显示值指示器         | `boolean`                          | true   |
+| indicator                    | 是否显示值指示器         | `boolean`                          | true   |
 | indicatorFormatter               | 值指示器格式化           | `(datum)=>string \| DisplayObject` | -      |
 | indicatorLabelFontSize           | 值指示器文本文字大小     | `number` \| `Function<number>`     | -      |
 | indicatorLabelFontFamily         | 值指示器文本文字字体     | `string` \| `Function<string>`     | -      |
