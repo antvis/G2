@@ -134,11 +134,47 @@ function legendFilter(
 }
 
 export function LegendFilter() {
-  return (context) => {
+  return (context, _, emitter) => {
     const { container, view, options: viewOptions, update } = context;
 
     const legends = legendsOf(container);
-    if (!legends.length) return () => {};
+
+    const filter = async (channel, value) => {
+      const { scale } = view;
+      const { [channel]: scaleOrdinal } = scale;
+      const { marks } = viewOptions;
+      // Add filter transform for every marks,
+      // which will skip for mark without color channel.
+      const newMarks = marks.map((mark) => {
+        const { transform = [] } = mark;
+        const newTransform = [
+          { type: 'filter', [channel]: value },
+          ...transform,
+        ];
+        return deepMix({}, mark, {
+          transform: newTransform,
+          // Set domain of scale to preserve legends.
+          scale: {
+            [channel]: {
+              domain: scaleOrdinal.getOptions().domain,
+            },
+          },
+        });
+      });
+      const newOptions = {
+        ...viewOptions,
+        marks: newMarks,
+      };
+      return update(newOptions);
+    };
+
+    if (!legends.length) {
+      emitter.on('legend:filter', (options) => {
+        const { values, channel } = options;
+        filter(channel, values);
+      });
+      return () => {};
+    }
 
     const removes = legends.map((legend) => {
       const { name: channel, domain } = dataOf(legend).scales[0];
@@ -151,34 +187,7 @@ export function LegendFilter() {
           const { index } = datum;
           return domain[index];
         },
-        filter: async (value) => {
-          const { scale } = view;
-          const { [channel]: scaleOrdinal } = scale;
-          const { marks } = viewOptions;
-          // Add filter transform for every marks,
-          // which will skip for mark without color channel.
-          const newMarks = marks.map((mark) => {
-            const { transform = [] } = mark;
-            const newTransform = [
-              { type: 'filter', [channel]: value },
-              ...transform,
-            ];
-            return deepMix({}, mark, {
-              transform: newTransform,
-              // Set domain of scale to preserve legends.
-              scale: {
-                [channel]: {
-                  domain: scaleOrdinal.getOptions().domain,
-                },
-              },
-            });
-          });
-          const newOptions = {
-            ...viewOptions,
-            marks: newMarks,
-          };
-          return update(newOptions);
-        },
+        filter: (value) => filter(channel, value),
         state: legend.attributes.state,
       });
     });

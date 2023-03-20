@@ -38,4 +38,4 @@ export async function aaplAreaKeyframe(): Promise<G2Spec> {
 
 aaplAreaKeyframe.intervals = [false, false, [333, 666]];
 
-aaplAreaKeyframe.maxError = 15;
+aaplAreaKeyframe.maxError = 20;

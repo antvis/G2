@@ -104,8 +104,7 @@ chart
     transform: [{ type: 'contrastReverse' }],
     style: { dy: 20, fontStyle: 'italic' },
   })
-  .tooltip({
-    title: 'car',
-  })
+  .tooltip({ title: 'car' })
   .legend(false);
+
 chart.render();

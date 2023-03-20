@@ -5,17 +5,9 @@
   },
   "demos": [
     {
-      "filename": "axis.ts",
-      "title": {
-        "zh": "自定义坐标轴",
-        "en": "Axis"
-      },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*_nL3RJIScmcAAAAAAAAAAAAADmJ7AQ/original"
-    },
-    {
       "filename": "category.ts",
       "title": {
-        "zh": "自定义图例",
+        "zh": "自定义图例标签",
         "en": "Category Legend"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*oB8RRYc9l2IAAAAAAAAAAAAADmJ7AQ/original"
@@ -27,6 +19,14 @@
         "en": "Continuous Legend"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*QXuAQ7COJwcAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "custom.ts",
+      "title": {
+        "zh": "自定义图例",
+        "en": "Custom Legend"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*E7CSRo5RsZ8AAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }

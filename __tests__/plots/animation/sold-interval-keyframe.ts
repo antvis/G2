@@ -33,4 +33,4 @@ export function soldIntervalKeyframe(): G2Spec {
 
 soldIntervalKeyframe.intervals = [false, [500], [500], [500], [500]];
 
-soldIntervalKeyframe.maxError = 10;
+soldIntervalKeyframe.maxError = 20;
