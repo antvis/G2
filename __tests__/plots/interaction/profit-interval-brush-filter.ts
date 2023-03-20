@@ -26,7 +26,7 @@ profitIntervalBrushFilter.steps = ({ canvas }) => {
   return [
     {
       changeState: () => {
-        brush(plot, 500, 100, 600, 300);
+        brush(plot, 500, 50, 600, 300);
       },
     },
     {
@@ -37,8 +37,12 @@ profitIntervalBrushFilter.steps = ({ canvas }) => {
     },
     {
       changeState: () => {
-        brush(plot, 80, 100, 200, 300);
+        brush(plot, 80, 50, 200, 300);
       },
     },
   ];
 };
+
+profitIntervalBrushFilter.maxError = 100;
+
+profitIntervalBrushFilter.only = true;

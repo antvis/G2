@@ -10,3 +10,4 @@ export { chartAxisLabelFormatter } from './chart-axis-label-formatter';
 export { chartHOMMark } from './chart-hom-mark';
 export { chartOptions } from './chart-options';
 export { viewFacetCircle } from './view-facetCircle';
+export { chartEmitLegendFilter } from './chart-emit-legend-filter';
