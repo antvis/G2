@@ -34,6 +34,7 @@ chart
   .encode('x', 'IMDB Rating')
   .style('stroke', '#F4664A')
   .style('strokeOpacity', 1)
-  .style('lineWidth', 5);
+  .style('lineWidth', 2)
+  .style('lineDash', [4, 4]);
 
 chart.render();
