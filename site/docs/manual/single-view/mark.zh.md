@@ -70,7 +70,7 @@ chart
 
 一共有 4 种生成和通道绑定的列数据的方式：
 
-- **字段列**：提出数据的某列数据
+- **字段列**：提取数据的某列数据
 - **常量列**：生成一个拥有相同元素的数组
 - **函数列**：通过已有数据派生一列数据
 - **数组列**：直接指定一个数组作为列数据
@@ -97,7 +97,7 @@ interval.encode('color', {
 interval.encode('x', { type: 'column', value: [1, 2, 3] }); // 完整写法
 ```
 
-在下面的例子，我们从原始数据中派生了一列新的数据去作为颜色的列数据，也生成了一列常量数据作为形状通道绑定的列。
+在下面的例子中，我们从原始数据中派生了一列新的数据去作为颜色的列数据，也生成了一列常量数据作为形状通道绑定的列。
 
 <img alt="bubble" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*7KPEQo4EB8MAAAAAAAAAAAAADmJ7AQ/original" width="640px">
 

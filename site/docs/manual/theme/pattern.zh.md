@@ -62,33 +62,33 @@ chart
 在该[示例](/zh/examples/theme/pattern/#custom-pattern-with-g-api)中，我们首先从上下文中获取 [document](https://g.antv.antgroup.com/api/builtin-objects/document) 对象，通过 [document.createElement](https://g.antv.antgroup.com/api/builtin-objects/document#createelement) 创建了一个 [Rect](https://g.antv.antgroup.com/api/basic/rect) 和 [Path](https://g.antv.antgroup.com/api/basic/path)，把它们作为纹理来源：
 
 ```js
-.style('fill', ({ value }) => {
-    const { document } = chart.getContext().canvas;
-    const background = document.createElement('rect', {
-        style: {
-            width,
-            height,
-            fill: color,
-        },
-    });
+mark.style('fill', ({ value }) => {
+  const { document } = chart.getContext().canvas;
+  const background = document.createElement('rect', {
+    style: {
+      width,
+      height,
+      fill: color,
+    },
+  });
 
-    const line = document.createElement('path', {
-        style: {
-            d: `
+  const line = document.createElement('path', {
+    style: {
+      d: `
                 M 0 ${-height} L ${width * 2} ${height}
                 M ${-width} ${-height} L ${width} ${height}
                 M ${-width} 0 L ${width} ${height * 2}`,
-            stroke,
-            lineWidth: 1,
-            strokeOpacity: 0.9,
-        },
-    });
-    background.appendChild(line);
+      stroke,
+      lineWidth: 1,
+      strokeOpacity: 0.9,
+    },
+  });
+  background.appendChild(line);
 
-    return {
-        image: background,
-        repetition: 'repeat',
-    };
+  return {
+    image: background,
+    repetition: 'repeat',
+  };
 });
 ```
 

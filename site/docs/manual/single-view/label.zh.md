@@ -70,3 +70,76 @@ chart
     },
   });
 ```
+
+## 标签转换
+
+当标签的展示不符合预期的时候，比如重叠、颜色不明显，我们可以使用**标签转换（Label Transform）** 来优化标签的展示。
+
+可以发现在下面的例子中，部分红圈框出来的数据标签已经重叠了。
+
+<img alt="label-transform-unset" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*hedISpW2ZncAAAAAAAAAAAAADmJ7AQ/original" width=640>
+
+```js
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  theme: 'classic',
+});
+
+chart
+  .line()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/cb99c4ab-e0a3-4c76-9586-fe7fa2ff1a8c.csv',
+  })
+  .transform({ type: 'groupX', y: 'mean' })
+  .encode('x', (d) => new Date(d.date).getFullYear())
+  .encode('y', 'price')
+  .encode('color', 'symbol')
+  .label({
+    text: 'price',
+    style: { fontSize: 10 },
+  })
+  .tooltip({ channel: 'y', valueFormatter: '.1f' });
+
+chart.render();
+```
+
+这个时候我们就可以给对应的标签设置标签转换：overlapDodgeY，用于防止标签的 y 方向重叠。
+
+```js
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  theme: 'classic',
+});
+
+chart
+  .line()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/cb99c4ab-e0a3-4c76-9586-fe7fa2ff1a8c.csv',
+  })
+  .transform({ type: 'groupX', y: 'mean' })
+  .encode('x', (d) => new Date(d.date).getFullYear())
+  .encode('y', 'price')
+  .encode('color', 'symbol')
+  .label({
+    text: 'price',
+    transform: [{ type: 'overlapDodgeY' }], // 指定 labelTransform
+    style: {
+      fontSize: 10,
+    },
+  })
+  .tooltip({ channel: 'y', valueFormatter: '.1f' });
+
+chart.render();
+```
+
+最后效果如下：
+
+<img alt="label-transform-unset" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*XCr1Q48tMmwAAAAAAAAAAAAADmJ7AQ/original" width=640>

@@ -38,7 +38,7 @@ chart
   .style('textAlign', 'end');
 ```
 
-对于简单的标记，只是文本，不需要分组，使用数据标签就可以，否者可以考虑上面的方式。
+对于不要分组的简单的文本标记，使用数据标签就可以，否者可以考虑上面的方式。
 
 ## 定位
 
@@ -60,6 +60,7 @@ chart
   .data([50]) // 标注 50g/day 的线
   .style('stroke', '#54545')
   .label({
+    // 设置标注的 label
     text: 'Safe sugar intake 50g/day',
     position: 'right',
     style: {
@@ -72,6 +73,7 @@ chart
   .data([65]) // 标注 65g/day 的线
   .style('stroke', '#54545')
   .label({
+    // 设置标注的 label
     text: 'Safe fat intake 65g/day',
     position: 'top-left',
     style: {
@@ -84,7 +86,7 @@ chart
 
 除了数据驱动的定位，G2 也提供了非数据驱动的定位方式。通过 `mark.style` 去指定 x 和 y 属性，x 和 y 拥有下面两种类型。
 
-- **百分比字符串**：内容区域的百分比。
+- **百分比**：内容区域的百分比。
 - **数字**：像素为单位的坐标。
 
 <img alt="relative" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*hK5OQr4Kv6YAAAAAAAAAAAAADmJ7AQ/original" width="640px">
