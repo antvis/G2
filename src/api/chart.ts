@@ -123,7 +123,7 @@ export type ChartOptions = ViewComposition & {
   autoFit?: boolean;
   renderer?: CanvasRenderer;
   plugins?: RendererPlugin[];
-  theme?: string;
+  theme: string;
 };
 
 type ChartProps = Concrete<ViewComposition>;
@@ -171,8 +171,8 @@ export class Chart extends View<ChartOptions> {
   private _emitter: EventEmitter;
   private _options: G2ViewTree;
 
-  constructor(options: ChartOptions = {}) {
-    const { container, canvas, key = G2_CHART_KEY, ...rest } = options;
+  constructor(options: ChartOptions) {
+    const { container, canvas, key = G2_CHART_KEY, ...rest } = options || {};
     super(rest, 'view');
     this.attr('key', key);
     this._container = normalizeContainer(container);
