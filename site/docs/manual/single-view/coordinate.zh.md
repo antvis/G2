@@ -9,8 +9,8 @@ order: 8
 
 ```js
 chart.coordinate({
-  type: 'polar',
-  innerRadius: 0.6,
+  type: 'polar', // 类型
+  innerRadius: 0.6, // 本身的属性
   outerRadius: 0.8,
   transform: [{ type: 'transpose' }], // 坐标系变换
 });
@@ -95,7 +95,7 @@ chart
 
 ## 平行坐标系
 
-除了前面的比较基础的坐标系变换之外，还有一些稍微高级一点的坐标系变换，比如平行坐标系 parallel。
+除了前面的比较基础的坐标系变换之外，还有一些稍微复杂一点的坐标系变换，比如平行坐标系 parallel。
 
 <img alt="parallel" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*uVKiRqrxogcAAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
@@ -187,7 +187,7 @@ chart
 
 ### Fisheye
 
-还有一种设置焦点的坐标系叫鱼眼，下面是使用方式。
+还有一种鱼眼坐标系变换，用于设置图表焦点，下面是使用方式。
 
 <img alt="interaction" src="https://gw.alipayobjects.com/zos/raptor/1668754097488/intro-interaction.gif" width="640px">
 
@@ -211,7 +211,7 @@ chart
 
 ## 冒泡
 
-坐标系拥有冒泡性，chart 实例的坐标系会它的标记所设置的坐标系覆盖，并且第一个标记所对应的坐标系优先级最高。
+坐标系拥有冒泡性，chart 实例的坐标系会把它的标记所设置的坐标系覆盖，并且第一个标记所对应的坐标系优先级最高。
 
 ```js
 chart.coordinate({ type: 'theta' });

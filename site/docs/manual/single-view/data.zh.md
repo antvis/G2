@@ -118,10 +118,12 @@ node.data({
 node.data({
   type: 'xxx',
   value: 'xxx',
-  transform: [{
-    type: 'filter',
-    callback: (d, idx, arr) => true,
-  }],
+  transform: [
+    {
+      type: 'filter',
+      callback: (d, idx, arr) => true,
+    },
+  ],
 });
 ```
 
@@ -159,4 +161,4 @@ node.data({
 });
 ```
 
-更多统计回归线案例见 [数据分析-regression](/examples#analysis-regression)
+更多统计回归线案例见 [数据分析-regression](/examples#analysis-regression)。

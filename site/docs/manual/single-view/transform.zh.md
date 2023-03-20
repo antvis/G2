@@ -13,7 +13,7 @@ interval.transform({ type: 'stackY' }).transform({ type: 'sortX' });
 
 ## 防止重叠
 
-转换的一个作用是防治重叠。比如根据如下的数据绘制条形图，发现条重叠了。
+转换的一个作用是防止重叠。比如如下的数据绘制条形图中的条就重叠了。
 
 <img alt="layer" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*m5S6QKI-f7YAAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
@@ -43,7 +43,7 @@ chart
   .encode('color', 'city');
 ```
 
-这时候声明一个 stackY 去修改 interval 标记的 y 通道，从而在视觉上产生了堆叠的效果，而得到了我们的堆叠条形图。
+这时候可以声明一个 stackY 去修改 interval 标记的 y 通道，使得条在视觉上产生了堆叠的效果，从而得到了我们的堆叠条形图。
 
 <img alt="stack-y" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ACL6TqxKw2cAAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
@@ -97,7 +97,7 @@ bin 主要是用来聚合数值类型的数据，group 主要针对离散数据�
 
 ## 转换空间
 
-标记转换既可以发生在数据空间，也可以发生在屏幕空间。上面的转换都是发生在数据空间的，因为转换过程并不需要感知空间的信息，但是下面的 pack 就是在屏幕空间转换，因为它需要感知每个 circle 的半径。
+标记转换既可以发生在**数据空间**，也可以发生在**屏幕空间**。上面的转换都是发生在数据空间的，因为转换过程并不需要感知空间的信息，但是下面的 pack 就是在屏幕空间转换，因为它需要感知每个 circle 的半径。
 
 <img alt="pack" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*HWXPS6a6pOQAAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
@@ -134,7 +134,7 @@ chart.line().transform({ type: 'stackY' });
 chart.area().transform({ type: 'stackY' });
 ```
 
-和下面的写法等价：
+上面写法和下面的写法等价：
 
 ```js
 chart.transform({ type: 'stackY' });
