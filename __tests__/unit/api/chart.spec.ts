@@ -488,6 +488,7 @@ describe('Chart', () => {
 
   it('get instance information after chart render.', async () => {
     const chart = new Chart({ theme: 'classic' });
+
     chart.data([
       { genre: 'Sports', sold: 275 },
       { genre: 'Strategy', sold: 115 },
@@ -495,25 +496,32 @@ describe('Chart', () => {
       { genre: 'Shooter', sold: 350 },
       { genre: 'Other', sold: 150 },
     ]);
+
     chart
       .interval()
       .attr('key', 'interval')
       .encode('x', 'genre')
       .encode('y', 'sold')
       .encode('color', 'genre');
+
     await chart.render();
+
     const context = chart.getContext();
     const view = context.views?.find((v) => v.key === chart.attr('key'));
+
     expect(chart.getView()).toEqual(view);
     expect(chart.getCoordinate()).toEqual(view?.coordinate);
     expect(chart.getTheme()).toEqual(view?.theme);
     expect(chart.getGroup().id).toEqual(chart.attr('key'));
+    expect(chart.getScale()).toEqual(view?.scale);
+    expect(chart.getScaleByChannel('color')).toEqual(view?.scale.color);
+    expect(chart.getScaleByChannel('shape')).not.toBeDefined();
   });
 
   it('chart render before theme option must be specified.', async () => {
-    // 捕获渲染异常
+    // Catch error.
     // @ts-ignore
-    const chart = new Chart();
+    const chart = new Chart({});
     await expect(chart.render()).rejects.toThrowError();
   });
 

@@ -109,7 +109,7 @@ export type Scale = {
   getTicks?: () => any[];
   getBandWidth?: (d?: any) => number;
   getFormatter?: () => (x: any) => string;
-  getOptions?: () => Record<string, any>;
+  getOptions: () => Record<string, any>;
   update(options: Record<string, any>): void;
 };
 export type ScaleComponent<O = Record<string, unknown>> = G2BaseComponent<

@@ -1,0 +1,16 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "axis.ts",
+      "title": {
+        "zh": "自定义坐标轴标签",
+        "en": "Axis"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*_nL3RJIScmcAAAAAAAAAAAAADmJ7AQ/original"
+    }
+  ]
+}

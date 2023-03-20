@@ -1,6 +1,6 @@
 import { Coordinate } from '@antv/coord';
 import { DisplayObject } from '@antv/g';
-import { G2Theme, G2ViewDescriptor } from '../../runtime';
+import { Scale, G2Theme, G2ViewDescriptor } from '../../runtime';
 import { hide, show } from '../../utils/style';
 import { Node } from '../node';
 
@@ -17,6 +17,16 @@ export class CompositionNode<
     const { views } = chart.getContext();
     if (!views?.length) return undefined;
     return views.find((view) => view.key === this.attr('key'));
+  }
+
+  getScale(): Record<string, Scale> {
+    return this.getView()?.scale;
+  }
+
+  getScaleByChannel(channel: string): Scale {
+    const scale = this.getScale();
+    if (scale) return scale[channel];
+    return;
   }
 
   getCoordinate(): Coordinate {
