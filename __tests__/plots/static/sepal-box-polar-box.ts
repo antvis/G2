@@ -11,6 +11,7 @@ export function sepalBoxPolarBox(): G2Spec {
       y: 'y',
       color: 'x',
     },
+    axis: { y: { direction: 'center' } },
     legend: false,
     scale: {
       x: { paddingInner: 0.6, paddingOuter: 0.3 },

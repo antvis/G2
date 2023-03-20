@@ -43,6 +43,8 @@ export function cars3LineBrushAxis(): G2Spec {
             `position${i === 0 ? '' : i}`,
             {
               zIndex: 1,
+              line: true,
+              tick: true,
               style: {
                 labelStroke: '#fff',
                 labelStrokeWidth: 5,

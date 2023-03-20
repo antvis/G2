@@ -14,7 +14,7 @@ export function question8IntervalRadialGradientColor(): G2Spec {
       color: {
         position: 'bottom',
         length: 300,
-        showTick: false,
+        tick: false,
         labelFilter: (datum, index, data) =>
           index === 0 || index === data.length - 1,
         layout: {

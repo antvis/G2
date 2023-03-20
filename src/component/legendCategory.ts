@@ -15,6 +15,7 @@ import { useLibrary } from '../runtime/library';
 import { Shape, ShapeComponent } from '../runtime/types/component';
 import type { G2ShapeOptions } from '../runtime/types/options';
 import {
+  adaptor,
   domainOf,
   G2Layout,
   inferComponentLayout,
@@ -246,7 +247,7 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
     layoutWrapper.appendChild(
       new Category({
         className: 'legend-category',
-        style: Object.assign({}, legendTheme, legendStyle, rest),
+        style: adaptor(Object.assign({}, legendTheme, legendStyle, rest)),
       }),
     );
     return layoutWrapper;

@@ -40,6 +40,6 @@ chart.render();
 | trailing                  | 是否在时间间隔结束的时候更新提示信息                                                                              | `boolean`          | false  |
 | shared                    | 相同 x 的元素是否共享 tooltip                                                                                     | `boolean`          | false  |
 | series                    | 是否是系列元素的 tooltip                                                                                          | `boolean`          | -      |
-| showCrosshairs            | 是否暂时指示线                                                                                                    | `boolean`          | -      |
+| crosshairs            | 是否暂时指示线                                                                                                    | `boolean`          | -      |
 | `crosshairs${StyleAttrs}` | 指示线的样式                                                                                                      | `number \| string` | -      |
 | item                      | 自定义 tooltip 的维度信息，参考这个[例子](https://g2.antv.antgroup.com/examples/interaction/interaction/#tooltip-custom) | `Function`         | -      |

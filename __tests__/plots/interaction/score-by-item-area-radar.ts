@@ -9,7 +9,7 @@ export function scoreByItemAreaRadar(): G2Spec {
     coordinate: { type: 'polar' },
     axis: {
       x: { grid: true },
-      y: { zIndex: 1, title: false },
+      y: { zIndex: 1, title: false, direction: 'center' },
     },
     scale: {
       x: { padding: 0.5, align: 0 },

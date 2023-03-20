@@ -1,4 +1,3 @@
-import { Axis } from '@antv/gui';
 import { GuideComponentComponent as GCC } from '../runtime';
 import { LinearAxis, AxisOptions } from './axis';
 

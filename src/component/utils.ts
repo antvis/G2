@@ -1,6 +1,6 @@
 import { CustomElement, DisplayObjectConfig, Group } from '@antv/g';
 import { Layout } from '@antv/gui';
-import { deepMix } from '@antv/util';
+import { deepMix, upperFirst } from '@antv/util';
 import {
   FlexLayout,
   GuideComponentComponent,
@@ -130,4 +130,27 @@ export function domainOf(scales: Scale[]): any[] {
   return scales
     .find((scale) => scale.getOptions().domain.length > 0)
     .getOptions().domain;
+}
+
+export function adaptor<T>(style: T) {
+  const reservedKeys = [
+    'arrow',
+    'crosshairs',
+    'grid',
+    'handle',
+    'indicator',
+    'label',
+    'line',
+    'tick',
+    'tip',
+    'title',
+    'trunc',
+  ];
+  const finalStyle = {};
+  Object.entries(style).forEach(([key, value]) => {
+    if (reservedKeys.includes(key))
+      finalStyle[`show${upperFirst(key)}`] = value;
+    else finalStyle[key] = value;
+  });
+  return finalStyle as T;
 }
