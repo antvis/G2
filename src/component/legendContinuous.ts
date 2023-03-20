@@ -8,6 +8,7 @@ import type {
   Scale,
 } from '../runtime';
 import {
+  adaptor,
   G2Layout,
   inferComponentLayout,
   inferComponentShape,
@@ -123,22 +124,29 @@ export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
 
     layoutWrapper.appendChild(
       new Continuous({
-        style: Object.assign(
-          {},
-          legendTheme,
-          {
-            titleText: titleContent(title),
-            titleFontSize: 12,
-            showHandle: false,
-            showIndicator: false,
-            labelAlign: 'value',
-            labelFormatter:
-              typeof labelFormatter === 'string'
-                ? (d) => format(labelFormatter)(d.label)
-                : labelFormatter,
-            ...inferContinuousConfig(scales, value, options, LegendContinuous),
-          },
-          rest,
+        style: adaptor(
+          Object.assign(
+            {},
+            legendTheme,
+            {
+              titleText: titleContent(title),
+              titleFontSize: 12,
+              handle: false,
+              indicator: false,
+              labelAlign: 'value',
+              labelFormatter:
+                typeof labelFormatter === 'string'
+                  ? (d) => format(labelFormatter)(d.label)
+                  : labelFormatter,
+              ...inferContinuousConfig(
+                scales,
+                value,
+                options,
+                LegendContinuous,
+              ),
+            },
+            rest,
+          ),
         ),
       }),
     );

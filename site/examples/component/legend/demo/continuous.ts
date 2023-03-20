@@ -26,9 +26,9 @@ chart
       length: 500,
       position: 'bottom',
       ribbonType: 'size',
-      showIndicator: true,
-      showTitle: false,
-      showTick: false,
+      indicator: true,
+      title: false,
+      tick: false,
       layout: {
         justifyContent: 'center',
       },

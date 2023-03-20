@@ -11,7 +11,7 @@ export const LegendContinuousSize: GCC<LegendContinuousSizeOptions> = (
       {},
       {
         type: 'size',
-        showTick: false,
+        tick: false,
         labelFilter: (datum, index, data) =>
           index === 0 || index === data.length - 1,
       },

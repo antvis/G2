@@ -42,6 +42,8 @@ export function cars3LineVerticalBrushAxis(): G2Spec {
             `position${i === 0 ? '' : i}`,
             {
               zIndex: 1,
+              line: true,
+              tick: true,
               titlePosition: 'r',
               style: {
                 labelStroke: '#fff',

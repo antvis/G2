@@ -43,7 +43,7 @@ function inferAxisStyle(
 
   return {
     ...radarTheme,
-    showGrid: name === 'position',
+    grid: name === 'position',
     gridConnect: 'line',
     gridControlAngles: new Array(radar.count).fill(0).map((_, i) => {
       const angle = (endAngle - startAngle) / radar.count;

@@ -23,7 +23,7 @@ import {
   radiusOf,
 } from '../utils/coordinate';
 import { capitalizeFirst } from '../utils/helper';
-import { titleContent, isVertical } from './utils';
+import { adaptor, isVertical, isHorizontal, titleContent } from './utils';
 
 export type AxisOptions = {
   position?: GCP;
@@ -179,11 +179,36 @@ function inferGridLength(position: GCP, coordinate: Coordinate) {
   return width;
 }
 
-function labelTransforms(autoHide?: boolean, autoRotate?: boolean) {
-  const transforms = [];
-  if (autoHide) transforms.push({ type: 'hide' });
-  if (autoRotate)
-    transforms.push({ type: 'rotate', optionalAngles: [0, 30, 45, 60, 90] });
+function inferLabelOverlap(style: Record<string, any>) {
+  const {
+    labelAutoRotate = true,
+    labelAutoHide = false,
+    labelAutoEllipsis = false,
+    labelTransforms = [],
+  } = style;
+
+  const transforms = [...labelTransforms];
+
+  const mutateLabelOverlap = (overlap, state) => {
+    if (state) {
+      const index = transforms.findIndex((t) => t.type === overlap.type);
+      if (index !== -1) transforms[index] = overlap;
+      else transforms.push(overlap);
+    } else {
+      const index = transforms.findIndex((t) => t.type === overlap.type);
+      if (index !== -1) transforms.splice(index, 1);
+    }
+  };
+
+  mutateLabelOverlap(
+    {
+      type: 'rotate',
+      optionalAngles: [0, 15, 30, 45, 60, 90],
+    },
+    labelAutoRotate,
+  );
+  mutateLabelOverlap({ type: 'ellipsis', minLength: 20 }, labelAutoEllipsis);
+  mutateLabelOverlap({ type: 'hide' }, labelAutoHide);
   return transforms;
 }
 
@@ -209,8 +234,8 @@ function inferArcStyle(
     endAngle,
     titleFillOpacity: 0,
     titlePosition: 'inner',
-    showLine: false,
-    showTick: true,
+    line: false,
+    tick: true,
     gridLength: (outerRadius - innerRadius) * r,
   };
 
@@ -252,7 +277,6 @@ function inferAxisLinearOverrideStyle(
 ): {
   startPos?: [number, number];
   endPos?: [number, number];
-  showLine?: boolean;
   [k: string]: any;
 } {
   const { x, y, width, height } = bbox;
@@ -276,7 +300,6 @@ function inferAxisLinearOverrideStyle(
       return {
         startPos: [x + width, y],
         endPos: [x + width, y + height],
-        showLine: true,
       };
     }
     // axisX
@@ -284,7 +307,6 @@ function inferAxisLinearOverrideStyle(
       return {
         startPos: [x, y + height],
         endPos: [x + width, y + height],
-        showLine: true,
       };
     }
     // axis with rotate
@@ -337,7 +359,7 @@ const ArcAxisComponent: GCC<AxisOptions> = (options) => {
     tickCount,
     tickMethod,
     title,
-    grid: showGrid = false,
+    grid = false,
     important = {},
     style,
     ...rest
@@ -368,14 +390,16 @@ const ArcAxisComponent: GCC<AxisOptions> = (options) => {
 
     const { axis: axisTheme } = theme;
     return new AxisComponent({
-      style: deepMix({}, axisTheme, defaultStyle, {
-        type: 'arc',
-        data: ticks,
-        titleText: titleContent(title),
-        showGrid,
-        ...rest,
-        ...important,
-      }),
+      style: adaptor(
+        deepMix({}, axisTheme, defaultStyle, {
+          type: 'arc',
+          data: ticks,
+          titleText: titleContent(title),
+          grid,
+          ...rest,
+          ...important,
+        }),
+      ),
     });
   };
 };
@@ -418,7 +442,9 @@ function inferDefaultStyle(
     return {
       ...themeStyle,
       labelDirection: direction === 'right' ? 'negative' : 'positive',
-      labelTransform: direction === 'center' ? 'translate(50%, 0)' : '',
+      ...(direction === 'center'
+        ? { labelTransform: 'translate(50%,0)' }
+        : null),
       tickDirection: direction === 'right' ? 'negative' : 'positive',
       labelSpacing: direction === 'center' ? 0 : 4,
       titleSpacing: isVertical(orientation) ? 10 : 0,
@@ -450,17 +476,6 @@ const LinearAxisComponent: GCC<AxisOptions> = (options) => {
     const { bbox } = value;
     const { domain } = scale.getOptions();
 
-    const ticks = getTicks(
-      scale,
-      domain,
-      tickCount,
-      labelFormatter,
-      tickFilter,
-      tickMethod,
-      position,
-      coordinate,
-    );
-
     const defaultStyle = inferDefaultStyle(
       scale,
       coordinate,
@@ -469,46 +484,48 @@ const LinearAxisComponent: GCC<AxisOptions> = (options) => {
       position,
       orientation,
     );
-    const {
-      labelAutoRotate = true,
-      labelAutoHide = false,
-      label: showLabel = true,
-      tick: showTick = true,
-      line = false,
-      grid,
-    } = Object.assign({}, defaultStyle, userDefinitions);
 
-    const showGrid = inferGrid(grid, coordinate, scale);
+    const internalAxisStyle = {
+      ...defaultStyle,
+      ...style,
+      ...userDefinitions,
+    };
+
     const gridLength = inferGridLength(position, coordinate);
 
-    const { showLine = line, ...overrideStyle } = inferAxisLinearOverrideStyle(
+    const overrideStyle = inferAxisLinearOverrideStyle(
       position,
       orientation,
       bbox,
       coordinate,
     );
-    const axisStyle = {
-      ...defaultStyle,
-      ...style,
+    const finalAxisStyle = {
+      ...internalAxisStyle,
       type: 'linear' as const,
-      data: ticks,
+      data: getTicks(
+        scale,
+        domain,
+        tickCount,
+        labelFormatter,
+        tickFilter,
+        tickMethod,
+        position,
+        coordinate,
+      ),
       titleText: titleContent(title),
-      showLabel,
-      labelOverlap: labelTransforms(labelAutoHide, labelAutoRotate),
-      showGrid,
-      showTick,
+      labelOverlap: inferLabelOverlap(internalAxisStyle),
+      grid: inferGrid(internalAxisStyle.grid, coordinate, scale),
       gridLength,
-      ...userDefinitions,
       // Always showLine, make title could align the end of axis.
-      showLine: true,
-      ...(!showLine ? { lineOpacity: 0 } : null),
+      line: true,
+      ...(!internalAxisStyle.line ? { lineOpacity: 0 } : null),
       ...overrideStyle,
       ...important,
     };
 
     return new AxisComponent({
       className: 'axis',
-      style: axisStyle,
+      style: adaptor(finalAxisStyle),
     });
   };
 };
