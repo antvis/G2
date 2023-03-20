@@ -9,6 +9,7 @@ import { ChartEvent } from '../utils/event';
 import { error } from '../utils/helper';
 import { G2Context, G2ViewTree } from './types/options';
 import { plot } from './plot';
+import { VIEW_CLASS_NAME } from './constant';
 
 /**
  * Infer key for each node of view tree.
@@ -142,12 +143,29 @@ export function renderToMountedElement<T extends G2ViewTree = G2ViewTree>(
 export function destroy<T extends G2ViewTree = G2ViewTree>(
   options: T,
   context: G2Context = {},
+  isDestroyCanvas = false,
 ) {
   const { canvas, emitter } = context;
   if (canvas) {
-    canvas.destroy();
+    destroyAllInteractions(canvas);
+    isDestroyCanvas ? canvas.destroy() : canvas.destroyChildren();
   }
   emitter.off();
+}
+
+/**
+ * Destroy all interactions mounted on the canvas.
+ */
+function destroyAllInteractions(canvas: GCanvas) {
+  const viewGroups = canvas.getRoot().querySelectorAll(`.${VIEW_CLASS_NAME}`);
+  viewGroups?.forEach((group) => {
+    const { nameInteraction = new Map() }: Record<string, any> = group;
+    if (nameInteraction?.size > 0) {
+      Array.from(nameInteraction?.values()).forEach((value: any) => {
+        value?.destroy();
+      });
+    }
+  });
 }
 
 function normalizeContainer(container: HTMLElement | string): HTMLElement {
