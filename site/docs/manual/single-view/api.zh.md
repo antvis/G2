@@ -17,7 +17,7 @@ chart
   .style('stroke', 'black');
 ```
 
-可以通过 `chart.options` 获得当前选项。
+可以通过 `chart.options()` 获得当前选项。
 
 上面的声明获得的结果如下：
 

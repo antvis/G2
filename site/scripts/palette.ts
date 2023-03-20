@@ -2,7 +2,7 @@
 (async () => {
   const d3ScaleChromatic = await eval('import("d3-scale-chromatic")');
 
-  function createPalette(colors: string[], gradient?: boolean) {
+  function createPalette(colors, gradient) {
     const width = 600;
     if (!gradient) {
       return `<div style="display:flex;width:${width}px;height:20px"><style>div{flex-grow:1}</style>${colors
@@ -96,7 +96,7 @@
     const colorSet = palettes.map((name) => {
       let newName = name.replace('interpolate', '').replace('scheme', '');
       newName = newName[0].toLowerCase() + newName.slice(1);
-      let colors: string[] = [];
+      let colors = [];
       const isGradient =
         name.startsWith('interpolate') ||
         (name.startsWith('scheme') && Array.isArray(d3ScaleChromatic[name][0]));
@@ -113,9 +113,9 @@
           .fill(0)
           .map((d, index, arr) => interpolate(index / (arr.length - 1)));
       }
-      return `<li>${newName} ${createPalette(colors, isGradient)}</li>`;
+      return `### ${newName}\n\n` + `${createPalette(colors, isGradient)}\n\n`;
     });
-    return `<ul>${colorSet.join('')}</ul>`;
+    return `${colorSet.join('')}`;
   }
 
   console.log(createPalettes());

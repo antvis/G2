@@ -21,7 +21,7 @@ G2 是一个简洁的渐进式语法，主要用于制作基于网页的可视�
 
 <img alt="data" style="max-width: 800px" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*U-tfTa2m98EAAAAAAAAAAAAADmJ7AQ/original" width="100%">
 
-## 标记
+## 标记（Mark）
 
 **标记**是 G2 中最小的视觉单元，G2 中的所有图表都是由不同标记构成的。
 
@@ -32,7 +32,7 @@ G2 是一个简洁的渐进式语法，主要用于制作基于网页的可视�
 chart.point().data(data).encode('x', 'GDP').encode('y', 'LifeExpectancy');
 ```
 
-## 转换
+## 转换（Transform）
 
 **转换**会改变数据和标记的展现形式，多用于数据分析。
 
@@ -49,9 +49,9 @@ chart
   .style({ insetLeft: 1 });
 ```
 
-## 比例尺
+## 比例尺（Scale）
 
-比例尺用于控制标记的视觉样式。
+**比例尺**用于控制标记的视觉样式。
 
 <img alt="scale" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*I5rmTbr0350AAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
@@ -68,7 +68,7 @@ chart
   });
 ```
 
-## 坐标系
+## 坐标系（Coordinate）
 
 **坐标系**会改变图表的展示形式。
 
@@ -86,7 +86,7 @@ chart
   .style('strokeOpacity', 0.8);
 ```
 
-## 视图复合
+## 视图复合（Composition）
 
 **视图复合**用于制作多视图图表。
 
@@ -103,7 +103,7 @@ rect
   .encode('shape', 'point');
 ```
 
-## 动画
+## 动画（Animation）
 
 **动画**支持分组动画和关键帧动画。
 
@@ -140,7 +140,7 @@ keyframe
   .transform({ type: 'groupX', y: 'count' });
 ```
 
-## 交互
+## 交互（Interaction）
 
 交互可以按需探索数据。
 
@@ -176,5 +176,6 @@ G2 的可视化语法在原本图形语法基础上做了以下的改变：
 - 增加动画语法
 - 增加单元可视化的语法
 - 增加交互语法（还在开发中，正式版将和大家见面）
+- .....
 
-我们希望 G2 不仅仅能用于绘制图表，也能潜移默化地影响用户思考可视化的方式。
+我们希望 G2 不仅仅能用于绘制图表，也能给大家传递正确的可视化思维。

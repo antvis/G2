@@ -19,12 +19,9 @@ const chart = new Chart({
 
 ## 图表选项
 
-**图表选项**用于指定图表的一些全局的信息，比如挂载的容器，宽度，高度等。除了 theme 属性之外，其他这些选项都是**可选的**。
+**图表选项**用于指定图表的一些全局的信息，比如挂载的容器，宽度，高度等。除了 **theme** 属性之外，其他这些选项都是**可选的**。
 
 ```js
-// 不指定任何选项
-const chart = new Chart({});
-
 // 按需指定选项
 const chart = new Chart({
   width: 800, // 图表高度
@@ -47,6 +44,7 @@ const chart = new Chart({
 ```js
 const chart = new Chart({
   container: 'chart', // 指定挂载容器 id
+  theme: 'classic',
 });
 
 // 或者
@@ -89,7 +87,7 @@ chart
     // 渲染成功
   })
   .catch((error) => {
-    // 渲染失败 
+    // 渲染失败
   });
 ```
 
@@ -106,4 +104,20 @@ chart.render();
 
 // 更新图表
 chart.render();
+```
+
+## 清空图表
+
+清空画布和取消事件监听，同时会清空图表配置，常常用于绘制新的图表。
+
+```js
+chart.clear();
+```
+
+## 销毁图表
+
+销毁画布和取消事件监听，常常用于销毁组件和页面的时候。
+
+```js
+chart.destroy();
 ```
