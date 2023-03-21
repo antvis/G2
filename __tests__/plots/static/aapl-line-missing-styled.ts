@@ -23,7 +23,7 @@ export function aaplLineMissingStyled(): G2Spec {
       shape: 'vh',
     },
     style: {
-      connectNulls: true,
+      connect: true,
       connectLineWidth: 5,
       connectStroke: 'red',
     },

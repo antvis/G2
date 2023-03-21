@@ -80,7 +80,7 @@ export const Curve: SC<CurveOptions> = (options) => {
     // The color for each segment.
     gradientColor = 'between',
     defined = (d) => !Number.isNaN(d) && d !== undefined && d !== null,
-    connectNulls = false,
+    connect: connectNulls = false,
     ...style
   } = options;
   return (P, value, coordinate, theme) => {

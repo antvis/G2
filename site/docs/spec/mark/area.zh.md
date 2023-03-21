@@ -54,7 +54,7 @@ chart.render();
 
 | 属性               | 描述                                           | 类型                 | 默认值      |
 |-------------------|------------------------------------------------|---------------------|------------|
-| connectNulls      | 是否连接空值                                 | `number` \| `Function<number>`  | false  |
+| connect      | 是否连接空值                                 | `number` \| `Function<number>`  | false  |
 | connect[Style]    | connector 对应的属性样式                     | 和对应 `style` 保持一致            | -      |
 | defined           | 决定数据是否为空值                            | `(v: any) = boolean`            | !(NaN \|\| null \|\| undefine)  |
 | fill          | 图形的填充色                                      | `string` \| `Function<string>`              |   -   |
@@ -93,7 +93,7 @@ chart.render();
 
 ## FAQ
 
-- 使用 connectNulls 功能时，怎么决定什么样的数据为空值？
+- 使用 connect 功能时，怎么决定什么样的数据为空值？
 
 可以使用 `defined` 配置去决定是否为非空值，默认 NaN、undefined、null 为空值。假设需要数据为 `0` 的时候是空值连接。
 

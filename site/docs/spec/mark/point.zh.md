@@ -82,16 +82,3 @@ chart.render();
 | cursor        | 鼠标样式。同 css 的鼠标样式，默认 'default'。                                                                 | `string` \| `Function<string>`                    | 'default' |
 
 其他的 point 图形配置项和 `hollow` 一致。
-
-## FAQ
-
-- 使用 connectNulls 功能时，怎么决定什么样的数据为空值？
-
-可以使用 `defined` 配置去决定是否为非空值，默认 NaN、undefined、null 为空值。假设需要数据为 `0` 的时候是空值连接。
-
-```ts
-chart
-  .area()
-  // ...
-  .style('defined', (v) => v === 0);
-```
