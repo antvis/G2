@@ -1,5 +1,5 @@
 ---
-title: 图表 - Chart
+title: Chart
 order: 2
 ---
 
@@ -42,163 +42,293 @@ chart.render();
 | autoFit   | 图表是否自适应容器宽高，默认为 `false`，用户需要手动设置 `width` 和 `height`。<br/>当 `autoFit: true` 时，会自动取图表容器的宽高，如果用户设置了 `height`，那么会以用户设置的 `height` 为准。 | `boolean`               | false  |
 | padding   | 图表内边距                                                                                                                                                                                    | `number`                | 30     |
 
-## Chart API
+## 创建可视化
 
-### 创建可视化
-
-#### new Chart
+### new Chart
 
 创建 Chart 实例。
 
-#### `chart.[mark]`
+### `chart.interval`
 
-设置图表的 Mark 标记，具体见 [mark](/api/mark/area)。
+添加 interval 图形，具体见 [mark](/spec/mark/interval)。
 
-### 设置属性
+### `chart.rect`
 
-#### `chart.options`
+添加 rect 图形，具体见 [mark](/spec/mark/rect)。
+
+### `chart.point`
+
+添加 point 图形，具体见 [mark](/spec/mark/point)。
+
+### `chart.area`
+
+添加 area 图形，具体见 [mark](/spec/mark/area)。
+
+### `chart.line`
+
+添加 line 图形，具体见 [mark](/spec/mark/line)。
+
+### `chart.vector`
+
+添加 vector 图形，具体见 [mark](/spec/mark/vector)。
+
+### `chart.link`
+
+添加 link 图形，具体见 [mark](/spec/mark/link)。
+
+### `chart.polygon`
+
+添加 polygon 图形，具体见 [mark](/spec/mark/polygon)。
+
+### `chart.image`
+
+添加 image 图形，具体见 [mark](/spec/mark/image)。
+
+### `chart.text`
+
+添加 text 图形，具体见 [mark](/spec/mark/text)。
+
+### `chart.lineX`
+
+添加 lineX 图形，具体见 [mark](/spec/mark/lineX)。
+
+### `chart.lineY`
+
+添加 lineY 图形，具体见 [mark](/spec/mark/lineY)。
+
+### `chart.range`
+
+添加 range 图形，具体见 [mark](/spec/mark/range)。
+
+### `chart.rangeX`
+
+添加 rangeX 图形，具体见 [mark](/spec/mark/rangeX)。
+
+### `chart.rangeY`
+
+添加 rangeY 图形，具体见 [mark](/spec/mark/rangeY)。
+
+### `chart.connector`
+
+添加 connector 图形，具体见 [mark](/spec/mark/connector)。
+
+### `chart.sankey`
+
+添加 sankey 图形，具体见 [mark](/spec/mark/sankey)。
+
+### `chart.treemap`
+
+添加 treemap 图形，具体见 [mark](/spec/mark/treemap)。
+
+### `chart.boxplot`
+
+添加 boxplot 图形，具体见 [mark](/spec/mark/boxplot)。
+
+### `chart.shape`
+
+添加 shape 图形，具体见 [mark](/spec/mark/shape)。
+
+### `chart.pack`
+
+添加 pack 图形，具体见 [mark](/spec/mark/pack)。
+
+### `chart.forceGraph`
+
+添加 forceGraph 图形，具体见 [mark](/spec/mark/forceGraph)。
+
+### `chart.tree`
+
+添加 tree 图形，具体见 [mark](/spec/mark/tree)。
+
+### `chart.wordCloud`
+
+添加 wordCloud 图形，具体见 [mark](/spec/mark/wordCloud)。
+
+### `chart.gauge`
+
+添加 gauge 图形，具体见 [mark](/spec/mark/gauge)。
+
+### `chart.view`
+
+添加 view 图形，具体见 [mark](/spec/mark/view)。
+
+### `chart.spaceLayer`
+
+添加 spaceLayer 图形，具体见 [mark](/spec/mark/spaceLayer)。
+
+### `chart.spaceFlex`
+
+添加 spaceFlex 图形，具体见 [mark](/spec/mark/spaceFlex)。
+
+### `chart.facetRect`
+
+添加 facetRect 图形，具体见 [mark](/spec/mark/facetRect)。
+
+### `chart.facetCircle`
+
+添加 facetCircle 图形，具体见 [mark](/spec/mark/facetCircle)。
+
+### `chart.repeatMatrix`
+
+添加 repeatMatrix 图形，具体见 [mark](/spec/mark/repeatMatrix)。
+
+### `chart.geoView`
+
+添加 geoView 图形，具体见 [mark](/spec/mark/geoView)。
+
+### `chart.geoPath`
+
+添加 geoPath 图形，具体见 [mark](/spec/mark/geoPath)。
+
+### `chart.timingKeyframe`
+
+添加 timingKeyframe 图形，具体见 [mark](/spec/mark/timingKeyframe)。
+
+## 设置属性
+
+### `chart.options`
 
 获取图表的配置项。
 
-#### `chart.data`
+### `chart.data`
 
 设置图形的数据，支持多种数据来源和数据变换，具体见 [data](/api/data/overview)。
 
-#### `chart.encode`
+### `chart.encode`
 
 设置图形每个通道的字段名称，具体见 [encode](/api/encode/overview)。
 
-#### `chart.scale`
+### `chart.scale`
 
 设置图形每个通道的比例尺，具体见 [scale](/api/scale/overview)。
 
-#### `chart.legend`
+### `chart.legend`
 
 设置图形的图例，具体见 [legend](/api/component/legend)。
 
-#### `chart.tooltip`
+### `chart.tooltip`
 
 设置图形的 Tooltip，具体见 [tooltip](/api/component/tooltip/overview)。
 
-#### `chart.axis`
+### `chart.axis`
 
 设置图形的坐标轴，具体见 [axis](/api/component/axis)。
 
-#### `chart.slider`
+### `chart.slider`
 
 设置图形的坐标轴，具体见 [slider](/api/component/slider)。
 
-#### `chart.label`
+### `chart.label`
 
 设置图形的标签，具体见 [label](/api/label/overview)。
 
-#### `chart.style`
+### `chart.style`
 
 设置图形的样式，具体见 [style](/api/style/overview)。
 
-#### `chart.theme`
+### `chart.theme`
 
 设置图形的主题，具体见 [style](/api/theme/overview)。
 
-### 渲染图表
+## 渲染图表
 
-#### `chart.render`
+### `chart.render`
 
 调用图表的渲染方法。
 
-#### `chart.destroy`
+### `chart.destroy`
 
 销毁图表容器和 Canvas 画布。
 
-#### `chart.clear`
+### `chart.clear`
 
 清空图表配置和 Canvas 画布。
 
-#### `chart.show`
+### `chart.show`
 
 显示当前节点渲染的图形。
 
-#### `chart.hide`
+### `chart.hide`
 
 隐藏当前节点渲染的图形。
 
-#### `chart.changeData(data:Datum[])`
+### `chart.changeData(data:Datum[])`
 
 更改图形的数据来源并重新渲染整个图表。
 
-#### `chart.changeSize(width: number, height: number)`
+### `chart.changeSize(width: number, height: number)`
 
 改变图表的宽高，并重新渲染。
 
-#### `chart.forceFit`
+### `chart.forceFit`
 
 自动根据外部 DOM 容器大小调整画布并重新渲染。
 
-### 获取实例
+## 获取实例
 
-#### `chart.getContainer`
+### `chart.getContainer`
 
 获取图表的 HTML 容器。
 
-#### `chart.getContext`
+### `chart.getContext`
 
 返回 chart 的 context 信息。
 
-#### `chart.getView`
+### `chart.getView`
 
 返回 chart 渲染时的 view 实例。
 
-#### `chart.getCoordinate`
+### `chart.getCoordinate`
 
 返回 chart 渲染时的 coordinate 实例。
 
-#### `chart.getTheme`
+### `chart.getTheme`
 
 返回 chart 渲染时的 theme 实例。
 
-#### `chart.getGroup`
+### `chart.getGroup`
 
 返回 chart 渲染时的 canvas group 实例。
 
-#### `chart.getScale`
+### `chart.getScale`
 
 返回 chart 渲染时所有的 scale 实例。
 
-#### `chart.getScaleByChannel`
+### `chart.getScaleByChannel`
 
 通过通道名称查找返回 chart 渲染时对应的 scale 实例。
 
-#### `chart.on`
+### `chart.on`
 
 监听 chart 上的事件。
 
-#### `chart.once`
+### `chart.once`
 
 监听 chart 上的事件，仅触发一次。
 
-#### `chart.emit`
+### `chart.emit`
 
 触发 chart 上的事件。
 
-#### `chart.off`
+### `chart.off`
 
 写在 chart 上的监听事件。
 
-#### `chart.getNodesByType(type: string): Node[]`
+### `chart.getNodesByType(type: string): Node[]`
 
 通过 type 查找所有的 node 子节点。
 
-#### `chart.getNodeByKey(key: string): Node`
+### `chart.getNodeByKey(key: string): Node`
 
 通过 key 找到当前 node 的子节点。
 
-#### `chart.append(node:Node)`
+### `chart.append(node:Node)`
 
 创建一个新的 Node 并添加在 chart 的子节点上。
 
 ## 事件
 
-### 生命周期事件
+## 生命周期事件
 
 | 事件               | 描述                             |
 | ------------------ | -------------------------------- |
@@ -221,7 +351,7 @@ chart.on('afterrender', (e) => {
 });
 ```
 
-### UI 事件
+## UI 事件
 
 ## FAQ
 
