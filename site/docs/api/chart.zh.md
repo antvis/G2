@@ -3,11 +3,7 @@ title: 图表 - Chart
 order: 2
 ---
 
-G2 的 Node 是图形容器的概念，Chart 以及 Mark（Interval、Area、Line 等）都继承自 Node 类。每一个 Node 拥有自己独立的数据源、坐标系、几何标记、Tooltip 以及图例，可以理解 Node 是整个 G2 体系中，用来组装 Data、Mark、Component 的容器。 一个 Node 可以包含有多个子 Node，通过这种嵌套关系，可以将一个画布按照不同的布局划分多个不同区域，也可以将不同数据源的多个 Node 叠加到一起，形成一个多数据源，多图层的图表。
-
-而 Chart 用于提供创建 canvas、自适应图表大小等能力。
-
-下面会介绍如何创建 Chart 对象，以及 Chart 对象提供一些 API，包括通用 API、生命周期 API 以及 Node API 等。
+Chart 用于提供创建 canvas、添加 Mark 标记、自适应图表大小等能力。
 
 ## 开始使用
 
@@ -48,97 +44,157 @@ chart.render();
 
 ## Chart API
 
-### `chart.[mark]()`
+### 创建可视化
 
-设置图表的 Mark 标记，具体见 [mark](/api/mark)。
+#### new Chart
 
-### `chart.render()`
+创建 Chart 实例。
 
-调用图表的渲染方法。
+#### `chart.[mark]`
 
-### `chart.options()`
+设置图表的 Mark 标记，具体见 [mark](/api/mark/area)。
+
+### 设置属性
+
+#### `chart.options`
 
 获取图表的配置项。
 
-### `chart.getContainer()`
-
-获取图表的 HTML 容器。
-
-### `chart.forceFit()`
-
-自动根据外部 DOM 容器大小调整画布并重新渲染。
-
-### `chart.changeSize(width: number, height: number)`
-
-改变图表的宽高，并重新渲染。
-
-### `chart.destroy()`
-
-销毁图表容器和 Canvas 画布。
-
-## Node API
-
-Mark 以及 Chart 共享的 API
-
-### `node.data()`
+#### `chart.data`
 
 设置图形的数据，支持多种数据来源和数据变换，具体见 [data](/api/data/overview)。
 
-### `node.encode()`
+#### `chart.encode`
 
 设置图形每个通道的字段名称，具体见 [encode](/api/encode/overview)。
 
-### `node.scale()`
+#### `chart.scale`
 
 设置图形每个通道的比例尺，具体见 [scale](/api/scale/overview)。
 
-### `node.legend()`
+#### `chart.legend`
 
 设置图形的图例，具体见 [legend](/api/component/legend)。
 
-### `node.tooltip()`
+#### `chart.tooltip`
 
 设置图形的 Tooltip，具体见 [tooltip](/api/component/tooltip/overview)。
 
-### `node.axis()`
+#### `chart.axis`
 
 设置图形的坐标轴，具体见 [axis](/api/component/axis)。
 
-### `node.slider()`
+#### `chart.slider`
 
 设置图形的坐标轴，具体见 [slider](/api/component/slider)。
 
-### `node.label()`
+#### `chart.label`
 
 设置图形的标签，具体见 [label](/api/label/overview)。
 
-### `node.style()`
+#### `chart.style`
 
 设置图形的样式，具体见 [style](/api/style/overview)。
 
-### `node.theme()`
+#### `chart.theme`
 
 设置图形的主题，具体见 [style](/api/theme/overview)。
 
-### `node.changeData(data:Datum[])`
+### 渲染图表
+
+#### `chart.render`
+
+调用图表的渲染方法。
+
+#### `chart.destroy`
+
+销毁图表容器和 Canvas 画布。
+
+#### `chart.clear`
+
+清空图表配置和 Canvas 画布。
+
+#### `chart.show`
+
+显示当前节点渲染的图形。
+
+#### `chart.hide`
+
+隐藏当前节点渲染的图形。
+
+#### `chart.changeData(data:Datum[])`
 
 更改图形的数据来源并重新渲染整个图表。
 
-### `node.getNodesByType(type: string): Node[]`
+#### `chart.changeSize(width: number, height: number)`
+
+改变图表的宽高，并重新渲染。
+
+#### `chart.forceFit`
+
+自动根据外部 DOM 容器大小调整画布并重新渲染。
+
+### 获取实例
+
+#### `chart.getContainer`
+
+获取图表的 HTML 容器。
+
+#### `chart.getContext`
+
+返回 chart 的 context 信息。
+
+#### `chart.getView`
+
+返回 chart 渲染时的 view 实例。
+
+#### `chart.getCoordinate`
+
+返回 chart 渲染时的 coordinate 实例。
+
+#### `chart.getTheme`
+
+返回 chart 渲染时的 theme 实例。
+
+#### `chart.getGroup`
+
+返回 chart 渲染时的 canvas group 实例。
+
+#### `chart.getScale`
+
+返回 chart 渲染时所有的 scale 实例。
+
+#### `chart.getScaleByChannel`
+
+通过通道名称查找返回 chart 渲染时对应的 scale 实例。
+
+#### `chart.on`
+
+监听 chart 上的事件。
+
+#### `chart.once`
+
+监听 chart 上的事件，仅触发一次。
+
+#### `chart.emit`
+
+触发 chart 上的事件。
+
+#### `chart.off`
+
+写在 chart 上的监听事件。
+
+#### `chart.getNodesByType(type: string): Node[]`
 
 通过 type 查找所有的 node 子节点。
 
-### `node.getNodeByKey(key: string): Node`
+#### `chart.getNodeByKey(key: string): Node`
 
 通过 key 找到当前 node 的子节点。
 
-### `node.append(node:Node)`
+#### `chart.append(node:Node)`
 
-创建一个新的 Node 并添加在 node 的子节点上。
-
-### `node.remove()`
-
-从当前 node 的父节点上移除该节点。
+创建一个新的 Node 并添加在 chart 的子节点上。
 
 ## 事件
 
