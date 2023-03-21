@@ -138,6 +138,7 @@ export function adaptor<T>(style: T) {
     'crosshairs',
     'grid',
     'handle',
+    'handleLabel',
     'indicator',
     'label',
     'line',

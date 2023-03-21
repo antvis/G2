@@ -40,21 +40,21 @@ chart.render();
 
 ### 基本
 
-| 属性               | 描述                   | 类型                   | 默认值 |
-| ------------------ | ---------------------- | ---------------------- | ------ |
-| isRound            | 滚动条样式是否为圆角   | `boolean`              | false  |
-| padding            | 滚动条轨道内边距       | `number` \| `number[]` | 2      |
-| slidable           | 是否可以拖动           | `boolean`              | true   |
-| scrollable         | 是否支持滚轮滚动       | `boolean`              | true   |
-| thumbFill          | 滚动条滑块填充色       | `string`               | –      |
-| thumbFillOpacity   | 滚动条滑块填充色透明度 | `number`               | –      |
-| thumbStroke        | 滚动条滑块描边色       | `string`               | –      |
-| thumbStrokeOpacity | 滚动条滑块描边色透明度 | `number`               | –      |
-| trackSize          | 滚动条的轨道宽度       | `number`               | 10     |
-| trackFill          | 滚动条轨道填充色       | `string`               | -      |
-| trackFillOpacity   | 滚动条轨道填充色透明度 | `number`               | -      |
-| trackStroke        | 滚动条轨道描边色       | `string`               | –      |
-| trackStrokeOpacity | 滚动条轨道描边色透明度 | `number`               | –      |
+| 属性                       | 描述                   | 类型                   | 默认值 |
+| -------------------------- | ---------------------- | ---------------------- | ------ |
+| slidable                   | 是否可以拖动           | `boolean`              | true   |
+| scrollable                 | 是否支持滚轮滚动       | `boolean`              | true   |
+| `style.`isRound            | 滚动条样式是否为圆角   | `boolean`              | false  |
+| `style.`padding            | 滚动条轨道内边距       | `number` \| `number[]` | 2      |
+| `style.`thumbFill          | 滚动条滑块填充色       | `string`               | –      |
+| `style.`thumbFillOpacity   | 滚动条滑块填充色透明度 | `number`               | –      |
+| `style.`thumbStroke        | 滚动条滑块描边色       | `string`               | –      |
+| `style.`thumbStrokeOpacity | 滚动条滑块描边色透明度 | `number`               | –      |
+| `style.`trackSize          | 滚动条的轨道宽度       | `number`               | 10     |
+| `style.`trackFill          | 滚动条轨道填充色       | `string`               | -      |
+| `style.`trackFillOpacity   | 滚动条轨道填充色透明度 | `number`               | -      |
+| `style.`trackStroke        | 滚动条轨道描边色       | `string`               | –      |
+| `style.`trackStrokeOpacity | 滚动条轨道描边色透明度 | `number`               | –      |
 
 ### 事件
 

@@ -73,7 +73,7 @@ chart.render();
 
 | 属性     | 描述                                                                          | 类型                              | 默认值         |
 | -------- | ----------------------------------------------------------------------------- | --------------------------------- | -------------- |
-| title    | 标题，支持一段文本或 innerHTML 字符串                                         | `string`                          | \-             |
+| title    | 标题，支持一段文本或 innerHTML 字符串                                         | `false`\|`string`                 | \-             |
 | items    | 定义每一个提示项的配置                                                        | `TooltipItem`                     | \-             |
 | render   | 自定义 Tooltip 渲染内容                                                       | `()=> string      \| HTMLElement` | \-             |
 | position | Tooltip 相对于指针的位置，为 'auto' 时会自动调整 Tooltip 使其不会超出图表区域 | `TooltipPosition`                 | 'right-bottom' |
