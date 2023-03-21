@@ -195,20 +195,17 @@ function inferLegendShape(
  */
 export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
   const {
-    order,
-    size,
-    position,
-    orientation,
-    itemMarker,
     labelFormatter,
-    dx = 0,
-    dy = 0,
-    title,
-    gridCol,
-    gridRow,
     layout,
-    ...rest
+    order,
+    orientation,
+    position,
+    size,
+    title,
+    ...style
   } = options;
+
+  const { gridCol, gridRow } = style;
 
   return (context) => {
     const { value, theme } = context;
@@ -243,8 +240,8 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
     const { legend: legendTheme = {} } = theme;
     const layoutWrapper = new G2Layout({
       style: {
-        x: bbox.x + dx,
-        y: bbox.y + dy,
+        x: bbox.x,
+        y: bbox.y,
         width: bbox.width,
         height: bbox.height,
         ...finalLayout,
@@ -254,7 +251,7 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
     layoutWrapper.appendChild(
       new Category({
         className: 'legend-category',
-        style: adaptor(Object.assign({}, legendTheme, legendStyle, rest)),
+        style: adaptor(Object.assign({}, legendTheme, legendStyle, style)),
       }),
     );
     return layoutWrapper;

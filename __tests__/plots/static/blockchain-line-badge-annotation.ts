@@ -20,7 +20,7 @@ export function blockChainLineBadgeAnnotation(): G2Spec {
     children: [
       {
         type: 'line',
-        axis: { x: { labelAutoHide: 'greedy' } },
+        axis: { x: { labelAutoHide: true } },
         encode: {
           x: (d) => new Date(d.date),
           y: 'value',

@@ -10,8 +10,8 @@ function filterDataByDomain(options, scaleOptions) {
       {
         // Hide label to keep smooth transition.
         axis: {
-          x: { labelOverlap: [{ type: 'hide' }] },
-          y: { labelOverlap: [{ type: 'hide' }] },
+          x: { transform: [{ type: 'hide' }] },
+          y: { transform: [{ type: 'hide' }] },
         },
       },
       mark,

@@ -52,7 +52,7 @@ export function weatherLineAreaDualAxis(): G2Spec {
         axis: {
           y: {
             position: 'right',
-            grid: null,
+            grid: false,
             title: 'Precipitation (inches)',
             style: {
               titleFill: 'steelblue',

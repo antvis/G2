@@ -8,7 +8,7 @@ export async function tranLineMultiAxes(): Promise<G2Spec> {
   const xAxis = {
     tickMethod: () => Array.from(distanceName.keys()),
     labelFormatter: (d) => distanceName.get(d),
-    title: null,
+    title: false,
   };
   return {
     type: 'line',
@@ -34,8 +34,12 @@ export async function tranLineMultiAxes(): Promise<G2Spec> {
     legend: false,
     axis: {
       x: [
-        { ...xAxis, position: 'top', labelTransform: 'rotate(90)' },
-        { ...xAxis, position: 'bottom', labelTransform: 'rotate(90)' },
+        { ...xAxis, position: 'top', style: { labelTransform: 'rotate(90)' } },
+        {
+          ...xAxis,
+          position: 'bottom',
+          style: { labelTransform: 'rotate(90)' },
+        },
       ],
     },
   };

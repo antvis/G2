@@ -91,8 +91,6 @@ function inferContinuousConfig(
  */
 export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
   const {
-    dx = 0,
-    dy = 0,
     labelFormatter,
     layout,
     order,
@@ -100,6 +98,7 @@ export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
     position,
     size,
     title,
+    style,
     ...rest
   } = options;
   return ({ scales, value, theme }) => {
@@ -112,8 +111,8 @@ export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
     );
     const layoutWrapper = new G2Layout({
       style: {
-        x: x + dx,
-        y: y + dy,
+        x,
+        y,
         width,
         height,
         ...finalLayout,
@@ -144,6 +143,7 @@ export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
                 options,
                 LegendContinuous,
               ),
+              ...style,
             },
             rest,
           ),

@@ -21,19 +21,22 @@ export type G2Title = {
    */
   subtitle?: string | null;
   /**
-   * Align method for title.
-   */
-  align?: 'left' | 'center' | 'right';
-  /**
-   * The vertical spacing between title and subtitle, default is 2.
-   */
-  spacing?: number;
-
-  /**
    * Styles.
    */
   style?: WithPrefix<Omit<TextStyleProps, 'x' | 'y' | 'text'>, 'title'> & // G.Text style for title.
-    WithPrefix<Omit<TextStyleProps, 'x' | 'y' | 'text'>, 'subtitle'>; // G.Text style for subtitle.
+    WithPrefix<Omit<TextStyleProps, 'x' | 'y' | 'text'>, 'subtitle'> & {
+      // G.Text style for subtitle.
+      titleAlign?: 'left' | 'center' | 'right';
+      subtitleAilgn?: 'left' | 'center' | 'right';
+      /**
+       * Align method for title.
+       */
+      align?: 'left' | 'center' | 'right';
+      /**
+       * The vertical spacing between title and subtitle, default is 2.
+       */
+      spacing?: number;
+    };
 };
 
 export type G2ViewDescriptor = {
