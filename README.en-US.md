@@ -40,11 +40,11 @@ G2 is named after Wilkinson’s Grammar of Graphics and was profoundly inspired 
 G2 is usually installed via a package manager such as npm or Yarn.
 
 ```bash
-$ npm install @antv/g2
+$ npm install @antv/g2@next
 ```
 
 ```bash
-$ yarn add @antv/g2
+$ yarn add @antv/g2@next
 ```
 
 The Chart object then can be imported from G2.
@@ -84,7 +84,7 @@ chart.render();
 
 If all goes well, you can get the following lovely bar chart!
 
-<img src="https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*NZmbQItc82oAAAAAAAAAAAAAARQnAQ" width="640" height="480">
+<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*K-7URYaij4kAAAAAAAAAAAAADmJ7AQ/original" width="640" height="480" alt="example">
 
 ## 📮 Contributing
 
@@ -92,7 +92,7 @@ If all goes well, you can get the following lovely bar chart!
 - [Contributing Guide](https://github.com/antvis/g2/blob/v5/CONTRIBUTING.en-US.md) - help build G2
 - [Discussions](https://github.com/antvis/G2/discussions) - discuss on Github or in DingTalk group(30233731, 35686967, 44788198)
 
-<img src="https://gw.alipayobjects.com/zos/antfincdn/hTzzaqgHgQ/Antv%252520G2%252520%26%252520G2Plot.png" width="200" height="266" />
+<img src="https://gw.alipayobjects.com/zos/antfincdn/hTzzaqgHgQ/Antv%252520G2%252520%26%252520G2Plot.png" width="200" height="266" alt="code"/>
 
 ## 📄 License
 
