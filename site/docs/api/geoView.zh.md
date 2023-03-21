@@ -1,5 +1,5 @@
 ---
-title: 地图视图 - GeoView
+title: GeoView
 order: 4
 ---
 
@@ -46,52 +46,146 @@ fetch('https://assets.antv.antgroup.com/g2/countries-50m.json')
   });
 ```
 
-## GeoView API
+## 创建可视化
 
-### 创建可视化
+### `geoView.interval`
 
-#### `geoView.[mark]`
+添加 interval 图形，具体见 [mark](/spec/mark/interval)。
 
-设置图表的 Mark 标记，具体见 [mark](/api/mark/area)。
+### `geoView.rect`
 
-### 设置属性
+添加 rect 图形，具体见 [mark](/spec/mark/rect)。
 
-#### `view.attr`
+### `geoView.point`
+
+添加 point 图形，具体见 [mark](/spec/mark/point)。
+
+### `geoView.area`
+
+添加 area 图形，具体见 [mark](/spec/mark/area)。
+
+### `geoView.line`
+
+添加 line 图形，具体见 [mark](/spec/mark/line)。
+
+### `geoView.vector`
+
+添加 vector 图形，具体见 [mark](/spec/mark/vector)。
+
+### `geoView.link`
+
+添加 link 图形，具体见 [mark](/spec/mark/link)。
+
+### `geoView.polygon`
+
+添加 polygon 图形，具体见 [mark](/spec/mark/polygon)。
+
+### `geoView.image`
+
+添加 image 图形，具体见 [mark](/spec/mark/image)。
+
+### `geoView.text`
+
+添加 text 图形，具体见 [mark](/spec/mark/text)。
+
+### `geoView.lineX`
+
+添加 lineX 图形，具体见 [mark](/spec/mark/lineX)。
+
+### `geoView.lineY`
+
+添加 lineY 图形，具体见 [mark](/spec/mark/lineY)。
+
+### `geoView.range`
+
+添加 range 图形，具体见 [mark](/spec/mark/range)。
+
+### `geoView.rangeX`
+
+添加 rangeX 图形，具体见 [mark](/spec/mark/rangeX)。
+
+### `geoView.rangeY`
+
+添加 rangeY 图形，具体见 [mark](/spec/mark/rangeY)。
+
+### `geoView.connector`
+
+添加 connector 图形，具体见 [mark](/spec/mark/connector)。
+
+### `geoView.sankey`
+
+添加 sankey 图形，具体见 [mark](/spec/mark/sankey)。
+
+### `geoView.treemap`
+
+添加 treemap 图形，具体见 [mark](/spec/mark/treemap)。
+
+### `geoView.boxplot`
+
+添加 boxplot 图形，具体见 [mark](/spec/mark/boxplot)。
+
+### `geoView.shape`
+
+添加 shape 图形，具体见 [mark](/spec/mark/shape)。
+
+### `geoView.pack`
+
+添加 pack 图形，具体见 [mark](/spec/mark/pack)。
+
+### `geoView.forceGraph`
+
+添加 forceGraph 图形，具体见 [mark](/spec/mark/forceGraph)。
+
+### `geoView.tree`
+
+添加 tree 图形，具体见 [mark](/spec/mark/tree)。
+
+### `geoView.wordCloud`
+
+添加 wordCloud 图形，具体见 [mark](/spec/mark/wordCloud)。
+
+### `geoView.gauge`
+
+添加 gauge 图形，具体见 [mark](/spec/mark/gauge)。
+
+## 设置属性
+
+### `geoView.attr`
 
 获取或设置图表的配置项。
 
-#### `geoView.data`
+### `geoView.data`
 
 设置图形的数据，支持多种数据来源和数据变换，具体见 [data](/api/data/overview)。
 
-#### `geoView.encode`
+### `geoView.encode`
 
 设置图形每个通道的字段名称，具体见 [encode](/api/encode/overview)。
 
-#### `geoView.scale`
+### `geoView.scale`
 
 设置图形每个通道的比例尺，具体见 [scale](/api/scale/overview)。
 
-#### `geoView.legend`
+### `geoView.legend`
 
 设置图形的图例，具体见 [legend](/api/component/legend)。
 
-#### `geoView.tooltip`
+### `geoView.tooltip`
 
 设置图形的 Tooltip，具体见 [tooltip](/api/component/tooltip/overview)。
 
-#### `geoView.axis`
+### `geoView.axis`
 
 设置图形的坐标轴，具体见 [axis](/api/component/axis)。
 
-#### `geoView.label`
+### `geoView.label`
 
 设置图形的标签，具体见 [label](/api/label/overview)。
 
-#### `geoView.style`
+### `geoView.style`
 
 设置图形的样式，具体见 [style](/api/style/overview)。
 
-#### `geoView.theme`
+### `geoView.theme`
 
 设置图形的主题，具体见 [style](/api/theme/overview)。
