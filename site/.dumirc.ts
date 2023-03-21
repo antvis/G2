@@ -422,11 +422,11 @@ export default defineConfig({
           en: 'Forum',
         },
         title: {
-          zh: '远方 · 远芳 AntV 2022 年度发布',
-          en: 'Yuanyuan · Yuanfang AntV 2022 Annual Release',
+          zh: 'G2 5.0 来啦，伴着春天的脚步，从语言到思维',
+          en: 'G2 5.0 is coming, with the footsteps of spring, from language to thinking',
         },
-        date: '2022.11.22',
-        link: 'https://www.yuque.com/antv/blog/1122_6',
+        date: '2022.03.21',
+        link: 'https://www.yuque.com/antv/blog/zgtv9ezu83r8nusr',
       },
       {
         type: {
@@ -434,11 +434,11 @@ export default defineConfig({
           en: 'Forum',
         },
         title: {
-          zh: 'AntV 芒种日 图新物：GraphInsight 发布',
-          en: 'AntV Seeds Day Graph New: GraphInsight Released',
+          zh: '远方 · 远芳 AntV 2022 年度发布',
+          en: 'Yuanyuan · Yuanfang AntV 2022 Annual Release',
         },
-        date: '2022.06.06',
-        link: 'https://github.com/antvis/GraphInsight',
+        date: '2022.11.22',
+        link: 'https://www.yuque.com/antv/blog/1122_6',
       },
     ],
     /** 首页特性介绍 */
