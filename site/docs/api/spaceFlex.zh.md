@@ -1,5 +1,5 @@
 ---
-title: 弹性布局视图 - SpaceFlex
+title: SpaceFlex
 order: 6
 ---
 
@@ -56,7 +56,7 @@ flex
   )
   .call((node) =>
     node
-      .view()
+      .spaceFlex()
       .coordinate({ transform: [{ type: 'transpose' }] })
       .interval()
       .attr('paddingBottom', 50)
@@ -70,13 +70,107 @@ flex
 chart.render();
 ```
 
-## SpaceFlex API
-
 ### 创建可视化
 
-#### `spaceFlex.[mark]`
+### `spaceFlex.interval`
 
-设置图表的 Mark 标记，具体见 [mark](/api/mark/area)。
+添加 interval 图形，具体见 [mark](/spec/mark/interval)。
+
+### `spaceFlex.rect`
+
+添加 rect 图形，具体见 [mark](/spec/mark/rect)。
+
+### `spaceFlex.point`
+
+添加 point 图形，具体见 [mark](/spec/mark/point)。
+
+### `spaceFlex.area`
+
+添加 area 图形，具体见 [mark](/spec/mark/area)。
+
+### `spaceFlex.line`
+
+添加 line 图形，具体见 [mark](/spec/mark/line)。
+
+### `spaceFlex.vector`
+
+添加 vector 图形，具体见 [mark](/spec/mark/vector)。
+
+### `spaceFlex.link`
+
+添加 link 图形，具体见 [mark](/spec/mark/link)。
+
+### `spaceFlex.polygon`
+
+添加 polygon 图形，具体见 [mark](/spec/mark/polygon)。
+
+### `spaceFlex.image`
+
+添加 image 图形，具体见 [mark](/spec/mark/image)。
+
+### `spaceFlex.text`
+
+添加 text 图形，具体见 [mark](/spec/mark/text)。
+
+### `spaceFlex.lineX`
+
+添加 lineX 图形，具体见 [mark](/spec/mark/lineX)。
+
+### `spaceFlex.lineY`
+
+添加 lineY 图形，具体见 [mark](/spec/mark/lineY)。
+
+### `spaceFlex.range`
+
+添加 range 图形，具体见 [mark](/spec/mark/range)。
+
+### `spaceFlex.rangeX`
+
+添加 rangeX 图形，具体见 [mark](/spec/mark/rangeX)。
+
+### `spaceFlex.rangeY`
+
+添加 rangeY 图形，具体见 [mark](/spec/mark/rangeY)。
+
+### `spaceFlex.connector`
+
+添加 connector 图形，具体见 [mark](/spec/mark/connector)。
+
+### `spaceFlex.sankey`
+
+添加 sankey 图形，具体见 [mark](/spec/mark/sankey)。
+
+### `spaceFlex.treemap`
+
+添加 treemap 图形，具体见 [mark](/spec/mark/treemap)。
+
+### `spaceFlex.boxplot`
+
+添加 boxplot 图形，具体见 [mark](/spec/mark/boxplot)。
+
+### `spaceFlex.shape`
+
+添加 shape 图形，具体见 [mark](/spec/mark/shape)。
+
+### `spaceFlex.pack`
+
+添加 pack 图形，具体见 [mark](/spec/mark/pack)。
+
+### `spaceFlex.forceGraph`
+
+添加 forceGraph 图形，具体见 [mark](/spec/mark/forceGraph)。
+
+### `spaceFlex.tree`
+
+添加 tree 图形，具体见 [mark](/spec/mark/tree)。
+
+### `spaceFlex.wordCloud`
+
+添加 wordCloud 图形，具体见 [mark](/spec/mark/wordCloud)。
+
+### `spaceFlex.gauge`
+
+添加 gauge 图形，具体见 [mark](/spec/mark/gauge)。
 
 ### 设置属性
 

@@ -1,5 +1,5 @@
 ---
-title: 图形 - Mark
+title: Mark
 order: 3
 ---
 

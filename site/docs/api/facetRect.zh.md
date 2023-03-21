@@ -1,5 +1,5 @@
 ---
-title: 矩形分面视图 - FacetRect
+title: FacetRect
 order: 6
 ---
 
@@ -35,40 +35,38 @@ facetRect
 chart.render();
 ```
 
-## FacetRect API
+## 创建可视化
 
-### 创建可视化
-
-#### `facetRect.[mark]`
+## `facetRect.[mark]`
 
 设置图表的 Mark 标记，具体见 [mark](/api/mark/area)。
 
-### 设置属性
+## 设置属性
 
-#### `facetRect.attr`
+## `facetRect.attr`
 
 获取或设置图表的配置项。
 
-#### `facetRect.data`
+## `facetRect.data`
 
 设置图形的数据，支持多种数据来源和数据变换，具体见 [data](/api/data/overview)。
 
-#### `facetRect.scale`
+## `facetRect.scale`
 
 设置图形每个通道的比例尺，具体见 [scale](/api/scale/overview)。
 
-#### `facetRect.legend`
+## `facetRect.legend`
 
 设置图形的图例，具体见 [legend](/api/component/legend)。
 
-#### `facetRect.axis`
+## `facetRect.axis`
 
 设置图形的坐标轴，具体见 [axis](/api/component/axis)。
 
-#### `facetRect.style`
+## `facetRect.style`
 
 设置图形的样式，具体见 [style](/api/style/overview)。
 
-#### `facetRect.theme`
+## `facetRect.theme`
 
 设置图形的主题，具体见 [style](/api/theme/overview)。
