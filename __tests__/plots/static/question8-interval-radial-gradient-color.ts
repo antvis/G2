@@ -20,6 +20,10 @@ export function question8IntervalRadialGradientColor(): G2Spec {
         layout: {
           justifyContent: 'center',
         },
+        labelTransform: [{ type: 'hide' }, { type: 'ellipsis' }],
+        style: {
+          labelTransform: '',
+        },
       },
     },
     axis: {

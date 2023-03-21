@@ -14,4 +14,5 @@ export const Line: SC<LineOptions> = (options) => {
 
 Line.props = {
   ...Curve.props,
+  defaultMarker: 'line',
 };

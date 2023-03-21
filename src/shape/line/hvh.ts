@@ -10,4 +10,5 @@ export const HVH: SC<HVHOptions> = (options) => {
 
 HVH.props = {
   ...Curve.props,
+  defaultMarker: 'hvh',
 };

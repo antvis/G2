@@ -9,11 +9,12 @@ import {
   IndexedValue,
   Layout,
   Vector2,
+  G2MarkState,
 } from './common';
 import { DataComponent } from './data';
 import { Encode, EncodeComponent } from './encode';
 import { Mark, MarkComponent } from './mark';
-import { G2ViewTree } from './options';
+import { G2ViewTree, G2Library, G2Mark } from './options';
 import { Transform, TransformComponent } from './transform';
 
 export type G2ComponentNamespaces =
@@ -145,6 +146,7 @@ export type Shape = (
   point2d?: Vector2[][],
 ) => DisplayObject;
 export type ShapeProps = {
+  defaultMarker?: string;
   defaultEnterAnimation?: string;
   defaultUpdateAnimation?: string;
   defaultExitAnimation?: string;
@@ -161,12 +163,17 @@ export type ThemeComponent<O = Record<string, unknown>> = G2BaseComponent<
   O
 >;
 
-export type GuideComponent = (
-  scales: Scale[],
-  style: Record<string, any>,
-  coordinate: Coordinate,
-  theme: G2Theme,
-) => DisplayObject;
+export type GuideComponentContext = {
+  coordinate: Coordinate;
+  library: G2Library;
+  markState: Map<G2Mark, G2MarkState>;
+  scales: Scale[];
+  theme: G2Theme;
+  value: Record<string, any>;
+};
+
+export type GuideComponent = (context: GuideComponentContext) => DisplayObject;
+
 export type GuideComponentProps = {
   defaultPosition?: GuideComponentPosition;
   defaultOrientation?: GuideComponentOrientation;
@@ -174,6 +181,7 @@ export type GuideComponentProps = {
   defaultOrder: number;
   [key: string]: any;
 };
+
 export type GuideComponentComponent<O = Record<string, unknown>> =
   G2BaseComponent<GuideComponent, O, GuideComponentProps>;
 

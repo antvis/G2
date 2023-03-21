@@ -1,31 +1,13 @@
-import { Path } from '@antv/g';
-import { Path as D3Path } from 'd3-path';
-import { extent } from 'd3-array';
 import { Coordinate } from '@antv/coord';
 import { Linear } from '@antv/scale';
 import { lowerFirst } from '@antv/util';
+import { extent } from 'd3-array';
+import { Path as D3Path } from 'd3-path';
 import { G2Theme, Primitive, Vector2 } from '../runtime';
-import { isPolar, isTranspose } from '../utils/coordinate';
-import { angle, angleWithQuadrant, dist, sub } from '../utils/vector';
-import { Selection } from '../utils/selection';
 import { indexOf } from '../utils/array';
-import * as Symbols from './point/symbol';
-
-type A = ['a' | 'A', number, number, number, number, number, number, number];
-type C = ['c' | 'C', number, number, number, number, number, number];
-type O = ['o' | 'O', number, number];
-type H = ['h' | 'H', number];
-type L = ['l' | 'L', number, number];
-type M = ['m' | 'M', number, number];
-type R = ['r' | 'R', number, number, number, number];
-type Q = ['q' | 'Q', number, number, number, number];
-type S = ['s' | 'S', number, number, number, number, number, number, number];
-type T = ['t' | 'T', number, number];
-type V = ['v' | 'V', number];
-type U = ['u' | 'U', number, number, number];
-type Z = ['z' | 'Z'];
-
-export type PathCommand = A | C | O | H | L | M | R | Q | S | T | V | U | Z;
+import { isPolar, isTranspose } from '../utils/coordinate';
+import { Selection } from '../utils/selection';
+import { angle, angleWithQuadrant, dist, sub } from '../utils/vector';
 
 export function applyStyle(
   selection: Selection,

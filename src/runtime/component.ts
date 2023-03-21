@@ -2,9 +2,8 @@
  * @see https://github.com/antvis/G2/discussions/4557
  */
 import { Coordinate } from '@antv/coord';
-import { group } from 'd3-array';
 import { isEqual } from '@antv/util';
-import { defined } from '../utils/helper';
+import { group } from 'd3-array';
 import {
   getPolarOptions,
   getRadialOptions,
@@ -12,6 +11,7 @@ import {
   type RadialOptions,
 } from '../coordinate';
 import { combine } from '../utils/array';
+import { defined } from '../utils/helper';
 import {
   coordOf,
   isHelix,
@@ -27,6 +27,7 @@ import {
 import { useLibrary } from './library';
 import { isValidScale, useRelationScale } from './scale';
 import {
+  G2MarkState,
   G2Theme,
   GuideComponentOrientation as GCO,
   GuideComponentPosition as GCP,
@@ -39,6 +40,7 @@ import {
   G2CoordinateOptions,
   G2GuideComponentOptions,
   G2Library,
+  G2Mark,
   G2ScaleOptions,
   G2View,
 } from './types/options';
@@ -132,9 +134,10 @@ export function inferComponent(
 
 export function renderComponent(
   component: G2GuideComponentOptions,
-  coordinates: Coordinate,
+  coordinate: Coordinate,
   theme: G2Theme,
   library: G2Library,
+  markState: Map<G2Mark, G2MarkState>,
 ) {
   const [useGuideComponent] = useLibrary<
     G2GuideComponentOptions,
@@ -147,7 +150,7 @@ export function renderComponent(
   );
   const value = { bbox, scales: scaleDescriptors, library };
   const render = useGuideComponent(options);
-  return render(scales, value, coordinates, theme);
+  return render({ coordinate, library, markState, scales, theme, value });
 }
 
 function inferLegendComponentType(

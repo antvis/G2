@@ -11,5 +11,6 @@ export const Square: SC<SquareOptions> = (options) => {
 };
 
 Square.props = {
+  defaultMarker: 'square',
   ...Color.props,
 };

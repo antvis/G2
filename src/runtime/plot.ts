@@ -723,6 +723,7 @@ async function plotView(
               coordinate,
               theme,
               library,
+              markState,
             ),
           ),
       (update) =>
@@ -734,6 +735,7 @@ async function plotView(
             coordinate,
             theme,
             library,
+            markState,
           );
           const { attributes } = newComponent;
           const [node] = this.childNodes;

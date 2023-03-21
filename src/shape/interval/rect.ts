@@ -13,4 +13,5 @@ export const Rect: SC<RectOptions> = (options) => {
 
 Rect.props = {
   ...Color.props,
+  defaultMarker: 'square',
 };

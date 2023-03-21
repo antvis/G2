@@ -102,7 +102,7 @@ export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
     title,
     ...rest
   } = options;
-  return (scales, value, coordinate, theme) => {
+  return ({ scales, value, theme }) => {
     const { bbox } = value;
     const { x, y, width, height } = bbox;
 

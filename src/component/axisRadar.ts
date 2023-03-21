@@ -54,7 +54,8 @@ function inferAxisStyle(
 
 export const AxisRadar: GCC<AxisRadarOptions> = (options) => {
   const { important = {}, ...restOptions } = options;
-  return (scales, value, coordinate, theme) => {
+  return (context) => {
+    const { theme, coordinate, value } = context;
     return LinearAxis({
       ...restOptions,
       ...inferTitleTransform(options.orientation),
@@ -62,7 +63,7 @@ export const AxisRadar: GCC<AxisRadarOptions> = (options) => {
         ...inferAxisStyle(options, theme, coordinate, value),
         ...important,
       },
-    })(scales, value, coordinate, theme);
+    })(context);
   };
 };
 

@@ -47,4 +47,5 @@ export const Pyramid: SC<PyramidOptions> = (options) => {
 
 Pyramid.props = {
   ...Color.props,
+  defaultMarker: 'square',
 };

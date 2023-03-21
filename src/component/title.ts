@@ -88,7 +88,7 @@ const Title = createComponent<TitleStyleProps>({
  * Title Component.
  */
 export const TitleComponent: GCC<TitleComponentOptions> = (options) => {
-  return (scales, value, coordinate, theme) => {
+  return ({ value, theme }) => {
     const { x, y, width, height } = value.bbox;
     return new Title({
       style: deepMix(

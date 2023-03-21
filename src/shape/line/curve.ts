@@ -162,6 +162,7 @@ export const Curve: SC<CurveOptions> = (options) => {
 };
 
 Curve.props = {
+  defaultMarker: 'smooth',
   defaultEnterAnimation: 'fadeIn',
   defaultUpdateAnimation: 'morphing',
   defaultExitAnimation: 'fadeOut',

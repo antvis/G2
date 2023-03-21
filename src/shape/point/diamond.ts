@@ -11,5 +11,6 @@ export const Diamond: SC<DiamondOptions> = (options) => {
 };
 
 Diamond.props = {
+  defaultMarker: 'diamond',
   ...Color.props,
 };

@@ -15,5 +15,6 @@ export const HollowTriangle: SC<HollowTriangleOptions> = (options) => {
 };
 
 HollowTriangle.props = {
+  defaultMarker: 'hollowTriangle',
   ...Color.props,
 };

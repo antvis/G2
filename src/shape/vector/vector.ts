@@ -46,6 +46,7 @@ export const Vector: SC<VectorOptions> = (options) => {
 };
 
 Vector.props = {
+  defaultMarker: 'line',
   defaultEnterAnimation: 'fadeIn',
   defaultUpdateAnimation: 'morphing',
   defaultExitAnimation: 'fadeOut',

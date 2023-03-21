@@ -11,5 +11,6 @@ export const HollowSquare: SC<HollowSquareOptions> = (options) => {
 };
 
 HollowSquare.props = {
+  defaultMarker: 'hollowSquare',
   ...Color.props,
 };

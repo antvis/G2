@@ -98,6 +98,7 @@ export const Box: SC<BoxOptions> = (options) => {
 };
 
 Box.props = {
+  defaultMarker: 'point',
   defaultEnterAnimation: 'fadeIn',
   defaultUpdateAnimation: 'morphing',
   defaultExitAnimation: 'fadeOut',
