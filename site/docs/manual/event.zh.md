@@ -46,27 +46,27 @@ chart.render();
 如果想要获取图表的生命周期信息，可以通过下面的方式：
 
 ```js
-chart.on(Chart.AFTER_RENDER, (ev) => {
+chart.on(ChartEvent.AFTER_RENDER, (ev) => {
   console.log(ev);
 });
 ```
 
 G2 目前提供了以下生命周期事件：
 
-| 事件名             | 说明           |
-| ------------------ | -------------- |
-| BEFORE_RENDER      | 渲染前         |
-| BEFORE_PAINT       | 绘制前         |
-| AFTER_PAINT        | 绘制后         |
-| AFTER_RENDER       | 渲染后         |
-| BEFORE_CHANGE_DATA | 更改数据前     |
-| AFTER_CHANGE_DATA  | 更改数据后     |
-| BEFORE_CLEAR       | 清理画布前     |
-| AFTER_CLEAR        | 清理画布后     |
-| BEFORE_DESTROY     | 销毁画布前     |
-| AFTER_DESTROY      | 销毁画布后     |
-| BEFORE_CHANGE_SIZE | 更改画布尺寸前 |
-| AFTER_CHANGE_SIZE  | 更改画布尺寸后 |
+| 事件名                          | 说明           |
+| ------------------------------- | -------------- |
+| `ChartEvent.`BEFORE_RENDER      | 渲染前         |
+| `ChartEvent.`BEFORE_PAINT       | 绘制前         |
+| `ChartEvent.`AFTER_PAINT        | 绘制后         |
+| `ChartEvent.`AFTER_RENDER       | 渲染后         |
+| `ChartEvent.`BEFORE_CHANGE_DATA | 更改数据前     |
+| `ChartEvent.`AFTER_CHANGE_DATA  | 更改数据后     |
+| `ChartEvent.`BEFORE_CLEAR       | 清理画布前     |
+| `ChartEvent.`AFTER_CLEAR        | 清理画布后     |
+| `ChartEvent.`BEFORE_DESTROY     | 销毁画布前     |
+| `ChartEvent.`AFTER_DESTROY      | 销毁画布后     |
+| `ChartEvent.`BEFORE_CHANGE_SIZE | 更改画布尺寸前 |
+| `ChartEvent.`AFTER_CHANGE_SIZE  | 更改画布尺寸后 |
 
 - **渲染前**：指 G2 着手开始处理数据，进行布局，绘制图形等操作。
 - **绘制前**： 指完成数据处理，布局，绘制图形等操作，但是还没有进行绘制。
@@ -102,24 +102,24 @@ chart.on(`interval:${ChartEvent.CLICK}`, (ev) => {
 
 ### 点击事件
 
-| 事件名   | 说明 | 回调参数 |
-| -------- | ---- | -------- |
-| CLICK    | 点击 | `Event`  |
-| DBLCLICK | 双击 | `Event`  |
+| 事件名                | 说明 | 回调参数 |
+| --------------------- | ---- | -------- |
+| `ChartEvent.`CLICK    | 点击 | `Event`  |
+| `ChartEvent.`DBLCLICK | 双击 | `Event`  |
 
 ### 指针事件
 
-| 事件名            | 说明                           | 回调参数 |
-| ----------------- | ------------------------------ | -------- |
-| POINTER_TAP       |                                | `Event`  |
-| POINTER_DOWN      | 当指针按下时                   | `Event`  |
-| POINTER_UP        | 当指针松开时                   | `Event`  |
-| POINTER_OVER      | 当指针进入目标元素时           | `Event`  |
-| POINTER_OUT       | 当指针离开目标元素时           | `Event`  |
-| POINTER_MOVE      | 当指针改变坐标时               | `Event`  |
-| POINTER_ENTER     | 当指针进入目标元素或其子元素时 | `Event`  |
-| POINTER_LEAVE     | 当指针离开目标元素或其子元素时 | `Event`  |
-| POINTER_UPOUTSIDE |                                | `Event`  |
+| 事件名                         | 说明                           | 回调参数 |
+| ------------------------------ | ------------------------------ | -------- |
+| `ChartEvent.`POINTER_TAP       |                                | `Event`  |
+| `ChartEvent.`POINTER_DOWN      | 当指针按下时                   | `Event`  |
+| `ChartEvent.`POINTER_UP        | 当指针松开时                   | `Event`  |
+| `ChartEvent.`POINTER_OVER      | 当指针进入目标元素时           | `Event`  |
+| `ChartEvent.`POINTER_OUT       | 当指针离开目标元素时           | `Event`  |
+| `ChartEvent.`POINTER_MOVE      | 当指针改变坐标时               | `Event`  |
+| `ChartEvent.`POINTER_ENTER     | 当指针进入目标元素或其子元素时 | `Event`  |
+| `ChartEvent.`POINTER_LEAVE     | 当指针离开目标元素或其子元素时 | `Event`  |
+| `ChartEvent.`POINTER_UPOUTSIDE |                                | `Event`  |
 
 ### 拖拽事件
 
@@ -129,12 +129,12 @@ chart.on(`interval:${ChartEvent.CLICK}`, (ev) => {
 chart.interval().style('draggable', true).style('droppable', true);
 ```
 
-| 事件名     | 说明                         | 回调参数 |
-| ---------- | ---------------------------- | -------- |
-| DRAG_START | 开始拖拽时                   | `Event`  |
-| DRAG       | 拖拽过程中                   | `Event`  |
-| DRAG_END   | 拖拽完成时                   | `Event`  |
-| DRAG_ENTER | 元素被拖拽进入目标元素内时   | `Event`  |
-| DRAG_LEAVE | 元素被拖拽离开目标元素时     | `Event`  |
-| DRAG_OVER  | 元素被拖拽悬停在目标元素内时 | `Event`  |
-| DROP       | 元素被放置到目标元素内时     | `Event`  |
+| 事件名                  | 说明                         | 回调参数 |
+| ----------------------- | ---------------------------- | -------- |
+| `ChartEvent.`DRAG_START | 开始拖拽时                   | `Event`  |
+| `ChartEvent.`DRAG       | 拖拽过程中                   | `Event`  |
+| `ChartEvent.`DRAG_END   | 拖拽完成时                   | `Event`  |
+| `ChartEvent.`DRAG_ENTER | 元素被拖拽进入目标元素内时   | `Event`  |
+| `ChartEvent.`DRAG_LEAVE | 元素被拖拽离开目标元素时     | `Event`  |
+| `ChartEvent.`DRAG_OVER  | 元素被拖拽悬停在目标元素内时 | `Event`  |
+| `ChartEvent.`DROP       | 元素被放置到目标元素内时     | `Event`  |
