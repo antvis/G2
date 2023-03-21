@@ -84,7 +84,7 @@ chart.render();
 
 如果一切顺利，你可以得到下面的柱状图!
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*K-7URYaij4kAAAAAAAAAAAAADmJ7AQ/original" width="640" height="480">
+<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*K-7URYaij4kAAAAAAAAAAAAADmJ7AQ/original" width="640" height="480" alt="example">
 
 ## 📮 参与贡献
 
@@ -92,7 +92,7 @@ chart.render();
 - [贡献指南](https://github.com/antvis/g2/blob/v5/CONTRIBUTING.md)：参与建设 G2
 - [讨论](https://github.com/antvis/G2/discussions)：在 Github 上或者钉钉群里面讨论（30233731, 35686967, 44788198）
 
-<img src="https://gw.alipayobjects.com/zos/antfincdn/hTzzaqgHgQ/Antv%252520G2%252520%26%252520G2Plot.png" width="200" height="266" alt="example"/>
+<img src="https://gw.alipayobjects.com/zos/antfincdn/hTzzaqgHgQ/Antv%252520G2%252520%26%252520G2Plot.png" width="200" height="266" alt="code"/>
 
 ## 📄 许可证
 
