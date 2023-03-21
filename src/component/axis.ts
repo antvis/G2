@@ -179,24 +179,23 @@ function inferGridLength(position: GCP, coordinate: Coordinate) {
   return width;
 }
 
-function inferLabelOverlap(style: Record<string, any>) {
+function inferLabelOverlap(transform = [], style: Record<string, any>) {
   const {
     labelAutoRotate = true,
     labelAutoHide = false,
     labelAutoEllipsis = false,
-    labelTransforms = [],
   } = style;
 
-  const transforms = [...labelTransforms];
+  const finalTransforms = [...transform];
 
   const mutateLabelOverlap = (overlap, state) => {
     if (state) {
-      const index = transforms.findIndex((t) => t.type === overlap.type);
-      if (index !== -1) transforms[index] = overlap;
-      else transforms.push(overlap);
+      const index = finalTransforms.findIndex((t) => t.type === overlap.type);
+      if (index !== -1) finalTransforms[index] = overlap;
+      else finalTransforms.push(overlap);
     } else {
-      const index = transforms.findIndex((t) => t.type === overlap.type);
-      if (index !== -1) transforms.splice(index, 1);
+      const index = finalTransforms.findIndex((t) => t.type === overlap.type);
+      if (index !== -1) finalTransforms.splice(index, 1);
     }
   };
 
@@ -209,7 +208,7 @@ function inferLabelOverlap(style: Record<string, any>) {
   );
   mutateLabelOverlap({ type: 'ellipsis', minLength: 20 }, labelAutoEllipsis);
   mutateLabelOverlap({ type: 'hide' }, labelAutoHide);
-  return transforms;
+  return finalTransforms;
 }
 
 function inferArcStyle(
@@ -358,12 +357,11 @@ const ArcAxisComponent: GCC<AxisOptions> = (options) => {
     tickFilter,
     tickCount,
     tickMethod,
-    title,
-    grid = false,
     important = {},
-    style,
+    style = {},
     ...rest
   } = options;
+  const { title, grid = false } = style;
   return ({ scales: [scale], value, coordinate, theme }) => {
     const { bbox } = value;
     const { domain } = scale.getOptions();
@@ -463,12 +461,12 @@ const LinearAxisComponent: GCC<AxisOptions> = (options) => {
     orientation,
     position,
     size,
+    style = {},
+    title,
     tickCount,
     tickFilter,
     tickMethod,
-    title,
     transform,
-    style,
     ...userDefinitions
   } = options;
 
@@ -513,7 +511,7 @@ const LinearAxisComponent: GCC<AxisOptions> = (options) => {
         coordinate,
       ),
       titleText: titleContent(title),
-      labelOverlap: inferLabelOverlap(internalAxisStyle),
+      labelOverlap: inferLabelOverlap(transform, internalAxisStyle),
       grid: inferGrid(internalAxisStyle.grid, coordinate, scale),
       gridLength,
       // Always showLine, make title could align the end of axis.

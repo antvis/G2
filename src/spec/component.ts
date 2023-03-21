@@ -23,17 +23,18 @@ export type TitleComponent = {
    */
   subtitle?: string | null;
   /**
-   * Align method for title.
-   */
-  align?: 'left' | 'center' | 'right';
-  /**
-   * The vertical spacing between title and subtitle, default is 2.
-   */
-  spacing?: number;
-  /**
    * Styles.
    */
-  style?: UsePrefix<'title' | 'subtitle', Record<string, any>>;
+  style?: UsePrefix<'title' | 'subtitle', Record<string, any>> & {
+    /**
+     * Align method for title.
+     */
+    align?: 'left' | 'center' | 'right';
+    /**
+     * The vertical spacing between title and subtitle, default is 2.
+     */
+    spacing?: number;
+  };
 };
 
 export type AxisComponent = {
