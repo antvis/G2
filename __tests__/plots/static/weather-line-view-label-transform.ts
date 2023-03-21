@@ -21,9 +21,11 @@ export function weatherLineViewLabelTransform(): G2Spec {
         labels: [{ text: 'Temperature' }],
         axis: {
           y: {
-            titleFill: '#EE6666',
             title: 'Temperature (°C)',
-            grid: null,
+            grid: false,
+            style: {
+              titleFill: '#EE6666',
+            },
           },
         },
       },
@@ -45,9 +47,11 @@ export function weatherLineViewLabelTransform(): G2Spec {
         axis: {
           y: {
             position: 'right',
-            titleFill: '#91CC75',
             title: 'Precipitation (ml)',
-            grid: null,
+            grid: false,
+            style: {
+              titleFill: '#91CC75',
+            },
           },
         },
       },

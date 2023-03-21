@@ -24,7 +24,7 @@ export function weatherLineInterval(): G2Spec {
         axis: {
           y: {
             title: 'Temperature (°C)',
-            grid: null,
+            grid: false,
             style: {
               titleFill: '#EE6666',
             },
@@ -47,7 +47,7 @@ export function weatherLineInterval(): G2Spec {
         axis: {
           y: {
             title: 'Evaporation',
-            grid: null,
+            grid: false,
             style: {
               titleFill: '#5470C6',
             },
@@ -72,7 +72,7 @@ export function weatherLineInterval(): G2Spec {
           y: {
             position: 'right',
             title: 'Precipitation (ml)',
-            grid: null,
+            grid: false,
             style: {
               titleFill: '#91CC75',
             },

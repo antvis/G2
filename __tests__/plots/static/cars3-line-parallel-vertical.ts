@@ -39,7 +39,9 @@ export function cars3LineParallelVertical(): G2Spec {
         layout: { justifyContent: 'center' },
         size: 50,
         length: 300,
-        labelSpacing: 0,
+        style: {
+          labelSpacing: 0,
+        },
       },
     },
     axis: Object.fromEntries(

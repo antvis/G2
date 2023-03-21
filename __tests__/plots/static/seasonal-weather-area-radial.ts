@@ -14,11 +14,13 @@ export function seasonalWeatherAreaRadial(): G2Spec {
       y: {
         zIndex: 1,
         direction: 'center',
-        labelStroke: '#fff',
-        labelStrokeWidth: 5,
-        title: null,
+        title: false,
         labelFormatter: (d, i, array) =>
           i === array.length - 1 ? `${d}°F` : `${d}`,
+        style: {
+          labelStroke: '#fff',
+          labelStrokeWidth: 5,
+        },
       },
       x: {
         grid: true,

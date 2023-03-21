@@ -17,7 +17,7 @@ function inferStyleByAlign(
   x: number,
   y: number,
   width: number,
-  align: TitleStyleProps['align'],
+  align: TitleStyleProps['style']['align'],
 ) {
   switch (align) {
     case 'center':
@@ -49,9 +49,7 @@ const Title = createComponent<TitleStyleProps>({
       width,
       title,
       subtitle,
-      spacing = 2,
-      align = 'left',
-      style,
+      style: { spacing = 2, align = 'left', ...style },
     } = attributes;
 
     const titleStyle = subObject(style, 'title');

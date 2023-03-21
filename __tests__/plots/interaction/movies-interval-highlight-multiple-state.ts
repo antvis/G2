@@ -15,7 +15,7 @@ export function moviesIntervalHighlightMultipleState(): G2Spec {
         transform: [{ type: 'groupX', y: 'sum' }],
         axis: {
           y: { labelFormatter: '~s' },
-          x: { labelTransform: 'rotate(90)' },
+          x: { style: { labelTransform: 'rotate(90)' } },
         },
         encode: {
           x: 'Major Genre',

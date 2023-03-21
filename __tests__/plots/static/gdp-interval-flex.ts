@@ -18,7 +18,7 @@ export function gdpIntervalFlex(): G2Spec {
     },
     axis: {
       x: {
-        labelTransform: 'rotate(90)',
+        style: { labelTransform: 'rotate(90)' },
       },
     },
   };

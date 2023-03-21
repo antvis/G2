@@ -23,13 +23,13 @@ export function worldHistoryIntervalMultiTickCount(): G2Spec {
         {
           tickCount: 5,
           labelFormatter,
-          grid: null,
-          title: null,
+          grid: false,
+          title: false,
         },
         {
           position: 'top',
           labelFormatter,
-          title: null,
+          title: false,
         },
       ],
       x: false,
