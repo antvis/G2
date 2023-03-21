@@ -14,12 +14,12 @@ order: 2
 
 ```bash
 # 通过 NPM 安装
-npm install @antv/g2@rc
+npm install @antv/g2@next
 ```
 
 ```bash
 # 通过 Yarn 安装
-yarn add @antv/g2@rc
+yarn add @antv/g2@next
 ```
 
 安装成功之后给 G2 提供一个容器:
