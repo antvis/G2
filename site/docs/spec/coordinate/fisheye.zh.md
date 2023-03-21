@@ -49,4 +49,4 @@ chart.render();
 | focusY      | 鱼眼变换中心点 y 方向位置             | `number`  | `0`     |
 | distortionX | 鱼眼变换 x 方向畸变大小               | `number`  | `2`     |
 | distortionY | 鱼眼变换 y 方向畸变大小               | `number`  | `2`     |
-| isVisual    | focusX 和 focusY 的值是否是视觉坐标点 | `boolean` | `false` |
+| visual    | focusX 和 focusY 的值是否是视觉坐标点 | `boolean` | `false` |

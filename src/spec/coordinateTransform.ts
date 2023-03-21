@@ -12,5 +12,5 @@ export type FisheyeCoordinate = {
   focusY?: number;
   distortionX?: number;
   distortionY?: number;
-  isVisual?: boolean;
+  visual?: boolean;
 };

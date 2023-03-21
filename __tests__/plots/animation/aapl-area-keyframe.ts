@@ -19,7 +19,7 @@ export async function aaplAreaKeyframe(): Promise<G2Spec> {
       x: { type: 'time' },
     },
     style: {
-      connectNulls: true,
+      connect: true,
       connectFill: 'grey',
       connectFillOpacity: 0.15,
     },

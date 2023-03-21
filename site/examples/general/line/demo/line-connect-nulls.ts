@@ -28,7 +28,7 @@ chart
   })
   .encode('x', 'date')
   .encode('y', 'close')
-  .style('connectNulls', true)
+  .style('connect', true)
   .style('connectStroke', '#aaa');
 
 chart.render();

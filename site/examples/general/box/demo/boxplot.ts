@@ -15,6 +15,6 @@ chart
   })
   .encode('x', 'Expt')
   .encode('y', 'Speed')
-  .style('extend', true);
+  .style('point', false);
 
 chart.render();

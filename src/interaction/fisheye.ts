@@ -37,7 +37,7 @@ export function Fisheye({
         const fisheye = maybeCoordinate(clonedOptions);
         fisheye.focusX = x;
         fisheye.focusY = y;
-        fisheye.isVisual = true;
+        fisheye.visual = true;
         update(clonedOptions);
       },
       wait,

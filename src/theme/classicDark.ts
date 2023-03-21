@@ -1,19 +1,19 @@
 import { ThemeComponent as TC, Theme } from '../runtime';
 
-export type LightOptions = Theme;
+export type ClassicDarkOptions = Theme;
 
 const COLORS = {
-  BLACK: '#000',
-  WHITE: '#fff',
+  BLACK: '#fff',
+  WHITE: '#000',
   STROKE: '#416180',
 };
 
-const BACKGROUND_COLOR = 'transparent';
+const BACKGROUND_COLOR = '#141414';
 
 /**
- * Default theme.
+ * Dark theme.
  */
-export const Light: TC<LightOptions> = (options) => {
+export const ClassicDark: TC<ClassicDarkOptions> = (options) => {
   const DEFAULT_COLOR = '#5B8FF9';
   const defaultOptions: Theme = {
     defaultColor: DEFAULT_COLOR,
@@ -132,8 +132,8 @@ export const Light: TC<LightOptions> = (options) => {
     },
     text: {
       text: {
-        // fill: COLORS.BLACK,fillOpacity: 0.65,
-        fill: '#1D2129',
+        fill: COLORS.BLACK,
+        fillOpacity: 0.65,
         fontSize: 12,
         strokeWidth: 0,
         connectorStroke: COLORS.STROKE,
@@ -231,7 +231,6 @@ export const Light: TC<LightOptions> = (options) => {
       labelFontSize: 12,
       labelFontWeight: 'lighter',
       labelSpacing: 8, // spacing between label and it's tick
-      line: false,
       lineLineWidth: 0.5,
       lineStroke: COLORS.BLACK,
       lineStrokeOpacity: 0.45,
@@ -293,7 +292,7 @@ export const Light: TC<LightOptions> = (options) => {
       gridDirection: 'negative',
       gridType: 'surround',
       titlePosition: 'top',
-      titleSpacing: 0,
+      titleTextBaseline: 'bottom',
     },
     axisRadar: {
       girdClosed: true,
@@ -318,7 +317,7 @@ export const Light: TC<LightOptions> = (options) => {
       itemValueFontSize: 12,
       itemValueFontWeight: 'normal',
       navButtonFill: COLORS.BLACK,
-      navButtonFillOpacity: 0.65,
+      navButtonFillOpacity: 0.45,
       navPageNumFill: COLORS.BLACK,
       navPageNumFillOpacity: 0.45,
       navPageNumFontSize: 12,
@@ -346,8 +345,6 @@ export const Light: TC<LightOptions> = (options) => {
       labelFillOpacity: 0.45,
       labelFontSize: 12,
       labelFontWeight: 'normal',
-      labelSpacing: 8,
-      tick: true,
       // [todo] legend rail
     },
     label: {
@@ -390,18 +387,7 @@ export const Light: TC<LightOptions> = (options) => {
       handleLabelFontSize: 12,
       handleLabelFontWeight: 'normal',
     },
-    scrollbar: {
-      padding: [2, 2, 2, 2],
-      trackSize: 10,
-      isRound: true,
-      slidable: true,
-      scrollable: true,
-      trackFill: '#e5e5e5',
-      trackFillOpacity: 0,
-      thumbFill: '#000',
-      thumbFillOpacity: 0.15,
-      thumbHighlightedFillOpacity: 0.2,
-    },
+    scrollbar: {},
     title: {
       titleFill: COLORS.BLACK,
       titleFillOpacity: 0.85,
@@ -418,4 +404,4 @@ export const Light: TC<LightOptions> = (options) => {
   return Object.assign({}, defaultOptions, options);
 };
 
-Light.props = {};
+ClassicDark.props = {};
