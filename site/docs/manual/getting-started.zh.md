@@ -64,7 +64,7 @@ chart.render();
 G2 也提供了 UMD 版本，可以直接通过 CDN 加载，然后直接使用。这个时候的 `Chart` 对象可以通过命名空间 `G2` 去访问。
 
 ```html
-<script src="https://unpkg.com/@antv/g2@rc/dist/g2.min.js"></script>
+<script src="https://unpkg.com/@antv/g2@next/dist/g2.min.js"></script>
 <script>
   // 准备数据
   const data = [
