@@ -70,7 +70,7 @@ export function render<T extends G2ViewTree = G2ViewTree>(
   const { width = 640, height = 480, theme } = options;
   if (!theme) {
     error(
-      'ChartOptions.theme is required, such as const chart = new Chart({ theme: "classic"})',
+      'ChartOptions.theme is required, such as `const chart = new Chart({ theme: "classic"})`.',
     );
   }
   const keyed = inferKeys(options);
