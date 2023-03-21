@@ -40,6 +40,10 @@ chart.render();
 
 设置图形的数据，支持多种数据来源和数据变换，具体见 [data](/api/data/overview)。
 
+### `chart.changeData`
+
+更改图形的数据并重新渲染图表。
+
 #### `mark.encode`
 
 设置图形每个通道的字段名称，具体见 [encode](/api/encode/overview)。

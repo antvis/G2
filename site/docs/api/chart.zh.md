@@ -268,11 +268,11 @@ chart.render();
 
 隐藏当前节点渲染的图形。
 
-### `chart.changeData(data:Datum[])`
+### `chart.changeData`
 
 更改图形的数据来源并重新渲染整个图表。
 
-### `chart.changeSize(width: number, height: number)`
+### `chart.changeSize`
 
 改变图表的宽高，并重新渲染。
 
@@ -330,15 +330,15 @@ chart.render();
 
 写在 chart 上的监听事件。
 
-### `chart.getNodesByType(type: string): Node[]`
+### `chart.getNodesByType`
 
 通过 type 查找所有的 node 子节点。
 
-### `chart.getNodeByKey(key: string): Node`
+### `chart.getNodeByKey`
 
 通过 key 找到当前 node 的子节点。
 
-### `chart.append(node:Node)`
+### `chart.append`
 
 创建一个新的 Node 并添加在 chart 的子节点上。
 

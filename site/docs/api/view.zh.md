@@ -225,14 +225,10 @@ chart.render();
 
 通过通道名称查找返回 view 渲染时对应的 scale 实例。
 
-### `view.getNodesByType(type: string): Node[]`
+### `view.getNodesByType`
 
 通过 type 查找所有的 node 子节点。
 
-### `view.getNodeByKey(key: string): Node`
+### `view.getNodeByKey`
 
 通过 key 找到当前 node 的子节点。
-
-## `view.append(node:Node)`
-
-创建一个新的 Node 并添加在 view 的子节点上。
