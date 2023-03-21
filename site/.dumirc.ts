@@ -55,18 +55,18 @@ export default defineConfig({
         order: 3,
       },
       {
-        slug: 'docs/api/overview',
-        title: {
-          zh: 'API',
-          en: 'API',
-        },
-        order: 2,
-      },
-      {
         slug: 'docs/spec/overview',
         title: {
           zh: '文档',
           en: 'Documentation',
+        },
+        order: 2,
+      },
+      {
+        slug: 'docs/api/overview',
+        title: {
+          zh: 'API',
+          en: 'API',
         },
         order: 1,
       },

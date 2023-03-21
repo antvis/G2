@@ -47,38 +47,37 @@ chart.render();
 
 ### 基本
 
-| 属性                    | 描述                           | 类型                           | 默认值       |
-| ----------------------- | ------------------------------ | ------------------------------ | ------------ |
-| orientation                  | 缩略轴朝向，横向及纵向         | `'horizontal'` \| `'vertical'` | 'horizontal' |
-| values                  | 初始选区范围，位于 0 ～ 1 区间 | `[number, number]`             | -            |
-| slidable                | 是否允许拖动选取和手柄         | `boolean`                      | true         |
-| brushable               | 是否启用刷选                   | `boolean`                      | true         |
-| padding                 | 迷你图的内边距                 | `number` \| `number[]`         | 0            |
-| selectionFill           | 缩略轴选区填充色               | `string`                       | -            |
-| selectionFillOpacity    | 缩略轴选区填充色透明度         | `number`                       | -            |
-| selectionStroke         | 缩略轴选区描边色               | `string`                       | –            |
-| selectionStrokeOpacity  | 缩略轴选区描边色透明度         | `number`                       | –            |
-| backgroundFill          | 缩略轴背景填充色               | `string`                       | –            |
-| backgroundFillOpacity   | 缩略轴背景填充色透明度         | `number`                       | –            |
-| backgroundStroke        | 缩略轴背景描边色               | `string`                       | –            |
-| backgroundStrokeOpacity | 缩略轴背景描边色透明度         | `number`                       | –            |
+| 属性                           | 描述                           | 类型                   | 默认值 |
+| ------------------------------ | ------------------------------ | ---------------------- | ------ |
+| values                         | 初始选区范围，位于 0 ～ 1 区间 | `[number, number]`     | -      |
+| slidable                       | 是否允许拖动选取和手柄         | `boolean`              | true   |
+| brushable                      | 是否启用刷选                   | `boolean`              | true   |
+| `style.`padding                | 迷你图的内边距                 | `number` \| `number[]` | 0      |
+| `style.`selectionFill          | 缩略轴选区填充色               | `string`               | -      |
+| `style.`selectionFillOpacity   | 缩略轴选区填充色透明度         | `number`               | -      |
+| `style.`selectionStroke        | 缩略轴选区描边色               | `string`               | –      |
+| `style.`selectionStrokeOpacity | 缩略轴选区描边色透明度         | `number`               | –      |
+| `style.`trackFill              | 缩略轴滑轨填充色               | `string`               | –      |
+| `style.`trackFillOpacity       | 缩略轴滑轨填充色透明度         | `number`               | –      |
+| `style.`trackStroke            | 缩略轴滑轨描边色               | `string`               | –      |
+| `style.`trackStrokeOpacity     | 缩略轴滑轨描边色透明度         | `number`               | –      |
 
 ### 拖动手柄
 
-| 属性                     | 描述                     | 类型                      | 默认值 |
-| ------------------------ | ------------------------ | ------------------------- | ------ |
-| handle               | 是否显示拖动手柄         | `boolean`                 | true   |
-| label                | 是否显示拖动手柄文本     | `boolean`                 | true   |
-| formatter                | 拖动手柄标签格式化       | `(value: number)=>string` | -      |
-| handleIconSize           | 缩略轴手柄大小           | `number`                  | 10     |
-| handleIconFill           | 缩略轴手柄填充色         | `string`                  | -      |
-| handleIconFillOpacity    | 缩略轴手柄填充色透明度   | `number`                  | -      |
-| handleIconStroke         | 缩略轴手柄描边色         | `string`                  | -      |
-| handleIconStrokeOpacity  | 缩略轴手柄描边色透明度   | `number`                  | -      |
-| handleLabelFontSize      | 缩略轴手柄标签字体大小   | `number`                  | -      |
-| handleLabelFontWeight    | 缩略轴手柄标签字体权重高 | `number` \| `string`      | -      |
-| handleLabelStroke        | 缩略轴手柄标签字体颜色   | `string`                  | -      |
-| handleLabelStrokeOpacity | 缩略轴手柄标签字体透明度 | `number`                  | -      |
+| 属性                             | 描述                     | 类型                      | 默认值 |
+| -------------------------------- | ------------------------ | ------------------------- | ------ |
+| handle                           | 是否显示拖动手柄         | `boolean`                 | true   |
+| label                            | 是否显示拖动手柄文本     | `boolean`                 | true   |
+| formatter                        | 拖动手柄标签格式化       | `(value: number)=>string` | -      |
+| `style.`handleIconSize           | 缩略轴手柄大小           | `number`                  | 10     |
+| `style.`handleIconFill           | 缩略轴手柄填充色         | `string`                  | -      |
+| `style.`handleIconFillOpacity    | 缩略轴手柄填充色透明度   | `number`                  | -      |
+| `style.`handleIconStroke         | 缩略轴手柄描边色         | `string`                  | -      |
+| `style.`handleIconStrokeOpacity  | 缩略轴手柄描边色透明度   | `number`                  | -      |
+| `style.`handleLabelFontSize      | 缩略轴手柄标签字体大小   | `number`                  | -      |
+| `style.`handleLabelFontWeight    | 缩略轴手柄标签字体权重高 | `number` \| `string`      | -      |
+| `style.`handleLabelStroke        | 缩略轴手柄标签字体颜色   | `string`                  | -      |
+| `style.`handleLabelStrokeOpacity | 缩略轴手柄标签字体透明度 | `number`                  | -      |
 
 ### 迷你图
 
