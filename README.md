@@ -25,8 +25,6 @@
 
 </div>
 
-> G2 5.0 发布了 Beta 版本，4.x 稳定版在 [master](https://github.com/antvis/G2/tree/master) 分支上。
-
 G2 起源于 Wilkinson 的图形语法：《Grammar of Graphics》，但又不止于图形语法。
 
 ## ✨ 特色
@@ -42,11 +40,11 @@ G2 起源于 Wilkinson 的图形语法：《Grammar of Graphics》，但又不�
 可以通过 NPM 或 Yarn 等包管理器来安装。
 
 ```bash
-$ npm install @antv/g2@rc
+$ npm install @antv/g2@next
 ```
 
 ```bash
-$ yarn add @antv/g2@rc
+$ yarn add @antv/g2@next
 ```
 
 成功安装之后，可以通过 import 导入 Chart 对象。
@@ -86,7 +84,7 @@ chart.render();
 
 如果一切顺利，你可以得到下面的柱状图!
 
-<img src="https://gw.alipayobjects.com/mdn/rms_dfc253/afts/img/A*NZmbQItc82oAAAAAAAAAAAAAARQnAQ" width="640" height="480">
+<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*K-7URYaij4kAAAAAAAAAAAAADmJ7AQ/original" width="640" height="480">
 
 ## 📮 参与贡献
 
@@ -94,7 +92,7 @@ chart.render();
 - [贡献指南](https://github.com/antvis/g2/blob/v5/CONTRIBUTING.md)：参与建设 G2
 - [讨论](https://github.com/antvis/G2/discussions)：在 Github 上或者钉钉群里面讨论（30233731, 35686967, 44788198）
 
-<img src="https://gw.alipayobjects.com/zos/antfincdn/hTzzaqgHgQ/Antv%252520G2%252520%26%252520G2Plot.png" width="200" height="266" />
+<img src="https://gw.alipayobjects.com/zos/antfincdn/hTzzaqgHgQ/Antv%252520G2%252520%26%252520G2Plot.png" width="200" height="266" alt="example"/>
 
 ## 📄 许可证
 
