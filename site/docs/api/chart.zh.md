@@ -186,6 +186,18 @@ chart.render();
 
 ## 设置属性
 
+### `chart.width`
+
+设置或获取图表的 width。
+
+### `chart.height`
+
+设置或获取图表的 height。
+
+### `chart.title`
+
+设置或获取图表的 title。
+
 ### `chart.options`
 
 获取图表的配置项。

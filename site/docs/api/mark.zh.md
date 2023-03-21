@@ -60,6 +60,34 @@ chart.render();
 
 设置图形的主题，具体见 [style](/api/theme/overview)。
 
+#### `mark.animate`
+
+设置图形的动画，具体见 [style](/api/animate/overview)。
+
+#### `mark.axis`
+
+设置图形的坐标轴 [style](/api/axis/overview)。
+
+#### `mark.legend`
+
+设置图形的图例，具体见 [style](/api/legend/overview)。
+
+#### `mark.slider`
+
+设置图形的缩略轴，具体见 [style](/api/slider/overview)。
+
+#### `mark.scrollbar`
+
+设置图形的滚动条，具体见 [style](/api/scrollbar/overview)。
+
+#### `mark.state`
+
+设置图形的状态样式，具体见 [style](/api/state/overview)。
+
+#### `mark.tooltip`
+
+设置图形的 Tooltip，具体见 [style](/api/tooltip/overview)。
+
 ### 获取实例
 
 #### `chart.getGroup`

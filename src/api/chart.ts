@@ -155,7 +155,6 @@ export const props: NodePropertyDescriptor[] = [
   { name: 'interaction', type: 'object' },
   { name: 'theme', type: 'object' },
   { name: 'title', type: 'value' },
-  { name: 'key', type: 'value' },
   { name: 'transform', type: 'array' },
   { name: 'scale', type: 'object' },
   { name: 'axis', type: 'object' },
