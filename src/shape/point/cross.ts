@@ -11,5 +11,6 @@ export const Cross: SC<CrossOptions> = (options) => {
 };
 
 Cross.props = {
+  defaultMarker: 'cross',
   ...Color.props,
 };

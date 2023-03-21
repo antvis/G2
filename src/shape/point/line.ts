@@ -11,5 +11,6 @@ export const Line: SC<LineOptions> = (options) => {
 };
 
 Line.props = {
+  defaultMarker: 'line',
   ...Color.props,
 };

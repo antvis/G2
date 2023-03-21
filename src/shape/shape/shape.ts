@@ -19,6 +19,7 @@ export const Shape: SC<ShapeOptions> = (options) => {
 };
 
 Shape.props = {
+  defaultMarker: 'point',
   defaultEnterAnimation: 'fadeIn',
   defaultUpdateAnimation: 'morphing',
   defaultExitAnimation: 'fadeOut',

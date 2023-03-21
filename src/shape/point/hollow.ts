@@ -11,5 +11,6 @@ export const HollowPoint: SC<HollowPointOptions> = (options) => {
 };
 
 HollowPoint.props = {
+  defaultMarker: 'hollowPoint',
   ...Color.props,
 };

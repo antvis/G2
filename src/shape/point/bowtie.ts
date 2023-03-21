@@ -11,5 +11,6 @@ export const Bowtie: SC<BowtieOptions> = (options) => {
 };
 
 Bowtie.props = {
+  defaultMarker: 'bowtie',
   ...Color.props,
 };

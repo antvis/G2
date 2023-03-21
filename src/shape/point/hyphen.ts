@@ -11,5 +11,6 @@ export const Hyphen: SC<HyphenOptions> = (options) => {
 };
 
 Hyphen.props = {
+  defaultMarker: 'hyphen',
   ...Color.props,
 };

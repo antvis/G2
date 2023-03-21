@@ -131,7 +131,7 @@
     "@antv/gui": "^0.5.0-alpha.8",
     "@antv/path-util": "^3.0.1",
     "@antv/scale": "^0.4.7",
-    "@antv/util": "^2.0.17",
+    "@antv/util": "^3.3.2",
     "d3-array": "^3.2.2",
     "d3-dsv": "^3.0.1",
     "d3-force": "^3.0.0",

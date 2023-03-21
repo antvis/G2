@@ -11,5 +11,6 @@ export const Point: SC<PointOptions> = (options) => {
 };
 
 Point.props = {
+  defaultMarker: 'point',
   ...Color.props,
 };

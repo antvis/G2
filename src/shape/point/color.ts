@@ -1,10 +1,10 @@
-import { Path } from '@antv/g';
 import { Coordinate, Vector2 } from '@antv/coord';
-import { isFisheye } from '../../utils/coordinate';
+import { Path } from '@antv/g';
 import { ShapeComponent as SC } from '../../runtime';
+import { isFisheye } from '../../utils/coordinate';
+import { Symbols } from '../../utils/marker';
 import { select } from '../../utils/selection';
 import { applyStyle, getOrigin, getShapeTheme, toOpacityKey } from '../utils';
-import * as Symbols from './symbol';
 
 export type ColorOptions = {
   colorAttribute: 'fill' | 'stroke';
@@ -37,7 +37,7 @@ function getRadius(
 export const Color: SC<ColorOptions> = (options) => {
   // Render border only when colorAttribute is stroke.
   const { colorAttribute, symbol, mode = 'auto', ...style } = options;
-  const path = Symbols[symbol] || Symbols.point;
+  const path = Symbols.get(symbol) || Symbols.get('point');
   return (points, value, coordinate, theme) => {
     const { mark, shape, defaultShape } = value;
     const { defaultColor, lineWidth, ...defaults } = getShapeTheme(

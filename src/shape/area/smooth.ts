@@ -22,4 +22,5 @@ export const Smooth: SC<SmoothOptions> = (options) => {
 
 Smooth.props = {
   ...Curve.props,
+  defaultMarker: 'smooth',
 };

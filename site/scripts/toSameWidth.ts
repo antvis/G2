@@ -1,6 +1,5 @@
-import { readFileSync, writeFileSync } from 'fs';
-import * as readline from 'readline';
 import * as fs from 'fs';
+import { readFileSync } from 'fs';
 
 function process(path: string) {
   // read all files in the directory

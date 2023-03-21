@@ -95,6 +95,7 @@ export const Ribbon: SC<RibbonOptions> = (options) => {
 };
 
 Ribbon.props = {
+  defaultMarker: 'square',
   defaultEnterAnimation: 'fadeIn',
   defaultUpdateAnimation: 'morphing',
   defaultExitAnimation: 'fadeOut',

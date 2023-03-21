@@ -22,6 +22,7 @@ const Shapes = [
   'triangleDown',
 ];
 
+// todo need to fix scale.
 export function housePricePointShapes(): G2Spec {
   return {
     type: 'point',

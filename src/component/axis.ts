@@ -364,7 +364,7 @@ const ArcAxisComponent: GCC<AxisOptions> = (options) => {
     style,
     ...rest
   } = options;
-  return ([scale], value, coordinate, theme) => {
+  return ({ scales: [scale], value, coordinate, theme }) => {
     const { bbox } = value;
     const { domain } = scale.getOptions();
     const ticks = getTicks(
@@ -472,7 +472,7 @@ const LinearAxisComponent: GCC<AxisOptions> = (options) => {
     ...userDefinitions
   } = options;
 
-  return ([scale], value, coordinate, theme) => {
+  return ({ scales: [scale], value, coordinate, theme }) => {
     const { bbox } = value;
     const { domain } = scale.getOptions();
 

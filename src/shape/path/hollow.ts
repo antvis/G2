@@ -14,6 +14,7 @@ export const Hollow: SC<PathOptions> = (options) => {
 };
 
 Hollow.props = {
+  defaultMarker: 'hvh',
   defaultEnterAnimation: 'fadeIn',
   defaultUpdateAnimation: 'morphing',
   defaultExitAnimation: 'fadeOut',

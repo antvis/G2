@@ -15,5 +15,6 @@ export const HollowHexagon: SC<HollowHexagonOptions> = (options) => {
 };
 
 HollowHexagon.props = {
+  defaultMarker: 'hollowHexagon',
   ...Color.props,
 };

@@ -1,13 +1,14 @@
 import { Coordinate } from '@antv/coord';
+import type { PathArray } from '@antv/util';
 import { PathStyleProps } from '@antv/g';
 import { Marker } from '@antv/gui';
 import { line as d3line } from 'd3-shape';
-import { isTranspose } from '../../utils/coordinate';
-import { select } from '../../utils/selection';
 import { ShapeComponent as SC, Vector2, WithPrefix } from '../../runtime';
-import { applyStyle, getShapeTheme, PathCommand } from '../utils';
 import { createElement } from '../../shape/createElement';
+import { isTranspose } from '../../utils/coordinate';
 import { subObject } from '../../utils/helper';
+import { select } from '../../utils/selection';
+import { applyStyle, getShapeTheme } from '../utils';
 
 export type ConnectorOptions = ConnectorPathStyleProps & Record<string, any>;
 
@@ -15,7 +16,7 @@ type MarkerStyleProps<P extends string> = WithPrefix<Record<string, any>, P>;
 
 type ConnectorPathStyleProps = Omit<PathStyleProps, 'path'> &
   MarkerStyleProps<'endMarker'> & {
-    connectorPath?: PathCommand[];
+    connectorPath?: PathArray[];
     endMarker?: boolean;
   };
 
@@ -121,6 +122,7 @@ export const Connector: SC<ConnectorOptions> = (options) => {
 };
 
 Connector.props = {
+  defaultMarker: 'line',
   defaultEnterAnimation: 'fadeIn',
   defaultUpdateAnimation: 'morphing',
   defaultExitAnimation: 'fadeOut',

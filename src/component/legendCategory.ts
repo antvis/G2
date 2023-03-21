@@ -1,19 +1,21 @@
 import type { Coordinate } from '@antv/coord';
 import type { DisplayObject } from '@antv/g';
 import { Category } from '@antv/gui';
+import { last } from '@antv/util';
 import { format } from 'd3-format';
 import type {
   FlexLayout,
   G2Library,
+  G2MarkState,
   G2Theme,
   GuideComponentComponent as GCC,
   GuideComponentOrientation as GCO,
   GuideComponentPosition as GCP,
   Scale,
 } from '../runtime';
-import { useLibrary } from '../runtime/library';
-import { Shape, ShapeComponent } from '../runtime/types/component';
-import type { G2ShapeOptions } from '../runtime/types/options';
+import { GuideComponentContext } from '../runtime/types/component';
+import type { G2Mark } from '../runtime/types/options';
+import { useMarker } from '../utils/marker';
 import {
   adaptor,
   domainOf,
@@ -65,53 +67,64 @@ function createShape(
   theme: G2Theme,
   style: Record<string, any> = {},
 ) {
-  const [useShape] = useLibrary<G2ShapeOptions, ShapeComponent, Shape>(
-    'shape',
-    library,
-  );
-  const shapeOptions = [
-    [
-      [0, 0],
-      [0, 0],
-    ],
-    { size: 6, ...style },
-    coordinate,
-    theme,
-  ];
-  return () => {
-    try {
-      // @ts-ignore
-      return useShape({ type: `point.${shape}` })(...shapeOptions);
-    } catch (e) {
-      // @ts-ignore
-      return useShape({ type: 'point.point' })(...shapeOptions);
-    }
-  };
+  const marker =
+    (library[`shape.${shape}`]?.props?.defaultMarker as string) ||
+    last(shape.split('.'));
+  return () => useMarker(marker, style)(0, 0, 6);
+}
+
+function inferShape(scales: Scale[], markState: Map<G2Mark, G2MarkState>) {
+  const shapeScale = scaleOf(scales, 'shape');
+  const colorScale = scaleOf(scales, 'color');
+  // infer the main shape if multiple marks are used
+  const shapes: [string, string[]][] = [];
+  for (const [mark, state] of markState) {
+    const namespace = mark.type;
+    const domain =
+      colorScale?.getOptions().domain.length > 0
+        ? colorScale?.getOptions().domain
+        : state.data;
+    const shape: string[] = domain.map((d, i) => {
+      if (shapeScale) return shapeScale.map(d || 'point');
+      return mark?.style?.shape || state.defaultShape || 'point';
+    });
+    if (typeof namespace === 'string') shapes.push([namespace, shape]);
+  }
+
+  if (shapes.length === 0) return ['point', ['point']];
+  if (shapes.length === 1) return shapes[0];
+  if (!shapeScale) return shapes[0];
+  // Evaluate the maximum likelihood of shape
+  const { range } = shapeScale.getOptions();
+  return shapes
+    .map(([namespace, shape]) => {
+      let sum = 0;
+      for (let i = 0; i < shapes.length; i++) {
+        const targetShape = range[i % range.length];
+        if (shape[i] === targetShape) sum++;
+      }
+      return [sum / shape.length, [namespace, shape]] as const;
+    })
+    .sort((a, b) => b[0] - a[0])[0][1];
 }
 
 function inferItemMarker(
-  scales: Scale[],
-  options: LegendCategoryOptions,
-  library: G2Library,
-  coordinate: Coordinate,
-  theme: G2Theme,
+  options,
+  { scales, library, coordinate, theme, markState }: GuideComponentContext,
 ): ((datum: any, i: number, data: any) => () => DisplayObject) | undefined {
   const shapeScale = scaleOf(scales, 'shape');
+  const [namespace, shapes] = inferShape(scales, markState);
 
   const { itemMarker } = options;
   if (shapeScale && !itemMarker) {
-    const { domain } = shapeScale.getOptions();
-
     return (d, i) =>
-      createShape(shapeScale.map(domain[i]), library, coordinate, theme, {
+      createShape(`${namespace}.${shapes[i]}`, library, coordinate, theme, {
         color: d.color,
       });
   }
-  if (typeof itemMarker === 'function') {
-    return itemMarker;
-  }
+  if (typeof itemMarker === 'function') return itemMarker;
   return (d, i) =>
-    createShape(itemMarker || 'point', library, coordinate, theme, {
+    createShape(itemMarker || shapes[i], library, coordinate, theme, {
       color: d.color,
     });
 }
@@ -133,17 +146,11 @@ function inferItemMarkerSize(scales: Scale[]) {
   return 8;
 }
 
-function inferCategoryStyle(
-  scales: Scale[],
-  options: LegendCategoryOptions,
-  library: G2Library,
-  coordinate: Coordinate,
-  theme: G2Theme,
-) {
+function inferCategoryStyle(options, context: GuideComponentContext) {
   const { labelFormatter = (d) => `${d}` } = options;
-
+  const { scales } = context;
   const baseStyle = {
-    itemMarker: inferItemMarker(scales, options, library, coordinate, theme),
+    itemMarker: inferItemMarker(options, context),
     itemMarkerSize: inferItemMarkerSize(scales),
     itemMarkerOpacity: inferItemMarkerOpacity(scales),
   };
@@ -203,9 +210,9 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
     ...rest
   } = options;
 
-  return (scales, value, coordinate, theme) => {
-    const { library, bbox } = value;
-    const { x, y } = bbox;
+  return (context) => {
+    const { value, theme } = context;
+    const { bbox } = value;
     const { width, height } = inferLegendShape(value, options, LegendCategory);
 
     const finalLayout = inferComponentLayout(
@@ -230,14 +237,14 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
       rowPadding: 0,
       colPadding: 8,
       titleText: titleContent(title),
-      ...inferCategoryStyle(scales, options, library, coordinate, theme),
+      ...inferCategoryStyle(options, context),
     };
 
     const { legend: legendTheme = {} } = theme;
     const layoutWrapper = new G2Layout({
       style: {
-        x: x + dx,
-        y: y + dy,
+        x: bbox.x + dx,
+        y: bbox.y + dy,
         width: bbox.width,
         height: bbox.height,
         ...finalLayout,
