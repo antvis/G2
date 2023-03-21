@@ -66,7 +66,7 @@ export const Boxplot: CC<BoxPlotOptions> = (options) => {
       animate,
       ...rest
     } = options;
-    const { extend = false, ...restStyle } = style;
+    const { point = true, ...restStyle } = style;
     const { y } = encode;
     const encodeY = { y, y1: y, y2: y, y3: y, y4: y };
     const qy = { y1: q1, y2: q2, y3: q3 };
@@ -93,7 +93,7 @@ export const Boxplot: CC<BoxPlotOptions> = (options) => {
 
     // Only show min and max instead of lower and upper.
     // Only draw a box.
-    if (extend) {
+    if (!point) {
       return [
         {
           type: 'box',

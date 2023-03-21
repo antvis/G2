@@ -16,7 +16,7 @@ export function morleyBoxDefaultExtend(): G2Spec {
     style: {
       boxFill: '#aaa',
       pointStroke: '#000',
-      extend: true,
+      point: false,
     },
   };
 }

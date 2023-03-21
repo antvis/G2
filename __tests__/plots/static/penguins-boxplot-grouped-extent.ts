@@ -13,7 +13,7 @@ export function penguinsBoxPlotGroupedExtent(): G2Spec {
       series: 'sex',
     },
     style: {
-      extend: true,
+      point: false,
     },
   };
 }
