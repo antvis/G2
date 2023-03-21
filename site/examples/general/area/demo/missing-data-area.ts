@@ -16,7 +16,7 @@ chart
   .encode('x', (d) => new Date(d.date))
   // Mock missing data. Set NaN from Jan. to Mar.
   .encode('y', (d) => (new Date(d.date).getUTCMonth() <= 3 ? NaN : d.close))
-  .style('connectNulls', true)
+  .style('connect', true)
   .style('connectFill', 'grey')
   .style('connectFillOpacity', 0.15);
 

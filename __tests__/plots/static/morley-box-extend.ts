@@ -12,7 +12,7 @@ export function morleyBoxExtend(): G2Spec {
       y: 'Speed',
     },
     style: {
-      extend: true,
+      point: false,
     },
   };
 }

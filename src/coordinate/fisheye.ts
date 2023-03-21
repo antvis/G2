@@ -11,7 +11,7 @@ export const Fisheye: CC<FisheyeOptions> = ({
   focusY = 0,
   distortionX = 2,
   distortionY = 2,
-  isVisual = false,
-}) => [['fisheye', focusX, focusY, distortionX, distortionY, isVisual]];
+  visual = false,
+}) => [['fisheye', focusX, focusY, distortionX, distortionY, visual]];
 
 Fisheye.props = { transform: true };
