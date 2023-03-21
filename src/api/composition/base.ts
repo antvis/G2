@@ -10,6 +10,21 @@ export class CompositionNode<
   ChildValue extends Record<string, any> = Record<string, any>,
 > extends Node<Value, ParentValue, ChildValue> {
   /**
+   * Change current node data and its children data.
+   */
+  changeData(data: any) {
+    const chart = this.getRoot();
+    if (!chart) return;
+    this.attr('data', data);
+    if (this.children?.length) {
+      this.children.forEach((child) => {
+        child.attr('data', data);
+      });
+    }
+    return chart?.render();
+  }
+
+  /**
    * Get view instance by key.
    */
   getView(): G2ViewDescriptor {
