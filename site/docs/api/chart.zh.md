@@ -230,6 +230,10 @@ chart.render();
 
 设置图形的主题，具体见 [style](/api/theme/overview)。
 
+### `chart.labelTransform`
+
+设置图形的 labelTransform，具体见 [label](/spec/label/overview)
+
 ## 渲染图表
 
 ### `chart.render`

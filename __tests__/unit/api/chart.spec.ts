@@ -93,6 +93,7 @@ describe('Chart', () => {
     const chart = new Chart({ theme: 'classic' });
     chart
       .data([1, 2, 3])
+      .labelTransform({ type: 'overlapDodgeY' })
       .attr('key', 'composition')
       .coordinate({ type: 'polar' })
       .interaction('elementHighlight')
@@ -103,6 +104,7 @@ describe('Chart', () => {
       type: 'view',
       data: [1, 2, 3],
       key: 'composition',
+      labelTransform: [{ type: 'overlapDodgeY' }],
       coordinate: { type: 'polar' },
       transform: [{ type: 'stackY' }],
       theme: { defaultColor: 'red' },

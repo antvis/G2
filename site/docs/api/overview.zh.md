@@ -57,6 +57,7 @@ order: 1
 - [chart.**coordinate**](/api/chart#chartcoordinate) - 声明该视图的 coordinate。
 - [chart.**axis**](/api/chart#chartaxis) - 设置或获取该复合视图的 axis。
 - [chart.**legend**](/api/chart#chartlegend) - 设置或获取该复合视图的 legend。
+- [chart.**labelTransform**](/api/chart#chartlabeltransform) - 设置 label 调整方式。
 
 ### 获取实例
 
