@@ -63,4 +63,6 @@ export const Label: SC<LabelOptions> = (options) => {
   };
 };
 
-Label.props = {};
+Label.props = {
+  defaultMarker: 'point',
+};

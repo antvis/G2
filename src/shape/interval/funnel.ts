@@ -55,4 +55,5 @@ export const Funnel: SC<FunnelOptions> = (options) => {
 
 Funnel.props = {
   ...Color.props,
+  defaultMarker: 'funnel',
 };

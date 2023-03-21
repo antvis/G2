@@ -15,5 +15,6 @@ export const TriangleDown: SC<TriangleDownOptions> = (options) => {
 };
 
 TriangleDown.props = {
+  defaultMarker: 'triangleDown',
   ...Color.props,
 };

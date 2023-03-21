@@ -11,5 +11,6 @@ export const Tick: SC<TickOptions> = (options) => {
 };
 
 Tick.props = {
+  defaultMarker: 'tick',
   ...Color.props,
 };

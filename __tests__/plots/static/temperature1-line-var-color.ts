@@ -22,6 +22,7 @@ export function temperature1LineVarColor(): G2Spec {
         ],
       },
     },
+    axis: { x: false },
     encode: {
       x: 'date',
       y: 'value',
@@ -36,4 +37,4 @@ export function temperature1LineVarColor(): G2Spec {
   };
 }
 
-temperature1LineVarColor.maxError = 2350;
+temperature1LineVarColor.maxError = 100;

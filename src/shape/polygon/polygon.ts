@@ -69,6 +69,7 @@ export const Polygon: SC<PolygonOptions> = (options) => {
 };
 
 Polygon.props = {
+  defaultMarker: 'square',
   defaultEnterAnimation: 'fadeIn',
   defaultUpdateAnimation: 'morphing',
   defaultExitAnimation: 'fadeOut',

@@ -11,5 +11,6 @@ export const Hexagon: SC<HexagonOptions> = (options) => {
 };
 
 Hexagon.props = {
+  defaultMarker: 'hexagon',
   ...Color.props,
 };

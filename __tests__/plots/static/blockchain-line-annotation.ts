@@ -25,6 +25,7 @@ export function blockChainLineAnnotation(): G2Spec {
           x: (d) => new Date(d.date),
           y: 'value',
           color: 'type',
+          shape: 'vh',
         },
       },
       {

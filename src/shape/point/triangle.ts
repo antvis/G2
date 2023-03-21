@@ -11,5 +11,6 @@ export const Triangle: SC<TriangleOptions> = (options) => {
 };
 
 Triangle.props = {
+  defaultMarker: 'triangle',
   ...Color.props,
 };

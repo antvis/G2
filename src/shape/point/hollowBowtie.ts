@@ -11,5 +11,6 @@ export const HollowBowtie: SC<HollowBowtieOptions> = (options) => {
 };
 
 HollowBowtie.props = {
+  defaultMarker: 'hollowBowtie',
   ...Color.props,
 };

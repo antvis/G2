@@ -15,5 +15,6 @@ export const HollowDiamond: SC<HollowDiamondOptions> = (options) => {
 };
 
 HollowDiamond.props = {
+  defaultMarker: 'hollowDiamond',
   ...Color.props,
 };

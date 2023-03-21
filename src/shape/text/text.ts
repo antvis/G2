@@ -37,6 +37,7 @@ export const Text: SC<TextOptions> = (options) => {
 };
 
 Text.props = {
+  defaultMarker: 'point',
   defaultEnterAnimation: 'fadeIn',
   defaultUpdateAnimation: 'morphing',
   defaultExitAnimation: 'fadeOut',

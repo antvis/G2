@@ -17,4 +17,5 @@ export const VH: SC<VHOptions> = (options) => {
 
 VH.props = {
   ...Curve.props,
+  defaultMarker: 'vh',
 };

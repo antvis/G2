@@ -11,5 +11,6 @@ export const Plus: SC<PlusOptions> = (options) => {
 };
 
 Plus.props = {
+  defaultMarker: 'plus',
   ...Color.props,
 };

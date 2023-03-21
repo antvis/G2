@@ -32,10 +32,10 @@ export function blockChainLineBadgeAnnotation(): G2Spec {
         data: [new Date('2017-12-17'), 100],
         encode: {
           text: '100',
-          shape: 'badge',
         },
         style: {
           dy: -1,
+          shape: 'badge',
           markerSize: 24,
           markerFill: '#6395FA',
           markerFillOpacity: 0.55,
