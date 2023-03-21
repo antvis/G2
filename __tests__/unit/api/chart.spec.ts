@@ -601,4 +601,39 @@ describe('Chart', () => {
     chart.clear();
     expect(fn).toBeCalledTimes(1);
   });
+
+  it('chart.changeData() should update all children data although mark children have their own data', async () => {
+    const data = [
+      { genre: 'Sports', sold: 275 },
+      { genre: 'Strategy', sold: 115 },
+      { genre: 'Action', sold: 120 },
+      { genre: 'Shooter', sold: 350 },
+      { genre: 'Other', sold: 150 },
+    ];
+    const chart = new Chart({ theme: 'classic' });
+    const interval = chart
+      .interval()
+      .data(data)
+      .encode('x', 'genre')
+      .encode('y', 'sold')
+      .encode('color', 'genre')
+      .interaction('tooltip');
+
+    const line = chart
+      .line()
+      .data([data[0]])
+      .encode('x', 'genre')
+      .encode('y', 'sold')
+      .encode('color', 'genre')
+      .interaction('tooltip');
+
+    await chart.render();
+    expect(interval.data()).toEqual(data);
+    expect(line.data()).toEqual([data[0]]);
+
+    await chart.changeData([data[1]]);
+    expect(chart.data()).toEqual([data[1]]);
+    expect(interval.data()).toEqual([data[1]]);
+    expect(line.data()).toEqual([data[1]]);
+  });
 });
