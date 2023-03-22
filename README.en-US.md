@@ -20,7 +20,7 @@ G2 is a visualization grammar for dashboard building, data exploration and story
 
 > G2 5.0 is still work in progress, the stable release is on the [master](https://github.com/antvis/G2/tree/master) branch.
 
-G2 is named after Wilkinson’s Grammar of Graphics and was profoundly inspired by it in the very beginning. Here are some resources you can begin with:
+G2 is named after Leland Wilkinson’s book _The Grammar of Graphics_ and was profoundly inspired by it in the very beginning. Here are some resources you can begin with:
 
 - [Introduction](http://g2-next.antv.vision/introduction) - a brief overview and G2's motivations
 - [Examples](http://g2-next.antv.vision/examples) - a large number of demos to learn from and copy-paste
