@@ -71,12 +71,12 @@ chart.data({
 
 | 名称 | 描述 |
 | ------------------------------------| ----------------------------------------------------------- |
-| [sort](/api/data/sort)              | 数据排序                                                     |
-| [pick](/api/data/pick)              | 数据抽取                                                     |
-| [rename](/api/data/rename)          | 数据字段重命名                                                |
-| [fold](/api/data/fold)              | 将多个字段打包为 key value object 形式                         |
-| [filter](/api/data/filter)          | 数据过滤                                                     |
-| [slice](/api/data/slice)            | 从数组中抽取数据子集                                           |
-| [map](/api/data/map)                | 数据 map 的操作                                              |
-| [join](/api/data/join)              | 类似 SQL 的方式，将两份数据连接到一起                            |
-| [custom](/api/data/custom)          | 自定义函数处理数据                                            |
+| [sort](/spec/data/sort)              | 数据排序                                                     |
+| [pick](/spec/data/pick)              | 数据抽取                                                     |
+| [rename](/spec/data/rename)          | 数据字段重命名                                                |
+| [fold](/spec/data/fold)              | 将多个字段打包为 key value object 形式                         |
+| [filter](/spec/data/filter)          | 数据过滤                                                     |
+| [slice](/spec/data/slice)            | 从数组中抽取数据子集                                           |
+| [map](/spec/data/map)                | 数据 map 的操作                                              |
+| [join](/spec/data/join)              | 类似 SQL 的方式，将两份数据连接到一起                            |
+| [custom](/spec/data/custom)          | 自定义函数处理数据                                            |

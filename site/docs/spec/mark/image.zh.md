@@ -3,7 +3,7 @@ title: image
 order: 1
 ---
 
-`Image` 标记和 [Point](/api/mark/point) 标记很类似，都是以 `x`，`y` 数据通道作为位置居中定位，区别在于 `Image` 提供一个特殊的 `src` 数据通道，来指定图片的远程地址或者 base64。
+`Image` 标记和 [Point](/spec/mark/point) 标记很类似，都是以 `x`，`y` 数据通道作为位置居中定位，区别在于 `Image` 提供一个特殊的 `src` 数据通道，来指定图片的远程地址或者 base64。
 
 ## 开始使用
 
