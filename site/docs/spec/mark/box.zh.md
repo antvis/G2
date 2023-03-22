@@ -112,4 +112,4 @@ chart.box().data({
 });
 ```
 
-当然也可以直接使用 [boxplot](/api/mark/boxplot) 图形标记。
+当然也可以直接使用 [boxplot](/spec/mark/boxplot) 图形标记。

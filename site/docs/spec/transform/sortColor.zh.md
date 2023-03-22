@@ -7,7 +7,7 @@ order: 1
 
 ## 开始使用
 
-案例可以参考 [sortX](/api/transform/sortX)，下面是伪代码示意。
+案例可以参考 [sortX](/spec/transform/sortX)，下面是伪代码示意。
 
 ```ts
 chart

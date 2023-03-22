@@ -7,7 +7,7 @@ order: 1
 
 ## 开始使用
 
-具体案例可以参考 [select](/api/transform/select)，下面伪代码示意一下。
+具体案例可以参考 [select](/spec/transform/select)，下面伪代码示意一下。
 
 ```ts
 chart

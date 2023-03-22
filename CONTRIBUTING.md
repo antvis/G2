@@ -165,7 +165,7 @@ salesBasicInterval.skip = true;
 
 注意：**调试完成之后，需要把对应的范围控制属性去掉，防止改变测试范围。**
 
-当运行 `npm run test:integration` 的时候，会对每一个测试案例渲染的结果进行截图，然后和 [`__tests__/integration/snapshots`](./__tests__/integration/snapshots/) 里面的基准图片进行比较。如果其中的测试案例没有对应的截图，那么会生成基准图片，并且通过测试；否者只有当两者的误差在一定范围内的时候才能通过测试。
+当运行 `npm run test:integration` 的时候，会对每一个测试案例渲染的结果进行截图，然后和 [`__tests__/integration/snapshots`](./__tests__/integration/snapshots/) 里面的基准图片进行比较。如果其中的测试案例没有对应的截图，那么会生成基准图片，并且通过测试，否则只有当两者的误差在一定范围内的时候才能通过测试。
 
 对于一对一的测试来说，截图的名字和测试文件导出的函数名对应。
 
@@ -194,7 +194,7 @@ __tests__/integration/snapshots/static/salesBasicIntervalElementHighlight/step0.
 __tests__/integration/snapshots/static/salesBasicIntervalElementHighlight/step1.png
 ```
 
-如果测试案例不通过，则会生成 `-diff` 标记的图片。如果该图片复合预期，那么删除基准图片，重新运行 `npm run test:integration` 生成新的基准图片；否者修改代码，直到通过测试。注意：**新增测试案例之后，一定要本地生成基准图片之后，再把代码推到远程，否者对应的 PR 不会合并。**
+如果测试案例不通过，则会生成 `-diff` 标记的图片。如果该图片复合预期，那么删除基准图片，重新运行 `npm run test:integration` 生成新的基准图片，否则修改代码，直到通过测试。注意：**新增测试案例之后，一定要本地生成基准图片之后，再把代码推到远程，否则对应的 PR 不会合并。**
 
 由于截图存在一定误差，对于复杂图表来说，CI 环境和本地环境的误差可能较大，如果该误差在容忍范围内，可以通过给测试案例导出函数增加 `maxError` 去通过测试。
 

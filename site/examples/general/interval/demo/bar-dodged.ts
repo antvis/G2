@@ -1,5 +1,5 @@
 /**
- * A recreation of this demo: https://observablehq.com/@d3/stacked-horizontal-bar-chart
+ * A recreation of this demo: https://observablehq.com/@d3/grouped-bar-chart
  */
 import { Chart } from '@antv/g2';
 

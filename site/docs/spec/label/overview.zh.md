@@ -131,4 +131,4 @@ selector 选择器可以对系列数据进行过滤索引。
 
 ### 支持哪些 transform ？
 
-所有的 transform 有单独具体的文档，具体参考 [Label.transform](/api/overview#label)。
+所有的 transform 有单独具体的文档，具体参考 [Label.transform](/spec/overview#label)。
