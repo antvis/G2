@@ -3,7 +3,7 @@ title: quantile
 order: 1
 ---
 
-quantile 类似于 [threshold](/api/scale/threshold)，但是计算切片的方式是基于元素在数据中的索引。
+quantile 类似于 [threshold](/spec/scale/threshold)，但是计算切片的方式是基于元素在数据中的索引。
 
 ## 开始使用
 
