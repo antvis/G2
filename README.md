@@ -25,7 +25,7 @@
 
 </div>
 
-G2 起源于 Wilkinson 的图形语法：《Grammar of Graphics》，但又不止于图形语法。
+G2 起源于 Leland Wilkinson 的图形语法：《The Grammar of Graphics》，但又不止于图形语法。
 
 ## ✨ 特色
 
