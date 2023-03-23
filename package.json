@@ -43,11 +43,32 @@
     "interaction",
     "animation"
   ],
+  "dependencies": {
+    "@antv/coord": "^0.4.1",
+    "@antv/event-emitter": "^0.1.3",
+    "@antv/g": "^5.7.4",
+    "@antv/g-canvas": "^1.7.4",
+    "@antv/g-plugin-dragndrop": "^1.6.1",
+    "@antv/gui": "^0.5.0-alpha.8",
+    "@antv/path-util": "^3.0.1",
+    "@antv/scale": "^0.4.7",
+    "@antv/util": "^3.3.2",
+    "d3-array": "^3.2.2",
+    "d3-dsv": "^3.0.1",
+    "d3-force": "^3.0.0",
+    "d3-format": "^3.1.0",
+    "d3-geo": "^3.0.1",
+    "d3-hierarchy": "^3.1.2",
+    "d3-scale-chromatic": "^3.0.0",
+    "d3-shape": "^3.1.0",
+    "d3-voronoi": "^1.1.4"
+  },
   "devDependencies": {
     "@antv/g-plugin-rough-canvas-renderer": "^1.7.9",
     "@antv/g-plugin-rough-svg-renderer": "^1.7.9",
     "@antv/g-svg": "^1.8.6",
     "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^17.4.4",
     "@rollup/plugin-commonjs": "^21.0.2",
     "@types/d3-array": "^3.0.2",
     "@types/d3-shape": "^3.0.2",
@@ -121,25 +142,5 @@
   },
   "bugs": {
     "url": "https://github.com/antvis/g2/issues"
-  },
-  "dependencies": {
-    "@antv/coord": "^0.4.1",
-    "@antv/event-emitter": "^0.1.3",
-    "@antv/g": "^5.7.4",
-    "@antv/g-canvas": "^1.7.4",
-    "@antv/g-plugin-dragndrop": "^1.6.1",
-    "@antv/gui": "^0.5.0-alpha.8",
-    "@antv/path-util": "^3.0.1",
-    "@antv/scale": "^0.4.7",
-    "@antv/util": "^3.3.2",
-    "d3-array": "^3.2.2",
-    "d3-dsv": "^3.0.1",
-    "d3-force": "^3.0.0",
-    "d3-format": "^3.1.0",
-    "d3-geo": "^3.0.1",
-    "d3-hierarchy": "^3.1.2",
-    "d3-scale-chromatic": "^3.0.0",
-    "d3-shape": "^3.1.0",
-    "d3-voronoi": "^1.1.4"
   }
 }
