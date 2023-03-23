@@ -48,6 +48,7 @@
     "@antv/g-plugin-rough-svg-renderer": "^1.7.9",
     "@antv/g-svg": "^1.8.6",
     "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^17.4.4",
     "@rollup/plugin-commonjs": "^21.0.2",
     "@types/d3-array": "^3.0.2",
     "@types/d3-shape": "^3.0.2",
