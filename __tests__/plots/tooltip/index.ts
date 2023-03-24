@@ -55,3 +55,4 @@ export { forecastRangeAreaLineTranspose } from './forecast-range-area-line-trans
 export { scoreByItemAreaRadar } from './score-by-item-area-radar';
 export { profitIntervalLegendFilterOrdinal } from './profit-interval-legend-filter-ordinal';
 export { aaplLineSliderFilter } from './appl-line-slider-filter';
+export { aaplLineAreaBasicSample } from './aapl-line-area-basic-sample';
