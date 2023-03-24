@@ -25,11 +25,15 @@ export const MaybeTitle: TC<MaybeTitleOptions> = (options = {}) => {
       .filter(([T]) => T)
       .map((d) => d[0]);
     if (titles.length === 0) return [I, mark];
+    const T = [];
+    for (const i of I) {
+      T[i] = { value: titles.map((t) => t[i]).join(', ') };
+    }
     return [
       I,
       deepMix({}, mark, {
         tooltip: {
-          title: I.map((i) => ({ value: titles.map((t) => t[i]).join(', ') })),
+          title: T,
         },
       }),
     ];
