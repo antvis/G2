@@ -7,3 +7,11 @@
 .demo-card-screenshot:hover {
   background-position: right bottom !important;
 }
+
+.markdown {
+  font-size: 16px !important;
+}
+
+.dumi-default-table {
+  margin: 0 !important;
+}

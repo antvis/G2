@@ -1,3 +1,14 @@
+---
+title: brushAxisHighlight
+---
+
+框选坐标轴高亮，常常用于平行坐标系。
+
+## 开始使用
+
+<img alt="example" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*y-afSbt4oroAAAAAAAAAAAAADmJ7AQ/original" width="640">
+
+```js
 /**
  * A recreation of this demo: https://observablehq.com/@d3/parallel-coordinates
  */
@@ -5,6 +16,8 @@ import { Chart } from '@antv/g2';
 
 const axis = {
   zIndex: 1,
+  titlePosition: 'right',
+  line: true,
   style: {
     labelStroke: '#fff',
     labelStrokeWidth: 5,
@@ -14,6 +27,7 @@ const axis = {
     titleFontSize: 10,
     titleStrokeWidth: 5,
     titleStrokeLineJoin: 'round',
+    titleTransform: 'translate(-50%, 0) rotate(-90)',
     lineStroke: 'black',
     tickStroke: 'black',
     lineStrokeWidth: 1,
@@ -23,10 +37,9 @@ const axis = {
 const chart = new Chart({
   container: 'container',
   theme: 'classic',
-  autoFit: true,
 });
 
-chart.coordinate({ type: 'parallel', transform: [{ type: 'transpose' }] });
+chart.coordinate({ type: 'parallel' });
 
 chart
   .line()
@@ -52,7 +65,7 @@ chart
     offset: (t) => 1 - t,
   })
   .legend({
-    color: { length: 400 },
+    color: { length: 400, layout: { justifyContent: 'center' } },
   })
   .axis('position', axis)
   .axis('position1', axis)
@@ -61,8 +74,19 @@ chart
   .axis('position4', axis)
   .axis('position5', axis)
   .axis('position6', axis)
-  .axis('position7', axis);
+  .axis('position7', axis)
+  .state('inactive', { stroke: '#eee' }); // 设置交互状态
 
-chart.interaction('tooltip', { series: false });
+chart
+  .interaction('brushAxisHighlight', true) // 指定交互
+  .interaction('tooltip', false);
 
 chart.render();
+```
+
+## 选项
+
+| 属性                | 描述           | 类型                           | 默认值 |
+| ------------------- | -------------- | ------------------------------ | ------ |
+| reverse             | brush 是否反转 | `boolean`                      | false  |
+| `mask${StyleAttrs}` | brush 的样式   | `number             \| string` | -      |

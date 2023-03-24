@@ -18,6 +18,7 @@ const chart = new Chart({
   container: 'container',
   width: 800,
   height: 1200,
+  theme: 'classic',
 });
 
 chart.coordinate({ transform: [{ type: 'transpose' }] });

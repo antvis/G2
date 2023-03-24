@@ -16,6 +16,7 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
+  theme: 'classic',
 });
 
 const layer = chart.spaceLayer().data({
@@ -32,7 +33,7 @@ layer
   .transform({ type: 'sortX', reverse: true, by: 'y' })
   .encode('x', 'letter')
   .encode('y', 'frequency')
-  .encode('color', 'letter')
+  .encode('color', 'letter');
 
 // 饼图
 layer
@@ -43,7 +44,7 @@ layer
   .transform({ type: 'stackY' })
   .legend(false)
   .encode('y', 'frequency')
-  .encode('color', 'letter')
+  .encode('color', 'letter');
 
 chart.render();
 ```

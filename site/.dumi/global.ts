@@ -1,5 +1,5 @@
 require('./style.css');
-require('./github-markdown-light.css');
+// require('./github-markdown-light.css');
 require('./prism-one-light.css');
 
 if (window) {

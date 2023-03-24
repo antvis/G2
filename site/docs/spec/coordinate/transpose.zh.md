@@ -12,7 +12,9 @@ Transpose 是坐标系的转置变换，将 (x, y) 变换成 (y, x)，常用于�
 ```js
 import { Chart } from '@antv/g2';
 
-const chart = new Chart();
+const chart = new Chart({
+  theme: 'classic',
+});
 
 chart.coordinate({ transform: [{ type: 'transpose' }] });
 

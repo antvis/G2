@@ -36,7 +36,6 @@ export async function indicesLineChartFacetBrushShared(): Promise<G2Spec> {
     interaction: {
       brushXHighlight: {
         facet: true,
-        shared: true,
         reverse: true,
         series: true,
       },

@@ -11,12 +11,13 @@ order: 1
 
 <img alt="spaceFlex" src="https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*lLecQJkdPbIAAAAAAAAAAAAADmJ7AQ" width="600" />
 
-```ts
+```js
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
   width: 900,
+  theme: 'classic',
 });
 
 const flex = chart

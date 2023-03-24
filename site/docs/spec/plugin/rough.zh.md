@@ -24,6 +24,7 @@ import { Plugin } from '@antv/g-plugin-rough-canvas-renderer';
 
 const chart = new Chart({
   container: 'container',
+  theme: 'classic',
   plugins: [new Plugin()],
 });
 ```

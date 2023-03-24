@@ -3,4 +3,53 @@ title: pack
 order: 1
 ---
 
-生成 transform 和 scale 属性，从而让图形在空间中紧凑排列。
+让元素在空间中紧凑排列，常常有用于单元可视化。
+
+## 开始使用
+
+<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*jgf0Ro2YZTsAAAAAAAAAAAAADmJ7AQ/original" width=640 />
+
+```js
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  theme: 'classic',
+  autoFit: true,
+});
+
+const facetRect = chart
+  .facetRect()
+  .data({
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/titanic.json',
+    transform: [
+      {
+        type: 'sortBy',
+        fields: ['survived'],
+      },
+      {
+        type: 'map',
+        callback: ({ survived, ...d }) => ({
+          ...d,
+          survived: survived + '',
+        }),
+      },
+    ],
+  })
+  .encode('x', 'pclass');
+
+facetRect
+  .point()
+  .transform({ type: 'pack' }) // 指定 pack transform
+  .legend('color', { labelFormatter: (d) => (d === '1' ? 'Yes' : 'No') })
+  .encode('color', 'survived')
+  .encode('shape', 'point')
+  .encode('size', 3)
+  .tooltip({
+    title: '',
+    items: ['pclass', 'survived'],
+  });
+
+chart.render();
+```
