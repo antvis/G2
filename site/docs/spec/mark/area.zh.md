@@ -16,19 +16,21 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  autoFit: true,
+  theme: 'classic',
 });
 
 chart.data({
   type: 'fetch',
   value: 'https://assets.antv.antgroup.com/g2/aapl.json',
-  transform: [{
-    type: 'map',
-    callback: d => ({
-      ...d,
-    date: new Date(d.date),
-    }),
-  }],
+  transform: [
+    {
+      type: 'map',
+      callback: (d) => ({
+        ...d,
+        date: new Date(d.date),
+      }),
+    },
+  ],
 });
 
 chart.area().encode('x', 'date').encode('y', 'close');
@@ -42,41 +44,41 @@ chart.render();
 
 目前 area 有以下几个内置 shape 图形，默认为 `area`。
 
-| 图形            | 描述                                           | 示例                 |
-|----------------|------------------------------------------------|---------------------|
-| area           | 绘制直线连接的面积图                              |       |
-| smooth         | 绘制平滑曲线的面积图                              |       |
-| vh             | 绘制阶梯面积图，先竖线后横线连接                    |       |
-| hv             | 绘制阶梯面积图，先横线后竖线连接                    |       |
-| hvh            | 绘制阶梯面积图，竖横竖，中点连接                    |       |
+| 图形   | 描述                             | 示例 |
+| ------ | -------------------------------- | ---- |
+| area   | 绘制直线连接的面积图             |      |
+| smooth | 绘制平滑曲线的面积图             |      |
+| vh     | 绘制阶梯面积图，先竖线后横线连接 |      |
+| hv     | 绘制阶梯面积图，先横线后竖线连接 |      |
+| hvh    | 绘制阶梯面积图，竖横竖，中点连接 |      |
 
 ### area
 
-| 属性               | 描述                                           | 类型                 | 默认值      |
-|-------------------|------------------------------------------------|---------------------|------------|
-| connect      | 是否连接空值                                 | `number` \| `Function<number>`  | false  |
-| connect[Style]    | connector 对应的属性样式                     | 和对应 `style` 保持一致            | -      |
-| defined           | 决定数据是否为空值                            | `(v: any) = boolean`            | !(NaN \|\| null \|\| undefine)  |
-| fill          | 图形的填充色                                      | `string` \| `Function<string>`              |   -   |
-| fillOpacity   | 图形的填充透明度                                   | `number` \| `Function<number>`              |   -   |
-| stroke        | 图形的描边                                        | `string` \| `Function<string>`              |   -   |
-| strokeOpacity   | 描边透明度                                        | `number` \| `Function<number>`              |   -   |
-| lineWidth     | 图形描边的宽度                                    | `number` \| `Function<number>`               |   -   |
-| lineDash      | 描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0, 0]的效果为没有描边。 | `[number,number]` \| `Function<[number, number]>` |   -   |
-| opacity       | 图形的整体透明度                                   | `number` \| `Function<number>`              |   -   |
-| shadowColor   | 图形阴影颜色                                      | `string` \| `Function<string>`              |   -   |
-| shadowBlur    | 图形阴影的高斯模糊系数                              | `number` \| `Function<number>`              |   -   |
-| shadowOffsetX | 设置阴影距图形的水平距离                            | `number` \| `Function<number>`              |   -   |
-| shadowOffsetY | 设置阴影距图形的垂直距离                            | `number` \| `Function<number>`              |   -   |
-| cursor        | 鼠标样式。同 css 的鼠标样式，默认 'default'。        | `string` \| `Function<string>`               |   'default'  |
+| 属性           | 描述                                                                                                          | 类型                                              | 默认值                         |
+| -------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- | ------------------------------ |
+| connect        | 是否连接空值                                                                                                  | `number` \| `Function<number>`                    | false                          |
+| connect[Style] | connector 对应的属性样式                                                                                      | 和对应 `style` 保持一致                           | -                              |
+| defined        | 决定数据是否为空值                                                                                            | `(v: any) = boolean`                              | !(NaN \|\| null \|\| undefine) |
+| fill           | 图形的填充色                                                                                                  | `string` \| `Function<string>`                    | -                              |
+| fillOpacity    | 图形的填充透明度                                                                                              | `number` \| `Function<number>`                    | -                              |
+| stroke         | 图形的描边                                                                                                    | `string` \| `Function<string>`                    | -                              |
+| strokeOpacity  | 描边透明度                                                                                                    | `number` \| `Function<number>`                    | -                              |
+| lineWidth      | 图形描边的宽度                                                                                                | `number` \| `Function<number>`                    | -                              |
+| lineDash       | 描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0, 0]的效果为没有描边。 | `[number,number]` \| `Function<[number, number]>` | -                              |
+| opacity        | 图形的整体透明度                                                                                              | `number` \| `Function<number>`                    | -                              |
+| shadowColor    | 图形阴影颜色                                                                                                  | `string` \| `Function<string>`                    | -                              |
+| shadowBlur     | 图形阴影的高斯模糊系数                                                                                        | `number` \| `Function<number>`                    | -                              |
+| shadowOffsetX  | 设置阴影距图形的水平距离                                                                                      | `number` \| `Function<number>`                    | -                              |
+| shadowOffsetY  | 设置阴影距图形的垂直距离                                                                                      | `number` \| `Function<number>`                    | -                              |
+| cursor         | 鼠标样式。同 css 的鼠标样式，默认 'default'。                                                                 | `string` \| `Function<string>`                    | 'default'                      |
 
 ### smooth
 
 除了 `area` 相同配置之外，额外增加下面的属性。
 
-| 属性               | 描述                                           | 类型                 | 默认值      |
-|-------------------|------------------------------------------------|---------------------|------------|
-| alpha             |  平滑曲线的参数（0 ~ 1）                          | `number`             | `0.5`     |
+| 属性  | 描述                    | 类型     | 默认值 |
+| ----- | ----------------------- | -------- | ------ |
+| alpha | 平滑曲线的参数（0 ~ 1） | `number` | `0.5`  |
 
 ### vh
 
@@ -89,7 +91,6 @@ chart.render();
 ### hvh
 
 和 `line` 配置相同。
-
 
 ## FAQ
 

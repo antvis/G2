@@ -17,6 +17,7 @@ const chart = new Chart({
   width: 928,
   height: 270,
   paddingBottom: 50,
+  theme: 'classic',
 });
 
 const facetRect = chart
@@ -44,22 +45,22 @@ chart.render();
 
 facetRect 的底层实现和 mark 一致，所以在配置上有很多是一样的。
 
-| 属性          | 描述                                     | 类型     | 默认值 |
-| ------------- | ---------------------------------------- | -------- | ------ |
-| data          | 参考 [data](/spec/data) 相关介绍          | `Data`   |        |
-| encode        | 通道设置，见下表                         |          |        |
-| padding       | padding 大小                             | `number` | 0      |
-| paddingLeft   |                                          | `number` | 0      |
-| paddingRight  |                                          | `number` | 0      |
-| paddingTop    |                                          | `number` | 0      |
-| paddingBottom |                                          | `number` | 0      |
-| margin        | margin                                   | `number` | 0      |
-| marginLeft    |                                          | `number` | 0      |
-| marginRight   |                                          | `number` | 0      |
-| marginTop     |                                          | `number` | 0      |
-| marginBottom  |                                          | `number` | 0      |
-| title         | 参考 [title](/spec/component/title) 相关介绍        |          |        |
-| scale         | 参考 [scale](/spec/scale/linear) 相关介绍 |          |        |
+| 属性          | 描述                                         | 类型     | 默认值 |
+| ------------- | -------------------------------------------- | -------- | ------ |
+| data          | 参考 [data](/spec/data) 相关介绍             | `Data`   |        |
+| encode        | 通道设置，见下表                             |          |        |
+| padding       | padding 大小                                 | `number` | 0      |
+| paddingLeft   |                                              | `number` | 0      |
+| paddingRight  |                                              | `number` | 0      |
+| paddingTop    |                                              | `number` | 0      |
+| paddingBottom |                                              | `number` | 0      |
+| margin        | margin                                       | `number` | 0      |
+| marginLeft    |                                              | `number` | 0      |
+| marginRight   |                                              | `number` | 0      |
+| marginTop     |                                              | `number` | 0      |
+| marginBottom  |                                              | `number` | 0      |
+| title         | 参考 [title](/spec/component/title) 相关介绍 |          |        |
+| scale         | 参考 [scale](/spec/scale/linear) 相关介绍    |          |        |
 
 `facetRect` 对应的配置都可以使用 API 进行设置，例如：
 

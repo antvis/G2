@@ -17,11 +17,12 @@ const chart = new Chart({
   container: 'container',
   height: 1500,
   width: 800,
-  coordinate: [{ type: 'transpose' }],
+  theme: 'classic',
 });
 
 chart
   .tree()
+  .coordinate({ transform: [{ type: 'transpose' }] })
   .data({
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/flare.json',

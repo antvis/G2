@@ -17,6 +17,7 @@ import { Chart } from '@antv/g2';
 const chart = new Chart({
   container: 'container',
   height: 300,
+  theme: 'classic',
 });
 
 chart
@@ -40,10 +41,10 @@ chart.render();
 
 ## 选项
 
-| 属性               | 描述                                           | 类型                     | 默认值                 |
-|-------------------|------------------------------------------------|-------------------------|-----------------------|
-| channels          | 针对哪些通道做数据分组聚合                         | `string` \| `string[]`  | `['x', 'y']`           |  
-| [channel]         | 输出到具体 mark 的 channel 数据的聚合方式          | `Reducer`               |                       |
+| 属性      | 描述                                      | 类型                   | 默认值       |
+| --------- | ----------------------------------------- | ---------------------- | ------------ |
+| channels  | 针对哪些通道做数据分组聚合                | `string` \| `string[]` | `['x', 'y']` |
+| [channel] | 输出到具体 mark 的 channel 数据的聚合方式 | `Reducer`              |              |
 
 ```ts
 type Primitive = number | string | boolean | Date;

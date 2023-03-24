@@ -13,6 +13,7 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
+  theme: 'classic',
 });
 
 chart
@@ -35,7 +36,8 @@ chart.render();
 
 ## 选项
 
-| 属性                         | 描述             | 类型                           | 默认值 |
-| ---------------------------- | ---------------- | ------------------------------ | ------ |
-| `highlighted${StyleAttrs}`   | 强调元素的样式   | `number             \| string` | -      |
-| `unhighlighted${StyleAttrs}` | 非强调元素的样式 | `number             \| string` | -      |
+| 属性                      | 描述           | 类型         | 默认值 |
+| ------------------------- | -------------- | ------------ | ------ |
+| background                | 是否高亮背景   | `boolean`    | false  |
+| offset                    | 主方向的偏移量 | `number`     | 0      |
+| `background${StyleAttrs}` | 背景的样式     | `StyleAttrs` | -      |

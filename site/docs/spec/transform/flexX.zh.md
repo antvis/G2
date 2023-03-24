@@ -18,6 +18,7 @@ const chart = new Chart({
   container: 'container',
   width: 1000,
   paddingBottom: 100,
+  theme: 'classic',
 });
 
 chart
@@ -38,11 +39,11 @@ chart.render();
 
 ## 选项
 
-| 属性               | 描述                                           | 类型                     | 默认值                 |
-|-------------------|------------------------------------------------|-------------------------|-----------------------|
-| field             | 指定生成权重数组的字段，优先级比 channel 高          | `string` \| `(d: any) => Primitive[]`  |        |  
-| channel           | 指定生成权重数组的通道                             | `string`               | `y`                    |
-| reducer           | 聚合每一组权重的函数                               | `Reducer`              | `sum`                  |
+| 属性    | 描述                                        | 类型                                  | 默认值 |
+| ------- | ------------------------------------------- | ------------------------------------- | ------ |
+| field   | 指定生成权重数组的字段，优先级比 channel 高 | `string` \| `(d: any) => Primitive[]` |        |
+| channel | 指定生成权重数组的通道                      | `string`                              | `y`    |
+| reducer | 聚合每一组权重的函数                        | `Reducer`                             | `sum`  |
 
 ```ts
 type Primitive = number | string | boolean | Date;

@@ -16,9 +16,10 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
+    theme: 'classic',
 });
 
-chart.data([]);
+chart.data(data);
 
 chart
   .line()
@@ -35,11 +36,11 @@ chart.render();
 
 ## 选项
 
-| 属性               | 描述                                           | 类型                 | 默认值                 |
-|-------------------|------------------------------------------------|---------------------|-----------------------|
-| groupBy           | 数据分组的字段                                   | `string` \| `string[]`   | `series`                |
-| thresholds        | 采样策略启用的数据量阈值                           | `number`            | `2000`                   |
-| strategy          | 采用指定的采样策略                                | `Strategy`           |  `median`                     |
+| 属性       | 描述                     | 类型                   | 默认值   |
+| ---------- | ------------------------ | ---------------------- | -------- |
+| groupBy    | 数据分组的字段           | `string` \| `string[]` | `series` |
+| thresholds | 采样策略启用的数据量阈值 | `number`               | `2000`   |
+| strategy   | 采用指定的采样策略       | `Strategy`             | `median` |
 
 `strategy` 内置有 6 种策略，分别为：
 
@@ -58,14 +59,12 @@ chart.render();
 ```ts
 function strategy(I: number[], X: number[], Y: number[], thresholds: number) {
   // 这里对这一组数据进行抽样，返回一个数据的索引值
-  return [1, 101, 202, /*...*/];
+  return [1, 101, 202 /*...*/];
 }
 
 chart
   .line()
   .encode('x', 'x')
   .encode('y', 'y')
-  .transfrom([
-    { type: 'sample', strategy },
-  ])
+  .transfrom([{ type: 'sample', strategy }]);
 ```

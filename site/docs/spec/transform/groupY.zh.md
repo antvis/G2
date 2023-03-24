@@ -18,6 +18,7 @@ const chart = new Chart({
   container: 'container',
   paddingLeft: 80,
   height: 180,
+  theme: 'classic',
 });
 
 chart.data({
@@ -58,9 +59,9 @@ chart.render();
 
 ## 选项
 
-| 属性               | 描述                                           | 类型                     | 默认值                 |
-|-------------------|------------------------------------------------|-------------------------|-----------------------|
-| [channel]         | 输出到具体 mark 的 channel 数据的聚合方式          | `Reducer`               |                       |
+| 属性      | 描述                                      | 类型      | 默认值 |
+| --------- | ----------------------------------------- | --------- | ------ |
+| [channel] | 输出到具体 mark 的 channel 数据的聚合方式 | `Reducer` |        |
 
 ```ts
 type Primitive = number | string | boolean | Date;

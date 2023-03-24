@@ -33,7 +33,7 @@ const layout = (data) => {
 
 const chart = new Chart({
   container: 'container',
-  autoFit: true,
+  theme: 'classic',
   paddingLeft: 0,
   paddingRight: 0,
   paddingTop: 0,

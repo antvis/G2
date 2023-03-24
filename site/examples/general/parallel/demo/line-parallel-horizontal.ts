@@ -5,6 +5,7 @@ import { Chart } from '@antv/g2';
 
 const axis = {
   zIndex: 1,
+  line: true,
   style: {
     labelStroke: '#fff',
     labelStrokeWidth: 5,

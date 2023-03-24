@@ -12,7 +12,9 @@ Theta 是一种特殊的极坐标系，半径长度固定，仅将数据映射�
 ```js
 import { Chart } from '@antv/g2';
 
-const chart = new Chart();
+const chart = new Chart({
+  theme: 'classic',
+});
 
 chart.coordinate({ type: 'theta' });
 
