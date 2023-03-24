@@ -9,7 +9,13 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
 
 获得和转换数据。
 
-- [sort](/spec/data/sort) - 对数据进行指定字段排序。
+- [fetch](/spec/data/fetch) - 获取远程数据。
+- [inline](/spec/data/inline) - 获取内联数据。
+
+下面是支持的数据转换：
+
+- [sort](/spec/data/sort) - 将数据按照指定的比较器字段排序。
+- [sortBy](/spec/data/sortBy) - 将数据按照指定的字段排序。
 - [pick](/spec/data/pick) - 从数据中挑选出部分字段组成新的数据。
 - [rename](/spec/data/rename) - 重命名数据中的一些字段。
 - [fold](/spec/data/fold) - 将多个字段打包成按照指定的 key value 组织形式。
@@ -31,7 +37,6 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
 - [rect](/spec/mark/rect) - 使用两组 x，两组 y 来定位一个矩形区域，常用于直方图、矩阵树图等。
 - [link](/spec/mark/link) - 标记使用两个用 (x, y) 定位的点，绘制一条带方向的直线。通过指定 `x`，`y` 通道为长度为 2 的字段数组即可。
 - [vector](/spec/mark/vector) - 用 `start`，`end` 两个点来表示一个向量，通常用于绘制具备向量含义的数据，比如风向量场等。
-- [polygon](/spec/mark/polygon) - 利用多组 (x, y) 数据点，在画布中绘制闭合的多边形，通常结合一些社区布局算法使用。
 - [box](/spec/mark/box) - 用来绘制箱线图，通常用来展示一组数据分布情况的统计图。
 - [boxplot](/spec/mark/boxplot) - 用来绘制箱线图，并且内置数据的聚合操作。
 - [text](/spec/mark/text) - 通过指定文本的样式通道，可以在画布上绘制和数据绑定的文本字符。
@@ -42,6 +47,7 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
 - [range](/spec/mark/range) - 使用一组 `x`(x1, x2) 和一组 `y`(y1, y2) 来定位一个矩形区域，常用于绘制高亮指定区域的辅助区域。
 - [rangeX](/spec/mark/range-x) - 使用一组 `x`(x1, x2) 来定位一个垂直于 x 轴的矩形区域，常用于绘制高亮指定区域的辅助区域。
 - [rangeY](/spec/mark/range-y) - 使用一组 `y`(y1, y2) 来定位一个垂直于 y 轴的矩形区域，常用于绘制高亮指定区域的辅助区域。
+- [polygon](/spec/mark/polygon) - 利用多组 (x, y) 数据点，在画布中绘制闭合的多边形，通常结合一些社区布局算法使用。
 - [wordcloud](/spec/mark/wordcloud) - 绘制词云图。
 
 ## Transform
@@ -102,6 +108,8 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
 - [transpose](/spec/coordinate/transpose) - 改变图表绘制方向。
 - [fisheye](/spec/coordinate/fisheye) - 鱼眼坐标系。
 
+## Composition
+
 视图复合相关的内容。
 
 - [spaceLayer](/spec/composition/space-layer) - 对空间不做任何划分，多个视图使用同一个空间区域，常用于视图的层叠。
@@ -118,6 +126,8 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
 - [title](/spec/component/title) - 绘制图表标题和副标题。
 - [axis](/spec/component/axis) - 绘制坐标轴。
 - [legend](/spec/component/legend) - 绘制图例。
+- [scrollbar](/spec/component/scrollbar) - 绘制滚动条。
+- [slider](/spec/component/slider) - 绘制拖动条。
 
 ## [Label](/spec/label/overview)
 
@@ -150,6 +160,15 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
 
 操作视图并且展现详细信息。
 
+- [brushFilter](/spec/interaction/brush-filter) - 框选筛选。
+- [brushXFilter](/spec/interaction/brush-x-filter) - x 方向框选筛选。
+- [brushYFilter](/spec/interaction/brush-y-filter) - y 方向框选筛选。
+- [brushHighlight](/spec/interaction/brush-highlight) - 框选高亮。
+- [brushXHighlight](/spec/interaction/brush-x-highlight) - x 方向框选高亮。
+- [brushYHighlight](/spec/interaction/brush-y-Higlight) - y 方向框选高亮。
+- [brushAxisHighlight](/spec/interaction/brush-axis-higlight) - 坐标轴框选高亮。
+- [legendHighlight](/spec/interaction/legend-highlight) - 图例高亮。
+- [legendFilter](/spec/interaction/legend-filter) - 图例筛选。
 - [tooltip](/spec/interaction/tooltip) - 展现提示信息。
 - [elementHighlight](/spec/interaction/element-highlight) - 高亮元素。
 - [elementHighlightByX](/spec/interaction/element-highlight-by-x) - 高亮具有相同 x 通道值的元素。
@@ -159,6 +178,8 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
 - [elementSelectByColor](/spec/interaction/element-select-by-color) - 选择拥有相同 color 通道值的元素。
 - [fisheye](/spec/interaction/fisheye) - 鱼眼交互。
 - [charIndex](/spec/interaction/chart-index) - 索引图表。
+- [poptip](/spec/interaction/poptip) - 展现提示文本。
+- [sliderFilter](/spec/interaction/slider-filter) - 拖动条筛选。
 
 ## Graph
 
@@ -181,10 +202,14 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
 
 主题相关内容。
 
+- [academy](/spec/theme/academy) - 学术风格的主题。
+- [classic](/spec/theme/classic) - 经典主题。
+- [classicDark](/spec/theme/classicDark) - 经典暗黑主题。
+
 ## Plugin
 
 基于 G 插件相关的内容。
 
-- [renderer](/spec/plugin/renderer) - `Canvas`、`SVG`、`WebGL` 三大渲染器。
+- [renderer](/spec/plugin/renderer) - `Canvas`、`SVG` 两大渲染器。
 - [rough](/spec/plugin/rough) - 绘制手绘图的插件。
 - [lottie](/spec/plugin/lottie) - 可以在图表中播放 lottie 动画的插件。

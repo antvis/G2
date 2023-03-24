@@ -50,62 +50,50 @@ export type InteractionTypes =
   | 'poptip'
   | InteractionComponent;
 
-export type BrushInteraction = {
-  type?: 'brush';
-  brushType?: 'rect' | 'rectX' | 'rectY' | 'polygon';
-};
-
 export type BrushHighlightInteraction = {
   type?: 'brushHighlight';
   brushKey?: string;
   reverse?: boolean;
-  shared?: boolean;
   series?: boolean;
   facet?: boolean;
-} & Record<`${'mask' | 'highlighted' | 'unhighlighted'}${any}`, any>;
+} & Record<`${'mask'}${any}`, any>;
 
 export type BrushXHighlightInteraction = {
   type?: 'brushXHighlight';
   brushKey?: string;
   reverse?: boolean;
-  shared?: boolean;
   series?: boolean;
   facet?: boolean;
-} & Record<`${'mask' | 'highlighted' | 'unhighlighted'}${any}`, any>;
+} & Record<`${'mask'}${any}`, any>;
 
 export type BrushYHighlightInteraction = {
   type?: 'brushYHighlight';
   brushKey?: string;
   reverse?: boolean;
-  shared?: boolean;
   series?: boolean;
   facet?: boolean;
-} & Record<`${'mask' | 'highlighted' | 'unhighlighted'}${any}`, any>;
+} & Record<`${'mask'}${any}`, any>;
 
 export type BrushAxisHighlightInteraction = {
   type?: 'brushAxisHighlight';
   reverse?: boolean;
-} & Record<`${'mask' | 'highlighted' | 'unhighlighted'}${any}`, any>;
+  brushKey?: string;
+} & Record<`${'mask'}${any}`, any>;
 
 export type BrushFilterInteraction = {
   type?: 'brushFilter';
   reverse?: boolean;
-} & Record<`${'mask' | 'highlighted' | 'unhighlighted'}${any}`, any>;
+} & Record<`${'mask'}${any}`, any>;
 
 export type BrushXFilterInteraction = {
   type?: 'brushXFilter';
   reverse?: boolean;
-} & Record<`${'mask' | 'highlighted' | 'unhighlighted'}${any}`, any>;
+} & Record<`${'mask'}${any}`, any>;
 
 export type BrushYFilterInteraction = {
   type?: 'brushYFilter';
   reverse?: boolean;
-} & Record<`${'mask' | 'highlighted' | 'unhighlighted'}${any}`, any>;
-
-export type BrushVisibleInteraction = {
-  type?: 'brushVisible';
-  brushType?: 'rect' | 'rectX' | 'rectY' | 'polygon';
-};
+} & Record<`${'mask'}${any}`, any>;
 
 export type ElementHighlightInteraction = {
   type?: 'elementHighlight';
@@ -113,41 +101,35 @@ export type ElementHighlightInteraction = {
   link?: boolean;
   background?: boolean;
   offset?: number;
-} & Record<
-  `${'link' | 'highlighted' | 'unhighlighted' | 'background'}${any}`,
-  any
->;
+} & Record<`${'link' | 'background'}${any}`, any>;
 
 export type ElementSelectInteraction = {
   type?: 'elementSelect';
   single?: boolean;
-  background?: true;
+  background?: boolean;
   offset?: number;
-} & Record<`${'selected' | 'link' | 'unselected' | 'background'}${any}`, any>;
+} & Record<`${'link' | 'background'}${any}`, any>;
 
 export type ElementSelectByColorInteraction = {
   type?: 'elementSelectByColor';
   single?: boolean;
   offset?: number;
-} & Record<`${'selected' | 'link' | 'unselected'}${any}`, any>;
+  background?: boolean;
+} & Record<`${'link' | 'background'}${any}`, any>;
 
 export type ElementSelectByXInteraction = {
   type?: 'elementSelectByX';
   single?: boolean;
-  background?: true;
+  background?: boolean;
   offset?: number;
-} & Record<`${'selected' | 'link' | 'unselected' | 'background'}${any}`, any>;
+} & Record<`${'link' | 'background'}${any}`, any>;
 
 export type ElementHighlightByXInteraction = {
   type?: 'elementHighlightByX';
-  x?: string;
   link?: boolean;
   background?: boolean;
   offset?: number;
-} & Record<
-  `${'link' | 'highlighted' | 'unhighlighted' | 'background'}${any}`,
-  any
->;
+} & Record<`${'link' | 'background'}${any}`, any>;
 
 export type ElementHighlightByColorInteraction = {
   type?: 'elementHighlightByColor';
@@ -155,10 +137,7 @@ export type ElementHighlightByColorInteraction = {
   background?: boolean;
   link?: boolean;
   offset?: number;
-} & Record<
-  `${'link' | 'highlighted' | 'unhighlighted' | 'background'}${any}`,
-  any
->;
+} & Record<`${'link' | 'background'}${any}`, any>;
 
 export type PoptipInteraction = {
   type?: 'poptip';
@@ -168,14 +147,11 @@ export type PoptipInteraction = {
 
 export type LegendFilterInteraction = {
   type?: 'legendFilter';
-  channel?: AtheisticChanelTypes;
-  [key: string]: any; // @todo
-} & Record<`${'marker' | 'label'}Unselected${any}`, any>;
+};
 
 export type LegendHighlightInteraction = {
   type?: 'legendHighlight';
-  [key: string]: any; // @todo
-} & Record<`${'marker' | 'label'}Unhighlighted${any}`, any>;
+};
 
 export type ChartIndexInteraction = {
   type?: 'chartIndex';

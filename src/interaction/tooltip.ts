@@ -1,6 +1,6 @@
 import { DisplayObject, IElement, Line } from '@antv/g';
 import { sort, group, mean, bisector } from 'd3-array';
-import { lowerFirst, throttle } from '@antv/util';
+import { deepMix, lowerFirst, throttle } from '@antv/util';
 import { Tooltip as TooltipComponent } from '@antv/gui';
 import { Constant, Identity } from '@antv/scale';
 import { defined, subObject } from '../utils/helper';
@@ -275,7 +275,6 @@ export function seriesTooltip(
     coordinate,
     crosshairs,
     render,
-    style,
     groupName = true,
     wait = 50,
     leading = true,
@@ -286,11 +285,14 @@ export function seriesTooltip(
     single = true,
     position,
     enterable,
+    style: _style = {},
+    ...rest
   }: Record<string, any>,
 ) {
   const elements = elementsof(root);
   const transposed = isTranspose(coordinate);
   const polar = isPolar(coordinate);
+  const style = deepMix(_style, rest);
   const { innerWidth: width, innerHeight: height } = coordinate.getOptions();
 
   // Split elements into series elements and item elements.

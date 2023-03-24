@@ -22,7 +22,7 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  autoFit: true,
+  theme: 'classic',
 });
 
 chart.data({

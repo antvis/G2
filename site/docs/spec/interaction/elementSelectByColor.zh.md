@@ -13,6 +13,7 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
+  theme: 'classic',
 });
 
 chart
@@ -41,9 +42,11 @@ chart.render();
 
 ## 选项
 
-| 属性                      | 描述             | 类型                           | 默认值 |
-| ------------------------- | ---------------- | ------------------------------ | ------ |
-| `selected${StyleAttrs}`   | 选择元素的样式   | `number             \| string` | -      |
-| `unselected${StyleAttrs}` | 非选择元素的样式 | `number             \| string` | -      |
-| `link${StyleAttrs}`       | 连接带的样式     | `number             \| string` | -      |
-| link                      | 是否展示连接带   | `boolean`                      | false  |
+| 属性                      | 描述           | 类型         | 默认值 |
+| ------------------------- | -------------- | ------------ | ------ |
+| link                      | 是否展示连接线 | `boolean`    | false  |
+| background                | 是否高亮背景   | `boolean`    | false  |
+| offset                    | 主方向的偏移量 | `number`     | 0      |
+| `link${StyleAttrs}`       | 连接线样式     | `StyleAttrs` | -      |
+| `background${StyleAttrs}` | 背景的样式     | `StyleAttrs` | -      |
+| link                      | 是否展示连接带 | `boolean`    | false  |

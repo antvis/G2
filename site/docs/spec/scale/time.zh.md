@@ -22,8 +22,12 @@ chart
 
 | 属性 | 描述 | 类型 | 默认值|
 | -------------| ----------------------------------------------------------- | -----| -------|                                               | 
-| domain       | 设置定义域数组                                                | `Date[]` | `[0, 1]` |
-| range        | 设置数据映射的值域范围                                          | `Date[]` | `[0, 1]` |
+| domain      | 设置数据的定义域范围                                            | `Date[]` | 输入数据的最大最小值范围 |
+| domainMin      | 设置数据的定义域最小值                                     | `Date` | 输入数据的最小值 |
+| domainMax      | 设置数据的定义域最大值                                           | `Date` | 输入数据的最大 |
+| range       | 设置数据映射的值域范围                                           | `Date[]` \| `string[]` | `[0, 1]` |
+| rangeMin       | 设置数据映射的值域最小值                                        | `Date` | `0` |
+| rangeMax       | 设置数据映射的值域最大值                                      | `Date` | `1` |
 | unknown      | 对于 `undefined`， `NaN`，`null` 空值，返回的数据               | `any` | `undefined` |
 | tickCount    | 设置推荐的 tick 生成数量，tickCount 只是建议值，不会完全按照这个值产生 tick | `number` | `5` |
 | tickInterval | 设置推荐的 tick 之间的间隔，tickInterval 优先级高于 tickCount。| `number` | `undefined` |

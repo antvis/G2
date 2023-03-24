@@ -17,6 +17,7 @@ const chart = new Chart({
   container: 'container',
   // 或者选择 WebGLRenderer 渲染器，不设置默认为 CanvasRenderer.
   renderer: new SVGRenderer(),
+  theme: 'classic',
 });
 ```
 
@@ -26,25 +27,25 @@ const chart = new Chart({
 
 G 渲染器的使用都是使用：
 
-> new Renderer({ /* options */ });
+> new Renderer({ /_ options _/ });
 
 分三个渲染器分别介绍创建他们的配置项。
 
 ### Canvas 渲染器
 
-| 属性               | 描述                                           | 类型                 | 默认值      |
-|-------------------|------------------------------------------------|---------------------|------------|
-| enableDirtyRectangleRendering         | 是否开启“脏矩形”渲染          | `boolean`           | `true`     |
-| enableDirtyRectangleRenderingDebug    | 是否开启“脏矩形”渲染调试模式   | `boolean`           | `false`     |
+| 属性                               | 描述                         | 类型      | 默认值  |
+| ---------------------------------- | ---------------------------- | --------- | ------- |
+| enableDirtyRectangleRendering      | 是否开启“脏矩形”渲染         | `boolean` | `true`  |
+| enableDirtyRectangleRenderingDebug | 是否开启“脏矩形”渲染调试模式 | `boolean` | `false` |
 
 ### SVG 渲染器
 
-| 属性               | 描述                                           | 类型                 | 默认值      |
-|-------------------|------------------------------------------------|---------------------|------------|
-| outputSVGElementId      | 生成 SVGElement 时是否添加 id 属性          | `boolean`           | `true`     |
+| 属性               | 描述                               | 类型      | 默认值 |
+| ------------------ | ---------------------------------- | --------- | ------ |
+| outputSVGElementId | 生成 SVGElement 时是否添加 id 属性 | `boolean` | `true` |
 
 ### WebGL 渲染器
 
-| 属性               | 描述                                           | 类型                 | 默认值      |
-|-------------------|------------------------------------------------|---------------------|------------|
-| targets           | 选择渲染环境，并按顺序自动降级                      | `string[]`         | `['webgl2', 'webgl1']`     |
+| 属性    | 描述                           | 类型       | 默认值                 |
+| ------- | ------------------------------ | ---------- | ---------------------- |
+| targets | 选择渲染环境，并按顺序自动降级 | `string[]` | `['webgl2', 'webgl1']` |
