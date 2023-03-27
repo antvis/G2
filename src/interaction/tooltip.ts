@@ -388,7 +388,7 @@ export function seriesTooltip(
           selectedSeriesElements.push(element);
           const d = seriesData(element, index);
           const { x, y } = d;
-          const p = coordinate.map([x + offsetX, y]);
+          const p = coordinate.map([(x || 0) + offsetX, y || 0]);
           selectedSeriesData.push([d, p] as const);
         }
       }
