@@ -37,6 +37,9 @@ export async function toMatchDOMSnapshot(
       : 'null';
 
     if (!fs.existsSync(expectedPath)) {
+      if (process.env.CI === 'true') {
+        throw new Error(`Please generate golden image for ${namePath}`);
+      }
       console.warn(`! generate ${namePath}`);
       await fs.writeFileSync(expectedPath, actual);
       return {
