@@ -40,5 +40,3 @@ export function aaplAreaMissingDataTranspose(): G2Spec {
 aaplAreaMissingDataTranspose.maxError = 125;
 
 aaplAreaMissingDataTranspose.steps = seriesTooltipSteps([100, 88]);
-
-aaplAreaMissingDataTranspose.only = true;
