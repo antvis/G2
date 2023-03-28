@@ -45,8 +45,8 @@ class TooltipAction extends Action {
    * 隐藏 Tooltip。
    * @returns
    */
-  public hide() {
-    const view = this.context.view;
+  public hide(cfg?: { force: boolean }) {
+    const { view, event } = this.context;
 
     const tooltip = view.getController('tooltip');
     const { clientX, clientY } = this.context.event;
@@ -56,8 +56,8 @@ class TooltipAction extends Action {
       return;
     }
 
-    // 锁定 tooltip 时不隐藏
-    if (view.isTooltipLocked()) {
+    // 锁定 tooltip 时不隐藏 / force 标识 tooltip 强制隐藏
+    if (view.isTooltipLocked() && !event?.data?.force && !cfg?.force) {
       return;
     }
     this.hideTooltip(view);

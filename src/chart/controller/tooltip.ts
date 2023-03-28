@@ -47,14 +47,14 @@ export default class Tooltip extends Controller<TooltipOption> {
     return 'tooltip';
   }
 
-  public init() { }
+  public init() {}
 
   private isVisible() {
     const option = this.view.getOptions().tooltip;
     return option !== false;
   }
 
-  public render() { }
+  public render() {}
 
   /**
    * Shows tooltip
@@ -149,7 +149,11 @@ export default class Tooltip extends Controller<TooltipOption> {
     }
   }
 
-  public hideTooltip() {
+  /**
+   * 隐藏 Tooltip
+   * @param force 是否强制隐藏 Tooltip
+   */
+  public hideTooltip(force: boolean = false) {
     const { follow } = this.getTooltipCfg();
     if (!follow) {
       this.point = null;
@@ -175,9 +179,7 @@ export default class Tooltip extends Controller<TooltipOption> {
     if (tooltip) {
       tooltip.hide();
     }
-
-    this.view.emit('tooltip:hide', Event.fromData(this.view, 'tooltip:hide', {}));
-
+    this.view.emit('tooltip:hide', Event.fromData(this.view, 'tooltip:hide', { force }));
     this.point = null;
   }
 
@@ -342,7 +344,7 @@ export default class Tooltip extends Controller<TooltipOption> {
     return [];
   }
 
-  public layout() { }
+  public layout() {}
 
   public update() {
     if (this.point) {
