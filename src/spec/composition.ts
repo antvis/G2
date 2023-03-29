@@ -62,6 +62,7 @@ export type ViewComposition = {
   theme?: Theme;
   children?: Mark[];
   scale?: Record<string, Scale>;
+  frame?: boolean;
   labelTransform?: LabelTransform[];
   // @todo
   axis?: Record<string, any>;
@@ -141,9 +142,9 @@ export type FacetRectComposition = {
   shareSize?: boolean;
   children?: Node[] | ((facet: FacetContext) => Node);
   // @todo
-  axis?: Record<string, any>;
+  axis?: Record<string, any> | boolean;
   // @todo
-  legend?: Record<string, any>;
+  legend?: Record<string, any> | boolean;
 };
 
 export type RepeatMatrixComposition = {
@@ -172,9 +173,9 @@ export type RepeatMatrixComposition = {
     color?: Scale;
   };
   // @todo
-  axis?: Record<string, any>;
+  axis?: Record<string, any> | boolean;
   // @todo
-  legend?: Record<string, any>;
+  legend?: Record<string, any> | boolean;
   children?: Node[] | ((facet: FacetContext) => Node);
 };
 
@@ -203,9 +204,9 @@ export type FacetCircleComposition = {
   };
   children?: Node[] | ((facet: FacetContext) => Node);
   // @todo
-  axis?: Record<string, any>;
+  axis?: Record<string, any> | boolean;
   // @todo
-  legend?: Record<string, any>;
+  legend?: Record<string, any> | boolean;
 };
 
 export type TimingKeyframeComposition = {
