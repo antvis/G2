@@ -1,89 +1,17 @@
 # G2 - Changelog
 
-## 5.0.1
+## [5.0.1](https://github.com/antvis/g2/compare/5.0.0...5.0.1) (2023-03-29)
 
-[发布于 2023 年 3 月 28 日](https://github.com/antvis/G2/releases/tag/5.0.1)。
+### Bug Fixes
 
-修复使用 sample transform 提示形式的标题展示有误的问题。([#4832](https://github.com/antvis/G2/pull/4832))
+- **tests:** remove .only ([#4835](https://github.com/antvis/g2/issues/4835)) ([43a4ce8](https://github.com/antvis/g2/commit/43a4ce82303eb9af9392c07ed664027b24953708))
+- **tooltip:** sample ([#4832](https://github.com/antvis/g2/issues/4832)) ([46aa416](https://github.com/antvis/g2/commit/46aa41669fd95949a151b7c3d1a5a1de621f6623))
+- **tooltip:** support NaN data in transpose ([#4833](https://github.com/antvis/g2/issues/4833)) ([f837057](https://github.com/antvis/g2/commit/f837057dc5d8f6dd0b60158ded7b238034459320))
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*TXgKS6nQwJYAAAAAAAAAAAAADmJ7AQ/original" alt="tooltip-sample" width=640>
+### Features
 
-```ts
-export function aaplLineAreaBasicSample(): G2Spec {
-  return {
-    type: 'view',
-    data: {
-      type: 'fetch',
-      value: 'data/aapl.csv',
-    },
-    children: [
-      {
-        type: 'area',
-        encode: {
-          x: 'date',
-          y: 'close',
-        },
-        transform: [
-          {
-            type: 'sample',
-            thresholds: 100,
-            strategy: 'lttb',
-          },
-        ],
-        style: {
-          fillOpacity: 0.5,
-        },
-        tooltip: {
-          title: (d) => new Date(d.date).toUTCString(),
-        },
-      },
-    ],
-  };
-}
-```
+- **ci:** throw error in ci env for .only and missing snapshot ([#4836](https://github.com/antvis/g2/issues/4836)) ([a49f216](https://github.com/antvis/g2/commit/a49f21684209362882c303db87eb7ab61a5fc557))
 
-修复拥有缺失数据，在使用 transpose 坐标系变换后，面积图的提示信息 crosshair 展示有误的问题 ([#4883](https://github.com/antvis/G2/pull/4833))。
+## [5.0.0](https://github.com/antvis/G2/releases/tag/5.0.0) (2023-03-21)
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*RpMCQ4eCzUsAAAAAAAAAAAAADmJ7AQ/original" alt="tooltip-missing" height=800>
-
-```ts
-export function aaplAreaMissingDataTranspose(): G2Spec {
-  return {
-    width: 800,
-    type: 'area',
-    coordinate: { transform: [{ type: 'transpose' }] },
-    data: {
-      type: 'fetch',
-      value: 'data/aapl.csv',
-      transform: [
-        {
-          type: 'map',
-          callback: (d) => ({
-            ...d,
-            close: d.date.getUTCMonth() <= 3 ? NaN : d.close,
-          }),
-        },
-      ],
-    },
-    encode: {
-      x: 'date',
-      y: 'close',
-    },
-    scale: {
-      x: { type: 'time' },
-    },
-    style: {
-      connect: true,
-      connectFill: 'grey',
-      connectFillOpacity: 0.15,
-    },
-    tooltip: {
-      title: (d) => new Date(d.date).toUTCString(),
-    },
-  };
-}
-```
-
-## 5.0.0
-
-[发布于 2023 年 3 月 21 日](https://github.com/antvis/G2/releases/tag/5.0.0)。
+[Release note](https://github.com/antvis/G2/releases/tag/5.0.0).

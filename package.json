@@ -31,7 +31,8 @@
     "ci": "run-s lint test build",
     "prepublishOnly": "npm run ci",
     "prepare": "husky install",
-    "upload": "node scripts/uploadSnapshot.js"
+    "upload": "node scripts/uploadSnapshot.js",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "keywords": [
     "antv",
@@ -80,6 +81,7 @@
     "ali-oss": "^6.17.1",
     "archiver": "^5.3.1",
     "canvas": "^2.10.2",
+    "conventional-changelog-cli": "^2.2.2",
     "cross-env": "^7.0.3",
     "d3-dsv": "^3.0.1",
     "d3-fetch": "^3.0.1",
