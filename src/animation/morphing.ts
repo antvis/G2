@@ -73,6 +73,8 @@ function shapeToShape(
   timeEffect: Record<string, any>,
 ): GAnimation {
   const [x0, y0, w0, h0] = localBBoxOf(from);
+  const { transform: fromTransform } = from.style;
+  const { transform: toTransform } = to.style;
 
   // Replace first to get right bbox after mounting.
   replaceChild(to, from);
@@ -85,11 +87,15 @@ function shapeToShape(
   const sy = h0 / h1;
   const keyframes = [
     {
-      transform: `translate(${dx}, ${dy}) scale(${sx}, ${sy})`,
+      transform: `${
+        fromTransform ? fromTransform + ' ' : ''
+      }translate(${dx}, ${dy}) scale(${sx}, ${sy})`,
       ...attributeOf(from, attributeKeys),
     },
     {
-      transform: `translate(0, 0) scale(1, 1)`,
+      transform: `${
+        toTransform ? toTransform + ' ' : ''
+      }translate(0, 0) scale(1, 1)`,
       ...attributeOf(to, attributeKeys),
     },
   ];
