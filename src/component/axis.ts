@@ -313,7 +313,7 @@ function inferAxisLinearOverrideStyle(
       const [cx, cy] = coordinate.getCenter();
       const [innerRadius, outerRadius] = radiusOf(coordinate);
       const [startAngle, endAngle] = angleOf(coordinate);
-      const r = height / 2;
+      const r = Math.min(width, height) / 2;
 
       const innerR = innerRadius * r;
       const outerR = outerRadius * r;
