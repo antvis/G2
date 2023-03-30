@@ -40,6 +40,7 @@ import {
   Tree as TreeGeometry,
   WordCloud as WordCloudGeometry,
   Gauge,
+  Progress,
 } from '../../../src/mark';
 import { Category10, Category20 } from '../../../src/palette';
 import {
@@ -364,6 +365,7 @@ describe('stdlib', () => {
       'mark.tree': TreeGeometry,
       'mark.wordCloud': WordCloudGeometry,
       'mark.gauge': Gauge,
+      'mark.progress': Progress,
       'palette.category10': Category10,
       'palette.category20': Category20,
       'scale.linear': Linear,

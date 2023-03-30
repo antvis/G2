@@ -23,16 +23,16 @@ export function gaugeCustomShape(): G2Spec {
     type: 'gauge',
     data: {
       value: {
-        target: 159,
-        total: 424,
+        current: 159,
+        target: 424,
         name: 'score',
       },
     },
     style: {
       pointerShape: customShape,
       pinShape: false,
-      textContent: (target, total) => {
-        return `得分：${target}\n占比：${(target / total) * 100}%`;
+      textContent: (current, target) => {
+        return `得分：${current}\n占比：${(current / target) * 100}%`;
       },
     },
   };

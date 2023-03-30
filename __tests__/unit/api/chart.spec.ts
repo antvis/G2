@@ -38,6 +38,7 @@ import {
   Tree,
   WordCloud,
   Gauge,
+  Progress,
 } from '../../../src/api/mark/mark';
 
 describe('Chart', () => {
@@ -143,6 +144,7 @@ describe('Chart', () => {
     expect(chart.tree()).toBeInstanceOf(Tree);
     expect(chart.wordCloud()).toBeInstanceOf(WordCloud);
     expect(chart.gauge()).toBeInstanceOf(Gauge);
+    expect(chart.progress()).toBeInstanceOf(Progress);
     expect(chart.options().children).toEqual([
       { type: 'interval' },
       { type: 'rect' },
@@ -171,6 +173,7 @@ describe('Chart', () => {
       { type: 'tree' },
       { type: 'wordCloud' },
       { type: 'gauge' },
+      { type: 'progress' },
     ]);
   });
 

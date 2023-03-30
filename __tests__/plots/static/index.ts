@@ -191,3 +191,7 @@ export { gaugeDefault } from './gauge-default';
 export { gaugeCustomColor } from './gauge-custom-color';
 export { gaugeCustomShape } from './gauge-custom-shape';
 export { scoreByItemAreaRadarSize } from './score-by-item-area-radar-size';
+export { progressBar } from './progress-bar';
+export { progressBarCustom } from './progress-bar-custom';
+export { progressRing } from './progress-ring';
+export { progressRingCustom } from './progress-ring-custom';

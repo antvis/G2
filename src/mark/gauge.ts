@@ -9,13 +9,13 @@ import { getTransformOptions } from '../utils/coordinate';
 import { Radial } from '../coordinate';
 import { applyStyle, getOrigin } from '../shape/utils';
 import { select } from '../utils/selection';
+import { dataNormalizeForProgress } from './utils';
 
 export type GaugeOptions = Omit<GaugeMark, 'type'>;
 
 function dataTransform(data, scale) {
-  const { name = 'score', target, total, percent } = data;
-  const _target = percent || target;
-  const _total = percent ? 1 : total;
+  const { name = 'score' } = data;
+  const { current: _target, target: _total } = dataNormalizeForProgress(data);
   const { color } = scale;
   const newScale = {
     y: {

@@ -40,6 +40,7 @@ import {
   Tree as TreeGeometry,
   WordCloud as WordCloudGeometry,
   Gauge,
+  Progress,
 } from '../mark';
 import { Category10, Category20 } from '../palette';
 import {
@@ -348,6 +349,7 @@ export function createLibrary(): G2Library {
     'mark.shape': Shape,
     'mark.forceGraph': ForceGraph,
     'mark.gauge': Gauge,
+    'mark.progress': Progress,
     'mark.tree': TreeGeometry,
     'mark.wordCloud': WordCloudGeometry,
     'palette.category10': Category10,

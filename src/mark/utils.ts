@@ -3,7 +3,7 @@ import { stratify, hierarchy } from 'd3-hierarchy';
 import { Primitive } from 'd3-array';
 import { Vector2 } from '@antv/coord';
 import { Scale } from '../runtime/types/component';
-import { Channel } from '../runtime';
+import { Channel, Data } from '../runtime';
 
 export type ChannelOptions = {
   shapes?: string[];
@@ -163,4 +163,12 @@ export function generateHierarchyRoot(
       : stratify()(data);
   }
   return hierarchy(data);
+}
+
+export function dataNormalizeForProgress(data: Record<string, any>) {
+  const { current, target, percent } = data;
+  return {
+    current: percent ?? current ?? 0,
+    target: !Number.isNaN(percent ?? NaN) ? 1 : target,
+  };
 }

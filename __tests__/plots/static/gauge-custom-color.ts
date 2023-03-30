@@ -5,8 +5,8 @@ export function gaugeCustomColor(): G2Spec {
     type: 'gauge',
     data: {
       value: {
-        target: 120,
-        total: 400,
+        current: 120,
+        target: 400,
         name: 'score',
       },
     },
