@@ -19,7 +19,5 @@ export async function renderSpec(
     // @ts-ignore
     renderFunction({ theme: 'classic', ...options }, context, resolve),
   );
-  // Wait for the next tick.
-  await sleep(20);
   return gCanvas;
 }

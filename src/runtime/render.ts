@@ -94,8 +94,11 @@ export function render<T extends G2ViewTree = G2ViewTree>(
       plot<T>({ ...keyed, width, height }, selection, library, context),
     )
     .then(() => {
-      emitter.emit(ChartEvent.AFTER_RENDER);
-      resolve?.();
+      // Wait for the next tick.
+      canvas.requestAnimationFrame(() => {
+        emitter.emit(ChartEvent.AFTER_RENDER);
+        resolve?.();
+      });
     })
     .catch((e) => {
       reject?.(e);
@@ -108,7 +111,8 @@ export function render<T extends G2ViewTree = G2ViewTree>(
 export function renderToMountedElement<T extends G2ViewTree = G2ViewTree>(
   options: T,
   context: G2Context = {},
-  callback?: () => void,
+  resolve?: () => void,
+  reject?: (e: Error) => void,
 ): DisplayObject {
   // Initialize the context if it is not provided.
   const { width = 640, height = 480, on } = options;
@@ -133,10 +137,17 @@ export function renderToMountedElement<T extends G2ViewTree = G2ViewTree>(
   emitter.emit(ChartEvent.BEFORE_RENDER);
   // Plot the chart and mutate context.
   // Make sure that plot chart after container is ready for every time.
-  plot<T>({ ...keyed, width, height }, selection, library, context).then(() => {
-    emitter.emit(ChartEvent.AFTER_RENDER);
-    callback?.();
-  });
+  plot<T>({ ...keyed, width, height }, selection, library, context)
+    .then(() => {
+      setTimeout(() => {
+        // Wait for the next tick.
+        emitter.emit(ChartEvent.AFTER_RENDER);
+        resolve?.();
+      }, 20);
+    })
+    .catch((e) => {
+      reject?.(e);
+    });
 
   // Return the Group wraps the canvas or svg element.
   return group;
