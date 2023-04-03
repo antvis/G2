@@ -139,11 +139,11 @@ export function renderToMountedElement<T extends G2ViewTree = G2ViewTree>(
   // Make sure that plot chart after container is ready for every time.
   plot<T>({ ...keyed, width, height }, selection, library, context)
     .then(() => {
-      setTimeout(() => {
-        // Wait for the next tick.
+      const canvas = group.ownerDocument.defaultView;
+      canvas.requestAnimationFrame(() => {
         emitter.emit(ChartEvent.AFTER_RENDER);
         resolve?.();
-      }, 20);
+      });
     })
     .catch((e) => {
       reject?.(e);
