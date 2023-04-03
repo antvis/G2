@@ -1,8 +1,6 @@
 import { G2Spec, ELEMENT_CLASS_NAME } from '../../../src';
 import { step, disableDelay } from './utils';
 
-// @todo Two circles are not drawn correctly.
-
 export function penguinsPointHighlight(): G2Spec {
   return {
     type: 'point',
