@@ -1,6 +1,6 @@
 import { csv } from 'd3-fetch';
 import { autoType } from 'd3-dsv';
-import { G2Spec, ELEMENT_CLASS_NAME } from '../../../src';
+import { G2Spec, PLOT_CLASS_NAME } from '../../../src';
 import { step } from './utils';
 
 export async function gdp2PointFisheye(): Promise<G2Spec> {
@@ -37,12 +37,15 @@ export async function gdp2PointFisheye(): Promise<G2Spec> {
 
 gdp2PointFisheye.steps = ({ canvas }) => {
   const { document } = canvas;
-  const elements = document.getElementsByClassName(ELEMENT_CLASS_NAME);
-  const [e] = elements;
+  const [plot] = document.getElementsByClassName(PLOT_CLASS_NAME);
   return [
-    step(e, 'pointermove', {
+    step(plot, 'pointermove', {
       offsetX: 450,
       offsetY: 350,
+    }),
+    step(plot, 'pointerleave', {
+      offsetX: 1000,
+      offsetY: 1000,
     }),
   ];
 };
