@@ -497,7 +497,10 @@ export function tooltip(
   const pointerover = throttle(
     (event) => {
       const { target: element } = event;
-      if (!elementSet.has(element)) return;
+      if (!elementSet.has(element)) {
+        hideTooltip(root, single);
+        return;
+      }
       const k = groupKey(element);
       const group = keyGroup.get(k);
       const data =
