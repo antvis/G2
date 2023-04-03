@@ -32,7 +32,10 @@ export function Fisheye({
     const updateFocus = throttle(
       (event) => {
         const focus = mousePosition(plotArea, event);
-        if (!focus) return;
+        if (!focus) {
+          update(options);
+          return;
+        }
         const [x, y] = focus;
         const fisheye = maybeCoordinate(clonedOptions);
         fisheye.focusX = x;
