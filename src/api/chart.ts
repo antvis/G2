@@ -129,8 +129,6 @@ export type ChartOptions = ViewComposition & {
 type ChartProps = Concrete<ViewComposition>;
 
 export interface Chart extends Composition, Mark {
-  render(): void;
-  node(): HTMLElement;
   data: ValueAttribute<ChartProps['data'], Chart>;
   width: ValueAttribute<ChartProps['width'], Chart>;
   height: ValueAttribute<ChartProps['height'], Chart>;
