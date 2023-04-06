@@ -3,7 +3,7 @@ title: 辅助组件
 order: 9
 ---
 
-**辅助组件（Guide）** 是也属于一种标记，更严格的来说是一种非数据驱动的**静态标记（Static Mark）** 。辅助组件用来帮助用户更好的理解图表。
+**辅助组件（Guide）** 也是属于一种标记，更严格的来说是一种非数据驱动的**静态标记（Static Mark）** 。辅助组件用来帮助用户更好的理解图表。
 
 ## 坐标轴
 
@@ -51,10 +51,10 @@ interval.axis('y', [
 interval.legend('color', {});
 
 // 设置 size 的图例
-interval.size('size', {});
+interval.legend('size', {});
 
 // 隐藏 size 的图例
-interval.size('size', false);
+interval.legend('size', false);
 
 // 隐藏所有比例尺
 interval.legend(false);
