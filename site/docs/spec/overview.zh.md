@@ -117,7 +117,7 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
 - [facetRect](/spec/composition/facet-rect) - 用 row、column 字段维值对空间和数据进行划分，在各个子空间可视化数据片段。
 - [facetCircle](/spec/composition/facet-circle) - 根据字段分片数据，利用圆形划分空间，然就进行各个分面的数据可视化。
 - [repeatMatrix](/spec/composition/repeat-matrix) - 根据字段的数量对空间进行划分和可视化。
-- [timingKeyframe](/spec/composition/timing-key-frame) - 在不同时间片之间播放不同的可视化视图帧。
+- [timingKeyframe](/spec/composition/timing-keyframe) - 在不同时间片之间播放不同的可视化视图帧。
 
 ## Component
 
