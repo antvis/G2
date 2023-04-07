@@ -15,7 +15,7 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
 下面是支持的数据转换：
 
 - [sort](/spec/data/sort) - 将数据按照指定的比较器字段排序。
-- [sortBy](/spec/data/sortBy) - 将数据按照指定的字段排序。
+- [sortBy](/spec/data/sort-by) - 将数据按照指定的字段排序。
 - [pick](/spec/data/pick) - 从数据中挑选出部分字段组成新的数据。
 - [rename](/spec/data/rename) - 重命名数据中的一些字段。
 - [fold](/spec/data/fold) - 将多个字段打包成按照指定的 key value 组织形式。
