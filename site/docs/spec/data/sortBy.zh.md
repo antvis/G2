@@ -21,7 +21,7 @@ chart.data({
   value: data,
   transform: [
     {
-      type: 'sort',
+      type: 'sortBy',
       fields: ['sold'], // 根据 sold 字段排序
     },
   ],
