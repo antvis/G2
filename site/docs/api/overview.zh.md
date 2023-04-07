@@ -417,36 +417,36 @@ order: 1
 - [repeatMatrix.**axis**](/api/repeat-matrix#repeatmatrixaxis) - 设置或获取该复合视图的 axis。
 - [repeatMatrix.**legend**](/api/repeat-matrix#repeatmatrixlegend) - 设置或获取该复合视图的 legend。
 
-## [TimingKeyframe](/api/timing-key-frame)
+## [TimingKeyframe](/api/timing-keyframe)
 
 ### 创建可视化
 
-- [timingKeyFrame.**interval**](/api/timing-key-frame#timingkeyframeinterval) - 添加 interval 标记到该复合视图。
-- [timingKeyFrame.**rect**](/api/timing-key-frame#timingkeyframerect) - 添加 rect 标记到该复合视图。
-- [timingKeyFrame.**point**](/api/timing-key-frame#timingkeyframepoint) - 添加 point 标记到该复合视图。
-- [timingKeyFrame.**area**](/api/timing-key-frame#timingkeyframearea) - 添加 area 标记到该复合视图。
-- [timingKeyFrame.**line**](/api/timing-key-frame#timingkeyframeline) - 添加 line 标记到该复合视图。
-- [timingKeyFrame.**vector**](/api/timing-key-frame#timingkeyframevector) - 添加 vector 标记到该复合视图。
-- [timingKeyFrame.**link**](/api/timing-key-frame#timingkeyframelink) - 添加 link 标记到该复合视图。
-- [timingKeyFrame.**polygon**](/api/timing-key-frame#timingkeyframepolygon) - 添加 polygon 标记到该复合视图。
-- [timingKeyFrame.**image**](/api/timing-key-frame#timingkeyframeimage) - 添加 image 标记到该复合视图。
-- [timingKeyFrame.**text**](/api/timing-key-frame#timingkeyframetext) - 添加 text 标记到该复合视图。
-- [timingKeyFrame.**lineX**](/api/timing-key-frame#timingkeyframelinex) - 添加 lineX 标记到该复合视图。
-- [timingKeyFrame.**lineY**](/api/timing-key-frame#timingkeyframeliney) - 添加 lineY 标记到该复合视图。
-- [timingKeyFrame.**range**](/api/timing-key-frame#timingkeyframerange) - 添加 range 标记到该复合视图。
-- [timingKeyFrame.**rangeX**](/api/timing-key-frame#timingkeyframerangex) - 添加 rangeX 标记到该复合视图。
-- [timingKeyFrame.**rangeY**](/api/timing-key-frame#timingkeyframerangey) - 添加 rangeY 标记到该复合视图。
-- [timingKeyFrame.**connector**](/api/timing-key-frame#timingkeyframeconnector) - 添加 connector 标记到该复合视图。
-- [timingKeyFrame.**sankey**](/api/timing-key-frame#timingkeyframesankey) - 添加 sankey 标记到该复合视图。
-- [timingKeyFrame.**treemap**](/api/timing-key-frame#timingkeyframetreemap) - 添加 treemap 标记到该复合视图。
-- [timingKeyFrame.**boxplot**](/api/timing-key-frame#timingkeyframeboxplot) - 添加 boxplot 标记到该复合视图。
-- [timingKeyFrame.**shape**](/api/timing-key-frame#timingkeyframeshape) - 添加 shape 标记到该复合视图。
-- [timingKeyFrame.**pack**](/api/timing-key-frame#timingkeyframepack) - 添加 pack 标记到该复合视图。
-- [timingKeyFrame.**forceGraph**](/api/timing-key-frame#timingkeyframeforcegraph) - 添加 forceGraph 标记到该视图。
-- [timingKeyFrame.**tree**](/api/timing-key-frame#timingkeyframetree) - 添加 tree 标记到该视图。
-- [timingKeyFrame.**wordCloud**](/api/timing-key-frame#timingkeyframewordcloud) - 添加 wordCloud 标记到该视图。
-- [timingKeyFrame.**gauge**](/api/timing-key-frame#timingkeyframegauge) - 添加 gauge 标记到该视图。
+- [timingKeyframe.**interval**](/api/timing-keyframe#timingkeyframeinterval) - 添加 interval 标记到该复合视图。
+- [timingKeyframe.**rect**](/api/timing-keyframe#timingkeyframerect) - 添加 rect 标记到该复合视图。
+- [timingKeyframe.**point**](/api/timing-keyframe#timingkeyframepoint) - 添加 point 标记到该复合视图。
+- [timingKeyframe.**area**](/api/timing-keyframe#timingkeyframearea) - 添加 area 标记到该复合视图。
+- [timingKeyframe.**line**](/api/timing-keyframe#timingkeyframeline) - 添加 line 标记到该复合视图。
+- [timingKeyframe.**vector**](/api/timing-keyframe#timingkeyframevector) - 添加 vector 标记到该复合视图。
+- [timingKeyframe.**link**](/api/timing-keyframe#timingkeyframelink) - 添加 link 标记到该复合视图。
+- [timingKeyframe.**polygon**](/api/timing-keyframe#timingkeyframepolygon) - 添加 polygon 标记到该复合视图。
+- [timingKeyframe.**image**](/api/timing-keyframe#timingkeyframeimage) - 添加 image 标记到该复合视图。
+- [timingKeyframe.**text**](/api/timing-keyframe#timingkeyframetext) - 添加 text 标记到该复合视图。
+- [timingKeyframe.**lineX**](/api/timing-keyframe#timingkeyframelinex) - 添加 lineX 标记到该复合视图。
+- [timingKeyframe.**lineY**](/api/timing-keyframe#timingkeyframeliney) - 添加 lineY 标记到该复合视图。
+- [timingKeyframe.**range**](/api/timing-keyframe#timingkeyframerange) - 添加 range 标记到该复合视图。
+- [timingKeyframe.**rangeX**](/api/timing-keyframe#timingkeyframerangex) - 添加 rangeX 标记到该复合视图。
+- [timingKeyframe.**rangeY**](/api/timing-keyframe#timingkeyframerangey) - 添加 rangeY 标记到该复合视图。
+- [timingKeyframe.**connector**](/api/timing-keyframe#timingkeyframeconnector) - 添加 connector 标记到该复合视图。
+- [timingKeyframe.**sankey**](/api/timing-keyframe#timingkeyframesankey) - 添加 sankey 标记到该复合视图。
+- [timingKeyframe.**treemap**](/api/timing-keyframe#timingkeyframetreemap) - 添加 treemap 标记到该复合视图。
+- [timingKeyframe.**boxplot**](/api/timing-keyframe#timingkeyframeboxplot) - 添加 boxplot 标记到该复合视图。
+- [timingKeyframe.**shape**](/api/timing-keyframe#timingkeyframeshape) - 添加 shape 标记到该复合视图。
+- [timingKeyframe.**pack**](/api/timing-keyframe#timingkeyframepack) - 添加 pack 标记到该复合视图。
+- [timingKeyframe.**forceGraph**](/api/timing-keyframe#timingkeyframeforcegraph) - 添加 forceGraph 标记到该视图。
+- [timingKeyframe.**tree**](/api/timing-keyframe#timingkeyframetree) - 添加 tree 标记到该视图。
+- [timingKeyframe.**wordCloud**](/api/timing-keyframe#timingkeyframewordcloud) - 添加 wordCloud 标记到该视图。
+- [timingKeyframe.**gauge**](/api/timing-keyframe#timingkeyframegauge) - 添加 gauge 标记到该视图。
 
 ### 设置属性
 
-- [timingKeyFrame.**attr**](/api/timing-key-frame#timingkeyframeattr) - 设置或获取该复合视图的属性。
+- [timingKeyframe.**attr**](/api/timing-keyframe#timingkeyframeattr) - 设置或获取该复合视图的属性。
