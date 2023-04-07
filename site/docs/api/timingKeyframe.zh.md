@@ -1,5 +1,5 @@
 ---
-title: TimingKeyFrame
+title: TimingKeyframe
 order: 9
 ---
 
