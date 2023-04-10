@@ -66,5 +66,5 @@ export const Funnel: SC<FunnelOptions> = (options) => {
 };
 
 Funnel.props = {
-  defaultMarker: 'funnel',
+  defaultMarker: 'square',
 };
