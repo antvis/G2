@@ -6,6 +6,7 @@ import { getTheme } from '../../../../src/theme/';
 import { createCanvas, createDiv } from '../../../util/dom';
 import { delay } from '../../../util/delay';
 import { createScale } from '../../../util/scale';
+import { LooseObject } from '../../../../src/interface';
 
 const CartesianCoordinate = getCoordinate('rect');
 const Theme = getTheme('default');
@@ -101,6 +102,44 @@ describe('GeometryLabel', () => {
       expect(labelShape1.attr('y')).toBe(0);
     });
 
+    it('custom style', async () => {
+      point.label('z', {
+        style: {
+          fill: 'red',
+        },
+      });
+      geometryLabel.render(
+        [
+          { x: 100, y: 10, _origin: { x: 100, y: 10, z: '1' } },
+          { x: 100, y: 20, _origin: { x: 100, y: 20, z: '2' } },
+        ],
+        false
+      );
+      await delay(0);
+      // @ts-ignore
+      const labelShape1 = labelsContainer.getChildren()[0].find((ele) => ele.get('type') === 'text');
+      expect(labelShape1.attr('fill')).toBe('red');
+
+      point.label('z', {
+        style: (data) => {
+          return {
+            fill: 'green',
+          };
+        },
+      });
+      geometryLabel.render(
+        [
+          { x: 100, y: 10, _origin: { x: 100, y: 10, z: '1' } },
+          { x: 100, y: 20, _origin: { x: 100, y: 20, z: '2' } },
+        ],
+        false
+      );
+      await delay(0);
+      // @ts-ignore
+      const labelShape2 = labelsContainer.getChildren()[0].find((ele) => ele.get('type') === 'text');
+      expect(labelShape2.attr('fill')).toBe('green');
+    });
+
     it('one point two labels', () => {
       point.label(
         'z',
@@ -174,7 +213,7 @@ describe('GeometryLabel', () => {
         { x: 100, y: 20, _origin: { x: 100, y: 20, z: '2' } },
       ]);
       expect(labelItems.length).toBe(2);
-      expect(labelItems[0].style.fill).toBe('#FFFFFF');
+      expect((labelItems[0].style as LooseObject).fill).toBe('#FFFFFF');
     });
 
     it('two two point inner label', () => {
@@ -187,7 +226,7 @@ describe('GeometryLabel', () => {
         { x: 100, y: [30, 40], _origin: { x: 100, y: [30, 40], z: ['3', '4'] } },
       ]);
       expect(labelItems.length).toBe(4);
-      expect(labelItems[0].style.fill).toBe('#FFFFFF');
+      expect((labelItems[0].style as LooseObject).fill).toBe('#FFFFFF');
     });
 
     it('stack points', () => {

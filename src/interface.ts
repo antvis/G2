@@ -392,7 +392,7 @@ export interface GeometryLabelCfg {
    * @title 文本样式
    * @description label 文本图形属性样式。
    */
-  style?: LooseObject;
+  style?: LooseObject | ((data: Datum, mappingData: MappingDatum) => LooseObject);
   /**
    * @title 是否自动旋转
    * @description label 是否自动旋转

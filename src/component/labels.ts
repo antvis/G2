@@ -1,4 +1,4 @@
-import { deepMix, each, get, isArray, isNull } from '@antv/util';
+import { deepMix, each, get, isArray, isFunction, isNull } from '@antv/util';
 import { BBox, Coordinate, IGroup, IShape } from '../dependents';
 import { LabelItem } from '../geometry/label/interface';
 import { AnimateOption, GeometryLabelLayoutCfg } from '../interface';
@@ -140,7 +140,7 @@ export default class Labels {
   }
 
   private renderLabel(cfg: LabelItem, container: IGroup): IGroup {
-    const { id, elementId, data, mappingData, coordinate, animate, content, capture } = cfg;
+    const { id, elementId, data, mappingData, coordinate, animate, content, capture, style = {} } = cfg;
     const shapeAppendCfg = {
       id,
       elementId,
@@ -178,7 +178,8 @@ export default class Labels {
       labelShape = content;
       labelGroup.add(content);
     } else {
-      const fill = get(cfg, ['style', 'fill']);
+      // style支持回调函数形式
+      const _style = isFunction(style) ? style(data, mappingData) : style;
       labelShape = labelGroup.addShape('text', {
         attrs: {
           x: cfg.x,
@@ -186,8 +187,8 @@ export default class Labels {
           textAlign: cfg.textAlign,
           textBaseline: get(cfg, 'textBaseline', 'middle'),
           text: cfg.content,
-          ...cfg.style,
-          fill: isNull(fill) ? cfg.color : fill,
+          ..._style,
+          fill: isNull(_style.fill) ? cfg.color : _style.fill,
         },
         ...shapeAppendCfg,
       });
@@ -200,22 +201,28 @@ export default class Labels {
   }
 
   // 根据type对label布局
-  private async doLayout(items: LabelItem[], shapes: Record<string, IShape | IGroup>, shapesMap: Record<string, IGroup>) {
+  private async doLayout(
+    items: LabelItem[],
+    shapes: Record<string, IShape | IGroup>,
+    shapesMap: Record<string, IGroup>
+  ) {
     if (this.layout) {
       const layouts = isArray(this.layout) ? this.layout : [this.layout];
-      await Promise.all(layouts.map((layout: GeometryLabelLayoutCfg) => {
-        const layoutFn = getGeometryLabelLayout(get(layout, 'type', ''));
-        if (!layoutFn) return;
+      await Promise.all(
+        layouts.map((layout: GeometryLabelLayoutCfg) => {
+          const layoutFn = getGeometryLabelLayout(get(layout, 'type', ''));
+          if (!layoutFn) return;
 
-        const labelShapes = [];
-        const geometryShapes = [];
-        each(shapesMap, (labelShape, id) => {
-          labelShapes.push(labelShape);
-          geometryShapes.push(shapes[labelShape.get('elementId')]);
-        });
-        // [todo] Refactor more layout into Worker.
-        return layoutFn(items, labelShapes, geometryShapes, this.region, layout.cfg);
-      }));
+          const labelShapes = [];
+          const geometryShapes = [];
+          each(shapesMap, (labelShape, id) => {
+            labelShapes.push(labelShape);
+            geometryShapes.push(shapes[labelShape.get('elementId')]);
+          });
+          // [todo] Refactor more layout into Worker.
+          return layoutFn(items, labelShapes, geometryShapes, this.region, layout.cfg);
+        })
+      );
     }
   }
 
