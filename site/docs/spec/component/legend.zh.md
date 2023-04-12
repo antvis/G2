@@ -286,3 +286,29 @@ chart.render();
 <embed src="@/docs/spec/common/componentTitle.zh.md"></embed>
 
 ### 布局
+
+Legend 组件支持调整其在画布中的位置，通过 `layout` 属性来设置。
+目前支持基本的 Flex 布局方式，支持的属性包括: `justifyContent`, `alignItems`, `flexDirection`。
+
+| 属性           | 描述         | 类型                                         | 默认值         |
+| -------------- | ------------ | -------------------------------------------- | -------------- |
+| justifyContent | 主轴对齐方式 | `'flex-start'` \| `'flex-end'` \| `'center'` | `'flex-start'` |
+| alignItems     | 交叉轴对齐   | `'flex-start'` \| `'flex-end'` \| `'center'` | `'flex-start'` |
+| flexDirection  | 主轴方向     | `'row'` \| `'column'`                        | `'row'`        |
+
+```ts
+chart
+  .interval()
+  .data(/** data */)
+  .encode('x' /** x filed */)
+  .encode('y' /** y filed */)
+  .encode('color' /** color filed */)
+  .legend('color', {
+    /** 让图例在水平和垂直方向上保持居中 */
+    layout: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      flexDirection: 'column',
+    },
+  });
+```
