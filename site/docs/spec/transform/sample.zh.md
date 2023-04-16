@@ -66,5 +66,5 @@ chart
   .line()
   .encode('x', 'x')
   .encode('y', 'y')
-  .transfrom([{ type: 'sample', strategy }]);
+  .transform([{ type: 'sample', strategy }]);
 ```
