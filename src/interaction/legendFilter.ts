@@ -169,11 +169,14 @@ export function LegendFilter() {
     };
 
     if (!legends.length) {
-      emitter.on('legend:filter', (options) => {
+      const onFilter = (options) => {
         const { values, channel } = options;
         filter(channel, values);
-      });
-      return () => {};
+      };
+      emitter.on('legend:filter', onFilter);
+      return () => {
+        emitter.off('legend:filter', onFilter);
+      };
     }
 
     const removes = legends.map((legend) => {

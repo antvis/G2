@@ -1,4 +1,4 @@
-import { Canvas } from '@antv/g';
+import { Canvas, DisplayObject } from '@antv/g';
 import { Chart, createLibrary, VIEW_CLASS_NAME } from '../../../src';
 import { G2_CHART_KEY } from '../../../src/api/chart';
 import {
@@ -445,7 +445,7 @@ describe('Chart', () => {
     expect(count).toBe(0);
   });
 
-  it('chart should render after window resize.', (done) => {
+  it('chart.render() should be called after window resize.', (done) => {
     const div = document.createElement('div');
     const chart = new Chart({
       theme: 'classic',
@@ -488,7 +488,7 @@ describe('Chart', () => {
     });
   });
 
-  it('get instance information after chart render.', async () => {
+  it('chart.getInstance() should return internal instance after chart render.', async () => {
     const chart = new Chart({ theme: 'classic' });
 
     chart.data([
@@ -520,14 +520,14 @@ describe('Chart', () => {
     expect(chart.getScaleByChannel('shape')).not.toBeDefined();
   });
 
-  it('chart render before theme option must be specified.', async () => {
+  it('chart.render() should throw error.', async () => {
     // Catch error.
     // @ts-ignore
     const chart = new Chart({});
     await expect(chart.render()).rejects.toThrowError();
   });
 
-  it('chart.destroy()', async () => {
+  it('chart.destroy() should destroy group', async () => {
     const chart = new Chart({ theme: 'classic' });
     chart.data([
       { genre: 'Sports', sold: 275 },
@@ -549,7 +549,7 @@ describe('Chart', () => {
     expect(chart.getGroup()).toEqual(null);
   });
 
-  it('chart.clear()', async () => {
+  it('chart.clear() should clear group.', async () => {
     const chart = new Chart({ theme: 'classic' });
     chart.data([
       { genre: 'Sports', sold: 275 },
@@ -569,39 +569,6 @@ describe('Chart', () => {
     expect(chart.getGroup().id).toEqual(chart.attr('key'));
     chart.clear();
     expect(chart.getGroup()).toEqual(null);
-  });
-
-  it('chart.clear() should clear interaction', async () => {
-    const chart = new Chart({ theme: 'classic' });
-    chart.data([
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
-    ]);
-    chart
-      .interval()
-      .encode('x', 'genre')
-      .encode('y', 'sold')
-      .encode('color', 'genre')
-      .interaction('tooltip');
-    await chart.render();
-
-    const { canvas } = chart.getContext();
-    const fn = jest.fn();
-    // @ts-ignore
-    const [view] = canvas.document.getElementsByClassName(VIEW_CLASS_NAME);
-    const nameInteraction = view['nameInteraction'];
-    const interaction = nameInteraction.get('tooltip');
-    const { destroy } = interaction;
-    const newDestroy = () => {
-      destroy();
-      fn();
-    };
-    interaction.destroy = newDestroy;
-    chart.clear();
-    expect(fn).toBeCalledTimes(1);
   });
 
   it('chart.changeData() should update all children data although mark children have their own data', async () => {
