@@ -250,7 +250,7 @@ export async function plot<T extends G2ViewTree>(
       // Apply new interaction.
       const interaction = useInteraction(option);
       const destroy = interaction(target, updateViewInstances, context.emitter);
-      nameInteraction.set(options.type, { destroy });
+      nameInteraction.set(option.type, { destroy });
     }
   }
 
@@ -272,6 +272,9 @@ export async function plot<T extends G2ViewTree>(
   }
 
   context.views = views;
+
+  // Clear and update animation.
+  context.animations?.forEach((animation) => animation?.cancel());
   context.animations = transitions;
 
   context.emitter.emit(ChartEvent.AFTER_PAINT);
