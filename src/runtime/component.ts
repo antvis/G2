@@ -12,6 +12,7 @@ import {
 } from '../coordinate';
 import { combine } from '../utils/array';
 import { defined } from '../utils/helper';
+import { LEGEND_INFER_STRATEGIES } from '../component/constant';
 import {
   coordOf,
   isHelix,
@@ -191,103 +192,6 @@ function inferLegendComponentType(
 
   if (scalesByField.size === 0) return [];
 
-  /**
-   *
-   * @param arr
-   * @param main necessary channel
-   * @returns
-   */
-  const createStrategy = <T>(arr: T[], main: T): T[][] => {
-    const result = combine(arr);
-    result.forEach((c) => c.unshift(main));
-    result.push([main]);
-    return result.sort((a, b) => b.length - a.length);
-  };
-
-  const createCategoryStrategy = () => {
-    // category legend only support constant size
-    const color = [
-      ['color', 'discrete'],
-      ['color', 'constant'],
-    ];
-    const shape = [
-      ['shape', 'discrete'],
-      ['shape', 'constant'],
-    ];
-    const size = [['size', 'constant']];
-    const opacity = [
-      ['opacity', 'discrete'],
-      ['opacity', 'constant'],
-    ];
-
-    const stg: [string, string][][] = [];
-    for (const cr of color) {
-      for (const sp of shape) {
-        for (const sz of size) {
-          for (const op of opacity) {
-            if (![cr, sp, sz, op].every((d) => d[1] === 'constant')) {
-              stg.push(
-                ...(createStrategy([sp, sz, op], cr) as [string, string][][]),
-              );
-            }
-          }
-        }
-      }
-    }
-    // refactor above code
-
-    return stg.sort((a, b) => b.length - a.length);
-  };
-
-  // [legend type, [[channels, scale types]]][]
-  const strategy: [string, [string, string][][]][] = [
-    ['legendCategory', createCategoryStrategy()],
-    [
-      'legendContinuousSize',
-      [
-        [
-          ['color', 'continuous'],
-          ['opacity', 'continuous'],
-          ['size', 'continuous'],
-        ],
-        [
-          ['color', 'constant'],
-          ['opacity', 'continuous'],
-          ['size', 'continuous'],
-        ],
-        [
-          ['color', 'continuous'],
-          ['size', 'continuous'],
-        ],
-        [
-          ['color', 'constant'],
-          ['size', 'continuous'],
-        ],
-      ],
-    ],
-    [
-      'legendContinuousBlockSize',
-      [
-        [
-          ['color', 'distribution'],
-          ['opacity', 'distribution'],
-          ['size', 'distribution'],
-        ],
-        [
-          ['color', 'distribution'],
-          ['size', 'distribution'],
-        ],
-      ],
-    ],
-    [
-      'legendContinuousBlock',
-      createStrategy([['opacity', 'continuous']], ['color', 'distribution']),
-    ],
-    [
-      'legendContinuous',
-      createStrategy([['opacity', 'continuous']], ['color', 'continuous']),
-    ],
-  ];
   function getScaleType(scale: G2ScaleOptions): string {
     const { type } = scale;
     if (typeof type !== 'string') return null;
@@ -308,20 +212,9 @@ function inferLegendComponentType(
 
       const sort = (arr: string[][]) =>
         arr.sort((a, b) => a[0].localeCompare(b[0]));
-      for (const [componentType, accords] of strategy) {
+      for (const [componentType, accords] of LEGEND_INFER_STRATEGIES) {
         for (const { option, combination } of options) {
           if (accords.some((accord) => isEqual(sort(accord), sort(option)))) {
-            // extra rule
-            // 1. combination can't all be constant scale
-            // 2. when componentType is continuous, color scale must has domain
-            if (combination.every((scale) => scale.type === 'constant'))
-              continue;
-            if (componentType.toLowerCase().includes('continuous')) {
-              const colorScale = combination.find(
-                (scale) => scale.name === 'color',
-              );
-              if (!colorScale || !colorScale.domain?.length) continue;
-            }
             return [componentType, combination] as [string, G2ScaleOptions[]];
           }
         }
