@@ -58,3 +58,4 @@ export { aaplLineSliderFilter } from './appl-line-slider-filter';
 export { aaplLineAreaBasicSample } from './aapl-line-area-basic-sample';
 export { aaplAreaMissingDataTranspose } from './aapl-area-missing-data-transpose';
 export { alphabetIntervalBrushTooltip } from './alphabet-interval-brush-tooltip';
+export { mockLineFalsy } from './mock-line-falsy';

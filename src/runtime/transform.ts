@@ -170,13 +170,11 @@ export function extractTooltip(
           : definedChannel
           ? encode[channel].value[i]
           : null;
-        if (value1) {
-          values[i] = {
-            name: name1,
-            color,
-            value: normalizedValueFormatter(value1),
-          };
-        }
+        values[i] = {
+          name: name1,
+          color,
+          value: normalizedValueFormatter(value1),
+        };
       }
       return values;
     }

@@ -22,6 +22,7 @@ export async function londonTubeLineGeo(): Promise<G2Spec> {
     width: 700,
     height: 500,
     padding: 10,
+    interaction: { tooltip: { filter: (d) => d.value !== null } },
     children: [
       {
         type: 'geoPath',
