@@ -1,14 +1,13 @@
 import { GuideComponentComponent as GCC } from '../runtime';
 import { LegendContinuous, LegendContinuousOptions } from './legendContinuous';
+import { LegendContinuousSize } from './legendContinuousSize';
 
 export type LegendContinuousBlockSizeOptions = LegendContinuousOptions;
 
 export const LegendContinuousBlockSize: GCC<
   LegendContinuousBlockSizeOptions
 > = (options) => {
-  return LegendContinuous(
-    Object.assign({}, { type: 'size', block: true, tick: false }, options),
-  );
+  return LegendContinuousSize(Object.assign({}, { block: true }, options));
 };
 
 LegendContinuousBlockSize.props = {
