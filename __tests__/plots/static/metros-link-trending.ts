@@ -16,6 +16,7 @@ export function metrosLinkTrending(): G2Spec {
       x: { type: 'log' },
     },
     style: {
+      arrow: true,
       arrowSize: 6,
     },
     axis: {
