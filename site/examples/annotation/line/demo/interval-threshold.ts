@@ -52,6 +52,7 @@ chart
   .data([300])
   .style('stroke', '#F4664A')
   .style('lineDash', [3, 3])
+  .style('arrow', true)
   .label({
     text: 'hazardous',
     position: 'right',
@@ -61,7 +62,6 @@ chart
       background: true,
       backgroundFill: '#F4664A',
       backgroundOpacity: 0.25,
-      arrow: true,
     },
   });
 
