@@ -61,6 +61,7 @@ chart
       background: true,
       backgroundFill: '#F4664A',
       backgroundOpacity: 0.25,
+      arrow: true,
     },
   });
 

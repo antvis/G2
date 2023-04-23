@@ -33,6 +33,10 @@ export function appendPolygon(path: D3Path, points: Vector2[]) {
 
 export type ArrowOptions = {
   /**
+   * Whether show arrow of line.
+   */
+  arrow?: boolean;
+  /**
    * Arrow size, can be a px number, or a percentage string. Default: '40%'
    */
   arrowSize?: number | string;

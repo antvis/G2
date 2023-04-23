@@ -38,6 +38,7 @@ export { disastersPointBubble } from './disasters-point-bubble';
 export { cars2PointJitterY } from './cars2-point-jitterY';
 export { peoplePointStacked } from './people-point-stacked';
 export { intakePointAnnotation } from './intake-point-annotation';
+export { intakePointAnnotationWithArrow } from './intake-point-annotation-with-arrow';
 export { diamondPointJitterPolar } from './diamond-point-jitter-polar';
 export { seattleWeatherPoint1d } from './seattle-weather-point-1d';
 export { flarePointCirclePackDefault } from './flare-point-circle-pack-default';
