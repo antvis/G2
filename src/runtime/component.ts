@@ -311,6 +311,17 @@ function inferLegendComponentType(
       for (const [componentType, accords] of strategy) {
         for (const { option, combination } of options) {
           if (accords.some((accord) => isEqual(sort(accord), sort(option)))) {
+            // extra rule
+            // 1. combination can't all be constant scale
+            // 2. when componentType is continuous, color scale must has domain
+            if (combination.every((scale) => scale.type === 'constant'))
+              continue;
+            if (componentType.toLowerCase().includes('continuous')) {
+              const colorScale = combination.find(
+                (scale) => scale.name === 'color',
+              );
+              if (!colorScale || !colorScale.domain?.length) continue;
+            }
             return [componentType, combination] as [string, G2ScaleOptions[]];
           }
         }

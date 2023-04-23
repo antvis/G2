@@ -5,6 +5,7 @@ export { alphabetIntervalLabelContrastReverse } from './alphabet-interval-label-
 export { alphabetIntervalDataSort } from './alphabet-interval-data-sort';
 export { alphabetIntervalFunnel } from './alphabet-interval-funnel';
 export { alphabetIntervalPyramid } from './alphabet-interval-pyramid';
+export { bodyPointScatterPlot } from './body-point-scatter-plot';
 export { gammaRandomLineSortXQuantitative } from './gamma-random-line-sortx-quantitative';
 export { alphabetIntervalTransposed } from './alphabet-interval-transposed';
 export { stateAgesIntervalStacked } from './stateages-interval-stacked';
