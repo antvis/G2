@@ -40,7 +40,7 @@ chart.shape().style({
 chart.render();
 ```
 
-可以查看[图表徽章水印](/examples/annotation/annotation/#watermark)具体示例。
+可以查看[图表徽章水印](/examples/annotation/shape/#watermark)具体示例。
 
 ## 选项
 
