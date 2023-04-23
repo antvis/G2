@@ -102,6 +102,11 @@ function destroyTooltip(root) {
   }
 }
 
+function showUndefined(item) {
+  const { value } = item;
+  return { ...item, value: value === undefined ? 'undefined' : value };
+}
+
 function singleItem(element) {
   const { __data__: datum } = element;
   const { title, items = [] } = datum;
@@ -110,7 +115,8 @@ function singleItem(element) {
     .map(({ color = itemColorOf(element), ...item }) => ({
       ...item,
       color,
-    }));
+    }))
+    .map(showUndefined);
   return {
     ...(title && { title }),
     items: newItems,
@@ -164,22 +170,24 @@ function groupItems(
     data.map((d) => d.title),
     key,
   ).filter(defined);
-  const newItems = data.flatMap((datum, i) => {
-    const element = elements[i];
-    const { items = [], title } = datum;
-    return items
-      .filter(defined)
-      .map(({ color = itemColorOf(element), name, ...item }) => {
-        const name1 = groupName
-          ? groupNameOf(scale, datum) || name
-          : name || groupNameOf(scale, datum);
-        return {
-          ...item,
-          color,
-          name: name1 || title,
-        };
-      });
-  });
+  const newItems = data
+    .flatMap((datum, i) => {
+      const element = elements[i];
+      const { items = [], title } = datum;
+      return items
+        .filter(defined)
+        .map(({ color = itemColorOf(element), name, ...item }) => {
+          const name1 = groupName
+            ? groupNameOf(scale, datum) || name
+            : name || groupNameOf(scale, datum);
+          return {
+            ...item,
+            color,
+            name: name1 || title,
+          };
+        });
+    })
+    .map(showUndefined);
   return {
     ...(T.length > 0 && { title: T.join(',') }),
     items: unique(newItems, (d) => `(${key(d.name)}, ${key(d.value)})`),
