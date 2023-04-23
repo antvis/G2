@@ -4,10 +4,44 @@ import { arc, line } from 'd3-shape';
 import { isPolar } from '../../utils/coordinate';
 import { select } from '../../utils/selection';
 import { dist } from '../../utils/vector';
+import { subObject } from '../../utils/helper';
 import { Primitive, ShapeComponent as SC, Vector2 } from '../../runtime';
 import { applyStyle, getShapeTheme } from '../utils';
 
-export type LineOptions = Record<string, any>;
+export type LineOptions = {
+  /**
+   * Whether show arrow.
+   */
+  arrow?: boolean;
+  /**
+   * Arrow size(px), default is 4px.
+   */
+  arrowSize?: number;
+  /**
+   * Fill color of arrow.
+   */
+  arrowFill?: string;
+  /**
+   * Stroke color of arrow.
+   */
+  arrowStroke?: string;
+  /**
+   * Others.
+   */
+  [key: string]: any;
+};
+
+function getArrowMarker(arrowSize: number, arrowStyle: any) {
+  const arrowMarker = new Path({
+    style: {
+      path: `M ${arrowSize},${arrowSize} L -${arrowSize},0 L ${arrowSize},-${arrowSize} L 0,0 Z`,
+      anchor: '0.5 0.5',
+      transformOrigin: 'center',
+      ...arrowStyle,
+    },
+  });
+  return arrowMarker;
+}
 
 function getPath(points: Vector2[], coordinate: Coordinate) {
   if (!isPolar(coordinate))
@@ -32,7 +66,7 @@ function getTransform(coordinate: Coordinate, transform?: Primitive) {
 }
 
 export const Line: SC<LineOptions> = (options) => {
-  const { ...style } = options;
+  const { arrow, arrowSize = 4, ...style } = options;
   return (points, value, coordinate, theme) => {
     const { mark, shape, defaultShape } = value;
     const { defaultColor, lineWidth, ...shapeTheme } = getShapeTheme(
@@ -43,6 +77,14 @@ export const Line: SC<LineOptions> = (options) => {
     );
     const { color = defaultColor, size = lineWidth } = value;
 
+    const arrowMarker = arrow
+      ? getArrowMarker(arrowSize, {
+          fill: style.stroke || color,
+          stroke: style.stroke || color,
+          ...subObject(style, 'arrow'),
+        })
+      : null;
+
     const path = getPath(points, coordinate);
     const transform = getTransform(coordinate, value.transform);
 
@@ -52,6 +94,7 @@ export const Line: SC<LineOptions> = (options) => {
       .style('stroke', color)
       .style('lineWidth', size)
       .style('transform', transform)
+      .style('markerEnd', arrowMarker)
       .call(applyStyle, style)
       .node();
   };

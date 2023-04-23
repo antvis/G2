@@ -7,22 +7,21 @@ import { ShapeComponent as SC } from '../../runtime';
 export type VectorOptions = ArrowOptions;
 
 /**
+ * Connect 2 points with a single line with arrow.
  * ----->
  */
 export const Vector: SC<VectorOptions> = (options) => {
-  const { arrowSize = '40%', ...style } = options;
+  const { arrow = true, arrowSize = '40%', ...style } = options;
   return (points, value, coordinate, theme) => {
-    const { mark, shape, defaultShape, color, transform } = value;
+    const { mark, shape, defaultShape, transform } = value;
     const { defaultColor, ...shapeTheme } = getShapeTheme(
       theme,
       mark,
       shape,
       defaultShape,
     );
+    const { color = defaultColor } = value;
     const [from, to] = points;
-
-    // Calculate arrow end point.
-    const [arrow1, arrow2] = arrowPoints(from, to, { arrowSize });
 
     // Draw line
     const path = d3path();
@@ -30,10 +29,14 @@ export const Vector: SC<VectorOptions> = (options) => {
     path.lineTo(...to);
 
     // Draw 2 arrows.
-    path.moveTo(...to);
-    path.lineTo(...arrow1);
-    path.moveTo(...to);
-    path.lineTo(...arrow2);
+    if (arrow) {
+      // Calculate arrow end point.
+      const [arrow1, arrow2] = arrowPoints(from, to, { arrowSize });
+      path.moveTo(...to);
+      path.lineTo(...arrow1);
+      path.moveTo(...to);
+      path.lineTo(...arrow2);
+    }
 
     return select(new Path())
       .call(applyStyle, shapeTheme)

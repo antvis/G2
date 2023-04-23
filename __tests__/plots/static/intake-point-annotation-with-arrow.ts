@@ -1,7 +1,7 @@
 import { G2Spec } from '../../../src';
 import { intake } from '../../data/intake';
 
-export function intakePointAnnotation(): G2Spec {
+export function intakePointAnnotationWithArrow(): G2Spec {
   return {
     type: 'view',
     children: [
@@ -41,6 +41,9 @@ export function intakePointAnnotation(): G2Spec {
         data: [50],
         style: {
           stroke: '#545454',
+          arrow: true,
+          arrowStroke: 'red',
+          arrowFill: 'red',
         },
         labels: [
           {
@@ -55,6 +58,7 @@ export function intakePointAnnotation(): G2Spec {
         data: [65],
         style: {
           stroke: '#545454',
+          arrow: true,
         },
         labels: [
           {

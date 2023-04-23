@@ -19,6 +19,7 @@ chart
   .encode('y', ['R90_10_1980', 'R90_10_2015'])
   .encode('color', (d) => d.R90_10_2015 - d.R90_10_1980)
   .scale('x', { type: 'log' })
+  .style('arrow', true)
   .style('arrowSize', 6)
   .axis('x', {
     labelFormatter: '~s',
