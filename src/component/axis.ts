@@ -129,7 +129,7 @@ function createInset(position, coordinate) {
 /**
  * Calc ticks based on scale and coordinate.
  */
-function getTicks(
+function getData(
   scale: Scale,
   domain: any[],
   tickCount: number,
@@ -148,11 +148,11 @@ function getTicks(
 
   const ticks = ticksOf(scale, domain, tickMethod);
   const filteredTicks = tickFilter ? ticks.filter(tickFilter) : ticks;
-  const labelFormatter = scale.getFormatter?.() || defaultTickFormatter;
-  const toString = (d) => (typeof d === 'object' ? d : String(d));
+  const toString = (d) => (typeof d === 'object' && !!d ? d : String(d));
+  const labelFormatter =
+    defaultTickFormatter || scale.getFormatter?.() || toString;
   const applyInset = createInset(position, coordinate);
   const applyFisheye = createFisheye(position, coordinate);
-
   if (isPolar(coordinate) || isTranspose(coordinate)) {
     const axisTicks = filteredTicks.map((d, i, array) => {
       const offset = scale.getBandWidth?.(d) / 2 || 0;
@@ -361,7 +361,7 @@ const ArcAxisComponent: GCC<AxisOptions> = (options) => {
     size,
     position,
     orientation,
-    labelFormatter = (d) => `${d}`,
+    labelFormatter,
     tickFilter,
     tickCount,
     tickMethod,
@@ -373,7 +373,7 @@ const ArcAxisComponent: GCC<AxisOptions> = (options) => {
   return ({ scales: [scale], value, coordinate, theme }) => {
     const { bbox } = value;
     const { domain } = scale.getOptions();
-    const ticks = getTicks(
+    const data = getData(
       scale,
       domain,
       tickCount,
@@ -399,7 +399,7 @@ const ArcAxisComponent: GCC<AxisOptions> = (options) => {
       style: adaptor(
         deepMix({}, axisTheme, defaultStyle, {
           type: 'arc',
-          data: ticks,
+          data,
           titleText: titleContent(title),
           grid,
           ...rest,
@@ -464,7 +464,7 @@ const LinearAxisComponent: GCC<AxisOptions> = (options) => {
   const {
     direction = 'left',
     important = {},
-    labelFormatter = (d) => `${d}`,
+    labelFormatter,
     order,
     orientation,
     position,
@@ -508,7 +508,7 @@ const LinearAxisComponent: GCC<AxisOptions> = (options) => {
     const finalAxisStyle = {
       ...internalAxisStyle,
       type: 'linear' as const,
-      data: getTicks(
+      data: getData(
         scale,
         domain,
         tickCount,
@@ -528,7 +528,6 @@ const LinearAxisComponent: GCC<AxisOptions> = (options) => {
       ...overrideStyle,
       ...important,
     };
-
     return new AxisComponent({
       className: 'axis',
       style: adaptor(finalAxisStyle),
@@ -541,7 +540,7 @@ const axisFactor: (
 ) => GCC<AxisOptions> = (axis) => {
   return (options) => {
     const {
-      labelFormatter: useDefinedLabelFormatter = (d) => `${d}`,
+      labelFormatter: useDefinedLabelFormatter,
       labelFilter: userDefinedLabelFilter = () => true,
     } = options;
 
