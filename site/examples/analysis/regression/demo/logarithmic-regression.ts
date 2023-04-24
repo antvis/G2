@@ -48,6 +48,9 @@ chart
     style: {
       textAlign: 'end',
     },
-  });
+  })
+  .tooltip(false);
+
+chart.interaction('tooltip', { series: false });
 
 chart.render();

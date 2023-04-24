@@ -49,9 +49,12 @@ chart
   .encode('x', (d) => d[0])
   .encode('y', (d) => d[1])
   .style('stroke', '#30BF78')
-  .style('lineWidth', 2);
+  .style('lineWidth', 2)
+  .tooltip(false);
 
 chart.lineX().data([0]);
 chart.lineY().data([0]);
+
+chart.interaction('tooltip', { series: false });
 
 chart.render();
