@@ -1,4 +1,5 @@
 import { Coordinate } from '@antv/coord';
+import type { DisplayObject } from '@antv/g';
 import { Axis as AxisComponent } from '@antv/gui';
 import { Linear as LinearScale } from '@antv/scale';
 import { deepMix } from '@antv/util';
@@ -23,15 +24,22 @@ import {
   radiusOf,
 } from '../utils/coordinate';
 import { capitalizeFirst } from '../utils/helper';
-import { adaptor, isVertical, isHorizontal, titleContent } from './utils';
+import { adaptor, isVertical, titleContent } from './utils';
 
 export type AxisOptions = {
   position?: GCP;
   zIndex?: number;
   title?: string | string[];
   direction?: 'left' | 'center' | 'right';
-  labelFormatter?: (d: any, index: number, array: any) => string;
-  tickFilter?: (datum: any, index: number, array: any) => boolean;
+  labelFormatter?: (datum: any, index: number, array: any[]) => string;
+  labelFilter?: (datum: any, index: number, array: any[]) => boolean;
+  tickFormatter?: (
+    datum: any,
+    index: number,
+    array: any[],
+    vector: [number, number],
+  ) => DisplayObject;
+  tickFilter?: (datum: any, index: number, array: any[]) => boolean;
   tickMethod?: (
     start: number | Date,
     end: number | Date,
@@ -532,10 +540,30 @@ const axisFactor: (
   axis: typeof ArcAxisComponent | typeof LinearAxisComponent,
 ) => GCC<AxisOptions> = (axis) => {
   return (options) => {
-    const { labelFormatter: f = (d) => `${d}` } = options;
-    const labelFormatter = typeof f === 'string' ? format(f) : f;
-    const normalizedOptions = { ...options, labelFormatter };
-    return (...args) => axis(normalizedOptions)(...args);
+    const {
+      labelFormatter: useDefinedLabelFormatter = (d) => `${d}`,
+      labelFilter: userDefinedLabelFilter = () => true,
+    } = options;
+
+    return (context) => {
+      const {
+        scales: [scale],
+      } = context;
+      const ticks = scale.getTicks?.() || scale.getOptions().domain;
+      const labelFormatter =
+        typeof useDefinedLabelFormatter === 'string'
+          ? format(useDefinedLabelFormatter)
+          : useDefinedLabelFormatter;
+      const labelFilter = (datum: any, index: number, array: any[]) =>
+        userDefinedLabelFilter(ticks[index], index, ticks);
+
+      const normalizedOptions = {
+        ...options,
+        labelFormatter,
+        labelFilter,
+      };
+      return axis(normalizedOptions)(context);
+    };
   };
 };
 
