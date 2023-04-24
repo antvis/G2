@@ -1,5 +1,5 @@
 import { DisplayObject, IElement, Line } from '@antv/g';
-import { sort, group, mean, bisector } from 'd3-array';
+import { sort, group, mean, bisector, minIndex } from 'd3-array';
 import { deepMix, lowerFirst, throttle } from '@antv/util';
 import { Tooltip as TooltipComponent } from '@antv/gui';
 import { Constant, Identity } from '@antv/scale';
@@ -162,7 +162,7 @@ function unique(items, key = (d) => d) {
 function groupItems(
   elements,
   scale,
-  groupName = true,
+  groupName,
   data = elements.map((d) => d['__data__']),
 ) {
   const key = (d) => (d instanceof Date ? +d : d);
@@ -174,10 +174,15 @@ function groupItems(
     .flatMap((datum, i) => {
       const element = elements[i];
       const { items = [], title } = datum;
-      return items
-        .filter(defined)
-        .map(({ color = itemColorOf(element), name, ...item }) => {
-          const name1 = groupName
+      const definedItems = items.filter(defined);
+
+      // If there is only one item, use groupName as title by default.
+      const useGroupName =
+        groupName !== undefined ? groupName : items.length <= 1 ? true : false;
+
+      return definedItems.map(
+        ({ color = itemColorOf(element), name, ...item }) => {
+          const name1 = useGroupName
             ? groupNameOf(scale, datum) || name
             : name || groupNameOf(scale, datum);
           return {
@@ -185,12 +190,16 @@ function groupItems(
             color,
             name: name1 || title,
           };
-        });
+        },
+      );
     })
     .map(showUndefined);
   return {
     ...(T.length > 0 && { title: T.join(',') }),
-    items: unique(newItems, (d) => `(${key(d.name)}, ${key(d.value)})`),
+    items: unique(
+      newItems,
+      (d) => `(${key(d.name)}, ${key(d.value)}, ${key(d.color)})`,
+    ),
   };
 }
 
@@ -283,7 +292,7 @@ export function seriesTooltip(
     coordinate,
     crosshairs,
     render,
-    groupName = true,
+    groupName,
     wait = 50,
     leading = true,
     trailing = false,
@@ -338,9 +347,13 @@ export function seriesTooltip(
   // Apply offset for band scale x.
   const offsetX = scaleX?.getBandWidth ? scaleX.getBandWidth() / 2 : 0;
 
-  const indexByFocus = (focus, I, X) => {
+  const abstractX = (focus) => {
     const [normalizedX] = coordinate.invert(focus);
-    const finalX = normalizedX - offsetX;
+    return normalizedX - offsetX;
+  };
+
+  const indexByFocus = (focus, I, X) => {
+    const finalX = abstractX(focus);
     const [minX, maxX] = sort([X[0], X[X.length - 1]]);
     // Skip x out of range.
     if (finalX < minX || finalX > maxX) return null;
@@ -400,8 +413,17 @@ export function seriesTooltip(
           selectedSeriesData.push([d, p] as const);
         }
       }
+
+      // Filter selectedSeriesData with different x,
+      // make sure there is only one x closest to focusX.
+      const SX = Array.from(new Set(selectedSeriesData.map((d) => d[0].x)));
+      const closestX = SX[minIndex(SX, (x) => Math.abs(x - abstractX(focus)))];
+      const filteredSeriesData = selectedSeriesData.filter(
+        (d) => d[0].x === closestX,
+      );
+
       const selectedData = [
-        ...selectedSeriesData.map((d) => d[0]),
+        ...filteredSeriesData.map((d) => d[0]),
         ...selectedItems.map((d) => d.__data__),
       ];
 
@@ -443,7 +465,7 @@ export function seriesTooltip(
       }
 
       if (crosshairs) {
-        const points = selectedSeriesData.map((d) => d[1]);
+        const points = filteredSeriesData.map((d) => d[1]);
         updateRuleY(root, points, {
           ...ruleStyle,
           width,
@@ -486,7 +508,7 @@ export function tooltip(
     elements: elementsof,
     scale,
     render,
-    groupName = true,
+    groupName,
     sort: sortFunction,
     filter: filterFunction,
     wait = 50,
