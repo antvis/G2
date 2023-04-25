@@ -1,4 +1,5 @@
 import { Coordinate } from '@antv/coord';
+import type { DisplayObject } from '@antv/g';
 import { Axis as AxisComponent } from '@antv/gui';
 import { Linear as LinearScale } from '@antv/scale';
 import { deepMix } from '@antv/util';
@@ -23,15 +24,22 @@ import {
   radiusOf,
 } from '../utils/coordinate';
 import { capitalizeFirst } from '../utils/helper';
-import { adaptor, isVertical, isHorizontal, titleContent } from './utils';
+import { adaptor, isVertical, titleContent } from './utils';
 
 export type AxisOptions = {
   position?: GCP;
   zIndex?: number;
   title?: string | string[];
   direction?: 'left' | 'center' | 'right';
-  labelFormatter?: (d: any, index: number, array: any) => string;
-  tickFilter?: (datum: any, index: number, array: any) => boolean;
+  labelFormatter?: (datum: any, index: number, array: any[]) => string;
+  labelFilter?: (datum: any, index: number, array: any[]) => boolean;
+  tickFormatter?: (
+    datum: any,
+    index: number,
+    array: any[],
+    vector: [number, number],
+  ) => DisplayObject;
+  tickFilter?: (datum: any, index: number, array: any[]) => boolean;
   tickMethod?: (
     start: number | Date,
     end: number | Date,
@@ -121,7 +129,7 @@ function createInset(position, coordinate) {
 /**
  * Calc ticks based on scale and coordinate.
  */
-function getTicks(
+function getData(
   scale: Scale,
   domain: any[],
   tickCount: number,
@@ -140,11 +148,11 @@ function getTicks(
 
   const ticks = ticksOf(scale, domain, tickMethod);
   const filteredTicks = tickFilter ? ticks.filter(tickFilter) : ticks;
-  const labelFormatter = scale.getFormatter?.() || defaultTickFormatter;
-  const toString = (d) => (typeof d === 'object' ? d : String(d));
+  const toString = (d) => (typeof d === 'object' && !!d ? d : String(d));
+  const labelFormatter =
+    defaultTickFormatter || scale.getFormatter?.() || toString;
   const applyInset = createInset(position, coordinate);
   const applyFisheye = createFisheye(position, coordinate);
-
   if (isPolar(coordinate) || isTranspose(coordinate)) {
     const axisTicks = filteredTicks.map((d, i, array) => {
       const offset = scale.getBandWidth?.(d) / 2 || 0;
@@ -353,7 +361,7 @@ const ArcAxisComponent: GCC<AxisOptions> = (options) => {
     size,
     position,
     orientation,
-    labelFormatter = (d) => `${d}`,
+    labelFormatter,
     tickFilter,
     tickCount,
     tickMethod,
@@ -365,7 +373,7 @@ const ArcAxisComponent: GCC<AxisOptions> = (options) => {
   return ({ scales: [scale], value, coordinate, theme }) => {
     const { bbox } = value;
     const { domain } = scale.getOptions();
-    const ticks = getTicks(
+    const data = getData(
       scale,
       domain,
       tickCount,
@@ -391,7 +399,7 @@ const ArcAxisComponent: GCC<AxisOptions> = (options) => {
       style: adaptor(
         deepMix({}, axisTheme, defaultStyle, {
           type: 'arc',
-          data: ticks,
+          data,
           titleText: titleContent(title),
           grid,
           ...rest,
@@ -456,7 +464,7 @@ const LinearAxisComponent: GCC<AxisOptions> = (options) => {
   const {
     direction = 'left',
     important = {},
-    labelFormatter = (d) => `${d}`,
+    labelFormatter,
     order,
     orientation,
     position,
@@ -500,7 +508,7 @@ const LinearAxisComponent: GCC<AxisOptions> = (options) => {
     const finalAxisStyle = {
       ...internalAxisStyle,
       type: 'linear' as const,
-      data: getTicks(
+      data: getData(
         scale,
         domain,
         tickCount,
@@ -520,7 +528,6 @@ const LinearAxisComponent: GCC<AxisOptions> = (options) => {
       ...overrideStyle,
       ...important,
     };
-
     return new AxisComponent({
       className: 'axis',
       style: adaptor(finalAxisStyle),
@@ -532,10 +539,30 @@ const axisFactor: (
   axis: typeof ArcAxisComponent | typeof LinearAxisComponent,
 ) => GCC<AxisOptions> = (axis) => {
   return (options) => {
-    const { labelFormatter: f = (d) => `${d}` } = options;
-    const labelFormatter = typeof f === 'string' ? format(f) : f;
-    const normalizedOptions = { ...options, labelFormatter };
-    return (...args) => axis(normalizedOptions)(...args);
+    const {
+      labelFormatter: useDefinedLabelFormatter,
+      labelFilter: userDefinedLabelFilter = () => true,
+    } = options;
+
+    return (context) => {
+      const {
+        scales: [scale],
+      } = context;
+      const ticks = scale.getTicks?.() || scale.getOptions().domain;
+      const labelFormatter =
+        typeof useDefinedLabelFormatter === 'string'
+          ? format(useDefinedLabelFormatter)
+          : useDefinedLabelFormatter;
+      const labelFilter = (datum: any, index: number, array: any[]) =>
+        userDefinedLabelFilter(ticks[index], index, ticks);
+
+      const normalizedOptions = {
+        ...options,
+        labelFormatter,
+        labelFilter,
+      };
+      return axis(normalizedOptions)(context);
+    };
   };
 };
 
