@@ -46,7 +46,14 @@ function getDefaultStyle(
  */
 export const Label: SC<LabelOptions> = (options) => {
   return (points, value, coordinate, theme) => {
-    const { text, x, y, ...overrideStyle } = value;
+    const {
+      text,
+      x,
+      y,
+      transform: specifiedTS = '',
+      transformOrigin,
+      ...overrideStyle
+    } = value;
     const {
       rotate = 0,
       transform = '',
@@ -56,7 +63,11 @@ export const Label: SC<LabelOptions> = (options) => {
     return select(new Advance())
       .call(applyStyle, defaultStyle)
       .style('text', `${text}`)
-      .style('transform', `${transform}rotate(${+rotate})`)
+      .style(
+        'labelTransform',
+        `${transform} rotate(${+rotate}) ${specifiedTS}`.trim(),
+      )
+      .style('labelTransformOrigin', transformOrigin)
       .style('coordCenter', coordinate.getCenter())
       .call(applyStyle, overrideStyle)
       .node();
