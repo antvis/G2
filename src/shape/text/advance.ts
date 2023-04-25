@@ -40,6 +40,9 @@ type TextShapeStyleProps = Omit<TextStyleProps, 'text'> &
     connector?: boolean;
     startMarker?: boolean;
     endMarker?: boolean;
+    labelTransform?: string;
+    labelTransformOrigin?: string;
+    rotate?: number;
   };
 
 function getConnectorPoint(shape: GText | Rect) {
@@ -125,8 +128,9 @@ export const Advance = createElement((g) => {
     // Do not pass className
     class: className,
     transform,
-    // @ts-ignore
     rotate,
+    labelTransform,
+    labelTransformOrigin,
     x,
     y,
     x0 = x,
@@ -147,7 +151,12 @@ export const Advance = createElement((g) => {
   const shape1 = select(g)
     .maybeAppend('text', 'text')
     .style('zIndex', 0)
-    .call(applyStyle, { textBaseline: 'middle', ...rest })
+    .call(applyStyle, {
+      textBaseline: 'middle',
+      transform: labelTransform,
+      transformOrigin: labelTransformOrigin,
+      ...rest,
+    })
     .node();
 
   const shape2 = select(g)
