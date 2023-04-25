@@ -56,6 +56,7 @@ chart
       textAlign: 'end',
       dx: -8,
     },
-  });
+  })
+  .tooltip(null);
 
 chart.render();

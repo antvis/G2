@@ -46,6 +46,7 @@ chart
     style: {
       textAlign: 'end',
     },
-  });
+  })
+  .tooltip(false);
 
 chart.render();
