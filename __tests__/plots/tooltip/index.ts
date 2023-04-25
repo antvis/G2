@@ -60,3 +60,4 @@ export { aaplAreaMissingDataTranspose } from './aapl-area-missing-data-transpose
 export { alphabetIntervalBrushTooltip } from './alphabet-interval-brush-tooltip';
 export { mockLineFalsy } from './mock-line-falsy';
 export { provincesLineGroupName } from './provinces-line-group-name';
+export { pointsPointRegressionQuad } from './points-point-regression-quad';

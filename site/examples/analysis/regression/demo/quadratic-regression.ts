@@ -55,6 +55,4 @@ chart
 chart.lineX().data([0]);
 chart.lineY().data([0]);
 
-chart.interaction('tooltip', { series: false });
-
 chart.render();

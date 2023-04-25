@@ -49,6 +49,4 @@ chart
   })
   .tooltip(false);
 
-chart.interaction('tooltip', { series: false });
-
 chart.render();

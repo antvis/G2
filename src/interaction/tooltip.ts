@@ -279,6 +279,13 @@ function isEmptyTooltipData(data) {
   return false;
 }
 
+function hasSeries(markState): boolean {
+  return Array.from(markState.values()).some(
+    // @ts-ignore
+    (d) => d.interaction?.seriesTooltip && d.tooltip,
+  );
+}
+
 /**
  * Show tooltip for series item.
  */
@@ -599,7 +606,6 @@ export function Tooltip(options) {
   return (target, viewInstances) => {
     const { container, view } = target;
     const { scale, markState, coordinate } = view;
-
     // Get default value from mark states.
     const defaultSeries = interactionKeyof(markState, 'seriesTooltip');
     const defaultShowCrosshairs = interactionKeyof(markState, 'crosshairs');
@@ -607,7 +613,7 @@ export function Tooltip(options) {
     const isSeries = maybeValue(series, defaultSeries);
 
     // For non-facet and series tooltip.
-    if (isSeries && !facet) {
+    if (isSeries && hasSeries(markState) && !facet) {
       return seriesTooltip(plotArea, {
         ...rest,
         elements: selectG2Elements,
