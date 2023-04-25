@@ -47,6 +47,7 @@ export { flarePointCirclePackCustom } from './flare-point-circle-pack-custom';
 export { aaplLineBasic } from './aapl-line-basic';
 export { aaplLineBasicLabelOverlapHide } from './aapl-line-basic-label-overlap-hide';
 export { aaplLineBasicSample } from './aapl-line-basic-sample';
+export { aaplLineBasicSampleLabelFilter } from './aapl-line-basic-sample-label-filter';
 export { aaplLineAreaBasicSample } from './aapl-line-area-basic-sample';
 export { aaplLinePointBasicSample } from './aapl-line-point-basic-sample';
 export { unemploymentLineMultiSeries } from './unemployment-line-multi-series';
