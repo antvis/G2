@@ -168,7 +168,7 @@ export { housePricePointSample } from './house-price-point-sample';
 export { housePricePointShapes } from './house-price-point-shapes';
 export { aaplLineSlider } from './aapl-line-slider';
 export { aaplLineZIndex } from './aapl-line-z-index';
-export { aaplLineSliderTransponsed } from './aapl-line-slider-transposed';
+export { aaplLineSliderTransposed } from './aapl-line-slider-transposed';
 export { indicesLineChartFacetAxis } from './indices-line-chart-fact-axis';
 export { indicesLineChartScaleRelations } from './indices-line-chart-scale-relations';
 export { aaplLineClip } from './aapl-line-clip';

@@ -1,4 +1,5 @@
 import { deepMix, throttle } from '@antv/util';
+import { isTranspose } from '../utils/coordinate';
 import { invert, domainOf } from '../utils/scale';
 
 export const SLIDER_CLASS_NAME = 'slider';
@@ -36,10 +37,11 @@ function filterDataByDomain(options, scaleOptions) {
   };
 }
 
-function abstractValue(values, scale) {
+function abstractValue(values, scale, reverse) {
   const [x, x1] = values;
-  const d0 = invert(scale, x, true);
-  const d1 = invert(scale, x1, false);
+  const v = reverse ? (d) => 1 - d : (d) => d;
+  const d0 = invert(scale, v(x), true);
+  const d1 = invert(scale, v(x1), false);
   return domainOf(scale, [d0, d1]);
 }
 
@@ -57,8 +59,16 @@ export function SliderFilter({
     if (!sliders.length) return () => {};
 
     let filtering = false;
-    const { scale } = view;
+    const { scale, coordinate } = view;
     const { x: scaleX, y: scaleY } = scale;
+    const transposed = isTranspose(coordinate);
+
+    const channelOf = (orientation) => {
+      const channel0 = orientation === 'vertical' ? 'y' : 'x';
+      const channel1 = orientation === 'vertical' ? 'x' : 'y';
+      if (transposed) return [channel1, channel0];
+      return [channel0, channel1];
+    };
 
     const sliderHandler = new Map();
 
@@ -77,14 +87,18 @@ export function SliderFilter({
           if (filtering) return;
           filtering = true;
 
+          const [channel0, channel1] = channelOf(orientation);
+
           // Update domain of the current channel.
-          const channel0 = orientation === 'vertical' ? 'y' : 'x';
           const scale0 = scale[channel0];
-          const domain0 = abstractValue(values, scale0);
+          const domain0 = abstractValue(
+            values,
+            scale0,
+            transposed && orientation === 'horizontal',
+          );
           channelDomain[channel0] = domain0;
 
           // Get domain of the other channel.
-          const channel1 = orientation === 'vertical' ? 'x' : 'y';
           const domain1 = channelDomain[channel1];
 
           // Filter data.

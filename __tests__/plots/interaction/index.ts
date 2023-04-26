@@ -56,3 +56,4 @@ export { scoreByItemAreaRadar } from './score-by-item-area-radar';
 export { pointsPointRegressionQuadInset } from './points-point-regression-quad-inset';
 export { populationIntervalDiverging } from './population-interval-diverging';
 export { stateAgesIntervalNormalized } from './stateages-interval-normalized';
+export { aaplLineSliderFilterTranspose } from './appl-line-slider-filter-transpose';
