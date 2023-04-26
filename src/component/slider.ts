@@ -1,5 +1,6 @@
 import { Slider as SliderComponent } from '@antv/gui';
 import { format } from 'd3-format';
+import { isTranspose } from '../utils/coordinate';
 import { GuideComponentComponent as GCC } from '../runtime';
 import { invert } from '../utils/scale';
 
@@ -13,9 +14,10 @@ export type SliderOptions = {
  */
 export const Slider: GCC<SliderOptions> = (options) => {
   // do not pass size.
-  const { orientation, labelFormatter, size, style, ...rest } = options;
+  const { orientation, labelFormatter, size, style, position, ...rest } =
+    options;
 
-  return ({ scales: [scale], value, theme }) => {
+  return ({ scales: [scale], value, theme, coordinate }) => {
     const { bbox } = value;
     const { x, y, width, height } = bbox;
     const { slider: sliderTheme = {} } = theme;
@@ -25,17 +27,20 @@ export const Slider: GCC<SliderOptions> = (options) => {
         ? format(labelFormatter)
         : labelFormatter;
 
+    const isHorizontal = orientation === 'horizontal';
+    const reverse = isTranspose(coordinate) && isHorizontal;
+
     return new SliderComponent({
       className: 'slider',
       style: Object.assign({}, sliderTheme, {
         x,
         y,
-        trackLength: orientation === 'horizontal' ? width : height,
+        trackLength: isHorizontal ? width : height,
         orientation,
         formatter: (v) => {
           const f = formatter || defaultFormatter;
-          // @todo Pass index to distinguish the left and the right value.
-          const tick = invert(scale, v, true);
+          const v1 = reverse ? 1 - v : v;
+          const tick = invert(scale, v1, true);
           return f(tick);
         },
         ...style,
