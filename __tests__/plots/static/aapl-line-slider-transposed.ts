@@ -1,7 +1,7 @@
 import { format } from 'fecha';
 import { G2Spec } from '../../../src';
 
-export function aaplLineSliderTransponsed(): G2Spec {
+export function aaplLineSliderTransposed(): G2Spec {
   return {
     type: 'line',
     paddingLeft: 80,
@@ -29,4 +29,4 @@ export function aaplLineSliderTransponsed(): G2Spec {
   };
 }
 
-aaplLineSliderTransponsed.maxError = 100;
+aaplLineSliderTransposed.maxError = 100;
