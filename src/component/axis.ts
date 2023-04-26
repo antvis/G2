@@ -153,21 +153,26 @@ function getData(
     defaultTickFormatter || scale.getFormatter?.() || toString;
   const applyInset = createInset(position, coordinate);
   const applyFisheye = createFisheye(position, coordinate);
+  const isHorizontal = (position) =>
+    ['top', 'bottom', 'center', 'outer'].includes(position);
+
+  // @todo GUI should consider the overlap problem for the first
+  // and label of arc axis.
   if (isPolar(coordinate) || isTranspose(coordinate)) {
-    const axisTicks = filteredTicks.map((d, i, array) => {
+    return filteredTicks.map((d, i, array) => {
       const offset = scale.getBandWidth?.(d) / 2 || 0;
       const tick = applyInset(scale.map(d) + offset);
+      const shouldReverse =
+        (isRadial(coordinate) && position === 'center') ||
+        (isTranspose(coordinate) &&
+          scale.getTicks?.() &&
+          isHorizontal(position));
       return {
-        value: isTranspose(coordinate) && scale.getTicks?.() ? 1 - tick : tick,
+        value: shouldReverse ? 1 - tick : tick,
         label: toString(labelFormatter(prettyNumber(d), i, array)),
         id: String(i),
       };
     });
-    // @todo GUI should consider the overlap problem for the first
-    // and label of arc axis.
-    return isRadial(coordinate) && position === 'center'
-      ? reverseTicks(axisTicks)
-      : axisTicks;
   }
 
   return filteredTicks.map((d, i, array) => {
