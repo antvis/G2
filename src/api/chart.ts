@@ -5,7 +5,7 @@ import { debounce, deepMix, omit } from '@antv/util';
 import EventEmitter from '@antv/event-emitter';
 import { G2Context, render, destroy } from '../runtime';
 import { ViewComposition } from '../spec';
-import { getChartSize } from '../utils/size';
+import { getContainerSize } from '../utils/size';
 import { ChartEvent } from '../utils/event';
 import { G2ViewTree } from '../runtime/types/options';
 import { Node } from './node';
@@ -95,6 +95,13 @@ function Canvas(
   });
 }
 
+function sizeOf(options, container) {
+  const { autoFit } = options;
+  if (autoFit) return getContainerSize(container);
+  const { width = 640, height = 480 } = options;
+  return { width, height };
+}
+
 export function optionsOf(node: Node): Record<string, any> {
   const root = normalizeRoot(node);
   const discovered: Node[] = [root];
@@ -169,6 +176,8 @@ export class Chart extends View<ChartOptions> {
   private _context: G2Context;
   private _emitter: EventEmitter;
   private _options: G2ViewTree;
+  private _width: number;
+  private _height: number;
 
   constructor(options: ChartOptions) {
     const { container, canvas, key = G2_CHART_KEY, ...rest } = options || {};
@@ -183,22 +192,8 @@ export class Chart extends View<ChartOptions> {
   render(): Promise<Chart> {
     if (!this._context.canvas) {
       // Init width and height.
-      const {
-        width = 640,
-        height = 480,
-        renderer,
-        plugins,
-        autoFit,
-      } = this.options();
-      const { width: adjustedWidth, height: adjustedHeight } = getChartSize(
-        this._container,
-        autoFit,
-        width,
-        height,
-      );
-      this.width(adjustedWidth);
-      this.height(adjustedHeight);
-
+      const { renderer, plugins } = this.options();
+      const { width, height } = sizeOf(this.options(), this._container);
       // Create canvas if it does not exist.
       this._context.canvas = Canvas(
         this._container,
@@ -211,12 +206,21 @@ export class Chart extends View<ChartOptions> {
 
     return new Promise((resolve, reject) => {
       try {
-        render(this.options(), this._context, () => resolve(this), reject);
+        const { width, height } = sizeOf(this.options(), this._container);
+        this._width = width;
+        this._height = height;
+        render(
+          { ...this.options(), width, height },
+          this._context,
+          () => resolve(this),
+          reject,
+        );
       } catch (e) {
         reject(e);
       }
     });
   }
+
   /**
    * @overload
    * @returns {G2ViewTree}
@@ -291,26 +295,24 @@ export class Chart extends View<ChartOptions> {
   }
 
   forceFit() {
-    const { width, height, autoFit } = this.options();
-    const { width: adjustedWidth, height: adjustedHeight } = getChartSize(
-      this._container,
-      autoFit,
-      width,
-      height,
-    );
-    if (adjustedHeight && adjustedWidth) {
-      this.changeSize(adjustedWidth, adjustedHeight);
-    }
+    // Don't call changeSize to prevent update width and height of options.
+    // @ts-ignore
+    this.options.autoFit = true;
+    this.emit(ChartEvent.BEFORE_CHANGE_SIZE);
+    const finished = this.render();
+    finished.then(() => {
+      this.emit(ChartEvent.AFTER_CHANGE_SIZE);
+    });
+    return finished;
   }
 
-  changeSize(adjustedWidth: number, adjustedHeight: number): Promise<Chart> {
-    const { width, height, on } = this.options();
-    if (width === adjustedWidth && height === adjustedHeight) {
+  changeSize(width: number, height: number): Promise<Chart> {
+    if (width === this._width && height === this._height) {
       return Promise.resolve(this);
     }
     this.emit(ChartEvent.BEFORE_CHANGE_SIZE);
-    this.width(adjustedWidth);
-    this.height(adjustedHeight);
+    this.width(width);
+    this.height(height);
     const finished = this.render();
     finished.then(() => {
       this.emit(ChartEvent.AFTER_CHANGE_SIZE);

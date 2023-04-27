@@ -605,4 +605,22 @@ describe('Chart', () => {
     expect(interval.data()).toEqual([data[1]]);
     expect(line.data()).toEqual([data[1]]);
   });
+
+  it('new Chart({ autoFit: true }) should not set width and height of chart options.', async () => {
+    const chart = new Chart({ theme: 'classic', autoFit: true });
+    chart
+      .interval()
+      .data([
+        { genre: 'Sports', sold: 275 },
+        { genre: 'Strategy', sold: 115 },
+        { genre: 'Action', sold: 120 },
+        { genre: 'Shooter', sold: 350 },
+        { genre: 'Other', sold: 150 },
+      ])
+      .encode('x', 'genre')
+      .encode('y', 'sold');
+    await chart.render();
+    expect(chart.width()).toBeUndefined();
+    expect(chart.height()).toBeUndefined();
+  });
 });

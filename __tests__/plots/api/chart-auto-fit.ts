@@ -38,11 +38,14 @@ export function chartAutoFit(context) {
 
   const finished = chart.render();
 
+  let resolve;
+  const fitted = new Promise((r) => (resolve = r));
+
   button.onclick = () => {
     wrapperDiv.style.width = '400px';
     wrapperDiv.style.height = '500px';
-    chart.forceFit();
+    chart.forceFit().then(resolve);
   };
 
-  return { chart, button, finished };
+  return { chart, button, finished, fitted };
 }

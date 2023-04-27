@@ -9,6 +9,7 @@ describe('chart.options.autoFit', () => {
   const canvas = createNodeGCanvas(800, 500);
   let chart;
   let button;
+  let fitted;
 
   it('chart({ autoFit: true }) should fit parent container', async () => {
     const { finished, ...rest } = render({
@@ -17,6 +18,7 @@ describe('chart.options.autoFit', () => {
     });
     chart = rest.chart;
     button = rest.button;
+    fitted = rest.fitted;
     await finished;
     await sleep(20);
     await expect(canvas).toMatchCanvasSnapshot(dir, 'step0');
@@ -24,7 +26,7 @@ describe('chart.options.autoFit', () => {
 
   it('chart.forceFit() should fit parent container', async () => {
     button.dispatchEvent(new CustomEvent('click'));
-    await new Promise((resolve) => chart.on('afterchangesize', resolve));
+    await fitted;
     await sleep(20);
     await expect(canvas).toMatchCanvasSnapshot(dir, 'step1');
   });
