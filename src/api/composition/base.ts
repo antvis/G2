@@ -9,6 +9,8 @@ export class CompositionNode<
   ParentValue extends Record<string, any> = Record<string, any>,
   ChildValue extends Record<string, any> = Record<string, any>,
 > extends Node<Value, ParentValue, ChildValue> {
+  protected _key: string;
+
   /**
    * Change current node data and its children data.
    */
@@ -31,7 +33,7 @@ export class CompositionNode<
     const chart = this.getRoot();
     const { views } = chart.getContext();
     if (!views?.length) return undefined;
-    return views.find((view) => view.key === this.attr('key'));
+    return views.find((view) => view.key === this._key);
   }
 
   getScale(): Record<string, Scale> {
@@ -53,7 +55,7 @@ export class CompositionNode<
   }
 
   getGroup(): DisplayObject {
-    const key = this.attr('key');
+    const key = this._key;
     if (!key) return undefined;
     const chart = this.getRoot();
     const chartGroup = chart.getContext().canvas.getRoot();
