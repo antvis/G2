@@ -81,7 +81,7 @@ chart
   })
   .encode('x', 'name')
   .encode('y', 'country')
-  .encode('color', '#edaa53')
+  .encode('color', Infinity)
   .style('radius', '50%')
   .style('inset', 1)
   .style('shadowBlur', 10)

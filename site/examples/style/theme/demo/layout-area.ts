@@ -12,7 +12,6 @@ const chart = new Chart({
   marginRight: 20,
   marginBottom: 10,
   inset: 10,
-  clip: true,
 });
 
 chart.style({

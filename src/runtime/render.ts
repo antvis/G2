@@ -38,7 +38,9 @@ function inferKeys<T extends G2ViewTree = G2ViewTree>(options: T): T {
     const { children = [] } = node;
     if (Array.isArray(children)) {
       for (let i = 0; i < children.length; i++) {
-        const child = children[i];
+        // Clone node as well.
+        const child = deepMix({}, children[i]);
+        children[i] = child;
         nodeParent.set(child, node);
         nodeIndex.set(child, i);
         discovered.push(child);
