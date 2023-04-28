@@ -180,13 +180,12 @@ export class Chart extends View<ChartOptions> {
   private _height: number;
 
   constructor(options: ChartOptions) {
-    const { container, canvas, key = G2_CHART_KEY, ...rest } = options || {};
+    const { container, canvas, ...rest } = options || {};
     super(rest, 'view');
-    this.attr('key', key);
     this._container = normalizeContainer(container);
     this._emitter = new EventEmitter();
     this._context = { library, emitter: this._emitter, canvas };
-    this.bindAutoFit();
+    this._bindAutoFit();
   }
 
   render(): Promise<Chart> {
@@ -206,11 +205,17 @@ export class Chart extends View<ChartOptions> {
 
     return new Promise((resolve, reject) => {
       try {
-        const { width, height } = sizeOf(this.options(), this._container);
+        const options = this.options();
+        const { key = G2_CHART_KEY } = options;
+        const { width, height } = sizeOf(options, this._container);
+
+        // Update actual size and key.
         this._width = width;
         this._height = height;
+        this._key = key;
+
         render(
-          { ...this.options(), width, height },
+          { key: this._key, ...options, width, height },
           this._context,
           () => resolve(this),
           reject,
@@ -287,7 +292,7 @@ export class Chart extends View<ChartOptions> {
   destroy() {
     const options = this.options();
     this.emit(ChartEvent.BEFORE_DESTROY);
-    this.unbindAutoFit();
+    this._unbindAutoFit();
     this._options = {};
     destroy(options, this._context, true);
     removeContainer(this._container);
@@ -320,23 +325,23 @@ export class Chart extends View<ChartOptions> {
     return finished;
   }
 
-  private onResize = debounce(() => {
+  private _onResize = debounce(() => {
     this.forceFit();
   }, 300);
 
-  private bindAutoFit() {
+  private _bindAutoFit() {
     const options = this.options();
     const { autoFit } = options;
     if (autoFit) {
-      window.addEventListener('resize', this.onResize);
+      window.addEventListener('resize', this._onResize);
     }
   }
 
-  private unbindAutoFit() {
+  private _unbindAutoFit() {
     const options = this.options();
     const { autoFit } = options;
     if (autoFit) {
-      window.removeEventListener('resize', this.onResize);
+      window.removeEventListener('resize', this._onResize);
     }
   }
 }
