@@ -1,5 +1,5 @@
-import { Canvas, DisplayObject } from '@antv/g';
-import { Chart, createLibrary, VIEW_CLASS_NAME } from '../../../src';
+import { Canvas } from '@antv/g';
+import { Chart, createLibrary } from '../../../src';
 import { G2_CHART_KEY } from '../../../src/api/chart';
 import {
   View,
@@ -41,21 +41,21 @@ import {
 } from '../../../src/api/mark/mark';
 
 describe('Chart', () => {
-  it('Chart() should have expected defaults', () => {
+  it('Chart() should have expected defaults.', () => {
     const chart = new Chart({ theme: 'classic' });
     expect(chart.type).toBe('view');
     expect(chart.parentNode).toBeNull();
-    expect(chart.value).toEqual({ key: G2_CHART_KEY, theme: 'classic' });
+    expect(chart.value).toEqual({ theme: 'classic', key: undefined });
     expect(chart['_container'].nodeName).toBe('DIV');
   });
 
-  it('Chart({...}) should support HTML container', () => {
+  it('Chart({...}) should support HTML container.', () => {
     const container = document.createElement('div');
     const chart = new Chart({ theme: 'classic', container });
     expect(chart['_container']).toBe(container);
   });
 
-  it('Chart({...}) should support id container', () => {
+  it('Chart({...}) should support id container.', () => {
     const div = document.createElement('div');
     div.setAttribute('id', 'root');
     document.body.appendChild(div);
@@ -63,14 +63,14 @@ describe('Chart', () => {
     expect(chart['_container']).toBe(div);
   });
 
-  it('Chart({...}) should support undefined container', () => {
+  it('Chart({...}) should support undefined container.', () => {
     const chart = new Chart({ theme: 'classic' });
     const defaultContainer = chart['_container'];
     expect(defaultContainer.nodeName).toBe('DIV');
     expect(defaultContainer.parentNode).toBeNull();
   });
 
-  it('Chart({...}) should override default value', () => {
+  it('Chart({...}) should override default value.', () => {
     const chart = new Chart({
       theme: 'classic',
       data: [1, 2, 3],
@@ -83,13 +83,13 @@ describe('Chart', () => {
     });
   });
 
-  it('chart.getContainer() should return container', () => {
+  it('chart.getContainer() should return container.', () => {
     const container = document.createElement('div');
     const chart = new Chart({ theme: 'classic', container });
     expect(chart.getContainer()).toBe(container);
   });
 
-  it('chart.[attr](...) should specify options by API', () => {
+  it('chart.[attr](...) should specify options by API.', () => {
     const chart = new Chart({ theme: 'classic' });
     chart
       .data([1, 2, 3])
@@ -114,7 +114,7 @@ describe('Chart', () => {
     });
   });
 
-  it('chart.nodeName() should return expected node ', () => {
+  it('chart.nodeName() should return expected node.', () => {
     const chart = new Chart({ theme: 'classic' });
     expect(chart.interval()).toBeInstanceOf(Interval);
     expect(chart.rect()).toBeInstanceOf(Rect);
@@ -174,14 +174,14 @@ describe('Chart', () => {
     ]);
   });
 
-  it('chart.container() should use last node as root node', () => {
+  it('chart.container() should use last node as root node.', () => {
     const chart = new Chart({ theme: 'classic' });
     chart.view();
     chart.spaceLayer();
     expect(chart.spaceLayer()).toBeInstanceOf(SpaceLayer);
   });
 
-  it('chart.container() should set layout options for root node', () => {
+  it('chart.container() should set layout options for root node.', () => {
     const chart = new Chart({
       theme: 'classic',
       width: 100,
@@ -228,7 +228,7 @@ describe('Chart', () => {
     });
   });
 
-  it('chart.container() should return expected container', () => {
+  it('chart.container() should return expected container.', () => {
     const chart = new Chart({ theme: 'classic' });
     expect(chart.view()).toBeInstanceOf(View);
     expect(chart.options()).toEqual({ type: 'view', theme: 'classic' });
@@ -249,36 +249,34 @@ describe('Chart', () => {
     });
   });
 
-  it('chart.options() should return view tree', () => {
+  it('chart.options() should return view tree.', () => {
     const chart = new Chart({ theme: 'classic' });
     chart.interval();
     chart.point();
     expect(chart.options()).toEqual({
       type: 'view',
-      key: G2_CHART_KEY,
       theme: 'classic',
       children: [{ type: 'interval' }, { type: 'point' }],
     });
   });
 
-  it('chart.options(options) should handle date object', () => {
+  it('chart.options(options) should handle date object.', () => {
     const chart = new Chart({ theme: 'classic' });
     const date = new Date();
     chart.cell().data([{ date }]);
     expect(chart.options()).toEqual({
       type: 'view',
-      key: G2_CHART_KEY,
       theme: 'classic',
       children: [{ type: 'cell', data: [{ date }] }],
     });
   });
 
-  it('chart.options(options) should return this chart instance', () => {
+  it('chart.options(options) should return this chart instance.', () => {
     const chart = new Chart({ theme: 'classic' });
     expect(chart.options({ width: 800 })).toBe(chart);
   });
 
-  it('chart.title() should set title options', () => {
+  it('chart.title() should set title options.', () => {
     const chart = new Chart({ theme: 'classic' });
 
     chart.title('This is a title.');
@@ -294,30 +292,28 @@ describe('Chart', () => {
     });
   });
 
-  it('chart.nodeName() should build view tree', () => {
+  it('chart.nodeName() should build view tree.', () => {
     const chart = new Chart({ theme: 'classic' });
     chart.interval();
     chart.point();
     expect(chart.options()).toEqual({
       type: 'view',
-      key: G2_CHART_KEY,
       theme: 'classic',
       children: [{ type: 'interval' }, { type: 'point' }],
     });
   });
 
-  it('chart.call(chart => chart.nodeName()) should build view tree', () => {
+  it('chart.call(chart => chart.nodeName()) should build view tree.', () => {
     const chart = new Chart({ theme: 'classic' });
     chart.call((chart) => chart.interval()).call((chart) => chart.point());
     expect(chart.options()).toEqual({
       type: 'view',
-      key: G2_CHART_KEY,
       theme: 'classic',
       children: [{ type: 'interval' }, { type: 'point' }],
     });
   });
 
-  it('chart.nodeName() should build nested view tree', () => {
+  it('chart.nodeName() should build nested view tree.', () => {
     const chart = new Chart({ theme: 'classic' });
     chart
       .spaceFlex()
@@ -338,7 +334,7 @@ describe('Chart', () => {
     });
   });
 
-  it('chart.getContext() should return rendering context', () => {
+  it('chart.getContext() should return rendering context.', () => {
     const chart = new Chart({ theme: 'classic' });
 
     chart.data([
@@ -362,7 +358,7 @@ describe('Chart', () => {
     expect(context.canvas).toBeInstanceOf(Canvas);
   });
 
-  it('chart.render() should return promise', (done) => {
+  it('chart.render() should return promise.', (done) => {
     const chart = new Chart({ theme: 'classic' });
 
     chart.data([
@@ -509,12 +505,12 @@ describe('Chart', () => {
     await chart.render();
 
     const context = chart.getContext();
-    const view = context.views?.find((v) => v.key === chart.attr('key'));
+    const view = context.views?.find((v) => v.key === chart['_key']);
 
     expect(chart.getView()).toEqual(view);
     expect(chart.getCoordinate()).toEqual(view?.coordinate);
     expect(chart.getTheme()).toEqual(view?.theme);
-    expect(chart.getGroup().id).toEqual(chart.attr('key'));
+    expect(chart.getGroup().id).toEqual(chart['_key']);
     expect(chart.getScale()).toEqual(view?.scale);
     expect(chart.getScaleByChannel('color')).toEqual(view?.scale.color);
     expect(chart.getScaleByChannel('shape')).not.toBeDefined();
@@ -544,7 +540,7 @@ describe('Chart', () => {
       .encode('color', 'genre');
 
     await chart.render();
-    expect(chart.getGroup().id).toEqual(chart.attr('key'));
+    expect(chart.getGroup().id).toEqual(chart['_key']);
     chart.destroy();
     expect(chart.getGroup()).toEqual(null);
   });
@@ -566,7 +562,7 @@ describe('Chart', () => {
       .encode('color', 'genre');
 
     await chart.render();
-    expect(chart.getGroup().id).toEqual(chart.attr('key'));
+    expect(chart.getGroup().id).toEqual(chart['_key']);
     chart.clear();
     expect(chart.getGroup()).toEqual(null);
   });
