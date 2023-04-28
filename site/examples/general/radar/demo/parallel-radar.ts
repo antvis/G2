@@ -47,7 +47,6 @@ chart
   .style('strokeWidth', 1.5)
   .style('strokeOpacity', 0.4)
   .scale('color', {
-    type: 'sequential',
     palette: 'brBG',
     offset: (t) => 1 - t,
   })

@@ -1,47 +1,48 @@
 /**
  * A recreation of this demo: https://observablehq.com/@d3/projection-comparison
  */
-import { Chart } from '@antv/g2';
+import { Chart, register } from '@antv/g2';
 import { feature } from 'topojson';
 import { geoPolyconic, geoRectangularPolyconic } from 'd3-geo-projection';
 
-fetch('https://assets.antv.antgroup.com/g2/countries-50m.json')
-  .then((res) => res.json())
-  .then((world) => {
-    const land = feature(world, world.objects.land).features;
+register('data.feature', ({ name }) => {
+  return (data) => feature(data, data.objects[name]).features;
+});
 
-    const worldMap = (node, projection, color, opacity = 0.7) => {
-      const geoView = node.geoView().coordinate({
-        type: projection,
-        size: 'fitWidth',
-      });
+const chart = new Chart({
+  container: 'container',
+  theme: 'classic',
+  autoFit: true,
+});
 
-      geoView
-        .geoPath()
-        .data(land)
-        .style('fill', color)
-        .style('opacity', opacity);
+chart
+  .spaceLayer()
+  .call(worldMap, geoPolyconic, '#f00')
+  .call(worldMap, geoRectangularPolyconic, '#00f');
 
-      geoView
-        .geoPath()
-        .data({ type: 'graticule10' })
-        .style('stroke', color)
-        .style('strokeOpacity', 0.3);
+chart.render();
 
-      geoView.geoPath().data({ type: 'sphere' }).style('stroke', color);
-    };
-
-    const chart = new Chart({
-      container: 'container',
-      theme: 'classic',
-      autoFit: true,
-    });
-
-    const layer = chart.spaceLayer();
-
-    layer
-      .call(worldMap, geoPolyconic, '#f00')
-      .call(worldMap, geoRectangularPolyconic, '#00f');
-
-    chart.render();
+function worldMap(node, projection, color, opacity = 0.7) {
+  const geoView = node.geoView().coordinate({
+    type: projection,
+    size: 'fitWidth',
   });
+
+  geoView
+    .geoPath()
+    .data({
+      type: 'fetch',
+      value: 'https://assets.antv.antgroup.com/g2/countries-50m.json',
+      transform: [{ type: 'feature', name: 'land' }],
+    })
+    .style('fill', color)
+    .style('opacity', opacity);
+
+  geoView
+    .geoPath()
+    .data({ type: 'graticule10' })
+    .style('stroke', color)
+    .style('strokeOpacity', 0.3);
+
+  geoView.geoPath().data({ type: 'sphere' }).style('stroke', color);
+}

@@ -15,7 +15,7 @@ chart
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/temperatures3.json',
   })
-  .scale('color', { type: 'sequential', palette: 'reds' })
+  .scale('color', { palette: 'reds' })
   .encode('x', (d) => new Date(d.date))
   .encode('y', ['low', 'high'])
   .encode('color', (d) => d.high - d.low)

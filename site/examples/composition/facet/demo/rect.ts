@@ -9,7 +9,7 @@ const chart = new Chart({
   paddingRight: 80,
   paddingBottom: 50,
   paddingLeft: 50,
-  height: 600,
+  height: 640,
 });
 
 const facetRect = chart

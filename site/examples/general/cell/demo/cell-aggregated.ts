@@ -20,10 +20,7 @@ chart
   .encode('y', (d) => new Date(d.date).getUTCMonth())
   .encode('color', 'temp_max')
   .style('inset', 0.5)
-  .scale('color', {
-    type: 'sequential',
-    palette: 'gnBu',
-  })
+  .scale('color', { palette: 'gnBu' })
   .animate('enter', { type: 'fadeIn' });
 
 chart.render();
