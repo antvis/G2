@@ -17,7 +17,7 @@ chart
   })
   .scale('x', { utc: true })
   .scale('y', { nice: true })
-  .scale('color', { type: 'sequential', palette: 'turbo' })
+  .scale('color', { palette: 'turbo' })
   .encode('x', (d) => new Date(d.date))
   .encode('y', 'value')
   .encode('shape', 'hvh')

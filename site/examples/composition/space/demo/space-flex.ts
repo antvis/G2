@@ -41,17 +41,13 @@ flex
       .axis('x', { title: 'Date' })
       .axis('y', { title: 'Month' })
       .legend({ color: false })
-      .scale('color', {
-        type: 'sequential',
-        palette: 'gnBu',
-      }),
+      .scale('color', { palette: 'gnBu' }),
   )
   .call((node) =>
     node
-      .view()
-      .coordinate({ transform: [{ type: 'transpose' }] })
-      .interval()
       .attr('paddingBottom', 50)
+      .interval()
+      .coordinate({ transform: [{ type: 'transpose' }] })
       .transform({ type: 'groupX', y: 'max' })
       .axis('x', false)
       .encode('x', (d) => new Date(d.date).getUTCMonth())

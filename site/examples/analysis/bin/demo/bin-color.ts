@@ -15,7 +15,7 @@ chart
   .encode('x', 'IMDB Rating')
   .encode('y', 'Rotten Tomatoes Rating')
   .transform({ type: 'bin', color: 'count', thresholdsX: 30, thresholdsY: 20 })
-  .scale('color', { type: 'sequential', palette: 'ylGnBu' })
+  .scale('color', { palette: 'ylGnBu' })
   .tooltip({
     title: { channel: 'color' },
     items: [

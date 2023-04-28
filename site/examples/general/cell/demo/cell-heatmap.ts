@@ -22,7 +22,6 @@ chart
     position: 'top',
   })
   .scale('color', {
-    type: 'sequential',
     palette: 'puRd',
     relations: [
       [(d) => d === null, '#eee'],

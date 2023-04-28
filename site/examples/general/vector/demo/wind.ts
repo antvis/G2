@@ -18,7 +18,7 @@ chart
   .encode('size', ({ u, v }) => Math.hypot(v, u))
   .encode('color', ({ u, v }) => Math.hypot(v, u))
   .scale('size', { range: [6, 20] })
-  .scale('color', { type: 'sequential', palette: 'viridis' })
+  .scale('color', { palette: 'viridis' })
   .axis('x', { grid: false })
   .axis('y', { grid: false })
   .legend(false)

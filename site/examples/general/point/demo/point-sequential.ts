@@ -22,7 +22,6 @@ chart
   .encode('color', 'value')
   .encode('shape', 'point')
   .scale('color', {
-    type: 'sequential',
     palette: 'rdBu',
     offset: (t) => 1 - t,
   })
