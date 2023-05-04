@@ -199,3 +199,4 @@ export { scoreByItemAreaRadarSize } from './score-by-item-area-radar-size';
 export { mockPointLogTicks } from './mock-point-log-ticks';
 export { alphabetIntervalLabelRotate } from './alphabet-interval-label-rotate';
 export { aaplLineBasicTranspose } from './aapl-line-basic-transpose';
+export { alphabetIntervalSortXDomain } from './alphabet-interval-sort-x-domain';
