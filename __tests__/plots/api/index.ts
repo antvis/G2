@@ -15,3 +15,4 @@ export { chartChangeSizePolar } from './chart-change-size-polar';
 export { chartChangeDataFacet } from './chart-change-data-facet';
 export { chartRenderClearAnimation } from './chart-render-clear-animation';
 export { chartOnBrushFilter } from './chart-on-brush-filter';
+export { chartOptionsChangeData } from './chart-options-change-data';

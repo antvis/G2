@@ -253,6 +253,13 @@ export class Chart extends View<ChartOptions> {
     return this;
   }
 
+  // @todo Remove it when implement updateRoot.
+  changeData(data: any): Promise<Chart> {
+    // Update options data.
+    this.options({ data });
+    return super.changeData(data);
+  }
+
   getContainer(): HTMLElement {
     return this._container;
   }
