@@ -14,3 +14,4 @@ export { chartEmitLegendFilter } from './chart-emit-legend-filter';
 export { chartChangeSizePolar } from './chart-change-size-polar';
 export { chartChangeDataFacet } from './chart-change-data-facet';
 export { chartRenderClearAnimation } from './chart-render-clear-animation';
+export { chartOnBrushFilter } from './chart-on-brush-filter';
