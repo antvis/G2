@@ -211,7 +211,7 @@ export function brush(
     end = brushMousePosition(root, event);
     const [fx, fy, fx1, fy1] = updateMask(start, end);
     resizing = false;
-    brushcreated(fx, fy, fx1, fy1);
+    brushcreated(fx, fy, fx1, fy1, event);
   };
 
   // Hide mask.
