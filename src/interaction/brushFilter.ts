@@ -48,14 +48,14 @@ export function brushFilter(
   root.addEventListener('click', click);
 
   // Filter when brush created.
-  function brushcreated(x, y, x1, y1) {
-    filter(x, y, x1, y1);
+  function brushcreated(x, y, x1, y1, event) {
+    filter(x, y, x1, y1, event);
     brush.remove();
   }
 
   // Reset when dblclick.
   function click(e) {
-    if (isDblclick(e)) reset();
+    if (isDblclick(e)) reset(e);
   }
 
   return () => {
@@ -65,7 +65,7 @@ export function brushFilter(
 }
 
 export function BrushFilter({ hideX = true, hideY = true, ...rest }) {
-  return (target, viewInstances) => {
+  return (target, viewInstances, emitter) => {
     const { container, view, options: viewOptions, update } = target;
     const plotArea = selectPlotArea(container);
     const defaultOptions = {
@@ -82,7 +82,7 @@ export function BrushFilter({ hideX = true, hideY = true, ...rest }) {
 
     return brushFilter(plotArea, {
       brushRegion: (x, y, x1, y1) => [x, y, x1, y1],
-      filter: async (x, y, x1, y1) => {
+      filter: async (x, y, x1, y1, event) => {
         // Avoid redundant filter.
         if (filtering) return;
         filtering = true;
@@ -99,6 +99,8 @@ export function BrushFilter({ hideX = true, hideY = true, ...rest }) {
 
         // Update the domain of x and y scale to filter data.
         const { marks } = viewOptions;
+        const domainX = domainOf(scaleX, [p0[0], p1[0]]);
+        const domainY = domainOf(scaleY, [p0[1], p1[1]]);
         const newMarks = marks.map((mark) =>
           deepMix(
             {
@@ -111,12 +113,17 @@ export function BrushFilter({ hideX = true, hideY = true, ...rest }) {
             mark,
             {
               scale: {
-                x: { domain: domainOf(scaleX, [p0[0], p1[0]]) },
-                y: { domain: domainOf(scaleY, [p0[1], p1[1]]) },
+                x: { domain: domainX },
+                y: { domain: domainY },
               },
             },
           ),
         );
+
+        // Emit event.
+        event.data = event.data || {};
+        event.data.selection = [domainX, domainY];
+        emitter.emit('brush:filter', event);
 
         // Rerender and update view.
         const newOptions = {
@@ -129,8 +136,18 @@ export function BrushFilter({ hideX = true, hideY = true, ...rest }) {
         filtering = false;
         filtered = true;
       },
-      reset: () => {
+      reset: (event) => {
         if (filtering || !filtered) return;
+
+        // Emit event.
+        const { scale } = view;
+        const { x: scaleX, y: scaleY } = scale;
+        const domainX = scaleX.getOptions().domain;
+        const domainY = scaleY.getOptions().domain;
+        event.data = event.data || {};
+        event.data.selection = [domainX, domainY];
+        emitter.emit('brush:filter', event);
+
         filtered = false;
         newView = view;
         update(viewOptions);

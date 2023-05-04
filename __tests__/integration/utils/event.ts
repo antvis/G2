@@ -9,12 +9,14 @@ export function createPromise() {
 export function receiveExpectData(
   resolve,
   data: any = {
-    genre: 'Sports',
-    sold: 275,
+    data: {
+      genre: 'Sports',
+      sold: 275,
+    },
   },
 ) {
   return (event) => {
-    expect(event.data.data).toEqual(data);
+    expect(event.data).toEqual(data);
     resolve();
   };
 }

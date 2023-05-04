@@ -38,3 +38,17 @@ chart.render();
 | ------------------- | -------------- | ------------------------------ | ------ |
 | reverse             | brush 是否反转 | `boolean`                      | false  |
 | `mask${StyleAttrs}` | brush 的样式   | `number             \| string` | -      |
+
+## 案例
+
+获得当前筛选数据，会在每次筛选和重置的时候触发以下事件：
+
+```js
+chart.on('brush:filter', (event) => {
+  const { selection } = event.data;
+  const [domainX, domainY] = selection;
+  const [minX, maxX] = domainX;
+  const [minY, maxY] = domainY;
+  console.log(minX, maxX, minY, maxY);
+});
+```
