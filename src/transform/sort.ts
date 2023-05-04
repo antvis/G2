@@ -44,7 +44,7 @@ export type SortOptions = {
 };
 
 function sortQuantitative(I, mark, options): [number[], G2Mark] {
-  const { reverse, slice, channel } = options;
+  const { reverse, channel } = options;
   const { encode } = mark;
   const [V] = columnOf(encode, channel);
   const sortedI = sort(I, (i: number) => V[i]);
@@ -53,12 +53,21 @@ function sortQuantitative(I, mark, options): [number[], G2Mark] {
   return [sortedI, mark];
 }
 
+// If domain is specified, only sort data in the domain.
+function filterIndex(I, values, specifiedDomain): number[] {
+  if (!Array.isArray(specifiedDomain)) return I;
+  const domain = new Set(specifiedDomain);
+  return I.filter((i) => domain.has(values[i]));
+}
+
 function sortOrdinal(I, mark, options): [number[], G2Mark] {
   const { reverse, slice, channel, ...rest } = options;
-  const { encode } = mark;
+  const { encode, scale = {} } = mark;
+  const domain = scale[channel]?.domain;
   const [T] = columnOf(encode, channel);
   const normalizeReducer = createReducer(channel, rest, encode);
-  const sortedDomain = groupSort(I, normalizeReducer, (i: number) => T[i]);
+  const SI = filterIndex(I, T, domain);
+  const sortedDomain = groupSort(SI, normalizeReducer, (i: number) => T[i]);
   if (reverse) sortedDomain.reverse();
   const s = typeof slice === 'number' ? [0, slice] : slice;
   const slicedDomain = slice ? sortedDomain.slice(...s) : sortedDomain;
