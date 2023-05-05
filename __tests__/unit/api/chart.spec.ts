@@ -619,4 +619,38 @@ describe('Chart', () => {
     expect(chart.width()).toBeUndefined();
     expect(chart.height()).toBeUndefined();
   });
+
+  it('chart.options({ autoFit: true }) should bind autoFit.', async () => {
+    const div = document.createElement('div');
+    const chart = new Chart({
+      container: div,
+    });
+    chart.options({
+      autoFit: true,
+      theme: 'classic',
+      type: 'interval',
+      encode: {
+        x: 'genre',
+        y: 'sold',
+      },
+      data: [
+        { genre: 'Sports', sold: 275 },
+        { genre: 'Strategy', sold: 115 },
+        { genre: 'Action', sold: 120 },
+        { genre: 'Shooter', sold: 350 },
+        { genre: 'Other', sold: 150 },
+      ],
+    });
+
+    expect(chart['_hasBindAutoFit']).toBe(false);
+
+    await chart.render();
+    expect(chart['_hasBindAutoFit']).toBe(true);
+
+    chart.options({
+      autoFit: false,
+    });
+    await chart.render();
+    expect(chart['_hasBindAutoFit']).toBe(false);
+  });
 });
