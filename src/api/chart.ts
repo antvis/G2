@@ -178,6 +178,8 @@ export class Chart extends View<ChartOptions> {
   private _options: G2ViewTree;
   private _width: number;
   private _height: number;
+  // Identifies whether bindAutoFit.
+  private _hasBindAutoFit = false;
 
   constructor(options: ChartOptions) {
     const { container, canvas, ...rest } = options || {};
@@ -185,10 +187,11 @@ export class Chart extends View<ChartOptions> {
     this._container = normalizeContainer(container);
     this._emitter = new EventEmitter();
     this._context = { library, emitter: this._emitter, canvas };
-    this._bindAutoFit();
   }
 
   render(): Promise<Chart> {
+    this._bindAutoFit();
+
     if (!this._context.canvas) {
       // Init width and height.
       const { renderer, plugins } = this.options();
@@ -339,15 +342,22 @@ export class Chart extends View<ChartOptions> {
   private _bindAutoFit() {
     const options = this.options();
     const { autoFit } = options;
+
+    if (this._hasBindAutoFit) {
+      // If it was bind before, unbind it now.
+      if (!autoFit) this._unbindAutoFit();
+      return;
+    }
+
     if (autoFit) {
+      this._hasBindAutoFit = true;
       window.addEventListener('resize', this._onResize);
     }
   }
 
   private _unbindAutoFit() {
-    const options = this.options();
-    const { autoFit } = options;
-    if (autoFit) {
+    if (this._hasBindAutoFit) {
+      this._hasBindAutoFit = false;
       window.removeEventListener('resize', this._onResize);
     }
   }
