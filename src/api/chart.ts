@@ -130,7 +130,7 @@ export type ChartOptions = ViewComposition & {
   autoFit?: boolean;
   renderer?: CanvasRenderer;
   plugins?: RendererPlugin[];
-  theme: string;
+  theme?: string;
 };
 
 type ChartProps = Concrete<ViewComposition>;
