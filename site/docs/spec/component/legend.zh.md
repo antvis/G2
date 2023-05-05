@@ -193,6 +193,7 @@ chart.render();
 | `style.`color               | 色带颜色，为数组时会从中按序取色 | `string[]` \| `interpolate` | -       |
 | `style.`block               | 是否按区间显示                   | `boolean`                   | false   |
 | `style.`type                | 连续图例类型                     | `'size'` \| `'color'`       | 'color' |
+| `style.`ribbonSize                | 色带尺寸                     | `number`       | - |
 | `style.`ribbonFill          | 色带颜色                         | `string`                    | -       |
 | `style.`ribbonFillOpacity   | 色带透明度                       | `number`                    | -       |
 | `style.`ribbonStroke        | 色带描边色                       | `string`                    | -       |
