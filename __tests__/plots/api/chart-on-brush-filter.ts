@@ -20,6 +20,7 @@ export function chartOnBrushFilter(context) {
       x: 'culmen_length_mm',
       y: 'culmen_depth_mm',
     },
+    animate: false,
     interaction: { brushFilter: true },
   });
 

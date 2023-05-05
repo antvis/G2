@@ -3,6 +3,7 @@ import { PLOT_CLASS_NAME } from '../../src';
 import { dblclick, brush } from '../plots/interaction/penguins-point-brush';
 import { createDOMGCanvas } from './utils/createDOMGCanvas';
 import { createPromise, receiveExpectData } from './utils/event';
+import { sleep } from './utils/sleep';
 import './utils/useCustomFetch';
 
 describe('chart.on', () => {
@@ -11,7 +12,7 @@ describe('chart.on', () => {
 
   chart.off();
 
-  it('chart.on("element:filter", callback) should provide selection when filtering', async () => {
+  it('chart.on("brush:filter", callback) should provide selection when filtering', async () => {
     await finished;
     const { document } = canvas;
     const plot = document.getElementsByClassName(PLOT_CLASS_NAME)[0];
@@ -29,6 +30,7 @@ describe('chart.on', () => {
     );
     brush(plot, 100, 100, 300, 300);
     await filtered;
+    await sleep(20);
 
     // Reset plot.
     const [rested, resolve1] = createPromise();
@@ -44,6 +46,8 @@ describe('chart.on', () => {
     );
     setTimeout(() => dblclick(plot), 1000);
     await rested;
+    // Wait for rerender over to close test.
+    await sleep(20);
   });
 
   afterAll(() => {
