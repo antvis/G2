@@ -30,7 +30,7 @@ describe('chart.on', () => {
     );
     brush(plot, 100, 100, 300, 300);
     await filtered;
-    await sleep(1000);
+    await sleep(20);
 
     // Reset plot.
     const [rested, resolve1] = createPromise();
@@ -47,7 +47,7 @@ describe('chart.on', () => {
     setTimeout(() => dblclick(plot), 1000);
     await rested;
     // Wait for rerender over to close test.
-    await sleep(1000);
+    await sleep(20);
   });
 
   afterAll(() => {
