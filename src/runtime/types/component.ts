@@ -112,6 +112,7 @@ export type Scale = {
   getFormatter?: () => (x: any) => string;
   getOptions: () => Record<string, any>;
   update(options: Record<string, any>): void;
+  clone: () => Scale;
 };
 export type ScaleComponent<O = Record<string, unknown>> = G2BaseComponent<
   Scale,

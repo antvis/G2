@@ -350,6 +350,7 @@ export const Classic: TC<ClassicOptions> = (options) => {
       labelFontWeight: 'normal',
       labelSpacing: 8,
       tick: true,
+      title: false,
       // [todo] legend rail
     },
     label: {
