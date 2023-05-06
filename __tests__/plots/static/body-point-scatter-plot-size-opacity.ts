@@ -13,12 +13,6 @@ export function bodyPointScatterPlotSizeOpacity(): G2Spec {
       size: 'weight',
       opacity: 'weight',
     },
-    legend: {
-      color: {
-        size: 200,
-        layout: { justifyContent: 'center' },
-      },
-    },
   };
 }
 
