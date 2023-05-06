@@ -1,5 +1,6 @@
 import { DisplayObject, Rect, Path } from '@antv/g';
 import { subObject } from '../utils/helper';
+import { selectionOf, pixelsOf } from '../utils/scale';
 import {
   selectG2Elements,
   selectPlotArea,
@@ -240,11 +241,16 @@ export function brush(
 
   return {
     mask,
+    move(x, y, x1, y1) {
+      if (!mask) initMask(x, y);
+      start = [x, y];
+      end = [x1, y1];
+      updateMask([x, y], [x1, y1]);
+    },
     remove() {
       if (mask) removeMask();
     },
     destroy() {
-      if (mask) removeMask();
       root.removeEventListener('dragstart', dragstart);
       root.removeEventListener('drag', drag);
       root.removeEventListener('dragend', dragend);
@@ -290,6 +296,8 @@ export function brushHighlight(
     brushRegion,
     extent: optionalExtent,
     reverse,
+    scale,
+    coordinate,
     series = false,
     key = (d) => d,
     bboxOf = (root) => {
@@ -297,6 +305,7 @@ export function brushHighlight(
       return { x, y, width, height };
     },
     state = {},
+    emitter,
     ...rest
   },
 ) {
@@ -379,18 +388,51 @@ export function brushHighlight(
     }
   };
 
-  return brush(root, {
+  const brushHandler = brush(root, {
     ...brushStyle,
     extent,
     brushRegion,
     reverse,
-    brushended: series ? seriesBrushend : brushended,
-    brushed: series ? seriesBrushed : brushed,
+    brushended: () => {
+      const handler = series ? seriesBrushend : brushended;
+      emitter.emit('brush:end', { nativeEvent: true });
+      handler();
+    },
+    brushed: (x, y, x1, y1) => {
+      const selection = selectionOf(x, y, x1, y1, scale, coordinate);
+      emitter.emit('brush:highlight', {
+        nativeEvent: true,
+        data: { selection },
+      });
+      const handler = series ? seriesBrushed : brushed;
+      handler(x, y, x1, y1);
+    },
   });
+
+  // Move brush and highlight data.
+  const onHighlight = ({ nativeEvent, data }) => {
+    if (nativeEvent) return;
+    const { selection } = data;
+    const [x, y, x1, y1] = pixelsOf(selection, scale, coordinate);
+    brushHandler.move(x, y, x1, y1);
+  };
+  emitter.on('brush:highlight', onHighlight);
+
+  // Remove brush and reset data.
+  const onRemove = () => brushHandler.remove();
+  emitter.on('brush:remove', onRemove);
+
+  // Remove event handlers.
+  brushHandler.destroy = () => {
+    emitter.off('brush:highlight', onHighlight);
+    emitter.off('brush:remove', onRemove);
+  };
+
+  return brushHandler;
 }
 
 export function BrushHighlight({ facet, brushKey, ...rest }) {
-  return (target, viewInstances) => {
+  return (target, viewInstances, emitter) => {
     const { container, view, options } = target;
     const plotArea = selectPlotArea(container);
     const defaultOptions = {
@@ -400,6 +442,7 @@ export function BrushHighlight({ facet, brushKey, ...rest }) {
       reverse: false,
     };
     const defaultStates = ['active', ['inactive', { opacity: 0.5 }]];
+    const { scale, coordinate } = view;
 
     if (facet) {
       const bbox = plotArea.getBounds();
@@ -418,6 +461,9 @@ export function BrushHighlight({ facet, brushKey, ...rest }) {
           selectFacetViews(target, viewInstances).map((d) => d.options),
           defaultStates,
         ),
+        emitter,
+        scale,
+        coordinate,
         ...defaultOptions,
         ...rest,
       });
@@ -439,6 +485,9 @@ export function BrushHighlight({ facet, brushKey, ...rest }) {
         [options, ...selectSiblingOptions(target, viewInstances, brushKey)],
         defaultStates,
       ),
+      emitter,
+      scale,
+      coordinate,
       ...defaultOptions,
       ...rest,
     });
