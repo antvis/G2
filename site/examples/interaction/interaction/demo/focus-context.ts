@@ -70,12 +70,15 @@ focus.on('brush:filter', (e) => {
   }
 });
 
-context.on('brush:highlight brush:end', (e) => {
-  const { nativeEvent } = e;
+context.on('brush:highlight', (e) => {
+  const { nativeEvent, data } = e;
   if (!nativeEvent) return;
+  const { selection } = data;
+  focus.emit('brush:filter', { data: { selection } });
+});
+
+context.on('brush:end', () => {
   const { x: scaleX, y: scaleY } = context.getScale();
-  const selection = e.data
-    ? e.data.selection
-    : [scaleX.getOptions().domain, scaleY.getOptions().domain]; // Rest data.
+  const selection = [scaleX.getOptions().domain, scaleY.getOptions().domain];
   focus.emit('brush:filter', { data: { selection } });
 });

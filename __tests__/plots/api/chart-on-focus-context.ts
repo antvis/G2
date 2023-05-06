@@ -69,13 +69,16 @@ export function chartOnFocusContext(context) {
     }
   });
 
-  contextView.on('brush:highlight brush:end', (e) => {
-    const { nativeEvent } = e;
+  contextView.on('brush:highlight', (e) => {
+    const { nativeEvent, data } = e;
     if (!nativeEvent) return;
+    const { selection } = data;
+    focusView.emit('brush:filter', { data: { selection } });
+  });
+
+  contextView.on('brush:end', () => {
     const { x: scaleX, y: scaleY } = contextView.getScale();
-    const selection = e.data
-      ? e.data.selection
-      : [scaleX.getOptions().domain, scaleY.getOptions().domain];
+    const selection = [scaleX.getOptions().domain, scaleY.getOptions().domain];
     focusView.emit('brush:filter', { data: { selection } });
   });
 
