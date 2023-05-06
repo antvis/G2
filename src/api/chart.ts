@@ -272,7 +272,8 @@ export class Chart extends View<ChartOptions> {
   }
 
   on(event: string, callback: (...args: any[]) => any, once?: boolean): this {
-    this._emitter.on(event, callback, once);
+    const events = event.split(' ');
+    for (const name of events) this._emitter.on(name, callback, once);
     return this;
   }
 
