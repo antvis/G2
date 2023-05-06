@@ -7,7 +7,8 @@ export type AxisYOptions = AxisOptions;
  * LinearAxis component bind to y scale.
  */
 export const AxisY: GCC<AxisYOptions> = (options) => {
-  return LinearAxis(options);
+  return (...args) =>
+    LinearAxis(Object.assign({}, { crossPadding: 10 }, options))(...args);
 };
 
 AxisY.props = {
