@@ -49,3 +49,46 @@ G 渲染器的使用都是使用：
 | 属性    | 描述                           | 类型       | 默认值                 |
 | ------- | ------------------------------ | ---------- | ---------------------- |
 | targets | 选择渲染环境，并按顺序自动降级 | `string[]` | `['webgl2', 'webgl1']` |
+
+### UMD 使用方式
+
+当需要替换掉内置的 Canvas 渲染器，例如改换成 SVG 时，需要引入特定版本的 G2 UMD 文件。
+
+[在线示例](https://codepen.io/xiaoiver/pen/zYmpbNJ)
+
+首先引入 `@antv/g` 和 `@antv/g-svg` 的 UMD 版本：
+
+```html
+<script src="https://unpkg.com/@antv/g"></script>
+<script src="https://unpkg.com/@antv/g-svg"></script>
+```
+
+然后引入剔除了 `@antv/g` 和 `@antv/g-svg` 的 G2 UMD 版本，我们称之为 lite 版：
+
+```html
+<script src="https://unpkg.com/@antv/g2@5.0.5/dist/g2-lite.min.js"></script>
+```
+
+在命名空间 `window.G.SVG` 下找到 `Renderer` 并实例化：
+
+```js
+const { Chart } = window.G2;
+
+const chart = new Chart({
+  container: 'container',
+  theme: 'classic',
+  renderer: new window.G.SVG.Renderer(), // 传入 SVG Renderer
+});
+```
+
+提供 lite 版主要考虑到：
+
+- 剔除了 `@antv/g` 和内置的 `@antv/g-canvas` 渲染器之后，便于按需替换其他渲染器，不会存在冗余的内置渲染器
+- 和其他使用 `@antv/g` 的包使用时，可以共享同一份核心和渲染器代码，节省总体的包体积大小，例如：
+
+```html
+<script src="https://unpkg.com/@antv/g"></script>
+<script src="https://unpkg.com/@antv/g-svg"></script>
+<script src="https://unpkg.com/@antv/g2@5.0.5/dist/g2-lite.min.js"></script>
+<script src="https://unpkg.com/@antv/g6-lite"></script>
+```
