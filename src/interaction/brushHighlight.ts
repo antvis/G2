@@ -395,13 +395,13 @@ export function brushHighlight(
     reverse,
     brushended: () => {
       const handler = series ? seriesBrushend : brushended;
-      emitter.emit('brush:end', { sourceEvent: true });
+      emitter.emit('brush:end', { nativeEvent: true });
       handler();
     },
     brushed: (x, y, x1, y1) => {
       const selection = selectionOf(x, y, x1, y1, scale, coordinate);
       emitter.emit('brush:highlight', {
-        sourceEvent: true,
+        nativeEvent: true,
         data: { selection },
       });
       const handler = series ? seriesBrushed : brushed;
@@ -410,8 +410,8 @@ export function brushHighlight(
   });
 
   // Move brush and highlight data.
-  const onHighlight = ({ sourceEvent, data }) => {
-    if (sourceEvent) return;
+  const onHighlight = ({ nativeEvent, data }) => {
+    if (nativeEvent) return;
     const { selection } = data;
     const [x, y, x1, y1] = pixelsOf(selection, scale, coordinate);
     brushHandler.move(x, y, x1, y1);

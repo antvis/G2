@@ -53,7 +53,7 @@ export function brushFilter(
 
   // Filter when brush created.
   function brushcreated(x, y, x1, y1, event) {
-    event.sourceEvent = true;
+    event.nativeEvent = true;
     filter(selection(x, y, x1, y1), event);
     brush.remove();
   }
@@ -61,15 +61,15 @@ export function brushFilter(
   // Reset when dblclick.
   function click(e) {
     if (isDblclick(e)) {
-      e.sourceEvent = true;
+      e.nativeEvent = true;
       reset(e);
     }
   }
 
-  const onFilter = ({ sourceEvent, data }) => {
-    if (sourceEvent) return;
+  const onFilter = ({ nativeEvent, data }) => {
+    if (nativeEvent) return;
     const { selection } = data;
-    filter(selection, { sourceEvent: false });
+    filter(selection, { nativeEvent: false });
   };
   emitter.on('brush:filter', onFilter);
 

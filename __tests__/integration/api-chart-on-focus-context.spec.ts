@@ -22,7 +22,7 @@ describe('chart.on', () => {
   const canvas1 = createNodeGCanvas(640, 360);
   const canvas2 = createNodeGCanvas(640, 80);
   const assetSnapshots = async (step) => {
-    await sleep(20);
+    await sleep(100);
     await expect(canvas1).toMatchCanvasSnapshot(dir, step + '-focus');
     await expect(canvas2).toMatchCanvasSnapshot(dir, step + '-context');
   };

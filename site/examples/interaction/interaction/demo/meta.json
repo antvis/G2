@@ -99,6 +99,14 @@
         "en": "Fisheye"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/raptor/1669041902028/fisheye.gif"
+    },
+    {
+      "filename": "focus-context.ts",
+      "title": {
+        "zh": "图表联动",
+        "en": "Focus and Context"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*zQRoSI_fW4MAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }

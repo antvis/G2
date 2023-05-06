@@ -56,8 +56,8 @@ export function chartOnFocusContext(context) {
 
   // Add event listeners.
   focusView.on('brush:filter', (e) => {
-    const { sourceEvent } = e;
-    if (!sourceEvent) return;
+    const { nativeEvent } = e;
+    if (!nativeEvent) return;
     const { selection } = e.data;
     const { x: scaleX } = focusView.getScale();
     const [[x1, x2]] = selection;
@@ -70,8 +70,8 @@ export function chartOnFocusContext(context) {
   });
 
   contextView.on('brush:highlight brush:end', (e) => {
-    const { sourceEvent } = e;
-    if (!sourceEvent) return;
+    const { nativeEvent } = e;
+    if (!nativeEvent) return;
     const { x: scaleX, y: scaleY } = contextView.getScale();
     const selection = e.data
       ? e.data.selection
