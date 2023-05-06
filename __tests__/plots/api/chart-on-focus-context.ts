@@ -18,10 +18,7 @@ export function chartOnFocusContext(context) {
     height: 360,
     data: { type: 'fetch', value: 'data/aapl.csv' },
     encode: { x: 'date', y: 'close' },
-    axis: {
-      x: { title: false, grid: false },
-      y: { grid: false },
-    },
+    axis: false,
     animate: false,
     interaction: { brushXFilter: true, tooltip: false },
   });
@@ -40,10 +37,7 @@ export function chartOnFocusContext(context) {
 
   contextView.options({
     type: 'area',
-    paddingLeft: 40,
-    paddingTop: 0,
-    paddingBottom: 0,
-    height: 80,
+    height: 120,
     data: { type: 'fetch', value: 'data/aapl.csv' },
     encode: { x: 'date', y: 'close' },
     axis: false,
