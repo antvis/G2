@@ -11,7 +11,7 @@ export type FilterOptions = Omit<FilterTransform, 'type'>;
  */
 export const Filter: TC<FilterOptions> = (options = {}) => {
   return (I, mark) => {
-    const { encode } = mark;
+    const { encode, data } = mark;
     const filters = Object.entries(options)
       .map(([key, value]) => {
         const [V] = columnOf(encode, key);
@@ -43,7 +43,11 @@ export const Filter: TC<FilterOptions> = (options = {}) => {
     });
     return [
       newIndex,
-      deepMix({}, mark, { encode: Object.fromEntries(newEncodes) }),
+      deepMix({}, mark, {
+        encode: Object.fromEntries(newEncodes),
+        // Filter data for tooltip item.
+        data: FI.map((i) => data[i]),
+      }),
     ];
   };
 };
