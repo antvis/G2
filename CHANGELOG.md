@@ -1,5 +1,18 @@
 # G2 - Changelog
 
+## [5.0.6](https://github.com/antvis/g2/compare/5.0.5...5.0.6) (2023-05-08)
+
+### Bug Fixes
+
+- **chart:** chart.options changeData problem ([#4936](https://github.com/antvis/g2/issues/4936)) ([99bdec2](https://github.com/antvis/g2/commit/99bdec2062af347b8d46dfde30ab2508248b0466))
+- **chart:** chart.theme as unrequired params ([#4940](https://github.com/antvis/g2/issues/4940)) ([0878230](https://github.com/antvis/g2/commit/0878230c72dd801e6e5d1d818b7bb4c7d6e547b4))
+- **test:** unhandled promise rejection ([#4943](https://github.com/antvis/g2/issues/4943)) ([1ba1fcd](https://github.com/antvis/g2/commit/1ba1fcd3011b1d4618d86c4e51f6874cb6c8ff86))
+
+### Features
+
+- **chart:** chart bind autoFit in render ([#4941](https://github.com/antvis/g2/issues/4941)) ([c16191a](https://github.com/antvis/g2/commit/c16191a1afa7c00620c61e3315a8ba2ea1cf73fb))
+- **interaction:** support focus context ([#4946](https://github.com/antvis/g2/issues/4946)) ([8dc7f1d](https://github.com/antvis/g2/commit/8dc7f1dbb48b21b10e1c2883cd72ea2f7f183971))
+
 ## [5.0.5](https://github.com/antvis/g2/compare/5.0.4...5.0.5) (2023-05-04)
 
 ### Bug Fixes
