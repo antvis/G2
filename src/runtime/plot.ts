@@ -1211,10 +1211,10 @@ function createMarkShapeFunction(
   const point2d = data.map((d) => d.points);
   const { theme, coordinate } = view;
   const { type: markType, style = {} } = mark;
-  return (data, index) => {
+  return (data) => {
     const { shape: styleShape = defaultShape } = style;
     const { shape = styleShape, points, seriesIndex, index: i, ...v } = data;
-    const value = { ...v, shape, mark: markType, defaultShape, index };
+    const value = { ...v, shape, mark: markType, defaultShape, index: i };
 
     // Get data-driven style.
     // If it is a series shape, such as area and line,

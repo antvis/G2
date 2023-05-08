@@ -57,3 +57,4 @@ export { pointsPointRegressionQuadInset } from './points-point-regression-quad-i
 export { populationIntervalDiverging } from './population-interval-diverging';
 export { stateAgesIntervalNormalized } from './stateages-interval-normalized';
 export { aaplLineSliderFilterTranspose } from './appl-line-slider-filter-transpose';
+export { alphabetIntervalFunnelLegendFilter } from './alphabet-interval-funnel-legend-filter';
