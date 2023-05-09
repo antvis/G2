@@ -19,7 +19,7 @@ import { useMarker } from '../utils/marker';
 import {
   adaptor,
   domainOf,
-  G2Layout,
+  LegendCategoryLayout,
   inferComponentLayout,
   inferComponentShape,
   scaleOf,
@@ -238,7 +238,7 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
     };
 
     const { legend: legendTheme = {} } = theme;
-    const layoutWrapper = new G2Layout({
+    const layoutWrapper = new LegendCategoryLayout({
       style: {
         x: bbox.x,
         y: bbox.y,
