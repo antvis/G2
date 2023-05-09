@@ -268,5 +268,5 @@ LegendContinuous.props = {
   defaultOrder: 1,
   defaultSize: 60,
   defaultLength: 300,
-  defaultLegendSize: 40,
+  defaultLegendSize: 60,
 };

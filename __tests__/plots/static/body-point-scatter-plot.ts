@@ -13,6 +13,11 @@ export function bodyPointScatterPlot(): G2Spec {
       size: 'weight',
       color: 'red',
     },
+    legend: {
+      color: {
+        size: 40,
+      },
+    },
   };
 }
 

@@ -14,5 +14,5 @@ export const Area: SC<AreaOptions> = (options) => {
 
 Area.props = {
   ...Curve.props,
-  defaultMarker: 'point',
+  defaultMarker: 'square',
 };

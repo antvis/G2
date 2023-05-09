@@ -124,9 +124,15 @@ function inferItemMarker(
   }
   if (typeof itemMarker === 'function') return itemMarker;
   return (d, i) =>
-    createShape(itemMarker || shapes[i], library, coordinate, theme, {
-      color: d.color,
-    });
+    createShape(
+      itemMarker || `${namespace}.${shapes[i]}`,
+      library,
+      coordinate,
+      theme,
+      {
+        color: d.color,
+      },
+    );
 }
 
 function inferItemMarkerOpacity(scales: Scale[]) {
