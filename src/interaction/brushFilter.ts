@@ -131,9 +131,10 @@ export function BrushFilter({ hideX = true, hideY = true, ...rest }) {
         );
 
         // Emit event.
-        event.data = event.data || {};
-        event.data.selection = [domainX, domainY];
-        emitter.emit('brush:filter', event);
+        emitter.emit('brush:filter', {
+          ...event,
+          data: { selection: [domainX, domainY] },
+        });
 
         // Rerender and update view.
         const newOptions = {
@@ -154,9 +155,10 @@ export function BrushFilter({ hideX = true, hideY = true, ...rest }) {
         const { x: scaleX, y: scaleY } = scale;
         const domainX = scaleX.getOptions().domain;
         const domainY = scaleY.getOptions().domain;
-        event.data = event.data || {};
-        event.data.selection = [domainX, domainY];
-        emitter.emit('brush:filter', event);
+        emitter.emit('brush:filter', {
+          ...event,
+          data: { selection: [domainX, domainY] },
+        });
 
         filtered = false;
         newView = view;

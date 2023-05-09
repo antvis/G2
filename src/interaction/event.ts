@@ -1,6 +1,6 @@
 import { ChartEvent } from '../utils/event';
 
-function dataOf(element, view) {
+export function dataOf(element, view) {
   const { __data__: datum } = element;
   const { markKey, index, seriesIndex } = datum;
   const { markState } = view;
@@ -14,21 +14,19 @@ function dataOf(element, view) {
   return selectedMark.data[index];
 }
 
-function updateData(event, target, view) {
-  const { data = {} } = event;
-  data.data = dataOf(target, view);
-  event.data = data;
-}
-
 function bubblesEvent(eventType, view, emitter, predicate = (event) => true) {
   return (e) => {
     if (!predicate(e)) return;
     const { target } = e;
     const { className: elementType, markType } = target;
     if (elementType === 'element') {
-      updateData(e, target, view);
-      emitter.emit(`element:${eventType}`, e);
-      emitter.emit(`${markType}:${eventType}`, e);
+      const e1 = {
+        ...e,
+        nativeEvent: true,
+        data: { data: dataOf(target, view) },
+      };
+      emitter.emit(`element:${eventType}`, e1);
+      emitter.emit(`${markType}:${eventType}`, e1);
       return;
     }
     // @todo Handle click axis and legend.
