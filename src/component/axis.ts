@@ -193,34 +193,31 @@ function inferGridLength(position: GCP, coordinate: Coordinate) {
 }
 
 function inferLabelOverlap(transform = [], style: Record<string, any>) {
-  const {
-    labelAutoRotate = true,
-    labelAutoHide = false,
-    labelAutoEllipsis = false,
-  } = style;
+  if (transform.length > 0) return transform;
+  const { labelAutoRotate, labelAutoHide, labelAutoEllipsis, labelAutoWrap } =
+    style;
 
-  const finalTransforms = [...transform];
+  const finalTransforms = [];
 
-  const mutateLabelOverlap = (overlap, state) => {
+  const addToTransfroms = (overlap, state) => {
     if (state) {
-      const index = finalTransforms.findIndex((t) => t.type === overlap.type);
-      if (index !== -1) finalTransforms[index] = overlap;
-      else finalTransforms.push(overlap);
-    } else {
-      const index = finalTransforms.findIndex((t) => t.type === overlap.type);
-      if (index !== -1) finalTransforms.splice(index, 1);
+      finalTransforms.push(overlap);
     }
   };
 
-  mutateLabelOverlap(
+  addToTransfroms(
     {
       type: 'rotate',
       optionalAngles: [0, 15, 30, 45, 60, 90],
     },
     labelAutoRotate,
   );
-  mutateLabelOverlap({ type: 'ellipsis', minLength: 20 }, labelAutoEllipsis);
-  mutateLabelOverlap({ type: 'hide' }, labelAutoHide);
+  addToTransfroms({ type: 'ellipsis', minLength: 20 }, labelAutoEllipsis);
+  addToTransfroms({ type: 'hide' }, labelAutoHide);
+  addToTransfroms(
+    { type: 'wrap', wordWrapWidth: 100, maxLines: 3, recoveryWhenFail: true },
+    labelAutoWrap,
+  );
   return finalTransforms;
 }
 
@@ -503,7 +500,6 @@ const LinearAxisComponent: GCC<AxisOptions> = (options) => {
     };
 
     const gridLength = inferGridLength(position, coordinate);
-
     const overrideStyle = inferAxisLinearOverrideStyle(
       position,
       orientation,
@@ -523,6 +519,7 @@ const LinearAxisComponent: GCC<AxisOptions> = (options) => {
         position,
         coordinate,
       ),
+      crossSize: size,
       titleText: titleContent(title),
       labelOverlap: inferLabelOverlap(transform, internalAxisStyle),
       grid: inferGrid(internalAxisStyle.grid, coordinate, scale),
