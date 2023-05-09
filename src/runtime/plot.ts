@@ -324,8 +324,7 @@ function updateTooltip(selection, options, view, library, context) {
   // Instances for tooltip.
   const container = selection.node();
   const nameInteraction = container['nameInteraction'];
-  const { interaction } = options;
-  const tooltipOptions = inferInteraction(interaction).find(
+  const tooltipOptions = inferInteraction(options).find(
     (d) => d.type === 'tooltip',
   );
 
