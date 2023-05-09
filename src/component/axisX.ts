@@ -7,7 +7,9 @@ export type AxisXOptions = AxisOptions;
  * LinearAxis component bind to x scale.
  */
 export const AxisX: GCC<AxisXOptions> = (options) => {
-  return LinearAxis(options);
+  return (...args) =>
+    // empirical value for crossPadding
+    LinearAxis(Object.assign({}, { crossPadding: 50 }, options))(...args);
 };
 
 AxisX.props = {
