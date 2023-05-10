@@ -20,7 +20,7 @@ chart
     transform: [
       {
         type: 'map',
-        callback: (datum, idx) => { ...datam, idx },
+        callback: (datum, idx) => { ...datum, idx },
       },
     ],
   });
