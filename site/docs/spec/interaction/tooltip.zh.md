@@ -63,6 +63,8 @@ type TooltipPosition =
   | 'bottom-right';
 ```
 
+## 案例
+
 ### 自定义 Tooltip
 
 <img alt="custom-tooltip" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*WcxIS4inFuoAAAAAAAAAAAAADmJ7AQ/original" width="600" />
@@ -95,4 +97,69 @@ chart.interaction('tooltip', {
 });
 
 chart.render();
+```
+
+## 获得提示数据
+
+```js
+chart.on('tooltip:show', (event) => {
+  console.log(event.data.data);
+});
+
+chart.on('tooltip:hide', () => {
+  console.log('hide');
+});
+```
+
+## 手动控制展示/隐藏
+
+对于 Interval、Point 等非系列 Mark，控制展示的方式如下：
+
+```js
+// 条形图、点图等
+chart
+  .interval()
+  .data([
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ])
+  .encode('x', 'genre')
+  .encode('y', 'sold')
+  .encode('color', 'genre');
+
+chart.render().then((chart) =>
+  chart.emit('tooltip:show', {
+    data: {
+      // 会找从原始数据里面找到匹配的数据
+      data: { genre: 'Sports' },
+    },
+  }),
+);
+```
+
+对于 Line、Area 等系列 Mark，控制展示的方式如下：
+
+```js
+chart
+  .line()
+  .data({ type: 'fetch', value: 'data/aapl.csv' })
+  .encode('x', 'date')
+  .encode('y', 'close');
+
+chart.render((chart) =>
+  chart.emit('tooltip:show', {
+    data: {
+      data: { x: new Date('2010-11-16') },
+    },
+  }),
+);
+```
+
+隐藏的方式如下：
+
+```js
+chart.emit('tooltip:hide');
 ```

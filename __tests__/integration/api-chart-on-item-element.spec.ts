@@ -1,6 +1,10 @@
 import { chartOnItemElement as render } from '../plots/api/chart-on-item-element';
 import { createDOMGCanvas } from './utils/createDOMGCanvas';
-import { dispatchEvent, createPromise, receiveExpectData } from './utils/event';
+import {
+  dispatchFirstElementEvent,
+  createPromise,
+  receiveExpectData,
+} from './utils/event';
 import './utils/useSnapshotMatchers';
 import { ChartEvent } from '../../src';
 
@@ -14,7 +18,7 @@ describe('chart.on', () => {
     await finished;
     const [fired, resolve] = createPromise();
     chart.on(`element:${ChartEvent.CLICK}`, receiveExpectData(resolve));
-    dispatchEvent(canvas, 'click', { detail: 1 });
+    dispatchFirstElementEvent(canvas, 'click', { detail: 1 });
     await fired;
   });
 
@@ -22,7 +26,7 @@ describe('chart.on', () => {
     await finished;
     const [fired, resolve] = createPromise();
     chart.on(`interval:${ChartEvent.CLICK}`, receiveExpectData(resolve));
-    dispatchEvent(canvas, 'click', { detail: 1 });
+    dispatchFirstElementEvent(canvas, 'click', { detail: 1 });
     await fired;
   });
 
@@ -30,7 +34,7 @@ describe('chart.on', () => {
     await finished;
     const [fired, resolve] = createPromise();
     chart.on(`interval:${ChartEvent.DBLCLICK}`, receiveExpectData(resolve));
-    dispatchEvent(canvas, 'click', { detail: 2 });
+    dispatchFirstElementEvent(canvas, 'click', { detail: 2 });
     await fired;
   });
 
@@ -38,7 +42,7 @@ describe('chart.on', () => {
     await finished;
     const [fired, resolve] = createPromise();
     chart.on(`interval:${ChartEvent.POINTER_TAP}`, receiveExpectData(resolve));
-    dispatchEvent(canvas, 'pointertap');
+    dispatchFirstElementEvent(canvas, 'pointertap');
     await fired;
   });
 
@@ -46,7 +50,7 @@ describe('chart.on', () => {
     await finished;
     const [fired, resolve] = createPromise();
     chart.on(`interval:${ChartEvent.POINTER_DOWN}`, receiveExpectData(resolve));
-    dispatchEvent(canvas, 'pointerdown');
+    dispatchFirstElementEvent(canvas, 'pointerdown');
     await fired;
   });
 
@@ -54,7 +58,7 @@ describe('chart.on', () => {
     await finished;
     const [fired, resolve] = createPromise();
     chart.on(`interval:${ChartEvent.POINTER_UP}`, receiveExpectData(resolve));
-    dispatchEvent(canvas, 'pointerup');
+    dispatchFirstElementEvent(canvas, 'pointerup');
     await fired;
   });
 
@@ -62,7 +66,7 @@ describe('chart.on', () => {
     await finished;
     const [fired, resolve] = createPromise();
     chart.on(`interval:${ChartEvent.POINTER_OVER}`, receiveExpectData(resolve));
-    dispatchEvent(canvas, 'pointerover');
+    dispatchFirstElementEvent(canvas, 'pointerover');
     await fired;
   });
 
@@ -70,7 +74,7 @@ describe('chart.on', () => {
     await finished;
     const [fired, resolve] = createPromise();
     chart.on(`interval:${ChartEvent.POINTER_OUT}`, receiveExpectData(resolve));
-    dispatchEvent(canvas, 'pointerout');
+    dispatchFirstElementEvent(canvas, 'pointerout');
     await fired;
   });
 
@@ -78,7 +82,7 @@ describe('chart.on', () => {
     await finished;
     const [fired, resolve] = createPromise();
     chart.on(`interval:${ChartEvent.POINTER_MOVE}`, receiveExpectData(resolve));
-    dispatchEvent(canvas, 'pointermove');
+    dispatchFirstElementEvent(canvas, 'pointermove');
     await fired;
   });
 
@@ -89,7 +93,7 @@ describe('chart.on', () => {
       `interval:${ChartEvent.POINTER_ENTER}`,
       receiveExpectData(resolve),
     );
-    dispatchEvent(canvas, 'pointerenter');
+    dispatchFirstElementEvent(canvas, 'pointerenter');
     await fired;
   });
 
@@ -100,7 +104,7 @@ describe('chart.on', () => {
       `interval:${ChartEvent.POINTER_LEAVE}`,
       receiveExpectData(resolve),
     );
-    dispatchEvent(canvas, 'pointerleave');
+    dispatchFirstElementEvent(canvas, 'pointerleave');
     await fired;
   });
 
@@ -111,7 +115,7 @@ describe('chart.on', () => {
       `interval:${ChartEvent.POINTER_UPOUTSIDE}`,
       receiveExpectData(resolve),
     );
-    dispatchEvent(canvas, 'pointerupoutside');
+    dispatchFirstElementEvent(canvas, 'pointerupoutside');
     await fired;
   });
 
@@ -119,7 +123,7 @@ describe('chart.on', () => {
     await finished;
     const [fired, resolve] = createPromise();
     chart.on(`interval:${ChartEvent.DRAG_START}`, receiveExpectData(resolve));
-    dispatchEvent(canvas, 'dragstart');
+    dispatchFirstElementEvent(canvas, 'dragstart');
     await fired;
   });
 
@@ -127,7 +131,7 @@ describe('chart.on', () => {
     await finished;
     const [fired, resolve] = createPromise();
     chart.on(`interval:${ChartEvent.DRAG_END}`, receiveExpectData(resolve));
-    dispatchEvent(canvas, 'dragend');
+    dispatchFirstElementEvent(canvas, 'dragend');
     await fired;
   });
 
@@ -135,7 +139,7 @@ describe('chart.on', () => {
     await finished;
     const [fired, resolve] = createPromise();
     chart.on(`interval:${ChartEvent.DRAG}`, receiveExpectData(resolve));
-    dispatchEvent(canvas, 'drag');
+    dispatchFirstElementEvent(canvas, 'drag');
     await fired;
   });
 
@@ -143,7 +147,7 @@ describe('chart.on', () => {
     await finished;
     const [fired, resolve] = createPromise();
     chart.on(`interval:${ChartEvent.DRAG_ENTER}`, receiveExpectData(resolve));
-    dispatchEvent(canvas, 'dragenter');
+    dispatchFirstElementEvent(canvas, 'dragenter');
     await fired;
   });
 
@@ -151,7 +155,7 @@ describe('chart.on', () => {
     await finished;
     const [fired, resolve] = createPromise();
     chart.on(`interval:${ChartEvent.DRAG_LEAVE}`, receiveExpectData(resolve));
-    dispatchEvent(canvas, 'dragleave');
+    dispatchFirstElementEvent(canvas, 'dragleave');
     await fired;
   });
 
@@ -159,7 +163,7 @@ describe('chart.on', () => {
     await finished;
     const [fired, resolve] = createPromise();
     chart.on(`interval:${ChartEvent.DRAG_OVER}`, receiveExpectData(resolve));
-    dispatchEvent(canvas, 'dragover');
+    dispatchFirstElementEvent(canvas, 'dragover');
     await fired;
   });
 
@@ -167,7 +171,7 @@ describe('chart.on', () => {
     await finished;
     const [fired, resolve] = createPromise();
     chart.on(`interval:${ChartEvent.DROP}`, receiveExpectData(resolve));
-    dispatchEvent(canvas, 'drop');
+    dispatchFirstElementEvent(canvas, 'drop');
     await fired;
   });
 

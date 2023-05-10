@@ -14,14 +14,28 @@ export function receiveExpectData(
       sold: 275,
     },
   },
+  nativeEvent = true,
+  asset = (event, data) => {
+    if (data === null) {
+      expect(event.data).toBeUndefined();
+    } else {
+      expect(event.data).toEqual(data);
+    }
+  },
 ) {
   return (event) => {
-    expect(event.data).toEqual(data);
+    asset(event, data);
+    expect(event.nativeEvent).toBe(nativeEvent);
     resolve();
   };
 }
 
-export function dispatchEvent(canvas, event, params?) {
+export function dispatchFirstElementEvent(canvas, event, params?) {
   const [element] = canvas.document.getElementsByClassName('element');
   element.dispatchEvent(new CustomEvent(event, params));
+}
+
+export function dispatchPlotEvent(canvas, event, params?) {
+  const [plot] = canvas.document.getElementsByClassName('plot');
+  plot.dispatchEvent(new CustomEvent(event, params));
 }

@@ -17,3 +17,6 @@ export { chartRenderClearAnimation } from './chart-render-clear-animation';
 export { chartOnBrushFilter } from './chart-on-brush-filter';
 export { chartOptionsChangeData } from './chart-options-change-data';
 export { chartOnFocusContext } from './chart-on-focus-context';
+export { chartEmitItemTooltip } from './chart-emit-item-tooltip';
+export { chartEmitSeriesTooltip } from './chart-emit-series-tooltip';
+export { chartEmitPieTooltip } from './chart-emit-pie-tooltip';
