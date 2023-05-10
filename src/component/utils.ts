@@ -90,6 +90,13 @@ export class G2Layout extends Layout {
   }
 }
 
+export class LegendCategoryLayout extends Layout {
+  update(options: any) {
+    this.attr(options);
+    (this.children?.[0] as any)?.update(options);
+  }
+}
+
 export function scaleOf(scales: Scale[], type: string): Scale | undefined {
   return scales.filter((s) => s.getOptions().name === type)?.[0];
 }

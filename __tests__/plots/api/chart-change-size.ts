@@ -18,6 +18,8 @@ export function chartChangeSize(context) {
     { genre: 'Strategy', sold: 115 },
     { genre: 'Action', sold: 120 },
     { genre: 'Shooter', sold: 350 },
+    { genre: 'Infantry', sold: 220 },
+    { genre: 'Logistics', sold: 330 },
     { genre: 'Other', sold: 150 },
   ]);
 
