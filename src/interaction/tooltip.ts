@@ -6,13 +6,16 @@ import { Constant, Identity } from '@antv/scale';
 import { defined, subObject } from '../utils/helper';
 import { isTranspose, isPolar } from '../utils/coordinate';
 import { angle, sub } from '../utils/vector';
+import { invert } from '../utils/scale';
 import {
   selectG2Elements,
   createXKey,
   selectPlotArea,
   mousePosition,
   selectFacetG2Elements,
+  createDatumof,
 } from './utils';
+import { dataOf } from './event';
 
 function getContainer(group: IElement) {
   // @ts-ignore
@@ -88,10 +91,15 @@ function showTooltip({
   container.tooltipElement = tooltipElement;
 }
 
-function hideTooltip(root, single) {
+function hideTooltip({ root, single, emitter, nativeEvent = true }) {
   const container = single ? getContainer(root) : root;
   const { tooltipElement } = container;
-  if (tooltipElement) tooltipElement.hide();
+  if (tooltipElement) {
+    tooltipElement.hide();
+    if (nativeEvent) {
+      emitter.emit('tooltip:hide', { nativeEvent });
+    }
+  }
 }
 
 function destroyTooltip(root) {
@@ -300,6 +308,7 @@ export function seriesTooltip(
     crosshairs,
     render,
     groupName,
+    emitter,
     wait = 50,
     leading = true,
     trailing = false,
@@ -483,15 +492,40 @@ export function seriesTooltip(
           polar,
         });
       }
+
+      emitter.emit('tooltip:show', {
+        ...event,
+        nativeEvent: true,
+        data: { data: { x: invert(scale.x, abstractX(focus), true) } },
+      });
     },
     wait,
     { leading, trailing },
   ) as (...args: any[]) => void;
 
   const hide = () => {
-    hideTooltip(root, single);
+    hideTooltip({ root, single, emitter });
     if (crosshairs) hideRuleY(root);
   };
+
+  const onTooltipShow = ({ nativeEvent, data }) => {
+    if (nativeEvent) return;
+    const { x } = data.data;
+    const { x: scaleX } = scale;
+    const x1 = scaleX.map(x);
+    const [x2, y2] = coordinate.map([x1, 0.5]);
+    const {
+      min: [minX, minY],
+    } = root.getRenderBounds();
+    update({ offsetX: x2 + minX, offsetY: y2 + minY });
+  };
+
+  const onTooltipHide = () => {
+    hideTooltip({ root, single, emitter, nativeEvent: false });
+  };
+
+  emitter.on('tooltip:show', onTooltipShow);
+  emitter.on('tooltip:hide', onTooltipHide);
 
   root.addEventListener('pointerenter', update);
   root.addEventListener('pointermove', update);
@@ -501,6 +535,8 @@ export function seriesTooltip(
     root.removeEventListener('pointerenter', update);
     root.removeEventListener('pointermove', update);
     root.removeEventListener('pointerleave', hide);
+    emitter.off('tooltip:show', onTooltipShow);
+    emitter.off('tooltip:hide', onTooltipHide);
     destroyTooltip(root);
     if (crosshairs) hideRuleY(root);
   };
@@ -518,6 +554,7 @@ export function tooltip(
     groupName,
     sort: sortFunction,
     filter: filterFunction,
+    emitter,
     wait = 50,
     leading = true,
     trailing = false,
@@ -525,6 +562,8 @@ export function tooltip(
     single = true,
     position,
     enterable,
+    datum,
+    view,
   }: Record<string, any>,
 ) {
   const elements = elementsof(root);
@@ -535,7 +574,7 @@ export function tooltip(
     (event) => {
       const { target: element } = event;
       if (!elementSet.has(element)) {
-        hideTooltip(root, single);
+        hideTooltip({ root, single, emitter });
         return;
       }
       const k = groupKey(element);
@@ -554,7 +593,7 @@ export function tooltip(
       }
 
       if (isEmptyTooltipData(data)) {
-        hideTooltip(root, single);
+        hideTooltip({ root, single, emitter });
         return;
       }
 
@@ -570,6 +609,14 @@ export function tooltip(
         position,
         enterable,
       });
+
+      emitter.emit('tooltip:show', {
+        ...event,
+        nativeEvent: true,
+        data: {
+          data: dataOf(element, view),
+        },
+      });
     },
     wait,
     { leading, trailing },
@@ -578,8 +625,33 @@ export function tooltip(
   const pointerout = (event) => {
     const { target: element } = event;
     if (!elementSet.has(element)) return;
-    hideTooltip(root, single);
+    hideTooltip({ root, single, emitter });
   };
+
+  const onTooltipShow = ({ nativeEvent, data }) => {
+    if (nativeEvent) return;
+    const element = elements.find((d) =>
+      Object.entries(data.data).every(
+        ([key, value]) => datum(d)[key] === value,
+      ),
+    );
+    if (!element) return;
+    const bbox = element.getBBox();
+    const { x, y, width, height } = bbox;
+    pointerover({
+      target: element,
+      offsetX: x + width / 2,
+      offsetY: y + height / 2,
+    });
+  };
+
+  const onTooltipHide = ({ nativeEvent }: any = {}) => {
+    if (nativeEvent) return;
+    hideTooltip({ root, single, emitter, nativeEvent: false });
+  };
+
+  emitter.on('tooltip:show', onTooltipShow);
+  emitter.on('tooltip:hide', onTooltipHide);
 
   root.addEventListener('pointerover', pointerover);
   root.addEventListener('pointermove', pointerover);
@@ -589,6 +661,8 @@ export function tooltip(
     root.removeEventListener('pointerover', pointerover);
     root.removeEventListener('pointermove', pointerover);
     root.removeEventListener('pointerout', pointerout);
+    emitter.off('tooltip:show', onTooltipShow);
+    emitter.off('tooltip:hide', onTooltipHide);
     destroyTooltip(root);
   };
 }
@@ -603,7 +677,7 @@ export function Tooltip(options) {
     facet = false,
     ...rest
   } = options;
-  return (target, viewInstances) => {
+  return (target, viewInstances, emitter) => {
     const { container, view } = target;
     const { scale, markState, coordinate } = view;
     // Get default value from mark states.
@@ -621,6 +695,7 @@ export function Tooltip(options) {
         coordinate,
         crosshairs: maybeValue(crosshairs, defaultShowCrosshairs),
         item,
+        emitter,
       });
     }
 
@@ -649,16 +724,20 @@ export function Tooltip(options) {
         item,
         startX,
         startY,
+        emitter,
       });
     }
 
     return tooltip(plotArea, {
       ...rest,
+      datum: createDatumof(view),
       elements: selectG2Elements,
       scale,
       coordinate,
       groupKey: shared ? createXKey(view) : undefined,
       item,
+      emitter,
+      view,
     });
   };
 }

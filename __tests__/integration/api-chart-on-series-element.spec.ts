@@ -1,6 +1,10 @@
 import { chartOnSeriesElement as render } from '../plots/api/chart-on-series-element';
 import { createDOMGCanvas } from './utils/createDOMGCanvas';
-import { dispatchEvent, createPromise, receiveExpectData } from './utils/event';
+import {
+  dispatchFirstElementEvent,
+  createPromise,
+  receiveExpectData,
+} from './utils/event';
 import './utils/useSnapshotMatchers';
 
 const data = {
@@ -77,7 +81,7 @@ describe('chart.on', () => {
     await finished;
     const [fired, resolve] = createPromise();
     chart.on('element:click', receiveExpectData(resolve, data));
-    dispatchEvent(canvas, 'click', { detail: 1 });
+    dispatchFirstElementEvent(canvas, 'click', { detail: 1 });
     await fired;
   });
 
@@ -85,7 +89,7 @@ describe('chart.on', () => {
     await finished;
     const [fired, resolve] = createPromise();
     chart.on('line:click', receiveExpectData(resolve, data));
-    dispatchEvent(canvas, 'click', { detail: 1 });
+    dispatchFirstElementEvent(canvas, 'click', { detail: 1 });
     await fired;
   });
 
