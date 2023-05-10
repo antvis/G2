@@ -345,6 +345,7 @@ export const ClassicDark: TC<ClassicDarkOptions> = (options) => {
       labelFillOpacity: 0.45,
       labelFontSize: 12,
       labelFontWeight: 'normal',
+      // title: false,
       // [todo] legend rail
     },
     label: {

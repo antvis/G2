@@ -122,7 +122,7 @@ export function inferComponentShape(
   const length = userDefinedLength || defaultLength || bboxLength;
   const orientation = isHorizontal ? 'horizontal' : 'vertical';
   const [width, height] = isHorizontal ? [length, size] : [size, length];
-  return { orientation, width, height, size, length };
+  return { orientation, width, height, size, length } as const;
 }
 
 export function domainOf(scales: Scale[]): any[] {

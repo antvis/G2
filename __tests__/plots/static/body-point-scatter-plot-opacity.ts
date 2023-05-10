@@ -1,6 +1,6 @@
 import { G2Spec } from '../../../src';
 
-export function bodyPointScatterPlot(): G2Spec {
+export function bodyPointScatterPlotOpacity(): G2Spec {
   return {
     type: 'point',
     data: {
@@ -10,15 +10,14 @@ export function bodyPointScatterPlot(): G2Spec {
     encode: {
       x: 'height',
       y: 'weight',
-      size: 'weight',
-      color: 'red',
+      opacity: 'weight',
     },
     legend: {
-      color: {
-        size: 40,
+      opacity: {
+        size: 100,
       },
     },
   };
 }
 
-bodyPointScatterPlot.maxError = 100;
+bodyPointScatterPlotOpacity.maxError = 100;
