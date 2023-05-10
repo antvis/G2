@@ -218,7 +218,7 @@ export function getConnectStyle(
 }
 
 export function toOpacityKey(options) {
-  const { opacityAttribute = 'fill' } = options;
+  const { colorAttribute, opacityAttribute = colorAttribute } = options;
   return `${opacityAttribute}Opacity`;
 }
 
