@@ -198,6 +198,11 @@ export const LEGEND_INFER_STRATEGIES: InferStrategy[] = [
         ['color', 'constant'],
         ['size', 'continuous'],
       ],
+      [
+        ['size', 'continuous'],
+        ['opacity', 'continuous'],
+      ],
+      [['size', 'continuous']],
     ],
   ],
   [
@@ -232,6 +237,7 @@ export const LEGEND_INFER_STRATEGIES: InferStrategy[] = [
         ['opacity', 'continuous'],
       ],
       [['color', 'continuous']],
+      [['opacity', 'continuous']],
     ],
   ],
 ];

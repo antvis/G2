@@ -13,6 +13,9 @@ export function athletesRectBin(): G2Spec {
       y: 'height',
       color: 'sex',
     },
+    legend: {
+      opacity: false,
+    },
     style: {
       inset: 0.5,
     },
