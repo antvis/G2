@@ -140,6 +140,7 @@ export const Advance = createElement((g) => {
     startMarker,
     endMarker,
     coordCenter,
+    interactive = true,
     ...rest
   } = g.attributes as TextShapeStyleProps;
   const { padding, ...backgroundStyle } = subObject(rest, 'background');
@@ -148,6 +149,10 @@ export const Advance = createElement((g) => {
     [+x0, +y0],
     [+x, +y],
   ];
+
+  // Response event, default is `true`.
+  g.interactive = interactive;
+
   const shape1 = select(g)
     .maybeAppend('text', 'text')
     .style('zIndex', 0)
