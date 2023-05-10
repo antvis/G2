@@ -25,7 +25,7 @@ import { mark, Mark } from './mark';
 import { composition, Composition, View } from './composition';
 import { library } from './library';
 
-export const SPEC_EXTERNAL_KEYS = ['container', 'renderer'];
+export const SPEC_EXTERNAL_KEYS = ['container'];
 export const G2_CHART_KEY = 'G2_CHART_KEY';
 
 function normalizeContainer(container: string | HTMLElement): HTMLElement {
