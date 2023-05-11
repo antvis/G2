@@ -25,7 +25,6 @@ import { mark, Mark } from './mark';
 import { composition, Composition, View } from './composition';
 import { library } from './library';
 
-export const SPEC_EXTERNAL_KEYS = ['container'];
 export const G2_CHART_KEY = 'G2_CHART_KEY';
 
 function normalizeContainer(container: string | HTMLElement): HTMLElement {
@@ -249,10 +248,7 @@ export class Chart extends View<ChartOptions> {
     if (arguments.length === 0) {
       return this._options || optionsOf(this);
     }
-    this._options = deepMix(
-      this._options || optionsOf(this),
-      omit(options, SPEC_EXTERNAL_KEYS),
-    );
+    this._options = deepMix(this._options || optionsOf(this), options);
     return this;
   }
 
