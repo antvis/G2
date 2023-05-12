@@ -1,6 +1,6 @@
 import { Canvas } from '@antv/g';
+import { Renderer as SVGRenderer } from '@antv/g-svg';
 import { Chart, createLibrary } from '../../../src';
-import { G2_CHART_KEY } from '../../../src/api/chart';
 import {
   View,
   TimingKeyframe,
@@ -379,6 +379,34 @@ describe('Chart', () => {
       expect(c).toBe(chart);
       done();
     });
+  });
+
+  it('chart renderer SVG and Canvas', () => {
+    // Default is CanvasRenderer.
+    let chart = new Chart({ theme: 'classic' });
+
+    chart.data([
+      { genre: 'Sports', sold: 275 },
+      { genre: 'Strategy', sold: 115 },
+    ]);
+
+    chart.interval().encode('x', 'genre').encode('y', 'sold');
+
+    chart.render();
+    expect(chart.getContainer().querySelector('canvas')).not.toBeNull();
+
+    // Use SVGRenderer.
+    chart = new Chart({ theme: 'classic', renderer: new SVGRenderer() });
+
+    chart.data([
+      { genre: 'Sports', sold: 275 },
+      { genre: 'Strategy', sold: 115 },
+    ]);
+
+    chart.interval().encode('x', 'genre').encode('y', 'sold');
+
+    chart.render();
+    expect(chart.getContainer().querySelector('svg')).not.toBeNull();
   });
 
   it('chart.on(event, callback) should register chart event.', (done) => {

@@ -1,14 +1,12 @@
-import { RendererPlugin, Canvas as GCanvas } from '@antv/g';
+import { IRenderer, RendererPlugin, Canvas as GCanvas } from '@antv/g';
 import { Renderer as CanvasRenderer } from '@antv/g-canvas';
 import { Plugin as DragAndDropPlugin } from '@antv/g-plugin-dragndrop';
-import { debounce, deepMix, omit } from '@antv/util';
+import { debounce, deepMix } from '@antv/util';
 import EventEmitter from '@antv/event-emitter';
 import { G2Context, render, destroy } from '../runtime';
 import { ViewComposition } from '../spec';
-import { getContainerSize } from '../utils/size';
 import { ChartEvent } from '../utils/event';
 import { G2ViewTree } from '../runtime/types/options';
-import { Node } from './node';
 import {
   defineProps,
   NodePropertyDescriptor,
@@ -24,103 +22,14 @@ import {
 import { mark, Mark } from './mark';
 import { composition, Composition, View } from './composition';
 import { library } from './library';
+import {
+  normalizeContainer,
+  removeContainer,
+  sizeOf,
+  optionsOf,
+} from './utils';
 
-export const SPEC_EXTERNAL_KEYS = ['container', 'renderer'];
 export const G2_CHART_KEY = 'G2_CHART_KEY';
-
-function normalizeContainer(container: string | HTMLElement): HTMLElement {
-  if (container === undefined) return document.createElement('div');
-  if (typeof container === 'string') {
-    const node = document.getElementById(container);
-    return node;
-  }
-  return container;
-}
-
-export function removeContainer(container: HTMLElement) {
-  const parent = container.parentNode;
-  if (parent) {
-    parent.removeChild(container);
-  }
-}
-
-function normalizeRoot(node: Node) {
-  if (node.type !== null) return node;
-  const root = node.children[node.children.length - 1];
-  root.attr('width', node.attr('width'));
-  root.attr('height', node.attr('height'));
-  root.attr('paddingLeft', node.attr('paddingLeft'));
-  root.attr('paddingTop', node.attr('paddingTop'));
-  root.attr('paddingBottom', node.attr('paddingBottom'));
-  root.attr('paddingRight', node.attr('paddingRight'));
-  root.attr('insetLeft', node.attr('insetLeft'));
-  root.attr('insetRight', node.attr('insetRight'));
-  root.attr('insetBottom', node.attr('insetBottom'));
-  root.attr('insetTop', node.attr('insetTop'));
-  root.attr('marginLeft', node.attr('marginLeft'));
-  root.attr('marginBottom', node.attr('marginBottom'));
-  root.attr('marginTop', node.attr('marginTop'));
-  root.attr('marginRight', node.attr('marginRight'));
-  root.attr('autoFit', node.attr('autoFit'));
-  root.attr('padding', node.attr('padding'));
-  root.attr('margin', node.attr('margin'));
-  root.attr('inset', node.attr('inset'));
-  root.attr('theme', node.attr('theme'));
-  return root;
-}
-
-function valueOf(node: Node): Record<string, any> {
-  return {
-    ...node.value,
-    type: node.type,
-  };
-}
-
-function Canvas(
-  container: HTMLElement,
-  width: number,
-  height: number,
-  renderer = new CanvasRenderer(),
-  plugins = [],
-) {
-  // DragAndDropPlugin is for interaction.
-  // It is OK to register more than one time, G will handle this.
-  plugins.push(new DragAndDropPlugin());
-  plugins.forEach((d) => renderer.registerPlugin(d));
-  return new GCanvas({
-    container,
-    width,
-    height,
-    renderer,
-  });
-}
-
-function sizeOf(options, container) {
-  const { autoFit } = options;
-  if (autoFit) return getContainerSize(container);
-  const { width = 640, height = 480 } = options;
-  return { width, height };
-}
-
-export function optionsOf(node: Node): Record<string, any> {
-  const root = normalizeRoot(node);
-  const discovered: Node[] = [root];
-  const nodeValue = new Map<Node, Record<string, any>>();
-  nodeValue.set(root, valueOf(root));
-  while (discovered.length) {
-    const node = discovered.pop();
-    const value = nodeValue.get(node);
-    for (const child of node.children) {
-      const childValue = valueOf(child);
-      const { children = [] } = value;
-      children.push(childValue);
-      discovered.push(child);
-      nodeValue.set(child, childValue);
-      value.children = children;
-    }
-  }
-  return nodeValue.get(root);
-}
 
 export type ChartOptions = ViewComposition & {
   container?: string | HTMLElement;
@@ -128,7 +37,7 @@ export type ChartOptions = ViewComposition & {
   width?: number;
   height?: number;
   autoFit?: boolean;
-  renderer?: CanvasRenderer;
+  renderer?: IRenderer;
   plugins?: RendererPlugin[];
   theme?: string;
 };
@@ -178,12 +87,16 @@ export class Chart extends View<ChartOptions> {
   private _options: G2ViewTree;
   private _width: number;
   private _height: number;
+  private _renderer: IRenderer;
+  private _plugins: RendererPlugin[];
   // Identifies whether bindAutoFit.
   private _hasBindAutoFit = false;
 
   constructor(options: ChartOptions) {
-    const { container, canvas, ...rest } = options || {};
+    const { container, canvas, renderer, plugins, ...rest } = options || {};
     super(rest, 'view');
+    this._renderer = renderer || new CanvasRenderer();
+    this._plugins = plugins || [];
     this._container = normalizeContainer(container);
     this._emitter = new EventEmitter();
     this._context = { library, emitter: this._emitter, canvas };
@@ -194,16 +107,18 @@ export class Chart extends View<ChartOptions> {
 
     if (!this._context.canvas) {
       // Init width and height.
-      const { renderer, plugins } = this.options();
       const { width, height } = sizeOf(this.options(), this._container);
       // Create canvas if it does not exist.
-      this._context.canvas = Canvas(
-        this._container,
+      // DragAndDropPlugin is for interaction.
+      // It is OK to register more than one time, G will handle this.
+      this._plugins.push(new DragAndDropPlugin());
+      this._plugins.forEach((d) => this._renderer.registerPlugin(d));
+      this._context.canvas = new GCanvas({
+        container: this._container,
         width,
         height,
-        renderer,
-        plugins,
-      );
+        renderer: this._renderer,
+      });
     }
 
     return new Promise((resolve, reject) => {
@@ -249,10 +164,7 @@ export class Chart extends View<ChartOptions> {
     if (arguments.length === 0) {
       return this._options || optionsOf(this);
     }
-    this._options = deepMix(
-      this._options || optionsOf(this),
-      omit(options, SPEC_EXTERNAL_KEYS),
-    );
+    this._options = deepMix(this._options || optionsOf(this), options);
     return this;
   }
 
