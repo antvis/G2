@@ -200,7 +200,7 @@ function inferScaleDomain(
     case 'quantize':
     case 'threshold': {
       const [d0, d1] = inferDomainQ(values, options);
-      return [domainMin || d0, domainMax || d1];
+      return [domainMin ?? d0, domainMax ?? d1];
     }
     case 'band':
     case 'ordinal':
@@ -210,7 +210,7 @@ function inferScaleDomain(
       return inferDomainO(values);
     case 'sequential': {
       const [d0, d1] = inferDomainS(values);
-      return [domainMin || d0, domainMax || d1];
+      return [domainMin ?? d0, domainMax ?? d1];
     }
     default:
       return [];
