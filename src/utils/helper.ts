@@ -116,6 +116,17 @@ export function filterPrefixObject(
   );
 }
 
+export function omitPrefixObject(
+  obj: Record<string, any>,
+  ...prefixes: string[]
+) {
+  return Object.fromEntries(
+    Object.entries(obj).filter(([key]) =>
+      prefixes.every((prefix) => !key.startsWith(prefix)),
+    ),
+  );
+}
+
 export function maybePercentage(x: number | string, size: number) {
   if (x === undefined) return null;
   if (typeof x === 'number') return x;

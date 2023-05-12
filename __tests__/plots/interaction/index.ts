@@ -58,3 +58,5 @@ export { populationIntervalDiverging } from './population-interval-diverging';
 export { stateAgesIntervalNormalized } from './stateages-interval-normalized';
 export { aaplLineSliderFilterTranspose } from './appl-line-slider-filter-transpose';
 export { alphabetIntervalFunnelLegendFilter } from './alphabet-interval-funnel-legend-filter';
+export { penguinsPointBrushHandleStyle } from './penguins-point-brush-handle-style';
+export { penguinsPointBrushHandleCustom } from './penguins-point-brush-handle-custom';

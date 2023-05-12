@@ -4,7 +4,7 @@ import { PathStyleProps } from '@antv/g';
 import { Marker } from '@antv/gui';
 import { line as d3line } from 'd3-shape';
 import { ShapeComponent as SC, Vector2, WithPrefix } from '../../runtime';
-import { createElement } from '../../shape/createElement';
+import { createElement } from '../../utils/createElement';
 import { isTranspose } from '../../utils/coordinate';
 import { subObject } from '../../utils/helper';
 import { select } from '../../utils/selection';

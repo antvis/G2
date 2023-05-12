@@ -11,7 +11,7 @@ import {
   getTransform,
 } from '../utils';
 import { subObject } from '../../utils/helper';
-import { createElement } from '../createElement';
+import { createElement } from '../../utils/createElement';
 
 const DoubleArea = createElement((g) => {
   const { areaPath, connectPath, areaStyle, connectStyle } = g.attributes;

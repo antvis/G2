@@ -1,6 +1,8 @@
 import { DisplayObject, Rect, Path } from '@antv/g';
-import { subObject } from '../utils/helper';
+import { subObject, omitPrefixObject } from '../utils/helper';
 import { selectionOf, pixelsOf } from '../utils/scale';
+import { createElement } from '../utils/createElement';
+import { select, Selection } from '../utils/selection';
 import {
   selectG2Elements,
   selectPlotArea,
@@ -35,6 +37,180 @@ function bboxOf(root: DisplayObject) {
   return [0, 0, width, height];
 }
 
+function applyStyle(selection: Selection, style: Record<string, any>) {
+  for (const [key, value] of Object.entries(style)) {
+    selection.style(key, value);
+  }
+}
+
+const ResizableMask = createElement((g) => {
+  const {
+    x,
+    y,
+    width,
+    height,
+    class: className,
+    renders = {},
+    handleSize: size = 10,
+    document,
+    ...style
+  } = g.attributes;
+
+  if (
+    !document ||
+    width === undefined ||
+    height === undefined ||
+    x === undefined ||
+    y === undefined
+  )
+    return;
+
+  const half = size / 2;
+
+  const renderRect = (g, options, document) => {
+    if (!g.handle) {
+      g.handle = document.createElement('rect');
+      g.append(g.handle);
+    }
+    const { handle } = g;
+    handle.attr(options);
+    return handle;
+  };
+
+  const { render: handleNRender = renderRect, ...handleNStyle } = subObject(
+    omitPrefixObject(style, 'handleNW', 'handleNE'),
+    'handleN',
+  );
+
+  const { render: handleERender = renderRect, ...handleEStyle } = subObject(
+    style,
+    'handleE',
+  );
+  const { render: handleSRender = renderRect, ...handleSStyle } = subObject(
+    omitPrefixObject(style, 'handleSE', 'handleSW'),
+    'handleS',
+  );
+  const { render: handleWRender = renderRect, ...handleWStyle } = subObject(
+    style,
+    'handleW',
+  );
+  const { render: handleNWRender = renderRect, ...handleNWStyle } = subObject(
+    style,
+    'handleNW',
+  );
+  const { render: handleNERender = renderRect, ...handleNEStyle } = subObject(
+    style,
+    'handleNE',
+  );
+  const { render: handleSERender = renderRect, ...handleSEStyle } = subObject(
+    style,
+    'handleSE',
+  );
+  const { render: handleSWRender = renderRect, ...handleSWStyle } = subObject(
+    style,
+    'handleSW',
+  );
+
+  const renderHandle = (g, renderNode) => {
+    const { id } = g;
+    const { x, y, ...style } = g.attributes;
+    const handle = renderNode(g, { x: 0, y: 0, ...style }, document);
+    handle.id = id;
+    handle.style.draggable = true;
+  };
+
+  const appendHandle = (handleRender) => {
+    return () => {
+      const Node = createElement((g) => renderHandle(g, handleRender));
+      return new Node({});
+    };
+  };
+
+  const container = select(g)
+    .attr('className', className)
+    .style('x', x)
+    .style('y', y)
+    .style('draggable', true);
+
+  container
+    .maybeAppend('selection', 'rect')
+    .style('draggable', true)
+    .style('fill', 'transparent')
+    .call(applyStyle, { width, height, ...omitPrefixObject(style, 'handle') });
+
+  container
+    .maybeAppend('handle-n', appendHandle(handleNRender))
+    .style('x', half)
+    .style('y', -half)
+    .style('width', width - size)
+    .style('height', size)
+    .style('fill', 'transparent')
+    .call(applyStyle, handleNStyle);
+
+  container
+    .maybeAppend('handle-e', appendHandle(handleERender))
+    .style('x', width - half)
+    .style('y', half)
+    .style('width', size)
+    .style('height', height - size)
+    .style('fill', 'transparent')
+    .call(applyStyle, handleEStyle);
+
+  container
+    .maybeAppend('handle-s', appendHandle(handleSRender))
+    .style('x', half)
+    .style('y', height - half)
+    .style('width', width - size)
+    .style('height', size)
+    .style('fill', 'transparent')
+    .call(applyStyle, handleSStyle);
+
+  container
+    .maybeAppend('handle-w', appendHandle(handleWRender))
+    .style('x', -half)
+    .style('y', half)
+    .style('width', size)
+    .style('height', height - size)
+    .style('fill', 'transparent')
+    .call(applyStyle, handleWStyle);
+
+  container
+    .maybeAppend('handle-nw', appendHandle(handleNWRender))
+    .style('x', -half)
+    .style('y', -half)
+    .style('width', size)
+    .style('height', size)
+    .style('fill', 'transparent')
+    .call(applyStyle, handleNWStyle);
+
+  container
+    .maybeAppend('handle-ne', appendHandle(handleNERender))
+    .style('x', width - half)
+    .style('y', -half)
+    .style('width', size)
+    .style('height', size)
+    .style('fill', 'transparent')
+    .call(applyStyle, handleNEStyle);
+
+  container
+    .maybeAppend('handle-se', appendHandle(handleSERender))
+    .style('x', width - half)
+    .style('y', height - half)
+    .style('width', size)
+    .style('height', size)
+    .style('fill', 'transparent')
+    .call(applyStyle, handleSEStyle);
+
+  container
+    .maybeAppend('handle-sw', appendHandle(handleSWRender))
+    .style('x', -half)
+    .style('y', height - half)
+    .style('width', size)
+    .style('height', size)
+    .style('fill', 'transparent')
+    .call(applyStyle, handleSWStyle);
+});
+
 export function brush(
   root: DisplayObject,
   {
@@ -47,6 +223,16 @@ export function brush(
     fill = '#777',
     fillOpacity = '0.3',
     stroke = '#fff',
+    selectedHandles = [
+      'handle-n',
+      'handle-e',
+      'handle-s',
+      'handle-w',
+      'handle-nw',
+      'handle-ne',
+      'handle-se',
+      'handle-sw',
+    ],
     ...style
   }: Record<string, any>,
 ) {
@@ -55,7 +241,7 @@ export function brush(
   let moveStart = null; // Start point of moving mask.
   let mask = null; // Mask instance.
   let background = null;
-  let resizing = false;
+  let creating = false;
 
   const [originX, originY, width, height] = extent;
 
@@ -81,7 +267,7 @@ export function brush(
         pointerEvents: 'none',
       },
     });
-    mask = new Rect({
+    mask = new ResizableMask({
       // @ts-ignore
       style: {
         x: 0,
@@ -89,6 +275,7 @@ export function brush(
         width: 0,
         height: 0,
         draggable: true,
+        document: root.ownerDocument,
       },
       className: 'mask',
     });
@@ -97,9 +284,10 @@ export function brush(
   };
 
   const initNormalMask = () => {
-    mask = new Rect({
+    mask = new ResizableMask({
       // @ts-ignore
       style: {
+        document: root.ownerDocument,
         x: 0,
         y: 0,
         ...style,
@@ -120,7 +308,7 @@ export function brush(
     start = null;
     end = null;
     moveStart = null;
-    resizing = false;
+    creating = false;
     mask = null;
     background = null;
     brushended();
@@ -176,29 +364,69 @@ export function brush(
     updateMask(currentStart, currentEnd);
   };
 
+  const handles = {
+    'handle-n': { vector: [0, 1, 0, 0], cursor: 'ns-resize' },
+    'handle-e': { vector: [0, 0, 1, 0], cursor: 'ew-resize' },
+    'handle-s': { vector: [0, 0, 0, 1], cursor: 'ns-resize' },
+    'handle-w': { vector: [1, 0, 0, 0], cursor: 'ew-resize' },
+    'handle-nw': { vector: [1, 1, 0, 0], cursor: 'nwse-resize' },
+    'handle-ne': { vector: [0, 1, 1, 0], cursor: 'nesw-resize' },
+    'handle-se': { vector: [0, 0, 1, 1], cursor: 'nwse-resize' },
+    'handle-sw': { vector: [1, 0, 0, 1], cursor: 'nesw-resize' },
+  };
+
+  const isMask = (target) => {
+    return isSelection(target) || isHandle(target);
+  };
+
+  const isHandle = (target) => {
+    const { id } = target;
+    if (selectedHandles.indexOf(id) === -1) return false;
+    return new Set(Object.keys(handles)).has(id);
+  };
+
+  const isSelection = (target) => {
+    return target === mask.getElementById('selection');
+  };
+
   // If target is plot area, create mask.
   // If target is mask, about to update position.
   const dragstart = (event) => {
     const { target } = event;
     const [offsetX, offsetY] = brushMousePosition(root, event);
-    if (target === mask) {
-      moveStart = [offsetX, offsetY];
+    if (!mask || !isMask(target)) {
+      initMask(offsetX, offsetY);
+      creating = true;
       return;
     }
-    initMask(offsetX, offsetY);
-    resizing = true;
+    if (isMask(target)) {
+      moveStart = [offsetX, offsetY];
+    }
   };
 
-  // If target is plot area, resize mask.
-  // If target is mask, move mask.
   const drag = (event) => {
+    const { target } = event;
     const mouse = brushMousePosition(root, event);
     if (!start) return;
-    if (moveStart) return moveMask(mouse);
-    updateMask(start, mouse);
+    // If target is plot area, resize mask.
+    if (!moveStart) return updateMask(start, mouse);
+
+    // If target is selection area, move mask.
+    if (isSelection(target)) return moveMask(mouse);
+
+    // If target is handle area, resize mask.
+    const [dx, dy] = [mouse[0] - moveStart[0], mouse[1] - moveStart[1]];
+    const { id } = target;
+    if (handles[id]) {
+      const [sx, sy, ex, ey] = handles[id].vector;
+      return updateMask(
+        [start[0] + dx * sx, start[1] + dy * sy],
+        [end[0] + dx * ex, end[1] + dy * ey],
+      );
+    }
   };
 
-  // If target is plot area, finish resizing.
+  // If target is plot area, finish creating.
   // If target is mask, finish moving mask.
   const dragend = (event) => {
     if (moveStart) {
@@ -211,21 +439,22 @@ export function brush(
     }
     end = brushMousePosition(root, event);
     const [fx, fy, fx1, fy1] = updateMask(start, end);
-    resizing = false;
+    creating = false;
     brushcreated(fx, fy, fx1, fy1, event);
   };
 
   // Hide mask.
   const click = (event) => {
     const { target } = event;
-    if (mask && target !== mask) removeMask();
+    if (mask && !isMask(target)) removeMask();
   };
 
   // Update cursor depends on hovered element.
   const pointermove = (event) => {
     const { target } = event;
-    if (target === mask && !resizing) setCursor(root, 'move');
-    else setCursor(root, 'crosshair');
+    if (!mask || !isMask(target) || creating) setCursor(root, 'crosshair');
+    else if (isSelection(target)) setCursor(root, 'move');
+    else if (isHandle(target)) setCursor(root, handles[target.id].cursor);
   };
 
   const pointerleave = () => {
@@ -251,6 +480,8 @@ export function brush(
       if (mask) removeMask();
     },
     destroy() {
+      removeMask();
+      setCursor(root, 'default');
       root.removeEventListener('dragstart', dragstart);
       root.removeEventListener('drag', drag);
       root.removeEventListener('dragend', dragend);
@@ -291,6 +522,7 @@ export function brushHighlight(
   root,
   {
     elements: elementof,
+    selectedHandles,
     siblings: siblingsof = (root) => [],
     datum,
     brushRegion,
@@ -393,6 +625,7 @@ export function brushHighlight(
     extent,
     brushRegion,
     reverse,
+    selectedHandles,
     brushended: () => {
       const handler = series ? seriesBrushend : brushended;
       emitter.emit('brush:end', { nativeEvent: true });
@@ -423,9 +656,11 @@ export function brushHighlight(
   emitter.on('brush:remove', onRemove);
 
   // Remove event handlers.
+  const preBrushDestroy = brushHandler.destroy.bind(brushHandler);
   brushHandler.destroy = () => {
     emitter.off('brush:highlight', onHighlight);
     emitter.off('brush:remove', onRemove);
+    preBrushDestroy();
   };
 
   return brushHandler;
@@ -464,6 +699,7 @@ export function BrushHighlight({ facet, brushKey, ...rest }) {
         emitter,
         scale,
         coordinate,
+        selectedHandles: undefined,
         ...defaultOptions,
         ...rest,
       });
@@ -488,6 +724,7 @@ export function BrushHighlight({ facet, brushKey, ...rest }) {
       emitter,
       scale,
       coordinate,
+      selectedHandles: undefined,
       ...defaultOptions,
       ...rest,
     });
