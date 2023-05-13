@@ -214,15 +214,6 @@ export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
     const { bbox } = value;
     const { x, y, width, height } = bbox;
     const finalLayout = inferComponentLayout(position, layout);
-    const layoutWrapper = new G2Layout({
-      style: {
-        x,
-        y,
-        width,
-        height,
-        ...finalLayout,
-      },
-    });
 
     const { continuousLegend: legendTheme = {} } = theme;
     const finalStyle = adaptor(
@@ -251,6 +242,18 @@ export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
         rest,
       ),
     );
+
+    const layoutWrapper = new G2Layout({
+      style: {
+        x,
+        y,
+        width,
+        height,
+        ...finalLayout,
+        // @ts-ignore
+        subOptions: finalStyle,
+      },
+    });
 
     layoutWrapper.appendChild(
       new Continuous({
