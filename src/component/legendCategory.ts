@@ -244,6 +244,11 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
     };
 
     const { legend: legendTheme = {} } = theme;
+
+    const categoryStyle = adaptor(
+      Object.assign({}, legendTheme, legendStyle, style),
+    );
+
     const layoutWrapper = new LegendCategoryLayout({
       style: {
         x: bbox.x,
@@ -251,13 +256,15 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
         width: bbox.width,
         height: bbox.height,
         ...finalLayout,
+        // @ts-ignore
+        subOptions: categoryStyle,
       },
     });
 
     layoutWrapper.appendChild(
       new Category({
         className: 'legend-category',
-        style: adaptor(Object.assign({}, legendTheme, legendStyle, style)),
+        style: categoryStyle,
       }),
     );
     return layoutWrapper;

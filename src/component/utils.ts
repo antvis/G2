@@ -83,17 +83,21 @@ export function inferComponentLayout(
 }
 
 export class G2Layout extends Layout {
+  get child() {
+    return this.children?.[0] as any;
+  }
+
   update(options: any) {
     this.attr(options);
-    const { width, height, ...restOptions } = options;
-    (this.children?.[0] as any)?.update(restOptions);
+    const { subOptions } = options;
+    this.child?.update(subOptions);
   }
 }
 
-export class LegendCategoryLayout extends Layout {
+export class LegendCategoryLayout extends G2Layout {
   update(options: any) {
-    this.attr(options);
-    (this.children?.[0] as any)?.update(options);
+    const { subOptions } = options;
+    this.child?.update(subOptions);
   }
 }
 
