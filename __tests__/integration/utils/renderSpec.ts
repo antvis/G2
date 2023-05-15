@@ -2,7 +2,6 @@ import { Canvas } from '@antv/g';
 import { G2Context, G2Spec, render } from '../../../src';
 import { renderToMountedElement } from '../../utils/renderToMountedElement';
 import { createNodeGCanvas } from './createNodeGCanvas';
-import { sleep } from './sleep';
 
 export async function renderSpec(
   generateOptions,

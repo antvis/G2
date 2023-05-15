@@ -48,4 +48,4 @@ export function aaplLineAreaBasicSampleMount(): G2Spec {
 
 aaplLineAreaBasicSampleMount.maxError = 100;
 
-aaplLineAreaBasicSampleMount.steps = seriesTooltipSteps([500, 200]);
+aaplLineAreaBasicSampleMount.steps = seriesTooltipSteps([50, 200], [550, 200]);
