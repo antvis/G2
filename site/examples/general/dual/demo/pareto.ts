@@ -65,6 +65,10 @@ chart
     title: 'Cumulative Percentage',
     grid: null,
     labelFormatter: (d) => `${(d * 100).toFixed(0)}%`,
+  })
+  .tooltip({
+    channel: 'y',
+    valueFormatter: (d) => `${(d * 100).toFixed(2)}%`,
   });
 
 chart
@@ -73,6 +77,7 @@ chart
   .encode('y', 'accumulate')
   .encode('shape', 'diamond')
   .scale('y', { independent: true, domainMin: 0 })
-  .axis('y', null);
+  .axis('y', null)
+  .tooltip(null);
 
 chart.render();
