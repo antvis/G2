@@ -13,10 +13,10 @@
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*hpjTRr6LM7IAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
-      "filename": "gauge-custom-shape.ts",
+      "filename": "gauge-custom-color.ts",
       "title": {
-        "zh": "自定义仪表盘指示器",
-        "en": "Custom Shape Gauge Chart"
+        "zh": "自定义仪表盘颜色",
+        "en": "Custom Color Gauge Chart"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*VSrGTYrM954AAAAAAAAAAAAADmJ7AQ/original"
     }

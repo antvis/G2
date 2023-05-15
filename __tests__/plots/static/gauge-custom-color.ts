@@ -8,11 +8,11 @@ export function gaugeCustomColor(): G2Spec {
         target: 120,
         total: 400,
         name: 'score',
+        thresholds: [100, 200, 400],
       },
     },
     scale: {
       color: {
-        domain: [100, 200, 400],
         range: ['#F4664A', '#FAAD14', 'green'],
       },
     },
