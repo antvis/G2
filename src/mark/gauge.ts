@@ -10,20 +10,27 @@ import { Radial } from '../coordinate';
 import { applyStyle, getOrigin } from '../shape/utils';
 import { select } from '../utils/selection';
 
+export type GaugeData = {
+  target?: number;
+  total?: number;
+  percent?: number;
+  name?: string;
+  thresholds?: number[];
+};
+
 export type GaugeOptions = Omit<GaugeMark, 'type'>;
 
-function dataTransform(data, scale) {
-  const { name = 'score', target, total, percent } = data;
+function dataTransform(data: GaugeData, scale) {
+  const { name = 'score', target, total, percent, thresholds = [] } = data;
   const _target = percent || target;
   const _total = percent ? 1 : total;
-  const { color } = scale;
   const newScale = {
     y: {
       domain: [0, _total],
     },
     ...scale,
   };
-  if (!color) {
+  if (!thresholds.length) {
     return {
       targetData: [{ x: name, y: _target, color: 'target' }],
       totalData: [
@@ -35,12 +42,11 @@ function dataTransform(data, scale) {
       scale: newScale,
     };
   }
-  const { domain = [] } = color;
   return {
     targetData: [{ x: name, y: _target, color: 'target' }],
-    totalData: domain.map((d, i) => ({
+    totalData: thresholds.map((d, i) => ({
       x: name,
-      y: i >= 1 ? d - domain[i - 1] : d,
+      y: i >= 1 ? d - thresholds[i - 1] : d,
       color: i,
     })),
     target: _target,
