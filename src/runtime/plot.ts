@@ -823,7 +823,10 @@ async function plotView(
               maybeFacetElement(this, parent, origin);
               const node = shapeFunction(data, index);
               const animation = updateFunction(data, [this], [node]);
-              if (animation === null) copyAttributes(this, node);
+              if (animation === null) {
+                if (this.nodeName === node.nodeName) copyAttributes(this, node);
+                else this.parentNode.replaceChild(node, this);
+              }
               return animation;
             });
           }),
