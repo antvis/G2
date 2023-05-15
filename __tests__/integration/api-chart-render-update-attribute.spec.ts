@@ -4,11 +4,11 @@ import { kebabCase } from './utils/kebabCase';
 import './utils/useCustomFetch';
 import './utils/useSnapshotMatchers';
 
-describe('chart.options.autoFit', () => {
+describe('chart.render', () => {
   const dir = `${__dirname}/snapshots/api/${kebabCase(render.name)}`;
   const canvas = createNodeGCanvas(800, 500);
 
-  it('chart({ autoFit: true }) should fit parent container', async () => {
+  it('chart.render() should update attribute without animation', async () => {
     const { finished, chart, refreshed, refreshed1, button, ...rest } = render({
       canvas,
       container: document.createElement('div'),

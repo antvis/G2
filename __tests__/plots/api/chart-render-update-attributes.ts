@@ -29,6 +29,7 @@ export function chartRenderUpdateAttributes(context) {
       x: 'date',
       y: 'close',
     },
+    axis: { x: false },
   };
 
   chart.options(options);
