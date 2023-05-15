@@ -1,7 +1,7 @@
 import { TextStyleProps, DisplayObject } from '@antv/g';
 import { Marker } from '@antv/gui';
 import { ShapeComponent as SC, WithPrefix } from '../../runtime';
-import { createElement } from '../../shape/createElement';
+import { createElement } from '../../utils/createElement';
 import { subObject } from '../../utils/helper';
 import { select } from '../../utils/selection';
 import { applyStyle, getShapeTheme } from '../../shape/utils';

@@ -10,7 +10,7 @@ import {
   getShapeTheme,
   getTransform,
 } from '../utils';
-import { createElement } from '../createElement';
+import { createElement } from '../../utils/createElement';
 import { subObject } from '../../utils/helper';
 import { angleWithQuadrant, dist, sub } from '../../utils/vector';
 

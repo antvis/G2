@@ -6,7 +6,7 @@ export type ElementDescriptor = {
 
 export function createElement<T = Record<string, any>>(
   descriptor: ElementDescriptor | ElementDescriptor['render'],
-): new () => DisplayObject {
+): new (T?) => DisplayObject {
   const render =
     typeof descriptor === 'function' ? descriptor : descriptor.render;
   return class extends CustomElement<T> {

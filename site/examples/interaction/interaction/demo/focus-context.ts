@@ -36,7 +36,7 @@ const context = new Chart({
   paddingLeft: 40,
   paddingTop: 0,
   paddingBottom: 0,
-  height: 80,
+  height: 60,
 });
 
 context
@@ -51,9 +51,38 @@ context
   .animate(false)
   .axis(false)
   .interaction('tooltip', false)
-  .interaction('brushXHighlight', true);
+  .interaction('brushXHighlight', {
+    series: true,
+    maskOpacity: 0.3,
+    maskFill: '#777',
+    maskHandleWRender: createPathRender((width, height) => ({
+      d: 'M-0.5,31.5c-2.5,0,-4.5,2,-4.5,4.5v30c0,2.5,2,4.5,4.5,4.5V31.5z',
+      transform: `translate(${width / 2}, ${-height / 2})`,
+    })),
+    maskHandleERender: createPathRender((width, height) => ({
+      d: 'M0.5,31.5c2.5,0,4.5,2,4.5,4.5v30c0,2.5,-2,4.5,-4.5,4.5V31.5z',
+      transform: `translate(${width / 2}, ${-height / 2})`,
+    })),
+    maskHandleEFill: '#D3D8E0',
+    maskHandleWFill: '#D3D8E0',
+  });
 
 context.render();
+
+function createPathRender(compute) {
+  return (group, options, document) => {
+    if (!group.handle) {
+      const path = document.createElement('path');
+      group.handle = path;
+      group.appendChild(group.handle);
+    }
+    const { handle } = group;
+    const { width, height, ...rest } = options;
+    if (width === undefined || height === undefined) return handle;
+    handle.attr({ ...compute(width, height), ...rest });
+    return handle;
+  };
+}
 
 // Add event listeners  to communicate.
 focus.on('brush:filter', (e) => {

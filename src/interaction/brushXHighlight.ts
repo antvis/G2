@@ -9,5 +9,6 @@ export function BrushXHighlight(options) {
   return BrushHighlight({
     ...options,
     brushRegion: brushXRegion,
+    selectedHandles: ['handle-e', 'handle-w'],
   });
 }
