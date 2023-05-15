@@ -77,11 +77,11 @@ mark.tooltip({ channel: 'y' });
 mark.tooltip((d) => (d.value > 100 ? d.name : d.age));
 
 // 格式化
-mark.tooltip({ channel: 'y', labelFormatter: (d) => d.toFixed(1) });
+mark.tooltip({ channel: 'y', valueFormatter: (d) => d.toFixed(1) });
 
 // d3-format 支持的字符
 // https://github.com/d3/d3-format
-mark.tooltip({ channel: 'y', labelFormatter: '~s' });
+mark.tooltip({ channel: 'y', valueFormatter: '~s' });
 
 // 完整信息
 mark.tooltip({ name: 'name', color: 'red', value: 'color' });

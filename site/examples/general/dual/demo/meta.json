@@ -27,6 +27,14 @@
         "en": "Aggregated Dual Line And Area Chart"
       },
       "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*J-lVRamRfgUAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "pareto.ts",
+      "title": {
+        "zh": "帕累托图",
+        "en": "Pareto Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*COKsS6s75kYAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }
