@@ -20,3 +20,5 @@ export { chartOnFocusContext } from './chart-on-focus-context';
 export { chartEmitItemTooltip } from './chart-emit-item-tooltip';
 export { chartEmitSeriesTooltip } from './chart-emit-series-tooltip';
 export { chartEmitPieTooltip } from './chart-emit-pie-tooltip';
+export { chartRenderUpdateAttributes } from './chart-render-update-attributes';
+export { chartRenderUpdateNonAnimation } from './chart-render-update-non-animation';

@@ -1,5 +1,5 @@
 import { DisplayObject } from '@antv/g';
-import { lowerFirst, startsWith, upperFirst } from '@antv/util';
+import { lowerFirst, upperFirst } from '@antv/util';
 
 export function identity<T>(x: T): T {
   return x;
