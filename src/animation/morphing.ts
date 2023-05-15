@@ -5,6 +5,7 @@ import {
   Path,
 } from '@antv/g';
 import { AnimationComponent as AC } from '../runtime';
+import { copyAttributes } from '../utils/helper';
 import { Animation } from './types';
 import { attributeKeys, attributeOf, effectTiming } from './utils';
 
@@ -180,6 +181,10 @@ function oneToOne(
     },
   ];
   const animation = pathShape.animate(keyframes, timeEffect);
+
+  animation.onfinish = () => {
+    copyAttributes(pathShape, to);
+  };
 
   // Remove transform because it already applied in path
   // converted by convertToPath.
