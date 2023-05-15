@@ -155,11 +155,7 @@ export function renderToMountedElement<T extends G2ViewTree = G2ViewTree>(
   return group;
 }
 
-export function destroy<T extends G2ViewTree = G2ViewTree>(
-  options: T,
-  context: G2Context = {},
-  isDestroyCanvas = false,
-) {
+export function destroy(context: G2Context = {}, isDestroyCanvas = false) {
   const { canvas, emitter } = context;
   if (canvas) {
     destroyAllInteractions(canvas);

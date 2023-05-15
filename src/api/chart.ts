@@ -1,7 +1,7 @@
 import { IRenderer, RendererPlugin, Canvas as GCanvas } from '@antv/g';
 import { Renderer as CanvasRenderer } from '@antv/g-canvas';
 import { Plugin as DragAndDropPlugin } from '@antv/g-plugin-dragndrop';
-import { debounce, deepMix } from '@antv/util';
+import { debounce, deepMix, pick } from '@antv/util';
 import EventEmitter from '@antv/event-emitter';
 import { G2Context, render, destroy } from '../runtime';
 import { ViewComposition } from '../spec';
@@ -204,19 +204,25 @@ export class Chart extends View<ChartOptions> {
   }
 
   clear() {
+    const CLEAR_RETAIN_OPTIONS = [
+      'autoFit',
+      'container',
+      'theme',
+      'width',
+      'height',
+    ];
     const options = this.options();
     this.emit(ChartEvent.BEFORE_CLEAR);
-    this._options = {};
-    destroy(options, this._context, false);
+    this.options(pick(options, CLEAR_RETAIN_OPTIONS));
+    destroy(this._context, false);
     this.emit(ChartEvent.AFTER_CLEAR);
   }
 
   destroy() {
-    const options = this.options();
     this.emit(ChartEvent.BEFORE_DESTROY);
     this._unbindAutoFit();
     this._options = {};
-    destroy(options, this._context, true);
+    destroy(this._context, true);
     removeContainer(this._container);
     this.emit(ChartEvent.AFTER_DESTROY);
   }

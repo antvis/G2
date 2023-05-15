@@ -573,6 +573,28 @@ describe('Chart', () => {
     expect(chart.getGroup()).toEqual(null);
   });
 
+  it('chart.clear() should retain theme attribute', async () => {
+    const chart = new Chart({ theme: 'classic' });
+    chart.data([
+      { genre: 'Sports', sold: 275 },
+      { genre: 'Strategy', sold: 115 },
+      { genre: 'Action', sold: 120 },
+      { genre: 'Shooter', sold: 350 },
+      { genre: 'Other', sold: 150 },
+    ]);
+    chart
+      .interval()
+      .attr('key', 'interval')
+      .encode('x', 'genre')
+      .encode('y', 'sold')
+      .encode('color', 'genre');
+
+    await chart.render();
+
+    chart.clear();
+    expect(chart.options().theme).toEqual('classic');
+  });
+
   it('chart.clear() should clear group.', async () => {
     const chart = new Chart({ theme: 'classic' });
     chart.data([
