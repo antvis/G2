@@ -47,7 +47,11 @@ export function pixelsOf(selection, scale, coordinate) {
   const [[minX, maxX], [minY, maxY]] = selection;
   const { x: scaleX, y: scaleY } = scale;
   const p0 = [scaleX.map(minX), scaleY.map(minY)];
-  const p1 = [scaleX.map(maxX), scaleY.map(maxY)];
+  const maybeStep = (scale) => (scale.getStep ? scale.getStep() : 0);
+  const p1 = [
+    scaleX.map(maxX) + maybeStep(scaleX),
+    scaleY.map(maxY) + maybeStep(scaleY),
+  ];
   const [x, y] = coordinate.map(p0);
   const [x1, y1] = coordinate.map(p1);
   return [x, y, x1, y1];
