@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 import { deepMix } from '@antv/util';
 
 const linkOptions =
-  process.env.LINK === true
+  process.env.LINK === '1'
     ? {
         server: {
           watch: {

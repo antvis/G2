@@ -14,7 +14,7 @@
   ],
   "scripts": {
     "dev": "vite",
-    "dev:link": "cross-env LINK=true vite",
+    "dev:link": "cross-env LINK=1 vite",
     "clean": "rimraf lib esm dist",
     "lint-staged": "lint-staged",
     "size": "limit-size",
