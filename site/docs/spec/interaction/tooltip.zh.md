@@ -44,6 +44,8 @@ chart.render();
 | body                      | 是否展示 tooltip                     | `boolean`                                   | true   |
 | groupName                 | 是否使用 groupName                   | `boolean`                                   | true   |
 | position                  | tooltip 位置                         | `TooltipPosition`                           | -      |
+| mount                     | tooltip 渲染的 dom 节点             | `string` \| `HTMLElement`                     | 图表容器  |
+| bounding                  | tooltip 渲染的限制区域，超出会自动调整位置   | `BBox`                                   | 图表区域大小  |
 | crosshairs                | 是否暂时指示线                       | `boolean`                                   | -      |
 | `crosshairs${StyleAttrs}` | 指示线的样式                         | `number \| string`                          | -      |
 | render                    | 自定义 tooltip 渲染函数              | `(event, options) => HTMLElement \| string` | -      |
@@ -52,7 +54,6 @@ chart.render();
 
 ```ts
 type TooltipPosition =
-  | 'auto'
   | 'top'
   | 'bottom'
   | 'left'
@@ -61,6 +62,8 @@ type TooltipPosition =
   | 'top-right'
   | 'bottom-left'
   | 'bottom-right';
+
+type BBox = { x: number, y: number, width: number, height: number };
 ```
 
 ## 案例

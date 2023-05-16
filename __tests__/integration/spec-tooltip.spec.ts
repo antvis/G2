@@ -55,4 +55,7 @@ describe('Tooltips', () => {
       }
     });
   }
+  afterEach(() => {
+    document.body.innerHTML = '';
+  });
 });
