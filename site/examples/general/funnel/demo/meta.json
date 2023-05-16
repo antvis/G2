@@ -1,0 +1,32 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "funnel.ts",
+      "title": {
+        "zh": "漏斗图",
+        "en": "Funnel"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*6syuS6eMD1AAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "pyramid.ts",
+      "title": {
+        "zh": "金字塔图",
+        "en": "Pyramid"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*8SagQbsQk6gAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "mirror-funnel.ts",
+      "title": {
+        "zh": "对比漏斗图",
+        "en": "Mirror Funnel"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ejYqRJVJ12gAAAAAAAAAAAAADmJ7AQ/original"
+    }
+  ]
+}
