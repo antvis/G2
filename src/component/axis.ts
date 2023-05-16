@@ -2,7 +2,7 @@ import { Coordinate } from '@antv/coord';
 import type { DisplayObject } from '@antv/g';
 import { Axis as AxisComponent } from '@antv/gui';
 import { Linear as LinearScale } from '@antv/scale';
-import { deepMix } from '@antv/util';
+import { deepMix, has } from '@antv/util';
 import { extent } from 'd3-array';
 import { format } from 'd3-format';
 import {
@@ -199,22 +199,22 @@ function inferLabelOverlap(transform = [], style: Record<string, any>) {
 
   const finalTransforms = [];
 
-  const addToTransfroms = (overlap, state) => {
+  const addToTransforms = (overlap, state) => {
     if (state) {
       finalTransforms.push(overlap);
     }
   };
 
-  addToTransfroms(
+  addToTransforms(
     {
       type: 'rotate',
       optionalAngles: [0, 15, 30, 45, 60, 90],
     },
     labelAutoRotate,
   );
-  addToTransfroms({ type: 'ellipsis', minLength: 20 }, labelAutoEllipsis);
-  addToTransfroms({ type: 'hide' }, labelAutoHide);
-  addToTransfroms(
+  addToTransforms({ type: 'ellipsis', minLength: 20 }, labelAutoEllipsis);
+  addToTransforms({ type: 'hide' }, labelAutoHide);
+  addToTransforms(
     { type: 'wrap', wordWrapWidth: 100, maxLines: 3, recoveryWhenFail: true },
     labelAutoWrap,
   );
@@ -530,6 +530,11 @@ const LinearAxisComponent: GCC<AxisOptions> = (options) => {
       ...overrideStyle,
       ...important,
     };
+
+    // For hide overlap, do not set crossSize.
+    const hasHide = finalAxisStyle.labelOverlap.find((d) => d.type === 'hide');
+    if (hasHide) finalAxisStyle.crossSize = false;
+
     return new AxisComponent({
       className: 'axis',
       style: adaptor(finalAxisStyle),

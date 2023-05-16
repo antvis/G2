@@ -29,8 +29,6 @@ export function aaplLineSliderFilterTranspose(): G2Spec {
 
 aaplLineSliderFilterTranspose.maxError = 500;
 
-aaplLineSliderFilterTranspose.skip = true;
-
 aaplLineSliderFilterTranspose.steps = ({ canvas }) => {
   const { document } = canvas;
   const sliders = document.getElementsByClassName(SLIDER_CLASS_NAME);

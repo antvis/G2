@@ -203,3 +203,4 @@ export { alphabetIntervalLabelRotate } from './alphabet-interval-label-rotate';
 export { aaplLineBasicTranspose } from './aapl-line-basic-transpose';
 export { alphabetIntervalSortXDomain } from './alphabet-interval-sort-x-domain';
 export { basicIntervalZeroDomainMin } from './basic-interval-zero-domain-min';
+export { aaplLineAxisYHide } from './aapl-line-axis-y-hide';
