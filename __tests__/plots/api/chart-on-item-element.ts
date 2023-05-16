@@ -24,6 +24,7 @@ export function chartOnItemElement(context) {
 
   chart.on('interval:click', log('interval:click'));
   chart.on('element:click', log('element:click'));
+  chart.on('plot:click', () => console.log('plot:click'));
   chart.on('interval:dblclick', log('interval:dblclick'));
 
   chart.on('interval:pointertap', log('interval:pointertap'));
