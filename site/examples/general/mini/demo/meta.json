@@ -1,0 +1,56 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "line.ts",
+      "title": {
+        "zh": "迷你折线图",
+        "en": "Mini line"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*7mspQrtT-VYAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "area.ts",
+      "title": {
+        "zh": "迷你面积图",
+        "en": "Mini area"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*e7gFTKK4RXwAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "column.ts",
+      "title": {
+        "zh": "迷你柱形图",
+        "en": "Mini column"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*mVxXQZLTI8UAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "pie.ts",
+      "title": {
+        "zh": "迷你饼图",
+        "en": "Mini pie"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ry-9RLpnNbAAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "progress.ts",
+      "title": {
+        "zh": "迷你进度条",
+        "en": "Mini progress"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ZJ6JSL4WFt8AAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "ring.ts",
+      "title": {
+        "zh": "迷你环图",
+        "en": "Mini ring"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*9K68TYbHx7IAAAAAAAAAAAAADmJ7AQ/original"
+    }
+  ]
+}
