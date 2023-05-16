@@ -39,6 +39,7 @@ import {
   ForceGraph,
   Tree as TreeGeometry,
   WordCloud as WordCloudGeometry,
+  Violin as ViolinGeometry,
   Gauge,
 } from '../mark';
 import { Category10, Category20 } from '../palette';
@@ -219,6 +220,7 @@ import {
   MaybeTooltip,
   Sample,
   Filter,
+  KDE,
 } from '../transform';
 import {
   Fetch,
@@ -309,6 +311,7 @@ export function createLibrary(): G2Library {
     'transform.pack': Pack,
     'transform.sample': Sample,
     'transform.filter': Filter,
+    'transform.kde': KDE,
     'coordinate.cartesian': Cartesian,
     'coordinate.polar': Polar,
     'coordinate.helix': Helix,
@@ -350,6 +353,7 @@ export function createLibrary(): G2Library {
     'mark.gauge': Gauge,
     'mark.tree': TreeGeometry,
     'mark.wordCloud': WordCloudGeometry,
+    'mark.violin': ViolinGeometry,
     'palette.category10': Category10,
     'palette.category20': Category20,
     'scale.linear': Linear,

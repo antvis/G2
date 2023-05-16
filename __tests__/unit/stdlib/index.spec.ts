@@ -40,6 +40,7 @@ import {
   Tree as TreeGeometry,
   WordCloud as WordCloudGeometry,
   Gauge,
+  Violin as ViolinGeometry,
 } from '../../../src/mark';
 import { Category10, Category20 } from '../../../src/palette';
 import {
@@ -233,6 +234,7 @@ import {
   MaybeTooltip,
   Sample,
   Filter as FilterTransform,
+  KDE,
 } from '../../../src/transform';
 import {
   Fetch,
@@ -323,6 +325,7 @@ describe('stdlib', () => {
       'transform.pack': Pack,
       'transform.sample': Sample,
       'transform.filter': FilterTransform,
+      'transform.kde': KDE,
       'coordinate.cartesian': Cartesian,
       'coordinate.polar': Polar,
       'coordinate.helix': Helix,
@@ -363,6 +366,7 @@ describe('stdlib', () => {
       'mark.forceGraph': ForceGraph,
       'mark.tree': TreeGeometry,
       'mark.wordCloud': WordCloudGeometry,
+      'mark.violinG': ViolinGeometry,
       'mark.gauge': Gauge,
       'palette.category10': Category10,
       'palette.category20': Category20,
