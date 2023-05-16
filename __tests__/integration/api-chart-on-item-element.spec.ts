@@ -175,6 +175,14 @@ describe('chart.on', () => {
     await fired;
   });
 
+  it('chart.on("plot:click", callback) should emit plot events', async () => {
+    await finished;
+    const [fired, resolve] = createPromise();
+    chart.on(`plot:${ChartEvent.CLICK}`, () => resolve());
+    dispatchFirstElementEvent(canvas, 'click', { detail: 1 });
+    await fired;
+  });
+
   afterAll(() => {
     canvas?.destroy();
   });

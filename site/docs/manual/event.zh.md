@@ -100,6 +100,12 @@ chart.on(`interval:${ChartEvent.CLICK}`, (ev) => {
 });
 ```
 
+- 监听 Plot 区域事件
+
+```js
+chart.on('plot:click', (event) => console.log(event));
+```
+
 ### 点击事件
 
 | 事件名                | 说明 | 回调参数 |

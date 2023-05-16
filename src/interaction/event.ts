@@ -19,6 +19,14 @@ function bubblesEvent(eventType, view, emitter, predicate = (event) => true) {
     if (!predicate(e)) return;
     const { target } = e;
     const { className: elementType, markType } = target;
+
+    // Emit plot events.
+    emitter.emit(`plot:${eventType}`, e);
+
+    // If target area is plot area, do not emit extra events.
+    if (elementType === 'plot') return;
+
+    // Emit wrapped events.
     if (elementType === 'element') {
       const e1 = {
         ...e,
@@ -27,10 +35,10 @@ function bubblesEvent(eventType, view, emitter, predicate = (event) => true) {
       };
       emitter.emit(`element:${eventType}`, e1);
       emitter.emit(`${markType}:${eventType}`, e1);
-      return;
+    } else {
+      // @todo Handle click axis and legend.
+      emitter.emit(`${elementType}:${eventType}`, e);
     }
-    // @todo Handle click axis and legend.
-    emitter.emit(`${elementType}:click`);
   };
 }
 
