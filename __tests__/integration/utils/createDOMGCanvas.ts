@@ -11,6 +11,7 @@ export function createDOMGCanvas(width, height) {
   const domInteractionPlugin = renderer.getPlugin('dom-interaction');
   renderer.unregisterPlugin(domInteractionPlugin);
   const container = document.createElement('div');
+  document.body.append(container);
   return new Canvas({
     container,
     width,

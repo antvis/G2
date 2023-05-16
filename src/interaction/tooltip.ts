@@ -7,6 +7,7 @@ import { defined, subObject } from '../utils/helper';
 import { isTranspose, isPolar } from '../utils/coordinate';
 import { angle, sub } from '../utils/vector';
 import { invert } from '../utils/scale';
+import { BBox } from '../runtime';
 import {
   selectG2Elements,
   createXKey,
@@ -17,30 +18,59 @@ import {
 } from './utils';
 import { dataOf } from './event';
 
-function getContainer(group: IElement) {
+function getContainer(
+  group: IElement,
+  mount: string | HTMLElement,
+): HTMLElement {
+  if (mount)
+    return typeof mount === 'string' ? document.querySelector(mount) : mount;
   // @ts-ignore
   return group.getRootNode().defaultView.getConfig().container;
 }
 
-function createTooltip(root, x0, y0, position, enterable) {
+function getBounding(root): BBox {
   const bbox = root.getBounds();
   const {
-    min: [x, y],
-    max: [x1, y1],
+    min: [x1, y1],
+    max: [x2, y2],
   } = bbox;
+  return {
+    x: x1,
+    y: y1,
+    width: x2 - x1,
+    height: y2 - y1,
+  };
+}
+
+function getContainerOffset(
+  container1: HTMLElement,
+  container2: HTMLElement,
+): { x: number; y: number } {
+  const r1 = container1.getBoundingClientRect();
+  const r2 = container2.getBoundingClientRect();
+  return {
+    x: r1.x - r2.x,
+    y: r1.y - r2.y,
+  };
+}
+
+function createTooltip(
+  container: HTMLElement,
+  x0,
+  y0,
+  position,
+  enterable,
+  bounding,
+  containerOffset,
+) {
   const tooltipElement = new TooltipComponent({
     className: 'tooltip',
     style: {
       x: x0,
       y: y0,
-      container: { x: 0, y: 0 },
+      container: containerOffset,
       data: [],
-      bounding: {
-        x,
-        y,
-        width: x1 - x,
-        height: y1 - y,
-      },
+      bounding,
       position,
       enterable,
       title: '',
@@ -55,8 +85,6 @@ function createTooltip(root, x0, y0, position, enterable) {
       },
     },
   });
-  // @ts-ignore
-  const container = getContainer(root);
   container.appendChild(tooltipElement.HTMLTooltipElement);
   return tooltipElement;
 }
@@ -71,11 +99,25 @@ function showTooltip({
   single,
   position = 'right-bottom',
   enterable = false,
+  mount,
+  bounding,
 }) {
   // All the views share the same tooltip.
-  const container = single ? getContainer(root) : root;
-  const { tooltipElement = createTooltip(root, x, y, position, enterable) } =
-    container;
+  const canvasContainer = root.getRootNode().defaultView.getConfig().container;
+  const container = single ? getContainer(root, mount) : root;
+  const b = bounding || getBounding(root);
+  const containerOffset = getContainerOffset(canvasContainer, container);
+  const {
+    tooltipElement = createTooltip(
+      container,
+      x,
+      y,
+      position,
+      enterable,
+      b,
+      containerOffset,
+    ),
+  } = container;
   const { items, title = '' } = data;
   tooltipElement.update({
     x,
@@ -91,8 +133,8 @@ function showTooltip({
   container.tooltipElement = tooltipElement;
 }
 
-function hideTooltip({ root, single, emitter, nativeEvent = true }) {
-  const container = single ? getContainer(root) : root;
+function hideTooltip({ root, single, emitter, nativeEvent = true, mount }) {
+  const container = single ? getContainer(root, mount) : root;
   const { tooltipElement } = container;
   if (tooltipElement) {
     tooltipElement.hide();
@@ -318,6 +360,8 @@ export function seriesTooltip(
     single = true,
     position,
     enterable,
+    mount,
+    bounding,
     style: _style = {},
     ...rest
   }: Record<string, any>,
@@ -477,6 +521,8 @@ export function seriesTooltip(
           single,
           position,
           enterable,
+          mount,
+          bounding,
         });
       }
 
@@ -504,7 +550,7 @@ export function seriesTooltip(
   ) as (...args: any[]) => void;
 
   const hide = () => {
-    hideTooltip({ root, single, emitter });
+    hideTooltip({ root, single, emitter, mount });
     if (crosshairs) hideRuleY(root);
   };
 
@@ -521,7 +567,7 @@ export function seriesTooltip(
   };
 
   const onTooltipHide = () => {
-    hideTooltip({ root, single, emitter, nativeEvent: false });
+    hideTooltip({ root, single, emitter, nativeEvent: false, mount });
   };
 
   emitter.on('tooltip:show', onTooltipShow);
@@ -564,6 +610,8 @@ export function tooltip(
     enterable,
     datum,
     view,
+    mount,
+    bounding,
   }: Record<string, any>,
 ) {
   const elements = elementsof(root);
@@ -574,7 +622,7 @@ export function tooltip(
     (event) => {
       const { target: element } = event;
       if (!elementSet.has(element)) {
-        hideTooltip({ root, single, emitter });
+        hideTooltip({ root, single, emitter, mount });
         return;
       }
       const k = groupKey(element);
@@ -593,7 +641,7 @@ export function tooltip(
       }
 
       if (isEmptyTooltipData(data)) {
-        hideTooltip({ root, single, emitter });
+        hideTooltip({ root, single, emitter, mount });
         return;
       }
 
@@ -608,6 +656,8 @@ export function tooltip(
         single,
         position,
         enterable,
+        mount,
+        bounding,
       });
 
       emitter.emit('tooltip:show', {
@@ -625,7 +675,7 @@ export function tooltip(
   const pointerout = (event) => {
     const { target: element } = event;
     if (!elementSet.has(element)) return;
-    hideTooltip({ root, single, emitter });
+    hideTooltip({ root, single, emitter, mount });
   };
 
   const onTooltipShow = ({ nativeEvent, data }) => {
@@ -647,7 +697,7 @@ export function tooltip(
 
   const onTooltipHide = ({ nativeEvent }: any = {}) => {
     if (nativeEvent) return;
-    hideTooltip({ root, single, emitter, nativeEvent: false });
+    hideTooltip({ root, single, emitter, nativeEvent: false, mount });
   };
 
   emitter.on('tooltip:show', onTooltipShow);
