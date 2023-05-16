@@ -243,7 +243,7 @@ export default defineConfig({
       {
         slug: 'general',
         title: {
-          zh: '基础',
+          zh: '基础图表',
           en: 'General',
         },
         icon: 'other',
