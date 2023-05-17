@@ -46,7 +46,7 @@ export type Mark =
   | ForceGraphMark
   | TreeMark
   | WordCloudMark
-  | ViolinMark
+  | DensityMark
   | CustomMark;
 
 export type MarkTypes =
@@ -80,7 +80,7 @@ export type MarkTypes =
   | 'tree'
   | 'wordCloud'
   | 'gauge'
-  | 'violin'
+  | 'density'
   | MarkComponent;
 
 export type ChannelTypes =
@@ -372,6 +372,6 @@ export type GaugeMark = BaseMark<
   | ChannelTypes
 >;
 
-export type ViolinMark = BaseMark<'violin', ChannelTypes | 'series'>;
+export type DensityMark = BaseMark<'density', ChannelTypes | 'series'>;
 
 export type CustomMark = BaseMark<MarkComponent, ChannelTypes>;

@@ -40,7 +40,7 @@ import {
   Tree as TreeGeometry,
   WordCloud as WordCloudGeometry,
   Gauge,
-  Violin as ViolinGeometry,
+  Density as DensityGeometry,
 } from '../../../src/mark';
 import { Category10, Category20 } from '../../../src/palette';
 import {
@@ -109,6 +109,7 @@ import {
   Label,
   Path as PathShape,
   HollowPath,
+  Density as DensityShape,
   Shape as CustomShape,
 } from '../../../src/shape';
 import { Classic, ClassicDark, Academy } from '../../../src/theme';
@@ -234,7 +235,6 @@ import {
   MaybeTooltip,
   Sample,
   Filter as FilterTransform,
-  KDE,
 } from '../../../src/transform';
 import {
   Fetch,
@@ -254,6 +254,7 @@ import {
   Arc as ArcTransform,
   WordCloud,
   Join,
+  KDE,
 } from '../../../src/data';
 import {
   OverflowHide,
@@ -283,6 +284,7 @@ describe('stdlib', () => {
       'data.arc': ArcTransform,
       'data.wordCloud': WordCloud,
       'data.join': Join,
+      'data.kde': KDE,
       'transform.maybeZeroY1': MaybeZeroY1,
       'transform.maybeZeroX': MaybeZeroX,
       'transform.maybeStackY': MaybeStackY,
@@ -366,7 +368,7 @@ describe('stdlib', () => {
       'mark.forceGraph': ForceGraph,
       'mark.tree': TreeGeometry,
       'mark.wordCloud': WordCloudGeometry,
-      'mark.violinG': ViolinGeometry,
+      'mark.density': DensityGeometry,
       'mark.gauge': Gauge,
       'palette.category10': Category10,
       'palette.category20': Category20,
@@ -442,6 +444,7 @@ describe('stdlib', () => {
       'shape.rangeY.range': RectShape,
       'shape.path.path': PathShape,
       'shape.path.hollow': HollowPath,
+      'shape.density.density': DensityShape,
       'theme.classic': Classic,
       'theme.classicDark': ClassicDark,
       'theme.academy': Academy,

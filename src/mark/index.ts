@@ -26,7 +26,7 @@ export { ForceGraph } from './forceGraph';
 export { Tree } from './tree';
 export { WordCloud } from './wordCloud';
 export { Gauge } from './gauge';
-export { Violin } from './violin';
+export { Density } from './density';
 
 export type { IntervalOptions } from './interval';
 export type { RectOptions } from './rect';
@@ -54,4 +54,4 @@ export type { ForceGraphOptions } from './forceGraph';
 export type { TreeOptions } from './tree';
 export type { WordCloudOptions } from './wordCloud';
 export type { GaugeOptions } from './gauge';
-export type { ViolinOptions } from './violin';
+export type { DensityOptions } from './density';

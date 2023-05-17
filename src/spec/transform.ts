@@ -25,8 +25,7 @@ export type Transform =
   | BinTransform
   | SampleTransform
   | FlexXTransform
-  | FilterTransform
-  | KDETransform;
+  | FilterTransform;
 
 export type TransformTypes =
   | 'dodgeX'
@@ -291,9 +290,4 @@ export type FilterTransform = {
   type?: 'filter';
 } & {
   [key in ChannelTypes]?: any[] | ((v: Primitive) => boolean);
-};
-
-export type KDETransform = {
-  type?: 'kde';
-  // TODO: 逍为
 };

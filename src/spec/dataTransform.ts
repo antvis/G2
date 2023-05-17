@@ -10,6 +10,7 @@ export type DataTransform =
   | FilterDataTransform
   | MapTransform
   | SliceTransform
+  | KDEDataTransform
   | CustomTransform;
 
 export type DataTransformTypes =
@@ -22,6 +23,7 @@ export type DataTransformTypes =
   | 'filter'
   | 'map'
   | 'slice'
+  | 'kde'
   | 'custom'
   | DataComponent;
 
@@ -117,6 +119,39 @@ export type MapTransform = {
 export type CustomDataTransform = {
   type?: 'custom';
   callback?: (d: any) => any;
+};
+
+export type KDEDataTransform = {
+  type?: 'kde';
+  /**
+   * Kernel Density Estimation field.
+   */
+  field: string;
+  /**
+   * Group data by fields.
+   */
+  groupBy: string[];
+  /**
+   * Generate new fieds, default: ['y', 'size']
+   */
+  as?: ['y', 'size'];
+  /**
+   * Defaults to smallest value in the array minus some threshold.
+   */
+  min?: number;
+  /**
+   * Defaults to largest value in the array plus some threshold.
+   */
+  max?: number;
+  /**
+   * Number of points to represent the pdf. Defaults to 50.
+   */
+  size?: number;
+  /**
+   * Determine how many points to the left and right does an element affect,
+   * similar to bandwidth in kernel density estimation. Defaults to 2.
+   */
+  width?: number;
 };
 
 export type CustomTransform = {

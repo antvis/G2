@@ -47,6 +47,7 @@ export { Connector } from './connector/connector';
 export { Label } from './label/label';
 export { Path } from './path/path';
 export { Hollow as HollowPath } from './path/hollow';
+export { Density } from './density/density';
 export { Shape } from './shape/shape';
 
 export type { RectOptions } from './interval/rect';
@@ -98,5 +99,6 @@ export type { LineOptions as LineXYOptions } from './lineXY/line';
 export type { ConnectorOptions } from './connector/connector';
 
 export type { LabelOptions } from './label/label';
+export type { DensityOptions } from './density/density';
 
 export type { ShapeOptions } from './shape/shape';
