@@ -74,7 +74,7 @@ chart.render();
 
 ## 选项
 
-目前仅有一种同名的图形 `box`，下面描述一下所有的 `style` 配置项。
+目前有图形 `box`、`violin`，下面描述一下所有的 `style` 配置项。
 
 ### box
 
@@ -92,6 +92,10 @@ chart.render();
 | shadowOffsetX | 设置阴影距图形的水平距离                                                                                      | `number` \| `Function<number>`                    | -         |
 | shadowOffsetY | 设置阴影距图形的垂直距离                                                                                      | `number` \| `Function<number>`                    | -         |
 | cursor        | 鼠标样式。同 css 的鼠标样式，默认 'default'。                                                                 | `string` \| `Function<string>`                    | 'default' |
+
+### violin
+
+同 `box` 图形配置。 
 
 ## FAQ
 
