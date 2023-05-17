@@ -26,7 +26,7 @@ function getPath(p: Vector2[], coordinate: Coordinate, size = 4) {
     path.moveTo(...p[10]);
     path.lineTo(...p[11]);
 
-    path.moveTo(p[3][0] + size, p[8][1]);
+    path.moveTo(p[3][0] + size / 2, p[8][1]);
     path.arc(p[3][0], p[8][1], size / 2, 0, Math.PI * 2);
     path.closePath();
 

@@ -328,7 +328,6 @@ describe('stdlib', () => {
       'transform.pack': Pack,
       'transform.sample': Sample,
       'transform.filter': FilterTransform,
-      'transform.kde': KDE,
       'coordinate.cartesian': Cartesian,
       'coordinate.polar': Polar,
       'coordinate.helix': Helix,

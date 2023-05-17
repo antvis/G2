@@ -16,7 +16,6 @@ export function speciesViolinBasic(): G2Spec {
               type: 'kde',
               field: 'y',
               groupBy: ['x', 'species'],
-              size: 10,
             },
           ],
         },
@@ -42,8 +41,8 @@ export function speciesViolinBasic(): G2Spec {
         },
         transform: [{ type: 'dodgeX' }],
         style: {
-          fillOpacity: 0.2,
-          strokeOpacity: 0.2,
+          opacity: 0.5,
+          point: false,
         },
       },
     ],

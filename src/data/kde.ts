@@ -15,7 +15,15 @@ export function defined(d: any): boolean {
  * optimized to run in O(N + K).
  */
 export const KDE: DC<KDEOptions> = (options) => {
-  const { field, groupBy, as = ['y', 'size'], min, max, size, width } = options;
+  const {
+    field,
+    groupBy,
+    as = ['y', 'size'],
+    min,
+    max,
+    size = 10,
+    width,
+  } = options;
   const [yField, sizeField] = as;
   return (data) => {
     const gs = Array.from(

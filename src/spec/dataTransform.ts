@@ -144,7 +144,7 @@ export type KDEDataTransform = {
    */
   max?: number;
   /**
-   * Number of points to represent the pdf. Defaults to 50.
+   * Number of points to represent the pdf. Defaults to 10.
    */
   size?: number;
   /**
