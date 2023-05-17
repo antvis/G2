@@ -39,7 +39,6 @@ export function speciesViolinBasic(): G2Spec {
           size: 8,
           shape: 'violin',
         },
-        transform: [{ type: 'dodgeX' }],
         style: {
           opacity: 0.5,
           point: false,

@@ -29,7 +29,6 @@ export function speciesViolinBasicPolar(): G2Spec {
           color: 'species',
           size: 'size',
         },
-        transform: [{ type: 'dodgeX' }],
         tooltip: false,
       },
       {
@@ -42,7 +41,6 @@ export function speciesViolinBasicPolar(): G2Spec {
           size: 8,
           shape: 'violin',
         },
-        transform: [{ type: 'dodgeX' }],
         style: {
           opacity: 0.5,
           point: false,

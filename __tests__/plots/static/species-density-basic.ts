@@ -22,7 +22,6 @@ export function speciesDensityBasic(): G2Spec {
       color: 'species',
       size: 'size',
     },
-    transform: [{ type: 'dodgeX' }],
     tooltip: false,
   };
 }
