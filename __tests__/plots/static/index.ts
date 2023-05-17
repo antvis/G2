@@ -53,6 +53,8 @@ export { aaplLineBasicSampleLabelFilter } from './aapl-line-basic-sample-label-f
 export { aaplLineAreaBasicSample } from './aapl-line-area-basic-sample';
 export { aaplLinePointBasicSample } from './aapl-line-point-basic-sample';
 export { speciesDensityBasic } from './species-density-basic';
+export { speciesViolinBasic } from './species-violin-basic';
+export { speciesViolinBasicPolar } from './species-violin-basic-polar';
 export { unemploymentLineMultiSeries } from './unemployment-line-multi-series';
 export { receiptsLineSlope } from './receipts-line-slope';
 export { stocksLineAggregateLabel } from './stocks-line-aggregate-label';
