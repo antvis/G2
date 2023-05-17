@@ -21,6 +21,7 @@ import {
   Sankey,
   Treemap,
   Boxplot,
+  Density,
   Shape,
   Pack,
   ForceGraph,
@@ -53,6 +54,7 @@ export interface Mark {
   sankey(): Sankey;
   treemap(): Treemap;
   boxplot(): Boxplot;
+  density(): Density;
   shape(): Shape;
   pack(): Pack;
   forceGraph(): ForceGraph;
@@ -86,6 +88,7 @@ export const mark = {
   sankey: Sankey,
   treemap: Treemap,
   boxplot: Boxplot,
+  density: Density,
   shape: Shape,
   pack: Pack,
   forceGraph: ForceGraph,

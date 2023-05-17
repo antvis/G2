@@ -1,0 +1,32 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "density.ts",
+      "title": {
+        "zh": "和密度图",
+        "en": "Density with KDE"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*6UzJT77QRiIAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "violin.ts",
+      "title": {
+        "zh": "小提琴图",
+        "en": "Violin"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*S6O8QqpcRPMAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "violin-polar.ts",
+      "title": {
+        "zh": "极坐标小提琴图",
+        "en": "Violin in polar"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*NNTzRYKREMUAAAAAAAAAAAAADmJ7AQ/original"
+    }
+  ]
+}
