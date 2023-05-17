@@ -2,8 +2,10 @@
  * @see https://github.com/antvis/G2/discussions/4557
  */
 import { Coordinate } from '@antv/coord';
-import { isEqual } from '@antv/util';
-import { group } from 'd3-array';
+import { deepMix, isEqual } from '@antv/util';
+import { group, max, sum } from 'd3-array';
+import { format } from 'd3-format';
+import { DisplayObject, Text } from '@antv/g';
 import {
   getPolarOptions,
   getRadialOptions,
@@ -11,7 +13,7 @@ import {
   type RadialOptions,
 } from '../coordinate';
 import { combine } from '../utils/array';
-import { defined } from '../utils/helper';
+import { capitalizeFirst, defined, subObject } from '../utils/helper';
 import { LEGEND_INFER_STRATEGIES } from '../component/constant';
 import {
   coordOf,
@@ -36,6 +38,8 @@ import {
 import {
   GuideComponent,
   GuideComponentComponent as GCC,
+  ScaleComponent,
+  Scale,
 } from './types/component';
 import {
   G2CoordinateOptions,
@@ -90,13 +94,13 @@ export function inferComponent(
     });
   }
 
-  const inferedComponents = inferComponentsType(displayedScales, coordinates);
+  const inferredComponents = inferComponentsType(displayedScales, coordinates);
 
-  inferedComponents.forEach(([type, relativeScales]) => {
+  inferredComponents.forEach(([type, relativeScales]) => {
     const { props } = createGuideComponent(type);
     const { defaultPosition, defaultOrientation, defaultSize, defaultOrder } =
       props;
-    // @todo to be comfirm if the scale can be merged.
+    // @todo to be confirm if the scale can be merged.
     const scale: G2ScaleOptions = Object.assign({}, ...relativeScales);
     const { guide: guideOptions, field } = scale;
     // A scale may have multiple guides.
@@ -263,10 +267,10 @@ function inferComponentsType(
   scales: G2ScaleOptions[],
   coordinates: G2CoordinateOptions[],
 ): [string | GCC, G2ScaleOptions[]][] {
-  const avaliableScales = scales.filter((scale) => isValidScale(scale));
+  const availableScales = scales.filter((scale) => isValidScale(scale));
   return [
-    ...inferLegendComponentType(avaliableScales, coordinates),
-    ...inferAxisComponentType(avaliableScales, coordinates),
+    ...inferLegendComponentType(availableScales, coordinates),
+    ...inferAxisComponentType(availableScales, coordinates),
   ];
 }
 
@@ -307,7 +311,7 @@ function inferAxisPositionAndOrientation(
   // todo, in current resolution, the radar chart is implement by parallel + polar coordinate.
   // implementation plan to be confirmed.
   // in current implementation, it must to add the first position encode to it's last.
-  // so we won't render the last axis repeatly.
+  // so we won't render the last axis repeatably.
   if (type === 'axisRadar') {
     const positions = scales.filter((scale) =>
       scale.name.startsWith('position'),
@@ -396,7 +400,7 @@ function inferComponentPositionAndOrientation(
   return ordinalPositionAndOrientation;
 }
 
-function inferSrollableType(name: string, type: string, coordinates = []) {
+function inferScrollableType(name: string, type: string, coordinates = []) {
   if (name === 'x') return isTranspose(coordinates) ? `${type}Y` : `${type}X`;
   if (name === 'y') return isTranspose(coordinates) ? `${type}X` : `${type}Y`;
   return null;
@@ -424,7 +428,7 @@ function inferScrollableComponents(
     scale: G2ScaleOptions,
     options: Record<string, any>,
   ) {
-    const componentType = inferSrollableType(channelName, type, coordinates);
+    const componentType = inferScrollableType(channelName, type, coordinates);
     if (!options || !componentType) return;
 
     const { props } = createGuideComponent(componentType);
@@ -449,4 +453,198 @@ function inferScrollableComponents(
       ];
     })
     .filter((d) => !!d);
+}
+
+// !!! Note Mutate component.size and component.style.
+export function computeComponentSize(
+  component: G2GuideComponentOptions,
+  crossSize: number,
+  crossPadding: [number, number],
+  position: GCP,
+  theme: G2Theme,
+  library: G2Library,
+): G2GuideComponentOptions {
+  const [useScale] = useLibrary<G2ScaleOptions, ScaleComponent, Scale>(
+    'scale',
+    library,
+  );
+
+  // Only compute and update size of axis component in padding area.
+  // @todo Legend, slider.
+  const { type } = component;
+  const paddingAreas = ['left', 'right', 'bottom', 'top'];
+  if (typeof type !== 'string' || !type.startsWith('axis')) return;
+  if (!paddingAreas.includes(position)) return;
+
+  // If padding is auto, use hide as the labelTransform by default
+  // to avoid overlap between labels.
+  component.transform = component.transform || [{ type: 'hide' }];
+
+  const { labelFormatter, scales, title, tickCount, tickMethod, tickFilter } =
+    component;
+  const isVertical = position === 'left' || position === 'right';
+
+  // Get styles to be applied.
+  const style = styleOf(component, position, theme);
+  const { tickLength = 0, labelSpacing = 0, titleSpacing = 0, ...rest } = style;
+
+  // Init scale, the tickCount of axis has higher priority than scale.
+  const [scaleOptions] = scales;
+  if (tickCount !== undefined) scaleOptions.tickCount = tickCount;
+  if (tickMethod !== undefined) scaleOptions.tickMethod = tickMethod;
+  const scale = useScale(scaleOptions);
+
+  // Get labels to be rendered.
+  const labels = labelsOf(scale, labelFormatter, tickFilter);
+  const labeStyle = subObject(rest, 'label');
+  const labelBBoxes = labels.map((d, i) => {
+    const normalizeStyle = Object.fromEntries(
+      Object.entries(labeStyle).map(([key, value]) => [
+        key,
+        typeof value === 'function' ? value(d, i) : value,
+      ]),
+    );
+    // Auto padding should ignore transform for horizontal axis.
+    if (!isVertical) normalizeStyle.transform = 'none';
+    return computeLabelSize(d, normalizeStyle);
+  });
+
+  const maxLabelWidth = max(labelBBoxes, (d) => d.width);
+  const paddingTick = tickLength + labelSpacing;
+
+  if (isVertical) {
+    component.size = maxLabelWidth + paddingTick;
+  } else {
+    // If the labels can't be placed horizontally,
+    // rotate 90 deg to display them.
+    if (overflowX(scale, labelBBoxes, crossSize, crossPadding, tickFilter)) {
+      component.size = maxLabelWidth + paddingTick;
+      component.style = {
+        ...component.style,
+        labelTransform: 'rotate(90)',
+      };
+    } else {
+      const maxLabelHeight = max(labelBBoxes, (d) => d.height);
+      component.size = maxLabelHeight + paddingTick;
+    }
+  }
+
+  // Cache boxes to avoid computed twice.
+  const I = labels.map((_, i) => i);
+  component.indexBBox = new Map(I.map((i) => [i, [labels[i], labelBBoxes[i]]]));
+
+  if (title === false || title === null || title === undefined) return;
+
+  // Get title to be rendered.
+  const titleStyle = subObject(rest, 'title');
+  const titleText = Array.isArray(title) ? title.join(',') : title;
+  const titleBBox = computeLabelSize(titleText, titleStyle);
+
+  if (isVertical) {
+    component.size += titleSpacing + titleBBox.width;
+  } else {
+    component.size += titleSpacing + titleBBox.height;
+  }
+}
+
+function styleOf(
+  axis: G2GuideComponentOptions,
+  position: GCP,
+  theme: G2Theme,
+): Record<string, any> {
+  const {
+    axis: baseStyle,
+    // @ts-ignore
+    [`axis${capitalizeFirst(position)}`]: positionStyle,
+  } = theme;
+  return deepMix({}, baseStyle, positionStyle, axis.style);
+}
+
+function ticksOf(scale: Scale, tickFilter: (d: any) => boolean): any[] {
+  const ticks = scale.getTicks ? scale.getTicks() : scale.getOptions().domain;
+  if (!tickFilter) return ticks;
+  return ticks.filter(tickFilter);
+}
+
+function labelsOf(
+  scale: Scale,
+  labelFormatter: (d: any) => string | DisplayObject,
+  tickFilter,
+): (string | DisplayObject)[] {
+  const T = ticksOf(scale, tickFilter);
+  const ticks = T.map((d) => (typeof d === 'number' ? prettyNumber(d) : d));
+  const formatter = labelFormatter
+    ? typeof labelFormatter === 'string'
+      ? format(labelFormatter)
+      : labelFormatter
+    : scale.getFormatter
+    ? scale.getFormatter()
+    : (d) => `${d}`;
+  return ticks.map(formatter);
+}
+
+function offsetOf(scale: Scale, d: any): number {
+  if (!scale.getBandWidth) return 0;
+  const offset = scale.getBandWidth(d) / 2;
+  return offset;
+}
+
+function overflowX(
+  scale: Scale,
+  labelBBoxes: DOMRect[],
+  crossSize: number,
+  crossPadding: [number, number],
+  tickFilter: (d: any) => boolean,
+): boolean {
+  // If actual size bigger than container size, overflow.
+  const totalSize = sum(labelBBoxes, (d) => d.width);
+  if (totalSize > crossSize) return true;
+
+  // Clone scale to get visual position for labels.
+  const scaleX = scale.clone();
+  scaleX.update({ range: [0, crossSize] });
+  const ticks = ticksOf(scale, tickFilter);
+  const X = ticks.map((d) => scaleX.map(d) + offsetOf(scaleX, d));
+
+  const I = ticks.map((_, i) => i);
+  const startX = -crossPadding[0];
+  const endX = crossSize + crossPadding[1];
+  const extent = (x, bbox) => {
+    const { width } = bbox;
+    return [x - width / 2, x + width / 2];
+  };
+
+  // Collision detection.
+  for (let i = 0; i < I.length; i++) {
+    const x = X[i];
+    const [x0, x1] = extent(x, labelBBoxes[i]);
+    // If a label is out of plot area, overflow.
+    if (x0 < startX || x1 > endX) return true;
+    const y = X[i + 1];
+    if (y) {
+      // If two labels intersect, overflow.
+      const [y0] = extent(y, labelBBoxes[i + 1]);
+      if (x1 > y0) return true;
+    }
+  }
+  return false;
+}
+
+function computeLabelSize(
+  d: string | DisplayObject,
+  style: Record<string, any>,
+): DOMRect {
+  const shape = normalizeLabel(d);
+  shape.attr({ ...style, visibility: 'none' });
+  const bbox = shape.getBBox();
+  return bbox;
+}
+
+function normalizeLabel(d: string | DisplayObject): DisplayObject {
+  if (d instanceof DisplayObject) return d;
+  return new Text({ style: { text: `${d}` } });
+}
+
+function prettyNumber(n: number) {
+  return Math.abs(n) < 1e-15 ? n : parseFloat(n.toFixed(15));
 }

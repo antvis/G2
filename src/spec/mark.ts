@@ -15,7 +15,7 @@ import {
   TitleComponent,
   TooltipComponent,
 } from './component';
-import { Closeable, Literal2Object } from './utils';
+import { Closeable, Literal2Object, Padding } from './utils';
 
 export type Mark =
   | IntervalMark
@@ -121,11 +121,11 @@ export type BaseMark<T extends MarkTypes, C extends string = ChannelTypes> = {
   y?: number;
   width?: number;
   height?: number;
-  paddingLeft?: number;
-  paddingRight?: number;
-  paddingBottom?: number;
-  paddingTop?: number;
-  padding?: number;
+  paddingLeft?: Padding;
+  paddingRight?: Padding;
+  paddingBottom?: Padding;
+  paddingTop?: Padding;
+  padding?: Padding;
   inset?: number;
   insetLeft?: number;
   insetBottom?: number;

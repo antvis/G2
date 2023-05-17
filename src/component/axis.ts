@@ -477,6 +477,7 @@ const LinearAxisComponent: GCC<AxisOptions> = (options) => {
     tickFilter,
     tickMethod,
     transform,
+    indexBBox,
     ...userDefinitions
   } = options;
 
@@ -526,6 +527,7 @@ const LinearAxisComponent: GCC<AxisOptions> = (options) => {
       gridLength,
       // Always showLine, make title could align the end of axis.
       line: true,
+      indexBBox,
       ...(!internalAxisStyle.line ? { lineOpacity: 0 } : null),
       ...overrideStyle,
       ...important,
