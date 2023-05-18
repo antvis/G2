@@ -41,6 +41,7 @@ import {
   WordCloud as WordCloudGeometry,
   Gauge,
   Density as DensityGeometry,
+  Heatmap,
 } from '../../../src/mark';
 import { Category10, Category20 } from '../../../src/palette';
 import {
@@ -111,6 +112,7 @@ import {
   Path as PathShape,
   HollowPath,
   Density as DensityShape,
+  Heatmap as HeatmapShape,
   Shape as CustomShape,
 } from '../../../src/shape';
 import { Classic, ClassicDark, Academy } from '../../../src/theme';
@@ -370,6 +372,7 @@ describe('stdlib', () => {
       'mark.wordCloud': WordCloudGeometry,
       'mark.density': DensityGeometry,
       'mark.gauge': Gauge,
+      'mark.heatmap': Heatmap,
       'palette.category10': Category10,
       'palette.category20': Category20,
       'scale.linear': Linear,
@@ -446,6 +449,7 @@ describe('stdlib', () => {
       'shape.path.path': PathShape,
       'shape.path.hollow': HollowPath,
       'shape.density.density': DensityShape,
+      'shape.heatmap.heatmap': HeatmapShape,
       'theme.classic': Classic,
       'theme.classicDark': ClassicDark,
       'theme.academy': Academy,

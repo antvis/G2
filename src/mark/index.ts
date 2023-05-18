@@ -27,6 +27,7 @@ export { Tree } from './tree';
 export { WordCloud } from './wordCloud';
 export { Gauge } from './gauge';
 export { Density } from './density';
+export { Heatmap } from './heatmap';
 
 export type { IntervalOptions } from './interval';
 export type { RectOptions } from './rect';
@@ -55,3 +56,4 @@ export type { TreeOptions } from './tree';
 export type { WordCloudOptions } from './wordCloud';
 export type { GaugeOptions } from './gauge';
 export type { DensityOptions } from './density';
+export type { HeatmapOptions } from './heatmap';

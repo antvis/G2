@@ -81,6 +81,7 @@ export type MarkTypes =
   | 'wordCloud'
   | 'gauge'
   | 'density'
+  | 'heatmap'
   | MarkComponent;
 
 export type ChannelTypes =
@@ -373,5 +374,6 @@ export type GaugeMark = BaseMark<
 >;
 
 export type DensityMark = BaseMark<'density', ChannelTypes | 'series'>;
+export type HeatmapMark = BaseMark<'heatmap'>;
 
 export type CustomMark = BaseMark<MarkComponent, ChannelTypes>;

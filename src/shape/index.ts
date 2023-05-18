@@ -49,6 +49,7 @@ export { Label } from './label/label';
 export { Path } from './path/path';
 export { Hollow as HollowPath } from './path/hollow';
 export { Density } from './density/density';
+export { Heatmap } from './heatmap/heatmap';
 export { Shape } from './shape/shape';
 
 export type { RectOptions } from './interval/rect';
@@ -96,6 +97,7 @@ export type { ImageOptions } from './image/image';
 export type { PolygonOptions } from './polygon/polygon';
 export type { BoxOptions } from './box/box';
 export type { ViolinOptions } from './box/violin';
+export type { HeatmapOptions } from './heatmap/heatmap';
 
 export type { LineOptions as LineXYOptions } from './lineXY/line';
 export type { ConnectorOptions } from './connector/connector';
