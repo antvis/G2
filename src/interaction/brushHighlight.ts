@@ -302,7 +302,7 @@ export function brush(
   };
 
   // Remove mask and reset states.
-  const removeMask = () => {
+  const removeMask = (emit = true) => {
     if (mask) mask.remove();
     if (background) background.remove();
     start = null;
@@ -311,7 +311,7 @@ export function brush(
     creating = false;
     mask = null;
     background = null;
-    brushended();
+    if (emit) brushended();
   };
 
   // Update mask and invoke brushended callback.
@@ -480,7 +480,8 @@ export function brush(
       if (mask) removeMask();
     },
     destroy() {
-      removeMask();
+      // Do not emit brush:end event.
+      if (mask) removeMask(false);
       setCursor(root, 'default');
       root.removeEventListener('dragstart', dragstart);
       root.removeEventListener('drag', drag);
