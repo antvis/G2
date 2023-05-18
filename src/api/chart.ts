@@ -222,9 +222,14 @@ export class Chart extends View<ChartOptions> {
   }
 
   forceFit() {
+    // Don't fit if size do not change.
+    this.options['autoFit'] = true;
+    const { width, height } = sizeOf(this.options(), this._container);
+    if (width === this._width && height === this._height) {
+      return Promise.resolve(this);
+    }
+
     // Don't call changeSize to prevent update width and height of options.
-    // @ts-ignore
-    this.options.autoFit = true;
     this.emit(ChartEvent.BEFORE_CHANGE_SIZE);
     const finished = this.render();
     finished.then(() => {
