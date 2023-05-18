@@ -24,6 +24,7 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
 - [map](/spec/data/map) - 对数据进行映射，返回新的数组。
 - [join](/spec/data/join) - 类似 SQL 的方式，将两份数据连接到一起。
 - [custom](/spec/data/custom) - 使用自定义的方式对数据进行变换。
+- [kde](/spec/data/kde) - 核密度处理算法。
 
 ## Mark
 
@@ -49,6 +50,7 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
 - [rangeY](/spec/mark/range-y) - 使用一组 `y`(y1, y2) 来定位一个垂直于 y 轴的矩形区域，常用于绘制高亮指定区域的辅助区域。
 - [polygon](/spec/mark/polygon) - 利用多组 (x, y) 数据点，在画布中绘制闭合的多边形，通常结合一些社区布局算法使用。
 - [wordcloud](/spec/mark/wordcloud) - 绘制词云图。
+- [density](/spec/mark/density) - 渲染核密度数据，多用于小提琴图。
 
 ## Transform
 

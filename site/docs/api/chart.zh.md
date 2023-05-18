@@ -124,6 +124,10 @@ chart.render();
 
 添加 boxplot 图形，具体见 [mark](/spec/mark/boxplot)。
 
+### `chart.density`
+
+添加 density 图形，具体见 [mark](/spec/mark/density)。
+
 ### `chart.shape`
 
 添加 shape 图形，具体见 [mark](/spec/mark/shape)。

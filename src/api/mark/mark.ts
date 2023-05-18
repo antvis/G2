@@ -19,6 +19,7 @@ import {
   ConnectorMark,
   SankeyMark,
   BoxPlotMark,
+  DensityMark,
   ShapeMark,
   TreemapMark,
   ForceGraphMark,
@@ -111,6 +112,10 @@ export interface Sankey extends API<Concrete<SankeyMark>, Sankey> {
 
 export interface Boxplot extends API<Concrete<BoxPlotMark>, Boxplot> {
   type: 'boxplot';
+}
+
+export interface Density extends API<Concrete<DensityMark>, Density> {
+  type: 'density';
 }
 
 export interface Shape extends API<Concrete<ShapeMark>, Shape> {
@@ -320,6 +325,13 @@ export class Treemap extends MarkNode<TreemapMark> {
 export class Boxplot extends MarkNode<BoxPlotMark> {
   constructor() {
     super({}, 'boxplot');
+  }
+}
+
+@defineProps(props)
+export class Density extends MarkNode<DensityMark> {
+  constructor() {
+    super({}, 'density');
   }
 }
 

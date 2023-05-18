@@ -42,11 +42,13 @@ export { Image } from './image/image';
 export { Polygon } from './polygon/polygon';
 export { Ribbon } from './polygon/ribbon';
 export { Box } from './box/box';
+export { Violin } from './box/violin';
 export { Line as LineXY } from './lineXY/line';
 export { Connector } from './connector/connector';
 export { Label } from './label/label';
 export { Path } from './path/path';
 export { Hollow as HollowPath } from './path/hollow';
+export { Density } from './density/density';
 export { Shape } from './shape/shape';
 
 export type { RectOptions } from './interval/rect';
@@ -93,10 +95,12 @@ export type { LinkOptions } from './link/link';
 export type { ImageOptions } from './image/image';
 export type { PolygonOptions } from './polygon/polygon';
 export type { BoxOptions } from './box/box';
+export type { ViolinOptions } from './box/violin';
 
 export type { LineOptions as LineXYOptions } from './lineXY/line';
 export type { ConnectorOptions } from './connector/connector';
 
 export type { LabelOptions } from './label/label';
+export type { DensityOptions } from './density/density';
 
 export type { ShapeOptions } from './shape/shape';

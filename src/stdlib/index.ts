@@ -39,6 +39,7 @@ import {
   ForceGraph,
   Tree as TreeGeometry,
   WordCloud as WordCloudGeometry,
+  Density as DensityGeometry,
   Gauge,
 } from '../mark';
 import { Category10, Category20 } from '../palette';
@@ -101,6 +102,7 @@ import {
   Polygon,
   Ribbon,
   Box,
+  Violin,
   Funnel,
   Pyramid,
   Vector,
@@ -108,6 +110,7 @@ import {
   Label,
   Path as PathShape,
   HollowPath,
+  Density as DensityShape,
   Shape as CustomShape,
 } from '../shape';
 import { Classic, ClassicDark, Academy } from '../theme';
@@ -238,6 +241,7 @@ import {
   WordCloud,
   Join,
   Sort,
+  KDE,
 } from '../data';
 import {
   OverlapDodgeY,
@@ -266,6 +270,7 @@ export function createLibrary(): G2Library {
     'data.arc': ArcTransform,
     'data.wordCloud': WordCloud,
     'data.join': Join,
+    'data.kde': KDE,
     // 'transform.voronoi': Voronoi,
     'transform.maybeZeroY1': MaybeZeroY1,
     'transform.maybeZeroX': MaybeZeroX,
@@ -350,6 +355,7 @@ export function createLibrary(): G2Library {
     'mark.gauge': Gauge,
     'mark.tree': TreeGeometry,
     'mark.wordCloud': WordCloudGeometry,
+    'mark.density': DensityGeometry,
     'palette.category10': Category10,
     'palette.category20': Category20,
     'scale.linear': Linear,
@@ -412,6 +418,7 @@ export function createLibrary(): G2Library {
     'shape.polygon.polygon': Polygon,
     'shape.polygon.ribbon': Ribbon,
     'shape.box.box': Box,
+    'shape.box.violin': Violin,
     'shape.vector.vector': Vector,
     'shape.label.label': Label,
     'shape.text.badge': Badge,
@@ -424,6 +431,7 @@ export function createLibrary(): G2Library {
     'shape.rangeY.range': RectShape,
     'shape.path.path': PathShape,
     'shape.path.hollow': HollowPath,
+    'shape.density.density': DensityShape,
     'theme.classic': Classic,
     'theme.classicDark': ClassicDark,
     'theme.academy': Academy,

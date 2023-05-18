@@ -50,6 +50,7 @@ export type TransformTypes =
   | 'pack'
   | 'sample'
   | 'filter'
+  | 'kde'
   | TransformComponent;
 
 export type TransformOrder =
