@@ -34,4 +34,4 @@ chart.data({
 | min      | 指定处理范围的最小值                                  | `number`                     | 数据最小值      |
 | max      | 指定处理范围的最大值                                   | `number`                    | 数据最小值      |
 | size     | 算法最终生成数据的条数                                 | `number`                     | `10`          |
-| width    | 确定一个元素左右影响多少点，类似于 bandWidth。           |  `number`                    | `2`            |
+| width    | 确定一个元素左右影响多少点，类似于 bandWidth            |  `number`                    | `2`            |
