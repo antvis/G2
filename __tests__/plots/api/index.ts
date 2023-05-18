@@ -23,3 +23,4 @@ export { chartEmitPieTooltip } from './chart-emit-pie-tooltip';
 export { chartRenderUpdateAttributes } from './chart-render-update-attributes';
 export { chartRenderUpdateNonAnimation } from './chart-render-update-non-animation';
 export { chartEmitBrushHighlightX } from './chart-emit-brush-highlight-x';
+export { chartRenderBrushEnd } from './chart-render-brush-end';
