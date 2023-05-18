@@ -681,4 +681,41 @@ describe('Chart', () => {
     await chart.render();
     expect(chart['_hasBindAutoFit']).toBe(false);
   });
+
+  it('chart.forceFit() should be not rerender if size of container do not change.', async () => {
+    const div = document.createElement('div');
+    div.style.width = '500px';
+    div.style.height = '400px';
+
+    const chart = new Chart({
+      theme: 'classic',
+      container: div,
+      autoFit: true,
+    });
+
+    chart
+      .interval()
+      .data([
+        { genre: 'Sports', sold: 275 },
+        { genre: 'Strategy', sold: 115 },
+        { genre: 'Action', sold: 120 },
+        { genre: 'Shooter', sold: 350 },
+        { genre: 'Other', sold: 150 },
+      ])
+      .encode('x', 'genre')
+      .encode('y', 'sold')
+      .encode('color', 'genre');
+
+    // Track chart render;
+    const fn = jest.fn();
+    const render = chart.render.bind(chart);
+    chart.render = () => {
+      fn();
+      return render();
+    };
+    await chart.render();
+
+    await chart.forceFit();
+    expect(fn).toBeCalledTimes(1);
+  });
 });
