@@ -228,3 +228,4 @@ export { vaccinesCellScaleRelationAutoPaddingTickFilter } from './vaccines-cell-
 export { marketIntervalMarimekkoAutoPaddingFlex } from './market-interval-marimekko-auto-padding-flex';
 export { aaplIntervalDateEncodeX } from './aapl-interval-date-encode-x';
 export { athletesRectBinLegendStyle } from './athletes-rect-bin-legend-style';
+export { HeatmapHeatmapBasic } from './heatmap-heatmap-basic';
