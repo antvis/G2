@@ -6,8 +6,14 @@ import { HeatmapRendererData, HeatmapRendererOptions } from './types';
  * @param blurFactor
  * @returns
  */
-function getPointTemplate(radius: number, blurFactor: number) {
-  const tplCanvas = document.createElement('canvas');
+function getPointTemplate(
+  radius: number,
+  blurFactor: number,
+  createCanvas?: () => HTMLCanvasElement,
+) {
+  const tplCanvas = createCanvas
+    ? createCanvas()
+    : document.createElement('canvas');
   const tplCtx = tplCanvas.getContext('2d');
   const x = radius;
   const y = radius;
@@ -67,6 +73,7 @@ function drawAlpha(
   max: number,
   data: HeatmapRendererData[],
   options: HeatmapRendererOptions,
+  createCanvas?: () => HTMLCanvasElement,
 ) {
   const { blur } = options;
   let len = data.length;
@@ -78,7 +85,7 @@ function drawAlpha(
     const rectY = y - radius;
 
     // TODO: cache for performance.
-    const tpl = getPointTemplate(radius, blur);
+    const tpl = getPointTemplate(radius, blur, createCanvas);
     // Value from minimum / value range, => [0, 1].
     const templateAlpha = (value - min) / (max - min);
     // Small values are not visible because globalAlpha < .01 cannot be read from imageData.
@@ -139,6 +146,7 @@ export function HeatmapRenderer(
   max: number,
   data: HeatmapRendererData[],
   options: HeatmapRendererOptions,
+  createCanvas?: () => HTMLCanvasElement,
 ) {
   const opts = {
     blur: 0.5,
@@ -154,15 +162,19 @@ export function HeatmapRenderer(
     minOpacity: (options.opacity || 0) * 255,
   };
 
-  const canvas = document.createElement('canvas');
-  const shadowCanvas = document.createElement('canvas');
+  const canvas = createCanvas
+    ? createCanvas()
+    : document.createElement('canvas');
+  const shadowCanvas = createCanvas
+    ? createCanvas()
+    : document.createElement('canvas');
 
   const ctx = canvas.getContext('2d');
   const shadowCtx = shadowCanvas.getContext('2d');
 
   const palette = getColorPalette(opts.gradient);
 
-  drawAlpha(shadowCtx, min, max, data, opts);
+  drawAlpha(shadowCtx, min, max, data, opts, createCanvas);
   const img = colorize(shadowCtx, width, height, palette, opts);
 
   ctx.putImageData(img, 0, 0);

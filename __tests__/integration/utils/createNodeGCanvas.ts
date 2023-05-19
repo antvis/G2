@@ -1,4 +1,4 @@
-import { createCanvas } from 'canvas';
+import { createCanvas, Image } from 'canvas';
 import { Canvas } from '@antv/g';
 import { Renderer } from '@antv/g-canvas';
 import { Plugin as DragAndDropPlugin } from '@antv/g-plugin-dragndrop';
@@ -22,5 +22,9 @@ export function createNodeGCanvas(width: number, height: number): Canvas {
     canvas: nodeCanvas as any,
     renderer,
     offscreenCanvas: offscreenNodeCanvas as any,
+    createImage: () => {
+      const image = new Image();
+      return image as any;
+    },
   });
 }

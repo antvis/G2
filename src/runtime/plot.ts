@@ -188,12 +188,12 @@ export async function plot<T extends G2ViewTree>(
           .attr('id', (view) => view.key)
           .call(applyTranslate)
           .each(function (view) {
-            plotView(view, select(this), transitions, library);
+            plotView(view, select(this), transitions, library, context);
             enterContainer.set(view, this);
           }),
       (update) =>
         update.call(applyTranslate).each(function (view) {
-          plotView(view, select(this), transitions, library);
+          plotView(view, select(this), transitions, library, context);
           updateContainer.set(view, this);
         }),
       (exit) =>
@@ -320,7 +320,7 @@ function createUpdateView(
   return async (newOptions) => {
     const transitions = [];
     const [newView, newChildren] = await initializeView(newOptions, library);
-    plotView(newView, selection, transitions, library);
+    plotView(newView, selection, transitions, library, context);
     updateTooltip(selection, newOptions, newView, library, context);
     for (const child of newChildren) {
       plot(child, selection, library, context);
@@ -671,6 +671,7 @@ async function plotView(
   selection: Selection,
   transitions: GAnimation[],
   library: G2Library,
+  context: G2Context,
 ): Promise<void> {
   const { components, theme, layout, markState, coordinate, key, style, clip } =
     view;
@@ -809,7 +810,13 @@ async function plotView(
     const { data } = state;
     const { key, class: cls, type } = mark;
     const viewNode = selection.select(`#${key}`);
-    const shapeFunction = createMarkShapeFunction(mark, state, view, library);
+    const shapeFunction = createMarkShapeFunction(
+      mark,
+      state,
+      view,
+      library,
+      context,
+    );
     const enterFunction = createEnterFunction(mark, state, view, library);
     const updateFunction = createUpdateFunction(mark, state, view, library);
     const exitFunction = createExitFunction(mark, state, view, library);
@@ -1225,6 +1232,7 @@ function createMarkShapeFunction(
   state: G2MarkState,
   view: G2ViewDescriptor,
   library: G2Library,
+  context: G2Context,
 ): (
   data: Record<string, any>,
   index: number,
@@ -1262,7 +1270,7 @@ function createMarkShapeFunction(
       ...visualStyle,
       type: shapeName(mark, shape),
     });
-    return shapeFunction(points, value, coordinate, theme, point2d);
+    return shapeFunction(points, value, coordinate, theme, point2d, context);
   };
 }
 

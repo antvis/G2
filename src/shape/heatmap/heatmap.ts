@@ -2,7 +2,7 @@ import { max as d3max, min as d3min } from 'd3-array';
 import { Image as GImage } from '@antv/g';
 import { applyStyle, getShapeTheme } from '../utils';
 import { select } from '../../utils/selection';
-import { ShapeComponent as SC, Vector2 } from '../../runtime';
+import { ShapeComponent as SC } from '../../runtime';
 import { HeatmapRenderer } from './renderer';
 import type { HeatmapRendererOptions } from './renderer/types';
 
@@ -10,8 +10,8 @@ export type HeatmapOptions = HeatmapRendererOptions;
 
 export const Heatmap: SC<HeatmapOptions> = (options) => {
   const { ...style } = options;
-  return (points: number[][], value, coordinate, theme) => {
-    const { mark, shape, defaultShape, color, transform } = value;
+  return (points: number[][], value, coordinate, theme, _, context) => {
+    const { mark, shape, defaultShape, transform } = value;
     const {
       defaultColor,
       fill = defaultColor,
@@ -29,7 +29,16 @@ export const Heatmap: SC<HeatmapOptions> = (options) => {
     const min = d3min(points, (p) => p[2]);
     const max = d3max(points, (p) => p[2]);
 
-    const ctx = HeatmapRenderer(width, height, min, max, data, { ...style });
+    const { createCanvas } = context;
+    const ctx = HeatmapRenderer(
+      width,
+      height,
+      min,
+      max,
+      data,
+      { ...style },
+      createCanvas,
+    );
 
     return select(new GImage())
       .call(applyStyle, shapeTheme)
