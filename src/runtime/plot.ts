@@ -1082,7 +1082,7 @@ function createLabelShapeFunction(
     );
     const { shape = defaultLabelShape, text, ...style } = visualOptions;
     const f = typeof formatter === 'string' ? format(formatter) : formatter;
-    const value = { ...style, text: f(text) };
+    const value = { ...style, text: f(text, datum, index, abstractData) };
     const shapeFunction = useShape({ type: `label.${shape}`, ...style });
     return shapeFunction(points, value, coordinate, theme, point2d);
   };
