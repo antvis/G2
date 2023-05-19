@@ -1,28 +1,41 @@
 # G2 - Changelog
 
+## [5.0.8](https://github.com/antvis/g2/compare/5.0.7...5.0.8) (2023-05-19)
+
+### Bug Fixes
+
+- **brush:** rerender don't emit brush:end ([#5053](https://github.com/antvis/g2/issues/5053)) ([f07b512](https://github.com/antvis/g2/commit/f07b512bb0f116f056a4373f6323195683405786))
+- **brush:** upper bound for selection ([#5044](https://github.com/antvis/g2/issues/5044)) ([b6ea831](https://github.com/antvis/g2/commit/b6ea8318653432c1cf54aca087ff3fb64334cfbe))
+- **chart:** chart.forceFit rerender only when size changing ([#5052](https://github.com/antvis/g2/issues/5052)) ([ab0ccf7](https://github.com/antvis/g2/commit/ab0ccf725713b628e0bb0188e9269bc19e4f1722))
+
+### Features
+
+- add density mark, violin shape and kde transform ([#5043](https://github.com/antvis/g2/issues/5043)) ([f961d24](https://github.com/antvis/g2/commit/f961d2487c0cb387aef9075acd48a8c82ad2ff40))
+- **dimension:** auto padding ([#5046](https://github.com/antvis/g2/issues/5046)) ([914d445](https://github.com/antvis/g2/commit/914d445f75c54c293af2fffbd6906cda0fd1ab00))
+
 ## [5.0.7](https://github.com/antvis/g2/compare/5.0.6...5.0.7) (2023-05-16)
 
 ### Bug Fixes
 
-* **animation:** update non-transform attribute and replace node without animation ([#5019](https://github.com/antvis/g2/issues/5019)) ([4adbd58](https://github.com/antvis/g2/commit/4adbd587c73bdeca7cb301afd52d7cfa874b2ed7)), closes [#4953](https://github.com/antvis/g2/issues/4953) [#5006](https://github.com/antvis/g2/issues/5006)
-* **axis:** autoHide should not set crossSize ([#5032](https://github.com/antvis/g2/issues/5032)) ([86052fc](https://github.com/antvis/g2/commit/86052fced2b165b13a5dc2e0c37617a3dcd9c1f3))
-* change data wont update ([#5002](https://github.com/antvis/g2/issues/5002)) ([349a9f4](https://github.com/antvis/g2/commit/349a9f4b015de11804ccc1f2847e10dc4ace24e8))
-* fix issue that legend category cannot update shape ([#4968](https://github.com/antvis/g2/issues/4968)) ([152bc18](https://github.com/antvis/g2/commit/152bc18c6820e25e903ec33e12f7382fe960a0c8))
-* **legend-filter:** funnel ([#4960](https://github.com/antvis/g2/issues/4960)) ([be67dfa](https://github.com/antvis/g2/commit/be67dfa176742f8cf7b9fca165f55ddfca63f3f1))
-* **link:** right env var ([#5027](https://github.com/antvis/g2/issues/5027)) ([6481b00](https://github.com/antvis/g2/commit/6481b0094880a9d3cbe4f6853763013d1c1acd67))
-* **point:** opacityAttribute default to colorAttribute ([#4981](https://github.com/antvis/g2/issues/4981)) ([79399d0](https://github.com/antvis/g2/commit/79399d037809e86b447ff3cb7264a262811621e5))
-* **scale:** zero domain min and max ([#5014](https://github.com/antvis/g2/issues/5014)) ([2e92914](https://github.com/antvis/g2/commit/2e9291492d1542533318b70f7d937163b8a3b9f3))
-* svg renderer not works in website demo ([#5000](https://github.com/antvis/g2/issues/5000)) ([b94ef47](https://github.com/antvis/g2/commit/b94ef47abb42d1b95c16ba9417256b64c1748eac))
-* **tooltip:** rerender correctly ([#4962](https://github.com/antvis/g2/issues/4962)) ([f85e72f](https://github.com/antvis/g2/commit/f85e72f8e8e94d048835cafe44d7612d3ad69087))
+- **animation:** update non-transform attribute and replace node without animation ([#5019](https://github.com/antvis/g2/issues/5019)) ([4adbd58](https://github.com/antvis/g2/commit/4adbd587c73bdeca7cb301afd52d7cfa874b2ed7)), closes [#4953](https://github.com/antvis/g2/issues/4953) [#5006](https://github.com/antvis/g2/issues/5006)
+- **axis:** autoHide should not set crossSize ([#5032](https://github.com/antvis/g2/issues/5032)) ([86052fc](https://github.com/antvis/g2/commit/86052fced2b165b13a5dc2e0c37617a3dcd9c1f3))
+- change data wont update ([#5002](https://github.com/antvis/g2/issues/5002)) ([349a9f4](https://github.com/antvis/g2/commit/349a9f4b015de11804ccc1f2847e10dc4ace24e8))
+- fix issue that legend category cannot update shape ([#4968](https://github.com/antvis/g2/issues/4968)) ([152bc18](https://github.com/antvis/g2/commit/152bc18c6820e25e903ec33e12f7382fe960a0c8))
+- **legend-filter:** funnel ([#4960](https://github.com/antvis/g2/issues/4960)) ([be67dfa](https://github.com/antvis/g2/commit/be67dfa176742f8cf7b9fca165f55ddfca63f3f1))
+- **link:** right env var ([#5027](https://github.com/antvis/g2/issues/5027)) ([6481b00](https://github.com/antvis/g2/commit/6481b0094880a9d3cbe4f6853763013d1c1acd67))
+- **point:** opacityAttribute default to colorAttribute ([#4981](https://github.com/antvis/g2/issues/4981)) ([79399d0](https://github.com/antvis/g2/commit/79399d037809e86b447ff3cb7264a262811621e5))
+- **scale:** zero domain min and max ([#5014](https://github.com/antvis/g2/issues/5014)) ([2e92914](https://github.com/antvis/g2/commit/2e9291492d1542533318b70f7d937163b8a3b9f3))
+- svg renderer not works in website demo ([#5000](https://github.com/antvis/g2/issues/5000)) ([b94ef47](https://github.com/antvis/g2/commit/b94ef47abb42d1b95c16ba9417256b64c1748eac))
+- **tooltip:** rerender correctly ([#4962](https://github.com/antvis/g2/issues/4962)) ([f85e72f](https://github.com/antvis/g2/commit/f85e72f8e8e94d048835cafe44d7612d3ad69087))
 
 ### Features
 
-* add thresholds params in gauge mark ([#5021](https://github.com/antvis/g2/issues/5021)) ([66a4a8e](https://github.com/antvis/g2/commit/66a4a8ecc16586c2d74155bbde479e2797f53520))
-* **brush:** support resize and custom ([#5012](https://github.com/antvis/g2/issues/5012)) ([857fa7b](https://github.com/antvis/g2/commit/857fa7b2ff6d99f8509d2f99cfa949eb640109c3))
-* **event:** emit plot events ([#5034](https://github.com/antvis/g2/issues/5034)) ([67576ac](https://github.com/antvis/g2/commit/67576ac91dcb94dc7fc834ff8c7f015cbe23a814))
-* tooltip render to mount dom ([#5025](https://github.com/antvis/g2/issues/5025)) ([d6e098f](https://github.com/antvis/g2/commit/d6e098f022e8c3c217f5907584dda01eaadb0b34))
-* **tooltip:** on and emit ([#4980](https://github.com/antvis/g2/issues/4980)) ([5f64f71](https://github.com/antvis/g2/commit/5f64f7165a14de0d66350fb7316654027b6bce7c))
-* update gui and adapt to crossSize config ([#4949](https://github.com/antvis/g2/issues/4949)) ([d1d9b8d](https://github.com/antvis/g2/commit/d1d9b8d1268e7fc95bdf63c3975fce88033e2257))
+- add thresholds params in gauge mark ([#5021](https://github.com/antvis/g2/issues/5021)) ([66a4a8e](https://github.com/antvis/g2/commit/66a4a8ecc16586c2d74155bbde479e2797f53520))
+- **brush:** support resize and custom ([#5012](https://github.com/antvis/g2/issues/5012)) ([857fa7b](https://github.com/antvis/g2/commit/857fa7b2ff6d99f8509d2f99cfa949eb640109c3))
+- **event:** emit plot events ([#5034](https://github.com/antvis/g2/issues/5034)) ([67576ac](https://github.com/antvis/g2/commit/67576ac91dcb94dc7fc834ff8c7f015cbe23a814))
+- tooltip render to mount dom ([#5025](https://github.com/antvis/g2/issues/5025)) ([d6e098f](https://github.com/antvis/g2/commit/d6e098f022e8c3c217f5907584dda01eaadb0b34))
+- **tooltip:** on and emit ([#4980](https://github.com/antvis/g2/issues/4980)) ([5f64f71](https://github.com/antvis/g2/commit/5f64f7165a14de0d66350fb7316654027b6bce7c))
+- update gui and adapt to crossSize config ([#4949](https://github.com/antvis/g2/issues/4949)) ([d1d9b8d](https://github.com/antvis/g2/commit/d1d9b8d1268e7fc95bdf63c3975fce88033e2257))
 
 ## [5.0.6](https://github.com/antvis/g2/compare/5.0.5...5.0.6) (2023-05-08)
 
