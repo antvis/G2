@@ -315,7 +315,7 @@ export function brush(
   };
 
   // Update mask and invoke brushended callback.
-  const updateMask = (start, end) => {
+  const updateMask = (start, end, emit = true) => {
     const [x, y, x1, y1] = normalizeBounds(
       start[0],
       start[1],
@@ -326,7 +326,7 @@ export function brush(
     const [fx, fy, fx1, fy1] = brushRegion(x, y, x1, y1, extent);
     if (reverse) updateReverseMask(fx, fy, fx1, fy1);
     else updateNormalMask(fx, fy, fx1, fy1);
-    brushed(fx, fy, fx1, fy1);
+    brushed(fx, fy, fx1, fy1, emit);
     return [fx, fy, fx1, fy1];
   };
 
@@ -470,11 +470,11 @@ export function brush(
 
   return {
     mask,
-    move(x, y, x1, y1) {
+    move(x, y, x1, y1, emit = true) {
       if (!mask) initMask(x, y);
       start = [x, y];
       end = [x1, y1];
-      updateMask([x, y], [x1, y1]);
+      updateMask([x, y], [x1, y1], emit);
     },
     remove() {
       if (mask) removeMask();
@@ -632,12 +632,14 @@ export function brushHighlight(
       emitter.emit('brush:end', { nativeEvent: true });
       handler();
     },
-    brushed: (x, y, x1, y1) => {
+    brushed: (x, y, x1, y1, emit) => {
       const selection = selectionOf(x, y, x1, y1, scale, coordinate);
-      emitter.emit('brush:highlight', {
-        nativeEvent: true,
-        data: { selection },
-      });
+      if (emit) {
+        emitter.emit('brush:highlight', {
+          nativeEvent: true,
+          data: { selection },
+        });
+      }
       const handler = series ? seriesBrushed : brushed;
       handler(x, y, x1, y1);
     },
@@ -648,7 +650,7 @@ export function brushHighlight(
     if (nativeEvent) return;
     const { selection } = data;
     const [x, y, x1, y1] = pixelsOf(selection, scale, coordinate);
-    brushHandler.move(x, y, x1, y1);
+    brushHandler.move(x, y, x1, y1, false);
   };
   emitter.on('brush:highlight', onHighlight);
 

@@ -10,18 +10,24 @@ describe('chart.render', () => {
       canvas,
       container: document.createElement('div'),
     });
+    chart.off();
+
+    const end = jest.fn();
+    const start = jest.fn();
+    chart.on('brush:highlight', () => {
+      start();
+    });
+    chart.on('brush:end', () => {
+      end();
+    });
     await finished;
     await sleep(20);
 
-    chart.off();
-    const fn = jest.fn();
-    chart.on('brush:end', () => {
-      fn();
-    });
     button.dispatchEvent(new CustomEvent('click'));
     await rerendered;
     await sleep(20);
-    expect(fn).toBeCalledTimes(0);
+    expect(start).toBeCalledTimes(1);
+    expect(end).toBeCalledTimes(0);
   });
 
   afterAll(() => {
