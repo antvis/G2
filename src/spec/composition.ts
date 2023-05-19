@@ -5,7 +5,7 @@ import { Transform } from './transform';
 import { Scale } from './scale';
 import { Data } from './data';
 import { LabelTransform } from './labelTransform';
-import { Literal2Object } from './utils';
+import { Literal2Object, Padding } from './utils';
 import { TitleComponent } from './component';
 import { Mark } from './mark';
 
@@ -40,11 +40,11 @@ export type ViewComposition = {
   data?: Data;
   key?: string;
   class?: string;
-  padding?: number;
-  paddingLeft?: number;
-  paddingRight?: number;
-  paddingTop?: number;
-  paddingBottom?: number;
+  padding?: Padding;
+  paddingLeft?: Padding;
+  paddingRight?: Padding;
+  paddingTop?: Padding;
+  paddingBottom?: Padding;
   margin?: number;
   marginLeft?: number;
   marginBottom?: number;
@@ -99,7 +99,7 @@ export type SpaceFlexComposition = {
   data?: Data;
   direction?: 'col' | 'row';
   ratio?: number[];
-  padding?: number;
+  padding?: Padding;
   children?: Node[];
 };
 
@@ -118,10 +118,11 @@ export type FacetRectComposition = {
   type?: 'facetRect';
   transform?: Transform;
   data?: Data;
-  paddingLeft?: number;
-  paddingRight?: number;
-  paddingTop?: number;
-  paddingBottom?: number;
+  padding?: Padding;
+  paddingLeft?: Padding;
+  paddingRight?: Padding;
+  paddingTop?: Padding;
+  paddingBottom?: Padding;
   margin?: number;
   marginLeft?: number;
   marginBottom?: number;
@@ -149,10 +150,11 @@ export type FacetRectComposition = {
 
 export type RepeatMatrixComposition = {
   type?: 'repeatMatrix';
-  paddingLeft?: number;
-  paddingRight?: number;
-  paddingTop?: number;
-  paddingBottom?: number;
+  padding?: Padding;
+  paddingLeft?: Padding;
+  paddingRight?: Padding;
+  paddingTop?: Padding;
+  paddingBottom?: Padding;
   margin?: number;
   marginLeft?: number;
   marginBottom?: number;
@@ -181,10 +183,11 @@ export type RepeatMatrixComposition = {
 
 export type FacetCircleComposition = {
   type?: 'facetCircle';
-  paddingLeft?: number;
-  paddingRight?: number;
-  paddingTop?: number;
-  paddingBottom?: number;
+  padding?: Padding;
+  paddingLeft?: Padding;
+  paddingRight?: Padding;
+  paddingTop?: Padding;
+  paddingBottom?: Padding;
   margin?: number;
   marginLeft?: number;
   marginBottom?: number;

@@ -14,3 +14,5 @@ export type UsePrefix<
 };
 
 export type Closeable<T> = T | boolean | null;
+
+export type Padding = number | 'auto';

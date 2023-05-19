@@ -54,21 +54,27 @@ export function getBBoxSize(options: G2View): Size {
     insetTop = inset,
     insetBottom = inset,
   } = options;
+
+  // @todo Add this padding to theme.
+  // 30 is default size for padding, which defined in runtime.
+  const maybeAuto = (padding) => (padding === 'auto' ? 30 : padding);
+
   const finalWidth =
     width -
-    paddingLeft -
-    paddingRight -
+    maybeAuto(paddingLeft) -
+    maybeAuto(paddingRight) -
     marginLeft -
     marginRight -
     insetLeft -
     insetRight;
   const finalHeight =
     height -
-    paddingTop -
-    paddingBottom -
+    maybeAuto(paddingTop) -
+    maybeAuto(paddingBottom) -
     marginTop -
     marginBottom -
     insetTop -
     insetBottom;
+
   return { width: finalWidth, height: finalHeight };
 }

@@ -537,7 +537,7 @@ function initializeState(
     options,
     library,
   );
-  const layout = computeLayout(components, options);
+  const layout = computeLayout(components, options, theme, library);
   const coordinate = createCoordinate(layout, options, library);
   const framedStyle = frame
     ? deepMix({ mainLineWidth: 1, mainStroke: '#000' }, style)

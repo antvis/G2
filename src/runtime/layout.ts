@@ -3,21 +3,24 @@ import { ascending, group } from 'd3-array';
 import { isParallel, isPolar, isRadar, radiusOf } from '../utils/coordinate';
 import { capitalizeFirst } from '../utils/helper';
 import { divide } from '../utils/array';
+import { camelCase } from '../utils/string';
 import {
   GuideComponentPosition as GCP,
   GuideComponentOrientation as GCO,
   Layout,
   Section,
   SectionArea,
+  G2Theme,
 } from './types/common';
-import { G2GuideComponentOptions, G2View } from './types/options';
+import { computeComponentSize } from './component';
+import { G2GuideComponentOptions, G2Library, G2View } from './types/options';
 
 export function computeLayout(
   components: G2GuideComponentOptions[],
   options: G2View,
+  theme: G2Theme,
+  library: G2Library,
 ): Layout {
-  const padding = computePadding(components, options);
-  const { paddingLeft, paddingRight, paddingTop, paddingBottom } = padding;
   const {
     width,
     height,
@@ -33,18 +36,62 @@ export function computeLayout(
     marginBottom = margin,
     marginTop = margin,
     marginRight = margin,
+    padding,
+    paddingBottom = padding,
+    paddingLeft = padding,
+    paddingRight = padding,
+    paddingTop = padding,
   } = options;
 
+  const MAX_PADDING_RATIO = 1 / 3;
+  const clamp = (origin, computed, max) =>
+    origin === 'auto' ? Math.min(max, computed) : computed;
+
+  // Compute paddingLeft and paddingRight first to get innerWidth.
+  const horizontalPadding = computePadding(
+    components,
+    height,
+    [0, 0],
+    ['left', 'right'],
+    options,
+    theme,
+    library,
+  );
+  const { paddingLeft: pl0, paddingRight: pr0 } = horizontalPadding;
+  const viewWidth = width - marginLeft - marginRight;
+  const pl = clamp(paddingLeft, pl0, viewWidth * MAX_PADDING_RATIO);
+  const pr = clamp(paddingRight, pr0, viewWidth * MAX_PADDING_RATIO);
+  const iw = viewWidth - pl - pr;
+
+  // Compute paddingBottom and paddingTop based on innerWidth.
+  const verticalPadding = computePadding(
+    components,
+    iw,
+    [pl, pr],
+    ['bottom', 'top'],
+    options,
+    theme,
+    library,
+  );
+  const { paddingTop: pt0, paddingBottom: pb0 } = verticalPadding;
+  const viewHeight = height - marginBottom - marginTop;
+  const pb = clamp(paddingBottom, pb0, viewHeight * MAX_PADDING_RATIO);
+  const pt = clamp(paddingTop, pt0, viewHeight * MAX_PADDING_RATIO);
+  const ih = viewHeight - pb - pt;
+
   return {
-    ...padding,
     width,
     height,
     insetLeft,
     insetTop,
     insetBottom,
     insetRight,
-    innerWidth: width - paddingLeft - paddingRight - marginLeft - marginRight,
-    innerHeight: height - paddingTop - paddingBottom - marginTop - marginBottom,
+    innerWidth: iw,
+    innerHeight: ih,
+    paddingLeft: pl,
+    paddingRight: pr,
+    paddingTop: pt,
+    paddingBottom: pb,
     marginLeft,
     marginBottom,
     marginTop,
@@ -59,18 +106,13 @@ export function computeLayout(
  */
 function computePadding(
   components: G2GuideComponentOptions[],
+  crossSize: number,
+  crossPadding: [number, number],
+  positions: GCP[],
   options: G2View,
+  theme: G2Theme,
+  library: G2Library,
 ) {
-  const positions: GCP[] = [
-    'left',
-    'right',
-    'top',
-    'bottom',
-    'top-left',
-    'top-right',
-    'bottom-left',
-    'bottom-right',
-  ];
   const positionComponents = group(components, (d) => d.position);
   const {
     padding,
@@ -86,12 +128,25 @@ function computePadding(
     paddingRight,
   };
   for (const position of positions) {
-    const key = `padding${capitalizeFirst(position)}`;
-    if (layout[key] === undefined) {
+    const key = `padding${capitalizeFirst(camelCase(position))}`;
+    const value = layout[key];
+    if (value === undefined || value === 'auto') {
       if (!positionComponents.has(position)) {
         layout[key] = 30;
       } else {
         const components = positionComponents.get(position);
+        if (value === 'auto') {
+          components.forEach((component) =>
+            computeComponentSize(
+              component,
+              crossSize,
+              crossPadding,
+              position,
+              theme,
+              library,
+            ),
+          );
+        }
         const totalSize = components.reduce((sum, { size }) => sum + size, 0);
         layout[key] = totalSize;
       }
@@ -161,7 +216,7 @@ export function placeComponents(
     /**
      * @description non-entity components: axis in the center, inner, outer, component in the center
      * @description entity components: other components
-     * @description no volumn components take up no extra space
+     * @description no volume components take up no extra space
      */
 
     const [nonEntityComponents, entityComponents] = divide(
