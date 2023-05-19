@@ -17,7 +17,6 @@ chart
   .encode('y', 'frequency');
 
 chart.interaction('tooltip', {
-  position: 'auto',
   render: (event, { title, items }) => `
   <div
     style="

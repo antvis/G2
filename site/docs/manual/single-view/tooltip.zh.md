@@ -135,8 +135,8 @@ chart
   .scale('y', { type: 'log' });
 
 chart.interaction('tooltip', {
-  // 设置 Tooltip 的位置，为 'auto' 时会自动调整 Tooltip 使其不会超出图表区域
-  position: 'auto',
+  // 设置 Tooltip 的位置
+  position: 'right',
 });
 ```
 
