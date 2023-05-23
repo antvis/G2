@@ -6,7 +6,7 @@ import { Chart } from './chart';
 function bfs(node: Node, callback?: (...args: any[]) => void) {
   const discovered: Node[] = [node];
   while (discovered.length) {
-    const currentNode = discovered.pop();
+    const currentNode = discovered.shift();
     callback && callback(currentNode);
     const children = currentNode.children || [];
     for (const child of children) {
@@ -113,6 +113,15 @@ export class Node<
     };
     bfs(this, callback);
     return nodes;
+  }
+
+  getNodeByType(type: string): Node {
+    let node = null;
+    bfs(this, (current: Node) => {
+      if (node) return;
+      if (type === current.type) node = current;
+    });
+    return node;
   }
 
   /**
