@@ -81,6 +81,15 @@ describe('Node', () => {
     expect(n1.value).toEqual({ a: 2 });
   });
 
+  it('node.getNodeByType(type) should return the first node.', () => {
+    const node = new Node({ a: 1 }, 'a');
+    const n1 = node.append(Node);
+    n1.type = 'b';
+    const n2 = node.append(Node);
+    n2.type = 'b';
+    expect(node.getNodeByType('b')).toBe(n1);
+  });
+
   it('node.getNodesByType(type) should get the children node by type.', () => {
     const node = new Node({ a: 1 }, 'node1');
     const n1 = node.append(Node);
@@ -96,7 +105,7 @@ describe('Node', () => {
     let targetNodes = node.getNodesByType('node1');
 
     expect(targetNodes.length).toEqual(1);
-    expect(targetNodes[0]).toEqual(node);
+    expect(targetNodes[0]).toBe(node);
 
     const n1 = node.append(Node);
     n1.type = 'n';
@@ -104,7 +113,7 @@ describe('Node', () => {
     n2.type = 'n';
     targetNodes = node.getNodesByType('n');
     expect(targetNodes.length).toEqual(2);
-    expect(targetNodes[0]).toEqual(n1);
+    expect(targetNodes[0]).toBe(n1);
 
     expect(node.getNodesByType('undefined')).toEqual([]);
   });
