@@ -1,7 +1,7 @@
 import { IRenderer, RendererPlugin, Canvas as GCanvas } from '@antv/g';
 import { Renderer as CanvasRenderer } from '@antv/g-canvas';
 import { Plugin as DragAndDropPlugin } from '@antv/g-plugin-dragndrop';
-import { debounce, deepMix } from '@antv/util';
+import { debounce } from '@antv/util';
 import EventEmitter from '@antv/event-emitter';
 import { G2Context, render, destroy } from '../runtime';
 import { ViewComposition } from '../spec';
@@ -27,6 +27,8 @@ import {
   removeContainer,
   sizeOf,
   optionsOf,
+  updateRoot,
+  VIEW_KEYS,
 } from './utils';
 
 export const G2_CHART_KEY = 'G2_CHART_KEY';
@@ -84,7 +86,6 @@ export class Chart extends View<ChartOptions> {
   private _container: HTMLElement;
   private _context: G2Context;
   private _emitter: EventEmitter;
-  private _options: G2ViewTree;
   private _width: number;
   private _height: number;
   private _renderer: IRenderer;
@@ -161,18 +162,9 @@ export class Chart extends View<ChartOptions> {
    * @returns {Chart|G2ViewTree}
    */
   options(options?: G2ViewTree): Chart | G2ViewTree {
-    if (arguments.length === 0) {
-      return this._options || optionsOf(this);
-    }
-    this._options = deepMix(this._options || optionsOf(this), options);
+    if (arguments.length === 0) return optionsOf(this);
+    updateRoot(this, options);
     return this;
-  }
-
-  // @todo Remove it when implement updateRoot.
-  changeData(data: any): Promise<Chart> {
-    // Update options data.
-    this.options({ data });
-    return super.changeData(data);
   }
 
   getContainer(): HTMLElement {
@@ -206,7 +198,7 @@ export class Chart extends View<ChartOptions> {
   clear() {
     const options = this.options();
     this.emit(ChartEvent.BEFORE_CLEAR);
-    this._options = {};
+    this._reset();
     destroy(options, this._context, false);
     this.emit(ChartEvent.AFTER_CLEAR);
   }
@@ -215,7 +207,7 @@ export class Chart extends View<ChartOptions> {
     const options = this.options();
     this.emit(ChartEvent.BEFORE_DESTROY);
     this._unbindAutoFit();
-    this._options = {};
+    this._reset();
     destroy(options, this._context, true);
     removeContainer(this._container);
     this.emit(ChartEvent.AFTER_DESTROY);
@@ -250,6 +242,12 @@ export class Chart extends View<ChartOptions> {
       this.emit(ChartEvent.AFTER_CHANGE_SIZE);
     });
     return finished;
+  }
+
+  private _reset() {
+    this.type = 'view';
+    this.value = {};
+    this.children = [];
   }
 
   private _onResize = debounce(() => {

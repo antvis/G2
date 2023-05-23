@@ -115,6 +115,14 @@ export class Node<
     return nodes;
   }
 
+  getNodeByType(type: string): Node {
+    let node;
+    bfs(this, (current: Node) => {
+      if (type === current.type) node = current;
+    });
+    return node;
+  }
+
   /**
    * Apply specified callback to the node value.
    */
