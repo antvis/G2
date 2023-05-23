@@ -12,8 +12,10 @@ describe('Charts', () => {
     it(`[Canvas]: ${name}`, async () => {
       try {
         // @ts-ignore
-        const { maxError = 0 } = generateOptions;
+        const { maxError = 0, before, after } = generateOptions;
+        before?.();
         gCanvas = await renderSpec(generateOptions);
+        after?.();
         const dir = `${__dirname}/snapshots/static`;
         await expect(gCanvas).toMatchCanvasSnapshot(dir, name, { maxError });
       } finally {

@@ -226,3 +226,4 @@ export { populationIntervalDivergingAutoPaddingUndefinedTitle } from './populati
 export { tranLineMultiAxesAutoPaddingTickMethod } from './train-line-multi-axes-auto-padding-tick-method';
 export { vaccinesCellScaleRelationAutoPaddingTickFilter } from './vaccines-cell-scale-relation-auto-padding-tick-filter';
 export { marketIntervalMarimekkoAutoPaddingFlex } from './market-interval-marimekko-auto-padding-flex';
+export { aaplIntervalDateEncodeX } from './aapl-interval-date-encode-x';
