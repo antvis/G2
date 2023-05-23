@@ -20,7 +20,9 @@ export function alphabetIntervalLabelOverflowHide(): G2Spec {
       {
         text: 'frequency',
         position: 'inside',
-        formatter: '.0%',
+        formatter: (_, datum) => {
+          return (datum.frequency * 100).toFixed(0) + '%';
+        },
         transform: [{ type: 'overflowHide' }],
       },
     ],
