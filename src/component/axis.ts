@@ -148,7 +148,12 @@ function getData(
 
   const ticks = ticksOf(scale, domain, tickMethod);
   const filteredTicks = tickFilter ? ticks.filter(tickFilter) : ticks;
-  const toString = (d) => (typeof d === 'object' && !!d ? d : String(d));
+  const toString = (d) =>
+    d instanceof Date
+      ? String(d)
+      : typeof d === 'object' && !!d
+      ? d
+      : String(d);
   const labelFormatter =
     defaultTickFormatter || scale.getFormatter?.() || toString;
   const applyInset = createInset(position, coordinate);
