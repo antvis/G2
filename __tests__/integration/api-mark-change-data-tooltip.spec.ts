@@ -30,7 +30,7 @@ describe('mark.changeData tooltip', () => {
       }),
     );
     await expect(canvas).toMatchDOMSnapshot(dir, render.name, {
-      selector: `.tooltip`,
+      selector: '.g2-tooltip',
     });
   });
 

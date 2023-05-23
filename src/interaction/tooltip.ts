@@ -75,9 +75,12 @@ function createTooltip(
       enterable,
       title: '',
       offset: [10, 10],
+      template: {
+        prefixCls: 'g2-',
+      },
       style: {
-        '.tooltip': {},
-        '.tooltip-title': {
+        '.g2-tooltip': {},
+        '.g2-tooltip-title': {
           overflow: 'hidden',
           'white-space': 'nowrap',
           'text-overflow': 'ellipsis',

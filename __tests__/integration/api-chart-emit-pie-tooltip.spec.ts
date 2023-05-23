@@ -17,7 +17,7 @@ describe('chart.emit', () => {
 
     // chart.emit("tooltip:show", options) should show tooltip.
     await expect(canvas).toMatchDOMSnapshot(dir, 'step0', {
-      selector: '.tooltip',
+      selector: '.g2-tooltip',
     });
   });
 

@@ -22,7 +22,7 @@ describe('Tooltips', () => {
         }
 
         // @ts-ignore
-        const { className = 'tooltip' } = generateOptions;
+        const { className = 'g2-tooltip' } = generateOptions;
         // @ts-ignore
         generateOptions.preprocess = disableAnimation;
 
