@@ -348,7 +348,7 @@ function inferOptionsQ(
   const {
     interpolate = createInterpolateValue,
     nice = false,
-    tickCount = 10,
+    tickCount = 5,
   } = options;
   return { ...options, interpolate, nice, tickCount };
 }

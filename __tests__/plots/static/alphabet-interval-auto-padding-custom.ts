@@ -41,7 +41,7 @@ export function alphabetIntervalAutoPaddingCustom(): G2Spec {
           const width = 60;
           const height = 15;
           const rect = new Rect({
-            style: { x: 0, y: 0, height, width, fill: 'red' },
+            style: { x: 0, y: -height / 2, height, width, fill: 'red' },
           });
           const text = new Text({
             style: {

@@ -14,6 +14,7 @@ export function fuelLineTransformPropagate(): G2Spec {
       y: 'value',
       color: 'category',
     },
+    scale: { x: { utc: true } },
     axis: { y: { labelFormatter: '~s' } },
     children: [{ type: 'line' }, { type: 'area', style: { fillOpacity: 0.5 } }],
   };

@@ -27,6 +27,7 @@ export function fuelLineEncodePropagate(): G2Spec {
             domain: ['primary', 'second'],
             range: ['point', 'square'],
           },
+          x: { utc: true },
         },
         style: {
           stroke: '#fff',
