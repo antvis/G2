@@ -25,7 +25,9 @@ chart
   .encode('color', 'v')
   .scale('x', { domain: [0, 640] })
   .scale('y', { domain: [0, 480], range: [0, 1] })
-  .style('opacity', 0);
+  .style('opacity', 0)
+  .tooltip(false)
+  .animate(false);
 
 chart.render();
 
