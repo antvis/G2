@@ -1,6 +1,6 @@
 import { Canvas } from '@antv/g';
 import { Renderer as SVGRenderer } from '@antv/g-svg';
-import { Chart, createLibrary } from '../../../src';
+import { Chart, createLibrary, ChartEvent } from '../../../src';
 import {
   View,
   TimingKeyframe,
@@ -40,6 +40,19 @@ import {
   Gauge,
 } from '../../../src/api/mark/mark';
 
+const TEST_OPTIONS = {
+  type: 'interval',
+  theme: 'classic',
+  encode: { x: 'genre', y: 'sold' },
+  data: [
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+};
+
 describe('Chart', () => {
   it('Chart() should have expected defaults.', () => {
     const chart = new Chart({ theme: 'classic' });
@@ -47,6 +60,12 @@ describe('Chart', () => {
     expect(chart.parentNode).toBeNull();
     expect(chart.value).toEqual({ theme: 'classic', key: undefined });
     expect(chart['_container'].nodeName).toBe('DIV');
+    expect(chart['_trailing']).toBe(false);
+    expect(chart['_rendering']).toBe(false);
+    expect(chart['_plugins'].length).toBe(0);
+    expect(chart['_renderer']).toBeDefined();
+    expect(chart['_trailingResolve']).toBeNull();
+    expect(chart['_trailingReject']).toBeNull();
   });
 
   it('Chart({...}) should support HTML container.', () => {
@@ -498,12 +517,13 @@ describe('Chart', () => {
       fn();
       return render();
     };
-    chart.render();
 
-    // Mock resize window.
-    div.style.width = '100px';
-    div.style.height = '100px';
-    window.dispatchEvent(new Event('resize'));
+    chart.render().then(() => {
+      // Mock resize window.
+      div.style.width = '100px';
+      div.style.height = '100px';
+      window.dispatchEvent(new Event('resize'));
+    });
 
     // Listen.
     chart.on('afterchangesize', () => {
@@ -717,5 +737,72 @@ describe('Chart', () => {
 
     await chart.forceFit();
     expect(fn).toBeCalledTimes(1);
+  });
+
+  it('chart.render() should toggle value of _rendering.', async () => {
+    const chart = new Chart({});
+
+    chart.options(TEST_OPTIONS);
+
+    const finished = chart.render();
+    expect(chart['_rendering']).toBeTruthy();
+
+    await finished;
+    expect(chart['_rendering']).toBeFalsy();
+  });
+
+  it('chart.render() should catch error for trailing render task.', async () => {
+    const chart = new Chart({});
+    chart.options(TEST_OPTIONS);
+    chart.render();
+
+    chart.options({ ...TEST_OPTIONS, theme: 'foo' });
+    await expect(chart.render()).rejects.toThrowError();
+    expect(chart['_rendering']).toBeFalsy();
+  });
+
+  it('chart.render() should render after previous rendering.', async () => {
+    const chart = new Chart({});
+
+    chart.options(TEST_OPTIONS);
+
+    let count = 0;
+    chart.on(ChartEvent.BEFORE_RENDER, () => {
+      count++;
+    });
+    const p1 = chart.render();
+    const p2 = chart.render();
+
+    await p1;
+    expect(count).toBe(1);
+    await p2;
+    expect(count).toBe(2);
+  });
+
+  it('chart.render() should render first and last rendering task in a row.', async () => {
+    const chart = new Chart({});
+
+    chart.options(TEST_OPTIONS);
+
+    let count = 0;
+    chart.on(ChartEvent.AFTER_RENDER, () => {
+      count++;
+    });
+
+    const p1 = chart.render();
+    const p2 = chart.render();
+    const p3 = chart.render();
+    const p4 = chart.render();
+
+    const v1 = await p1;
+    const v2 = await p2;
+    const v3 = await p3;
+    const v4 = await p4;
+
+    expect(count).toBe(2);
+    expect(v1).toBe(chart);
+    expect(v2).toBe(chart);
+    expect(v3).toBe(chart);
+    expect(v4).toBe(chart);
   });
 });
