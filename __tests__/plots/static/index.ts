@@ -227,3 +227,4 @@ export { tranLineMultiAxesAutoPaddingTickMethod } from './train-line-multi-axes-
 export { vaccinesCellScaleRelationAutoPaddingTickFilter } from './vaccines-cell-scale-relation-auto-padding-tick-filter';
 export { marketIntervalMarimekkoAutoPaddingFlex } from './market-interval-marimekko-auto-padding-flex';
 export { aaplIntervalDateEncodeX } from './aapl-interval-date-encode-x';
+export { athletesRectBinLegendStyle } from './athletes-rect-bin-legend-style';
