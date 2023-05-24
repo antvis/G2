@@ -28,7 +28,7 @@ import {
   sizeOf,
   optionsOf,
   updateRoot,
-  VIEW_KEYS,
+  createEmptyPromise,
 } from './utils';
 
 export const G2_CHART_KEY = 'G2_CHART_KEY';
@@ -92,6 +92,10 @@ export class Chart extends View<ChartOptions> {
   private _plugins: RendererPlugin[];
   // Identifies whether bindAutoFit.
   private _hasBindAutoFit = false;
+  private _rendering = false;
+  private _trailing = false;
+  private _trailingResolve = null;
+  private _trailingReject = null;
 
   constructor(options: ChartOptions) {
     const { container, canvas, renderer, plugins, ...rest } = options || {};
@@ -104,45 +108,24 @@ export class Chart extends View<ChartOptions> {
   }
 
   render(): Promise<Chart> {
+    if (this._rendering) return this._addToTrailing();
+    if (!this._context.canvas) this._createCanvas();
     this._bindAutoFit();
-
-    if (!this._context.canvas) {
-      // Init width and height.
-      const { width, height } = sizeOf(this.options(), this._container);
-      // Create canvas if it does not exist.
-      // DragAndDropPlugin is for interaction.
-      // It is OK to register more than one time, G will handle this.
-      this._plugins.push(new DragAndDropPlugin());
-      this._plugins.forEach((d) => this._renderer.registerPlugin(d));
-      this._context.canvas = new GCanvas({
-        container: this._container,
-        width,
-        height,
-        renderer: this._renderer,
-      });
-    }
-
-    return new Promise((resolve, reject) => {
-      try {
-        const options = this.options();
-        const { key = G2_CHART_KEY } = options;
-        const { width, height } = sizeOf(options, this._container);
-
-        // Update actual size and key.
-        this._width = width;
-        this._height = height;
-        this._key = key;
-
-        render(
-          { key: this._key, ...options, width, height },
-          this._context,
-          () => resolve(this),
-          reject,
-        );
-      } catch (e) {
-        reject(e);
-      }
-    });
+    this._rendering = true;
+    const finished = new Promise<Chart>((resolve, reject) =>
+      render(
+        this._computedOptions(),
+        this._context,
+        this._createResolve(resolve),
+        this._createReject(reject),
+      ),
+    );
+    const [finished1, resolve, reject] = createEmptyPromise<Chart>();
+    finished
+      .then(resolve)
+      .catch(reject)
+      .then(() => this._renderTrailing());
+    return finished1;
   }
 
   /**
@@ -248,6 +231,76 @@ export class Chart extends View<ChartOptions> {
     this.type = 'view';
     this.value = {};
     this.children = [];
+  }
+
+  private _renderTrailing() {
+    if (!this._trailing) return;
+    this._trailing = false;
+    this.render()
+      .then(() => {
+        const trailingResolve = this._trailingResolve.bind(this);
+        this._trailingResolve = null;
+        trailingResolve(this);
+      })
+      .catch((error) => {
+        const trailingReject = this._trailingReject.bind(this);
+        this._trailingReject = null;
+        trailingReject(error);
+      });
+  }
+
+  private _createResolve(resolve: (chart: Chart) => void) {
+    return () => {
+      this._rendering = false;
+      resolve(this);
+    };
+  }
+
+  private _createReject(reject: (error: Error) => void) {
+    return (error: Error) => {
+      this._rendering = false;
+      reject(error);
+    };
+  }
+
+  // Update actual size and key.
+  private _computedOptions() {
+    const options = this.options();
+    const { key = G2_CHART_KEY } = options;
+    const { width, height } = sizeOf(options, this._container);
+    this._width = width;
+    this._height = height;
+    this._key = key;
+    return { key: this._key, ...options, width, height };
+  }
+
+  // Create canvas if it does not exist.
+  // DragAndDropPlugin is for interaction.
+  // It is OK to register more than one time, G will handle this.
+  private _createCanvas() {
+    const { width, height } = sizeOf(this.options(), this._container);
+    this._plugins.push(new DragAndDropPlugin());
+    this._plugins.forEach((d) => this._renderer.registerPlugin(d));
+    this._context.canvas = new GCanvas({
+      container: this._container,
+      width,
+      height,
+      renderer: this._renderer,
+    });
+  }
+
+  private _addToTrailing(): Promise<Chart> {
+    // Resolve previous promise, and give up this task.
+    this._trailingResolve?.(this);
+
+    // Create new task.
+    this._trailing = true;
+    const promise = new Promise<Chart>((resolve, reject) => {
+      this._trailingResolve = resolve;
+      this._trailingReject = reject;
+    });
+
+    return promise;
   }
 
   private _onResize = debounce(() => {

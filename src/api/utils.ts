@@ -182,3 +182,17 @@ export function updateRoot(node: Node, options: G2ViewTree) {
     }
   }
 }
+
+export function createEmptyPromise<T>(): [
+  Promise<T>,
+  (reason?: any) => void,
+  (value: T | PromiseLike<T>) => void,
+] {
+  let reject: (reason?: any) => void;
+  let resolve: (value: T | PromiseLike<T>) => void;
+  const cloned = new Promise<T>((res, rej) => {
+    resolve = res;
+    reject = rej;
+  });
+  return [cloned, resolve, reject];
+}
