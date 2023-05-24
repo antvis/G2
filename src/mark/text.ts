@@ -15,7 +15,6 @@ export const Text: MC<TextOptions> = (options) => {
   const { cartesian = false } = options;
   if (cartesian) return visualMark as Mark;
   return ((index, scale, value, coordinate) => {
-    if (cartesian) return visualMark(index, scale, value, coordinate);
     const { x: X, y: Y } = value;
     const offset = createBandOffset(scale, value, options);
     const P = Array.from(index, (i) => {

@@ -8,16 +8,29 @@ import type { HeatmapRendererOptions } from './renderer/types';
 
 export type HeatmapOptions = HeatmapRendererOptions;
 
+function deleteKey(obj: any, fn: (v, k) => boolean) {
+  const r = { ...obj };
+  return Object.keys(obj).reduce((r, k) => {
+    const v = obj[k];
+    if (!fn(v, k)) r[k] = v;
+    return r;
+  }, {});
+}
+
 export const Heatmap: SC<HeatmapOptions> = (options) => {
-  const { ...style } = options;
+  const {
+    gradient,
+    opacity,
+    maxOpacity,
+    minOpacity,
+    blur,
+    useGradientOpacity,
+    ...style
+  } = options;
   return (points: number[][], value, coordinate, theme, _, context) => {
     const { mark, shape, defaultShape, transform } = value;
-    const {
-      defaultColor,
-      fill = defaultColor,
-      stroke = defaultColor,
-      ...shapeTheme
-    } = getShapeTheme(theme, mark, shape, defaultShape);
+    const { ...shapeTheme } = getShapeTheme(theme, mark, shape, defaultShape);
+    const { createCanvas } = context;
 
     const [width, height] = coordinate.getSize();
     const data = points.map((p: number[]) => ({
@@ -26,17 +39,25 @@ export const Heatmap: SC<HeatmapOptions> = (options) => {
       value: p[2],
       radius: p[3],
     }));
+
     const min = d3min(points, (p) => p[2]);
     const max = d3max(points, (p) => p[2]);
 
-    const { createCanvas } = context;
+    const options = {
+      gradient,
+      opacity,
+      minOpacity,
+      maxOpacity,
+      blur,
+      useGradientOpacity,
+    };
     const ctx = HeatmapRenderer(
       width,
       height,
       min,
       max,
       data,
-      { ...style },
+      deleteKey(options, (v) => v === undefined),
       createCanvas,
     );
 

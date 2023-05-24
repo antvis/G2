@@ -1,4 +1,16 @@
+import { lru } from '../../../utils/lru';
 import { HeatmapRendererData, HeatmapRendererOptions } from './types';
+
+function newCanvas(
+  createCanvas: () => HTMLCanvasElement,
+  width: number,
+  height: number,
+) {
+  const c = createCanvas ? createCanvas() : document.createElement('canvas');
+  c.width = width;
+  c.height = height;
+  return c;
+}
 
 /**
  * Get a point with template.
@@ -6,52 +18,49 @@ import { HeatmapRendererData, HeatmapRendererOptions } from './types';
  * @param blurFactor
  * @returns
  */
-function getPointTemplate(
-  radius: number,
-  blurFactor: number,
-  createCanvas?: () => HTMLCanvasElement,
-) {
-  const tplCanvas = createCanvas
-    ? createCanvas()
-    : document.createElement('canvas');
-  const tplCtx = tplCanvas.getContext('2d');
-  const x = radius;
-  const y = radius;
-  tplCanvas.width = tplCanvas.height = radius * 2;
+const getPointTemplate = lru(
+  (
+    radius: number,
+    blurFactor: number,
+    createCanvas?: () => HTMLCanvasElement,
+  ) => {
+    const tplCanvas = newCanvas(createCanvas, radius * 2, radius * 2);
+    const tplCtx = tplCanvas.getContext('2d');
+    const x = radius;
+    const y = radius;
 
-  if (blurFactor === 1) {
-    tplCtx.beginPath();
-    tplCtx.arc(x, y, radius, 0, 2 * Math.PI, false);
-    tplCtx.fillStyle = 'rgba(0,0,0,1)';
-    tplCtx.fill();
-  } else {
-    const gradient = tplCtx.createRadialGradient(
-      x,
-      y,
-      radius * blurFactor,
-      x,
-      y,
-      radius,
-    );
-    gradient.addColorStop(0, 'rgba(0,0,0,1)');
-    gradient.addColorStop(1, 'rgba(0,0,0,0)');
-    tplCtx.fillStyle = gradient;
-    tplCtx.fillRect(0, 0, 2 * radius, 2 * radius);
-  }
-  return tplCanvas;
-}
+    if (blurFactor === 1) {
+      tplCtx.beginPath();
+      tplCtx.arc(x, y, radius, 0, 2 * Math.PI, false);
+      tplCtx.fillStyle = 'rgba(0,0,0,1)';
+      tplCtx.fill();
+    } else {
+      const gradient = tplCtx.createRadialGradient(
+        x,
+        y,
+        radius * blurFactor,
+        x,
+        y,
+        radius,
+      );
+      gradient.addColorStop(0, 'rgba(0,0,0,1)');
+      gradient.addColorStop(1, 'rgba(0,0,0,0)');
+      tplCtx.fillStyle = gradient;
+      tplCtx.fillRect(0, 0, 2 * radius, 2 * radius);
+    }
+    return tplCanvas;
+  },
+  (radius) => `${radius}`,
+);
 
 /**
  * Get a color palette with len = 256 base on gradient.
  * @param gradientConfig
  * @returns
  */
-function getColorPalette(gradientConfig: any) {
-  const paletteCanvas = document.createElement('canvas');
+function getColorPalette(gradientConfig: any, createCanvas) {
+  const paletteCanvas = newCanvas(createCanvas, 256, 1);
   const paletteCtx = paletteCanvas.getContext('2d');
-
-  paletteCanvas.width = 256;
-  paletteCanvas.height = 1;
 
   const gradient = paletteCtx.createLinearGradient(0, 0, 256, 1);
   for (const key in gradientConfig) {
@@ -85,7 +94,7 @@ function drawAlpha(
     const rectY = y - radius;
 
     // TODO: cache for performance.
-    const tpl = getPointTemplate(radius, blur, createCanvas);
+    const tpl = getPointTemplate(radius, 1 - blur, createCanvas);
     // Value from minimum / value range, => [0, 1].
     const templateAlpha = (value - min) / (max - min);
     // Small values are not visible because globalAlpha < .01 cannot be read from imageData.
@@ -102,7 +111,7 @@ function colorize(
   palette,
   options: HeatmapRendererOptions,
 ) {
-  const { maxOpacity, minOpacity, useGradientOpacity } = options;
+  const { minOpacity, opacity, maxOpacity, useGradientOpacity } = options;
   const x = 0;
   const y = 0;
   const width = maxWidth;
@@ -121,10 +130,8 @@ function colorize(
     }
 
     // Should be in [min, max], min >= 0.
-    const finalAlpha = Math.max(
-      0,
-      Math.min(maxOpacity, Math.max(minOpacity, alpha)),
-    );
+    const finalAlpha =
+      opacity || Math.max(0, Math.min(maxOpacity, Math.max(minOpacity, alpha)));
     // Update rgba.
     imgData[i - 3] = palette[offset];
     imgData[i - 2] = palette[offset + 1];
@@ -149,7 +156,10 @@ export function HeatmapRenderer(
   createCanvas?: () => HTMLCanvasElement,
 ) {
   const opts = {
-    blur: 0.5,
+    blur: 0.85,
+    minOpacity: 0,
+    opacity: 0.6,
+    maxOpacity: 1,
     gradient: {
       0.25: 'rgb(0,0,255)',
       0.55: 'rgb(0,255,0)',
@@ -157,26 +167,22 @@ export function HeatmapRenderer(
       1.0: 'rgb(255,0,0)',
     },
     ...options,
-    opacity: (options.opacity || 0.65) * 255,
-    maxOpacity: (options.opacity || 1) * 255,
-    minOpacity: (options.opacity || 0) * 255,
   };
+  opts.minOpacity *= 255;
+  opts.opacity *= 255;
+  opts.maxOpacity *= 255;
 
-  const canvas = createCanvas
-    ? createCanvas()
-    : document.createElement('canvas');
-  const shadowCanvas = createCanvas
-    ? createCanvas()
-    : document.createElement('canvas');
-
-  const ctx = canvas.getContext('2d');
+  const shadowCanvas = newCanvas(createCanvas, width, height);
   const shadowCtx = shadowCanvas.getContext('2d');
 
-  const palette = getColorPalette(opts.gradient);
+  const palette = getColorPalette(opts.gradient, createCanvas);
 
+  shadowCtx.clearRect(0, 0, width, height);
   drawAlpha(shadowCtx, min, max, data, opts, createCanvas);
   const img = colorize(shadowCtx, width, height, palette, opts);
 
+  const canvas = newCanvas(createCanvas, width, height);
+  const ctx = canvas.getContext('2d');
   ctx.putImageData(img, 0, 0);
 
   return ctx;

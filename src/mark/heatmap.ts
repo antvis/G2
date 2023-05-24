@@ -16,9 +16,9 @@ export const Heatmap: MC<HeatmapOptions> = (options) => {
   return (index, scale, value, coordinate) => {
     const { x: X, y: Y, size: S, color: C } = value;
     const P = Array.from(index, (i) => {
-      // Default size = 20.
-      const r = S ? +S[i] : 20;
-      //Warning: x, y, value, radius.
+      // Default size = 40.
+      const r = S ? +S[i] : 40;
+      // Warning: x, y, value, radius.
       return [...coordinate.map([+X[i], +Y[i]]), C[i], r] as unknown as Vector2;
     });
 

@@ -65,8 +65,10 @@ function Canvas(width: number, height: number): GCanvas {
 export function render<T extends G2ViewTree = G2ViewTree>(
   options: T,
   context: G2Context = {},
-  resolve?: () => void,
-  reject?: (e: Error) => void,
+  resolve = (): void => {},
+  reject = (e?: any): void => {
+    throw e;
+  },
 ): HTMLElement {
   // Initialize the context if it is not provided.
   const { width = 640, height = 480, theme } = options;
@@ -113,8 +115,10 @@ export function render<T extends G2ViewTree = G2ViewTree>(
 export function renderToMountedElement<T extends G2ViewTree = G2ViewTree>(
   options: T,
   context: G2Context = {},
-  resolve?: () => void,
-  reject?: (e: Error) => void,
+  resolve = () => {},
+  reject = (e?: any) => {
+    throw e;
+  },
 ): DisplayObject {
   // Initialize the context if it is not provided.
   const { width = 640, height = 480, on } = options;
@@ -126,9 +130,7 @@ export function renderToMountedElement<T extends G2ViewTree = G2ViewTree>(
   } = context;
 
   if (!group?.parentElement) {
-    throw new Error(
-      `renderToMountedElement can't render chart to unmounted group.`,
-    );
+    error(`renderToMountedElement can't render chart to unmounted group.`);
   }
 
   const selection = select(group);

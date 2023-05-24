@@ -96,7 +96,7 @@ export function createBandOffset(
   };
 }
 
-function p(d) {
+export function p(d) {
   return parseFloat(d) / 100;
 }
 

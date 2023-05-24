@@ -1,16 +1,8 @@
 export type HeatmapRendererOptions = {
   /**
-   * A background color string in form of hexcode, color name, or rgb(a).
-   */
-  backgroundColor?: string;
-  /**
    * An gradient string that represents the gradient (syntax: number string [0,1] : color string).
    */
   gradient?: Record<string, string>;
-  /**
-   * The radius each datapoint will have (if not specified on the datapoint itself).
-   */
-  radius?: number;
   /**
    * A global opacity for the whole heatmap, default = 0.6.
    * This overrides maxOpacity and minOpacity if set!
@@ -25,7 +17,7 @@ export type HeatmapRendererOptions = {
    */
   minOpacity?: number;
   /**
-   * The blur factor that will be applied to all datapoints, default = 0.5.
+   * The blur factor that will be applied to all datapoints, default = 0.85.
    * The higher the blur factor is, the smoother the gradients will be.
    */
   blur?: number;
