@@ -229,3 +229,4 @@ export { marketIntervalMarimekkoAutoPaddingFlex } from './market-interval-marime
 export { aaplIntervalDateEncodeX } from './aapl-interval-date-encode-x';
 export { athletesRectBinLegendStyle } from './athletes-rect-bin-legend-style';
 export { HeatmapHeatmapBasic } from './heatmap-heatmap-basic';
+export { DiamondHeatmapDensity } from './diamond-heatmap-density';

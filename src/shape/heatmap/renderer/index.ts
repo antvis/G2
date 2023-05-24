@@ -93,12 +93,11 @@ function drawAlpha(
     const rectX = x - radius;
     const rectY = y - radius;
 
-    // TODO: cache for performance.
     const tpl = getPointTemplate(radius, 1 - blur, createCanvas);
     // Value from minimum / value range, => [0, 1].
     const templateAlpha = (value - min) / (max - min);
-    // Small values are not visible because globalAlpha < .01 cannot be read from imageData.
-    shadowCtx.globalAlpha = Math.max(templateAlpha, 0.01);
+    // Small values are not visible because globalAlpha < .001 cannot be read from imageData.
+    shadowCtx.globalAlpha = Math.max(templateAlpha, 0.001);
     shadowCtx.drawImage(tpl, rectX, rectY);
   }
   return shadowCtx;

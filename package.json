@@ -68,6 +68,7 @@
     "pdfast": "^0.2.0"
   },
   "devDependencies": {
+    "@antv/data-set": "^0.11.8",
     "@antv/g-plugin-rough-canvas-renderer": "^1.7.9",
     "@antv/g-plugin-rough-svg-renderer": "^1.7.9",
     "@antv/g-svg": "^1.8.6",
