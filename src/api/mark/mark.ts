@@ -20,6 +20,7 @@ import {
   SankeyMark,
   BoxPlotMark,
   DensityMark,
+  HeatmapMark,
   ShapeMark,
   TreemapMark,
   ForceGraphMark,
@@ -116,6 +117,10 @@ export interface Boxplot extends API<Concrete<BoxPlotMark>, Boxplot> {
 
 export interface Density extends API<Concrete<DensityMark>, Density> {
   type: 'density';
+}
+
+export interface Heatmap extends API<Concrete<HeatmapMark>, Heatmap> {
+  type: 'heatmap';
 }
 
 export interface Shape extends API<Concrete<ShapeMark>, Shape> {
@@ -332,6 +337,13 @@ export class Boxplot extends MarkNode<BoxPlotMark> {
 export class Density extends MarkNode<DensityMark> {
   constructor() {
     super({}, 'density');
+  }
+}
+
+@defineProps(props)
+export class Heatmap extends MarkNode<HeatmapMark> {
+  constructor() {
+    super({}, 'heatmap');
   }
 }
 

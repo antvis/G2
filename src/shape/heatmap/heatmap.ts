@@ -51,15 +51,18 @@ export const Heatmap: SC<HeatmapOptions> = (options) => {
       blur,
       useGradientOpacity,
     };
-    const ctx = HeatmapRenderer(
-      width,
-      height,
-      min,
-      max,
-      data,
-      deleteKey(options, (v) => v === undefined),
-      createCanvas,
-    );
+    const ctx =
+      width && height
+        ? HeatmapRenderer(
+            width,
+            height,
+            min,
+            max,
+            data,
+            deleteKey(options, (v) => v === undefined),
+            createCanvas,
+          )
+        : { canvas: null };
 
     return select(new GImage())
       .call(applyStyle, shapeTheme)

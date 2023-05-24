@@ -1,0 +1,32 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "heatmap.ts",
+      "title": {
+        "zh": "密度热力图",
+        "en": "Heatmap"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ze7gSYylw_QAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "heatmap-density.ts",
+      "title": {
+        "zh": "散点分布热力",
+        "en": "Heatmap Density"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*0AfVQpGgcsoAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "mouse-heatmap.ts",
+      "title": {
+        "zh": "鼠标热力图",
+        "en": "Mouse Heatmap"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*kC58R7TEdd0AAAAAAAAAAAAADmJ7AQ/original"
+    }
+  ]
+}
