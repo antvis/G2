@@ -158,11 +158,16 @@ export function adaptor<T>(style: T) {
     'title',
     'trunc',
   ];
+  // @ts-ignore
+  const { style: styles, ...rest } = style;
   const finalStyle = {};
-  Object.entries(style).forEach(([key, value]) => {
-    if (reservedKeys.includes(key))
+  Object.entries(rest).forEach(([key, value]) => {
+    if (reservedKeys.includes(key)) {
       finalStyle[`show${upperFirst(key)}`] = value;
-    else finalStyle[key] = value;
+    } else finalStyle[key] = value;
   });
-  return finalStyle as T;
+  return {
+    ...finalStyle,
+    ...styles,
+  };
 }
