@@ -230,10 +230,17 @@ export async function plot<T extends G2ViewTree>(
     target.container['nameInteraction'] = nameInteraction;
 
     // Apply interactions.
-    for (const option of inferInteraction(options)) {
-      const interaction = useInteraction(option);
-      const destroy = interaction(target, enterViewInstances, context.emitter);
-      nameInteraction.set(option.type, { destroy });
+    for (const typeOption of inferInteraction(options)) {
+      const [type, option] = typeOption;
+      if (option) {
+        const interaction = useInteraction({ type, ...(option as any) });
+        const destroy = interaction(
+          target,
+          enterViewInstances,
+          context.emitter,
+        );
+        nameInteraction.set(type, { destroy });
+      }
     }
   }
 
@@ -242,15 +249,23 @@ export async function plot<T extends G2ViewTree>(
   for (const target of updateViewInstances) {
     const { options, container } = target;
     const nameInteraction = container['nameInteraction'];
-    for (const option of inferInteraction(options)) {
+    for (const typeOption of inferInteraction(options)) {
+      const [type, option] = typeOption;
+
       // Remove interaction for existed views.
-      const prevInteraction = nameInteraction.get(option.type);
+      const prevInteraction = nameInteraction.get(type);
       if (prevInteraction) prevInteraction.destroy?.();
 
       // Apply new interaction.
-      const interaction = useInteraction(option);
-      const destroy = interaction(target, updateViewInstances, context.emitter);
-      nameInteraction.set(option.type, { destroy });
+      if (option) {
+        const interaction = useInteraction({ type, ...(option as any) });
+        const destroy = interaction(
+          target,
+          updateViewInstances,
+          context.emitter,
+        );
+        nameInteraction.set(type, { destroy });
+      }
     }
   }
 
@@ -314,7 +329,13 @@ function createUpdateView(
   };
 }
 
-function updateTooltip(selection, options, view, library, context) {
+function updateTooltip(
+  selection: Selection,
+  options: G2ViewTree,
+  view: G2ViewDescriptor,
+  library: G2Library,
+  context: G2Context,
+) {
   const [useInteraction] = useLibrary<
     G2InteractionOptions,
     InteractionComponent,
@@ -325,7 +346,7 @@ function updateTooltip(selection, options, view, library, context) {
   const container = selection.node();
   const nameInteraction = container['nameInteraction'];
   const tooltipOptions = inferInteraction(options).find(
-    (d) => d.type === 'tooltip',
+    ([d]) => d === 'tooltip',
   );
 
   // Destroy older tooltip.
@@ -333,8 +354,13 @@ function updateTooltip(selection, options, view, library, context) {
   if (!tooltip) return;
   tooltip.destroy?.();
 
+  if (!tooltipOptions[1]) return;
+
   // Apply new tooltip interaction.
-  const applyTooltip = useInteraction(tooltipOptions);
+  const applyTooltip = useInteraction({
+    type: 'tooltip',
+    ...(tooltipOptions[1] as any),
+  });
   const target = {
     options,
     view,
@@ -1351,7 +1377,9 @@ function inferTheme(theme: G2ThemeOptions = {}): G2ThemeOptions {
 /**
  * @todo Infer builtin tooltips.
  */
-function inferInteraction(view: G2View): G2InteractionOptions[] {
+function inferInteraction(
+  view: G2View,
+): [string, boolean | Omit<G2InteractionOptions, 'type'>][] {
   const defaults = {
     event: true,
     tooltip: true,
@@ -1360,12 +1388,7 @@ function inferInteraction(view: G2View): G2InteractionOptions[] {
     legendFilter: true,
   };
   const { interaction = {} } = view;
-  return Object.entries(deepMix(defaults, interaction))
-    .filter((d) => !!d[1])
-    .map(([key, value]) => ({
-      type: key,
-      ...(value as Record<string, any>),
-    }));
+  return Object.entries(deepMix(defaults, interaction));
 }
 
 async function applyTransform<T extends G2ViewTree>(
