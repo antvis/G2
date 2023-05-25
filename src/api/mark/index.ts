@@ -22,6 +22,7 @@ import {
   Treemap,
   Boxplot,
   Density,
+  Heatmap,
   Shape,
   Pack,
   ForceGraph,
@@ -55,6 +56,7 @@ export interface Mark {
   treemap(): Treemap;
   boxplot(): Boxplot;
   density(): Density;
+  heatmap(): Heatmap;
   shape(): Shape;
   pack(): Pack;
   forceGraph(): ForceGraph;
@@ -89,6 +91,7 @@ export const mark = {
   treemap: Treemap,
   boxplot: Boxplot,
   density: Density,
+  heatmap: Heatmap,
   shape: Shape,
   pack: Pack,
   forceGraph: ForceGraph,

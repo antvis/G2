@@ -51,6 +51,7 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
 - [polygon](/spec/mark/polygon) - 利用多组 (x, y) 数据点，在画布中绘制闭合的多边形，通常结合一些社区布局算法使用。
 - [wordcloud](/spec/mark/wordcloud) - 绘制词云图。
 - [density](/spec/mark/density) - 渲染核密度数据，多用于小提琴图。
+- [heatmap](/spec/mark/heatmap) - 接受热力数据，多用于绘制热力图。
 
 ## Transform
 

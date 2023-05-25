@@ -133,6 +133,10 @@ chart.render();
 
 添加 density 图形，具体见 [mark](/spec/mark/density)。
 
+### `chart.heatmap`
+
+添加 heatmap 图形，具体见 [mark](/spec/mark/heatmap)。
+
 ### `view.shape`
 
 添加 shape 图形，具体见 [mark](/spec/mark/shape)。

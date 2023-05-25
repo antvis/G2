@@ -24,6 +24,8 @@ if (window) {
   (window as any).gWebgl = require('@antv/g-webgl');
   (window as any).fecha = require('fecha');
   (window as any).React = require('react');
+  (window as any).dataSet = require('@antv/data-set');
+  (window as any).lodash = require('lodash');
 }
 
 if (

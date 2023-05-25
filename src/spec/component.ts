@@ -78,7 +78,8 @@ export type TooltipComponent =
       items?: TooltipItem[] | null | false;
       [key: string]: any;
     }
-  | null;
+  | null
+  | false;
 
 export type TooltipTitle =
   | string

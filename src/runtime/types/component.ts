@@ -14,7 +14,7 @@ import {
 import { DataComponent } from './data';
 import { Encode, EncodeComponent } from './encode';
 import { Mark, MarkComponent } from './mark';
-import { G2ViewTree, G2Library, G2Mark } from './options';
+import { G2ViewTree, G2Library, G2Mark, G2Context } from './options';
 import { Transform, TransformComponent } from './transform';
 
 export type G2ComponentNamespaces =
@@ -145,6 +145,7 @@ export type Shape = (
   coordinate: Coordinate,
   theme: G2Theme,
   point2d?: Vector2[][],
+  context?: G2Context,
 ) => DisplayObject;
 export type ShapeProps = {
   defaultMarker?: string;

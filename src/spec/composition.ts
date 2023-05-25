@@ -5,9 +5,16 @@ import { Transform } from './transform';
 import { Scale } from './scale';
 import { Data } from './data';
 import { LabelTransform } from './labelTransform';
-import { Literal2Object, Padding } from './utils';
-import { TitleComponent } from './component';
-import { Mark } from './mark';
+import { Closeable, Literal2Object, Padding } from './utils';
+import {
+  AxisComponent,
+  LegendComponent,
+  ScrollbarComponent,
+  SliderComponent,
+  TitleComponent,
+  TooltipComponent,
+} from './component';
+import { AtheisticChanelTypes, Mark, PositionChannelTypes } from './mark';
 
 export type Composition =
   | ViewComposition
@@ -58,16 +65,25 @@ export type ViewComposition = {
   coordinate?: Coordinate;
   interaction?: Literal2Object<Interaction>;
   transform?: Transform[];
-  title?: string | TitleComponent;
   theme?: Theme;
   children?: Mark[];
   scale?: Record<string, Scale>;
   frame?: boolean;
   labelTransform?: LabelTransform[];
-  // @todo
-  axis?: Record<string, any>;
-  // @todo
-  legend?: Record<string, any>;
+  axis?: Closeable<
+    Partial<Record<PositionChannelTypes, Closeable<AxisComponent>>>
+  >;
+  legend?: Closeable<
+    Partial<Record<AtheisticChanelTypes, Closeable<LegendComponent>>>
+  >;
+  tooltip?: TooltipComponent;
+  slider?: Closeable<
+    Partial<Record<PositionChannelTypes, Closeable<SliderComponent>>>
+  >;
+  scrollbar?: Closeable<
+    Partial<Record<PositionChannelTypes, Closeable<ScrollbarComponent>>>
+  >;
+  title?: string | TitleComponent;
   // @todo
   style?: Record<string, any>;
   clip?: boolean;

@@ -41,6 +41,7 @@ import {
   WordCloud as WordCloudGeometry,
   Density as DensityGeometry,
   Gauge,
+  Heatmap,
 } from '../mark';
 import { Category10, Category20 } from '../palette';
 import {
@@ -112,6 +113,7 @@ import {
   HollowPath,
   Density as DensityShape,
   Shape as CustomShape,
+  Heatmap as HeatmapShape,
 } from '../shape';
 import { Classic, ClassicDark, Academy } from '../theme';
 import {
@@ -356,6 +358,7 @@ export function createLibrary(): G2Library {
     'mark.tree': TreeGeometry,
     'mark.wordCloud': WordCloudGeometry,
     'mark.density': DensityGeometry,
+    'mark.heatmap': Heatmap,
     'palette.category10': Category10,
     'palette.category20': Category20,
     'scale.linear': Linear,
@@ -432,6 +435,7 @@ export function createLibrary(): G2Library {
     'shape.path.path': PathShape,
     'shape.path.hollow': HollowPath,
     'shape.density.density': DensityShape,
+    'shape.heatmap.heatmap': HeatmapShape,
     'theme.classic': Classic,
     'theme.classicDark': ClassicDark,
     'theme.academy': Academy,
