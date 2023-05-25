@@ -248,7 +248,7 @@ export const ClassicDark: TC<ClassicDarkOptions> = (options) => {
     axisTop: {
       gridDirection: 'positive',
       labelDirection: 'negative',
-      labelSpacing: 8,
+      labelSpacing: 4,
       tickDirection: 'negative',
       titlePosition: 'top',
       titleSpacing: 0,
@@ -257,7 +257,7 @@ export const ClassicDark: TC<ClassicDarkOptions> = (options) => {
     axisBottom: {
       gridDirection: 'negative',
       labelDirection: 'positive',
-      labelSpacing: 12,
+      labelSpacing: 4,
       tickDirection: 'positive',
       titlePosition: 'bottom',
       titleSpacing: 10,

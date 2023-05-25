@@ -271,7 +271,7 @@ function inferArcStyle(
     ...common,
     labelAlign: 'parallel',
     labelDirection: 'negative',
-    labelSpacing: 8,
+    labelSpacing: 4,
     tickDirection: 'negative',
     gridDirection: 'positive',
   };
@@ -402,6 +402,7 @@ const ArcAxisComponent: GCC<AxisOptions> = (options) => {
     );
 
     const { axis: axisTheme } = theme;
+
     return new AxisComponent({
       style: adaptor(
         deepMix({}, axisTheme, defaultStyle, {
@@ -512,19 +513,34 @@ const LinearAxisComponent: GCC<AxisOptions> = (options) => {
       bbox,
       coordinate,
     );
+
+    const data = getData(
+      scale,
+      domain,
+      tickCount,
+      labelFormatter,
+      tickFilter,
+      tickMethod,
+      position,
+      coordinate,
+    );
+
+    // Bind computed bbox if exists.
+    const labels = indexBBox
+      ? data.map((d, i) => {
+          const bbox = indexBBox.get(i);
+          if (!bbox) return d;
+          // bbox: [label, bbox]
+          // Make than indexBBox can match current label.
+          if (bbox[0] !== d.label) return d;
+          return { ...d, bbox: bbox[1] };
+        })
+      : data;
+
     const finalAxisStyle = {
       ...internalAxisStyle,
       type: 'linear' as const,
-      data: getData(
-        scale,
-        domain,
-        tickCount,
-        labelFormatter,
-        tickFilter,
-        tickMethod,
-        position,
-        coordinate,
-      ),
+      data: labels,
       crossSize: size,
       titleText: titleContent(title),
       labelOverlap: inferLabelOverlap(transform, internalAxisStyle),
