@@ -1,5 +1,23 @@
 # G2 - Changelog
 
+## [5.0.9](https://github.com/antvis/g2/compare/5.0.8...5.0.9) (2023-05-25)
+
+### Bug Fixes
+
+- **brush:** handle brush:highlight once when emit ([#5063](https://github.com/antvis/g2/issues/5063)) ([321fb1b](https://github.com/antvis/g2/commit/321fb1bce8e177cfc2d9ea83cdb1291c3fd6c728))
+- example typo ([#5064](https://github.com/antvis/g2/issues/5064)) ([e2e8a5f](https://github.com/antvis/g2/commit/e2e8a5fafe12a71c85a3275faa1f220d4a7fc62a))
+- **interaction:** interaction can be clear ([#5087](https://github.com/antvis/g2/issues/5087)) ([f489fba](https://github.com/antvis/g2/commit/f489fba7c6802cc75ec4c81017ec8924c2f9b0e7))
+- label formatter callback params ([#5062](https://github.com/antvis/g2/issues/5062)) ([1ee4b1f](https://github.com/antvis/g2/commit/1ee4b1fa252bb2a4dc0fa303242c46239024239c))
+- **label:** support date label ([#5077](https://github.com/antvis/g2/issues/5077)) ([826e000](https://github.com/antvis/g2/commit/826e000bb6009aea8b29ca452aea4f6caa9355df))
+- **legend:** pass legend.style ([#5084](https://github.com/antvis/g2/issues/5084)) ([f915d02](https://github.com/antvis/g2/commit/f915d021ca1c189271bc7bffdbe94632fd014595))
+
+### Features
+
+- **api:** use api and spec together ([#5074](https://github.com/antvis/g2/issues/5074)) ([e18cc84](https://github.com/antvis/g2/commit/e18cc8411f5439c57268e0c180f61ad62a96daa1))
+- **axis:** set default tickCount to 5 ([#5086](https://github.com/antvis/g2/issues/5086)) ([bbfe665](https://github.com/antvis/g2/commit/bbfe665b80e6f417537f5760033e3ed4c729504c))
+- **chart:** debounce chart.render ([#5083](https://github.com/antvis/g2/issues/5083)) ([106b807](https://github.com/antvis/g2/commit/106b807ab2db91253287e41f857a9706f44c0039))
+- set tooltip dom classname has `g2-` prefix ([#5066](https://github.com/antvis/g2/issues/5066)) ([c8b62f6](https://github.com/antvis/g2/commit/c8b62f6f88432c69ba1d6aa00e91c73bc4ce6a4f))
+
 ## [5.0.8](https://github.com/antvis/g2/compare/5.0.7...5.0.8) (2023-05-19)
 
 ### Bug Fixes
