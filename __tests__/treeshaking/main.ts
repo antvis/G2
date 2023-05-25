@@ -1,4 +1,4 @@
-import { Chart } from '../../src';
+import { Chart } from '../../esm';
 
 const $container = document.getElementById('app')!;
 const chart = new Chart({ theme: 'classic', container: $container });
