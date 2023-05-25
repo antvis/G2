@@ -1,5 +1,10 @@
 import { lru } from '../../../utils/lru';
-import { HeatmapRendererData, HeatmapRendererOptions } from './types';
+import { parseGradient } from './gradient';
+import {
+  HeatmapGradient,
+  HeatmapRendererData,
+  HeatmapRendererOptions,
+} from './types';
 
 function newCanvas(
   createCanvas: () => HTMLCanvasElement,
@@ -58,14 +63,14 @@ const getPointTemplate = lru(
  * @param gradientConfig
  * @returns
  */
-function getColorPalette(gradientConfig: any, createCanvas) {
+function getColorPalette(gradientConfig: HeatmapGradient, createCanvas) {
   const paletteCanvas = newCanvas(createCanvas, 256, 1);
   const paletteCtx = paletteCanvas.getContext('2d');
 
   const gradient = paletteCtx.createLinearGradient(0, 0, 256, 1);
-  for (const key in gradientConfig) {
-    gradient.addColorStop(+key, gradientConfig[key]);
-  }
+  parseGradient(gradientConfig).forEach(([r, c]) => {
+    gradient.addColorStop(r, c);
+  });
 
   paletteCtx.fillStyle = gradient;
   paletteCtx.fillRect(0, 0, 256, 1);
@@ -152,19 +157,19 @@ export function HeatmapRenderer(
   max: number,
   data: HeatmapRendererData[],
   options: HeatmapRendererOptions,
-  createCanvas?: () => HTMLCanvasElement,
+  createCanvas: () => HTMLCanvasElement,
 ) {
-  const opts = {
+  const opts: HeatmapRendererOptions = {
     blur: 0.85,
     minOpacity: 0,
     opacity: 0.6,
     maxOpacity: 1,
-    gradient: {
-      0.25: 'rgb(0,0,255)',
-      0.55: 'rgb(0,255,0)',
-      0.85: 'yellow',
-      1.0: 'rgb(255,0,0)',
-    },
+    gradient: [
+      [0.25, 'rgb(0,0,255)'],
+      [0.55, 'rgb(0,255,0)'],
+      [0.85, 'yellow'],
+      [1.0, 'rgb(255,0,0)'],
+    ],
     ...options,
   };
   opts.minOpacity *= 255;

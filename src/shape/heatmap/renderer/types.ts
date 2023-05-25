@@ -1,8 +1,11 @@
+export type HeatmapGradientArray = Array<[number, string]>;
+export type HeatmapGradient = string | HeatmapGradientArray;
+
 export type HeatmapRendererOptions = {
   /**
    * An gradient string that represents the gradient (syntax: number string [0,1] : color string).
    */
-  gradient?: Record<string, string>;
+  gradient?: HeatmapGradient;
   /**
    * A global opacity for the whole heatmap, default = 0.6.
    * This overrides maxOpacity and minOpacity if set!

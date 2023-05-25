@@ -39,14 +39,14 @@ chart
   .encode('color', 'density')
   .style({
     opacity: 0.3,
-    gradient: {
-      '0': 'white',
-      '0.2': 'blue',
-      '0.4': 'cyan',
-      '0.6': 'lime',
-      '0.8': 'yellow',
-      '0.9': 'red',
-    },
+    gradient: [
+      [0, 'white'],
+      [0.2, 'blue'],
+      [0.4, 'cyan'],
+      [0.6, 'lime'],
+      [0.8, 'yellow'],
+      [0.9, 'red'],
+    ],
   });
 
 chart.point().encode('x', 'carat').encode('y', 'price');
