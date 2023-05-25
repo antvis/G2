@@ -1,5 +1,11 @@
 # G2 - Changelog
 
+## [5.0.10](https://github.com/antvis/g2/compare/5.0.9...5.0.10) (2023-05-25)
+
+### Bug Fixes
+
+- **site:** disable css parsing ([#5091](https://github.com/antvis/g2/issues/5091)) ([c21787f](https://github.com/antvis/g2/commit/c21787ffcef4600b7a24f7fb88189511c495b71b))
+
 ## [5.0.9](https://github.com/antvis/g2/compare/5.0.8...5.0.9) (2023-05-25)
 
 ### Bug Fixes
