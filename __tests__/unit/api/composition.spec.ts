@@ -314,7 +314,7 @@ describe('Composition', () => {
     expectToCreateMarks(node);
   });
 
-  it('GeoView() should specify options by API', () => {
+  it('GeoPath() should specify options by API', () => {
     const node = new GeoPath();
     node
       .attr('paddingBottom', 10)
@@ -327,6 +327,7 @@ describe('Composition', () => {
       .attr('marginTop', 30)
       .attr('marginRight', 40)
       .encode('x', 'a')
+      .state('active', { fill: 'red' })
       .scale('color', { type: 'linear' })
       .attr('key', 'composition')
       .style('plotFill', 'red')
@@ -352,6 +353,7 @@ describe('Composition', () => {
       theme: { defaultColor: 'red' },
       scale: { color: { type: 'linear' } },
       encode: { x: 'a' },
+      state: { active: { fill: 'red' } },
     });
     expectToCreateMarks(node);
   });
