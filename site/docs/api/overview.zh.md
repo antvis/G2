@@ -30,6 +30,7 @@ order: 1
 - [chart.**treemap**](/api/chart#charttreemap) - 添加 treemap 标记到该视图。
 - [chart.**boxplot**](/api/chart#chartboxplot) - 添加 boxplot 标记到该视图。
 - [chart.**density**](/api/chart#density) - 添加 density 标记到该视图。
+- [chart.**heatmap**](/api/chart#heatmap) - 添加 heatmap 标记到该视图。
 - [chart.**shape**](/api/chart#chartshape) - 添加 shape 标记到该视图。
 - [chart.**pack**](/api/chart#chartpack) - 添加 pack 标记到该视图。
 - [chart.**forceGraph**](/api/chart#chartforcegraph) - 添加 forceGraph 标记到该视图。
