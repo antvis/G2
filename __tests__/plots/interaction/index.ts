@@ -60,3 +60,4 @@ export { aaplLineSliderFilterTranspose } from './appl-line-slider-filter-transpo
 export { alphabetIntervalFunnelLegendFilter } from './alphabet-interval-funnel-legend-filter';
 export { penguinsPointBrushHandleStyle } from './penguins-point-brush-handle-style';
 export { penguinsPointBrushHandleCustom } from './penguins-point-brush-handle-custom';
+export { unemploymentChoropleth } from './unemployment-choropleth';
