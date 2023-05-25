@@ -11,8 +11,7 @@ chart.axis(false);
 
 chart
   .image()
-  .data([0])
-  .encode(
+  .style(
     'src',
     'https://gw.alipayobjects.com/zos/rmsportal/NeUTMwKtPcPxIFNTWZOZ.png',
   )

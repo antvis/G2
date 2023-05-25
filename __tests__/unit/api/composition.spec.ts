@@ -34,6 +34,8 @@ import {
   ForceGraph,
   Tree,
   WordCloud,
+  Density,
+  Heatmap,
 } from '../../../src/api/mark/mark';
 
 function expectToCreateMarks(node) {
@@ -61,6 +63,8 @@ function expectToCreateMarks(node) {
   expect(node.forceGraph()).toBeInstanceOf(ForceGraph);
   expect(node.tree()).toBeInstanceOf(Tree);
   expect(node.wordCloud()).toBeInstanceOf(WordCloud);
+  expect(node.density()).toBeInstanceOf(Density);
+  expect(node.heatmap()).toBeInstanceOf(Heatmap);
 }
 
 function expectToCreateCompositions(node) {

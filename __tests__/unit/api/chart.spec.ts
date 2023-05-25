@@ -38,6 +38,8 @@ import {
   Tree,
   WordCloud,
   Gauge,
+  Density,
+  Heatmap,
 } from '../../../src/api/mark/mark';
 
 const TEST_OPTIONS = {
@@ -162,6 +164,8 @@ describe('Chart', () => {
     expect(chart.tree()).toBeInstanceOf(Tree);
     expect(chart.wordCloud()).toBeInstanceOf(WordCloud);
     expect(chart.gauge()).toBeInstanceOf(Gauge);
+    expect(chart.density()).toBeInstanceOf(Density);
+    expect(chart.heatmap()).toBeInstanceOf(Heatmap);
     expect(chart.options().children).toEqual([
       { type: 'interval' },
       { type: 'rect' },
@@ -190,6 +194,8 @@ describe('Chart', () => {
       { type: 'tree' },
       { type: 'wordCloud' },
       { type: 'gauge' },
+      { type: 'density' },
+      { type: 'heatmap' },
     ]);
   });
 

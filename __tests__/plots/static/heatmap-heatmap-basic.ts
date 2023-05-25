@@ -7,11 +7,8 @@ export function HeatmapHeatmapBasic(): G2Spec {
     children: [
       {
         type: 'image',
-        data: [0],
-        encode: {
-          src: 'https://gw.alipayobjects.com/zos/rmsportal/NeUTMwKtPcPxIFNTWZOZ.png',
-        },
         style: {
+          src: 'https://gw.alipayobjects.com/zos/rmsportal/NeUTMwKtPcPxIFNTWZOZ.png',
           x: '50%',
           y: '50%',
           width: '100%',
