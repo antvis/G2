@@ -231,3 +231,4 @@ export { athletesRectBinLegendStyle } from './athletes-rect-bin-legend-style';
 export { HeatmapHeatmapBasic } from './heatmap-heatmap-basic';
 export { DiamondHeatmapDensity } from './diamond-heatmap-density';
 export { basicLineNullLabel } from './basic-line-null-label';
+export { alphabetIntervalViewStyle } from './alphabet-interval-view-style';

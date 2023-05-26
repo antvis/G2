@@ -96,6 +96,7 @@ export class Chart extends View<ChartOptions> {
   private _trailing = false;
   private _trailingResolve = null;
   private _trailingReject = null;
+  private _previousDefinedType = null;
 
   constructor(options: ChartOptions) {
     const { container, canvas, renderer, plugins, ...rest } = options || {};
@@ -146,7 +147,9 @@ export class Chart extends View<ChartOptions> {
    */
   options(options?: G2ViewTree): Chart | G2ViewTree {
     if (arguments.length === 0) return optionsOf(this);
-    updateRoot(this, options);
+    const { type } = options;
+    if (type) this._previousDefinedType = type;
+    updateRoot(this, options, this._previousDefinedType);
     return this;
   }
 

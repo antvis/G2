@@ -93,9 +93,13 @@ function isMark(type: string): boolean {
   return new Set(Object.keys(mark)).has(type);
 }
 
-function normalizeRootOptions(node: Node, options: G2ViewTree) {
+function normalizeRootOptions(
+  node: Node,
+  options: G2ViewTree,
+  previousType: string,
+) {
   const { type: oldType } = node;
-  const { type = oldType } = options;
+  const { type = previousType || oldType } = options;
   if (type === 'view') return options;
   if (typeof type !== 'string') return options;
   if (!isMark(type)) return options;
@@ -158,8 +162,12 @@ function appendNode(parent: Node, newOptions: G2ViewTree) {
 }
 
 // Update node tree from options.
-export function updateRoot(node: Node, options: G2ViewTree) {
-  const rootOptions = normalizeRootOptions(node, options);
+export function updateRoot(
+  node: Node,
+  options: G2ViewTree,
+  definedType: string,
+) {
+  const rootOptions = normalizeRootOptions(node, options, definedType);
   const discovered: [Node, Node, G2ViewTree][] = [[null, node, rootOptions]];
   while (discovered.length) {
     const [parent, oldNode, newNode] = discovered.shift();

@@ -131,6 +131,7 @@ export type G2Mark = {
   labels?: Record<string, any>[];
   interaction?: Record<string, any>;
   coordinate?: Record<string, any>;
+  viewStyle?: Record<string, any>;
 };
 
 export type G2MarkChildrenCallback = (

@@ -103,6 +103,45 @@ describe('chart api and options', () => {
     expect(chart.getNodeByType('point')).toBeInstanceOf(Point);
   });
 
+  it('chart.options({...} should update mark.', () => {
+    const chart = new Chart({});
+
+    chart.options({
+      type: 'interval',
+    });
+
+    chart.options({
+      data: [1, 2, 3],
+    });
+
+    expect(chart.options()).toEqual({
+      type: 'view',
+      children: [
+        {
+          type: 'interval',
+          data: [1, 2, 3],
+        },
+      ],
+    });
+  });
+
+  it('chart.options({...}) should update view.', () => {
+    const chart = new Chart({});
+
+    chart.options({
+      type: 'view',
+    });
+
+    chart.options({
+      data: [1, 2, 3],
+    });
+
+    expect(chart.options()).toEqual({
+      type: 'view',
+      data: [1, 2, 3],
+    });
+  });
+
   it('chart.options({...}) should update node with same height and index.', () => {
     const chart = new Chart({});
 
