@@ -74,10 +74,15 @@ export class Node<
   ): Node<ChildValue, Value> {
     const node = new Ctor({});
     node.children = [];
+    this.push(node);
+    return node;
+  }
+
+  push(node: Node<ChildValue, Value>): this {
     node.parentNode = this;
     node.index = this.children.length;
     this.children.push(node);
-    return node;
+    return this;
   }
 
   /**

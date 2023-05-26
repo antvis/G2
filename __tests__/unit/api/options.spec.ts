@@ -241,4 +241,23 @@ describe('chart api and options', () => {
 
     expect(interval.data()).toEqual([2, 3, 4]);
   });
+
+  it('chart.options({...}) should remove node.', () => {
+    const chart = new Chart({});
+
+    chart.options({
+      type: 'view',
+      children: [{ type: 'line' }, { type: 'point' }],
+    });
+
+    chart.options({
+      type: 'view',
+      children: [{ type: 'line' }],
+    });
+
+    expect(chart.options()).toEqual({
+      type: 'view',
+      children: [{ type: 'line' }],
+    });
+  });
 });
