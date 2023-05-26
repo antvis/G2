@@ -376,7 +376,8 @@ export default defineConfig({
             <script src='https://gw.alipayobjects.com/os/lib/antv/g2/${version}/dist/g2.min.js'></script>
             <script src='https://gw.alipayobjects.com/os/antv/pkg/_antv.data-set-0.11.1/dist/data-set.js'></script>
             <script>
-            <!-- 浏览器引入，请使用全局命名空间 G2，如 new Chart() 改为 new G2.Chart，即可运行。 -->
+            <!-- 浏览器引入，请使用全局命名空间 G2，如 s
+            Chart() 改为 new G2.Chart，即可运行。 -->
             {{code}}
             </script>
           </body>
@@ -417,32 +418,6 @@ export default defineConfig({
       ],
     },
     /** 新闻公告，优先选择配置的，如果没有配置则使用远程的！ */
-    news: [
-      {
-        type: {
-          zh: '论坛',
-          en: 'Forum',
-        },
-        title: {
-          zh: 'G2 5.0 来啦，伴着春天的脚步，从语言到思维',
-          en: 'G2 5.0 is coming, with the footsteps of spring, from language to thinking',
-        },
-        date: '2022.03.21',
-        link: 'https://www.yuque.com/antv/blog/zgtv9ezu83r8nusr',
-      },
-      {
-        type: {
-          zh: '论坛',
-          en: 'Forum',
-        },
-        title: {
-          zh: '远方 · 远芳 AntV 2022 年度发布',
-          en: 'Yuanyuan · Yuanfang AntV 2022 Annual Release',
-        },
-        date: '2022.11.22',
-        link: 'https://www.yuque.com/antv/blog/1122_6',
-      },
-    ],
     /** 首页特性介绍 */
     features: [
       {
