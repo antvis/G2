@@ -35,3 +35,6 @@ site/.dumi/tmp-production
 
 # Editor
 .vscode
+
+# Bundle analyzer
+analyse.html
