@@ -35,7 +35,7 @@ export function chartOnItemElement(context) {
   chart.on('interval:pointermove', log('interval:pointermove'));
   chart.on('interval:pointerenter', log('interval:pointerenter'));
   chart.on('interval:pointerleave', log('interval:pointerleave'));
-  chart.on('interval:pointerupoutside', log('interval:pointerupoutside'));
+  chart.on('plot:pointerupoutside', () => console.log('plot:pointerupoutside'));
 
   chart.on('interval:dragstart', log('interval:dragstart'));
   chart.on('interval:drag', log('interval:drag'));

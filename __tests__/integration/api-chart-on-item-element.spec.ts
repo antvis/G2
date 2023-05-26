@@ -108,13 +108,10 @@ describe('chart.on', () => {
     await fired;
   });
 
-  it('chart.on("interval:pointerupoutside", callback) should provide datum for item element', async () => {
+  it('chart.on("plot:pointerupoutside", callback) should provide datum for item element', async () => {
     await finished;
     const [fired, resolve] = createPromise();
-    chart.on(
-      `interval:${ChartEvent.POINTER_UPOUTSIDE}`,
-      receiveExpectData(resolve),
-    );
+    chart.on(`plot:${ChartEvent.POINTER_UPOUTSIDE}`, resolve);
     dispatchFirstElementEvent(canvas, 'pointerupoutside');
     await fired;
   });
