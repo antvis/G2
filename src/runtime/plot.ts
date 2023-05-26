@@ -392,11 +392,13 @@ function bubbleOptions(options: G2View): G2View {
   const {
     coordinate: viewCoordinate = {},
     interaction: viewInteraction = {},
+    style: viewStyle = {},
     marks,
     ...rest
   } = options;
   const markCoordinates = marks.map((d) => d.coordinate || {});
   const markInteractions = marks.map((d) => d.interaction || {});
+  const markViewStyles = marks.map((d) => d.viewStyle || {});
   const newCoordinate = [...markCoordinates, viewCoordinate].reduceRight(
     (prev, cur) => deepMix(prev, cur),
     {},
@@ -405,11 +407,16 @@ function bubbleOptions(options: G2View): G2View {
     (prev, cur) => deepMix(prev, cur),
     {},
   );
+  const newStyle = [...markViewStyles, viewStyle].reduce(
+    (prev, cur) => deepMix(prev, cur),
+    {},
+  );
   return {
     ...rest,
     marks,
     coordinate: newCoordinate,
     interaction: newInteraction,
+    style: newStyle,
   };
 }
 
