@@ -42,6 +42,5 @@ unemploymentChoropleth.steps = ({ canvas }) => {
   const { document } = canvas;
   const elements = document.getElementsByClassName(ELEMENT_CLASS_NAME);
   const e = elements.find((d) => d.__data__.title === 6071);
-  console.log(e.__data__);
   return [step(e, 'pointerover')];
 };
