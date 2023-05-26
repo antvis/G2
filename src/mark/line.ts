@@ -26,7 +26,7 @@ const line: Mark = (index, scale, value, coordinate) => {
   // Group data into series.
   // There is only one series without specified series encode.
   const series = S ? Array.from(group(index, (i) => S[i]).values()) : [index];
-  const I = series.map((group) => group[0]);
+  const I = series.map((group) => group[0]).filter((i) => i !== undefined);
 
   // A group of data corresponds to one line.
   const xoffset = (x?.getBandWidth?.() || 0) / 2;

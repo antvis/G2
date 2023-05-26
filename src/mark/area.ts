@@ -42,7 +42,7 @@ export const Area: MC<AreaOptions> = () => {
 
     // Group data by series field.
     const series = S ? Array.from(group(index, (i) => S[i]).values()) : [index];
-    const I = series.map((group) => group[0]);
+    const I = series.map((group) => group[0]).filter((i) => i !== undefined);
 
     // A group of data corresponds to one area.
     const P = Array.from(series, (SI) => {
