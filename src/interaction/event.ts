@@ -17,11 +17,16 @@ export function dataOf(element, view) {
 function bubblesEvent(eventType, view, emitter, predicate = (event) => true) {
   return (e) => {
     if (!predicate(e)) return;
-    const { target } = e;
-    const { className: elementType, markType } = target;
 
     // Emit plot events.
     emitter.emit(`plot:${eventType}`, e);
+
+    const { target } = e;
+
+    // There is no target for pointerupoutside event if out of canvas.
+    if (!target) return;
+
+    const { className: elementType, markType } = target;
 
     // If target area is plot area, do not emit extra events.
     if (elementType === 'plot') return;
