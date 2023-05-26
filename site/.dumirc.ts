@@ -376,8 +376,7 @@ export default defineConfig({
             <script src='https://gw.alipayobjects.com/os/lib/antv/g2/${version}/dist/g2.min.js'></script>
             <script src='https://gw.alipayobjects.com/os/antv/pkg/_antv.data-set-0.11.1/dist/data-set.js'></script>
             <script>
-            <!-- 浏览器引入，请使用全局命名空间 G2，如 s
-            Chart() 改为 new G2.Chart，即可运行。 -->
+            <!-- 浏览器引入，请使用全局命名空间 G2，如 new Chart() 改为 new G2.Chart，即可运行。 -->
             {{code}}
             </script>
           </body>
