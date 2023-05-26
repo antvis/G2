@@ -151,7 +151,7 @@ function appendNode(parent: Node, newOptions: G2ViewTree) {
   while (discovered.length) {
     const [parent, nodeOptions] = discovered.shift();
     const node = createNode(nodeOptions);
-    if (Array.isArray(parent.children)) parent.children.push(node);
+    if (Array.isArray(parent.children)) parent.push(node);
     const { children } = nodeOptions;
     if (Array.isArray(children)) {
       for (const child of children) {
@@ -174,6 +174,8 @@ export function updateRoot(
     // If there is no oldNode, create a node tree directly.
     if (!oldNode) {
       appendNode(parent, newNode);
+    } else if (!newNode) {
+      oldNode.remove();
     } else {
       updateNode(oldNode, newNode);
       const { children: newChildren } = newNode;
@@ -181,7 +183,8 @@ export function updateRoot(
       if (Array.isArray(newChildren) && Array.isArray(oldChildren)) {
         // Only update node specified in newChildren,
         // the extra oldChildren will remain still.
-        for (let i = 0; i < newChildren.length; i++) {
+        const n = Math.max(newChildren.length, oldChildren.length);
+        for (let i = 0; i < n; i++) {
           const newChild = newChildren[i];
           const oldChild = oldChildren[i];
           discovered.push([oldNode, oldChild, newChild]);
