@@ -1,5 +1,20 @@
 # G2 - Changelog
 
+## [5.0.11](https://github.com/antvis/g2/compare/5.0.10...5.0.11) (2023-05-26)
+
+### Bug Fixes
+
+- **api:** update mark-level plot and apply viewStyle ([#5102](https://github.com/antvis/g2/issues/5102)) ([f239cba](https://github.com/antvis/g2/commit/f239cba0823022cf3703891c8b47c323f8c4cd46))
+- **chart:** chart.options should remove node ([#5103](https://github.com/antvis/g2/issues/5103)) ([6949459](https://github.com/antvis/g2/commit/6949459bdd159bc540b07a33791337b681f29fa0))
+- **data:** render empty data ([#5098](https://github.com/antvis/g2/issues/5098)) ([6de9e33](https://github.com/antvis/g2/commit/6de9e3399cd4cc1205e2ee2ea2efcacc0f512ffb))
+- **event:** there is no target for pointerupoutside event ([#5100](https://github.com/antvis/g2/issues/5100)) ([641f966](https://github.com/antvis/g2/commit/641f9666b52990b28467b50475fa5280913efd3c))
+- **geo:** highlight choropleth ([#5095](https://github.com/antvis/g2/issues/5095)) ([7a4d06d](https://github.com/antvis/g2/commit/7a4d06d9d7927fb17d8170f210be54ad93aa8f3c))
+- **label:** null value for series mark ([#5099](https://github.com/antvis/g2/issues/5099)) ([a1db7aa](https://github.com/antvis/g2/commit/a1db7aa07fba40a85bd5239b2ef1479ba487820d))
+
+### Features
+
+- add heatmap mark and shape ([#5047](https://github.com/antvis/g2/issues/5047)) ([67d88f4](https://github.com/antvis/g2/commit/67d88f4e92986ac5d21bee6975d15f6821974aff))
+
 ## [5.0.10](https://github.com/antvis/g2/compare/5.0.9...5.0.10) (2023-05-25)
 
 ### Bug Fixes
