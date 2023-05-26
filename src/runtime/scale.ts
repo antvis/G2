@@ -190,7 +190,6 @@ function inferScaleDomain(
 ): Primitive[] {
   const { domain } = options;
   if (domain !== undefined) return domain;
-  const { domainMax, domainMin } = options;
   switch (type) {
     case 'linear':
     case 'time':
@@ -198,20 +197,16 @@ function inferScaleDomain(
     case 'pow':
     case 'sqrt':
     case 'quantize':
-    case 'threshold': {
-      const [d0, d1] = inferDomainQ(values, options);
-      return [domainMin ?? d0, domainMax ?? d1];
-    }
+    case 'threshold':
+      return maybeMinMax(inferDomainQ(values, options), options);
     case 'band':
     case 'ordinal':
     case 'point':
       return inferDomainC(values);
     case 'quantile':
       return inferDomainO(values);
-    case 'sequential': {
-      const [d0, d1] = inferDomainS(values);
-      return [domainMin ?? d0, domainMax ?? d1];
-    }
+    case 'sequential':
+      return maybeMinMax(inferDomainS(values), options);
     default:
       return [];
   }
@@ -401,6 +396,16 @@ function asOrdinalType(name: string) {
 function asQuantitativeType(name: string, range: Primitive[]) {
   if (name !== 'color') return 'linear';
   return range ? 'linear' : 'sequential';
+}
+
+function maybeMinMax(
+  domain: Primitive[],
+  options: G2ScaleOptions,
+): Primitive[] {
+  if (domain.length === 0) return domain;
+  const { domainMin, domainMax } = options;
+  const [d0, d1] = domain;
+  return [domainMin ?? d0, domainMax ?? d1];
 }
 
 function inferDomainQ(values: Primitive[][], options: G2ScaleOptions) {
