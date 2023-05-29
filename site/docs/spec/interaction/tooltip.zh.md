@@ -102,7 +102,7 @@ chart.interaction('tooltip', {
 chart.render();
 ```
 
-## 获得提示数据
+### 获得提示数据
 
 ```js
 chart.on('tooltip:show', (event) => {
@@ -114,7 +114,7 @@ chart.on('tooltip:hide', () => {
 });
 ```
 
-## 手动控制展示/隐藏
+### 手动控制展示/隐藏
 
 对于 Interval、Point 等非系列 Mark，控制展示的方式如下：
 

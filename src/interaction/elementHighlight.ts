@@ -9,6 +9,7 @@ import {
   offsetTransform,
   renderBackground,
   renderLink,
+  selectElementByData,
   selectG2Elements,
   selectPlotArea,
   useState,
@@ -28,6 +29,7 @@ export function elementHighlight(
     delay = 60, // delay to unhighlighted element
     scale,
     coordinate,
+    emitter,
     state = {},
   }: Record<string, any>,
 ) {
@@ -67,7 +69,7 @@ export function elementHighlight(
 
   let out; // Timer for delaying unhighlighted.
   const pointerover = (event) => {
-    const { target: element } = event;
+    const { target: element, nativeEvent = true } = event;
     if (!elementSet.has(element)) return;
     if (out) clearTimeout(out);
     const k = groupKey(element);
@@ -84,6 +86,16 @@ export function elementHighlight(
     }
     appendBackground(element);
     appendLink(group);
+
+    // Emit events.
+    if (!nativeEvent) return;
+    emitter.emit('element:highlight', {
+      nativeEvent,
+      data: {
+        data: datum(element),
+        group: group.map(datum),
+      },
+    });
   };
 
   const delayUnhighlighted = () => {
@@ -94,11 +106,14 @@ export function elementHighlight(
     }, delay);
   };
 
-  const unhighlighted = () => {
+  const unhighlighted = (nativeEvent = true) => {
     for (const e of elements) {
       removeState(e, 'active', 'inactive');
       removeBackground(e);
       removeLink(e);
+    }
+    if (nativeEvent) {
+      emitter.emit('element:unhighlight', { nativeEvent });
     }
   };
 
@@ -118,10 +133,30 @@ export function elementHighlight(
   root.addEventListener('pointerout', pointerout);
   root.addEventListener('pointerleave', pointerleave);
 
+  const onRest = (e) => {
+    const { nativeEvent } = e;
+    if (nativeEvent) return;
+    unhighlighted(false);
+  };
+
+  const onHighlight = (e) => {
+    const { nativeEvent } = e;
+    if (nativeEvent) return;
+    const { data } = e.data;
+    const element = selectElementByData(elements, data, datum);
+    if (!element) return;
+    pointerover({ target: element, nativeEvent: false });
+  };
+
+  emitter.on('element:highlight', onHighlight);
+  emitter.on('element:unhighlight', onRest);
+
   return () => {
     root.removeEventListener('pointerover', pointerover);
     root.removeEventListener('pointerout', pointerout);
     root.removeEventListener('pointerleave', pointerleave);
+    emitter.off('element:highlight', onHighlight);
+    emitter.off('element:unhighlight', onRest);
     for (const e of elements) {
       removeBackground(e);
       removeLink(e);
@@ -136,7 +171,7 @@ export function ElementHighlight({
   link = false,
   ...rest
 }) {
-  return (context) => {
+  return (context, _, emitter) => {
     const { container, view, options } = context;
     const { scale, coordinate } = view;
     const plotArea = selectPlotArea(container);
@@ -153,6 +188,7 @@ export function ElementHighlight({
       background,
       link,
       delay,
+      emitter,
       ...rest,
     });
   };

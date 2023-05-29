@@ -456,3 +456,9 @@ export function setCursor(root, cursor) {
 export function restoreCursor(root) {
   setCursor(root, 'default');
 }
+
+export function selectElementByData(elements, data, datum) {
+  return elements.find((d) =>
+    Object.entries(data).every(([key, value]) => datum(d)[key] === value),
+  );
+}
