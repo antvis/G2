@@ -4,7 +4,7 @@ import { sleep } from './utils/sleep';
 import { kebabCase } from './utils/kebabCase';
 import './utils/useSnapshotMatchers';
 
-describe('chart.options.autoFit', () => {
+describe('chart.emit', () => {
   const dir = `${__dirname}/snapshots/api/${kebabCase(render.name)}`;
   const canvas = createNodeGCanvas(800, 500);
   let chart;

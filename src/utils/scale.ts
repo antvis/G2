@@ -22,6 +22,7 @@ export function invert(scale, x, start) {
 }
 
 export function domainOf(scale, values) {
+  if (!values) return scale.getOptions().domain;
   if (!isOrdinalScale(scale)) return sort(values);
   const { domain } = scale.getOptions();
   const [v1, v2] = values;
@@ -43,15 +44,19 @@ export function selectionOf(x, y, x1, y1, scale, coordinate) {
   return [domainX, domainY];
 }
 
-export function pixelsOf(selection, scale, coordinate) {
-  const [[minX, maxX], [minY, maxY]] = selection;
-  const { x: scaleX, y: scaleY } = scale;
-  const p0 = [scaleX.map(minX), scaleY.map(minY)];
+export function abstractOf(domain, scale) {
+  const [d0, d1] = domain;
   const maybeStep = (scale) => (scale.getStep ? scale.getStep() : 0);
-  const p1 = [
-    scaleX.map(maxX) + maybeStep(scaleX),
-    scaleY.map(maxY) + maybeStep(scaleY),
-  ];
+  return [scale.map(d0), scale.map(d1) + maybeStep(scale)];
+}
+
+export function pixelsOf(selection, scale, coordinate) {
+  const { x: scaleX, y: scaleY } = scale;
+  const [X, Y] = selection;
+  const AX = abstractOf(X, scaleX);
+  const AY = abstractOf(Y, scaleY);
+  const p0 = [AX[0], AY[0]];
+  const p1 = [AX[1], AY[1]];
   const [x, y] = coordinate.map(p0);
   const [x1, y1] = coordinate.map(p1);
   return [x, y, x1, y1];

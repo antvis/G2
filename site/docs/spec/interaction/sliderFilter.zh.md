@@ -31,3 +31,31 @@ chart
 
 chart.render();
 ```
+
+## 案例
+
+### 触发事件
+
+```js
+chart.emit('sliderX:filter', {
+  data: { selection: [['2001-01', '2001-03'], undefined] },
+});
+
+chart.emit('sliderY:filter', {
+  data: { selection: [undefined, [50, 550]] },
+});
+```
+
+### 监听数据
+
+```js
+chart.on('sliderX:filter', (event) => {
+  const { data, nativeEvent } = event;
+  if (nativeEvent) console.log('sliderX:filter', data.selection);
+});
+
+chart.on('sliderY:filter', (event) => {
+  const { data, nativeEvent } = event;
+  if (nativeEvent) console.log('sliderY:filter', data.selection);
+});
+```

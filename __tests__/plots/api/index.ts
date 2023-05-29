@@ -25,3 +25,4 @@ export { chartRenderUpdateNonAnimation } from './chart-render-update-non-animati
 export { chartEmitBrushHighlightX } from './chart-emit-brush-highlight-x';
 export { chartRenderBrushEnd } from './chart-render-brush-end';
 export { chartChangeDataEmpty } from './chart-change-data-empty';
+export { chartEmitSliderFilter } from './chart-emit-slider-filter';
