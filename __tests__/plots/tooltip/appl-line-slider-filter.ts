@@ -31,6 +31,7 @@ export function dispatchValueChange(slider, values = [0.25, 0.75]) {
   slider.update({ values });
   slider.dispatchEvent(
     new CustomEvent('valuechange', {
+      nativeEvent: true,
       detail: {
         value: [0.25, 0.75],
       },

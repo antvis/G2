@@ -1,6 +1,7 @@
-import { deepMix, throttle } from '@antv/util';
+import { deepMix, throttle, upperFirst } from '@antv/util';
+import { CustomEvent } from '@antv/g';
 import { isTranspose } from '../utils/coordinate';
-import { invert, domainOf } from '../utils/scale';
+import { invert, domainOf, abstractOf } from '../utils/scale';
 
 export const SLIDER_CLASS_NAME = 'slider';
 
@@ -45,6 +46,10 @@ function abstractValue(values, scale, reverse) {
   return domainOf(scale, [d0, d1]);
 }
 
+function extentOf(domain) {
+  return [domain[0], domain[domain.length - 1]];
+}
+
 /**
  * @todo Support click to reset after fix click and dragend conflict.
  */
@@ -53,7 +58,7 @@ export function SliderFilter({
   leading = true,
   trailing = false,
 }: any) {
-  return (context) => {
+  return (context, _, emitter) => {
     const { container, view, options, update } = context;
     const sliders = container.getElementsByClassName(SLIDER_CLASS_NAME);
     if (!sliders.length) return () => {};
@@ -71,6 +76,7 @@ export function SliderFilter({
     };
 
     const sliderHandler = new Map();
+    const emitHandlers = new Set<[string, (event: any) => void]>();
 
     // Store current domain of x and y scale.
     const channelDomain = {
@@ -80,32 +86,61 @@ export function SliderFilter({
 
     for (const slider of sliders) {
       const { orientation } = slider.attributes;
+      const [channel0, channel1] = channelOf(orientation);
+      const eventName = `slider${upperFirst(channel0)}:filter`;
+      const isX = channel0 === 'x';
+      const domainsOf = (event) => {
+        // From abstract values.
+        if (event.data) {
+          const { selection } = event.data;
+          const [X = extentOf(channelDomain.x), Y = extentOf(channelDomain.y)] =
+            selection;
+          return isX
+            ? [domainOf(scaleX, X), domainOf(scaleY, Y)]
+            : [domainOf(scaleY, Y), domainOf(scaleX, X)];
+        }
+
+        // From visual values.
+        const { value: values } = event.detail;
+        const scale0 = scale[channel0];
+        const domain0 = abstractValue(
+          values,
+          scale0,
+          transposed && orientation === 'horizontal',
+        );
+        const domain1 = channelDomain[channel1];
+        return [domain0, domain1];
+      };
 
       const onValueChange = throttle(
         async (event) => {
-          const { value: values } = event.detail;
           if (filtering) return;
           filtering = true;
 
-          const [channel0, channel1] = channelOf(orientation);
+          const { nativeEvent = true } = event;
 
-          // Update domain of the current channel.
-          const scale0 = scale[channel0];
-          const domain0 = abstractValue(
-            values,
-            scale0,
-            transposed && orientation === 'horizontal',
-          );
+          // Get and update domain.
+          const [domain0, domain1] = domainsOf(event);
           channelDomain[channel0] = domain0;
-
-          // Get domain of the other channel.
-          const domain1 = channelDomain[channel1];
+          channelDomain[channel1] = domain1;
 
           // Filter data.
           const newOptions = filterDataByDomain(options, {
             [channel0]: { domain: domain0 },
             [channel1]: { domain: domain1 },
           });
+
+          if (nativeEvent) {
+            // Emit events.
+            const X = isX ? domain0 : domain1;
+            const Y = isX ? domain1 : domain0;
+            emitter.emit(eventName, {
+              ...event,
+              nativeEvent,
+              data: { selection: [extentOf(X), extentOf(Y)] },
+            });
+          }
+
           await update(newOptions);
           filtering = false;
         },
@@ -113,13 +148,40 @@ export function SliderFilter({
         { leading, trailing },
       );
 
+      const emitHandler = (event) => {
+        const { nativeEvent } = event;
+        if (nativeEvent) return;
+
+        const { data } = event;
+        const { selection } = data;
+        const [X, Y] = selection;
+
+        // Update data.
+        slider.dispatchEvent(
+          new CustomEvent('valuechange', {
+            data,
+            nativeEvent: false,
+          }),
+        );
+
+        // Update slider.
+        const V = isX ? abstractOf(X, scaleX) : abstractOf(Y, scaleY);
+        slider.setValues(V);
+      };
+
+      emitter.on(eventName, emitHandler);
+
       slider.addEventListener('valuechange', onValueChange);
       sliderHandler.set(slider, onValueChange);
+      emitHandlers.add([eventName, emitHandler]);
     }
 
     return () => {
       for (const [slider, handler] of sliderHandler) {
         slider.removeEventListener('valuechange', handler);
+      }
+      for (const [name, handler] of emitHandlers) {
+        emitter.off(name, handler);
       }
     };
   };
