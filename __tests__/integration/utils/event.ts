@@ -39,3 +39,8 @@ export function dispatchPlotEvent(canvas, event, params?) {
   const [plot] = canvas.document.getElementsByClassName('plot');
   plot.dispatchEvent(new CustomEvent(event, params));
 }
+
+export function dispatchFirstShapeEvent(canvas, className, event, params?) {
+  const [shape] = canvas.document.getElementsByClassName(className);
+  shape.dispatchEvent(new CustomEvent(event, params));
+}
