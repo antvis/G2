@@ -28,3 +28,31 @@ chart.interaction('legendFilter', true);
 
 chart.render();
 ```
+
+## 案例
+
+### 触发交互
+
+```js
+chart.emit('legend:filter', {
+  data: { channel: 'color', values: ['Sports', 'Strategy'] },
+});
+
+chart.emit('legend:reset', {});
+```
+
+### 获得数据
+
+```js
+chart.on('legend:filter', (e) => {
+  const { nativeEvent, data } = e;
+  if (!nativeEvent) return;
+  console.log(data);
+});
+
+chart.on('legend:reset', (e) => {
+  const { nativeEvent } = e;
+  if (!nativeEvent) return;
+  console.log('end');
+});
+```

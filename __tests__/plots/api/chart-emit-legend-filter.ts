@@ -4,8 +4,13 @@ export function chartEmitLegendFilter(context) {
   const { container, canvas } = context;
 
   // button
-  const legend = document.createElement('div');
-  container.appendChild(legend);
+  const button = document.createElement('button');
+  button.innerText = 'filter';
+  container.appendChild(button);
+
+  const button1 = document.createElement('button');
+  button1.innerText = 'end';
+  container.appendChild(button1);
 
   // wrapperDiv
   const wrapperDiv = document.createElement('div');
@@ -29,59 +34,31 @@ export function chartEmitLegendFilter(context) {
     .encode('x', 'genre')
     .encode('y', 'sold')
     .encode('color', 'genre')
-    .animate(false)
-    .legend(false);
+    .animate(false);
 
   const finished = chart.render();
-  const assetValues: any = {
-    chart,
-    finished,
-  };
 
-  finished.then(() => {
-    const scale = chart.getScaleByChannel('color');
-    const { domain, range } = scale.getOptions();
-    const excludedValues: any[] = [];
-
-    assetValues.items = domain.map((text, i) => {
-      const span = document.createElement('span');
-      const color = range[i];
-
-      // Items' style.
-      span.innerText = text;
-      span.style.display = 'inline-block';
-      span.style.padding = '0.5em';
-      span.style.color = color;
-      span.style.cursor = 'pointer';
-
-      span.onclick = () => {
-        const index = excludedValues.findIndex((d) => d === text);
-        if (index === -1) {
-          excludedValues.push(text);
-          span.style.color = '#aaa';
-        } else {
-          excludedValues.splice(index, 1);
-          span.style.color = color;
-        }
-        onChange(excludedValues);
-      };
-
-      return span;
-    });
-
-    // Mount items.
-    for (const item of assetValues.items) legend.append(item);
-
-    function onChange(values: any[]) {
-      const selectedValues = domain.filter((d) => !values.includes(d));
-
-      // Emit Event.
-      chart.emit('legend:filter', {
-        channel: 'color',
-        values: selectedValues,
-      });
-    }
+  chart.on('legend:filter', (e) => {
+    const { nativeEvent, data } = e;
+    if (!nativeEvent) return;
+    console.log(data);
   });
 
-  return assetValues;
+  chart.on('legend:reset', (e) => {
+    const { nativeEvent } = e;
+    if (!nativeEvent) return;
+    console.log('end');
+  });
+
+  button.onclick = () => {
+    chart.emit('legend:filter', {
+      data: { channel: 'color', values: ['Sports', 'Strategy'] },
+    });
+  };
+
+  button1.onclick = () => {
+    chart.emit('legend:reset', {});
+  };
+
+  return { chart, finished };
 }

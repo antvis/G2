@@ -5,18 +5,22 @@ const chart = new Chart({
   container: 'container',
 });
 
+const data = [
+  { genre: 'Sports', sold: 275 },
+  { genre: 'Strategy', sold: 115 },
+  { genre: 'Action', sold: 120 },
+  { genre: 'Shooter', sold: 350 },
+  { genre: 'Other', sold: 150 },
+];
+
+const colorField = 'genre';
+
 chart
   .interval()
-  .data([
-    { genre: 'Sports', sold: 275 },
-    { genre: 'Strategy', sold: 115 },
-    { genre: 'Action', sold: 120 },
-    { genre: 'Shooter', sold: 350 },
-    { genre: 'Other', sold: 150 },
-  ])
+  .data(data)
   .encode('x', 'genre')
   .encode('y', 'sold')
-  .encode('color', 'genre')
+  .encode('color', colorField)
   .legend(false); // Hide built-in legends.
 
 chart.render().then(renderCustomLegend);
@@ -62,11 +66,11 @@ function renderCustomLegend(chart) {
   for (const item of items) legend.append(item);
 
   // Emit legendFilter event.
-  function onChange(values: any[]) {
+  function onChange(values) {
     const selectedValues = domain.filter((d) => !values.includes(d));
-    chart.emit('legend:filter', {
-      channel: 'color',
-      values: selectedValues,
-    });
+    const selectedData = data.filter((d) =>
+      selectedValues.includes(d[colorField]),
+    );
+    chart.changeData(selectedData);
   }
 }
