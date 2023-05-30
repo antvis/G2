@@ -553,9 +553,9 @@ function styleOf(
   theme: G2Theme,
 ): Record<string, any> {
   const {
-    axis: baseStyle,
-    // @ts-ignore
-    [`axis${capitalizeFirst(position)}`]: positionStyle,
+    axis: {
+      style: { baseStyle, [`axis${capitalizeFirst(position)}`]: positionStyle },
+    },
   } = theme;
   return deepMix({}, baseStyle, positionStyle, axis.style);
 }

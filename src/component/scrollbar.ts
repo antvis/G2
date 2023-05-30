@@ -15,7 +15,9 @@ export const Scrollbar: GCC<ScrollbarOptions> = (options) => {
   return ({ value, theme }) => {
     const { bbox } = value;
     const { x, y, width, height } = bbox;
-    const { scrollbar: scrollbarTheme = {} } = theme;
+    const {
+      scrollbar: { style: scrollbarTheme = {} },
+    } = theme;
 
     return new ScrollbarComponent({
       className: 'scrollbar',

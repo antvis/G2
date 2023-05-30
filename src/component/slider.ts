@@ -20,7 +20,9 @@ export const Slider: GCC<SliderOptions> = (options) => {
   return ({ scales: [scale], value, theme, coordinate }) => {
     const { bbox } = value;
     const { x, y, width, height } = bbox;
-    const { slider: sliderTheme = {} } = theme;
+    const {
+      slider: { style: sliderTheme = {} },
+    } = theme;
     const defaultFormatter = scale.getFormatter?.() || ((v) => v.toString());
     const formatter =
       typeof labelFormatter === 'string'

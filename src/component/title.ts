@@ -92,7 +92,7 @@ export const TitleComponent: GCC<TitleComponentOptions> = (options) => {
       style: deepMix(
         {},
         {
-          style: theme.title,
+          style: theme?.title?.style,
         },
         {
           x,

@@ -20,8 +20,10 @@ const chart = new Chart({
 });
 
 chart.theme({
-  defaultCategory10: 'customPalette',
-  defaultCategory20: 'customPalette',
+  palette: {
+    category10: 'customPalette',
+    category20: 'customPalette',
+  },
 });
 
 chart

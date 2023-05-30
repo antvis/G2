@@ -101,7 +101,9 @@ describe('Composition', () => {
       .style('plotFill', 'red')
       .coordinate({ type: 'polar' })
       .interaction('elementHighlight', { background: true })
-      .theme('defaultColor', 'red');
+      .theme('palette', {
+        defaultColor: 'red',
+      });
 
     expect(node.type).toBe('view');
     expect(node.value).toEqual({
@@ -122,7 +124,7 @@ describe('Composition', () => {
           background: true,
         },
       },
-      theme: { defaultColor: 'red' },
+      theme: { palette: { defaultColor: 'red' } },
       scale: { color: { type: 'linear' } },
     });
     expectToCreateMarks(node);
@@ -288,7 +290,9 @@ describe('Composition', () => {
       .style('plotFill', 'red')
       .coordinate({ type: 'polar' })
       .interaction('elementHighlight', { background: true })
-      .theme('defaultColor', 'red');
+      .theme('palette', {
+        defaultColor: 'red',
+      });
 
     expect(node.type).toBe('geoView');
     expect(node.value).toEqual({
@@ -309,7 +313,7 @@ describe('Composition', () => {
           background: true,
         },
       },
-      theme: { defaultColor: 'red' },
+      theme: { palette: { defaultColor: 'red' } },
     });
     expectToCreateMarks(node);
   });
@@ -333,7 +337,9 @@ describe('Composition', () => {
       .style('plotFill', 'red')
       .coordinate({ type: 'polar' })
       .interaction('elementHighlight', { background: true })
-      .theme('defaultColor', 'red');
+      .theme('palette', {
+        defaultColor: 'red',
+      });
 
     expect(node.type).toBe('geoPath');
     expect(node.value).toEqual({
@@ -350,7 +356,7 @@ describe('Composition', () => {
       style: { plotFill: 'red' },
       coordinate: { type: 'polar' },
       interaction: { elementHighlight: { background: true } },
-      theme: { defaultColor: 'red' },
+      theme: { palette: { defaultColor: 'red' } },
       scale: { color: { type: 'linear' } },
       encode: { x: 'a' },
       state: { active: { fill: 'red' } },

@@ -39,7 +39,11 @@ function inferAxisStyle(
     scales: [{ name }],
   } = value;
   const [startAngle, endAngle] = angleOf(coordinate);
-  const { axisRadar: radarTheme = {} } = theme;
+  const {
+    axis: {
+      style: { axisRadar: radarTheme = {} },
+    },
+  } = theme;
 
   return {
     ...radarTheme,

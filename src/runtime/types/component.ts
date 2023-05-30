@@ -16,6 +16,7 @@ import { Encode, EncodeComponent } from './encode';
 import { Mark, MarkComponent } from './mark';
 import { G2ViewTree, G2Library, G2Mark, G2Context } from './options';
 import { Transform, TransformComponent } from './transform';
+import { G2Token } from './theme';
 
 export type G2ComponentNamespaces =
   | 'coordinate'
@@ -164,6 +165,7 @@ export type ThemeComponent<O = Record<string, unknown>> = G2BaseComponent<
   Theme,
   O
 >;
+export type Token = G2Token;
 
 export type GuideComponentContext = {
   coordinate: Coordinate;
@@ -192,7 +194,7 @@ export type Animation = (
   to: DisplayObject[],
   value: Record<string, any>,
   coordinate: Coordinate,
-  defaults: G2Theme['enter' | 'exit' | 'update'],
+  defaults: G2Theme['animate']['enter' | 'exit' | 'update'],
 ) => GAnimation | GAnimation[];
 export type AnimationComponent<O = Record<string, unknown>> = G2BaseComponent<
   Animation,

@@ -17,8 +17,10 @@ export function githubStarIntervalPalette(): G2Spec {
       color: 'name',
     },
     theme: {
-      defaultCategory10: 'category10',
-      defaultCategory20: 'category20',
+      palette: {
+        category10: 'category10',
+        category20: 'category20',
+      },
     },
   };
 }

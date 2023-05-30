@@ -5,7 +5,9 @@ export function registerShape(context) {
   const { container, canvas } = context;
   register('shape.interval.triangle', (style) => {
     return (P, value, coordinate, theme) => {
-      const { defaultColor } = theme;
+      const {
+        palette: { defaultColor },
+      } = theme;
       const [p0, p1, p2, p3] = P;
       const pm = [(p0[0] + p1[0]) / 2, p0[1]];
       const { color = defaultColor } = value;

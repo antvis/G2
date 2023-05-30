@@ -28,7 +28,8 @@ function getDefaultStyle(
   // position and the bounds of shape.
   const { position } = value;
   const p = inferPosition(position, coordinate);
-  const t = theme[p === 'inside' ? 'innerLabel' : 'label'];
+  const t =
+    p === 'inside' ? theme?.label?.style?.innerLabel : theme?.label?.style;
   const v = Object.assign({}, t, value);
   const processor = PositionProcessor[camelCase(p)];
   if (!processor) {

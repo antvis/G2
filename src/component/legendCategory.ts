@@ -243,7 +243,9 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
       ...inferCategoryStyle(options, context),
     };
 
-    const { legend: legendTheme = {} } = theme;
+    const {
+      legend: { style: legendTheme = {} },
+    } = theme;
 
     const categoryStyle = adaptor(
       Object.assign({}, legendTheme, legendStyle, style),

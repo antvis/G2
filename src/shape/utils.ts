@@ -191,9 +191,12 @@ export function getShapeTheme(
   shape: string,
   defaultShape: string,
 ) {
-  const { defaultColor } = theme;
+  const {
+    palette: { defaultColor },
+  } = theme;
   const markTheme = theme[mark] || {};
-  const shapeTheme = markTheme[shape] || markTheme[defaultShape];
+  const shapeTheme =
+    markTheme?.style?.[shape] || markTheme?.style?.[defaultShape];
 
   return Object.assign({ defaultColor }, shapeTheme);
 }

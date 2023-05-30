@@ -132,7 +132,9 @@ function rangeOf(scale: Scale) {
  * @param theme
  */
 function createColorScale(scale: Scale, theme: G2Theme): Scale {
-  const { defaultColor } = theme;
+  const {
+    palette: { defaultColor },
+  } = theme;
   const options = scale.getOptions();
   const newScale = scale.clone();
   newScale.update({ ...options, range: [parseColor(defaultColor).toString()] });
@@ -215,7 +217,11 @@ export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
     const { x, y, width, height } = bbox;
     const finalLayout = inferComponentLayout(position, layout);
 
-    const { continuousLegend: legendTheme = {} } = theme;
+    const {
+      legend: {
+        style: { continuousLegend: legendTheme = {} },
+      },
+    } = theme;
     const finalStyle = adaptor(
       Object.assign(
         {},

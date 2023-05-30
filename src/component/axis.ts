@@ -401,7 +401,9 @@ const ArcAxisComponent: GCC<AxisOptions> = (options) => {
       coordinate,
     );
 
-    const { axis: axisTheme } = theme;
+    const {
+      axis: { style: axisTheme },
+    } = theme;
 
     return new AxisComponent({
       style: adaptor(
@@ -426,11 +428,11 @@ function inferThemeStyle(
   position: GCP,
   orientation: GCO,
 ) {
-  const baseStyle = theme.axis;
-  let furtherStyle = theme.axisLinear;
+  const baseStyle = theme?.axis?.style;
+  let furtherStyle = theme?.axis?.style?.axisLinear;
 
   if (['top', 'right', 'bottom', 'left'].includes(position)) {
-    furtherStyle = theme[`axis${capitalizeFirst(position)}`];
+    furtherStyle = theme?.axis?.style?.[`axis${capitalizeFirst(position)}`];
   }
   return Object.assign({}, baseStyle, furtherStyle);
 }

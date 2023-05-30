@@ -680,8 +680,16 @@ async function plotView(
   library: G2Library,
   context: G2Context,
 ): Promise<void> {
-  const { components, theme, layout, markState, coordinate, key, style, clip } =
-    view;
+  const {
+    components,
+    theme = {},
+    layout,
+    markState,
+    coordinate,
+    key,
+    style,
+    clip,
+  } = view;
 
   // Render background for the different areas.
   const { x, y, width, height, ...rest } = layout;
@@ -689,7 +697,7 @@ async function plotView(
   const I = areaKeys.map((_, i) => i);
   const sizeKeys = ['a', 'margin', 'padding', 'inset'];
   const areaStyles = areaKeys.map((d) =>
-    maybeSubObject(Object.assign({}, theme, style), d),
+    maybeSubObject(Object.assign({}, theme?.view, style), d),
   );
   const areaSizes = sizeKeys.map((d) => subObject(rest, d));
   const styleArea = (selection) =>
@@ -1313,7 +1321,10 @@ function createAnimationFunction(
   const { [key]: defaultAnimation } = createShape(
     shapeName(mark, defaultShape),
   ).props;
-  const { [type]: defaultEffectTiming = {} } = theme;
+  const markType = mark.type as string;
+  const { [type]: defaultEffectTiming = {} } = theme?.animate;
+  const { [type]: effectTiming = defaultEffectTiming } =
+    theme?.[markType]?.animate || {};
   const animate = mark.animate?.[type] || {};
   return (data, from, to) => {
     const {
@@ -1329,7 +1340,7 @@ function createAnimationFunction(
     if (!options.type) return null;
     const animateFunction = useAnimation(options);
     const value = { delay, duration, easing };
-    const A = animateFunction(from, to, value, coordinate, defaultEffectTiming);
+    const A = animateFunction(from, to, value, coordinate, effectTiming);
     if (!Array.isArray(A)) return [A];
     return A;
   };

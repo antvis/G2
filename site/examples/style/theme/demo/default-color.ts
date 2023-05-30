@@ -11,7 +11,9 @@ const chart = new Chart({
 });
 
 chart.theme({
-  defaultColor: '#ED6DC6',
+  palette: {
+    defaultColor: '#ED6DC6',
+  },
 });
 
 chart
