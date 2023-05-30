@@ -62,6 +62,8 @@ chart.render();
 
 | 属性                   | 描述                                                                                                          | 类型                                              | 默认值    |
 | ---------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- | --------- |
+| minWidth               | 柱子的最小宽度，单位为像素                                                                                       | `number`                                           | `-Infinity`  |
+| maxWidth               | 柱子的最大宽度，单位为像素                                                                                       | `number`                                           | `Infinity`   |
 | radius                 | 外层矩形的四个圆角大小                                                                                        | `number` \| `Function<number>`                    | 0         |
 | radiusTopLeft          | 外层左上角的圆角                                                                                              | `number` \| `Function<number>`                    | 0         |
 | radiusTopRight         | 外层右上角的圆角                                                                                              | `number` \| `Function<number>`                    | 0         |
