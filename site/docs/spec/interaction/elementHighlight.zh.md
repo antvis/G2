@@ -41,3 +41,29 @@ chart.render();
 | background                | 是否高亮背景   | `boolean`    | false  |
 | offset                    | 主方向的偏移量 | `number`     | 0      |
 | `background${StyleAttrs}` | 背景的样式     | `StyleAttrs` | -      |
+
+## 案例
+
+### 触发事件
+
+```js
+chart.emit('element:highlight', {
+  data: { data: { population: 5038433 } },
+});
+
+chart.emit('element:unhighlight', {});
+```
+
+### 获得数据
+
+```js
+chart.on('element:highlight', (event) => {
+  const { data, nativeEvent } = event;
+  if (nativeEvent) console.log('element:highlight', data);
+});
+
+chart.on('element:unhighlight', (event) => {
+  const { nativeEvent } = event;
+  if (nativeEvent) console.log('reset');
+});
+```

@@ -15,6 +15,7 @@ import {
   mousePosition,
   selectFacetG2Elements,
   createDatumof,
+  selectElementByData,
 } from './utils';
 import { dataOf } from './event';
 
@@ -683,11 +684,7 @@ export function tooltip(
 
   const onTooltipShow = ({ nativeEvent, data }) => {
     if (nativeEvent) return;
-    const element = elements.find((d) =>
-      Object.entries(data.data).every(
-        ([key, value]) => datum(d)[key] === value,
-      ),
-    );
+    const element = selectElementByData(elements, data.data, datum);
     if (!element) return;
     const bbox = element.getBBox();
     const { x, y, width, height } = bbox;
