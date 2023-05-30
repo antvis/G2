@@ -1,7 +1,16 @@
 import { ShapeComponent as SC } from '../../runtime';
 import { Color } from './color';
 
-export type RectOptions = Record<string, any>;
+export type RectOptions = {
+  /**
+   * Minimum width of each interval.
+   */
+  minWidth?: number;
+  /**
+   * Maximum width of each interval.
+   */
+  maxWidth?: number;
+};
 
 /**
  * Render rect in different coordinate and using color channel for stroke and fill attribute.
