@@ -29,3 +29,4 @@ export { chartEmitSliderFilter } from './chart-emit-slider-filter';
 export { chartEmitElementHighlight } from './chart-emit-element-highlight';
 export { chartEmitElementSelect } from './chart-emit-element-select';
 export { chartEmitElementSelectSingle } from './chart-emit-element-select-single';
+export { chartEmitLegendHighlight } from './chart-emit-legend-highlight';

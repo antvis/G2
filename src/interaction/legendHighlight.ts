@@ -10,7 +10,7 @@ import {
 import { markerOf, labelOf, itemsOf, legendsOf, dataOf } from './legendFilter';
 
 export function LegendHighlight() {
-  return (context) => {
+  return (context, _, emitter) => {
     const { container, view, options } = context;
     const legends = legendsOf(container);
     const elements = selectG2Elements(container);
@@ -25,6 +25,7 @@ export function LegendHighlight() {
     };
     const markState = mergeState(options, ['active', 'inactive']);
     const valueof = createValueof(elements, createDatumof(view));
+    const destroys = [];
 
     // Bind events for each legend.
     for (const legend of legends) {
@@ -62,39 +63,79 @@ export function LegendHighlight() {
           }
         }
       };
+      const highlightItem = (event, item) => {
+        // Update UI.
+        const value = datumOf(item);
+        const elementSet = new Set(elementGroup.get(value));
+        for (const e of elements) {
+          if (elementSet.has(e)) setState(e, 'active');
+          else setState(e, 'inactive');
+        }
+        updateLegendState(item);
+
+        // Emit events.
+        const { nativeEvent = true } = event;
+        if (!nativeEvent) return;
+        emitter.emit('legend:highlight', {
+          ...event,
+          nativeEvent,
+          data: { channel, value },
+        });
+      };
 
       const itemPointerover = new Map();
 
       // Add listener for the legend items.
       for (const item of items) {
-        const pointerover = () => {
-          const value = datumOf(item);
-          const elementSet = new Set(elementGroup.get(value));
-          for (const e of elements) {
-            if (elementSet.has(e)) setState(e, 'active');
-            else setState(e, 'inactive');
-          }
-          updateLegendState(item);
+        const pointerover = (event) => {
+          highlightItem(event, item);
         };
         item.addEventListener('pointerover', pointerover);
         itemPointerover.set(item, pointerover);
       }
 
       // Add listener for the legend group.
-      const pointerleave = () => {
-        for (const e of elements) {
-          removeState(e, 'inactive', 'active');
-        }
+      const pointerleave = (event) => {
+        for (const e of elements) removeState(e, 'inactive', 'active');
         updateLegendState(null);
-      };
-      legend.addEventListener('pointerleave', pointerleave);
 
-      return () => {
+        // Emit events.
+        const { nativeEvent = true } = event;
+        if (!nativeEvent) return;
+        emitter.emit('legend:unhighlight', { nativeEvent });
+      };
+
+      const onHighlight = (event) => {
+        const { nativeEvent, data } = event;
+        if (nativeEvent) return;
+        const { channel: specifiedChannel, value } = data;
+        if (specifiedChannel !== channel) return;
+        const item = items.find((d) => datumOf(d) === value);
+        if (!item) return;
+        highlightItem({ nativeEvent: false }, item);
+      };
+
+      const onUnHighlight = (event) => {
+        const { nativeEvent } = event;
+        if (nativeEvent) return;
+        pointerleave({ nativeEvent: false });
+      };
+
+      legend.addEventListener('pointerleave', pointerleave);
+      emitter.on('legend:highlight', onHighlight);
+      emitter.on('legend:unhighlight', onUnHighlight);
+
+      const destroy = () => {
         legend.removeEventListener(pointerleave);
+        emitter.off('legend:highlight', onHighlight);
+        emitter.off('legend:unhighlight', onUnHighlight);
         for (const [item, pointerover] of itemPointerover) {
           item.removeEventListener(pointerover);
         }
       };
+      destroys.push(destroy);
     }
+
+    return () => destroys.forEach((d) => d());
   };
 }

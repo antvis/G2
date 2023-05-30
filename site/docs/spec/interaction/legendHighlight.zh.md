@@ -35,3 +35,31 @@ chart.interaction('legendHighlight', true);
 
 chart.render();
 ```
+
+## 案例
+
+### 获得数据
+
+```js
+chart.on('legend:highlight', (e) => {
+  const { nativeEvent, data } = e;
+  if (!nativeEvent) return;
+  console.log(data);
+});
+
+chart.on('legend:unhighlight', (e) => {
+  const { nativeEvent } = e;
+  if (!nativeEvent) return;
+  console.log('unhighlight');
+});
+```
+
+### 触发交互
+
+```js
+chart.emit('legend:highlight', {
+  data: { channel: 'color', value: 'Increase' },
+});
+
+chart.emit('legend:unhighlight', {});
+```
