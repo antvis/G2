@@ -33,7 +33,6 @@ export function rect(
   coordinate,
   style: Record<string, any> = {},
 ) {
-  console.log(1111, points, value, coordinate, style);
   const {
     inset = 0,
     radius = 0,

@@ -15,7 +15,7 @@
     {
       "filename": "column-maxwidth.ts",
       "title": {
-        "zh": "限制宽度的条形图",
+        "zh": "限制宽度的柱形图",
         "en": "Column with maxWidth"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*fu-BSYg7U_kAAAAAAAAAAAAADmJ7AQ/original"
