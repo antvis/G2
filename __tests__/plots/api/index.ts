@@ -27,3 +27,5 @@ export { chartRenderBrushEnd } from './chart-render-brush-end';
 export { chartChangeDataEmpty } from './chart-change-data-empty';
 export { chartEmitSliderFilter } from './chart-emit-slider-filter';
 export { chartEmitElementHighlight } from './chart-emit-element-highlight';
+export { chartEmitElementSelect } from './chart-emit-element-select';
+export { chartEmitElementSelectSingle } from './chart-emit-element-select-single';

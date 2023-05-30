@@ -12,6 +12,7 @@ import {
   selectPlotArea,
   offsetTransform,
   mergeState,
+  selectElementByData,
 } from './utils';
 
 /**
@@ -28,6 +29,7 @@ export function elementSelect(
     coordinate,
     background = false,
     scale,
+    emitter,
     state = {},
   }: Record<string, any>,
 ) {
@@ -66,16 +68,17 @@ export function elementSelect(
 
   const { setState, removeState, hasState } = useState(elementStyle, valueof);
 
-  const clear = () => {
+  const clear = (nativeEvent = true) => {
     for (const e of elements) {
       removeState(e, 'selected', 'unselected');
       removeLink(e);
       removeBackground(e);
     }
+    if (nativeEvent) emitter.emit('element:unselect', { nativeEvent: true });
     return;
   };
 
-  const singleSelect = (element) => {
+  const singleSelect = (event, element, nativeEvent = true) => {
     // Clear states if clicked selected element.
     if (hasState(element, 'selected')) clear();
     else {
@@ -92,10 +95,19 @@ export function elementSelect(
       }
       appendLink(group);
       appendBackground(element);
+
+      if (!nativeEvent) return;
+      emitter.emit('element:select', {
+        ...event,
+        nativeEvent,
+        data: {
+          data: [datum(element), ...group.map(datum)],
+        },
+      });
     }
   };
 
-  const multipleSelect = (element) => {
+  const multipleSelect = (event, element, nativeEvent = true) => {
     const k = groupKey(element);
     const group = keyGroup.get(k);
     const groupSet = new Set(group);
@@ -123,24 +135,49 @@ export function elementSelect(
         removeBackground(e);
       }
     }
+    if (!nativeEvent) return;
+    emitter.emit('element:select', {
+      ...event,
+      nativeEvent,
+      data: {
+        data: elements.filter((e) => hasState(e, 'selected')).map(datum),
+      },
+    });
   };
 
   const click = (event) => {
-    const { target: element } = event;
+    const { target: element, nativeEvent = true } = event;
     // Click non-element shape, reset.
     // Such as the rest of content area(background).
     if (!elementSet.has(element)) return clear();
-    if (single) return singleSelect(element);
-    return multipleSelect(element);
+    if (single) return singleSelect(event, element, nativeEvent);
+    return multipleSelect(event, element, nativeEvent);
   };
 
   root.addEventListener('click', click);
 
-  return () => {
-    root.removeEventListener('click', click);
-    for (const e of elements) {
-      removeLink(e);
+  const onSelect = (e) => {
+    const { nativeEvent, data } = e;
+    if (nativeEvent) return;
+    const selectedData = single ? data.data.slice(0, 1) : data.data;
+    for (const d of selectedData) {
+      const element = selectElementByData(elements, d, datum);
+      click({ target: element, nativeEvent: false });
     }
+  };
+
+  const onUnSelect = () => {
+    clear(false);
+  };
+
+  emitter.on('element:select', onSelect);
+  emitter.on('element:unselect', onUnSelect);
+
+  return () => {
+    for (const e of elements) removeLink(e);
+    root.removeEventListener('click', click);
+    emitter.off('element:select', onSelect);
+    emitter.off('element:unselect', onUnSelect);
   };
 }
 
@@ -150,7 +187,7 @@ export function ElementSelect({
   link = false,
   ...rest
 }) {
-  return (context) => {
+  return (context, _, emitter) => {
     const { container, view, options } = context;
     const { coordinate, scale } = view;
     const plotArea = selectPlotArea(container);
@@ -166,6 +203,7 @@ export function ElementSelect({
       ]),
       background,
       link,
+      emitter,
       ...rest,
     });
   };

@@ -42,3 +42,29 @@ chart.render();
 | offset                    | 主方向的偏移量 | `number`     | 0      |
 | `background${StyleAttrs}` | 背景的样式     | `StyleAttrs` | -      |
 | single                    | 是否单选       | `boolean`    | false  |
+
+## 案例
+
+### 获得数据
+
+```js
+chart.on('element:select', (event) => {
+  const { data, nativeEvent } = event;
+  if (nativeEvent) console.log('element:select', data);
+});
+
+chart.on('element:unselect', (event) => {
+  const { nativeEvent } = event;
+  if (nativeEvent) console.log('reset');
+});
+```
+
+### 触发交互
+
+```js
+chart.emit('element:select', {
+  data: { data: [{ population: 5038433 }, { population: 3983091 }] },
+});
+
+chart.emit('element:unselect', {});
+```
