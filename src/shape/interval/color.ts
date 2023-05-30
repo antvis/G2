@@ -3,7 +3,8 @@ import { arc } from 'd3-shape';
 import { Vector2, ShapeComponent as SC } from '../../runtime';
 import { isPolar, isHelix, isTranspose } from '../../utils/coordinate';
 import { select } from '../../utils/selection';
-import { sub } from '../.././utils/vector';
+import { sub } from '../../utils/vector';
+import { clamp } from '../../utils/number';
 import {
   applyStyle,
   getArcObject,
@@ -14,6 +15,14 @@ import {
 
 export type ColorOptions = {
   colorAttribute: 'fill' | 'stroke';
+  /**
+   * Minimum width of each interval.
+   */
+  minWidth?: number;
+  /**
+   * Maximum width of each interval.
+   */
+  maxWidth?: number;
   [key: string]: any;
 };
 
@@ -35,6 +44,8 @@ export function rect(
     radiusBottomRight = radius,
     radiusTopLeft = radius,
     radiusTopRight = radius,
+    minWidth = -Infinity,
+    maxWidth = Infinity,
     ...rest
   } = style;
   if (!isPolar(coordinate) && !isHelix(coordinate)) {
@@ -53,11 +64,20 @@ export function rect(
     const finalWidth = absWidth - (insetLeft + insetRight);
     const finalHeight = absHeight - (insetTop + insetBottom);
 
+    const clampWidth = tpShape
+      ? finalWidth
+      : clamp(finalWidth, minWidth, maxWidth);
+    const clampHeight = tpShape
+      ? clamp(finalHeight, minWidth, maxWidth)
+      : finalHeight;
+    const clampX = finalX - (clampWidth - finalWidth) / 2;
+    const clampY = finalY - (clampHeight - finalHeight) / 2;
+
     return select(new Rect({}))
-      .style('x', finalX)
-      .style('y', finalY)
-      .style('width', finalWidth)
-      .style('height', finalHeight)
+      .style('x', clampX)
+      .style('y', clampY)
+      .style('width', clampWidth)
+      .style('height', clampHeight)
       .style('radius', [
         radiusTopLeft,
         radiusTopRight,
@@ -128,6 +148,8 @@ export const Color: SC<ColorOptions> = (options) => {
       insetRight = inset,
       insetBottom = inset,
       insetTop = inset,
+      minWidth,
+      maxWidth,
       ...rest
     } = style;
     const { color = defaultColor, opacity } = value;
@@ -160,6 +182,8 @@ export const Color: SC<ColorOptions> = (options) => {
       insetRight,
       insetBottom,
       insetTop,
+      minWidth,
+      maxWidth,
     };
 
     return (

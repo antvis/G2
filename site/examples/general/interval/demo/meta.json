@@ -7,10 +7,18 @@
     {
       "filename": "column.ts",
       "title": {
-        "zh": "条形图",
+        "zh": "柱形图",
         "en": "Column Chart"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*vhCKQJ9UJX4AAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "column-maxwidth.ts",
+      "title": {
+        "zh": "限制宽度的柱形图",
+        "en": "Column with maxWidth"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*fu-BSYg7U_kAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "bar.ts",
