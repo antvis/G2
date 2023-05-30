@@ -21,6 +21,7 @@ import {
   BoxPlotMark,
   DensityMark,
   HeatmapMark,
+  PathMark,
   ShapeMark,
   TreemapMark,
   ForceGraphMark,
@@ -121,6 +122,10 @@ export interface Density extends API<Concrete<DensityMark>, Density> {
 
 export interface Heatmap extends API<Concrete<HeatmapMark>, Heatmap> {
   type: 'heatmap';
+}
+
+export interface Path extends API<Concrete<PathMark>, Path> {
+  type: 'path';
 }
 
 export interface Shape extends API<Concrete<ShapeMark>, Shape> {
@@ -344,6 +349,13 @@ export class Density extends MarkNode<DensityMark> {
 export class Heatmap extends MarkNode<HeatmapMark> {
   constructor() {
     super({}, 'heatmap');
+  }
+}
+
+@defineProps(props)
+export class Path extends MarkNode<PathMark> {
+  constructor() {
+    super({}, 'path');
   }
 }
 

@@ -23,6 +23,7 @@ import {
   Boxplot,
   Density,
   Heatmap,
+  Path,
   Shape,
   Pack,
   ForceGraph,
@@ -57,6 +58,7 @@ export interface Mark {
   boxplot(): Boxplot;
   density(): Density;
   heatmap(): Heatmap;
+  path(): Path;
   shape(): Shape;
   pack(): Pack;
   forceGraph(): ForceGraph;
@@ -92,6 +94,7 @@ export const mark = {
   boxplot: Boxplot,
   density: Density,
   heatmap: Heatmap,
+  path: Path,
   shape: Shape,
   pack: Pack,
   forceGraph: ForceGraph,

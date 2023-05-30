@@ -258,6 +258,7 @@ import {
   WordCloud,
   Join,
   KDE,
+  Venn,
 } from '../../../src/data';
 import {
   OverflowHide,
@@ -288,6 +289,7 @@ describe('stdlib', () => {
       'data.wordCloud': WordCloud,
       'data.join': Join,
       'data.kde': KDE,
+      'data.venn': Venn,
       'transform.maybeZeroY1': MaybeZeroY1,
       'transform.maybeZeroX': MaybeZeroX,
       'transform.maybeStackY': MaybeStackY,

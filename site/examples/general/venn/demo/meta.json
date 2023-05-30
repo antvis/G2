@@ -1,0 +1,24 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "venn.ts",
+      "title": {
+        "zh": "韦恩图",
+        "en": "Venn Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*IZT9TJ3eVpwAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "venn-hollow.ts",
+      "title": {
+        "zh": "空心韦恩图",
+        "en": "Hollow Venn"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*5XyrQppBM9YAAAAAAAAAAAAADmJ7AQ/original"
+    }
+  ]
+}
