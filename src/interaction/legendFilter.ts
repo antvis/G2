@@ -52,6 +52,8 @@ function legendFilter(
     label: labelOf, // given the legend returns the label
     datum, // given the legend returns the value
     filter, // invoke when dispatch filter event,
+    emitter,
+    channel,
     state = {} as Record<string, any>, // state options
   },
 ) {
@@ -79,7 +81,7 @@ function legendFilter(
   );
 
   const items: DisplayObject[] = Array.from(legends(root));
-  const selectedValues = items.map(datum);
+  let selectedValues = items.map(datum);
   const updateLegendState = () => {
     for (const item of items) {
       const value = datum(item);
@@ -105,7 +107,7 @@ function legendFilter(
       restoreCursor(root);
     };
 
-    const click = async () => {
+    const click = async (event) => {
       const value = datum(item);
       const index = selectedValues.indexOf(value);
       if (index === -1) selectedValues.push(value);
@@ -113,6 +115,22 @@ function legendFilter(
       if (selectedValues.length === 0) selectedValues.push(...items.map(datum));
       await filter(selectedValues);
       updateLegendState();
+
+      const { nativeEvent = true } = event;
+      if (!nativeEvent) return;
+      if (selectedValues.length === items.length) {
+        emitter.emit('legend:reset', { nativeEvent });
+      } else {
+        // Emit events.
+        emitter.emit('legend:filter', {
+          ...event,
+          nativeEvent,
+          data: {
+            channel,
+            values: selectedValues,
+          },
+        });
+      }
     };
 
     // Bind and store handlers.
@@ -124,11 +142,35 @@ function legendFilter(
     itemPointerout.set(item, pointerout);
   }
 
+  const onFilter = async (event) => {
+    const { nativeEvent } = event;
+    if (nativeEvent) return;
+    const { data } = event;
+    const { channel: specifiedChannel, values } = data;
+    if (specifiedChannel !== channel) return;
+    selectedValues = values;
+    await filter(selectedValues);
+    updateLegendState();
+  };
+
+  const onEnd = async (event) => {
+    const { nativeEvent } = event;
+    if (nativeEvent) return;
+    selectedValues = items.map(datum);
+    await filter(selectedValues);
+    updateLegendState();
+  };
+
+  emitter.on('legend:filter', onFilter);
+  emitter.on('legend:reset', onEnd);
+
   return () => {
     for (const item of items) {
       item.removeEventListener('click', itemClick.get(item));
       item.removeEventListener('pointerenter', itemPointerenter.get(item));
       item.removeEventListener('pointerout', itemPointerout.get(item));
+      emitter.off('legend:filter', onFilter);
+      emitter.off('legend:reset', onEnd);
     }
   };
 }
@@ -168,17 +210,6 @@ export function LegendFilter() {
       return update(newOptions);
     };
 
-    if (!legends.length) {
-      const onFilter = (options) => {
-        const { values, channel } = options;
-        filter(channel, values);
-      };
-      emitter.on('legend:filter', onFilter);
-      return () => {
-        emitter.off('legend:filter', onFilter);
-      };
-    }
-
     const removes = legends.map((legend) => {
       const { name: channel, domain } = dataOf(legend).scales[0];
       return legendFilter(container, {
@@ -192,6 +223,8 @@ export function LegendFilter() {
         },
         filter: (value) => filter(channel, value),
         state: legend.attributes.state,
+        channel,
+        emitter,
       });
     });
     return () => {
