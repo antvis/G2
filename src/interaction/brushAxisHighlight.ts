@@ -1,5 +1,6 @@
 import { Rect } from '@antv/g';
 import { subObject } from '../utils/helper';
+import { domainOf, pixelsOf } from '../utils/scale';
 import { brush } from './brushHighlight';
 import { brushXRegion } from './brushXHighlight';
 import { brushYRegion } from './brushYHighlight';
@@ -118,13 +119,15 @@ export function brushAxisHighlight(
     offsetX, // offsetX for shape area
     reverse = false,
     state = {},
+    emitter,
+    coordinate,
     ...rest // style
   },
 ) {
   const elements = elementsOf(root);
   const axes = axesOf(root);
   const valueof = createValueof(elements, datum);
-  const { setState } = useState(state, valueof);
+  const { setState, removeState } = useState(state, valueof);
   const axisExtent = new Map();
   const brushStyle = subObject(rest, 'mask');
 
@@ -136,18 +139,80 @@ export function brushAxisHighlight(
       }),
     );
 
+  const scales = axes.map((d) => d.attributes.scale);
+
+  const extentOf = (D) => (D.length > 2 ? [D[0], D[D.length - 1]] : D);
+
+  const indexDomain = new Map<number, [any, any]>();
+
+  const initIndexDomain = () => {
+    indexDomain.clear();
+    for (let i = 0; i < axes.length; i++) {
+      const scale = scales[i];
+      const { domain } = scale.getOptions();
+      indexDomain.set(i, extentOf(domain));
+    }
+  };
+
+  initIndexDomain();
+
   // Update element when brush changed.
-  const updateElement = () => {
+  const updateElement = (i, emit) => {
+    const selectedElements = [];
     for (const element of elements) {
       const points = pointsOf(element);
-      if (brushed(points)) setState(element, 'active');
-      else setState(element, 'inactive');
+      if (brushed(points)) {
+        setState(element, 'active');
+        selectedElements.push(element);
+      } else setState(element, 'inactive');
     }
+
+    indexDomain.set(i, selectionOf(selectedElements, i));
+
+    if (!emit) return;
+
+    // Emit events.
+    const selection = () => {
+      if (!cross) return Array.from(indexDomain.values());
+      const S = [];
+      for (const [index, domain] of indexDomain) {
+        const scale = scales[index];
+        const { name } = scale.getOptions();
+        if (name === 'x') S[0] = domain;
+        else S[1] = domain;
+      }
+      return S;
+    };
+    emitter.emit('brushAxis:highlight', {
+      nativeEvent: true,
+      data: {
+        selection: selection(),
+      },
+    });
+  };
+
+  const clearElement = (emit) => {
+    for (const element of elements) removeState(element, 'active', 'inactive');
+    initIndexDomain();
+    if (!emit) return;
+    emitter.emit('brushAxis:remove', { nativeEvent: true });
+  };
+
+  const selectionOf = (selected, i) => {
+    const scale = scales[i];
+    const { name } = scale.getOptions();
+    const domain = selected.map((d) => {
+      const data = d.__data__;
+      return scale.invert(data[name]);
+    });
+    return extentOf(domainOf(scale, domain));
   };
 
   // Distinguish between parallel coordinates and normal charts.
   const cross = axes.some(isHorizontal) && axes.some((d) => !isHorizontal(d));
-  for (const axis of axes) {
+  const handlers = [];
+  for (let i = 0; i < axes.length; i++) {
+    const axis = axes[i];
     const createBrush = isHorizontal(axis) ? horizontalBrush : verticalBrush;
     const { hotZone, brushRegion, extent } = createBrush(axis, {
       offsetY,
@@ -157,30 +222,82 @@ export function brushAxisHighlight(
       fill: 'transparent', // Make it interactive.
     });
     axis.parentNode.appendChild(hotZone);
-    brush(hotZone, {
+    const brushHandler = brush(hotZone, {
       ...brushStyle,
       reverse,
       brushRegion,
-      brushended() {
+      brushended(emit) {
         axisExtent.delete(axis);
-        updateElement();
+        if (Array.from(axisExtent.entries()).length === 0) clearElement(emit);
+        else updateElement(i, emit);
       },
-      brushed(x, y, x1, y1) {
+      brushed(x, y, x1, y1, emit) {
         axisExtent.set(axis, extent(x, y, x1, y1));
-        updateElement();
+        updateElement(i, emit);
       },
     });
+    handlers.push(brushHandler);
   }
+
+  const onRemove = (event: any = {}) => {
+    const { nativeEvent } = event;
+    if (nativeEvent) return;
+    handlers.forEach((d) => d.remove());
+  };
+
+  const rangeOf = (domain, scale, axis) => {
+    const [d0, d1] = domain;
+    const maybeStep = (scale) => (scale.getStep ? scale.getStep() : 0);
+    const x = abstractOf(d0, scale, axis);
+    const x1 = abstractOf(d1, scale, axis) + maybeStep(scale);
+    if (isHorizontal(axis)) return [x, -Infinity, x1, Infinity];
+    return [-Infinity, x, Infinity, x1];
+  };
+
+  const abstractOf = (x, scale, axis) => {
+    const { height, width } = coordinate.getOptions();
+    const scale1 = scale.clone();
+    if (isHorizontal(axis)) scale1.update({ range: [0, width] });
+    else scale1.update({ range: [height, 0] });
+    return scale1.map(x);
+  };
+
+  const onHighlight = (event) => {
+    const { nativeEvent } = event;
+    if (nativeEvent) return;
+    const { selection } = event.data;
+    for (let i = 0; i < handlers.length; i++) {
+      const domain = selection[i];
+      const handler = handlers[i];
+      const axis = axes[i];
+      if (domain) {
+        const scale = scales[i];
+        handler.move(...rangeOf(domain, scale, axis), false);
+      } else {
+        handler.remove();
+      }
+    }
+  };
+
+  emitter.on('brushAxis:remove', onRemove);
+  emitter.on('brushAxis:highlight', onHighlight);
+
+  return () => {
+    handlers.forEach((d) => d.destroy());
+    emitter.off('brushAxis:remove', onRemove);
+    emitter.off('brushAxis:highlight', onHighlight);
+  };
 }
 
 /**
  * @todo Support mask size.
  */
 export function BrushAxisHighlight(options) {
-  return (target) => {
+  return (target, _, emitter) => {
     const { container, view, options: viewOptions } = target;
     const plotArea = selectPlotArea(container);
     const { x: x0, y: y0 } = plotArea.getBBox();
+    const { coordinate } = view;
     return brushAxisHighlight(container, {
       elements: selectG2Elements,
       axes: axesOf,
@@ -201,6 +318,8 @@ export function BrushAxisHighlight(options) {
         'active',
         ['inactive', { opacity: 0.5 }],
       ]),
+      coordinate,
+      emitter,
       ...options,
     });
   };

@@ -25,7 +25,8 @@ export function domainOf(scale, values) {
   if (!values) return scale.getOptions().domain;
   if (!isOrdinalScale(scale)) return sort(values);
   const { domain } = scale.getOptions();
-  const [v1, v2] = values;
+  const v1 = values[0];
+  const v2 = values[values.length - 1];
   const start = domain.indexOf(v1);
   const end = domain.indexOf(v2);
   return domain.slice(start, end + 1);

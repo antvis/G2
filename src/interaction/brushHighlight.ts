@@ -311,7 +311,7 @@ export function brush(
     creating = false;
     mask = null;
     background = null;
-    if (emit) brushended();
+    brushended(emit);
   };
 
   // Update mask and invoke brushended callback.
@@ -477,7 +477,7 @@ export function brush(
       updateMask([x, y], [x1, y1], emit);
     },
     remove() {
-      if (mask) removeMask();
+      if (mask) removeMask(false);
     },
     destroy() {
       // Do not emit brush:end event.
@@ -627,9 +627,11 @@ export function brushHighlight(
     brushRegion,
     reverse,
     selectedHandles,
-    brushended: () => {
+    brushended: (emit) => {
       const handler = series ? seriesBrushend : brushended;
-      emitter.emit('brush:end', { nativeEvent: true });
+      if (emit) {
+        emitter.emit('brush:remove', { nativeEvent: true });
+      }
       handler();
     },
     brushed: (x, y, x1, y1, emit) => {

@@ -106,7 +106,9 @@ context.on('brush:highlight', (e) => {
   focus.emit('brush:filter', { data: { selection } });
 });
 
-context.on('brush:end', () => {
+context.on('brush:remove', (e) => {
+  const { nativeEvent } = e;
+  if (!nativeEvent) return;
   const { x: scaleX, y: scaleY } = context.getScale();
   const selection = [scaleX.getOptions().domain, scaleY.getOptions().domain];
   focus.emit('brush:filter', { data: { selection } });

@@ -90,3 +90,29 @@ chart.render();
 | ------------------- | -------------- | ------------------------------ | ------ |
 | reverse             | brush 是否反转 | `boolean`                      | false  |
 | `mask${StyleAttrs}` | brush 的样式   | `number             \| string` | -      |
+
+## 案例
+
+### 获得数据
+
+```js
+chart.on('brushAxis:highlight', (event) => {
+  const { data, nativeEvent } = event;
+  if (nativeEvent) console.log('brushAxis:highlight', data);
+});
+
+chart.on('brushAxis:remove', (event) => {
+  const { data, nativeEvent } = event;
+  if (nativeEvent) console.log('brushAxis:remove', data);
+});
+```
+
+### 触发交互
+
+```js
+chart.emit('brushAxis:highlight', {
+  data: { selection: [[20, 30], undefined, [100, 300]] },
+});
+
+chart.emit('brushAxis:remove', {});
+```
