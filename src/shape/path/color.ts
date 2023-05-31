@@ -22,12 +22,16 @@ export const Color: SC<ColorOptions> = (options) => {
       defaultShape,
     );
     const { d, color } = value;
-    return select(new GPath())
-      .call(applyStyle, shapeTheme)
-      .style('d', d)
-      .style(colorAttribute, color)
-      .call(applyStyle, style)
-      .node();
+    const [width, height] = coordinate.getSize();
+    return (
+      select(new GPath())
+        .call(applyStyle, shapeTheme)
+        // Path support string, function with parameter { width, height }.
+        .style('d', typeof d === 'function' ? d({ width, height }) : d)
+        .style(colorAttribute, color)
+        .call(applyStyle, style)
+        .node()
+    );
   };
 };
 

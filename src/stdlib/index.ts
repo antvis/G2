@@ -244,6 +244,7 @@ import {
   Join,
   Sort,
   KDE,
+  Venn,
 } from '../data';
 import {
   OverlapDodgeY,
@@ -273,6 +274,7 @@ export function createLibrary(): G2Library {
     'data.wordCloud': WordCloud,
     'data.join': Join,
     'data.kde': KDE,
+    'data.venn': Venn,
     // 'transform.voronoi': Voronoi,
     'transform.maybeZeroY1': MaybeZeroY1,
     'transform.maybeZeroX': MaybeZeroX,

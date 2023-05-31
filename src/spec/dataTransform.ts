@@ -11,6 +11,7 @@ export type DataTransform =
   | MapTransform
   | SliceTransform
   | KDEDataTransform
+  | VennDataTransform
   | CustomTransform;
 
 export type DataTransformTypes =
@@ -24,6 +25,7 @@ export type DataTransformTypes =
   | 'map'
   | 'slice'
   | 'kde'
+  | 'venn'
   | 'custom'
   | DataComponent;
 
@@ -152,6 +154,29 @@ export type KDEDataTransform = {
    * similar to bandwidth in kernel density estimation. Defaults to 2.
    */
   width?: number;
+};
+
+export type VennDataTransform = {
+  type?: 'venn';
+  /**
+   * Canvas padding for 4 direction.
+   * Default is `0`.
+   */
+  padding?: number;
+  /**
+   * Set the sets field.
+   * Default is `sets`.
+   */
+  sets?: string;
+  /**
+   * Set the size field for each set.
+   * Default is `size`.
+   */
+  size?: string;
+  /**
+   * Set the generated fields, includes: [key, x, y, path]
+   */
+  as?: [string, string];
 };
 
 export type CustomTransform = {
