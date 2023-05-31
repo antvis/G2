@@ -33,8 +33,10 @@ chart
     text: (d) => d.label || '',
     transform: [{ type: 'contrastReverse' }],
   })
-  .style('opacity', 0.4)
-  .legend(false)
-  .tooltip({ title: { channel: 'label', valueFormatter: '.1f' } });
+  .style('opacity', (d) => (d.sets.length > 1 ? 0.001 : 0.5))
+  .state('inactive', { opacity: 0.2 })
+  .state('active', { opacity: 0.8 })
+  .interaction('elementHighlight', true)
+  .legend(false);
 
 chart.render();

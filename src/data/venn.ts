@@ -23,15 +23,14 @@ export const Venn: DC<VennOptions> = (options) => {
   const [key, path] = as;
   return (data) => {
     // Transform the data, venn layout use `sets` and `size` field.
+    const vennData: VennData[] = data.map((d) => ({
+      ...d,
+      sets: d[sets],
+      size: d[size],
+      [key]: d.sets.join('&'),
+    }));
     // Sort data, avoid data occlusion.
-    const vennData: VennData[] = data
-      .map((d) => ({
-        ...d,
-        sets: d[sets],
-        size: d[size],
-        [key]: d.sets.join('&'),
-      }))
-      .sort((a, b) => a.sets.length - b.sets.length);
+    vennData.sort((a, b) => a.sets.length - b.sets.length);
 
     // Layout venn data.
     const solution = venn(vennData);
@@ -45,7 +44,10 @@ export const Venn: DC<VennOptions> = (options) => {
           ? circles
           : scaleSolution(solution, width, height, padding);
         const setCircles = setsValue.map((set) => circles[set]);
-        return intersectionAreaPath(setCircles);
+        let p = intersectionAreaPath(setCircles);
+        // Close the path for event picker.
+        if (!/[zZ]$/.test(p)) p += ' Z';
+        return p;
       };
 
       return { ...datum, [path]: pathFunc };
