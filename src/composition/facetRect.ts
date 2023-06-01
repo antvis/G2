@@ -1,5 +1,5 @@
 import { deepMix } from '@antv/util';
-import { group, max } from 'd3-array';
+import { extent, group, max } from 'd3-array';
 import {
   CompositionComponent as CC,
   G2MarkChildrenCallback,
@@ -79,24 +79,21 @@ export const inferColor = useDefaultAdaptor<G2ViewTree>(
 
     const domainColor = () => {
       const domain = scale?.color?.domain;
-      if (domain !== undefined) return domain;
-      if (encodeColor === undefined) return undefined;
-      return Array.from(new Set(data.map((d) => d[encodeColor])));
+      if (domain !== undefined) return [domain];
+      if (encodeColor === undefined) return [undefined];
+      const color =
+        typeof encodeColor === 'function' ? encodeColor : (d) => d[encodeColor];
+      const values = data.map(color);
+      if (values.some((d) => typeof d === 'number')) return [extent(values)];
+      return [Array.from(new Set(values)), 'ordinal'];
     };
+
+    const title = typeof encodeColor === 'string' ? encodeColor : '';
+    const [domain, type] = domainColor();
     return {
-      encode: {
-        color: encodeColor,
-      },
-      scale: {
-        color: deepMix({}, scaleColor, {
-          domain: domainColor(),
-          // @todo Remove this when pass columnOf to extract color.
-          type: 'ordinal',
-        }),
-      },
-      legend: {
-        color: deepMix({ title: encodeColor }, legendColor),
-      },
+      encode: { color: encodeColor },
+      scale: { color: deepMix({}, scaleColor, { domain, type }) },
+      legend: { color: deepMix({ title }, legendColor) },
     };
   },
 );
