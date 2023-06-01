@@ -30,3 +30,6 @@ export { chartEmitElementHighlight } from './chart-emit-element-highlight';
 export { chartEmitElementSelect } from './chart-emit-element-select';
 export { chartEmitElementSelectSingle } from './chart-emit-element-select-single';
 export { chartEmitLegendHighlight } from './chart-emit-legend-highlight';
+export { chartEmitBrushHighlightAxisVertical } from './chart-emit-brush-highlight-axis-vertical';
+export { chartEmitBrushHighlightAxisHorizontal } from './chart-emit-brush-highlight-axis-horizontal';
+export { chartEmitBrushHighlightAxisCross } from './chart-emit-brush-highlight-axis-cross';

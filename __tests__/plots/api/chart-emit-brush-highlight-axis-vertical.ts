@@ -1,8 +1,27 @@
-import { G2Spec } from '../../../src';
-import { AXIS_HOT_AREA_CLASS_NAME } from '../../../src/interaction/brushAxisHighlight';
-import { brush } from './penguins-point-brush';
+import { Chart } from '../../../src';
 
-export function cars3LineVerticalBrushAxis(): G2Spec {
+export function chartEmitBrushHighlightAxisVertical(context) {
+  const { container, canvas } = context;
+
+  // button
+  const button1 = document.createElement('button');
+  button1.innerText = 'Highlight';
+  container.appendChild(button1);
+
+  const button2 = document.createElement('button');
+  button2.innerText = 'Reset';
+  container.appendChild(button2);
+
+  // wrapperDiv
+  const wrapperDiv = document.createElement('div');
+  container.appendChild(wrapperDiv);
+
+  const chart = new Chart({
+    theme: 'classic',
+    container: wrapperDiv,
+    canvas,
+  });
+
   const position = [
     'economy (mpg)',
     'cylinders',
@@ -12,7 +31,8 @@ export function cars3LineVerticalBrushAxis(): G2Spec {
     '0-60 mph (s)',
     'year',
   ];
-  return {
+
+  chart.options({
     type: 'view',
     coordinate: { type: 'parallel' },
     children: [
@@ -34,6 +54,7 @@ export function cars3LineVerticalBrushAxis(): G2Spec {
           color: { palette: 'brBG', offset: (t) => 1 - t },
         },
         state: {
+          active: { strokeWidth: 5 },
           inactive: { stroke: 'grey', opacity: 0.5 },
         },
         legend: false,
@@ -71,23 +92,29 @@ export function cars3LineVerticalBrushAxis(): G2Spec {
       },
       tooltip: { series: false },
     },
-  };
-}
+  });
 
-cars3LineVerticalBrushAxis.steps = ({ canvas }) => {
-  const { document } = canvas;
-  const axes = document.getElementsByClassName(AXIS_HOT_AREA_CLASS_NAME);
-  const [, axis1, axis2] = axes;
-  return [
-    {
-      changeState: () => {
-        brush(axis1, 10, 80, 10, 400);
-      },
-    },
-    {
-      changeState: () => {
-        brush(axis2, 10, 200, 10, 300);
-      },
-    },
-  ];
-};
+  const finished = chart.render();
+
+  chart.on('brushAxis:highlight', (event) => {
+    const { data, nativeEvent } = event;
+    if (nativeEvent) console.log('brushAxis:highlight', data);
+  });
+
+  chart.on('brushAxis:remove', (event) => {
+    const { data, nativeEvent } = event;
+    if (nativeEvent) console.log('brushAxis:remove', data);
+  });
+
+  button1.onclick = () => {
+    chart.emit('brushAxis:highlight', {
+      data: { selection: [[20, 30], undefined, [100, 300]] },
+    });
+  };
+
+  button2.onclick = () => {
+    chart.emit('brushAxis:remove', {});
+  };
+
+  return { chart, finished };
+}

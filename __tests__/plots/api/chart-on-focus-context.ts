@@ -70,7 +70,9 @@ export function chartOnFocusContext(context) {
     focusView.emit('brush:filter', { data: { selection } });
   });
 
-  contextView.on('brush:end', () => {
+  contextView.on('brush:remove', (e) => {
+    const { nativeEvent } = e;
+    if (!nativeEvent) return;
     const { x: scaleX, y: scaleY } = contextView.getScale();
     const selection = [scaleX.getOptions().domain, scaleY.getOptions().domain];
     focusView.emit('brush:filter', { data: { selection } });

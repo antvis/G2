@@ -590,6 +590,7 @@ const axisFactor: (
         ...options,
         labelFormatter,
         labelFilter,
+        scale,
       };
       return axis(normalizedOptions)(context);
     };
