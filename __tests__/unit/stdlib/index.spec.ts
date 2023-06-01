@@ -114,6 +114,7 @@ import {
   Density as DensityShape,
   Heatmap as HeatmapShape,
   Shape as CustomShape,
+  Trail,
 } from '../../../src/shape';
 import { Classic, ClassicDark, Academy } from '../../../src/theme';
 import {
@@ -404,6 +405,7 @@ describe('stdlib', () => {
       'shape.line.vh': VH,
       'shape.line.hvh': HVH,
       'shape.line.smooth': Smooth,
+      'shape.line.trail': Trail,
       'shape.point.bowtie': Bowtie,
       'shape.point.cross': Cross,
       'shape.point.diamond': Diamond,

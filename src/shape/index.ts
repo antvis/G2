@@ -2,11 +2,14 @@ export { Rect } from './interval/rect';
 export { Hollow as HollowRect } from './interval/hollow';
 export { Funnel } from './interval/funnel';
 export { Pyramid } from './interval/pyramid';
+
 export { Line } from './line/line';
 export { Smooth } from './line/smooth';
 export { HV } from './line/hv';
 export { VH } from './line/vh';
 export { HVH } from './line/hvh';
+export { Trail } from './line/trail';
+
 export { Bowtie } from './point/bowtie';
 export { Cross } from './point/cross';
 export { Diamond } from './point/diamond';
@@ -61,6 +64,7 @@ export type { SmoothOptions } from './line/smooth';
 export type { HVOptions } from './line/hv';
 export type { VHOptions } from './line/vh';
 export type { HVHOptions } from './line/hvh';
+export type { TrailOptions } from './line/trail';
 
 export type { BowtieOptions } from './point/bowtie';
 export type { CrossOptions } from './point/cross';

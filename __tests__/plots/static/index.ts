@@ -238,3 +238,5 @@ export { basicLineNullLabel } from './basic-line-null-label';
 export { alphabetIntervalViewStyle } from './alphabet-interval-view-style';
 export { vennBasic } from './venn-basic';
 export { vennHollow } from './venn-hollow';
+export { stocksLineVarSize } from './stocks-line-var-size';
+export { barleyLineTrail } from './barley-line-trail';

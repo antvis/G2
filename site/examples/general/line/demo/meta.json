@@ -45,6 +45,22 @@
       "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*-q4yQZ7WtDcAAAAAAAAAAAAADmJ7AQ"
     },
     {
+      "filename": "line-var-size.ts",
+      "title": {
+        "zh": "变宽折线图",
+        "en": "Var Size Line Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*pWrERLZIMyQAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "line-var-size-facet.ts",
+      "title": {
+        "zh": "轨迹图",
+        "en": "Trail"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*yI3VRr4tw44AAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
       "filename": "line-variable-color.ts",
       "title": {
         "zh": "多色折线图",

@@ -114,6 +114,7 @@ import {
   Density as DensityShape,
   Shape as CustomShape,
   Heatmap as HeatmapShape,
+  Trail,
 } from '../shape';
 import { Classic, ClassicDark, Academy } from '../theme';
 import {
@@ -389,6 +390,7 @@ export function createLibrary(): G2Library {
     'shape.line.hv': HV,
     'shape.line.vh': VH,
     'shape.line.hvh': HVH,
+    'shape.line.trail': Trail,
     'shape.line.smooth': Smooth,
     'shape.point.bowtie': Bowtie,
     'shape.point.cross': Cross,
