@@ -27,6 +27,7 @@ export const VIEW_KEYS = [
   'marginBottom',
   'autoFit',
   'theme',
+  'title',
 ];
 
 export function normalizeContainer(
