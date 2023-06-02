@@ -12,24 +12,27 @@ export type ScrollbarOptions = {
 export const Scrollbar: GCC<ScrollbarOptions> = (options) => {
   const { orientation, labelFormatter, style, ...rest } = options;
 
-  return ({ value, theme }) => {
+  return ({ scales: [scale], value, theme }) => {
     const { bbox } = value;
     const { x, y, width, height } = bbox;
     const { scrollbar: scrollbarTheme = {} } = theme;
-
+    const { ratio, range } = scale.getOptions();
+    const mainSize = orientation === 'horizontal' ? width : height;
+    const actualSize = mainSize / ratio;
+    const [r0, r1] = range;
+    const value1 = r1 > r0 ? 0 : 1;
     return new ScrollbarComponent({
-      className: 'scrollbar',
+      className: 'g2-scrollbar',
       style: Object.assign({}, scrollbarTheme, {
         ...style,
         x,
         y,
-        trackLength: orientation === 'horizontal' ? width : height,
+        trackLength: mainSize,
         ...rest,
         orientation,
-        value: 0,
-        // @todo Get actual length of content.
-        contentLength: 1500,
-        viewportLength: orientation === 'horizontal' ? width : height,
+        value: value1,
+        contentLength: actualSize,
+        viewportLength: mainSize,
       }),
     });
   };

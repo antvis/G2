@@ -171,6 +171,7 @@ import {
   SliderFilter,
   Poptip,
   Event,
+  ScrollbarFilter,
 } from '../interaction';
 import {
   SpaceLayer,
@@ -490,6 +491,7 @@ export function createLibrary(): G2Library {
     'interaction.brushXFilter': BrushXFilter,
     'interaction.brushYFilter': BrushYFilter,
     'interaction.sliderFilter': SliderFilter,
+    'interaction.scrollbarFilter': ScrollbarFilter,
     'interaction.poptip': Poptip,
     'interaction.event': Event,
     'composition.spaceLayer': SpaceLayer,

@@ -1403,6 +1403,7 @@ function inferInteraction(
     // @todo Inferred by slider self.
     sliderFilter: true,
     legendFilter: true,
+    scrollbarFilter: true,
   };
   const { interaction = {} } = view;
   return Object.entries(deepMix(defaults, interaction));
