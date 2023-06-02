@@ -5,7 +5,7 @@ import { invert, domainOf, abstractOf } from '../utils/scale';
 
 export const SLIDER_CLASS_NAME = 'slider';
 
-function filterDataByDomain(options, scaleOptions) {
+function filterDataByDomain(options, scaleOptions, prefix, hasState = false) {
   const { marks } = options;
   const newMarks = marks.map((mark) =>
     deepMix(
@@ -20,9 +20,13 @@ function filterDataByDomain(options, scaleOptions) {
       {
         scale: scaleOptions,
         // Don't rerender sliders.
-        slider: {
-          ...(mark.slider.x && { x: { preserve: true } }),
-          ...(mark.slider.y && { y: { preserve: true } }),
+        [prefix]: {
+          ...(mark[prefix].x && {
+            x: { preserve: true, ...(hasState && { ratio: null }) },
+          }),
+          ...(mark[prefix].y && {
+            y: { preserve: true, ...(hasState && { ratio: null }) },
+          }),
         },
         animate: false,
       },
@@ -54,13 +58,18 @@ function extentOf(domain) {
  * @todo Support click to reset after fix click and dragend conflict.
  */
 export function SliderFilter({
+  channelDomain,
+  className = SLIDER_CLASS_NAME,
+  prefix = 'slider',
+  setValue = (component, values) => component.setValues(values),
+  hasState = false,
   wait = 50,
   leading = true,
   trailing = false,
 }: any) {
   return (context, _, emitter) => {
     const { container, view, options, update } = context;
-    const sliders = container.getElementsByClassName(SLIDER_CLASS_NAME);
+    const sliders = container.getElementsByClassName(className);
     if (!sliders.length) return () => {};
 
     let filtering = false;
@@ -79,16 +88,20 @@ export function SliderFilter({
     const emitHandlers = new Set<[string, (event: any) => void]>();
 
     // Store current domain of x and y scale.
-    const channelDomain = {
-      x: scaleX.getOptions().domain,
-      y: scaleY.getOptions().domain,
-    };
+    if (!channelDomain) {
+      channelDomain = {
+        x: scaleX.getOptions().domain,
+        y: scaleY.getOptions().domain,
+      };
+    }
 
     for (const slider of sliders) {
       const { orientation } = slider.attributes;
       const [channel0, channel1] = channelOf(orientation);
-      const eventName = `slider${upperFirst(channel0)}:filter`;
+      const eventName = `${prefix}${upperFirst(channel0)}:filter`;
       const isX = channel0 === 'x';
+      const { ratio: ratioX } = scaleX.getOptions();
+      const { ratio: ratioY } = scaleY.getOptions();
       const domainsOf = (event) => {
         // From abstract values.
         if (event.data) {
@@ -96,8 +109,8 @@ export function SliderFilter({
           const [X = extentOf(channelDomain.x), Y = extentOf(channelDomain.y)] =
             selection;
           return isX
-            ? [domainOf(scaleX, X), domainOf(scaleY, Y)]
-            : [domainOf(scaleY, Y), domainOf(scaleX, X)];
+            ? [domainOf(scaleX, X, ratioX), domainOf(scaleY, Y, ratioY)]
+            : [domainOf(scaleY, Y, ratioY), domainOf(scaleX, X, ratioX)];
         }
 
         // From visual values.
@@ -125,10 +138,15 @@ export function SliderFilter({
           channelDomain[channel1] = domain1;
 
           // Filter data.
-          const newOptions = filterDataByDomain(options, {
-            [channel0]: { domain: domain0 },
-            [channel1]: { domain: domain1 },
-          });
+          const newOptions = filterDataByDomain(
+            options,
+            {
+              [channel0]: { domain: domain0 },
+              [channel1]: { domain: domain1 },
+            },
+            prefix,
+            hasState,
+          );
 
           if (nativeEvent) {
             // Emit events.
@@ -166,7 +184,7 @@ export function SliderFilter({
 
         // Update slider.
         const V = isX ? abstractOf(X, scaleX) : abstractOf(Y, scaleY);
-        slider.setValues(V);
+        setValue(slider, V);
       };
 
       emitter.on(eventName, emitHandler);

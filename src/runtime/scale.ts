@@ -1,7 +1,7 @@
-import { createInterpolateValue } from '@antv/scale';
+import { Linear, createInterpolateValue } from '@antv/scale';
 import { extent } from 'd3-array';
 import * as d3ScaleChromatic from 'd3-scale-chromatic';
-import { upperFirst } from '@antv/util';
+import { max, upperFirst } from '@antv/util';
 import { firstOf, lastOf, unique } from '../utils/array';
 import { defined, identity, isStrictObject } from '../utils/helper';
 import { Primitive, G2Theme, G2MarkState, ChannelGroups } from './types/common';
@@ -26,12 +26,22 @@ export function inferScale(name, values, options, coordinates, theme, library) {
   const { guide = {} } = options;
   const type = inferScaleType(name, values, options);
   if (typeof type !== 'string') return options;
-  const domain = inferScaleDomain(type, name, values, options);
+  const expectedDomain = inferScaleDomain(type, name, values, options);
+  const actualDomain = maybeRatio(type, expectedDomain, options);
   return {
     ...options,
     ...inferScaleOptions(type, name, values, options, coordinates),
-    domain,
-    range: inferScaleRange(type, name, values, options, domain, theme, library),
+    domain: actualDomain,
+    range: inferScaleRange(
+      type,
+      name,
+      values,
+      options,
+      actualDomain,
+      theme,
+      library,
+    ),
+    expectedDomain,
     guide,
     name,
     type,
@@ -142,6 +152,35 @@ function syncFacetsScaleByChannel(
   for (const scale of S) {
     scale.domain = syncedD;
   }
+}
+
+function maybeRatio(
+  type: string,
+  domain: Primitive[],
+  options: G2ScaleOptions,
+) {
+  const { ratio } = options;
+  if (ratio === undefined || ratio === null) return domain;
+  if (isQuantitativeScale({ type })) {
+    return clampQuantitativeScale(domain as number[], ratio, type);
+  }
+  if (isDiscreteScale({ type })) return clampDiscreteScale(domain, ratio);
+  return domain;
+}
+
+function clampQuantitativeScale(domain: number[], ratio: number, type: string) {
+  const D = domain.map(Number);
+  const scale = new Linear({
+    domain: D,
+    range: [D[0], D[0] + (D[D.length - 1] - D[0]) * ratio],
+  });
+  if (type === 'time') return domain.map((d) => new Date(scale.map(d)));
+  return domain.map((d) => scale.map(d));
+}
+
+function clampDiscreteScale(domain: Primitive[], ratio: number) {
+  const index = Math.round(domain.length * ratio);
+  return domain.slice(0, index);
 }
 
 function isQuantitativeScale(scale: G2ScaleOptions) {

@@ -255,20 +255,29 @@ export function addGuideToScale(
   deepMix(mark, {
     scale: {
       ...Object.fromEntries(
-        axisChannels.map((channel) => [
-          channel,
-          {
-            guide: normalize(axis, channel),
-            slider: normalize(slider, channel),
-            scrollbar: normalize(scrollbar, channel),
-          },
-        ]),
+        axisChannels.map((channel) => {
+          const scrollbarOptions = normalize(scrollbar, channel);
+          return [
+            channel,
+            {
+              guide: normalize(axis, channel),
+              slider: normalize(slider, channel),
+              scrollbar: scrollbarOptions,
+              ...(scrollbarOptions && {
+                ratio:
+                  scrollbarOptions.ratio === undefined
+                    ? 0.5
+                    : scrollbarOptions.ratio,
+              }),
+            },
+          ];
+        }),
       ),
       color: { guide: normalize(legend, 'color') },
       size: { guide: normalize(legend, 'size') },
       shape: { guide: normalize(legend, 'shape') },
       // fixme: opacity is conflict with DisplayObject.opacity
-      // to be comfirm.
+      // to be confirm.
       opacity: { guide: normalize(legend, 'opacity') },
     },
   });

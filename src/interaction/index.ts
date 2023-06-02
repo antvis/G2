@@ -17,5 +17,6 @@ export { BrushFilter } from './brushFilter';
 export { BrushXFilter } from './brushXFilter';
 export { BrushYFilter } from './brushYFilter';
 export { SliderFilter } from './sliderFilter';
+export { ScrollbarFilter } from './scrollbarFilter';
 export { Poptip } from './poptip';
 export { Event } from './event';

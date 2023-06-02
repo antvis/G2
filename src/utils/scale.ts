@@ -21,13 +21,26 @@ export function invert(scale, x, start) {
   return domain[i1];
 }
 
-export function domainOf(scale, values) {
+export function domainOf(scale, values, ratioX?) {
   if (!values) return scale.getOptions().domain;
-  if (!isOrdinalScale(scale)) return sort(values);
+  if (!isOrdinalScale(scale)) {
+    const sortedDomain = sort(values);
+    if (!ratioX) return sortedDomain;
+    const [d] = sortedDomain;
+    const { range } = scale.getOptions();
+    const [r0, r1] = range;
+    const v = r0 > r1 ? -1 : 1;
+    const d1 = scale.invert(scale.map(d) + v * ratioX);
+    return [d, d1];
+  }
   const { domain } = scale.getOptions();
   const v1 = values[0];
-  const v2 = values[values.length - 1];
   const start = domain.indexOf(v1);
+  if (ratioX) {
+    const end = start + Math.round(domain.length * ratioX);
+    return domain.slice(start, end);
+  }
+  const v2 = values[values.length - 1];
   const end = domain.indexOf(v2);
   return domain.slice(start, end + 1);
 }
