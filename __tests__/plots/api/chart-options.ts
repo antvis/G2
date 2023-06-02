@@ -12,6 +12,7 @@ export function chartOptions(context) {
     theme: 'classic',
     type: 'line',
     clip: true,
+    title: '标题',
     data: {
       type: 'fetch',
       value: 'data/aapl.csv',
