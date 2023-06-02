@@ -100,6 +100,7 @@ export { monthIntervalFacetRect } from './month-interval-facet-rect';
 export { monthIntervalRadialFacetRect } from './month-interval-radial-facet-rect';
 export { weatherLineRepeatMatrixCol } from './weather-line-repeat-matrix-col';
 export { weatherLineAreaDualAxis } from './weather-line-area-dual-axis';
+export { peopleIntervalAreaDualAxis } from './people-interval-area-dual-axis';
 export { moviesIntervalMultipleMeasure } from './movies-interval-multiple-measure';
 export { seattleWeatherCellSpaceFlex } from './seattle-weather-cell-space-flex';
 export { salaryHeatmapScaleLinear } from './salary-heatmap-scale-linear';
