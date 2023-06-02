@@ -39,20 +39,23 @@ export type AreaOptions = Omit<AreaMark, 'type'>;
 export const Area: MC<AreaOptions> = () => {
   return (index, scale, value, coordinate) => {
     const { x: X, y: Y, y1: Y1, series: S } = value;
+    const { x, y } = scale;
 
     // Group data by series field.
     const series = S ? Array.from(group(index, (i) => S[i]).values()) : [index];
     const I = series.map((group) => group[0]).filter((i) => i !== undefined);
 
     // A group of data corresponds to one area.
+    const xoffset = (x?.getBandWidth?.() || 0) / 2;
+    const yoffset = (y?.getBandWidth?.() || 0) / 2;
     const P = Array.from(series, (SI) => {
       const l = SI.length;
       const points = new Array(l * 2);
 
       for (let idx = 0; idx < SI.length; idx++) {
         const i = SI[idx];
-        points[idx] = coordinate.map([+X[i], +Y[i]]); // y1
-        points[l + idx] = coordinate.map([+X[i], +Y1[i]]); // y0
+        points[idx] = coordinate.map([+X[i] + xoffset, +Y[i] + yoffset]); // y1
+        points[l + idx] = coordinate.map([+X[i] + xoffset, +Y1[i] + yoffset]); // y0
       }
 
       return points;
