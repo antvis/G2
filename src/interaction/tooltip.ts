@@ -138,13 +138,13 @@ function showTooltip({
 }
 
 function hideTooltip({ root, single, emitter, nativeEvent = true, mount }) {
+  if (nativeEvent) {
+    emitter.emit('tooltip:hide', { nativeEvent });
+  }
   const container = single ? getContainer(root, mount) : root;
   const { tooltipElement } = container;
   if (tooltipElement) {
     tooltipElement.hide();
-    if (nativeEvent) {
-      emitter.emit('tooltip:hide', { nativeEvent });
-    }
   }
 }
 
@@ -640,6 +640,7 @@ export function tooltip(
     view,
     mount,
     bounding,
+    body = true,
   }: Record<string, any>,
 ) {
   const elements = elementsof(root);
@@ -674,19 +675,21 @@ export function tooltip(
       }
 
       const { offsetX, offsetY } = event;
-      showTooltip({
-        root,
-        data,
-        x: offsetX,
-        y: offsetY,
-        render,
-        event,
-        single,
-        position,
-        enterable,
-        mount,
-        bounding,
-      });
+      if (body) {
+        showTooltip({
+          root,
+          data,
+          x: offsetX,
+          y: offsetY,
+          render,
+          event,
+          single,
+          position,
+          enterable,
+          mount,
+          bounding,
+        });
+      }
 
       emitter.emit('tooltip:show', {
         ...event,
