@@ -507,6 +507,14 @@ export default defineConfig({
     ],
   },
   mfsu: false,
+  analytics: {
+    // google analytics 的 key (GA 4)
+    // ga_v2: 'G-abcdefg',
+    // 若你在使用 GA v1 旧版本，请使用 `ga` 来配置
+    ga_v2: 'G-3L8SSDC4X6',
+    // 百度统计的 key
+    // baidu: 'baidu_tongji_key',
+  },
   links: [],
   scripts: [],
   styles: ['https://fonts.googleapis.com/css?family=Gaegu'],
