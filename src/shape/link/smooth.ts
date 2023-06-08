@@ -1,6 +1,5 @@
-import { Path } from '@antv/g';
 import { path as d3path } from 'd3-path';
-import { applyStyle, getShapeTheme } from '../utils';
+import { applyStyle } from '../utils';
 import { select } from '../../utils/selection';
 import { ShapeComponent as SC } from '../../runtime';
 
@@ -9,16 +8,11 @@ export type SmoothOptions = Record<string, any>;
 /**
  * Connect 2 points with a smooth line, used in tree.
  */
-export const Smooth: SC<SmoothOptions> = (options) => {
+export const Smooth: SC<SmoothOptions> = (options, context) => {
   const { ...style } = options;
-  return (points, value, coordinate, theme) => {
-    const { mark, shape, defaultShape } = value;
-    const { defaultColor, ...shapeTheme } = getShapeTheme(
-      theme,
-      mark,
-      shape,
-      defaultShape,
-    );
+  const { document } = context;
+  return (points, value, defaults) => {
+    const { color: defaultColor, ...rest } = defaults;
     const { color = defaultColor, transform } = value;
     const [from, to] = points;
 
@@ -33,8 +27,8 @@ export const Smooth: SC<SmoothOptions> = (options) => {
       to[1],
     );
 
-    return select(new Path())
-      .call(applyStyle, shapeTheme)
+    return select(document.createElement('path', {}))
+      .call(applyStyle, rest)
       .style('d', path.toString())
       .style('stroke', color)
       .style('transform', transform)

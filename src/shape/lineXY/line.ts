@@ -1,4 +1,4 @@
-import { Path } from '@antv/g';
+import { IDocument } from '@antv/g';
 import { Coordinate } from '@antv/coord';
 import { arc, line } from 'd3-shape';
 import { isPolar } from '../../utils/coordinate';
@@ -6,7 +6,7 @@ import { select } from '../../utils/selection';
 import { dist } from '../../utils/vector';
 import { subObject } from '../../utils/helper';
 import { Primitive, ShapeComponent as SC, Vector2 } from '../../runtime';
-import { applyStyle, getShapeTheme } from '../utils';
+import { applyStyle } from '../utils';
 
 export type LineOptions = {
   /**
@@ -31,8 +31,12 @@ export type LineOptions = {
   [key: string]: any;
 };
 
-function getArrowMarker(arrowSize: number, arrowStyle: any) {
-  const arrowMarker = new Path({
+function getArrowMarker(
+  document: IDocument,
+  arrowSize: number,
+  arrowStyle: any,
+) {
+  const arrowMarker = document.createElement('path', {
     style: {
       path: `M ${arrowSize},${arrowSize} L -${arrowSize},0 L ${arrowSize},-${arrowSize} L 0,0 Z`,
       anchor: '0.5 0.5',
@@ -65,20 +69,15 @@ function getTransform(coordinate: Coordinate, transform?: Primitive) {
   return `translate(${cx}, ${cy}) ${transform || ''}`;
 }
 
-export const Line: SC<LineOptions> = (options) => {
+export const Line: SC<LineOptions> = (options, context) => {
   const { arrow, arrowSize = 4, ...style } = options;
-  return (points, value, coordinate, theme) => {
-    const { mark, shape, defaultShape } = value;
-    const { defaultColor, lineWidth, ...shapeTheme } = getShapeTheme(
-      theme,
-      mark,
-      shape,
-      defaultShape,
-    );
+  const { coordinate, document } = context;
+  return (points, value, defaults) => {
+    const { color: defaultColor, lineWidth, ...shapeTheme } = defaults;
     const { color = defaultColor, size = lineWidth } = value;
 
     const arrowMarker = arrow
-      ? getArrowMarker(arrowSize, {
+      ? getArrowMarker(document, arrowSize, {
           fill: style.stroke || color,
           stroke: style.stroke || color,
           ...subObject(style, 'arrow'),
@@ -88,7 +87,7 @@ export const Line: SC<LineOptions> = (options) => {
     const path = getPath(points, coordinate);
     const transform = getTransform(coordinate, value.transform);
 
-    return select(new Path({}))
+    return select(document.createElement('path', {}))
       .call(applyStyle, shapeTheme)
       .style('d', path)
       .style('stroke', color)

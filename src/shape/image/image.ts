@@ -1,23 +1,16 @@
-import { Image as GImage } from '@antv/g';
 import { ShapeComponent as SC } from '../../runtime';
-import { applyStyle, getShapeTheme } from '../utils';
+import { applyStyle } from '../utils';
 import { select } from '../../utils/selection';
 import { p } from '../../mark/utils';
 
 export type ImageOptions = Record<string, any>;
 
-export const Image: SC<ImageOptions> = (options) => {
-  const { ...style } = options;
-  return (points, value, coordinate, theme) => {
-    const { mark, shape, defaultShape } = value;
-    const { defaultColor, ...shapeTheme } = getShapeTheme(
-      theme,
-      mark,
-      shape,
-      defaultShape,
-    );
+export const Image: SC<ImageOptions> = (options, context) => {
+  const { coordinate, document } = context;
+  return (points, value, defaults) => {
+    const { color: defaultColor, ...rest } = defaults;
     const { color = defaultColor, src = '', size = 32, transform = '' } = value;
-    let { width = size, height = size } = style;
+    let { width = size, height = size } = options;
     const [[x0, y0]] = points;
 
     // Support percentage width, height.
@@ -28,14 +21,14 @@ export const Image: SC<ImageOptions> = (options) => {
     const x = x0 - Number(width) / 2;
     const y = y0 - Number(height) / 2;
 
-    return select(new GImage())
-      .call(applyStyle, shapeTheme)
+    return select(document.createElement('image', {}))
+      .call(applyStyle, rest)
       .style('x', x)
       .style('y', y)
       .style('img', src)
       .style('stroke', color)
       .style('transform', transform)
-      .call(applyStyle, style)
+      .call(applyStyle, options)
       .style('width', width)
       .style('height', height)
       .node();

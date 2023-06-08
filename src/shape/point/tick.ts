@@ -6,8 +6,11 @@ export type TickOptions = Record<string, any>;
 /**
  * 工
  */
-export const Tick: SC<TickOptions> = (options) => {
-  return Color({ colorAttribute: 'stroke', symbol: 'tick', ...options });
+export const Tick: SC<TickOptions> = (options, context) => {
+  return Color(
+    { colorAttribute: 'stroke', symbol: 'tick', ...options },
+    context,
+  );
 };
 
 Tick.props = {

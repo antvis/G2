@@ -6,8 +6,11 @@ export type HollowBowtieOptions = Record<string, any>;
 /**
  * ▷◁
  */
-export const HollowBowtie: SC<HollowBowtieOptions> = (options) => {
-  return Color({ colorAttribute: 'stroke', symbol: 'bowtie', ...options });
+export const HollowBowtie: SC<HollowBowtieOptions> = (options, context) => {
+  return Color(
+    { colorAttribute: 'stroke', symbol: 'bowtie', ...options },
+    context,
+  );
 };
 
 HollowBowtie.props = {

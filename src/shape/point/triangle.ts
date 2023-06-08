@@ -6,8 +6,11 @@ export type TriangleOptions = Record<string, any>;
 /**
  * ▲
  */
-export const Triangle: SC<TriangleOptions> = (options) => {
-  return Color({ colorAttribute: 'fill', symbol: 'triangle', ...options });
+export const Triangle: SC<TriangleOptions> = (options, context) => {
+  return Color(
+    { colorAttribute: 'fill', symbol: 'triangle', ...options },
+    context,
+  );
 };
 
 Triangle.props = {

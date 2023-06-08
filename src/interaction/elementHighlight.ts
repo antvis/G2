@@ -45,6 +45,7 @@ export function elementHighlight(
     ...subObject(state.active, 'link'),
   });
   const [appendBackground, removeBackground, isBackground] = renderBackground({
+    document: root.ownerDocument,
     scale,
     coordinate,
     background,

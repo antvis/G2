@@ -6,8 +6,11 @@ export type PointOptions = Record<string, any>;
 /**
  * ●
  */
-export const Point: SC<PointOptions> = (options) => {
-  return Color({ colorAttribute: 'fill', symbol: 'point', ...options });
+export const Point: SC<PointOptions> = (options, context) => {
+  return Color(
+    { colorAttribute: 'fill', symbol: 'point', ...options },
+    context,
+  );
 };
 
 Point.props = {

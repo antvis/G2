@@ -1,7 +1,6 @@
-import { Path as GPath } from '@antv/g';
 import { path as d3path } from 'd3-path';
 import { Coordinate } from '@antv/coord';
-import { applyStyle, getShapeTheme } from '../utils';
+import { applyStyle } from '../utils';
 import { select } from '../../utils/selection';
 import { ShapeComponent as SC, Vector2 } from '../../runtime';
 import { isPolar } from '../../utils/coordinate';
@@ -85,28 +84,26 @@ function getPath(p: Vector2[], coordinate: Coordinate, size = 4) {
   return path;
 }
 
-export const Violin: SC<ViolinOptions> = (options) => {
-  const { ...style } = options;
-  return (points, value, coordinate, theme) => {
-    const { mark, shape, defaultShape, color, transform } = value;
+export const Violin: SC<ViolinOptions> = (options, context) => {
+  const { coordinate, document } = context;
+  return (points, value, defaults) => {
+    const { color, transform } = value;
     // TODO: how to setting it by size channel.
     const size = 4;
     const {
-      defaultColor,
+      color: defaultColor,
       fill = defaultColor,
       stroke = defaultColor,
-      ...shapeTheme
-    } = getShapeTheme(theme, mark, shape, defaultShape);
-
+      ...rest
+    } = defaults;
     const path = getPath(points, coordinate, size);
-
-    return select(new GPath())
-      .call(applyStyle, shapeTheme)
+    return select(document.createElement('path', {}))
+      .call(applyStyle, rest)
       .style('d', path.toString())
       .style('stroke', stroke)
       .style('fill', color || fill)
       .style('transform', transform)
-      .call(applyStyle, style)
+      .call(applyStyle, options)
       .node();
   };
 };

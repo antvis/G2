@@ -7,16 +7,12 @@ export type SmoothOptions = {
   alpha?: number;
 };
 
-export const Smooth: SC<SmoothOptions> = (options) => {
+export const Smooth: SC<SmoothOptions> = (options, context) => {
   const { alpha = 0.5, ...rest } = options;
-  return (P, value, coordinate, theme) => {
+  const { coordinate } = context;
+  return (...params) => {
     const curve = isPolar(coordinate) ? curveCatmullRomClosed : curveCatmullRom;
-    return Curve({ curve: curve.alpha(alpha), ...rest })(
-      P,
-      value,
-      coordinate,
-      theme,
-    );
+    return Curve({ curve: curve.alpha(alpha), ...rest }, context)(...params);
   };
 };
 

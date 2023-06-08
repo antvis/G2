@@ -6,8 +6,11 @@ export type HexagonOptions = Record<string, any>;
 /**
  * ⭓
  */
-export const Hexagon: SC<HexagonOptions> = (options) => {
-  return Color({ colorAttribute: 'fill', symbol: 'hexagon', ...options });
+export const Hexagon: SC<HexagonOptions> = (options, context) => {
+  return Color(
+    { colorAttribute: 'fill', symbol: 'hexagon', ...options },
+    context,
+  );
 };
 
 Hexagon.props = {

@@ -1,6 +1,5 @@
 import { max as d3max, min as d3min } from 'd3-array';
-import { Image as GImage } from '@antv/g';
-import { applyStyle, getShapeTheme } from '../utils';
+import { applyStyle } from '../utils';
 import { select } from '../../utils/selection';
 import { ShapeComponent as SC } from '../../runtime';
 import { HeatmapRenderer } from './renderer';
@@ -9,7 +8,6 @@ import type { HeatmapRendererOptions } from './renderer/types';
 export type HeatmapOptions = HeatmapRendererOptions;
 
 function deleteKey(obj: any, fn: (v, k) => boolean) {
-  const r = { ...obj };
   return Object.keys(obj).reduce((r, k) => {
     const v = obj[k];
     if (!fn(v, k)) r[k] = v;
@@ -17,7 +15,7 @@ function deleteKey(obj: any, fn: (v, k) => boolean) {
   }, {});
 }
 
-export const Heatmap: SC<HeatmapOptions> = (options) => {
+export const Heatmap: SC<HeatmapOptions> = (options, context) => {
   const {
     gradient,
     opacity,
@@ -27,11 +25,9 @@ export const Heatmap: SC<HeatmapOptions> = (options) => {
     useGradientOpacity,
     ...style
   } = options;
-  return (points: number[][], value, coordinate, theme, _, context) => {
-    const { mark, shape, defaultShape, transform } = value;
-    const { ...shapeTheme } = getShapeTheme(theme, mark, shape, defaultShape);
-    const { createCanvas } = context;
-
+  const { coordinate, createCanvas, document } = context;
+  return (points: number[][], value, defaults) => {
+    const { transform } = value;
     const [width, height] = coordinate.getSize();
     const data = points.map((p: number[]) => ({
       x: p[0],
@@ -64,8 +60,8 @@ export const Heatmap: SC<HeatmapOptions> = (options) => {
           )
         : { canvas: null };
 
-    return select(new GImage())
-      .call(applyStyle, shapeTheme)
+    return select(document.createElement('image', {}))
+      .call(applyStyle, defaults)
       .style('x', 0)
       .style('y', 0)
       .style('width', width)

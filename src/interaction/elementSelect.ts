@@ -46,6 +46,7 @@ export function elementSelect(
   });
 
   const [appendBackground, removeBackground] = renderBackground({
+    document: root.ownerDocument,
     background,
     coordinate,
     scale,

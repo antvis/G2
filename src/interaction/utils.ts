@@ -335,6 +335,7 @@ export function offsetTransform(element, offset, coordinate) {
 }
 
 export function renderBackground({
+  document,
   background,
   scale,
   coordinate,
@@ -384,7 +385,7 @@ export function renderBackground({
     ].map((d) => coordinate.map(d));
     const { __data__: data } = element;
     const { y: dy, y1: dy1 } = data;
-    return rect(points, { y: dy, y1: dy1 }, coordinate, style);
+    return rect(document, points, { y: dy, y1: dy1 }, coordinate, style);
   };
 
   // Shape without ordinal style.

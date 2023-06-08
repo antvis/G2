@@ -1,9 +1,8 @@
 import { path as d3path } from 'd3-path';
-import { Path } from '@antv/g';
 import { ShapeComponent as SC } from '../../runtime';
 import { select } from '../../utils/selection';
-import { applyStyle, getShapeTheme } from '../utils';
-import { angle, dist, sub, add, Vector2 } from '../../utils/vector';
+import { applyStyle } from '../utils';
+import { angle, sub, add, Vector2 } from '../../utils/vector';
 import { Curve } from './curve';
 
 /**
@@ -45,18 +44,12 @@ function stroke(path, p0, p1, s0, s1) {
 
 export type TrailOptions = Record<string, any>;
 
-export const Trail: SC<TrailOptions> = (options) => {
-  return (P, value, coordinate, theme) => {
-    const { mark, shape, defaultShape, seriesSize, color } = value;
-    const { defaultColor, ...defaults } = getShapeTheme(
-      theme,
-      mark,
-      shape,
-      defaultShape,
-    );
-
+export const Trail: SC<TrailOptions> = (options, context) => {
+  const { document } = context;
+  return (P, value, defaults) => {
+    const { seriesSize, color } = value;
+    const { color: defaultColor, ...rest } = defaults;
     const path = d3path();
-
     for (let i = 0; i < P.length - 1; i++) {
       const p0 = P[i];
       const p1 = P[i + 1];
@@ -64,9 +57,8 @@ export const Trail: SC<TrailOptions> = (options) => {
       const s1 = seriesSize[i + 1];
       stroke(path, p0, p1, s0, s1);
     }
-
-    return select(new Path({}))
-      .call(applyStyle, defaults)
+    return select(document.createElement('path', {}))
+      .call(applyStyle, rest)
       .style('fill', color || defaultColor)
       .style('d', path.toString())
       .call(applyStyle, options)

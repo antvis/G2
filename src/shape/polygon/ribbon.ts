@@ -1,7 +1,6 @@
-import { Path as GPath } from '@antv/g';
 import { path as d3path } from 'd3-path';
 import { Coordinate } from '@antv/coord';
-import { appendArc, applyStyle, getShapeTheme } from '../utils';
+import { appendArc, applyStyle } from '../utils';
 import { select } from '../../utils/selection';
 import { isPolar } from '../../utils/coordinate';
 import { dist } from '../../utils/vector';
@@ -70,21 +69,15 @@ function getRibbonPath(points: Vector2[], coordinate: Coordinate) {
  * - In rect, draw ribbon used in Sankey.
  * - In polar, draw arc used in Chord.
  */
-export const Ribbon: SC<RibbonOptions> = (options) => {
+export const Ribbon: SC<RibbonOptions> = (options, context) => {
   const { ...style } = options;
-  return (points, value, coordinate, theme) => {
-    const { mark, shape, defaultShape, color, transform } = value;
-    const { defaultColor, ...shapeTheme } = getShapeTheme(
-      theme,
-      mark,
-      shape,
-      defaultShape,
-    );
-
+  const { coordinate, document } = context;
+  return (points, value, defaults) => {
+    const { color: defaultColor, ...rest } = defaults;
+    const { color = defaultColor, transform } = value;
     const path = getRibbonPath(points, coordinate);
-
-    return select(new GPath())
-      .call(applyStyle, shapeTheme)
+    return select(document.createElement('path', {}))
+      .call(applyStyle, rest)
       .style('d', path.toString())
       .style('fill', color || defaultColor)
       .style('stroke', color || defaultColor)

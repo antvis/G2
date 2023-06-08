@@ -1,27 +1,22 @@
 import { line, lineRadial, CurveFactory, CurveFactoryLineOnly } from 'd3-shape';
 import { Vector2 } from '@antv/coord';
-import { Path } from '@antv/g';
 import { isPolar } from '../../utils/coordinate';
 import { select } from '../../utils/selection';
 import { ShapeComponent as SC } from '../../runtime';
-import {
-  applyStyle,
-  computeGradient,
-  getShapeTheme,
-  getTransform,
-} from '../utils';
+import { applyStyle, computeGradient, getTransform } from '../utils';
 import { createElement } from '../../utils/createElement';
 import { subObject } from '../../utils/helper';
 import { angleWithQuadrant, dist, sub } from '../../utils/vector';
 
 const DoublePath = createElement((g) => {
   const { d1, d2, style1, style2 } = g.attributes;
+  const document = g.ownerDocument;
   select(g)
-    .maybeAppend('line', () => new Path({}))
+    .maybeAppend('line', () => document.createElement('path', {}))
     .style('d', d1)
     .call(applyStyle, style1);
   select(g)
-    .maybeAppend('line1', () => new Path({}))
+    .maybeAppend('line1', () => document.createElement('path', {}))
     .style('d', d2)
     .call(applyStyle, style2);
 });
@@ -73,7 +68,7 @@ export type CurveOptions = {
   [key: string]: any;
 };
 
-export const Curve: SC<CurveOptions> = (options) => {
+export const Curve: SC<CurveOptions> = (options, context) => {
   const {
     curve,
     gradient = false,
@@ -83,14 +78,10 @@ export const Curve: SC<CurveOptions> = (options) => {
     connect: connectNulls = false,
     ...style
   } = options;
-  return (P, value, coordinate, theme) => {
+  const { coordinate, document } = context;
+  return (P, value, defaults) => {
     // Compute styles.
-    const { mark, shape, defaultShape } = value;
-    const {
-      defaultColor,
-      lineWidth: defaultSize,
-      ...defaults
-    } = getShapeTheme(theme, mark, shape, defaultShape);
+    const { color: defaultColor, lineWidth: defaultSize, ...rest } = defaults;
     const {
       color = defaultColor,
       size = defaultSize,
@@ -104,7 +95,7 @@ export const Curve: SC<CurveOptions> = (options) => {
         : color;
     const transform = getTransform(coordinate, value);
     const finalStyle = {
-      ...defaults,
+      ...rest,
       ...(stroke && { stroke }),
       ...(size && { lineWidth: size }),
       ...(transform && { transform }),
@@ -134,7 +125,7 @@ export const Curve: SC<CurveOptions> = (options) => {
 
     // Draw one path of connected defined points.
     if (!missing || (connectNulls && !Object.keys(connectStyle).length)) {
-      return select(new Path({}))
+      return select(document.createElement('path', {}))
         .style('d', linePath(DP) || [])
         .call(applyStyle, finalStyle)
         .node();
@@ -142,7 +133,7 @@ export const Curve: SC<CurveOptions> = (options) => {
 
     // Draw one path of unconnected defined points.
     if (missing && !connectNulls) {
-      return select(new Path({}))
+      return select(document.createElement('path', {}))
         .style('d', linePath(P))
         .call(applyStyle, finalStyle)
         .node();

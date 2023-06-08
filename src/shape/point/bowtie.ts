@@ -6,8 +6,11 @@ export type BowtieOptions = Record<string, any>;
 /**
  * ▶◀
  */
-export const Bowtie: SC<BowtieOptions> = (options) => {
-  return Color({ colorAttribute: 'fill', symbol: 'bowtie', ...options });
+export const Bowtie: SC<BowtieOptions> = (options, context) => {
+  return Color(
+    { colorAttribute: 'fill', symbol: 'bowtie', ...options },
+    context,
+  );
 };
 
 Bowtie.props = {

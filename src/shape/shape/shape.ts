@@ -8,7 +8,7 @@ export type ShapeOptions = Record<string, any>;
  */
 export const Shape: SC<ShapeOptions> = (options) => {
   const { render, ...rest } = options;
-  return (points, value, coordinate, theme) => {
+  return (points) => {
     const [[x0, y0]] = points;
     return render({
       ...rest,

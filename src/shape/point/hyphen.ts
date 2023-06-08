@@ -6,8 +6,11 @@ export type HyphenOptions = Record<string, any>;
 /**
  * -
  */
-export const Hyphen: SC<HyphenOptions> = (options) => {
-  return Color({ colorAttribute: 'stroke', symbol: 'hyphen', ...options });
+export const Hyphen: SC<HyphenOptions> = (options, context) => {
+  return Color(
+    { colorAttribute: 'stroke', symbol: 'hyphen', ...options },
+    context,
+  );
 };
 
 Hyphen.props = {

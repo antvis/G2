@@ -16,8 +16,8 @@ export type RectOptions = {
  * Render rect in different coordinate and using color channel for stroke and fill attribute.
  * The stroke attribute is valid with specified lineWidth attribute which defaults to zero.
  */
-export const Rect: SC<RectOptions> = (options) => {
-  return Color({ colorAttribute: 'fill', ...options });
+export const Rect: SC<RectOptions> = (options, context) => {
+  return Color({ colorAttribute: 'fill', ...options }, context);
 };
 
 Rect.props = {

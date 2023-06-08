@@ -60,13 +60,14 @@ function getTextContent(textStyle, { target, total }) {
   return content ? content(target, total) : target.toString();
 }
 
-const indicatorShape: SC<ColorOptions> = (options) => {
+const indicatorShape: SC<ColorOptions> = (options, context) => {
   const { shape, radius, ...style } = options;
   const pointerStyle = subObject(style, 'pointer');
   const pinStyle = subObject(style, 'pin');
   const { shape: pointerShape, ...resPointerStyle } = pointerStyle;
   const { shape: pinShape, ...resPinStyle } = pinStyle;
-  return (points, value, coordinate, theme) => {
+  const { coordinate, theme } = context;
+  return (points, value) => {
     // Invert points.
     const invertedPoints = points.map((p) => coordinate.invert(p));
     // Get new coordinate.

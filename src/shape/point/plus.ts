@@ -6,8 +6,11 @@ export type PlusOptions = Record<string, any>;
 /**
  * +
  */
-export const Plus: SC<PlusOptions> = (options) => {
-  return Color({ colorAttribute: 'stroke', symbol: 'plus', ...options });
+export const Plus: SC<PlusOptions> = (options, context) => {
+  return Color(
+    { colorAttribute: 'stroke', symbol: 'plus', ...options },
+    context,
+  );
 };
 
 Plus.props = {

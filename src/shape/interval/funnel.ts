@@ -1,10 +1,9 @@
-import { Path } from '@antv/g';
 import { line, curveLinearClosed } from 'd3-shape';
 import { Coordinate } from '@antv/coord';
 import { isTranspose } from '../../utils/coordinate';
 import { ShapeComponent as SC, Vector2 } from '../../runtime';
 import { select } from '../../utils/selection';
-import { applyStyle, getShapeTheme, reorder, toOpacityKey } from '../utils';
+import { applyStyle, reorder } from '../utils';
 
 export type FunnelOptions = {
   adjustPoints?: (
@@ -38,25 +37,20 @@ function getFunnelPoints(
 /**
  * Render funnel in different coordinate and using color channel for stroke and fill attribute.
  */
-export const Funnel: SC<FunnelOptions> = (options) => {
+export const Funnel: SC<FunnelOptions> = (options, context) => {
   const { adjustPoints = getFunnelPoints, ...style } = options;
-  return (points, value, coordinate, theme, point2d, ...args) => {
-    const { index, mark, shape, defaultShape } = value;
-    const { defaultColor, ...defaults } = getShapeTheme(
-      theme,
-      mark,
-      shape,
-      defaultShape,
-    );
+  const { coordinate, document } = context;
+  return (points, value, defaults, point2d) => {
+    const { index } = value;
+    const { color: defaultColor, ...rest } = defaults;
     const nextPoints = point2d[index + 1];
     const funnelPoints = adjustPoints(points, nextPoints, coordinate);
     const tpShape = !!isTranspose(coordinate);
-
     const [p0, p1, p2, p3] = tpShape ? reorder(funnelPoints) : funnelPoints;
     const { color = defaultColor, opacity } = value;
     const b = line().curve(curveLinearClosed)([p0, p1, p2, p3]);
-    return select(new Path({}))
-      .call(applyStyle, defaults)
+    return select(document.createElement('path', {}))
+      .call(applyStyle, rest)
       .style('path', b)
       .style('fill', color)
       .style('fillOpacity', opacity)
