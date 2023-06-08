@@ -476,8 +476,8 @@ export function brush(
       end = [x1, y1];
       updateMask([x, y], [x1, y1], emit);
     },
-    remove() {
-      if (mask) removeMask(false);
+    remove(emit = true) {
+      if (mask) removeMask(emit);
     },
     destroy() {
       // Do not emit brush:end event.
@@ -657,7 +657,10 @@ export function brushHighlight(
   emitter.on('brush:highlight', onHighlight);
 
   // Remove brush and reset data.
-  const onRemove = () => brushHandler.remove();
+  const onRemove = ({ nativeEvent }: any = {}) => {
+    if (nativeEvent) return;
+    brushHandler.remove(false);
+  };
   emitter.on('brush:remove', onRemove);
 
   // Remove event handlers.

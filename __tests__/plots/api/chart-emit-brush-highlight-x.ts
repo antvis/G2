@@ -8,6 +8,10 @@ export function chartEmitBrushHighlightX(context) {
   button.innerText = 'Highlight';
   container.appendChild(button);
 
+  const button1 = document.createElement('button');
+  button1.innerText = 'Remove';
+  container.appendChild(button1);
+
   // wrapperDiv
   const wrapperDiv = document.createElement('div');
   container.appendChild(wrapperDiv);
@@ -55,6 +59,11 @@ export function chartEmitBrushHighlightX(context) {
   let resolve;
   const highlighted = new Promise((r) => (resolve = r));
 
+  chart.on('brush:remove', ({ nativeEvent } = {}) => {
+    if (!nativeEvent) return;
+    console.log('remove');
+  });
+
   button.onclick = () => {
     const X = ['2001-01', '2001-03'];
     chart.emit('brush:highlight', {
@@ -63,5 +72,12 @@ export function chartEmitBrushHighlightX(context) {
     resolve();
   };
 
-  return { chart, button, finished, highlighted };
+  let resolve1;
+  const removed = new Promise((r) => (resolve1 = r));
+  button1.onclick = () => {
+    chart.emit('brush:remove');
+    resolve1();
+  };
+
+  return { chart, button, finished, highlighted, button1, removed };
 }

@@ -93,7 +93,7 @@ focus.on('brush:filter', (e) => {
   const [[x1, x2]] = selection;
   const domainX = scaleX.getOptions().domain;
   if (x1 === domainX[0] && x2 === domainX[1]) {
-    context.emit('brush:remove');
+    context.emit('brush:remove', {});
   } else {
     context.emit('brush:highlight', { data: { selection } });
   }
