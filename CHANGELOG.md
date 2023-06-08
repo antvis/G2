@@ -1,5 +1,25 @@
 # G2 - Changelog
 
+## [5.0.12](https://github.com/antvis/g2/compare/5.0.11...5.0.12) (2023-06-08)
+
+### Bug Fixes
+
+- calculate band offset in area mark ([#5148](https://github.com/antvis/g2/issues/5148)) ([19d7f68](https://github.com/antvis/g2/commit/19d7f688fe22889fbe9773ca867067bf16e546ef))
+- chart.options do not show title ([#5147](https://github.com/antvis/g2/issues/5147)) ([17eb842](https://github.com/antvis/g2/commit/17eb8428728003a6a2b11547b3022becf996f8bb))
+
+### Features
+
+- add venn chart demo, tests ([#5129](https://github.com/antvis/g2/issues/5129)) ([36b9b02](https://github.com/antvis/g2/commit/36b9b025c414ba827959ef1bc9aa2d061c3b9820))
+- **interaction:** add scrollbarFilter ([#5152](https://github.com/antvis/g2/issues/5152)) ([72e0cc4](https://github.com/antvis/g2/commit/72e0cc414548fd1e21c8e8dae7c874e530f9e29d))
+- **interaction:** emit brush axis highlight ([#5132](https://github.com/antvis/g2/issues/5132)) ([534c1ef](https://github.com/antvis/g2/commit/534c1efcf6a2ad436d5629645cf2ca71f1078ea2))
+- **interaction:** emit element highlight ([#5117](https://github.com/antvis/g2/issues/5117)) ([44b8ee5](https://github.com/antvis/g2/commit/44b8ee5abf2cf33dcef61ee753023c9464154bed))
+- **interaction:** emit element select ([#5119](https://github.com/antvis/g2/issues/5119)) ([ea20755](https://github.com/antvis/g2/commit/ea20755b5926073b073e0a3549e455c4c9d40c61))
+- **interaction:** emit legend filter ([#5127](https://github.com/antvis/g2/issues/5127)) ([b7071ef](https://github.com/antvis/g2/commit/b7071effd62579db9b80b4d9de6dca0a080879c3))
+- **interaction:** emit legend highlight ([#5126](https://github.com/antvis/g2/issues/5126)) ([e796355](https://github.com/antvis/g2/commit/e796355354469d53b8c3f5165beebb865ed59fb0))
+- **interaction:** emit slider filter ([#5114](https://github.com/antvis/g2/issues/5114)) ([32ac0f6](https://github.com/antvis/g2/commit/32ac0f6ba02badbb2a12a41dd581e73083b45b38))
+- interval shape has max/min width ([#5123](https://github.com/antvis/g2/issues/5123)) ([7b50766](https://github.com/antvis/g2/commit/7b5076663c0432dc4f4808386b4ed80ee59efa85))
+- **line:** add trail shape ([#5137](https://github.com/antvis/g2/issues/5137)) ([34937ea](https://github.com/antvis/g2/commit/34937ea26448cb8bcc80a0b9c362e9387b99b843))
+
 ## [5.0.11](https://github.com/antvis/g2/compare/5.0.10...5.0.11) (2023-05-26)
 
 ### Bug Fixes
