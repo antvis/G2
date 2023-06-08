@@ -1031,16 +1031,14 @@ function getLabels(
     ];
   }
   const selector = normalizeLabelSelector(label);
-  const F = SI.filter((_, i) => points[i].every(defined)).map(
-    (index: number, i: number) => ({
-      ...label,
-      key: `${seriesKey[i]}-${labelIndex}`,
-      bounds: [points[i]],
-      index,
-      points,
-      dependentElement: element,
-    }),
-  );
+  const F = SI.map((index: number, i: number) => ({
+    ...label,
+    key: `${seriesKey[i]}-${labelIndex}`,
+    bounds: [points[i]],
+    index,
+    points,
+    dependentElement: element,
+  }));
   return selector ? selector(F) : F;
 }
 
