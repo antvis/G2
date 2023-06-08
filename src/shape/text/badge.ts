@@ -4,7 +4,7 @@ import { ShapeComponent as SC, WithPrefix } from '../../runtime';
 import { createElement } from '../../utils/createElement';
 import { subObject } from '../../utils/helper';
 import { select } from '../../utils/selection';
-import { applyStyle, getShapeTheme } from '../../shape/utils';
+import { applyStyle } from '../../shape/utils';
 
 export type BadgeOptions = BadgeShapeStyleProps & Record<string, any>;
 
@@ -56,27 +56,19 @@ const BadgeShape = createElement((g) => {
     .call(applyStyle, rest);
 });
 
-export const Badge: SC<BadgeOptions> = (options) => {
+export const Badge: SC<BadgeOptions> = (options, context) => {
   const { ...style } = options;
-  return (points, value, coordinate, theme) => {
-    const { mark, shape, defaultShape } = value;
-    const { defaultColor, ...shapeTheme } = getShapeTheme(
-      theme,
-      mark,
-      shape,
-      defaultShape,
-    );
-    const { color, text = '' } = value;
-
+  return (points, value, defaults) => {
+    const { color: defaultColor, ...rest } = defaults;
+    const { color = defaultColor, text = '' } = value;
     const textStyle = {
       text: String(text),
-      stroke: color || defaultColor,
-      fill: color || defaultColor,
+      stroke: color,
+      fill: color,
     };
-
     const [[x0, y0]] = points;
     return select(new BadgeShape())
-      .call(applyStyle, shapeTheme)
+      .call(applyStyle, rest)
       .style('x', x0)
       .style('y', y0)
       .call(applyStyle, textStyle)

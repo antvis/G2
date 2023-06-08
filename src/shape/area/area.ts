@@ -5,10 +5,11 @@ import { Curve } from './curve';
 
 export type AreaOptions = Record<string, any>;
 
-export const Area: SC<AreaOptions> = (options) => {
-  return (P, value, coordinate, theme) => {
+export const Area: SC<AreaOptions> = (options, context) => {
+  const { coordinate } = context;
+  return (...params) => {
     const curve = isPolar(coordinate) ? curveLinearClosed : curveLinear;
-    return Curve({ curve: curve, ...options })(P, value, coordinate, theme);
+    return Curve({ curve: curve, ...options }, context)(...params);
   };
 };
 

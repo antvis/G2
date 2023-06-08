@@ -1,6 +1,6 @@
 import { Coordinate, Transformation } from '@antv/coord';
 import EventEmitter from '@antv/event-emitter';
-import { DisplayObject, IAnimation as GAnimation } from '@antv/g';
+import { DisplayObject, IAnimation as GAnimation, IDocument } from '@antv/g';
 import {
   G2Theme,
   G2ViewInstance,
@@ -78,8 +78,9 @@ export type G2BaseComponent<
   R = any,
   O = Record<string, unknown> | void,
   P = Record<string, unknown>,
+  C = Record<string, unknown>,
 > = {
-  (options?: O): R;
+  (options?: O, context?: C): R;
   props?: P;
 };
 
@@ -142,10 +143,8 @@ export type Shape = (
     index?: number;
     [key: string]: any;
   },
-  coordinate: Coordinate,
-  theme: G2Theme,
+  defaults?: Record<string, any>,
   point2d?: Vector2[][],
-  context?: G2Context,
 ) => DisplayObject;
 export type ShapeProps = {
   defaultMarker?: string;
@@ -153,10 +152,16 @@ export type ShapeProps = {
   defaultUpdateAnimation?: string;
   defaultExitAnimation?: string;
 };
+export type ShapeContext = {
+  document: IDocument;
+  coordinate: Coordinate;
+  [key: string]: any; // TODO
+};
 export type ShapeComponent<O = Record<string, unknown>> = G2BaseComponent<
   Shape,
   O,
-  ShapeProps
+  ShapeProps,
+  ShapeContext
 >;
 
 export type Theme = G2Theme;

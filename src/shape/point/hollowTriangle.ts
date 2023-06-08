@@ -6,12 +6,15 @@ export type HollowTriangleOptions = Record<string, any>;
 /**
  * △
  */
-export const HollowTriangle: SC<HollowTriangleOptions> = (options) => {
-  return Color({
-    colorAttribute: 'stroke',
-    symbol: 'triangle',
-    ...options,
-  });
+export const HollowTriangle: SC<HollowTriangleOptions> = (options, context) => {
+  return Color(
+    {
+      colorAttribute: 'stroke',
+      symbol: 'triangle',
+      ...options,
+    },
+    context,
+  );
 };
 
 HollowTriangle.props = {

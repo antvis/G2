@@ -1,6 +1,5 @@
 import { path as d3path } from 'd3-path';
-import { Path } from '@antv/g';
-import { applyStyle, arrowPoints, ArrowOptions, getShapeTheme } from '../utils';
+import { applyStyle, arrowPoints, ArrowOptions } from '../utils';
 import { select } from '../../utils/selection';
 import { ShapeComponent as SC } from '../../runtime';
 
@@ -10,17 +9,12 @@ export type VectorOptions = ArrowOptions;
  * Connect 2 points with a single line with arrow.
  * ----->
  */
-export const Vector: SC<VectorOptions> = (options) => {
+export const Vector: SC<VectorOptions> = (options, context) => {
   const { arrow = true, arrowSize = '40%', ...style } = options;
-  return (points, value, coordinate, theme) => {
-    const { mark, shape, defaultShape, transform } = value;
-    const { defaultColor, ...shapeTheme } = getShapeTheme(
-      theme,
-      mark,
-      shape,
-      defaultShape,
-    );
-    const { color = defaultColor } = value;
+  const { document } = context;
+  return (points, value, defaults) => {
+    const { defaultColor, ...rest } = defaults;
+    const { color = defaultColor, transform } = value;
     const [from, to] = points;
 
     // Draw line
@@ -38,10 +32,10 @@ export const Vector: SC<VectorOptions> = (options) => {
       path.lineTo(...arrow2);
     }
 
-    return select(new Path())
-      .call(applyStyle, shapeTheme)
+    return select(document.createElement('path', {}))
+      .call(applyStyle, rest)
       .style('d', path.toString())
-      .style('stroke', color || defaultColor)
+      .style('stroke', color)
       .style('transform', transform)
       .call(applyStyle, style)
       .node();

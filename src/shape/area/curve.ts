@@ -1,29 +1,11 @@
 import { area, areaRadial, CurveFactory } from 'd3-shape';
-import { Path } from '@antv/g';
 import { select } from '../../utils/selection';
 import { isPolar, isTranspose } from '../../utils/coordinate';
 import { Vector2, ShapeComponent as SC } from '../../runtime';
 import { angleWithQuadrant, sub, dist } from '../../utils/vector';
-import {
-  applyStyle,
-  computeGradient,
-  getShapeTheme,
-  getTransform,
-} from '../utils';
+import { applyStyle, computeGradient, getTransform } from '../utils';
 import { subObject } from '../../utils/helper';
 import { createElement } from '../../utils/createElement';
-
-const DoubleArea = createElement((g) => {
-  const { areaPath, connectPath, areaStyle, connectStyle } = g.attributes;
-  select(g)
-    .maybeAppend('connect-path', () => new Path({}))
-    .style('d', connectPath)
-    .call(applyStyle, connectStyle);
-  select(g)
-    .maybeAppend('area-path', () => new Path({}))
-    .style('d', areaPath)
-    .call(applyStyle, areaStyle);
-});
 
 /**
  * Given a points sequence, split it into an array of defined points
@@ -76,7 +58,20 @@ export type CurveOptions = {
   [key: string]: any;
 };
 
-export const Curve: SC<CurveOptions> = (options) => {
+const DoubleArea = createElement((g) => {
+  const { areaPath, connectPath, areaStyle, connectStyle } = g.attributes;
+  const document = g.ownerDocument;
+  select(g)
+    .maybeAppend('connect-path', () => document.createElement('path', {}))
+    .style('d', connectPath)
+    .call(applyStyle, connectStyle);
+  select(g)
+    .maybeAppend('area-path', () => document.createElement('path', {}))
+    .style('d', areaPath)
+    .call(applyStyle, areaStyle);
+});
+
+export const Curve: SC<CurveOptions> = (options, context) => {
   const {
     curve,
     gradient = false,
@@ -84,14 +79,10 @@ export const Curve: SC<CurveOptions> = (options) => {
     connect: connectNulls = false,
     ...style
   } = options;
-  return (P, value, coordinate, theme) => {
-    const { mark, shape, defaultShape } = value;
-    const { defaultColor, ...defaults } = getShapeTheme(
-      theme,
-      mark,
-      shape,
-      defaultShape,
-    );
+  const { coordinate, document } = context;
+
+  return (P, value, defaults) => {
+    const { color: defaultColor } = defaults;
     const {
       color = defaultColor,
       seriesColor: sc,
@@ -115,7 +106,7 @@ export const Curve: SC<CurveOptions> = (options) => {
     const missing = !!MS.length;
 
     const getPathNode = (path) => {
-      return select(new Path({}))
+      return select(document.createElement('path', {}))
         .style('d', path)
         .call(applyStyle, finalStyle)
         .node();

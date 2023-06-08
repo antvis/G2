@@ -9,8 +9,8 @@ export type PathOptions = {
 /**
  * A filled path.
  */
-export const Path: SC<PathOptions> = (options) => {
-  return Color({ colorAttribute: 'fill', ...options });
+export const Path: SC<PathOptions> = (options, context) => {
+  return Color({ colorAttribute: 'fill', ...options }, context);
 };
 
 Path.props = {

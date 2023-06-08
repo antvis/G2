@@ -44,8 +44,9 @@ function getDefaultStyle(
  * Render normal label for each mark.
  * @todo Support position option: middle...
  */
-export const Label: SC<LabelOptions> = (options) => {
-  return (points, value, coordinate, theme) => {
+export const Label: SC<LabelOptions> = (options, context) => {
+  const { coordinate, theme } = context;
+  return (points, value) => {
     const {
       text,
       x,

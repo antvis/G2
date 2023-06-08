@@ -40,8 +40,8 @@ function getPyramidPoints(
 /**
  * Render pyramid in different coordinate and using color channel for stroke and fill attribute.
  */
-export const Pyramid: SC<PyramidOptions> = (options) => {
-  return Funnel({ adjustPoints: getPyramidPoints, ...options });
+export const Pyramid: SC<PyramidOptions> = (options, context) => {
+  return Funnel({ adjustPoints: getPyramidPoints, ...options }, context);
 };
 
 Pyramid.props = {

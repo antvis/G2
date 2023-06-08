@@ -4,8 +4,8 @@ import { Curve } from './curve';
 
 export type HVOptions = Record<string, any>;
 
-export const HV: SC<HVOptions> = (options) => {
-  return Curve({ curve: curveStepAfter, ...options });
+export const HV: SC<HVOptions> = (options, context) => {
+  return Curve({ curve: curveStepAfter, ...options }, context);
 };
 
 HV.props = {

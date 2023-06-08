@@ -8,10 +8,10 @@ export type LinkOptions = ArrowOptions;
  * Connect 2 points with a single line with arrow.
  * ----->
  */
-export const Link: SC<LinkOptions> = (options) => {
+export const Link: SC<LinkOptions> = (options, context) => {
   const { arrow = false } = options;
-  return (points, value, coordinate, theme) => {
-    return Vector({ ...options, arrow })(points, value, coordinate, theme);
+  return (...params) => {
+    return Vector({ ...options, arrow }, context)(...params);
   };
 };
 

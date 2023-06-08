@@ -1,8 +1,7 @@
-import { Path as GPath } from '@antv/g';
 import { Coordinate } from '@antv/coord';
 import { path as d3path } from 'd3-path';
 import { isPolar } from '../../utils/coordinate';
-import { applyStyle, appendPolygon, appendArc, getShapeTheme } from '../utils';
+import { applyStyle, appendPolygon, appendArc } from '../utils';
 import { select } from '../../utils/selection';
 import { dist } from '../../utils/vector';
 import { ShapeComponent as SC, Vector2 } from '../../runtime';
@@ -44,26 +43,19 @@ function getPolygonPath(points: Vector2[], coordinate: Coordinate) {
   return appendPolygon(path, points);
 }
 
-export const Polygon: SC<PolygonOptions> = (options) => {
-  const { ...style } = options;
-  return (points, value, coordinate, theme) => {
-    const { mark, shape, defaultShape, color, transform } = value;
-    const { defaultColor, ...shapeTheme } = getShapeTheme(
-      theme,
-      mark,
-      shape,
-      defaultShape,
-    );
-
+export const Polygon: SC<PolygonOptions> = (options, context) => {
+  const { coordinate, document } = context;
+  return (points, value, defaults) => {
+    const { color: defaultColor, ...rest } = defaults;
+    const { color = defaultColor, transform } = value;
     const path = getPolygonPath(points, coordinate);
-
-    return select(new GPath())
-      .call(applyStyle, shapeTheme)
+    return select(document.createElement('path', {}))
+      .call(applyStyle, rest)
       .style('d', path.toString())
-      .style('stroke', color || defaultColor)
-      .style('fill', color || defaultColor)
+      .style('stroke', color)
+      .style('fill', color)
       .style('transform', transform)
-      .call(applyStyle, style)
+      .call(applyStyle, options)
       .node();
   };
 };

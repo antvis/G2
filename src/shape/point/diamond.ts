@@ -6,8 +6,11 @@ export type DiamondOptions = Record<string, any>;
 /**
  * ◆
  */
-export const Diamond: SC<DiamondOptions> = (options) => {
-  return Color({ colorAttribute: 'fill', symbol: 'diamond', ...options });
+export const Diamond: SC<DiamondOptions> = (options, context) => {
+  return Color(
+    { colorAttribute: 'fill', symbol: 'diamond', ...options },
+    context,
+  );
 };
 
 Diamond.props = {

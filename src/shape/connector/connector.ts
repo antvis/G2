@@ -8,7 +8,7 @@ import { createElement } from '../../utils/createElement';
 import { isTranspose } from '../../utils/coordinate';
 import { subObject } from '../../utils/helper';
 import { select } from '../../utils/selection';
-import { applyStyle, getShapeTheme } from '../utils';
+import { applyStyle } from '../utils';
 
 export type ConnectorOptions = ConnectorPathStyleProps & Record<string, any>;
 
@@ -98,21 +98,15 @@ function getPoints(
   ];
 }
 
-export const Connector: SC<ConnectorOptions> = (options) => {
+export const Connector: SC<ConnectorOptions> = (options, context) => {
   const { offset = 0, connectLength1: length1, ...style } = options;
-  return (points, value, coordinate, theme) => {
-    const { mark, shape, defaultShape } = value;
-    const {
-      defaultColor,
-      connectLength1 = length1,
-      ...shapeTheme
-    } = getShapeTheme(theme, mark, shape, defaultShape);
+  const { coordinate } = context;
+  return (points, value, defaults) => {
+    const { color: defaultColor, connectLength1 = length1, ...rest } = defaults;
     const { color, transform } = value;
-
     const P = getPoints(coordinate, points, offset, connectLength1);
-
     return select(new ConnectorPath())
-      .call(applyStyle, shapeTheme)
+      .call(applyStyle, rest)
       .style('points', P)
       .style('stroke', color || defaultColor)
       .style('transform', transform)

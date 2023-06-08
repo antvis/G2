@@ -1,5 +1,4 @@
-import { Path as GPath } from '@antv/g';
-import { applyStyle, getShapeTheme } from '../utils';
+import { applyStyle } from '../utils';
 import { select } from '../../utils/selection';
 import { ShapeComponent as SC } from '../../runtime';
 
@@ -11,21 +10,16 @@ export type ColorOptions = {
 /**
  * Draw a filled or hollow path.
  */
-export const Color: SC<ColorOptions> = (options) => {
+export const Color: SC<ColorOptions> = (options, context) => {
   const { arrow, colorAttribute, ...style } = options;
-  return (points, value, coordinate, theme) => {
-    const { mark, shape, defaultShape } = value;
-    const { stroke, ...shapeTheme } = getShapeTheme(
-      theme,
-      mark,
-      shape,
-      defaultShape,
-    );
-    const { d, color } = value;
+  const { coordinate, document } = context;
+  return (points, value, defaults) => {
+    const { color: defaultColor, stroke, ...rest } = defaults;
+    const { d, color = defaultColor } = value;
     const [width, height] = coordinate.getSize();
     return (
-      select(new GPath())
-        .call(applyStyle, shapeTheme)
+      select(document.createElement('path', {}))
+        .call(applyStyle, rest)
         // Path support string, function with parameter { width, height }.
         .style('d', typeof d === 'function' ? d({ width, height }) : d)
         .style(colorAttribute, color)

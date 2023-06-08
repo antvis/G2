@@ -1,10 +1,9 @@
 import { Coordinate, Vector2 } from '@antv/coord';
-import { Path } from '@antv/g';
 import { ShapeComponent as SC } from '../../runtime';
 import { isFisheye } from '../../utils/coordinate';
 import { Symbols } from '../../utils/marker';
 import { select } from '../../utils/selection';
-import { applyStyle, getOrigin, getShapeTheme, toOpacityKey } from '../utils';
+import { applyStyle, getOrigin, toOpacityKey } from '../utils';
 
 export type ColorOptions = {
   colorAttribute: 'fill' | 'stroke';
@@ -34,24 +33,19 @@ function getRadius(
 /**
  * Render point in different coordinate.
  */
-export const Color: SC<ColorOptions> = (options) => {
+export const Color: SC<ColorOptions> = (options, context) => {
   // Render border only when colorAttribute is stroke.
   const { colorAttribute, symbol, mode = 'auto', ...style } = options;
   const path = Symbols.get(symbol) || Symbols.get('point');
-  return (points, value, coordinate, theme) => {
-    const { mark, shape, defaultShape } = value;
-    const { defaultColor, lineWidth, ...defaults } = getShapeTheme(
-      theme,
-      mark,
-      shape,
-      defaultShape,
-    );
+  const { coordinate, document } = context;
+  return (points, value, defaults) => {
+    const { lineWidth, color: defaultColor } = defaults;
     const finalLineWidth = style.stroke ? lineWidth || 1 : lineWidth;
     const { color = defaultColor, transform, opacity } = value;
     const [cx, cy] = getOrigin(points);
     const r = getRadius(mode, points, value, coordinate);
     const finalRadius = r || style.r || defaults.r;
-    return select(new Path())
+    return select(document.createElement('path', {}))
       .call(applyStyle, defaults)
       .style('fill', 'transparent')
       .style('d', path(cx, cy, finalRadius))

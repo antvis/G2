@@ -1,7 +1,6 @@
-import { Path as GPath } from '@antv/g';
 import { path as d3path } from 'd3-path';
 import { Coordinate } from '@antv/coord';
-import { applyStyle, getShapeTheme } from '../utils';
+import { applyStyle } from '../utils';
 import { select } from '../../utils/selection';
 import { ShapeComponent as SC, Vector2 } from '../../runtime';
 import { isPolar } from '../../utils/coordinate';
@@ -73,26 +72,26 @@ function getPath(points: Vector2[], coordinate: Coordinate) {
   return path;
 }
 
-export const Box: SC<BoxOptions> = (options) => {
-  const { ...style } = options;
-  return (points, value, coordinate, theme) => {
-    const { mark, shape, defaultShape, color, transform } = value;
+export const Box: SC<BoxOptions> = (options, context) => {
+  const { coordinate, document } = context;
+  return (points, value, defaults) => {
+    const { color, transform } = value;
     const {
-      defaultColor,
+      color: defaultColor,
       fill = defaultColor,
       stroke = defaultColor,
-      ...shapeTheme
-    } = getShapeTheme(theme, mark, shape, defaultShape);
+      ...rest
+    } = defaults;
 
     const path = getPath(points, coordinate);
 
-    return select(new GPath())
-      .call(applyStyle, shapeTheme)
+    return select(document.createElement('path', {}))
+      .call(applyStyle, rest)
       .style('d', path.toString())
       .style('stroke', stroke)
       .style('fill', color || fill)
       .style('transform', transform)
-      .call(applyStyle, style)
+      .call(applyStyle, options)
       .node();
   };
 };

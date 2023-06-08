@@ -6,8 +6,11 @@ export type LineOptions = Record<string, any>;
 /**
  * |
  */
-export const Line: SC<LineOptions> = (options) => {
-  return Color({ colorAttribute: 'stroke', symbol: 'line', ...options });
+export const Line: SC<LineOptions> = (options, context) => {
+  return Color(
+    { colorAttribute: 'stroke', symbol: 'line', ...options },
+    context,
+  );
 };
 
 Line.props = {

@@ -1,6 +1,5 @@
 import { path as d3path } from 'd3-path';
-import { Path } from '@antv/g';
-import { applyStyle, getShapeTheme } from '../utils';
+import { applyStyle } from '../utils';
 import { select } from '../../utils/selection';
 import { ShapeComponent as SC } from '../../runtime';
 
@@ -11,16 +10,11 @@ export type DensityOptions = {
 /**
  * Draw density shape.
  */
-export const Density: SC<DensityOptions> = (options) => {
-  const { ...style } = options;
-  return (points, value, coordinate, theme) => {
-    const { mark, shape, defaultShape, transform } = value;
-    const { defaultColor, ...shapeTheme } = getShapeTheme(
-      theme,
-      mark,
-      shape,
-      defaultShape,
-    );
+export const Density: SC<DensityOptions> = (options, context) => {
+  const { document } = context;
+  return (points, value, defaults) => {
+    const { transform } = value;
+    const { color: defaultColor, ...rest } = defaults;
     const { color = defaultColor } = value;
     const [first, ...p] = points;
 
@@ -32,14 +26,14 @@ export const Density: SC<DensityOptions> = (options) => {
     });
     path.closePath();
 
-    return select(new Path())
-      .call(applyStyle, shapeTheme)
+    return select(document.createElement('path', {}))
+      .call(applyStyle, rest)
       .style('d', path.toString())
       .style('stroke', color || defaultColor) // Always has stroke color.
       .style('fill', color || defaultColor)
       .style('fillOpacity', 0.4)
       .style('transform', transform)
-      .call(applyStyle, style)
+      .call(applyStyle, options)
       .node();
   };
 };

@@ -1,17 +1,10 @@
-import { Path, Rect } from '@antv/g';
 import { arc } from 'd3-shape';
 import { Vector2, ShapeComponent as SC } from '../../runtime';
 import { isPolar, isHelix, isTranspose } from '../../utils/coordinate';
 import { select } from '../../utils/selection';
 import { sub } from '../../utils/vector';
 import { clamp } from '../../utils/number';
-import {
-  applyStyle,
-  getArcObject,
-  getShapeTheme,
-  reorder,
-  toOpacityKey,
-} from '../utils';
+import { applyStyle, getArcObject, reorder, toOpacityKey } from '../utils';
 
 export type ColorOptions = {
   colorAttribute: 'fill' | 'stroke';
@@ -28,6 +21,7 @@ export type ColorOptions = {
 
 // Render rect in different coordinate.
 export function rect(
+  document,
   points,
   value,
   coordinate,
@@ -73,7 +67,7 @@ export function rect(
     const clampX = finalX - (clampWidth - finalWidth) / 2;
     const clampY = finalY - (clampHeight - finalHeight) / 2;
 
-    return select(new Rect({}))
+    return select(document.createElement('rect', {}))
       .style('x', clampX)
       .style('y', clampY)
       .style('width', clampWidth)
@@ -96,7 +90,7 @@ export function rect(
     .cornerRadius(radius as number)
     .padAngle((inset * Math.PI) / 180);
 
-  return select(new Path({}))
+  return select(document.createElement('path', {}))
     .style('path', path(arcObject))
     .style('transform', `translate(${center[0]}, ${center[1]})`)
     .style('radius', radius)
@@ -111,7 +105,7 @@ export function rect(
  * outerRadius. This is not accurate and will cause bug when the range of y scale is [1, 0]
  * for cell geometry.
  */
-export const Color: SC<ColorOptions> = (options) => {
+export const Color: SC<ColorOptions> = (options, context) => {
   // Render border only when colorAttribute is stroke.
   const {
     colorAttribute,
@@ -121,15 +115,16 @@ export const Color: SC<ColorOptions> = (options) => {
     ...style
   } = options;
 
-  return (points, value, coordinate, theme) => {
-    const { mark, shape, defaultShape } = value;
-    const {
-      defaultColor,
-      radius: defaultRadius = 0,
-      ...defaults
-    } = getShapeTheme(theme, mark, shape, defaultShape);
+  const { coordinate, document } = context;
 
-    const defaultLineWidth = defaults.lineWidth || 1;
+  return (points, value, defaults) => {
+    const {
+      color: defaultColor,
+      radius: defaultRadius = 0,
+      ...restDefaults
+    } = defaults;
+
+    const defaultLineWidth = restDefaults.lineWidth || 1;
     const {
       stroke,
       radius = defaultRadius,
@@ -187,8 +182,8 @@ export const Color: SC<ColorOptions> = (options) => {
     };
 
     return (
-      select(rect(points, value, coordinate, extendedStyle))
-        .call(applyStyle, defaults)
+      select(rect(document, points, value, coordinate, extendedStyle))
+        .call(applyStyle, restDefaults)
         .style('fill', 'transparent')
         .style(colorAttribute, color)
         .style(toOpacityKey(options), opacity)

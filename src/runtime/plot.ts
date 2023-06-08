@@ -28,7 +28,7 @@ import {
 } from './constant';
 import { coordinate2Transform, createCoordinate } from './coordinate';
 import { computeLayout, placeComponents } from './layout';
-import { useLibrary } from './library';
+import { documentOf, useLibrary } from './library';
 import { initializeMark } from './mark';
 import {
   applyScale,
@@ -39,6 +39,7 @@ import {
 import { applyDataTransform } from './transform';
 import {
   G2MarkState,
+  G2Theme,
   G2ViewDescriptor,
   G2ViewInstance,
   Primitive,
@@ -914,7 +915,7 @@ async function plotView(
   }
 
   // Plot label for this view.
-  plotLabel(view, selection, transitions, library);
+  plotLabel(view, selection, transitions, library, context);
 }
 
 /**
@@ -925,6 +926,7 @@ function plotLabel(
   selection: Selection,
   transitions: GAnimation[],
   library: G2Library,
+  context: G2Context,
 ) {
   const [useLabelTransform] = useLibrary<
     G2LabelTransformOptions,
@@ -943,7 +945,13 @@ function plotLabel(
   // Get all labels for this view.
   const labels = Array.from(markState.entries()).flatMap(([mark, state]) => {
     const { labels: labelOptions = [], key } = mark;
-    const shapeFunction = createLabelShapeFunction(mark, state, view, library);
+    const shapeFunction = createLabelShapeFunction(
+      mark,
+      state,
+      view,
+      library,
+      context,
+    );
     const elements = selection
       .select(`#${key}`)
       .selectAll(className(ELEMENT_CLASS_NAME))
@@ -1098,6 +1106,7 @@ function createLabelShapeFunction(
   state: G2MarkState,
   view: G2ViewDescriptor,
   library: G2Library,
+  context: G2Context,
 ): (options: Record<string, any>) => DisplayObject {
   const [useShape] = useLibrary<G2ShapeOptions, ShapeComponent, Shape>(
     'shape',
@@ -1106,8 +1115,18 @@ function createLabelShapeFunction(
   const { data: abstractData } = mark;
   const { data: visualData, defaultLabelShape } = state;
   const point2d = visualData.map((d) => d.points);
+
+  // Assemble Context.
   const { theme, coordinate } = view;
+  const shapeContext = {
+    ...context,
+    document: documentOf(context),
+    theme,
+    coordinate,
+  };
+
   return (options) => {
+    // Computed values from data and styles.
     const { index, points } = options;
     const datum = abstractData[index];
     const {
@@ -1123,8 +1142,13 @@ function createLabelShapeFunction(
     const { shape = defaultLabelShape, text, ...style } = visualOptions;
     const f = typeof formatter === 'string' ? format(formatter) : formatter;
     const value = { ...style, text: f(text, datum, index, abstractData) };
-    const shapeFunction = useShape({ type: `label.${shape}`, ...style });
-    return shapeFunction(points, value, coordinate, theme, point2d);
+
+    // Params for create shape.
+    const shapeOptions = { type: `label.${shape}`, ...style };
+    const shapeFunction = useShape(shapeOptions, shapeContext);
+    const defaults = getDefaultsStyle(theme, 'label', shape, 'label');
+
+    return shapeFunction(points, value, defaults, point2d);
   };
 }
 
@@ -1254,10 +1278,16 @@ function createMarkShapeFunction(
   const point2d = data.map((d) => d.points);
   const { theme, coordinate } = view;
   const { type: markType, style = {} } = mark;
+  const shapeContext = {
+    ...context,
+    document: documentOf(context),
+    coordinate,
+    theme,
+  };
   return (data) => {
     const { shape: styleShape = defaultShape } = style;
     const { shape = styleShape, points, seriesIndex, index: i, ...v } = data;
-    const value = { ...v, shape, mark: markType, defaultShape, index: i };
+    const value = { ...v, index: i };
 
     // Get data-driven style.
     // If it is a series shape, such as area and line,
@@ -1273,12 +1303,28 @@ function createMarkShapeFunction(
       valueOf(d, abstractDatum, I, abstractData),
     );
 
-    const shapeFunction = useShape({
+    const shapeOptions = {
       ...visualStyle,
       type: shapeName(mark, shape),
-    });
-    return shapeFunction(points, value, coordinate, theme, point2d, context);
+    };
+    const shapeFunction = useShape(shapeOptions, shapeContext);
+
+    const defaults = getDefaultsStyle(theme, markType, shape, defaultShape);
+    return shapeFunction(points, value, defaults, point2d);
   };
+}
+
+function getDefaultsStyle(
+  theme: G2Theme,
+  mark: string | MarkComponent,
+  shape: string,
+  defaultShape: string,
+) {
+  if (typeof mark !== 'string') return;
+  const { defaultColor } = theme;
+  const markTheme = theme[mark] || {};
+  const shapeTheme = markTheme[shape] || markTheme[defaultShape];
+  return Object.assign({ color: defaultColor }, shapeTheme);
 }
 
 function createAnimationFunction(

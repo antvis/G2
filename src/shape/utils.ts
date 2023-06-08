@@ -182,23 +182,6 @@ export function getArcObject(
 }
 
 /**
- * Get the mark.shape's style object.
- * @returns
- */
-export function getShapeTheme(
-  theme: G2Theme,
-  mark: string,
-  shape: string,
-  defaultShape: string,
-) {
-  const { defaultColor } = theme;
-  const markTheme = theme[mark] || {};
-  const shapeTheme = markTheme[shape] || markTheme[defaultShape];
-
-  return Object.assign({ defaultColor }, shapeTheme);
-}
-
-/**
  * Pick connectStyle from style.
  * @param style
  */

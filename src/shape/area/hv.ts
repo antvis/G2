@@ -4,14 +4,9 @@ import { Curve } from './curve';
 
 export type HVOptions = Record<string, any>;
 
-export const HV: SC<HVOptions> = (options) => {
-  return (P, value, coordinate, theme) => {
-    return Curve({ curve: curveStepAfter, ...options })(
-      P,
-      value,
-      coordinate,
-      theme,
-    );
+export const HV: SC<HVOptions> = (options, context) => {
+  return (...params) => {
+    return Curve({ curve: curveStepAfter, ...options }, context)(...params);
   };
 };
 

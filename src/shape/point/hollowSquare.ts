@@ -6,8 +6,11 @@ export type HollowSquareOptions = Record<string, any>;
 /**
  * □
  */
-export const HollowSquare: SC<HollowSquareOptions> = (options) => {
-  return Color({ colorAttribute: 'stroke', symbol: 'square', ...options });
+export const HollowSquare: SC<HollowSquareOptions> = (options, context) => {
+  return Color(
+    { colorAttribute: 'stroke', symbol: 'square', ...options },
+    context,
+  );
 };
 
 HollowSquare.props = {

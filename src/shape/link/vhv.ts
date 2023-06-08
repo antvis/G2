@@ -1,10 +1,9 @@
-import { Path } from '@antv/g';
 import { path as d3path } from 'd3-path';
 import { Coordinate } from '@antv/coord';
-import { appendArc, applyStyle, getShapeTheme } from '../utils';
+import { appendArc, applyStyle } from '../utils';
 import { select } from '../../utils/selection';
 import { isTranspose, isPolar } from '../../utils/coordinate';
-import { Vector2, dist, angle, sub } from '../../utils/vector';
+import { Vector2, dist } from '../../utils/vector';
 import { ShapeComponent as SC } from '../../runtime';
 
 export type VHVOptions = {
@@ -62,23 +61,16 @@ function getVHVPath(
 /**
  * Connect 2 points with a VHV line, used in tree.
  */
-export const VHV: SC<VHVOptions> = (options) => {
+export const VHV: SC<VHVOptions> = (options, context) => {
   const { cornerRatio = 1 / 3, ...style } = options;
-  return (points, value, coordinate, theme) => {
-    const { mark, shape, defaultShape } = value;
-    const { defaultColor, ...shapeTheme } = getShapeTheme(
-      theme,
-      mark,
-      shape,
-      defaultShape,
-    );
+  const { coordinate, document } = context;
+  return (points, value, defaults) => {
+    const { defaultColor, ...rest } = defaults;
     const { color = defaultColor, transform } = value;
     const [from, to] = points;
-
     const path = getVHVPath(from, to, coordinate, cornerRatio);
-
-    return select(new Path())
-      .call(applyStyle, shapeTheme)
+    return select(document.createElement('path', {}))
+      .call(applyStyle, rest)
       .style('d', path.toString())
       .style('stroke', color)
       .style('transform', transform)
