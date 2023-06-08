@@ -7,6 +7,7 @@ import {
   RectStyleProps,
   PathStyleProps,
 } from '@antv/g';
+import { isNumber } from '@antv/util';
 import { Marker } from '@antv/gui';
 import { line } from 'd3-shape';
 import { WithPrefix } from '../../runtime';
@@ -103,7 +104,7 @@ function inferConnectorPath(
   }
 
   const P: any = [[x0 - x1, y0 - y1]].concat(
-    controlPoints.length ? controlPoints : [0, 0],
+    controlPoints.length ? controlPoints : [[0, 0]],
   );
 
   const p0 = [coordCenter[0] - x1, coordCenter[1] - y1] as Vector2;
@@ -142,6 +143,9 @@ export const Advance = createElement((g) => {
     coordCenter,
     ...rest
   } = g.attributes as TextShapeStyleProps;
+  // Position is invalid, do not render the UI.
+  if ([x, y, x0, y0].some((v) => !isNumber(v))) return;
+
   const { padding, ...backgroundStyle } = subObject(rest, 'background');
   const { points = [], ...connectorStyle } = subObject(rest, 'connector');
   const endPoints: Vector2[] = [
