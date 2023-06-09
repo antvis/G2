@@ -3,26 +3,24 @@ import { sold } from '../../data/sold';
 
 function HOCMark(options) {
   const { encode, ...res } = options;
-  return () => {
-    return [
-      {
-        type: 'interval',
-        ...res,
-        encode: {
-          ...encode,
-          color: 'genre',
-        },
+  return [
+    {
+      type: 'interval',
+      ...res,
+      encode: {
+        ...encode,
+        color: 'genre',
       },
-      {
-        type: 'line',
-        ...options,
-      },
-      {
-        type: 'point',
-        ...options,
-      },
-    ];
-  };
+    },
+    {
+      type: 'line',
+      ...options,
+    },
+    {
+      type: 'point',
+      ...options,
+    },
+  ];
 }
 
 export function soldHOMMultiple(): G2Spec {

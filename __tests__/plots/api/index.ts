@@ -34,3 +34,4 @@ export { chartEmitBrushHighlightAxisVertical } from './chart-emit-brush-highligh
 export { chartEmitBrushHighlightAxisHorizontal } from './chart-emit-brush-highlight-axis-horizontal';
 export { chartEmitBrushHighlightAxisCross } from './chart-emit-brush-highlight-axis-cross';
 export { chartEmitScrollbarFilter } from './chart-emit-scrollbar-filter';
+export { chartOptionsCompositeMark } from './chart-options-composite-mark';

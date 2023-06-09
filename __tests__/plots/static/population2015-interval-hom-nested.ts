@@ -3,12 +3,10 @@ import { G2Spec } from '../../../src';
 import { Pie } from './population2015-interval-hom-view-level';
 
 export function SpectralPie(options) {
-  return () => {
-    return deepMix(options, {
-      scale: { color: { palette: 'spectral', offset: (t) => t * 0.8 + 0.1 } },
-      type: Pie,
-    });
-  };
+  return deepMix(options, {
+    scale: { color: { palette: 'spectral', offset: (t) => t * 0.8 + 0.1 } },
+    type: Pie,
+  });
 }
 
 export function population2015IntervalHOMNested(): G2Spec {

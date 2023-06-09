@@ -242,7 +242,7 @@ export function brushAxisHighlight(
   const onRemove = (event: any = {}) => {
     const { nativeEvent } = event;
     if (nativeEvent) return;
-    handlers.forEach((d) => d.remove());
+    handlers.forEach((d) => d.remove(false));
   };
 
   const rangeOf = (domain, scale, axis) => {
@@ -274,7 +274,7 @@ export function brushAxisHighlight(
         const scale = scales[i];
         handler.move(...rangeOf(domain, scale, axis), false);
       } else {
-        handler.remove();
+        handler.remove(false);
       }
     }
   };

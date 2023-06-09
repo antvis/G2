@@ -2,12 +2,11 @@ import { G2Spec } from '../../../src';
 import { SpectralPie } from './population2015-interval-hom-nested';
 
 function CenterText(options) {
-  const { text, style } = options;
-  return () => ({
+  const { style } = options;
+  return {
     type: 'text',
     coordinate: { innerRadius: 0.8 },
     style: {
-      text: text,
       x: '50%',
       y: '50%',
       fontSize: 40,
@@ -16,7 +15,7 @@ function CenterText(options) {
       fontWeight: 'bold',
       ...style,
     },
-  });
+  };
 }
 
 export function population2015IntervalHOMMultiple(): G2Spec {
@@ -38,8 +37,8 @@ export function population2015IntervalHOMMultiple(): G2Spec {
       {
         // @ts-ignore
         type: CenterText,
-        text: 'hello world',
         style: {
+          text: 'hello world',
           fontSize: 100,
         },
       },

@@ -2,14 +2,22 @@ import { Coordinate, Vector2 } from '@antv/coord';
 import { Primitive } from 'd3-array';
 import { Channel } from './common';
 import { Scale } from './component';
-import { G2Mark, G2View } from './options';
 import { TransformSpec } from './transform';
 
 // @todo Remove any.
 export type MarkOptions = Record<string, any>;
 
+export type CompositeMarkOptions = Record<string, any>;
+
 export type MarkComponent<O extends MarkOptions = MarkOptions> = {
   (options?: O): Mark;
+  props?: MarkProps;
+};
+
+export type CompositeMarkComponent<
+  O extends CompositeMarkOptions = CompositeMarkOptions,
+> = {
+  (options?: O, context?: any): CompositeMark;
   props?: MarkProps;
 };
 
@@ -29,7 +37,10 @@ export type MarkProps = {
 
 export type Mark = CompositeMark | SingleMark;
 
-export type CompositeMark = (view: G2View) => G2Mark[];
+export type CompositeMark =
+  | Promise<MarkOptions[] | MarkOptions>
+  | MarkOptions[]
+  | MarkOptions;
 
 export type SingleMark = (
   I: number[],

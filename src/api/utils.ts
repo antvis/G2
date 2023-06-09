@@ -90,7 +90,8 @@ export function optionsOf(node: Node): Record<string, any> {
   return nodeValue.get(root);
 }
 
-function isMark(type: string): boolean {
+function isMark(type: string | ((...args: any[]) => any)): boolean {
+  if (typeof type === 'function') return true;
   return new Set(Object.keys(mark)).has(type);
 }
 
@@ -102,7 +103,6 @@ function normalizeRootOptions(
   const { type: oldType } = node;
   const { type = previousType || oldType } = options;
   if (type === 'view') return options;
-  if (typeof type !== 'string') return options;
   if (!isMark(type)) return options;
   const view = { type: 'view' };
   const mark = { ...options };
@@ -115,7 +115,8 @@ function normalizeRootOptions(
   return { ...view, children: [mark] };
 }
 
-function typeCtor(type: string): new () => Node {
+function typeCtor(type: string | ((...args: any[]) => any)): new () => Node {
+  if (typeof type === 'function') return mark.mark;
   const node = { ...mark, ...composition };
   const ctor = node[type];
   if (!ctor) throw new Error(`Unknown mark: ${type}.`);
@@ -125,10 +126,11 @@ function typeCtor(type: string): new () => Node {
 // Create node from options.
 function createNode(options: G2ViewTree): Node {
   const { type, children, ...value } = options;
-  if (typeof type !== 'string') return;
   const Ctor = typeCtor(type);
   const node = new Ctor();
   node.value = value;
+  // @ts-ignore
+  node.type = type;
   return node;
 }
 

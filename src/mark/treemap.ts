@@ -107,96 +107,97 @@ function dataTransform(data, layout: Layout, encode): TreemapData {
     );
 }
 
-export const Treemap: CC<TreemapOptions> = (options) => {
-  return (viewOptions) => {
-    const { width, height } = getBBoxSize(viewOptions);
-    const {
-      data,
-      encode = {},
-      scale,
-      style = {},
-      layout = {},
-      labels = [],
-      tooltip = {},
-      ...resOptions
-    } = options;
+// Defaults
+const GET_DEFAULT_LAYOUT_OPTIONS = (width, height) => ({
+  tile: 'treemapSquarify',
+  ratio: 0.5 * (1 + Math.sqrt(5)),
+  size: [width, height],
+  round: false,
+  ignoreParentValue: true,
+  padding: 0,
+  paddingInner: 0,
+  paddingOuter: 0,
+  paddingTop: 0,
+  paddingRight: 0,
+  paddingBottom: 0,
+  paddingLeft: 0,
+  sort: (a, b) => b.value - a.value,
+  layer: 0,
+});
 
-    // Defaults
-    const DEFAULT_LAYOUT_OPTIONS: Layout = {
-      tile: 'treemapSquarify',
-      ratio: 0.5 * (1 + Math.sqrt(5)),
-      size: [width, height],
-      round: false,
-      ignoreParentValue: true,
-      padding: 0,
-      paddingInner: 0,
-      paddingOuter: 0,
-      paddingTop: 0,
-      paddingRight: 0,
-      paddingBottom: 0,
-      paddingLeft: 0,
-      sort: (a, b) => b.value - a.value,
-      layer: 0,
-    };
-    const DEFAULT_OPTIONS = {
-      type: 'rect',
-      axis: false,
-      encode: {
-        x: 'x',
-        y: 'y',
-        color: (d) => d.data.parent.name,
-      },
-      scale: {
-        x: { domain: [0, width], range: [0, 1] },
-        y: { domain: [0, height], range: [0, 1] },
-      },
-      style: {
-        stroke: '#fff',
-      },
-    };
-    const DEFAULT_LABEL_OPTIONS = {
-      fontSize: 10,
-      text: (d) => d.data.name,
-      position: 'inside',
-      fill: '#000',
-      textOverflow: 'clip',
-      wordWrap: true,
-      maxLines: 1,
-      wordWrapWidth: (d) => d.x1 - d.x0,
-    };
-    const DEFAULT_TOOLTIP_OPTIONS = {
-      title: (d) => d.data.name,
-      items: [{ field: 'value' }],
-    };
+const GET_DEFAULT_OPTIONS = (width, height) => ({
+  type: 'rect',
+  axis: false,
+  encode: {
+    x: 'x',
+    y: 'y',
+    color: (d) => d.data.parent.name,
+  },
+  scale: {
+    x: { domain: [0, width], range: [0, 1] },
+    y: { domain: [0, height], range: [0, 1] },
+  },
+  style: {
+    stroke: '#fff',
+  },
+});
 
-    // Data
-    const transformedData = dataTransform(
-      data,
-      deepMix({}, DEFAULT_LAYOUT_OPTIONS, layout),
-      encode,
-    );
+const DEFAULT_LABEL_OPTIONS = {
+  fontSize: 10,
+  text: (d) => d.data.name,
+  position: 'inside',
+  fill: '#000',
+  textOverflow: 'clip',
+  wordWrap: true,
+  maxLines: 1,
+  wordWrapWidth: (d) => d.x1 - d.x0,
+};
 
-    // Label
-    const labelStyle = subObject(style, 'label');
-    return [
-      deepMix({}, DEFAULT_OPTIONS, {
-        data: transformedData,
-        encode,
-        scale,
-        style,
-        labels: [
-          {
-            ...DEFAULT_LABEL_OPTIONS,
-            ...labelStyle,
-          },
-          ...labels,
-        ],
-        ...resOptions,
-        tooltip: maybeTooltip(tooltip, DEFAULT_TOOLTIP_OPTIONS),
-        axis: false,
-      }),
-    ];
-  };
+const DEFAULT_TOOLTIP_OPTIONS = {
+  title: (d) => d.data.name,
+  items: [{ field: 'value' }],
+};
+
+export const Treemap: CC<TreemapOptions> = (options, context) => {
+  const { width, height } = context;
+
+  const {
+    data,
+    encode = {},
+    scale,
+    style = {},
+    layout = {},
+    labels = [],
+    tooltip = {},
+    ...resOptions
+  } = options;
+
+  // Data
+  const transformedData = dataTransform(
+    data,
+    deepMix({}, GET_DEFAULT_LAYOUT_OPTIONS(width, height), layout),
+    encode,
+  );
+
+  // Label
+  const labelStyle = subObject(style, 'label');
+
+  return deepMix({}, GET_DEFAULT_OPTIONS(width, height), {
+    data: transformedData,
+    encode,
+    scale,
+    style,
+    labels: [
+      {
+        ...DEFAULT_LABEL_OPTIONS,
+        ...labelStyle,
+      },
+      ...labels,
+    ],
+    ...resOptions,
+    tooltip: maybeTooltip(tooltip, DEFAULT_TOOLTIP_OPTIONS),
+    axis: false,
+  });
 };
 
 Treemap.props = {};

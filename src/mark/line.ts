@@ -1,7 +1,7 @@
 import { Vector } from '@antv/coord';
 import { group } from 'd3-array';
 import { isParallel } from '../utils/coordinate';
-import { Mark, MarkComponent as MC, Vector2 } from '../runtime';
+import { Mark, MarkComponent as MC, SingleMark, Vector2 } from '../runtime';
 import { LineMark } from '../spec';
 import {
   baseGeometryChannels,
@@ -75,7 +75,7 @@ const parallel: Mark = (index, scale, value, coordinate) => {
 export const Line: MC<LineOptions> = () => {
   return (index, scale, value, coordinate) => {
     const mark = isParallel(coordinate) ? parallel : line;
-    return mark(index, scale, value, coordinate);
+    return (mark as SingleMark)(index, scale, value, coordinate);
   };
 };
 

@@ -2,32 +2,31 @@ import { Chart } from '../../../src';
 
 function HOMMark(options) {
   const { encode, ...res } = options;
-  return () => {
-    return [
-      {
-        type: 'interval',
-        ...res,
-        encode: {
-          ...encode,
-          color: 'genre',
-        },
+  return [
+    {
+      type: 'interval',
+      ...res,
+      encode: {
+        ...encode,
+        color: 'genre',
       },
-      {
-        type: 'line',
-        ...options,
-      },
-      {
-        type: 'point',
-        ...options,
-      },
-    ];
-  };
+    },
+    {
+      type: 'line',
+      ...options,
+    },
+    {
+      type: 'point',
+      ...options,
+    },
+  ];
 }
 
 export function chartHOMMark(context) {
   const { container, canvas } = context;
 
   const chart = new Chart({ theme: 'classic', container, canvas });
+
   chart.data([
     { genre: 'Sports', sold: 275 },
     { genre: 'Strategy', sold: 115 },
@@ -35,7 +34,9 @@ export function chartHOMMark(context) {
     { genre: 'Shooter', sold: 350 },
     { genre: 'Other', sold: 150 },
   ]);
+
   chart.mark(HOMMark).encode('x', 'genre').encode('y', 'sold');
+
   chart
     .text()
     .style('text', 'TEST')
