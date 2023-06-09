@@ -47,7 +47,8 @@ export type Mark =
   | TreeMark
   | WordCloudMark
   | DensityMark
-  | CustomMark;
+  | CustomMark
+  | CompositeMark;
 
 export type MarkTypes =
   | 'interval'
@@ -82,7 +83,8 @@ export type MarkTypes =
   | 'gauge'
   | 'density'
   | 'heatmap'
-  | MarkComponent;
+  | MarkComponent
+  | CompositeMarkType;
 
 export type ChannelTypes =
   | 'x'
@@ -179,9 +181,12 @@ export type BaseMark<T extends MarkTypes, C extends string = ChannelTypes> = {
   theme?: Theme;
 };
 
-export type HOMMarkType = (options: Record<string, any>) => () => any[];
+export type CompositeMarkType = (
+  options: Record<string, any>,
+  context: Record<string, any>,
+) => any[];
 
-export type HOMMarkMark = BaseMark<HOMMarkType>;
+export type CompositeMark = BaseMark<CompositeMarkType>;
 
 export type IntervalMark = BaseMark<'interval', ChannelTypes | 'series'>;
 

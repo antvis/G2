@@ -27,7 +27,7 @@ import {
   VIEW_CLASS_NAME,
 } from './constant';
 import { coordinate2Transform, createCoordinate } from './coordinate';
-import { computeLayout, placeComponents } from './layout';
+import { computeLayout, computeRoughPlotSize, placeComponents } from './layout';
 import { documentOf, useLibrary } from './library';
 import { initializeMark } from './mark';
 import {
@@ -433,6 +433,8 @@ async function transformMarks(
   const { marks } = options;
   const flattenMarks = [];
   const discovered = [...marks];
+  const { width, height } = computeRoughPlotSize(options);
+  const context = { options, width, height };
 
   // Pre order traversal.
   while (discovered.length) {
@@ -445,9 +447,7 @@ async function transformMarks(
     if (!composite) flattenMarks.push(mark);
     else {
       // Convert composite mark to marks.
-      const marks = await (
-        useMark as (options: G2MarkOptions) => CompositeMark
-      )(mark)(options);
+      const marks = await useMark(mark, context);
       const M = Array.isArray(marks) ? marks : [marks];
       discovered.unshift(...M.map((d, i) => ({ ...d, key: `${key}-${i}` })));
     }

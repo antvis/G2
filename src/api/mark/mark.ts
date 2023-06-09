@@ -28,7 +28,7 @@ import {
   PackMark,
   TreeMark,
   WordCloudMark,
-  HOMMarkMark,
+  CompositeMark,
   GaugeMark,
 } from '../../spec';
 import { NodePropertyDescriptor, defineProps } from '../props';
@@ -155,7 +155,7 @@ export interface Gauge extends API<Concrete<GaugeMark>, Gauge> {
   type: 'gauge';
 }
 
-export interface HOMMark extends API<Concrete<HOMMarkMark>, HOMMark> {
+export interface Composite extends API<Concrete<CompositeMark>, Composite> {
   type: 'interval';
 }
 
@@ -178,7 +178,7 @@ export const props: NodePropertyDescriptor[] = [
 ];
 
 @defineProps(props)
-export class HOMMark extends MarkNode<HOMMark> {
+export class Composite extends MarkNode<Composite> {
   constructor() {
     super({});
   }
