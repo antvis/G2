@@ -7,7 +7,7 @@ import {
 import { AnimationComponent as AC } from '../runtime';
 import { copyAttributes } from '../utils/helper';
 import { Animation } from './types';
-import { attributeKeys, attributeOf, effectTiming } from './utils';
+import { attributeKeys, attributeOf } from './utils';
 
 export type MorphingOptions = Animation & { split: 'pack' | SplitFunction };
 
@@ -249,9 +249,9 @@ function multipleToOne(
  * @todo Support more split function.
  */
 export const Morphing: AC<MorphingOptions> = (options) => {
-  return (from, to, value, coordinate, defaults) => {
+  return (from, to, defaults) => {
     const split = normalizeSplit(options.split);
-    const timeEffect = effectTiming(defaults, value, options);
+    const timeEffect = { ...defaults, ...options };
     const { length: fl } = from;
     const { length: tl } = to;
     if ((fl === 1 && tl === 1) || (fl > 1 && tl > 1)) {

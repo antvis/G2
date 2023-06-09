@@ -1,7 +1,6 @@
 import { Line } from '@antv/g';
 import { AnimationComponent as AC } from '../runtime';
 import { Animation } from './types';
-import { effectTiming } from './utils';
 
 export type PathInOptions = Animation;
 
@@ -9,7 +8,7 @@ export type PathInOptions = Animation;
  * Transform mark from transparent to solid.
  */
 export const PathIn: AC<PathInOptions> = (options) => {
-  return (from, to, value, coordinate, defaults) => {
+  return (from, _, defaults) => {
     const [shape] = from;
     const length = (shape as Line).getTotalLength?.() || 0;
 
@@ -17,7 +16,7 @@ export const PathIn: AC<PathInOptions> = (options) => {
       { lineDash: [0, length] },
       { lineDash: [length, 0] },
     ] as any[];
-    return shape.animate(keyframes, effectTiming(defaults, value, options));
+    return shape.animate(keyframes, { ...defaults, ...options });
   };
 };
 

@@ -5,7 +5,6 @@ import { AnimationComponent as AC } from '../runtime';
 import { getArcObject } from '../shape/utils';
 import { isPolar } from '../utils/coordinate';
 import { Animation } from './types';
-import { effectTiming } from './utils';
 import { ScaleInX } from './scaleInX';
 
 export type WaveInOptions = Animation;
@@ -13,7 +12,7 @@ export type WaveInOptions = Animation;
 /**
  * Transform mark from transparent to solid.
  */
-export const WaveIn: AC<WaveInOptions> = (options) => {
+export const WaveIn: AC<WaveInOptions> = (options, context) => {
   const ZERO = 0.0001;
 
   // @see https://g-next.antv.vision/zh/docs/api/css/css-properties-values-api#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B1%9E%E6%80%A7
@@ -25,11 +24,13 @@ export const WaveIn: AC<WaveInOptions> = (options) => {
     syntax: PropertySyntax.NUMBER,
   });
 
-  return (from, to, value, coordinate, defaults) => {
+  const { coordinate } = context;
+
+  return (from, to, defaults) => {
     const [shape] = from;
 
     if (!isPolar(coordinate)) {
-      return ScaleInX(options)(from, to, value, coordinate, defaults);
+      return ScaleInX(options, context)(from, to, defaults);
     }
 
     const center = coordinate.getCenter();
@@ -88,10 +89,7 @@ export const WaveIn: AC<WaveInOptions> = (options) => {
         opacity,
       },
     ];
-    const animation = shape.animate(
-      keyframes,
-      effectTiming(defaults, value, options),
-    );
+    const animation = shape.animate(keyframes, { ...defaults, ...options });
 
     animation.onframe = function () {
       shape.style.path = createArcPath({
