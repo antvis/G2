@@ -7,6 +7,7 @@ import { mapObject } from '../utils/array';
 import { ChartEvent } from '../utils/event';
 import {
   appendTransform,
+  compose,
   copyAttributes,
   defined,
   error,
@@ -58,7 +59,7 @@ import {
   Theme,
   ThemeComponent,
 } from './types/component';
-import { CompositeMark, Mark, MarkComponent, SingleMark } from './types/mark';
+import { Mark, MarkComponent, SingleMark } from './types/mark';
 import {
   G2AnimationOptions,
   G2CompositionOptions,
@@ -666,9 +667,7 @@ function initializeState(
     clip,
     scale: scaleInstance,
     style: framedStyle,
-    labelTransform: composeLabelTransform(
-      labelTransform.map(useLabelTransform),
-    ),
+    labelTransform: compose(labelTransform.map(useLabelTransform)),
   };
 
   return [view, children];
@@ -998,9 +997,7 @@ function plotLabel(
   const { coordinate } = view;
   for (const [label, shapes] of labelGroups) {
     const { transform = [] } = label;
-    const transformFunction = composeLabelTransform(
-      transform.map(useLabelTransform),
-    );
+    const transformFunction = compose(transform.map(useLabelTransform));
     transformFunction(shapes, coordinate);
   }
 
@@ -1008,15 +1005,6 @@ function plotLabel(
   if (labelTransform) {
     labelTransform(labelShapes, coordinate);
   }
-}
-
-function composeLabelTransform(transform: LabelTransform[]): LabelTransform {
-  return (labels, coordinate) => {
-    for (const t of transform) {
-      labels = t(labels, coordinate);
-    }
-    return labels;
-  };
 }
 
 function getLabels(

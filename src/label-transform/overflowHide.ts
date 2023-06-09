@@ -9,8 +9,8 @@ export type OverflowHideOptions = Omit<OverflowHideLabelTransform, 'type'>;
 /**
  * Hide the label when the label is overflowed from the element.
  */
-export const OverflowHide: LLC<OverflowHideOptions> = (options) => {
-  return (labels: DisplayObject[], coordinate) => {
+export const OverflowHide: LLC<OverflowHideOptions> = () => {
+  return (labels: DisplayObject[]) => {
     labels.forEach((l) => {
       show(l);
       const bounds = l.attr('bounds');

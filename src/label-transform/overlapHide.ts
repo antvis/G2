@@ -11,7 +11,7 @@ export type OverlapHideOptions = Omit<OverlapHideLabelTransform, 'type'>;
  */
 export const OverlapHide: LLC<OverlapHideOptions> = (options) => {
   const { priority } = options;
-  return (labels: DisplayObject[], coordinate) => {
+  return (labels: DisplayObject[]) => {
     const displayLabels = [];
     // When overlap, will hide the next label.
     if (priority) labels.sort(priority);
