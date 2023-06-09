@@ -9,21 +9,18 @@ import {
   Primitive,
 } from './common';
 import {
-  AdjustComponent,
   AnimationComponent,
   CompositionComponent,
   CoordinateComponent,
   G2BaseComponent,
   G2ComponentNamespaces,
   GuideComponentComponent,
-  InferComponent,
   InteractionComponent,
   LabelTransformComponent,
   PaletteComponent,
   Scale,
   ScaleComponent,
   ShapeComponent,
-  StatisticComponent,
   ThemeComponent,
 } from './component';
 
@@ -149,24 +146,20 @@ export type G2BaseComponentOptions<
 
 export type G2ComponentOptions =
   | G2TransformOptions
-  | G2StatisticOptions
   | G2EncodeOptions
   | G2ThemeOptions
   | G2MarkOptions
   | G2CoordinateOptions
   | G2ScaleOptions
-  | G2InferOptions
   | G2ShapeOptions
   | G2PaletteOptions
   | G2GuideComponentOptions
   | G2AnimationOptions
   | G2InteractionOptions
   | G2CompositionOptions
-  | G2AdjustOptions
   | G2LabelTransformOptions;
 
 export type G2TransformOptions = G2BaseComponentOptions<TransformComponent>;
-export type G2StatisticOptions = G2BaseComponentOptions<StatisticComponent>;
 export type G2EncodeOptions = G2BaseComponentOptions<EncodeComponent>;
 export type G2ThemeOptions = G2BaseComponentOptions<ThemeComponent>;
 export type G2MarkOptions = G2BaseComponentOptions<MarkComponent>;
@@ -183,7 +176,6 @@ export type G2ScaleOptions = G2BaseComponentOptions<
     [key: string | symbol]: any;
   }
 >;
-export type G2InferOptions = G2BaseComponentOptions<InferComponent>;
 export type G2ShapeOptions = G2BaseComponentOptions<ShapeComponent>;
 export type G2PaletteOptions = G2BaseComponentOptions<PaletteComponent>;
 export type G2GuideComponentOptions = G2BaseComponentOptions<
@@ -200,7 +192,6 @@ export type G2GuideComponentOptions = G2BaseComponentOptions<
 export type G2AnimationOptions = G2BaseComponentOptions<AnimationComponent>;
 export type G2InteractionOptions = G2BaseComponentOptions<InteractionComponent>;
 export type G2CompositionOptions = G2BaseComponentOptions<CompositionComponent>;
-export type G2AdjustOptions = G2BaseComponentOptions<AdjustComponent>;
 export type G2LabelTransformOptions =
   G2BaseComponentOptions<LabelTransformComponent>;
 export type G2TitleOptions = G2Title;

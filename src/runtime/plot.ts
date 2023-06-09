@@ -1359,6 +1359,7 @@ function createAnimationFunction(
   ).props;
   const { [type]: defaultEffectTiming = {} } = theme;
   const animate = mark.animate?.[type] || {};
+  const context = { coordinate };
   return (data, from, to) => {
     const {
       [`${type}Type`]: animation,
@@ -1371,9 +1372,9 @@ function createAnimationFunction(
       ...animate,
     };
     if (!options.type) return null;
-    const animateFunction = useAnimation(options);
+    const animateFunction = useAnimation(options, context);
     const value = { delay, duration, easing };
-    const A = animateFunction(from, to, value, coordinate, defaultEffectTiming);
+    const A = animateFunction(from, to, deepMix(defaultEffectTiming, value));
     if (!Array.isArray(A)) return [A];
     return A;
   };

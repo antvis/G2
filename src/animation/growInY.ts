@@ -8,8 +8,8 @@ export type GrowInYOptions = Animation;
 /**
  * Scale mark from nothing to desired shape in x direction.
  */
-export const GrowInY: AC<GrowInYOptions> = (options) => {
-  return (from, to, value, coordinate, defaults) => {
+export const GrowInY: AC<GrowInYOptions> = (options, context) => {
+  return (from, to, defaults) => {
     const [shape] = from;
     const { height, width } = shape.getBoundingClientRect();
     const clipPath = new Path({
@@ -20,13 +20,7 @@ export const GrowInY: AC<GrowInYOptions> = (options) => {
     shape.appendChild(clipPath);
     shape.style.clipPath = clipPath;
 
-    const animation = ScaleInY(options)(
-      [clipPath],
-      to,
-      value,
-      coordinate,
-      defaults,
-    );
+    const animation = ScaleInY(options, context)([clipPath], to, defaults);
 
     (animation as IAnimation).finished.then(() => {
       clipPath.remove();

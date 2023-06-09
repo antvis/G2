@@ -1,19 +1,20 @@
 import { isTranspose } from '../utils/coordinate';
 import { AnimationComponent as AC } from '../runtime';
 import { Animation } from './types';
-import { effectTiming } from './utils';
 
 export type ScaleOutYOptions = Animation;
 
 /**
  * Scale mark from desired shape to nothing in y direction.
  */
-export const ScaleOutY: AC<ScaleOutYOptions> = (options) => {
+export const ScaleOutY: AC<ScaleOutYOptions> = (options, context) => {
   // Small enough to hide or show very small part of mark,
   // but bigger enough to not cause bug.
   const ZERO = 0.0001;
 
-  return (from, to, value, coordinate, defaults) => {
+  const { coordinate } = context;
+
+  return (from, _, defaults) => {
     const [shape] = from;
     const { height } = shape.getBoundingClientRect();
     const {
@@ -51,10 +52,7 @@ export const ScaleOutY: AC<ScaleOutYOptions> = (options) => {
     // Change transform origin for correct transform.
     shape.setOrigin(transformOrigin);
 
-    const animation = shape.animate(
-      keyframes,
-      effectTiming(defaults, value, options),
-    );
+    const animation = shape.animate(keyframes, { ...defaults, ...options });
 
     // Reset transform origin to eliminate side effect for following animations.
     animation.finished.then(() => shape.setOrigin(0, 0));

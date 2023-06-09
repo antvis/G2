@@ -1,6 +1,5 @@
 import { AnimationComponent as AC } from '../runtime';
 import { Animation } from './types';
-import { effectTiming } from './utils';
 
 export type ZoomInOptions = Animation;
 
@@ -9,7 +8,7 @@ export const ZoomIn: AC<ZoomInOptions> = (options) => {
   // but bigger enough to not cause bug.
   const ZERO = 0.0001;
 
-  return (from, to, value, coordinate, defaults) => {
+  return (from, _, defaults) => {
     const [shape] = from;
     const {
       transform: prefix = '',
@@ -42,10 +41,7 @@ export const ZoomIn: AC<ZoomInOptions> = (options) => {
     // Change transform origin for correct transform.
     shape.setOrigin([width / 2, height / 2]);
 
-    const animation = shape.animate(
-      keyframes,
-      effectTiming(defaults, value, options),
-    );
+    const animation = shape.animate(keyframes, { ...defaults, ...options });
 
     // Reset transform origin to eliminate side effect for following animations.
     animation.finished.then(() => shape.setOrigin(0, 0));

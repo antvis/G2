@@ -7,7 +7,6 @@ import {
   GuideComponentOrientation,
   GuideComponentPosition,
   IndexedValue,
-  Layout,
   Vector2,
   G2MarkState,
 } from './common';
@@ -21,26 +20,21 @@ export type G2ComponentNamespaces =
   | 'coordinate'
   | 'encode'
   | 'mark'
-  | 'infer'
   | 'palette'
   | 'scale'
   | 'shape'
-  | 'statistic'
   | 'theme'
   | 'transform'
   | 'component'
   | 'animation'
   | 'action'
   | 'interaction'
-  | 'interactor'
   | 'composition'
   | 'data'
   | 'labelTransform';
 
 export type G2Component =
   | EncodeComponent
-  | InferComponent
-  | StatisticComponent
   | ScaleComponent
   | CoordinateComponent
   | PaletteComponent
@@ -51,7 +45,6 @@ export type G2Component =
   | AnimationComponent
   | InteractionComponent
   | CompositionComponent
-  | AdjustComponent
   | TransformComponent
   | DataComponent
   | LabelTransformComponent;
@@ -59,8 +52,6 @@ export type G2Component =
 export type G2ComponentValue =
   | Transform
   | Encode
-  | Infer
-  | Statistic
   | Scale
   | CoordinateTransform
   | Palette
@@ -71,7 +62,6 @@ export type G2ComponentValue =
   | Animation
   | Interaction
   | Composition
-  | Adjust
   | LabelTransform;
 
 export type G2BaseComponent<
@@ -99,11 +89,6 @@ export type InferValue = {
     statistic: InferredStatistic[],
   ) => InferredStatistic[];
 };
-export type Infer = (encodings: InferValue) => InferValue;
-export type InferComponent<O = void> = G2BaseComponent<Infer, O>;
-
-export type Statistic = (value: IndexedValue) => IndexedValue;
-export type StatisticComponent<O = void> = G2BaseComponent<Statistic, O>;
 
 export type Scale = {
   map: (x: any) => any;
@@ -195,13 +180,21 @@ export type GuideComponentComponent<O = Record<string, unknown>> =
 export type Animation = (
   from: DisplayObject[],
   to: DisplayObject[],
-  value: Record<string, any>,
-  coordinate: Coordinate,
-  defaults: G2Theme['enter' | 'exit' | 'update'],
+  defaults: Record<string, any>,
 ) => GAnimation | GAnimation[];
+
+export type AnimationContext = {
+  coordinate: Coordinate;
+  [key: string]: any; // TODO
+};
+
+export type AnimationProps = Record<string, unknown>;
+
 export type AnimationComponent<O = Record<string, unknown>> = G2BaseComponent<
   Animation,
-  O
+  O,
+  AnimationProps,
+  AnimationContext
 >;
 
 export type Interaction = (
@@ -222,16 +215,6 @@ export type Composition = (
   | Promise<G2ViewTree[]>;
 export type CompositionComponent<O = Record<string, unknown>> = G2BaseComponent<
   Composition,
-  O
->;
-
-export type Adjust = (
-  points: Vector2[][],
-  domain: number,
-  layout: Layout,
-) => string[];
-export type AdjustComponent<O = Record<string, unknown>> = G2BaseComponent<
-  Adjust,
   O
 >;
 
