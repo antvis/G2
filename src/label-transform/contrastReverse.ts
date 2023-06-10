@@ -47,7 +47,7 @@ function mostContrast(color, palette: string[]): string {
  */
 export const ContrastReverse: LLC<ContrastReverseOptions> = (options) => {
   const { threshold = 4.5, palette = ['#000', '#fff'] } = options;
-  return (labels: DisplayObject[], coordinate) => {
+  return (labels: DisplayObject[]) => {
     labels.forEach((l) => {
       const background = l.attr('dependentElement').parsedStyle.fill;
       const foreground = l.parsedStyle.fill;
