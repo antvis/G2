@@ -1,5 +1,5 @@
 import { ValueAttribute, ObjectAttribute, ArrayAttribute } from '../types';
-import { Mark as MarkProps } from '../../spec';
+import { Mark as MarkProps, AxisComponent } from '../../spec';
 
 export type API<Props extends MarkProps, Mark> = {
   data: ValueAttribute<Props['data'], Mark>;
@@ -18,4 +18,11 @@ export type API<Props extends MarkProps, Mark> = {
   legend: ObjectAttribute<Props['legend'], Mark>;
   layout: ValueAttribute<Props['layout'], Mark>;
   tooltip: ValueAttribute<Props['tooltip'], Mark>;
+};
+
+export type StaticAPI<Props extends AxisComponent, StaticMark> = {
+  scale: ObjectAttribute<Props['scale'], StaticMark>;
+  transform: ArrayAttribute<Props['transform'], StaticMark>;
+  style: ObjectAttribute<Props['style'], StaticMark>;
+  state: ObjectAttribute<Props['state'], StaticMark>;
 };

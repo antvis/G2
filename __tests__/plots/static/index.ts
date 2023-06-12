@@ -242,3 +242,8 @@ export { vennBasic } from './venn-basic';
 export { vennHollow } from './venn-hollow';
 export { stocksLineVarSize } from './stocks-line-var-size';
 export { barleyLineTrail } from './barley-line-trail';
+export { mockAxisX } from './mock-axisX';
+export { mockAxisY } from './mock-axisY';
+export { mockAxisXY } from './mock-axisXY';
+export { mockAxisXYPolar } from './mock-axisXY-polar';
+export { alphabetIntervalAxis } from './alphabet-interval-axis';

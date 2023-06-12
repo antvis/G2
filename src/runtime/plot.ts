@@ -33,6 +33,7 @@ import { documentOf, useLibrary } from './library';
 import { initializeMark } from './mark';
 import {
   applyScale,
+  collectScales,
   inferScale,
   syncFacetsScales,
   useRelationScale,
@@ -100,6 +101,12 @@ export async function plot<T extends G2ViewTree>(
       .map((d) => /mark\.(.*)/.exec(d)?.[1])
       .filter(defined),
   );
+  const staticMarks = new Set(
+    Object.keys(library)
+      .map((d) => /component\.(.*)/.exec(d)?.[1])
+      .filter(defined),
+  );
+
   const typeOf = (node: G2ViewTree) => {
     const { type } = node;
     if (typeof type === 'function') {
@@ -108,14 +115,24 @@ export async function plot<T extends G2ViewTree>(
       const { composite = true } = props;
       if (composite) return 'mark';
     }
-    return typeof type === 'string' && marks.has(type) ? 'mark' : type;
+    if (typeof type !== 'string') return type;
+    if (marks.has(type) || staticMarks.has(type)) return 'mark';
+    return type;
   };
+
   const isMark = (node: G2ViewTree) => typeOf(node) === 'mark';
   const isStandardView = (node: G2ViewTree) => typeOf(node) === 'standardView';
+  const isStaticMark = (node: G2ViewTree) => {
+    const { type } = node;
+    if (typeof type !== 'string') return false;
+    if (staticMarks.has(type)) return true;
+    return false;
+  };
+
   const transform = (node: G2ViewTree) => {
     if (isStandardView(node)) return [node];
     const type = typeOf(node);
-    const composition = useComposition({ type });
+    const composition = useComposition({ type, static: isStaticMark(node) });
     return composition(node);
   };
 
@@ -431,8 +448,14 @@ async function transformMarks(
     library,
   );
 
+  const staticMarks = new Set(
+    Object.keys(library)
+      .map((d) => /component\.(.*)/.exec(d)?.[1])
+      .filter(defined),
+  );
   const { marks } = options;
   const flattenMarks = [];
+  const components = [];
   const discovered = [...marks];
   const { width, height } = computeRoughPlotSize(options);
   const context = { options, width, height };
@@ -443,18 +466,23 @@ async function transformMarks(
     // Apply data transform to get data.
     const mark = (await applyTransform(node, library)) as G2Mark;
     const { type = error('G2Mark type is required.'), key } = mark;
-    const { props = {} } = createMark(type);
-    const { composite = true } = props;
-    if (!composite) flattenMarks.push(mark);
+
+    // For components.
+    if (staticMarks.has(type as string)) components.push(mark);
     else {
-      // Convert composite mark to marks.
-      const marks = await useMark(mark, context);
-      const M = Array.isArray(marks) ? marks : [marks];
-      discovered.unshift(...M.map((d, i) => ({ ...d, key: `${key}-${i}` })));
+      const { props = {} } = createMark(type);
+      const { composite = true } = props;
+      if (!composite) flattenMarks.push(mark);
+      else {
+        // Convert composite mark to marks.
+        const marks = await useMark(mark, context);
+        const M = Array.isArray(marks) ? marks : [marks];
+        discovered.unshift(...M.map((d, i) => ({ ...d, key: `${key}-${i}` })));
+      }
     }
   }
 
-  return { ...options, marks: flattenMarks };
+  return { ...options, marks: flattenMarks, components };
 }
 
 async function initializeMarks(
@@ -563,10 +591,7 @@ function initializeState(
 
   // Infer components and compute layout.
   const states = Array.from(markState.values());
-  const scales = Array.from(
-    new Set(states.flatMap((d) => d.channels.map((d) => d.scale))),
-  );
-
+  const scales = collectScales(states, options);
   const components = inferComponent(
     inferComponentScales(Array.from(scales), states, markState),
     options,
@@ -742,6 +767,7 @@ async function plotView(
   const componentAnimateOptions = animationExtent
     ? { duration: animationExtent[1] }
     : false;
+
   // Render components.
   // @todo renderComponent return ctor and options.
   const componentsTransitions = selection

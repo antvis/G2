@@ -26,6 +26,8 @@ import {
   Tree,
   WordCloud,
   Gauge,
+  AxisX,
+  AxisY,
 } from '../../../src/api/mark/mark';
 
 type Mark =
@@ -158,6 +160,25 @@ function getLayoutOptions() {
       a: 10,
       b: 8,
     },
+  };
+}
+
+function setAxisOptions(node: AxisX | AxisY): AxisX | AxisY {
+  return node
+    .scale('x', { type: 'linear' })
+    .transform({ type: 'hide' })
+    .style('gridFill', 'red')
+    .state('active', { gridFill: 'red' })
+    .attr('labelFormatter', '~s');
+}
+
+function getAxisOptions() {
+  return {
+    scale: { x: { type: 'linear' } },
+    transform: [{ type: 'hide' }],
+    style: { gridFill: 'red' },
+    state: { active: { gridFill: 'red' } },
+    labelFormatter: '~s',
   };
 }
 
@@ -375,5 +396,17 @@ describe('mark.[node]()', () => {
     const node = new Gauge();
     expect(node.type).toBe('gauge');
     expect(setCompositeOptions(node).value).toEqual(getOptions());
+  });
+
+  it('AxisX() should specify options by API', () => {
+    const node = new AxisX();
+    expect(node.type).toBe('axisX');
+    expect(setAxisOptions(node).value).toEqual(getAxisOptions());
+  });
+
+  it('AxisY() should specify options by API', () => {
+    const node = new AxisY();
+    expect(node.type).toBe('axisY');
+    expect(setAxisOptions(node).value).toEqual(getAxisOptions());
   });
 });

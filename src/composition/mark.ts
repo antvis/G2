@@ -4,7 +4,9 @@ import { Mark as MarkComposition } from '../spec';
 export type MarkOptions = Omit<MarkComposition, 'type'>;
 
 // @todo Move this to runtime.
-export const Mark: CC<MarkOptions> = () => {
+export const Mark: CC<MarkOptions> = ({
+  static: isStatic = false,
+}: any = {}) => {
   return (options) => {
     const {
       width,
@@ -33,11 +35,11 @@ export const Mark: CC<MarkOptions> = () => {
       y,
       key,
       frame,
-      title,
       labelTransform,
       parentKey,
       clip,
       viewStyle,
+      title,
       ...mark
     } = options;
 
@@ -64,7 +66,6 @@ export const Mark: CC<MarkOptions> = () => {
         component,
         interaction,
         frame,
-        title,
         labelTransform,
         margin,
         marginLeft,
@@ -74,7 +75,9 @@ export const Mark: CC<MarkOptions> = () => {
         parentKey,
         clip,
         style: viewStyle,
-        marks: [{ ...mark, key: `${key}-0`, data }],
+        // For axis component, title is the axis title.
+        ...(!isStatic && { title }),
+        marks: [{ ...mark, key: `${key}-0`, data, ...(isStatic && { title }) }],
       },
     ];
   };

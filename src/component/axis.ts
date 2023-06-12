@@ -2,7 +2,7 @@ import { Coordinate } from '@antv/coord';
 import type { DisplayObject } from '@antv/g';
 import { Axis as AxisComponent } from '@antv/gui';
 import { Linear as LinearScale } from '@antv/scale';
-import { deepMix, has } from '@antv/util';
+import { deepMix, has, omit } from '@antv/util';
 import { extent } from 'd3-array';
 import { format } from 'd3-format';
 import {
@@ -402,18 +402,21 @@ const ArcAxisComponent: GCC<AxisOptions> = (options) => {
     );
 
     const { axis: axisTheme } = theme;
+    const finalStyle = adaptor(
+      deepMix({}, axisTheme, defaultStyle, {
+        type: 'arc',
+        data,
+        titleText: titleContent(title),
+        grid,
+        ...rest,
+        ...important,
+      }),
+    );
 
     return new AxisComponent({
-      style: adaptor(
-        deepMix({}, axisTheme, defaultStyle, {
-          type: 'arc',
-          data,
-          titleText: titleContent(title),
-          grid,
-          ...rest,
-          ...important,
-        }),
-      ),
+      // @fixme transform is not valid for arcAxis.
+      // @ts-ignore
+      style: omit(finalStyle, ['transform']),
     });
   };
 };
