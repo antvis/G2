@@ -61,24 +61,25 @@ export function inferComponent(
   partialOptions: G2View,
   library: G2Library,
 ): G2GuideComponentOptions[] {
-  const {
-    component: partialComponents = [],
-    coordinates = [],
-    title,
-    theme,
-  } = partialOptions;
+  const { coordinates = [], title } = partialOptions;
   const [, createGuideComponent] = useLibrary<
     G2GuideComponentOptions,
     GCC,
     GuideComponent
   >('component', library);
 
-  const displayedScales = scales.filter(({ guide, name }) => {
+  const displayedScales = scales.filter(({ guide }) => {
     if (guide === null) return false;
     return true;
   });
+
+  const components = [];
+
+  // Sliders and scrollbar component.
   const sliders = inferScrollableComponents(partialOptions, scales, library);
-  const components = [...partialComponents, ...sliders];
+  components.push(...sliders);
+
+  // Title components.
   if (title) {
     const { props } = createGuideComponent('title');
     const { defaultPosition, defaultOrientation, defaultOrder, defaultSize } =
@@ -94,6 +95,7 @@ export function inferComponent(
     });
   }
 
+  // Axis and legends.
   const inferredComponents = inferComponentsType(displayedScales, coordinates);
 
   inferredComponents.forEach(([type, relativeScales]) => {
@@ -446,7 +448,6 @@ function inferScrollableComponents(
     .filter((d) => d.slider || d.scrollbar)
     .flatMap((scale) => {
       const { slider, scrollbar, name: channelName } = scale;
-
       return [
         normalized('slider', channelName, scale, slider),
         normalized('scrollbar', channelName, scale, scrollbar),

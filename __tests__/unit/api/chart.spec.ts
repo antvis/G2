@@ -40,6 +40,8 @@ import {
   Gauge,
   Density,
   Heatmap,
+  AxisX,
+  AxisY,
 } from '../../../src/api/mark/mark';
 
 const TEST_OPTIONS = {
@@ -166,6 +168,8 @@ describe('Chart', () => {
     expect(chart.gauge()).toBeInstanceOf(Gauge);
     expect(chart.density()).toBeInstanceOf(Density);
     expect(chart.heatmap()).toBeInstanceOf(Heatmap);
+    expect(chart.axisX()).toBeInstanceOf(AxisX);
+    expect(chart.axisY()).toBeInstanceOf(AxisY);
     expect(chart.options().children).toEqual([
       { type: 'interval' },
       { type: 'rect' },
@@ -196,6 +200,8 @@ describe('Chart', () => {
       { type: 'gauge' },
       { type: 'density' },
       { type: 'heatmap' },
+      { type: 'axisX' },
+      { type: 'axisY' },
     ]);
   });
 

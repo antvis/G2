@@ -1,7 +1,7 @@
 import { Linear, createInterpolateValue } from '@antv/scale';
 import { extent } from 'd3-array';
 import * as d3ScaleChromatic from 'd3-scale-chromatic';
-import { max, upperFirst } from '@antv/util';
+import { deepMix, omit, upperFirst } from '@antv/util';
 import { firstOf, lastOf, unique } from '../utils/array';
 import { defined, identity, isStrictObject } from '../utils/helper';
 import { Primitive, G2Theme, G2MarkState, ChannelGroups } from './types/common';
@@ -11,6 +11,7 @@ import {
   G2ScaleOptions,
   G2PaletteOptions,
   G2Mark,
+  G2View,
 } from './types/options';
 import {
   ScaleComponent,
@@ -62,6 +63,46 @@ export function applyScale(
     }
   }
   return scaledValue;
+}
+
+export function collectScales(states: G2MarkState[], options: G2View) {
+  const { components = [] } = options;
+
+  const NONE_STATIC_KEYS = ['scale', 'encode', 'axis', 'legend'];
+
+  // From normal marks.
+  const scales = Array.from(
+    new Set(states.flatMap((d) => d.channels.map((d) => d.scale))),
+  );
+
+  // From static marks.
+  const nameScale = new Map(scales.map((scale) => [scale.name, scale]));
+  for (const component of components) {
+    const channels = inferChannelsForComponent(component);
+    for (const channel of channels) {
+      const scale = nameScale.get(channel);
+      const staticScale = component.scale?.[channel] || {};
+      const { independent = false } = staticScale;
+
+      if (scale && !independent) {
+        // Merged with exist scales if is not independent.
+        const { guide } = scale;
+        const guide1 = typeof guide === 'boolean' ? {} : guide;
+        scale.guide = deepMix({}, guide1, component);
+        Object.assign(scale, staticScale);
+      } else {
+        // Append new scales without exit scales or independent.
+        const options1 = {
+          ...staticScale,
+          expectedDomain: staticScale.domain,
+          name: channel,
+          guide: omit(component, NONE_STATIC_KEYS),
+        };
+        scales.push(options1);
+      }
+    }
+  }
+  return scales;
 }
 
 export function useRelation(
@@ -133,6 +174,14 @@ export function syncFacetsScales(states: Map<G2Mark, G2MarkState>[]): void {
     .flatMap((d) => d.channels.map((d) => d.scale));
   syncFacetsScaleByChannel(scales, 'x');
   syncFacetsScaleByChannel(scales, 'y');
+}
+
+function inferChannelsForComponent(component) {
+  const { channels = [], type } = component;
+  if (channels.length !== 0) return channels;
+  if (type === 'axisX') return ['x'];
+  if (type === 'axisY') return ['y'];
+  return [];
 }
 
 function syncFacetsScaleByChannel(

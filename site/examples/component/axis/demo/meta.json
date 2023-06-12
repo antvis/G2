@@ -5,6 +5,38 @@
   },
   "demos": [
     {
+      "filename": "axis-x.ts",
+      "title": {
+        "zh": "x 方向坐标轴",
+        "en": "AxisX"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*kcACSYV4r-cAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "axis-xy.ts",
+      "title": {
+        "zh": "x 和 y 方向坐标轴",
+        "en": "AxisX and AxisY"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*CtPmSYjKyKAAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "axis-polar.ts",
+      "title": {
+        "zh": "极坐标下坐标轴",
+        "en": "Axis Polar"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*5KPvQoiA0XMAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "axis-multi.ts",
+      "title": {
+        "zh": "多坐标轴",
+        "en": "Multi Axis"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*aQv5Q7WKx3UAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
       "filename": "axis.ts",
       "title": {
         "zh": "自定义坐标轴标签",

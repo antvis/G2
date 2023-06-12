@@ -30,11 +30,12 @@ import {
   WordCloudMark,
   CompositeMark,
   GaugeMark,
+  AxisComponent,
 } from '../../spec';
 import { NodePropertyDescriptor, defineProps } from '../props';
 import { Concrete } from '../types';
 import { MarkNode } from './base';
-import { API } from './types';
+import { API, StaticAPI } from './types';
 
 export interface Interval extends API<Concrete<IntervalMark>, Interval> {
   type: 'interval';
@@ -159,6 +160,14 @@ export interface Composite extends API<Concrete<CompositeMark>, Composite> {
   type: 'interval';
 }
 
+export interface AxisX extends StaticAPI<Concrete<AxisComponent>, AxisX> {
+  type: 'axisX';
+}
+
+export interface AxisY extends StaticAPI<Concrete<AxisComponent>, AxisY> {
+  type: 'axisY';
+}
+
 export const props: NodePropertyDescriptor[] = [
   { name: 'encode', type: 'object' },
   { name: 'scale', type: 'object' },
@@ -175,6 +184,13 @@ export const props: NodePropertyDescriptor[] = [
   { name: 'scrollbar', type: 'object' },
   { name: 'state', type: 'object' },
   { name: 'tooltip', type: 'mix' },
+];
+
+export const axisProps: NodePropertyDescriptor[] = [
+  { name: 'scale', type: 'object' },
+  { name: 'transform', type: 'array' },
+  { name: 'style', type: 'object' },
+  { name: 'state', type: 'object' },
 ];
 
 @defineProps(props)
@@ -391,5 +407,19 @@ export class WordCloud extends MarkNode<WordCloudMark> {
 export class Gauge extends MarkNode<GaugeMark> {
   constructor() {
     super({}, 'gauge');
+  }
+}
+
+@defineProps(axisProps)
+export class AxisX extends MarkNode<AxisComponent> {
+  constructor() {
+    super({}, 'axisX');
+  }
+}
+
+@defineProps(axisProps)
+export class AxisY extends MarkNode<AxisComponent> {
+  constructor() {
+    super({}, 'axisY');
   }
 }
