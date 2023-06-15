@@ -102,7 +102,7 @@ bin 主要是用来聚合数值类型的数据，group 主要针对离散数据�
 <img alt="pack" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*HWXPS6a6pOQAAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
 ```js
-chart.factRect().point().transform({ typ: 'pack' });
+chart.facetRect().point().transform({ type: 'pack' });
 ```
 
 ## 多个转换
