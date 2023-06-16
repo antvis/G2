@@ -9,7 +9,7 @@ order: 5
 
 最基础的视图复合方式就是**空间复合（Space Composition）**，只是对空间进行划分。
 
-一个比较常见的复合方式是 `chart.faceLayer`：将多个图表重叠在一起。使用场景是这些视图拥有的不同的坐标系，比如下面的条形图和饼图。
+一个比较常见的复合方式是 `chart.facetLayer`：将多个图表重叠在一起。使用场景是这些视图拥有的不同的坐标系，比如下面的条形图和饼图。
 
 <img alt="space" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*SFM9T40m2cEAAAAAAAAAAAAADmJ7AQ/original" width="640px">
 

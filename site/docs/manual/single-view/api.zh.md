@@ -189,7 +189,7 @@ chart.line().call(x).call(y);
 chart.point().call(x).call(y);
 ```
 
-`node.call` 本质上会调用对节点执行第一个参数指定的函数，并且返回该节点。也就说下面两种写法是等价的。
+`node.call` 本质上会对节点调用执行第一个参数指定的函数，并且返回该节点。也就说下面两种写法是等价的。
 
 ```js
 x(chart.line()); // 第一种
