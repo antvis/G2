@@ -76,7 +76,12 @@ function createShape(
 function inferShape(scales: Scale[], markState: Map<G2Mark, G2MarkState>) {
   const shapeScale = scaleOf(scales, 'shape');
   const colorScale = scaleOf(scales, 'color');
-  // infer the main shape if multiple marks are used
+
+  // NOTE!!!
+  // scaleOrdinal.map will mute domain.
+  const shapeScale1 = shapeScale ? shapeScale.clone() : null;
+
+  // Infer the main shape if multiple marks are used.
   const shapes: [string, string[]][] = [];
   for (const [mark, state] of markState) {
     const namespace = mark.type;
@@ -85,7 +90,7 @@ function inferShape(scales: Scale[], markState: Map<G2Mark, G2MarkState>) {
         ? colorScale?.getOptions().domain
         : state.data;
     const shape: string[] = domain.map((d, i) => {
-      if (shapeScale) return shapeScale.map(d || 'point');
+      if (shapeScale1) return shapeScale1.map(d || 'point');
       return mark?.style?.shape || state.defaultShape || 'point';
     });
     if (typeof namespace === 'string') shapes.push([namespace, shape]);
@@ -144,20 +149,23 @@ function inferItemMarkerOpacity(scales: Scale[]) {
   return undefined;
 }
 
-function inferItemMarkerSize(scales: Scale[]) {
+function inferItemMarkerSize(scales: Scale[], defaults: number) {
   const scale = scaleOf(scales, 'size');
   // only support constant size scale.
   // size in category legend means the marker radius.
   if (scale) return scale.map(NaN) * 2;
-  return 8;
+  return defaults;
 }
 
 function inferCategoryStyle(options, context: GuideComponentContext) {
   const { labelFormatter = (d) => `${d}` } = options;
-  const { scales } = context;
+  const { scales, theme } = context;
   const baseStyle = {
     itemMarker: inferItemMarker(options, context),
-    itemMarkerSize: inferItemMarkerSize(scales),
+    itemMarkerSize: inferItemMarkerSize(
+      scales,
+      theme.legendCategory.itemMarkerSize,
+    ),
     itemMarkerOpacity: inferItemMarkerOpacity(scales),
   };
 
@@ -188,7 +196,7 @@ function inferLegendShape(
   const { position } = options;
   if (position === 'center') {
     const { bbox } = value;
-    // to be comfirm: if position is center, we should use the width and height of user definition.
+    // to be confirm: if position is center, we should use the width and height of user definition.
     const { width, height } = bbox;
     return { width, height };
   }
@@ -208,6 +216,7 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
     position,
     size,
     title,
+    cols,
     ...style
   } = options;
 
@@ -223,27 +232,20 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
       value.scales?.[0]?.guide?.layout,
     );
 
-    const [finalGridRow, finalGridCol] = inferLayout(
-      position,
-      gridRow,
-      gridCol,
-    );
-
     const legendStyle = {
       orientation: ['right', 'left', 'center'].includes(position)
         ? 'vertical'
         : 'horizontal',
       width,
       height,
-      gridCol: gridCol ?? finalGridCol,
-      gridRow: gridRow ?? finalGridRow,
-      rowPadding: 0,
-      colPadding: 8,
+      layout: cols !== undefined ? 'grid' : 'flex',
+      ...(cols !== undefined && { gridCol: cols }),
+      ...(gridRow !== undefined && { gridRow }),
       titleText: titleContent(title),
       ...inferCategoryStyle(options, context),
     };
 
-    const { legend: legendTheme = {} } = theme;
+    const { legendCategory: legendTheme = {} } = theme;
 
     const categoryStyle = adaptor(
       Object.assign({}, legendTheme, legendStyle, style),
@@ -267,7 +269,8 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
         style: categoryStyle,
       }),
     );
-    return layoutWrapper;
+
+    return layoutWrapper as unknown as DisplayObject;
   };
 };
 
@@ -275,4 +278,6 @@ LegendCategory.props = {
   defaultPosition: 'top',
   defaultOrder: 1,
   defaultSize: 40,
+  defaultPadding: [20, 10], // [horizontal, vertical]
+  defaultCrossPadding: [5, 10], // [horizontal, vertical]
 };

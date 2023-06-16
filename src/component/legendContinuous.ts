@@ -1,4 +1,4 @@
-import { parseColor } from '@antv/g';
+import { DisplayObject, parseColor } from '@antv/g';
 import { Continuous } from '@antv/gui';
 import { Quantile, Quantize, Threshold } from '@antv/scale';
 import { format } from 'd3-format';
@@ -68,12 +68,9 @@ function inferContinuousShape(
   options: LegendContinuousOptions,
   component: GCC,
 ): Shape {
-  const { size } = options;
+  const { size, crossPadding = 0 } = options;
   const shape = inferComponentShape(value, options, component);
-  const finalSize = calculateFinalSize(
-    size,
-    LegendContinuous.props.defaultLegendSize,
-  );
+  const finalSize = size - crossPadding * 2;
   return updateShapeDimensions(shape, finalSize, shape.orientation);
 }
 
@@ -131,8 +128,7 @@ function rangeOf(scale: Scale) {
  * @param scale
  * @param theme
  */
-function createColorScale(scale: Scale, theme: G2Theme): Scale {
-  const { defaultColor } = theme;
+function createColorScale(scale: Scale, defaultColor: string): Scale {
   const options = scale.getOptions();
   const newScale = scale.clone();
   newScale.update({ ...options, range: [parseColor(defaultColor).toString()] });
@@ -144,13 +140,20 @@ function getLinearConfig(
   colorScale: Scale,
   sizeScale: Scale,
   opacityScale: Scale,
+  scales: Record<string, any>,
   theme: G2Theme,
 ): Config {
   const { length } = shape;
-  const scale =
-    colorScale || createColorScale(sizeScale || opacityScale, theme);
-  const [min, max] = rangeOf(scale);
+  const definedScale = sizeScale || opacityScale;
 
+  // Only use defaultColor when there is no color scale
+  // in this view.
+  const defaultColor = scales.color
+    ? theme.legendContinuous.ribbonFill || 'black'
+    : theme.defaultColor;
+
+  const scale = colorScale || createColorScale(definedScale, defaultColor);
+  const [min, max] = rangeOf(scale);
   return {
     ...shape,
     data: scale.getTicks().map((value) => ({ value })),
@@ -168,6 +171,7 @@ function getLinearConfig(
 
 function inferContinuousConfig(
   scales: Scale[],
+  scale: Record<string, Scale>,
   value: Record<string, any>,
   options: LegendContinuousOptions,
   component: GCC,
@@ -190,7 +194,14 @@ function inferContinuousConfig(
   // for linear, pow, sqrt, log, time, utc scale
   const sizeScale = scaleOf(scales, 'size');
   const opacityScale = scaleOf(scales, 'opacity');
-  return getLinearConfig(shape, colorScale, sizeScale, opacityScale, theme);
+  return getLinearConfig(
+    shape,
+    colorScale,
+    sizeScale,
+    opacityScale,
+    scale,
+    theme,
+  );
 }
 
 /**
@@ -207,24 +218,24 @@ export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
     size,
     title,
     style,
+    crossPadding,
+    padding,
     ...rest
   } = options;
 
-  return ({ scales, value, theme }) => {
+  return ({ scales, value, theme, scale }) => {
     const { bbox } = value;
     const { x, y, width, height } = bbox;
     const finalLayout = inferComponentLayout(position, layout);
 
-    const { continuousLegend: legendTheme = {} } = theme;
+    const { legendContinuous: legendTheme = {} } = theme;
+
     const finalStyle = adaptor(
       Object.assign(
         {},
         legendTheme,
         {
           titleText: titleContent(title),
-          titleFontSize: 12,
-          handle: false,
-          indicator: false,
           labelAlign: 'value',
           labelFormatter:
             typeof labelFormatter === 'string'
@@ -232,6 +243,7 @@ export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
               : labelFormatter,
           ...inferContinuousConfig(
             scales,
+            scale,
             value,
             options,
             LegendContinuous,
@@ -261,7 +273,7 @@ export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
       }),
     );
 
-    return layoutWrapper;
+    return layoutWrapper as unknown as DisplayObject;
   };
 };
 
@@ -270,6 +282,8 @@ LegendContinuous.props = {
   defaultOrientation: 'vertical',
   defaultOrder: 1,
   defaultSize: 60,
-  defaultLength: 300,
+  defaultLength: 200,
   defaultLegendSize: 60,
+  defaultPadding: [20, 10], // [horizontal, vertical]
+  defaultCrossPadding: [5, 10], // [horizontal, vertical]
 };

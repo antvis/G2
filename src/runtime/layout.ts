@@ -1,5 +1,6 @@
 import { Coordinate } from '@antv/coord';
-import { ascending, group } from 'd3-array';
+import { ascending, group, sum } from 'd3-array';
+import { deepMix } from '@antv/util';
 import { isParallel, isPolar, isRadar, radiusOf } from '../utils/coordinate';
 import { capitalizeFirst } from '../utils/helper';
 import { divide } from '../utils/array';
@@ -12,7 +13,7 @@ import {
   SectionArea,
   G2Theme,
 } from './types/common';
-import { computeComponentSize } from './component';
+import { computeComponentSize, groupComponents } from './component';
 import { G2GuideComponentOptions, G2Library, G2View } from './types/options';
 
 export function computeLayout(
@@ -43,15 +44,35 @@ export function computeLayout(
     paddingTop = padding,
   } = options;
 
-  const MAX_PADDING_RATIO = 1 / 3;
-  const clamp = (origin, computed, max) =>
-    origin === 'auto' ? Math.min(max, computed) : computed;
+  const MIN_CONTENT_RATIO = 1 / 4;
+
+  const maybeClamp = (viewWidth, paddingLeft, paddingRight, pl0, pr0) => {
+    // Only clamp when has marks.
+    const { marks } = options;
+    if (marks.length === 0) return [pl0, pr0];
+
+    // If size of content is enough, skip.
+    const contentSize = viewWidth - pl0 - pr0;
+    const diff = contentSize - viewWidth * MIN_CONTENT_RATIO;
+    if (diff > 0) return [pl0, pr0];
+
+    // Shrink start and end size equally.
+    const half = (viewWidth * (1 - MIN_CONTENT_RATIO)) / 2;
+    return [
+      paddingLeft === 'auto' ? half : pl0,
+      paddingRight === 'auto' ? half : pr0,
+    ];
+  };
+
+  const roughPadding = (padding) => (padding === 'auto' ? 30 : padding ?? 30);
+  const rpt = roughPadding(paddingTop);
+  const rpb = roughPadding(paddingBottom);
 
   // Compute paddingLeft and paddingRight first to get innerWidth.
   const horizontalPadding = computePadding(
     components,
-    height,
-    [0, 0],
+    height - rpt - rpb,
+    [rpt, rpb],
     ['left', 'right'],
     options,
     theme,
@@ -59,8 +80,7 @@ export function computeLayout(
   );
   const { paddingLeft: pl0, paddingRight: pr0 } = horizontalPadding;
   const viewWidth = width - marginLeft - marginRight;
-  const pl = clamp(paddingLeft, pl0, viewWidth * MAX_PADDING_RATIO);
-  const pr = clamp(paddingRight, pr0, viewWidth * MAX_PADDING_RATIO);
+  const [pl, pr] = maybeClamp(viewWidth, paddingLeft, paddingRight, pl0, pr0);
   const iw = viewWidth - pl - pr;
 
   // Compute paddingBottom and paddingTop based on innerWidth.
@@ -75,8 +95,7 @@ export function computeLayout(
   );
   const { paddingTop: pt0, paddingBottom: pb0 } = verticalPadding;
   const viewHeight = height - marginBottom - marginTop;
-  const pb = clamp(paddingBottom, pb0, viewHeight * MAX_PADDING_RATIO);
-  const pt = clamp(paddingTop, pt0, viewHeight * MAX_PADDING_RATIO);
+  const [pb, pt] = maybeClamp(viewHeight, paddingBottom, paddingTop, pb0, pt0);
   const ih = viewHeight - pb - pt;
 
   return {
@@ -181,8 +200,9 @@ function computePadding(
         layout[key] = 30;
       } else {
         const components = positionComponents.get(position);
+        const grouped = groupComponents(components, crossSize);
         if (value === 'auto') {
-          components.forEach((component) =>
+          grouped.forEach((component) =>
             computeComponentSize(
               component,
               crossSize,
@@ -193,7 +213,7 @@ function computePadding(
             ),
           );
         }
-        const totalSize = components.reduce((sum, { size }) => sum + size, 0);
+        const totalSize = grouped.reduce((sum, { size }) => sum + size, 0);
         layout[key] = totalSize;
       }
     }
@@ -495,14 +515,59 @@ function placePaddingArea(
   const startValue = reverse ? mainStartValue + mainSizeValue : mainStartValue;
   for (let i = 0, start = startValue; i < components.length; i++) {
     const component = components[i];
+    const { crossPadding = 0 } = component;
     const { size } = component;
     component.bbox = {
-      [mainStartKey]: reverse ? start - size : start,
+      [mainStartKey]: reverse
+        ? start - size + crossPadding
+        : start + crossPadding,
       [crossStartKey]: crossStartValue,
-      [mainSizeKey]: size,
+      [mainSizeKey]: size - crossPadding * 2,
       [crossSizeKey]: crossSizeValue,
     };
     start += size * (reverse ? -1 : 1);
+  }
+
+  // Place group components.
+  const groupComponents = components.filter((d) => d.type === 'group');
+  for (const group of groupComponents) {
+    const { bbox, children } = group;
+    const size = bbox[crossSizeKey];
+    const step = size / children.length;
+    const justifyContent = children.reduce((j, child) => {
+      const j0 = child.layout?.justifyContent;
+      return j0 ? j0 : j;
+    }, 'flex-start');
+    const L = children.map((d, i) => {
+      const { length = step, padding = 0 } = d;
+      return length + (i === children.length - 1 ? 0 : padding);
+    });
+    const totalLength = sum(L);
+    const diff = size - totalLength;
+    const offset =
+      justifyContent === 'flex-start'
+        ? 0
+        : justifyContent === 'center'
+        ? diff / 2
+        : diff;
+
+    for (
+      let i = 0, start = bbox[crossStartKey] + offset;
+      i < children.length;
+      i++
+    ) {
+      const component = children[i];
+      const { padding = 0 } = component;
+      const interval = i === children.length - 1 ? 0 : padding;
+      component.bbox = {
+        [mainSizeKey]: bbox[mainSizeKey],
+        [mainStartKey]: bbox[mainStartKey],
+        [crossStartKey]: start,
+        [crossSizeKey]: L[i] - interval,
+      };
+      deepMix(component, { layout: { justifyContent } });
+      start += L[i];
+    }
   }
 }
 
