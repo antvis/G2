@@ -60,26 +60,26 @@ export function inferComponentLayout(
     alignItems: 'center',
   };
 
-  if (userDefinitions) {
-    return {
-      ...preset,
-      ...userDefinitions,
-    };
-  }
   let { flexDirection, justifyContent, alignItems } = preset;
 
   const layout = {
     top: ['row', 'flex-start', 'center'],
     bottom: ['row', 'flex-start', 'center'],
-    left: ['colunm', 'center', 'center'],
-    right: ['colunm', 'center', 'center'],
+    left: ['column', 'center', 'center'],
+    right: ['column', 'center', 'center'],
     center: ['column', 'center', 'center'],
   };
 
   if (position in layout) {
     [flexDirection, justifyContent, alignItems] = layout[position];
   }
-  return { display: 'flex', flexDirection, justifyContent, alignItems };
+  return {
+    display: 'flex',
+    flexDirection,
+    justifyContent,
+    alignItems,
+    ...userDefinitions,
+  };
 }
 
 export class G2Layout extends Layout {
@@ -123,17 +123,25 @@ export function inferComponentShape(
     position = 'top',
     size: userDefinedSize,
     length: userDefinedLength,
+    crossPadding = 0,
   } = options;
   const isHorizontal = ['top', 'bottom', 'center'].includes(position);
   const [bboxSize, bboxLength] = isHorizontal
     ? [bbox.height, bbox.width]
     : [bbox.width, bbox.height];
   const { defaultSize, defaultLength } = component.props;
-  const size = userDefinedSize || defaultSize || bboxSize;
+  const size0 = userDefinedSize || defaultSize || bboxSize;
+  const size = size0 - crossPadding * 2;
   const length = userDefinedLength || defaultLength || bboxLength;
   const orientation = isHorizontal ? 'horizontal' : 'vertical';
   const [width, height] = isHorizontal ? [length, size] : [size, length];
-  return { orientation, width, height, size, length } as const;
+  return {
+    orientation,
+    width,
+    height,
+    size,
+    length,
+  } as const;
 }
 
 export function domainOf(scales: Scale[]): any[] {

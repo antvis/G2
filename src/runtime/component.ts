@@ -3,7 +3,7 @@
  */
 import { Coordinate } from '@antv/coord';
 import { deepMix, isEqual } from '@antv/util';
-import { group, max, sum } from 'd3-array';
+import { group, groups, max, sum } from 'd3-array';
 import { format } from 'd3-format';
 import { DisplayObject, Text } from '@antv/g';
 import {
@@ -100,10 +100,18 @@ export function inferComponent(
 
   inferredComponents.forEach(([type, relativeScales]) => {
     const { props } = createGuideComponent(type);
-    const { defaultPosition, defaultOrientation, defaultSize, defaultOrder } =
-      props;
+    const {
+      defaultPosition,
+      defaultOrientation,
+      defaultSize,
+      defaultOrder,
+      defaultLength,
+      defaultPadding: DP = [0, 0],
+      defaultCrossPadding: DCP = [0, 0],
+    } = props;
     // @todo to be confirm if the scale can be merged.
-    const scale: G2ScaleOptions = Object.assign({}, ...relativeScales);
+    // const scale: G2ScaleOptions = Object.assign({}, ...relativeScales);
+    const scale: G2ScaleOptions = deepMix({}, ...relativeScales);
     const { guide: guideOptions, field } = scale;
     // A scale may have multiple guides.
     const guides = Array.isArray(guideOptions) ? guideOptions : [guideOptions];
@@ -122,13 +130,27 @@ export function inferComponent(
       // @example the last axis of radar chart
       if (!position && !orientation) continue;
 
-      const { size = defaultSize, order = defaultOrder } = partialGuide;
+      const isVertical = position === 'left' || position === 'right';
+      const defaultPadding = isVertical ? DP[1] : DP[0];
+      const defaultCrossPadding = isVertical ? DCP[1] : DCP[0];
+
+      const {
+        size = defaultSize,
+        order = defaultOrder,
+        length = defaultLength,
+        padding = defaultPadding,
+        crossPadding = defaultCrossPadding,
+      } = partialGuide;
+
       components.push({
         title: field,
         ...partialGuide,
+        length,
         position,
         orientation,
+        padding,
         order,
+        crossPadding,
         size,
         type,
         scales: relativeScales,
@@ -151,13 +173,92 @@ export function renderComponent(
     GCC,
     GuideComponent
   >('component', library);
-  const { scales: scaleDescriptors = [], bbox, ...options } = component;
+  const { scales: scaleDescriptors = [], scale, bbox, ...options } = component;
   const scales = scaleDescriptors.map((descriptor) =>
     useRelationScale(descriptor, library),
   );
   const value = { bbox, scales: scaleDescriptors, library };
   const render = useGuideComponent(options);
-  return render({ coordinate, library, markState, scales, theme, value });
+  return render({
+    coordinate,
+    library,
+    markState,
+    scales,
+    theme,
+    value,
+    scale,
+  });
+}
+
+export function flatComponents(
+  components: G2GuideComponentOptions[],
+): G2GuideComponentOptions[] {
+  return components.flatMap((d) => (d.type == 'group' ? d.children : d));
+}
+
+// Wrap legends into a group component.
+export function groupComponents(
+  components: G2GuideComponentOptions[],
+  crossSize?: number,
+): G2GuideComponentOptions[] {
+  // Group components by key.
+  const P = ['left', 'right', 'bottom', 'top'];
+  const key = ({ type, position, group }) => {
+    if (!P.includes(position)) return Symbol('independent');
+    if (group === undefined) {
+      if (type.startsWith('legend')) return `legend-${position}`;
+      return Symbol('independent');
+    }
+    if (group === 'independent') return Symbol('independent');
+    return group;
+  };
+  const grouped = groups(components, key);
+
+  // Update attributes of group components,
+  // and maybe flatten group components without enough room.
+  return grouped.flatMap(([, components], i) => {
+    if (components.length === 1) return components[0];
+
+    // If crossSize defined, group components only when has
+    // enough room.
+    if (crossSize !== undefined) {
+      // Compute total length.
+      const DL = components
+        .filter((d) => d.length !== undefined)
+        .map((d) => d.length);
+      const totalLength = sum(DL);
+
+      // If there is no enough room for components,
+      // do not group.
+      if (totalLength > crossSize) {
+        components.forEach((d) => (d.group = Symbol('independent')));
+        return components;
+      }
+
+      // Group legends and update legend length.
+      const emptyLength = crossSize - totalLength;
+      const emptyCount = components.length - DL.length;
+      const length = emptyLength / emptyCount;
+      components.forEach((d) => {
+        if (d.length !== undefined) return;
+        d.length = length;
+      });
+    }
+
+    // Create a group component.
+    const size = max(components, (d) => d.size);
+    const order = max(components, (d) => d.order);
+    const crossPadding = max(components, (d) => d.crossPadding);
+    const position = components[0].position;
+    return {
+      type: 'group',
+      size,
+      order,
+      position,
+      children: components,
+      crossPadding,
+    };
+  });
 }
 
 function inferLegendComponentType(
@@ -464,40 +565,325 @@ export function computeComponentSize(
   position: GCP,
   theme: G2Theme,
   library: G2Library,
-): G2GuideComponentOptions {
-  const [useScale] = useLibrary<G2ScaleOptions, ScaleComponent, Scale>(
-    'scale',
-    library,
-  );
-
-  // Only compute and update size of axis component in padding area.
-  // @todo Legend, slider.
+) {
+  // Only compute and update size of components in padding area.
   const { type } = component;
   const paddingAreas = ['left', 'right', 'bottom', 'top'];
-  if (typeof type !== 'string' || !type.startsWith('axis')) return;
   if (!paddingAreas.includes(position)) return;
+  if (typeof type !== 'string') return;
+  const t = type as unknown as string;
+  const createCompute = () => {
+    if (t.startsWith('axis')) return computeAxisSize;
+    if (t.startsWith('group')) return computeGroupSize;
+    if (t.startsWith('legendContinuous')) return computeContinuousLegendSize;
+    if (t === 'legendCategory') return computeCategoryLegendSize;
+    return () => {};
+  };
+  return createCompute()(
+    component,
+    crossSize,
+    crossPadding,
+    position,
+    theme,
+    library,
+  );
+}
 
+function computeGroupSize(
+  component: G2GuideComponentOptions,
+  crossSize: number,
+  crossPadding: [number, number],
+  position: GCP,
+  theme: G2Theme,
+  library: G2Library,
+) {
+  const { children } = component;
+  const maxCrossPadding = max(
+    children,
+    (d: G2GuideComponentOptions) => d.crossPadding,
+  );
+  children.forEach((d) => (d.crossPadding = maxCrossPadding));
+  children.forEach((child) =>
+    computeComponentSize(
+      child,
+      crossSize,
+      crossPadding,
+      position,
+      theme,
+      library,
+    ),
+  );
+  const maxSize = max(children, (d: G2GuideComponentOptions) => d.size);
+  component.size = maxSize;
+  children.forEach((d) => (d.size = maxSize));
+}
+
+function computeAxisSize(
+  component: G2GuideComponentOptions,
+  crossSize: number,
+  crossPadding: [number, number],
+  position: GCP,
+  theme: G2Theme,
+  library: G2Library,
+) {
   // If padding is auto, use hide as the labelTransform by default
   // to avoid overlap between labels.
   component.transform = component.transform || [{ type: 'hide' }];
 
-  const { labelFormatter, scales, title, tickCount, tickMethod, tickFilter } =
-    component;
+  // Vertical or horizontal.
   const isVertical = position === 'left' || position === 'right';
 
   // Get styles to be applied.
   const style = styleOf(component, position, theme);
   const { tickLength = 0, labelSpacing = 0, titleSpacing = 0, ...rest } = style;
 
+  // Compute Labels.
+  const scale = createScale(component, library);
+  const labelBBoxes = computeLabelsBBox(component, scale, isVertical, rest);
+  if (labelBBoxes) {
+    const maxLabelWidth = max(labelBBoxes, (d) => d.width);
+    const paddingTick = tickLength + labelSpacing;
+
+    if (isVertical) {
+      component.size = maxLabelWidth + paddingTick;
+    } else {
+      // If the labels can't be placed horizontally,
+      // rotate 90 deg to display them.
+      const { tickFilter } = component;
+      if (overflowX(scale, labelBBoxes, crossSize, crossPadding, tickFilter)) {
+        component.size = maxLabelWidth + paddingTick;
+        component.style = {
+          ...component.style,
+          labelTransform: 'rotate(90)',
+        };
+      } else {
+        const maxLabelHeight = max(labelBBoxes, (d) => d.height);
+        component.size = maxLabelHeight + paddingTick;
+      }
+    }
+  }
+
+  // Compute title.
+  const titleBBox = computeTitleBBox(component, rest);
+  if (titleBBox) {
+    if (isVertical) {
+      component.size += titleSpacing + titleBBox.width;
+    } else {
+      component.size += titleSpacing + titleBBox.height;
+    }
+  }
+}
+
+function computeContinuousLegendSize(
+  component: G2GuideComponentOptions,
+  crossSize: number,
+  crossPadding: [number, number],
+  position: GCP,
+  theme: G2Theme,
+  library: G2Library,
+) {
+  // Get styles.
+  const styleOf = () => {
+    const { legendContinuous } = theme;
+    return deepMix({}, legendContinuous, component.style);
+  };
+  const { labelSpacing = 0, titleSpacing = 0, ...rest } = styleOf();
+
+  // Vertical or horizontal.
+  const isVertical = position === 'left' || position === 'right';
+
+  // Ribbon styles.
+  const ribbonStyles = subObject(rest, 'ribbon');
+  const { size: ribbonSize } = ribbonStyles;
+
+  const handleIconStyles = subObject(rest, 'handleIcon');
+  const { size: handleIconSize } = handleIconStyles;
+
+  const mainSize = Math.max(
+    ribbonSize,
+    handleIconSize * 2.4, // height = width * 2.4
+  );
+
+  component.size = mainSize;
+
+  // Compute labels.
+  const scale = createScale(component, library);
+  const labelBBoxes = computeLabelsBBox(component, scale, isVertical, rest);
+  if (labelBBoxes) {
+    const key = isVertical ? 'width' : 'height';
+    const size = max(labelBBoxes, (d) => d[key]);
+    component.size += size + labelSpacing;
+  }
+
+  // Compute title.
+  const titleBBox = computeTitleBBox(component, rest);
+  if (titleBBox) {
+    if (isVertical) {
+      component.size = Math.max(component.size, titleBBox.width);
+    } else {
+      component.size += titleSpacing + titleBBox.height;
+    }
+  }
+
+  const { crossPadding: cp = 0 } = component;
+  component.size += cp * 2;
+}
+
+function computeCategoryLegendSize(
+  component: G2GuideComponentOptions,
+  crossSize0: number,
+  crossPadding: [number, number],
+  position: GCP,
+  theme: G2Theme,
+  library: G2Library,
+) {
+  const styleOf = () => {
+    const { legendCategory } = theme;
+    return deepMix({}, legendCategory, component.style);
+  };
+
+  const {
+    itemSpacing,
+    itemMarkerSize,
+    titleSpacing,
+    rowPadding,
+    colPadding,
+    ...rest
+  } = styleOf();
+
+  const { cols, length } = component;
+
+  const crossSize = length === undefined ? crossSize0 : length;
+
+  // Vertical or horizontal.
+  const isVertical = position === 'left' || position === 'right';
+
+  // Compute title.
+  const titleBBox = computeTitleBBox(component, rest);
+
+  const scale = createScale(component, library);
+  const labelBBoxes = computeLabelsBBox(
+    component,
+    scale,
+    isVertical,
+    rest,
+    'itemLabel',
+  );
+
+  const height = Math.max(labelBBoxes[0].height, itemMarkerSize) + rowPadding;
+  const widthOf = (w, padding = 0) =>
+    itemMarkerSize + w + itemSpacing[0] + padding;
+
+  // Only support grid layout for vertical area.
+  const computeVerticalSize = () => {
+    let maxSize = -Infinity;
+    let pos = 0;
+    let cols = 1;
+    let rows = 0;
+    let maxRows = -Infinity;
+    let maxPos = -Infinity;
+    const titleHeight = titleBBox ? titleBBox.height : 0;
+    const maxHeight = crossSize - titleHeight;
+    for (const { width } of labelBBoxes) {
+      const w = widthOf(width);
+      maxSize = Math.max(maxSize, w);
+      if (pos + height > maxHeight) {
+        cols++;
+        maxRows = Math.max(maxRows, rows);
+        maxPos = Math.max(maxPos, pos);
+        rows = 1;
+        pos = height;
+      } else {
+        pos += height;
+        rows++;
+      }
+    }
+    if (cols <= 1) {
+      maxRows = rows;
+      maxPos = pos;
+    }
+    component.size = maxSize * cols;
+    component.length = maxPos + titleHeight;
+    deepMix(component, { cols, gridRow: maxRows });
+  };
+
+  // Horizontal grid layout.
+  const computeHorizontalGrid = () => {
+    const rows = Math.ceil(labelBBoxes.length / cols);
+    const maxWidth = max(labelBBoxes, (d) => widthOf(d.width)) * cols;
+    component.size = height * rows;
+    component.length = Math.min(maxWidth, crossSize);
+  };
+
+  // Horizontal flex layout.
+  const computeHorizontalFlex = () => {
+    let rows = 1;
+    let pos = 0;
+    let maxPos = -Infinity;
+    for (const { width } of labelBBoxes) {
+      const w = widthOf(width, colPadding);
+      if (pos + w > crossSize) {
+        maxPos = Math.max(maxPos, pos);
+        pos = w;
+        rows++;
+      } else {
+        pos += w;
+      }
+    }
+    if (rows === 1) maxPos = pos;
+    component.size = height * rows;
+    component.length = maxPos;
+  };
+
+  if (isVertical) computeVerticalSize();
+  else if (typeof cols === 'number') computeHorizontalGrid();
+  else computeHorizontalFlex();
+
+  // Compute titles.
+  if (titleBBox) {
+    if (isVertical) {
+      component.size = Math.max(component.size, titleBBox.width);
+    } else {
+      component.size += titleSpacing + titleBBox.height;
+    }
+  }
+
+  // Compute crossPadding.
+  const { crossPadding: cp = 0 } = component;
+  component.size += cp * 2;
+}
+
+function createScale(
+  component: G2GuideComponentOptions,
+  library: G2Library,
+): Scale {
+  const [useScale] = useLibrary<G2ScaleOptions, ScaleComponent, Scale>(
+    'scale',
+    library,
+  );
   // Init scale, the tickCount of axis has higher priority than scale.
-  const [scaleOptions] = scales;
+  const { scales, tickCount, tickMethod } = component;
+  const scaleOptions = scales.find(
+    (d) => d.type !== 'constant' && d.type !== 'identity',
+  );
   if (tickCount !== undefined) scaleOptions.tickCount = tickCount;
   if (tickMethod !== undefined) scaleOptions.tickMethod = tickMethod;
-  const scale = useScale(scaleOptions);
+  return useScale(scaleOptions);
+}
+
+function computeLabelsBBox(
+  component: G2GuideComponentOptions,
+  scale: Scale,
+  isVertical: boolean,
+  style: Record<string, any>,
+  key = 'label',
+) {
+  const { labelFormatter, tickFilter, label = true } = component;
+  if (!label) return null;
 
   // Get labels to be rendered.
   const labels = labelsOf(scale, labelFormatter, tickFilter);
-  const labeStyle = subObject(rest, 'label');
+  const labeStyle = subObject(style, key);
   const labelBBoxes = labels.map((d, i) => {
     const normalizeStyle = Object.fromEntries(
       Object.entries(labeStyle).map(([key, value]) => [
@@ -510,42 +896,23 @@ export function computeComponentSize(
     return computeLabelSize(d, normalizeStyle);
   });
 
-  const maxLabelWidth = max(labelBBoxes, (d) => d.width);
-  const paddingTick = tickLength + labelSpacing;
-
-  if (isVertical) {
-    component.size = maxLabelWidth + paddingTick;
-  } else {
-    // If the labels can't be placed horizontally,
-    // rotate 90 deg to display them.
-    if (overflowX(scale, labelBBoxes, crossSize, crossPadding, tickFilter)) {
-      component.size = maxLabelWidth + paddingTick;
-      component.style = {
-        ...component.style,
-        labelTransform: 'rotate(90)',
-      };
-    } else {
-      const maxLabelHeight = max(labelBBoxes, (d) => d.height);
-      component.size = maxLabelHeight + paddingTick;
-    }
-  }
-
   // Cache boxes to avoid computed twice.
   const I = labels.map((_, i) => i);
   component.indexBBox = new Map(I.map((i) => [i, [labels[i], labelBBoxes[i]]]));
 
-  if (title === false || title === null || title === undefined) return;
+  return labelBBoxes;
+}
 
-  // Get title to be rendered.
-  const titleStyle = subObject(rest, 'title');
+function computeTitleBBox(
+  component: G2GuideComponentOptions,
+  style: Record<string, any>,
+) {
+  const { title } = component;
+  if (title === false || title === null || title === undefined) return null;
+  const titleStyle = subObject(style, 'title');
   const titleText = Array.isArray(title) ? title.join(',') : title;
   const titleBBox = computeLabelSize(titleText, titleStyle);
-
-  if (isVertical) {
-    component.size += titleSpacing + titleBBox.width;
-  } else {
-    component.size += titleSpacing + titleBBox.height;
-  }
+  return titleBBox;
 }
 
 function styleOf(

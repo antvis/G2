@@ -15,13 +15,10 @@ export const LegendContinuousSize: GCC<LegendContinuousSizeOptions> = (
         {},
         {
           type: 'size',
-          tick: false,
-          data: sizeScale.getOptions().domain.map((value, index) => ({
+          data: sizeScale.getTicks().map((value, index) => ({
             value,
             label: String(value),
           })),
-          labelFilter: (datum, index, data) =>
-            index === 0 || index === data.length - 1,
         },
         options,
       ),

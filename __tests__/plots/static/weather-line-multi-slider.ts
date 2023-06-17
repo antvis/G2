@@ -5,7 +5,7 @@ export function weatherLineMultiSlider(): G2Spec {
   return {
     type: 'view',
     data: weather,
-    paddingLeft: 180,
+    padding: 'auto',
     children: [
       {
         type: 'line',

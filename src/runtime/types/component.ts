@@ -1,6 +1,7 @@
 import { Coordinate, Transformation } from '@antv/coord';
 import EventEmitter from '@antv/event-emitter';
 import { DisplayObject, IAnimation as GAnimation, IDocument } from '@antv/g';
+import { G2Layout } from 'component/utils';
 import {
   G2Theme,
   G2ViewInstance,
@@ -160,6 +161,7 @@ export type GuideComponentContext = {
   library: G2Library;
   markState: Map<G2Mark, G2MarkState>;
   scales: Scale[];
+  scale: Record<string, Scale>;
   theme: G2Theme;
   value: Record<string, any>;
 };
@@ -169,8 +171,10 @@ export type GuideComponent = (context: GuideComponentContext) => DisplayObject;
 export type GuideComponentProps = {
   defaultPosition?: GuideComponentPosition;
   defaultOrientation?: GuideComponentOrientation;
-  defaultSize: number;
-  defaultOrder: number;
+  defaultSize?: number;
+  defaultOrder?: number;
+  defaultPadding?: [number, number];
+  defaultCrossPadding?: [number, number];
   [key: string]: any;
 };
 

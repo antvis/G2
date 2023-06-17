@@ -16,7 +16,12 @@ import {
   useMemo,
 } from '../utils/helper';
 import { G2Element, select, Selection } from '../utils/selection';
-import { inferComponent, renderComponent } from './component';
+import {
+  flatComponents,
+  groupComponents,
+  inferComponent,
+  renderComponent,
+} from './component';
 import {
   AREA_CLASS_NAME,
   COMPONENT_CLASS_NAME,
@@ -604,7 +609,7 @@ function initializeState(
     : style;
 
   // Place components and mutate their bbox.
-  placeComponents(components, coordinate, layout);
+  placeComponents(groupComponents(components), coordinate, layout);
 
   // Calc data to be rendered for each mark.
   // @todo More readable APIs for Container which stays
@@ -686,12 +691,12 @@ function initializeState(
     layout,
     theme,
     coordinate,
-    components,
     markState,
     key,
     clip,
     scale: scaleInstance,
     style: framedStyle,
+    components,
     labelTransform: compose(labelTransform.map(useLabelTransform)),
   };
 
@@ -705,8 +710,17 @@ async function plotView(
   library: G2Library,
   context: G2Context,
 ): Promise<void> {
-  const { components, theme, layout, markState, coordinate, key, style, clip } =
-    view;
+  const {
+    components,
+    theme,
+    layout,
+    markState,
+    coordinate,
+    key,
+    style,
+    clip,
+    scale,
+  } = view;
 
   // Render background for the different areas.
   const { x, y, width, height, ...rest } = layout;
@@ -781,7 +795,7 @@ async function plotView(
           .attr('className', COMPONENT_CLASS_NAME)
           .append((options) =>
             renderComponent(
-              deepMix({ animate: componentAnimateOptions }, options),
+              deepMix({ animate: componentAnimateOptions, scale }, options),
               coordinate,
               theme,
               library,
@@ -793,7 +807,7 @@ async function plotView(
           const { preserve = false } = options;
           if (preserve) return;
           const newComponent = renderComponent(
-            deepMix({ animate: componentAnimateOptions }, options),
+            deepMix({ animate: componentAnimateOptions, scale }, options),
             coordinate,
             theme,
             library,

@@ -76,8 +76,8 @@ type ComponentTheme = {
   axisLeft?: any;
   axisRight?: any;
   axisRadar?: any;
-  legend?: any;
-  continuousLegend?: any;
+  legendCategory?: any;
+  legendContinuous?: any;
   label?: LabelStyleProps;
   innerLabel?: LabelStyleProps;
   slider?: any;
