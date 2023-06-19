@@ -5,6 +5,7 @@ export function diamondPointJitterPolar(): G2Spec {
   const random = d3.randomUniform.source(d3.randomLcg(42))(0, 1);
   return {
     type: 'point',
+    padding: 10,
     data: {
       type: 'fetch',
       value: 'data/diamond.csv',
@@ -16,6 +17,12 @@ export function diamondPointJitterPolar(): G2Spec {
       x: 'clarity',
       color: 'clarity',
       shape: 'point',
+    },
+    viewStyle: {
+      viewFill: '#4e79a7',
+      plotFill: '#f28e2c',
+      mainFill: '#e15759',
+      contentFill: '#76b7b2',
     },
   };
 }

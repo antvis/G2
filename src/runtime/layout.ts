@@ -1,5 +1,5 @@
 import { Coordinate } from '@antv/coord';
-import { ascending, group, sum } from 'd3-array';
+import { ascending, group, max, sum } from 'd3-array';
 import { deepMix } from '@antv/util';
 import { isParallel, isPolar, isRadar, radiusOf } from '../utils/coordinate';
 import { capitalizeFirst } from '../utils/helper';
@@ -13,8 +13,16 @@ import {
   SectionArea,
   G2Theme,
 } from './types/common';
-import { computeComponentSize, groupComponents } from './component';
+import {
+  computeComponentSize,
+  computeLabelsBBox,
+  computeTitleBBox,
+  createScale,
+  groupComponents,
+  styleOf,
+} from './component';
 import { G2GuideComponentOptions, G2Library, G2View } from './types/options';
+import { isPolar as isPolarOptions } from './coordinate';
 
 export function computeLayout(
   components: G2GuideComponentOptions[],
@@ -42,7 +50,7 @@ export function computeLayout(
     paddingLeft = padding,
     paddingRight = padding,
     paddingTop = padding,
-  } = options;
+  } = computeInset(components, options, theme, library);
 
   const MIN_CONTENT_RATIO = 1 / 4;
 
@@ -166,6 +174,60 @@ export function computeRoughPlotSize(options: G2View) {
   return { width: finalWidth, height: finalHeight };
 }
 
+function computeInset(
+  components: G2GuideComponentOptions[],
+  options: G2View,
+  theme: G2Theme,
+  library: G2Library,
+) {
+  const { coordinates } = options;
+  if (!isPolarOptions(coordinates)) return options;
+
+  // Filter axis.
+  const axes = components.filter(
+    (d) => typeof d.type === 'string' && d.type.startsWith('axis'),
+  );
+
+  if (axes.length === 0) return options;
+
+  const styles = axes.map((component) => {
+    const key = component.type === 'axisArc' ? 'arc' : 'linear';
+    return styleOf(component, key as any, theme);
+  });
+
+  // Compute max labelSpacing.
+  const maxLabelSpacing = max(styles, (d) => d.labelSpacing ?? 0);
+
+  // Compute labelBBoxes.
+  const labelBBoxes = axes.flatMap((component, i) => {
+    const style = styles[i];
+    const scale = createScale(component, library);
+    const labels = computeLabelsBBox(component, scale, false, style);
+    return labels;
+  });
+  const size = max(labelBBoxes, (d) => d.height) + maxLabelSpacing;
+
+  // Compute titles.
+  const titleBBoxes = axes
+    .flatMap((component, i) => {
+      const style = styles[i];
+      return computeTitleBBox(component, style);
+    })
+    .filter((d) => d !== null);
+  const titleSize =
+    titleBBoxes.length === 0 ? 0 : max(titleBBoxes, (d) => d.height);
+
+  // Update inset.
+  const {
+    inset = size,
+    insetLeft = inset,
+    insetBottom = inset,
+    insetTop = inset + titleSize,
+    insetRight = inset,
+  } = options;
+  return { ...options, insetLeft, insetBottom, insetTop, insetRight };
+}
+
 /**
  * @todo Support percentage size(e.g. 50%)
  */
@@ -238,6 +300,10 @@ export function placeComponents(
     marginRight,
     innerHeight,
     innerWidth,
+    insetBottom,
+    insetLeft,
+    insetRight,
+    insetTop,
     height,
     width,
   } = layout;
@@ -246,6 +312,16 @@ export function placeComponents(
   const pt = paddingTop + marginTop;
   const pr = paddingRight + marginRight;
   const pb = paddingBottom + marginBottom;
+
+  const centerSection: SectionArea = [
+    pl + insetLeft,
+    pt + insetTop,
+    innerWidth - insetLeft - insetRight,
+    innerHeight - insetTop - insetBottom,
+    'center',
+    null,
+    null,
+  ];
 
   const section: Section = {
     top: [pl, 0, innerWidth, pt, 'vertical', true, ascending],
@@ -272,10 +348,11 @@ export function placeComponents(
       false,
       ascending,
     ],
-    center: [pl, pt, innerWidth, innerHeight, 'center', null, null],
-    inner: [pl, pt, innerWidth, innerHeight, 'center', null, null],
-    outer: [pl, pt, innerWidth, innerHeight, 'center', null, null],
+    center: centerSection,
+    inner: centerSection,
+    outer: centerSection,
   };
+
   for (const [position, components] of positionComponents.entries()) {
     const area = section[position];
 

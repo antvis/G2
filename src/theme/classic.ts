@@ -297,6 +297,13 @@ export const Classic: TC<ClassicOptions> = (options) => {
       titlePosition: 'top',
       titleSpacing: 0,
     },
+    axisArc: {
+      title: false,
+      titlePosition: 'inner',
+      line: false,
+      tick: true,
+      labelSpacing: 4,
+    },
     axisRadar: {
       girdClosed: true,
       gridStrokeOpacity: 0.3,

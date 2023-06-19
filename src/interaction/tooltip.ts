@@ -260,7 +260,19 @@ function groupItems(
 function updateRuleY(
   root,
   points,
-  { height, width, startX, startY, transposed, polar, ...rest },
+  {
+    plotWidth,
+    plotHeight,
+    mainWidth,
+    mainHeight,
+    startX,
+    startY,
+    transposed,
+    polar,
+    insetLeft,
+    insetTop,
+    ...rest
+  },
 ) {
   const defaults = {
     lineWidth: 1,
@@ -274,18 +286,16 @@ function updateRuleY(
   const x = mean(X);
   const pointsOf = () => {
     if (polar) {
-      const cx = startX + width / 2;
-      const cy = startY + height / 2;
-      const r = Math.min(width, height) / 2;
+      const r = Math.min(mainWidth, mainHeight) / 2;
+      const cx = startX + insetLeft + mainWidth / 2;
+      const cy = startY + insetTop + mainHeight / 2;
       const a = angle(sub([x, y], [cx, cy]));
       const x0 = cx + r * Math.cos(a);
       const y0 = cy + r * Math.sin(a);
       return [cx, x0, cy, y0];
     }
-    if (transposed) {
-      return [startX, startX + width, y + startY, y + startY];
-    }
-    return [x + startX, x + startX, startY, startY + height];
+    if (transposed) return [startX, startX + plotWidth, y + startY, y + startY];
+    return [x + startX, x + startX, startY, startY + plotHeight];
   };
   const [x1, x2, y1, y2] = pointsOf();
   const createLine = () => {
@@ -374,7 +384,14 @@ export function seriesTooltip(
   const transposed = isTranspose(coordinate);
   const polar = isPolar(coordinate);
   const style = deepMix(_style, rest);
-  const { innerWidth: width, innerHeight: height } = coordinate.getOptions();
+  const {
+    innerWidth: plotWidth,
+    innerHeight: plotHeight,
+    width: mainWidth,
+    height: mainHeight,
+    insetLeft,
+    insetTop,
+  } = coordinate.getOptions();
 
   // Split elements into series elements and item elements.
   const seriesElements = [];
@@ -534,8 +551,12 @@ export function seriesTooltip(
         const points = filteredSeriesData.map((d) => d[1]);
         updateRuleY(root, points, {
           ...ruleStyle,
-          width,
-          height,
+          plotWidth,
+          plotHeight,
+          mainWidth,
+          mainHeight,
+          insetLeft,
+          insetTop,
           startX,
           startY,
           transposed,

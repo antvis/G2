@@ -9,6 +9,7 @@ export function seasonalWeatherAreaRadial(): G2Spec {
       type: 'fetch',
       value: 'data/seasonal-weather.csv',
     },
+    padding: 0,
     coordinate: { type: 'polar', innerRadius: 0.4 },
     axis: {
       y: {
@@ -25,6 +26,7 @@ export function seasonalWeatherAreaRadial(): G2Spec {
       x: {
         grid: true,
         position: 'inner',
+        tickCount: 10,
       },
     },
     scale: { x: { utc: true } },

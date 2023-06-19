@@ -27,5 +27,11 @@ export function scoreByItemAreaRadar(): G2Spec {
         style: { lineWidth: 2 },
       },
     ],
+    style: {
+      viewFill: '#4e79a7',
+      plotFill: '#f28e2c',
+      mainFill: '#e15759',
+      contentFill: '#76b7b2',
+    },
   };
 }

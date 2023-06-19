@@ -14,6 +14,7 @@ export function agesIntervalRadialStacked(): G2Spec {
     type: 'interval',
     width: 800,
     height: 800,
+    padding: 0,
     data: {
       type: 'fetch',
       value: 'data/ages.csv',
@@ -48,16 +49,17 @@ export function agesIntervalRadialStacked(): G2Spec {
       },
       x: { position: 'inner' },
     },
-    legend: {
-      color: {
-        position: 'center',
-        gridCol: 1,
-      },
-    },
+    legend: { color: { position: 'center' } },
     encode: {
       x: 'State',
       y: 'Population',
       color: 'Age',
+    },
+    viewStyle: {
+      viewFill: '#4e79a7',
+      plotFill: '#f28e2c',
+      mainFill: '#e15759',
+      contentFill: '#76b7b2',
     },
   };
 }

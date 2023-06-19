@@ -294,6 +294,13 @@ export const Academy: TC<AcademyOptions> = (options) => {
       titlePosition: 'top',
       titleTextBaseline: 'bottom',
     },
+    axisArc: {
+      title: false,
+      titlePosition: 'inner',
+      line: false,
+      tick: true,
+      labelSpacing: 4,
+    },
     axisRadar: {
       girdClosed: true,
       gridStrokeOpacity: 0.3,

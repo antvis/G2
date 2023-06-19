@@ -14,6 +14,7 @@ export function agesIntervalRadialStackedSorted(): G2Spec {
     type: 'interval',
     width: 800,
     height: 800,
+    padding: 0,
     data: {
       type: 'fetch',
       value: 'data/ages.csv',
@@ -45,7 +46,7 @@ export function agesIntervalRadialStackedSorted(): G2Spec {
       x: { position: 'inner' },
     },
     legend: {
-      color: { position: 'center', gridCol: 1 },
+      color: { position: 'center' },
     },
     encode: {
       x: 'State',

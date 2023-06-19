@@ -853,7 +853,7 @@ function computeCategoryLegendSize(
   component.size += cp * 2;
 }
 
-function createScale(
+export function createScale(
   component: G2GuideComponentOptions,
   library: G2Library,
 ): Scale {
@@ -871,7 +871,7 @@ function createScale(
   return useScale(scaleOptions);
 }
 
-function computeLabelsBBox(
+export function computeLabelsBBox(
   component: G2GuideComponentOptions,
   scale: Scale,
   isVertical: boolean,
@@ -903,19 +903,21 @@ function computeLabelsBBox(
   return labelBBoxes;
 }
 
-function computeTitleBBox(
+export function computeTitleBBox(
   component: G2GuideComponentOptions,
   style: Record<string, any>,
 ) {
+  const isFalsy = (x) => x === false || x === null;
   const { title } = component;
-  if (title === false || title === null || title === undefined) return null;
+  const { title: styleTitle } = style;
+  if (isFalsy(title) || isFalsy(styleTitle) || title === undefined) return null;
   const titleStyle = subObject(style, 'title');
   const titleText = Array.isArray(title) ? title.join(',') : title;
   const titleBBox = computeLabelSize(titleText, titleStyle);
   return titleBBox;
 }
 
-function styleOf(
+export function styleOf(
   axis: G2GuideComponentOptions,
   position: GCP,
   theme: G2Theme,
