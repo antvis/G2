@@ -5,6 +5,8 @@ export function scoreByItemAreaSmoothRadar(): G2Spec {
   return {
     type: 'view',
     data: scoreByItem,
+    padding: 0,
+    height: 640,
     coordinate: { type: 'polar' },
     axis: {
       x: { grid: true },
@@ -14,7 +16,7 @@ export function scoreByItemAreaSmoothRadar(): G2Spec {
       x: { padding: 0.5, align: 0 },
       y: { tickCount: 5 },
     },
-    legend: { color: { layout: { justifyContent: 'flex-start' } } },
+    legend: false,
     children: [
       {
         type: 'area',
@@ -27,5 +29,11 @@ export function scoreByItemAreaSmoothRadar(): G2Spec {
         style: { lineWidth: 2 },
       },
     ],
+    style: {
+      viewFill: '#4e79a7',
+      plotFill: '#f28e2c',
+      mainFill: '#e15759',
+      contentFill: '#76b7b2',
+    },
   };
 }

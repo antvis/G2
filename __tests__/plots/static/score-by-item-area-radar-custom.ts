@@ -6,6 +6,7 @@ export function scoreByItemAreaRadarCustom(): G2Spec {
     type: 'view',
     data: scoreByItem,
     coordinate: { type: 'polar' },
+    inset: 50,
     axis: {
       x: { grid: true },
       y: {
@@ -39,5 +40,11 @@ export function scoreByItemAreaRadarCustom(): G2Spec {
         style: { lineWidth: 2 },
       },
     ],
+    style: {
+      viewFill: '#4e79a7',
+      plotFill: '#f28e2c',
+      mainFill: '#e15759',
+      contentFill: '#76b7b2',
+    },
   };
 }

@@ -106,6 +106,7 @@ function prettyNumber(n: number) {
 
 // Set inset for axis.
 function createInset(position, coordinate) {
+  if (isPolar(coordinate)) return (d) => d;
   const options = coordinate.getOptions();
   const {
     innerWidth,
@@ -246,21 +247,17 @@ function inferArcStyle(
     radius,
     startAngle,
     endAngle,
-    titleFillOpacity: 0,
-    titlePosition: 'inner',
-    line: false,
-    tick: true,
     gridLength: (outerRadius - innerRadius) * r,
   };
 
   if (position === 'inner') {
-    const [w, h] = sizeOf(coordinate);
-    const r = Math.min(w, h) / 2;
+    // @ts-ignore
+    const { insetLeft, insetTop } = coordinate.getOptions();
     return {
       ...common,
+      center: [center[0] - insetLeft, center[1] - insetTop],
       labelAlign: 'perpendicular',
       labelDirection: 'positive',
-      labelSpacing: 4,
       tickDirection: 'positive',
       gridDirection: 'negative',
     };
@@ -271,7 +268,6 @@ function inferArcStyle(
     ...common,
     labelAlign: 'parallel',
     labelDirection: 'negative',
-    labelSpacing: 4,
     tickDirection: 'negative',
     gridDirection: 'positive',
   };
@@ -329,11 +325,13 @@ function inferAxisLinearOverrideStyle(
       const [innerRadius, outerRadius] = radiusOf(coordinate);
       const [startAngle, endAngle] = angleOf(coordinate);
       const r = Math.min(width, height) / 2;
+      // @ts-ignore
+      const { insetLeft, insetTop } = coordinate.getOptions();
 
       const innerR = innerRadius * r;
       const outerR = outerRadius * r;
 
-      const [actualCx, actualCy] = [cx + x, cy + y];
+      const [actualCx, actualCy] = [cx + x - insetLeft, cy + y - insetTop];
       const [cos, sin] = [Math.cos(orientation), Math.sin(orientation)];
 
       const startPos: [number, number] = [
@@ -349,7 +347,7 @@ function inferAxisLinearOverrideStyle(
         startPos,
         endPos,
         gridClosed: endAngle - startAngle === 360,
-        gridCenter: [cx + x, y + cy],
+        gridCenter: [actualCx, actualCy],
         gridControlAngles: new Array(3)
           .fill(0)
           .map((d, i, arr) => ((endAngle - startAngle) / (arr.length - 1)) * i),
@@ -374,9 +372,12 @@ const ArcAxisComponent: GCC<AxisOptions> = (options) => {
     tickMethod,
     important = {},
     style = {},
+    indexBBox,
+    title,
+    grid = false,
     ...rest
   } = options;
-  const { title, grid = false } = style;
+
   return ({ scales: [scale], value, coordinate, theme }) => {
     const { bbox } = value;
     const { domain } = scale.getOptions();
@@ -391,6 +392,18 @@ const ArcAxisComponent: GCC<AxisOptions> = (options) => {
       coordinate,
     );
 
+    // Bind computed bbox if exists.
+    const labels = indexBBox
+      ? data.map((d, i) => {
+          const bbox = indexBBox.get(i);
+          if (!bbox) return d;
+          // bbox: [label, bbox]
+          // Make than indexBBox can match current label.
+          if (bbox[0] !== d.label) return d;
+          return { ...d, bbox: bbox[1] };
+        })
+      : data;
+
     const [innerRadius, outerRadius] = radiusOf(coordinate);
 
     const defaultStyle = inferArcStyle(
@@ -401,11 +414,11 @@ const ArcAxisComponent: GCC<AxisOptions> = (options) => {
       coordinate,
     );
 
-    const { axis: axisTheme } = theme;
+    const { axis: axisTheme, axisArc = {} } = theme;
     const finalStyle = adaptor(
-      deepMix({}, axisTheme, defaultStyle, {
+      deepMix({}, axisTheme, axisArc, defaultStyle, {
         type: 'arc',
-        data,
+        data: labels,
         titleText: titleContent(title),
         grid,
         ...rest,

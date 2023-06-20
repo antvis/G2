@@ -3,7 +3,7 @@ import { G2Spec } from '../../../src';
 export function mockAxisXYPolar(): G2Spec {
   return {
     type: 'view',
-    padding: 'auto',
+    padding: 0,
     coordinate: { type: 'polar' },
     scale: {
       x: {
@@ -33,5 +33,11 @@ export function mockAxisXYPolar(): G2Spec {
         },
       },
     ],
+    style: {
+      viewFill: '#4e79a7',
+      plotFill: '#f28e2c',
+      mainFill: '#e15759',
+      contentFill: '#76b7b2',
+    },
   };
 }

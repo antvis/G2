@@ -39,14 +39,12 @@ export function population2015IntervalPie(): G2Spec {
         },
       },
     ],
-    animate: {
-      enter: {
-        type: 'waveIn',
-        duration: 1000,
-      },
+    animate: false,
+    viewStyle: {
+      viewFill: '#4e79a7',
+      plotFill: '#f28e2c',
+      mainFill: '#e15759',
+      contentFill: '#76b7b2',
     },
   };
 }
-
-// @todo The animation has some unexpected behaviors.
-population2015IntervalPie.skip = true;

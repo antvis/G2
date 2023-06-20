@@ -302,6 +302,13 @@ export const ClassicDark: TC<ClassicDarkOptions> = (options) => {
       tick: false,
       titlePosition: 'start',
     },
+    axisArc: {
+      title: false,
+      titlePosition: 'inner',
+      line: false,
+      tick: true,
+      labelSpacing: 4,
+    },
     legendCategory: {
       backgroundFill: 'transparent',
       itemBackgroundFill: 'transparent',
