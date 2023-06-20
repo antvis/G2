@@ -1,5 +1,19 @@
 # G2 - Changelog
 
+## [5.0.13](https://github.com/antvis/g2/compare/5.0.12...5.0.13) (2023-06-20)
+
+### Bug Fixes
+
+- **brush:** emit brush remove ([#5170](https://github.com/antvis/g2/issues/5170)) ([1a554e5](https://github.com/antvis/g2/commit/1a554e5d72cc8916624dcd52532a9f95c88b9dd0))
+- label show error when missing data ([#5175](https://github.com/antvis/g2/issues/5175)) ([30cf701](https://github.com/antvis/g2/commit/30cf701b4e45c690a2aede69a1b78082ce9f3087))
+
+### Features
+
+- **layout:** auto inset ([#5204](https://github.com/antvis/g2/issues/5204)) ([25dd207](https://github.com/antvis/g2/commit/25dd2070b23b1c9954ebd13b00bb2f84250cd1a3))
+- **legend:** optimize ([#5202](https://github.com/antvis/g2/issues/5202)) ([fbebfc5](https://github.com/antvis/g2/commit/fbebfc57510a800b2e87a9ed9831ffe618922e49))
+- **static-mark:** add axisX and axisY ([#5188](https://github.com/antvis/g2/issues/5188)) ([28e39f0](https://github.com/antvis/g2/commit/28e39f0f9fabdd416cc83743ef82032fbc1790d8))
+- **static-mark:** add legends ([#5209](https://github.com/antvis/g2/issues/5209)) ([e6fcfe3](https://github.com/antvis/g2/commit/e6fcfe329c131bb64b352601d210b90e1ab262dc))
+
 ## [5.0.12](https://github.com/antvis/g2/compare/5.0.11...5.0.12) (2023-06-08)
 
 ### Bug Fixes
