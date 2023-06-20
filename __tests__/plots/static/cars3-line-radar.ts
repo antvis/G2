@@ -39,6 +39,7 @@ export function cars3LineRadar(): G2Spec {
         labelFormatter: '~s',
       },
     },
+    interaction: { tooltip: { series: false } },
     axis: Object.fromEntries(
       Array.from({ length: position.length }, (_, i) => [
         `position${i === 0 ? '' : i}`,

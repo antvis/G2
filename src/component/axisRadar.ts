@@ -1,5 +1,5 @@
 import { Coordinate } from '@antv/coord';
-import { G2Theme, GuideComponentComponent as GCC } from '../runtime';
+import { G2Theme, GuideComponentComponent as GCC, Scale } from '../runtime';
 import { angleOf } from '../utils/coordinate';
 import { AxisOptions, LinearAxis } from './axis';
 
@@ -32,12 +32,11 @@ function inferAxisStyle(
   options: AxisRadarOptions,
   theme: G2Theme,
   coordinate: Coordinate,
-  value: Record<string, any>,
+  scales: Scale[],
 ) {
   const { radar } = options;
-  const {
-    scales: [{ name }],
-  } = value;
+  const [scale] = scales;
+  const name = scale.getOptions().name;
   const [startAngle, endAngle] = angleOf(coordinate);
   const { axisRadar: radarTheme = {} } = theme;
 
@@ -55,12 +54,12 @@ function inferAxisStyle(
 export const AxisRadar: GCC<AxisRadarOptions> = (options) => {
   const { important = {}, ...restOptions } = options;
   return (context) => {
-    const { theme, coordinate, value } = context;
+    const { theme, coordinate, scales } = context;
     return LinearAxis({
       ...restOptions,
       ...inferTitleTransform(options.orientation),
       important: {
-        ...inferAxisStyle(options, theme, coordinate, value),
+        ...inferAxisStyle(options, theme, coordinate, scales),
         ...important,
       },
     })(context);

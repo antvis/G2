@@ -28,6 +28,7 @@ import {
   Gauge,
   AxisX,
   AxisY,
+  Legends,
 } from '../../../src/api/mark/mark';
 
 type Mark =
@@ -163,7 +164,9 @@ function getLayoutOptions() {
   };
 }
 
-function setAxisOptions(node: AxisX | AxisY): AxisX | AxisY {
+function setAxisOptions(
+  node: AxisX | AxisY | Legends,
+): AxisX | AxisY | Legends {
   return node
     .scale('x', { type: 'linear' })
     .transform({ type: 'hide' })
@@ -407,6 +410,12 @@ describe('mark.[node]()', () => {
   it('AxisY() should specify options by API', () => {
     const node = new AxisY();
     expect(node.type).toBe('axisY');
+    expect(setAxisOptions(node).value).toEqual(getAxisOptions());
+  });
+
+  it('Legends() should specify options by API', () => {
+    const node = new Legends();
+    expect(node.type).toBe('legends');
     expect(setAxisOptions(node).value).toEqual(getAxisOptions());
   });
 });

@@ -37,29 +37,6 @@ export type LegendCategoryOptions = {
   [key: string]: any;
 };
 
-function inferLayout(
-  position: GCP,
-  gridRow?: number,
-  gridCol?: number,
-): [number, number] {
-  const [gridRowLimit, gridColLimit] = [gridRow || 100, gridCol || 100];
-
-  switch (position) {
-    case 'top':
-    case 'bottom':
-    case 'top-left':
-    case 'top-right':
-    case 'bottom-left':
-    case 'bottom-right':
-      return [1, gridColLimit];
-    case 'left':
-    case 'right':
-      return [gridRowLimit, 1];
-    default:
-      return [gridRow, gridCol];
-  }
-}
-
 function createShape(
   shape: string,
   library: G2Library,
@@ -117,27 +94,26 @@ function inferItemMarker(
   options,
   { scales, library, coordinate, theme, markState }: GuideComponentContext,
 ): ((datum: any, i: number, data: any) => () => DisplayObject) | undefined {
-  const shapeScale = scaleOf(scales, 'shape');
   const [namespace, shapes] = inferShape(scales, markState);
+  const create = (name, color) =>
+    createShape(name, library, coordinate, theme, {
+      color,
+    });
+  const shapeOf = (i) => `${namespace}.${shapes[i]}`;
 
   const { itemMarker } = options;
-  if (shapeScale && !itemMarker) {
-    return (d, i) =>
-      createShape(`${namespace}.${shapes[i]}`, library, coordinate, theme, {
-        color: d.color,
-      });
+  const shapeScale = scaleOf(scales, 'shape');
+  if (shapeScale && !itemMarker) return (d, i) => create(shapeOf(i), d.color);
+  if (typeof itemMarker === 'function') {
+    return (d, i) => {
+      // @todo Fix this in GUI.
+      // It should pass primitive value rather object.
+      const node = itemMarker(d.id, i);
+      if (typeof node === 'string') return create(node, d.color);
+      return node;
+    };
   }
-  if (typeof itemMarker === 'function') return itemMarker;
-  return (d, i) =>
-    createShape(
-      itemMarker || `${namespace}.${shapes[i]}`,
-      library,
-      coordinate,
-      theme,
-      {
-        color: d.color,
-      },
-    );
+  return (d, i) => create(itemMarker || shapeOf(i), d.color);
 }
 
 function inferItemMarkerOpacity(scales: Scale[]) {
@@ -217,20 +193,18 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
     size,
     title,
     cols,
+    itemMarker,
     ...style
   } = options;
 
-  const { gridCol, gridRow } = style;
+  const { gridRow } = style;
 
   return (context) => {
     const { value, theme } = context;
     const { bbox } = value;
     const { width, height } = inferLegendShape(value, options, LegendCategory);
 
-    const finalLayout = inferComponentLayout(
-      position,
-      value.scales?.[0]?.guide?.layout,
-    );
+    const finalLayout = inferComponentLayout(position, layout);
 
     const legendStyle = {
       orientation: ['right', 'left', 'center'].includes(position)

@@ -68,7 +68,14 @@ export function applyScale(
 export function collectScales(states: G2MarkState[], options: G2View) {
   const { components = [] } = options;
 
-  const NONE_STATIC_KEYS = ['scale', 'encode', 'axis', 'legend'];
+  const NONE_STATIC_KEYS = [
+    'scale',
+    'encode',
+    'axis',
+    'legend',
+    'data',
+    'transform',
+  ];
 
   // From normal marks.
   const scales = Array.from(
@@ -177,10 +184,13 @@ export function syncFacetsScales(states: Map<G2Mark, G2MarkState>[]): void {
 }
 
 function inferChannelsForComponent(component) {
-  const { channels = [], type } = component;
+  const { channels = [], type, scale = {} } = component;
+  const L = ['shape', 'color', 'opacity', 'size'];
   if (channels.length !== 0) return channels;
   if (type === 'axisX') return ['x'];
   if (type === 'axisY') return ['y'];
+  if (type === 'legends')
+    return Object.keys(scale).filter((d) => L.includes(d));
   return [];
 }
 

@@ -311,12 +311,15 @@ function updateRuleY(
     root.appendChild(line);
     return line;
   };
-  const ruleY = root.ruleY || createLine();
-  ruleY.style.x1 = x1;
-  ruleY.style.x2 = x2;
-  ruleY.style.y1 = y1;
-  ruleY.style.y2 = y2;
-  root.ruleY = ruleY;
+  // Only update rule with defined series elements.
+  if (X.length > 0) {
+    const ruleY = root.ruleY || createLine();
+    ruleY.style.x1 = x1;
+    ruleY.style.x2 = x2;
+    ruleY.style.y1 = y1;
+    ruleY.style.y2 = y2;
+    root.ruleY = ruleY;
+  }
 }
 
 function hideRuleY(root) {

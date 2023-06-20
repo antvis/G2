@@ -33,6 +33,7 @@ import {
   Gauge,
   AxisX,
   AxisY,
+  Legends,
 } from './mark';
 
 export interface Mark {
@@ -69,6 +70,7 @@ export interface Mark {
   gauge(): Gauge;
   axisX(): AxisX;
   axisY(): AxisY;
+  legends(): Legends;
 }
 
 export { MarkNode } from './base';
@@ -107,4 +109,5 @@ export const mark = {
   gauge: Gauge,
   axisX: AxisX,
   axisY: AxisY,
+  legends: Legends,
 };

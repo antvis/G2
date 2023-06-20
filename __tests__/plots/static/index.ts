@@ -258,3 +258,6 @@ export { unemploymentAreaStackedCols } from './unemployment-area-stacked-cols';
 export { unemploymentAreaStackedLegendVertical } from './unemployment-area-stacked-legend-vertical';
 export { unemploymentAreaStackedLegendSmallVertical } from './unemployment-area-stacked-legend-small-vertical';
 export { disastersPointBubbleLegendRight } from './disasters-point-bubble-legend-right';
+export { mockLegendColor } from './mock-legend-color';
+export { mockLegendColorSize } from './mock-legend-color-size';
+export { weatherLineMultiAxesLegend } from './weather-line-multi-axes-legend';
