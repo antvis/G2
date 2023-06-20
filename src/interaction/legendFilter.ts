@@ -188,6 +188,7 @@ export function LegendFilter() {
       // Add filter transform for every marks,
       // which will skip for mark without color channel.
       const newMarks = marks.map((mark) => {
+        if (mark.type === 'legends') return mark;
         const { transform = [] } = mark;
         const newTransform = [
           { type: 'filter', [channel]: value },

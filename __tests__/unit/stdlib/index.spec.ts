@@ -133,6 +133,7 @@ import {
   ScrollbarX,
   ScrollbarY,
   TitleComponent,
+  Legends,
 } from '../../../src/component';
 import {
   ScaleInX,
@@ -454,6 +455,7 @@ describe('stdlib', () => {
       'component.legendContinuousBlock': LegendContinuousBlock,
       'component.legendContinuousBlockSize': LegendContinuousBlockSize,
       'component.legendContinuousSize': LegendContinuousSize,
+      'component.legends': Legends,
       'component.title': TitleComponent,
       'component.sliderX': SliderX,
       'component.sliderY': SliderY,

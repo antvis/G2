@@ -31,6 +31,7 @@ import {
   CompositeMark,
   GaugeMark,
   AxisComponent,
+  LegendComponent,
 } from '../../spec';
 import { NodePropertyDescriptor, defineProps } from '../props';
 import { Concrete } from '../types';
@@ -168,6 +169,10 @@ export interface AxisY extends StaticAPI<Concrete<AxisComponent>, AxisY> {
   type: 'axisY';
 }
 
+export interface Legends extends StaticAPI<Concrete<LegendComponent>, Legends> {
+  type: 'legends';
+}
+
 export const props: NodePropertyDescriptor[] = [
   { name: 'encode', type: 'object' },
   { name: 'scale', type: 'object' },
@@ -192,6 +197,8 @@ export const axisProps: NodePropertyDescriptor[] = [
   { name: 'style', type: 'object' },
   { name: 'state', type: 'object' },
 ];
+
+export const legendProps = axisProps;
 
 @defineProps(props)
 export class Composite extends MarkNode<Composite> {
@@ -421,5 +428,12 @@ export class AxisX extends MarkNode<AxisComponent> {
 export class AxisY extends MarkNode<AxisComponent> {
   constructor() {
     super({}, 'axisY');
+  }
+}
+
+@defineProps(legendProps)
+export class Legends extends MarkNode<LegendComponent> {
+  constructor() {
+    super({}, 'legends');
   }
 }

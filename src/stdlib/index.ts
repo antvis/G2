@@ -133,6 +133,7 @@ import {
   SliderY,
   ScrollbarX,
   ScrollbarY,
+  Legends,
 } from '../component';
 import {
   ScaleInX,
@@ -454,6 +455,7 @@ export function createLibrary(): G2Library {
     'component.legendContinuousBlock': LegendContinuousBlock,
     'component.legendContinuousBlockSize': LegendContinuousBlockSize,
     'component.legendContinuousSize': LegendContinuousSize,
+    'component.legends': Legends,
     'component.title': TitleComponent,
     'component.sliderX': SliderX,
     'component.sliderY': SliderY,

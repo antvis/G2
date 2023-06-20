@@ -61,3 +61,4 @@ export { alphabetIntervalFunnelLegendFilter } from './alphabet-interval-funnel-l
 export { penguinsPointBrushHandleStyle } from './penguins-point-brush-handle-style';
 export { penguinsPointBrushHandleCustom } from './penguins-point-brush-handle-custom';
 export { unemploymentChoropleth } from './unemployment-choropleth';
+export { weatherLineLegendMark } from './weather-line-legend-mark';

@@ -173,11 +173,8 @@ export function renderComponent(
     GCC,
     GuideComponent
   >('component', library);
-  const { scales: scaleDescriptors = [], scale, bbox, ...options } = component;
-  const scales = scaleDescriptors.map((descriptor) =>
-    useRelationScale(descriptor, library),
-  );
-  const value = { bbox, scales: scaleDescriptors, library };
+  const { scaleInstances: scales, scale, bbox, ...options } = component;
+  const value = { bbox, library };
   const render = useGuideComponent(options);
   return render({
     coordinate,
@@ -265,60 +262,37 @@ function inferLegendComponentType(
   scales: G2ScaleOptions[],
   coordinates: G2CoordinateOptions[],
 ) {
-  const acceptScales = scales
-    .filter((scale) =>
-      typeof scale.type === 'string'
-        ? ['shape', 'size', 'color', 'opacity'].includes(scale.name)
-        : true,
-    )
-    // not support constant size scale
-    .filter((scale) => !(scale.type === 'constant' && scale.name === 'size'));
+  // Filter accepts scales.
+  const channels = ['shape', 'size', 'color', 'opacity'];
+  const isConstantSize = (type, name) => type === 'constant' && name === 'size';
+  const accepts = scales.filter(
+    ({ type, name }) =>
+      typeof type === 'string' &&
+      channels.includes(name) &&
+      !isConstantSize(type, name), // Do not support constant size scale.
+  );
 
-  // scale with undefined field
-  const undefinedScales = acceptScales.filter((scale) => !scale.field);
-  const definedScales = acceptScales.filter((scale) => !!scale.field);
+  // Group scales by fields.
+  const constants = accepts.filter(({ type }) => type === 'constant');
+  const nonConstants = accepts.filter(({ type }) => type !== 'constant');
+  const groupKey = (d) => (d.field ? d.field : Symbol('independent'));
+  const fieldScales = groups(nonConstants, groupKey)
+    .map(([key, scales]) => [key, [...scales, ...constants]] as const)
+    .filter(([, scales]) => scales.some((scale) => scale.type !== 'constant'));
+  const scalesByField = new Map(fieldScales) as Map<string, G2ScaleOptions[]>;
 
-  // exclude the scales that all type are constant
-  const scalesByField = new Map(
-    Array.from(group(definedScales, (d) => d.field))
-      .map(
-        ([field, scales]) =>
-          [
-            field,
-            [
-              ...scales,
-              ...undefinedScales.filter((scale) => scale.type === 'constant'),
-            ],
-          ] as const,
-      )
-      .concat([[undefined, undefinedScales]])
-      .filter(([field, scales]) =>
-        scales.some((scale) => scale.type !== 'constant'),
-      ),
-  ) as Map<string, G2ScaleOptions[]>;
-
+  // Skip empty scales.
   if (scalesByField.size === 0) return [];
 
-  function getScaleType(scale: G2ScaleOptions): string {
-    const { type } = scale;
-    if (typeof type !== 'string') return null;
-    if (type in ContinuousScale) return 'continuous';
-    if (type in DiscreteScale) return 'discrete';
-    if (type in DistributionScale) return 'distribution';
-    if (type in ConstantScale) return 'constant';
-    return null;
-  }
-
+  // Infer components.
+  const sort = (arr: string[][]) => arr.sort(([a], [b]) => a.localeCompare(b));
   const components = Array.from(scalesByField)
-    .map(([channel, scs]) => {
+    .map(([, scs]) => {
       const combinations = combine(scs).sort((a, b) => b.length - a.length);
       const options = combinations.map((combination) => ({
         combination,
         option: combination.map((scale) => [scale.name, getScaleType(scale)]),
       }));
-
-      const sort = (arr: string[][]) =>
-        arr.sort((a, b) => a[0].localeCompare(b[0]));
       for (const [componentType, accords] of LEGEND_INFER_STRATEGIES) {
         for (const { option, combination } of options) {
           if (accords.some((accord) => isEqual(sort(accord), sort(option)))) {
@@ -329,7 +303,18 @@ function inferLegendComponentType(
       return null;
     })
     .filter(defined);
+
   return components;
+}
+
+function getScaleType(scale: G2ScaleOptions): string {
+  const { type } = scale;
+  if (typeof type !== 'string') return null;
+  if (type in ContinuousScale) return 'continuous';
+  if (type in DiscreteScale) return 'discrete';
+  if (type in DistributionScale) return 'distribution';
+  if (type in ConstantScale) return 'constant';
+  return null;
 }
 
 function inferAxisComponentType(

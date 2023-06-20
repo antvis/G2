@@ -12,6 +12,7 @@ export { SliderX } from './sliderX';
 export { SliderY } from './sliderY';
 export { ScrollbarX } from './scrollbarX';
 export { ScrollbarY } from './scrollbarY';
+export { Legends } from './legends';
 
 export type { AxisXOptions } from './axisX';
 export type { AxisYOptions } from './axisY';
@@ -23,3 +24,4 @@ export type { LegendContinuousSizeOptions } from './legendContinuousSize';
 export type { TitleComponentOptions } from './title';
 export type { SliderXOptions } from './sliderX';
 export type { SliderYOptions } from './sliderY';
+export type { LegendsOptions } from './legends';

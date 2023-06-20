@@ -42,6 +42,7 @@ import {
   Heatmap,
   AxisX,
   AxisY,
+  Legends,
 } from '../../../src/api/mark/mark';
 
 const TEST_OPTIONS = {
@@ -170,6 +171,7 @@ describe('Chart', () => {
     expect(chart.heatmap()).toBeInstanceOf(Heatmap);
     expect(chart.axisX()).toBeInstanceOf(AxisX);
     expect(chart.axisY()).toBeInstanceOf(AxisY);
+    expect(chart.legends()).toBeInstanceOf(Legends);
     expect(chart.options().children).toEqual([
       { type: 'interval' },
       { type: 'rect' },
@@ -202,6 +204,7 @@ describe('Chart', () => {
       { type: 'heatmap' },
       { type: 'axisX' },
       { type: 'axisY' },
+      { type: 'legends' },
     ]);
   });
 
@@ -559,8 +562,7 @@ describe('Chart', () => {
       .interval()
       .attr('key', 'interval')
       .encode('x', 'genre')
-      .encode('y', 'sold')
-      .encode('color', 'genre');
+      .encode('y', 'sold');
 
     await chart.render();
 

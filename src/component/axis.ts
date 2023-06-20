@@ -58,10 +58,6 @@ function sizeOf(coordinate: Coordinate): [number, number] {
   return [innerWidth, innerHeight];
 }
 
-function reverseTicks(ticks) {
-  return ticks.map(({ value, ...rest }) => ({ value: 1 - value, ...rest }));
-}
-
 function createFisheye(position, coordinate) {
   const { width, height } = coordinate.getOptions();
   return (tick) => {

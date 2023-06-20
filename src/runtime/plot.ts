@@ -611,11 +611,26 @@ function initializeState(
   // Place components and mutate their bbox.
   placeComponents(groupComponents(components), coordinate, layout);
 
+  // Scale from marks and components.
+  const scaleInstance = {};
+
+  // Initialize scale from components.
+  for (const component of components) {
+    const { scales: scaleDescriptors = [] } = component;
+    const scales = [];
+    for (const descriptor of scaleDescriptors) {
+      const { name } = descriptor;
+      const scale = useRelationScale(descriptor, library);
+      scales.push(scale);
+      scaleInstance[name] = scale;
+    }
+    component.scaleInstances = scales;
+  }
+
   // Calc data to be rendered for each mark.
   // @todo More readable APIs for Container which stays
   // the same style with JS standard and lodash APIs.
   // @todo More proper way to index scale for different marks.
-  const scaleInstance = {};
   const children = [];
   for (const [mark, state] of markState.entries()) {
     const {
