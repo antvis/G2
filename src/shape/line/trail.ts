@@ -3,6 +3,7 @@ import { ShapeComponent as SC } from '../../runtime';
 import { select } from '../../utils/selection';
 import { applyStyle } from '../utils';
 import { angle, sub, add, Vector2 } from '../../utils/vector';
+import { defined } from '../../utils/helper';
 import { Curve } from './curve';
 
 /**
@@ -44,6 +45,7 @@ function stroke(path, p0, p1, s0, s1) {
 
 export type TrailOptions = Record<string, any>;
 
+// @todo Support connect and connectStyle.
 export const Trail: SC<TrailOptions> = (options, context) => {
   const { document } = context;
   return (P, value, defaults) => {
@@ -55,7 +57,7 @@ export const Trail: SC<TrailOptions> = (options, context) => {
       const p1 = P[i + 1];
       const s0 = seriesSize[i];
       const s1 = seriesSize[i + 1];
-      stroke(path, p0, p1, s0, s1);
+      if ([...p0, ...p1].every(defined)) stroke(path, p0, p1, s0, s1);
     }
     return select(document.createElement('path', {}))
       .call(applyStyle, rest)

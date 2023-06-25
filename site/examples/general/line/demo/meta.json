@@ -53,6 +53,14 @@
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*pWrERLZIMyQAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
+      "filename": "line-var-size-missing.ts",
+      "title": {
+        "zh": "缺失变宽折线图",
+        "en": "Missing Var Size Line Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*haZaQaG0tBgAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
       "filename": "line-var-size-facet.ts",
       "title": {
         "zh": "轨迹图",
