@@ -77,6 +77,14 @@
       "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*OwgcQoNg8m8AAAAAAAAAAAAADmJ7AQ"
     },
     {
+      "filename": "line-series-var-color.ts",
+      "title": {
+        "zh": "系列颜色编码折线图",
+        "en": "Series Variable Color Line Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*EGMKRJE1kyYAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
       "filename": "line-threshold.ts",
       "title": {
         "zh": "阈值折线图",
