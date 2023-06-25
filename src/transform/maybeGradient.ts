@@ -10,9 +10,10 @@ export type MaybeGradientOptions = Record<string, never>;
  */
 export const MaybeGradient: TC<MaybeGradientOptions> = () => {
   return (I, mark) => {
-    const { style = {} } = mark;
+    const { style = {}, encode } = mark;
+    const { series } = encode;
     const { gradient } = style;
-    if (!gradient) return [I, mark];
+    if (!gradient || series) return [I, mark];
     return [
       I,
       deepMix({}, mark, {

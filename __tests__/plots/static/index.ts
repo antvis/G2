@@ -262,3 +262,4 @@ export { mockLegendColor } from './mock-legend-color';
 export { mockLegendColorSize } from './mock-legend-color-size';
 export { weatherLineMultiAxesLegend } from './weather-line-multi-axes-legend';
 export { population2015IntervalDonutTextAnnotationInset } from './population2015-interval-donut-text-annotation-inset';
+export { stocksLineSeriesGradient } from './stocks-line-series-gradient';
