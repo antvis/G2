@@ -3,7 +3,7 @@
  */
 import { Coordinate } from '@antv/coord';
 import { deepMix, isEqual } from '@antv/util';
-import { group, groups, max, sum } from 'd3-array';
+import { groups, max, sum } from 'd3-array';
 import { format } from 'd3-format';
 import { DisplayObject, Text } from '@antv/g';
 import {
@@ -28,7 +28,7 @@ import {
   isTranspose,
 } from './coordinate';
 import { useLibrary } from './library';
-import { isValidScale, useRelationScale } from './scale';
+import { isValidScale } from './scale';
 import {
   G2MarkState,
   G2Theme,

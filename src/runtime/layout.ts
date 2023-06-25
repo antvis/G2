@@ -2,7 +2,7 @@ import { Coordinate } from '@antv/coord';
 import { ascending, group, max, sum } from 'd3-array';
 import { deepMix } from '@antv/util';
 import { isParallel, isPolar, isRadar, radiusOf } from '../utils/coordinate';
-import { capitalizeFirst } from '../utils/helper';
+import { capitalizeFirst, defined } from '../utils/helper';
 import { divide } from '../utils/array';
 import { camelCase } from '../utils/string';
 import {
@@ -199,12 +199,15 @@ function computeInset(
   const maxLabelSpacing = max(styles, (d) => d.labelSpacing ?? 0);
 
   // Compute labelBBoxes.
-  const labelBBoxes = axes.flatMap((component, i) => {
-    const style = styles[i];
-    const scale = createScale(component, library);
-    const labels = computeLabelsBBox(component, scale, false, style);
-    return labels;
-  });
+  const labelBBoxes = axes
+    .flatMap((component, i) => {
+      const style = styles[i];
+      const scale = createScale(component, library);
+      const labels = computeLabelsBBox(component, scale, false, style);
+      return labels;
+    })
+    .filter(defined);
+
   const size = max(labelBBoxes, (d) => d.height) + maxLabelSpacing;
 
   // Compute titles.
