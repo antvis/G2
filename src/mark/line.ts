@@ -95,8 +95,8 @@ Line.props = {
   ],
   preInference: [
     ...basePreInference(),
-    { type: 'maybeSeries' },
     { type: 'maybeGradient' },
+    { type: 'maybeSeries' },
   ],
   postInference: [...basePostInference(), ...tooltip1d(), ...tooltipXd()],
   interaction: {
