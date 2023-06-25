@@ -102,12 +102,12 @@ export function p(d) {
 
 export function visualMark(index: number[], scale, value, coordinate) {
   const { x: X, y: Y } = value;
-  const { width, height } = coordinate.getOptions();
+  const { innerWidth, innerHeight } = coordinate.getOptions();
   const P: Vector2[][] = Array.from(index, (i) => {
     const x0 = X[i];
     const y0 = Y[i];
-    const x = typeof x0 === 'string' ? p(x0) * width : +x0;
-    const y = typeof y0 === 'string' ? p(y0) * height : +y0;
+    const x = typeof x0 === 'string' ? p(x0) * innerWidth : +x0;
+    const y = typeof y0 === 'string' ? p(y0) * innerHeight : +y0;
     return [[x, y]];
   });
   return [index, P];
