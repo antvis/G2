@@ -107,7 +107,7 @@ export const Curve: SC<CurveOptions> = (options, context) => {
 
     const getPathNode = (path) => {
       return select(document.createElement('path', {}))
-        .style('d', path)
+        .style('d', path || '')
         .call(applyStyle, finalStyle)
         .node();
     };

@@ -264,3 +264,4 @@ export { weatherLineMultiAxesLegend } from './weather-line-multi-axes-legend';
 export { population2015IntervalDonutTextAnnotationInset } from './population2015-interval-donut-text-annotation-inset';
 export { stocksLineSeriesGradient } from './stocks-line-series-gradient';
 export { aaplLineMissingDataTrial } from './aapl-line-missing-data-trial';
+export { mockAreaMissingData } from './mock-area-missing-data';
