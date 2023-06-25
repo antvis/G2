@@ -153,6 +153,7 @@ export type BaseMark<T extends MarkTypes, C extends string = ChannelTypes> = {
   scale?: Partial<Record<C, Scale>>;
   coordinate?: Coordinate;
   style?: Record<string, any>;
+  viewStyle?: Record<string, any>;
   state?: Partial<
     Record<
       'active' | 'selected' | 'inactive' | 'unselected',

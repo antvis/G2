@@ -1,6 +1,6 @@
 import { deepMix } from '@antv/util';
 import { TransformComponent as TC } from '../runtime';
-import { column, columnOf, constant, visualColumn } from './utils/helper';
+import { constant, visualColumn } from './utils/helper';
 
 export type MaybeGradientOptions = Record<string, never>;
 

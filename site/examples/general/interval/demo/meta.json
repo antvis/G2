@@ -21,6 +21,14 @@
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*fu-BSYg7U_kAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
+      "filename": "column-log.ts",
+      "title": {
+        "zh": "对数柱形图",
+        "en": "Log Column Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*cRE5TqJGnVUAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
       "filename": "bar.ts",
       "title": {
         "zh": "水平条形图",
