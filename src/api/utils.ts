@@ -1,6 +1,6 @@
-import { deepMix } from '@antv/util';
 import { G2ViewTree } from '../runtime';
 import { getContainerSize } from '../utils/size';
+import { deepAssign } from '../utils/helper';
 import { Node } from './node';
 import { mark } from './mark';
 import { composition } from './composition';
@@ -139,7 +139,7 @@ function updateNode(node: Node, newOptions: G2ViewTree) {
   const { type, children, ...value } = newOptions;
   if (node.type === type || type === undefined) {
     // Update node.
-    node.value = deepMix(node.value, value);
+    deepAssign(node.value, value);
   } else if (typeof type === 'string') {
     // Transform node.
     node.type = type;

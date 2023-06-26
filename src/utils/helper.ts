@@ -1,5 +1,5 @@
 import { DisplayObject } from '@antv/g';
-import { lowerFirst, upperFirst } from '@antv/util';
+import { lowerFirst, upperFirst, isPlainObject } from '@antv/util';
 
 export function identity<T>(x: T): T {
   return x;
@@ -145,4 +145,27 @@ export function isStrictObject(d: any): boolean {
 
 export function isUnset(value) {
   return value === null || value === false;
+}
+
+export function deepAssign(
+  dist: Record<string, unknown>,
+  src: Record<string, unknown>,
+  maxLevel = 5,
+  level = 0,
+): Record<string, unknown> {
+  if (level >= maxLevel) return;
+  for (const key of Object.keys(src)) {
+    const value = src[key];
+    if (!isPlainObject(value) || !isPlainObject(dist[key])) {
+      dist[key] = value;
+    } else {
+      deepAssign(
+        dist[key] as Record<string, unknown>,
+        value as Record<string, unknown>,
+        maxLevel,
+        level + 1,
+      );
+    }
+  }
+  return dist;
 }
