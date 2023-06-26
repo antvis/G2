@@ -18,6 +18,8 @@ export function chartRenderUpdateAttributes(context) {
     canvas,
   });
 
+  const xy = { x: 'date', y: 'close' };
+
   const options = {
     type: 'line',
     data: {
@@ -25,10 +27,7 @@ export function chartRenderUpdateAttributes(context) {
       value: 'data/aapl.csv',
       transform: [{ type: 'slice', start: 0, end: 10 }],
     },
-    encode: {
-      x: 'date',
-      y: 'close',
-    },
+    encode: { ...xy, color: 'red' },
     axis: { x: false },
   };
 
@@ -46,18 +45,16 @@ export function chartRenderUpdateAttributes(context) {
     if (lineDash) {
       chart.options({
         ...options,
-        style: {
-          lineDash: null,
-        },
+        encode: { ...xy, color: 'red' },
+        style: { lineDash: null },
       });
       lineDash = false;
       chart.render().then(resolve1);
     } else {
       chart.options({
         ...options,
-        style: {
-          lineDash: [5, 4],
-        },
+        encode: { ...xy, color: undefined },
+        style: { lineDash: [5, 4] },
       });
       lineDash = true;
       chart.render().then(resolve);
