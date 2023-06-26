@@ -12,7 +12,7 @@ export function aaplLineMissingDataTrial(): G2Spec {
           type: 'map',
           callback: (d) => ({
             ...d,
-            close1: d.date.getDate() <= 14 ? NaN : d.close,
+            close1: d.date.getUTCDate() <= 14 ? NaN : d.close,
           }),
         },
       ],
@@ -22,8 +22,18 @@ export function aaplLineMissingDataTrial(): G2Spec {
       y: 'close1',
       size: 'close',
     },
+    scale: { x: { utc: true } },
     style: { shape: 'trail' },
   };
 }
 
-aaplLineMissingDataTrial.maxError = 125;
+// Make the local ci and online ci covert Date object to consistent string.
+let toString;
+aaplLineMissingDataTrial.before = () => {
+  toString = Date.prototype.toString;
+  Date.prototype.toString = Date.prototype.toUTCString;
+};
+
+aaplLineMissingDataTrial.after = () => {
+  Date.prototype.toString = toString;
+};

@@ -340,7 +340,7 @@ function createGuideYRect(guide) {
 
 function createGuide(guide, factory) {
   if (typeof guide === 'function') return guide;
-  if (guide === null) return () => null;
+  if (guide === null || guide === false) return () => null;
   return factory(guide);
 }
 
