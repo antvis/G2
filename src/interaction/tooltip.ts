@@ -379,6 +379,7 @@ export function seriesTooltip(
     enterable,
     mount,
     bounding,
+    disableNative = false,
     style: _style = {},
     ...rest
   }: Record<string, any>,
@@ -601,14 +602,18 @@ export function seriesTooltip(
   emitter.on('tooltip:show', onTooltipShow);
   emitter.on('tooltip:hide', onTooltipHide);
 
-  root.addEventListener('pointerenter', update);
-  root.addEventListener('pointermove', update);
-  root.addEventListener('pointerleave', hide);
+  if (!disableNative) {
+    root.addEventListener('pointerenter', update);
+    root.addEventListener('pointermove', update);
+    root.addEventListener('pointerleave', hide);
+  }
 
   return () => {
-    root.removeEventListener('pointerenter', update);
-    root.removeEventListener('pointermove', update);
-    root.removeEventListener('pointerleave', hide);
+    if (!disableNative) {
+      root.removeEventListener('pointerenter', update);
+      root.removeEventListener('pointermove', update);
+      root.removeEventListener('pointerleave', hide);
+    }
     emitter.off('tooltip:show', onTooltipShow);
     emitter.off('tooltip:hide', onTooltipHide);
     destroyTooltip(root);
@@ -641,6 +646,7 @@ export function tooltip(
     mount,
     bounding,
     body = true,
+    disableNative = false,
   }: Record<string, any>,
 ) {
   const elements = elementsof(root);
@@ -730,14 +736,19 @@ export function tooltip(
   emitter.on('tooltip:show', onTooltipShow);
   emitter.on('tooltip:hide', onTooltipHide);
 
-  root.addEventListener('pointerover', pointerover);
-  root.addEventListener('pointermove', pointerover);
-  root.addEventListener('pointerout', pointerout);
+  if (!disableNative) {
+    root.addEventListener('pointerover', pointerover);
+    root.addEventListener('pointermove', pointerover);
+    root.addEventListener('pointerout', pointerout);
+  }
 
   return () => {
-    root.removeEventListener('pointerover', pointerover);
-    root.removeEventListener('pointermove', pointerover);
-    root.removeEventListener('pointerout', pointerout);
+    if (!disableNative) {
+      root.removeEventListener('pointerover', pointerover);
+      root.removeEventListener('pointermove', pointerover);
+      root.removeEventListener('pointerout', pointerout);
+    }
+
     emitter.off('tooltip:show', onTooltipShow);
     emitter.off('tooltip:hide', onTooltipHide);
     destroyTooltip(root);
