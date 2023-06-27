@@ -624,25 +624,29 @@ function computeAxisSize(
 
   // Compute Labels.
   const scale = createScale(component, library);
-  const labelBBoxes = computeLabelsBBox(component, scale, isVertical, rest);
+  const labelBBoxes = computeLabelsBBox(component, scale, rest);
   if (labelBBoxes) {
     const maxLabelWidth = max(labelBBoxes, (d) => d.width);
+    const maxLabelHeight = max(labelBBoxes, (d) => d.height);
     const paddingTick = tickLength + labelSpacing;
 
     if (isVertical) {
       component.size = maxLabelWidth + paddingTick;
     } else {
-      // If the labels can't be placed horizontally,
+      const { tickFilter, style = {} } = component;
+      const { labelTransform } = style;
+      // If the labels can't be placed horizontally, and labelTransform is unset,
       // rotate 90 deg to display them.
-      const { tickFilter } = component;
-      if (overflowX(scale, labelBBoxes, crossSize, crossPadding, tickFilter)) {
-        component.size = maxLabelWidth + paddingTick;
+      if (
+        overflowX(scale, labelBBoxes, crossSize, crossPadding, tickFilter) &&
+        !labelTransform
+      ) {
         component.style = {
-          ...component.style,
+          ...style,
           labelTransform: 'rotate(90)',
         };
+        component.size = maxLabelWidth + paddingTick;
       } else {
-        const maxLabelHeight = max(labelBBoxes, (d) => d.height);
         component.size = maxLabelHeight + paddingTick;
       }
     }
@@ -693,7 +697,7 @@ function computeContinuousLegendSize(
 
   // Compute labels.
   const scale = createScale(component, library);
-  const labelBBoxes = computeLabelsBBox(component, scale, isVertical, rest);
+  const labelBBoxes = computeLabelsBBox(component, scale, rest);
   if (labelBBoxes) {
     const key = isVertical ? 'width' : 'height';
     const size = max(labelBBoxes, (d) => d[key]);
@@ -747,13 +751,7 @@ function computeCategoryLegendSize(
   const titleBBox = computeTitleBBox(component, rest);
 
   const scale = createScale(component, library);
-  const labelBBoxes = computeLabelsBBox(
-    component,
-    scale,
-    isVertical,
-    rest,
-    'itemLabel',
-  );
+  const labelBBoxes = computeLabelsBBox(component, scale, rest, 'itemLabel');
 
   const height = Math.max(labelBBoxes[0].height, itemMarkerSize) + rowPadding;
   const widthOf = (w, padding = 0) =>
@@ -859,7 +857,6 @@ export function createScale(
 export function computeLabelsBBox(
   component: G2GuideComponentOptions,
   scale: Scale,
-  isVertical: boolean,
   style: Record<string, any>,
   key = 'label',
 ) {
@@ -868,22 +865,30 @@ export function computeLabelsBBox(
 
   // Get labels to be rendered.
   const labels = labelsOf(scale, labelFormatter, tickFilter);
-  const labeStyle = subObject(style, key);
-  const labelBBoxes = labels.map((d, i) => {
-    const normalizeStyle = Object.fromEntries(
-      Object.entries(labeStyle).map(([key, value]) => [
+  const labelStyle = subObject(style, key);
+  const labelStyles = labels.map((d, i) =>
+    Object.fromEntries(
+      Object.entries(labelStyle).map(([key, value]) => [
         key,
         typeof value === 'function' ? value(d, i) : value,
       ]),
-    );
-    // Auto padding should ignore transform for horizontal axis.
-    if (!isVertical) normalizeStyle.transform = 'none';
+    ),
+  );
+  const labelBBoxes = labels.map((d, i) => {
+    const normalizeStyle = labelStyles[i];
     return computeLabelSize(d, normalizeStyle);
   });
 
   // Cache boxes to avoid computed twice.
-  const I = labels.map((_, i) => i);
-  component.indexBBox = new Map(I.map((i) => [i, [labels[i], labelBBoxes[i]]]));
+  // @todo GUI use untransformed bbox, so it can't cache if
+  // label.style has transform attributes.
+  const hasTransform = labelStyles.some((d) => d.transform);
+  if (!hasTransform) {
+    const I = labels.map((_, i) => i);
+    component.indexBBox = new Map(
+      I.map((i) => [i, [labels[i], labelBBoxes[i]]]),
+    );
+  }
 
   return labelBBoxes;
 }

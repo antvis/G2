@@ -266,3 +266,4 @@ export { stocksLineSeriesGradient } from './stocks-line-series-gradient';
 export { aaplLineMissingDataTrial } from './aapl-line-missing-data-trial';
 export { mockAreaMissingData } from './mock-area-missing-data';
 export { mockIntervalFacetRectPolar } from './mock-interval-facet-rect-polar';
+export { alphabetIntervalAutoRotate } from './alphabet-interval-auto-padding-rotate';

@@ -203,7 +203,7 @@ function computeInset(
     .flatMap((component, i) => {
       const style = styles[i];
       const scale = createScale(component, library);
-      const labels = computeLabelsBBox(component, scale, false, style);
+      const labels = computeLabelsBBox(component, scale, style);
       return labels;
     })
     .filter(defined);
