@@ -51,9 +51,8 @@ export function chartEmitItemTooltipHideContent(context) {
     p.innerText = JSON.stringify(data);
   });
 
-  const hide = () => {
-    console.log('hide');
-  };
+  const hide = () => (p.innerText = 'null');
+
   chart.on('tooltip:hide', hide);
 
   button.onclick = () => {

@@ -1,17 +1,28 @@
 import { chartEmitItemTooltipHideContent as render } from '../plots/api/chart-emit-item-tooltip-hide-content';
 import './utils/useSnapshotMatchers';
-import { sleep } from './utils/sleep';
+import {
+  dispatchFirstElementEvent,
+  createPromise,
+  receiveExpectData,
+} from './utils/event';
 import { createDOMGCanvas } from './utils/createDOMGCanvas';
 
 describe('chart.emit', () => {
   const canvas = createDOMGCanvas(800, 500);
 
-  it('chart.emit and chart.on should control item tooltip display.', async () => {
-    const { finished } = render({ canvas });
-    const dir = `${__dirname}/snapshots/api`;
+  it('chart.tooltip hide body should emit events.', async () => {
+    const { finished, chart, clear } = render({
+      canvas,
+      container: document.createElement('div'),
+    });
     await finished;
-    await sleep(20);
-    await expect(canvas).toMatchCanvasSnapshot(dir, render.name);
+    clear();
+
+    // chart.on("tooltip:hide") should be called when hiding tooltip.
+    const [tooltipHided, resolveHide] = createPromise();
+    chart.on('tooltip:hide', receiveExpectData(resolveHide, null));
+    dispatchFirstElementEvent(canvas, 'pointerout');
+    await tooltipHided;
   });
 
   afterAll(() => {
