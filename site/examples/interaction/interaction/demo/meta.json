@@ -85,6 +85,14 @@
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*WcxIS4inFuoAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
+      "filename": "tooltip-click.ts",
+      "title": {
+        "zh": "点击提示",
+        "en": "Click Tooltip"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*4YDhQZN5FogAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
       "filename": "chart-index.ts",
       "title": {
         "zh": "索引图",
