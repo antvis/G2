@@ -884,7 +884,6 @@ export function computeLabelsBBox(
   // Cache boxes to avoid computed twice.
   const I = labels.map((_, i) => i);
   component.indexBBox = new Map(I.map((i) => [i, [labels[i], labelBBoxes[i]]]));
-
   return labelBBoxes;
 }
 

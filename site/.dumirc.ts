@@ -33,7 +33,7 @@ export default defineConfig({
     showWxQrcode: true, // 是否显示头部菜单的微信公众号
     showChartResize: true, // 是否在 demo 页展示图表视图切换
     showAPIDoc: true, // 是否在 demo 页展示API文档
-    showSpecTab: true, // 是否展示 Spec 页面
+    showSpecTab: true, // 是否展示 component 页面
     es5: false, // 案例代码是否编译到 es5
     versions: {
       // 历史版本以及切换下拉菜单
@@ -51,16 +51,16 @@ export default defineConfig({
       {
         slug: 'docs/manual/introduction',
         title: {
-          zh: '教程',
-          en: 'Tutorials',
+          zh: '文档',
+          en: 'Docs',
         },
         order: 3,
       },
       {
         slug: 'docs/spec/overview',
         title: {
-          zh: '文档',
-          en: 'Documentation',
+          zh: '选项',
+          en: 'Spec',
         },
         order: 2,
       },
@@ -80,13 +80,6 @@ export default defineConfig({
         },
         order: 0,
       },
-      // {
-      //   slug: 'theme',
-      //   title: {
-      //     zh: '主题',
-      //     en: 'Theme',
-      //   },
-      // },
     ],
     ecosystems: [
       // 头部的菜单中的「周边生态」
@@ -101,28 +94,28 @@ export default defineConfig({
     docs: [
       // manual
       {
-        slug: 'manual/single-view',
+        slug: 'manual/introduction',
         title: {
-          zh: '基础',
-          en: 'General',
+          zh: '简介',
+          en: 'Introduction',
+        },
+        order: 1,
+      },
+      {
+        slug: 'manual/core',
+        title: {
+          zh: '核心概念',
+          en: 'Core Concepts',
+        },
+        order: 2,
+      },
+      {
+        slug: 'manual/extra-topics',
+        title: {
+          zh: '进阶主题',
+          en: 'Extra Topics',
         },
         order: 3,
-      },
-      {
-        slug: 'manual/theme',
-        title: {
-          zh: '风格',
-          en: 'Style',
-        },
-        order: 10,
-      },
-      {
-        slug: 'manual/more',
-        title: {
-          zh: '更多',
-          en: 'More',
-        },
-        order: 11,
       },
       // docs
       {

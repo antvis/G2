@@ -1,5 +1,5 @@
 ---
-title: 简介
+title: 什么是 G2
 order: 1
 ---
 
