@@ -149,8 +149,8 @@ function getLinearConfig(
   // Only use defaultColor when there is no color scale
   // in this view.
   const defaultColor = scales.color
-    ? theme.legendContinuous.ribbonFill || 'black'
-    : theme.defaultColor;
+    ? theme?.legendCategory?.style.legendContinuous.ribbonFill || 'black'
+    : theme?.palette?.defaultColor;
 
   const scale = colorScale || createColorScale(definedScale, defaultColor);
   const [min, max] = rangeOf(scale);
@@ -228,7 +228,9 @@ export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
     const { x, y, width, height } = bbox;
     const finalLayout = inferComponentLayout(position, layout);
 
-    const { legendContinuous: legendTheme = {} } = theme;
+    const {
+      legendContinuous: { style: legendTheme = {} },
+    } = theme;
 
     const finalStyle = adaptor(
       Object.assign(

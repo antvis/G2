@@ -1,5 +1,6 @@
 import { TextStyleProps, PathStyleProps } from '@antv/g';
 import { G2Title, WithPrefix } from './common';
+import { G2Token } from './token';
 
 type TupleToUnion<T, U> = T extends [infer F, ...infer R]
   ? F extends string
@@ -27,10 +28,14 @@ type ConnectorStyleProps = PathStyleProps & {
 };
 
 type LabelStyleProps = {
-  offset?: number;
-  connector?: boolean;
-} & Omit<TextStyleProps, 'text'> &
-  WithPrefix<ConnectorStyleProps, 'connector'>;
+  animate?: AnimationTheme;
+  style?: Omit<TextStyleProps, 'text'> &
+    WithPrefix<ConnectorStyleProps, 'connector'> & {
+      innerLabel: Record<string, any>;
+      offset?: number;
+      connector?: boolean;
+    };
+};
 
 type MarkTheme = NestUnion<'interval', ['rect', 'hollowRect'], ElementStyle> &
   NestUnion<'rect', ['rect', 'hollowRect'], ElementStyle> &
@@ -61,10 +66,8 @@ type MarkTheme = NestUnion<'interval', ['rect', 'hollowRect'], ElementStyle> &
 
 type InteractionTheme = {
   interaction?: {
-    active: MarkTheme;
-    inactive: MarkTheme;
-    selected: MarkTheme;
-    disabled: MarkTheme;
+    tooltip: MarkTheme;
+    elementHighlight: MarkTheme;
   };
 };
 
@@ -112,18 +115,20 @@ type AreaTheme = {
   lineWidth?: number;
 };
 
+type ViewTheme = WithPrefix<AreaTheme, 'view' | 'plot' | 'main' | 'content'>;
+
+type PaletteTheme = {
+  defaultColor?: string | string[];
+  category10?: string | string[];
+  category20?: string | string[];
+};
+
 export type G2Theme = {
-  backgroundColor?: string;
-  defaultColor?: string;
-  defaultCategory10?: string;
-  defaultCategory20?: string;
-  defaultSize?: number;
-  elementActiveStroke?: string;
+  token?: G2Token;
+  view?: ViewTheme;
+  palette?: PaletteTheme;
+  animate?: AnimationTheme;
 } & MarkTheme &
   ComponentTheme &
   AnimationTheme &
-  InteractionTheme &
-  WithPrefix<AreaTheme, 'view'> &
-  WithPrefix<AreaTheme, 'plot'> &
-  WithPrefix<AreaTheme, 'main'> &
-  WithPrefix<AreaTheme, 'content'>;
+  InteractionTheme;

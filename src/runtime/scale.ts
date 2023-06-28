@@ -383,7 +383,9 @@ function categoricalColors(
     'palette',
     library,
   );
-  const { defaultCategory10: c10, defaultCategory20: c20 } = theme;
+  const {
+    palette: { category10: c10, category20: c20 },
+  } = theme;
   const defaultPalette = unique(values.flat()).length <= c10.length ? c10 : c20;
   const { palette = defaultPalette, offset } = options;
   // Built-in palettes have higher priority.

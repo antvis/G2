@@ -4,8 +4,10 @@ import { G2GuideComponentOptions, G2Mark, G2ViewTree } from './options';
 import { LabelTransform, Scale } from './component';
 import { MarkProps } from './mark';
 import { G2Theme } from './theme';
+import { G2Token } from './token';
 
 export type { G2Theme };
+export type Token = G2Token;
 
 export type G2Title = {
   /**

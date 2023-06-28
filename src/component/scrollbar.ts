@@ -15,7 +15,9 @@ export const Scrollbar: GCC<ScrollbarOptions> = (options) => {
   return ({ scales: [scale], value, theme }) => {
     const { bbox } = value;
     const { x, y, width, height } = bbox;
-    const { scrollbar: scrollbarTheme = {} } = theme;
+    const {
+      scrollbar: { style: scrollbarTheme = {} },
+    } = theme;
     const { ratio, range } = scale.getOptions();
     const mainSize = orientation === 'horizontal' ? width : height;
     const actualSize = mainSize / ratio;

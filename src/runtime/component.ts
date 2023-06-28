@@ -673,7 +673,10 @@ function computeContinuousLegendSize(
 ) {
   // Get styles.
   const styleOf = () => {
-    const { legendContinuous } = theme;
+    const {
+      legendCategory: { style: baseStyle = {} },
+    } = theme;
+    const { legendContinuous } = baseStyle;
     return deepMix({}, legendContinuous, component.style);
   };
   const { labelSpacing = 0, titleSpacing = 0, ...rest } = styleOf();
@@ -913,10 +916,9 @@ export function styleOf(
   theme: G2Theme,
 ): Record<string, any> {
   const {
-    axis: baseStyle,
-    // @ts-ignore
-    [`axis${capitalizeFirst(position)}`]: positionStyle,
+    axis: { style: baseStyle = {} },
   } = theme;
+  const { [`axis${capitalizeFirst(position)}`]: positionStyle } = baseStyle;
   return deepMix({}, baseStyle, positionStyle, axis.style);
 }
 

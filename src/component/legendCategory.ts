@@ -140,7 +140,7 @@ function inferCategoryStyle(options, context: GuideComponentContext) {
     itemMarker: inferItemMarker(options, context),
     itemMarkerSize: inferItemMarkerSize(
       scales,
-      theme.legendCategory.itemMarkerSize,
+      theme?.legendCategory?.style?.itemMarkerSize,
     ),
     itemMarkerOpacity: inferItemMarkerOpacity(scales),
   };
@@ -219,7 +219,9 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
       ...inferCategoryStyle(options, context),
     };
 
-    const { legendCategory: legendTheme = {} } = theme;
+    const {
+      legendCategory: { style: legendTheme = {} },
+    } = theme;
 
     const categoryStyle = adaptor(
       Object.assign({}, legendTheme, legendStyle, style),

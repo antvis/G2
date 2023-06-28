@@ -38,7 +38,11 @@ function inferAxisStyle(
   const [scale] = scales;
   const name = scale.getOptions().name;
   const [startAngle, endAngle] = angleOf(coordinate);
-  const { axisRadar: radarTheme = {} } = theme;
+  const {
+    axis: {
+      style: { axisRadar: radarTheme = {} },
+    },
+  } = theme;
 
   return {
     ...radarTheme,

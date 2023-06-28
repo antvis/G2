@@ -1,4 +1,5 @@
 import { Coordinate } from '@antv/coord';
+import { deepMix } from '@antv/util';
 import { select } from '../../utils/selection';
 import { G2Theme, ShapeComponent as SC, Vector2 } from '../../runtime';
 import { applyStyle } from '../../shape/utils';
@@ -28,7 +29,13 @@ function getDefaultStyle(
   // position and the bounds of shape.
   const { position } = value;
   const p = inferPosition(position, coordinate);
-  const t = theme[p === 'inside' ? 'innerLabel' : 'label'];
+  const {
+    label: { style: labelStyle },
+  } = theme;
+  const t =
+    p === 'inside'
+      ? deepMix({}, labelStyle, labelStyle?.innerLabel)
+      : labelStyle;
   const v = Object.assign({}, t, value);
   const processor = PositionProcessor[camelCase(p)];
   if (!processor) {

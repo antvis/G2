@@ -7,3 +7,4 @@ export * from './types/transform';
 export * from './types/encode';
 export * from './types/mark';
 export * from './types/data';
+export * from './types/token';
