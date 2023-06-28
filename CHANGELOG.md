@@ -1,5 +1,22 @@
 # G2 - Changelog
 
+## [5.0.14](https://github.com/antvis/g2/compare/5.0.13...5.0.14) (2023-06-28)
+
+### Bug Fixes
+
+- **api:** replace deepMix with deepAssign ([#5232](https://github.com/antvis/g2/issues/5232)) ([7bf049c](https://github.com/antvis/g2/commit/7bf049cc4cd00176f916e934f43fd1cd44e682f0))
+- **area:** one missing point ([#5229](https://github.com/antvis/g2/issues/5229)) ([4977031](https://github.com/antvis/g2/commit/4977031ff8a377548ba9233fe073962730ee6075))
+- **axis:** auto padding axis label rotate fail ([#5238](https://github.com/antvis/g2/issues/5238)) ([fc665da](https://github.com/antvis/g2/commit/fc665dad1e56f78a19baa08677b8cb7a3707ef53))
+- **inset:** relative position for text in polar ([#5223](https://github.com/antvis/g2/issues/5223)) ([567717b](https://github.com/antvis/g2/commit/567717be85c851499437856979d180509aef2e71))
+- **layout:** auto inset ignore null bbox ([#5228](https://github.com/antvis/g2/issues/5228)) ([582c494](https://github.com/antvis/g2/commit/582c4943a514cde23320ff959c1cd38ab452efc2))
+- **line:** series gradient ([#5225](https://github.com/antvis/g2/issues/5225)) ([07cc02a](https://github.com/antvis/g2/commit/07cc02aba2f268cc4b6e0a723acdd71dad974c8e))
+- **line:** support missing trail ([#5227](https://github.com/antvis/g2/issues/5227)) ([3eb6b61](https://github.com/antvis/g2/commit/3eb6b6180c4910db7fcafe143dbdf797b37f02db))
+
+### Features
+
+- tooltip interaction emit events when body hide ([#5157](https://github.com/antvis/g2/issues/5157)) ([b8491c3](https://github.com/antvis/g2/commit/b8491c33c7736cfe1e0a2c2ee1824e60c727d2cc))
+- **tooltip:** disableNative ([#5236](https://github.com/antvis/g2/issues/5236)) ([70d847f](https://github.com/antvis/g2/commit/70d847fea472e85e2e713b71f75c684f22a2c38d))
+
 ## [5.0.13](https://github.com/antvis/g2/compare/5.0.12...5.0.13) (2023-06-20)
 
 ### Bug Fixes
