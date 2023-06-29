@@ -119,7 +119,7 @@ chart.text().style({
 <img alt="absolute" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*QZc2Q4k-4oIAAAAAAAAAAAAADmJ7AQ/original" width="640px">
 
 ```js
-// 相对定位
+// 绝对定位
 chart.text().style({
   x: 290, // 像素坐标
   y: 200, // 像素坐标
