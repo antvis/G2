@@ -90,7 +90,7 @@ export function inferComponent(
       position: defaultPosition,
       orientation: defaultOrientation,
       order: defaultOrder,
-      size: defaultSize,
+      defaultSize,
       ...titleOptions,
     });
   }
@@ -135,7 +135,7 @@ export function inferComponent(
       const defaultCrossPadding = isVertical ? DCP[1] : DCP[0];
 
       const {
-        size = defaultSize,
+        size,
         order = defaultOrder,
         length = defaultLength,
         padding = defaultPadding,
@@ -145,6 +145,7 @@ export function inferComponent(
       components.push({
         title: field,
         ...partialGuide,
+        defaultSize,
         length,
         position,
         orientation,
@@ -523,7 +524,7 @@ function inferScrollableComponents(
     const { defaultPosition, defaultSize, defaultOrder } = props;
     return {
       position: defaultPosition,
-      size: defaultSize,
+      defaultSize,
       order: defaultOrder,
       type: componentType,
       ...options,
