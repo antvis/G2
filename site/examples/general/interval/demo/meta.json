@@ -53,6 +53,14 @@
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*hTfETY0ObOsAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
+      "filename": "bar-range-micro.ts",
+      "title": {
+        "zh": "微妙级区间条形图",
+        "en": "Micro Range Bar Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*RGwxTI9J6fwAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
       "filename": "bar-stacked.ts",
       "title": {
         "zh": "堆叠条形图",
