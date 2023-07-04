@@ -257,32 +257,48 @@ function computePadding(
     paddingTop,
     paddingRight,
   };
+
   for (const position of positions) {
     const key = `padding${capitalizeFirst(camelCase(position))}`;
+    const components = positionComponents.get(position) || [];
     const value = layout[key];
-    if (value === undefined || value === 'auto') {
-      if (!positionComponents.has(position)) {
+    const defaultSizeOf = (d) => {
+      if (d.size === undefined) d.size = d.defaultSize;
+    };
+    const autoSizeOf = (d) => {
+      if (d.size) return;
+      if (value !== 'auto') {
+        d.size = d.defaultSize;
+        return;
+      }
+      // Compute component size dynamically.
+      computeComponentSize(
+        d,
+        crossSize,
+        crossPadding,
+        position,
+        theme,
+        library,
+      );
+      defaultSizeOf(d);
+    };
+
+    // Specified padding.
+    if (typeof value === 'number') {
+      components.forEach(defaultSizeOf);
+    } else {
+      // Compute padding dynamically.
+      if (components.length === 0) {
         layout[key] = 30;
       } else {
-        const components = positionComponents.get(position);
         const grouped = groupComponents(components, crossSize);
-        if (value === 'auto') {
-          grouped.forEach((component) =>
-            computeComponentSize(
-              component,
-              crossSize,
-              crossPadding,
-              position,
-              theme,
-              library,
-            ),
-          );
-        }
+        grouped.forEach(autoSizeOf);
         const totalSize = grouped.reduce((sum, { size }) => sum + size, 0);
         layout[key] = totalSize;
       }
     }
   }
+
   return layout;
 }
 
