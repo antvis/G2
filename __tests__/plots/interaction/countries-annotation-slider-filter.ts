@@ -27,8 +27,6 @@ export function countriesAnnotationSliderFilter(): G2Spec {
           fillOpacity: 0.2,
           fill: (d) => (d.region === '1' ? '#d8d0c0' : '#a3dda1'),
         },
-        legend: false,
-        tooltip: false,
       },
       {
         type: 'point',
@@ -64,8 +62,6 @@ export function countriesAnnotationSliderFilter(): G2Spec {
     ],
   };
 }
-
-countriesAnnotationSliderFilter.maxError = 600;
 
 countriesAnnotationSliderFilter.steps = ({ canvas }) => {
   const { document } = canvas;
