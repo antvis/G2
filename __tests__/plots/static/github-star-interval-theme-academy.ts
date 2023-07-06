@@ -4,9 +4,6 @@ import { githubStar } from '../../data/github-star';
 export function githubStarIntervalThemeAcademy(): G2Spec {
   return {
     type: 'interval',
-    width: 1000,
-    paddingBottom: 100,
-    paddingLeft: 160,
     data: {
       value: githubStar,
       transform: [{ type: 'sortBy', fields: [['star', true]] }],

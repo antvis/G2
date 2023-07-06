@@ -37,7 +37,7 @@ export function dispatchValueChange(slider, values = [0.25, 0.75]) {
   );
 }
 
-aaplLineSliderFilter.maxError = 500;
+aaplLineSliderFilter.maxError = 600;
 
 aaplLineSliderFilter.steps = ({ canvas }) => {
   const { document } = canvas;

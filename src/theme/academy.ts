@@ -272,7 +272,7 @@ export const Academy: TC<AcademyOptions> = (options) => {
       titlePosition: 'left',
       titleSpacing: 4,
       titleTextBaseline: 'middle',
-      titleTransform: `translate(50%, 0) rotate(-90) translate(0, -50%)`,
+      titleDirection: 'vertical',
       titleTransformOrigin: 'center',
     },
     axisRight: {
@@ -283,7 +283,7 @@ export const Academy: TC<AcademyOptions> = (options) => {
       titlePosition: 'right',
       titleSpacing: 0,
       titleTextBaseline: 'top',
-      titleTransform: `translate(-50%, 0) rotate(-90)`,
+      titleDirection: 'vertical',
       titleTransformOrigin: 'center',
     },
     axisLinear: {

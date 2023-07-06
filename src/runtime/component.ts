@@ -921,8 +921,12 @@ export function computeTitleBBox(
   const { title: styleTitle } = style;
   if (isFalsy(title) || isFalsy(styleTitle) || title === undefined) return null;
   const titleStyle = subObject(style, 'title');
+  const { direction, transform } = titleStyle;
   const titleText = Array.isArray(title) ? title.join(',') : title;
-  const titleBBox = computeLabelSize(titleText, titleStyle);
+  const titleBBox = computeLabelSize(titleText, {
+    ...titleStyle,
+    transform: transform || direction === 'vertical' ? 'rotate(-90)' : '',
+  });
   return titleBBox;
 }
 
