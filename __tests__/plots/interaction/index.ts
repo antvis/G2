@@ -62,3 +62,4 @@ export { penguinsPointBrushHandleStyle } from './penguins-point-brush-handle-sty
 export { penguinsPointBrushHandleCustom } from './penguins-point-brush-handle-custom';
 export { unemploymentChoropleth } from './unemployment-choropleth';
 export { weatherLineLegendMark } from './weather-line-legend-mark';
+export { countriesAnnotationSliderFilter } from './countries-annotation-slider-filter';

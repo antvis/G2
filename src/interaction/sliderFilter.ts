@@ -21,10 +21,10 @@ function filterDataByDomain(options, scaleOptions, prefix, hasState = false) {
         scale: scaleOptions,
         // Don't rerender sliders.
         [prefix]: {
-          ...(mark[prefix].x && {
+          ...(mark[prefix]?.x && {
             x: { preserve: true, ...(hasState && { ratio: null }) },
           }),
-          ...(mark[prefix].y && {
+          ...(mark[prefix]?.y && {
             y: { preserve: true, ...(hasState && { ratio: null }) },
           }),
         },
@@ -142,8 +142,9 @@ export function SliderFilter({
           const newOptions = filterDataByDomain(
             options,
             {
-              [channel0]: { domain: domain0 },
-              [channel1]: { domain: domain1 },
+              // Set nice to false to avoid modify domain.
+              [channel0]: { domain: domain0, nice: false },
+              [channel1]: { domain: domain1, nice: false },
             },
             prefix,
             hasState,

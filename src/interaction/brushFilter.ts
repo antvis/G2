@@ -122,9 +122,10 @@ export function BrushFilter({ hideX = true, hideY = true, ...rest }) {
             },
             mark,
             {
+              // Set nice to false to avoid modify domain.
               scale: {
-                x: { domain: domainX },
-                y: { domain: domainY },
+                x: { domain: domainX, nice: false },
+                y: { domain: domainY, nice: false },
               },
             },
           ),

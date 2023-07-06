@@ -3,12 +3,16 @@ import { Chart } from '@antv/g2';
 const chart = new Chart({
   container: 'container',
   theme: 'classic',
+  padding: 'auto',
 });
 
 chart.data({
   type: 'fetch',
   value:
     'https://gw.alipayobjects.com/os/bmw-prod/0b37279d-1674-42b4-b285-29683747ad9a.json',
+  transform: [
+    { type: 'filter', callback: (d) => d['change in male rate'] !== 'NA' },
+  ],
 });
 
 chart.lineX().data([0]);
@@ -24,15 +28,9 @@ chart
   ])
   .encode('x', 'x')
   .encode('y', 'y')
-  .encode('color', 'region')
-  .scale('color', {
-    range: ['#d8d0c0', '#a3dda1'],
-    independent: true,
-  })
+  .style('fill', (d) => (d.region === '1' ? '#d8d0c0' : '#a3dda1'))
   .style('fillOpacity', 0.2)
-  .animate(false)
-  .legend(false)
-  .tooltip(false);
+  .animate('enter', { type: 'fadeIn' });
 
 chart
   .point()
@@ -44,13 +42,14 @@ chart
   .scale('color', {
     range: ['#ffd500', '#82cab2', '#193442', '#d18768', '#7e827a'],
   })
-  .axis('x', { title: false })
-  .axis('y', { title: false })
-  .scale('x', { domain: [-25, 5] })
-  .scale('y', { domain: [-30, 20] })
   .scale('size', { range: [4, 30] })
   .style('stroke', '#bbb')
   .style('fillOpacity', 0.8)
+  .axis('x', { title: 'Female' })
+  .axis('y', { title: 'Male' })
+  .legend('size', false)
+  .slider('x', { labelFormatter: (d) => d.toFixed(1) })
+  .slider('y', { labelFormatter: (d) => d.toFixed(1) })
   .tooltip([
     { channel: 'x', valueFormatter: '.1f' },
     { channel: 'y', valueFormatter: '.1f' },
