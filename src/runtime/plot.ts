@@ -1,7 +1,7 @@
 import { Vector2 } from '@antv/coord';
 import { DisplayObject, IAnimation as GAnimation, Rect } from '@antv/g';
 import { deepMix, upperFirst } from '@antv/util';
-import { group } from 'd3-array';
+import { group, groups } from 'd3-array';
 import { format } from 'd3-format';
 import { mapObject } from '../utils/array';
 import { ChartEvent } from '../utils/event';
@@ -799,9 +799,15 @@ async function plotView(
 
   // Render components.
   // @todo renderComponent return ctor and options.
+  // Key for each type of component.
+  // Index them grouped by position.
+  for (const [, C] of groups(components, (d) => `${d.type}-${d.position}`)) {
+    C.forEach((d, i) => (d.index = i));
+  }
+
   const componentsTransitions = selection
     .selectAll(className(COMPONENT_CLASS_NAME))
-    .data(components, (d, i) => `${d.type}-${i}`)
+    .data(components, (d) => `${d.type}-${d.position}-${d.index}`)
     .join(
       (enter) =>
         enter

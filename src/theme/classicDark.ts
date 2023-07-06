@@ -272,7 +272,7 @@ export const ClassicDark: TC<ClassicDarkOptions> = (options) => {
       titlePosition: 'left',
       titleSpacing: 10,
       titleTextBaseline: 'middle',
-      titleTransform: `translate(50%, 0) rotate(-90)`,
+      titleDirection: 'vertical',
       titleTransformOrigin: 'center',
     },
     axisRight: {
@@ -283,7 +283,7 @@ export const ClassicDark: TC<ClassicDarkOptions> = (options) => {
       titlePosition: 'right',
       titleSpacing: 0,
       titleTextBaseline: 'top',
-      titleTransform: `translate(-50%, 0) rotate(-90)`,
+      titleDirection: 'vertical',
       titleTransformOrigin: 'center',
     },
     axisLinear: {
