@@ -269,3 +269,4 @@ export { mockIntervalFacetRectPolar } from './mock-interval-facet-rect-polar';
 export { alphabetIntervalAutoRotate } from './alphabet-interval-auto-padding-rotate';
 export { mockLineSmallInterval } from './mock-line-small-interval';
 export { unemploymentAreaStackedLegendSize } from './unemployment-area-stacked-legend-size';
+export { alphabetIntervalAutoPaddingSlider } from './alphabet-interval-auto-padding-slider';
