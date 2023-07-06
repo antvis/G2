@@ -9,17 +9,32 @@ export type SliderOptions = {
   [key: string]: any;
 };
 
+function inferPosition(bbox, position, trackSize) {
+  const { x, y, width, height } = bbox;
+  if (position === 'left') return [x + width - trackSize, y];
+  if (position === 'right') return [x, y];
+  if (position === 'bottom') return [x, y];
+  if (position === 'top') return [x, y + height - trackSize];
+}
+
 /**
  * Slider component.
  */
 export const Slider: GCC<SliderOptions> = (options) => {
   // do not pass size.
-  const { orientation, labelFormatter, size, style, position, ...rest } =
-    options;
+  const {
+    orientation,
+    labelFormatter,
+    size,
+    style = {},
+    position,
+    ...rest
+  } = options;
 
   return ({ scales: [scale], value, theme, coordinate }) => {
     const { bbox } = value;
-    const { x, y, width, height } = bbox;
+
+    const { width, height } = bbox;
     const { slider: sliderTheme = {} } = theme;
     const defaultFormatter = scale.getFormatter?.() || ((v) => v.toString());
     const formatter =
@@ -29,12 +44,13 @@ export const Slider: GCC<SliderOptions> = (options) => {
 
     const isHorizontal = orientation === 'horizontal';
     const reverse = isTranspose(coordinate) && isHorizontal;
-
+    const { trackSize = sliderTheme.trackSize } = style;
+    const [x0, y0] = inferPosition(bbox, position, trackSize);
     return new SliderComponent({
       className: 'slider',
       style: Object.assign({}, sliderTheme, {
-        x,
-        y,
+        x: x0,
+        y: y0,
         trackLength: isHorizontal ? width : height,
         orientation,
         formatter: (v) => {

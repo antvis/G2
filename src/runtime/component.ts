@@ -563,6 +563,7 @@ export function computeComponentSize(
     if (t.startsWith('group')) return computeGroupSize;
     if (t.startsWith('legendContinuous')) return computeContinuousLegendSize;
     if (t === 'legendCategory') return computeCategoryLegendSize;
+    if (t.startsWith('slider')) return computeSliderSize;
     return () => {};
   };
   return createCompute()(
@@ -602,6 +603,23 @@ function computeGroupSize(
   const maxSize = max(children, (d: G2GuideComponentOptions) => d.size);
   component.size = maxSize;
   children.forEach((d) => (d.size = maxSize));
+}
+
+function computeSliderSize(
+  component: G2GuideComponentOptions,
+  crossSize: number,
+  crossPadding: [number, number],
+  position: GCP,
+  theme: G2Theme,
+  library: G2Library,
+) {
+  const styleOf = () => {
+    const { slider } = theme;
+    return deepMix({}, slider, component.style);
+  };
+  const { trackSize, handleIconSize } = styleOf();
+  const size = Math.max(trackSize, handleIconSize * 2.4);
+  component.size = size;
 }
 
 function computeAxisSize(

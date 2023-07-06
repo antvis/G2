@@ -73,7 +73,8 @@ export function SliderFilter({
     if (!sliders.length) return () => {};
 
     let filtering = false;
-    const { scale, coordinate } = view;
+    const { scale, coordinate, layout } = view;
+    const { paddingLeft, paddingTop, paddingBottom, paddingRight } = layout;
     const { x: scaleX, y: scaleY } = scale;
     const transposed = isTranspose(coordinate);
 
@@ -159,7 +160,13 @@ export function SliderFilter({
             });
           }
 
-          await update(newOptions);
+          await update({
+            ...newOptions,
+            paddingLeft,
+            paddingTop,
+            paddingBottom,
+            paddingRight,
+          });
           filtering = false;
         },
         wait,
