@@ -183,13 +183,12 @@ function oneToOne(
   const animation = pathShape.animate(keyframes, timeEffect);
 
   animation.onfinish = () => {
+    pathShape.style.transform = 'none';
     copyAttributes(pathShape, to);
   };
 
   // Remove transform because it already applied in path
   // converted by convertToPath.
-  // @todo Remove this scale(1, 1)
-  pathShape.style.transform = 'scale(1, 1)';
   pathShape.style.transform = 'none';
   return animation;
 }
