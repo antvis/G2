@@ -265,22 +265,29 @@ function computePadding(
     const defaultSizeOf = (d) => {
       if (d.size === undefined) d.size = d.defaultSize;
     };
+    const sizeOf = (d) => {
+      if (d.type === 'group') {
+        d.children.forEach(defaultSizeOf);
+        d.size = max(d.children, (d) => (d as any).size);
+      } else {
+        d.size = d.defaultSize;
+      }
+    };
     const autoSizeOf = (d) => {
       if (d.size) return;
-      if (value !== 'auto') {
-        d.size = d.defaultSize;
-        return;
+      if (value !== 'auto') sizeOf(d);
+      else {
+        // Compute component size dynamically.
+        computeComponentSize(
+          d,
+          crossSize,
+          crossPadding,
+          position,
+          theme,
+          library,
+        );
+        defaultSizeOf(d);
       }
-      // Compute component size dynamically.
-      computeComponentSize(
-        d,
-        crossSize,
-        crossPadding,
-        position,
-        theme,
-        library,
-      );
-      defaultSizeOf(d);
     };
 
     // Specified padding.
