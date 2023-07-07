@@ -38,3 +38,4 @@ export { chartOptionsCompositeMark } from './chart-options-composite-mark';
 export { chartEmitItemTooltipHideContent } from './chart-emit-item-tooltip-hide-content';
 export { chartEmitClickTooltip } from './chart-emit-click-tooltip';
 export { chartChangeDataLegend } from './chart-change-data-legend';
+export { chartTooltipMultiChart } from './chart-tooltip-multi-chart';
