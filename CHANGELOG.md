@@ -1,5 +1,23 @@
 # G2 - Changelog
 
+## [5.0.15](https://github.com/antvis/g2/compare/5.0.14...5.0.15) (2023-07-07)
+
+### Bug Fixes
+
+- **axis:** axis pos when update ([#5275](https://github.com/antvis/g2/issues/5275)) ([63f337b](https://github.com/antvis/g2/commit/63f337b383f87e92787659cd21b093de2c35dfaa))
+- clear transform when animation finished ([#5277](https://github.com/antvis/g2/issues/5277)) ([db77f1b](https://github.com/antvis/g2/commit/db77f1b99e0892f4c6b1bd9753f5e7908720f4d1))
+- **layout:** valid specified component size ([#5264](https://github.com/antvis/g2/issues/5264)) ([e9edea2](https://github.com/antvis/g2/commit/e9edea2c0a96bfb04805d449002729dbe2205eb5))
+- **legend:** continuous legend set labelOverlap to hdie by default ([#5278](https://github.com/antvis/g2/issues/5278)) ([76698dc](https://github.com/antvis/g2/commit/76698dc2dac49359379b05360793a562126de2cd))
+- **legend:** filter with pages ([#5284](https://github.com/antvis/g2/issues/5284)) ([e712ac4](https://github.com/antvis/g2/commit/e712ac482bfad9b4d611c179d3cfff38b21cd0df))
+- **legend:** update legend item ([#5258](https://github.com/antvis/g2/issues/5258)) ([48873ba](https://github.com/antvis/g2/commit/48873ba1ff5838ad176d0c8fe323a353b1118b93))
+- **slider:** with annotation ([#5280](https://github.com/antvis/g2/issues/5280)) ([9418bdd](https://github.com/antvis/g2/commit/9418bdd8052acd80bd16c62c4cd6c5627571d299))
+- **tooltip:** multi chart when mounting to body ([#5283](https://github.com/antvis/g2/issues/5283)) ([17ed2cb](https://github.com/antvis/g2/commit/17ed2cb3ecacde34fa92b6c85db5973dc2e73b87))
+
+### Features
+
+- **interval:** micro interval ([#5260](https://github.com/antvis/g2/issues/5260)) ([5190059](https://github.com/antvis/g2/commit/51900599d807b8bd6d34e32605c8ecda2cf14bfa))
+- **slider:** auto layout ([#5274](https://github.com/antvis/g2/issues/5274)) ([7ff0978](https://github.com/antvis/g2/commit/7ff09788a00b1225c443e007f81f5e998219346d))
+
 ## [5.0.14](https://github.com/antvis/g2/compare/5.0.13...5.0.14) (2023-06-28)
 
 ### Bug Fixes
