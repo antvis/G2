@@ -106,9 +106,12 @@ function showTooltip({
   mount,
   bounding,
 }) {
-  // All the views share the same tooltip.
   const canvasContainer = root.getRootNode().defaultView.getConfig().container;
-  const container = single ? getContainer(root, mount) : root;
+  const container = getContainer(root, mount);
+
+  // All the views share the same tooltip.
+  const parent = single ? canvasContainer : root;
+
   const b = bounding || getBounding(root);
   const containerOffset = getContainerOffset(canvasContainer, container);
   const {
@@ -121,7 +124,7 @@ function showTooltip({
       b,
       containerOffset,
     ),
-  } = container;
+  } = parent as any;
   const { items, title = '' } = data;
   tooltipElement.update({
     x,
@@ -134,15 +137,16 @@ function showTooltip({
       content: render(event, { items, title }),
     }),
   });
-  container.tooltipElement = tooltipElement;
+  parent.tooltipElement = tooltipElement;
 }
 
 function hideTooltip({ root, single, emitter, nativeEvent = true, mount }) {
   if (nativeEvent) {
     emitter.emit('tooltip:hide', { nativeEvent });
   }
-  const container = single ? getContainer(root, mount) : root;
-  const { tooltipElement } = container;
+  const canvasContainer = root.getRootNode().defaultView.getConfig().container;
+  const parent = single ? canvasContainer : root;
+  const { tooltipElement } = parent;
   if (tooltipElement) {
     tooltipElement.hide();
   }
