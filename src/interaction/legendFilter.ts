@@ -196,11 +196,14 @@ export function LegendFilter() {
         ];
         return deepMix({}, mark, {
           transform: newTransform,
-          // Set domain of scale to preserve legends.
+          //Set domain of scale to preserve legends.
           scale: {
             [channel]: {
               domain: scaleOrdinal.getOptions().domain,
             },
+          },
+          legend: {
+            [channel]: { preserve: true },
           },
         });
       });
