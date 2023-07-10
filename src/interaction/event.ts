@@ -14,6 +14,14 @@ export function dataOf(element, view) {
   return selectedMark.data[index];
 }
 
+// For extended shape.
+function maybeElementRoot(node) {
+  if (node.className === 'element') return node;
+  let root = node.parent;
+  while (root && root.className !== 'element') root = root.parent;
+  return root;
+}
+
 function bubblesEvent(eventType, view, emitter, predicate = (event) => true) {
   return (e) => {
     if (!predicate(e)) return;
@@ -26,17 +34,20 @@ function bubblesEvent(eventType, view, emitter, predicate = (event) => true) {
     // There is no target for pointerupoutside event if out of canvas.
     if (!target) return;
 
-    const { className: elementType, markType } = target;
+    const { className } = target;
 
     // If target area is plot area, do not emit extra events.
-    if (elementType === 'plot') return;
+    if (className === 'plot') return;
 
-    // Emit wrapped events.
+    // If target is element or child of element.
+    const elementRoot = maybeElementRoot(target);
+    if (!elementRoot) return;
+    const { className: elementType, markType } = elementRoot;
     if (elementType === 'element') {
       const e1 = {
         ...e,
         nativeEvent: true,
-        data: { data: dataOf(target, view) },
+        data: { data: dataOf(elementRoot, view) },
       };
       emitter.emit(`element:${eventType}`, e1);
       emitter.emit(`${markType}:${eventType}`, e1);
