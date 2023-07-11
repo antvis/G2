@@ -918,16 +918,23 @@ async function plotView(
               const [x, y] = node.getBounds().min;
               return [x, y];
             });
-            update.transition(function (data, index) {
-              maybeFacetElement(this, parent, origin);
-              const node = shapeFunction(data, index);
-              const animation = updateFunction(data, [this], [node]);
-              if (animation === null) {
+            selection
+              .transition(function (data, index) {
+                maybeFacetElement(this, parent, origin);
+                const node = shapeFunction(data, index);
+                const animation = updateFunction(data, [this], [node]);
+                if (animation !== null) return animation;
                 if (this.nodeName === node.nodeName) copyAttributes(this, node);
-                else this.parentNode.replaceChild(node, this);
-              }
-              return animation;
-            });
+                else {
+                  this.parentNode.replaceChild(node, this);
+                  node.className = ELEMENT_CLASS_NAME;
+                  // @ts-ignore
+                  node.markType = type;
+                }
+                return animation;
+              })
+              .attr('markType', type)
+              .attr('className', ELEMENT_CLASS_NAME);
           }),
         (exit) => {
           return exit
