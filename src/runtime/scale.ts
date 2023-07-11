@@ -1,5 +1,5 @@
 import { Linear, createInterpolateValue } from '@antv/scale';
-import { extent } from 'd3-array';
+import { extent, max } from 'd3-array';
 import * as d3ScaleChromatic from 'd3-scale-chromatic';
 import { deepMix, omit, upperFirst } from '@antv/util';
 import { firstOf, lastOf, unique } from '../utils/array';
@@ -159,6 +159,32 @@ export function useRelation(
   };
 
   return [conditionalize, deconditionalize];
+}
+
+export function assignScale(
+  target: Record<string, Scale>,
+  source: Record<string, Scale>,
+): Record<string, Scale> {
+  const keys = Object.keys(target);
+  for (const scale of Object.values(source)) {
+    const { name, key } = scale.getOptions();
+    if (typeof key === 'string') {
+      if (!(key in target)) target[key] = scale;
+    } else {
+      // For scale.key = Symbol('independent')
+      if (!(name in target)) target[name] = scale;
+      else {
+        const I = keys
+          .filter((d) => d.startsWith(name))
+          .map((d) => +(/[^\d]+(\d*)$/.exec(d)?.[1] || 0));
+        const index = max(I) + 1;
+        const newKey = `${name}${index}`;
+        target[newKey] = scale;
+        scale.getOptions().key = newKey;
+      }
+    }
+  }
+  return target;
 }
 
 export function useRelationScale(

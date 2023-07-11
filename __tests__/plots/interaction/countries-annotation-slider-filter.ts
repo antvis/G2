@@ -59,6 +59,19 @@ export function countriesAnnotationSliderFilter(): G2Spec {
           ],
         },
       },
+      {
+        type: 'text',
+        style: {
+          text: 'Population',
+          x: '100%',
+          y: '100%',
+          dx: -10,
+          dy: -10,
+          textAlign: 'end',
+          fontSize: 50,
+          textBaseline: 'bottom',
+        },
+      },
     ],
   };
 }

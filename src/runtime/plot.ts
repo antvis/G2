@@ -38,6 +38,7 @@ import { documentOf, useLibrary } from './library';
 import { initializeMark } from './mark';
 import {
   applyScale,
+  assignScale,
   collectScales,
   inferScale,
   syncFacetsScales,
@@ -535,6 +536,7 @@ async function initializeMarks(
       (total, { scale }) => deepMix(total, scale),
       {},
     );
+    const { scaleKey } = channels[0];
 
     // Use the fields of the first channel as the title.
     const { values: FV } = channels[0];
@@ -550,14 +552,10 @@ async function initializeMarks(
     // Use the name of the first channel as the scale name.
     const { name } = channels[0];
     const values = channels.flatMap(({ values }) => values.map((d) => d.value));
-    const scale = inferScale(
-      name,
-      values,
-      options,
-      coordinates,
-      theme,
-      library,
-    );
+    const scale = {
+      ...inferScale(name, values, options, coordinates, theme, library),
+      key: scaleKey,
+    };
     channels.forEach((channel) => (channel.scale = scale));
   }
 
@@ -622,7 +620,7 @@ function initializeState(
       const { name } = descriptor;
       const scale = useRelationScale(descriptor, library);
       scales.push(scale);
-      scaleInstance[name] = scale;
+      assignScale(scaleInstance, { [name]: scale });
     }
     component.scaleInstances = scales;
   }
@@ -651,7 +649,7 @@ function initializeState(
     const markScaleInstance = mapObject(scale, (options) => {
       return useRelationScale(options, library);
     });
-    Object.assign(scaleInstance, markScaleInstance);
+    assignScale(scaleInstance, markScaleInstance);
     const value = applyScale(channels, markScaleInstance);
 
     // Calc points and transformation for each data,
