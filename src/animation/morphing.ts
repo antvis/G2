@@ -110,6 +110,8 @@ function shapeToShape(
 function replaceChild(newChild: DisplayObject, oldChild: DisplayObject) {
   newChild['__data__'] = oldChild['__data__'];
   newChild.className = oldChild.className;
+  // @ts-ignore
+  newChild.markType = oldChild.markType;
   oldChild.parentNode.replaceChild(newChild, oldChild);
 }
 

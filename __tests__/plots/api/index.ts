@@ -40,3 +40,4 @@ export { chartEmitClickTooltip } from './chart-emit-click-tooltip';
 export { chartChangeDataLegend } from './chart-change-data-legend';
 export { chartTooltipMultiChart } from './chart-tooltip-multi-chart';
 export { chartOnTextClick } from './chart-on-text-click';
+export { chartRenderEvent } from './chart-render-event';
