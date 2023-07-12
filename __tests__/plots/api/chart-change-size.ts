@@ -11,7 +11,12 @@ export function chartChangeSize(context) {
   const div = document.createElement('div');
   container.appendChild(div);
 
-  const chart = new Chart({ theme: 'classic', container: div, canvas });
+  const chart = new Chart({
+    theme: 'classic',
+    container: div,
+    canvas,
+    padding: 'auto',
+  });
 
   chart.data([
     { genre: 'Sports', sold: 275 },
@@ -28,7 +33,8 @@ export function chartChangeSize(context) {
     .encode('x', 'genre')
     .encode('y', 'sold')
     .encode('color', 'genre')
-    .axis({ x: { animate: false }, y: { animate: false } });
+    .axis({ x: { animate: false }, y: { animate: false } })
+    .legend('color', [{}, { position: 'right' }]);
 
   const finished = chart.render();
 

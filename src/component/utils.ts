@@ -97,6 +97,7 @@ export class G2Layout extends Layout {
 export class LegendCategoryLayout extends G2Layout {
   update(options: any) {
     const { subOptions } = options;
+    this.attr(options);
     this.child?.update(subOptions);
   }
 }
