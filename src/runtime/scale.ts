@@ -177,7 +177,7 @@ export function assignScale(
         const I = keys
           .filter((d) => d.startsWith(name))
           // Reg is for extract `1` from `x1`;
-          .map((d) => +(/[^\d]+(\d*)$/.exec(d)?.[1] || 0));
+          .map((d) => +(d.replace(name, '') || 0));
         const index = max(I) + 1;
         const newKey = `${name}${index}`;
         target[newKey] = scale;
