@@ -1,5 +1,14 @@
 # G2 - Changelog
 
+## [5.0.16](https://github.com/antvis/g2/compare/5.0.15...5.0.16) (2023-07-12)
+
+### Bug Fixes
+
+- **event:** emit events for extended shape ([#5290](https://github.com/antvis/g2/issues/5290)) ([873bec7](https://github.com/antvis/g2/commit/873bec72f6a75e2c581df24d49afa239b5a5995e))
+- **legend:** category do not update position ([#5304](https://github.com/antvis/g2/issues/5304)) ([95c9950](https://github.com/antvis/g2/commit/95c99507b166c23134dcfd4ed7a2c108bc649b43))
+- **slider:** index scale by scaleKey ([#5291](https://github.com/antvis/g2/issues/5291)) ([50d1fa5](https://github.com/antvis/g2/commit/50d1fa595b94ca16b485e748b64a4aaa6c44eb8a))
+- **update:** set markType for element ([#5293](https://github.com/antvis/g2/issues/5293)) ([6ae86b7](https://github.com/antvis/g2/commit/6ae86b73b67bc0edbba11404dd935258392364cb))
+
 ## [5.0.15](https://github.com/antvis/g2/compare/5.0.14...5.0.15) (2023-07-07)
 
 ### Bug Fixes
