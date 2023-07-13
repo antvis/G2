@@ -10,17 +10,17 @@ const COLORS = {
 
 const BACKGROUND_COLOR = '#141414';
 
+const DEFAULT_COLOR = '#5B8FF9';
+
 /**
  * Dark theme.
  */
 export const ClassicDark: TC<ClassicDarkOptions> = (options) => {
-  const DEFAULT_COLOR = '#5B8FF9';
   const defaultOptions: Theme = {
-    defaultColor: DEFAULT_COLOR,
-    defaultCategory10: 'category10',
-    defaultCategory20: 'category20',
-    defaultSize: 1,
-    elementActiveStroke: COLORS.BLACK,
+    color: DEFAULT_COLOR,
+    category10: 'category10',
+    category20: 'category20',
+    size: 1,
     enter: {
       duration: 300,
       fill: 'both',
@@ -36,12 +36,12 @@ export const ClassicDark: TC<ClassicDarkOptions> = (options) => {
       fill: 'both',
       delay: 0,
     },
-    // --- Theme of area style
-    viewFill: BACKGROUND_COLOR,
-    plotFill: 'transparent',
-    mainFill: 'transparent',
-    contentFill: 'transparent',
-    // --- Theme of mark shape
+    view: {
+      viewFill: BACKGROUND_COLOR,
+      plotFill: 'transparent',
+      mainFill: 'transparent',
+      contentFill: 'transparent',
+    },
     line: {
       line: {
         fill: '',
@@ -198,26 +198,6 @@ export const ClassicDark: TC<ClassicDarkOptions> = (options) => {
         endMarkerFill: COLORS.STROKE,
         endMarkerFillOpacity: 0.95,
       },
-    },
-    interaction: {
-      active: {
-        line: {
-          line: { lineWidth: 3 },
-        },
-        interval: {
-          rect: { stroke: COLORS.BLACK },
-        },
-        area: {
-          area: { fillOpacity: 0.5 },
-        },
-      },
-      inactive: {
-        area: {
-          area: { fillOpacity: 0.3 },
-        },
-      },
-      selected: {},
-      disabled: {},
     },
     axis: {
       arrow: false,

@@ -741,7 +741,7 @@ async function plotView(
   const I = areaKeys.map((_, i) => i);
   const sizeKeys = ['a', 'margin', 'padding', 'inset'];
   const areaStyles = areaKeys.map((d) =>
-    maybeSubObject(Object.assign({}, theme, style), d),
+    maybeSubObject(Object.assign({}, theme.view, style), d),
   );
   const areaSizes = sizeKeys.map((d) => subObject(rest, d));
   const styleArea = (selection) =>
@@ -1375,10 +1375,10 @@ function getDefaultsStyle(
   defaultShape: string,
 ) {
   if (typeof mark !== 'string') return;
-  const { defaultColor } = theme;
+  const { color } = theme;
   const markTheme = theme[mark] || {};
   const shapeTheme = markTheme[shape] || markTheme[defaultShape];
-  return Object.assign({ color: defaultColor }, shapeTheme);
+  return Object.assign({ color }, shapeTheme);
 }
 
 function createAnimationFunction(
