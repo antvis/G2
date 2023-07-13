@@ -145,12 +145,18 @@ function inferInnerCircularStyle(
   };
 }
 
+// Set to null will not be set with default value as below.
+// const { x = 0 } = options;
+function maybeUndefined(d) {
+  return d === undefined ? null : d;
+}
+
 export function inferIdentityStyle(position, points, value, coordinate) {
   const { bounds } = value;
   const [p] = bounds;
   return {
-    x: p[0],
-    y: p[1],
+    x: maybeUndefined(p[0]),
+    y: maybeUndefined(p[1]),
   };
 }
 
