@@ -150,7 +150,7 @@ function getLinearConfig(
   // in this view.
   const defaultColor = scales.color
     ? theme.legendContinuous.ribbonFill || 'black'
-    : theme.defaultColor;
+    : theme.color;
 
   const scale = colorScale || createColorScale(definedScale, defaultColor);
   const [min, max] = rangeOf(scale);

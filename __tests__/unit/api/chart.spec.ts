@@ -122,7 +122,7 @@ describe('Chart', () => {
       .coordinate({ type: 'polar' })
       .interaction('elementHighlight')
       .transform({ type: 'stackY' })
-      .theme({ defaultColor: 'red' });
+      .theme({ color: 'red' });
 
     expect(chart.options()).toEqual({
       type: 'view',
@@ -131,7 +131,7 @@ describe('Chart', () => {
       labelTransform: [{ type: 'overlapDodgeY' }],
       coordinate: { type: 'polar' },
       transform: [{ type: 'stackY' }],
-      theme: { defaultColor: 'red' },
+      theme: { color: 'red' },
       interaction: {
         elementHighlight: true,
       },

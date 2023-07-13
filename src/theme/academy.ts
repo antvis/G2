@@ -10,14 +10,14 @@ const COLORS = {
 
 const BACKGROUND_COLOR = 'transparent';
 
+const DEFAULT_COLOR = '#4e79a7';
+
 export const Academy: TC<AcademyOptions> = (options) => {
-  const DEFAULT_COLOR = '#4e79a7';
   const defaultOptions: Theme = {
-    defaultColor: DEFAULT_COLOR,
-    defaultCategory10: 'tableau10',
-    defaultCategory20: 'tableau10',
-    defaultSize: 1,
-    elementActiveStroke: COLORS.BLACK,
+    color: DEFAULT_COLOR,
+    size: 1,
+    category10: 'tableau10',
+    category20: 'tableau10',
     enter: {
       duration: 300,
       fill: 'both',
@@ -33,12 +33,12 @@ export const Academy: TC<AcademyOptions> = (options) => {
       fill: 'both',
       delay: 0,
     },
-    // --- Theme of area style
-    viewFill: BACKGROUND_COLOR,
-    plotFill: 'transparent',
-    mainFill: 'transparent',
-    contentFill: 'transparent',
-    // --- Theme of mark shape
+    view: {
+      viewFill: BACKGROUND_COLOR,
+      plotFill: 'transparent',
+      mainFill: 'transparent',
+      contentFill: 'transparent',
+    },
     line: {
       line: {
         fill: '',
@@ -197,26 +197,6 @@ export const Academy: TC<AcademyOptions> = (options) => {
         endMarkerFill: COLORS.STROKE,
         endMarkerFillOpacity: 0.95,
       },
-    },
-    interaction: {
-      active: {
-        line: {
-          line: { lineWidth: 3 },
-        },
-        interval: {
-          rect: { stroke: COLORS.BLACK },
-        },
-        area: {
-          area: { fillOpacity: 0.5 },
-        },
-      },
-      inactive: {
-        area: {
-          area: { fillOpacity: 0.3 },
-        },
-      },
-      selected: {},
-      disabled: {},
     },
     axis: {
       arrow: false,

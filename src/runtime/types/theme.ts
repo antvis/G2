@@ -59,13 +59,11 @@ type MarkTheme = NestUnion<'interval', ['rect', 'hollowRect'], ElementStyle> &
     }
   >;
 
+// @todo
 type InteractionTheme = {
-  interaction?: {
-    active: MarkTheme;
-    inactive: MarkTheme;
-    selected: MarkTheme;
-    disabled: MarkTheme;
-  };
+  tooltip?: Record<string, unknown>;
+  elementHighlight?: Record<string, unknown>;
+  elementSelect?: Record<string, unknown>;
 };
 
 type ComponentTheme = {
@@ -113,17 +111,15 @@ type AreaTheme = {
 };
 
 export type G2Theme = {
-  backgroundColor?: string;
-  defaultColor?: string;
-  defaultCategory10?: string;
-  defaultCategory20?: string;
-  defaultSize?: number;
-  elementActiveStroke?: string;
+  color?: string;
+  category10?: string;
+  category20?: string;
+  size?: number;
+  view?: WithPrefix<AreaTheme, 'view'> &
+    WithPrefix<AreaTheme, 'plot'> &
+    WithPrefix<AreaTheme, 'main'> &
+    WithPrefix<AreaTheme, 'content'>;
 } & MarkTheme &
   ComponentTheme &
   AnimationTheme &
-  InteractionTheme &
-  WithPrefix<AreaTheme, 'view'> &
-  WithPrefix<AreaTheme, 'plot'> &
-  WithPrefix<AreaTheme, 'main'> &
-  WithPrefix<AreaTheme, 'content'>;
+  InteractionTheme;
