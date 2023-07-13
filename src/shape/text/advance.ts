@@ -143,8 +143,13 @@ export const Advance = createElement((g) => {
     coordCenter,
     ...rest
   } = g.attributes as TextShapeStyleProps;
-  // Position is invalid, do not render the UI.
-  if ([x, y, x0, y0].some((v) => !isNumber(v))) return;
+
+  // Position is invalid, do not render the UI,
+  // or clear previous elements.
+  if ([x, y, x0, y0].some((v) => !isNumber(v))) {
+    g.children.forEach((d) => d.remove());
+    return;
+  }
 
   const { padding, ...backgroundStyle } = subObject(rest, 'background');
   const { points = [], ...connectorStyle } = subObject(rest, 'connector');
