@@ -1,11 +1,14 @@
-name: Weekly
+name: Weekly Stats
+
 on:
   schedule:
     - cron: '0 20 * * 4' # At 20:00 on Tuesday
+
 jobs:
   run:
     runs-on: ubuntu-latest
     steps:
-      - uses: wow-actions/activity-report@v1
+      - uses: actions/checkout@v3
+      - uses: Aarebecca/stats@v1.2.0
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
