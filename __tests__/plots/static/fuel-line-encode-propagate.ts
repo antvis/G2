@@ -29,6 +29,7 @@ export function fuelLineEncodePropagate(): G2Spec {
           },
           x: { utc: true },
         },
+        legend: { shape: false },
         style: {
           stroke: '#fff',
         },

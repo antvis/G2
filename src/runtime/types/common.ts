@@ -116,6 +116,8 @@ export type ChannelValue = MaybeArray<Primitive>[];
 export type Channel = {
   name?: string;
   scale?: string;
+  quantitative?: string;
+  ordinal?: string;
   scaleName?: string;
   required?: boolean;
   value?: Primitive[];

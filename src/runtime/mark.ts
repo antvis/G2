@@ -78,7 +78,14 @@ export async function initializeMark(
       return false;
     })
     .flatMap((descriptor) => {
-      const { name, scale: scaleType, scaleKey, range } = descriptor;
+      const {
+        name,
+        scale: scaleType,
+        scaleKey,
+        range,
+        quantitative,
+        ordinal,
+      } = descriptor;
       const valuesArray = nameChannels.filter(([channel]) =>
         channel.startsWith(name),
       );
@@ -106,6 +113,8 @@ export async function initializeMark(
             type,
             range: finalRange,
             ...scaleOptions,
+            quantitative,
+            ordinal,
           },
         };
       });

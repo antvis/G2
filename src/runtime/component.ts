@@ -294,6 +294,18 @@ function inferLegendComponentType(
         combination,
         option: combination.map((scale) => [scale.name, getScaleType(scale)]),
       }));
+
+      // For category legend.
+      for (const { option, combination } of options) {
+        // If every scale is constant, do not display legend.
+        if (option.every((d) => d[1] === 'constant')) continue;
+        if (option.every((d) => d[1] === 'discrete' || d[1] === 'constant')) {
+          return ['legendCategory', combination] as [string, G2ScaleOptions[]];
+        }
+      }
+
+      // For reset legend.
+      // @todo Remove this.
       for (const [componentType, accords] of LEGEND_INFER_STRATEGIES) {
         for (const { option, combination } of options) {
           if (accords.some((accord) => isEqual(sort(accord), sort(option)))) {
@@ -745,9 +757,20 @@ function computeCategoryLegendSize(
   theme: G2Theme,
   library: G2Library,
 ) {
+  const itemMakerSizeOf = () => {
+    const { itemMarkerSize } = component.style || {};
+    if (itemMarkerSize) return itemMarkerSize;
+    const { scales } = component;
+    const size = scales.find((d) => d.name === 'size');
+    if (!size) return itemMarkerSize;
+    return size.range[1] * 2;
+  };
+
   const styleOf = () => {
     const { legendCategory } = theme;
-    return deepMix({}, legendCategory, component.style);
+    return deepMix({}, legendCategory, component.style, {
+      itemMarkerSize: itemMakerSizeOf(),
+    });
   };
 
   const {
