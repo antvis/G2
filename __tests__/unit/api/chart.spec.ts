@@ -629,6 +629,48 @@ describe('Chart', () => {
     expect(chart.getGroup()).toEqual(null);
   });
 
+  it('chart.clear() should preserve some global options.', () => {
+    const globals = {
+      theme: 'classic',
+      autoFit: true,
+      width: 300,
+      height: 200,
+      inset: 10,
+      insetTop: 20,
+      insetRight: 30,
+      insetBottom: 40,
+      insetLeft: 50,
+      margin: 10,
+      marginTop: 20,
+      marginRight: 30,
+      marginBottom: 40,
+      padding: 10,
+      paddingTop: 20,
+      paddingRight: 30,
+      paddingBottom: 40,
+    };
+
+    const chart = new Chart(globals);
+
+    chart
+      .interval()
+      .data([
+        { genre: 'Sports', sold: 275 },
+        { genre: 'Strategy', sold: 115 },
+        { genre: 'Action', sold: 120 },
+        { genre: 'Shooter', sold: 350 },
+        { genre: 'Other', sold: 150 },
+      ])
+      .attr('key', 'interval')
+      .encode('x', 'genre')
+      .encode('y', 'sold')
+      .encode('color', 'genre');
+
+    chart.clear();
+
+    expect(chart.options()).toStrictEqual({ ...globals, type: 'view' });
+  });
+
   it('chart.changeData() should update all children data although mark children have their own data', async () => {
     const data = [
       { genre: 'Sports', sold: 275 },
