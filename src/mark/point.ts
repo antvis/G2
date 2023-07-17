@@ -81,7 +81,7 @@ Point.props = {
     { name: 'x', required: true },
     { name: 'y', required: true },
     { name: 'series', scale: 'band' },
-    { name: 'size', scale: 'sqrt' },
+    { name: 'size', quantitative: 'sqrt' },
     { name: 'dx', scale: 'identity' },
     { name: 'dy', scale: 'identity' },
   ],

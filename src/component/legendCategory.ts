@@ -3,6 +3,7 @@ import type { DisplayObject } from '@antv/g';
 import { Category } from '@antv/gui';
 import { last } from '@antv/util';
 import { format } from 'd3-format';
+import { Identity, Point } from '@antv/scale';
 import type {
   FlexLayout,
   G2Library,
@@ -127,9 +128,8 @@ function inferItemMarkerOpacity(scales: Scale[]) {
 
 function inferItemMarkerSize(scales: Scale[], defaults: number) {
   const scale = scaleOf(scales, 'size');
-  // only support constant size scale.
-  // size in category legend means the marker radius.
-  if (scale) return scale.map(NaN) * 2;
+  if (scale instanceof Identity) return scale.map(NaN) * 2;
+  if (scale instanceof Point) return ({ id }) => scale.map(id) * 2;
   return defaults;
 }
 
@@ -150,16 +150,18 @@ function inferCategoryStyle(options, context: GuideComponentContext) {
       ? format(labelFormatter)
       : labelFormatter;
 
-  // here must exists a color scale
   const colorScale = scaleOf(scales, 'color');
   const domain = domainOf(scales);
+  const colorOf = colorScale
+    ? (d) => colorScale.map(d)
+    : () => context.theme.color;
 
   return {
     ...baseStyle,
     data: domain.map((d) => ({
       id: d,
       label: finalLabelFormatter(d),
-      color: colorScale.map(d),
+      color: colorOf(d),
     })),
   };
 }

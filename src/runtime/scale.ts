@@ -23,7 +23,14 @@ import { isTheta } from './coordinate';
 import { useLibrary } from './library';
 import { MarkChannel } from './types/mark';
 
-export function inferScale(name, values, options, coordinates, theme, library) {
+export function inferScale(
+  name: string,
+  values: Primitive[][],
+  options: Record<string, any>,
+  coordinates: G2CoordinateOptions[],
+  theme: G2Theme,
+  library: G2Library,
+) {
   const { guide = {} } = options;
   const type = inferScaleType(name, values, options);
   if (typeof type !== 'string') return options;
@@ -292,19 +299,19 @@ function inferScaleType(
   values: Primitive[][],
   options: G2ScaleOptions,
 ): string | ScaleComponent {
-  const { type, domain, range } = options;
+  const { type, domain, range, quantitative, ordinal } = options;
   if (type !== undefined) return type;
   if (isObject(values)) return 'identity';
   if (typeof range === 'string') return 'linear';
-  if ((domain || range || []).length > 2) return asOrdinalType(name);
+  if ((domain || range || []).length > 2) return asOrdinalType(name, ordinal);
   if (domain !== undefined) {
-    if (isOrdinal([domain])) return asOrdinalType(name);
+    if (isOrdinal([domain])) return asOrdinalType(name, ordinal);
     if (isTemporal(values)) return 'time';
-    return asQuantitativeType(name, range);
+    return asQuantitativeType(name, range, quantitative);
   }
-  if (isOrdinal(values)) return asOrdinalType(name);
+  if (isOrdinal(values)) return asOrdinalType(name, ordinal);
   if (isTemporal(values)) return 'time';
-  return asQuantitativeType(name, range);
+  return asQuantitativeType(name, range, quantitative);
 }
 
 function inferScaleDomain(
@@ -361,8 +368,11 @@ function inferScaleRange(
       return [rangeMin || r0, rangeMax || r1];
     }
     case 'band':
-    case 'point':
-      return [rangeMin || 0, rangeMax || 1];
+    case 'point': {
+      const min = name === 'size' ? 5 : 0;
+      const max = name === 'size' ? 10 : 1;
+      return [rangeMin || min, rangeMax || max];
+    }
     case 'ordinal': {
       return categoricalColors(values, options, domain, theme, library);
     }
@@ -505,20 +515,25 @@ function inferPadding(
   // The scale for enterDelay and enterDuration should has zero padding by default.
   // Because there is no need to add extra delay for the start and the end.
   if (name === 'enterDelay' || name === 'enterDuration') return 0;
-  if (type === 'band') {
-    return isTheta(coordinates) ? 0 : 0.1;
-  }
+  if (name === 'size') return 0;
+  if (type === 'band') return isTheta(coordinates) ? 0 : 0.1;
   // Point scale need 0.5 padding to make interval between first and last point
   // equal to other intervals in polar coordinate.
   if (type === 'point') return 0.5;
   return 0;
 }
 
-function asOrdinalType(name: string) {
+function asOrdinalType(name: string, defaults: string) {
+  if (defaults) return defaults;
   return isQuantitative(name) ? 'point' : 'ordinal';
 }
 
-function asQuantitativeType(name: string, range: Primitive[]) {
+function asQuantitativeType(
+  name: string,
+  range: Primitive[],
+  defaults: string,
+) {
+  if (defaults) return defaults;
   if (name !== 'color') return 'linear';
   return range ? 'linear' : 'sequential';
 }

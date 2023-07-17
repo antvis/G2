@@ -271,3 +271,5 @@ export { mockLineSmallInterval } from './mock-line-small-interval';
 export { unemploymentAreaStackedLegendSize } from './unemployment-area-stacked-legend-size';
 export { alphabetIntervalAutoPaddingSlider } from './alphabet-interval-auto-padding-slider';
 export { countriesBubbleLegendSize } from './countries-bubble-legend-size';
+export { cars2PointOrdinalSize } from './cars2-point-ordinal-size';
+export { cars2PointConstantColorSize } from './cars2-point-constant-color-size';
