@@ -231,8 +231,17 @@ export class Chart extends View<ChartOptions> {
   }
 
   private _reset() {
+    const KEYS = ['theme', 'type', 'width', 'height', 'autoFit'];
     this.type = 'view';
-    this.value = {};
+    this.value = Object.fromEntries(
+      Object.entries(this.value).filter(
+        ([key]) =>
+          key.startsWith('margin') ||
+          key.startsWith('padding') ||
+          key.startsWith('inset') ||
+          KEYS.includes(key),
+      ),
+    );
     this.children = [];
   }
 
