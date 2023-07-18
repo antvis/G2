@@ -1,6 +1,5 @@
 import { G2Spec } from '../../../src';
 
-// @todo Fix marker stroke of @antv/gui.
 export function cars2PointConstantColorSize(): G2Spec {
   return {
     type: 'point',

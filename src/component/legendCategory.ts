@@ -38,19 +38,6 @@ export type LegendCategoryOptions = {
   [key: string]: any;
 };
 
-function createShape(
-  shape: string,
-  library: G2Library,
-  coordinate: Coordinate,
-  theme: G2Theme,
-  style: Record<string, any> = {},
-) {
-  const marker =
-    (library[`shape.${shape}`]?.props?.defaultMarker as string) ||
-    last(shape.split('.'));
-  return () => useMarker(marker, style)(0, 0, 6);
-}
-
 function inferShape(scales: Scale[], markState: Map<G2Mark, G2MarkState>) {
   const shapeScale = scaleOf(scales, 'shape');
   const colorScale = scaleOf(scales, 'color');
@@ -93,28 +80,35 @@ function inferShape(scales: Scale[], markState: Map<G2Mark, G2MarkState>) {
 
 function inferItemMarker(
   options,
-  { scales, library, coordinate, theme, markState }: GuideComponentContext,
+  context: GuideComponentContext,
 ): ((datum: any, i: number, data: any) => () => DisplayObject) | undefined {
+  const { scales, library, markState } = context;
   const [namespace, shapes] = inferShape(scales, markState);
-  const create = (name, color) =>
-    createShape(name, library, coordinate, theme, {
-      color,
-    });
+
+  const { itemMarker, itemMarkerSize: size } = options;
+
+  const create = (name, d) => {
+    const marker =
+      (library[`shape.${name}`]?.props?.defaultMarker as string) ||
+      last(name.split('.'));
+    const radius = typeof size === 'function' ? size(d) : size;
+    return () => useMarker(marker, { color: d.color })(0, 0, radius);
+  };
+
   const shapeOf = (i) => `${namespace}.${shapes[i]}`;
 
-  const { itemMarker } = options;
   const shapeScale = scaleOf(scales, 'shape');
-  if (shapeScale && !itemMarker) return (d, i) => create(shapeOf(i), d.color);
+  if (shapeScale && !itemMarker) return (d, i) => create(shapeOf(i), d);
   if (typeof itemMarker === 'function') {
     return (d, i) => {
       // @todo Fix this in GUI.
       // It should pass primitive value rather object.
       const node = itemMarker(d.id, i);
-      if (typeof node === 'string') return create(node, d.color);
+      if (typeof node === 'string') return create(node, d);
       return node;
     };
   }
-  return (d, i) => create(itemMarker || shapeOf(i), d.color);
+  return (d, i) => create(itemMarker || shapeOf(i), d);
 }
 
 function inferItemMarkerOpacity(scales: Scale[]) {
@@ -129,19 +123,17 @@ function inferItemMarkerOpacity(scales: Scale[]) {
 function inferItemMarkerSize(scales: Scale[], defaults: number) {
   const scale = scaleOf(scales, 'size');
   if (scale instanceof Identity) return scale.map(NaN) * 2;
-  if (scale instanceof Point) return ({ id }) => scale.map(id) * 2;
   return defaults;
 }
 
 function inferCategoryStyle(options, context: GuideComponentContext) {
   const { labelFormatter = (d) => `${d}` } = options;
   const { scales, theme } = context;
+  const defaultSize = theme.legendCategory.itemMarkerSize;
+  const itemMarkerSize = inferItemMarkerSize(scales, defaultSize);
   const baseStyle = {
-    itemMarker: inferItemMarker(options, context),
-    itemMarkerSize: inferItemMarkerSize(
-      scales,
-      theme.legendCategory.itemMarkerSize,
-    ),
+    itemMarker: inferItemMarker({ ...options, itemMarkerSize }, context),
+    itemMarkerSize: itemMarkerSize,
     itemMarkerOpacity: inferItemMarkerOpacity(scales),
   };
 

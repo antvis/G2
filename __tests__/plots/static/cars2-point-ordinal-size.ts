@@ -1,6 +1,5 @@
 import { G2Spec } from '../../../src';
 
-// @todo Fix category item align in @antv/gui.
 export function cars2PointOrdinalSize(): G2Spec {
   return {
     type: 'point',
@@ -16,6 +15,10 @@ export function cars2PointOrdinalSize(): G2Spec {
       size: 'Origin',
       shape: 'point',
     },
-    scale: { x: { nice: true }, y: { nice: true } },
+    scale: {
+      x: { nice: true },
+      y: { nice: true },
+      size: { rangeMax: 20 },
+    },
   };
 }
