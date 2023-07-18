@@ -757,20 +757,9 @@ function computeCategoryLegendSize(
   theme: G2Theme,
   library: G2Library,
 ) {
-  const itemMakerSizeOf = () => {
-    const { itemMarkerSize } = component.style || {};
-    if (itemMarkerSize) return itemMarkerSize;
-    const { scales } = component;
-    const size = scales.find((d) => d.name === 'size');
-    if (!size) return itemMarkerSize;
-    return size.range[1] * 2;
-  };
-
   const styleOf = () => {
     const { legendCategory } = theme;
-    return deepMix({}, legendCategory, component.style, {
-      itemMarkerSize: itemMakerSizeOf(),
-    });
+    return deepMix({}, legendCategory, component.style);
   };
 
   const {
