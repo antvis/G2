@@ -18,13 +18,7 @@ const now = () => {
     '-' +
     (currentdate.getMonth() + 1) +
     '-' +
-    currentdate.getDate() +
-    '_' +
-    currentdate.getHours() +
-    ':' +
-    currentdate.getMinutes() +
-    ':' +
-    currentdate.getSeconds();
+    currentdate.getDate();
   return datetime;
 };
 
