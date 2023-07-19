@@ -14,13 +14,11 @@ export function scoreByItemAreaRadarCustom(): G2Spec {
         title: false,
         tickCount: 3,
         direction: 'center',
-        style: {
-          gridStroke: 'red',
-          gridStrokeOpacity: 1,
-          labelStroke: 'green',
-          lineStroke: 'yellow',
-          tickStroke: 'red',
-        },
+        gridStroke: 'red',
+        gridStrokeOpacity: 1,
+        labelStroke: 'green',
+        lineStroke: 'yellow',
+        tickStroke: 'red',
       },
     },
     scale: {

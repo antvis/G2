@@ -35,9 +35,7 @@ export function incomeStatementByRegionIntervalCustom() {
         labelAutoRotate: false,
         labelAutoEllipsis: true,
         title: false,
-        style: {
-          labelFontSize: 10,
-        },
+        labelFontSize: 10,
       },
       y: { labelFormatter: '~s', title: false },
     },

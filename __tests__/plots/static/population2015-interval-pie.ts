@@ -28,15 +28,14 @@ export function population2015IntervalPie(): G2Spec {
       {
         text: 'name',
         radius: 0.8,
-        style: { fontSize: 10, fontWeight: 'bold' },
+        fontSize: 10,
+        fontWeight: 'bold',
       },
       {
         text: (d, i, data) => (i < data.length - 3 ? d.value : ''),
         radius: 0.8,
-        style: {
-          fontSize: 9,
-          dy: 12,
-        },
+        fontSize: 9,
+        dy: 12,
       },
     ],
     animate: false,

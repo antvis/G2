@@ -188,6 +188,14 @@ export function renderComponent(
   });
 }
 
+export function normalizeComponents(components: G2GuideComponentOptions[]) {
+  return components.map((d) => {
+    const component = deepMix(d, d.style);
+    delete component.style;
+    return component;
+  });
+}
+
 export function flatComponents(
   components: G2GuideComponentOptions[],
 ): G2GuideComponentOptions[] {
@@ -555,7 +563,7 @@ function inferScrollableComponents(
     .filter((d) => !!d);
 }
 
-// !!! Note Mutate component.size and component.style.
+// !!! Note Mutate component.size and component.
 export function computeComponentSize(
   component: G2GuideComponentOptions,
   crossSize: number,
@@ -627,7 +635,7 @@ function computeSliderSize(
 ) {
   const styleOf = () => {
     const { slider } = theme;
-    return deepMix({}, slider, component.style);
+    return deepMix({}, slider, component);
   };
   const { trackSize, handleIconSize } = styleOf();
   const size = Math.max(trackSize, handleIconSize * 2.4);
@@ -655,7 +663,7 @@ function computeAxisSize(
 
   // Compute Labels.
   const scale = createScale(component, library);
-  const labelBBoxes = computeLabelsBBox(component, scale, rest);
+  const labelBBoxes = computeLabelsBBox(rest, scale);
   if (labelBBoxes) {
     const maxLabelWidth = max(labelBBoxes, (d) => d.width);
     const maxLabelHeight = max(labelBBoxes, (d) => d.height);
@@ -664,18 +672,14 @@ function computeAxisSize(
     if (isVertical) {
       component.size = maxLabelWidth + paddingTick;
     } else {
-      const { tickFilter, style = {} } = component;
-      const { labelTransform } = style;
+      const { tickFilter, labelTransform } = component;
       // If the labels can't be placed horizontally, and labelTransform is unset,
       // rotate 90 deg to display them.
       if (
         overflowX(scale, labelBBoxes, crossSize, crossPadding, tickFilter) &&
         !labelTransform
       ) {
-        component.style = {
-          ...style,
-          labelTransform: 'rotate(90)',
-        };
+        component.labelTransform = 'rotate(90)';
         component.size = maxLabelWidth + paddingTick;
       } else {
         component.size = maxLabelHeight + paddingTick;
@@ -684,7 +688,7 @@ function computeAxisSize(
   }
 
   // Compute title.
-  const titleBBox = computeTitleBBox(component, rest);
+  const titleBBox = computeTitleBBox(rest);
   if (titleBBox) {
     if (isVertical) {
       component.size += titleSpacing + titleBBox.width;
@@ -705,7 +709,7 @@ function computeContinuousLegendSize(
   // Get styles.
   const styleOf = () => {
     const { legendContinuous } = theme;
-    return deepMix({}, legendContinuous, component.style);
+    return deepMix({}, legendContinuous, component);
   };
   const { labelSpacing = 0, titleSpacing = 0, ...rest } = styleOf();
 
@@ -728,7 +732,7 @@ function computeContinuousLegendSize(
 
   // Compute labels.
   const scale = createScale(component, library);
-  const labelBBoxes = computeLabelsBBox(component, scale, rest);
+  const labelBBoxes = computeLabelsBBox(rest, scale);
   if (labelBBoxes) {
     const key = isVertical ? 'width' : 'height';
     const size = max(labelBBoxes, (d) => d[key]);
@@ -736,7 +740,7 @@ function computeContinuousLegendSize(
   }
 
   // Compute title.
-  const titleBBox = computeTitleBBox(component, rest);
+  const titleBBox = computeTitleBBox(rest);
   if (titleBBox) {
     if (isVertical) {
       component.size = Math.max(component.size, titleBBox.width);
@@ -759,7 +763,7 @@ function computeCategoryLegendSize(
 ) {
   const styleOf = () => {
     const { legendCategory } = theme;
-    return deepMix({}, legendCategory, component.style);
+    return deepMix({}, legendCategory, component);
   };
 
   const {
@@ -779,10 +783,10 @@ function computeCategoryLegendSize(
   const isVertical = position === 'left' || position === 'right';
 
   // Compute title.
-  const titleBBox = computeTitleBBox(component, rest);
+  const titleBBox = computeTitleBBox(rest);
 
   const scale = createScale(component, library);
-  const labelBBoxes = computeLabelsBBox(component, scale, rest, 'itemLabel');
+  const labelBBoxes = computeLabelsBBox(rest, scale, 'itemLabel');
 
   const height = Math.max(labelBBoxes[0].height, itemMarkerSize) + rowPadding;
   const widthOf = (w, padding = 0) =>
@@ -888,10 +892,9 @@ export function createScale(
 export function computeLabelsBBox(
   component: G2GuideComponentOptions,
   scale: Scale,
-  style: Record<string, any>,
   key = 'label',
 ) {
-  const { labelFormatter, tickFilter, label = true } = component;
+  const { labelFormatter, tickFilter, label = true, ...style } = component;
   if (!label) return null;
 
   // Get labels to be rendered.
@@ -924,20 +927,17 @@ export function computeLabelsBBox(
   return labelBBoxes;
 }
 
-export function computeTitleBBox(
-  component: G2GuideComponentOptions,
-  style: Record<string, any>,
-) {
+export function computeTitleBBox(component: G2GuideComponentOptions) {
   const isFalsy = (x) => x === false || x === null;
-  const { title } = component;
-  const { title: styleTitle } = style;
-  if (isFalsy(title) || isFalsy(styleTitle) || title === undefined) return null;
+  const { title, ...style } = component;
+  if (isFalsy(title) || title === undefined) return null;
   const titleStyle = subObject(style, 'title');
   const { direction, transform } = titleStyle;
   const titleText = Array.isArray(title) ? title.join(',') : title;
+  if (typeof titleText !== 'string') return null;
   const titleBBox = computeLabelSize(titleText, {
     ...titleStyle,
-    transform: transform || direction === 'vertical' ? 'rotate(-90)' : '',
+    transform: transform || (direction === 'vertical' ? 'rotate(-90)' : ''),
   });
   return titleBBox;
 }
@@ -947,12 +947,19 @@ export function styleOf(
   position: GCP,
   theme: G2Theme,
 ): Record<string, any> {
+  const { title } = axis;
+  const [defaultTitle, specifiedTitle] = Array.isArray(title)
+    ? [title, undefined]
+    : [undefined, title];
   const {
     axis: baseStyle,
     // @ts-ignore
     [`axis${capitalizeFirst(position)}`]: positionStyle,
   } = theme;
-  return deepMix({}, baseStyle, positionStyle, axis.style);
+  return deepMix({ title: defaultTitle }, baseStyle, positionStyle, {
+    ...axis,
+    title: specifiedTitle,
+  });
 }
 
 function ticksOf(scale: Scale, tickFilter: (d: any) => boolean): any[] {

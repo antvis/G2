@@ -51,9 +51,7 @@ export function peopleIntervalAreaDualAxis(): G2Spec {
           y: {
             grid: false,
             title: 'People',
-            style: {
-              titleFill: 'steelblue',
-            },
+            titleFill: 'steelblue',
           },
         },
       },

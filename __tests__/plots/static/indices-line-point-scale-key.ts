@@ -20,7 +20,7 @@ export async function indicesLinePointScaleKey(): Promise<G2Spec> {
         y: { key: 'line' },
       },
       axis: {
-        y: { style: { titleFill: 'steelblue' } },
+        y: { titleFill: 'steelblue' },
       },
       encode: {
         x: 'Date',
@@ -63,6 +63,7 @@ export async function indicesLinePointScaleKey(): Promise<G2Spec> {
     },
     tooltip: false,
   });
+  // @ts-ignore
   return {
     type: 'view',
     width: 800,

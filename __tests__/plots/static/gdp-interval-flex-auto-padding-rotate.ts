@@ -18,7 +18,7 @@ export function gdpIntervalFlexAutoPaddingRotate(): G2Spec {
     },
     axis: {
       x: {
-        style: { labelTransform: 'rotate(90)' },
+        labelTransform: 'rotate(90)',
       },
     },
     viewStyle: {

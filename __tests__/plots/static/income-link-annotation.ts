@@ -27,11 +27,9 @@ export function incomeLinkAnnotation(): G2Spec {
           {
             position: 'top-right',
             text: (v) => `${v * 100}%`,
-            style: {
-              dx: 4,
-              textAlign: 'start',
-              textBaseline: 'middle',
-            },
+            dx: 4,
+            textAlign: 'start',
+            textBaseline: 'middle',
           },
         ],
         style: {
@@ -49,11 +47,9 @@ export function incomeLinkAnnotation(): G2Spec {
           {
             position: 'top-right',
             text: (v) => `${v * 100}%`,
-            style: {
-              dx: 4,
-              textAlign: 'start',
-              textBaseline: 'middle',
-            },
+            dx: 4,
+            textAlign: 'start',
+            textBaseline: 'middle',
           },
         ],
         style: {

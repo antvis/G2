@@ -22,11 +22,9 @@ export function mockAxisXY(): G2Spec {
         type: 'axisY',
         title: 'AxisY',
         tickCount: 10,
-        style: {
-          labelFontSize: 14,
-          gridLineWidth: 10,
-          gridStroke: 'red',
-        },
+        labelFontSize: 14,
+        gridLineWidth: 10,
+        gridStroke: 'red',
       },
     ],
   };

@@ -19,7 +19,7 @@ export function alphabetIntervalAutoRotate(): G2Spec {
       y: { labelFormatter: (d) => d + '0000' },
       x: {
         labelFormatter: (d) => d + '00',
-        style: { labelTransform: 'rotate(60)' },
+        labelTransform: 'rotate(60)',
       },
     },
     viewStyle: {

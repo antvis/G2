@@ -18,10 +18,8 @@ export function seasonalWeatherAreaRadial(): G2Spec {
         title: false,
         labelFormatter: (d, i, array) =>
           i === array.length - 1 ? `${d}°F` : `${d}`,
-        style: {
-          labelStroke: '#fff',
-          labelStrokeWidth: 5,
-        },
+        labelStroke: '#fff',
+        labelStrokeWidth: 5,
       },
       x: {
         grid: true,

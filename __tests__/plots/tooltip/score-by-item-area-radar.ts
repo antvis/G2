@@ -18,7 +18,7 @@ export function scoreByItemAreaRadar(): G2Spec {
     encode: { x: 'item', y: 'score', shape: 'smooth', color: 'type' },
     interaction: {
       tooltip: {
-        style: { crosshairsLineDash: [4, 4] },
+        crosshairsLineDash: [4, 4],
       },
     },
     children: [

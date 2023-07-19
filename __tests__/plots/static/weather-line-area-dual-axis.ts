@@ -25,9 +25,7 @@ export function weatherLineAreaDualAxis(): G2Spec {
         axis: {
           y: {
             title: 'Avg. Temperature (°C)',
-            style: {
-              titleFill: '#85C5A6',
-            },
+            titleFill: '#85C5A6',
           },
         },
         style: {
@@ -54,9 +52,7 @@ export function weatherLineAreaDualAxis(): G2Spec {
             position: 'right',
             grid: false,
             title: 'Precipitation (inches)',
-            style: {
-              titleFill: 'steelblue',
-            },
+            titleFill: 'steelblue',
           },
         },
       },

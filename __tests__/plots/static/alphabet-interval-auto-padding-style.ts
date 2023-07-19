@@ -17,12 +17,10 @@ export function alphabetIntervalAutoPaddingStyle(): G2Spec {
     axis: {
       y: {
         labelFormatter: (d) => d + '0000',
-        style: {
-          labelFontSize: (_, i) => 10 + i,
-          labelFill: 'steelblue',
-        },
+        labelFontSize: (_, i) => 10 + i,
+        labelFill: 'steelblue',
       },
-      x: { labelFormatter: (d) => d + '0000', style: { labelFontSize: 20 } },
+      x: { labelFormatter: (d) => d + '0000', labelFontSize: 20 },
     },
     viewStyle: {
       viewFill: '#4e79a7',

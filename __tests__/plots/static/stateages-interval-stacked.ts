@@ -12,7 +12,7 @@ export function stateAgesIntervalStacked(): G2Spec {
       format: 'csv',
     },
     axis: {
-      x: { style: { labelTransform: 'rotate(90)' } },
+      x: { labelTransform: 'rotate(90)' },
       y: { labelFormatter: '~s' },
     },
     encode: {

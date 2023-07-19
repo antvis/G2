@@ -34,11 +34,11 @@ export async function tranLineMultiAxes(): Promise<G2Spec> {
     legend: false,
     axis: {
       x: [
-        { ...xAxis, position: 'top', style: { labelTransform: 'rotate(90)' } },
+        { ...xAxis, position: 'top', labelTransform: 'rotate(90)' },
         {
           ...xAxis,
           position: 'bottom',
-          style: { labelTransform: 'rotate(90)' },
+          labelTransform: 'rotate(90)',
         },
       ],
     },

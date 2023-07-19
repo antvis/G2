@@ -37,9 +37,7 @@ export function vennBasic(): G2Spec {
           {
             text: 'key',
             position: 'inside',
-            style: {
-              formatter: (_, datum) => `${datum.key}: ${datum.size}`,
-            },
+            formatter: (_, datum) => `${datum.key}: ${datum.size}`,
           },
         ],
       },

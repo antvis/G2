@@ -29,9 +29,7 @@ export function weatherLineMultiAxesAutoPadding(): G2Spec {
             title: 'Temperature (°C)',
             labelFormatter: (d) => d + '00000',
             grid: false,
-            style: {
-              titleFill: '#EE6666',
-            },
+            titleFill: '#EE6666',
           },
         },
       },
@@ -53,9 +51,7 @@ export function weatherLineMultiAxesAutoPadding(): G2Spec {
             title: 'Temperature (°C)',
             labelFormatter: (d) => d + '00000',
             grid: null,
-            style: {
-              titleFill: '#5470C6',
-            },
+            titleFill: '#5470C6',
           },
         },
       },
@@ -79,9 +75,7 @@ export function weatherLineMultiAxesAutoPadding(): G2Spec {
             title: 'Precipitation (ml)',
             grid: false,
             labelFormatter: (d) => d + '00000',
-            style: {
-              titleFill: '#91CC75',
-            },
+            titleFill: '#91CC75',
           },
         },
       },

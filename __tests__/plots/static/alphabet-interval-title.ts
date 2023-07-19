@@ -5,10 +5,8 @@ export function alphabetIntervalTitle(): G2Spec {
     title: {
       title: 'Use frequency of keyboard keys',
       subtitle: 'The mostest frequency letter are E, T, A.',
-      style: {
-        align: 'right',
-        subtitleFill: 'steelblue',
-      },
+      align: 'right',
+      subtitleFill: 'steelblue',
     },
     type: 'interval',
     data: {

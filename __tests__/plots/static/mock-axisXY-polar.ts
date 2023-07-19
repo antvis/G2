@@ -26,11 +26,9 @@ export function mockAxisXYPolar(): G2Spec {
       {
         type: 'axisY',
         title: 'AxisY',
-        style: {
-          labelFontSize: 14,
-          gridLineWidth: 10,
-          gridStroke: 'red',
-        },
+        labelFontSize: 14,
+        gridLineWidth: 10,
+        gridStroke: 'red',
       },
     ],
     style: {

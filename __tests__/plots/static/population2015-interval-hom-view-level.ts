@@ -27,6 +27,7 @@ export function population2015IntervalHOMViewLevel(): G2Spec {
         },
         scale: { color: { palette: 'spectral', offset: (t) => t * 0.8 + 0.1 } },
         legend: false,
+        // @ts-ignore
         encode: { value: 'value', color: 'name' },
         style: { stroke: 'white' },
       },

@@ -28,9 +28,7 @@ export function alphabetIntervalLabelContrastReverse(): G2Spec {
             palette: ['#00FF00', '#ffff00'], // Use full color string to avoid screenshot error.
           },
         ],
-        style: {
-          fill: '#000',
-        },
+        fill: '#000',
       },
     ],
   };

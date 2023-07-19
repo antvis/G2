@@ -23,9 +23,7 @@ export function weatherLineViewLabelTransform(): G2Spec {
           y: {
             title: 'Temperature (°C)',
             grid: false,
-            style: {
-              titleFill: '#EE6666',
-            },
+            titleFill: '#EE6666',
           },
         },
       },
@@ -49,9 +47,7 @@ export function weatherLineViewLabelTransform(): G2Spec {
             position: 'right',
             title: 'Precipitation (ml)',
             grid: false,
-            style: {
-              titleFill: '#91CC75',
-            },
+            titleFill: '#91CC75',
           },
         },
       },
