@@ -147,9 +147,7 @@ export function populationByStateAreaNormalizeStacked(): G2Spec {
             position: 'area',
             selector: 'first',
             transform: [{ type: 'overlapHide' }],
-            style: {
-              fontSize: 10,
-            },
+            fontSize: 10,
           },
         ],
         tooltip: {

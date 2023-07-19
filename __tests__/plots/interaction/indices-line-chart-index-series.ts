@@ -27,9 +27,7 @@ export async function indicesLineChartIndexSeries(): Promise<G2Spec> {
       {
         text: 'Symbol',
         selector: 'last',
-        style: {
-          fontSize: 10,
-        },
+        fontSize: 10,
       },
     ],
     interaction: {

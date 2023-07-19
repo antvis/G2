@@ -18,11 +18,9 @@ export function athletesRectBinLegendStyle(): G2Spec {
     },
     legend: {
       color: {
-        style: {
-          itemMarkerFill: 'red',
-          itemValueFill: 'black',
-          itemLabelFontSize: 30,
-        },
+        itemMarkerFill: 'red',
+        itemValueFill: 'black',
+        itemLabelFontSize: 30,
       },
     },
     style: {

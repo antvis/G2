@@ -17,9 +17,9 @@ import {
 } from '../utils/helper';
 import { G2Element, select, Selection } from '../utils/selection';
 import {
-  flatComponents,
   groupComponents,
   inferComponent,
+  normalizeComponents,
   renderComponent,
 } from './component';
 import {
@@ -595,10 +595,12 @@ function initializeState(
   // Infer components and compute layout.
   const states = Array.from(markState.values());
   const scales = collectScales(states, options);
-  const components = inferComponent(
-    inferComponentScales(Array.from(scales), states, markState),
-    options,
-    library,
+  const components = normalizeComponents(
+    inferComponent(
+      inferComponentScales(Array.from(scales), states, markState),
+      options,
+      library,
+    ),
   );
   const layout = computeLayout(components, options, theme, library);
   const coordinate = createCoordinate(layout, options, library);

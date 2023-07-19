@@ -56,10 +56,8 @@ export function gainLostIntervalCornered(): G2Spec {
             position: 'inside',
             formatter: (v) => (v ? `${v}%` : ''),
             transform: [{ type: 'overlapDodgeY' }],
-            style: {
-              fill: '#000',
-              fontSize: 10,
-            },
+            fill: '#000',
+            fontSize: 10,
           },
         ],
         style: {

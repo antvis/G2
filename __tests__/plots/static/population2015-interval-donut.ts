@@ -27,13 +27,11 @@ export function population2015IntervalDonut(): G2Spec {
       radius: 10,
     },
     labels: [
-      { text: 'name', style: { fontSize: 10, fontWeight: 'bold' } },
+      { text: 'name', fontSize: 10, fontWeight: 'bold' },
       {
         text: (d, i, data) => (i < data.length - 3 ? d.value : ''),
-        style: {
-          fontSize: 9,
-          dy: 12,
-        },
+        fontSize: 9,
+        dy: 12,
       },
     ],
   };

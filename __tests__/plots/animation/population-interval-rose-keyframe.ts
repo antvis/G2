@@ -47,9 +47,7 @@ export async function populationIntervalRoseKeyframe(): Promise<G2Spec> {
             tickCount: 5,
             tickFilter: (d, i) => i !== 0,
             direction: 'right',
-            style: {
-              labelTransform: 'rotate(45)',
-            },
+            labelTransform: 'rotate(45)',
           },
         },
       },

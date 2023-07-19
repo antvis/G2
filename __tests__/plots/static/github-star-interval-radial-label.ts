@@ -24,9 +24,7 @@ export function githubStarIntervalRadialLabel(): G2Spec {
         position: 'outside',
         autoRotate: true,
         rotateToAlignArc: true,
-        style: {
-          dx: 4,
-        },
+        dx: 4,
       },
     ],
   };

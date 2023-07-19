@@ -22,9 +22,7 @@ export function metrosLinkTrending(): G2Spec {
     axis: {
       x: {
         labelFormatter: '~s',
-        style: {
-          labelTransform: 'rotate(90)',
-        },
+        labelTransform: 'rotate(90)',
       },
     },
     legend: false,

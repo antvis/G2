@@ -40,10 +40,8 @@ export function vennHollow(): G2Spec {
           {
             text: 'key',
             position: 'inside',
-            style: {
-              formatter: (_, datum) => `${datum.key}: ${datum.size}`,
-              fill: '#000',
-            },
+            formatter: (_, datum) => `${datum.key}: ${datum.size}`,
+            fill: '#000',
           },
         ],
       },

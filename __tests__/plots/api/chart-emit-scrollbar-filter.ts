@@ -51,7 +51,7 @@ export function chartEmitScrollbarFilter(context) {
     ])
     .encode('x', 'date')
     .encode('y', 'value')
-    .axis('x', { size: 80, style: { labelTransform: 'rotate(90deg)' } })
+    .axis('x', { size: 80, labelTransform: 'rotate(90deg)' })
     .scrollbar('x', { ratio: 0.25 })
     .scrollbar('y', { ratio: 0.75 });
 

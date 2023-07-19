@@ -280,7 +280,7 @@ export type SankeyMark = BaseMark<
   linkLabels: Record<string, any>[];
 };
 
-export type PathMark = BaseMark<'path', ChannelTypes>;
+export type PathMark = BaseMark<'path', ChannelTypes | 'd'>;
 
 export type TreemapMark = BaseMark<'treemap', 'value' | ChannelTypes> & {
   layout?: Record<string, any>;

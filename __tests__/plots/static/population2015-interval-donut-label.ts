@@ -29,10 +29,8 @@ export function population2015IntervalDonutLabel(): G2Spec {
       {
         text: 'name',
         autoRotate: true,
-        style: {
-          fontSize: 10,
-          fill: '#000',
-        },
+        fontSize: 10,
+        fill: '#000',
       },
       {
         text: 'value',
@@ -42,11 +40,9 @@ export function population2015IntervalDonutLabel(): G2Spec {
         offset: 4,
         position: 'outside',
         transform: [{ type: 'overlapHide' }],
-        style: {
-          fontSize: 10,
-          textAlign: 'center',
-          textBaseline: 'bottom',
-        },
+        fontSize: 10,
+        textAlign: 'center',
+        textBaseline: 'bottom',
       },
     ],
   };

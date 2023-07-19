@@ -22,9 +22,7 @@ export function weatherLineMultiSlider(): G2Spec {
           y: {
             title: 'Temperature (°C)',
             grid: false,
-            style: {
-              titleFill: '#EE6666',
-            },
+            titleFill: '#EE6666',
           },
         },
         slider: { y: {} },
@@ -46,9 +44,7 @@ export function weatherLineMultiSlider(): G2Spec {
           y: {
             title: 'Temperature (°C)',
             grid: false,
-            style: {
-              titleFill: '#5470C6',
-            },
+            titleFill: '#5470C6',
           },
         },
         slider: { y: { size: 40 } },
@@ -69,9 +65,7 @@ export function weatherLineMultiSlider(): G2Spec {
             position: 'right',
             title: 'Precipitation (ml)',
             grid: false,
-            style: {
-              titleFill: '#91CC75',
-            },
+            titleFill: '#91CC75',
           },
         },
         slider: { y: { position: 'right' } },

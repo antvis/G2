@@ -102,7 +102,8 @@ export function chartAxisLabelFormatter(context) {
     .label({
       text: 'time',
       transform: [{ type: 'contrastReverse' }],
-      style: { dy: 20, fontStyle: 'italic' },
+      dy: 20,
+      fontStyle: 'italic',
     })
     .tooltip({
       title: 'car',

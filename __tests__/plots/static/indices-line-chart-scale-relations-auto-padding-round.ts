@@ -33,9 +33,7 @@ export function indicesLineChartScaleRelationsAutoPaddingRound(): G2Spec {
       {
         text: 'Symbol',
         selector: 'last',
-        style: {
-          fontSize: 10,
-        },
+        fontSize: 10,
       },
     ],
     viewStyle: {

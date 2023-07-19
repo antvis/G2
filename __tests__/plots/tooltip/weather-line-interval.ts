@@ -25,9 +25,7 @@ export function weatherLineInterval(): G2Spec {
           y: {
             title: 'Temperature (°C)',
             grid: false,
-            style: {
-              titleFill: '#EE6666',
-            },
+            titleFill: '#EE6666',
           },
         },
       },
@@ -48,9 +46,7 @@ export function weatherLineInterval(): G2Spec {
           y: {
             title: 'Evaporation',
             grid: false,
-            style: {
-              titleFill: '#5470C6',
-            },
+            titleFill: '#5470C6',
           },
         },
       },
@@ -73,9 +69,7 @@ export function weatherLineInterval(): G2Spec {
             position: 'right',
             title: 'Precipitation (ml)',
             grid: false,
-            style: {
-              titleFill: '#91CC75',
-            },
+            titleFill: '#91CC75',
           },
         },
       },

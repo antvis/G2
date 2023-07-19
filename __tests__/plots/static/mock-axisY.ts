@@ -15,10 +15,8 @@ export function mockAxisY(): G2Spec {
     },
     tickCount: 10,
     title: 'axisX',
-    style: {
-      labelFontSize: 14,
-      gridLineWidth: 10,
-      gridStroke: 'red',
-    },
+    labelFontSize: 14,
+    gridLineWidth: 10,
+    gridStroke: 'red',
   };
 }

@@ -19,7 +19,7 @@ export function alphabetIntervalAxis(): G2Spec {
         },
         axis: { y: { tickCount: 10 }, x: false },
       },
-      { type: 'axisX', title: 'Letter', style: { labelFontSize: 20 } },
+      { type: 'axisX', title: 'Letter', labelFontSize: 20 },
       {
         type: 'axisY',
         labelFormatter: '.0%',
@@ -37,9 +37,7 @@ export function alphabetIntervalAxis(): G2Spec {
             range: [1, 0],
           },
         },
-        style: {
-          grid: false,
-        },
+        grid: false,
       },
     ],
   };

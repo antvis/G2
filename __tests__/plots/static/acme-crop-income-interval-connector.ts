@@ -28,7 +28,7 @@ export function acmeCropIncomeIntervalConnector() {
     paddingTop: 40,
     data: acmeCropIncome,
     axis: {
-      x: { title: false, style: { labelTransform: 'rotate(-90)' } },
+      x: { title: false, labelTransform: 'rotate(-90)' },
       y: { labelFormatter: '~s' },
     },
     legend: false,
@@ -50,10 +50,8 @@ export function acmeCropIncomeIntervalConnector() {
           {
             text: (d) => `${d.y2 - d.y1}`,
             formatter: '~s',
-            style: {
-              fontSize: 10,
-              dy: 2,
-            },
+            fontSize: 10,
+            dy: 2,
           },
         ],
         style: {
@@ -84,11 +82,9 @@ export function acmeCropIncomeIntervalConnector() {
             text: 'value',
             formatter: '~s',
             position: (d) => (d.value > 0 ? 'top' : 'bottom'),
-            style: {
-              textBaseline: (d) => (d.value > 0 ? 'bottom' : 'top'),
-              fontSize: 10,
-              dy: (d) => (d.value > 0 ? -4 : 4),
-            },
+            textBaseline: (d) => (d.value > 0 ? 'bottom' : 'top'),
+            fontSize: 10,
+            dy: (d) => (d.value > 0 ? -4 : 4),
           },
         ],
       },

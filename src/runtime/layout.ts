@@ -203,7 +203,7 @@ function computeInset(
     .flatMap((component, i) => {
       const style = styles[i];
       const scale = createScale(component, library);
-      const labels = computeLabelsBBox(component, scale, style);
+      const labels = computeLabelsBBox(style, scale);
       return labels;
     })
     .filter(defined);
@@ -212,9 +212,9 @@ function computeInset(
 
   // Compute titles.
   const titleBBoxes = axes
-    .flatMap((component, i) => {
+    .flatMap((_, i) => {
       const style = styles[i];
-      return computeTitleBBox(component, style);
+      return computeTitleBBox(style);
     })
     .filter((d) => d !== null);
   const titleSize =

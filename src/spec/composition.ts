@@ -66,7 +66,7 @@ export type ViewComposition = {
   interaction?: Literal2Object<Interaction>;
   transform?: Transform[];
   theme?: Theme;
-  children?: Mark[];
+  children?: (Mark | AxisComponent | LegendComponent)[];
   scale?: Record<string, Scale>;
   frame?: boolean;
   labelTransform?: LabelTransform[];

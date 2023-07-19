@@ -56,21 +56,17 @@ export function vaccinesCellScaleRelationAutoPaddingTickFilter(): G2Spec {
           {
             text: '1963',
             position: 'bottom',
-            style: {
-              dy: 3,
-              fontSize: 10,
-              textBaseline: 'top',
-            },
+            dy: 3,
+            fontSize: 10,
+            textBaseline: 'top',
           },
           {
             text: 'Measles vaccine introduced',
             position: 'bottom',
-            style: {
-              textBaseline: 'top',
-              fontSize: 10,
-              fontWeight: 'bold',
-              dy: 12,
-            },
+            textBaseline: 'top',
+            fontSize: 10,
+            fontWeight: 'bold',
+            dy: 12,
           },
         ],
       },

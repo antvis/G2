@@ -184,8 +184,7 @@ export type TooltipInteraction = {
     event, // @todo
     options: { title: 'string'; items: TooltipItemValue[] },
   ) => HTMLElement | string;
-  style?: Record<`crosshairs${any}`, any>;
-};
+} & Record<`crosshairs${any}`, any>;
 
 export type FisheyeInteraction = {
   type?: 'fisheye';

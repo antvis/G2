@@ -17,7 +17,7 @@ function inferStyleByAlign(
   x: number,
   y: number,
   width: number,
-  align: TitleStyleProps['style']['align'],
+  align: TitleStyleProps['align'],
 ) {
   switch (align) {
     case 'center':
@@ -49,7 +49,9 @@ const Title = createComponent<TitleStyleProps>({
       width,
       title,
       subtitle,
-      style: { spacing = 2, align = 'left', ...style },
+      spacing = 2,
+      align = 'left',
+      ...style
     } = attributes;
 
     const titleStyle = subObject(style, 'title');
@@ -89,19 +91,13 @@ export const TitleComponent: GCC<TitleComponentOptions> = (options) => {
   return ({ value, theme }) => {
     const { x, y, width, height } = value.bbox;
     return new Title({
-      style: deepMix(
-        {},
-        {
-          style: theme.title,
-        },
-        {
-          x,
-          y,
-          width,
-          height,
-          ...options,
-        },
-      ),
+      style: deepMix({}, theme.title, {
+        x,
+        y,
+        width,
+        height,
+        ...options,
+      }),
     });
   };
 };

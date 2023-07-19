@@ -49,7 +49,7 @@ export function chartEmitSliderFilter(context) {
       { date: '2002-08', value: 109 },
     ],
     encode: { x: 'date', y: 'value' },
-    axis: { x: { size: 100, style: { labelTransform: 'rotate(90)' } } },
+    axis: { x: { size: 100, labelTransform: 'rotate(90)' } },
     slider: { x: {}, y: { labelFormatter: (d) => +d.toFixed(1) + '' } },
   });
 

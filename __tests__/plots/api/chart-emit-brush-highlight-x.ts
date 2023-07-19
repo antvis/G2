@@ -51,7 +51,7 @@ export function chartEmitBrushHighlightX(context) {
     .interval()
     .encode('x', 'date')
     .encode('y', 'value')
-    .axis('x', { style: { labelTransform: 'rotate(90deg)' } })
+    .axis('x', { labelTransform: 'rotate(90deg)' })
     .interaction('brushXHighlight', true);
 
   const finished = chart.render();

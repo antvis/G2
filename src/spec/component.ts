@@ -23,21 +23,17 @@ export type TitleComponent = {
    */
   subtitle?: string | null;
   /**
-   * Styles.
+   * Align method for title.
    */
-  style?: UsePrefix<'title' | 'subtitle', Record<string, any>> & {
-    /**
-     * Align method for title.
-     */
-    align?: 'left' | 'center' | 'right';
-    /**
-     * The vertical spacing between title and subtitle, default is 2.
-     */
-    spacing?: number;
-  };
-};
+  align?: 'left' | 'center' | 'right';
+  /**
+   * The vertical spacing between title and subtitle, default is 2.
+   */
+  spacing?: number;
+} & UsePrefix<'title' | 'subtitle', Record<string, any>>;
 
 export type AxisComponent = {
+  type?: 'axisX' | 'axisY';
   tickCount?: number;
   labelFormatter?: any;
   tickFilter?: any;
@@ -48,10 +44,12 @@ export type AxisComponent = {
       Record<string, any>
     >
   >;
+  scale?: Record<string, any>; //@todo
   [key: string]: any; // @todo
 };
 
 export type LegendComponent = {
+  type?: 'legends';
   tickCount?: number;
   labelFormatter?: any;
   tickFilter?: any;
@@ -63,6 +61,7 @@ export type LegendComponent = {
       Record<string, any>
     >
   >;
+  scale?: Record<string, any>; //@todo
   [key: string]: any; // @todo
 };
 
