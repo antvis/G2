@@ -38,4 +38,3 @@ site/.dumi/tmp-production
 
 # Bundle analyzer
 analyse.html
-/scripts/bench/reports/
