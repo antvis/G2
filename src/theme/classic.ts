@@ -408,6 +408,7 @@ export const Classic: TC<ClassicOptions> = (options) => {
       thumbHighlightedFillOpacity: 0.2,
     },
     title: {
+      spacing: 8,
       titleFill: COLORS.BLACK,
       titleFillOpacity: 0.85,
       titleFontSize: 14,

@@ -584,6 +584,7 @@ export function computeComponentSize(
     if (t.startsWith('legendContinuous')) return computeContinuousLegendSize;
     if (t === 'legendCategory') return computeCategoryLegendSize;
     if (t.startsWith('slider')) return computeSliderSize;
+    if (t === 'title') return computeTitleSize;
     return () => {};
   };
   return createCompute()(
@@ -623,6 +624,32 @@ function computeGroupSize(
   const maxSize = max(children, (d: G2GuideComponentOptions) => d.size);
   component.size = maxSize;
   children.forEach((d) => (d.size = maxSize));
+}
+
+function computeTitleSize(
+  component: G2GuideComponentOptions,
+  crossSize: number,
+  crossPadding: [number, number],
+  position: GCP,
+  theme: G2Theme,
+  library: G2Library,
+) {
+  const {
+    title,
+    subtitle,
+    spacing = 0,
+    ...style
+  } = deepMix({}, theme.title, component);
+  if (title) {
+    const titleStyle = subObject(style, 'title');
+    const titleBBox = computeLabelSize(title, titleStyle);
+    component.size = titleBBox.height;
+  }
+  if (subtitle) {
+    const subtitleStyle = subObject(style, 'subtitle');
+    const subtitleBBox = computeLabelSize(subtitle, subtitleStyle);
+    component.size += spacing + subtitleBBox.height;
+  }
 }
 
 function computeSliderSize(

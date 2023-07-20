@@ -273,3 +273,4 @@ export { alphabetIntervalAutoPaddingSlider } from './alphabet-interval-auto-padd
 export { countriesBubbleLegendSize } from './countries-bubble-legend-size';
 export { cars2PointOrdinalSize } from './cars2-point-ordinal-size';
 export { cars2PointConstantColorSize } from './cars2-point-constant-color-size';
+export { alphabetIntervalTitleAuto } from './alphabet-interval-title-auto';
