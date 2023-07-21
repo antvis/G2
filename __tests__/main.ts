@@ -1,7 +1,10 @@
 import { Canvas } from '@antv/g';
 import { Renderer as CanvasRenderer } from '@antv/g-canvas';
 import { Plugin as DragAndDropPlugin } from '@antv/g-plugin-dragndrop';
+import { Plugin as ControlPlugin } from '@antv/g-plugin-control';
+import { Plugin as ThreeDPlugin } from '@antv/g-plugin-3d';
 import { Renderer as SVGRenderer } from '@antv/g-svg';
+import { Renderer as WebGLRenderer } from '@antv/g-webgl';
 import { render } from '../src';
 import { renderToMountedElement } from './utils/renderToMountedElement';
 import * as statics from './plots/static';
@@ -21,6 +24,7 @@ const tests = {
 const renderers = {
   canvas: CanvasRenderer,
   svg: SVGRenderer,
+  webgl: WebGLRenderer,
 };
 const app = document.getElementById('app') as HTMLElement;
 let currentContainer = document.createElement('div');
@@ -147,6 +151,10 @@ function createSpecRender(object) {
       renderer.registerPlugin(
         new DragAndDropPlugin({ dragstartDistanceThreshold: 1 }),
       );
+      if (selectRenderer.value === 'webgl') {
+        renderer.registerPlugin(new ControlPlugin());
+        renderer.registerPlugin(new ThreeDPlugin());
+      }
       canvas = new Canvas({
         container: document.createElement('div'),
         width,
