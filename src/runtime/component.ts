@@ -691,11 +691,10 @@ function computeAxisSize(
   // Compute Labels.
   const scale = createScale(component, library);
   const labelBBoxes = computeLabelsBBox(rest, scale);
+  const paddingTick = tickLength + labelSpacing;
   if (labelBBoxes) {
     const maxLabelWidth = max(labelBBoxes, (d) => d.width);
     const maxLabelHeight = max(labelBBoxes, (d) => d.height);
-    const paddingTick = tickLength + labelSpacing;
-
     if (isVertical) {
       component.size = maxLabelWidth + paddingTick;
     } else {
@@ -712,6 +711,8 @@ function computeAxisSize(
         component.size = maxLabelHeight + paddingTick;
       }
     }
+  } else {
+    component.size = paddingTick;
   }
 
   // Compute title.
