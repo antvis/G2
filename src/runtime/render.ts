@@ -70,7 +70,7 @@ export function render<T extends G2ViewTree = G2ViewTree>(
   },
 ): HTMLElement {
   // Initialize the context if it is not provided.
-  const { width = 640, height = 480, depth = 0, theme } = options;
+  const { width = 640, height = 480, depth = 0 } = options;
   const keyed = inferKeys(options);
   const {
     canvas = Canvas(width, height),

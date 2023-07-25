@@ -28,7 +28,6 @@ export function viewFacetCircle(context) {
 
   const chart = new Chart({
     container: container,
-
     canvas,
   });
 
