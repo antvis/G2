@@ -1,5 +1,20 @@
 # G2 - Changelog
 
+## [5.0.17](https://github.com/antvis/g2/compare/5.0.16...5.0.17) (2023-07-25)
+
+### Bug Fixes
+
+- **auto:** axis without label ([#5338](https://github.com/antvis/g2/issues/5338)) ([06b73c2](https://github.com/antvis/g2/commit/06b73c2e71a0a406fd3af8f76ff51f2eb3326e12))
+- **chart:** chart.clear preserve some global options ([#5318](https://github.com/antvis/g2/issues/5318)) ([0c4fc99](https://github.com/antvis/g2/commit/0c4fc99cfa54bf56328f4a6eebc3619534414b35))
+- git clone failed on windows due to filename contains character : ([#5330](https://github.com/antvis/g2/issues/5330)) ([682885b](https://github.com/antvis/g2/commit/682885b3d0c643dc1f4f53c7fbfcf75e3a0ad247))
+- **label:** clear invalid labels ([#5310](https://github.com/antvis/g2/issues/5310)) ([0a760b8](https://github.com/antvis/g2/commit/0a760b8ebea9a857d1f3abe1cd6762c8005b1267))
+- **legend:** set actual item size ([#5326](https://github.com/antvis/g2/issues/5326)) ([683d529](https://github.com/antvis/g2/commit/683d529aef66982b6dab4d3035ccbb8268b20afa))
+
+### Features
+
+- **size:** support ordinal size channel ([#5320](https://github.com/antvis/g2/issues/5320)) ([760eb75](https://github.com/antvis/g2/commit/760eb75d97a746621da35d26d4a7565fec94551b))
+- **title:** auto layout ([#5332](https://github.com/antvis/g2/issues/5332)) ([778cdf3](https://github.com/antvis/g2/commit/778cdf33432c0284f1a6ca1a18536bb8766edb76))
+
 ## [5.0.16](https://github.com/antvis/g2/compare/5.0.15...5.0.16) (2023-07-12)
 
 ### Bug Fixes
