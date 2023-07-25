@@ -21,10 +21,10 @@ function* selectionSort(arr) {
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
 });
 
 const keyframe = chart.timingKeyframe();
+
 for (const frame of selectionSort(data)) {
   keyframe
     .interval()

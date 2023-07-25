@@ -13,7 +13,6 @@ const encodeY = 'value';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
   paddingRight: 60,
 });

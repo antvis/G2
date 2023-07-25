@@ -27,7 +27,6 @@ import {
   isPolar as isPolarOptions,
   isRadial as isRadarOptions,
 } from './coordinate';
-<<<<<<< HEAD
 
 export function processAxisZ(components: G2GuideComponentOptions[]) {
   const axisZ = components.find(({ type }) => type === 'axisZ');
@@ -67,8 +66,6 @@ export function processAxisZ(components: G2GuideComponentOptions[]) {
     });
   }
 }
-=======
->>>>>>> 91c3dd7dc (feat: new theme and set padding to auto)
 
 export function computeLayout(
   components: G2GuideComponentOptions[],
@@ -82,10 +79,7 @@ export function computeLayout(
     depth,
     x = 0,
     y = 0,
-<<<<<<< HEAD
     z = 0,
-=======
->>>>>>> 91c3dd7dc (feat: new theme and set padding to auto)
     inset = theme.inset ?? 0,
     insetLeft = inset,
     insetTop = inset,
@@ -123,14 +117,7 @@ export function computeLayout(
     ];
   };
 
-<<<<<<< HEAD
   const roughPadding = (padding) => (padding === 'auto' ? 20 : padding ?? 20);
-=======
-  const roughPadding = (padding) =>
-    padding === 'auto'
-      ? theme.paddingDefault || 20
-      : padding ?? (theme.paddingDefault || 20);
->>>>>>> 91c3dd7dc (feat: new theme and set padding to auto)
   const rpt = roughPadding(paddingTop);
   const rpb = roughPadding(paddingBottom);
 
@@ -314,7 +301,6 @@ function computePadding(
     paddingRight = padding,
     paddingBottom = padding,
     paddingTop = padding,
-    coordinates,
   } = options;
   const layout = {
     paddingBottom,
@@ -356,17 +342,6 @@ function computePadding(
       }
     };
 
-<<<<<<< HEAD
-=======
-    const hasPolarInset = () => {
-      if (!isPolarOptions(coordinates) && !isRadarOptions(coordinates)) {
-        return false;
-      }
-      if (options[insetKey] === 0) return false;
-      return true;
-    };
-
->>>>>>> 91c3dd7dc (feat: new theme and set padding to auto)
     const isHorizontal = position === 'bottom' || position === 'top';
 
     // !!!Note
@@ -575,7 +550,6 @@ function createSection({
     null,
   ];
 
-<<<<<<< HEAD
   const xySection: Section = {
     top: [
       pl,
@@ -588,10 +562,6 @@ function createSection({
       marginLeft,
       plotWidth,
     ],
-=======
-  const section: Section = {
-    top: [pl, 0, innerWidth, pt, 'vertical', true, ascending, 0, width],
->>>>>>> 91c3dd7dc (feat: new theme and set padding to auto)
     right: [width - pr, pt, pr, innerHeight, 'horizontal', false, ascending],
     bottom: [
       pl,
@@ -601,13 +571,8 @@ function createSection({
       'vertical',
       false,
       ascending,
-<<<<<<< HEAD
       marginLeft,
       plotWidth,
-=======
-      0,
-      width,
->>>>>>> 91c3dd7dc (feat: new theme and set padding to auto)
     ],
     left: [0, pt, pl, innerHeight, 'horizontal', true, ascending],
     'top-left': [pl, 0, innerWidth, pt, 'vertical', true, ascending],
@@ -635,40 +600,7 @@ function createSection({
     outer: centerSection,
   };
 
-<<<<<<< HEAD
   return xySection;
-=======
-  for (const [position, components] of positionComponents.entries()) {
-    const area = section[position];
-
-    /**
-     * @description non-entity components: axis in the center, inner, outer, component in the center
-     * @description entity components: other components
-     * @description no volume components take up no extra space
-     */
-    const [nonEntityComponents, entityComponents] = divide(
-      components,
-      (component) => {
-        if (typeof component.type !== 'string') return false;
-        if (position === 'center') return true;
-        if (
-          component.type.startsWith('axis') &&
-          ['inner', 'outer'].includes(position)
-        ) {
-          return true;
-        }
-        return false;
-      },
-    );
-
-    if (nonEntityComponents.length) {
-      placeNonEntityComponents(nonEntityComponents, coordinate, area, position);
-    }
-    if (entityComponents.length) {
-      placePaddingArea(components, coordinate, area);
-    }
-  }
->>>>>>> 91c3dd7dc (feat: new theme and set padding to auto)
 }
 
 function placeNonEntityComponents(

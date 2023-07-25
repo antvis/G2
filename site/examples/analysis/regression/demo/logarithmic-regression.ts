@@ -3,7 +3,6 @@ import { regressionLog } from 'd3-regression';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
 });
 
@@ -45,9 +44,7 @@ chart
   .label({
     text: 'y = 0.881·ln(x) + 4.173\nThe coefficient of determination, or R^22, is 0.958',
     selector: 'last',
-    style: {
-      textAlign: 'end',
-    },
+    textAlign: 'end',
   })
   .tooltip(false);
 

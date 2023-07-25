@@ -1,7 +1,6 @@
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
-  theme: 'classic',
   container: 'container',
 });
 

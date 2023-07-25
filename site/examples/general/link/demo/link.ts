@@ -5,7 +5,6 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
 });
 
@@ -23,7 +22,7 @@ chart
   .style('arrowSize', 6)
   .axis('x', {
     labelFormatter: '~s',
-    style: { labelTransform: 'rotate(90)' },
+    labelTransform: 'rotate(90)',
   })
   .legend(false)
   .tooltip({ title: { channel: 'color', valueFormatter: '.1f' } });

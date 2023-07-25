@@ -5,7 +5,6 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   width: 954,
   height: 954,
 });
@@ -33,10 +32,8 @@ chart
     title: null,
     labelFormatter: (d, i, array) =>
       i === array.length - 1 ? `${d}°F` : `${d}`,
-    style: {
-      labelStroke: '#fff',
-      labelStrokeWidth: 5,
-    },
+    labelStroke: '#fff',
+    labelStrokeWidth: 5,
   })
   .axis('x', {
     grid: true,

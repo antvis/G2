@@ -5,10 +5,8 @@ const left = (d) => d.end > -1500 && d.start > -3000;
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   width: 900,
   height: 1000,
-  paddingRight: 80,
 });
 
 chart.coordinate({ transform: [{ type: 'transpose' }] });
@@ -27,13 +25,11 @@ chart
       labelFormatter,
       grid: null,
       title: null,
-      labelTextAlign: 'start',
     },
     {
       position: 'top',
       labelFormatter,
       title: null,
-      labelTextAlign: 'start',
     },
   ])
   .axis('x', false)
@@ -44,11 +40,9 @@ chart
   .label({
     text: 'civilization',
     position: (d) => (left(d) ? 'left' : 'right'),
-    style: {
-      textAlign: (d) => (left(d) ? 'end' : 'start'),
-      dx: (d) => (left(d) ? -5 : 5),
-      fontSize: 10,
-    },
+    textAlign: (d) => (left(d) ? 'end' : 'start'),
+    dx: (d) => (left(d) ? -5 : 5),
+    fontSize: 10,
   })
   .tooltip([
     { name: 'start', field: 'start', valueFormatter: labelFormatter },

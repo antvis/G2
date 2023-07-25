@@ -6,7 +6,6 @@ import { interpolateHcl } from 'd3-interpolate';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
 });
 
@@ -28,6 +27,7 @@ chart
     orderBy: 'color',
     duration: 2000,
   })
+  .legend('color', false)
   .scale('y', { range: [0, 1] })
   .scale('color', {
     type: 'sqrt',

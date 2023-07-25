@@ -2,8 +2,6 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
-  paddingLeft: 60,
   inset: 6,
 });
 
@@ -20,7 +18,5 @@ chart
   .tooltip({ name: 'q2', channel: 'y2' })
   .tooltip({ name: 'q3', channel: 'y3' })
   .tooltip({ name: 'max', color: 'red', channel: 'y4' });
-
-chart.interaction('tooltip', true);
 
 chart.render();

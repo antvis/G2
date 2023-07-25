@@ -3,7 +3,6 @@ import { regressionPoly } from 'd3-regression';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
 });
 
@@ -52,10 +51,8 @@ chart
   .label({
     text: 'y=0.24x^3 + −3.00x^2 + 13.45x + 139.77\nThe coefficient of determination, or R^2, is 0.92',
     selector: 'last',
-    style: {
-      textAlign: 'end',
-      dx: -8,
-    },
+    textAlign: 'end',
+    dx: -8,
   })
   .tooltip(null);
 

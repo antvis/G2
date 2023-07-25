@@ -2,11 +2,9 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
-  paddingRight: 50,
-  paddingBottom: 50,
-  paddingLeft: 80,
+  paddingBottom: 60,
+  paddingLeft: 85,
 });
 
 const facetRect = chart

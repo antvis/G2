@@ -2,7 +2,6 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   height: 360,
 });
 
@@ -20,7 +19,6 @@ chart
   .scale('color', { palette: 'rainbow' })
   .legend({
     color: {
-      length: 500,
       position: 'bottom',
       ribbonType: 'size',
       indicator: true,

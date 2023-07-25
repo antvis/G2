@@ -6,7 +6,6 @@ import { regressionLinear } from 'd3-regression';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
 });
 
@@ -42,10 +41,8 @@ chart
     text: 'y = 1.7x+3.01',
     selector: 'last',
     position: 'right',
-    style: {
-      textAlign: 'end',
-      dy: -8,
-    },
+    textAlign: 'end',
+    dy: -8,
   })
   .tooltip(false);
 

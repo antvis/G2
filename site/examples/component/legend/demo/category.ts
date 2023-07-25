@@ -2,10 +2,8 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
   insetTop: 30,
-  paddingBottom: 100,
 });
 
 const logo = [
@@ -122,6 +120,7 @@ chart
       },
       itemMarkerSize: 40,
       itemLabelText: (_, index) => logo[index][0],
+      maxRows: 1,
     },
   })
   .tooltip(false);

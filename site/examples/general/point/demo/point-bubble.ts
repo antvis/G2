@@ -6,10 +6,7 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
-  paddingLeft: 150,
-  paddingTop: 50,
 });
 
 chart

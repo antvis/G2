@@ -2,9 +2,7 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
-  paddingLeft: 80,
 });
 
 chart.coordinate({ transform: [{ type: 'transpose' }] });

@@ -5,9 +5,7 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   width: 1000,
-  paddingBottom: 100,
 });
 
 chart
@@ -21,12 +19,6 @@ chart
   .encode('x', 'country')
   .encode('y', 'value')
   .encode('color', 'country')
-  .axis('x', {
-    labelSpacing: 4,
-    style: {
-      labelTransform: 'rotate(90)',
-    },
-  })
   .axis('y', { labelFormatter: '~s' })
   .tooltip(['value', 'gdp']);
 

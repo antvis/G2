@@ -14,7 +14,6 @@ const data = [
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
 });
 
@@ -27,13 +26,11 @@ chart
   .encode('shape', 'hvh') // 'area', 'smooth', 'hvh', 'vh', 'hv'
   .label({
     text: 'value',
-    style: {
-      fontSize: 10,
-      textAlign: (_, idx, arr) => {
-        if (idx === 0) return 'left';
-        if (idx === arr.length - 1) return 'right';
-        return 'center';
-      },
+    fontSize: 10,
+    textAlign: (_, idx, arr) => {
+      if (idx === 0) return 'left';
+      if (idx === arr.length - 1) return 'right';
+      return 'center';
     },
   })
   .style('opacity', 0.4)

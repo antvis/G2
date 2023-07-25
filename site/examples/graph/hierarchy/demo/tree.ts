@@ -2,11 +2,10 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   height: 1500,
   width: 800,
-  paddingLeft: 40,
-  paddingRight: 60,
+  insetRight: 80,
+  insetLeft: 15,
 });
 
 chart.coordinate({ transform: [{ type: 'transpose' }] });

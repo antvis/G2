@@ -54,7 +54,7 @@ function getLovePoints() {
   let x = 0;
   let y = 0;
   const a = 6;
-  const points: { x: number; y: number }[] = [];
+  const points = [];
   for (let i = 0; i < 20; i += 0.2) {
     angle = i / Math.PI;
     x = a * (16 * Math.sin(angle) ** 3);
@@ -71,7 +71,6 @@ function getLovePoints() {
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
 });
 

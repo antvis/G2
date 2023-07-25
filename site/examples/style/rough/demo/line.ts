@@ -9,7 +9,6 @@ WebFont.load({
   active: () => {
     const chart = new Chart({
       container: 'container',
-      theme: 'classic',
       autoFit: true,
       plugins: [new Plugin()],
     });
@@ -28,27 +27,21 @@ WebFont.load({
       .label({
         text: 'price',
         transform: [{ type: 'overlapDodgeY' }],
-        style: {
-          fontSize: 10,
-          fontFamily: 'Gaegu',
-        },
+        fontSize: 10,
+        fontFamily: 'Gaegu',
       })
       .axis('x', {
-        style: {
-          tickStroke: '#cdcdcd',
-          gridStroke: '#efefef',
-          labelFontFamily: 'Gaegu',
-        },
+        tickStroke: '#cdcdcd',
+        gridStroke: '#efefef',
+        labelFontFamily: 'Gaegu',
       })
       .axis('y', {
-        style: {
-          tickStroke: '#cdcdcd',
-          gridStroke: '#efefef',
-          titleFontFamily: 'Gaegu',
-          labelFontFamily: 'Gaegu',
-        },
+        tickStroke: '#cdcdcd',
+        gridStroke: '#efefef',
+        titleFontFamily: 'Gaegu',
+        labelFontFamily: 'Gaegu',
       })
-      .legend({ color: { itemLabelFontFamily: 'Gaegu' } })
+      .legend('color', { itemLabelFontFamily: 'Gaegu' })
       .style('roughness', 2);
 
     chart.render();

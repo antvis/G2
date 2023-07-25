@@ -13,7 +13,6 @@ fetch('https://assets.antv.antgroup.com/g2/unemployment2.json')
   .then((data) => {
     const chart = new Chart({
       container: 'container',
-      theme: 'classic',
       autoFit: true,
     });
 

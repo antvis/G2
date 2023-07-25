@@ -2,10 +2,8 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   width: 100,
   height: 100,
-  padding: 8,
 });
 
 chart.coordinate({ type: 'theta' });

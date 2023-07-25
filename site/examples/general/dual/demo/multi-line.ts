@@ -77,7 +77,6 @@ const data = [
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
 });
 
@@ -93,9 +92,7 @@ chart
   .axis('y', {
     title: 'Temperature (°C)',
     grid: null,
-    style: {
-      titleFill: '#EE6666',
-    },
+    titleFill: '#EE6666',
   });
 
 chart
@@ -108,9 +105,7 @@ chart
   .axis('y', {
     position: 'right',
     title: 'Evaporation (ml)',
-    style: {
-      titleFill: '#5470C6',
-    },
+    titleFill: '#5470C6',
   });
 
 chart
@@ -125,9 +120,7 @@ chart
     position: 'right',
     title: 'Precipitation (ml)',
     grid: null,
-    style: {
-      titleFill: '#91CC75',
-    },
+    titleFill: '#91CC75',
   });
 
 chart.render();

@@ -7,11 +7,11 @@ fetch(
   .then((data) => {
     const chart = new Chart({
       container: 'container',
-      theme: 'classic',
       width: 800,
     });
     const padding = (node) =>
-      node.attr('paddingRight', 86).attr('paddingLeft', 54);
+      node.attr('paddingRight', 120).attr('paddingLeft', 70);
+
     const encode = (node) =>
       node
         .encode('shape', 'smooth')
@@ -19,6 +19,7 @@ fetch(
         .encode('y', 'unemployed')
         .encode('color', 'industry')
         .encode('key', 'industry');
+
     const utcX = (node) => node.scale('x', { utc: true });
 
     const keyframe = chart
@@ -29,6 +30,7 @@ fetch(
     keyframe
       .facetRect()
       .call(padding)
+      .attr('paddingBottom', 60)
       .data(data)
       .encode('y', 'industry')
       .area()

@@ -5,7 +5,6 @@ register('shape.interval.petal', petal);
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
 });
 
@@ -31,10 +30,8 @@ chart
   .label({
     text: (d, i, data) => d.type + '\n' + d.value,
     radius: 0.9,
-    style: {
-      fontSize: 9,
-      dy: 12,
-    },
+    fontSize: 9,
+    dy: 12,
   })
   .animate('enter', { type: 'fadeIn' })
   .legend(false);

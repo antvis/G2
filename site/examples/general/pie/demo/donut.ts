@@ -5,7 +5,6 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   height: 640,
 });
 
@@ -28,13 +27,11 @@ chart
     palette: 'spectral',
     offset: (t) => t * 0.8 + 0.1,
   })
-  .label({ text: 'name', style: { fontSize: 10, fontWeight: 'bold' } })
+  .label({ text: 'name', fontSize: 10, fontWeight: 'bold' })
   .label({
     text: (d, i, data) => (i < data.length - 3 ? d.value : ''),
-    style: {
-      fontSize: 9,
-      dy: 12,
-    },
+    fontSize: 9,
+    dy: 12,
   })
   .animate('enter', { type: 'waveIn' })
   .legend(false);

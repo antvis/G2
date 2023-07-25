@@ -5,7 +5,6 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
 });
 
@@ -23,15 +22,13 @@ chart
   .encode('color', 'steelblue')
   .label({
     text: 'name',
-    style: {
-      stroke: '#fff',
-      textAnchor: 'start',
-      textBaseline: 'middle',
-      dx: 10,
-      position: 'left',
-      fontSize: 10,
-      lineWidth: 2,
-    },
+    stroke: '#fff',
+    textAnchor: 'start',
+    textBaseline: 'middle',
+    dx: 10,
+    position: 'left',
+    fontSize: 10,
+    lineWidth: 2,
   });
 
 chart.render();

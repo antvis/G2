@@ -530,9 +530,7 @@ const Data = [
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
-  paddingLeft: 50,
 });
 
 chart.data(Data);
