@@ -90,11 +90,11 @@ chart.render();
 
 ### `chart.lineX`
 
-添加 lineX 图形，具体见 [mark](/spec/mark/lineX)。
+添加 lineX 图形，具体见 [mark](/spec/mark/line-x)。
 
 ### `chart.lineY`
 
-添加 lineY 图形，具体见 [mark](/spec/mark/lineY)。
+添加 lineY 图形，具体见 [mark](/spec/mark/line-y)。
 
 ### `chart.range`
 
@@ -102,23 +102,23 @@ chart.render();
 
 ### `chart.rangeX`
 
-添加 rangeX 图形，具体见 [mark](/spec/mark/rangeX)。
+添加 rangeX 图形，具体见 [mark](/spec/mark/range-x)。
 
 ### `chart.rangeY`
 
-添加 rangeY 图形，具体见 [mark](/spec/mark/rangeY)。
+添加 rangeY 图形，具体见 [mark](/spec/mark/range-y)。
 
 ### `chart.connector`
-
+<!-- 暂缺 -->
 添加 connector 图形，具体见 [mark](/spec/mark/connector)。
 
 ### `chart.sankey`
 
-添加 sankey 图形，具体见 [mark](/spec/mark/sankey)。
+添加 sankey 图形，具体见 [graph](/spec/graph/sankey)。
 
 ### `chart.treemap`
 
-添加 treemap 图形，具体见 [mark](/spec/mark/treemap)。
+添加 treemap 图形，具体见 [graph](/spec/graph/treemap)。
 
 ### `chart.boxplot`
 
@@ -138,19 +138,19 @@ chart.render();
 
 ### `chart.pack`
 
-添加 pack 图形，具体见 [mark](/spec/mark/pack)。
+添加 pack 图形，具体见 [graph](/spec/graph/pack)。
 
 ### `chart.forceGraph`
 
-添加 forceGraph 图形，具体见 [mark](/spec/mark/forceGraph)。
+添加 forceGraph 图形，具体见 [graph](/spec/graph/force-graph)。
 
 ### `chart.tree`
 
-添加 tree 图形，具体见 [mark](/spec/mark/tree)。
+添加 tree 图形，具体见 [graph](/spec/graph/tree)。
 
 ### `chart.wordCloud`
 
-添加 wordCloud 图形，具体见 [mark](/spec/mark/wordCloud)。
+添加 wordCloud 图形，具体见 [mark](/spec/mark/word-cloud)。
 
 ### `chart.gauge`
 
@@ -158,39 +158,39 @@ chart.render();
 
 ### `chart.view`
 
-添加 view 图形，具体见 [mark](/spec/mark/view)。
+添加 view 图形，具体见 [api](/api/view)。
 
 ### `chart.spaceLayer`
 
-添加 spaceLayer 图形，具体见 [mark](/spec/mark/spaceLayer)。
+添加 spaceLayer 图形，具体见 [composition](/spec/composition/space-layer)。
 
 ### `chart.spaceFlex`
 
-添加 spaceFlex 图形，具体见 [mark](/spec/mark/spaceFlex)。
+添加 spaceFlex 图形，具体见 [composition](/spec/composition/space-flex)。
 
 ### `chart.facetRect`
 
-添加 facetRect 图形，具体见 [mark](/spec/mark/facetRect)。
+添加 facetRect 图形，具体见 [composition](/spec/composition/facet-rect)。
 
 ### `chart.facetCircle`
 
-添加 facetCircle 图形，具体见 [mark](/spec/mark/facetCircle)。
+添加 facetCircle 图形，具体见 [composition](/spec/composition/facet-circle)。
 
 ### `chart.repeatMatrix`
 
-添加 repeatMatrix 图形，具体见 [mark](/spec/mark/repeatMatrix)。
+添加 repeatMatrix 图形，具体见 [composition](/spec/composition/repeat-matrix)。
 
 ### `chart.geoView`
 
-添加 geoView 图形，具体见 [mark](/spec/mark/geoView)。
+添加 geoView 图形，具体见 [geo](/spec/geo/geo-view)。
 
 ### `chart.geoPath`
 
-添加 geoPath 图形，具体见 [mark](/spec/mark/geoPath)。
+添加 geoPath 图形，具体见 [geo](/spec/geo/geo-path)。
 
 ### `chart.timingKeyframe`
 
-添加 timingKeyframe 图形，具体见 [mark](/spec/mark/timingKeyframe)。
+添加 timingKeyframe 图形，具体见 [composition](/spec/composition/timing-keyframe)。
 
 ## 设置属性
 
@@ -212,46 +212,46 @@ chart.render();
 
 ### `chart.data`
 
-设置图形的数据，支持多种数据来源和数据变换，具体见 [data](/api/data/overview)。
+设置图形的数据，支持多种数据来源和数据变换，具体见 [data](/spec/data/overview)。
 
 ### `chart.encode`
-
+<!-- 暂缺 -->
 设置图形每个通道的字段名称，具体见 [encode](/api/encode/overview)。
 
 ### `chart.scale`
-
-设置图形每个通道的比例尺，具体见 [scale](/api/scale/overview)。
+<!-- 概况中的 scale 介绍更清晰 -->
+设置图形每个通道的比例尺，具体见 [scale](/spec/overview#scale)。
 
 ### `chart.legend`
 
-设置图形的图例，具体见 [legend](/api/component/legend)。
+设置图形的图例，具体见 [legend](/spec/component/legend)。
 
 ### `chart.tooltip`
 
-设置图形的 Tooltip，具体见 [tooltip](/api/component/tooltip/overview)。
+设置图形的 Tooltip，具体见 [tooltip](/spec/component/tooltip)。
 
 ### `chart.axis`
 
-设置图形的坐标轴，具体见 [axis](/api/component/axis)。
+设置图形的坐标轴，具体见 [axis](/spec/component/axis)。
 
 ### `chart.slider`
 
-设置图形的坐标轴，具体见 [slider](/api/component/slider)。
+设置图形的坐标轴，具体见 [slider](/spec/component/slider)。
 
 ### `chart.label`
 
-设置图形的标签，具体见 [label](/api/label/overview)。
+设置图形的标签，具体见 [label](/spec/label/overview)。
 
 ### `chart.style`
-
-设置图形的样式，具体见 [style](/api/style/overview)。
+<!-- common 未放开，但可以跳转 -->
+设置图形的样式，具体见 [style](/spec/common/style)。
 
 ### `chart.theme`
 
-设置图形的主题，具体见 [style](/api/theme/overview)。
+设置图形的主题，具体见 [theme](/spec/theme/academy)。
 
 ### `chart.labelTransform`
-
+<!-- 缺失 -->
 设置图形的 labelTransform，具体见 [label](/spec/label/overview)
 
 ## 渲染图表

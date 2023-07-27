@@ -100,11 +100,11 @@ chart.render();
 
 ### `spaceLayer.lineX`
 
-添加 lineX 图形，具体见 [mark](/spec/mark/lineX)。
+添加 lineX 图形，具体见 [mark](/spec/mark/line-x)。
 
 ### `spaceLayer.lineY`
 
-添加 lineY 图形，具体见 [mark](/spec/mark/lineY)。
+添加 lineY 图形，具体见 [mark](/spec/mark/line-y)。
 
 ### `spaceLayer.range`
 
@@ -112,11 +112,11 @@ chart.render();
 
 ### `spaceLayer.rangeX`
 
-添加 rangeX 图形，具体见 [mark](/spec/mark/rangeX)。
+添加 rangeX 图形，具体见 [mark](/spec/mark/range-x)。
 
 ### `spaceLayer.rangeY`
 
-添加 rangeY 图形，具体见 [mark](/spec/mark/rangeY)。
+添加 rangeY 图形，具体见 [mark](/spec/mark/range-y)。
 
 ### `spaceLayer.connector`
 
@@ -124,11 +124,11 @@ chart.render();
 
 ### `spaceLayer.sankey`
 
-添加 sankey 图形，具体见 [mark](/spec/mark/sankey)。
+添加 sankey 图形，具体见 [graph](/spec/graph/sankey)。
 
 ### `spaceLayer.treemap`
 
-添加 treemap 图形，具体见 [mark](/spec/mark/treemap)。
+添加 treemap 图形，具体见 [graph](/spec/graph/treemap)。
 
 ### `spaceLayer.boxplot`
 
@@ -140,19 +140,19 @@ chart.render();
 
 ### `spaceLayer.pack`
 
-添加 pack 图形，具体见 [mark](/spec/mark/pack)。
+添加 pack 图形，具体见 [graph](/spec/graph/pack)。
 
 ### `spaceLayer.forceGraph`
 
-添加 forceGraph 图形，具体见 [mark](/spec/mark/forceGraph)。
+添加 forceGraph 图形，具体见 [graph](/spec/graph/force-graph)。
 
 ### `spaceLayer.tree`
 
-添加 tree 图形，具体见 [mark](/spec/mark/tree)。
+添加 tree 图形，具体见 [graph](/spec/graph/tree)。
 
 ### `spaceLayer.wordCloud`
 
-添加 wordCloud 图形，具体见 [mark](/spec/mark/wordCloud)。
+添加 wordCloud 图形，具体见 [mark](/spec/mark/word-cloud)。
 
 ### `spaceLayer.gauge`
 
@@ -166,4 +166,4 @@ chart.render();
 
 ### `spaceLayer.data`
 
-设置图形的数据，支持多种数据来源和数据变换，具体见 [data](/api/data/overview)。
+设置图形的数据，支持多种数据来源和数据变换，具体见 [data](/spec/data/overview)。

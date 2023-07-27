@@ -38,7 +38,7 @@ chart.render();
 
 #### `mark.data`
 
-设置图形的数据，支持多种数据来源和数据变换，具体见 [data](/api/data/overview)。
+设置图形的数据，支持多种数据来源和数据变换，具体见 [data](/spec/data/overview)。
 
 ### `chart.changeData`
 
@@ -50,19 +50,19 @@ chart.render();
 
 #### `mark.scale`
 
-设置图形每个通道的比例尺，具体见 [scale](/api/scale/overview)。
+设置图形每个通道的比例尺，具体见 [scale](/spec/overview#scale)。
 
 #### `mark.label`
 
-设置图形的标签，具体见 [label](/api/label/overview)。
+设置图形的标签，具体见 [label](/spec/label/overview)。
 
 #### `mark.style`
 
-设置图形的样式，具体见 [style](/api/style/overview)。
+设置图形的样式，具体见 [style](/spec/common/style)。
 
 #### `mark.theme`
 
-设置图形的主题，具体见 [style](/api/theme/overview)。
+设置图形的主题，具体见 [theme](/spec/theme/overview)。
 
 #### `mark.animate`
 

@@ -88,11 +88,11 @@ chart.render();
 
 ### `repeatMatrix.lineX`
 
-添加 lineX 图形，具体见 [mark](/spec/mark/lineX)。
+添加 lineX 图形，具体见 [mark](/spec/mark/line-x)。
 
 ### `repeatMatrix.lineY`
 
-添加 lineY 图形，具体见 [mark](/spec/mark/lineY)。
+添加 lineY 图形，具体见 [mark](/spec/mark/line-y)。
 
 ### `repeatMatrix.range`
 
@@ -100,11 +100,11 @@ chart.render();
 
 ### `repeatMatrix.rangeX`
 
-添加 rangeX 图形，具体见 [mark](/spec/mark/rangeX)。
+添加 rangeX 图形，具体见 [mark](/spec/mark/range-x)。
 
 ### `repeatMatrix.rangeY`
 
-添加 rangeY 图形，具体见 [mark](/spec/mark/rangeY)。
+添加 rangeY 图形，具体见 [mark](/spec/mark/range-y)。
 
 ### `repeatMatrix.connector`
 
@@ -112,11 +112,11 @@ chart.render();
 
 ### `repeatMatrix.sankey`
 
-添加 sankey 图形，具体见 [mark](/spec/mark/sankey)。
+添加 sankey 图形，具体见 [graph](/spec/graph/sankey)。
 
 ### `repeatMatrix.treemap`
 
-添加 treemap 图形，具体见 [mark](/spec/mark/treemap)。
+添加 treemap 图形，具体见 [graph](/spec/graph/treemap)。
 
 ### `repeatMatrix.boxplot`
 
@@ -128,19 +128,19 @@ chart.render();
 
 ### `repeatMatrix.pack`
 
-添加 pack 图形，具体见 [mark](/spec/mark/pack)。
+添加 pack 图形，具体见 [graph](/spec/graph/pack)。
 
 ### `repeatMatrix.forceGraph`
 
-添加 forceGraph 图形，具体见 [mark](/spec/mark/forceGraph)。
+添加 forceGraph 图形，具体见 [graph](/spec/graph/force-graph)。
 
 ### `repeatMatrix.tree`
 
-添加 tree 图形，具体见 [mark](/spec/mark/tree)。
+添加 tree 图形，具体见 [graph](/spec/graph/tree)。
 
 ### `repeatMatrix.wordCloud`
 
-添加 wordCloud 图形，具体见 [mark](/spec/mark/wordCloud)。
+添加 wordCloud 图形，具体见 [mark](/spec/mark/word-cloud)。
 
 ### `repeatMatrix.gauge`
 
@@ -154,7 +154,7 @@ chart.render();
 
 ### `repeatMatrix.data`
 
-设置图形的数据，支持多种数据来源和数据变换，具体见 [data](/api/data/overview)。
+设置图形的数据，支持多种数据来源和数据变换，具体见 [data](/spec/data/overview)。
 
 ### `repeatMatrix.encode`
 
@@ -162,32 +162,32 @@ chart.render();
 
 ### `repeatMatrix.scale`
 
-设置图形每个通道的比例尺，具体见 [scale](/api/scale/overview)。
+设置图形每个通道的比例尺，具体见 [scale](/spec/overview#scale)。
 
 ### `repeatMatrix.legend`
 
-设置图形的图例，具体见 [legend](/api/component/legend)。
+设置图形的图例，具体见 [legend](/spec/component/legend)。
 
 ### `repeatMatrix.tooltip`
 
-设置图形的 Tooltip，具体见 [tooltip](/api/component/tooltip/overview)。
+设置图形的 Tooltip，具体见 [tooltip](/spec/component/tooltip)。
 
 ### `repeatMatrix.axis`
 
-设置图形的坐标轴，具体见 [axis](/api/component/axis)。
+设置图形的坐标轴，具体见 [axis](/spec/component/axis)。
 
 ### `repeatMatrix.slider`
 
-设置图形的坐标轴，具体见 [slider](/api/component/slider)。
+设置图形的坐标轴，具体见 [slider](/spec/component/slider)。
 
 ### `repeatMatrix.label`
 
-设置图形的标签，具体见 [label](/api/label/overview)。
+设置图形的标签，具体见 [label](/spec/label/overview)。
 
 ### `repeatMatrix.style`
 
-设置图形的样式，具体见 [style](/api/style/overview)。
+设置图形的样式，具体见 [style](/spec/common/style)。
 
 ### `repeatMatrix.theme`
 
-设置图形的主题，具体见 [style](/api/theme/overview)。
+设置图形的主题，具体见 [theme](/spec/theme/overview)。

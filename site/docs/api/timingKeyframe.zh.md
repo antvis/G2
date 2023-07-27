@@ -88,11 +88,11 @@ chart.render();
 
 ### `timingKeyFrame.lineX`
 
-添加 lineX 图形，具体见 [mark](/spec/mark/lineX)。
+添加 lineX 图形，具体见 [mark](/spec/mark/line-x)。
 
 ### `timingKeyFrame.lineY`
 
-添加 lineY 图形，具体见 [mark](/spec/mark/lineY)。
+添加 lineY 图形，具体见 [mark](/spec/mark/line-y)。
 
 ### `timingKeyFrame.range`
 
@@ -100,11 +100,11 @@ chart.render();
 
 ### `timingKeyFrame.rangeX`
 
-添加 rangeX 图形，具体见 [mark](/spec/mark/rangeX)。
+添加 rangeX 图形，具体见 [mark](/spec/mark/range-x)。
 
 ### `timingKeyFrame.rangeY`
 
-添加 rangeY 图形，具体见 [mark](/spec/mark/rangeY)。
+添加 rangeY 图形，具体见 [mark](/spec/mark/range-y)。
 
 ### `timingKeyFrame.connector`
 
@@ -112,11 +112,11 @@ chart.render();
 
 ### `timingKeyFrame.sankey`
 
-添加 sankey 图形，具体见 [mark](/spec/mark/sankey)。
+添加 sankey 图形，具体见 [graph](/spec/graph/sankey)。
 
 ### `timingKeyFrame.treemap`
 
-添加 treemap 图形，具体见 [mark](/spec/mark/treemap)。
+添加 treemap 图形，具体见 [graph](/spec/graph/treemap)。
 
 ### `timingKeyFrame.boxplot`
 
@@ -128,19 +128,19 @@ chart.render();
 
 ### `timingKeyFrame.pack`
 
-添加 pack 图形，具体见 [mark](/spec/mark/pack)。
+添加 pack 图形，具体见 [graph](/spec/graph/pack)。
 
 ### `timingKeyFrame.forceGraph`
 
-添加 forceGraph 图形，具体见 [mark](/spec/mark/forceGraph)。
+添加 forceGraph 图形，具体见 [graph](/spec/graph/force-graph)。
 
 ### `timingKeyFrame.tree`
 
-添加 tree 图形，具体见 [mark](/spec/mark/tree)。
+添加 tree 图形，具体见 [graph](/spec/graph/tree)。
 
 ### `timingKeyFrame.wordCloud`
 
-添加 wordCloud 图形，具体见 [mark](/spec/mark/wordCloud)。
+添加 wordCloud 图形，具体见 [mark](/spec/mark/word-cloud)。
 
 ### `timingKeyFrame.gauge`
 
