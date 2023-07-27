@@ -95,11 +95,11 @@ chart.render();
 
 ### `view.lineX`
 
-添加 lineX 图形，具体见 [mark](/spec/mark/lineX)。
+添加 lineX 图形，具体见 [mark](/spec/mark/line-x)。
 
 ### `view.lineY`
 
-添加 lineY 图形，具体见 [mark](/spec/mark/lineY)。
+添加 lineY 图形，具体见 [mark](/spec/mark/line-y)。
 
 ### `view.range`
 
@@ -107,11 +107,11 @@ chart.render();
 
 ### `view.rangeX`
 
-添加 rangeX 图形，具体见 [mark](/spec/mark/rangeX)。
+添加 rangeX 图形，具体见 [mark](/spec/mark/range-x)。
 
 ### `view.rangeY`
 
-添加 rangeY 图形，具体见 [mark](/spec/mark/rangeY)。
+添加 rangeY 图形，具体见 [mark](/spec/mark/range-y)。
 
 ### `view.connector`
 
@@ -119,11 +119,11 @@ chart.render();
 
 ### `view.sankey`
 
-添加 sankey 图形，具体见 [mark](/spec/mark/sankey)。
+添加 sankey 图形，具体见 [graph](/spec/graph/sankey)。
 
 ### `view.treemap`
 
-添加 treemap 图形，具体见 [mark](/spec/mark/treemap)。
+添加 treemap 图形，具体见 [graph](/spec/graph/treemap)。
 
 ### `view.boxplot`
 
@@ -143,19 +143,19 @@ chart.render();
 
 ### `view.pack`
 
-添加 pack 图形，具体见 [mark](/spec/mark/pack)。
+添加 pack 图形，具体见 [graph](/spec/graph/pack)。
 
 ### `view.forceGraph`
 
-添加 forceGraph 图形，具体见 [mark](/spec/mark/forceGraph)。
+添加 forceGraph 图形，具体见 [graph](/spec/graph/force-graph)。
 
 ### `view.tree`
 
-添加 tree 图形，具体见 [mark](/spec/mark/tree)。
+添加 tree 图形，具体见 [graph](/spec/graph/tree)。
 
 ### `view.wordCloud`
 
-添加 wordCloud 图形，具体见 [mark](/spec/mark/wordCloud)。
+添加 wordCloud 图形，具体见 [mark](/spec/mark/word-cloud)。
 
 ### `view.gauge`
 
@@ -169,7 +169,7 @@ chart.render();
 
 ### `view.data`
 
-设置图形的数据，支持多种数据来源和数据变换，具体见 [data](/api/data/overview)。
+设置图形的数据，支持多种数据来源和数据变换，具体见 [data](/spec/data/overview)。
 
 ### `view.encode`
 
@@ -177,35 +177,35 @@ chart.render();
 
 ### `view.scale`
 
-设置图形每个通道的比例尺，具体见 [scale](/api/scale/overview)。
+设置图形每个通道的比例尺，具体见 [scale](/spec/overview#scale)。
 
 ### `view.legend`
 
-设置图形的图例，具体见 [legend](/api/component/legend)。
+设置图形的图例，具体见 [legend](/spec/component/legend)。
 
 ### `view.tooltip`
 
-设置图形的 Tooltip，具体见 [tooltip](/api/component/tooltip/overview)。
+设置图形的 Tooltip，具体见 [tooltip](/spec/component/tooltip)。
 
 ### `view.axis`
 
-设置图形的坐标轴，具体见 [axis](/api/component/axis)。
+设置图形的坐标轴，具体见 [axis](/spec/component/axis)。
 
 ### `view.slider`
 
-设置图形的坐标轴，具体见 [slider](/api/component/slider)。
+设置图形的坐标轴，具体见 [slider](/spec/component/slider)。
 
 ### `view.label`
 
-设置图形的标签，具体见 [label](/api/label/overview)。
+设置图形的标签，具体见 [label](/spec/label/overview)。
 
 ### `view.style`
 
-设置图形的样式，具体见 [style](/api/style/overview)。
+设置图形的样式，具体见 [style](/spec/common/style)。
 
 ### `view.theme`
 
-设置图形的主题，具体见 [style](/api/theme/overview)。
+设置图形的主题，具体见 [theme](/spec/theme/overview)。
 
 ## 获取实例
 

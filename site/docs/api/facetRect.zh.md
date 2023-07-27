@@ -49,24 +49,24 @@ chart.render();
 
 ## `facetRect.data`
 
-设置图形的数据，支持多种数据来源和数据变换，具体见 [data](/api/data/overview)。
+设置图形的数据，支持多种数据来源和数据变换，具体见 [data](/spec/data/overview)。
 
 ## `facetRect.scale`
 
-设置图形每个通道的比例尺，具体见 [scale](/api/scale/overview)。
+设置图形每个通道的比例尺，具体见 [scale](/spec/overview#scale)。
 
 ## `facetRect.legend`
 
-设置图形的图例，具体见 [legend](/api/component/legend)。
+设置图形的图例，具体见 [legend](/spec/component/legend)。
 
 ## `facetRect.axis`
 
-设置图形的坐标轴，具体见 [axis](/api/component/axis)。
+设置图形的坐标轴，具体见 [axis](/spec/component/axis)。
 
 ## `facetRect.style`
 
-设置图形的样式，具体见 [style](/api/style/overview)。
+设置图形的样式，具体见 [style](/spec/common/style)。
 
 ## `facetRect.theme`
 
-设置图形的主题，具体见 [style](/api/theme/overview)。
+设置图形的主题，具体见 [theme](/spec/theme/overview)。
