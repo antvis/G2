@@ -219,7 +219,7 @@ chart.render();
 设置图形每个通道的字段名称，具体见 [encode](/api/encode/overview)。
 
 ### `chart.scale`
-
+<!-- 概况中的 scale 介绍更清晰 -->
 设置图形每个通道的比例尺，具体见 [scale](/spec/overview#scale)。
 
 ### `chart.legend`
