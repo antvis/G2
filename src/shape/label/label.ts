@@ -67,8 +67,6 @@ export const Label: SC<LabelOptions> = (options, context) => {
       transform: specifiedTS = '',
       transformOrigin,
       className = '',
-      datum,
-      index,
       ...overrideStyle
     } = value;
     const {
@@ -81,7 +79,10 @@ export const Label: SC<LabelOptions> = (options, context) => {
       .call(applyStyle, defaultStyle)
       .style('text', `${text}`)
       .style('className', `${className} g2-label`)
-      .style('innerHTML', render ? render(text, datum, index) : undefined)
+      .style(
+        'innerHTML',
+        render ? render(text, value.datum, value.index) : undefined,
+      )
       .style(
         'labelTransform',
         `${transform} rotate(${+rotate}) ${specifiedTS}`.trim(),

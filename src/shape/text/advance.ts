@@ -132,6 +132,8 @@ export const Advance = createElement((g) => {
   const {
     id,
     className,
+    // Do not pass className
+    class: _c,
     transform,
     rotate,
     labelTransform,
@@ -179,7 +181,7 @@ export const Advance = createElement((g) => {
       .node();
   } else {
     textShape = select(g)
-      .maybeAppend(id, 'text')
+      .maybeAppend('text', 'text')
       .style('zIndex', 0)
       .style('text', text)
       .call(applyStyle, {

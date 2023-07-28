@@ -11,6 +11,9 @@ export function createNodeGCanvas(width: number, height: number): Canvas {
 
   // Create a renderer, unregister plugin relative to DOM.
   const renderer = new Renderer();
+  // Remove html plugin to ssr.
+  const htmlRendererPlugin = renderer.getPlugin('html-renderer');
+  renderer.unregisterPlugin(htmlRendererPlugin);
   const domInteractionPlugin = renderer.getPlugin('dom-interaction');
   renderer.unregisterPlugin(domInteractionPlugin);
   renderer.registerPlugin(
