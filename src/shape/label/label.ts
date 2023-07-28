@@ -8,7 +8,13 @@ import { Advance } from '../text/advance';
 import { LabelPosition } from './position/default';
 import * as PositionProcessor from './position';
 
-export type LabelOptions = Record<string, any>;
+export type LabelOptions = {
+  /**
+   * Customize label with html string or element.
+   */
+  render: (text: string, datum: any, index: number) => string | HTMLElement;
+  [key: string]: any;
+};
 
 function inferPosition(position: LabelPosition, coordinate: Coordinate) {
   if (position !== undefined) return position;
@@ -27,8 +33,14 @@ function getDefaultStyle(
   // For non-series mark, calc position for label based on
   // position and the bounds of shape.
   const { position } = value;
+  const { render } = options;
   const p = inferPosition(position, coordinate);
-  const t = theme[p === 'inside' ? 'innerLabel' : 'label'];
+  const labelType = render
+    ? 'htmlLabel'
+    : p === 'inside'
+    ? 'innerLabel'
+    : 'label';
+  const t = theme[labelType];
   const v = Object.assign({}, t, value);
   const processor = PositionProcessor[camelCase(p)];
   if (!processor) {
@@ -46,6 +58,7 @@ function getDefaultStyle(
  */
 export const Label: SC<LabelOptions> = (options, context) => {
   const { coordinate, theme } = context;
+  const { render } = options;
   return (points, value) => {
     const {
       text,
@@ -53,6 +66,9 @@ export const Label: SC<LabelOptions> = (options, context) => {
       y,
       transform: specifiedTS = '',
       transformOrigin,
+      className = '',
+      datum,
+      index,
       ...overrideStyle
     } = value;
     const {
@@ -64,6 +80,8 @@ export const Label: SC<LabelOptions> = (options, context) => {
     return select(new Advance())
       .call(applyStyle, defaultStyle)
       .style('text', `${text}`)
+      .style('className', `${className} g2-label`)
+      .style('innerHTML', render ? render(text, datum, index) : undefined)
       .style(
         'labelTransform',
         `${transform} rotate(${+rotate}) ${specifiedTS}`.trim(),

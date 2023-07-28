@@ -1189,6 +1189,7 @@ function createLabelShapeFunction(
       formatter = (d) => `${d}`,
       transform,
       style: abstractStyle,
+      render,
       ...abstractOptions
     } = options;
     const visualOptions = mapObject(
@@ -1197,10 +1198,14 @@ function createLabelShapeFunction(
     );
     const { shape = defaultLabelShape, text, ...style } = visualOptions;
     const f = typeof formatter === 'string' ? format(formatter) : formatter;
-    const value = { ...style, text: f(text, datum, index, abstractData) };
+    const value = {
+      ...style,
+      text: f(text, datum, index, abstractData),
+      datum,
+    };
 
     // Params for create shape.
-    const shapeOptions = { type: `label.${shape}`, ...style };
+    const shapeOptions = { type: `label.${shape}`, render, ...style };
     const shapeFunction = useShape(shapeOptions, shapeContext);
     const defaults = getDefaultsStyle(theme, 'label', shape, 'label');
 

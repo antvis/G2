@@ -1,4 +1,5 @@
 export { alphabetInterval } from './alphabet-interval';
+export { alphabetIntervalHtmlLabel } from './alphabet-interval-html-label';
 export { alphabetIntervalMaxWidth } from './alphabet-interval-max-width';
 export { alphabetIntervalMinWidth } from './alphabet-interval-min-width';
 export { alphabetIntervalMaxWidthTransposed } from './alphabet-interval-max-width-transposed';

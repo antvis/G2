@@ -79,6 +79,7 @@ type ComponentTheme = {
   legendContinuous?: any;
   label?: LabelStyleProps;
   innerLabel?: LabelStyleProps;
+  htmlLabel?: any;
   slider?: any;
   scrollbar?: any;
   title?: any; // @todo
