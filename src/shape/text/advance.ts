@@ -34,6 +34,8 @@ type TextShapeStyleProps = Omit<TextStyleProps, 'text'> &
   BackgroundStyleProps &
   MarkerStyleProps<'startMarker'> &
   MarkerStyleProps<'endMarker'> & {
+    id: string;
+    className?: string;
     x0?: number; // x0 represents the x position of relative point, default is equal to x
     y0?: number;
     coordCenter?: Vector2; // center of coordinate
@@ -44,6 +46,8 @@ type TextShapeStyleProps = Omit<TextStyleProps, 'text'> &
     labelTransform?: string;
     labelTransformOrigin?: string;
     rotate?: number;
+    innerHTML?: string | HTMLElement;
+    text?: string;
   };
 
 function getConnectorPoint(shape: GText | Rect) {
@@ -126,8 +130,10 @@ function inferConnectorPath(
 
 export const Advance = createElement((g) => {
   const {
+    id,
+    className,
     // Do not pass className
-    class: className,
+    class: _c,
     transform,
     rotate,
     labelTransform,
@@ -136,11 +142,13 @@ export const Advance = createElement((g) => {
     y,
     x0 = x,
     y0 = y,
+    text,
     background,
     connector,
     startMarker,
     endMarker,
     coordCenter,
+    innerHTML,
     ...rest
   } = g.attributes as TextShapeStyleProps;
 
@@ -157,26 +165,43 @@ export const Advance = createElement((g) => {
     [+x0, +y0],
     [+x, +y],
   ];
-  const shape1 = select(g)
-    .maybeAppend('text', 'text')
-    .style('zIndex', 0)
-    .call(applyStyle, {
-      textBaseline: 'middle',
-      transform: labelTransform,
-      transformOrigin: labelTransformOrigin,
-      ...rest,
-    })
-    .node();
 
-  const shape2 = select(g)
+  let textShape;
+  // Use html to customize advance text.
+  if (innerHTML) {
+    textShape = select(g)
+      .maybeAppend(id, 'html', className)
+      .style('zIndex', 0)
+      .style('innerHTML', innerHTML)
+      .call(applyStyle, {
+        transform: labelTransform,
+        transformOrigin: labelTransformOrigin,
+        ...rest,
+      })
+      .node();
+  } else {
+    textShape = select(g)
+      .maybeAppend('text', 'text')
+      .style('zIndex', 0)
+      .style('text', text)
+      .call(applyStyle, {
+        textBaseline: 'middle',
+        transform: labelTransform,
+        transformOrigin: labelTransformOrigin,
+        ...rest,
+      })
+      .node();
+  }
+
+  const rect = select(g)
     .maybeAppend('background', 'rect')
     .style('zIndex', -1)
-    .call(applyStyle, inferBackgroundBounds(shape1, padding))
+    .call(applyStyle, inferBackgroundBounds(textShape, padding))
     .call(applyStyle, background ? backgroundStyle : {})
     .node();
 
   const connectorPath = inferConnectorPath(
-    shape2,
+    rect,
     endPoints,
     points,
     coordCenter,

@@ -166,7 +166,11 @@ export class Selection<T = any> {
     }
   }
 
-  maybeAppend(id: string, node: string | (() => G2Element)) {
+  maybeAppend(
+    id: string,
+    node: string | (() => G2Element),
+    className?: string,
+  ) {
     const element = this._elements[0];
     const child = element.getElementById(id) as G2Element;
     if (child) {
@@ -175,6 +179,7 @@ export class Selection<T = any> {
     const newChild =
       typeof node === 'string' ? this.createElement(node) : node();
     newChild.id = id;
+    if (className) newChild.className = className;
     element.appendChild(newChild);
     return new Selection([newChild], null, this._parent, this._document);
   }

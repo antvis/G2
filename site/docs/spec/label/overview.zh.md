@@ -97,6 +97,16 @@ Label 继承 G Text 所有属性样式配置，此外还有 `position`, `selecto
 | backgroundPadding    | 背景框内间距                                     | `number[]` | -      |
 | `background${style}` | 更多背景框样式配置，参考 `RectStyleProps` 属性值 | -          | -      |
 
+数据标签支持使用 HTML 自定义标签，具体配置为：
+
+| 参数                 | 说明                                             | 类型       | 默认值 |
+| -------------------- | ------------------------------------------------ | ---------- | ------ |
+| render               | 返回 HTML string 或者 HTMElement，使用 HTML 自定义复杂标签  | `RenderFunc`   | -      |
+
+```ts
+type RenderFunc = (text: string, datum: object, index: number) => String | HTMLElement;
+```
+
 ## FAQ
 
 ### 支持哪些 position？
@@ -131,6 +141,10 @@ selector 选择器可以对系列数据进行过滤索引。
 }
 ```
 
-### 支持哪些 transform ？
+### 支持哪些 transform？
 
 所有的 transform 有单独具体的文档，具体参考 [Label.transform](/spec/overview#label)。
+
+### 怎么使用 HTML 自定义数据标签？
+
+使用 label 配置手册中的 `render` 即可，具体使用可以参考 [DEMO](/examples/component/label/#htmlLabel)。

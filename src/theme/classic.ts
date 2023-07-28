@@ -377,6 +377,12 @@ export const Classic: TC<ClassicOptions> = (options) => {
       stroke: undefined,
       offset: 0,
     },
+    htmlLabel: {
+      fontSize: 12,
+      opacity: 0.65,
+      color: COLORS.BLACK,
+      fontWeight: 'normal',
+    },
     slider: {
       trackSize: 16,
       trackFill: COLORS.STROKE,
