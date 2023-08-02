@@ -52,7 +52,7 @@
     "@antv/g": "^5.18.6",
     "@antv/g-canvas": "^1.11.5",
     "@antv/g-plugin-dragndrop": "^1.8.3",
-    "@antv/gui": "0.5.0-alpha.26",
+    "@antv/gui": "0.5.0-alpha.28",
     "@antv/path-util": "^3.0.1",
     "@antv/scale": "^0.4.7",
     "@antv/util": "^3.3.2",

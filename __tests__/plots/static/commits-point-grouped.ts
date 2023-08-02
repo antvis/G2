@@ -28,11 +28,5 @@ export function commitsPointGrouped(): G2Spec {
       x: { title: 'time (hours)' },
       y: { title: 'time (day)', grid: true },
     },
-    // viewStyle: {
-    //   viewFill: '#4e79a7',
-    //   plotFill: '#f28e2c',
-    //   mainFill: '#e15759',
-    //   contentFill: '#76b7b2',
-    // },
   };
 }
