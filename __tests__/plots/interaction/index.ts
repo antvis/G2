@@ -65,3 +65,5 @@ export { weatherLineLegendMark } from './weather-line-legend-mark';
 export { countriesAnnotationSliderFilter } from './countries-annotation-slider-filter';
 export { unemploymentAreaLegendFilterPages } from './unemployment-area-legend-filter-pages';
 export { mockAreaSliderFilterLabel } from './mock-area-slider-filter-label';
+export { commitsPointLegendFilter } from './commits-point-legend-filter';
+export { settleWeatherLegendFilter } from './seattle-weather-legend-filter';

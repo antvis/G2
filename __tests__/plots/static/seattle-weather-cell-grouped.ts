@@ -8,26 +8,17 @@ export function settleWeatherCellGrouped(): G2Spec {
       type: 'fetch',
       value: 'data/seattle-weather.csv',
     },
-    transform: [{ type: 'group', color: 'max' }],
     encode: {
       x: (d) => new Date(d.date).getUTCDate(),
       y: (d) => new Date(d.date).getUTCMonth(),
       color: 'temp_max',
     },
-    legend: {
-      color: {
-        layout: {
-          justifyContent: 'flex-start',
-        },
-      },
-    },
-    style: {
-      inset: 0.5,
-    },
+    transform: [{ type: 'group', color: 'max' }],
     scale: {
-      color: {
-        palette: 'gnBu',
-      },
+      x: { compare: (a, b) => +a - +b },
+      y: { compare: (a, b) => +a - +b },
     },
+    legend: { color: { layout: { justifyContent: 'flex-start' } } },
+    style: { inset: 0.5 },
   };
 }

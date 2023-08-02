@@ -1,6 +1,6 @@
 import { DisplayObject, parseColor } from '@antv/g';
 import { Continuous } from '@antv/gui';
-import { Quantile, Quantize, Threshold } from '@antv/scale';
+import { Constant, Quantile, Quantize, Threshold } from '@antv/scale';
 import { format } from 'd3-format';
 import type {
   FlexLayout,
@@ -43,11 +43,8 @@ type Config = {
   color: string[];
   data: any[];
   labelFilter?: (datum: any, index: number) => boolean;
+  domain?: [number, number];
 };
-
-function calculateFinalSize(size: number, defaultSize: number): number {
-  return Math.min(size, defaultSize);
-}
 
 function updateShapeDimensions(
   shape: Shape,
@@ -154,8 +151,14 @@ function getLinearConfig(
 
   const scale = colorScale || createColorScale(definedScale, defaultColor);
   const [min, max] = rangeOf(scale);
+  const [domainMin, domainMax] = rangeOf(
+    [colorScale, sizeScale, opacityScale]
+      .filter((d) => d !== undefined)
+      .find((d) => !(d instanceof Constant)),
+  );
   return {
     ...shape,
+    domain: [domainMin, domainMax],
     data: scale.getTicks().map((value) => ({ value })),
     color: new Array(length).fill(0).map((d, i) => {
       const value = ((max - min) / (length - 1)) * i + min;
@@ -269,6 +272,7 @@ export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
 
     layoutWrapper.appendChild(
       new Continuous({
+        className: 'legend-continuous',
         style: finalStyle,
       }),
     );
