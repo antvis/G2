@@ -1,5 +1,18 @@
 # G2 - Changelog
 
+## [5.0.18](https://github.com/antvis/g2/compare/5.0.17...5.0.18) (2023-08-02)
+
+### Bug Fixes
+
+- **api:** broken links ([#5352](https://github.com/antvis/g2/issues/5352)) ([66c58af](https://github.com/antvis/g2/commit/66c58afc0f7ae90c3f7a5fe23743853a6eb01b77))
+- broken link for wordcloud ([#5353](https://github.com/antvis/g2/issues/5353)) ([b883e5d](https://github.com/antvis/g2/commit/b883e5de0b26e4d58e08e9b30b8d7b88381555e1))
+- **line-xy:** support bandOffset ([#5351](https://github.com/antvis/g2/issues/5351)) ([0851471](https://github.com/antvis/g2/commit/085147125d83296cad75b73a2d1cfc3933860af5))
+
+### Features
+
+- html label supported ([#5354](https://github.com/antvis/g2/issues/5354)) ([64137e1](https://github.com/antvis/g2/commit/64137e1a770af0d7f7d28455861171b34b6fe801))
+- **interaction:** support continuous legend filter ([#5356](https://github.com/antvis/g2/issues/5356)) ([5f866cb](https://github.com/antvis/g2/commit/5f866cbc85ddc2022bd81583e497c6e694374056))
+
 ## [5.0.17](https://github.com/antvis/g2/compare/5.0.16...5.0.17) (2023-07-25)
 
 ### Bug Fixes
