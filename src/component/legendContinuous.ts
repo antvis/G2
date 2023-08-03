@@ -65,10 +65,9 @@ function inferContinuousShape(
   options: LegendContinuousOptions,
   component: GCC,
 ): Shape {
-  const { size, crossPadding = 0 } = options;
+  const { size } = options;
   const shape = inferComponentShape(value, options, component);
-  const finalSize = size - crossPadding * 2;
-  return updateShapeDimensions(shape, finalSize, shape.orientation);
+  return updateShapeDimensions(shape, size, shape.orientation);
 }
 
 function getFormatter(max: number) {
@@ -160,7 +159,7 @@ function getLinearConfig(
     ...shape,
     domain: [domainMin, domainMax],
     data: scale.getTicks().map((value) => ({ value })),
-    color: new Array(length).fill(0).map((d, i) => {
+    color: new Array(Math.floor(length)).fill(0).map((d, i) => {
       const value = ((max - min) / (length - 1)) * i + min;
       const color = scale.map(value);
       const opacity = opacityScale ? opacityScale.map(value) : 1;
@@ -289,5 +288,5 @@ LegendContinuous.props = {
   defaultLength: 200,
   defaultLegendSize: 60,
   defaultPadding: [20, 10], // [horizontal, vertical]
-  defaultCrossPadding: [5, 10], // [horizontal, vertical]
+  defaultCrossPadding: [12, 12], // [horizontal, vertical]
 };

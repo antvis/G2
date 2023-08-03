@@ -5,7 +5,6 @@ import { profit } from '../../data/profit';
 
 export function profitIntervalLegendFilterOrdinal(): G2Spec {
   return {
-    paddingLeft: 60,
     type: 'interval',
     data: profit,
     axis: { x: { animate: false }, y: { labelFormatter: '~s' } },

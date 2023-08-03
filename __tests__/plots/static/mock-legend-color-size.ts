@@ -3,8 +3,7 @@ import { G2Spec } from '../../../src';
 export function mockLegendColorSize(): G2Spec {
   return {
     type: 'legends',
-    padding: 'auto',
-    height: 100,
+    height: 80,
     scale: {
       color: {
         type: 'ordinal',

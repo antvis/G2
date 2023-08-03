@@ -232,7 +232,6 @@ export { ordersLineMissingFieldAutoPaddingUndefined } from './orders-line-missin
 export { peoplePointStackedAutoPaddingNumberLabel } from './people-point-stacked-auto-padding-number-label';
 export { populationIntervalDivergingAutoPaddingUndefinedTitle } from './population-interval-diverging-auto-padding-undefined-title';
 export { tranLineMultiAxesAutoPaddingTickMethod } from './train-line-multi-axes-auto-padding-tick-method';
-export { vaccinesCellScaleRelationAutoPaddingTickFilter } from './vaccines-cell-scale-relation-auto-padding-tick-filter';
 export { marketIntervalMarimekkoAutoPaddingFlex } from './market-interval-marimekko-auto-padding-flex';
 export { aaplIntervalDateEncodeX } from './aapl-interval-date-encode-x';
 export { athletesRectBinLegendStyle } from './athletes-rect-bin-legend-style';

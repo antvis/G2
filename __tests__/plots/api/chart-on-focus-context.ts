@@ -8,7 +8,6 @@ export function chartOnFocusContext(context) {
   container.appendChild(focusContainer);
 
   const focusView = new Chart({
-    theme: 'classic',
     container: focusContainer,
     canvas: canvas1,
   });
@@ -30,7 +29,6 @@ export function chartOnFocusContext(context) {
   container.appendChild(contextContainer);
 
   const contextView = new Chart({
-    theme: 'classic',
     container: contextContainer,
     canvas: canvas2,
   });

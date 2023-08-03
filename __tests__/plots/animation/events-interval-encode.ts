@@ -8,8 +8,6 @@ export function eventsIntervalEncode(): G2Spec {
   return {
     type: 'interval',
     width: 720,
-    paddingTop: 60,
-    paddingLeft: 100,
     data: events,
     coordinate: { transform: [{ type: 'transpose' }] },
     scale: {

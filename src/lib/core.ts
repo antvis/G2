@@ -51,7 +51,7 @@ import {
   Sequential as ScaleSequential,
   Constant as ScaleConstant,
 } from '../scale';
-import { Classic, ClassicDark, Academy } from '../theme';
+import { Classic, ClassicDark, Academy, Light } from '../theme';
 import {
   AxisLinear,
   AxisArc,
@@ -264,6 +264,7 @@ export function corelib() {
     'theme.classic': Classic,
     'theme.classicDark': ClassicDark,
     'theme.academy': Academy,
+    'theme.light': Light,
     'component.axisX': AxisX,
     'component.axisY': AxisY,
     'component.axisRadar': AxisRadar,

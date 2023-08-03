@@ -3,7 +3,6 @@ import { G2Spec } from '../../../src';
 export function mockAxisXY(): G2Spec {
   return {
     type: 'view',
-    padding: 'auto',
     scale: {
       x: {
         type: 'linear',

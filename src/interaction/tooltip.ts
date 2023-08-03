@@ -333,14 +333,17 @@ function hideRuleY(root) {
   }
 }
 
-function updateMarker(root, { data, style, items }) {
+// @todo Fill for composite g component.
+function updateMarker(root, { data, style }) {
   if (root.markers) root.markers.forEach((d) => d.remove());
   const markers = data.map((d) => {
     const [{ color, element }, point] = d;
     const fill =
       color || // encode value
       element.style.fill ||
-      element.style.stroke;
+      element.style.stroke ||
+      '#000';
+
     const shape = new Circle({
       style: {
         cx: point[0],
@@ -609,7 +612,6 @@ export function seriesTooltip(
         const markerStyles = subObject(style, 'marker');
         updateMarker(root, {
           data: filteredSeriesData,
-          items: tooltipData.items,
           style: markerStyles,
         });
       }

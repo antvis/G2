@@ -44,8 +44,6 @@ function inferStyleByAlign(
 const Title = createComponent<TitleStyleProps>({
   render(attributes, container) {
     const {
-      x,
-      y,
       width,
       title,
       subtitle,
@@ -60,7 +58,7 @@ const Title = createComponent<TitleStyleProps>({
     const mainTitle = maybeAppend(container, '.title', 'text')
       .attr('className', 'title')
       .call(applyStyle, {
-        ...inferStyleByAlign(0, y, width, align),
+        ...inferStyleByAlign(0, 0, width, align),
         fontSize: 14,
         textBaseline: 'top',
         text: title,
@@ -106,4 +104,6 @@ TitleComponent.props = {
   defaultPosition: 'top',
   defaultOrder: 2,
   defaultSize: 36,
+  defaultCrossPadding: [20, 20],
+  defaultPadding: [12, 12],
 };

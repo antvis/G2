@@ -4,7 +4,6 @@ import { G2Spec } from '../../../src';
 export async function flarePointCirclePackCustomAutoPadding(): Promise<G2Spec> {
   return {
     type: 'view',
-    padding: 'auto',
     width: 1000,
     height: 1000,
     style: {

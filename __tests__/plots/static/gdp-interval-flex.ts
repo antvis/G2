@@ -4,7 +4,6 @@ export function gdpIntervalFlex(): G2Spec {
   return {
     type: 'interval',
     width: 1000,
-    paddingBottom: 100,
     data: {
       type: 'fetch',
       value: 'data/gdp.csv',
@@ -16,10 +15,6 @@ export function gdpIntervalFlex(): G2Spec {
       y: 'value',
       color: 'country',
     },
-    axis: {
-      x: {
-        labelTransform: 'rotate(90)',
-      },
-    },
+    axis: { x: { labelTransform: 'rotate(90)' } },
   };
 }

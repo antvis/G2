@@ -13,6 +13,7 @@ export function paragraphTextVis(): G2Spec {
     type: 'view',
     width: 640,
     height: 480,
+    marginTop: 30,
     data: paragraph,
     children: [
       {

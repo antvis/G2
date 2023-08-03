@@ -13,7 +13,7 @@ export function titanic2PointPack(): G2Spec {
         },
       ],
     },
-    paddingRight: 70,
+    paddingRight: 80,
     encode: {
       x: 'Class',
       y: 'Sex',

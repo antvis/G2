@@ -4,7 +4,8 @@ export function anscombePointFacetRectRow(): G2Spec {
   return {
     type: 'facetRect',
     width: 928,
-    height: 270,
+    height: 300,
+    paddingLeft: 45,
     paddingBottom: 50,
     data: {
       type: 'fetch',

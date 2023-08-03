@@ -3,7 +3,6 @@ import { G2Spec } from '../../../src';
 export function bodyPointScatterPlotSizeOpacity(): G2Spec {
   return {
     type: 'point',
-    padding: 'auto',
     data: {
       type: 'fetch',
       value: 'data/body.json',

@@ -124,15 +124,13 @@ export function inferComponentShape(
     position = 'top',
     size: userDefinedSize,
     length: userDefinedLength,
-    crossPadding = 0,
   } = options;
   const isHorizontal = ['top', 'bottom', 'center'].includes(position);
   const [bboxSize, bboxLength] = isHorizontal
     ? [bbox.height, bbox.width]
     : [bbox.width, bbox.height];
   const { defaultSize, defaultLength } = component.props;
-  const size0 = userDefinedSize || defaultSize || bboxSize;
-  const size = size0 - crossPadding * 2;
+  const size = userDefinedSize || defaultSize || bboxSize;
   const length = userDefinedLength || defaultLength || bboxLength;
   const orientation = isHorizontal ? 'horizontal' : 'vertical';
   const [width, height] = isHorizontal ? [length, size] : [size, length];

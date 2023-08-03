@@ -16,6 +16,7 @@ export function unemploymentAreaLegendFilterPages(): G2Spec {
       y: 'unemployed',
       color: 'industry',
     },
+    legend: { color: { maxRows: 1 } },
     interaction: { tooltip: false },
   };
 }

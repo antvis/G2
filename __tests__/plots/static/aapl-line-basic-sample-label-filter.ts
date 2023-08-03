@@ -27,7 +27,7 @@ export function aaplLineBasicSampleLabelFilter(): G2Spec {
         },
       },
       y: {
-        labelFilter: (d) => {
+        tickFilter: (d) => {
           return d % 100 === 0;
         },
       },

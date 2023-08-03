@@ -1525,7 +1525,7 @@ function createExitFunction(
 
 function inferTheme(theme: G2ThemeOptions = {}): G2ThemeOptions {
   if (typeof theme === 'string') return { type: theme };
-  const { type = 'classic', ...rest } = theme;
+  const { type = 'light', ...rest } = theme;
   return { ...rest, type };
 }
 
@@ -1570,7 +1570,14 @@ function animateBBox(selection: Selection, extent: [number, number]) {
   const [delay, duration] = extent;
   selection.transition(function (data) {
     const { x, y, width, height } = this.style;
-    const { paddingLeft, paddingTop, innerWidth, innerHeight } = data;
+    const {
+      paddingLeft,
+      paddingTop,
+      innerWidth,
+      innerHeight,
+      marginLeft,
+      marginTop,
+    } = data;
     const keyframes = [
       {
         x,
@@ -1579,8 +1586,8 @@ function animateBBox(selection: Selection, extent: [number, number]) {
         height,
       },
       {
-        x: paddingLeft,
-        y: paddingTop,
+        x: paddingLeft + marginLeft,
+        y: paddingTop + marginTop,
         width: innerWidth,
         height: innerHeight,
       },
@@ -1645,10 +1652,12 @@ function applyClip(selection, clip?: boolean) {
     const {
       paddingTop: y,
       paddingLeft: x,
+      marginLeft: x1,
+      marginTop: y1,
       innerWidth: width,
       innerHeight: height,
     } = data;
-    return new Rect({ style: { x, y, width, height } });
+    return new Rect({ style: { x: x + x1, y: y + y1, width, height } });
   });
 }
 

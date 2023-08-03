@@ -5,7 +5,6 @@ import { SLIDER_CLASS_NAME } from '../../../src/interaction/sliderFilter';
 export function mockAreaSliderFilterLabel(): G2Spec {
   return {
     type: 'area',
-    padding: 'auto',
     data: [
       { year: '1991', value: 15468 },
       { year: '1992', value: 16100 },

@@ -3,7 +3,7 @@ import { Chart } from '../../../src';
 export function chartOnTextClick(context) {
   const { container, canvas } = context;
 
-  const chart = new Chart({ theme: 'classic', container, canvas });
+  const chart = new Chart({ container, canvas });
 
   chart.text().style({
     x: 290, // 像素坐标

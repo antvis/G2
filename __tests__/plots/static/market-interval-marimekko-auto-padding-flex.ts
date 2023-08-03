@@ -5,7 +5,6 @@ export function marketIntervalMarimekkoAutoPaddingFlex(): G2Spec {
     type: 'interval',
     width: 900,
     height: 800,
-    padding: 'auto',
     viewStyle: {
       viewFill: '#4e79a7',
       plotFill: '#f28e2c',

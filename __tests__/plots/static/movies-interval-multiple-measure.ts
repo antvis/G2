@@ -3,7 +3,6 @@ import { G2Spec } from '../../../src';
 export function moviesIntervalMultipleMeasure(): G2Spec {
   return {
     type: 'view',
-    paddingBottom: 150,
     data: {
       type: 'fetch',
       value: 'data/movies.csv',

@@ -77,7 +77,7 @@ export function chartRender3dScatterPlotLegend(context) {
   const Chart = extend(Runtime, { ...corelib(), ...threedlib() });
   const chart = new Chart({
     container,
-    theme: 'classic',
+
     renderer,
     depth: 400,
   });

@@ -11,7 +11,7 @@ export function chartChangeDataFacet(context) {
   const div = document.createElement('div');
   container.appendChild(div);
 
-  const chart = new Chart({ theme: 'classic', container: div, canvas });
+  const chart = new Chart({ container: div, canvas });
 
   const view = chart
     .facetRect()

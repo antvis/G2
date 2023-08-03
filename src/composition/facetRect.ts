@@ -184,7 +184,7 @@ export const setChildren = useOverrideAdaptor<G2ViewTree>(
       layout,
     ) => {
       const { x: scaleX, y: scaleY } = scale;
-      const { paddingLeft, paddingTop } = layout;
+      const { paddingLeft, paddingTop, marginLeft, marginTop } = layout;
       const { domain: domainX } = scaleX.getOptions();
       const { domain: domainY } = scaleY.getOptions();
       const index = indexOf(visualData);
@@ -252,8 +252,9 @@ export const setChildren = useOverrideAdaptor<G2ViewTree>(
             return {
               key: `${key}-${i}`,
               data: newData,
-              x: left + paddingLeft + originX,
-              y: top + paddingTop + originY,
+              margin: 0,
+              x: left + paddingLeft + originX + marginLeft,
+              y: top + paddingTop + originY + marginTop,
               parentKey: viewKey,
               width,
               height,

@@ -12,7 +12,6 @@ export function questionsIntervalDivergingStacked(): G2Spec {
   return {
     type: 'interval',
     coordinate: { transform: [{ type: 'transpose' }] },
-    paddingLeft: 80,
     data: {
       type: 'fetch',
       value: 'data/questions.csv',
@@ -33,5 +32,6 @@ export function questionsIntervalDivergingStacked(): G2Spec {
           ? -d.percentage / 2
           : +d.percentage,
     },
+    axis: { y: { title: 'value' } },
   };
 }

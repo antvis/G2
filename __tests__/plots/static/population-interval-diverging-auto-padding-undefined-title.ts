@@ -3,7 +3,6 @@ import { G2Spec } from '../../../src';
 export function populationIntervalDivergingAutoPaddingUndefinedTitle(): G2Spec {
   return {
     type: 'interval',
-    padding: 'auto',
     viewStyle: {
       viewFill: '#4e79a7',
       plotFill: '#f28e2c',

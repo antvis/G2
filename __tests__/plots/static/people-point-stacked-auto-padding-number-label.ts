@@ -4,7 +4,6 @@ export function peoplePointStackedAutoPaddingNumberLabel(): G2Spec {
   return {
     type: 'view',
     height: 360,
-    padding: 'auto',
     style: {
       viewFill: '#4e79a7',
       plotFill: '#f28e2c',

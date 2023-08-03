@@ -1,5 +1,5 @@
 import { Coordinate } from '@antv/coord';
-import { ascending, group, max, sum } from 'd3-array';
+import { ascending, group, max, min, sum } from 'd3-array';
 import { deepMix } from '@antv/util';
 import { isParallel, isPolar, isRadar, radiusOf } from '../utils/coordinate';
 import { capitalizeFirst, defined } from '../utils/helper';
@@ -23,7 +23,10 @@ import {
   styleOf,
 } from './component';
 import { G2GuideComponentOptions, G2Library, G2View } from './types/options';
-import { isPolar as isPolarOptions } from './coordinate';
+import {
+  isPolar as isPolarOptions,
+  isRadial as isRadarOptions,
+} from './coordinate';
 
 export function processAxisZ(components: G2GuideComponentOptions[]) {
   const axisZ = components.find(({ type }) => type === 'axisZ');
@@ -77,17 +80,17 @@ export function computeLayout(
     x = 0,
     y = 0,
     z = 0,
-    inset = 0,
+    inset = theme.inset ?? 0,
     insetLeft = inset,
     insetTop = inset,
     insetBottom = inset,
     insetRight = inset,
-    margin = 0,
+    margin = theme.margin ?? 0,
     marginLeft = margin,
     marginBottom = margin,
     marginTop = margin,
     marginRight = margin,
-    padding,
+    padding = theme.padding,
     paddingBottom = padding,
     paddingLeft = padding,
     paddingRight = padding,
@@ -107,14 +110,14 @@ export function computeLayout(
     if (diff > 0) return [pl0, pr0];
 
     // Shrink start and end size equally.
-    const half = (viewWidth * (1 - MIN_CONTENT_RATIO)) / 2;
+    const shrinkSize = viewWidth * (1 - MIN_CONTENT_RATIO);
     return [
-      paddingLeft === 'auto' ? half : pl0,
-      paddingRight === 'auto' ? half : pr0,
+      paddingLeft === 'auto' ? (shrinkSize * pl0) / (pl0 + pr0) : pl0,
+      paddingRight === 'auto' ? (shrinkSize * pr0) / (pl0 + pr0) : pr0,
     ];
   };
 
-  const roughPadding = (padding) => (padding === 'auto' ? 30 : padding ?? 30);
+  const roughPadding = (padding) => (padding === 'auto' ? 20 : padding ?? 20);
   const rpt = roughPadding(paddingTop);
   const rpb = roughPadding(paddingBottom);
 
@@ -122,7 +125,7 @@ export function computeLayout(
   const horizontalPadding = computePadding(
     components,
     height - rpt - rpb,
-    [rpt, rpb],
+    [rpt + marginTop, rpb + marginBottom],
     ['left', 'right'],
     options,
     theme,
@@ -137,7 +140,7 @@ export function computeLayout(
   const verticalPadding = computePadding(
     components,
     iw,
-    [pl, pr],
+    [pl + marginLeft, pr + marginRight],
     ['bottom', 'top'],
     options,
     theme,
@@ -172,6 +175,8 @@ export function computeLayout(
   };
 }
 
+// For composite mark with a layout algorithm and without axis,
+// such as worldcloud, circlepack.
 export function computeRoughPlotSize(options: G2View) {
   const {
     height,
@@ -181,7 +186,7 @@ export function computeRoughPlotSize(options: G2View) {
     paddingRight = padding,
     paddingTop = padding,
     paddingBottom = padding,
-    margin = 0,
+    margin = 16,
     marginLeft = margin,
     marginRight = margin,
     marginTop = margin,
@@ -195,7 +200,7 @@ export function computeRoughPlotSize(options: G2View) {
 
   // @todo Add this padding to theme.
   // 30 is default size for padding, which defined in runtime.
-  const maybeAuto = (padding) => (padding === 'auto' ? 30 : padding);
+  const maybeAuto = (padding) => (padding === 'auto' ? 20 : padding);
 
   const finalWidth =
     width -
@@ -225,7 +230,9 @@ function computeInset(
   library: G2Library,
 ) {
   const { coordinates } = options;
-  if (!isPolarOptions(coordinates)) return options;
+  if (!isPolarOptions(coordinates) && !isRadarOptions(coordinates)) {
+    return options;
+  }
 
   // Filter axis.
   const axes = components.filter(
@@ -289,7 +296,7 @@ function computePadding(
 ) {
   const positionComponents = group(components, (d) => d.position);
   const {
-    padding,
+    padding = theme.padding,
     paddingLeft = padding,
     paddingRight = padding,
     paddingBottom = padding,
@@ -334,17 +341,34 @@ function computePadding(
       }
     };
 
+    const isHorizontal = position === 'bottom' || position === 'top';
+
+    // !!!Note
+    // Mute axis component padding.
+    // The first axis do not has padding.
+    const minOrder = min(components, (d) => d.order);
+    const axes = components.filter(
+      (d) => (d.type as string).startsWith('axis') && d.order == minOrder,
+    );
+    if (axes.length) axes[0].crossPadding = 0;
+
     // Specified padding.
     if (typeof value === 'number') {
       components.forEach(defaultSizeOf);
     } else {
       // Compute padding dynamically.
       if (components.length === 0) {
-        layout[key] = 30;
+        layout[key] = 0;
       } else {
-        const grouped = groupComponents(components, crossSize);
+        const size = isHorizontal
+          ? crossSize + crossPadding[0] + crossPadding[1]
+          : crossSize;
+        const grouped = groupComponents(components, size);
         grouped.forEach(autoSizeOf);
-        const totalSize = grouped.reduce((sum, { size }) => sum + size, 0);
+        const totalSize = grouped.reduce(
+          (sum, { size, crossPadding = 12 }) => sum + size + crossPadding,
+          0,
+        );
         layout[key] = totalSize;
       }
     }
@@ -513,6 +537,7 @@ function createSection({
   const pt = paddingTop + marginTop;
   const pr = paddingRight + marginRight;
   const pb = paddingBottom + marginBottom;
+  const plotWidth = width - marginLeft - marginRight;
 
   const centerSection: SectionArea = [
     pl + insetLeft,
@@ -525,9 +550,29 @@ function createSection({
   ];
 
   const xySection: Section = {
-    top: [pl, 0, innerWidth, pt, 'vertical', true, ascending],
+    top: [
+      pl,
+      0,
+      innerWidth,
+      pt,
+      'vertical',
+      true,
+      ascending,
+      marginLeft,
+      plotWidth,
+    ],
     right: [width - pr, pt, pr, innerHeight, 'horizontal', false, ascending],
-    bottom: [pl, height - pb, innerWidth, pb, 'vertical', false, ascending],
+    bottom: [
+      pl,
+      height - pb,
+      innerWidth,
+      pb,
+      'vertical',
+      false,
+      ascending,
+      marginLeft,
+      plotWidth,
+    ],
     left: [0, pt, pl, innerHeight, 'horizontal', true, ascending],
     'top-left': [pl, 0, innerWidth, pt, 'vertical', true, ascending],
     'top-right': [pl, 0, innerWidth, pt, 'vertical', true, ascending],
@@ -677,7 +722,7 @@ function placeAxisParallelVertical(
 
   // Create a high dimension vector and map to a list of two-dimension points.
   // [0, 0, 0] -> [x0, 0, x1, 0, x2, 0]
-  const vector = new Array(components.length + 1).fill(0);
+  const vector = new Array(components.length).fill(0);
   const points = coordinate.map(vector);
 
   // Extract x of each points.
@@ -702,7 +747,7 @@ function placeAxisParallelHorizontal(
 
   // Create a high dimension vector and map to a list of two-dimension points.
   // [0, 0, 0] -> [height, y0, height, y1, height, y2]
-  const vector = new Array(components.length + 1).fill(0);
+  const vector = new Array(components.length).fill(0);
   const points = coordinate.map(vector);
 
   // Extract y of each points.
@@ -716,8 +761,6 @@ function placeAxisParallelHorizontal(
     const height = Y[i + 1] - y;
     component.bbox = { x, y, width, height };
   }
-
-  // override style
 }
 
 function placeAxisRadar(
@@ -741,7 +784,8 @@ function placePaddingArea(
   coordinate: Coordinate,
   area: SectionArea,
 ) {
-  const [x, y, width, height, direction, reverse, comparator] = area;
+  const [x, y, width, height, direction, reverse, comparator, minX, totalSize] =
+    area;
   const [
     mainStartKey,
     mainStartValue,
@@ -760,20 +804,35 @@ function placePaddingArea(
   // The smaller the order, the closer to center.
   components.sort((a, b) => comparator?.(a.order, b.order));
 
+  const isLarge = (type) =>
+    type === 'title' || type === 'group' || type.startsWith('legend');
+
+  const crossSizeOf = (type, small, bigger) => {
+    if (bigger === undefined) return small;
+    if (isLarge(type)) return bigger;
+    return small;
+  };
+
+  const crossStartOf = (type, x, minX) => {
+    if (minX === undefined) return x;
+    if (isLarge(type)) return minX;
+    return x;
+  };
+
   const startValue = reverse ? mainStartValue + mainSizeValue : mainStartValue;
   for (let i = 0, start = startValue; i < components.length; i++) {
     const component = components[i];
-    const { crossPadding = 0 } = component;
+    const { crossPadding = 0, type } = component;
     const { size } = component;
     component.bbox = {
       [mainStartKey]: reverse
-        ? start - size + crossPadding
+        ? start - size - crossPadding
         : start + crossPadding,
-      [crossStartKey]: crossStartValue,
-      [mainSizeKey]: size - crossPadding * 2,
-      [crossSizeKey]: crossSizeValue,
+      [crossStartKey]: crossStartOf(type, crossStartValue, minX),
+      [mainSizeKey]: size,
+      [crossSizeKey]: crossSizeOf(type, crossSizeValue, totalSize),
     };
-    start += size * (reverse ? -1 : 1);
+    start += (size + crossPadding) * (reverse ? -1 : 1);
   }
 
   // Place group components.

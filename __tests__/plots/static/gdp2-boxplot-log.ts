@@ -3,7 +3,6 @@ import { G2Spec } from '../../../src';
 export function gdp2BoxplotLog(): G2Spec {
   return {
     type: 'boxplot',
-    paddingLeft: 60,
     data: {
       type: 'fetch',
       value: 'data/gdp2.csv',

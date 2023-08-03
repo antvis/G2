@@ -8,7 +8,6 @@ export async function indicesLineItems(): Promise<G2Spec> {
   return {
     type: 'view',
     width: 800,
-    paddingLeft: 50,
     children: [
       {
         type: 'line',

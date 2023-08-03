@@ -3,7 +3,6 @@ import { G2Spec } from '../../../src';
 export function alphabetIntervalTitleAuto(): G2Spec {
   return {
     type: 'interval',
-    padding: 'auto',
     title: {
       title: 'Use frequency of keyboard keys',
       subtitle: 'The mostest frequency letter are E, T, A.',

@@ -3,7 +3,6 @@ import { G2Spec } from '../../../src';
 export function mockPointLogTicksAutoPaddingTickCount(): G2Spec {
   return {
     type: 'point',
-    padding: 'auto',
     data: [
       [5, 0.09459459],
       [10, 0.22972973],

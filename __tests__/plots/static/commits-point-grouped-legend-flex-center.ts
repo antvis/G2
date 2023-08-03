@@ -5,7 +5,6 @@ export function commitsPointGroupedLegendFlexCenter(): G2Spec {
     type: 'point',
     height: 300,
     inset: 10,
-    padding: 'auto',
     frame: true,
     data: {
       type: 'fetch',

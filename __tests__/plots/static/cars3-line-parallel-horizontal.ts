@@ -13,6 +13,8 @@ export function cars3LineParallelHorizontal(): G2Spec {
   return {
     type: 'line',
     width: 800,
+    paddingLeft: 30,
+    paddingRight: 30,
     data: {
       type: 'fetch',
       value: 'data/cars3.csv',

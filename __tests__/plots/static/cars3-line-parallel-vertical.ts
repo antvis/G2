@@ -13,6 +13,7 @@ export function cars3LineParallelVertical(): G2Spec {
   return {
     type: 'line',
     height: 800,
+    paddingBottom: 30,
     data: {
       type: 'fetch',
       value: 'data/cars3.csv',
@@ -41,6 +42,7 @@ export function cars3LineParallelVertical(): G2Spec {
         size: 50,
         length: 300,
         labelSpacing: 0,
+        crossPadding: 20,
       },
     },
     axis: Object.fromEntries(

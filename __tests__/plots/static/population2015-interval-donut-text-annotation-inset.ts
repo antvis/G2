@@ -4,6 +4,7 @@ export function population2015IntervalDonutTextAnnotationInset(): G2Spec {
   return {
     type: 'view',
     height: 640,
+    padding: 0,
     inset: 50,
     coordinate: { type: 'theta', innerRadius: 0.6 },
     style: {
@@ -49,8 +50,8 @@ export function population2015IntervalDonutTextAnnotationInset(): G2Spec {
         style: {
           text: 'chart',
           // Absolute position.
-          x: 290,
-          y: 320,
+          x: 640 / 2 - 16,
+          y: 360,
           fontSize: 20,
           textAlign: 'center',
           fontWeight: 'bold',

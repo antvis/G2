@@ -8,14 +8,9 @@ export async function indicesLineChartIndexSeries(): Promise<G2Spec> {
   return {
     type: 'line',
     width: 800,
-    paddingLeft: 50,
     data,
-    scale: {
-      y: { type: 'log' },
-    },
-    axis: {
-      y: { labelAutoRotate: false },
-    },
+    scale: { y: { type: 'log' } },
+    axis: { y: { labelAutoRotate: false } },
     legend: false,
     encode: {
       x: 'Date',

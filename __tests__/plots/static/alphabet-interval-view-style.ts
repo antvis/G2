@@ -16,6 +16,7 @@ export function alphabetIntervalViewStyle(): G2Spec {
         },
         axis: {
           y: { labelFormatter: '.0%' },
+          x: false,
         },
         encode: {
           x: 'letter',

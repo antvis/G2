@@ -5,8 +5,8 @@ export function penguinsPointRepeatMatrix(): G2Spec {
     type: 'repeatMatrix',
     width: 800,
     height: 800,
-    paddingLeft: 60,
-    paddingBottom: 60,
+    paddingLeft: 70,
+    paddingBottom: 70,
     data: {
       type: 'fetch',
       value: 'data/penguins.csv',

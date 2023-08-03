@@ -1,5 +1,6 @@
 import { Slider as SliderComponent } from '@antv/gui';
 import { format } from 'd3-format';
+import { DisplayObject } from '@antv/g';
 import { isTranspose } from '../utils/coordinate';
 import { GuideComponentComponent as GCC } from '../runtime';
 import { invert } from '../utils/scale';
@@ -62,7 +63,7 @@ export const Slider: GCC<SliderOptions> = (options) => {
         ...style,
         ...rest,
       }),
-    });
+    }) as unknown as DisplayObject;
   };
 };
 
@@ -70,4 +71,6 @@ Slider.props = {
   defaultPosition: 'bottom',
   defaultSize: 24,
   defaultOrder: 1,
+  defaultCrossPadding: [12, 12],
+  defaultPadding: [12, 12],
 };

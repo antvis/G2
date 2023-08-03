@@ -4,7 +4,6 @@ export function alphabetIntervalAutoRotate(): G2Spec {
   return {
     type: 'interval',
     width: 800,
-    padding: 'auto',
     transform: [{ type: 'sortX', by: 'y', reverse: true }],
     data: {
       type: 'fetch',

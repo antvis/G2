@@ -3,6 +3,7 @@ import { G2Spec } from '../../../src';
 export function indicesLineChartScaleRelations(): G2Spec {
   return {
     type: 'line',
+    insetRight: 20,
     data: {
       type: 'fetch',
       value: 'data/indices.csv',

@@ -5,7 +5,6 @@ export function provincesLineGroupName() {
   return {
     type: 'line',
     data: provinces,
-    paddingLeft: 60,
     encode: {
       x: (d) => d.idx + '',
       y: 'number',

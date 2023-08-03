@@ -4,7 +4,6 @@ import { orders } from '../../data/orders';
 export function ordersLineMissingFieldAutoPaddingUndefined(): G2Spec {
   return {
     type: 'line',
-    padding: 'auto',
     data: orders,
     encode: {
       x: 'hour',

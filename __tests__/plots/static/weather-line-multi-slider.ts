@@ -5,7 +5,6 @@ export function weatherLineMultiSlider(): G2Spec {
   return {
     type: 'view',
     data: weather,
-    padding: 'auto',
     children: [
       {
         type: 'line',
@@ -47,7 +46,7 @@ export function weatherLineMultiSlider(): G2Spec {
             titleFill: '#5470C6',
           },
         },
-        slider: { y: { size: 40 } },
+        slider: { y: {} },
       },
       {
         type: 'line',

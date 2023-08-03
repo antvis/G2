@@ -24,7 +24,6 @@ export function chartTooltipMultiChart(context) {
   container.appendChild(view0Container);
 
   const view0 = new Chart({
-    theme: 'classic',
     container: view0Container,
     canvas: canvas1,
   });
@@ -38,7 +37,6 @@ export function chartTooltipMultiChart(context) {
   container.appendChild(view1Container);
 
   const view1 = new Chart({
-    theme: 'classic',
     container: view1Container,
     canvas: canvas2,
   });

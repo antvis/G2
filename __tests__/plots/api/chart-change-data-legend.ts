@@ -4,7 +4,6 @@ export function chartChangeDataLegend(context) {
   const { container, canvas } = context;
 
   const chart = new Chart({
-    theme: 'classic',
     container,
     canvas,
   });
@@ -21,7 +20,6 @@ export function chartChangeDataLegend(context) {
   ];
 
   chart.options({
-    theme: 'classic',
     type: 'interval',
     data,
     encode: {

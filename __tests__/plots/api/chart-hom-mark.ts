@@ -25,7 +25,7 @@ function HOMMark(options) {
 export function chartHOMMark(context) {
   const { container, canvas } = context;
 
-  const chart = new Chart({ theme: 'classic', container, canvas });
+  const chart = new Chart({ container, canvas });
 
   chart.data([
     { genre: 'Sports', sold: 275 },

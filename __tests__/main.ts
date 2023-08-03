@@ -161,7 +161,7 @@ function createSpecRender(object) {
       const renderChart = mounted ? renderToMountedElement : render;
       before?.();
       const node = renderChart(
-        { theme: 'classic', ...options },
+        options,
         // @ts-ignore
         { canvas, library: stdlib() },
         () => after?.(),

@@ -7,7 +7,6 @@ export function profitIntervalSliderFilter(): G2Spec {
   return {
     type: 'interval',
     data: profit,
-    paddingLeft: 100,
     encode: {
       x: 'month',
       y: ['end', 'start'],

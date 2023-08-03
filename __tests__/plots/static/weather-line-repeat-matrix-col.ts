@@ -6,7 +6,7 @@ export function weatherLineRepeatMatrixCol(): G2Spec {
     width: 300,
     height: 720,
     paddingLeft: 50,
-    paddingBottom: 60,
+    paddingBottom: 50,
     data: {
       type: 'fetch',
       value: 'data/weather.csv',

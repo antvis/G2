@@ -13,7 +13,6 @@ export function chartRenderUpdateAttributes(context) {
   container.appendChild(wrapperDiv);
 
   const chart = new Chart({
-    theme: 'classic',
     container: wrapperDiv,
     canvas,
   });

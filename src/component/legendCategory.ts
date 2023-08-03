@@ -2,12 +2,10 @@ import type { DisplayObject } from '@antv/g';
 import { Category } from '@antv/gui';
 import { last } from '@antv/util';
 import { format } from 'd3-format';
-import { Identity, Point } from '@antv/scale';
+import { Identity } from '@antv/scale';
 import type {
   FlexLayout,
-  G2Library,
   G2MarkState,
-  G2Theme,
   GuideComponentComponent as GCC,
   GuideComponentOrientation as GCO,
   GuideComponentPosition as GCP,
@@ -244,6 +242,6 @@ LegendCategory.props = {
   defaultPosition: 'top',
   defaultOrder: 1,
   defaultSize: 40,
-  defaultPadding: [20, 10], // [horizontal, vertical]
-  defaultCrossPadding: [5, 10], // [horizontal, vertical]
+  defaultCrossPadding: [12, 12],
+  defaultPadding: [12, 12],
 };

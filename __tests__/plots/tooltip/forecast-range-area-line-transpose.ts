@@ -10,7 +10,6 @@ export function forecastRangeAreaLineTranspose(): G2Spec {
     },
     height: 800,
     width: 540,
-    paddingLeft: 60,
     coordinate: { transform: [{ type: 'transpose' }] },
     encode: { x: (d) => new Date(d[0]) },
     interaction: { tooltip: true },

@@ -9,7 +9,6 @@ export function chartOptions(context) {
   });
 
   chart.options({
-    theme: 'classic',
     type: 'line',
     clip: true,
     title: '标题',

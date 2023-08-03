@@ -4,7 +4,7 @@ import { Chart, stdlib, ChartEvent } from '../../../src';
 
 const TEST_OPTIONS = {
   type: 'interval',
-  theme: 'classic',
+
   encode: { x: 'genre', y: 'sold' },
   data: [
     { genre: 'Sports', sold: 275 },
@@ -17,10 +17,10 @@ const TEST_OPTIONS = {
 
 describe('Chart', () => {
   it('Chart() should have expected defaults.', () => {
-    const chart = new Chart({ theme: 'classic' });
+    const chart = new Chart({});
     expect(chart.type).toBe('view');
     expect(chart.parentNode).toBeNull();
-    expect(chart.value).toEqual({ theme: 'classic', key: undefined });
+    expect(chart.value).toEqual({ key: undefined });
     expect(chart['_container'].nodeName).toBe('DIV');
     expect(chart['_trailing']).toBe(false);
     expect(chart['_rendering']).toBe(false);
@@ -32,7 +32,7 @@ describe('Chart', () => {
 
   it('Chart({...}) should support HTML container.', () => {
     const container = document.createElement('div');
-    const chart = new Chart({ theme: 'classic', container });
+    const chart = new Chart({ container });
     expect(chart['_container']).toBe(container);
   });
 
@@ -40,12 +40,12 @@ describe('Chart', () => {
     const div = document.createElement('div');
     div.setAttribute('id', 'root');
     document.body.appendChild(div);
-    const chart = new Chart({ theme: 'classic', container: 'root' });
+    const chart = new Chart({ container: 'root' });
     expect(chart['_container']).toBe(div);
   });
 
   it('Chart({...}) should support undefined container.', () => {
-    const chart = new Chart({ theme: 'classic' });
+    const chart = new Chart({});
     const defaultContainer = chart['_container'];
     expect(defaultContainer.nodeName).toBe('DIV');
     expect(defaultContainer.parentNode).toBeNull();
@@ -53,25 +53,23 @@ describe('Chart', () => {
 
   it('Chart({...}) should override default value.', () => {
     const chart = new Chart({
-      theme: 'classic',
       data: [1, 2, 3],
       key: 'chart',
     });
     expect(chart.value).toEqual({
       data: [1, 2, 3],
       key: 'chart',
-      theme: 'classic',
     });
   });
 
   it('chart.getContainer() should return container.', () => {
     const container = document.createElement('div');
-    const chart = new Chart({ theme: 'classic', container });
+    const chart = new Chart({ container });
     expect(chart.getContainer()).toBe(container);
   });
 
   it('chart.[attr](...) should specify options by API.', () => {
-    const chart = new Chart({ theme: 'classic' });
+    const chart = new Chart({});
     chart
       .data([1, 2, 3])
       .labelTransform({ type: 'overlapDodgeY' })
@@ -96,7 +94,7 @@ describe('Chart', () => {
   });
 
   it('chart.nodeName() should return expected node.', () => {
-    const chart = new Chart({ theme: 'classic' });
+    const chart = new Chart({});
     expect(chart.interval().type).toBe('interval');
     expect(chart.rect().type).toBe('rect');
     expect(chart.point().type).toBe('point');
@@ -166,7 +164,7 @@ describe('Chart', () => {
   });
 
   it('chart.container() should use last node as root node.', () => {
-    const chart = new Chart({ theme: 'classic' });
+    const chart = new Chart({});
     chart.view();
     chart.spaceLayer();
     expect(chart.spaceLayer().type).toBe('spaceLayer');
@@ -174,7 +172,6 @@ describe('Chart', () => {
 
   it('chart.container() should set layout options for root node.', () => {
     const chart = new Chart({
-      theme: 'classic',
       width: 100,
       height: 120,
       padding: 0,
@@ -197,7 +194,7 @@ describe('Chart', () => {
     chart.spaceLayer();
     expect(chart.options()).toEqual({
       type: 'spaceLayer',
-      theme: 'classic',
+
       width: 100,
       height: 120,
       padding: 0,
@@ -220,55 +217,54 @@ describe('Chart', () => {
   });
 
   it('chart.container() should return expected container.', () => {
-    const chart = new Chart({ theme: 'classic' });
+    const chart = new Chart({});
     expect(chart.view().type).toBe('view');
-    expect(chart.options()).toEqual({ type: 'view', theme: 'classic' });
+    expect(chart.options()).toEqual({ type: 'view' });
     expect(chart.spaceLayer().type).toBe('spaceLayer');
-    expect(chart.options()).toEqual({ type: 'spaceLayer', theme: 'classic' });
+    expect(chart.options()).toEqual({ type: 'spaceLayer' });
     expect(chart.spaceFlex().type).toBe('spaceFlex');
-    expect(chart.options()).toEqual({ type: 'spaceFlex', theme: 'classic' });
+    expect(chart.options()).toEqual({ type: 'spaceFlex' });
     expect(chart.facetRect().type).toBe('facetRect');
-    expect(chart.options()).toEqual({ type: 'facetRect', theme: 'classic' });
+    expect(chart.options()).toEqual({ type: 'facetRect' });
     expect(chart.repeatMatrix().type).toBe('repeatMatrix');
-    expect(chart.options()).toEqual({ type: 'repeatMatrix', theme: 'classic' });
+    expect(chart.options()).toEqual({ type: 'repeatMatrix' });
     expect(chart.facetCircle().type).toBe('facetCircle');
-    expect(chart.options()).toEqual({ type: 'facetCircle', theme: 'classic' });
+    expect(chart.options()).toEqual({ type: 'facetCircle' });
     expect(chart.timingKeyframe().type).toBe('timingKeyframe');
     expect(chart.options()).toEqual({
       type: 'timingKeyframe',
-      theme: 'classic',
     });
   });
 
   it('chart.options() should return view tree.', () => {
-    const chart = new Chart({ theme: 'classic' });
+    const chart = new Chart({});
     chart.interval();
     chart.point();
     expect(chart.options()).toEqual({
       type: 'view',
-      theme: 'classic',
+
       children: [{ type: 'interval' }, { type: 'point' }],
     });
   });
 
   it('chart.options(options) should handle date object.', () => {
-    const chart = new Chart({ theme: 'classic' });
+    const chart = new Chart({});
     const date = new Date();
     chart.cell().data([{ date }]);
     expect(chart.options()).toEqual({
       type: 'view',
-      theme: 'classic',
+
       children: [{ type: 'cell', data: [{ date }] }],
     });
   });
 
   it('chart.options(options) should return this chart instance.', () => {
-    const chart = new Chart({ theme: 'classic' });
+    const chart = new Chart({});
     expect(chart.options({ width: 800 })).toBe(chart);
   });
 
   it('chart.title() should set title options.', () => {
-    const chart = new Chart({ theme: 'classic' });
+    const chart = new Chart({});
 
     chart.title('This is a title.');
     expect(chart.options().title).toEqual('This is a title.');
@@ -284,28 +280,28 @@ describe('Chart', () => {
   });
 
   it('chart.nodeName() should build view tree.', () => {
-    const chart = new Chart({ theme: 'classic' });
+    const chart = new Chart({});
     chart.interval();
     chart.point();
     expect(chart.options()).toEqual({
       type: 'view',
-      theme: 'classic',
+
       children: [{ type: 'interval' }, { type: 'point' }],
     });
   });
 
   it('chart.call(chart => chart.nodeName()) should build view tree.', () => {
-    const chart = new Chart({ theme: 'classic' });
+    const chart = new Chart({});
     chart.call((chart) => chart.interval()).call((chart) => chart.point());
     expect(chart.options()).toEqual({
       type: 'view',
-      theme: 'classic',
+
       children: [{ type: 'interval' }, { type: 'point' }],
     });
   });
 
   it('chart.nodeName() should build nested view tree.', () => {
-    const chart = new Chart({ theme: 'classic' });
+    const chart = new Chart({});
     chart
       .spaceFlex()
       .call((node) => node.interval())
@@ -317,7 +313,7 @@ describe('Chart', () => {
       );
     expect(chart.options()).toEqual({
       type: 'spaceFlex',
-      theme: 'classic',
+
       children: [
         { type: 'interval' },
         { type: 'spaceFlex', children: [{ type: 'line' }, { type: 'point' }] },
@@ -326,7 +322,7 @@ describe('Chart', () => {
   });
 
   it('chart.getContext() should return rendering context.', () => {
-    const chart = new Chart({ theme: 'classic' });
+    const chart = new Chart({});
 
     chart.data([
       { genre: 'Sports', sold: 275 },
@@ -350,7 +346,7 @@ describe('Chart', () => {
   });
 
   it('chart.render() should return promise.', (done) => {
-    const chart = new Chart({ theme: 'classic' });
+    const chart = new Chart({});
 
     chart.data([
       { genre: 'Sports', sold: 275 },
@@ -374,7 +370,7 @@ describe('Chart', () => {
 
   it('chart renderer SVG and Canvas', () => {
     // Default is CanvasRenderer.
-    let chart = new Chart({ theme: 'classic' });
+    let chart = new Chart({});
 
     chart.data([
       { genre: 'Sports', sold: 275 },
@@ -387,7 +383,7 @@ describe('Chart', () => {
     expect(chart.getContainer().querySelector('canvas')).not.toBeNull();
 
     // Use SVGRenderer.
-    chart = new Chart({ theme: 'classic', renderer: new SVGRenderer() });
+    chart = new Chart({ renderer: new SVGRenderer() });
 
     chart.data([
       { genre: 'Sports', sold: 275 },
@@ -401,7 +397,7 @@ describe('Chart', () => {
   });
 
   it('chart.on(event, callback) should register chart event.', (done) => {
-    const chart = new Chart({ theme: 'classic' });
+    const chart = new Chart({});
 
     chart.data([
       { genre: 'Sports', sold: 275 },
@@ -435,7 +431,7 @@ describe('Chart', () => {
   });
 
   it('chart.once(event, callback) should call callback once.', () => {
-    const chart = new Chart({ theme: 'classic' });
+    const chart = new Chart({});
     let count = 0;
     chart.once('foo', () => count++);
     chart.emit('foo');
@@ -444,7 +440,7 @@ describe('Chart', () => {
   });
 
   it('chart.emit(event, ...params) should emit event.', () => {
-    const chart = new Chart({ theme: 'classic' });
+    const chart = new Chart({});
     let sum = 0;
     chart.on('foo', (a, b) => (sum = a + b));
     chart.emit('foo', 1, 2);
@@ -452,7 +448,7 @@ describe('Chart', () => {
   });
 
   it('chart.off(event) should remove event.', () => {
-    const chart = new Chart({ theme: 'classic' });
+    const chart = new Chart({});
     let count = 0;
     chart.on('foo', () => count++);
     chart.off('foo');
@@ -463,7 +459,6 @@ describe('Chart', () => {
   it('chart.render() should be called after window resize.', (done) => {
     const div = document.createElement('div');
     const chart = new Chart({
-      theme: 'classic',
       container: div,
       autoFit: true,
     });
@@ -505,7 +500,7 @@ describe('Chart', () => {
   });
 
   it('chart.getInstance() should return internal instance after chart render.', async () => {
-    const chart = new Chart({ theme: 'classic' });
+    const chart = new Chart({});
 
     chart.data([
       { genre: 'Sports', sold: 275 },
@@ -543,7 +538,7 @@ describe('Chart', () => {
   });
 
   it('chart.destroy() should destroy group', async () => {
-    const chart = new Chart({ theme: 'classic' });
+    const chart = new Chart({});
     chart.data([
       { genre: 'Sports', sold: 275 },
       { genre: 'Strategy', sold: 115 },
@@ -565,7 +560,7 @@ describe('Chart', () => {
   });
 
   it('chart.clear() should clear group.', async () => {
-    const chart = new Chart({ theme: 'classic' });
+    const chart = new Chart({});
     chart.data([
       { genre: 'Sports', sold: 275 },
       { genre: 'Strategy', sold: 115 },
@@ -588,7 +583,6 @@ describe('Chart', () => {
 
   it('chart.clear() should preserve some global options.', () => {
     const globals = {
-      theme: 'classic',
       autoFit: true,
       width: 300,
       height: 200,
@@ -636,7 +630,7 @@ describe('Chart', () => {
       { genre: 'Shooter', sold: 350 },
       { genre: 'Other', sold: 150 },
     ];
-    const chart = new Chart({ theme: 'classic' });
+    const chart = new Chart({});
     const interval = chart
       .interval()
       .data(data)
@@ -664,7 +658,7 @@ describe('Chart', () => {
   });
 
   it('new Chart({ autoFit: true }) should not set width and height of chart options.', async () => {
-    const chart = new Chart({ theme: 'classic', autoFit: true });
+    const chart = new Chart({ autoFit: true });
     chart
       .interval()
       .data([
@@ -688,7 +682,7 @@ describe('Chart', () => {
     });
     chart.options({
       autoFit: true,
-      theme: 'classic',
+
       type: 'interval',
       encode: {
         x: 'genre',
@@ -721,7 +715,6 @@ describe('Chart', () => {
     div.style.height = '400px';
 
     const chart = new Chart({
-      theme: 'classic',
       container: div,
       autoFit: true,
     });

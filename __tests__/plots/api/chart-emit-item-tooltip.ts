@@ -18,7 +18,6 @@ export function chartEmitItemTooltip(context) {
   container.appendChild(p);
 
   const chart = new Chart({
-    theme: 'classic',
     container: wrapperDiv,
     canvas,
   });

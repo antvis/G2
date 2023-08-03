@@ -14,7 +14,6 @@ export function alphabetInterval(): G2Spec {
     encode: {
       x: 'letter',
       y: 'frequency',
-      color: 'steelblue',
     },
   };
 }

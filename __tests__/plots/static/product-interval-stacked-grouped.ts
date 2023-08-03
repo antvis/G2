@@ -3,7 +3,6 @@ import { G2Spec } from '../../../src';
 export function productIntervalStackedGrouped(): G2Spec {
   return {
     type: 'interval',
-    paddingLeft: 60,
     data: {
       type: 'fetch',
       value: 'data/product.csv',

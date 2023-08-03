@@ -39,7 +39,7 @@ export function population2015IntervalDonutImageAnnotation(): G2Spec {
         type: 'image',
         style: {
           src: 'data/chrome.png',
-          x: 290,
+          x: 302,
           y: 400,
           width: 50,
           height: 50,

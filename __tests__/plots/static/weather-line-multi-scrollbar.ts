@@ -5,7 +5,7 @@ export function weatherLineMultiScrollbar(): G2Spec {
   return {
     type: 'view',
     data: weather,
-    paddingLeft: 180,
+    clip: true,
     children: [
       {
         type: 'line',

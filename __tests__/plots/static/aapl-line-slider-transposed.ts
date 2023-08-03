@@ -4,7 +4,6 @@ import { G2Spec } from '../../../src';
 export function aaplLineSliderTransposed(): G2Spec {
   return {
     type: 'line',
-    paddingLeft: 80,
     data: {
       type: 'fetch',
       value: 'data/aapl.csv',
@@ -15,8 +14,8 @@ export function aaplLineSliderTransposed(): G2Spec {
       y: 'close',
     },
     axis: {
-      x: { title: false, size: 28 },
-      y: { title: false, size: 36 },
+      x: { title: false },
+      y: { title: false },
     },
     slider: {
       x: {

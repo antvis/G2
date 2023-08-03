@@ -14,7 +14,7 @@ export async function barleyPointFacetRectCol(): Promise<G2Spec> {
     },
     paddingLeft: 130,
     paddingRight: 120,
-    paddingBottom: 60,
+    paddingBottom: 50,
     scale: {
       y: {
         domain: groupSort<any, any>(

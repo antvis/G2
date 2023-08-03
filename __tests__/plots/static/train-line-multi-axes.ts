@@ -14,9 +14,6 @@ export async function tranLineMultiAxes(): Promise<G2Spec> {
     type: 'line',
     width: 800,
     height: 1000,
-    paddingLeft: 60,
-    paddingTop: 120,
-    paddingBottom: 120,
     data,
     encode: {
       x: 'distance',
