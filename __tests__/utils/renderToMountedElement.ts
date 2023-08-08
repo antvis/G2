@@ -3,7 +3,7 @@ import { renderToMountedElement as r } from '../../src';
 
 export function renderToMountedElement(
   options,
-  { canvas },
+  { canvas, ...rest },
   resolve = () => {},
 ) {
   canvas.ready.then(() => {
@@ -17,7 +17,7 @@ export function renderToMountedElement(
     );
     const group = new Group({});
     canvas.appendChild(group);
-    r(options, { group }, resolve);
+    r(options, { group, ...rest }, resolve);
   });
   return canvas.getConfig().container;
 }

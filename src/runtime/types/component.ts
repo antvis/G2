@@ -67,7 +67,7 @@ export type G2ComponentValue =
 
 export type G2BaseComponent<
   R = any,
-  O = Record<string, unknown> | void,
+  O = Record<string, unknown>,
   P = Record<string, unknown>,
   C = Record<string, unknown>,
 > = {

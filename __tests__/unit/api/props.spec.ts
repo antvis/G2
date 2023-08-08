@@ -1,9 +1,9 @@
-import { defineProps } from '../../../src/api/props';
+import { defineProps } from '../../../src/api/define';
 import { Node } from '../../../src/api/node';
 
 describe('defineProps', () => {
   it('defineProps([...]) should define value prop', () => {
-    const N = defineProps([{ type: 'value', name: 'a' }])(Node);
+    const N = defineProps({ a: { type: 'value' } })(Node);
     const n = new N({ a: 1 });
     expect(n.a()).toBe(1);
     const n1 = n.a(2);
@@ -13,14 +13,14 @@ describe('defineProps', () => {
   });
 
   it('defineProps([...]) should define keyed value prop', () => {
-    const N = defineProps([{ type: 'value', name: 'a', key: 'b' }])(Node);
+    const N = defineProps({ a: { type: 'value', key: 'b' } })(Node);
     const n = new N({});
     n.a(2);
     expect(n.value).toEqual({ b: 2 });
   });
 
   it('defineProps([...]) should define array prop', () => {
-    const N = defineProps([{ type: 'array', name: 'a' }])(Node);
+    const N = defineProps({ a: { type: 'array' } })(Node);
     const n = new N({ a: [1] });
     expect(n.a()).toEqual([1]);
     const n1 = n.a(2);
@@ -40,14 +40,14 @@ describe('defineProps', () => {
   });
 
   it('defineProps([...]) should define keyed array prop', () => {
-    const N = defineProps([{ type: 'array', name: 'a', key: 'b' }])(Node);
+    const N = defineProps({ a: { type: 'array', key: 'b' } })(Node);
     const n = new N({});
     n.a(2);
     expect(n.value).toEqual({ b: [2] });
   });
 
   it('defineProps([...]) should define object prop', () => {
-    const N = defineProps([{ type: 'object', name: 'a' }])(Node);
+    const N = defineProps({ a: { type: 'object' } })(Node);
     const n = new N({ a: { b: 1 } });
     expect(n.a()).toEqual({ b: 1 });
     const n1 = n.a('b', 2);
@@ -63,7 +63,7 @@ describe('defineProps', () => {
   });
 
   it('defineProps([...]) should define boolean object prop', () => {
-    const N = defineProps([{ type: 'object', name: 'a' }])(Node);
+    const N = defineProps({ a: { type: 'object' } })(Node);
     const n = new N();
     n.a('b');
     expect(n.a()).toEqual({ b: true });
@@ -72,14 +72,14 @@ describe('defineProps', () => {
   });
 
   it('defineProps([...]) should define keyed object prop', () => {
-    const N = defineProps([{ type: 'object', name: 'a', key: 'b' }])(Node);
+    const N = defineProps({ a: { type: 'object', key: 'b' } })(Node);
     const n = new N({});
     n.a('a', 1);
     expect(n.value).toEqual({ b: { a: 1 } });
   });
 
   it('defineProps([...]) should define node prop', () => {
-    const N = defineProps([{ type: 'node', ctor: Node, name: 'a' }])(Node);
+    const N = defineProps({ a: { type: 'node', ctor: Node } })(Node);
     const n = new N();
     const n1 = n.a();
     expect(n1.parentNode).toBe(n);
@@ -88,7 +88,7 @@ describe('defineProps', () => {
   });
 
   it('defineProps([...]) should define container prop', () => {
-    const N = defineProps([{ type: 'container', ctor: Node, name: 'a' }])(Node);
+    const N = defineProps({ a: { type: 'container', ctor: Node } })(Node);
     const n = new N();
     const n1 = n.a();
     expect(n1.parentNode).toBe(n);
@@ -98,7 +98,7 @@ describe('defineProps', () => {
   });
 
   it('definedProps([...]) should define mix prop', () => {
-    const N = defineProps([{ type: 'mix', name: 'mix' }])(Node);
+    const N = defineProps({ mix: { type: 'mix' } })(Node);
     const n = new N();
     n.mix('a');
     n.mix('b');

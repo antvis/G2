@@ -1,56 +1,7 @@
-import { Chart } from '../../../src';
+import { Chart, MarkNode } from '../../../src';
 import { G2Mark } from '../../../src/runtime';
-import {
-  Area,
-  Interval,
-  Point,
-  Cell,
-  Vector,
-  Link,
-  Polygon,
-  Image,
-  Text,
-  Box,
-  Connector,
-  LineX,
-  LineY,
-  Range,
-  RangeX,
-  RangeY,
-  Sankey,
-  Treemap,
-  Boxplot,
-  Shape,
-  Pack,
-  ForceGraph,
-  Tree,
-  WordCloud,
-  Gauge,
-  AxisX,
-  AxisY,
-  Legends,
-} from '../../../src/api/mark/mark';
 
-type Mark =
-  | Area
-  | Interval
-  | Point
-  | Cell
-  | Vector
-  | Link
-  | Polygon
-  | Image
-  | Text
-  | Box
-  | Connector
-  | LineX
-  | LineY
-  | Range
-  | RangeX
-  | RangeY
-  | Shape;
-
-function setOptions(node: Mark) {
+function setOptions(node: MarkNode) {
   return node
     .data([1, 2, 3])
     .encode('x', 'name')
@@ -90,16 +41,15 @@ function setOptions(node: Mark) {
     .state('inactive', { fill: 'blue' });
 }
 
-// @todo Fix type errors.
-function setCompositeOptions(node) {
+function setCompositeOptions(node: MarkNode) {
   return node.call(setOptions);
 }
 
-function setOptions2(node: Mark) {
+function setOptions2(node: MarkNode) {
   return node.tooltip(false);
 }
 
-function setLayoutOptions(node) {
+function setLayoutOptions(node: MarkNode) {
   return node.call(setOptions).layout({
     a: 10,
     b: 8,
@@ -164,12 +114,10 @@ function getLayoutOptions() {
   };
 }
 
-function setAxisOptions(
-  node: AxisX | AxisY | Legends,
-): AxisX | AxisY | Legends {
+function setAxisOptions(node: MarkNode): MarkNode {
   return node
     .scale('x', { type: 'linear' })
-    .transform({ type: 'hide' })
+    .transform({ type: 'stackY' })
     .style('gridFill', 'red')
     .state('active', { gridFill: 'red' })
     .attr('labelFormatter', '~s');
@@ -178,7 +126,7 @@ function setAxisOptions(
 function getAxisOptions() {
   return {
     scale: { x: { type: 'linear' } },
-    transform: [{ type: 'hide' }],
+    transform: [{ type: 'stackY' }],
     style: { gridFill: 'red' },
     state: { active: { gridFill: 'red' } },
     labelFormatter: '~s',
@@ -234,187 +182,188 @@ describe('mark.get[Instance]()', () => {
 });
 
 describe('mark.[node]()', () => {
-  it('Interval() should specify options by API', () => {
-    const node = new Interval();
+  const chart = new Chart();
+  it('chart.interval() should specify options by API', () => {
+    const node = chart.interval();
     expect(node.type).toBe('interval');
     expect(setOptions(node).value).toEqual(getOptions());
     expect(setOptions2(node).value).toEqual(getOptions2());
   });
 
-  it('Point() should specify options by API', () => {
-    const node = new Point();
+  it('chart.point() should specify options by API', () => {
+    const node = chart.point();
     expect(node.type).toBe('point');
     expect(setOptions(node).value).toEqual(getOptions());
     expect(setOptions2(node).value).toEqual(getOptions2());
   });
 
-  it('Area() should specify options by API', () => {
-    const node = new Area();
+  it('chart.area() should specify options by API', () => {
+    const node = chart.area();
     expect(node.type).toBe('area');
     expect(setOptions(node).value).toEqual(getOptions());
     expect(setOptions2(node).value).toEqual(getOptions2());
   });
 
-  it('Cell() should specify options by API', () => {
-    const node = new Cell();
+  it('chart.cell() should specify options by API', () => {
+    const node = chart.cell();
     expect(node.type).toBe('cell');
     expect(setOptions(node).value).toEqual(getOptions());
     expect(setOptions2(node).value).toEqual(getOptions2());
   });
 
-  it('Vector() should specify options by API', () => {
-    const node = new Vector();
+  it('chart.vector() should specify options by API', () => {
+    const node = chart.vector();
     expect(node.type).toBe('vector');
     expect(setOptions(node).value).toEqual(getOptions());
     expect(setOptions2(node).value).toEqual(getOptions2());
   });
 
-  it('Link() should specify options by API', () => {
-    const node = new Link();
+  it('chart.link() should specify options by API', () => {
+    const node = chart.link();
     expect(node.type).toBe('link');
     expect(setOptions(node).value).toEqual(getOptions());
     expect(setOptions2(node).value).toEqual(getOptions2());
   });
 
-  it('Polygon() should specify options by API', () => {
-    const node = new Polygon();
+  it('chart.polygon() should specify options by API', () => {
+    const node = chart.polygon();
     expect(node.type).toBe('polygon');
     expect(setOptions(node).value).toEqual(getOptions());
     expect(setOptions2(node).value).toEqual(getOptions2());
   });
 
-  it('Image() should specify options by API', () => {
-    const node = new Image();
+  it('chart.image() should specify options by API', () => {
+    const node = chart.image();
     expect(node.type).toBe('image');
     expect(setOptions(node).value).toEqual(getOptions());
     expect(setOptions2(node).value).toEqual(getOptions2());
   });
 
-  it('Text() should specify options by API', () => {
-    const node = new Text();
+  it('chart.text() should specify options by API', () => {
+    const node = chart.text();
     expect(node.type).toBe('text');
     expect(setOptions(node).value).toEqual(getOptions());
     expect(setOptions2(node).value).toEqual(getOptions2());
   });
 
-  it('Box() should specify options by API', () => {
-    const node = new Box();
+  it('chart.box() should specify options by API', () => {
+    const node = chart.box();
     expect(node.type).toBe('box');
     expect(setOptions(node).value).toEqual(getOptions());
     expect(setOptions2(node).value).toEqual(getOptions2());
   });
 
-  it('Connector() should specify options by API', () => {
-    const node = new Connector();
+  it('chart.connector() should specify options by API', () => {
+    const node = chart.connector();
     expect(node.type).toBe('connector');
     expect(setOptions(node).value).toEqual(getOptions());
     expect(setOptions2(node).value).toEqual(getOptions2());
   });
 
-  it('Range() should specify options by API', () => {
-    const node = new Range();
+  it('chart.range() should specify options by API', () => {
+    const node = chart.range();
     expect(node.type).toBe('range');
     expect(setOptions(node).value).toEqual(getOptions());
     expect(setOptions2(node).value).toEqual(getOptions2());
   });
 
-  it('RangeX() should specify options by API', () => {
-    const node = new RangeX();
+  it('chart.rangeX() should specify options by API', () => {
+    const node = chart.rangeX();
     expect(node.type).toBe('rangeX');
     expect(setOptions(node).value).toEqual(getOptions());
     expect(setOptions2(node).value).toEqual(getOptions2());
   });
 
-  it('RangeY() should specify options by API', () => {
-    const node = new RangeY();
+  it('chart.rangeY() should specify options by API', () => {
+    const node = chart.rangeY();
     expect(node.type).toBe('rangeY');
     expect(setOptions(node).value).toEqual(getOptions());
     expect(setOptions2(node).value).toEqual(getOptions2());
   });
 
-  it('LineX() should specify options by API', () => {
-    const node = new LineX();
+  it('chart.lineX() should specify options by API', () => {
+    const node = chart.lineX();
     expect(node.type).toBe('lineX');
     expect(setOptions(node).value).toEqual(getOptions());
     expect(setOptions2(node).value).toEqual(getOptions2());
   });
 
-  it('LineY() should specify options by API', () => {
-    const node = new LineY();
+  it('chart.lineY() should specify options by API', () => {
+    const node = chart.lineY();
     expect(node.type).toBe('lineY');
     expect(setOptions(node).value).toEqual(getOptions());
     expect(setOptions2(node).value).toEqual(getOptions2());
   });
 
-  it('Shape() should specify options by API', () => {
-    const node = new Shape();
+  it('chart.shape() should specify options by API', () => {
+    const node = chart.shape();
     expect(node.type).toBe('shape');
     expect(setOptions(node).value).toEqual(getOptions());
     expect(setOptions2(node).value).toEqual(getOptions2());
   });
 
-  it('Boxplot() should specify options by API', () => {
-    const node = new Boxplot();
+  it('chart.boxplot() should specify options by API', () => {
+    const node = chart.boxplot();
     expect(node.type).toBe('boxplot');
     expect(setCompositeOptions(node).value).toEqual(getOptions());
   });
 
-  it('Sankey() should specify options by API', () => {
-    const node = new Sankey();
+  it('chart.sankey() should specify options by API', () => {
+    const node = chart.sankey();
     expect(node.type).toBe('sankey');
     expect(setLayoutOptions(node).value).toEqual(getLayoutOptions());
   });
 
-  it('Treemap() should specify options by API', () => {
-    const node = new Treemap();
+  it('treemap() should specify options by API', () => {
+    const node = chart.treemap();
     expect(node.type).toBe('treemap');
     expect(setLayoutOptions(node).value).toEqual(getLayoutOptions());
   });
 
-  it('Pack() should specify options by API', () => {
-    const node = new Pack();
+  it('chart.pack() should specify options by API', () => {
+    const node = chart.pack();
     expect(node.type).toBe('pack');
     expect(setLayoutOptions(node).value).toEqual(getLayoutOptions());
   });
 
-  it('ForceGraph() should specify options by API', () => {
-    const node = new ForceGraph();
+  it('chart.forceGraph() should specify options by API', () => {
+    const node = chart.forceGraph();
     expect(node.type).toBe('forceGraph');
     expect(setLayoutOptions(node).value).toEqual(getLayoutOptions());
   });
 
-  it('Tree() should specify options by API', () => {
-    const node = new Tree();
+  it('chart.tree() should specify options by API', () => {
+    const node = chart.tree();
     expect(node.type).toBe('tree');
     expect(setLayoutOptions(node).value).toEqual(getLayoutOptions());
   });
 
-  it('WordCloud() should specify options by API', () => {
-    const node = new WordCloud();
+  it('chart.wordCloud() should specify options by API', () => {
+    const node = chart.wordCloud();
     expect(node.type).toBe('wordCloud');
     expect(setLayoutOptions(node).value).toEqual(getLayoutOptions());
   });
 
-  it('Gauge() should specify options by API', () => {
-    const node = new Gauge();
+  it('chart.gauge() should specify options by API', () => {
+    const node = chart.gauge();
     expect(node.type).toBe('gauge');
     expect(setCompositeOptions(node).value).toEqual(getOptions());
   });
 
-  it('AxisX() should specify options by API', () => {
-    const node = new AxisX();
+  it('chart.axisX() should specify options by API', () => {
+    const node = chart.axisX();
     expect(node.type).toBe('axisX');
     expect(setAxisOptions(node).value).toEqual(getAxisOptions());
   });
 
-  it('AxisY() should specify options by API', () => {
-    const node = new AxisY();
+  it('chart.axisY() should specify options by API', () => {
+    const node = chart.axisY();
     expect(node.type).toBe('axisY');
     expect(setAxisOptions(node).value).toEqual(getAxisOptions());
   });
 
-  it('Legends() should specify options by API', () => {
-    const node = new Legends();
+  it('chart.legends() should specify options by API', () => {
+    const node = chart.legends();
     expect(node.type).toBe('legends');
     expect(setAxisOptions(node).value).toEqual(getAxisOptions());
   });

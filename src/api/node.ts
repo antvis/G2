@@ -1,4 +1,4 @@
-import { Chart } from './chart';
+import { Runtime } from './runtime';
 
 /**
  * BFS nodes and execute callback.
@@ -140,12 +140,12 @@ export class Node<
     return this;
   }
 
-  getRoot(): Chart {
+  getRoot(): Runtime {
     // Find the root chart and render.
     let root: Node = this;
     while (root && root.parentNode) {
       root = root.parentNode;
     }
-    return root as Chart;
+    return root as Runtime;
   }
 }

@@ -1,49 +1,6 @@
 import { Canvas } from '@antv/g';
 import { Renderer as SVGRenderer } from '@antv/g-svg';
 import { Chart, createLibrary, ChartEvent } from '../../../src';
-import {
-  View,
-  TimingKeyframe,
-  SpaceFlex,
-  FacetRect,
-  RepeatMatrix,
-  FacetCircle,
-  SpaceLayer,
-} from '../../../src/api/composition';
-import {
-  Area,
-  Cell,
-  Image,
-  Interval,
-  Line,
-  Link,
-  Point,
-  Polygon,
-  Vector,
-  Text,
-  Box,
-  LineX,
-  LineY,
-  Range,
-  RangeX,
-  RangeY,
-  Rect,
-  Connector,
-  Boxplot,
-  Sankey,
-  Treemap,
-  Shape,
-  Pack,
-  ForceGraph,
-  Tree,
-  WordCloud,
-  Gauge,
-  Density,
-  Heatmap,
-  AxisX,
-  AxisY,
-  Legends,
-} from '../../../src/api/mark/mark';
 
 const TEST_OPTIONS = {
   type: 'interval',
@@ -140,39 +97,39 @@ describe('Chart', () => {
 
   it('chart.nodeName() should return expected node.', () => {
     const chart = new Chart({ theme: 'classic' });
-    expect(chart.interval()).toBeInstanceOf(Interval);
-    expect(chart.rect()).toBeInstanceOf(Rect);
-    expect(chart.point()).toBeInstanceOf(Point);
-    expect(chart.area()).toBeInstanceOf(Area);
-    expect(chart.line()).toBeInstanceOf(Line);
-    expect(chart.cell()).toBeInstanceOf(Cell);
-    expect(chart.vector()).toBeInstanceOf(Vector);
-    expect(chart.link()).toBeInstanceOf(Link);
-    expect(chart.polygon()).toBeInstanceOf(Polygon);
-    expect(chart.image()).toBeInstanceOf(Image);
-    expect(chart.text()).toBeInstanceOf(Text);
-    expect(chart.box()).toBeInstanceOf(Box);
-    expect(chart.lineX()).toBeInstanceOf(LineX);
-    expect(chart.lineY()).toBeInstanceOf(LineY);
-    expect(chart.range()).toBeInstanceOf(Range);
-    expect(chart.rangeX()).toBeInstanceOf(RangeX);
-    expect(chart.rangeY()).toBeInstanceOf(RangeY);
-    expect(chart.connector()).toBeInstanceOf(Connector);
-    expect(chart.sankey()).toBeInstanceOf(Sankey);
-    expect(chart.treemap()).toBeInstanceOf(Treemap);
-    expect(chart.boxplot()).toBeInstanceOf(Boxplot);
-    expect(chart.shape()).toBeInstanceOf(Shape);
-    expect(chart.pack()).toBeInstanceOf(Pack);
-    expect(chart.forceGraph()).toBeInstanceOf(ForceGraph);
-    expect(chart.tree()).toBeInstanceOf(Tree);
-    expect(chart.wordCloud()).toBeInstanceOf(WordCloud);
-    expect(chart.gauge()).toBeInstanceOf(Gauge);
-    expect(chart.density()).toBeInstanceOf(Density);
-    expect(chart.heatmap()).toBeInstanceOf(Heatmap);
-    expect(chart.axisX()).toBeInstanceOf(AxisX);
-    expect(chart.axisY()).toBeInstanceOf(AxisY);
-    expect(chart.legends()).toBeInstanceOf(Legends);
-    expect(chart.options().children).toEqual([
+    expect(chart.interval().type).toBe('interval');
+    expect(chart.rect().type).toBe('rect');
+    expect(chart.point().type).toBe('point');
+    expect(chart.area().type).toBe('area');
+    expect(chart.line().type).toBe('line');
+    expect(chart.cell().type).toBe('cell');
+    expect(chart.vector().type).toBe('vector');
+    expect(chart.link().type).toBe('link');
+    expect(chart.polygon().type).toBe('polygon');
+    expect(chart.image().type).toBe('image');
+    expect(chart.text().type).toBe('text');
+    expect(chart.box().type).toBe('box');
+    expect(chart.lineX().type).toBe('lineX');
+    expect(chart.lineY().type).toBe('lineY');
+    expect(chart.range().type).toBe('range');
+    expect(chart.rangeX().type).toBe('rangeX');
+    expect(chart.rangeY().type).toBe('rangeY');
+    expect(chart.connector().type).toBe('connector');
+    expect(chart.sankey().type).toBe('sankey');
+    expect(chart.treemap().type).toBe('treemap');
+    expect(chart.boxplot().type).toBe('boxplot');
+    expect(chart.shape().type).toBe('shape');
+    expect(chart.pack().type).toBe('pack');
+    expect(chart.forceGraph().type).toBe('forceGraph');
+    expect(chart.tree().type).toBe('tree');
+    expect(chart.wordCloud().type).toBe('wordCloud');
+    expect(chart.gauge().type).toBe('gauge');
+    expect(chart.density().type).toBe('density');
+    expect(chart.heatmap().type).toBe('heatmap');
+    expect(chart.axisX().type).toBe('axisX');
+    expect(chart.axisY().type).toBe('axisY');
+    expect(chart.legends().type).toBe('legends');
+    expect((chart.options() as any).children).toEqual([
       { type: 'interval' },
       { type: 'rect' },
       { type: 'point' },
@@ -212,7 +169,7 @@ describe('Chart', () => {
     const chart = new Chart({ theme: 'classic' });
     chart.view();
     chart.spaceLayer();
-    expect(chart.spaceLayer()).toBeInstanceOf(SpaceLayer);
+    expect(chart.spaceLayer().type).toBe('spaceLayer');
   });
 
   it('chart.container() should set layout options for root node.', () => {
@@ -264,19 +221,19 @@ describe('Chart', () => {
 
   it('chart.container() should return expected container.', () => {
     const chart = new Chart({ theme: 'classic' });
-    expect(chart.view()).toBeInstanceOf(View);
+    expect(chart.view().type).toBe('view');
     expect(chart.options()).toEqual({ type: 'view', theme: 'classic' });
-    expect(chart.spaceLayer()).toBeInstanceOf(SpaceLayer);
+    expect(chart.spaceLayer().type).toBe('spaceLayer');
     expect(chart.options()).toEqual({ type: 'spaceLayer', theme: 'classic' });
-    expect(chart.spaceFlex()).toBeInstanceOf(SpaceFlex);
+    expect(chart.spaceFlex().type).toBe('spaceFlex');
     expect(chart.options()).toEqual({ type: 'spaceFlex', theme: 'classic' });
-    expect(chart.facetRect()).toBeInstanceOf(FacetRect);
+    expect(chart.facetRect().type).toBe('facetRect');
     expect(chart.options()).toEqual({ type: 'facetRect', theme: 'classic' });
-    expect(chart.repeatMatrix()).toBeInstanceOf(RepeatMatrix);
+    expect(chart.repeatMatrix().type).toBe('repeatMatrix');
     expect(chart.options()).toEqual({ type: 'repeatMatrix', theme: 'classic' });
-    expect(chart.facetCircle()).toBeInstanceOf(FacetCircle);
+    expect(chart.facetCircle().type).toBe('facetCircle');
     expect(chart.options()).toEqual({ type: 'facetCircle', theme: 'classic' });
-    expect(chart.timingKeyframe()).toBeInstanceOf(TimingKeyframe);
+    expect(chart.timingKeyframe().type).toBe('timingKeyframe');
     expect(chart.options()).toEqual({
       type: 'timingKeyframe',
       theme: 'classic',
@@ -720,8 +677,8 @@ describe('Chart', () => {
       .encode('x', 'genre')
       .encode('y', 'sold');
     await chart.render();
-    expect(chart.width()).toBeUndefined();
-    expect(chart.height()).toBeUndefined();
+    expect(chart.attr('width')).toBeUndefined();
+    expect(chart.attr('height')).toBeUndefined();
   });
 
   it('chart.options({ autoFit: true }) should bind autoFit.', async () => {

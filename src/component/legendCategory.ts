@@ -1,4 +1,3 @@
-import type { Coordinate } from '@antv/coord';
 import type { DisplayObject } from '@antv/g';
 import { Category } from '@antv/gui';
 import { last } from '@antv/util';

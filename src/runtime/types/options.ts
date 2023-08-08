@@ -43,7 +43,10 @@ export type Node = {
 
 export type G2Library = Record<
   `${G2ComponentNamespaces}.${string}`,
-  G2BaseComponent
+  {
+    (...args: any[]): any;
+    props?: Record<string, any>;
+  }
 >;
 
 // @todo

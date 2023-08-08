@@ -29,6 +29,7 @@ export function chartOptionsCompositeMark(context) {
       { genre: 'Shooter', sold: 350 },
       { genre: 'Other', sold: 150 },
     ],
+    // @ts-ignore
     encode: { value: 'sold', color: 'genre' },
   });
 

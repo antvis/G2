@@ -128,6 +128,7 @@ export type ElementHighlightByXInteraction = {
   link?: boolean;
   background?: boolean;
   offset?: number;
+  delay?: number;
 } & Record<`${'link' | 'background'}${any}`, any>;
 
 export type ElementHighlightByColorInteraction = {
@@ -136,6 +137,7 @@ export type ElementHighlightByColorInteraction = {
   background?: boolean;
   link?: boolean;
   offset?: number;
+  delay?: number;
 } & Record<`${'link' | 'background'}${any}`, any>;
 
 export type PoptipInteraction = {
