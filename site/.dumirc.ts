@@ -49,7 +49,7 @@ export default defineConfig({
     navs: [
       // 头部的菜单列表
       {
-        slug: 'docs/manual/introduction',
+        slug: 'manual/introduction',
         title: {
           zh: '教程',
           en: 'Tutorials',
@@ -57,7 +57,7 @@ export default defineConfig({
         order: 3,
       },
       {
-        slug: 'docs/spec/overview',
+        slug: 'spec/overview',
         title: {
           zh: '文档',
           en: 'Documentation',
@@ -65,7 +65,7 @@ export default defineConfig({
         order: 2,
       },
       {
-        slug: 'docs/api/overview',
+        slug: 'api/overview',
         title: {
           zh: 'API',
           en: 'API',
