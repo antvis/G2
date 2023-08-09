@@ -24,7 +24,6 @@
     "test:unit": "node --expose-gc --max-old-space-size=4096 --unhandled-rejections=strict node_modules/jest/bin/jest __tests__/unit/ --coverage -i  --logHeapUsage",
     "test:integration": "node --expose-gc --max-old-space-size=4096 --unhandled-rejections=strict node_modules/jest/bin/jest __tests__/integration/ --coverage -i  --logHeapUsage",
     "test:treeshaking": "vite build -c ./__tests__/treeshaking/vite.config.js",
-    "test-live": "cross-env DEBUG_MODE=1 jest --watch",
     "build:umd": "rimraf ./dist && rollup -c && npm run size",
     "build:cjs": "rimraf ./lib && tsc --module commonjs --outDir lib",
     "build:esm": "rimraf ./esm && tsc --module ESNext --outDir esm",
