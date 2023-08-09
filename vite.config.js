@@ -1,16 +1,24 @@
 import { defineConfig } from 'vite';
 import { deepMix } from '@antv/util';
 
+const { LINK, MODULE } = process.env;
+
+if (LINK === '1' && !MODULE) {
+  throw new Error(
+    `Please specify MODULE, for example: $ MODULE=@antv/gui npm run dev:link.`,
+  );
+}
+
 const linkOptions =
-  process.env.LINK === '1'
+  LINK === '1'
     ? {
         server: {
           watch: {
-            ignored: ['!**/node_modules/@antv/gui/**'],
+            ignored: [`!**/node_modules/${MODULE}/**`],
           },
         },
         optimizeDeps: {
-          exclude: ['@antv/gui'],
+          exclude: [`${MODULE}`],
         },
       }
     : {};

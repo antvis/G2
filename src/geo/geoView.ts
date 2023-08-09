@@ -184,7 +184,7 @@ export const GeoView: CC<GeoViewOptions> = () => {
             });
             const normalize = (point) => {
               const visualPoint = visual(point);
-              if (!visualPoint) return null;
+              if (!visualPoint) return [null, null];
               const [vx, vy] = visualPoint;
               return [scaleX.map(vx), scaleY.map(vy)];
             };
