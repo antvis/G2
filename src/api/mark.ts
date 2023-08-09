@@ -1,12 +1,15 @@
 import { DisplayObject } from '@antv/g';
-import { Node } from '../node';
-import { G2MarkState, Scale } from '../../runtime';
+import { G2MarkState, Scale } from '../runtime';
+import { Mark as Spec } from '../spec';
+import { Node } from './node';
+import { defineProps } from './define';
+import { markProps } from './props';
+import { PropsOf } from './types';
 
-export class MarkNode<
-  Value extends Record<string, any> = Record<string, any>,
-  ParentValue extends Record<string, any> = Record<string, any>,
-  ChildValue extends Record<string, any> = Record<string, any>,
-> extends Node<Value, ParentValue, ChildValue> {
+export interface MarkNode extends PropsOf<typeof markProps, Spec, MarkNode> {}
+
+@defineProps(markProps)
+export class MarkNode extends Node<Spec & { [key: string]: any }> {
   changeData(data: any) {
     const chart = this.getRoot();
     if (!chart) return;

@@ -1,4 +1,3 @@
-import { G2Library } from '../runtime';
 import {
   Cartesian,
   Polar,
@@ -257,7 +256,7 @@ import {
 } from '../label-transform';
 import { geoLibrary } from '../geo';
 
-export function createLibrary(): G2Library {
+export function createLibrary() {
   return {
     'data.fetch': Fetch,
     'data.inline': Inline,
@@ -509,5 +508,5 @@ export function createLibrary(): G2Library {
     'labelTransform.overflowHide': OverflowHide,
     'labelTransform.contrastReverse': ContrastReverse,
     ...geoLibrary,
-  };
+  } as const;
 }

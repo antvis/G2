@@ -93,6 +93,7 @@ export type GeoViewComposition = Omit<ViewComposition, 'type'> & {
   type?: 'geoView';
   // @todo
   coordinate?: Record<string, any>;
+  [key: string]: any; // @todo
 };
 
 export type GeoPathComposition = Omit<ViewComposition, 'type'> & {
@@ -107,6 +108,7 @@ export type SpaceLayerComposition = {
   key?: string;
   data?: any;
   children?: Node[];
+  [key: string]: any; // @todo
 };
 
 export type SpaceFlexComposition = {
@@ -117,6 +119,7 @@ export type SpaceFlexComposition = {
   ratio?: number[];
   padding?: Padding;
   children?: Node[];
+  [key: string]: any; // @todo
 };
 
 export type FacetContext = {
@@ -162,6 +165,7 @@ export type FacetRectComposition = {
   axis?: Record<string, any> | boolean;
   // @todo
   legend?: Record<string, any> | boolean;
+  [key: string]: any; // @todo
 };
 
 export type RepeatMatrixComposition = {
@@ -195,6 +199,7 @@ export type RepeatMatrixComposition = {
   // @todo
   legend?: Record<string, any> | boolean;
   children?: Node[] | ((facet: FacetContext) => Node);
+  [key: string]: any; // @todo
 };
 
 export type FacetCircleComposition = {
@@ -226,6 +231,7 @@ export type FacetCircleComposition = {
   axis?: Record<string, any> | boolean;
   // @todo
   legend?: Record<string, any> | boolean;
+  [key: string]: any; // @todo
 };
 
 export type TimingKeyframeComposition = {
@@ -236,6 +242,7 @@ export type TimingKeyframeComposition = {
   iterationCount?: 'infinite' | number;
   direction?: 'normal' | 'reverse' | 'alternate' | 'reverse-alternate';
   children?: Node[];
+  [key: string]: any; // @todo
 };
 
 type Node = Mark | Composition;

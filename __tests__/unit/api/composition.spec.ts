@@ -1,81 +1,43 @@
-import {
-  View,
-  FacetCircle,
-  SpaceFlex,
-  TimingKeyframe,
-  SpaceLayer,
-  RepeatMatrix,
-  FacetRect,
-  GeoView,
-  GeoPath,
-} from '../../../src/api/composition';
-import {
-  Area,
-  Cell,
-  Image,
-  Interval,
-  Line,
-  Link,
-  Point,
-  Polygon,
-  Vector,
-  Box,
-  LineX,
-  LineY,
-  Range,
-  RangeX,
-  RangeY,
-  Rect,
-  Text,
-  Connector,
-  Sankey,
-  Treemap,
-  Pack,
-  ForceGraph,
-  Tree,
-  WordCloud,
-  Density,
-  Heatmap,
-} from '../../../src/api/mark/mark';
+import { Chart } from '../../../src';
 
 function expectToCreateMarks(node) {
-  expect(node.interval()).toBeInstanceOf(Interval);
-  expect(node.rect()).toBeInstanceOf(Rect);
-  expect(node.point()).toBeInstanceOf(Point);
-  expect(node.area()).toBeInstanceOf(Area);
-  expect(node.line()).toBeInstanceOf(Line);
-  expect(node.cell()).toBeInstanceOf(Cell);
-  expect(node.vector()).toBeInstanceOf(Vector);
-  expect(node.link()).toBeInstanceOf(Link);
-  expect(node.polygon()).toBeInstanceOf(Polygon);
-  expect(node.image()).toBeInstanceOf(Image);
-  expect(node.text()).toBeInstanceOf(Text);
-  expect(node.box()).toBeInstanceOf(Box);
-  expect(node.lineX()).toBeInstanceOf(LineX);
-  expect(node.lineY()).toBeInstanceOf(LineY);
-  expect(node.range()).toBeInstanceOf(Range);
-  expect(node.rangeX()).toBeInstanceOf(RangeX);
-  expect(node.rangeY()).toBeInstanceOf(RangeY);
-  expect(node.connector()).toBeInstanceOf(Connector);
-  expect(node.sankey()).toBeInstanceOf(Sankey);
-  expect(node.treemap()).toBeInstanceOf(Treemap);
-  expect(node.pack()).toBeInstanceOf(Pack);
-  expect(node.forceGraph()).toBeInstanceOf(ForceGraph);
-  expect(node.tree()).toBeInstanceOf(Tree);
-  expect(node.wordCloud()).toBeInstanceOf(WordCloud);
-  expect(node.density()).toBeInstanceOf(Density);
-  expect(node.heatmap()).toBeInstanceOf(Heatmap);
+  expect(node.interval().type).toBe('interval');
+  expect(node.rect().type).toBe('rect');
+  expect(node.point().type).toBe('point');
+  expect(node.area().type).toBe('area');
+  expect(node.line().type).toBe('line');
+  expect(node.cell().type).toBe('cell');
+  expect(node.vector().type).toBe('vector');
+  expect(node.link().type).toBe('link');
+  expect(node.polygon().type).toBe('polygon');
+  expect(node.image().type).toBe('image');
+  expect(node.text().type).toBe('text');
+  expect(node.box().type).toBe('box');
+  expect(node.lineX().type).toBe('lineX');
+  expect(node.lineY().type).toBe('lineY');
+  expect(node.range().type).toBe('range');
+  expect(node.rangeX().type).toBe('rangeX');
+  expect(node.rangeY().type).toBe('rangeY');
+  expect(node.connector().type).toBe('connector');
+  expect(node.sankey().type).toBe('sankey');
+  expect(node.treemap().type).toBe('treemap');
+  expect(node.pack().type).toBe('pack');
+  expect(node.forceGraph().type).toBe('forceGraph');
+  expect(node.tree().type).toBe('tree');
+  expect(node.wordCloud().type).toBe('wordCloud');
+  expect(node.density().type).toBe('density');
+  expect(node.heatmap().type).toBe('heatmap');
 }
 
 function expectToCreateCompositions(node) {
-  expect(node.view()).toBeInstanceOf(View);
-  expect(node.spaceLayer()).toBeInstanceOf(SpaceLayer);
-  expect(node.spaceFlex()).toBeInstanceOf(SpaceFlex);
-  expect(node.facetRect()).toBeInstanceOf(FacetRect);
-  expect(node.repeatMatrix()).toBeInstanceOf(RepeatMatrix);
-  expect(node.facetCircle()).toBeInstanceOf(FacetCircle);
-  expect(node.timingKeyframe()).toBeInstanceOf(TimingKeyframe);
-  expect(node.geoView()).toBeInstanceOf(GeoView);
+  expect(node.view().type).toBe('view');
+  expect(node.spaceLayer().type).toBe('spaceLayer');
+  expect(node.spaceFlex().type).toBe('spaceFlex');
+  expect(node.facetRect().type).toBe('facetRect');
+  expect(node.repeatMatrix().type).toBe('repeatMatrix');
+  expect(node.facetCircle().type).toBe('facetCircle');
+  expect(node.timingKeyframe().type).toBe('timingKeyframe');
+  expect(node.geoView().type).toBe('geoView');
 }
 
 function expectToCreateNodes(node) {
@@ -84,8 +46,9 @@ function expectToCreateNodes(node) {
 }
 
 describe('Composition', () => {
-  it('View() should specify options by API', () => {
-    const node = new View();
+  const chart = new Chart();
+  it('chart.view() should specify options by API', () => {
+    const node = chart.view();
     node
       .attr('paddingBottom', 10)
       .attr('paddingLeft', 10)
@@ -128,8 +91,8 @@ describe('Composition', () => {
     expectToCreateMarks(node);
   });
 
-  it('FacetCircle() should specify options by API', () => {
-    const node = new FacetCircle();
+  it('chart.facetCircle() should specify options by API', () => {
+    const node = chart.facetCircle();
     node
       .attr('paddingBottom', 10)
       .attr('paddingLeft', 10)
@@ -156,8 +119,8 @@ describe('Composition', () => {
     expectToCreateNodes(node);
   });
 
-  it('SpaceFlex() should specify options by API', () => {
-    const node = new SpaceFlex();
+  it('chart.spaceFlex() should specify options by API', () => {
+    const node = chart.spaceFlex();
     node
       .attr('direction', 'col')
       .data([1, 2, 3])
@@ -176,8 +139,8 @@ describe('Composition', () => {
     expectToCreateNodes(node);
   });
 
-  it('TimingKeyframe() should specify options by API', () => {
-    const node = new TimingKeyframe();
+  it('chart.timingKeyframe() should specify options by API', () => {
+    const node = chart.timingKeyframe();
     node
       .attr('easing', 'linear')
       .attr('iterationCount', 10)
@@ -196,8 +159,8 @@ describe('Composition', () => {
     expectToCreateNodes(node);
   });
 
-  it('SpaceLayer() should specify options by API', () => {
-    const node = new SpaceLayer();
+  it('chart.spaceLayer() should specify options by API', () => {
+    const node = chart.spaceLayer();
     node.data([1, 2, 3]).attr('key', 'composition');
 
     expect(node.type).toBe('spaceLayer');
@@ -208,8 +171,8 @@ describe('Composition', () => {
     expectToCreateNodes(node);
   });
 
-  it('RepeatMatrix() should specify options by API', () => {
-    const node = new RepeatMatrix();
+  it('chart.repeatMatrix() should specify options by API', () => {
+    const node = chart.repeatMatrix();
     node
       .data([1, 2, 3])
       .attr('key', 'composition')
@@ -236,8 +199,8 @@ describe('Composition', () => {
     expectToCreateNodes(node);
   });
 
-  it('Rect() should specify options by API', () => {
-    const node = new FacetRect();
+  it('chart.facetRect() should specify options by API', () => {
+    const node = chart.facetRect();
     node
       .data([1, 2, 3])
       .attr('key', 'composition')
@@ -272,8 +235,8 @@ describe('Composition', () => {
     expectToCreateNodes(node);
   });
 
-  it('GeoView() should specify options by API', () => {
-    const node = new GeoView();
+  it('chart.geoView() should specify options by API', () => {
+    const node = chart.geoView();
     node
       .attr('paddingBottom', 10)
       .attr('paddingLeft', 10)
@@ -314,8 +277,8 @@ describe('Composition', () => {
     expectToCreateMarks(node);
   });
 
-  it('GeoPath() should specify options by API', () => {
-    const node = new GeoPath();
+  it('chart.geoPath() should specify options by API', () => {
+    const node = chart.geoPath();
     node
       .attr('paddingBottom', 10)
       .attr('paddingLeft', 10)

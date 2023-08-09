@@ -1,5 +1,4 @@
 import { Chart } from '../../../src';
-import { Point } from '../../../src/api/mark/mark';
 
 describe('chart api and options', () => {
   it('chart.options({...}) should create node instance from spec.', () => {
@@ -46,8 +45,8 @@ describe('chart api and options', () => {
       marginRight: 10,
       marginTop: 10,
       marginBottom: 10,
-      autoFit: 10,
-      theme: 10,
+      autoFit: true,
+      theme: 'light',
     });
 
     expect(chart.options()).toEqual({
@@ -69,8 +68,8 @@ describe('chart api and options', () => {
       marginRight: 10,
       marginTop: 10,
       marginBottom: 10,
-      autoFit: 10,
-      theme: 10,
+      autoFit: true,
+      theme: 'light',
       children: [{ type: 'interval' }],
     });
   });
@@ -100,7 +99,7 @@ describe('chart api and options', () => {
     chart.options(options);
 
     expect(chart.options()).toEqual(options);
-    expect(chart.getNodeByType('point')).toBeInstanceOf(Point);
+    expect(chart.getNodeByType('point').type).toBe('point');
   });
 
   it('chart.options({...} should update mark.', () => {

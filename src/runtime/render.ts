@@ -3,7 +3,6 @@ import { Renderer as CanvasRenderer } from '@antv/g-canvas';
 import { Plugin as DragAndDropPlugin } from '@antv/g-plugin-dragndrop';
 import { deepMix } from '@antv/util';
 import EventEmitter from '@antv/event-emitter';
-import { createLibrary } from '../stdlib';
 import { select } from '../utils/selection';
 import { ChartEvent } from '../utils/event';
 import { error } from '../utils/helper';
@@ -80,11 +79,10 @@ export function render<T extends G2ViewTree = G2ViewTree>(
   const keyed = inferKeys(options);
   const {
     canvas = Canvas(width, height),
-    library = createLibrary(),
     emitter = new EventEmitter(),
+    library,
   } = context;
   context.canvas = canvas;
-  context.library = library;
   context.emitter = emitter;
   canvas.resize(width, height);
 
@@ -121,12 +119,12 @@ export function renderToMountedElement<T extends G2ViewTree = G2ViewTree>(
   },
 ): DisplayObject {
   // Initialize the context if it is not provided.
-  const { width = 640, height = 480, on } = options;
+  const { width = 640, height = 480 } = options;
   const keyed = inferKeys(options);
   const {
-    library = createLibrary(),
     group = new Group(),
     emitter = new EventEmitter(),
+    library,
   } = context;
 
   if (!group?.parentElement) {
@@ -135,7 +133,6 @@ export function renderToMountedElement<T extends G2ViewTree = G2ViewTree>(
 
   const selection = select(group);
   context.group = group;
-  context.library = library;
   context.emitter = emitter;
 
   emitter.emit(ChartEvent.BEFORE_RENDER);

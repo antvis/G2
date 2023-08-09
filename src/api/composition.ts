@@ -1,14 +1,22 @@
 import { Coordinate } from '@antv/coord';
 import { DisplayObject } from '@antv/g';
-import { Scale, G2Theme, G2ViewDescriptor } from '../../runtime';
-import { hide, show } from '../../utils/style';
-import { Node } from '../node';
+import { Scale, G2Theme, G2ViewDescriptor } from '../runtime';
+import { hide, show } from '../utils/style';
+import { Composition as Spec } from '../spec';
+import { Node } from './node';
+import { defineProps } from './define';
+import { compositionProps } from './props';
+import { PropsOf } from './types';
 
-export class CompositionNode<
-  Value extends Record<string, any> = Record<string, any>,
-  ParentValue extends Record<string, any> = Record<string, any>,
-  ChildValue extends Record<string, any> = Record<string, any>,
-> extends Node<Value, ParentValue, ChildValue> {
+export interface CompositionNode<T = any>
+  extends PropsOf<
+    typeof compositionProps,
+    any, // todo Remove this when update types of Spec.
+    CompositionNode & T
+  > {}
+
+@defineProps(compositionProps)
+export class CompositionNode extends Node<Spec & { [key: string]: any }> {
   protected _key: string;
 
   /**

@@ -2,8 +2,6 @@ import { G2ViewTree } from '../runtime';
 import { getContainerSize } from '../utils/size';
 import { deepAssign } from '../utils/helper';
 import { Node } from './node';
-import { mark } from './mark';
-import { composition } from './composition';
 
 // Keys can specified by new Chart({...}).
 // Keys can bubble form mark-level options to view-level options.
@@ -90,7 +88,10 @@ export function optionsOf(node: Node): Record<string, any> {
   return nodeValue.get(root);
 }
 
-function isMark(type: string | ((...args: any[]) => any)): boolean {
+function isMark(
+  type: string | ((...args: any[]) => any),
+  mark: Record<string, new () => Node>,
+): boolean {
   if (typeof type === 'function') return true;
   return new Set(Object.keys(mark)).has(type);
 }
@@ -99,11 +100,12 @@ function normalizeRootOptions(
   node: Node,
   options: G2ViewTree,
   previousType: string,
+  marks: Record<string, new () => Node>,
 ) {
   const { type: oldType } = node;
   const { type = previousType || oldType } = options;
   if (type === 'view') return options;
-  if (!isMark(type)) return options;
+  if (!isMark(type, marks)) return options;
   const view = { type: 'view' };
   const mark = { ...options };
   for (const key of VIEW_KEYS) {
@@ -115,7 +117,11 @@ function normalizeRootOptions(
   return { ...view, children: [mark] };
 }
 
-function typeCtor(type: string | ((...args: any[]) => any)): new () => Node {
+function typeCtor(
+  type: string | ((...args: any[]) => any),
+  mark: Record<string, new () => Node>,
+  composition: Record<string, new () => Node>,
+): new () => Node {
   if (typeof type === 'function') return mark.mark;
   const node = { ...mark, ...composition };
   const ctor = node[type];
@@ -124,9 +130,13 @@ function typeCtor(type: string | ((...args: any[]) => any)): new () => Node {
 }
 
 // Create node from options.
-function createNode(options: G2ViewTree): Node {
+function createNode(
+  options: G2ViewTree,
+  mark: Record<string, new () => Node>,
+  composition: Record<string, new () => Node>,
+): Node {
   const { type, children, ...value } = options;
-  const Ctor = typeCtor(type);
+  const Ctor = typeCtor(type, mark, composition);
   const node = new Ctor();
   node.value = value;
   // @ts-ignore
@@ -148,12 +158,17 @@ function updateNode(node: Node, newOptions: G2ViewTree) {
 }
 
 // Create a nested node tree from newOptions, and append it to the parent.
-function appendNode(parent: Node, newOptions: G2ViewTree) {
+function appendNode(
+  parent: Node,
+  newOptions: G2ViewTree,
+  mark: Record<string, new () => Node>,
+  composition: Record<string, new () => Node>,
+) {
   if (!parent) return;
   const discovered = [[parent, newOptions]];
   while (discovered.length) {
     const [parent, nodeOptions] = discovered.shift();
-    const node = createNode(nodeOptions);
+    const node = createNode(nodeOptions, mark, composition);
     if (Array.isArray(parent.children)) parent.push(node);
     const { children } = nodeOptions;
     if (Array.isArray(children)) {
@@ -169,14 +184,16 @@ export function updateRoot(
   node: Node,
   options: G2ViewTree,
   definedType: string,
+  mark: Record<string, new () => Node>,
+  composition: Record<string, new () => Node>,
 ) {
-  const rootOptions = normalizeRootOptions(node, options, definedType);
+  const rootOptions = normalizeRootOptions(node, options, definedType, mark);
   const discovered: [Node, Node, G2ViewTree][] = [[null, node, rootOptions]];
   while (discovered.length) {
     const [parent, oldNode, newNode] = discovered.shift();
     // If there is no oldNode, create a node tree directly.
     if (!oldNode) {
-      appendNode(parent, newNode);
+      appendNode(parent, newNode, mark, composition);
     } else if (!newNode) {
       oldNode.remove();
     } else {
