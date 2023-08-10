@@ -1,5 +1,7 @@
 import { MarkComponent as MC, Vector2, Mark } from '../runtime';
 import { TextMark } from '../spec';
+import { TextShape, TextBadge } from '../shape';
+import { MaybeTuple, MaybeVisualPosition } from '../transform';
 import {
   baseGeometryChannels,
   basePostInference,
@@ -8,6 +10,11 @@ import {
   tooltip2d,
   visualMark,
 } from './utils';
+
+const shape = {
+  text: TextShape,
+  badge: TextBadge,
+};
 
 export type TextOptions = Omit<TextMark, 'type'>;
 
@@ -25,14 +32,13 @@ export const Text: MC<TextOptions> = (options) => {
   }) as Mark;
 };
 
-const shapes = ['text', 'badge'];
-
 Text.props = {
   defaultShape: 'text',
   defaultLabelShape: 'label',
   composite: false,
+  shape,
   channels: [
-    ...baseGeometryChannels({ shapes }),
+    ...baseGeometryChannels({ shapes: Object.keys(shape) }),
     { name: 'x', required: true },
     { name: 'y', required: true },
     { name: 'text', scale: 'identity' },
@@ -41,8 +47,8 @@ Text.props = {
   ],
   preInference: [
     ...basePreInference(),
-    { type: 'maybeTuple' },
-    { type: 'maybeVisualPosition' },
+    { type: MaybeTuple },
+    { type: MaybeVisualPosition },
   ],
   postInference: [...basePostInference(), ...tooltip2d()],
 };

@@ -27,6 +27,10 @@ export type MarkProps = {
   channels?: Channel[];
   preInference?: TransformSpec[];
   postInference?: TransformSpec[];
+  shape?: Record<
+    string,
+    { (...args: any[]): any; props?: Record<string, any> }
+  >;
   composite?: boolean;
   interaction?: {
     shareTooltip?: boolean;

@@ -1,6 +1,13 @@
 import { Band } from '@antv/scale';
 import { MarkComponent as MC, Vector2 } from '../runtime';
 import { IntervalMark } from '../spec';
+import { MaybeZeroY1, MaybeZeroX } from '../transform';
+import {
+  IntervalShape,
+  IntervalHollow,
+  IntervalFunnel,
+  IntervalPyramid,
+} from '../shape';
 import {
   baseGeometryChannels,
   basePostInference,
@@ -8,11 +15,19 @@ import {
   tooltip1d,
 } from './utils';
 
-export type IntervalOptions = Omit<IntervalMark, 'type'>;
-
 function bandWidth(scale: Band, x: any): number {
   return scale.getBandWidth(scale.invert(x));
 }
+
+const shape = {
+  rect: IntervalShape,
+  hollow: IntervalHollow,
+  funnel: IntervalFunnel,
+  pyramid: IntervalPyramid,
+};
+
+export type IntervalOptions = Omit<IntervalMark, 'type'>;
+
 /**
  * Convert value for each channel to rect shapes.
  * p0        p1
@@ -60,14 +75,13 @@ export const Interval: MC<IntervalOptions> = () => {
   };
 };
 
-const shapes = ['rect', 'hollow', 'funnel', 'pyramid'];
-
 Interval.props = {
   defaultShape: 'rect',
   defaultLabelShape: 'label',
   composite: false,
+  shape,
   channels: [
-    ...baseGeometryChannels({ shapes }),
+    ...baseGeometryChannels({ shapes: Object.keys(shape) }),
     { name: 'x', scale: 'band', required: true },
     { name: 'y', required: true },
     { name: 'series', scale: 'band' },
@@ -75,11 +89,9 @@ Interval.props = {
   ],
   preInference: [
     ...basePreInference(),
-    { type: 'maybeZeroY1' },
-    { type: 'maybeZeroX' },
+    { type: MaybeZeroY1 },
+    { type: MaybeZeroX },
   ],
   postInference: [...basePostInference(), ...tooltip1d()],
-  interaction: {
-    shareTooltip: true,
-  },
+  interaction: { shareTooltip: true },
 };

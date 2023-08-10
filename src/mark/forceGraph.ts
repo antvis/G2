@@ -51,9 +51,6 @@ const DEFAULT_NODE_OPTIONS = {
     color: 'group',
     shape: 'point',
   },
-  scale: {
-    color: { type: 'ordinal' },
-  },
   style: {
     stroke: '#fff',
   },

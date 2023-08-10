@@ -1,12 +1,19 @@
 import { Band } from '@antv/scale';
 import { Vector2, MarkComponent as MC } from '../runtime';
 import { BoxMark } from '../spec';
+import { BoxShape, BoxViolin } from '../shape';
+import { MaybeZeroX } from '../transform';
 import {
   baseGeometryChannels,
   basePostInference,
   basePreInference,
   tooltip1d,
 } from './utils';
+
+const shape = {
+  box: BoxShape,
+  violin: BoxViolin,
+};
 
 export type BoxOptions = Omit<BoxMark, 'type'>;
 
@@ -91,13 +98,14 @@ Box.props = {
   defaultShape: 'box',
   defaultLabelShape: 'label',
   composite: false,
+  shape,
   channels: [
-    ...baseGeometryChannels({ shapes: ['box'] }),
+    ...baseGeometryChannels({ shapes: Object.keys(shape) }),
     { name: 'x', scale: 'band', required: true },
     { name: 'y', required: true },
     { name: 'series', scale: 'band' },
   ],
-  preInference: [...basePreInference(), { type: 'maybeZeroX' }],
+  preInference: [...basePreInference(), { type: MaybeZeroX }],
   postInference: [...basePostInference(), ...tooltip1d()],
   interaction: {
     shareTooltip: true,

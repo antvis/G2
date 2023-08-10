@@ -1,5 +1,6 @@
 import { Mark, MarkComponent as MC, Vector2 } from '../runtime';
 import { RangeMark } from '../spec';
+import { RangeShape } from '../shape';
 import {
   baseAnnotationChannels,
   basePostInference,
@@ -36,20 +37,21 @@ export function AbstractRange(
   };
 }
 
+const shape = { range: RangeShape };
+
 export type RangeOptions = Omit<RangeMark, 'type'>;
 
 export const Range: MC<RangeOptions> = () => {
   return AbstractRange();
 };
 
-const shapes = ['range'];
-
 Range.props = {
   defaultShape: 'range',
   defaultLabelShape: 'label',
   composite: false,
+  shape,
   channels: [
-    ...baseAnnotationChannels({ shapes }),
+    ...baseAnnotationChannels({ shapes: Object.keys(shape) }),
     { name: 'x', required: true },
     { name: 'y', required: true },
   ],

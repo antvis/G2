@@ -1,7 +1,6 @@
 import { Coordinate, Transformation } from '@antv/coord';
 import EventEmitter from '@antv/event-emitter';
 import { DisplayObject, IAnimation as GAnimation, IDocument } from '@antv/g';
-import { G2Layout } from 'component/utils';
 import {
   G2Theme,
   G2ViewInstance,

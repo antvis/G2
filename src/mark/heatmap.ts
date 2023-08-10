@@ -1,11 +1,17 @@
 import { MarkComponent as MC, Vector2 } from '../runtime';
 import { HeatmapMark } from '../spec';
+import { HeatmapShape } from '../shape';
+import { MaybeZeroX, MaybeZeroY } from '../transform';
 import {
   baseGeometryChannels,
   basePostInference,
   basePreInference,
   tooltip2d,
 } from './utils';
+
+const shape = {
+  heatmap: HeatmapShape,
+};
 
 export type HeatmapOptions = Omit<HeatmapMark, 'type'>;
 
@@ -26,14 +32,13 @@ export const Heatmap: MC<HeatmapOptions> = (options) => {
   };
 };
 
-const shapes = ['heatmap'];
-
 Heatmap.props = {
   defaultShape: 'heatmap',
   defaultLabelShape: 'label',
   composite: false,
+  shape,
   channels: [
-    ...baseGeometryChannels({ shapes }),
+    ...baseGeometryChannels({ shapes: Object.keys(shape) }),
     { name: 'x', required: true },
     { name: 'y', required: true },
     { name: 'color', scale: 'identity', required: true },
@@ -41,8 +46,8 @@ Heatmap.props = {
   ],
   preInference: [
     ...basePreInference(),
-    { type: 'maybeZeroY' },
-    { type: 'maybeZeroX' },
+    { type: MaybeZeroX },
+    { type: MaybeZeroY },
   ],
   postInference: [...basePostInference(), ...tooltip2d()],
 };
