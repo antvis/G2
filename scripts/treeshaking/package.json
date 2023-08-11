@@ -1,0 +1,23 @@
+{
+  "name": "treeshaking",
+  "type": "module",
+  "private": true,
+  "description": "Test tree shaking for @antv/g2.",
+  "scripts": {
+    "start": "npm run build && node size.js && vite dev",
+    "build": "npm run build:litelib && npm run build:corelib && npm run build:stdlib",
+    "build:litelib": "vite build -c vite.config.litelib.js",
+    "build:corelib": "vite build -c vite.config.corelib.js",
+    "build:stdlib": "vite build -c vite.config.stdlib.js",
+    "dev:litelib": "vite dev -c vite.config.litelib.js",
+    "dev:corelib": "vite dev -c vite.config.corelib.js",
+    "dev:stdlib": "vite dev -c vite.config.stdlib.js"
+  },
+  "dependencies": {
+    "@antv/g2": "file:../../"
+  },
+  "devDependencies": {
+    "rollup-plugin-gzip": "^3.0.1",
+    "vite": "^4.4.9"
+  }
+}

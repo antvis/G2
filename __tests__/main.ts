@@ -5,7 +5,7 @@ import { Plugin as ControlPlugin } from '@antv/g-plugin-control';
 import { Plugin as ThreeDPlugin } from '@antv/g-plugin-3d';
 import { Renderer as SVGRenderer } from '@antv/g-svg';
 import { Renderer as WebGLRenderer } from '@antv/g-webgl';
-import { createLibrary, render } from '../src';
+import { stdlib, render } from '../src';
 import { renderToMountedElement } from './utils/renderToMountedElement';
 import * as statics from './plots/static';
 import * as interactions from './plots/interaction';
@@ -169,7 +169,7 @@ function createSpecRender(object) {
       const node = renderChart(
         { theme: 'classic', ...options },
         // @ts-ignore
-        { canvas, library: createLibrary() },
+        { canvas, library: stdlib() },
         () => after?.(),
       );
 

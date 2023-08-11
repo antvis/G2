@@ -2,7 +2,6 @@ import { DisplayObject } from '@antv/g';
 import { ascending } from 'd3-array';
 import { OverlapDodgeYLabelTransform } from '../spec';
 import { LabelTransformComponent as LLC } from '../runtime';
-import { defined } from '../utils/helper';
 
 export type OverlapDodgeYOptions = Omit<OverlapDodgeYLabelTransform, 'type'>;
 
