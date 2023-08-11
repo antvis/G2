@@ -1,5 +1,7 @@
 import { Mark, MarkComponent as MC, Vector2 } from '../runtime';
 import { ImageMark } from '../spec';
+import { MaybeTuple, MaybeVisualPosition } from '../transform';
+import { ImageShape } from '../shape';
 import {
   baseGeometryChannels,
   basePostInference,
@@ -8,6 +10,10 @@ import {
   tooltip2d,
   visualMark,
 } from './utils';
+
+const shape = {
+  image: ImageShape,
+};
 
 export type ImageOptions = Omit<ImageMark, 'type'>;
 
@@ -25,14 +31,13 @@ export const Image: MC<ImageOptions> = (options) => {
   };
 };
 
-const shapes = ['image'];
-
 Image.props = {
   defaultShape: 'image',
   defaultLabelShape: 'label',
   composite: false,
+  shape,
   channels: [
-    ...baseGeometryChannels({ shapes }),
+    ...baseGeometryChannels({ shapes: Object.keys(shape) }),
     { name: 'x', required: true },
     { name: 'y', required: true },
     { name: 'src', scale: 'identity' },
@@ -40,8 +45,8 @@ Image.props = {
   ],
   preInference: [
     ...basePreInference(),
-    { type: 'maybeTuple' },
-    { type: 'maybeVisualPosition' },
+    { type: MaybeTuple },
+    { type: MaybeVisualPosition },
   ],
   postInference: [...basePostInference(), ...tooltip2d()],
 };

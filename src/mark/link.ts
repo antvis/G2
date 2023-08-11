@@ -1,5 +1,7 @@
 import { MarkComponent as MC, Vector2 } from '../runtime';
 import { LineMark } from '../spec';
+import { MaybeIdentityX, MaybeIdentityY } from '../transform';
+import { LinkArc, LinkShape, LinkSmooth, LinkVHV } from '../shape';
 import {
   baseGeometryChannels,
   basePostInference,
@@ -7,6 +9,13 @@ import {
   createBandOffset,
   tooltip2d,
 } from './utils';
+
+const shape = {
+  link: LinkShape,
+  arc: LinkArc,
+  smooth: LinkSmooth,
+  vhv: LinkVHV,
+};
 
 export type LinkOptions = Omit<LineMark, 'type'>;
 
@@ -25,21 +34,20 @@ export const Link: MC<LinkOptions> = (options) => {
   };
 };
 
-const shapes = ['link', 'arc', 'vhv', 'smooth'];
-
 Link.props = {
   defaultShape: 'link',
   defaultLabelShape: 'label',
   composite: false,
+  shape,
   channels: [
-    ...baseGeometryChannels({ shapes }),
+    ...baseGeometryChannels({ shapes: Object.keys(shape) }),
     { name: 'x', required: true },
     { name: 'y', required: true },
   ],
   preInference: [
     ...basePreInference(),
-    { type: 'maybeIdentityY' },
-    { type: 'maybeIdentityX' },
+    { type: MaybeIdentityY },
+    { type: MaybeIdentityX },
   ],
   postInference: [...basePostInference(), ...tooltip2d()],
 };

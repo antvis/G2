@@ -7,5 +7,6 @@ export function miserableForceDefault(): G2Spec {
       type: 'fetch',
       value: 'data/miserable.json',
     },
+    scale: { color: { type: 'ordinal' } },
   };
 }

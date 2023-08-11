@@ -4,12 +4,30 @@ import { isParallel } from '../utils/coordinate';
 import { Mark, MarkComponent as MC, SingleMark, Vector2 } from '../runtime';
 import { LineMark } from '../spec';
 import {
+  LineShape,
+  LineHV,
+  LineVH,
+  LineHVH,
+  LineTrail,
+  LineSmooth,
+} from '../shape';
+import { MaybeSeries, MaybeGradient } from '../transform';
+import {
   baseGeometryChannels,
   basePostInference,
   basePreInference,
   tooltip1d,
   tooltipXd,
 } from './utils';
+
+const shape = {
+  line: LineShape,
+  smooth: LineSmooth,
+  hv: LineHV,
+  vh: LineVH,
+  hvh: LineHVH,
+  trail: LineTrail,
+};
 
 export type LineOptions = Omit<LineMark, 'type'>;
 
@@ -79,14 +97,13 @@ export const Line: MC<LineOptions> = () => {
   };
 };
 
-const shapes = ['line', 'smooth'];
-
 Line.props = {
   defaultShape: 'line',
   defaultLabelShape: 'label',
   composite: false,
+  shape,
   channels: [
-    ...baseGeometryChannels({ shapes }),
+    ...baseGeometryChannels({ shapes: Object.keys(shape) }),
     { name: 'x' },
     { name: 'y' },
     { name: 'position', independent: true },
@@ -95,8 +112,9 @@ Line.props = {
   ],
   preInference: [
     ...basePreInference(),
-    { type: 'maybeGradient' },
-    { type: 'maybeSeries' },
+    // !!!Note This order is very important.
+    { type: MaybeGradient },
+    { type: MaybeSeries },
   ],
   postInference: [...basePostInference(), ...tooltip1d(), ...tooltipXd()],
   interaction: {

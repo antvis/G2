@@ -4,9 +4,10 @@ import { Primitive } from 'd3-array';
 import { Vector2 } from '@antv/coord';
 import { Scale } from '../runtime/types/component';
 import { Channel } from '../runtime';
+import { MaybeKey, MaybeTitle, MaybeTooltip } from '../transform';
 
 export type ChannelOptions = {
-  shapes?: string[];
+  shapes?: (string | { (...args: any[]); props?: Record<string, any> })[];
 };
 
 export function baseChannels(options: ChannelOptions = {}): Channel[] {
@@ -31,22 +32,22 @@ export function baseGeometryChannels(options: ChannelOptions = {}): Channel[] {
 
 export function tooltip2d() {
   return [
-    { type: 'maybeTitle', channel: 'color' },
-    { type: 'maybeTooltip', channel: ['x', 'y'] },
+    { type: MaybeTitle, channel: 'color' },
+    { type: MaybeTooltip, channel: ['x', 'y'] },
   ];
 }
 
 export function tooltip1d() {
   return [
-    { type: 'maybeTitle', channel: 'x' },
-    { type: 'maybeTooltip', channel: ['y'] },
+    { type: MaybeTitle, channel: 'x' },
+    { type: MaybeTooltip, channel: ['y'] },
   ];
 }
 
 export function tooltipXd() {
   return [
-    { type: 'maybeTitle', channel: 'color' },
-    { type: 'maybeTooltip', channel: ['position'] },
+    { type: MaybeTitle, channel: 'color' },
+    { type: MaybeTooltip, channel: ['position'] },
   ];
 }
 
@@ -57,7 +58,7 @@ export function baseAnnotationChannels(
 }
 
 export function basePreInference() {
-  return [{ type: 'maybeKey' }];
+  return [{ type: MaybeKey }];
 }
 
 export function basePostInference() {

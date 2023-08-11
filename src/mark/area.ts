@@ -1,12 +1,22 @@
 import { group } from 'd3-array';
 import { MarkComponent as MC } from '../runtime';
 import { AreaMark } from '../spec';
+import { AreaShape, AreaHV, AreaHVH, AreaSmooth, AreaVH } from '../shape';
+import { MaybeSeries, MaybeZeroY1, MaybeZeroPadding } from '../transform';
 import {
   baseGeometryChannels,
   basePostInference,
   basePreInference,
   tooltip1d,
 } from './utils';
+
+const shape = {
+  area: AreaShape,
+  smooth: AreaSmooth,
+  hvh: AreaHVH,
+  vh: AreaVH,
+  hv: AreaHV,
+};
 
 export type AreaOptions = Omit<AreaMark, 'type'>;
 
@@ -65,14 +75,13 @@ export const Area: MC<AreaOptions> = () => {
   };
 };
 
-const shapes = ['area', 'smooth', 'hvh', 'hv', 'vh'];
-
 Area.props = {
   defaultShape: 'area',
   defaultLabelShape: 'label',
   composite: false,
+  shape,
   channels: [
-    ...baseGeometryChannels({ shapes }),
+    ...baseGeometryChannels({ shapes: Object.keys(shape) }),
     { name: 'x', required: true },
     { name: 'y', required: true },
     { name: 'size' },
@@ -80,9 +89,9 @@ Area.props = {
   ],
   preInference: [
     ...basePreInference(),
-    { type: 'maybeSeries' },
-    { type: 'maybeZeroY1' },
-    { type: 'maybeZeroPadding' },
+    { type: MaybeSeries },
+    { type: MaybeZeroY1 },
+    { type: MaybeZeroPadding },
   ],
   postInference: [...basePostInference(), ...tooltip1d()],
   interaction: {

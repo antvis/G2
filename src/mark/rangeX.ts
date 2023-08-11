@@ -1,5 +1,6 @@
 import { MarkComponent as MC } from '../runtime';
 import { RangeXMark } from '../spec';
+import { RangeShape } from '../shape';
 import {
   baseAnnotationChannels,
   basePostInference,
@@ -7,20 +8,23 @@ import {
 } from './utils';
 import { AbstractRange } from './range';
 
+const shape = {
+  range: RangeShape,
+};
+
 export type RangeXOptions = Omit<RangeXMark, 'type'>;
 
 export const RangeX: MC<RangeXOptions> = () => {
   return AbstractRange({ extendY: true });
 };
 
-const shapes = ['range'];
-
 RangeX.props = {
   defaultShape: 'range',
   defaultLabelShape: 'label',
   composite: false,
+  shape,
   channels: [
-    ...baseAnnotationChannels({ shapes }),
+    ...baseAnnotationChannels({ shapes: Object.keys(shape) }),
     { name: 'x', required: true },
   ],
   preInference: [...basePreInference()],

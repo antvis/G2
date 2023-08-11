@@ -1335,7 +1335,7 @@ function createMarkShapeFunction(
     library,
   );
   const { data: abstractData } = mark;
-  const { defaultShape, data } = state;
+  const { defaultShape, data, shape: shapeLibrary } = state;
   const point2d = data.map((d) => d.points);
   const { theme, coordinate } = view;
   const { type: markType, style = {} } = mark;
@@ -1364,11 +1364,13 @@ function createMarkShapeFunction(
       valueOf(d, abstractDatum, I, abstractData),
     );
 
-    const shapeOptions = {
-      ...visualStyle,
-      type: shapeName(mark, shape),
-    };
-    const shapeFunction = useShape(shapeOptions, shapeContext);
+    // Try get shape from mark first, then from library.
+    const shapeFunction = shapeLibrary[shape]
+      ? shapeLibrary[shape](visualStyle, shapeContext)
+      : useShape(
+          { ...visualStyle, type: shapeName(mark, shape) },
+          shapeContext,
+        );
 
     const defaults = getDefaultsStyle(theme, markType, shape, defaultShape);
     return shapeFunction(points, value, defaults, point2d);
@@ -1408,19 +1410,24 @@ function createAnimationFunction(
     AnimationComponent,
     Animation
   >('animation', library);
-  const { defaultShape } = state;
+  const { defaultShape, shape: shapeLibrary } = state;
   const { theme, coordinate } = view;
+
   const upperType = upperFirst(type) as 'Enter' | 'Exit' | 'Update';
   const key:
     | 'defaultEnterAnimation'
     | 'defaultExitAnimation'
     | 'defaultUpdateAnimation' = `default${upperType}Animation`;
-  const { [key]: defaultAnimation } = createShape(
-    shapeName(mark, defaultShape),
-  ).props;
+
+  // Get shape from mark first, then from library.
+  const { [key]: defaultAnimation } =
+    shapeLibrary[defaultShape]?.props ||
+    createShape(shapeName(mark, defaultShape)).props;
+
   const { [type]: defaultEffectTiming = {} } = theme;
   const animate = mark.animate?.[type] || {};
   const context = { coordinate };
+
   return (data, from, to) => {
     const {
       [`${type}Type`]: animation,
@@ -1428,11 +1435,13 @@ function createAnimationFunction(
       [`${type}Duration`]: duration,
       [`${type}Easing`]: easing,
     } = data;
+
     const options = {
       type: animation || defaultAnimation,
       ...animate,
     };
     if (!options.type) return null;
+
     const animateFunction = useAnimation(options, context);
     const value = { delay, duration, easing };
     const A = animateFunction(from, to, deepMix(defaultEffectTiming, value));

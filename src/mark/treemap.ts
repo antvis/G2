@@ -11,7 +11,6 @@ import {
 import { subObject } from '../utils/helper';
 import { CompositionComponent as CC } from '../runtime';
 import { TreemapMark } from '../spec';
-import { getBBoxSize } from '../utils/size';
 import { maybeTooltip } from '../utils/mark';
 import { generateHierarchyRoot, field } from './utils';
 

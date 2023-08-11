@@ -1,12 +1,56 @@
 import { MarkComponent as MC, Vector2 } from '../runtime';
 import { PointMark } from '../spec';
 import {
+  PointBowtie,
+  PointCross,
+  PointDiamond,
+  PointHexagon,
+  PointHollowBowtie,
+  PointHollowDiamond,
+  PointHollowHexagon,
+  PointHollow,
+  PointHollowSquare,
+  PointHollowTriangle,
+  PointHollowTriangleDown,
+  PointHyphen,
+  PointLine,
+  PointTriangleDown,
+  PointPlus,
+  PointSquare,
+  PointShape,
+  PointTick,
+  PointTriangle,
+} from '../shape';
+import { MaybeZeroX, MaybeZeroY, MaybeSize } from '../transform';
+import {
   baseGeometryChannels,
   basePostInference,
   basePreInference,
   createBandOffset,
   tooltip2d,
 } from './utils';
+
+const shape = {
+  hollow: PointHollow,
+  hollowDiamond: PointHollowDiamond,
+  hollowHexagon: PointHollowHexagon,
+  hollowSquare: PointHollowSquare,
+  hollowTriangleDown: PointHollowTriangleDown,
+  hollowTriangle: PointHollowTriangle,
+  hollowBowtie: PointHollowBowtie,
+  point: PointShape,
+  plus: PointPlus,
+  diamond: PointDiamond,
+  square: PointSquare,
+  triangle: PointTriangle,
+  hexagon: PointHexagon,
+  cross: PointCross,
+  bowtie: PointBowtie,
+  hyphen: PointHyphen,
+  line: PointLine,
+  tick: PointTick,
+  triangleDown: PointTriangleDown,
+};
 
 export type PointOptions = Omit<PointMark, 'type'>;
 
@@ -50,34 +94,13 @@ export const Point: MC<PointOptions> = (options) => {
   };
 };
 
-const shapes = [
-  'hollow',
-  'hollowDiamond',
-  'hollowHexagon',
-  'hollowSquare',
-  'hollowTriangleDown',
-  'hollowTriangle',
-  'hollowBowtie',
-  'point',
-  'plus',
-  'diamond',
-  'square',
-  'triangle',
-  'hexagon',
-  'cross',
-  'bowtie',
-  'hyphen',
-  'line',
-  'tick',
-  'triangleDown',
-];
-
 Point.props = {
   defaultShape: 'hollow',
   defaultLabelShape: 'label',
   composite: false,
+  shape,
   channels: [
-    ...baseGeometryChannels({ shapes }),
+    ...baseGeometryChannels({ shapes: Object.keys(shape) }),
     { name: 'x', required: true },
     { name: 'y', required: true },
     { name: 'series', scale: 'band' },
@@ -87,12 +110,8 @@ Point.props = {
   ],
   preInference: [
     ...basePreInference(),
-    { type: 'maybeZeroY' },
-    { type: 'maybeZeroX' },
+    { type: MaybeZeroX },
+    { type: MaybeZeroY },
   ],
-  postInference: [
-    ...basePostInference(),
-    { type: 'maybeSize' },
-    ...tooltip2d(),
-  ],
+  postInference: [...basePostInference(), { type: MaybeSize }, ...tooltip2d()],
 };

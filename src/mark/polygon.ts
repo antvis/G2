@@ -1,11 +1,17 @@
 import { Vector2, MarkComponent as MC } from '../runtime';
 import { PolygonMark } from '../spec';
+import { PolygonShape, PolygonRibbon } from '../shape';
 import {
   baseGeometryChannels,
   basePostInference,
   basePreInference,
   tooltip2d,
 } from './utils';
+
+const shape = {
+  polygon: PolygonShape,
+  ribbon: PolygonRibbon,
+};
 
 export type PolygonOptions = Omit<PolygonMark, 'type'>;
 
@@ -37,14 +43,13 @@ export const Polygon: MC<PolygonOptions> = () => {
   };
 };
 
-const shapes = ['polygon', 'ribbon'];
-
 Polygon.props = {
   defaultShape: 'polygon',
   defaultLabelShape: 'label',
   composite: false,
+  shape,
   channels: [
-    ...baseGeometryChannels({ shapes }),
+    ...baseGeometryChannels({ shapes: Object.keys(shape) }),
     { name: 'x', required: true },
     { name: 'y', required: true },
   ],

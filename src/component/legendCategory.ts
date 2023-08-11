@@ -82,19 +82,18 @@ function inferItemMarker(
   context: GuideComponentContext,
 ): ((datum: any, i: number, data: any) => () => DisplayObject) | undefined {
   const { scales, library, markState } = context;
-  const [namespace, shapes] = inferShape(scales, markState);
-
+  const [mark, shapes] = inferShape(scales, markState);
   const { itemMarker, itemMarkerSize: size } = options;
 
   const create = (name, d) => {
     const marker =
-      (library[`shape.${name}`]?.props?.defaultMarker as string) ||
-      last(name.split('.'));
+      (library[`mark.${mark}`]?.props?.shape[name]?.props
+        .defaultMarker as string) || last(name.split('.'));
     const radius = typeof size === 'function' ? size(d) : size;
     return () => useMarker(marker, { color: d.color })(0, 0, radius);
   };
 
-  const shapeOf = (i) => `${namespace}.${shapes[i]}`;
+  const shapeOf = (i) => `${shapes[i]}`;
 
   const shapeScale = scaleOf(scales, 'shape');
   if (shapeScale && !itemMarker) return (d, i) => create(shapeOf(i), d);

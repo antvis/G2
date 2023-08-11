@@ -1,12 +1,19 @@
 import { Band } from '@antv/scale';
 import { MarkComponent as MC, Vector2 } from '../runtime';
 import { CellMark } from '../spec';
+import { CellShape, CellHollow } from '../shape';
+import { MaybeZeroX, MaybeZeroY, MaybeZeroPadding } from '../transform';
 import {
   baseGeometryChannels,
   basePostInference,
   basePreInference,
   tooltip2d,
 } from './utils';
+
+const shape = {
+  cell: CellShape,
+  hollow: CellHollow,
+};
 
 export type CellOptions = Omit<CellMark, 'type'>;
 
@@ -35,22 +42,21 @@ export const Cell: MC<CellOptions> = () => {
   };
 };
 
-const shapes = ['cell', 'hollow'];
-
 Cell.props = {
   defaultShape: 'cell',
   defaultLabelShape: 'label',
+  shape,
   composite: false,
   channels: [
-    ...baseGeometryChannels({ shapes }),
+    ...baseGeometryChannels({ shapes: Object.keys(shape) }),
     { name: 'x', required: true, scale: 'band' },
     { name: 'y', required: true, scale: 'band' },
   ],
   preInference: [
     ...basePreInference(),
-    { type: 'maybeZeroX' },
-    { type: 'maybeZeroY' },
-    { type: 'maybeZeroPadding' },
+    { type: MaybeZeroX },
+    { type: MaybeZeroY },
+    { type: MaybeZeroPadding },
   ],
   postInference: [...basePostInference(), ...tooltip2d()],
 };
