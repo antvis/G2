@@ -15,12 +15,21 @@ export {
   AREA_CLASS_NAME,
 } from './runtime';
 
-export type { G2Context } from './runtime';
+export { corelib, stdlib, litelib } from './lib';
 
-export { createLibrary } from './stdlib';
+export * from './mark';
 
-export { Chart, MarkNode, CompositionNode, register } from './api';
+export {
+  Chart,
+  MarkNode,
+  CompositionNode,
+  register,
+  Runtime,
+  extend,
+} from './api';
 
 export { ChartEvent } from './utils/event';
+
+export type { G2Context } from './runtime';
 
 export * from './spec';

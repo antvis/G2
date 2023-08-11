@@ -1,4 +1,4 @@
-import { createLibrary } from '../../../src/stdlib';
+import { corelib } from '../../../src/lib';
 import {
   Cartesian,
   Polar,
@@ -30,17 +30,9 @@ import {
   RangeX,
   RangeY,
   Connector,
-  Sankey,
   Path,
-  Treemap,
-  Pack as PackGeometry,
-  Boxplot,
   Shape,
-  ForceGraph,
-  Tree as TreeGeometry,
-  WordCloud as WordCloudGeometry,
-  Gauge,
-  Density as DensityGeometry,
+  Density,
   Heatmap,
 } from '../../../src/mark';
 import { Category10, Category20 } from '../../../src/palette';
@@ -166,14 +158,8 @@ import {
   Slice,
   Inline,
   Custom,
-  Cluster,
-  Tree,
-  Sankey as SankeyTransform,
-  Arc as ArcTransform,
-  WordCloud,
   Join,
   KDE,
-  Venn,
 } from '../../../src/data';
 import {
   OverflowHide,
@@ -181,12 +167,11 @@ import {
   OverlapHide,
   OverlapDodgeY,
 } from '../../../src/label-transform';
-import { GeoView, GeoPath } from '../../../src/geo';
 import { LabelShape } from '../../../src/shape';
 
-describe('stdlib', () => {
-  it('createLibrary() should returns expected builtin', () => {
-    expect(createLibrary()).toEqual({
+describe('corelib', () => {
+  it('corelib() should returns expected basic marks and components.', () => {
+    expect(corelib()).toEqual({
       'data.fetch': Fetch,
       'data.inline': Inline,
       'data.sortBy': SortBy,
@@ -198,14 +183,8 @@ describe('stdlib', () => {
       'data.slice': Slice,
       'data.custom': Custom,
       'data.map': Map,
-      'data.cluster': Cluster,
-      'data.tree': Tree,
-      'data.sankey': SankeyTransform,
-      'data.arc': ArcTransform,
-      'data.wordCloud': WordCloud,
       'data.join': Join,
       'data.kde': KDE,
-      'data.venn': Venn,
       'transform.stackY': StackY,
       'transform.binX': BinX,
       'transform.bin': Bin,
@@ -261,17 +240,9 @@ describe('stdlib', () => {
       'mark.range': Range,
       'mark.rangeX': RangeX,
       'mark.rangeY': RangeY,
-      'mark.sankey': Sankey,
       'mark.path': Path,
-      'mark.treemap': Treemap,
-      'mark.pack': PackGeometry,
-      'mark.boxplot': Boxplot,
       'mark.shape': Shape,
-      'mark.forceGraph': ForceGraph,
-      'mark.tree': TreeGeometry,
-      'mark.wordCloud': WordCloudGeometry,
-      'mark.density': DensityGeometry,
-      'mark.gauge': Gauge,
+      'mark.density': Density,
       'mark.heatmap': Heatmap,
       'shape.label.label': LabelShape,
       'palette.category10': Category10,
@@ -356,8 +327,6 @@ describe('stdlib', () => {
       'labelTransform.overlapDodgeY': OverlapDodgeY,
       'labelTransform.overflowHide': OverflowHide,
       'labelTransform.contrastReverse': ContrastReverse,
-      'composition.geoView': GeoView,
-      'composition.geoPath': GeoPath,
     });
   });
 });

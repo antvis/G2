@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>G2: Overview</title>
+  </head>
+  <body>
+    <div id="container"></div>
+    <script type="module">
+      import { Chart } from '@antv/g2';
+      import size from './size.json';
+
+      const chart = new Chart({
+        container: 'container',
+        theme: 'classic',
+        padding: 'auto',
+      });
+
+      chart
+        .interval()
+        .data(size)
+        .encode('x', 'lib')
+        .encode('y', 'size')
+        .encode('color', 'type')
+        .encode('series', 'type')
+        .transform({ type: 'sortX', by: 'y', reverse: true })
+        .scale('y', { nice: true })
+        .label({ text: (d) => (d.size / 1000).toFixed(2) + 'kb' })
+        .axis('y', { labelFormatter: (d) => `${d / 1000}kb` });
+
+      chart.render();
+    </script>
+  </body>
+</html>

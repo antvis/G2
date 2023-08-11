@@ -24,6 +24,7 @@ coverage
 
 # Bundle visualizer
 stats.html
+**/stats.html
 
 # Snapshots error images
 __tests__/integration/snapshots/**/*-actual.*
@@ -36,5 +37,7 @@ site/.dumi/tmp-production
 # Editor
 .vscode
 
-# Bundle analyzer
-analyse.html
+
+# Other
+!/src/lib
+!/__tests__/unit/lib

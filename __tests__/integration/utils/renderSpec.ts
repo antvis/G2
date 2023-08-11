@@ -1,6 +1,6 @@
 import { Canvas } from '@antv/g';
 import { createCanvas } from 'canvas';
-import { G2Context, G2Spec, createLibrary, render } from '../../../src';
+import { G2Context, G2Spec, stdlib, render } from '../../../src';
 import { renderToMountedElement } from '../../utils/renderToMountedElement';
 import { createNodeGCanvas } from './createNodeGCanvas';
 
@@ -15,7 +15,7 @@ export async function renderSpec(
   const renderFunction = mounted ? renderToMountedElement : render;
   const options = preprocess({ ...raw, width, height });
   context.canvas = gCanvas;
-  context.library = createLibrary();
+  context.library = stdlib();
   context.createCanvas = () => {
     // The width attribute defaults to 300, and the height attribute defaults to 150.
     // @see https://stackoverflow.com/a/12019582

@@ -1,0 +1,127 @@
+import { Cartesian } from '../coordinate';
+import { Constant, Field, Transform, Column } from '../encode';
+import { Interval } from '../mark';
+import { Category10, Category20 } from '../palette';
+import {
+  Linear as ScaleLinear,
+  Ordinal as ScaleOrdinal,
+  Band as ScaleBand,
+  Identity as ScaleIdenity,
+  Point as ScalePoint,
+  Time as ScaleTime,
+  Log as ScaleLog,
+  Pow as ScalePow,
+  Threshold as ScaleThreshold,
+  Quantile as ScaleQuantile,
+  Quantize as ScaleQuantize,
+  Sqrt as ScaleSqrt,
+  Sequential as ScaleSequential,
+  Constant as ScaleConstant,
+} from '../scale';
+import { Classic } from '../theme';
+import {
+  AxisLinear,
+  AxisArc,
+  AxisX,
+  AxisY,
+  AxisRadar,
+  LegendCategory,
+  LegendContinuous,
+  LegendContinuousBlock,
+  LegendContinuousBlockSize,
+  LegendContinuousSize,
+  TitleComponent,
+  SliderX,
+  SliderY,
+  ScrollbarX,
+  ScrollbarY,
+  Legends,
+} from '../component';
+import {
+  ScaleInX,
+  ScaleOutX,
+  ScaleInY,
+  ScaleOutY,
+  WaveIn,
+  FadeIn,
+  FadeOut,
+  Morphing,
+} from '../animation';
+import {
+  Tooltip,
+  LegendFilter,
+  LegendHighlight,
+  SliderFilter,
+  Poptip,
+  Event,
+  ScrollbarFilter,
+} from '../interaction';
+import { Mark, View } from '../composition';
+import { LabelShape } from '../shape';
+import { Inline } from '../data';
+
+/**
+ * In test stage, don't use it.
+ */
+export function litelib() {
+  return {
+    'data.inline': Inline,
+    'coordinate.cartesian': Cartesian,
+    'encode.constant': Constant,
+    'encode.field': Field,
+    'encode.transform': Transform,
+    'encode.column': Column,
+    'mark.interval': Interval,
+    'shape.label.label': LabelShape,
+    'palette.category10': Category10,
+    'palette.category20': Category20,
+    'scale.linear': ScaleLinear,
+    'scale.ordinal': ScaleOrdinal,
+    'scale.band': ScaleBand,
+    'scale.identity': ScaleIdenity,
+    'scale.point': ScalePoint,
+    'scale.time': ScaleTime,
+    'scale.log': ScaleLog,
+    'scale.pow': ScalePow,
+    'scale.sqrt': ScaleSqrt,
+    'scale.threshold': ScaleThreshold,
+    'scale.quantile': ScaleQuantile,
+    'scale.quantize': ScaleQuantize,
+    'scale.sequential': ScaleSequential,
+    'scale.constant': ScaleConstant,
+    'theme.classic': Classic,
+    'component.axisX': AxisX,
+    'component.axisY': AxisY,
+    'component.axisRadar': AxisRadar,
+    'component.axisLinear': AxisLinear,
+    'component.axisArc': AxisArc,
+    'component.legendCategory': LegendCategory,
+    'component.legendContinuous': LegendContinuous,
+    'component.legendContinuousBlock': LegendContinuousBlock,
+    'component.legendContinuousBlockSize': LegendContinuousBlockSize,
+    'component.legendContinuousSize': LegendContinuousSize,
+    'component.legends': Legends,
+    'component.title': TitleComponent,
+    'component.sliderX': SliderX,
+    'component.sliderY': SliderY,
+    'component.scrollbarX': ScrollbarX,
+    'component.scrollbarY': ScrollbarY,
+    'animation.scaleInX': ScaleInX,
+    'animation.scaleOutX': ScaleOutX,
+    'animation.scaleInY': ScaleInY,
+    'animation.scaleOutY': ScaleOutY,
+    'animation.waveIn': WaveIn,
+    'animation.fadeIn': FadeIn,
+    'animation.fadeOut': FadeOut,
+    'animation.morphing': Morphing,
+    'interaction.tooltip': Tooltip,
+    'interaction.legendFilter': LegendFilter,
+    'interaction.legendHighlight': LegendHighlight,
+    'interaction.sliderFilter': SliderFilter,
+    'interaction.scrollbarFilter': ScrollbarFilter,
+    'interaction.poptip': Poptip,
+    'interaction.event': Event,
+    'composition.mark': Mark,
+    'composition.view': View,
+  } as const;
+}

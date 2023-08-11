@@ -1,6 +1,6 @@
 import { Canvas } from '@antv/g';
 import { Renderer as SVGRenderer } from '@antv/g-svg';
-import { Chart, createLibrary, ChartEvent } from '../../../src';
+import { Chart, stdlib, ChartEvent } from '../../../src';
 
 const TEST_OPTIONS = {
   type: 'interval',
@@ -344,7 +344,7 @@ describe('Chart', () => {
 
     const context = chart.getContext();
     expect(context.canvas).toBeUndefined();
-    expect(context.library).toEqual(createLibrary());
+    expect(context.library).toEqual(stdlib());
     chart.render();
     expect(context.canvas).toBeInstanceOf(Canvas);
   });

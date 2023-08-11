@@ -23,7 +23,6 @@
     "test": "node --expose-gc --max-old-space-size=4096 --unhandled-rejections=strict node_modules/jest/bin/jest __tests__/ --coverage -i  --logHeapUsage",
     "test:unit": "node --expose-gc --max-old-space-size=4096 --unhandled-rejections=strict node_modules/jest/bin/jest __tests__/unit/ --coverage -i  --logHeapUsage",
     "test:integration": "node --expose-gc --max-old-space-size=4096 --unhandled-rejections=strict node_modules/jest/bin/jest __tests__/integration/ --coverage -i  --logHeapUsage",
-    "test:treeshaking": "vite build -c ./__tests__/treeshaking/vite.config.js",
     "build:umd": "rimraf ./dist && rollup -c && npm run size",
     "build:cjs": "rimraf ./lib && tsc --module commonjs --outDir lib",
     "build:esm": "rimraf ./esm && tsc --module ESNext --outDir esm",
@@ -32,9 +31,12 @@
     "ci": "run-s lint test build",
     "prepublishOnly": "npm run ci",
     "prepare": "husky install",
-    "upload": "node scripts/uploadSnapshot.js",
+    "upload": "node scripts/upload/snapshot.js",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
+  "sideEffects": [
+    "./src/index.ts"
+  ],
   "keywords": [
     "antv",
     "g2",
@@ -71,10 +73,10 @@
   },
   "devDependencies": {
     "@antv/data-set": "^0.11.8",
+    "@antv/g-plugin-3d": "^1.9.5",
+    "@antv/g-plugin-control": "^1.9.5",
     "@antv/g-plugin-rough-canvas-renderer": "^1.7.9",
     "@antv/g-plugin-rough-svg-renderer": "^1.7.9",
-    "@antv/g-plugin-control": "^1.9.5",
-    "@antv/g-plugin-3d": "^1.9.5",
     "@antv/g-svg": "^1.10.7",
     "@antv/g-webgl": "^1.9.8",
     "@commitlint/cli": "^11.0.0",
@@ -119,7 +121,7 @@
     "rollup-plugin-polyfill-node": "^0.8.0",
     "rollup-plugin-typescript": "^1.0.1",
     "rollup-plugin-uglify": "^6.0.4",
-    "rollup-plugin-visualizer": "^5.6.0",
+    "rollup-plugin-visualizer": "^5.9.2",
     "topojson": "^3.0.2",
     "ts-jest": "^26.5.1",
     "typescript": "^4.1.5",
