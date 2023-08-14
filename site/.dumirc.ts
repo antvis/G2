@@ -49,23 +49,23 @@ export default defineConfig({
     navs: [
       // 头部的菜单列表
       {
-        slug: 'manual/introduction',
+        slug: 'docs/manual/introduction',
         title: {
-          zh: '教程',
-          en: 'Tutorials',
+          zh: '文档',
+          en: 'Docs',
         },
         order: 3,
       },
       {
-        slug: 'spec/overview',
+        slug: 'docs/spec/overview',
         title: {
-          zh: '文档',
-          en: 'Documentation',
+          zh: '选项',
+          en: 'Spec',
         },
         order: 2,
       },
       {
-        slug: 'api/overview',
+        slug: 'docs/api/overview',
         title: {
           zh: 'API',
           en: 'API',
@@ -80,13 +80,6 @@ export default defineConfig({
         },
         order: 0,
       },
-      // {
-      //   slug: 'theme',
-      //   title: {
-      //     zh: '主题',
-      //     en: 'Theme',
-      //   },
-      // },
     ],
     ecosystems: [
       // 头部的菜单中的「周边生态」
@@ -101,28 +94,28 @@ export default defineConfig({
     docs: [
       // manual
       {
-        slug: 'manual/single-view',
+        slug: 'manual/introduction',
         title: {
-          zh: '基础',
-          en: 'General',
+          zh: '简介',
+          en: 'Introduction',
+        },
+        order: 1,
+      },
+      {
+        slug: 'manual/core',
+        title: {
+          zh: '核心概念',
+          en: 'Core Concepts',
+        },
+        order: 2,
+      },
+      {
+        slug: 'manual/extra-topics',
+        title: {
+          zh: '进阶主题',
+          en: 'Extra Topics',
         },
         order: 3,
-      },
-      {
-        slug: 'manual/theme',
-        title: {
-          zh: '风格',
-          en: 'Style',
-        },
-        order: 10,
-      },
-      {
-        slug: 'manual/more',
-        title: {
-          zh: '更多',
-          en: 'More',
-        },
-        order: 11,
       },
       // docs
       {

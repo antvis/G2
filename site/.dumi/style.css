@@ -15,3 +15,7 @@
 .dumi-default-table {
   margin: 0 !important;
 }
+
+.g2-tooltip-list-item {
+  margin-left: 0px !important;
+}
