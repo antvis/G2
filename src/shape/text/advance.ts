@@ -130,7 +130,6 @@ function inferConnectorPath(
 
 export const Advance = createElement((g) => {
   const {
-    id,
     className,
     // Do not pass className
     class: _c,
@@ -170,7 +169,7 @@ export const Advance = createElement((g) => {
   // Use html to customize advance text.
   if (innerHTML) {
     textShape = select(g)
-      .maybeAppend(id, 'html', className)
+      .maybeAppend('html', 'html', className)
       .style('zIndex', 0)
       .style('innerHTML', innerHTML)
       .call(applyStyle, {
