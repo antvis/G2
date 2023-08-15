@@ -1,9 +1,10 @@
 require('./style.css');
-// require('./github-markdown-light.css');
 require('./prism-one-light.css');
 
 if (window) {
   (window as any).g2 = extendG2(require('../../src'));
+  (window as any).G2 = (window as any).g2;
+  (window as any).s2 = require('@antv/s2');
   (window as any).d3Hierarchy = require('d3-hierarchy');
   (window as any).d3ScaleChromatic = require('d3-scale-chromatic');
   (window as any).d3Interpolate = require('d3-interpolate');
@@ -26,6 +27,7 @@ if (window) {
   (window as any).React = require('react');
   (window as any).dataSet = require('@antv/data-set');
   (window as any).lodash = require('lodash');
+  (window as any).table = table;
 }
 
 if (
@@ -36,6 +38,58 @@ if (
     location.origin,
     'https://g2.antv.antgroup.com',
   );
+}
+
+// TODO 支持 csv 格式的数据
+async function table(
+  data, // 数组（inline data）或者一个对象（online data）
+  {
+    rows = 10, // 展现的行数
+    index = true, // 是否展示序列号
+    width = 'fit', // 表格宽度，fit 表示和容器保持一致，否者为指定像素值
+    height = null, // 表格高度，优先级比 rows 高，单位为像素值
+  } = {},
+) {
+  // Create container.
+  const container = document.createElement('div');
+  container.style.width = '100%';
+
+  const dataOf = async () => {
+    if (Array.isArray(data)) return data;
+    const { url } = data;
+    return fetch(url).then((res) => res.json());
+  };
+  const widthOf = () => {
+    if (width !== 'fit') return width;
+    const style = getComputedStyle(container);
+    const w = container.clientWidth || parseInt(style.width, 0);
+    return w;
+  };
+  const heightOf = () => {
+    if (typeof height === 'number') return height;
+    return rows * 30 + 30;
+  };
+
+  let sheet;
+
+  // Render after container mounted to compute width.
+  requestAnimationFrame(async () => {
+    const data1 = await dataOf();
+    const { TableSheet } = (window as any).s2;
+    sheet = new TableSheet(
+      container,
+      { data: data1, fields: { columns: Object.keys(data1[0]) } },
+      { width: widthOf(), height: heightOf(), showSeriesNumber: index },
+    );
+    sheet.render();
+  });
+
+  // @ts-ignore
+  container.clear = () => {
+    sheet.destroy();
+  };
+
+  return container;
 }
 
 // 对 G2 的 Chart 对象进行扩展
@@ -133,6 +187,13 @@ function extendG2(g2) {
       });
       window.dispatchEvent(event);
       return super.render();
+    }
+    getContainer() {
+      const node = super.getContainer();
+      const chart = this;
+      node.style.overflow = 'auto';
+      node.clear = () => chart.destroy();
+      return node;
     }
   }
   return { ...rest, Chart };
