@@ -19,11 +19,6 @@ export function alphabetIntervalHtmlLabel(): G2Spec {
     labels: [
       {
         text: 'frequency',
-        transform: [
-          {
-            type: 'overlapHide',
-          },
-        ],
         className: 'alphabet-labels',
         render: (
           _,
