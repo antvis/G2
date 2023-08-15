@@ -1,5 +1,13 @@
 # G2 - Changelog
 
+## [5.0.19](https://github.com/antvis/g2/compare/5.0.18...5.0.19) (2023-08-15)
+
+### Bug Fixes
+
+- axis arrow direction ([#5359](https://github.com/antvis/g2/issues/5359)) ([75b7965](https://github.com/antvis/g2/commit/75b7965a15dd3759ad6d6a7c50b86fccc5f425f0))
+- label dom leak when chart re-render ([#5392](https://github.com/antvis/g2/issues/5392)) ([18e6626](https://github.com/antvis/g2/commit/18e66263fde6e768f5c96bda7b83a8d791d2f4d2))
+- projection null ([#5381](https://github.com/antvis/g2/issues/5381)) ([b34fa72](https://github.com/antvis/g2/commit/b34fa7205729d5b63edd5bd95ec8a24b96b44cad))
+
 ## [5.0.18](https://github.com/antvis/g2/compare/5.0.17...5.0.18) (2023-08-02)
 
 ### Bug Fixes
