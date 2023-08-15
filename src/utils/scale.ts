@@ -5,7 +5,7 @@ function constrain(x, lo, hi) {
 }
 
 export function isOrdinalScale(scale) {
-  return scale.getBandWidth;
+  return !!scale.getBandWidth;
 }
 
 export function invert(scale, x, start) {

@@ -2,7 +2,7 @@ import { Coordinate } from '@antv/coord';
 import type { DisplayObject } from '@antv/g';
 import { Axis as AxisComponent } from '@antv/gui';
 import { Linear as LinearScale } from '@antv/scale';
-import { deepMix, has, omit } from '@antv/util';
+import { deepMix, omit } from '@antv/util';
 import { extent } from 'd3-array';
 import { format } from 'd3-format';
 import {
@@ -24,6 +24,7 @@ import {
   radiusOf,
 } from '../utils/coordinate';
 import { capitalizeFirst } from '../utils/helper';
+import { isOrdinalScale } from '../utils/scale';
 import { adaptor, isVertical, titleContent } from './utils';
 
 export type AxisOptions = {
@@ -157,6 +158,7 @@ function getData(
   const applyFisheye = createFisheye(position, coordinate);
   const isHorizontal = (position) =>
     ['top', 'bottom', 'center', 'outer'].includes(position);
+  const isVertical = (position) => ['left', 'right'].includes(position);
 
   // @todo GUI should consider the overlap problem for the first
   // and label of arc axis.
@@ -168,7 +170,9 @@ function getData(
         (isRadial(coordinate) && position === 'center') ||
         (isTranspose(coordinate) &&
           scale.getTicks?.() &&
-          isHorizontal(position));
+          isHorizontal(position)) ||
+        (isTranspose(coordinate) && isVertical(position));
+
       return {
         value: shouldReverse ? 1 - tick : tick,
         label: toString(labelFormatter(prettyNumber(d), i, array)),
@@ -180,8 +184,9 @@ function getData(
   return filteredTicks.map((d, i, array) => {
     const offset = scale.getBandWidth?.(d) / 2 || 0;
     const tick = applyFisheye(applyInset(scale.map(d) + offset));
+    const shouldReverse = isVertical(position);
     return {
-      value: tick,
+      value: shouldReverse ? 1 - tick : tick,
       label: toString(labelFormatter(prettyNumber(d), i, array)),
       id: String(i),
     };
@@ -291,10 +296,10 @@ function inferAxisLinearOverrideStyle(
     return { startPos: [x, y], endPos: [x + width, y] };
   }
   if (position === 'left') {
-    return { startPos: [x + width, y], endPos: [x + width, y + height] };
+    return { startPos: [x + width, y + height], endPos: [x + width, y] };
   }
   if (position === 'right') {
-    return { endPos: [x, y + height], startPos: [x, y] };
+    return { startPos: [x, y + height], endPos: [x, y] };
   }
   if (position === 'top') {
     return { startPos: [x, y + height], endPos: [x + width, y + height] };
