@@ -405,7 +405,7 @@ export default defineConfig({
             zh: '开始使用',
             en: 'Getting Started',
           },
-          link: `/manual/getting-started`,
+          link: `/manual/introduction/getting-started`,
         },
       ],
     },
