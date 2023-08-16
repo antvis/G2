@@ -43,6 +43,14 @@
         "en": "Projection Comparison"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*eM7qSrDEZcYAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "hexjson-usa.ts",
+      "title": {
+        "zh": "六边形美国地图",
+        "en": "Hexbin USA Map"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*BAtYRoaNsp4AAAAAAAAAAAAADmJ7AQ/fmt.webp"
     }
   ]
 }

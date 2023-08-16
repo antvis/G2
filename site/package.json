@@ -20,6 +20,7 @@
     "antd": "^4.23.5",
     "d3-array": "^3.2.0",
     "d3-geo-projection": "^4.0.0",
+    "d3-hexjson": "^1.1.1",
     "d3-hierarchy": "^3.1.2",
     "d3-interpolate": "^3.0.1",
     "d3-random": "^3.0.1",
