@@ -1,6 +1,7 @@
 export { LinearAxis as AxisLinear, ArcAxis as AxisArc } from './axis';
 export { AxisX } from './axisX';
 export { AxisY } from './axisY';
+export { AxisZ } from './axisZ';
 export { AxisRadar } from './axisRadar';
 export { LegendCategory } from './legendCategory';
 export { LegendContinuous } from './legendContinuous';

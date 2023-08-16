@@ -3,7 +3,7 @@ import { Linear } from '@antv/scale';
 import { lowerFirst } from '@antv/util';
 import { extent } from 'd3-array';
 import { Path as D3Path } from 'd3-path';
-import { G2Theme, Primitive, Vector2 } from '../runtime';
+import { G2Theme, Primitive, Vector2, Vector3 } from '../runtime';
 import { indexOf } from '../utils/array';
 import { isPolar, isTranspose } from '../utils/coordinate';
 import { Selection } from '../utils/selection';
@@ -212,8 +212,8 @@ export function getTransform(coordinate, value) {
   return `translate(${center[0]}, ${center[1]}) ${suffix || ''}`;
 }
 
-export function getOrigin(points: Vector2[]) {
+export function getOrigin(points: (Vector2 | Vector3)[]) {
   if (points.length === 1) return points[0];
-  const [[x0, y0], [x2, y2]] = points;
-  return [(x0 + x2) / 2, (y0 + y2) / 2];
+  const [[x0, y0, z0 = 0], [x2, y2, z2 = 0]] = points;
+  return [(x0 + x2) / 2, (y0 + y2) / 2, (z0 + z2) / 2];
 }

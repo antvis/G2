@@ -89,6 +89,7 @@ export type MarkTypes =
 export type ChannelTypes =
   | 'x'
   | 'y'
+  | 'z'
   | 'x1'
   | 'y1'
   | 'series'
@@ -114,7 +115,12 @@ export type ChannelTypes =
   | 'exitDelay'
   | `position${number}`;
 
-export type PositionChannelTypes = 'x' | 'y' | 'position' | `position${number}`;
+export type PositionChannelTypes =
+  | 'x'
+  | 'y'
+  | 'z'
+  | 'position'
+  | `position${number}`;
 
 export type AtheisticChanelTypes = 'size' | 'color' | 'shape' | 'opacity';
 

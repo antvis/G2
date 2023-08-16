@@ -29,6 +29,8 @@ export { Square as PointSquare } from './point/square';
 export { Tick as PointTick } from './point/tick';
 export { Triangle as PointTriangle } from './point/triangle';
 export { TriangleDown as PointTriangleDown } from './point/triangleDown';
+export { Sphere } from './point3D/sphere';
+export { Cube } from './point3D/cube';
 export { Vector as VectorShape } from './vector/vector';
 export { Text as TextShape } from './text/text';
 export { Badge as TextBadge } from './text/badge';

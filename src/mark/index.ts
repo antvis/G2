@@ -2,6 +2,7 @@ export { Interval } from './interval';
 export { Rect } from './rect';
 export { Line } from './line';
 export { Point } from './point';
+export { Point3D } from './point3D';
 export { Text } from './text';
 export { Cell } from './cell';
 export { Area } from './area';

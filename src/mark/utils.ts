@@ -30,6 +30,13 @@ export function baseGeometryChannels(options: ChannelOptions = {}): Channel[] {
   return [...baseChannels(options), { name: 'title', scale: 'identity' }];
 }
 
+export function tooltip3d() {
+  return [
+    { type: MaybeTitle, channel: 'color' },
+    { type: MaybeTooltip, channel: ['x', 'y', 'z'] },
+  ];
+}
+
 export function tooltip2d() {
   return [
     { type: MaybeTitle, channel: 'color' },

@@ -126,6 +126,7 @@ export type Channel = {
 };
 
 export type Vector2 = [number, number];
+export type Vector3 = [number, number, number];
 
 export type BBox = {
   x?: number;

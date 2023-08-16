@@ -1,4 +1,4 @@
-import { Canvas } from '@antv/g';
+import { Canvas, CameraType } from '@antv/g';
 import { Renderer as CanvasRenderer } from '@antv/g-canvas';
 import { Plugin as DragAndDropPlugin } from '@antv/g-plugin-dragndrop';
 import { Plugin as ControlPlugin } from '@antv/g-plugin-control';
@@ -161,6 +161,9 @@ function createSpecRender(object) {
         height,
         renderer,
       });
+
+      const camera = canvas.getCamera();
+      camera.setType(CameraType.ORBITING);
 
       // @ts-ignore
       window.__g_instances__ = [canvas];

@@ -1,4 +1,9 @@
-import { Coordinate, Transformation } from '@antv/coord';
+import {
+  Coordinate,
+  Coordinate3D,
+  Transformation,
+  Transformation3D,
+} from '@antv/coord';
 import EventEmitter from '@antv/event-emitter';
 import { DisplayObject, IAnimation as GAnimation, IDocument } from '@antv/g';
 import {
@@ -114,6 +119,13 @@ export type CoordinateComponent<O = Record<string, unknown>> = G2BaseComponent<
   O,
   CoordinateProps
 >;
+
+export type Coordinate3DTransform = Transformation3D[];
+export type Coordinate3DProps = {
+  transform?: boolean;
+};
+export type Coordinate3DComponent<O = Record<string, unknown>> =
+  G2BaseComponent<Coordinate3DTransform, O, Coordinate3DProps>;
 
 export type Palette = string[];
 export type PaletteComponent<O = Record<string, unknown>> = G2BaseComponent<

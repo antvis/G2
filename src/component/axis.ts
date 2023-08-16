@@ -518,6 +518,11 @@ const LinearAxisComponent: GCC<AxisOptions> = (options) => {
     );
 
     const internalAxisStyle = {
+      tickIsBillboard: true,
+      lineIsBillboard: true,
+      labelIsBillboard: true,
+      titleIsBillboard: true,
+      gridIsBillboard: true,
       ...defaultStyle,
       ...style,
       ...userDefinitions,

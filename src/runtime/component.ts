@@ -363,6 +363,10 @@ function inferAxisComponentType(
         if (isRadial(coordinates)) return ['axisArc', [scale]];
         return [isTranspose(coordinates) ? 'axisX' : 'axisY', [scale]];
       }
+      // Only support linear axis for z.
+      if (name.startsWith('z')) {
+        return ['axisZ', [scale]];
+      }
       if (name.startsWith('position')) {
         if (isRadar(coordinates)) return ['axisRadar', [scale]];
         if (!isPolar(coordinates)) return ['axisY', [scale]];

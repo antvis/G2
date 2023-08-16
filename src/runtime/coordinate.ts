@@ -1,4 +1,4 @@
-import { Coordinate } from '@antv/coord';
+import { Coordinate, Coordinate3D } from '@antv/coord';
 import { G2View, G2CoordinateOptions, G2Library } from './types/options';
 import { CoordinateComponent, CoordinateTransform } from './types/component';
 import { useLibrary } from './library';
@@ -26,7 +26,9 @@ export function createCoordinate(
   } = layout;
   const { coordinates: partialTransform = [] } = partialOptions;
   const transform = inferCoordinate(partialTransform);
-  const coordinate = new Coordinate({
+
+  const isCartesian3D = transform[0].type === 'cartesian3D';
+  const options = {
     // @todo Find a better solution.
     // Store more layout information for component.
     ...layout,
@@ -35,8 +37,17 @@ export function createCoordinate(
     width: innerWidth - insetLeft - insetRight,
     height: innerHeight - insetBottom - insetTop,
     transformations: transform.map(useCoordinate).flat(),
-  });
-  return coordinate;
+  };
+
+  const coordinate = isCartesian3D
+    ? // @ts-ignore
+      new Coordinate3D({
+        ...options,
+        z: transform[0].z,
+        depth: transform[0].depth,
+      })
+    : new Coordinate(options);
+  return coordinate as Coordinate;
 }
 
 export function coordinate2Transform(node: G2View, library: G2Library): G2View {
@@ -112,6 +123,9 @@ export function isReflectY(coordinates: G2CoordinateOptions[]) {
 function inferCoordinate(
   coordinates: G2CoordinateOptions[],
 ): G2CoordinateOptions[] {
-  if (coordinates.find((d) => d.type === 'cartesian')) return coordinates;
+  if (
+    coordinates.find((d) => d.type === 'cartesian' || d.type === 'cartesian3D')
+  )
+    return coordinates;
   return [...coordinates, { type: 'cartesian' }];
 }
