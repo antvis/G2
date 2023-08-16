@@ -3,11 +3,15 @@ title: 按需打包
 order: 9
 ---
 
-G2 5.0.19 版本推出了按需打包的功能。可以借助 [Rollup](https://rollupjs.org/), [Webpack](https://webpack.js.org/) 等打包工具 [Tree-Shaking](https://rollupjs.org/introduction/#tree-shaking) 的能力去按需使用 G2 的特性，从而减少打包后的体积。
+G2 5.0.19 版本推出了按需打包的功能。可以借助 [Rollup](https://rollupjs.org/), [Webpack](https://webpack.js.org/) 等打包工具 [Tree-Shaking](https://rollupjs.org/introduction/#tree-shaking) 的能力去按需使用 G2 的特性，从而减少打包后的体积。虽然从结果上看还有不少优化空间，该功能的推出有以下几个意义：
+
+- 防止已有 G2 5.0 用户的包体积无意义的增加。
+- 能更清晰地分析依赖和整理 G2 5.0 的总体架构。
+- 提供一种对 G2 5.0 能力扩展的思路。
 
 ## 开始使用
 
-比如打包如下的一个网页，该网页绘制了只使用 G2 绘制了一个条形图：
+比如打包如下的一个网页，该网页使用 G2 绘制了一个条形图：
 
 ```html
 <html>
@@ -19,7 +23,10 @@ G2 5.0.19 版本推出了按需打包的功能。可以借助 [Rollup](https://r
     const Chart = extend(Runtime, corelib());
 
     // 初始化扩展后的图表实例
-    const chart = new Chart({ container: 'container' });
+    const chart = new Chart({
+      container: 'container',
+      theme: 'classic',
+    });
 
     // 声明可视化
     chart.options({
@@ -54,7 +61,10 @@ G2 5.0.19 版本推出了按需打包的功能。可以借助 [Rollup](https://r
     { lib: 'Runtime', size: 252045, type: 'gzip' },
   ];
 
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart({
+    theme: 'classic',
+    padding: 'auto',
+  });
 
   chart.options({
     type: 'interval',
@@ -88,7 +98,7 @@ G2 5.0.19 版本推出了按需打包的功能。可以借助 [Rollup](https://r
 
 ## 原理
 
-G2 的架构是由 Runtime + library 构成的。Runtime 负责渲染流程，library 是一系列可视化组件，用于在整个渲染的不同阶段处理或者绘制数据。
+G2 的架构是由 Runtime + library 构成的。Runtime 负责渲染流程，library 是一个有一系列可视化组件构成的 JavaScript Object，用于在整个渲染的不同阶段处理或者绘制数据。
 
 ```js
 const library = {
@@ -109,7 +119,7 @@ const library = {
 
 下面简单介绍一下和按需打包相关的 API。
 
-### G2.Runtime
+### G2.Runtime(_options_)
 
 返回一个 G2 运行时。该运行时不包含任何 Library，需要配合 [**G2**.extend](#g2extendruntime-library) 一起使用。
 
@@ -124,9 +134,12 @@ const Chart = extend(Runtime, corelib());
 也可以同时使用多个 library，比如使用核心和地理能力：
 
 ```js
-import { Runtime, extend, corelib, geolib() } from '@antv/g2';
+import { Runtime, extend, corelib, geolib } from '@antv/g2';
 
-const Chart = extend(Runtime, {...corelib(), ...geolib()});
+const Chart = extend(Runtime, {
+  ...corelib(),
+  ...geolib(),
+});
 ```
 
 ### G2.extend(_Runtime_, _library_)
@@ -141,14 +154,14 @@ const Chart = extend(Runtime, corelib());
 
 ### G2.stdlib()
 
-返回标准库，包含 G2 所有的能力，也就是包含 [G2.corelib](#g2corelib)，[G2.plotlib](#g2plotlib)，[G2.geolib](#g2geolib) 以及 [G2.graphlib](#g2graphlib) 的所有可视化组件。[G2.Chart](/manual/core/chart) 就是使用了这个 library。([源码](https://github.com/antvis/G2/blob/v5/src/lib/std.ts) · [案例](https://g2.antv.antgroup.com/examples))
+返回标准库，包含 G2 非 3D 之外的所有能力，也就是包含 [G2.corelib](#g2corelib)，[G2.plotlib](#g2plotlib)，[G2.geolib](#g2geolib)，[G2.graphlib](#g2graphlib) 以及 [G2.autolib](#g2autolib) 的所有可视化组件。[G2.Chart](/manual/core/chart) 就是使用了这个 library。([源码](https://github.com/antvis/G2/blob/v5/src/lib/std.ts) · [案例](https://g2.antv.antgroup.com/examples))
 
 ```js
 import { Runtime, extend, stdlib } from '@antv/g2';
 
 const Chart = extend(Runtime, stdlib());
 
-const chart = new Chart();
+const chart = new Chart({ theme: 'classic' });
 
 chart.interval(); // corelib
 chart.sankey(); // plotlib
@@ -178,9 +191,9 @@ const Chart = extend(Runtime, {
   ...plotlib(),
 });
 
-const chart = new Chart();
+const chart = new Chart({ theme: 'classic' });
 
-chart.snakey();
+chart.sankey();
 ```
 
 ### G2.geolib()
@@ -195,7 +208,7 @@ const Chart = extend(Runtime, {
   ...geolib(),
 });
 
-const chart = new Chart();
+const chart = new Chart({ theme: 'classic' });
 
 chart.geoPath();
 ```
@@ -212,17 +225,59 @@ const Chart = extend(Runtime, {
   ...graphlib(),
 });
 
-const chart = new Chart();
+const chart = new Chart({ theme: 'classic' });
 
 chart.forceGraph();
 ```
 
+### G2.autolib()
+
+> 开发中，预计 10 月底上线
+
+返回增强分析库，提供增强分析标记（Auto 等）。该 library 会依赖 [@antv/ava](https://github.com/antvis/AVA) ，提供自动绘制图表、自动标注等能力。不能单独使用，需要配合 [G2.corelib](#g2corelib) 使用。
+
+```js
+import { Runtime, extend, corelib, autolib } from '@antv/g2';
+
+const Chart = extend(Runtime, {
+  ...corelib(),
+  ...autolib(),
+});
+
+const chart = new Chart({ theme: 'classic' });
+
+chart.auto(); // Auto Mark
+```
+
+### G2.threedlib()
+
+> 开发中，预计 10 月底上线
+
+返回 3D 分析库，提供 3D 可视化的能力。该 library 不会包含在 [G2.stdlib](#g2stdlib) 里面，同样不能单独使用，需要配合 [G2.corelib](#g2corelib) 使用。
+
+```js
+import { Runtime, extend, threedlib, corelib } from '@antv/g2';
+import { Renderer } from '@antv/g-webgl';
+
+const Chart = extend(Runtime, {
+  ...corelib(),
+  ...threedlib(),
+});
+
+const chart = new Chart({
+  theme: 'classic',
+  renderer: new Renderer(), //使用 webgl 渲染器
+});
+
+chart.interval3d();
+```
+
 ## 未来工作
 
-目前是推出了按需打包的能力，但是可以发现效果不是很明显，只减少了 10% 左右的大小。通过分析如下 G2 5.0.18 使用 [G2.stdlib](#g2corelib) 依赖图可以有以下的几个思路：
+目前是推出了按需打包的能力，但是可以发现效果不是很明显，只减少了 10% 左右的大小。通过分析如下 G2 5.0.18 使用 [G2.stdlib](#g2corelib) 依赖图可以有以下几个可以进一步优化思路：
 
 - 减少 Runtime 的体积：把一些能力放在 library 里面可以按需使用。
-- 依赖治理：去掉一些重复依赖，比如 `@antv/utils`；减少一些依赖的大小 `@antv/gui`。
+- 依赖治理：去掉一些重复依赖，比如 `@antv/util`；减少一些依赖的大小 `@antv/gui`。
 - 提供比 corelib 更小的 library：可以实现 Mark 级别的按需打包。
 
 <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Z-bZT5lHPkkAAAAAAAAAAAAADmJ7AQ/original" alt="dep" style="margin-top: 1em"/>
@@ -237,7 +292,7 @@ const Chart = extend(Runtime, {
   'mark.interval': Interval,
 });
 
-const chart = new Chart();
+const chart = new Chart({ theme: 'classic' });
 
 chart.interval();
 ```
@@ -253,7 +308,7 @@ const Chart = extend(Runtime, {
   'interaction.tooltip': Tooltip,
 });
 
-const chart = new Chart();
+const chart = new Chart({ theme: 'classic' });
 
 chart.options({
   type: 'interval',
