@@ -9,6 +9,7 @@ import {
   Theta,
   Radial,
   Radar,
+  Cartesian3D,
 } from '../../../src/coordinate';
 import { Constant, Field, Transform, Column } from '../../../src/encode';
 import {
@@ -42,6 +43,7 @@ import {
   Gauge,
   Density as DensityGeometry,
   Heatmap,
+  Point3D,
 } from '../../../src/mark';
 import { Category10, Category20 } from '../../../src/palette';
 import {
@@ -64,6 +66,7 @@ import { Classic, ClassicDark, Academy } from '../../../src/theme';
 import {
   AxisX,
   AxisY,
+  AxisZ,
   AxisArc,
   AxisLinear,
   AxisRadar,
@@ -228,6 +231,7 @@ describe('stdlib', () => {
       'transform.sample': Sample,
       'transform.filter': FilterTransform,
       'coordinate.cartesian': Cartesian,
+      'coordinate.cartesian3D': Cartesian3D,
       'coordinate.polar': Polar,
       'coordinate.helix': Helix,
       'coordinate.transpose': Transpose,
@@ -244,6 +248,7 @@ describe('stdlib', () => {
       'mark.rect': Rect,
       'mark.line': Line,
       'mark.point': PointGeometry,
+      'mark.point3D': Point3D,
       'mark.text': TextGeometry,
       'mark.cell': Cell,
       'mark.area': AreaGeometry,
@@ -292,6 +297,7 @@ describe('stdlib', () => {
       'theme.academy': Academy,
       'component.axisX': AxisX,
       'component.axisY': AxisY,
+      'component.axisZ': AxisZ,
       'component.axisArc': AxisArc,
       'component.axisLinear': AxisLinear,
       'component.axisRadar': AxisRadar,

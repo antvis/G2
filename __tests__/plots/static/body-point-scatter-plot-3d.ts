@@ -24,7 +24,7 @@ export function bodyPointScatterPlot3D(): G2Spec {
     coordinate: { type: 'cartesian3D', depth: 300 },
     axis: {
       x: { gridLineWidth: 3 },
-      y: { gridLineWidth: 3 },
+      y: { gridLineWidth: 3, titleBillboardRotation: -Math.PI / 2 },
       z: { gridLineWidth: 3 },
     },
     legend: false,

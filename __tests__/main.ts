@@ -165,6 +165,8 @@ function createSpecRender(object) {
       if (selectRenderer.value === 'webgl') {
         const camera = canvas.getCamera();
         camera.setType(CameraType.ORBITING);
+        // TODO: infer by depth in layout process.
+        canvas.document.documentElement.translate(0, 0, -200);
 
         // add a directional light into scene
         const light = new DirectionalLight({

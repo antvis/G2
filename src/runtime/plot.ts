@@ -33,7 +33,12 @@ import {
   VIEW_CLASS_NAME,
 } from './constant';
 import { coordinate2Transform, createCoordinate } from './coordinate';
-import { computeLayout, computeRoughPlotSize, placeComponents } from './layout';
+import {
+  computeLayout,
+  computeRoughPlotSize,
+  placeComponents,
+  processAxisZ,
+} from './layout';
 import { documentOf, useLibrary } from './library';
 import { initializeMark } from './mark';
 import {
@@ -625,6 +630,9 @@ function initializeState(
 
   // Place components and mutate their bbox.
   placeComponents(groupComponents(components), coordinate, layout);
+
+  // AxisZ need a copy of axisX and axisY to show grids in X-Z & Y-Z planes.
+  processAxisZ(components);
 
   // Scale from marks and components.
   const scaleInstance = {};

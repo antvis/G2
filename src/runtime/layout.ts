@@ -24,6 +24,38 @@ import {
 import { G2GuideComponentOptions, G2Library, G2View } from './types/options';
 import { isPolar as isPolarOptions } from './coordinate';
 
+export function processAxisZ(components: G2GuideComponentOptions[]) {
+  const axisZ = components.find(({ type }) => type === 'axisZ');
+  if (axisZ) {
+    const axisX = components.find(({ type }) => type === 'axisX');
+    const axisY = components.find(({ type }) => type === 'axisY');
+    axisZ.origin = [axisX.bbox.x, axisX.bbox.y, 0];
+    axisZ.eulerAngles = [0, -90, 0];
+    axisZ.bbox.x = axisX.bbox.x;
+    axisZ.bbox.y = axisX.bbox.y;
+    components.push({
+      ...axisX,
+      showLabel: false,
+      showTitle: false,
+      origin: [axisX.bbox.x, axisX.bbox.y, 0],
+      eulerAngles: [-90, 0, 0],
+    });
+    components.push({
+      ...axisY,
+      showLabel: false,
+      showTitle: false,
+      origin: [axisY.bbox.x + axisY.bbox.width, axisY.bbox.y, 0],
+      eulerAngles: [0, -90, 0],
+    });
+    components.push({
+      ...axisZ,
+      showLabel: false,
+      showTitle: false,
+      eulerAngles: [90, -90, 0],
+    });
+  }
+}
+
 export function computeLayout(
   components: G2GuideComponentOptions[],
   options: G2View,

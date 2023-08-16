@@ -1,5 +1,5 @@
 import { GuideComponentComponent as GCC } from '../runtime';
-import { LinearAxis, AxisOptions } from './axis';
+import { AxisOptions, LinearAxis, rotateAxis } from './axis';
 
 export type AxisXOptions = AxisOptions;
 
@@ -7,9 +7,14 @@ export type AxisXOptions = AxisOptions;
  * LinearAxis component bind to x scale.
  */
 export const AxisX: GCC<AxisXOptions> = (options) => {
-  return (...args) =>
+  return (...args) => {
     // empirical value for crossPadding
-    LinearAxis(Object.assign({}, { crossPadding: 50 }, options))(...args);
+    const axisX = LinearAxis(Object.assign({}, { crossPadding: 50 }, options))(
+      ...args,
+    );
+    rotateAxis(axisX, options);
+    return axisX;
+  };
 };
 
 AxisX.props = {

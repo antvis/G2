@@ -12,6 +12,7 @@ import {
   GuideComponentOrientation as GCO,
   GuideComponentPosition as GCP,
   Scale,
+  Vector3,
 } from '../runtime';
 import {
   angleOf,
@@ -50,8 +51,26 @@ export type AxisOptions = {
   grid: any;
   // options won't be overridden
   important: Record<string, any>;
+  /**
+   * Rotation origin.
+   */
+  origin?: Vector3;
+  /**
+   * EulerAngles of rotation.
+   */
+  eulerAngles?: Vector3;
   [key: string]: any;
 };
+
+export function rotateAxis(axis: DisplayObject, options: AxisOptions) {
+  const { eulerAngles, origin } = options;
+  if (origin) {
+    axis.setOrigin(origin);
+  }
+  if (eulerAngles) {
+    axis.rotate(eulerAngles[0], eulerAngles[1], eulerAngles[2]);
+  }
+}
 
 function sizeOf(coordinate: Coordinate): [number, number] {
   // @ts-ignore
@@ -193,6 +212,7 @@ function getData(
   });
 }
 
+// TODO: infer axisZ from depth
 function inferGridLength(position: GCP, coordinate: Coordinate) {
   const [width, height] = sizeOf(coordinate);
   if (position.includes('bottom') || position.includes('top')) return height;
