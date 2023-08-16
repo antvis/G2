@@ -36,15 +36,6 @@ export const Sphere: SC<SphereOptions> = (options, context) => {
     Sphere.props.material = new MeshPhongMaterial(device, {
       shininess: 30,
     });
-    // add a directional light into scene
-    const light = new DirectionalLight({
-      style: {
-        intensity: 3,
-        fill: 'white',
-        direction: [-1, 0, 1],
-      },
-    });
-    context.canvas.appendChild(light);
   }
 
   return (points, value, defaults) => {
@@ -52,7 +43,6 @@ export const Sphere: SC<SphereOptions> = (options, context) => {
     const { color = defaultColor, transform, opacity } = value;
     const [cx, cy, cz] = getOrigin(points);
     const r = value.size;
-    // TODO: scale
     const finalRadius = r || style.r || defaults.r;
 
     const sphere = new Mesh({

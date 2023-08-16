@@ -8,6 +8,8 @@ import { applyStyle, getOrigin, toOpacityKey } from '../utils';
 import { ShapeComponent as SC } from '../../runtime';
 import { select } from '../../utils/selection';
 
+const GEOMETRY_SIZE = 5;
+
 export type CubeOptions = Record<string, any>;
 
 /**
@@ -25,24 +27,15 @@ export const Cube: SC<CubeOptions> = (options, context) => {
     // create a sphere geometry
     // @ts-ignore
     Cube.props.geometry = new CubeGeometry(device, {
-      width: 5,
-      height: 5,
-      depth: 5,
+      width: GEOMETRY_SIZE,
+      height: GEOMETRY_SIZE,
+      depth: GEOMETRY_SIZE,
     });
     // create a material with Phong lighting model
     // @ts-ignore
     Cube.props.material = new MeshPhongMaterial(device, {
       shininess: 30,
     });
-    // add a directional light into scene
-    const light = new DirectionalLight({
-      style: {
-        intensity: 3,
-        fill: 'white',
-        direction: [-1, 0, 1],
-      },
-    });
-    context.canvas.appendChild(light);
   }
 
   return (points, value, defaults) => {
@@ -50,7 +43,6 @@ export const Cube: SC<CubeOptions> = (options, context) => {
     const { color = defaultColor, transform, opacity } = value;
     const [cx, cy, cz] = getOrigin(points);
     const r = value.size;
-    // TODO: scale
     const finalRadius = r || style.r || defaults.r;
 
     const cube = new Mesh({
@@ -64,6 +56,9 @@ export const Cube: SC<CubeOptions> = (options, context) => {
         material: Cube.props.material,
       },
     });
+    cube.setOrigin(0, 0, 0);
+    const scaling = finalRadius / GEOMETRY_SIZE;
+    cube.scale(scaling);
 
     return select(cube)
       .call(applyStyle, defaults)

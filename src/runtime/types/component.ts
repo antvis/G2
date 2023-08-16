@@ -1,9 +1,4 @@
-import {
-  Coordinate,
-  Coordinate3D,
-  Transformation,
-  Transformation3D,
-} from '@antv/coord';
+import { Coordinate, Transformation, Transformation3D } from '@antv/coord';
 import EventEmitter from '@antv/event-emitter';
 import { DisplayObject, IAnimation as GAnimation, IDocument } from '@antv/g';
 import {

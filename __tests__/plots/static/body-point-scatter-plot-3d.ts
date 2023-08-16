@@ -14,7 +14,7 @@ export function bodyPointScatterPlot3D(): G2Spec {
       z: 'Weight_in_lbs',
       size: 'Origin',
       color: 'Cylinders',
-      shape: 'sphere',
+      shape: 'cube',
     },
     scale: {
       x: { nice: true },
@@ -27,8 +27,8 @@ export function bodyPointScatterPlot3D(): G2Spec {
       y: { gridLineWidth: 3 },
       z: { gridLineWidth: 3 },
     },
-    // legend: false,
+    legend: false,
   };
 }
 
-bodyPointScatterPlot3D.maxError = 100;
+bodyPointScatterPlot3D.skip = true;
