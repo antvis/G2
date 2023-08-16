@@ -51,6 +51,14 @@
         "en": "Hexbin USA Map"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*BAtYRoaNsp4AAAAAAAAAAAAADmJ7AQ/fmt.webp"
+    },
+    {
+      "filename": "hexbin-china.ts",
+      "title": {
+        "zh": "六边形中国地图",
+        "en": "Hexbin China Map"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*T0WkT5NCw7UAAAAAAAAAAAAADmJ7AQ/fmt.webp"
     }
   ]
 }
