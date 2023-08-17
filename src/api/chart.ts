@@ -1,8 +1,8 @@
-import { extend } from './extend';
+import { G2Spec } from 'spec';
+import { extend, API } from './extend';
 import { library } from './library';
 import { Runtime } from './runtime';
 
-// Use a empty interface to mark Chart both a value and a class type.
-export interface Chart {}
+export interface Chart extends API<G2Spec, typeof library> {}
 
 export const Chart = extend(Runtime, library);
