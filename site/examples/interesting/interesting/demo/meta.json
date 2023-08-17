@@ -1,0 +1,32 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "petal.ts",
+      "title": {
+        "zh": "花瓣图",
+        "en": "Petal Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*4eB8TIjkbkAAAAAAAAAAAAAADmJ7AQ/fmt.webp"
+    },
+    {
+      "filename": "messi.ts",
+      "title": {
+        "zh": "梅西射门分析",
+        "en": "Messi's shoot"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*N6mYTas3VIgAAAAAAAAAAAAADmJ7AQ/fmt.webp"
+    },
+    {
+      "filename": "25d-column.ts",
+      "title": {
+        "zh": "2.5D 柱形图",
+        "en": "2.5D Column"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*GThCTqSNiSkAAAAAAAAAAAAADmJ7AQ/fmt.webp"
+    }
+  ]
+}

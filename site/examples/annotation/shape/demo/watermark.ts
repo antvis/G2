@@ -37,10 +37,8 @@ chart.shape().style('x', '80%').style('y', '70%').style('render', watermark);
 
 chart.render();
 
-function watermark({ x, y }) {
-  const {
-    canvas: { document },
-  } = chart.getContext();
+function watermark({ x, y }, context) {
+  const { document } = context;
 
   const g = document.createElement('g', {});
   const c1 = document.createElement('circle', {
