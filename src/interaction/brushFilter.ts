@@ -82,7 +82,7 @@ export function brushFilter(
 
 export function BrushFilter({ hideX = true, hideY = true, ...rest }) {
   return (target, viewInstances, emitter) => {
-    const { container, view, options: viewOptions, update } = target;
+    const { container, view, options: viewOptions, update, setState } = target;
     const plotArea = selectPlotArea(container);
     const defaultOptions = {
       maskFill: '#777',
@@ -110,26 +110,35 @@ export function BrushFilter({ hideX = true, hideY = true, ...rest }) {
 
         // Update the domain of x and y scale to filter data.
         const [domainX, domainY] = selection;
-        const { marks } = viewOptions;
-        const newMarks = marks.map((mark) =>
-          deepMix(
-            {
-              // Hide label to keep smooth transition.
-              axis: {
-                ...(hideX && { x: { transform: [{ type: 'hide' }] } }),
-                ...(hideY && { y: { transform: [{ type: 'hide' }] } }),
+
+        setState('brushFilter', (options) => {
+          const { marks } = options;
+          const newMarks = marks.map((mark) =>
+            deepMix(
+              {
+                // Hide label to keep smooth transition.
+                axis: {
+                  ...(hideX && { x: { transform: [{ type: 'hide' }] } }),
+                  ...(hideY && { y: { transform: [{ type: 'hide' }] } }),
+                },
               },
-            },
-            mark,
-            {
-              // Set nice to false to avoid modify domain.
-              scale: {
-                x: { domain: domainX, nice: false },
-                y: { domain: domainY, nice: false },
+              mark,
+              {
+                // Set nice to false to avoid modify domain.
+                scale: {
+                  x: { domain: domainX, nice: false },
+                  y: { domain: domainY, nice: false },
+                },
               },
-            },
-          ),
-        );
+            ),
+          );
+
+          return {
+            ...viewOptions,
+            marks: newMarks,
+            clip: true, // Clip shapes out of plot area.
+          };
+        });
 
         // Emit event.
         emitter.emit('brush:filter', {
@@ -137,13 +146,7 @@ export function BrushFilter({ hideX = true, hideY = true, ...rest }) {
           data: { selection: [domainX, domainY] },
         });
 
-        // Rerender and update view.
-        const newOptions = {
-          ...viewOptions,
-          marks: newMarks,
-          clip: true, // Clip shapes out of plot area.
-        };
-        const newState = await update(newOptions);
+        const newState = await update();
         newView = newState.view;
         filtering = false;
         filtered = true;
@@ -160,10 +163,10 @@ export function BrushFilter({ hideX = true, hideY = true, ...rest }) {
           ...event,
           data: { selection: [domainX, domainY] },
         });
-
         filtered = false;
         newView = view;
-        update(viewOptions);
+        setState('brushFilter');
+        update();
       },
       extent: undefined,
       emitter,

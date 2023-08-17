@@ -1,7 +1,7 @@
 import { Vector2 } from '@antv/coord';
 import { DisplayObject, IAnimation as GAnimation, Rect } from '@antv/g';
 import { deepMix, upperFirst } from '@antv/util';
-import { group, groups } from 'd3-array';
+import { group, groups, sort } from 'd3-array';
 import { format } from 'd3-format';
 import { mapObject } from '../utils/array';
 import { ChartEvent } from '../utils/event';
@@ -237,12 +237,27 @@ export async function plot<T extends G2ViewTree>(
   const viewInstanceof = (
     viewContainer: Map<G2ViewDescriptor, DisplayObject>,
   ) => {
-    return Array.from(viewContainer.entries()).map(([view, container]) => ({
-      view,
-      container,
-      options: viewNode.get(view),
-      update: createUpdateView(select(container), library, context),
-    }));
+    return Array.from(viewContainer.entries()).map(([view, container]) => {
+      // Index state by component or interaction name,
+      // such as legend, scrollbar, brushFilter.
+      // Each state transform options to another options.
+      const store = new Map<any, (options: G2ViewTree) => G2ViewTree>();
+      const setState = (key, reducer = (x) => x) => store.set(key, reducer);
+      const update = createUpdateView(select(container), library, context);
+      const options = viewNode.get(view);
+      return {
+        view,
+        container,
+        options,
+        setState,
+        update: async () => {
+          // Apply all state functions to get new options.
+          const reducer = compose(Array.from(store.values()));
+          const newOptions = reducer(options);
+          return await update(newOptions);
+        },
+      };
+    });
   };
 
   // Interactions for enter views.

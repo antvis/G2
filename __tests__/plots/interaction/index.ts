@@ -67,3 +67,4 @@ export { unemploymentAreaLegendFilterPages } from './unemployment-area-legend-fi
 export { mockAreaSliderFilterLabel } from './mock-area-slider-filter-label';
 export { commitsPointLegendFilter } from './commits-point-legend-filter';
 export { settleWeatherLegendFilter } from './seattle-weather-legend-filter';
+export { countriesBubbleMultiLegends } from './countries-bubble-multi-legends';

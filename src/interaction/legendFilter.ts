@@ -200,52 +200,57 @@ function legendFilterContinuous(_, { legend, filter, emitter, channel }) {
 
 export function LegendFilter() {
   return (context, _, emitter) => {
-    const { container, view, options: viewOptions, update } = context;
+    const { container, view, update, setState } = context;
 
+    const channelsOf = (legend) => {
+      return dataOf(legend).scales.map((d) => d.name);
+    };
     const legends = [
       ...legendsOf(container),
       ...legendsContinuousOf(container),
     ];
+    const allChannels = legends.flatMap(channelsOf);
 
     const filter = throttle(
-      async (channel, value, ordinal: boolean, channels) => {
-        const { marks } = viewOptions;
-        // Add filter transform for every marks,
-        // which will skip for mark without color channel.
-        const newMarks = marks.map((mark) => {
-          if (mark.type === 'legends') return mark;
+      async (legend, channel, value, ordinal: boolean, channels) => {
+        setState(legend, (viewOptions) => {
+          const { marks } = viewOptions;
+          // Add filter transform for every marks,
+          // which will skip for mark without color channel.
+          const newMarks = marks.map((mark) => {
+            if (mark.type === 'legends') return mark;
 
-          // Inset after aggregate transform, such as group, and bin.
-          const { transform = [] } = mark;
-          const index = transform.findIndex(
-            ({ type }) => type.startsWith('group') || type.startsWith('bin'),
-          );
-          const newTransform = [...transform];
-          newTransform.splice(index + 1, 0, {
-            type: 'filter',
-            [channel]: { value, ordinal },
+            // Inset after aggregate transform, such as group, and bin.
+            const { transform = [] } = mark;
+            const index = transform.findIndex(
+              ({ type }) => type.startsWith('group') || type.startsWith('bin'),
+            );
+            const newTransform = [...transform];
+            newTransform.splice(index + 1, 0, {
+              type: 'filter',
+              [channel]: { value, ordinal },
+            });
+
+            // Set domain of scale to preserve encoding.
+            const newScale = Object.fromEntries(
+              channels.map((channel) => [
+                channel,
+                { domain: view.scale[channel].getOptions().domain },
+              ]),
+            );
+
+            return deepMix({}, mark, {
+              transform: newTransform,
+              scale: newScale,
+              ...(!ordinal && { animate: false }),
+              legend: Object.fromEntries(
+                allChannels.map((d) => [d, { preserve: true }]),
+              ),
+            });
           });
-
-          // Set domain of scale to preserve encoding.
-          const newScale = Object.fromEntries(
-            channels.map((channel) => [
-              channel,
-              { domain: view.scale[channel].getOptions().domain },
-            ]),
-          );
-
-          return deepMix({}, mark, {
-            transform: newTransform,
-            scale: newScale,
-            ...(!ordinal && { animate: false }),
-            legend: { [channel]: { preserve: true } },
-          });
+          return { ...viewOptions, marks: newMarks };
         });
-        const newOptions = {
-          ...viewOptions,
-          marks: newMarks,
-        };
-        await update(newOptions);
+        await update();
       },
       50,
       { trailing: true },
@@ -253,7 +258,7 @@ export function LegendFilter() {
 
     const removes = legends.map((legend) => {
       const { name: channel, domain } = dataOf(legend).scales[0];
-      const channels = dataOf(legend).scales.map((d) => d.name);
+      const channels = channelsOf(legend);
       if (legend.className === CATEGORY_LEGEND_CLASS_NAME) {
         return legendFilterOrdinal(container, {
           legends: itemsOf,
@@ -264,7 +269,7 @@ export function LegendFilter() {
             const { index } = datum;
             return domain[index];
           },
-          filter: (value) => filter(channel, value, true, channels),
+          filter: (value) => filter(legend, channel, value, true, channels),
           state: legend.attributes.state,
           channel,
           emitter,
@@ -272,7 +277,7 @@ export function LegendFilter() {
       } else {
         return legendFilterContinuous(container, {
           legend,
-          filter: (value) => filter(channel, value, false, channels),
+          filter: (value) => filter(legend, channel, value, false, channels),
           emitter,
           channel,
         });
