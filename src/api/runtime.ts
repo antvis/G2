@@ -301,11 +301,11 @@ export class Runtime<Spec extends G2Spec = G2Spec> extends CompositionNode {
   private _computedOptions() {
     const options = this.options();
     const { key = G2_CHART_KEY } = options;
-    const { width, height } = sizeOf(options, this._container);
+    const { width, height, depth } = sizeOf(options, this._container);
     this._width = width;
     this._height = height;
     this._key = key;
-    return { key: this._key, ...options, width, height };
+    return { key: this._key, ...options, width, height, depth };
   }
 
   // Create canvas if it does not exist.

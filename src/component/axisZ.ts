@@ -19,6 +19,7 @@ export const AxisZ: GCC<AxisXOptions> = (options) => {
 AxisZ.props = {
   ...LinearAxis.props,
   defaultPosition: 'bottom',
+  defaultPlane: 'yz',
 };
 
 export function axisZConfig() {}

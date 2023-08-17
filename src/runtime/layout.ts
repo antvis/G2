@@ -12,6 +12,7 @@ import {
   Section,
   SectionArea,
   G2Theme,
+  GuideComponentPlane,
 } from './types/common';
 import {
   computeComponentSize,
@@ -28,13 +29,17 @@ export function processAxisZ(components: G2GuideComponentOptions[]) {
   const axisZ = components.find(({ type }) => type === 'axisZ');
   if (axisZ) {
     const axisX = components.find(({ type }) => type === 'axisX');
+    axisX.plane = 'xy';
     const axisY = components.find(({ type }) => type === 'axisY');
+    axisY.plane = 'xy';
+    axisZ.plane = 'yz';
     axisZ.origin = [axisX.bbox.x, axisX.bbox.y, 0];
     axisZ.eulerAngles = [0, -90, 0];
     axisZ.bbox.x = axisX.bbox.x;
     axisZ.bbox.y = axisX.bbox.y;
     components.push({
       ...axisX,
+      plane: 'xz',
       showLabel: false,
       showTitle: false,
       origin: [axisX.bbox.x, axisX.bbox.y, 0],
@@ -42,6 +47,7 @@ export function processAxisZ(components: G2GuideComponentOptions[]) {
     });
     components.push({
       ...axisY,
+      plane: 'yz',
       showLabel: false,
       showTitle: false,
       origin: [axisY.bbox.x + axisY.bbox.width, axisY.bbox.y, 0],
@@ -49,6 +55,8 @@ export function processAxisZ(components: G2GuideComponentOptions[]) {
     });
     components.push({
       ...axisZ,
+      plane: 'xz',
+      actualPosition: 'left',
       showLabel: false,
       showTitle: false,
       eulerAngles: [90, -90, 0],
@@ -65,8 +73,10 @@ export function computeLayout(
   const {
     width,
     height,
+    depth,
     x = 0,
     y = 0,
+    z = 0,
     inset = 0,
     insetLeft = inset,
     insetTop = inset,
@@ -141,6 +151,7 @@ export function computeLayout(
   return {
     width,
     height,
+    depth,
     insetLeft,
     insetTop,
     insetBottom,
@@ -157,6 +168,7 @@ export function computeLayout(
     marginRight,
     x,
     y,
+    z,
   };
 }
 
@@ -346,7 +358,11 @@ export function placeComponents(
   coordinate: Coordinate,
   layout: Layout,
 ): void {
-  const positionComponents = group(components, (d) => d.position);
+  // Group components by plane & position.
+  const positionComponents = group<
+    G2GuideComponentOptions,
+    [GuideComponentPlane, GCP]
+  >(components, (d) => [d.plane, d.position]);
   const {
     paddingLeft,
     paddingRight,
@@ -364,55 +380,68 @@ export function placeComponents(
     insetTop,
     height,
     width,
+    depth,
   } = layout;
 
-  const pl = paddingLeft + marginLeft;
-  const pt = paddingTop + marginTop;
-  const pr = paddingRight + marginRight;
-  const pb = paddingBottom + marginBottom;
-
-  const centerSection: SectionArea = [
-    pl + insetLeft,
-    pt + insetTop,
-    innerWidth - insetLeft - insetRight,
-    innerHeight - insetTop - insetBottom,
-    'center',
-    null,
-    null,
-  ];
-
-  const section: Section = {
-    top: [pl, 0, innerWidth, pt, 'vertical', true, ascending],
-    right: [width - pr, pt, pr, innerHeight, 'horizontal', false, ascending],
-    bottom: [pl, height - pb, innerWidth, pb, 'vertical', false, ascending],
-    left: [0, pt, pl, innerHeight, 'horizontal', true, ascending],
-    'top-left': [pl, 0, innerWidth, pt, 'vertical', true, ascending],
-    'top-right': [pl, 0, innerWidth, pt, 'vertical', true, ascending],
-    'bottom-left': [
-      pl,
-      height - pb,
+  const planes = {
+    xy: createSection({
+      width,
+      height,
+      paddingLeft,
+      paddingRight,
+      paddingTop,
+      paddingBottom,
+      marginLeft,
+      marginTop,
+      marginBottom,
+      marginRight,
+      innerHeight,
       innerWidth,
-      pb,
-      'vertical',
-      false,
-      ascending,
-    ],
-    'bottom-right': [
-      pl,
-      height - pb,
-      innerWidth,
-      pb,
-      'vertical',
-      false,
-      ascending,
-    ],
-    center: centerSection,
-    inner: centerSection,
-    outer: centerSection,
+      insetBottom,
+      insetLeft,
+      insetRight,
+      insetTop,
+    }),
+    yz: createSection({
+      width: depth,
+      height: height,
+      paddingLeft: 0,
+      paddingRight: 0,
+      paddingTop: 0,
+      paddingBottom: 0,
+      marginLeft: 0,
+      marginTop: 0,
+      marginBottom: 0,
+      marginRight: 0,
+      innerWidth: depth,
+      innerHeight: height,
+      insetBottom: 0,
+      insetLeft: 0,
+      insetRight: 0,
+      insetTop: 0,
+    }),
+    xz: createSection({
+      width,
+      height: depth,
+      paddingLeft: 0,
+      paddingRight: 0,
+      paddingTop: 0,
+      paddingBottom: 0,
+      marginLeft: 0,
+      marginTop: 0,
+      marginBottom: 0,
+      marginRight: 0,
+      innerWidth: width,
+      innerHeight: depth,
+      insetBottom: 0,
+      insetLeft: 0,
+      insetRight: 0,
+      insetTop: 0,
+    }),
   };
 
-  for (const [position, components] of positionComponents.entries()) {
-    const area = section[position];
+  for (const [[plane, position], components] of positionComponents.entries()) {
+    const area = planes[plane][position];
 
     /**
      * @description non-entity components: axis in the center, inner, outer, component in the center
@@ -442,6 +471,89 @@ export function placeComponents(
       placePaddingArea(components, coordinate, area);
     }
   }
+}
+
+function createSection({
+  width,
+  height,
+  paddingLeft,
+  paddingRight,
+  paddingTop,
+  paddingBottom,
+  marginLeft,
+  marginTop,
+  marginBottom,
+  marginRight,
+  innerHeight,
+  innerWidth,
+  insetBottom,
+  insetLeft,
+  insetRight,
+  insetTop,
+}: {
+  width: number;
+  height: number;
+  paddingLeft: number;
+  paddingRight: number;
+  paddingTop: number;
+  paddingBottom: number;
+  marginLeft: number;
+  marginTop: number;
+  marginBottom: number;
+  marginRight: number;
+  innerHeight: number;
+  innerWidth: number;
+  insetBottom: number;
+  insetLeft: number;
+  insetRight: number;
+  insetTop: number;
+}): Section {
+  const pl = paddingLeft + marginLeft;
+  const pt = paddingTop + marginTop;
+  const pr = paddingRight + marginRight;
+  const pb = paddingBottom + marginBottom;
+
+  const centerSection: SectionArea = [
+    pl + insetLeft,
+    pt + insetTop,
+    innerWidth - insetLeft - insetRight,
+    innerHeight - insetTop - insetBottom,
+    'center',
+    null,
+    null,
+  ];
+
+  const xySection: Section = {
+    top: [pl, 0, innerWidth, pt, 'vertical', true, ascending],
+    right: [width - pr, pt, pr, innerHeight, 'horizontal', false, ascending],
+    bottom: [pl, height - pb, innerWidth, pb, 'vertical', false, ascending],
+    left: [0, pt, pl, innerHeight, 'horizontal', true, ascending],
+    'top-left': [pl, 0, innerWidth, pt, 'vertical', true, ascending],
+    'top-right': [pl, 0, innerWidth, pt, 'vertical', true, ascending],
+    'bottom-left': [
+      pl,
+      height - pb,
+      innerWidth,
+      pb,
+      'vertical',
+      false,
+      ascending,
+    ],
+    'bottom-right': [
+      pl,
+      height - pb,
+      innerWidth,
+      pb,
+      'vertical',
+      false,
+      ascending,
+    ],
+    center: centerSection,
+    inner: centerSection,
+    outer: centerSection,
+  };
+
+  return xySection;
 }
 
 function placeNonEntityComponents(

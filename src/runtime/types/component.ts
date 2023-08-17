@@ -9,6 +9,7 @@ import {
   IndexedValue,
   Vector2,
   G2MarkState,
+  GuideComponentPlane,
 } from './common';
 import { DataComponent } from './data';
 import { Encode, EncodeComponent } from './encode';
@@ -176,6 +177,7 @@ export type GuideComponent = (context: GuideComponentContext) => DisplayObject;
 
 export type GuideComponentProps = {
   defaultPosition?: GuideComponentPosition;
+  defaultPlane?: GuideComponentPlane;
   defaultOrientation?: GuideComponentOrientation;
   defaultSize?: number;
   defaultOrder?: number;

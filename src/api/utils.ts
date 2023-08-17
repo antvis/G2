@@ -8,6 +8,7 @@ import { Node } from './node';
 export const VIEW_KEYS = [
   'width',
   'height',
+  'depth',
   'padding',
   'paddingLeft',
   'paddingRight',
@@ -63,8 +64,8 @@ export function valueOf(node: Node): Record<string, any> {
 export function sizeOf(options, container) {
   const { autoFit } = options;
   if (autoFit) return getContainerSize(container);
-  const { width = 640, height = 480 } = options;
-  return { width, height };
+  const { width = 640, height = 480, depth = 640 } = options;
+  return { width, height, depth };
 }
 
 export function optionsOf(node: Node): Record<string, any> {

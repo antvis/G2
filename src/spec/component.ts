@@ -33,7 +33,7 @@ export type TitleComponent = {
 } & UsePrefix<'title' | 'subtitle', Record<string, any>>;
 
 export type AxisComponent = {
-  type?: 'axisX' | 'axisY';
+  type?: 'axisX' | 'axisY' | 'axisZ';
   tickCount?: number;
   labelFormatter?: any;
   tickFilter?: any;

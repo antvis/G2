@@ -1,8 +1,6 @@
-import { Canvas, CameraType } from '@antv/g';
+import { Canvas } from '@antv/g';
 import { Renderer as CanvasRenderer } from '@antv/g-canvas';
 import { Plugin as DragAndDropPlugin } from '@antv/g-plugin-dragndrop';
-import { Plugin as ControlPlugin } from '@antv/g-plugin-control';
-import { Plugin as ThreeDPlugin, DirectionalLight } from '@antv/g-plugin-3d';
 import { Renderer as SVGRenderer } from '@antv/g-svg';
 import { Renderer as WebGLRenderer } from '@antv/g-webgl';
 import { stdlib, render } from '../src';
@@ -151,33 +149,12 @@ function createSpecRender(object) {
       renderer.registerPlugin(
         new DragAndDropPlugin({ dragstartDistanceThreshold: 1 }),
       );
-      if (selectRenderer.value === 'webgl') {
-        renderer.registerPlugin(new ControlPlugin());
-        renderer.registerPlugin(new ThreeDPlugin());
-      }
       canvas = new Canvas({
         container: document.createElement('div'),
         width,
         height,
         renderer,
       });
-
-      if (selectRenderer.value === 'webgl') {
-        const camera = canvas.getCamera();
-        camera.setType(CameraType.ORBITING);
-        // TODO: infer by depth in layout process.
-        canvas.document.documentElement.translate(0, 0, -200);
-
-        // add a directional light into scene
-        const light = new DirectionalLight({
-          style: {
-            intensity: 3,
-            fill: 'white',
-            direction: [-1, 0, 1],
-          },
-        });
-        canvas.appendChild(light);
-      }
 
       // @ts-ignore
       window.__g_instances__ = [canvas];

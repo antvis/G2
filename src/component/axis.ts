@@ -11,6 +11,7 @@ import {
   GuideComponentComponent as GCC,
   GuideComponentOrientation as GCO,
   GuideComponentPosition as GCP,
+  GuideComponentPlane,
   Scale,
   Vector3,
 } from '../runtime';
@@ -25,11 +26,11 @@ import {
   radiusOf,
 } from '../utils/coordinate';
 import { capitalizeFirst } from '../utils/helper';
-import { isOrdinalScale } from '../utils/scale';
 import { adaptor, isVertical, titleContent } from './utils';
 
 export type AxisOptions = {
   position?: GCP;
+  plane?: GuideComponentPlane;
   zIndex?: number;
   title?: string | string[];
   direction?: 'left' | 'center' | 'right';
@@ -72,10 +73,10 @@ export function rotateAxis(axis: DisplayObject, options: AxisOptions) {
   }
 }
 
-function sizeOf(coordinate: Coordinate): [number, number] {
+function sizeOf(coordinate: Coordinate): [number, number, number] {
   // @ts-ignore
-  const { innerWidth, innerHeight } = coordinate.getOptions();
-  return [innerWidth, innerHeight];
+  const { innerWidth, innerHeight, depth } = coordinate.getOptions();
+  return [innerWidth, innerHeight, depth];
 }
 
 function createFisheye(position, coordinate) {
@@ -212,11 +213,23 @@ function getData(
   });
 }
 
-// TODO: infer axisZ from depth
-function inferGridLength(position: GCP, coordinate: Coordinate) {
-  const [width, height] = sizeOf(coordinate);
-  if (position.includes('bottom') || position.includes('top')) return height;
-  return width;
+function inferGridLength(
+  position: GCP,
+  coordinate: Coordinate,
+  plane: GuideComponentPlane = 'xy',
+) {
+  const [width, height, depth] = sizeOf(coordinate);
+
+  if (plane === 'xy') {
+    if (position.includes('bottom') || position.includes('top')) return height;
+    return width;
+  } else if (plane === 'xz') {
+    if (position.includes('bottom') || position.includes('top')) return depth;
+    return width;
+  } else {
+    if (position.includes('bottom') || position.includes('top')) return height;
+    return depth;
+  }
 }
 
 function inferLabelOverlap(transform = [], style: Record<string, any>) {
@@ -512,6 +525,7 @@ const LinearAxisComponent: GCC<AxisOptions> = (options) => {
     labelFormatter,
     order,
     orientation,
+    actualPosition,
     position,
     size,
     style = {},
@@ -548,7 +562,12 @@ const LinearAxisComponent: GCC<AxisOptions> = (options) => {
       ...userDefinitions,
     };
 
-    const gridLength = inferGridLength(position, coordinate);
+    const gridLength = inferGridLength(
+      actualPosition || position,
+      coordinate,
+      options.plane,
+    );
+
     const overrideStyle = inferAxisLinearOverrideStyle(
       position,
       orientation,

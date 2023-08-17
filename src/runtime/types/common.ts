@@ -153,6 +153,7 @@ export type GuideComponentPosition =
   | GuideCompositePosition;
 
 export type GuideComponentOrientation = 'horizontal' | 'vertical' | number;
+export type GuideComponentPlane = 'xy' | 'xz' | 'yz';
 
 export type Layout = {
   paddingLeft?: number;
@@ -174,6 +175,8 @@ export type Layout = {
   marginRight?: number;
   x?: number;
   y?: number;
+  z?: number;
+  depth?: number;
 };
 
 export type Direction = 'horizontal' | 'vertical' | 'center';

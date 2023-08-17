@@ -11,7 +11,6 @@ export { alphabetIntervalDataSort } from './alphabet-interval-data-sort';
 export { alphabetIntervalFunnel } from './alphabet-interval-funnel';
 export { alphabetIntervalPyramid } from './alphabet-interval-pyramid';
 export { bodyPointScatterPlot } from './body-point-scatter-plot';
-export { bodyPointScatterPlot3D } from './body-point-scatter-plot-3d';
 export { bodyPointScatterPlotSizeOpacity } from './body-point-scatter-plot-size-opacity';
 export { bodyPointScatterPlotOpacity } from './body-point-scatter-plot-opacity';
 export { gammaRandomLineSortXQuantitative } from './gamma-random-line-sortx-quantitative';

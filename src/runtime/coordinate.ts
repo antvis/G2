@@ -41,11 +41,7 @@ export function createCoordinate(
 
   const coordinate = isCartesian3D
     ? // @ts-ignore
-      new Coordinate3D({
-        ...options,
-        z: transform[0].z,
-        depth: transform[0].depth,
-      })
+      new Coordinate3D(options)
     : new Coordinate(options);
   return coordinate as Coordinate;
 }

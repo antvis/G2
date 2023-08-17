@@ -4,6 +4,7 @@ import { Canvas, IAnimation as GAnimation } from '@antv/g';
 import {
   G2Title,
   G2ViewDescriptor,
+  GuideComponentPlane,
   GuideComponentPosition,
   Layout,
   Primitive,
@@ -32,6 +33,7 @@ import { TransformComponent } from './transform';
 export type G2ViewTree = {
   width?: number;
   height?: number;
+  depth?: number;
 } & Node;
 
 export type Node = {
@@ -68,8 +70,10 @@ export type G2View = {
   key?: string;
   x?: number;
   y?: number;
+  z?: number;
   width?: number;
   height?: number;
+  depth?: number;
   padding?: number;
   paddingLeft?: number;
   paddingRight?: number;
@@ -186,6 +190,7 @@ export type G2GuideComponentOptions = G2BaseComponentOptions<
   {
     scale?: G2ScaleOptions;
     position?: GuideComponentPosition;
+    plane?: GuideComponentPlane;
     size?: number;
     order?: number;
     zIndex?: number;

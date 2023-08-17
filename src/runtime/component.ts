@@ -102,6 +102,7 @@ export function inferComponent(
     const { props } = createGuideComponent(type);
     const {
       defaultPosition,
+      defaultPlane = 'xy',
       defaultOrientation,
       defaultSize,
       defaultOrder,
@@ -148,6 +149,7 @@ export function inferComponent(
         defaultSize,
         length,
         position,
+        plane: defaultPlane,
         orientation,
         padding,
         order,

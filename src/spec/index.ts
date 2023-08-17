@@ -5,6 +5,7 @@ import { Mark } from './mark';
 export type G2Spec = (Mark | Composition | AxisComponent | LegendComponent) & {
   width?: number;
   height?: number;
+  depth?: number;
   autoFit?: boolean;
 };
 

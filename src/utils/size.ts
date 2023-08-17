@@ -3,6 +3,7 @@ import { G2View } from '../runtime';
 type Size = {
   width: number;
   height: number;
+  depth?: number;
 };
 
 const parseInt10 = (d: string) => (d ? parseInt(d) : 0);
@@ -28,6 +29,7 @@ export function getContainerSize(container: HTMLElement): Size {
   return {
     width: wrapperWidth - widthPadding,
     height: wrapperHeight - heightPadding,
+    depth: wrapperWidth,
   };
 }
 
