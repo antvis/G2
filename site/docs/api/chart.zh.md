@@ -109,7 +109,9 @@ chart.render();
 添加 rangeY 图形，具体见 [mark](/spec/mark/range-y)。
 
 ### `chart.connector`
+
 <!-- 暂缺 -->
+
 添加 connector 图形，具体见 [mark](/spec/mark/connector)。
 
 ### `chart.sankey`
@@ -192,6 +194,10 @@ chart.render();
 
 添加 timingKeyframe 图形，具体见 [composition](/spec/composition/timing-keyframe)。
 
+### `chart.point3D`
+
+添加 point3D 图形，具体见 [mark](/spec/mark/point3D)。
+
 ## 设置属性
 
 ### `chart.width`
@@ -215,11 +221,15 @@ chart.render();
 设置图形的数据，支持多种数据来源和数据变换，具体见 [data](/spec/data/overview)。
 
 ### `chart.encode`
+
 <!-- 暂缺 -->
+
 设置图形每个通道的字段名称，具体见 [encode](/api/encode/overview)。
 
 ### `chart.scale`
+
 <!-- 概况中的 scale 介绍更清晰 -->
+
 设置图形每个通道的比例尺，具体见 [scale](/spec/overview#scale)。
 
 ### `chart.legend`
@@ -243,7 +253,9 @@ chart.render();
 设置图形的标签，具体见 [label](/spec/label/overview)。
 
 ### `chart.style`
+
 <!-- common 未放开，但可以跳转 -->
+
 设置图形的样式，具体见 [style](/spec/common/style)。
 
 ### `chart.theme`
@@ -251,7 +263,9 @@ chart.render();
 设置图形的主题，具体见 [theme](/spec/theme/academy)。
 
 ### `chart.labelTransform`
+
 <!-- 缺失 -->
+
 设置图形的 labelTransform，具体见 [label](/spec/label/overview)
 
 ## 渲染图表

@@ -359,10 +359,10 @@ export function placeComponents(
   layout: Layout,
 ): void {
   // Group components by plane & position.
-  const positionComponents = group<
-    G2GuideComponentOptions,
-    [GuideComponentPlane, GCP]
-  >(components, (d) => [d.plane || 'xy', d.position]);
+  const positionComponents = group<G2GuideComponentOptions, string>(
+    components,
+    (d) => `${d.plane || 'xy'}-${d.position}`,
+  );
   const {
     paddingLeft,
     paddingRight,
@@ -440,7 +440,8 @@ export function placeComponents(
     }),
   };
 
-  for (const [[plane, position], components] of positionComponents.entries()) {
+  for (const [key, components] of positionComponents.entries()) {
+    const [plane, position] = key.split('-') as [GuideComponentPlane, GCP];
     const area = planes[plane][position];
 
     /**

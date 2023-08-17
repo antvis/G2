@@ -5,7 +5,9 @@ import { select } from '../../utils/selection';
 
 const GEOMETRY_SIZE = 5;
 
-export type CubeOptions = Record<string, any>;
+export type CubeOptions = Record<string, any> & {
+  shininess: number;
+};
 
 /**
  * @see https://g.antv.antgroup.com/api/3d/geometry#cubegeometry
@@ -28,9 +30,7 @@ export const Cube: SC<CubeOptions> = (options, context) => {
     });
     // create a material with Phong lighting model
     // @ts-ignore
-    context.cubeMaterial = new MeshPhongMaterial(device, {
-      shininess: 30,
-    });
+    context.cubeMaterial = new MeshPhongMaterial(device);
   }
 
   return (points, value, defaults) => {

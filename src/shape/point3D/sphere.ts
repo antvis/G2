@@ -28,9 +28,7 @@ export const Sphere: SC<SphereOptions> = (options, context) => {
     });
     // create a material with Phong lighting model
     // @ts-ignore
-    context.sphereMaterial = new MeshPhongMaterial(device, {
-      shininess: 30,
-    });
+    context.sphereMaterial = new MeshPhongMaterial(device);
   }
 
   return (points, value, defaults) => {
