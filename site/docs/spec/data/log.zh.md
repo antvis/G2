@@ -20,7 +20,7 @@ chart
     transform: [
       { type: 'slice', start: 1 },
       { type: 'log' },
-     { type: 'filter', callback: (d) => d.a < 3 },
+      { type: 'filter', callback: (d) => d.a < 3 },
     ],
   });
 ```
