@@ -46,9 +46,6 @@ export function chartRender3dScatterPlot(context) {
     camera.setType(CameraType.ORBITING);
     camera.rotate(-20, -20, 0);
 
-    // TODO: infer by depth in layout process.
-    canvas!.document.documentElement.translate(0, 0, -400 / 2);
-
     // Add a directional light into scene.
     const light = new DirectionalLight({
       style: {

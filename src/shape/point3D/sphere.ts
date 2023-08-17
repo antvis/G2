@@ -46,7 +46,7 @@ export const Sphere: SC<SphereOptions> = (options, context) => {
         // @ts-ignore
         geometry: context.sphereGeometry,
         // @ts-ignore
-        material: context.materialGeometry,
+        material: context.sphereMaterial,
       },
     });
     sphere.setOrigin(0, 0, 0);

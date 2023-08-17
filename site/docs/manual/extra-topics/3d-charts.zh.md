@@ -3,12 +3,15 @@ title: 3D 图表
 order: 11
 ---
 
-以 3D 散点图为例，创建图表需要以下步骤
+以 3D 散点图为例，创建图表需要以下步骤：
 
 - 创建 WebGL 渲染器和插件
-- 设置 z 通道、scale 和 z 坐标轴
+- 设置 z 通道、比例尺和坐标轴
 - 在场景中设置相机
 - 添加光源
+- 使用相机交互
+
+我们暂不支持图例。
 
 ## 创建 WebGL 渲染器和插件
 
@@ -33,7 +36,21 @@ renderer.registerPlugin(new ThreeDPlugin());
 renderer.registerPlugin(new ControlPlugin());
 ```
 
-## 设置 z 通道
+## 设置 z 通道、比例尺和坐标轴
+
+在创建 Chart 时通过 `depth` 指定深度：
+
+```ts
+const chart = new Chart({
+  container: 'container',
+  theme: 'classic',
+  renderer,
+  depth: 400,
+});
+```
+
+我们使用 [point3D](/spec/mark/point3-d) Mark 并选择 cube 作为 shape 进行绘制。
+随后设置 z 通道、比例尺和坐标轴。
 
 ```ts
 chart
@@ -101,3 +118,13 @@ const light = new DirectionalLight({
 });
 canvas.appendChild(light);
 ```
+
+## 使用相机交互
+
+3D 场景下的交互和 2D 场景有很大的不同，[g-plugin-control](https://g.antv.antgroup.com/plugins/control) 提供了 3D 场景下基于相机的交互。当我们拖拽画布时，会控制相机绕视点进行旋转操作，而鼠标滚轮的缩放会让相机进行 dolly 操作：
+
+<img alt="perspective control" src="https://user-images.githubusercontent.com/3608471/261231166-30515059-aba7-49ae-b805-4fa9a5b95a27.gif" width="400" />
+
+需要注意的是缩放操作在正交投影下是没有效果的，但旋转操作依然有效：
+
+<img alt="orthographic control" src="https://user-images.githubusercontent.com/3608471/261231186-7b4be85a-6d05-4abe-98b4-a9b35b9bff0e.gif" width="400" />

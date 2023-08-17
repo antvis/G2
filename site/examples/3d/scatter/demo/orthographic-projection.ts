@@ -13,7 +13,7 @@ const chart = new Chart({
   container: 'container',
   theme: 'classic',
   renderer,
-  depth: 400,
+  depth: 400, // Define the depth of chart.
 });
 
 chart
@@ -26,7 +26,6 @@ chart
   .encode('x', 'Horsepower')
   .encode('y', 'Miles_per_Gallon')
   .encode('z', 'Weight_in_lbs')
-  .encode('size', 'Origin')
   .encode('color', 'Cylinders')
   .encode('shape', 'cube')
   .coordinate({ type: 'cartesian3D' })
@@ -42,9 +41,6 @@ chart.render().then(() => {
   const { canvas } = chart.getContext();
   const camera = canvas.getCamera();
   camera.setType(CameraType.ORBITING);
-
-  // TODO: infer by depth in layout process.
-  canvas.document.documentElement.translate(0, 0, -200);
 
   // Add a directional light into scene.
   const light = new DirectionalLight({

@@ -5,12 +5,28 @@
   },
   "demos": [
     {
-      "filename": "scatter-chart.ts",
+      "filename": "orthographic-projection.ts",
       "title": {
-        "zh": "3D 散点图",
-        "en": "3D Scatter Chart"
+        "zh": "正交投影",
+        "en": "Orthographic projection"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*7MdMQY-QksEAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "perspective-projection.ts",
+      "title": {
+        "zh": "透视投影",
+        "en": "Perspective projection"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*KNCUQqzw2JsAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "sphere-shape.ts",
+      "title": {
+        "zh": "球体",
+        "en": "Sphere"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*KNCUQqzw2JsAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }

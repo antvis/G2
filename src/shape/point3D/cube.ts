@@ -24,9 +24,9 @@ export const Cube: SC<CubeOptions> = (options, context) => {
     // create a sphere geometry
     // @ts-ignore
     context.cubeGeometry = new CubeGeometry(device, {
-      width: GEOMETRY_SIZE,
-      height: GEOMETRY_SIZE,
-      depth: GEOMETRY_SIZE,
+      width: GEOMETRY_SIZE * 2,
+      height: GEOMETRY_SIZE * 2,
+      depth: GEOMETRY_SIZE * 2,
     });
     // create a material with Phong lighting model
     // @ts-ignore

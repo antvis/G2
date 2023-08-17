@@ -327,3 +327,11 @@ chart.area():
   return chart.getContainer();
 })();
 ```
+
+## 3D 坐标系
+
+目前我们仅支持 `cartesian3D` 坐标系：
+
+```ts
+chart.coordinate({ type: 'cartesian3D' });
+```

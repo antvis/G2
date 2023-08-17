@@ -22,8 +22,6 @@ export function chartRender3dScatterPlotPerspective(context) {
   const camera = canvas.getCamera();
   camera.setPerspective(0.1, 5000, 45, 500 / 500);
   camera.setType(CameraType.ORBITING);
-  // TODO: infer by depth in layout process.
-  canvas.document.documentElement.translate(0, 0, -200);
 
   // Add a directional light into scene.
   const light = new DirectionalLight({

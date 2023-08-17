@@ -313,6 +313,20 @@ function inferGrid(value: boolean, coordinate: Coordinate, scale: Scale) {
   return value === undefined ? !!scale.getTicks : value;
 }
 
+function infer3DAxisLinearOverrideStyle(coordinate: Coordinate) {
+  // @ts-ignore
+  const { depth } = coordinate.getOptions();
+  return depth
+    ? {
+        tickIsBillboard: true,
+        lineIsBillboard: true,
+        labelIsBillboard: true,
+        titleIsBillboard: true,
+        gridIsBillboard: true,
+      }
+    : {};
+}
+
 function inferAxisLinearOverrideStyle(
   position: GCP,
   orientation: GCO,
@@ -552,11 +566,6 @@ const LinearAxisComponent: GCC<AxisOptions> = (options) => {
     );
 
     const internalAxisStyle = {
-      tickIsBillboard: true,
-      lineIsBillboard: true,
-      labelIsBillboard: true,
-      titleIsBillboard: true,
-      gridIsBillboard: true,
       ...defaultStyle,
       ...style,
       ...userDefinitions,
@@ -574,6 +583,8 @@ const LinearAxisComponent: GCC<AxisOptions> = (options) => {
       bbox,
       coordinate,
     );
+
+    const threeDOverrideStyle = infer3DAxisLinearOverrideStyle(coordinate);
 
     const data = getData(
       scale,
@@ -612,6 +623,7 @@ const LinearAxisComponent: GCC<AxisOptions> = (options) => {
       indexBBox,
       ...(!internalAxisStyle.line ? { lineOpacity: 0 } : null),
       ...overrideStyle,
+      ...threeDOverrideStyle,
       ...important,
     };
 
