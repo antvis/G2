@@ -38,6 +38,7 @@ export async function indicesLineChartFacet(): Promise<G2Spec> {
         series: true,
         facet: true,
         crosshairs: true,
+        marker: false,
       },
     },
   };

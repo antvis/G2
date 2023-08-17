@@ -19,6 +19,7 @@ export function scoreByItemAreaRadar(): G2Spec {
     interaction: {
       tooltip: {
         body: false,
+        marker: false,
         crosshairsLineDash: [4, 4],
         crosshairsStrokeWidth: 10,
       },

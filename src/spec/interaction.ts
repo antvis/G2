@@ -175,6 +175,7 @@ export type TooltipInteraction = {
   facet?: boolean;
   body?: boolean;
   crosshairs?: boolean;
+  marker?: boolean;
   groupName?: boolean;
   position?: TooltipStyleProps['position'];
   bounding?: BBox;
@@ -186,7 +187,8 @@ export type TooltipInteraction = {
     event, // @todo
     options: { title: 'string'; items: TooltipItemValue[] },
   ) => HTMLElement | string;
-} & Record<`crosshairs${any}`, any>;
+} & Record<`crosshairs${any}`, any> &
+  Record<`marker${any}`, any>;
 
 export type FisheyeInteraction = {
   type?: 'fisheye';

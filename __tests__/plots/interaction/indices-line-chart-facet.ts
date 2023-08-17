@@ -40,6 +40,7 @@ export async function indicesLineChartFacet(): Promise<G2Spec> {
         body: false,
         crosshairs: true,
         crosshairsStrokeWidth: 30,
+        marker: false,
       },
     },
   };
