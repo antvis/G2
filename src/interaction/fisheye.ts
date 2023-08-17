@@ -22,26 +22,30 @@ export function Fisheye({
   trailing = false,
 }: Record<string, any>) {
   return (context) => {
-    const { options, update, container } = context;
+    const { options, update, setState, container } = context;
     const plotArea = selectPlotArea(container);
 
-    // Clone options and mutate it.
-    // Disable animation.
-    const clonedOptions = deepMix({}, options);
-    for (const mark of clonedOptions.marks) mark.animate = false;
     const updateFocus = throttle(
       (event) => {
         const focus = mousePosition(plotArea, event);
         if (!focus) {
-          update(options);
+          setState('fisheye');
+          update();
           return;
         }
-        const [x, y] = focus;
-        const fisheye = maybeCoordinate(clonedOptions);
-        fisheye.focusX = x;
-        fisheye.focusY = y;
-        fisheye.visual = true;
-        update(clonedOptions);
+        setState('fisheye', (options) => {
+          // Clone options and mutate it.
+          // Disable animation.
+          const clonedOptions = deepMix({}, options);
+          for (const mark of clonedOptions.marks) mark.animate = false;
+          const [x, y] = focus;
+          const fisheye = maybeCoordinate(clonedOptions);
+          fisheye.focusX = x;
+          fisheye.focusY = y;
+          fisheye.visual = true;
+          return clonedOptions;
+        });
+        update();
       },
       wait,
       { leading, trailing },

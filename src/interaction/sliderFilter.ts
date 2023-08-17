@@ -68,7 +68,7 @@ export function SliderFilter({
   trailing = false,
 }: any) {
   return (context, _, emitter) => {
-    const { container, view, options, update } = context;
+    const { container, view, update, setState } = context;
     const sliders = container.getElementsByClassName(className);
     if (!sliders.length) return () => {};
 
@@ -138,18 +138,6 @@ export function SliderFilter({
           channelDomain[channel0] = domain0;
           channelDomain[channel1] = domain1;
 
-          // Filter data.
-          const newOptions = filterDataByDomain(
-            options,
-            {
-              // Set nice to false to avoid modify domain.
-              [channel0]: { domain: domain0, nice: false },
-              [channel1]: { domain: domain1, nice: false },
-            },
-            prefix,
-            hasState,
-          );
-
           if (nativeEvent) {
             // Emit events.
             const X = isX ? domain0 : domain1;
@@ -161,13 +149,24 @@ export function SliderFilter({
             });
           }
 
-          await update({
-            ...newOptions,
+          setState(slider, (options) => ({
+            ...filterDataByDomain(
+              options,
+              {
+                // Set nice to false to avoid modify domain.
+                [channel0]: { domain: domain0, nice: false },
+                [channel1]: { domain: domain1, nice: false },
+              },
+              prefix,
+              hasState,
+            ),
             paddingLeft,
             paddingTop,
             paddingBottom,
             paddingRight,
-          });
+          }));
+
+          await update();
           filtering = false;
         },
         wait,

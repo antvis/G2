@@ -58,7 +58,7 @@ export function ChartIndex({
   ...style
 }: Record<string, any>) {
   return (context) => {
-    const { options, view, container, update } = context;
+    const { view, container, update, setState } = context;
     const { markState, scale, coordinate } = view;
 
     // Get line mark value, exit if it is not existed.
@@ -69,18 +69,6 @@ export function ChartIndex({
     const { y: Y, x: X, series: S = [] } = value;
     const I = Y.map((_, i) => i);
     const sortedX: number[] = sort(I.map((i) => X[i]));
-
-    // Clone options and get line mark.
-    const clonedOptions = deepMix({}, options);
-    const lineMark = clonedOptions.marks.find((d) => d.type === 'line');
-
-    // Update domain of y scale for the line mark.
-    const r = (I: number[]) => max(I, (i) => +Y[i]) / min(I, (i) => +Y[i]);
-    const k = max(rollup(I, r, (i) => S[i]).values());
-    const domainY = [1 / k, k];
-    deepMix(lineMark, {
-      scale: { y: { domain: domainY } },
-    });
 
     // Prepare shapes.
     const plotArea = selectPlotArea(container);
@@ -142,16 +130,31 @@ export function ChartIndex({
 
       updateRule(focus, date);
 
-      // Update normalize options.
-      const normalizeY = maybeTransform(lineMark);
-      normalizeY.groupBy = 'color';
-      normalizeY.basis = (I, Y) => {
-        const i = I[bisector((i) => X[+i]).center(I, date)];
-        return Y[i];
-      };
-      // Disable animation.
-      for (const mark of clonedOptions.marks) mark.animate = false;
-      const newState = await update(clonedOptions);
+      setState('chartIndex', (options) => {
+        // Clone options and get line mark.
+        const clonedOptions = deepMix({}, options);
+        const lineMark = clonedOptions.marks.find((d) => d.type === 'line');
+
+        // Update domain of y scale for the line mark.
+        const r = (I: number[]) => max(I, (i) => +Y[i]) / min(I, (i) => +Y[i]);
+        const k = max(rollup(I, r, (i) => S[i]).values());
+        const domainY = [1 / k, k];
+        deepMix(lineMark, {
+          scale: { y: { domain: domainY } },
+        });
+        // Update normalize options.
+        const normalizeY = maybeTransform(lineMark);
+        normalizeY.groupBy = 'color';
+        normalizeY.basis = (I, Y) => {
+          const i = I[bisector((i) => X[+i]).center(I, date)];
+          return Y[i];
+        };
+        // Disable animation.
+        for (const mark of clonedOptions.marks) mark.animate = false;
+        return clonedOptions;
+      });
+
+      const newState = await update();
       newView = newState.view;
     };
 
