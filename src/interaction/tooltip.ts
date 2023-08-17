@@ -1,4 +1,4 @@
-import { DisplayObject, IElement, Line } from '@antv/g';
+import { Circle, DisplayObject, IElement, Line } from '@antv/g';
 import { sort, group, mean, bisector, minIndex } from 'd3-array';
 import { deepMix, lowerFirst, throttle } from '@antv/util';
 import { Tooltip as TooltipComponent } from '@antv/gui';
@@ -333,6 +333,38 @@ function hideRuleY(root) {
   }
 }
 
+function updateMarker(root, { data, style, items }) {
+  if (root.markers) root.markers.forEach((d) => d.remove());
+  const markers = data.map((d) => {
+    const [{ color, element }, point] = d;
+    const fill =
+      color || // encode value
+      element.style.fill ||
+      element.style.stroke;
+    const shape = new Circle({
+      style: {
+        cx: point[0],
+        cy: point[1],
+        fill,
+        r: 4,
+        stroke: '#fff',
+        strokeWidth: 2,
+        ...style,
+      },
+    });
+    return shape;
+  });
+  for (const marker of markers) root.appendChild(marker);
+  root.markers = markers;
+}
+
+function hideMarker(root) {
+  if (root.markers) {
+    root.markers.forEach((d) => d.remove());
+    root.markers = [];
+  }
+}
+
 function interactionKeyof(markState, key) {
   return Array.from(markState.values()).some(
     // @ts-ignore
@@ -384,6 +416,7 @@ export function seriesTooltip(
     mount,
     bounding,
     disableNative = false,
+    marker = true,
     style: _style = {},
     ...rest
   }: Record<string, any>,
@@ -430,7 +463,6 @@ export function seriesTooltip(
     }),
   );
 
-  const ruleStyle = subObject(style, 'crosshairs');
   const { x: scaleX } = scale;
 
   // Apply offset for band scale x.
@@ -499,7 +531,7 @@ export function seriesTooltip(
           const d = seriesData(element, index);
           const { x, y } = d;
           const p = coordinate.map([(x || 0) + offsetX, y || 0]);
-          selectedSeriesData.push([d, p] as const);
+          selectedSeriesData.push([{ ...d, element }, p] as const);
         }
       }
 
@@ -557,6 +589,7 @@ export function seriesTooltip(
 
       if (crosshairs) {
         const points = filteredSeriesData.map((d) => d[1]);
+        const ruleStyle = subObject(style, 'crosshairs');
         updateRuleY(root, points, {
           ...ruleStyle,
           plotWidth,
@@ -569,6 +602,15 @@ export function seriesTooltip(
           startY,
           transposed,
           polar,
+        });
+      }
+
+      if (marker) {
+        const markerStyles = subObject(style, 'marker');
+        updateMarker(root, {
+          data: filteredSeriesData,
+          items: tooltipData.items,
+          style: markerStyles,
         });
       }
 
@@ -585,6 +627,7 @@ export function seriesTooltip(
   const hide = () => {
     hideTooltip({ root, single, emitter, mount });
     if (crosshairs) hideRuleY(root);
+    if (marker) hideMarker(root);
   };
 
   const onTooltipShow = ({ nativeEvent, data }) => {
@@ -622,6 +665,7 @@ export function seriesTooltip(
     emitter.off('tooltip:hide', onTooltipHide);
     destroyTooltip(root);
     if (crosshairs) hideRuleY(root);
+    if (marker) hideMarker(root);
   };
 }
 

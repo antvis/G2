@@ -34,23 +34,25 @@ chart.render();
 
 ## 选项
 
-| 属性                      | 描述                                        | 类型                                        | 默认值       |
-| ------------------------- | ------------------------------------------- | ------------------------------------------- | ------------ |
-| wait                      | 提示信息更新的时间间隔，单位为毫秒          | `number`                                    | 50           |
-| leading                   | 是否在时间间隔开始的时候更新提示信息        | `boolean`                                   | true         |
-| trailing                  | 是否在时间间隔结束的时候更新提示信息        | `boolean`                                   | false        |
-| shared                    | 相同 x 的元素是否共享 tooltip               | `boolean`                                   | false        |
-| series                    | 是否是系列元素的 tooltip                    | `boolean`                                   | -            |
-| body                      | 是否展示 tooltip                            | `boolean`                                   | true         |
-| groupName                 | 是否使用 groupName                          | `boolean`                                   | true         |
-| position                  | tooltip 位置                                | `TooltipPosition`                           | -            |
-| mount                     | tooltip 渲染的 dom 节点                     | `string` \| `HTMLElement`                   | 图表容器     |
-| bounding                  | tooltip 渲染的限制区域，超出会自动调整位置  | `BBox`                                      | 图表区域大小 |
-| crosshairs                | 是否暂时指示线                              | `boolean`                                   | -            |
-| `crosshairs${StyleAttrs}` | 指示线的样式                                | `number \| string`                          | -            |
-| render                    | 自定义 tooltip 渲染函数                     | `(event, options) => HTMLElement \| string` | -            |
-| sort                      | item 排序器                                 | `(d: TooltipItemValue) => any`              | -            |
-| filter                    | item 筛选器                                 | `(d: TooltipItemValue) => any`              | -            |
+| 属性                      | 描述                                         | 类型                                        | 默认值       |
+| ------------------------- | -------------------------------------------- | ------------------------------------------- | ------------ |
+| wait                      | 提示信息更新的时间间隔，单位为毫秒           | `number`                                    | 50           |
+| leading                   | 是否在时间间隔开始的时候更新提示信息         | `boolean`                                   | true         |
+| trailing                  | 是否在时间间隔结束的时候更新提示信息         | `boolean`                                   | false        |
+| shared                    | 相同 x 的元素是否共享 tooltip                | `boolean`                                   | false        |
+| series                    | 是否是系列元素的 tooltip                     | `boolean`                                   | -            |
+| body                      | 是否展示 tooltip                             | `boolean`                                   | true         |
+| marker                    | 是否展示 marker                              | `boolean`                                   | true         |
+| groupName                 | 是否使用 groupName                           | `boolean`                                   | true         |
+| position                  | tooltip 位置                                 | `TooltipPosition`                           | -            |
+| mount                     | tooltip 渲染的 dom 节点                      | `string` \| `HTMLElement`                   | 图表容器     |
+| bounding                  | tooltip 渲染的限制区域，超出会自动调整位置   | `BBox`                                      | 图表区域大小 |
+| crosshairs                | 是否暂时指示线                               | `boolean`                                   | -            |
+| `crosshairs${StyleAttrs}` | 指示线的样式                                 | `number \| string`                          | -            |
+| `marker${StyleAttrs}`     | marker 的样式                                | `number \| string`                          | -            |
+| render                    | 自定义 tooltip 渲染函数                      | `(event, options) => HTMLElement \| string` | -            |
+| sort                      | item 排序器                                  | `(d: TooltipItemValue) => any`              | -            |
+| filter                    | item 筛选器                                  | `(d: TooltipItemValue) => any`              | -            |
 | disableNative             | 是否响应原生事件（pointerover 和 pointerout) | true                                        | `boolean`    |
 
 ```ts
