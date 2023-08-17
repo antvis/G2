@@ -330,6 +330,14 @@ export default defineConfig({
         icon: 'other',
       },
       {
+        slug: '3d',
+        title: {
+          zh: '3D 可视化',
+          en: '3D Charts',
+        },
+        icon: 'other',
+      },
+      {
         slug: 'style',
         title: {
           zh: '风格',

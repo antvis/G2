@@ -1,4 +1,4 @@
-import { CameraType, Canvas } from '@antv/g';
+import { CameraType } from '@antv/g';
 import { Renderer as WebGLRenderer } from '@antv/g-webgl';
 import { Plugin as ThreeDPlugin, DirectionalLight } from '@antv/g-plugin-3d';
 import { Plugin as ControlPlugin } from '@antv/g-plugin-control';
@@ -12,62 +12,53 @@ export function chartRender3dScatterPlot(context) {
   renderer.registerPlugin(new ThreeDPlugin());
   renderer.registerPlugin(new ControlPlugin());
 
-  const canvas = new Canvas({
+  const chart = new Chart({
     container,
-    width: 640,
-    height: 480,
+    theme: 'classic',
     renderer,
-  });
-
-  const camera = canvas.getCamera();
-  camera.setType(CameraType.ORBITING);
-  // TODO: infer by depth in layout process.
-  canvas.document.documentElement.translate(0, 0, -200);
-
-  // Add a directional light into scene.
-  const light = new DirectionalLight({
-    style: {
-      intensity: 3,
-      fill: 'white',
-      direction: [-1, 0, 1],
-    },
-  });
-  canvas.appendChild(light);
-
-  const chart = new Chart({ theme: 'classic', container, canvas });
-  chart.options({
-    width: 500,
-    height: 500,
     depth: 400,
-    type: 'point3D',
-    padding: 'auto',
-    data: {
+  });
+
+  chart
+    .point3D()
+    .data({
       type: 'fetch',
       value: 'data/cars2.csv',
-    },
-    encode: {
-      x: 'Horsepower',
-      y: 'Miles_per_Gallon',
-      z: 'Weight_in_lbs',
-      size: 'Origin',
-      color: 'Cylinders',
-      shape: 'cube',
-    },
-    scale: {
-      x: { nice: true },
-      y: { nice: true },
-      z: { nice: true },
-    },
-    coordinate: { type: 'cartesian3D' },
-    axis: {
-      x: { gridLineWidth: 3 },
-      y: { gridLineWidth: 3, titleBillboardRotation: -Math.PI / 2 },
-      z: { gridLineWidth: 3 },
-    },
-    legend: false,
-  });
+    })
+    .encode('x', 'Horsepower')
+    .encode('y', 'Miles_per_Gallon')
+    .encode('z', 'Weight_in_lbs')
+    .encode('size', 'Origin')
+    .encode('color', 'Cylinders')
+    .encode('shape', 'cube')
+    .coordinate({ type: 'cartesian3D' })
+    .scale('x', { nice: true })
+    .scale('y', { nice: true })
+    .scale('z', { nice: true })
+    .legend(false)
+    .axis('x', { gridLineWidth: 2 })
+    .axis('y', { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 })
+    .axis('z', { gridLineWidth: 2 });
 
-  const finished = chart.render();
+  const finished = chart.render().then(() => {
+    const { canvas } = chart.getContext();
+    const camera = canvas!.getCamera();
+    camera.setType(CameraType.ORBITING);
+    camera.rotate(-20, -20, 0);
+
+    // TODO: infer by depth in layout process.
+    canvas!.document.documentElement.translate(0, 0, -400 / 2);
+
+    // Add a directional light into scene.
+    const light = new DirectionalLight({
+      style: {
+        intensity: 3,
+        fill: 'white',
+        direction: [-1, 0, 1],
+      },
+    });
+    canvas!.appendChild(light);
+  });
 
   return { finished };
 }

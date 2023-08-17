@@ -362,7 +362,7 @@ export function placeComponents(
   const positionComponents = group<
     G2GuideComponentOptions,
     [GuideComponentPlane, GCP]
-  >(components, (d) => [d.plane, d.position]);
+  >(components, (d) => [d.plane || 'xy', d.position]);
   const {
     paddingLeft,
     paddingRight,

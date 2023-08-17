@@ -1,9 +1,4 @@
-import {
-  MeshPhongMaterial,
-  SphereGeometry,
-  DirectionalLight,
-  Mesh,
-} from '@antv/g-plugin-3d';
+import { MeshPhongMaterial, SphereGeometry, Mesh } from '@antv/g-plugin-3d';
 import { applyStyle, getOrigin, toOpacityKey } from '../utils';
 import { ShapeComponent as SC } from '../../runtime';
 import { select } from '../../utils/selection';
@@ -20,20 +15,20 @@ export const Sphere: SC<SphereOptions> = (options, context) => {
   const { ...style } = options;
 
   // @ts-ignore
-  if (!Sphere.props.geometry) {
+  if (!context.sphereGeometry) {
     const renderer = context.canvas.getConfig().renderer;
     const plugin = renderer.getPlugin('device-renderer');
     const device = plugin.getDevice();
     // create a sphere geometry
     // @ts-ignore
-    Sphere.props.geometry = new SphereGeometry(device, {
+    context.sphereGeometry = new SphereGeometry(device, {
       radius: GEOMETRY_SIZE,
       latitudeBands: 32,
       longitudeBands: 32,
     });
     // create a material with Phong lighting model
     // @ts-ignore
-    Sphere.props.material = new MeshPhongMaterial(device, {
+    context.sphereMaterial = new MeshPhongMaterial(device, {
       shininess: 30,
     });
   }
@@ -51,9 +46,9 @@ export const Sphere: SC<SphereOptions> = (options, context) => {
         y: cy,
         z: cz,
         // @ts-ignore
-        geometry: Sphere.props.geometry,
+        geometry: context.sphereGeometry,
         // @ts-ignore
-        material: Sphere.props.material,
+        material: context.materialGeometry,
       },
     });
     sphere.setOrigin(0, 0, 0);

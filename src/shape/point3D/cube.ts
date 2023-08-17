@@ -1,9 +1,4 @@
-import {
-  MeshPhongMaterial,
-  CubeGeometry,
-  DirectionalLight,
-  Mesh,
-} from '@antv/g-plugin-3d';
+import { MeshPhongMaterial, CubeGeometry, Mesh } from '@antv/g-plugin-3d';
 import { applyStyle, getOrigin, toOpacityKey } from '../utils';
 import { ShapeComponent as SC } from '../../runtime';
 import { select } from '../../utils/selection';
@@ -20,20 +15,20 @@ export const Cube: SC<CubeOptions> = (options, context) => {
   const { ...style } = options;
 
   // @ts-ignore
-  if (!Cube.props.geometry) {
+  if (!context.cubeGeometry) {
     const renderer = context.canvas.getConfig().renderer;
     const plugin = renderer.getPlugin('device-renderer');
     const device = plugin.getDevice();
     // create a sphere geometry
     // @ts-ignore
-    Cube.props.geometry = new CubeGeometry(device, {
+    context.cubeGeometry = new CubeGeometry(device, {
       width: GEOMETRY_SIZE,
       height: GEOMETRY_SIZE,
       depth: GEOMETRY_SIZE,
     });
     // create a material with Phong lighting model
     // @ts-ignore
-    Cube.props.material = new MeshPhongMaterial(device, {
+    context.cubeMaterial = new MeshPhongMaterial(device, {
       shininess: 30,
     });
   }
@@ -51,9 +46,9 @@ export const Cube: SC<CubeOptions> = (options, context) => {
         y: cy,
         z: cz,
         // @ts-ignore
-        geometry: Cube.props.geometry,
+        geometry: context.cubeGeometry,
         // @ts-ignore
-        material: Cube.props.material,
+        material: context.cubeMaterial,
       },
     });
     cube.setOrigin(0, 0, 0);
