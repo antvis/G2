@@ -61,7 +61,7 @@ G2 设计了一套**规范（Spec）** 去描述可以绘制的可视化，使�
 ```js
 ({
   type: 'view',
-  children: [{ type: 'point' }],
+  children: [{ type: 'interval' }],
 });
 ```
 
@@ -70,7 +70,7 @@ G2 设计了一套**规范（Spec）** 去描述可以绘制的可视化，使�
 ```js
 ({
   type: 'view',
-  children: [{ type: 'point', encode: { x: 'genre' } }],
+  children: [{ type: 'interval', encode: { x: 'genre' } }],
 });
 ```
 
