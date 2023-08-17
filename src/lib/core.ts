@@ -159,6 +159,7 @@ import {
   Join as DataJoin,
   Sort as DataSort,
   KDE as DataKDE,
+  Log as DataLog,
 } from '../data';
 import {
   OverlapDodgeY,
@@ -183,6 +184,7 @@ export function corelib() {
     'data.map': DataMap,
     'data.join': DataJoin,
     'data.kde': DataKDE,
+    'data.log': DataLog,
     'transform.stackY': StackY,
     'transform.binX': BinX,
     'transform.bin': Bin,

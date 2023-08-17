@@ -12,6 +12,7 @@ export type DataTransform =
   | SliceTransform
   | KDEDataTransform
   | VennDataTransform
+  | LogDataTransform
   | CustomTransform;
 
 export type DataTransformTypes =
@@ -26,6 +27,7 @@ export type DataTransformTypes =
   | 'slice'
   | 'kde'
   | 'venn'
+  | 'log'
   | 'custom'
   | DataComponent;
 
@@ -178,6 +180,9 @@ export type VennDataTransform = {
    */
   as?: [string, string];
 };
+
+// eslint-disable-next-line
+export type LogDataTransform = {};
 
 export type CustomTransform = {
   type?: DataComponent;

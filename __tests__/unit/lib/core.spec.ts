@@ -160,6 +160,7 @@ import {
   Custom,
   Join,
   KDE,
+  Log as DataLog,
 } from '../../../src/data';
 import {
   OverflowHide,
@@ -185,6 +186,7 @@ describe('corelib', () => {
       'data.map': Map,
       'data.join': Join,
       'data.kde': KDE,
+      'data.log': DataLog,
       'transform.stackY': StackY,
       'transform.binX': BinX,
       'transform.bin': Bin,
