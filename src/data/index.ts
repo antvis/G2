@@ -17,6 +17,7 @@ export { Join } from './join';
 export { Slice } from './slice';
 export { KDE } from './kde';
 export { Venn } from './venn';
+export { Log } from './log';
 
 export type { FetchOptions } from './fetch';
 export type { FoldOptions } from './fold';
@@ -37,3 +38,4 @@ export type { JoinOptions } from './join';
 export type { SliceOptions } from './slice';
 export type { KDEOptions } from './kde';
 export type { VennOptions } from './venn';
+export type { LogDataOptions } from './log';

@@ -173,6 +173,7 @@ import {
   Venn,
   Cluster,
   Arc,
+  Log as DataLog,
 } from '../../../src/data';
 import {
   OverflowHide,
@@ -201,6 +202,7 @@ describe('stdlib', () => {
       'data.venn': Venn,
       'data.cluster': Cluster,
       'data.arc': Arc,
+      'data.log': DataLog,
       'transform.stackY': StackY,
       'transform.binX': BinX,
       'transform.bin': Bin,

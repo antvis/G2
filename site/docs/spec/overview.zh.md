@@ -25,6 +25,7 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
 - [join](/spec/data/join) - 类似 SQL 的方式，将两份数据连接到一起。
 - [custom](/spec/data/custom) - 使用自定义的方式对数据进行变换。
 - [kde](/spec/data/kde) - 核密度处理算法。
+- [log](/spec/data/log) - 用于开发者调试，打印当前数据处理片面的数据。
 
 ## Mark
 
