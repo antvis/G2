@@ -16,15 +16,17 @@ type CompositionOf<Library> = Of<
     CompositionOf<Library>
 >;
 
+export type API<Spec, Library> = Runtime<Spec> &
+  MarkOf<Library, (composite?) => MarkNode> &
+  CompositionOf<Library>;
+
 export function extend<
   Spec extends G2Spec = G2Spec,
   Library extends G2Library = G2Library,
 >(
   Runtime: new (options: RuntimeOptions) => Runtime<Spec>,
   library: Library,
-): new (options?: RuntimeOptions) => Runtime<Spec> &
-  MarkOf<Library, (composite?) => MarkNode> &
-  CompositionOf<Library> {
+): new (options?: RuntimeOptions) => API<Spec, Library> {
   class Chart extends Runtime {
     constructor(options: Omit<RuntimeOptions, 'lib'>) {
       super({ ...options, lib: library });

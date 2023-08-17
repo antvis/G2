@@ -1,5 +1,12 @@
 # G2 - Changelog
 
+## [5.0.20](https://github.com/antvis/g2/compare/5.0.19...5.0.20) (2023-08-17)
+
+### Bug Fixes
+
+- **interaction:** multi interaction ([#5419](https://github.com/antvis/g2/issues/5419)) ([328aeea](https://github.com/antvis/g2/commit/328aeeac34e770ff2c28f5b1a8ad704ab00af0a5))
+- **types:** add types for Chart interface ([acd81b9](https://github.com/antvis/g2/commit/acd81b93facc110015a38922e766a1fe5d7f9069))
+
 ## [5.0.19](https://github.com/antvis/g2/compare/5.0.18...5.0.19) (2023-08-15)
 
 ### Bug Fixes
