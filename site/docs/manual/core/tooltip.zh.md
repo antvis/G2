@@ -216,36 +216,6 @@ G2 默认打开 Tooltip 交互 ，如果需要配置 Tooltip 属性，可以通�
 })();
 ```
 
-## 自定义 Tooltip
-
-有时候内置的 Tooltip 无法满足需求，这时候可以通过自定义 Tooltip 来实现。
-
-```js | ob
-(() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
-
-  chart
-    .interval()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-    })
-    .transform([{ type: 'sortX', by: 'y', reverse: true }])
-    .encode('x', 'letter')
-    .encode('y', 'frequency')
-    .interaction('tooltip', {
-      // render 回调方法返回一个innerHTML 或者 DOM
-      render: (event, { title, items }) =>
-        `<div>Your custom render content here.</div>`,
-    });
-
-  chart.render();
-
-  return chart.getContainer();
-})();
-```
-
 ## 关闭 tooltip
 
 如果希望不展示该 Mark 的提示信息，可以通过 `mark.tooltip` 实现。
