@@ -346,6 +346,14 @@ export default defineConfig({
         icon: 'other',
       },
       {
+        slug: 'interesting',
+        title: {
+          zh: '趣味可视化',
+          en: 'Interesting',
+        },
+        icon: 'other',
+      },
+      {
         slug: 'style',
         title: {
           zh: '风格',
