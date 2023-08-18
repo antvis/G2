@@ -18,14 +18,12 @@ G2 is a visualization grammar for dashboard building, data exploration and story
 
 </div>
 
-> G2 5.0 is still work in progress, the stable release is on the [master](https://github.com/antvis/G2/tree/master) branch.
-
 G2 is named after Leland Wilkinson’s book _The Grammar of Graphics_ and was profoundly inspired by it in the very beginning. Here are some resources you can begin with:
 
-- [Introduction](http://g2-next.antv.vision/introduction) - a brief overview and G2's motivations
-- [Examples](http://g2-next.antv.vision/examples) - a large number of demos to learn from and copy-paste
-- [Tutorials](http://g2-next.antv.vision/tutorials) - interactive case-driven guides of G2's core concepts
-- [API Reference](http://g2-next.antv.vision/basic) - complete documentation for all visualization components
+- [Introduction](https://g2.antv.antgroup.com/manual/introduction/what-is-g2) - a brief overview and G2's motivations
+- [Examples](https://g2.antv.antgroup.com/examples) - a large number of demos to learn from and copy-paste
+- [Tutorials](https://g2.antv.antgroup.com/manual/introduction/getting-started) - interactive case-driven guides of G2's core concepts
+- [API Reference](https://g2.antv.antgroup.com/api/overview) - complete documentation for all visualization components
 
 ## ✨ Features
 

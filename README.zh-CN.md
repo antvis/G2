@@ -6,12 +6,12 @@
 
 <div align="center">
 
-简洁的渐进式可视化语法
+简洁的渐进式可视化语法，用于构建仪表盘、数据探索以及数据讲故事。
 
 <p align="center">
-  <a href="https://g2.antv.antgroup.com/manual/introduction">介绍</a> •
+  <a href="https://g2.antv.antgroup.com/manual/introduction/what-is-g2">介绍</a> •
   <a href="https://g2.antv.antgroup.com/examples">案例</a> •
-  <a href="https://g2.antv.antgroup.com/manual/getting-started">教程</a> •
+  <a href="https://g2.antv.antgroup.com/manual/introduction/getting-started">教程</a> •
   <a href="https://g2.antv.antgroup.com/api/overview">API</a>
 </p>
 
