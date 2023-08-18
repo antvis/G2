@@ -1,11 +1,12 @@
 ---
-title: 3D 图表
+title: 绘制 3D 图表
 order: 11
 ---
 
 以 3D 散点图为例，创建图表需要以下步骤：
 
 - 创建 WebGL 渲染器和插件
+- 扩展 threedlib
 - 设置 z 通道、比例尺和坐标轴
 - 在场景中设置相机
 - 添加光源
@@ -18,7 +19,7 @@ order: 11
 首先安装依赖：
 
 ```bash
-$ npm install @antv/g-webgl @antv/g-plugin-3d @antv/g-plugin-control --save;
+$ npm install @antv/g-webgl @antv/g-plugin-3d @antv/g-plugin-control --save
 ```
 
 然后使用 [@antv/g-webgl](https://g.antv.antgroup.com/api/renderer/webgl) 作为渲染器并注册以下两个插件：
@@ -36,6 +37,16 @@ renderer.registerPlugin(new ThreeDPlugin());
 renderer.registerPlugin(new ControlPlugin());
 ```
 
+## 扩展 threedlib
+
+由于 3D 相关的功能代码体积巨大，我们将其分离到 `threedlib` 中，在运行时扩展它并自定义 Chart 对象：
+
+```ts
+import { Runtime, corelib, threedlib, extend } from '@antv/g2';
+
+const Chart = extend(Runtime, { ...corelib(), ...threedlib() });
+```
+
 ## 设置 z 通道、比例尺和坐标轴
 
 在创建 Chart 时通过 `depth` 指定深度：
@@ -49,7 +60,7 @@ const chart = new Chart({
 });
 ```
 
-我们使用 [point3D](/spec/mark/point3-d) Mark 并选择 cube 作为 shape 进行绘制。
+我们使用 [point3D](/spec/3d/point3-d) Mark 并选择 cube 作为 shape 进行绘制。
 随后设置 z 通道、比例尺和坐标轴。
 
 ```ts
@@ -92,7 +103,62 @@ chart.render().then(() => {
 
 效果如下：
 
-<img alt="perspective" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*KNCUQqzw2JsAAAAAAAAAAAAADmJ7AQ/original" width="400" />
+```js | ob { pin: false }
+(() => {
+  const renderer = new gWebgl.Renderer();
+  renderer.registerPlugin(new gPluginControl.Plugin());
+  renderer.registerPlugin(new gPlugin3d.Plugin());
+
+  const Chart = G2.extend(G2.Runtime, { ...G2.corelib(), ...G2.threedlib() });
+
+  // 初始化图表实例
+  const chart = new Chart({
+    theme: 'classic',
+    renderer,
+    depth: 400,
+  });
+
+  chart
+    .point3D()
+    .data({
+      type: 'fetch',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
+    })
+    .encode('x', 'Horsepower')
+    .encode('y', 'Miles_per_Gallon')
+    .encode('z', 'Weight_in_lbs')
+    .encode('color', 'Cylinders')
+    .encode('shape', 'cube')
+    .coordinate({ type: 'cartesian3D' })
+    .scale('x', { nice: true })
+    .scale('y', { nice: true })
+    .scale('z', { nice: true })
+    .legend(false)
+    .axis('x', { gridLineWidth: 2 })
+    .axis('y', { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 })
+    .axis('z', { gridLineWidth: 2 });
+
+  chart.render().then(() => {
+    const { canvas } = chart.getContext();
+    const camera = canvas.getCamera();
+    camera.setPerspective(0.1, 5000, 45, 500 / 500);
+    camera.setType(g.CameraType.ORBITING);
+
+    // Add a directional light into scene.
+    const light = new gPlugin3d.DirectionalLight({
+      style: {
+        intensity: 3,
+        fill: 'white',
+        direction: [-1, 0, 1],
+      },
+    });
+    canvas.appendChild(light);
+  });
+
+  return chart.getContainer();
+})();
+```
 
 我们还可以让相机固定视点进行一定角度的旋转，这里使用了 [rotate](https://g.antv.antgroup.com/api/camera/action#rotate)：
 
@@ -100,7 +166,62 @@ chart.render().then(() => {
 camera.rotate(-20, -20, 0);
 ```
 
-<img alt="orthographic" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*7MdMQY-QksEAAAAAAAAAAAAADmJ7AQ/original" width="400" />
+```js | ob { pin: false }
+(() => {
+  const renderer = new gWebgl.Renderer();
+  renderer.registerPlugin(new gPluginControl.Plugin());
+  renderer.registerPlugin(new gPlugin3d.Plugin());
+
+  const Chart = G2.extend(G2.Runtime, { ...G2.corelib(), ...G2.threedlib() });
+
+  // 初始化图表实例
+  const chart = new Chart({
+    theme: 'classic',
+    renderer,
+    depth: 400,
+  });
+
+  chart
+    .point3D()
+    .data({
+      type: 'fetch',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
+    })
+    .encode('x', 'Horsepower')
+    .encode('y', 'Miles_per_Gallon')
+    .encode('z', 'Weight_in_lbs')
+    .encode('color', 'Cylinders')
+    .encode('shape', 'cube')
+    .coordinate({ type: 'cartesian3D' })
+    .scale('x', { nice: true })
+    .scale('y', { nice: true })
+    .scale('z', { nice: true })
+    .legend(false)
+    .axis('x', { gridLineWidth: 2 })
+    .axis('y', { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 })
+    .axis('z', { gridLineWidth: 2 });
+
+  chart.render().then(() => {
+    const { canvas } = chart.getContext();
+    const camera = canvas.getCamera();
+    camera.setType(g.CameraType.ORBITING);
+    camera.rotate(-20, -20, 0);
+
+    // Add a directional light into scene.
+    const light = new gPlugin3d.DirectionalLight({
+      style: {
+        intensity: 3,
+        fill: 'white',
+        direction: [-1, 0, 1],
+      },
+    });
+    canvas.appendChild(light);
+  });
+
+  return chart.getContainer();
+})();
+```
 
 ## 添加光源
 
@@ -121,10 +242,6 @@ canvas.appendChild(light);
 
 ## 使用相机交互
 
-3D 场景下的交互和 2D 场景有很大的不同，[g-plugin-control](https://g.antv.antgroup.com/plugins/control) 提供了 3D 场景下基于相机的交互。当我们拖拽画布时，会控制相机绕视点进行旋转操作，而鼠标滚轮的缩放会让相机进行 dolly 操作：
+3D 场景下的交互和 2D 场景有很大的不同，[g-plugin-control](https://g.antv.antgroup.com/plugins/control) 提供了 3D 场景下基于相机的交互。当我们拖拽画布时，会控制相机绕视点进行旋转操作，而鼠标滚轮的缩放会让相机进行 dolly 操作。
 
-<img alt="perspective control" src="https://user-images.githubusercontent.com/3608471/261231166-30515059-aba7-49ae-b805-4fa9a5b95a27.gif" width="400" />
-
-需要注意的是缩放操作在正交投影下是没有效果的，但旋转操作依然有效：
-
-<img alt="orthographic control" src="https://user-images.githubusercontent.com/3608471/261231186-7b4be85a-6d05-4abe-98b4-a9b35b9bff0e.gif" width="400" />
+需要注意的是缩放操作在正交投影下是没有效果的，但旋转操作依然有效。

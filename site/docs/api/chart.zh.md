@@ -37,6 +37,7 @@ chart.render();
 | container | 指定 chart 绘制的 DOM，可以传入 DOM id，也可以直接传入 dom 实例                                                                                                                               | `string \| HTMLElement` |        |
 | width     | 图表宽度                                                                                                                                                                                      | `number`                | 640    |
 | height    | 图表高度                                                                                                                                                                                      | `number`                | 480    |
+| depth     | 图表深度，在 3D 图表中使用                                                                                                                                                                    | `number`                | 0      |
 | renderer  | 指定渲染引擎，默认使用 canvas。                                                                                                                                                               |                         |        |
 | plugins   | 指定渲染时使用的插件 ，具体见 [plugin](/api/plugin/rough)                                                                                                                                     | `any[]`                 |        |
 | autoFit   | 图表是否自适应容器宽高，默认为 `false`，用户需要手动设置 `width` 和 `height`。<br/>当 `autoFit: true` 时，会自动取图表容器的宽高，如果用户设置了 `height`，那么会以用户设置的 `height` 为准。 | `boolean`               | false  |
@@ -196,7 +197,7 @@ chart.render();
 
 ### `chart.point3D`
 
-添加 point3D 图形，具体见 [mark](/spec/mark/point3D)。
+添加 point3D 图形，具体见 [3d](/spec/3d/point3-d)。
 
 ## 设置属性
 

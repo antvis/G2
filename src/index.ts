@@ -15,7 +15,7 @@ export {
   AREA_CLASS_NAME,
 } from './runtime';
 
-export { corelib, stdlib, litelib } from './lib';
+export { corelib, stdlib, litelib, threedlib } from './lib';
 
 export * from './mark';
 

@@ -1,5 +1,5 @@
 ---
-title: 3D Charts
+title: Use 3D Charts
 order: 11
 ---
 

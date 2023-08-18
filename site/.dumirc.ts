@@ -216,6 +216,14 @@ export default defineConfig({
         order: 14,
       },
       {
+        slug: 'spec/3d',
+        title: {
+          zh: '3D 图表 - 3D Charts',
+          en: '3D',
+        },
+        order: 15,
+      },
+      {
         slug: 'spec/theme',
         title: {
           zh: '主题 - Theme',

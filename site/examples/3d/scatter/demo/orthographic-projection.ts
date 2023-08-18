@@ -2,13 +2,15 @@ import { CameraType } from '@antv/g';
 import { Renderer as WebGLRenderer } from '@antv/g-webgl';
 import { Plugin as ThreeDPlugin, DirectionalLight } from '@antv/g-plugin-3d';
 import { Plugin as ControlPlugin } from '@antv/g-plugin-control';
-import { Chart } from '@antv/g2';
+import { Runtime, corelib, threedlib, extend } from '@antv/g2';
 
 // Create a WebGL renderer.
 const renderer = new WebGLRenderer();
 renderer.registerPlugin(new ThreeDPlugin());
 renderer.registerPlugin(new ControlPlugin());
 
+// Customize our own Chart with threedlib.
+const Chart = extend(Runtime, { ...corelib(), ...threedlib() });
 const chart = new Chart({
   container: 'container',
   theme: 'classic',
