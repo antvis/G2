@@ -50,7 +50,7 @@ $ yarn add @antv/g2@next
 The Chart object then can be imported from G2.
 
 ```html
-<div id="chart"></div>
+<div id="container"></div>
 ```
 
 ```js
