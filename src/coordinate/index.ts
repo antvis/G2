@@ -1,4 +1,5 @@
 export { Cartesian } from './cartesian';
+export { Cartesian3D } from './cartesian3D';
 export { Polar, getPolarOptions } from './polar';
 export { Helix } from './helix';
 export { Transpose } from './transpose';
@@ -9,6 +10,7 @@ export { Fisheye } from './fisheye';
 export { Radar } from './radar';
 
 export type { CartesianOptions } from './cartesian';
+export type { Cartesian3DOptions } from './cartesian3D';
 export type { PolarOptions } from './polar';
 export type { HelixOptions } from './helix';
 export type { TransposeOptions } from './transpose';

@@ -1,0 +1,32 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "orthographic-projection.ts",
+      "title": {
+        "zh": "正交投影",
+        "en": "Orthographic projection"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*7MdMQY-QksEAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "perspective-projection.ts",
+      "title": {
+        "zh": "透视投影",
+        "en": "Perspective projection"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*KNCUQqzw2JsAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "sphere-shape.ts",
+      "title": {
+        "zh": "球体",
+        "en": "Sphere"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*KNCUQqzw2JsAAAAAAAAAAAAADmJ7AQ/original"
+    }
+  ]
+}

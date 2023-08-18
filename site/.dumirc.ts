@@ -216,6 +216,14 @@ export default defineConfig({
         order: 14,
       },
       {
+        slug: 'spec/threed',
+        title: {
+          zh: '3D 图表 - 3D Charts',
+          en: '3D',
+        },
+        order: 15,
+      },
+      {
         slug: 'spec/theme',
         title: {
           zh: '主题 - Theme',
@@ -326,6 +334,14 @@ export default defineConfig({
         title: {
           zh: '单元可视化',
           en: 'Unit',
+        },
+        icon: 'other',
+      },
+      {
+        slug: 'threed',
+        title: {
+          zh: '3D 可视化',
+          en: '3D Charts',
         },
         icon: 'other',
       },

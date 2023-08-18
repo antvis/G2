@@ -37,6 +37,7 @@ chart.render();
 | container | 指定 chart 绘制的 DOM，可以传入 DOM id，也可以直接传入 dom 实例                                                                                                                               | `string \| HTMLElement` |        |
 | width     | 图表宽度                                                                                                                                                                                      | `number`                | 640    |
 | height    | 图表高度                                                                                                                                                                                      | `number`                | 480    |
+| depth     | 图表深度，在 3D 图表中使用                                                                                                                                                                    | `number`                | 0      |
 | renderer  | 指定渲染引擎，默认使用 canvas。                                                                                                                                                               |                         |        |
 | plugins   | 指定渲染时使用的插件 ，具体见 [plugin](/api/plugin/rough)                                                                                                                                     | `any[]`                 |        |
 | autoFit   | 图表是否自适应容器宽高，默认为 `false`，用户需要手动设置 `width` 和 `height`。<br/>当 `autoFit: true` 时，会自动取图表容器的宽高，如果用户设置了 `height`，那么会以用户设置的 `height` 为准。 | `boolean`               | false  |
@@ -109,7 +110,9 @@ chart.render();
 添加 rangeY 图形，具体见 [mark](/spec/mark/range-y)。
 
 ### `chart.connector`
+
 <!-- 暂缺 -->
+
 添加 connector 图形，具体见 [mark](/spec/mark/connector)。
 
 ### `chart.sankey`
@@ -192,6 +195,10 @@ chart.render();
 
 添加 timingKeyframe 图形，具体见 [composition](/spec/composition/timing-keyframe)。
 
+### `chart.point3D`
+
+添加 point3D 图形，具体见 [3d](/spec/threed/point-threed)。
+
 ## 设置属性
 
 ### `chart.width`
@@ -215,11 +222,15 @@ chart.render();
 设置图形的数据，支持多种数据来源和数据变换，具体见 [data](/spec/data/overview)。
 
 ### `chart.encode`
+
 <!-- 暂缺 -->
+
 设置图形每个通道的字段名称，具体见 [encode](/api/encode/overview)。
 
 ### `chart.scale`
+
 <!-- 概况中的 scale 介绍更清晰 -->
+
 设置图形每个通道的比例尺，具体见 [scale](/spec/overview#scale)。
 
 ### `chart.legend`
@@ -243,7 +254,9 @@ chart.render();
 设置图形的标签，具体见 [label](/spec/label/overview)。
 
 ### `chart.style`
+
 <!-- common 未放开，但可以跳转 -->
+
 设置图形的样式，具体见 [style](/spec/common/style)。
 
 ### `chart.theme`
@@ -251,7 +264,9 @@ chart.render();
 设置图形的主题，具体见 [theme](/spec/theme/academy)。
 
 ### `chart.labelTransform`
+
 <!-- 缺失 -->
+
 设置图形的 labelTransform，具体见 [label](/spec/label/overview)
 
 ## 渲染图表

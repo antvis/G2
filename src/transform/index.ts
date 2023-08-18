@@ -3,6 +3,7 @@ export { MaybeStackY } from './maybeStackY';
 export { MaybeTitle } from './maybeTitle';
 export { MaybeZeroX } from './maybeZeroX';
 export { MaybeZeroY } from './maybeZeroY';
+export { MaybeZeroZ } from './maybeZeroZ';
 export { MaybeSize } from './maybeSize';
 export { MaybeKey } from './maybeKey';
 export { MaybeSeries } from './maybeSeries';

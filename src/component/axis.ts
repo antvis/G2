@@ -11,7 +11,9 @@ import {
   GuideComponentComponent as GCC,
   GuideComponentOrientation as GCO,
   GuideComponentPosition as GCP,
+  GuideComponentPlane,
   Scale,
+  Vector3,
 } from '../runtime';
 import {
   angleOf,
@@ -24,11 +26,11 @@ import {
   radiusOf,
 } from '../utils/coordinate';
 import { capitalizeFirst } from '../utils/helper';
-import { isOrdinalScale } from '../utils/scale';
 import { adaptor, isVertical, titleContent } from './utils';
 
 export type AxisOptions = {
   position?: GCP;
+  plane?: GuideComponentPlane;
   zIndex?: number;
   title?: string | string[];
   direction?: 'left' | 'center' | 'right';
@@ -50,13 +52,31 @@ export type AxisOptions = {
   grid: any;
   // options won't be overridden
   important: Record<string, any>;
+  /**
+   * Rotation origin.
+   */
+  origin?: Vector3;
+  /**
+   * EulerAngles of rotation.
+   */
+  eulerAngles?: Vector3;
   [key: string]: any;
 };
 
-function sizeOf(coordinate: Coordinate): [number, number] {
+export function rotateAxis(axis: DisplayObject, options: AxisOptions) {
+  const { eulerAngles, origin } = options;
+  if (origin) {
+    axis.setOrigin(origin);
+  }
+  if (eulerAngles) {
+    axis.rotate(eulerAngles[0], eulerAngles[1], eulerAngles[2]);
+  }
+}
+
+function sizeOf(coordinate: Coordinate): [number, number, number] {
   // @ts-ignore
-  const { innerWidth, innerHeight } = coordinate.getOptions();
-  return [innerWidth, innerHeight];
+  const { innerWidth, innerHeight, depth } = coordinate.getOptions();
+  return [innerWidth, innerHeight, depth];
 }
 
 function createFisheye(position, coordinate) {
@@ -193,10 +213,23 @@ function getData(
   });
 }
 
-function inferGridLength(position: GCP, coordinate: Coordinate) {
-  const [width, height] = sizeOf(coordinate);
-  if (position.includes('bottom') || position.includes('top')) return height;
-  return width;
+function inferGridLength(
+  position: GCP,
+  coordinate: Coordinate,
+  plane: GuideComponentPlane = 'xy',
+) {
+  const [width, height, depth] = sizeOf(coordinate);
+
+  if (plane === 'xy') {
+    if (position.includes('bottom') || position.includes('top')) return height;
+    return width;
+  } else if (plane === 'xz') {
+    if (position.includes('bottom') || position.includes('top')) return depth;
+    return width;
+  } else {
+    if (position.includes('bottom') || position.includes('top')) return height;
+    return depth;
+  }
 }
 
 function inferLabelOverlap(transform = [], style: Record<string, any>) {
@@ -278,6 +311,20 @@ function inferGrid(value: boolean, coordinate: Coordinate, scale: Scale) {
   if (isTheta(coordinate) || isParallel(coordinate)) return false;
   // Display axis grid for non-discrete values.
   return value === undefined ? !!scale.getTicks : value;
+}
+
+function infer3DAxisLinearOverrideStyle(coordinate: Coordinate) {
+  // @ts-ignore
+  const { depth } = coordinate.getOptions();
+  return depth
+    ? {
+        tickIsBillboard: true,
+        lineIsBillboard: true,
+        labelIsBillboard: true,
+        titleIsBillboard: true,
+        gridIsBillboard: true,
+      }
+    : {};
 }
 
 function inferAxisLinearOverrideStyle(
@@ -492,6 +539,7 @@ const LinearAxisComponent: GCC<AxisOptions> = (options) => {
     labelFormatter,
     order,
     orientation,
+    actualPosition,
     position,
     size,
     style = {},
@@ -523,13 +571,20 @@ const LinearAxisComponent: GCC<AxisOptions> = (options) => {
       ...userDefinitions,
     };
 
-    const gridLength = inferGridLength(position, coordinate);
+    const gridLength = inferGridLength(
+      actualPosition || position,
+      coordinate,
+      options.plane,
+    );
+
     const overrideStyle = inferAxisLinearOverrideStyle(
       position,
       orientation,
       bbox,
       coordinate,
     );
+
+    const threeDOverrideStyle = infer3DAxisLinearOverrideStyle(coordinate);
 
     const data = getData(
       scale,
@@ -568,6 +623,7 @@ const LinearAxisComponent: GCC<AxisOptions> = (options) => {
       indexBBox,
       ...(!internalAxisStyle.line ? { lineOpacity: 0 } : null),
       ...overrideStyle,
+      ...threeDOverrideStyle,
       ...important,
     };
 

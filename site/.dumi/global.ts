@@ -22,8 +22,11 @@ if (window) {
     window as any
   ).gPluginRoughCanvasRenderer = require('@antv/g-plugin-rough-canvas-renderer');
   (window as any).gPluginA11y = require('@antv/g-plugin-a11y');
+  (window as any).gPluginControl = require('@antv/g-plugin-control');
+  (window as any).gPlugin3d = require('@antv/g-plugin-3d');
   (window as any).gSvg = require('@antv/g-svg');
   (window as any).gWebgl = require('@antv/g-webgl');
+  (window as any).g = require('@antv/g');
   (window as any).fecha = require('fecha');
   (window as any).React = require('react');
   (window as any).dataSet = require('@antv/data-set');
@@ -113,8 +116,10 @@ function extendG2(g2) {
       'frame',
       'x',
       'y',
+      'z',
       'width',
       'height',
+      'depth',
       ...dimensionKeys('margin'),
       ...dimensionKeys('padding'),
       ...dimensionKeys('inset'),

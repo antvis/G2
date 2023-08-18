@@ -1,8 +1,6 @@
 import { Canvas } from '@antv/g';
 import { Renderer as CanvasRenderer } from '@antv/g-canvas';
 import { Plugin as DragAndDropPlugin } from '@antv/g-plugin-dragndrop';
-import { Plugin as ControlPlugin } from '@antv/g-plugin-control';
-import { Plugin as ThreeDPlugin } from '@antv/g-plugin-3d';
 import { Renderer as SVGRenderer } from '@antv/g-svg';
 import { Renderer as WebGLRenderer } from '@antv/g-webgl';
 import { stdlib, render } from '../src';
@@ -151,10 +149,6 @@ function createSpecRender(object) {
       renderer.registerPlugin(
         new DragAndDropPlugin({ dragstartDistanceThreshold: 1 }),
       );
-      if (selectRenderer.value === 'webgl') {
-        renderer.registerPlugin(new ControlPlugin());
-        renderer.registerPlugin(new ThreeDPlugin());
-      }
       canvas = new Canvas({
         container: document.createElement('div'),
         width,

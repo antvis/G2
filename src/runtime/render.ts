@@ -70,7 +70,7 @@ export function render<T extends G2ViewTree = G2ViewTree>(
   },
 ): HTMLElement {
   // Initialize the context if it is not provided.
-  const { width = 640, height = 480, theme } = options;
+  const { width = 640, height = 480, depth = 0, theme } = options;
   if (!theme) {
     error(
       'ChartOptions.theme is required, such as `const chart = new Chart({ theme: "classic"})`.',
@@ -93,9 +93,14 @@ export function render<T extends G2ViewTree = G2ViewTree>(
   const selection = select(canvas.document.documentElement);
   canvas.ready
     .then(() =>
-      plot<T>({ ...keyed, width, height }, selection, library, context),
+      plot<T>({ ...keyed, width, height, depth }, selection, library, context),
     )
     .then(() => {
+      // Place the center of whole scene at z axis' origin.
+      if (depth) {
+        canvas!.document.documentElement.translate(0, 0, -depth / 2);
+      }
+
       // Wait for the next tick.
       canvas.requestAnimationFrame(() => {
         emitter.emit(ChartEvent.AFTER_RENDER);

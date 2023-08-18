@@ -1,4 +1,4 @@
-import { Coordinate, Transformation } from '@antv/coord';
+import { Coordinate, Transformation, Transformation3D } from '@antv/coord';
 import EventEmitter from '@antv/event-emitter';
 import { DisplayObject, IAnimation as GAnimation, IDocument } from '@antv/g';
 import {
@@ -9,6 +9,7 @@ import {
   IndexedValue,
   Vector2,
   G2MarkState,
+  GuideComponentPlane,
 } from './common';
 import { DataComponent } from './data';
 import { Encode, EncodeComponent } from './encode';
@@ -115,6 +116,13 @@ export type CoordinateComponent<O = Record<string, unknown>> = G2BaseComponent<
   CoordinateProps
 >;
 
+export type Coordinate3DTransform = Transformation3D[];
+export type Coordinate3DProps = {
+  transform?: boolean;
+};
+export type Coordinate3DComponent<O = Record<string, unknown>> =
+  G2BaseComponent<Coordinate3DTransform, O, Coordinate3DProps>;
+
 export type Palette = string[];
 export type PaletteComponent<O = Record<string, unknown>> = G2BaseComponent<
   Palette,
@@ -169,6 +177,7 @@ export type GuideComponent = (context: GuideComponentContext) => DisplayObject;
 
 export type GuideComponentProps = {
   defaultPosition?: GuideComponentPosition;
+  defaultPlane?: GuideComponentPlane;
   defaultOrientation?: GuideComponentOrientation;
   defaultSize?: number;
   defaultOrder?: number;

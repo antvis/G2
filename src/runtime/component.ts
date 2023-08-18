@@ -102,6 +102,7 @@ export function inferComponent(
     const { props } = createGuideComponent(type);
     const {
       defaultPosition,
+      defaultPlane = 'xy',
       defaultOrientation,
       defaultSize,
       defaultOrder,
@@ -148,6 +149,7 @@ export function inferComponent(
         defaultSize,
         length,
         position,
+        plane: defaultPlane,
         orientation,
         padding,
         order,
@@ -362,6 +364,10 @@ function inferAxisComponentType(
         if (isPolar(coordinates)) return ['axisLinear', [scale]];
         if (isRadial(coordinates)) return ['axisArc', [scale]];
         return [isTranspose(coordinates) ? 'axisX' : 'axisY', [scale]];
+      }
+      // Only support linear axis for z.
+      if (name.startsWith('z')) {
+        return ['axisZ', [scale]];
       }
       if (name.startsWith('position')) {
         if (isRadar(coordinates)) return ['axisRadar', [scale]];

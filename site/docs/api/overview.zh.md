@@ -46,6 +46,7 @@ order: 1
 - [chart.**timingKeyframe**](/api/chart#charttimingkeyframe) - 添加 timingKeyframe 到该图表。
 - [chart.**geoView**](/api/chart#chartgeoview) - 添加 geoView 到该图表。
 - [chart.**geoPath**](/api/chart#chartgeopath) - 添加 geoPath 到该图表。
+- [chart.**point3D**](/api/chart#chartpoint3d) - 添加 point3D 标记到该视图。
 
 ### 设置属性
 
