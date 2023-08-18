@@ -26,7 +26,7 @@
         "zh": "球体",
         "en": "Sphere"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*KNCUQqzw2JsAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*8t0aRJLbhuwAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "custom-legend.ts",
@@ -35,6 +35,14 @@
         "en": "Customize legend"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*SmF_Ro5UYcwAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "camera-animation.ts",
+      "title": {
+        "zh": "相机动画",
+        "en": "Camera animation"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ffrAS7t1EDcAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }
