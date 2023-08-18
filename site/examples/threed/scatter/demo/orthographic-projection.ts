@@ -28,7 +28,7 @@ chart
   .encode('x', 'Horsepower')
   .encode('y', 'Miles_per_Gallon')
   .encode('z', 'Weight_in_lbs')
-  .encode('color', 'Cylinders')
+  .encode('color', 'Origin')
   .encode('shape', 'cube')
   .coordinate({ type: 'cartesian3D' })
   .scale('x', { nice: true })
@@ -42,8 +42,6 @@ chart
 chart.render().then(() => {
   const { canvas } = chart.getContext();
   const camera = canvas.getCamera();
-  // Use perspective projection mode.
-  camera.setPerspective(0.1, 5000, 45, 640 / 480);
   camera.setType(CameraType.ORBITING);
 
   // Add a directional light into scene.

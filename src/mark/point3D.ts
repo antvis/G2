@@ -65,7 +65,7 @@ const shape = {
 };
 
 Point3D.props = {
-  defaultShape: 'sphere',
+  defaultShape: 'cube',
   defaultLabelShape: 'label',
   composite: false,
   shape,
