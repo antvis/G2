@@ -253,7 +253,7 @@ chart.auto(); // Auto Mark
 
 > 开发中，预计 10 月底上线
 
-返回 3D 分析库，提供 3D 可视化的能力。该 library 不会包含在 [G2.stdlib](#g2stdlib) 里面，同样不能单独使用，需要配合 [G2.corelib](#g2corelib) 使用。
+返回 3D 分析库，提供 3D 可视化的能力。该 library 不会包含在 [G2.stdlib](#g2stdlib) 里面，同样不能单独使用，需要配合 [G2.corelib](#g2corelib) 使用。[示例](/manual/extra-topics/3d-charts)
 
 ```js
 import { Runtime, extend, threedlib, corelib } from '@antv/g2';
@@ -267,9 +267,10 @@ const Chart = extend(Runtime, {
 const chart = new Chart({
   theme: 'classic',
   renderer: new Renderer(), //使用 webgl 渲染器
+  depth: 400, // 设置深度
 });
 
-chart.interval3d();
+chart.point3D();
 ```
 
 ## 未来工作

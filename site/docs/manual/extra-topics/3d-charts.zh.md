@@ -39,7 +39,7 @@ renderer.registerPlugin(new ControlPlugin());
 
 ## 扩展 threedlib
 
-由于 3D 相关的功能代码体积巨大，我们将其分离到 `threedlib` 中，在运行时扩展它并自定义 Chart 对象：
+由于 3D 相关的功能代码体积巨大，我们将其分离到 [threedlib](/manual/extra-topics/bundle#g2threedlib) 中，在运行时扩展它并自定义 Chart 对象：
 
 ```ts
 import { Runtime, corelib, threedlib, extend } from '@antv/g2';
@@ -60,7 +60,7 @@ const chart = new Chart({
 });
 ```
 
-我们使用 [point3D](/spec/3d/point3-d) Mark 并选择 cube 作为 shape 进行绘制。
+我们使用 [point3D](/spec/threed/point-threed) Mark 并选择 cube 作为 shape 进行绘制。
 随后设置 z 通道、比例尺和坐标轴。
 
 ```ts
@@ -115,6 +115,8 @@ chart.render().then(() => {
   const chart = new Chart({
     theme: 'classic',
     renderer,
+    width: 500,
+    height: 500,
     depth: 400,
   });
 
@@ -178,6 +180,8 @@ camera.rotate(-20, -20, 0);
   const chart = new Chart({
     theme: 'classic',
     renderer,
+    width: 500,
+    height: 500,
     depth: 400,
   });
 
@@ -238,6 +242,67 @@ const light = new DirectionalLight({
   },
 });
 canvas.appendChild(light);
+```
+
+我们可以通过 `intensity` 增大光源的强度：
+
+```js | ob { pin: false }
+(() => {
+  const renderer = new gWebgl.Renderer();
+  renderer.registerPlugin(new gPluginControl.Plugin());
+  renderer.registerPlugin(new gPlugin3d.Plugin());
+
+  const Chart = G2.extend(G2.Runtime, { ...G2.corelib(), ...G2.threedlib() });
+
+  // 初始化图表实例
+  const chart = new Chart({
+    theme: 'classic',
+    renderer,
+    width: 500,
+    height: 500,
+    depth: 400,
+  });
+
+  chart
+    .point3D()
+    .data({
+      type: 'fetch',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
+    })
+    .encode('x', 'Horsepower')
+    .encode('y', 'Miles_per_Gallon')
+    .encode('z', 'Weight_in_lbs')
+    .encode('color', 'Cylinders')
+    .encode('shape', 'cube')
+    .coordinate({ type: 'cartesian3D' })
+    .scale('x', { nice: true })
+    .scale('y', { nice: true })
+    .scale('z', { nice: true })
+    .legend(false)
+    .axis('x', { gridLineWidth: 2 })
+    .axis('y', { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 })
+    .axis('z', { gridLineWidth: 2 });
+
+  chart.render().then(() => {
+    const { canvas } = chart.getContext();
+    const camera = canvas.getCamera();
+    camera.setPerspective(0.1, 5000, 45, 500 / 500);
+    camera.setType(g.CameraType.ORBITING);
+
+    // Add a directional light into scene.
+    const light = new gPlugin3d.DirectionalLight({
+      style: {
+        intensity: 5,
+        fill: 'white',
+        direction: [0, 0, 1],
+      },
+    });
+    canvas.appendChild(light);
+  });
+
+  return chart.getContainer();
+})();
 ```
 
 ## 使用相机交互

@@ -51,7 +51,7 @@ export function chartRender3dScatterPlot(context) {
     // Add a directional light into scene.
     const light = new DirectionalLight({
       style: {
-        intensity: 3,
+        intensity: 2.5,
         fill: 'white',
         direction: [-1, 0, 1],
       },

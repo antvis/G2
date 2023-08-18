@@ -5,9 +5,7 @@ import { select } from '../../utils/selection';
 
 const GEOMETRY_SIZE = 5;
 
-export type CubeOptions = Record<string, any> & {
-  shininess: number;
-};
+export type CubeOptions = Record<string, any>;
 
 /**
  * @see https://g.antv.antgroup.com/api/3d/geometry#cubegeometry

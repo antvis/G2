@@ -197,7 +197,7 @@ chart.render();
 
 ### `chart.point3D`
 
-添加 point3D 图形，具体见 [3d](/spec/3d/point3-d)。
+添加 point3D 图形，具体见 [3d](/spec/threed/point-threed)。
 
 ## 设置属性
 
