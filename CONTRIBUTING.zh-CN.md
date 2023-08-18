@@ -103,9 +103,7 @@ $ npm run test
 type(scope): your commit message subject
 ```
 
-（1）type
-
-提交 commit 的类型，包括以下几种：
+`type`：提交 commit 的类型，包括以下几种：
 
 - feat: 新功能
 - fix: 修复问题
@@ -117,13 +115,9 @@ type(scope): your commit message subject
 - chore: 修改工具相关（包括但不限于文档、代码生成等）
 - deps: 升级依赖
 
-（2）scope
+`scope`：修改文件的范围。
 
-修改文件的范围。
-
-（3）subject
-
-修改的具体内容。
+`subject`：修改的具体内容。
 
 示例
 

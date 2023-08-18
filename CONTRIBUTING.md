@@ -100,9 +100,7 @@ Follow the [angular format](https://github.com/angular/angular.js/blob/master/CO
 type(scope): your commit message subject
 ```
 
-(1) type
-
-The type of the commit, including the following categories:
+`type`: The type of the commit, including the following categories:
 
 - feat: a new feature
 - fix: a bug fix
@@ -114,6 +112,10 @@ The type of the commit, including the following categories:
 - chore: changes to tools or utilities (including but not limited to documentation, code generation, etc.)
 - deps: dependency upgrades (2) scope The scope of the modified files. (3) subject The specific content of the modification. Example
 - fix(compile): couple of unit tests for IE9
+
+`scope`: the scope of the commit.
+
+`subject`: the subject of the commit.
 
 ### Automation testing requirements
 
