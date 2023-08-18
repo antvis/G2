@@ -11,6 +11,7 @@ order: 11
 - 在场景中设置相机
 - 添加光源
 - 使用相机交互
+- 添加图例
 
 我们暂不支持图例。
 
@@ -74,9 +75,7 @@ chart
   .encode('x', 'Horsepower')
   .encode('y', 'Miles_per_Gallon')
   .encode('z', 'Weight_in_lbs')
-  .encode('size', 'Origin')
-  .encode('color', 'Cylinders')
-  .encode('shape', 'cube')
+  .encode('color', 'Origin')
   .coordinate({ type: 'cartesian3D' })
   .scale('x', { nice: true })
   .scale('y', { nice: true })
@@ -130,8 +129,7 @@ chart.render().then(() => {
     .encode('x', 'Horsepower')
     .encode('y', 'Miles_per_Gallon')
     .encode('z', 'Weight_in_lbs')
-    .encode('color', 'Cylinders')
-    .encode('shape', 'cube')
+    .encode('color', 'Origin')
     .coordinate({ type: 'cartesian3D' })
     .scale('x', { nice: true })
     .scale('y', { nice: true })
@@ -195,8 +193,7 @@ camera.rotate(-20, -20, 0);
     .encode('x', 'Horsepower')
     .encode('y', 'Miles_per_Gallon')
     .encode('z', 'Weight_in_lbs')
-    .encode('color', 'Cylinders')
-    .encode('shape', 'cube')
+    .encode('color', 'Origin')
     .coordinate({ type: 'cartesian3D' })
     .scale('x', { nice: true })
     .scale('y', { nice: true })
@@ -273,8 +270,7 @@ canvas.appendChild(light);
     .encode('x', 'Horsepower')
     .encode('y', 'Miles_per_Gallon')
     .encode('z', 'Weight_in_lbs')
-    .encode('color', 'Cylinders')
-    .encode('shape', 'cube')
+    .encode('color', 'Origin')
     .coordinate({ type: 'cartesian3D' })
     .scale('x', { nice: true })
     .scale('y', { nice: true })
@@ -310,3 +306,134 @@ canvas.appendChild(light);
 3D 场景下的交互和 2D 场景有很大的不同，[g-plugin-control](https://g.antv.antgroup.com/plugins/control) 提供了 3D 场景下基于相机的交互。当我们拖拽画布时，会控制相机绕视点进行旋转操作，而鼠标滚轮的缩放会让相机进行 dolly 操作。
 
 需要注意的是缩放操作在正交投影下是没有效果的，但旋转操作依然有效。
+
+## 添加自定义图例
+
+你可能注意到在上面的例子中我们刻意关闭了图例：
+
+```ts
+chart.legend(false);
+```
+
+这是由于 3D 场景中的图形都会受到相机影响，但像图例这样的 HUD 组件更适合独立绘制。参考[自定义图例](/manual/extra-topics/customization#自定义图例legend)，我们可以使用 HTML 自定义图例：
+
+```js | ob { pin: false }
+(() => {
+  // 添加图例
+  function legendColor(chart) {
+    // 创建 Legend 并且挂在图例
+    const node = chart.getContainer();
+    const legend = document.createElement('div');
+    legend.style.display = 'flex';
+    node.insertBefore(legend, node.childNodes[0]);
+
+    // 创建并挂载 Items
+    const { color: scale } = chart.getScale();
+    const { domain } = scale.getOptions();
+    const items = domain.map((value) => {
+      const item = document.createElement('div');
+      const color = scale.map(value);
+      item.style.marginLeft = '1em';
+      item.innerHTML = `
+    <span style="
+      background-color:${color};
+      display:inline-block;
+      width:10px;
+      height:10px;"
+    ></span>
+    <span>${value}</span>
+    `;
+      return item;
+    });
+    items.forEach((d) => legend.append(d));
+
+    // 监听事件
+    const selectedValues = [...domain];
+    const options = chart.options();
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+      const value = domain[i];
+      item.style.cursor = 'pointer';
+      item.onclick = () => {
+        const index = selectedValues.indexOf(value);
+        if (index !== -1) {
+          selectedValues.splice(index, 1);
+          item.style.opacity = 0.5;
+        } else {
+          selectedValues.push(value);
+          item.style.opacity = 1;
+        }
+        changeColor(selectedValues);
+      };
+    }
+
+    // 重新渲染视图
+    function changeColor(value) {
+      const { transform = [] } = options;
+      const newTransform = [{ type: 'filter', color: { value } }, ...transform];
+      chart.options({
+        ...options,
+        transform: newTransform, // 指定新的 transform
+        scale: { color: { domain } },
+      });
+      chart.render(); // 重新渲染图表
+    }
+  }
+
+  const renderer = new gWebgl.Renderer();
+  renderer.registerPlugin(new gPluginControl.Plugin());
+  renderer.registerPlugin(new gPlugin3d.Plugin());
+
+  const Chart = G2.extend(G2.Runtime, { ...G2.corelib(), ...G2.threedlib() });
+
+  // 初始化图表实例
+  const chart = new Chart({
+    theme: 'classic',
+    renderer,
+    width: 500,
+    height: 500,
+    depth: 400,
+  });
+
+  chart
+    .point3D()
+    .data({
+      type: 'fetch',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
+    })
+    .encode('x', 'Horsepower')
+    .encode('y', 'Miles_per_Gallon')
+    .encode('z', 'Weight_in_lbs')
+    .encode('color', 'Origin')
+    .coordinate({ type: 'cartesian3D' })
+    .scale('x', { nice: true })
+    .scale('y', { nice: true })
+    .scale('z', { nice: true })
+    .legend(false)
+    .axis('x', { gridLineWidth: 2 })
+    .axis('y', { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 })
+    .axis('z', { gridLineWidth: 2 });
+
+  chart.render().then(() => {
+    legendColor(chart);
+
+    const { canvas } = chart.getContext();
+    const camera = canvas.getCamera();
+    camera.setPerspective(0.1, 5000, 45, 500 / 500);
+    camera.setType(g.CameraType.ORBITING);
+
+    // Add a directional light into scene.
+    const light = new gPlugin3d.DirectionalLight({
+      style: {
+        intensity: 3,
+        fill: 'white',
+        direction: [-1, 0, 1],
+      },
+    });
+    canvas.appendChild(light);
+  });
+
+  return chart.getContainer();
+})();
+```

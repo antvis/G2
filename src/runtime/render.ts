@@ -84,7 +84,11 @@ export function render<T extends G2ViewTree = G2ViewTree>(
   } = context;
   context.canvas = canvas;
   context.emitter = emitter;
-  canvas.resize(width, height);
+
+  const { width: prevWidth, height: prevHeight } = canvas.getConfig();
+  if (prevWidth !== width || prevHeight !== height) {
+    canvas.resize(width, height);
+  }
 
   emitter.emit(ChartEvent.BEFORE_RENDER);
 
@@ -98,7 +102,9 @@ export function render<T extends G2ViewTree = G2ViewTree>(
     .then(() => {
       // Place the center of whole scene at z axis' origin.
       if (depth) {
-        canvas!.document.documentElement.translate(0, 0, -depth / 2);
+        const [x, y] = canvas!.document.documentElement.getPosition();
+        // Since `render` method can be called for multiple times, use setPosition instead of translate here.
+        canvas!.document.documentElement.setPosition(x, y, -depth / 2);
       }
 
       // Wait for the next tick.

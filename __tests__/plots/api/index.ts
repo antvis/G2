@@ -43,3 +43,4 @@ export { chartOnTextClick } from './chart-on-text-click';
 export { chartRenderEvent } from './chart-render-event';
 export { chartRender3dScatterPlot } from './chart-render-3d-scatter-plot';
 export { chartRender3dScatterPlotPerspective } from './chart-render-3d-scatter-plot-perspective';
+export { chartRender3dScatterPlotLegend } from './chart-render-3d-scatter-plot-legend';

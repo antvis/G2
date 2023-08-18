@@ -27,6 +27,14 @@
         "en": "Sphere"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*KNCUQqzw2JsAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "custom-legend.ts",
+      "title": {
+        "zh": "自定义图例",
+        "en": "Customize legend"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*SmF_Ro5UYcwAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }
