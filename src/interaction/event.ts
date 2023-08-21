@@ -14,12 +14,21 @@ export function dataOf(element, view) {
   return selectedMark.data[index];
 }
 
+function maybeRoot(node, rootOf) {
+  if (rootOf(node)) return node;
+  let root = node.parent;
+  while (root && !rootOf(root)) root = root.parent;
+  return root;
+}
+
+// For extended component
+function maybeComponentRoot(node) {
+  return maybeRoot(node, node => node.className === 'component');
+}
+
 // For extended shape.
 function maybeElementRoot(node) {
-  if (node.className === 'element') return node;
-  let root = node.parent;
-  while (root && root.className !== 'element') root = root.parent;
-  return root;
+  return maybeRoot(node, node => node.className === 'element');
 }
 
 function bubblesEvent(eventType, view, emitter, predicate = (event) => true) {
@@ -41,19 +50,23 @@ function bubblesEvent(eventType, view, emitter, predicate = (event) => true) {
 
     // If target is element or child of element.
     const elementRoot = maybeElementRoot(target);
-    if (!elementRoot) return;
-    const { className: elementType, markType } = elementRoot;
+    // If target is component or child of component.
+    const componentRoot = maybeComponentRoot(target);
+    const root = elementRoot || componentRoot;
+    if (!root) return;
+    const { className: elementType, markType } = root;
     if (elementType === 'element') {
       const e1 = {
         ...e,
         nativeEvent: true,
-        data: { data: dataOf(elementRoot, view) },
+        data: { data: dataOf(root, view) },
       };
       emitter.emit(`element:${eventType}`, e1);
       emitter.emit(`${markType}:${eventType}`, e1);
     } else {
-      // @todo Handle click axis and legend.
-      emitter.emit(`${elementType}:${eventType}`, e);
+      const e1 = {...e, nativeEvent: true };
+      emitter.emit(`component:${eventType}`, e1);
+      emitter.emit(`${className}:${eventType}`, e1);
     }
   };
 }
