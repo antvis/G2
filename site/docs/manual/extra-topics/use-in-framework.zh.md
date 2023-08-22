@@ -160,7 +160,7 @@ function updateBarChart(chart) {
 
 <template>
   <div>
-    <div id="container"></div>
+    <div ref="container"></div>
     <button @click="onClick">Update Data</button>
   </div>
 </template>
