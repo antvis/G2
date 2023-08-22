@@ -42,6 +42,8 @@ chart.render();
 
 | 属性                       | 描述                   | 类型                   | 默认值 |
 | -------------------------- | ---------------------- | ---------------------- | ------ |
+| ratio                      | 滚动条的比例             | `number`               | 0.5   |
+| value                      | 滚动条的起始位置          | `[0, 1]`               | 0   |
 | slidable                   | 是否可以拖动           | `boolean`              | true   |
 | scrollable                 | 是否支持滚轮滚动       | `boolean`              | true   |
 | `style.`isRound            | 滚动条样式是否为圆角   | `boolean`              | false  |
