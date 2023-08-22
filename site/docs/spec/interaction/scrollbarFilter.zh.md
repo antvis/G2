@@ -3,7 +3,7 @@ title: scrollbarFilter
 order: 1
 ---
 
-滚动条筛选是一个默认交互，当设置了 scrollbar 默认就会有这个交互。
+滚动条筛选是一个默认交互，当设置了 scrollbar 默认就会有这个交互。关于 scrollbar 组件的配置，见文档 [component/scrollbar](/spec/component/scrollbar)。
 
 ## 开始使用
 

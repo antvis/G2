@@ -2,7 +2,8 @@ import { Scrollbar as ScrollbarComponent } from '@antv/gui';
 import { GuideComponentComponent as GCC } from '../runtime';
 
 export type ScrollbarOptions = {
-  orientation: 'horizontal' | 'vertical';
+  orientation?: 'horizontal' | 'vertical';
+  ratio?: number;
   [key: string]: any;
 };
 
@@ -28,9 +29,9 @@ export const Scrollbar: GCC<ScrollbarOptions> = (options) => {
         x,
         y,
         trackLength: mainSize,
+        value: value1,
         ...rest,
         orientation,
-        value: value1,
         contentLength: actualSize,
         viewportLength: mainSize,
       }),
