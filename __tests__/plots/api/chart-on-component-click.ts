@@ -12,8 +12,8 @@ const componentNames = [
   // tick
   'axis-tick-item',
   // axis label
-  'axis-label-item'
-]
+  'axis-label-item',
+];
 
 export function chartOnComponentClick(context) {
   const { container, canvas } = context;
@@ -47,9 +47,9 @@ export function chartOnComponentClick(context) {
 
   chart.on('component:click', () => console.log('click component'));
 
-  componentNames.forEach(name => {
+  componentNames.forEach((name) => {
     chart.on(`${name}:click`, () => console.log(`click ${name}`));
-  })
+  });
 
   const finished = chart.render();
 
