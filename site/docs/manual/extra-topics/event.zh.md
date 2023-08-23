@@ -106,6 +106,13 @@ chart.on(`interval:${ChartEvent.CLICK}`, (ev) => {
 chart.on('plot:click', (event) => console.log(event));
 ```
 
+
+- 监听全局 component 事件
+
+```js
+chart.on('component:click', (event) => console.log(event));
+```
+
 ### 点击事件
 
 | 事件名                | 说明 | 回调参数 |
