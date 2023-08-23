@@ -6,6 +6,13 @@
   "main": "lib/index.js",
   "module": "esm/index.js",
   "types": "lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./esm/index.js",
+      "require": "./lib/index.js"
+    }
+  },
   "files": [
     "src",
     "lib",
@@ -156,5 +163,8 @@
   },
   "bugs": {
     "url": "https://github.com/antvis/g2/issues"
+  },
+  "volta": {
+    "node": "8.9.4"
   }
 }
