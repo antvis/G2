@@ -1560,8 +1560,8 @@ async function applyTransform<T extends G2ViewTree>(
 
 function updateBBox(selection: Selection) {
   selection
-    .style('x', (d) => d.paddingLeft)
-    .style('y', (d) => d.paddingTop)
+    .style('x', (d) => d.paddingLeft + d.marginLeft)
+    .style('y', (d) => d.paddingTop + d.marginTop)
     .style('width', (d) => d.innerWidth)
     .style('height', (d) => d.innerHeight);
 }

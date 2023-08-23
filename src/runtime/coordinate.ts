@@ -21,8 +21,6 @@ export function createCoordinate(
     insetTop,
     insetRight,
     insetBottom,
-    marginLeft,
-    marginTop,
   } = layout;
   const { coordinates: partialTransform = [] } = partialOptions;
   const transform = inferCoordinate(partialTransform);
@@ -32,11 +30,11 @@ export function createCoordinate(
     // @todo Find a better solution.
     // Store more layout information for component.
     ...layout,
-    x: insetLeft + marginLeft,
-    y: insetTop + marginTop,
+    x: insetLeft,
+    y: insetTop,
     width: innerWidth - insetLeft - insetRight,
     height: innerHeight - insetBottom - insetTop,
-    transformations: transform.map(useCoordinate).flat(),
+    transformations: transform.flatMap(useCoordinate),
   };
 
   const coordinate = isCartesian3D
