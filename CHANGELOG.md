@@ -1,5 +1,18 @@
 # G2 - Changelog
 
+## [5.0.21](https://github.com/antvis/g2/compare/5.0.20...5.0.21) (2023-08-23)
+
+### Bug Fixes
+
+- **compile:** require of ES Module bug in ssr ([#5450](https://github.com/antvis/g2/issues/5450)) ([769666a](https://github.com/antvis/g2/commit/769666ae25a7388cd97105a020a00f00fbd55bc5))
+- **coordinate:** layout ([#5447](https://github.com/antvis/g2/issues/5447)) ([9607f1d](https://github.com/antvis/g2/commit/9607f1d8d8809d51a7e346dcec07149d52f511e8))
+- lint issues from [#5440](https://github.com/antvis/g2/issues/5440) ([#5446](https://github.com/antvis/g2/issues/5446)) ([c98e176](https://github.com/antvis/g2/commit/c98e17646dedc4704f82bb9a01c2e4e991aab1c2))
+- skip resizing canvas if width or height remains the same ([#5432](https://github.com/antvis/g2/issues/5432)) ([a91214a](https://github.com/antvis/g2/commit/a91214abef813ca0a5c2c354cd37f2a59103feaa))
+
+### Features
+
+- sphere shape used in 3d lib [#5375](https://github.com/antvis/g2/issues/5375) ([#5412](https://github.com/antvis/g2/issues/5412)) ([85abdc3](https://github.com/antvis/g2/commit/85abdc3ab0ad9be917169fb26fe806887da470ab))
+
 ## [5.0.20](https://github.com/antvis/g2/compare/5.0.19...5.0.20) (2023-08-17)
 
 ### Bug Fixes
