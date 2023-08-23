@@ -23,12 +23,12 @@ function maybeRoot(node, rootOf) {
 
 // For extended component
 function maybeComponentRoot(node) {
-  return maybeRoot(node, node => node.className === 'component');
+  return maybeRoot(node, (node) => node.className === 'component');
 }
 
 // For extended shape.
 function maybeElementRoot(node) {
-  return maybeRoot(node, node => node.className === 'element');
+  return maybeRoot(node, (node) => node.className === 'element');
 }
 
 function bubblesEvent(eventType, view, emitter, predicate = (event) => true) {
@@ -64,7 +64,7 @@ function bubblesEvent(eventType, view, emitter, predicate = (event) => true) {
       emitter.emit(`element:${eventType}`, e1);
       emitter.emit(`${markType}:${eventType}`, e1);
     } else {
-      const e1 = {...e, nativeEvent: true };
+      const e1 = { ...e, nativeEvent: true };
       emitter.emit(`component:${eventType}`, e1);
       emitter.emit(`${className}:${eventType}`, e1);
     }

@@ -30,7 +30,9 @@ describe('chart.on', () => {
     await finished;
     const [fired, resolve] = createPromise();
     chart.on(`legend-category-item-marker:${ChartEvent.CLICK}`, resolve);
-    dispatchFirstShapeEvent(canvas, 'legend-category-item-marker', 'click', { detail: 1 });
+    dispatchFirstShapeEvent(canvas, 'legend-category-item-marker', 'click', {
+      detail: 1,
+    });
     await fired;
   });
 
@@ -38,7 +40,9 @@ describe('chart.on', () => {
     await finished;
     const [fired, resolve] = createPromise();
     chart.on(`legend-category-item-label:${ChartEvent.CLICK}`, resolve);
-    dispatchFirstShapeEvent(canvas, 'legend-category-item-label', 'click', { detail: 1 });
+    dispatchFirstShapeEvent(canvas, 'legend-category-item-label', 'click', {
+      detail: 1,
+    });
     await fired;
   });
 
