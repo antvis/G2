@@ -163,8 +163,5 @@
   },
   "bugs": {
     "url": "https://github.com/antvis/g2/issues"
-  },
-  "volta": {
-    "node": "8.9.4"
   }
 }
