@@ -56,6 +56,15 @@ export default class EllipsisText extends Action {
     if (target && target.get('tip')) {
       if (!this.tooltip) {
         this.renderTooltip(); // 延迟生成
+      } else {
+        // 更新时需要重新获取 region 赋值，避免画布缩放后 tooltip 位置不对
+        const view = context.view;
+        const canvas = view.canvas;
+        const region = {
+          start: { x: 0, y: 0 },
+          end: { x: canvas.get('width'), y: canvas.get('height') },
+        }
+        this.tooltip.set('region', region)
       }
       const tipContent = target.get('tip');
       // 展示 tooltip
