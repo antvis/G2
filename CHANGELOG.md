@@ -1,5 +1,11 @@
 # G2 - Changelog
 
+## [5.0.22](https://github.com/antvis/g2/compare/0.5.21...5.0.22) (2023-08-24)
+
+### Bug Fixes
+
+- **dep:** add @antv/g-plugin-3d to dependencies ([cb1c4b8](https://github.com/antvis/g2/commit/cb1c4b827ee1d97efd793aa3f68e703374227560))
+
 ## [5.0.21](https://github.com/antvis/g2/compare/5.0.20...5.0.21) (2023-08-23)
 
 ### Bug Fixes
