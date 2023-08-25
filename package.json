@@ -11,7 +11,14 @@
       "types": "./lib/index.d.ts",
       "import": "./esm/index.js",
       "require": "./lib/index.js"
-    }
+    },
+    "./esm": "./esm/index.js",
+    "./lib": "./lib/index.js",
+    "./esm/*.js": "./esm/*.js",
+    "./lib/*.js": "./lib/*.js",
+    "./esm/*": "./esm/*.js",
+    "./lib/*": "./lib/*.js",
+    "./*": "./*"
   },
   "files": [
     "src",
