@@ -3,14 +3,15 @@ import { Linear } from '@antv/scale';
 import { lowerFirst } from '@antv/util';
 import { extent } from 'd3-array';
 import { Path as D3Path } from 'd3-path';
-import { G2Theme, Primitive, Vector2, Vector3 } from '../runtime';
+import { Primitive, Vector2, Vector3 } from '../runtime';
 import { indexOf } from '../utils/array';
 import { isPolar, isTranspose } from '../utils/coordinate';
-import { Selection } from '../utils/selection';
+import { G2Element, Selection } from '../utils/selection';
 import { angle, angleWithQuadrant, dist, sub } from '../utils/vector';
 
 export function applyStyle(
   selection: Selection,
+  parent: G2Element,
   style: Record<string, Primitive>,
 ) {
   for (const [key, value] of Object.entries(style)) {

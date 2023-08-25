@@ -217,20 +217,20 @@ export async function plot<T extends G2ViewTree>(
           .attr('className', VIEW_CLASS_NAME)
           .attr('id', (view) => view.key)
           .call(applyTranslate)
-          .each(function (view) {
-            plotView(view, select(this), transitions, library, context);
-            enterContainer.set(view, this);
+          .each(function (view, i, element) {
+            plotView(view, select(element), transitions, library, context);
+            enterContainer.set(view, element);
           }),
       (update) =>
-        update.call(applyTranslate).each(function (view) {
-          plotView(view, select(this), transitions, library, context);
-          updateContainer.set(view, this);
+        update.call(applyTranslate).each(function (view, i, element) {
+          plotView(view, select(element), transitions, library, context);
+          updateContainer.set(view, element);
         }),
       (exit) =>
         exit
-          .each(function () {
+          .each(function (d, i, element) {
             // Remove existed interactions.
-            const interactions = this['nameInteraction'].values();
+            const interactions = element['nameInteraction'].values();
             for (const interaction of interactions) {
               interaction.destroy();
             }
@@ -775,8 +775,8 @@ async function plotView(
       .style('y', (i) => areaLayouts[i].y)
       .style('width', (i) => areaLayouts[i].width)
       .style('height', (i) => areaLayouts[i].height)
-      .each(function (i) {
-        applyStyle(select(this), areaStyles[i]);
+      .each(function (i, d, element) {
+        applyStyle(select(element), areaStyles[i]);
       });
   let px = 0;
   let py = 0;
@@ -847,7 +847,11 @@ async function plotView(
             ),
           ),
       (update) =>
-        update.transition(function (options: G2GuideComponentOptions) {
+        update.transition(function (
+          options: G2GuideComponentOptions,
+          i,
+          element,
+        ) {
           const { preserve = false } = options;
           if (preserve) return;
           const newComponent = renderComponent(
@@ -858,7 +862,7 @@ async function plotView(
             markState,
           );
           const { attributes } = newComponent;
-          const [node] = this.childNodes;
+          const [node] = element.childNodes;
           return node.update(attributes);
         }),
     )
@@ -933,8 +937,8 @@ async function plotView(
             // Using attribute as alternative for other classNames.
             .attr('className', ELEMENT_CLASS_NAME)
             .attr('markType', type)
-            .transition(function (data) {
-              return enterFunction(data, [this]);
+            .transition(function (data, i, element) {
+              return enterFunction(data, [element]);
             }),
         (update) =>
           update.call((selection) => {
@@ -944,14 +948,15 @@ async function plotView(
               return [x, y];
             });
             selection
-              .transition(function (data, index) {
-                maybeFacetElement(this, parent, origin);
+              .transition(function (data, index, element) {
+                maybeFacetElement(element, parent, origin);
                 const node = shapeFunction(data, index);
-                const animation = updateFunction(data, [this], [node]);
+                const animation = updateFunction(data, [element], [node]);
                 if (animation !== null) return animation;
-                if (this.nodeName === node.nodeName) copyAttributes(this, node);
+                if (element.nodeName === node.nodeName)
+                  copyAttributes(element, node);
                 else {
-                  this.parentNode.replaceChild(node, this);
+                  element.parentNode.replaceChild(node, element);
                   node.className = ELEMENT_CLASS_NAME;
                   // @ts-ignore
                   node.markType = type;
@@ -963,11 +968,11 @@ async function plotView(
           }),
         (exit) => {
           return exit
-            .each(function () {
-              this.__removed__ = true;
+            .each(function (d, i, element) {
+              element.__removed__ = true;
             })
-            .transition(function (data) {
-              return exitFunction(data, [this]);
+            .transition(function (data, i, element) {
+              return exitFunction(data, [element]);
             })
             .remove();
         },
@@ -977,25 +982,33 @@ async function plotView(
             .append(shapeFunction)
             .attr('className', ELEMENT_CLASS_NAME)
             .attr('markType', type)
-            .transition(function (data) {
+            .transition(function (data, i, element) {
               // Remove merged elements after animation finishing.
-              const { __fromElements__: fromElements } = this;
-              const transition = updateFunction(data, fromElements, [this]);
-              const exit = new Selection(fromElements, null, this.parentNode);
+              const { __fromElements__: fromElements } = element;
+              const transition = updateFunction(data, fromElements, [element]);
+              const exit = new Selection(
+                fromElements,
+                null,
+                element.parentNode,
+              );
               exit.transition(transition).remove();
               return transition;
             }),
         (split) =>
           split
-            .transition(function (data) {
+            .transition(function (data, i, element) {
               // Append splitted shapes.
-              const enter = new Selection([], this.__toData__, this.parentNode);
+              const enter = new Selection(
+                [],
+                element.__toData__,
+                element.parentNode,
+              );
               const toElements = enter
                 .append(shapeFunction)
                 .attr('className', ELEMENT_CLASS_NAME)
                 .attr('markType', type)
                 .nodes();
-              return updateFunction(data, [this], toElements);
+              return updateFunction(data, [element], toElements);
             })
             // Remove elements to be splitted after animation finishing.
             .remove(),
@@ -1071,11 +1084,11 @@ function plotLabel(
           .append((d) => labelShapeFunction.get(d)(d))
           .attr('className', LABEL_CLASS_NAME),
       (update) =>
-        update.each(function (d) {
+        update.each(function (d, i, element) {
           // @todo Handle Label with different type.
           const shapeFunction = labelShapeFunction.get(d);
           const node = shapeFunction(d);
-          copyAttributes(this, node);
+          copyAttributes(element, node);
         }),
       (exit) => exit.remove(),
     )
@@ -1568,8 +1581,8 @@ function updateBBox(selection: Selection) {
 
 function animateBBox(selection: Selection, extent: [number, number]) {
   const [delay, duration] = extent;
-  selection.transition(function (data) {
-    const { x, y, width, height } = this.style;
+  selection.transition(function (data, i, element) {
+    const { x, y, width, height } = element.style;
     const {
       paddingLeft,
       paddingTop,
@@ -1592,7 +1605,7 @@ function animateBBox(selection: Selection, extent: [number, number]) {
         height: innerHeight,
       },
     ];
-    return this.animate(keyframes, { delay, duration, fill: 'both' });
+    return element.animate(keyframes, { delay, duration, fill: 'both' });
   });
 }
 
@@ -1606,7 +1619,11 @@ function shapeName(mark, name) {
  * Create and update layer for each mark.
  * All the layers created here are treated as main layers.
  */
-function updateLayers(selection: Selection, marks: G2Mark[]) {
+function updateLayers(
+  selection: Selection,
+  parent: G2Element,
+  marks: G2Mark[],
+) {
   const facet = (d) => (d.class !== undefined ? `${d.class}` : '');
 
   // Skip for empty selection, it can't append nodes.
@@ -1645,7 +1662,7 @@ function className(...names: string[]): string {
   return names.map((d) => `.${d}`).join('');
 }
 
-function applyClip(selection, clip?: boolean) {
+function applyClip(selection, parent: G2Element, clip?: boolean) {
   if (!selection.node()) return;
   selection.style('clipPath', (data) => {
     if (!clip) return null;

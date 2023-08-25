@@ -353,9 +353,9 @@ describe('select', () => {
     const data = [1, 2, 3];
     const s1 = selection.selectAll('rect');
     expect(
-      s1.each(function (d, i) {
+      s1.each(function (d, i, element) {
         expect(d).toBe(data[i]);
-        expect(this).toBe(R[i]);
+        expect(element).toBe(R[i]);
       }),
     ).toBe(s1);
   });
@@ -363,8 +363,11 @@ describe('select', () => {
   it('Selection.call() should call the callback for the selection', () => {
     const group = new Group();
     const selection = select(group);
-    const append = (selection: Selection, node: DisplayObject) =>
-      selection.append(() => node);
+    const append = (
+      selection: Selection,
+      parent: G2Element,
+      node: DisplayObject,
+    ) => selection.append(() => node);
     selection.call(append, new Rect({}));
     expect(group.childNodes.length).toBe(1);
   });

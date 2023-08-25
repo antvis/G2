@@ -365,49 +365,53 @@ export class Selection<T = any> {
     );
   }
 
-  each(callback: (datum: T, index: number) => any): Selection<T> {
+  each(callback: (datum: T, index: number, element) => any): Selection<T> {
     for (let i = 0; i < this._elements.length; i++) {
       const element = this._elements[i];
       const datum = element.__data__;
-      callback.call(element, datum, i);
+      callback(datum, i, element);
     }
     return this;
   }
 
   attr(key: string, value: any): Selection<T> {
     const callback = typeof value !== 'function' ? () => value : value;
-    return this.each(function (d, i) {
-      if (value !== undefined) this[key] = callback.call(this, d, i);
+    return this.each(function (d, i, element) {
+      if (value !== undefined) element[key] = callback(d, i, element);
     });
   }
 
   style(key: string, value: any): Selection<T> {
     const callback = typeof value !== 'function' ? () => value : value;
-    return this.each(function (d, i) {
-      if (value !== undefined) this.style[key] = callback.call(this, d, i);
+    return this.each(function (d, i, element) {
+      if (value !== undefined) element.style[key] = callback(d, i, element);
     });
   }
 
   transition(value: any): Selection<T> {
     const callback = typeof value !== 'function' ? () => value : value;
     const { _transitions: T } = this;
-    return this.each(function (d, i) {
-      T[i] = callback.call(this, d, i);
+    return this.each(function (d, i, element) {
+      T[i] = callback(d, i, element);
     });
   }
 
   on(event: string, handler: any) {
-    this.each(function () {
-      this.addEventListener(event, handler);
+    this.each(function (d, i, element) {
+      element.addEventListener(event, handler);
     });
     return this;
   }
 
   call(
-    callback: (selection: Selection<T>, ...args: any[]) => any,
+    callback: (
+      selection: Selection<T>,
+      parent: G2Element,
+      ...args: any[]
+    ) => any,
     ...args: any[]
   ): Selection<T> {
-    callback.call(this._parent, this, ...args);
+    callback(this, this._parent, ...args);
     return this;
   }
 

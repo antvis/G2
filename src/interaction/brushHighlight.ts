@@ -2,7 +2,7 @@ import { DisplayObject, Rect, Path } from '@antv/g';
 import { subObject, omitPrefixObject } from '../utils/helper';
 import { selectionOf, pixelsOf } from '../utils/scale';
 import { createElement } from '../utils/createElement';
-import { select, Selection } from '../utils/selection';
+import { G2Element, select, Selection } from '../utils/selection';
 import {
   selectG2Elements,
   selectPlotArea,
@@ -37,7 +37,11 @@ function bboxOf(root: DisplayObject) {
   return [0, 0, width, height];
 }
 
-function applyStyle(selection: Selection, style: Record<string, any>) {
+function applyStyle(
+  selection: Selection,
+  parent: G2Element,
+  style: Record<string, any>,
+) {
   for (const [key, value] of Object.entries(style)) {
     selection.style(key, value);
   }
