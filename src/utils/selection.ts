@@ -404,14 +404,10 @@ export class Selection<T = any> {
   }
 
   call(
-    callback: (
-      selection: Selection<T>,
-      parent: G2Element,
-      ...args: any[]
-    ) => any,
+    callback: (selection: Selection<T>, ...args: any[]) => any,
     ...args: any[]
   ): Selection<T> {
-    callback(this, this._parent, ...args);
+    callback(this, ...args);
     return this;
   }
 

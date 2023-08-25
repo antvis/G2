@@ -37,11 +37,7 @@ function bboxOf(root: DisplayObject) {
   return [0, 0, width, height];
 }
 
-function applyStyle(
-  selection: Selection,
-  parent: G2Element,
-  style: Record<string, any>,
-) {
+function applyStyle(selection: Selection, style: Record<string, any>) {
   for (const [key, value] of Object.entries(style)) {
     selection.style(key, value);
   }

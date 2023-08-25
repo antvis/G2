@@ -11,7 +11,6 @@ import { angle, angleWithQuadrant, dist, sub } from '../utils/vector';
 
 export function applyStyle(
   selection: Selection,
-  parent: G2Element,
   style: Record<string, Primitive>,
 ) {
   for (const [key, value] of Object.entries(style)) {

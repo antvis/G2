@@ -1619,11 +1619,7 @@ function shapeName(mark, name) {
  * Create and update layer for each mark.
  * All the layers created here are treated as main layers.
  */
-function updateLayers(
-  selection: Selection,
-  parent: G2Element,
-  marks: G2Mark[],
-) {
+function updateLayers(selection: Selection, marks: G2Mark[]) {
   const facet = (d) => (d.class !== undefined ? `${d.class}` : '');
 
   // Skip for empty selection, it can't append nodes.
@@ -1662,7 +1658,7 @@ function className(...names: string[]): string {
   return names.map((d) => `.${d}`).join('');
 }
 
-function applyClip(selection, parent: G2Element, clip?: boolean) {
+function applyClip(selection, clip?: boolean) {
   if (!selection.node()) return;
   selection.style('clipPath', (data) => {
     if (!clip) return null;

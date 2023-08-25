@@ -363,11 +363,8 @@ describe('select', () => {
   it('Selection.call() should call the callback for the selection', () => {
     const group = new Group();
     const selection = select(group);
-    const append = (
-      selection: Selection,
-      parent: G2Element,
-      node: DisplayObject,
-    ) => selection.append(() => node);
+    const append = (selection: Selection, node: DisplayObject) =>
+      selection.append(() => node);
     selection.call(append, new Rect({}));
     expect(group.childNodes.length).toBe(1);
   });
