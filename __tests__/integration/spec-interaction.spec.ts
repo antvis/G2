@@ -9,6 +9,7 @@ import { compose } from './utils/compose';
 import './utils/useSnapshotMatchers';
 import './utils/useCustomFetch';
 import { disableAnimation } from './utils/preprocess';
+import { createDOMGCanvas } from './utils/createDOMGCanvas';
 
 function disableTooltip(options): G2Spec {
   const discovered = [options];
@@ -54,7 +55,11 @@ describe('Interactions', () => {
         ]);
 
         // Render chart.
-        const gCanvas = await renderSpec(generateOptions);
+        const gCanvas = await renderSpec(
+          generateOptions,
+          undefined,
+          createDOMGCanvas,
+        );
 
         // Asset each state.
         // @ts-ignore
@@ -69,9 +74,7 @@ describe('Interactions', () => {
 
           // If do not skip this state, asset it after dispatch the event.
           if (!skip) {
-            await expect(gCanvas).toMatchCanvasSnapshot(dir, `step${i}`, {
-              maxError,
-            });
+            await expect(gCanvas).toMatchDOMSnapshot(dir, `step${i}`);
           }
         }
       } finally {

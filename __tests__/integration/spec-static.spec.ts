@@ -2,6 +2,7 @@ import { Canvas } from '@antv/g';
 import * as chartTests from '../plots/static';
 import { renderSpec } from './utils/renderSpec';
 import { filterTests } from './utils/filterTests';
+import { createDOMGCanvas } from './utils/createDOMGCanvas';
 import './utils/useSnapshotMatchers';
 import './utils/useCustomFetch';
 
@@ -12,12 +13,16 @@ describe('Charts', () => {
     it(`[Canvas]: ${name}`, async () => {
       try {
         // @ts-ignore
-        const { maxError = 0, before, after } = generateOptions;
+        const { before, after } = generateOptions;
         before?.();
-        gCanvas = await renderSpec(generateOptions);
+        gCanvas = await renderSpec(
+          generateOptions,
+          undefined,
+          createDOMGCanvas,
+        );
         after?.();
         const dir = `${__dirname}/snapshots/static`;
-        await expect(gCanvas).toMatchCanvasSnapshot(dir, name, { maxError });
+        await expect(gCanvas).toMatchDOMSnapshot(dir, name);
       } finally {
         gCanvas?.destroy();
       }

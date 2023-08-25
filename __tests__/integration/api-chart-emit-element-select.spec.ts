@@ -1,5 +1,5 @@
 import { chartEmitElementSelect as render } from '../plots/api/chart-emit-element-select';
-import { createNodeGCanvas } from './utils/createNodeGCanvas';
+import { createDOMGCanvas } from './utils/createDOMGCanvas';
 import { sleep } from './utils/sleep';
 import { kebabCase } from './utils/kebabCase';
 import {
@@ -12,7 +12,7 @@ import './utils/useCustomFetch';
 
 describe('chart.emit', () => {
   const dir = `${__dirname}/snapshots/api/${kebabCase(render.name)}`;
-  const canvas = createNodeGCanvas(800, 500);
+  const canvas = createDOMGCanvas(800, 500);
 
   it('chart.on("element:select") should receive expected data.', async () => {
     const { chart, finished } = render({
@@ -27,12 +27,12 @@ describe('chart.emit', () => {
       data: { data: [{ population: 5038433 }, { population: 3983091 }] },
     });
     await sleep(20);
-    await expect(canvas).toMatchCanvasSnapshot(dir, 'step0');
+    await expect(canvas).toMatchDOMSnapshot(dir, 'step0');
 
     // chart.emit('element:unselect', options) should reset.
     chart.emit('element:unselect', {});
     await sleep(20);
-    await expect(canvas).toMatchCanvasSnapshot(dir, 'step1');
+    await expect(canvas).toMatchDOMSnapshot(dir, 'step1');
 
     chart.off();
 

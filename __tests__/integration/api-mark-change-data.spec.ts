@@ -1,10 +1,10 @@
 import { markChangeData as render } from '../plots/api/mark-change-data';
-import { createNodeGCanvas } from './utils/createNodeGCanvas';
+import { createDOMGCanvas } from './utils/createDOMGCanvas';
 import { sleep } from './utils/sleep';
 import './utils/useSnapshotMatchers';
 
 describe('mark.changeData', () => {
-  const canvas = createNodeGCanvas(640, 480);
+  const canvas = createDOMGCanvas(640, 480);
 
   it('mark.changeData(width, height) should rerender expected chart', async () => {
     const { finished, button, chart } = render({
@@ -16,7 +16,7 @@ describe('mark.changeData', () => {
     await new Promise<void>((resolve) => chart.on('afterrender', resolve));
     const dir = `${__dirname}/snapshots/api`;
     await sleep(20);
-    await expect(canvas).toMatchCanvasSnapshot(dir, render.name);
+    await expect(canvas).toMatchDOMSnapshot(dir, render.name);
   });
 
   afterAll(() => {

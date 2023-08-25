@@ -9,6 +9,7 @@ import { sleep } from './utils/sleep';
 import { kebabCase } from './utils/kebabCase';
 import './utils/useSnapshotMatchers';
 import './utils/useCustomFetch';
+import { createDOMGCanvas } from './utils/createDOMGCanvas';
 
 function defined(d) {
   return d !== null;
@@ -110,12 +111,9 @@ describe('Animations', () => {
         const context: G2Context = {};
         const asset = async (step) => {
           const dir = `${__dirname}/snapshots/animation/${kebabCase(name)}`;
-          await expect(context.canvas).toMatchCanvasSnapshot(
+          await expect(context.canvas).toMatchDOMSnapshot(
             dir,
             `interval${step}`,
-            {
-              maxError,
-            },
           );
         };
         const { assetEach, assetLast } = useFrame(I, context, asset);
@@ -130,7 +128,7 @@ describe('Animations', () => {
 
         // Render and compare each frame with expected snapshot.
         // This will mount canvas to context.
-        await renderSpec(generateOptions, context);
+        await renderSpec(generateOptions, context, createDOMGCanvas);
 
         // Asset the last state of this animation.
         await assetLast();

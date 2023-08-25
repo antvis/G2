@@ -1,7 +1,7 @@
 import { chartEmitBrushHighlightAxisCross as render } from '../plots/api/chart-emit-brush-highlight-axis-cross';
 import { dblclick, brush } from '../plots/interaction/penguins-point-brush';
 import { AXIS_HOT_AREA_CLASS_NAME } from '../../src/interaction/brushAxisHighlight';
-import { createNodeGCanvas } from './utils/createNodeGCanvas';
+import { createDOMGCanvas } from './utils/createDOMGCanvas';
 import { createPromise, getElementByClassName } from './utils/event';
 import { sleep } from './utils/sleep';
 import { kebabCase } from './utils/kebabCase';
@@ -10,7 +10,7 @@ import './utils/useSnapshotMatchers';
 
 describe('chart.on', () => {
   const dir = `${__dirname}/snapshots/api/${kebabCase(render.name)}`;
-  const canvas = createNodeGCanvas(640, 480);
+  const canvas = createDOMGCanvas(640, 480);
 
   it('chart.emit("brushAxis:highlight", callback) should emit events.', async () => {
     const { chart, finished } = render({
@@ -30,12 +30,12 @@ describe('chart.on', () => {
       },
     });
     await sleep(20);
-    await expect(canvas).toMatchCanvasSnapshot(dir, 'step0');
+    await expect(canvas).toMatchDOMSnapshot(dir, 'step0');
 
     // chart.emit('brushAxis:remove', options) should reset.
     chart.emit('brushAxis:remove', {});
     await sleep(20);
-    await expect(canvas).toMatchCanvasSnapshot(dir, 'step1');
+    await expect(canvas).toMatchDOMSnapshot(dir, 'step1');
 
     chart.off();
 

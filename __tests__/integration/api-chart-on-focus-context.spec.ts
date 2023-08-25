@@ -5,7 +5,7 @@ import {
   dragMask,
 } from '../plots/interaction/penguins-point-brush';
 import { PLOT_CLASS_NAME } from '../../src';
-import { createNodeGCanvas } from './utils/createNodeGCanvas';
+import { createDOMGCanvas } from './utils/createDOMGCanvas';
 import { kebabCase } from './utils/kebabCase';
 import { sleep } from './utils/sleep';
 import './utils/useSnapshotMatchers';
@@ -20,16 +20,12 @@ function plotOf(canvas) {
 
 describe('chart.on', () => {
   const dir = `${__dirname}/snapshots/api/${kebabCase(render.name)}`;
-  const canvas1 = createNodeGCanvas(640, 360);
-  const canvas2 = createNodeGCanvas(640, 80);
+  const canvas1 = createDOMGCanvas(640, 360);
+  const canvas2 = createDOMGCanvas(640, 80);
   const assetSnapshots = async (step) => {
     await sleep(500);
-    await expect(canvas1).toMatchCanvasSnapshot(dir, step + '-focus', {
-      maxError: 300,
-    });
-    await expect(canvas2).toMatchCanvasSnapshot(dir, step + '-context', {
-      maxError: 300,
-    });
+    await expect(canvas1).toMatchDOMSnapshot(dir, step + '-focus');
+    await expect(canvas2).toMatchDOMSnapshot(dir, step + '-context');
   };
 
   it('chart.on({...}) should enables different charts to communicate.', async () => {

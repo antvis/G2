@@ -1,9 +1,9 @@
 import { chartRenderBrushEnd as render } from '../plots/api/chart-render-brush-end';
-import { createNodeGCanvas } from './utils/createNodeGCanvas';
+import { createDOMGCanvas } from './utils/createDOMGCanvas';
 import { sleep } from './utils/sleep';
 
 describe('chart.render', () => {
-  const canvas = createNodeGCanvas(800, 500);
+  const canvas = createDOMGCanvas(800, 500);
 
   it('chart.render() should not emit brush:end', async () => {
     const { rerendered, finished, button, chart } = render({

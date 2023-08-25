@@ -1,10 +1,10 @@
 import { chartRenderClearAnimation as render } from '../plots/api/chart-render-clear-animation';
-import { createNodeGCanvas } from './utils/createNodeGCanvas';
+import { createDOMGCanvas } from './utils/createDOMGCanvas';
 import './utils/useSnapshotMatchers';
 
 // Skip it, because debounce of chart.render.
 describe.skip('chart.render', () => {
-  const canvas = createNodeGCanvas(640, 480);
+  const canvas = createDOMGCanvas(640, 480);
 
   it('chart.render should clear prev animation', async () => {
     const { chart } = render({

@@ -1,7 +1,7 @@
 import { chartEmitSliderFilter as render } from '../plots/api/chart-emit-slider-filter';
 import { SLIDER_CLASS_NAME } from '../../src/interaction/sliderFilter';
 import { dispatchValueChange } from '../plots/tooltip/appl-line-slider-filter';
-import { createNodeGCanvas } from './utils/createNodeGCanvas';
+import { createDOMGCanvas } from './utils/createDOMGCanvas';
 import { sleep } from './utils/sleep';
 import { kebabCase } from './utils/kebabCase';
 import { createPromise } from './utils/event';
@@ -9,7 +9,7 @@ import './utils/useSnapshotMatchers';
 
 describe('chart.emit', () => {
   const dir = `${__dirname}/snapshots/api/${kebabCase(render.name)}`;
-  const canvas = createNodeGCanvas(800, 500);
+  const canvas = createDOMGCanvas(800, 500);
 
   it('chart.on("slider:filter") should receive expected data.', async () => {
     const { chart, finished } = render({
@@ -29,7 +29,7 @@ describe('chart.emit', () => {
       data: { selection: [X, undefined] },
     });
     await sleep(20);
-    await expect(canvas).toMatchCanvasSnapshot(dir, 'step0');
+    await expect(canvas).toMatchDOMSnapshot(dir, 'step0');
 
     // chart.emit('sliderY:filter', options) should trigger slider.
     const Y = [50, 550];
@@ -37,7 +37,7 @@ describe('chart.emit', () => {
       data: { selection: [undefined, Y] },
     });
     await sleep(20);
-    await expect(canvas).toMatchCanvasSnapshot(dir, 'step1');
+    await expect(canvas).toMatchDOMSnapshot(dir, 'step1');
 
     chart.off();
 

@@ -1,6 +1,6 @@
 import { chartEmitLegendFilter as render } from '../plots/api/chart-emit-legend-filter';
 import { LEGEND_ITEMS_CLASS_NAME } from '../../src/interaction/legendFilter';
-import { createNodeGCanvas } from './utils/createNodeGCanvas';
+import { createDOMGCanvas } from './utils/createDOMGCanvas';
 import { sleep } from './utils/sleep';
 import { kebabCase } from './utils/kebabCase';
 import { createPromise, dispatchFirstShapeEvent } from './utils/event';
@@ -9,7 +9,7 @@ import './utils/useCustomFetch';
 
 describe('chart.emit', () => {
   const dir = `${__dirname}/snapshots/api/${kebabCase(render.name)}`;
-  const canvas = createNodeGCanvas(800, 500);
+  const canvas = createDOMGCanvas(800, 500);
 
   it('chart.on("legend:filter") should receive expected data.', async () => {
     const { chart, finished } = render({
@@ -24,12 +24,12 @@ describe('chart.emit', () => {
       data: { channel: 'color', values: ['Sports', 'Strategy'] },
     });
     await sleep(20);
-    await expect(canvas).toMatchCanvasSnapshot(dir, 'step0');
+    await expect(canvas).toMatchDOMSnapshot(dir, 'step0');
 
     // chart.emit('legend:reset', options) should reset.
     chart.emit('legend:reset', {});
     await sleep(20);
-    await expect(canvas).toMatchCanvasSnapshot(dir, 'step1');
+    await expect(canvas).toMatchDOMSnapshot(dir, 'step1');
 
     chart.off();
 
