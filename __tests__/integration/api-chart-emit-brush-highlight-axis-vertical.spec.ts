@@ -41,7 +41,7 @@ describe('chart.on', () => {
     chart.on('brushAxis:highlight', (event) => {
       if (!event.nativeEvent) return;
       expect(event.data.selection).toEqual([
-        [14, 44.6],
+        [14.500000000000002, 43.4],
         [3, 8],
         [68, 455],
         [46, 230],

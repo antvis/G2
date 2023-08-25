@@ -4,7 +4,6 @@ import { Chart, stdlib, ChartEvent } from '../../../src';
 
 const TEST_OPTIONS = {
   type: 'interval',
-
   encode: { x: 'genre', y: 'sold' },
   data: [
     { genre: 'Sports', sold: 275 },
@@ -531,9 +530,8 @@ describe('Chart', () => {
   });
 
   it('chart.render() should throw error.', async () => {
-    // Catch error.
-    // @ts-ignore
     const chart = new Chart({});
+    chart.options({ type: 'xxx' });
     await expect(chart.render()).rejects.toThrowError();
   });
 
