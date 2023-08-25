@@ -353,9 +353,9 @@ describe('select', () => {
     const data = [1, 2, 3];
     const s1 = selection.selectAll('rect');
     expect(
-      s1.each(function (d, i) {
+      s1.each(function (d, i, element) {
         expect(d).toBe(data[i]);
-        expect(this).toBe(R[i]);
+        expect(element).toBe(R[i]);
       }),
     ).toBe(s1);
   });
