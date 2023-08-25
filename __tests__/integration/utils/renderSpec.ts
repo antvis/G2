@@ -23,7 +23,7 @@ export async function renderSpec(
   };
   await new Promise<Canvas>((resolve) =>
     // @ts-ignore
-    renderFunction({ theme: 'classic', ...options }, context, resolve),
+    renderFunction(options, context, resolve),
   );
   return gCanvas;
 }

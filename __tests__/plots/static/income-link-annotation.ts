@@ -15,6 +15,7 @@ const incdomain = (() => {
 export function incomeLinkAnnotation(): G2Spec {
   return {
     type: 'view',
+    insetRight: 20,
     children: [
       {
         type: 'link',

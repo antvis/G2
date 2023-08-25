@@ -3,7 +3,6 @@ import { G2Spec } from '../../../src';
 export function alphabetIntervalAxis(): G2Spec {
   return {
     type: 'view',
-    padding: 'auto',
     children: [
       {
         type: 'interval',

@@ -3,7 +3,6 @@ import { G2Spec } from '../../../src';
 export function aaplIntervalDateEncodeX(): G2Spec {
   return {
     type: 'interval',
-    padding: 'auto',
     height: 720,
     data: {
       type: 'fetch',

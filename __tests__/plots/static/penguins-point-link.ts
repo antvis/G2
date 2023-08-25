@@ -3,7 +3,6 @@ import { G2Spec } from '../../../src';
 export function penguinsPointLink(): G2Spec {
   return {
     type: 'view',
-    paddingLeft: 80,
     height: 180,
     data: {
       type: 'fetch',

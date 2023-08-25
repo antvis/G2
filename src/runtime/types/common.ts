@@ -195,6 +195,8 @@ export type SectionArea = [
   direction: Direction,
   reverse: boolean,
   comparator: (a: Primitive, b: Primitive) => number,
+  minX?: number,
+  totalWidth?: number,
 ];
 
 export type Section = Record<GuideComponentPosition, SectionArea>;

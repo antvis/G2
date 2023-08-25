@@ -5,7 +5,6 @@ export function githubStarIntervalPalette(): G2Spec {
   return {
     type: 'interval',
     width: 1000,
-    paddingBottom: 100,
     data: {
       value: githubStar,
       transform: [{ type: 'sortBy', fields: [['star', true]] }],

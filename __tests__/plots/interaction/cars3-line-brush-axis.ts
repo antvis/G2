@@ -63,6 +63,7 @@ export function cars3LineBrushAxis(): G2Spec {
     ],
     interaction: {
       brushAxisHighlight: true,
+      tooltip: { series: false },
     },
   };
 }

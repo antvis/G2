@@ -3,7 +3,6 @@ import { G2Spec } from '../../../src';
 export function unemploymentAreaStackedLegendSize(): G2Spec {
   return {
     type: 'area',
-    padding: 'auto',
     width: 800,
     data: {
       type: 'fetch',

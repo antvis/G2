@@ -5,7 +5,7 @@ export function commitsPointGroupedLayout(): G2Spec {
     type: 'view',
     height: 300,
     paddingLeft: 50,
-    paddingBottom: 40,
+    paddingBottom: 60,
     paddingRight: 30,
     paddingTop: 20,
     marginLeft: 40,

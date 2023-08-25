@@ -2,7 +2,6 @@ import { G2Spec } from '../../../src';
 
 export function peopleIntervalAreaDualAxis(): G2Spec {
   return {
-    padding: 'auto',
     type: 'view',
     data: {
       type: 'fetch',

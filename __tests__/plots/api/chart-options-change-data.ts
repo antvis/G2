@@ -12,7 +12,6 @@ export function chartOptionsChangeData(context) {
   container.appendChild(div);
 
   const chart = new Chart({
-    theme: 'classic',
     container,
     canvas,
   });

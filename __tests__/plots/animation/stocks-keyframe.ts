@@ -4,6 +4,7 @@ import { G2Spec } from '../../../src';
 
 const facetLine = (data) => ({
   type: 'facetRect',
+  paddingLeft: 60,
   data,
   encode: {
     y: 'symbol',
@@ -29,6 +30,7 @@ const facetLine = (data) => ({
 
 const facetArea = (data) => ({
   type: 'facetRect',
+  paddingLeft: 60,
   data,
   encode: {
     y: 'symbol',
@@ -141,7 +143,7 @@ const groupBar = (data) => ({
     key: (_, i) => i,
   },
   axis: {
-    x: { tickFilter: (d) => false },
+    x: { tickFilter: (_) => false },
   },
 });
 
@@ -157,7 +159,7 @@ const stackBar = (data) => ({
     key: (_, i) => i,
   },
   axis: {
-    x: { tickFilter: (d) => false },
+    x: { tickFilter: (_) => false },
   },
 });
 
@@ -186,6 +188,9 @@ const pie = (data) => ({
     color: 'symbol',
     key: 'symbol',
   },
+  legend: {
+    color: { layout: { justifyContent: 'center' } },
+  },
   style: {
     radius: 10,
   },
@@ -204,9 +209,10 @@ const rose = (data) => ({
   },
   scale: { x: { padding: 0 } },
   style: { radius: 10 },
-  axis: {
-    y: false,
+  legend: {
+    color: { layout: { justifyContent: 'center' } },
   },
+  axis: { y: false },
 });
 
 const keyframes = [
@@ -228,18 +234,12 @@ const keyframes = [
  */
 export async function stocksKeyframe(): Promise<G2Spec> {
   const data = await csv('data/stocks2.csv', autoType);
-  const paddingLeft = 50;
-  const paddingRight = 60;
-
+  // @ts-ignore
   return {
     type: 'timingKeyframe',
     width: 800,
     // @ts-ignore
-    children: keyframes.map((plot) => ({
-      ...plot(data),
-      paddingLeft,
-      paddingRight,
-    })),
+    children: keyframes.map((plot) => plot(data)),
   };
 }
 

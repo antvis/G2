@@ -1,6 +1,6 @@
 import { ThemeComponent as TC, Theme } from '../runtime';
 
-export type ClassicOptions = Theme;
+export type LightOptions = Theme;
 
 const COLORS = {
   BLACK: '#1D2129',
@@ -27,14 +27,46 @@ const ALPHA = {
 /**
  * Default theme.
  */
-export const Classic: TC<ClassicOptions> = (options) => {
+export const Light: TC<LightOptions> = (options) => {
   const defaultOptions: Theme = {
     padding: 'auto',
     margin: 16,
     color: COLORS.DEFAULT,
     size: 1,
-    category10: 'category10',
-    category20: 'category20',
+    category10: [
+      '#1783FF',
+      '#00C9C9',
+      '#F0884D',
+      '#D580FF',
+      '#7863FF',
+      '#60C42D',
+      '#BD8F24',
+      '#FF80CA',
+      '#2491B3',
+      '#17C76F',
+    ],
+    category20: [
+      '#1783FF',
+      '#00C9C9',
+      '#F0884D',
+      '#D580FF',
+      '#7863FF',
+      '#60C42D',
+      '#BD8F24',
+      '#FF80CA',
+      '#2491B3',
+      '#17C76F',
+      '#8093FF',
+      '#66C1DF',
+      '#EFBF77',
+      '#FFAFFA',
+      '#D5A5FA',
+      '#78DF78',
+      '#ECD74D',
+      '#FFAFC8',
+      '#73A2D1',
+      '#74DDCB',
+    ],
     enter: {
       duration: 300,
       fill: 'both',
@@ -238,6 +270,8 @@ export const Classic: TC<ClassicOptions> = (options) => {
       titleFontWeight: 'normal',
       titleSpacing: 12,
       titleTransformOrigin: 'center',
+      lineArrowOffset: 6,
+      lineArrowSize: 6,
     },
     axisTop: {
       gridDirection: 'positive',
@@ -245,6 +279,7 @@ export const Classic: TC<ClassicOptions> = (options) => {
       tickDirection: 'negative',
       titlePosition: 'top',
       titleSpacing: 12,
+      labelSpacing: 4,
       titleTextBaseline: 'middle',
     },
     axisBottom: {
@@ -254,6 +289,7 @@ export const Classic: TC<ClassicOptions> = (options) => {
       tickDirection: 'positive',
       titlePosition: 'bottom',
       titleSpacing: 12,
+      labelSpacing: 4,
       titleTextBaseline: 'bottom',
     },
     axisLeft: {
@@ -444,4 +480,4 @@ export const Classic: TC<ClassicOptions> = (options) => {
   return Object.assign({}, defaultOptions, options);
 };
 
-Classic.props = {};
+Light.props = {};

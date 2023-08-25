@@ -5,7 +5,6 @@ export function unemploymentAreaStackedLegendSmallVertical(): G2Spec {
     type: 'area',
     width: 800,
     height: 200,
-    padding: 'auto',
     data: {
       type: 'fetch',
       value: 'data/unemployment-by-industry.csv',

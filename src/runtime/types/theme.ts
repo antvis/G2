@@ -68,6 +68,8 @@ type InteractionTheme = {
 
 type ComponentTheme = {
   axis?: any;
+  axisX?: any;
+  axisY?: any;
   axisLinear?: any;
   axisTop?: any;
   axisBottom?: any;
@@ -75,6 +77,7 @@ type ComponentTheme = {
   axisRight?: any;
   axisRadar?: any;
   axisArc?: any;
+  legend?: any;
   legendCategory?: any;
   legendContinuous?: any;
   label?: LabelStyleProps;
@@ -112,9 +115,12 @@ type AreaTheme = {
 };
 
 export type G2Theme = {
+  padding?: 'auto' | number;
+  inset?: 'auto' | number;
+  margin?: number;
   color?: string;
-  category10?: string;
-  category20?: string;
+  category10?: string | string[];
+  category20?: string | string[];
   size?: number;
   view?: WithPrefix<AreaTheme, 'view'> &
     WithPrefix<AreaTheme, 'plot'> &

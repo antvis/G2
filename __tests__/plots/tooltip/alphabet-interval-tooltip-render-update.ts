@@ -5,7 +5,6 @@ import { LEGEND_ITEMS_CLASS_NAME } from '../../../src/interaction/legendFilter';
 export function alphabetIntervalTooltipRenderUpdate(): G2Spec {
   return {
     type: 'interval',
-    paddingLeft: 60,
     data: {
       type: 'fetch',
       value: 'data/alphabet.csv',

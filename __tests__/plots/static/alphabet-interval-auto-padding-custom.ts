@@ -4,7 +4,6 @@ import { G2Spec } from '../../../src';
 export function alphabetIntervalAutoPaddingCustom(): G2Spec {
   return {
     type: 'interval',
-    padding: 'auto',
     transform: [{ type: 'sortX', by: 'y', reverse: true }],
     data: {
       type: 'fetch',

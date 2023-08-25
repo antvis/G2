@@ -9,12 +9,10 @@ export async function barleyPointFacetRectColZIndex(): Promise<G2Spec> {
     type: 'facetRect',
     data: data,
     height: 800,
-    encode: {
-      y: 'site',
-    },
+    encode: { y: 'site' },
     paddingLeft: 130,
     paddingRight: 120,
-    paddingBottom: 60,
+    paddingBottom: 50,
     scale: {
       y: {
         domain: groupSort<any, any>(

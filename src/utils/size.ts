@@ -59,7 +59,7 @@ export function getBBoxSize(options: G2View): Size {
 
   // @todo Add this padding to theme.
   // 30 is default size for padding, which defined in runtime.
-  const maybeAuto = (padding) => (padding === 'auto' ? 30 : padding);
+  const maybeAuto = (padding) => (padding === 'auto' ? 20 : padding);
 
   const finalWidth =
     width -

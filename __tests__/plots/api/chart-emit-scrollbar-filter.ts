@@ -17,9 +17,7 @@ export function chartEmitScrollbarFilter(context) {
   container.appendChild(wrapperDiv);
 
   const chart = new Chart({
-    theme: 'classic',
     container: wrapperDiv,
-    paddingBottom: 120,
     width: 400,
     canvas,
     clip: true,

@@ -3,7 +3,6 @@ import { G2Spec } from '../../../src';
 export function stateAgesIntervalStackedCorneredAll(): G2Spec {
   return {
     type: 'interval',
-    paddingLeft: 50,
     width: 800,
     transform: [
       { type: 'stackY', orderBy: 'sum' },

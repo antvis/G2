@@ -17,7 +17,6 @@ export function chartEmitBrushHighlightAxisCross(context) {
   container.appendChild(wrapperDiv);
 
   const chart = new Chart({
-    theme: 'classic',
     container: wrapperDiv,
     canvas,
   });

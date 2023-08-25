@@ -5,7 +5,6 @@ export function browserLineAreaTrendingAutoPadding(): G2Spec {
   return {
     type: 'view',
     data: browser,
-    padding: 'auto',
     style: {
       viewFill: '#4e79a7',
       plotFill: '#f28e2c',

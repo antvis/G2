@@ -17,8 +17,8 @@ export async function barleyLineTrail(): Promise<G2Spec> {
   return {
     type: 'facetRect',
     data,
-    paddingLeft: 120,
-    paddingBottom: 100,
+    paddingLeft: 130,
+    paddingBottom: 40,
     encode: { x: 'site' },
     children: [
       {

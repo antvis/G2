@@ -8,7 +8,6 @@ export async function indicesLineReverse(): Promise<G2Spec> {
   return {
     type: 'view',
     width: 800,
-    paddingLeft: 60,
     children: [
       {
         type: 'line',

@@ -3,6 +3,7 @@ import { G2Spec } from '../../../src';
 export function titanicPointPackNested(): G2Spec {
   return {
     type: 'facetRect',
+    height: 600,
     data: {
       type: 'fetch',
       value: 'data/titanic.csv',
@@ -21,7 +22,7 @@ export function titanicPointPackNested(): G2Spec {
       ],
     },
     paddingRight: 50,
-    paddingBottom: 50,
+    paddingBottom: 60,
     paddingLeft: 80,
     encode: {
       y: 'pclass',

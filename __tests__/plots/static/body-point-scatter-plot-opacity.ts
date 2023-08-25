@@ -13,9 +13,7 @@ export function bodyPointScatterPlotOpacity(): G2Spec {
       opacity: 'weight',
     },
     legend: {
-      opacity: {
-        size: 100,
-      },
+      opacity: {},
     },
   };
 }

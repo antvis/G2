@@ -9,7 +9,6 @@ export function chartRenderClearInteraction(context) {
   });
 
   chart.options({
-    theme: 'classic',
     type: 'line',
     clip: true,
     data: {

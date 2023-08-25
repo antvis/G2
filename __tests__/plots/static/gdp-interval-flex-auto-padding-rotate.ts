@@ -4,7 +4,6 @@ export function gdpIntervalFlexAutoPaddingRotate(): G2Spec {
   return {
     type: 'interval',
     width: 1000,
-    padding: 'auto',
     data: {
       type: 'fetch',
       value: 'data/gdp.csv',

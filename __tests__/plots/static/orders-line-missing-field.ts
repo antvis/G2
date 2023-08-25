@@ -4,7 +4,6 @@ import { orders } from '../../data/orders';
 export function ordersLineMissingField(): G2Spec {
   return {
     type: 'line',
-    paddingLeft: 50,
     data: orders,
     encode: {
       x: 'hour',

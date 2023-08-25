@@ -4,7 +4,6 @@ export function aaplLineAxisYHide(): G2Spec {
   return {
     type: 'line',
     height: 200,
-    paddingLeft: 80,
     data: {
       type: 'fetch',
       value: 'data/aapl.csv',

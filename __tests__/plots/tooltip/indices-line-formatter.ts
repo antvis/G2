@@ -9,7 +9,6 @@ export async function indicesLineFormatter(): Promise<G2Spec> {
     type: 'line',
     data,
     legend: false,
-    paddingLeft: 60,
     encode: {
       x: (d) => d.Date.getFullYear(),
       y: 'Close',

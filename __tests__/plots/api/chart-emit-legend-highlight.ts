@@ -18,13 +18,11 @@ export function chartEmitLegendHighlight(context) {
   container.appendChild(wrapperDiv);
 
   const chart = new Chart({
-    theme: 'classic',
     container: wrapperDiv,
     canvas,
   });
 
   chart.options({
-    paddingLeft: 60,
     type: 'interval',
     data: profit,
     axis: { y: { labelFormatter: '~s' } },

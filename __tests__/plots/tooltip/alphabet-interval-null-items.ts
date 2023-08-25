@@ -4,7 +4,6 @@ import { tooltipSteps } from './utils';
 export function alphabetIntervalNullItems(): G2Spec {
   return {
     type: 'interval',
-    padding: 0,
     data: {
       type: 'fetch',
       value: 'data/alphabet.csv',

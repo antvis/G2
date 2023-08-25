@@ -7,7 +7,6 @@ function appendZero(count) {
 export function alphabetIntervalAutoPaddingMaxRatio(): G2Spec {
   return {
     type: 'interval',
-    padding: 'auto',
     margin: 50,
     inset: 10,
     transform: [{ type: 'sortX', by: 'y', reverse: true }],

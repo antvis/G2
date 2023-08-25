@@ -3,7 +3,6 @@ import { G2Spec } from '../../../src';
 export function disastersPointBubble(): G2Spec {
   return {
     type: 'point',
-    padding: 'auto',
     insetTop: 30,
     insetLeft: 30,
     data: {

@@ -5,6 +5,7 @@ export function blockChainLineBadgeAnnotation(): G2Spec {
     type: 'view',
     height: 300,
     width: 640,
+    insetTop: 30,
     data: {
       type: 'fetch',
       value: 'data/blockchain.json',

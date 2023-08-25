@@ -18,7 +18,7 @@ function mockInteraction(chart, name, fn) {
 }
 
 function createChart() {
-  const chart = new Chart({ theme: 'classic' });
+  const chart = new Chart({});
 
   chart
     .interval()

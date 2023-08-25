@@ -4,7 +4,6 @@ export function gdpIntervalVarSize(): G2Spec {
   return {
     type: 'interval',
     width: 1000,
-    paddingBottom: 100,
     data: {
       type: 'fetch',
       value: 'data/gdp.csv',

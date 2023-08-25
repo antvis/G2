@@ -14,8 +14,8 @@ export function aaplLineSlider(): G2Spec {
       y: 'close',
     },
     axis: {
-      x: { title: false, size: 28 },
-      y: { title: false, size: 36 },
+      x: { title: false },
+      y: { title: false },
     },
     slider: {
       x: {

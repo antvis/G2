@@ -3,7 +3,7 @@ import { G2Spec } from '../../../src';
 export function aaplLineScrollbar(): G2Spec {
   return {
     type: 'line',
-    paddingLeft: 80,
+    clip: true,
     data: {
       type: 'fetch',
       value: 'data/aapl.csv',

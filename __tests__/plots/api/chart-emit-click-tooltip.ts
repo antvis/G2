@@ -4,7 +4,6 @@ export function chartEmitClickTooltip(context) {
   const { container, canvas } = context;
 
   const chart = new Chart({
-    theme: 'classic',
     container: container,
     canvas,
   });

@@ -18,7 +18,7 @@ const componentNames = [
 export function chartOnComponentClick(context) {
   const { container, canvas } = context;
 
-  const chart = new Chart({ theme: 'classic', container, canvas });
+  const chart = new Chart({ container, canvas });
 
   chart
     .interval()

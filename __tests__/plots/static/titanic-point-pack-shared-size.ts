@@ -3,7 +3,6 @@ import { G2Spec } from '../../../src';
 export function titanicPointPackSharedSize(): G2Spec {
   return {
     type: 'facetRect',
-    paddingRight: 50,
     data: {
       type: 'fetch',
       value: 'data/titanic.csv',

@@ -1,4 +1,5 @@
 import { Scrollbar as ScrollbarComponent } from '@antv/gui';
+import { DisplayObject } from '@antv/g';
 import { GuideComponentComponent as GCC } from '../runtime';
 
 export type ScrollbarOptions = {
@@ -35,7 +36,7 @@ export const Scrollbar: GCC<ScrollbarOptions> = (options) => {
         contentLength: actualSize,
         viewportLength: mainSize,
       }),
-    });
+    }) as unknown as DisplayObject;
   };
 };
 
@@ -43,4 +44,6 @@ Scrollbar.props = {
   defaultPosition: 'bottom',
   defaultSize: 24,
   defaultOrder: 1,
+  defaultCrossPadding: [12, 12],
+  defaultPadding: [12, 12],
 };

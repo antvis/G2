@@ -5,7 +5,6 @@ export function aaplLineBasicTranspose(): G2Spec {
     type: 'line',
     height: 640,
     width: 480,
-    paddingLeft: 50,
     data: {
       type: 'fetch',
       value: 'data/aapl.csv',

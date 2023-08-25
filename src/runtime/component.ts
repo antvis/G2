@@ -82,14 +82,20 @@ export function inferComponent(
   // Title components.
   if (title) {
     const { props } = createGuideComponent('title');
-    const { defaultPosition, defaultOrientation, defaultOrder, defaultSize } =
-      props;
+    const {
+      defaultPosition,
+      defaultOrientation,
+      defaultOrder,
+      defaultSize,
+      defaultCrossPadding,
+    } = props;
     const titleOptions = typeof title === 'string' ? { title } : title;
     components.push({
       type: 'title',
       position: defaultPosition,
       orientation: defaultOrientation,
       order: defaultOrder,
+      crossPadding: defaultCrossPadding[0],
       defaultSize,
       ...titleOptions,
     });
@@ -224,7 +230,7 @@ export function groupComponents(
 
   // Update attributes of group components,
   // and maybe flatten group components without enough room.
-  return grouped.flatMap(([, components], i) => {
+  return grouped.flatMap(([, components]) => {
     if (components.length === 1) return components[0];
 
     // If crossSize defined, group components only when has
@@ -441,17 +447,10 @@ function inferAxisPositionAndOrientation(
     return ['center', angle];
   }
 
-  // There are multiple axes for parallel coordinate.
-  // Place the first one in the border area and put others in the center.
   if (type === 'axisY' && isParallel(coordinates)) {
-    // name looks like `position${number}`
-    const index = matchPosition(name);
-    if (index === null) return ordinalPosition;
-
-    if (isTranspose(coordinates)) {
-      return index === 0 ? ['top', null] : ['center', 'horizontal'];
-    }
-    return index === 0 ? ordinalPosition : ['center', 'vertical'];
+    return isTranspose(coordinates)
+      ? ['center', 'horizontal']
+      : ['center', 'vertical'];
   }
 
   // in non-cartesian coordinate systems, infer the arc axis angle
@@ -547,12 +546,18 @@ function inferScrollableComponents(
     if (!options || !componentType) return;
 
     const { props } = createGuideComponent(componentType);
-    const { defaultPosition, defaultSize, defaultOrder } = props;
+    const {
+      defaultPosition,
+      defaultSize,
+      defaultOrder,
+      defaultCrossPadding: [crossPadding],
+    } = props;
     return {
       position: defaultPosition,
       defaultSize,
       order: defaultOrder,
       type: componentType,
+      crossPadding,
       ...options,
       scales: [scale],
     };
@@ -591,6 +596,7 @@ export function computeComponentSize(
     if (t === 'legendCategory') return computeCategoryLegendSize;
     if (t.startsWith('slider')) return computeSliderSize;
     if (t === 'title') return computeTitleSize;
+    if (t.startsWith('scrollbar')) return computeScrollbarSize;
     return () => {};
   };
   return createCompute()(
@@ -630,6 +636,18 @@ function computeGroupSize(
   const maxSize = max(children, (d: G2GuideComponentOptions) => d.size);
   component.size = maxSize;
   children.forEach((d) => (d.size = maxSize));
+}
+
+function computeScrollbarSize(
+  component: G2GuideComponentOptions,
+  crossSize: number,
+  crossPadding: [number, number],
+  position: GCP,
+  theme: G2Theme,
+  library: G2Library,
+) {
+  const { trackSize = 6 } = deepMix({}, theme.scrollbar, component);
+  component.size = trackSize;
 }
 
 function computeTitleSize(
@@ -698,7 +716,7 @@ function computeAxisSize(
   const scale = createScale(component, library);
   const labelBBoxes = computeLabelsBBox(rest, scale);
   const paddingTick = tickLength + labelSpacing;
-  if (labelBBoxes) {
+  if (labelBBoxes && labelBBoxes.length) {
     const maxLabelWidth = max(labelBBoxes, (d) => d.width);
     const maxLabelHeight = max(labelBBoxes, (d) => d.height);
     if (isVertical) {
@@ -718,7 +736,7 @@ function computeAxisSize(
       }
     }
   } else {
-    component.size = paddingTick;
+    component.size = tickLength;
   }
 
   // Compute title.
@@ -782,9 +800,6 @@ function computeContinuousLegendSize(
       component.size += titleSpacing + titleBBox.height;
     }
   }
-
-  const { crossPadding: cp = 0 } = component;
-  component.size += cp * 2;
 }
 
 function computeCategoryLegendSize(
@@ -797,7 +812,14 @@ function computeCategoryLegendSize(
 ) {
   const styleOf = () => {
     const { legendCategory } = theme;
-    return deepMix({}, legendCategory, component);
+    const { title } = component;
+    const [defaultTitle, specifiedTitle] = Array.isArray(title)
+      ? [title, undefined]
+      : [undefined, title];
+    return deepMix({ title: defaultTitle }, legendCategory, {
+      ...component,
+      title: specifiedTitle,
+    });
   };
 
   const {
@@ -806,15 +828,23 @@ function computeCategoryLegendSize(
     titleSpacing,
     rowPadding,
     colPadding,
+    maxCols = Infinity,
+    maxRows = Infinity,
     ...rest
   } = styleOf();
 
   const { cols, length } = component;
 
-  const crossSize = length === undefined ? crossSize0 : length;
+  const getRows = (rows) => Math.min(rows, maxRows);
+  const getCols = (cols) => Math.min(cols, maxCols);
 
   // Vertical or horizontal.
   const isVertical = position === 'left' || position === 'right';
+
+  const crossSize =
+    length === undefined
+      ? crossSize0 + (isVertical ? 0 : crossPadding[0] + crossPadding[1])
+      : length;
 
   // Compute title.
   const titleBBox = computeTitleBBox(rest);
@@ -854,16 +884,16 @@ function computeCategoryLegendSize(
       maxRows = rows;
       maxPos = pos;
     }
-    component.size = maxSize * cols;
+    component.size = maxSize * getCols(cols);
     component.length = maxPos + titleHeight;
-    deepMix(component, { cols, gridRow: maxRows });
+    deepMix(component, { cols: getCols(cols), gridRow: maxRows });
   };
 
   // Horizontal grid layout.
   const computeHorizontalGrid = () => {
     const rows = Math.ceil(labelBBoxes.length / cols);
     const maxWidth = max(labelBBoxes, (d) => widthOf(d.width)) * cols;
-    component.size = height * rows;
+    component.size = height * getRows(rows) - rowPadding;
     component.length = Math.min(maxWidth, crossSize);
   };
 
@@ -883,7 +913,7 @@ function computeCategoryLegendSize(
       }
     }
     if (rows === 1) maxPos = pos;
-    component.size = height * rows;
+    component.size = height * getRows(rows) - rowPadding;
     component.length = maxPos;
   };
 
@@ -899,10 +929,6 @@ function computeCategoryLegendSize(
       component.size += titleSpacing + titleBBox.height;
     }
   }
-
-  // Compute crossPadding.
-  const { crossPadding: cp = 0 } = component;
-  component.size += cp * 2;
 }
 
 export function createScale(
@@ -1071,7 +1097,8 @@ function computeLabelSize(
   style: Record<string, any>,
 ): DOMRect {
   const shape = normalizeLabel(d);
-  shape.attr({ ...style, visibility: 'none' });
+  const { filter, ...rest } = style;
+  shape.attr({ ...rest, visibility: 'none' });
   const bbox = shape.getBBox();
   return bbox;
 }

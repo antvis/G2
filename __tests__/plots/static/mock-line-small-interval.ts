@@ -4,7 +4,6 @@ export function mockLineSmallInterval(): G2Spec {
   const floatTimestamp = (s) => +new Date(s) + +`0.${s.slice(s.length - 3)}`;
   return {
     type: 'interval',
-    padding: 'auto',
     data: [
       {
         task: 'task0',

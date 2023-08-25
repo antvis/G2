@@ -7,9 +7,8 @@ export function penguinsPointFacetRect(): G2Spec {
       type: 'fetch',
       value: 'data/penguins.csv',
     },
-    paddingRight: 80,
-    paddingBottom: 50,
-    paddingLeft: 50,
+    paddingBottom: 60,
+    paddingLeft: 60,
     height: 600,
     encode: {
       x: 'sex',

@@ -3,9 +3,9 @@ import { G2Spec } from '../../../src';
 export function vaccinesCellScaleRelation(): G2Spec {
   return {
     type: 'view',
-    width: 1152,
-    height: 780,
-    paddingLeft: 60,
+    width: 1300,
+    height: 900,
+    insetBottom: 10,
     data: {
       type: 'fetch',
       value: 'data/vaccines.csv',

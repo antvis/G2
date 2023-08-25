@@ -23,12 +23,10 @@ export function acmeCropIncomeIntervalConnector() {
 
   return {
     type: 'view',
-    paddingBottom: 100,
-    paddingLeft: 60,
     paddingTop: 40,
     data: acmeCropIncome,
     axis: {
-      x: { title: false, labelTransform: 'rotate(-90)' },
+      x: { labelTransform: 'rotate(-90)' },
       y: { labelFormatter: '~s' },
     },
     legend: false,

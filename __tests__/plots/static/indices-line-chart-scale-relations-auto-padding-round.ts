@@ -3,7 +3,7 @@ import { G2Spec } from '../../../src';
 export function indicesLineChartScaleRelationsAutoPaddingRound(): G2Spec {
   return {
     type: 'line',
-    padding: 'auto',
+    insetRight: 20,
     data: {
       type: 'fetch',
       value: 'data/indices.csv',

@@ -19,7 +19,7 @@ export function registerShape(context) {
     };
   });
 
-  const chart = new Chart({ theme: 'classic', container, canvas });
+  const chart = new Chart({ container, canvas });
 
   chart.data([
     { genre: 'Sports', sold: 275 },

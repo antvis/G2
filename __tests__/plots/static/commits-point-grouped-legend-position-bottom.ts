@@ -3,9 +3,8 @@ import { G2Spec } from '../../../src';
 export function commitsPointGroupedLegendPositionBottom(): G2Spec {
   return {
     type: 'point',
-    height: 300,
+    height: 360,
     inset: 10,
-    padding: 'auto',
     frame: true,
     data: {
       type: 'fetch',

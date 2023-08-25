@@ -4,7 +4,6 @@ import { G2Spec } from '../../../src';
 export async function flarePointCirclePackCustom(): Promise<G2Spec> {
   return {
     type: 'view',
-    padding: 20,
     width: 1000,
     height: 1000,
     children: [

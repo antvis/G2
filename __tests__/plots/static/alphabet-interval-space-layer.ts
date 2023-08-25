@@ -10,7 +10,6 @@ export function alphabetIntervalSpaceLayer(): G2Spec {
     children: [
       {
         type: 'interval',
-        paddingLeft: 50,
         transform: [{ type: 'sortX', by: 'y', reverse: true }],
         axis: {
           y: { labelFormatter: '.0%' },

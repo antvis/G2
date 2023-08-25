@@ -13,11 +13,9 @@ export function question8IntervalRadialGradientColor(): G2Spec {
     legend: {
       color: {
         position: 'bottom',
-        size: 100,
         length: 300,
         tick: false,
-        labelFilter: (datum, index, data) =>
-          index === 0 || index === data.length - 1,
+        tickFilter: (d, i, data) => i === 0 || i === data.length - 1,
         layout: {
           justifyContent: 'center',
         },

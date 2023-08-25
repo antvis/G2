@@ -14,7 +14,6 @@ export async function tranLineMultiAxesAutoPaddingTickMethod(): Promise<G2Spec> 
     type: 'line',
     width: 800,
     height: 1000,
-    padding: 'auto',
     data,
     encode: {
       x: 'distance',

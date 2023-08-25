@@ -43,7 +43,6 @@ export function monthIntervalRadialFacetRect(): G2Spec {
         },
       },
     },
-    paddingRight: 100,
     children: [
       {
         type: 'interval',

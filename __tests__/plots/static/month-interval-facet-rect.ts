@@ -34,7 +34,8 @@ export function monthIntervalFacetRect(): G2Spec {
     legend: {
       color: { position: 'right', size: 50 },
     },
-    paddingRight: 100,
+    paddingLeft: 40,
+    paddingBottom: 40,
     children: [
       {
         type: 'interval',

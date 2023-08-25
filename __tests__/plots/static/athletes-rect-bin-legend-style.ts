@@ -3,7 +3,6 @@ import { G2Spec } from '../../../src';
 export function athletesRectBinLegendStyle(): G2Spec {
   return {
     type: 'rect',
-    padding: 'auto',
     data: {
       type: 'fetch',
       value: 'data/athletes.csv',

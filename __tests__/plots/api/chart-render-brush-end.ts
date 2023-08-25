@@ -13,9 +13,7 @@ export function chartRenderBrushEnd(context) {
   container.appendChild(wrapperDiv);
 
   const chart = new Chart({
-    theme: 'classic',
     container: wrapperDiv,
-    paddingBottom: 120,
     width: 1000,
     canvas,
   });

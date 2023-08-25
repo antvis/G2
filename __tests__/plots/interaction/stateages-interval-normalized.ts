@@ -5,7 +5,6 @@ import { step } from './utils';
 export function stateAgesIntervalNormalized(): G2Spec {
   return {
     type: 'interval',
-    paddingLeft: 50,
     width: 800,
     height: 1000,
     data: {
