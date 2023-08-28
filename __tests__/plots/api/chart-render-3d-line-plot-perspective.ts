@@ -1,11 +1,11 @@
 import { CameraType } from '@antv/g';
 import { Renderer as WebGLRenderer } from '@antv/g-webgl';
-import { Plugin as ThreeDPlugin, DirectionalLight } from '@antv/g-plugin-3d';
+import { Plugin as ThreeDPlugin } from '@antv/g-plugin-3d';
 import { Plugin as ControlPlugin } from '@antv/g-plugin-control';
 import { Runtime, extend } from '../../../src/api';
 import { corelib, threedlib } from '../../../src/lib';
 
-export function chartRender3dScatterPlotPerspective(context) {
+export function chartRender3dLinePlotPerspective(context) {
   const { container } = context;
 
   // Create a WebGL renderer.
@@ -20,18 +20,30 @@ export function chartRender3dScatterPlotPerspective(context) {
     depth: 400,
   });
 
+  /**
+   * 3D Spiral
+   * @see https://plotly.com/javascript/3d-line-plots/
+   */
+  const pointCount = 500;
+  let r: number;
+  const data: { x: number; y: number; z: number }[] = [];
+
+  for (let i = 0; i < pointCount; i++) {
+    r = i * (pointCount - i);
+    data.push({
+      x: r * Math.cos(i / 30),
+      y: r * Math.sin(i / 30),
+      z: i,
+    });
+  }
+
   chart
-    .point3D()
-    .data({
-      type: 'fetch',
-      value: 'data/cars2.csv',
-    })
-    .encode('x', 'Horsepower')
-    .encode('y', 'Miles_per_Gallon')
-    .encode('z', 'Weight_in_lbs')
-    .encode('size', 'Origin')
-    .encode('color', 'Cylinders')
-    .encode('shape', 'cube')
+    .line3D()
+    .data(data)
+    .encode('x', 'x')
+    .encode('y', 'y')
+    .encode('z', 'z')
+    .encode('size', 4)
     .coordinate({ type: 'cartesian3D' })
     .scale('x', { nice: true })
     .scale('y', { nice: true })
@@ -46,19 +58,9 @@ export function chartRender3dScatterPlotPerspective(context) {
     const camera = canvas!.getCamera();
     camera.setPerspective(0.1, 5000, 45, 500 / 500);
     camera.setType(CameraType.ORBITING);
-
-    // Add a directional light into scene.
-    const light = new DirectionalLight({
-      style: {
-        intensity: 3,
-        fill: 'white',
-        direction: [-1, 0, 1],
-      },
-    });
-    canvas!.appendChild(light);
   });
 
   return { finished };
 }
 
-chartRender3dScatterPlotPerspective.skip = true;
+chartRender3dLinePlotPerspective.skip = true;
