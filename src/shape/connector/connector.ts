@@ -67,17 +67,16 @@ const ConnectorPath = createElement((g) => {
 function getPoints(
   coordinate: Coordinate,
   points: Vector2[],
-  offset: number,
+  offset1: number,
+  offset2: number,
   length1 = 0,
 ): Vector2[] {
   const [[x0, y0], [x1, y1]] = points;
 
   if (isTranspose(coordinate)) {
-    const OFFSET = offset;
-    const X0 = x0 + OFFSET;
-    const X1 = x1 + OFFSET;
+    const X0 = x0 + offset1;
+    const X1 = x1 + offset2;
     const X = X0 + length1;
-
     return [
       [X0, y0],
       [X, y0],
@@ -86,10 +85,9 @@ function getPoints(
     ];
   }
 
-  const OFFSET = -offset;
-  const Y0 = y0 + OFFSET;
-  const Y1 = y1 + OFFSET;
-  const Y = Y0 + -length1;
+  const Y0 = y0 - offset1;
+  const Y1 = y1 - offset2;
+  const Y = Y0 - length1;
   return [
     [x0, Y0],
     [x0, Y],
@@ -99,12 +97,24 @@ function getPoints(
 }
 
 export const Connector: SC<ConnectorOptions> = (options, context) => {
-  const { offset = 0, connectLength1: length1, ...style } = options;
+  const {
+    offset = 0,
+    offset1 = offset,
+    offset2 = offset,
+    connectLength1: length1,
+    ...style
+  } = options;
   const { coordinate } = context;
   return (points, value, defaults) => {
-    const { color: defaultColor, connectLength1 = length1, ...rest } = defaults;
+    const { color: defaultColor, connectLength1, ...rest } = defaults;
     const { color, transform } = value;
-    const P = getPoints(coordinate, points, offset, connectLength1);
+    const P = getPoints(
+      coordinate,
+      points,
+      offset1,
+      offset2,
+      length1 || connectLength1,
+    );
     return select(new ConnectorPath())
       .call(applyStyle, rest)
       .style('points', P)
