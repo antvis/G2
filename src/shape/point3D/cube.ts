@@ -1,4 +1,4 @@
-import { MeshPhongMaterial, CubeGeometry, Mesh } from '@antv/g-plugin-3d';
+import { MeshLambertMaterial, CubeGeometry, Mesh } from '@antv/g-plugin-3d';
 import { applyStyle, getOrigin, toOpacityKey } from '../utils';
 import { ShapeComponent as SC } from '../../runtime';
 import { select } from '../../utils/selection';
@@ -28,7 +28,7 @@ export const Cube: SC<CubeOptions> = (options, context) => {
     });
     // create a material with Phong lighting model
     // @ts-ignore
-    context.cubeMaterial = new MeshPhongMaterial(device);
+    context.cubeMaterial = new MeshLambertMaterial(device);
   }
 
   return (points, value, defaults) => {
