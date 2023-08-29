@@ -85,6 +85,7 @@ export const Connector: SC<ConnectorOptions> = (options, context) => {
       offset2,
       length1 || connectLength1,
     );
+    const makerStyle = subObject({ ...style, ...defaults }, 'endMarker');
 
     return select(new Path())
       .call(applyStyle, rest)
@@ -97,7 +98,7 @@ export const Connector: SC<ConnectorOptions> = (options, context) => {
           ? new Marker({
               className: 'marker',
               style: {
-                ...subObject(style, 'endMarker'),
+                ...makerStyle,
                 symbol: inferSymbol,
               },
             })
