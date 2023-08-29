@@ -1,4 +1,14 @@
-# G2 - Changelog
+## [5.0.23](https://github.com/antvis/g2/compare/5.0.22...5.0.23) (2023-08-29)
+
+### Bug Fixes
+
+- **libs:** export expected libs ([#5478](https://github.com/antvis/g2/issues/5478)) ([564b3a6](https://github.com/antvis/g2/commit/564b3a6a7c93f18941c60c27d6c43f56b187d4a4))
+- **types:** export ChartOptions from RuntimeOptions ([#5475](https://github.com/antvis/g2/issues/5475)) ([73ded25](https://github.com/antvis/g2/commit/73ded250e8a78ade9d23234e953ecfb5702f654d))
+
+### Features
+
+- add light theme ([#5342](https://github.com/antvis/g2/issues/5342)) ([ffc8096](https://github.com/antvis/g2/commit/ffc80962a1fa833ad144ff28f173cb1518ab2ca8))
+- **connector:** support offset ([#5476](https://github.com/antvis/g2/issues/5476)) ([437b8c3](https://github.com/antvis/g2/commit/437b8c3930b032ba45eb1747507f60f588ff0e70))
 
 ## [5.0.22](https://github.com/antvis/g2/compare/0.5.21...5.0.22) (2023-08-24)
 
