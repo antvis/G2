@@ -90,7 +90,7 @@
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^17.4.4",
     "@rollup/plugin-commonjs": "^21.0.2",
-    "@types/d3-array": "^3.0.2",
+    "@types/d3-array": "3.0.5",
     "@types/d3-path": "^3.0.0",
     "@types/d3-shape": "^3.0.2",
     "@types/jest": "^26.0.20",
