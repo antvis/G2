@@ -41,3 +41,6 @@ site/.dumi/tmp-production
 # Other
 !/src/lib
 !/__tests__/unit/lib
+
+# Package
+package-lock.json

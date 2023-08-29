@@ -118,7 +118,7 @@ async function plot() {
   currentContainer = document.createElement('div');
   app.append(currentContainer);
   const render = tests[selectChart.value];
-  render(currentContainer);
+  render && render(currentContainer);
 }
 
 function createOption(key) {
