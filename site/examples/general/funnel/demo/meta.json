@@ -27,6 +27,14 @@
         "en": "Mirror Funnel"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ejYqRJVJ12gAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "funnel-annotation.ts",
+      "title": {
+        "zh": "转化漏斗图",
+        "en": "Annotation Funnel"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*FBnwRpqn-YEAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }

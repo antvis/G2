@@ -280,3 +280,4 @@ export { cars2PointConstantColorSize } from './cars2-point-constant-color-size';
 export { alphabetIntervalTitleAuto } from './alphabet-interval-title-auto';
 export { alphabetIntervalAutoPaddingLabelHide } from './alphabet-interval-auto-padding-label-hide';
 export { settleWeatherCellLineXY } from './seattle-weather-cell-lineXY';
+export { alphabetIntervalFunnelConnectorLabel } from './alphabet-interval-funnel-connector-label';

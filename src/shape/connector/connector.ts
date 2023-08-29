@@ -1,10 +1,9 @@
 import { Coordinate } from '@antv/coord';
 import type { PathArray } from '@antv/util';
-import { PathStyleProps } from '@antv/g';
+import { PathStyleProps, Path } from '@antv/g';
 import { Marker } from '@antv/gui';
 import { line as d3line } from 'd3-shape';
 import { ShapeComponent as SC, Vector2, WithPrefix } from '../../runtime';
-import { createElement } from '../../utils/createElement';
 import { isTranspose } from '../../utils/coordinate';
 import { subObject } from '../../utils/helper';
 import { select } from '../../utils/selection';
@@ -33,51 +32,19 @@ function inferConnectorPath(points: Vector2[]) {
     .y((d) => d[1])(points);
 }
 
-const ConnectorPath = createElement((g) => {
-  // Do not copy className to path.
-  const {
-    points,
-    class: className,
-    endMarker = true,
-    direction,
-    ...rest
-  } = g.attributes;
-
-  const markerStyle = subObject(rest, 'endMarker');
-  const path = inferConnectorPath(points);
-
-  select(g)
-    .maybeAppend('connector', 'path')
-    .style('path', path)
-    .style(
-      'markerEnd',
-      endMarker
-        ? new Marker({
-            className: 'marker',
-            style: {
-              ...markerStyle,
-              symbol: inferSymbol,
-            },
-          })
-        : null,
-    )
-    .call(applyStyle, rest);
-});
-
 function getPoints(
   coordinate: Coordinate,
   points: Vector2[],
-  offset: number,
+  offset1: number,
+  offset2: number,
   length1 = 0,
 ): Vector2[] {
   const [[x0, y0], [x1, y1]] = points;
 
   if (isTranspose(coordinate)) {
-    const OFFSET = offset;
-    const X0 = x0 + OFFSET;
-    const X1 = x1 + OFFSET;
+    const X0 = x0 + offset1;
+    const X1 = x1 + offset2;
     const X = X0 + length1;
-
     return [
       [X0, y0],
       [X, y0],
@@ -86,10 +53,9 @@ function getPoints(
     ];
   }
 
-  const OFFSET = -offset;
-  const Y0 = y0 + OFFSET;
-  const Y1 = y1 + OFFSET;
-  const Y = Y0 + -length1;
+  const Y0 = y0 - offset1;
+  const Y1 = y1 - offset2;
+  const Y = Y0 - length1;
   return [
     [x0, Y0],
     [x0, Y],
@@ -99,17 +65,45 @@ function getPoints(
 }
 
 export const Connector: SC<ConnectorOptions> = (options, context) => {
-  const { offset = 0, connectLength1: length1, ...style } = options;
+  const {
+    offset = 0,
+    offset1 = offset,
+    offset2 = offset,
+    connectLength1: length1,
+    endMarker = true,
+    ...style
+  } = options;
   const { coordinate } = context;
+
   return (points, value, defaults) => {
-    const { color: defaultColor, connectLength1 = length1, ...rest } = defaults;
+    const { color: defaultColor, connectLength1, ...rest } = defaults;
     const { color, transform } = value;
-    const P = getPoints(coordinate, points, offset, connectLength1);
-    return select(new ConnectorPath())
+    const P = getPoints(
+      coordinate,
+      points,
+      offset1,
+      offset2,
+      length1 || connectLength1,
+    );
+    const makerStyle = subObject({ ...style, ...defaults }, 'endMarker');
+
+    return select(new Path())
       .call(applyStyle, rest)
-      .style('points', P)
+      .style('path', inferConnectorPath(P))
       .style('stroke', color || defaultColor)
       .style('transform', transform)
+      .style(
+        'markerEnd',
+        endMarker
+          ? new Marker({
+              className: 'marker',
+              style: {
+                ...makerStyle,
+                symbol: inferSymbol,
+              },
+            })
+          : null,
+      )
       .call(applyStyle, style)
       .node();
   };

@@ -26,6 +26,7 @@ export {
   register,
   Runtime,
   extend,
+  type ChartOptions,
 } from './api';
 
 export { ChartEvent } from './utils/event';
