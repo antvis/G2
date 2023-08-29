@@ -1,8 +1,14 @@
-import { ForceGraph, Tree } from '../mark';
+import { Sankey, Treemap, Pack, ForceGraph, Tree } from '../mark';
+import { Arc, Cluster } from '../data';
 
 export function graphlib() {
   return {
+    'data.arc': Arc,
+    'data.cluster': Cluster,
     'mark.forceGraph': ForceGraph,
     'mark.tree': Tree,
+    'mark.pack': Pack,
+    'mark.sankey': Sankey,
+    'mark.treemap': Treemap,
   } as const;
 }
