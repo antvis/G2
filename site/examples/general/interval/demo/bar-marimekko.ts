@@ -5,7 +5,6 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   width: 900,
   height: 800,
   paddingLeft: 0,
@@ -30,25 +29,21 @@ chart
   .tooltip('value')
   .label({
     text: 'segment',
-    style: {
-      x: 5,
-      y: 5,
-      textAnchor: 'start',
-      textBaseline: 'top',
-      fontSize: 10,
-      fill: '#fff',
-    },
+    x: 5,
+    y: 5,
+    textAnchor: 'start',
+    textBaseline: 'top',
+    fontSize: 10,
+    fill: '#fff',
   })
   .label({
     text: 'value',
-    style: {
-      x: 5,
-      y: 5,
-      textAnchor: 'start',
-      dy: 15,
-      fontSize: 10,
-      fill: '#fff',
-    },
+    x: 5,
+    y: 5,
+    textAnchor: 'start',
+    dy: 15,
+    fontSize: 10,
+    fill: '#fff',
   });
 
 chart.render();

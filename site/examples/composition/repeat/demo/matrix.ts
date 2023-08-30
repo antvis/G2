@@ -7,11 +7,10 @@ const toNaN = (d) => (d === 'NaN' ? NaN : d);
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   width: 800,
   height: 800,
-  paddingLeft: 60,
-  paddingBottom: 60,
+  paddingLeft: 70,
+  paddingBottom: 70,
 });
 
 const repeatMatrix = chart

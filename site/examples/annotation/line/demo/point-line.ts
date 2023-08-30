@@ -2,7 +2,6 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
 });
 
@@ -38,11 +37,10 @@ chart
   .label({
     text: 'name',
     position: 'inside',
-    style: {
-      fill: '#1890ff',
-      stroke: '#fff',
-    },
-  });
+    fill: '#1890ff',
+    stroke: '#fff',
+  })
+  .legend('size', false);
 
 chart
   .lineY()
@@ -53,14 +51,12 @@ chart
   .label({
     text: 'Safe sugar intake 50g/day',
     position: 'right',
-    style: {
-      textBaseline: 'bottom',
-      fill: '#000',
-      fillOpacity: 0.45,
-      background: true,
-      backgroundFill: '#000',
-      backgroundOpacity: 0.15,
-    },
+    textBaseline: 'bottom',
+    fill: '#000',
+    fillOpacity: 0.45,
+    background: true,
+    backgroundFill: '#000',
+    backgroundOpacity: 0.15,
   });
 
 chart
@@ -72,13 +68,11 @@ chart
   .label({
     text: 'Safe fat intake 65g/day',
     position: 'top-left',
-    style: {
-      textBaseline: 'bottom',
-      fill: '#000',
-      fillOpacity: 0.45,
-      background: true,
-      backgroundFill: '#000',
-      backgroundOpacity: 0.15,
-    },
+    textBaseline: 'bottom',
+    fill: '#000',
+    fillOpacity: 0.45,
+    background: true,
+    backgroundFill: '#000',
+    backgroundOpacity: 0.15,
   });
 chart.render();

@@ -2,20 +2,19 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   width: 800,
 });
 
 const days = ['Sun.', 'Mon.', 'Tues.', 'Wed.', 'Thur.', 'Fri.', 'Sat.'];
 const mockData = () => {
   const names = ['Eat', 'Play', 'Sleep'];
-  const week = (date: Date) => {
+  const week = (date) => {
     const currentDate = date.getDate();
     const newDate = new Date(date);
     const firstDay = new Date(newDate.setDate(1)).getDay();
     return Math.ceil((currentDate + firstDay) / 7);
   };
-  const day = (date: Date) => date.getDay();
+  const day = (date) => date.getDay();
   return Array.from({ length: 30 }, (_, i) => {
     const date = new Date(2022, 5, i + 1);
     return names.map((name) => ({

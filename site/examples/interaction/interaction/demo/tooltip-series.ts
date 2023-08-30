@@ -2,8 +2,6 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
-  paddingLeft: 50,
 });
 
 chart
@@ -29,9 +27,7 @@ chart
   .label({
     text: 'Symbol',
     selector: 'last',
-    style: {
-      fontSize: 10,
-    },
+    fontSize: 10,
   });
 
 chart.interaction('tooltip', true);

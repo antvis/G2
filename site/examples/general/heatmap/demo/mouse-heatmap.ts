@@ -5,7 +5,6 @@ const data = {};
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   width: 640,
   height: 480,
   padding: 0,

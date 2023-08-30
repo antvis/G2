@@ -12,7 +12,6 @@ const data = [
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
 });
 
@@ -22,7 +21,7 @@ chart
   .interval()
   .encode('x', 'time')
   .encode('y', 'waiting')
-  .axis('y', { title: 'Waiting', style: { titleFill: '#5B8FF9' } });
+  .axis('y', { title: 'Waiting', titleFill: '#5B8FF9' });
 
 chart
   .line()
@@ -36,9 +35,7 @@ chart
     position: 'right',
     grid: null,
     title: 'People',
-    style: {
-      titleFill: '#fdae6b',
-    },
+    titleFill: '#fdae6b',
   });
 
 chart.render();

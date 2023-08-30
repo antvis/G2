@@ -9,7 +9,6 @@ const chart = new Chart({
   width: FW + P * 2,
   height: FH + P * 2,
   padding: P,
-  theme: 'classic',
 });
 
 // Draw football field.

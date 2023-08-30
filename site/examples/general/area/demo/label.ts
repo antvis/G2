@@ -110,7 +110,6 @@ const RegionStateMap = new Map([
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
 });
 
@@ -147,9 +146,7 @@ chart
     position: 'area', // `area` type positon used here.
     selector: 'first',
     transform: [{ type: 'overlapHide' }],
-    style: {
-      fontSize: 10,
-    },
+    fontSize: 10,
   })
   .tooltip({ channel: 'y', valueFormatter: (d) => d.toFixed(3) });
 

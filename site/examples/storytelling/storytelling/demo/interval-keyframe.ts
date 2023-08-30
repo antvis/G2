@@ -8,10 +8,7 @@ const sex = [
 ];
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
-  paddingTop: 60,
-  paddingLeft: 100,
 });
 
 const keyframe = chart.timingKeyframe();

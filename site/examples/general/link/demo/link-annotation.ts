@@ -313,10 +313,7 @@ const incdomain = (() => {
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
-  paddingLeft: 50,
-  paddingRight: 50,
 });
 
 chart
@@ -328,11 +325,9 @@ chart
   .label({
     position: 'top-right',
     text: (v) => `${v * 100}%`,
-    style: {
-      dx: 4,
-      textAlign: 'start',
-      textBaseline: 'middle',
-    },
+    dx: 4,
+    textAlign: 'start',
+    textBaseline: 'middle',
   })
   .style('stroke', '#000');
 
@@ -345,11 +340,9 @@ chart
   .label({
     position: 'top-right',
     text: (v) => `${v * 100}%`,
-    style: {
-      dx: 4,
-      textAlign: 'start',
-      textBaseline: 'middle',
-    },
+    dx: 4,
+    textAlign: 'start',
+    textBaseline: 'middle',
   })
   .style('stroke', '#000')
   .style('opacity', 0.2);

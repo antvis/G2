@@ -6,7 +6,6 @@ import { regressionExp } from 'd3-regression';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
 });
 
@@ -43,9 +42,7 @@ chart
   .label({
     text: 'y = 3477.32e^(0.18x)\nThe coefficient of determination, or R^2, is 0.998',
     selector: 'last',
-    style: {
-      textAlign: 'end',
-    },
+    textAlign: 'end',
   })
   .tooltip(false);
 

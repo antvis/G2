@@ -5,7 +5,6 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   height: 640,
 });
 
@@ -29,15 +28,14 @@ chart
   .label({
     text: 'name',
     radius: 0.8,
-    style: { fontSize: 10, fontWeight: 'bold' },
+    fontSize: 10,
+    fontWeight: 'bold',
   })
   .label({
     text: (d, i, data) => (i < data.length - 3 ? d.value : ''),
     radius: 0.8,
-    style: {
-      fontSize: 9,
-      dy: 12,
-    },
+    fontSize: 9,
+    dy: 12,
   })
   .animate('enter', { type: 'waveIn' })
   .legend(false);

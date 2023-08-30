@@ -9,24 +9,20 @@ fetch('https://assets.antv.antgroup.com/g2/barley.json')
   .then((data) => {
     const chart = new Chart({
       container: 'container',
-      theme: 'classic',
       height: 800,
-      paddingLeft: 130,
-      paddingRight: 120,
+      paddingLeft: 140,
+      paddingRight: 130,
       paddingBottom: 60,
     });
 
     const facetRect = chart
       .facetRect()
-      .attr('paddingLeft', 130)
-      .attr('paddingRight', 120)
-      .attr('paddingBottom', 60)
       .data(data)
       .encode('y', 'site')
       .scale('y', {
-        domain: groupSort<any, any>(
+        domain: groupSort(
           data,
-          (g) => -(median(g, (d) => d.yield) as number),
+          (g) => -median(g, (d) => d.yield),
           (d) => d.site,
         ),
       });
@@ -37,9 +33,9 @@ fetch('https://assets.antv.antgroup.com/g2/barley.json')
       .attr('insetRight', 5)
       .scale('color', { type: 'ordinal' })
       .scale('y', {
-        domain: groupSort<any, any>(
+        domain: groupSort(
           data,
-          (g) => -(median(g, (d) => d.yield) as number),
+          (g) => -median(g, (d) => d.yield),
           (d) => d.variety,
         ),
       })

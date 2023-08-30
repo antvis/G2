@@ -5,10 +5,8 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
-  paddingBottom: 120,
-  paddingLeft: 60,
-  paddingTop: 40,
+  autoFit: true,
+  insetTop: 30,
 });
 
 chart
@@ -22,7 +20,7 @@ chart
     { x: 'Taxes', value: 490000, start: 1504450, end: 1994450 },
     { x: 'Net Income', isTotal: true, value: 1994450, start: 0, end: 1994450 },
   ])
-  .axis('x', { title: false, style: { labelTransform: 'rotate(-90)' } })
+  .axis('x', { title: false, labelTransform: 'rotate(-90)' })
   .axis('y', { labelFormatter: '~s' })
   .legend(null);
 
@@ -43,10 +41,8 @@ chart
   .label({
     text: (d) => `${d.y2 - d.y1}`,
     formatter: '~s',
-    style: {
-      fontSize: 10,
-      dy: 2,
-    },
+    fontSize: 10,
+    dy: 2,
   })
   .style({ stroke: '#697474', offset: 16 })
   .tooltip(false);
@@ -68,11 +64,9 @@ chart
     text: 'value',
     formatter: '~s',
     position: (d) => (d.value > 0 ? 'top' : 'bottom'),
-    style: {
-      textBaseline: (d) => (d.value > 0 ? 'bottom' : 'top'),
-      fontSize: 10,
-      dy: (d) => (d.value > 0 ? -4 : 4),
-    },
+    textBaseline: (d) => (d.value > 0 ? 'bottom' : 'top'),
+    fontSize: 10,
+    dy: (d) => (d.value > 0 ? -4 : 4),
   })
   .tooltip({ channel: 'y', valueFormatter: '~s' })
   .tooltip({ channel: 'y1', valueFormatter: '~s' });
@@ -92,6 +86,7 @@ function linkData(data) {
     return r;
   }, []);
 }
+
 function connectorData(data) {
   return [
     {

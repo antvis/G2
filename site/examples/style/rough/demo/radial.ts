@@ -9,7 +9,6 @@ WebFont.load({
   active: () => {
     const chart = new Chart({
       container: 'container',
-      theme: 'classic',
       height: 480,
       plugins: [new Plugin()],
     });
@@ -45,24 +44,20 @@ WebFont.load({
       .label({
         text: 'name',
         radius: 0.8,
-        style: {
-          fontSize: 10,
-          fontWeight: 'bold',
-          fontFamily: 'Gaegu',
-          fill: 'black',
-          stroke: 'white',
-        },
+        fontSize: 10,
+        fontWeight: 'bold',
+        fontFamily: 'Gaegu',
+        fill: 'black',
+        stroke: 'white',
       })
       .label({
         text: (d, i, data) => (i < data.length - 3 ? d.value : ''),
         radius: 0.8,
-        style: {
-          fontSize: 12,
-          fontFamily: 'Gaegu',
-          fill: 'black',
-          stroke: 'white',
-          dy: 8,
-        },
+        fontSize: 12,
+        fontFamily: 'Gaegu',
+        fill: 'black',
+        stroke: 'white',
+        dy: 8,
       });
 
     chart.render();

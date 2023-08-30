@@ -19,9 +19,8 @@ fetch('https://assets.antv.antgroup.com/g2/barley.json')
 
     const chart = new Chart({
       container: 'container',
-      theme: 'classic',
-      paddingLeft: 120,
-      paddingBottom: 100,
+      paddingLeft: 150,
+      paddingBottom: 30,
     });
 
     const facet = chart.facetRect().data(data).encode('x', 'site');

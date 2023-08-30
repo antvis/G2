@@ -20,10 +20,10 @@ function* bubbleSort(arr) {
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
 });
 
 const keyframe = chart.timingKeyframe();
+
 for (const frame of bubbleSort(data)) {
   keyframe
     .interval()

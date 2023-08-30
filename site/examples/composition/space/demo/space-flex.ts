@@ -2,7 +2,6 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   width: 900,
 });
 
@@ -32,7 +31,7 @@ flex
     node
       .cell()
       .attr('paddingRight', 0)
-      .attr('paddingBottom', 50)
+      .attr('paddingBottom', 60)
       .transform({ type: 'group', color: 'max' })
       .encode('x', (d) => new Date(d.date).getUTCDate())
       .encode('y', (d) => new Date(d.date).getUTCMonth())
@@ -45,7 +44,7 @@ flex
   )
   .call((node) =>
     node
-      .attr('paddingBottom', 50)
+      .attr('paddingBottom', 60)
       .interval()
       .coordinate({ transform: [{ type: 'transpose' }] })
       .transform({ type: 'groupX', y: 'max' })

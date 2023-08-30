@@ -7,9 +7,6 @@ fetch(
   .then((data) => {
     const chart = new Chart({
       container: 'container',
-      theme: 'classic',
-      paddingTop: 60,
-      paddingLeft: 100,
     });
 
     const keyframe = chart

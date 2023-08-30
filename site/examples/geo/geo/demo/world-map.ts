@@ -10,13 +10,16 @@ register('data.feature', ({ name }) => {
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
 });
 
 const geoView = chart.geoView().coordinate({ type: 'orthographic' });
 
-geoView.geoPath().data({ type: 'graticule10' }).style('stroke', '#ccc');
+geoView
+  .geoPath()
+  .data({ type: 'graticule10' })
+  .style('stroke', '#ccc')
+  .style('fill', 'none');
 
 geoView
   .geoPath()
@@ -27,6 +30,10 @@ geoView
   })
   .style('fill', 'black');
 
-geoView.geoPath().data({ type: 'sphere' }).style('stroke', 'black');
+geoView
+  .geoPath()
+  .data({ type: 'sphere' })
+  .style('stroke', 'black')
+  .style('fill', 'none');
 
 chart.render();

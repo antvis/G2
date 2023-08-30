@@ -2,9 +2,7 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   width: 1000,
-  paddingBottom: 100,
 });
 
 chart
@@ -19,6 +17,7 @@ chart
   .encode('color', 'country')
   .encode('size', 'gdp')
   .scale('size', { range: [10, 60] })
+  .legend('size', false)
   .axis('y', { labelFormatter: '~s' })
   .tooltip(['value', 'gdp']);
 

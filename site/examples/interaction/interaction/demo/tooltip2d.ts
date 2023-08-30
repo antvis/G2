@@ -2,7 +2,6 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
 });
 
@@ -16,7 +15,5 @@ chart
   .encode('x', 'height')
   .encode('y', 'weight')
   .encode('color', 'gender');
-
-chart.interaction('tooltip');
 
 chart.render();

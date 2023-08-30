@@ -5,10 +5,8 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   width: 500,
   height: 400,
-  paddingLeft: 50,
 });
 
 chart.coordinate({ type: 'theta', innerRadius: 0.25, outerRadius: 0.8 });
@@ -30,21 +28,17 @@ chart
   })
   .label({
     text: 'value',
-    style: {
-      fontWeight: 'bold',
-      offset: 14,
-    },
+    fontWeight: 'bold',
+    offset: 14,
   })
   .label({
     text: 'id',
     position: 'spider',
     connectorDistance: 0,
-    style: {
-      fontWeight: 'bold',
-      textBaseline: 'bottom',
-      textAlign: (d) => (['c', 'sass'].includes(d.id) ? 'end' : 'start'),
-      dy: -4,
-    },
+    fontWeight: 'bold',
+    textBaseline: 'bottom',
+    textAlign: (d) => (['c', 'sass'].includes(d.id) ? 'end' : 'start'),
+    dy: -4,
   })
   .style('radius', 4)
   .style('stroke', '#fff')

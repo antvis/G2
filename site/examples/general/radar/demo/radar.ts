@@ -25,7 +25,6 @@ const data = [
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
 });
 
@@ -55,6 +54,6 @@ chart
   .encode('shape', 'smooth')
   .style('lineWidth', 2);
 
-chart.interaction('tooltip', { style: { crosshairsLineDash: [4, 4] } });
+chart.interaction('tooltip', { crosshairsLineDash: [4, 4] });
 
 chart.render();

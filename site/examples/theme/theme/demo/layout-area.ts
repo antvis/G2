@@ -5,7 +5,6 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   height: 240,
   marginLeft: 40,
   marginTop: 30,
@@ -36,6 +35,7 @@ chart
   .encode('y', (d) => new Date(d.time).getUTCDay())
   .encode('size', 'count')
   .encode('shape', 'point')
+  .legend('size', false)
   .style('shape', 'point')
   .style('fill', '#59a14f');
 

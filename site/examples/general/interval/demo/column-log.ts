@@ -4,8 +4,6 @@ const EPSILON = 1e-6;
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
-  padding: 'auto',
   autoFit: true,
 });
 

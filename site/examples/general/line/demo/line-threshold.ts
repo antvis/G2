@@ -7,14 +7,10 @@ import { median } from 'd3-array';
 fetch('https://assets.antv.antgroup.com/g2/temperatures2.json')
   .then((res) => res.json())
   .then((data) => {
-    const medianValue = median(
-      data,
-      (d: Record<string, any>) => d.value,
-    ) as number;
+    const medianValue = median(data, (d) => d.value);
 
     const chart = new Chart({
       container: 'container',
-      theme: 'classic',
       autoFit: true,
     });
 

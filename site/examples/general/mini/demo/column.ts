@@ -7,10 +7,8 @@ const data = [
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   width: 480,
   height: 80,
-  padding: 8,
 });
 
 chart.data(data);
@@ -32,9 +30,7 @@ chart
     text: 'value = 700',
     position: 'right',
     dx: -10,
-    style: {
-      textBaseline: 'bottom',
-    },
+    textBaseline: 'bottom',
   });
 
 chart.interaction('tooltip', {

@@ -5,9 +5,12 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
-  paddingLeft: 50,
+});
+
+chart.title({
+  title: 'Population by age and state',
+  subtitle: 'It shows the population of U.S. by age and state.',
 });
 
 chart
@@ -23,6 +26,7 @@ chart
   .encode('x', 'state')
   .encode('y', 'population')
   .encode('color', 'age')
+  .scale('y', { nice: true })
   .axis('y', { labelFormatter: '~s' });
 
 chart

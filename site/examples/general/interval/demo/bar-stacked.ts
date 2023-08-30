@@ -5,7 +5,6 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
 });
 
@@ -24,9 +23,7 @@ chart
   .encode('color', 'age')
   .axis('x', {
     labelSpacing: 4,
-    style: {
-      labelTransform: 'rotate(90)',
-    },
+    labelTransform: 'rotate(90)',
   })
   .axis('y', { labelFormatter: '~s' });
 
