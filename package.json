@@ -1,6 +1,6 @@
 {
   "name": "@antv/g2",
-  "version": "5.0.23",
+  "version": "5.0.24",
   "description": "the Grammar of Graphics in Javascript",
   "license": "MIT",
   "main": "lib/index.js",
@@ -42,7 +42,7 @@
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "sideEffects": [
-    "./src/index.ts"
+    "./esm/index.js"
   ],
   "keywords": [
     "antv",

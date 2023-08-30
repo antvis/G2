@@ -1,3 +1,20 @@
+## [5.0.24](https://github.com/antvis/g2/compare/5.0.23...5.0.24) (2023-08-30)
+
+
+### Bug Fixes
+
+* **test:** call defined render function ([#5481](https://github.com/antvis/g2/issues/5481)) ([c0c5746](https://github.com/antvis/g2/commit/c0c574683f3cd97b1813fa3dc7454137b8ae6ad4))
+* **theme:** update default color of light theme ([#5487](https://github.com/antvis/g2/issues/5487)) ([7cbe9a7](https://github.com/antvis/g2/commit/7cbe9a7cf8ea537c274288c4f55118b9544ae622))
+
+
+### Features
+
+* 3d line plot ([#5471](https://github.com/antvis/g2/issues/5471)) ([4d157cd](https://github.com/antvis/g2/commit/4d157cd162a805d8a68a29a5abf216074fb2058f))
+* **builtinlib:** move some components from core to builtinlib ([#5485](https://github.com/antvis/g2/issues/5485)) ([fc70bf5](https://github.com/antvis/g2/commit/fc70bf5423b73b1b06ff3b551e2a5a5902dd3527))
+* **lib:** change graphlib and plotlib ([#5484](https://github.com/antvis/g2/issues/5484)) ([ad175a0](https://github.com/antvis/g2/commit/ad175a0b232552c94c3c6d6305da28a9c42ee497))
+
+
+
 ## [5.0.23](https://github.com/antvis/g2/compare/5.0.22...5.0.23) (2023-08-29)
 
 ### Bug Fixes
