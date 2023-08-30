@@ -222,9 +222,12 @@ export class Runtime<Spec extends G2Spec = G2Spec> extends CompositionNode {
     }
 
     // Create composition generators.
-    const compositions = Object.keys(library).filter(
-      (key) => key.startsWith('composition.') && key !== 'composition.mark',
-    );
+    const compositions = [
+      'composition.view', // chat.view()
+      ...Object.keys(library).filter(
+        (key) => key.startsWith('composition.') && key !== 'composition.mark',
+      ),
+    ];
     this._compositions = Object.fromEntries(
       compositions.map((key) => {
         const name = key.split('.').pop();
