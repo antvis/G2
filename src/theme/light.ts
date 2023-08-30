@@ -6,7 +6,7 @@ const COLORS = {
   BLACK: '#1D2129',
   WHITE: '#fff',
   STROKE: '#416180',
-  DEFAULT: '#5B8FF9',
+  DEFAULT: '#1783FF',
   BACKGROUND: 'transparent',
 };
 
