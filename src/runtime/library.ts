@@ -1,5 +1,6 @@
 import { IDocument } from '@antv/g';
 import { error } from '../utils/helper';
+import { builtinlib } from '../lib/builtinlib';
 import { G2ComponentOptions, G2Context, G2Library } from './types/options';
 import {
   G2Component,
@@ -13,8 +14,10 @@ export function useLibrary<
   V extends G2ComponentValue,
 >(
   namespace: G2ComponentNamespaces,
-  library: G2Library,
+  publicLibrary: G2Library,
 ): [(options: O, context?) => V, (type: O['type']) => C] {
+  const library = { ...builtinlib(), ...publicLibrary };
+
   const create = (type: O['type']) => {
     if (typeof type !== 'string') return type;
     const key = `${namespace}.${type}`;

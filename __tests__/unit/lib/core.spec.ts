@@ -5,7 +5,6 @@ import {
   Transpose,
   Parallel,
   Fisheye,
-  Helix,
   Theta,
   Radial,
   Radar,
@@ -56,14 +55,8 @@ import { Classic, ClassicDark, Academy, Light } from '../../../src/theme';
 import {
   AxisX,
   AxisY,
-  AxisArc,
-  AxisLinear,
-  AxisRadar,
   LegendCategory,
   LegendContinuous,
-  LegendContinuousBlock,
-  LegendContinuousBlockSize,
-  LegendContinuousSize,
   SliderX,
   SliderY,
   ScrollbarX,
@@ -108,17 +101,14 @@ import {
   ScrollbarFilter,
   LegendHighlight,
   Poptip,
-  Event,
 } from '../../../src/interaction';
 import {
   SpaceLayer,
   SpaceFlex,
   RepeatMatrix,
-  View,
   FacetCircle,
   FacetRect,
   TimingKeyframe,
-  Mark,
 } from '../../../src/composition';
 import {
   StackY,
@@ -168,7 +158,6 @@ import {
   OverlapHide,
   OverlapDodgeY,
 } from '../../../src/label-transform';
-import { LabelShape } from '../../../src/shape';
 
 describe('corelib', () => {
   it('corelib() should returns expected basic marks and components.', () => {
@@ -213,7 +202,6 @@ describe('corelib', () => {
       'transform.filter': FilterTransform,
       'coordinate.cartesian': Cartesian,
       'coordinate.polar': Polar,
-      'coordinate.helix': Helix,
       'coordinate.transpose': Transpose,
       'coordinate.theta': Theta,
       'coordinate.parallel': Parallel,
@@ -246,7 +234,6 @@ describe('corelib', () => {
       'mark.shape': Shape,
       'mark.density': Density,
       'mark.heatmap': Heatmap,
-      'shape.label.label': LabelShape,
       'palette.category10': Category10,
       'palette.category20': Category20,
       'scale.linear': Linear,
@@ -269,14 +256,8 @@ describe('corelib', () => {
       'theme.light': Light,
       'component.axisX': AxisX,
       'component.axisY': AxisY,
-      'component.axisArc': AxisArc,
-      'component.axisLinear': AxisLinear,
-      'component.axisRadar': AxisRadar,
       'component.legendCategory': LegendCategory,
       'component.legendContinuous': LegendContinuous,
-      'component.legendContinuousBlock': LegendContinuousBlock,
-      'component.legendContinuousBlockSize': LegendContinuousBlockSize,
-      'component.legendContinuousSize': LegendContinuousSize,
       'component.legends': Legends,
       'component.title': TitleComponent,
       'component.sliderX': SliderX,
@@ -317,11 +298,8 @@ describe('corelib', () => {
       'interaction.sliderFilter': SliderFilter,
       'interaction.scrollbarFilter': ScrollbarFilter,
       'interaction.poptip': Poptip,
-      'interaction.event': Event,
       'composition.spaceLayer': SpaceLayer,
       'composition.spaceFlex': SpaceFlex,
-      'composition.mark': Mark,
-      'composition.view': View,
       'composition.facetRect': FacetRect,
       'composition.repeatMatrix': RepeatMatrix,
       'composition.facetCircle': FacetCircle,

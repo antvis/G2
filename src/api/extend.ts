@@ -16,9 +16,14 @@ type CompositionOf<Library> = Of<
     CompositionOf<Library>
 >;
 
+type BuiltinComposition = {
+  'composition.mark': any;
+  'composition.view': any;
+};
+
 export type API<Spec, Library> = Runtime<Spec> &
   MarkOf<Library, (composite?) => MarkNode> &
-  CompositionOf<Library>;
+  CompositionOf<Library & BuiltinComposition>;
 
 export function extend<
   Spec extends G2Spec = G2Spec,
