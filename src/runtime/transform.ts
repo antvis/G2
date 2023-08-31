@@ -42,9 +42,20 @@ export async function applyDataTransform(
   const transform = [connector, ...T];
   const transformFunctions = transform.map(useData);
   const transformedData = await composeAsync(transformFunctions)(data);
+
+  // Maintain the consistency of shape between input and output data.
+  // If the shape of raw data is like { value: any }
+  // and the returned transformedData is Object,
+  // returns the wrapped data: { value: transformedData },
+  // otherwise returns the processed tabular data.
+  const newData =
+    data && !Array.isArray(data) && !Array.isArray(transformedData)
+      ? { value: transformedData }
+      : transformedData;
+
   return [
     Array.isArray(transformedData) ? indexOf(transformedData) : [],
-    { ...mark, data: transformedData },
+    { ...mark, data: newData },
   ];
 }
 
