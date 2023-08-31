@@ -16,7 +16,6 @@ const Chart = extend(Runtime, { ...corelib(), ...threedlib() });
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   renderer,
   depth: 400,
 });

@@ -12,7 +12,7 @@ G2 提供了一些内置的色板，可以直接使用，并支持 [d3-scale-chr
 ```js
 import { chart } from '@antv/g2';
 
-const chart = new Chart({ theme: 'classic' });
+const chart = new Chart({ container: 'container' });
 
 chart
   .interval()

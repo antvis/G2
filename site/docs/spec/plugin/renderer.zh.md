@@ -17,7 +17,6 @@ const chart = new Chart({
   container: 'container',
   // 或者选择 WebGLRenderer 渲染器，不设置默认为 CanvasRenderer.
   renderer: new SVGRenderer(),
-  theme: 'classic',
 });
 ```
 
@@ -76,7 +75,6 @@ const { Chart } = window.G2;
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   renderer: new window.G.SVG.Renderer(), // 传入 SVG Renderer
 });
 ```

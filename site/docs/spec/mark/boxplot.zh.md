@@ -23,7 +23,6 @@ const chart = new Chart({
   container: 'container',
   paddingLeft: 60,
   inset: 6,
-  theme: 'classic',
 });
 
 chart

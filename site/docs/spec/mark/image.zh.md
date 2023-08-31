@@ -49,7 +49,6 @@ const data = [
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
 });
 
 chart.data(data);

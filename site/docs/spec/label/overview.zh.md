@@ -20,7 +20,6 @@ const chart = new Chart({
   container: 'container',
   width: 720,
   height: 720,
-  theme: 'classic',
 });
 
 chart.coordinate({ type: 'polar', outerRadius: 0.85 });

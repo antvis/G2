@@ -13,7 +13,6 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
 });
 
 chart
@@ -81,8 +80,6 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
-  theme: 'classic',
 });
 
 chart

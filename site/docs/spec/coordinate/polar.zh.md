@@ -13,7 +13,6 @@ Polar 是极坐标系变换，将笛卡尔直角坐标系坐标变换为极坐�
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
-  theme: 'classic',
 });
 
 chart.coordinate({ type: 'polar' });
