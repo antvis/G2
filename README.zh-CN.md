@@ -40,11 +40,11 @@ G2 起源于 Leland Wilkinson 的图形语法：《The Grammar of Graphics》，
 可以通过 NPM 或 Yarn 等包管理器来安装。
 
 ```bash
-$ npm install @antv/g2@next
+$ npm install @antv/g2
 ```
 
 ```bash
-$ yarn add @antv/g2@next
+$ yarn add @antv/g2
 ```
 
 成功安装之后，可以通过 import 导入 Chart 对象。
