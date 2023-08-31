@@ -8,10 +8,7 @@ G2 5.0 和 4.0 版本一样，提供了一套命令式的 Functional API 去声�
 ```js | ob
 (() => {
   // 初始化图表实例
-  const chart = new G2.Chart({
-    theme: 'classic',
-    padding: 'auto',
-  });
+  const chart = new G2.Chart();
 
   // 声明可视化
   chart
@@ -43,10 +40,7 @@ G2 5.0 和 4.0 版本一样，提供了一套命令式的 Functional API 去声�
 ```js | ob
 (() => {
   // 初始化图表实例
-  const chart = new G2.Chart({
-    theme: 'classic',
-    padding: 'auto',
-  });
+  const chart = new G2.Chart();
 
   // 声明可视化
   chart.options({
@@ -131,10 +125,7 @@ chart
 ```js | ob
 (() => {
   // 初始化图表实例
-  const chart = new G2.Chart({
-    theme: 'classic',
-    padding: 'auto',
-  });
+  const chart = new G2.Chart();
 
   // 声明可视化
   chart.options({
@@ -184,8 +175,7 @@ chart
 
   // 声明可视化
   chart.options({
-    theme: 'classic',
-    type: 'spaceFlex',
+      type: 'spaceFlex',
     width: 900,
     data: {
       type: 'fetch',

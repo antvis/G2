@@ -57,7 +57,7 @@ table({
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .point()
@@ -178,7 +178,7 @@ table({
   const X = I.map((i) => ((i - 2) * Math.PI) / 2);
   const Y = X.map((x) => Math.sin(x));
 
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .line()
@@ -199,7 +199,7 @@ table({
 
 ```js
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .interval()
@@ -258,7 +258,7 @@ chart.encode('y', 'end').encode('y1', 'start');
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .data([

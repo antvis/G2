@@ -7,7 +7,7 @@ G2 的大部分能力通过 `Chart` 对象暴露给用户，比如绘制一个�
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .interval()
@@ -43,7 +43,7 @@ const chart = new Chart({
 
 ## 全局选项
 
-可以通 `new Chart(options)` 指定一些全局选项：比如挂载的容器，宽度，高度等。除了 **theme** 属性之外，其他这些选项都是**可选的**。
+可以通 `new Chart(options)` 指定一些全局选项：比如挂载的容器，宽度，高度等。所有的选项都是**可选的**。
 
 ```js
 // 按需指定选项
@@ -51,7 +51,6 @@ const chart = new Chart({
   width: 800, // 图表高度
   height: 400, // 图表宽度
   container: 'chart', // 挂载容器的 ID
-  theme: 'classic',
 });
 ```
 
@@ -68,20 +67,18 @@ const chart = new Chart({
 ```js
 const chart = new Chart({
   container: 'chart', // 指定挂载容器 id
-  theme: 'classic',
 });
 
 // 或者
 const chart = new Chart({
   container: document.getElementById('chart'), // 指定挂载容器
-  theme: 'classic',
 });
 ```
 
 第二种，手动挂载。
 
 ```js
-const chart = new Chart({ theme: 'classic' });
+const chart = new Chart();
 
 // 声明可视化
 // ...
@@ -98,7 +95,6 @@ document.getElementById('chart').appendChild(container);
 // 创建图表实例
 const chart = new Chart({
   container: 'chart',
-  theme: 'classic',
 });
 
 // 声明可视化

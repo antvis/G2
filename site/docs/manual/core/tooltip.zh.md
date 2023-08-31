@@ -188,7 +188,7 @@ G2 默认打开 Tooltip 交互 ，如果需要配置 Tooltip 属性，可以通�
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .line()

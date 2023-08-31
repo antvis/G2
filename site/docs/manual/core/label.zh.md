@@ -94,7 +94,7 @@ chart.labelTransform([{ type: 'overlapHide' }, { type: 'contrastReverse' }]);
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ padding: 'auto', theme: 'classic' });
+  const chart = new G2.Chart();
 
   chart
     .interval()
@@ -139,7 +139,7 @@ chart.labelTransform([{ type: 'overlapHide' }, { type: 'contrastReverse' }]);
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ padding: 'auto', theme: 'classic' });
+  const chart = new G2.Chart();
 
   chart
     .line()
@@ -173,7 +173,7 @@ chart.labelTransform([{ type: 'overlapHide' }, { type: 'contrastReverse' }]);
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ padding: 'auto', theme: 'classic' });
+  const chart = new G2.Chart();
 
   chart
     .line()
@@ -202,7 +202,7 @@ chart.labelTransform([{ type: 'overlapHide' }, { type: 'contrastReverse' }]);
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ padding: 'auto', theme: 'classic' });
+  const chart = new G2.Chart();
 
   chart
     .line()

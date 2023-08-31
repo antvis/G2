@@ -47,7 +47,7 @@ chart.transform([{ type: 'stackY' }, { type: 'sortX' }]);
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .interval()
@@ -86,7 +86,7 @@ chart.transform([{ type: 'stackY' }, { type: 'sortX' }]);
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .data([
@@ -135,7 +135,7 @@ chart.transform([{ type: 'stackY' }, { type: 'sortX' }]);
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .interval()
@@ -171,7 +171,7 @@ chart.transform([{ type: 'stackY' }, { type: 'sortX' }]);
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .interval()
@@ -214,7 +214,7 @@ chart.transform([{ type: 'stackY' }, { type: 'sortX' }]);
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .point()
@@ -238,7 +238,7 @@ chart.transform([{ type: 'stackY' }, { type: 'sortX' }]);
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .rect()
@@ -270,7 +270,7 @@ Bin 主要是用来聚合数值类型的数据，Group 主要针对离散数据�
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .rect()
