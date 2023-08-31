@@ -98,7 +98,7 @@ chart.point();
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .point()
@@ -121,7 +121,7 @@ chart.point();
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .line()
@@ -159,7 +159,7 @@ G2 的标记是可以叠加的，换句话说：可以在一个视图里面添�
     { year: '1999', value: 13 },
   ];
 
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart.line().data(data).encode('x', 'year').encode('y', 'value');
 
@@ -197,7 +197,7 @@ G2 里面的标记可以通过一种机制复合成一个标记，然后使用�
     { year: '1999', value: 13 },
   ];
 
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   // Options 使用复合 Mark
   chart.mark(PointLine).data(data).encode('x', 'year').encode('y', 'value');
@@ -222,8 +222,6 @@ G2 里面的标记可以通过一种机制复合成一个标记，然后使用�
   const chart = new G2.Chart({
     width: 900,
     height: 600,
-    theme: 'classic',
-    padding: 'auto',
   });
 
   // Sankey 标记
@@ -266,10 +264,7 @@ Select 标记转换提供了从一组图形中选择图形的能力。比如在�
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({
-    theme: 'classic',
-    padding: 'auto',
-  });
+  const chart = new G2.Chart();
 
   chart.data({
     type: 'fetch',
@@ -316,7 +311,7 @@ Select 标记转换提供了从一组图形中选择图形的能力。比如在�
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .point()
@@ -404,10 +399,7 @@ Select 标记转换提供了从一组图形中选择图形的能力。比如在�
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({
-    theme: 'classic',
-    padding: 'auto',
-  });
+  const chart = new G2.Chart();
 
   chart
     .interval()
@@ -443,10 +435,7 @@ Select 标记转换提供了从一组图形中选择图形的能力。比如在�
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({
-    theme: 'classic',
-    padding: 'auto',
-  });
+  const chart = new G2.Chart();
 
   chart
     .interval()

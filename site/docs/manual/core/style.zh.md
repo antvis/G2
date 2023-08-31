@@ -79,7 +79,7 @@ chart.style({
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .interval()
@@ -114,12 +114,11 @@ chart.style({
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic' });
+  const chart = new G2.Chart();
 
   chart.options({
     type: 'view',
-    theme: 'classic',
-    height: 280,
+      height: 280,
     inset: 10,
     marginTop: 30,
     marginLeft: 40,

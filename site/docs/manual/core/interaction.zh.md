@@ -91,7 +91,7 @@ chart.area():
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ padding: 'auto', theme: 'classic' });
+  const chart = new G2.Chart();
 
   chart
     .interval()
@@ -127,7 +127,7 @@ chart.area():
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ padding: 'auto', theme: 'classic' });
+  const chart = new G2.Chart();
 
   chart
     .interval()

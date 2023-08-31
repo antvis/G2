@@ -28,7 +28,7 @@ table({
 
 ```js
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
   // ...
   return chart.getContainer(); // 挂载图表的容器
 })();
@@ -43,7 +43,7 @@ table({
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .point()
@@ -68,7 +68,7 @@ table({
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .rect()
@@ -95,7 +95,7 @@ table({
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .rect()
@@ -124,7 +124,7 @@ table({
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .rect()
@@ -157,8 +157,7 @@ table({
 (() => {
   const chart = new G2.Chart({
     paddingLeft: 60,
-    theme: 'classic',
-    padding: 'auto',
+    
   });
 
   const facet = chart
@@ -192,7 +191,7 @@ table({
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .rect()
@@ -221,7 +220,7 @@ table({
     'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
   ).then((res) => res.json());
 
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   const keyframe = chart
     .timingKeyframe()
@@ -259,7 +258,7 @@ table({
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .point()

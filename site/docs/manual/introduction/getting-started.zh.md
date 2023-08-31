@@ -45,7 +45,6 @@ const data = [
 // 初始化图表实例
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
 });
 
 // 声明可视化
@@ -78,7 +77,6 @@ G2 也提供了 UMD 版本，可以直接通过 CDN 加载，然后直接使用�
   // 初始化图表实例
   const chart = new G2.Chart({
     container: 'container',
-    theme: 'classic',
   });
 
   // 声明可视化
@@ -100,7 +98,7 @@ G2 也提供了 UMD 版本，可以直接通过 CDN 加载，然后直接使用�
 ```js | ob {pin:false}
 (() => {
   // 初始化图表实例
-  const chart = new G2.Chart({ theme: 'classic' });
+  const chart = new G2.Chart();
 
   chart
     .interval()

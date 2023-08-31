@@ -7,7 +7,7 @@ G2 设计了一套**规范（Spec）** 去描述可以绘制的可视化，使�
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart.options({
     type: 'interval',
@@ -36,7 +36,7 @@ G2 设计了一套**规范（Spec）** 去描述可以绘制的可视化，使�
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .interval()
@@ -129,7 +129,7 @@ spaceFlex.interval();
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart.options({
     type: 'interval', // 标记节点
@@ -165,7 +165,7 @@ spaceFlex.interval();
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart.options({
     type: 'view', // 视图节点
@@ -213,15 +213,12 @@ spaceFlex.interval();
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({
-    theme: 'classic',
-  });
+  const chart = new G2.Chart();
 
   chart.options({
     type: 'spaceFlex',
     width: 800,
     height: 400,
-    theme: 'classic',
     children: [
       {
         type: 'interval',

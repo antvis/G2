@@ -81,7 +81,7 @@ chart.interval().style('shape', 'triangle');
   G2.register('shape.interval.triangle', ShapeTriangle);
 
   // 初始化图表
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .interval()
@@ -120,7 +120,7 @@ function render(event, tooltipData) {
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .interval()
@@ -262,8 +262,7 @@ function legendColor(chart) {
   const container = document.createElement('div');
 
   const chart = new G2.Chart({
-    theme: 'classic',
-    padding: 'auto',
+    
     container,
   });
 
@@ -336,8 +335,7 @@ function legendColor(chart) {
 
   chart.options({
     type: 'line',
-    theme: 'classic',
-    data: {
+      data: {
       type: 'fetch',
       value:
         'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',

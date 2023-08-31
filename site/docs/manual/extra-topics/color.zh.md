@@ -31,7 +31,7 @@ order: 6
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .interval()
@@ -57,7 +57,7 @@ order: 6
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .interval()
@@ -87,7 +87,7 @@ G2 中可以通过设置 `scale.palette` 去指定色板。这个色板可以是
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .interval()
@@ -113,8 +113,7 @@ G2 中可以通过设置 `scale.palette` 去指定色板。这个色板可以是
 ```js | ob
 (() => {
   const chart = new G2.Chart({
-    theme: 'classic',
-    padding: 'auto',
+    
     height: 320,
   });
 
@@ -157,7 +156,7 @@ chart.interval().scale('color', {
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .interval()

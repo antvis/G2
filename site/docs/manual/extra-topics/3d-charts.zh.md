@@ -53,7 +53,6 @@ const Chart = extend(Runtime, { ...corelib(), ...threedlib() });
 ```ts
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   renderer,
   depth: 400,
 });
@@ -110,8 +109,7 @@ chart.render().then(() => {
 
   // 初始化图表实例
   const chart = new Chart({
-    theme: 'classic',
-    renderer,
+      renderer,
     width: 500,
     height: 500,
     depth: 400,
@@ -174,8 +172,7 @@ camera.rotate(-20, -20, 0);
 
   // 初始化图表实例
   const chart = new Chart({
-    theme: 'classic',
-    renderer,
+      renderer,
     width: 500,
     height: 500,
     depth: 400,
@@ -251,8 +248,7 @@ canvas.appendChild(light);
 
   // 初始化图表实例
   const chart = new Chart({
-    theme: 'classic',
-    renderer,
+      renderer,
     width: 500,
     height: 500,
     depth: 400,
@@ -380,8 +376,7 @@ chart.legend(false);
 
   // 初始化图表实例
   const chart = new Chart({
-    theme: 'classic',
-    renderer,
+      renderer,
     width: 500,
     height: 500,
     depth: 400,
@@ -544,8 +539,7 @@ button.onclick = () => {
 
   // 初始化图表实例
   const chart = new Chart({
-    theme: 'classic',
-    renderer,
+      renderer,
     width: 500,
     height: 500,
     depth: 400,
