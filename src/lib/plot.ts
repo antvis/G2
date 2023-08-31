@@ -1,4 +1,12 @@
-import { Sankey, Treemap, Pack, Boxplot, WordCloud, Gauge } from '../mark';
+import {
+  Sankey,
+  Treemap,
+  Pack,
+  Boxplot,
+  WordCloud,
+  Gauge,
+  Liquid,
+} from '../mark';
 import { Arc, Cluster, Venn } from '../data';
 
 export function plotlib() {
@@ -12,5 +20,6 @@ export function plotlib() {
     'mark.pack': Pack,
     'mark.gauge': Gauge,
     'mark.wordCloud': WordCloud,
+    'mark.liquid': Liquid,
   } as const;
 }

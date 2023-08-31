@@ -6,6 +6,7 @@ import {
   Boxplot,
   WordCloud,
   Gauge,
+  Liquid,
 } from '../../../src/mark';
 import { Venn, Cluster, Arc } from '../../../src/data';
 
@@ -21,6 +22,7 @@ describe('plotlib', () => {
       'mark.boxplot': Boxplot,
       'mark.wordCloud': WordCloud,
       'mark.gauge': Gauge,
+      'mark.liquid': Liquid,
     });
   });
 });

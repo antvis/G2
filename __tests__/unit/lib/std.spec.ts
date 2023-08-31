@@ -42,6 +42,7 @@ import {
   Gauge,
   Density as DensityGeometry,
   Heatmap,
+  Liquid,
 } from '../../../src/mark';
 import { Category10, Category20 } from '../../../src/palette';
 import {
@@ -269,6 +270,7 @@ describe('stdlib', () => {
       'mark.wordCloud': WordCloudGeometry,
       'mark.density': DensityGeometry,
       'mark.gauge': Gauge,
+      'mark.liquid': Liquid,
       'mark.heatmap': Heatmap,
       'shape.label.label': LabelShape,
       'palette.category10': Category10,

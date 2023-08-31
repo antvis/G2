@@ -59,6 +59,7 @@ export { Rect as RangeShape } from './interval/rect';
 export { Rect as RectShape } from './interval/rect';
 export { Hollow as RectHollow } from './interval/hollow';
 export { Shape as ShapeShape } from './shape/shape';
+export { LiquidShape } from './liquid/liquidShape';
 
 export type { RectOptions as IntervalShapeOptions } from './interval/rect';
 export type { HollowOptions as IntervalHollowOptions } from './interval/hollow';
@@ -108,3 +109,4 @@ export type { ConnectorOptions as ConnectorShapeOptions } from './connector/conn
 export type { LabelOptions as LabelShapeOptions } from './label/label';
 export type { DensityOptions as DensityShapeOptions } from './density/density';
 export type { ShapeOptions as ShapeShapeOptions } from './shape/shape';
+export type { LiquidShapeOptions } from './liquid/liquidShape';

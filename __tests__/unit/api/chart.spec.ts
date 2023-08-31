@@ -122,6 +122,7 @@ describe('Chart', () => {
     expect(chart.tree().type).toBe('tree');
     expect(chart.wordCloud().type).toBe('wordCloud');
     expect(chart.gauge().type).toBe('gauge');
+    expect(chart.liquid().type).toBe('liquid');
     expect(chart.density().type).toBe('density');
     expect(chart.heatmap().type).toBe('heatmap');
     expect(chart.axisX().type).toBe('axisX');
@@ -155,6 +156,7 @@ describe('Chart', () => {
       { type: 'tree' },
       { type: 'wordCloud' },
       { type: 'gauge' },
+      { type: 'liquid' },
       { type: 'density' },
       { type: 'heatmap' },
       { type: 'axisX' },
