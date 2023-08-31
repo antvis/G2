@@ -33,7 +33,6 @@ const data = M.flatMap((month) =>
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   width: 480,
   height: 480,
 });

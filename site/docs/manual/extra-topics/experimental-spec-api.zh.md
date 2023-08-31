@@ -171,11 +171,11 @@ chart
 ```js | ob
 (() => {
   // 初始化图表实例
-  const chart = new G2.Chart({ padding: 'auto' });
+  const chart = new G2.Chart();
 
   // 声明可视化
   chart.options({
-      type: 'spaceFlex',
+    type: 'spaceFlex',
     width: 900,
     data: {
       type: 'fetch',

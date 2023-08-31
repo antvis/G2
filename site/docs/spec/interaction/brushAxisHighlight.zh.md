@@ -36,7 +36,6 @@ const axis = {
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
 });
 
 chart.coordinate({ type: 'parallel' });

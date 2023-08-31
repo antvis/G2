@@ -15,7 +15,6 @@ import { Chart } from '@antv/g2';
 const chart = new Chart({
   width: 720,
   paddingLeft: 60,
-  theme: 'classic',
 });
 
 chart.coordinate({ type: 'parallel' });

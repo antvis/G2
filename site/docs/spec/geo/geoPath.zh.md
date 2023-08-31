@@ -26,7 +26,6 @@ Promise.all([
 
   const chart = new Chart({
     container: 'container',
-    theme: 'classic',
   });
 
   chart
@@ -59,7 +58,6 @@ Promise.all([
 ## 选项
 
 目前 `geoPath` 除了和通用 mark 相同的 API 和配置项，还有一个特殊的就是 `projection` 映射，当前 G2 内置了 [d3-geo](https://github.com/d3/d3-geo) 的所有映射。
-
 
 ## FAQ
 

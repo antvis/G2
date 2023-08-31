@@ -24,7 +24,6 @@ order: 1
 
   // 初始化图表实例
   const chart = new Chart({
-    theme: 'classic',
     renderer,
     width: 500,
     height: 500,
@@ -96,7 +95,6 @@ order: 1
 
   // 初始化图表实例
   const chart = new Chart({
-    theme: 'classic',
     renderer,
     width: 500,
     height: 500,

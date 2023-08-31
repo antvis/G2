@@ -12,7 +12,7 @@ order: 1
 ```js
 import { Chart } from '@antv/g2';
 
-const chart = new Chart({ theme: 'classic' });
+const chart = new Chart();
 
 chart.coordinate({
   transform: [{ type: 'fisheye', focusX: 0.5, focusY: 0.5 }],

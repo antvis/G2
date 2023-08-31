@@ -31,7 +31,7 @@ chart.data({
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart.options({
     type: 'point',

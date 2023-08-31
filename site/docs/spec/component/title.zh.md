@@ -14,7 +14,6 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
 });
 
 chart.title('This is the title of chart.');
