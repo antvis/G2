@@ -500,8 +500,16 @@ async function transformMarks(
       const { composite = true } = props;
       if (!composite) flattenMarks.push(mark);
       else {
+        // Unwrap data from { value: data } to data,
+        // then the composite mark can process the normalized data.
+        const { data } = mark;
+        const newMark = {
+          ...mark,
+          data: data ? (Array.isArray(data) ? data : data.value) : data,
+        };
+
         // Convert composite mark to marks.
-        const marks = await useMark(mark, context);
+        const marks = await useMark(newMark, context);
         const M = Array.isArray(marks) ? marks : [marks];
         discovered.unshift(...M.map((d, i) => ({ ...d, key: `${key}-${i}` })));
       }
