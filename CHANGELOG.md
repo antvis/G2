@@ -1,3 +1,17 @@
+# [5.1.0](https://github.com/antvis/g2/compare/5.0.24...5.1.0) (2023-08-31)
+
+
+### Bug Fixes
+
+* **runtime:** process data ([#5494](https://github.com/antvis/g2/issues/5494)) ([b851ca3](https://github.com/antvis/g2/commit/b851ca34f585485c5855924ed92061c21f92d43f))
+
+
+### Features
+
+* update category20 ([#5495](https://github.com/antvis/g2/issues/5495)) ([83bcc17](https://github.com/antvis/g2/commit/83bcc17a0e044779268a8cb6748b043ab6efbd16))
+
+
+
 ## [5.0.24](https://github.com/antvis/g2/compare/5.0.23...5.0.24) (2023-08-30)
 
 
