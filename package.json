@@ -129,7 +129,6 @@
     "rollup": "^2.39.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-polyfill-node": "^0.8.0",
-    "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript": "^1.0.1",
     "rollup-plugin-typescript2": "^0.35.0",
     "rollup-plugin-visualizer": "^5.9.2",

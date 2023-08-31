@@ -2,7 +2,7 @@
   "compilerOptions": {
     // "outDir": "lib",  在 package.json 中 build:cjs 指令 指定的 outDir 为 lib；build:esm 指令 指定的 outDir 为 esm rollup.config.js 中的 output.dir 为 dist
     // "module": "commonjs", 要升级rollup-plugin-typescript2插件，否则会报错 且在之前的 rollup-plugin-typescript 插件中该配置也没生效
-    "module": "ES2015",
+    "module": "ESNext",
     "target": "es6",
     "jsx": "preserve",
     "moduleResolution": "node",
