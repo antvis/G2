@@ -8,8 +8,8 @@ document.getElementById('container').innerHTML = `
 // Render focus View.
 const focus = new Chart({
   container: 'focus',
-  theme: 'classic',
   height: 360,
+  paddingLeft: 60,
 });
 
 focus
@@ -32,11 +32,10 @@ focus.render();
 // Render context View.
 const context = new Chart({
   container: 'context',
-  theme: 'classic',
-  paddingLeft: 40,
   paddingTop: 0,
   paddingBottom: 0,
-  height: 60,
+  height: 90,
+  paddingLeft: 60,
 });
 
 context

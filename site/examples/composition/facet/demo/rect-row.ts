@@ -5,15 +5,14 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   width: 928,
-  height: 270,
-  paddingBottom: 50,
+  height: 320,
+  paddingLeft: 60,
+  paddingBottom: 60,
 });
 
 const facetRect = chart
   .facetRect()
-  .attr('paddingBottom', 50)
   .data({
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/anscombe.json',

@@ -2,9 +2,7 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
-  paddingRight: 60,
 });
 
 chart.coordinate({ transform: [{ type: 'transpose' }] });
@@ -36,10 +34,8 @@ chart
     text: 'value',
     position: 'right',
     formatter: (v) => `${v}min`,
-    style: {
-      dx: 4,
-      textAlign: 'start',
-    },
+    dx: 4,
+    textAlign: 'start',
   });
 
 chart

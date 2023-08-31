@@ -2,7 +2,6 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
 });
 
@@ -15,8 +14,8 @@ chart
   .encode('x', 'weight')
   .encode('y', 'height')
   .encode('color', 'sex')
-  .legend({ color: { itemMarker: 'square' } })
   .transform({ type: 'bin', opacity: 'count' })
+  .legend('opacity', false)
   .style('inset', 0.5)
   .tooltip({
     title: { channel: 'opacity' },

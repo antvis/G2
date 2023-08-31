@@ -1,0 +1,24 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "polyline.ts",
+      "title": {
+        "zh": "折线",
+        "en": "Polyline"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*0MEPQrNRlvoAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "spiral.ts",
+      "title": {
+        "zh": "螺旋线",
+        "en": "Spiral"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Ak1iTZ1dpI0AAAAAAAAAAAAADmJ7AQ/original"
+    }
+  ]
+}

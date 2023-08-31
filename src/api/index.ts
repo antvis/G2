@@ -1,4 +1,4 @@
-export { Chart } from './chart';
+export { Chart, type ChartOptions } from './chart';
 export { MarkNode } from './mark';
 export { CompositionNode } from './composition';
 export { register } from './library';

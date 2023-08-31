@@ -90,7 +90,7 @@ chart.scale({
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .line()
@@ -122,7 +122,7 @@ chart.scale({
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart.options({
     type: 'view',
@@ -168,7 +168,7 @@ chart.scale({
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart.options({
     type: 'view',
@@ -222,7 +222,7 @@ chart.scale({
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .data([
@@ -264,7 +264,7 @@ chart.scale({
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .point()
@@ -289,7 +289,7 @@ chart.scale({
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .interval()
@@ -321,8 +321,7 @@ chart.scale({
 ```js | ob
 (() => {
   const chart = new G2.Chart({
-    theme: 'classic',
-    padding: 'auto',
+    
     height: 240,
   });
 

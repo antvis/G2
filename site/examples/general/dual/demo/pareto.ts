@@ -12,9 +12,7 @@ const data = [
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
-  paddingRight: 60,
 });
 
 chart.title('Pareto Chart of Customer Complaints');

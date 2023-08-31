@@ -17,7 +17,6 @@ const chart = new Chart({
   width: 800,
   paddingLeft: 50,
   paddingRight: 100,
-  theme: 'classic',
 });
 
 chart.data({

@@ -17,7 +17,6 @@ const linkData = (data) =>
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
 });
 
@@ -67,11 +66,9 @@ chart
     text: 'value',
     formatter: '~s',
     position: (d) => (d.value > 0 ? 'top' : 'bottom'),
-    style: {
-      textBaseline: (d) => (d.value > 0 ? 'bottom' : 'top'),
-      fontSize: 10,
-      dy: (d) => (d.value > 0 ? -4 : 4),
-    },
+    textBaseline: (d) => (d.value > 0 ? 'bottom' : 'top'),
+    fontSize: 10,
+    dy: (d) => (d.value > 0 ? -4 : 4),
   })
   .tooltip({ channel: 'y', valueFormatter: '~s' })
   .tooltip({ channel: 'y1', valueFormatter: '~s' });

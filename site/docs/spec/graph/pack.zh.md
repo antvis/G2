@@ -16,7 +16,6 @@ import { interpolateHcl } from 'd3-interpolate';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   padding: 20,
 });
 

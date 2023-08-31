@@ -199,6 +199,10 @@ chart.render();
 
 添加 point3D 图形，具体见 [3d](/spec/threed/point-threed)。
 
+### `chart.line3D`
+
+添加 line3D 图形，具体见 [3d](/spec/threed/line-threed)。
+
 ## 设置属性
 
 ### `chart.width`

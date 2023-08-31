@@ -5,8 +5,7 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
-  paddingLeft: 40,
+  paddingLeft: 25,
 });
 
 chart
@@ -42,10 +41,8 @@ chart
     position: 'inside',
     formatter: (v) => (v ? `${v}%` : ''),
     transform: [{ type: 'overlapDodgeY' }],
-    style: {
-      fill: '#000',
-      fontSize: 10,
-    },
+    fill: '#000',
+    fontSize: 10,
   })
   .axis('y', {
     position: 'right',

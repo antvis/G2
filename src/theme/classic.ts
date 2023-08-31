@@ -238,6 +238,8 @@ export const Classic: TC<ClassicOptions> = (options) => {
       titleFontWeight: 'normal',
       titleSpacing: 12,
       titleTransformOrigin: 'center',
+      lineArrowOffset: 6,
+      lineArrowSize: 6,
     },
     axisTop: {
       gridDirection: 'positive',

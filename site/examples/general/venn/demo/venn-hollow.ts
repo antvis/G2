@@ -2,7 +2,6 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
 });
 
@@ -31,9 +30,7 @@ chart
   .label({
     position: 'inside',
     text: (d) => d.label || '',
-    style: {
-      fill: '#000',
-    },
+    fill: '#000',
   })
   .style('opacity', 0.6)
   .style('lineWidth', 8)

@@ -14,12 +14,12 @@ order: 3
 
 ```bash
 # 通过 NPM 安装
-npm install @antv/g2@next
+npm install @antv/g2
 ```
 
 ```bash
 # 通过 Yarn 安装
-yarn add @antv/g2@next
+yarn add @antv/g2
 ```
 
 安装成功之后给 G2 提供一个容器:
@@ -45,7 +45,6 @@ const data = [
 // 初始化图表实例
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
 });
 
 // 声明可视化
@@ -64,7 +63,7 @@ chart.render();
 G2 也提供了 UMD 版本，可以直接通过 CDN 加载，然后直接使用。这个时候的 `Chart` 对象可以通过命名空间 `G2` 去访问。
 
 ```html
-<script src="https://unpkg.com/@antv/g2@next/dist/g2.min.js"></script>
+<script src="https://unpkg.com/@antv/g2/dist/g2.min.js"></script>
 <script>
   // 准备数据
   const data = [
@@ -78,7 +77,6 @@ G2 也提供了 UMD 版本，可以直接通过 CDN 加载，然后直接使用�
   // 初始化图表实例
   const chart = new G2.Chart({
     container: 'container',
-    theme: 'classic',
   });
 
   // 声明可视化
@@ -100,7 +98,7 @@ G2 也提供了 UMD 版本，可以直接通过 CDN 加载，然后直接使用�
 ```js | ob {pin:false}
 (() => {
   // 初始化图表实例
-  const chart = new G2.Chart({ theme: 'classic' });
+  const chart = new G2.Chart();
 
   chart
     .interval()

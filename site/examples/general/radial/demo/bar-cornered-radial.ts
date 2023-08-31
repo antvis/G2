@@ -2,7 +2,6 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
 });
 
@@ -36,9 +35,7 @@ chart
     position: 'outside',
     autoRotate: true,
     rotateToAlignArc: true,
-    style: {
-      dx: 4,
-    },
+    dx: 4,
   })
   .axis('x', { title: false })
   .axis('y', false)

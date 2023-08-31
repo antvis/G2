@@ -1,4 +1,4 @@
-import { MeshPhongMaterial, SphereGeometry, Mesh } from '@antv/g-plugin-3d';
+import { MeshLambertMaterial, SphereGeometry, Mesh } from '@antv/g-plugin-3d';
 import { applyStyle, getOrigin, toOpacityKey } from '../utils';
 import { ShapeComponent as SC } from '../../runtime';
 import { select } from '../../utils/selection';
@@ -28,7 +28,7 @@ export const Sphere: SC<SphereOptions> = (options, context) => {
     });
     // create a material with Phong lighting model
     // @ts-ignore
-    context.sphereMaterial = new MeshPhongMaterial(device);
+    context.sphereMaterial = new MeshLambertMaterial(device);
   }
 
   return (points, value, defaults) => {

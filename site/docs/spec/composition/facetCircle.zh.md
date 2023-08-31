@@ -39,7 +39,6 @@ const chart = new Chart({
   container: 'container',
   width: 480,
   height: 480,
-  theme: 'classic',
 });
 
 const facetCircle = chart.facetCircle().data(data).encode('position', 'month');

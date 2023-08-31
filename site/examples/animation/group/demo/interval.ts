@@ -11,7 +11,6 @@ const fruits = [
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
 });
 
 chart
@@ -23,7 +22,6 @@ chart
   .encode('y', 'value')
   .encode('color', 'type')
   .encode('color', 'type')
-  .animate('enter', { duration: 500 })
-  .axis('y', false);
+  .animate('enter', { duration: 500 });
 
 chart.render();

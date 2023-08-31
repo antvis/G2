@@ -27,7 +27,6 @@ register('data.hexgird', ({ width = 1, height = 1 }) => {
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
 });
 

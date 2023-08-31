@@ -5,7 +5,6 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
 });
 
@@ -28,7 +27,7 @@ chart
   .scale('y', { nice: true })
   .axis('y', {
     title: 'Avg. Temperature (°C)',
-    style: { titleFill: '#85C5A6' },
+    titleFill: '#85C5A6',
   })
   .style('fill', '#85c5A6')
   .style('fillOpacity', 0.3)
@@ -47,9 +46,7 @@ chart
     position: 'right',
     grid: null,
     title: 'Precipitation (inches)',
-    style: {
-      titleFill: 'steelblue',
-    },
+    titleFill: 'steelblue',
   })
   .tooltip({ channel: 'y', valueFormatter: '.1f' });
 

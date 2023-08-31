@@ -3,9 +3,7 @@ import { format } from 'fecha';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
-  paddingLeft: 80,
 });
 
 chart

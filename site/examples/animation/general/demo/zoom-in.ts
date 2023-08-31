@@ -2,7 +2,6 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
   insetLeft: 30,
 });
@@ -22,6 +21,7 @@ chart
   .scale('y', { domain: [65, 90] })
   .style('fillOpacity', 0.3)
   .style('lineWidth', 1)
+  .legend('size', false)
   .animate('enter', { type: 'zoomIn', duration: 1000 });
 
 chart.render();

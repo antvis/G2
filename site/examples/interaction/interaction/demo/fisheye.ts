@@ -2,7 +2,6 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
 });
 
 chart
@@ -16,6 +15,7 @@ chart
   .encode('size', 'Population')
   .encode('color', 'continent')
   .encode('shape', 'point')
+  .legend('size', false)
   .scale('size', { type: 'log', range: [4, 20] })
   .style('fillOpacity', 0.3)
   .style('lineWidth', 1);

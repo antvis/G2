@@ -1,4 +1,45 @@
-# G2 - Changelog
+# [5.1.0](https://github.com/antvis/g2/compare/5.0.24...5.1.0) (2023-08-31)
+
+
+### Bug Fixes
+
+* **runtime:** process data ([#5494](https://github.com/antvis/g2/issues/5494)) ([b851ca3](https://github.com/antvis/g2/commit/b851ca34f585485c5855924ed92061c21f92d43f))
+
+
+### Features
+
+* update category20 ([#5495](https://github.com/antvis/g2/issues/5495)) ([83bcc17](https://github.com/antvis/g2/commit/83bcc17a0e044779268a8cb6748b043ab6efbd16))
+
+
+
+## [5.0.24](https://github.com/antvis/g2/compare/5.0.23...5.0.24) (2023-08-30)
+
+
+### Bug Fixes
+
+* **test:** call defined render function ([#5481](https://github.com/antvis/g2/issues/5481)) ([c0c5746](https://github.com/antvis/g2/commit/c0c574683f3cd97b1813fa3dc7454137b8ae6ad4))
+* **theme:** update default color of light theme ([#5487](https://github.com/antvis/g2/issues/5487)) ([7cbe9a7](https://github.com/antvis/g2/commit/7cbe9a7cf8ea537c274288c4f55118b9544ae622))
+
+
+### Features
+
+* 3d line plot ([#5471](https://github.com/antvis/g2/issues/5471)) ([4d157cd](https://github.com/antvis/g2/commit/4d157cd162a805d8a68a29a5abf216074fb2058f))
+* **builtinlib:** move some components from core to builtinlib ([#5485](https://github.com/antvis/g2/issues/5485)) ([fc70bf5](https://github.com/antvis/g2/commit/fc70bf5423b73b1b06ff3b551e2a5a5902dd3527))
+* **lib:** change graphlib and plotlib ([#5484](https://github.com/antvis/g2/issues/5484)) ([ad175a0](https://github.com/antvis/g2/commit/ad175a0b232552c94c3c6d6305da28a9c42ee497))
+
+
+
+## [5.0.23](https://github.com/antvis/g2/compare/5.0.22...5.0.23) (2023-08-29)
+
+### Bug Fixes
+
+- **libs:** export expected libs ([#5478](https://github.com/antvis/g2/issues/5478)) ([564b3a6](https://github.com/antvis/g2/commit/564b3a6a7c93f18941c60c27d6c43f56b187d4a4))
+- **types:** export ChartOptions from RuntimeOptions ([#5475](https://github.com/antvis/g2/issues/5475)) ([73ded25](https://github.com/antvis/g2/commit/73ded250e8a78ade9d23234e953ecfb5702f654d))
+
+### Features
+
+- add light theme ([#5342](https://github.com/antvis/g2/issues/5342)) ([ffc8096](https://github.com/antvis/g2/commit/ffc80962a1fa833ad144ff28f173cb1518ab2ca8))
+- **connector:** support offset ([#5476](https://github.com/antvis/g2/issues/5476)) ([437b8c3](https://github.com/antvis/g2/commit/437b8c3930b032ba45eb1747507f60f588ff0e70))
 
 ## [5.0.22](https://github.com/antvis/g2/compare/0.5.21...5.0.22) (2023-08-24)
 

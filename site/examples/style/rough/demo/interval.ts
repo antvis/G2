@@ -9,7 +9,6 @@ WebFont.load({
   active: () => {
     const chart = new Chart({
       container: 'container',
-      theme: 'classic',
       autoFit: true,
       paddingLeft: 60,
       plugins: [new Plugin()],
@@ -40,24 +39,20 @@ WebFont.load({
       .style('strokeWidth', 2)
       .style('fillStyle', 'zigzag')
       .axis('x', {
-        style: {
-          titleFontSize: 15,
-          titleFontFamily: 'Gaegu',
-          labelFontFamily: 'Gaegu',
-          tickStroke: '#cdcdcd',
-        },
+        titleFontSize: 15,
+        titleFontFamily: 'Gaegu',
+        labelFontFamily: 'Gaegu',
+        tickStroke: '#cdcdcd',
       })
       .axis('y', {
         labelFormatter: '~s',
-        style: {
-          titleFontSize: 15,
-          titleFontFamily: 'Gaegu',
-          labelFontFamily: 'Gaegu',
-          tickStroke: '#cdcdcd',
-          gridStroke: '#efefef',
-        },
+        titleFontSize: 15,
+        titleFontFamily: 'Gaegu',
+        labelFontFamily: 'Gaegu',
+        tickStroke: '#cdcdcd',
+        gridStroke: '#efefef',
       })
-      .legend({ color: { itemLabelFontFamily: 'Gaegu' } });
+      .legend('color', { itemLabelFontFamily: 'Gaegu' });
 
     chart.render();
   },

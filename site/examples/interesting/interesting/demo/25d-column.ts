@@ -20,7 +20,6 @@ const data = [
 const chart = new Chart({
   container: 'container',
   autoFit: true,
-  theme: 'classic',
 });
 
 chart.data(data);

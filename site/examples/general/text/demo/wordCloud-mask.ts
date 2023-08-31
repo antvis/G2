@@ -2,11 +2,9 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   // autoFit: true,
   width: 1000,
   height: 400,
-  padding: 0,
 });
 
 chart
@@ -22,6 +20,7 @@ chart
     fontSize: 10,
   })
   .encode('color', 'name')
-  .encode('text', 'name');
+  .encode('text', 'name')
+  .legend(false);
 
 chart.render();

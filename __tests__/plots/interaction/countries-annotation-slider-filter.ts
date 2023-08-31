@@ -5,7 +5,6 @@ import { dispatchValueChange } from './appl-line-slider-filter';
 export function countriesAnnotationSliderFilter(): G2Spec {
   return {
     type: 'view',
-
     data: {
       type: 'fetch',
       value: 'data/countries.json',

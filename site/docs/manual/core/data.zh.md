@@ -100,7 +100,7 @@ chart.interval().data([
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .rangeX()
@@ -139,7 +139,7 @@ chart.interval().data([
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart.data([
     { year: '1991', value: 3 },

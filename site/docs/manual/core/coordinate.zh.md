@@ -82,7 +82,7 @@ chart.area():
     };
   }
 
-  const chart = new G2.Chart({ padding: 'auto', theme: 'classic' });
+  const chart = new G2.Chart();
 
   chart.options({
     type: Pie, // 使用该复合 Mark
@@ -112,7 +112,7 @@ chart.area():
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ padding: 'auto', theme: 'classic' });
+  const chart = new G2.Chart();
 
   chart
     .interval()
@@ -141,7 +141,7 @@ chart.area():
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ padding: 'auto', theme: 'classic' });
+  const chart = new G2.Chart();
 
   chart
     .interval()
@@ -169,7 +169,7 @@ chart.area():
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ padding: 'auto', theme: 'classic' });
+  const chart = new G2.Chart();
 
   chart
     .interval()
@@ -218,7 +218,7 @@ chart.area():
     lineStrokeWidth: 1,
   };
 
-  const chart = new G2.Chart({ padding: 'auto', theme: 'classic' });
+  const chart = new G2.Chart();
 
   chart
     .line()
@@ -275,7 +275,7 @@ chart.area():
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ padding: 'auto', theme: 'classic' });
+  const chart = new G2.Chart();
 
   chart
     .interval()
@@ -302,7 +302,7 @@ chart.area():
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ padding: 'auto', theme: 'classic' });
+  const chart = new G2.Chart();
 
   chart
     .point()

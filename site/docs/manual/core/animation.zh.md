@@ -59,7 +59,7 @@ chart.interval().animate({
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .interval()
@@ -90,7 +90,7 @@ chart.interval().animate({
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .interval()
@@ -123,7 +123,7 @@ G2 也提供了 StackEnter 标记转换来实现分组动画，该标记转换�
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .interval()
@@ -159,7 +159,7 @@ G2 也提供了 StackEnter 标记转换来实现分组动画，该标记转换�
     'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
   ).then((res) => res.json());
 
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   // 参考 css animation 的描述
   const keyframe = chart

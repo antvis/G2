@@ -23,7 +23,7 @@ G2 名字和设计理念都来自于图形语法《[The Grammar of Graphics](htt
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   // 一句话声明可视化
   chart
@@ -47,7 +47,7 @@ G2 简洁来自**默认值**：你只需要提供标记类型，数据和编码�
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .point()
@@ -76,8 +76,7 @@ G2 简洁来自**默认值**：你只需要提供标记类型，数据和编码�
   const chart = new G2.Chart({
     width: 900,
     height: 600,
-    theme: 'classic',
-    padding: 'auto',
+    
   });
 
   // Sankey 标记
@@ -114,7 +113,7 @@ G2 可以绘制出丰富的图表类型，除了支持基础的折、柱饼等�
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .link()
@@ -145,8 +144,7 @@ G2 可以绘制出丰富的图表类型，除了支持基础的折、柱饼等�
 (() => {
   const chart = new G2.Chart({
     height: 180,
-    theme: 'classic',
-    padding: 'auto',
+    
   });
 
   chart.data({
@@ -200,7 +198,7 @@ G2 可以绘制出丰富的图表类型，除了支持基础的折、柱饼等�
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .rect()
@@ -222,7 +220,7 @@ G2 可以绘制出丰富的图表类型，除了支持基础的折、柱饼等�
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .rect()
@@ -247,8 +245,7 @@ G2 可以绘制出丰富的图表类型，除了支持基础的折、柱饼等�
 ```js | ob
 (() => {
   const chart = new G2.Chart({
-    theme: 'classic',
-    padding: 'auto',
+    
     paddingLeft: 50,
     paddingBottom: 50,
   });
@@ -280,7 +277,7 @@ G2 可以绘制数据驱动的动画，从而达到可视化叙事的效果。�
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .interval()
@@ -312,10 +309,7 @@ G2 可以绘制数据驱动的动画，从而达到可视化叙事的效果。�
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({
-    theme: 'classic',
-    padding: 'auto',
-  });
+  const chart = new G2.Chart();
 
   chart
     .interval()
@@ -348,7 +342,7 @@ G2 可以绘制数据驱动的动画，从而达到可视化叙事的效果。�
     'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
   ).then((res) => res.json());
 
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   // Keyframe 容器，对里面的视图应用过渡动画
   const keyframe = chart
@@ -398,8 +392,7 @@ G2 除了提供丰富的内置交互以外，还通过 `chart.on` 和 `chart.emi
   // 渲染 focus 视图
   const focus = new G2.Chart({
     container: focusContainer,
-    theme: 'classic',
-    height: 360,
+      height: 360,
     paddingLeft: 50,
   });
 
@@ -423,8 +416,7 @@ G2 除了提供丰富的内置交互以外，还通过 `chart.on` 和 `chart.emi
   // 渲染 context 视图
   const context = new G2.Chart({
     container: contextContainer,
-    theme: 'classic',
-    paddingLeft: 50,
+      paddingLeft: 50,
     paddingTop: 0,
     paddingBottom: 0,
     height: 60,
@@ -486,7 +478,7 @@ G2 提供了两种风格的 API：**函数式 API** 和 **选项式 API** 。前
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   // 通过选项式 API 声明图表
   chart.options({
@@ -518,8 +510,7 @@ G2 提供了两种风格的 API：**函数式 API** 和 **选项式 API** 。前
   const chart = new G2.Chart({
     height: 150,
     padding: 10,
-    theme: 'classic',
-    padding: 'auto',
+    
   });
 
   const mock = () => Array.from({ length: 20 }, () => Math.random());
@@ -576,7 +567,7 @@ G2 提供了一种简单的复合 Mark 的机制，用于增强图表或者自�
     ];
   }
 
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   // API 的方式使用复合 Mark
   chart
@@ -644,7 +635,7 @@ G2 是的架构是由 **运行时（Runtime）** 和一系列 **可视化组件�
     };
   });
 
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   chart
     .interval()

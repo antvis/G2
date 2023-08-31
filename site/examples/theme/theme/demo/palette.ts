@@ -15,7 +15,6 @@ register('palette.customPalette', () => [
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
 });
 

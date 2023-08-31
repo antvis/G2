@@ -2,7 +2,8 @@ import { G2Spec } from '../../../src';
 
 export function gaugeDefault(): G2Spec {
   return {
-    type: 'gauge',
+    type: 'view',
+    legend: false,
     data: {
       value: {
         target: 120,
@@ -10,5 +11,6 @@ export function gaugeDefault(): G2Spec {
         name: 'score',
       },
     },
+    children: [{ type: 'gauge' }],
   };
 }

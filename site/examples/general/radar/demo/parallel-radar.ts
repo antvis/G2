@@ -5,24 +5,21 @@ import { Chart } from '@antv/g2';
 
 const axis = {
   zIndex: 1,
-  style: {
-    labelStroke: '#fff',
-    labelStrokeWidth: 5,
-    labelFontSize: 10,
-    labelStrokeLineJoin: 'round',
-    titleStroke: '#fff',
-    titleFontSize: 10,
-    titleStrokeWidth: 5,
-    titleStrokeLineJoin: 'round',
-    lineStroke: 'black',
-    tickStroke: 'black',
-    lineStrokeWidth: 1,
-  },
+  labelStroke: '#fff',
+  labelStrokeWidth: 5,
+  labelFontSize: 10,
+  labelStrokeLineJoin: 'round',
+  titleStroke: '#fff',
+  titleFontSize: 10,
+  titleStrokeWidth: 5,
+  titleStrokeLineJoin: 'round',
+  lineStroke: 'black',
+  tickStroke: 'black',
+  lineStrokeWidth: 1,
 };
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
 });
 

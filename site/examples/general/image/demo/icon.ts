@@ -85,7 +85,6 @@ const o =
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
 });
 
@@ -98,6 +97,7 @@ chart
   .encode('src', ({ type }) => (type === 'x' ? x : o))
   .scale('x', { type: 'band' })
   .scale('y', { domain: [0, 1] })
-  .scale('size', { type: 'linear', range: [12, 32] });
+  .scale('size', { type: 'linear', range: [12, 32] })
+  .legend('size', false);
 
 chart.render();

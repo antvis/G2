@@ -5,7 +5,6 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
 });
 
@@ -25,20 +24,16 @@ chart
     text: (d) => `${d.country} ${d.receipts}`,
     selector: 'first',
     transform: [{ type: 'overlapDodgeY' }],
-    style: {
-      fontSize: 10,
-      dx: -3,
-      textAnchor: 'end',
-    },
+    fontSize: 10,
+    dx: -3,
+    textAnchor: 'end',
   })
   .label({
     text: (d) => `${d.receipts} ${d.country}`,
     selector: 'last',
     transform: [{ type: 'overlapDodgeY' }],
-    style: {
-      fontSize: 10,
-      dx: 3,
-    },
+    fontSize: 10,
+    dx: 3,
   });
 
 chart.render();

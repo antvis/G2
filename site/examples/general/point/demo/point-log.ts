@@ -2,7 +2,6 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
 });
 
@@ -19,6 +18,7 @@ chart
   .encode('shape', 'point')
   .scale('size', { type: 'log', range: [4, 20] })
   .style('fillOpacity', 0.3)
-  .style('lineWidth', 1);
+  .style('lineWidth', 1)
+  .legend('size', false);
 
 chart.render();

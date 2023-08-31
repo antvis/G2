@@ -85,8 +85,7 @@ G2 中的视图模型定义了一个视图的划分方式，划分得到的不�
 
   chart.options({
     type: 'point',
-    theme: 'classic',
-    height: 280,
+      height: 280,
     marginTop: 30,
     marginLeft: 40,
     marginBottom: 10,

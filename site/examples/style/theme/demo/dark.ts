@@ -7,7 +7,6 @@ const chart = new Chart({
   container: 'container',
   width: 500,
   height: 400,
-  paddingLeft: 50,
 });
 
 chart
@@ -29,20 +28,16 @@ chart
   .label({
     text: 'value',
     offset: 14,
-    style: {
-      fontWeight: 'bold',
-    },
+    fontWeight: 'bold',
   })
   .label({
     text: 'id',
     position: 'spider',
     connectorDistance: 0,
-    style: {
-      fontWeight: 'bold',
-      textBaseline: 'bottom',
-      textAlign: (d) => (['c', 'sass'].includes(d.id) ? 'end' : 'start'),
-      dy: -4,
-    },
+    fontWeight: 'bold',
+    textBaseline: 'bottom',
+    textAlign: (d) => (['c', 'sass'].includes(d.id) ? 'end' : 'start'),
+    dy: -4,
   })
   .style('radius', 4)
   .style('inset', 1)

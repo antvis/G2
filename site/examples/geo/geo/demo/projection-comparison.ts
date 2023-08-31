@@ -11,7 +11,6 @@ register('data.feature', ({ name }) => {
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
 });
 
@@ -42,7 +41,12 @@ function worldMap(node, projection, color, opacity = 0.7) {
     .geoPath()
     .data({ type: 'graticule10' })
     .style('stroke', color)
-    .style('strokeOpacity', 0.3);
+    .style('strokeOpacity', 0.3)
+    .style('fill', 'none');
 
-  geoView.geoPath().data({ type: 'sphere' }).style('stroke', color);
+  geoView
+    .geoPath()
+    .data({ type: 'sphere' })
+    .style('stroke', color)
+    .style('fill', 'none');
 }

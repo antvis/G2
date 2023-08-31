@@ -7,10 +7,8 @@ const data = [
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   width: 480,
   height: 80,
-  padding: 8,
 });
 
 chart.data(data);
@@ -29,9 +27,7 @@ chart
     dx: -10,
     dy: -10,
     connector: true,
-    style: {
-      fontSize: 10,
-    },
+    fontSize: 10,
   })
   .axis(false);
 

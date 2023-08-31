@@ -1,6 +1,6 @@
 {
   "name": "@antv/g2",
-  "version": "5.0.22",
+  "version": "5.1.0",
   "description": "the Grammar of Graphics in Javascript",
   "license": "MIT",
   "main": "lib/index.js",
@@ -42,7 +42,7 @@
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "sideEffects": [
-    "./src/index.ts"
+    "./esm/index.js"
   ],
   "keywords": [
     "antv",
@@ -61,7 +61,7 @@
     "@antv/g-canvas": "^1.11.5",
     "@antv/g-plugin-3d": "^1.9.14",
     "@antv/g-plugin-dragndrop": "^1.8.3",
-    "@antv/gui": "^0.5.0-alpha.29",
+    "@antv/gui": "^0.5.0",
     "@antv/path-util": "^3.0.1",
     "@antv/scale": "^0.4.7",
     "@antv/util": "^3.3.2",
@@ -90,7 +90,7 @@
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^17.4.4",
     "@rollup/plugin-commonjs": "^21.0.2",
-    "@types/d3-array": "^3.0.2",
+    "@types/d3-array": "3.0.5",
     "@types/d3-path": "^3.0.0",
     "@types/d3-shape": "^3.0.2",
     "@types/jest": "^26.0.20",

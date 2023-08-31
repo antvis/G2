@@ -16,7 +16,6 @@ export function chartRender3dScatterPlot(context) {
   const Chart = extend(Runtime, { ...corelib(), ...threedlib() });
   const chart = new Chart({
     container,
-
     renderer,
     depth: 400,
   });

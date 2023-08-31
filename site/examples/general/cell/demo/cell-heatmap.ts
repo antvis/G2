@@ -5,10 +5,8 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
-  width: 1152,
-  height: 780,
-  paddingLeft: 60,
+  width: 1300,
+  height: 900,
 });
 
 chart
@@ -44,20 +42,16 @@ chart
   .label({
     text: '1963',
     position: 'bottom',
-    style: {
-      textBaseline: 'top',
-      fontSize: 10,
-    },
+    textBaseline: 'top',
+    fontSize: 10,
   })
   .label({
     text: 'Measles vaccine introduced',
     position: 'bottom',
-    style: {
-      textBaseline: 'top',
-      fontSize: 10,
-      fontWeight: 'bold',
-      dy: 10,
-    },
+    textBaseline: 'top',
+    fontSize: 10,
+    fontWeight: 'bold',
+    dy: 10,
   })
   .tooltip(false);
 

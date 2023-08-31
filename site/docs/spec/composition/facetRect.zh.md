@@ -17,7 +17,6 @@ const chart = new Chart({
   width: 928,
   height: 270,
   paddingBottom: 50,
-  theme: 'classic',
 });
 
 const facetRect = chart

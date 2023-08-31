@@ -38,11 +38,11 @@ G2 is named after Leland Wilkinson’s book _The Grammar of Graphics_ and was pr
 G2 is usually installed via a package manager such as npm or Yarn.
 
 ```bash
-$ npm install @antv/g2@next
+$ npm install @antv/g2
 ```
 
 ```bash
-$ yarn add @antv/g2@next
+$ yarn add @antv/g2
 ```
 
 The Chart object then can be imported from G2.

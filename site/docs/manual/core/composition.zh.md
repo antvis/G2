@@ -29,7 +29,7 @@ layer.view();
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ padding: 'auto', theme: 'classic' });
+  const chart = new G2.Chart();
 
   const layer = chart.spaceLayer();
 
@@ -74,7 +74,7 @@ layer.view();
 
 ```js | ob
 (() => {
-  const chart = new G2.Chart({ theme: 'classic', width: 800, height: 400 });
+  const chart = new G2.Chart();
   const flex = chart.spaceFlex();
 
   // 条形图
@@ -121,7 +121,6 @@ layer.view();
 ```js | ob
 (() => {
   const chart = new G2.Chart({
-    theme: 'classic',
     height: 260,
     width: 800,
     paddingLeft: 40,
@@ -159,7 +158,6 @@ layer.view();
 ```js | ob
 (() => {
   const chart = new G2.Chart({
-    theme: 'classic',
     width: 900,
     height: 900,
     padding: 'auto',
@@ -202,7 +200,7 @@ layer.view();
     'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
   ).then((res) => res.json());
 
-  const chart = new G2.Chart({ theme: 'classic', padding: 'auto' });
+  const chart = new G2.Chart();
 
   // 参考 css animation 的描述
   const keyframe = chart

@@ -20,7 +20,6 @@ const chart = new Chart({
   width: 900,
   height: 1000,
   paddingRight: 80,
-  theme: 'classic',
 });
 
 chart.coordinate({ transform: [{ type: 'transpose' }] });

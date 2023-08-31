@@ -5,7 +5,6 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/OJOgPypkeE/poisson-disk.json')
   .then((poisson) => {
     const chart = new Chart({
       container: 'container',
-      theme: 'classic',
       autoFit: true,
     });
 

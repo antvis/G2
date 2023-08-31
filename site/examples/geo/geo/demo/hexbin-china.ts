@@ -3,7 +3,6 @@ import DataSet from '@antv/data-set';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
 });
 

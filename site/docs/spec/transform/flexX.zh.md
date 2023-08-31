@@ -18,7 +18,6 @@ const chart = new Chart({
   container: 'container',
   width: 1000,
   paddingBottom: 100,
-  theme: 'classic',
 });
 
 chart

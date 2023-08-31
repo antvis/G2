@@ -5,7 +5,6 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
 });
 
@@ -23,9 +22,7 @@ chart
   .label({
     text: 'price',
     transform: [{ type: 'overlapDodgeY' }],
-    style: {
-      fontSize: 10,
-    },
+    fontSize: 10,
   })
   .tooltip({ channel: 'y', valueFormatter: '.1f' });
 

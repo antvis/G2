@@ -2,7 +2,6 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
 });
 
 const scaleColor = (node) =>
@@ -20,7 +19,6 @@ const layer = chart.spaceLayer().data({
 
 layer
   .interval()
-  .attr('paddingLeft', 50)
   .transform({ type: 'sortX', reverse: true, by: 'y' })
   .encode('x', 'letter')
   .encode('y', 'frequency')

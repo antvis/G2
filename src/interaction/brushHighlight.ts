@@ -2,7 +2,7 @@ import { DisplayObject, Rect, Path } from '@antv/g';
 import { subObject, omitPrefixObject } from '../utils/helper';
 import { selectionOf, pixelsOf } from '../utils/scale';
 import { createElement } from '../utils/createElement';
-import { select, Selection } from '../utils/selection';
+import { G2Element, select, Selection } from '../utils/selection';
 import {
   selectG2Elements,
   selectPlotArea,

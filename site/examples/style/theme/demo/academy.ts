@@ -6,7 +6,6 @@ import { Chart } from '@antv/g2';
 const chart = new Chart({
   container: 'container',
   autoFit: true,
-  paddingLeft: 50,
 });
 
 // Apply academy theme.

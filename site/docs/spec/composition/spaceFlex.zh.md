@@ -17,7 +17,6 @@ import { Chart } from '@antv/g2';
 const chart = new Chart({
   container: 'container',
   width: 900,
-  theme: 'classic',
 });
 
 const flex = chart

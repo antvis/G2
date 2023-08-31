@@ -25,8 +25,7 @@ G2 5.0.19 版本推出了按需打包的功能。可以借助 [Rollup](https://r
     // 初始化扩展后的图表实例
     const chart = new Chart({
       container: 'container',
-      theme: 'classic',
-    });
+        });
 
     // 声明可视化
     chart.options({
@@ -61,10 +60,7 @@ G2 5.0.19 版本推出了按需打包的功能。可以借助 [Rollup](https://r
     { lib: 'Runtime', size: 252045, type: 'gzip' },
   ];
 
-  const chart = new G2.Chart({
-    theme: 'classic',
-    padding: 'auto',
-  });
+  const chart = new G2.Chart();
 
   chart.options({
     type: 'interval',
@@ -161,7 +157,7 @@ import { Runtime, extend, stdlib } from '@antv/g2';
 
 const Chart = extend(Runtime, stdlib());
 
-const chart = new Chart({ theme: 'classic' });
+const chart = new Chart();
 
 chart.interval(); // corelib
 chart.sankey(); // plotlib
@@ -191,7 +187,7 @@ const Chart = extend(Runtime, {
   ...plotlib(),
 });
 
-const chart = new Chart({ theme: 'classic' });
+const chart = new Chart();
 
 chart.sankey();
 ```
@@ -208,7 +204,7 @@ const Chart = extend(Runtime, {
   ...geolib(),
 });
 
-const chart = new Chart({ theme: 'classic' });
+const chart = new Chart();
 
 chart.geoPath();
 ```
@@ -225,7 +221,7 @@ const Chart = extend(Runtime, {
   ...graphlib(),
 });
 
-const chart = new Chart({ theme: 'classic' });
+const chart = new Chart();
 
 chart.forceGraph();
 ```
@@ -244,7 +240,7 @@ const Chart = extend(Runtime, {
   ...autolib(),
 });
 
-const chart = new Chart({ theme: 'classic' });
+const chart = new Chart();
 
 chart.auto(); // Auto Mark
 ```
@@ -265,7 +261,6 @@ const Chart = extend(Runtime, {
 });
 
 const chart = new Chart({
-  theme: 'classic',
   renderer: new Renderer(), //使用 webgl 渲染器
   depth: 400, // 设置深度
 });
@@ -293,7 +288,7 @@ const Chart = extend(Runtime, {
   'mark.interval': Interval,
 });
 
-const chart = new Chart({ theme: 'classic' });
+const chart = new Chart();
 
 chart.interval();
 ```
@@ -309,7 +304,7 @@ const Chart = extend(Runtime, {
   'interaction.tooltip': Tooltip,
 });
 
-const chart = new Chart({ theme: 'classic' });
+const chart = new Chart();
 
 chart.options({
   type: 'interval',

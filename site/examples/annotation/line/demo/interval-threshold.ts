@@ -7,7 +7,6 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
 });
 
@@ -56,13 +55,11 @@ chart
   .label({
     text: 'hazardous',
     position: 'right',
-    style: {
-      textBaseline: 'bottom',
-      fill: '#F4664A',
-      background: true,
-      backgroundFill: '#F4664A',
-      backgroundOpacity: 0.25,
-    },
+    textBaseline: 'bottom',
+    fill: '#F4664A',
+    background: true,
+    backgroundFill: '#F4664A',
+    backgroundOpacity: 0.25,
   });
 
 chart.render();

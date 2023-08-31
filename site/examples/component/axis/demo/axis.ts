@@ -2,7 +2,6 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   autoFit: true,
 });
 
@@ -102,7 +101,8 @@ chart
   .label({
     text: 'time',
     transform: [{ type: 'contrastReverse' }],
-    style: { dy: 20, fontStyle: 'italic' },
+    dy: 20,
+    fontStyle: 'italic',
   })
   .tooltip({ title: 'car' })
   .legend(false);

@@ -96,7 +96,6 @@ renderer.registerPlugin(new ControlPlugin());
 const Chart = extend(Runtime, { ...corelib(), ...threedlib() });
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
   renderer,
   depth: 400, // Define the depth of chart.
 });

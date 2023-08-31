@@ -311,6 +311,7 @@ function computePadding(
 
   for (const position of positions) {
     const key = `padding${capitalizeFirst(camelCase(position))}`;
+    const insetKey = `inset${capitalizeFirst(camelCase(position))}`;
     const components = positionComponents.get(position) || [];
     const value = layout[key];
     const defaultSizeOf = (d) => {

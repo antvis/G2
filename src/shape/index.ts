@@ -10,6 +10,7 @@ export { HV as LineHV } from './line/hv';
 export { VH as LineVH } from './line/vh';
 export { HVH as LineHVH } from './line/hvh';
 export { Trail as LineTrail } from './line/trail';
+export { Line as Line3DShape } from './line3D/line';
 export { HollowBowtie as PointHollowBowtie } from './point/hollowBowtie';
 export { HollowDiamond as PointHollowDiamond } from './point/hollowDiamond';
 export { HollowHexagon as PointHollowHexagon } from './point/hollowHexagon';
