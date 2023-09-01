@@ -15,7 +15,6 @@ export default {
       name: 'G2',
       format: 'umd',
       sourcemap: false,
-      // 私有插件
       plugins: [isBundleVis && visualizer()],
     },
     {
