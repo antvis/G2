@@ -1,12 +1,15 @@
 import { isFunction } from '@antv/util';
 import type { PathStyleProps } from '@antv/g';
-import { ShapeComponent as SC } from '../../runtime';
-import { addWaterWave } from './addWaterWave';
-import { getLiquidShape } from './getLiquidShape';
+import type { ShapeComponent as SC } from '../../runtime';
+import { addWave } from './wave';
+import { liquidShapesPath } from './shapes';
 
-export type LiquidShapeOptions = Record<string, any>;
+const getLiquidShape = (shape = 'circle') =>
+  liquidShapesPath[shape] || liquidShapesPath.circle;
 
-export const LiquidShape: SC<LiquidShapeOptions> = (options, context) => {
+export type LiquidOptions = Record<string, any>;
+
+export const Liquid: SC<LiquidOptions> = (options, context) => {
   if (!context) return;
   const { coordinate } = context;
   const { liquidOptions, styleOptions } = options;
@@ -24,14 +27,16 @@ export const LiquidShape: SC<LiquidShapeOptions> = (options, context) => {
 
     // 中心点x/ 中心点y
     const [centerX, centerY] = coordinate.getCenter();
+    // 宽高
+    const size = coordinate.getSize();
     // 半径
-    const radius = Math.min(...coordinate.getSize()) / 2;
+    const radius = Math.min(...size) / 2;
 
     // 1、 获取整体形状的 path 路径
     const buildPath = isFunction(liquidShape)
       ? liquidShape
       : getLiquidShape(liquidShape);
-    const shapePath = buildPath(centerX, centerY, radius * 2, radius * 2);
+    const shapePath = buildPath(centerX, centerY, radius, ...size);
 
     if (shapeStyle) {
       // 2、背景创建
@@ -58,7 +63,7 @@ export const LiquidShape: SC<LiquidShapeOptions> = (options, context) => {
       g.style.clipPath = clipShape;
 
       // 4. 水波创建
-      addWaterWave(
+      addWave(
         centerX,
         centerY,
         1 - percent,
@@ -104,4 +109,4 @@ export const LiquidShape: SC<LiquidShapeOptions> = (options, context) => {
   };
 };
 
-LiquidShape.props = {};
+Liquid.props = {};

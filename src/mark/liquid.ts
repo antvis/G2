@@ -59,13 +59,7 @@ export type LiquidData = {
 export type LiquidOptions = Omit<LiquidMark, 'type'>;
 
 export const Liquid: CC<LiquidOptions> = (options) => {
-  const {
-    data = {},
-    style = {},
-    animate,
-    encode = {},
-    ...resOptions
-  } = options;
+  const { data = {}, style = {}, animate, ...resOptions } = options;
 
   const { percent } = data;
 
@@ -80,7 +74,7 @@ export const Liquid: CC<LiquidOptions> = (options) => {
       style: {
         liquidOptions: {
           percent,
-          liquidShape: encode?.shape,
+          liquidShape: style?.shape,
         },
         styleOptions: style,
       },

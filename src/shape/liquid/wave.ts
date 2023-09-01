@@ -82,7 +82,6 @@ function getWaterWavePositions(
  * @param cx              圆心x
  * @param cy              圆心y
  * @return path            路径
- * @reference http://gitlab.alipay-inc.com/datavis/g6/blob/1.2.0/src/graph/utils/path.js#L135
  */
 function getWaterWavePath(
   radius: number,
@@ -179,7 +178,7 @@ function getWaterWavePath(
  * @param radius      绘制图形的高度
  * @param waveLength  波的长度
  */
-export function addWaterWave(
+export function addWave(
   x: number,
   y: number,
   level: number,
