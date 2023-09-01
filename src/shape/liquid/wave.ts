@@ -3,7 +3,7 @@ import { PathStyleProps, IAnimation } from '@antv/g';
 const DURATION = 5000;
 
 /**
- * 一个线性映射的函数
+ * A function of linear mapping
  * @param min
  * @param max
  * @param factor
@@ -13,7 +13,7 @@ function lerp(min: number, max: number, factor: number) {
 }
 
 /**
- * 用贝塞尔曲线模拟正弦波
+ * Using Bessel curve to simulate sine wave
  * Using Bezier curves to fit sine wave.
  * There is 4 control points for each curve of wave,
  * which is at 1/4 wave length of the sine wave.
@@ -30,7 +30,7 @@ function lerp(min: number, max: number, factor: number) {
  * @param stage      0-3, stating which part of the wave it is
  * @param waveLength wave length of the sine wave
  * @param amplitude  wave amplitude
- * @return 正弦片段曲线
+ * @return Sinusoidal segment curve
  */
 function getWaterWavePositions(
   x: number,
@@ -73,15 +73,15 @@ function getWaterWavePositions(
 }
 
 /**
- * 获取水波路径
- * @param radius          半径
- * @param waterLevel      水位
- * @param waveLength      波长
- * @param phase           相位
- * @param amplitude       震幅
- * @param cx              圆心x
- * @param cy              圆心y
- * @return path            路径
+ * get wave path
+ * @param radius
+ * @param waterLevel      water level
+ * @param waveLength      wave length
+ * @param phase
+ * @param amplitude
+ * @param cx              center x
+ * @param cy              center y
+ * @return path           path
  */
 function getWaterWavePath(
   radius: number,
@@ -167,16 +167,18 @@ function getWaterWavePath(
 }
 
 /**
- * 添加水波
- * @param x           中心x
- * @param y           中心y
- * @param level       水位等级 0～1
- * @param waveCount   水波数
- * @param waveAttrs      色值
- * @param group       图组
- * @param clip        用于剪切的图形
- * @param radius      绘制图形的高度
- * @param waveLength  波的长度
+ * add wave
+ * @param x           center x
+ * @param y           center y
+ * @param level       wave level 0～1
+ * @param waveCount   wave count
+ * @param waveAttrs   style
+ * @param group       g
+ * @param minY        Minimum height
+ * @param radius      radius
+ * @param waveLength  wave length
+ * @param animation  animation config
+ * @param document
  */
 export function addWave(
   x: number,
@@ -191,10 +193,10 @@ export function addWave(
   animation: IAnimation | boolean,
   document: any,
 ) {
-  // 盒子属性 颜色 宽高
+  // Box property Color width height
   const { fill, fillOpacity, opacity } = waveAttrs;
 
-  // 循环 waveCount 个数
+  // Number of cyclic waveCount
   for (let idx = 0; idx < waveCount; idx++) {
     const factor = waveCount <= 1 ? 1 : idx / (waveCount - 1);
 
@@ -203,12 +205,13 @@ export function addWave(
       minY + radius * level,
       waveLength,
       0,
-      radius / 40, // 波幅高度
+      // Amplitude height
+      radius / 40,
       x,
       y,
     );
 
-    // 画波
+    // create wave path
     const wave = document.createElement('path', {
       style: {
         path,
@@ -220,7 +223,6 @@ export function addWave(
     group.appendChild(wave);
 
     try {
-      // 默认 underfind 开启动画
       if (animation === false) return;
 
       const keyframes = [

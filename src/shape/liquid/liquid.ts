@@ -25,21 +25,20 @@ export const Liquid: SC<LiquidOptions> = (options, context) => {
 
     const g = document.createElement('g', {});
 
-    // 中心点x/ 中心点y
+    // center x/y
     const [centerX, centerY] = coordinate.getCenter();
-    // 宽高
+    // [width,height]
     const size = coordinate.getSize();
-    // 半径
     const radius = Math.min(...size) / 2;
 
-    // 1、 获取整体形状的 path 路径
+    // 1、Gets the path of the overall shape。
     const buildPath = isFunction(liquidShape)
       ? liquidShape
       : getLiquidShape(liquidShape);
     const shapePath = buildPath(centerX, centerY, radius, ...size);
 
     if (shapeStyle) {
-      // 2、背景创建
+      // 2、background create
       const backgroundShape = document.createElement('path', {
         style: {
           path: shapePath,
@@ -50,9 +49,9 @@ export const Liquid: SC<LiquidOptions> = (options, context) => {
       g.appendChild(backgroundShape);
     }
 
-    // 比例大于 0 时才绘制水波
+    // percent > 0 Mapping water waves
     if (percent > 0) {
-      // 3、剪切创建
+      // clip create
       const clipShape = document.createElement('path', {
         style: {
           path: shapePath,
@@ -62,7 +61,7 @@ export const Liquid: SC<LiquidOptions> = (options, context) => {
       g.appendChild(clipShape);
       g.style.clipPath = clipShape;
 
-      // 4. 水波创建
+      // 4. wave create
       addWave(
         centerX,
         centerY,
@@ -78,7 +77,7 @@ export const Liquid: SC<LiquidOptions> = (options, context) => {
       );
     }
 
-    // 5. 绘制一个 distance 宽的 border
+    // 5. draw distance
     const distanceShape = document.createElement('path', {
       style: {
         path: shapePath,
@@ -88,11 +87,10 @@ export const Liquid: SC<LiquidOptions> = (options, context) => {
       },
     });
 
-    // 6. 绘制一个 border 宽的 border
+    // 6. draw border
     const borderShape = document.createElement('path', {
       style: {
         path: shapePath,
-        // 主题默认 color fillOpacity
         stroke: color,
         strokeOpacity: fillOpacity,
         lineWidth: border,

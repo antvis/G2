@@ -1,7 +1,7 @@
 /**
- * @param x 中心 x
- * @param y 中心 y
- * @param radius 半径
+ * @param x center x
+ * @param y center y
+ * @param radius
  */
 function circle(x: number, y: number, r: number) {
   return `
@@ -13,9 +13,9 @@ function circle(x: number, y: number, r: number) {
 }
 
 /**
- * @param x 中心 x
- * @param y 中心 y
- * @param radius 半径
+ * @param x center x
+ * @param y center y
+ * @param radius
  */
 function rect(x: number, y: number, r: number) {
   const GOLDEN_SECTION_RATIO = 0.618;
@@ -30,9 +30,9 @@ function rect(x: number, y: number, r: number) {
 }
 
 /**
- * @param x 中心 x
- * @param y 中心 y
- * @param radius 半径
+ * @param x center x
+ * @param y center y
+ * @param radius
  */
 function diamond(x: number, y: number, r: number) {
   return `
@@ -45,9 +45,9 @@ function diamond(x: number, y: number, r: number) {
 }
 
 /**
- * @param x 中心 x
- * @param y 中心 y
- * @param radius 半径
+ * @param x center x
+ * @param y center y
+ * @param radius
  */
 function triangle(x: number, y: number, r: number) {
   return `
@@ -59,9 +59,9 @@ function triangle(x: number, y: number, r: number) {
 }
 
 /**
- * @param x 中心 x
- * @param y 中心 y
- * @param radius 半径
+ * @param x center x
+ * @param y center y
+ * @param radius
  */
 function pin(x: number, y: number, radius: number) {
   const w = (radius * 4) / 3;
