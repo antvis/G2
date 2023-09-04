@@ -241,7 +241,7 @@ function inferLabelOverlap(transform = [], style: Record<string, any>) {
 
   const addToTransforms = (overlap, state) => {
     if (state) {
-      finalTransforms.push(overlap);
+      finalTransforms.push({ ...overlap, ...state });
     }
   };
 

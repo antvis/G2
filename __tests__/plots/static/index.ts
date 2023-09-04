@@ -288,3 +288,5 @@ export { liquidCircle } from './liquid-circle';
 export { liquidDiamond } from './liquid-diamond';
 export { liquidTriangle } from './liquid-triangle';
 export { liquidCustomShape } from './liquid-custom-shape';
+export { alphabetIntervalAxisOptions } from './alphabet-interval-axis-options';
+export { profitIntervalAxisTransform } from './profit-interval-axis-transform';
