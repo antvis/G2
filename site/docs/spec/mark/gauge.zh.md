@@ -7,7 +7,7 @@ order: 1
 
 ## 开始使用
 
-<img alt="wordCloud" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*hpjTRr6LM7IAAAAAAAAAAAAADmJ7AQ/original
+<img alt="gauge" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*hpjTRr6LM7IAAAAAAAAAAAAADmJ7AQ/original
 " width="600" />
 
 ```js

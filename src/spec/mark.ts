@@ -83,6 +83,7 @@ export type MarkTypes =
   | 'gauge'
   | 'density'
   | 'heatmap'
+  | 'liquid'
   | MarkComponent
   | CompositeMarkType;
 
@@ -387,5 +388,6 @@ export type GaugeMark = BaseMark<
 
 export type DensityMark = BaseMark<'density', ChannelTypes | 'series'>;
 export type HeatmapMark = BaseMark<'heatmap'>;
+export type LiquidMark = BaseMark<'liquid'>;
 
 export type CustomMark = BaseMark<MarkComponent, ChannelTypes>;
