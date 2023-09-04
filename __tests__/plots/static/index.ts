@@ -281,3 +281,5 @@ export { alphabetIntervalTitleAuto } from './alphabet-interval-title-auto';
 export { alphabetIntervalAutoPaddingLabelHide } from './alphabet-interval-auto-padding-label-hide';
 export { settleWeatherCellLineXY } from './seattle-weather-cell-lineXY';
 export { alphabetIntervalFunnelConnectorLabel } from './alphabet-interval-funnel-connector-label';
+export { alphabetIntervalAxisOptions } from './alphabet-interval-axis-options';
+export { profitIntervalAxisTransform } from './profit-interval-axis-transform';

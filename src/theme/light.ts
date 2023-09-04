@@ -278,6 +278,7 @@ export const Light: TC<LightOptions> = (options) => {
       labelDirection: 'negative',
       tickDirection: 'negative',
       titlePosition: 'top',
+      labelAutoRotate: false,
       titleSpacing: 12,
       labelSpacing: 4,
       titleTextBaseline: 'middle',
@@ -285,7 +286,7 @@ export const Light: TC<LightOptions> = (options) => {
     axisBottom: {
       gridDirection: 'negative',
       labelDirection: 'positive',
-      labelAutoRotate: true,
+      labelAutoRotate: false,
       tickDirection: 'positive',
       titlePosition: 'bottom',
       titleSpacing: 12,
