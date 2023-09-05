@@ -11,7 +11,7 @@ chart
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
   })
-  .transform([{ type: 'sortX', by: 'y', reverse: true, slice: 5 }])
+  .transform([{ type: 'sortX', by: 'y', reverse: true }])
   .encode('x', 'letter')
   .encode('y', 'frequency');
 

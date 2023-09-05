@@ -42,7 +42,7 @@
         "zh": "自定义渲染内容",
         "en": "Custom Tooltip Rendering"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*WcxIS4inFuoAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*seQRQrEFOBoAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "tooltip-click.ts",
@@ -51,6 +51,14 @@
         "en": "Click Tooltip"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*4YDhQZN5FogAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "tooltip-style.ts",
+      "title": {
+        "zh": "自定义样式",
+        "en": "Custom style"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*2uARSYuGfPgAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }
