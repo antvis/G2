@@ -19,6 +19,4 @@ chart
   .encode('y', 'frequency')
   .axis('y', { labelFormatter: '.0%' });
 
-chart.interaction('tooltip');
-
 chart.render();

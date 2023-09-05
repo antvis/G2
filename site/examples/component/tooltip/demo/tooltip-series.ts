@@ -30,6 +30,4 @@ chart
     fontSize: 10,
   });
 
-chart.interaction('tooltip', true);
-
 chart.render();
