@@ -5,6 +5,10 @@ export function liquidDefault(): G2Spec {
     type: 'liquid',
     autoFit: true,
     data: { value: { percent: 0.3 } },
-    style: { outline: { border: 4, distance: 8 }, wave: { length: 128 } },
+    style: {
+      outlineBorder: 4,
+      outlineDistance: 8,
+      waveLength: 128,
+    },
   };
 }

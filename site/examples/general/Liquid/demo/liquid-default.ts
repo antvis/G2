@@ -13,13 +13,9 @@ chart
     },
   })
   .style({
-    outline: {
-      border: 4,
-      distance: 8,
-    },
-    wave: {
-      length: 128,
-    },
+    outlineBorder: 4,
+    outlineDistance: 8,
+    waveLength: 128,
   });
 
 chart.render();

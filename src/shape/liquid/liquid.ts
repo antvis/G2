@@ -14,8 +14,13 @@ export const Liquid: SC<LiquidOptions> = (options, context) => {
   const { coordinate } = context;
   const { liquidOptions, styleOptions } = options;
   const { liquidShape, percent } = liquidOptions;
-  const { shapeStyle, outline = {}, wave = {}, ...attr } = styleOptions;
-  const { border = 2, distance = 0, style = {} } = outline;
+  const {
+    background: backgroundStyle,
+    outline = {},
+    wave = {},
+    ...attr
+  } = styleOptions;
+  const { border = 2, distance = 0, ...outlineStyle } = outline;
   const { length = 192, count = 3 } = wave;
 
   return (points, cfg, defaultAttr) => {
@@ -37,12 +42,13 @@ export const Liquid: SC<LiquidOptions> = (options, context) => {
       : getLiquidShape(liquidShape);
     const shapePath = buildPath(centerX, centerY, radius, ...size);
 
-    if (shapeStyle) {
-      // 2、background create
+    // 2、background create
+    if (Object.keys(backgroundStyle).length) {
       const backgroundShape = document.createElement('path', {
         style: {
           path: shapePath,
-          ...shapeStyle,
+          fill: '#fff',
+          ...backgroundStyle,
         },
       });
 
@@ -95,7 +101,7 @@ export const Liquid: SC<LiquidOptions> = (options, context) => {
         strokeOpacity: fillOpacity,
         lineWidth: border,
         ...attrs,
-        ...style,
+        ...outlineStyle,
         fill: 'transparent',
       },
     });

@@ -13,9 +13,7 @@ chart
     },
   })
   .style({
-    shapeStyle: {
-      fill: 'pink',
-    },
+    backgroundFill: 'pink',
   });
 
 chart.render();

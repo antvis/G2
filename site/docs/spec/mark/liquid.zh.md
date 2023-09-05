@@ -26,13 +26,9 @@ chart
     },
   })
   .style({
-    outline: {
-      border: 4,
-      distance: 8,
-    },
-    wave: {
-      length: 128,
-    },
+    outlineBorder: 4,
+    outlineDistance: 8,
+    waveLength: 128,
   });
 
 chart.render();
@@ -56,11 +52,15 @@ chart.render();
 
 对水波图中的三个部分
 
-- `outline`: 边框已经间距的样式, `border` 外边框宽，`distance` 内空白间距。
-- `wave`: 水波的样式, `length` 波长。
-- `textStyle`: 文本样式。
-- `shapeStyle`: 形状背景样式
-- `shape`: 形状配置。
+| 属性            | 描述     | 类型     | 默认值 |
+| --------------- | -------- | -------- | ------ |
+| outlineBorder   | 边框宽度 | `number` | -      |
+| outlineDistance | 内间距   | `number` | -      |
+| outlineStroke   | 边框颜色 | `string` | -      |
+| waveLength      | 波长     | `number` | -      |
+| backgroundFill  | 背景颜色 | `string` | -      |
+| textFill        | 文本颜色 | `string` | -      |
+| textFontSize    | 文本大小 | `string` | -      |
 
 ## shape
 
