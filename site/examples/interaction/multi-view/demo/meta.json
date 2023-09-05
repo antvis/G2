@@ -1,0 +1,16 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "focus-context.ts",
+      "title": {
+        "zh": "图表联动",
+        "en": "Focus and Context"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*zQRoSI_fW4MAAAAAAAAAAAAADmJ7AQ/original"
+    }
+  ]
+}

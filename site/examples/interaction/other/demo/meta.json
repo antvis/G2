@@ -1,0 +1,24 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "chart-index.ts",
+      "title": {
+        "zh": "索引图",
+        "en": "Chart Index"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/raptor/1669041887727/chart-index.gif"
+    },
+    {
+      "filename": "fisheye.ts",
+      "title": {
+        "zh": "鱼眼",
+        "en": "Fisheye"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/raptor/1669041902028/fisheye.gif"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "legend.ts",
+      "title": {
+        "zh": "图例",
+        "en": "Legend"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*MFXURoAPyocAAAAAAAAAAAAADmJ7AQ/original"
+    }
+  ]
+}

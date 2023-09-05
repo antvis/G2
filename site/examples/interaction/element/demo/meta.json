@@ -1,0 +1,24 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "highlight.ts",
+      "title": {
+        "zh": "高亮",
+        "en": "Highlight"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*h3zzSqWMrDkAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "select.ts",
+      "title": {
+        "zh": "选择",
+        "en": "Select"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*gwt_SpgIGsMAAAAAAAAAAAAADmJ7AQ/original"
+    }
+  ]
+}
