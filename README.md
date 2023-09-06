@@ -92,6 +92,10 @@ If all goes well, you can get the following lovely bar chart!
 
 <img src="https://gw.alipayobjects.com/zos/antfincdn/hTzzaqgHgQ/Antv%252520G2%252520%26%252520G2Plot.png" width="200" height="266" alt="code"/>
 
+## 📮 Usage Trend of AntV Packages
+
+[Usage Trend of AntV Packages](https://npm-compare.com/@antv/g2,@antv/g2plot,@antv/g6,@antv/graphlib,@antv/x6,@antv/l7,@antv/l7plot,@antv/xflow,@antv/graphin)
+
 ## 📄 License
 
 MIT@[AntV](https://github.com/antvis).
