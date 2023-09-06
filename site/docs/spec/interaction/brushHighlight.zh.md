@@ -206,3 +206,30 @@ chart.options({
   },
 });
 ```
+
+### 监听事件
+
+支持以下的事件：
+
+- `brush:start` - 开始创建 brush 的时候触发
+- `brush:end` - brush 更新大小和位置完成时候触发
+- `brush:remove` - brush 移除的时候触发
+- `brush:highlight` - brush 改变大小和位置时触发
+
+```js
+chart.on('brush:highlight', (e) => {
+  console.log(e.data.selection);
+  console.log(e.nativeEvent);
+});
+```
+
+### 触发交互
+
+支持以下的事件：
+
+- `brush:highlight` - 高亮数据
+- `brush:remove` - 移除 brush
+
+```js
+chart.emit('brush:remove');
+```

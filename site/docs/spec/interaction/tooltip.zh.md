@@ -166,3 +166,10 @@ chart.render((chart) =>
 ```js
 chart.emit('tooltip:hide');
 ```
+
+### 开始/禁止交互
+
+```js
+chart.emit('tooltip:disable'); // 禁用 tooltip
+chart.emit('tooltip:enable'); // 启用交互
+```

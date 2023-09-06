@@ -6,3 +6,4 @@ export const PLOT_CLASS_NAME = 'plot';
 export const COMPONENT_CLASS_NAME = 'component';
 export const LABEL_CLASS_NAME = 'label';
 export const AREA_CLASS_NAME = 'area';
+export const MASK_CLASS_NAME = 'mask';

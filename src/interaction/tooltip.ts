@@ -140,7 +140,7 @@ function showTooltip({
   parent.tooltipElement = tooltipElement;
 }
 
-function hideTooltip({ root, single, emitter, nativeEvent = true, mount }) {
+function hideTooltip({ root, single, emitter, nativeEvent = true }) {
   if (nativeEvent) {
     emitter.emit('tooltip:hide', { nativeEvent });
   }
@@ -152,11 +152,15 @@ function hideTooltip({ root, single, emitter, nativeEvent = true, mount }) {
   }
 }
 
-function destroyTooltip(root) {
-  const { tooltipElement } = root;
+function destroyTooltip({ root, single }) {
+  const canvasContainer = root.getRootNode().defaultView.getConfig().container;
+  const parent = single ? canvasContainer : root;
+  if (!parent) return;
+  const { tooltipElement } = parent;
   if (tooltipElement) {
+    console.log('destroyTooltip');
     tooltipElement.destroy();
-    root.tooltipElement = undefined;
+    parent.tooltipElement = undefined;
   }
 }
 
@@ -627,7 +631,13 @@ export function seriesTooltip(
   ) as (...args: any[]) => void;
 
   const hide = () => {
-    hideTooltip({ root, single, emitter, mount });
+    hideTooltip({ root, single, emitter });
+    if (crosshairs) hideRuleY(root);
+    if (marker) hideMarker(root);
+  };
+
+  const destroy = () => {
+    destroyTooltip({ root, single });
     if (crosshairs) hideRuleY(root);
     if (marker) hideMarker(root);
   };
@@ -645,29 +655,48 @@ export function seriesTooltip(
   };
 
   const onTooltipHide = () => {
-    hideTooltip({ root, single, emitter, nativeEvent: false, mount });
+    hideTooltip({ root, single, emitter, nativeEvent: false });
   };
 
-  emitter.on('tooltip:show', onTooltipShow);
-  emitter.on('tooltip:hide', onTooltipHide);
+  const onTooltipDisable = () => {
+    removeEventListeners();
+    destroy();
+  };
 
-  if (!disableNative) {
-    root.addEventListener('pointerenter', update);
-    root.addEventListener('pointermove', update);
-    root.addEventListener('pointerleave', hide);
-  }
+  const onTooltipEnable = () => {
+    addEventListeners();
+  };
 
-  return () => {
+  const addEventListeners = () => {
+    if (!disableNative) {
+      root.addEventListener('pointerenter', update);
+      root.addEventListener('pointermove', update);
+      root.addEventListener('pointerleave', hide);
+    }
+  };
+
+  const removeEventListeners = () => {
     if (!disableNative) {
       root.removeEventListener('pointerenter', update);
       root.removeEventListener('pointermove', update);
       root.removeEventListener('pointerleave', hide);
     }
+  };
+
+  addEventListeners();
+
+  emitter.on('tooltip:show', onTooltipShow);
+  emitter.on('tooltip:hide', onTooltipHide);
+  emitter.on('tooltip:disable', onTooltipDisable);
+  emitter.on('tooltip:enable', onTooltipEnable);
+
+  return () => {
+    removeEventListeners();
     emitter.off('tooltip:show', onTooltipShow);
     emitter.off('tooltip:hide', onTooltipHide);
-    destroyTooltip(root);
-    if (crosshairs) hideRuleY(root);
-    if (marker) hideMarker(root);
+    emitter.off('tooltip:disable', onTooltipDisable);
+    emitter.off('tooltip:enable', onTooltipEnable);
+    destroy();
   };
 }
 
@@ -707,7 +736,7 @@ export function tooltip(
     (event) => {
       const { target: element } = event;
       if (!elementSet.has(element)) {
-        hideTooltip({ root, single, emitter, mount });
+        hideTooltip({ root, single, emitter });
         return;
       }
       const k = groupKey(element);
@@ -726,7 +755,7 @@ export function tooltip(
       }
 
       if (isEmptyTooltipData(data)) {
-        hideTooltip({ root, single, emitter, mount });
+        hideTooltip({ root, single, emitter });
         return;
       }
 
@@ -762,7 +791,24 @@ export function tooltip(
   const pointerout = (event) => {
     const { target: element } = event;
     if (!elementSet.has(element)) return;
-    hideTooltip({ root, single, emitter, mount });
+    hideTooltip({ root, single, emitter });
+  };
+
+  const addEventListeners = () => {
+    if (!disableNative) {
+      root.addEventListener('pointerover', pointerover);
+      root.addEventListener('pointermove', pointerover);
+      root.addEventListener('pointerout', pointerout);
+    }
+  };
+
+  const removeEventListeners = () => {
+    if (!disableNative) {
+      root.removeEventListener('pointerover', pointerover);
+      root.removeEventListener('pointermove', pointerover);
+      root.removeEventListener('pointerout', pointerout);
+    }
+    destroyTooltip({ root, single });
   };
 
   const onTooltipShow = ({ nativeEvent, data }) => {
@@ -780,28 +826,30 @@ export function tooltip(
 
   const onTooltipHide = ({ nativeEvent }: any = {}) => {
     if (nativeEvent) return;
-    hideTooltip({ root, single, emitter, nativeEvent: false, mount });
+    hideTooltip({ root, single, emitter, nativeEvent: false });
+  };
+
+  const onTooltipDisable = () => {
+    removeEventListeners();
+    destroyTooltip({ root, single });
+  };
+
+  const onTooltipEnable = () => {
+    addEventListeners();
   };
 
   emitter.on('tooltip:show', onTooltipShow);
   emitter.on('tooltip:hide', onTooltipHide);
+  emitter.on('tooltip:enable', onTooltipEnable);
+  emitter.on('tooltip:disable', onTooltipDisable);
 
-  if (!disableNative) {
-    root.addEventListener('pointerover', pointerover);
-    root.addEventListener('pointermove', pointerover);
-    root.addEventListener('pointerout', pointerout);
-  }
+  addEventListeners();
 
   return () => {
-    if (!disableNative) {
-      root.removeEventListener('pointerover', pointerover);
-      root.removeEventListener('pointermove', pointerover);
-      root.removeEventListener('pointerout', pointerout);
-    }
-
+    removeEventListeners();
     emitter.off('tooltip:show', onTooltipShow);
     emitter.off('tooltip:hide', onTooltipHide);
-    destroyTooltip(root);
+    destroyTooltip({ root, single });
   };
 }
 

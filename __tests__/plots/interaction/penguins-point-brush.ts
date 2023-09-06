@@ -72,7 +72,7 @@ export function drag(shape, x, y, x1, y1) {
     }),
   );
   shape.dispatchEvent(
-    new CustomEvent('drag', {
+    new CustomEvent('dragend', {
       // @ts-ignore
       offsetX: x1,
       offsetY: y1,

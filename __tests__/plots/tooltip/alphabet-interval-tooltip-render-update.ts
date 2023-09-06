@@ -1,6 +1,8 @@
 import { CustomEvent } from '@antv/g';
 import { G2Spec, ELEMENT_CLASS_NAME } from '../../../src';
 import { LEGEND_ITEMS_CLASS_NAME } from '../../../src/interaction/legendFilter';
+import { sleep } from '../../integration/utils/sleep';
+import { Slice } from '../../../src/data';
 
 export function alphabetIntervalTooltipRenderUpdate(): G2Spec {
   return {
@@ -36,6 +38,7 @@ alphabetIntervalTooltipRenderUpdate.steps = ({ canvas }) => {
         const [i0] = items;
         i0.dispatchEvent(new CustomEvent('click'));
 
+        await sleep(100);
         const elements = document.getElementsByClassName(ELEMENT_CLASS_NAME);
         const [e0] = elements;
         e0.dispatchEvent(new CustomEvent('pointerover'));
