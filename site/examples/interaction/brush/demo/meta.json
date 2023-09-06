@@ -11,6 +11,14 @@
         "en": "Brush"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*XbQtTrYgA88AAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "brush-emit.ts",
+      "title": {
+        "zh": "刷选事件",
+        "en": "Brush"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*CpEHQ52tUfkAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }

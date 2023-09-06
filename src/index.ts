@@ -13,6 +13,7 @@ export {
   COMPONENT_CLASS_NAME,
   LABEL_CLASS_NAME,
   AREA_CLASS_NAME,
+  MASK_CLASS_NAME,
 } from './runtime';
 
 export {

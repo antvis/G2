@@ -217,6 +217,8 @@ export function brush(
     brushed = () => {},
     brushended = () => {},
     brushcreated = () => {},
+    brushstarted = () => {},
+    brushupdated = () => {},
     extent = bboxOf(root),
     brushRegion = (x, y, x1, y1, extent) => [x, y, x1, y1],
     reverse = false,
@@ -249,7 +251,8 @@ export function brush(
   root.style.draggable = true; // Make it response to drag event.
 
   // Remove old mask and init new mask.
-  const initMask = (x, y) => {
+  const initMask = (x, y, event) => {
+    brushstarted(event);
     if (mask) mask.remove();
     if (background) background.remove();
     start = [x, y];
@@ -395,7 +398,7 @@ export function brush(
     const { target } = event;
     const [offsetX, offsetY] = brushMousePosition(root, event);
     if (!mask || !isMask(target)) {
-      initMask(offsetX, offsetY);
+      initMask(offsetX, offsetY, event);
       creating = true;
       return;
     }
@@ -435,6 +438,7 @@ export function brush(
       const { x, y, width, height } = mask.style;
       start = [x, y];
       end = [x + width, y + height];
+      brushupdated(x, y, x + width, y + height, event);
       return;
     }
     end = brushMousePosition(root, event);
@@ -471,7 +475,7 @@ export function brush(
   return {
     mask,
     move(x, y, x1, y1, emit = true) {
-      if (!mask) initMask(x, y);
+      if (!mask) initMask(x, y, {});
       start = [x, y];
       end = [x1, y1];
       updateMask([x, y], [x1, y1], emit);
@@ -644,6 +648,25 @@ export function brushHighlight(
       }
       const handler = series ? seriesBrushed : brushed;
       handler(x, y, x1, y1);
+    },
+    brushcreated: (x, y, x1, y1, event) => {
+      const selection = selectionOf(x, y, x1, y1, scale, coordinate);
+      emitter.emit('brush:end', {
+        ...event,
+        nativeEvent: true,
+        data: { selection },
+      });
+    },
+    brushupdated: (x, y, x1, y1, event) => {
+      const selection = selectionOf(x, y, x1, y1, scale, coordinate);
+      emitter.emit('brush:end', {
+        ...event,
+        nativeEvent: true,
+        data: { selection },
+      });
+    },
+    brushstarted: (e) => {
+      emitter.emit('brush:start', e);
     },
   });
 

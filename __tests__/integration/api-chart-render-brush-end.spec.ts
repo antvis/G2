@@ -5,7 +5,7 @@ import { sleep } from './utils/sleep';
 describe('chart.render', () => {
   const canvas = createNodeGCanvas(800, 500);
 
-  it('chart.render() should not emit brush:end', async () => {
+  it('chart.render() should not emit brush:remove', async () => {
     const { rerendered, finished, button, chart } = render({
       canvas,
       container: document.createElement('div'),
@@ -17,7 +17,7 @@ describe('chart.render', () => {
     chart.on('brush:highlight', () => {
       start();
     });
-    chart.on('brush:end', () => {
+    chart.on('brush:remove', () => {
       end();
     });
     await finished;

@@ -55,7 +55,7 @@ export function chartOnFocusContext(context) {
     const [[x1, x2]] = selection;
     const domainX = scaleX.getOptions().domain;
     if (x1 === domainX[0] && x2 === domainX[1]) {
-      contextView.emit('brush:remove');
+      contextView.emit('brush:remove', {});
     } else {
       contextView.emit('brush:highlight', { data: { selection } });
     }
