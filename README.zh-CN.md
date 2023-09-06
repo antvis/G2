@@ -94,6 +94,10 @@ chart.render();
 
 <img src="https://gw.alipayobjects.com/zos/antfincdn/hTzzaqgHgQ/Antv%252520G2%252520%26%252520G2Plot.png" width="200" height="266" alt="code"/>
 
+## 📊 AntV系列使用趋势
+
+[AntV系列使用趋势](https://npm-compare.com/@antv/g2,@antv/g2plot,@antv/g6,@antv/graphlib,@antv/x6,@antv/l7,@antv/l7plot,@antv/xflow,@antv/graphin)
+
 ## 📄 许可证
 
 MIT@[AntV](https://github.com/antvis).
