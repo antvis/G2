@@ -1,3 +1,18 @@
+## [5.1.1](https://github.com/antvis/g2/compare/5.1.0...5.1.1) (2023-09-07)
+
+
+### Bug Fixes
+
+* **axis:** labelAutoHide ([#5502](https://github.com/antvis/g2/issues/5502)) ([4dfdaff](https://github.com/antvis/g2/commit/4dfdaff76ee0584a1d9bb139b6fa6404145dbd22))
+* **shape:** update group shape without animation ([#5514](https://github.com/antvis/g2/issues/5514)) ([a49624b](https://github.com/antvis/g2/commit/a49624b9a7a6503989e8e08d8dfa5937999f8a21))
+
+
+### Features
+
+* **interaction:** emit more brush and tooltip events ([#5512](https://github.com/antvis/g2/issues/5512)) ([57cc841](https://github.com/antvis/g2/commit/57cc841e17969ac3e686061bf8aa821c616460c7))
+
+
+
 # [5.1.0](https://github.com/antvis/g2/compare/5.0.24...5.1.0) (2023-08-31)
 
 
