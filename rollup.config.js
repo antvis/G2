@@ -33,9 +33,16 @@ export default {
     resolve(),
     commonjs(),
     typescript({
-      exclude: 'node_modules/**',
       useTsconfigDeclarationDir: true,
-      extensions: ['.js', '.ts'],
+      tsconfigOverride: {
+        compilerOptions: {
+          target: 'es5',
+          downlevelIteration: true,
+          allowJs: true, // To transform js files in node_modules to es5.
+          declaration: false, // Avoid failing to generate types from js files.
+        },
+      },
+      include: ['src/**/*.ts+(|x)', '**/node_modules/**/*.js+(|x)'],
     }),
     terser(),
   ],
