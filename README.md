@@ -76,7 +76,7 @@ chart
   .encode('x', 'genre') // Assign genre column to x position channel.
   .encode('y', 'sold'); // Assign sold column to y position channel.
 
-// Render visualization。
+// Render visualization.
 chart.render();
 ```
 

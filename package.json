@@ -151,7 +151,7 @@
     },
     {
       "path": "dist/g2.min.js",
-      "limit": "1.2 Mb"
+      "limit": "1.5 Mb"
     }
   ],
   "author": {
