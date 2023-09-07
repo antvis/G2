@@ -961,13 +961,18 @@ async function plotView(
                 const node = shapeFunction(data, index);
                 const animation = updateFunction(data, [element], [node]);
                 if (animation !== null) return animation;
-                if (element.nodeName === node.nodeName)
+                if (
+                  element.nodeName === node.nodeName &&
+                  node.nodeName !== 'g'
+                ) {
                   copyAttributes(element, node);
-                else {
+                } else {
                   element.parentNode.replaceChild(node, element);
                   node.className = ELEMENT_CLASS_NAME;
                   // @ts-ignore
                   node.markType = type;
+                  // @ts-ignore
+                  node.__data__ = element.__data__;
                 }
                 return animation;
               })

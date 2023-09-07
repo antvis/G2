@@ -158,7 +158,6 @@ function destroyTooltip({ root, single }) {
   if (!parent) return;
   const { tooltipElement } = parent;
   if (tooltipElement) {
-    console.log('destroyTooltip');
     tooltipElement.destroy();
     parent.tooltipElement = undefined;
   }
