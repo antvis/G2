@@ -422,11 +422,14 @@ async function initializeView(
   const flattenOptions = await transformMarks(options, library);
 
   const mergedOptions = bubbleOptions(flattenOptions);
+
   // @todo Remove this.
   // !!! NOTE: Mute original view options.
   // Update interaction and coordinate for this view.
   options.interaction = mergedOptions.interaction;
   options.coordinate = mergedOptions.coordinate;
+  // @ts-ignore
+  options.marks = [...mergedOptions.marks, ...mergedOptions.components];
 
   const transformedOptions = coordinate2Transform(mergedOptions, library);
   const state = await initializeMarks(transformedOptions, library);
