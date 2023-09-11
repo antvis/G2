@@ -61,6 +61,14 @@ describe('Chart', () => {
     });
   });
 
+  it('Chart({...}) should set canvas.supportsCSSTransform to true.', async () => {
+    const chart = new Chart();
+    await chart.render();
+    expect(chart.getContext().canvas?.getConfig().supportsCSSTransform).toBe(
+      true,
+    );
+  });
+
   it('chart.getContainer() should return container.', () => {
     const container = document.createElement('div');
     const chart = new Chart({ container });
