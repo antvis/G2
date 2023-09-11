@@ -5,15 +5,8 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .liquid()
-  .data({
-    value: {
-      percent: 0.3,
-    },
-  })
-  .style({
-    backgroundFill: 'pink',
-  });
+chart.liquid().data(0.3).style({
+  backgroundFill: 'pink',
+});
 
 chart.render();

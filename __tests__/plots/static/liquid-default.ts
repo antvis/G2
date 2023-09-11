@@ -4,7 +4,7 @@ export function liquidDefault(): G2Spec {
   return {
     type: 'liquid',
     autoFit: true,
-    data: { value: { percent: 0.3 } },
+    data: 0.3,
     style: {
       outlineBorder: 4,
       outlineDistance: 8,

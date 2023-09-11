@@ -5,17 +5,10 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .liquid()
-  .data({
-    value: {
-      percent: 0.3,
-    },
-  })
-  .style({
-    outlineBorder: 4,
-    outlineDistance: 8,
-    waveLength: 128,
-  });
+chart.liquid().data(0.3).style({
+  outlineBorder: 4,
+  outlineDistance: 8,
+  waveLength: 128,
+});
 
 chart.render();

@@ -4,7 +4,7 @@ export function liquidCustomShape(): G2Spec {
   return {
     type: 'liquid',
     autoFit: true,
-    data: { value: { percent: 0.3 } },
+    data: 0.3,
     style: {
       shape: (x, y, r) => {
         const path = [] as any;

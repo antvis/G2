@@ -7,11 +7,7 @@ const chart = new Chart({
 
 chart
   .liquid()
-  .data({
-    value: {
-      percent: 0.3,
-    },
-  })
+  .data(0.3)
   .style({
     shape: (x, y, r) => {
       const path = [];

@@ -2,10 +2,10 @@ import { isFunction } from '@antv/util';
 import type { PathStyleProps } from '@antv/g';
 import type { ShapeComponent as SC } from '../../runtime';
 import { addWave } from './wave';
-import { liquidShapesPath } from './shapes';
+import { LiquidShapesPath } from './shapes';
 
 const getLiquidShape = (shape = 'circle') =>
-  liquidShapesPath[shape] || liquidShapesPath.circle;
+  LiquidShapesPath[shape] || LiquidShapesPath.circle;
 
 export type LiquidOptions = Record<string, any>;
 
@@ -30,7 +30,7 @@ export const Liquid: SC<LiquidOptions> = (options, context) => {
 
     const g = document.createElement('g', {});
 
-    // center x/y.
+    // Center x/y.
     const [centerX, centerY] = coordinate.getCenter();
     // [width,height].
     const size = coordinate.getSize();
@@ -42,7 +42,7 @@ export const Liquid: SC<LiquidOptions> = (options, context) => {
       : getLiquidShape(liquidShape);
     const shapePath = buildPath(centerX, centerY, radius, ...size);
 
-    // 2、background create.
+    // 2、Background create.
     if (Object.keys(backgroundStyle).length) {
       const backgroundShape = document.createElement('path', {
         style: {
@@ -55,9 +55,9 @@ export const Liquid: SC<LiquidOptions> = (options, context) => {
       g.appendChild(backgroundShape);
     }
 
-    // percent > 0 Mapping water waves.
+    // Percent > 0 Mapping water waves.
     if (percent > 0) {
-      // clip create.
+      // 3. Clip create.
       const clipShape = document.createElement('path', {
         style: {
           path: shapePath,
@@ -67,7 +67,7 @@ export const Liquid: SC<LiquidOptions> = (options, context) => {
       g.appendChild(clipShape);
       g.style.clipPath = clipShape;
 
-      // 4. wave create.
+      // 4. Wave create.
       addWave(
         centerX,
         centerY,
@@ -83,7 +83,7 @@ export const Liquid: SC<LiquidOptions> = (options, context) => {
       );
     }
 
-    // 5. draw distance.
+    // 5. Draw distance.
     const distanceShape = document.createElement('path', {
       style: {
         path: shapePath,
@@ -93,7 +93,7 @@ export const Liquid: SC<LiquidOptions> = (options, context) => {
       },
     });
 
-    // 6. draw border.
+    // 6. Draw border.
     const borderShape = document.createElement('path', {
       style: {
         path: shapePath,

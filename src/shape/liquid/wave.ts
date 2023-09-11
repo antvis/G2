@@ -24,7 +24,7 @@ function lerp(min: number, max: number, factor: number) {
  *       |
  * ... a * ..................
  *
- * whose positions are a: (0, 0), b: (0.5, 0.5), c: (1, 1), d: (PI / 2, 1).
+ * Whose positions are a: (0, 0), b: (0.5, 0.5), c: (1, 1), d: (PI / 2, 1).
  *
  * @param x          x position of the left-most point (a).
  * @param stage      0-3, stating which part of the wave it is.
@@ -73,7 +73,7 @@ function getWaterWavePositions(
 }
 
 /**
- * get wave path.
+ * Get wave path.
  * @param radius
  * @param waterLevel      water level
  * @param waveLength      wave length
@@ -96,7 +96,7 @@ function getWaterWavePath(
   const path = [];
   let _phase = phase;
 
-  // map phase to [-Math.PI * 2, 0].
+  // Map phase to [-Math.PI * 2, 0].
   while (_phase < -Math.PI * 2) {
     _phase += Math.PI * 2;
   }
@@ -107,9 +107,9 @@ function getWaterWavePath(
 
   const left = cx - radius + _phase - radius * 2;
   /**
-   * top-left corner as start point.
+   * Top-left corner as start point.
    *
-   * draws this point.
+   * Draws this point.
    *  |
    * \|/
    *  ~~~~~~~~
@@ -119,9 +119,9 @@ function getWaterWavePath(
   path.push(['M', left, waterLevel]);
 
   /**
-   * top wave.
+   * Top wave.
    *
-   * ~~~~~~~~ <- draws this sine wave
+   * ~~~~~~~~ <- Draws this sine wave.
    * |      |
    * +------+
    */
@@ -150,14 +150,14 @@ function getWaterWavePath(
   }
 
   /**
-   * top-right corner.
+   * Top-right corner.
    *
    *                       ~~~~~~~~
-   * 3. draws this line -> |      | <- 1. draws this line
+   * 3. Draws this line. -> |      | <- 1. Draws this line.
    *                       +------+
    *                          ^
    *                          |
-   *                  2. draws this line
+   *                  2. Draws this line.
    */
   path.push(['L', waveRight + left, cy + radius]);
   path.push(['L', left, cy + radius]);
@@ -167,7 +167,7 @@ function getWaterWavePath(
 }
 
 /**
- * add wave
+ * Add wave.
  * @param x           center x
  * @param y           center y
  * @param level       wave level 0～1
@@ -211,7 +211,7 @@ export function addWave(
       y,
     );
 
-    // create wave path.
+    // Create wave path.
     const wave = document.createElement('path', {
       style: {
         path,

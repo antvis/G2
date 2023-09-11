@@ -136,7 +136,7 @@ export type GaugeData =
 
 function getGaugeData(data: GaugeData) {
   if (isNumber(data)) {
-    // min 0 max 1.
+    // Percent range [0, 1].
     const percent = Math.max(0, Math.min(data, 1));
     return {
       percent,

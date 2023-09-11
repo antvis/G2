@@ -336,11 +336,12 @@ function isField(data: Record<string, Primitive>[], value: string): boolean {
 }
 
 function normalizedDataSource(data) {
-  // Return null as a placeholder.
-  // liquid、gauge need number data
+  // Liquid、Gauge need number data.
   if (isNumber(data)) return { type: 'inline', value: data };
+  // Return null as a placeholder.
   if (!data) return { type: 'inline', value: null };
   if (Array.isArray(data)) return { type: 'inline', value: data };
   const { type = 'inline', ...rest } = data;
+  console.log(rest);
   return { ...rest, type };
 }

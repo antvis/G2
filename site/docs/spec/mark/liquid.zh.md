@@ -20,11 +20,7 @@ const chart = new Chart({
 
 chart
   .liquid()
-  .data({
-    value: {
-      percent: .3,
-    },
-  })
+  .data(.3)
   .style({
     outlineBorder: 4,
     outlineDistance: 8,
@@ -40,13 +36,6 @@ chart.render();
 | ----- | ---------------------- | ----------- | ------ |
 | data  | 数据                   | `GaugeData` | -      |
 | style | 配置图形样式和标签样式 | -           | -      |
-
-## data
-
-| 属性    | 描述   | 类型     | 默认值 |
-| ------- | ------ | -------- | ------ |
-| percent | 百分比 | `number` | -      |
-
 
 ## style
 
