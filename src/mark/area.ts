@@ -85,7 +85,7 @@ Area.props = {
     { name: 'x', required: true },
     { name: 'y', required: true },
     { name: 'size' },
-    { name: 'series', scale: 'identity' },
+    { name: 'series', scale: 'band' },
   ],
   preInference: [
     ...basePreInference(),

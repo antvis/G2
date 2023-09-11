@@ -2,7 +2,7 @@ import { Circle, DisplayObject, IElement, Line } from '@antv/g';
 import { sort, group, mean, bisector, minIndex } from 'd3-array';
 import { deepMix, lowerFirst, throttle } from '@antv/util';
 import { Tooltip as TooltipComponent } from '@antv/gui';
-import { Constant, Identity } from '@antv/scale';
+import { Constant, Identity, Band } from '@antv/scale';
 import { defined, subObject } from '../utils/helper';
 import { isTranspose, isPolar } from '../utils/coordinate';
 import { angle, sub } from '../utils/vector';
@@ -185,19 +185,26 @@ function singleItem(element) {
 }
 
 function groupNameOf(scale, datum) {
-  const { color: scaleColor, series: scaleSeries } = scale;
+  const { color: scaleColor, series: scaleSeries, facet = false } = scale;
   const { color, series } = datum;
   const invertAble = (scale) => {
     return (
       scale &&
       scale.invert &&
-      !(scale instanceof Identity) &&
+      !(scale instanceof Band) &&
       !(scale instanceof Constant)
     );
   };
   // For non constant color channel.
   if (invertAble(scaleSeries)) return scaleSeries.invert(series);
-  if (series && series !== color) return series;
+  if (
+    series &&
+    scaleSeries instanceof Band &&
+    scaleSeries.invert(series) !== color &&
+    !facet
+  ) {
+    return scaleSeries.invert(series);
+  }
   if (invertAble(scaleColor)) {
     const name = scaleColor.invert(color);
     // For threshold scale.
@@ -896,6 +903,7 @@ export function Tooltip(options) {
       const bbox = plotArea.getBounds();
       const startX = bbox.min[0];
       const startY = bbox.min[1];
+      Object.assign(scale, { facet: true });
 
       // @todo Nested structure rather than flat structure for facet?
       // Add listener to the root area.
