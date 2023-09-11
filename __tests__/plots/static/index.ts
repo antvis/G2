@@ -283,3 +283,6 @@ export { settleWeatherCellLineXY } from './seattle-weather-cell-lineXY';
 export { alphabetIntervalFunnelConnectorLabel } from './alphabet-interval-funnel-connector-label';
 export { alphabetIntervalAxisOptions } from './alphabet-interval-axis-options';
 export { profitIntervalAxisTransform } from './profit-interval-axis-transform';
+export { intervalPointBullet } from './interval-point-bullet';
+export { intervalPointBullets } from './interval-point-bullets';
+export { intervalPointBulletDatas } from './interval-point-bullet-datas';
