@@ -5,21 +5,21 @@ import { MarkOf, CompositionOf as Of } from './types';
 import { MarkNode } from './mark';
 import { CompositionNode } from './composition';
 
-type CompositionOf<Library> = Of<
-  Library,
-  (
-    composite?,
-  ) => CompositionNode<
-    CompositionOf<Library> & MarkOf<Library, (composite?) => MarkNode>
-  > &
-    MarkOf<Library, (composite?) => MarkNode> &
-    CompositionOf<Library>
->;
-
 type BuiltinComposition = {
   'composition.mark': any;
   'composition.view': any;
 };
+
+export type CompositionOf<Library> = Of<
+  Library,
+  (composite?) => CompositionAPI<Library>
+>;
+
+export type CompositionAPI<Library> = CompositionNode<
+  CompositionOf<Library> & MarkOf<Library, (composite?) => MarkNode>
+> &
+  MarkOf<Library, (composite?) => MarkNode> &
+  CompositionOf<Library>;
 
 export type API<Spec, Library> = Runtime<Spec> &
   MarkOf<Library, (composite?) => MarkNode> &

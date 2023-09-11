@@ -30,8 +30,8 @@ export * from './mark';
 
 export {
   Chart,
-  MarkNode,
-  CompositionNode,
+  type MarkNode,
+  type CompositionNode,
   register,
   Runtime,
   extend,
