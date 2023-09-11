@@ -68,18 +68,18 @@ function pin(x: number, y: number, radius: number) {
   const h = Math.max(w, radius * 2);
   const r = w / 2;
 
-  // attrs of the upper circle
+  // attrs of the upper circle.
   const cx = x;
   const cy = r + y - h / 2;
   const theta = Math.asin(r / ((h - r) * 0.85));
   const dy = Math.sin(theta) * r;
   const dx = Math.cos(theta) * r;
 
-  // the start point of the path
+  // the start point of the path.
   const x0 = cx - dx;
   const y0 = cy + dy;
 
-  // control point
+  // control point.
   const cpX = x;
   const cpY = cy + r / Math.sin(theta);
 

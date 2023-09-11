@@ -3,7 +3,7 @@ import { PathStyleProps, IAnimation } from '@antv/g';
 const DURATION = 5000;
 
 /**
- * A function of linear mapping
+ * A function of linear mapping.
  * @param min
  * @param max
  * @param factor
@@ -13,7 +13,7 @@ function lerp(min: number, max: number, factor: number) {
 }
 
 /**
- * Using Bessel curve to simulate sine wave
+ * Using Bessel curve to simulate sine wave.
  * Using Bezier curves to fit sine wave.
  * There is 4 control points for each curve of wave,
  * which is at 1/4 wave length of the sine wave.
@@ -24,13 +24,13 @@ function lerp(min: number, max: number, factor: number) {
  *       |
  * ... a * ..................
  *
- * whose positions are a: (0, 0), b: (0.5, 0.5), c: (1, 1), d: (PI / 2, 1)
+ * whose positions are a: (0, 0), b: (0.5, 0.5), c: (1, 1), d: (PI / 2, 1).
  *
- * @param x          x position of the left-most point (a)
- * @param stage      0-3, stating which part of the wave it is
- * @param waveLength wave length of the sine wave
- * @param amplitude  wave amplitude
- * @return Sinusoidal segment curve
+ * @param x          x position of the left-most point (a).
+ * @param stage      0-3, stating which part of the wave it is.
+ * @param waveLength wave length of the sine wave.
+ * @param amplitude  wave amplitude.
+ * @return Sinusoidal segment curve.
  */
 function getWaterWavePositions(
   x: number,
@@ -73,7 +73,7 @@ function getWaterWavePositions(
 }
 
 /**
- * get wave path
+ * get wave path.
  * @param radius
  * @param waterLevel      water level
  * @param waveLength      wave length
@@ -96,7 +96,7 @@ function getWaterWavePath(
   const path = [];
   let _phase = phase;
 
-  // map phase to [-Math.PI * 2, 0]
+  // map phase to [-Math.PI * 2, 0].
   while (_phase < -Math.PI * 2) {
     _phase += Math.PI * 2;
   }
@@ -107,9 +107,9 @@ function getWaterWavePath(
 
   const left = cx - radius + _phase - radius * 2;
   /**
-   * top-left corner as start point
+   * top-left corner as start point.
    *
-   * draws this point
+   * draws this point.
    *  |
    * \|/
    *  ~~~~~~~~
@@ -119,7 +119,7 @@ function getWaterWavePath(
   path.push(['M', left, waterLevel]);
 
   /**
-   * top wave
+   * top wave.
    *
    * ~~~~~~~~ <- draws this sine wave
    * |      |
@@ -150,7 +150,7 @@ function getWaterWavePath(
   }
 
   /**
-   * top-right corner
+   * top-right corner.
    *
    *                       ~~~~~~~~
    * 3. draws this line -> |      | <- 1. draws this line
@@ -193,10 +193,10 @@ export function addWave(
   animation: IAnimation | boolean,
   document: any,
 ) {
-  // Box property Color width height
+  // Box property Color width height.
   const { fill, fillOpacity, opacity } = waveAttrs;
 
-  // Number of cyclic waveCount
+  // Number of cyclic waveCount.
   for (let idx = 0; idx < waveCount; idx++) {
     const factor = waveCount <= 1 ? 1 : idx / (waveCount - 1);
 
@@ -205,13 +205,13 @@ export function addWave(
       minY + radius * level,
       waveLength,
       0,
-      // Amplitude height
+      // Amplitude height.
       radius / 40,
       x,
       y,
     );
 
-    // create wave path
+    // create wave path.
     const wave = document.createElement('path', {
       style: {
         path,
@@ -239,7 +239,6 @@ export function addWave(
         iterations: Infinity,
       });
     } catch (e) {
-      // TODO off-screen canvas 中动画会找不到 canvas
       console.warn('off-screen group animate error!');
     }
   }

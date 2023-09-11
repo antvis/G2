@@ -30,19 +30,19 @@ export const Liquid: SC<LiquidOptions> = (options, context) => {
 
     const g = document.createElement('g', {});
 
-    // center x/y
+    // center x/y.
     const [centerX, centerY] = coordinate.getCenter();
-    // [width,height]
+    // [width,height].
     const size = coordinate.getSize();
     const radius = Math.min(...size) / 2;
 
-    // 1、Gets the path of the overall shape。
+    // 1、Gets the path of the overall shape.
     const buildPath = isFunction(liquidShape)
       ? liquidShape
       : getLiquidShape(liquidShape);
     const shapePath = buildPath(centerX, centerY, radius, ...size);
 
-    // 2、background create
+    // 2、background create.
     if (Object.keys(backgroundStyle).length) {
       const backgroundShape = document.createElement('path', {
         style: {
@@ -55,9 +55,9 @@ export const Liquid: SC<LiquidOptions> = (options, context) => {
       g.appendChild(backgroundShape);
     }
 
-    // percent > 0 Mapping water waves
+    // percent > 0 Mapping water waves.
     if (percent > 0) {
-      // clip create
+      // clip create.
       const clipShape = document.createElement('path', {
         style: {
           path: shapePath,
@@ -67,7 +67,7 @@ export const Liquid: SC<LiquidOptions> = (options, context) => {
       g.appendChild(clipShape);
       g.style.clipPath = clipShape;
 
-      // 4. wave create
+      // 4. wave create.
       addWave(
         centerX,
         centerY,
@@ -83,7 +83,7 @@ export const Liquid: SC<LiquidOptions> = (options, context) => {
       );
     }
 
-    // 5. draw distance
+    // 5. draw distance.
     const distanceShape = document.createElement('path', {
       style: {
         path: shapePath,
@@ -93,7 +93,7 @@ export const Liquid: SC<LiquidOptions> = (options, context) => {
       },
     });
 
-    // 6. draw border
+    // 6. draw border.
     const borderShape = document.createElement('path', {
       style: {
         path: shapePath,

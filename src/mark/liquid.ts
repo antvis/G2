@@ -1,4 +1,4 @@
-import { deepMix } from '@antv/util';
+import { deepMix, isNumber } from '@antv/util';
 import { subObject } from '../utils/helper';
 import { CompositeMarkComponent as CC } from '../runtime';
 import { LiquidMark } from '../spec';
@@ -48,22 +48,20 @@ const DEFAULT_TEXT_OPTIONS = {
   },
 };
 
-export type LiquidData = {
-  target?: number;
-  total?: number;
-  percent?: number;
-  name?: string;
-  thresholds?: number[];
-};
+export type LiquidData =
+  | {
+      percent?: number;
+    }
+  | number;
 
 export type LiquidOptions = Omit<LiquidMark, 'type'>;
 
 export const Liquid: CC<LiquidOptions> = (options) => {
   const { data = {}, style = {}, animate, ...resOptions } = options;
+  // min 0.
+  const percent = Math.max(0, isNumber(data) ? data : data?.percent);
 
-  const { percent } = data;
-
-  const newData = [{ percent: data.percent, type: 'liquid' }];
+  const newData = [{ percent, type: 'liquid' }];
 
   const textStyle = subObject(style, 'text');
   const outline = subObject(style, 'outline');

@@ -13,7 +13,7 @@ chart
     },
   })
   .style({
-    // 内置形状 rect 矩形、 circle 圆形、pin 水滴、diamond 菱形、triangle 三角
+    // Build-in shapes: rect, circle, pin, diamond, triangle.
     shape: 'pin',
     textFill: '#fff',
     outlineBorder: 4,
