@@ -1,5 +1,5 @@
 import { Primitive } from 'd3-array';
-import { deepMix } from '@antv/util';
+import { deepMix, isNumber } from '@antv/util';
 import { format } from 'd3-format';
 import { indexOf, mapObject } from '../utils/array';
 import {
@@ -336,9 +336,12 @@ function isField(data: Record<string, Primitive>[], value: string): boolean {
 }
 
 function normalizedDataSource(data) {
+  // Liquid、Gauge need number data.
+  if (isNumber(data)) return { type: 'inline', value: data };
   // Return null as a placeholder.
   if (!data) return { type: 'inline', value: null };
   if (Array.isArray(data)) return { type: 'inline', value: data };
   const { type = 'inline', ...rest } = data;
+  console.log(rest);
   return { ...rest, type };
 }

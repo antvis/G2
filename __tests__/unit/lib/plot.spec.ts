@@ -1,5 +1,5 @@
 import { plotlib } from '../../../src/lib';
-import { Boxplot, WordCloud, Gauge } from '../../../src/mark';
+import { Boxplot, WordCloud, Gauge, Liquid } from '../../../src/mark';
 import { Venn } from '../../../src/data';
 
 describe('plotlib', () => {
@@ -9,6 +9,7 @@ describe('plotlib', () => {
       'mark.boxplot': Boxplot,
       'mark.wordCloud': WordCloud,
       'mark.gauge': Gauge,
+      'mark.liquid': Liquid,
     });
   });
 });

@@ -30,6 +30,7 @@ export { WordCloud } from './wordCloud';
 export { Gauge } from './gauge';
 export { Density } from './density';
 export { Heatmap } from './heatmap';
+export { Liquid } from './liquid';
 
 export type { IntervalOptions } from './interval';
 export type { RectOptions } from './rect';
@@ -59,3 +60,4 @@ export type { WordCloudOptions } from './wordCloud';
 export type { GaugeOptions } from './gauge';
 export type { DensityOptions } from './density';
 export type { HeatmapOptions } from './heatmap';
+export type { LiquidOptions } from './liquid';
