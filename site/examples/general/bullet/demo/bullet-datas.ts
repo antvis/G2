@@ -30,7 +30,16 @@ const data = [
 
 chart.coordinate({ transform: [{ type: 'transpose' }] });
 
-chart.data(data).legend(false);
+chart
+  .data(data)
+  .scale('color', {
+    range: [...colors['ranges'], ...colors['measures'], colors['target']],
+  })
+  .legend('color', {
+    itemMarker: (d) => {
+      return d === '目标' ? 'line' : 'square';
+    },
+  });
 
 chart
   .interval()
@@ -46,16 +55,14 @@ chart
   })
   .encode('y', 'ranges')
   .encode('x', 'title')
-  .style('fill', (d, i) => colors['ranges'][i])
-  .encode('color', 'ranges');
+  .encode('color', (d, i) => ['差', '良', '优'][i]);
 
 chart
   .interval()
   .style('maxWidth', 20)
   .encode('y', 'measures')
-  .encode('color', '#5B8FF9')
   .encode('x', 'title')
-  .style('fill', (d, i) => colors['measures'][i])
+  .encode('color', (d, i) => ['上半年', '下半年'][i] || '下半年')
   .label({
     text: 'measures',
     position: 'right',
@@ -65,15 +72,17 @@ chart
 
 chart
   .point()
-  .encode('size', 8)
   .style('lineWidth', 1)
+  .encode('size', 8)
   .encode('y', 'target')
   .encode('x', 'title')
   .encode('shape', 'line')
-  .encode('color', colors['target'])
+  .encode('color', () => '目标')
   .tooltip({
     title: false,
     items: [{ channel: 'y' }],
   });
+
+chart.interaction('tooltip', { shared: true });
 
 chart.render();
