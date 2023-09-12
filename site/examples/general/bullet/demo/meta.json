@@ -1,0 +1,32 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "bullet.ts",
+      "title": {
+        "zh": "子弹图",
+        "en": "Bullet"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_za7we3/afts/img/A*rRZQQ6I4Ic4AAAAAAAAAAAAADo2bAQ/original"
+    },
+    {
+      "filename": "bullet-datas.ts",
+      "title": {
+        "zh": "子弹图 更多数据",
+        "en": "Bullet more data"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_za7we3/afts/img/A*fHiHTrdGO10AAAAAAAAAAAAADo2bAQ/original"
+    },
+    {
+      "filename": "bullets.ts",
+      "title": {
+        "zh": "多条子弹图",
+        "en": "Bullet charts"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_za7we3/afts/img/A*wTXUQoxeACgAAAAAAAAAAAAADo2bAQ/original"
+    }
+  ]
+}

@@ -290,4 +290,7 @@ export { liquidTriangle } from './liquid-triangle';
 export { liquidCustomShape } from './liquid-custom-shape';
 export { alphabetIntervalAxisOptions } from './alphabet-interval-axis-options';
 export { profitIntervalAxisTransform } from './profit-interval-axis-transform';
+export { intervalPointBullet } from './interval-point-bullet';
+export { intervalPointBullets } from './interval-point-bullets';
+export { intervalPointBulletDatas } from './interval-point-bullet-datas';
 export { mockIntervalLine } from './mock-interval-line';
