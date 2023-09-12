@@ -33,7 +33,7 @@ chart.coordinate({ transform: [{ type: 'transpose' }] });
 chart
   .data(data)
   .scale('color', {
-    range: [...colors['ranges'], ...colors['measures'], colors['target']],
+    range: [colors['ranges'], colors['measures'], colors['target']].flat(),
   })
   .legend('color', {
     itemMarker: (d) => {
@@ -55,14 +55,14 @@ chart
   })
   .encode('y', 'ranges')
   .encode('x', 'title')
-  .encode('color', (d, i) => ['差', '良', '优'][i]);
+  .encode('color', (d, i) => ['优', '良', '差'][i]);
 
 chart
   .interval()
   .style('maxWidth', 20)
   .encode('y', 'measures')
   .encode('x', 'title')
-  .encode('color', (d, i) => ['上半年', '下半年'][i] || '下半年')
+  .encode('color', (d, i) => ['下半年', '上半年'][i] || '下半年')
   .label({
     text: 'measures',
     position: 'right',
