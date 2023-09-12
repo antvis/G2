@@ -350,6 +350,12 @@ describe('mark.[node]()', () => {
     expect(setCompositeOptions(node).value).toEqual(getOptions());
   });
 
+  it('chart.liquid() should specify options by API', () => {
+    const node = chart.liquid();
+    expect(node.type).toBe('liquid');
+    expect(setCompositeOptions(node).value).toEqual(getOptions());
+  });
+
   it('chart.axisX() should specify options by API', () => {
     const node = chart.axisX();
     expect(node.type).toBe('axisX');

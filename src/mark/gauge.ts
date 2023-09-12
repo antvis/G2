@@ -1,4 +1,4 @@
-import { deepMix } from '@antv/util';
+import { deepMix, isNumber } from '@antv/util';
 import { Vector2 } from '@antv/coord';
 import { Group } from '@antv/g';
 import { filterPrefixObject, isUnset, subObject } from '../utils/helper';
@@ -124,16 +124,37 @@ const DEFAULT_TEXT_OPTIONS = {
   },
 };
 
-export type GaugeData = {
-  target?: number;
-  total?: number;
-  percent?: number;
-  name?: string;
-  thresholds?: number[];
-};
+export type GaugeData =
+  | {
+      target?: number;
+      total?: number;
+      percent?: number;
+      name?: string;
+      thresholds?: number[];
+    }
+  | number;
+
+function getGaugeData(data: GaugeData) {
+  if (isNumber(data)) {
+    // Percent range [0, 1].
+    const percent = Math.max(0, Math.min(data, 1));
+    return {
+      percent,
+      target: percent,
+      total: 1,
+    };
+  }
+  return data;
+}
 
 function dataTransform(data: GaugeData, scale) {
-  const { name = 'score', target, total, percent, thresholds = [] } = data;
+  const {
+    name = 'score',
+    target,
+    total,
+    percent,
+    thresholds = [],
+  } = getGaugeData(data);
   const _target = percent || target;
   const _total = percent ? 1 : total;
   const newScale = {

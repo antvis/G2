@@ -108,7 +108,7 @@ Line.props = {
     { name: 'y' },
     { name: 'position', independent: true },
     { name: 'size' },
-    { name: 'series', scale: 'identity' },
+    { name: 'series', scale: 'band' },
   ],
   preInference: [
     ...basePreInference(),

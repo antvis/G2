@@ -1,0 +1,40 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "liquid-default.ts",
+      "title": {
+        "zh": "水波图",
+        "en": "Liquid Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_za7we3/afts/img/A*cHArRaizyBsAAAAAAAAAAAAADo2bAQ/original"
+    },
+    {
+      "filename": "liquid-pin.ts",
+      "title": {
+        "zh": "水滴形状水波图",
+        "en": "Pin Liquid Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_za7we3/afts/img/A*G5TyT4PNLK0AAAAAAAAAAAAADo2bAQ/original"
+    },
+    {
+      "filename": "liquid-background.ts",
+      "title": {
+        "zh": "带背景的水波图",
+        "en": "Background Liquid Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_za7we3/afts/img/A*QgkTSq1OdvoAAAAAAAAAAAAADo2bAQ/original"
+    },
+    {
+      "filename": "liquid-custom-shape.ts",
+      "title": {
+        "zh": "自定义形状水波图",
+        "en": "Custom Shape Liquid Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_za7we3/afts/img/A*LYOpQLfrlqMAAAAAAAAAAAAADo2bAQ/original"
+    }
+  ]
+}
