@@ -342,6 +342,5 @@ function normalizedDataSource(data) {
   if (!data) return { type: 'inline', value: null };
   if (Array.isArray(data)) return { type: 'inline', value: data };
   const { type = 'inline', ...rest } = data;
-  console.log(rest);
   return { ...rest, type };
 }
