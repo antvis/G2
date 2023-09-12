@@ -730,6 +730,7 @@ export function tooltip(
     view,
     mount,
     bounding,
+    shared = false,
     body = true,
     disableNative = false,
   }: Record<string, any>,
@@ -748,7 +749,7 @@ export function tooltip(
       const k = groupKey(element);
       const group = keyGroup.get(k);
       const data =
-        group.length === 1
+        group.length === 1 && !shared
           ? singleItem(group[0])
           : groupItems(group, scale, groupName);
 
@@ -931,6 +932,7 @@ export function Tooltip(options) {
       item,
       emitter,
       view,
+      shared,
     });
   };
 }
