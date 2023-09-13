@@ -43,7 +43,6 @@ chart
 
 chart
   .interval()
-  .style('maxWidth', 30)
   .axis({
     y: {
       grid: true,
@@ -53,16 +52,17 @@ chart
       title: false,
     },
   })
-  .encode('y', 'ranges')
   .encode('x', 'title')
-  .encode('color', (d, i) => ['优', '良', '差'][i]);
+  .encode('y', 'ranges')
+  .encode('color', (d, i) => ['优', '良', '差'][i])
+  .style('maxWidth', 30);
 
 chart
   .interval()
-  .style('maxWidth', 20)
-  .encode('y', 'measures')
   .encode('x', 'title')
+  .encode('y', 'measures')
   .encode('color', (d, i) => ['下半年', '上半年'][i] || '下半年')
+  .style('maxWidth', 20)
   .label({
     text: 'measures',
     position: 'right',
@@ -72,12 +72,12 @@ chart
 
 chart
   .point()
-  .style('lineWidth', 1)
-  .encode('size', 8)
-  .encode('y', 'target')
   .encode('x', 'title')
+  .encode('y', 'target')
   .encode('shape', 'line')
   .encode('color', () => '目标')
+  .encode('size', 8)
+  .style('lineWidth', 1)
   .tooltip({
     title: false,
     items: [{ channel: 'y' }],

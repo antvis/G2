@@ -19,6 +19,9 @@ chart.data(data);
 
 chart
   .interval()
+  .encode('x', 'title')
+  .encode('y', 'ranges')
+  .encode('color', '#f0efff')
   .style('maxWidth', 30)
   .axis({
     y: {
@@ -28,17 +31,14 @@ chart
     x: {
       title: false,
     },
-  })
-  .encode('x', 'title')
-  .encode('y', 'ranges')
-  .encode('color', '#f0efff');
+  });
 
 chart
   .interval()
-  .style('maxWidth', 20)
   .encode('x', 'title')
   .encode('y', 'measures')
   .encode('color', '#5B8FF9')
+  .style('maxWidth', 20)
   .label({
     text: 'measures',
     position: 'right',
@@ -48,11 +48,11 @@ chart
 
 chart
   .point()
-  .encode('size', 8)
   .encode('x', 'title')
   .encode('y', 'target')
   .encode('shape', 'line')
   .encode('color', '#3D76DD')
+  .encode('size', 8)
   .tooltip({
     title: false,
     items: [{ channel: 'y' }],
