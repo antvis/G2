@@ -66,15 +66,15 @@ const data = [
 // Instantiate a new chart.
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
 });
 
 // Specify visualization.
 chart
-  .interval()           // Create an interval mark and add it to the chart.
-  .data(data)           // Bind data for this mark.
-  .encode('x', 'genre') // Assign genre column to x position channel.
-  .encode('y', 'sold'); // Assign sold column to y position channel.
+  .interval()                   // Create an interval mark and add it to the chart.
+  .data(data)                   // Bind data for this mark.
+  .encode('x', 'genre')         // Assign genre column to x position channel.
+  .encode('y', 'sold')          // Assign sold column to y position channel.
+  .encode('color', 'genre');    // Assign genre column to color channel.
 
 // Render visualization.
 chart.render();
@@ -82,7 +82,7 @@ chart.render();
 
 If all goes well, you can get the following lovely bar chart!
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*K-7URYaij4kAAAAAAAAAAAAADmJ7AQ/original" width="640" height="480" alt="example">
+<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*XqCnTbkpAkQAAAAAAAAAAAAADmJ7AQ/fmt.webp" width="640" alt="example">
 
 ## 📮 Contributing
 

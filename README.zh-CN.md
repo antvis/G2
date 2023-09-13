@@ -68,15 +68,15 @@ const data = [
 // 初始化图表实例
 const chart = new Chart({
   container: 'container',
-  theme: 'classic',
 });
 
 // 声明可视化
 chart
-  .interval()           // 创建一个 Interval 标记
-  .data(data)           // 绑定数据
-  .encode('x', 'genre') // 编码 x 通道
-  .encode('y', 'sold'); // 编码 y 通道
+  .interval()                 // 创建一个 Interval 标记
+  .data(data)                 // 绑定数据
+  .encode('x', 'genre')       // 编码 x 通道
+  .encode('y', 'sold')        // 编码 y 通道
+  .encode('color', 'genre');  // 编码 color 通道
 
 // 渲染可视化
 chart.render();
@@ -84,7 +84,7 @@ chart.render();
 
 如果一切顺利，你可以得到下面的柱状图!
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*K-7URYaij4kAAAAAAAAAAAAADmJ7AQ/original" width="640" height="480" alt="example">
+<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*XqCnTbkpAkQAAAAAAAAAAAAADmJ7AQ/fmt.webp" width="640" alt="example">
 
 ## 📮 参与贡献
 
