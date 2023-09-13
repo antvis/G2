@@ -30,11 +30,19 @@ const data = [
 
 chart.coordinate({ transform: [{ type: 'transpose' }] });
 
-chart.data(data).legend(false);
+chart
+  .data(data)
+  .scale('color', {
+    range: [colors['ranges'], colors['measures'], colors['target']].flat(),
+  })
+  .legend('color', {
+    itemMarker: (d) => {
+      return d === '目标' ? 'line' : 'square';
+    },
+  });
 
 chart
   .interval()
-  .style('maxWidth', 30)
   .axis({
     y: {
       grid: true,
@@ -44,18 +52,17 @@ chart
       title: false,
     },
   })
-  .encode('y', 'ranges')
   .encode('x', 'title')
-  .style('fill', (d, i) => colors['ranges'][i])
-  .encode('color', 'ranges');
+  .encode('y', 'ranges')
+  .encode('color', (d, i) => ['优', '良', '差'][i])
+  .style('maxWidth', 30);
 
 chart
   .interval()
-  .style('maxWidth', 20)
-  .encode('y', 'measures')
-  .encode('color', '#5B8FF9')
   .encode('x', 'title')
-  .style('fill', (d, i) => colors['measures'][i])
+  .encode('y', 'measures')
+  .encode('color', (d, i) => ['下半年', '上半年'][i] || '下半年')
+  .style('maxWidth', 20)
   .label({
     text: 'measures',
     position: 'right',
@@ -65,15 +72,17 @@ chart
 
 chart
   .point()
+  .encode('x', 'title')
+  .encode('y', 'target')
+  .encode('shape', 'line')
+  .encode('color', () => '目标')
   .encode('size', 8)
   .style('lineWidth', 1)
-  .encode('y', 'target')
-  .encode('x', 'title')
-  .encode('shape', 'line')
-  .encode('color', colors['target'])
   .tooltip({
     title: false,
     items: [{ channel: 'y' }],
   });
+
+chart.interaction('tooltip', { shared: true });
 
 chart.render();
