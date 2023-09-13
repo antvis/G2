@@ -19,32 +19,7 @@ G2 可视化引擎的 SSR 原理很简单。G2 能绘制图表的核心是需要
 
 ## 在 NodeJS 中使用
 
-正常在浏览器中使用 G2 的时候，可以参考文档[开始使用](/manual/introduction/getting-started)。
-
-```js | ob {pin:true}
-(() => {
-  // 初始化图表实例
-  const chart = new G2.Chart();
-
-  chart
-    .interval()
-    .data([
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
-    ])
-    .encode('x', 'genre')
-    .encode('y', 'sold');
-
-  chart.render();
-
-  return chart.getContainer();
-})();
-```
-
-而在 NodeJS 中，只需要在创建 Chart 实例的时候，传入对应的构建 `Canvas` 对象的方法即可。整体代码如下，也可以在 G2 的单测中找到对应的代码：
+正常在浏览器中使用 G2 的时候，可以参考文档[开始使用](/manual/introduction/getting-started)，而在 NodeJS 中，只需要在创建 Chart 实例的时候，传入对应的构建 `Canvas` 对象的方法即可。整体代码如下：
 
 ```ts
 import * as fs from 'fs';
@@ -140,3 +115,11 @@ async function renderG2BySSR() {
 await renderG2BySSR();
 ```
 
+也可以在 G2 的单测目录中找到对应的代码 [__tests__/unit/ssr/index.spec.ts]。
+
+
+## 在其他服务端语言环境中使用
+
+因为 G2 的代码是使用 JavaScript 编写和开发，所以无法直接在 Python、Java、PHP 等语言环境中使用，但是可以在服务中安装 NodeJS 环境，然后使用对应的后端语言命令行 API 去驱动上述的 NodeJS 代码去执行 SSR。
+
+参考《[python 调用 node js](https://juejin.cn/s/python%20%E8%B0%83%E7%94%A8%20node%20js)》，其他语言类似。
