@@ -8,12 +8,10 @@ const chart = new Chart({
 chart
   .gauge()
   .data({
-    value: {
-      target: 159,
-      total: 400,
-      name: 'score',
-      thresholds: [100, 200, 400],
-    },
+    target: 159,
+    total: 400,
+    name: 'score',
+    thresholds: [100, 200, 400],
   })
   .scale('color', {
     range: ['#F4664A', '#FAAD14', 'green'],

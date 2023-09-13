@@ -5,11 +5,9 @@ export function gaugeDefault(): G2Spec {
     type: 'view',
     legend: false,
     data: {
-      value: {
-        target: 120,
-        total: 400,
-        name: 'score',
-      },
+      target: 120,
+      total: 400,
+      name: 'score',
     },
     children: [{ type: 'gauge' }],
   };

@@ -22,11 +22,9 @@ export function gaugeCustomShape(): G2Spec {
   return {
     type: 'gauge',
     data: {
-      value: {
-        target: 159,
-        total: 424,
-        name: 'score',
-      },
+      target: 159,
+      total: 424,
+      name: 'score',
     },
     style: {
       pointerShape: customShape,

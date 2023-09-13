@@ -4,12 +4,10 @@ export function gaugeCustomColor(): G2Spec {
   return {
     type: 'gauge',
     data: {
-      value: {
-        target: 120,
-        total: 400,
-        name: 'score',
-        thresholds: [100, 200, 400],
-      },
+      target: 120,
+      total: 400,
+      name: 'score',
+      thresholds: [100, 200, 400],
     },
     scale: {
       color: {

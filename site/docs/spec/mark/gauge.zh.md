@@ -21,11 +21,9 @@ const chart = new Chart({
 chart
   .gauge()
   .data({
-    value: {
-      target: 120,
-      total: 400,
-      name: 'score',
-    },
+    target: 120,
+    total: 400,
+    name: 'score',
   })
   .legend(false);
 
