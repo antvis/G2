@@ -1,3 +1,23 @@
+## [5.1.2](https://github.com/antvis/g2/compare/5.1.1...5.1.2) (2023-09-13)
+
+
+### Bug Fixes
+
+* **dual:** set series of line to band scale ([#5528](https://github.com/antvis/g2/issues/5528)) ([1446b1a](https://github.com/antvis/g2/commit/1446b1a4f0798304b8257c741bb3d0f1d189df2c))
+* **pie:** interaction for composite mark ([#5524](https://github.com/antvis/g2/issues/5524)) ([ae3138c](https://github.com/antvis/g2/commit/ae3138c150a774703b9404b61d98b0b388e8f541))
+* remove console.log in runtime ([#5532](https://github.com/antvis/g2/issues/5532)) ([e9486dc](https://github.com/antvis/g2/commit/e9486dcda4de02f959493eac5a0db90b89ade29a))
+* **tooltip:** legendFilter and shared tooltip ([#5534](https://github.com/antvis/g2/issues/5534)) ([7fc3e75](https://github.com/antvis/g2/commit/7fc3e7521ec18bb5c9b20d8544a6e9f0a615a4ef))
+* **types:** composition node ([#5527](https://github.com/antvis/g2/issues/5527)) ([88fdb41](https://github.com/antvis/g2/commit/88fdb4148432f02c5cb8f9e30b09cfac6298fbad))
+
+
+### Features
+
+* add mark.liquid ([#5508](https://github.com/antvis/g2/issues/5508)) ([69540e3](https://github.com/antvis/g2/commit/69540e327fe97debba0b0194e9a9fe5dd738cbee))
+* **canvas:** set feat/supportsCSSTransform to true by default ([#5526](https://github.com/antvis/g2/issues/5526)) ([ab59152](https://github.com/antvis/g2/commit/ab591522b5538c351c09679c1451097a21766363))
+* **examples:** 新增子弹图案例 ([#5530](https://github.com/antvis/g2/issues/5530)) ([3ae84d4](https://github.com/antvis/g2/commit/3ae84d4715a6c6fcc7a0261834225cf981a929f4))
+
+
+
 ## [5.1.1](https://github.com/antvis/g2/compare/5.1.0...5.1.1) (2023-09-07)
 
 
