@@ -115,7 +115,7 @@ async function renderG2BySSR() {
 await renderG2BySSR();
 ```
 
-也可以在 G2 的单测目录中找到对应的代码 [__tests__/unit/ssr/index.spec.ts]。
+也可以在 G2 的单测目录中找到对应的代码 [__tests__/unit/ssr/index.spec.ts](https://github.com/antvis/G2/tree/v5/__tests__/unit/ssr/index.spec.ts)。
 
 
 ## 在其他服务端语言环境中使用
