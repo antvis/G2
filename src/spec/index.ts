@@ -1,8 +1,14 @@
-import { AxisComponent, LegendComponent } from './component';
+import { AxisComponent, LegendComponent, TooltipComponent } from './component';
 import { Composition } from './composition';
 import { Mark } from './mark';
 
-export type G2Spec = (Mark | Composition | AxisComponent | LegendComponent) & {
+export type G2Spec = (
+  | Mark
+  | Composition
+  | AxisComponent
+  | LegendComponent
+  | TooltipComponent
+) & {
   width?: number;
   height?: number;
   depth?: number;
