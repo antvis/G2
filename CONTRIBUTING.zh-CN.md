@@ -70,7 +70,7 @@ $ npm run dev
 预览界面可以预览 [`__tests__/plots`](./__tests__/plots) 下面的所有图表案例，并且通过下拉框进行切换。图表案例根据关注点不同，分为以下几类：
 
 - **animation** - 动画相关的案例，放在 [`__tests__/plots/animation`](./__tests__/plots/animation/) 下面。
-- **api** - Chart API 相关的案例，放在 [`__tests__/plots/tooltip`](./__tests__/plots/tooltip) 下面。
+- **api** - Chart API 相关的案例，放在 [`__tests__/plots/api`](./__tests__/plots/api) 下面。
 - **interaction** - 交互相关的案例，放在 [`__tests__/plots/interaction`](./__tests__/plots/interaction) 下面。
 - **static** - 静态绘制相关的案例，放在 [`__tests__/plots/static`](./__tests__/plots/static/) 下面。
 - **tooltip** - tooltip 相关的案例，放在 [`__tests__/plots/tooltip`](./__tests__/plots/tooltip/) 下面。
