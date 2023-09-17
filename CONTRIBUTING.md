@@ -69,7 +69,7 @@ $ npm run dev
 The preview page can preview all chart cases under `__tests__/plots` and switch through the drop-down box according to different focus points. Chart cases are divided into the following categories based on different focus points:
 
 - animation - Animation-related cases, placed under `__tests__/plots/animation`.
-- api - Chart API-related cases, placed under `__tests__/plots/tooltip`.
+- api - Chart API-related cases, placed under `__tests__/plots/api`.
 - interaction - Interaction-related cases, placed under `__tests__/plots/interaction`.
 - static - Static drawing-related cases, placed under `__tests__/plots/static`.
 - tooltip - Tooltip-related cases, placed under `__tests__/plots/tooltip`.
