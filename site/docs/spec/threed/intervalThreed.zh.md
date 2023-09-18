@@ -25,7 +25,6 @@ order: 3
 
   // 初始化图表实例
   const chart = new Chart({
-    container,
     renderer,
     width: 500,
     height: 500,
