@@ -31,6 +31,7 @@ export default defineConfig(
         port: 8080,
         open: '/',
       },
+      build: { outDir: '../' },
     },
     linkOptions,
   ),
