@@ -451,11 +451,14 @@ export function setCursor(root, cursor) {
   // @ts-ignore
   const canvas = root.getRootNode().defaultView;
   const dom = canvas.getContextService().getDomElement();
-  if (dom?.style) dom.style.cursor = cursor;
+  if (dom?.style) {
+    root.cursor = dom.style.cursor;
+    dom.style.cursor = cursor;
+  }
 }
 
 export function restoreCursor(root) {
-  setCursor(root, 'default');
+  setCursor(root, root.cursor);
 }
 
 export function selectElementByData(elements, data, datum) {
