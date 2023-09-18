@@ -1,3 +1,14 @@
+## [5.1.3](https://github.com/antvis/g2/compare/5.1.2...5.1.3) (2023-09-18)
+
+
+### Bug Fixes
+
+* **CONTRIBUTING.md:** fix incorrect file path ([#5556](https://github.com/antvis/g2/issues/5556)) ([f400dcd](https://github.com/antvis/g2/commit/f400dcd7224a3f11a9b9e1b2100ba3a59e21f510))
+* restore to last cursor not default ([#5553](https://github.com/antvis/g2/issues/5553)) ([e688283](https://github.com/antvis/g2/commit/e688283d9b4fdc79559e8402405a271aff29bd3c))
+* set target to es6 for umd ([#5559](https://github.com/antvis/g2/issues/5559)) ([5afd45a](https://github.com/antvis/g2/commit/5afd45a2687204137ef40fb34fceea34cf358e34))
+
+
+
 ## [5.1.2](https://github.com/antvis/g2/compare/5.1.1...5.1.2) (2023-09-13)
 
 
