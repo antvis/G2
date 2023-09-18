@@ -21,10 +21,9 @@ export type PointOptions = Omit<PointMark, 'type'>;
 
 /**
  * Convert value for each channel to rect shapes.
- * return bounding box and scale
+ * return two 3D points, which represents the bounding box of a rect.
  */
 export const Interval3D: MC<PointOptions> = (options) => {
-  console.log('interval3D_0 input - options', options);
   return (index, scale, value, coordinate) => {
     const {
       x: X,
@@ -44,8 +43,6 @@ export const Interval3D: MC<PointOptions> = (options) => {
       coordinate as unknown as Coordinate3D
     ).getSize();
     const x1x2 = (x: number, w: number, i: number) => [x, x + w];
-
-    console.log(coordinate.getSize());
 
     // Calc the points of bounding box for the interval.
     // They are start from left-top corner in clock wise order.

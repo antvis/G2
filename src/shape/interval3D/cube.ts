@@ -24,7 +24,7 @@ export const Cube: SC<CubeOptions> = (options, context) => {
       height: 1,
       depth: 1,
     });
-    // create a material with Phong lighting model
+    // create a material with Lambert lighting model
     // @ts-ignore
     context.cubeMaterial = new MeshLambertMaterial(device);
   }
@@ -34,7 +34,7 @@ export const Cube: SC<CubeOptions> = (options, context) => {
     const { color: defaultColor } = defaults;
     const { color = defaultColor, transform, opacity } = value;
     const [cx, cy, cz] = getOrigin(points);
-    // value.co
+
     const width = Math.abs(points[1][0] - points[0][0]);
     const height = Math.abs(points[1][1] - points[0][1]);
     const depth = Math.abs(points[1][2] - points[0][2]);
@@ -52,7 +52,6 @@ export const Cube: SC<CubeOptions> = (options, context) => {
     });
     cube.setOrigin(0, 0, 0);
     cube.scale([width, height, depth]);
-    console.log({ scale: points[2], cx, cy, cz, width, height, depth });
 
     const selection = select(cube)
       .call(applyStyle, defaults)
@@ -61,7 +60,6 @@ export const Cube: SC<CubeOptions> = (options, context) => {
       .style(toOpacityKey(options), opacity)
       .call(applyStyle, style)
       .node();
-    console.log('Cube output', { selection });
     return selection;
   };
 };
