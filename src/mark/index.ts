@@ -4,6 +4,7 @@ export { Line } from './line';
 export { Line3D } from './line3D';
 export { Point } from './point';
 export { Point3D } from './point3D';
+export { Interval3D } from './interval3D';
 export { Text } from './text';
 export { Cell } from './cell';
 export { Area } from './area';

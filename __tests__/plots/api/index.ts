@@ -43,6 +43,8 @@ export { chartOnTextClick } from './chart-on-text-click';
 export { chartOnComponentClick } from './chart-on-component-click';
 export { chartRenderEvent } from './chart-render-event';
 export { chartRender3dScatterPlot } from './chart-render-3d-scatter-plot';
+export { chartRender3dBarChart } from './chart-render-3d-bar-chart';
+export { chartRender3dBarChartPerspective } from './chart-render-3d-bar-chart-perspective';
 export { chartRender3dScatterPlotPerspective } from './chart-render-3d-scatter-plot-perspective';
 export { chartRender3dScatterPlotLegend } from './chart-render-3d-scatter-plot-legend';
 export { chartRender3dLinePlot } from './chart-render-3d-line-plot';

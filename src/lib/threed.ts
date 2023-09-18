@@ -1,6 +1,6 @@
 import { Cartesian3D } from '../coordinate';
 import { AxisZ } from '../component';
-import { Point3D, Line3D } from '../mark';
+import { Point3D, Line3D, Interval3D } from '../mark';
 
 export function threedlib() {
   return {
@@ -8,5 +8,6 @@ export function threedlib() {
     'component.axisZ': AxisZ,
     'mark.point3D': Point3D,
     'mark.line3D': Line3D,
+    'mark.interval3D': Interval3D,
   } as const;
 }
