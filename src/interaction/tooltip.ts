@@ -457,10 +457,13 @@ export function seriesTooltip(
   const itemElements = [];
   for (const element of elements) {
     const { __data__: data } = element;
-    const { seriesX } = data;
+    const { seriesX, title, items } = data;
     if (seriesX) seriesElements.push(element);
-    else itemElements.push(element);
+    else if (title || items) itemElements.push(element);
   }
+
+  const isBandScale = !!(transposed ? scale.y : scale.x).getBandWidth;
+  const closest = isBandScale && itemElements.length > 0;
 
   // Sorted elements from top to bottom visually,
   // or from right to left in transpose coordinate.
@@ -468,6 +471,20 @@ export function seriesTooltip(
     const index = transposed ? 0 : 1;
     const minY = (d) => d.getBounds().min[index];
     return transposed ? minY(b) - minY(a) : minY(a) - minY(b);
+  });
+
+  const extent = (d) => {
+    const index = transposed ? 1 : 0;
+    const { min, max } = d.getLocalBounds();
+    return sort([min[index], max[index]]);
+  };
+  // Sort itemElements by x or y.
+  itemElements.sort((a, b) => {
+    const [minA, maxA] = extent(a);
+    const [minB, maxB] = extent(b);
+    const midA = (minA + maxA) / 2;
+    const midB = (minB + maxB) / 2;
+    return transposed ? midB - midA : midA - midB;
   });
 
   // Get sortedIndex and X for each series elements
@@ -494,8 +511,9 @@ export function seriesTooltip(
   const indexByFocus = (focus, I, X) => {
     const finalX = abstractX(focus);
     const [minX, maxX] = sort([X[0], X[X.length - 1]]);
-    // Skip x out of range.
-    if (finalX < minX || finalX > maxX) return null;
+    // If closest is true, always find at least one element.
+    // Otherwise, skip element out of plot area.
+    if (!closest && (finalX < minX || finalX > maxX)) return null;
     const search = bisector((i) => X[+i]).center;
     const i = search(I, finalX);
     return I[i];
@@ -504,14 +522,20 @@ export function seriesTooltip(
   const elementsByFocus = (focus, elements) => {
     const index = transposed ? 1 : 0;
     const x = focus[index];
-    const extent = (d) => {
-      const { min, max } = d.getLocalBounds();
-      return sort([min[index], max[index]]);
-    };
-    return elements.filter((element) => {
+    const filtered = elements.filter((element) => {
       const [min, max] = extent(element);
       return x >= min && x <= max;
     });
+    // If closet is true, always find at least one element.
+    if (!closest || filtered.length > 0) return filtered;
+
+    // Search the closet element to the focus.
+    const search = bisector((element) => {
+      const [min, max] = extent(element);
+      return (min + max) / 2;
+    }).center;
+    const i = search(elements, x);
+    return [elements[i]].filter(defined);
   };
 
   const seriesData = (element, index) => {
