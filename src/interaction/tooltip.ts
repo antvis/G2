@@ -63,7 +63,16 @@ function createTooltip(
   enterable,
   bounding,
   containerOffset,
+  css = {},
 ) {
+  const defaults = {
+    '.g2-tooltip': {},
+    '.g2-tooltip-title': {
+      overflow: 'hidden',
+      'white-space': 'nowrap',
+      'text-overflow': 'ellipsis',
+    },
+  };
   const tooltipElement = new TooltipComponent({
     className: 'tooltip',
     style: {
@@ -79,14 +88,7 @@ function createTooltip(
       template: {
         prefixCls: 'g2-',
       },
-      style: {
-        '.g2-tooltip': {},
-        '.g2-tooltip-title': {
-          overflow: 'hidden',
-          'white-space': 'nowrap',
-          'text-overflow': 'ellipsis',
-        },
-      },
+      style: deepMix(defaults, css),
     },
   });
   container.appendChild(tooltipElement.HTMLTooltipElement);
@@ -103,6 +105,7 @@ function showTooltip({
   single,
   position = 'right-bottom',
   enterable = false,
+  css,
   mount,
   bounding,
 }) {
@@ -123,6 +126,7 @@ function showTooltip({
       enterable,
       b,
       containerOffset,
+      css,
     ),
   } = parent as any;
   const { items, title = '' } = data;
@@ -431,6 +435,7 @@ export function seriesTooltip(
     disableNative = false,
     marker = true,
     style: _style = {},
+    css = {},
     ...rest
   }: Record<string, any>,
 ) {
@@ -597,6 +602,7 @@ export function seriesTooltip(
           enterable,
           mount,
           bounding,
+          css,
         });
       }
 
@@ -733,6 +739,7 @@ export function tooltip(
     shared = false,
     body = true,
     disableNative = false,
+    css = {},
   }: Record<string, any>,
 ) {
   const elements = elementsof(root);
@@ -780,6 +787,7 @@ export function tooltip(
           enterable,
           mount,
           bounding,
+          css,
         });
       }
 
