@@ -180,6 +180,7 @@ export type TooltipInteraction = {
   position?: TooltipStyleProps['position'];
   bounding?: BBox;
   mount?: string | HTMLElement;
+  css?: Record<string, any>; // @todo
   // enterable?: boolean;
   sort?: (d: TooltipItemValue) => any;
   filter?: (d: TooltipItemValue) => any;
