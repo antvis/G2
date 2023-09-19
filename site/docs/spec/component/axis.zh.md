@@ -157,8 +157,10 @@ chart.interval().axis('x', {}).axis('y', {});
 | labelFontSize      | 刻度值文字大小                                                                                                      | `number` &#124; `(datum, index, data)=>number`                        | -          |
 | labelFontFamily    | 刻度值文字字体                                                                                                      | `string` &#124; `(datum, index, data)=>string`                        | -          |
 | labelFontWeight    | 刻度值字体粗细                                                                                                      | `number` &#124;`(datum, index, data)=>number`                         | -          |
-| labelStroke        | 刻度值字体颜色                                                                                                      | `string` &#124; `(datum, index, data)=>string`                        | -          |
-| labelStrokeOpacity | 刻度值文本透明度                                                                                                    | `number` &#124; `(datum, index, data)=>number`                        | -          |
+| labelFill        | 刻度值字体颜色                                                                                                      | `string` &#124; `(datum, index, data)=>string`                        | -          |
+| labelFillOpacity | 刻度值文本透明度                                                                                                    | `number` &#124; `(datum, index, data)=>number`                        | -          |
+| labelStroke        | 刻度值文本描边颜色                                                                                                      | `string` &#124; `(datum, index, data)=>string`                        | -          |
+| labelStrokeOpacity | 刻度值文本描边透明度                                                                                                    | `number` &#124; `(datum, index, data)=>number`                        | -          |
 
 ```ts
 export interface Transform {
