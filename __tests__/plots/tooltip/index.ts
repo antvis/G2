@@ -65,3 +65,4 @@ export { pointsPointRegressionQuad } from './points-point-regression-quad';
 export { alphabetIntervalTooltipRenderUpdate } from './alphabet-interval-tooltip-render-update';
 export { mockIntervalShared } from './mock-interval-shared';
 export { stateAgesIntervalCustomStyle } from './stateages-interval-custom-style';
+export { mockTooltipClosest } from './mock-tooltip-closest';
