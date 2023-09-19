@@ -18,6 +18,7 @@ export function chartRender3dBarChart(context) {
     container,
     renderer,
     depth: 400,
+    padding: 50,
   });
 
   const data: { x: string; z: string; y: number; color: number }[] = [];
@@ -55,7 +56,8 @@ export function chartRender3dBarChart(context) {
 
   const finished = chart.render().then(() => {
     const { canvas } = chart.getContext();
-    const camera = canvas!.getCamera();
+    if (!canvas) return;
+    const camera = canvas.getCamera();
     camera.setType(CameraType.ORBITING);
     camera.rotate(-20, -20, 0);
 
@@ -67,7 +69,7 @@ export function chartRender3dBarChart(context) {
         direction: [-1, 0, 1],
       },
     });
-    canvas!.appendChild(light);
+    canvas.appendChild(light);
   });
 
   return { finished };
