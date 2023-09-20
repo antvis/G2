@@ -14,6 +14,7 @@ import {
   optionsOf,
   updateRoot,
   createEmptyPromise,
+  REMOVE_FLAG,
 } from './utils';
 import { CompositionNode } from './composition';
 import { Node } from './node';
@@ -155,7 +156,7 @@ export class Runtime<Spec extends G2Spec = G2Spec> extends CompositionNode {
     this._unbindAutoFit();
     this._reset();
     destroy(options, this._context, true);
-    removeContainer(this._container);
+    if (this._container[REMOVE_FLAG]) removeContainer(this._container);
     this.emit(ChartEvent.AFTER_DESTROY);
   }
 

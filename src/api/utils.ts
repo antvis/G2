@@ -29,10 +29,16 @@ export const VIEW_KEYS = [
   'title',
 ];
 
+export const REMOVE_FLAG = '__remove__';
+
 export function normalizeContainer(
   container: string | HTMLElement,
 ): HTMLElement {
-  if (container === undefined) return document.createElement('div');
+  if (container === undefined) {
+    const container = document.createElement('div');
+    container[REMOVE_FLAG] = true;
+    return container;
+  }
   if (typeof container === 'string') {
     const node = document.getElementById(container);
     return node;
