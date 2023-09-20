@@ -567,6 +567,24 @@ describe('Chart', () => {
     expect(chart.getGroup()).toEqual(null);
   });
 
+  it('chart.destroy() should remove created node.', () => {
+    const chart = new Chart({});
+    const container = chart.getContainer();
+    document.body.append(container);
+    expect(container.parentNode).not.toBe(null);
+    chart.destroy();
+    expect(container.parentNode).toBe(null);
+  });
+
+  it('chart.destroy() should not remove provided node.', () => {
+    const container = document.createElement('div');
+    document.body.append(container);
+    const chart = new Chart({ container });
+    expect(container.parentNode).not.toBe(null);
+    chart.destroy();
+    expect(container.parentNode).not.toBe(null);
+  });
+
   it('chart.clear() should clear group.', async () => {
     const chart = new Chart({});
     chart.data([
