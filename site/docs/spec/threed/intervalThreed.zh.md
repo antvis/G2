@@ -61,7 +61,8 @@ order: 3
     .legend(false)
     .axis('x', { gridLineWidth: 2 })
     .axis('y', { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 })
-    .axis('z', { gridLineWidth: 2 });
+    .axis('z', { gridLineWidth: 2 })
+    .style('opacity', 0.7);
 
   chart.render().then(() => {
     const { canvas } = chart.getContext();
