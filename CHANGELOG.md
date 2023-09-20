@@ -1,3 +1,18 @@
+## [5.1.4](https://github.com/antvis/g2/compare/5.1.3...5.1.4) (2023-09-20)
+
+
+### Bug Fixes
+
+* **api:** only remove created container ([#5567](https://github.com/antvis/g2/issues/5567)) ([7be3ddf](https://github.com/antvis/g2/commit/7be3ddf8083ba2ab8cf63f6cd695e70324ecf03b))
+* **tooltip:** find closest for band scale ([#5564](https://github.com/antvis/g2/issues/5564)) ([e543e0e](https://github.com/antvis/g2/commit/e543e0ecc572a0412972168d1c2728e385996447))
+
+
+### Features
+
+* **tooltip:** support css ([#5563](https://github.com/antvis/g2/issues/5563)) ([8a10429](https://github.com/antvis/g2/commit/8a104298434b91f342c9f7b2b70d50198b2013e3))
+
+
+
 ## [5.1.3](https://github.com/antvis/g2/compare/5.1.2...5.1.3) (2023-09-18)
 
 
