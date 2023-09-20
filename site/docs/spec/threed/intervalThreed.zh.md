@@ -67,11 +67,11 @@ order: 3
     const { canvas } = chart.getContext();
     const camera = canvas.getCamera();
     camera.setPerspective(0.1, 5000, 80, 1280 / 960);
-    camera.setType(CameraType.ORBITING);
+    camera.setType(g.CameraType.ORBITING);
     camera.rotate(-20, -20, 0);
 
     // Add a directional light into scene.
-    const light = new DirectionalLight({
+    const light = new gPlugin3d.DirectionalLight({
       style: {
         intensity: 2.5,
         fill: 'white',
