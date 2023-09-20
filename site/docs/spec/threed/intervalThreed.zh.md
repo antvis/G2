@@ -67,7 +67,7 @@ order: 3
   chart.render().then(() => {
     const { canvas } = chart.getContext();
     const camera = canvas.getCamera();
-    camera.setPerspective(0.1, 5000, 80, 1280 / 960);
+    camera.setPerspective(0.1, 5000, 50, 1280 / 960);
     camera.setType(g.CameraType.ORBITING);
     camera.rotate(-20, -20, 0);
 
