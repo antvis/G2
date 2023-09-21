@@ -18,7 +18,6 @@ export function chartRender3dBarChartPerspective(context) {
     container,
     renderer,
     depth: 400,
-    // padding: 10,
   });
 
   const data: { x: string; z: string; y: number; color: number }[] = [];

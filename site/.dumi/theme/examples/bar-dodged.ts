@@ -3,16 +3,14 @@
  */
 import { Chart } from '@antv/g2';
 
-export const BarDodged = (container, theme, plugins = []) => {
+export const BarDodged = ({ container, theme, width, height }) => {
   const chart = new Chart({
     container,
-    autoFit: true,
-    paddingLeft: 50,
-    plugins,
+    width,
+    height,
   });
 
   chart.theme({ type: theme });
-  chart.interaction({ type: 'tooltip', shared: true });
 
   chart
     .interval()
@@ -28,7 +26,7 @@ export const BarDodged = (container, theme, plugins = []) => {
     .encode('y', 'population')
     .encode('color', 'age')
     .axis('y', { labelFormatter: '~s' })
-    .legend('color', { size: 20 });
+    .interaction('tooltip', { shared: true });
 
   chart.render();
 

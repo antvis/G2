@@ -1,18 +1,17 @@
 import { Chart } from '@antv/g2';
 
-export const roseLabel = (container, theme, plugins = []) => {
+export const roseLabel = ({ container, theme, width, height }) => {
   const chart = new Chart({
     container,
-    autoFit: true,
-    plugins,
+    width,
+    height,
   });
 
   chart.theme({ type: theme });
 
-  chart.coordinate({ type: 'polar', outerRadius: 0.85 });
-
   chart
     .interval()
+    .coordinate({ type: 'polar', outerRadius: 0.85 })
     .transform({ type: 'groupX', y: 'sum' })
     .data({
       type: 'fetch',

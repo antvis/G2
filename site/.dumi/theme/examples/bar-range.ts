@@ -1,11 +1,10 @@
 import { Chart } from '@antv/g2';
 
-export const BarRange = (container, theme, plugins = []) => {
+export const BarRange = ({ container, theme, width, height }) => {
   const chart = new Chart({
     container,
-    autoFit: true,
-    paddingLeft: 60,
-    plugins,
+    width,
+    height,
   });
 
   chart.theme({ type: theme });
@@ -32,8 +31,7 @@ export const BarRange = (container, theme, plugins = []) => {
     .encode('color', (d) =>
       d.month === 'Total' ? 'Total' : d.profit > 0 ? 'Increase' : 'Decrease',
     )
-    .axis('y', { labelFormatter: '~s' })
-    .legend('color', { size: 20 });
+    .axis('y', { labelFormatter: '~s' });
 
   chart.render();
 

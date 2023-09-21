@@ -1,21 +1,21 @@
 import * as React from 'react';
 import { Button, Collapse, Radio } from 'antd';
 import { UploadOutlined, CopyOutlined } from '@ant-design/icons';
-import { createLibrary } from '@antv/g2';
+import { stdlib } from '@antv/g2';
 import { copyToClipboard } from '../utils/copyToBoard';
 import { exportDataToLocal } from '../utils/exportDataToLocal';
 import './ConfigPanel.less';
 
 const BUILT_THEMES = [
   { label: '默认风格', key: 'light' },
-  { label: '暗色风格', key: 'dark' },
+  { label: '暗色风格', key: 'classicDark' },
   { label: '学术风格', key: 'academy' },
 ];
 
 function getG2Theme(theme: string | Record<string, any>) {
   if (typeof theme === 'object') return theme;
 
-  const library = createLibrary();
+  const library = stdlib();
   const themeToken = library[`theme.${theme}`]();
   return themeToken;
 }
@@ -63,7 +63,9 @@ export const ConfigPanel = (props) => {
             value={theme}
           >
             {BUILT_THEMES.map((d) => (
-              <Radio.Button value={d.key}>{d.label}</Radio.Button>
+              <Radio.Button value={d.key} key={d.key}>
+                {d.label}
+              </Radio.Button>
             ))}
           </Radio.Group>
         </Collapse.Panel>

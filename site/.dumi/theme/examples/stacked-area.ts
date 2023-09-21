@@ -1,11 +1,10 @@
 import { Chart } from '@antv/g2';
 
-export const stackedArea = (container, theme, plugins = []) => {
+export const stackedArea = ({ container, theme, width, height }) => {
   const chart = new Chart({
     container,
-    autoFit: true,
-    plugins,
-    paddingLeft: 60,
+    width,
+    height,
   });
 
   chart.theme({ type: theme });

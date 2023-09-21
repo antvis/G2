@@ -6,7 +6,7 @@ import { DemosView } from './components/DemosView';
 import './index.less';
 
 const Page: React.FC = () => {
-  const [theme, changeTheme] = React.useState('academy');
+  const [theme, changeTheme] = React.useState('light');
   const [collapsed, toggleCollapsed] = React.useState(false);
 
   return (

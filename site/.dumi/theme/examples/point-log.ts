@@ -1,14 +1,13 @@
 import { Chart } from '@antv/g2';
 
-export const pointLog = (container, theme, plugins = []) => {
+export const pointLog = ({ container, theme, width, height }) => {
   const chart = new Chart({
     container,
-    autoFit: true,
-    plugins,
+    width,
+    height,
   });
 
   chart.theme({ type: theme });
-  chart.interaction({ type: 'fisheye' });
 
   chart
     .point()
@@ -24,7 +23,8 @@ export const pointLog = (container, theme, plugins = []) => {
     .scale('size', { type: 'log', range: [4, 20] })
     .style('fillOpacity', 0.3)
     .style('lineWidth', 1)
-    .legend('color', { size: 20 });
+    .legend('size', false)
+    .interaction('fisheye', true);
 
   chart.render();
 

@@ -1,6 +1,6 @@
 import { Chart } from '@antv/g2';
 
-export const lineBar = (container, theme, plugins = []) => {
+export const lineBar = ({ container, theme, width, height }) => {
   const data = [
     { time: '10:10', call: 4, waiting: 2, people: 2 },
     { time: '10:15', call: 2, waiting: 6, people: 3 },
@@ -13,8 +13,8 @@ export const lineBar = (container, theme, plugins = []) => {
 
   const chart = new Chart({
     container,
-    autoFit: true,
-    plugins,
+    width,
+    height,
   });
 
   chart.theme({ type: theme });

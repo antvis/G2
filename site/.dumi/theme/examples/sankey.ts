@@ -1,10 +1,10 @@
 import { Chart } from '@antv/g2';
 
-export const sankey = (container, theme, plugins = []) => {
+export const sankey = ({ container, theme, width, height }) => {
   const chart = new Chart({
     container,
-    autoFit: true,
-    plugins,
+    width,
+    height,
   });
 
   chart.theme({ type: theme });
@@ -27,7 +27,6 @@ export const sankey = (container, theme, plugins = []) => {
     })
     .style('labelSpacing', 3)
     .style('labelFontWeight', 'bold')
-    // .style('labelTransform', { type: 'overlapHide' })
     .style('nodeStrokeWidth', 1.2)
     .style('linkFillOpacity', 0.4);
 
