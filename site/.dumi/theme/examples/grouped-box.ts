@@ -1,6 +1,6 @@
 import { Chart } from '@antv/g2';
 
-export const groupedBox = (container, theme, plugins = []) => {
+export const groupedBox = ({ container, theme, width, height }) => {
   const data = [
     {
       Species: 'I. setosa',
@@ -78,11 +78,9 @@ export const groupedBox = (container, theme, plugins = []) => {
 
   const chart = new Chart({
     container,
-    autoFit: true,
-    plugins,
+    width,
+    height,
   });
-
-  chart.theme({ type: theme });
 
   chart
     .box()
@@ -93,7 +91,16 @@ export const groupedBox = (container, theme, plugins = []) => {
     .encode('color', 'Species')
     .scale('x', { paddingInner: 0.2, paddingOuter: 0.1 })
     .scale('y', { zero: true })
-    .scale('series', { paddingInner: 0.3, paddingOuter: 0.1 });
+    .scale('series', { paddingInner: 0.3, paddingOuter: 0.1 })
+    .tooltip([
+      { name: 'min', channel: 'y' },
+      { name: 'q1', channel: 'y1' },
+      { name: 'q2', channel: 'y2' },
+      { name: 'q3', channel: 'y3' },
+      { name: 'max', channel: 'y4' },
+    ]);
+
+  chart.theme({ type: theme });
 
   chart.render();
 

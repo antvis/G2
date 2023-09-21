@@ -1,6 +1,7 @@
 {
   "extends": "../tsconfig.json",
-  "include": [
-    "**/*"
-  ]
+  "compilerOptions": {
+    "module": "nodenext"
+  },
+  "include": ["**/*"]
 }

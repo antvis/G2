@@ -1,9 +1,10 @@
 import { Chart } from '@antv/g2';
 
-export const lineNormalized = (container, theme: string) => {
+export const lineNormalized = ({ container, theme, width, height }) => {
   const chart = new Chart({
     container,
-    autoFit: true,
+    width,
+    height,
   });
 
   chart.theme({ type: theme });
@@ -19,8 +20,7 @@ export const lineNormalized = (container, theme: string) => {
     .encode('y', 'Close')
     .encode('color', 'Symbol')
     .scale('y', { type: 'log' })
-    .axis('y', { title: '↑ Change in price (%)' })
-    .legend('color', { size: 20 });
+    .axis('y', { title: '↑ Change in price (%)' });
 
   chart.render();
 

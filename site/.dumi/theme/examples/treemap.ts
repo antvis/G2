@@ -1,11 +1,10 @@
 import { Chart } from '@antv/g2';
 
-export const treemap = (container, theme, plugins = []) => {
+export const treemap = ({ container, theme, width, height }) => {
   const chart = new Chart({
     container,
-    theme: 'classic',
-    autoFit: true,
-    plugins,
+    width,
+    height,
   });
 
   chart.theme({ type: theme });

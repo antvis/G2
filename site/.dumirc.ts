@@ -80,6 +80,13 @@ export default defineConfig({
         },
         order: 0,
       },
+      {
+        slug: 'theme',
+        title: {
+          zh: '主题',
+          en: 'Theme',
+        },
+      },
     ],
     ecosystems: [
       // 头部的菜单中的「周边生态」

@@ -3,12 +3,11 @@
  */
 import { Chart } from '@antv/g2';
 
-export const lineConnectNulls = (container, theme, plugins = []) => {
+export const lineConnectNulls = ({ container, theme, width, height }) => {
   const chart = new Chart({
     container,
-    autoFit: true,
-    plugins,
-    paddingTop: 0,
+    width,
+    height,
   });
 
   chart.theme({ type: theme });

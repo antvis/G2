@@ -1,11 +1,10 @@
 import { Chart } from '@antv/g2';
 
-export const barAggregated = (container, theme, plugins = []) => {
+export const barAggregated = ({ container, theme, width, height }) => {
   const chart = new Chart({
     container,
-    autoFit: true,
-    paddingLeft: 60,
-    plugins,
+    width,
+    height,
   });
 
   chart.theme({ type: theme });

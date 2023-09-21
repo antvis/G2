@@ -1,10 +1,10 @@
 import { Chart } from '@antv/g2';
 
-export const spiderLabel = (container, theme, plugins = []) => {
+export const spiderLabel = ({ container, theme, width, height }) => {
   const chart = new Chart({
     container,
-    autoFit: true,
-    plugins,
+    width,
+    height,
   });
 
   chart.coordinate({

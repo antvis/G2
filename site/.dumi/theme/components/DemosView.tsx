@@ -9,7 +9,13 @@ const DemoContainer = ({ theme, className = '', render }) => {
   const chartRef = React.useRef<Chart | null>(null);
 
   function init(theme) {
-    chartRef.current = render(domRef.current, theme);
+    const container = domRef.current;
+    chartRef.current = render({
+      container,
+      theme,
+      width: container.clientWidth,
+      height: container.clientHeight,
+    });
   }
 
   React.useEffect(() => {
@@ -17,8 +23,8 @@ const DemoContainer = ({ theme, className = '', render }) => {
       init(theme);
     } else {
       const chart = chartRef.current;
-      chart.theme({ type: theme });
-      chart.render();
+      chart.destroy();
+      init(theme);
     }
   }, [theme]);
 
@@ -26,9 +32,11 @@ const DemoContainer = ({ theme, className = '', render }) => {
     const el = domRef.current;
 
     const resizeObserver = new ResizeObserver((entries) => {
+      const width = el.clientWidth;
+      const height = el.clientHeight;
       entries.forEach(() => {
         const chart = chartRef.current;
-        chart && chart.forceFit();
+        chart && chart.changeSize(width, height);
       });
     });
 
@@ -40,41 +48,28 @@ const DemoContainer = ({ theme, className = '', render }) => {
 };
 
 export const DemosView = ({ theme, className = '' }) => {
-  function openExample(key, example) {
-    const hash = `${example.name}`.replace(
-      /[A-Z]/g,
-      (a) => `-${a.toLowerCase()}`,
-    );
+  function openExample(example) {
     // @ts-ignore
-    window.open(`/examples/${key}#${hash}`);
+    window.open(`/examples/${example.link}`);
   }
 
   return (
     <div className={`demos-view ${className} theme-${theme}`}>
-      {Object.keys(examples as any).map((key) =>
-        Array.from(examples[key]).map((example: any) => {
-          if (typeof example.render !== 'function') return;
-
-          return (
-            <Badge.Ribbon
-              text={
-                <span onClick={() => openExample(key, example.render)}>
-                  source
-                </span>
-              }
-            >
-              <div className="demo">
-                <div className="demo-title">{example.title}</div>
-                <DemoContainer
-                  className="demo-container"
-                  theme={theme}
-                  render={example.render}
-                />
-              </div>
-            </Badge.Ribbon>
-          );
-        }),
-      )}
+      {examples.map((example) => (
+        <Badge.Ribbon
+          text={<span onClick={() => openExample(example)}>source</span>}
+        >
+          <div className="demo">
+            <div className="demo-title">{example.title}</div>
+            <DemoContainer
+              key={example.link}
+              className="demo-container"
+              theme={theme}
+              render={example.render}
+            />
+          </div>
+        </Badge.Ribbon>
+      ))}
     </div>
   );
 };
