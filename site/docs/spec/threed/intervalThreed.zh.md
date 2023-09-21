@@ -61,17 +61,18 @@ order: 3
     .legend(false)
     .axis('x', { gridLineWidth: 2 })
     .axis('y', { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 })
-    .axis('z', { gridLineWidth: 2 });
+    .axis('z', { gridLineWidth: 2 })
+    .style('opacity', 0.7);
 
   chart.render().then(() => {
     const { canvas } = chart.getContext();
     const camera = canvas.getCamera();
-    camera.setPerspective(0.1, 5000, 80, 1280 / 960);
-    camera.setType(CameraType.ORBITING);
+    camera.setPerspective(0.1, 5000, 50, 1280 / 960);
+    camera.setType(g.CameraType.ORBITING);
     camera.rotate(-20, -20, 0);
 
     // Add a directional light into scene.
-    const light = new DirectionalLight({
+    const light = new gPlugin3d.DirectionalLight({
       style: {
         intensity: 2.5,
         fill: 'white',
