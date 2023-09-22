@@ -26,7 +26,6 @@ export async function indicesLineChartFacetBrushShared(): Promise<G2Spec> {
           y: 'Close',
           color: 'Symbol',
           key: 'Symbol',
-          title: (d) => new Date(d.Date).toUTCString(),
         },
         state: {
           inactive: { opacity: '0.3' },

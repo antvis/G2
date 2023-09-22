@@ -236,6 +236,7 @@ function groupItems(
   scale,
   groupName,
   data = elements.map((d) => d['__data__']),
+  theme: Record<string, any> = {},
 ) {
   const key = (d) => (d instanceof Date ? +d : d);
   const T = unique(
@@ -253,7 +254,7 @@ function groupItems(
         groupName !== undefined ? groupName : items.length <= 1 ? true : false;
 
       return definedItems.map(
-        ({ color = itemColorOf(element), name, ...item }) => {
+        ({ color = itemColorOf(element) || theme.color, name, ...item }) => {
           const name1 = useGroupName
             ? groupNameOf(scale, datum) || name
             : name || groupNameOf(scale, datum);
@@ -347,30 +348,34 @@ function hideRuleY(root) {
   }
 }
 
-// @todo Fill for composite g component.
-function updateMarker(root, { data, style }) {
+function updateMarker(root, { data, style, theme }) {
   if (root.markers) root.markers.forEach((d) => d.remove());
-  const markers = data.map((d) => {
-    const [{ color, element }, point] = d;
-    const fill =
-      color || // encode value
-      element.style.fill ||
-      element.style.stroke ||
-      '#000';
+  const markers = data
+    .filter((d) => {
+      const [{ x, y }] = d;
+      return defined(x) && defined(y);
+    })
+    .map((d) => {
+      const [{ color, element }, point] = d;
+      const fill =
+        color || // encode value
+        element.style.fill ||
+        element.style.stroke ||
+        theme.color;
 
-    const shape = new Circle({
-      style: {
-        cx: point[0],
-        cy: point[1],
-        fill,
-        r: 4,
-        stroke: '#fff',
-        strokeWidth: 2,
-        ...style,
-      },
+      const shape = new Circle({
+        style: {
+          cx: point[0],
+          cy: point[1],
+          fill,
+          r: 4,
+          stroke: '#fff',
+          strokeWidth: 2,
+          ...style,
+        },
+      });
+      return shape;
     });
-    return shape;
-  });
   for (const marker of markers) root.appendChild(marker);
   root.markers = markers;
 }
@@ -432,6 +437,7 @@ export function seriesTooltip(
     enterable,
     mount,
     bounding,
+    theme,
     disableNative = false,
     marker = true,
     style: _style = {},
@@ -597,6 +603,7 @@ export function seriesTooltip(
         scale,
         groupName,
         selectedData,
+        theme,
       );
 
       // Sort items and filter items.
@@ -653,6 +660,7 @@ export function seriesTooltip(
         updateMarker(root, {
           data: filteredSeriesData,
           style: markerStyles,
+          theme,
         });
       }
 
@@ -760,6 +768,7 @@ export function tooltip(
     view,
     mount,
     bounding,
+    theme,
     shared = false,
     body = true,
     disableNative = false,
@@ -782,7 +791,7 @@ export function tooltip(
       const data =
         group.length === 1 && !shared
           ? singleItem(group[0])
-          : groupItems(group, scale, groupName);
+          : groupItems(group, scale, groupName, undefined, theme);
 
       // Sort items and sort.
       if (sortFunction) {
@@ -904,7 +913,7 @@ export function Tooltip(options) {
   } = options;
   return (target, viewInstances, emitter) => {
     const { container, view } = target;
-    const { scale, markState, coordinate } = view;
+    const { scale, markState, coordinate, theme } = view;
     // Get default value from mark states.
     const defaultSeries = interactionKeyof(markState, 'seriesTooltip');
     const defaultShowCrosshairs = interactionKeyof(markState, 'crosshairs');
@@ -915,6 +924,7 @@ export function Tooltip(options) {
     if (isSeries && hasSeries(markState) && !facet) {
       return seriesTooltip(plotArea, {
         ...rest,
+        theme,
         elements: selectG2Elements,
         scale,
         coordinate,
@@ -943,6 +953,7 @@ export function Tooltip(options) {
       // @ts-ignore
       return seriesTooltip(plotArea.parentNode.parentNode, {
         ...rest,
+        theme,
         elements: () => elements,
         scale,
         coordinate,
@@ -964,6 +975,7 @@ export function Tooltip(options) {
       item,
       emitter,
       view,
+      theme,
       shared,
     });
   };
