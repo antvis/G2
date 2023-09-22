@@ -25,7 +25,8 @@ export const lineBar = ({ container, theme, width, height }) => {
     .interval()
     .encode('x', 'time')
     .encode('y', 'waiting')
-    .axis('y', { titleFill: '#5B8FF9', title: 'Waiting' });
+    .axis('y', { titleFill: '#5B8FF9', title: 'Waiting' })
+    .scale('y', { nice: true });
 
   chart
     .line()
@@ -34,7 +35,7 @@ export const lineBar = ({ container, theme, width, height }) => {
     .encode('shape', 'smooth')
     .style('stroke', '#fdae6b')
     .style('lineWidth', 2)
-    .scale('y', { independent: true })
+    .scale('y', { independent: true, nice: true })
     .axis('y', {
       position: 'right',
       grid: null,

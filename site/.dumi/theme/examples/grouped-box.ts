@@ -92,6 +92,7 @@ export const groupedBox = ({ container, theme, width, height }) => {
     .scale('x', { paddingInner: 0.2, paddingOuter: 0.1 })
     .scale('y', { zero: true })
     .scale('series', { paddingInner: 0.3, paddingOuter: 0.1 })
+    .scale('y', { nice: true })
     .tooltip([
       { name: 'min', channel: 'y' },
       { name: 'q1', channel: 'y1' },

@@ -25,6 +25,7 @@ export const BarDodged = ({ container, theme, width, height }) => {
     .encode('x', 'state')
     .encode('y', 'population')
     .encode('color', 'age')
+    .scale('y', { nice: true })
     .axis('y', { labelFormatter: '~s' })
     .interaction('tooltip', { shared: true });
 

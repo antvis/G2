@@ -31,6 +31,7 @@ export const BarRange = ({ container, theme, width, height }) => {
     .encode('color', (d) =>
       d.month === 'Total' ? 'Total' : d.profit > 0 ? 'Increase' : 'Decrease',
     )
+    .scale('y', { nice: true })
     .axis('y', { labelFormatter: '~s' });
 
   chart.render();

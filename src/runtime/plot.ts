@@ -278,7 +278,12 @@ export async function plot<T extends G2ViewTree>(
     for (const typeOption of inferInteraction(options)) {
       const [type, option] = typeOption;
       if (option) {
-        const interaction = useInteraction({ type, ...(option as any) });
+        const interaction = useThemeInteraction(
+          target.view,
+          type,
+          option as Record<string, any>,
+          useInteraction,
+        );
         const destroy = interaction(
           target,
           enterViewInstances,
@@ -303,7 +308,12 @@ export async function plot<T extends G2ViewTree>(
 
       // Apply new interaction.
       if (option) {
-        const interaction = useInteraction({ type, ...(option as any) });
+        const interaction = useThemeInteraction(
+          target.view,
+          type,
+          option as Record<string, any>,
+          useInteraction,
+        );
         const destroy = interaction(
           target,
           updateViewInstances,
@@ -402,10 +412,12 @@ function updateTooltip(
   if (!tooltipOptions[1]) return;
 
   // Apply new tooltip interaction.
-  const applyTooltip = useInteraction({
-    type: 'tooltip',
-    ...(tooltipOptions[1] as any),
-  });
+  const applyTooltip = useThemeInteraction(
+    view,
+    'tooltip',
+    tooltipOptions[1] as any,
+    useInteraction,
+  );
   const target = {
     options,
     view,
@@ -591,6 +603,20 @@ async function initializeMarks(
   }
 
   return markState;
+}
+
+function useThemeInteraction(
+  view: G2ViewDescriptor,
+  type: string,
+  option: Record<string, any>,
+  useInteraction: (options: G2InteractionOptions, context?: any) => Interaction,
+): Interaction {
+  const theme = view.theme;
+  const defaults = typeof type === 'string' ? theme[type] || {} : {};
+  const interaction = useInteraction(
+    deepMix(defaults, { type, ...(option as any) }),
+  );
+  return interaction;
 }
 
 function initializeState(

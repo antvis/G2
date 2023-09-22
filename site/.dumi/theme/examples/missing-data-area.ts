@@ -19,6 +19,7 @@ export const missingDataArea = ({ container, theme, width, height }) => {
     .encode('x', (d) => new Date(d.date))
     // Mock missing data. Set NaN from Jan. to Mar.
     .encode('y', (d) => (new Date(d.date).getUTCMonth() <= 3 ? NaN : d.close))
+    .scale('y', { nice: true })
     .style('connect', true)
     .style('connectFill', 'grey')
     .style('connectFillOpacity', 0.15);

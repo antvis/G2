@@ -4,18 +4,12 @@ import { githubStar } from '../../data/github-star';
 export function githubStarIntervalThemeAcademy(): G2Spec {
   return {
     type: 'interval',
-    data: {
-      value: githubStar,
-      transform: [{ type: 'sortBy', fields: [['star', true]] }],
-    },
-    legend: { color: false },
+    theme: 'academy',
+    data: githubStar,
     encode: {
       x: 'name',
       y: 'star',
       color: 'name',
-    },
-    theme: {
-      type: 'academy',
     },
   };
 }

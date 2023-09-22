@@ -31,6 +31,7 @@ export const lineConnectNulls = ({ container, theme, width, height }) => {
     })
     .encode('x', 'date')
     .encode('y', 'close')
+    .scale('y', { nice: true })
     .style('connectNulls', true);
 
   chart.render();
