@@ -8,7 +8,7 @@ import './ConfigPanel.less';
 
 const BUILT_THEMES = [
   { label: '默认风格', key: 'light' },
-  { label: '暗色风格', key: 'classicDark' },
+  { label: '暗色风格', key: 'dark' },
   { label: '学术风格', key: 'academy' },
 ];
 

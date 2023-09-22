@@ -51,7 +51,7 @@ import {
   Sequential,
   Constant as ConstantScale,
 } from '../../../src/scale';
-import { Classic, ClassicDark, Academy, Light } from '../../../src/theme';
+import { Classic, ClassicDark, Academy, Light, Dark } from '../../../src/theme';
 import {
   AxisX,
   AxisY,
@@ -254,6 +254,7 @@ describe('corelib', () => {
       'theme.classicDark': ClassicDark,
       'theme.academy': Academy,
       'theme.light': Light,
+      'theme.dark': Dark,
       'component.axisX': AxisX,
       'component.axisY': AxisY,
       'component.legendCategory': LegendCategory,

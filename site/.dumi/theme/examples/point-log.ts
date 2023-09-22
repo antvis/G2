@@ -23,6 +23,8 @@ export const pointLog = ({ container, theme, width, height }) => {
     .scale('size', { type: 'log', range: [4, 20] })
     .style('fillOpacity', 0.3)
     .style('lineWidth', 1)
+    .scale('x', { nice: true })
+    .scale('y', { nice: true })
     .legend('size', false)
     .interaction('fisheye', true);
 

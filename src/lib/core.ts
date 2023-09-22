@@ -50,7 +50,7 @@ import {
   Sequential as ScaleSequential,
   Constant as ScaleConstant,
 } from '../scale';
-import { Classic, ClassicDark, Academy, Light } from '../theme';
+import { Classic, ClassicDark, Academy, Light, Dark } from '../theme';
 import {
   AxisX,
   AxisY,
@@ -252,6 +252,7 @@ export function corelib() {
     'theme.classicDark': ClassicDark,
     'theme.academy': Academy,
     'theme.light': Light,
+    'theme.dark': Dark,
     'component.axisX': AxisX,
     'component.axisY': AxisY,
     'component.legendCategory': LegendCategory,
