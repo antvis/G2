@@ -82,7 +82,6 @@
     "pdfast": "^0.2.0"
   },
   "devDependencies": {
-    "@antv/ava": "^3.0.7",
     "@antv/data-set": "^0.11.8",
     "@antv/g-plugin-3d": "^1.9.5",
     "@antv/g-plugin-control": "^1.9.5",

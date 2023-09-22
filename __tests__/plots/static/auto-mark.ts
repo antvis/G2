@@ -10,3 +10,5 @@ export function AutoMark(): G2Spec {
     smartColor: true,
   };
 }
+
+AutoMark.skip = true;

@@ -394,4 +394,4 @@ export type HeatmapMark = BaseMark<'heatmap'>;
 export type LiquidMark = BaseMark<'liquid'>;
 
 export type CustomMark = BaseMark<MarkComponent, ChannelTypes>;
-export type AutoMark = { type: 'auto' } & AdviseParams;
+export type AutoMark = BaseMark<'auto'> & AdviseParams;

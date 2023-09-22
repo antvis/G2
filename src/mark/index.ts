@@ -32,6 +32,7 @@ export { Gauge } from './gauge';
 export { Density } from './density';
 export { Heatmap } from './heatmap';
 export { Liquid } from './liquid';
+export { Auto } from './auto';
 
 export type { IntervalOptions } from './interval';
 export type { RectOptions } from './rect';

@@ -1,8 +1,24 @@
 import { Advisor } from '@antv/ava';
-import { AutoMark } from '../spec';
+import { deepMix } from '@antv/util';
 
-export const Auto = (options: AutoMark) => {
+export const Auto = (options) => {
   const chartAdvisor = new Advisor();
-  const results = chartAdvisor.advise(options);
-  return results?.[0].spec;
+  const {
+    data,
+    dataProps,
+    fields,
+    smartColor,
+    options: o,
+    colorOptions,
+    ...rest
+  } = options;
+  const results = chartAdvisor.advise({
+    data,
+    dataProps,
+    fields,
+    smartColor,
+    options: o,
+    colorOptions,
+  });
+  return deepMix({}, rest, results?.[0].spec);
 };
