@@ -56,6 +56,7 @@
     "animation"
   ],
   "dependencies": {
+    "@antv/ava": "^3.0.7",
     "@antv/coord": "^0.4.1",
     "@antv/event-emitter": "^0.1.3",
     "@antv/g": "^5.18.6",
@@ -81,6 +82,7 @@
     "pdfast": "^0.2.0"
   },
   "devDependencies": {
+    "@antv/ava": "^3.0.7",
     "@antv/data-set": "^0.11.8",
     "@antv/g-plugin-3d": "^1.9.5",
     "@antv/g-plugin-control": "^1.9.5",

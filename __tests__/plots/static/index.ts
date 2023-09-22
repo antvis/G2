@@ -237,6 +237,7 @@ export { aaplIntervalDateEncodeX } from './aapl-interval-date-encode-x';
 export { athletesRectBinLegendStyle } from './athletes-rect-bin-legend-style';
 export { HeatmapHeatmapBasic } from './heatmap-heatmap-basic';
 export { DiamondHeatmapDensity } from './diamond-heatmap-density';
+export { AutoMark } from './auto-mark';
 export { basicLineNullLabel } from './basic-line-null-label';
 export { alphabetIntervalViewStyle } from './alphabet-interval-view-style';
 export { vennBasic } from './venn-basic';
