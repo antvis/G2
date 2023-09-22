@@ -83,7 +83,7 @@ export const Connector: SC<ConnectorOptions> = (options, context) => {
       points,
       offset1,
       offset2,
-      length1 || connectLength1,
+      length1 ?? connectLength1,
     );
     const makerStyle = subObject({ ...style, ...defaults }, 'endMarker');
 
