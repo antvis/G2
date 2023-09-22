@@ -133,24 +133,6 @@ function getAxisOptions() {
   };
 }
 
-function setConnectorOptions(node: MarkNode) {
-  return node.style('connectLength1', 0);
-}
-
-function getConnectorOptions1() {
-  return {
-    ...getOptions(),
-    style: { ...getOptions().style, connectLength1: 0 },
-  };
-}
-
-function getConnectorOptions2() {
-  return {
-    ...getOptions2(),
-    style: { ...getOptions2().style, connectLength1: 0 },
-  };
-}
-
 describe('mark.get[Instance]()', () => {
   let view;
   let interval;
@@ -274,12 +256,8 @@ describe('mark.[node]()', () => {
   it('chart.connector() should specify options by API', () => {
     const node = chart.connector();
     expect(node.type).toBe('connector');
-    expect(setConnectorOptions(setOptions(node)).value).toEqual(
-      getConnectorOptions1(),
-    );
-    expect(setConnectorOptions(setOptions2(node)).value).toEqual(
-      getConnectorOptions2(),
-    );
+    expect(setOptions(node).value).toEqual(getOptions());
+    expect(setOptions2(node).value).toEqual(getOptions2());
   });
 
   it('chart.range() should specify options by API', () => {
