@@ -2,7 +2,7 @@ import { Circle, DisplayObject, IElement, Line } from '@antv/g';
 import { sort, group, mean, bisector, minIndex } from 'd3-array';
 import { deepMix, lowerFirst, throttle } from '@antv/util';
 import { Tooltip as TooltipComponent } from '@antv/gui';
-import { Constant, Identity, Band } from '@antv/scale';
+import { Constant, Band } from '@antv/scale';
 import { defined, subObject } from '../utils/helper';
 import { isTranspose, isPolar } from '../utils/coordinate';
 import { angle, sub } from '../utils/vector';
@@ -200,7 +200,10 @@ function groupNameOf(scale, datum) {
     );
   };
   // For non constant color channel.
-  if (invertAble(scaleSeries)) return scaleSeries.invert(series);
+  if (invertAble(scaleSeries)) {
+    const cloned = scaleSeries.clone();
+    return cloned.invert(series);
+  }
   if (
     series &&
     scaleSeries instanceof Band &&
@@ -255,9 +258,8 @@ function groupItems(
 
       return definedItems.map(
         ({ color = itemColorOf(element) || theme.color, name, ...item }) => {
-          const name1 = useGroupName
-            ? groupNameOf(scale, datum) || name
-            : name || groupNameOf(scale, datum);
+          const groupName = groupNameOf(scale, datum);
+          const name1 = useGroupName ? groupName || name : name || groupName;
           return {
             ...item,
             color,
