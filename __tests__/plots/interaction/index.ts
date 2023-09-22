@@ -70,3 +70,4 @@ export { settleWeatherLegendFilter } from './seattle-weather-legend-filter';
 export { countriesBubbleMultiLegends } from './countries-bubble-multi-legends';
 export { pointsPointTooltipMarker } from './points-point-tooltip-marker';
 export { mockPieInteraction } from './mock-pie-interaction';
+export { missingAreaTooltipMarker } from './missing-area-tooltip-marker';
