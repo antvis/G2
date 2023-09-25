@@ -7,7 +7,6 @@ export const Auto = (options) => {
     data,
     dataProps,
     fields,
-    smartColor,
     options: o,
     colorOptions,
     ...rest
@@ -16,7 +15,6 @@ export const Auto = (options) => {
     data,
     dataProps,
     fields,
-    smartColor,
     options: o,
     colorOptions,
   });

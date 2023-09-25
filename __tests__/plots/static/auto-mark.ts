@@ -7,8 +7,5 @@ export function AutoMark(): G2Spec {
       type: 'fetch',
       value: 'data/alphabet.csv',
     },
-    smartColor: true,
   };
 }
-
-AutoMark.skip = true;
