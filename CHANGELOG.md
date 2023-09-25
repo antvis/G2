@@ -1,3 +1,23 @@
+## [5.1.5-beta.0](https://github.com/antvis/g2/compare/5.1.4...5.1.5-beta.0) (2023-09-25)
+
+
+### Bug Fixes
+
+* **connector:** fix connectLength1 default value getting ([#5587](https://github.com/antvis/g2/issues/5587)) ([7e39af9](https://github.com/antvis/g2/commit/7e39af970f58205db32308af7facd8066908373c))
+* **tooltip:** for fisheye ([#5590](https://github.com/antvis/g2/issues/5590)) ([b39be0a](https://github.com/antvis/g2/commit/b39be0a1deebafbf6f92485ea662f798d23ad6a8))
+* **tooltip:** marker ([#5586](https://github.com/antvis/g2/issues/5586)) ([30450c3](https://github.com/antvis/g2/commit/30450c33168ba4097f1dac5f33c8fd63adfeedc8))
+* **tooltp:** cloned series invert ([#5588](https://github.com/antvis/g2/issues/5588)) ([bece2a7](https://github.com/antvis/g2/commit/bece2a7ad2f8cc87cac9c14da93d9398b781e498))
+* 修复 `site/docs/../intervalThreed.zh.md` 中元素全部为黑的问题 ([#5573](https://github.com/antvis/g2/issues/5573)) ([c32bca0](https://github.com/antvis/g2/commit/c32bca08f539b19efd02c7f6c832839f33b8a819))
+
+
+### Features
+
+* **facet:** support legend filter ([#5593](https://github.com/antvis/g2/issues/5593)) ([05a49ac](https://github.com/antvis/g2/commit/05a49ace0ac28f8aea1fc0c6b3b9ce672ddc8fc7))
+* show theme editor ([#5579](https://github.com/antvis/g2/issues/5579)) ([9c26412](https://github.com/antvis/g2/commit/9c26412ae2e25a9e24782f63b07ababd26741471))
+* **theme:** add dark and update academy theme ([#5584](https://github.com/antvis/g2/issues/5584)) ([051d719](https://github.com/antvis/g2/commit/051d7196a49d1bc9a488c48334324e230a7285f5))
+
+
+
 ## [5.1.4](https://github.com/antvis/g2/compare/5.1.3...5.1.4) (2023-09-20)
 
 
