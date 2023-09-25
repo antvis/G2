@@ -31,6 +31,8 @@ export const VIEW_KEYS = [
 
 export const REMOVE_FLAG = '__remove__';
 
+export const CALLBACK_NODE = '__callback__';
+
 export function normalizeContainer(
   container: string | HTMLElement,
 ): HTMLElement {
@@ -84,12 +86,16 @@ export function optionsOf(node: Node): Record<string, any> {
     const value = nodeValue.get(node);
     const { children = [] } = node;
     for (const child of children) {
-      const childValue = valueOf(child);
-      const { children = [] } = value;
-      children.push(childValue);
-      discovered.push(child);
-      nodeValue.set(child, childValue);
-      value.children = children;
+      if (child.type === CALLBACK_NODE) {
+        value.children = child.value;
+      } else {
+        const childValue = valueOf(child);
+        const { children = [] } = value;
+        children.push(childValue);
+        discovered.push(child);
+        nodeValue.set(child, childValue);
+        value.children = children;
+      }
     }
   }
   return nodeValue.get(root);
@@ -142,6 +148,12 @@ function createNode(
   mark: Record<string, new () => Node>,
   composition: Record<string, new () => Node>,
 ): Node {
+  if (typeof options === 'function') {
+    const node = new Node();
+    node.value = options;
+    node.type = CALLBACK_NODE;
+    return node;
+  }
   const { type, children, ...value } = options;
   const Ctor = typeCtor(type, mark, composition);
   const node = new Ctor();
@@ -182,6 +194,8 @@ function appendNode(
       for (const child of children) {
         discovered.push([node, child]);
       }
+    } else if (typeof children === 'function') {
+      discovered.push([node, children]);
     }
   }
 }
@@ -216,6 +230,8 @@ export function updateRoot(
           const oldChild = oldChildren[i];
           discovered.push([oldNode, oldChild, newChild]);
         }
+      } else if (typeof newChildren === 'function') {
+        discovered.push([oldNode, null, newChildren]);
       }
     }
   }
