@@ -51,3 +51,4 @@ export { chartRender3dLinePlot } from './chart-render-3d-line-plot';
 export { chartRender3dLinePlotPerspective } from './chart-render-3d-line-plot-perspective';
 export { chartOnBrushHighlightTooltip } from './chart-on-brush-highlight-tooltip';
 export { chartChangeSizeCustomShape } from './chart-change-size-custom-shape';
+export { chartOptionsCallbackChildren } from './chart-options-callback-children';
