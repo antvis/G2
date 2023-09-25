@@ -36,7 +36,9 @@ export function Fisheye({
         setState('fisheye', (options) => {
           // Clone options and mutate it.
           // Disable animation.
-          const clonedOptions = deepMix({}, options);
+          const clonedOptions = deepMix({}, options, {
+            interaction: { tooltip: { preserve: true } },
+          });
           for (const mark of clonedOptions.marks) mark.animate = false;
           const [x, y] = focus;
           const fisheye = maybeCoordinate(clonedOptions);

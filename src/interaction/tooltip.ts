@@ -442,6 +442,7 @@ export function seriesTooltip(
     theme,
     disableNative = false,
     marker = true,
+    preserve = false,
     style: _style = {},
     css = {},
     ...rest
@@ -742,7 +743,11 @@ export function seriesTooltip(
     emitter.off('tooltip:hide', onTooltipHide);
     emitter.off('tooltip:disable', onTooltipDisable);
     emitter.off('tooltip:enable', onTooltipEnable);
-    destroy();
+    if (preserve) {
+      hideTooltip({ root, single, emitter, nativeEvent: false });
+    } else {
+      destroy();
+    }
   };
 }
 
@@ -774,6 +779,7 @@ export function tooltip(
     shared = false,
     body = true,
     disableNative = false,
+    preserve = false,
     css = {},
   }: Record<string, any>,
 ) {
@@ -899,7 +905,11 @@ export function tooltip(
     removeEventListeners();
     emitter.off('tooltip:show', onTooltipShow);
     emitter.off('tooltip:hide', onTooltipHide);
-    destroyTooltip({ root, single });
+    if (preserve) {
+      hideTooltip({ root, single, emitter, nativeEvent: false });
+    } else {
+      destroyTooltip({ root, single });
+    }
   };
 }
 

@@ -424,7 +424,8 @@ function updateTooltip(
     container: selection.node(),
     update: (options) => Promise.resolve(options),
   };
-  applyTooltip(target, [], context.emitter);
+  const newTooltip = applyTooltip(target, [], context.emitter);
+  nameInteraction.set('tooltip', newTooltip);
 }
 
 async function initializeView(
