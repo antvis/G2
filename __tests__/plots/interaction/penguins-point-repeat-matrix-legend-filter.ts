@@ -1,6 +1,8 @@
 import { G2Spec } from '../../../src';
+import { LEGEND_ITEMS_CLASS_NAME } from '../../../src/interaction/legendFilter';
+import { step } from './utils';
 
-export function penguinsPointRepeatMatrix(): G2Spec {
+export function penguinsPointRepeatMatrixLegendFilter(): G2Spec {
   return {
     type: 'repeatMatrix',
     width: 480,
@@ -24,3 +26,10 @@ export function penguinsPointRepeatMatrix(): G2Spec {
     ],
   };
 }
+
+penguinsPointRepeatMatrixLegendFilter.steps = ({ canvas }) => {
+  const { document } = canvas;
+  const elements = document.getElementsByClassName(LEGEND_ITEMS_CLASS_NAME);
+  const [e0] = elements;
+  return [step(e0, 'click')];
+};

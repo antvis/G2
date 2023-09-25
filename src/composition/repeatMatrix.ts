@@ -1,5 +1,10 @@
 import { deepMix } from '@antv/util';
-import { CompositionComponent as CC, G2ViewTree, Node } from '../runtime';
+import {
+  CompositionComponent as CC,
+  G2View,
+  G2ViewTree,
+  Node,
+} from '../runtime';
 import { RepeatMatrixComposition } from '../spec';
 import { Container } from '../utils/container';
 import { calcBBox } from '../utils/vector';
@@ -63,7 +68,7 @@ const setChildren = useOverrideAdaptor<G2ViewTree>((options) => {
       const facet = facets[i];
       const children = normalizedChildren[i];
       return children.map((d) => {
-        const { scale, key, encode, axis, ...rest } = d;
+        const { scale, key, encode, axis, interaction, ...rest } = d;
         const guideY = scale?.y?.guide;
         const guideX = scale?.x?.guide;
         const defaultScale = {
@@ -102,6 +107,10 @@ const setChildren = useOverrideAdaptor<G2ViewTree>((options) => {
           encode: deepMix({}, encode, {
             x: fx,
             y: fy,
+          }),
+          interaction: deepMix({}, interaction, {
+            // Register this interaction in parent node.
+            legendFilter: false,
           }),
           ...rest,
         };
