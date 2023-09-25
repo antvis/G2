@@ -71,3 +71,4 @@ export { countriesBubbleMultiLegends } from './countries-bubble-multi-legends';
 export { pointsPointTooltipMarker } from './points-point-tooltip-marker';
 export { mockPieInteraction } from './mock-pie-interaction';
 export { missingAreaTooltipMarker } from './missing-area-tooltip-marker';
+export { penguinsPointRepeatMatrixLegendFilter } from './penguins-point-repeat-matrix-legend-filter';

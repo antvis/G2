@@ -198,9 +198,69 @@ function legendFilterContinuous(_, { legend, filter, emitter, channel }) {
   };
 }
 
+async function filterView(
+  context, // View instance,
+  {
+    legend, // Legend instance.
+    channel, // Filter Channel.
+    value, // Filtered Values.
+    ordinal, // Data type of the legend.
+    channels, // Channels for this legend.
+    allChannels, // Channels for all legends.
+    facet = false, // For facet.
+  },
+) {
+  const { view, update, setState } = context;
+  setState(legend, (viewOptions) => {
+    const { marks } = viewOptions;
+    // Add filter transform for every marks,
+    // which will skip for mark without color channel.
+    const newMarks = marks.map((mark) => {
+      if (mark.type === 'legends') return mark;
+
+      // Inset after aggregate transform, such as group, and bin.
+      const { transform = [] } = mark;
+      const index = transform.findIndex(
+        ({ type }) => type.startsWith('group') || type.startsWith('bin'),
+      );
+      const newTransform = [...transform];
+      newTransform.splice(index + 1, 0, {
+        type: 'filter',
+        [channel]: { value, ordinal },
+      });
+
+      // Set domain of scale to preserve encoding.
+      const newScale = Object.fromEntries(
+        channels.map((channel) => [
+          channel,
+          { domain: view.scale[channel].getOptions().domain },
+        ]),
+      );
+      return deepMix({}, mark, {
+        transform: newTransform,
+        scale: newScale,
+        ...(!ordinal && { animate: false }),
+        legend: facet
+          ? false
+          : Object.fromEntries(allChannels.map((d) => [d, { preserve: true }])),
+      });
+    });
+    return { ...viewOptions, marks: newMarks };
+  });
+  await update();
+}
+
+function filterFacets(facets, options) {
+  for (const facet of facets) {
+    filterView(facet, { ...options, facet: true });
+  }
+}
+
 export function LegendFilter() {
-  return (context, _, emitter) => {
-    const { container, view, update, setState } = context;
+  return (context, contexts, emitter) => {
+    const { container } = context;
+    const facets = contexts.filter((d) => d !== context);
+    const isFacet = facets.length > 0;
 
     const channelsOf = (legend) => {
       return dataOf(legend).scales.map((d) => d.name);
@@ -211,54 +271,19 @@ export function LegendFilter() {
     ];
     const allChannels = legends.flatMap(channelsOf);
 
-    const filter = throttle(
-      async (legend, channel, value, ordinal: boolean, channels) => {
-        setState(legend, (viewOptions) => {
-          const { marks } = viewOptions;
-          // Add filter transform for every marks,
-          // which will skip for mark without color channel.
-          const newMarks = marks.map((mark) => {
-            if (mark.type === 'legends') return mark;
-
-            // Inset after aggregate transform, such as group, and bin.
-            const { transform = [] } = mark;
-            const index = transform.findIndex(
-              ({ type }) => type.startsWith('group') || type.startsWith('bin'),
-            );
-            const newTransform = [...transform];
-            newTransform.splice(index + 1, 0, {
-              type: 'filter',
-              [channel]: { value, ordinal },
-            });
-
-            // Set domain of scale to preserve encoding.
-            const newScale = Object.fromEntries(
-              channels.map((channel) => [
-                channel,
-                { domain: view.scale[channel].getOptions().domain },
-              ]),
-            );
-
-            return deepMix({}, mark, {
-              transform: newTransform,
-              scale: newScale,
-              ...(!ordinal && { animate: false }),
-              legend: Object.fromEntries(
-                allChannels.map((d) => [d, { preserve: true }]),
-              ),
-            });
-          });
-          return { ...viewOptions, marks: newMarks };
-        });
-        await update();
-      },
-      50,
-      { trailing: true },
-    );
+    const filter = isFacet
+      ? throttle(filterFacets, 50, { trailing: true })
+      : throttle(filterView, 50, { trailing: true });
 
     const removes = legends.map((legend) => {
       const { name: channel, domain } = dataOf(legend).scales[0];
       const channels = channelsOf(legend);
+      const common = {
+        legend,
+        channel,
+        channels,
+        allChannels,
+      };
       if (legend.className === CATEGORY_LEGEND_CLASS_NAME) {
         return legendFilterOrdinal(container, {
           legends: itemsOf,
@@ -269,7 +294,11 @@ export function LegendFilter() {
             const { index } = datum;
             return domain[index];
           },
-          filter: (value) => filter(legend, channel, value, true, channels),
+          filter: (value) => {
+            const options = { ...common, value, ordinal: true };
+            if (isFacet) filter(facets, options);
+            else filter(context, options);
+          },
           state: legend.attributes.state,
           channel,
           emitter,
@@ -277,7 +306,11 @@ export function LegendFilter() {
       } else {
         return legendFilterContinuous(container, {
           legend,
-          filter: (value) => filter(legend, channel, value, false, channels),
+          filter: (value) => {
+            const options = { ...common, value, ordinal: false };
+            if (isFacet) filter(facets, options);
+            else filter(context, options);
+          },
           emitter,
           channel,
         });
