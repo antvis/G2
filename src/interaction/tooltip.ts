@@ -864,7 +864,6 @@ export function tooltip(
       root.removeEventListener('pointermove', pointerover);
       root.removeEventListener('pointerout', pointerout);
     }
-    destroyTooltip({ root, single });
   };
 
   const onTooltipShow = ({ nativeEvent, data }) => {
