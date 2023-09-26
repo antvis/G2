@@ -1,4 +1,4 @@
-import { register, Chart } from '../../../src/api';
+import { register, Chart } from '../../../src';
 
 export function registerDataTransform(context) {
   const { container, canvas } = context;

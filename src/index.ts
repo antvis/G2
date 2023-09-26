@@ -1,15 +1,18 @@
 import { corelib, plotlib, graphlib, geolib, stdlib } from './lib';
 import { extend, Runtime } from './api';
+import { API, CompositionAPI } from './api/extend';
+import { G2Spec } from './spec';
 
 /**
  * G2 standard library initial all the libs except 3D and auto.
  */
-export const Chart = extend(Runtime, {
-  ...corelib(),
-  ...plotlib(),
-  ...graphlib(),
-  ...geolib(),
-});
+const library = { ...stdlib() };
+
+export const Chart = extend(Runtime, library);
+
+export interface Chart extends API<G2Spec, typeof library> {}
+
+export interface CompositionNode extends CompositionAPI<typeof library> {}
 
 export { corelib, plotlib, graphlib, geolib, stdlib };
 
