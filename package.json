@@ -13,6 +13,9 @@
       "require": "./lib/index.js"
     }
   },
+  "sideEffects": [
+    "./esm/exports.js"
+  ],
   "files": [
     "src",
     "lib",
@@ -41,9 +44,6 @@
     "upload": "node scripts/upload/snapshot.js",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
-  "sideEffects": [
-    "./esm/index.js"
-  ],
   "keywords": [
     "antv",
     "g2",
@@ -148,6 +148,11 @@
       "path": "dist/g2.min.js",
       "limit": "280 Kb",
       "gzip": true
+    },
+    {
+      "path": "dist/g2.min.js",
+      "limit": "950 Kb",
+      "gzip": false
     },
     {
       "path": "dist/g2.lite.min.js",

@@ -1,4 +1,11 @@
-import { stdlib, corelib, plotlib, geolib, graphlib } from '../../../src';
+import {
+  stdlib,
+  corelib,
+  plotlib,
+  geolib,
+  graphlib,
+  threedlib,
+} from '../../../src';
 
 describe('libs', () => {
   it('should export expected lib.', () => {
@@ -7,5 +14,6 @@ describe('libs', () => {
     expect(plotlib).toBeDefined();
     expect(geolib).toBeDefined();
     expect(graphlib).toBeDefined();
+    expect(threedlib).toBeDefined();
   });
 });

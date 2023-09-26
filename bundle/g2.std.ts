@@ -13,7 +13,7 @@ import { G2Spec } from '../src/spec';
 export * from '../src/exports';
 
 /**
- * G2 full library initial all the libs, include 3D and auto.
+ * G2 standard library initial all the libs except 3D and auto.
  */
 const library = { ...stdlib() };
 
