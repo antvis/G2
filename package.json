@@ -146,17 +146,23 @@
   "limit-size": [
     {
       "path": "dist/g2.min.js",
-      "limit": "400 Kb",
+      "limit": "280 Kb",
       "gzip": true
     },
     {
-      "path": "dist/g2.min.js",
-      "limit": "1.5 Mb"
+      "path": "dist/g2.lite.min.js",
+      "limit": "240 Kb",
+      "gzip": true
+    },
+    {
+      "path": "dist/g2.full.min.js",
+      "limit": "350 Kb",
+      "gzip": true
     }
   ],
   "author": {
     "name": "AntV",
-    "url": "https://antv.vision/"
+    "url": "https://antv.antgroup.com/"
   },
   "repository": {
     "type": "git",

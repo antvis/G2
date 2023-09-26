@@ -6,7 +6,7 @@ import EventEmitter from '@antv/event-emitter';
 import { G2Context, render, destroy } from '../runtime';
 import { G2Spec, ViewComposition } from '../spec';
 import { ChartEvent } from '../utils/event';
-import { G2Library } from '../runtime/types/options';
+import type { G2Library } from '../runtime/types/options';
 import {
   normalizeContainer,
   removeContainer,

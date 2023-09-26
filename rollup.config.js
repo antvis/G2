@@ -7,35 +7,64 @@ import typescript from 'rollup-plugin-typescript2';
 
 const isBundleVis = !!process.env.BUNDLE_VIS;
 
-export default {
-  input: 'src/index.ts',
-  output: [
-    {
-      file: 'dist/g2.min.js',
-      name: 'G2',
-      format: 'umd',
-      sourcemap: false,
-      plugins: [isBundleVis && visualizer()],
+const Plugins = () => [
+  nodePolyfills(),
+  resolve(),
+  commonjs(),
+  typescript({
+    useTsconfigDeclarationDir: true,
+  }),
+  terser(),
+];
+
+export default [
+  {
+    input: 'src/index.ts',
+    treeshake: {
+      preset: 'smallest',
     },
-    {
-      file: 'dist/g2-lite.min.js',
-      name: 'G2',
-      format: 'umd',
-      sourcemap: false,
-      globals: {
-        '@antv/g': 'window.G',
-        '@antv/g-canvas': 'window.G.Canvas2D',
+    output: [
+      {
+        file: 'dist/g2.min.js',
+        name: 'G2',
+        format: 'umd',
+        sourcemap: false,
       },
+    ],
+    plugins: Plugins(),
+    context: 'window', // Disable 'THIS_IS_UNDEFINED' warnings
+  },
+  {
+    input: 'src/index.lite.ts',
+    treeshake: {
+      preset: 'smallest',
     },
-  ],
-  plugins: [
-    nodePolyfills(),
-    resolve(),
-    commonjs(),
-    typescript({
-      useTsconfigDeclarationDir: true,
-    }),
-    terser(),
-  ],
-  context: 'window', // Disable 'THIS_IS_UNDEFINED' warnings
-};
+    output: [
+      {
+        file: 'dist/g2.lite.min.js',
+        name: 'G2',
+        format: 'umd',
+        sourcemap: false,
+      },
+    ],
+    plugins: Plugins(),
+    context: 'window', // Disable 'THIS_IS_UNDEFINED' warnings
+  },
+  {
+    input: 'src/index.full.ts',
+    treeshake: {
+      preset: 'smallest',
+    },
+    output: [
+      {
+        file: 'dist/g2.full.min.js',
+        name: 'G2',
+        format: 'umd',
+        sourcemap: false,
+        plugins: [isBundleVis && visualizer()],
+      },
+    ],
+    plugins: Plugins(),
+    context: 'window', // Disable 'THIS_IS_UNDEFINED' warnings
+  }
+];
