@@ -1,4 +1,4 @@
-import { autolib } from '../../../src';
+import { autolib } from '../../../src/lib';
 import { Auto } from '../../../src/mark';
 
 describe('autolib', () => {

@@ -1,11 +1,4 @@
-import {
-  corelib,
-  plotlib,
-  graphlib,
-  geolib,
-  stdlib,
-  threedlib,
-} from '../src/lib';
+import { corelib, plotlib, graphlib, geolib, stdlib } from '../src/lib';
 import { extend, Runtime } from '../src/api';
 import { API, CompositionAPI } from '../src/api/extend';
 import { G2Spec } from '../src/spec';

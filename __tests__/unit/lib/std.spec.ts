@@ -261,7 +261,6 @@ describe('stdlib', () => {
       'mark.gauge': Gauge,
       'mark.liquid': Liquid,
       'mark.heatmap': Heatmap,
-      'mark.auto': Auto,
       'palette.category10': Category10,
       'palette.category20': Category20,
       'scale.linear': Linear,
