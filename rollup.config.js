@@ -20,6 +20,8 @@ export default [
     input,
     treeshake: {
       preset: 'smallest',
+      // Set `src/exports` as a sideEffects file.
+      moduleSideEffects: (id, external) => id.includes('src/exports.ts') ? true : false,
     },
     output: [
       {
