@@ -3,8 +3,8 @@ import {
   corelib,
   plotlib,
   geolib,
-  threedlib,
   graphlib,
+  threedlib,
 } from '../../../src';
 
 describe('libs', () => {
@@ -13,7 +13,7 @@ describe('libs', () => {
     expect(corelib).toBeDefined();
     expect(plotlib).toBeDefined();
     expect(geolib).toBeDefined();
-    expect(threedlib).toBeDefined();
     expect(graphlib).toBeDefined();
+    expect(threedlib).toBeDefined();
   });
 });

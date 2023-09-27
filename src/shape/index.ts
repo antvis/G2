@@ -66,7 +66,7 @@ export { Liquid as LiquidShape } from './liquid/liquid';
 export type { RectOptions as IntervalShapeOptions } from './interval/rect';
 export type { HollowOptions as IntervalHollowOptions } from './interval/hollow';
 export type { FunnelOptions as IntervalFunnelOptions } from './interval/funnel';
-export type { PyramidOptions as IntervalPyline3DramidOptions } from './interval/pyramid';
+export type { PyramidOptions as IntervalPyramidOptions } from './interval/pyramid';
 export type { LineOptions as LineShapeOptions } from './line/line';
 export type { SmoothOptions as LineSmoothOptions } from './line/smooth';
 export type { HVOptions as LineHVOptions } from './line/hv';

@@ -1,4 +1,4 @@
-import { Chart } from '../../../src/api';
+import { Chart } from '../../../src/';
 
 export function chartRender(context) {
   const { container, canvas } = context;

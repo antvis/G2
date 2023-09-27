@@ -1,7 +1,6 @@
-import { stdlib } from '../lib/std';
 import { G2ComponentNamespaces, G2Component } from '../runtime';
 
-export const library = stdlib();
+export const library = {};
 
 // @todo Warn if override existing key.
 export function register(

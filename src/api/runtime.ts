@@ -6,7 +6,7 @@ import EventEmitter from '@antv/event-emitter';
 import { G2Context, render, destroy } from '../runtime';
 import { G2Spec, ViewComposition } from '../spec';
 import { ChartEvent } from '../utils/event';
-import { G2Library } from '../runtime/types/options';
+import type { G2Library } from '../runtime/types/options';
 import {
   normalizeContainer,
   removeContainer,
@@ -20,6 +20,7 @@ import { CompositionNode } from './composition';
 import { Node } from './node';
 import { defineProps, nodeProps } from './define';
 import { MarkNode } from './mark';
+import { library } from './library';
 
 export const G2_CHART_KEY = 'G2_CHART_KEY';
 
@@ -58,7 +59,11 @@ export class Runtime<Spec extends G2Spec = G2Spec> extends CompositionNode {
     this._plugins = plugins || [];
     this._container = normalizeContainer(container);
     this._emitter = new EventEmitter();
-    this._context = { library: lib, emitter: this._emitter, canvas };
+    this._context = {
+      library: { ...lib, ...library },
+      emitter: this._emitter,
+      canvas,
+    };
     this._create();
   }
 

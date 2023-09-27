@@ -1,4 +1,4 @@
-import { G2Spec } from '../spec';
+import type { G2Spec } from '../spec';
 import { extend, API, CompositionAPI } from './extend';
 import { library } from './library';
 import { Runtime } from './runtime';

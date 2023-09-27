@@ -1,45 +1,17 @@
-import { runtime } from '@antv/g';
+import { corelib, plotlib, graphlib, geolib, stdlib, threedlib } from './lib';
+import { extend, Runtime } from './api';
+import { API, CompositionAPI } from './api/extend';
+import { G2Spec } from './spec';
 
-runtime.enableCSSParsing = false;
+export { corelib, plotlib, graphlib, geolib, stdlib, threedlib };
 
-export {
-  render,
-  renderToMountedElement,
-  MAIN_LAYER_CLASS_NAME,
-  LABEL_LAYER_CLASS_NAME,
-  ELEMENT_CLASS_NAME,
-  VIEW_CLASS_NAME,
-  PLOT_CLASS_NAME,
-  COMPONENT_CLASS_NAME,
-  LABEL_CLASS_NAME,
-  AREA_CLASS_NAME,
-  MASK_CLASS_NAME,
-} from './runtime';
+export * from './exports';
 
-export {
-  corelib,
-  stdlib,
-  litelib,
-  graphlib,
-  plotlib,
-  geolib,
-  threedlib,
-} from './lib';
+/**
+ * G2 standard library initial all the libs except 3D and auto.
+ */
+const library = { ...stdlib() };
 
-export * from './mark';
-
-export {
-  Chart,
-  type MarkNode,
-  type CompositionNode,
-  register,
-  Runtime,
-  extend,
-  type ChartOptions,
-} from './api';
-
-export { ChartEvent } from './utils/event';
-
-export type { G2Context } from './runtime';
-
-export * from './spec';
+export const Chart = extend(Runtime, library);
+export interface Chart extends API<G2Spec, typeof library> {}
+export interface CompositionNode extends CompositionAPI<typeof library> {}
