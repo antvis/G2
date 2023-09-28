@@ -1,3 +1,19 @@
+## [5.1.5](https://github.com/antvis/g2/compare/5.1.5-beta.0...5.1.5) (2023-09-28)
+
+
+### Bug Fixes
+
+* bundle sideEffects config ([#5603](https://github.com/antvis/g2/issues/5603)) ([dbbedfe](https://github.com/antvis/g2/commit/dbbedfebdb4118c92ecac852e76402824f05d3e0))
+* **tooltip:** destroy when reapply ([#5601](https://github.com/antvis/g2/issues/5601)) ([b4c977f](https://github.com/antvis/g2/commit/b4c977f1bfff4247c9917e3ffd74df493daf9315))
+
+
+### Features
+
+* add 3 bundle file ([#5597](https://github.com/antvis/g2/issues/5597)) ([ba0c945](https://github.com/antvis/g2/commit/ba0c94534b57273c9e59f91ef772d8f4c4954c57))
+* add auto mark ([#5585](https://github.com/antvis/g2/issues/5585)) ([01c52a6](https://github.com/antvis/g2/commit/01c52a685c5a88593da9e43238b28deec8a4e7a3))
+
+
+
 ## [5.1.5-beta.0](https://github.com/antvis/g2/compare/5.1.4...5.1.5-beta.0) (2023-09-25)
 
 
