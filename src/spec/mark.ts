@@ -1,3 +1,4 @@
+import type { AdviseParams } from '@antv/ava';
 import { MarkComponent } from '../runtime';
 import { Encode } from './encode';
 import { Transform } from './transform';
@@ -18,6 +19,7 @@ import {
 import { Closeable, Literal2Object, Padding } from './utils';
 
 export type Mark =
+  | AutoMark
   | IntervalMark
   | RectMark
   | LineMark
@@ -51,6 +53,7 @@ export type Mark =
   | CompositeMark;
 
 export type MarkTypes =
+  | 'auto'
   | 'interval'
   | 'rect'
   | 'line'
@@ -391,3 +394,4 @@ export type HeatmapMark = BaseMark<'heatmap'>;
 export type LiquidMark = BaseMark<'liquid'>;
 
 export type CustomMark = BaseMark<MarkComponent, ChannelTypes>;
+export type AutoMark = BaseMark<'auto'> & AdviseParams;

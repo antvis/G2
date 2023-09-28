@@ -42,6 +42,7 @@ import {
   Density as DensityGeometry,
   Heatmap,
   Liquid,
+  Auto,
 } from '../../../src/mark';
 import { Category10, Category20 } from '../../../src/palette';
 import {

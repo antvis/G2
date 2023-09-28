@@ -4,6 +4,8 @@ import terser from '@rollup/plugin-terser';
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import typescript from 'rollup-plugin-typescript2';
+import json from '@rollup/plugin-json';
+import { optimizeLodashImports } from '@optimize-lodash/rollup-plugin';
 
 const isBundleVis = !!process.env.BUNDLE_VIS;
 
@@ -21,7 +23,8 @@ export default [
     treeshake: {
       preset: 'smallest',
       // Set `src/exports` as a sideEffects file.
-      moduleSideEffects: (id, external) => id.includes('src/exports.ts') ? true : false,
+      moduleSideEffects: (id, external) =>
+        id.includes('src/exports.ts') ? true : false,
     },
     output: [
       {
@@ -39,8 +42,10 @@ export default [
       typescript({
         useTsconfigDeclarationDir: true,
       }),
+      optimizeLodashImports(),
+      json(),
       terser(),
     ],
     context: 'window', // Disable 'THIS_IS_UNDEFINED' warnings
-  }))
+  })),
 ];
