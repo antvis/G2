@@ -1,4 +1,4 @@
-import { Slider as SliderComponent } from '@antv/gui';
+import { Slider as SliderComponent } from '@antv/component';
 import { format } from 'd3-format';
 import { DisplayObject } from '@antv/g';
 import { isTranspose } from '../utils/coordinate';

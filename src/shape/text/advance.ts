@@ -8,7 +8,7 @@ import {
   PathStyleProps,
 } from '@antv/g';
 import { isNumber } from '@antv/util';
-import { Marker } from '@antv/gui';
+import { Marker } from '@antv/component';
 import { line } from 'd3-shape';
 import { WithPrefix } from '../../runtime';
 import { createElement } from '../../utils/createElement';

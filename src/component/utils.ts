@@ -1,5 +1,5 @@
 import { CustomElement, DisplayObjectConfig, Group } from '@antv/g';
-import { Layout } from '@antv/gui';
+import { Layout } from '@antv/component';
 import { deepMix, upperFirst } from '@antv/util';
 import {
   FlexLayout,

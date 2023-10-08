@@ -1,4 +1,4 @@
-import type { TooltipStyleProps } from '@antv/gui';
+import type { TooltipStyleProps } from '@antv/component';
 import { BBox, InteractionComponent } from '../runtime';
 import { FisheyeCoordinate } from './coordinateTransform';
 import { TooltipItemValue } from './component';

@@ -1,5 +1,5 @@
 import type { DisplayObject } from '@antv/g';
-import { Category } from '@antv/gui';
+import { Category } from '@antv/component';
 import { last } from '@antv/util';
 import { format } from 'd3-format';
 import { Identity } from '@antv/scale';

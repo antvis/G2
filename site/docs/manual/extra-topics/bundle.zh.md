@@ -273,7 +273,7 @@ chart.point3D();
 目前是推出了按需打包的能力，但是可以发现效果不是很明显，只减少了 10% 左右的大小。通过分析如下 G2 5.0.18 使用 [G2.stdlib](#g2corelib) 依赖图可以有以下几个可以进一步优化思路：
 
 - 减少 Runtime 的体积：把一些能力放在 library 里面可以按需使用。
-- 依赖治理：去掉一些重复依赖，比如 `@antv/util`；减少一些依赖的大小 `@antv/gui`。
+- 依赖治理：去掉一些重复依赖，比如 `@antv/util`；减少一些依赖的大小 `@antv/component`。
 - 提供比 corelib 更小的 library：可以实现 Mark 级别的按需打包。
 
 <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Z-bZT5lHPkkAAAAAAAAAAAAADmJ7AQ/original" alt="dep" style="margin-top: 1em"/>
