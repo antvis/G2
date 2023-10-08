@@ -1,5 +1,5 @@
 import { TextStyleProps, DisplayObject } from '@antv/g';
-import { Marker } from '@antv/gui';
+import { Marker } from '@antv/component';
 import { ShapeComponent as SC, WithPrefix } from '../../runtime';
 import { createElement } from '../../utils/createElement';
 import { subObject } from '../../utils/helper';

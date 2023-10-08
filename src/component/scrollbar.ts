@@ -1,4 +1,4 @@
-import { Scrollbar as ScrollbarComponent } from '@antv/gui';
+import { Scrollbar as ScrollbarComponent } from '@antv/component';
 import { DisplayObject } from '@antv/g';
 import { GuideComponentComponent as GCC } from '../runtime';
 

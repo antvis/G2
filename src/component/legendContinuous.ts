@@ -1,5 +1,5 @@
 import { DisplayObject, parseColor } from '@antv/g';
-import { Continuous } from '@antv/gui';
+import { Continuous } from '@antv/component';
 import { Constant, Quantile, Quantize, Threshold } from '@antv/scale';
 import { format } from 'd3-format';
 import type {

@@ -5,7 +5,7 @@ const { LINK, MODULE } = process.env;
 
 if (LINK === '1' && !MODULE) {
   throw new Error(
-    `Please specify MODULE, for example: $ MODULE=@antv/gui npm run dev:link.`,
+    `Please specify MODULE, for example: $ MODULE=@antv/component npm run dev:link.`,
   );
 }
 
