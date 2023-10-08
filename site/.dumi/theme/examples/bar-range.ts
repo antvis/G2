@@ -1,13 +1,13 @@
 import { Chart } from '@antv/g2';
 
-export const BarRange = ({ container, theme, width, height }) => {
+export const BarRange = ({ container, theme, width, height, tokens }) => {
   const chart = new Chart({
     container,
     width,
     height,
   });
 
-  chart.theme({ type: theme });
+  chart.theme({ type: theme, ...tokens });
 
   chart
     .interval()

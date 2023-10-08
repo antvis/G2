@@ -4,7 +4,7 @@ import { create } from './create';
 
 export type DarkOptions = Theme;
 
-const defaults = create({
+export const tokens = {
   colorBlack: '#fff',
   colorWhite: '#000',
   colorStroke: '#416180',
@@ -52,7 +52,9 @@ const defaults = create({
   alpha45: 0.45,
   alpha25: 0.25,
   alpha10: 0.25,
-});
+};
+
+const defaults = create(tokens);
 
 export const Dark: TC<DarkOptions> = (options) => {
   return deepMix(

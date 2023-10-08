@@ -4,7 +4,7 @@ import { Chart } from '@antv/g2';
 import { examples } from '../examples';
 import './DemosView.less';
 
-const DemoContainer = ({ theme, className = '', render }) => {
+const DemoContainer = ({ theme, className = '', render, tokens = {} }) => {
   const domRef = React.useRef<HTMLDivElement | null>(null);
   const chartRef = React.useRef<Chart | null>(null);
 
@@ -15,6 +15,7 @@ const DemoContainer = ({ theme, className = '', render }) => {
       theme,
       width: container.clientWidth,
       height: container.clientHeight,
+      tokens,
     });
   }
 
@@ -26,7 +27,7 @@ const DemoContainer = ({ theme, className = '', render }) => {
       chart.destroy();
       init(theme);
     }
-  }, [theme]);
+  }, [theme, tokens]);
 
   React.useLayoutEffect(() => {
     const el = domRef.current;
@@ -47,7 +48,7 @@ const DemoContainer = ({ theme, className = '', render }) => {
   return <div ref={domRef} className={className} />;
 };
 
-export const DemosView = ({ theme, className = '' }) => {
+export const DemosView = ({ theme, tokens, className = '' }) => {
   function openExample(example) {
     // @ts-ignore
     window.open(`/examples/${example.link}`);
@@ -66,6 +67,7 @@ export const DemosView = ({ theme, className = '' }) => {
               className="demo-container"
               theme={theme}
               render={example.render}
+              tokens={tokens}
             />
           </div>
         </Badge.Ribbon>
