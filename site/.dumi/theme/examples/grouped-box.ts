@@ -1,6 +1,6 @@
 import { Chart } from '@antv/g2';
 
-export const groupedBox = ({ container, theme, width, height }) => {
+export const groupedBox = ({ container, theme, width, height, tokens }) => {
   const data = [
     {
       Species: 'I. setosa',
@@ -101,7 +101,7 @@ export const groupedBox = ({ container, theme, width, height }) => {
       { name: 'max', channel: 'y4' },
     ]);
 
-  chart.theme({ type: theme });
+  chart.theme({ type: theme, ...tokens });
 
   chart.render();
 

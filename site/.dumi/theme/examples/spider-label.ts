@@ -1,6 +1,6 @@
 import { Chart } from '@antv/g2';
 
-export const spiderLabel = ({ container, theme, width, height }) => {
+export const spiderLabel = ({ container, theme, width, height, tokens }) => {
   const chart = new Chart({
     container,
     width,
@@ -13,7 +13,7 @@ export const spiderLabel = ({ container, theme, width, height }) => {
     outerRadius: 0.8,
   });
 
-  chart.theme({ type: theme });
+  chart.theme({ type: theme, ...tokens });
 
   chart
     .interval()

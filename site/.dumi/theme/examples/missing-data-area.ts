@@ -1,13 +1,19 @@
 import { Chart } from '@antv/g2';
 
-export const missingDataArea = ({ container, theme, width, height }) => {
+export const missingDataArea = ({
+  container,
+  theme,
+  width,
+  height,
+  tokens,
+}) => {
   const chart = new Chart({
     container,
     width,
     height,
   });
 
-  chart.theme({ type: theme });
+  chart.theme({ type: theme, ...tokens });
 
   chart.data({
     type: 'fetch',

@@ -2,9 +2,9 @@ import { deepMix } from '@antv/util';
 import { ThemeComponent as TC, Theme } from '../runtime';
 import { create } from './create';
 
-const defaults = create({
+export const tokens = {
   colorBlack: '#1D2129',
-  colorWhite: '#fff',
+  colorWhite: '#ffffff',
   colorStroke: '#416180',
   colorDefault: '#1783FF',
   colorBackground: 'transparent',
@@ -50,7 +50,9 @@ const defaults = create({
   alpha45: 0.45,
   alpha25: 0.25,
   alpha10: 0.1,
-});
+};
+
+const defaults = create(tokens);
 
 export type LightOptions = Theme;
 

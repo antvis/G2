@@ -1,6 +1,6 @@
 import { Chart } from '@antv/g2';
 
-export const lineBar = ({ container, theme, width, height }) => {
+export const lineBar = ({ container, theme, width, height, tokens }) => {
   const data = [
     { time: '10:10', call: 4, waiting: 2, people: 2 },
     { time: '10:15', call: 2, waiting: 6, people: 3 },
@@ -17,7 +17,7 @@ export const lineBar = ({ container, theme, width, height }) => {
     height,
   });
 
-  chart.theme({ type: theme });
+  chart.theme({ type: theme, ...tokens });
 
   chart.data(data);
 
@@ -25,7 +25,8 @@ export const lineBar = ({ container, theme, width, height }) => {
     .interval()
     .encode('x', 'time')
     .encode('y', 'waiting')
-    .axis('y', { titleFill: '#5B8FF9', title: 'Waiting' })
+    .encode('color', () => 'waiting')
+    .axis('y', { title: 'Waiting' })
     .scale('y', { nice: true });
 
   chart
@@ -33,14 +34,13 @@ export const lineBar = ({ container, theme, width, height }) => {
     .encode('x', 'time')
     .encode('y', 'people')
     .encode('shape', 'smooth')
-    .style('stroke', '#fdae6b')
+    .encode('color', () => 'people')
     .style('lineWidth', 2)
     .scale('y', { independent: true, nice: true })
     .axis('y', {
       position: 'right',
       grid: null,
       title: 'People',
-      titleFill: '#fdae6b',
     });
 
   chart.render();

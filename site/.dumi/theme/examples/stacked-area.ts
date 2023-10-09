@@ -1,13 +1,13 @@
 import { Chart } from '@antv/g2';
 
-export const stackedArea = ({ container, theme, width, height }) => {
+export const stackedArea = ({ container, theme, width, height, tokens }) => {
   const chart = new Chart({
     container,
     width,
     height,
   });
 
-  chart.theme({ type: theme });
+  chart.theme({ type: theme, ...tokens });
 
   chart.data({
     type: 'fetch',
@@ -23,7 +23,7 @@ export const stackedArea = ({ container, theme, width, height }) => {
     .encode('y', 'unemployed')
     .encode('color', 'industry')
     .encode('shape', 'smooth')
-    .legend('color', { size: 20 });
+    .legend(false);
 
   chart.render();
 
