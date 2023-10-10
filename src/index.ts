@@ -39,6 +39,7 @@ export {
 } from './api';
 
 export { ChartEvent } from './utils/event';
+export { selectPlotArea } from './interaction/utils';
 
 export type { G2Context } from './runtime';
 
