@@ -4,6 +4,7 @@ export { bodyPoint2d } from './body-point-2d';
 export { cars3LineXd } from './cars3-line-xd';
 export { alphabetIntervalMulti } from './alphabet-interval-multi';
 export { alphabetIntervalTitle } from './alphabet-interval-title';
+export { alphabetIntervalEnterable } from './alphabet-interval-enterable';
 export { aaplLine } from './aapl-line';
 export { indicesLine } from './indices-line';
 export { temperaturesLineDiscrete } from './temperatures-line-discrete';
