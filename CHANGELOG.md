@@ -1,3 +1,17 @@
+## [5.1.6-beta.0](https://github.com/antvis/g2/compare/5.1.5...5.1.6-beta.0) (2023-10-12)
+
+
+### Bug Fixes
+
+* depth defualt to zero ([#5632](https://github.com/antvis/g2/issues/5632)) ([a0537d6](https://github.com/antvis/g2/commit/a0537d6e6f5b39d26bcab701155c4a6770e2e18a))
+
+
+### Features
+
+* add more attributes to theme set ([#5613](https://github.com/antvis/g2/issues/5613)) ([082982d](https://github.com/antvis/g2/commit/082982da29b6c359c5b09694a6c25cdaf0aee673))
+
+
+
 ## [5.1.5](https://github.com/antvis/g2/compare/5.1.5-beta.0...5.1.5) (2023-09-28)
 
 
