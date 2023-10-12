@@ -71,8 +71,10 @@ export function valueOf(node: Node): Record<string, any> {
 
 export function sizeOf(options, container) {
   const { autoFit } = options;
-  if (autoFit) return getContainerSize(container);
-  const { width = 640, height = 480, depth = 0 } = options;
+  const { width = 640, height = 480 } = autoFit
+    ? getContainerSize(container)
+    : options;
+  const { depth = 0 } = options;
   return { width, height, depth };
 }
 

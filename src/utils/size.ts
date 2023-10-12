@@ -29,7 +29,6 @@ export function getContainerSize(container: HTMLElement): Size {
   return {
     width: wrapperWidth - widthPadding,
     height: wrapperHeight - heightPadding,
-    depth: wrapperWidth,
   };
 }
 
