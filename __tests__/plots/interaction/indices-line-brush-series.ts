@@ -10,8 +10,6 @@ export async function indicesLineBrushSeries(): Promise<G2Spec> {
     children: [
       {
         type: 'line',
-        width: 800,
-        paddingLeft: 50,
         data,
         axis: {
           y: { labelAutoRotate: false },
@@ -23,7 +21,6 @@ export async function indicesLineBrushSeries(): Promise<G2Spec> {
           y: 'Close',
           color: 'Symbol',
           key: 'Symbol',
-          title: (d) => new Date(d.Date).toUTCString(),
         },
         state: {
           active: { stroke: 'red' },
