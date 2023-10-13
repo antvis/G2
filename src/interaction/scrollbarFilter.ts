@@ -9,19 +9,20 @@ export function ScrollbarFilter(options: any = {}) {
     if (!scrollbars.length) return () => {};
     const { scale } = view;
     const { x: scaleX, y: scaleY } = scale;
-    const channelDomain = {
-      x: scaleX.getOptions().domain,
-      y: scaleY.getOptions().domain,
+
+    // The filtered domain, computed by the ratio attribute.
+    const initDomain = {
+      x: [...scaleX.getOptions().domain],
+      y: [...scaleY.getOptions().domain],
     };
-    scaleX.update({
-      domain: scaleX.getOptions().expectedDomain,
-    });
-    scaleY.update({
-      domain: scaleY.getOptions().expectedDomain,
-    });
+
+    // The ordinal domain for each channel.
+    scaleX.update({ domain: scaleX.getOptions().expectedDomain });
+    scaleY.update({ domain: scaleY.getOptions().expectedDomain });
+
     const interaction = SliderFilter({
       ...options,
-      channelDomain,
+      initDomain,
       className: SCROLLBAR_CLASS_NAME,
       prefix: 'scrollbar',
       hasState: true,
