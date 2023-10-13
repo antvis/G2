@@ -30,9 +30,7 @@ export function dispatchValueChange(slider, values = [0.25, 0.75]) {
   slider.update({ values });
   slider.dispatchEvent(
     new CustomEvent('valuechange', {
-      detail: {
-        value: [0.25, 0.75],
-      },
+      detail: { value: values },
     }),
   );
 }
@@ -52,6 +50,11 @@ aaplLineSliderFilter.steps = ({ canvas }) => {
     {
       changeState: () => {
         dispatchValueChange(s2);
+      },
+    },
+    {
+      changeState: () => {
+        dispatchValueChange(s1, [0.7, 0.9]);
       },
     },
   ];

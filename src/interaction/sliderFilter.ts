@@ -5,7 +5,14 @@ import { invert, domainOf, abstractOf } from '../utils/scale';
 
 export const SLIDER_CLASS_NAME = 'slider';
 
-function filterDataByDomain(options, scaleOptions, prefix, hasState = false) {
+function filterDataByDomain(
+  options,
+  scaleOptions,
+  prefix,
+  hasState = false,
+  channel0 = 'x',
+  channel1 = 'y',
+) {
   const { marks } = options;
   const newMarks = marks.map((mark) =>
     deepMix(
@@ -21,11 +28,12 @@ function filterDataByDomain(options, scaleOptions, prefix, hasState = false) {
         scale: scaleOptions,
         // Don't rerender sliders.
         [prefix]: {
-          ...(mark[prefix]?.x && {
-            x: { preserve: true, ...(hasState && { ratio: null }) },
+          ...(mark[prefix]?.[channel0] && {
+            [channel0]: { preserve: true, ...(hasState && { ratio: null }) },
           }),
-          ...(mark[prefix]?.y && {
-            y: { preserve: true, ...(hasState && { ratio: null }) },
+          // Only remove ratio state with filtered channel.
+          ...(mark[prefix]?.[channel1] && {
+            [channel1]: { preserve: true },
           }),
         },
         animate: false,
@@ -58,7 +66,7 @@ function extentOf(domain) {
  * @todo Support click to reset after fix click and dragend conflict.
  */
 export function SliderFilter({
-  channelDomain,
+  initDomain = {},
   className = SLIDER_CLASS_NAME,
   prefix = 'slider',
   setValue = (component, values) => component.setValues(values),
@@ -89,12 +97,10 @@ export function SliderFilter({
     const emitHandlers = new Set<[string, (event: any) => void]>();
 
     // Store current domain of x and y scale.
-    if (!channelDomain) {
-      channelDomain = {
-        x: scaleX.getOptions().domain,
-        y: scaleY.getOptions().domain,
-      };
-    }
+    const channelDomain = {
+      x: initDomain.x || scaleX.getOptions().domain,
+      y: initDomain.y || scaleY.getOptions().domain,
+    };
 
     for (const slider of sliders) {
       const { orientation } = slider.attributes;
@@ -152,13 +158,13 @@ export function SliderFilter({
           setState(slider, (options) => ({
             ...filterDataByDomain(
               options,
-              {
-                // Set nice to false to avoid modify domain.
-                [channel0]: { domain: domain0, nice: false },
-                [channel1]: { domain: domain1, nice: false },
-              },
+              // Set nice to false to avoid modify domain.
+              // Only update domain of current slider / scrollbar.
+              { [channel0]: { domain: domain0, nice: false } },
               prefix,
               hasState,
+              channel0,
+              channel1,
             ),
             paddingLeft,
             paddingTop,
