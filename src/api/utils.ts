@@ -1,3 +1,4 @@
+import { isNumber } from '@antv/util';
 import { G2ViewTree } from '../runtime';
 import { getContainerSize } from '../utils/size';
 import { deepAssign } from '../utils/helper';
@@ -32,6 +33,11 @@ export const VIEW_KEYS = [
 export const REMOVE_FLAG = '__remove__';
 
 export const CALLBACK_NODE = '__callback__';
+
+/** Minimum chart width */
+export const MIN_CHART_WIDTH = 1;
+/** Minimum chart height */
+export const MIN_CHART_HEIGHT = 1;
 
 export function normalizeContainer(
   container: string | HTMLElement,
@@ -70,12 +76,28 @@ export function valueOf(node: Node): Record<string, any> {
 }
 
 export function sizeOf(options, container) {
-  const { autoFit } = options;
-  const { width = 640, height = 480 } = autoFit
-    ? getContainerSize(container)
-    : options;
-  const { depth = 0 } = options;
-  return { width, height, depth };
+  const { width = 640, height = 480, autoFit, depth = 0 } = options;
+  let effectiveWidth = width;
+  let effectiveHeight = height;
+
+  if (autoFit) {
+    const { width: containerWidth, height: containerHeight } =
+      getContainerSize(container);
+    effectiveWidth = containerWidth || effectiveWidth;
+    effectiveHeight = containerHeight || effectiveHeight;
+  }
+
+  return {
+    width: Math.max(
+      isNumber(effectiveWidth) ? effectiveWidth : MIN_CHART_WIDTH,
+      MIN_CHART_WIDTH,
+    ),
+    height: Math.max(
+      isNumber(effectiveHeight) ? effectiveHeight : MIN_CHART_HEIGHT,
+      MIN_CHART_HEIGHT,
+    ),
+    depth,
+  };
 }
 
 export function optionsOf(node: Node): Record<string, any> {
