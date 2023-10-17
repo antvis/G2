@@ -1,144 +1,99 @@
-## [5.1.6-beta.0](https://github.com/antvis/g2/compare/5.1.5...5.1.6-beta.0) (2023-10-12)
-
-
-### Bug Fixes
-
-* depth defualt to zero ([#5632](https://github.com/antvis/g2/issues/5632)) ([a0537d6](https://github.com/antvis/g2/commit/a0537d6e6f5b39d26bcab701155c4a6770e2e18a))
-
-
-### Features
-
-* add more attributes to theme set ([#5613](https://github.com/antvis/g2/issues/5613)) ([082982d](https://github.com/antvis/g2/commit/082982da29b6c359c5b09694a6c25cdaf0aee673))
-
-
-
 ## [5.1.5](https://github.com/antvis/g2/compare/5.1.5-beta.0...5.1.5) (2023-09-28)
 
-
 ### Bug Fixes
 
-* bundle sideEffects config ([#5603](https://github.com/antvis/g2/issues/5603)) ([dbbedfe](https://github.com/antvis/g2/commit/dbbedfebdb4118c92ecac852e76402824f05d3e0))
-* **tooltip:** destroy when reapply ([#5601](https://github.com/antvis/g2/issues/5601)) ([b4c977f](https://github.com/antvis/g2/commit/b4c977f1bfff4247c9917e3ffd74df493daf9315))
-
+- bundle sideEffects config ([#5603](https://github.com/antvis/g2/issues/5603)) ([dbbedfe](https://github.com/antvis/g2/commit/dbbedfebdb4118c92ecac852e76402824f05d3e0))
+- **tooltip:** destroy when reapply ([#5601](https://github.com/antvis/g2/issues/5601)) ([b4c977f](https://github.com/antvis/g2/commit/b4c977f1bfff4247c9917e3ffd74df493daf9315))
 
 ### Features
 
-* add 3 bundle file ([#5597](https://github.com/antvis/g2/issues/5597)) ([ba0c945](https://github.com/antvis/g2/commit/ba0c94534b57273c9e59f91ef772d8f4c4954c57))
-* add auto mark ([#5585](https://github.com/antvis/g2/issues/5585)) ([01c52a6](https://github.com/antvis/g2/commit/01c52a685c5a88593da9e43238b28deec8a4e7a3))
-
-
+- add 3 bundle file ([#5597](https://github.com/antvis/g2/issues/5597)) ([ba0c945](https://github.com/antvis/g2/commit/ba0c94534b57273c9e59f91ef772d8f4c4954c57))
+- add auto mark ([#5585](https://github.com/antvis/g2/issues/5585)) ([01c52a6](https://github.com/antvis/g2/commit/01c52a685c5a88593da9e43238b28deec8a4e7a3))
 
 ## [5.1.5-beta.0](https://github.com/antvis/g2/compare/5.1.4...5.1.5-beta.0) (2023-09-25)
 
-
 ### Bug Fixes
 
-* **connector:** fix connectLength1 default value getting ([#5587](https://github.com/antvis/g2/issues/5587)) ([7e39af9](https://github.com/antvis/g2/commit/7e39af970f58205db32308af7facd8066908373c))
-* **tooltip:** for fisheye ([#5590](https://github.com/antvis/g2/issues/5590)) ([b39be0a](https://github.com/antvis/g2/commit/b39be0a1deebafbf6f92485ea662f798d23ad6a8))
-* **tooltip:** marker ([#5586](https://github.com/antvis/g2/issues/5586)) ([30450c3](https://github.com/antvis/g2/commit/30450c33168ba4097f1dac5f33c8fd63adfeedc8))
-* **tooltp:** cloned series invert ([#5588](https://github.com/antvis/g2/issues/5588)) ([bece2a7](https://github.com/antvis/g2/commit/bece2a7ad2f8cc87cac9c14da93d9398b781e498))
-* 修复 `site/docs/../intervalThreed.zh.md` 中元素全部为黑的问题 ([#5573](https://github.com/antvis/g2/issues/5573)) ([c32bca0](https://github.com/antvis/g2/commit/c32bca08f539b19efd02c7f6c832839f33b8a819))
-
+- **connector:** fix connectLength1 default value getting ([#5587](https://github.com/antvis/g2/issues/5587)) ([7e39af9](https://github.com/antvis/g2/commit/7e39af970f58205db32308af7facd8066908373c))
+- **tooltip:** for fisheye ([#5590](https://github.com/antvis/g2/issues/5590)) ([b39be0a](https://github.com/antvis/g2/commit/b39be0a1deebafbf6f92485ea662f798d23ad6a8))
+- **tooltip:** marker ([#5586](https://github.com/antvis/g2/issues/5586)) ([30450c3](https://github.com/antvis/g2/commit/30450c33168ba4097f1dac5f33c8fd63adfeedc8))
+- **tooltp:** cloned series invert ([#5588](https://github.com/antvis/g2/issues/5588)) ([bece2a7](https://github.com/antvis/g2/commit/bece2a7ad2f8cc87cac9c14da93d9398b781e498))
+- 修复 `site/docs/../intervalThreed.zh.md` 中元素全部为黑的问题 ([#5573](https://github.com/antvis/g2/issues/5573)) ([c32bca0](https://github.com/antvis/g2/commit/c32bca08f539b19efd02c7f6c832839f33b8a819))
 
 ### Features
 
-* **facet:** support legend filter ([#5593](https://github.com/antvis/g2/issues/5593)) ([05a49ac](https://github.com/antvis/g2/commit/05a49ace0ac28f8aea1fc0c6b3b9ce672ddc8fc7))
-* show theme editor ([#5579](https://github.com/antvis/g2/issues/5579)) ([9c26412](https://github.com/antvis/g2/commit/9c26412ae2e25a9e24782f63b07ababd26741471))
-* **theme:** add dark and update academy theme ([#5584](https://github.com/antvis/g2/issues/5584)) ([051d719](https://github.com/antvis/g2/commit/051d7196a49d1bc9a488c48334324e230a7285f5))
-
-
+- **facet:** support legend filter ([#5593](https://github.com/antvis/g2/issues/5593)) ([05a49ac](https://github.com/antvis/g2/commit/05a49ace0ac28f8aea1fc0c6b3b9ce672ddc8fc7))
+- show theme editor ([#5579](https://github.com/antvis/g2/issues/5579)) ([9c26412](https://github.com/antvis/g2/commit/9c26412ae2e25a9e24782f63b07ababd26741471))
+- **theme:** add dark and update academy theme ([#5584](https://github.com/antvis/g2/issues/5584)) ([051d719](https://github.com/antvis/g2/commit/051d7196a49d1bc9a488c48334324e230a7285f5))
 
 ## [5.1.4](https://github.com/antvis/g2/compare/5.1.3...5.1.4) (2023-09-20)
 
-
 ### Bug Fixes
 
-* **api:** only remove created container ([#5567](https://github.com/antvis/g2/issues/5567)) ([7be3ddf](https://github.com/antvis/g2/commit/7be3ddf8083ba2ab8cf63f6cd695e70324ecf03b))
-* **tooltip:** find closest for band scale ([#5564](https://github.com/antvis/g2/issues/5564)) ([e543e0e](https://github.com/antvis/g2/commit/e543e0ecc572a0412972168d1c2728e385996447))
-
+- **api:** only remove created container ([#5567](https://github.com/antvis/g2/issues/5567)) ([7be3ddf](https://github.com/antvis/g2/commit/7be3ddf8083ba2ab8cf63f6cd695e70324ecf03b))
+- **tooltip:** find closest for band scale ([#5564](https://github.com/antvis/g2/issues/5564)) ([e543e0e](https://github.com/antvis/g2/commit/e543e0ecc572a0412972168d1c2728e385996447))
 
 ### Features
 
-* **tooltip:** support css ([#5563](https://github.com/antvis/g2/issues/5563)) ([8a10429](https://github.com/antvis/g2/commit/8a104298434b91f342c9f7b2b70d50198b2013e3))
-
-
+- **tooltip:** support css ([#5563](https://github.com/antvis/g2/issues/5563)) ([8a10429](https://github.com/antvis/g2/commit/8a104298434b91f342c9f7b2b70d50198b2013e3))
 
 ## [5.1.3](https://github.com/antvis/g2/compare/5.1.2...5.1.3) (2023-09-18)
 
-
 ### Bug Fixes
 
-* **CONTRIBUTING.md:** fix incorrect file path ([#5556](https://github.com/antvis/g2/issues/5556)) ([f400dcd](https://github.com/antvis/g2/commit/f400dcd7224a3f11a9b9e1b2100ba3a59e21f510))
-* restore to last cursor not default ([#5553](https://github.com/antvis/g2/issues/5553)) ([e688283](https://github.com/antvis/g2/commit/e688283d9b4fdc79559e8402405a271aff29bd3c))
-* set target to es6 for umd ([#5559](https://github.com/antvis/g2/issues/5559)) ([5afd45a](https://github.com/antvis/g2/commit/5afd45a2687204137ef40fb34fceea34cf358e34))
-
-
+- **CONTRIBUTING.md:** fix incorrect file path ([#5556](https://github.com/antvis/g2/issues/5556)) ([f400dcd](https://github.com/antvis/g2/commit/f400dcd7224a3f11a9b9e1b2100ba3a59e21f510))
+- restore to last cursor not default ([#5553](https://github.com/antvis/g2/issues/5553)) ([e688283](https://github.com/antvis/g2/commit/e688283d9b4fdc79559e8402405a271aff29bd3c))
+- set target to es6 for umd ([#5559](https://github.com/antvis/g2/issues/5559)) ([5afd45a](https://github.com/antvis/g2/commit/5afd45a2687204137ef40fb34fceea34cf358e34))
 
 ## [5.1.2](https://github.com/antvis/g2/compare/5.1.1...5.1.2) (2023-09-13)
 
-
 ### Bug Fixes
 
-* **dual:** set series of line to band scale ([#5528](https://github.com/antvis/g2/issues/5528)) ([1446b1a](https://github.com/antvis/g2/commit/1446b1a4f0798304b8257c741bb3d0f1d189df2c))
-* **pie:** interaction for composite mark ([#5524](https://github.com/antvis/g2/issues/5524)) ([ae3138c](https://github.com/antvis/g2/commit/ae3138c150a774703b9404b61d98b0b388e8f541))
-* remove console.log in runtime ([#5532](https://github.com/antvis/g2/issues/5532)) ([e9486dc](https://github.com/antvis/g2/commit/e9486dcda4de02f959493eac5a0db90b89ade29a))
-* **tooltip:** legendFilter and shared tooltip ([#5534](https://github.com/antvis/g2/issues/5534)) ([7fc3e75](https://github.com/antvis/g2/commit/7fc3e7521ec18bb5c9b20d8544a6e9f0a615a4ef))
-* **types:** composition node ([#5527](https://github.com/antvis/g2/issues/5527)) ([88fdb41](https://github.com/antvis/g2/commit/88fdb4148432f02c5cb8f9e30b09cfac6298fbad))
-
+- **dual:** set series of line to band scale ([#5528](https://github.com/antvis/g2/issues/5528)) ([1446b1a](https://github.com/antvis/g2/commit/1446b1a4f0798304b8257c741bb3d0f1d189df2c))
+- **pie:** interaction for composite mark ([#5524](https://github.com/antvis/g2/issues/5524)) ([ae3138c](https://github.com/antvis/g2/commit/ae3138c150a774703b9404b61d98b0b388e8f541))
+- remove console.log in runtime ([#5532](https://github.com/antvis/g2/issues/5532)) ([e9486dc](https://github.com/antvis/g2/commit/e9486dcda4de02f959493eac5a0db90b89ade29a))
+- **tooltip:** legendFilter and shared tooltip ([#5534](https://github.com/antvis/g2/issues/5534)) ([7fc3e75](https://github.com/antvis/g2/commit/7fc3e7521ec18bb5c9b20d8544a6e9f0a615a4ef))
+- **types:** composition node ([#5527](https://github.com/antvis/g2/issues/5527)) ([88fdb41](https://github.com/antvis/g2/commit/88fdb4148432f02c5cb8f9e30b09cfac6298fbad))
 
 ### Features
 
-* add mark.liquid ([#5508](https://github.com/antvis/g2/issues/5508)) ([69540e3](https://github.com/antvis/g2/commit/69540e327fe97debba0b0194e9a9fe5dd738cbee))
-* **canvas:** set feat/supportsCSSTransform to true by default ([#5526](https://github.com/antvis/g2/issues/5526)) ([ab59152](https://github.com/antvis/g2/commit/ab591522b5538c351c09679c1451097a21766363))
-* **examples:** 新增子弹图案例 ([#5530](https://github.com/antvis/g2/issues/5530)) ([3ae84d4](https://github.com/antvis/g2/commit/3ae84d4715a6c6fcc7a0261834225cf981a929f4))
-
-
+- add mark.liquid ([#5508](https://github.com/antvis/g2/issues/5508)) ([69540e3](https://github.com/antvis/g2/commit/69540e327fe97debba0b0194e9a9fe5dd738cbee))
+- **canvas:** set feat/supportsCSSTransform to true by default ([#5526](https://github.com/antvis/g2/issues/5526)) ([ab59152](https://github.com/antvis/g2/commit/ab591522b5538c351c09679c1451097a21766363))
+- **examples:** 新增子弹图案例 ([#5530](https://github.com/antvis/g2/issues/5530)) ([3ae84d4](https://github.com/antvis/g2/commit/3ae84d4715a6c6fcc7a0261834225cf981a929f4))
 
 ## [5.1.1](https://github.com/antvis/g2/compare/5.1.0...5.1.1) (2023-09-07)
 
-
 ### Bug Fixes
 
-* **axis:** labelAutoHide ([#5502](https://github.com/antvis/g2/issues/5502)) ([4dfdaff](https://github.com/antvis/g2/commit/4dfdaff76ee0584a1d9bb139b6fa6404145dbd22))
-* **shape:** update group shape without animation ([#5514](https://github.com/antvis/g2/issues/5514)) ([a49624b](https://github.com/antvis/g2/commit/a49624b9a7a6503989e8e08d8dfa5937999f8a21))
-
+- **axis:** labelAutoHide ([#5502](https://github.com/antvis/g2/issues/5502)) ([4dfdaff](https://github.com/antvis/g2/commit/4dfdaff76ee0584a1d9bb139b6fa6404145dbd22))
+- **shape:** update group shape without animation ([#5514](https://github.com/antvis/g2/issues/5514)) ([a49624b](https://github.com/antvis/g2/commit/a49624b9a7a6503989e8e08d8dfa5937999f8a21))
 
 ### Features
 
-* **interaction:** emit more brush and tooltip events ([#5512](https://github.com/antvis/g2/issues/5512)) ([57cc841](https://github.com/antvis/g2/commit/57cc841e17969ac3e686061bf8aa821c616460c7))
-
-
+- **interaction:** emit more brush and tooltip events ([#5512](https://github.com/antvis/g2/issues/5512)) ([57cc841](https://github.com/antvis/g2/commit/57cc841e17969ac3e686061bf8aa821c616460c7))
 
 # [5.1.0](https://github.com/antvis/g2/compare/5.0.24...5.1.0) (2023-08-31)
 
-
 ### Bug Fixes
 
-* **runtime:** process data ([#5494](https://github.com/antvis/g2/issues/5494)) ([b851ca3](https://github.com/antvis/g2/commit/b851ca34f585485c5855924ed92061c21f92d43f))
-
+- **runtime:** process data ([#5494](https://github.com/antvis/g2/issues/5494)) ([b851ca3](https://github.com/antvis/g2/commit/b851ca34f585485c5855924ed92061c21f92d43f))
 
 ### Features
 
-* update category20 ([#5495](https://github.com/antvis/g2/issues/5495)) ([83bcc17](https://github.com/antvis/g2/commit/83bcc17a0e044779268a8cb6748b043ab6efbd16))
-
-
+- update category20 ([#5495](https://github.com/antvis/g2/issues/5495)) ([83bcc17](https://github.com/antvis/g2/commit/83bcc17a0e044779268a8cb6748b043ab6efbd16))
 
 ## [5.0.24](https://github.com/antvis/g2/compare/5.0.23...5.0.24) (2023-08-30)
 
-
 ### Bug Fixes
 
-* **test:** call defined render function ([#5481](https://github.com/antvis/g2/issues/5481)) ([c0c5746](https://github.com/antvis/g2/commit/c0c574683f3cd97b1813fa3dc7454137b8ae6ad4))
-* **theme:** update default color of light theme ([#5487](https://github.com/antvis/g2/issues/5487)) ([7cbe9a7](https://github.com/antvis/g2/commit/7cbe9a7cf8ea537c274288c4f55118b9544ae622))
-
+- **test:** call defined render function ([#5481](https://github.com/antvis/g2/issues/5481)) ([c0c5746](https://github.com/antvis/g2/commit/c0c574683f3cd97b1813fa3dc7454137b8ae6ad4))
+- **theme:** update default color of light theme ([#5487](https://github.com/antvis/g2/issues/5487)) ([7cbe9a7](https://github.com/antvis/g2/commit/7cbe9a7cf8ea537c274288c4f55118b9544ae622))
 
 ### Features
 
-* 3d line plot ([#5471](https://github.com/antvis/g2/issues/5471)) ([4d157cd](https://github.com/antvis/g2/commit/4d157cd162a805d8a68a29a5abf216074fb2058f))
-* **builtinlib:** move some components from core to builtinlib ([#5485](https://github.com/antvis/g2/issues/5485)) ([fc70bf5](https://github.com/antvis/g2/commit/fc70bf5423b73b1b06ff3b551e2a5a5902dd3527))
-* **lib:** change graphlib and plotlib ([#5484](https://github.com/antvis/g2/issues/5484)) ([ad175a0](https://github.com/antvis/g2/commit/ad175a0b232552c94c3c6d6305da28a9c42ee497))
-
-
+- 3d line plot ([#5471](https://github.com/antvis/g2/issues/5471)) ([4d157cd](https://github.com/antvis/g2/commit/4d157cd162a805d8a68a29a5abf216074fb2058f))
+- **builtinlib:** move some components from core to builtinlib ([#5485](https://github.com/antvis/g2/issues/5485)) ([fc70bf5](https://github.com/antvis/g2/commit/fc70bf5423b73b1b06ff3b551e2a5a5902dd3527))
+- **lib:** change graphlib and plotlib ([#5484](https://github.com/antvis/g2/issues/5484)) ([ad175a0](https://github.com/antvis/g2/commit/ad175a0b232552c94c3c6d6305da28a9c42ee497))
 
 ## [5.0.23](https://github.com/antvis/g2/compare/5.0.22...5.0.23) (2023-08-29)
 
