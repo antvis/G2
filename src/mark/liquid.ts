@@ -89,7 +89,7 @@ export const Liquid: CC<LiquidOptions> = (options) => {
     }),
     deepMix({}, DEFAULT_TEXT_OPTIONS, {
       style: {
-        text: `${percent * 100} %`,
+        text: `${(percent * 100).toFixed(2)} %`,
         ...textStyle,
       },
       animate,
