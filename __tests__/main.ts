@@ -103,10 +103,13 @@ addEventListener('popstate', (event) => {
 // @ts-ignore
 const initialValue = new URL(location).searchParams.get('name') as string;
 if (tests[initialValue]) selectChart.value = initialValue;
-app.append(selectChart);
-app.append(searchInput);
-app.append(selectRenderer);
-app.append(span);
+const $wrapper = document.createElement('div');
+$wrapper.style.height = '50px';
+app.append($wrapper);
+$wrapper.append(selectChart);
+$wrapper.append(searchInput);
+$wrapper.append(selectRenderer);
+$wrapper.append(span);
 plot();
 
 async function plot() {
