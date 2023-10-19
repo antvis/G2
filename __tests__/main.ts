@@ -119,6 +119,8 @@ async function plot() {
   app.append(currentContainer);
   const render = tests[selectChart.value];
   render && render(currentContainer);
+  // @ts-ignore
+  (await window.screenshot) && window.screenshot();
 }
 
 function createOption(key) {

@@ -21,6 +21,8 @@ esm
 
 # Test
 coverage
+playwright-report
+test-results
 
 # Bundle visualizer
 stats.html
