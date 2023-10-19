@@ -45,7 +45,7 @@ export async function barleyPointFacetRectCol(): Promise<G2Spec> {
           color: 'year',
           shape: 'hollow',
         },
-        axis: { y: { labelAutoRotate: false } },
+        axis: { y: { labelAutoHide: false } },
       },
     ],
   };

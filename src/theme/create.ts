@@ -236,7 +236,6 @@ export function create({
       labelDirection: 'negative',
       tickDirection: 'negative',
       titlePosition: 'top',
-      labelAutoRotate: false,
       titleSpacing: 12,
       labelSpacing: 4,
       titleTextBaseline: 'middle',
@@ -244,7 +243,6 @@ export function create({
     axisBottom: {
       gridDirection: 'negative',
       labelDirection: 'positive',
-      labelAutoRotate: false,
       tickDirection: 'positive',
       titlePosition: 'bottom',
       titleSpacing: 12,
@@ -253,7 +251,6 @@ export function create({
     },
     axisLeft: {
       gridDirection: 'positive',
-      labelAutoRotate: false,
       labelDirection: 'negative',
       labelSpacing: 4,
       tickDirection: 'negative',
@@ -269,7 +266,6 @@ export function create({
       labelSpacing: 4,
       tickDirection: 'positive',
       titlePosition: 'right',
-      labelAutoRotate: false,
       titleSpacing: 12,
       titleTextBaseline: 'top',
       titleDirection: 'vertical',
