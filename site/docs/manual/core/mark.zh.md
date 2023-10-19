@@ -63,9 +63,9 @@ chart.point();
 - [**legend**](/manual/core/legend) - 图例
 - [**tooltip**](/manual/core/tooltip) - 提示信息
 - [**scrollbar**](/manual/core/scrollbar) - 滚动条
-- [**slider**](/manual/core/scrollbar) - 拖拽轴
-- [**interaction**](/manual/core/scrollbar) - 交互
-- [**theme**](/manual/core/scrollbar) - 主题
+- [**slider**](/manual/core/slider) - 拖拽轴
+- [**interaction**](/manual/core/interaction) - 交互
+- [**theme**](/manual/core/theme) - 主题
 
 ```js
 ({
