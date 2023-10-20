@@ -202,3 +202,13 @@ function createAPIRender(object) {
     Object.entries(object).map(([key, value]) => [key, apiRender(value)]),
   );
 }
+
+(window as any).goto = (currentTime: number) => {
+  const { animations = [] } = (window as any).__g2_context__ as G2Context;
+  for (const animation of animations.filter(
+    (animation) => animation !== null,
+  )) {
+    animation.pause();
+    animation.currentTime = currentTime;
+  }
+};

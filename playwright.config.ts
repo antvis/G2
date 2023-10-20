@@ -1,6 +1,6 @@
 import { devices, defineConfig } from '@playwright/test';
 
-const BASE_URL = 'http://127.0.0.1:8080';
+const BASE_URL = 'http://localhost:8080';
 export default defineConfig({
   testDir: './__tests__/e2e',
   timeout: 30 * 1000,
