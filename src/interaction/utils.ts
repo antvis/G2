@@ -82,11 +82,7 @@ export function createColorKey(view) {
 }
 
 export function createXKey(view) {
-  const { x: scaleX } = view.scale;
-  return (element) => {
-    const { x } = element.__data__;
-    return scaleX.invert(x);
-  };
+  return (element) => element.__data__.x;
 }
 
 export function createDatumof(view: G2ViewDescriptor | G2ViewDescriptor[]) {
