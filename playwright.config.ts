@@ -1,5 +1,6 @@
 import { devices, defineConfig } from '@playwright/test';
 
+const BASE_URL = 'http://127.0.0.1:8080';
 export default defineConfig({
   testDir: './__tests__/e2e',
   timeout: 30 * 1000,
@@ -14,7 +15,7 @@ export default defineConfig({
   use: {
     actionTimeout: 0,
     trace: 'on-first-retry',
-    baseURL: 'http://127.0.0.1:8080',
+    baseURL: BASE_URL,
   },
   projects: [
     {
@@ -32,7 +33,7 @@ export default defineConfig({
   // Run your local dev server before starting the tests
   webServer: {
     command: 'npm run dev',
-    url: 'http://127.0.0.1:8080',
+    url: BASE_URL,
     reuseExistingServer: !process.env.CI,
     stdout: 'ignore',
     stderr: 'pipe',

@@ -20,7 +20,7 @@ module.exports = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'json'],
   collectCoverage: false,
   testRegex: '(/__tests__/.*\\.(test|spec))\\.(ts|tsx|js)$',
-  testMatch: ['!__tests__/e2e/**'],
+  testPathIgnorePatterns: ['<rootDir>/__tests__/e2e/'],
   // Transform esm to cjs.
   transformIgnorePatterns: [`<rootDir>/node_modules/(?!(${esm}))`],
 };
