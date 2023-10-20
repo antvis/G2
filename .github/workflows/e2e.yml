@@ -3,29 +3,31 @@ name: e2e
 on: ['push']
 
 jobs:
-  build:
-    runs-on: macOS-latest
-
+  e2e:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1/4, 2/4, 3/4, 4/4]
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 18
+    - name: Install dependencies
+      run: npm install
 
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v2.1.5
-        with:
-          node-version: '14'
+    - name: Install Playwright browsers
+      run: npx playwright install --with-deps
 
-      - name: Install
-        run: |
-          npm install
-
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
-      - name: Run Playwright tests
-        run: npm run test:e2e
-      - uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 30
+    - name: Run Playwright tests
+      run: node -r ./scripts/tsconfig-paths-bootstrap.js ./node_modules/.bin/playwright test --shard ${{ matrix.shard }}
+    
+    - name: Upload blob report to GitHub Actions Artifacts
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: all-blob-reports
+        path: blob-report
+        retention-days: 1
