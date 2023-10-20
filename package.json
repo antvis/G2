@@ -44,7 +44,7 @@
     "prepare": "husky install",
     "upload": "node scripts/upload/snapshot.js",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
-    "translate": "translate -d site/docs/api"
+    "translate": "translate -d"
   },
   "keywords": [
     "antv",
