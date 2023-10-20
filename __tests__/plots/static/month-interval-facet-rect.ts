@@ -28,19 +28,15 @@ export function monthIntervalFacetRect(): G2Spec {
     width: 800,
     data: mockData(),
     encode: { x: 'day', y: 'week' },
-    scale: {
-      x: { domain: days },
-    },
-    legend: {
-      color: { position: 'right', size: 50 },
-    },
+    scale: { x: { domain: days } },
+    legend: { color: { position: 'right', size: 50 } },
     paddingLeft: 40,
     paddingBottom: 40,
     children: [
       {
         type: 'interval',
         transform: [{ type: 'stackY' }],
-        axis: { x: { labelAutoRotate: false } },
+        axis: { x: { labelAutoHide: false }, y: { labelAutoHide: false } },
         encode: {
           x: 'activity',
           y: 'value',
