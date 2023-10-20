@@ -3,7 +3,7 @@ import { Renderer as CanvasRenderer } from '@antv/g-canvas';
 import { Plugin as DragAndDropPlugin } from '@antv/g-plugin-dragndrop';
 import { Renderer as SVGRenderer } from '@antv/g-svg';
 import { Renderer as WebGLRenderer } from '@antv/g-webgl';
-import { stdlib, render } from '../src';
+import { stdlib, render, G2Context } from '../src';
 import { renderToMountedElement } from './utils/renderToMountedElement';
 import * as statics from './plots/static';
 import * as interactions from './plots/interaction';
@@ -163,12 +163,18 @@ function createSpecRender(object) {
 
       // @ts-ignore
       window.__g_instances__ = [canvas];
+      const context: G2Context = {
+        canvas,
+        library: stdlib(),
+      };
+      // @ts-ignore
+      window.__g2_context__ = context;
       const renderChart = mounted ? renderToMountedElement : render;
       before?.();
       const node = renderChart(
         options,
         // @ts-ignore
-        { canvas, library: stdlib() },
+        context,
         () => after?.(),
       );
 

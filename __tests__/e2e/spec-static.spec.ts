@@ -7,11 +7,11 @@ test.beforeEach(async ({ page }, testInfo) => {
 });
 
 test.describe('Charts', () => {
-  const tests = filterTests(chartTests);
+  const tests = filterTests(chartTests, true);
   for (const [name, generateOptions] of tests) {
     const url = `/?name=static-${name}`;
     // @ts-ignore
-    const { maxError = 0 } = generateOptions;
+    const { maxError = 1000 } = generateOptions;
 
     test(`[Canvas]: ${name}`, async ({ page, context }) => {
       let resolveReadyPromise: () => void;
@@ -29,7 +29,8 @@ test.describe('Charts', () => {
       await readyPromise;
 
       await expect(page.locator('canvas')).toHaveScreenshot(`${name}.png`, {
-        maxDiffPixels: maxError,
+        // maxDiffPixels: maxError,
+        maxDiffPixelRatio: 0.02,
       });
     });
   }

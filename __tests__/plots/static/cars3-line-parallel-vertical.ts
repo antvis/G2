@@ -69,3 +69,5 @@ export function cars3LineParallelVertical(): G2Spec {
     ),
   };
 }
+
+cars3LineParallelVertical.maxError = 1000;

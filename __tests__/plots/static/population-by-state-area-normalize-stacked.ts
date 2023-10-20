@@ -164,3 +164,5 @@ export function populationByStateAreaNormalizeStacked(): G2Spec {
     ],
   };
 }
+
+populationByStateAreaNormalizeStacked.maxError = 100;

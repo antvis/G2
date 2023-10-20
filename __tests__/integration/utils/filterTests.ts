@@ -1,4 +1,4 @@
-export function filterTests(test) {
+export function filterTests(test, e2e = false) {
   const tests = Object.entries(test);
   const onlys = tests.filter(
     // @ts-ignore
@@ -10,6 +10,7 @@ export function filterTests(test) {
   const runnables = onlys.length === 0 ? tests : onlys;
   return runnables.filter(
     // @ts-ignore
-    ([, { skip = false }]) => !skip,
+    ([, { skip = false, skipE2E = false }]) =>
+      !skip && (!e2e || (e2e && !skipE2E)),
   );
 }

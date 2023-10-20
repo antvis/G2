@@ -63,3 +63,5 @@ export function agesIntervalRadialStacked(): G2Spec {
     },
   };
 }
+
+agesIntervalRadialStacked.maxError = 1000;

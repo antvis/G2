@@ -196,6 +196,7 @@ export function addWave(
   // Box property Color width height.
   const { fill, fillOpacity, opacity } = waveAttrs;
 
+  const animations: IAnimation[] = [];
   // Number of cyclic waveCount.
   for (let idx = 0; idx < waveCount; idx++) {
     const factor = waveCount <= 1 ? 1 : idx / (waveCount - 1);
@@ -234,12 +235,15 @@ export function addWave(
         },
       ];
 
-      wave.animate(keyframes, {
-        duration: lerp(0.5 * DURATION, DURATION, factor) * 2,
-        iterations: Infinity,
-      });
+      animations.push(
+        wave.animate(keyframes, {
+          duration: lerp(0.5 * DURATION, DURATION, factor) * 2,
+          iterations: Infinity,
+        }),
+      );
     } catch (e) {
       console.warn('off-screen group animate error!');
     }
   }
+  return animations;
 }
