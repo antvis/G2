@@ -1,3 +1,15 @@
+## [5.1.6](https://github.com/antvis/g2/compare/5.1.6-beta.0...5.1.6) (2023-10-20)
+
+
+### Bug Fixes
+
+* auto fit ([#5649](https://github.com/antvis/g2/issues/5649)) ([c9a0d90](https://github.com/antvis/g2/commit/c9a0d90807ef46bd7b9fd5052fc2c1a1d951dad1))
+* **axis:** auto hide when necessary ([#5660](https://github.com/antvis/g2/issues/5660)) ([a02fb8e](https://github.com/antvis/g2/commit/a02fb8eb71640bd1c21ec0cad86c4bfe0f79524a))
+* **slider:** multiple times ([#5638](https://github.com/antvis/g2/issues/5638)) ([d88016a](https://github.com/antvis/g2/commit/d88016ad1ba960785448bd1891369e46f83e3cab))
+* **tooltip:** shared tooltip with scrollbar ([#5665](https://github.com/antvis/g2/issues/5665)) ([0870bb7](https://github.com/antvis/g2/commit/0870bb791200eda8c77abe38c12113cf96ef8cad))
+
+
+
 ## [5.1.5](https://github.com/antvis/g2/compare/5.1.5-beta.0...5.1.5) (2023-09-28)
 
 ### Bug Fixes
