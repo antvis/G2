@@ -1,5 +1,5 @@
 const tsConfigPaths = require("tsconfig-paths");
-const baseUrl = "./__tests__";
+const baseUrl = "./scripts";
 tsConfigPaths.register({
     baseUrl,
     paths: {
