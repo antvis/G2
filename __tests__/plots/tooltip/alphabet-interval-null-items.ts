@@ -17,4 +17,4 @@ export function alphabetIntervalNullItems(): G2Spec {
   };
 }
 
-alphabetIntervalNullItems.steps = tooltipSteps(0);
+alphabetIntervalNullItems.steps = ['tooltipSteps', 0];

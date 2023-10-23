@@ -36,4 +36,4 @@ export function mockTooltipClosest() {
   };
 }
 
-mockTooltipClosest.steps = seriesTooltipSteps([570, 300], [145, 300]);
+mockTooltipClosest.steps = ['seriesTooltipSteps', [570, 300], [145, 300]];

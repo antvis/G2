@@ -69,4 +69,4 @@ export function forecastRangeAreaLine(): G2Spec {
   };
 }
 
-forecastRangeAreaLine.steps = seriesTooltipSteps([240, 300]);
+forecastRangeAreaLine.steps = ['seriesTooltipSteps', [240, 300]];

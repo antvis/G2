@@ -47,8 +47,8 @@ export function miserableForceCustom(): G2Spec {
   };
 }
 
-miserableForceCustom.steps = ({ canvas }) => {
-  const link = tooltipStepsByMarkType('link', 0);
-  const point = tooltipStepsByMarkType('point', 0);
-  return [...link({ canvas }), ...point({ canvas })];
-};
+miserableForceCustom.steps = [
+  'tooltipStepsByMarkType',
+  ['link', 0],
+  ['point', 0],
+];

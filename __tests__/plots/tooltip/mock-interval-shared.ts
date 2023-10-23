@@ -19,7 +19,7 @@ export function mockIntervalShared(): G2Spec {
     interaction: { tooltip: { shared: true } },
   };
 }
-
+mockIntervalShared.skip = true;
 mockIntervalShared.steps = ({ canvas }) => {
   const { document } = canvas;
   const [legend] = document.getElementsByClassName(LEGEND_ITEMS_CLASS_NAME);

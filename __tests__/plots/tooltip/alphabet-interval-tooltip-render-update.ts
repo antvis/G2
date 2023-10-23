@@ -28,7 +28,7 @@ export function alphabetIntervalTooltipRenderUpdate(): G2Spec {
     },
   };
 }
-
+alphabetIntervalTooltipRenderUpdate.skip = true;
 alphabetIntervalTooltipRenderUpdate.steps = ({ canvas }) => {
   const { document } = canvas;
   return [

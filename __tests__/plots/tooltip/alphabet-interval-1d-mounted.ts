@@ -22,5 +22,5 @@ export function alphabetInterval1dMounted(): G2Spec {
   };
 }
 
-alphabetInterval1dMounted.steps = tooltipSteps(0);
+alphabetInterval1dMounted.steps = ['tooltipSteps', 0];
 alphabetInterval1dMounted.mounted = true;

@@ -24,4 +24,4 @@ export function unemploymentAreaStack(): G2Spec {
   };
 }
 
-unemploymentAreaStack.steps = seriesTooltipSteps([200, 300]);
+unemploymentAreaStack.steps = ['seriesTooltipSteps', [200, 300]];

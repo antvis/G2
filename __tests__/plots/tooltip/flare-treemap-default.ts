@@ -37,4 +37,4 @@ export async function flareTreemapDefault(): Promise<G2Spec> {
   };
 }
 
-flareTreemapDefault.steps = tooltipSteps(0);
+flareTreemapDefault.steps = ['tooltipSteps', 0];

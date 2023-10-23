@@ -1,15 +1,22 @@
-import { Canvas } from '@antv/g';
+import { Canvas, CustomEvent } from '@antv/g';
 import { Renderer as CanvasRenderer } from '@antv/g-canvas';
 import { Plugin as DragAndDropPlugin } from '@antv/g-plugin-dragndrop';
 import { Renderer as SVGRenderer } from '@antv/g-svg';
 import { Renderer as WebGLRenderer } from '@antv/g-webgl';
-import { stdlib, render, G2Context } from '../src';
+import {
+  stdlib,
+  render,
+  G2Context,
+  ELEMENT_CLASS_NAME,
+  PLOT_CLASS_NAME,
+} from '../src';
 import { renderToMountedElement } from './utils/renderToMountedElement';
 import * as statics from './plots/static';
 import * as interactions from './plots/interaction';
 import * as animations from './plots/animation';
 import * as tooltips from './plots/tooltip';
 import * as apis from './plots/api';
+import { disableAnimation } from './integration/utils/preprocess';
 
 const tests = {
   ...createSpecRender(namespace(statics, 'static')),
@@ -122,8 +129,7 @@ async function plot() {
   app.append(currentContainer);
   const render = tests[selectChart.value];
   render && render(currentContainer);
-  // @ts-ignore
-  (await window.screenshot) && window.screenshot();
+  window['screenshot'] && window['screenshot']();
 }
 
 function createOption(key) {
@@ -147,7 +153,12 @@ function createSpecRender(object) {
 
       const { mounted = false, before, after } = generate;
       prevAfter = after;
-      const options = await generate();
+      let options = await generate();
+
+      if (window['DISABLE_ANIMATIONS']) {
+        options = disableAnimation(options);
+      }
+
       const { width = 640, height = 480 } = options;
       const dom = generate.dom?.();
       const renderer = new renderers[selectRenderer.value]();
@@ -193,7 +204,11 @@ function createAPIRender(object) {
     return (container) => {
       // Select render is unnecessary for api tests.
       selectRenderer.style.display = 'none';
-      const { canvas } = render({ container });
+      let options: any = { container };
+      if (window['DISABLE_ANIMATIONS']) {
+        options = disableAnimation(options);
+      }
+      const { canvas } = render(options);
       // @ts-ignore
       if (canvas instanceof Canvas) window.__g_instances__ = [canvas];
     };
@@ -203,12 +218,41 @@ function createAPIRender(object) {
   );
 }
 
-(window as any).goto = (currentTime: number) => {
-  const { animations = [] } = (window as any).__g2_context__ as G2Context;
+window['goto'] = (currentTime: number) => {
+  const { animations = [] } = window['__g2_context__'] as G2Context;
   for (const animation of animations.filter(
     (animation) => animation !== null,
   )) {
     animation.pause();
     animation.currentTime = currentTime;
   }
+};
+
+window['tooltipSteps'] = (i: number) => {
+  const { canvas } = window['__g2_context__'] as G2Context;
+  const document = canvas!.document!;
+  const elements = document.getElementsByClassName(ELEMENT_CLASS_NAME);
+  elements[i].dispatchEvent(new CustomEvent('pointerover'));
+};
+
+window['seriesTooltipSteps'] = ([x, y]: [number, number]) => {
+  const { canvas } = window['__g2_context__'] as G2Context;
+  const document = canvas!.document!;
+  const plot = document.getElementsByClassName(PLOT_CLASS_NAME)[0];
+  plot.dispatchEvent(
+    new CustomEvent('pointermove', {
+      offsetX: x,
+      offsetY: y,
+    }),
+  );
+};
+
+window['tooltipStepsByMarkType'] = ([markType, i]: [string, number]) => {
+  const { canvas } = window['__g2_context__'] as G2Context;
+  const document = canvas!.document!;
+  const elements = document.findAll(
+    // @ts-ignore
+    (element) => element.markType === markType,
+  );
+  elements[i].dispatchEvent(new CustomEvent('pointerover'));
 };

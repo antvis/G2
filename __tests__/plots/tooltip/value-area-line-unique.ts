@@ -14,4 +14,4 @@ export function valueAreaLineUnique(): G2Spec {
   };
 }
 
-valueAreaLineUnique.steps = seriesTooltipSteps([200, 300]);
+valueAreaLineUnique.steps = ['seriesTooltipSteps', [200, 300]];

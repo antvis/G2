@@ -22,7 +22,7 @@ export async function indicesLineFormatter(): Promise<G2Spec> {
   };
 }
 
-indicesLineFormatter.steps = seriesTooltipSteps([200, 300]);
+indicesLineFormatter.steps = ['seriesTooltipSteps', [200, 300]];
 
 // Make the local ci and online ci covert Date object to consistent string.
 let toString;

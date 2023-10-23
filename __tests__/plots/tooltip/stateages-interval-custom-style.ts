@@ -56,4 +56,4 @@ export function stateAgesIntervalCustomStyle(): G2Spec {
   };
 }
 
-stateAgesIntervalCustomStyle.steps = tooltipSteps(0);
+stateAgesIntervalCustomStyle.steps = ['tooltipSteps', 0];

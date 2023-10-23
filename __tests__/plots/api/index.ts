@@ -41,6 +41,7 @@ export { chartChangeDataLegend } from './chart-change-data-legend';
 export { chartTooltipMultiChart } from './chart-tooltip-multi-chart';
 export { chartOnTextClick } from './chart-on-text-click';
 export { chartOnComponentClick } from './chart-on-component-click';
+export { chartRender } from './chart-render';
 export { chartRenderEvent } from './chart-render-event';
 export { chartRender3dScatterPlot } from './chart-render-3d-scatter-plot';
 export { chartRender3dBarChart } from './chart-render-3d-bar-chart';

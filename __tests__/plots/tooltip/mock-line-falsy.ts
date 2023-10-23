@@ -45,4 +45,9 @@ export function mockLineFalsy(): G2Spec {
   };
 }
 
-mockLineFalsy.steps = seriesTooltipSteps([200, 300], [275, 300], [420, 300]);
+mockLineFalsy.steps = [
+  'seriesTooltipSteps',
+  [200, 300],
+  [275, 300],
+  [420, 300],
+];

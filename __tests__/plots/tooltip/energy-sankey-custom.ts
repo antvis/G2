@@ -63,4 +63,4 @@ export async function energySankeyCustom(): Promise<G2Spec> {
   };
 }
 
-energySankeyCustom.steps = tooltipSteps(0, 100);
+energySankeyCustom.steps = ['tooltipSteps', 0, 100];

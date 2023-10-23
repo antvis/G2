@@ -28,4 +28,4 @@ export function alphabetIntervalCustomDom(): G2Spec {
   };
 }
 
-alphabetIntervalCustomDom.steps = tooltipSteps(0, 1);
+alphabetIntervalCustomDom.steps = ['tooltipSteps', 0, 1];

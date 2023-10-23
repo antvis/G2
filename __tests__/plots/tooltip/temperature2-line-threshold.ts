@@ -42,4 +42,4 @@ export async function temperature2LineThreshold(): Promise<G2Spec> {
   };
 }
 
-temperature2LineThreshold.steps = seriesTooltipSteps([200, 300]);
+temperature2LineThreshold.steps = ['seriesTooltipSteps', [200, 300]];

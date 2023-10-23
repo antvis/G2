@@ -35,4 +35,4 @@ export function alphabetIntervalCustomString(): G2Spec {
   };
 }
 
-alphabetIntervalCustomString.steps = tooltipSteps(0, 1);
+alphabetIntervalCustomString.steps = ['tooltipSteps', 0, 1];

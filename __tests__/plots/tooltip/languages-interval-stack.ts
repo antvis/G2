@@ -15,4 +15,4 @@ export function languagesIntervalStack(): G2Spec {
   };
 }
 
-languagesIntervalStack.steps = tooltipSteps(1);
+languagesIntervalStack.steps = ['tooltipSteps', 1];

@@ -23,4 +23,4 @@ export function aaplLine(): G2Spec {
   };
 }
 
-aaplLine.steps = seriesTooltipSteps([200, 300]);
+aaplLine.steps = ['seriesTooltipSteps', [200, 300]];

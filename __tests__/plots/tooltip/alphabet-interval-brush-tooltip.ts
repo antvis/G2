@@ -23,7 +23,7 @@ export function alphabetIntervalBrushTooltip(): G2Spec {
     },
   };
 }
-
+alphabetIntervalBrushTooltip.skip = true;
 alphabetIntervalBrushTooltip.steps = ({ canvas }) => {
   const { document } = canvas;
   const plot = document.getElementsByClassName(PLOT_CLASS_NAME)[0];

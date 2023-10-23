@@ -25,4 +25,4 @@ export function alphabetIntervalMulti(): G2Spec {
   };
 }
 
-alphabetIntervalMulti.steps = tooltipSteps(0);
+alphabetIntervalMulti.steps = ['tooltipSteps', 0];

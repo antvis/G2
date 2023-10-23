@@ -36,4 +36,4 @@ export async function flarePointCirclePackCustom(): Promise<G2Spec> {
   };
 }
 
-flarePointCirclePackCustom.steps = tooltipSteps(0);
+flarePointCirclePackCustom.steps = ['tooltipSteps', 0];

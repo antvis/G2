@@ -20,7 +20,8 @@ module.exports = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'json'],
   collectCoverage: false,
   testRegex: '(/__tests__/.*\\.(test|spec))\\.(ts|tsx|js)$',
-  testPathIgnorePatterns: ['<rootDir>/__tests__/e2e/'],
   // Transform esm to cjs.
   transformIgnorePatterns: [`<rootDir>/node_modules/(?!(${esm}))`],
+  globalSetup: './scripts/jest/setup.js',
+  globalTeardown: './scripts/jest/teardown.js',
 };

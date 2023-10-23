@@ -31,4 +31,4 @@ export function windVectorWind(): G2Spec {
   };
 }
 
-windVectorWind.steps = tooltipSteps(0);
+windVectorWind.steps = ['tooltipSteps', 0];

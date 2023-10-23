@@ -36,4 +36,4 @@ export function alphabetIntervalObject(): G2Spec {
   };
 }
 
-alphabetIntervalObject.steps = tooltipSteps(0);
+alphabetIntervalObject.steps = ['tooltipSteps', 0];

@@ -25,4 +25,4 @@ export function seattleWeatherIntervalAggregated(): G2Spec {
   };
 }
 
-seattleWeatherIntervalAggregated.steps = tooltipSteps(0);
+seattleWeatherIntervalAggregated.steps = ['tooltipSteps', 0];

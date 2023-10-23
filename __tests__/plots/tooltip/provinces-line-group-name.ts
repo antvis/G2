@@ -21,4 +21,4 @@ export function provincesLineGroupName() {
   };
 }
 
-provincesLineGroupName.steps = seriesTooltipSteps([450, 300]);
+provincesLineGroupName.steps = ['seriesTooltipSteps', [450, 300]];

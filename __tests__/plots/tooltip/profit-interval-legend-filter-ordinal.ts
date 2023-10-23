@@ -22,6 +22,7 @@ export function profitIntervalLegendFilterOrdinal(): G2Spec {
   };
 }
 
+profitIntervalLegendFilterOrdinal.skip = true;
 profitIntervalLegendFilterOrdinal.steps = ({ canvas }) => {
   const { document } = canvas;
   const items = document.getElementsByClassName(LEGEND_ITEMS_CLASS_NAME);

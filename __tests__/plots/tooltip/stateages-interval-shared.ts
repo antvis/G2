@@ -32,4 +32,4 @@ export function stateAgesIntervalShared(): G2Spec {
   };
 }
 
-stateAgesIntervalShared.steps = tooltipSteps(0);
+stateAgesIntervalShared.steps = ['tooltipSteps', 0];

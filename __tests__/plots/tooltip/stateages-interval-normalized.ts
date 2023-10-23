@@ -25,4 +25,4 @@ export function stateAgesIntervalNormalized(): G2Spec {
   };
 }
 
-stateAgesIntervalNormalized.steps = tooltipSteps(0);
+stateAgesIntervalNormalized.steps = ['tooltipSteps', 0];

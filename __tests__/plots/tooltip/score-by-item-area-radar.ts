@@ -34,4 +34,4 @@ export function scoreByItemAreaRadar(): G2Spec {
   };
 }
 
-scoreByItemAreaRadar.steps = seriesTooltipSteps([200, 300]);
+scoreByItemAreaRadar.steps = ['seriesTooltipSteps', [200, 300]];

@@ -50,7 +50,7 @@ export async function flareTreemapPoptipCustom(): Promise<G2Spec> {
 }
 
 flareTreemapPoptipCustom.className = 'poptip';
-
+flareTreemapPoptipCustom.skip = true;
 flareTreemapPoptipCustom.steps = ({ canvas }) => {
   const { document } = canvas;
   const [plot] = document.getElementsByClassName(PLOT_CLASS_NAME);

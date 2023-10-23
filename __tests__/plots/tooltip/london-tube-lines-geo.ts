@@ -91,4 +91,4 @@ export async function londonTubeLineGeo(): Promise<G2Spec> {
   };
 }
 
-londonTubeLineGeo.steps = tooltipSteps(0, 40);
+londonTubeLineGeo.steps = ['tooltipSteps', 0, 40];

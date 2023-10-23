@@ -14,4 +14,4 @@ export function symbolsLineMissingData(): G2Spec {
   };
 }
 
-symbolsLineMissingData.steps = seriesTooltipSteps([200, 300], [400, 300]);
+symbolsLineMissingData.steps = ['seriesTooltipSteps', [200, 300], [400, 300]];

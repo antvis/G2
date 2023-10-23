@@ -18,4 +18,4 @@ export async function indicesLineSeries(): Promise<G2Spec> {
   };
 }
 
-indicesLineSeries.steps = seriesTooltipSteps([100, 300]);
+indicesLineSeries.steps = ['seriesTooltipSteps', [100, 300]];

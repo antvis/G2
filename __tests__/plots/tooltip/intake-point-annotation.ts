@@ -66,5 +66,5 @@ export function intakePointAnnotation(): G2Spec {
     ],
   };
 }
-
-intakePointAnnotation.steps = tooltipStepsByMarkType('lineY', 0);
+intakePointAnnotation.skip = true;
+intakePointAnnotation.steps = ['tooltipStepsByMarkType', ['lineY', 0]];

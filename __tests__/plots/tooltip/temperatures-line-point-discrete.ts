@@ -29,4 +29,4 @@ export function temperaturesLinePointDiscrete(): G2Spec {
   };
 }
 
-temperaturesLinePointDiscrete.steps = seriesTooltipSteps([200, 300]);
+temperaturesLinePointDiscrete.steps = ['seriesTooltipSteps', [200, 300]];

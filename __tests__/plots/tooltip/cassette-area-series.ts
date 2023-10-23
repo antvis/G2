@@ -38,4 +38,4 @@ export async function cassetteAreaSeries(): Promise<G2Spec> {
   };
 }
 
-cassetteAreaSeries.steps = seriesTooltipSteps([100, 300]);
+cassetteAreaSeries.steps = ['seriesTooltipSteps', [100, 300]];

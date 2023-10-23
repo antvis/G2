@@ -25,4 +25,4 @@ export function alphabetIntervalChannel(): G2Spec {
   };
 }
 
-alphabetIntervalChannel.steps = tooltipSteps(0);
+alphabetIntervalChannel.steps = ['tooltipSteps', 0];

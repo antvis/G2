@@ -18,4 +18,4 @@ export function unemployment2RectBinX(): G2Spec {
   };
 }
 
-unemployment2RectBinX.steps = tooltipSteps(0);
+unemployment2RectBinX.steps = ['tooltipSteps', 0];

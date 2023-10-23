@@ -39,8 +39,4 @@ export async function flareTreeCustom(): Promise<G2Spec> {
   };
 }
 
-flareTreeCustom.steps = ({ canvas }) => {
-  const point = tooltipStepsByMarkType('point', 0);
-  const link = tooltipStepsByMarkType('link', 0);
-  return [...point({ canvas }), ...link({ canvas })];
-};
+flareTreeCustom.steps = ['tooltipStepsByMarkType', ['point', 0], ['link', 0]];

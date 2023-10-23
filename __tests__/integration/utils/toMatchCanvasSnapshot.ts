@@ -1,6 +1,5 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { Canvas } from '@antv/g';
 import pixelmatch from 'pixelmatch';
 import { PNG } from 'pngjs';
 
@@ -8,13 +7,9 @@ export type ToMatchCanvasSnapshotOptions = {
   maxError?: number;
 };
 
-function writePNG(nodeCanvas, path) {
-  return new Promise<void>((resolve, reject) => {
-    const out = fs.createWriteStream(path);
-    const stream = nodeCanvas.createPNGStream();
-    stream.pipe(out);
-    out.on('finish', resolve).on('error', reject);
-  });
+function writePNG(buffer: Buffer, path: string) {
+  const png = PNG.sync.read(buffer);
+  fs.writeFileSync(path, PNG.sync.write(png));
 }
 
 /**
@@ -52,7 +47,7 @@ function diff(
 
 // @see https://jestjs.io/docs/26.x/expect#expectextendmatchers
 export async function toMatchCanvasSnapshot(
-  gCanvas: Canvas,
+  buffer: Buffer,
   dir: string,
   name: string,
   options: ToMatchCanvasSnapshotOptions = {},
@@ -62,7 +57,7 @@ export async function toMatchCanvasSnapshot(
   const actualPath = path.join(dir, `${name}-actual.png`);
   const expectedPath = path.join(dir, `${name}.png`);
   const diffPath = path.join(dir, `${name}-diff.png`);
-  const canvas = gCanvas.getConfig().canvas;
+
   try {
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
     if (!fs.existsSync(expectedPath)) {
@@ -70,13 +65,13 @@ export async function toMatchCanvasSnapshot(
         throw new Error(`Please generate golden image for ${namePath}`);
       }
       console.warn(`! generate ${namePath}`);
-      await writePNG(canvas, expectedPath);
+      writePNG(buffer, expectedPath);
       return {
         message: () => `generate ${namePath}`,
         pass: true,
       };
     } else {
-      await writePNG(canvas, actualPath);
+      writePNG(buffer, actualPath);
       const error = diff(actualPath, expectedPath, diffPath, maxError);
       if (error <= maxError) {
         if (fs.existsSync(diffPath)) fs.unlinkSync(diffPath);

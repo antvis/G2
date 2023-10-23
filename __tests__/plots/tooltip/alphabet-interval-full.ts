@@ -24,4 +24,4 @@ export function alphabetIntervalFull(): G2Spec {
   };
 }
 
-alphabetIntervalFull.steps = tooltipSteps(0);
+alphabetIntervalFull.steps = ['tooltipSteps', 0];

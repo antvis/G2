@@ -21,4 +21,4 @@ export function morleyBoxDefaultExtend(): G2Spec {
   };
 }
 
-morleyBoxDefaultExtend.steps = tooltipSteps(0);
+morleyBoxDefaultExtend.steps = ['tooltipSteps', 0];

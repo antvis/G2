@@ -1,61 +1,61 @@
-import { Canvas } from '@antv/g';
+import { chromium, devices } from 'playwright';
 import * as chartTests from '../plots/tooltip';
 import { kebabCase } from './utils/kebabCase';
 import { filterTests } from './utils/filterTests';
-import { renderSpec } from './utils/renderSpec';
-import { createDOMGCanvas } from './utils/createDOMGCanvas';
 import { sleep } from './utils/sleep';
 import './utils/useSnapshotMatchers';
 import './utils/useCustomFetch';
-import { disableAnimation } from './utils/preprocess';
 
 describe('Tooltips', () => {
   const tests = filterTests(chartTests);
   for (const [name, generateOptions] of tests) {
-    let gCanvas: Canvas;
+    // @ts-ignore
+    const { steps: S = [], className = 'g2-tooltip', skip } = generateOptions;
+    if (skip) continue;
     it(`[Tooltip]: ${name}`, async () => {
-      try {
-        // @ts-ignore
-        const { steps: S } = generateOptions;
-        if (!S) {
-          throw new Error(`Missing steps for ${name}`);
-        }
-
-        // @ts-ignore
-        const { className = 'g2-tooltip' } = generateOptions;
-        // @ts-ignore
-        generateOptions.preprocess = disableAnimation;
-
-        // Render chart.
-        // @ts-ignore
-        generateOptions.before?.();
-        gCanvas = await renderSpec(
-          generateOptions,
-          undefined,
-          createDOMGCanvas,
-        );
-
-        // Asset each state.
-        const steps = S({ canvas: gCanvas });
-        const dir = `${__dirname}/snapshots/tooltip/${kebabCase(name)}`;
-        for (let i = 0; i < steps.length; i++) {
-          const { changeState, skip = false } = steps[i];
-          if (!skip) {
-            await changeState();
-            await sleep(100);
-            await expect(gCanvas).toMatchDOMSnapshot(dir, `step${i}`, {
-              selector: `.${className}`,
-            });
-          }
-        }
-      } finally {
-        gCanvas?.destroy();
-        // @ts-ignore
-        generateOptions.after?.();
+      if (!S) {
+        throw new Error(`Missing steps for ${name}`);
       }
+
+      // Setup
+      const browser = await chromium.launch({
+        args: ['--headless', '--no-sandbox', '--use-angle=gl'],
+      });
+      const context = await browser.newContext(devices['Desktop Chrome']);
+      const page = await context.newPage();
+
+      // Disable all animations.
+      await page.addInitScript(() => {
+        window['DISABLE_ANIMATIONS'] = 1;
+      });
+
+      // Go to test page served by vite devServer.
+      const url = `http://localhost:8080/?name=tooltip-${name}`;
+      await page.goto(url);
+      await sleep(300);
+
+      const dir = `${__dirname}/snapshots/tooltip/${kebabCase(name)}`;
+
+      const [func, ...steps] = S;
+      for (let i = 0; i < steps.length; i++) {
+        await page.evaluate(
+          ([func, index]) => {
+            // @ts-ignore
+            window[func](index);
+          },
+          [func, steps[i]],
+        );
+        await sleep(300);
+
+        const html = await page
+          .locator(`.${className}`)
+          .evaluate((el) => el.outerHTML);
+
+        await expect(html).toMatchDOMSnapshot(dir, `step${i}`);
+      }
+
+      await context.close();
+      await browser.close();
     });
   }
-  afterEach(() => {
-    document.body.innerHTML = '';
-  });
 });

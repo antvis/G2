@@ -1,20 +1,47 @@
+import { chromium, devices } from 'playwright';
 import { chartRender as render } from '../plots/api/chart-render';
-import { createNodeGCanvas } from './utils/createNodeGCanvas';
-import { sleep } from './utils/sleep';
 import './utils/useSnapshotMatchers';
 
 describe('chart.render', () => {
-  const canvas = createNodeGCanvas(640, 480);
-
   it('chart.render() should render expected chart', async () => {
-    const { finished } = render({ canvas });
-    await finished;
-    await sleep(20);
-    const dir = `${__dirname}/snapshots/api`;
-    await expect(canvas).toMatchCanvasSnapshot(dir, render.name);
-  });
+    // Setup
+    const browser = await chromium.launch({
+      args: ['--headless', '--no-sandbox', '--use-angle=gl'],
+    });
+    const context = await browser.newContext(devices['Desktop Chrome']);
+    const page = await context.newPage();
 
-  afterAll(() => {
-    canvas?.destroy();
+    // Ready to screenshot.
+    let resolveReadyPromise: () => void;
+    const readyPromise = new Promise((resolve) => {
+      resolveReadyPromise = () => {
+        resolve(this);
+      };
+    });
+    await context.exposeFunction('screenshot', () => {
+      resolveReadyPromise();
+    });
+
+    // Disable all animations.
+    await page.addInitScript(() => {
+      window['DISABLE_ANIMATIONS'] = 1;
+    });
+
+    // Go to test page served by vite devServer.
+    const url = `http://localhost:8080/?name=api-${render.name}`;
+    await page.goto(url);
+
+    // Chart already rendered, capture into buffer.
+    await readyPromise;
+    const buffer = await page.locator('canvas').screenshot();
+
+    const dir = `${__dirname}/snapshots/api`;
+    await expect(buffer).toMatchCanvasSnapshot(dir, render.name, {
+      // @ts-ignore
+      maxError: render.maxError || 0,
+    });
+
+    await context.close();
+    await browser.close();
   });
 });

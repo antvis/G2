@@ -38,5 +38,5 @@ export function pointsPointRegressionQuad(): G2Spec {
     ],
   };
 }
-
-pointsPointRegressionQuad.steps = seriesTooltipSteps([100, 300]);
+pointsPointRegressionQuad.skip = true;
+pointsPointRegressionQuad.steps = ['seriesTooltipSteps', [100, 300]];

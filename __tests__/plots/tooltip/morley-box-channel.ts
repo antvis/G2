@@ -37,8 +37,4 @@ export function morleyBoxChannel(): G2Spec {
   };
 }
 
-morleyBoxChannel.steps = ({ canvas }) => {
-  const box = tooltipStepsByMarkType('box', 0);
-  const point = tooltipStepsByMarkType('point', 0);
-  return [...box({ canvas }), ...point({ canvas })];
-};
+morleyBoxChannel.steps = ['tooltipStepsByMarkType', ['box', 0], ['point', 0]];

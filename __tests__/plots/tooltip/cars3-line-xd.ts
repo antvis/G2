@@ -62,4 +62,4 @@ export function cars3LineXd(): G2Spec {
   };
 }
 
-cars3LineXd.steps = tooltipSteps(0);
+cars3LineXd.steps = ['tooltipSteps', 0];

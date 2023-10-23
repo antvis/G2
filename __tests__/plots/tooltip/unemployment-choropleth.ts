@@ -35,4 +35,4 @@ export async function unemploymentChoropleth(): Promise<G2Spec> {
   };
 }
 
-unemploymentChoropleth.steps = tooltipSteps(0);
+unemploymentChoropleth.steps = ['tooltipSteps', 0];

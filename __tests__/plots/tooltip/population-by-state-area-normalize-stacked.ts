@@ -174,4 +174,7 @@ export function populationByStateAreaNormalizeStacked(): G2Spec {
   };
 }
 
-populationByStateAreaNormalizeStacked.steps = seriesTooltipSteps([100, 300]);
+populationByStateAreaNormalizeStacked.steps = [
+  'seriesTooltipSteps',
+  [100, 300],
+];

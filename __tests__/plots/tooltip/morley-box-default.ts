@@ -20,8 +20,9 @@ export function morleyBoxDefault(): G2Spec {
   };
 }
 
-morleyBoxDefault.steps = ({ canvas }) => {
-  const box = tooltipStepsByMarkType('box', 0);
-  const point = tooltipStepsByMarkType('point', 0);
-  return [...box({ canvas }), ...point({ canvas })];
-};
+morleyBoxDefault.steps = ['tooltipStepsByMarkType', ['box', 0], ['point', 0]];
+// morleyBoxDefault.steps = ({ canvas }) => {
+//   const box = tooltipStepsByMarkType('box', 0);
+//   const point = tooltipStepsByMarkType('point', 0);
+//   return [...box({ canvas }), ...point({ canvas })];
+// };

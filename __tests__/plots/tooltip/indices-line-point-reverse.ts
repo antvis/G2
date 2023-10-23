@@ -46,4 +46,4 @@ export async function indicesLinePointReverse(): Promise<G2Spec> {
   };
 }
 
-indicesLinePointReverse.steps = seriesTooltipSteps([100, 300], [500, 300]);
+indicesLinePointReverse.steps = ['seriesTooltipSteps', [100, 300], [500, 300]];

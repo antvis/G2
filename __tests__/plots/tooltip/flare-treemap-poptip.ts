@@ -48,7 +48,7 @@ export async function flareTreemapPoptip(): Promise<G2Spec> {
 }
 
 flareTreemapPoptip.className = 'poptip';
-
+flareTreemapPoptip.skip = true;
 flareTreemapPoptip.steps = ({ canvas }) => {
   const { document } = canvas;
   const [plot] = document.getElementsByClassName(PLOT_CLASS_NAME);

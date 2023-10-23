@@ -44,4 +44,4 @@ export async function indicesLineChartFacet(): Promise<G2Spec> {
   };
 }
 
-indicesLineChartFacet.steps = seriesTooltipSteps([100, 300], [500, 300]);
+indicesLineChartFacet.steps = ['seriesTooltipSteps', [100, 300], [500, 300]];

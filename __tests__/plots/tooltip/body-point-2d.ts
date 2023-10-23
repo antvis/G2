@@ -23,4 +23,4 @@ export function bodyPoint2d(): G2Spec {
   };
 }
 
-bodyPoint2d.steps = tooltipSteps(0);
+bodyPoint2d.steps = ['tooltipSteps', 0];
