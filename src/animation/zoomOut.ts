@@ -16,10 +16,12 @@ export const ZoomOut: AC<ZoomOutOptions> = (options) => {
       strokeOpacity = 1,
       opacity = 1,
     } = shape.style;
+    const transformOrigin = 'center center';
     const keyframes = [
-      { transform: `${prefix} scale(1)`.trimStart() },
+      { transform: `${prefix} scale(1)`.trimStart(), transformOrigin },
       {
         transform: `${prefix} scale(${ZERO})`.trimStart(),
+        transformOrigin,
         fillOpacity,
         strokeOpacity,
         opacity,
@@ -27,19 +29,14 @@ export const ZoomOut: AC<ZoomOutOptions> = (options) => {
       },
       {
         transform: `${prefix} scale(${ZERO})`.trimStart(),
+        transformOrigin,
         fillOpacity: 0,
         strokeOpacity: 0,
         opacity: 0,
       },
     ];
 
-    const { width, height } = shape.getBoundingClientRect();
-    // Change transform origin for correct transform.
-    shape.setOrigin([width / 2, height / 2]);
     const animation = shape.animate(keyframes, { ...defaults, ...options });
-
-    // Reset transform origin to eliminate side effect for following animations.
-    animation.finished.then(() => shape.setOrigin(0, 0));
 
     return animation;
   };

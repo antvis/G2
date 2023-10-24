@@ -1,4 +1,4 @@
-import { IAnimation, Path } from '@antv/g';
+import { Path } from '@antv/g';
 import { AnimationComponent as AC } from '../runtime';
 import { Animation } from './types';
 import { ScaleInX } from './scaleInX';
@@ -21,11 +21,6 @@ export const GrowInX: AC<GrowInXOptions> = (options, context) => {
     shape.style.clipPath = clipPath;
 
     const animation = ScaleInX(options, context)([clipPath], to, defaults);
-
-    (animation as IAnimation).finished.then(() => {
-      clipPath.remove();
-      shape.style.clipPath = null;
-    });
 
     return animation;
   };
