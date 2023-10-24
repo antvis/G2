@@ -15,6 +15,9 @@ jobs:
         with:
           node-version: '14'
 
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
       - name: Run CI
         run: |
           npm install
