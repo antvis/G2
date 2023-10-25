@@ -150,7 +150,7 @@ const Chart = extend(Runtime, corelib());
 
 ### G2.stdlib()
 
-返回标准库，包含 G2 非 3D 之外的所有能力，也就是包含 [G2.corelib](#g2corelib)，[G2.plotlib](#g2plotlib)，[G2.geolib](#g2geolib)，[G2.graphlib](#g2graphlib) 以及 [G2.autolib](#g2autolib) 的所有可视化组件。[G2.Chart](/manual/core/chart) 就是使用了这个 library。([源码](https://github.com/antvis/G2/blob/v5/src/lib/std.ts) · [案例](https://g2.antv.antgroup.com/examples))
+返回标准库，包含 G2 非 3D 之外的所有能力，也就是包含 [G2.corelib](#g2corelib)，[G2.plotlib](#g2plotlib)，[G2.geolib](#g2geolib)，以及[G2.graphlib](#g2graphlib) 的所有可视化组件。[G2.Chart](/manual/core/chart) 就是使用了这个 library。([源码](https://github.com/antvis/G2/blob/v5/src/lib/std.ts) · [案例](https://g2.antv.antgroup.com/examples))
 
 ```js
 import { Runtime, extend, stdlib } from '@antv/g2';
@@ -226,14 +226,13 @@ const chart = new Chart();
 chart.forceGraph();
 ```
 
-### G2.autolib()
-
-> 开发中，预计 10 月底上线
+### autolib
 
 返回增强分析库，提供增强分析标记（Auto 等）。该 library 会依赖 [@antv/ava](https://github.com/antvis/AVA) ，提供自动绘制图表、自动标注等能力。不能单独使用，需要配合 [G2.corelib](#g2corelib) 使用。
 
 ```js
-import { Runtime, extend, corelib, autolib } from '@antv/g2';
+import { Runtime, extend, corelib } from '@antv/g2';
+import { autolib } from '@antv/g2-extension-ava';
 
 const Chart = extend(Runtime, {
   ...corelib(),
