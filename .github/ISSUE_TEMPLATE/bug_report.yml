@@ -1,0 +1,67 @@
+name: '🐞 新 Issue'
+description: 创建一个新的 issue，如果你的 issue 不符合规范，它将会被自动关闭。
+body:
+  - type: markdown
+    attributes:
+      value: |
+        在提交新 issue 之前，先通过以下链接查看有没有类似的 bug 或者建议:
+         - [G2 Issues](https://github.com/antvis/G2/issues)
+         - [G2 Discussions](https://github.com/antvis/G2/discussions)
+  - type: textarea
+    id: description
+    attributes:
+      label: 问题描述
+      description: 简洁清晰地描述你遇到的问题。
+    validations:
+      required: true
+  - type: input
+    id: link
+    attributes:
+      label: 重现链接
+      description: |
+        可以使用 CodeSandbox(https://codesandbox.io/s/antv-g2-5-0-template-z2gsmn?file=/src/index.js) 或者 StackBlitz(https://stackblitz.com/) 重现你的问题。
+      placeholder: |
+        示例: CodeSandBox 或者 StackBlitz URL
+    validations:
+      required: false
+  - type: textarea
+    id: steps
+    attributes:
+      label: 重现步骤
+      description: 简洁清晰的重现步骤能够帮助我们更迅速地定位问题所在。
+      placeholder: |
+        1.进入页面...
+        2.点击....
+        3.查看错误....
+    validations:
+      required: false
+  - type: textarea
+    id: expected
+    attributes:
+      label: 预期行为
+      description: 描述你期望的结果以及实际的结果。
+      placeholder: |
+        我期望看到...，但我看到了...
+    validations:
+      required: false
+  - type: textarea
+    id: platform
+    attributes:
+      label: 平台
+      value: |
+        - 操作系统: [macOS, Windows, Linux, React Native ...]
+        - 网页浏览器: [Google Chrome, Safari, Firefox]
+    validations:
+      required: false
+  - type: textarea
+    id: screenshots_or_videos
+    attributes:
+      label: 屏幕截图或视频（可选）
+      description: 可以添加屏幕截图或视频帮助你解释问题。
+      placeholder: |
+        可以将你的图片或者视频拖拽到此处↓
+  - type: textarea
+    id: additional
+    attributes:
+      label: 补充说明（可选）
+      description: 比如：遇到这个 bug 的业务场景、上下文。
