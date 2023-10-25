@@ -1,6 +1,13 @@
-const { exec } = require('child_process');
+const { createServer } = require('vite');
 
 module.exports = async function (globalConfig, projectConfig) {
-  const command = exec("npm run dev");
-  globalThis.VITE_COMMAND = command;
+  // @see https://vitejs.dev/guide/api-javascript.html#createserver
+  const server = await createServer({
+    configFile: './vite.config.js',
+    server: {
+      port: 8080,
+    },
+  });
+  await server.listen();
+  globalThis.VITE_SERVER = server;
 };

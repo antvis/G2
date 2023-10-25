@@ -1,4 +1,4 @@
 module.exports = async function (globalConfig, projectConfig) {
-  const command = globalThis.VITE_COMMAND;
-  command.kill();
+  const server = globalThis.VITE_SERVER;
+  await server.close();
 };

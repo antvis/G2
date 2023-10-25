@@ -129,7 +129,6 @@ async function plot() {
   app.append(currentContainer);
   const render = tests[selectChart.value];
   render && render(currentContainer);
-  window['screenshot'] && window['screenshot']();
 }
 
 function createOption(key) {
@@ -186,7 +185,10 @@ function createSpecRender(object) {
         options,
         // @ts-ignore
         context,
-        () => after?.(),
+        () => {
+          after?.();
+          window['screenshot'] && window['screenshot']();
+        },
       );
 
       // Append nodes.
@@ -211,12 +213,31 @@ function createAPIRender(object) {
       const { canvas } = render(options);
       // @ts-ignore
       if (canvas instanceof Canvas) window.__g_instances__ = [canvas];
+      window['screenshot'] && window['screenshot']();
     };
   };
   return Object.fromEntries(
     Object.entries(object).map(([key, value]) => [key, apiRender(value)]),
   );
 }
+
+window['play'] = () => {
+  const { animations = [] } = window['__g2_context__'] as G2Context;
+  for (const animation of animations.filter(
+    (animation) => animation !== null,
+  )) {
+    animation.play();
+  }
+};
+
+window['pause'] = () => {
+  const { animations = [] } = window['__g2_context__'] as G2Context;
+  for (const animation of animations.filter(
+    (animation) => animation !== null,
+  )) {
+    animation.pause();
+  }
+};
 
 window['goto'] = (currentTime: number) => {
   const { animations = [] } = window['__g2_context__'] as G2Context;
@@ -225,6 +246,15 @@ window['goto'] = (currentTime: number) => {
   )) {
     animation.pause();
     animation.currentTime = currentTime;
+  }
+};
+
+window['finish'] = () => {
+  const { animations = [] } = window['__g2_context__'] as G2Context;
+  for (const animation of animations.filter(
+    (animation) => animation !== null,
+  )) {
+    animation.finish();
   }
 };
 

@@ -1,142 +1,99 @@
-import EventEmitter from '@antv/event-emitter';
-import { Canvas } from '@antv/g';
-import { deepMix } from '@antv/util';
-import { G2Context } from '../../src';
+import { chromium, devices } from 'playwright';
 import * as chartTests from '../plots/animation';
 import { filterTests } from './utils/filterTests';
-import { renderSpec } from './utils/renderSpec';
-import { sleep } from './utils/sleep';
 import { kebabCase } from './utils/kebabCase';
 import './utils/useSnapshotMatchers';
 import './utils/useCustomFetch';
 
-function defined(d) {
-  return d !== null;
-}
-
-function useFrame(I, context, asset) {
-  let frameCount = 0;
-  return {
-    assetEach: async () => {
-      // Skip intervals, useful for the first frame of keyframe node.
-      const intervals = I[frameCount] as number[];
-      if (!intervals) {
-        frameCount++;
-        return;
-      }
-
-      // Skip non-animation.
-      if (context.animations?.filter(defined).length === 0) return;
-
-      // Asset the fist state of this keyframe.
-      // @ts-ignore
-      for (const animation of context.animations?.filter(defined)) {
-        animation.pause();
-      }
-
-      await sleep(20);
-      await asset(`${frameCount}-0`);
-
-      // Asset the state of specified time of keyframe.
-      for (let i = 0; i < intervals.length; i++) {
-        // Wait this interval finishing.
-        const interval = intervals[i];
-        // @ts-ignore
-        for (const animation of context.animations?.filter(defined)) {
-          animation.currentTime = interval;
-          await sleep(20);
-        }
-        await asset(`${frameCount}-${i + 1}`);
-      }
-
-      // Update frame count.
-      frameCount++;
-      // @ts-ignore
-      for (const animation of context.animations?.filter(defined)) {
-        animation.finish();
-        await sleep(20);
-      }
-    },
-    assetLast: async () => {
-      // Asset the last state of this animation.
-      if (frameCount === 0) {
-        // For non-animation.
-        await sleep(20);
-        await asset(`0-0`);
-      } else {
-        frameCount--;
-        const last = I[frameCount] as number[];
-        if (last) {
-          await sleep(20);
-          await asset(`${frameCount}-${last.length + 1}`);
-        }
-      }
-    },
-  };
-}
-
-function hideAxisTitle(options) {
-  const { children } = options;
-  const hide = (d) =>
-    deepMix(d, {
-      axis: { x: { title: false }, y: { title: false } },
-    });
-  if (!children) return hide(options);
-  const newChildren = children.map(hide);
-  return {
-    ...options,
-    children: newChildren,
-  };
-}
-
 describe('Animations', () => {
   const tests = filterTests(chartTests);
   for (const [name, generateOptions] of tests) {
-    let gCanvas: Canvas | undefined;
+    // @ts-ignore
+    const { intervals: I, maxError = 0, skip } = generateOptions;
+    if (!I) {
+      throw new Error(`Missing intervals for ${name}`);
+    }
+
+    if (skip) continue;
     it(`[Animation]: ${name}`, async () => {
-      try {
-        // @ts-ignore
-        const { intervals: I, maxError = 0 } = generateOptions;
+      // Setup
+      const browser = await chromium.launch({
+        args: ['--headless', '--no-sandbox', '--use-angle=gl'],
+      });
+      const context = await browser.newContext(devices['Desktop Chrome']);
+      const page = await context.newPage();
 
-        // @todo Remove this when gui fixed title animation.
-        // @ts-ignore
-        generateOptions.preprocess = hideAxisTitle;
+      // Ready to screenshot.
+      let resolveReadyPromise: () => void;
+      const readyPromise = new Promise((resolve) => {
+        resolveReadyPromise = () => {
+          resolve(this);
+        };
+      });
+      await context.exposeFunction('screenshot', () => {
+        resolveReadyPromise();
+      });
 
-        if (!I) {
-          throw new Error(`Missing intervals for ${name}`);
-        }
+      // Go to test page served by vite devServer.
+      const url = `http://localhost:8080/?name=animation-${name}`;
+      await page.goto(url);
 
-        // Create rendering context.
-        const context: G2Context = {};
-        const asset = async (step) => {
-          const dir = `${__dirname}/snapshots/animation/${kebabCase(name)}`;
-          await expect(context.canvas).toMatchCanvasSnapshot(
+      // Chart already rendered, capture into buffer.
+      await readyPromise;
+
+      const dir = `${__dirname}/snapshots/animation/${kebabCase(name)}`;
+
+      // Hang on at the first animation.
+      await page.evaluate(() => {
+        window['goto'](1);
+        window['goto'](0);
+      });
+
+      for (let i = 0; i < I.length; i++) {
+        const intervals = I[i] as number[];
+
+        // First frame
+        const buffer = await page.locator('canvas').screenshot();
+        await expect(buffer).toMatchCanvasSnapshot(dir, `interval${i}-0`, {
+          maxError,
+        });
+
+        for (let j = 0; j < intervals.length; j++) {
+          const currentTime = intervals[j];
+          await page.evaluate((currentTime) => {
+            window['goto'](currentTime);
+          }, currentTime);
+          const buffer = await page.locator('canvas').screenshot();
+          await expect(buffer).toMatchCanvasSnapshot(
             dir,
-            `interval${step}`,
+            `interval${i}-${j + 1}`,
             {
               maxError,
             },
           );
-        };
-        const { assetEach, assetLast } = useFrame(I, context, asset);
 
-        // Create, register emitter and mount it to context.
-        const emitter = new EventEmitter();
-        emitter.on('afterpaint', () => {
-          gCanvas = context.canvas;
-          assetEach();
-        });
-        context.emitter = emitter;
+          if (j === intervals.length - 1) {
+            await page.evaluate(() => {
+              window['finish']();
+            });
+          }
+        }
 
-        // Render and compare each frame with expected snapshot.
-        // This will mount canvas to context.
-        await renderSpec(generateOptions, context);
-
-        // Asset the last state of this animation.
-        await assetLast();
-      } finally {
-        gCanvas?.destroy();
+        // Last frame
+        {
+          const buffer = await page.locator('canvas').screenshot();
+          await expect(buffer).toMatchCanvasSnapshot(
+            dir,
+            `interval${i}-${1 + intervals.length}`,
+            {
+              maxError,
+            },
+          );
+        }
       }
+
+      await context.close();
+      await browser.close();
     });
   }
 });
