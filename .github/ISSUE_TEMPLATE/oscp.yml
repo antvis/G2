@@ -32,19 +32,11 @@ body:
     validations:
       required: false
   - type: textarea
-    id: oscp_task_info_description
-    attributes:
-      label: 详细介绍
-      description: | 
-        简单描述任务背景信息
-    validations:
-      required: false
-  - type: textarea
-    id: oscp_task_info_description_2
+    id: oscp_task_info_ref
     attributes:
       label: 参考说明
       description: | 
-       提供一些可参考的demo,相关教程辅助用户解决问题
+       提供一些可参考的 demo，相关教程辅助用户解决问题
     validations:
       required: false
   
