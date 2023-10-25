@@ -1,5 +1,5 @@
+import { Auto } from '@antv/g2-extension-ava';
 import { G2Spec } from '../../../src';
-import { Auto } from '../../../src/mark/auto';
 
 export function AutoMark(): G2Spec {
   return {
