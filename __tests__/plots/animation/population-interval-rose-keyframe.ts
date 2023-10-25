@@ -55,5 +55,4 @@ export async function populationIntervalRoseKeyframe(): Promise<G2Spec> {
   };
 }
 
-populationIntervalRoseKeyframe.intervals = [false, false, [333, 666]];
-populationIntervalRoseKeyframe.maxError = 100;
+populationIntervalRoseKeyframe.intervals = [[333, 666]];

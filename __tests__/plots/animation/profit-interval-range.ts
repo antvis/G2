@@ -61,4 +61,4 @@ export async function profitIntervalRange(): Promise<G2Spec> {
   };
 }
 
-profitIntervalRange.intervals = [false, false, [500]];
+profitIntervalRange.intervals = [[500]];

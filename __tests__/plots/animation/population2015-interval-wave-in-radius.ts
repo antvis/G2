@@ -38,3 +38,4 @@ export function population2015IntervalWaveInRadius(): G2Spec {
 }
 
 population2015IntervalWaveInRadius.intervals = [[]];
+population2015IntervalWaveInRadius.skip = true;

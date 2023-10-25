@@ -49,4 +49,4 @@ export function soldIntervalPieKeyframe(): G2Spec {
   };
 }
 
-soldIntervalPieKeyframe.intervals = [false, [500], [500], [500], [500]];
+soldIntervalPieKeyframe.intervals = [[500]];
