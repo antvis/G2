@@ -20,7 +20,7 @@ export async function indicesLineChartFacetBrushShared(): Promise<G2Spec> {
         type: 'line',
         frame: false,
         scale: { y: { nice: true, facet: false } },
-        axis: { y: { labelAutoRotate: false } },
+        axis: { y: { labelAutoHide: false } },
         encode: {
           x: 'Date',
           y: 'Close',

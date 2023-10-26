@@ -20,7 +20,7 @@ export async function indicesLineChartFacetAxis(): Promise<G2Spec> {
         frame: false,
         scale: { y: { nice: true, facet: false } },
         axis: {
-          y: { labelAutoRotate: false },
+          y: { labelAutoHide: false },
           x: ({ rowIndex }) =>
             rowIndex === 0
               ? { position: 'top' }

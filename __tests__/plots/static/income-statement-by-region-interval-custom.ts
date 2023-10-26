@@ -32,7 +32,6 @@ export function incomeStatementByRegionIntervalCustom() {
     data: incomeStatementByRegion,
     axis: {
       x: {
-        labelAutoRotate: false,
         labelAutoEllipsis: true,
         title: false,
         labelFontSize: 10,

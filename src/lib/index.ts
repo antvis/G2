@@ -5,4 +5,3 @@ export { plotlib } from './plot';
 export { threedlib } from './threed';
 export { stdlib } from './std';
 export { litelib } from './lite';
-export { autolib } from './auto';

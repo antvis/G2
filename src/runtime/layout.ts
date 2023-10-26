@@ -311,7 +311,6 @@ function computePadding(
 
   for (const position of positions) {
     const key = `padding${capitalizeFirst(camelCase(position))}`;
-    const insetKey = `inset${capitalizeFirst(camelCase(position))}`;
     const components = positionComponents.get(position) || [];
     const value = layout[key];
     const defaultSizeOf = (d) => {
@@ -342,6 +341,11 @@ function computePadding(
       }
     };
 
+    const maybeHide = (d) => {
+      if (!d.type.startsWith('axis')) return;
+      if (d.labelAutoHide === undefined) d.labelAutoHide = true;
+    };
+
     const isHorizontal = position === 'bottom' || position === 'top';
 
     // !!!Note
@@ -356,6 +360,7 @@ function computePadding(
     // Specified padding.
     if (typeof value === 'number') {
       components.forEach(defaultSizeOf);
+      components.forEach(maybeHide);
     } else {
       // Compute padding dynamically.
       if (components.length === 0) {

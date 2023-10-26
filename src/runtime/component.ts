@@ -710,7 +710,13 @@ function computeAxisSize(
 
   // Get styles to be applied.
   const style = styleOf(component, position, theme);
-  const { tickLength = 0, labelSpacing = 0, titleSpacing = 0, ...rest } = style;
+  const {
+    tickLength = 0,
+    labelSpacing = 0,
+    titleSpacing = 0,
+    labelAutoRotate,
+    ...rest
+  } = style;
 
   // Compute Labels.
   const scale = createScale(component, library);
@@ -727,7 +733,9 @@ function computeAxisSize(
       // rotate 90 deg to display them.
       if (
         overflowX(scale, labelBBoxes, crossSize, crossPadding, tickFilter) &&
-        !labelTransform
+        !labelTransform &&
+        labelAutoRotate !== false &&
+        labelAutoRotate !== null
       ) {
         component.labelTransform = 'rotate(90)';
         component.size = maxLabelWidth + paddingTick;

@@ -46,7 +46,7 @@ export async function barleyPointFacetRectColZIndex(): Promise<G2Spec> {
               color: 'year',
               shape: 'hollow',
             },
-            axis: { y: { labelAutoRotate: false } },
+            axis: { y: { labelAutoHide: false } },
           },
           {
             type: 'lineY',
