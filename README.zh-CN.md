@@ -21,7 +21,7 @@
 [![npm Download](https://img.shields.io/npm/dm/@antv/g2.svg)](https://www.npmjs.com/package/@antv/g2)
 [![npm License](https://img.shields.io/npm/l/@antv/g2.svg)](https://www.npmjs.com/package/@antv/g2)
 
-![examples](https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*FW0gRrLzlMgAAAAAAAAAAAAADmJ7AQ/original)
+![examples](https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*_GfqQoRCqQkAAAAAAAAAAAAADmJ7AQ/fmt.webp)
 
 </div>
 
