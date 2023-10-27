@@ -31,7 +31,7 @@ G2 is named after Leland Wilkinson’s book _The Grammar of Graphics_ and was pr
 - **Declarative API** - We employs a functional declarative API to specify chart options in a programmatic fashion, which contributes to better logic reuse and more flexible code organization.
 - **High Extensibility** - To satisfy specific needs, G2 provides a convenient and consistent mechanism to extend everything you can imagine, whether a scale, a transform, a mark, etc,. You can even customize a brand new visualization tool based on this mechanism.
 - **Comprehensive Grammar** - G2 rejects a chart typology in favor of marks, transforms, scales, coordinates, and compositions. In addition to static visual representations, it's possible to declare data-driven animations and apply well-designed action-based interactions to plots as well.
-- **Powerful Renderer** - There is a powerful renderer [G](https://github.com/antvis/G) under G2 to generate web-based visualizations using Canvas, SVG or WebGL. The plenty of plugins it has benefit G2 from rendering charts with novel styles such as hand-drawn and fully embrace the ecosystem of [D3](https://github.com/d3/d3).
+- **Powerful Renderer** - There is a powerful renderer [G](https://github.com/antvis/G) under G2 to generate web-based visualizations using Canvas, SVG or WebGL. The plenty of plugins it has benefit G2 from rendering charts with novel styles such as hand-drawn and fully embracing the ecosystem of [D3](https://github.com/d3/d3).
 
 ## 🔨 Getting Started
 
