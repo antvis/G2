@@ -85,7 +85,7 @@ chart
 chart.on('afterrender', () => {
   const { canvas } = chart.getContext();
   const { document } = canvas;
-  document.querySelector('.slider').addEventListener('valuechange', (evt) => {
+  document.querySelector('.g2-scrollbar').addEventListener('valuechange', (evt) => {
     console.info(evt.detail);
   });
 });
