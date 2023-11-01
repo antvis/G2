@@ -13,6 +13,14 @@
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*uQh-RryfSfUAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
+      "filename": "pie-donut-text.ts",
+      "title": {
+        "zh": "饼图, 中心文本",
+        "en": "Pie Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*uQh-RryfSfUAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
       "filename": "donut.ts",
       "title": {
         "zh": "甜甜圈图",
