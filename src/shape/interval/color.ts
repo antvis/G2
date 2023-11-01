@@ -16,6 +16,10 @@ export type ColorOptions = {
    * Maximum width of each interval.
    */
   maxWidth?: number;
+  /**
+   * Minimum height of each interval
+   */
+  minHeight?: number;
   [key: string]: any;
 };
 
@@ -40,6 +44,7 @@ export function rect(
     radiusTopRight = radius,
     minWidth = -Infinity,
     maxWidth = Infinity,
+    minHeight = -Infinity,
     ...rest
   } = style;
   if (!isPolar(coordinate) && !isHelix(coordinate)) {
@@ -48,13 +53,19 @@ export function rect(
     const [p0, , p2] = tpShape ? reorder(points) : points;
     const [x, y] = p0;
     const [width, height] = sub(p2, p0);
+
     // Deal with width or height is negative.
     const absX = width > 0 ? x : x + width;
     const absY = height > 0 ? y : y + height;
+
+    const heightDiff = minHeight - height;
+    // when data is 0, minHeight get actions.
+    const isMinHeight = heightDiff > 0 && height === 0 ? true : false;
+
     const absWidth = Math.abs(width);
-    const absHeight = Math.abs(height);
+    const absHeight = Math.abs(isMinHeight ? minHeight : height);
     const finalX = absX + insetLeft;
-    const finalY = absY + insetTop;
+    const finalY = isMinHeight ? absY + insetTop - heightDiff : absY + insetTop;
     const finalWidth = absWidth - (insetLeft + insetRight);
     const finalHeight = absHeight - (insetTop + insetBottom);
 
@@ -62,11 +73,10 @@ export function rect(
       ? finalWidth
       : clamp(finalWidth, minWidth, maxWidth);
     const clampHeight = tpShape
-      ? clamp(finalHeight, minWidth, maxWidth)
+      ? clamp(finalHeight, minHeight, maxWidth)
       : finalHeight;
     const clampX = finalX - (clampWidth - finalWidth) / 2;
     const clampY = finalY - (clampHeight - finalHeight) / 2;
-
     return select(document.createElement('rect', {}))
       .style('x', clampX)
       .style('y', clampY)
@@ -89,7 +99,6 @@ export function rect(
   const path = arc()
     .cornerRadius(radius as number)
     .padAngle((inset * Math.PI) / 180);
-
   return select(document.createElement('path', {}))
     .style('path', path(arcObject))
     .style('transform', `translate(${center[0]}, ${center[1]})`)
@@ -145,6 +154,7 @@ export const Color: SC<ColorOptions> = (options, context) => {
       insetTop = inset,
       minWidth,
       maxWidth,
+      minHeight,
       ...rest
     } = style;
     const { color = defaultColor, opacity } = value;
@@ -179,6 +189,7 @@ export const Color: SC<ColorOptions> = (options, context) => {
       insetTop,
       minWidth,
       maxWidth,
+      minHeight,
     };
 
     return (
