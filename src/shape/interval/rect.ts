@@ -10,6 +10,16 @@ export type RectOptions = {
    * Maximum width of each interval.
    */
   maxWidth?: number;
+
+  /**
+   * Minimum height of each interval.
+   */
+  minHeight?: number;
+
+  /**
+   * Minimum height of each interval.
+   */
+  maxHeight?: number;
 };
 
 /**

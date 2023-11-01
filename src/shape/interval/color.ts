@@ -16,6 +16,16 @@ export type ColorOptions = {
    * Maximum width of each interval.
    */
   maxWidth?: number;
+
+  /**
+   * Minimum height of each interval.
+   */
+  minHeight?: number;
+
+  /**
+   * Minimum height of each interval.
+   */
+  maxHeight?: number;
   [key: string]: any;
 };
 
@@ -40,6 +50,8 @@ export function rect(
     radiusTopRight = radius,
     minWidth = -Infinity,
     maxWidth = Infinity,
+    minHeight = -Infinity,
+    maxHeight = Infinity,
     ...rest
   } = style;
   if (!isPolar(coordinate) && !isHelix(coordinate)) {
@@ -56,13 +68,13 @@ export function rect(
     const finalX = absX + insetLeft;
     const finalY = absY + insetTop;
     const finalWidth = absWidth - (insetLeft + insetRight);
-    const finalHeight = absHeight - (insetTop + insetBottom);
+    const finalHeight = absHeight - (insetTop + insetBottom) || minHeight;
 
     const clampWidth = tpShape
       ? finalWidth
       : clamp(finalWidth, minWidth, maxWidth);
     const clampHeight = tpShape
-      ? clamp(finalHeight, minWidth, maxWidth)
+      ? clamp(finalHeight, minHeight, maxHeight)
       : finalHeight;
     const clampX = finalX - (clampWidth - finalWidth) / 2;
     const clampY = finalY - (clampHeight - finalHeight) / 2;
@@ -145,6 +157,8 @@ export const Color: SC<ColorOptions> = (options, context) => {
       insetTop = inset,
       minWidth,
       maxWidth,
+      minHeight,
+      maxHeight,
       ...rest
     } = style;
     const { color = defaultColor, opacity } = value;
@@ -179,6 +193,8 @@ export const Color: SC<ColorOptions> = (options, context) => {
       insetTop,
       minWidth,
       maxWidth,
+      minHeight,
+      maxHeight,
     };
 
     return (
