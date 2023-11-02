@@ -10,7 +10,6 @@ export function filterTests(test, e2e = false) {
   const runnables = onlys.length === 0 ? tests : onlys;
   return runnables.filter(
     // @ts-ignore
-    ([, { skip = false, skipE2E = false }]) =>
-      !skip && (!e2e || (e2e && !skipE2E)),
+    ([, { skip = false }]) => !skip,
   );
 }

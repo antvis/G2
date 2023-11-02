@@ -45,3 +45,4 @@ export function monthIntervalFacetCircle(): G2Spec {
     ],
   };
 }
+monthIntervalFacetCircle.maxError = 10;

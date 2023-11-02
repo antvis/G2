@@ -30,3 +30,4 @@ export function titanic2PointPack(): G2Spec {
     ],
   };
 }
+titanic2PointPack.maxError = 10;

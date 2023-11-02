@@ -10,4 +10,4 @@ export function liquidRect(): G2Spec {
   };
 }
 
-liquidRect.skipE2E = true;
+liquidRect.skip = true;

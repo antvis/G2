@@ -14,4 +14,4 @@ export function liquidPin(): G2Spec {
   };
 }
 
-liquidPin.skipE2E = true;
+liquidPin.skip = true;
