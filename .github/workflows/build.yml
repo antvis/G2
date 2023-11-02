@@ -1,6 +1,10 @@
 name: build
 
-on: [push]
+on:
+  push:
+    branches: [v5]
+  pull_request:
+    branches: [v5]
 
 jobs:
   build:
