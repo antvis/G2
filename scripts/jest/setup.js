@@ -6,8 +6,11 @@ module.exports = async function (globalConfig, projectConfig) {
     configFile: './vite.config.js',
     server: {
       port: 9090,
+      open: false,
     },
   });
   await server.listen();
+
+  server.printUrls();
   globalThis.VITE_SERVER = server;
 };
