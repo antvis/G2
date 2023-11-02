@@ -63,12 +63,18 @@ export function rect(
     // Deal with width or height is negative.
     const absX = width > 0 ? x : x + width;
     const absY = height > 0 ? y : y + height;
+
+    // the diff between height and minHeight
+    const heightDiff = minHeight - height;
+    // when data is 0, minHeight get actions.
+  
+    const isMinHeight = heightDiff > 0 && height === 0 ? true : false;
     const absWidth = Math.abs(width);
-    const absHeight = Math.abs(height);
+    const absHeight = Math.abs(isMinHeight ? minHeight : height);
     const finalX = absX + insetLeft;
-    const finalY = absY + insetTop;
+    const finalY = isMinHeight ? absY + insetTop - heightDiff : absY + insetTop;
     const finalWidth = absWidth - (insetLeft + insetRight);
-    const finalHeight = absHeight - (insetTop + insetBottom) || minHeight;
+    const finalHeight = absHeight - (insetTop + insetBottom);
 
     const clampWidth = tpShape
       ? finalWidth
