@@ -29,7 +29,7 @@ describe('chart.interaction.tooltip', () => {
     });
 
     // Go to test page served by vite devServer.
-    const url = `http://localhost:8080/?name=api-${render.name}`;
+    const url = `http://localhost:9090/?name=api-${render.name}`;
     await page.goto(url);
 
     // Chart already rendered, capture into buffer.

@@ -5,7 +5,7 @@ module.exports = async function (globalConfig, projectConfig) {
   const server = await createServer({
     configFile: './vite.config.js',
     server: {
-      port: 8080,
+      port: 9090,
     },
   });
   await server.listen();

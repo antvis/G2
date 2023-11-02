@@ -30,7 +30,7 @@ describe('Tooltips', () => {
       });
 
       // Go to test page served by vite devServer.
-      const url = `http://localhost:8080/?name=tooltip-${name}`;
+      const url = `http://localhost:9090/?name=tooltip-${name}`;
       await page.goto(url);
       await sleep(300);
 

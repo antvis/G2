@@ -35,7 +35,7 @@ describe('Charts', () => {
       });
 
       // Go to test page served by vite devServer.
-      const url = `http://localhost:8080/?name=static-${name}`;
+      const url = `http://localhost:9090/?name=static-${name}`;
       await page.goto(url);
 
       // Chart already rendered, capture into buffer.
