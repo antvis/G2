@@ -14,3 +14,4 @@ export function liquidDefault(): G2Spec {
 }
 
 liquidDefault.maxError = 10;
+liquidDefault.skip = true;

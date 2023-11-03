@@ -12,12 +12,15 @@ describe('Charts', () => {
     it(`[Canvas]: ${name}`, async () => {
       try {
         // @ts-ignore
-        const { maxError = 0, before, after } = generateOptions;
+        const { before, after } = generateOptions;
         before?.();
         gCanvas = await renderSpec(generateOptions);
         after?.();
         const dir = `${__dirname}/snapshots/static`;
-        await expect(gCanvas).toMatchCanvasSnapshot(dir, name, { maxError });
+        await expect(gCanvas).toMatchDOMSnapshot(dir, name, {
+          fileFormat: 'svg',
+          keepSVGElementId: true,
+        });
       } finally {
         gCanvas?.destroy();
       }

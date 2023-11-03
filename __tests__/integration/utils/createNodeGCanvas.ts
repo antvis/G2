@@ -1,13 +1,16 @@
-import { createCanvas } from 'canvas';
-import { Canvas } from '@antv/g';
-import { Renderer } from '@antv/g-canvas';
+import { Canvas, resetEntityCounter } from '@antv/g';
+import { Renderer } from '@antv/g-svg';
 import { Plugin as DragAndDropPlugin } from '@antv/g-plugin-dragndrop';
+import { OffscreenCanvasContext } from './offscreenCanvasContext';
 
 export function createNodeGCanvas(width: number, height: number): Canvas {
-  // Create a node-canvas instead of HTMLCanvasElement
-  const nodeCanvas = createCanvas(width, height);
-  // A standalone offscreen canvas for text metrics
-  const offscreenNodeCanvas = createCanvas(1, 1);
+  resetEntityCounter();
+
+  const dom = document.createElement('div') as any;
+  const offscreenNodeCanvas = {
+    getContext: () => context,
+  } as unknown as HTMLCanvasElement;
+  const context = new OffscreenCanvasContext(offscreenNodeCanvas);
 
   // Create a renderer, unregister plugin relative to DOM.
   const renderer = new Renderer();
@@ -20,10 +23,11 @@ export function createNodeGCanvas(width: number, height: number): Canvas {
     new DragAndDropPlugin({ dragstartDistanceThreshold: 10 }),
   );
   return new Canvas({
+    container: dom as unknown as HTMLElement,
     width,
     height,
-    canvas: nodeCanvas as any,
     renderer,
+    document: dom.ownerDocument,
     offscreenCanvas: offscreenNodeCanvas as any,
   });
 }

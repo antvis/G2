@@ -7,6 +7,10 @@ import { format } from 'prettier';
 export type ToMatchDOMSnapshotOptions = {
   selector?: string;
   fileFormat?: string;
+  keepSVGElementId?: boolean;
+};
+const formatSVG = (svg: string, keepSVGElementId: boolean) => {
+  return keepSVGElementId ? svg : svg.replace(/id="[^"]*"/g, '');
 };
 
 // @see https://jestjs.io/docs/26.x/expect#expectextendmatchers
@@ -16,7 +20,7 @@ export async function toMatchDOMSnapshot(
   name: string,
   options: ToMatchDOMSnapshotOptions = {},
 ): Promise<{ message: () => string; pass: boolean }> {
-  const { selector, fileFormat = 'html' } = options;
+  const { selector, fileFormat = 'html', keepSVGElementId = false } = options;
   const namePath = path.join(dir, name);
   const actualPath = path.join(dir, `${name}-actual.${fileFormat}`);
   const expectedPath = path.join(dir, `${name}.${fileFormat}`);
@@ -28,11 +32,11 @@ export async function toMatchDOMSnapshot(
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 
     actual = dom
-      ? format(
-          xmlserializer.serializeToString(dom).replace(/id="[^"]*"/g, ''),
-          {
+      ? formatSVG(
+          format(xmlserializer.serializeToString(dom), {
             parser: 'babel',
-          },
+          }),
+          keepSVGElementId,
         )
       : 'null';
 

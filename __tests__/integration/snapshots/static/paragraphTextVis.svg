@@ -1,0 +1,515 @@
+<div xmlns="http://www.w3.org/1999/xhtml" style="position: relative;">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="640"
+    height="480"
+    style="background: transparent;"
+    color-interpolation-filters="sRGB"
+  >
+    <defs />
+    <g id="g-svg-camera" transform="matrix(1,0,0,1,0,0)">
+      <g id="g-root" fill="none" transform="matrix(1,0,0,1,0,0)">
+        <g
+          id="g-svg-1"
+          fill="none"
+          transform="matrix(1,0,0,1,0,0)"
+          class="view"
+        >
+          <g transform="matrix(1,0,0,1,0,0)">
+            <path
+              id="g-svg-2"
+              fill="rgba(0,0,0,0)"
+              class="area"
+              d="M 0,0 l 640,0 l 0,480 l-640 0 z"
+              width="640"
+              height="480"
+            />
+          </g>
+          <g transform="matrix(1,0,0,1,16,30)">
+            <path
+              id="g-svg-3"
+              fill="rgba(0,0,0,0)"
+              class="area"
+              d="M 0,0 l 608,0 l 0,434 l-608 0 z"
+              width="608"
+              height="434"
+            />
+          </g>
+          <g transform="matrix(1,0,0,1,16,30)">
+            <path
+              id="g-svg-4"
+              fill="rgba(0,0,0,0)"
+              class="area"
+              d="M 0,0 l 608,0 l 0,434 l-608 0 z"
+              width="608"
+              height="434"
+            />
+          </g>
+          <g transform="matrix(1,0,0,1,16,30)">
+            <path
+              id="g-svg-5"
+              fill="rgba(0,0,0,0)"
+              class="area"
+              d="M 0,0 l 608,0 l 0,434 l-608 0 z"
+              width="608"
+              height="434"
+            />
+          </g>
+          <g transform="matrix(1,0,0,1,16,30)">
+            <path
+              id="g-svg-6"
+              fill="rgba(0,0,0,0)"
+              class="plot"
+              d="M 0,0 l 608,0 l 0,434 l-608 0 z"
+              width="608"
+              height="434"
+            />
+            <g
+              id="g-svg-7"
+              fill="none"
+              transform="matrix(1,0,0,1,0,0)"
+              class="main-layer"
+            >
+              <g
+                id="g-svg-10"
+                fill="none"
+                transform="matrix(1,0,0,1,107.870964,0)"
+                class="element"
+              >
+                <g transform="matrix(1,0,0,1,-79,-22)">
+                  <path
+                    id="background"
+                    fill="rgba(65,97,128,1)"
+                    d="M 3,0 l 9.68,0 a 3,3,0,0,1,3,3 l 0,20 a 3,3,0,0,1,-3,3 l -9.68,0 a 3,3,0,0,1,-3,-3 l 0,-20 a 3,3,0,0,1,3,-3 z"
+                    width="15.68"
+                    height="26"
+                    fill-opacity="0.05"
+                  />
+                </g>
+                <g transform="matrix(1,0,0,1,0,0)">
+                  <text
+                    id="text"
+                    fill="rgba(29,33,41,1)"
+                    dominant-baseline="central"
+                    paint-order="stroke"
+                    style="transform:translate(-75px, -20px);"
+                    dx="0"
+                    dy="11px"
+                    font-size="12"
+                    stroke-width="0"
+                    text-anchor="left"
+                  >
+                    0
+                  </text>
+                </g>
+                <g transform="matrix(1,0,0,1,-63.320000,0)">
+                  <path id="connector" fill="none" d="M 63.32,0 L 0,0" />
+                </g>
+              </g>
+              <g
+                id="g-svg-14"
+                fill="none"
+                transform="matrix(1,0,0,1,304,0)"
+                class="element"
+              >
+                <g transform="matrix(1,0,0,1,-79,-22)">
+                  <path
+                    id="background"
+                    fill="rgba(65,97,128,1)"
+                    d="M 3,0 l 7.76,0 a 3,3,0,0,1,3,3 l 0,20 a 3,3,0,0,1,-3,3 l -7.76,0 a 3,3,0,0,1,-3,-3 l 0,-20 a 3,3,0,0,1,3,-3 z"
+                    width="13.76"
+                    height="26"
+                    fill-opacity="0.05"
+                  />
+                </g>
+                <g transform="matrix(1,0,0,1,0,0)">
+                  <text
+                    id="text"
+                    fill="rgba(29,33,41,1)"
+                    dominant-baseline="central"
+                    paint-order="stroke"
+                    style="transform:translate(-75px, -20px);"
+                    dx="0"
+                    dy="11px"
+                    font-size="12"
+                    stroke-width="0"
+                    text-anchor="left"
+                  >
+                    1
+                  </text>
+                </g>
+                <g transform="matrix(1,0,0,1,-65.239998,0)">
+                  <path id="connector" fill="none" d="M 65.24,0 L 0,0" />
+                </g>
+              </g>
+              <g
+                id="g-svg-18"
+                fill="none"
+                transform="matrix(1,0,0,1,500.129028,0)"
+                class="element"
+              >
+                <g transform="matrix(1,0,0,1,-79,-22)">
+                  <path
+                    id="background"
+                    fill="rgba(65,97,128,1)"
+                    d="M 3,0 l 9.440000000000001,0 a 3,3,0,0,1,3,3 l 0,20 a 3,3,0,0,1,-3,3 l -9.440000000000001,0 a 3,3,0,0,1,-3,-3 l 0,-20 a 3,3,0,0,1,3,-3 z"
+                    width="15.440000000000001"
+                    height="26"
+                    fill-opacity="0.05"
+                  />
+                </g>
+                <g transform="matrix(1,0,0,1,0,0)">
+                  <text
+                    id="text"
+                    fill="rgba(29,33,41,1)"
+                    dominant-baseline="central"
+                    paint-order="stroke"
+                    style="transform:translate(-75px, -20px);"
+                    dx="0"
+                    dy="11px"
+                    font-size="12"
+                    stroke-width="0"
+                    text-anchor="left"
+                  >
+                    2
+                  </text>
+                </g>
+                <g transform="matrix(1,0,0,1,-63.560001,0)">
+                  <path id="connector" fill="none" d="M 63.56,0 L 0,0" />
+                </g>
+              </g>
+            </g>
+            <g
+              id="g-svg-8"
+              fill="none"
+              transform="matrix(1,0,0,1,0,0)"
+              class="main-layer"
+            >
+              <g
+                id="g-svg-22"
+                fill="none"
+                transform="matrix(1,0,0,1,107.870964,0)"
+                class="element"
+              >
+                <g transform="matrix(1,0,0,1,-84,-2)">
+                  <path
+                    id="background"
+                    fill="none"
+                    d="M 0,0 l 167.5,0 l 0,652 l-167.5 0 z"
+                    width="167.5"
+                    height="652"
+                  />
+                </g>
+                <g transform="matrix(1,0,0,1,0,0)">
+                  <text
+                    id="text"
+                    fill="rgba(27,30,35,1)"
+                    dominant-baseline="hanging"
+                    paint-order="stroke"
+                    style="transform:translate(-80px, 0px);"
+                    font-size="10"
+                    stroke-width="0"
+                    stroke="rgba(27,30,35,1)"
+                    text-anchor="left"
+                  >
+                    <tspan x="0" dx="0" dy="0">
+                      Call me Ishmael. Some years ago—
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      never mind how long precisely—
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      having little or no money in my
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      purse, and nothing particular to
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      interest me on shore, I thought I
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      would sail about a little and see
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      the watery part of the world. It is
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      a way I have of driving off the
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      spleen and regulating the
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      circulation. Whenever I find
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      myself growing grim about the
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      mouth; whenever it is a damp,
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      drizzly November in my soul;
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      whenever I find myself
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      involuntarily pausing before
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      coffin warehouses, and bringing
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      up the rear of every funeral I
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      meet; and especially whenever
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      my hypos get such an upper
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      hand of me, that it requires a
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      strong moral principle to prevent
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      me from deliberately stepping
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      into the street, and methodically
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      knocking people’s hats off—then, I
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      account it high time to get to sea
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      as soon as I can. This is my
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      substitute for pistol and ball.
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      With a philosophical flourish
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      Cato throws himself upon his
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      sword; I quietly take to the ship.
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      There is nothing surprising i
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      nthis. If they but knew it, almost
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      all men in their degree, some
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      time or other, cherish very nearly
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      the same feelings towards the
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      ocean with me.
+                    </tspan>
+                  </text>
+                </g>
+                <g transform="matrix(1,0,0,1,0,0)">
+                  <path id="connector" fill="none" d="M 0,0 L 0,0" />
+                </g>
+              </g>
+              <g
+                id="g-svg-26"
+                fill="none"
+                transform="matrix(1,0,0,1,304,0)"
+                class="element"
+              >
+                <g transform="matrix(1,0,0,1,-84,-2)">
+                  <path
+                    id="background"
+                    fill="none"
+                    d="M 0,0 l 166.8,0 l 0,238 l-166.8 0 z"
+                    width="166.8"
+                    height="238"
+                  />
+                </g>
+                <g transform="matrix(1,0,0,1,0,0)">
+                  <text
+                    id="text"
+                    fill="rgba(27,30,35,1)"
+                    dominant-baseline="hanging"
+                    paint-order="stroke"
+                    style="transform:translate(-80px, 0px);"
+                    font-size="10"
+                    stroke-width="0"
+                    stroke="rgba(27,30,35,1)"
+                    text-anchor="left"
+                  >
+                    <tspan x="0" dx="0" dy="0">
+                      There now is your insular city of
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      the Manhattoes, belted round by
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      wharves as Indian isles by coral
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      reefs—commerce surrounds it
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      with her surf. Right and left, the
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      streets take you waterward. Its
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      extreme downtown is the
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      battery, where that noble mole is
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      washed by waves, and cooled by
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      breezes, which a few hours
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      previous were out of sight o
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      fland. Look at the crowds of
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      water-gazers there.
+                    </tspan>
+                  </text>
+                </g>
+                <g transform="matrix(1,0,0,1,0,0)">
+                  <path id="connector" fill="none" d="M 0,0 L 0,0" />
+                </g>
+              </g>
+              <g
+                id="g-svg-30"
+                fill="none"
+                transform="matrix(1,0,0,1,500.129028,0)"
+                class="element"
+              >
+                <g transform="matrix(1,0,0,1,-84,-2)">
+                  <path
+                    id="background"
+                    fill="none"
+                    d="M 0,0 l 166.4,0 l 0,418 l-166.4 0 z"
+                    width="166.4"
+                    height="418"
+                  />
+                </g>
+                <g transform="matrix(1,0,0,1,0,0)">
+                  <text
+                    id="text"
+                    fill="rgba(27,30,35,1)"
+                    dominant-baseline="hanging"
+                    paint-order="stroke"
+                    style="transform:translate(-80px, 0px);"
+                    font-size="10"
+                    stroke-width="0"
+                    stroke="rgba(27,30,35,1)"
+                    text-anchor="left"
+                  >
+                    <tspan x="0" dx="0" dy="0">
+                      Circumambulate the city of a
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      dreamy Sabbath afternoon. Go
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      from Corlears Hook to Coenties
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      Slip, and from thence, by
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      Whitehall, northward. What do
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      you see?—Posted like silent
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      sentinels all around the town,
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      stand thousands upon
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      thousands of mortal men fixed in
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      ocean reveries. Some leaning
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      against the spiles; some seated
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      upon the pier-heads; some
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      looking over the bulwarks of
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      ships from China; some high
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      aloft in the rigging, as if striving
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      to get a still better seaward
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      peep. But these are all
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      landsmen; of week days pent up
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      in lath and plaster—tied to
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      counters, nailed to benches,
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      clinched to desks. How then is
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      this? Are the green fields gone?
+                    </tspan>
+                    <tspan x="0" dx="0" dy="18">
+                      What do they here?
+                    </tspan>
+                  </text>
+                </g>
+                <g transform="matrix(1,0,0,1,0,0)">
+                  <path id="connector" fill="none" d="M 0,0 L 0,0" />
+                </g>
+              </g>
+            </g>
+            <g
+              id="g-svg-9"
+              fill="none"
+              transform="matrix(1,0,0,1,0,0)"
+              class="label-layer"
+            />
+          </g>
+        </g>
+      </g>
+    </g>
+  </svg>
+</div>
