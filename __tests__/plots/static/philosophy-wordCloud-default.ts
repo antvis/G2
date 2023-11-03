@@ -15,3 +15,4 @@ export function philosophyWordCloudDefault(): G2Spec {
     },
   };
 }
+philosophyWordCloudDefault.skip = !process.env.CI;

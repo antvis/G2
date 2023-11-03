@@ -33,3 +33,4 @@ export function HeatmapHeatmapBasic(): G2Spec {
 }
 
 HeatmapHeatmapBasic.maxError = 100;
+HeatmapHeatmapBasic.skip = !process.env.CI;

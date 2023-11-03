@@ -22,6 +22,7 @@ jobs:
       - name: Run CI
         run: |
           npm install
+          npm install canvas
           npm run ci
 
       - name: Upload Snapshot
