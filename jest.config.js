@@ -24,4 +24,5 @@ module.exports = {
   transformIgnorePatterns: [`<rootDir>/node_modules/(?!(${esm}))`],
   globalSetup: './scripts/jest/setup.js',
   globalTeardown: './scripts/jest/teardown.js',
+  testEnvironment: './scripts/jest/environment.js',
 };

@@ -13,7 +13,7 @@ describe('Charts', () => {
     it(`[Canvas]: ${name}`, async () => {
       // Setup
       const browser = await chromium.launch({
-        args: ['--headless', '--no-sandbox', '--use-angle=gl'],
+        args: ['--headless', '--no-sandbox'],
       });
       const context = await browser.newContext(devices['Desktop Chrome']);
       const page = await context.newPage();
@@ -35,7 +35,7 @@ describe('Charts', () => {
       });
 
       // Go to test page served by vite devServer.
-      const url = `http://localhost:9090/?name=static-${name}`;
+      const url = `http://localhost:${globalThis.PORT}/?name=static-${name}`;
       await page.goto(url);
 
       // Chart already rendered, capture into buffer.
