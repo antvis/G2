@@ -22,10 +22,6 @@ export type ColorOptions = {
    */
   minHeight?: number;
 
-  /**
-   * Minimum height of each interval.
-   */
-  maxHeight?: number;
   [key: string]: any;
 };
 
@@ -51,7 +47,6 @@ export function rect(
     minWidth = -Infinity,
     maxWidth = Infinity,
     minHeight = -Infinity,
-    maxHeight = Infinity,
     ...rest
   } = style;
   if (!isPolar(coordinate) && !isHelix(coordinate)) {
@@ -64,26 +59,21 @@ export function rect(
     const absX = width > 0 ? x : x + width;
     const absY = height > 0 ? y : y + height;
 
-    // the diff between height and minHeight
-    const heightDiff = minHeight - height;
-    // when data is 0, minHeight get actions.
-  
-    const isMinHeight = heightDiff > 0 && height === 0 ? true : false;
     const absWidth = Math.abs(width);
-    const absHeight = Math.abs(isMinHeight ? minHeight : height);
+    const absHeight = Math.abs(height);
     const finalX = absX + insetLeft;
-    const finalY = isMinHeight ? absY + insetTop - heightDiff : absY + insetTop;
+    const finalY = absY + insetTop;
     const finalWidth = absWidth - (insetLeft + insetRight);
     const finalHeight = absHeight - (insetTop + insetBottom);
 
     const clampWidth = tpShape
-      ? finalWidth
+      ? clamp(finalWidth, minHeight, Infinity)
       : clamp(finalWidth, minWidth, maxWidth);
     const clampHeight = tpShape
-      ? clamp(finalHeight, minHeight, maxHeight)
-      : finalHeight;
-    const clampX = finalX - (clampWidth - finalWidth) / 2;
-    const clampY = finalY - (clampHeight - finalHeight) / 2;
+      ? clamp(finalHeight, minWidth, maxWidth)
+      : clamp(finalHeight, minHeight, Infinity);
+    const clampX = tpShape ? finalX : finalX - (clampWidth - finalWidth) / 2;
+    const clampY = tpShape ? finalY - (clampHeight - finalHeight ) / 2 : finalY - (clampHeight - finalHeight);
 
     return select(document.createElement('rect', {}))
       .style('x', clampX)
@@ -164,7 +154,6 @@ export const Color: SC<ColorOptions> = (options, context) => {
       minWidth,
       maxWidth,
       minHeight,
-      maxHeight,
       ...rest
     } = style;
     const { color = defaultColor, opacity } = value;
@@ -199,8 +188,7 @@ export const Color: SC<ColorOptions> = (options, context) => {
       insetTop,
       minWidth,
       maxWidth,
-      minHeight,
-      maxHeight,
+      minHeight
     };
 
     return (
