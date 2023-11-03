@@ -28,7 +28,9 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: snapshots
-          path: __tests__/integration/snapshots/static/**/*-{actual,diff}.png
+          path: |
+            __tests__/integration/snapshots/**/*-actual.*
+            __tests__/integration/snapshots/**/*-diff.*
           retention-days: 1
 
       - name: Update coverall
