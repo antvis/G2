@@ -23,17 +23,13 @@ jobs:
           npm install
           npm run ci
 
-      - name: Upload Snapshot
+      - name: Upload snapshots to GitHub Actions Artifacts
         if: ${{ failure() }}
-        env:
-          REF_NAME: ${{ github.ref_name }}
-          GITHUB_WORKSPACE: ${{ github.workspace }}
-          OSS_REGION: ${{ secrets.OSS_REGION }}
-          OSS_ACCESS_KEY_ID: ${{ secrets.OSS_ACCESS_KEY_ID }}
-          OSS_ACCESS_KEY_SECRET: ${{ secrets.OSS_ACCESS_KEY_SECRET }}
-          OSS_BUCKET: ${{ secrets.OSS_BUCKET }}
-        run: |
-          npm run upload
+        uses: actions/upload-artifact@v3
+        with:
+          name: snapshots
+          path: __tests__/integration/snapshots/static/
+          retention-days: 1
 
       - name: Update coverall
         if: ${{ success() }}

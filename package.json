@@ -30,7 +30,7 @@
     "size": "limit-size",
     "lint": "eslint ./src ./__tests__ && prettier ./src ./__tests__ --check ",
     "fix": "eslint ./src ./__tests__ --fix && prettier ./src ./__tests__ --write ",
-    "test": "node --expose-gc --max-old-space-size=4096 --unhandled-rejections=strict node_modules/jest/bin/jest __tests__/integration/spec-static --logHeapUsage --detectOpenHandles",
+    "test": "node --expose-gc --max-old-space-size=4096 --unhandled-rejections=strict node_modules/jest/bin/jest __tests__/integration/spec-static --coverage --logHeapUsage",
     "test:unit": "node --expose-gc --max-old-space-size=4096 --unhandled-rejections=strict node_modules/jest/bin/jest __tests__/unit/ --coverage -i  --logHeapUsage",
     "test:integration": "node --expose-gc --max-old-space-size=4096 --unhandled-rejections=strict node_modules/jest/bin/jest __tests__/integration/ --logHeapUsage",
     "preview": "vite preview",
