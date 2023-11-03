@@ -51,6 +51,7 @@ export function create({
         fill: '',
         strokeOpacity: 1,
         lineWidth: 1,
+        lineCap: 'round',
       },
     },
     point: {
