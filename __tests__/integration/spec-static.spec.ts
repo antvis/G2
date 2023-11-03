@@ -43,10 +43,12 @@ describe('Charts', () => {
       const buffer = await page.locator('canvas').screenshot();
 
       const dir = `${__dirname}/snapshots/static`;
-      await expect(buffer).toMatchCanvasSnapshot(dir, name, { maxError });
-
-      await context.close();
-      await browser.close();
+      try {
+        await expect(buffer).toMatchCanvasSnapshot(dir, name, { maxError });
+      } finally {
+        await context.close();
+        await browser.close();
+      }
     });
   }
 });
