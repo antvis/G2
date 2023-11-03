@@ -25,6 +25,15 @@ jobs:
           npm install canvas
           npm run ci
 
+      - name: Upload blob report to GitHub Actions Artifacts
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: snapshots
+          path: |
+            __tests__/integration/snapshots/**/*-actual.svg
+          retention-days: 1
+
       - name: Upload Snapshot
         if: ${{ failure() }}
         env:

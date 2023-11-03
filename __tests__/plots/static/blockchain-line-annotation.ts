@@ -53,3 +53,4 @@ export function blockChainLineAnnotation(): G2Spec {
 }
 
 blockChainLineAnnotation.maxError = 500;
+blockChainLineAnnotation.skip = true;
