@@ -1,6 +1,3 @@
-/**
- * 双轴多折现条形图
- */
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
