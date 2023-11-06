@@ -4,8 +4,8 @@ export { alphabetIntervalMaxWidth } from './alphabet-interval-max-width';
 export { alphabetIntervalMinWidth } from './alphabet-interval-min-width';
 export { alphabetIntervalMaxWidthTransposed } from './alphabet-interval-max-width-transposed';
 export { alphabetIntervalMinWidthTransposed } from './alphabet-interval-min-width-transposed';
-export { alphabetIntervalMinHeight } from './alphanbet-interval-min-height'
-export { alphabetIntervalMinHeightTransposed } from './alphanbet-interval-min-height-transposed'
+export { alphabetIntervalMinHeight } from './alphanbet-interval-min-height';
+export { alphabetIntervalMinHeightTransposed } from './alphanbet-interval-min-height-transposed';
 export { alphabetIntervalTitle } from './alphabet-interval-title';
 export { alphabetIntervalLabelOverflowHide } from './alphabet-interval-label-overflow-hide';
 export { alphabetIntervalLabelContrastReverse } from './alphabet-interval-label-contrast-reverse';

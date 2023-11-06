@@ -73,7 +73,9 @@ export function rect(
       ? clamp(finalHeight, minWidth, maxWidth)
       : clamp(finalHeight, minHeight, Infinity);
     const clampX = tpShape ? finalX : finalX - (clampWidth - finalWidth) / 2;
-    const clampY = tpShape ? finalY - (clampHeight - finalHeight ) / 2 : finalY - (clampHeight - finalHeight);
+    const clampY = tpShape
+      ? finalY - (clampHeight - finalHeight) / 2
+      : finalY - (clampHeight - finalHeight);
 
     return select(document.createElement('rect', {}))
       .style('x', clampX)
@@ -188,7 +190,7 @@ export const Color: SC<ColorOptions> = (options, context) => {
       insetTop,
       minWidth,
       maxWidth,
-      minHeight
+      minHeight,
     };
 
     return (
