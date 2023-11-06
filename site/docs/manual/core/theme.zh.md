@@ -86,22 +86,45 @@ chart.theme({ type: 'light', ...theme });
 })();
 ```
 
-如果希望自定义所有的主题样式，可以新增一个主题，注册，然后使用。
+如果希望自定义所有的主题样式，可以新增一个主题、覆盖默认主题、注册，然后使用。
 
-```js
-import { register } from '@antv/g2';
+```js | ob
+(() => {
+  // 定义主题
+  function CustomTheme() {
+    const light = G2.Light();
+    return { ...light, color: 'red' };
+  }
 
-const theme = {};
+  // 注册主题
+  G2.register('theme.custom', CustomTheme);
 
-register('theme.custom', theme);
+  const chart = new G2.Chart();
 
-// Spec 形式
-const options = {
-  theme: { type: 'custom' },
-};
+  chart.options({
+    type: 'interval',
+    data: {
+      type: 'fetch',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
+    },
+    encode: { x: 'letter', y: 'frequency' },
+    axis: { y: { labelFormatter: '.0%' } },
+    theme: { type: 'custom' }, // 使用主题
+  });
 
-// API 形式
-chart.theme({ type: 'custom' });
+  chart.render();
+
+  return chart.getContainer();
+})();
 ```
+
+包含的默认主题有：
+
+- `G2.Light`
+- `G2.Dark`
+- `G2.Classic`
+- `G2.ClassicDark`
+- `G2.Academy`
 
 完整的主题配置可以参考 [light](https://github.com/antvis/G2/blob/v5/src/theme/light.ts) 主题。
