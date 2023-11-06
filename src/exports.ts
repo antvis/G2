@@ -30,3 +30,5 @@ export { ChartEvent } from './utils/event';
 export type { G2Context } from './runtime';
 
 export * from './spec';
+
+export { Light, Dark, Academy, Classic, ClassicDark } from './theme';
