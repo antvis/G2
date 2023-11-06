@@ -51,6 +51,14 @@
         "en": "Facet Circle"
       },
       "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*Tsx5RJVrVtsAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "rect-frame.ts",
+      "title": {
+        "zh": "自定义视图边框",
+        "en": "Custom Frame Style"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*aofoR4mGPVUAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }
