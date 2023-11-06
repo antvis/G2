@@ -24,11 +24,11 @@ chart
   .line()
   .encode('x', 'x')
   .encode('y', 'y')
-  .transform([
+  .transform({
     type: 'sample',
     thresholds: 500,
     strategy: 'max',
-  ])
+  })
 
 chart.render();
 ```

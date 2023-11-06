@@ -1,0 +1,16 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "scrollbar.ts",
+      "title": {
+        "zh": "滚动条",
+        "en": "Scrollbar"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ompnRpW0vycAAAAAAAAAAAAADmJ7AQ/original"
+    }
+  ]
+}
