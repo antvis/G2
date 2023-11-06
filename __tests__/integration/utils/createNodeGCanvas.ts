@@ -1,9 +1,11 @@
-import { Canvas } from '@antv/g';
+import { Canvas, resetEntityCounter } from '@antv/g';
 import { Renderer } from '@antv/g-svg';
 import { Plugin as DragAndDropPlugin } from '@antv/g-plugin-dragndrop';
 import { OffscreenCanvasContext } from './offscreenCanvasContext';
 
 export function createNodeGCanvas(width: number, height: number): Canvas {
+  resetEntityCounter();
+
   const dom = document.createElement('div') as any;
   const offscreenNodeCanvas = {
     getContext: () => context,

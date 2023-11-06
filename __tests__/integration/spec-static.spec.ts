@@ -1,4 +1,4 @@
-import { Canvas, resetEntityCounter } from '@antv/g';
+import { Canvas } from '@antv/g';
 import * as chartTests from '../plots/static';
 import { renderSpec } from './utils/renderSpec';
 import { filterTests } from './utils/filterTests';
@@ -13,8 +13,6 @@ describe('Charts', () => {
     let gCanvas: Canvas;
     it(`[Canvas]: ${name}`, async () => {
       try {
-        resetEntityCounter();
-
         // @ts-ignore
         const { before, after } = generateOptions;
         // @ts-ignore
@@ -29,7 +27,7 @@ describe('Charts', () => {
         });
       } finally {
         gCanvas?.destroy();
-        await sleep(100);
+        await sleep(50);
       }
     });
   }

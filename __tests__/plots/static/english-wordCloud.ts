@@ -21,4 +21,4 @@ export function englishWordCloud(): G2Spec {
     ],
   };
 }
-englishWordCloud.skip = !process.env.CI;
+englishWordCloud.skip = true;

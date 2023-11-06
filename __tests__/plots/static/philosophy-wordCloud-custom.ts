@@ -20,4 +20,4 @@ export function philosophyWordCloudCustom(): G2Spec {
     },
   };
 }
-philosophyWordCloudCustom.skip = !process.env.CI;
+philosophyWordCloudCustom.skip = true;

@@ -79,7 +79,6 @@ selectRenderer.append(...Object.keys(renderers).map(createOption));
 selectRenderer.onchange = () => {
   plot();
 };
-selectRenderer.value = 'svg';
 
 // Search input
 const searchInput = document.createElement('input');
