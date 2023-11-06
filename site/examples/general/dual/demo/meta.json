@@ -41,28 +41,32 @@
       "title": {
         "zh": " 双轴条形图",
         "en": "Two Axis Bar Chart"
-      }
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*gZCnTpDcG_UAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "two-axis-line-bar.ts",
       "title": {
         "zh": "双轴折线条形图",
         "en": "Two Axis Line Bar Chart"
-      }
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xyKZRYhgvMMAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "two-axis-multi-line-bar.ts",
       "title": {
         "zh": "双轴多折线条形图",
         "en": "Two Axis multiple Bar Chart"
-      }
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xyXJRIAxTKgAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "two-axis-stacked-group-bar.ts",
       "title": {
         "zh": "双轴堆叠分组条形图",
         "en": "Two Axis Stacked Group Bar"
-      }
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*O-pVR7pt2DkAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }

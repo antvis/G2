@@ -1,8 +1,8 @@
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
-    container: 'container',
-    autoFit: true
+  container: 'container',
+  autoFit: true,
 });
 
 const data = [
