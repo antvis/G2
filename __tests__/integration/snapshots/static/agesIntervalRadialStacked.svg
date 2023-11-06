@@ -709,7 +709,6 @@
                             class="navigator-prev-btn"
                             d="M 0,0 L 12,6 L 0,12 Z"
                             fill-opacity="0.65"
-                            visibility="visible"
                           />
                         </g>
                       </g>
@@ -726,7 +725,6 @@
                             class="navigator-next-btn"
                             d="M 0,0 L 12,6 L 0,12 Z"
                             fill-opacity="0.65"
-                            visibility="visible"
                           />
                         </g>
                       </g>
@@ -747,7 +745,6 @@
                             font-size="12"
                             text-anchor="middle"
                             fill-opacity="0.45"
-                            visibility="visible"
                           >
                             1/2
                           </text>

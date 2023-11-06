@@ -1,9 +1,11 @@
-import { Canvas } from '@antv/g';
+import { Canvas, resetEntityCounter } from '@antv/g';
 import * as chartTests from '../plots/static';
 import { renderSpec } from './utils/renderSpec';
 import { filterTests } from './utils/filterTests';
 import './utils/useSnapshotMatchers';
 import './utils/useCustomFetch';
+import { disableAnimation } from './utils/preprocess';
+import { sleep } from './utils/sleep';
 
 describe('Charts', () => {
   const tests = filterTests(chartTests);
@@ -11,8 +13,12 @@ describe('Charts', () => {
     let gCanvas: Canvas;
     it(`[Canvas]: ${name}`, async () => {
       try {
+        resetEntityCounter();
+
         // @ts-ignore
         const { before, after } = generateOptions;
+        // @ts-ignore
+        generateOptions.preprocess = disableAnimation;
         before?.();
         gCanvas = await renderSpec(generateOptions);
         after?.();
@@ -23,6 +29,7 @@ describe('Charts', () => {
         });
       } finally {
         gCanvas?.destroy();
+        await sleep(100);
       }
     });
   }
