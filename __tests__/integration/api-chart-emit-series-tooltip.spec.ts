@@ -37,7 +37,7 @@ describe('chart.emit', () => {
     const [tooltipShowed, resolveShow] = createPromise();
     chart.on('tooltip:show', (event) => {
       const { x } = event.data.data;
-      expect(x.toUTCString()).toBe('Mon, 23 Jul 2007 11:07:51 GMT');
+      expect(x.toUTCString()).toBe('Fri, 20 Jul 2007 06:54:38 GMT');
       resolveShow();
     });
     dispatchPlotEvent(canvas, 'pointermove', {
