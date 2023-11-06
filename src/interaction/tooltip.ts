@@ -16,6 +16,8 @@ import {
   selectFacetG2Elements,
   createDatumof,
   selectElementByData,
+  dynamicFormatDateTime,
+  isValidDate,
 } from './utils';
 import { dataOf } from './event';
 
@@ -240,6 +242,7 @@ function groupItems(
   groupName,
   data = elements.map((d) => d['__data__']),
   theme: Record<string, any> = {},
+  haveTooltipTitleFormat = false,
 ) {
   const key = (d) => (d instanceof Date ? +d : d);
   const T = unique(
@@ -270,7 +273,12 @@ function groupItems(
     })
     .map(showUndefined);
   return {
-    ...(T.length > 0 && { title: T.join(',') }),
+    ...(T.length > 0 && {
+      title:
+        isValidDate(T.join(',')) && !haveTooltipTitleFormat
+          ? dynamicFormatDateTime(new Date(T.join(',')))
+          : T.join(','),
+    }),
     items: unique(
       newItems,
       (d) => `(${key(d.name)}, ${key(d.value)}, ${key(d.color)})`,
@@ -445,6 +453,7 @@ export function seriesTooltip(
     preserve = false,
     style: _style = {},
     css = {},
+    haveTooltipTitleFormat = false,
     ...rest
   }: Record<string, any>,
 ) {
@@ -607,6 +616,7 @@ export function seriesTooltip(
         groupName,
         selectedData,
         theme,
+        haveTooltipTitleFormat,
       );
 
       // Sort items and filter items.
@@ -781,6 +791,7 @@ export function tooltip(
     disableNative = false,
     preserve = false,
     css = {},
+    haveTooltipTitleFormat = false,
   }: Record<string, any>,
 ) {
   const elements = elementsof(root);
@@ -799,7 +810,14 @@ export function tooltip(
       const data =
         group.length === 1 && !shared
           ? singleItem(group[0])
-          : groupItems(group, scale, groupName, undefined, theme);
+          : groupItems(
+              group,
+              scale,
+              groupName,
+              undefined,
+              theme,
+              haveTooltipTitleFormat,
+            );
 
       // Sort items and sort.
       if (sortFunction) {
@@ -923,13 +941,15 @@ export function Tooltip(options) {
     ...rest
   } = options;
   return (target, viewInstances, emitter) => {
-    const { container, view } = target;
+    const { container, view, options } = target;
     const { scale, markState, coordinate, theme } = view;
     // Get default value from mark states.
     const defaultSeries = interactionKeyof(markState, 'seriesTooltip');
     const defaultShowCrosshairs = interactionKeyof(markState, 'crosshairs');
     const plotArea = selectPlotArea(container);
     const isSeries = maybeValue(series, defaultSeries);
+
+    const haveTooltipTitleFormat = !!options.marks[0]?.tooltip?.title;
 
     // For non-facet and series tooltip.
     if (isSeries && hasSeries(markState) && !facet) {
@@ -942,6 +962,7 @@ export function Tooltip(options) {
         crosshairs: maybeValue(crosshairs, defaultShowCrosshairs),
         item,
         emitter,
+        haveTooltipTitleFormat,
       });
     }
 
@@ -973,6 +994,7 @@ export function Tooltip(options) {
         startX,
         startY,
         emitter,
+        haveTooltipTitleFormat,
       });
     }
 
@@ -988,6 +1010,7 @@ export function Tooltip(options) {
       view,
       theme,
       shared,
+      haveTooltipTitleFormat,
     });
   };
 }
