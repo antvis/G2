@@ -40,6 +40,7 @@ describe('Tooltips', () => {
             await sleep(100);
             await expect(gCanvas).toMatchDOMSnapshot(dir, `step${i}`, {
               selector: `.${className}`,
+              keepSVGElementId: true,
             });
           }
         }

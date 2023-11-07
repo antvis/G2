@@ -76,7 +76,8 @@ export async function toMatchDOMSnapshot(
         encoding: 'utf8',
         flag: 'r',
       });
-      if (actual === expected || diff(actual, expected, maxErrorRatio)) {
+      if (actual === expected) {
+        // if (actual === expected || diff(actual, expected, maxErrorRatio)) {
         if (fs.existsSync(actualPath)) fs.unlinkSync(actualPath);
         return {
           message: () => `match ${namePath}`,
