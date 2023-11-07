@@ -265,5 +265,3 @@ export async function stocksKeyframe(): Promise<G2Spec> {
 // The tests point of rest of the keyframes will be test in other test cases.
 const intervals = keyframes.map((_, i) => (i <= 2 ? [500] : false));
 stocksKeyframe.intervals = [false, ...intervals];
-
-stocksKeyframe.only = true;
