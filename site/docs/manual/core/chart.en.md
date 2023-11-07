@@ -1,5 +1,5 @@
 ---
-title: 图表（Chart）
+title: Chart
 order: 1
 ---
 
