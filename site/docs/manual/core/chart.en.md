@@ -43,7 +43,7 @@ const chart = new Chart({
 
 ## Global options
 
-You can specify some global options through the `new Chart(options)`: such as mounted containers, width, height, etc. All options are **Optional**.
+You can specify some global options through the `new Chart(options)`: such as mounted containers, width, height, etc. All options are **optional**.
 
 ```js
 // Specify options as needed
