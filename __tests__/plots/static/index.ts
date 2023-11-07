@@ -297,3 +297,6 @@ export { intervalPointBulletDatas } from './interval-point-bullet-datas';
 export { mockIntervalLine } from './mock-interval-line';
 export { alphabetIntervalSizedPadding } from './alphabet-interval-sized-padding';
 export { alphabetIntervalRotatePadding } from './alphabet-interval-rotate-padding';
+export { mockLineZeroX } from './mock-line-zero-x';
+export { mockLineZeroY } from './mock-line-zero-y';
+export { mockLineCloseX } from './mock-line-close-x';
