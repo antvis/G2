@@ -10,19 +10,19 @@ export function alphabetIntervalMinHeight(): G2Spec {
       { genre: 'Shooter', sold: 350 },
       { genre: 'Other', sold: 150 },
     ],
-      encode: {
-          x: "genre",
-          y: "sold",
-          color: "genre"
-      },
-      axis: {
-          x: { animate: false },
-          y: { animate: false }
-      },
-      style: {
-        draggable: true,
-        droppable: true,
-        minHeight: 50
-      }
+    encode: {
+      x: 'genre',
+      y: 'sold',
+      color: 'genre',
+    },
+    axis: {
+      x: { animate: false },
+      y: { animate: false },
+    },
+    style: {
+      draggable: true,
+      droppable: true,
+      minHeight: 50,
+    },
   };
 }
