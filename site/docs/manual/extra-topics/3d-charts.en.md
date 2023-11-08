@@ -5,13 +5,13 @@ order: 11
 
 Taking a 3D scatter plot as an example, creating the chart requires the following steps:
 
-* Create WebGL renderers and plugin
-* Extend threedlib
-* Set z-channel, scale and axes
-* Set up the camera in the scene
-* Add light source
-* Add custom legend
-* Using camera interaction and animation
+* Create WebGL renderers and plugin.
+* Extend threedlib.
+* Set z-channel, scale and axes.
+* Set up the camera in the scene.
+* Add light source.
+* Add custom legend.
+* Using camera interaction and animation.
 
 ## Create WebGL renderers and plugin
 
@@ -23,8 +23,8 @@ $ npm install @antv/g-webgl @antv/g-plugin-3d @antv/g-plugin-control --save
 
 and then use [@antv/g-webgl](https://g.antv.antgroup.com/api/renderer/webgl) as a renderer and register the following two plugins:
 
-* [g-plugin-3d](https://g.antv.antgroup.com/plugins/3d) Provide geometry, materials and lighting in 3D scenes
-* [g-plugin-control](https://g.antv.antgroup.com/plugins/control) Provide camera interaction in 3D scenes
+* [g-plugin-3d](https://g.antv.antgroup.com/plugins/3d) Provide geometry, materials and lighting in 3D scenes.
+* [g-plugin-control](https://g.antv.antgroup.com/plugins/control) Provide camera interaction in 3D scenes.
 
 ```ts
 import { Renderer as WebGLRenderer } from '@antv/g-webgl';
@@ -58,7 +58,7 @@ const chart = new Chart({
 });
 ```
 
-We use [point3D](/specs/thread/point-thread) Mark and select cube as the shape to draw.
+We use [point3D](/specs/thread/point-thread) mark and select cube as the shape to draw.
 Then set the z channel, scale and axes.
 
 ```ts
@@ -85,12 +85,12 @@ chart
 
 ## Set up camera
 
-In a 3D scene we can use orthographic or perspective projection, and the camera can be get from the Chart context after the first rendering is completed. You can then use the [Camera API](https://g.antv.antgroup.com/api/camera/intro) provide by G to complete the settings of projection mode and camera type. In the example below, we use perspective projection,
+In a 3D scene we can use orthographic or perspective projection, and the camera can be get from the Chart context after the first rendering is completed. You can then use the [camera API](https://g.antv.antgroup.com/api/camera/intro) provide by G to complete the settings of projection mode and camera type. In the example below, we use perspective projection,
 
 ```ts
 chart.render().then(() => {
   const { canvas } = chart.getContext();
-  const camera = canvas.getCamera(); // 获取相机
+  const camera = canvas.getCamera(); // get camera
 
   camera.setPerspective(0.1, 5000, 45, 500 / 500);
   camera.setType(CameraType.ORBITING);
@@ -107,7 +107,7 @@ The effect is as follows:
 
   const Chart = G2.extend(G2.Runtime, { ...G2.corelib(), ...G2.threedlib() });
 
-  // 初始化图表实例
+  // initialize Chart instance
   const chart = new Chart({
       renderer,
     width: 500,

@@ -3,19 +3,19 @@ title: Set pattern
 order: 10
 ---
 
-Compared with monotonous fill colors, using pattern fills can enrich expressiveness and is also useful in accessibility and black-and-white printing scenarios. To this end, we provide the following three methods, in order from easiest to most difficult in terms of cost:
+Compared with monotonous fill colors, using pattern fills can enrich expressiveness and it's also useful in accessibility and black-and-white printing scenarios. To achieve this, we offer three methods in increasing order of complexity and usage cost:
 
-* Use built-in patterns
-* Custom pattern using the G API
-* Use other pattern sources
+* Use built-in patterns.
+* Custom pattern using the G API.
+* Use other pattern sources.
 
 ## Use built-in patterns
 
-We have built-in three common pattern in [g-pattern](https://g.antv.antgroup.com/api/css/pattern#g-pattern), and the appearance can be easily adjusted through parameters. This is also the simplest way to use pattern:
+We have built three common patterns into the [g-pattern](https://g.antv.antgroup.com/api/css/pattern#g-pattern), and the appearance can be easily adjusted through parameters. This is also the simplest way to use pattern:
 
-* [dots](https://g.antv.antgroup.com/api/css/pattern#dots) Made of dots
-* [lines](https://g.antv.antgroup.com/api/css/pattern#lines) Made of straight lines
-* [squares](https://g.antv.antgroup.com/api/css/pattern#squares) Made of squares
+* [Dots](https://g.antv.antgroup.com/api/css/pattern#dots) made of dots
+* [Lines](https://g.antv.antgroup.com/api/css/pattern#lines) made of straight lines
+* [Squares](https://g.antv.antgroup.com/api/css/pattern#squares) made of squares
 
 The usage is as follows, first install the dependencies:
 
@@ -23,9 +23,9 @@ The usage is as follows, first install the dependencies:
 $ npm install @antv/g-pattern  --save;
 ```
 
-Then you can use the built-in pattern. In this [Example](/zh/examples/theme/pattern#lines-pattern):
+Then you can use the built-in patterns. In this [example](/zh/examples/theme/pattern#lines-pattern):
 
-* we used [lines](https://g.antv.antgroup.com/api/css/pattern#lines), set attributes such as background color, transparency, line color, and spacing.
+* We used [lines](https://g.antv.antgroup.com/api/css/pattern#lines), and set attributes like background color, opacity, line color, and spacing.
 * Through [repetition](https://g.antv.antgroup.com/api/css/pattern#repetition), the tiling mode is specified as horizontal and vertical directions
 * Through [transform](https://g.antv.antgroup.com/api/css/pattern#transform), the pattern is rotated 30 degrees clockwise
 
@@ -53,13 +53,13 @@ The effect is as follows:
 
 <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Pf4HQJPkQxYAAAAAAAAAAAAADmJ7AQ/original" alt="built-in lines pattern" width="400">
 
-For more detailed parameter meanings and effects, see [Complete g-pattern API](https://g.antv.antgroup.com/api/css/pattern#g-pattern)。
+For more detailed parameter meanings and effects, see [complete g-pattern API](https://g.antv.antgroup.com/api/css/pattern#g-pattern)。
 
 ## Definition using G API
 
-When the above built-in pattern do not meet the needs, you can use [G API](https://g.antv.antgroup.com/guide/chapter1) to customize, just like describing the scene.
+When the above-mentioned built-in patterns do not meet the requirements, you can use [G API](https://g.antv.antgroup.com/guide/chapter1) to customize, just like describing the scene.
 
-In this [Example](/zh/examples/theme/pattern/#custom-pattern-with-g-api), we first get [document](https://g.antv.antgroup.com/api/builtin-objects/document) object from context, create a [Rect](https://g.antv.antgroup.com/api/basic/rect) and a [Path](https://g.antv.antgroup.com/api/basic/path) by [document.createElement](https://g.antv.antgroup.com/api/builtin-objects/document#createelement), and using them as pattern sources:
+In this [example](/zh/examples/theme/pattern/#custom-pattern-with-g-api), we first get [document](https://g.antv.antgroup.com/api/builtin-objects/document) object from context, create a [rect](https://g.antv.antgroup.com/api/basic/rect) and a [path](https://g.antv.antgroup.com/api/basic/path) by [document.createElement](https://g.antv.antgroup.com/api/builtin-objects/document#createelement), and using them as pattern sources:
 
 ```js
 mark.style('fill', ({ value }) => {
@@ -100,18 +100,18 @@ For more usage, please refer to [G API](https://g.antv.antgroup.com/api/css/patt
 
 ## Use other sources
 
-Refer to [G API](https://g.antv.antgroup.com/api/css/pattern#image), other available pattern sources include:
+Refer to [G API](https://g.antv.antgroup.com/api/css/pattern#image), other available patterns sources include:
 
 * Image URL, e.g.`'http://example.png'`
 * HTMLImageElement
 * HTMLCanvasElement
 * HTMLVideoElement
 
-Among them, image URL, HTMLImageElement, and HTMLVideoElement are all static resources, while HTMLCanvasElement can be used to programmatically generate patterns. The effect is as follows:
+Among them, image URL, HTMLImageElement, and HTMLVideoElement are all static resources, while HTMLCanvasElement can be used to programmatically generate patterns, with the following results:
 
 <img src="https://gw.alipayobjects.com/mdn/rms_6ae20b/afts/img/A*cRmFTItZOtYAAAAAAAAAAAAAARQnAQ" alt="other pattern source" width="400">
 
-In this [Example](/zh/examples/theme/pattern/#custom-pattern-with-canvas), we used `HTMLCanvasElement` with [Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API) to customize:
+In this [example](/zh/examples/theme/pattern/#custom-pattern-with-canvas), we used `HTMLCanvasElement` with [canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API) to customize:
 
 ```js
 // 程序化生成
@@ -126,4 +126,4 @@ chart.style('fill', ({ value }) => {
 });
 ```
 
-It is not difficult to see that this programmatic generation method requires the user has deep understanding about [Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API), but of course it also has the highest degree of freedom.
+It is not difficult to see that this programmatic generation method requires the users to have deep understanding of [canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API), but it also offers the highest level of flexibility.
