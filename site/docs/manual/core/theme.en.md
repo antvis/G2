@@ -44,7 +44,6 @@ chart.theme({ type: 'classicDark' }); // use the dark theme
 
 ## Custom Themes
 
-There are two ways to create custom themes. The first way is to specify the desired theme styles in the `theme` object:
 There are two ways to customize the theme, the first is to specify in theme that you want to override certain theme styles:
 
 ```js
