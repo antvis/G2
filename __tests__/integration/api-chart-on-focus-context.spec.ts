@@ -24,8 +24,12 @@ describe('chart.on', () => {
   const canvas2 = createNodeGCanvas(640, 80);
   const assetSnapshots = async (step) => {
     await sleep(500);
-    await expect(canvas1).toMatchDOMSnapshot(dir, step + '-focus');
-    await expect(canvas2).toMatchDOMSnapshot(dir, step + '-context');
+    await expect(canvas1).toMatchDOMSnapshot(dir, step + '-focus', {
+      keepSVGElementId: false,
+    });
+    await expect(canvas2).toMatchDOMSnapshot(dir, step + '-context', {
+      keepSVGElementId: false,
+    });
   };
 
   it('chart.on({...}) should enables different charts to communicate.', async () => {

@@ -20,6 +20,7 @@ export function chartOptions(context) {
       x: 'date',
       y: 'close',
     },
+    axis: false,
   });
 
   const finished = chart.render();
