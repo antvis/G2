@@ -3,21 +3,21 @@ title: Server-side rendering（SSR）
 order: 12
 ---
 
-Server-side rendering (SSR) refers to rendering charts in a non-browser environment, such as in back-end language environments such as NodeJs, Python, Java, PHP, etc. Generally, in back-end languages, the final result is a chart without interaction and animation. picture of. General usage scenarios:
+Server-side rendering (SSR) refers to rendering charts in non-browser environments, such as Node.js, Python, Java, PHP, and other backend languages. Typically, in backend environments, the output is a static image without interaction or animation. Common use cases include:
 
-* The backend pre-renders images to improve page opening speed.
-* Script batch processing for easy dissemination
-* Server-side visualization service
-* Generate pictures for screenshot comparison and use for code single testing
+* Pre-rendering images on the backend to improve page load speed.
+* Script batch processing for easy distribution.
+* Server-side visualization service.
+* Generate images for screenshot comparisons, used in code unit testing.
 * ...
 
 ## Principle
 
-The SSR principle of the G2 visualization engine is simple. The core of G2's ability to draw charts is that it requires `Canvas` API, in the browser, there is the browser standard Canvas drawing interface, and in SSR, you only need to provide the Canvas drawing API in the corresponding language script.
+The SSR principle of the G2 visualization engine is simple. The core of G2's ability to draw charts is that it requires `canvas` API, in the browser, there is the browser standard canvas drawing interface, and in SSR, you only need to provide the canvas drawing API in the corresponding language script.
 
 ## Used in NodeJS
 
-When using G2 normally in a browser, you can refer to the documentation [start using](/manual/introduction/getting-started), and in NodeJS, you only need to pass in the corresponding method that build `Canvas` object when creat Chart. The overall code is as follows:
+When using G2 normally in a browser, you can refer to the documentation under [start using](/manual/introduction/getting-started). However, when using G2 in Node.js, you only need to provide a method for building the `canvas` object when creating a chart instance. The overall code looks like this:
 
 ```ts
 import * as fs from 'fs';
@@ -113,7 +113,7 @@ async function renderG2BySSR() {
 await renderG2BySSR();
 ```
 
-You can also find the corresponding code in the unit test directory of G2 [**tests**/unit/ssr/index.spec.ts](https://github.com/antvis/G2/tree/v5/__tests__/unit/ssr/index.spec.ts).
+You can also find the corresponding code in the unit test directory of G2 which under [**tests**/unit/ssr/index.spec.ts](https://github.com/antvis/G2/tree/v5/__tests__/unit/ssr/index.spec.ts).
 
 ## Use in other server-side locales
 

@@ -31,11 +31,11 @@ chart
   .axis({ x: { animate: false }, y: { animate: false } });
 
 chart.on('interval:click', (e) => {
-  console.log(e.data.data); // Display click data
+  console.log(e.data.data); // Display clicked data
 });
 
 chart.on('element:click', (e) => {
-  console.log(e.data.data); // Display click data
+  console.log(e.data.data); // Display clicked data
 });
 
 chart.render();
@@ -53,7 +53,7 @@ chart.on(ChartEvent.AFTER_RENDER, (ev) => {
 
 G2 currently provides the following lifecycle events:
 
-| event name                        | illustrate                   |
+| Event name                        | Explanation                   |
 | --------------------------------- | ---------------------------- |
 | `ChartEvent.`BEFORE\_RENDER       | Before rendering             |
 | `ChartEvent.`BEFORE\_PAINT        | Before drawing               |
@@ -117,7 +117,7 @@ chart.on('component:click', (event) => console.log(event));
 | Event name            | Explanation   | Callback parameters |
 | --------------------- | ------------ | ------------------- |
 | `ChartEvent.`CLICK    | Click        | `Event`             |
-| `ChartEvent.`DBLCLICK | double click | `Event`             |
+| `ChartEvent.`DBLCLICK | Double click | `Event`             |
 
 ### Pointer event
 

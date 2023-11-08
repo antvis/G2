@@ -3,7 +3,7 @@ title: Package on demand
 order: 9
 ---
 
-G2 version 5.0.19 publishs the on-demand packaging function. Can use [Tree-Shaking](https://rollupjs.org/introduction/#tree-shaking) ablility of tools like [Rollup](https://rollupjs.org/),[Webpack](https://webpack.js.org/) to use G2 features on demand, thereby reducing the packaged size. Although there is still a lot of room for optimization from the results, this function has the following significance:
+G2 version 5.0.19 publishs the on-demand packaging function. You can leverage the [Tree-Shaking](https://rollupjs.org/introduction/#tree-shaking) capability of bundling tools like [Rollup](https://rollupjs.org/),[Webpack](https://webpack.js.org/) to use G2 features on demand, thereby reducing the packaged size. Although there is still a lot of room for optimization from the results, this function has the following significance:
 
 * Prevent the package size of existing G2 5.0 users from meaninglessly increasing.
 * It can more clearly analyze dependencies and organize the overall architecture of G2 5.0.
@@ -94,7 +94,7 @@ It can be seen that the size has been reduced **100kb** about.
 
 ## Principle
 
-The architecture of G2 is composed of Runtime + library. Runtime is responsible for the rendering process, and library is a JavaScript Object composed of a series of visual components, used to process or draw data at different stages of the entire rendering.
+The architecture of G2 is composed of Runtime + library. Runtime is responsible for the rendering process, and library is a JavaScript object composed of a series of visual components, used to process or draw data at different stages of the entire rendering.
 
 ```js
 const library = {
@@ -167,7 +167,7 @@ chart.forceGraph(); // graphlib
 
 ### G2.corelib()
 
-Return to the core library, containing only basic Mark. You can view the included visual components through the source code. ([Source code](https://github.com/antvis/G2/blob/v5/src/lib/core.ts)·[Case](https://g2.antv.antgroup.com/examples#general-interval))
+Return to the core library, containing only basic mark. You can view the included visual components through the source code. ([Source code](https://github.com/antvis/G2/blob/v5/src/lib/core.ts)·[Case](https://g2.antv.antgroup.com/examples#general-interval))
 
 ```js
 import { Runtime, extend, corelib } from '@antv/g2';
@@ -177,7 +177,7 @@ const Chart = extend(Runtime, corelib());
 
 ### G2.plotlib()
 
-Return to an advanced statistical analysis library, including some sophisticated statistical tags (Snakey et al.) and transformations (Venn et al.). Cannot be used alone, must be used with [G2.corelib](#g2corelib). You can view the included visual components through the source code. ([Source code](https://github.com/antvis/G2/blob/v5/src/lib/plot.ts)·[Case](https://g2.antv.antgroup.com/zh/examples/graph/hierarchy/#circle-packing))
+Return to an advanced statistical analysis library, including some sophisticated statistical tags (Snakey et al.) and transformations (Venn et al.). It cannot be used independently, must be used with [G2.corelib](#g2corelib). You can view the included visual components through the source code. ([Source code](https://github.com/antvis/G2/blob/v5/src/lib/plot.ts)·[Case](https://g2.antv.antgroup.com/zh/examples/graph/hierarchy/#circle-packing))
 
 ```js
 import { Runtime, extend, corelib, plotlib } from '@antv/g2';
@@ -194,7 +194,7 @@ chart.sankey();
 
 ### G2.geolib()
 
-Returns the geographical analysis library, including geographical tags (GeoPath, etc.) and projections (Projection). Cannot be used alone, must be used with [G2.corelib](#g2corelib). You can view the included visual components through the source code. ([Source code](https://github.com/antvis/G2/blob/v5/src/lib/geo.ts)·[Case](https://g2.antv.antgroup.com/examples#geo-geo))
+Returns the geographical analysis library, including geographical tags (GeoPath, etc.) and projections (Projection). It cannot be used independently, must be used with [G2.corelib](#g2corelib). You can view the included visual components through the source code. ([Source code](https://github.com/antvis/G2/blob/v5/src/lib/geo.ts)·[Case](https://g2.antv.antgroup.com/examples#geo-geo))
 
 ```js
 import { Runtime, extend, corelib, geolib } from '@antv/g2';
@@ -211,7 +211,7 @@ chart.geoPath();
 
 ### G2.graphlib()
 
-Returns a graph analysis library, containing graph markup (ForceGraph, etc.). Cannot be used alone, must be used with [G2.corelib](#g2corelib). You can view the included visual components through the source code. ([Source code](https://github.com/antvis/G2/blob/v5/src/lib/graph.ts)·[Case](https://g2.antv.antgroup.com/examples/graph/network/#forceGraph))
+Returns a graph analysis library, containing graph markup (ForceGraph, etc.). It cannot be used independently, must be used with [G2.corelib](#g2corelib). You can view the included visual components through the source code. ([Source code](https://github.com/antvis/G2/blob/v5/src/lib/graph.ts)·[Case](https://g2.antv.antgroup.com/examples/graph/network/#forceGraph))
 
 ```js
 import { Runtime, extend, corelib, graphlib } from '@antv/g2';
@@ -228,7 +228,7 @@ chart.forceGraph();
 
 ### autolib
 
-Returns the enhanced analysis library, providing enhanced analysis tags (Auto, etc.). This library will depend on [@antv/ava](https://github.com/antvis/AVA), providing capabilities such as automatic chart drawing and automatic annotation. Cannot be used alone, must be used with [G2.corelib](#g2corelib).
+Returns the enhanced analysis library, providing enhanced analysis tags (Auto, etc.). This library will depend on [@antv/ava](https://github.com/antvis/AVA), providing capabilities such as automatic chart drawing and automatic annotation. It cannot be used independently, must be used with [G2.corelib](#g2corelib).
 
 ```js
 import { Runtime, extend, corelib } from '@antv/g2';
@@ -248,7 +248,7 @@ chart.auto(); // Auto Mark
 
 > Under development, expected to be online by the end of October
 
-Return to the 3D analysis library, providing capabilities for 3D visualization. This library will not be included in [G2.stdlib](#g2stdlib), it cannot be used alone, it needs to be used with [G2.corelib](#g2corelib). [Example](/manual/extra-topics/3d-charts)
+Return to the 3D analysis library, providing capabilities for 3D visualization. This library will not be included in [G2.stdlib](#g2stdlib). It cannot be used independently, it needs to be used with [G2.corelib](#g2corelib). [Example](/manual/extra-topics/3d-charts)
 
 ```js
 import { Runtime, extend, threedlib, corelib } from '@antv/g2';
@@ -273,11 +273,11 @@ At present, the ability to package on demand has been published, but it can be f
 
 * Reduce the size of the runtime: put some capabilities in the library and use them on demand.
 * Dependency governance: remove some duplicate dependencies, such as`@antv/util`;Reduce the size of some dependencies`@antv/component`。
-* Provide a smaller library than corelib: Mark-level on-demand packaging can be achieved.
+* Provide a smaller library than corelib: mark-level on-demand packaging can be achieved.
 
 <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Z-bZT5lHPkkAAAAAAAAAAAAADmJ7AQ/original" alt="dep" style="margin-top: 1em"/>
 
-The current thinking for the third idea is: provide `G2.litelib`, Mark can be imported on demand.
+The current thinking for the third idea is: provide `G2.litelib`, mark can be imported on demand.
 
 ```js
 import { Runtime, extend, litelib, Interval } from '@antv/g2';
