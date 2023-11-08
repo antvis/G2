@@ -29,7 +29,7 @@ describe('chart.emit', () => {
       data: { selection: [X, undefined] },
     });
     await sleep(20);
-    await expect(canvas).toMatchCanvasSnapshot(dir, 'step0');
+    await expect(canvas).toMatchDOMSnapshot(dir, 'step0');
 
     // chart.emit('sliderY:filter', options) should trigger slider.
     const Y = [50, 550];
@@ -37,7 +37,7 @@ describe('chart.emit', () => {
       data: { selection: [undefined, Y] },
     });
     await sleep(20);
-    await expect(canvas).toMatchCanvasSnapshot(dir, 'step1');
+    await expect(canvas).toMatchDOMSnapshot(dir, 'step1');
 
     chart.off();
 

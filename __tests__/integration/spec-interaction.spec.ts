@@ -69,7 +69,7 @@ describe('Interactions', () => {
 
           // If do not skip this state, asset it after dispatch the event.
           if (!skip) {
-            await expect(gCanvas).toMatchCanvasSnapshot(dir, `step${i}`, {
+            await expect(gCanvas).toMatchDOMSnapshot(dir, `step${i}`, {
               maxError,
             });
           }

@@ -21,20 +21,14 @@ describe('chart.options.autoFit', () => {
     fitted = rest.fitted;
     await finished;
     await sleep(20);
-    await expect(canvas).toMatchDOMSnapshot(dir, 'step0', {
-      fileFormat: 'svg',
-      keepSVGElementId: true,
-    });
+    await expect(canvas).toMatchDOMSnapshot(dir, 'step0');
   });
 
   it('chart.forceFit() should fit parent container', async () => {
     button.dispatchEvent(new CustomEvent('click'));
     await fitted;
     await sleep(20);
-    await expect(canvas).toMatchDOMSnapshot(dir, 'step1', {
-      fileFormat: 'svg',
-      keepSVGElementId: true,
-    });
+    await expect(canvas).toMatchDOMSnapshot(dir, 'step1');
   });
 
   afterAll(() => {

@@ -3,27 +3,14 @@ import * as fs from 'fs';
 import { Canvas } from '@antv/g';
 import xmlserializer from 'xmlserializer';
 import { format } from 'prettier';
-import { diffChars } from 'diff';
 
 export type ToMatchDOMSnapshotOptions = {
   selector?: string;
   fileFormat?: string;
   keepSVGElementId?: boolean;
-  maxErrorRatio?: number;
 };
 const formatSVG = (svg: string, keepSVGElementId: boolean) => {
   return keepSVGElementId ? svg : svg.replace(/id="[^"]*"/g, '');
-};
-
-const diff = (actual: string, expected: string, maxErrorRatio: number) => {
-  const diff = diffChars(actual, expected);
-  const addedRemovedLength = diff
-    .map((part) => {
-      return part.added || part.removed ? part.value.length : 0;
-    })
-    .reduce((prev, cur) => prev + cur, 0);
-
-  return addedRemovedLength / expected.length < maxErrorRatio;
 };
 
 // @see https://jestjs.io/docs/26.x/expect#expectextendmatchers
@@ -33,12 +20,7 @@ export async function toMatchDOMSnapshot(
   name: string,
   options: ToMatchDOMSnapshotOptions = {},
 ): Promise<{ message: () => string; pass: boolean }> {
-  const {
-    selector,
-    fileFormat = 'html',
-    keepSVGElementId = false,
-    maxErrorRatio = 0.0025,
-  } = options;
+  const { selector, fileFormat = 'svg', keepSVGElementId = true } = options;
   const namePath = path.join(dir, name);
   const actualPath = path.join(dir, `${name}-actual.${fileFormat}`);
   const expectedPath = path.join(dir, `${name}.${fileFormat}`);

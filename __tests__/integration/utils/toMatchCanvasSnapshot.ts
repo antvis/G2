@@ -4,7 +4,7 @@ import { Canvas } from '@antv/g';
 import pixelmatch from 'pixelmatch';
 import { PNG } from 'pngjs';
 
-export type ToMatchCanvasSnapshotOptions = {
+export type toMatchDOMSnapshotOptions = {
   maxError?: number;
 };
 
@@ -51,11 +51,11 @@ function diff(
 }
 
 // @see https://jestjs.io/docs/26.x/expect#expectextendmatchers
-export async function toMatchCanvasSnapshot(
+export async function toMatchDOMSnapshot(
   gCanvas: Canvas,
   dir: string,
   name: string,
-  options: ToMatchCanvasSnapshotOptions = {},
+  options: toMatchDOMSnapshotOptions = {},
 ): Promise<{ message: () => string; pass: boolean }> {
   const { maxError = 0 } = options;
   const namePath = path.join(dir, name);

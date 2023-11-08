@@ -110,7 +110,7 @@ describe('Animations', () => {
         const context: G2Context = {};
         const asset = async (step) => {
           const dir = `${__dirname}/snapshots/animation/${kebabCase(name)}`;
-          await expect(context.canvas).toMatchCanvasSnapshot(
+          await expect(context.canvas).toMatchDOMSnapshot(
             dir,
             `interval${step}`,
             {

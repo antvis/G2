@@ -34,11 +34,11 @@ describe('context.animations', () => {
     for (let i = 0; i < intervals.length; i++) {
       const currentTime = intervals[i];
       await goto(currentTime);
-      await expect(context.canvas).toMatchCanvasSnapshot(dir, `interval${i}`);
+      await expect(context.canvas).toMatchDOMSnapshot(dir, `interval${i}`);
     }
 
     await finish();
-    await expect(context.canvas).toMatchCanvasSnapshot(
+    await expect(context.canvas).toMatchDOMSnapshot(
       dir,
       `interval${intervals.length}`,
     );

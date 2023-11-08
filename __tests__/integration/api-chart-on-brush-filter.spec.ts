@@ -1,13 +1,13 @@
 import { chartOnBrushFilter as render } from '../plots/api/chart-on-brush-filter';
 import { PLOT_CLASS_NAME } from '../../src';
 import { dblclick, brush } from '../plots/interaction/penguins-point-brush';
-import { createDOMGCanvas } from './utils/createDOMGCanvas';
+import { createNodeGCanvas } from './utils/createNodeGCanvas';
 import { createPromise, receiveExpectData } from './utils/event';
 import { sleep } from './utils/sleep';
 import './utils/useCustomFetch';
 
 describe('chart.on', () => {
-  const canvas = createDOMGCanvas(640, 480);
+  const canvas = createNodeGCanvas(640, 480);
   const { finished, chart } = render({ canvas });
 
   chart.off();
@@ -23,8 +23,8 @@ describe('chart.on', () => {
       'brush:filter',
       receiveExpectData(resolve, {
         selection: [
-          [33.94720085934595, 43.82152766440616],
-          [15.555762516511049, 20.120979907815396],
+          [33.56769931932968, 43.588104569765775],
+          [15.365477250939671, 20.206975810017482],
         ],
       }),
     );
