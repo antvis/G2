@@ -28,7 +28,7 @@ function ShapeTriangle(style, context) {
 }
 ```
 
-接下来就是注册形状，通过调用 `G2.register('shape.${mark}.${shape}', Shape)` 来完成组册该形状。其中 _mark_ 是标记的名字，_shape_ 是形状的名字，_Shape_ 是定义好的形状组件。比如给 Interval 标记注册一个三角形的形状：
+接下来就是注册形状，通过调用 `G2.register('shape.${mark}.${shape}', Shape)` 来完成注册该形状。其中 _mark_ 是标记的名字，_shape_ 是形状的名字，_Shape_ 是定义好的形状组件。比如给 Interval 标记注册一个三角形的形状：
 
 ```js
 import { register } from '@antv/g2';
