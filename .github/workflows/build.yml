@@ -32,9 +32,3 @@ jobs:
           path: |
             __tests__/integration/snapshots/**/*-actual.svg
           retention-days: 1
-
-      - name: Update coverall
-        if: ${{ success() }}
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
