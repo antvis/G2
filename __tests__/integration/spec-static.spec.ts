@@ -4,7 +4,7 @@ import { renderSpec } from './utils/renderSpec';
 import { filterTests } from './utils/filterTests';
 import './utils/useSnapshotMatchers';
 import './utils/useCustomFetch';
-import { disableAnimation } from './utils/preprocess';
+import { disableAnimation, disableAxis } from './utils/preprocess';
 import { sleep } from './utils/sleep';
 
 describe('Charts', () => {
@@ -16,7 +16,9 @@ describe('Charts', () => {
         // @ts-ignore
         const { before, after } = generateOptions;
         // @ts-ignore
-        generateOptions.preprocess = disableAnimation;
+        generateOptions.preprocess = (options) => {
+          return disableAxis(disableAnimation(options));
+        };
         before?.();
         gCanvas = await renderSpec(generateOptions);
         after?.();

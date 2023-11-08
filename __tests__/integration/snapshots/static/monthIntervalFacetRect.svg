@@ -3107,6 +3107,7 @@
                       class="axis-label-item"
                       dy="11.5px"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       Eat
                     </text>
@@ -3135,6 +3136,7 @@
                       class="axis-label-item"
                       dy="11.5px"
                       opacity="0.45"
+                      visibility="hidden"
                     >
                       Play
                     </text>
@@ -3163,6 +3165,7 @@
                       class="axis-label-item"
                       dy="11.5px"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       Sleep
                     </text>
@@ -4886,6 +4889,7 @@
                       class="axis-label-item"
                       dy="11.5px"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       Eat
                     </text>
@@ -4914,6 +4918,7 @@
                       class="axis-label-item"
                       dy="11.5px"
                       opacity="0.45"
+                      visibility="hidden"
                     >
                       Play
                     </text>
@@ -4942,6 +4947,7 @@
                       class="axis-label-item"
                       dy="11.5px"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       Sleep
                     </text>
@@ -6663,6 +6669,7 @@
                       class="axis-label-item"
                       dy="11.5px"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       Eat
                     </text>
@@ -6691,6 +6698,7 @@
                       class="axis-label-item"
                       dy="11.5px"
                       opacity="0.45"
+                      visibility="hidden"
                     >
                       Play
                     </text>
@@ -6719,6 +6727,7 @@
                       class="axis-label-item"
                       dy="11.5px"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       Sleep
                     </text>
@@ -8319,6 +8328,7 @@
                       class="axis-label-item"
                       dy="11.5px"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       Eat
                     </text>
@@ -8347,6 +8357,7 @@
                       class="axis-label-item"
                       dy="11.5px"
                       opacity="0.45"
+                      visibility="hidden"
                     >
                       Play
                     </text>
@@ -8375,6 +8386,7 @@
                       class="axis-label-item"
                       dy="11.5px"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       Sleep
                     </text>
@@ -8779,6 +8791,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       0
                     </text>
@@ -8806,6 +8819,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="hidden"
                     >
                       0.2
                     </text>
@@ -8833,6 +8847,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       0.4
                     </text>
@@ -8860,6 +8875,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="hidden"
                     >
                       0.6
                     </text>
@@ -8887,6 +8903,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       0.8
                     </text>
@@ -9307,6 +9324,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       0
                     </text>
@@ -9334,6 +9352,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="hidden"
                     >
                       0.2
                     </text>
@@ -9361,6 +9380,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       0.4
                     </text>
@@ -9388,6 +9408,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="hidden"
                     >
                       0.6
                     </text>
@@ -9415,6 +9436,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       0.8
                     </text>
@@ -9875,6 +9897,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       0
                     </text>
@@ -9902,6 +9925,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="hidden"
                     >
                       0.2
                     </text>
@@ -9929,6 +9953,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       0.4
                     </text>
@@ -9956,6 +9981,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="hidden"
                     >
                       0.6
                     </text>
@@ -9983,6 +10009,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       0.8
                     </text>
@@ -10443,6 +10470,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       0
                     </text>
@@ -10470,6 +10498,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="hidden"
                     >
                       0.2
                     </text>
@@ -10497,6 +10526,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       0.4
                     </text>
@@ -10524,6 +10554,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="hidden"
                     >
                       0.6
                     </text>
@@ -10551,6 +10582,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       0.8
                     </text>
@@ -10822,6 +10854,7 @@
                       class="axis-label-item"
                       dy="11.5px"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       Eat
                     </text>
@@ -10850,6 +10883,7 @@
                       class="axis-label-item"
                       dy="11.5px"
                       opacity="0.45"
+                      visibility="hidden"
                     >
                       Play
                     </text>
@@ -10878,6 +10912,7 @@
                       class="axis-label-item"
                       dy="11.5px"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       Sleep
                     </text>
@@ -11160,6 +11195,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       0
                     </text>
@@ -11187,6 +11223,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="hidden"
                     >
                       0.2
                     </text>
@@ -11214,6 +11251,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       0.4
                     </text>
@@ -11241,6 +11279,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="hidden"
                     >
                       0.6
                     </text>
@@ -11268,6 +11307,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       0.8
                     </text>
@@ -12720,6 +12760,7 @@
                       class="axis-label-item"
                       dy="11.5px"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       Eat
                     </text>
@@ -12748,6 +12789,7 @@
                       class="axis-label-item"
                       dy="11.5px"
                       opacity="0.45"
+                      visibility="hidden"
                     >
                       Play
                     </text>
@@ -12776,6 +12818,7 @@
                       class="axis-label-item"
                       dy="11.5px"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       Sleep
                     </text>
@@ -14376,6 +14419,7 @@
                       class="axis-label-item"
                       dy="11.5px"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       Eat
                     </text>
@@ -14404,6 +14448,7 @@
                       class="axis-label-item"
                       dy="11.5px"
                       opacity="0.45"
+                      visibility="hidden"
                     >
                       Play
                     </text>
@@ -14432,6 +14477,7 @@
                       class="axis-label-item"
                       dy="11.5px"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       Sleep
                     </text>
