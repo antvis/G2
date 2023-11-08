@@ -5,7 +5,7 @@ order: 7.1
 
 In G2, the **Axis** can be understood as the visualization of the scale corresponding to the spatial channels (x, y, and position).
 
-The axis can be configured at the Mark level:
+The axis can be configured at the mark level:
 
 ```js
 ({
