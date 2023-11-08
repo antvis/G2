@@ -215,4 +215,3 @@ export default function G2Demo() {
 }
 ```
 
-<embed src="@/docs/manual/extra-topics/use-in-framework.en.md"></embed>

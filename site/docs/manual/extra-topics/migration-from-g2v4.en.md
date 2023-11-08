@@ -3,13 +3,13 @@ title: G2 5.0 Migration Guide
 order: 3
 ---
 
-> The G2 stack team will continue to maintain the v4 version and release patch version fixes for bugs, but will no longer receive new Feature Requests until the end of 2023. The original v4 official website has been migrated to<https://g2-v4.antv.vision/>。
+> The G2 stack team will continue to maintain the v4 version and release patch version fixes for bugs, but will no longer receive new Feature Requests until the end of 2023. The original v4 official website has been migrated to https://g2-v4.antv.vision/。
 
-This article is intended to help those already familiar with G24.0 understand the differences between versions 4.0 and 5.0. Readers can choose to read the new document directly instead of reading this article from beginning to end. This article will highlight the changes in the APIs corresponding to various concepts between the two versions.
+This article aims to help users already familiar with G24.0 understand the differences between versions 4.0 and 5.0. Readers can choose to read the new document directly instead of reading this article from beginning to end. This article will highlight the changes in the corresponding API for various concepts between the two versions.
 
 ## Dimension
 
-4.0's padding and appendPadding are an array, 5.0 splits it and modifies appendPadding to margin.
+In 4.0, the padding and appendPadding are an array, 5.0 splits it and modifies appendPadding to margin.
 
 ```js
 // 4.0
@@ -37,7 +37,7 @@ const chart = new Chart({
 
 ## Data
 
-In 4.0, each view is bound to a piece of data, and the markers (front geometry elements) in the view share a piece of data. In 5.0 all markers in each view can have independent data, and scales are synchronized by default.
+In 4.0, each view is bound to a single set of data, and the markers (visual elements)  within that view share the same data. In 5.0 all markers in each view can have independent data, and scales are synchronized by default.
 
 ```js
 // 4.0
@@ -54,9 +54,9 @@ chart.line().data(data2);
 
 5.0 has the following differences from 4.0 in encoding methods:
 
-### Declaration method
+### Declaration Method
 
-4.0 uses top-level APIs such as geometry.position and geometry.color to encode channels. 5.0 uses mark.encode to encode and does not support the \* syntax.
+4.0 uses top-level APIs such as `geometry.position` and `geometry.color` to encode channels. 5.0 uses `mark.encode` to encode and does not support the \* syntax.
 
 ```js
 // 4.0
@@ -70,9 +70,9 @@ chart
   .encode('color', 'genre');
 ```
 
-### callback parameters
+### Callback Prameters
 
-The callback coded in 4.0 will provide the corresponding fields from the original data. Callbacks coded in 5.0 only provide raw data.
+The callback of encode in 4.0 will provide the corresponding fields from the original data. In 5.0, the callback of encode only provide raw data.
 
 ```js
 // 4.0
@@ -85,9 +85,9 @@ chart
   .encode('color', ({ name, value }) => {});
 ```
 
-### callback return value
+### Callback Return Value
 
-4.0 callback returns visual data. 5.0 callbacks return abstract data by default.
+In 4.0, the callbacks return visual data. In 5.0, the callbacks return abstract data by default.
 
 ```js
 // 4.0
@@ -96,8 +96,8 @@ chart.interval().color('name', (name) => (name > 10 ? 'red' : 'yellow'));
 // 5.0
 chart
   .interval()
-  .encode('color', (d) => (d.name > 10 ? 'high' : 'low')) // 抽象数据
-  .scale('color', { range: ['red', 'yellow'] }); // 指定值域
+  .encode('color', (d) => (d.name > 10 ? 'high' : 'low')) // Abstract data
+  .scale('color', { range: ['red', 'yellow'] }); // Specify the domain
 
 // 5.0
 chart
@@ -106,9 +106,9 @@ chart
   .scale('color', { type: 'identity' });
 ```
 
-### color range
+### Color Domain
 
-4.0 declares the color range via the second parameter of geometry.color, 5.0 specifies via scale.color.
+4.0 declares the color domain via the second parameter of `geometry.color`. 5.0 specifies via `scale.color`.
 
 ```js
 // 4.0
@@ -118,18 +118,18 @@ chart.interval().color('name', '#fff-#000');
 // 5.0
 chart
   .interval()
-  .encode('color', 'name') // 离散
+  .encode('color', 'name') // Discrete
   .scale('color', { range: ['red', 'blue'] });
 
 chart
   .interval()
-  .encode('color', 'name') //连续
+  .encode('color', 'name') // Continuous
   .scale('color', { range: '#fff-#000' });
 ```
 
-## Timing channel
+## Temporal Channel
 
-4.0 will try to parse the time string, but 5.0 will not try to parse it and needs to be explicitly converted into a Date object.
+In 4.0, it will try to parse the time string, but 5.0 will not try to parse it and you need to explicitly convert them into Date objects.
 
 ```js
 const data = [
@@ -150,7 +150,7 @@ chart
 
 ## Style
 
-Style callbacks in 4.0 apply to the entire object. Acts on every attribute in 5.0.
+In 4.0, the style callback applies to the entire object. In 5.0, it applies to each individual property.
 
 ```js
 // 4.0
@@ -173,7 +173,7 @@ chart
 
 5.0 has the following series of differences from 4.0 when using a scale:
 
-### binding object
+### Binding Object
 
 The 4.0 scale is bound to the field, and the 5.0 scale is bound to the channel.
 
@@ -196,17 +196,17 @@ chart
   .interval()
   .data(data)
   .encode('color', 'genre')
-  // 设置 color 通道比例尺
+  // Set the color channel scale
   .scale('color', {});
 ```
 
-### Attributes
+### Properties
 
 Some properties of the scale have changed as follows:
 
 * Domain: values ​​-> domain
 * Minimum value of domain: min -> domainMin
-* The maximum value of the domain: max -> domainMax
+* Maximum value of domain: max -> domainMax
 
 ```js
 // 4.0
@@ -216,9 +216,9 @@ chart.scale('genre', { values: ['a', 'b', 'c'] });
 chart.scale('color', { domain: ['a', 'b', 'c'] });
 ```
 
-### discrete scale
+### Discrete Scale
 
-The discrete scales of 4.0 are cat and timeCat. In 5.0, cat becomes band, point and ordinal scales, and timeCat is removed.
+In 4.0, the discrete scales are `cat` and `timeCat`. In 5.0, cat becomes `band`, `point` and `ordinal` scales, and `timeCat` is removed.
 
 ```js
 // 4.0
@@ -229,20 +229,20 @@ chart
   .interval()
   .encode('x', 'name')
   .encode('color', 'name')
-  //The x channel of interval defaults to band scale
+  // The x channel of interval defaults to band scale
   .scale('x', { type: 'band', range: [0.1, 0.9] })
   .scale('color', { type: 'ordinal', range: ['red', 'blue'] });
 
 chart
   .point()
   .encode('x', 'name')
-  // point scale
+  // Point scale
   .scale('point', {});
 ```
 
-## Coordinate system
+## Coordinate System
 
-The 4.0 coordinate system attribute is in cfg, and the coordinate system transformation is specified through actions; the 5.0 coordinate system attribute is tiled, and the coordinate system transformation is declared through transform.
+In 4.0, coordinate system properties are specified in the `cfg` with coordinate transformations defined through `actions`. In 5.0, coordinate system properties are flattened and coordinate transformations are declared through `transform`.
 
 ```js
 // 4.0
@@ -264,7 +264,7 @@ chart.coordinate({
 
 ## Label
 
-4.0 Each element can only declare one tag, and 5.0 each element can declare multiple tags.
+In 4.0, each element can only declare one tag, and in 5.0 each element can declare multiple tags.
 
 ```js
 // 4.0
@@ -284,9 +284,9 @@ chart.interval().label('field', (d) =>
 chart
   .interval()
   .label({
-    text: 'field', // 指定内容
+    text: 'field', // Specify content
     style: {
-      color: d > 10 ? 'red' : 'black', // 设置属性
+      color: d > 10 ? 'red' : 'black', // Set properties
       stroke: d > 10 ? 'red' : 'black',
     },
   })
@@ -295,7 +295,7 @@ chart
 
 ## Tooltip
 
-In 4.0, you can customize the prompt information through tooltip.containerTpl, and in 5.0, you can customize the prompt information through the render function.
+In 4.0, you can customize the prompt information through `tooltip.containerTpl`, and in 5.0, you can customize the prompt information through the render function.
 
 ```js
 // 4.0
@@ -309,7 +309,7 @@ chart.interaction('tooltip', {
 
 ## Animation
 
-There is the appear animation in 4.0, and 5.0 merges it into the enter animation.
+There is the appear animation in 4.0, and in version 5.0, it has been merged into the enter animation.
 
 ```js
 // 4.0
@@ -333,7 +333,7 @@ chart.interval().animate('enter', {
 
 ## Interaction
 
-4.0 Pass`chart.removeInteraction(name)`Removed interaction, 5.0 passed`chart.interaction(name, false)`Remove interaction.
+In 4.0, using `chart.removeInteraction(name)` can remove the interactions. In 5.0,  using `chart.interaction(name, false)` to remove interaction.
 
 ```js
 // 4.0
@@ -347,9 +347,9 @@ chart.interaction('tooltip', false);
 
 In 4.0, the elements in the diagram are divided into geometry elements (Geometry) and annotations (Annotation). In 5.0, both are annotations (Marks).
 
-### Declaration method
+### Declaration Method
 
-In 4.0, annotations are declared through the annotation namespace, and the declaration method in 5.0 is consistent with tags.
+In 4.0, annotations are declared through the annotation namespace, and the declaration method in 5.0 is consistent with marks.
 
 ```js
 // 4.0
@@ -359,7 +359,7 @@ chart.annotation().line({});
 chart.lineX();
 ```
 
-### Mark specific values
+### Mark Specific Values
 
 In 4.0, start and end are used to mark specific values, and in 5.0, transform is used to mark specific values.
 
@@ -374,13 +374,13 @@ chart.annotation().line({
 chart
   .lineX()
   .encode('y', 'value')
-  //Select the smallest value of the y channel
+  // Select the minimum value of the y channel
   .transform({ type: 'selectY', y: 'mean' });
 ```
 
 ## Facet
 
-4.0 facets are declared through the facet namespace, and 5.0 facets are consistent with tags.
+In 4.0, facets are declared through the facet namespace, and 5.0 facets are consistent with marks.
 
 ```js
 // 4.0
@@ -411,5 +411,3 @@ chart
   .style('fillOpacity', 0.3)
   .style('stroke', null);
 ```
-
-<embed src="@/docs/manual/extra-topics/migration-from-g2v4.zh.md"></embed>

@@ -1,8 +1,4 @@
 ---
-title: Experimental Spec API
-order: 1
----
----
 title: Spec 和 API
 order: 2
 ---
@@ -11,14 +7,14 @@ G2 5.0, like version 4.0, provides a set of imperative Functional APIs to declar
 
 ```js | ob
 (() => {
-  //Initialize chart instance
+  // Initialize chart instance
   const chart = new G2.Chart();
 
   // Declare visualization
   chart
     .interval() // Create an Interval tag
     .data([
-      //Bind data
+      // Bind data
       { genre: 'Sports', sold: 275 },
       { genre: 'Strategy', sold: 115 },
       { genre: 'Action', sold: 120 },
@@ -37,20 +33,20 @@ G2 5.0, like version 4.0, provides a set of imperative Functional APIs to declar
 
 In addition to this functional style, G2 5.0 also provides a new API: Spec API. The API declares visualizations through a JavaScript object.
 
-## start using
+## Start
 
-Currently we pass`chart.options(spec)`To declare the visualization, the following example can achieve the same effect as above.
+Currently we declare the visualization through `chart.options(spec)`, the following example can achieve the same effect as above.
 
 ```js | ob
 (() => {
-  //Initialize chart instance
+  // Initialize chart instance
   const chart = new G2.Chart();
 
   // Declare visualization
   chart.options({
     type: 'interval', // Create an Interval tag
     data: [
-      //Bind data
+      // Bind data
       { genre: 'Sports', sold: 275 },
       { genre: 'Strategy', sold: 115 },
       { genre: 'Action', sold: 120 },
@@ -72,16 +68,16 @@ Currently we pass`chart.options(spec)`To declare the visualization, the followin
 
 ## Compare
 
-It can be found that the initialization of the chart instance and the final rendering of the two APIs are the same, but the way of declaring visualization in the middle is different. Next, let's take a brief look at the similarities and differences between the two.
+It can be found that the initialization of the chart instance and the final rendering of the two APIs are the same, but the way of declaring the visualization in between is different. Next, let's take a brief look at the similarities and differences between the two.
 
-Functional API is implemented based on Spec API: Simply put, each Chart instance has an option. Functional API generates these options through a series of methods, while Spec API directly sets these options. No matter which form of API it is, G2 will directly render the current options in the end, so the ability of the two to declare visualization is completely equivalent.
+The Functional API is implemented based on Spec API. In simple terms, each Chart instance has an options object. Functional API generates this options object through a series of methods, while Spec API directly sets this options object. No matter which form of API it is, G2 will directly render the current options in the end, so the ability of the two to declare visualization is completely equivalent.
 
 In most scenarios, the two are more of a stylistic choice, but there are some differences:
 
 * **Ease of use**: Spec API is superior in terms of ease of use and is more friendly to beginners or users who do not need to understand G2 in depth. JavaScript objects, which are more structural expressions, are naturally easier to understand than function expressions. And it is often a whole, making it easier to copy, paste and "adjust parameters".
-* **flexibility**: Functional API has the advantage of flexibility and is more suitable for functional,[D3](https://github.com/d3/d3)More familiar users. But its flexibility is not reflected in the ability to draw more complex visualizations, but in the fact that the form of declarative visualizations will be more flexible. One advantage is that it is easier to organize concerns.
+* **Flexibility**: The Functional API excels in flexibility and is better suited for users familiar with functional programming and [D3](https://github.com/d3/d3). However, its flexibility does not necessarily result in the ability to create more complex visualizations; it is more about the flexibility in how visualizations are declared. One advantage is that it is easier to organize focus points.
 
-For example, if you want the bars in the bar graph above to appear in sequence, you need to add an encode and transform. The first Spec API below looks a little clearer than the second Functional API, but the latter can put animation-related properties (the same focus) together, while the former cannot.
+For example, if you want the bars in the bar graph above to appear one by one, you need to add an encode and transform. The first Spec API below looks a little clearer than the second Functional API, but the latter can put animation-related properties (the same focus) together, while the former cannot.
 
 ```js
 chart.options({
@@ -107,18 +103,18 @@ chart
   .transform({ type: 'stackEnter' });
 ```
 
-## Application scenarios
+## Application Scenarios
 
 Of course, Spec API is not only simple, it also has more application scenarios:
 
-* **Smart visualization**: Recommendations and error corrections can be made based on Spec.
-* **Upper layer encapsulation**: Converting the Options corresponding to Spec will be easier than calling them directly.
-* **Low code construction**: You can directly generate a configuration panel based on Spec and build a BI tool.
-* **Chart operations**: Spec can also be regarded as a data structure. If it is a data structure, it can perform a series of operations, such as adding pictures, etc.
-* **Server-side rendering**: You can directly render the Options corresponding to Spec into images.
+* **Smart Visualization**: Recommendations and error corrections can be made based on Spec.
+* **Higher-Level Abstraction**: Transforming the Options corresponding to Spec is easier than direct invocation.
+* **Low Code Construction**: You can directly generate a configuration panel based on Spec and build a BI tool.
+* **Chart Operations**: Spec can also be regarded as a data structure. If it is a data structure, it can perform a series of operations, such as adding pictures, etc.
+* **Server-Side Rendering**: You can directly render the Options corresponding to Spec into images.
 * ......
 
-Later, G2 will make a series of tools based on this new set of APIs for everyone to use. If you have ideas, you can discuss and participate here.[Build together](https://github.com/antvis/G2/discussions)。
+Later, G2 will make a series of tools based on this new set of APIs for everyone to use. If you have ideas, you can discuss and participate here. [Build together](https://github.com/antvis/G2/discussions)。
 
 ## Case
 
@@ -128,7 +124,7 @@ The following uses some cases to show you how to use Spec API.
 
 ```js | ob
 (() => {
-  //Initialize chart instance
+  // Initialize chart instance
   const chart = new G2.Chart();
 
   // Declare visualization
@@ -174,10 +170,10 @@ The following uses some cases to show you how to use Spec API.
 
 ```js | ob
 (() => {
-  // 初始化图表实例
+  // Initialize chart instance
   const chart = new G2.Chart();
 
-  // 声明可视化
+  // Declare visualization
   chart.options({
     type: 'spaceFlex',
     width: 900,
@@ -239,11 +235,9 @@ The following uses some cases to show you how to use Spec API.
     ],
   });
 
-  // 渲染可视化
+  // Render
   chart.render();
 
   return chart.getContainer();
 })();
 ```
-
-<embed src="@/docs/manual/extra-topics/experimental-spec-api.zh.md"></embed>
