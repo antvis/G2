@@ -24,5 +24,3 @@ export function aaplLineBasicLabelOverlapHide(): G2Spec {
     ],
   };
 }
-
-aaplLineBasicLabelOverlapHide.maxError = 100;

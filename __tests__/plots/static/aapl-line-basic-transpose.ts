@@ -16,5 +16,3 @@ export function aaplLineBasicTranspose(): G2Spec {
     },
   };
 }
-
-aaplLineBasicTranspose.maxError = 100;

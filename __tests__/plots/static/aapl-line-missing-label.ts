@@ -27,5 +27,3 @@ export function aaplLineMissingLabel(): G2Spec {
     ],
   };
 }
-
-aaplLineMissingLabel.maxError = 100;

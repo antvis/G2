@@ -40,5 +40,3 @@ export function indicesLineChartScaleRelations(): G2Spec {
     ],
   };
 }
-
-indicesLineChartScaleRelations.maxError = 100;

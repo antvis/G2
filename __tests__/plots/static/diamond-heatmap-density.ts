@@ -61,5 +61,4 @@ export function DiamondHeatmapDensity(): G2Spec {
   };
 }
 
-DiamondHeatmapDensity.maxError = 100;
 DiamondHeatmapDensity.skip = true;

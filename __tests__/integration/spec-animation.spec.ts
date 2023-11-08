@@ -96,7 +96,7 @@ describe('Animations', () => {
     it(`[Animation]: ${name}`, async () => {
       try {
         // @ts-ignore
-        const { intervals: I, maxError = 0 } = generateOptions;
+        const { intervals: I } = generateOptions;
 
         // @todo Remove this when gui fixed title animation.
         // @ts-ignore
@@ -113,9 +113,6 @@ describe('Animations', () => {
           await expect(context.canvas).toMatchDOMSnapshot(
             dir,
             `interval${step}`,
-            {
-              maxError,
-            },
           );
         };
         const { assetEach, assetLast } = useFrame(I, context, asset);

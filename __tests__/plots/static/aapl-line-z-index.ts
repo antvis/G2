@@ -28,5 +28,3 @@ export function aaplLineZIndex(): G2Spec {
     ],
   };
 }
-
-aaplLineZIndex.maxError = 100;
