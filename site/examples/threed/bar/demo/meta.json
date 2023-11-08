@@ -1,0 +1,32 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "cube.ts",
+      "title": {
+        "zh": "立方体",
+        "en": "Cube"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*8SliSolQ6_0AAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "cylinder.ts",
+      "title": {
+        "zh": "圆柱",
+        "en": "Cylinder"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*D1UGQ7TE1D0AAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "cone.ts",
+      "title": {
+        "zh": "圆锥",
+        "en": "Cone"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*PpF2SZMBW-wAAAAAAAAAAAAADmJ7AQ/original"
+    }
+  ]
+}

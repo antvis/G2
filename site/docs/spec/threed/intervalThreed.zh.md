@@ -90,11 +90,13 @@ order: 3
 
 ## 选项
 
-目前 interval3D 有以下一个内置 shape 图形：
+目前 interval3D 有以下内置 shape 图形：
 
-| 图形   | 描述       | 示例 |
-| ------ | ---------- | ---- |
-| cube   | 绘制立方体 |      |
+| 图形     | 描述       | 示例 |
+| -------- | ---------- | ---- |
+| cube     | 绘制立方体 |      |
+| cylinder | 绘制圆柱   |      |
+| cone     | 绘制圆锥   |      |
 
 ### cube
 
@@ -103,4 +105,3 @@ order: 3
 | fill    | 图形的填充色                                  | `string` \| `Function<string>` | -         |
 | opacity | 图形的整体透明度                              | `number` \| `Function<number>` | -         |
 | cursor  | 鼠标样式。同 css 的鼠标样式，默认 'default'。 | `string` \| `Function<string>` | 'default' |
-

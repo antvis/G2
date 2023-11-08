@@ -16,6 +16,12 @@ export type ColorOptions = {
    * Maximum width of each interval.
    */
   maxWidth?: number;
+
+  /**
+   * Minimum height of each interval.
+   */
+  minHeight?: number;
+
   [key: string]: any;
 };
 
@@ -40,6 +46,7 @@ export function rect(
     radiusTopRight = radius,
     minWidth = -Infinity,
     maxWidth = Infinity,
+    minHeight = -Infinity,
     ...rest
   } = style;
   if (!isPolar(coordinate) && !isHelix(coordinate)) {
@@ -51,6 +58,7 @@ export function rect(
     // Deal with width or height is negative.
     const absX = width > 0 ? x : x + width;
     const absY = height > 0 ? y : y + height;
+
     const absWidth = Math.abs(width);
     const absHeight = Math.abs(height);
     const finalX = absX + insetLeft;
@@ -59,13 +67,15 @@ export function rect(
     const finalHeight = absHeight - (insetTop + insetBottom);
 
     const clampWidth = tpShape
-      ? finalWidth
+      ? clamp(finalWidth, minHeight, Infinity)
       : clamp(finalWidth, minWidth, maxWidth);
     const clampHeight = tpShape
       ? clamp(finalHeight, minWidth, maxWidth)
-      : finalHeight;
-    const clampX = finalX - (clampWidth - finalWidth) / 2;
-    const clampY = finalY - (clampHeight - finalHeight) / 2;
+      : clamp(finalHeight, minHeight, Infinity);
+    const clampX = tpShape ? finalX : finalX - (clampWidth - finalWidth) / 2;
+    const clampY = tpShape
+      ? finalY - (clampHeight - finalHeight) / 2
+      : finalY - (clampHeight - finalHeight);
 
     return select(document.createElement('rect', {}))
       .style('x', clampX)
@@ -145,6 +155,7 @@ export const Color: SC<ColorOptions> = (options, context) => {
       insetTop = inset,
       minWidth,
       maxWidth,
+      minHeight,
       ...rest
     } = style;
     const { color = defaultColor, opacity } = value;
@@ -179,6 +190,7 @@ export const Color: SC<ColorOptions> = (options, context) => {
       insetTop,
       minWidth,
       maxWidth,
+      minHeight,
     };
 
     return (

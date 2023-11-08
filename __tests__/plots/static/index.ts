@@ -4,6 +4,8 @@ export { alphabetIntervalMaxWidth } from './alphabet-interval-max-width';
 export { alphabetIntervalMinWidth } from './alphabet-interval-min-width';
 export { alphabetIntervalMaxWidthTransposed } from './alphabet-interval-max-width-transposed';
 export { alphabetIntervalMinWidthTransposed } from './alphabet-interval-min-width-transposed';
+export { alphabetIntervalMinHeight } from './alphanbet-interval-min-height';
+export { alphabetIntervalMinHeightTransposed } from './alphanbet-interval-min-height-transposed';
 export { alphabetIntervalTitle } from './alphabet-interval-title';
 export { alphabetIntervalLabelOverflowHide } from './alphabet-interval-label-overflow-hide';
 export { alphabetIntervalLabelContrastReverse } from './alphabet-interval-label-contrast-reverse';
@@ -300,3 +302,4 @@ export { alphabetIntervalRotatePadding } from './alphabet-interval-rotate-paddin
 export { mockLineZeroX } from './mock-line-zero-x';
 export { mockLineZeroY } from './mock-line-zero-y';
 export { mockLineCloseX } from './mock-line-close-x';
+export { premierLeagueTable } from './premier-league-table';
