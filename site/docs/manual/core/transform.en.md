@@ -5,7 +5,7 @@ order: 6
 
 **The Mark Transform** in G2 offers a convenient method for transforming data and mark options, mainly used for analyzing data. The core of mark transform, which **filters, modifies, aggregates and generates** new channel values.
 
-Transform is an array, executed in the order when they are declared. It can be configured at the hierarchy of Mark:
+Transform is an array, executed in the order when they are declared. It can be configured at the level of mark:
 
 ```js
 ({
@@ -16,14 +16,14 @@ Transform is an array, executed in the order when they are declared. It can be c
 
 ```js
 // API
-// first way
+// First way
 chart.interval().transform({ type: 'stackY' }).transform({ type: 'sortX' });
 
 // Second way
 chart.interval().transform([{ type: 'stackY' }, { type: 'sortX' }]);
 ```
 
-Transform can also configure the hierarchy of View:
+Transform can also configure the level of view:
 
 ```js
 ({
@@ -34,16 +34,16 @@ Transform can also configure the hierarchy of View:
 
 ```js
 // API
-// first way
+// First way
 chart.transform({ type: 'stackY' }).transform({ type: 'sortX' });
 
 // Second way
 chart.transform([{ type: 'stackY' }, { type: 'sortX' }]);
 ```
 
-## Mark conversion
+## Mark Transform
 
-Mark conversion will modify the data bound to each channel, thereby changing the display form of the chart. For example, StackY conversion stacks the column data bound to bar graph y and y1 channels:
+Mark transform will modify the data bound to each channel, thereby changing the display form of the chart. For example, StackY transform stacks the column data bound to bar graph y and y1 channels:
 
 ```js | ob
 (() => {
@@ -80,9 +80,9 @@ Mark conversion will modify the data bound to each channel, thereby changing the
 })();
 ```
 
-## View conversion
+## View Transform
 
-Conversion declared on the view will be passed on to the Mark declared in `children`. Set if it is not converted, otherwise, it has no effect. For example, the following stacked area chart with conversion:
+Transform declared on the view will be passed on to the mark declared in `children`. Set if it is not transformed, otherwise, it has no effect. For example, the following stacked area chart with transform:
 
 ```js | ob
 (() => {
@@ -110,7 +110,7 @@ Conversion declared on the view will be passed on to the Mark declared in `child
     .encode('x', 'month')
     .encode('y', 'rainfall')
     .encode('color', 'city')
-    .transform({ type: 'stackY' }); // Conversion of the hierarchy of view
+    .transform({ type: 'stackY' }); // Transform of the level of view
 
   chart.area().style('fillOpacity', 0.5);
 
@@ -122,16 +122,16 @@ Conversion declared on the view will be passed on to the Mark declared in `child
 })();
 ```
 
-## Common conversions
+## Common Transform
 
-There are generally two common conversion functions:
+There are generally two common transform functions:
 
 - Prevent overlap
 - Data aggregation
 
 ### Prevent overlap
 
-One function of conversion is to prevent overlap. For example, the bars in the following data bar chart overlap.
+One function of transform is to prevent overlap. For example, the bars in the following data bar chart overlap.
 
 ```js | ob
 (() => {
@@ -196,7 +196,7 @@ At this time, you can declare a DodgeX to draw a grouped bar chart:
     .encode('x', 'month')
     .encode('y', 'rainfall')
     .encode('color', 'city')
-    .transform({ type: 'dodgeX' }); // Declare conversion
+    .transform({ type: 'dodgeX' }); // Declare transform
 
   chart.render();
 
@@ -204,13 +204,13 @@ At this time, you can declare a DodgeX to draw a grouped bar chart:
 })();
 ```
 
-This is actually one of the functions of Mark conversion: **Prevent overlap** In addition to DodgeX, there are also transformations such as StackY and JitterX that can be used to prevent overlap.
+This is actually one of the functions of mark transform: **Prevent overlap**. In addition to DodgeX, there are also transform such as StackY and JitterX that can be used to prevent overlap.
 
 ### Data aggregation
 
-In addition to preventing overlap, there is also a type of Mark conversion mainly used for data aggregation: such as Bin and Group. Different from traditional data aggregation, Mark aggregation occurs in drawing, not before drawing. This eliminates the need for us to manipulate abstract raw data, but directly manipulate channel values. This greatly improves our efficiency in exploring data.
+In addition to preventing overlap, there is also a type of mark transform mainly used for data aggregation: such as Bin and Group. Different from traditional data aggregation, mark aggregation occurs in drawing, not before drawing. This eliminates the need for us to manipulate abstract raw data, but directly manipulate channel values. This greatly improves our efficiency in exploring data.
 
-First, let's draw a scatter diagram as follows, showing the correlation between penguin culmen_depth_mm and culmen_length_mm.
+First, let's draw a scatterplot as follows, showing the correlation between penguin culmen_depth_mm and culmen_length_mm.
 
 ```js | ob
 (() => {
@@ -264,9 +264,9 @@ At this time, if you want to see the distribution of penguin culmen_depth_mm, yo
 
 Bin is mainly used to aggregate numerical data, and Group is mainly used for discrete data.
 
-## Multiple conversions
+## Multiple Transform
 
-We can also declare multiple conversions at the same time. For example, in the penguin example above, if we consider one more data dimension: the gender of the penguin, we can declare Bin and StackY conversions continuously.
+We can also declare multiple transform at the same time. For example, in the penguin example above, if we consider one more data dimension: the gender of the penguin, we can declare Bin and StackY transform continuously.
 
 ```js | ob
 (() => {
