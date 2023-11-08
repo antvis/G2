@@ -4,11 +4,9 @@ import { G2Spec } from '../../../src';
 
 const facetLine = (data) => ({
   type: 'facetRect',
-  paddingLeft: 60,
   data,
-  encode: {
-    y: 'symbol',
-  },
+  encode: { y: 'symbol' },
+  axis: { y: { title: false } },
   children: [
     {
       type: 'line',
@@ -21,31 +19,31 @@ const facetLine = (data) => ({
       },
       frame: false,
       scale: { y: { zero: true, tickCount: 3 } },
-      animate: {
-        enter: { type: 'pathIn' },
-      },
+      axis: { x: { title: false }, y: { title: false } },
+      animate: { enter: { type: 'pathIn' } },
+      style: { shape: 'smooth' },
     },
   ],
 });
 
 const facetArea = (data) => ({
   type: 'facetRect',
-  paddingLeft: 60,
   data,
-  encode: {
-    y: 'symbol',
-  },
+  encode: { y: 'symbol' },
+  axis: { y: { title: false } },
   children: [
     {
       type: 'line',
       key: 'line',
+      frame: false,
       encode: {
         x: (d) => new Date(d.date),
         y: 'price',
         color: 'symbol',
         key: 'symbol',
       },
-      frame: false,
+      style: { shape: 'smooth' },
+      axis: { x: { title: false }, y: { title: false } },
       scale: { y: { zero: true, facet: false, tickCount: 3 } },
     },
     {
@@ -59,26 +57,28 @@ const facetArea = (data) => ({
         color: 'symbol',
         key: 'symbol',
       },
+      style: { shape: 'smooth' },
       scale: { y: { facet: false, zero: true, tickCount: 3 } },
-      animate: {
-        exit: { type: 'fadeOut' },
-      },
+      axis: { x: { title: false }, y: { title: false } },
+      animate: { exit: { type: 'fadeOut' } },
     },
   ],
 });
 
 const stackArea = (data) => ({
   type: 'area',
+  data,
   key: 'area',
   class: 'area',
-  data,
   transform: [{ type: 'stackY', reverse: true }],
+  axis: { y: { title: false } },
   encode: {
     x: (d) => new Date(d.date),
     y: 'price',
     color: 'symbol',
     key: 'symbol',
   },
+  style: { shape: 'smooth' },
 });
 
 const layerArea = (data) => ({
@@ -86,15 +86,14 @@ const layerArea = (data) => ({
   key: 'area',
   class: 'area',
   data,
+  axis: { y: { title: false } },
   encode: {
     x: (d) => new Date(d.date),
     y: 'price',
     color: 'symbol',
     key: 'symbol',
   },
-  style: {
-    fillOpacity: 0.5,
-  },
+  style: { fillOpacity: 0.5, shape: 'smooth' },
 });
 
 const streamgraph = (data) => ({
@@ -102,6 +101,7 @@ const streamgraph = (data) => ({
   key: 'area',
   class: 'area',
   data,
+  axis: { y: { title: false } },
   transform: [{ type: 'stackY', reverse: true }, { type: 'symmetryY' }],
   encode: {
     x: (d) => new Date(d.date),
@@ -109,9 +109,7 @@ const streamgraph = (data) => ({
     color: 'symbol',
     key: 'symbol',
   },
-  style: {
-    fillOpacity: 1,
-  },
+  style: { fillOpacity: 1, shape: 'smooth' },
 });
 
 const normalizeArea = (data) => ({
@@ -119,6 +117,7 @@ const normalizeArea = (data) => ({
   key: 'area',
   class: 'area',
   data,
+  axis: { y: { title: false } },
   transform: [{ type: 'stackY', reverse: true }, { type: 'normalizeY' }],
   encode: {
     x: (d) => new Date(d.date),
@@ -126,9 +125,24 @@ const normalizeArea = (data) => ({
     color: 'symbol',
     key: 'symbol',
   },
-  style: {
-    fillOpacity: 1,
+  style: { fillOpacity: 1, shape: 'smooth' },
+});
+
+const normalizeBar = (data) => ({
+  type: 'interval',
+  data,
+  encode: {
+    y: 'price',
+    color: 'symbol',
+    key: 'symbol',
   },
+  transform: [
+    { type: 'groupColor', y: 'sum' },
+    { type: 'stackY', reverse: true },
+    { type: 'normalizeY' },
+  ],
+  scale: { x: { padding: 0 } },
+  axis: { y: { title: false }, x: { title: false } },
 });
 
 const groupBar = (data) => ({
@@ -142,9 +156,8 @@ const groupBar = (data) => ({
     groupKey: 'symbol',
     key: (_, i) => i,
   },
-  axis: {
-    x: { tickFilter: (_) => false },
-  },
+  scale: { y: { nice: true } },
+  axis: { x: false, y: { title: false } },
 });
 
 const stackBar = (data) => ({
@@ -158,9 +171,7 @@ const stackBar = (data) => ({
     groupKey: 'symbol',
     key: (_, i) => i,
   },
-  axis: {
-    x: { tickFilter: (_) => false },
-  },
+  axis: { x: false, y: { title: false } },
 });
 
 const bar = (data) => ({
@@ -174,12 +185,16 @@ const bar = (data) => ({
     key: 'symbol',
   },
   axis: {
-    y: { labelFormatter: '~s' },
+    y: { labelFormatter: '~s', title: false },
+    x: { title: false },
   },
 });
 
 const pie = (data) => ({
   type: 'interval',
+  paddingLeft: 10,
+  paddingRight: 10,
+  paddingBottom: 10,
   data,
   transform: [{ type: 'groupX', y: 'sum' }, { type: 'stackY' }],
   coordinate: { type: 'theta' },
@@ -188,17 +203,16 @@ const pie = (data) => ({
     color: 'symbol',
     key: 'symbol',
   },
-  legend: {
-    color: { layout: { justifyContent: 'center' } },
-  },
-  style: {
-    radius: 10,
-  },
+  legend: { color: { layout: { justifyContent: 'center' } } },
+  style: { radius: 10 },
 });
 
 const rose = (data) => ({
   type: 'interval',
   data,
+  paddingLeft: 10,
+  paddingRight: 10,
+  paddingBottom: 10,
   transform: [{ type: 'groupX', y: 'sum' }],
   coordinate: { type: 'polar' },
   encode: {
@@ -209,9 +223,7 @@ const rose = (data) => ({
   },
   scale: { x: { padding: 0 } },
   style: { radius: 10 },
-  legend: {
-    color: { layout: { justifyContent: 'center' } },
-  },
+  legend: { color: { layout: { justifyContent: 'center' } } },
   axis: { y: false },
 });
 
@@ -222,6 +234,7 @@ const keyframes = [
   layerArea,
   streamgraph,
   normalizeArea,
+  normalizeBar,
   groupBar,
   stackBar,
   bar,
@@ -239,7 +252,12 @@ export async function stocksKeyframe(): Promise<G2Spec> {
     type: 'timingKeyframe',
     width: 800,
     // @ts-ignore
-    children: keyframes.map((plot) => plot(data)),
+    children: keyframes.map((plot) => ({
+      paddingLeft: 40,
+      paddingBottom: 50,
+      paddingRight: 50,
+      ...plot(data),
+    })),
   };
 }
 

@@ -21,6 +21,14 @@
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*fu-BSYg7U_kAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
+      "filename": "column-min-height.ts",
+      "title": {
+        "zh": "限制高度的柱形图",
+        "en": "Column with minHeight"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*bfqERaJK8e0AAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
       "filename": "column-log.ts",
       "title": {
         "zh": "对数柱形图",
