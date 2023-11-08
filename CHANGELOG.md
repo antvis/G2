@@ -1,3 +1,15 @@
+## [5.1.7](https://github.com/antvis/g2/compare/5.1.6...5.1.7) (2023-11-08)
+
+
+### Bug Fixes
+
+* add style.minHeight to interval ([#5715](https://github.com/antvis/g2/issues/5715)) ([bbfad52](https://github.com/antvis/g2/commit/bbfad529db693253c678abbc51ac0cc3220d070e))
+* **line:** use curveMonotone ([#5751](https://github.com/antvis/g2/issues/5751)) ([2bedfba](https://github.com/antvis/g2/commit/2bedfba0bbb8d182b7eedfe70d50ec6e633ea4a4))
+* set transform-origin in each keyframe ([#5679](https://github.com/antvis/g2/issues/5679)) ([c49cf09](https://github.com/antvis/g2/commit/c49cf09fd25ce0aa1ca5eced0907be1b7295f451))
+* **test:** update snapshot ([#5755](https://github.com/antvis/g2/issues/5755)) ([61c8374](https://github.com/antvis/g2/commit/61c8374c279c595087cd423121edac8486ad0d67))
+
+
+
 ## [5.1.6](https://github.com/antvis/g2/compare/5.1.6-beta.0...5.1.6) (2023-10-20)
 
 
