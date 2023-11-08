@@ -40,8 +40,6 @@ describe('Interactions', () => {
         // Disable animations and delays.
         const {
           // @ts-ignore
-          maxError = 0,
-          // @ts-ignore
           preprocess = (d) => d,
           // @ts-ignore
           tooltip = false,
@@ -69,9 +67,7 @@ describe('Interactions', () => {
 
           // If do not skip this state, asset it after dispatch the event.
           if (!skip) {
-            await expect(gCanvas).toMatchDOMSnapshot(dir, `step${i}`, {
-              maxError,
-            });
+            await expect(gCanvas).toMatchDOMSnapshot(dir, `step${i}`);
           }
         }
       } finally {
