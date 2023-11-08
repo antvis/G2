@@ -25,7 +25,9 @@ export async function toMatchDOMSnapshot(
   const actualPath = path.join(dir, `${name}-actual.${fileFormat}`);
   const expectedPath = path.join(dir, `${name}.${fileFormat}`);
   const container = gCanvas.getConfig().container as HTMLElement;
-  const dom = selector ? document.body.querySelector(selector) : container;
+  const dom = selector
+    ? document.body.querySelector(selector)
+    : container.querySelector('svg');
 
   let actual;
   try {
