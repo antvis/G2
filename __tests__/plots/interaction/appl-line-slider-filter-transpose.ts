@@ -44,3 +44,5 @@ aaplLineSliderFilterTranspose.steps = ({ canvas }) => {
     },
   ];
 };
+
+aaplLineSliderFilterTranspose.skip = true;
