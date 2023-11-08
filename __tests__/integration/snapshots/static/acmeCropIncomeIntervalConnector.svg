@@ -1252,12 +1252,12 @@
               transform="matrix(1,0,0,1,274.200012,-28)"
               class="label"
             >
-              <g transform="matrix(1,0,0,1,-25.650007,2)">
+              <g transform="matrix(1,0,0,1,-30.150007,2)">
                 <path
                   id="background"
                   fill="none"
-                  d="M 0,0 l 52.3,0 l 0,19 l-52.3 0 z"
-                  width="52.3"
+                  d="M 0,0 l 61.29999999999999,0 l 0,19 l-61.29999999999999 0 z"
+                  width="61.29999999999999"
                   height="19"
                 />
               </g>
@@ -1324,12 +1324,12 @@
               transform="matrix(1,0,0,1,112.288231,60.916710)"
               class="label"
             >
-              <g transform="matrix(1,0,0,1,-24.799999,4)">
+              <g transform="matrix(1,0,0,1,-29.299999,4)">
                 <path
                   id="background"
                   fill="none"
-                  d="M 0,0 l 50.6,0 l 0,19 l-50.6 0 z"
-                  width="50.6"
+                  d="M 0,0 l 59.6,0 l 0,19 l-59.6 0 z"
+                  width="59.6"
                   height="19"
                 />
               </g>
@@ -1360,12 +1360,12 @@
               transform="matrix(1,0,0,1,176.452942,175.401352)"
               class="label"
             >
-              <g transform="matrix(1,0,0,1,-25.500008,4)">
+              <g transform="matrix(1,0,0,1,-30.000008,4)">
                 <path
                   id="background"
                   fill="none"
-                  d="M 0,0 l 52,0 l 0,19 l-52 0 z"
-                  width="52"
+                  d="M 0,0 l 60.99999999999999,0 l 0,19 l-60.99999999999999 0 z"
+                  width="60.99999999999999"
                   height="19"
                 />
               </g>
@@ -1432,12 +1432,12 @@
               transform="matrix(1,0,0,1,304.782349,150.071548)"
               class="label"
             >
-              <g transform="matrix(1,0,0,1,-20.650007,4)">
+              <g transform="matrix(1,0,0,1,-25.150007,4)">
                 <path
                   id="background"
                   fill="none"
-                  d="M 0,0 l 42.3,0 l 0,19 l-42.3 0 z"
-                  width="42.3"
+                  d="M 0,0 l 51.3,0 l 0,19 l-51.3 0 z"
+                  width="51.3"
                   height="19"
                 />
               </g>
@@ -1468,12 +1468,12 @@
               transform="matrix(1,0,0,1,368.947052,174.429459)"
               class="label"
             >
-              <g transform="matrix(1,0,0,1,-12.800008,4)">
+              <g transform="matrix(1,0,0,1,-17.300007,4)">
                 <path
                   id="background"
                   fill="none"
-                  d="M 0,0 l 26.6,0 l 0,19 l-26.6 0 z"
-                  width="26.6"
+                  d="M 0,0 l 35.6,0 l 0,19 l-35.6 0 z"
+                  width="35.6"
                   height="19"
                 />
               </g>

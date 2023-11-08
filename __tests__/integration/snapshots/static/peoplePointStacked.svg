@@ -38,8 +38,8 @@
             id="g-svg-20"
             fill="rgba(0,0,0,0)"
             class="area"
-            d="M 0,0 l 548.8799977833596,0 l 0,227 l-548.8799977833596 0 z"
-            width="548.8799977833596"
+            d="M 0,0 l 548.8799966989994,0 l 0,227 l-548.8799966989994 0 z"
+            width="548.8799966989994"
             height="227"
           />
         </g>
@@ -48,8 +48,8 @@
             id="g-svg-21"
             fill="rgba(0,0,0,0)"
             class="area"
-            d="M 0,0 l 548.8799977833596,0 l 0,227 l-548.8799977833596 0 z"
-            width="548.8799977833596"
+            d="M 0,0 l 548.8799966989994,0 l 0,227 l-548.8799966989994 0 z"
+            width="548.8799966989994"
             height="227"
           />
         </g>
@@ -462,7 +462,7 @@
                     fill="none"
                     x1="0"
                     y1="0"
-                    x2="548.8799977833596"
+                    x2="548.8799966989994"
                     y2="0"
                     class="axis-line axis-line"
                     stroke-width="0.5"
@@ -890,10 +890,10 @@
             <g
               id="g-svg-107"
               fill="none"
-              transform="matrix(1,0,0,1,26.840002,344)"
+              transform="matrix(1,0,0,1,16.280003,344)"
               class="axis-title-group"
             >
-              <g transform="matrix(1,0,0,1,28.600000,0)">
+              <g transform="matrix(1,0,0,1,39.160000,0)">
                 <text
                   id="g-svg-108"
                   fill="rgba(29,33,41,1)"
@@ -955,7 +955,7 @@
                       stroke="rgba(29,33,41,1)"
                       stroke-width="0.5"
                       stroke-dasharray="3,4"
-                      d="M 0,0 L 548.8799977833596,0"
+                      d="M 0,0 L 548.8799966989994,0"
                       stroke-opacity="0.1"
                     />
                   </g>
@@ -967,7 +967,7 @@
                       stroke="rgba(29,33,41,1)"
                       stroke-width="0.5"
                       stroke-dasharray="3,4"
-                      d="M 0,0 L 548.8799977833596,0"
+                      d="M 0,0 L 548.8799966989994,0"
                       stroke-opacity="0.1"
                     />
                   </g>
@@ -979,7 +979,7 @@
                       stroke="rgba(29,33,41,1)"
                       stroke-width="0.5"
                       stroke-dasharray="3,4"
-                      d="M 0,0 L 548.8799977833596,0"
+                      d="M 0,0 L 548.8799966989994,0"
                       stroke-opacity="0.1"
                     />
                   </g>
@@ -991,7 +991,7 @@
                       stroke="rgba(29,33,41,1)"
                       stroke-width="0.5"
                       stroke-dasharray="3,4"
-                      d="M 0,0 L 548.8799977833596,0"
+                      d="M 0,0 L 548.8799966989994,0"
                       stroke-opacity="0.1"
                     />
                   </g>
@@ -1277,8 +1277,8 @@
             id="g-svg-142"
             fill="rgba(0,0,0,0)"
             class="plot"
-            d="M 0,0 l 548.8799977833596,0 l 0,227 l-548.8799977833596 0 z"
-            width="548.8799977833596"
+            d="M 0,0 l 548.8799966989994,0 l 0,227 l-548.8799966989994 0 z"
+            width="548.8799966989994"
             height="227"
           />
           <g
@@ -1291,7 +1291,7 @@
               <path
                 id="g-svg-146"
                 fill="rgba(23,131,255,1)"
-                d="M 0,3 A 3 3 0 1 0 6.000000000000002 3 A 3 3 0 1 0 0 3 Z"
+                d="M 0,3 A 3 3 0 1 0 6 3 A 3 3 0 1 0 0 3 Z"
                 r="3"
                 fill-opacity="0.95"
                 stroke-width="0"
@@ -11739,7 +11739,7 @@
                 class="element"
               />
             </g>
-            <g transform="matrix(1,0,0,1,459.627441,158.289474)">
+            <g transform="matrix(1,0,0,1,459.627411,158.289474)">
               <path
                 id="g-svg-1017"
                 fill="rgba(0,201,201,1)"

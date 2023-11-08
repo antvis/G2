@@ -133,7 +133,7 @@
                             fill="none"
                             transform="matrix(1,0,0,1,0,0)"
                             class="items-item"
-                            width="174.68"
+                            width="174.68000000000004"
                             height="23"
                           >
                             <g
@@ -147,8 +147,8 @@
                                   id="g-svg-41"
                                   fill="rgba(0,0,0,0)"
                                   class="legend-category-item-background"
-                                  d="M 0,0 l 174.68,0 l 0,23 l-174.68 0 z"
-                                  width="174.68"
+                                  d="M 0,0 l 174.68000000000004,0 l 0,23 l-174.68000000000004 0 z"
+                                  width="174.68000000000004"
                                   height="23"
                                   visibility="visible"
                                 />
@@ -289,7 +289,7 @@
                             fill="none"
                             transform="matrix(1,0,0,1,299.679993,0)"
                             class="items-item"
-                            width="147.92"
+                            width="147.92000000000002"
                             height="23"
                           >
                             <g
@@ -303,8 +303,8 @@
                                   id="g-svg-57"
                                   fill="rgba(0,0,0,0)"
                                   class="legend-category-item-background"
-                                  d="M 0,0 l 147.92,0 l 0,23 l-147.92 0 z"
-                                  width="147.92"
+                                  d="M 0,0 l 147.92000000000002,0 l 0,23 l-147.92000000000002 0 z"
+                                  width="147.92000000000002"
                                   height="23"
                                   visibility="visible"
                                 />
@@ -530,7 +530,7 @@
                             fill="none"
                             transform="matrix(1,0,0,1,0,0)"
                             class="items-item"
-                            width="140.72"
+                            width="140.72000000000003"
                             height="23"
                           >
                             <g
@@ -544,8 +544,8 @@
                                   id="g-svg-81"
                                   fill="rgba(0,0,0,0)"
                                   class="legend-category-item-background"
-                                  d="M 0,0 l 140.72,0 l 0,23 l-140.72 0 z"
-                                  width="140.72"
+                                  d="M 0,0 l 140.72000000000003,0 l 0,23 l-140.72000000000003 0 z"
+                                  width="140.72000000000003"
                                   height="23"
                                   visibility="hidden"
                                 />
@@ -764,7 +764,7 @@
                             fill="none"
                             transform="matrix(1,0,0,1,326.760010,0)"
                             class="items-item"
-                            width="101.48000000000002"
+                            width="101.47999999999999"
                             height="23"
                           >
                             <g
@@ -778,8 +778,8 @@
                                   id="g-svg-105"
                                   fill="rgba(0,0,0,0)"
                                   class="legend-category-item-background"
-                                  d="M 0,0 l 101.48000000000002,0 l 0,23 l-101.48000000000002 0 z"
-                                  width="101.48000000000002"
+                                  d="M 0,0 l 101.47999999999999,0 l 0,23 l-101.47999999999999 0 z"
+                                  width="101.47999999999999"
                                   height="23"
                                   visibility="hidden"
                                 />
@@ -920,7 +920,7 @@
                             fill="none"
                             transform="matrix(1,0,0,1,502,0)"
                             class="items-item"
-                            width="175.04"
+                            width="175.04000000000002"
                             height="23"
                           >
                             <g
@@ -934,8 +934,8 @@
                                   id="g-svg-121"
                                   fill="rgba(0,0,0,0)"
                                   class="legend-category-item-background"
-                                  d="M 0,0 l 175.04,0 l 0,23 l-175.04 0 z"
-                                  width="175.04"
+                                  d="M 0,0 l 175.04000000000002,0 l 0,23 l-175.04000000000002 0 z"
+                                  width="175.04000000000002"
                                   height="23"
                                   visibility="hidden"
                                 />
@@ -1161,7 +1161,7 @@
                             fill="none"
                             transform="matrix(1,0,0,1,188.320007,0)"
                             class="items-item"
-                            width="142.88"
+                            width="142.88000000000002"
                             height="23"
                           >
                             <g
@@ -1175,8 +1175,8 @@
                                   id="g-svg-145"
                                   fill="rgba(0,0,0,0)"
                                   class="legend-category-item-background"
-                                  d="M 0,0 l 142.88,0 l 0,23 l-142.88 0 z"
-                                  width="142.88"
+                                  d="M 0,0 l 142.88000000000002,0 l 0,23 l-142.88000000000002 0 z"
+                                  width="142.88000000000002"
                                   height="23"
                                   visibility="hidden"
                                 />

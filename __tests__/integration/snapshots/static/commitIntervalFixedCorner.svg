@@ -211,7 +211,7 @@
                             fill="none"
                             transform="matrix(1,0,0,1,76.279999,0)"
                             class="items-item"
-                            width="93.2"
+                            width="93.19999999999999"
                             height="23"
                           >
                             <g
@@ -225,8 +225,8 @@
                                   id="g-svg-49"
                                   fill="rgba(0,0,0,0)"
                                   class="legend-category-item-background"
-                                  d="M 0,0 l 93.2,0 l 0,23 l-93.2 0 z"
-                                  width="93.2"
+                                  d="M 0,0 l 93.19999999999999,0 l 0,23 l-93.19999999999999 0 z"
+                                  width="93.19999999999999"
                                   height="23"
                                   visibility="visible"
                                 />

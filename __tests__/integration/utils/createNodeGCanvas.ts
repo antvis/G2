@@ -1,10 +1,12 @@
 import { Canvas, resetEntityCounter } from '@antv/g';
 import { Renderer } from '@antv/g-svg';
+import { setMockMeasureTextWidth } from '@antv/component';
 import { Plugin as DragAndDropPlugin } from '@antv/g-plugin-dragndrop';
-import { OffscreenCanvasContext } from './offscreenCanvasContext';
+import { OffscreenCanvasContext, measureText } from './offscreenCanvasContext';
 
 export function createNodeGCanvas(width: number, height: number): Canvas {
   resetEntityCounter();
+  setMockMeasureTextWidth(measureText);
 
   const dom = document.createElement('div') as any;
   const offscreenNodeCanvas = {

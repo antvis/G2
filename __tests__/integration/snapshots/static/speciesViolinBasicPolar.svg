@@ -70,7 +70,7 @@
               id="g-svg-23"
               fill="none"
               class="legend-category"
-              width="262.8"
+              width="262.79999999999995"
               height="23"
               transform="matrix(1,0,0,1,0,0)"
             >
@@ -83,7 +83,7 @@
                 <g
                   id="g-svg-25"
                   fill="none"
-                  width="262.8"
+                  width="262.79999999999995"
                   height="23"
                   transform="matrix(1,0,0,1,0,0)"
                   class="legend-title"
@@ -98,7 +98,7 @@
                 <g
                   id="g-svg-27"
                   fill="none"
-                  width="262.8"
+                  width="262.79999999999995"
                   height="23"
                   transform="matrix(1,0,0,1,0,0)"
                   class="legend-items"
@@ -133,7 +133,7 @@
                             fill="none"
                             transform="matrix(1,0,0,1,0,0)"
                             class="items-item"
-                            width="65.96000000000001"
+                            width="65.96"
                             height="23"
                           >
                             <g
@@ -147,8 +147,8 @@
                                   id="g-svg-39"
                                   fill="rgba(0,0,0,0)"
                                   class="legend-category-item-background"
-                                  d="M 0,0 l 65.96000000000001,0 l 0,23 l-65.96000000000001 0 z"
-                                  width="65.96000000000001"
+                                  d="M 0,0 l 65.96,0 l 0,23 l-65.96 0 z"
+                                  width="65.96"
                                   height="23"
                                   visibility="visible"
                                 />
@@ -289,7 +289,7 @@
                             fill="none"
                             transform="matrix(1,0,0,1,174.399994,0)"
                             class="items-item"
-                            width="76.4"
+                            width="76.39999999999999"
                             height="23"
                           >
                             <g
@@ -303,8 +303,8 @@
                                   id="g-svg-55"
                                   fill="rgba(0,0,0,0)"
                                   class="legend-category-item-background"
-                                  d="M 0,0 l 76.4,0 l 0,23 l-76.4 0 z"
-                                  width="76.4"
+                                  d="M 0,0 l 76.39999999999999,0 l 0,23 l-76.39999999999999 0 z"
+                                  width="76.39999999999999"
                                   height="23"
                                   visibility="visible"
                                 />

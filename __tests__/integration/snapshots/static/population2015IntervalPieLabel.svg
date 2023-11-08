@@ -275,12 +275,12 @@
               transform="matrix(1,0,0,1,366.109558,53.767960)"
               class="label"
             >
-              <g transform="matrix(1,0,0,1,0,-11.500000)">
+              <g transform="matrix(1,0,0,1,-0,-11.500000)">
                 <path
                   id="background"
                   fill="none"
-                  d="M 0,0 l 10,0 l 0,23 l-10 0 z"
-                  width="10"
+                  d="M 0,0 l 20.56,0 l 0,23 l-20.56 0 z"
+                  width="20.56"
                   height="23"
                   visibility="visible"
                 />
@@ -411,8 +411,8 @@
                 <path
                   id="background"
                   fill="none"
-                  d="M 0,0 l 33.64,0 l 0,23 l-33.64 0 z"
-                  width="33.64"
+                  d="M 0,0 l 33.63999999999999,0 l 0,23 l-33.63999999999999 0 z"
+                  width="33.63999999999999"
                   height="23"
                   visibility="visible"
                 />
@@ -763,8 +763,8 @@
                 <path
                   id="background"
                   fill="none"
-                  d="M 0,0 l 37.24,0 l 0,23 l-37.24 0 z"
-                  width="37.24"
+                  d="M 0,0 l 37.239999999999995,0 l 0,23 l-37.239999999999995 0 z"
+                  width="37.239999999999995"
                   height="23"
                   visibility="visible"
                 />
@@ -1023,12 +1023,12 @@
               transform="matrix(1,0,0,1,276.965820,49.243229)"
               class="label"
             >
-              <g transform="matrix(1,0,0,1,-16.799999,-11.499996)">
+              <g transform="matrix(1,0,0,1,-27.360001,-11.499996)">
                 <path
                   id="background"
                   fill="none"
-                  d="M 0,0 l 17.8,0 l 0,23 l-17.8 0 z"
-                  width="17.8"
+                  d="M 0,0 l 28.36,0 l 0,23 l-28.36 0 z"
+                  width="28.36"
                   height="23"
                   visibility="hidden"
                 />

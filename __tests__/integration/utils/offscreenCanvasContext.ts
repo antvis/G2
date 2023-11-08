@@ -85,6 +85,14 @@ const defaultWidthMap = {
   '…': 82,
 };
 
+export function measureText(text: string, fontSize: number) {
+  let sum = 0;
+  for (let i = 0; i < text.length; i++) {
+    sum += ((defaultWidthMap[text[i]] ?? 100) * fontSize) / 100;
+  }
+  return sum;
+}
+
 export class OffscreenCanvasContext {
   private fontSize: number;
 
@@ -108,13 +116,8 @@ export class OffscreenCanvasContext {
   }
 
   measureText(text: string): TextMetrics {
-    let sum = 0;
-    for (let i = 0; i < text.length; i++) {
-      sum += defaultWidthMap[text[i]] ?? this.fontSize;
-    }
-
     return {
-      width: (sum * this.fontSize) / 100,
+      width: measureText(text, this.fontSize),
       actualBoundingBoxAscent: 0,
       actualBoundingBoxDescent: 0,
       actualBoundingBoxLeft: 0,

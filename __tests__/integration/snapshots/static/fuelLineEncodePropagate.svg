@@ -449,7 +449,7 @@
                             fill="none"
                             transform="matrix(1,0,0,1,389.600006,0)"
                             class="items-item"
-                            width="75.2"
+                            width="75.19999999999999"
                             height="23"
                           >
                             <g
@@ -463,8 +463,8 @@
                                   id="g-svg-73"
                                   fill="rgba(0,0,0,0)"
                                   class="legend-category-item-background"
-                                  d="M 0,0 l 75.2,0 l 0,23 l-75.2 0 z"
-                                  width="75.2"
+                                  d="M 0,0 l 75.19999999999999,0 l 0,23 l-75.19999999999999 0 z"
+                                  width="75.19999999999999"
                                   height="23"
                                   visibility="visible"
                                 />

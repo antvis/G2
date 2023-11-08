@@ -70,7 +70,7 @@
               id="g-svg-29"
               fill="none"
               class="legend-category"
-              width="304.6"
+              width="304.59999999999997"
               height="23"
               transform="matrix(1,0,0,1,0,0)"
             >
@@ -83,7 +83,7 @@
                 <g
                   id="g-svg-31"
                   fill="none"
-                  width="304.6"
+                  width="304.59999999999997"
                   height="23"
                   transform="matrix(1,0,0,1,0,0)"
                   class="legend-title"
@@ -98,7 +98,7 @@
                 <g
                   id="g-svg-33"
                   fill="none"
-                  width="304.6"
+                  width="304.59999999999997"
                   height="23"
                   transform="matrix(1,0,0,1,0,0)"
                   class="legend-items"
@@ -370,7 +370,7 @@
                             fill="none"
                             transform="matrix(1,0,0,1,178.320007,0)"
                             class="items-item"
-                            width="53.96000000000001"
+                            width="53.959999999999994"
                             height="23"
                           >
                             <g
@@ -384,8 +384,8 @@
                                   id="g-svg-69"
                                   fill="rgba(0,0,0,0)"
                                   class="legend-category-item-background"
-                                  d="M 0,0 l 53.96000000000001,0 l 0,23 l-53.96000000000001 0 z"
-                                  width="53.96000000000001"
+                                  d="M 0,0 l 53.959999999999994,0 l 0,23 l-53.959999999999994 0 z"
+                                  width="53.959999999999994"
                                   height="23"
                                   visibility="visible"
                                 />

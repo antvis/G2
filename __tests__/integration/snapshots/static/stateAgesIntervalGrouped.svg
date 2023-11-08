@@ -119,7 +119,7 @@
               id="g-svg-40"
               fill="none"
               class="legend-category"
-              width="543.7199999999999"
+              width="564.84"
               height="23"
               transform="matrix(1,0,0,1,0,0)"
             >
@@ -132,7 +132,7 @@
                 <g
                   id="g-svg-42"
                   fill="none"
-                  width="543.7199999999999"
+                  width="564.84"
                   height="23"
                   transform="matrix(1,0,0,1,0,0)"
                   class="legend-title"
@@ -147,7 +147,7 @@
                 <g
                   id="g-svg-44"
                   fill="none"
-                  width="543.7199999999999"
+                  width="564.84"
                   height="23"
                   transform="matrix(1,0,0,1,0,0)"
                   class="legend-items"
@@ -182,7 +182,7 @@
                             fill="none"
                             transform="matrix(1,0,0,1,0,0)"
                             class="items-item"
-                            width="31.880000000000003"
+                            width="42.44"
                             height="23"
                           >
                             <g
@@ -196,8 +196,8 @@
                                   id="g-svg-56"
                                   fill="rgba(0,0,0,0)"
                                   class="legend-category-item-background"
-                                  d="M 0,0 l 31.880000000000003,0 l 0,23 l-31.880000000000003 0 z"
-                                  width="31.880000000000003"
+                                  d="M 0,0 l 42.44,0 l 0,23 l-42.44 0 z"
+                                  width="42.44"
                                   height="23"
                                   visibility="visible"
                                 />
@@ -258,7 +258,7 @@
                           <g
                             id="g-svg-57"
                             fill="none"
-                            transform="matrix(1,0,0,1,43.880001,0)"
+                            transform="matrix(1,0,0,1,54.439999,0)"
                             class="items-item"
                             width="49.75999999999999"
                             height="23"
@@ -336,7 +336,7 @@
                           <g
                             id="g-svg-65"
                             fill="none"
-                            transform="matrix(1,0,0,1,105.639999,0)"
+                            transform="matrix(1,0,0,1,116.199997,0)"
                             class="items-item"
                             width="53.120000000000005"
                             height="23"
@@ -414,7 +414,7 @@
                           <g
                             id="g-svg-73"
                             fill="none"
-                            transform="matrix(1,0,0,1,170.759995,0)"
+                            transform="matrix(1,0,0,1,181.320007,0)"
                             class="items-item"
                             width="53.599999999999994"
                             height="23"
@@ -492,7 +492,7 @@
                           <g
                             id="g-svg-81"
                             fill="none"
-                            transform="matrix(1,0,0,1,236.360001,0)"
+                            transform="matrix(1,0,0,1,246.919998,0)"
                             class="items-item"
                             width="54.08"
                             height="23"
@@ -570,7 +570,7 @@
                           <g
                             id="g-svg-89"
                             fill="none"
-                            transform="matrix(1,0,0,1,302.440002,0)"
+                            transform="matrix(1,0,0,1,313,0)"
                             class="items-item"
                             width="53.36"
                             height="23"
@@ -648,7 +648,7 @@
                           <g
                             id="g-svg-97"
                             fill="none"
-                            transform="matrix(1,0,0,1,367.799988,0)"
+                            transform="matrix(1,0,0,1,378.359985,0)"
                             class="items-item"
                             width="53.84"
                             height="23"
@@ -726,7 +726,7 @@
                           <g
                             id="g-svg-105"
                             fill="none"
-                            transform="matrix(1,0,0,1,433.640015,0)"
+                            transform="matrix(1,0,0,1,444.200012,0)"
                             class="items-item"
                             width="52.16"
                             height="23"
@@ -804,9 +804,9 @@
                           <g
                             id="g-svg-113"
                             fill="none"
-                            transform="matrix(1,0,0,1,497.799988,0)"
+                            transform="matrix(1,0,0,1,508.359985,0)"
                             class="items-item"
-                            width="33.92"
+                            width="44.480000000000004"
                             height="23"
                           >
                             <g
@@ -820,8 +820,8 @@
                                   id="g-svg-120"
                                   fill="rgba(0,0,0,0)"
                                   class="legend-category-item-background"
-                                  d="M 0,0 l 33.92,0 l 0,23 l-33.92 0 z"
-                                  width="33.92"
+                                  d="M 0,0 l 44.480000000000004,0 l 0,23 l-44.480000000000004 0 z"
+                                  width="44.480000000000004"
                                   height="23"
                                   visibility="visible"
                                 />
@@ -892,9 +892,9 @@
                       <path
                         id="g-svg-140"
                         fill="none"
-                        d="M 0,0 l 531.7199877929688,0 l 0,23 l-531.7199877929688 0 z"
+                        d="M 0,0 l 552.8399853515625,0 l 0,23 l-552.8399853515625 0 z"
                         class="navigator-clip-path"
-                        width="531.7199877929688"
+                        width="552.8399853515625"
                         height="23"
                       />
                     </g>

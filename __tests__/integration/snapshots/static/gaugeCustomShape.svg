@@ -418,12 +418,12 @@
               transform="matrix(1,0,0,1,304,268.799988)"
               class="element"
             >
-              <g transform="matrix(1,0,0,1,-33.599998,-38)">
+              <g transform="matrix(1,0,0,1,-65.599998,-38)">
                 <path
                   id="background"
                   fill="none"
-                  d="M 0,0 l 67.2,0 l 0,76 l-67.2 0 z"
-                  width="67.2"
+                  d="M 0,0 l 131.2,0 l 0,76 l-131.2 0 z"
+                  width="131.2"
                   height="76"
                 />
               </g>
