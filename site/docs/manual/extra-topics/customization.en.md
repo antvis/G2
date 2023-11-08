@@ -224,7 +224,7 @@ After drawing the legend items, we should add interaction to each legend item us
     });
     items.forEach((d) => legend.append(d));
 
-    // Listen to events.
+    // Listening events
     const selectedValues = [...domain];
     const options = chart.options();
     for (let i = 0; i < items.length; i++) {
@@ -244,20 +244,20 @@ After drawing the legend items, we should add interaction to each legend item us
       };
     }
 
-    // Re-render the view.
+    // Re-render the view
     function changeColor(value) {
       const { transform = [] } = options;
       const newTransform = [{ type: 'filter', color: { value } }, ...transform];
       chart.options({
         ...options,
-        transform: newTransform, // Specify a new transform.
+        transform: newTransform, // Specify a new transform
         scale: { color: { domain } },
       });
-      chart.render(); // Re-render the chart.
+      chart.render(); // Re-render the chart
     }
   }
 
-  // Render the chart.
+  // Render the chart
   const container = document.createElement('div');
 
   const chart = new G2.Chart({

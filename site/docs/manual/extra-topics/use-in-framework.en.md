@@ -90,7 +90,7 @@ In Vue, the first step is to import the defined `G2Demo` component.
 
 ### Options API
 
-If using [Vue2](https://github.com/vuejs/vue) and [Vue3](https://github.com/vuejs/core) options API, you can define the `G2Demo` component as follows, complete code reference [here](https://codesandbox.io/s/use-g2-5-with-vue-options-api-qzdrr6?file=/src/components/G2Demo.vue)。
+If using [Vue2](https://github.com/vuejs/vue) and [Vue3](https://github.com/vuejs/core) options API, you can define the `G2Demo` component as follows, complete code reference [here](https://codesandbox.io/s/use-g2-5-with-vue-options-api-qzdrr6?file=/src/components/G2Demo.vue).
 
 ```html
 <!-- components/G2Demo.vue -->
@@ -130,7 +130,7 @@ If using [Vue2](https://github.com/vuejs/vue) and [Vue3](https://github.com/vuej
 
 ### Composition API
 
-If you use the composition API of Vue3, the implementation is as follows, complete code reference [here](https://codesandbox.io/s/use-g2-5-with-vue-composition-api-hdwpc6?file=/src/components/G2Demo.vue)。
+If you use the composition API of Vue3, the implementation is as follows, complete code reference [here](https://codesandbox.io/s/use-g2-5-with-vue-composition-api-hdwpc6?file=/src/components/G2Demo.vue).
 
 ```html
 <script setup>
@@ -182,7 +182,7 @@ export default function App() {
 }
 ```
 
-Next, define the `G2Demo` component, complete code reference [here](https://codesandbox.io/s/use-g2-5-with-react-u05qle?file=/src/components/G2Demo.js)。
+Next, define the `G2Demo` component, complete code reference [here](https://codesandbox.io/s/use-g2-5-with-react-u05qle?file=/src/components/G2Demo.js).
 
 ```js
 import { Chart } from '@antv/g2';

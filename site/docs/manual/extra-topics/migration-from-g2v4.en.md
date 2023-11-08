@@ -3,7 +3,7 @@ title: G2 5.0 Migration Guide
 order: 3
 ---
 
-> The G2 stack team will continue to maintain the v4 version and release patch version fixes for bugs, but will no longer receive new Feature Requests until the end of 2023. The original v4 official website has been migrated to https://g2-v4.antv.vision/。
+> The G2 stack team will continue to maintain the v4 version and release patch version fixes for bugs, but will no longer receive new Feature Requests until the end of 2023. The original v4 official website has been migrated to https://g2-v4.antv.vision/.
 
 This article aims to help users already familiar with G24.0 understand the differences between versions 4.0 and 5.0. Readers can choose to read the new document directly instead of reading this article from beginning to end. This article will highlight the changes in the corresponding API for various concepts between the two versions.
 
@@ -37,7 +37,7 @@ const chart = new Chart({
 
 ## Data
 
-In 4.0, each view is bound to a single set of data, and the markers (visual elements)  within that view share the same data. In 5.0 all markers in each view can have independent data, and scales are synchronized by default.
+In 4.0, each view is bound to a single set of data, and the marks (visual elements)  within that view share the same data. In 5.0 all markers in each view can have independent data, and scales are synchronized by default.
 
 ```js
 // 4.0
@@ -108,7 +108,7 @@ chart
 
 ### Color Domain
 
-4.0 declares the color domain via the second parameter of `geometry.color`. 5.0 specifies via `scale.color`.
+4.0 declares the color domain via the second parameter of `geometry.color`, and 5.0 specifies via `scale.color`.
 
 ```js
 // 4.0

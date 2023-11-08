@@ -1,5 +1,5 @@
 ---
-title: Spec 和 API
+title: Experimental Spec API
 order: 2
 ---
 
@@ -33,7 +33,7 @@ G2 5.0, like version 4.0, provides a set of imperative Functional APIs to declar
 
 In addition to this functional style, G2 5.0 also provides a new API: Spec API. The API declares visualizations through a JavaScript object.
 
-## Start
+## Start Using
 
 Currently we declare the visualization through `chart.options(spec)`, the following example can achieve the same effect as above.
 
@@ -54,8 +54,8 @@ Currently we declare the visualization through `chart.options(spec)`, the follow
       { genre: 'Other', sold: 150 },
     ],
     encode: {
-      x: 'genre', // encode x channel
-      y: 'sold', // encode y channel
+      x: 'genre', // Encode x channel
+      y: 'sold', // Encode y channel
     },
   });
 
@@ -68,7 +68,7 @@ Currently we declare the visualization through `chart.options(spec)`, the follow
 
 ## Compare
 
-It can be found that the initialization of the chart instance and the final rendering of the two APIs are the same, but the way of declaring the visualization in between is different. Next, let's take a brief look at the similarities and differences between the two.
+It can be found that the initialization of the chart instance and the final rendering of the two APIs are the same, but the way of declaring the visualization in between is different. Next, let's take a brief look at the similarities and differences between the two methods.
 
 The Functional API is implemented based on Spec API. In simple terms, each Chart instance has an options object. Functional API generates this options object through a series of methods, while Spec API directly sets this options object. No matter which form of API it is, G2 will directly render the current options in the end, so the ability of the two to declare visualization is completely equivalent.
 
@@ -114,13 +114,13 @@ Of course, Spec API is not only simple, it also has more application scenarios:
 * **Server-Side Rendering**: You can directly render the Options corresponding to Spec into images.
 * ......
 
-Later, G2 will make a series of tools based on this new set of APIs for everyone to use. If you have ideas, you can discuss and participate here. [Build together](https://github.com/antvis/G2/discussions)。
+Later, G2 will make a series of tools based on this new set of APIs for everyone to use. If you have ideas, you can discuss and participate here [Build together](https://github.com/antvis/G2/discussions).
 
 ## Case
 
 The following uses some cases to show you how to use Spec API.
 
-### pie chart
+### Pie Chart
 
 ```js | ob
 (() => {
@@ -166,7 +166,7 @@ The following uses some cases to show you how to use Spec API.
 })();
 ```
 
-### space composite
+### Space Composite
 
 ```js | ob
 (() => {

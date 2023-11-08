@@ -1,6 +1,6 @@
 ---
 title: Color
-order: 9
+order: 6
 ---
 Color plays a very important role in visualization. It helps us better understand data, highlight key information, enhance visual appeal and improve readability. And in visualization, color often serves the following purposes:
 
@@ -134,7 +134,7 @@ It(palette) can also be continuous:
 })();
 ```
 
-You can refer to this for the current built-in color palette. [palette documentation](/spec/palette)。
+You can refer to this for the current built-in color palette [palette documentation](/spec/palette).
 
 ### Relations
 
@@ -178,5 +178,3 @@ Setting colors through `mark.style`. The color setting here takes higher priorit
   return chart.getContainer();
 })();
 ```
-
-<embed src="@/docs/manual/extra-topics/color.en.md"></embed>
