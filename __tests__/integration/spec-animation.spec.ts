@@ -1,6 +1,6 @@
 import EventEmitter from '@antv/event-emitter';
 import { Canvas } from '@antv/g';
-import { deepMix } from '@antv/util';
+// import { deepMix } from '@antv/util';
 import { G2Context } from '../../src';
 import * as chartTests from '../plots/animation';
 import { filterTests } from './utils/filterTests';
@@ -9,6 +9,8 @@ import { sleep } from './utils/sleep';
 import { kebabCase } from './utils/kebabCase';
 import './utils/useSnapshotMatchers';
 import './utils/useCustomFetch';
+import { compose } from './utils/compose';
+import { disableAxis } from './utils/preprocess';
 
 function defined(d) {
   return d !== null;
@@ -75,19 +77,19 @@ function useFrame(I, context, asset) {
   };
 }
 
-function hideAxisTitle(options) {
-  const { children } = options;
-  const hide = (d) =>
-    deepMix(d, {
-      axis: { x: { title: false }, y: { title: false } },
-    });
-  if (!children) return hide(options);
-  const newChildren = children.map(hide);
-  return {
-    ...options,
-    children: newChildren,
-  };
-}
+// function hideAxisTitle(options) {
+//   const { children } = options;
+//   const hide = (d) =>
+//     deepMix(d, {
+//       axis: { x: { title: false }, y: { title: false } },
+//     });
+//   if (!children) return hide(options);
+//   const newChildren = children.map(hide);
+//   return {
+//     ...options,
+//     children: newChildren,
+//   };
+// }
 
 describe('Animations', () => {
   const tests = filterTests(chartTests);
@@ -100,7 +102,7 @@ describe('Animations', () => {
 
         // @todo Remove this when gui fixed title animation.
         // @ts-ignore
-        generateOptions.preprocess = hideAxisTitle;
+        generateOptions.preprocess = compose([disableAxis]);
 
         if (!I) {
           throw new Error(`Missing intervals for ${name}`);

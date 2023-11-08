@@ -8,7 +8,7 @@ import { renderSpec } from './utils/renderSpec';
 import { compose } from './utils/compose';
 import './utils/useSnapshotMatchers';
 import './utils/useCustomFetch';
-import { disableAnimation } from './utils/preprocess';
+import { disableAnimation, disableAxis } from './utils/preprocess';
 
 function disableTooltip(options): G2Spec {
   const discovered = [options];
@@ -48,6 +48,7 @@ describe('Interactions', () => {
         generateOptions.preprocess = compose([
           preprocess,
           disableAnimation,
+          disableAxis,
           tooltip ? (d) => d : disableTooltip,
         ]);
 

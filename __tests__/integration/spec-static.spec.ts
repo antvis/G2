@@ -6,6 +6,7 @@ import './utils/useSnapshotMatchers';
 import './utils/useCustomFetch';
 import { disableAnimation, disableAxis } from './utils/preprocess';
 import { sleep } from './utils/sleep';
+import { compose } from './utils/compose';
 
 describe('Charts', () => {
   const tests = filterTests(chartTests);
@@ -16,9 +17,7 @@ describe('Charts', () => {
         // @ts-ignore
         const { before, after } = generateOptions;
         // @ts-ignore
-        generateOptions.preprocess = (options) => {
-          return disableAxis(disableAnimation(options));
-        };
+        generateOptions.preprocess = compose([disableAnimation, disableAxis]);
         before?.();
         gCanvas = await renderSpec(generateOptions);
         after?.();

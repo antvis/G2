@@ -23,10 +23,11 @@ export function chartChangeSizePolar(context) {
       x: { padding: 0.5, align: 0 },
       y: { tickCount: 5, domainMax: 80 },
     },
-    axis: {
-      x: { grid: true },
-      y: { zIndex: 1, title: false, direction: 'center' },
-    },
+    // axis: {
+    //   x: { grid: true },
+    //   y: { zIndex: 1, title: false, direction: 'center' },
+    // },
+    axis: false,
     legend: { color: { layout: { justifyContent: 'flex-start' } } },
     children: [
       {

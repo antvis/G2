@@ -1424,6 +1424,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       0
                     </text>
@@ -1451,6 +1452,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="hidden"
                     >
                       50
                     </text>
@@ -1478,6 +1480,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       100
                     </text>
@@ -1505,6 +1508,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="hidden"
                     >
                       150
                     </text>
@@ -1532,6 +1536,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       200
                     </text>
@@ -2064,6 +2069,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       0
                     </text>
@@ -2091,6 +2097,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="hidden"
                     >
                       500
                     </text>
@@ -2118,6 +2125,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       1000
                     </text>
@@ -2145,6 +2153,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="hidden"
                     >
                       1500
                     </text>
@@ -2172,6 +2181,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       2000
                     </text>
@@ -2683,6 +2693,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       400
                     </text>
@@ -2710,6 +2721,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="hidden"
                     >
                       600
                     </text>
@@ -2737,6 +2749,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       800
                     </text>
@@ -2764,6 +2777,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="hidden"
                     >
                       1000
                     </text>
@@ -2791,6 +2805,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       1200
                     </text>
@@ -3368,6 +3383,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       100
                     </text>
@@ -3395,6 +3411,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="hidden"
                     >
                       120
                     </text>
@@ -3422,6 +3439,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       140
                     </text>
@@ -3449,6 +3467,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="hidden"
                     >
                       160
                     </text>
@@ -3476,6 +3495,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       180
                     </text>
@@ -3503,6 +3523,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="hidden"
                     >
                       200
                     </text>
@@ -3530,6 +3551,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       220
                     </text>
@@ -4414,6 +4436,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       30
                     </text>
@@ -4441,6 +4464,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="hidden"
                     >
                       40
                     </text>
@@ -4468,6 +4492,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       50
                     </text>
@@ -4495,6 +4520,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="hidden"
                     >
                       60
                     </text>
@@ -4522,6 +4548,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       70
                     </text>
@@ -4549,6 +4576,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="hidden"
                     >
                       80
                     </text>
@@ -4576,6 +4604,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       90
                     </text>
@@ -4603,6 +4632,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="hidden"
                     >
                       100
                     </text>
