@@ -1277,7 +1277,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="visible"
                     >
                       Trebi
                     </text>
@@ -1305,7 +1304,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="hidden"
                     >
                       Wisconsin No. 38
                     </text>
@@ -1333,7 +1331,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="hidden"
                     >
                       No. 457
                     </text>
@@ -1361,7 +1358,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="visible"
                     >
                       Glabron
                     </text>
@@ -1389,7 +1385,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="hidden"
                     >
                       Peatland
                     </text>
@@ -1417,7 +1412,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="hidden"
                     >
                       Velvet
                     </text>
@@ -1445,7 +1439,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="visible"
                     >
                       No. 475
                     </text>
@@ -1473,7 +1466,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="hidden"
                     >
                       Manchuria
                     </text>
@@ -1501,7 +1493,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="hidden"
                     >
                       No. 462
                     </text>
@@ -1529,7 +1520,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="visible"
                     >
                       Svansota
                     </text>
@@ -2296,7 +2286,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="visible"
                     >
                       Trebi
                     </text>
@@ -2324,7 +2313,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="hidden"
                     >
                       Wisconsin No. 38
                     </text>
@@ -2352,7 +2340,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="hidden"
                     >
                       No. 457
                     </text>
@@ -2380,7 +2367,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="visible"
                     >
                       Glabron
                     </text>
@@ -2408,7 +2394,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="hidden"
                     >
                       Peatland
                     </text>
@@ -2436,7 +2421,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="hidden"
                     >
                       Velvet
                     </text>
@@ -2464,7 +2448,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="visible"
                     >
                       No. 475
                     </text>
@@ -2492,7 +2475,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="hidden"
                     >
                       Manchuria
                     </text>
@@ -2520,7 +2502,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="hidden"
                     >
                       No. 462
                     </text>
@@ -2548,7 +2529,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="visible"
                     >
                       Svansota
                     </text>
@@ -3336,7 +3316,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="visible"
                     >
                       Trebi
                     </text>
@@ -3364,7 +3343,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="hidden"
                     >
                       Wisconsin No. 38
                     </text>
@@ -3392,7 +3370,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="hidden"
                     >
                       No. 457
                     </text>
@@ -3420,7 +3397,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="visible"
                     >
                       Glabron
                     </text>
@@ -3448,7 +3424,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="hidden"
                     >
                       Peatland
                     </text>
@@ -3476,7 +3451,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="hidden"
                     >
                       Velvet
                     </text>
@@ -3504,7 +3478,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="visible"
                     >
                       No. 475
                     </text>
@@ -3532,7 +3505,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="hidden"
                     >
                       Manchuria
                     </text>
@@ -3560,7 +3532,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="hidden"
                     >
                       No. 462
                     </text>
@@ -3588,7 +3559,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="visible"
                     >
                       Svansota
                     </text>
@@ -4355,7 +4325,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="visible"
                     >
                       Trebi
                     </text>
@@ -4383,7 +4352,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="hidden"
                     >
                       Wisconsin No. 38
                     </text>
@@ -4411,7 +4379,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="hidden"
                     >
                       No. 457
                     </text>
@@ -4439,7 +4406,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="visible"
                     >
                       Glabron
                     </text>
@@ -4467,7 +4433,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="hidden"
                     >
                       Peatland
                     </text>
@@ -4495,7 +4460,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="hidden"
                     >
                       Velvet
                     </text>
@@ -4523,7 +4487,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="visible"
                     >
                       No. 475
                     </text>
@@ -4551,7 +4514,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="hidden"
                     >
                       Manchuria
                     </text>
@@ -4579,7 +4541,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="hidden"
                     >
                       No. 462
                     </text>
@@ -4607,7 +4568,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="visible"
                     >
                       Svansota
                     </text>
@@ -5648,7 +5608,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="visible"
                     >
                       Trebi
                     </text>
@@ -5676,7 +5635,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="hidden"
                     >
                       Wisconsin No. 38
                     </text>
@@ -5704,7 +5662,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="hidden"
                     >
                       No. 457
                     </text>
@@ -5732,7 +5689,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="visible"
                     >
                       Glabron
                     </text>
@@ -5760,7 +5716,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="hidden"
                     >
                       Peatland
                     </text>
@@ -5788,7 +5743,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="hidden"
                     >
                       Velvet
                     </text>
@@ -5816,7 +5770,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="visible"
                     >
                       No. 475
                     </text>
@@ -5844,7 +5797,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="hidden"
                     >
                       Manchuria
                     </text>
@@ -5872,7 +5824,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="hidden"
                     >
                       No. 462
                     </text>
@@ -5900,7 +5851,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="visible"
                     >
                       Svansota
                     </text>
@@ -6667,7 +6617,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="visible"
                     >
                       Trebi
                     </text>
@@ -6695,7 +6644,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="hidden"
                     >
                       Wisconsin No. 38
                     </text>
@@ -6723,7 +6671,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="hidden"
                     >
                       No. 457
                     </text>
@@ -6751,7 +6698,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="visible"
                     >
                       Glabron
                     </text>
@@ -6779,7 +6725,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="hidden"
                     >
                       Peatland
                     </text>
@@ -6807,7 +6752,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="hidden"
                     >
                       Velvet
                     </text>
@@ -6835,7 +6779,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="visible"
                     >
                       No. 475
                     </text>
@@ -6863,7 +6806,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="hidden"
                     >
                       Manchuria
                     </text>
@@ -6891,7 +6833,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="hidden"
                     >
                       No. 462
                     </text>
@@ -6919,7 +6860,6 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
-                      visibility="visible"
                     >
                       Svansota
                     </text>
