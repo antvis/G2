@@ -33,5 +33,3 @@ penguinsPointRepeatMatrixLegendFilter.steps = ({ canvas }) => {
   const [e0] = elements;
   return [step(e0, 'click')];
 };
-
-penguinsPointRepeatMatrixLegendFilter.skip = true;

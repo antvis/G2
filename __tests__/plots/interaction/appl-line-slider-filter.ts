@@ -57,5 +57,3 @@ aaplLineSliderFilter.steps = ({ canvas }) => {
     },
   ];
 };
-
-aaplLineSliderFilter.skip = true;
