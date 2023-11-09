@@ -15,7 +15,7 @@ export function disableAxis(options): G2Spec {
   if (!children) return { ...options, axis: false };
   const newChildren = children.map((d) => ({
     ...d,
-    axis: { x: false, y: false },
+    axis: false,
   }));
   return {
     ...options,

@@ -90,7 +90,7 @@
             height="328"
           />
         </g>
-        <g transform="matrix(1,0,0,1,16,16)" clip-path="url(#clip-path-120-6)">
+        <g transform="matrix(1,0,0,1,16,16)" >
           <path
             
             fill="rgba(0,0,0,0)"

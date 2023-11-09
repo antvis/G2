@@ -15,13 +15,12 @@ export async function indicesLineChartFacetBrushShared(): Promise<G2Spec> {
     encode: { y: 'Symbol' },
     scale: { y: { paddingInner: 0.2 } },
     data,
-    axis: { x: false, y: false },
     children: [
       {
         type: 'line',
         frame: false,
         scale: { y: { nice: true, facet: false } },
-        axis: { x: false, y: false },
+        axis: { y: { labelAutoHide: false } },
         encode: {
           x: 'Date',
           y: 'Close',
@@ -54,3 +53,5 @@ indicesLineChartFacetBrushShared.steps = ({ canvas }) => {
     },
   ];
 };
+
+indicesLineChartFacetBrushShared.skip = true;

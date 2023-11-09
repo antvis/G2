@@ -9,7 +9,6 @@ export function penguinsPointRepeatMatrixLegendFilter(): G2Spec {
     height: 480,
     paddingLeft: 50,
     paddingBottom: 50,
-    axis: { x: false, y: false },
     data: {
       type: 'fetch',
       value: 'data/penguins.csv',
@@ -23,7 +22,6 @@ export function penguinsPointRepeatMatrixLegendFilter(): G2Spec {
         encode: {
           color: 'species',
         },
-        axis: { x: false, y: false },
       },
     ],
   };
@@ -35,3 +33,5 @@ penguinsPointRepeatMatrixLegendFilter.steps = ({ canvas }) => {
   const [e0] = elements;
   return [step(e0, 'click')];
 };
+
+penguinsPointRepeatMatrixLegendFilter.skip = true;

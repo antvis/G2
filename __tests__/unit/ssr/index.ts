@@ -88,9 +88,9 @@
 //   return writePNG(chart.getContext().canvas?.getConfig().canvas);
 // }
 
-describe('ssr', () => {
-  it('SSR will return a image', async () => {
-    // const f = await renderG2BySSR();
-    // expect(fs.existsSync(f)).toBe(true);
-  });
-});
+// describe('ssr', () => {
+//   it('SSR will return a image', async () => {
+//     const f = await renderG2BySSR();
+//     expect(fs.existsSync(f)).toBe(true);
+//   });
+// });

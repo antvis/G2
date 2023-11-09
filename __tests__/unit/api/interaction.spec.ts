@@ -1,4 +1,5 @@
 import { Chart, VIEW_CLASS_NAME } from '../../../src';
+import { createNodeGCanvas } from '../../integration/utils/createNodeGCanvas';
 
 function interactionOf(chart, name) {
   const { canvas } = chart.getContext();
@@ -18,7 +19,9 @@ function mockInteraction(chart, name, fn) {
 }
 
 function createChart() {
-  const chart = new Chart({});
+  const chart = new Chart({
+    canvas: createNodeGCanvas(640, 480),
+  });
 
   chart
     .interval()

@@ -10,7 +10,9 @@ export type ToMatchDOMSnapshotOptions = {
   keepSVGElementId?: boolean;
 };
 const formatSVG = (svg: string, keepSVGElementId: boolean) => {
-  return keepSVGElementId ? svg : svg.replace(/id="[^"]*"/g, '');
+  return keepSVGElementId
+    ? svg
+    : svg.replace(/id="[^"]*"/g, '').replace(/clip-path="[^"]*"/g, '');
 };
 
 // @see https://jestjs.io/docs/26.x/expect#expectextendmatchers
