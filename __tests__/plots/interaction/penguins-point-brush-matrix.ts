@@ -67,3 +67,5 @@ penguinsPointBrushMatrix.steps = ({ canvas }) => {
     },
   ];
 };
+
+penguinsPointBrushMatrix.skip = true;

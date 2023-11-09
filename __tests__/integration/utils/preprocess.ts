@@ -13,7 +13,10 @@ export function disableAnimation(options): G2Spec {
 export function disableAxis(options): G2Spec {
   const { children } = options;
   if (!children) return { ...options, axis: false };
-  const newChildren = children.map((d) => ({ ...d, axis: false }));
+  const newChildren = children.map((d) => ({
+    ...d,
+    axis: { x: false, y: false },
+  }));
   return {
     ...options,
     children: newChildren,
