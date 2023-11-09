@@ -50,5 +50,3 @@ indicesLineChartIndexSeries.steps = ({ canvas }) => {
     }),
   ];
 };
-
-indicesLineChartIndexSeries.maxError = 300;

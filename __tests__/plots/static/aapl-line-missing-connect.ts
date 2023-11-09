@@ -26,5 +26,3 @@ export function aaplLineMissingConnect(): G2Spec {
     },
   };
 }
-
-aaplLineMissingConnect.maxError = 100;

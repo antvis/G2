@@ -96,5 +96,3 @@ export function incomeStatementByRegionIntervalCustom() {
     ],
   };
 }
-
-incomeStatementByRegionIntervalCustom.maxError = 400;

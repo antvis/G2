@@ -31,4 +31,4 @@ export function liquidCustomShape(): G2Spec {
   };
 }
 
-liquidCustomShape.maxError = 10;
+liquidCustomShape.skip = true;

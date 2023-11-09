@@ -24,11 +24,11 @@ describe('chart.on', () => {
   const canvas2 = createNodeGCanvas(640, 80);
   const assetSnapshots = async (step) => {
     await sleep(500);
-    await expect(canvas1).toMatchCanvasSnapshot(dir, step + '-focus', {
-      maxError: 300,
+    await expect(canvas1).toMatchDOMSnapshot(dir, step + '-focus', {
+      keepSVGElementId: false,
     });
-    await expect(canvas2).toMatchCanvasSnapshot(dir, step + '-context', {
-      maxError: 300,
+    await expect(canvas2).toMatchDOMSnapshot(dir, step + '-context', {
+      keepSVGElementId: false,
     });
   };
 

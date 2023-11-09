@@ -1,5 +1,6 @@
 import { Chart, MarkNode } from '../../../src';
 import { G2Mark } from '../../../src/runtime';
+import { createNodeGCanvas } from '../../integration/utils/createNodeGCanvas';
 
 function setOptions(node: MarkNode) {
   return node
@@ -138,7 +139,10 @@ describe('mark.get[Instance]()', () => {
   let interval;
 
   beforeAll(async () => {
-    const chart = new Chart({ key: '$$chart$$' });
+    const chart = new Chart({
+      key: '$$chart$$',
+      canvas: createNodeGCanvas(640, 480),
+    });
 
     chart.data([
       { genre: 'Sports', sold: 275 },
@@ -182,7 +186,9 @@ describe('mark.get[Instance]()', () => {
 });
 
 describe('mark.[node]()', () => {
-  const chart = new Chart();
+  const chart = new Chart({
+    canvas: createNodeGCanvas(640, 480),
+  });
   it('chart.interval() should specify options by API', () => {
     const node = chart.interval();
     expect(node.type).toBe('interval');

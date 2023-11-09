@@ -1,11 +1,11 @@
 import { chartOnComponentClick as render } from '../plots/api/chart-on-component-click';
-import { createDOMGCanvas } from './utils/createDOMGCanvas';
+import { createNodeGCanvas } from './utils/createNodeGCanvas';
 import { dispatchFirstShapeEvent, createPromise } from './utils/event';
 import './utils/useSnapshotMatchers';
 import { ChartEvent } from '../../src';
 
 describe('chart.on', () => {
-  const canvas = createDOMGCanvas(640, 480);
+  const canvas = createNodeGCanvas(640, 480);
   const { finished, chart } = render({ canvas });
 
   chart.off();

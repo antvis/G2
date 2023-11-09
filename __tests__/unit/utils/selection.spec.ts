@@ -12,28 +12,13 @@ import {
   Polyline,
   HTML,
   CustomEvent,
-  Canvas,
 } from '@antv/g';
-import { Renderer } from '@antv/g-canvas';
-
 import { G2Element, select, Selection } from '../../../src/utils/selection';
-
-function createCanvas(
-  width,
-  height,
-  container = document.createElement('div'),
-) {
-  return new Canvas({
-    width,
-    height,
-    container,
-    renderer: new Renderer(),
-  });
-}
+import { createNodeGCanvas } from '../../integration/utils/createNodeGCanvas';
 
 describe('select', () => {
   it('select(node) should return a new selection with expected defaults', () => {
-    const canvas = createCanvas(300, 200);
+    const canvas = createNodeGCanvas(300, 200);
     const selection = select(canvas.document.documentElement);
     expect(selection).toBeInstanceOf(Selection);
 
@@ -66,7 +51,7 @@ describe('select', () => {
   });
 
   it('Selection.select(selector) should return a new selection with the first match element selected', async () => {
-    const canvas = createCanvas(300, 200);
+    const canvas = createNodeGCanvas(300, 200);
 
     await canvas.ready;
 
@@ -88,7 +73,7 @@ describe('select', () => {
   });
 
   it('Selection.selectAll(selector) should returns a new selection with all match element selected', async () => {
-    const canvas = createCanvas(300, 200);
+    const canvas = createNodeGCanvas(300, 200);
 
     await canvas.ready;
 
@@ -110,7 +95,7 @@ describe('select', () => {
   });
 
   it('Selection.append(node) should append node to each selected elements for non-empty selection and return the new selection', async () => {
-    const canvas = createCanvas(300, 200);
+    const canvas = createNodeGCanvas(300, 200);
 
     await canvas.ready;
 
@@ -451,8 +436,7 @@ describe('select', () => {
   });
 
   it('Selection.on() should register event', async () => {
-    const container = document.createElement('div');
-    const canvas = createCanvas(300, 200, container);
+    const canvas = createNodeGCanvas(300, 200);
 
     await canvas.ready;
 

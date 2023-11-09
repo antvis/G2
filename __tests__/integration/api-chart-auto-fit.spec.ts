@@ -21,14 +21,14 @@ describe('chart.options.autoFit', () => {
     fitted = rest.fitted;
     await finished;
     await sleep(20);
-    await expect(canvas).toMatchCanvasSnapshot(dir, 'step0');
+    await expect(canvas).toMatchDOMSnapshot(dir, 'step0');
   });
 
   it('chart.forceFit() should fit parent container', async () => {
     button.dispatchEvent(new CustomEvent('click'));
     await fitted;
     await sleep(20);
-    await expect(canvas).toMatchCanvasSnapshot(dir, 'step1');
+    await expect(canvas).toMatchDOMSnapshot(dir, 'step1');
   });
 
   afterAll(() => {

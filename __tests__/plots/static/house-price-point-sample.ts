@@ -22,5 +22,3 @@ export function housePricePointSample(): G2Spec {
     ],
   };
 }
-
-housePricePointSample.maxError = 100;

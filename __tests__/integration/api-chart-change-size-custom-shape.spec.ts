@@ -16,7 +16,7 @@ describe('mark.changeSize', () => {
     await new Promise<void>((resolve) => chart.on('afterchangesize', resolve));
     const dir = `${__dirname}/snapshots/api`;
     await sleep(20);
-    await expect(canvas).toMatchCanvasSnapshot(dir, render.name);
+    await expect(canvas).toMatchDOMSnapshot(dir, render.name);
   });
 
   afterAll(() => {
