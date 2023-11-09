@@ -58,6 +58,7 @@ export { aaplLineSliderFilter } from './appl-line-slider-filter';
 export { aaplLineAreaBasicSample } from './aapl-line-area-basic-sample';
 export { aaplLineAreaBasicSampleMount } from './aapl-line-area-basic-sample-mount';
 export { aaplAreaMissingDataTranspose } from './aapl-area-missing-data-transpose';
+export { aaplLineDateDefaultFormat } from './aapl-line-date-default-format';
 export { alphabetIntervalBrushTooltip } from './alphabet-interval-brush-tooltip';
 export { mockLineFalsy } from './mock-line-falsy';
 export { provincesLineGroupName } from './provinces-line-group-name';
