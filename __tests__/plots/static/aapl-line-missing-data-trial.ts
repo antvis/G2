@@ -26,14 +26,3 @@ export function aaplLineMissingDataTrial(): G2Spec {
     style: { shape: 'trail' },
   };
 }
-
-// Make the local ci and online ci covert Date object to consistent string.
-let toString;
-aaplLineMissingDataTrial.before = () => {
-  toString = Date.prototype.toString;
-  Date.prototype.toString = Date.prototype.toUTCString;
-};
-
-aaplLineMissingDataTrial.after = () => {
-  Date.prototype.toString = toString;
-};
