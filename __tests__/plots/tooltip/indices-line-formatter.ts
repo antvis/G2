@@ -23,14 +23,3 @@ export async function indicesLineFormatter(): Promise<G2Spec> {
 }
 
 indicesLineFormatter.steps = seriesTooltipSteps([200, 300]);
-
-// Make the local ci and online ci covert Date object to consistent string.
-let toString;
-indicesLineFormatter.before = () => {
-  toString = Date.prototype.toString;
-  Date.prototype.toString = Date.prototype.toUTCString;
-};
-
-indicesLineFormatter.after = () => {
-  Date.prototype.toString = toString;
-};

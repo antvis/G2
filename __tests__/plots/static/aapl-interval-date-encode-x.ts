@@ -15,14 +15,3 @@ export function aaplIntervalDateEncodeX(): G2Spec {
     },
   };
 }
-
-let toString;
-
-aaplIntervalDateEncodeX.before = () => {
-  toString = Date.prototype.toString;
-  Date.prototype.toString = Date.prototype.toUTCString;
-};
-
-aaplIntervalDateEncodeX.after = () => {
-  Date.prototype.toString = toString;
-};
