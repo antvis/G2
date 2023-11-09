@@ -3,7 +3,7 @@ title: Listen and emit events
 order: 9
 ---
 
-G2 exposes some events to get the chart life cycle and interaction information. G2 exported a `ChartEvent` type, used to define the type of event.
+G2 exposes some events to get the chart life cycle and interaction information. G2 exports a `ChartEvent` type, used to define the type of event.
 
 <img alt="click event" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*z61ZQ5DM5IUAAAAAAAAAAAAADmJ7AQ/original" width="800" />
 
@@ -79,7 +79,7 @@ G2 currently provides the following lifecycle events:
 
 If you want to get the interactive information of the chart, you can do the following:
 
-* Monitor the global `Mark` event
+* Monitor the global `element` event
 
 ```js
 chart.on(`element:${ChartEvent.EventType}`, (ev) => {
@@ -87,7 +87,7 @@ chart.on(`element:${ChartEvent.EventType}`, (ev) => {
 });
 ```
 
-* Monitor specified `Mark` event
+* Monitor specified `element` event
 
 ```js
 chart.on(`${markType}:${ChartEvent.EventType}`, (ev) => {
@@ -100,7 +100,7 @@ chart.on(`interval:${ChartEvent.CLICK}`, (ev) => {
 });
 ```
 
-* Listen to Plot area events
+* Listen to plot area events
 
 ```js
 chart.on('plot:click', (event) => console.log(event));

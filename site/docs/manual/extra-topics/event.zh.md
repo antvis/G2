@@ -79,7 +79,7 @@ G2 目前提供了以下生命周期事件：
 
 如果你想要获取图表的交互信息，可以通过下面的方式：
 
-- 监听全局 `Mark` 事件
+- 监听全局 `element` 事件
 
 ```js
 chart.on(`element:${ChartEvent.EventType}`, (ev) => {
@@ -87,7 +87,7 @@ chart.on(`element:${ChartEvent.EventType}`, (ev) => {
 });
 ```
 
-- 监听指定 `Mark` 事件
+- 监听指定 `element` 事件
 
 ```js
 chart.on(`${markType}:${ChartEvent.EventType}`, (ev) => {
@@ -100,7 +100,7 @@ chart.on(`interval:${ChartEvent.CLICK}`, (ev) => {
 });
 ```
 
-- 监听 Plot 区域事件
+- 监听 plot 区域事件
 
 ```js
 chart.on('plot:click', (event) => console.log(event));

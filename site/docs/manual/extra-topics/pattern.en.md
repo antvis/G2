@@ -23,7 +23,7 @@ The usage is as follows, first install the dependencies:
 $ npm install @antv/g-pattern  --save;
 ```
 
-Then you can use the built-in patterns. In this [example](/zh/examples/theme/pattern#lines-pattern):
+Then you can use the built-in patterns. In this [example](/en/examples/theme/pattern#lines-pattern):
 
 * We used [lines](https://g.antv.antgroup.com/api/css/pattern#lines), and set attributes like background color, opacity, line color, and spacing.
 * Through [repetition](https://g.antv.antgroup.com/api/css/pattern#repetition), the tiling mode is specified as horizontal and vertical directions
@@ -59,7 +59,7 @@ For more detailed parameter meanings and effects, see [complete g-pattern API](h
 
 When the above-mentioned built-in patterns do not meet the requirements, you can use [G API](https://g.antv.antgroup.com/guide/chapter1) to customize, just like describing the scene.
 
-In this [example](/zh/examples/theme/pattern/#custom-pattern-with-g-api), we first get [document](https://g.antv.antgroup.com/api/builtin-objects/document) object from context, create a [rect](https://g.antv.antgroup.com/api/basic/rect) and a [path](https://g.antv.antgroup.com/api/basic/path) by [document.createElement](https://g.antv.antgroup.com/api/builtin-objects/document#createelement), and using them as pattern sources:
+In this [example](/en/examples/theme/pattern/#custom-pattern-with-g-api), we first get [document](https://g.antv.antgroup.com/api/builtin-objects/document) object from context, create a [rect](https://g.antv.antgroup.com/api/basic/rect) and a [path](https://g.antv.antgroup.com/api/basic/path) by [document.createElement](https://g.antv.antgroup.com/api/builtin-objects/document#createelement), and using them as pattern sources:
 
 ```js
 mark.style('fill', ({ value }) => {
@@ -111,7 +111,7 @@ Among them, image URL, HTMLImageElement, and HTMLVideoElement are all static res
 
 <img src="https://gw.alipayobjects.com/mdn/rms_6ae20b/afts/img/A*cRmFTItZOtYAAAAAAAAAAAAAARQnAQ" alt="other pattern source" width="400">
 
-In this [example](/zh/examples/theme/pattern/#custom-pattern-with-canvas), we used `HTMLCanvasElement` with [canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API) to customize:
+In this [example](/en/examples/theme/pattern/#custom-pattern-with-canvas), we used `HTMLCanvasElement` with [canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API) to customize:
 
 ```js
 // 程序化生成
