@@ -6,11 +6,11 @@ import {
   receiveExpectData,
 } from './utils/event';
 import './utils/useSnapshotMatchers';
-import { createDOMGCanvas } from './utils/createDOMGCanvas';
+import { createNodeGCanvas } from './utils/createNodeGCanvas';
 
 describe('chart.emit', () => {
   const dir = `${__dirname}/snapshots/api/${kebabCase(render.name)}`;
-  const canvas = createDOMGCanvas(800, 500);
+  const canvas = createNodeGCanvas(800, 500);
 
   it('chart.emit and chart.on should control item tooltip display.', async () => {
     const { finished, chart, clear } = render({
@@ -22,12 +22,14 @@ describe('chart.emit', () => {
 
     // chart.emit("tooltip:show", options) should show tooltip.
     await expect(canvas).toMatchDOMSnapshot(dir, 'step0', {
+      fileFormat: 'html',
       selector: '.g2-tooltip',
     });
 
     // chart.emit("tooltip:hide") should hide tooltip.
     chart.emit('tooltip:hide');
     await expect(canvas).toMatchDOMSnapshot(dir, 'step1', {
+      fileFormat: 'html',
       selector: '.g2-tooltip',
     });
 

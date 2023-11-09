@@ -23,5 +23,3 @@ export function aaplLineMissing(): G2Spec {
     },
   };
 }
-
-aaplLineMissing.maxError = 100;

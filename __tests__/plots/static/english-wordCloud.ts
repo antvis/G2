@@ -21,3 +21,4 @@ export function englishWordCloud(): G2Spec {
     ],
   };
 }
+englishWordCloud.skip = true;

@@ -47,7 +47,6 @@ export async function indicesLineChartFacet(): Promise<G2Spec> {
 }
 
 indicesLineChartFacet.tooltip = true;
-
 indicesLineChartFacet.steps = ({ canvas }) => {
   const { document } = canvas;
   const [plot] = document.getElementsByClassName(PLOT_CLASS_NAME);

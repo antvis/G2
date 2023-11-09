@@ -44,5 +44,3 @@ export function indicesLineChartScaleRelationsAutoPaddingRound(): G2Spec {
     },
   };
 }
-
-indicesLineChartScaleRelationsAutoPaddingRound.maxError = 100;

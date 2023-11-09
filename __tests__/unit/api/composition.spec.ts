@@ -1,4 +1,5 @@
 import { Chart } from '../../../src';
+import { createNodeGCanvas } from '../../integration/utils/createNodeGCanvas';
 
 function expectToCreateMarks(node) {
   expect(node.interval().type).toBe('interval');
@@ -46,7 +47,9 @@ function expectToCreateNodes(node) {
 }
 
 describe('Composition', () => {
-  const chart = new Chart();
+  const chart = new Chart({
+    canvas: createNodeGCanvas(640, 480),
+  });
   it('chart.view() should specify options by API', () => {
     const node = chart.view();
     node
