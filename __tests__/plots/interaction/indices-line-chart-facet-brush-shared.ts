@@ -53,5 +53,3 @@ indicesLineChartFacetBrushShared.steps = ({ canvas }) => {
     },
   ];
 };
-
-indicesLineChartFacetBrushShared.skip = true;

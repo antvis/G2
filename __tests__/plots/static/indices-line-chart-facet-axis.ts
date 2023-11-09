@@ -41,4 +41,3 @@ export async function indicesLineChartFacetAxis(): Promise<G2Spec> {
     ],
   };
 }
-indicesLineChartFacetAxis.skip = true;

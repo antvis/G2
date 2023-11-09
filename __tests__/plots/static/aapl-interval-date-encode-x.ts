@@ -15,7 +15,6 @@ export function aaplIntervalDateEncodeX(): G2Spec {
     },
   };
 }
-aaplIntervalDateEncodeX.only = true;
 
 // Make the local ci and online ci covert Date object to consistent string.
 let toString;
