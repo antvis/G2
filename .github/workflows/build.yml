@@ -31,4 +31,5 @@ jobs:
           name: snapshots
           path: |
             __tests__/integration/snapshots/**/*-actual.svg
+            __tests__/integration/snapshots/**/*-actual.html
           retention-days: 1
