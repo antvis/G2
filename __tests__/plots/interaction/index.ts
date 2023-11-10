@@ -12,6 +12,7 @@ export { stateAgesIntervalSelectByX } from './stateages-interval-select-by-x';
 export { gdp2PointFisheye } from './gdp2-point-chart-fisheye';
 export { indicesLineChartIndexSeries } from './indices-line-chart-index-series';
 export { temperaturesLineLegendFilterOrdinal } from './temperatures-line-legend-filter-ordinal';
+export { temperaturesLineLegendFilterChildrenText } from './temperatures-line-legend-filter-children-text';
 export { profitIntervalLegendFilterOrdinal } from './profit-interval-legend-filter-ordinal';
 export { penguinsPointBrush } from './penguins-point-brush';
 export { penguinsPointBrushX } from './penguins-point-brush-x';

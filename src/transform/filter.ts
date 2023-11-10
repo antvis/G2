@@ -48,7 +48,9 @@ export const Filter: TC<FilterOptions> = (options = {}) => {
         key,
         {
           ...encode,
-          value: newIndex.map((i) => encode.value[FI[i]]),
+          value: newIndex
+            .map((i) => encode.value[FI[i]])
+            .filter((v) => v !== undefined),
         },
       ];
     });
