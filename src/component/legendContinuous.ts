@@ -161,7 +161,7 @@ function getLinearConfig(
     data: scale.getTicks().map((value) => ({ value })),
     color: new Array(Math.floor(length)).fill(0).map((d, i) => {
       const value = ((max - min) / (length - 1)) * i + min;
-      const color = scale.map(value);
+      const color = scale.map(value) || defaultColor;
       const opacity = opacityScale ? opacityScale.map(value) : 1;
       return color.replace(
         /rgb[a]*\(([\d]{1,3}) *, *([\d]{1,3}) *, *([\d]{1,3})[\S\s]*\)/,
