@@ -69,8 +69,6 @@ export const Liquid: CC<LiquidOptions> = (options) => {
   const wave = subObject(style, 'wave');
   const background = subObject(style, 'background');
 
-  console.log(prettyNumber(percent * 100), percent * 100);
-
   return [
     deepMix({}, DEFAULT_OPTIONS, {
       type: 'interval',
