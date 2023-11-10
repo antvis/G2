@@ -48,7 +48,7 @@ chart.encode({ x: 'name', y: 'value' });
 
 ## Channels
 
-To control the style of the mark, we often bind a column of data and its visual attribute. For example, in the example below, we bind the 'height' column of data and the 'x' attribute, the 'weight' column of data and the 'y' attribute, and the 'gender' column of data and the 'color' attribute.
+To control the style of the mark, we often bind a column of data to its visual attribute. For example, in the example below, we bind the 'height' column of data to the 'x' attribute, the 'weight' column of data to the 'y' attribute, and the 'gender' column of data to the 'color' attribute.
 
 ```js | ob { pin: false }
 table({

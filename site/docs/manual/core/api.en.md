@@ -3,7 +3,7 @@ title: API
 order: 2
 ---
 
-G2 has designed a **specification (Spec)** to describe the visualizations that can be drawn, which allows users to render charts by calling `chart.options(options)` with specified **options** that meet the specification. For example, a basic bar chart can be drawn as follows:
+G2 has designed a **specification (spec)** to describe the visualizations that can be drawn, which allows users to render charts by calling `chart.options(options)` with specified **options** that meet the specification. For example, a basic bar chart can be drawn as follows:
 
 ```js | ob
 (() => {
@@ -32,7 +32,7 @@ G2 has designed a **specification (Spec)** to describe the visualizations that c
 
 ## Functional API
 
-Based on the underlying Spec, in order to provide more diverse and flexible capabilities to declare charts, G2 also provides a series of functional APIs to declare charts, such as declaring the simple bar chart above:
+Based on the underlying spec, in order to provide more diverse and flexible capabilities to declare charts, G2 also provides a series of functional APIs to declare charts, such as declaring the simple bar chart above:
 
 ```js | ob
 (() => {
@@ -56,7 +56,7 @@ Based on the underlying Spec, in order to provide more diverse and flexible capa
 })();
 ```
 
-Simply put, **calling the functional API is just generating internal options. There is no essential difference between the two, and their drawing capabilities are the same. It's more of a stylistic choice.** For example, when calling `chart.interval`, an Interval tag is added to `children`:
+Simply put, **calling the functional API is just generating internal options. There is no essential difference between the two, and their drawing capabilities are the same. It's more of a stylistic choice.** For example, when calling `chart.interval`, an Interval mark is added to `children`:
 
 ```js
 ({
@@ -74,11 +74,11 @@ Simply put, **calling the functional API is just generating internal options. Th
 });
 ```
 
-Therefore, understanding the mapping relationship between the functional API and Options is very important. In the subsequent introduction, the Spec will be introduced first, followed by the corresponding API.
+Therefore, understanding the mapping relationship between the functional API and Options is very important. In the subsequent introduction, the spec will be introduced first, followed by the corresponding API.
 
 ## View Tree
 
-Overall, G2's Spec is a hierarchical **View Tree**, composed of different nodes. Nodes specify their types through `node.type`, different types have different functions, and they are nested through `node.children`.
+Overall, G2's spec is a hierarchical **view tree**, composed of different nodes. Nodes specify their types through `node.type`, different types have different functions, and they are nested through `node.children`.
 
 ```js
 ({

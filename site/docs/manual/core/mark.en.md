@@ -143,7 +143,7 @@ In the line chart below, a line corresponds to multiple data items.
 
 ## Stackable
 
-G2's marks can be superimposed, in other words: multiple marks can be added to one view. In the following example, two marks, a line and a point, are added to the chart:
+G2's marks can be layered, in other words: multiple marks can be added to one view. In the following example, two marks, a line and a point, are added to the chart:
 
 ```js | ob
 (() => {
@@ -259,7 +259,7 @@ The composability feature of marks provides a simple yet powerful way to extend 
 
 ### Transform
 
-Since annotation is also a mark, it can also perform transformation. For example, the Select conversion below.
+Since annotation is also a mark, it can also perform transformation. For example, the Select transform below.
 
 The Select mark transformation provides the ability to select a shape from a set of shapes. For example, in the example below, the country with the largest GDP in each continent is marked.
 

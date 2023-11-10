@@ -5,7 +5,7 @@ order: 7
 
 In G2, the **scale** is a crucial abstraction for visualization: it maps abstract data to visual data, serving as the bridge between abstract data and visual data. If the encode determines which channels of the mark need to be visualized, then the scale determines how these channels should be visualized.
 
-G2 internally infers the type, domain, and range of the scale based on the data type and the type of the mark, but you can also specify the corresponding configuration. The scale can be configured at the Mark level:
+G2 internally infers the type, domain, and range of the scale based on the data type and the type of the mark, but you can also specify the corresponding configuration. The scale can be configured at the mark level:
 
 ```js
 ({
@@ -82,7 +82,7 @@ chart.scale({
 
 ## Mark Scale
 
-Every channel of the mark is bound to a scale. This scale transforms the column data bound to the channel from the data range: **Domain** to the visual range: **Range**. Different types of scales are suitable for different types of data and use cases.
+Every channel of the mark is bound to a scale. This scale transforms the column data bound to the channel from the data range: **domain** to the visual range: **range**. Different types of scales are suitable for different types of data and use cases.
 
 ### Scale Synchronization
 
@@ -260,7 +260,7 @@ Common scales are divided into three major categories:
 
 - Continuous scale
 - Discrete scale
-- Discretized scale
+- Discretizing scale
 
 ### Continuous Scale
 
@@ -320,7 +320,7 @@ The second type of scale is the ordinal scale, mainly used for discrete data. Co
 
 ### Discretized Scale
 
-The third type of scale is the discretized scale, mainly used for continuous data, which will be discretized and then mapped, such as threshold, quantize, etc. The color channel below uses the quantile scale.
+The third type of scale is the discretizing scale, mainly used for continuous data, which will be discretized and then mapped, such as threshold, quantize, etc. The color channel below uses the quantile scale.
 
 ```js | ob
 (() => {

@@ -57,7 +57,6 @@ chart.interval().data([
 
 ## Connectors and Transforms
 
-一个完整的数据声明由两部分构成：**连接器（Connector）** 和**数据转换（Data Transform）** 。其中连接器是获得数据的方式，通过 `data.type` 指定，数据转换是预处理函数，通过 `data.transform` 指定。
 A complete data declaration consists of two parts: **Connector** and **Data Transform**. Connector is the way to get data, specified by `data.type`, and data transform is the pre-processing function, specified by `data.transform`.
 
 ```js
