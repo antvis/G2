@@ -133,9 +133,9 @@ Here's a simple example:
 
 For the mark of a graph corresponding to multiple data items, we can select the mark that needs to be retained through `selector`. Currently supported values ​​are as follows:
 
-- **first**- the first one
-- **last**- the last one
-- `function`- Custom selector
+- **first** - the first one
+- **last** - the last one
+- **function** - custom selector
 
 ```js | ob
 (() => {

@@ -3,9 +3,9 @@ title: 坐标系（Coordinate）
 order: 6.5
 ---
 
-**The Coordinate System** in G2 will perform a series of point transform. In G2, the marked position channels x and y will be mapped to the range [0,1] through a scale mapping, after that, the coordinate system is used to transform points into canvas coordinates, thereby changing the spatial display of the mark.
+**The Coordinate System** in G2 will perform a series of point transform. In G2, the mark's position channels x and y will be mapped to the range [0,1] through a scale mapping, after that, the coordinate system is used to transform points into canvas coordinates, thereby changing the spatial display of the mark.
 
-The coordinate system be configured at the level of View:
+The coordinate system be configured at the level of view:
 
 ```js
 ({
@@ -137,7 +137,7 @@ For example, you can use interval mark and polar coordinate transform to draw ro
 
 ### Theta
 
-you can also use interval mark and theta coordinate system to draw pie charts.
+You can also use interval mark and theta coordinate system to draw pie charts.
 
 ```js | ob
 (() => {
@@ -165,7 +165,7 @@ you can also use interval mark and theta coordinate system to draw pie charts.
 
 ### Radial
 
-You can also use interval mark and radial coordinate systems to draw Yujue charts.
+You can also use interval mark and radial coordinate systems to draw radial charts.
 
 ```js | ob
 (() => {

@@ -86,7 +86,7 @@ Each part of the animation has the following properties:
 
 ## Animation coding
 
-Animation properties can be used as a channel in G2, and can also encode data. For example, in the Gantt chart below, the appearance and duration of each bar are linearly related to the data.
+Animation properties can be used as a channel in G2, and can also encode data. For example, in the gantt chart below, the appearance and duration of each bar are linearly related to the data.
 
 ```js | ob
 (() => {
