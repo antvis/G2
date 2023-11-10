@@ -3,7 +3,7 @@ title: Server-side rendering（SSR）
 order: 12
 ---
 
-Server-side rendering (SSR) refers to rendering charts in non-browser environments, such as Node.js, Python, Java, PHP, and other backend languages. Typically, in backend environments, the output is a static image without interaction or animation. Common use cases include:
+Server-side rendering (SSR) refers to rendering charts in non-browser environments, such as Node.js, Python, Java, PHP, and other backend languages. Typically, in backend environments, the output is a static image without interaction or animation. The typical usage scenarios are as follows:
 
 * Pre-rendering images on the backend to improve page load speed.
 * Script batch processing for easy distribution.
@@ -11,51 +11,118 @@ Server-side rendering (SSR) refers to rendering charts in non-browser environmen
 * Generate images for screenshot comparisons, used in code unit testing.
 * ...
 
-## Principle
-
-The SSR principle of the G2 visualization engine is simple. The core of G2's ability to draw charts is that it requires `canvas` API, in the browser, there is the browser standard canvas drawing interface, and in SSR, you only need to provide the canvas drawing API in the corresponding language script.
-
 ## Used in NodeJS
 
-When using G2 normally in a browser, you can refer to the documentation under [start using](/manual/introduction/getting-started). However, when using G2 in Node.js, you only need to provide a method for building the `canvas` object when creating a chart instance. The overall code looks like this:
+In the Node.js ecosystem, the following libraries implement common rendering APIs found in the browser environment:
+
+- [Node-canvas](https://github.com/Automattic/node-canvas) it provides an implementation of the Canvas2D API based on Cairo.
+- [JSdom](https://github.com/jsdom/jsdom) it offers an implementation of the DOM API.
+
+By creating corresponding renderers based on those, G2 can render PNG or SVG results. Below, we will introduce example code for both implementations separately.
+
+### jsdom
+
+[online example](https://stackblitz.com/edit/stackblitz-starters-6zfeng?file=index.js)
+
+First, use JSDOM to create a container `container` where the chart will be rendered. Additionally, save the `window` and `document` objects for later use:
+
+```js
+const jsdom = require('jsdom');
+
+const { JSDOM } = jsdom;
+const { window } = new JSDOM(`<!DOCTYPE html>`);
+const { document } = window;
+const container = document.createElement('div');
+```
+
+Then, create a SVG renderer, remove plugins that depend on the DOM API, and create a canvas:
+
+```js
+const { Canvas } = require('@antv/g');
+const { Renderer } = require('@antv/g-svg');
+
+const renderer = new Renderer();
+const htmlRendererPlugin = renderer.getPlugin('html-renderer');
+renderer.unregisterPlugin(htmlRendererPlugin);
+const domInteractionPlugin = renderer.getPlugin('dom-interaction');
+renderer.unregisterPlugin(domInteractionPlugin);
+
+const gCanvas = new Canvas({
+  renderer,
+  width,
+  height,
+  container, // use container created in last step
+  document,
+  offscreenCanvas: offscreenNodeCanvas,
+  requestAnimationFrame: window.requestAnimationFrame,
+  cancelAnimationFrame: window.cancelAnimationFrame,
+});
+```
+
+Then, proceed to create a G2 Chart as usual by providing the previously created canvas and container. For more details, refer to the documentation under [getting started](/manual/introduction/getting-started)：
+
+```js
+const { Chart } = require('@antv/g2');
+
+const chart = new Chart({
+  width,
+  height,
+  canvas: gCanvas,
+  container,
+});
+```
+
+Finally, render the chart, retrieve the rendering result from JSDOM, serialize it into an SVG string. Afterwards, you can choose to save it as a local file. In this example code, the result is directly output to the console.
+
+```js
+const xmlserializer = require('xmlserializer');
+
+(async () => {
+  await chart.render();
+
+  const svg = xmlserializer.serializeToString(container.childNodes[0]);
+  console.log(svg); // '<svg>...</svg>
+
+  chart.destroy();
+})();
+```
+
+It is worth mentioning that currently, in G2's integration testing, due to SVG's excellent cross-platform compatibility, we also apply this technology for [screenshot comparisons](https://github.com/antvis/G2/tree/v5/__tests__/integration/snapshots/static).
+
+### node-canvas
+
+[online example](https://stackblitz.com/edit/stackblitz-starters-evrvef?file=index.js)
+
+The solution based on jsdom can only generate SVG. If you want to generate images in formats like PNG, you can use [node-canvas](https://github.com/Automattic/node-canvas).
+
+Firstly, create two node-canvases, one for rendering the scene and the other for measuring text width:
 
 ```ts
-import * as fs from 'fs';
-import * as os from 'os';
-import * as path from 'path';
-import { createCanvas } from 'canvas';
+const { createCanvas } = require('canvas');
+const nodeCanvas = createCanvas(width, height);
+const offscreenNodeCanvas = createCanvas(1, 1);
+```
+
+Then create a canvas renderer and canvas:
+
+```ts
 import { Canvas } from '@antv/g';
 import { Renderer } from '@antv/g-canvas';
-import { Plugin as DragAndDropPlugin } from '@antv/g-plugin-dragndrop';
-import { Chart } from '../../../src';
 
-function createNodeGCanvas(width: number, height: number): Canvas {
-  // Create a node-canvas instead of HTMLCanvasElement
-  const nodeCanvas = createCanvas(width, height);
-  // A standalone offscreen canvas for text metrics
-  const offscreenNodeCanvas = createCanvas(1, 1);
+const renderer = new Renderer();
+// Omitting the removal of DOM-related plugin code.
+const gCanvas = new Canvas({
+  width,
+  height,
+  canvas: nodeCanvas,
+  renderer,
+  offscreenCanvas: offscreenNodeCanvas,
+});
+```
 
-  // Create a renderer, unregister plugin relative to DOM.
-  const renderer = new Renderer();
-  // Remove html plugin to ssr.
-  const htmlRendererPlugin = renderer.getPlugin('html-renderer');
-  renderer.unregisterPlugin(htmlRendererPlugin);
-  const domInteractionPlugin = renderer.getPlugin('dom-interaction');
-  renderer.unregisterPlugin(domInteractionPlugin);
-  renderer.registerPlugin(
-    new DragAndDropPlugin({ dragstartDistanceThreshold: 10 }),
-  );
-  return new Canvas({
-    width,
-    height,
-    // @ts-ignore
-    canvas: nodeCanvas,
-    renderer,
-    // @ts-ignore
-    offscreenCanvas: offscreenNodeCanvas,
-  });
-}
+Next, create a G2 Chart as usual and render it. After completion, use the [createPNGStream](https://github.com/Automattic/node-canvas#canvascreatepngstream) method provided by node-canvas to create a [ReadableStream](https://nodejs.org/api/stream.html#stream_class_stream_readable) containing the PNG encoding. Similarly, [createJPEGStream](https://github.com/Automattic/node-canvas#canvascreatejpegstream) and [createPDFStream](https://github.com/Automattic/node-canvas#canvascreatepdfstream) are also available for exporting JPEG and PDF, respectively.
 
+```ts
 function writePNG(nodeCanvas) {
   return new Promise<string>((resolve, reject) => {
     const f = path.join(os.tmpdir(), `${Math.random()}.png`);
@@ -65,58 +132,10 @@ function writePNG(nodeCanvas) {
     out.on('finish', () => resolve(f)).on('error', reject);
   });
 }
-
-async function renderG2BySSR() {
-  const width = 600;
-  const height = 400;
-
-  const gCanvas = createNodeGCanvas(width, height);
-
-  // A tabular data to be visualized.
-  const data = [
-    { genre: 'Sports', sold: 275 },
-    { genre: 'Strategy', sold: 115 },
-    { genre: 'Action', sold: 120 },
-    { genre: 'Shooter', sold: 350 },
-    { genre: 'Other', sold: 150 },
-  ];
-
-  // Instantiate a new chart.
-  const chart = new Chart({
-    width,
-    height,
-    // Set the g canvas with node-canvas.
-    canvas: gCanvas,
-    // Set the createCanvas function.
-    // @ts-ignore
-    createCanvas: () => {
-      // The width attribute defaults to 300, and the height attribute defaults to 150.
-      // @see https://stackoverflow.com/a/12019582
-      return createCanvas(width, height) as unknown as HTMLCanvasElement;
-    },
-  });
-
-  // Specify visualization.
-  chart
-    .interval()                   // Create an interval mark and add it to the chart.
-    .data(data)                   // Bind data for this mark.
-    .encode('x', 'genre')         // Assign genre column to x position channel.
-    .encode('y', 'sold')          // Assign sold column to y position channel.
-    .encode('color', 'genre');    // Assign genre column to color channel.
-
-  // Render visualization.
-  await chart.render();
-
-  return writePNG(chart.getContext().canvas?.getConfig().canvas);
-}
-
-await renderG2BySSR();
 ```
-
-You can also find the corresponding code in the unit test directory of G2 which under [**tests**/unit/ssr/index.spec.ts](https://github.com/antvis/G2/tree/v5/__tests__/unit/ssr/index.spec.ts).
 
 ## Use in other server-side locales
 
-Because the code of G2 is written and developed in JavaScript, it cannot be used directly in Python, Java, PHP and other language environments. However, you can install the NodeJS environment in the service and then use the corresponding back-end language command line API to drive the above-mentioned NodeJS code to perform SSR.
+Because the code of G2 is written and developed in JavaScript, it cannot be used directly in Python, Java, PHP and other language environments. However, you can install the Node.JS environment in the service and then use the corresponding back-end language command line API to drive the above-mentioned Node.JS code to perform SSR.
 
 Refer to [python calls node js](https://juejin.cn/s/python%20%E8%B0%83%E7%94%A8%20node%20js), other languages ​​are similar.
