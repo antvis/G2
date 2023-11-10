@@ -5,7 +5,7 @@ order: 7.3
 
 In G2, the **Scrollbar** can be used to filter data, and it can be bound with the x or y channel. By default, the scrollbar is turned off.
 
-The scrollbar can be configured at the Mark level:
+The scrollbar can be configured at the mark level:
 
 ```js
 ({
@@ -29,7 +29,7 @@ chart.interval().scrollbar({
 });
 ```
 
-The scrollbar can also be configured at the View level:
+The scrollbar can also be configured at the view level:
 
 ```js
 ({

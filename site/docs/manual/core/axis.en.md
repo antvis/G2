@@ -32,7 +32,7 @@ chart.interval().axis({
 });
 ```
 
-The axis can also be configured at the View level:
+The axis can also be configured at the view level:
 
 ```js
 ({

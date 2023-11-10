@@ -5,7 +5,7 @@ order: 7.2
 
 In G2, the **Legend** can be understood as the visualization of the non-spatial channel (color, opacity, size, shape) corresponding to the scale.
 
-The legend can be configured at the Mark level:
+The legend can be configured at the mark level:
 
 ```js
 ({
@@ -29,7 +29,7 @@ chart.interval().legend({
 });
 ```
 
-Legends can also be configured at the View level:
+Legends can also be configured at the view level:
 
 ```js
 ({

@@ -3,7 +3,7 @@ title: Composition
 order: 7
 ---
 
-In G2, **View Composition** provides the ability to draw multiple charts in a single visualization. G2 defines a **View Graph** to describe a **Multi-View Plot**.
+In G2, **View Composition** provides the ability to draw multiple charts in a single visualization. G2 defines a **view graph** to describe a **multi-view plot**.
 
 ```js
 ({

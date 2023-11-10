@@ -5,7 +5,7 @@ order: 7.4
 
 In G2, the **Slider** can be used to filter data, and it can be bound with the x or y channel. By default, the slider is turned off.
 
-The slider can be configured at the Mark level:
+The slider can be configured at the mark level:
 
 
 ```js
@@ -30,7 +30,7 @@ chart.interval().slider({
 });
 ```
 
-The slider can also be configured at the View level:
+The slider can also be configured at the view level:
 
 ```js
 ({
