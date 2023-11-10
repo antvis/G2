@@ -303,3 +303,4 @@ export { mockLineZeroX } from './mock-line-zero-x';
 export { mockLineZeroY } from './mock-line-zero-y';
 export { mockLineCloseX } from './mock-line-close-x';
 export { premierLeagueTable } from './premier-league-table';
+export { singlePointBasic } from './single-point-basic';
