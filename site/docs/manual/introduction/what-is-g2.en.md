@@ -39,7 +39,7 @@ This is the syntax for a specific operating environment on the G2 official websi
 
 ## Mark
 
-**Mark**It is the smallest visual unit in G2. All charts in G2 are composed of different markers.
+**Mark** It is the smallest visual unit in G2. All charts in G2 are composed of different markers.
 
 ```js | ob
 (() => {
@@ -64,7 +64,7 @@ This is the syntax for a specific operating environment on the G2 official websi
 
 ## Transform
 
- **Transform** will change the display form of data and marks, and is mostly used for data analysis.
+**Transform** will change the display form of data and marks, and is mostly used for data analysis.
 
 ```js | ob
 (() => {
@@ -91,7 +91,7 @@ This is the syntax for a specific operating environment on the G2 official websi
 
 ## Scale
 
- **Scale** Used to control the visual style of markup.
+**Scale** is used to control the visual style of markup.
 
 ```js | ob
 (() => {
@@ -120,7 +120,7 @@ This is the syntax for a specific operating environment on the G2 official websi
 
 ## Coordinate system
 
- **Coordinate System** will change the display format of the chart.
+**Coordinate System** will change the display format of the chart.
 
 ```js | ob
 (() => {
@@ -187,7 +187,7 @@ This is the syntax for a specific operating environment on the G2 official websi
 
 ## Animation
 
- **Animation** supports group animation and keyframe animation. You can click the run button on the left to see the effect.
+**Animation** supports group animation and keyframe animation. You can click the run button on the left to see the effect.
 
 ```js | ob
 (() => {
