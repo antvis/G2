@@ -3,7 +3,7 @@ title: 按需打包
 order: 9
 ---
 
-G2 5.0.19 版本推出了按需打包的功能。可以借助 [Rollup](https://rollupjs.org/), [Webpack](https://webpack.js.org/) 等打包工具 [Tree-Shaking](https://rollupjs.org/introduction/#tree-shaking) 的能力去按需使用 G2 的特性，从而减少打包后的体积。虽然从结果上看还有不少优化空间，该功能的推出有以下几个意义：
+G2 5.0.19 版本推出了按需打包的功能。可以借助 [Rollup](https://rollupjs.org/), [Webpack](https://webpack.js.org/) 等打包工具的 [Tree-Shaking](https://rollupjs.org/introduction/#tree-shaking) 能力来按需使用 G2 的特性，从而减少打包后的体积。虽然从结果上看还有不少优化空间，该功能的推出有以下几个意义：
 
 - 防止已有 G2 5.0 用户的包体积无意义的增加。
 - 能更清晰地分析依赖和整理 G2 5.0 的总体架构。
