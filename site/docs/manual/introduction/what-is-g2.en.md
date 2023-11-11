@@ -3,14 +3,14 @@ title: What is G2
 order: 1
 ---
 
-**G2**It is a concise progressive syntax mainly used for making web-based visualizations. It provides a set of functional style, declarative API and component programming paradigm, hoping to help users quickly complete**Report construction**、**Data exploration**、**visual storytelling**and other diverse needs.
+ **G2** It is a concise progressive syntax mainly used for making web-based visualizations. It provides a set of functional style, declarative API and component programming paradigm, hoping to help users quickly complete **dashboard building** 、**data exploration** 、**storytelling** and other diverse needs.
 
 This article will give you a brief introduction to the core concepts of G2:
 
-* **Mark**:Draw data-driven graphics
+* **Mark**: Draw data-driven graphics
 * **Transform**: Derived data
 * **Scale**: Mapping abstract data into visual data
-* **Coordinate system**): applies point transformation to the spatial channel
+* **Coordinate system**: applies point transformation to the spatial channel
 * **View composition (Composition)**: Manage and enhance views
 * **Animation**: Data-driven animation and continuous deformation animation
 * **Interaction**: Manipulate the view and display detailed information
@@ -39,7 +39,7 @@ This is the syntax for a specific operating environment on the G2 official websi
 
 ## Mark
 
-**mark**It is the smallest visual unit in G2. All charts in G2 are composed of different markers.
+**Mark**It is the smallest visual unit in G2. All charts in G2 are composed of different markers.
 
 ```js | ob
 (() => {
@@ -64,7 +64,7 @@ This is the syntax for a specific operating environment on the G2 official websi
 
 ## Transform
 
-**Convert**It will change the display form of data and markers, and is mostly used for data analysis.
+ **Transform** will change the display form of data and marks, and is mostly used for data analysis.
 
 ```js | ob
 (() => {
@@ -91,7 +91,7 @@ This is the syntax for a specific operating environment on the G2 official websi
 
 ## Scale
 
-**scale**Used to control the visual style of markup.
+ **Scale** Used to control the visual style of markup.
 
 ```js | ob
 (() => {
@@ -120,7 +120,7 @@ This is the syntax for a specific operating environment on the G2 official websi
 
 ## Coordinate system
 
-**Coordinate System**The display format of the chart will be changed.
+ **Coordinate System** will change the display format of the chart.
 
 ```js | ob
 (() => {
@@ -151,7 +151,7 @@ This is the syntax for a specific operating environment on the G2 official websi
 
 ## View composition (Composition)
 
-**View composition**Used to create multi-view diagrams.
+**View composition** is used to create multi-view diagrams.
 
 ```js | ob
 (() => {
@@ -187,7 +187,7 @@ This is the syntax for a specific operating environment on the G2 official websi
 
 ## Animation
 
-**animation**Supports group animation and keyframe animation. You can click the run button on the left to see the effect.
+ **Animation** supports group animation and keyframe animation. You can click the run button on the left to see the effect.
 
 ```js | ob
 (() => {
@@ -291,4 +291,4 @@ Interactions can explore data on demand.
 
 ## more capabilities
 
-Because G2's tags can be combined, it also provides**compound mark**mechanism to extend G2, so you can basically draw any visualization quickly. exist[Case page](/examples)You can get more inspiration by[Options page](/spec/overview)Get a comprehensive look at what G2 is capable of.
+Because G2's tags can be combined, it also provides **composite mark** mechanism to extend G2, so you can basically draw any visualization quickly. exist[Case page](/examples)You can get more inspiration by[Options page](/spec/overview)Get a comprehensive look at what G2 is capable of.

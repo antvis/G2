@@ -3,7 +3,7 @@ title: Why G2?
 order: 2
 ---
 
-The name and design concept of G2 come from Graphic Grammar "[The Grammar of Graphics](https://book.douban.com/subject/10123863/)》. The core of this theory is to reject the classification of charts and use some basic marks (Marks) and a series of visual components (scale bars, coordinate systems, etc.) to describe a visualization.
+The name and design concept of G2 comes from Graphic Grammar "[The Grammar of Graphics](https://book.douban.com/subject/10123863/)》. The core of this theory is to reject the classification of charts and use some basic marks and a series of visual components (scale bars, coordinate systems, etc.) to describe a visualization.
 
 Thanks to this, compared to low-level visualization tools like D3, G2 has lower usage and learning costs, which can improve research and development efficiency. Compared with the chart template library, G2 can produce different types of charts, which also changes the way G2 users think about charts: charts are no longer an indivisible whole, but can be combined by tags with different uses. This allows you to spend less time writing code or wondering whether this chart can be realized, and more time "thinking visually in the data world."
 
@@ -15,7 +15,7 @@ Of course, it is only our basic mission to draw more charts more easily. We also
 * Add interactive syntax (still under design)
 * ...
 
-In simpler terms:**With G2, you can get more visualization effects more professionally and quickly, and gain visual thinking at the same time.**。
+In simpler terms: **With G2, you can get more visualization effects more professionally and quickly, and gain visual thinking at the same time** .
 
 ## concise syntax
 
@@ -42,8 +42,7 @@ You can draw a chart in one sentence, and in addition to drawing the graph itsel
   return chart.getContainer();
 })();
 ```
-
-G2 simplicity comes from**default value**: You only need to provide the tag type, data and encoding type, and G2 will infer the rest for you. Of course, the great thing about G2 is that the default values ​​can be overridden as needed. We hope that G2 can look good and display insightful information by default, and you can optimize the display of charts based on your specific scenarios and domain knowledge. Will the appeal chart be more readable if the axis tick display is optimized? If you change it to the following color, do you like it better?
+G2 simplicity comes from **default value** : You only need to provide the tag type, data and encoding type, and G2 will infer the rest for you. Of course, the great thing about G2 is that the default values ​​can be overridden as needed. We hope that G2 can look good and display insightful information by default, and you can optimize the display of charts based on your specific scenarios and domain knowledge. Will the appeal chart be more readable if the axis tick display is optimized? If you change it to the following color, do you like it better?
 
 ```js | ob
 (() => {
@@ -79,7 +78,7 @@ You may think that a scatter plot is too simple, so let’s see how G2 draws a s
     
   });
 
-  // Sankey 标记
+// Sankey mark
   chart
     .sankey()
     .data({
@@ -138,7 +137,7 @@ G2 can draw a variety of chart types. In addition to supporting basic fold and c
 })();
 ```
 
-The most wonderful thing about G2 is that you can get new charts by combining different charts (more precisely markers)! For example, if we add the Point mark of the scatter chart and the Link mark of the connection chart to a chart, we can obtain a labeled point-line connection chart.
+The most wonderful thing about G2 is that you can get new charts by combining different charts (more precisely marks)! For example, if we add the point mark of the scatter chart and the link mark of the connection chart to a chart, we can obtain a labeled point-line connection chart.
 
 ```js | ob
 (() => {
@@ -194,7 +193,7 @@ The most wonderful thing about G2 is that you can get new charts by combining di
 
 ## Strong data analysis capabilities
 
-In the process of visualization, processing data often takes a lot of time, and there is a certain cost of getting started. To simplify this process, reduce data preprocessing time and standardize common data analysis capabilities, G2 provides a series of**Transform**Used to aggregate and generate new data. For example, the following calculates the task distribution of athletes with different weights:
+In the process of visualization, processing data often takes a lot of time, and there is a certain cost of getting started. To simplify this process, reduce data preprocessing time and standardize common data analysis capabilities, G2 provides a series of **Transform** to aggregate and generate new data. For example, the following calculates the task distribution of athletes with different weights:
 
 ```js | ob
 (() => {
@@ -240,7 +239,7 @@ Want your chart split by gender?
 })();
 ```
 
-Want to see the distribution of each gender separately through faceting?
+Want to see the distribution of each gender being separated?
 
 ```js | ob
 (() => {
@@ -379,7 +378,7 @@ In addition to animation in a certain view, you can also do continuous deformati
 
 ## Customized interaction capabilities
 
-In addition to providing rich built-in interactions, G2 also`chart.on`and`chart.emit`Provides an ability to link interactions between different views, such as the "Focus and Context" ability shown below:
+In addition to providing rich built-in interactions, G2 also provides the ability to link different views through `chart.on` and `chart.emit` for interactive coordination.interactions between different views, such as the "Focus and Context" ability shown below:
 
 ```js | ob
 (() => {
@@ -474,7 +473,7 @@ In addition to providing rich built-in interactions, G2 also`chart.on`and`chart.
 
 ## Two API styles
 
-G2 provides two styles of API:**Functional API**and**Optional API**. The former declares the chart through a series of function chain calls, and the latter declares the chart through a JavaScript object. For example in[Concise syntax](<concise syntax>)If you use the optional API, the scatter plot in can be declared as follows:
+ G2 provides two styles of API: **Functional API** and **Optional API** . The former declares the chart through a series of function chain calls, and the latter declares the chart through a JavaScript object. For example in [concise syntax](<concise syntax>), if you use the optional API, the scatter plot in can be declared as follows:
 
 ```js | ob
 (() => {
@@ -548,7 +547,7 @@ The choice between the two is more of a matter of style: if you are familiar wit
 
 ## Can be combined
 
-G2 provides a simple compound Mark mechanism for enhancing charts or customizing charts. For example, composite Point, Line and Area Mark, you can use the built-in Mark just like any built-in Mark.
+G2 provides a simple compound mark mechanism for enhancing charts or customizing charts. For example, composite point, line and area mark, you can use the built-in mark just like any built-in mark.
 
 ```js | ob
 (() => {
@@ -609,11 +608,11 @@ G2 provides a simple compound Mark mechanism for enhancing charts or customizing
 })();
 ```
 
-Composite Mark makes it easier to add charts based on G2 and simpler to maintain. At the same time, some Marks within G2 are also implemented based on this method.
+Composite mark makes it easier to add charts based on G2 and simpler to maintain. At the same time, some marks within G2 are also implemented based on this method.
 
 ## Scalable
 
-G2 is an architecture built by**Runtime**and a series of**Visual component (Component)**constituted. The runtime is mainly responsible for completing data mapping, creation and inference of scales, etc., as well as cascading visualization components. Different visualization components have different functions, such as Scale for mapping data and Shape for drawing mapped graphics. Here's how to customize a triangular bar chart:
+G2 is an architecture built by **Runtime** and a series of **Visual component (Component)** constituted. The runtime is mainly responsible for completing data mapping, creation and inference of scales, etc., as well as cascading visualization components. Different visualization components have different functions, such as Scale for mapping data and Shape for drawing mapped graphics. Here's how to customize a triangular bar chart:
 
 ```js | ob
 (() => {
@@ -676,7 +675,7 @@ import { Runtime, corelib, extend } from '@antv/g2';
 
 //Extend Runtime based on corelib
 // 1. Add type (if using TypeScript)
-// 2. Add Mark
+// 2. Add mark
 const Chart = extend(Runtime, { ...corelib() });
 
 const chart = new Chart({ container: 'container' });
