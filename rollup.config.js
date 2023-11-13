@@ -13,7 +13,6 @@ const Bundles = [
   // [input, output, name]
   ['bundle/g2.std.ts', 'dist/g2.min.js', 'G2'],
   ['bundle/g2.lite.ts', 'dist/g2.lite.min.js', 'G2'],
-  ['bundle/g2.full.ts', 'dist/g2.full.min.js', 'G2'],
 ];
 
 export default [
