@@ -5,13 +5,13 @@ order: 11
 
 Taking a 3D scatter plot as an example, creating the chart requires the following steps:
 
-* Create WebGL renderers and plugin.
-* Extend threedlib.
-* Set z-channel, scale and axes.
-* Set up the camera in the scene.
-* Add light source.
-* Add custom legend.
-* Using camera interaction and animation.
+- Create WebGL renderers and plugin.
+- Extend threedlib.
+- Set z-channel, scale and axes.
+- Set up the camera in the scene.
+- Add light source.
+- Add custom legend.
+- Using camera interaction and animation.
 
 ## Create WebGL renderers and plugin
 
@@ -23,8 +23,8 @@ $ npm install @antv/g-webgl @antv/g-plugin-3d @antv/g-plugin-control --save
 
 and then use [@antv/g-webgl](https://g.antv.antgroup.com/api/renderer/webgl) as a renderer and register the following two plugins:
 
-* [g-plugin-3d](https://g.antv.antgroup.com/plugins/3d) Provide geometry, materials and lighting in 3D scenes.
-* [g-plugin-control](https://g.antv.antgroup.com/plugins/control) Provide camera interaction in 3D scenes.
+- [g-plugin-3d](https://g.antv.antgroup.com/plugins/3d) Provide geometry, materials and lighting in 3D scenes.
+- [g-plugin-control](https://g.antv.antgroup.com/plugins/control) Provide camera interaction in 3D scenes.
 
 ```ts
 import { Renderer as WebGLRenderer } from '@antv/g-webgl';
@@ -41,7 +41,8 @@ renderer.registerPlugin(new ControlPlugin());
 Due to the huge size of 3D-related functional code, we separated it into [threedlib](/manual/extra-topics/bundle#g2threedlib), extend it and customize the Chart object at runtime:
 
 ```ts
-import { Runtime, corelib, threedlib, extend } from '@antv/g2';
+import { Runtime, corelib, extend } from '@antv/g2';
+import { threedlib } from '@antv/g2-extension-3d';
 
 const Chart = extend(Runtime, { ...corelib(), ...threedlib() });
 ```
@@ -105,11 +106,14 @@ The effect is as follows:
   renderer.registerPlugin(new gPluginControl.Plugin());
   renderer.registerPlugin(new gPlugin3d.Plugin());
 
-  const Chart = G2.extend(G2.Runtime, { ...G2.corelib(), ...G2.threedlib() });
+  const Chart = G2.extend(G2.Runtime, {
+    ...G2.corelib(),
+    ...g2Extension3d.threedlib(),
+  });
 
   // initialize Chart instance
   const chart = new Chart({
-      renderer,
+    renderer,
     width: 500,
     height: 500,
     depth: 400,
@@ -168,11 +172,14 @@ camera.rotate(-20, -20, 0);
   renderer.registerPlugin(new gPluginControl.Plugin());
   renderer.registerPlugin(new gPlugin3d.Plugin());
 
-  const Chart = G2.extend(G2.Runtime, { ...G2.corelib(), ...G2.threedlib() });
+  const Chart = G2.extend(G2.Runtime, {
+    ...G2.corelib(),
+    ...g2Extension3d.threedlib(),
+  });
 
   // initialize Chart instance
   const chart = new Chart({
-      renderer,
+    renderer,
     width: 500,
     height: 500,
     depth: 400,
@@ -244,11 +251,14 @@ we can use `intensity` to increase the intensity of the light source:
   renderer.registerPlugin(new gPluginControl.Plugin());
   renderer.registerPlugin(new gPlugin3d.Plugin());
 
-  const Chart = G2.extend(G2.Runtime, { ...G2.corelib(), ...G2.threedlib() });
+  const Chart = G2.extend(G2.Runtime, {
+    ...G2.corelib(),
+    ...g2Extension3d.threedlib(),
+  });
 
   // initialize Chart instance
   const chart = new Chart({
-      renderer,
+    renderer,
     width: 500,
     height: 500,
     depth: 400,
@@ -372,11 +382,14 @@ This is because graphics in a 3D scene are all affected by the camera, but HUD c
   renderer.registerPlugin(new gPluginControl.Plugin());
   renderer.registerPlugin(new gPlugin3d.Plugin());
 
-  const Chart = G2.extend(G2.Runtime, { ...G2.corelib(), ...G2.threedlib() });
+  const Chart = G2.extend(G2.Runtime, {
+    ...G2.corelib(),
+    ...g2Extension3d.threedlib(),
+  });
 
   // initialize Chart instance
   const chart = new Chart({
-      renderer,
+    renderer,
     width: 500,
     height: 500,
     depth: 400,
@@ -535,11 +548,14 @@ button.onclick = () => {
   renderer.registerPlugin(new gPluginControl.Plugin());
   renderer.registerPlugin(new gPlugin3d.Plugin());
 
-  const Chart = G2.extend(G2.Runtime, { ...G2.corelib(), ...G2.threedlib() });
+  const Chart = G2.extend(G2.Runtime, {
+    ...G2.corelib(),
+    ...g2Extension3d.threedlib(),
+  });
 
   // initialize Chart instance
   const chart = new Chart({
-      renderer,
+    renderer,
     width: 500,
     height: 500,
     depth: 400,

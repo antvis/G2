@@ -85,6 +85,7 @@
     "@antv/g-plugin-rough-svg-renderer": "^1.7.9",
     "@antv/g-svg": "^1.10.20",
     "@antv/g2-extension-ava": "^0.1.1",
+    "@antv/g2-extension-3d": "^0.1.0",
     "@antv/translator": "^1.0.0",
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^17.4.4",

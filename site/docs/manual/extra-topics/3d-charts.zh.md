@@ -106,7 +106,10 @@ chart.render().then(() => {
   renderer.registerPlugin(new gPluginControl.Plugin());
   renderer.registerPlugin(new gPlugin3d.Plugin());
 
-  const Chart = G2.extend(G2.Runtime, { ...G2.corelib(), ...G2.threedlib() });
+  const Chart = G2.extend(G2.Runtime, {
+    ...G2.corelib(),
+    ...g2Extension3d.threedlib(),
+  });
 
   // 初始化图表实例
   const chart = new Chart({
@@ -169,7 +172,10 @@ camera.rotate(-20, -20, 0);
   renderer.registerPlugin(new gPluginControl.Plugin());
   renderer.registerPlugin(new gPlugin3d.Plugin());
 
-  const Chart = G2.extend(G2.Runtime, { ...G2.corelib(), ...G2.threedlib() });
+  const Chart = G2.extend(G2.Runtime, {
+    ...G2.corelib(),
+    ...g2Extension3d.threedlib(),
+  });
 
   // 初始化图表实例
   const chart = new Chart({
@@ -245,7 +251,10 @@ canvas.appendChild(light);
   renderer.registerPlugin(new gPluginControl.Plugin());
   renderer.registerPlugin(new gPlugin3d.Plugin());
 
-  const Chart = G2.extend(G2.Runtime, { ...G2.corelib(), ...G2.threedlib() });
+  const Chart = G2.extend(G2.Runtime, {
+    ...G2.corelib(),
+    ...g2Extension3d.threedlib(),
+  });
 
   // 初始化图表实例
   const chart = new Chart({
@@ -373,7 +382,10 @@ chart.legend(false);
   renderer.registerPlugin(new gPluginControl.Plugin());
   renderer.registerPlugin(new gPlugin3d.Plugin());
 
-  const Chart = G2.extend(G2.Runtime, { ...G2.corelib(), ...G2.threedlib() });
+  const Chart = G2.extend(G2.Runtime, {
+    ...G2.corelib(),
+    ...g2Extension3d.threedlib(),
+  });
 
   // 初始化图表实例
   const chart = new Chart({
@@ -536,7 +548,10 @@ button.onclick = () => {
   renderer.registerPlugin(new gPluginControl.Plugin());
   renderer.registerPlugin(new gPlugin3d.Plugin());
 
-  const Chart = G2.extend(G2.Runtime, { ...G2.corelib(), ...G2.threedlib() });
+  const Chart = G2.extend(G2.Runtime, {
+    ...G2.corelib(),
+    ...g2Extension3d.threedlib(),
+  });
 
   // 初始化图表实例
   const chart = new Chart({
