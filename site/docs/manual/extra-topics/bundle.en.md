@@ -5,9 +5,9 @@ order: 9
 
 G2 version 5.0.19 publishs the on-demand packaging function. You can leverage the [Tree-Shaking](https://rollupjs.org/introduction/#tree-shaking) capability of bundling tools like [Rollup](https://rollupjs.org/),[Webpack](https://webpack.js.org/) to use G2 features on demand, thereby reducing the packaged size. Although there is still a lot of room for optimization from the results, this function has the following significance:
 
-* Prevent the package size of existing G2 5.0 users from meaninglessly increasing.
-* It can more clearly analyze dependencies and organize the overall architecture of G2 5.0.
-* Provide an idea for expanding G2 5.0 capabilities.
+- Prevent the package size of existing G2 5.0 users from meaninglessly increasing.
+- It can more clearly analyze dependencies and organize the overall architecture of G2 5.0.
+- Provide an idea for expanding G2 5.0 capabilities.
 
 ## Start using
 
@@ -25,7 +25,7 @@ For example, package the following web page, which uses G2 to draw a bar chart:
     //Initialize the expanded chart instance
     const chart = new Chart({
       container: 'container',
-        });
+    });
 
     // Declare visualization
     chart.options({
@@ -49,7 +49,7 @@ For example, package the following web page, which uses G2 to draw a bar chart:
 </html>
 ```
 
-and use Chart object which exposed from  `import { Chart } from '@antv/g2'` directly. The bundle package size is compared as follows:
+and use Chart object which exposed from `import { Chart } from '@antv/g2'` directly. The bundle package size is compared as follows:
 
 ```js | ob {pin:false}
 (() => {
@@ -115,7 +115,7 @@ Based on the above theory, we can control the final package size by controlling 
 
 The following is a brief introduction to the APIs related to on-demand packaging.
 
-### G2.Runtime(*options*)
+### G2.Runtime(_options_)
 
 Returns a G2 runtime. This runtime does not contain any Library and requires cooperation with [**G2**.extend](#g2extendruntime-library).
 
@@ -138,9 +138,9 @@ const Chart = extend(Runtime, {
 });
 ```
 
-### G2.extend(*Runtime*,*library*)
+### G2.extend(_Runtime_,_library_)
 
-Enhance *Runtime* according to a specified *library*, including adding types and corresponding Chart APIs.
+Enhance _Runtime_ according to a specified _library_, including adding types and corresponding Chart APIs.
 
 ```js
 import { Runtime, extend, corelib } from '@antv/g2';
@@ -251,7 +251,8 @@ chart.auto(); // Auto Mark
 Return to the 3D analysis library, providing capabilities for 3D visualization. This library will not be included in [G2.stdlib](#g2stdlib). It cannot be used independently, it needs to be used with [G2.corelib](#g2corelib). [Example](/manual/extra-topics/3d-charts)
 
 ```js
-import { Runtime, extend, threedlib, corelib } from '@antv/g2';
+import { Runtime, extend, corelib } from '@antv/g2';
+import { threedlib } from '@antv/g2-extension-3d';
 import { Renderer } from '@antv/g-webgl';
 
 const Chart = extend(Runtime, {
@@ -271,9 +272,9 @@ chart.point3D();
 
 At present, the ability to package on demand has been published, but it can be found that the effect is not very obvious, and the size is only reduced by about 10%. By analyzing the following dependency graph (G2 5.0.18 use [G2.stdlib](#g2corelib)) can have the following ideas for further optimization:
 
-* Reduce the size of the runtime: put some capabilities in the library and use them on demand.
-* Dependency governance: remove some duplicate dependencies, such as`@antv/util`;Reduce the size of some dependencies`@antv/component`。
-* Provide a smaller library than corelib: mark-level on-demand packaging can be achieved.
+- Reduce the size of the runtime: put some capabilities in the library and use them on demand.
+- Dependency governance: remove some duplicate dependencies, such as`@antv/util`;Reduce the size of some dependencies`@antv/component`。
+- Provide a smaller library than corelib: mark-level on-demand packaging can be achieved.
 
 <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Z-bZT5lHPkkAAAAAAAAAAAAADmJ7AQ/original" alt="dep" style="margin-top: 1em"/>
 

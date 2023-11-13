@@ -1,9 +1,9 @@
-import { corelib, plotlib, graphlib, geolib, stdlib, threedlib } from './lib';
+import { corelib, plotlib, graphlib, geolib, stdlib } from './lib';
 import { extend, Runtime } from './api';
 import { API, CompositionAPI } from './api/extend';
 import { G2Spec } from './spec';
 
-export { corelib, plotlib, graphlib, geolib, stdlib, threedlib };
+export { corelib, plotlib, graphlib, geolib, stdlib };
 
 export * from './exports';
 

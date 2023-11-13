@@ -41,7 +41,8 @@ renderer.registerPlugin(new ControlPlugin());
 由于 3D 相关的功能代码体积巨大，我们将其分离到 [threedlib](/manual/extra-topics/bundle#g2threedlib) 中，在运行时扩展它并自定义 Chart 对象：
 
 ```ts
-import { Runtime, corelib, threedlib, extend } from '@antv/g2';
+import { Runtime, corelib, extend } from '@antv/g2';
+import { threedlib } from '@antv/g2-extension-3d';
 
 const Chart = extend(Runtime, { ...corelib(), ...threedlib() });
 ```
@@ -109,7 +110,7 @@ chart.render().then(() => {
 
   // 初始化图表实例
   const chart = new Chart({
-      renderer,
+    renderer,
     width: 500,
     height: 500,
     depth: 400,
@@ -172,7 +173,7 @@ camera.rotate(-20, -20, 0);
 
   // 初始化图表实例
   const chart = new Chart({
-      renderer,
+    renderer,
     width: 500,
     height: 500,
     depth: 400,
@@ -248,7 +249,7 @@ canvas.appendChild(light);
 
   // 初始化图表实例
   const chart = new Chart({
-      renderer,
+    renderer,
     width: 500,
     height: 500,
     depth: 400,
@@ -376,7 +377,7 @@ chart.legend(false);
 
   // 初始化图表实例
   const chart = new Chart({
-      renderer,
+    renderer,
     width: 500,
     height: 500,
     depth: 400,
@@ -539,7 +540,7 @@ button.onclick = () => {
 
   // 初始化图表实例
   const chart = new Chart({
-      renderer,
+    renderer,
     width: 500,
     height: 500,
     depth: 400,
