@@ -46,3 +46,4 @@ export { chartOnBrushHighlightTooltip } from './chart-on-brush-highlight-tooltip
 export { chartChangeSizeCustomShape } from './chart-change-size-custom-shape';
 export { chartOptionsCallbackChildren } from './chart-options-callback-children';
 export { chartAutoFitSlider } from './chart-auto-fit-slider';
+export { chart3d } from './chart-3d';
