@@ -22,5 +22,3 @@ export function aaplLineScrollbarValue(): G2Spec {
     },
   };
 }
-
-aaplLineScrollbarValue.maxError = 100;

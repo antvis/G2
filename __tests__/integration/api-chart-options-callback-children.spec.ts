@@ -18,7 +18,7 @@ describe('chart.options', () => {
     chart = rest.chart;
     await finished;
     await sleep(20);
-    await expect(canvas).toMatchCanvasSnapshot(dir, 'step0');
+    await expect(canvas).toMatchDOMSnapshot(dir, 'step0');
   });
 
   afterAll(() => {

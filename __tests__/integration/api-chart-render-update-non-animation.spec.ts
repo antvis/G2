@@ -17,7 +17,7 @@ describe('chart.render', () => {
 
     button.dispatchEvent(new CustomEvent('click'));
     await refreshed;
-    await expect(canvas).toMatchCanvasSnapshot(dir, 'step0');
+    await expect(canvas).toMatchDOMSnapshot(dir, 'step0');
   });
 
   afterAll(() => {

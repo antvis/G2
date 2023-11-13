@@ -27,5 +27,3 @@ export function aaplLineSlider(): G2Spec {
     },
   };
 }
-
-aaplLineSlider.maxError = 100;

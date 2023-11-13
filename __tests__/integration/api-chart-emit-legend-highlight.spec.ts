@@ -27,12 +27,12 @@ describe('chart.emit', () => {
       data: { channel: 'color', value: 'Increase' },
     });
     await sleep(20);
-    await expect(canvas).toMatchCanvasSnapshot(dir, 'step0');
+    await expect(canvas).toMatchDOMSnapshot(dir, 'step0');
 
     // chart.emit('legend:unhighlight', options) should reset.
     chart.emit('legend:unhighlight', {});
     await sleep(20);
-    await expect(canvas).toMatchCanvasSnapshot(dir, 'step1');
+    await expect(canvas).toMatchDOMSnapshot(dir, 'step1');
 
     chart.off();
 

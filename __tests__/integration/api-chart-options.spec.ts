@@ -18,14 +18,14 @@ describe('chart.options', () => {
     chart = rest.chart;
     await finished;
     await sleep(20);
-    await expect(canvas).toMatchCanvasSnapshot(dir, 'step0');
+    await expect(canvas).toMatchDOMSnapshot(dir, 'step0');
   });
 
   it('chart.options({ width: 480 }) should update chart._options', async () => {
     chart.options({ width: 480 });
     await chart.render();
     await sleep(20);
-    await expect(canvas).toMatchCanvasSnapshot(dir, 'step1');
+    await expect(canvas).toMatchDOMSnapshot(dir, 'step1');
   });
 
   afterAll(() => {

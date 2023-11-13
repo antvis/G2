@@ -21,5 +21,3 @@ export function unemploymentAreaStreamgraph(): G2Spec {
     ],
   };
 }
-
-unemploymentAreaStreamgraph.maxError = 180;

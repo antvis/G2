@@ -1,15 +1,9 @@
 import { Coordinate3D } from '@antv/coord';
 import { Band } from '@antv/scale';
-import { MarkComponent as MC, Vector3 } from '../runtime';
+import { MarkComponent as MC } from '../runtime';
 import { PointMark } from '../spec';
-import {
-  MaybeZeroX,
-  MaybeZeroY,
-  MaybeZeroZ,
-  MaybeSize,
-  MaybeZeroY1,
-} from '../transform';
-import { Sphere, IntervalCube } from '../shape';
+import { MaybeZeroX, MaybeZeroZ, MaybeSize, MaybeZeroY1 } from '../transform';
+import { IntervalCylinder, IntervalCube, IntervalCone } from '../shape';
 import {
   baseGeometryChannels,
   basePostInference,
@@ -75,6 +69,8 @@ function bandWidth(scale: Band, xz: any): number {
 
 const shape = {
   cube: IntervalCube,
+  cylinder: IntervalCylinder,
+  cone: IntervalCone,
 };
 
 Interval3D.props = {

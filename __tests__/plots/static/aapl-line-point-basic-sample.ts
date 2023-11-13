@@ -34,5 +34,3 @@ export function aaplLinePointBasicSample(): G2Spec {
     ],
   };
 }
-
-aaplLinePointBasicSample.maxError = 100;

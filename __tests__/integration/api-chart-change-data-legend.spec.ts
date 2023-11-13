@@ -14,7 +14,7 @@ describe('chart.changeData', () => {
     await finished;
     const dir = `${__dirname}/snapshots/api`;
     await sleep(20);
-    await expect(canvas).toMatchCanvasSnapshot(dir, render.name);
+    await expect(canvas).toMatchDOMSnapshot(dir, render.name);
   });
 
   afterAll(() => {

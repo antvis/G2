@@ -3,11 +3,11 @@ import { brush, dragMask } from '../plots/interaction/penguins-point-brush';
 import './utils/useSnapshotMatchers';
 import { PLOT_CLASS_NAME } from '../../src';
 import { createPromise } from './utils/event';
-import { createDOMGCanvas } from './utils/createDOMGCanvas';
+import { createNodeGCanvas } from './utils/createNodeGCanvas';
 import { sleep } from './utils/sleep';
 
 describe('chart.on', () => {
-  const canvas = createDOMGCanvas(640, 480);
+  const canvas = createNodeGCanvas(640, 480);
 
   it('chart.on should on brush events.', async () => {
     const { finished, chart } = render({

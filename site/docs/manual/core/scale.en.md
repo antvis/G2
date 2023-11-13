@@ -318,7 +318,7 @@ The second type of scale is the ordinal scale, mainly used for discrete data. Co
 })();
 ```
 
-### Discretizing Scale
+### Discretized Scale
 
 The third type of scale is the discretizing scale, mainly used for continuous data, which will be discretized and then mapped, such as threshold, quantize, etc. The color channel below uses the quantile scale.
 

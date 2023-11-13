@@ -82,5 +82,3 @@ export function polioPointStackEnter(): G2Spec {
 }
 
 polioPointStackEnter.intervals = [[2500, 5000]];
-
-polioPointStackEnter.maxError = 20;

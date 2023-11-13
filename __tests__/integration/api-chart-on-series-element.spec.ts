@@ -1,5 +1,5 @@
 import { chartOnSeriesElement as render } from '../plots/api/chart-on-series-element';
-import { createDOMGCanvas } from './utils/createDOMGCanvas';
+import { createNodeGCanvas } from './utils/createNodeGCanvas';
 import {
   dispatchFirstElementEvent,
   createPromise,
@@ -73,7 +73,7 @@ const data = {
 };
 
 describe('chart.on', () => {
-  const canvas = createDOMGCanvas(640, 480);
+  const canvas = createNodeGCanvas(640, 480);
   const { finished, chart } = render({ canvas });
   chart.off();
 

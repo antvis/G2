@@ -1,11 +1,11 @@
 import { chartOnTextClick as render } from '../plots/api/chart-on-text-click';
-import { createDOMGCanvas } from './utils/createDOMGCanvas';
+import { createNodeGCanvas } from './utils/createNodeGCanvas';
 import { dispatchFirstElementEvent, createPromise } from './utils/event';
 import './utils/useSnapshotMatchers';
 import { ChartEvent } from '../../src';
 
 describe('chart.on', () => {
-  const canvas = createDOMGCanvas(640, 480);
+  const canvas = createNodeGCanvas(640, 480);
   const { finished, chart } = render({ canvas });
 
   chart.off();

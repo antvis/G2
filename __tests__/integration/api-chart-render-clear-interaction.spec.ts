@@ -1,13 +1,13 @@
 import { CustomEvent as GCustomEvent } from '@antv/g';
 import { chartRenderClearInteraction as render } from '../plots/api/chart-render-clear-interaction';
 import { PLOT_CLASS_NAME } from '../../src';
-import { createDOMGCanvas } from './utils/createDOMGCanvas';
+import { createNodeGCanvas } from './utils/createNodeGCanvas';
 import './utils/useSnapshotMatchers';
 import './utils/useCustomFetch';
 
 describe('chart.render', () => {
   const dir = `${__dirname}/snapshots/api`;
-  const canvas = createDOMGCanvas(640, 480);
+  const canvas = createNodeGCanvas(640, 480);
 
   it('chart.interaction(name, false) should clear interaction.', async () => {
     const { finished } = render({
@@ -25,6 +25,7 @@ describe('chart.render', () => {
       }),
     );
     await expect(canvas).toMatchDOMSnapshot(dir, render.name, {
+      fileFormat: 'html',
       selector: '.g2-tooltip',
     });
   });

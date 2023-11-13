@@ -33,6 +33,8 @@ export { TriangleDown as PointTriangleDown } from './point/triangleDown';
 export { Sphere } from './point3D/sphere';
 export { Cube } from './point3D/cube';
 export { Cube as IntervalCube } from './interval3D/cube';
+export { Cylinder as IntervalCylinder } from './interval3D/cylinder';
+export { Cone as IntervalCone } from './interval3D/cone';
 export { Vector as VectorShape } from './vector/vector';
 export { Text as TextShape } from './text/text';
 export { Badge as TextBadge } from './text/badge';
