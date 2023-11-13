@@ -36,12 +36,13 @@ export type {
   GuideComponentComponent,
   SingleMark,
   G2BaseComponent,
+  Vector2,
   Vector3,
+  Channel,
 } from './runtime';
-export { select } from './utils/selection';
+export { select, Selection } from './utils/selection';
 export * from './transform';
-export * from './shape/utils';
-export * from './mark/utils';
-export * from './component/axis';
+export { LinearAxis } from './component/axis';
+export type { AxisOptions } from './component/axis';
 
 export { Light, Dark, Academy, Classic, ClassicDark } from './theme';
