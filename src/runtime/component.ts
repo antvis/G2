@@ -13,6 +13,7 @@ import {
   type RadialOptions,
 } from '../coordinate';
 import { combine } from '../utils/array';
+import { prettyNumber } from '../utils/number';
 import { capitalizeFirst, defined, subObject } from '../utils/helper';
 import { LEGEND_INFER_STRATEGIES } from '../component/constant';
 import {
@@ -1114,8 +1115,4 @@ function computeLabelSize(
 function normalizeLabel(d: string | DisplayObject): DisplayObject {
   if (d instanceof DisplayObject) return d;
   return new Text({ style: { text: `${d}` } });
-}
-
-function prettyNumber(n: number) {
-  return Math.abs(n) < 1e-15 ? n : parseFloat(n.toFixed(15));
 }
