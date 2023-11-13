@@ -1,5 +1,5 @@
 {
-  "version": "5.1.7",
+  "version": "5.1.8-beta.1",
   "scripts": {
     "start": "dumi dev",
     "build": "dumi build",
