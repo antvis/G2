@@ -25,7 +25,7 @@ G2 5.0.19 版本推出了按需打包的功能。可以借助 [Rollup](https://r
     // 初始化扩展后的图表实例
     const chart = new Chart({
       container: 'container',
-        });
+    });
 
     // 声明可视化
     chart.options({
@@ -251,7 +251,8 @@ chart.auto(); // Auto Mark
 返回 3D 分析库，提供 3D 可视化的能力。该 library 不会包含在 [G2.stdlib](#g2stdlib) 里面，同样不能单独使用，需要配合 [G2.corelib](#g2corelib) 使用。[示例](/manual/extra-topics/3d-charts)
 
 ```js
-import { Runtime, extend, threedlib, corelib } from '@antv/g2';
+import { Runtime, extend, corelib } from '@antv/g2';
+import { threedlib } from '@antv/g2-extension-3d';
 import { Renderer } from '@antv/g-webgl';
 
 const Chart = extend(Runtime, {
