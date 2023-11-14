@@ -158,11 +158,6 @@
       "path": "dist/g2.lite.min.js",
       "limit": "240 Kb",
       "gzip": true
-    },
-    {
-      "path": "dist/g2.full.min.js",
-      "limit": "350 Kb",
-      "gzip": true
     }
   ],
   "author": {
