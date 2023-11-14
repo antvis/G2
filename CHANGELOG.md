@@ -1,3 +1,22 @@
+## [5.1.8-beta.1](https://github.com/antvis/g2/compare/5.1.7...5.1.8-beta.1) (2023-11-14)
+
+
+### Bug Fixes
+
+* export more types so that extensions like 3d can use them ([#5790](https://github.com/antvis/g2/issues/5790)) ([e21f39e](https://github.com/antvis/g2/commit/e21f39e15e6afbee31a6e8bd45bcc9c03166298e))
+* **interaction:** legendFilter ignore undefined [#5506](https://github.com/antvis/g2/issues/5506) ([#5774](https://github.com/antvis/g2/issues/5774)) ([a0c1a44](https://github.com/antvis/g2/commit/a0c1a44dce4345cdaa6183332188fe950a8e1e02))
+* **liquid:** fix liquid precision ([#5788](https://github.com/antvis/g2/issues/5788)) ([07196d1](https://github.com/antvis/g2/commit/07196d1874766419cc9ee14bf3bd8bd2d3378328))
+* **mark:** delete ava type ([#5782](https://github.com/antvis/g2/issues/5782)) ([dc4a511](https://github.com/antvis/g2/commit/dc4a5118d662b3a1109b8f889879f4b30395d21d))
+* render error when signle data in point mark ([#5785](https://github.com/antvis/g2/issues/5785)) ([0992faa](https://github.com/antvis/g2/commit/0992faa77763674669b3d068f6e9e1257e736f7d))
+* specify TZ=Asia/Shanghai ([#5776](https://github.com/antvis/g2/issues/5776)) ([e6ab2fe](https://github.com/antvis/g2/commit/e6ab2fe2331245d4f164a98ff19dbbaca2a268ef))
+
+
+### Features
+
+* add default format to tooltip title [#5684](https://github.com/antvis/g2/issues/5684) ([#5748](https://github.com/antvis/g2/issues/5748)) ([b7e9055](https://github.com/antvis/g2/commit/b7e90556d552f66bc0d787cff168032c283bc11e))
+
+
+
 ## [5.1.7](https://github.com/antvis/g2/compare/5.1.6...5.1.7) (2023-11-08)
 
 
