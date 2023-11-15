@@ -32,6 +32,9 @@ export default defineConfig(
         open: '/',
       },
       build: { outDir: '../' },
+      define: {
+        global: {},
+      },
     },
     linkOptions,
   ),

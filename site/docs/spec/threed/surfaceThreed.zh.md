@@ -35,7 +35,7 @@ order: 4
 
   // We set the width/height to 100;
   const size = 100;
-  const points: { x: number, y: number, z: number }[] = [];
+  const points = [];
   for (let i = 0; i <= 2 * size; ++i) {
     const theta = (Math.PI * (i - size)) / size;
     for (let j = 0; j <= 2 * size; ++j) {
@@ -70,7 +70,9 @@ order: 4
   chart.render().then(() => {
     const { canvas } = chart.getContext();
     const camera = canvas.getCamera();
-    camera.setPerspective(0.1, 5000, 45, 500 / 500);
+    camera.setPerspective(0.1, 2000, 45, 500 / 500);
+    camera.rotate(30, 30, 0);
+    camera.dolly(60);
     camera.setType(g.CameraType.ORBITING);
   });
 
