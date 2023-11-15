@@ -35,6 +35,14 @@
         "en": "Facet Keyframe"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/raptor/1669043955155/facet-keyframe.gif"
+    },
+    {
+      "filename": "stocks-keyframe.ts",
+      "title": {
+        "zh": "混合帧动画",
+        "en": "Composite Keyframe"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*oJvJS4QL8u0AAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }
