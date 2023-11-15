@@ -289,6 +289,6 @@ Interactions can explore data on demand.
 })();
 ```
 
-## more capabilities
+## More capabilities
 
 Because G2's tags can be combined, it also provides **composite mark** mechanism to extend G2, so you can basically draw any visualization quickly. exist[Case page](/examples)You can get more inspiration by[Options page](/spec/overview)Get a comprehensive look at what G2 is capable of.
