@@ -64,7 +64,7 @@
             transform="matrix(1,0,0,1,0,0)"
             class="main-layer"
           >
-            <g transform="matrix(1,0,0,1,0,148.607235)">
+            <g transform="matrix(1,0,0,1,0,146.179546)">
               <path
                 id="g-svg-9"
                 fill="none"
@@ -75,7 +75,7 @@
                 class="element"
               />
             </g>
-            <g transform="matrix(1,0,0,1,0,131.502330)">
+            <g transform="matrix(1,0,0,1,0,93.695957)">
               <path
                 id="g-svg-10"
                 fill="none"
@@ -86,7 +86,7 @@
                 class="element"
               />
             </g>
-            <g transform="matrix(1,0,0,1,0,170.115753)">
+            <g transform="matrix(1,0,0,1,0,160.947285)">
               <path
                 id="g-svg-11"
                 fill="none"
@@ -97,7 +97,7 @@
                 class="element"
               />
             </g>
-            <g transform="matrix(1,0,0,1,0,187.466583)">
+            <g transform="matrix(1,0,0,1,0,174.725185)">
               <path
                 id="g-svg-12"
                 fill="none"
@@ -108,7 +108,7 @@
                 class="element"
               />
             </g>
-            <g transform="matrix(1,0,0,1,0,155.550095)">
+            <g transform="matrix(1,0,0,1,0,147.924232)">
               <path
                 id="g-svg-13"
                 fill="none"
@@ -132,7 +132,7 @@
               transform="matrix(1,0,0,1,768,92.545464)"
               class="label"
             >
-              <g transform="matrix(1,0,0,1,-0,47.506237)">
+              <g transform="matrix(1,0,0,1,-0,45.078548)">
                 <path
                   id="background"
                   fill="none"
@@ -151,13 +151,13 @@
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
-                  style="transform:translate(0px, 57.00623879477678px);"
+                  style="transform:translate(0px, 54.578549817288746px);"
                 >
                   AAPL
                 </text>
               </g>
               <g transform="matrix(1,0,0,1,0,0)">
-                <path id="connector" fill="none" d="M 0,0 L 0,47.506" />
+                <path id="connector" fill="none" d="M 0,0 L 0,45.079" />
               </g>
             </g>
             <g
@@ -166,7 +166,7 @@
               transform="matrix(1,0,0,1,768,1.772360)"
               class="label"
             >
-              <g transform="matrix(1,0,0,1,0,120.704323)">
+              <g transform="matrix(1,0,0,1,0,82.897957)">
                 <path
                   id="background"
                   fill="none"
@@ -185,13 +185,13 @@
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
-                  style="transform:translate(0px, 130.20432361838908px);"
+                  style="transform:translate(0px, 92.39795728018802px);"
                 >
                   AMZN
                 </text>
               </g>
               <g transform="matrix(1,0,0,1,0,0)">
-                <path id="connector" fill="none" d="M 0,0 L 0,120.704" />
+                <path id="connector" fill="none" d="M 0,0 L 0,82.898" />
               </g>
             </g>
             <g
@@ -200,7 +200,7 @@
               transform="matrix(1,0,0,1,768,110.030411)"
               class="label"
             >
-              <g transform="matrix(1,0,0,1,-0,59.003754)">
+              <g transform="matrix(1,0,0,1,-0,49.835285)">
                 <path
                   id="background"
                   fill="none"
@@ -219,13 +219,13 @@
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
-                  style="transform:translate(0px, 68.50375274341195px);"
+                  style="transform:translate(0px, 59.335286939478436px);"
                 >
                   GOOG
                 </text>
               </g>
               <g transform="matrix(1,0,0,1,0,0)">
-                <path id="connector" fill="none" d="M 0,0 L 0,59.004" />
+                <path id="connector" fill="none" d="M 0,0 L 0,49.835" />
               </g>
             </g>
             <g
@@ -234,7 +234,7 @@
               transform="matrix(1,0,0,1,768,265.912964)"
               class="label"
             >
-              <g transform="matrix(1,0,0,1,0,-41.905411)">
+              <g transform="matrix(1,0,0,1,0,-54.646809)">
                 <path
                   id="background"
                   fill="none"
@@ -253,13 +253,13 @@
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
-                  style="transform:translate(0px, -32.405409872939686px);"
+                  style="transform:translate(0px, -45.14681031158693px);"
                 >
                   IBM
                 </text>
               </g>
-              <g transform="matrix(1,0,0,1,0,-22.905001)">
-                <path id="connector" fill="none" d="M 0,22.905 L 0,0" />
+              <g transform="matrix(1,0,0,1,0,-35.646999)">
+                <path id="connector" fill="none" d="M 0,35.647 L 0,0" />
               </g>
             </g>
             <g
@@ -268,7 +268,7 @@
               transform="matrix(1,0,0,1,768,90.235764)"
               class="label"
             >
-              <g transform="matrix(1,0,0,1,0,56.079090)">
+              <g transform="matrix(1,0,0,1,0,48.453232)">
                 <path
                   id="background"
                   fill="none"
@@ -287,17 +287,17 @@
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
-                  style="transform:translate(0px, 65.57909106094911px);"
+                  style="transform:translate(0px, 57.953232500762255px);"
                 >
                   MSFT
                 </text>
               </g>
               <g transform="matrix(1,0,0,1,0,0)">
-                <path id="connector" fill="none" d="M 0,0 L 0,56.079" />
+                <path id="connector" fill="none" d="M 0,0 L 0,48.453" />
               </g>
             </g>
           </g>
-          <g transform="matrix(1,0,0,1,512.049988,0)">
+          <g transform="matrix(1,0,0,1,434,0)">
             <line
               id="g-svg-39"
               fill="none"
@@ -321,7 +321,7 @@
                 stroke-width="5"
                 dx="2.5"
               >
-                Fri, 09 Sep 2016 00:00:00 GMT
+                Wed, 09 Mar 2016 00:00:00 GMT
               </text>
             </g>
           </g>
