@@ -16,6 +16,7 @@ import {
   selectFacetG2Elements,
   createDatumof,
   selectElementByData,
+  bboxOf,
 } from './utils';
 import { dataOf } from './event';
 
@@ -563,7 +564,7 @@ export function seriesTooltip(
     (event) => {
       const mouse = mousePosition(root, event);
       if (!mouse) return;
-      const bbox = root.getRenderBounds();
+      const bbox = bboxOf(root);
       const x = bbox.min[0];
       const y = bbox.min[1];
       const focus = [mouse[0] - startX, mouse[1] - startY];
