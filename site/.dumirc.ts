@@ -92,10 +92,24 @@ export default defineConfig({
       // 头部的菜单中的「周边生态」
       {
         name: {
-          zh: 'G2Plot',
-          en: 'G2Plot (A charting library)',
+          zh: 'g2-react',
+          en: 'g2-react',
         },
-        url: 'https://g2plot.antv.antgroup.com/',
+        url: 'https://github.com/pearmini/g2-react',
+      },
+      {
+        name: {
+          zh: 'g2-extensions',
+          en: 'g2-extensions',
+        },
+        url: 'https://github.com/antvis/g2-extensions',
+      },
+      {
+        name: {
+          zh: 'ant-design-charts',
+          en: 'ant-design-charts',
+        },
+        url: 'https://github.com/ant-design/ant-design-charts',
       },
     ],
     docs: [
