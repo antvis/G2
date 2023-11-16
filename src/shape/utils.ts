@@ -118,10 +118,12 @@ export function computeGradient(
   Y: number[],
   from: string | boolean = 'y',
   mode: 'between' | 'start' | 'end' = 'between',
+  tpShape = false,
 ): string {
-  const P = from === 'y' || from === true ? Y : X;
+  const P = (from === 'y' || from === true) && !tpShape ? Y : X;
   const theta = from === 'y' || from === true ? 90 : 0;
   const I = indexOf(P);
+
   const [min, max] = extent(I, (i) => P[i]);
   // This need to improve for non-uniform distributed colors.
   const p = new Linear({
