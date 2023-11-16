@@ -335,6 +335,14 @@ export default defineConfig({
         icon: 'other',
       },
       {
+        slug: 'intelligent',
+        title: {
+          zh: '智能可视化',
+          en: 'Intelligent',
+        },
+        icon: 'other',
+      },
+      {
         slug: 'storytelling',
         title: {
           zh: '可视化叙事',
