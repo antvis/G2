@@ -88,10 +88,10 @@ chart.render();
 
 ## 🌍 生态
 
-- [g2-react](https://github.com/pearmini/g2-react) - The lightweight React component for G2, without extra features.
-- [g2-extensions](https://github.com/antvis/g2-extensions) - The one-stop shop for official G2 extensions, such as 3d visualization, automated visual analytics, etc.
-- [ant-design-charts](https://github.com/ant-design/ant-design-charts) - The React chart library, based on [G2](https://github.com/antvis/G2), [G6](https://github.com/antvis/G6), [X6](https://github.com/antvis/X6), [L7Plot](https://github.com/antvis/L7Plot).
-- [More...](https://github.com/antvis/G2/discussions/5772)
+- [g2-react](https://github.com/pearmini/g2-react) - G2 的轻量级 React 组件，没有额外特性。
+- [g2-extensions](https://github.com/antvis/g2-extensions) - G2 的一系列插件库，包含 3D 和智能可视化等。
+- [ant-design-charts](https://github.com/ant-design/ant-design-charts) - React 图表库，基于 [G2](https://github.com/antvis/G2), [G6](https://github.com/antvis/G6), [X6](https://github.com/antvis/X6), [L7Plot](https://github.com/antvis/L7Plot).
+- [更多...](https://github.com/antvis/G2/discussions/5772)
 
 ## 📮 参与贡献
 
