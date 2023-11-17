@@ -92,13 +92,6 @@ export default defineConfig({
       // 头部的菜单中的「周边生态」
       {
         name: {
-          zh: 'g2-react',
-          en: 'g2-react',
-        },
-        url: 'https://github.com/pearmini/g2-react',
-      },
-      {
-        name: {
           zh: 'g2-extensions',
           en: 'g2-extensions',
         },
