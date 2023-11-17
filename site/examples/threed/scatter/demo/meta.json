@@ -29,6 +29,30 @@
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*8t0aRJLbhuwAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
+      "filename": "circle-shape.ts",
+      "title": {
+        "zh": "圆形",
+        "en": "Circle"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*JyzNSp6_T30AAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "triangle-shape.ts",
+      "title": {
+        "zh": "三角形",
+        "en": "Triangle"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*q1-TQZnlXAQAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "square-shape.ts",
+      "title": {
+        "zh": "正方形",
+        "en": "Square"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*chMwT6y5MDwAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
       "filename": "custom-legend.ts",
       "title": {
         "zh": "自定义图例",

@@ -34,6 +34,7 @@ if (window) {
   (window as any).dataSet = require('@antv/data-set');
   (window as any).lodash = require('lodash');
   (window as any).table = table;
+  (window as any).dirichlet = require('dirichlet');
 }
 
 if (
