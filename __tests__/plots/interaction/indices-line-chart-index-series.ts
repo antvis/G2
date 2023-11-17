@@ -26,6 +26,7 @@ export async function indicesLineChartIndexSeries(): Promise<G2Spec> {
       },
     ],
     interaction: {
+      tooltip: false,
       chartIndex: {
         ruleStroke: '#aaa',
         labelDx: 5,

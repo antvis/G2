@@ -1,0 +1,16 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "auto.ts",
+      "title": {
+        "zh": "自动可视化",
+        "en": "Auto Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*wiMbSY4kNwkAAAAAAAAAAAAADmJ7AQ/original"
+    }
+  ]
+}

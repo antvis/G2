@@ -92,10 +92,17 @@ export default defineConfig({
       // 头部的菜单中的「周边生态」
       {
         name: {
-          zh: 'G2Plot',
-          en: 'G2Plot (A charting library)',
+          zh: 'g2-extensions',
+          en: 'g2-extensions',
         },
-        url: 'https://g2plot.antv.antgroup.com/',
+        url: 'https://github.com/antvis/g2-extensions',
+      },
+      {
+        name: {
+          zh: 'ant-design-charts',
+          en: 'ant-design-charts',
+        },
+        url: 'https://github.com/ant-design/ant-design-charts',
       },
     ],
     docs: [
@@ -317,6 +324,14 @@ export default defineConfig({
         title: {
           zh: '交互',
           en: 'Interaction',
+        },
+        icon: 'other',
+      },
+      {
+        slug: 'intelligent',
+        title: {
+          zh: '智能可视化',
+          en: 'Intelligent',
         },
         icon: 'other',
       },

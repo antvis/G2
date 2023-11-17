@@ -84,6 +84,15 @@ If all goes well, you can get the following lovely bar chart!
 
 <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*XqCnTbkpAkQAAAAAAAAAAAAADmJ7AQ/fmt.webp" width="640" alt="example">
 
+## 🌍 Ecosystem
+
+- [g2-react](https://github.com/pearmini/g2-react) - The lightweight React component for G2, without extra features.
+- [g2-extensions](https://github.com/antvis/g2-extensions) - The one-stop shop for official G2 extensions, such as 3d visualization, automated visual analytics, etc.
+- [ant-design-charts](https://github.com/ant-design/ant-design-charts) - The React chart library, based on [G2](https://github.com/antvis/G2), [G6](https://github.com/antvis/G6), [X6](https://github.com/antvis/X6), [L7Plot](https://github.com/antvis/L7Plot).
+- [More...](https://github.com/antvis/G2/discussions/5772)
+
+
+
 ## 📮 Contributing
 
 - [Issues](https://github.com/antvis/g2/issues) - report bugs or request features
