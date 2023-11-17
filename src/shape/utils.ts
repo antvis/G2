@@ -120,8 +120,25 @@ export function computeGradient(
   mode: 'between' | 'start' | 'end' = 'between',
   tpShape = false,
 ): string {
-  const P = (from === 'y' || from === true) && !tpShape ? Y : X;
-  const theta = from === 'y' || from === true ? 90 : 0;
+  // The angles of gradients rendering are varies when 'from' and 'tpShape' are different.
+  const getTheta = (from: string | boolean, tpShape: boolean) => {
+    if (from === 'y' || from === true) {
+      if (tpShape) {
+        return 180;
+      } else {
+        return 90;
+      }
+    } else {
+      if (tpShape) {
+        return 90;
+      } else {
+        return 0;
+      }
+    }
+  };
+
+  const P = from === 'y' || from === true ? Y : X;
+  const theta = getTheta(from, tpShape);
   const I = indexOf(P);
 
   const [min, max] = extent(I, (i) => P[i]);
