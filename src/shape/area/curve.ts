@@ -89,8 +89,12 @@ export const Curve: SC<CurveOptions> = (options, context) => {
       seriesX: sx,
       seriesY: sy,
     } = value;
+    const tpShape = isTranspose(coordinate);
     const transform = getTransform(coordinate, value);
-    const fill = gradient && sc ? computeGradient(sc, sx, sy, gradient) : color;
+    const fill =
+      gradient && sc
+        ? computeGradient(sc, sx, sy, gradient, undefined, tpShape)
+        : color;
 
     const finalStyle = {
       ...defaults,
@@ -119,7 +123,7 @@ export const Curve: SC<CurveOptions> = (options, context) => {
       const areaPath = (points) => {
         const Y1 = points.slice(0, points.length / 2);
         const Y0 = points.slice(points.length / 2);
-        return isTranspose(coordinate)
+        return tpShape
           ? area()
               .y((_, idx) => Y1[idx][1])
               .x1((_, idx) => Y1[idx][0])

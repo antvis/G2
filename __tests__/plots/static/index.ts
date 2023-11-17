@@ -79,6 +79,7 @@ export { temperatureCompareAreaDifference } from './temperature-compare-area-dif
 export { populationByStateAreaNormalizeStacked } from './population-by-state-area-normalize-stacked';
 export { temperature1LineVarColor } from './temperature1-line-var-color';
 export { temperature2LineGradientColor } from './temperature2-line-gradient-color';
+export { temperature2LineGradientColorTranspose } from './temperature2-line-gradient-color-transpose';
 export { temperature2LineThreshold } from './temperature2-line-threshold';
 export { aapl2CandlestickChart } from './aapl2-candlestick-chart';
 export { tranLineMultiAxes } from './train-line-multi-axes';
@@ -89,6 +90,7 @@ export { seasonalWeatherAreaRadial } from './seasonal-weather-area-radial';
 export { worldHistoryIntervalMultiTickCount } from './world-history-interval-multi-tick-count';
 export { stocksAreaGradient } from './stocks-area-gradient';
 export { temperatures3AreaBandGradient } from './temperatures3-area-band-gradient';
+export { temperatures3AreaBandGradientTranspose } from './temperatures3-area-band-gradient-transpose';
 export { vaccinesCellScaleRelation } from './vaccines-cell-scale-relation';
 export { settleWeatherCellGrouped } from './seattle-weather-cell-grouped';
 export { commitsPointGrouped } from './commits-point-grouped';
