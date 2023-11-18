@@ -190,16 +190,16 @@ export function Arc(options?: ArcOptions) {
        */
       sourceEdges.map((edge) => {
         const w = (edge.sourceWeight / value) * width;
-        edge.x[0] = node.x[0] + offset;
-        edge.x[1] = node.x[0] + offset + w;
+        edge.x[0] = x[0] + offset;
+        edge.x[1] = x[0] + offset + w;
 
         offset += w;
       });
 
       targetEdges.forEach((edge) => {
         const w = (edge.targetWeight / value) * width;
-        edge.x[3] = node.x[0] + offset;
-        edge.x[2] = node.x[0] + offset + w;
+        edge.x[3] = x[0] + offset;
+        edge.x[2] = x[0] + offset + w;
 
         offset += w;
       });

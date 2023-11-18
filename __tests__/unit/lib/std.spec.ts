@@ -42,6 +42,7 @@ import {
   Density as DensityGeometry,
   Heatmap,
   Liquid,
+  Chord,
 } from '../../../src/mark';
 import { Category10, Category20 } from '../../../src/palette';
 import {
@@ -248,6 +249,7 @@ describe('stdlib', () => {
       'mark.rangeX': RangeX,
       'mark.rangeY': RangeY,
       'mark.sankey': Sankey,
+      'mark.chord': Chord,
       'mark.path': Path,
       'mark.treemap': Treemap,
       'mark.pack': PackGeometry,

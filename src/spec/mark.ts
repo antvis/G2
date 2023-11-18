@@ -38,6 +38,7 @@ export type Mark =
   | RangeYMark
   | ConnectorMark
   | SankeyMark
+  | ChordMark
   | PathMark
   | TreemapMark
   | PackMark
@@ -73,6 +74,7 @@ export type MarkTypes =
   | 'rangeX'
   | 'rangeY'
   | 'sankey'
+  | 'chord'
   | 'path'
   | 'treemap'
   | 'pack'
@@ -283,6 +285,35 @@ export type SankeyMark = BaseMark<
     iterations?: number;
     // support config the depth of node
     nodeDepth?: (datum: any, maxDepth: number) => number;
+  };
+  nodeLabels: Record<string, any>[];
+  linkLabels: Record<string, any>[];
+};
+
+export type ChordMark = BaseMark<
+  'chord',
+  | 'source'
+  | 'target'
+  | 'value'
+  | `node${Capitalize<ChannelTypes>}`
+  | `link${Capitalize<ChannelTypes>}`
+  | ChannelTypes
+> & {
+  layout?: {
+    nodes?: (graph: any) => any;
+    links?: (graph: any) => any;
+    y?: number;
+    id?: (node: any) => any;
+    sortBy?:
+      | 'id'
+      | 'weight'
+      | 'frequency'
+      | null
+      | ((a: any, b: any) => number);
+    nodeWidthRatio?: number;
+    nodePaddingRatio?: number;
+    sourceWeight?(edge: any): number;
+    targetWeight?(edge: any): number;
   };
   nodeLabels: Record<string, any>[];
   linkLabels: Record<string, any>[];
