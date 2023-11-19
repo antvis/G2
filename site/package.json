@@ -20,7 +20,7 @@
     "@antv/g-svg": "^1.10.21",
     "@antv/g-webgl": "^1.9.29",
     "@antv/g2-extension-3d": "^0.1.3",
-    "@antv/g2-extension-ava": "^0.1.1",
+    "@antv/g2-extension-ava": "^0.2.0",
     "@antv/s2": "^1.52.0",
     "antd": "^4.24.14",
     "d3-array": "^3.2.4",
