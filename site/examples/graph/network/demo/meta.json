@@ -13,6 +13,14 @@
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dACBR7ANcfEAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
+      "filename": "chord.ts",
+      "title": {
+        "zh": "弦图",
+        "en": "Chord"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*x6h_RZR7r0QAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
       "filename": "forceGraph.ts",
       "title": {
         "zh": "力导向图",
