@@ -1,0 +1,56 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "trend.ts",
+      "title": {
+        "zh": "趋势",
+        "en": "Trend"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*DweUTbVAaIEAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "time-series-outlier.ts",
+      "title": {
+        "zh": "时序异常",
+        "en": "Time Series Outlier"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*N5OkR5VKYMAAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "low-variance.ts",
+      "title": {
+        "zh": "低方差",
+        "en": "Low Variance"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Y0QJSZSbig8AAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "change-point.ts",
+      "title": {
+        "zh": "突变点",
+        "en": "Change Point"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*_p5WRZAmT1oAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "category-outlier.ts",
+      "title": {
+        "zh": "类别异常",
+        "en": "Category Outlier"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*B64DT43QAVMAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "insight.ts",
+      "title": {
+        "zh": "洞察标注算法的详细参数",
+        "en": "Detailed Parameters of Insight Mark"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*DweUTbVAaIEAAAAAAAAAAAAADmJ7AQ/original"
+    }
+  ]
+}
