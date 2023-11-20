@@ -174,22 +174,17 @@ export function assignScale(
 ): Record<string, Scale> {
   const keys = Object.keys(target);
   for (const scale of Object.values(source)) {
-    const { name, key } = scale.getOptions();
-    if (typeof key === 'string') {
-      if (!(key in target)) target[key] = scale;
-    } else {
-      // For scale.key = Symbol('independent')
-      if (!(name in target)) target[name] = scale;
-      else {
-        const I = keys
-          .filter((d) => d.startsWith(name))
-          // Reg is for extract `1` from `x1`;
-          .map((d) => +(d.replace(name, '') || 0));
-        const index = max(I) + 1;
-        const newKey = `${name}${index}`;
-        target[newKey] = scale;
-        scale.getOptions().key = newKey;
-      }
+    const { name } = scale.getOptions();
+    if (!(name in target)) target[name] = scale;
+    else {
+      const I = keys
+        .filter((d) => d.startsWith(name))
+        // Reg is for extract `1` from `x1`;
+        .map((d) => +(d.replace(name, '') || 0));
+      const index = max(I) + 1;
+      const newKey = `${name}${index}`;
+      target[newKey] = scale;
+      scale.getOptions().key = newKey;
     }
   }
   return target;

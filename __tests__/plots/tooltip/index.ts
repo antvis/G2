@@ -69,3 +69,4 @@ export { stateAgesIntervalCustomStyle } from './stateages-interval-custom-style'
 export { mockTooltipClosest } from './mock-tooltip-closest';
 export { stateAgesIntervalScrollbar } from './stateages-interval-scrollbar';
 export { aaplLineOverflow } from './aapl-line-overflow';
+export { moviesIntervalScaleKeyScrollbar } from './movies-interval-scale-key-scrollbar';
