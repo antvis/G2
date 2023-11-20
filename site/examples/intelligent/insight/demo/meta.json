@@ -5,14 +5,6 @@
   },
   "demos": [
     {
-      "filename": "insight.ts",
-      "title": {
-        "zh": "洞察标注",
-        "en": "Insight marks"
-      },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*DweUTbVAaIEAAAAAAAAAAAAADmJ7AQ/original"
-    },
-    {
       "filename": "trend.ts",
       "title": {
         "zh": "趋势",
@@ -51,6 +43,14 @@
         "en": "Category Outlier"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*B64DT43QAVMAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "insight.ts",
+      "title": {
+        "zh": "洞察标注算法的详细参数",
+        "en": "Detailed Parameters of Insight Mark"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*DweUTbVAaIEAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }
