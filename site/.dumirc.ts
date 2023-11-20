@@ -427,16 +427,20 @@ export default defineConfig({
     },
     /** 首页技术栈介绍 */
     detail: {
+      engine: {
+        zh: 'G2',
+        en: 'G2',
+      },
       title: {
-        zh: 'G2，可视化语法',
-        en: 'G2, a Visualization Grammar',
+        zh: 'G2·可视化语法',
+        en: 'G2·Visual Grammar',
       },
       description: {
         zh: 'G2 是一套简洁的渐进式可视化语法，用于报表搭建、数据探索以及可视化叙事。',
         en: 'G2 is a concise and progressive visualization grammar for dashboard building, data exploration and storytelling.',
       },
       image:
-        'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*wo_LToatmbwAAAAAAAAAAABkARQnAQ',
+        'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*wi05Q7Za5ZIAAAAAAAAAAAAADmJ7AQ/original',
       buttons: [
         {
           text: {
