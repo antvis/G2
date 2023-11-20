@@ -10,7 +10,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.8.1",
     "@antv/data-set": "^0.11.8",
-    "@antv/dumi-theme-antv": "^0.3.20",
+    "@antv/dumi-theme-antv": "^0.4.0",
     "@antv/g-lottie-player": "^0.2.17",
     "@antv/g-pattern": "^1.2.17",
     "@antv/g-plugin-3d": "^1.9.26",
