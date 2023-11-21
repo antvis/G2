@@ -140,6 +140,8 @@ export const Chord: CC<ChordOptions> = (options, context) => {
         type: 'polar',
         // Leave enough rendering space for the label.
         outerRadius: (minimumLen - 20) / minimumLen,
+        startAngle: -Math.PI * 2,
+        endAngle: 0,
       },
       labels: [
         {
