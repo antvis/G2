@@ -5,12 +5,36 @@
   },
   "demos": [
     {
-      "filename": "auto.ts",
+      "filename": "auto-pie.ts",
       "title": {
-        "zh": "自动可视化",
-        "en": "Auto Chart"
+        "zh": "自动可视化 - 饼图",
+        "en": "Auto Chart - Pie"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*wiMbSY4kNwkAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "auto-scatter.ts",
+      "title": {
+        "zh": "自动可视化 - 散点图",
+        "en": "Auto Chart - Point"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*SxISRpCBszgAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "auto-interval.ts",
+      "title": {
+        "zh": "自动可视化 - 柱形图",
+        "en": "Auto Chart - Interval"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*b9scTrte3K8AAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "auto-line.ts",
+      "title": {
+        "zh": "自动可视化 - 折线图",
+        "en": "Auto Chart - Line "
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*C8oFSJpVFDUAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }
