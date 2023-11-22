@@ -11,5 +11,10 @@ export function aaplLineBasic(): G2Spec {
       x: 'date',
       y: 'close',
     },
+    slider: {
+      x: {
+        // sparklineData: [[10, 2, 3, 4, 15, 10, 5, 0, 3, 1]]
+      }
+    },
   };
 }

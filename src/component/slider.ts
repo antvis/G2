@@ -2,8 +2,9 @@ import { Slider as SliderComponent } from '@antv/component';
 import { format } from 'd3-format';
 import { DisplayObject } from '@antv/g';
 import { isTranspose } from '../utils/coordinate';
-import { GuideComponentComponent as GCC } from '../runtime';
+import { GuideComponentComponent as GCC, GuideComponentContext } from '../runtime';
 import { invert } from '../utils/scale';
+import { isArray } from '@antv/util';
 
 export type SliderOptions = {
   orientation: 'horizontal' | 'vertical';
@@ -32,7 +33,8 @@ export const Slider: GCC<SliderOptions> = (options) => {
     ...rest
   } = options;
 
-  return ({ scales: [scale], value, theme, coordinate }) => {
+  return (content) => {
+    const { scales: [scale], value, theme, coordinate } = content;
     const { bbox } = value;
 
     const { width, height } = bbox;
@@ -60,12 +62,35 @@ export const Slider: GCC<SliderOptions> = (options) => {
           const tick = invert(scale, v1, true);
           return f(tick);
         },
+        sparklineData: inferSparklineData(options, content),
         ...style,
         ...rest,
       }),
     }) as unknown as DisplayObject;
   };
 };
+
+function markValue(markState, channels: string[]) {
+  const [value] = Array.from(markState.entries())
+    .filter(([mark]) => mark.type === 'line' || mark.type === 'area')
+    .map(([mark]) => {
+      const { encode, slider } = mark;
+      const channel = (name) => {
+        const channel = encode[name];
+        return [name, channel ? channel.value : undefined];
+      };
+      const obj = Object.fromEntries(channels.map(channel));
+      return slider.x ? obj.y : obj.x;
+    });
+  return value;
+}
+
+function inferSparklineData(options, context: GuideComponentContext) {
+  const { markState } = context;
+  if (options.sparklineData && isArray(options.sparklineData))
+    return options.sparklineData;
+  return markValue(markState, ['x', 'y']);
+}
 
 Slider.props = {
   defaultPosition: 'bottom',
