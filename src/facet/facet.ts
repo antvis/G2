@@ -153,11 +153,9 @@ export abstract class Facet<C extends FacetCfg<FacetData> = FacetCfg<FacetData>,
    */
   private createFacetViews(): View[] {
     // 使用分面数据 创建分面 view
-    return this.facets.map(
-      (facet): View => {
-        return this.facetToView(facet);
-      }
-    );
+    return this.facets.map((facet): View => {
+      return this.facetToView(facet);
+    });
   }
 
   /**
