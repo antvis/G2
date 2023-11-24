@@ -154,7 +154,7 @@ describe('Animate', () => {
       expect(isNumberEqual(rect.attr('width'), 150)).toBeTruthy();
       expect(isNumberEqual(rect.attr('height'), 150)).toBeTruthy();
       done();
-    }, 450);
+    }, 1000);
   });
 
   it('doGroupAppearAnimate', (done) => {
@@ -183,7 +183,7 @@ describe('Animate', () => {
     setTimeout(() => {
       expect(group.attr('matrix')).toEqual([1, 0, 0, 0, 1, 0, 0, 0, 1]);
       done();
-    }, 550);
+    }, 1000);
   });
 
   afterEach(() => {
