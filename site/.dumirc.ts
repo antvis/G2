@@ -434,7 +434,7 @@ export default defineConfig({
       },
       title: {
         zh: 'G2·可视化语法',
-        en: 'G2·Visual Grammar',
+        en: 'G2·Visualization Grammar',
       },
       description: {
         zh: 'G2 是一套简洁的渐进式可视化语法，用于报表搭建、数据探索以及可视化叙事。',
