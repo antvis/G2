@@ -138,6 +138,16 @@ export default class Chart extends View {
     this.wrapperElement = null;
   }
 
+  public show() {
+    this.visible = true;
+    this.changeVisible(true);
+  }
+
+  public hide() {
+    this.visible = false;
+    this.changeVisible(false);
+  }
+
   /**
    * 显示或隐藏图表
    * @param visible 是否可见，true 表示显示，false 表示隐藏
