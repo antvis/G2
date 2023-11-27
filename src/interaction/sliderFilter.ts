@@ -207,6 +207,9 @@ export function SliderFilter({
       emitHandlers.add([eventName, emitHandler]);
     }
 
+    // Update to async state such as scale.
+    update();
+
     return () => {
       for (const [slider, handler] of sliderHandler) {
         slider.removeEventListener('valuechange', handler);

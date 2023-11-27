@@ -10,14 +10,14 @@
       <use href="#g-svg-114" transform="matrix(1,0,0,1,16,7.500000)" />
     </clipPath>
     <path
-      id="g-svg-158"
+      id="g-svg-215"
       fill="none"
       d="M 0,0 l 572,0 l 0,377 l-572 0 z"
       width="572"
       height="377"
     />
-    <clipPath transform="matrix(1,0,0,1,-52,-51)" id="clip-path-158-115">
-      <use href="#g-svg-158" transform="matrix(1,0,0,1,52,51)" />
+    <clipPath transform="matrix(1,0,0,1,-52,-51)" id="clip-path-215-115">
+      <use href="#g-svg-215" transform="matrix(1,0,0,1,52,51)" />
     </clipPath>
   </defs>
   <g id="g-svg-camera" transform="matrix(1,0,0,1,0,0)">
@@ -187,14 +187,14 @@
                   class="handle-icon-group"
                 >
                   <g
-                    id="g-svg-133"
+                    id="g-svg-190"
                     fill="none"
                     transform="matrix(1,0,0,1,0,0)"
                     class="handle-icon"
                   >
                     <g transform="matrix(1,0,0,1,-5,-12)">
                       <path
-                        id="g-svg-134"
+                        id="g-svg-191"
                         fill="rgba(247,247,247,1)"
                         class="handle-icon-rect"
                         stroke-width="1"
@@ -206,7 +206,7 @@
                       />
                       <g transform="matrix(1,0,0,1,3.333333,6)">
                         <line
-                          id="g-svg-135"
+                          id="g-svg-192"
                           fill="rgba(247,247,247,1)"
                           x1="0"
                           y1="0"
@@ -220,7 +220,7 @@
                       </g>
                       <g transform="matrix(1,0,0,1,6.666667,6)">
                         <line
-                          id="g-svg-136"
+                          id="g-svg-193"
                           fill="rgba(247,247,247,1)"
                           x1="0"
                           y1="0"
@@ -272,14 +272,14 @@
                   class="handle-icon-group"
                 >
                   <g
-                    id="g-svg-139"
+                    id="g-svg-196"
                     fill="none"
                     transform="matrix(1,0,0,1,0,0)"
                     class="handle-icon"
                   >
                     <g transform="matrix(1,0,0,1,-5,-12)">
                       <path
-                        id="g-svg-140"
+                        id="g-svg-197"
                         fill="rgba(247,247,247,1)"
                         class="handle-icon-rect"
                         stroke-width="1"
@@ -291,7 +291,7 @@
                       />
                       <g transform="matrix(1,0,0,1,3.333333,6)">
                         <line
-                          id="g-svg-141"
+                          id="g-svg-198"
                           fill="rgba(247,247,247,1)"
                           x1="0"
                           y1="0"
@@ -305,7 +305,7 @@
                       </g>
                       <g transform="matrix(1,0,0,1,6.666667,6)">
                         <line
-                          id="g-svg-142"
+                          id="g-svg-199"
                           fill="rgba(247,247,247,1)"
                           x1="0"
                           y1="0"
@@ -437,14 +437,14 @@
                   class="handle-icon-group"
                 >
                   <g
-                    id="g-svg-57"
+                    id="g-svg-150"
                     fill="none"
                     transform="matrix(0,1,-1,0,0,0)"
                     class="handle-icon"
                   >
                     <g transform="matrix(1,0,0,1,-5,-12)">
                       <path
-                        id="g-svg-58"
+                        id="g-svg-151"
                         fill="rgba(247,247,247,1)"
                         class="handle-icon-rect"
                         stroke-width="1"
@@ -456,7 +456,7 @@
                       />
                       <g transform="matrix(1,0,0,1,3.333333,6)">
                         <line
-                          id="g-svg-59"
+                          id="g-svg-152"
                           fill="rgba(247,247,247,1)"
                           x1="0"
                           y1="0"
@@ -470,7 +470,7 @@
                       </g>
                       <g transform="matrix(1,0,0,1,6.666667,6)">
                         <line
-                          id="g-svg-60"
+                          id="g-svg-153"
                           fill="rgba(247,247,247,1)"
                           x1="0"
                           y1="0"
@@ -522,14 +522,14 @@
                   class="handle-icon-group"
                 >
                   <g
-                    id="g-svg-67"
+                    id="g-svg-156"
                     fill="none"
                     transform="matrix(0,1,-1,0,0,0)"
                     class="handle-icon"
                   >
                     <g transform="matrix(1,0,0,1,-5,-12)">
                       <path
-                        id="g-svg-68"
+                        id="g-svg-157"
                         fill="rgba(247,247,247,1)"
                         class="handle-icon-rect"
                         stroke-width="1"
@@ -541,7 +541,7 @@
                       />
                       <g transform="matrix(1,0,0,1,3.333333,6)">
                         <line
-                          id="g-svg-69"
+                          id="g-svg-158"
                           fill="rgba(247,247,247,1)"
                           x1="0"
                           y1="0"
@@ -555,7 +555,7 @@
                       </g>
                       <g transform="matrix(1,0,0,1,6.666667,6)">
                         <line
-                          id="g-svg-70"
+                          id="g-svg-159"
                           fill="rgba(247,247,247,1)"
                           x1="0"
                           y1="0"
@@ -667,7 +667,7 @@
                         transform="matrix(1,0,0,1,0,0)"
                       >
                         <g
-                          id="g-svg-151"
+                          id="g-svg-208"
                           fill="none"
                           class="items-item-page"
                           transform="matrix(1,0,0,1,0,0)"
@@ -933,7 +933,7 @@
         </g>
         <g
           transform="matrix(1,0,0,1,52,51)"
-          clip-path="url(#clip-path-158-115)"
+          clip-path="url(#clip-path-215-115)"
         >
           <path
             id="g-svg-115"

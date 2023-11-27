@@ -992,3 +992,7 @@ export function Tooltip(options) {
     });
   };
 }
+
+Tooltip.props = {
+  reapplyWhenUpdate: true,
+};

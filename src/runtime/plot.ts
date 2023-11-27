@@ -248,18 +248,23 @@ export async function plot<T extends G2ViewTree>(
       // Each state transform options to another options.
       const store = new Map<any, (options: G2ViewTree) => G2ViewTree>();
       const setState = (key, reducer = (x) => x) => store.set(key, reducer);
-      const update = createUpdateView(select(container), library, context);
       const options = viewNode.get(view);
+      const update = createUpdateView(
+        select(container),
+        options,
+        library,
+        context,
+      );
       return {
         view,
         container,
         options,
         setState,
-        update: async () => {
+        update: async (from) => {
           // Apply all state functions to get new options.
           const reducer = compose(Array.from(store.values()));
           const newOptions = reducer(options);
-          return await update(newOptions);
+          return await update(newOptions, from);
         },
       };
     });
@@ -369,22 +374,43 @@ function applyTranslate(selection: Selection) {
 
 function createUpdateView(
   selection: Selection,
+  options: G2ViewTree,
   library: G2Library,
   context: G2Context,
 ): G2ViewInstance['update'] {
-  return async (newOptions) => {
+  const [, createInteraction] = useLibrary<
+    G2InteractionOptions,
+    InteractionComponent,
+    Interaction
+  >('interaction', library);
+
+  // Filter interaction need to reapply when update.
+  const interactions = inferInteraction(options);
+  const updates = interactions
+    .map((d) => [d[0], createInteraction(d[0])] as const)
+    .filter((d) => d[1].props && d[1].props.reapplyWhenUpdate)
+    .map((d) => d[0]);
+
+  return async (newOptions, source) => {
     const transitions = [];
     const [newView, newChildren] = await initializeView(newOptions, library);
     plotView(newView, selection, transitions, library, context);
-    updateTooltip(selection, newOptions, newView, library, context);
+
+    // Update interaction need to reapply when update.
+    for (const name of updates.filter((d) => d !== source)) {
+      updateInteraction(name, selection, newOptions, newView, library, context);
+    }
+
     for (const child of newChildren) {
       plot(child, selection, library, context);
     }
+
     return { options: newOptions, view: newView };
   };
 }
 
-function updateTooltip(
+function updateInteraction(
+  name: string,
   selection: Selection,
   options: G2ViewTree,
   view: G2ViewDescriptor,
@@ -397,25 +423,25 @@ function updateTooltip(
     Interaction
   >('interaction', library);
 
-  // Instances for tooltip.
+  // Instances for interaction.
   const container = selection.node();
   const nameInteraction = container['nameInteraction'];
-  const tooltipOptions = inferInteraction(options).find(
-    ([d]) => d === 'tooltip',
+  const interactionOptions = inferInteraction(options).find(
+    ([d]) => d === name,
   );
 
-  // Destroy older tooltip.
-  const tooltip = nameInteraction.get('tooltip');
-  if (!tooltip) return;
-  tooltip.destroy?.();
+  // Destroy older interaction.
+  const interaction = nameInteraction.get(name);
+  if (!interaction) return;
+  interaction.destroy?.();
 
-  if (!tooltipOptions[1]) return;
+  if (!interactionOptions[1]) return;
 
-  // Apply new tooltip interaction.
-  const applyTooltip = useThemeInteraction(
+  // Apply new interaction.
+  const applyInteraction = useThemeInteraction(
     view,
-    'tooltip',
-    tooltipOptions[1] as any,
+    name,
+    interactionOptions[1] as any,
     useInteraction,
   );
   const target = {
@@ -424,8 +450,8 @@ function updateTooltip(
     container: selection.node(),
     update: (options) => Promise.resolve(options),
   };
-  const destroy = applyTooltip(target, [], context.emitter);
-  nameInteraction.set('tooltip', { destroy });
+  const destroy = applyInteraction(target, [], context.emitter);
+  nameInteraction.set(name, { destroy });
 }
 
 async function initializeView(
@@ -1600,7 +1626,7 @@ function inferInteraction(
     scrollbarFilter: true,
   };
   const { interaction = {} } = view;
-  return Object.entries(deepMix(defaults, interaction));
+  return Object.entries(deepMix(defaults, interaction)).reverse();
 }
 
 async function applyTransform<T extends G2ViewTree>(

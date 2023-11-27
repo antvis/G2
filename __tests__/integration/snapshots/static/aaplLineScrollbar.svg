@@ -7,14 +7,14 @@
 >
   <defs>
     <path
-      id="g-svg-98"
+      id="g-svg-120"
       fill="none"
       d="M 0,0 l 554,0 l 0,402 l-554 0 z"
       width="554"
       height="402"
     />
-    <clipPath transform="matrix(1,0,0,1,-70,-16)" id="clip-path-98-95">
-      <use href="#g-svg-98" transform="matrix(1,0,0,1,70,16)" />
+    <clipPath transform="matrix(1,0,0,1,-70,-16)" id="clip-path-120-95">
+      <use href="#g-svg-120" transform="matrix(1,0,0,1,70,16)" />
     </clipPath>
   </defs>
   <g id="g-svg-camera" transform="matrix(1,0,0,1,0,0)">
@@ -375,7 +375,7 @@
                 >
                   <g transform="matrix(1,0,0,1,0,0)">
                     <line
-                      id="g-svg-46"
+                      id="g-svg-103"
                       fill="none"
                       x1="0"
                       y1="0"
@@ -396,7 +396,7 @@
                 >
                   <g transform="matrix(1,0,0,1,0,0)">
                     <line
-                      id="g-svg-47"
+                      id="g-svg-104"
                       fill="none"
                       x1="0"
                       y1="0"
@@ -424,7 +424,7 @@
                 >
                   <g transform="matrix(1,0,0,1,0,0)">
                     <text
-                      id="g-svg-51"
+                      id="g-svg-105"
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
@@ -452,7 +452,7 @@
                 >
                   <g transform="matrix(1,0,0,1,0,0)">
                     <text
-                      id="g-svg-52"
+                      id="g-svg-106"
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
@@ -635,7 +635,7 @@
                 >
                   <g transform="matrix(1,0,0,1,-4,0)">
                     <line
-                      id="g-svg-75"
+                      id="g-svg-108"
                       fill="none"
                       x1="4"
                       y1="0"
@@ -656,7 +656,7 @@
                 >
                   <g transform="matrix(1,0,0,1,-4,0)">
                     <line
-                      id="g-svg-76"
+                      id="g-svg-109"
                       fill="none"
                       x1="4"
                       y1="0"
@@ -677,7 +677,7 @@
                 >
                   <g transform="matrix(1,0,0,1,-4,0)">
                     <line
-                      id="g-svg-77"
+                      id="g-svg-110"
                       fill="none"
                       x1="4"
                       y1="0"
@@ -698,7 +698,7 @@
                 >
                   <g transform="matrix(1,0,0,1,-4,0)">
                     <line
-                      id="g-svg-78"
+                      id="g-svg-111"
                       fill="none"
                       x1="4"
                       y1="0"
@@ -719,7 +719,7 @@
                 >
                   <g transform="matrix(1,0,0,1,-4,0)">
                     <line
-                      id="g-svg-79"
+                      id="g-svg-112"
                       fill="none"
                       x1="4"
                       y1="0"
@@ -740,7 +740,7 @@
                 >
                   <g transform="matrix(1,0,0,1,-4,0)">
                     <line
-                      id="g-svg-80"
+                      id="g-svg-113"
                       fill="none"
                       x1="4"
                       y1="0"
@@ -768,7 +768,7 @@
                 >
                   <g transform="matrix(1,0,0,1,0,0)">
                     <text
-                      id="g-svg-88"
+                      id="g-svg-114"
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
@@ -795,7 +795,7 @@
                 >
                   <g transform="matrix(1,0,0,1,0,0)">
                     <text
-                      id="g-svg-89"
+                      id="g-svg-115"
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
@@ -822,7 +822,7 @@
                 >
                   <g transform="matrix(1,0,0,1,0,0)">
                     <text
-                      id="g-svg-90"
+                      id="g-svg-116"
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
@@ -849,7 +849,7 @@
                 >
                   <g transform="matrix(1,0,0,1,0,0)">
                     <text
-                      id="g-svg-91"
+                      id="g-svg-117"
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
@@ -876,7 +876,7 @@
                 >
                   <g transform="matrix(1,0,0,1,0,0)">
                     <text
-                      id="g-svg-92"
+                      id="g-svg-118"
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
@@ -903,7 +903,7 @@
                 >
                   <g transform="matrix(1,0,0,1,0,0)">
                     <text
-                      id="g-svg-93"
+                      id="g-svg-119"
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
@@ -932,7 +932,7 @@
             />
           </g>
         </g>
-        <g transform="matrix(1,0,0,1,70,16)" clip-path="url(#clip-path-98-95)">
+        <g transform="matrix(1,0,0,1,70,16)" clip-path="url(#clip-path-120-95)">
           <path
             id="g-svg-95"
             fill="rgba(0,0,0,0)"

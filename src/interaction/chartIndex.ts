@@ -154,7 +154,7 @@ export function ChartIndex({
         return clonedOptions;
       });
 
-      const newState = await update();
+      const newState = await update('chartIndex');
       newView = newState.view;
     };
 
@@ -215,3 +215,7 @@ export function ChartIndex({
     };
   };
 }
+
+ChartIndex.props = {
+  reapplyWhenUpdate: true,
+};
