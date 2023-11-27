@@ -984,7 +984,7 @@ export class View extends Base {
    * @returns 维度字段的 Attribute 数组
    */
   public getLegendAttributes(): Attribute[] {
-    return (flatten(this.geometries.map((g: Geometry) => g.getGroupAttributes())) as unknown) as Attribute[];
+    return flatten(this.geometries.map((g: Geometry) => g.getGroupAttributes())) as unknown as Attribute[];
   }
 
   /**
@@ -1002,7 +1002,7 @@ export class View extends Base {
    * @returns G.Canvas 画布实例。
    */
   public getCanvas(): ICanvas {
-    return ((this.getRootView() as unknown) as Chart).canvas;
+    return (this.getRootView() as unknown as Chart).canvas;
   }
 
   /**

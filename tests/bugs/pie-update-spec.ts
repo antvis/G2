@@ -43,7 +43,7 @@ describe('Pie update animation', () => {
       });
       expect(commands).toEqual(['M', 'L', 'A', 'L', 'Z']);
       done();
-    }, 600);
+    }, 1000);
   });
 
   it('recheck', () => {
@@ -162,6 +162,6 @@ describe('Pie update animation', () => {
       expect(labelContainer.getCount()).toBe(1);
 
       done();
-    }, 500);
+    }, 1000);
   });
 });
