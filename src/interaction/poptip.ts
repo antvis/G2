@@ -85,3 +85,7 @@ export function Poptip({ offsetX = 8, offsetY = 8, ...style }) {
     };
   };
 }
+
+Poptip.props = {
+  reapplyWhenUpdate: true,
+};

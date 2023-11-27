@@ -162,3 +162,7 @@ export function Event() {
     };
   };
 }
+
+Event.props = {
+  reapplyWhenUpdate: true,
+};
