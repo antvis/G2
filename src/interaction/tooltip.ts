@@ -1,4 +1,4 @@
-import { Circle, DisplayObject, IElement, Line } from '@antv/g';
+import { Canvas, Circle, DisplayObject, IElement, Line } from '@antv/g';
 import { sort, group, mean, bisector, minIndex } from 'd3-array';
 import { deepMix, lowerFirst, throttle } from '@antv/util';
 import { Tooltip as TooltipComponent } from '@antv/component';
@@ -26,8 +26,10 @@ function getContainer(
 ): HTMLElement {
   if (mount)
     return typeof mount === 'string' ? document.querySelector(mount) : mount;
-  // @ts-ignore
-  return group.getRootNode().defaultView.getConfig().container;
+
+  return group.ownerDocument.defaultView
+    .getContextService()
+    .getDomElement() as unknown as HTMLElement;
 }
 
 function getBounding(root): BBox {
@@ -110,7 +112,9 @@ function showTooltip({
   mount,
   bounding,
 }) {
-  const canvasContainer = root.getRootNode().defaultView.getConfig().container;
+  const canvasContainer = (root.ownerDocument.defaultView as Canvas)
+    .getContextService()
+    .getDomElement() as unknown as HTMLElement;
   const container = getContainer(root, mount);
 
   // All the views share the same tooltip.
@@ -149,7 +153,9 @@ function hideTooltip({ root, single, emitter, nativeEvent = true }) {
   if (nativeEvent) {
     emitter.emit('tooltip:hide', { nativeEvent });
   }
-  const canvasContainer = root.getRootNode().defaultView.getConfig().container;
+  const canvasContainer = root.ownerDocument.defaultView
+    .getContextService()
+    .getDomElement();
   const parent = single ? canvasContainer : root;
   const { tooltipElement } = parent;
   if (tooltipElement) {
@@ -158,7 +164,9 @@ function hideTooltip({ root, single, emitter, nativeEvent = true }) {
 }
 
 function destroyTooltip({ root, single }) {
-  const canvasContainer = root.getRootNode().defaultView.getConfig().container;
+  const canvasContainer = root.ownerDocument.defaultView
+    .getContextService()
+    .getDomElement() as unknown as HTMLElement;
   const parent = single ? canvasContainer : root;
   if (!parent) return;
   const { tooltipElement } = parent;
