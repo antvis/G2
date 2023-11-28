@@ -520,7 +520,8 @@ export function seriesTooltip(
 
   const indexByFocus = (focus, I, X) => {
     const finalX = abstractX(focus);
-    const [minX, maxX] = sort([X[0], X[X.length - 1]]);
+    const DX = X.filter(defined);
+    const [minX, maxX] = sort([DX[0], DX[DX.length - 1]]);
     // If closest is true, always find at least one element.
     // Otherwise, skip element out of plot area.
     if (!closest && (finalX < minX || finalX > maxX)) return null;

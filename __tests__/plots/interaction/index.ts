@@ -75,3 +75,4 @@ export { missingAreaTooltipMarker } from './missing-area-tooltip-marker';
 export { penguinsPointRepeatMatrixLegendFilter } from './penguins-point-repeat-matrix-legend-filter';
 export { alphabetIntervalActiveScrollbar } from './alphabet-interval-active-scrollbar';
 export { profitIntervalLegendFilterElementHighlight } from './profit-interval-legend-filter-element-highlight';
+export { stocksLineSlider } from './stocks-line-slider';
