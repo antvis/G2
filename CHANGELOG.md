@@ -1,3 +1,16 @@
+## [5.1.10](https://github.com/antvis/g2/compare/5.1.9...5.1.10) (2023-11-28)
+
+
+### Bug Fixes
+
+* english title of site ([#5840](https://github.com/antvis/g2/issues/5840)) ([3d8a779](https://github.com/antvis/g2/commit/3d8a7794914594a639f8e0716081f561c493b950))
+* fix subLayoutFacetCircle cal center y problem ([#5833](https://github.com/antvis/g2/issues/5833)) ([74ce08a](https://github.com/antvis/g2/commit/74ce08a77b2ef55941fe8df6d8b3d524e3abef13))
+* fix the rendering issue caused by `nodePaddingRatio` in chord nodes using a hack method ([#5824](https://github.com/antvis/g2/issues/5824)) ([b0b37af](https://github.com/antvis/g2/commit/b0b37af285904e3379e0943575626f0091519873))
+* **interaction:** reaapply some interactions when update ([#5845](https://github.com/antvis/g2/issues/5845)) ([54f4098](https://github.com/antvis/g2/commit/54f409874aa47bb5474fcfb4898e8089392c5736))
+* **tooltip:** handle undefined ([#5852](https://github.com/antvis/g2/issues/5852)) ([3f3dda5](https://github.com/antvis/g2/commit/3f3dda51768a6f2f883edf7f28c0d3f78f94c7f0))
+
+
+
 ## [5.1.9](https://github.com/antvis/g2/compare/5.1.8...5.1.9) (2023-11-22)
 
 
