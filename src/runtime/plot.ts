@@ -372,23 +372,34 @@ function applyTranslate(selection: Selection) {
   );
 }
 
+function definedInteraction(library: G2Library) {
+  const [, createInteraction] = useLibrary<
+    G2InteractionOptions,
+    InteractionComponent,
+    Interaction
+  >('interaction', library);
+  return (d) => {
+    const [name, options] = d;
+    try {
+      return [name, createInteraction(name)] as const;
+    } catch {
+      return [name, options.type] as const;
+    }
+  };
+}
+
 function createUpdateView(
   selection: Selection,
   options: G2ViewTree,
   library: G2Library,
   context: G2Context,
 ): G2ViewInstance['update'] {
-  const [, createInteraction] = useLibrary<
-    G2InteractionOptions,
-    InteractionComponent,
-    Interaction
-  >('interaction', library);
-
-  // Filter interaction need to reapply when update.
+  const createDefinedInteraction = definedInteraction(library);
+  const filter = (d) => d[1] && d[1].props && d[1].props.reapplyWhenUpdate;
   const interactions = inferInteraction(options);
   const updates = interactions
-    .map((d) => [d[0], createInteraction(d[0])] as const)
-    .filter((d) => d[1].props && d[1].props.reapplyWhenUpdate)
+    .map(createDefinedInteraction)
+    .filter(filter)
     .map((d) => d[0]);
 
   return async (newOptions, source) => {

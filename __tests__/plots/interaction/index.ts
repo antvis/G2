@@ -76,3 +76,4 @@ export { penguinsPointRepeatMatrixLegendFilter } from './penguins-point-repeat-m
 export { alphabetIntervalActiveScrollbar } from './alphabet-interval-active-scrollbar';
 export { profitIntervalLegendFilterElementHighlight } from './profit-interval-legend-filter-element-highlight';
 export { stocksLineSlider } from './stocks-line-slider';
+export { alphabetIntervalCustom } from './alphabet-interval-custom';

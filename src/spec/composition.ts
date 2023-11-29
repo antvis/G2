@@ -65,7 +65,7 @@ export type ViewComposition = {
   insetBottom?: number;
   insetRight?: number;
   coordinate?: Coordinate;
-  interaction?: Literal2Object<Interaction>;
+  interaction?: Literal2Object<Interaction> & Record<string, any>;
   transform?: Transform[];
   theme?: Theme;
   children?: (Mark | AxisComponent | LegendComponent)[];

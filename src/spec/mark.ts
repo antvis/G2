@@ -188,7 +188,7 @@ export type BaseMark<T extends MarkTypes, C extends string = ChannelTypes> = {
     Partial<Record<PositionChannelTypes, Closeable<ScrollbarComponent>>>
   >;
   title?: string | TitleComponent;
-  interaction?: Literal2Object<Interaction>;
+  interaction?: Literal2Object<Interaction> & Record<string, any>;
   theme?: Theme;
 };
 
