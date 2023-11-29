@@ -1,8 +1,12 @@
 import { Slider as SliderComponent } from '@antv/component';
 import { format } from 'd3-format';
 import { DisplayObject } from '@antv/g';
+import { isArray } from '@antv/util';
 import { isTranspose } from '../utils/coordinate';
-import { GuideComponentComponent as GCC } from '../runtime';
+import {
+  GuideComponentComponent as GCC,
+  GuideComponentContext,
+} from '../runtime';
 import { invert } from '../utils/scale';
 
 export type SliderOptions = {
@@ -32,7 +36,13 @@ export const Slider: GCC<SliderOptions> = (options) => {
     ...rest
   } = options;
 
-  return ({ scales: [scale], value, theme, coordinate }) => {
+  return (context) => {
+    const {
+      scales: [scale],
+      value,
+      theme,
+      coordinate,
+    } = context;
     const { bbox } = value;
 
     const { width, height } = bbox;
@@ -60,12 +70,42 @@ export const Slider: GCC<SliderOptions> = (options) => {
           const tick = invert(scale, v1, true);
           return f(tick);
         },
+        sparklineData: inferSparklineData(options, context),
         ...style,
         ...rest,
       }),
     }) as unknown as DisplayObject;
   };
 };
+
+function markValue(markState, channels: string[]) {
+  const [value] = Array.from(markState.entries())
+    .filter(([mark]) => mark.type === 'line' || mark.type === 'area')
+    .map(([mark]) => {
+      const { encode, slider } = mark;
+      if (slider?.x && Object.keys(slider.x).length === 0) {
+        const channel = (name) => {
+          const channel = encode[name];
+          return [name, channel ? channel.value : undefined];
+        };
+        return Object.fromEntries(channels.map(channel));
+      }
+    });
+
+  if (!value?.series) return value?.y;
+  const result = value.series.reduce((acc, curr, index) => {
+    acc[curr] = acc[curr] || [];
+    acc[curr].push(value.y[index]);
+    return acc;
+  }, {});
+  return Object.values(result);
+}
+
+function inferSparklineData(options, context: GuideComponentContext) {
+  const { markState } = context;
+  if (isArray(options.sparklineData)) return options.sparklineData;
+  return markValue(markState, ['y', 'series']);
+}
 
 Slider.props = {
   defaultPosition: 'bottom',

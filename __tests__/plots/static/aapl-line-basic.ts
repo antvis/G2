@@ -11,5 +11,8 @@ export function aaplLineBasic(): G2Spec {
       x: 'date',
       y: 'close',
     },
+    slider: {
+      x: {},
+    },
   };
 }
