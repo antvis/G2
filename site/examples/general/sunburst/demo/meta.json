@@ -1,0 +1,56 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "sunburst-default.ts",
+      "title": {
+        "zh": "旭日图",
+        "en": "Sunburst Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*-aInRJfa4-8AAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "sunburst-label.ts",
+      "title": {
+        "zh": "旭日图带标签",
+        "en": "Sunburst Label Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*GBxdT697NYQAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "sunburst-color.ts",
+      "title": {
+        "zh": "旭日图自定义颜色通道",
+        "en": "Sunburst ColorField Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*7L4tQ4F61ZkAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "sunburst-style.ts",
+      "title": {
+        "zh": "旭日图自定义样式",
+        "en": "Sunburst Style Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*BP7zQ6SMiKcAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "sunburst-pattern.ts",
+      "title": {
+        "zh": "旭日图自定义纹理",
+        "en": "Sunburst Pattern Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*rVCgTqydP5kAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "sunburst-interaction.ts",
+      "title": {
+        "zh": "旭日图交互配置",
+        "en": "Sunburst Interaction Config Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*7C0NQK9_TfwAAAAAAAAAAAAADmJ7AQ/original"
+    }
+  ]
+}
