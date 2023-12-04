@@ -36,7 +36,7 @@ site/.dumi/tmp-production
 
 # Editor
 .vscode
-
+.history
 
 # Other
 !/src/lib
