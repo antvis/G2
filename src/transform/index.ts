@@ -9,6 +9,8 @@ export { MaybeKey } from './maybeKey';
 export { MaybeSeries } from './maybeSeries';
 export { MaybeTupleY } from './maybeTupleY';
 export { MaybeTupleX } from './maybeTupleX';
+export { MaybeDefaultX } from './maybeDefaultX';
+export { MaybeDefaultY } from './maybeDefaultY';
 export { MaybeIdentityY } from './maybeIdentityY';
 export { MaybeIdentityX } from './maybeIdentityX';
 export { MaybeTooltip } from './maybeTooltip';
