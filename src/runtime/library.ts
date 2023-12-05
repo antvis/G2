@@ -15,7 +15,7 @@ export function useLibrary<
 >(
   namespace: G2ComponentNamespaces,
   publicLibrary: G2Library,
-): [(options: O, context?: G2Context) => V, (type: O['type']) => C] {
+): [(options: O, context?) => V, (type: O['type']) => C] {
   const library = { ...builtinlib(), ...publicLibrary };
 
   const create = (type: O['type']) => {
@@ -24,12 +24,9 @@ export function useLibrary<
     return library[key] || error(`Unknown Component: ${key}`);
   };
 
-  const use = (options: O, context?: G2Context) => {
+  const use = (options: O, context?) => {
     const { type, ...rest } = options;
-    if (!type) {
-      error(`Plot type is required!`);
-    }
-
+    if (!type) error(`Plot type is required!`);
     const currentLibrary = create(type);
     return currentLibrary?.(rest, context);
   };

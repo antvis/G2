@@ -1,4 +1,4 @@
-import { render } from '@antv/g2v5';
+import { render, stdlib } from '@antv/g2v5';
 import { html } from 'htl';
 import * as _cases from './tests/chart';
 
@@ -162,14 +162,14 @@ async function launch(container: HTMLDivElement) {
         end: (node: any) => {
           const result = performance.measure(key, key);
           results.push(result);
-          renderPrefResultEach(container, node, key, result, false);
+          renderPrefResultEach(container, node, key, result, true);
           resolve();
         },
       });
     });
   }
 
-  renderPreResultAll(container, results);
+  // renderPreResultAll(container, results);
 
   renderReportUpload(container, results);
 
@@ -212,26 +212,29 @@ function renderPreResultAll(
   const dashboard = document.createElement('div');
   dashboard.id = id;
   container.appendChild(dashboard);
-  const node = render({
-    type: 'interval',
-    width: 1000,
-    data: results,
-    encode: { x: 'name', y: 'duration' },
-    style: { fill: 'black' },
-    transform: [{ type: 'sortX', by: 'y', reverse: true }],
-    scale: {
-      y: { nice: true },
+  const node = render(
+    {
+      type: 'interval',
+      width: 1000,
+      data: results,
+      encode: { x: 'name', y: 'duration' },
+      style: { fill: 'black' },
+      transform: [{ type: 'sortX', by: 'y', reverse: true }],
+      scale: {
+        y: { nice: true },
+      },
+      axis: {
+        x: { labelAutoRotate: false, title: 'library + env' },
+        y: { title: 'duration(ms)' },
+      },
+      labels: [{ text: 'duration', position: 'inside', formatter: '.1f' }],
     },
-    axis: {
-      x: { labelAutoRotate: false, title: 'library + env' },
-      y: { title: 'duration(ms)' },
-    },
-    labels: [{ text: 'duration', position: 'inside', formatter: '.1f' }],
-  });
+    { library: stdlib() },
+  );
   dashboard.appendChild(node);
 }
 
-function clearNodes(className: string = 'chart') {
+function clearNodes(className = 'chart') {
   const charts = document.getElementsByClassName(className);
   Array.from(charts).forEach((d) => d.remove());
 }
