@@ -58,6 +58,7 @@ export { aaplLineBasicLabelOverlapHide } from './aapl-line-basic-label-overlap-h
 export { aaplLineBasicSample } from './aapl-line-basic-sample';
 export { aaplLineBasicSampleLabelFilter } from './aapl-line-basic-sample-label-filter';
 export { aaplLineAreaBasicSample } from './aapl-line-area-basic-sample';
+export { aaplAreaLineSmoothSample } from './aapl-area-line-smooth-sample';
 export { aaplLinePointBasicSample } from './aapl-line-point-basic-sample';
 export { speciesDensityBasic } from './species-density-basic';
 export { speciesViolinBasic } from './species-violin-basic';
