@@ -14,6 +14,8 @@ export const g2V4Canvas: ChartType = (data, { start, end }) => {
 
   chart.point().position('date*value').style({ stroke: 'black' });
 
+  chart.animate(false);
+
   chart.render();
 
   end(node);
