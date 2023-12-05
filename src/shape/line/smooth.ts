@@ -7,12 +7,10 @@ import { isPolar, isTranspose } from '../../utils/coordinate';
 import { ShapeComponent as SC } from '../../runtime';
 import { Curve } from './curve';
 
-export type SmoothOptions = {
-  alpha?: number;
-};
+export type SmoothOptions = Record<string, any>;
 
 export const Smooth: SC<SmoothOptions> = (options, context) => {
-  const { alpha = 0.5, ...rest } = options;
+  const { ...rest } = options;
   const { coordinate } = context;
   return (...params) => {
     const curve = isPolar(coordinate)
@@ -20,7 +18,7 @@ export const Smooth: SC<SmoothOptions> = (options, context) => {
       : isTranspose(coordinate)
       ? curveMonotoneY
       : curveMonotoneX;
-    return Curve({ curve: curve, ...rest }, context)(...params);
+    return Curve({ curve, ...rest }, context)(...params);
   };
 };
 
