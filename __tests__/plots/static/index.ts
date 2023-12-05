@@ -307,3 +307,4 @@ export { mockLineCloseX } from './mock-line-close-x';
 export { premierLeagueTable } from './premier-league-table';
 export { singlePointBasic } from './single-point-basic';
 export { populationFlowChordDefault } from './population-flow-chord-default';
+export { mockLineAreaSmooth } from './mock-line-area-smooth';
