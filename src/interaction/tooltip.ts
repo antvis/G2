@@ -1,4 +1,4 @@
-import { Canvas, Circle, DisplayObject, IElement, Line } from '@antv/g';
+import { Circle, DisplayObject, IElement, Line } from '@antv/g';
 import { sort, group, mean, bisector, minIndex } from 'd3-array';
 import { deepMix, lowerFirst, throttle } from '@antv/util';
 import { Tooltip as TooltipComponent } from '@antv/component';
@@ -22,14 +22,15 @@ import { dataOf } from './event';
 
 function getContainer(
   group: IElement,
-  mount: string | HTMLElement,
+  mount?: string | HTMLElement,
 ): HTMLElement {
-  if (mount)
+  if (mount) {
     return typeof mount === 'string' ? document.querySelector(mount) : mount;
-
-  return group.ownerDocument.defaultView
+  }
+  const canvas: any = group.ownerDocument.defaultView
     .getContextService()
-    .getDomElement() as unknown as HTMLElement;
+    .getDomElement();
+  return canvas.parentElement as unknown as HTMLElement;
 }
 
 function getBounding(root): BBox {
@@ -112,14 +113,10 @@ function showTooltip({
   mount,
   bounding,
 }) {
-  const canvasContainer = (root.ownerDocument.defaultView as Canvas)
-    .getContextService()
-    .getDomElement() as unknown as HTMLElement;
   const container = getContainer(root, mount);
-
+  const canvasContainer = getContainer(root);
   // All the views share the same tooltip.
   const parent = single ? canvasContainer : root;
-
   const b = bounding || getBounding(root);
   const containerOffset = getContainerOffset(canvasContainer, container);
   const {
@@ -153,10 +150,8 @@ function hideTooltip({ root, single, emitter, nativeEvent = true }) {
   if (nativeEvent) {
     emitter.emit('tooltip:hide', { nativeEvent });
   }
-  const canvasContainer = root.ownerDocument.defaultView
-    .getContextService()
-    .getDomElement();
-  const parent = single ? canvasContainer : root;
+  const container = getContainer(root);
+  const parent = single ? container : root;
   const { tooltipElement } = parent;
   if (tooltipElement) {
     tooltipElement.hide();
@@ -164,10 +159,8 @@ function hideTooltip({ root, single, emitter, nativeEvent = true }) {
 }
 
 function destroyTooltip({ root, single }) {
-  const canvasContainer = root.ownerDocument.defaultView
-    .getContextService()
-    .getDomElement() as unknown as HTMLElement;
-  const parent = single ? canvasContainer : root;
+  const container = getContainer(root);
+  const parent = single ? container : root;
   if (!parent) return;
   const { tooltipElement } = parent;
   if (tooltipElement) {
