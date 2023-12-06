@@ -1,4 +1,4 @@
 ---
-title: Regression
+title: 回归线
 order: 1
 ---
