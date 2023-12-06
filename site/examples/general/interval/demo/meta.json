@@ -10,7 +10,7 @@
         "zh": "柱形图",
         "en": "Column Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*vhCKQJ9UJX4AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*kvZLSLxjnkIAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "column-maxwidth.ts",
@@ -18,7 +18,7 @@
         "zh": "限制宽度的柱形图",
         "en": "Column with maxWidth"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*fu-BSYg7U_kAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*gw-YTIpoiZsAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "column-min-height.ts",
@@ -26,7 +26,7 @@
         "zh": "限制高度的柱形图",
         "en": "Column with minHeight"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*bfqERaJK8e0AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*W2SKQJ4i8xQAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "column-log.ts",
@@ -34,7 +34,7 @@
         "zh": "对数柱形图",
         "en": "Log Column Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*cRE5TqJGnVUAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Q6JdQpaVJ18AAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "bar.ts",
@@ -42,7 +42,7 @@
         "zh": "水平条形图",
         "en": "Horizontal Bar Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*eU1cRqm_fPAAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Kk02RLAcibAAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "bar-diverging.ts",
@@ -50,7 +50,7 @@
         "zh": "发散条形图",
         "en": "Diverging Bar Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*uspwRYO9FH0AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*U11MRYv8BFUAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "bar-range.ts",
@@ -58,7 +58,7 @@
         "zh": "区间条形图",
         "en": "Range Bar Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*hTfETY0ObOsAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*3Qm6RYLLBmUAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "bar-range-micro.ts",
@@ -66,7 +66,7 @@
         "zh": "微妙级区间条形图",
         "en": "Micro Range Bar Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*RGwxTI9J6fwAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*g7gvQpvLqyIAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "bar-stacked.ts",
@@ -74,7 +74,7 @@
         "zh": "堆叠条形图",
         "en": "Stacked Bar Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*GwDUQbVt9XYAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*RqV4T4LZxaAAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "bar-stacked-horizontal.ts",
@@ -82,7 +82,7 @@
         "zh": "堆叠水平条形图",
         "en": "Horizontal Stacked Bar Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*RJvHRpHoFmYAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*4Rr_Q4VSLkEAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "bar-normalized-stacked.ts",
@@ -90,7 +90,7 @@
         "zh": "归一化堆叠条形图",
         "en": "Normalized Stacked Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*m6vKSptL6qkAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*mCUsRYGa1owAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "bar-dodged.ts",
@@ -98,7 +98,7 @@
         "zh": "分组条形图",
         "en": "Dodged Bar Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*FrshQpaS4f0AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*JUTiSIaaUgEAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "bar-flex.ts",
@@ -106,7 +106,7 @@
         "zh": "弹性条形图",
         "en": "Flex Bar Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*NfBaTZtrUhoAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*i_DyRJlDdVsAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "bar-var-width.ts",
@@ -114,7 +114,7 @@
         "zh": "可变宽度条形图",
         "en": "Var Width Bar Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*TmT4TI-5HHsAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ajNRTYbsuTgAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "bar-marimekko.ts",
@@ -122,7 +122,7 @@
         "zh": "马赛克图",
         "en": "Marimekko"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*yANXQZce0W8AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*A_0eQI6xezsAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "bar-dual-axes.ts",
@@ -130,7 +130,7 @@
         "zh": "多轴条形图",
         "en": "Dual Axes Bar Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*TehBRbDnoIkAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*K52LToQX-f4AAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "bar-fixed-cornered.ts",
@@ -138,7 +138,7 @@
         "zh": "固定宽度圆角条形图",
         "en": "Cornered Fixed Width Bar Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dorbTKo4Ru8AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*opv8TY0CpbAAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "bar-stacked-diverging-rounded.ts",
