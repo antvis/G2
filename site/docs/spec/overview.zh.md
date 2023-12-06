@@ -69,6 +69,7 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
 - [groupY](/spec/transform/group-y) - 对离散的 y 通道进行分组，并且对通道根据指定的 Reducer 进行聚合。
 - [jitter](/spec/transform/jitter) - 根据离散的 x 和 离散的 y 比例尺，生成 dy 和 dx 通道，实现在某个区域散开的效果。
 - [jitterX](/spec/transform/jitter-x) - 根据离散的 x 比例尺，生成 dx 通道，实现在某个区域的 x 方向散开的效果。
+- [jitterY](/spec/transform/jitter-y) - 根据离散的 y 比例尺，生成 dy 通道，实现在某个区域的 y 方向散开的效果。
 - [normalizeY](/spec/transform/normalize-y) - 对 y 和 y1 通道根据指定的 basis 进行归一化处理。
 - [select](/spec/transform/select) - 按照指定通道进行分组，根据指定通道和 selector 从每组选择出数据。
 - [selectX](/spec/transform/select-x) - 按照指定通道进行分组，根据 x 通道和 selector 从每组选择出数据。

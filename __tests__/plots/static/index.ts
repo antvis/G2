@@ -46,6 +46,7 @@ export { stateAgesPointDotPlot } from './stateages-point-dot-plot';
 export { temperaturesPointSequential } from './temperatures-point-sequential';
 export { disastersPointBubble } from './disasters-point-bubble';
 export { cars2PointJitterY } from './cars2-point-jitterY';
+export { cars2PointJitterX } from './cars2-point-jitterX';
 export { peoplePointStacked } from './people-point-stacked';
 export { intakePointAnnotation } from './intake-point-annotation';
 export { intakePointAnnotationWithArrow } from './intake-point-annotation-with-arrow';
