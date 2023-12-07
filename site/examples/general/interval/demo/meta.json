@@ -5,6 +5,38 @@
   },
   "demos": [
     {
+      "filename": "bar-basic.ts",
+      "title": {
+        "zh": "简单柱状图",
+        "en": "Simple Column"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*fNFMRb3DlokAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "bar-basic-transposed.ts",
+      "title": {
+        "zh": "简单条形图",
+        "en": "Simple Bar"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*sxEATqf3uoEAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "bar-basic-stacked.ts",
+      "title": {
+        "zh": "简单堆叠柱状图",
+        "en": "Simple Stacked Column"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*69WQTY8YrWgAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "bar-basic-grouped.ts",
+      "title": {
+        "zh": "简单分组柱状图",
+        "en": "Simple Grouped Column"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*kqGUT4wRYrsAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
       "filename": "column.ts",
       "title": {
         "zh": "柱形图",
