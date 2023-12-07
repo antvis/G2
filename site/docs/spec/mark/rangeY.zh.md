@@ -35,6 +35,20 @@ chart
 chart.render();
 ```
 
+此外，rangeY 还提供了简便写法：
+
+```ts
+chart
+  .rangeY()
+  .data([[54, 60], [65, 72]])
+  .encode('y', d => d);
+
+// it can be simplified as follows:
+chart
+  .rangeY()
+  .data([[54, 60], [65, 72]]);
+```
+
 更多的案例，可以查看[图表示例](/examples)页面。
 
 ## 选项
