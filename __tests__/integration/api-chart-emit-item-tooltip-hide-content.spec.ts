@@ -5,10 +5,10 @@ import {
   createPromise,
   receiveExpectData,
 } from './utils/event';
-import { createDOMGCanvas } from './utils/createDOMGCanvas';
+import { createNodeGCanvas } from './utils/createNodeGCanvas';
 
 describe('chart.emit', () => {
-  const canvas = createDOMGCanvas(800, 500);
+  const canvas = createNodeGCanvas(800, 500);
 
   it('chart.tooltip hide body should emit events.', async () => {
     const { finished, chart, clear } = render({

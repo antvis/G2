@@ -28,5 +28,3 @@ unemploymentAreaLegendFilterPages.steps = ({ canvas }) => {
   const [e0] = elements;
   return [step(e0, 'click')];
 };
-
-unemploymentAreaLegendFilterPages.maxError = 200;

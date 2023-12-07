@@ -1,6 +1,7 @@
 import { deepMix } from '@antv/util';
 import { isUnset } from '../utils/helper';
 import { TransformComponent as TC } from '../runtime';
+import { dynamicFormatDateTime } from '../utils/dateFormat';
 import { columnOf } from './utils/helper';
 
 export type MaybeTitleOptions = {
@@ -27,7 +28,13 @@ export const MaybeTitle: TC<MaybeTitleOptions> = (options = {}) => {
     if (titles.length === 0) return [I, mark];
     const T = [];
     for (const i of I) {
-      T[i] = { value: titles.map((t) => t[i]).join(', ') };
+      T[i] = {
+        value: titles
+          .map((t) =>
+            t[i] instanceof Date ? dynamicFormatDateTime(t[i] as Date) : t[i],
+          )
+          .join(', '),
+      };
     }
     return [
       I,

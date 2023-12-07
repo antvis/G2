@@ -63,5 +63,3 @@ export async function barleyPointFacetRectColZIndex(): Promise<G2Spec> {
     ],
   };
 }
-
-barleyPointFacetRectColZIndex.maxError = 1000;

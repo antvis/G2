@@ -36,5 +36,3 @@ export function temperature1LineVarColor(): G2Spec {
     },
   };
 }
-
-temperature1LineVarColor.maxError = 100;

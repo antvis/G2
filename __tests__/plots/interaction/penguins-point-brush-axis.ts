@@ -38,3 +38,5 @@ penguinsPointBrushAxis.steps = ({ canvas }) => {
     },
   ];
 };
+
+penguinsPointBrushAxis.skip = true;

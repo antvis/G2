@@ -14,9 +14,7 @@ export async function indicesLineCustom(): Promise<G2Spec> {
       {
         type: 'line',
         data,
-        axis: {
-          y: { labelAutoRotate: false },
-        },
+        axis: { y: { labelAutoRotate: false } },
         transform: [{ type: 'normalizeY', basis: 'first', groupBy: 'color' }],
         legend: false,
         encode: {
@@ -35,14 +33,3 @@ export async function indicesLineCustom(): Promise<G2Spec> {
 }
 
 indicesLineCustom.steps = seriesTooltipSteps([200, 300], [300, 300]);
-
-// Make the local ci and online ci covert Date object to consistent string.
-let toString;
-indicesLineCustom.before = () => {
-  toString = Date.prototype.toString;
-  Date.prototype.toString = Date.prototype.toUTCString;
-};
-
-indicesLineCustom.after = () => {
-  Date.prototype.toString = toString;
-};

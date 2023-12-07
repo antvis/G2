@@ -46,5 +46,3 @@ export function aapl2CandlestickChart(): G2Spec {
     ],
   };
 }
-
-aapl2CandlestickChart.maxError = 1050;

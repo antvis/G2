@@ -35,14 +35,3 @@ export function mockLineSmallInterval(): G2Spec {
     coordinate: { transform: [{ type: 'transpose' }] },
   };
 }
-
-let toString;
-
-mockLineSmallInterval.before = () => {
-  toString = Date.prototype.toString;
-  Date.prototype.toString = Date.prototype.toUTCString;
-};
-
-mockLineSmallInterval.after = () => {
-  Date.prototype.toString = toString;
-};

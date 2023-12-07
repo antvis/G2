@@ -41,7 +41,8 @@ renderer.registerPlugin(new ControlPlugin());
 由于 3D 相关的功能代码体积巨大，我们将其分离到 [threedlib](/manual/extra-topics/bundle#g2threedlib) 中，在运行时扩展它并自定义 Chart 对象：
 
 ```ts
-import { Runtime, corelib, threedlib, extend } from '@antv/g2';
+import { Runtime, corelib, extend } from '@antv/g2';
+import { threedlib } from '@antv/g2-extension-3d';
 
 const Chart = extend(Runtime, { ...corelib(), ...threedlib() });
 ```
@@ -105,11 +106,14 @@ chart.render().then(() => {
   renderer.registerPlugin(new gPluginControl.Plugin());
   renderer.registerPlugin(new gPlugin3d.Plugin());
 
-  const Chart = G2.extend(G2.Runtime, { ...G2.corelib(), ...G2.threedlib() });
+  const Chart = G2.extend(G2.Runtime, {
+    ...G2.corelib(),
+    ...g2Extension3d.threedlib(),
+  });
 
   // 初始化图表实例
   const chart = new Chart({
-      renderer,
+    renderer,
     width: 500,
     height: 500,
     depth: 400,
@@ -168,11 +172,14 @@ camera.rotate(-20, -20, 0);
   renderer.registerPlugin(new gPluginControl.Plugin());
   renderer.registerPlugin(new gPlugin3d.Plugin());
 
-  const Chart = G2.extend(G2.Runtime, { ...G2.corelib(), ...G2.threedlib() });
+  const Chart = G2.extend(G2.Runtime, {
+    ...G2.corelib(),
+    ...g2Extension3d.threedlib(),
+  });
 
   // 初始化图表实例
   const chart = new Chart({
-      renderer,
+    renderer,
     width: 500,
     height: 500,
     depth: 400,
@@ -244,11 +251,14 @@ canvas.appendChild(light);
   renderer.registerPlugin(new gPluginControl.Plugin());
   renderer.registerPlugin(new gPlugin3d.Plugin());
 
-  const Chart = G2.extend(G2.Runtime, { ...G2.corelib(), ...G2.threedlib() });
+  const Chart = G2.extend(G2.Runtime, {
+    ...G2.corelib(),
+    ...g2Extension3d.threedlib(),
+  });
 
   // 初始化图表实例
   const chart = new Chart({
-      renderer,
+    renderer,
     width: 500,
     height: 500,
     depth: 400,
@@ -372,11 +382,14 @@ chart.legend(false);
   renderer.registerPlugin(new gPluginControl.Plugin());
   renderer.registerPlugin(new gPlugin3d.Plugin());
 
-  const Chart = G2.extend(G2.Runtime, { ...G2.corelib(), ...G2.threedlib() });
+  const Chart = G2.extend(G2.Runtime, {
+    ...G2.corelib(),
+    ...g2Extension3d.threedlib(),
+  });
 
   // 初始化图表实例
   const chart = new Chart({
-      renderer,
+    renderer,
     width: 500,
     height: 500,
     depth: 400,
@@ -535,11 +548,14 @@ button.onclick = () => {
   renderer.registerPlugin(new gPluginControl.Plugin());
   renderer.registerPlugin(new gPlugin3d.Plugin());
 
-  const Chart = G2.extend(G2.Runtime, { ...G2.corelib(), ...G2.threedlib() });
+  const Chart = G2.extend(G2.Runtime, {
+    ...G2.corelib(),
+    ...g2Extension3d.threedlib(),
+  });
 
   // 初始化图表实例
   const chart = new Chart({
-      renderer,
+    renderer,
     width: 500,
     height: 500,
     depth: 400,

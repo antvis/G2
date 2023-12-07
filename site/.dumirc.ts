@@ -23,6 +23,7 @@ export default defineConfig({
     description: 'The Grammar of Visualization in JavaScript',
     defaultLanguage: 'zh', // 默认语言
     isAntVSite: false, // 是否是 AntV 的大官网
+    footerTheme: 'light', // 白色 底部主题
     siteUrl: 'https://antv.antgroup.com/', // 官网首页地址
     githubUrl: repository.url, // GitHub 地址
     showSearch: true, // 是否显示搜索框
@@ -92,10 +93,17 @@ export default defineConfig({
       // 头部的菜单中的「周边生态」
       {
         name: {
-          zh: 'G2Plot',
-          en: 'G2Plot (A charting library)',
+          zh: 'g2-extensions',
+          en: 'g2-extensions',
         },
-        url: 'https://g2plot.antv.antgroup.com/',
+        url: 'https://github.com/antvis/g2-extensions',
+      },
+      {
+        name: {
+          zh: 'ant-design-charts',
+          en: 'ant-design-charts',
+        },
+        url: 'https://github.com/ant-design/ant-design-charts',
       },
     ],
     docs: [
@@ -321,6 +329,14 @@ export default defineConfig({
         icon: 'other',
       },
       {
+        slug: 'intelligent',
+        title: {
+          zh: '智能可视化',
+          en: 'Intelligent',
+        },
+        icon: 'other',
+      },
+      {
         slug: 'storytelling',
         title: {
           zh: '可视化叙事',
@@ -412,17 +428,33 @@ export default defineConfig({
     },
     /** 首页技术栈介绍 */
     detail: {
+      engine: {
+        zh: 'G2',
+        en: 'G2',
+      },
       title: {
-        zh: 'G2，可视化语法',
-        en: 'G2, a Visualization Grammar',
+        zh: 'G2·可视化语法',
+        en: 'G2·Visualization Grammar',
       },
       description: {
         zh: 'G2 是一套简洁的渐进式可视化语法，用于报表搭建、数据探索以及可视化叙事。',
         en: 'G2 is a concise and progressive visualization grammar for dashboard building, data exploration and storytelling.',
       },
       image:
-        'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*wo_LToatmbwAAAAAAAAAAABkARQnAQ',
+        'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*wi05Q7Za5ZIAAAAAAAAAAAAADmJ7AQ/original',
+      imageStyle: {
+        marginLeft: '80px',
+        marginTop: '30px',
+        transform: 'scale(1.4)',
+      },
       buttons: [
+        {
+          text: {
+            zh: '开始使用',
+            en: 'Getting Started',
+          },
+          link: `/manual/introduction/getting-started`,
+        },
         {
           text: {
             zh: '图表示例',
@@ -430,13 +462,6 @@ export default defineConfig({
           },
           link: `/examples/`,
           type: 'primary',
-        },
-        {
-          text: {
-            zh: '开始使用',
-            en: 'Getting Started',
-          },
-          link: `/manual/introduction/getting-started`,
         },
       ],
     },

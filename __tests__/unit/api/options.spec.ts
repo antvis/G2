@@ -1,8 +1,11 @@
 import { Chart } from '../../../src';
+import { createNodeGCanvas } from '../../integration/utils/createNodeGCanvas';
 
 describe('chart api and options', () => {
   it('chart.options({...}) should create node instance from spec.', () => {
-    const chart = new Chart({});
+    const chart = new Chart({
+      canvas: createNodeGCanvas(640, 480),
+    });
 
     chart.options({
       type: 'interval',
@@ -24,7 +27,9 @@ describe('chart api and options', () => {
   });
 
   it('chart.options({...}) should bubble view options', () => {
-    const chart = new Chart({});
+    const chart = new Chart({
+      canvas: createNodeGCanvas(640, 480),
+    });
 
     chart.options({
       type: 'interval',
@@ -75,7 +80,9 @@ describe('chart api and options', () => {
   });
 
   it('chart.options({...}) should create nested node tree from spec.', () => {
-    const chart = new Chart({});
+    const chart = new Chart({
+      canvas: createNodeGCanvas(640, 480),
+    });
     const options = {
       type: 'spaceFlex',
       flex: [1, 2],
@@ -103,7 +110,9 @@ describe('chart api and options', () => {
   });
 
   it('chart.options({...} should update mark.', () => {
-    const chart = new Chart({});
+    const chart = new Chart({
+      canvas: createNodeGCanvas(640, 480),
+    });
 
     chart.options({
       type: 'interval',
@@ -125,7 +134,9 @@ describe('chart api and options', () => {
   });
 
   it('chart.options({...}) should update view.', () => {
-    const chart = new Chart({});
+    const chart = new Chart({
+      canvas: createNodeGCanvas(640, 480),
+    });
 
     chart.options({
       type: 'view',
@@ -142,7 +153,9 @@ describe('chart api and options', () => {
   });
 
   it('chart.options({...}) should update node with same height and index.', () => {
-    const chart = new Chart({});
+    const chart = new Chart({
+      canvas: createNodeGCanvas(640, 480),
+    });
 
     chart.options({
       type: 'view',
@@ -157,7 +170,9 @@ describe('chart api and options', () => {
   });
 
   it('chart.options({...}) should update nested node tree.', () => {
-    const chart = new Chart({});
+    const chart = new Chart({
+      canvas: createNodeGCanvas(640, 480),
+    });
 
     chart.options({
       type: 'spaceFlex',
@@ -209,7 +224,9 @@ describe('chart api and options', () => {
   });
 
   it('chart.options({...}) should transform node.', () => {
-    const chart = new Chart({});
+    const chart = new Chart({
+      canvas: createNodeGCanvas(640, 480),
+    });
 
     chart.options({
       type: 'view',
@@ -229,7 +246,9 @@ describe('chart api and options', () => {
   });
 
   it('chart.options({...}) should update node tree specified by API.', () => {
-    const chart = new Chart({});
+    const chart = new Chart({
+      canvas: createNodeGCanvas(640, 480),
+    });
 
     const interval = chart.interval().data([1, 2, 3]);
 
@@ -242,7 +261,9 @@ describe('chart api and options', () => {
   });
 
   it('chart.options({...}) should remove node.', () => {
-    const chart = new Chart({});
+    const chart = new Chart({
+      canvas: createNodeGCanvas(640, 480),
+    });
 
     chart.options({
       type: 'view',

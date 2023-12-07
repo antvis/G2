@@ -23,15 +23,22 @@ export function useLibrary<
     const key = `${namespace}.${type}`;
     return library[key] || error(`Unknown Component: ${key}`);
   };
+
   const use = (options: O, context?) => {
     const { type, ...rest } = options;
-    return create(type)(rest, context);
+    if (!type) error(`Plot type is required!`);
+    const currentLibrary = create(type);
+    return currentLibrary?.(rest, context);
   };
+
   return [use, create];
 }
 
 export function documentOf(library: G2Context): IDocument {
   const { canvas, group } = library;
-  if (group) return group.ownerDocument;
-  return canvas.document;
+  return (
+    canvas?.document ||
+    group?.ownerDocument ||
+    error(`Cannot find library document`)
+  );
 }

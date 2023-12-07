@@ -1,26 +1,96 @@
-## [5.1.7](https://github.com/antvis/g2/compare/5.1.6...5.1.7) (2023-11-08)
+## [5.1.11](https://github.com/antvis/g2/compare/5.1.10...5.1.11) (2023-12-06)
 
 
 ### Bug Fixes
 
-* add style.minHeight to interval ([#5715](https://github.com/antvis/g2/issues/5715)) ([bbfad52](https://github.com/antvis/g2/commit/bbfad529db693253c678abbc51ac0cc3220d070e))
-* **line:** use curveMonotone ([#5751](https://github.com/antvis/g2/issues/5751)) ([2bedfba](https://github.com/antvis/g2/commit/2bedfba0bbb8d182b7eedfe70d50ec6e633ea4a4))
-* set transform-origin in each keyframe ([#5679](https://github.com/antvis/g2/issues/5679)) ([c49cf09](https://github.com/antvis/g2/commit/c49cf09fd25ce0aa1ca5eced0907be1b7295f451))
-* **test:** update snapshot ([#5755](https://github.com/antvis/g2/issues/5755)) ([61c8374](https://github.com/antvis/g2/commit/61c8374c279c595087cd423121edac8486ad0d67))
+* area and line shares the same curve generator([#5877](https://github.com/antvis/g2/issues/5877)) ([b212242](https://github.com/antvis/g2/commit/b21224269a8e35f7bf09377fa1e3d5d801073af1))
+* cannot find document if group destroyed ([#5870](https://github.com/antvis/g2/issues/5870)) ([c78da52](https://github.com/antvis/g2/commit/c78da5284ec2931ff80f422d691c8d61386ef3f6))
+* ci and bench ([#5880](https://github.com/antvis/g2/issues/5880)) ([046ea5f](https://github.com/antvis/g2/commit/046ea5fd230d87aacdb4ca26695f076a295ac77f))
+* fix the scaleInY animation(scale in the radial direction) on the polar coordinate ([#5866](https://github.com/antvis/g2/issues/5866)) ([5422bbb](https://github.com/antvis/g2/commit/5422bbb6738d1936974f5b24d26ab4bd1ed5419a))
+* tooltip should account for container in string format ([#5856](https://github.com/antvis/g2/issues/5856)) ([d923eb9](https://github.com/antvis/g2/commit/d923eb94933a053c47d7a6690b66725349a47ae9))
+* **tooltip:** wrong container ([#5890](https://github.com/antvis/g2/issues/5890)) ([9ed535a](https://github.com/antvis/g2/commit/9ed535aa7af55022e1743ae929984be11af4b177))
 
 
+### Features
+
+* add jitterY ([#5887](https://github.com/antvis/g2/issues/5887)) ([fdc2172](https://github.com/antvis/g2/commit/fdc2172635ef1c2aaf12755fc627d7ae784dfa6b))
+* **interaction:** define inline interaction ([#5857](https://github.com/antvis/g2/issues/5857)) ([7fc6523](https://github.com/antvis/g2/commit/7fc6523f5747881594ad2a861642cb6a1828c311))
+* **slider:** support sparkline ([#5832](https://github.com/antvis/g2/issues/5832)) ([ab1f0b6](https://github.com/antvis/g2/commit/ab1f0b664346b3d2287c2b87c127f6c08812c387))
+* **sunburst:** add sunburst demo ([#5854](https://github.com/antvis/g2/issues/5854)) ([22575e5](https://github.com/antvis/g2/commit/22575e571e3cd1936383e2437a9b19ded010dad9))
+
+
+
+## [5.1.10](https://github.com/antvis/g2/compare/5.1.9...5.1.10) (2023-11-28)
+
+### Bug Fixes
+
+- english title of site ([#5840](https://github.com/antvis/g2/issues/5840)) ([3d8a779](https://github.com/antvis/g2/commit/3d8a7794914594a639f8e0716081f561c493b950))
+- fix subLayoutFacetCircle cal center y problem ([#5833](https://github.com/antvis/g2/issues/5833)) ([74ce08a](https://github.com/antvis/g2/commit/74ce08a77b2ef55941fe8df6d8b3d524e3abef13))
+- fix the rendering issue caused by `nodePaddingRatio` in chord nodes using a hack method ([#5824](https://github.com/antvis/g2/issues/5824)) ([b0b37af](https://github.com/antvis/g2/commit/b0b37af285904e3379e0943575626f0091519873))
+- **interaction:** reaapply some interactions when update ([#5845](https://github.com/antvis/g2/issues/5845)) ([54f4098](https://github.com/antvis/g2/commit/54f409874aa47bb5474fcfb4898e8089392c5736))
+- **tooltip:** handle undefined ([#5852](https://github.com/antvis/g2/issues/5852)) ([3f3dda5](https://github.com/antvis/g2/commit/3f3dda51768a6f2f883edf7f28c0d3f78f94c7f0))
+
+## [5.1.9](https://github.com/antvis/g2/compare/5.1.8...5.1.9) (2023-11-22)
+
+### Bug Fixes
+
+- **docs:** intro of g2 ([#5797](https://github.com/antvis/g2/issues/5797)) ([838e368](https://github.com/antvis/g2/commit/838e368d8e2896e8326a5d78cb3e392134cf29c5))
+- dumi-theme-antv footerTheme light ([#5813](https://github.com/antvis/g2/issues/5813)) ([2f9c729](https://github.com/antvis/g2/commit/2f9c7298505684628d9fc844359935ea79dc29b3))
+- fix the transpose color gradient render ([#5809](https://github.com/antvis/g2/issues/5809)) ([291f0af](https://github.com/antvis/g2/commit/291f0afd6a684a8b1bcecb818bab6637d8f25fe4))
+- **scale:** group scale by name and index ([#5815](https://github.com/antvis/g2/issues/5815)) ([2808b74](https://github.com/antvis/g2/commit/2808b7488a92fbe9d8b006dea29feec163924fa5))
+- **tooltip:** overflow ([#5802](https://github.com/antvis/g2/issues/5802)) ([44188f7](https://github.com/antvis/g2/commit/44188f7f70012fc37f66e7b4f5324521b455cf8b))
+
+### Features
+
+- **mark:** add chord mark ([#5810](https://github.com/antvis/g2/issues/5810)) ([42fdab2](https://github.com/antvis/g2/commit/42fdab25e29e077145b91addd0bb3ad1f7e2dab8))
+
+## [5.1.8](https://github.com/antvis/g2/compare/5.1.7...5.1.8) (2023-11-14)
+
+### Bug Fixes
+
+- export more types so that extensions like 3d can use them ([#5790](https://github.com/antvis/g2/issues/5790)) ([e21f39e](https://github.com/antvis/g2/commit/e21f39e15e6afbee31a6e8bd45bcc9c03166298e))
+- **interaction:** legendFilter ignore undefined [#5506](https://github.com/antvis/g2/issues/5506) ([#5774](https://github.com/antvis/g2/issues/5774)) ([a0c1a44](https://github.com/antvis/g2/commit/a0c1a44dce4345cdaa6183332188fe950a8e1e02))
+- **liquid:** fix liquid precision ([#5788](https://github.com/antvis/g2/issues/5788)) ([07196d1](https://github.com/antvis/g2/commit/07196d1874766419cc9ee14bf3bd8bd2d3378328))
+- **mark:** delete ava type ([#5782](https://github.com/antvis/g2/issues/5782)) ([dc4a511](https://github.com/antvis/g2/commit/dc4a5118d662b3a1109b8f889879f4b30395d21d))
+- render error when signle data in point mark ([#5785](https://github.com/antvis/g2/issues/5785)) ([0992faa](https://github.com/antvis/g2/commit/0992faa77763674669b3d068f6e9e1257e736f7d))
+- specify TZ=Asia/Shanghai ([#5776](https://github.com/antvis/g2/issues/5776)) ([e6ab2fe](https://github.com/antvis/g2/commit/e6ab2fe2331245d4f164a98ff19dbbaca2a268ef))
+
+### Features
+
+- add default format to tooltip title [#5684](https://github.com/antvis/g2/issues/5684) ([#5748](https://github.com/antvis/g2/issues/5748)) ([b7e9055](https://github.com/antvis/g2/commit/b7e90556d552f66bc0d787cff168032c283bc11e))
+
+## [5.1.8-beta.1](https://github.com/antvis/g2/compare/5.1.7...5.1.8-beta.1) (2023-11-14)
+
+### Bug Fixes
+
+- export more types so that extensions like 3d can use them ([#5790](https://github.com/antvis/g2/issues/5790)) ([e21f39e](https://github.com/antvis/g2/commit/e21f39e15e6afbee31a6e8bd45bcc9c03166298e))
+- **interaction:** legendFilter ignore undefined [#5506](https://github.com/antvis/g2/issues/5506) ([#5774](https://github.com/antvis/g2/issues/5774)) ([a0c1a44](https://github.com/antvis/g2/commit/a0c1a44dce4345cdaa6183332188fe950a8e1e02))
+- **liquid:** fix liquid precision ([#5788](https://github.com/antvis/g2/issues/5788)) ([07196d1](https://github.com/antvis/g2/commit/07196d1874766419cc9ee14bf3bd8bd2d3378328))
+- **mark:** delete ava type ([#5782](https://github.com/antvis/g2/issues/5782)) ([dc4a511](https://github.com/antvis/g2/commit/dc4a5118d662b3a1109b8f889879f4b30395d21d))
+- render error when signle data in point mark ([#5785](https://github.com/antvis/g2/issues/5785)) ([0992faa](https://github.com/antvis/g2/commit/0992faa77763674669b3d068f6e9e1257e736f7d))
+- specify TZ=Asia/Shanghai ([#5776](https://github.com/antvis/g2/issues/5776)) ([e6ab2fe](https://github.com/antvis/g2/commit/e6ab2fe2331245d4f164a98ff19dbbaca2a268ef))
+
+### Features
+
+- add default format to tooltip title [#5684](https://github.com/antvis/g2/issues/5684) ([#5748](https://github.com/antvis/g2/issues/5748)) ([b7e9055](https://github.com/antvis/g2/commit/b7e90556d552f66bc0d787cff168032c283bc11e))
+
+## [5.1.7](https://github.com/antvis/g2/compare/5.1.6...5.1.7) (2023-11-08)
+
+### Bug Fixes
+
+- add style.minHeight to interval ([#5715](https://github.com/antvis/g2/issues/5715)) ([bbfad52](https://github.com/antvis/g2/commit/bbfad529db693253c678abbc51ac0cc3220d070e))
+- **line:** use curveMonotone ([#5751](https://github.com/antvis/g2/issues/5751)) ([2bedfba](https://github.com/antvis/g2/commit/2bedfba0bbb8d182b7eedfe70d50ec6e633ea4a4))
+- set transform-origin in each keyframe ([#5679](https://github.com/antvis/g2/issues/5679)) ([c49cf09](https://github.com/antvis/g2/commit/c49cf09fd25ce0aa1ca5eced0907be1b7295f451))
+- **test:** update snapshot ([#5755](https://github.com/antvis/g2/issues/5755)) ([61c8374](https://github.com/antvis/g2/commit/61c8374c279c595087cd423121edac8486ad0d67))
 
 ## [5.1.6](https://github.com/antvis/g2/compare/5.1.6-beta.0...5.1.6) (2023-10-20)
 
-
 ### Bug Fixes
 
-* auto fit ([#5649](https://github.com/antvis/g2/issues/5649)) ([c9a0d90](https://github.com/antvis/g2/commit/c9a0d90807ef46bd7b9fd5052fc2c1a1d951dad1))
-* **axis:** auto hide when necessary ([#5660](https://github.com/antvis/g2/issues/5660)) ([a02fb8e](https://github.com/antvis/g2/commit/a02fb8eb71640bd1c21ec0cad86c4bfe0f79524a))
-* **slider:** multiple times ([#5638](https://github.com/antvis/g2/issues/5638)) ([d88016a](https://github.com/antvis/g2/commit/d88016ad1ba960785448bd1891369e46f83e3cab))
-* **tooltip:** shared tooltip with scrollbar ([#5665](https://github.com/antvis/g2/issues/5665)) ([0870bb7](https://github.com/antvis/g2/commit/0870bb791200eda8c77abe38c12113cf96ef8cad))
-
-
+- auto fit ([#5649](https://github.com/antvis/g2/issues/5649)) ([c9a0d90](https://github.com/antvis/g2/commit/c9a0d90807ef46bd7b9fd5052fc2c1a1d951dad1))
+- **axis:** auto hide when necessary ([#5660](https://github.com/antvis/g2/issues/5660)) ([a02fb8e](https://github.com/antvis/g2/commit/a02fb8eb71640bd1c21ec0cad86c4bfe0f79524a))
+- **slider:** multiple times ([#5638](https://github.com/antvis/g2/issues/5638)) ([d88016a](https://github.com/antvis/g2/commit/d88016ad1ba960785448bd1891369e46f83e3cab))
+- **tooltip:** shared tooltip with scrollbar ([#5665](https://github.com/antvis/g2/issues/5665)) ([0870bb7](https://github.com/antvis/g2/commit/0870bb791200eda8c77abe38c12113cf96ef8cad))
 
 ## [5.1.5](https://github.com/antvis/g2/compare/5.1.5-beta.0...5.1.5) (2023-09-28)
 

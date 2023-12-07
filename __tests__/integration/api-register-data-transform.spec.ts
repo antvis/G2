@@ -11,7 +11,7 @@ describe('G2.register(data.[name])', () => {
     await finished;
     await sleep(20);
     const dir = `${__dirname}/snapshots/api`;
-    await expect(canvas).toMatchCanvasSnapshot(dir, render.name);
+    await expect(canvas).toMatchDOMSnapshot(dir, render.name);
   });
 
   afterAll(() => {

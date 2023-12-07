@@ -46,6 +46,4 @@ export function aaplLineAreaBasicSampleMount(): G2Spec {
   };
 }
 
-aaplLineAreaBasicSampleMount.maxError = 100;
-
 aaplLineAreaBasicSampleMount.steps = seriesTooltipSteps([100, 200], [550, 200]);

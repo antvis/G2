@@ -16,5 +16,3 @@ export function unemploymentLineMultiSeries(): G2Spec {
     },
   };
 }
-
-unemploymentLineMultiSeries.maxError = 180;

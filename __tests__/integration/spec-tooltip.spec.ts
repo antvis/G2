@@ -3,7 +3,6 @@ import * as chartTests from '../plots/tooltip';
 import { kebabCase } from './utils/kebabCase';
 import { filterTests } from './utils/filterTests';
 import { renderSpec } from './utils/renderSpec';
-import { createDOMGCanvas } from './utils/createDOMGCanvas';
 import { sleep } from './utils/sleep';
 import './utils/useSnapshotMatchers';
 import './utils/useCustomFetch';
@@ -29,11 +28,7 @@ describe('Tooltips', () => {
         // Render chart.
         // @ts-ignore
         generateOptions.before?.();
-        gCanvas = await renderSpec(
-          generateOptions,
-          undefined,
-          createDOMGCanvas,
-        );
+        gCanvas = await renderSpec(generateOptions);
 
         // Asset each state.
         const steps = S({ canvas: gCanvas });
@@ -44,6 +39,7 @@ describe('Tooltips', () => {
             await changeState();
             await sleep(100);
             await expect(gCanvas).toMatchDOMSnapshot(dir, `step${i}`, {
+              fileFormat: 'html',
               selector: `.${className}`,
             });
           }
@@ -52,6 +48,7 @@ describe('Tooltips', () => {
         gCanvas?.destroy();
         // @ts-ignore
         generateOptions.after?.();
+        await sleep(100);
       }
     });
   }

@@ -29,5 +29,3 @@ export function irisPointShapesKeyframe(): G2Spec {
 }
 
 irisPointShapesKeyframe.intervals = [false, false, [333, 666]];
-
-irisPointShapesKeyframe.maxError = 20;

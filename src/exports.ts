@@ -27,8 +27,22 @@ export {
 
 export { ChartEvent } from './utils/event';
 
-export type { G2Context } from './runtime';
-
 export * from './spec';
+
+export type {
+  G2Context,
+  ShapeComponent,
+  MarkComponent,
+  GuideComponentComponent,
+  SingleMark,
+  G2BaseComponent,
+  Vector2,
+  Vector3,
+  Channel,
+} from './runtime';
+export { select, Selection } from './utils/selection';
+export * from './transform';
+export { LinearAxis } from './component/axis';
+export type { AxisOptions } from './component/axis';
 
 export { Light, Dark, Academy, Classic, ClassicDark } from './theme';

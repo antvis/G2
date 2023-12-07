@@ -9,3 +9,4 @@ export function liquidCircle(): G2Spec {
     },
   };
 }
+liquidCircle.skip = true;

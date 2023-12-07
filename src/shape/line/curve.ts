@@ -1,6 +1,6 @@
 import { line, lineRadial, CurveFactory, CurveFactoryLineOnly } from 'd3-shape';
 import { Vector2 } from '@antv/coord';
-import { isPolar } from '../../utils/coordinate';
+import { isPolar, isTranspose } from '../../utils/coordinate';
 import { select } from '../../utils/selection';
 import { ShapeComponent as SC } from '../../runtime';
 import { applyStyle, computeGradient, getTransform } from '../utils';
@@ -89,11 +89,14 @@ export const Curve: SC<CurveOptions> = (options, context) => {
       seriesX: sx,
       seriesY: sy,
     } = value;
+
+    const transform = getTransform(coordinate, value);
+    const tpShape = isTranspose(coordinate);
     const stroke =
       gradient && sc
-        ? computeGradient(sc, sx, sy, gradient, gradientColor)
+        ? computeGradient(sc, sx, sy, gradient, gradientColor, tpShape)
         : color;
-    const transform = getTransform(coordinate, value);
+
     const finalStyle = {
       ...rest,
       ...(stroke && { stroke }),

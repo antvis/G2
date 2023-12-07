@@ -25,6 +25,7 @@ import {
   isTranspose,
   radiusOf,
 } from '../utils/coordinate';
+import { prettyNumber } from '../utils/number';
 import { capitalizeFirst } from '../utils/helper';
 import { adaptor, isVertical, titleContent } from './utils';
 
@@ -114,11 +115,6 @@ function ticksOf(
   const [min, max] = extent(domain, (d) => +d);
   const { tickCount } = scale.getOptions();
   return tickMethod(min, max, tickCount);
-}
-
-function prettyNumber(n: number) {
-  if (typeof n !== 'number') return n;
-  return Math.abs(n) < 1e-15 ? n : parseFloat(n.toFixed(15));
 }
 
 // Set inset for axis.

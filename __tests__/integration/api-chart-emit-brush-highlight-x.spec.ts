@@ -18,12 +18,12 @@ describe('chart.emit', () => {
     button.dispatchEvent(new CustomEvent('click'));
     await highlighted;
     await sleep(20);
-    await expect(canvas).toMatchCanvasSnapshot(dir, 'step0');
+    await expect(canvas).toMatchDOMSnapshot(dir, 'step0');
 
     button1.dispatchEvent(new CustomEvent('click'));
     await removed;
     await sleep(20);
-    await expect(canvas).toMatchCanvasSnapshot(dir, 'step1');
+    await expect(canvas).toMatchDOMSnapshot(dir, 'step1');
   });
 
   afterAll(() => {

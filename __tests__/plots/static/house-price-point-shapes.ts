@@ -44,5 +44,3 @@ export function housePricePointShapes(): G2Spec {
     ],
   };
 }
-
-housePricePointShapes.maxError = 100;

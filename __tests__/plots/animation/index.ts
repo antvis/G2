@@ -20,3 +20,4 @@ export { profitIntervalRange } from './profit-interval-range';
 export { irisPointShapesKeyframe } from './iris-point-shapes-keyframe';
 export { populationIntervalRoseKeyframe } from './population-interval-rose-keyframe';
 export { population2015IntervalWaveInRadius } from './population2015-interval-wave-in-radius';
+export { agesPolarScaleInY } from './ages-polar-scaleInY';

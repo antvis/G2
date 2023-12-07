@@ -8,7 +8,7 @@ import { renderSpec } from './utils/renderSpec';
 import { compose } from './utils/compose';
 import './utils/useSnapshotMatchers';
 import './utils/useCustomFetch';
-import { disableAnimation } from './utils/preprocess';
+import { disableAnimation, disableAxis } from './utils/preprocess';
 
 function disableTooltip(options): G2Spec {
   const discovered = [options];
@@ -40,8 +40,6 @@ describe('Interactions', () => {
         // Disable animations and delays.
         const {
           // @ts-ignore
-          maxError = 0,
-          // @ts-ignore
           preprocess = (d) => d,
           // @ts-ignore
           tooltip = false,
@@ -50,6 +48,7 @@ describe('Interactions', () => {
         generateOptions.preprocess = compose([
           preprocess,
           disableAnimation,
+          disableAxis,
           tooltip ? (d) => d : disableTooltip,
         ]);
 
@@ -69,9 +68,7 @@ describe('Interactions', () => {
 
           // If do not skip this state, asset it after dispatch the event.
           if (!skip) {
-            await expect(gCanvas).toMatchCanvasSnapshot(dir, `step${i}`, {
-              maxError,
-            });
+            await expect(gCanvas).toMatchDOMSnapshot(dir, `step${i}`);
           }
         }
       } finally {

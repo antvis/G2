@@ -1,0 +1,607 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="640"
+  height="480"
+  style="background: transparent;"
+  color-interpolation-filters="sRGB"
+>
+  <defs>
+    <filter
+      data-type="outer"
+      id="g-filter-dropshadow-25"
+      filterUnits="userSpaceOnUse"
+    >
+      <feDropShadow
+        dx="-0.5"
+        dy="-0.5"
+        stdDeviation="2.5"
+        flood-color="rgba(90,132,226,1)"
+      />
+    </filter>
+    <filter
+      data-type="outer"
+      id="g-filter-dropshadow-41"
+      filterUnits="userSpaceOnUse"
+    >
+      <feDropShadow
+        dx="-0.5"
+        dy="-0.5"
+        stdDeviation="2.5"
+        flood-color="rgba(250,57,57,1)"
+      />
+    </filter>
+    <filter
+      data-type="outer"
+      id="g-filter-dropshadow-57"
+      filterUnits="userSpaceOnUse"
+    >
+      <feDropShadow
+        dx="-0.5"
+        dy="-0.5"
+        stdDeviation="2.5"
+        flood-color="rgba(253,192,45,1)"
+      />
+    </filter>
+    <filter
+      data-type="outer"
+      id="g-filter-dropshadow-67"
+      filterUnits="userSpaceOnUse"
+    >
+      <feDropShadow
+        dx="-0.5"
+        dy="-0.5"
+        stdDeviation="2.5"
+        flood-color="rgba(90,132,226,1)"
+      />
+    </filter>
+    <filter
+      data-type="outer"
+      id="g-filter-dropshadow-74"
+      filterUnits="userSpaceOnUse"
+    >
+      <feDropShadow
+        dx="-0.5"
+        dy="-0.5"
+        stdDeviation="2.5"
+        flood-color="rgba(250,57,57,1)"
+      />
+    </filter>
+    <filter
+      data-type="outer"
+      id="g-filter-dropshadow-81"
+      filterUnits="userSpaceOnUse"
+    >
+      <feDropShadow
+        dx="-0.5"
+        dy="-0.5"
+        stdDeviation="2.5"
+        flood-color="rgba(253,192,45,1)"
+      />
+    </filter>
+  </defs>
+  <g id="g-svg-camera" transform="matrix(1,0,0,1,0,0)">
+    <g id="g-root" fill="none" transform="matrix(1,0,0,1,0,0)">
+      <g id="g-svg-1" fill="none" transform="matrix(1,0,0,1,0,0)" class="view">
+        <g transform="matrix(1,0,0,1,0,0)">
+          <path
+            id="g-svg-5"
+            fill="rgba(0,0,0,0)"
+            class="area"
+            d="M 0,0 l 640,0 l 0,480 l-640 0 z"
+            width="640"
+            height="480"
+          />
+        </g>
+        <g transform="matrix(1,0,0,1,16,16)">
+          <path
+            id="g-svg-6"
+            fill="rgba(0,0,0,0)"
+            class="area"
+            d="M 0,0 l 608,0 l 0,448 l-608 0 z"
+            width="608"
+            height="448"
+          />
+        </g>
+        <g transform="matrix(1,0,0,1,16,16)">
+          <path
+            id="g-svg-7"
+            fill="rgba(0,0,0,0)"
+            class="area"
+            d="M 0,0 l 608,0 l 0,448 l-608 0 z"
+            width="608"
+            height="448"
+          />
+        </g>
+        <g transform="matrix(1,0,0,1,16,16)">
+          <path
+            id="g-svg-8"
+            fill="rgba(0,0,0,0)"
+            class="area"
+            d="M 0,0 l 608,0 l 0,448 l-608 0 z"
+            width="608"
+            height="448"
+          />
+        </g>
+        <g transform="matrix(1,0,0,1,16,16)">
+          <path
+            id="g-svg-9"
+            fill="rgba(0,0,0,0)"
+            class="plot"
+            d="M 0,0 l 608,0 l 0,448 l-608 0 z"
+            width="608"
+            height="448"
+          />
+          <g
+            id="g-svg-10"
+            fill="none"
+            transform="matrix(1,0,0,1,0,0)"
+            class="main-layer"
+          >
+            <g transform="matrix(1,0,0,1,0,0)">
+              <path
+                id="g-svg-63"
+                fill="rgba(0,0,0,0)"
+                d="M 0,0 l 188.6896551724138,0 l 0,448 l-188.6896551724138 0 z"
+                width="188.6896551724138"
+                height="448"
+                stroke-width="0"
+                stroke="rgba(213,128,255,1)"
+                class="element"
+              />
+            </g>
+            <g transform="matrix(1,0,0,1,209.655167,0)">
+              <path
+                id="g-svg-64"
+                fill="rgba(0,0,0,0)"
+                d="M 0,0 l 188.68965517241375,0 l 0,448 l-188.68965517241375 0 z"
+                width="188.68965517241375"
+                height="448"
+                stroke-width="0"
+                stroke="rgba(213,128,255,1)"
+                class="element"
+              />
+            </g>
+            <g transform="matrix(1,0,0,1,419.310333,0)">
+              <path
+                id="g-svg-65"
+                fill="rgba(0,0,0,0)"
+                d="M 0,0 l 188.68965517241378,0 l 0,448 l-188.68965517241378 0 z"
+                width="188.68965517241378"
+                height="448"
+                stroke-width="0"
+                stroke="rgba(213,128,255,1)"
+                class="element"
+              />
+            </g>
+          </g>
+          <g
+            id="g-svg-11"
+            fill="none"
+            transform="matrix(1,0,0,1,0,0)"
+            class="label-layer"
+          />
+        </g>
+      </g>
+      <g
+        id="g-svg-2"
+        fill="none"
+        transform="matrix(1,0,0,1,16,16)"
+        class="view"
+      >
+        <g transform="matrix(1,0,0,1,0,0)">
+          <path
+            id="g-svg-15"
+            fill="rgba(0,0,0,0)"
+            class="area"
+            d="M 0,0 l 188.6896551724138,0 l 0,448 l-188.6896551724138 0 z"
+            width="188.6896551724138"
+            height="448"
+          />
+        </g>
+        <g transform="matrix(1,0,0,1,0,0)">
+          <path
+            id="g-svg-16"
+            fill="rgba(0,0,0,0)"
+            class="area"
+            d="M 0,0 l 188.6896551724138,0 l 0,448 l-188.6896551724138 0 z"
+            width="188.6896551724138"
+            height="448"
+          />
+        </g>
+        <g transform="matrix(1,0,0,1,0,0)">
+          <path
+            id="g-svg-17"
+            fill="rgba(0,0,0,0)"
+            class="area"
+            d="M 0,0 l 188.6896551724138,0 l 0,448 l-188.6896551724138 0 z"
+            width="188.6896551724138"
+            height="448"
+          />
+        </g>
+        <g transform="matrix(1,0,0,1,0,0)">
+          <path
+            id="g-svg-18"
+            fill="rgba(0,0,0,0)"
+            class="area"
+            d="M 0,0 l 188.6896551724138,0 l 0,448 l-188.6896551724138 0 z"
+            width="188.6896551724138"
+            height="448"
+          />
+        </g>
+        <g transform="matrix(1,0,0,1,0,0)">
+          <path
+            id="g-svg-19"
+            fill="rgba(0,0,0,0)"
+            class="plot"
+            d="M 0,0 l 188.6896551724138,0 l 0,448 l-188.6896551724138 0 z"
+            width="188.6896551724138"
+            height="448"
+          />
+          <g
+            id="g-svg-20"
+            fill="none"
+            transform="matrix(1,0,0,1,0,0)"
+            class="main-layer"
+          >
+            <g transform="matrix(1,0,0,1,13.260826,142.916000)">
+              <path
+                id="g-svg-24"
+                fill="rgba(232,232,232,1)"
+                d="M 81.084,0 A 81.084 81.084 0 1 1 81.084 162.168 A 81.084 81.084 0 1 1 81.084 0 M 81.084,6.5 A 74.584 74.584 0 1 0 81.084 155.668 A 74.584 74.584 0 1 0 81.084 6.5 Z"
+                fill-opacity="0.95"
+                stroke-width="0"
+                stroke="rgba(23,131,255,1)"
+                class="element"
+              />
+            </g>
+          </g>
+          <g
+            id="g-svg-21"
+            fill="none"
+            transform="matrix(1,0,0,1,0,0)"
+            class="main-layer"
+          >
+            <g transform="matrix(1,0,0,1,94.344826,141.326675)">
+              <path
+                id="g-svg-67"
+                fill="rgba(90,132,226,1)"
+                d="M 9.297508540839772e-9,4.999328359190173 A 5 5 0 0 1 5.320999154805321 0.010314687315172932 A 82.834 82.834 0 0 1 52.89299775099673 146.4213101707136 A 5 5 0 0 1 45.65499115919985 145.51231358868236 L 45.65499115919985,145.51231358868236 A 5 5 0 0 1 46.50800324416079 138.72532628399486 A 72.834 72.834 0 0 0 4.679000863789696 9.989318593565173 A 5 5 0 0 1 9.297508540839772e-9 4.999328359190173 Z"
+                fill-opacity="0.95"
+                stroke-width="0"
+                stroke="rgba(90,132,226,1)"
+                filter="url(#g-filter-dropshadow-67)"
+                class="element"
+              />
+            </g>
+          </g>
+          <g
+            id="g-svg-22"
+            fill="none"
+            transform="matrix(1,0,0,1,0,0)"
+            class="main-layer"
+          >
+            <g
+              id="g-svg-69"
+              fill="none"
+              transform="matrix(1,0,0,1,94.344826,224)"
+              class="element"
+            >
+              <g transform="matrix(1,0,0,1,-39.400002,-16)">
+                <path
+                  id="background"
+                  fill="none"
+                  d="M 0,0 l 78.8,0 l 0,32 l-78.8 0 z"
+                  width="78.8"
+                  height="32"
+                />
+              </g>
+              <g transform="matrix(1,0,0,1,0,0)">
+                <text
+                  id="text"
+                  fill="rgba(29,33,41,1)"
+                  dominant-baseline="central"
+                  paint-order="stroke"
+                  dx="0"
+                  font-size="15"
+                  stroke-width="0"
+                  text-anchor="middle"
+                >
+                  CPU 40%
+                </text>
+              </g>
+              <g transform="matrix(1,0,0,1,0,0)">
+                <path id="connector" fill="none" d="M 0,0 L 0,0" />
+              </g>
+            </g>
+          </g>
+          <g
+            id="g-svg-23"
+            fill="none"
+            transform="matrix(1,0,0,1,0,0)"
+            class="label-layer"
+          />
+        </g>
+      </g>
+      <g
+        id="g-svg-3"
+        fill="none"
+        transform="matrix(1,0,0,1,225.655167,16)"
+        class="view"
+      >
+        <g transform="matrix(1,0,0,1,0,0)">
+          <path
+            id="g-svg-31"
+            fill="rgba(0,0,0,0)"
+            class="area"
+            d="M 0,0 l 188.68965517241375,0 l 0,448 l-188.68965517241375 0 z"
+            width="188.68965517241375"
+            height="448"
+          />
+        </g>
+        <g transform="matrix(1,0,0,1,0,0)">
+          <path
+            id="g-svg-32"
+            fill="rgba(0,0,0,0)"
+            class="area"
+            d="M 0,0 l 188.68965517241375,0 l 0,448 l-188.68965517241375 0 z"
+            width="188.68965517241375"
+            height="448"
+          />
+        </g>
+        <g transform="matrix(1,0,0,1,0,0)">
+          <path
+            id="g-svg-33"
+            fill="rgba(0,0,0,0)"
+            class="area"
+            d="M 0,0 l 188.68965517241375,0 l 0,448 l-188.68965517241375 0 z"
+            width="188.68965517241375"
+            height="448"
+          />
+        </g>
+        <g transform="matrix(1,0,0,1,0,0)">
+          <path
+            id="g-svg-34"
+            fill="rgba(0,0,0,0)"
+            class="area"
+            d="M 0,0 l 188.68965517241375,0 l 0,448 l-188.68965517241375 0 z"
+            width="188.68965517241375"
+            height="448"
+          />
+        </g>
+        <g transform="matrix(1,0,0,1,0,0)">
+          <path
+            id="g-svg-35"
+            fill="rgba(0,0,0,0)"
+            class="plot"
+            d="M 0,0 l 188.68965517241375,0 l 0,448 l-188.68965517241375 0 z"
+            width="188.68965517241375"
+            height="448"
+          />
+          <g
+            id="g-svg-36"
+            fill="none"
+            transform="matrix(1,0,0,1,0,0)"
+            class="main-layer"
+          >
+            <g transform="matrix(1,0,0,1,13.260826,142.916000)">
+              <path
+                id="g-svg-40"
+                fill="rgba(232,232,232,1)"
+                d="M 81.084,0 A 81.084 81.084 0 1 1 81.084 162.168 A 81.084 81.084 0 1 1 81.084 0 M 81.084,6.5 A 74.584 74.584 0 1 0 81.084 155.668 A 74.584 74.584 0 1 0 81.084 6.5 Z"
+                fill-opacity="0.95"
+                stroke-width="0"
+                stroke="rgba(23,131,255,1)"
+                class="element"
+              />
+            </g>
+          </g>
+          <g
+            id="g-svg-37"
+            fill="none"
+            transform="matrix(1,0,0,1,0,0)"
+            class="main-layer"
+          >
+            <g transform="matrix(1,0,0,1,47.734608,141.326675)">
+              <path
+                id="g-svg-74"
+                fill="rgba(250,57,57,1)"
+                d="M 46.6102181123788,4.999328359190173 A 5 5 0 0 1 51.931217257886615 0.010314687315172932 A 82.834 82.834 0 1 1 2.327217166333881 152.67732213360424 A 5 5 0 0 1 0.9552193330819279 145.51231358868236 L 0.9552193330819279,145.51231358868236 A 5 5 0 0 1 7.6732178377206 144.22633336407299 A 72.834 72.834 0 1 0 51.28921896687099 9.989318593565173 A 5 5 0 0 1 46.6102181123788 4.999328359190173 Z"
+                fill-opacity="0.95"
+                stroke-width="0"
+                stroke="rgba(250,57,57,1)"
+                filter="url(#g-filter-dropshadow-74)"
+                class="element"
+              />
+            </g>
+          </g>
+          <g
+            id="g-svg-38"
+            fill="none"
+            transform="matrix(1,0,0,1,0,0)"
+            class="main-layer"
+          >
+            <g
+              id="g-svg-76"
+              fill="none"
+              transform="matrix(1,0,0,1,94.344826,224)"
+              class="element"
+            >
+              <g transform="matrix(1,0,0,1,-38.350006,-16)">
+                <path
+                  id="background"
+                  fill="none"
+                  d="M 0,0 l 76.7,0 l 0,32 l-76.7 0 z"
+                  width="76.7"
+                  height="32"
+                />
+              </g>
+              <g transform="matrix(1,0,0,1,0,0)">
+                <text
+                  id="text"
+                  fill="rgba(29,33,41,1)"
+                  dominant-baseline="central"
+                  paint-order="stroke"
+                  dx="0"
+                  font-size="15"
+                  stroke-width="0"
+                  text-anchor="middle"
+                >
+                  内存 60%
+                </text>
+              </g>
+              <g transform="matrix(1,0,0,1,0,0)">
+                <path id="connector" fill="none" d="M 0,0 L 0,0" />
+              </g>
+            </g>
+          </g>
+          <g
+            id="g-svg-39"
+            fill="none"
+            transform="matrix(1,0,0,1,0,0)"
+            class="label-layer"
+          />
+        </g>
+      </g>
+      <g
+        id="g-svg-4"
+        fill="none"
+        transform="matrix(1,0,0,1,435.310333,16)"
+        class="view"
+      >
+        <g transform="matrix(1,0,0,1,0,0)">
+          <path
+            id="g-svg-47"
+            fill="rgba(0,0,0,0)"
+            class="area"
+            d="M 0,0 l 188.68965517241378,0 l 0,448 l-188.68965517241378 0 z"
+            width="188.68965517241378"
+            height="448"
+          />
+        </g>
+        <g transform="matrix(1,0,0,1,0,0)">
+          <path
+            id="g-svg-48"
+            fill="rgba(0,0,0,0)"
+            class="area"
+            d="M 0,0 l 188.68965517241378,0 l 0,448 l-188.68965517241378 0 z"
+            width="188.68965517241378"
+            height="448"
+          />
+        </g>
+        <g transform="matrix(1,0,0,1,0,0)">
+          <path
+            id="g-svg-49"
+            fill="rgba(0,0,0,0)"
+            class="area"
+            d="M 0,0 l 188.68965517241378,0 l 0,448 l-188.68965517241378 0 z"
+            width="188.68965517241378"
+            height="448"
+          />
+        </g>
+        <g transform="matrix(1,0,0,1,0,0)">
+          <path
+            id="g-svg-50"
+            fill="rgba(0,0,0,0)"
+            class="area"
+            d="M 0,0 l 188.68965517241378,0 l 0,448 l-188.68965517241378 0 z"
+            width="188.68965517241378"
+            height="448"
+          />
+        </g>
+        <g transform="matrix(1,0,0,1,0,0)">
+          <path
+            id="g-svg-51"
+            fill="rgba(0,0,0,0)"
+            class="plot"
+            d="M 0,0 l 188.68965517241378,0 l 0,448 l-188.68965517241378 0 z"
+            width="188.68965517241378"
+            height="448"
+          />
+          <g
+            id="g-svg-52"
+            fill="none"
+            transform="matrix(1,0,0,1,0,0)"
+            class="main-layer"
+          >
+            <g transform="matrix(1,0,0,1,13.260826,142.916000)">
+              <path
+                id="g-svg-56"
+                fill="rgba(232,232,232,1)"
+                d="M 81.084,0 A 81.084 81.084 0 1 1 81.084 162.168 A 81.084 81.084 0 1 1 81.084 0 M 81.084,6.5 A 74.584 74.584 0 1 0 81.084 155.668 A 74.584 74.584 0 1 0 81.084 6.5 Z"
+                fill-opacity="0.95"
+                stroke-width="0"
+                stroke="rgba(23,131,255,1)"
+                class="element"
+              />
+            </g>
+          </g>
+          <g
+            id="g-svg-53"
+            fill="none"
+            transform="matrix(1,0,0,1,0,0)"
+            class="main-layer"
+          >
+            <g transform="matrix(1,0,0,1,94.344826,141.326675)">
+              <path
+                id="g-svg-81"
+                fill="rgba(253,192,45,1)"
+                d="M 9.297508540839772e-9,4.999328359190173 A 5 5 0 0 1 5.320999154805321 0.010314687315172932 A 82.834 82.834 0 0 1 76.97299958205141 52.068313344541735 A 5 5 0 0 1 73.87200165724673 58.67132542950267 L 73.87200165724673,58.67132542950267 A 5 5 0 0 1 67.68099213576235 55.763320668760485 A 72.834 72.834 0 0 0 4.679000863789696 9.989318593565173 A 5 5 0 0 1 9.297508540839772e-9 4.999328359190173 Z"
+                fill-opacity="0.95"
+                stroke-width="0"
+                stroke="rgba(253,192,45,1)"
+                filter="url(#g-filter-dropshadow-81)"
+                class="element"
+              />
+            </g>
+          </g>
+          <g
+            id="g-svg-54"
+            fill="none"
+            transform="matrix(1,0,0,1,0,0)"
+            class="main-layer"
+          >
+            <g
+              id="g-svg-83"
+              fill="none"
+              transform="matrix(1,0,0,1,94.344826,224)"
+              class="element"
+            >
+              <g transform="matrix(1,0,0,1,-38.124992,-16)">
+                <path
+                  id="background"
+                  fill="none"
+                  d="M 0,0 l 76.25,0 l 0,32 l-76.25 0 z"
+                  width="76.25"
+                  height="32"
+                />
+              </g>
+              <g transform="matrix(1,0,0,1,0,0)">
+                <text
+                  id="text"
+                  fill="rgba(29,33,41,1)"
+                  dominant-baseline="central"
+                  paint-order="stroke"
+                  dx="0"
+                  font-size="15"
+                  stroke-width="0"
+                  text-anchor="middle"
+                >
+                  硬盘 20%
+                </text>
+              </g>
+              <g transform="matrix(1,0,0,1,0,0)">
+                <path id="connector" fill="none" d="M 0,0 L 0,0" />
+              </g>
+            </g>
+          </g>
+          <g
+            id="g-svg-55"
+            fill="none"
+            transform="matrix(1,0,0,1,0,0)"
+            class="label-layer"
+          />
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

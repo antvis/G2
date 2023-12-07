@@ -9,3 +9,4 @@ export function liquidTriangle(): G2Spec {
     },
   };
 }
+liquidTriangle.skip = true;

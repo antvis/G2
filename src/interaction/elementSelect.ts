@@ -209,3 +209,7 @@ export function ElementSelect({
     });
   };
 }
+
+ElementSelect.props = {
+  reapplyWhenUpdate: true,
+};

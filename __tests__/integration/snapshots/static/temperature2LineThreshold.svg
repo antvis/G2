@@ -1,0 +1,1364 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1000"
+  height="480"
+  style="background: transparent;"
+  color-interpolation-filters="sRGB"
+>
+  <defs>
+    <linearGradient
+      gradientUnits="userSpaceOnUse"
+      id="g-pattern-0"
+      x1="454.2"
+      y1="-2.842170943040401e-14"
+      x2="454.2"
+      y2="299.23300000000006"
+    >
+      <stop offset="0" stop-color="red" />
+      <stop offset="0.08510638297872342" stop-color="red" />
+      <stop offset="0.1063829787234042" stop-color="red" />
+      <stop offset="0.1063829787234042" stop-color="red" />
+      <stop offset="0.11914893617021258" stop-color="red" />
+      <stop offset="0.1872340425531912" stop-color="red" />
+      <stop offset="0.208510638297872" stop-color="red" />
+      <stop offset="0.23404255319148906" stop-color="red" />
+      <stop offset="0.23829787234042532" stop-color="red" />
+      <stop offset="0.25531914893616997" stop-color="red" />
+      <stop offset="0.25531914893616997" stop-color="red" />
+      <stop offset="0.2638297872340424" stop-color="red" />
+      <stop offset="0.2723404255319146" stop-color="red" />
+      <stop offset="0.2851063829787233" stop-color="red" />
+      <stop offset="0.2978723404255317" stop-color="red" />
+      <stop offset="0.30212765957446797" stop-color="red" />
+      <stop offset="0.3063829787234041" stop-color="red" />
+      <stop offset="0.33617021276595715" stop-color="red" />
+      <stop offset="0.3404255319148934" stop-color="red" />
+      <stop offset="0.34893617021276585" stop-color="red" />
+      <stop offset="0.3531914893617021" stop-color="red" />
+      <stop offset="0.3531914893617021" stop-color="red" />
+      <stop offset="0.35744680851063804" stop-color="red" />
+      <stop offset="0.35744680851063804" stop-color="red" />
+      <stop offset="0.37021276595744673" stop-color="red" />
+      <stop offset="0.37446808510638296" stop-color="red" />
+      <stop offset="0.37446808510638296" stop-color="red" />
+      <stop offset="0.37872340425531886" stop-color="red" />
+      <stop offset="0.38297872340425504" stop-color="red" />
+      <stop offset="0.38297872340425504" stop-color="red" />
+      <stop offset="0.3872340425531914" stop-color="red" />
+      <stop offset="0.3872340425531914" stop-color="red" />
+      <stop offset="0.3914893617021276" stop-color="red" />
+      <stop offset="0.3914893617021276" stop-color="red" />
+      <stop offset="0.39574468085106385" stop-color="red" />
+      <stop offset="0.39574468085106385" stop-color="red" />
+      <stop offset="0.3999999999999998" stop-color="red" />
+      <stop offset="0.3999999999999998" stop-color="red" />
+      <stop offset="0.40425531914893603" stop-color="red" />
+      <stop offset="0.40851063829787215" stop-color="red" />
+      <stop offset="0.40851063829787215" stop-color="red" />
+      <stop offset="0.40851063829787215" stop-color="red" />
+      <stop offset="0.40851063829787215" stop-color="red" />
+      <stop offset="0.40851063829787215" stop-color="red" />
+      <stop offset="0.40851063829787215" stop-color="red" />
+      <stop offset="0.42127659574468057" stop-color="red" />
+      <stop offset="0.42127659574468057" stop-color="red" />
+      <stop offset="0.4255319148936168" stop-color="red" />
+      <stop offset="0.4255319148936168" stop-color="red" />
+      <stop offset="0.42978723404255315" stop-color="red" />
+      <stop offset="0.42978723404255315" stop-color="red" />
+      <stop offset="0.42978723404255315" stop-color="red" />
+      <stop offset="0.4382978723404255" stop-color="red" />
+      <stop offset="0.4382978723404255" stop-color="red" />
+      <stop offset="0.4382978723404255" stop-color="red" />
+      <stop offset="0.4382978723404255" stop-color="red" />
+      <stop offset="0.4425531914893615" stop-color="red" />
+      <stop offset="0.4425531914893615" stop-color="red" />
+      <stop offset="0.4425531914893615" stop-color="red" />
+      <stop offset="0.4468085106382978" stop-color="red" />
+      <stop offset="0.4468085106382978" stop-color="red" />
+      <stop offset="0.45106382978723386" stop-color="red" />
+      <stop offset="0.45106382978723386" stop-color="red" />
+      <stop offset="0.45106382978723386" stop-color="red" />
+      <stop offset="0.45106382978723386" stop-color="red" />
+      <stop offset="0.45106382978723386" stop-color="red" />
+      <stop offset="0.45531914893617015" stop-color="red" />
+      <stop offset="0.45531914893617015" stop-color="red" />
+      <stop offset="0.45531914893617015" stop-color="red" />
+      <stop offset="0.45531914893617015" stop-color="red" />
+      <stop offset="0.45531914893617015" stop-color="red" />
+      <stop offset="0.45531914893617015" stop-color="red" />
+      <stop offset="0.45957446808510644" stop-color="red" />
+      <stop offset="0.4638297872340423" stop-color="red" />
+      <stop offset="0.4638297872340423" stop-color="red" />
+      <stop offset="0.4638297872340423" stop-color="red" />
+      <stop offset="0.4638297872340423" stop-color="red" />
+      <stop offset="0.4638297872340423" stop-color="red" />
+      <stop offset="0.4680851063829785" stop-color="red" />
+      <stop offset="0.4680851063829785" stop-color="red" />
+      <stop offset="0.4723404255319148" stop-color="red" />
+      <stop offset="0.4723404255319148" stop-color="red" />
+      <stop offset="0.4765957446808511" stop-color="red" />
+      <stop offset="0.4765957446808511" stop-color="red" />
+      <stop offset="0.4765957446808511" stop-color="red" />
+      <stop offset="0.4765957446808511" stop-color="red" />
+      <stop offset="0.4765957446808511" stop-color="red" />
+      <stop offset="0.4808510638297872" stop-color="red" />
+      <stop offset="0.4808510638297872" stop-color="red" />
+      <stop offset="0.4808510638297872" stop-color="red" />
+      <stop offset="0.4808510638297872" stop-color="red" />
+      <stop offset="0.4851063829787232" stop-color="red" />
+      <stop offset="0.4851063829787232" stop-color="red" />
+      <stop offset="0.4851063829787232" stop-color="red" />
+      <stop offset="0.48936170212765945" stop-color="red" />
+      <stop offset="0.48936170212765945" stop-color="red" />
+      <stop offset="0.48936170212765945" stop-color="red" />
+      <stop offset="0.48936170212765945" stop-color="red" />
+      <stop offset="0.49787234042553186" stop-color="red" />
+      <stop offset="0.49787234042553186" stop-color="red" />
+      <stop offset="0.49787234042553186" stop-color="red" />
+      <stop offset="0.49787234042553186" stop-color="red" />
+      <stop offset="0.5021276595744681" stop-color="red" />
+      <stop offset="0.5021276595744681" stop-color="red" />
+      <stop offset="0.5021276595744681" stop-color="red" />
+      <stop offset="0.5021276595744681" stop-color="red" />
+      <stop offset="0.5021276595744681" stop-color="red" />
+      <stop offset="0.5021276595744681" stop-color="red" />
+      <stop offset="0.5063829787234041" stop-color="red" />
+      <stop offset="0.5063829787234041" stop-color="red" />
+      <stop offset="0.5063829787234041" stop-color="red" />
+      <stop offset="0.5106382978723403" stop-color="red" />
+      <stop offset="0.5106382978723403" stop-color="red" />
+      <stop offset="0.5106382978723403" stop-color="red" />
+      <stop offset="0.5106382978723403" stop-color="red" />
+      <stop offset="0.5106382978723403" stop-color="red" />
+      <stop offset="0.5106382978723403" stop-color="red" />
+      <stop offset="0.5148936170212766" stop-color="red" />
+      <stop offset="0.5148936170212766" stop-color="red" />
+      <stop offset="0.5148936170212766" stop-color="red" />
+      <stop offset="0.5148936170212766" stop-color="red" />
+      <stop offset="0.5191489361702127" stop-color="red" />
+      <stop offset="0.523404255319149" stop-color="red" />
+      <stop offset="0.523404255319149" stop-color="red" />
+      <stop offset="0.523404255319149" stop-color="red" />
+      <stop offset="0.523404255319149" stop-color="red" />
+      <stop offset="0.523404255319149" stop-color="red" />
+      <stop offset="0.523404255319149" stop-color="red" />
+      <stop offset="0.5276595744680849" stop-color="red" />
+      <stop offset="0.5276595744680849" stop-color="red" />
+      <stop offset="0.5276595744680849" stop-color="red" />
+      <stop offset="0.5319148936170212" stop-color="red" />
+      <stop offset="0.5319148936170212" stop-color="red" />
+      <stop offset="0.5319148936170212" stop-color="red" />
+      <stop offset="0.5319148936170212" stop-color="red" />
+      <stop offset="0.5319148936170212" stop-color="red" />
+      <stop offset="0.5319148936170212" stop-color="red" />
+      <stop offset="0.5319148936170212" stop-color="red" />
+      <stop offset="0.5361702127659573" stop-color="red" />
+      <stop offset="0.5361702127659573" stop-color="red" />
+      <stop offset="0.5361702127659573" stop-color="red" />
+      <stop offset="0.5361702127659573" stop-color="red" />
+      <stop offset="0.5361702127659573" stop-color="red" />
+      <stop offset="0.5361702127659573" stop-color="red" />
+      <stop offset="0.5404255319148936" stop-color="red" />
+      <stop offset="0.5404255319148936" stop-color="red" />
+      <stop offset="0.5446808510638298" stop-color="red" />
+      <stop offset="0.5446808510638298" stop-color="red" />
+      <stop offset="0.5446808510638298" stop-color="red" />
+      <stop offset="0.5446808510638298" stop-color="red" />
+      <stop offset="0.5531914893617021" stop-color="red" />
+      <stop offset="0.5531914893617021" stop-color="red" />
+      <stop offset="0.5531914893617021" stop-color="red" />
+      <stop offset="0.5531914893617021" stop-color="red" />
+      <stop offset="0.5531914893617021" stop-color="red" />
+      <stop offset="0.5574468085106382" stop-color="red" />
+      <stop offset="0.5574468085106382" stop-color="red" />
+      <stop offset="0.5574468085106382" stop-color="red" />
+      <stop offset="0.5574468085106382" stop-color="red" />
+      <stop offset="0.5574468085106382" stop-color="red" />
+      <stop offset="0.5617021276595745" stop-color="red" />
+      <stop offset="0.5617021276595745" stop-color="red" />
+      <stop offset="0.5617021276595745" stop-color="red" />
+      <stop offset="0.5617021276595745" stop-color="red" />
+      <stop offset="0.5617021276595745" stop-color="red" />
+      <stop offset="0.5617021276595745" stop-color="red" />
+      <stop offset="0.5617021276595745" stop-color="red" />
+      <stop offset="0.5617021276595745" stop-color="red" />
+      <stop offset="0.5617021276595745" stop-color="red" />
+      <stop offset="0.5617021276595745" stop-color="red" />
+      <stop offset="0.5659574468085107" stop-color="red" />
+      <stop offset="0.5659574468085107" stop-color="red" />
+      <stop offset="0.5659574468085107" stop-color="red" />
+      <stop offset="0.5659574468085107" stop-color="red" />
+      <stop offset="0.5659574468085107" stop-color="red" />
+      <stop offset="0.5659574468085107" stop-color="red" />
+      <stop offset="0.5702127659574466" stop-color="red" />
+      <stop offset="0.5702127659574466" stop-color="red" />
+      <stop offset="0.5702127659574466" stop-color="red" />
+      <stop offset="0.5702127659574466" stop-color="red" />
+      <stop offset="0.5744680851063829" stop-color="red" />
+      <stop offset="0.5744680851063829" stop-color="red" />
+      <stop offset="0.5744680851063829" stop-color="red" />
+      <stop offset="0.5787234042553192" stop-color="black" />
+      <stop offset="0.5787234042553192" stop-color="black" />
+      <stop offset="0.5787234042553192" stop-color="black" />
+      <stop offset="0.5787234042553192" stop-color="black" />
+      <stop offset="0.5829787234042554" stop-color="black" />
+      <stop offset="0.5829787234042554" stop-color="black" />
+      <stop offset="0.5829787234042554" stop-color="black" />
+      <stop offset="0.5829787234042554" stop-color="black" />
+      <stop offset="0.5829787234042554" stop-color="black" />
+      <stop offset="0.5829787234042554" stop-color="black" />
+      <stop offset="0.5829787234042554" stop-color="black" />
+      <stop offset="0.5829787234042554" stop-color="black" />
+      <stop offset="0.5872340425531916" stop-color="black" />
+      <stop offset="0.5872340425531916" stop-color="black" />
+      <stop offset="0.5872340425531916" stop-color="black" />
+      <stop offset="0.5872340425531916" stop-color="black" />
+      <stop offset="0.5872340425531916" stop-color="black" />
+      <stop offset="0.5872340425531916" stop-color="black" />
+      <stop offset="0.5914893617021274" stop-color="black" />
+      <stop offset="0.5957446808510637" stop-color="black" />
+      <stop offset="0.5957446808510637" stop-color="black" />
+      <stop offset="0.5957446808510637" stop-color="black" />
+      <stop offset="0.5957446808510637" stop-color="black" />
+      <stop offset="0.5957446808510637" stop-color="black" />
+      <stop offset="0.5957446808510637" stop-color="black" />
+      <stop offset="0.5957446808510637" stop-color="black" />
+      <stop offset="0.6" stop-color="black" />
+      <stop offset="0.6" stop-color="black" />
+      <stop offset="0.6" stop-color="black" />
+      <stop offset="0.6042553191489363" stop-color="black" />
+      <stop offset="0.6042553191489363" stop-color="black" />
+      <stop offset="0.6042553191489363" stop-color="black" />
+      <stop offset="0.6042553191489363" stop-color="black" />
+      <stop offset="0.6042553191489363" stop-color="black" />
+      <stop offset="0.6042553191489363" stop-color="black" />
+      <stop offset="0.6085106382978724" stop-color="black" />
+      <stop offset="0.6085106382978724" stop-color="black" />
+      <stop offset="0.6085106382978724" stop-color="black" />
+      <stop offset="0.6085106382978724" stop-color="black" />
+      <stop offset="0.6127659574468083" stop-color="black" />
+      <stop offset="0.6127659574468083" stop-color="black" />
+      <stop offset="0.6127659574468083" stop-color="black" />
+      <stop offset="0.6127659574468083" stop-color="black" />
+      <stop offset="0.6127659574468083" stop-color="black" />
+      <stop offset="0.6170212765957446" stop-color="black" />
+      <stop offset="0.6170212765957446" stop-color="black" />
+      <stop offset="0.6170212765957446" stop-color="black" />
+      <stop offset="0.6170212765957446" stop-color="black" />
+      <stop offset="0.6212765957446807" stop-color="black" />
+      <stop offset="0.6212765957446807" stop-color="black" />
+      <stop offset="0.6212765957446807" stop-color="black" />
+      <stop offset="0.6212765957446807" stop-color="black" />
+      <stop offset="0.625531914893617" stop-color="black" />
+      <stop offset="0.625531914893617" stop-color="black" />
+      <stop offset="0.625531914893617" stop-color="black" />
+      <stop offset="0.6297872340425533" stop-color="black" />
+      <stop offset="0.6297872340425533" stop-color="black" />
+      <stop offset="0.6297872340425533" stop-color="black" />
+      <stop offset="0.6297872340425533" stop-color="black" />
+      <stop offset="0.6297872340425533" stop-color="black" />
+      <stop offset="0.6297872340425533" stop-color="black" />
+      <stop offset="0.6340425531914893" stop-color="black" />
+      <stop offset="0.6340425531914893" stop-color="black" />
+      <stop offset="0.6340425531914893" stop-color="black" />
+      <stop offset="0.6340425531914893" stop-color="black" />
+      <stop offset="0.6382978723404256" stop-color="black" />
+      <stop offset="0.6382978723404256" stop-color="black" />
+      <stop offset="0.6382978723404256" stop-color="black" />
+      <stop offset="0.6382978723404256" stop-color="black" />
+      <stop offset="0.6382978723404256" stop-color="black" />
+      <stop offset="0.6382978723404256" stop-color="black" />
+      <stop offset="0.6425531914893616" stop-color="black" />
+      <stop offset="0.6425531914893616" stop-color="black" />
+      <stop offset="0.6425531914893616" stop-color="black" />
+      <stop offset="0.6425531914893616" stop-color="black" />
+      <stop offset="0.6468085106382979" stop-color="black" />
+      <stop offset="0.6468085106382979" stop-color="black" />
+      <stop offset="0.6468085106382979" stop-color="black" />
+      <stop offset="0.6468085106382979" stop-color="black" />
+      <stop offset="0.65531914893617" stop-color="black" />
+      <stop offset="0.65531914893617" stop-color="black" />
+      <stop offset="0.6595744680851063" stop-color="black" />
+      <stop offset="0.6595744680851063" stop-color="black" />
+      <stop offset="0.6638297872340426" stop-color="black" />
+      <stop offset="0.6638297872340426" stop-color="black" />
+      <stop offset="0.6638297872340426" stop-color="black" />
+      <stop offset="0.6638297872340426" stop-color="black" />
+      <stop offset="0.6680851063829788" stop-color="black" />
+      <stop offset="0.6680851063829788" stop-color="black" />
+      <stop offset="0.6680851063829788" stop-color="black" />
+      <stop offset="0.6680851063829788" stop-color="black" />
+      <stop offset="0.6680851063829788" stop-color="black" />
+      <stop offset="0.672340425531915" stop-color="black" />
+      <stop offset="0.672340425531915" stop-color="black" />
+      <stop offset="0.672340425531915" stop-color="black" />
+      <stop offset="0.6808510638297871" stop-color="black" />
+      <stop offset="0.6808510638297871" stop-color="black" />
+      <stop offset="0.6851063829787233" stop-color="black" />
+      <stop offset="0.6851063829787233" stop-color="black" />
+      <stop offset="0.6851063829787233" stop-color="black" />
+      <stop offset="0.6893617021276597" stop-color="black" />
+      <stop offset="0.6893617021276597" stop-color="black" />
+      <stop offset="0.6978723404255319" stop-color="black" />
+      <stop offset="0.6978723404255319" stop-color="black" />
+      <stop offset="0.7021276595744681" stop-color="black" />
+      <stop offset="0.7021276595744681" stop-color="black" />
+      <stop offset="0.7063829787234043" stop-color="black" />
+      <stop offset="0.7063829787234043" stop-color="black" />
+      <stop offset="0.7106382978723405" stop-color="black" />
+      <stop offset="0.7106382978723405" stop-color="black" />
+      <stop offset="0.7148936170212766" stop-color="black" />
+      <stop offset="0.7191489361702126" stop-color="black" />
+      <stop offset="0.723404255319149" stop-color="black" />
+      <stop offset="0.723404255319149" stop-color="black" />
+      <stop offset="0.7276595744680853" stop-color="black" />
+      <stop offset="0.7276595744680853" stop-color="black" />
+      <stop offset="0.7276595744680853" stop-color="black" />
+      <stop offset="0.7276595744680853" stop-color="black" />
+      <stop offset="0.7319148936170214" stop-color="black" />
+      <stop offset="0.7319148936170214" stop-color="black" />
+      <stop offset="0.7319148936170214" stop-color="black" />
+      <stop offset="0.7319148936170214" stop-color="black" />
+      <stop offset="0.7319148936170214" stop-color="black" />
+      <stop offset="0.7361702127659576" stop-color="black" />
+      <stop offset="0.7361702127659576" stop-color="black" />
+      <stop offset="0.7361702127659576" stop-color="black" />
+      <stop offset="0.7361702127659576" stop-color="black" />
+      <stop offset="0.7361702127659576" stop-color="black" />
+      <stop offset="0.7404255319148935" stop-color="black" />
+      <stop offset="0.7404255319148935" stop-color="black" />
+      <stop offset="0.7404255319148935" stop-color="black" />
+      <stop offset="0.7404255319148935" stop-color="black" />
+      <stop offset="0.7404255319148935" stop-color="black" />
+      <stop offset="0.7489361702127659" stop-color="black" />
+      <stop offset="0.7489361702127659" stop-color="black" />
+      <stop offset="0.7531914893617023" stop-color="black" />
+      <stop offset="0.7574468085106385" stop-color="black" />
+      <stop offset="0.7574468085106385" stop-color="black" />
+      <stop offset="0.7617021276595743" stop-color="black" />
+      <stop offset="0.7659574468085105" stop-color="black" />
+      <stop offset="0.7659574468085105" stop-color="black" />
+      <stop offset="0.7702127659574468" stop-color="black" />
+      <stop offset="0.7702127659574468" stop-color="black" />
+      <stop offset="0.7702127659574468" stop-color="black" />
+      <stop offset="0.7744680851063831" stop-color="black" />
+      <stop offset="0.7744680851063831" stop-color="black" />
+      <stop offset="0.7744680851063831" stop-color="black" />
+      <stop offset="0.7787234042553193" stop-color="black" />
+      <stop offset="0.7787234042553193" stop-color="black" />
+      <stop offset="0.7787234042553193" stop-color="black" />
+      <stop offset="0.7829787234042552" stop-color="black" />
+      <stop offset="0.7872340425531914" stop-color="black" />
+      <stop offset="0.7872340425531914" stop-color="black" />
+      <stop offset="0.7872340425531914" stop-color="black" />
+      <stop offset="0.7957446808510639" stop-color="black" />
+      <stop offset="0.7957446808510639" stop-color="black" />
+      <stop offset="0.7957446808510639" stop-color="black" />
+      <stop offset="0.8000000000000002" stop-color="black" />
+      <stop offset="0.8000000000000002" stop-color="black" />
+      <stop offset="0.8042553191489361" stop-color="black" />
+      <stop offset="0.8085106382978724" stop-color="black" />
+      <stop offset="0.8170212765957447" stop-color="black" />
+      <stop offset="0.8170212765957447" stop-color="black" />
+      <stop offset="0.8170212765957447" stop-color="black" />
+      <stop offset="0.8212765957446809" stop-color="black" />
+      <stop offset="0.825531914893617" stop-color="black" />
+      <stop offset="0.8340425531914895" stop-color="black" />
+      <stop offset="0.8382978723404257" stop-color="black" />
+      <stop offset="0.8382978723404257" stop-color="black" />
+      <stop offset="0.8425531914893619" stop-color="black" />
+      <stop offset="0.8468085106382978" stop-color="black" />
+      <stop offset="0.8468085106382978" stop-color="black" />
+      <stop offset="0.851063829787234" stop-color="black" />
+      <stop offset="0.8553191489361702" stop-color="black" />
+      <stop offset="0.8808510638297874" stop-color="black" />
+      <stop offset="0.8808510638297874" stop-color="black" />
+      <stop offset="0.8936170212765958" stop-color="black" />
+      <stop offset="0.9021276595744682" stop-color="black" />
+      <stop offset="0.9063829787234045" stop-color="black" />
+      <stop offset="0.9234042553191492" stop-color="black" />
+      <stop offset="0.9276595744680853" stop-color="black" />
+      <stop offset="0.9404255319148938" stop-color="black" />
+      <stop offset="1" stop-color="black" />
+    </linearGradient>
+  </defs>
+  <g id="g-svg-camera" transform="matrix(1,0,0,1,0,0)">
+    <g id="g-root" fill="none" transform="matrix(1,0,0,1,0,0)">
+      <g id="g-svg-14" fill="none" transform="matrix(1,0,0,1,0,0)" class="view">
+        <g transform="matrix(1,0,0,1,0,0)">
+          <path
+            id="g-svg-15"
+            fill="rgba(0,0,0,0)"
+            class="area"
+            d="M 0,0 l 1000,0 l 0,480 l-1000 0 z"
+            width="1000"
+            height="480"
+          />
+        </g>
+        <g transform="matrix(1,0,0,1,16,16)">
+          <path
+            id="g-svg-16"
+            fill="rgba(0,0,0,0)"
+            class="area"
+            d="M 0,0 l 968,0 l 0,448 l-968 0 z"
+            width="968"
+            height="448"
+          />
+        </g>
+        <g transform="matrix(1,0,0,1,75.599998,16)">
+          <path
+            id="g-svg-17"
+            fill="rgba(0,0,0,0)"
+            class="area"
+            d="M 0,0 l 908.3999997056345,0 l 0,382 l-908.3999997056345 0 z"
+            width="908.3999997056345"
+            height="382"
+          />
+        </g>
+        <g transform="matrix(1,0,0,1,75.599998,16)">
+          <path
+            id="g-svg-18"
+            fill="rgba(0,0,0,0)"
+            class="area"
+            d="M 0,0 l 908.3999997056345,0 l 0,382 l-908.3999997056345 0 z"
+            width="908.3999997056345"
+            height="382"
+          />
+        </g>
+        <g
+          id="g-svg-19"
+          fill="none"
+          transform="matrix(1,0,0,1,0,0)"
+          class="component"
+        >
+          <g
+            id="g-svg-21"
+            fill="none"
+            class="axis"
+            transform="matrix(1,0,0,1,0,0)"
+          >
+            <g
+              id="g-svg-22"
+              fill="none"
+              transform="matrix(1,0,0,1,0,0)"
+              class="axis-grid-group"
+            >
+              <g
+                id="g-svg-23"
+                fill="none"
+                transform="matrix(1,0,0,1,0,0)"
+                class="axis-grid"
+              >
+                <g
+                  id="g-svg-24"
+                  fill="none"
+                  transform="matrix(1,0,0,1,0,0)"
+                  class="grid-line-group"
+                >
+                  <g transform="matrix(1,0,0,1,75.599998,16)">
+                    <path
+                      id="g-svg-26"
+                      fill="none"
+                      class="grid-line"
+                      stroke="rgba(29,33,41,1)"
+                      stroke-width="0.5"
+                      stroke-dasharray="3,4"
+                      d="M 0,382 L 0,0"
+                      stroke-opacity="0.1"
+                    />
+                  </g>
+                  <g transform="matrix(1,0,0,1,304.566589,16)">
+                    <path
+                      id="g-svg-27"
+                      fill="none"
+                      class="grid-line"
+                      stroke="rgba(29,33,41,1)"
+                      stroke-width="0.5"
+                      stroke-dasharray="3,4"
+                      d="M 0,382 L 0,0"
+                      stroke-opacity="0.1"
+                    />
+                  </g>
+                  <g transform="matrix(1,0,0,1,531.044373,16)">
+                    <path
+                      id="g-svg-28"
+                      fill="none"
+                      class="grid-line"
+                      stroke="rgba(29,33,41,1)"
+                      stroke-width="0.5"
+                      stroke-dasharray="3,4"
+                      d="M 0,382 L 0,0"
+                      stroke-opacity="0.1"
+                    />
+                  </g>
+                  <g transform="matrix(1,0,0,1,757.522217,16)">
+                    <path
+                      id="g-svg-29"
+                      fill="none"
+                      class="grid-line"
+                      stroke="rgba(29,33,41,1)"
+                      stroke-width="0.5"
+                      stroke-dasharray="3,4"
+                      d="M 0,382 L 0,0"
+                      stroke-opacity="0.1"
+                    />
+                  </g>
+                </g>
+                <g
+                  id="g-svg-25"
+                  fill="none"
+                  transform="matrix(1,0,0,1,0,0)"
+                  class="grid-region-group"
+                />
+              </g>
+            </g>
+            <g
+              id="g-svg-30"
+              fill="none"
+              transform="matrix(1,0,0,1,0,0)"
+              class="axis-main-group"
+            >
+              <g
+                id="g-svg-31"
+                fill="none"
+                transform="matrix(1,0,0,1,0,0)"
+                class="axis-line-group"
+              >
+                <g transform="matrix(1,0,0,1,75.599998,398)">
+                  <line
+                    id="g-svg-32"
+                    fill="none"
+                    x1="0"
+                    y1="0"
+                    x2="908.3999997056345"
+                    y2="0"
+                    class="axis-line axis-line"
+                    stroke-width="0.5"
+                    stroke="rgba(29,33,41,1)"
+                    stroke-opacity="0.45"
+                    opacity="0"
+                  />
+                </g>
+              </g>
+              <g
+                id="g-svg-33"
+                fill="none"
+                transform="matrix(1,0,0,1,0,0)"
+                class="axis-tick-group"
+              >
+                <g
+                  id="g-svg-34"
+                  fill="none"
+                  transform="matrix(1,0,0,1,75.599998,398)"
+                  class="axis-tick"
+                >
+                  <g transform="matrix(1,0,0,1,0,0)">
+                    <line
+                      id="g-svg-38"
+                      fill="none"
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="4"
+                      class="axis-tick-item"
+                      stroke-width="1"
+                      stroke="rgba(29,33,41,1)"
+                      opacity="0.45"
+                    />
+                  </g>
+                </g>
+                <g
+                  id="g-svg-35"
+                  fill="none"
+                  transform="matrix(1,0,0,1,304.566589,398)"
+                  class="axis-tick"
+                >
+                  <g transform="matrix(1,0,0,1,0,0)">
+                    <line
+                      id="g-svg-39"
+                      fill="none"
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="4"
+                      class="axis-tick-item"
+                      stroke-width="1"
+                      stroke="rgba(29,33,41,1)"
+                      opacity="0.45"
+                    />
+                  </g>
+                </g>
+                <g
+                  id="g-svg-36"
+                  fill="none"
+                  transform="matrix(1,0,0,1,531.044373,398)"
+                  class="axis-tick"
+                >
+                  <g transform="matrix(1,0,0,1,0,0)">
+                    <line
+                      id="g-svg-40"
+                      fill="none"
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="4"
+                      class="axis-tick-item"
+                      stroke-width="1"
+                      stroke="rgba(29,33,41,1)"
+                      opacity="0.45"
+                    />
+                  </g>
+                </g>
+                <g
+                  id="g-svg-37"
+                  fill="none"
+                  transform="matrix(1,0,0,1,757.522217,398)"
+                  class="axis-tick"
+                >
+                  <g transform="matrix(1,0,0,1,0,0)">
+                    <line
+                      id="g-svg-41"
+                      fill="none"
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="4"
+                      class="axis-tick-item"
+                      stroke-width="1"
+                      stroke="rgba(29,33,41,1)"
+                      opacity="0.45"
+                    />
+                  </g>
+                </g>
+              </g>
+              <g
+                id="g-svg-42"
+                fill="none"
+                transform="matrix(1,0,0,1,0,0)"
+                class="axis-label-group"
+              >
+                <g
+                  id="g-svg-43"
+                  fill="none"
+                  transform="matrix(1,0,0,1,75.599998,406)"
+                  class="axis-label"
+                >
+                  <g transform="matrix(1,0,0,1,0,0)">
+                    <text
+                      id="g-svg-47"
+                      fill="rgba(29,33,41,1)"
+                      dominant-baseline="central"
+                      paint-order="stroke"
+                      dx="0.5"
+                      font-family="sans-serif"
+                      font-size="12"
+                      font-style="normal"
+                      font-variant="normal"
+                      font-weight="normal"
+                      stroke-width="1"
+                      text-anchor="middle"
+                      class="axis-label-item"
+                      dy="11.5px"
+                      opacity="0.45"
+                      visibility="visible"
+                    >
+                      October
+                    </text>
+                  </g>
+                </g>
+                <g
+                  id="g-svg-44"
+                  fill="none"
+                  transform="matrix(1,0,0,1,304.566589,406)"
+                  class="axis-label"
+                >
+                  <g transform="matrix(1,0,0,1,0,0)">
+                    <text
+                      id="g-svg-48"
+                      fill="rgba(29,33,41,1)"
+                      dominant-baseline="central"
+                      paint-order="stroke"
+                      dx="0.5"
+                      font-family="sans-serif"
+                      font-size="12"
+                      font-style="normal"
+                      font-variant="normal"
+                      font-weight="normal"
+                      stroke-width="1"
+                      text-anchor="middle"
+                      class="axis-label-item"
+                      dy="11.5px"
+                      opacity="0.45"
+                      visibility="visible"
+                    >
+                      2012
+                    </text>
+                  </g>
+                </g>
+                <g
+                  id="g-svg-45"
+                  fill="none"
+                  transform="matrix(1,0,0,1,531.044373,406)"
+                  class="axis-label"
+                >
+                  <g transform="matrix(1,0,0,1,0,0)">
+                    <text
+                      id="g-svg-49"
+                      fill="rgba(29,33,41,1)"
+                      dominant-baseline="central"
+                      paint-order="stroke"
+                      dx="0.5"
+                      font-family="sans-serif"
+                      font-size="12"
+                      font-style="normal"
+                      font-variant="normal"
+                      font-weight="normal"
+                      stroke-width="1"
+                      text-anchor="middle"
+                      class="axis-label-item"
+                      dy="11.5px"
+                      opacity="0.45"
+                      visibility="visible"
+                    >
+                      April
+                    </text>
+                  </g>
+                </g>
+                <g
+                  id="g-svg-46"
+                  fill="none"
+                  transform="matrix(1,0,0,1,757.522217,406)"
+                  class="axis-label"
+                >
+                  <g transform="matrix(1,0,0,1,0,0)">
+                    <text
+                      id="g-svg-50"
+                      fill="rgba(29,33,41,1)"
+                      dominant-baseline="central"
+                      paint-order="stroke"
+                      dx="0.5"
+                      font-family="sans-serif"
+                      font-size="12"
+                      font-style="normal"
+                      font-variant="normal"
+                      font-weight="normal"
+                      stroke-width="1"
+                      text-anchor="middle"
+                      class="axis-label-item"
+                      dy="11.5px"
+                      opacity="0.45"
+                      visibility="visible"
+                    >
+                      July
+                    </text>
+                  </g>
+                </g>
+              </g>
+            </g>
+            <g
+              id="g-svg-51"
+              fill="none"
+              transform="matrix(1,0,0,1,518.010010,464)"
+              class="axis-title-group"
+            >
+              <g transform="matrix(1,0,0,1,0,0)">
+                <text
+                  id="g-svg-52"
+                  fill="rgba(29,33,41,1)"
+                  dominant-baseline="central"
+                  paint-order="stroke"
+                  dx="0.5"
+                  font-family="sans-serif"
+                  font-size="12"
+                  font-style="normal"
+                  font-variant="normal"
+                  font-weight="normal"
+                  stroke-width="1"
+                  text-anchor="middle"
+                  class="axis-title"
+                  dy="-11.5px"
+                  opacity="0.9"
+                >
+                  date
+                </text>
+              </g>
+            </g>
+          </g>
+        </g>
+        <g
+          id="g-svg-20"
+          fill="none"
+          transform="matrix(1,0,0,1,0,0)"
+          class="component"
+        >
+          <g
+            id="g-svg-54"
+            fill="none"
+            class="axis"
+            transform="matrix(1,0,0,1,0,0)"
+          >
+            <g
+              id="g-svg-55"
+              fill="none"
+              transform="matrix(1,0,0,1,0,0)"
+              class="axis-grid-group"
+            >
+              <g
+                id="g-svg-56"
+                fill="none"
+                transform="matrix(1,0,0,1,0,0)"
+                class="axis-grid"
+              >
+                <g
+                  id="g-svg-57"
+                  fill="none"
+                  transform="matrix(1,0,0,1,0,0)"
+                  class="grid-line-group"
+                >
+                  <g transform="matrix(1,0,0,1,75.599998,398)">
+                    <path
+                      id="g-svg-59"
+                      fill="none"
+                      class="grid-line"
+                      stroke="rgba(29,33,41,1)"
+                      stroke-width="0.5"
+                      stroke-dasharray="3,4"
+                      d="M 0,0 L 908.3999997056345,0"
+                      stroke-opacity="0.1"
+                    />
+                  </g>
+                  <g transform="matrix(1,0,0,1,75.599998,334.333344)">
+                    <path
+                      id="g-svg-60"
+                      fill="none"
+                      class="grid-line"
+                      stroke="rgba(29,33,41,1)"
+                      stroke-width="0.5"
+                      stroke-dasharray="3,4"
+                      d="M 0,0 L 908.3999997056345,0"
+                      stroke-opacity="0.1"
+                    />
+                  </g>
+                  <g transform="matrix(1,0,0,1,75.599998,270.666656)">
+                    <path
+                      id="g-svg-61"
+                      fill="none"
+                      class="grid-line"
+                      stroke="rgba(29,33,41,1)"
+                      stroke-width="0.5"
+                      stroke-dasharray="3,4"
+                      d="M 0,0 L 908.3999997056345,0"
+                      stroke-opacity="0.1"
+                    />
+                  </g>
+                  <g transform="matrix(1,0,0,1,75.599998,207)">
+                    <path
+                      id="g-svg-62"
+                      fill="none"
+                      class="grid-line"
+                      stroke="rgba(29,33,41,1)"
+                      stroke-width="0.5"
+                      stroke-dasharray="3,4"
+                      d="M 0,0 L 908.3999997056345,0"
+                      stroke-opacity="0.1"
+                    />
+                  </g>
+                  <g transform="matrix(1,0,0,1,75.599998,143.333328)">
+                    <path
+                      id="g-svg-63"
+                      fill="none"
+                      class="grid-line"
+                      stroke="rgba(29,33,41,1)"
+                      stroke-width="0.5"
+                      stroke-dasharray="3,4"
+                      d="M 0,0 L 908.3999997056345,0"
+                      stroke-opacity="0.1"
+                    />
+                  </g>
+                  <g transform="matrix(1,0,0,1,75.599998,79.666664)">
+                    <path
+                      id="g-svg-64"
+                      fill="none"
+                      class="grid-line"
+                      stroke="rgba(29,33,41,1)"
+                      stroke-width="0.5"
+                      stroke-dasharray="3,4"
+                      d="M 0,0 L 908.3999997056345,0"
+                      stroke-opacity="0.1"
+                    />
+                  </g>
+                  <g transform="matrix(1,0,0,1,75.599998,16)">
+                    <path
+                      id="g-svg-65"
+                      fill="none"
+                      class="grid-line"
+                      stroke="rgba(29,33,41,1)"
+                      stroke-width="0.5"
+                      stroke-dasharray="3,4"
+                      d="M 0,0 L 908.3999997056345,0"
+                      stroke-opacity="0.1"
+                    />
+                  </g>
+                </g>
+                <g
+                  id="g-svg-58"
+                  fill="none"
+                  transform="matrix(1,0,0,1,0,0)"
+                  class="grid-region-group"
+                />
+              </g>
+            </g>
+            <g
+              id="g-svg-66"
+              fill="none"
+              transform="matrix(1,0,0,1,0,0)"
+              class="axis-main-group"
+            >
+              <g
+                id="g-svg-67"
+                fill="none"
+                transform="matrix(1,0,0,1,0,0)"
+                class="axis-line-group"
+              >
+                <g transform="matrix(1,0,0,1,75.599998,16)">
+                  <line
+                    id="g-svg-68"
+                    fill="none"
+                    x1="0"
+                    y1="382"
+                    x2="0"
+                    y2="0"
+                    class="axis-line axis-line"
+                    stroke-width="0.5"
+                    stroke="rgba(29,33,41,1)"
+                    stroke-opacity="0.45"
+                    opacity="0"
+                  />
+                </g>
+              </g>
+              <g
+                id="g-svg-69"
+                fill="none"
+                transform="matrix(1,0,0,1,0,0)"
+                class="axis-tick-group"
+              >
+                <g
+                  id="g-svg-70"
+                  fill="none"
+                  transform="matrix(1,0,0,1,75.599998,398)"
+                  class="axis-tick"
+                >
+                  <g transform="matrix(1,0,0,1,-4,0)">
+                    <line
+                      id="g-svg-77"
+                      fill="none"
+                      x1="4"
+                      y1="0"
+                      x2="0"
+                      y2="0"
+                      class="axis-tick-item"
+                      stroke-width="1"
+                      stroke="rgba(29,33,41,1)"
+                      opacity="0.45"
+                    />
+                  </g>
+                </g>
+                <g
+                  id="g-svg-71"
+                  fill="none"
+                  transform="matrix(1,0,0,1,75.599998,334.333344)"
+                  class="axis-tick"
+                >
+                  <g transform="matrix(1,0,0,1,-4,0)">
+                    <line
+                      id="g-svg-78"
+                      fill="none"
+                      x1="4"
+                      y1="0"
+                      x2="0"
+                      y2="0"
+                      class="axis-tick-item"
+                      stroke-width="1"
+                      stroke="rgba(29,33,41,1)"
+                      opacity="0.45"
+                    />
+                  </g>
+                </g>
+                <g
+                  id="g-svg-72"
+                  fill="none"
+                  transform="matrix(1,0,0,1,75.599998,270.666656)"
+                  class="axis-tick"
+                >
+                  <g transform="matrix(1,0,0,1,-4,0)">
+                    <line
+                      id="g-svg-79"
+                      fill="none"
+                      x1="4"
+                      y1="0"
+                      x2="0"
+                      y2="0"
+                      class="axis-tick-item"
+                      stroke-width="1"
+                      stroke="rgba(29,33,41,1)"
+                      opacity="0.45"
+                    />
+                  </g>
+                </g>
+                <g
+                  id="g-svg-73"
+                  fill="none"
+                  transform="matrix(1,0,0,1,75.599998,207)"
+                  class="axis-tick"
+                >
+                  <g transform="matrix(1,0,0,1,-4,0)">
+                    <line
+                      id="g-svg-80"
+                      fill="none"
+                      x1="4"
+                      y1="0"
+                      x2="0"
+                      y2="0"
+                      class="axis-tick-item"
+                      stroke-width="1"
+                      stroke="rgba(29,33,41,1)"
+                      opacity="0.45"
+                    />
+                  </g>
+                </g>
+                <g
+                  id="g-svg-74"
+                  fill="none"
+                  transform="matrix(1,0,0,1,75.599998,143.333328)"
+                  class="axis-tick"
+                >
+                  <g transform="matrix(1,0,0,1,-4,0)">
+                    <line
+                      id="g-svg-81"
+                      fill="none"
+                      x1="4"
+                      y1="0"
+                      x2="0"
+                      y2="0"
+                      class="axis-tick-item"
+                      stroke-width="1"
+                      stroke="rgba(29,33,41,1)"
+                      opacity="0.45"
+                    />
+                  </g>
+                </g>
+                <g
+                  id="g-svg-75"
+                  fill="none"
+                  transform="matrix(1,0,0,1,75.599998,79.666664)"
+                  class="axis-tick"
+                >
+                  <g transform="matrix(1,0,0,1,-4,0)">
+                    <line
+                      id="g-svg-82"
+                      fill="none"
+                      x1="4"
+                      y1="0"
+                      x2="0"
+                      y2="0"
+                      class="axis-tick-item"
+                      stroke-width="1"
+                      stroke="rgba(29,33,41,1)"
+                      opacity="0.45"
+                    />
+                  </g>
+                </g>
+                <g
+                  id="g-svg-76"
+                  fill="none"
+                  transform="matrix(1,0,0,1,75.599998,16)"
+                  class="axis-tick"
+                >
+                  <g transform="matrix(1,0,0,1,-4,0)">
+                    <line
+                      id="g-svg-83"
+                      fill="none"
+                      x1="4"
+                      y1="0"
+                      x2="0"
+                      y2="0"
+                      class="axis-tick-item"
+                      stroke-width="1"
+                      stroke="rgba(29,33,41,1)"
+                      opacity="0.45"
+                    />
+                  </g>
+                </g>
+              </g>
+              <g
+                id="g-svg-84"
+                fill="none"
+                transform="matrix(1,0,0,1,0,0)"
+                class="axis-label-group"
+              >
+                <g
+                  id="g-svg-85"
+                  fill="none"
+                  transform="matrix(1,0,0,1,67.599998,398)"
+                  class="axis-label"
+                >
+                  <g transform="matrix(1,0,0,1,0,0)">
+                    <text
+                      id="g-svg-92"
+                      fill="rgba(29,33,41,1)"
+                      dominant-baseline="central"
+                      paint-order="stroke"
+                      dx="0.5"
+                      font-family="sans-serif"
+                      font-size="12"
+                      font-style="normal"
+                      font-variant="normal"
+                      font-weight="normal"
+                      stroke-width="1"
+                      text-anchor="end"
+                      class="axis-label-item"
+                      opacity="0.45"
+                      visibility="visible"
+                    >
+                      40
+                    </text>
+                  </g>
+                </g>
+                <g
+                  id="g-svg-86"
+                  fill="none"
+                  transform="matrix(1,0,0,1,67.599998,334.333344)"
+                  class="axis-label"
+                >
+                  <g transform="matrix(1,0,0,1,0,0)">
+                    <text
+                      id="g-svg-93"
+                      fill="rgba(29,33,41,1)"
+                      dominant-baseline="central"
+                      paint-order="stroke"
+                      dx="0.5"
+                      font-family="sans-serif"
+                      font-size="12"
+                      font-style="normal"
+                      font-variant="normal"
+                      font-weight="normal"
+                      stroke-width="1"
+                      text-anchor="end"
+                      class="axis-label-item"
+                      opacity="0.45"
+                      visibility="visible"
+                    >
+                      45
+                    </text>
+                  </g>
+                </g>
+                <g
+                  id="g-svg-87"
+                  fill="none"
+                  transform="matrix(1,0,0,1,67.599998,270.666656)"
+                  class="axis-label"
+                >
+                  <g transform="matrix(1,0,0,1,0,0)">
+                    <text
+                      id="g-svg-94"
+                      fill="rgba(29,33,41,1)"
+                      dominant-baseline="central"
+                      paint-order="stroke"
+                      dx="0.5"
+                      font-family="sans-serif"
+                      font-size="12"
+                      font-style="normal"
+                      font-variant="normal"
+                      font-weight="normal"
+                      stroke-width="1"
+                      text-anchor="end"
+                      class="axis-label-item"
+                      opacity="0.45"
+                      visibility="visible"
+                    >
+                      50
+                    </text>
+                  </g>
+                </g>
+                <g
+                  id="g-svg-88"
+                  fill="none"
+                  transform="matrix(1,0,0,1,67.599998,207)"
+                  class="axis-label"
+                >
+                  <g transform="matrix(1,0,0,1,0,0)">
+                    <text
+                      id="g-svg-95"
+                      fill="rgba(29,33,41,1)"
+                      dominant-baseline="central"
+                      paint-order="stroke"
+                      dx="0.5"
+                      font-family="sans-serif"
+                      font-size="12"
+                      font-style="normal"
+                      font-variant="normal"
+                      font-weight="normal"
+                      stroke-width="1"
+                      text-anchor="end"
+                      class="axis-label-item"
+                      opacity="0.45"
+                      visibility="visible"
+                    >
+                      55
+                    </text>
+                  </g>
+                </g>
+                <g
+                  id="g-svg-89"
+                  fill="none"
+                  transform="matrix(1,0,0,1,67.599998,143.333328)"
+                  class="axis-label"
+                >
+                  <g transform="matrix(1,0,0,1,0,0)">
+                    <text
+                      id="g-svg-96"
+                      fill="rgba(29,33,41,1)"
+                      dominant-baseline="central"
+                      paint-order="stroke"
+                      dx="0.5"
+                      font-family="sans-serif"
+                      font-size="12"
+                      font-style="normal"
+                      font-variant="normal"
+                      font-weight="normal"
+                      stroke-width="1"
+                      text-anchor="end"
+                      class="axis-label-item"
+                      opacity="0.45"
+                      visibility="visible"
+                    >
+                      60
+                    </text>
+                  </g>
+                </g>
+                <g
+                  id="g-svg-90"
+                  fill="none"
+                  transform="matrix(1,0,0,1,67.599998,79.666664)"
+                  class="axis-label"
+                >
+                  <g transform="matrix(1,0,0,1,0,0)">
+                    <text
+                      id="g-svg-97"
+                      fill="rgba(29,33,41,1)"
+                      dominant-baseline="central"
+                      paint-order="stroke"
+                      dx="0.5"
+                      font-family="sans-serif"
+                      font-size="12"
+                      font-style="normal"
+                      font-variant="normal"
+                      font-weight="normal"
+                      stroke-width="1"
+                      text-anchor="end"
+                      class="axis-label-item"
+                      opacity="0.45"
+                      visibility="visible"
+                    >
+                      65
+                    </text>
+                  </g>
+                </g>
+                <g
+                  id="g-svg-91"
+                  fill="none"
+                  transform="matrix(1,0,0,1,67.599998,16)"
+                  class="axis-label"
+                >
+                  <g transform="matrix(1,0,0,1,0,0)">
+                    <text
+                      id="g-svg-98"
+                      fill="rgba(29,33,41,1)"
+                      dominant-baseline="central"
+                      paint-order="stroke"
+                      dx="0.5"
+                      font-family="sans-serif"
+                      font-size="12"
+                      font-style="normal"
+                      font-variant="normal"
+                      font-weight="normal"
+                      stroke-width="1"
+                      text-anchor="end"
+                      class="axis-label-item"
+                      opacity="0.45"
+                      visibility="visible"
+                    >
+                      70
+                    </text>
+                  </g>
+                </g>
+              </g>
+            </g>
+            <g
+              id="g-svg-99"
+              fill="none"
+              transform="matrix(1,0,0,1,16.999998,207)"
+              class="axis-title-group"
+            >
+              <g transform="matrix(0,-1,1,0,11.500000,0)">
+                <text
+                  id="g-svg-100"
+                  fill="rgba(29,33,41,1)"
+                  dominant-baseline="central"
+                  paint-order="stroke"
+                  dx="0.5"
+                  font-family="sans-serif"
+                  font-size="12"
+                  font-style="normal"
+                  font-variant="normal"
+                  font-weight="normal"
+                  stroke-width="1"
+                  text-anchor="middle"
+                  class="axis-title"
+                  opacity="0.9"
+                >
+                  value
+                </text>
+              </g>
+            </g>
+          </g>
+        </g>
+        <g transform="matrix(1,0,0,1,75.599998,16)">
+          <path
+            id="g-svg-102"
+            fill="rgba(0,0,0,0)"
+            class="plot"
+            d="M 0,0 l 908.3999997056345,0 l 0,382 l-908.3999997056345 0 z"
+            width="908.3999997056345"
+            height="382"
+          />
+          <g
+            id="g-svg-103"
+            fill="none"
+            transform="matrix(1,0,0,1,0,0)"
+            class="main-layer"
+          >
+            <g transform="matrix(1,0,0,1,0,36.926998)">
+              <path
+                id="g-svg-105"
+                fill="none"
+                d="M 0,56.026 L 1.244,56.026 L 1.244,91.68 L 3.733,91.68 L 3.733,101.86600000000001 L 6.222,101.86600000000001 L 6.222,105.686 L 8.711,105.686 L 8.711,106.96000000000001 L 11.199,106.96000000000001 L 11.199,128.606 L 13.688,128.606 L 13.688,132.42600000000002 L 16.177,132.42600000000002 L 16.177,131.15300000000002 L 18.666,131.15300000000002 L 18.666,132.42600000000002 L 21.155,132.42600000000002 L 21.155,89.13300000000001 L 23.643,89.13300000000001 L 23.643,76.4 L 26.132,76.4 L 26.132,71.30600000000001 L 28.621,71.30600000000001 L 28.621,35.653 L 31.11,35.653 L 31.11,0 L 33.598,0 L 33.598,31.833000000000006 L 36.087,31.833000000000006 L 36.087,70.03299999999999 L 38.576,70.03299999999999 L 38.576,76.4 L 41.065,76.4 L 41.065,100.59300000000002 L 43.553,100.59300000000002 L 43.553,104.41300000000001 L 46.042,104.41300000000001 L 46.042,126.06 L 48.531,126.06 L 48.531,136.246 L 51.02,136.246 L 51.02,81.493 L 53.508,81.493 L 53.508,25.466 L 55.997,25.466 L 55.997,78.946 L 58.486,78.946 L 58.486,140.066 L 60.975,140.066 L 60.975,159.166 L 63.464,159.166 L 63.464,140.066 L 65.952,140.066 L 65.952,114.6 L 68.441,114.6 L 68.441,122.24000000000001 L 70.93,122.24000000000001 L 70.93,119.69300000000001 L 73.419,119.69300000000001 L 73.419,152.8 L 75.907,152.8 L 75.907,117.14600000000002 L 78.396,117.14600000000002 L 78.396,31.833000000000006 L 80.885,31.833000000000006 L 80.885,138.793 L 83.374,138.793 L 83.374,211.37300000000002 L 85.862,211.37300000000002 L 85.862,201.186 L 88.351,201.186 L 88.351,184.633 L 90.84,184.633 L 90.84,199.913 L 93.329,199.913 L 93.329,210.1 L 95.818,210.1 L 95.818,159.166 L 98.306,159.166 L 98.306,146.43300000000002 L 100.795,146.43300000000002 L 100.795,168.08 L 103.284,168.08 L 103.284,166.806 L 105.773,166.806 L 105.773,169.353 L 108.261,169.353 L 108.261,173.173 L 110.75,173.173 L 110.75,174.446 L 113.239,174.446 L 113.239,189.726 L 115.728,189.726 L 115.728,183.36 L 118.216,183.36 L 118.216,178.26600000000002 L 120.705,178.26600000000002 L 120.705,230.47299999999998 L 123.194,230.47299999999998 L 123.194,212.64600000000002 L 125.683,212.64600000000002 L 125.683,203.733 L 128.172,203.733 L 128.172,188.453 L 130.66,188.453 L 130.66,159.166 L 133.149,159.166 L 133.149,152.8 L 135.638,152.8 L 135.638,198.64000000000001 L 138.127,198.64000000000001 L 138.127,171.9 L 140.615,171.9 L 140.615,188.453 L 143.104,188.453 L 143.104,205.006 L 145.593,205.006 L 145.593,224.10600000000002 L 148.082,224.10600000000002 L 148.082,220.28600000000003 L 150.57,220.28600000000003 L 150.57,85.31299999999999 L 153.059,85.31299999999999 L 153.059,62.392999999999994 L 155.548,62.392999999999994 L 155.548,112.053 L 158.037,112.053 L 158.037,183.36 L 160.525,183.36 L 160.525,198.64000000000001 L 163.014,198.64000000000001 L 163.014,219.013 L 165.503,219.013 L 165.503,235.566 L 167.992,235.566 L 167.992,263.58 L 170.481,263.58 L 170.481,220.28600000000003 L 172.969,220.28600000000003 L 172.969,191 L 175.458,191 L 175.458,233.02 L 177.947,233.02 L 177.947,250.84600000000003 L 180.436,250.84600000000003 L 180.436,253.393 L 182.924,253.393 L 182.924,267.4 L 185.413,267.4 L 185.413,233.02 L 187.902,233.02 L 187.902,244.48 L 190.391,244.48 L 190.391,220.28600000000003 L 192.879,220.28600000000003 L 192.879,229.20000000000002 L 195.368,229.20000000000002 L 195.368,239.386 L 197.857,239.386 L 197.857,226.653 L 200.346,226.653 L 200.346,238.11300000000003 L 202.835,238.11300000000003 L 202.835,175.72 L 205.323,175.72 L 205.323,249.573 L 207.812,249.573 L 207.812,244.48 L 210.301,244.48 L 210.301,231.746 L 212.79,231.746 L 212.79,269.94599999999997 L 215.278,269.94599999999997 L 215.278,253.393 L 217.767,253.393 L 217.767,231.746 L 220.256,231.746 L 220.256,206.28 L 222.745,206.28 L 222.745,180.81300000000002 L 225.233,180.81300000000002 L 225.233,216.466 L 227.722,216.466 L 227.722,168.08 L 230.211,168.08 L 230.211,178.26600000000002 L 232.7,178.26600000000002 L 232.7,221.56000000000003 L 235.188,221.56000000000003 L 235.188,183.36 L 237.677,183.36 L 237.677,184.633 L 240.166,184.633 L 240.166,230.47299999999998 L 242.655,230.47299999999998 L 242.655,205.006 L 245.144,205.006 L 245.144,131.15300000000002 L 247.632,131.15300000000002 L 247.632,188.453 L 250.121,188.453 L 250.121,197.366 L 252.61,197.366 L 252.61,220.28600000000003 L 255.099,220.28600000000003 L 255.099,193.54600000000002 L 257.587,193.54600000000002 L 257.587,170.626 L 260.076,170.626 L 260.076,180.81300000000002 L 262.565,180.81300000000002 L 262.565,221.56000000000003 L 265.054,221.56000000000003 L 265.054,277.58599999999996 L 267.542,277.58599999999996 L 267.542,299.233 L 270.031,299.233 L 270.031,281.406 L 272.52,281.406 L 272.52,252.12000000000003 L 275.009,252.12000000000003 L 275.009,199.913 L 277.498,199.913 L 277.498,170.626 L 279.986,170.626 L 279.986,239.386 L 282.475,239.386 L 282.475,180.81300000000002 L 284.964,180.81300000000002 L 284.964,229.20000000000002 L 287.453,229.20000000000002 L 287.453,191 L 289.941,191 L 289.941,171.9 L 292.43,171.9 L 292.43,212.64600000000002 L 294.919,212.64600000000002 L 294.919,213.92000000000002 L 297.408,213.92000000000002 L 297.408,169.353 L 299.896,169.353 L 299.896,193.54600000000002 L 302.385,193.54600000000002 L 302.385,217.74 L 304.874,217.74 L 304.874,217.74 L 307.363,217.74 L 307.363,201.186 L 309.852,201.186 L 309.852,198.64000000000001 L 312.34,198.64000000000001 L 312.34,192.273 L 314.829,192.273 L 314.829,169.353 L 317.318,169.353 L 317.318,159.166 L 319.807,159.166 L 319.807,162.98600000000002 L 322.295,162.98600000000002 L 322.295,193.54600000000002 L 324.784,193.54600000000002 L 324.784,169.353 L 327.273,169.353 L 327.273,168.08 L 329.762,168.08 L 329.762,188.453 L 332.25,188.453 L 332.25,216.466 L 334.739,216.466 L 334.739,224.10600000000002 L 337.228,224.10600000000002 L 337.228,235.566 L 339.717,235.566 L 339.717,219.013 L 342.205,219.013 L 342.205,187.18 L 344.694,187.18 L 344.694,219.013 L 347.183,219.013 L 347.183,197.366 L 349.672,197.366 L 349.672,245.75300000000001 L 352.161,245.75300000000001 L 352.161,234.29300000000003 L 354.649,234.29300000000003 L 354.649,221.56000000000003 L 357.138,221.56000000000003 L 357.138,174.446 L 359.627,174.446 L 359.627,165.53300000000002 L 362.116,165.53300000000002 L 362.116,142.613 L 364.604,142.613 L 364.604,196.09300000000002 L 367.093,196.09300000000002 L 367.093,247.02599999999998 L 369.582,247.02599999999998 L 369.582,276.313 L 372.071,276.313 L 372.071,255.94000000000003 L 374.559,255.94000000000003 L 374.559,220.28600000000003 L 377.048,220.28600000000003 L 377.048,231.746 L 379.537,231.746 L 379.537,241.93300000000002 L 382.026,241.93300000000002 L 382.026,208.826 L 384.515,208.826 L 384.515,154.073 L 387.003,154.073 L 387.003,233.02 L 389.492,233.02 L 389.492,238.11300000000003 L 391.981,238.11300000000003 L 391.981,219.013 L 394.47,219.013 L 394.47,227.92600000000002 L 396.958,227.92600000000002 L 396.958,196.09300000000002 L 399.447,196.09300000000002 L 399.447,226.653 L 401.936,226.653 L 401.936,217.74 L 404.425,217.74 L 404.425,235.566 L 406.913,235.566 L 406.913,168.08 L 409.402,168.08 L 409.402,151.526 L 411.891,151.526 L 411.891,142.613 L 414.38,142.613 L 414.38,159.166 L 416.868,159.166 L 416.868,240.66 L 419.357,240.66 L 419.357,254.66600000000003 L 421.846,254.66600000000003 L 421.846,271.21999999999997 L 424.335,271.21999999999997 L 424.335,221.56000000000003 L 426.824,221.56000000000003 L 426.824,199.913 L 429.312,199.913 L 429.312,199.913 L 431.801,199.913 L 431.801,238.11300000000003 L 434.29,238.11300000000003 L 434.29,230.47299999999998 L 436.779,230.47299999999998 L 436.779,263.58 L 439.267,263.58 L 439.267,221.56000000000003 L 441.756,221.56000000000003 L 441.756,165.53300000000002 L 444.245,165.53300000000002 L 444.245,159.166 L 446.734,159.166 L 446.734,188.453 L 449.222,188.453 L 449.222,160.44 L 451.711,160.44 L 451.711,138.793 L 454.2,138.793 L 454.2,203.733 L 456.689,203.733 L 456.689,211.37300000000002 L 459.178,211.37300000000002 L 459.178,189.726 L 461.666,189.726 L 461.666,210.1 L 464.155,210.1 L 464.155,244.48 L 466.644,244.48 L 466.644,250.84600000000003 L 469.133,250.84600000000003 L 469.133,225.38000000000002 L 471.621,225.38000000000002 L 471.621,217.74 L 474.11,217.74 L 474.11,201.186 L 476.599,201.186 L 476.599,169.353 L 479.088,169.353 L 479.088,180.81300000000002 L 481.576,180.81300000000002 L 481.576,168.08 L 484.065,168.08 L 484.065,215.193 L 486.554,215.193 L 486.554,206.28 L 489.043,206.28 L 489.043,198.64000000000001 L 491.532,198.64000000000001 L 491.532,193.54600000000002 L 494.02,193.54600000000002 L 494.02,176.993 L 496.509,176.993 L 496.509,179.54000000000002 L 498.998,179.54000000000002 L 498.998,152.8 L 501.487,152.8 L 501.487,143.886 L 503.975,143.886 L 503.975,115.87300000000002 L 506.464,115.87300000000002 L 506.464,182.086 L 508.953,182.086 L 508.953,152.8 L 511.442,152.8 L 511.442,117.14600000000002 L 513.93,117.14600000000002 L 513.93,122.24000000000001 L 516.419,122.24000000000001 L 516.419,150.25300000000001 L 518.908,150.25300000000001 L 518.908,173.173 L 521.397,173.173 L 521.397,157.893 L 523.885,157.893 L 523.885,166.806 L 526.374,166.806 L 526.374,174.446 L 528.863,174.446 L 528.863,183.36 L 531.352,183.36 L 531.352,208.826 L 533.841,208.826 L 533.841,184.633 L 536.329,184.633 L 536.329,174.446 L 538.818,174.446 L 538.818,178.26600000000002 L 541.307,178.26600000000002 L 541.307,134.973 L 543.796,134.973 L 543.796,150.25300000000001 L 546.284,150.25300000000001 L 546.284,192.273 L 548.773,192.273 L 548.773,187.18 L 551.262,187.18 L 551.262,174.446 L 553.751,174.446 L 553.751,178.26600000000002 L 556.239,178.26600000000002 L 556.239,219.013 L 558.728,219.013 L 558.728,192.273 L 561.217,192.273 L 561.217,141.34 L 563.706,141.34 L 563.706,179.54000000000002 L 566.195,179.54000000000002 L 566.195,205.006 L 568.683,205.006 L 568.683,199.913 L 571.172,199.913 L 571.172,189.726 L 573.661,189.726 L 573.661,187.18 L 576.15,187.18 L 576.15,160.44 L 578.638,160.44 L 578.638,182.086 L 581.127,182.086 L 581.127,168.08 L 583.616,168.08 L 583.616,134.973 L 586.105,134.973 L 586.105,157.893 L 588.593,157.893 L 588.593,185.906 L 591.082,185.906 L 591.082,191 L 593.571,191 L 593.571,189.726 L 596.06,189.726 L 596.06,180.81300000000002 L 598.548,180.81300000000002 L 598.548,191 L 601.037,191 L 601.037,191 L 603.526,191 L 603.526,175.72 L 606.015,175.72 L 606.015,156.62 L 608.504,156.62 L 608.504,166.806 L 610.992,166.806 L 610.992,188.453 L 613.481,188.453 L 613.481,150.25300000000001 L 615.97,150.25300000000001 L 615.97,173.173 L 618.459,173.173 L 618.459,165.53300000000002 L 620.947,165.53300000000002 L 620.947,168.08 L 623.436,168.08 L 623.436,161.713 L 625.925,161.713 L 625.925,154.073 L 628.414,154.073 L 628.414,90.406 L 630.902,90.406 L 630.902,126.06 L 633.391,126.06 L 633.391,152.8 L 635.88,152.8 L 635.88,175.72 L 638.369,175.72 L 638.369,174.446 L 640.858,174.446 L 640.858,159.166 L 643.346,159.166 L 643.346,128.606 L 645.835,128.606 L 645.835,146.43300000000002 L 648.324,146.43300000000002 L 648.324,185.906 L 650.813,185.906 L 650.813,168.08 L 653.301,168.08 L 653.301,150.25300000000001 L 655.79,150.25300000000001 L 655.79,175.72 L 658.279,175.72 L 658.279,165.53300000000002 L 660.768,165.53300000000002 L 660.768,151.526 L 663.256,151.526 L 663.256,143.886 L 665.745,143.886 L 665.745,131.15300000000002 L 668.234,131.15300000000002 L 668.234,122.24000000000001 L 670.723,122.24000000000001 L 670.723,119.69300000000001 L 673.212,119.69300000000001 L 673.212,133.70000000000002 L 675.7,133.70000000000002 L 675.7,136.246 L 678.189,136.246 L 678.189,110.78 L 680.678,110.78 L 680.678,105.686 L 683.167,105.686 L 683.167,136.246 L 685.655,136.246 L 685.655,134.973 L 688.144,134.973 L 688.144,143.886 L 690.633,143.886 L 690.633,156.62 L 693.122,156.62 L 693.122,155.346 L 695.61,155.346 L 695.61,157.893 L 698.099,157.893 L 698.099,182.086 L 700.588,182.086 L 700.588,170.626 L 703.077,170.626 L 703.077,178.26600000000002 L 705.565,178.26600000000002 L 705.565,183.36 L 708.054,183.36 L 708.054,192.273 L 710.543,192.273 L 710.543,174.446 L 713.032,174.446 L 713.032,166.806 L 715.521,166.806 L 715.521,166.806 L 718.009,166.806 L 718.009,160.44 L 720.498,160.44 L 720.498,132.42600000000002 L 722.987,132.42600000000002 L 722.987,122.24000000000001 L 725.476,122.24000000000001 L 725.476,127.333 L 727.964,127.333 L 727.964,114.6 L 730.453,114.6 L 730.453,120.96600000000001 L 732.942,120.96600000000001 L 732.942,141.34 L 735.431,141.34 L 735.431,133.70000000000002 L 737.919,133.70000000000002 L 737.919,118.42000000000002 L 740.408,118.42000000000002 L 740.408,122.24000000000001 L 742.897,122.24000000000001 L 742.897,136.246 L 745.386,136.246 L 745.386,150.25300000000001 L 747.875,150.25300000000001 L 747.875,154.073 L 750.363,154.073 L 750.363,146.43300000000002 L 752.852,146.43300000000002 L 752.852,146.43300000000002 L 755.341,146.43300000000002 L 755.341,142.613 L 757.83,142.613 L 757.83,148.98000000000002 L 760.318,148.98000000000002 L 760.318,161.713 L 762.807,161.713 L 762.807,170.626 L 765.296,170.626 L 765.296,165.53300000000002 L 767.785,165.53300000000002 L 767.785,118.42000000000002 L 770.273,118.42000000000002 L 770.273,113.326 L 772.762,113.326 L 772.762,115.87300000000002 L 775.251,115.87300000000002 L 775.251,128.606 L 777.74,128.606 L 777.74,154.073 L 780.228,154.073 L 780.228,156.62 L 782.717,156.62 L 782.717,179.54000000000002 L 785.206,179.54000000000002 L 785.206,185.906 L 787.695,185.906 L 787.695,175.72 L 790.184,175.72 L 790.184,168.08 L 792.672,168.08 L 792.672,138.793 L 795.161,138.793 L 795.161,127.333 L 797.65,127.333 L 797.65,150.25300000000001 L 800.139,150.25300000000001 L 800.139,138.793 L 802.627,138.793 L 802.627,162.98600000000002 L 805.116,162.98600000000002 L 805.116,178.26600000000002 L 807.605,178.26600000000002 L 807.605,174.446 L 810.094,174.446 L 810.094,160.44 L 812.582,160.44 L 812.582,145.16 L 815.071,145.16 L 815.071,156.62 L 817.56,156.62 L 817.56,169.353 L 820.049,169.353 L 820.049,134.973 L 822.538,134.973 L 822.538,112.053 L 825.026,112.053 L 825.026,106.96000000000001 L 827.515,106.96000000000001 L 827.515,122.24000000000001 L 830.004,122.24000000000001 L 830.004,142.613 L 832.493,142.613 L 832.493,148.98000000000002 L 834.981,148.98000000000002 L 834.981,145.16 L 837.47,145.16 L 837.47,178.26600000000002 L 839.959,178.26600000000002 L 839.959,173.173 L 842.448,173.173 L 842.448,185.906 L 844.936,185.906 L 844.936,160.44 L 847.425,160.44 L 847.425,137.52 L 849.914,137.52 L 849.914,136.246 L 852.403,136.246 L 852.403,134.973 L 854.892,134.973 L 854.892,136.246 L 857.38,136.246 L 857.38,148.98000000000002 L 859.869,148.98000000000002 L 859.869,138.793 L 862.358,138.793 L 862.358,145.16 L 864.847,145.16 L 864.847,162.98600000000002 L 867.335,162.98600000000002 L 867.335,151.526 L 869.824,151.526 L 869.824,162.98600000000002 L 872.313,162.98600000000002 L 872.313,180.81300000000002 L 874.802,180.81300000000002 L 874.802,156.62 L 877.29,156.62 L 877.29,156.62 L 879.779,156.62 L 879.779,131.15300000000002 L 882.268,131.15300000000002 L 882.268,148.98000000000002 L 884.757,148.98000000000002 L 884.757,143.886 L 887.245,143.886 L 887.245,142.613 L 889.734,142.613 L 889.734,182.086 L 892.223,182.086 L 892.223,160.44 L 894.712,160.44 L 894.712,175.72 L 897.201,175.72 L 897.201,171.9 L 899.689,171.9 L 899.689,191 L 902.178,191 L 902.178,184.633 L 904.667,184.633 L 904.667,168.08 L 907.156,168.08 L 907.156,152.8 L 908.4,152.8"
+                stroke-linecap="round"
+                stroke="url(#g-pattern-0)"
+                stroke-width="1.5"
+                stroke-linejoin="round"
+                class="element"
+              />
+            </g>
+          </g>
+          <g
+            id="g-svg-104"
+            fill="none"
+            transform="matrix(1,0,0,1,0,0)"
+            class="label-layer"
+          />
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

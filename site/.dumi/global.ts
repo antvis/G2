@@ -4,6 +4,9 @@ require('./prism-one-light.css');
 if (window) {
   (window as any).g2 = extendG2(require('../../src'));
   (window as any).G2 = (window as any).g2;
+  (window as any).g2Extension3d = require('@antv/g2-extension-3d');
+  (window as any).g2ExtensionAva = require('@antv/g2-extension-ava');
+  (window as any).g2ExtensionPlot = require('@antv/g2-extension-plot');
   (window as any).s2 = require('@antv/s2');
   (window as any).d3Hierarchy = require('d3-hierarchy');
   (window as any).d3ScaleChromatic = require('d3-scale-chromatic');
@@ -32,6 +35,7 @@ if (window) {
   (window as any).dataSet = require('@antv/data-set');
   (window as any).lodash = require('lodash');
   (window as any).table = table;
+  (window as any).dirichlet = require('dirichlet');
 }
 
 if (

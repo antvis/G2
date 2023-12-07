@@ -1,10 +1,9 @@
-import { render } from '@antv/g2v5';
+import { render, stdlib } from '@antv/g2v5';
 import type { Chart } from '../types';
 
 export const g2V5CanvasSpec: Chart = (data, { start, end }) => {
-  let node: HTMLElement;
   start();
-  node = render(
+  const node = render(
     {
       type: 'point',
       data,
@@ -18,7 +17,7 @@ export const g2V5CanvasSpec: Chart = (data, { start, end }) => {
       },
       animate: false,
     },
-    undefined,
+    { library: stdlib() },
     () => end(node),
   );
 };

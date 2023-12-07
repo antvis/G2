@@ -24,12 +24,12 @@ describe('chart.emit', () => {
       data: { channel: 'color', values: ['Sports', 'Strategy'] },
     });
     await sleep(20);
-    await expect(canvas).toMatchCanvasSnapshot(dir, 'step0');
+    await expect(canvas).toMatchDOMSnapshot(dir, 'step0');
 
     // chart.emit('legend:reset', options) should reset.
     chart.emit('legend:reset', {});
     await sleep(20);
-    await expect(canvas).toMatchCanvasSnapshot(dir, 'step1');
+    await expect(canvas).toMatchDOMSnapshot(dir, 'step1');
 
     chart.off();
 

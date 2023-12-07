@@ -18,12 +18,12 @@ describe('chart.render', () => {
     // To lineDash
     button.dispatchEvent(new CustomEvent('click'));
     await refreshed;
-    await expect(canvas).toMatchCanvasSnapshot(dir, 'step0');
+    await expect(canvas).toMatchDOMSnapshot(dir, 'step0');
 
     // Reset
     button.dispatchEvent(new CustomEvent('click'));
     await refreshed1;
-    await expect(canvas).toMatchCanvasSnapshot(dir, 'step1');
+    await expect(canvas).toMatchDOMSnapshot(dir, 'step1');
   });
 
   afterAll(() => {

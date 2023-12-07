@@ -49,5 +49,3 @@ export function speciesViolinBasicPolar(): G2Spec {
     ],
   };
 }
-
-speciesViolinBasicPolar.maxError = 100;

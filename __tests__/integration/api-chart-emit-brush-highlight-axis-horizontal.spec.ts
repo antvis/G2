@@ -25,12 +25,12 @@ describe('chart.on', () => {
       data: { selection: [[20, 30], undefined, [100, 300]] },
     });
     await sleep(20);
-    await expect(canvas).toMatchCanvasSnapshot(dir, 'step0');
+    await expect(canvas).toMatchDOMSnapshot(dir, 'step0');
 
     // chart.emit('brushAxis:remove', options) should reset.
     chart.emit('brushAxis:remove', {});
     await sleep(20);
-    await expect(canvas).toMatchCanvasSnapshot(dir, 'step1');
+    await expect(canvas).toMatchDOMSnapshot(dir, 'step1');
 
     chart.off();
 

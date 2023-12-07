@@ -1,0 +1,24 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "dirichlet.ts",
+      "title": {
+        "zh": "狄利克雷分布",
+        "en": "The Dirichlet distribution"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*4LJeR4SqvEoAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "trigonometric.ts",
+      "title": {
+        "zh": "三角函数",
+        "en": "Trigonometric"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*CT7VQrD32DkAAAAAAAAAAAAADmJ7AQ/original"
+    }
+  ]
+}

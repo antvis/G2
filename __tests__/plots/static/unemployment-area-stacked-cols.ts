@@ -25,5 +25,3 @@ export function unemploymentAreaStackedCols(): G2Spec {
     },
   };
 }
-
-unemploymentAreaStackedCols.maxError = 180;

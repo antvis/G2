@@ -1,6 +1,6 @@
 import './utils/useSnapshotMatchers';
 import { Chart } from '../../src';
-import { createDOMGCanvas } from './utils/createDOMGCanvas';
+import { createNodeGCanvas } from './utils/createNodeGCanvas';
 import { sleep } from './utils/sleep';
 import { dispatchFirstElementEvent, dispatchPlotEvent } from './utils/event';
 import { kebabCase } from './utils/kebabCase';
@@ -44,8 +44,8 @@ describe('chart.emit', () => {
   const dir = `${__dirname}/snapshots/api/${kebabCase(
     'chartEmitEnableDisableTooltip',
   )}`;
-  const barCanvas = createDOMGCanvas(640, 480);
-  const lineCanvas = createDOMGCanvas(640, 480);
+  const barCanvas = createNodeGCanvas(640, 480);
+  const lineCanvas = createNodeGCanvas(640, 480);
 
   it('chart.emit enable item tooltip.', async () => {
     const { finished, chart } = renderBar({
@@ -59,6 +59,7 @@ describe('chart.emit', () => {
 
     dispatchFirstElementEvent(barCanvas, 'pointerover');
     await expect(barCanvas).toMatchDOMSnapshot(dir, 'step0', {
+      fileFormat: 'html',
       selector: '.g2-tooltip',
     });
 
@@ -66,6 +67,7 @@ describe('chart.emit', () => {
 
     dispatchFirstElementEvent(barCanvas, 'pointerover');
     await expect(barCanvas).toMatchDOMSnapshot(dir, 'step1', {
+      fileFormat: 'html',
       selector: '.g2-tooltip',
     });
   });
@@ -83,6 +85,7 @@ describe('chart.emit', () => {
       offsetY: 100,
     });
     await expect(lineCanvas).toMatchDOMSnapshot(dir, 'step2', {
+      fileFormat: 'html',
       selector: '.g2-tooltip',
     });
 
@@ -92,6 +95,7 @@ describe('chart.emit', () => {
       offsetY: 100,
     });
     await expect(lineCanvas).toMatchDOMSnapshot(dir, 'step3', {
+      fileFormat: 'html',
       selector: '.g2-tooltip',
     });
   });

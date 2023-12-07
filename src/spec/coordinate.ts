@@ -7,7 +7,6 @@ export type Coordinate =
   | ThetaCoordinate
   | CustomCoordinate
   | CartesianCoordinate
-  | Cartesian3DCoordinate
   | ParallelCoordinate
   | RadialCoordinate
   | RadarCoordinate
@@ -70,10 +69,6 @@ export type RadialCoordinate = BaseCoordinate<{
 
 export type CartesianCoordinate = BaseCoordinate<{
   type?: 'cartesian';
-}>;
-
-export type Cartesian3DCoordinate = BaseCoordinate<{
-  type?: 'cartesian3D';
 }>;
 
 export type ParallelCoordinate = BaseCoordinate<{

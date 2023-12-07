@@ -23,5 +23,3 @@ export function unemploymentAreaStackedLegendVertical(): G2Spec {
     },
   };
 }
-
-unemploymentAreaStackedLegendVertical.maxError = 180;

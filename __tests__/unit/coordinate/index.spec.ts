@@ -4,7 +4,6 @@ import {
   Transpose,
   Parallel,
   Fisheye,
-  Cartesian3D,
 } from '../../../src/coordinate';
 
 describe('coordinate', () => {
@@ -50,9 +49,5 @@ describe('coordinate', () => {
 
   it('Fisheye({...}) returns expected coordinate transformations', () => {
     expect(Fisheye({})).toEqual([['fisheye', 0, 0, 2, 2, false]]);
-  });
-
-  it('Cartesian3D({...}) returns expected coordinate transformations', () => {
-    expect(Cartesian3D({})).toEqual([['cartesian3D']]);
   });
 });

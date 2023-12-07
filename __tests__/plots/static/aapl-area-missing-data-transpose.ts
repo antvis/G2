@@ -32,5 +32,3 @@ export function aaplAreaMissingDataTranspose(): G2Spec {
     },
   };
 }
-
-aaplAreaMissingDataTranspose.maxError = 125;

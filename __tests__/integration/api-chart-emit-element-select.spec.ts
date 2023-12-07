@@ -27,12 +27,12 @@ describe('chart.emit', () => {
       data: { data: [{ population: 5038433 }, { population: 3983091 }] },
     });
     await sleep(20);
-    await expect(canvas).toMatchCanvasSnapshot(dir, 'step0');
+    await expect(canvas).toMatchDOMSnapshot(dir, 'step0');
 
     // chart.emit('element:unselect', options) should reset.
     chart.emit('element:unselect', {});
     await sleep(20);
-    await expect(canvas).toMatchCanvasSnapshot(dir, 'step1');
+    await expect(canvas).toMatchDOMSnapshot(dir, 'step1');
 
     chart.off();
 

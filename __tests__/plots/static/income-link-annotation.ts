@@ -74,5 +74,3 @@ export function incomeLinkAnnotation(): G2Spec {
     ],
   };
 }
-
-incomeLinkAnnotation.maxError = 32;

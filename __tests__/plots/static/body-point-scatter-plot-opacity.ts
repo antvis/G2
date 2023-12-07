@@ -17,5 +17,3 @@ export function bodyPointScatterPlotOpacity(): G2Spec {
     },
   };
 }
-
-bodyPointScatterPlotOpacity.maxError = 100;

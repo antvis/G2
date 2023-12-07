@@ -34,5 +34,3 @@ export function aaplLineBasicSampleLabelFilter(): G2Spec {
     },
   };
 }
-
-aaplLineBasicSampleLabelFilter.maxError = 100;

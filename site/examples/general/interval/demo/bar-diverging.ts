@@ -26,7 +26,7 @@ chart
   .encode('x', 'age')
   .encode('y', (d) => (d.sex === 1 ? -d.people : d.people))
   .encode('color', 'sex')
-  .scale('color', { type: 'ordinal', range: ['#ca8861', '#675193'] })
+  .scale('color', { type: 'ordinal' })
   .scale('x', { range: [1, 0] })
   .axis('y', { labelFormatter: '~s' })
   .legend('color', { labelFormatter: (d) => (d === 1 ? 'Male' : 'Female') })

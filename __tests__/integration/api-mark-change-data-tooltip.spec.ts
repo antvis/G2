@@ -1,12 +1,12 @@
 import { CustomEvent as GCustomEvent } from '@antv/g';
 import { markChangeDataTooltip as render } from '../plots/api/mark-change-data-tooltip';
 import { PLOT_CLASS_NAME } from '../../src';
-import { createDOMGCanvas } from './utils/createDOMGCanvas';
+import { createNodeGCanvas } from './utils/createNodeGCanvas';
 import { sleep } from './utils/sleep';
 import './utils/useSnapshotMatchers';
 
 describe('mark.changeData tooltip', () => {
-  const canvas = createDOMGCanvas(640, 480);
+  const canvas = createNodeGCanvas(640, 480);
 
   it('mark.changeData(width, height) should rerender expected chart', async () => {
     const { finished, button, chart } = render({
@@ -30,6 +30,7 @@ describe('mark.changeData tooltip', () => {
       }),
     );
     await expect(canvas).toMatchDOMSnapshot(dir, render.name, {
+      fileFormat: 'html',
       selector: '.g2-tooltip',
     });
   });

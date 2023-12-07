@@ -194,3 +194,7 @@ export function ElementHighlight({
     });
   };
 }
+
+ElementHighlight.props = {
+  reapplyWhenUpdate: true,
+};

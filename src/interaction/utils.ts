@@ -42,9 +42,15 @@ export function selectPlotArea(root: DisplayObject): DisplayObject {
   return select(root).select(`.${PLOT_CLASS_NAME}`).node();
 }
 
+export function bboxOf(node) {
+  if (node.nodeName !== 'rect') return node.getRenderBounds();
+  const { x, y, width, height } = node.style;
+  return { min: [x, y], max: [x + width, y + height] };
+}
+
 export function mousePosition(target, event) {
   const { offsetX, offsetY } = event;
-  const bbox = target.getRenderBounds();
+  const bbox = bboxOf(target);
   const {
     min: [x, y],
     max: [x1, y1],

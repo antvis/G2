@@ -27,5 +27,3 @@ export function aaplLineSliderTransposed(): G2Spec {
     },
   };
 }
-
-aaplLineSliderTransposed.maxError = 100;

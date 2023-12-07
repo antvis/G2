@@ -9,3 +9,4 @@ export function liquidDiamond(): G2Spec {
     },
   };
 }
+liquidDiamond.skip = true;

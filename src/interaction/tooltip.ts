@@ -16,17 +16,21 @@ import {
   selectFacetG2Elements,
   createDatumof,
   selectElementByData,
+  bboxOf,
 } from './utils';
 import { dataOf } from './event';
 
 function getContainer(
   group: IElement,
-  mount: string | HTMLElement,
+  mount?: string | HTMLElement,
 ): HTMLElement {
-  if (mount)
+  if (mount) {
     return typeof mount === 'string' ? document.querySelector(mount) : mount;
-  // @ts-ignore
-  return group.getRootNode().defaultView.getConfig().container;
+  }
+  const canvas: any = group.ownerDocument.defaultView
+    .getContextService()
+    .getDomElement();
+  return canvas.parentElement as unknown as HTMLElement;
 }
 
 function getBounding(root): BBox {
@@ -109,12 +113,10 @@ function showTooltip({
   mount,
   bounding,
 }) {
-  const canvasContainer = root.getRootNode().defaultView.getConfig().container;
   const container = getContainer(root, mount);
-
+  const canvasContainer = getContainer(root);
   // All the views share the same tooltip.
   const parent = single ? canvasContainer : root;
-
   const b = bounding || getBounding(root);
   const containerOffset = getContainerOffset(canvasContainer, container);
   const {
@@ -148,8 +150,8 @@ function hideTooltip({ root, single, emitter, nativeEvent = true }) {
   if (nativeEvent) {
     emitter.emit('tooltip:hide', { nativeEvent });
   }
-  const canvasContainer = root.getRootNode().defaultView.getConfig().container;
-  const parent = single ? canvasContainer : root;
+  const container = getContainer(root);
+  const parent = single ? container : root;
   const { tooltipElement } = parent;
   if (tooltipElement) {
     tooltipElement.hide();
@@ -157,8 +159,8 @@ function hideTooltip({ root, single, emitter, nativeEvent = true }) {
 }
 
 function destroyTooltip({ root, single }) {
-  const canvasContainer = root.getRootNode().defaultView.getConfig().container;
-  const parent = single ? canvasContainer : root;
+  const container = getContainer(root);
+  const parent = single ? container : root;
   if (!parent) return;
   const { tooltipElement } = parent;
   if (tooltipElement) {
@@ -519,7 +521,8 @@ export function seriesTooltip(
 
   const indexByFocus = (focus, I, X) => {
     const finalX = abstractX(focus);
-    const [minX, maxX] = sort([X[0], X[X.length - 1]]);
+    const DX = X.filter(defined);
+    const [minX, maxX] = sort([DX[0], DX[DX.length - 1]]);
     // If closest is true, always find at least one element.
     // Otherwise, skip element out of plot area.
     if (!closest && (finalX < minX || finalX > maxX)) return null;
@@ -563,7 +566,7 @@ export function seriesTooltip(
     (event) => {
       const mouse = mousePosition(root, event);
       if (!mouse) return;
-      const bbox = root.getRenderBounds();
+      const bbox = bboxOf(root);
       const x = bbox.min[0];
       const y = bbox.min[1];
       const focus = [mouse[0] - startX, mouse[1] - startY];
@@ -991,3 +994,7 @@ export function Tooltip(options) {
     });
   };
 }
+
+Tooltip.props = {
+  reapplyWhenUpdate: true,
+};

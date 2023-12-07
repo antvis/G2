@@ -27,6 +27,14 @@
         "en": "2.5D Column"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*GThCTqSNiSkAAAAAAAAAAAAADmJ7AQ/fmt.webp"
+    },
+    {
+      "filename": "timeline.ts",
+      "title": {
+        "zh": "时间轴 Timeline",
+        "en": "Timeline"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*NUHAS79kw-kAAAAAAAAAAAAADmJ7AQ/fmt.webp"
     }
   ]
 }

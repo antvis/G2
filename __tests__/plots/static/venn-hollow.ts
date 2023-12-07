@@ -48,5 +48,3 @@ export function vennHollow(): G2Spec {
     ],
   };
 }
-
-vennHollow.maxError = 100;

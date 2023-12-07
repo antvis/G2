@@ -42,5 +42,3 @@ profitIntervalBrushFilter.steps = ({ canvas }) => {
     },
   ];
 };
-
-profitIntervalBrushFilter.maxError = 100;

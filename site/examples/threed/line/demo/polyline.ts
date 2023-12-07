@@ -2,7 +2,8 @@ import { CameraType } from '@antv/g';
 import { Renderer as WebGLRenderer } from '@antv/g-webgl';
 import { Plugin as ThreeDPlugin } from '@antv/g-plugin-3d';
 import { Plugin as ControlPlugin } from '@antv/g-plugin-control';
-import { Runtime, corelib, threedlib, extend } from '@antv/g2';
+import { Runtime, corelib, extend } from '@antv/g2';
+import { threedlib } from '@antv/g2-extension-3d';
 
 // Create a WebGL renderer.
 const renderer = new WebGLRenderer();

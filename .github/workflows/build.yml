@@ -24,20 +24,12 @@ jobs:
           npm install
           npm run ci
 
-      - name: Upload Snapshot
-        if: ${{ failure() }}
-        env:
-          REF_NAME: ${{ github.ref_name }}
-          GITHUB_WORKSPACE: ${{ github.workspace }}
-          OSS_REGION: ${{ secrets.OSS_REGION }}
-          OSS_ACCESS_KEY_ID: ${{ secrets.OSS_ACCESS_KEY_ID }}
-          OSS_ACCESS_KEY_SECRET: ${{ secrets.OSS_ACCESS_KEY_SECRET }}
-          OSS_BUCKET: ${{ secrets.OSS_BUCKET }}
-        run: |
-          npm run upload
-
-      - name: Update coverall
-        if: ${{ success() }}
-        uses: coverallsapp/github-action@master
+      - name: Upload blob report to GitHub Actions Artifacts
+        if: always()
+        uses: actions/upload-artifact@v3
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          name: snapshots
+          path: |
+            __tests__/integration/snapshots/**/*-actual.svg
+            __tests__/integration/snapshots/**/*-actual.html
+          retention-days: 1

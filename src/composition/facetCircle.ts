@@ -71,7 +71,7 @@ function subLayoutFacetCircle(data) {
   const a3 = a0 + a01 / 2;
   const d = ir * t;
   const cx = x0 + d * Math.sin(a3); // center x of inscribed circle
-  const cy = y0 + d * Math.cos(a3); // center y of inscribed circle
+  const cy = y0 - d * Math.cos(a3); // center y of inscribed circle
   return [cx - s / 2, cy - s / 2, s, s];
 }
 

@@ -15,5 +15,3 @@ export function bodyPointScatterPlot(): G2Spec {
     },
   };
 }
-
-bodyPointScatterPlot.maxError = 100;

@@ -1,5 +1,6 @@
 import { deepMix, isNumber } from '@antv/util';
 import { subObject } from '../utils/helper';
+import { prettyNumber } from '../utils/number';
 import { CompositeMarkComponent as CC } from '../runtime';
 import { LiquidMark } from '../spec';
 import { LiquidShape } from '../shape';
@@ -89,7 +90,7 @@ export const Liquid: CC<LiquidOptions> = (options) => {
     }),
     deepMix({}, DEFAULT_TEXT_OPTIONS, {
       style: {
-        text: `${percent * 100} %`,
+        text: `${prettyNumber(percent * 100)} %`,
         ...textStyle,
       },
       animate,

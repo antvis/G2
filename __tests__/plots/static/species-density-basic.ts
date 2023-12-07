@@ -25,5 +25,3 @@ export function speciesDensityBasic(): G2Spec {
     tooltip: false,
   };
 }
-
-speciesDensityBasic.maxError = 100;

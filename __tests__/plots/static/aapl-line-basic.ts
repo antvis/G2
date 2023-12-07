@@ -11,7 +11,8 @@ export function aaplLineBasic(): G2Spec {
       x: 'date',
       y: 'close',
     },
+    slider: {
+      x: {},
+    },
   };
 }
-
-aaplLineBasic.maxError = 100;

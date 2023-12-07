@@ -1,4 +1,3 @@
-import type { AdviseParams } from '@antv/ava';
 import { MarkComponent } from '../runtime';
 import { Encode } from './encode';
 import { Transform } from './transform';
@@ -19,7 +18,6 @@ import {
 import { Closeable, Literal2Object, Padding } from './utils';
 
 export type Mark =
-  | AutoMark
   | IntervalMark
   | RectMark
   | LineMark
@@ -40,6 +38,7 @@ export type Mark =
   | RangeYMark
   | ConnectorMark
   | SankeyMark
+  | ChordMark
   | PathMark
   | TreemapMark
   | PackMark
@@ -75,6 +74,7 @@ export type MarkTypes =
   | 'rangeX'
   | 'rangeY'
   | 'sankey'
+  | 'chord'
   | 'path'
   | 'treemap'
   | 'pack'
@@ -188,7 +188,7 @@ export type BaseMark<T extends MarkTypes, C extends string = ChannelTypes> = {
     Partial<Record<PositionChannelTypes, Closeable<ScrollbarComponent>>>
   >;
   title?: string | TitleComponent;
-  interaction?: Literal2Object<Interaction>;
+  interaction?: Literal2Object<Interaction> & Record<string, any>;
   theme?: Theme;
 };
 
@@ -285,6 +285,35 @@ export type SankeyMark = BaseMark<
     iterations?: number;
     // support config the depth of node
     nodeDepth?: (datum: any, maxDepth: number) => number;
+  };
+  nodeLabels: Record<string, any>[];
+  linkLabels: Record<string, any>[];
+};
+
+export type ChordMark = BaseMark<
+  'chord',
+  | 'source'
+  | 'target'
+  | 'value'
+  | `node${Capitalize<ChannelTypes>}`
+  | `link${Capitalize<ChannelTypes>}`
+  | ChannelTypes
+> & {
+  layout?: {
+    nodes?: (graph: any) => any;
+    links?: (graph: any) => any;
+    y?: number;
+    id?: (node: any) => any;
+    sortBy?:
+      | 'id'
+      | 'weight'
+      | 'frequency'
+      | null
+      | ((a: any, b: any) => number);
+    nodeWidthRatio?: number;
+    nodePaddingRatio?: number;
+    sourceWeight?(edge: any): number;
+    targetWeight?(edge: any): number;
   };
   nodeLabels: Record<string, any>[];
   linkLabels: Record<string, any>[];
@@ -394,4 +423,3 @@ export type HeatmapMark = BaseMark<'heatmap'>;
 export type LiquidMark = BaseMark<'liquid'>;
 
 export type CustomMark = BaseMark<MarkComponent, ChannelTypes>;
-export type AutoMark = BaseMark<'auto'> & AdviseParams;

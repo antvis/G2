@@ -42,6 +42,7 @@ import {
   Density as DensityGeometry,
   Heatmap,
   Liquid,
+  Chord,
 } from '../../../src/mark';
 import { Category10, Category20 } from '../../../src/palette';
 import {
@@ -128,6 +129,7 @@ import {
   NormalizeY,
   Jitter,
   JitterX,
+  JitterY,
   SymmetryY,
   DiffY,
   Select,
@@ -199,6 +201,7 @@ describe('stdlib', () => {
       'transform.dodgeX': DodgeX,
       'transform.jitter': Jitter,
       'transform.jitterX': JitterX,
+      'transform.jitterY': JitterY,
       'transform.symmetryY': SymmetryY,
       'transform.diffY': DiffY,
       'transform.stackEnter': StackEnter,
@@ -248,6 +251,7 @@ describe('stdlib', () => {
       'mark.rangeX': RangeX,
       'mark.rangeY': RangeY,
       'mark.sankey': Sankey,
+      'mark.chord': Chord,
       'mark.path': Path,
       'mark.treemap': Treemap,
       'mark.pack': PackGeometry,

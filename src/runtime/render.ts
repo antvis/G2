@@ -140,14 +140,15 @@ export function renderToMountedElement<T extends G2ViewTree = G2ViewTree>(
   const selection = select(group);
   context.group = group;
   context.emitter = emitter;
+  context.canvas =
+    context.canvas || (group?.ownerDocument?.defaultView as GCanvas);
 
   emitter.emit(ChartEvent.BEFORE_RENDER);
   // Plot the chart and mutate context.
   // Make sure that plot chart after container is ready for every time.
   plot<T>({ ...keyed, width, height }, selection, library, context)
     .then(() => {
-      const canvas = group.ownerDocument.defaultView;
-      canvas.requestAnimationFrame(() => {
+      context.canvas?.requestAnimationFrame(() => {
         emitter.emit(ChartEvent.AFTER_RENDER);
         resolve?.();
       });

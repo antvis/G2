@@ -26,6 +26,7 @@ export async function indicesLineChartIndexSeries(): Promise<G2Spec> {
       },
     ],
     interaction: {
+      tooltip: false,
       chartIndex: {
         ruleStroke: '#aaa',
         labelDx: 5,
@@ -50,5 +51,3 @@ indicesLineChartIndexSeries.steps = ({ canvas }) => {
     }),
   ];
 };
-
-indicesLineChartIndexSeries.maxError = 300;

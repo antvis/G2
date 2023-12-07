@@ -44,5 +44,3 @@ export function vennBasic(): G2Spec {
     ],
   };
 }
-
-vennBasic.maxError = 100;

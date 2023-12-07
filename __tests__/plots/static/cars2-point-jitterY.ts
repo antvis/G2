@@ -10,13 +10,13 @@ export function cars2PointJitterY(): G2Spec {
       value: 'data/cars2.csv',
     },
     scale: {
-      x: { type: 'point' },
+      y: { type: 'point' },
       color: { type: 'ordinal' },
     },
-    transform: [{ type: 'sortX' }, { type: 'jitterX', random }],
+    transform: [{ type: 'sortY' }, { type: 'jitterY', random }],
     encode: {
-      y: 'Horsepower',
-      x: 'Cylinders',
+      y: 'Cylinders',
+      x: 'Horsepower',
       color: 'Cylinders',
     },
   };

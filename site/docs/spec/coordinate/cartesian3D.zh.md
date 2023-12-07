@@ -10,7 +10,8 @@ order: 5
 <img alt="cartesian3D" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*KNCUQqzw2JsAAAAAAAAAAAAADmJ7AQ/original" height="600" />
 
 ```js
-import { Runtime, corelib, threedlib, extend } from '@antv/g2';
+import { Runtime, corelib, extend } from '@antv/g2';
+import { threedlib } from '@antv/g2-extension-3d';
 
 const Chart = extend(Runtime, { ...corelib(), ...threedlib() });
 
