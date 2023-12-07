@@ -29,8 +29,11 @@ chart
   .encode('shape', 'point')
   .scale('size', { rangeMax: 35 })
   .legend(false)
-  .style('stroke', 'black')
-  .style('opacity', 0.8)
-  .style('lineWidth', 1);
+  .style({
+    stroke: 'black',
+    strokeOpacity: 0.1,
+    opacity: 0.8,
+    lineWidth: 1,
+  });
 
 chart.render();

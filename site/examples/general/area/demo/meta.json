@@ -10,7 +10,7 @@
         "zh": "阶梯面积图",
         "en": "Step Area Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*NRD9RKPyOEsAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*v20yQZopRV4AAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "area.ts",
@@ -18,7 +18,7 @@
         "zh": "面积图",
         "en": "Area Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ZxtyTrhyN4sAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*WkMRSKoc57UAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "missing-data-area.ts",
@@ -26,7 +26,7 @@
         "zh": "数据缺失面积图",
         "en": "Missing Data Area Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ns2sS5S_VEAAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ox-rS7bQE48AAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "area-gradient.ts",
@@ -34,7 +34,7 @@
         "zh": "渐变色面积图",
         "en": "Gradient Area Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*VasvRpYGSLYAAAAAAAAAAAAADmJ7AQ"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*43MGTK5z-KgAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "stacked-area.ts",
@@ -42,7 +42,7 @@
         "zh": "堆叠面积图",
         "en": "Stacked Area Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*O3TaRpybBCgAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Cla-RK74-GgAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "orderly-area.ts",
@@ -50,7 +50,7 @@
         "zh": "彩条图",
         "en": "Stripe Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*HZ1BR6GS6U4AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*-NZbR5vNY28AAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "streamgraph.ts",
@@ -58,15 +58,15 @@
         "zh": "河流图",
         "en": "Streamgraph"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Vf-FQZH-5FMAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*LeTWR4RrSjoAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "percentage-area.ts",
       "title": {
-        "zh": "归一化堆积面积图",
+        "zh": "归一化堆叠面积图",
         "en": "Normalized Area, MaxIndex"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*WZe_T5tyWgoAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Pp6-RJMKJFUAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "cascade-area.ts",
@@ -74,7 +74,7 @@
         "zh": "出现顺序堆叠面积图",
         "en": "Stacked Area"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*3JKERLor91gAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Pgc7Q4K0cFwAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "label.ts",
@@ -82,7 +82,7 @@
         "zh": "面积图特殊标签",
         "en": "Area Label"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ZIamS4KwErEAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*IE5nQIEJOnsAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "area-difference.ts",
@@ -90,7 +90,7 @@
         "zh": "差分面积图",
         "en": "Area Difference"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*CJn4T4_Rf98AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*9jOYSrMpSe4AAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "area-band.ts",
@@ -98,7 +98,7 @@
         "zh": "板子图",
         "en": "Band Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*2ocsR71h_CIAAAAAAAAAAAAADmJ7AQ"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*2fXdTp9E-uwAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "range-spline-area.ts",
@@ -106,7 +106,7 @@
         "zh": "区间曲线面积图",
         "en": "Range Spline Area Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*oLjrRb6l8CAAAAAAAAAAAAAADmJ7AQ"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ln0-RKKu520AAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }

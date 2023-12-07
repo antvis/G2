@@ -19,7 +19,6 @@ chart
   .scale('y', { nice: true })
   .encode('x', 'mpg')
   .encode('y', 'hp')
-  .encode('color', 'steelblue')
   .label({
     text: 'name',
     stroke: '#fff',
