@@ -46,6 +46,7 @@ export { stateAgesPointDotPlot } from './stateages-point-dot-plot';
 export { temperaturesPointSequential } from './temperatures-point-sequential';
 export { disastersPointBubble } from './disasters-point-bubble';
 export { cars2PointJitterY } from './cars2-point-jitterY';
+export { cars2PointJitterX } from './cars2-point-jitterX';
 export { peoplePointStacked } from './people-point-stacked';
 export { intakePointAnnotation } from './intake-point-annotation';
 export { intakePointAnnotationWithArrow } from './intake-point-annotation-with-arrow';
@@ -58,6 +59,7 @@ export { aaplLineBasicLabelOverlapHide } from './aapl-line-basic-label-overlap-h
 export { aaplLineBasicSample } from './aapl-line-basic-sample';
 export { aaplLineBasicSampleLabelFilter } from './aapl-line-basic-sample-label-filter';
 export { aaplLineAreaBasicSample } from './aapl-line-area-basic-sample';
+export { aaplAreaLineSmoothSample } from './aapl-area-line-smooth-sample';
 export { aaplLinePointBasicSample } from './aapl-line-point-basic-sample';
 export { speciesDensityBasic } from './species-density-basic';
 export { speciesViolinBasic } from './species-violin-basic';

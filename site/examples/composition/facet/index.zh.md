@@ -1,4 +1,4 @@
 ---
-title: Facet
+title: 分面复合
 order: 2
 ---
