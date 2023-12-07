@@ -1,6 +1,6 @@
 ---
-title: band
+title: point
 order: 1
 ---
 
-<embed src="@/docs/spec/scale/band.zh.md"></embed>
+<embed src="@/docs/spec/scale/point.zh.md"></embed>
