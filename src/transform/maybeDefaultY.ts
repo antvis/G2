@@ -15,7 +15,6 @@ export const MaybeDefaultY: TC<MaybeDefaultYOptions> = () => {
       Array.isArray(data) &&
       (data.every(Array.isArray) || !data.some(isObject))
     ) {
-      console.log('yes');
       const extractY = (data, index: number) =>
         Array.isArray(data[0])
           ? data.map((item) => item[index])

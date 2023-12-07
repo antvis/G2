@@ -23,8 +23,8 @@ export const MaybeDefaultX: TC<MaybeDefaultXOptions> = () => {
         I,
         deepMix({}, mark, {
           encode: {
-            y: column(extractX(data, 0)),
-            y1: column(extractX(data, 1)),
+            x: column(extractX(data, 0)),
+            x1: column(extractX(data, 1)),
           },
         }),
       ];
