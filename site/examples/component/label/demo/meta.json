@@ -10,7 +10,7 @@
         "zh": "数据标签碰撞隐藏",
         "en": "Overlap Hide"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*clZ2SbxuHloAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*d3PIQKO4qpoAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "overflowHide.ts",
@@ -18,7 +18,7 @@
         "zh": "数据标签超出隐藏",
         "en": "Overflow Hide"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*EMy1RqEBmm4AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*nBSvRaadPpYAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "contrastReverse.ts",
@@ -26,7 +26,7 @@
         "zh": "数据标签颜色反转",
         "en": "Contrast Reverse"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*CUyIT4Bxx9wAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*uCijTZ64mdQAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "htmlLabel.ts",
@@ -34,7 +34,7 @@
         "zh": "HTML 标签",
         "en": "HTML Label"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*rUexRKH7czsAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*OMnRQ5IgftkAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }

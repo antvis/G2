@@ -19,7 +19,7 @@ chart
   .encode('y', 'close')
   .transform({
     type: 'sample',
-    thresholds: 500,
+    thresholds: 200,
     strategy: 'max',
   });
 

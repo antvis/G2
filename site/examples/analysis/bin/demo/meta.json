@@ -10,7 +10,7 @@
         "zh": "直方图",
         "en": "Histogram"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*sE4kQYzbhS8AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*WJFaSp1JLHQAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "binx-color.ts",
@@ -18,7 +18,7 @@
         "zh": "颜色分类直方图",
         "en": "Histogram with Color"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*sk8XRJTkuwYAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*l6NBRburGGcAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "bin-color.ts",
@@ -34,7 +34,7 @@
         "zh": "透明度分箱",
         "en": "Bin Opacity Channel"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*T_YISqIQuasAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*REZQSLd63dYAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "bin-size.ts",
@@ -42,7 +42,7 @@
         "zh": "大小分箱",
         "en": "Bin Size Channel"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*CWRPSrX4bEcAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*OTA1TLuF-l4AAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "poisson.ts",
@@ -50,7 +50,7 @@
         "zh": "泊松分布",
         "en": "Poisson distribution"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*JGWJSYvn8okAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*1YpETqJXr9QAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }

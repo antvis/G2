@@ -72,7 +72,7 @@ function medal(ranking) {
       text,
       fill: 'gray',
       textAlign: 'center',
-      transform: `translate(0, 25)`,
+      transform: `translate(0, 35)`,
     },
   });
 

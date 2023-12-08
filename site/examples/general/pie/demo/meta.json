@@ -10,7 +10,7 @@
         "zh": "饼图",
         "en": "Pie Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*uQh-RryfSfUAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xuKWQoLfxjwAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "pie-donut-text.ts",
@@ -18,7 +18,7 @@
         "zh": "饼图, 中心文本",
         "en": "Pie Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*vQQgQ4d11egAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ce-SSKsG36EAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "donut.ts",
@@ -26,7 +26,7 @@
         "zh": "甜甜圈图",
         "en": "Donut Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*wu8VQIWJJ50AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*LUQlSaccoLcAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "spider-label.ts",
@@ -42,7 +42,7 @@
         "zh": "径向扰动散点图",
         "en": "Radial Jitter Scatter"
       },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*eJQYQZQ_HZQAAAAAAAAAAAAADmJ7AQ"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*DziRQb4LMbAAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }

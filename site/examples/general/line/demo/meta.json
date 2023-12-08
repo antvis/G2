@@ -10,7 +10,7 @@
         "zh": "普通折线图",
         "en": "Basic Line Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*jTdCR7wVFZAAAAAAAAAAAAAADmJ7AQ"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*37vSSJwbSnwAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "line-sample.ts",
@@ -18,7 +18,7 @@
         "zh": "数据样本折线图",
         "en": "Sample Data Line Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*AoLUS4D86LwAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*68ViRIex2JEAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "line-connect-nulls.ts",
@@ -26,7 +26,7 @@
         "zh": "缺失折线图",
         "en": "Missing Data Line Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*46DiTJLA2t8AAAAAAAAAAAAADmJ7AQ"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ASKfTqMVdkgAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "line-series.ts",
@@ -34,7 +34,7 @@
         "zh": "系列折线图",
         "en": "Series Line Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*y84BS5AqJLYAAAAAAAAAAAAADmJ7AQ"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*YBR5RIcf97UAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "line-normalized.ts",
@@ -42,7 +42,7 @@
         "zh": "归一化折线图",
         "en": "Normalized Line Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*MzXYRqHjHQEAAAAAAAAAAAAADmJ7AQ"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*WV2nRotltk4AAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "line-aggregated-label.ts",
@@ -50,7 +50,7 @@
         "zh": "聚合折线图",
         "en": "Aggregated Line Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*-q4yQZ7WtDcAAAAAAAAAAAAADmJ7AQ"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Ti6mSZ8nHjYAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "line-var-size.ts",
@@ -58,7 +58,7 @@
         "zh": "变宽折线图",
         "en": "Var Size Line Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*pWrERLZIMyQAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*rjwSS4BTu3MAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "line-var-size-missing.ts",
@@ -66,7 +66,7 @@
         "zh": "缺失变宽折线图",
         "en": "Missing Var Size Line Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*haZaQaG0tBgAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*X9vfS6o9FqMAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "line-var-size-facet.ts",
@@ -74,7 +74,7 @@
         "zh": "轨迹图",
         "en": "Trail"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*yI3VRr4tw44AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*lzESSbCPw2IAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "line-variable-color.ts",
@@ -82,7 +82,7 @@
         "zh": "多色折线图",
         "en": "Variable Color Line Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*WVwSRa-HQAcAAAAAAAAAAAAADmJ7AQ"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*DKdDRrsfZywAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "line-gradient-encoding.ts",
@@ -90,7 +90,7 @@
         "zh": "颜色编码折线图",
         "en": "Gradient Encoding Line Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*OwgcQoNg8m8AAAAAAAAAAAAADmJ7AQ"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*t-GpRLtoipsAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "line-series-var-color.ts",
@@ -98,7 +98,7 @@
         "zh": "系列颜色编码折线图",
         "en": "Series Variable Color Line Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*EGMKRJE1kyYAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*B8sNSrK7-lsAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "line-threshold.ts",
@@ -106,7 +106,7 @@
         "zh": "阈值折线图",
         "en": "Threshold Line Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*YUrlS4AWYFkAAAAAAAAAAAAADmJ7AQ"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*rHYnQ5-S6twAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "line-slope.ts",
@@ -114,7 +114,7 @@
         "zh": "斜率图",
         "en": "Slope Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*zrqfRKBLvAsAAAAAAAAAAAAADmJ7AQ"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*RF2PTL6KNIQAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }
