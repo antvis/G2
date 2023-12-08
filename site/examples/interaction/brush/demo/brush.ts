@@ -16,7 +16,8 @@ chart
   .encode('color', 'gender')
   .encode('shape', 'point')
   .style({
-    fillOpacity: 0.7,
+    fillOpacity: 0.2,
+    lineWidth: 1,
     transform: 'scale(1, 1)',
     transformOrigin: 'center center',
   })
