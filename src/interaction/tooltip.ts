@@ -438,7 +438,7 @@ export function seriesTooltip(
     groupName,
     emitter,
     wait = 50,
-    leading = false,
+    leading = true,
     trailing = false,
     startX = 0,
     startY = 0,
@@ -860,7 +860,7 @@ export function tooltip(
 
   const addEventListeners = () => {
     if (!disableNative) {
-      console.log(111, 'addEventListeners');
+      // root.addEventListener('pointerover', pointerover);
       root.addEventListener('pointermove', pointerover);
       // Only emit pointerleave event when the pointer is not in the root area.
       // !! ！DO NOT USE pointerout event, it will emit when the pointer is in the child area.
@@ -870,6 +870,7 @@ export function tooltip(
 
   const removeEventListeners = () => {
     if (!disableNative) {
+      // root.removeEventListener('pointerover', pointerover);
       root.removeEventListener('pointermove', pointerover);
       root.removeEventListener('pointerleave', pointerleave);
     }

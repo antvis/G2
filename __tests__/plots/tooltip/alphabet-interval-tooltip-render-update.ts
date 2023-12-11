@@ -41,14 +41,14 @@ alphabetIntervalTooltipRenderUpdate.steps = ({ canvas }) => {
         await sleep(100);
         const elements = document.getElementsByClassName(ELEMENT_CLASS_NAME);
         const [e0] = elements;
-        e0.dispatchEvent(new CustomEvent('pointerover'));
+        e0.dispatchEvent(new CustomEvent('pointermove'));
       },
     },
     {
       changeState: async () => {
         const elements = document.getElementsByClassName(ELEMENT_CLASS_NAME);
         const [e0] = elements;
-        e0.dispatchEvent(new CustomEvent('pointerover'));
+        e0.dispatchEvent(new CustomEvent('pointermove'));
       },
     },
   ];

@@ -25,7 +25,7 @@ export function tooltipSteps(...index) {
     const elements = document.getElementsByClassName(ELEMENT_CLASS_NAME);
     const steps = index.map((i) => ({
       changeState: async () => {
-        elements[i].dispatchEvent(new CustomEvent('pointerover'));
+        elements[i].dispatchEvent(new CustomEvent('pointermove'));
       },
     }));
     return steps;
@@ -40,7 +40,7 @@ export function tooltipStepsByMarkType(markType, ...index) {
     );
     const steps = index.map((i) => ({
       changeState: async () => {
-        elements[i].dispatchEvent(new CustomEvent('pointerover'));
+        elements[i].dispatchEvent(new CustomEvent('pointermove'));
       },
     }));
     return steps;
