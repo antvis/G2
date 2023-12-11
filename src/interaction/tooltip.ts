@@ -688,7 +688,6 @@ export function seriesTooltip(
   ) as (...args: any[]) => void;
 
   const hide = (event: MouseEvent) => {
-    console.log(111, 'hide');
     hideTooltip({ root, single, emitter, event });
     if (crosshairs) hideRuleY(root);
     if (marker) hideMarker(root);
@@ -856,23 +855,21 @@ export function tooltip(
   ) as (...args: any[]) => void;
 
   const pointerleave = (event) => {
-    // const { target: element } = event;
-    console.log(1112, 'leave');
-    // if (!elementSet.has(element)) return;
     hideTooltip({ root, single, emitter, event });
   };
 
   const addEventListeners = () => {
     if (!disableNative) {
-      root.addEventListener('pointerover', pointerover);
+      console.log(111, 'addEventListeners');
       root.addEventListener('pointermove', pointerover);
+      // Only emit pointerleave event when the pointer is not in the root area.
+      // !! ！DO NOT USE pointerout event, it will emit when the pointer is in the child area.
       root.addEventListener('pointerleave', pointerleave);
     }
   };
 
   const removeEventListeners = () => {
     if (!disableNative) {
-      root.removeEventListener('pointerover', pointerover);
       root.removeEventListener('pointermove', pointerover);
       root.removeEventListener('pointerleave', pointerleave);
     }
