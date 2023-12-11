@@ -5,6 +5,30 @@
   },
   "demos": [
     {
+      "filename": "pie-base.ts",
+      "title": {
+        "zh": "简单饼图",
+        "en": "Simple pie chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xuKWQoLfxjwAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "donut-base.ts",
+      "title": {
+        "zh": "简单环图",
+        "en": "Simple donut chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xuKWQoLfxjwAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "pie-base-face.ts",
+      "title": {
+        "zh": "2018 年第一季度短视频用户性别分布",
+        "en": "Gender distribution of short video users"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xuKWQoLfxjwAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
       "filename": "pie.ts",
       "title": {
         "zh": "饼图",
