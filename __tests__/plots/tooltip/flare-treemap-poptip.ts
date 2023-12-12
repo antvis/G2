@@ -69,7 +69,7 @@ flareTreemapPoptip.steps = ({ canvas }) => {
     },
     {
       changeState: async () => {
-        rectangle?.dispatchEvent(new CustomEvent('pointerout'));
+        rectangle?.dispatchEvent(new CustomEvent('pointerleave'));
       },
       skip: true,
     },
