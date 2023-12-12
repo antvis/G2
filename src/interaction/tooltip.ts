@@ -530,9 +530,13 @@ export function seriesTooltip(
     const finalX = abstractX(focus);
     const DX = X.filter(defined);
     const [minX, maxX] = sort([DX[0], DX[DX.length - 1]]);
+    // If only has one element(minX == maxX), show tooltip when hover whole chart
+    const isOnlyOneElement = minX === maxX;
+
     // If closest is true, always find at least one element.
     // Otherwise, skip element out of plot area.
-    if (!closest && (finalX < minX || finalX > maxX)) return null;
+    if (!closest && (finalX < minX || finalX > maxX) && !isOnlyOneElement)
+      return null;
     const search = bisector((i) => X[+i]).center;
     const i = search(I, finalX);
     return I[i];
