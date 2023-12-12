@@ -21,10 +21,6 @@ chart
   .transform({ type: 'stackY' })
   .encode('y', 'percent')
   .encode('color', 'item')
-  .scale('color', {
-    palette: 'spectral',
-    offset: (t) => t * 0.8 + 0.1,
-  })
   .legend('color', { position: 'bottom', layout: { justifyContent: 'center' } })
   .label({
     position: 'outside',
