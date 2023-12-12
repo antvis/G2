@@ -1,3 +1,19 @@
+## [5.1.12](https://github.com/antvis/g2/compare/5.1.11...5.1.12) (2023-12-12)
+
+
+### Bug Fixes
+
+* fix tooltip shown on one element line chart. ([#5917](https://github.com/antvis/g2/issues/5917)) ([52417d3](https://github.com/antvis/g2/commit/52417d301dc28f37100b2b48dd1b94039f5b29b5))
+* tooltip enterable ([#5626](https://github.com/antvis/g2/issues/5626)) ([08153e6](https://github.com/antvis/g2/commit/08153e6a464062ed829617bd83539408582b35d9))
+* tz in cross-env ([#5915](https://github.com/antvis/g2/issues/5915)) ([8fbfa4e](https://github.com/antvis/g2/commit/8fbfa4edfe0a9bb403b8ae20af7f4dcccd31d678))
+
+
+### Features
+
+* **rangeX and rangeY:** add syntactic sugar for data ([#5914](https://github.com/antvis/g2/issues/5914)) ([1a28b3d](https://github.com/antvis/g2/commit/1a28b3d8182b75a25cccf12a6d2a1f9ff8096f6d))
+
+
+
 ## [5.1.11](https://github.com/antvis/g2/compare/5.1.10...5.1.11) (2023-12-06)
 
 
