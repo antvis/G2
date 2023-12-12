@@ -797,7 +797,7 @@ export function tooltip(
   const elementSet = new Set(elements);
   const keyGroup = group(elements, groupKey);
 
-  const pointerover = throttle(
+  const pointermove = throttle(
     (event) => {
       const { target: element } = event;
       if (!elementSet.has(element)) {
@@ -860,18 +860,16 @@ export function tooltip(
 
   const addEventListeners = () => {
     if (!disableNative) {
-      // root.addEventListener('pointerover', pointerover);
-      root.addEventListener('pointermove', pointerover);
+      root.addEventListener('pointermove', pointermove);
       // Only emit pointerleave event when the pointer is not in the root area.
-      // !! ！DO NOT USE pointerout event, it will emit when the pointer is in the child area.
+      // !!!DO NOT USE pointerout event, it will emit when the pointer is in the child area.
       root.addEventListener('pointerleave', pointerleave);
     }
   };
 
   const removeEventListeners = () => {
     if (!disableNative) {
-      // root.removeEventListener('pointerover', pointerover);
-      root.removeEventListener('pointermove', pointerover);
+      root.removeEventListener('pointermove', pointermove);
       root.removeEventListener('pointerleave', pointerleave);
     }
   };
@@ -882,7 +880,7 @@ export function tooltip(
     if (!element) return;
     const bbox = element.getBBox();
     const { x, y, width, height } = bbox;
-    pointerover({
+    pointermove({
       target: element,
       offsetX: x + width / 2,
       offsetY: y + height / 2,
