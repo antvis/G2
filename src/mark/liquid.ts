@@ -64,7 +64,11 @@ export const Liquid: CC<LiquidOptions> = (options) => {
 
   const newData = [{ percent, type: 'liquid' }];
 
-  const contentStyle = subObject(style, 'content');
+  const contentStyle = {
+    ...subObject(style, 'text'),
+    ...subObject(style, 'content'),
+  };
+
   const outline = subObject(style, 'outline');
   const wave = subObject(style, 'wave');
   const background = subObject(style, 'background');
