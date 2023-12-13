@@ -293,6 +293,7 @@ export { liquidPin } from './liquid-pin';
 export { liquidRect } from './liquid-rect';
 export { liquidCircle } from './liquid-circle';
 export { liquidDiamond } from './liquid-diamond';
+export { liquidContent } from './liquid-content';
 export { liquidTriangle } from './liquid-triangle';
 export { liquidCustomShape } from './liquid-custom-shape';
 export { alphabetIntervalAxisOptions } from './alphabet-interval-axis-options';
