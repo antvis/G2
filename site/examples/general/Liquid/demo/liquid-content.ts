@@ -6,8 +6,10 @@ const chart = new Chart({
 });
 
 chart.liquid().data(0.581).style({
-  shape: 'pin', // Build-in shapes: rect, circle, pin, diamond, triangle.
-  contentFill: '#fff',
+  contentFill: '#000',
+  contentText: 'center text',
+  contentStroke: '#fff',
+  contentLineWidth: 2,
   outlineBorder: 4,
   outlineDistance: 8,
   waveLength: 128,
