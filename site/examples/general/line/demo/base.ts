@@ -37,6 +37,6 @@ chart.line().label({
   },
 });
 
-chart.point().tooltip(false);
+chart.point().style('fill', 'white').tooltip(false);
 
 chart.render();
