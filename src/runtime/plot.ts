@@ -938,7 +938,7 @@ async function plotView(
           );
           const { attributes } = newComponent;
           const [node] = element.childNodes;
-          return node.update(attributes);
+          return node.update(attributes, false);
         }),
     )
     .transitions();
