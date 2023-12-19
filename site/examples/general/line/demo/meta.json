@@ -5,6 +5,30 @@
   },
   "demos": [
     {
+      "filename": "base.ts",
+      "title": {
+        "zh": "基础折线图",
+        "en": "Line Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*o51NTbsP6EgAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "curved.ts",
+      "title": {
+        "zh": "曲线折线图",
+        "en": "Curved Line Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*hmVcTYfxR4gAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "step.ts",
+      "title": {
+        "zh": "阶梯折线图",
+        "en": "Step Line Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xvGZQY7sKhIAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
       "filename": "line-basic.ts",
       "title": {
         "zh": "普通折线图",
