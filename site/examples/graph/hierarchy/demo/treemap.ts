@@ -19,7 +19,7 @@ chart
     paddingInner: 1,
   })
   .encode('value', 'size')
-  .encode('color', (d) => d.parent.data.name.split('.')[1])
+  .encode('color', (d) => d.path[1])
   .scale('color', { range: schemeTableau10 })
   .style(
     'labelText',

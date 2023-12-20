@@ -1,110 +1,11 @@
-import { deepMix } from '@antv/util';
-import {
-  treemap as treemapLayout,
-  treemapBinary,
-  treemapDice,
-  treemapSlice,
-  treemapSliceDice,
-  treemapSquarify,
-  treemapResquarify,
-} from 'd3-hierarchy';
+import { deepMix, get } from '@antv/util';
 import { subObject } from '../utils/helper';
 import { CompositionComponent as CC } from '../runtime';
 import { TreemapMark } from '../spec';
 import { maybeTooltip } from '../utils/mark';
-import { generateHierarchyRoot, field } from './utils';
+import { treeDataTransform } from '../utils/treeDataTransform';
 
 export type TreemapOptions = Omit<TreemapMark, 'type'>;
-
-type Layout = {
-  tile?:
-    | 'treemapBinary'
-    | 'treemapDice'
-    | 'treemapSlice'
-    | 'treemapSliceDice'
-    | 'treemapSquarify'
-    | 'treemapResquarify';
-  size?: [number, number];
-  round?: boolean;
-  // Ignore the value of the parent node when calculating the total value.
-  ignoreParentValue?: boolean;
-  ratio?: number;
-  padding?: number;
-  paddingInner?: number;
-  paddingOuter?: number;
-  paddingTop?: number;
-  paddingRight?: number;
-  paddingBottom?: number;
-  paddingLeft?: number;
-  sort?(a: any, b: any): number;
-  path?: (d: any) => any;
-  /** The granularity of Display layer.  */
-  layer?: number | ((d: any) => any);
-};
-
-type TreemapData = {
-  name: string;
-  children: TreemapData[];
-  [key: string]: any;
-}[];
-
-function getTileMethod(tile: string, ratio: number) {
-  const tiles = {
-    treemapBinary,
-    treemapDice,
-    treemapSlice,
-    treemapSliceDice,
-    treemapSquarify,
-    treemapResquarify,
-  };
-  const tileMethod =
-    tile === 'treemapSquarify' ? tiles[tile].ratio(ratio) : tiles[tile];
-  if (!tileMethod) {
-    throw new TypeError('Invalid tile method!');
-  }
-  return tileMethod;
-}
-
-function dataTransform(data, layout: Layout, encode): TreemapData {
-  const { value } = encode;
-  const tileMethod = getTileMethod(layout.tile, layout.ratio);
-  const root = generateHierarchyRoot(data, layout.path);
-
-  // Calculate the value and sort.
-  value
-    ? root
-        .sum((d) =>
-          layout.ignoreParentValue && d.children ? 0 : field(value)(d),
-        )
-        .sort(layout.sort)
-    : root.count();
-
-  treemapLayout()
-    .tile(tileMethod)
-    // @ts-ignore
-    .size(layout.size)
-    .round(layout.round)
-    .paddingInner(layout.paddingInner)
-    .paddingOuter(layout.paddingOuter)
-    .paddingTop(layout.paddingTop)
-    .paddingRight(layout.paddingRight)
-    .paddingBottom(layout.paddingBottom)
-    .paddingLeft(layout.paddingLeft)(root);
-
-  return root
-    .descendants()
-    .map((d) =>
-      Object.assign(d, {
-        x: [d.x0, d.x1],
-        y: [d.y0, d.y1],
-      }),
-    )
-    .filter(
-      typeof layout.layer === 'function'
-        ? layout.layer
-        : (d) => d.height === layout.layer,
-    );
-}
 
 // Defaults
 const GET_DEFAULT_LAYOUT_OPTIONS = (width, height) => ({
@@ -130,7 +31,8 @@ const GET_DEFAULT_OPTIONS = (width, height) => ({
   encode: {
     x: 'x',
     y: 'y',
-    color: (d) => d.data.parent.name,
+    key: 'id',
+    color: (d) => d.path[1],
   },
   scale: {
     x: { domain: [0, width], range: [0, 1] },
@@ -138,6 +40,10 @@ const GET_DEFAULT_OPTIONS = (width, height) => ({
   },
   style: {
     stroke: '#fff',
+  },
+  state: {
+    active: { opacity: 0.6 },
+    inactive: { opacity: 1 },
   },
 });
 
@@ -158,7 +64,7 @@ const DEFAULT_TOOLTIP_OPTIONS = {
 };
 
 export const Treemap: CC<TreemapOptions> = (options, context) => {
-  const { width, height } = context;
+  const { width, height, options: markOptions } = context;
 
   const {
     data,
@@ -171,32 +77,71 @@ export const Treemap: CC<TreemapOptions> = (options, context) => {
     ...resOptions
   } = options;
 
+  const drillDown = get(markOptions, ['interaction', 'drillDown']);
+
+  // Layout
+  const layoutOptions = deepMix(
+    {},
+    GET_DEFAULT_LAYOUT_OPTIONS(width, height),
+    layout,
+    {
+      layer: drillDown
+        ? (d) => {
+            return d.depth === 1;
+          }
+        : layout.layer,
+    },
+  );
+
   // Data
-  const transformedData = dataTransform(
+  const [transformedData, transformedDataAll] = treeDataTransform(
     data,
-    deepMix({}, GET_DEFAULT_LAYOUT_OPTIONS(width, height), layout),
+    layoutOptions,
     encode,
   );
 
   // Label
   const labelStyle = subObject(style, 'label');
 
-  return deepMix({}, GET_DEFAULT_OPTIONS(width, height), {
-    data: transformedData,
-    encode,
-    scale,
-    style,
-    labels: [
-      {
-        ...DEFAULT_LABEL_OPTIONS,
-        ...labelStyle,
-      },
-      ...labels,
-    ],
-    ...resOptions,
-    tooltip: maybeTooltip(tooltip, DEFAULT_TOOLTIP_OPTIONS),
-    axis: false,
-  });
+  return deepMix(
+    {},
+    GET_DEFAULT_OPTIONS(width, height),
+    {
+      data: transformedData,
+      scale,
+      style,
+      labels: [
+        {
+          ...DEFAULT_LABEL_OPTIONS,
+          ...labelStyle,
+        },
+        ...labels,
+      ],
+      ...resOptions,
+      encode,
+      tooltip: maybeTooltip(tooltip, DEFAULT_TOOLTIP_OPTIONS),
+      axis: false,
+    },
+    drillDown
+      ? {
+          interaction: {
+            ...resOptions.interaction,
+            legendFilter: false,
+            drillDown: drillDown
+              ? {
+                  ...drillDown,
+                  originData: transformedDataAll,
+                  layout: layoutOptions,
+                }
+              : undefined,
+          },
+          encode: {
+            color: (d) => d.data.name,
+            ...encode,
+          },
+        }
+      : {},
+  );
 };
 
 Treemap.props = {};
