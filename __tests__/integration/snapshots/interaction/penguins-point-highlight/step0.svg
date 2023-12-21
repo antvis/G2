@@ -399,24 +399,24 @@
             width="608"
             height="413"
           />
+          <g transform="matrix(3,0,0,3,145.763641,128.666672)">
+            <path
+              id="g-svg-397"
+              fill="rgba(255,0,0,1)"
+              d="M 0,3 A 3 3 0 1 0 6 3 A 3 3 0 1 0 0 3 Z"
+              r="3"
+              stroke-opacity="0.95"
+              stroke-width="0"
+              class="element-background"
+              fill-opacity="0.3"
+            />
+          </g>
           <g
             id="g-svg-53"
             fill="none"
             transform="matrix(1,0,0,1,0,0)"
             class="main-layer"
           >
-            <g transform="matrix(3,0,0,3,145.763641,128.666672)">
-              <path
-                id="g-svg-397"
-                fill="rgba(255,0,0,1)"
-                d="M 0,3 A 3 3 0 1 0 6 3 A 3 3 0 1 0 0 3 Z"
-                r="3"
-                stroke-opacity="0.95"
-                stroke-width="0"
-                class="element-background"
-                fill-opacity="0.3"
-              />
-            </g>
             <g transform="matrix(1,0,0,1,151.763641,134.666672)">
               <path
                 id="g-svg-55"

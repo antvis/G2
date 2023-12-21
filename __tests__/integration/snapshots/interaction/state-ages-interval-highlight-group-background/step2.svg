@@ -864,24 +864,24 @@
             width="548"
             height="413"
           />
+          <g transform="matrix(1,0,0,1,4.536721,0)">
+            <path
+              id="g-svg-176"
+              fill="rgba(204,214,236,1)"
+              d="M 0,0 l 89.74622950819672,0 l 0,413 l-89.74622950819672 0 z"
+              width="89.74622950819672"
+              height="413"
+              fill-opacity="0.3"
+              stroke-width="0"
+              class="element-background"
+            />
+          </g>
           <g
             id="g-svg-119"
             fill="none"
             transform="matrix(1,0,0,1,0,0)"
             class="main-layer"
           >
-            <g transform="matrix(1,0,0,1,4.536721,0)">
-              <path
-                id="g-svg-176"
-                fill="rgba(204,214,236,1)"
-                d="M 0,0 l 89.74622950819672,0 l 0,413 l-89.74622950819672 0 z"
-                width="89.74622950819672"
-                height="413"
-                fill-opacity="0.3"
-                stroke-width="0"
-                class="element-background"
-              />
-            </g>
             <g transform="matrix(1,0,0,1,9.872095,54.812729)">
               <path
                 id="g-svg-121"
