@@ -417,16 +417,15 @@ In addition to data-driven positioning, G2 also provides non-data-driven positio
     .encode('y', 'sold')
     .encode('color', 'genre');
 
-  // Relative positioning
+  // Absolute positioning
   chart.text().style({
-    x: '50%', // percentage
-    y: '50%', // percentage
+    x: 290, // Pixel coordinates
+    y: 200, // Pixel coordinates
     text: 'hello',
     textAlign: 'center',
     fontSize: 60,
     textBaseline: 'middle',
   });
-
   chart.render();
 
   return chart.getContainer();
@@ -453,10 +452,10 @@ In addition to data-driven positioning, G2 also provides non-data-driven positio
     .encode('y', 'sold')
     .encode('color', 'genre');
 
-  // Absolute positioning
+  // Relative positioning
   chart.text().style({
-    x: 290, // Pixel coordinates
-    y: 200, // Pixel coordinates
+    x: '50%', // percentage
+    y: '50%', // percentage
     text: 'hello',
     textAlign: 'center',
     fontSize: 60,
