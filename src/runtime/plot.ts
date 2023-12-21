@@ -1,6 +1,6 @@
 import { Vector2 } from '@antv/coord';
 import { DisplayObject, IAnimation as GAnimation, Rect } from '@antv/g';
-import { deepMix, upperFirst } from '@antv/util';
+import { deepMix, get, upperFirst } from '@antv/util';
 import { group, groups, sort } from 'd3-array';
 import { format } from 'd3-format';
 import { mapObject } from '../utils/array';
@@ -720,8 +720,15 @@ function initializeState(
       const { name } = descriptor;
       const scale = useRelationScale(descriptor, library);
       scales.push(scale);
+      if (name === 'y') {
+        scale.update({
+          ...scale.getOptions(),
+          xScale: get(scaleInstance, 'x'),
+        });
+      }
       assignScale(scaleInstance, { [name]: scale });
     }
+
     component.scaleInstances = scales;
   }
 
