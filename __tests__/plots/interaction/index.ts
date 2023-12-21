@@ -77,3 +77,4 @@ export { alphabetIntervalActiveScrollbar } from './alphabet-interval-active-scro
 export { profitIntervalLegendFilterElementHighlight } from './profit-interval-legend-filter-element-highlight';
 export { stocksLineSlider } from './stocks-line-slider';
 export { alphabetIntervalCustom } from './alphabet-interval-custom';
+export { mockIntervalTooltipBackground } from './mock-interval-tooltip-background';

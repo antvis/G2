@@ -58,36 +58,36 @@
             width="608"
             height="448"
           />
+          <g transform="matrix(1,0,0,1,262.545441,0)">
+            <path
+              id="g-svg-15"
+              fill="rgba(204,214,236,1)"
+              d="M 10,0 l 62.90909090909099,0 a 10,10,0,0,1,10,10 l 0,428 a 10,10,0,0,1,-10,10 l -62.90909090909099,0 a 10,10,0,0,1,-10,-10 l 0,-428 a 10,10,0,0,1,10,-10 z"
+              width="82.90909090909099"
+              height="448"
+              fill-opacity="0.3"
+              stroke-width="0"
+              class="element-background"
+            />
+          </g>
+          <g transform="matrix(1,0,0,1,41.454544,0)">
+            <path
+              id="g-svg-16"
+              fill="rgba(204,214,236,1)"
+              d="M 10,0 l 62.90909090909091,0 a 10,10,0,0,1,10,10 l 0,428 a 10,10,0,0,1,-10,10 l -62.90909090909091,0 a 10,10,0,0,1,-10,-10 l 0,-428 a 10,10,0,0,1,10,-10 z"
+              width="82.9090909090909"
+              height="448"
+              fill-opacity="0.3"
+              stroke-width="0"
+              class="element-background"
+            />
+          </g>
           <g
             id="g-svg-7"
             fill="none"
             transform="matrix(1,0,0,1,0,0)"
             class="main-layer"
           >
-            <g transform="matrix(1,0,0,1,262.545441,0)">
-              <path
-                id="g-svg-15"
-                fill="rgba(204,214,236,1)"
-                d="M 10,0 l 62.90909090909099,0 a 10,10,0,0,1,10,10 l 0,428 a 10,10,0,0,1,-10,10 l -62.90909090909099,0 a 10,10,0,0,1,-10,-10 l 0,-428 a 10,10,0,0,1,10,-10 z"
-                width="82.90909090909099"
-                height="448"
-                fill-opacity="0.3"
-                stroke-width="0"
-                class="element-background"
-              />
-            </g>
-            <g transform="matrix(1,0,0,1,41.454544,0)">
-              <path
-                id="g-svg-16"
-                fill="rgba(204,214,236,1)"
-                d="M 10,0 l 62.90909090909091,0 a 10,10,0,0,1,10,10 l 0,428 a 10,10,0,0,1,-10,10 l -62.90909090909091,0 a 10,10,0,0,1,-10,-10 l 0,-428 a 10,10,0,0,1,10,-10 z"
-                width="82.9090909090909"
-                height="448"
-                fill-opacity="0.3"
-                stroke-width="0"
-                class="element-background"
-              />
-            </g>
             <g transform="matrix(1,0,0,1,276.363647,219.324005)">
               <path
                 id="g-svg-9"

@@ -58,22 +58,22 @@
             width="608"
             height="448"
           />
+          <g transform="matrix(1,0,0,1,304,158.834999)">
+            <path
+              id="g-svg-19"
+              fill="rgba(204,214,236,1)"
+              d="M 214.312,0 A 224 224 0 0 1 212.181 136.964 L 0,65.165 Z"
+              fill-opacity="0.3"
+              stroke-width="0"
+              class="element-background"
+            />
+          </g>
           <g
             id="g-svg-7"
             fill="none"
             transform="matrix(1,0,0,1,0,0)"
             class="main-layer"
           >
-            <g transform="matrix(1,0,0,1,304,158.834999)">
-              <path
-                id="g-svg-19"
-                fill="rgba(204,214,236,1)"
-                d="M 214.312,0 A 224 224 0 0 1 212.181 136.964 L 0,65.165 Z"
-                fill-opacity="0.3"
-                stroke-width="0"
-                class="element-background"
-              />
-            </g>
             <g transform="matrix(1,0,0,1,304,194.121000)">
               <path
                 id="g-svg-9"
