@@ -1,10 +1,14 @@
 import { deepMix } from '@antv/util';
 import { TransformComponent as TC } from '../runtime';
 import { calcBBox } from '../utils/vector';
+import { PackTransform } from '../spec';
 
-export type PackOptions = Record<string, unknown>;
+export type PackOptions = Omit<PackTransform, 'type'>;
 
-function modifier(P, count, layout) {
+function modifier(P, count, layout, transform) {
+  const style = transform.find((item) => item.type === 'pack');
+  const { padding = 0, direction = 'col' } = style;
+
   const pcount = P.length;
   if (pcount === 0) return [];
 
@@ -37,20 +41,19 @@ function modifier(P, count, layout) {
 
   return P.map((points, m) => {
     const [x, y, width, height] = calcBBox(points);
-
-    const i = m % col;
-    const j = Math.floor(m / col);
+    const i = direction === 'col' ? m % col : Math.floor(m / row);
+    const j = direction === 'col' ? Math.floor(m / col) : m % row;
 
     const newX = i * size;
     const newY = (row - j - 1) * size + space;
 
-    const sx = size / width;
-    const sy = size / height;
+    const sx = (size - padding) / width;
+    const sy = (size - padding) / height;
 
     // Translate the shape and mark to make sure the center of
     // shape is overlap before and after scale transformation.
-    const tx = newX - x + offsetX * i;
-    const ty = newY - y - intervalY * j - offsetY;
+    const tx = newX - x + offsetX * i + (1 / 2) * padding;
+    const ty = newY - y - intervalY * j - offsetY + (1 / 2) * padding;
     return `translate(${tx}, ${ty}) scale(${sx}, ${sy})`;
   });
 }

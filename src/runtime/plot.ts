@@ -739,6 +739,7 @@ function initializeState(
       // This is for unit visualization to sync data domain.
       dataDomain,
       modifier,
+      transform,
       key: markKey,
     } = mark;
     const { index, channels, tooltip } = state;
@@ -761,7 +762,7 @@ function initializeState(
       calcPoints(index, markScaleInstance, value, coordinate),
     );
     const count = dataDomain || I.length;
-    const T = modifier ? modifier(P, count, layout) : [];
+    const T = modifier ? modifier(P, count, layout, transform) : [];
     const titleOf = (i) => tooltip.title?.[i]?.value;
     const itemsOf = (i) => tooltip.items.map((V) => V[i]);
     const visualData: Record<string, any>[] = I.map((d, i) => {

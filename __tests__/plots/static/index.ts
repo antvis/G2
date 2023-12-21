@@ -311,3 +311,5 @@ export { premierLeagueTable } from './premier-league-table';
 export { singlePointBasic } from './single-point-basic';
 export { populationFlowChordDefault } from './population-flow-chord-default';
 export { aaplLineRrangeXY } from './aapl-line-rangeXY';
+export { titanicPointPackSharedRowData } from './titanic-point-pack-shared-row-data';
+export { titanicPointPackSharedDataPadding } from './titanic-point-pack-shared-data-padding';
