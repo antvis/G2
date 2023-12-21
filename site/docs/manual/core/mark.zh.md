@@ -415,16 +415,16 @@ Select 标记转换提供了从一组图形中选择图形的能力。比如在�
     .encode('y', 'sold')
     .encode('color', 'genre');
 
-  // 相对定位
+
+  // 绝对定位
   chart.text().style({
-    x: '50%', // 百分比
-    y: '50%', // 百分比
+    x: 290, // 像素坐标
+    y: 200, // 像素坐标
     text: 'hello',
     textAlign: 'center',
     fontSize: 60,
     textBaseline: 'middle',
   });
-
   chart.render();
 
   return chart.getContainer();
@@ -451,10 +451,10 @@ Select 标记转换提供了从一组图形中选择图形的能力。比如在�
     .encode('y', 'sold')
     .encode('color', 'genre');
 
-  // 绝对定位
+  // 相对定位
   chart.text().style({
-    x: 290, // 像素坐标
-    y: 200, // 像素坐标
+    x: '50%', // 百分比
+    y: '50%', // 百分比
     text: 'hello',
     textAlign: 'center',
     fontSize: 60,
