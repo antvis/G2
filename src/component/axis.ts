@@ -388,11 +388,12 @@ function inferAxisLinearOverrideStyle(
         actualCy + innerR * sin,
       ];
 
-      let controllAngleCount = 3;
-      if (isPolar(coordinate) && xScale) {
+      const getAxisXDomainLength = () => {
         const { domain } = xScale.getOptions();
-        controllAngleCount = domain.length;
-      }
+        return domain.length;
+      };
+      const controllAngleCount =
+        isPolar(coordinate) && xScale ? getAxisXDomainLength() : 3;
 
       return {
         startPos,
@@ -636,9 +637,7 @@ const LinearAxisComponent: GCC<AxisOptions> = (options) => {
 
     return new AxisComponent({
       className: 'axis',
-      style: {
-        ...adaptor(finalAxisStyle),
-      },
+      style: adaptor(finalAxisStyle),
     }) as unknown as DisplayObject;
   };
 };
