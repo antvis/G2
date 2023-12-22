@@ -10,7 +10,31 @@
         "zh": "雷达图",
         "en": "Radar"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*QQSXQ5XnZJMAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*-xcxS7E8sKcAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "grid-radial.ts",
+      "title": {
+        "zh": "雷达图(带网格)",
+        "en": "Radar"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*zRVhQKaw1zwAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "radial-with-background-color.ts",
+      "title": {
+        "zh": "雷达图(带底色)",
+        "en": "Radar"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*jjhCTKfZHpgAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "complex-radial.ts",
+      "title": {
+        "zh": "复杂雷达图",
+        "en": "Radar"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xjsASojtRJgAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "parallel-radar.ts",

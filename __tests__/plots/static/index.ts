@@ -313,3 +313,6 @@ export { populationFlowChordDefault } from './population-flow-chord-default';
 export { aaplLineRrangeXY } from './aapl-line-rangeXY';
 export { titanicPointPackSharedRowData } from './titanic-point-pack-shared-row-data';
 export { titanicPointPackSharedDataPadding } from './titanic-point-pack-shared-data-padding';
+export { scoreByItemAreaBasicRadar } from './score-by-item-area-basic-radar';
+export { scoreByItemAreaLineRadar } from './score-by-item-area-line-radar';
+export { mockComplexRadar } from './mock-complex-radar';
