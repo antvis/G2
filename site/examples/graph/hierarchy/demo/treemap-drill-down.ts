@@ -61,10 +61,9 @@ chart
   .encode('value', 'value')
   .interaction({
     drillDown: {
-      breadCrumb: {
-        style: {
-          y: 12,
-        },
+      style: {
+        breadCrumbY: 12,
+        activeFill: 'red',
       },
     },
   })

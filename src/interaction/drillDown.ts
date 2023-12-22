@@ -1,4 +1,4 @@
-import { Text, Group, TextStyleProps } from '@antv/g';
+import { Text, Group } from '@antv/g';
 import {
   get,
   deepMix,
@@ -11,6 +11,7 @@ import {
 } from '@antv/util';
 import type { Node } from 'd3-hierarchy';
 import type { DisplayObject } from '@antv/g';
+import { subObject } from '../utils/helper';
 import { PLOT_CLASS_NAME } from '../runtime';
 import { select } from '../utils/selection';
 
@@ -24,42 +25,34 @@ function selectPlotArea(root: DisplayObject): DisplayObject {
 }
 
 export type DrillDownOptions = {
-  breadCrumb?: {
-    rootText: string;
-    style: TextStyleProps;
-    active: TextStyleProps;
+  style?: {
+    [key: string]: string;
   };
-  // Update data change, Whether it is fixed scale.color.
-  fixedColor?: boolean;
   originData?: Node[];
   layout?: any;
 };
 
 // Default breadCrumb config.
-const DEFAULT_BREADCRUMB = {
-  style: {
-    fill: 'rgba(0, 0, 0, 0.85)',
-    fontSize: 12,
-    y: 12,
-  },
-  active: {
-    fill: 'rgba(0, 0, 0, 0.5)',
-  },
+const DEFAULT_BREADCRUMB_STYLE = {
+  breadCrumbFill: 'rgba(0, 0, 0, 0.85)',
+  breadCrumbFontSize: 12,
+  breadCrumbY: 12,
+  activeFill: 'rgba(0, 0, 0, 0.5)',
 };
 
 /**
  * @todo DrillDown interaction.
  */
 export function DrillDown(drillDownOptions: DrillDownOptions = {}) {
-  const {
-    breadCrumb: textConfig = {},
-    originData = [],
-    layout,
-  } = drillDownOptions;
-  const breadCrumb = deepMix({}, DEFAULT_BREADCRUMB, textConfig);
+  const { style = {}, originData = [], layout } = drillDownOptions;
+
+  const breadCrumb = deepMix({}, DEFAULT_BREADCRUMB_STYLE, style);
+
+  const breadCrumbStyle = subObject(breadCrumb, 'breadCrumb');
+  const breadCrumbActiveStyle = subObject(breadCrumb, 'active');
 
   return (context) => {
-    const { update, setState, container, options, view } = context;
+    const { update, setState, container, options } = context;
     const plotArea = selectPlotArea(container);
     const mark = options.marks[0];
 
@@ -77,7 +70,7 @@ export function DrillDown(drillDownOptions: DrillDownOptions = {}) {
       // More path creation text.
       if (depth) {
         let name = '';
-        let y = breadCrumb.style.y;
+        let y = breadCrumbStyle.y;
         let x = 0;
         const textPath = [];
 
@@ -92,10 +85,10 @@ export function DrillDown(drillDownOptions: DrillDownOptions = {}) {
             style: {
               text,
               x,
-              path: [...textPath],
               // @ts-ignore
+              path: [...textPath],
               depth: index,
-              ...breadCrumb.style,
+              ...breadCrumbStyle,
               y,
             },
           });
@@ -108,7 +101,7 @@ export function DrillDown(drillDownOptions: DrillDownOptions = {}) {
             style: {
               x,
               text: ' / ',
-              ...breadCrumb.style,
+              ...breadCrumbStyle,
               y,
             },
           });
@@ -127,8 +120,7 @@ export function DrillDown(drillDownOptions: DrillDownOptions = {}) {
            * | / type3 |
            */
           if (x > maxWidth) {
-            console.log(textGroup.getBBox());
-            y = textGroup.getBBox().height + breadCrumb.style.y;
+            y = textGroup.getBBox().height + breadCrumbStyle.y;
             x = 0;
             drillText.attr({
               x,
@@ -156,7 +148,7 @@ export function DrillDown(drillDownOptions: DrillDownOptions = {}) {
           const originalAttrs = { ...item.attributes };
           item.attr('cursor', 'pointer');
           item.addEventListener('mouseenter', () => {
-            item.attr(breadCrumb.active);
+            item.attr(breadCrumbActiveStyle);
           });
           item.addEventListener('mouseleave', () => {
             item.attr(originalAttrs);
