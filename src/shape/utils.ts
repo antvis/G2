@@ -148,7 +148,7 @@ export function computeGradient(
     range: [0, 100],
   });
 
-  const percentage = (i) => p.map(P[i]);
+  const percentage = (i) => (Number.isNaN(P[i]) ? 0 : p.map(P[i]));
 
   const gradientMode = {
     // Interpolate the colors for this segment.
