@@ -126,7 +126,6 @@ export const Treemap: CC<TreemapOptions> = (options, context) => {
       ? {
           interaction: {
             ...resOptions.interaction,
-            legendFilter: false,
             drillDown: drillDown
               ? {
                   ...drillDown,

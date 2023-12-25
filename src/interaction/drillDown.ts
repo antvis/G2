@@ -1,19 +1,11 @@
 import { Text, Group } from '@antv/g';
-import {
-  get,
-  deepMix,
-  pick,
-  keys,
-  find,
-  size,
-  last,
-  isArray,
-} from '@antv/util';
+import { get, deepMix, pick, keys, find, size, last } from '@antv/util';
 import type { Node } from 'd3-hierarchy';
 import type { DisplayObject } from '@antv/g';
 import { subObject } from '../utils/helper';
 import { PLOT_CLASS_NAME } from '../runtime';
 import { select } from '../utils/selection';
+import { legendClearSetState } from './legendFilter';
 
 // Get element.
 const getElements = (plot) => {
@@ -162,6 +154,9 @@ export function DrillDown(drillDownOptions: DrillDownOptions = {}) {
         });
       }
 
+      // LegendFilter interaction and drillDown clash.
+      legendClearSetState(container, setState);
+
       // Update marks.
       setState('drillDown', (viewOptions) => {
         const { marks } = viewOptions;
@@ -210,14 +205,7 @@ export function DrillDown(drillDownOptions: DrillDownOptions = {}) {
             (paddingTop || (depth ? textGroup.getBBox().height + 10 : 0)) *
               heightRadio;
           domainY[1] = domainY[1] + paddingBottom * heightRadio;
-
-          if (isArray(transform)) {
-            const { type, color } = last(transform);
-            if (type === 'filter' && color) {
-              transform.pop();
-            }
-          }
-
+          console.log(colorDomain, 'colorDomain');
           // DrillDown by filtering the data and scale.
           return deepMix({}, mark, {
             data: newData,
@@ -226,13 +214,13 @@ export function DrillDown(drillDownOptions: DrillDownOptions = {}) {
               y: { domain: domainY },
               color: { domain: colorDomain },
             },
-            transform,
           });
         });
 
         return { ...viewOptions, marks: newMarks };
       });
-      await update();
+
+      await update(undefined, ['legendFilter']);
     };
 
     const createDrillClick = (e) => {

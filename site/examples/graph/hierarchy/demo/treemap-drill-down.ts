@@ -63,7 +63,7 @@ chart
     drillDown: {
       style: {
         breadCrumbY: 12,
-        activeFill: 'red',
+        activeFill: '#873bf4',
       },
     },
   })
