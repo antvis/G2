@@ -7,7 +7,7 @@ order: 1
 
 ## 开始使用
 
-<img alt="title" src="https://mass-office.alipay.com/huamei_qa8qxu/afts/img/A*Nmu-Tp-OpvEAAAAAAAAAAAAADmJ7AQ/original" width="500" />
+<img alt="title" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*_uibQJk2OqcAAAAAAAAAAAAADmJ7AQ/fmt.webp" width="500" />
 
 ```ts
 import { Chart } from '@antv/g2';

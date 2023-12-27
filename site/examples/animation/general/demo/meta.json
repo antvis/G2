@@ -10,7 +10,7 @@
         "zh": "PathIn",
         "en": "PathIn"
       },
-      "screenshot": "https://gw.alipayobjects.com/zos/raptor/1668167705967/pathIn.gif"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*uq_2SL14wgQAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "fade.ts",
@@ -18,7 +18,7 @@
         "zh": "FadeIn",
         "en": "FadeIn"
       },
-      "screenshot": "https://gw.alipayobjects.com/zos/raptor/1667976930984/fadeIn.gif"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*lW80R5AYDfEAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "scale-x.ts",
@@ -26,7 +26,7 @@
         "zh": "ScaleInX",
         "en": "ScaleInX"
       },
-      "screenshot": "https://gw.alipayobjects.com/zos/raptor/1667976930984/scaleInX.gif"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*4j9URodi54MAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "scale-y.ts",
@@ -34,7 +34,7 @@
         "zh": "ScaleInY",
         "en": "ScaleInY"
       },
-      "screenshot": "https://gw.alipayobjects.com/zos/raptor/1667976930984/scaleInY.gif"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*u5QxT7pZD68AAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "wave-in.ts",
@@ -42,7 +42,7 @@
         "zh": "WaveIn",
         "en": "WaveIn"
       },
-      "screenshot": "https://gw.alipayobjects.com/zos/raptor/1667976930984/waveIn.gif"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xL5hQ5TCR4cAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "zoom-in.ts",
@@ -50,7 +50,7 @@
         "zh": "ZoomIn",
         "en": "ZoomIn"
       },
-      "screenshot": "https://gw.alipayobjects.com/zos/raptor/1667976930984/zoomIn.gif"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*OE0wRJhaM3cAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }

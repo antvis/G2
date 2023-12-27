@@ -1,6 +1,6 @@
 import { Vector2 } from '@antv/coord';
 import { DisplayObject, IAnimation as GAnimation, Rect } from '@antv/g';
-import { deepMix, isArray, upperFirst } from '@antv/util';
+import { deepMix, upperFirst, isArray } from '@antv/util';
 import { group, groups } from 'd3-array';
 import { format } from 'd3-format';
 import { mapObject } from '../utils/array';
@@ -66,6 +66,7 @@ import {
   InteractionComponent,
   LabelTransform,
   LabelTransformComponent,
+  Scale,
   Shape,
   ShapeComponent,
   Theme,
@@ -741,7 +742,7 @@ function initializeState(
   processAxisZ(components);
 
   // Scale from marks and components.
-  const scaleInstance = {};
+  const scaleInstance: Record<string, Scale> = {};
 
   // Initialize scale from components.
   for (const component of components) {
@@ -751,8 +752,16 @@ function initializeState(
       const { name } = descriptor;
       const scale = useRelationScale(descriptor, library);
       scales.push(scale);
+      // Delivery the scale of axisX to the AxisY, in order to calculate the angle of axisY component when rendering radar chart
+      if (name === 'y') {
+        scale.update({
+          ...scale.getOptions(),
+          xScale: scaleInstance.x,
+        });
+      }
       assignScale(scaleInstance, { [name]: scale });
     }
+
     component.scaleInstances = scales;
   }
 
@@ -969,7 +978,7 @@ async function plotView(
           );
           const { attributes } = newComponent;
           const [node] = element.childNodes;
-          return node.update(attributes);
+          return node.update(attributes, false);
         }),
     )
     .transitions();

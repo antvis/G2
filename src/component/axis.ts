@@ -328,6 +328,7 @@ function inferAxisLinearOverrideStyle(
   orientation: GCO,
   bbox: BBox,
   coordinate: Coordinate,
+  xScale: Scale,
 ): {
   startPos?: [number, number];
   endPos?: [number, number];
@@ -387,14 +388,23 @@ function inferAxisLinearOverrideStyle(
         actualCy + innerR * sin,
       ];
 
+      const getAxisXDomainLength = () => {
+        const { domain } = xScale.getOptions();
+        return domain.length;
+      };
+      const controllAngleCount =
+        isPolar(coordinate) && xScale ? getAxisXDomainLength() : 3;
+
       return {
         startPos,
         endPos,
         gridClosed: endAngle - startAngle === 360,
         gridCenter: [actualCx, actualCy],
-        gridControlAngles: new Array(3)
+        gridControlAngles: new Array(controllAngleCount)
           .fill(0)
-          .map((d, i, arr) => ((endAngle - startAngle) / (arr.length - 1)) * i),
+          .map(
+            (d, i, arr) => ((endAngle - startAngle) / controllAngleCount) * i,
+          ),
       };
     }
   }
@@ -547,11 +557,10 @@ const LinearAxisComponent: GCC<AxisOptions> = (options) => {
     indexBBox,
     ...userDefinitions
   } = options;
-
-  return ({ scales: [scale], value, coordinate, theme }) => {
+  return ({ scales, value, coordinate, theme }) => {
     const { bbox } = value;
-    const { domain } = scale.getOptions();
-
+    const [scale] = scales;
+    const { domain, xScale } = scale.getOptions();
     const defaultStyle = inferDefaultStyle(
       scale,
       coordinate,
@@ -560,7 +569,6 @@ const LinearAxisComponent: GCC<AxisOptions> = (options) => {
       position,
       orientation,
     );
-
     const internalAxisStyle = {
       ...defaultStyle,
       ...style,
@@ -578,6 +586,7 @@ const LinearAxisComponent: GCC<AxisOptions> = (options) => {
       orientation,
       bbox,
       coordinate,
+      xScale,
     );
 
     const threeDOverrideStyle = infer3DAxisLinearOverrideStyle(coordinate);
@@ -604,7 +613,6 @@ const LinearAxisComponent: GCC<AxisOptions> = (options) => {
           return { ...d, bbox: bbox[1] };
         })
       : data;
-
     const finalAxisStyle = {
       ...internalAxisStyle,
       type: 'linear' as const,
@@ -654,7 +662,6 @@ const axisFactor: (
           : useDefinedLabelFormatter;
       const labelFilter = (datum: any, index: number, array: any[]) =>
         userDefinedLabelFilter(ticks[index], index, ticks);
-
       const normalizedOptions = {
         ...options,
         labelFormatter,

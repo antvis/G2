@@ -10,7 +10,7 @@
         "zh": "文本段落",
         "en": "Paragraph"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*0wgoQrNVRR0AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*W9TRQJd7BbsAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "poetry.ts",
@@ -18,7 +18,7 @@
         "zh": "诗词可视化",
         "en": "Poetry"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*nK-ESIbQ460AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*hKf9TbJEeooAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "train.ts",
@@ -34,7 +34,7 @@
         "zh": "词云图",
         "en": "WordCloud"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*2uvpTI0lHiYAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*0xE1T7W2Oq4AAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "wordCloud-mask.ts",
@@ -42,7 +42,7 @@
         "zh": "带图片遮罩的词云图",
         "en": "WordCloud with image mask"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*zDm0SJEQSHwAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*P6MoSriYWhkAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }

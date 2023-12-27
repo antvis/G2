@@ -1,6 +1,7 @@
 import { MarkComponent as MC } from '../runtime';
 import { RangeYMark } from '../spec';
 import { RangeShape } from '../shape';
+import { MaybeDefaultY } from '../transform';
 import {
   baseAnnotationChannels,
   basePostInference,
@@ -27,6 +28,6 @@ RangeY.props = {
     ...baseAnnotationChannels({ shapes: Object.keys(shape) }),
     { name: 'y', required: true },
   ],
-  preInference: [...basePreInference()],
+  preInference: [...basePreInference(), { type: MaybeDefaultY }],
   postInference: [...basePostInference()],
 };

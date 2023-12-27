@@ -37,13 +37,13 @@ describe('chart.emit', () => {
     // chart.on("tooltip:show", callback) should revive selected data.
     const [tooltipShowed, resolveShow] = createPromise();
     chart.on('tooltip:show', receiveExpectData(resolveShow));
-    dispatchFirstElementEvent(canvas, 'pointerover');
+    dispatchFirstElementEvent(canvas, 'pointermove');
     await tooltipShowed;
 
     // chart.on("tooltip:hide") should be called when hiding tooltip.
     const [tooltipHided, resolveHide] = createPromise();
     chart.on('tooltip:hide', receiveExpectData(resolveHide, null));
-    dispatchFirstElementEvent(canvas, 'pointerout');
+    dispatchFirstElementEvent(canvas, 'pointerleave');
     await tooltipHided;
   });
 

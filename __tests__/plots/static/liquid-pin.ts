@@ -6,7 +6,7 @@ export function liquidPin(): G2Spec {
     data: 0.7,
     style: {
       shape: 'pin',
-      textFill: '#fff',
+      contentFill: '#fff',
       outlineBorder: 4,
       outlineDistance: 8,
       waveLength: 128,

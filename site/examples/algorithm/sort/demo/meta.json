@@ -10,7 +10,7 @@
         "zh": "冒泡排序",
         "en": "Bubble Sort"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*b5Q8R6DHJZMAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*lSdRQZt-_BsAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "selection-sort.ts",
@@ -18,7 +18,7 @@
         "zh": "选择排序",
         "en": "Selection Sort"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*vLkWQLJInTIAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*STlaRaqEa6MAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "insertion-sort.ts",
@@ -26,7 +26,7 @@
         "zh": "插入排序",
         "en": "Insertion Sort"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*EYwETpVBlA0AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*MbFLR46PNEcAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }

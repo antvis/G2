@@ -6,11 +6,8 @@
   color-interpolation-filters="sRGB"
 >
   <defs>
-    <clipPath
-      transform="matrix(1,0,0,1,-734.359985,-210.500000)"
-      id="clip-path-99-65"
-    >
-      <use href="#g-svg-99" transform="matrix(1,0,0,1,734.360000,210.500000)" />
+    <clipPath transform="matrix(1,0,0,1,-734.359985,-82)" id="clip-path-99-65">
+      <use href="#g-svg-99" transform="matrix(1,0,0,1,734.360000,82)" />
     </clipPath>
   </defs>
   <g id="g-svg-camera" transform="matrix(1,0,0,1,0,0)">
@@ -75,7 +72,7 @@
               class="legend-category"
               width="50"
               height="342"
-              transform="matrix(1,0,0,1,0.360000,128.500000)"
+              transform="matrix(1,0,0,1,0.360000,0)"
             >
               <g
                 id="g-svg-60"

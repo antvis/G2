@@ -11,6 +11,8 @@ export { MaybeTupleY } from './maybeTupleY';
 export { MaybeTupleX } from './maybeTupleX';
 export { MaybeIdentityY } from './maybeIdentityY';
 export { MaybeIdentityX } from './maybeIdentityX';
+export { MaybeDefaultX } from './maybeDefaultX';
+export { MaybeDefaultY } from './maybeDefaultY';
 export { MaybeTooltip } from './maybeTooltip';
 export { MaybeZeroPadding } from './maybeZeroPadding';
 export { MaybeVisualPosition } from './maybeVisualPosition';

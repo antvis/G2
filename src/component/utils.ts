@@ -65,8 +65,8 @@ export function inferComponentLayout(
   const layout = {
     top: ['row', 'flex-start', 'center'],
     bottom: ['row', 'flex-start', 'center'],
-    left: ['column', 'center', 'center'],
-    right: ['column', 'center', 'center'],
+    left: ['column', 'flex-start', 'center'],
+    right: ['column', 'flex-start', 'center'],
     center: ['column', 'center', 'center'],
   };
 

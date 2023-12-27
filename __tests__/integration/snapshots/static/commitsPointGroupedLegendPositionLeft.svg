@@ -216,10 +216,10 @@
       <stop offset="1" stop-color="rgba(5,48,97,1)" />
     </linearGradient>
     <clipPath
-      transform="matrix(1,0,0,1,-104.839996,-55.500000)"
+      transform="matrix(1,0,0,1,-104.839996,-54.500000)"
       id="clip-path-121-120"
     >
-      <use href="#g-svg-121" transform="matrix(1,0,0,1,104.839996,55.500000)" />
+      <use href="#g-svg-121" transform="matrix(1,0,0,1,104.839996,54.500000)" />
     </clipPath>
     <linearGradient
       gradientUnits="userSpaceOnUse"
@@ -430,8 +430,8 @@
       <stop offset="0.9949748743718593" stop-color="rgba(170,170,170,1)" />
       <stop offset="1" stop-color="rgba(170,170,170,1)" />
     </linearGradient>
-    <clipPath transform="matrix(1,0,0,1,-16,-55.500000)" id="clip-path-220-219">
-      <use href="#g-svg-220" transform="matrix(1,0,0,1,16,55.500000)" />
+    <clipPath transform="matrix(1,0,0,1,-16,-54.500000)" id="clip-path-220-219">
+      <use href="#g-svg-220" transform="matrix(1,0,0,1,16,54.500000)" />
     </clipPath>
   </defs>
   <g id="g-svg-camera" transform="matrix(1,0,0,1,0,0)">
@@ -498,7 +498,7 @@
               class="legend-continuous"
               width="35.12"
               height="200"
-              transform="matrix(1,0,0,1,0,1)"
+              transform="matrix(1,0,0,1,0,0)"
             >
               <g
                 id="g-svg-57"
@@ -1032,7 +1032,7 @@
               class="legend-continuous"
               width="76.84"
               height="200"
-              transform="matrix(1,0,0,1,0,1)"
+              transform="matrix(1,0,0,1,0,0)"
             >
               <g
                 id="g-svg-144"
