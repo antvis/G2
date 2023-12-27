@@ -205,7 +205,7 @@ export function DrillDown(drillDownOptions: DrillDownOptions = {}) {
             (paddingTop || (depth ? textGroup.getBBox().height + 10 : 0)) *
               heightRadio;
           domainY[1] = domainY[1] + paddingBottom * heightRadio;
-          console.log(colorDomain, 'colorDomain');
+
           // DrillDown by filtering the data and scale.
           return deepMix({}, mark, {
             data: newData,
