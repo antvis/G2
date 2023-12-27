@@ -51,6 +51,14 @@
         "en": "Radial Area Chart"
       },
       "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*-m-2QolJUt0AAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "square-radar.ts",
+      "title": {
+        "zh": "方形雷达图",
+        "en": "Square radar Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*JBvBT5c5_2sAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }
