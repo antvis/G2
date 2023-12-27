@@ -18,11 +18,9 @@ function selectPlotArea(root: DisplayObject): DisplayObject {
 }
 
 export type DrillDownOptions = {
-  style?: {
-    [key: string]: string;
-  };
   originData?: Node[];
   layout?: any;
+  [key: string]: any;
 };
 
 // Default breadCrumb config.
@@ -37,7 +35,7 @@ const DEFAULT_BREADCRUMB_STYLE = {
  * @todo DrillDown interaction.
  */
 export function DrillDown(drillDownOptions: DrillDownOptions = {}) {
-  const { style = {}, originData = [], layout } = drillDownOptions;
+  const { originData = [], layout, ...style } = drillDownOptions;
 
   const breadCrumb = deepMix({}, DEFAULT_BREADCRUMB_STYLE, style);
 

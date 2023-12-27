@@ -62,10 +62,8 @@ chart
   .encode('value', 'value')
   .interaction({
     drillDown: {
-      style: {
-        breadCrumbY: 12,
-        activeFill: '#873bf4',
-      },
+      breadCrumbY: 12,
+      activeFill: '#873bf4',
     },
   })
   .style({
