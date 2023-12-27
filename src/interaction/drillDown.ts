@@ -5,6 +5,7 @@ import type { DisplayObject } from '@antv/g';
 import { subObject } from '../utils/helper';
 import { PLOT_CLASS_NAME } from '../runtime';
 import { select } from '../utils/selection';
+import { treeDataTransform } from '../utils/treeDataTransform';
 import { legendClearSetState } from './legendFilter';
 
 // Get element.
@@ -167,51 +168,53 @@ export function DrillDown(drillDownOptions: DrillDownOptions = {}) {
 
         const newMarks = marks.map((mark) => {
           if (mark.type !== 'rect') return mark;
-          const {
-            scale: { x, y },
-            transform,
-          } = mark;
-          const newData = originData.filter((item) => {
-            if (!depth) return item.depth === 1;
+          let newData = originData;
 
-            const reg = new RegExp(`^${strPath}.+`);
-            return reg.test(item.id) && item.depth === depth + 1;
-          });
+          if (depth) {
+            const filterData = originData
+              .filter(
+                (item) =>
+                  item.id.match(`${strPath}/`) || strPath.match(item.id),
+              )
+              .map((item) => ({
+                value: item.height === 0 ? item.value : undefined,
+                name: item.id,
+              }));
 
-          const { paddingBottom, paddingLeft, paddingRight, paddingTop } =
-            layout;
+            const { paddingLeft, paddingBottom, paddingRight } = layout;
 
-          const domainX = [];
-          const domainY = [];
+            // New drill layout for calculation x y and filtration data.
+            const newLayout = {
+              ...layout,
+              paddingTop:
+                (layout.paddingTop || textGroup.getBBox().height + 10) /
+                (depth + 1),
+              paddingLeft: paddingLeft / (depth + 1),
+              paddingBottom: paddingBottom / (depth + 1),
+              paddingRight: paddingRight / (depth + 1),
+              path: (d) => d.name,
+              layer: (d) => d.depth === depth + 1,
+            };
+
+            // Transform the new matrix tree data.
+            newData = treeDataTransform(filterData, newLayout, {
+              value: 'value',
+            })[0];
+          } else {
+            newData = originData.filter((item) => {
+              return item.depth === 1;
+            });
+          }
+
           const colorDomain = [];
-          newData.forEach(({ x0, x1, y0, y1, path }) => {
+          newData.forEach(({ path }) => {
             colorDomain.push(last(path));
-            domainX[0] = Math.min(get(domainX, [0], x0), x0);
-            domainX[1] = Math.max(get(domainX, [1], x1), x1);
-            domainY[0] = Math.min(get(domainY, [0], y0), y0);
-            domainY[1] = Math.max(get(domainY, [1], y1), y1);
           });
-
-          // Get new scale x y, domain.
-          const widthRadio =
-            (domainX[1] - domainX[0]) / (x.domain[1] - x.domain[0]);
-          const heightRadio =
-            (domainY[1] - domainY[0]) / (y.domain[1] - y.domain[0]);
-
-          domainX[0] = domainX[0] - paddingLeft * widthRadio;
-          domainX[1] = domainX[1] + paddingRight * widthRadio;
-          domainY[0] =
-            domainY[0] -
-            (paddingTop || (depth ? textGroup.getBBox().height + 10 : 0)) *
-              heightRadio;
-          domainY[1] = domainY[1] + paddingBottom * heightRadio;
 
           // DrillDown by filtering the data and scale.
           return deepMix({}, mark, {
             data: newData,
             scale: {
-              x: { domain: domainX },
-              y: { domain: domainY },
               color: { domain: colorDomain },
             },
           });
@@ -220,9 +223,11 @@ export function DrillDown(drillDownOptions: DrillDownOptions = {}) {
         return { ...viewOptions, marks: newMarks };
       });
 
+      // The second argument is to allow the legendFilter event to be re-added; the update method itself causes legend to lose the interaction event.
       await update(undefined, ['legendFilter']);
     };
 
+    // Elements and BreadCrumb click.
     const createDrillClick = (e) => {
       const item = e.target;
       if (get(item, ['markType']) !== 'rect') return;

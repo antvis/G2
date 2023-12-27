@@ -1,4 +1,4 @@
-import { deepMix, get } from '@antv/util';
+import { deepMix, get, last } from '@antv/util';
 import { subObject } from '../utils/helper';
 import { CompositionComponent as CC } from '../runtime';
 import { TreemapMark } from '../spec';
@@ -49,7 +49,7 @@ const GET_DEFAULT_OPTIONS = (width, height) => ({
 
 const DEFAULT_LABEL_OPTIONS = {
   fontSize: 10,
-  text: (d) => d.data.name,
+  text: (d) => last(d.path),
   position: 'inside',
   fill: '#000',
   textOverflow: 'clip',
@@ -59,7 +59,7 @@ const DEFAULT_LABEL_OPTIONS = {
 };
 
 const DEFAULT_TOOLTIP_OPTIONS = {
-  title: (d) => d.data.name,
+  title: (d) => last(d.path),
   items: [{ field: 'value' }],
 };
 
@@ -102,7 +102,7 @@ export const Treemap: CC<TreemapOptions> = (options, context) => {
 
   // Label
   const labelStyle = subObject(style, 'label');
-
+  console.log(transformedData, 'transformedData1');
   return deepMix(
     {},
     GET_DEFAULT_OPTIONS(width, height),
@@ -135,7 +135,7 @@ export const Treemap: CC<TreemapOptions> = (options, context) => {
               : undefined,
           },
           encode: {
-            color: (d) => d.data.name,
+            color: (d) => last(d.path),
             ...encode,
           },
         }

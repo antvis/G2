@@ -57,6 +57,7 @@ chart
   })
   .layout({
     tile: 'treemapBinary',
+    paddingInner: 5,
   })
   .encode('value', 'value')
   .interaction({
