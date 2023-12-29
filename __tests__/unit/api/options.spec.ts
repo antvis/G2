@@ -152,6 +152,27 @@ describe('chart api and options', () => {
     });
   });
 
+  it('chart.options({...}) should update composition.', () => {
+    const chart = new Chart({
+      canvas: createNodeGCanvas(640, 480),
+      autoFit: true,
+      padding: 10,
+    });
+
+    chart.options({
+      type: 'spaceFlex',
+      padding: 20,
+      children: [{ type: 'interval', data: [1, 2, 3] }],
+    });
+
+    expect(chart.options()).toEqual({
+      type: 'spaceFlex',
+      autoFit: true,
+      padding: 20,
+      children: [{ type: 'interval', data: [1, 2, 3] }],
+    });
+  });
+
   it('chart.options({...}) should update node with same height and index.', () => {
     const chart = new Chart({
       canvas: createNodeGCanvas(640, 480),

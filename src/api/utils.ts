@@ -133,25 +133,44 @@ function isMark(
   return new Set(Object.keys(mark)).has(type);
 }
 
+function isComposition(
+  type: string | ((...args: any[]) => any),
+  composition: Record<string, new () => Node>,
+): boolean {
+  return (
+    typeof type !== 'function' && new Set(Object.keys(composition)).has(type)
+  );
+}
+
 function normalizeRootOptions(
   node: Node,
   options: G2ViewTree,
   previousType: string,
   marks: Record<string, new () => Node>,
+  composition: Record<string, new () => Node>,
 ) {
   const { type: oldType } = node;
   const { type = previousType || oldType } = options;
-  if (type === 'view') return options;
-  if (!isMark(type, marks)) return options;
-  const view = { type: 'view' };
-  const mark = { ...options };
-  for (const key of VIEW_KEYS) {
-    if (mark[key] !== undefined) {
-      view[key] = mark[key];
-      delete mark[key];
+  if (isComposition(type, composition)) {
+    for (const key of VIEW_KEYS) {
+      if (node.attr(key) !== undefined && options[key] === undefined) {
+        options[key] = node.attr(key);
+      }
     }
+    return options;
+  } else if (isMark(type, marks)) {
+    const view = { type: 'view' };
+    const mark = { ...options };
+    for (const key of VIEW_KEYS) {
+      if (mark[key] !== undefined) {
+        view[key] = mark[key];
+        delete mark[key];
+      }
+    }
+    return { ...view, children: [mark] };
+  } else {
+    return options;
   }
-  return { ...view, children: [mark] };
 }
 
 function typeCtor(
@@ -232,7 +251,13 @@ export function updateRoot(
   mark: Record<string, new () => Node>,
   composition: Record<string, new () => Node>,
 ) {
-  const rootOptions = normalizeRootOptions(node, options, definedType, mark);
+  const rootOptions = normalizeRootOptions(
+    node,
+    options,
+    definedType,
+    mark,
+    composition,
+  );
   const discovered: [Node, Node, G2ViewTree][] = [[null, node, rootOptions]];
   while (discovered.length) {
     const [parent, oldNode, newNode] = discovered.shift();
