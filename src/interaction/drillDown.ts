@@ -170,13 +170,13 @@ export function DrillDown(drillDownOptions: DrillDownOptions = {}) {
 
           if (depth) {
             const filterData = originData
-              .filter(
-                (item) =>
-                  item.id.match(`${strPath}/`) || strPath.match(item.id),
-              )
+              .filter((item) => {
+                const id = item?.id;
+                return id && (id.match(`${strPath}/`) || strPath.match(id));
+              })
               .map((item) => ({
-                value: item.height === 0 ? item.value : undefined,
-                name: item.id,
+                value: item.height === 0 ? item?.value : undefined,
+                name: item?.id,
               }));
 
             const { paddingLeft, paddingBottom, paddingRight } = layout;
@@ -235,7 +235,7 @@ export function DrillDown(drillDownOptions: DrillDownOptions = {}) {
 
       // Node height = 0 no children
       if (node?.height) {
-        drillDownClick(node.path, node.depth);
+        drillDownClick(node?.path, node?.depth);
       }
     };
 
