@@ -752,7 +752,8 @@ function initializeState(
       const { name } = descriptor;
       const scale = useRelationScale(descriptor, library);
       scales.push(scale);
-      // Delivery the scale of axisX to the AxisY, in order to calculate the angle of axisY component when rendering radar chart
+      // Delivery the scale of axisX to the AxisY,
+      // in order to calculate the angle of axisY component when rendering radar chart.
       if (name === 'y') {
         scale.update({
           ...scale.getOptions(),

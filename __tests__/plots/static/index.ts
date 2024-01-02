@@ -316,3 +316,4 @@ export { titanicPointPackSharedDataPadding } from './titanic-point-pack-shared-d
 export { scoreByItemAreaBasicRadar } from './score-by-item-area-basic-radar';
 export { scoreByItemAreaLineRadar } from './score-by-item-area-line-radar';
 export { mockComplexRadar } from './mock-complex-radar';
+export { mockSquareRadar } from './mock-square-radar';
