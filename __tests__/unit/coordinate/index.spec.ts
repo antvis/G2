@@ -25,13 +25,12 @@ describe('coordinate', () => {
       ['translate', 0, 0.5],
       ['reflect.y'],
       ['translate', 0, -0.5],
-      ['polar', -Math.PI / 2, (Math.PI * 3) / 2, 0, 1],
+      ['polar', (3 * Math.PI) / 2, (Math.PI * 7) / 2, 0, 1],
     ]);
-
     expect(
       Polar({
-        startAngle: -Math.PI / 2,
-        endAngle: Math.PI,
+        startAngle: Math.PI,
+        endAngle: -Math.PI / 2,
         innerRadius: 0.2,
         outerRadius: 0.8,
       }),
@@ -39,7 +38,20 @@ describe('coordinate', () => {
       ['translate', 0, 0.5],
       ['reflect.y'],
       ['translate', 0, -0.5],
-      ['polar', -Math.PI / 2, Math.PI, 0.2, 0.8],
+      ['polar', Math.PI, (3 * Math.PI) / 2, 0.2, 0.8],
+    ]);
+    expect(
+      Polar({
+        startAngle: Math.PI / 2,
+        endAngle: 0,
+        innerRadius: 0.2,
+        outerRadius: 0.8,
+      }),
+    ).toEqual([
+      ['translate', 0, 0.5],
+      ['reflect.y'],
+      ['translate', 0, -0.5],
+      ['polar', Math.PI / 2, 2 * Math.PI, 0.2, 0.8],
     ]);
   });
 
