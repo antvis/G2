@@ -158,7 +158,8 @@ function normalizeRootOptions(
       }
     }
     return options;
-  } else if (isMark(type, marks)) {
+  }
+  if (isMark(type, marks)) {
     const view = { type: 'view' };
     const mark = { ...options };
     for (const key of VIEW_KEYS) {
@@ -168,9 +169,8 @@ function normalizeRootOptions(
       }
     }
     return { ...view, children: [mark] };
-  } else {
-    return options;
   }
+  return options;
 }
 
 function typeCtor(
