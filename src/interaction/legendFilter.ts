@@ -33,6 +33,14 @@ export function legendsContinuousOf(root) {
   return root.getElementsByClassName(CONTINUOUS_LEGEND_CLASS_NAME);
 }
 
+export function legendClearSetState(root, setState) {
+  const legends = [...legendsOf(root), ...legendsContinuousOf(root)];
+
+  legends.forEach((legend) => {
+    setState(legend, (v) => v);
+  });
+}
+
 export function dataOf(root) {
   // legend -> layout -> container
   let parent = root.parentNode;

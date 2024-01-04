@@ -23,7 +23,6 @@ export async function flareTreemapPoptip(): Promise<G2Spec> {
         },
         encode: {
           value: 'size',
-          color: (d) => d.parent.data.name.split('.')[1],
         },
         style: {
           labelText: (d) => {
@@ -69,7 +68,7 @@ flareTreemapPoptip.steps = ({ canvas }) => {
     },
     {
       changeState: async () => {
-        rectangle?.dispatchEvent(new CustomEvent('pointerout'));
+        rectangle?.dispatchEvent(new CustomEvent('pointerleave'));
       },
       skip: true,
     },

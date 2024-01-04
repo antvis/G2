@@ -17,8 +17,7 @@ chart
   })
   .encode('x', 'date')
   .encode('y', 'unemployment')
-  .encode('series', 'division')
-  .encode('color', 'steelblue');
+  .encode('series', 'division');
 
 chart.interaction('tooltip', { filter: (d, i) => i < 10 });
 

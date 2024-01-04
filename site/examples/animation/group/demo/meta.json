@@ -10,7 +10,7 @@
         "zh": "折线图动画",
         "en": "Line with Animation"
       },
-      "screenshot": "https://gw.alipayobjects.com/zos/raptor/1668858139680/line-animation.gif"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dxClRrq57JMAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "interval.ts",
@@ -18,7 +18,7 @@
         "zh": "柱形图动画",
         "en": "Column with Animation"
       },
-      "screenshot": "https://gw.alipayobjects.com/zos/raptor/1668858139680/interval-animation.gif"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*3xCLRLNfv7EAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "interval-polar.ts",
@@ -26,7 +26,7 @@
         "zh": "玫瑰图动画",
         "en": "Animation in Polar"
       },
-      "screenshot": "https://gw.alipayobjects.com/zos/raptor/1668858320153/interval-polar-animation.gif"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dG5TQ6IDBN0AAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "area.ts",
@@ -34,7 +34,7 @@
         "zh": "面积图动画",
         "en": "Area with Animation"
       },
-      "screenshot": "https://gw.alipayobjects.com/zos/raptor/1668858139680/area-animation.gif"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*sh4JSao3tVgAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "point.ts",

@@ -10,8 +10,5 @@ export function flareTreemapDefault(): G2Spec {
     layout: {
       layer: 1,
     },
-    encode: {
-      color: (d) => d.data.name,
-    },
   };
 }

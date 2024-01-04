@@ -57,7 +57,7 @@ describe('chart.emit', () => {
     chart.emit('tooltip:disable');
     await sleep(20);
 
-    dispatchFirstElementEvent(barCanvas, 'pointerover');
+    dispatchFirstElementEvent(barCanvas, 'pointermove');
     await expect(barCanvas).toMatchDOMSnapshot(dir, 'step0', {
       fileFormat: 'html',
       selector: '.g2-tooltip',
@@ -65,7 +65,7 @@ describe('chart.emit', () => {
 
     chart.emit('tooltip:enable');
 
-    dispatchFirstElementEvent(barCanvas, 'pointerover');
+    dispatchFirstElementEvent(barCanvas, 'pointermove');
     await expect(barCanvas).toMatchDOMSnapshot(dir, 'step1', {
       fileFormat: 'html',
       selector: '.g2-tooltip',

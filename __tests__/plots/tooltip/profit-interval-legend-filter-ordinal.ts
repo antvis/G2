@@ -37,7 +37,7 @@ profitIntervalLegendFilterOrdinal.steps = ({ canvas }) => {
       changeState: async () => {
         const elements = document.getElementsByClassName(ELEMENT_CLASS_NAME);
         const [e0] = elements;
-        e0.dispatchEvent(new CustomEvent('pointerover'));
+        e0.dispatchEvent(new CustomEvent('pointermove'));
       },
     },
   ];

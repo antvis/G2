@@ -40,6 +40,7 @@ chart
   .encode('color', 'species')
   .encode('shape', 'violin')
   .style('opacity', 0.5)
+  .style('strokeOpacity', 0.5)
   .style('point', false);
 
 chart.render();

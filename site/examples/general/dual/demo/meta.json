@@ -10,7 +10,7 @@
         "zh": " 柱线混合",
         "en": "Line Bar Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*GLvKQbqMjTQAAAAAAAAAAAAADmJ7AQ/fmt.webp"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*A-m1SKg_JAAAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "multi-line.ts",
@@ -34,7 +34,7 @@
         "zh": "帕累托图",
         "en": "Pareto Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*COKsS6s75kYAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dy4HQ7kqYd0AAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "dual-axis-bar.ts",
@@ -42,7 +42,7 @@
         "zh": "双轴条形图",
         "en": "Dual Axis Bar Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*gZCnTpDcG_UAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*WW9wRaGxuDAAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "dual-axis-line-bar.ts",
@@ -50,7 +50,7 @@
         "zh": "双轴折线条形图",
         "en": "Dual Axis Line Bar Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xyKZRYhgvMMAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*FVRbQ7jbi0oAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "dual-axis-multi-line-bar.ts",
@@ -58,7 +58,7 @@
         "zh": "双轴多折线条形图",
         "en": "Dual Axis Multiple Line Bar Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xyXJRIAxTKgAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*gER1QbKH7IIAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "dual-axis-stacked-group-bar.ts",
@@ -66,7 +66,7 @@
         "zh": "双轴堆叠分组条形图",
         "en": "Dual Axis Stacked Group Bar Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*O-pVR7pt2DkAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*lfupS49PdxAAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }

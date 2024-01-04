@@ -1,3 +1,36 @@
+## [5.1.13](https://github.com/antvis/g2/compare/5.1.12...5.1.13) (2023-12-21)
+
+
+### Bug Fixes
+
+* **axis:** custom axis tags disappear when the page is zoomed ([#5940](https://github.com/antvis/g2/issues/5940)) ([aa09cc0](https://github.com/antvis/g2/commit/aa09cc02a5e499781affd292191c11c866216690))
+* **legend:** expected layout cased by large legend ([#5945](https://github.com/antvis/g2/issues/5945)) ([e4ac450](https://github.com/antvis/g2/commit/e4ac45001ddc1afb57881b1279321cfc50c54bd5))
+* **mark:** change liquid text name ([#5927](https://github.com/antvis/g2/issues/5927)) ([9574d62](https://github.com/antvis/g2/commit/9574d62529e39c722dd8da927b277305a7b64cef))
+* **series:** interval background ([#5965](https://github.com/antvis/g2/issues/5965)) ([8f4936e](https://github.com/antvis/g2/commit/8f4936e3bbe09a79f793a071f141ecd93f394d2d))
+
+
+### Features
+
+* **transform:** add pack padding and direction ([#5964](https://github.com/antvis/g2/issues/5964)) ([082606c](https://github.com/antvis/g2/commit/082606ce3c7af78f97afe75bfed8466d8e72808a))
+
+
+
+## [5.1.12](https://github.com/antvis/g2/compare/5.1.11...5.1.12) (2023-12-12)
+
+
+### Bug Fixes
+
+* fix tooltip shown on one element line chart. ([#5917](https://github.com/antvis/g2/issues/5917)) ([52417d3](https://github.com/antvis/g2/commit/52417d301dc28f37100b2b48dd1b94039f5b29b5))
+* tooltip enterable ([#5626](https://github.com/antvis/g2/issues/5626)) ([08153e6](https://github.com/antvis/g2/commit/08153e6a464062ed829617bd83539408582b35d9))
+* tz in cross-env ([#5915](https://github.com/antvis/g2/issues/5915)) ([8fbfa4e](https://github.com/antvis/g2/commit/8fbfa4edfe0a9bb403b8ae20af7f4dcccd31d678))
+
+
+### Features
+
+* **rangeX and rangeY:** add syntactic sugar for data ([#5914](https://github.com/antvis/g2/issues/5914)) ([1a28b3d](https://github.com/antvis/g2/commit/1a28b3d8182b75a25cccf12a6d2a1f9ff8096f6d))
+
+
+
 ## [5.1.11](https://github.com/antvis/g2/compare/5.1.10...5.1.11) (2023-12-06)
 
 

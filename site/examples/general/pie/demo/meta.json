@@ -5,12 +5,36 @@
   },
   "demos": [
     {
+      "filename": "pie-base.ts",
+      "title": {
+        "zh": "简单饼图",
+        "en": "Simple pie chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*1yoaSJ0rfrYAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "donut-base.ts",
+      "title": {
+        "zh": "简单环图",
+        "en": "Simple donut chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*06RqSKmmVbEAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "pie-base-facet.ts",
+      "title": {
+        "zh": "2018 年第一季度短视频用户性别分布",
+        "en": "Gender distribution of short video users"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*enGVRIWj9KUAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
       "filename": "pie.ts",
       "title": {
         "zh": "饼图",
         "en": "Pie Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*uQh-RryfSfUAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xuKWQoLfxjwAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "pie-donut-text.ts",
@@ -18,7 +42,7 @@
         "zh": "饼图, 中心文本",
         "en": "Pie Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*vQQgQ4d11egAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ce-SSKsG36EAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "donut.ts",
@@ -26,7 +50,7 @@
         "zh": "甜甜圈图",
         "en": "Donut Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*wu8VQIWJJ50AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*LUQlSaccoLcAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "spider-label.ts",
@@ -42,7 +66,7 @@
         "zh": "径向扰动散点图",
         "en": "Radial Jitter Scatter"
       },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*eJQYQZQ_HZQAAAAAAAAAAAAADmJ7AQ"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*DziRQb4LMbAAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }

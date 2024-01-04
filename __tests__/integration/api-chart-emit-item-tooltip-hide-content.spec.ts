@@ -21,7 +21,7 @@ describe('chart.emit', () => {
     // chart.on("tooltip:hide") should be called when hiding tooltip.
     const [tooltipHided, resolveHide] = createPromise();
     chart.on('tooltip:hide', receiveExpectData(resolveHide, null));
-    dispatchFirstElementEvent(canvas, 'pointerout');
+    dispatchFirstElementEvent(canvas, 'pointerleave');
     await tooltipHided;
   });
 

@@ -10,7 +10,7 @@
         "zh": "预处理箱线图",
         "en": "Boxplot"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*pU-NQa1PgxQAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*fykJSJFMPtQAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "grouped-box.ts",
@@ -18,7 +18,7 @@
         "zh": "预处理分组箱线图",
         "en": "Grouped Boxplot"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*5E47Qa9nQaQAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*CqOoTa4Y4GAAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "boxplot.ts",
@@ -26,7 +26,7 @@
         "zh": "无异常点箱线图",
         "en": "Boxplot"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xoCiQYXmOewAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*yuoXSJhQol0AAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "boxplot-outlier.ts",
@@ -34,7 +34,7 @@
         "zh": "带异常点箱线图",
         "en": "Boxplot with Outlier"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*yeZuSY9YIEAAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*PxD1QZ8xRsIAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "grouped-boxplot-outlier.ts",
@@ -42,7 +42,7 @@
         "zh": "带异常点分组箱线图",
         "en": "grouped Boxplot with Outlier"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ex7XR4hQTOYAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*jHAhR5NH2OQAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "boxplot-1d.ts",
@@ -50,7 +50,7 @@
         "zh": "一维箱线图",
         "en": "Boxplot 1d"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ZOhpRaAAFpkAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*DsE6S4ZS-68AAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "polar-box.ts",
@@ -58,7 +58,7 @@
         "zh": "径向箱线图",
         "en": "Polar Boxplot"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*cCMOQ7YsuFkAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*H3feTr-k4XQAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }

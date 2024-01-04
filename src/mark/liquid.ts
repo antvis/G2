@@ -64,7 +64,11 @@ export const Liquid: CC<LiquidOptions> = (options) => {
 
   const newData = [{ percent, type: 'liquid' }];
 
-  const textStyle = subObject(style, 'text');
+  const contentStyle = {
+    ...subObject(style, 'text'),
+    ...subObject(style, 'content'),
+  };
+
   const outline = subObject(style, 'outline');
   const wave = subObject(style, 'wave');
   const background = subObject(style, 'background');
@@ -91,7 +95,7 @@ export const Liquid: CC<LiquidOptions> = (options) => {
     deepMix({}, DEFAULT_TEXT_OPTIONS, {
       style: {
         text: `${prettyNumber(percent * 100)} %`,
-        ...textStyle,
+        ...contentStyle,
       },
       animate,
     }),

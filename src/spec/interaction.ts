@@ -181,7 +181,7 @@ export type TooltipInteraction = {
   bounding?: BBox;
   mount?: string | HTMLElement;
   css?: Record<string, any>; // @todo
-  // enterable?: boolean;
+  enterable?: boolean;
   sort?: (d: TooltipItemValue) => any;
   filter?: (d: TooltipItemValue) => any;
   render?: (

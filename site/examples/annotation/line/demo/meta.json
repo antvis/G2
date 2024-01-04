@@ -10,7 +10,7 @@
         "zh": "平均值线标注的直方图",
         "en": "Histogram, Annotation Mean Value with LineX"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*kuFOR5JKe3gAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*VJVAT7Rkx9MAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "interval-mean-line.ts",
@@ -18,7 +18,7 @@
         "zh": "平均值线标注的柱状图",
         "en": "Interval, Annotation Mean Value with LineY"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*kmcqRo4tfmcAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*BG5UTbE7gycAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "interval-threshold.ts",
@@ -26,7 +26,7 @@
         "zh": "突出超出阈值的柱状图",
         "en": "Interval, Highlight Values beyond a Threshold"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xZ7dTLAW1uEAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*-seGQa_dPyoAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "point-line.ts",
@@ -58,7 +58,7 @@
         "zh": "异动趋势图",
         "en": "Anomaly Trend Line, Area Annotation"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*nyVFQb9QBBkAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*DdeURpZKfwAAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }

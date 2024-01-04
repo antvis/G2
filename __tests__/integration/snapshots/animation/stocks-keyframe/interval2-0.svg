@@ -944,6 +944,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       0
                     </text>
@@ -971,6 +972,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       100
                     </text>
@@ -998,6 +1000,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       200
                     </text>
@@ -1297,7 +1300,7 @@
                       stroke-opacity="0.1"
                     />
                   </g>
-                  <g transform="matrix(1,0,0,1,0,42.770969)">
+                  <g transform="matrix(1,0,0,1,0,47.789204)">
                     <path
                       id="g-svg-157"
                       fill="none"
@@ -1309,7 +1312,7 @@
                       stroke-opacity="0.1"
                     />
                   </g>
-                  <g transform="matrix(1,0,0,1,0,8.003477)">
+                  <g transform="matrix(1,0,0,1,0,18.039949)">
                     <path
                       id="g-svg-158"
                       fill="none"
@@ -1388,7 +1391,7 @@
                 <g
                   id="g-svg-164"
                   fill="none"
-                  transform="matrix(1,0,0,1,0,42.770969)"
+                  transform="matrix(1,0,0,1,0,47.789204)"
                   class="axis-tick"
                 >
                   <g transform="matrix(1,0,0,1,-4,0)">
@@ -1409,7 +1412,7 @@
                 <g
                   id="g-svg-165"
                   fill="none"
-                  transform="matrix(1,0,0,1,0,8.003477)"
+                  transform="matrix(1,0,0,1,0,18.039949)"
                   class="axis-tick"
                 >
                   <g transform="matrix(1,0,0,1,-4,0)">
@@ -1456,6 +1459,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       0
                     </text>
@@ -1464,30 +1468,9 @@
                 <g
                   id="g-svg-171"
                   fill="none"
-                  transform="matrix(1,0,0,1,-8,42.770969)"
+                  transform="matrix(1,0,0,1,-8,47.789204)"
                   class="axis-label"
                 >
-                  <g transform="matrix(1,0,0,1,0,0)">
-                    <text
-                      id="g-svg-174"
-                      fill="rgba(29,33,41,1)"
-                      dominant-baseline="central"
-                      paint-order="stroke"
-                      dx="0.5"
-                      font-family="sans-serif"
-                      font-size="12"
-                      font-style="normal"
-                      font-variant="normal"
-                      font-weight="normal"
-                      stroke-width="1"
-                      text-anchor="end"
-                      class="axis-label-item"
-                      opacity="0.45"
-                      visibility="visible"
-                    >
-                      100
-                    </text>
-                  </g>
                   <g transform="matrix(1,0,0,1,0,0)">
                     <text
                       id="g-svg-594"
@@ -1503,7 +1486,8 @@
                       stroke-width="1"
                       text-anchor="end"
                       class="axis-label-item"
-                      opacity="0.00011327796378335642"
+                      opacity="0.45"
+                      visibility="visible"
                     >
                       50
                     </text>
@@ -1512,30 +1496,9 @@
                 <g
                   id="g-svg-172"
                   fill="none"
-                  transform="matrix(1,0,0,1,-8,8.003477)"
+                  transform="matrix(1,0,0,1,-8,18.039949)"
                   class="axis-label"
                 >
-                  <g transform="matrix(1,0,0,1,0,0)">
-                    <text
-                      id="g-svg-175"
-                      fill="rgba(29,33,41,1)"
-                      dominant-baseline="central"
-                      paint-order="stroke"
-                      dx="0.5"
-                      font-family="sans-serif"
-                      font-size="12"
-                      font-style="normal"
-                      font-variant="normal"
-                      font-weight="normal"
-                      stroke-width="1"
-                      text-anchor="end"
-                      class="axis-label-item"
-                      opacity="0.45"
-                      visibility="visible"
-                    >
-                      200
-                    </text>
-                  </g>
                   <g transform="matrix(1,0,0,1,0,0)">
                     <text
                       id="g-svg-595"
@@ -1551,7 +1514,8 @@
                       stroke-width="1"
                       text-anchor="end"
                       class="axis-label-item"
-                      opacity="0.00011327796378335642"
+                      opacity="0.45"
+                      visibility="visible"
                     >
                       100
                     </text>
@@ -1851,7 +1815,7 @@
                       stroke-opacity="0.1"
                     />
                   </g>
-                  <g transform="matrix(1,0,0,1,0,42.770969)">
+                  <g transform="matrix(1,0,0,1,0,49.012798)">
                     <path
                       id="g-svg-210"
                       fill="none"
@@ -1863,7 +1827,7 @@
                       stroke-opacity="0.1"
                     />
                   </g>
-                  <g transform="matrix(1,0,0,1,0,8.003477)">
+                  <g transform="matrix(1,0,0,1,0,20.487133)">
                     <path
                       id="g-svg-211"
                       fill="none"
@@ -1942,7 +1906,7 @@
                 <g
                   id="g-svg-217"
                   fill="none"
-                  transform="matrix(1,0,0,1,0,42.770969)"
+                  transform="matrix(1,0,0,1,0,49.012798)"
                   class="axis-tick"
                 >
                   <g transform="matrix(1,0,0,1,-4,0)">
@@ -1963,7 +1927,7 @@
                 <g
                   id="g-svg-218"
                   fill="none"
-                  transform="matrix(1,0,0,1,0,8.003477)"
+                  transform="matrix(1,0,0,1,0,20.487133)"
                   class="axis-tick"
                 >
                   <g transform="matrix(1,0,0,1,-4,0)">
@@ -2010,6 +1974,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       0
                     </text>
@@ -2018,30 +1983,9 @@
                 <g
                   id="g-svg-224"
                   fill="none"
-                  transform="matrix(1,0,0,1,-8,42.770969)"
+                  transform="matrix(1,0,0,1,-8,49.012798)"
                   class="axis-label"
                 >
-                  <g transform="matrix(1,0,0,1,0,0)">
-                    <text
-                      id="g-svg-227"
-                      fill="rgba(29,33,41,1)"
-                      dominant-baseline="central"
-                      paint-order="stroke"
-                      dx="0.5"
-                      font-family="sans-serif"
-                      font-size="12"
-                      font-style="normal"
-                      font-variant="normal"
-                      font-weight="normal"
-                      stroke-width="1"
-                      text-anchor="end"
-                      class="axis-label-item"
-                      opacity="0.45"
-                      visibility="visible"
-                    >
-                      100
-                    </text>
-                  </g>
                   <g transform="matrix(1,0,0,1,0,0)">
                     <text
                       id="g-svg-603"
@@ -2057,7 +2001,8 @@
                       stroke-width="1"
                       text-anchor="end"
                       class="axis-label-item"
-                      opacity="0.00011327796378335642"
+                      opacity="0.45"
+                      visibility="visible"
                     >
                       50
                     </text>
@@ -2066,30 +2011,9 @@
                 <g
                   id="g-svg-225"
                   fill="none"
-                  transform="matrix(1,0,0,1,-8,8.003477)"
+                  transform="matrix(1,0,0,1,-8,20.487133)"
                   class="axis-label"
                 >
-                  <g transform="matrix(1,0,0,1,0,0)">
-                    <text
-                      id="g-svg-228"
-                      fill="rgba(29,33,41,1)"
-                      dominant-baseline="central"
-                      paint-order="stroke"
-                      dx="0.5"
-                      font-family="sans-serif"
-                      font-size="12"
-                      font-style="normal"
-                      font-variant="normal"
-                      font-weight="normal"
-                      stroke-width="1"
-                      text-anchor="end"
-                      class="axis-label-item"
-                      opacity="0.45"
-                      visibility="visible"
-                    >
-                      200
-                    </text>
-                  </g>
                   <g transform="matrix(1,0,0,1,0,0)">
                     <text
                       id="g-svg-604"
@@ -2105,7 +2029,8 @@
                       stroke-width="1"
                       text-anchor="end"
                       class="axis-label-item"
-                      opacity="0.00011327796378335642"
+                      opacity="0.45"
+                      visibility="visible"
                     >
                       100
                     </text>
@@ -2504,6 +2429,7 @@
                       class="axis-label-item"
                       dy="11.5px"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       2000
                     </text>
@@ -2532,6 +2458,7 @@
                       class="axis-label-item"
                       dy="11.5px"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       2002
                     </text>
@@ -2560,6 +2487,7 @@
                       class="axis-label-item"
                       dy="11.5px"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       2004
                     </text>
@@ -2588,6 +2516,7 @@
                       class="axis-label-item"
                       dy="11.5px"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       2006
                     </text>
@@ -2616,6 +2545,7 @@
                       class="axis-label-item"
                       dy="11.5px"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       2008
                     </text>
@@ -2644,6 +2574,7 @@
                       class="axis-label-item"
                       dy="11.5px"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       2010
                     </text>
@@ -2701,7 +2632,7 @@
                       stroke-opacity="0.1"
                     />
                   </g>
-                  <g transform="matrix(1,0,0,1,0,42.770969)">
+                  <g transform="matrix(1,0,0,1,0,41.657639)">
                     <path
                       id="g-svg-287"
                       fill="none"
@@ -2713,7 +2644,7 @@
                       stroke-opacity="0.1"
                     />
                   </g>
-                  <g transform="matrix(1,0,0,1,0,8.003477)">
+                  <g transform="matrix(1,0,0,1,0,5.776813)">
                     <path
                       id="g-svg-288"
                       fill="none"
@@ -2792,7 +2723,7 @@
                 <g
                   id="g-svg-294"
                   fill="none"
-                  transform="matrix(1,0,0,1,0,42.770969)"
+                  transform="matrix(1,0,0,1,0,41.657639)"
                   class="axis-tick"
                 >
                   <g transform="matrix(1,0,0,1,-4,0)">
@@ -2813,7 +2744,7 @@
                 <g
                   id="g-svg-295"
                   fill="none"
-                  transform="matrix(1,0,0,1,0,8.003477)"
+                  transform="matrix(1,0,0,1,0,5.776813)"
                   class="axis-tick"
                 >
                   <g transform="matrix(1,0,0,1,-4,0)">
@@ -2860,6 +2791,7 @@
                       text-anchor="end"
                       class="axis-label-item"
                       opacity="0.45"
+                      visibility="visible"
                     >
                       0
                     </text>
@@ -2868,30 +2800,9 @@
                 <g
                   id="g-svg-301"
                   fill="none"
-                  transform="matrix(1,0,0,1,-8,42.770969)"
+                  transform="matrix(1,0,0,1,-8,41.657639)"
                   class="axis-label"
                 >
-                  <g transform="matrix(1,0,0,1,0,0)">
-                    <text
-                      id="g-svg-304"
-                      fill="rgba(29,33,41,1)"
-                      dominant-baseline="central"
-                      paint-order="stroke"
-                      dx="0.5"
-                      font-family="sans-serif"
-                      font-size="12"
-                      font-style="normal"
-                      font-variant="normal"
-                      font-weight="normal"
-                      stroke-width="1"
-                      text-anchor="end"
-                      class="axis-label-item"
-                      opacity="0.45"
-                      visibility="visible"
-                    >
-                      100
-                    </text>
-                  </g>
                   <g transform="matrix(1,0,0,1,0,0)">
                     <text
                       id="g-svg-624"
@@ -2907,7 +2818,8 @@
                       stroke-width="1"
                       text-anchor="end"
                       class="axis-label-item"
-                      opacity="0.00011327796378335642"
+                      opacity="0.45"
+                      visibility="visible"
                     >
                       20
                     </text>
@@ -2916,30 +2828,9 @@
                 <g
                   id="g-svg-302"
                   fill="none"
-                  transform="matrix(1,0,0,1,-8,8.003477)"
+                  transform="matrix(1,0,0,1,-8,5.776813)"
                   class="axis-label"
                 >
-                  <g transform="matrix(1,0,0,1,0,0)">
-                    <text
-                      id="g-svg-305"
-                      fill="rgba(29,33,41,1)"
-                      dominant-baseline="central"
-                      paint-order="stroke"
-                      dx="0.5"
-                      font-family="sans-serif"
-                      font-size="12"
-                      font-style="normal"
-                      font-variant="normal"
-                      font-weight="normal"
-                      stroke-width="1"
-                      text-anchor="end"
-                      class="axis-label-item"
-                      opacity="0.45"
-                      visibility="visible"
-                    >
-                      200
-                    </text>
-                  </g>
                   <g transform="matrix(1,0,0,1,0,0)">
                     <text
                       id="g-svg-625"
@@ -2955,7 +2846,8 @@
                       stroke-width="1"
                       text-anchor="end"
                       class="axis-label-item"
-                      opacity="0.00011327796378335642"
+                      opacity="0.45"
+                      visibility="visible"
                     >
                       40
                     </text>
