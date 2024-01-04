@@ -69,7 +69,9 @@ function addObjectDataPath(root: Node, path = [root.data.name]) {
 }
 
 function addArrayDataPath(root: Node) {
-  root.path = root.data.name.replaceAll('.', '/').split('/');
+  if (root.data.name) {
+    root.path = root.data.name.replaceAll('.', '/').split('/');
+  }
 
   if (root.children) {
     root.children.forEach((item) => {
