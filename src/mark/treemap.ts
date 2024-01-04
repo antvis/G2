@@ -59,7 +59,7 @@ const DEFAULT_LABEL_OPTIONS = {
 };
 
 const DEFAULT_TOOLTIP_OPTIONS = {
-  title: (d) => d.path.join('.'),
+  title: (d) => d.path?.join?.('.'),
   items: [{ field: 'value' }],
 };
 
