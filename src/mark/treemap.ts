@@ -59,6 +59,11 @@ const DEFAULT_LABEL_OPTIONS = {
 };
 
 const DEFAULT_TOOLTIP_OPTIONS = {
+  title: (d) => d.path.join('.'),
+  items: [{ field: 'value' }],
+};
+
+const DEFAULT_TOOLTIP_OPTIONS_DRILL = {
   title: (d) => last(d.path),
   items: [{ field: 'value' }],
 };
@@ -102,7 +107,7 @@ export const Treemap: CC<TreemapOptions> = (options, context) => {
 
   // Label
   const labelStyle = subObject(style, 'label');
-  console.log(transformedData, 'transformedData1');
+
   return deepMix(
     {},
     GET_DEFAULT_OPTIONS(width, height),
@@ -138,6 +143,7 @@ export const Treemap: CC<TreemapOptions> = (options, context) => {
             color: (d) => last(d.path),
             ...encode,
           },
+          tooltip: maybeTooltip(tooltip, DEFAULT_TOOLTIP_OPTIONS_DRILL),
         }
       : {},
   );
