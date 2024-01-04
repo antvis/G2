@@ -70,7 +70,7 @@ function addObjectDataPath(root: Node, path = [root.data.name]) {
 
 function addArrayDataPath(root: Node) {
   const name = get(root, ['data', 'name']);
-  if (name) {
+  if (name.replaceAll) {
     root.path = name.replaceAll('.', '/').split('/');
   }
 
