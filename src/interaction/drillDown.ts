@@ -234,8 +234,8 @@ export function DrillDown(drillDownOptions: DrillDownOptions = {}) {
       const node = find(originData, (d) => d.id === key);
 
       // Node height = 0 no children
-      if (node && node.height) {
-        drillDownClick(node.path, node.depth);
+      if (get(node, 'height')) {
+        drillDownClick(get(node, 'path'), get(node, 'depth'));
       }
     };
 
