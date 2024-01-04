@@ -1,4 +1,4 @@
-import { isArray } from '@antv/util';
+import { isArray, get } from '@antv/util';
 import {
   stratify,
   hierarchy,
@@ -69,8 +69,9 @@ function addObjectDataPath(root: Node, path = [root.data.name]) {
 }
 
 function addArrayDataPath(root: Node) {
-  if (root.data.name) {
-    root.path = root.data.name.replaceAll('.', '/').split('/');
+  const name = get(root, ['data', 'name']);
+  if (name) {
+    root.path = name.replaceAll('.', '/').split('/');
   }
 
   if (root.children) {
