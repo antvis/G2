@@ -31,6 +31,11 @@ function maybeElementRoot(node) {
   return maybeRoot(node, (node) => node.className === 'element');
 }
 
+// For extended label.
+function maybeLabelRoot(node) {
+  return maybeRoot(node, (node) => node.className === 'label');
+}
+
 function bubblesEvent(eventType, view, emitter, predicate = (event) => true) {
   return (e) => {
     if (!predicate(e)) return;
@@ -52,19 +57,27 @@ function bubblesEvent(eventType, view, emitter, predicate = (event) => true) {
     const elementRoot = maybeElementRoot(target);
     // If target is component or child of component.
     const componentRoot = maybeComponentRoot(target);
-    const root = elementRoot || componentRoot;
+    //  If target is babel or child of babel.
+    const babelRoot = maybeLabelRoot(target);
+
+    const root = elementRoot || componentRoot || babelRoot;
+
     if (!root) return;
     const { className: elementType, markType } = root;
+    const e1 = {
+      ...e,
+      nativeEvent: true,
+    };
     if (elementType === 'element') {
-      const e1 = {
-        ...e,
-        nativeEvent: true,
-        data: { data: dataOf(root, view) },
-      };
+      e1['data'] = { data: dataOf(root, view) };
       emitter.emit(`element:${eventType}`, e1);
       emitter.emit(`${markType}:${eventType}`, e1);
+    } else if (elementType === 'label') {
+      //label children [Text2, Rect2, Path2],
+      e1['data'] = { data: root.attributes.datum };
+      emitter.emit(`label:${eventType}`, e1);
+      emitter.emit(`${className}:${eventType}`, e1);
     } else {
-      const e1 = { ...e, nativeEvent: true };
       emitter.emit(`component:${eventType}`, e1);
       emitter.emit(`${className}:${eventType}`, e1);
     }
