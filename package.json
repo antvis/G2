@@ -24,6 +24,7 @@
     "dist"
   ],
   "scripts": {
+    "start": "cd site && npm run start",
     "dev": "cross-env TZ=Asia/Shanghai vite",
     "dev:link": "cross-env LINK=1 vite",
     "clean": "rimraf lib esm dist",
