@@ -2,7 +2,7 @@ import { schemeTableau10 } from 'd3-scale-chromatic';
 import { CustomEvent, DisplayObject } from '@antv/g';
 import { G2Spec, PLOT_CLASS_NAME } from '../../../src';
 
-export async function flareTreemapPoptip(): Promise<G2Spec> {
+export function flareTreemapPoptip(): G2Spec {
   return {
     type: 'view',
     height: 600,
