@@ -398,7 +398,7 @@ function inferAxisLinearOverrideStyle(
       return {
         startPos,
         endPos,
-        gridClosed: endAngle - startAngle === 360,
+        gridClosed: Math.abs(endAngle - startAngle - 360) < 1e-6,
         gridCenter: [actualCx, actualCy],
         gridControlAngles: new Array(controllAngleCount)
           .fill(0)

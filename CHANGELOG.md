@@ -1,3 +1,19 @@
+## [5.1.14](https://github.com/antvis/g2/compare/5.1.13...5.1.14) (2024-01-05)
+
+
+### Bug Fixes
+
+* **composition:** fix composition lost chart value options ([#5995](https://github.com/antvis/g2/issues/5995)) ([7792a37](https://github.com/antvis/g2/commit/7792a37225553da33fb9f04ff77ee2fbbc18e325))
+* wrong angles in polar coordinate ([#6010](https://github.com/antvis/g2/issues/6010)) ([ed5e780](https://github.com/antvis/g2/commit/ed5e7807242b3b6d7f56fccab3cfbb68824784fd))
+
+
+### Features
+
+* **event:** label click event ([#6012](https://github.com/antvis/g2/issues/6012)) ([fb0911c](https://github.com/antvis/g2/commit/fb0911c282e15c6a694628fc21d22b4d1985cd84))
+* 添加方形雷达图 ([#5985](https://github.com/antvis/g2/issues/5985)) ([ae4ab58](https://github.com/antvis/g2/commit/ae4ab583f25d356a0339612da7da8e8222021faf))
+
+
+
 ## [5.1.13](https://github.com/antvis/g2/compare/5.1.12...5.1.13) (2023-12-21)
 
 

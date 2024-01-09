@@ -317,3 +317,4 @@ export { scoreByItemAreaBasicRadar } from './score-by-item-area-basic-radar';
 export { scoreByItemAreaLineRadar } from './score-by-item-area-line-radar';
 export { mockComplexRadar } from './mock-complex-radar';
 export { aaplLineIllegalDataSlider } from './aapl-line-illegal-data-slider';
+export { mockSquareRadar } from './mock-square-radar';

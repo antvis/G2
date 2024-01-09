@@ -113,6 +113,12 @@ chart.on('plot:click', (event) => console.log(event));
 chart.on('component:click', (event) => console.log(event));
 ```
 
+- 监听全局 label 事件
+
+```js
+chart.on('label:click', (event) => console.log(event));
+```
+
 ### 点击事件
 
 | 事件名                | 说明 | 回调参数 |
