@@ -48,4 +48,6 @@ export { chartOptionsCallbackChildren } from './chart-options-callback-children'
 export { chartAutoFitSlider } from './chart-auto-fit-slider';
 export { chart3d } from './chart-3d';
 export { chartOnScrollbarFilter } from './chart-on-scrollbar-filter';
+export { chartAutoFitHeight } from './chart-auto-fit-height';
+export { chartAutoFitWidth } from './chart-auto-fit-width';
 export { chartOnLabelClick } from './chart-on-label-click';
