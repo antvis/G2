@@ -18,6 +18,7 @@ export function flareTreemapDefault(): G2Spec {
     scale: { color: { range: schemeTableau10 } },
     encode: {
       value: 'size',
+      color: (d) => d.parent.data.name.split('.')[1],
     },
     style: {
       labelText: (d) => {
