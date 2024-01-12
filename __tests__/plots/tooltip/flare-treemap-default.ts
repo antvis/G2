@@ -2,7 +2,7 @@ import { schemeTableau10 } from 'd3-scale-chromatic';
 import { G2Spec } from '../../../src';
 import { tooltipSteps } from './utils';
 
-export function flareTreemapDefault(): G2Spec {
+export async function flareTreemapDefault(): Promise<G2Spec> {
   return {
     type: 'treemap',
     height: 600,
@@ -19,6 +19,10 @@ export function flareTreemapDefault(): G2Spec {
     encode: {
       value: 'size',
       color: (d) => d.parent.data.name.split('.')[1],
+    },
+    tooltip: {
+      title: (d) => d.path[d.path.length - 1],
+      items: [{ field: 'value' }],
     },
     style: {
       labelText: (d) => {

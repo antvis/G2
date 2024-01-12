@@ -1,7 +1,7 @@
 import { schemeTableau10 } from 'd3-scale-chromatic';
 import { G2Spec } from '../../../src';
 
-export function flareTreemapCustom(): G2Spec {
+export async function flareTreemapDefault(): Promise<G2Spec> {
   return {
     type: 'view',
     height: 900,
