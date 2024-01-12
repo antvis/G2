@@ -22,6 +22,7 @@ export function flareTreemapCustom(): G2Spec {
         },
         encode: {
           value: 'size',
+          color: (d) => d.parent.data.name.split('.')[1],
         },
         style: {
           // label style
