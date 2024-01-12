@@ -199,7 +199,8 @@ export { aaplLineScrollbar } from './aapl-line-scrollbar';
 export { aaplLineScrollbarValue } from './aapl-line-scrollbar-value';
 export { alphabetIntervalRenderToMountedGroup } from './alphabet-interval-render-to-mounted-element';
 export { weatherLineMultiSlider } from './weather-line-multi-slider';
-export { weatherLineMultiScrollbar } from './weather-line-multi-scrollbar';
+// More axis scrollbar have issue.
+// export { weatherLineMultiScrollbar } from './weather-line-multi-scrollbar';
 export { population2015IntervalBubbleCoordinate } from './population2015-interval-bubble-coordinate';
 export { fuelLineEncodePropagate } from './fuel-line-encode-propagate';
 export { fuelLineTransformPropagate } from './fuel-line-transform-propagate';
@@ -317,4 +318,6 @@ export { titanicPointPackSharedDataPadding } from './titanic-point-pack-shared-d
 export { scoreByItemAreaBasicRadar } from './score-by-item-area-basic-radar';
 export { scoreByItemAreaLineRadar } from './score-by-item-area-line-radar';
 export { mockComplexRadar } from './mock-complex-radar';
+export { aaplLineIllegalDataSlider } from './aapl-line-illegal-data-slider';
 export { mockSquareRadar } from './mock-square-radar';
+export { aaplLineSliderValues } from './aapl-line-slider-values';
