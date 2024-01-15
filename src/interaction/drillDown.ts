@@ -32,7 +32,7 @@ const DEFAULT_BREADCRUMB_STYLE = {
 };
 
 /**
- * @todo DrillDown interaction.
+ * DrillDown interaction.
  */
 export function DrillDown(drillDownOptions: DrillDownOptions = {}) {
   const { originData = [], layout, ...style } = drillDownOptions;
