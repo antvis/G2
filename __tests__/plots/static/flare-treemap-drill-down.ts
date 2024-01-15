@@ -61,6 +61,8 @@ export function flareTreemapDrillDown(): G2Spec {
       labelDx: 5,
       labelDy: 5,
     },
-    interaction: { drillDown: { breadCrumbY: 12, activeFill: '#873bf4' } },
+    interaction: {
+      treemapDrillDown: { breadCrumbY: 12, activeFill: '#873bf4' },
+    },
   };
 }

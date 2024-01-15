@@ -20,4 +20,4 @@ export { SliderFilter } from './sliderFilter';
 export { ScrollbarFilter } from './scrollbarFilter';
 export { Poptip } from './poptip';
 export { Event } from './event';
-export { DrillDown } from './drillDown';
+export { TreemapDrillDown } from './treemapDrillDown';

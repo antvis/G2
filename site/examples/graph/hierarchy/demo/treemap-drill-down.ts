@@ -61,7 +61,7 @@ chart
   })
   .encode('value', 'value')
   .interaction({
-    drillDown: {
+    treemapDrillDown: {
       breadCrumbY: 12,
       activeFill: '#873bf4',
     },

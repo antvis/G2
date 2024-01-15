@@ -100,7 +100,7 @@ import {
   SliderFilter,
   Poptip,
   ScrollbarFilter,
-  DrillDown,
+  TreemapDrillDown,
 } from '../interaction';
 import {
   SpaceLayer,
@@ -300,7 +300,7 @@ export function corelib() {
     'interaction.sliderFilter': SliderFilter,
     'interaction.scrollbarFilter': ScrollbarFilter,
     'interaction.poptip': Poptip,
-    'interaction.drillDown': DrillDown,
+    'interaction.treemapDrillDown': TreemapDrillDown,
     'composition.spaceLayer': SpaceLayer,
     'composition.spaceFlex': SpaceFlex,
     'composition.facetRect': FacetRect,

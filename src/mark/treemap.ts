@@ -82,7 +82,10 @@ export const Treemap: CC<TreemapOptions> = (options, context) => {
     ...resOptions
   } = options;
 
-  const drillDown = get(markOptions, ['interaction', 'drillDown']);
+  const treemapDrillDown = get(markOptions, [
+    'interaction',
+    'treemapDrillDown',
+  ]);
 
   // Layout
   const layoutOptions = deepMix(
@@ -90,7 +93,7 @@ export const Treemap: CC<TreemapOptions> = (options, context) => {
     GET_DEFAULT_LAYOUT_OPTIONS(width, height),
     layout,
     {
-      layer: drillDown
+      layer: treemapDrillDown
         ? (d) => {
             return d.depth === 1;
           }
@@ -127,13 +130,13 @@ export const Treemap: CC<TreemapOptions> = (options, context) => {
       tooltip: maybeTooltip(tooltip, DEFAULT_TOOLTIP_OPTIONS),
       axis: false,
     },
-    drillDown
+    treemapDrillDown
       ? {
           interaction: {
             ...resOptions.interaction,
-            drillDown: drillDown
+            treemapDrillDown: treemapDrillDown
               ? {
-                  ...drillDown,
+                  ...treemapDrillDown,
                   originData: transformedDataAll,
                   layout: layoutOptions,
                 }

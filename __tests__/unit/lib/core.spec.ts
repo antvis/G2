@@ -101,7 +101,7 @@ import {
   ScrollbarFilter,
   LegendHighlight,
   Poptip,
-  DrillDown,
+  TreemapDrillDown,
 } from '../../../src/interaction';
 import {
   SpaceLayer,
@@ -302,7 +302,7 @@ describe('corelib', () => {
       'interaction.sliderFilter': SliderFilter,
       'interaction.scrollbarFilter': ScrollbarFilter,
       'interaction.poptip': Poptip,
-      'interaction.drillDown': DrillDown,
+      'interaction.treemapDrillDown': TreemapDrillDown,
       'composition.spaceLayer': SpaceLayer,
       'composition.spaceFlex': SpaceFlex,
       'composition.facetRect': FacetRect,

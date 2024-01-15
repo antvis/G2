@@ -24,7 +24,7 @@ chart
     ],
   })
   .interaction({
-    drillDown: {
+    treemapDrillDown: {
       breadCrumb: {
         rootText: '起始',
         style: {
@@ -35,7 +35,7 @@ chart
           fill: 'red',
         },
       },
-      // FixedColor default: true, true -> drillDown update scale, false -> scale keep.
+      // FixedColor default: true, true -> treemapDrillDown update scale, false -> scale keep.
       fixedColor: false,
     },
   })

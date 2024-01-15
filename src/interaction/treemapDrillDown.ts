@@ -32,9 +32,9 @@ const DEFAULT_BREADCRUMB_STYLE = {
 };
 
 /**
- * DrillDown interaction.
+ * TreemapDrillDown interaction.
  */
-export function DrillDown(drillDownOptions: DrillDownOptions = {}) {
+export function TreemapDrillDown(drillDownOptions: DrillDownOptions = {}) {
   const { originData = [], layout, ...style } = drillDownOptions;
 
   const breadCrumb = deepMix({}, DEFAULT_BREADCRUMB_STYLE, style);
@@ -132,7 +132,7 @@ export function DrillDown(drillDownOptions: DrillDownOptions = {}) {
           return drillText;
         });
 
-        // Add Active, Add DrillDown
+        // Add Active, Add TreemapDrillDown
         drillTexts.forEach((item, index) => {
           // Last drillText
           if (index === size(drillTexts) - 1) return;
@@ -153,11 +153,11 @@ export function DrillDown(drillDownOptions: DrillDownOptions = {}) {
         });
       }
 
-      // LegendFilter interaction and drillDown clash.
+      // LegendFilter interaction and treemapDrillDown clash.
       legendClearSetState(container, setState);
 
       // Update marks.
-      setState('drillDown', (viewOptions) => {
+      setState('treemapDrillDown', (viewOptions) => {
         const { marks } = viewOptions;
         // Add filter transform for every marks,
         // which will skip for mark without color channel.
@@ -209,7 +209,7 @@ export function DrillDown(drillDownOptions: DrillDownOptions = {}) {
             colorDomain.push(last(path));
           });
 
-          // DrillDown by filtering the data and scale.
+          // TreemapDrillDown by filtering the data and scale.
           return deepMix({}, mark, {
             data: newData,
             scale: {
