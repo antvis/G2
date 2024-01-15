@@ -76,9 +76,9 @@ export function valueOf(node: Node): Record<string, any> {
 }
 
 export function sizeOf(options, container) {
-  const { width = 640, height = 480, autoFit, depth = 0 } = options;
-  let effectiveWidth = width;
-  let effectiveHeight = height;
+  const { width, height, autoFit, depth = 0 } = options;
+  let effectiveWidth = 640;
+  let effectiveHeight = 480;
 
   if (autoFit) {
     const { width: containerWidth, height: containerHeight } =
@@ -86,6 +86,9 @@ export function sizeOf(options, container) {
     effectiveWidth = containerWidth || effectiveWidth;
     effectiveHeight = containerHeight || effectiveHeight;
   }
+
+  effectiveWidth = width || effectiveWidth;
+  effectiveHeight = height || effectiveHeight;
 
   return {
     width: Math.max(

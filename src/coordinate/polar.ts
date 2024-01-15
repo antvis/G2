@@ -1,3 +1,4 @@
+import { convertAngles } from '../utils/angle';
 import { CoordinateComponent as CC } from '../runtime';
 import { PolarCoordinate } from '../spec';
 
@@ -10,7 +11,11 @@ export const getPolarOptions = (options: PolarOptions = {}) => {
     innerRadius: 0,
     outerRadius: 1,
   };
-  return { ...defaultOptions, ...options };
+  const polarOption = { ...defaultOptions, ...options };
+  return {
+    ...polarOption,
+    ...convertAngles(polarOption.startAngle, polarOption.endAngle),
+  };
 };
 /**
  * Polar transformation for circular charts using center of canvas as origin.

@@ -1,6 +1,6 @@
 {
   "name": "@antv/g2",
-  "version": "5.1.13",
+  "version": "5.1.14",
   "description": "the Grammar of Graphics in Javascript",
   "license": "MIT",
   "main": "lib/index.js",
@@ -24,6 +24,7 @@
     "dist"
   ],
   "scripts": {
+    "start": "cd site && npm run start",
     "dev": "cross-env TZ=Asia/Shanghai vite",
     "dev:link": "cross-env LINK=1 vite",
     "clean": "rimraf lib esm dist",

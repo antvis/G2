@@ -74,6 +74,10 @@ export function SliderFilter({
   wait = 50,
   leading = true,
   trailing = false,
+  getInitValues = (slider) => {
+    const values = slider?.attributes?.values;
+    if (values[0] !== 0 || values[1] !== 1) return values;
+  },
 }: any) {
   return (context, _, emitter) => {
     const { container, view, update, setState } = context;
@@ -134,7 +138,8 @@ export function SliderFilter({
 
       const onValueChange = throttle(
         async (event) => {
-          if (filtering) return;
+          const { initValue = false } = event;
+          if (filtering && !initValue) return;
           filtering = true;
 
           const { nativeEvent = true } = event;
@@ -205,6 +210,21 @@ export function SliderFilter({
       slider.addEventListener('valuechange', onValueChange);
       sliderHandler.set(slider, onValueChange);
       emitHandlers.add([eventName, emitHandler]);
+
+      const values = getInitValues(slider);
+
+      if (values) {
+        // Init values.
+        slider.dispatchEvent(
+          new CustomEvent('valuechange', {
+            detail: {
+              value: values,
+            },
+            nativeEvent: false,
+            initValue: true,
+          }),
+        );
+      }
     }
 
     // Update to async state such as scale.
