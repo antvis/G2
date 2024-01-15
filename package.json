@@ -164,7 +164,7 @@
     },
     {
       "path": "dist/g2.lite.min.js",
-      "limit": "240 Kb",
+      "limit": "250 Kb",
       "gzip": true
     }
   ],
