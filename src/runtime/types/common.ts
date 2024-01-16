@@ -53,7 +53,11 @@ export type G2ViewInstance = {
   view: G2ViewDescriptor;
   container: DisplayObject;
   options: G2ViewTree;
-  update: (options: G2ViewTree, source?: string) => Promise<any>;
+  update: (
+    options: G2ViewTree,
+    source?: string | string[],
+    callback?: any,
+  ) => Promise<any>;
 };
 
 export type ChannelGroups = {

@@ -35,8 +35,8 @@ export async function flareTreemapCustom(): Promise<G2Spec> {
           },
           labelFill: '#000',
           labelPosition: 'top-left',
-          dx: 3,
-          dy: 3,
+          labelDx: 3,
+          labelDy: 3,
           // shape style
           fillOpacity: 0.5,
         },

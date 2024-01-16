@@ -24,6 +24,7 @@
     "dist"
   ],
   "scripts": {
+    "start": "cd site && npm run start",
     "dev": "cross-env TZ=Asia/Shanghai vite",
     "dev:link": "cross-env LINK=1 vite",
     "clean": "rimraf lib esm dist",
@@ -163,7 +164,7 @@
     },
     {
       "path": "dist/g2.lite.min.js",
-      "limit": "240 Kb",
+      "limit": "250 Kb",
       "gzip": true
     }
   ],
