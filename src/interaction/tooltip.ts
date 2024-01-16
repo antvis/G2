@@ -33,8 +33,8 @@ function getContainer(
   return canvas.parentElement as unknown as HTMLElement;
 }
 
-function getBounding(root): BBox {
-  const bbox = root.getBounds();
+function getBounding(root: DisplayObject): BBox {
+  const bbox = root.getRenderBounds();
   const {
     min: [x1, y1],
     max: [x2, y2],
