@@ -314,6 +314,7 @@ const incdomain = (() => {
 const chart = new Chart({
   container: 'container',
   autoFit: true,
+  paddingRight: 20,
 });
 
 chart

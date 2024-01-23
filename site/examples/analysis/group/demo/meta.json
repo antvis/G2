@@ -26,7 +26,7 @@
         "zh": "聚合条形图",
         "en": "Aggregated Bar Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*BhULSZiZisIAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ZMTCT50nmwcAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "bar-aggregated-stacked.ts",
@@ -50,7 +50,7 @@
         "zh": "一维聚合堆叠条形图",
         "en": "Aggregated Stacked Bar Chart, 1D"
       },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*6CbxQ6P9bFcAAAAAAAAAAAAADmJ7AQ"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dWoBQ7aVlcQAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "bar-multi-measure.ts",

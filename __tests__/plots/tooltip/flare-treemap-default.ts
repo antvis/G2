@@ -20,6 +20,10 @@ export async function flareTreemapDefault(): Promise<G2Spec> {
       value: 'size',
       color: (d) => d.parent.data.name.split('.')[1],
     },
+    tooltip: {
+      title: null,
+      items: [{ field: 'value' }],
+    },
     style: {
       labelText: (d) => {
         const name = d.data.name
@@ -30,11 +34,11 @@ export async function flareTreemapDefault(): Promise<G2Spec> {
       },
       labelFill: '#000',
       labelPosition: 'top-left',
-      dx: 3,
-      dy: 3,
+      labelDx: 3,
+      labelDy: 3,
       fillOpacity: 0.5,
     },
-  };
+  } as any;
 }
 
 flareTreemapDefault.steps = tooltipSteps(0);

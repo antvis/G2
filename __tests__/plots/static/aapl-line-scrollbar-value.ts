@@ -17,8 +17,8 @@ export function aaplLineScrollbarValue(): G2Spec {
       y: { title: false, size: 36 },
     },
     scrollbar: {
-      x: { value: 0.2 },
-      y: { value: 0.2 },
+      x: { value: 0.9 },
+      y: { value: 0.9 },
     },
   };
 }

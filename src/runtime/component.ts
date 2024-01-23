@@ -876,7 +876,7 @@ function computeCategoryLegendSize(
     const titleHeight = titleBBox ? titleBBox.height : 0;
     const maxHeight = crossSize - titleHeight;
     for (const { width } of labelBBoxes) {
-      const w = widthOf(width);
+      const w = widthOf(width, colPadding);
       maxSize = Math.max(maxSize, w);
       if (pos + height > maxHeight) {
         cols++;

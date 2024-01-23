@@ -1,6 +1,6 @@
 import { Coordinate } from '@antv/coord';
 import { Linear } from '@antv/scale';
-import { lowerFirst } from '@antv/util';
+import { isNumber, lowerFirst } from '@antv/util';
 import { extent } from 'd3-array';
 import { Path as D3Path } from 'd3-path';
 import { Primitive, Vector2, Vector3 } from '../runtime';
@@ -148,7 +148,8 @@ export function computeGradient(
     range: [0, 100],
   });
 
-  const percentage = (i) => p.map(P[i]);
+  const percentage = (i) =>
+    isNumber(P[i]) && !Number.isNaN(P[i]) ? p.map(P[i]) : 0;
 
   const gradientMode = {
     // Interpolate the colors for this segment.

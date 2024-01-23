@@ -2,7 +2,7 @@ import { schemeTableau10 } from 'd3-scale-chromatic';
 import { CustomEvent, DisplayObject } from '@antv/g';
 import { G2Spec, PLOT_CLASS_NAME } from '../../../src';
 
-export async function flareTreemapPoptip(): Promise<G2Spec> {
+export function flareTreemapPoptip(): G2Spec {
   return {
     type: 'view',
     height: 600,
@@ -35,8 +35,8 @@ export async function flareTreemapPoptip(): Promise<G2Spec> {
           },
           labelFill: '#000',
           labelPosition: 'top-left',
-          dx: 3,
-          dy: 3,
+          labelDx: 3,
+          labelDy: 3,
           fillOpacity: 0.5,
         },
       },
@@ -69,7 +69,7 @@ flareTreemapPoptip.steps = ({ canvas }) => {
     },
     {
       changeState: async () => {
-        rectangle?.dispatchEvent(new CustomEvent('pointerout'));
+        rectangle?.dispatchEvent(new CustomEvent('pointerleave'));
       },
       skip: true,
     },

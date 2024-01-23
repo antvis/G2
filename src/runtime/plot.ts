@@ -1,7 +1,7 @@
 import { Vector2 } from '@antv/coord';
 import { DisplayObject, IAnimation as GAnimation, Rect } from '@antv/g';
-import { deepMix, upperFirst } from '@antv/util';
-import { group, groups, sort } from 'd3-array';
+import { deepMix, upperFirst, isArray } from '@antv/util';
+import { group, groups } from 'd3-array';
 import { format } from 'd3-format';
 import { mapObject } from '../utils/array';
 import { ChartEvent } from '../utils/event';
@@ -66,6 +66,7 @@ import {
   InteractionComponent,
   LabelTransform,
   LabelTransformComponent,
+  Scale,
   Shape,
   ShapeComponent,
   Theme,
@@ -88,6 +89,8 @@ import {
   G2View,
   G2ViewTree,
 } from './types/options';
+
+type Store = Map<any, (options: G2ViewTree) => G2ViewTree>;
 
 export async function plot<T extends G2ViewTree>(
   options: T,
@@ -241,12 +244,19 @@ export async function plot<T extends G2ViewTree>(
   // Apply interactions.
   const viewInstanceof = (
     viewContainer: Map<G2ViewDescriptor, DisplayObject>,
+    updateInteractions?: (
+      container: Map<G2ViewDescriptor, DisplayObject>,
+      updateTypes?: string[],
+      store?: Store,
+    ) => void,
+    oldStore?: Store,
   ) => {
     return Array.from(viewContainer.entries()).map(([view, container]) => {
       // Index state by component or interaction name,
       // such as legend, scrollbar, brushFilter.
       // Each state transform options to another options.
-      const store = new Map<any, (options: G2ViewTree) => G2ViewTree>();
+      const store =
+        oldStore || new Map<any, (options: G2ViewTree) => G2ViewTree>();
       const setState = (key, reducer = (x) => x) => store.set(key, reducer);
       const options = viewNode.get(view);
       const update = createUpdateView(
@@ -260,18 +270,68 @@ export async function plot<T extends G2ViewTree>(
         container,
         options,
         setState,
-        update: async (from) => {
+        update: async (from, updateTypes) => {
           // Apply all state functions to get new options.
           const reducer = compose(Array.from(store.values()));
           const newOptions = reducer(options);
-          return await update(newOptions, from);
+          return await update(newOptions, from, () => {
+            if (isArray(updateTypes)) {
+              updateInteractions(viewContainer, updateTypes, store);
+            }
+          });
         },
       };
     });
   };
 
+  const updateInteractions = (
+    container = updateContainer,
+    updateType?: string[],
+    oldStore?: Map<any, (options: G2ViewTree) => G2ViewTree>,
+  ) => {
+    // Interactions for update views.
+    const updateViewInstances = viewInstanceof(
+      container,
+      updateInteractions,
+      oldStore,
+    );
+
+    for (const target of updateViewInstances) {
+      const { options, container } = target;
+      const nameInteraction = container['nameInteraction'];
+      let typeOptions = inferInteraction(options);
+
+      if (updateType) {
+        typeOptions = typeOptions.filter((v) => updateType.includes(v[0]));
+      }
+
+      for (const typeOption of typeOptions) {
+        const [type, option] = typeOption;
+        // Remove interaction for existed views.
+        const prevInteraction = nameInteraction.get(type);
+        if (prevInteraction) prevInteraction.destroy?.();
+
+        // Apply new interaction.
+        if (option) {
+          const interaction = useThemeInteraction(
+            target.view,
+            type,
+            option as Record<string, any>,
+            useInteraction,
+          );
+          const destroy = interaction(
+            target,
+            updateViewInstances,
+            context.emitter,
+          );
+          nameInteraction.set(type, { destroy });
+        }
+      }
+    }
+  };
+
   // Interactions for enter views.
-  const enterViewInstances = viewInstanceof(enterContainer);
+  const enterViewInstances = viewInstanceof(enterContainer, updateInteractions);
   for (const target of enterViewInstances) {
     const { options } = target;
 
@@ -299,35 +359,7 @@ export async function plot<T extends G2ViewTree>(
     }
   }
 
-  // Interactions for update views.
-  const updateViewInstances = viewInstanceof(updateContainer);
-  for (const target of updateViewInstances) {
-    const { options, container } = target;
-    const nameInteraction = container['nameInteraction'];
-    for (const typeOption of inferInteraction(options)) {
-      const [type, option] = typeOption;
-
-      // Remove interaction for existed views.
-      const prevInteraction = nameInteraction.get(type);
-      if (prevInteraction) prevInteraction.destroy?.();
-
-      // Apply new interaction.
-      if (option) {
-        const interaction = useThemeInteraction(
-          target.view,
-          type,
-          option as Record<string, any>,
-          useInteraction,
-        );
-        const destroy = interaction(
-          target,
-          updateViewInstances,
-          context.emitter,
-        );
-        nameInteraction.set(type, { destroy });
-      }
-    }
-  }
+  updateInteractions();
 
   // Author animations.
   const { width, height } = options;
@@ -402,7 +434,7 @@ function createUpdateView(
     .filter(filter)
     .map((d) => d[0]);
 
-  return async (newOptions, source) => {
+  return async (newOptions, source, callback) => {
     const transitions = [];
     const [newView, newChildren] = await initializeView(newOptions, library);
     plotView(newView, selection, transitions, library, context);
@@ -415,7 +447,7 @@ function createUpdateView(
     for (const child of newChildren) {
       plot(child, selection, library, context);
     }
-
+    callback();
     return { options: newOptions, view: newView };
   };
 }
@@ -710,7 +742,7 @@ function initializeState(
   processAxisZ(components);
 
   // Scale from marks and components.
-  const scaleInstance = {};
+  const scaleInstance: Record<string, Scale> = {};
 
   // Initialize scale from components.
   for (const component of components) {
@@ -720,8 +752,17 @@ function initializeState(
       const { name } = descriptor;
       const scale = useRelationScale(descriptor, library);
       scales.push(scale);
+      // Delivery the scale of axisX to the AxisY,
+      // in order to calculate the angle of axisY component when rendering radar chart.
+      if (name === 'y') {
+        scale.update({
+          ...scale.getOptions(),
+          xScale: scaleInstance.x,
+        });
+      }
       assignScale(scaleInstance, { [name]: scale });
     }
+
     component.scaleInstances = scales;
   }
 
@@ -938,7 +979,7 @@ async function plotView(
           );
           const { attributes } = newComponent;
           const [node] = element.childNodes;
-          return node.update(attributes);
+          return node.update(attributes, false);
         }),
     )
     .transitions();

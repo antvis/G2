@@ -76,9 +76,9 @@ export function valueOf(node: Node): Record<string, any> {
 }
 
 export function sizeOf(options, container) {
-  const { width = 640, height = 480, autoFit, depth = 0 } = options;
-  let effectiveWidth = width;
-  let effectiveHeight = height;
+  const { width, height, autoFit, depth = 0 } = options;
+  let effectiveWidth = 640;
+  let effectiveHeight = 480;
 
   if (autoFit) {
     const { width: containerWidth, height: containerHeight } =
@@ -86,6 +86,9 @@ export function sizeOf(options, container) {
     effectiveWidth = containerWidth || effectiveWidth;
     effectiveHeight = containerHeight || effectiveHeight;
   }
+
+  effectiveWidth = width || effectiveWidth;
+  effectiveHeight = height || effectiveHeight;
 
   return {
     width: Math.max(
@@ -133,25 +136,44 @@ function isMark(
   return new Set(Object.keys(mark)).has(type);
 }
 
+function isComposition(
+  type: string | ((...args: any[]) => any),
+  composition: Record<string, new () => Node>,
+): boolean {
+  return (
+    typeof type !== 'function' && new Set(Object.keys(composition)).has(type)
+  );
+}
+
 function normalizeRootOptions(
   node: Node,
   options: G2ViewTree,
   previousType: string,
   marks: Record<string, new () => Node>,
+  composition: Record<string, new () => Node>,
 ) {
   const { type: oldType } = node;
   const { type = previousType || oldType } = options;
-  if (type === 'view') return options;
-  if (!isMark(type, marks)) return options;
-  const view = { type: 'view' };
-  const mark = { ...options };
-  for (const key of VIEW_KEYS) {
-    if (mark[key] !== undefined) {
-      view[key] = mark[key];
-      delete mark[key];
+  if (isComposition(type, composition)) {
+    for (const key of VIEW_KEYS) {
+      if (node.attr(key) !== undefined && options[key] === undefined) {
+        options[key] = node.attr(key);
+      }
     }
+    return options;
   }
-  return { ...view, children: [mark] };
+  if (isMark(type, marks)) {
+    const view = { type: 'view' };
+    const mark = { ...options };
+    for (const key of VIEW_KEYS) {
+      if (mark[key] !== undefined) {
+        view[key] = mark[key];
+        delete mark[key];
+      }
+    }
+    return { ...view, children: [mark] };
+  }
+  return options;
 }
 
 function typeCtor(
@@ -232,7 +254,13 @@ export function updateRoot(
   mark: Record<string, new () => Node>,
   composition: Record<string, new () => Node>,
 ) {
-  const rootOptions = normalizeRootOptions(node, options, definedType, mark);
+  const rootOptions = normalizeRootOptions(
+    node,
+    options,
+    definedType,
+    mark,
+    composition,
+  );
   const discovered: [Node, Node, G2ViewTree][] = [[null, node, rootOptions]];
   while (discovered.length) {
     const [parent, oldNode, newNode] = discovered.shift();

@@ -433,7 +433,7 @@ export function renderBackground({
     const shapeOf = isOrdinalShape() ? bandShapeOf : cloneShapeOf;
     const shape = shapeOf(element, finalStyle);
     shape.className = BACKGROUND_CLASS_NAME;
-    element.parentNode.appendChild(shape);
+    element.parentNode.parentNode.appendChild(shape);
     element.background = shape;
   };
 

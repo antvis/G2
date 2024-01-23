@@ -112,6 +112,12 @@ chart.on('plot:click', (event) => console.log(event));
 chart.on('component:click', (event) => console.log(event));
 ```
 
+* Listen to global label events
+
+```js
+chart.on('label:click', (event) => console.log(event));
+```
+
 ### Click event
 
 | Event name            | Explanation   | Callback parameters |

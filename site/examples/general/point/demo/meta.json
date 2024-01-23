@@ -10,7 +10,7 @@
         "zh": "散点图",
         "en": "Scatterplot"
       },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*u5aGSoyRDN8AAAAAAAAAAAAADmJ7AQ"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*-NYwTrAdwZ4AAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "point-one-dimension.ts",
@@ -18,7 +18,7 @@
         "zh": "一维散点图",
         "en": "One Dimension Scatterplot"
       },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*SCXXQYObM_AAAAAAAAAAAAAADmJ7AQ"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*GeijRY75QHgAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "point-strip.ts",
@@ -26,7 +26,7 @@
         "zh": "带子散点图",
         "en": "Strip Plot"
       },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*pCUiTouHSbYAAAAAAAAAAAAADmJ7AQ"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*0E-aSpAPPtwAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "point-label.ts",
@@ -34,7 +34,7 @@
         "zh": "标签散点图",
         "en": "Scatterplot, Labeled"
       },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*m7HITJRLnu8AAAAAAAAAAAAADmJ7AQ"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*j_DBRKze77QAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "point-shape.ts",
@@ -42,7 +42,7 @@
         "zh": "多形状散点图",
         "en": "Multi-Shape Scatterplot"
       },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*eZdTSrbFVdgAAAAAAAAAAAAADmJ7AQ"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*SdKuRYFVCOIAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "point-sequential.ts",
@@ -50,7 +50,7 @@
         "zh": "渐变色散点图",
         "en": "Gradient Scatterplot"
       },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*A1N1SbupvX8AAAAAAAAAAAAADmJ7AQ"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*20fLR5dh4SYAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "point-jitter.ts",
@@ -58,7 +58,7 @@
         "zh": "扰动散点图",
         "en": "Jitter Scatterplot"
       },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*0BaMRpu8tN8AAAAAAAAAAAAADmJ7AQ"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*34m0QZPUjxMAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "point-stacked.ts",
@@ -66,7 +66,7 @@
         "zh": "堆叠散点图",
         "en": "Stacked Scatterplot"
       },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*f26KS6m_fHgAAAAAAAAAAAAADmJ7AQ"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*extpT4E09xUAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "point-bubble.ts",
@@ -74,7 +74,7 @@
         "zh": "气泡图",
         "en": "Bubble Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*TE7xQLXpdUUAAAAAAAAAAAAADmJ7AQ"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*z8JFRLxrs_IAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "point-log.ts",
@@ -82,7 +82,7 @@
         "zh": "对数气泡图",
         "en": "Log Scatterplot"
       },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*T8Y-T5BlUTgAAAAAAAAAAAAADmJ7AQ"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*mezjR7Iy-TYAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "point-aggregated.ts",
@@ -90,7 +90,7 @@
         "zh": "聚合气泡图",
         "en": "Aggregated Bubble Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*49cUTYAB3HcAAAAAAAAAAAAADmJ7AQ"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*trHIR7xKaAcAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "point-dot.ts",
@@ -98,7 +98,7 @@
         "zh": "点图",
         "en": "Dot Plot"
       },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*RtalTb-DPdkAAAAAAAAAAAAADmJ7AQ"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*rhhlRLxuUYYAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }

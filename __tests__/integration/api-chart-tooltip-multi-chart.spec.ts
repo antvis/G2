@@ -15,8 +15,8 @@ describe('chart.interaction.tooltip', () => {
     });
     await Promise.all([finished0, finished1]);
 
-    dispatchFirstElementEvent(canvas1, 'pointerover');
-    dispatchFirstElementEvent(canvas2, 'pointerover');
+    dispatchFirstElementEvent(canvas1, 'pointermove');
+    dispatchFirstElementEvent(canvas2, 'pointermove');
     expect(
       Array.from(document.body.getElementsByClassName('g2-tooltip')).length,
     ).toBe(2);

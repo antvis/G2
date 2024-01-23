@@ -10,7 +10,7 @@
         "zh": "线性回归线",
         "en": "Linear Regression"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*svhHQLE2hFcAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*px9zQYKi5FsAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "quadratic-regression.ts",
@@ -18,7 +18,7 @@
         "zh": "二项式回归线",
         "en": "Quadratic Regression"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*_XyFSaCzQWIAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*4C26SqNkoG8AAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "exponential-regression.ts",
@@ -26,7 +26,7 @@
         "zh": "指数回归线",
         "en": "Exponential Regression"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*0X4NR4DrVw4AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*tPkpRqqP7rsAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "logarithmic-regression.ts",
@@ -34,7 +34,7 @@
         "zh": "对数回归线",
         "en": "Logarithmic Regression"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*V0TJS6Npo2QAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*onhxRaj8iP0AAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "polynomial-regression.ts",
@@ -42,7 +42,7 @@
         "zh": "多项式回归线",
         "en": "Polynomial Regression"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*PyI3SqUwQSoAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*SXUpRZiOlbIAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }

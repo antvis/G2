@@ -223,6 +223,8 @@ export type FlexXTransform = {
 
 export type PackTransform = {
   type?: 'pack';
+  padding?: number;
+  direction?: 'row' | 'col';
 };
 
 export type Reducer =

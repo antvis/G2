@@ -20,6 +20,7 @@ chart
   .encode('y', 'people')
   .scale('y', { type: 'sqrt' })
   .axis('y', {
+    titleSpacing: 28,
     labelFormatter: '~s',
     tickCount: 5,
     tickFilter: (d, i) => i !== 0,

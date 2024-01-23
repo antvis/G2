@@ -51,6 +51,20 @@ chart
   .style('lineWidth', 1.5);
 
 chart.render();
+
+```
+此外，rangeX 还提供了简便写法：
+
+```ts
+chart
+  .rangeX()
+  .data([[new Date('2010'), new Date('2011')]])
+  .encode('x', d => d);  
+
+// it can be simplified as follows:
+chart
+  .rangeX()
+  .data([new Date('2010'), new Date('2011')]);
 ```
 
 更多的案例，可以查看[图表示例](/examples)页面。

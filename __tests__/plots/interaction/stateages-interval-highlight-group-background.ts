@@ -44,7 +44,7 @@ stateAgesIntervalHighlightGroupBackground.steps = ({ canvas }) => {
     {
       skip: true,
       changeState: () => {
-        e1.background.dispatchEvent(new CustomEvent('pointerover'));
+        e1.background.dispatchEvent(new CustomEvent('pointermove'));
       },
     },
     step(e2, 'pointerover'),

@@ -1,3 +1,69 @@
+## [5.1.15](https://github.com/antvis/g2/compare/5.1.14...5.1.15) (2024-01-16)
+
+
+### Bug Fixes
+
+* **api:** auotFit sizeOf width > auto width > default width ([#6013](https://github.com/antvis/g2/issues/6013)) ([0f992d2](https://github.com/antvis/g2/commit/0f992d2abb3eb7752aa0f146ba2a654d12667b73))
+* **api:** scrollbar value  、silder values ([#6033](https://github.com/antvis/g2/issues/6033)) ([cded9ed](https://github.com/antvis/g2/commit/cded9ed5a5116e460085f0bbb82aa6a5051aa1ff))
+* fix point scale generates gradient color ([#5977](https://github.com/antvis/g2/issues/5977)) ([039716f](https://github.com/antvis/g2/commit/039716f73b3e96138d5cdaec52f4d500268d9ab5))
+* **slider:** adjust tooltip's position when clipped ([#6042](https://github.com/antvis/g2/issues/6042)) ([c6a5ee4](https://github.com/antvis/g2/commit/c6a5ee43dc45b6c437acdbec23fd232ea58a56f4))
+
+
+### Features
+
+* treemap drilldown 1.0.0 ([#6038](https://github.com/antvis/g2/issues/6038)) ([935df1b](https://github.com/antvis/g2/commit/935df1bde641a57ce30da33848268e064a5a1255))
+
+
+
+## [5.1.14](https://github.com/antvis/g2/compare/5.1.13...5.1.14) (2024-01-05)
+
+
+### Bug Fixes
+
+* **composition:** fix composition lost chart value options ([#5995](https://github.com/antvis/g2/issues/5995)) ([7792a37](https://github.com/antvis/g2/commit/7792a37225553da33fb9f04ff77ee2fbbc18e325))
+* wrong angles in polar coordinate ([#6010](https://github.com/antvis/g2/issues/6010)) ([ed5e780](https://github.com/antvis/g2/commit/ed5e7807242b3b6d7f56fccab3cfbb68824784fd))
+
+
+### Features
+
+* **event:** label click event ([#6012](https://github.com/antvis/g2/issues/6012)) ([fb0911c](https://github.com/antvis/g2/commit/fb0911c282e15c6a694628fc21d22b4d1985cd84))
+* 添加方形雷达图 ([#5985](https://github.com/antvis/g2/issues/5985)) ([ae4ab58](https://github.com/antvis/g2/commit/ae4ab583f25d356a0339612da7da8e8222021faf))
+
+
+
+## [5.1.13](https://github.com/antvis/g2/compare/5.1.12...5.1.13) (2023-12-21)
+
+
+### Bug Fixes
+
+* **axis:** custom axis tags disappear when the page is zoomed ([#5940](https://github.com/antvis/g2/issues/5940)) ([aa09cc0](https://github.com/antvis/g2/commit/aa09cc02a5e499781affd292191c11c866216690))
+* **legend:** expected layout cased by large legend ([#5945](https://github.com/antvis/g2/issues/5945)) ([e4ac450](https://github.com/antvis/g2/commit/e4ac45001ddc1afb57881b1279321cfc50c54bd5))
+* **mark:** change liquid text name ([#5927](https://github.com/antvis/g2/issues/5927)) ([9574d62](https://github.com/antvis/g2/commit/9574d62529e39c722dd8da927b277305a7b64cef))
+* **series:** interval background ([#5965](https://github.com/antvis/g2/issues/5965)) ([8f4936e](https://github.com/antvis/g2/commit/8f4936e3bbe09a79f793a071f141ecd93f394d2d))
+
+
+### Features
+
+* **transform:** add pack padding and direction ([#5964](https://github.com/antvis/g2/issues/5964)) ([082606c](https://github.com/antvis/g2/commit/082606ce3c7af78f97afe75bfed8466d8e72808a))
+
+
+
+## [5.1.12](https://github.com/antvis/g2/compare/5.1.11...5.1.12) (2023-12-12)
+
+
+### Bug Fixes
+
+* fix tooltip shown on one element line chart. ([#5917](https://github.com/antvis/g2/issues/5917)) ([52417d3](https://github.com/antvis/g2/commit/52417d301dc28f37100b2b48dd1b94039f5b29b5))
+* tooltip enterable ([#5626](https://github.com/antvis/g2/issues/5626)) ([08153e6](https://github.com/antvis/g2/commit/08153e6a464062ed829617bd83539408582b35d9))
+* tz in cross-env ([#5915](https://github.com/antvis/g2/issues/5915)) ([8fbfa4e](https://github.com/antvis/g2/commit/8fbfa4edfe0a9bb403b8ae20af7f4dcccd31d678))
+
+
+### Features
+
+* **rangeX and rangeY:** add syntactic sugar for data ([#5914](https://github.com/antvis/g2/issues/5914)) ([1a28b3d](https://github.com/antvis/g2/commit/1a28b3d8182b75a25cccf12a6d2a1f9ff8096f6d))
+
+
+
 ## [5.1.11](https://github.com/antvis/g2/compare/5.1.10...5.1.11) (2023-12-06)
 
 
