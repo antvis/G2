@@ -58,6 +58,7 @@ export { Rect as RectShape } from './interval/rect';
 export { Hollow as RectHollow } from './interval/hollow';
 export { Shape as ShapeShape } from './shape/shape';
 export { Liquid as LiquidShape } from './liquid/liquid';
+export { Round as GaugeRound } from './gauge/round';
 
 export type { RectOptions as IntervalShapeOptions } from './interval/rect';
 export type { HollowOptions as IntervalHollowOptions } from './interval/hollow';
