@@ -32,7 +32,7 @@
     "size": "limit-size",
     "lint": "eslint ./src ./__tests__ && prettier ./src ./__tests__ --check ",
     "fix": "eslint ./src ./__tests__ --fix && prettier ./src ./__tests__ --write ",
-    "test": "cross-env TZ=Asia/Shanghai node --expose-gc --max-old-space-size=4096 --unhandled-rejections=strict node_modules/jest/bin/jest __tests__ --logHeapUsage",
+    "test": "cross-env TZ=Asia/Shanghai node --expose-gc --max-old-space-size=4096 --unhandled-rejections=strict node_modules/jest/bin/jest __tests__ --coverage --logHeapUsage",
     "test:unit": "cross-env TZ=Asia/Shanghai node --expose-gc --max-old-space-size=4096 --unhandled-rejections=strict node_modules/jest/bin/jest __tests__/unit/ --coverage --logHeapUsage",
     "test:integration": "cross-env TZ=Asia/Shanghai node --expose-gc --max-old-space-size=4096 --unhandled-rejections=strict node_modules/jest/bin/jest __tests__/integration/ --coverage --logHeapUsage",
     "preview": "vite preview",

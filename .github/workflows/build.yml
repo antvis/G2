@@ -24,6 +24,12 @@ jobs:
           npm install
           npm run ci
 
+      - name: Update coverall
+        if: ${{ success() }}
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Upload blob report to GitHub Actions Artifacts
         if: always()
         uses: actions/upload-artifact@v3
