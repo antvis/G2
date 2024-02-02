@@ -112,7 +112,7 @@ function replaceChild(newChild: DisplayObject, oldChild: DisplayObject) {
   newChild.className = oldChild.className;
   // @ts-ignore
   newChild.markType = oldChild.markType;
-  oldChild.parentNode.replaceChild(newChild, oldChild);
+  oldChild.parentNode && oldChild.parentNode.replaceChild(newChild, oldChild);
 }
 
 /**
