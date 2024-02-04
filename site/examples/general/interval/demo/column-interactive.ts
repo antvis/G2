@@ -17,6 +17,9 @@ chart
   })
   .encode('x', 'letter')
   .encode('y', 'frequency')
-  .axis('y', { labelFormatter: '.0%' });
+  .axis('y', { labelFormatter: '.0%' })
+  .state('selected', { fill: '#1783FF', stroke: 'black', strokeWidth: 1 })
+  .state('unselected', { fill: '#ccc' })
+  .interaction('elementSelect'); // 设置高亮交互;
 
 chart.render();
