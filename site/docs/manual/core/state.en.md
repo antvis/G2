@@ -9,7 +9,7 @@ State in G2 is mainly used to control the state style of mark. These states will
 ({
   type: 'interval',
   state: {
-    active: { fill: 'red', stroke: 2 },
+    active: { fill: 'red', stroke: 'blue', strokeWidth: 2 },
     inactive: { fill: '#aaa' },
   },
 });
@@ -20,12 +20,12 @@ State in G2 is mainly used to control the state style of mark. These states will
 // First way
 chart
   .interval()
-  .state('active', { fill: 'red', stroke: 2 })
+  .state('active', { fill: 'red', stroke: 'blue', strokeWidth: 2 })
   .state('inactive', { fill: '#aaa' });
 
 // Second way
 chart.interval().state({
-  active: { fill: 'red', stroke: 2 },
+  active: { fill: 'red', stroke: 'blue', strokeWidth: 2 },
   inactive: { fill: '#aaa' },
 });
 ```
@@ -81,7 +81,7 @@ There are currently 4 built-in states:
     .encode('x', 'letter')
     .encode('y', 'frequency')
     .axis('y', { labelFormatter: '.0%' })
-    .state('selected', { fill: 'red' })
+    .state('selected', { fill: 'red', stroke: 'blue', strokeWidth: 2 })
     .state('unselected', { fill: '#aaa' })
     .interaction('elementSelect'); // Set up selection interaction
 
