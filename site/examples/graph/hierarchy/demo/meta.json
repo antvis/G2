@@ -13,6 +13,14 @@
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*BD2zQIr7D5MAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
+      "filename": "treemap-drill-down.ts",
+      "title": {
+        "zh": "矩阵树图下钻",
+        "en": "Treemap DrillDown"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*FwWXQqqpc_UAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
       "filename": "circle-packing.ts",
       "title": {
         "zh": "打包图",

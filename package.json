@@ -1,6 +1,6 @@
 {
   "name": "@antv/g2",
-  "version": "5.1.13",
+  "version": "5.1.15",
   "description": "the Grammar of Graphics in Javascript",
   "license": "MIT",
   "main": "lib/index.js",
@@ -24,6 +24,7 @@
     "dist"
   ],
   "scripts": {
+    "start": "cd site && npm run start",
     "dev": "cross-env TZ=Asia/Shanghai vite",
     "dev:link": "cross-env LINK=1 vite",
     "clean": "rimraf lib esm dist",
@@ -31,7 +32,7 @@
     "size": "limit-size",
     "lint": "eslint ./src ./__tests__ && prettier ./src ./__tests__ --check ",
     "fix": "eslint ./src ./__tests__ --fix && prettier ./src ./__tests__ --write ",
-    "test": "cross-env TZ=Asia/Shanghai node --expose-gc --max-old-space-size=4096 --unhandled-rejections=strict node_modules/jest/bin/jest __tests__ --logHeapUsage",
+    "test": "cross-env TZ=Asia/Shanghai node --expose-gc --max-old-space-size=4096 --unhandled-rejections=strict node_modules/jest/bin/jest __tests__ --coverage --logHeapUsage",
     "test:unit": "cross-env TZ=Asia/Shanghai node --expose-gc --max-old-space-size=4096 --unhandled-rejections=strict node_modules/jest/bin/jest __tests__/unit/ --coverage --logHeapUsage",
     "test:integration": "cross-env TZ=Asia/Shanghai node --expose-gc --max-old-space-size=4096 --unhandled-rejections=strict node_modules/jest/bin/jest __tests__/integration/ --coverage --logHeapUsage",
     "preview": "vite preview",
@@ -163,7 +164,7 @@
     },
     {
       "path": "dist/g2.lite.min.js",
-      "limit": "240 Kb",
+      "limit": "250 Kb",
       "gzip": true
     }
   ],

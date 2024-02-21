@@ -27,6 +27,10 @@ export function ScrollbarFilter(options: any = {}) {
       prefix: 'scrollbar',
       hasState: true,
       setValue: (component, values) => component.setValue(values[0]),
+      getInitValues: (scrollbar) => {
+        const values = scrollbar.slider.attributes.values;
+        if (values[0] !== 0) return values;
+      },
     });
     return interaction(context, _, emitter);
   };

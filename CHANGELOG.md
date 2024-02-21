@@ -1,3 +1,36 @@
+## [5.1.15](https://github.com/antvis/g2/compare/5.1.14...5.1.15) (2024-01-16)
+
+
+### Bug Fixes
+
+* **api:** auotFit sizeOf width > auto width > default width ([#6013](https://github.com/antvis/g2/issues/6013)) ([0f992d2](https://github.com/antvis/g2/commit/0f992d2abb3eb7752aa0f146ba2a654d12667b73))
+* **api:** scrollbar value  、silder values ([#6033](https://github.com/antvis/g2/issues/6033)) ([cded9ed](https://github.com/antvis/g2/commit/cded9ed5a5116e460085f0bbb82aa6a5051aa1ff))
+* fix point scale generates gradient color ([#5977](https://github.com/antvis/g2/issues/5977)) ([039716f](https://github.com/antvis/g2/commit/039716f73b3e96138d5cdaec52f4d500268d9ab5))
+* **slider:** adjust tooltip's position when clipped ([#6042](https://github.com/antvis/g2/issues/6042)) ([c6a5ee4](https://github.com/antvis/g2/commit/c6a5ee43dc45b6c437acdbec23fd232ea58a56f4))
+
+
+### Features
+
+* treemap drilldown 1.0.0 ([#6038](https://github.com/antvis/g2/issues/6038)) ([935df1b](https://github.com/antvis/g2/commit/935df1bde641a57ce30da33848268e064a5a1255))
+
+
+
+## [5.1.14](https://github.com/antvis/g2/compare/5.1.13...5.1.14) (2024-01-05)
+
+
+### Bug Fixes
+
+* **composition:** fix composition lost chart value options ([#5995](https://github.com/antvis/g2/issues/5995)) ([7792a37](https://github.com/antvis/g2/commit/7792a37225553da33fb9f04ff77ee2fbbc18e325))
+* wrong angles in polar coordinate ([#6010](https://github.com/antvis/g2/issues/6010)) ([ed5e780](https://github.com/antvis/g2/commit/ed5e7807242b3b6d7f56fccab3cfbb68824784fd))
+
+
+### Features
+
+* **event:** label click event ([#6012](https://github.com/antvis/g2/issues/6012)) ([fb0911c](https://github.com/antvis/g2/commit/fb0911c282e15c6a694628fc21d22b4d1985cd84))
+* 添加方形雷达图 ([#5985](https://github.com/antvis/g2/issues/5985)) ([ae4ab58](https://github.com/antvis/g2/commit/ae4ab583f25d356a0339612da7da8e8222021faf))
+
+
+
 ## [5.1.13](https://github.com/antvis/g2/compare/5.1.12...5.1.13) (2023-12-21)
 
 

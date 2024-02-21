@@ -142,6 +142,7 @@ chart.interval().axis('x', {}).axis('y', {});
 | 属性               | 描述                                                                                                                | 类型                                                                  | 默认值     |
 | ------------------ | ------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | ---------- |
 | label              | 是否显示刻度值                                                                                                      | `boolean`                                                             | -          |
+| labelOpacity       | 刻度值透明度                                                                                                    | `number` &#124; `(datum, index, data)=>number`                        | -          |
 | labelFilter        | 刻度值过滤                                                                                                          | `(datum, index, data)=> boolean`                                      | -          |
 | labelFormatter     | 刻度值线格式化                                                                                                      | `DisplayObject` &#124; `(datum, index, data, Vector)=> DisplayObject` | -          |
 | transform          | 刻度值转换，避免文本之间发生重叠。当前支持超长文本缩略、重叠刻度值隐藏、自动旋转                                    | `Transform[]`                                                         | -          |
@@ -157,8 +158,8 @@ chart.interval().axis('x', {}).axis('y', {});
 | labelFontSize      | 刻度值文字大小                                                                                                      | `number` &#124; `(datum, index, data)=>number`                        | -          |
 | labelFontFamily    | 刻度值文字字体                                                                                                      | `string` &#124; `(datum, index, data)=>string`                        | -          |
 | labelFontWeight    | 刻度值字体粗细                                                                                                      | `number` &#124;`(datum, index, data)=>number`                         | -          |
-| labelFill        | 刻度值字体颜色                                                                                                      | `string` &#124; `(datum, index, data)=>string`                        | -          |
-| labelFillOpacity | 刻度值文本透明度                                                                                                    | `number` &#124; `(datum, index, data)=>number`                        | -          |
+| labelFill          | 刻度值字体颜色                                                                                                      | `string` &#124; `(datum, index, data)=>string`                        | -          |
+| labelFillOpacity   | 刻度值文本透明度                                                                                                    | `number` &#124; `(datum, index, data)=>number`                        | -          |
 | labelStroke        | 刻度值文本描边颜色                                                                                                      | `string` &#124; `(datum, index, data)=>string`                        | -          |
 | labelStrokeOpacity | 刻度值文本描边透明度                                                                                                    | `number` &#124; `(datum, index, data)=>number`                        | -          |
 

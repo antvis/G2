@@ -9,6 +9,7 @@ import { getTransformOptions } from '../utils/coordinate';
 import { Radial } from '../coordinate';
 import { applyStyle, getOrigin } from '../shape/utils';
 import { select } from '../utils/selection';
+import { GaugeRound } from '../shape';
 
 const indicatorShape: SC<ColorOptions> = (options, context) => {
   const { shape, radius, ...style } = options;
@@ -215,13 +216,16 @@ export const Gauge: CC<GaugeOptions> = (options) => {
   // pointer + pin
   const indicatorStyle = filterPrefixObject(style, ['pointer', 'pin']);
 
+  const arcStyle = subObject(style, 'arc');
+  const shape = arcStyle.shape;
+
   return [
     deepMix({}, DEFAULT_OPTIONS, {
       type: 'interval',
       transform: [{ type: 'stackY' }],
       data: totalData,
       scale: newScale,
-      style: subObject(style, 'arc'),
+      style: shape === 'round' ? { ...arcStyle, shape: GaugeRound } : arcStyle,
       animate:
         typeof animate === 'object' ? subObject(animate, 'arc') : animate,
       ...resOptions,
