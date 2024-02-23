@@ -5,8 +5,7 @@ import { G2Spec } from '../../../src';
 function Table(options, dimensions) {
   const { data, cell = { height: 30, width: 96 }, text = {} } = options;
   // debugger
-  // data = data.flatMap(x => new Array(2).fill(x))
-  // console.log('data', data)
+
   const cellHeight = cell.height;
   const cellWidth = cell.width;
 
@@ -18,7 +17,7 @@ function Table(options, dimensions) {
   );
 
   const { width, height } = dimensions;
-  const rows = data.length + 1;
+  const rows = data.length;
   const expectedHeight = cell.height * rows;
   const expectedWidth = cell.width * keys.length;
   const range = expectedHeight / height;
@@ -32,18 +31,13 @@ function Table(options, dimensions) {
       type: 'cell',
       data: cells,
       encode: {
-        // x: 'x',
         x: 'col',
         y: 'y',
       },
       scale: {
-        y: { range: [0, range] },
-        // y: { range: [0, 1] },
-
-        // tickMethod: (min, max, count) => {
-        //   console.log('count', count)
-        //   return [...keys]
-        // }
+        y: {
+          range: [0, range],
+        },
       },
 
       scrollbar: {
@@ -56,7 +50,8 @@ function Table(options, dimensions) {
         y:
           expectedHeight > height
             ? {
-                // scrollable: true
+                scrollable: true,
+                ratio: range,
                 position: 'right',
               }
             : false,
@@ -95,7 +90,6 @@ function Table(options, dimensions) {
                 width: bbox.width,
                 height: bbox.height,
                 // stroke: "green",
-
                 fill: '#e1eafd',
                 zIndex: -1,
               },
@@ -120,7 +114,6 @@ function Table(options, dimensions) {
       type: 'text',
       data: cells,
       encode: {
-        // x: "x",
         x: 'col',
         y: 'y',
         text: 'key',
@@ -142,6 +135,7 @@ const data = [
     type: '笔',
     price: 1,
   },
+
   {
     province: '浙江',
     city: '杭州',
@@ -154,6 +148,7 @@ const data = [
     type: '笔',
     price: 17,
   },
+
   {
     province: '浙江',
     city: '舟山',
@@ -202,6 +197,7 @@ const data = [
     type: '笔',
     price: 15,
   },
+
   {
     province: '浙江',
     city: '舟山',
@@ -214,6 +210,7 @@ const data = [
     type: '笔',
     price: 15,
   },
+
   {
     province: '吉林',
     city: '白山',
@@ -238,6 +235,7 @@ const data = [
     type: '纸张',
     price: 40,
   },
+
   {
     province: '吉林',
     city: '白山',
@@ -249,26 +247,26 @@ const data = [
     province: '吉林',
     city: '长春',
     type: '纸张',
-    price: 40,
+    price: 60,
   },
   {
     province: '吉林',
     city: '白山',
     type: '纸张',
-    price: 50,
+    price: 70,
   },
 
   {
     province: '吉林',
     city: '长春',
     type: '纸张',
-    price: 40,
+    price: 80,
   },
   {
     province: '吉林',
     city: '白山',
     type: '纸张',
-    price: 50,
+    price: 90,
   },
 ];
 
