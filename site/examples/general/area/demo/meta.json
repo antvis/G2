@@ -5,6 +5,14 @@
   },
   "demos": [
     {
+      "filename": "area-basic.ts",
+      "title": {
+        "zh": "简单面积图",
+        "en": "Basic Area Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*MfcyRp9k47gAAAAAAAAAAABkARQnAQ/original"
+    },
+    {
       "filename": "step-area.ts",
       "title": {
         "zh": "阶梯面积图",
@@ -27,6 +35,30 @@
         "en": "Missing Data Area Chart"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ox-rS7bQE48AAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "area-with-negative.ts",
+      "title": {
+        "zh": "负数面积图",
+        "en": "With Negative Area Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*rYTxSZm8qysAAAAAAAAAAABkARQnAQ/original"
+    },
+    {
+      "filename": "area-stacked-basic.ts",
+      "title": {
+        "zh": "简单堆叠面积图",
+        "en": "Basic Stacked Area Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*lYP2RaWaXTgAAAAAAAAAAABkARQnAQ/original"
+    },
+    {
+      "filename": "area-percentage.ts",
+      "title": {
+        "zh": "百分比堆叠面积图",
+        "en": "Percentage Area Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*anNrQbpzkysAAAAAAAAAAABkARQnAQ/original"
     },
     {
       "filename": "area-gradient.ts",
@@ -99,6 +131,14 @@
         "en": "Band Chart"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*2fXdTp9E-uwAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "area-range.ts",
+      "title": {
+        "zh": "区间面积图",
+        "en": "Range Area Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*oBRKR4tAIEcAAAAAAAAAAABkARQnAQ/original"
     },
     {
       "filename": "range-spline-area.ts",
