@@ -47,7 +47,7 @@ chart.encode({ x: 'name', y: 'value' });
 
 ## 通道
 
-为了控制标记的样式，我们往往会把一列数据和它的视觉属性绑定。比如在下面的例子中，我们把数据中 height 一列数据和 x 属性绑定，weight 列数据数据和 y 属性绑定，gender 列数据和 color 属性绑定。
+为了控制标记的样式，我们往往会把一列数据和它的视觉属性绑定。比如在下面的例子中，我们把数据中 weight 一列数据和 x 属性绑定，height 列数据数据和 y 属性绑定，gender 列数据和 color 属性绑定。
 
 ```js | ob { pin: false }
 table({
