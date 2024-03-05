@@ -322,3 +322,8 @@ export { mockComplexRadar } from './mock-complex-radar';
 export { aaplLineIllegalDataSlider } from './aapl-line-illegal-data-slider';
 export { mockSquareRadar } from './mock-square-radar';
 export { aaplLineSliderValues } from './aapl-line-slider-values';
+export { flareElementPointMoveLine } from './flare-element-point-move-line';
+export { flareElementPointMoveInterval } from './flare-element-point-move-interval';
+export { flareElementPointMoveIntervalTranspose } from './flare-element-point-move-interval-transpose';
+export { flareElementPointMoveIntervalNormalizeY } from './flare-element-point-move-interval-normalizeY';
+export { flareElementPointMoveIntervalNormalizeYTranspose } from './flare-element-point-move-interval-normalizeY-transpose';
