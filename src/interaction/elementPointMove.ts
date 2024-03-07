@@ -1,14 +1,14 @@
 import { Text, Group, Circle, Path } from '@antv/g';
-import { deepMix, isUndefined, find, get, filter } from '@antv/util';
+import { deepMix, isUndefined, find, get } from '@antv/util';
 
-import type { PathArray } from '@antv/util';
 import type { CircleStyleProps, TextStyleProps, PathStyleProps } from '@antv/g';
-import { selectPlotArea } from './utils';
-
-// Get element.
-const getElements = (plot) => {
-  return plot.querySelectorAll('.element');
-};
+import {
+  selectPlotArea,
+  getPointsR,
+  getPointsPath,
+  getElements,
+  getThetaPath,
+} from './utils';
 
 export type ElementPointMoveOptions = {
   selected?: number[];
@@ -25,7 +25,7 @@ const DEFAULT_STYLE = {
   pointStyle: {
     r: 6,
     strokeWidth: 1,
-    stroke: '#333',
+    stroke: '#888',
     activeStroke: '#f5f5f5',
   } as CircleStyleProps,
   lineDashPathStyle: {
@@ -75,38 +75,28 @@ const elementMouseleave = (e) => {
   }
 };
 
-// Points create path.
-const getPointsPath = (points: number[][], isClose = false) => {
-  const path = filter(points, (d) => !!d).map((d, i) => {
-    return [i === 0 ? 'M' : 'L', ...d];
-  }) as PathArray;
-
-  if (isClose) {
-    path.push(['Z']);
-  }
-  return path;
-};
-
 // Get the latest overall data based on the individual data changes.
 const getNewData = (newChangeData, data, encode) => {
   return data.map((d) => {
-    if (encode.x && d[encode.x] === newChangeData[encode.x]) {
-      if (encode.color) {
-        return d[encode.color] === newChangeData[encode.color]
-          ? newChangeData
-          : d;
-      } else {
-        return newChangeData;
-      }
-    }
+    const isUpdate = ['x', 'color'].reduce((v, key) => {
+      const field = encode[key];
+      if (!field) return v;
 
-    return d;
+      if (d[field] !== newChangeData[field]) return false;
+
+      return v;
+    }, true);
+
+    return isUpdate ? { ...d, ...newChangeData } : d;
   });
 };
 
-// Find origin element data.
-const getElementDataRatioTransformFn = (element) => {
-  const v = get(element, ['__data__', 'items', '0', 'value']);
+// Find mark interval origin element data.
+const getIntervalDataRatioTransformFn = (element) => {
+  const y = get(element, ['__data__', 'y']);
+  const y1 = get(element, ['__data__', 'y1']);
+  const v = y1 - y;
+
   const {
     __data__: { data, encode, transform },
     childNodes,
@@ -115,8 +105,32 @@ const getElementDataRatioTransformFn = (element) => {
   const yField = get(encode, ['y', 'field']);
   const value = data[childNodes.indexOf(element)][yField];
 
+  return (newValue, isTheta = false) => {
+    if (isNormalizeY || isTheta) {
+      return (newValue / (1 - newValue) / (v / (1 - v))) * value;
+    }
+
+    return newValue;
+  };
+};
+
+// Find origin path data.
+const getPathDataRatioTransformFn = (element, index) => {
+  const v = get(element, ['__data__', 'seriesItems', index, '0', 'value']);
+  const i = get(element, ['__data__', 'seriesIndex', index]);
+
+  const {
+    __data__: { data, encode, transform },
+  } = element.parentNode;
+  const isNormalizeY = find(transform, ({ type }) => type === 'normalizeY');
+  const yField = get(encode, ['y', 'field']);
+  const value = data[i][yField];
+
   return (newValue) => {
     if (isNormalizeY) {
+      if (v === 1) {
+        return newValue;
+      }
       return (newValue / (1 - newValue) / (v / (1 - v))) * value;
     }
 
@@ -164,6 +178,16 @@ const getColorType = (scaleColor, color) => {
   return scaleColor.sortedDomain[i];
 };
 
+// Get the same direction new point.
+const getSamePointPosition = (center, point, target) => {
+  const oldR = getPointsR(center, point);
+  const newR = getPointsR(center, target);
+  const ratio = newR / oldR;
+  const newX = center[0] + (point[0] - center[0]) * ratio;
+  const newY = center[1] + (point[1] - center[1]) * ratio;
+  return [newX, newY];
+};
+
 /**
  * ElementPointMove interaction.
  */
@@ -205,12 +229,19 @@ export function ElementPointMove(
       options: { marks, coordinate: coordinateOptions },
     } = context;
     const plotArea = selectPlotArea(container);
-    const elements = getElements(plotArea);
+    let elements = getElements(plotArea);
     let newState;
     let newSelected = selected;
 
-    const { transform = [] } = coordinateOptions;
+    const { transform = [], type: coordinateType } = coordinateOptions;
     const isTranspose = !!find(transform, ({ type }) => type === 'transpose');
+    const isPolar = coordinateType === 'polar';
+    const isTheta = coordinateType === 'theta';
+    const isArea = !!find(elements, ({ markType }) => markType === 'area');
+
+    if (isArea) {
+      elements = elements.filter(({ markType }) => markType === 'area');
+    }
 
     // Create points
     const pointsGroup = new Group({
@@ -233,19 +264,22 @@ export function ElementPointMove(
     const createPoints = (element) => {
       const { attributes, markType, __data__: data } = element;
       const { stroke: fill } = attributes;
-      const { points, seriesTitle, color, title } = data;
-
+      const { points, seriesTitle, color, title, seriesX } = data;
       // Transpose Currently only do mark interval;
       if (isTranspose && markType !== 'interval') return;
 
-      pointsGroup.removeChildren();
-      let downPointHeight = 0;
+      const { scale, coordinate } = newState?.view || view;
+      const { color: scaleColor, y: scaleY } = scale;
+      const center = coordinate.getCenter();
 
-      const updateView = async (x, y, color, markType) => {
+      pointsGroup.removeChildren();
+      let downPoint;
+
+      const updateView = async (x, y, color, markTypes) => {
         setState('elementPointMove', (viewOptions) => {
           // Update marks.
           const newMarks = (newState?.options?.marks || marks).map((mark) => {
-            if (mark.type !== markType) return mark;
+            if (!markTypes.includes(mark.type)) return mark;
             const { data, encode } = mark;
             const encodeKeys = Object.keys(encode);
 
@@ -263,7 +297,6 @@ export function ElementPointMove(
               }
               return value;
             }, {} as any);
-
             // Get change new all data.
             const newData = getNewData(newChangeData, data, encode);
             dataChange(newChangeData, newData);
@@ -281,8 +314,12 @@ export function ElementPointMove(
         return await update('elementPointMove');
       };
 
-      if (markType === 'line') {
+      if (['line', 'area'].includes(markType)) {
         points.forEach((p, index) => {
+          const title = seriesTitle[index];
+          // Area points have bottom point.
+          if (!title) return;
+
           const circle = new Circle({
             name: MOVE_POINT_NAME,
             style: {
@@ -293,9 +330,11 @@ export function ElementPointMove(
             },
           });
 
+          const ratioTransform = getPathDataRatioTransformFn(element, index);
+
           circle.addEventListener('mousedown', (e) => {
-            const { scale, coordinate } = newState?.view || view;
-            const { color: scaleColor, y: scaleY } = scale;
+            const oldPoint = coordinate.output([seriesX[index], 0]);
+            const pathLength = seriesTitle?.length;
 
             container.attr('cursor', 'move');
 
@@ -316,19 +355,72 @@ export function ElementPointMove(
 
             // Point move change text
             const pointMousemove = (e) => {
-              const newCy = p[1] + e.clientY - downPointHeight;
-              const [, y] = coordinate.invert([p[0], newCy]);
-              const newPath = getPointsPath([
-                points[index - 1],
-                [p[0], newCy],
-                points[index + 1],
-              ]);
-              labelShape.attr('text', scaleY.invert(y).toFixed(precision));
-              pathShape.attr('path', newPath);
-              circle.attr('cy', newCy);
+              const newCy = p[1] + e.clientY - downPoint[1];
+              // Area/Radar chart.
+              if (isArea) {
+                // Radar chart.
+                if (isPolar) {
+                  const newCx = p[0] + e.clientX - downPoint[0];
+
+                  const [newX, newY] = getSamePointPosition(center, oldPoint, [
+                    newCx,
+                    newCy,
+                  ]);
+
+                  const [, initY] = coordinate.output([1, scaleY.output(0)]);
+                  const [, y] = coordinate.invert([
+                    newX,
+                    initY - (points[index + pathLength][1] - newY),
+                  ]);
+
+                  const nextIndex = (index + 1) % pathLength;
+                  const lastIndex = (index - 1 + pathLength) % pathLength;
+                  const newPath = getPointsPath([
+                    points[lastIndex],
+                    [newX, newY],
+                    seriesTitle[nextIndex] && points[nextIndex],
+                  ]);
+                  labelShape.attr(
+                    'text',
+                    ratioTransform(scaleY.invert(y)).toFixed(precision),
+                  );
+                  pathShape.attr('path', newPath);
+                  circle.attr('cx', newX);
+                  circle.attr('cy', newY);
+                } else {
+                  // Area chart.
+                  const [, initY] = coordinate.output([1, scaleY.output(0)]);
+                  const [, y] = coordinate.invert([
+                    p[0],
+                    initY - (points[index + pathLength][1] - newCy),
+                  ]);
+                  const newPath = getPointsPath([
+                    points[index - 1],
+                    [p[0], newCy],
+                    seriesTitle[index + 1] && points[index + 1],
+                  ]);
+                  labelShape.attr(
+                    'text',
+                    ratioTransform(scaleY.invert(y)).toFixed(precision),
+                  );
+                  pathShape.attr('path', newPath);
+                  circle.attr('cy', newCy);
+                }
+              } else {
+                // Line chart.
+                const [, y] = coordinate.invert([p[0], newCy]);
+                const newPath = getPointsPath([
+                  points[index - 1],
+                  [p[0], newCy],
+                  points[index + 1],
+                ]);
+                labelShape.attr('text', scaleY.invert(y).toFixed(precision));
+                pathShape.attr('path', newPath);
+                circle.attr('cy', newCy);
+              }
             };
 
-            downPointHeight = e.clientY;
+            downPoint = [e.clientX, e.clientY];
             window.addEventListener('mousemove', pointMousemove);
 
             const mouseupFn = async () => {
@@ -338,11 +430,12 @@ export function ElementPointMove(
 
               if (isUndefined(labelShape.attr('text'))) return;
 
-              const x = seriesTitle[index];
               const y = Number(labelShape.attr('text'));
               const colorType = getColorType(scaleColor, color);
-
-              newState = await updateView(x, y, colorType, 'line');
+              newState = await updateView(title, y, colorType, [
+                'line',
+                'area',
+              ]);
 
               labelShape.remove();
               pathShape.remove();
@@ -361,10 +454,17 @@ export function ElementPointMove(
           pointDefaultStyle,
         );
       } else if (markType === 'interval') {
-        const circlePoint = isTranspose
-          ? [points[0][0], (points[0][1] + points[1][1]) / 2]
-          : [(points[0][0] + points[1][0]) / 2, points[0][1]];
-        const ratioTransform = getElementDataRatioTransformFn(element);
+        // Column chart point.
+        let circlePoint = [(points[0][0] + points[1][0]) / 2, points[0][1]];
+        // Bar chart point.
+        if (isTranspose) {
+          circlePoint = [points[0][0], (points[0][1] + points[1][1]) / 2];
+        } else if (isTheta) {
+          // Pie chart point.
+          circlePoint = points[0];
+        }
+
+        const ratioTransform = getIntervalDataRatioTransformFn(element);
 
         const circle = new Circle({
           name: MOVE_POINT_NAME,
@@ -378,8 +478,6 @@ export function ElementPointMove(
         });
 
         circle.addEventListener('mousedown', (e) => {
-          const { scale, coordinate } = newState?.view || view;
-          const { color: scaleColor, y: scaleY } = scale;
           container.attr('cursor', 'move');
 
           const colorType = getColorType(scaleColor, color);
@@ -394,7 +492,8 @@ export function ElementPointMove(
           // Point move change text
           const pointMousemove = (e) => {
             if (isTranspose) {
-              const newCx = circlePoint[0] + e.clientX - downPointHeight;
+              // Bar chart.
+              const newCx = circlePoint[0] + e.clientX - downPoint[0];
               const [initX] = coordinate.output([
                 scaleY.output(0),
                 scaleY.output(0),
@@ -420,8 +519,42 @@ export function ElementPointMove(
               );
               pathShape.attr('path', newPath);
               circle.attr('cx', newCx);
+            } else if (isTheta) {
+              // Pie chart.
+              const newCy = circlePoint[1] + e.clientY - downPoint[1];
+              const newCx = circlePoint[0] + e.clientX - downPoint[0];
+
+              const [newXOut, newYOut] = getSamePointPosition(
+                center,
+                [newCx, newCy],
+                circlePoint,
+              );
+              const [newXIn, newYIn] = getSamePointPosition(
+                center,
+                [newCx, newCy],
+                points[1],
+              );
+              const lastPercent = coordinate.invert([newXOut, newYOut])[1];
+              const nextPercent = coordinate.invert(points[3])[1];
+              const percent = nextPercent - lastPercent;
+
+              if (percent < 0) return;
+              const newPath = getThetaPath(
+                center,
+                [[newXOut, newYOut], [newXIn, newYIn], points[2], points[3]],
+                percent > 0.5 ? 1 : 0,
+              );
+
+              labelShape.attr(
+                'text',
+                ratioTransform(percent, true).toFixed(precision),
+              );
+              pathShape.attr('path', newPath);
+              circle.attr('cx', newXOut);
+              circle.attr('cy', newYOut);
             } else {
-              const newCy = circlePoint[1] + e.clientY - downPointHeight;
+              // Column chart.
+              const newCy = circlePoint[1] + e.clientY - downPoint[1];
               const [, initY] = coordinate.output([1, scaleY.output(0)]);
 
               const [, y] = coordinate.invert([
@@ -447,7 +580,7 @@ export function ElementPointMove(
             }
           };
 
-          downPointHeight = isTranspose ? e.clientX : e.clientY;
+          downPoint = [e.clientX, e.clientY];
           window.addEventListener('mousemove', pointMousemove);
 
           // Change mosueup change data and update 、clear shape.
@@ -460,7 +593,7 @@ export function ElementPointMove(
 
             const y = Number(labelShape.attr('text'));
 
-            newState = await updateView(title, y, colorType, 'interval');
+            newState = await updateView(title, y, colorType, [markType]);
 
             labelShape.remove();
             pathShape.remove();

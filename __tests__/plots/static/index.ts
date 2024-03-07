@@ -327,3 +327,7 @@ export { flareElementPointMoveInterval } from './flare-element-point-move-interv
 export { flareElementPointMoveIntervalTranspose } from './flare-element-point-move-interval-transpose';
 export { flareElementPointMoveIntervalNormalizeY } from './flare-element-point-move-interval-normalizeY';
 export { flareElementPointMoveIntervalNormalizeYTranspose } from './flare-element-point-move-interval-normalizeY-transpose';
+export { flareElementPointMoveRadar } from './flare-element-point-move-radar';
+export { flareElementPointMovePie } from './flare-element-point-move-pie';
+export { flareElementPointMoveArea } from './flare-element-point-move-area';
+export { flareElementPointMoveAreaNormalizeY } from './flare-element-point-move-area-normalizeY';

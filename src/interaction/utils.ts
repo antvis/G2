@@ -2,6 +2,8 @@ import { DisplayObject, Path } from '@antv/g';
 import { path as d3Path } from 'd3-path';
 import { sort } from 'd3-array';
 import { Vector2 } from '@antv/coord';
+import { filter } from '@antv/util';
+import type { PathArray } from '@antv/util';
 import { G2Element, select } from '../utils/selection';
 import { mapObject } from '../utils/array';
 import {
@@ -467,4 +469,54 @@ export function selectElementByData(elements, data, datum) {
   return elements.find((d) =>
     Object.entries(data).every(([key, value]) => datum(d)[key] === value),
   );
+}
+
+export function getPointsR(point: number[], nextPoint: number[]) {
+  return Math.sqrt(
+    Math.pow(point[0] - nextPoint[0], 2) + Math.pow(point[1] - nextPoint[1], 2),
+  );
+}
+
+// Points create path.
+export function getPointsPath(points: number[][], isClose = false) {
+  const path = filter(points, (d) => !!d).map((d, i) => {
+    return [i === 0 ? 'M' : 'L', ...d];
+  }) as PathArray;
+
+  if (isClose) {
+    path.push(['Z']);
+  }
+  return path;
+}
+
+// Get element.
+export function getElements(plot) {
+  return plot.querySelectorAll('.element');
+}
+
+// Get Theta coordinate round path.
+export function getThetaPath(
+  center: number[],
+  points: number[][],
+  isBig = 0,
+): PathArray {
+  const path = [['M', ...points[1]]];
+  const innerRadius = getPointsR(center, points[1]);
+  const outerRadius = getPointsR(center, points[0]);
+
+  if (innerRadius === 0) {
+    path.push(
+      ['L', ...points[3]],
+      ['A', outerRadius, outerRadius, 0, isBig, 1, ...points[0]],
+      ['Z'],
+    );
+  } else {
+    path.push(
+      ['A', innerRadius, innerRadius, 0, isBig, 0, ...points[2]],
+      ['L', ...points[3]],
+      ['A', outerRadius, outerRadius, 0, isBig, 1, ...points[0]],
+      ['Z'],
+    );
+  }
+  return path as PathArray;
 }

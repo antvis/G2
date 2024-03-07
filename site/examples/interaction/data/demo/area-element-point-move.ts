@@ -6,7 +6,7 @@ const chart = new Chart({
 });
 
 chart
-  .line()
+  .area()
   .data([
     { year: '1991', value: 3, type: 'type1' },
     { year: '1992', value: 4, type: 'type1' },
@@ -31,25 +31,6 @@ chart
     legendFilter: false,
     elementPointMove: {
       selected: [1, 4],
-      pointStyle: {
-        r: 8,
-        strokeWidth: 2,
-        activeStroke: '#fff',
-      },
-      lineDashPathStyle: {
-        lineDash: [2, 4],
-        stroke: 'red',
-      },
-      labelStyle: {
-        fontSize: 14,
-        y: 24,
-      },
-      selectedChange: (newSelected) => {
-        console.log(newSelected);
-      },
-      dataChange: (newChangeData, newData) => {
-        console.log(newChangeData, newData);
-      },
     },
   })
   .encode('x', 'year')
