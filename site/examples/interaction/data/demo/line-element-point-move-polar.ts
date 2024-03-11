@@ -36,15 +36,7 @@ chart
   .scale('y', { tickCount: 5, domainMax: 80 })
   .interaction({
     legendFilter: false,
-    elementPointMove: {
-      selected: [1, 3],
-      selectedChange: (newSelected) => {
-        console.log(newSelected);
-      },
-      dataChange: (newChangeData, newData) => {
-        console.log(newChangeData, newData);
-      },
-    },
+    elementPointMove: true,
   })
   .axis('x', {
     grid: true,

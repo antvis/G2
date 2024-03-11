@@ -32,7 +32,7 @@ export function flareElementPointMoveInterval(): G2Spec {
     transform: [{ type: 'stackY' }],
     interaction: {
       elementPointMove: {
-        selected: [6],
+        selection: [6],
       },
     },
   };

@@ -30,7 +30,7 @@ chart
   .interaction({
     legendFilter: false,
     elementPointMove: {
-      selected: [1, 4],
+      selection: [1, 4],
     },
   })
   .encode('x', 'year')

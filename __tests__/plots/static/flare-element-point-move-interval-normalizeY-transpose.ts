@@ -37,7 +37,7 @@ export function flareElementPointMoveIntervalNormalizeYTranspose(): G2Spec {
     ],
     interaction: {
       elementPointMove: {
-        selected: [6],
+        selection: [6],
       },
     },
   };

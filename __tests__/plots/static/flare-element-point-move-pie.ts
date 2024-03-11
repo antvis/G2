@@ -26,7 +26,7 @@ export function flareElementPointMovePie(): G2Spec {
     interaction: {
       legendFilter: false,
       elementPointMove: {
-        selected: [2],
+        selection: [2],
         lineDashPathStyle: { lineDash: [2, 4], stroke: '#fff', lineWidth: 2 },
       },
     },

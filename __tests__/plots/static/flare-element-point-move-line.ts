@@ -34,7 +34,7 @@ export function flareElementPointMoveLine(): G2Spec {
     interaction: {
       elementPointMove: {
         precision: 4,
-        selected: [1, 4],
+        selection: [1, 4],
       },
     },
   };

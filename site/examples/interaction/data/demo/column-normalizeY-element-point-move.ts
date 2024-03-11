@@ -38,13 +38,6 @@ chart
     legendFilter: false,
     elementPointMove: {
       precision: 3,
-      selected: [5],
-      selectedChange: (newSelected) => {
-        console.log(newSelected);
-      },
-      dataChange: (newChangeData, newData) => {
-        console.log(newChangeData, newData);
-      },
     },
   });
 

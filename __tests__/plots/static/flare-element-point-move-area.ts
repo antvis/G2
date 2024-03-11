@@ -28,7 +28,7 @@ export function flareElementPointMoveArea(): G2Spec {
     encode: { x: 'year', y: 'value', key: 'type', color: 'type' },
     interaction: {
       legendFilter: false,
-      elementPointMove: { selected: [1, 4] },
+      elementPointMove: { selection: [1, 4] },
     },
   };
 }

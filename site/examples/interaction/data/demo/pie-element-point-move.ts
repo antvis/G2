@@ -22,7 +22,6 @@ chart
   .interaction({
     legendFilter: false,
     elementPointMove: {
-      selected: [1],
       lineDashPathStyle: {
         lineDash: [2, 4],
         stroke: '#fff',

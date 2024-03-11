@@ -38,9 +38,7 @@ chart
   ])
   .interaction({
     legendFilter: false,
-    elementPointMove: {
-      selected: [1, 4],
-    },
+    elementPointMove: true,
   })
   .transform({ type: 'stackY' })
   .transform({ type: 'normalizeY' })

@@ -38,7 +38,7 @@ export function flareElementPointMoveAreaNormalizeY(): G2Spec {
     transform: [{ type: 'stackY' }, { type: 'normalizeY' }],
     interaction: {
       legendFilter: false,
-      elementPointMove: { selected: [1, 4] },
+      elementPointMove: { selection: [1, 4] },
     },
   };
 }

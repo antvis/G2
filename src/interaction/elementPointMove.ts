@@ -1,5 +1,5 @@
 import { Text, Group, Circle, Path } from '@antv/g';
-import { deepMix, isUndefined, find, get } from '@antv/util';
+import { deepMix, isUndefined, find, get, isNumber } from '@antv/util';
 
 import type { CircleStyleProps, TextStyleProps, PathStyleProps } from '@antv/g';
 import {
@@ -11,9 +11,7 @@ import {
 } from './utils';
 
 export type ElementPointMoveOptions = {
-  selected?: number[];
-  selectedChange?: (selected) => void;
-  dataChange?: (newChangeData, newData) => void;
+  selection?: number[];
   labelStyle?: TextStyleProps;
   lineDashPathStyle?: PathStyleProps;
   pointStyle?: CircleStyleProps;
@@ -139,11 +137,11 @@ const getPathDataRatioTransformFn = (element, index) => {
 };
 
 // Point shape select change style.
-const selectedPointsStyle = (pointsShape, selected, defaultStyle) => {
+const selectedPointsStyle = (pointsShape, selection, defaultStyle) => {
   pointsShape.forEach((shape, index) => {
     shape.attr(
       'stroke',
-      selected[1] === index
+      selection[1] === index
         ? defaultStyle['activeStroke']
         : defaultStyle['stroke'],
     );
@@ -195,12 +193,10 @@ export function ElementPointMove(
   elementPointMoveOptions: ElementPointMoveOptions = {},
 ) {
   const {
+    selection = [],
     pointStyle = {},
     lineDashPathStyle = {},
     labelStyle = {},
-    selected = [0],
-    selectedChange = () => {},
-    dataChange = () => {},
     precision = 2,
   } = elementPointMoveOptions;
 
@@ -220,7 +216,7 @@ export function ElementPointMove(
     ...pointStyle,
   };
 
-  return (context) => {
+  return (context, _, emitter) => {
     const {
       update,
       setState,
@@ -231,7 +227,7 @@ export function ElementPointMove(
     const plotArea = selectPlotArea(container);
     let elements = getElements(plotArea);
     let newState;
-    let newSelected = selected;
+    let newSelection = selection;
 
     const { transform = [], type: coordinateType } = coordinateOptions;
     const isTranspose = !!find(transform, ({ type }) => type === 'transpose');
@@ -252,12 +248,44 @@ export function ElementPointMove(
     });
     plotArea.appendChild(pointsGroup);
 
+    const selectedChange = () => {
+      emitter.emit('element:select', {
+        nativeEvent: true,
+        data: {
+          selection: newSelection,
+        },
+      });
+    };
+
+    const dataChange = (changeData, data) => {
+      emitter.emit('point:moveend', {
+        nativeEvent: true,
+        data: {
+          changeData,
+          data,
+        },
+      });
+    };
+
     // Element click change style.
     const elementClick = (e) => {
       const element = e.target;
-      newSelected = [element.parentNode.childNodes.indexOf(element)];
-      selectedChange(newSelected);
+      newSelection = [element.parentNode.childNodes.indexOf(element)];
+      selectedChange();
       createPoints(element);
+    };
+
+    const elementSelect = (d) => {
+      const {
+        data: { selection },
+        nativeEvent,
+      } = d;
+      if (nativeEvent) return;
+      newSelection = selection;
+      const element = get(elements, [newSelection?.[0]]);
+      if (element) {
+        createPoints(element);
+      }
     };
 
     // Create select element points.
@@ -338,13 +366,15 @@ export function ElementPointMove(
 
             container.attr('cursor', 'move');
 
-            newSelected[1] = index;
+            if (newSelection[1] !== index) {
+              newSelection[1] = index;
+              selectedChange();
+            }
             selectedPointsStyle(
               pointsGroup.childNodes,
-              newSelected,
+              newSelection,
               pointDefaultStyle,
             );
-            selectedChange(newSelected);
 
             const [pathShape, labelShape] = createHelpShape(
               pointsGroup,
@@ -450,7 +480,7 @@ export function ElementPointMove(
 
         selectedPointsStyle(
           pointsGroup.childNodes,
-          newSelected,
+          newSelection,
           pointDefaultStyle,
         );
       } else if (markType === 'interval') {
@@ -609,7 +639,7 @@ export function ElementPointMove(
 
     // Add EventListener.
     elements.forEach((element, index) => {
-      if (index === newSelected[0]) {
+      if (newSelection[0] === index) {
         createPoints(element);
       }
       element.addEventListener('click', elementClick);
@@ -618,18 +648,26 @@ export function ElementPointMove(
     });
 
     const rootClick = (e) => {
-      const element = e.target;
-      if (element.name !== MOVE_POINT_NAME && !elements.includes(element)) {
-        newSelected[1] = null;
+      const element = e?.target;
+      if (
+        !element ||
+        (element.name !== MOVE_POINT_NAME && !elements.includes(element))
+      ) {
+        newSelection = [];
+        selectedChange();
         pointsGroup.removeChildren();
       }
     };
 
+    emitter.on('element:select', elementSelect);
+    emitter.on('element:unselect', rootClick);
     container.addEventListener('mousedown', rootClick);
 
     // Remove EventListener.
     return () => {
       pointsGroup.remove();
+      emitter.off('element:select', elementSelect);
+      emitter.off('element:unselect', rootClick);
       container.removeEventListener('mousedown', rootClick);
       elements.forEach((element) => {
         element.removeEventListener('click', elementClick);

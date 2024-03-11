@@ -30,7 +30,6 @@ chart
   .interaction({
     legendFilter: false,
     elementPointMove: {
-      selected: [1, 4],
       pointStyle: {
         r: 8,
         strokeWidth: 2,
@@ -44,12 +43,6 @@ chart
         fontSize: 14,
         y: 24,
       },
-      selectedChange: (newSelected) => {
-        console.log(newSelected);
-      },
-      dataChange: (newChangeData, newData) => {
-        console.log(newChangeData, newData);
-      },
     },
   })
   .encode('x', 'year')
@@ -57,4 +50,27 @@ chart
   .encode('key', 'type')
   .encode('color', 'type');
 
-chart.render();
+chart.render().then(() => {
+  chart.on('element:select', (v) => {
+    const {
+      data: { selection },
+    } = v;
+    console.log(selection, 'selection');
+  });
+
+  chart.on('point:moveend', (v) => {
+    const {
+      data: { changeData, data },
+    } = v;
+    console.log(changeData, 'changeData');
+    console.log(data, 'data');
+  });
+});
+
+chart.on('afterrender', () => {
+  chart.emit('element:select', {
+    data: {
+      selection: [1, 2],
+    },
+  });
+});
