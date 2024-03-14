@@ -7,11 +7,7 @@ import { PLOT_CLASS_NAME } from '../runtime';
 import { select } from '../utils/selection';
 import { treeDataTransform } from '../utils/treeDataTransform';
 import { legendClearSetState } from './legendFilter';
-
-// Get element.
-const getElements = (plot) => {
-  return plot.querySelectorAll('.element');
-};
+import { getElements } from './utils';
 
 function selectPlotArea(root: DisplayObject): DisplayObject {
   return select(root).select(`.${PLOT_CLASS_NAME}`).node();

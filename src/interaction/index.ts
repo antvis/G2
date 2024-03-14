@@ -21,3 +21,4 @@ export { ScrollbarFilter } from './scrollbarFilter';
 export { Poptip } from './poptip';
 export { Event } from './event';
 export { TreemapDrillDown } from './treemapDrillDown';
+export { ElementPointMove } from './elementPointMove';
