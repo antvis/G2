@@ -1,3 +1,22 @@
+## [5.1.16](https://github.com/antvis/g2/compare/5.1.15...5.1.16) (2024-03-14)
+
+
+### Bug Fixes
+
+* **ci:** add update coverall action ([#6072](https://github.com/antvis/g2/issues/6072)) ([ffac8f8](https://github.com/antvis/g2/commit/ffac8f8d39e671f8097601ce5c81ad02ae3e2df7))
+* **docs:** add axis missing property  `labelOpacity` ([#6059](https://github.com/antvis/g2/issues/6059)) ([9e35333](https://github.com/antvis/g2/commit/9e3533307e8923eaa6d7f2959ccce4595c684b32))
+* quantile scale  domain calculate ([#6126](https://github.com/antvis/g2/issues/6126)) ([e8192d2](https://github.com/antvis/g2/commit/e8192d234a9396f08d45781350d20e89aba5c6be))
+* scale options rangeMax and rangeMax ([#6125](https://github.com/antvis/g2/issues/6125)) ([f11e9f9](https://github.com/antvis/g2/commit/f11e9f909d6500c6995b36493f4cfa958668c67b))
+
+
+### Features
+
+* add interactive column ([#6083](https://github.com/antvis/g2/issues/6083)) ([f8a3a8d](https://github.com/antvis/g2/commit/f8a3a8d7ca8bf509f6cb69ddda58abbe2b740148))
+* **shape:** add gauge shape round ([#6069](https://github.com/antvis/g2/issues/6069)) ([e0cefbb](https://github.com/antvis/g2/commit/e0cefbb5f1d4904092fc27e2e6e7b46cbd443ec0))
+* **vite:** update vite configuration ([#6102](https://github.com/antvis/g2/issues/6102)) ([042c638](https://github.com/antvis/g2/commit/042c63883c46b943e81077ec77c0cd1bb08c4d8a))
+
+
+
 ## [5.1.15](https://github.com/antvis/g2/compare/5.1.14...5.1.15) (2024-01-16)
 
 
