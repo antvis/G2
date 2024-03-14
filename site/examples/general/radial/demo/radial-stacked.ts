@@ -1,4 +1,3 @@
-import DataSet from '@antv/data-set';
 import { Chart } from '@antv/g2';
 
 const data = [
@@ -9,18 +8,6 @@ const data = [
   { State: 'AK', 小于5岁: 72083, '5至13岁': 85640, '14至17岁': 22153 },
 ];
 
-const ds = new DataSet();
-const dv = ds.createView().source(data);
-
-dv.transform({
-  type: 'fold',
-  fields: ['小于5岁', '5至13岁', '14至17岁'], // 展开字段集
-  key: '年龄段', // key字段
-  value: '人口数量', // value字段
-  retains: ['State'], // 保留字段集，默认为除fields以外的所有字段
-});
-// 数据被加工成 { State: 'WY', 年龄段: '小于5岁', 人口数量: 25635 }
-
 const chart = new Chart({
   container: 'container',
   autoFit: true,
@@ -30,7 +17,18 @@ chart.coordinate({ type: 'radial' });
 
 chart
   .interval()
-  .data(dv.rows)
+  .data({
+    value: data,
+    transform: [
+      {
+        type: 'fold',
+        fields: ['小于5岁', '5至13岁', '14至17岁'],
+        key: '年龄段',
+        value: '人口数量',
+        retains: ['State'],
+      },
+    ],
+  })
   .encode('x', 'State')
   .encode('y', '人口数量')
   .encode('color', '年龄段')
