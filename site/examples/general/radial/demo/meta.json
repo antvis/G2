@@ -34,7 +34,7 @@
         "zh": "带背景的玉珏图",
         "en": "Radial bar chart with background"
       },
-      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/Jje7bfTOsP/radial-bar-bg.png"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*9FxwQIEcoDMAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "radial-stacked.ts",
@@ -42,7 +42,7 @@
         "en": "Radial stacked bar chart",
         "zh": "径向堆叠条形图"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*hpajTbogoeUAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*T3NtSLBLc0sAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "radial-line.ts",
@@ -50,7 +50,7 @@
         "en": "Radial bar chart",
         "zh": "径向条形图"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*GC6wT4GQ-oMAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*h3MESLqnM4QAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }
