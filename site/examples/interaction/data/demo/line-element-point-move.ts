@@ -30,18 +30,14 @@ chart
   .interaction({
     legendFilter: false,
     elementPointMove: {
-      pointStyle: {
-        r: 8,
-        strokeWidth: 2,
-        activeStroke: '#fff',
-      },
-      lineDashPathStyle: {
-        lineDash: [2, 4],
-        stroke: 'red',
-      },
-      labelStyle: {
-        fontSize: 14,
-        y: 24,
+      style: {
+        pointR: 8,
+        pointStrokeWidth: 2,
+        pointActiveStroke: '#fff',
+        pathLineDash: [2, 4],
+        pathStroke: 'red',
+        labelFontSize: 14,
+        labelY: 24,
       },
     },
   })
@@ -51,14 +47,14 @@ chart
   .encode('color', 'type');
 
 chart.render().then(() => {
-  chart.on('element:select', (v) => {
+  chart.on('element-point:select', (v) => {
     const {
       data: { selection },
     } = v;
     console.log(selection, 'selection');
   });
 
-  chart.on('point:moveend', (v) => {
+  chart.on('element-point:moved', (v) => {
     const {
       data: { changeData, data },
     } = v;
@@ -68,9 +64,11 @@ chart.render().then(() => {
 });
 
 chart.on('afterrender', () => {
-  chart.emit('element:select', {
+  chart.emit('element-point:select', {
     data: {
       selection: [1, 2],
     },
   });
+  // Clear select.
+  // chart.emit('element-point:unselect');
 });

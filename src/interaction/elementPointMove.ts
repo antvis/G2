@@ -1,7 +1,8 @@
 import { Text, Group, Circle, Path } from '@antv/g';
-import { deepMix, isUndefined, find, get, isNumber } from '@antv/util';
-
+import { deepMix, isUndefined, find, get } from '@antv/util';
 import type { CircleStyleProps, TextStyleProps, PathStyleProps } from '@antv/g';
+import { subObject } from '../utils/helper';
+
 import {
   selectPlotArea,
   getPointsR,
@@ -20,24 +21,18 @@ export type ElementPointMoveOptions = {
 };
 
 const DEFAULT_STYLE = {
-  pointStyle: {
-    r: 6,
-    strokeWidth: 1,
-    stroke: '#888',
-    activeStroke: '#f5f5f5',
-  } as CircleStyleProps,
-  lineDashPathStyle: {
-    stroke: '#888',
-    lineDash: [3, 4],
-  },
-  labelStyle: {
-    fontSize: 12,
-    fill: '#888',
-    stroke: '#fff',
-    lineWidth: 1,
-    y: -6,
-    x: 2,
-  } as TextStyleProps,
+  pointR: 6,
+  pointStrokeWidth: 1,
+  pointStroke: '#888',
+  pointActiveStroke: '#f5f5f5',
+  pathStroke: '#888',
+  pathLineDash: [3, 4],
+  labelFontSize: 12,
+  labelFill: '#888',
+  labelStroke: '#fff',
+  labelLineWidth: 1,
+  labelY: -6,
+  labelX: 2,
 };
 
 // point shape name.
@@ -192,29 +187,17 @@ const getSamePointPosition = (center, point, target) => {
 export function ElementPointMove(
   elementPointMoveOptions: ElementPointMoveOptions = {},
 ) {
-  const {
-    selection = [],
-    pointStyle = {},
-    lineDashPathStyle = {},
-    labelStyle = {},
-    precision = 2,
-  } = elementPointMoveOptions;
+  const { selection = [], style = {}, precision = 2 } = elementPointMoveOptions;
+
+  const defaultStyle = { ...DEFAULT_STYLE, ...style };
 
   // Shape default style.
-  const pathDefaultStyle = {
-    ...DEFAULT_STYLE.lineDashPathStyle,
-    ...lineDashPathStyle,
-  };
-
-  const labelDefaultStyle = {
-    ...DEFAULT_STYLE.labelStyle,
-    ...labelStyle,
-  };
-
-  const pointDefaultStyle = {
-    ...DEFAULT_STYLE.pointStyle,
-    ...pointStyle,
-  };
+  const pathDefaultStyle = subObject(defaultStyle, 'path') as PathStyleProps;
+  const labelDefaultStyle = subObject(defaultStyle, 'label') as TextStyleProps;
+  const pointDefaultStyle = subObject(
+    defaultStyle,
+    'point',
+  ) as CircleStyleProps;
 
   return (context, _, emitter) => {
     const {
@@ -249,7 +232,7 @@ export function ElementPointMove(
     plotArea.appendChild(pointsGroup);
 
     const selectedChange = () => {
-      emitter.emit('element:select', {
+      emitter.emit('element-point:select', {
         nativeEvent: true,
         data: {
           selection: newSelection,
@@ -258,7 +241,7 @@ export function ElementPointMove(
     };
 
     const dataChange = (changeData, data) => {
-      emitter.emit('point:moveend', {
+      emitter.emit('element-point:moved', {
         nativeEvent: true,
         data: {
           changeData,
@@ -567,7 +550,6 @@ export function ElementPointMove(
               const lastPercent = coordinate.invert([newXOut, newYOut])[1];
               const nextPercent = coordinate.invert(points[3])[1];
               const percent = nextPercent - lastPercent;
-
               if (percent < 0) return;
               const newPath = getThetaPath(
                 center,
@@ -659,15 +641,15 @@ export function ElementPointMove(
       }
     };
 
-    emitter.on('element:select', elementSelect);
-    emitter.on('element:unselect', rootClick);
+    emitter.on('element-point:select', elementSelect);
+    emitter.on('element-point:unselect', rootClick);
     container.addEventListener('mousedown', rootClick);
 
     // Remove EventListener.
     return () => {
       pointsGroup.remove();
-      emitter.off('element:select', elementSelect);
-      emitter.off('element:unselect', rootClick);
+      emitter.off('element-point:select', elementSelect);
+      emitter.off('element-point:unselect', rootClick);
       container.removeEventListener('mousedown', rootClick);
       elements.forEach((element) => {
         element.removeEventListener('click', elementClick);

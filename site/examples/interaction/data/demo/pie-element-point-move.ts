@@ -22,10 +22,10 @@ chart
   .interaction({
     legendFilter: false,
     elementPointMove: {
-      lineDashPathStyle: {
-        lineDash: [2, 4],
-        stroke: '#fff',
-        lineWidth: 2,
+      style: {
+        pathLineDash: [2, 4],
+        pathStroke: '#fff',
+        pathLineWidth: 2,
       },
     },
   })
