@@ -565,7 +565,7 @@ function inferDomainC(values: Primitive[][]) {
 }
 
 function inferDomainO(values: Primitive[][]) {
-  return inferDomainC(values).sort();
+  return values.flat().sort();
 }
 
 function inferDomainS(values: Primitive[][]) {
