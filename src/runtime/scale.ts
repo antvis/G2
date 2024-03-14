@@ -360,13 +360,13 @@ function inferScaleRange(
     case 'sqrt': {
       const colors = categoricalColors(values, options, domain, theme, library);
       const [r0, r1] = inferRangeQ(name, colors);
-      return [rangeMin || r0, rangeMax || r1];
+      return [rangeMin ?? r0, rangeMax ?? r1];
     }
     case 'band':
     case 'point': {
       const min = name === 'size' ? 5 : 0;
       const max = name === 'size' ? 10 : 1;
-      return [rangeMin || min, rangeMax || max];
+      return [rangeMin ?? min, rangeMax ?? max];
     }
     case 'ordinal': {
       return categoricalColors(values, options, domain, theme, library);
