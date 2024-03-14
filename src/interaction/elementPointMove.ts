@@ -13,9 +13,6 @@ import {
 
 export type ElementPointMoveOptions = {
   selection?: number[];
-  labelStyle?: TextStyleProps;
-  lineDashPathStyle?: PathStyleProps;
-  pointStyle?: CircleStyleProps;
   precision?: number;
   [key: string]: any;
 };
@@ -187,9 +184,9 @@ const getSamePointPosition = (center, point, target) => {
 export function ElementPointMove(
   elementPointMoveOptions: ElementPointMoveOptions = {},
 ) {
-  const { selection = [], style = {}, precision = 2 } = elementPointMoveOptions;
+  const { selection = [], precision = 2, ...style } = elementPointMoveOptions;
 
-  const defaultStyle = { ...DEFAULT_STYLE, ...style };
+  const defaultStyle = { ...DEFAULT_STYLE, ...(style || {}) };
 
   // Shape default style.
   const pathDefaultStyle = subObject(defaultStyle, 'path') as PathStyleProps;

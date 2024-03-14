@@ -30,15 +30,13 @@ chart
   .interaction({
     legendFilter: false,
     elementPointMove: {
-      style: {
-        pointR: 8,
-        pointStrokeWidth: 2,
-        pointActiveStroke: '#fff',
-        pathLineDash: [2, 4],
-        pathStroke: 'red',
-        labelFontSize: 14,
-        labelY: 24,
-      },
+      pointR: 8,
+      pointStrokeWidth: 2,
+      pointActiveStroke: '#fff',
+      pathLineDash: [2, 4],
+      pathStroke: 'red',
+      labelFontSize: 14,
+      labelY: 24,
     },
   })
   .encode('x', 'year')

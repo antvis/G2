@@ -22,11 +22,9 @@ chart
   .interaction({
     legendFilter: false,
     elementPointMove: {
-      style: {
-        pathLineDash: [2, 4],
-        pathStroke: '#fff',
-        pathLineWidth: 2,
-      },
+      pathLineDash: [2, 4],
+      pathStroke: '#fff',
+      pathLineWidth: 2,
     },
   })
   .encode('y', 'count')

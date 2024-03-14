@@ -27,7 +27,9 @@ export function flareElementPointMovePie(): G2Spec {
       legendFilter: false,
       elementPointMove: {
         selection: [2],
-        style: { pathLineDash: [2, 4], pathStroke: '#fff', pathLineWidth: 2 },
+        pathLineDash: [2, 4],
+        pathStroke: '#fff',
+        pathLineWidth: 2,
       },
     },
   };
