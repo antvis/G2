@@ -272,12 +272,12 @@ export function ElementPointMove(
     const createPoints = (element) => {
       const { attributes, markType, __data__: data } = element;
       const { stroke: fill } = attributes;
-      const { points, seriesTitle, color, title, seriesX } = data;
+      const { points, seriesTitle, color, title, seriesX, y1 } = data;
       // Transpose Currently only do mark interval;
       if (isTranspose && markType !== 'interval') return;
 
       const { scale, coordinate } = newState?.view || view;
-      const { color: scaleColor, y: scaleY } = scale;
+      const { color: scaleColor, y: scaleY, x: scaleX } = scale;
       const center = coordinate.getCenter();
 
       pointsGroup.removeChildren();
@@ -324,7 +324,8 @@ export function ElementPointMove(
 
       if (['line', 'area'].includes(markType)) {
         points.forEach((p, index) => {
-          const title = seriesTitle[index];
+          const title = scaleX.invert(seriesX[index]);
+
           // Area points have bottom point.
           if (!title) return;
 
@@ -545,8 +546,8 @@ export function ElementPointMove(
                 points[1],
               );
               const lastPercent = coordinate.invert([newXOut, newYOut])[1];
-              const nextPercent = coordinate.invert(points[3])[1];
-              const percent = nextPercent - lastPercent;
+              const percent = y1 - lastPercent;
+
               if (percent < 0) return;
               const newPath = getThetaPath(
                 center,
