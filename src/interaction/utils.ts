@@ -520,3 +520,10 @@ export function getThetaPath(
   }
   return path as PathArray;
 }
+
+export function maybeRoot(node, rootOf) {
+  if (rootOf(node)) return node;
+  let root = node.parent;
+  while (root && !rootOf(root)) root = root.parent;
+  return root;
+}

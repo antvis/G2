@@ -73,3 +73,4 @@ export { aaplLineOverflow } from './aapl-line-overflow';
 export { moviesIntervalScaleKeyScrollbar } from './movies-interval-scale-key-scrollbar';
 export { oneElementLine } from './one-element-line';
 export { disastersPointSlider } from './disasters-point-slider';
+export { alphabetText } from './alphabet-text';

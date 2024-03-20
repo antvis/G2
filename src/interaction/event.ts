@@ -1,4 +1,5 @@
 import { ChartEvent } from '../utils/event';
+import { maybeRoot } from './utils';
 
 export function dataOf(element, view) {
   const { __data__: datum } = element;
@@ -12,13 +13,6 @@ export function dataOf(element, view) {
     return seriesIndex.map((i) => selectedMark.data[i]);
   }
   return selectedMark.data[index];
-}
-
-function maybeRoot(node, rootOf) {
-  if (rootOf(node)) return node;
-  let root = node.parent;
-  while (root && !rootOf(root)) root = root.parent;
-  return root;
 }
 
 // For extended component
