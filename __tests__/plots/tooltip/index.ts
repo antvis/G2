@@ -74,3 +74,4 @@ export { moviesIntervalScaleKeyScrollbar } from './movies-interval-scale-key-scr
 export { oneElementLine } from './one-element-line';
 export { disastersPointSlider } from './disasters-point-slider';
 export { alphabetText } from './alphabet-text';
+export { mockLineFlex } from './mock-line-flex';
