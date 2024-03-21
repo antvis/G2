@@ -1,4 +1,4 @@
-import { DisplayObject, Path } from '@antv/g';
+import { DisplayObject, Path, AABB } from '@antv/g';
 import { path as d3Path } from 'd3-path';
 import { sort } from 'd3-array';
 import { Vector2 } from '@antv/coord';
@@ -44,10 +44,15 @@ export function selectPlotArea(root: DisplayObject): DisplayObject {
   return select(root).select(`.${PLOT_CLASS_NAME}`).node();
 }
 
-export function bboxOf(node) {
-  if (node.nodeName !== 'rect') return node.getRenderBounds();
-  const { x, y, width, height } = node.style;
-  return { min: [x, y], max: [x + width, y + height] };
+export function bboxOf(element: DisplayObject) {
+  // The geometry bounds of a group is empty, so return the render bounds.
+  if (element.tagName === 'g') return element.getRenderBounds();
+
+  // Compute the geometry bounds related to the parent.
+  const bounds = element.getGeometryBounds();
+  const aabb = new AABB();
+  aabb.setFromTransformedAABB(bounds, element.getWorldTransform());
+  return aabb;
 }
 
 export function mousePosition(target, event) {
