@@ -1,3 +1,19 @@
+## [5.1.17](https://github.com/antvis/g2/compare/5.1.16...5.1.17) (2024-03-21)
+
+
+### Bug Fixes
+
+* **pointmove:** 修复 pointmove 事件的两个问题 ([#6136](https://github.com/antvis/g2/issues/6136)) ([3dfb9e7](https://github.com/antvis/g2/commit/3dfb9e7adc071703be2c04221902f065f6a74554))
+* tooltip for custom element ([#6140](https://github.com/antvis/g2/issues/6140)) ([72d8900](https://github.com/antvis/g2/commit/72d8900b59cb0b6e1016fdf2c8ab2cd2e5fe767c))
+* tooltip for multi view ([#6142](https://github.com/antvis/g2/issues/6142)) ([411e1f4](https://github.com/antvis/g2/commit/411e1f49ad6829728b63400058d4796eb4ab33b6))
+
+
+### Features
+
+* **interaction:** add elementpointmove interaction ([#6110](https://github.com/antvis/g2/issues/6110)) ([e36ce30](https://github.com/antvis/g2/commit/e36ce302ceaff101a37519c9d587ab59cf428cab))
+
+
+
 ## [5.1.16](https://github.com/antvis/g2/compare/5.1.15...5.1.16) (2024-03-14)
 
 
