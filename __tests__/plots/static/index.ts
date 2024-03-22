@@ -321,6 +321,7 @@ export { scoreByItemAreaLineRadar } from './score-by-item-area-line-radar';
 export { mockComplexRadar } from './mock-complex-radar';
 export { aaplLineIllegalDataSlider } from './aapl-line-illegal-data-slider';
 export { mockSquareRadar } from './mock-square-radar';
+export { cars3Table } from './car3-table';
 export { aaplLineSliderValues } from './aapl-line-slider-values';
 export { flareElementPointMoveLine } from './flare-element-point-move-line';
 export { flareElementPointMoveInterval } from './flare-element-point-move-interval';
