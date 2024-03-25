@@ -60,10 +60,8 @@ export const WaveIn: AC<WaveInOptions> = (options, context) => {
     }) => {
       pathForConversion.attr({
         d: path(arcParams),
-        transform: `translate(${center[0]}, ${center[1]})`,
       });
       const convertedPathDefinition = convertToPath(pathForConversion);
-      pathForConversion.style.transform = '';
       return convertedPathDefinition;
     };
 
@@ -92,13 +90,13 @@ export const WaveIn: AC<WaveInOptions> = (options, context) => {
     const animation = shape.animate(keyframes, { ...defaults, ...options });
 
     animation.onframe = function () {
-      shape.style.path = createArcPath({
+      shape.style.d = createArcPath({
         ...arcObject,
         endAngle: Number(shape.style.waveInArcAngle),
       });
     };
     animation.onfinish = function () {
-      shape.style.path = createArcPath({
+      shape.style.d = createArcPath({
         ...arcObject,
         endAngle: endAngle,
       });

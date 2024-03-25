@@ -36,7 +36,7 @@ export function alphabetIntervalAxisOptions(): G2Spec {
         // Grid
         gridLineDash: null,
         gridStroke: 'red',
-        gridStrokeWidth: 5,
+        gridLineWidth: 5,
         gridAreaFill: '#eee',
       },
       x: {

@@ -89,7 +89,7 @@ export const Connector: SC<ConnectorOptions> = (options, context) => {
 
     return select(new Path())
       .call(applyStyle, rest)
-      .style('path', inferConnectorPath(P))
+      .style('d', inferConnectorPath(P))
       .style('stroke', color || defaultColor)
       .style('transform', transform)
       .style(

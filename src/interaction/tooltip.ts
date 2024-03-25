@@ -381,7 +381,7 @@ function updateMarker(root, { data, style, theme }) {
           fill,
           r: 4,
           stroke: '#fff',
-          strokeWidth: 2,
+          lineWidth: 2,
           ...style,
         },
       });

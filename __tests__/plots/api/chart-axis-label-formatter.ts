@@ -63,7 +63,7 @@ export function chartAxisLabelFormatter(context) {
         src: 'data/gold.png',
         width: size,
         height: size,
-        anchor: '0.5 0.5',
+        transform: `translate(-${size / 2}, -${size / 2})`,
       },
     });
     const text = ['冠军🏆', '亚军🥈', '季军🥉'][ranking];

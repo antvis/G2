@@ -21,7 +21,7 @@ export function scoreByItemAreaRadar(): G2Spec {
         body: false,
         marker: false,
         crosshairsLineDash: [4, 4],
-        crosshairsStrokeWidth: 10,
+        crosshairsLineWidth: 10,
       },
     },
     children: [

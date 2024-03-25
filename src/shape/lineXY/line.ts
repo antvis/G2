@@ -38,8 +38,7 @@ function getArrowMarker(
 ) {
   const arrowMarker = document.createElement('path', {
     style: {
-      path: `M ${arrowSize},${arrowSize} L -${arrowSize},0 L ${arrowSize},-${arrowSize} L 0,0 Z`,
-      anchor: '0.5 0.5',
+      d: `M ${arrowSize},${arrowSize} L -${arrowSize},0 L ${arrowSize},-${arrowSize} L 0,0 Z`,
       transformOrigin: 'center',
       ...arrowStyle,
     },

@@ -172,16 +172,18 @@ function oneToOne(
   const pathShape = maybePath(shape, fromPath);
   // Convert Path will take transform, anchor, etc into account,
   // so there is no need to specify these attributes in keyframes.
-  const keyframes = [
+  const keyframes: Keyframe[] = [
     {
-      path: fromPath,
       ...attributeOf(from, attributeKeys),
     },
     {
-      path: toPath,
       ...attributeOf(to, attributeKeys),
     },
   ];
+  if (fromPath !== toPath) {
+    keyframes[0].d = fromPath;
+    keyframes[1].d = toPath;
+  }
   const animation = pathShape.animate(keyframes, timeEffect);
 
   animation.onfinish = () => {
@@ -207,7 +209,7 @@ function oneToMultiple(
   return to.map((shape, i) => {
     const path = new Path({
       style: {
-        path: D[i],
+        d: D[i],
         ...attributeOf(from, attributeKeys),
       },
     });
@@ -236,7 +238,7 @@ function multipleToOne(
   const animations = from.map((shape, i) => {
     const path = new Path({
       style: {
-        path: D[i],
+        d: D[i],
         fill: to.style.fill,
       },
     });

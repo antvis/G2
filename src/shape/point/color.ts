@@ -51,6 +51,7 @@ export const Color: SC<ColorOptions> = (options, context) => {
       .style('d', path(cx, cy, finalRadius))
       .style('lineWidth', finalLineWidth)
       .style('transform', transform)
+      .style('transformOrigin', `${cx - finalRadius} ${cy - finalRadius}`)
       .style('stroke', color)
       .style(toOpacityKey(options), opacity)
       .style(colorAttribute, color)

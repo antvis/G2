@@ -36,14 +36,14 @@ chart
   .scale('y', { tickCount: 5, domainMin: 0, domainMax: 80 })
   .axis('x', {
     grid: true,
-    gridStrokeWidth: 1,
+    gridLineWidth: 1,
     tick: false,
     gridLineDash: [0, 0],
   })
   .axis('y', {
     zIndex: 1,
     title: false,
-    gridStrokeWidth: 1,
+    gridLineWidth: 1,
     gridLineDash: [0, 0],
     gridAreaFill: (dataum, index, data) => {
       return index % 2 === 1 ? 'rgba(0, 0, 0, 0.04)' : '';

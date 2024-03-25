@@ -24,7 +24,7 @@ export function cars3LineRadar(): G2Spec {
       color: 'weight (lb)',
     },
     style: {
-      strokeWidth: 1.5,
+      lineWidth: 1.5,
       strokeOpacity: 0.4,
     },
     scale: {
@@ -46,16 +46,16 @@ export function cars3LineRadar(): G2Spec {
         {
           zIndex: 1,
           labelStroke: '#fff',
-          labelStrokeWidth: 5,
+          labelLineWidth: 5,
           labelFontSize: 10,
           labelStrokeLineJoin: 'round',
           titleStroke: '#fff',
           titleFontSize: 10,
-          titleStrokeWidth: 5,
+          titleLineWidth: 5,
           titleStrokeLineJoin: 'round',
           lineStroke: 'black',
           tickStroke: 'black',
-          lineStrokeWidth: 1,
+          lineLineWidth: 1,
         },
       ]),
     ),

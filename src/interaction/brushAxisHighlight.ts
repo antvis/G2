@@ -54,9 +54,8 @@ function verticalBrush(axis, { cross, offsetX, offsetY, ...style }) {
       style: {
         // If it is not cross, draw brush in both side of axisLine,
         // otherwise the draw brush within bounds area.
-        x: cross ? minX : lineX - size / 2,
         width: cross ? size / 2 : size,
-        y: minY,
+        transform: `translate(${cross ? minX : lineX - size / 2}, ${minY})`,
         height: maxY - minY,
         ...style,
       },
@@ -86,12 +85,11 @@ function horizontalBrush(axis, { offsetY, offsetX, cross = false, ...style }) {
     hotZone: new Rect({
       className: AXIS_HOT_AREA_CLASS_NAME,
       style: {
-        x: minX,
         width: maxX - minX,
         // If it is not cross, draw brush in both side of axisLine,
         // otherwise the draw brush within bounds area.
-        y: cross ? minY : lineY - size,
         height: cross ? size : size * 2,
+        transform: `translate(${minX}, ${cross ? minY : lineY - size})`,
         ...style,
       },
     }),
@@ -222,6 +220,8 @@ export function brushAxisHighlight(
       fill: 'transparent', // Make it interactive.
     });
     axis.parentNode.appendChild(hotZone);
+
+    console.log(hotZone);
     const brushHandler = brush(hotZone, {
       ...brushStyle,
       reverse,

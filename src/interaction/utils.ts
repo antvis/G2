@@ -43,9 +43,12 @@ export function selectPlotArea(root: DisplayObject): DisplayObject {
 }
 
 export function bboxOf(node) {
-  if (node.nodeName !== 'rect') return node.getRenderBounds();
-  const { x, y, width, height } = node.style;
-  return { min: [x, y], max: [x + width, y + height] };
+  // if (node.nodeName === 'rect') {
+  return node.getBounds();
+  // }
+
+  // const { x = 0, y = 0, width, height } = node.style;
+  // return { min: [x, y], max: [x + width, y + height] };
 }
 
 export function mousePosition(target, event) {
@@ -419,7 +422,7 @@ export function renderBackground({
       fillOpacity = 0.3,
       zIndex = -2,
       padding = 0.001,
-      strokeWidth = 0,
+      lineWidth = 0,
       ...style
     } = mapObject(rest, (d) => valueof(d, element));
     const finalStyle = {
@@ -428,7 +431,7 @@ export function renderBackground({
       fillOpacity,
       zIndex,
       padding,
-      strokeWidth,
+      lineWidth,
     };
     const shapeOf = isOrdinalShape() ? bandShapeOf : cloneShapeOf;
     const shape = shapeOf(element, finalStyle);

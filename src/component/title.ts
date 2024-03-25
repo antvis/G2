@@ -49,8 +49,12 @@ const Title = createComponent<TitleStyleProps>({
       subtitle,
       spacing = 2,
       align = 'left',
+      x,
+      y,
       ...style
     } = attributes;
+
+    container.style.transform = `translate(${x}, ${y})`;
 
     const titleStyle = subObject(style, 'title');
     const subtitleStyle = subObject(style, 'subtitle');

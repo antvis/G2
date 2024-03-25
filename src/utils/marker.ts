@@ -255,23 +255,14 @@ export const Symbols = new Map<string, SymbolFactor>([
 
 export function useMarker(
   type: string,
-  {
-    d,
-    fill,
-    strokeWidth,
-    path,
-    stroke,
-    lineWidth,
-    color,
-    ...style
-  }: Record<string, any>,
+  { d, fill, lineWidth, path, stroke, color, ...style }: Record<string, any>,
 ) {
   const symbol = Symbols.get(type) || Symbols.get('point');
   return (...args: Parameters<SymbolFactor>) => {
     const path = new Path({
       style: {
         ...style,
-        path: symbol(...args),
+        d: symbol(...args),
         stroke: symbol.style.includes('stroke') ? color || stroke : '',
         fill: symbol.style.includes('fill') ? color || fill : '',
         lineWidth: symbol.style.includes('lineWidth')

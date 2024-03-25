@@ -139,7 +139,7 @@ export function create({
       text: {
         fill: '#1D2129',
         fontSize: 12,
-        strokeWidth: 0,
+        lineWidth: 0,
         connectorStroke: colorStroke,
         connectorStrokeOpacity: 0.45,
         connectorLineWidth: 1,
@@ -154,7 +154,7 @@ export function create({
       badge: {
         fill: '#1D2129',
         fillOpacity: 0.65,
-        strokeWidth: 0,
+        lineWidth: 0,
         fontSize: 10,
         textAlign: 'center',
         textBaseline: 'middle',
