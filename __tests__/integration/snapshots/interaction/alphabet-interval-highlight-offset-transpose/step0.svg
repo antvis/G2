@@ -6,45 +6,53 @@
   color-interpolation-filters="sRGB"
 >
   <defs />
-  <g id="g-svg-camera" transform="matrix(1,0,0,1,0,0)">
-    <g id="g-root" fill="none" transform="matrix(1,0,0,1,0,0)">
-      <g id="g-svg-1" fill="none" transform="matrix(1,0,0,1,0,0)" class="view">
-        <g transform="matrix(1,0,0,1,0,0)">
+  <g id="g-svg-camera">
+    <g id="g-root" fill="none">
+      <g id="g-svg-1" fill="none" class="view">
+        <g>
           <path
             id="g-svg-2"
             fill="rgba(0,0,0,0)"
             class="area"
             d="M 0,0 l 640,0 l 0,480 l-640 0 z"
+            x="0"
+            y="0"
             width="640"
             height="480"
           />
         </g>
-        <g transform="matrix(1,0,0,1,16,16)">
+        <g>
           <path
             id="g-svg-3"
             fill="rgba(0,0,0,0)"
             class="area"
-            d="M 0,0 l 608,0 l 0,448 l-608 0 z"
+            d="M 16,16 l 608,0 l 0,448 l-608 0 z"
+            x="16"
+            y="16"
             width="608"
             height="448"
           />
         </g>
-        <g transform="matrix(1,0,0,1,16,16)">
+        <g>
           <path
             id="g-svg-4"
             fill="rgba(0,0,0,0)"
             class="area"
-            d="M 0,0 l 608,0 l 0,448 l-608 0 z"
+            d="M 16,16 l 608,0 l 0,448 l-608 0 z"
+            x="16"
+            y="16"
             width="608"
             height="448"
           />
         </g>
-        <g transform="matrix(1,0,0,1,16,16)">
+        <g>
           <path
             id="g-svg-5"
             fill="rgba(0,0,0,0)"
             class="area"
-            d="M 0,0 l 608,0 l 0,448 l-608 0 z"
+            d="M 16,16 l 608,0 l 0,448 l-608 0 z"
+            x="16"
+            y="16"
             width="608"
             height="448"
           />
@@ -58,17 +66,14 @@
             width="608"
             height="448"
           />
-          <g
-            id="g-svg-7"
-            fill="none"
-            transform="matrix(1,0,0,1,0,0)"
-            class="main-layer"
-          >
-            <g transform="matrix(1,0,0,1,10,184.470581)">
+          <g id="g-svg-7" fill="none" class="main-layer">
+            <g transform="matrix(1,0,0,1,10,0)">
               <path
                 id="g-svg-9"
                 fill="rgba(23,131,255,1)"
-                d="M 0,0 l 310.346,0 l 0,79.05882352941174 l-310.346 0 z"
+                d="M 0,184.47058823529412 l 310.346,0 l 0,79.05882352941174 l-310.346 0 z"
+                x="0"
+                y="184.47058823529412"
                 width="310.346"
                 height="79.05882352941174"
                 fill-opacity="0.95"
@@ -77,11 +82,13 @@
                 class="element"
               />
             </g>
-            <g transform="matrix(1,0,0,1,0,8.784314)">
+            <g>
               <path
                 id="g-svg-10"
                 fill="rgba(23,131,255,1)"
-                d="M 0,0 l 482.676,0 l 0,79.05882352941177 l-482.676 0 z"
+                d="M 0,8.784313725490215 l 482.676,0 l 0,79.05882352941177 l-482.676 0 z"
+                x="0"
+                y="8.784313725490215"
                 width="482.676"
                 height="79.05882352941177"
                 fill-opacity="0.95"
@@ -90,11 +97,13 @@
                 class="element"
               />
             </g>
-            <g transform="matrix(1,0,0,1,0,360.156860)">
+            <g>
               <path
                 id="g-svg-11"
                 fill="rgba(23,131,255,1)"
-                d="M 0,0 l 264.708,0 l 0,79.05882352941171 l-264.708 0 z"
+                d="M 0,360.156862745098 l 264.708,0 l 0,79.05882352941171 l-264.708 0 z"
+                x="0"
+                y="360.156862745098"
                 width="264.708"
                 height="79.05882352941171"
                 fill-opacity="0.95"
@@ -103,11 +112,13 @@
                 class="element"
               />
             </g>
-            <g transform="matrix(1,0,0,1,0,272.313721)">
+            <g>
               <path
                 id="g-svg-12"
                 fill="rgba(23,131,255,1)"
-                d="M 0,0 l 285.26599999999996,0 l 0,79.05882352941171 l-285.26599999999996 0 z"
+                d="M 0,272.3137254901961 l 285.26599999999996,0 l 0,79.05882352941171 l-285.26599999999996 0 z"
+                x="0"
+                y="272.3137254901961"
                 width="285.26599999999996"
                 height="79.05882352941171"
                 fill-opacity="0.95"
@@ -116,11 +127,13 @@
                 class="element"
               />
             </g>
-            <g transform="matrix(1,0,0,1,0,96.627449)">
+            <g>
               <path
                 id="g-svg-13"
                 fill="rgba(23,131,255,1)"
-                d="M 0,0 l 344.128,0 l 0,79.05882352941177 l-344.128 0 z"
+                d="M 0,96.62745098039215 l 344.128,0 l 0,79.05882352941177 l-344.128 0 z"
+                x="0"
+                y="96.62745098039215"
                 width="344.128"
                 height="79.05882352941177"
                 fill-opacity="0.95"
@@ -130,12 +143,7 @@
               />
             </g>
           </g>
-          <g
-            id="g-svg-8"
-            fill="none"
-            transform="matrix(1,0,0,1,0,0)"
-            class="label-layer"
-          />
+          <g id="g-svg-8" fill="none" class="label-layer" />
         </g>
       </g>
     </g>

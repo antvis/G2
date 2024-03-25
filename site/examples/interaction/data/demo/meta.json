@@ -1,0 +1,80 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "line-element-point-move.ts",
+      "title": {
+        "zh": "折线图-数形交互",
+        "en": "Line Numerical Interaction"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*XO4yQqSSeSoAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "area-element-point-move.ts",
+      "title": {
+        "zh": "面积图-数形交互",
+        "en": "Area Numerical Interaction"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*FTm7T5CfHsUAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "area-normalizeY-element-point-move.ts",
+      "title": {
+        "zh": "面积图-百分比堆叠-数形交互",
+        "en": "Area NormalizeY Numerical Interaction"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xWt3R5fzwH4AAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "column-element-point-move.ts",
+      "title": {
+        "zh": "柱形图-数形交互",
+        "en": "Column Numerical Interaction"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*fZn9TYPR2mcAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "column-normalizeY-element-point-move.ts",
+      "title": {
+        "zh": "柱形图-百分比堆叠-数形交互",
+        "en": "Column NormalizeY Numerical Interaction"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*G5a8T7lP0ZEAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "bar-element-point-move.ts",
+      "title": {
+        "zh": "条形图-数形交互",
+        "en": "Bar Numerical Interaction"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*WQnwTJ-gJq0AAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "bar-normalizeY-element-point-move.ts",
+      "title": {
+        "zh": "条形图-百分比堆叠-数形交互",
+        "en": "Bar NormalizeY Numerical Interaction"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*SDtmQrDx7cAAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "line-element-point-move-polar.ts",
+      "title": {
+        "zh": "雷达图-数形交互",
+        "en": "Radar Numerical Interaction"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ifgPT565BPkAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "pie-element-point-move.ts",
+      "title": {
+        "zh": "饼图-数形交互",
+        "en": "Pie Numerical Interaction"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Hm0PR5262sgAAAAAAAAAAAAADmJ7AQ/original"
+    }
+  ]
+}

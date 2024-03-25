@@ -17,6 +17,7 @@ import {
   createDatumof,
   selectElementByData,
   bboxOf,
+  maybeRoot,
 } from './utils';
 import { dataOf } from './event';
 
@@ -422,6 +423,13 @@ function hasSeries(markState): boolean {
   );
 }
 
+function findElement(node: DisplayObject) {
+  return maybeRoot(node, (node) => {
+    if (!node.classList) return false;
+    return node.classList.includes('element');
+  });
+}
+
 /**
  * Show tooltip for series item.
  */
@@ -798,13 +806,13 @@ export function tooltip(
   }: Record<string, any>,
 ) {
   const elements = elementsof(root);
-  const elementSet = new Set(elements);
   const keyGroup = group(elements, groupKey);
 
   const pointermove = throttle(
     (event) => {
-      const { target: element } = event;
-      if (!elementSet.has(element)) {
+      const { target } = event;
+      const element = findElement(target);
+      if (!element) {
         hideTooltip({ root, single, emitter, event });
         return;
       }
