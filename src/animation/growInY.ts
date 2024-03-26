@@ -11,10 +11,17 @@ export type GrowInYOptions = Animation;
 export const GrowInY: AC<GrowInYOptions> = (options, context) => {
   return (from, to, defaults) => {
     const [shape] = from;
-    const { height, width } = shape.getBoundingClientRect();
+    const {
+      min: [x, y],
+      halfExtents,
+    } = shape.getLocalBounds();
+    const width = halfExtents[0] * 2;
+    const height = halfExtents[1] * 2;
     const clipPath = new Path({
       style: {
-        path: `M0,0L${width},0L${width},${height}L0,${height}Z`,
+        d: `M${x},${y}L${x + width},${y}L${x + width},${y + height}L${x},${
+          y + height
+        }Z`,
       },
     });
     shape.appendChild(clipPath);

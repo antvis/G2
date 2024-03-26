@@ -73,7 +73,7 @@ chart
   .style('dy', 15)
   .style('dx', 5)
   .style('fill', 'black')
-  .style('textAnchor', 'start')
+  .style('textAlign', 'start')
   .style('fontSize', 12);
 
 chart.render();

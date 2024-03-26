@@ -18,6 +18,6 @@ chart
   .encode('color', 'price')
   .style('gradient', 'y')
   .style('shape', 'smooth')
-  .style('strokeWidth', 10);
+  .style('lineWidth', 10);
 
 chart.render();

@@ -9,133 +9,122 @@
     <path
       id="g-svg-267"
       fill="none"
-      d="M 0,0 l 528,0 l 0,381 l-528 0 z"
+      d="M 96,16 l 528,0 l 0,381 l-528 0 z"
+      x="96"
+      y="16"
       width="528"
       height="381"
     />
     <clipPath transform="matrix(1,0,0,1,-96,-16)" id="clip-path-267-153">
-      <use href="#g-svg-267" transform="matrix(1,0,0,1,96,16)" />
+      <use href="#g-svg-267" />
     </clipPath>
   </defs>
-  <g id="g-svg-camera" transform="matrix(1,0,0,1,0,0)">
-    <g id="g-root" fill="none" transform="matrix(1,0,0,1,0,0)">
-      <g id="g-svg-6" fill="none" transform="matrix(1,0,0,1,0,0)" class="view">
-        <g transform="matrix(1,0,0,1,0,0)">
+  <g id="g-svg-camera">
+    <g id="g-root" fill="none">
+      <g id="g-svg-6" fill="none" class="view">
+        <g>
           <path
             id="g-svg-7"
             fill="rgba(0,0,0,0)"
             class="area"
             d="M 0,0 l 640,0 l 0,480 l-640 0 z"
+            x="0"
+            y="0"
             width="640"
             height="480"
           />
         </g>
-        <g transform="matrix(1,0,0,1,16,16)">
+        <g>
           <path
             id="g-svg-8"
             fill="rgba(0,0,0,0)"
             class="area"
-            d="M 0,0 l 608,0 l 0,448 l-608 0 z"
+            d="M 16,16 l 608,0 l 0,448 l-608 0 z"
+            x="16"
+            y="16"
             width="608"
             height="448"
           />
         </g>
-        <g transform="matrix(1,0,0,1,96,16)">
+        <g>
           <path
             id="g-svg-9"
             fill="rgba(0,0,0,0)"
             class="area"
-            d="M 0,0 l 528,0 l 0,381 l-528 0 z"
+            d="M 96,16 l 528,0 l 0,381 l-528 0 z"
+            x="96"
+            y="16"
             width="528"
             height="381"
           />
         </g>
-        <g transform="matrix(1,0,0,1,96,16)">
+        <g>
           <path
             id="g-svg-10"
             fill="rgba(0,0,0,0)"
             class="area"
-            d="M 0,0 l 528,0 l 0,381 l-528 0 z"
+            d="M 96,16 l 528,0 l 0,381 l-528 0 z"
+            x="96"
+            y="16"
             width="528"
             height="381"
           />
         </g>
-        <g
-          id="g-svg-11"
-          fill="none"
-          transform="matrix(1,0,0,1,0,0)"
-          class="component"
-        >
-          <g
-            id="g-svg-15"
-            fill="none"
-            class="slider"
-            transform="matrix(1,0,0,1,96,440)"
-          >
-            <g transform="matrix(1,0,0,1,0,0)">
+        <g id="g-svg-11" fill="none" class="component">
+          <g id="g-svg-15" fill="none" class="slider" x="96" y="440">
+            <g>
               <path
                 id="g-svg-16"
                 fill="rgba(65,97,128,1)"
                 class="slider-track"
-                d="M 0,0 l 528,0 l 0,16 l-528 0 z"
+                d="M 96,440 l 528,0 l 0,16 l-528 0 z"
+                x="96"
+                y="440"
                 width="528"
                 height="16"
                 opacity="0.05"
               />
             </g>
-            <g
-              id="g-svg-17"
-              fill="none"
-              transform="matrix(1,0,0,1,0,0)"
-              class="slider-sparkline-group"
-            >
+            <g id="g-svg-17" fill="none" class="slider-sparkline-group">
               <g
                 id="g-svg-18"
                 fill="none"
+                x="96"
+                y="440"
                 width="528"
                 height="16"
-                transform="matrix(1,0,0,1,0,0)"
                 class="slider-sparkline"
               >
-                <g transform="matrix(1,0,0,1,0,0)">
+                <g>
                   <path id="g-svg-19" fill="none" class="container" />
                 </g>
                 <g
                   id="g-svg-20"
                   fill="none"
                   class="spark sparkline"
-                  transform="matrix(1,0,0,1,0,0)"
+                  x="96"
+                  y="440"
+                  transform="matrix(1,0,0,1,96,440)"
                 >
-                  <g
-                    id="g-svg-21"
-                    fill="none"
-                    transform="matrix(1,0,0,1,0,0)"
-                  />
-                  <g
-                    id="g-svg-22"
-                    fill="none"
-                    transform="matrix(1,0,0,1,0,0)"
-                  />
+                  <g id="g-svg-21" fill="none" />
+                  <g id="g-svg-22" fill="none" />
                 </g>
               </g>
             </g>
-            <g transform="matrix(1,0,0,1,0,0)">
+            <g>
               <path
                 id="g-svg-23"
                 fill="rgba(0,0,0,0)"
                 class="slider-brush-area"
-                d="M 0,0 l 528,0 l 0,16 l-528 0 z"
+                d="M 96,440 l 528,0 l 0,16 l-528 0 z"
+                x="96"
+                y="440"
                 width="528"
                 height="16"
               />
             </g>
-            <g
-              id="g-svg-24"
-              fill="none"
-              transform="matrix(1,0,0,1,0,0)"
-              class="slider-foreground"
-            >
-              <g transform="matrix(1,0,0,1,0,0)">
+            <g id="g-svg-24" fill="none" class="slider-foreground">
+              <g transform="matrix(1,0,0,1,96,440)">
                 <path
                   id="g-svg-25"
                   fill="rgba(23,131,255,1)"
@@ -147,49 +136,43 @@
                   width="52.800000000000004"
                 />
               </g>
-              <g transform="matrix(1,0,0,1,52.799999,0)">
+              <g transform="matrix(1,0,0,1,96,440)">
                 <path
                   id="g-svg-26"
                   fill="rgba(23,131,255,1)"
                   class="slider-selection"
                   visibility="visible"
                   fill-opacity="0.15"
-                  d="M 0,0 l 211.20000000000002,0 l 0,16 l-211.20000000000002 0 z"
+                  d="M 52.800000000000004,0 l 211.20000000000002,0 l 0,16 l-211.20000000000002 0 z"
                   height="16"
+                  x="52.800000000000004"
                   width="211.20000000000002"
                 />
               </g>
-              <g transform="matrix(1,0,0,1,264,0)">
+              <g transform="matrix(1,0,0,1,96,440)">
                 <path
                   id="g-svg-27"
                   fill="rgba(23,131,255,1)"
                   class="slider-selection"
                   visibility="hidden"
                   fill-opacity="0.15"
-                  d="M 0,0 l 264,0 l 0,16 l-264 0 z"
+                  d="M 264,0 l 264,0 l 0,16 l-264 0 z"
                   height="16"
+                  x="264"
                   width="264"
                 />
               </g>
               <g
                 id="g-svg-30"
                 fill="none"
-                transform="matrix(1,0,0,1,52.799999,8)"
+                x="0"
+                y="0"
+                transform="matrix(1,0,0,1,148.800003,448)"
                 class="slider-handle start-handle"
               >
-                <g
-                  id="g-svg-31"
-                  fill="none"
-                  transform="matrix(1,0,0,1,0,0)"
-                  class="handle-icon-group"
-                >
-                  <g
-                    id="g-svg-32"
-                    fill="none"
-                    transform="matrix(1,0,0,1,0,0)"
-                    class="handle-icon"
-                  >
-                    <g transform="matrix(1,0,0,1,-5,-12)">
+                <g id="g-svg-31" fill="none" class="handle-icon-group">
+                  <g id="g-svg-32" fill="none" x="0" y="0" class="handle-icon">
+                    <g>
                       <path
                         id="g-svg-33"
                         fill="rgba(247,247,247,1)"
@@ -197,32 +180,34 @@
                         stroke-width="1"
                         stroke="rgba(29,33,41,1)"
                         stroke-opacity="0.25"
-                        d="M 2,0 l 6,0 a 2,2,0,0,1,2,2 l 0,20 a 2,2,0,0,1,-2,2 l -6,0 a 2,2,0,0,1,-2,-2 l 0,-20 a 2,2,0,0,1,2,-2 z"
+                        d="M -3,-12 l 6,0 a 2,2,0,0,1,2,2 l 0,20 a 2,2,0,0,1,-2,2 l -6,0 a 2,2,0,0,1,-2,-2 l 0,-20 a 2,2,0,0,1,2,-2 z"
                         width="10"
                         height="24"
+                        x="-5"
+                        y="-12"
                       />
-                      <g transform="matrix(1,0,0,1,3.333333,6)">
+                      <g>
                         <line
                           id="g-svg-34"
                           fill="rgba(247,247,247,1)"
-                          x1="0"
-                          y1="0"
-                          x2="0"
-                          y2="12"
+                          x1="-1.666666666666667"
+                          y1="-6"
+                          x2="-1.666666666666667"
+                          y2="6"
                           class="handle-icon-line-1"
                           stroke-width="1"
                           stroke="rgba(29,33,41,1)"
                           stroke-opacity="0.25"
                         />
                       </g>
-                      <g transform="matrix(1,0,0,1,6.666667,6)">
+                      <g>
                         <line
                           id="g-svg-35"
                           fill="rgba(247,247,247,1)"
-                          x1="0"
-                          y1="0"
-                          x2="0"
-                          y2="12"
+                          x1="1.666666666666666"
+                          y1="-6"
+                          x2="1.666666666666666"
+                          y2="6"
                           class="handle-icon-line-2"
                           stroke-width="1"
                           stroke="rgba(29,33,41,1)"
@@ -232,13 +217,8 @@
                     </g>
                   </g>
                 </g>
-                <g
-                  id="g-svg-36"
-                  fill="none"
-                  transform="matrix(1,0,0,1,0,0)"
-                  class="handle-label-group"
-                >
-                  <g transform="matrix(1,0,0,1,45.500000,0)">
+                <g id="g-svg-36" fill="none" class="handle-label-group">
+                  <g>
                     <text
                       id="g-svg-37"
                       fill="rgba(29,33,41,1)"
@@ -246,10 +226,12 @@
                       fill-opacity="0.45"
                       dominant-baseline="central"
                       paint-order="stroke"
+                      x="45.5"
                       dx="0.5"
                       font-size="12"
                       text-anchor="middle"
                       font-weight="normal"
+                      y="0"
                     >
                       2007/10/23
                     </text>
@@ -259,22 +241,14 @@
               <g
                 id="g-svg-40"
                 fill="none"
-                transform="matrix(1,0,0,1,264,8)"
+                x="0"
+                y="0"
+                transform="matrix(1,0,0,1,360,448)"
                 class="slider-handle end-handle"
               >
-                <g
-                  id="g-svg-41"
-                  fill="none"
-                  transform="matrix(1,0,0,1,0,0)"
-                  class="handle-icon-group"
-                >
-                  <g
-                    id="g-svg-42"
-                    fill="none"
-                    transform="matrix(1,0,0,1,0,0)"
-                    class="handle-icon"
-                  >
-                    <g transform="matrix(1,0,0,1,-5,-12)">
+                <g id="g-svg-41" fill="none" class="handle-icon-group">
+                  <g id="g-svg-42" fill="none" x="0" y="0" class="handle-icon">
+                    <g>
                       <path
                         id="g-svg-43"
                         fill="rgba(247,247,247,1)"
@@ -282,32 +256,34 @@
                         stroke-width="1"
                         stroke="rgba(29,33,41,1)"
                         stroke-opacity="0.25"
-                        d="M 2,0 l 6,0 a 2,2,0,0,1,2,2 l 0,20 a 2,2,0,0,1,-2,2 l -6,0 a 2,2,0,0,1,-2,-2 l 0,-20 a 2,2,0,0,1,2,-2 z"
+                        d="M -3,-12 l 6,0 a 2,2,0,0,1,2,2 l 0,20 a 2,2,0,0,1,-2,2 l -6,0 a 2,2,0,0,1,-2,-2 l 0,-20 a 2,2,0,0,1,2,-2 z"
                         width="10"
                         height="24"
+                        x="-5"
+                        y="-12"
                       />
-                      <g transform="matrix(1,0,0,1,3.333333,6)">
+                      <g>
                         <line
                           id="g-svg-44"
                           fill="rgba(247,247,247,1)"
-                          x1="0"
-                          y1="0"
-                          x2="0"
-                          y2="12"
+                          x1="-1.666666666666667"
+                          y1="-6"
+                          x2="-1.666666666666667"
+                          y2="6"
                           class="handle-icon-line-1"
                           stroke-width="1"
                           stroke="rgba(29,33,41,1)"
                           stroke-opacity="0.25"
                         />
                       </g>
-                      <g transform="matrix(1,0,0,1,6.666667,6)">
+                      <g>
                         <line
                           id="g-svg-45"
                           fill="rgba(247,247,247,1)"
-                          x1="0"
-                          y1="0"
-                          x2="0"
-                          y2="12"
+                          x1="1.666666666666666"
+                          y1="-6"
+                          x2="1.666666666666666"
+                          y2="6"
                           class="handle-icon-line-2"
                           stroke-width="1"
                           stroke="rgba(29,33,41,1)"
@@ -317,13 +293,8 @@
                     </g>
                   </g>
                 </g>
-                <g
-                  id="g-svg-46"
-                  fill="none"
-                  transform="matrix(1,0,0,1,0,0)"
-                  class="handle-label-group"
-                >
-                  <g transform="matrix(1,0,0,1,45.980000,0)">
+                <g id="g-svg-46" fill="none" class="handle-label-group">
+                  <g>
                     <text
                       id="g-svg-47"
                       fill="rgba(29,33,41,1)"
@@ -331,10 +302,12 @@
                       fill-opacity="0.45"
                       dominant-baseline="central"
                       paint-order="stroke"
+                      x="45.98"
                       dx="0.5"
                       font-size="12"
                       text-anchor="middle"
                       font-weight="normal"
+                      y="0"
                     >
                       2009/10/26
                     </text>
@@ -344,52 +317,36 @@
             </g>
           </g>
         </g>
-        <g
-          id="g-svg-12"
-          fill="none"
-          transform="matrix(1,0,0,1,0,0)"
-          class="component"
-        >
-          <g
-            id="g-svg-48"
-            fill="none"
-            class="slider"
-            transform="matrix(1,0,0,1,23,16)"
-          >
-            <g transform="matrix(1,0,0,1,0,0)">
+        <g id="g-svg-12" fill="none" class="component">
+          <g id="g-svg-48" fill="none" class="slider" x="23" y="16">
+            <g>
               <path
                 id="g-svg-49"
                 fill="rgba(65,97,128,1)"
                 class="slider-track"
-                d="M 0,0 l 16,0 l 0,381 l-16 0 z"
+                d="M 23,16 l 16,0 l 0,381 l-16 0 z"
+                x="23"
+                y="16"
                 width="16"
                 height="381"
                 opacity="0.05"
               />
             </g>
-            <g
-              id="g-svg-50"
-              fill="none"
-              transform="matrix(1,0,0,1,0,0)"
-              class="slider-sparkline-group"
-            />
-            <g transform="matrix(1,0,0,1,0,0)">
+            <g id="g-svg-50" fill="none" class="slider-sparkline-group" />
+            <g>
               <path
                 id="g-svg-51"
                 fill="rgba(0,0,0,0)"
                 class="slider-brush-area"
-                d="M 0,0 l 16,0 l 0,381 l-16 0 z"
+                d="M 23,16 l 16,0 l 0,381 l-16 0 z"
+                x="23"
+                y="16"
                 width="16"
                 height="381"
               />
             </g>
-            <g
-              id="g-svg-52"
-              fill="none"
-              transform="matrix(1,0,0,1,0,0)"
-              class="slider-foreground"
-            >
-              <g transform="matrix(1,0,0,1,0,0)">
+            <g id="g-svg-52" fill="none" class="slider-foreground">
+              <g transform="matrix(1,0,0,1,23,16)">
                 <path
                   id="g-svg-53"
                   fill="rgba(23,131,255,1)"
@@ -401,49 +358,43 @@
                   height="76.2"
                 />
               </g>
-              <g transform="matrix(1,0,0,1,0,76.199997)">
+              <g transform="matrix(1,0,0,1,23,16)">
                 <path
                   id="g-svg-54"
                   fill="rgba(23,131,255,1)"
                   class="slider-selection"
                   visibility="visible"
                   fill-opacity="0.15"
-                  d="M 0,0 l 16,0 l 0,228.60000000000002 l-16 0 z"
+                  d="M 0,76.2 l 16,0 l 0,228.60000000000002 l-16 0 z"
                   width="16"
+                  y="76.2"
                   height="228.60000000000002"
                 />
               </g>
-              <g transform="matrix(1,0,0,1,0,304.799988)">
+              <g transform="matrix(1,0,0,1,23,16)">
                 <path
                   id="g-svg-55"
                   fill="rgba(23,131,255,1)"
                   class="slider-selection"
                   visibility="hidden"
                   fill-opacity="0.15"
-                  d="M 0,0 l 16,0 l 0,76.19999999999999 l-16 0 z"
+                  d="M 0,304.8 l 16,0 l 0,76.19999999999999 l-16 0 z"
                   width="16"
+                  y="304.8"
                   height="76.19999999999999"
                 />
               </g>
               <g
                 id="g-svg-58"
                 fill="none"
-                transform="matrix(1,0,0,1,8,76.199997)"
+                x="0"
+                y="0"
+                transform="matrix(1,0,0,1,31,92.199997)"
                 class="slider-handle start-handle"
               >
-                <g
-                  id="g-svg-59"
-                  fill="none"
-                  transform="matrix(1,0,0,1,0,0)"
-                  class="handle-icon-group"
-                >
-                  <g
-                    id="g-svg-60"
-                    fill="none"
-                    transform="matrix(0,1,-1,0,0,0)"
-                    class="handle-icon"
-                  >
-                    <g transform="matrix(1,0,0,1,-5,-12)">
+                <g id="g-svg-59" fill="none" class="handle-icon-group">
+                  <g id="g-svg-60" fill="none" x="0" y="0" class="handle-icon">
+                    <g transform="matrix(0,1,-1,0,0,0)">
                       <path
                         id="g-svg-61"
                         fill="rgba(247,247,247,1)"
@@ -451,32 +402,34 @@
                         stroke-width="1"
                         stroke="rgba(29,33,41,1)"
                         stroke-opacity="0.25"
-                        d="M 2,0 l 6,0 a 2,2,0,0,1,2,2 l 0,20 a 2,2,0,0,1,-2,2 l -6,0 a 2,2,0,0,1,-2,-2 l 0,-20 a 2,2,0,0,1,2,-2 z"
+                        d="M -3,-12 l 6,0 a 2,2,0,0,1,2,2 l 0,20 a 2,2,0,0,1,-2,2 l -6,0 a 2,2,0,0,1,-2,-2 l 0,-20 a 2,2,0,0,1,2,-2 z"
                         width="10"
                         height="24"
+                        x="-5"
+                        y="-12"
                       />
-                      <g transform="matrix(1,0,0,1,3.333333,6)">
+                      <g>
                         <line
                           id="g-svg-62"
                           fill="rgba(247,247,247,1)"
-                          x1="0"
-                          y1="0"
-                          x2="0"
-                          y2="12"
+                          x1="-1.666666666666667"
+                          y1="-6"
+                          x2="-1.666666666666667"
+                          y2="6"
                           class="handle-icon-line-1"
                           stroke-width="1"
                           stroke="rgba(29,33,41,1)"
                           stroke-opacity="0.25"
                         />
                       </g>
-                      <g transform="matrix(1,0,0,1,6.666667,6)">
+                      <g>
                         <line
                           id="g-svg-63"
                           fill="rgba(247,247,247,1)"
-                          x1="0"
-                          y1="0"
-                          x2="0"
-                          y2="12"
+                          x1="1.666666666666666"
+                          y1="-6"
+                          x2="1.666666666666666"
+                          y2="6"
                           class="handle-icon-line-2"
                           stroke-width="1"
                           stroke="rgba(29,33,41,1)"
@@ -486,13 +439,8 @@
                     </g>
                   </g>
                 </g>
-                <g
-                  id="g-svg-64"
-                  fill="none"
-                  transform="matrix(1,0,0,1,0,0)"
-                  class="handle-label-group"
-                >
-                  <g transform="matrix(0,1,-1,0,0,-62.799999)">
+                <g id="g-svg-64" fill="none" class="handle-label-group">
+                  <g transform="matrix(0,1,-1,0,-62.799997,-62.799997)">
                     <text
                       id="g-svg-65"
                       fill="rgba(29,33,41,1)"
@@ -500,10 +448,12 @@
                       fill-opacity="0.45"
                       dominant-baseline="central"
                       paint-order="stroke"
+                      y="-62.79999904844654"
                       dx="0.5"
                       font-size="12"
                       text-anchor="left"
                       font-weight="normal"
+                      x="0"
                     >
                       524.624
                     </text>
@@ -513,22 +463,14 @@
               <g
                 id="g-svg-68"
                 fill="none"
-                transform="matrix(1,0,0,1,8,304.799988)"
+                x="0"
+                y="0"
+                transform="matrix(1,0,0,1,31,320.799988)"
                 class="slider-handle end-handle"
               >
-                <g
-                  id="g-svg-69"
-                  fill="none"
-                  transform="matrix(1,0,0,1,0,0)"
-                  class="handle-icon-group"
-                >
-                  <g
-                    id="g-svg-70"
-                    fill="none"
-                    transform="matrix(0,1,-1,0,0,0)"
-                    class="handle-icon"
-                  >
-                    <g transform="matrix(1,0,0,1,-5,-12)">
+                <g id="g-svg-69" fill="none" class="handle-icon-group">
+                  <g id="g-svg-70" fill="none" x="0" y="0" class="handle-icon">
+                    <g transform="matrix(0,1,-1,0,0,0)">
                       <path
                         id="g-svg-71"
                         fill="rgba(247,247,247,1)"
@@ -536,32 +478,34 @@
                         stroke-width="1"
                         stroke="rgba(29,33,41,1)"
                         stroke-opacity="0.25"
-                        d="M 2,0 l 6,0 a 2,2,0,0,1,2,2 l 0,20 a 2,2,0,0,1,-2,2 l -6,0 a 2,2,0,0,1,-2,-2 l 0,-20 a 2,2,0,0,1,2,-2 z"
+                        d="M -3,-12 l 6,0 a 2,2,0,0,1,2,2 l 0,20 a 2,2,0,0,1,-2,2 l -6,0 a 2,2,0,0,1,-2,-2 l 0,-20 a 2,2,0,0,1,2,-2 z"
                         width="10"
                         height="24"
+                        x="-5"
+                        y="-12"
                       />
-                      <g transform="matrix(1,0,0,1,3.333333,6)">
+                      <g>
                         <line
                           id="g-svg-72"
                           fill="rgba(247,247,247,1)"
-                          x1="0"
-                          y1="0"
-                          x2="0"
-                          y2="12"
+                          x1="-1.666666666666667"
+                          y1="-6"
+                          x2="-1.666666666666667"
+                          y2="6"
                           class="handle-icon-line-1"
                           stroke-width="1"
                           stroke="rgba(29,33,41,1)"
                           stroke-opacity="0.25"
                         />
                       </g>
-                      <g transform="matrix(1,0,0,1,6.666667,6)">
+                      <g>
                         <line
                           id="g-svg-73"
                           fill="rgba(247,247,247,1)"
-                          x1="0"
-                          y1="0"
-                          x2="0"
-                          y2="12"
+                          x1="1.666666666666666"
+                          y1="-6"
+                          x2="1.666666666666666"
+                          y2="6"
                           class="handle-icon-line-2"
                           stroke-width="1"
                           stroke="rgba(29,33,41,1)"
@@ -571,13 +515,8 @@
                     </g>
                   </g>
                 </g>
-                <g
-                  id="g-svg-74"
-                  fill="none"
-                  transform="matrix(1,0,0,1,0,0)"
-                  class="handle-label-group"
-                >
-                  <g transform="matrix(0,1,-1,0,0,61.360001)">
+                <g id="g-svg-74" fill="none" class="handle-label-group">
+                  <g transform="matrix(0,1,-1,0,62.359998,60.359999)">
                     <text
                       id="g-svg-75"
                       fill="rgba(29,33,41,1)"
@@ -585,10 +524,12 @@
                       fill-opacity="0.45"
                       dominant-baseline="central"
                       paint-order="stroke"
+                      y="61.359999097735624"
                       dx="0.5"
                       font-size="12"
                       text-anchor="end"
                       font-weight="normal"
+                      x="0"
                     >
                       189.806
                     </text>
@@ -598,37 +539,12 @@
             </g>
           </g>
         </g>
-        <g
-          id="g-svg-13"
-          fill="none"
-          transform="matrix(1,0,0,1,0,0)"
-          class="component"
-        >
-          <g
-            id="g-svg-76"
-            fill="none"
-            class="axis"
-            transform="matrix(1,0,0,1,0,0)"
-          >
-            <g
-              id="g-svg-77"
-              fill="none"
-              transform="matrix(1,0,0,1,0,0)"
-              class="axis-grid-group"
-            >
-              <g
-                id="g-svg-78"
-                fill="none"
-                transform="matrix(1,0,0,1,0,0)"
-                class="axis-grid"
-              >
-                <g
-                  id="g-svg-79"
-                  fill="none"
-                  transform="matrix(1,0,0,1,0,0)"
-                  class="grid-line-group"
-                >
-                  <g transform="matrix(1,0,0,1,145.754776,16)">
+        <g id="g-svg-13" fill="none" class="component">
+          <g id="g-svg-76" fill="none" class="axis">
+            <g id="g-svg-77" fill="none" class="axis-grid-group">
+              <g id="g-svg-78" fill="none" class="axis-grid">
+                <g id="g-svg-79" fill="none" class="grid-line-group">
+                  <g>
                     <path
                       id="g-svg-81"
                       fill="none"
@@ -636,11 +552,11 @@
                       stroke="rgba(29,33,41,1)"
                       stroke-width="0.5"
                       stroke-dasharray="3,4"
-                      d="M 0,381 L 0,0"
+                      d="M 145.75476839237058,397 L 145.75476839237058,16"
                       stroke-opacity="0.1"
                     />
                   </g>
-                  <g transform="matrix(1,0,0,1,211.215256,16)">
+                  <g>
                     <path
                       id="g-svg-82"
                       fill="none"
@@ -648,11 +564,11 @@
                       stroke="rgba(29,33,41,1)"
                       stroke-width="0.5"
                       stroke-dasharray="3,4"
-                      d="M 0,381 L 0,0"
+                      d="M 211.21525885558583,397 L 211.21525885558583,16"
                       stroke-opacity="0.1"
                     />
                   </g>
-                  <g transform="matrix(1,0,0,1,276.675751,16)">
+                  <g>
                     <path
                       id="g-svg-83"
                       fill="none"
@@ -660,11 +576,11 @@
                       stroke="rgba(29,33,41,1)"
                       stroke-width="0.5"
                       stroke-dasharray="3,4"
-                      d="M 0,381 L 0,0"
+                      d="M 276.6757493188011,397 L 276.6757493188011,16"
                       stroke-opacity="0.1"
                     />
                   </g>
-                  <g transform="matrix(1,0,0,1,342.855591,16)">
+                  <g>
                     <path
                       id="g-svg-84"
                       fill="none"
@@ -672,11 +588,11 @@
                       stroke="rgba(29,33,41,1)"
                       stroke-width="0.5"
                       stroke-dasharray="3,4"
-                      d="M 0,381 L 0,0"
+                      d="M 342.8555858310626,397 L 342.8555858310626,16"
                       stroke-opacity="0.1"
                     />
                   </g>
-                  <g transform="matrix(1,0,0,1,409.035431,16)">
+                  <g>
                     <path
                       id="g-svg-85"
                       fill="none"
@@ -684,11 +600,11 @@
                       stroke="rgba(29,33,41,1)"
                       stroke-width="0.5"
                       stroke-dasharray="3,4"
-                      d="M 0,381 L 0,0"
+                      d="M 409.0354223433243,397 L 409.0354223433243,16"
                       stroke-opacity="0.1"
                     />
                   </g>
-                  <g transform="matrix(1,0,0,1,473.776581,16)">
+                  <g>
                     <path
                       id="g-svg-158"
                       fill="none"
@@ -696,11 +612,11 @@
                       stroke="rgba(29,33,41,1)"
                       stroke-width="0.5"
                       stroke-dasharray="3,4"
-                      d="M 0,381 L 0,0"
+                      d="M 473.7765667574932,397 L 473.7765667574932,16"
                       stroke-opacity="0.1"
                     />
                   </g>
-                  <g transform="matrix(1,0,0,1,539.237061,16)">
+                  <g>
                     <path
                       id="g-svg-159"
                       fill="none"
@@ -708,11 +624,11 @@
                       stroke="rgba(29,33,41,1)"
                       stroke-width="0.5"
                       stroke-dasharray="3,4"
-                      d="M 0,381 L 0,0"
+                      d="M 539.2370572207085,397 L 539.2370572207085,16"
                       stroke-opacity="0.1"
                     />
                   </g>
-                  <g transform="matrix(1,0,0,1,605.416870,16)">
+                  <g>
                     <path
                       id="g-svg-160"
                       fill="none"
@@ -720,39 +636,24 @@
                       stroke="rgba(29,33,41,1)"
                       stroke-width="0.5"
                       stroke-dasharray="3,4"
-                      d="M 0,381 L 0,0"
+                      d="M 605.41689373297,397 L 605.41689373297,16"
                       stroke-opacity="0.1"
                     />
                   </g>
                 </g>
-                <g
-                  id="g-svg-80"
-                  fill="none"
-                  transform="matrix(1,0,0,1,0,0)"
-                  class="grid-region-group"
-                />
+                <g id="g-svg-80" fill="none" class="grid-region-group" />
               </g>
             </g>
-            <g
-              id="g-svg-86"
-              fill="none"
-              transform="matrix(1,0,0,1,0,0)"
-              class="axis-main-group"
-            >
-              <g
-                id="g-svg-87"
-                fill="none"
-                transform="matrix(1,0,0,1,0,0)"
-                class="axis-line-group"
-              >
-                <g transform="matrix(1,0,0,1,96,397)">
+            <g id="g-svg-86" fill="none" class="axis-main-group">
+              <g id="g-svg-87" fill="none" class="axis-line-group">
+                <g>
                   <line
                     id="g-svg-88"
                     fill="none"
-                    x1="0"
-                    y1="0"
-                    x2="528"
-                    y2="0"
+                    x1="96"
+                    y1="397"
+                    x2="624"
+                    y2="397"
                     class="axis-line axis-line"
                     stroke-width="0.5"
                     stroke="rgba(29,33,41,1)"
@@ -761,19 +662,14 @@
                   />
                 </g>
               </g>
-              <g
-                id="g-svg-89"
-                fill="none"
-                transform="matrix(1,0,0,1,0,0)"
-                class="axis-tick-group"
-              >
+              <g id="g-svg-89" fill="none" class="axis-tick-group">
                 <g
                   id="g-svg-90"
                   fill="none"
                   transform="matrix(1,0,0,1,145.754776,397)"
                   class="axis-tick"
                 >
-                  <g transform="matrix(1,0,0,1,0,0)">
+                  <g>
                     <line
                       id="g-svg-236"
                       fill="none"
@@ -794,7 +690,7 @@
                   transform="matrix(1,0,0,1,211.215256,397)"
                   class="axis-tick"
                 >
-                  <g transform="matrix(1,0,0,1,0,0)">
+                  <g>
                     <line
                       id="g-svg-237"
                       fill="none"
@@ -815,7 +711,7 @@
                   transform="matrix(1,0,0,1,276.675751,397)"
                   class="axis-tick"
                 >
-                  <g transform="matrix(1,0,0,1,0,0)">
+                  <g>
                     <line
                       id="g-svg-238"
                       fill="none"
@@ -836,7 +732,7 @@
                   transform="matrix(1,0,0,1,342.855591,397)"
                   class="axis-tick"
                 >
-                  <g transform="matrix(1,0,0,1,0,0)">
+                  <g>
                     <line
                       id="g-svg-239"
                       fill="none"
@@ -857,7 +753,7 @@
                   transform="matrix(1,0,0,1,409.035431,397)"
                   class="axis-tick"
                 >
-                  <g transform="matrix(1,0,0,1,0,0)">
+                  <g>
                     <line
                       id="g-svg-240"
                       fill="none"
@@ -878,7 +774,7 @@
                   transform="matrix(1,0,0,1,473.776581,397)"
                   class="axis-tick"
                 >
-                  <g transform="matrix(1,0,0,1,0,0)">
+                  <g>
                     <line
                       id="g-svg-241"
                       fill="none"
@@ -899,7 +795,7 @@
                   transform="matrix(1,0,0,1,539.237061,397)"
                   class="axis-tick"
                 >
-                  <g transform="matrix(1,0,0,1,0,0)">
+                  <g>
                     <line
                       id="g-svg-242"
                       fill="none"
@@ -920,7 +816,7 @@
                   transform="matrix(1,0,0,1,605.416870,397)"
                   class="axis-tick"
                 >
-                  <g transform="matrix(1,0,0,1,0,0)">
+                  <g>
                     <line
                       id="g-svg-243"
                       fill="none"
@@ -936,19 +832,14 @@
                   </g>
                 </g>
               </g>
-              <g
-                id="g-svg-100"
-                fill="none"
-                transform="matrix(1,0,0,1,0,0)"
-                class="axis-label-group"
-              >
+              <g id="g-svg-100" fill="none" class="axis-label-group">
                 <g
                   id="g-svg-101"
                   fill="none"
                   transform="matrix(1,0,0,1,145.754776,405)"
                   class="axis-label"
                 >
-                  <g transform="matrix(1,0,0,1,0,0)">
+                  <g>
                     <text
                       id="g-svg-244"
                       fill="rgba(29,33,41,1)"
@@ -977,7 +868,7 @@
                   transform="matrix(1,0,0,1,211.215256,405)"
                   class="axis-label"
                 >
-                  <g transform="matrix(1,0,0,1,0,0)">
+                  <g>
                     <text
                       id="g-svg-245"
                       fill="rgba(29,33,41,1)"
@@ -1006,7 +897,7 @@
                   transform="matrix(1,0,0,1,276.675751,405)"
                   class="axis-label"
                 >
-                  <g transform="matrix(1,0,0,1,0,0)">
+                  <g>
                     <text
                       id="g-svg-246"
                       fill="rgba(29,33,41,1)"
@@ -1035,7 +926,7 @@
                   transform="matrix(1,0,0,1,342.855591,405)"
                   class="axis-label"
                 >
-                  <g transform="matrix(1,0,0,1,0,0)">
+                  <g>
                     <text
                       id="g-svg-247"
                       fill="rgba(29,33,41,1)"
@@ -1064,7 +955,7 @@
                   transform="matrix(1,0,0,1,409.035431,405)"
                   class="axis-label"
                 >
-                  <g transform="matrix(1,0,0,1,0,0)">
+                  <g>
                     <text
                       id="g-svg-248"
                       fill="rgba(29,33,41,1)"
@@ -1093,7 +984,7 @@
                   transform="matrix(1,0,0,1,473.776581,405)"
                   class="axis-label"
                 >
-                  <g transform="matrix(1,0,0,1,0,0)">
+                  <g>
                     <text
                       id="g-svg-249"
                       fill="rgba(29,33,41,1)"
@@ -1122,7 +1013,7 @@
                   transform="matrix(1,0,0,1,539.237061,405)"
                   class="axis-label"
                 >
-                  <g transform="matrix(1,0,0,1,0,0)">
+                  <g>
                     <text
                       id="g-svg-250"
                       fill="rgba(29,33,41,1)"
@@ -1151,7 +1042,7 @@
                   transform="matrix(1,0,0,1,605.416870,405)"
                   class="axis-label"
                 >
-                  <g transform="matrix(1,0,0,1,0,0)">
+                  <g>
                     <text
                       id="g-svg-251"
                       fill="rgba(29,33,41,1)"
@@ -1176,45 +1067,15 @@
                 </g>
               </g>
             </g>
-            <g
-              id="g-svg-111"
-              fill="none"
-              transform="matrix(1,0,0,1,0,0)"
-              class="axis-title-group"
-            />
+            <g id="g-svg-111" fill="none" class="axis-title-group" />
           </g>
         </g>
-        <g
-          id="g-svg-14"
-          fill="none"
-          transform="matrix(1,0,0,1,0,0)"
-          class="component"
-        >
-          <g
-            id="g-svg-112"
-            fill="none"
-            class="axis"
-            transform="matrix(1,0,0,1,0,0)"
-          >
-            <g
-              id="g-svg-113"
-              fill="none"
-              transform="matrix(1,0,0,1,0,0)"
-              class="axis-grid-group"
-            >
-              <g
-                id="g-svg-114"
-                fill="none"
-                transform="matrix(1,0,0,1,0,0)"
-                class="axis-grid"
-              >
-                <g
-                  id="g-svg-115"
-                  fill="none"
-                  transform="matrix(1,0,0,1,0,0)"
-                  class="grid-line-group"
-                >
-                  <g transform="matrix(1,0,0,1,96,385.399933)">
+        <g id="g-svg-14" fill="none" class="component">
+          <g id="g-svg-112" fill="none" class="axis">
+            <g id="g-svg-113" fill="none" class="axis-grid-group">
+              <g id="g-svg-114" fill="none" class="axis-grid">
+                <g id="g-svg-115" fill="none" class="grid-line-group">
+                  <g>
                     <path
                       id="g-svg-117"
                       fill="none"
@@ -1222,11 +1083,11 @@
                       stroke="rgba(29,33,41,1)"
                       stroke-width="0.5"
                       stroke-dasharray="3,4"
-                      d="M 0,0 L 528,0"
+                      d="M 96,385.39992473522926 L 624,385.39992473522926"
                       stroke-opacity="0.1"
                     />
                   </g>
-                  <g transform="matrix(1,0,0,1,96,328.503357)">
+                  <g>
                     <path
                       id="g-svg-118"
                       fill="none"
@@ -1234,11 +1095,11 @@
                       stroke="rgba(29,33,41,1)"
                       stroke-width="0.5"
                       stroke-dasharray="3,4"
-                      d="M 0,0 L 528,0"
+                      d="M 96,328.50334211422324 L 624,328.50334211422324"
                       stroke-opacity="0.1"
                     />
                   </g>
-                  <g transform="matrix(1,0,0,1,96,271.606750)">
+                  <g>
                     <path
                       id="g-svg-119"
                       fill="none"
@@ -1246,11 +1107,11 @@
                       stroke="rgba(29,33,41,1)"
                       stroke-width="0.5"
                       stroke-dasharray="3,4"
-                      d="M 0,0 L 528,0"
+                      d="M 96,271.6067594932172 L 624,271.6067594932172"
                       stroke-opacity="0.1"
                     />
                   </g>
-                  <g transform="matrix(1,0,0,1,96,214.710175)">
+                  <g>
                     <path
                       id="g-svg-120"
                       fill="none"
@@ -1258,11 +1119,11 @@
                       stroke="rgba(29,33,41,1)"
                       stroke-width="0.5"
                       stroke-dasharray="3,4"
-                      d="M 0,0 L 528,0"
+                      d="M 96,214.71017687221115 L 624,214.71017687221115"
                       stroke-opacity="0.1"
                     />
                   </g>
-                  <g transform="matrix(1,0,0,1,96,157.813599)">
+                  <g>
                     <path
                       id="g-svg-121"
                       fill="none"
@@ -1270,11 +1131,11 @@
                       stroke="rgba(29,33,41,1)"
                       stroke-width="0.5"
                       stroke-dasharray="3,4"
-                      d="M 0,0 L 528,0"
+                      d="M 96,157.81359425120516 L 624,157.81359425120516"
                       stroke-opacity="0.1"
                     />
                   </g>
-                  <g transform="matrix(1,0,0,1,96,100.917015)">
+                  <g>
                     <path
                       id="g-svg-122"
                       fill="none"
@@ -1282,11 +1143,11 @@
                       stroke="rgba(29,33,41,1)"
                       stroke-width="0.5"
                       stroke-dasharray="3,4"
-                      d="M 0,0 L 528,0"
+                      d="M 96,100.91701163019911 L 624,100.91701163019911"
                       stroke-opacity="0.1"
                     />
                   </g>
-                  <g transform="matrix(1,0,0,1,96,44.020428)">
+                  <g>
                     <path
                       id="g-svg-216"
                       fill="none"
@@ -1294,39 +1155,24 @@
                       stroke="rgba(29,33,41,1)"
                       stroke-width="0.5"
                       stroke-dasharray="3,4"
-                      d="M 0,0 L 528,0"
+                      d="M 96,44.02042900919304 L 624,44.02042900919304"
                       stroke-opacity="0.1"
                     />
                   </g>
                 </g>
-                <g
-                  id="g-svg-116"
-                  fill="none"
-                  transform="matrix(1,0,0,1,0,0)"
-                  class="grid-region-group"
-                />
+                <g id="g-svg-116" fill="none" class="grid-region-group" />
               </g>
             </g>
-            <g
-              id="g-svg-123"
-              fill="none"
-              transform="matrix(1,0,0,1,0,0)"
-              class="axis-main-group"
-            >
-              <g
-                id="g-svg-124"
-                fill="none"
-                transform="matrix(1,0,0,1,0,0)"
-                class="axis-line-group"
-              >
-                <g transform="matrix(1,0,0,1,96,16)">
+            <g id="g-svg-123" fill="none" class="axis-main-group">
+              <g id="g-svg-124" fill="none" class="axis-line-group">
+                <g>
                   <line
                     id="g-svg-125"
                     fill="none"
-                    x1="0"
-                    y1="381"
-                    x2="0"
-                    y2="0"
+                    x1="96"
+                    y1="397"
+                    x2="96"
+                    y2="16"
                     class="axis-line axis-line"
                     stroke-width="0.5"
                     stroke="rgba(29,33,41,1)"
@@ -1335,25 +1181,20 @@
                   />
                 </g>
               </g>
-              <g
-                id="g-svg-126"
-                fill="none"
-                transform="matrix(1,0,0,1,0,0)"
-                class="axis-tick-group"
-              >
+              <g id="g-svg-126" fill="none" class="axis-tick-group">
                 <g
                   id="g-svg-127"
                   fill="none"
                   transform="matrix(1,0,0,1,96,385.399933)"
                   class="axis-tick"
                 >
-                  <g transform="matrix(1,0,0,1,-4,0)">
+                  <g>
                     <line
                       id="g-svg-253"
                       fill="none"
-                      x1="4"
+                      x1="0"
                       y1="0"
-                      x2="0"
+                      x2="-4"
                       y2="0"
                       class="axis-tick-item"
                       stroke-width="1"
@@ -1368,13 +1209,13 @@
                   transform="matrix(1,0,0,1,96,328.503357)"
                   class="axis-tick"
                 >
-                  <g transform="matrix(1,0,0,1,-4,0)">
+                  <g>
                     <line
                       id="g-svg-254"
                       fill="none"
-                      x1="4"
+                      x1="0"
                       y1="0"
-                      x2="0"
+                      x2="-4"
                       y2="0"
                       class="axis-tick-item"
                       stroke-width="1"
@@ -1389,13 +1230,13 @@
                   transform="matrix(1,0,0,1,96,271.606750)"
                   class="axis-tick"
                 >
-                  <g transform="matrix(1,0,0,1,-4,0)">
+                  <g>
                     <line
                       id="g-svg-255"
                       fill="none"
-                      x1="4"
+                      x1="0"
                       y1="0"
-                      x2="0"
+                      x2="-4"
                       y2="0"
                       class="axis-tick-item"
                       stroke-width="1"
@@ -1410,13 +1251,13 @@
                   transform="matrix(1,0,0,1,96,214.710175)"
                   class="axis-tick"
                 >
-                  <g transform="matrix(1,0,0,1,-4,0)">
+                  <g>
                     <line
                       id="g-svg-256"
                       fill="none"
-                      x1="4"
+                      x1="0"
                       y1="0"
-                      x2="0"
+                      x2="-4"
                       y2="0"
                       class="axis-tick-item"
                       stroke-width="1"
@@ -1431,13 +1272,13 @@
                   transform="matrix(1,0,0,1,96,157.813599)"
                   class="axis-tick"
                 >
-                  <g transform="matrix(1,0,0,1,-4,0)">
+                  <g>
                     <line
                       id="g-svg-257"
                       fill="none"
-                      x1="4"
+                      x1="0"
                       y1="0"
-                      x2="0"
+                      x2="-4"
                       y2="0"
                       class="axis-tick-item"
                       stroke-width="1"
@@ -1452,13 +1293,13 @@
                   transform="matrix(1,0,0,1,96,100.917015)"
                   class="axis-tick"
                 >
-                  <g transform="matrix(1,0,0,1,-4,0)">
+                  <g>
                     <line
                       id="g-svg-258"
                       fill="none"
-                      x1="4"
+                      x1="0"
                       y1="0"
-                      x2="0"
+                      x2="-4"
                       y2="0"
                       class="axis-tick-item"
                       stroke-width="1"
@@ -1473,13 +1314,13 @@
                   transform="matrix(1,0,0,1,96,44.020428)"
                   class="axis-tick"
                 >
-                  <g transform="matrix(1,0,0,1,-4,0)">
+                  <g>
                     <line
                       id="g-svg-259"
                       fill="none"
-                      x1="4"
+                      x1="0"
                       y1="0"
-                      x2="0"
+                      x2="-4"
                       y2="0"
                       class="axis-tick-item"
                       stroke-width="1"
@@ -1489,19 +1330,14 @@
                   </g>
                 </g>
               </g>
-              <g
-                id="g-svg-139"
-                fill="none"
-                transform="matrix(1,0,0,1,0,0)"
-                class="axis-label-group"
-              >
+              <g id="g-svg-139" fill="none" class="axis-label-group">
                 <g
                   id="g-svg-140"
                   fill="none"
                   transform="matrix(1,0,0,1,88,385.399933)"
                   class="axis-label"
                 >
-                  <g transform="matrix(1,0,0,1,0,0)">
+                  <g>
                     <text
                       id="g-svg-260"
                       fill="rgba(29,33,41,1)"
@@ -1529,7 +1365,7 @@
                   transform="matrix(1,0,0,1,88,328.503357)"
                   class="axis-label"
                 >
-                  <g transform="matrix(1,0,0,1,0,0)">
+                  <g>
                     <text
                       id="g-svg-261"
                       fill="rgba(29,33,41,1)"
@@ -1557,7 +1393,7 @@
                   transform="matrix(1,0,0,1,88,271.606750)"
                   class="axis-label"
                 >
-                  <g transform="matrix(1,0,0,1,0,0)">
+                  <g>
                     <text
                       id="g-svg-262"
                       fill="rgba(29,33,41,1)"
@@ -1585,7 +1421,7 @@
                   transform="matrix(1,0,0,1,88,214.710175)"
                   class="axis-label"
                 >
-                  <g transform="matrix(1,0,0,1,0,0)">
+                  <g>
                     <text
                       id="g-svg-263"
                       fill="rgba(29,33,41,1)"
@@ -1613,7 +1449,7 @@
                   transform="matrix(1,0,0,1,88,157.813599)"
                   class="axis-label"
                 >
-                  <g transform="matrix(1,0,0,1,0,0)">
+                  <g>
                     <text
                       id="g-svg-264"
                       fill="rgba(29,33,41,1)"
@@ -1641,7 +1477,7 @@
                   transform="matrix(1,0,0,1,88,100.917015)"
                   class="axis-label"
                 >
-                  <g transform="matrix(1,0,0,1,0,0)">
+                  <g>
                     <text
                       id="g-svg-265"
                       fill="rgba(29,33,41,1)"
@@ -1669,7 +1505,7 @@
                   transform="matrix(1,0,0,1,88,44.020428)"
                   class="axis-label"
                 >
-                  <g transform="matrix(1,0,0,1,0,0)">
+                  <g>
                     <text
                       id="g-svg-266"
                       fill="rgba(29,33,41,1)"
@@ -1693,12 +1529,7 @@
                 </g>
               </g>
             </g>
-            <g
-              id="g-svg-152"
-              fill="none"
-              transform="matrix(1,0,0,1,0,0)"
-              class="axis-title-group"
-            />
+            <g id="g-svg-152" fill="none" class="axis-title-group" />
           </g>
         </g>
         <g
@@ -1713,17 +1544,12 @@
             width="528"
             height="381"
           />
-          <g
-            id="g-svg-154"
-            fill="none"
-            transform="matrix(1,0,0,1,0,0)"
-            class="main-layer"
-          >
-            <g transform="matrix(1,0,0,1,-132,-127)">
+          <g id="g-svg-154" fill="none" class="main-layer">
+            <g>
               <path
                 id="g-svg-156"
                 fill="none"
-                d="M 0,617.886 L 0.7189999999999941,615.4839999999999 L 1.438999999999993,611.5129999999999 L 2.157999999999987,610.284 L 4.3160000000000025,610.421 L 5.7549999999999955,610.796 L 6.474000000000004,609.749 L 7.192999999999998,609.738 L 7.912999999999997,609.271 L 10.070999999999998,605.732 L 10.790000000000006,604.435 L 11.510000000000005,602.364 L 11.510000000000005,601.841 L 12.229,600.248 L 14.387,599.5419999999999 L 15.105999999999995,601.636 L 15.825999999999993,601.841 L 16.545,599.451 L 17.263999999999996,598.7909999999999 L 19.421999999999997,596.5609999999999 L 20.141999999999996,594.7850000000001 L 20.861000000000004,595.525 L 21.58,598.029 L 22.299999999999997,594.694 L 25.177000000000007,593.864 L 25.896,588.8340000000001 L 26.616,586.0799999999999 L 28.054000000000002,589.255 L 30.212999999999994,585.921 L 30.932000000000002,584.396 L 31.650999999999996,583.2919999999999 L 32.370999999999995,582.803 L 33.09,582.325 L 34.528999999999996,587.2180000000001 L 35.248000000000005,587.002 L 35.967,590.279 L 36.687,588.857 L 37.406000000000006,586.865 L 39.56399999999999,581.642 L 40.283,583.27 L 41.003,585.671 L 41.721999999999994,582.9970000000001 L 42.441,584.021 L 44.599000000000004,584.7719999999999 L 45.319,587.8330000000001 L 46.038,585.284 L 46.757000000000005,586.797 L 47.477000000000004,585.113 L 50.354,586.001 L 51.074,579.275 L 52.512,572.9259999999999 L 53.232,573.438 L 55.39,575.6800000000001 L 55.39,573.381 L 56.108999999999995,573.335 L 56.828,571.424 L 57.548,567.259 L 59.706,566.838 L 60.425,565.9159999999999 L 61.144000000000005,566.815 L 61.864000000000004,564.6759999999999 L 62.583,560.409 L 64.741,560.4649999999999 L 65.46,570.491 L 66.18,567.794 L 66.899,557.848 L 67.619,560.2950000000001 L 69.777,563.049 L 70.49600000000001,574.052 L 71.935,570.365 L 72.654,568.6700000000001 L 73.37299999999999,573.95 L 75.531,570.081 L 76.251,570.331 L 76.97,571.492 L 77.689,580.163 L 77.689,581.745 L 79.84700000000001,578.5699999999999 L 80.56700000000001,582.8489999999999 L 81.286,587.548 L 82.005,590.7909999999999 L 82.725,585.0899999999999 L 84.88300000000001,584.908 L 85.602,578.8199999999999 L 86.322,573.1990000000001 L 87.041,574.838 L 87.75999999999999,570.024 L 89.918,573.495 L 90.638,579.674 L 91.357,571.412 L 92.076,568.943 L 92.79599999999999,566.405 L 96.392,559.942 L 97.112,568.363 L 97.831,570.354 L 98.55,574.0409999999999 L 99.989,568.4200000000001 L 100.708,569.808 L 101.428,568.26 L 102.14699999999999,567.8620000000001 L 102.866,566.03 L 105.025,566.485 L 105.744,563.629 L 106.463,563.8 L 107.18299999999999,564.323 L 107.902,559.953 L 110.06,555.254 L 110.779,549.678 L 111.499,550.144 L 112.218,548.1759999999999 L 112.937,549.348 L 115.815,546.082 L 116.534,543.681 L 117.253,544.284 L 117.973,546.196 L 118.69200000000001,540.267 L 120.85,532.9159999999999 L 121.569,532.973 L 121.569,534.191 L 122.289,539.38 L 123.008,533.6669999999999 L 125.166,533.9739999999999 L 125.886,531.0160000000001 L 126.605,527.409 L 127.324,526.5550000000001 L 128.044,530.06 L 130.202,525.576 L 130.921,512.149 L 131.64,512.4110000000001 L 132.36,515.995 L 133.079,513.81 L 135.237,513.366 L 135.956,511.193 L 136.676,507.836 L 138.114,510.692 L 138.834,510.203 L 140.992,512.126 L 141.711,505.742 L 142.431,511.99 L 143.15,524.313 L 143.869,535.806 L 145.308,549.018 L 146.027,530.5830000000001 L 146.747,534.9639999999999 L 147.466,537.024 L 148.185,534.646 L 150.343,537.422 L 151.063,531.846 L 151.782,532.29 L 153.221,528.7850000000001 L 155.379,527.648 L 156.098,525.0640000000001 L 156.817,518.908 L 157.537,514.277 L 158.256,516.6320000000001 L 161.13400000000001,520.456 L 161.853,519.375 L 162.572,512.9 L 163.292,507.836 L 164.011,502.886 L 165.45,502.989 L 166.16899999999998,509.441 L 166.888,506.801 L 167.608,505.697 L 168.327,507.335 L 170.485,514.152 L 171.204,515.768 L 171.924,515.608 L 172.643,510.954 L 173.362,503.33 L 175.52,497.765 L 176.959,497.595 L 177.678,498.027 L 178.398,496.593 L 180.55599999999998,498.585 L 182.714,502.272 L 183.433,502.169 L 184.153,519.102 L 186.311,521.844 L 187.03,529.115 L 187.749,519.841 L 187.749,521.412 L 188.469,527.477 L 190.627,520.547 L 191.346,531.63 L 192.065,542.327 L 192.785,540.904 L 193.504,540.37 L 196.381,546.879 L 197.101,565.7339999999999 L 197.82,569.683 L 198.54000000000002,576.044 L 200.69799999999998,576.044 L 201.417,574.303 L 202.136,573.5740000000001 L 202.856,569.956 L 204.29399999999998,571.788 L 206.452,574.178 L 207.172,576.783 L 207.89100000000002,585.159 L 208.61,586.023 L 209.32999999999998,581.1990000000001 L 210.768,576.681 L 211.488,581.904 L 212.207,576.738 L 212.926,578.9449999999999 L 213.64600000000002,582.1659999999999 L 216.523,584.954 L 217.243,583.088 L 217.962,585.682 L 218.68099999999998,588.049 L 220.839,587.73 L 221.559,588.402 L 222.27800000000002,584.066 L 222.997,576.158 L 223.71699999999998,581.722 L 226.594,585.466 L 227.313,582.177 L 228.03300000000002,582.325 L 228.752,586.376 L 229.471,584.874 L 230.91,587.787 L 231.62900000000002,579.071 L 232.349,580.573 L 233.06799999999998,578.399 L 233.787,579.913 L 235.946,579.7760000000001 L 236.66500000000002,572.846 L 237.38400000000001,576.431 L 238.10399999999998,572.3340000000001 L 240.981,565.211 L 241.7,563.5609999999999 L 242.42000000000002,558.918 L 243.139,564.3910000000001 L 243.858,561.251 L 246.01600000000002,560.693 L 247.45499999999998,553.831 L 248.174,556.153 L 248.894,551.4639999999999 L 249.613,549.7919999999999 L 251.77100000000002,546.594 L 252.49,550.065 L 253.20999999999998,551.658 L 253.20999999999998,548.119 L 253.929,556.5509999999999 L 256.087,555.823 L 256.807,555.14 L 257.526,549.086 L 258.245,548.187 L 258.96500000000003,540.7339999999999 L 261.123,532.6320000000001 L 261.842,541.69 L 262.56100000000004,538.629 L 263.281,531.744 L 264,530.845 L 266.158,527.989 L 266.877,524.7909999999999 L 267.597,526.043 L 269.03499999999997,519.159 L 269.755,518.0889999999999 L 271.913,513.7760000000001 L 272.632,511.58 L 273.351,516.211 L 274.071,513.4010000000001 L 274.78999999999996,515.233 L 276.22900000000004,509.873 L 276.948,507.825 L 277.668,512.0350000000001 L 278.387,508.086 L 279.106,510.488 L 281.264,515.062 L 281.98400000000004,512.4449999999999 L 282.703,521.2180000000001 L 283.422,522.515 L 284.142,517.827 L 287.019,511.842 L 287.738,511.182 L 288.45799999999997,511.546 L 289.177,509.202 L 292.054,512.217 L 292.774,513.048 L 293.493,513.2529999999999 L 294.21299999999997,508.428 L 294.932,512.741 L 297.09000000000003,517.326 L 297.09000000000003,512.741 L 297.80899999999997,518.2370000000001 L 298.529,526.828 L 299.248,527.841 L 301.406,522.754 L 302.125,517.531 L 302.845,520.581 L 303.56399999999996,518.134 L 304.283,524.5409999999999 L 306.44100000000003,526.942 L 307.161,526.8399999999999 L 307.88,522.129 L 308.599,532.518 L 309.31899999999996,530.435 L 311.477,533.451 L 312.916,525.212 L 313.635,532.6089999999999 L 314.35400000000004,530.4010000000001 L 317.23199999999997,524.6659999999999 L 317.951,519.671 L 318.66999999999996,525.702 L 318.66999999999996,522.9929999999999 L 319.39,527.602 L 321.548,526.123 L 322.267,530.948 L 322.986,527.3399999999999 L 323.706,528.4780000000001 L 324.425,536.057 L 326.58299999999997,534.76 L 327.302,539.619 L 328.022,534.794 L 328.741,543.021 L 329.46000000000004,539.505 L 331.619,548.29 L 332.33799999999997,545.24 L 333.057,542.054 L 333.777,543.1120000000001 L 335.21500000000003,545.7180000000001 L 337.373,549.621 L 338.09299999999996,541.1890000000001 L 338.812,537.149 L 339.531,537.855 L 340.251,531.05 L 341.68899999999996,526.4870000000001 L 342.409,522.88 L 343.128,519.9549999999999 L 343.847,519.932 L 344.567,524.006 L 346.725,524.404 L 347.44399999999996,526.521 L 348.163,523.892 L 348.88300000000004,525.656 L 349.602,522.8109999999999 L 351.76,527.636 L 352.48,526.396 L 353.199,525.2239999999999 L 353.918,526.2819999999999 L 354.63800000000003,531.073 L 358.23400000000004,534.873 L 358.954,533.9970000000001 L 359.673,540.529 L 360.392,541.712 L 362.55,544.284 L 363.27,551.385 L 363.27,551.4639999999999 L 363.98900000000003,550.281 L 364.70799999999997,554.5029999999999 L 366.866,564.2660000000001 L 367.586,564.812 L 368.305,578.524 L 369.025,571.4010000000001 L 369.744,563.64 L 371.902,574.86 L 372.621,579.6510000000001 L 373.341,577.523 L 374.06,573.8589999999999 L 374.779,578.058 L 376.937,604.2080000000001 L 377.65700000000004,594.649 L 379.095,599.815 L 379.815,610.079 L 380.534,613.527 L 382.692,612.31 L 383.411,622.528 L 384.131,621.8109999999999 L 384.85,623.006 L 384.85,613.8340000000001 L 387.00800000000004,598.518 L 387.728,605.55 L 388.447,612.5260000000001 L 389.166,608.0419999999999 L 389.886,613.152 L 392.044,611.9680000000001 L 392.763,619.877 L 393.482,613.755 L 394.202,612.207 L 394.921,614.312 L 397.079,619.194 L 397.798,610.296 L 398.518,605.0160000000001 L 399.237,597.63 L 399.956,601.556 L 402.834,602.273 L 403.553,597.687 L 404.272,606.438 L 404.992,611.217 L 405.711,612.196 L 407.15,614.881 L 407.869,616.144 L 408.589,621.4359999999999 L 409.308,614.244 L 410.027,621.299 L 412.185,623.6890000000001 L 412.905,621.675 L 413.624,625.794 L 414.343,632.394 L 415.063,630.0160000000001 L 417.221,618.216 L 417.94,620.662 L 418.659,615.883 L 419.379,615.883 L 420.098,618.534 L 422.975,622.79 L 423.695,618.762 L 424.414,614.8589999999999 L 425.134,619.9680000000001 L 425.853,617.021 L 428.011,610.512 L 428.73,610.125 L 428.73,612.23 L 429.45,615.883 L 430.169,612.162 L 432.327,616.1669999999999 L 433.046,615.393 L 433.766,622.528 L 434.485,622.221 L 435.204,621.572 L 437.362,626.4200000000001 L 438.082,625.692 L 438.801,627.217 L 439.52,627.217 L 440.24,626.3399999999999 L 442.398,625.4300000000001 L 443.117,625.794 L 443.837,626.864 L 445.275,626.864 L 445.995,620.719 L 448.153,616.361 L 448.872,618.136 L 449.591,620.423 L 450.311,618.5 L 451.03,620.912 L 452.469,623.097 L 453.188,624.178 L 453.907,626.887 L 454.627,629.106 L 455.346,630.3 L 458.223,635 L 458.943,629.731 L 459.662,623.4390000000001 L 460.381,623.4390000000001 L 462.54,621.982 L 463.259,620.742 L 463.978,616.793 L 464.698,618.159 L 465.417,621.424 L 468.294,619.854 L 469.014,618.181 L 469.733,617.533 L 470.452,614.221 L 471.172,610.512 L 473.33,607.337 L 473.33,612.662 L 474.049,613.812 L 474.768,611.024 L 475.488,611.149 L 478.365,616.418 L 479.084,616.6 L 479.804,620.844 L 480.523,620.207 L 482.681,625.043 L 483.401,621.288 L 484.12,620.252 L 484.839,622.494 L 485.559,622.358 L 488.436,623.9169999999999 L 489.155,623.427 L 489.875,620.241 L 490.594,622.892 L 491.313,626.921 L 493.471,629.413 L 493.471,623.131 L 494.191,618.523 L 494.91,614.347 L 495.629,614.8240000000001 L 497.787,615.405 L 498.507,610.5799999999999 L 499.226,608.463 L 499.946,608.35 L 500.665,608.384 L 502.823,601.477 L 503.542,602.797 L 504.262,602.808 L 504.981,598.962 L 505.7,602.398 L 507.858,605.0840000000001 L 508.578,604.367 L 510.016,600.304 L 510.736,595.73 L 511.455,591.998 L 513.613,589.198 L 514.332,593.124 L 515.052,591.6220000000001 L 515.771,587.924 L 515.771,587.924 L 517.929,587.184 L 518.649,589.358 L 519.3679999999999,590.12 L 520.087,585.784 L 520.807,583.543 L 522.9649999999999,586.865 L 523.684,585.432 L 524.403,585.716 L 525.123,581.29 L 525.842,582.9970000000001 L 528,582.052 L 528.719,582.9970000000001 L 529.4390000000001,581.585 L 530.158,580.8 L 531.597,579.196 L 533.755,573.7 L 534.4739999999999,572.971 L 535.193,573.21 L 535.913,577.125 L 536.6320000000001,576.977 L 538.071,576.544 L 538.79,582.405 L 539.51,588.015 L 540.229,584.078 L 540.948,584.681 L 543.106,579.867 L 543.826,578.957 L 544.5450000000001,580.755 L 545.264,582.678 L 545.9839999999999,584.5899999999999 L 548.861,575.168 L 549.5799999999999,572.5840000000001 L 550.3,570.2860000000001 L 551.019,569.444 L 553.896,565.415 L 554.616,565.256 L 555.335,563.595 L 556.054,560.4200000000001 L 556.774,559.3620000000001 L 558.932,560.2950000000001 L 559.6510000000001,561.581 L 559.6510000000001,564.3910000000001 L 560.371,564.733 L 561.0899999999999,568.124 L 563.248,569.125 L 563.967,568.829 L 564.687,569.7049999999999 L 565.406,569.364 L 566.125,565.268 L 568.283,567.669 L 569.0029999999999,571.492 L 569.722,568.977 L 570.441,564.835 L 571.1610000000001,561.899 L 573.319,562.434 L 574.038,561.9110000000001 L 575.477,561.4549999999999 L 576.196,564.653 L 576.9159999999999,564.653 L 579.0740000000001,566.258 L 579.793,569.9100000000001 L 580.512,567.8389999999999 L 581.232,568.818 L 581.232,566.36 L 583.39,562.0129999999999 L 584.1089999999999,562.0930000000001 L 584.828,556.847 L 585.548,556.119 L 586.267,551.3050000000001 L 588.425,549.985 L 589.144,551.578 L 589.864,545.627 L 590.5830000000001,544.398 L 591.302,541.929 L 593.46,541.803 L 594.1800000000001,541.9169999999999 L 594.899,541.883 L 595.619,538.742 L 596.338,538.06 L 599.2149999999999,534.6 L 599.935,535.602 L 600.654,536.102 L 601.373,537.4680000000001 L 602.0930000000001,535.6469999999999 L 603.531,536.546 L 604.97,535.875 L 605.6890000000001,532.336 L 606.409,534.202 L 608.567,542.384 L 609.2860000000001,537.365 L 610.005,536.683 L 610.725,534.7139999999999 L 611.444,531.425 L 613.602,531.608 L 614.322,531.221 L 615.0409999999999,533.485 L 615.76,531.164 L 616.48,530.481 L 618.6379999999999,532.575 L 620.076,535.886 L 620.796,536.023 L 621.515,534.4639999999999 L 622.2339999999999,530.185 L 625.1120000000001,527.204 L 625.831,529.241 L 625.831,527.625 L 626.55,528.0799999999999 L 628.7080000000001,526.3050000000001 L 629.428,524.6659999999999 L 630.1469999999999,517.031 L 630.866,513.981 L 631.586,513.446 L 633.744,514.5840000000001 L 634.463,514.0609999999999 L 635.183,512.9 L 635.902,514.812 L 636.621,516.462 L 638.779,512.1600000000001 L 639.499,513.0360000000001 L 640.2180000000001,513.071 L 641.6569999999999,518.1800000000001 L 642.376,513.5830000000001 L 644.534,512.308 L 645.253,507.768 L 645.973,507.495 L 646.692,508.61 L 647.411,507.244 L 648.85,506.858 L 649.569,507.756 L 650.289,506.311 L 651.008,507.142 L 651.728,509.998 L 653.886,507.939 L 654.605,497.811 L 655.324,490.801 L 656.044,490.483 L 656.763,491.916 L 658.921,493.578 L 659.64,499.393 L 660.36,505.048 L 661.079,500.553 L 661.798,509.486 L 664.676,508.564 L 665.395,509.202 L 666.114,506.858 L 666.834,503.193 L 667.553,502.841 L 669.711,494.739 L 669.711,493.009 L 670.431,492.702 L 671.15,494.135 L 671.869,491.336 L 674.027,488.855 L 674.747,488.434 L 675.466,489.618 L 676.185,495.82 L 676.905,496.491 L 679.063,489.709 L 679.782,491.348 L 680.501,491.632 L 681.221,491.632 L 681.94,495.729 L 684.098,496.502 L 685.537,499.848 L 686.256,500.69 L 686.975,500.405 L 687.695,504.001 L 689.853,508.974 L 690.572,507.927 L 691.292,498.903 L 691.292,500.462 L 692.011,502.465 L 694.169,499.836 L 694.888,503.034 L 695.608,502.055 L 696.327,505.663 L 697.046,501.6 L 699.204,498.414 L 699.924,495.99 L 700.643,494.01 L 701.362,486.113 L 702.082,486.113 L 704.24,483.189 L 704.959,486.045 L 705.678,483.154 L 706.398,484.19 L 707.837,484.19 L 709.995,480.458 L 710.714,480.036 L 711.433,483.917 L 712.153,484.361 L 712.872,482.768 L 714.311,484.895 L 715.03,487.615 L 715.749,484.281 L 716.469,485.669 L 717.188,489.652 L 719.346,489.652 L 720.065,479.285 L 720.785,483.063 L 721.504,487.217 L 722.223,498.96 L 724.381,492.895 L 725.101,489.641 L 725.82,487.433 L 726.54,497.208 L 727.259,505.435 L 730.136,502.397 L 730.856,501.111 L 731.575,497.276 L 732.294,505.446 L 733.014,501.566 L 735.172,503.091 L 735.891,500.735 L 735.891,501.953 L 736.61,497.913 L 737.33,495.968 L 739.488,495.968 L 740.207,492.531 L 740.926,493.498 L 741.646,493.066 L 742.365,494.5 L 744.523,495.922 L 745.243,499.745 L 745.962,495.649 L 746.681,494.124 L 747.401,491.143 L 750.278,486.17 L 750.997,486.329 L 751.717,485.783 L 752.436,484.213 L 753.155,474.836 L 755.313,474.688 L 756.033,470.205 L 756.033,468.134 L 756.752,467.383 L 757.471,466.131 L 759.629,469.272 L 760.349,468.577 L 761.068,468.953 L 761.787,468.35 L 762.507,471.081 L 764.665,468.236 L 765.384,464.128 L 766.104,462.979 L 766.823,466.074 L 767.542,461.238 L 769.7,459.542 L 770.42,455.616 L 771.139,456.572 L 772.578,455.469 L 773.297,455.469 L 775.455,452.601 L 776.174,451.406 L 776.894,450.2 L 777.613,450.94 L 778.332,448.846 L 779.771,448.277 L 780.49,448.117 L 781.21,444.408 L 781.929,440.732 L 782.649,442.462 L 784.807,442.837 L 785.526,445.66 L 786.245,429.012 L 786.965,420.762 L 787.684,415.8 L 789.842,417.314 L 790.561,425.803 L 791.281,426.303 L 792,418.292 L 792.719,426.884 L 795.597,420.898 L 796.316,429.626 L 797.035,432.699 L 797.755,443.771 L 798.474,455.594 L 799.913,434.963 L 800.632,432.084 L 801.351,425.746 L 802.071,429.99 L 802.79,435.156 L 804.948,434.701 L 805.668,436.818 L 806.387,441.392 L 807.106,453.432 L 807.826,448.243 L 809.984,443.19 L 810.703,444.943 L 811.422,446.206 L 812.142,435.691 L 812.861,431.674 L 815.019,431.674 L 816.458,427.18 L 817.177,423.629 L 817.896,424.574 L 818.616,432.721 L 820.774,438.434 L 821.493,440.266 L 822.213,447.241 L 822.213,438.923 L 822.932,435.509 L 825.09,434.633 L 825.809,428.477 L 826.529,419.874 L 827.248,414.617 L 827.967,412.113 L 830.125,416.551 L 830.845,412.364 L 831.564,415.641 L 832.283,417.883 L 833.003,420.5 L 835.161,418.679 L 835.88,432.482 L 836.599,437.762 L 838.038,441.233 L 838.757,442.985 L 840.916,442.985 L 841.635,441.062 L 842.354,429.649 L 843.074,430.297 L 843.793,428.556 L 845.232,431.219 L 845.951,437.455 L 846.67,436.397 L 847.39,437.853 L 848.109,439.617 L 850.267,444.533 L 850.986,437.353 L 851.706,434.679 L 852.425,429.239 L 853.144,428.192 L 855.302,428.943 L 856.022,423.481 L 856.741,427.032 L 857.46,430.275 L 858.18,431.253 L 861.057,426.019 L 861.777,425.928 L 862.496,424.733 L 863.215,426.19 L 863.935,428.022 L 866.093,426.133 L 866.093,428.795 L 866.812,439.287 L 867.531,437.466 L 868.251,440.527 L 870.409,442.189 L 871.128,437.262 L 871.847,436.01 L 872.567,439.64 L 873.286,439.913 L 875.444,444.283 L 876.163,450.962 L 876.883,447.594 L 877.602,450.564 L 878.322,449.039 L 880.48,448.038 L 881.199,447.355 L 882.638,439.128 L 883.357,437.034 L 884.076,429.524 L 886.234,429.524 L 886.954,430.616 L 887.673,424.801 L 888.392,424.631 L 888.392,424.244 L 890.55,420.113 L 891.27,418.952 L 891.989,416.494 L 892.708,409.268 L 893.428,410.634 L 895.586,401.69 L 896.305,401.075 L 897.025,396.546 L 897.744,395.215 L 898.463,391.346 L 900.621,392.666 L 901.341,397.559 L 902.06,396.979 L 902.779,401.098 L 904.218,402.498 L 906.376,406.913 L 907.095,395.192 L 907.815,394.908 L 908.534,394.874 L 909.253,389.355 L 910.692,387.887 L 911.411,384.268 L 912.131,382.447 L 912.85,379.978 L 913.569,365.834 L 915.728,362.124 L 916.447,371.808 L 917.166,370.624 L 917.886,371.774 L 918.605,374.106 L 920.763,372.547 L 921.482,373.446 L 922.202,373.697 L 922.921,376.644 L 923.64,381.49199999999996 L 926.518,377.85 L 927.237,371.956 L 927.956,368.041 L 928.676,361.817 L 929.395,363.11400000000003 L 931.553,361.418 L 932.272,364.30899999999997 L 932.272,362.09000000000003 L 932.992,363.649 L 933.711,373.469 L 935.869,374.596 L 936.589,380.797 L 937.308,382.038 L 938.027,373.014 L 938.747,374.948 L 940.905,367.404 L 941.624,372.673 L 942.343,365.765 L 943.782,365.538 L 945.94,363.40999999999997 L 946.659,369.919 L 948.098,363.945 L 948.817,361.953 L 949.537,362.76099999999997 L 951.695,359.677 L 952.414,361.885 L 953.134,358.699 L 953.853,360.121 L 953.853,359.211 L 956.011,357.948 L 956.73,359.51800000000003 L 957.45,359.438 L 958.169,358.426 L 958.888,359.154 L 961.046,357.33299999999997 L 961.766,355.06899999999996 L 962.485,353.976 L 963.204,355.752 L 966.082,354.523 L 966.801,353.624 L 967.52,353.828 L 968.24,355.683 L 968.959,356.935 L 971.837,348.95799999999997 L 972.556,347.001 L 973.275,343.91700000000003 L 973.995,344.224 L 974.714,341.505 L 976.153,334.28999999999996 L 976.872,335.223 L 977.591,332.06 L 978.311,330.626 L 979.03,327.44 L 981.907,336.35 L 982.627,338.409 L 983.346,345.419 L 984.065,352.201 L 986.223,339.991 L 986.943,335.496 L 987.662,332.70799999999997 L 988.381,333.437 L 989.101,341.527 L 991.259,337.863 L 992.698,331.366 L 993.417,332.174 L 994.136,333.175 L 994.856,329.693 L 997.014,323.571 L 997.733,319.793 L 998.452,316.425 L 998.452,320.544 L 999.172,317.91499999999996 L 1001.33,315.264 L 1002.049,314.445 L 1002.768,310.769 L 1003.488,316.265 L 1004.207,325.073 L 1007.084,338.671 L 1007.804,334.108 L 1008.523,333.812 L 1009.243,327.804 L 1011.401,322.057 L 1012.839,326.495 L 1013.559,323.298 L 1014.278,314.832 L 1014.997,314.331 L 1017.155,319.611 L 1017.875,319.156 L 1018.594,322.899 L 1018.594,329.499 L 1019.313,323.446 L 1021.471,321.659 L 1022.191,330.911 L 1022.91,348.457 L 1023.629,343.18899999999996 L 1024.3490000000002,347.706 L 1026.507,337.88599999999997 L 1027.226,335.724 L 1027.946,338.01099999999997 L 1028.665,331.43399999999997 L 1029.384,323.95799999999997 L 1031.542,325.209 L 1032.262,324.618 L 1032.981,327.269 L 1033.7,327.406 L 1035.1390000000001,331.901 L 1037.297,335.735 L 1038.016,338.353 L 1038.7359999999999,339.32 L 1039.455,339.274 L 1040.174,342.711 L 1041.613,347.558 L 1042.3319999999999,345.738 L 1043.0520000000001,341.493 L 1043.771,345.71500000000003 L 1044.49,351.35900000000004 L 1046.649,346.36400000000003 L 1047.368,339.525 L 1048.087,334.347 L 1048.807,324.914 L 1051.684,322.28499999999997 L 1052.403,325.23199999999997 L 1053.123,325.539 L 1053.842,329.408 L 1054.5610000000001,325.562 L 1057.4389999999999,329.943 L 1058.158,327.75800000000004 L 1058.877,326.199 L 1059.597,329.408 L 1060.316,329.51099999999997 L 1062.4740000000002,328.44100000000003 L 1062.4740000000002,326.336 L 1063.193,328.86199999999997 L 1063.913,329.613 L 1064.632,336.52099999999996 L 1066.79,344.714 L 1067.51,341.48199999999997 L 1068.229,337.23699999999997 L 1068.9479999999999,336.486 L 1069.6680000000001,342.529 L 1071.826,343.462 L 1072.545,345.977 L 1073.2640000000001,340.754 L 1073.984,342.779 L 1074.703,340.03700000000003 L 1077.58,328.179 L 1079.019,330.81899999999996 L 1079.738,330.148 L 1080.458,333.175 L 1082.616,339.32 L 1083.335,346.147 L 1084.054,345.91999999999996 L 1084.774,346.773 L 1084.774,353.134 L 1086.932,352.33799999999997 L 1087.6509999999998,345.692 L 1088.371,352.16700000000003 L 1089.0900000000001,353.976 L 1089.809,359.552 L 1091.967,365.174 L 1092.687,353.817 L 1093.406,356.878 L 1094.125,347.06899999999996 L 1094.845,352.622 L 1097.0030000000002,346.147 L 1097.722,342.483 L 1098.441,343.872 L 1099.161,342.017 L 1100.5990000000002,333.38 L 1103.4769999999999,326.35900000000004 L 1104.196,323.707 L 1104.9160000000002,317.517 L 1105.635,314.661 L 1107.074,321.158 L 1107.7930000000001,321.443 L 1108.512,316.584 L 1109.232,316.868 L 1109.951,308.73199999999997 L 1112.109,298.627 L 1112.828,295.15700000000004 L 1113.548,283.72 L 1114.267,283.277 L 1114.9859999999999,276.438 L 1117.144,270.52 L 1117.864,264.933 L 1118.583,277.246 L 1119.3020000000001,278.122 L 1120.022,279.647 L 1122.899,272.512 L 1123.6190000000001,281.433 L 1124.338,277.26800000000003 L 1125.057,294.565 L 1125.777,298.832 L 1127.935,322.057 L 1128.654,298.38800000000003 L 1128.654,310.132 L 1129.373,298.741 L 1130.0929999999998,294.997 L 1132.251,287.692 L 1132.97,291.026 L 1133.6889999999999,291.072 L 1134.409,307.446 L 1135.1280000000002,318.848 L 1137.286,318.382 L 1138.005,298.855 L 1138.725,295.919 L 1139.444,298.71799999999996 L 1140.163,287.498 L 1142.3220000000001,280.227 L 1143.0410000000002,280.204 L 1143.76,286.076 L 1145.199,290.4 L 1145.9180000000001,298.34299999999996 L 1148.796,291.868 L 1149.5149999999999,287.1 L 1150.234,286.861 L 1150.954,294.44 L 1152.392,291.64099999999996 L 1153.112,286.315 L 1153.8310000000001,280.98900000000003 L 1154.55,276.825 L 1155.27,268.245 L 1157.428,255.579 L 1158.147,253.50799999999998 L 1158.866,254.999 L 1159.586,266.743 L 1160.305,263.91999999999996 L 1162.463,265.206 L 1163.183,269.656 L 1163.902,272.216 L 1164.621,279.544 L 1165.341,290.07 L 1168.218,297.717 L 1168.937,300.10699999999997 L 1169.657,293.56399999999996 L 1170.376,294.565 L 1171.095,303.179 L 1172.534,281.547 L 1173.253,268.48400000000004 L 1173.973,266.322 L 1174.692,259.221 L 1175.411,243.779 L 1177.569,246.066 L 1178.289,243.506 L 1179.008,270.384 L 1179.728,274.15 L 1180.447,276.927 L 1182.605,262.248 L 1183.324,271.351 L 1184.044,268.131 L 1184.763,263.477 L 1185.482,263.18100000000004 L 1187.64,263.374 L 1189.079,272.78499999999997 L 1189.798,271.76099999999997 L 1190.518,265.32 L 1191.237,268.53999999999996 L 1193.395,269.121 L 1194.114,261.724 L 1194.834,274.185 L 1194.834,285.632 L 1195.553,286.315 L 1197.711,292.414 L 1198.431,281.524 L 1199.15,286.144 L 1199.869,294.519 L 1200.589,297.33000000000004 L 1202.747,304.078 L 1203.466,295.544 L 1204.185,306.377 L 1205.624,310.26800000000003 L 1207.782,295.98699999999997 L 1208.501,299.31 L 1209.221,289.06899999999996 L 1210.659,282.548 L 1211.379,280.534 L 1213.537,276.76800000000003 L 1214.256,279.11199999999997 L 1214.975,281.228 L 1215.695,279.442 L 1216.414,276.074 L 1217.853,278.099 L 1218.572,281.547 L 1219.292,291.356 L 1220.011,292.778 L 1220.73,290.41200000000003 L 1222.888,289.057 L 1223.608,273.422 L 1224.327,272.865 L 1225.046,270.464 L 1225.766,264.90999999999997 L 1228.643,261.38300000000004 L 1229.362,265.80899999999997 L 1230.082,262.98699999999997 L 1230.801,263.124 L 1234.398,256.03499999999997 L 1235.117,253.51999999999998 L 1235.837,248.297 L 1236.556,243.324 L 1238.714,244.086 L 1238.714,242.368 L 1239.433,243.15300000000002 L 1240.153,244.473 L 1240.872,246.27100000000002 L 1243.749,240.707 L 1244.469,235.688 L 1245.188,237.236 L 1245.907,245.714 L 1248.065,237.623 L 1248.785,245.588 L 1249.504,215.71800000000002 L 1250.223,218.02800000000002 L 1250.943,215.012 L 1253.101,208.49200000000002 L 1253.82,204.543 L 1255.259,204.873 L 1255.978,206.091 L 1256.698,200.902 L 1258.856,196.01999999999998 L 1259.575,190.49 L 1260.294,181.55700000000002 L 1261.014,162.793 L 1261.014,162.508 L 1263.172,152.062 L 1263.891,144.256 L 1264.61,157.672 L 1265.33,152.506 L 1266.049,152.608 L 1268.926,138.122 L 1269.646,140.182 L 1270.365,136.37 L 1271.084,129.519 L 1273.243,125.707 L 1273.962,114.726 L 1274.681,106.727 L 1276.12,104.417 L 1276.839,103.60900000000001 L 1278.997,117.287 L 1279.717,120.587 L 1280.436,120.097 L 1281.155,107.239 L 1281.875,103.62 L 1283.313,95.848 L 1284.033,77.527 L 1284.752,53.084999999999994 L 1285.471,57.659000000000006 L 1286.191,57.647999999999996 L 1288.349,39.976 L 1289.068,34.44499999999999 L 1289.787,38.382000000000005 L 1290.507,41.977999999999994 L 1291.226,45.721999999999994 L 1293.384,33.285 L 1294.104,24.75 L 1294.823,21.177000000000007 L 1295.542,30.007000000000005 L 1296.262,41.739000000000004 L 1299.139,20.028000000000006 L 1299.858,7.8629999999999995 L 1300.578,13.563999999999993 L 1301.297,2.902000000000001 L 1304.174,0 L 1304.174,8.864000000000004 L 1304.894,11.412999999999997 L 1305.613,15.316999999999993 L 1306.332,35.275999999999996 L 1308.49,63.838 L 1309.21,30.188999999999993 L 1309.929,31.736999999999995 L 1310.649,55.519999999999996 L 1311.368,71.97399999999999 L 1313.526,73.431 L 1314.245,86.426 L 1314.965,29.848 L 1315.684,32.465 L 1316.403,37.813 L 1318.561,59.456999999999994 L 1320,61.562"
+                d="M -132,490.886 L -131.281,488.484 L -130.561,484.513 L -129.842,483.284 L -127.684,483.421 L -126.245,483.796 L -125.526,482.749 L -124.807,482.738 L -124.087,482.271 L -121.929,478.732 L -121.21,477.435 L -120.49,475.364 L -120.49,474.841 L -119.771,473.248 L -117.613,472.542 L -116.894,474.636 L -116.174,474.841 L -115.455,472.451 L -114.736,471.791 L -112.578,469.561 L -111.858,467.785 L -111.139,468.525 L -110.42,471.029 L -109.7,467.694 L -106.823,466.864 L -106.104,461.834 L -105.384,459.08 L -103.946,462.255 L -101.787,458.921 L -101.068,457.396 L -100.349,456.292 L -99.629,455.803 L -98.91,455.325 L -97.471,460.218 L -96.752,460.002 L -96.033,463.279 L -95.313,461.857 L -94.594,459.865 L -92.436,454.642 L -91.717,456.27 L -90.997,458.671 L -90.278,455.997 L -89.559,457.021 L -87.401,457.772 L -86.681,460.833 L -85.962,458.284 L -85.243,459.797 L -84.523,458.113 L -81.646,459.001 L -80.926,452.275 L -79.488,445.926 L -78.768,446.438 L -76.61,448.68 L -76.61,446.381 L -75.891,446.335 L -75.172,444.424 L -74.452,440.259 L -72.294,439.838 L -71.575,438.916 L -70.856,439.815 L -70.136,437.676 L -69.417,433.409 L -67.259,433.465 L -66.54,443.491 L -65.82,440.794 L -65.101,430.848 L -64.381,433.295 L -62.223,436.049 L -61.504,447.052 L -60.065,443.365 L -59.346,441.67 L -58.627,446.95 L -56.469,443.081 L -55.749,443.331 L -55.03,444.492 L -54.311,453.163 L -54.311,454.745 L -52.153,451.57 L -51.433,455.849 L -50.714,460.548 L -49.995,463.791 L -49.275,458.09 L -47.117,457.908 L -46.398,451.82 L -45.678,446.199 L -44.959,447.838 L -44.24,443.024 L -42.082,446.495 L -41.362,452.674 L -40.643,444.412 L -39.924,441.943 L -39.204,439.405 L -35.608,432.942 L -34.888,441.363 L -34.169,443.354 L -33.45,447.041 L -32.011,441.42 L -31.292,442.808 L -30.572,441.26 L -29.853,440.862 L -29.134,439.03 L -26.975,439.485 L -26.256,436.629 L -25.537,436.8 L -24.817,437.323 L -24.098,432.953 L -21.94,428.254 L -21.221,422.678 L -20.501,423.144 L -19.782,421.176 L -19.063,422.348 L -16.185,419.082 L -15.466,416.681 L -14.747,417.284 L -14.027,419.196 L -13.308,413.267 L -11.15,405.916 L -10.431,405.973 L -10.431,407.191 L -9.711,412.38 L -8.992,406.667 L -6.834,406.974 L -6.114,404.016 L -5.395,400.409 L -4.676,399.555 L -3.956,403.06 L -1.798,398.576 L -1.079,385.149 L -0.36,385.411 L 0.36,388.995 L 1.079,386.81 L 3.237,386.366 L 3.956,384.193 L 4.676,380.836 L 6.114,383.692 L 6.834,383.203 L 8.992,385.126 L 9.711,378.742 L 10.431,384.99 L 11.15,397.313 L 11.869,408.806 L 13.308,422.018 L 14.027,403.583 L 14.747,407.964 L 15.466,410.024 L 16.185,407.646 L 18.343,410.422 L 19.063,404.846 L 19.782,405.29 L 21.221,401.785 L 23.379,400.648 L 24.098,398.064 L 24.817,391.908 L 25.537,387.277 L 26.256,389.632 L 29.134,393.456 L 29.853,392.375 L 30.572,385.9 L 31.292,380.836 L 32.011,375.886 L 33.45,375.989 L 34.169,382.441 L 34.888,379.801 L 35.608,378.697 L 36.327,380.335 L 38.485,387.152 L 39.204,388.768 L 39.924,388.608 L 40.643,383.954 L 41.362,376.33 L 43.52,370.765 L 44.959,370.595 L 45.678,371.027 L 46.398,369.593 L 48.556,371.585 L 50.714,375.272 L 51.433,375.169 L 52.153,392.102 L 54.311,394.844 L 55.03,402.115 L 55.749,392.841 L 55.749,394.412 L 56.469,400.477 L 58.627,393.547 L 59.346,404.63 L 60.065,415.327 L 60.785,413.904 L 61.504,413.37 L 64.381,419.879 L 65.101,438.734 L 65.82,442.683 L 66.54,449.044 L 68.698,449.044 L 69.417,447.303 L 70.136,446.574 L 70.856,442.956 L 72.294,444.788 L 74.452,447.178 L 75.172,449.783 L 75.891,458.159 L 76.61,459.023 L 77.33,454.199 L 78.768,449.681 L 79.488,454.904 L 80.207,449.738 L 80.926,451.945 L 81.646,455.166 L 84.523,457.954 L 85.243,456.088 L 85.962,458.682 L 86.681,461.049 L 88.839,460.73 L 89.559,461.402 L 90.278,457.066 L 90.997,449.158 L 91.717,454.722 L 94.594,458.466 L 95.313,455.177 L 96.033,455.325 L 96.752,459.376 L 97.471,457.874 L 98.91,460.787 L 99.629,452.071 L 100.349,453.573 L 101.068,451.399 L 101.787,452.913 L 103.946,452.776 L 104.665,445.846 L 105.384,449.431 L 106.104,445.334 L 108.981,438.211 L 109.7,436.561 L 110.42,431.918 L 111.139,437.391 L 111.858,434.251 L 114.016,433.693 L 115.455,426.831 L 116.174,429.153 L 116.894,424.464 L 117.613,422.792 L 119.771,419.594 L 120.49,423.065 L 121.21,424.658 L 121.21,421.119 L 121.929,429.551 L 124.087,428.823 L 124.807,428.14 L 125.526,422.086 L 126.245,421.187 L 126.965,413.734 L 129.123,405.632 L 129.842,414.69 L 130.561,411.629 L 131.281,404.744 L 132,403.845 L 134.158,400.989 L 134.877,397.791 L 135.597,399.043 L 137.035,392.159 L 137.755,391.089 L 139.913,386.776 L 140.632,384.58 L 141.351,389.211 L 142.071,386.401 L 142.79,388.233 L 144.229,382.873 L 144.948,380.825 L 145.668,385.035 L 146.387,381.086 L 147.106,383.488 L 149.264,388.062 L 149.984,385.445 L 150.703,394.218 L 151.422,395.515 L 152.142,390.827 L 155.019,384.842 L 155.738,384.182 L 156.458,384.546 L 157.177,382.202 L 160.054,385.217 L 160.774,386.048 L 161.493,386.253 L 162.213,381.428 L 162.932,385.741 L 165.09,390.326 L 165.09,385.741 L 165.809,391.237 L 166.529,399.828 L 167.248,400.841 L 169.406,395.754 L 170.125,390.531 L 170.845,393.581 L 171.564,391.134 L 172.283,397.541 L 174.441,399.942 L 175.161,399.84 L 175.88,395.129 L 176.599,405.518 L 177.319,403.435 L 179.477,406.451 L 180.916,398.212 L 181.635,405.609 L 182.354,403.401 L 185.232,397.666 L 185.951,392.671 L 186.67,398.702 L 186.67,395.993 L 187.39,400.602 L 189.548,399.123 L 190.267,403.948 L 190.986,400.34 L 191.706,401.478 L 192.425,409.057 L 194.583,407.76 L 195.302,412.619 L 196.022,407.794 L 196.741,416.021 L 197.46,412.505 L 199.619,421.29 L 200.338,418.24 L 201.057,415.054 L 201.777,416.112 L 203.215,418.718 L 205.373,422.621 L 206.093,414.189 L 206.812,410.149 L 207.531,410.855 L 208.251,404.05 L 209.689,399.487 L 210.409,395.88 L 211.128,392.955 L 211.847,392.932 L 212.567,397.006 L 214.725,397.404 L 215.444,399.521 L 216.163,396.892 L 216.883,398.656 L 217.602,395.811 L 219.76,400.636 L 220.48,399.396 L 221.199,398.224 L 221.918,399.282 L 222.638,404.073 L 226.234,407.873 L 226.954,406.997 L 227.673,413.529 L 228.392,414.712 L 230.55,417.284 L 231.27,424.385 L 231.27,424.464 L 231.989,423.281 L 232.708,427.503 L 234.866,437.266 L 235.586,437.812 L 236.305,451.524 L 237.025,444.401 L 237.744,436.64 L 239.902,447.86 L 240.621,452.651 L 241.341,450.523 L 242.06,446.859 L 242.779,451.058 L 244.937,477.208 L 245.657,467.649 L 247.095,472.815 L 247.815,483.079 L 248.534,486.527 L 250.692,485.31 L 251.411,495.528 L 252.131,494.811 L 252.85,496.006 L 252.85,486.834 L 255.008,471.518 L 255.728,478.55 L 256.447,485.526 L 257.166,481.042 L 257.886,486.152 L 260.044,484.968 L 260.763,492.877 L 261.482,486.755 L 262.202,485.207 L 262.921,487.312 L 265.079,492.194 L 265.798,483.296 L 266.518,478.016 L 267.237,470.63 L 267.956,474.556 L 270.834,475.273 L 271.553,470.687 L 272.272,479.438 L 272.992,484.217 L 273.711,485.196 L 275.15,487.881 L 275.869,489.144 L 276.589,494.436 L 277.308,487.244 L 278.027,494.299 L 280.185,496.689 L 280.905,494.675 L 281.624,498.794 L 282.343,505.394 L 283.063,503.016 L 285.221,491.216 L 285.94,493.662 L 286.659,488.883 L 287.379,488.883 L 288.098,491.534 L 290.975,495.79 L 291.695,491.762 L 292.414,487.859 L 293.134,492.968 L 293.853,490.021 L 296.011,483.512 L 296.73,483.125 L 296.73,485.23 L 297.45,488.883 L 298.169,485.162 L 300.327,489.167 L 301.046,488.393 L 301.766,495.528 L 302.485,495.221 L 303.204,494.572 L 305.362,499.42 L 306.082,498.692 L 306.801,500.217 L 307.52,500.217 L 308.24,499.34 L 310.398,498.43 L 311.117,498.794 L 311.837,499.864 L 313.275,499.864 L 313.995,493.719 L 316.153,489.361 L 316.872,491.136 L 317.591,493.423 L 318.311,491.5 L 319.03,493.912 L 320.469,496.097 L 321.188,497.178 L 321.907,499.887 L 322.627,502.106 L 323.346,503.3 L 326.223,508 L 326.943,502.731 L 327.662,496.439 L 328.381,496.439 L 330.54,494.982 L 331.259,493.742 L 331.978,489.793 L 332.698,491.159 L 333.417,494.424 L 336.294,492.854 L 337.014,491.181 L 337.733,490.533 L 338.452,487.221 L 339.172,483.512 L 341.33,480.337 L 341.33,485.662 L 342.049,486.812 L 342.768,484.024 L 343.488,484.149 L 346.365,489.418 L 347.084,489.6 L 347.804,493.844 L 348.523,493.207 L 350.681,498.043 L 351.401,494.288 L 352.12,493.252 L 352.839,495.494 L 353.559,495.358 L 356.436,496.917 L 357.155,496.427 L 357.875,493.241 L 358.594,495.892 L 359.313,499.921 L 361.471,502.413 L 361.471,496.131 L 362.191,491.523 L 362.91,487.347 L 363.629,487.824 L 365.787,488.405 L 366.507,483.58 L 367.226,481.463 L 367.946,481.35 L 368.665,481.384 L 370.823,474.477 L 371.542,475.797 L 372.262,475.808 L 372.981,471.962 L 373.7,475.398 L 375.858,478.084 L 376.578,477.367 L 378.016,473.304 L 378.736,468.73 L 379.455,464.998 L 381.613,462.198 L 382.332,466.124 L 383.052,464.622 L 383.771,460.924 L 383.771,460.924 L 385.929,460.184 L 386.649,462.358 L 387.368,463.12 L 388.087,458.784 L 388.807,456.543 L 390.965,459.865 L 391.684,458.432 L 392.403,458.716 L 393.123,454.29 L 393.842,455.997 L 396,455.052 L 396.719,455.997 L 397.439,454.585 L 398.158,453.8 L 399.597,452.196 L 401.755,446.7 L 402.474,445.971 L 403.193,446.21 L 403.913,450.125 L 404.632,449.977 L 406.071,449.544 L 406.79,455.405 L 407.51,461.015 L 408.229,457.078 L 408.948,457.681 L 411.106,452.867 L 411.826,451.957 L 412.545,453.755 L 413.264,455.678 L 413.984,457.59 L 416.861,448.168 L 417.58,445.584 L 418.3,443.286 L 419.019,442.444 L 421.896,438.415 L 422.616,438.256 L 423.335,436.595 L 424.054,433.42 L 424.774,432.362 L 426.932,433.295 L 427.651,434.581 L 427.651,437.391 L 428.371,437.733 L 429.09,441.124 L 431.248,442.125 L 431.967,441.829 L 432.687,442.705 L 433.406,442.364 L 434.125,438.268 L 436.283,440.669 L 437.003,444.492 L 437.722,441.977 L 438.441,437.835 L 439.161,434.899 L 441.319,435.434 L 442.038,434.911 L 443.477,434.455 L 444.196,437.653 L 444.916,437.653 L 447.074,439.258 L 447.793,442.91 L 448.512,440.839 L 449.232,441.818 L 449.232,439.36 L 451.39,435.013 L 452.109,435.093 L 452.828,429.847 L 453.548,429.119 L 454.267,424.305 L 456.425,422.985 L 457.144,424.578 L 457.864,418.627 L 458.583,417.398 L 459.302,414.929 L 461.46,414.803 L 462.18,414.917 L 462.899,414.883 L 463.619,411.742 L 464.338,411.06 L 467.215,407.6 L 467.935,408.602 L 468.654,409.102 L 469.373,410.468 L 470.093,408.647 L 471.531,409.546 L 472.97,408.875 L 473.689,405.336 L 474.409,407.202 L 476.567,415.384 L 477.286,410.365 L 478.005,409.683 L 478.725,407.714 L 479.444,404.425 L 481.602,404.608 L 482.322,404.221 L 483.041,406.485 L 483.76,404.164 L 484.48,403.481 L 486.638,405.575 L 488.076,408.886 L 488.796,409.023 L 489.515,407.464 L 490.234,403.185 L 493.112,400.204 L 493.831,402.241 L 493.831,400.625 L 494.55,401.08 L 496.708,399.305 L 497.428,397.666 L 498.147,390.031 L 498.866,386.981 L 499.586,386.446 L 501.744,387.584 L 502.463,387.061 L 503.183,385.9 L 503.902,387.812 L 504.621,389.462 L 506.779,385.16 L 507.499,386.036 L 508.218,386.071 L 509.657,391.18 L 510.376,386.583 L 512.534,385.308 L 513.253,380.768 L 513.973,380.495 L 514.692,381.61 L 515.411,380.244 L 516.85,379.858 L 517.569,380.756 L 518.289,379.311 L 519.008,380.142 L 519.728,382.998 L 521.886,380.939 L 522.605,370.811 L 523.324,363.801 L 524.044,363.483 L 524.763,364.916 L 526.921,366.578 L 527.64,372.393 L 528.36,378.048 L 529.079,373.553 L 529.798,382.486 L 532.676,381.564 L 533.395,382.202 L 534.114,379.858 L 534.834,376.193 L 535.553,375.841 L 537.711,367.739 L 537.711,366.009 L 538.431,365.702 L 539.15,367.135 L 539.869,364.336 L 542.027,361.855 L 542.747,361.434 L 543.466,362.618 L 544.185,368.82 L 544.905,369.491 L 547.063,362.709 L 547.782,364.348 L 548.501,364.632 L 549.221,364.632 L 549.94,368.729 L 552.098,369.502 L 553.537,372.848 L 554.256,373.69 L 554.975,373.405 L 555.695,377.001 L 557.853,381.974 L 558.572,380.927 L 559.292,371.903 L 559.292,373.462 L 560.011,375.465 L 562.169,372.836 L 562.888,376.034 L 563.608,375.055 L 564.327,378.663 L 565.046,374.6 L 567.204,371.414 L 567.924,368.99 L 568.643,367.01 L 569.362,359.113 L 570.082,359.113 L 572.24,356.189 L 572.959,359.045 L 573.678,356.154 L 574.398,357.19 L 575.837,357.19 L 577.995,353.458 L 578.714,353.036 L 579.433,356.917 L 580.153,357.361 L 580.872,355.768 L 582.311,357.895 L 583.03,360.615 L 583.749,357.281 L 584.469,358.669 L 585.188,362.652 L 587.346,362.652 L 588.065,352.285 L 588.785,356.063 L 589.504,360.217 L 590.223,371.96 L 592.381,365.895 L 593.101,362.641 L 593.82,360.433 L 594.54,370.208 L 595.259,378.435 L 598.136,375.397 L 598.856,374.111 L 599.575,370.276 L 600.294,378.446 L 601.014,374.566 L 603.172,376.091 L 603.891,373.735 L 603.891,374.953 L 604.61,370.913 L 605.33,368.968 L 607.488,368.968 L 608.207,365.531 L 608.926,366.498 L 609.646,366.066 L 610.365,367.5 L 612.523,368.922 L 613.243,372.745 L 613.962,368.649 L 614.681,367.124 L 615.401,364.143 L 618.278,359.17 L 618.997,359.329 L 619.717,358.783 L 620.436,357.213 L 621.155,347.836 L 623.313,347.688 L 624.033,343.205 L 624.033,341.134 L 624.752,340.383 L 625.471,339.131 L 627.629,342.272 L 628.349,341.577 L 629.068,341.953 L 629.787,341.35 L 630.507,344.081 L 632.665,341.236 L 633.384,337.128 L 634.104,335.979 L 634.823,339.074 L 635.542,334.238 L 637.7,332.542 L 638.42,328.616 L 639.139,329.572 L 640.578,328.469 L 641.297,328.469 L 643.455,325.601 L 644.174,324.406 L 644.894,323.2 L 645.613,323.94 L 646.332,321.846 L 647.771,321.277 L 648.49,321.117 L 649.21,317.408 L 649.929,313.732 L 650.649,315.462 L 652.807,315.837 L 653.526,318.66 L 654.245,302.012 L 654.965,293.762 L 655.684,288.8 L 657.842,290.314 L 658.561,298.803 L 659.281,299.303 L 660,291.292 L 660.719,299.884 L 663.597,293.898 L 664.316,302.626 L 665.035,305.699 L 665.755,316.771 L 666.474,328.594 L 667.913,307.963 L 668.632,305.084 L 669.351,298.746 L 670.071,302.99 L 670.79,308.156 L 672.948,307.701 L 673.668,309.818 L 674.387,314.392 L 675.106,326.432 L 675.826,321.243 L 677.984,316.19 L 678.703,317.943 L 679.422,319.206 L 680.142,308.691 L 680.861,304.674 L 683.019,304.674 L 684.458,300.18 L 685.177,296.629 L 685.896,297.574 L 686.616,305.721 L 688.774,311.434 L 689.493,313.266 L 690.213,320.241 L 690.213,311.923 L 690.932,308.509 L 693.09,307.633 L 693.809,301.477 L 694.529,292.874 L 695.248,287.617 L 695.967,285.113 L 698.125,289.551 L 698.845,285.364 L 699.564,288.641 L 700.283,290.883 L 701.003,293.5 L 703.161,291.679 L 703.88,305.482 L 704.599,310.762 L 706.038,314.233 L 706.757,315.985 L 708.916,315.985 L 709.635,314.062 L 710.354,302.649 L 711.074,303.297 L 711.793,301.556 L 713.232,304.219 L 713.951,310.455 L 714.67,309.397 L 715.39,310.853 L 716.109,312.617 L 718.267,317.533 L 718.986,310.353 L 719.706,307.679 L 720.425,302.239 L 721.144,301.192 L 723.302,301.943 L 724.022,296.481 L 724.741,300.032 L 725.46,303.275 L 726.18,304.253 L 729.057,299.019 L 729.777,298.928 L 730.496,297.733 L 731.215,299.19 L 731.935,301.022 L 734.093,299.133 L 734.093,301.795 L 734.812,312.287 L 735.531,310.466 L 736.251,313.527 L 738.409,315.189 L 739.128,310.262 L 739.847,309.01 L 740.567,312.64 L 741.286,312.913 L 743.444,317.283 L 744.163,323.962 L 744.883,320.594 L 745.602,323.564 L 746.322,322.039 L 748.48,321.038 L 749.199,320.355 L 750.638,312.128 L 751.357,310.034 L 752.076,302.524 L 754.234,302.524 L 754.954,303.616 L 755.673,297.801 L 756.392,297.631 L 756.392,297.244 L 758.55,293.113 L 759.27,291.952 L 759.989,289.494 L 760.708,282.268 L 761.428,283.634 L 763.586,274.69 L 764.305,274.075 L 765.025,269.546 L 765.744,268.215 L 766.463,264.346 L 768.621,265.666 L 769.341,270.559 L 770.06,269.979 L 770.779,274.098 L 772.218,275.498 L 774.376,279.913 L 775.095,268.192 L 775.815,267.908 L 776.534,267.874 L 777.253,262.355 L 778.692,260.887 L 779.411,257.268 L 780.131,255.447 L 780.85,252.978 L 781.569,238.834 L 783.728,235.124 L 784.447,244.808 L 785.166,243.624 L 785.886,244.774 L 786.605,247.106 L 788.763,245.547 L 789.482,246.446 L 790.202,246.697 L 790.921,249.644 L 791.64,254.492 L 794.518,250.85 L 795.237,244.956 L 795.956,241.041 L 796.676,234.817 L 797.395,236.114 L 799.553,234.418 L 800.272,237.309 L 800.272,235.09 L 800.992,236.649 L 801.711,246.469 L 803.869,247.596 L 804.589,253.797 L 805.308,255.038 L 806.027,246.014 L 806.747,247.948 L 808.905,240.404 L 809.624,245.673 L 810.343,238.765 L 811.782,238.538 L 813.94,236.41 L 814.659,242.919 L 816.098,236.945 L 816.817,234.953 L 817.537,235.761 L 819.695,232.677 L 820.414,234.885 L 821.134,231.699 L 821.853,233.121 L 821.853,232.211 L 824.011,230.948 L 824.73,232.518 L 825.45,232.438 L 826.169,231.426 L 826.888,232.154 L 829.046,230.333 L 829.766,228.069 L 830.485,226.976 L 831.204,228.752 L 834.082,227.523 L 834.801,226.624 L 835.52,226.828 L 836.24,228.683 L 836.959,229.935 L 839.837,221.958 L 840.556,220.001 L 841.275,216.917 L 841.995,217.224 L 842.714,214.505 L 844.153,207.29 L 844.872,208.223 L 845.591,205.06 L 846.311,203.626 L 847.03,200.44 L 849.907,209.35 L 850.627,211.409 L 851.346,218.419 L 852.065,225.201 L 854.223,212.991 L 854.943,208.496 L 855.662,205.708 L 856.381,206.437 L 857.101,214.527 L 859.259,210.863 L 860.698,204.366 L 861.417,205.174 L 862.136,206.175 L 862.856,202.693 L 865.014,196.571 L 865.733,192.793 L 866.452,189.425 L 866.452,193.544 L 867.172,190.915 L 869.33,188.264 L 870.049,187.445 L 870.768,183.769 L 871.488,189.265 L 872.207,198.073 L 875.084,211.671 L 875.804,207.108 L 876.523,206.812 L 877.243,200.804 L 879.401,195.057 L 880.839,199.495 L 881.559,196.298 L 882.278,187.832 L 882.997,187.331 L 885.155,192.611 L 885.875,192.156 L 886.594,195.899 L 886.594,202.499 L 887.313,196.446 L 889.471,194.659 L 890.191,203.911 L 890.91,221.457 L 891.629,216.189 L 892.349,220.706 L 894.507,210.886 L 895.226,208.724 L 895.946,211.011 L 896.665,204.434 L 897.384,196.958 L 899.542,198.209 L 900.262,197.618 L 900.981,200.269 L 901.7,200.406 L 903.139,204.901 L 905.297,208.735 L 906.016,211.353 L 906.736,212.32 L 907.455,212.274 L 908.174,215.711 L 909.613,220.558 L 910.332,218.738 L 911.052,214.493 L 911.771,218.715 L 912.49,224.359 L 914.649,219.364 L 915.368,212.525 L 916.087,207.347 L 916.807,197.914 L 919.684,195.285 L 920.403,198.232 L 921.123,198.539 L 921.842,202.408 L 922.561,198.562 L 925.439,202.943 L 926.158,200.758 L 926.877,199.199 L 927.597,202.408 L 928.316,202.511 L 930.474,201.441 L 930.474,199.336 L 931.193,201.862 L 931.913,202.613 L 932.632,209.521 L 934.79,217.714 L 935.51,214.482 L 936.229,210.237 L 936.948,209.486 L 937.668,215.529 L 939.826,216.462 L 940.545,218.977 L 941.264,213.754 L 941.984,215.779 L 942.703,213.037 L 945.58,201.179 L 947.019,203.819 L 947.738,203.148 L 948.458,206.175 L 950.616,212.32 L 951.335,219.147 L 952.054,218.92 L 952.774,219.773 L 952.774,226.134 L 954.932,225.338 L 955.651,218.692 L 956.371,225.167 L 957.09,226.976 L 957.809,232.552 L 959.967,238.174 L 960.687,226.817 L 961.406,229.878 L 962.125,220.069 L 962.845,225.622 L 965.003,219.147 L 965.722,215.483 L 966.441,216.872 L 967.161,215.017 L 968.599,206.38 L 971.477,199.359 L 972.196,196.707 L 972.916,190.517 L 973.635,187.661 L 975.074,194.158 L 975.793,194.443 L 976.512,189.584 L 977.232,189.868 L 977.951,181.732 L 980.109,171.627 L 980.828,168.157 L 981.548,156.72 L 982.267,156.277 L 982.986,149.438 L 985.144,143.52 L 985.864,137.933 L 986.583,150.246 L 987.302,151.122 L 988.022,152.647 L 990.899,145.512 L 991.619,154.433 L 992.338,150.268 L 993.057,167.565 L 993.777,171.832 L 995.935,195.057 L 996.654,171.388 L 996.654,183.132 L 997.373,171.741 L 998.093,167.997 L 1000.251,160.692 L 1000.97,164.026 L 1001.689,164.072 L 1002.409,180.446 L 1003.128,191.848 L 1005.286,191.382 L 1006.005,171.855 L 1006.725,168.919 L 1007.444,171.718 L 1008.163,160.498 L 1010.322,153.227 L 1011.041,153.204 L 1011.76,159.076 L 1013.199,163.4 L 1013.918,171.343 L 1016.796,164.868 L 1017.515,160.1 L 1018.234,159.861 L 1018.954,167.44 L 1020.392,164.641 L 1021.112,159.315 L 1021.831,153.989 L 1022.55,149.825 L 1023.27,141.245 L 1025.428,128.579 L 1026.147,126.508 L 1026.866,127.999 L 1027.586,139.743 L 1028.305,136.92 L 1030.463,138.206 L 1031.183,142.656 L 1031.902,145.216 L 1032.621,152.544 L 1033.341,163.07 L 1036.218,170.717 L 1036.937,173.107 L 1037.657,166.564 L 1038.376,167.565 L 1039.095,176.179 L 1040.534,154.547 L 1041.253,141.484 L 1041.973,139.322 L 1042.692,132.221 L 1043.411,116.779 L 1045.569,119.066 L 1046.289,116.506 L 1047.008,143.384 L 1047.728,147.15 L 1048.447,149.927 L 1050.605,135.248 L 1051.324,144.351 L 1052.044,141.131 L 1052.763,136.477 L 1053.482,136.181 L 1055.64,136.374 L 1057.079,145.785 L 1057.798,144.761 L 1058.518,138.32 L 1059.237,141.54 L 1061.395,142.121 L 1062.114,134.724 L 1062.834,147.185 L 1062.834,158.632 L 1063.553,159.315 L 1065.711,165.414 L 1066.431,154.524 L 1067.15,159.144 L 1067.869,167.519 L 1068.589,170.33 L 1070.747,177.078 L 1071.466,168.544 L 1072.185,179.377 L 1073.624,183.268 L 1075.782,168.987 L 1076.501,172.31 L 1077.221,162.069 L 1078.659,155.548 L 1079.379,153.534 L 1081.537,149.768 L 1082.256,152.112 L 1082.975,154.228 L 1083.695,152.442 L 1084.414,149.074 L 1085.853,151.099 L 1086.572,154.547 L 1087.292,164.356 L 1088.011,165.778 L 1088.73,163.412 L 1090.888,162.057 L 1091.608,146.422 L 1092.327,145.865 L 1093.046,143.464 L 1093.766,137.91 L 1096.643,134.383 L 1097.362,138.809 L 1098.082,135.987 L 1098.801,136.124 L 1102.398,129.035 L 1103.117,126.52 L 1103.837,121.297 L 1104.556,116.324 L 1106.714,117.086 L 1106.714,115.368 L 1107.433,116.153 L 1108.153,117.473 L 1108.872,119.271 L 1111.749,113.707 L 1112.469,108.688 L 1113.188,110.236 L 1113.907,118.714 L 1116.065,110.623 L 1116.785,118.588 L 1117.504,88.718 L 1118.223,91.028 L 1118.943,88.012 L 1121.101,81.492 L 1121.82,77.543 L 1123.259,77.873 L 1123.978,79.091 L 1124.698,73.902 L 1126.856,69.02 L 1127.575,63.49 L 1128.294,54.557 L 1129.014,35.793 L 1129.014,35.508 L 1131.172,25.062 L 1131.891,17.256 L 1132.61,30.672 L 1133.33,25.506 L 1134.049,25.608 L 1136.926,11.122 L 1137.646,13.182 L 1138.365,9.37 L 1139.084,2.519 L 1141.243,-1.293 L 1141.962,-12.274 L 1142.681,-20.273 L 1144.12,-22.583 L 1144.839,-23.391 L 1146.997,-9.713 L 1147.717,-6.413 L 1148.436,-6.903 L 1149.155,-19.761 L 1149.875,-23.38 L 1151.313,-31.152 L 1152.033,-49.473 L 1152.752,-73.915 L 1153.471,-69.341 L 1154.191,-69.352 L 1156.349,-87.024 L 1157.068,-92.555 L 1157.787,-88.618 L 1158.507,-85.022 L 1159.226,-81.278 L 1161.384,-93.715 L 1162.104,-102.25 L 1162.823,-105.823 L 1163.542,-96.993 L 1164.262,-85.261 L 1167.139,-106.972 L 1167.858,-119.137 L 1168.578,-113.436 L 1169.297,-124.098 L 1172.174,-127 L 1172.174,-118.136 L 1172.894,-115.587 L 1173.613,-111.683 L 1174.332,-91.724 L 1176.49,-63.162 L 1177.21,-96.811 L 1177.929,-95.263 L 1178.649,-71.48 L 1179.368,-55.026 L 1181.526,-53.569 L 1182.245,-40.574 L 1182.965,-97.152 L 1183.684,-94.535 L 1184.403,-89.187 L 1186.561,-67.543 L 1188,-65.438"
                 stroke-linecap="round"
                 stroke="rgba(23,131,255,1)"
                 stroke-width="1"
@@ -1731,12 +1557,7 @@
               />
             </g>
           </g>
-          <g
-            id="g-svg-155"
-            fill="none"
-            transform="matrix(1,0,0,1,0,0)"
-            class="label-layer"
-          />
+          <g id="g-svg-155" fill="none" class="label-layer" />
         </g>
       </g>
     </g>

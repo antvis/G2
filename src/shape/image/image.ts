@@ -25,7 +25,7 @@ export const Image: SC<ImageOptions> = (options, context) => {
       .call(applyStyle, rest)
       .style('x', x)
       .style('y', y)
-      .style('img', src)
+      .style('src', src)
       .style('stroke', color)
       .style('transform', transform)
       .call(applyStyle, options)

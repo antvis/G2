@@ -34,7 +34,7 @@ export function stateAgesIntervalSelectByColorSingle(): G2Spec {
         linkFill: (d) => (d.state === 'CA' ? 'red' : undefined),
         linkFillOpacity: 0.5,
         stroke: '#000',
-        strokeWidth: 1,
+        lineWidth: 1,
       },
       unselected: {
         opacity: 0.6,

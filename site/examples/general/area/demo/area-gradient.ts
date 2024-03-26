@@ -30,6 +30,6 @@ chart
   .encode('x', (d) => new Date(d.date))
   .encode('y', 'price')
   .style('stroke', 'darkgreen')
-  .style('strokeWidth', 2);
+  .style('lineWidth', 2);
 
 chart.render();

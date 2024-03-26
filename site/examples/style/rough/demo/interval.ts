@@ -36,7 +36,7 @@ WebFont.load({
       .encode('color', (d) =>
         d.month === 'Total' ? 'Total' : d.profit > 0 ? 'Increase' : 'Decrease',
       )
-      .style('strokeWidth', 2)
+      .style('lineWidth', 2)
       .style('fillStyle', 'zigzag')
       .axis('x', {
         titleFontSize: 15,

@@ -51,7 +51,6 @@ const DEFAULT_LINK_OPTIONS = {
   style: {
     opacity: 0.5,
     lineWidth: 1,
-    strokeWidth: 1,
   },
 };
 

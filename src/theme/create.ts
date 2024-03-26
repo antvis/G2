@@ -139,7 +139,7 @@ export function create({
       text: {
         fill: '#1D2129',
         fontSize: 12,
-        strokeWidth: 0,
+        lineWidth: 0,
         connectorStroke: colorStroke,
         connectorStrokeOpacity: 0.45,
         connectorLineWidth: 1,
@@ -154,7 +154,7 @@ export function create({
       badge: {
         fill: '#1D2129',
         fillOpacity: 0.65,
-        strokeWidth: 0,
+        lineWidth: 0,
         fontSize: 10,
         textAlign: 'center',
         textBaseline: 'middle',
@@ -249,6 +249,7 @@ export function create({
       titleSpacing: 12,
       labelSpacing: 4,
       titleTextBaseline: 'bottom',
+      titleTransform: 'translate(0, 8)',
     },
     axisLeft: {
       gridDirection: 'positive',
@@ -259,6 +260,7 @@ export function create({
       titleSpacing: 12,
       titleTextBaseline: 'middle',
       titleDirection: 'vertical',
+      titleTransform: 'rotate(-90) translate(0, -8)',
       titleTransformOrigin: 'center',
     },
     axisRight: {

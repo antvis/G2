@@ -32,7 +32,7 @@ export function pointsPointTooltipMarker(): G2Spec {
         body: false,
         crosshairs: false,
         markerR: 20,
-        markerStrokeWidth: 5,
+        markerLineWidth: 5,
         markerStroke: 'yellow',
       },
     },

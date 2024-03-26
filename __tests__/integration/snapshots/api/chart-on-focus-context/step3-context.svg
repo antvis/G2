@@ -9,63 +9,75 @@
     <path
       
       fill="none"
-      d="M 0,0 l 200.50000000040365,0 l 0,88 l-200.50000000040365 0 z"
+      d="M 83.99999999939449,0 l 200.50000000040365,0 l 0,88 l-200.50000000040365 0 z"
+      x="83.99999999939449"
+      y="0"
       width="200.50000000040365"
       height="88"
     />
     <clipPath transform="matrix(1,0,0,1,-16,-16)" >
-      <use href="#g-svg-56" transform="matrix(1,0,0,1,100,16)" />
+      <use href="#g-svg-56" />
     </clipPath>
     <path
       
       fill="none"
-      d="M 0,0 l 65.95394736683824,0 l 0,88 l-65.95394736683824 0 z"
+      d="M 144.67763157795943,0 l 65.95394736683824,0 l 0,88 l-65.95394736683824 0 z"
+      x="144.67763157795943"
+      y="0"
       width="65.95394736683824"
       height="88"
     />
     <clipPath transform="matrix(1,0,0,1,-16,-16)" >
-      <use href="#g-svg-77" transform="matrix(1,0,0,1,160.677628,16)" />
+      <use href="#g-svg-77" />
     </clipPath>
   </defs>
-  <g  transform="matrix(1,0,0,1,0,0)">
-    <g  fill="none" transform="matrix(1,0,0,1,0,0)">
-      <g  fill="none" transform="matrix(1,0,0,1,0,0)" class="view">
-        <g transform="matrix(1,0,0,1,0,0)">
+  <g >
+    <g  fill="none">
+      <g  fill="none" class="view">
+        <g>
           <path
             
             fill="rgba(0,0,0,0)"
             class="area"
             d="M 0,0 l 640,0 l 0,120 l-640 0 z"
+            x="0"
+            y="0"
             width="640"
             height="120"
           />
         </g>
-        <g transform="matrix(1,0,0,1,16,16)">
+        <g>
           <path
             
             fill="rgba(0,0,0,0)"
             class="area"
-            d="M 0,0 l 608,0 l 0,88 l-608 0 z"
+            d="M 16,16 l 608,0 l 0,88 l-608 0 z"
+            x="16"
+            y="16"
             width="608"
             height="88"
           />
         </g>
-        <g transform="matrix(1,0,0,1,16,16)">
+        <g>
           <path
             
             fill="rgba(0,0,0,0)"
             class="area"
-            d="M 0,0 l 608,0 l 0,88 l-608 0 z"
+            d="M 16,16 l 608,0 l 0,88 l-608 0 z"
+            x="16"
+            y="16"
             width="608"
             height="88"
           />
         </g>
-        <g transform="matrix(1,0,0,1,16,16)">
+        <g>
           <path
             
             fill="rgba(0,0,0,0)"
             class="area"
-            d="M 0,0 l 608,0 l 0,88 l-608 0 z"
+            d="M 16,16 l 608,0 l 0,88 l-608 0 z"
+            x="16"
+            y="16"
             width="608"
             height="88"
           />
@@ -79,13 +91,8 @@
             width="608"
             height="88"
           />
-          <g
-            
-            fill="none"
-            transform="matrix(1,0,0,1,0,0)"
-            class="main-layer"
-          >
-            <g transform="matrix(1,0,0,1,0,0)">
+          <g  fill="none" class="main-layer">
+            <g>
               <path
                 
                 fill="rgba(23,131,255,1)"
@@ -97,12 +104,7 @@
               />
             </g>
           </g>
-          <g
-            
-            fill="none"
-            transform="matrix(1,0,0,1,0,0)"
-            class="label-layer"
-          />
+          <g  fill="none" class="label-layer" />
         </g>
       </g>
     </g>

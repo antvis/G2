@@ -1,7 +1,3 @@
-import { runtime } from '@antv/g';
-
-runtime.enableCSSParsing = false;
-
 export {
   render,
   renderToMountedElement,

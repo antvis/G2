@@ -43,7 +43,7 @@ export async function energySankeyCustom(): Promise<G2Spec> {
         style: {
           labelSpacing: 3,
           labelFontWeight: 'bold',
-          nodeStrokeWidth: 1.2,
+          nodeLineWidth: 1.2,
           linkFillOpacity: 0.4,
         },
       },

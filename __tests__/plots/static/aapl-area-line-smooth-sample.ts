@@ -16,7 +16,7 @@ export function aaplAreaLineSmoothSample(): G2Spec {
           shape: 'smooth',
         },
         style: {
-          strokeWidth: 4,
+          lineWidth: 4,
         },
         transform: [
           {

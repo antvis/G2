@@ -16,7 +16,7 @@ export function stocksLineSeriesGradient(): G2Spec {
     legend: { size: false },
     style: {
       gradient: 'y',
-      strokeWidth: 10,
+      lineWidth: 10,
       shape: 'smooth',
     },
   };

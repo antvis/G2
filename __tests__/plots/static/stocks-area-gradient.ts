@@ -35,7 +35,7 @@ export function stocksAreaGradient(): G2Spec {
         },
         style: {
           stroke: 'darkgreen',
-          strokeWidth: 2,
+          lineWidth: 2,
         },
       },
     ],

@@ -22,7 +22,7 @@ chart
   .label({
     text: 'name',
     stroke: '#fff',
-    textAnchor: 'start',
+    textAlign: 'start',
     textBaseline: 'middle',
     dx: 10,
     position: 'left',

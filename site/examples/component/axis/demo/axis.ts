@@ -63,7 +63,7 @@ function medal(ranking) {
       src: 'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*1NiMRKb2sfMAAAAAAAAAAAAADmJ7AQ/original',
       width: size,
       height: size,
-      anchor: '0.5 0.5',
+      transform: `translate(-${size / 2}, -${size / 2})`,
     },
   });
   const text = ['冠军🏆', '亚军🥈', '季军🥉'][ranking];

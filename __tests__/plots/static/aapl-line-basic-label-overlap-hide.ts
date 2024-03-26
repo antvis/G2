@@ -15,6 +15,8 @@ export function aaplLineBasicLabelOverlapHide(): G2Spec {
     labels: [
       {
         text: 'close',
+        opacity: 1,
+        fillOpacity: 1,
         transform: [
           {
             type: 'overlapHide',
@@ -22,5 +24,6 @@ export function aaplLineBasicLabelOverlapHide(): G2Spec {
         ],
       },
     ],
+    // animate: false,
   };
 }

@@ -1,4 +1,3 @@
-
 import { Chart } from '@antv/g2';
 
 const data = [
@@ -32,18 +31,20 @@ const chart = new Chart({
 chart
   .data({
     value: data,
-    transform: [{
-      type: 'fold',
-      fields: ['north', 'south'],
-      key: 'type', // key字段
-      value: 'value', // value字段
-    }]
+    transform: [
+      {
+        type: 'fold',
+        fields: ['north', 'south'],
+        key: 'type', // key字段
+        value: 'value', // value字段
+      },
+    ],
   })
-  .encode('x', d =>  d.year)
+  .encode('x', (d) => d.year)
   .encode('y', 'value')
-  .encode('color', 'type')
+  .encode('color', 'type');
 
-chart.area().style('fillOpacity', 0.3)
+chart.area().style('fillOpacity', 0.3);
 
 chart.line().style('strokeWidth', 2).tooltip(false);
 

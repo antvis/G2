@@ -20,6 +20,8 @@ import {
   PointShape,
   PointTick,
   PointTriangle,
+  PointCircle,
+  PointHollowCircle,
 } from '../shape';
 import { MaybeZeroX, MaybeZeroY, MaybeSize } from '../transform';
 import {
@@ -38,6 +40,7 @@ const shape = {
   hollowTriangleDown: PointHollowTriangleDown,
   hollowTriangle: PointHollowTriangle,
   hollowBowtie: PointHollowBowtie,
+  hollowCircle: PointHollowCircle,
   point: PointShape,
   plus: PointPlus,
   diamond: PointDiamond,
@@ -50,6 +53,7 @@ const shape = {
   line: PointLine,
   tick: PointTick,
   triangleDown: PointTriangleDown,
+  circle: PointCircle,
 };
 
 export type PointOptions = Omit<PointMark, 'type'>;

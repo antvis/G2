@@ -9,7 +9,7 @@ export function scoreByItemAreaBasicRadar(): G2Spec {
     axis: {
       x: {
         grid: true,
-        gridStrokeWidth: 1,
+        gridLineWidth: 1,
         tick: false,
         gridLineDash: [0, 0],
       },
@@ -17,7 +17,7 @@ export function scoreByItemAreaBasicRadar(): G2Spec {
         zIndex: 1,
         title: false,
         gridConnect: 'line',
-        gridStrokeWidth: 1,
+        gridLineWidth: 1,
         gridLineDash: [0, 0],
       },
     },

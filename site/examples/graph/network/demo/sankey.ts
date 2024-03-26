@@ -26,7 +26,7 @@ chart
   .scale('color', { range: schemeTableau10 })
   .style('labelSpacing', 3)
   .style('labelFontWeight', 'bold')
-  .style('nodeStrokeWidth', 1.2)
+  .style('nodeLineWidth', 1.2)
   .style('linkFillOpacity', 0.4);
 
 chart.render();

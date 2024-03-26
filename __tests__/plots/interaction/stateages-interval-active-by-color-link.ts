@@ -28,7 +28,7 @@ export function stateAgesIntervalActiveByColorLink(): G2Spec {
     state: {
       active: {
         stroke: '#000',
-        strokeWidth: 1,
+        lineWidth: 1,
         linkFillOpacity: 0.5,
         linkFill: (d) => (d.state === 'CA' ? 'red' : undefined),
       },

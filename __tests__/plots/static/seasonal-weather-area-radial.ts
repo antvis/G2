@@ -19,7 +19,7 @@ export function seasonalWeatherAreaRadial(): G2Spec {
         labelFormatter: (d, i, array) =>
           i === array.length - 1 ? `${d}°F` : `${d}`,
         labelStroke: '#fff',
-        labelStrokeWidth: 5,
+        labelLineWidth: 5,
       },
       x: {
         grid: true,
@@ -59,7 +59,7 @@ export function seasonalWeatherAreaRadial(): G2Spec {
         },
         style: {
           stroke: 'steelblue',
-          strokeWidth: 1.5,
+          lineWidth: 1.5,
         },
       },
     ],

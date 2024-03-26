@@ -41,7 +41,7 @@ chart
   .encode('y', 'count')
   .encode('text', 'year')
   .animate('enter', { duration: 300 })
-  .style('strokeWidth', 5)
+  .style('lineWidth', 5)
   .style('stroke', '#fff')
   .style('textAlign', 'center')
   .style('dy', -8);

@@ -26,7 +26,7 @@ chart
     transform: [{ type: 'overlapDodgeY' }],
     fontSize: 10,
     dx: -3,
-    textAnchor: 'end',
+    textAlign: 'end',
   })
   .label({
     text: (d) => `${d.receipts} ${d.country}`,

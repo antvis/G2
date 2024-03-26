@@ -38,8 +38,7 @@ function getArrowMarker(
 ) {
   const arrowMarker = document.createElement('path', {
     style: {
-      path: `M ${arrowSize},${arrowSize} L -${arrowSize},0 L ${arrowSize},-${arrowSize} L 0,0 Z`,
-      anchor: '0.5 0.5',
+      d: `M ${arrowSize},${arrowSize} L -${arrowSize},0 L ${arrowSize},-${arrowSize} L 0,0 Z`,
       transformOrigin: 'center',
       ...arrowStyle,
     },
@@ -66,7 +65,7 @@ function getTransform(coordinate: Coordinate, transform?: Primitive) {
   if (!isPolar(coordinate)) return transform;
 
   const [cx, cy] = coordinate.getCenter();
-  return `translate(${cx}, ${cy}) ${transform || ''}`;
+  return `translate(${cx.toFixed(2)}, ${cy.toFixed(2)}) ${transform || ''}`;
 }
 
 export const Line: SC<LineOptions> = (options, context) => {

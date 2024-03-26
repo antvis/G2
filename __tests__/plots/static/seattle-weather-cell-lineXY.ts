@@ -22,12 +22,12 @@ export function settleWeatherCellLineXY(): G2Spec {
       {
         type: 'lineY',
         data: [4],
-        style: { stroke: 'red', strokeWidth: 4, bandOffset: 0.5 },
+        style: { stroke: 'red', lineWidth: 4, bandOffset: 0.5 },
       },
       {
         type: 'lineX',
         data: [4],
-        style: { stroke: 'red', strokeWidth: 4, bandOffset: 0.5 },
+        style: { stroke: 'red', lineWidth: 4, bandOffset: 0.5 },
       },
     ],
   };

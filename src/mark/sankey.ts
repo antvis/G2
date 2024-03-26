@@ -136,7 +136,7 @@ export const Sankey: CC<SankeyOptions> = (options) => {
       labels: linkLabels,
       style: {
         fill: linkEncode.color ? undefined : '#aaa',
-        strokeWidth: 0,
+        lineWidth: 0,
         ...subObject(style, 'link'),
       },
       tooltip: linkTooltip,

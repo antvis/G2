@@ -36,7 +36,7 @@ export const Round: SC<RoundOptions> = (options, context) => {
      */
     const roundPath = document.createElement('path', {
       style: {
-        path: [
+        d: [
           ['M', ...points[0]],
           ['A', minR, minR, 0, 1, 0, ...points[1]],
           ['A', maxR + minR * 2, maxR + minR * 2, 0, 0, 0, ...points[2]],

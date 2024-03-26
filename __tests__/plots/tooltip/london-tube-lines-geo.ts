@@ -30,7 +30,7 @@ export async function londonTubeLineGeo(): Promise<G2Spec> {
         style: {
           fill: 'lightgray',
           stroke: 'white',
-          strokeWidth: 2,
+          lineWidth: 2,
         },
       },
       {

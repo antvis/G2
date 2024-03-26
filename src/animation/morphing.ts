@@ -90,13 +90,13 @@ function shapeToShape(
     {
       transform: `${
         fromTransform ? fromTransform + ' ' : ''
-      }translate(${dx}, ${dy}) scale(${sx}, ${sy})`,
+      }translate(${dx.toFixed(2)}, ${dy.toFixed(2)}) scale(${sx.toFixed(
+        2,
+      )}, ${sy.toFixed(2)})`,
       ...attributeOf(from, attributeKeys),
     },
     {
-      transform: `${
-        toTransform ? toTransform + ' ' : ''
-      }translate(0, 0) scale(1, 1)`,
+      transform: `${toTransform ? toTransform + ' ' : ''}`,
       ...attributeOf(to, attributeKeys),
     },
   ];
@@ -172,21 +172,26 @@ function oneToOne(
   const pathShape = maybePath(shape, fromPath);
   // Convert Path will take transform, anchor, etc into account,
   // so there is no need to specify these attributes in keyframes.
-  const keyframes = [
+  const keyframes: Keyframe[] = [
     {
-      path: fromPath,
       ...attributeOf(from, attributeKeys),
     },
     {
-      path: toPath,
       ...attributeOf(to, attributeKeys),
     },
   ];
+  if (fromPath !== toPath) {
+    keyframes[0].d = fromPath;
+    keyframes[1].d = toPath;
+  }
   const animation = pathShape.animate(keyframes, timeEffect);
 
   animation.onfinish = () => {
-    pathShape.style.transform = 'none';
+    // Should keep the original path definition.
+    const d = pathShape.style.d;
     copyAttributes(pathShape, to);
+    pathShape.style.d = d;
+    pathShape.style.transform = 'none';
   };
 
   // Remove transform because it already applied in path
@@ -207,7 +212,7 @@ function oneToMultiple(
   return to.map((shape, i) => {
     const path = new Path({
       style: {
-        path: D[i],
+        d: D[i],
         ...attributeOf(from, attributeKeys),
       },
     });
@@ -236,7 +241,7 @@ function multipleToOne(
   const animations = from.map((shape, i) => {
     const path = new Path({
       style: {
-        path: D[i],
+        d: D[i],
         fill: to.style.fill,
       },
     });
