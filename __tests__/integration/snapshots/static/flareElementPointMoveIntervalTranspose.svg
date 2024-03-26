@@ -715,7 +715,7 @@
               transform="matrix(1,0,0,1,28.500000,184.500000)"
               class="axis-title-group"
             >
-              <g transform="matrix(0,-1,1,0,16,0.500000)">
+              <g transform="matrix(0,-1,1,0,-7.500000,0.500000)">
                 <text
                   id="g-svg-97"
                   fill="rgba(29,33,41,1)"
@@ -1024,7 +1024,7 @@
               transform="matrix(1,0,0,1,333.399994,372.500000)"
               class="axis-title-group"
             >
-              <g>
+              <g transform="matrix(1,0,0,1,0,8)">
                 <text
                   id="g-svg-129"
                   fill="rgba(29,33,41,1)"

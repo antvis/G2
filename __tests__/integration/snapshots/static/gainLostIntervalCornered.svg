@@ -929,7 +929,7 @@
               transform="matrix(1,0,0,1,296.059998,452.500000)"
               class="axis-title-group"
             >
-              <g>
+              <g transform="matrix(1,0,0,1,0,8)">
                 <text
                   id="g-svg-124"
                   fill="rgba(29,33,41,1)"

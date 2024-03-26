@@ -90,13 +90,13 @@ function shapeToShape(
     {
       transform: `${
         fromTransform ? fromTransform + ' ' : ''
-      }translate(${dx}, ${dy}) scale(${sx}, ${sy})`,
+      }translate(${dx.toFixed(2)}, ${dy.toFixed(2)}) scale(${sx.toFixed(
+        2,
+      )}, ${sy.toFixed(2)})`,
       ...attributeOf(from, attributeKeys),
     },
     {
-      transform: `${
-        toTransform ? toTransform + ' ' : ''
-      }translate(0, 0) scale(1, 1)`,
+      transform: `${toTransform ? toTransform + ' ' : ''}`,
       ...attributeOf(to, attributeKeys),
     },
   ];
@@ -187,8 +187,11 @@ function oneToOne(
   const animation = pathShape.animate(keyframes, timeEffect);
 
   animation.onfinish = () => {
-    pathShape.style.transform = 'none';
+    // Should keep the original path definition.
+    const d = pathShape.style.d;
     copyAttributes(pathShape, to);
+    pathShape.style.d = d;
+    pathShape.style.transform = 'none';
   };
 
   // Remove transform because it already applied in path

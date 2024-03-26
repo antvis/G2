@@ -337,10 +337,11 @@ export function offsetTransform(element, offset, coordinate) {
     const amid = a0 + da / 2;
     const dx = offset * Math.cos(amid);
     const dy = offset * Math.sin(amid);
-    return append(`translate(${dx}, ${dy})`);
+    return append(`translate(${dx.toFixed(2)}, ${dy.toFixed(2)})`);
   }
-  if (isTranspose(coordinate)) return append(`translate(${offset}, 0)`);
-  return append(`translate(0, ${-offset})`);
+  if (isTranspose(coordinate))
+    return append(`translate(${offset.toFixed(2)}, 0)`);
+  return append(`translate(0, ${(-offset).toFixed(2)})`);
 }
 
 export function renderBackground({

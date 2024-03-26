@@ -73,7 +73,7 @@ export function chartEmitBrushHighlightAxisVertical(context) {
               titleFontSize: 10,
               titleLineWidth: 5,
               titleStrokeLineJoin: 'round',
-              titleTransform: 'translate(-50%, 0)  rotate(-90)',
+              titleTransform: 'translate(-10, 0) rotate(-90)',
               lineStroke: 'black',
               tickStroke: 'black',
               lineLineWidth: 1,

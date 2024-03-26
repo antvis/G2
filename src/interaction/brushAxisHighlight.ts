@@ -55,7 +55,9 @@ function verticalBrush(axis, { cross, offsetX, offsetY, ...style }) {
         // If it is not cross, draw brush in both side of axisLine,
         // otherwise the draw brush within bounds area.
         width: cross ? size / 2 : size,
-        transform: `translate(${cross ? minX : lineX - size / 2}, ${minY})`,
+        transform: `translate(${(cross ? minX : lineX - size / 2).toFixed(
+          2,
+        )}, ${minY.toFixed(2)})`,
         height: maxY - minY,
         ...style,
       },
@@ -89,7 +91,10 @@ function horizontalBrush(axis, { offsetY, offsetX, cross = false, ...style }) {
         // If it is not cross, draw brush in both side of axisLine,
         // otherwise the draw brush within bounds area.
         height: cross ? size : size * 2,
-        transform: `translate(${minX}, ${cross ? minY : lineY - size})`,
+        transform: `translate(${minX.toFixed(2)}, ${(cross
+          ? minY
+          : lineY - size
+        ).toFixed(2)})`,
         ...style,
       },
     }),
@@ -221,7 +226,6 @@ export function brushAxisHighlight(
     });
     axis.parentNode.appendChild(hotZone);
 
-    console.log(hotZone);
     const brushHandler = brush(hotZone, {
       ...brushStyle,
       reverse,

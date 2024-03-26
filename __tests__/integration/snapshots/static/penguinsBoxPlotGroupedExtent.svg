@@ -239,7 +239,7 @@
               transform="matrix(1,0,0,1,349.799988,452.500000)"
               class="axis-title-group"
             >
-              <g>
+              <g transform="matrix(1,0,0,1,0,8)">
                 <text
                   id="g-svg-38"
                   fill="rgba(29,33,41,1)"
@@ -606,7 +606,7 @@
               transform="matrix(1,0,0,1,28.500004,207)"
               class="axis-title-group"
             >
-              <g transform="matrix(0,-1,1,0,16,0.500000)">
+              <g transform="matrix(0,-1,1,0,-7.500000,0.500000)">
                 <text
                   id="g-svg-75"
                   fill="rgba(29,33,41,1)"
@@ -629,7 +629,7 @@
             </g>
           </g>
         </g>
-        <g transform="matrix(1,0,0,1,75.600006,16)">
+        <g transform="matrix(1,0,0,1,75.599998,16)">
           <path
             id="g-svg-76"
             fill="rgba(0,0,0,0)"

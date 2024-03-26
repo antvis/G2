@@ -46,13 +46,7 @@ export function copyAttributes(target: DisplayObject, source: DisplayObject) {
   const exclude = new Set(['id', 'className']);
   for (const [key, value] of Object.entries(attributes)) {
     if (!exclude.has(key)) {
-      // @todo Fix in @antv/g
-      if (key === 'transform') {
-        target.attr(key, '');
-        target.attr(key, value);
-      } else {
-        target.attr(key, value);
-      }
+      target.attr(key, value);
     }
   }
 }

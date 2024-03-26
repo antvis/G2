@@ -249,6 +249,7 @@ export function create({
       titleSpacing: 12,
       labelSpacing: 4,
       titleTextBaseline: 'bottom',
+      titleTransform: 'translate(0, 8)',
     },
     axisLeft: {
       gridDirection: 'positive',
@@ -259,6 +260,7 @@ export function create({
       titleSpacing: 12,
       titleTextBaseline: 'middle',
       titleDirection: 'vertical',
+      titleTransform: 'rotate(-90) translate(0, -8)',
       titleTransformOrigin: 'center',
     },
     axisRight: {

@@ -58,20 +58,14 @@
           />
         </g>
         <g id="g-svg-36" fill="none" class="component">
-          <g
-            id="g-svg-43"
-            fill="none"
-            class="slider"
-            x="59.999999999999986"
-            y="16"
-          >
+          <g id="g-svg-43" fill="none" class="slider" x="60" y="16">
             <g>
               <path
                 id="g-svg-44"
                 fill="rgba(65,97,128,1)"
                 class="slider-track"
-                d="M 59.999999999999986,16 l 16,0 l 0,382 l-16 0 z"
-                x="59.999999999999986"
+                d="M 60,16 l 16,0 l 0,382 l-16 0 z"
+                x="60"
                 y="16"
                 width="16"
                 height="382"
@@ -84,8 +78,8 @@
                 id="g-svg-46"
                 fill="rgba(0,0,0,0)"
                 class="slider-brush-area"
-                d="M 59.999999999999986,16 l 16,0 l 0,382 l-16 0 z"
-                x="59.999999999999986"
+                d="M 60,16 l 16,0 l 0,382 l-16 0 z"
+                x="60"
                 y="16"
                 width="16"
                 height="382"
@@ -281,20 +275,14 @@
           </g>
         </g>
         <g id="g-svg-37" fill="none" class="component">
-          <g
-            id="g-svg-71"
-            fill="none"
-            class="slider"
-            x="23.999999999999986"
-            y="16"
-          >
+          <g id="g-svg-71" fill="none" class="slider" x="24" y="16">
             <g>
               <path
                 id="g-svg-72"
                 fill="rgba(65,97,128,1)"
                 class="slider-track"
-                d="M 23.999999999999986,16 l 16,0 l 0,382 l-16 0 z"
-                x="23.999999999999986"
+                d="M 24,16 l 16,0 l 0,382 l-16 0 z"
+                x="24"
                 y="16"
                 width="16"
                 height="382"
@@ -307,8 +295,8 @@
                 id="g-svg-74"
                 fill="rgba(0,0,0,0)"
                 class="slider-brush-area"
-                d="M 23.999999999999986,16 l 16,0 l 0,382 l-16 0 z"
-                x="23.999999999999986"
+                d="M 24,16 l 16,0 l 0,382 l-16 0 z"
+                x="24"
                 y="16"
                 width="16"
                 height="382"
@@ -1352,7 +1340,7 @@
               transform="matrix(1,0,0,1,374.519989,452.500000)"
               class="axis-title-group"
             >
-              <g>
+              <g transform="matrix(1,0,0,1,0,8)">
                 <text
                   id="g-svg-183"
                   fill="rgba(29,33,41,1)"
@@ -1702,7 +1690,7 @@
               transform="matrix(1,0,0,1,179.300003,201.250000)"
               class="axis-title-group"
             >
-              <g transform="matrix(0,-1,1,0,12,0.500000)">
+              <g transform="matrix(0,-1,1,0,-7.500000,0.500000)">
                 <text
                   id="g-svg-216"
                   fill="rgba(238,102,102,1)"
@@ -2002,7 +1990,7 @@
               transform="matrix(1,0,0,1,100.500000,207)"
               class="axis-title-group"
             >
-              <g transform="matrix(0,-1,1,0,12,0.500000)">
+              <g transform="matrix(0,-1,1,0,-7.500000,0.500000)">
                 <text
                   id="g-svg-245"
                   fill="rgba(84,112,198,1)"

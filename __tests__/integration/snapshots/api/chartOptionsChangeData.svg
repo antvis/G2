@@ -115,7 +115,7 @@
                         fill="none"
                         class="navigator-play-window"
                       >
-                        <g id="g-svg-98" fill="none" class="items-item-page">
+                        <g id="g-svg-93" fill="none" class="items-item-page">
                           <g
                             id="g-svg-22"
                             fill="none"
@@ -301,22 +301,22 @@
             height="413"
           />
           <g id="g-svg-75" fill="none" class="main-layer">
-            <g transform="matrix(1,0,0,1,304,206.500000)">
+            <g>
               <path
                 id="g-svg-77"
                 fill="rgba(23,131,255,1)"
-                d="M 0,-206.5 A 206.5 206.5 0 1 1 -198.347 57.452 L 0,0 Z"
+                d="M 304,0 A 206.5 206.5 0 1 1 105.65299987792969 263.9519958496094 L 304,206.5 Z"
                 fill-opacity="0.95"
                 stroke-width="0"
                 stroke="rgba(23,131,255,1)"
                 class="element"
               />
             </g>
-            <g transform="matrix(1,0,0,1,304,206.500000)">
+            <g>
               <path
                 id="g-svg-78"
                 fill="rgba(0,201,201,1)"
-                d="M -198.347,57.452 A 206.5 206.5 0 0 1 0 -206.5 L 0,0 Z"
+                d="M 105.65299987792969,263.9519958496094 A 206.5 206.5 0 0 1 304 0 L 304,206.5 Z"
                 fill-opacity="0.95"
                 stroke-width="0"
                 stroke="rgba(0,201,201,1)"

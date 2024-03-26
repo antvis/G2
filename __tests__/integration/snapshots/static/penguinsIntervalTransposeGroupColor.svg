@@ -773,7 +773,7 @@
               transform="matrix(1,0,0,1,320,124.222931)"
               class="axis-title-group"
             >
-              <g>
+              <g transform="matrix(1,0,0,1,0,8)">
                 <text
                   id="g-svg-101"
                   fill="rgba(29,33,41,1)"
@@ -797,7 +797,7 @@
             </g>
           </g>
         </g>
-        <g transform="matrix(1,0,0,1,16,36.602924)">
+        <g transform="matrix(1,0,0,1,16,36.599998)">
           <path
             id="g-svg-102"
             fill="rgba(0,0,0,0)"
