@@ -917,8 +917,7 @@
             <g
               id="g-svg-121"
               fill="none"
-              x="442.3466664268133"
-              y="30"
+              transform="matrix(1,0,0,1,442.346680,30)"
               class="element"
             >
               <g id="marker" fill="none">
@@ -937,8 +936,8 @@
                 <text
                   id="text"
                   fill="rgba(23,131,255,1)"
-                  x="0"
-                  y="-14.485281374238575"
+                  x="0.00000762939453125"
+                  y="-14.485281374238568"
                   fill-opacity="0.65"
                   stroke-width="0"
                   dominant-baseline="central"
