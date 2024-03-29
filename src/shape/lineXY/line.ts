@@ -65,7 +65,7 @@ function getTransform(coordinate: Coordinate, transform?: Primitive) {
   if (!isPolar(coordinate)) return transform;
 
   const [cx, cy] = coordinate.getCenter();
-  return `translate(${cx.toFixed(2)}, ${cy.toFixed(2)}) ${transform || ''}`;
+  return `translate(${cx}, ${cy}) ${transform || ''}`;
 }
 
 export const Line: SC<LineOptions> = (options, context) => {

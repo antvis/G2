@@ -400,7 +400,7 @@ export async function plot<T extends G2ViewTree>(
 function applyTranslate(selection: Selection) {
   selection.style(
     'transform',
-    (d) => `translate(${d.layout.x.toFixed(2)}, ${d.layout.y.toFixed(2)})`,
+    (d) => `translate(${d.layout.x}, ${d.layout.y})`,
   );
 }
 
@@ -1471,7 +1471,7 @@ function maybeFacetElement(
   const newPlot = parent.parentNode as DisplayObject;
   const [px, py] = originOf(prePlot);
   const [x, y] = originOf(newPlot);
-  const translate = `translate(${(px - x).toFixed(2)}, ${(py - y).toFixed(2)})`;
+  const translate = `translate(${px - x}, ${py - y})`;
   appendTransform(element, translate);
   parent.append(element);
 }
@@ -1697,9 +1697,9 @@ function updateBBox(selection: Selection) {
     .style(
       'transform',
       (d) =>
-        `translate(${(d.paddingLeft + d.marginLeft).toFixed(2)}, ${(
+        `translate(${d.paddingLeft + d.marginLeft}, ${
           d.paddingTop + d.marginTop
-        ).toFixed(2)})`,
+        })`,
     )
     .style('width', (d) => d.innerWidth)
     .style('height', (d) => d.innerHeight);
@@ -1724,9 +1724,9 @@ function animateBBox(selection: Selection, extent: [number, number]) {
         height,
       },
       {
-        transform: `translate(${(paddingLeft + marginLeft).toFixed(2)}, ${(
+        transform: `translate(${paddingLeft + marginLeft}, ${
           paddingTop + marginTop
-        ).toFixed(2)})`,
+        })`,
         width: innerWidth,
         height: innerHeight,
       },

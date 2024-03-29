@@ -82,8 +82,8 @@
                 <g
                   id="g-svg-29"
                   fill="none"
-                  class="axis-tick"
                   transform="matrix(1,0,0,1,137.136002,398)"
+                  class="axis-tick"
                 >
                   <g>
                     <line
@@ -103,8 +103,8 @@
                 <g
                   id="g-svg-30"
                   fill="none"
-                  class="axis-tick"
                   transform="matrix(1,0,0,1,245.328003,398)"
+                  class="axis-tick"
                 >
                   <g>
                     <line
@@ -145,8 +145,8 @@
                 <g
                   id="g-svg-32"
                   fill="none"
-                  class="axis-tick"
                   transform="matrix(1,0,0,1,461.712006,398)"
+                  class="axis-tick"
                 >
                   <g>
                     <line
@@ -166,8 +166,8 @@
                 <g
                   id="g-svg-33"
                   fill="none"
-                  class="axis-tick"
                   transform="matrix(1,0,0,1,569.903992,398)"
+                  class="axis-tick"
                 >
                   <g>
                     <line
@@ -189,8 +189,8 @@
                 <g
                   id="g-svg-40"
                   fill="none"
-                  class="axis-label"
                   transform="matrix(1,0,0,1,137.136002,406)"
+                  class="axis-label"
                 >
                   <g>
                     <text
@@ -218,8 +218,8 @@
                 <g
                   id="g-svg-41"
                   fill="none"
-                  class="axis-label"
                   transform="matrix(1,0,0,1,245.328003,406)"
+                  class="axis-label"
                 >
                   <g>
                     <text
@@ -276,8 +276,8 @@
                 <g
                   id="g-svg-43"
                   fill="none"
-                  class="axis-label"
                   transform="matrix(1,0,0,1,461.712006,406)"
+                  class="axis-label"
                 >
                   <g>
                     <text
@@ -305,8 +305,8 @@
                 <g
                   id="g-svg-44"
                   fill="none"
-                  class="axis-label"
                   transform="matrix(1,0,0,1,569.903992,406)"
+                  class="axis-label"
                 >
                   <g>
                     <text
@@ -454,8 +454,8 @@
                 <g
                   id="g-svg-69"
                   fill="none"
-                  class="axis-tick"
                   transform="matrix(1,0,0,1,83.040001,341.106384)"
+                  class="axis-tick"
                 >
                   <g>
                     <line
@@ -475,8 +475,8 @@
                 <g
                   id="g-svg-70"
                   fill="none"
-                  class="axis-tick"
                   transform="matrix(1,0,0,1,83.040001,259.829773)"
+                  class="axis-tick"
                 >
                   <g>
                     <line
@@ -496,8 +496,8 @@
                 <g
                   id="g-svg-71"
                   fill="none"
-                  class="axis-tick"
                   transform="matrix(1,0,0,1,83.040001,178.553192)"
+                  class="axis-tick"
                 >
                   <g>
                     <line
@@ -517,8 +517,8 @@
                 <g
                   id="g-svg-72"
                   fill="none"
-                  class="axis-tick"
                   transform="matrix(1,0,0,1,83.040001,97.276596)"
+                  class="axis-tick"
                 >
                   <g>
                     <line
@@ -538,8 +538,8 @@
                 <g
                   id="g-svg-73"
                   fill="none"
-                  class="axis-tick"
                   transform="matrix(1,0,0,1,83.040001,16)"
+                  class="axis-tick"
                 >
                   <g>
                     <line
@@ -561,8 +561,8 @@
                 <g
                   id="g-svg-86"
                   fill="none"
-                  class="axis-label"
                   transform="matrix(1,0,0,1,75.040001,341.106384)"
+                  class="axis-label"
                 >
                   <g>
                     <text
@@ -589,8 +589,8 @@
                 <g
                   id="g-svg-87"
                   fill="none"
-                  class="axis-label"
                   transform="matrix(1,0,0,1,75.040001,259.829773)"
+                  class="axis-label"
                 >
                   <g>
                     <text
@@ -617,8 +617,8 @@
                 <g
                   id="g-svg-88"
                   fill="none"
-                  class="axis-label"
                   transform="matrix(1,0,0,1,75.040001,178.553192)"
+                  class="axis-label"
                 >
                   <g>
                     <text
@@ -645,8 +645,8 @@
                 <g
                   id="g-svg-89"
                   fill="none"
-                  class="axis-label"
                   transform="matrix(1,0,0,1,75.040001,97.276596)"
+                  class="axis-label"
                 >
                   <g>
                     <text
@@ -673,8 +673,8 @@
                 <g
                   id="g-svg-90"
                   fill="none"
-                  class="axis-label"
                   transform="matrix(1,0,0,1,75.040001,16)"
+                  class="axis-label"
                 >
                   <g>
                     <text
@@ -703,8 +703,8 @@
             <g
               id="g-svg-102"
               fill="none"
-              class="axis-title-group"
               transform="matrix(1,0,0,1,28.500000,201.250000)"
+              class="axis-title-group"
             >
               <g transform="matrix(0,-1,1,0,-7.500000,0.500000)">
                 <text

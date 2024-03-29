@@ -123,9 +123,9 @@
             class="mask"
             x="144.67763157795943"
             y="0"
+            transform="matrix(1,0,0,1,144.677628,0)"
             width="65.95394736683824"
             height="88"
-            transform="matrix(1,0,0,1,144.677628,0)"
           >
             <g>
               <path

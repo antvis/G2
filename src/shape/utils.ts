@@ -229,9 +229,7 @@ export function getTransform(coordinate, value) {
   if (!isPolar(coordinate)) return '';
   const center = coordinate.getCenter() as Vector2;
   const { transform: suffix } = value;
-  return `translate(${center[0].toFixed(2)}, ${center[1].toFixed(2)}) ${
-    suffix || ''
-  }`;
+  return `translate(${center[0]}, ${center[1]}) ${suffix || ''}`;
 }
 
 export function getOrigin(points: (Vector2 | Vector3)[]) {

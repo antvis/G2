@@ -6,7 +6,7 @@
   color-interpolation-filters="sRGB"
 >
   <defs>
-    <clipPath id="clip-path-73-19" transform="matrix(1,0,0,1,-16,-16)">
+    <clipPath transform="matrix(1,0,0,1,-16,-16)" id="clip-path-73-19">
       <use href="#g-svg-73" transform="matrix(1,0,0,1,16,16)" />
     </clipPath>
   </defs>
@@ -145,8 +145,8 @@
                             <g
                               id="g-svg-23"
                               fill="none"
-                              class="legend-category-item-marker-group"
                               transform="matrix(0.500000,0,0,0.500000,4,11.500000)"
+                              class="legend-category-item-marker-group"
                             >
                               <g>
                                 <path
@@ -162,8 +162,8 @@
                             <g
                               id="g-svg-25"
                               fill="none"
-                              class="legend-category-item-label-group"
                               transform="matrix(1,0,0,1,16,11.500000)"
+                              class="legend-category-item-label-group"
                             >
                               <g>
                                 <text
@@ -196,12 +196,12 @@
                           <g
                             id="g-svg-30"
                             fill="none"
+                            transform="matrix(1,0,0,1,67.160004,0)"
                             class="items-item"
                             x="67.16"
                             y="0"
                             width="66.32"
                             height="23"
-                            transform="matrix(1,0,0,1,67.160004,0)"
                           >
                             <g
                               id="g-svg-36"
@@ -223,8 +223,8 @@
                             <g
                               id="g-svg-31"
                               fill="none"
-                              class="legend-category-item-marker-group"
                               transform="matrix(0.500000,0,0,0.500000,4,11.500000)"
+                              class="legend-category-item-marker-group"
                             >
                               <g>
                                 <path
@@ -240,8 +240,8 @@
                             <g
                               id="g-svg-33"
                               fill="none"
-                              class="legend-category-item-label-group"
                               transform="matrix(1,0,0,1,16,11.500000)"
+                              class="legend-category-item-label-group"
                             >
                               <g>
                                 <text
@@ -274,12 +274,12 @@
                           <g
                             id="g-svg-38"
                             fill="none"
+                            transform="matrix(1,0,0,1,145.479996,0)"
                             class="items-item"
                             x="145.48"
                             y="0"
                             width="54.19999999999999"
                             height="23"
-                            transform="matrix(1,0,0,1,145.479996,0)"
                           >
                             <g
                               id="g-svg-44"
@@ -301,8 +301,8 @@
                             <g
                               id="g-svg-39"
                               fill="none"
-                              class="legend-category-item-marker-group"
                               transform="matrix(0.500000,0,0,0.500000,4,11.500000)"
+                              class="legend-category-item-marker-group"
                             >
                               <g>
                                 <path
@@ -318,8 +318,8 @@
                             <g
                               id="g-svg-41"
                               fill="none"
-                              class="legend-category-item-label-group"
                               transform="matrix(1,0,0,1,16,11.500000)"
+                              class="legend-category-item-label-group"
                             >
                               <g>
                                 <text
@@ -352,12 +352,12 @@
                           <g
                             id="g-svg-46"
                             fill="none"
+                            transform="matrix(1,0,0,1,211.679993,0)"
                             class="items-item"
                             x="211.67999999999998"
                             y="0"
                             width="62.60000000000002"
                             height="23"
-                            transform="matrix(1,0,0,1,211.679993,0)"
                           >
                             <g
                               id="g-svg-52"
@@ -379,8 +379,8 @@
                             <g
                               id="g-svg-47"
                               fill="none"
-                              class="legend-category-item-marker-group"
                               transform="matrix(0.500000,0,0,0.500000,4,11.500000)"
+                              class="legend-category-item-marker-group"
                             >
                               <g>
                                 <path
@@ -396,8 +396,8 @@
                             <g
                               id="g-svg-49"
                               fill="none"
-                              class="legend-category-item-label-group"
                               transform="matrix(1,0,0,1,16,11.500000)"
+                              class="legend-category-item-label-group"
                             >
                               <g>
                                 <text
@@ -519,8 +519,8 @@
               fill="none"
               x="412.92051885330375"
               y="137.26525815042635"
-              class="label"
               transform="matrix(1,0,0,1,412.920532,137.265259)"
+              class="label"
             >
               <g>
                 <path
@@ -557,8 +557,8 @@
               fill="none"
               x="388.3558874246116"
               y="304.17913371368655"
-              class="label"
               transform="matrix(1,0,0,1,388.355896,304.179138)"
+              class="label"
             >
               <g>
                 <path
@@ -595,8 +595,8 @@
               fill="none"
               x="285.20834928920084"
               y="334.18712844219385"
-              class="label"
               transform="matrix(1,0,0,1,285.208344,334.187134)"
+              class="label"
             >
               <g>
                 <path
@@ -633,8 +633,8 @@
               fill="none"
               x="180.40967257432138"
               y="169.317209988174"
-              class="label"
               transform="matrix(1,0,0,1,180.409668,169.317215)"
+              class="label"
             >
               <g>
                 <path

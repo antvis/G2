@@ -230,7 +230,7 @@ export function addWave(
           transform: 'translate(0, 0)',
         },
         {
-          transform: `translate(${(waveLength * 2).toFixed(2)}, 0)`,
+          transform: `translate(${waveLength * 2}, 0)`,
         },
       ];
 

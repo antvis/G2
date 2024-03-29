@@ -56,9 +56,7 @@ function pack(options: PackOptions) {
       // shape is overlap before and after scale transformation.
       const tx = newX - x + offsetX * i + (1 / 2) * padding;
       const ty = newY - y - intervalY * j - offsetY + (1 / 2) * padding;
-      return `translate(${tx.toFixed(2)}, ${ty.toFixed(2)}) scale(${sx.toFixed(
-        2,
-      )}, ${sy.toFixed(2)})`;
+      return `translate(${tx}, ${ty}) scale(${sx}, ${sy})`;
     });
   };
 }

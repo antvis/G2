@@ -90,13 +90,11 @@ function shapeToShape(
     {
       transform: `${
         fromTransform ? fromTransform + ' ' : ''
-      }translate(${dx.toFixed(2)}, ${dy.toFixed(2)}) scale(${sx.toFixed(
-        2,
-      )}, ${sy.toFixed(2)})`,
+      }translate(${dx}, ${dy}) scale(${sx}, ${sy})`,
       ...attributeOf(from, attributeKeys),
     },
     {
-      transform: `${toTransform ? toTransform + ' ' : ''}`,
+      transform: `${toTransform ? toTransform + ' ' : 'none'}`,
       ...attributeOf(to, attributeKeys),
     },
   ];

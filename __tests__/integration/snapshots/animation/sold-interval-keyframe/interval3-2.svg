@@ -67,7 +67,7 @@
             height="448"
           />
           <g id="g-svg-7" fill="none" class="main-layer">
-            <g transform="matrix(1.355000,0,0,1.070000,-0.015000,-24)">
+            <g>
               <path
                 id="g-svg-19"
                 fill="rgba(70,130,180,1)"
@@ -82,7 +82,7 @@
                 class="element"
               />
             </g>
-            <g transform="matrix(1.355000,0,0,1.070000,-0.140000,-23.719999)">
+            <g>
               <path
                 id="g-svg-20"
                 fill="rgba(70,130,180,1)"

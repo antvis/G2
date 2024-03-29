@@ -178,8 +178,8 @@
                 fill="none"
                 x="0"
                 y="0"
-                class="slider-handle start-handle"
                 transform="matrix(1,0,0,1,168,448)"
+                class="slider-handle start-handle"
               >
                 <g id="g-svg-27" fill="none" class="handle-icon-group">
                   <g id="g-svg-115" fill="none" x="0" y="0" class="handle-icon">
@@ -254,8 +254,8 @@
                 fill="none"
                 x="0"
                 y="0"
-                class="slider-handle end-handle"
                 transform="matrix(1,0,0,1,472,448)"
+                class="slider-handle end-handle"
               >
                 <g id="g-svg-37" fill="none" class="handle-icon-group">
                   <g id="g-svg-121" fill="none" x="0" y="0" class="handle-icon">
@@ -363,8 +363,8 @@
               fill="none"
               x="0"
               y="212.40321367315624"
-              class="label"
               transform="matrix(1,0,0,1,0,212.403214)"
+              class="label"
             >
               <g>
                 <path
@@ -400,8 +400,8 @@
               fill="none"
               x="152"
               y="214.8826768573406"
-              class="label"
               transform="matrix(1,0,0,1,152,214.882675)"
+              class="label"
             >
               <g>
                 <path
@@ -437,8 +437,8 @@
               fill="none"
               x="304"
               y="196.17512713266936"
-              class="label"
               transform="matrix(1,0,0,1,304,196.175125)"
+              class="label"
             >
               <g>
                 <path
@@ -474,8 +474,8 @@
               fill="none"
               x="456"
               y="201.24562934432643"
-              class="label"
               transform="matrix(1,0,0,1,456,201.245636)"
+              class="label"
             >
               <g>
                 <path
@@ -511,8 +511,8 @@
               fill="none"
               x="608"
               y="26.98895675984712"
-              class="label"
               transform="matrix(1,0,0,1,608,26.988956)"
+              class="label"
             >
               <g>
                 <path

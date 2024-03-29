@@ -167,8 +167,8 @@
                 fill="none"
                 x="0"
                 y="0"
-                class="slider-handle start-handle"
                 transform="matrix(1,0,0,1,228,448)"
+                class="slider-handle start-handle"
               >
                 <g id="g-svg-24" fill="none" class="handle-icon-group">
                   <g id="g-svg-102" fill="none" x="0" y="0" class="handle-icon">
@@ -243,8 +243,8 @@
                 fill="none"
                 x="0"
                 y="0"
-                class="slider-handle end-handle"
                 transform="matrix(1,0,0,1,492,448)"
+                class="slider-handle end-handle"
               >
                 <g id="g-svg-34" fill="none" class="handle-icon-group">
                   <g id="g-svg-108" fill="none" x="0" y="0" class="handle-icon">

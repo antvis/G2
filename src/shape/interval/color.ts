@@ -102,10 +102,7 @@ export function rect(
 
   return select(document.createElement('path', {}))
     .style('d', path(arcObject))
-    .style(
-      'transform',
-      `translate(${center[0].toFixed(2)}, ${center[1].toFixed(2)})`,
-    )
+    .style('transform', `translate(${center[0]}, ${center[1]})`)
     .style('radius', radius)
     .style('inset', inset)
     .call(applyStyle, rest)
