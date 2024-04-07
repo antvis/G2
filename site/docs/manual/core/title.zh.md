@@ -41,3 +41,5 @@ chart.interval().title({
 // API
 chart.title({ title: 'hello', subtitle: 'world' });
 ```
+
+更多配置项，可以参考文档 [title](/spec/component/title)。

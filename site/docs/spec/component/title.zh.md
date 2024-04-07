@@ -32,19 +32,19 @@ chart.render();
 | size                          | 标题的高度                   | `number`                      | `36`   |
 | title                         | 标题文本                     | `string`                      | -      |
 | subtitle                      | 副标题文本                   | `string`                      | -      |
-| `style.`align                 | 标题的对齐方式               | `left` \| `center` \| `right` | `left` |
-| `style.`spacing               | 主标题、副标题之间的上下间距 | `number`                      | `2`    |
-| `style.`titleFontSize         | 标题文字大小                 | `number`                      | -      |
-| `style.`titleFontFamily       | 标题文字字体                 | `string`                      | -      |
-| `style.`titleFontWeight       | 标题字体粗细                 | `number`                      | -      |
-| `style.`titleFill             | 标题字体颜色                 | `string`                      |
-| `style.`titleFillOpacity      | 标题字体颜色透明度           | `number`                      |
-| `style.`titleStroke           | 标题字体描边颜色             | `string`                      | -      |
-| `style.`titleStrokeOpacity    | 标题字体描边颜色透明度       | `number`                      | -      |
-| `style.`subtitleFontSize      | 标题文字大小                 | `number`                      | -      |
-| `style.`subtitleFontFamily    | 标题文字字体                 | `string`                      | -      |
-| `style.`subtitleFontWeight    | 标题字体粗细                 | `number`                      | -      |
-| `style.`subtitleFill          | 标题字体颜色                 | `string`                      |
-| `style.`subtitleFillOpacity   | 标题字体颜色透明度           | `number`                      |
-| `style.`subtitleStroke        | 标题字体描边颜色             | `string`                      | -      |
-| `style.`subtitleStrokeOpacity | 标题字体描边颜色透明度       | `number`                      | -      |
+| align                         | 标题的对齐方式               | `left` \| `center` \| `right` | `left` |
+| spacing                       | 主标题、副标题之间的上下间距 | `number`                      | `2`    |
+| titleFontSize                 | 标题文字大小                 | `number`                      | -      |
+| titleFontFamily               | 标题文字字体                 | `string`                      | -      |
+| titleFontWeight               | 标题字体粗细                 | `number`                      | -      |
+| titleFill                     | 标题字体颜色                 | `string`                      |
+| titleFillOpacity              | 标题字体颜色透明度           | `number`                      |
+| titleStroke                   | 标题字体描边颜色             | `string`                      | -      |
+| titleStrokeOpacity            | 标题字体描边颜色透明度       | `number`                      | -      |
+| subtitleFontSize              | 副标题文字大小                 | `number`                      | -      |
+| subtitleFontFamily            | 副标题文字字体                 | `string`                      | -      |
+| subtitleFontWeight            | 副标题字体粗细                 | `number`                      | -      |
+| subtitleFill                  | 副标题字体颜色                 | `string`                      |
+| subtitleFillOpacity           | 副标题字体颜色透明度           | `number`                      |
+| subtitleStroke                | 副标题字体描边颜色             | `string`                      | -      |
+| subtitleStrokeOpacity         | 副标题字体描边颜色透明度       | `number`                      | -      |
