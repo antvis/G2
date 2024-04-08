@@ -21,7 +21,6 @@ export const GEOMETRY_ATTRIBUTES = {
   [Shape.ELLIPSE]: ['cx', 'cy', 'rx', 'ry'],
   [Shape.RECT]: ['x', 'y', 'width', 'height'],
   [Shape.IMAGE]: ['x', 'y', 'width', 'height'],
-  [Shape.PATH]: ['path'],
   [Shape.LINE]: ['x1', 'y1', 'x2', 'y2'],
   [Shape.POLYLINE]: ['points'],
   [Shape.POLYGON]: ['points'],

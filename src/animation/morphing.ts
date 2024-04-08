@@ -83,7 +83,7 @@ function shapeToShape(
   // Replace first to get right bbox after mounting.
   replaceChild(to, from);
 
-  let keys = [...attributeKeys];
+  let keys = attributeKeys;
   if (from.nodeName === Shape.GROUP) {
     // Apply translate and scale transform.
     const [x0, y0, w0, h0] = localBBoxOf(from);

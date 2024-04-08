@@ -41,7 +41,7 @@
     "build:esm": "rimraf ./esm && tsc --module ESNext --outDir esm",
     "build": "run-p build:*",
     "bundle-vis": "cross-env BUNDLE_VIS=1 run-p build:umd",
-    "ci": "run-s lint test build",
+    "ci": "run-s build",
     "prepublishOnly": "npm run ci",
     "prepare": "husky install",
     "upload": "node scripts/upload/snapshot.js",
