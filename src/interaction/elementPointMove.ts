@@ -395,7 +395,7 @@ export function ElementPointMove(
                     'text',
                     ratioTransform(scaleY.invert(y)).toFixed(precision),
                   );
-                  pathShape.attr('path', newPath);
+                  pathShape.attr('d', newPath);
                   circle.attr('cx', newX);
                   circle.attr('cy', newY);
                 } else {
@@ -414,7 +414,7 @@ export function ElementPointMove(
                     'text',
                     ratioTransform(scaleY.invert(y)).toFixed(precision),
                   );
-                  pathShape.attr('path', newPath);
+                  pathShape.attr('d', newPath);
                   circle.attr('cy', newCy);
                 }
               } else {
@@ -426,7 +426,7 @@ export function ElementPointMove(
                   points[index + 1],
                 ]);
                 labelShape.attr('text', scaleY.invert(y).toFixed(precision));
-                pathShape.attr('path', newPath);
+                pathShape.attr('d', newPath);
                 circle.attr('cy', newCy);
               }
             };
@@ -528,7 +528,7 @@ export function ElementPointMove(
                 'text',
                 ratioTransform(scaleY.invert(x)).toFixed(precision),
               );
-              pathShape.attr('path', newPath);
+              pathShape.attr('d', newPath);
               circle.attr('cx', newCx);
             } else if (isTheta) {
               // Pie chart.
@@ -559,7 +559,7 @@ export function ElementPointMove(
                 'text',
                 ratioTransform(percent, true).toFixed(precision),
               );
-              pathShape.attr('path', newPath);
+              pathShape.attr('d', newPath);
               circle.attr('cx', newXOut);
               circle.attr('cy', newYOut);
             } else {
@@ -585,7 +585,7 @@ export function ElementPointMove(
                 'text',
                 ratioTransform(scaleY.invert(y)).toFixed(precision),
               );
-              pathShape.attr('path', newPath);
+              pathShape.attr('d', newPath);
               circle.attr('cy', newCy);
             }
           };

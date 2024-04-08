@@ -382,7 +382,7 @@ function updateMarker(root, { data, style, theme }) {
           fill,
           r: 4,
           stroke: '#fff',
-          strokeWidth: 2,
+          lineWidth: 2,
           ...style,
         },
       });
@@ -818,6 +818,9 @@ export function tooltip(
       }
       const k = groupKey(element);
       const group = keyGroup.get(k);
+      if (!group) {
+        return;
+      }
       const data =
         group.length === 1 && !shared
           ? singleItem(group[0])

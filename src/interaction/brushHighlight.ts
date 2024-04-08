@@ -113,8 +113,7 @@ const ResizableMask = createElement((g) => {
 
   const renderHandle = (g, renderNode) => {
     const { id } = g;
-    const { x, y, ...style } = g.attributes;
-    const handle = renderNode(g, { x: 0, y: 0, ...style }, document);
+    const handle = renderNode(g, g.attributes, document);
     handle.id = id;
     handle.style.draggable = true;
   };
@@ -128,15 +127,19 @@ const ResizableMask = createElement((g) => {
 
   const container = select(g)
     .attr('className', className)
-    .style('x', x)
-    .style('y', y)
+    .style('transform', `translate(${x}, ${y})`)
     .style('draggable', true);
 
   container
     .maybeAppend('selection', 'rect')
     .style('draggable', true)
     .style('fill', 'transparent')
-    .call(applyStyle, { width, height, ...omitPrefixObject(style, 'handle') });
+    .call(applyStyle, {
+      width,
+      height,
+      ...omitPrefixObject(style, 'handle'),
+      transform: undefined,
+    });
 
   container
     .maybeAppend('handle-n', appendHandle(handleNRender))

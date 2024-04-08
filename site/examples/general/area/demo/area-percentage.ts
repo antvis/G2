@@ -36,15 +36,13 @@ chart
   .encode('y', 'value')
   .encode('color', 'country')
   .axis('x', { title: false })
-  .axis('y', { title: false, labelFormatter: '.0%' })
+  .axis('y', { title: false, labelFormatter: '.0%' });
 
 chart
   .area()
   .tooltip({ channel: 'y0', valueFormatter: '.0%' })
-  .style('fillOpacity', 0.3)
+  .style('fillOpacity', 0.3);
 
-chart
-  .line()
-  .tooltip(false);
+chart.line().tooltip(false);
 
 chart.render();

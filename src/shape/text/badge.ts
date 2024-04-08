@@ -35,7 +35,7 @@ function inferTextPosition(shape: DisplayObject) {
 }
 
 const BadgeShape = createElement((g) => {
-  const { class: className, x: x0, y: y0, ...rest } = g.attributes;
+  const { class: className, x: x0, y: y0, transform, ...rest } = g.attributes;
 
   const markerStyle = subObject(rest, 'marker');
   const { size = 24 } = markerStyle;
@@ -69,8 +69,7 @@ export const Badge: SC<BadgeOptions> = (options, context) => {
     const [[x0, y0]] = points;
     return select(new BadgeShape())
       .call(applyStyle, rest)
-      .style('x', x0)
-      .style('y', y0)
+      .style('transform', `translate(${x0},${y0})`)
       .call(applyStyle, textStyle)
       .call(applyStyle, style)
       .node();

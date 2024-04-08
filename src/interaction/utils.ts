@@ -426,7 +426,7 @@ export function renderBackground({
       fillOpacity = 0.3,
       zIndex = -2,
       padding = 0.001,
-      strokeWidth = 0,
+      lineWidth = 0,
       ...style
     } = mapObject(rest, (d) => valueof(d, element));
     const finalStyle = {
@@ -435,7 +435,7 @@ export function renderBackground({
       fillOpacity,
       zIndex,
       padding,
-      strokeWidth,
+      lineWidth,
     };
     const shapeOf = isOrdinalShape() ? bandShapeOf : cloneShapeOf;
     const shape = shapeOf(element, finalStyle);

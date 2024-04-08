@@ -24,10 +24,10 @@ export function alphabetIntervalAutoPaddingCustom(): G2Spec {
           });
           const text = new Text({
             style: {
-              x: width / 2,
+              x: -width / 2,
               text: d + '',
               fontSize: 12,
-              textBaseline: 'top',
+              textBaseline: 'middle',
               textAlign: 'center',
             },
           });
@@ -47,7 +47,7 @@ export function alphabetIntervalAutoPaddingCustom(): G2Spec {
               x: width / 2,
               text: d + '',
               fontSize: 12,
-              textBaseline: 'top',
+              textBaseline: 'middle',
               textAlign: 'center',
             },
           });

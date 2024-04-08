@@ -76,49 +76,53 @@ const chart = new Chart({
 chart
   .data({
     value: data,
-    transform: [{
-      type: 'map',
-      callback: (d) => ({
-        time: d.time,
-        low: d.temperature[0],
-        high: d.temperature[1]
-      }),
-    }]
+    transform: [
+      {
+        type: 'map',
+        callback: (d) => ({
+          time: d.time,
+          low: d.temperature[0],
+          high: d.temperature[1],
+        }),
+      },
+    ],
   })
-  .axis('y', { title: false })
+  .axis('y', { title: false });
 
 chart
   .area()
-  .encode('x', d => new Date(d.time).toLocaleDateString())
+  .encode('x', (d) => new Date(d.time).toLocaleDateString())
   .encode('y', ['low', 'high'])
   .encode('shape', 'area')
   .style('fillOpacity', 0.3)
   .style('fill', '#64b5f6')
   .tooltip({
-    items: [d => ({ name: '温度区间',  value: `${d.low}-${d.high}` })],
-  })
+    items: [(d) => ({ name: '温度区间', value: `${d.low}-${d.high}` })],
+  });
 
 chart
   .line()
   .data(averages)
-  .encode('x', d => new Date(d.time).toLocaleDateString())
+  .encode('x', (d) => new Date(d.time).toLocaleDateString())
   .encode('y', 'temperature')
   .encode('shape', 'line')
   .style('lineWidth', 2)
   .tooltip({
     title: false,
-    items: [d => ({
-      name: '平均温度',
-      value: d.temperature
-    })]
-  })
+    items: [
+      (d) => ({
+        name: '平均温度',
+        value: d.temperature,
+      }),
+    ],
+  });
 chart
   .point()
   .data(averages)
-  .encode('x', d => new Date(d.time).toLocaleDateString())
+  .encode('x', (d) => new Date(d.time).toLocaleDateString())
   .encode('y', 'temperature')
   .encode('shape', 'point')
   .encode('size', 4)
-  .tooltip(false)
+  .tooltip(false);
 
 chart.render();

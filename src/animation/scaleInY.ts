@@ -51,7 +51,6 @@ export const ScaleInY: AC<ScaleInYOptions> = (options, context) => {
         .cornerRadius(radius as number)
         .padAngle((inset * Math.PI) / 180);
       const pathForConversion = new Path({});
-      const center = coordinate.getCenter();
       const createArcPath = (arcParams: {
         startAngle: number;
         endAngle: number;
@@ -60,10 +59,8 @@ export const ScaleInY: AC<ScaleInYOptions> = (options, context) => {
       }) => {
         pathForConversion.attr({
           d: path(arcParams),
-          transform: `translate(${center[0]}, ${center[1]})`,
         });
         const convertedPathDefinition = convertToPath(pathForConversion);
-        pathForConversion.style.transform = '';
         return convertedPathDefinition;
       };
 
@@ -91,14 +88,14 @@ export const ScaleInY: AC<ScaleInYOptions> = (options, context) => {
 
       const animation = shape.animate(keyframes, { ...defaults, ...options });
       animation.onframe = function () {
-        shape.style.path = createArcPath({
+        shape.style.d = createArcPath({
           ...arcObject,
           outerRadius: Number(shape.style.scaleInYRadius),
         });
       };
 
       animation.onfinish = function () {
-        shape.style.path = createArcPath({
+        shape.style.d = createArcPath({
           ...arcObject,
           outerRadius: outerRadius,
         });

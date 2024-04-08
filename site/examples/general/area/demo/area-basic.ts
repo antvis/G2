@@ -20,12 +20,11 @@ chart.data(data);
 
 chart
   .area()
-  .encode('x', d => d.year)
+  .encode('x', (d) => d.year)
   .encode('y', 'value')
   .encode('shape', 'area') // 'area', 'smooth', 'hvh', 'vh', 'hv'
   .style('opacity', 0.2)
   .axis('y', { labelFormatter: '~s', title: false });
-
 
 chart.line().encode('x', 'year').encode('y', 'value').encode('shape', 'line'); // 'line', 'smooth', 'vh', 'hv', 'hvh'
 

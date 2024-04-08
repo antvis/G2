@@ -30,20 +30,20 @@ chart
   })
   .style({
     zIndex: 0,
-    strokeWidth: 5,
+    lineWidth: 5,
     lineJoin: 'round',
   })
   .axis('x', {
     grid: true,
     zIndex: 1,
     title: false,
-    gridStrokeWidth: 1,
+    gridLineWidth: 1,
     gridLineDash: null,
   })
   .axis('y', {
     titleOpacity: '0',
     gridConnect: 'line',
-    gridStrokeWidth: 1,
+    gridLineWidth: 1,
     gridLineDash: [0, 0],
     gridAreaFill: 'rgba(0, 0, 0, 0.04)',
   });

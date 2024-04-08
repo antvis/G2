@@ -1694,8 +1694,13 @@ async function applyTransform<T extends G2ViewTree>(
 
 function updateBBox(selection: Selection) {
   selection
-    .style('x', (d) => d.paddingLeft + d.marginLeft)
-    .style('y', (d) => d.paddingTop + d.marginTop)
+    .style(
+      'transform',
+      (d) =>
+        `translate(${d.paddingLeft + d.marginLeft}, ${
+          d.paddingTop + d.marginTop
+        })`,
+    )
     .style('width', (d) => d.innerWidth)
     .style('height', (d) => d.innerHeight);
 }
@@ -1703,7 +1708,7 @@ function updateBBox(selection: Selection) {
 function animateBBox(selection: Selection, extent: [number, number]) {
   const [delay, duration] = extent;
   selection.transition(function (data, i, element) {
-    const { x, y, width, height } = element.style;
+    const { transform, width, height } = element.style;
     const {
       paddingLeft,
       paddingTop,
@@ -1714,14 +1719,14 @@ function animateBBox(selection: Selection, extent: [number, number]) {
     } = data;
     const keyframes = [
       {
-        x,
-        y,
+        transform,
         width,
         height,
       },
       {
-        x: paddingLeft + marginLeft,
-        y: paddingTop + marginTop,
+        transform: `translate(${paddingLeft + marginLeft}, ${
+          paddingTop + marginTop
+        })`,
         width: innerWidth,
         height: innerHeight,
       },

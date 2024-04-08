@@ -9,14 +9,14 @@ export function scoreByItemAreaLineRadar(): G2Spec {
     axis: {
       x: {
         grid: true,
-        gridStrokeWidth: 1,
+        gridLineWidth: 1,
         tick: false,
         gridLineDash: [0, 0],
       },
       y: {
         zIndex: 1,
         title: false,
-        gridStrokeWidth: 1,
+        gridLineWidth: 1,
         gridLineDash: [0, 0],
         gridAreaFill: (dataum, index, data) => {
           return index % 2 === 1 ? 'rgba(0, 0, 0, 0.04)' : '';

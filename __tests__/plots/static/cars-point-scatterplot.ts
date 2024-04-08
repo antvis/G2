@@ -18,7 +18,7 @@ export function carsPointScatterPlot(): G2Spec {
       {
         text: 'name',
         stroke: '#fff',
-        textAnchor: 'start',
+        textAlign: 'start',
         textBaseline: 'middle',
         dx: 10,
         position: 'left',
