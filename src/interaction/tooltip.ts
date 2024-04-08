@@ -818,6 +818,9 @@ export function tooltip(
       }
       const k = groupKey(element);
       const group = keyGroup.get(k);
+      if (!group) {
+        return;
+      }
       const data =
         group.length === 1 && !shared
           ? singleItem(group[0])
