@@ -3,11 +3,12 @@ import {
   DisplayObject,
   IAnimation as GAnimation,
   Path,
+  Shape,
 } from '@antv/g';
 import { AnimationComponent as AC } from '../runtime';
 import { copyAttributes } from '../utils/helper';
 import { Animation } from './types';
-import { attributeKeys, attributeOf } from './utils';
+import { attributeKeys, attributeOf, GEOMETRY_ATTRIBUTES } from './utils';
 
 export type MorphingOptions = Animation & { split: 'pack' | SplitFunction };
 
@@ -66,36 +67,44 @@ function normalizeSplit(
 }
 
 /**
- * Translate and scale.
+ * Use attributes relative to geometry to do shape to shape animation.
+ *
+ * For example, the x, y, width, height of `Rect`, the cx, cy, r of `Circle`.
+ * And for `Group`, it will use the bbox of the group.
  */
 function shapeToShape(
   from: DisplayObject,
   to: DisplayObject,
   timeEffect: Record<string, any>,
 ): GAnimation {
-  const [x0, y0, w0, h0] = localBBoxOf(from);
-  const { transform: fromTransform } = from.style;
+  let { transform: fromTransform } = from.style;
   const { transform: toTransform } = to.style;
 
   // Replace first to get right bbox after mounting.
   replaceChild(to, from);
 
-  // Apply translate and scale transform.
-  const [x1, y1, w1, h1] = localBBoxOf(to);
-  const dx = x0 - x1;
-  const dy = y0 - y1;
-  const sx = w0 / w1;
-  const sy = h0 / h1;
+  const keys = [...attributeKeys];
+  if (from.nodeName === Shape.GROUP) {
+    // Apply translate and scale transform.
+    const [x0, y0, w0, h0] = localBBoxOf(from);
+    const [x1, y1, w1, h1] = localBBoxOf(to);
+    const dx = x0 - x1;
+    const dy = y0 - y1;
+    const sx = w0 / w1;
+    const sy = h0 / h1;
+    fromTransform = `translate(${dx}, ${dy}) scale(${sx}, ${sy})`;
+  } else {
+    keys.push(...GEOMETRY_ATTRIBUTES[from.nodeName]);
+  }
+
   const keyframes = [
     {
-      transform: `${
-        fromTransform ? fromTransform + ' ' : ''
-      }translate(${dx}, ${dy}) scale(${sx}, ${sy})`,
-      ...attributeOf(from, attributeKeys),
+      transform: fromTransform ?? 'none',
+      ...attributeOf(from, keys, true),
     },
     {
-      transform: `${toTransform ? toTransform + ' ' : 'none'}`,
-      ...attributeOf(to, attributeKeys),
+      transform: toTransform ?? 'none',
+      ...attributeOf(to, keys, true),
     },
   ];
   const animation = to.animate(keyframes, timeEffect);
