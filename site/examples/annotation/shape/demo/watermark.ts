@@ -65,6 +65,7 @@ function watermark({ x, y }, context) {
       x,
       y,
       text: '数据保密',
+      transformOrigin: 'center',
       transform: 'rotate(30)',
       fontSize: 20,
       fill: 'red',

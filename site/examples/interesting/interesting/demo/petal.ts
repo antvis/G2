@@ -111,7 +111,7 @@ function petal({ offset = 1, ratio = 0.5 }, context) {
     const g = document.createElement('g', {});
     const p = document.createElement('path', {
       style: {
-        path,
+        d: path,
         inset: 1,
         fill: value.color,
       },

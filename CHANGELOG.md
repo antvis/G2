@@ -1,3 +1,12 @@
+## [5.1.18](https://github.com/antvis/g2/compare/5.1.17...5.1.18) (2024-04-08)
+
+
+### Features
+
+* update to g@6.0 for better performance ([#6149](https://github.com/antvis/g2/issues/6149)) ([72012e8](https://github.com/antvis/g2/commit/72012e8713afbd898322887d404d4b61d2b1d423))
+
+
+
 ## [5.1.17](https://github.com/antvis/g2/compare/5.1.16...5.1.17) (2024-03-21)
 
 
