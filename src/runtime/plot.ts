@@ -6,6 +6,7 @@ import { format } from 'd3-format';
 import { mapObject } from '../utils/array';
 import { ChartEvent } from '../utils/event';
 import {
+  isStrictObject,
   appendTransform,
   compose,
   copyAttributes,
@@ -1378,7 +1379,7 @@ function valueOf(
 ) {
   if (typeof value === 'function') return value(datum, i, data);
   if (typeof value !== 'string') return value;
-  if (datum[value] !== undefined) return datum[value];
+  if (isStrictObject(datum) && datum[value] !== undefined) return datum[value];
   return value;
 }
 
