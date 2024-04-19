@@ -2,8 +2,7 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  // autoFit: true,
-  width: 1000,
+  width: 800,
   height: 400,
 });
 
@@ -17,7 +16,7 @@ chart
   .layout({
     imageMask:
       'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*LKU4TYEiB-4AAAAAAAAAAAAADmJ7AQ/original',
-    fontSize: 10,
+    fontSize: 12,
   })
   .encode('color', 'name')
   .encode('text', 'name')

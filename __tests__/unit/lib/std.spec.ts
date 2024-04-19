@@ -169,6 +169,7 @@ import {
   Cluster,
   Arc,
   Log as DataLog,
+  WordCloud,
 } from '../../../src/data';
 import {
   OverflowHide,
@@ -194,6 +195,7 @@ describe('stdlib', () => {
       'data.join': Join,
       'data.kde': KDE,
       'data.venn': Venn,
+      'data.wordCloud': WordCloud,
       'data.cluster': Cluster,
       'data.arc': Arc,
       'data.log': DataLog,

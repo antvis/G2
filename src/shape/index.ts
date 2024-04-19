@@ -34,6 +34,7 @@ export { Circle as PointCircle } from './point/circle';
 export { Vector as VectorShape } from './vector/vector';
 export { Text as TextShape } from './text/text';
 export { Badge as TextBadge } from './text/badge';
+export { Tag as TextTag } from './text/tag';
 export { Area as AreaShape } from './area/area';
 export { Smooth as AreaSmooth } from './area/smooth';
 export { HVH as AreaHVH } from './area/hvh';
@@ -94,6 +95,7 @@ export type { TriangleDownOptions as PointTriangleDownOptions } from './point/tr
 export type { VectorOptions as VectorShapeOptions } from './vector/vector';
 export type { TextOptions as TextShapeOptions } from './text/text';
 export type { BadgeOptions as TextBadgeOptions } from './text/badge';
+export type { TagOptions as TextTagOptions } from './text/tag';
 export type { AreaOptions as AreaShapeOptions } from './area/area';
 export type { SmoothOptions as AreaSmoothOptions } from './area/smooth';
 export type { HVHOptions as AreaHVHAreaOptions } from './area/hvh';
