@@ -34,8 +34,8 @@ export function wordsWordCloudBasic(): G2Spec {
     scale: {
       fontSize: { type: 'identity' },
       rotate: { type: 'identity' },
-      x: { domain: [0, 640], range: [0, 1] },
-      y: { domain: [0, 480], range: [0, 1] },
+      x: { range: [0, 1] },
+      y: { range: [0, 1] },
     },
     style: {
       fontFamily: (d) => d.fontFamily,

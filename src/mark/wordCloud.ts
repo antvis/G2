@@ -13,7 +13,7 @@ function initializeData(data, encode) {
   }));
 }
 
-const GET_DEFAULT_OPTIONS = (width, height) => ({
+const GET_DEFAULT_OPTIONS = () => ({
   axis: false,
   type: 'text',
   encode: {
@@ -25,8 +25,8 @@ const GET_DEFAULT_OPTIONS = (width, height) => ({
     shape: 'tag',
   },
   scale: {
-    x: { domain: [0, width], range: [0, 1] },
-    y: { domain: [0, height], range: [0, 1] },
+    x: { range: [0, 1] },
+    y: { range: [0, 1] },
   },
   style: {
     fontFamily: (d) => d.fontFamily,
@@ -47,7 +47,7 @@ export const WordCloud: CC<WordCloudOptions> = async (options, context) => {
 
   const initializedData = initializeData(data, encode);
 
-  return deepMix({}, GET_DEFAULT_OPTIONS(width, height), {
+  return deepMix({}, GET_DEFAULT_OPTIONS(), {
     data: {
       value: initializedData,
       transform: [
