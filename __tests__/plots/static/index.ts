@@ -172,6 +172,7 @@ export { miserableForceCustom } from './miserable-force-custom';
 export { weatherLineMultiAxes } from './weather-line-multi-axes';
 export { flareTreeDefault } from './flare-tree-default';
 export { flareTreeCustom } from './flare-tree-custom';
+export { philosophyWordCloudBasic } from './philosophy-wordCloud-basic';
 export { philosophyWordCloudCustom } from './philosophy-wordCloud-custom';
 export { philosophyWordCloudDefault } from './philosophy-wordCloud-default';
 export { philosophyWordCloudImage } from './philosophy-wordCloud-image';

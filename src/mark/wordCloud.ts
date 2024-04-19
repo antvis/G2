@@ -14,10 +14,6 @@ function initializeData(data, encode) {
   }));
 }
 
-const GET_DEFAULT_LAYOUT_OPTIONS = (width, height) => ({
-  size: [width, height],
-});
-
 const GET_DEFAULT_OPTIONS = (width, height) => ({
   axis: false,
   type: 'text',
@@ -27,6 +23,7 @@ const GET_DEFAULT_OPTIONS = (width, height) => ({
     text: 'text',
     rotate: 'rotate',
     fontSize: 'size',
+    shape: 'tag',
   },
   scale: {
     x: { domain: [0, width], range: [0, 1] },
@@ -35,7 +32,7 @@ const GET_DEFAULT_OPTIONS = (width, height) => ({
     rotate: { type: 'identity' },
   },
   style: {
-    textAlign: 'center',
+    fontFamily: (d) => d.fontFamily,
   },
 });
 
@@ -53,13 +50,17 @@ export const WordCloud: CC<WordCloudOptions> = async (options, context) => {
 
   const initializedData = initializeData(data, encode);
 
-  const transformData = await WordCloudTransform({
-    ...GET_DEFAULT_LAYOUT_OPTIONS(width, height),
-    ...layout,
-  })(initializedData);
-
   return deepMix({}, GET_DEFAULT_OPTIONS(width, height), {
-    data: transformData,
+    data: {
+      value: initializedData,
+      transform: [
+        {
+          type: WordCloudTransform,
+          size: [width, height],
+          ...layout,
+        },
+      ],
+    },
     encode,
     scale,
     style,

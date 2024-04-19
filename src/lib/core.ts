@@ -153,6 +153,7 @@ import {
   Sort as DataSort,
   KDE as DataKDE,
   Log as DataLog,
+  WordCloud,
 } from '../data';
 import {
   OverlapDodgeY,
@@ -177,6 +178,7 @@ export function corelib() {
     'data.join': DataJoin,
     'data.kde': DataKDE,
     'data.log': DataLog,
+    'data.wordCloud': WordCloud,
     'transform.stackY': StackY,
     'transform.binX': BinX,
     'transform.bin': Bin,

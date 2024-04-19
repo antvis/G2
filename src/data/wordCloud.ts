@@ -1,16 +1,108 @@
 import { min, max } from 'd3-array';
 import { DataComponent as DC } from '../runtime';
-import { tagCloud } from './utils/d3-cloud';
 import { flow } from './utils/flow';
+import { tagCloud } from './utils/d3-cloud';
 
-export type WordCloudOptions = Omit<Record<string, any>, 'type'>;
+type Callable<T> = T | ((datum: any, i: number) => T);
 
-const DEFAULT_OPTIONS: Partial<WordCloudOptions> = {
-  size: [500, 500],
-  fontSize: [14, 28],
+/**
+ * See the document here: https://github.com/jasondavies/d3-cloud.
+ */
+export type WordCloudOptions = {
+  /**
+   * Internally, the layout uses setInterval to avoid locking up the browser’s event loop.
+   * If specified, time is the maximum amount of time that can be spent during the current timestep.
+   * If not specified, returns the current maximum time interval, which defaults to Infinity.
+   */
+  timeInterval: number;
+  /**
+   * If specified, sets the words array. If not specified, returns the current words array, which defaults to [].
+   */
+  words: any[];
+  /**
+   * If specified, sets the rectangular [width, height] of the layout.
+   * If not specified, returns the current size, which defaults to [1, 1].
+   */
+  size: [number, number];
+  /**
+   * If specified, sets the font accessor function, which indicates the font face for each word.
+   * If not specified, returns the current font accessor function, which defaults to "serif".
+   * A constant may be specified instead of a function.
+   */
+  font: Callable<CSSStyleDeclaration['fontFamily']>;
+  /**
+   * TODO: Cname of font.
+   */
+  fontFamily: Callable<CSSStyleDeclaration['fontFamily']>;
+  /**
+   * If specified, sets the fontStyle accessor function, which indicates the font style for each word.
+   * If not specified, returns the current fontStyle accessor function, which defaults to "normal".
+   * A constant may be specified instead of a function.
+   */
+  fontStyle: Callable<CSSStyleDeclaration['fontFamily']>;
+  /**
+   * If specified, sets the fontWeight accessor function, which indicates the font weight for each word.
+   * If not specified, returns the current fontWeight accessor function, which defaults to "normal".
+   * A constant may be specified instead of a function.
+   */
+  fontWeight: Callable<CSSStyleDeclaration['fontFamily']>;
+  /**
+   * If specified, sets the fontSize accessor function, which indicates the numerical font size for each word.
+   * If not specified, returns the current fontSize accessor function, which defaults to:
+   *
+   * function(d) { return Math.sqrt(d.value); }
+   *
+   * A constant may be specified instead of a function.
+   */
+  fontSize: Callable<CSSStyleDeclaration['fontSize']> | [number, number];
+  /**
+   * If specified, sets the rotate accessor function, which indicates the rotation angle (in degrees) for each word.
+   * If not specified, returns the current rotate accessor function, which defaults to:
+   *
+   * function() { return (~~(Math.random() * 6) - 3) * 30; }
+   *
+   * A constant may be specified instead of a function.
+   */
+  rotate: Callable<number>;
+  /**
+   * If specified, sets the text accessor function, which indicates the text for each word.
+   * If not specified, returns the current text accessor function, which defaults to:
+   *
+   * function(d) { return d.text; }
+   *
+   * A constant may be specified instead of a function.
+   */
+  text: Callable<string>;
+  /**
+   * If specified, sets the padding accessor function, which indicates the numerical padding for each word.
+   * If not specified, returns the current padding, which defaults to 1.
+   */
+  padding: Callable<number>;
+
+  /**
+   * If specified, sets the internal random number generator, used for selecting the initial position of each word,
+   *  and the clockwise/counterclockwise direction of the spiral for each word.
+   * This should return a number in the range [0, 1).
+   * If not specified, returns the current random number generator, which defaults to Math.random.
+   */
+  random: () => number;
+  spiral: any;
 };
 
-export function processImageMask(
+const DEFAULT_OPTIONS = {
+  fontSize: [20, 60],
+  font: 'Impact',
+  rotate: function () {
+    return (~~(Math.random() * 6) - 3) * 30;
+  },
+};
+
+/**
+ * Process the image mask of wordCloud.
+ * @param img
+ * @returns
+ */
+function processImageMask(
   img: HTMLImageElement | string,
 ): Promise<HTMLImageElement> {
   return new Promise((res, rej) => {
@@ -33,6 +125,12 @@ export function processImageMask(
   });
 }
 
+/**
+ * normalize fontSize range to d3-cloud fontSize function.
+ * @param fontSize
+ * @param range
+ * @returns
+ */
 export function normalizeFontSize(fontSize: any, range?: [number, number]) {
   if (typeof fontSize === 'function') return fontSize;
 
@@ -80,12 +178,15 @@ export const WordCloud: DC<WordCloudOptions> = (options) => {
       { x: 0, y: 0 },
       { x: cw, y: ch },
     ];
+
+    console.log(111, result);
     const { _bounds: bounds = defaultBounds, _tags, hasImage } = result;
 
-    const tags = _tags.map(({ x, y, ...rest }) => ({
+    const tags = _tags.map(({ x, y, font, ...rest }) => ({
       ...rest,
       x: x + cw / 2,
       y: y + ch / 2,
+      fontFamily: font,
     }));
 
     // Append two data to replace the corner of top-left and bottom-right, avoid calculate the actual bounds will occur some error.

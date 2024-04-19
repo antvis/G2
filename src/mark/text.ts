@@ -1,6 +1,6 @@
 import { MarkComponent as MC, Vector2, Mark } from '../runtime';
 import { TextMark } from '../spec';
-import { TextShape, TextBadge } from '../shape';
+import { TextShape, TextBadge, TextTag } from '../shape';
 import { MaybeTuple, MaybeVisualPosition } from '../transform';
 import {
   baseGeometryChannels,
@@ -14,6 +14,7 @@ import {
 const shape = {
   text: TextShape,
   badge: TextBadge,
+  tag: TextTag,
 };
 
 export type TextOptions = Omit<TextMark, 'type'>;
