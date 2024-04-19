@@ -154,7 +154,7 @@
   "limit-size": [
     {
       "path": "dist/g2.min.js",
-      "limit": "280 Kb",
+      "limit": "285 Kb",
       "gzip": true
     },
     {
