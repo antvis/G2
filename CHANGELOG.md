@@ -1,3 +1,12 @@
+## [5.1.19](https://github.com/antvis/g2/compare/5.1.17...5.1.19) (2024-04-19)
+
+
+### Features
+
+* refactor word cloud mark ([#6180](https://github.com/antvis/g2/issues/6180)) ([4982b46](https://github.com/antvis/G2/commit/4982b46720dcfc5fe3eba7c78dc6b7ddfb48e2fa))
+
+
+
 ## [5.1.18](https://github.com/antvis/g2/compare/5.1.17...5.1.18) (2024-04-08)
 
 
