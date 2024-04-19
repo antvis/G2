@@ -17,9 +17,6 @@ export function wordsWordCloudBasic(): G2Spec {
           size: [640, 480],
           fontSize: [14, 70],
         },
-        {
-          type: 'log',
-        },
       ],
     },
     encode: {
