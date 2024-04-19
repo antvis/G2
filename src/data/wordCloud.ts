@@ -179,7 +179,6 @@ export const WordCloud: DC<WordCloudOptions> = (options) => {
       { x: cw, y: ch },
     ];
 
-    console.log(111, result);
     const { _bounds: bounds = defaultBounds, _tags, hasImage } = result;
 
     const tags = _tags.map(({ x, y, font, ...rest }) => ({

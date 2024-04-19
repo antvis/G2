@@ -21,7 +21,6 @@ export const Tag: SC<TagOptions> = (options, context) => {
       textBaseline: 'middle',
     };
     const [[x0, y0]] = points;
-    console.log(333, rotate);
     const n = select(new Text())
       .style('x', x0)
       .style('y', y0)
@@ -31,12 +30,7 @@ export const Tag: SC<TagOptions> = (options, context) => {
       .style('coordCenter', coordinate.getCenter())
       .call(applyStyle, textStyle)
       .call(applyStyle, options)
-
       .node();
-
-    console.log(222, n);
-
-    // n.style.transformOrigin = "center center";
     return n;
   };
 };

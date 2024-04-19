@@ -20,8 +20,8 @@ export function philosophyWordCloudBasic(): G2Spec {
           // padding: 4,
           spiral: 'rectangular',
           size: [640, 480],
-          fontSize: [14, 14],
-          rotate: 0,
+          fontSize: [14, 50],
+          rotate: 30,
         },
         {
           type: 'log',
