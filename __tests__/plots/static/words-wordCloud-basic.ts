@@ -1,27 +1,21 @@
-import { randomUniform, randomLcg } from 'd3-random';
 import { G2Spec } from '../../../src';
 import { Word } from '../../data/d3-cloud';
 
-function wordDensity(text: Record<string, number>) {
-  return Object.entries(text).map(([word, count]) => ({
-    text: word,
-    value: count,
-  }));
-}
-
-export function philosophyWordCloudBasic(): G2Spec {
+export function wordsWordCloudBasic(): G2Spec {
   return {
     type: 'text',
     data: {
-      value: wordDensity(Word),
+      value: Object.entries(Word).map(([word, count]) => ({
+        text: word,
+        value: count,
+      })),
       transform: [
         {
           type: 'wordCloud',
-          // padding: 4,
+          padding: 2,
           spiral: 'rectangular',
           size: [640, 480],
-          fontSize: [14, 50],
-          rotate: 30,
+          fontSize: [14, 70],
         },
         {
           type: 'log',
@@ -40,14 +34,15 @@ export function philosophyWordCloudBasic(): G2Spec {
     scale: {
       fontSize: { type: 'identity' },
       rotate: { type: 'identity' },
+      x: { domain: [0, 640], range: [0, 1] },
+      y: { domain: [0, 480], range: [0, 1] },
     },
     style: {
-      textAlign: 'center',
-      textBaseline: 'middle',
       fontFamily: (d) => d.fontFamily,
     },
     axis: false,
     legend: false,
   };
 }
-philosophyWordCloudBasic.skip = true;
+
+wordsWordCloudBasic.skip = true;

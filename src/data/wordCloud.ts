@@ -50,11 +50,15 @@ export type WordCloudOptions = {
    * If specified, sets the fontSize accessor function, which indicates the numerical font size for each word.
    * If not specified, returns the current fontSize accessor function, which defaults to:
    *
-   * function(d) { return Math.sqrt(d.value); }
+   * > function(d) { return Math.sqrt(d.value); }
    *
    * A constant may be specified instead of a function.
+   *
+   * If the fontSize is an array, it will be normalized to the range of [min, max] of the data value.
+   * If the fontSize is a function, it will be called with the data value.
+   * If the fontSize is a number, it will be used as the constant value.
    */
-  fontSize: Callable<CSSStyleDeclaration['fontSize']> | [number, number];
+  fontSize: number | [number, number] | ((d: any) => number);
   /**
    * If specified, sets the rotate accessor function, which indicates the rotation angle (in degrees) for each word.
    * If not specified, returns the current rotate accessor function, which defaults to:
@@ -92,6 +96,7 @@ export type WordCloudOptions = {
 const DEFAULT_OPTIONS = {
   fontSize: [20, 60],
   font: 'Impact',
+  padding: 2,
   rotate: function () {
     return (~~(Math.random() * 6) - 3) * 30;
   },
@@ -102,7 +107,7 @@ const DEFAULT_OPTIONS = {
  * @param img
  * @returns
  */
-function processImageMask(
+export function processImageMask(
   img: HTMLImageElement | string,
 ): Promise<HTMLImageElement> {
   return new Promise((res, rej) => {
@@ -146,7 +151,7 @@ export function normalizeFontSize(fontSize: any, range?: [number, number]) {
   return () => fontSize;
 }
 
-export const WordCloud: DC<WordCloudOptions> = (options) => {
+export const WordCloud: DC<Partial<WordCloudOptions>> = (options) => {
   return async (data) => {
     const cloudOptions = Object.assign({}, DEFAULT_OPTIONS, options);
     const layout = tagCloud();

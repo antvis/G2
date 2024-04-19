@@ -14,6 +14,7 @@ chart
   })
   .layout({
     spiral: 'rectangular',
+    fontSize: [20, 100],
   })
   .encode('color', 'text');
 

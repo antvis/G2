@@ -7,6 +7,7 @@ export type TagOptions = Record<string, any>;
 
 /**
  * @todo autoRotate when in polar coordinate
+ * Tag shape for Text mark, used in wordCloud plot.
  */
 export const Tag: SC<TagOptions> = (options, context) => {
   const { coordinate } = context;
@@ -26,7 +27,7 @@ export const Tag: SC<TagOptions> = (options, context) => {
       .style('y', y0)
       .call(applyStyle, defaults)
       .style('transformOrigin', 'center center')
-      .style('transform', `${transform}rotate(${-rotate}deg)`)
+      .style('transform', `${transform}rotate(${rotate}deg)`)
       .style('coordCenter', coordinate.getCenter())
       .call(applyStyle, textStyle)
       .call(applyStyle, options)

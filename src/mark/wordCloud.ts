@@ -1,7 +1,6 @@
 import { deepMix } from '@antv/util';
 import { CompositeMarkComponent as CC } from '../runtime';
 import { WordCloudMark } from '../spec';
-import { WordCloud as WordCloudTransform } from '../data';
 
 export type WordCloudOptions = Omit<WordCloudMark, 'type'>;
 
@@ -28,8 +27,6 @@ const GET_DEFAULT_OPTIONS = (width, height) => ({
   scale: {
     x: { domain: [0, width], range: [0, 1] },
     y: { domain: [0, height], range: [0, 1] },
-    fontSize: { type: 'identity' },
-    rotate: { type: 'identity' },
   },
   style: {
     fontFamily: (d) => d.fontFamily,
@@ -55,7 +52,7 @@ export const WordCloud: CC<WordCloudOptions> = async (options, context) => {
       value: initializedData,
       transform: [
         {
-          type: WordCloudTransform,
+          type: 'wordCloud',
           size: [width, height],
           ...layout,
         },

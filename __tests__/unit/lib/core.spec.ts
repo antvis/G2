@@ -33,6 +33,7 @@ import {
   Shape,
   Density,
   Heatmap,
+  WordCloud as WordCloudGeometry,
 } from '../../../src/mark';
 import { Category10, Category20 } from '../../../src/palette';
 import {
@@ -154,6 +155,7 @@ import {
   Join,
   KDE,
   Log as DataLog,
+  WordCloud,
 } from '../../../src/data';
 import {
   OverflowHide,
@@ -179,6 +181,7 @@ describe('corelib', () => {
       'data.join': Join,
       'data.kde': KDE,
       'data.log': DataLog,
+      'data.wordCloud': WordCloud,
       'transform.stackY': StackY,
       'transform.binX': BinX,
       'transform.bin': Bin,
@@ -238,6 +241,7 @@ describe('corelib', () => {
       'mark.shape': Shape,
       'mark.density': Density,
       'mark.heatmap': Heatmap,
+      'mark.wordCloud': WordCloudGeometry,
       'palette.category10': Category10,
       'palette.category20': Category20,
       'scale.linear': Linear,

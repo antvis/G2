@@ -32,6 +32,7 @@ import {
   Shape,
   Density,
   Heatmap,
+  WordCloud as WordCloudGeometry,
 } from '../mark';
 import { Category10, Category20 } from '../palette';
 import {
@@ -238,6 +239,7 @@ export function corelib() {
     'mark.shape': Shape,
     'mark.density': Density,
     'mark.heatmap': Heatmap,
+    'mark.wordCloud': WordCloudGeometry,
     'palette.category10': Category10,
     'palette.category20': Category20,
     'scale.linear': ScaleLinear,

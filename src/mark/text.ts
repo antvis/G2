@@ -43,8 +43,8 @@ Text.props = {
     { name: 'x', required: true },
     { name: 'y', required: true },
     { name: 'text', scale: 'identity' },
-    { name: 'fontSize' },
-    { name: 'rotate' },
+    { name: 'fontSize', scale: 'identity' },
+    { name: 'rotate', scale: 'identity' },
   ],
   preInference: [
     ...basePreInference(),
