@@ -131,9 +131,9 @@ function createPathRender(path) {
       group.appendChild(group.handle);
     }
     const { handle } = group;
-    const { width, height, ...rest } = options;
+    const { x, y, width, height, ...rest } = options;
     if (width === undefined || height === undefined) return handle;
-    handle.style.d = path(width, height);
+    handle.style.d = path(x, y, width, height);
     handle.attr(rest);
     return handle;
   };
@@ -156,43 +156,52 @@ chart.options({
   interaction: {
     brushHighlight: {
       maskHandleSize: 30,
-      maskHandleNRender: createPathRender(
-        (width, height) =>
-          `M0,${height / 2}L${width / 2},${-height / 2}L${width},${
-            height / 2
-          },Z`,
-      ),
+      maskHandleNRender: createPathRender((x, y, width, height) => {
+        return `M${x},${y + height / 2}L${x + width / 2},${y - height / 2}L${
+          x + width
+        },${y + height / 2},Z`;
+      }),
       maskHandleERender: createPathRender(
-        (width, height) =>
-          `M${width / 2},0L${(width * 3) / 2},${height / 2}L${
-            width / 2
-          },${height},Z`,
+        (x, y, width, height) =>
+          `M${x + width / 2},${y}L${x + (width * 3) / 2},${y + height / 2}L${
+            x + width / 2
+          },${y + height},Z`,
       ),
       maskHandleSRender: createPathRender(
-        (width, height) =>
-          `M0,${height / 2}L${width / 2},${(height / 2) * 3}L${width},${
-            height / 2
-          },Z`,
+        (x, y, width, height) =>
+          `M${x},${y + height / 2}L${x + width / 2},${y + (height / 2) * 3}L${
+            x + width
+          },${y + height / 2},Z`,
       ),
       maskHandleWRender: createPathRender(
-        (width, height) =>
-          `M${width / 2},0L${-width},${height / 2}L${width / 2},${height},Z`,
+        (x, y, width, height) =>
+          `M${x + width / 2},${y}L${x - width},${y + height / 2}L${
+            x + width / 2
+          },${y + height},Z`,
       ),
       maskHandleNWRender: createPathRender(
-        (width, height) =>
-          `M0,0L${width},${height / 2}L${width / 2},${height},Z`,
+        (x, y, width, height) =>
+          `M${x},${y}L${x + width},${y + height / 2}L${x + width / 2},${
+            y + height
+          },Z`,
       ),
       maskHandleNERender: createPathRender(
-        (width, height) =>
-          `M0,${height / 2}L${width},0L${width / 2},${height},Z`,
+        (x, y, width, height) =>
+          `M${x},${y + height / 2}L${x + width},${y}L${x + width / 2},${
+            y + height
+          },Z`,
       ),
       maskHandleSERender: createPathRender(
-        (width, height) =>
-          `M${width / 2},0L${width},${height}L0,${height / 2},Z`,
+        (x, y, width, height) =>
+          `M${x + width / 2},${y}L${x + width},${y + height}L${x},${
+            y + height / 2
+          },Z`,
       ),
       maskHandleSWRender: createPathRender(
-        (width, height) =>
-          `M${width / 2},0L${width},${height / 2}L0,${height},Z`,
+        (x, y, width, height) =>
+          `M${x + width / 2},${y}L${x + width},${y + height / 2}L${x},${
+            y + height
+          },Z`,
       ),
       maskHandleNFill: 'blue',
       maskHandleEFill: 'red',
