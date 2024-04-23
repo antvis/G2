@@ -190,21 +190,24 @@ function oneToOne(
   if (fromPath !== toPath) {
     keyframes[0].d = fromPath;
     keyframes[1].d = toPath;
-  }
-  const animation = pathShape.animate(keyframes, timeEffect);
 
-  animation.onfinish = () => {
-    // Should keep the original path definition.
-    const d = pathShape.style.d;
-    copyAttributes(pathShape, to);
-    pathShape.style.d = d;
+    const animation = pathShape.animate(keyframes, timeEffect);
+    animation.onfinish = () => {
+      // Should keep the original path definition.
+      const d = pathShape.style.d;
+      copyAttributes(pathShape, to);
+      pathShape.style.d = d;
+      pathShape.style.transform = 'none';
+    };
+
+    // Remove transform because it already applied in path
+    // converted by convertToPath.
     pathShape.style.transform = 'none';
-  };
+    return animation;
+  }
 
-  // Remove transform because it already applied in path
-  // converted by convertToPath.
-  pathShape.style.transform = 'none';
-  return animation;
+  // No need to apply animation since fromPath equals toPath.
+  return null;
 }
 
 function oneToMultiple(
