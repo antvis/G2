@@ -613,16 +613,21 @@ export function brushHighlight(
       clonedElement.set(element, cloned);
       return cloned;
     };
+
+    // Create a clipPath shared between all children.
+    const clipPath = new Rect({
+      style: {
+        x: x + ordinalX,
+        y: y + ordinalY,
+        width: x1 - x,
+        height: y1 - y,
+      },
+    });
+    root.appendChild(clipPath);
+
     for (const element of elements) {
       const cloned = clonedElement.get(element) || clone(element);
-      cloned.style.clipPath = new Rect({
-        style: {
-          x: x + ordinalX,
-          y: y + ordinalY,
-          width: x1 - x,
-          height: y1 - y,
-        },
-      });
+      cloned.style.clipPath = clipPath;
       setState(element, 'inactive');
       setState(cloned, 'active');
     }
