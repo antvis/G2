@@ -162,6 +162,7 @@ import {
   ContrastReverse,
   OverlapHide,
   OverlapDodgeY,
+  ExceedAdjust,
 } from '../../../src/label-transform';
 
 describe('corelib', () => {
@@ -315,6 +316,7 @@ describe('corelib', () => {
       'composition.repeatMatrix': RepeatMatrix,
       'composition.facetCircle': FacetCircle,
       'composition.timingKeyframe': TimingKeyframe,
+      'labelTransform.exceedAdjust': ExceedAdjust,
       'labelTransform.overlapHide': OverlapHide,
       'labelTransform.overlapDodgeY': OverlapDodgeY,
       'labelTransform.overflowHide': OverflowHide,
