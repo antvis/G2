@@ -1,7 +1,7 @@
 import { DisplayObject } from '@antv/g';
 import { OverflowHideLabelTransform } from '../spec';
 import { LabelTransformComponent as LLC } from '../runtime';
-import { Bounds, isOverflow, parseAABB } from '../utils/bounds';
+import { isOverflow, parseAABB } from '../utils/bounds';
 import { hide, show } from '../utils/style';
 
 export type OverflowHideOptions = Omit<OverflowHideLabelTransform, 'type'>;
