@@ -8,6 +8,7 @@ export { alphabetIntervalMinHeight } from './alphanbet-interval-min-height';
 export { alphabetIntervalMinHeightTransposed } from './alphanbet-interval-min-height-transposed';
 export { alphabetIntervalTitle } from './alphabet-interval-title';
 export { alphabetIntervalLabelOverflowHide } from './alphabet-interval-label-overflow-hide';
+export { alphabetIntervalOverflowhideLabel } from './alphabet-interval-overflowhide-label';
 export { alphabetIntervalLabelContrastReverse } from './alphabet-interval-label-contrast-reverse';
 export { alphabetIntervalDataSort } from './alphabet-interval-data-sort';
 export { alphabetIntervalFunnel } from './alphabet-interval-funnel';
