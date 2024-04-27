@@ -7,7 +7,7 @@ order: 1
 
 ## 开始使用
 
-<img alt="contrastReverse" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*q6gmRL6zdgUAAAAAAAAAAAAADmJ7AQ/original" width="100%" style="max-width: 800px" />
+<img alt="contrastReverse" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*B2GwQbqkH_kAAAAAAAAAAAAADmJ7AQ/original" width="100%" style="max-width: 800px" />
 
 ```ts
 chart
