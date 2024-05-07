@@ -31,11 +31,12 @@ const adjustPosition = (target: Bounds, edge: Bounds) => {
 export type ExceedAdjustOptions = Omit<ExceedAdjustLabel, 'type'>;
 
 /**
- * Hide the label when overlap.
+ * adjust the label when exceed the plot
  */
 export const ExceedAdjust: LLC<ExceedAdjustOptions> = () => {
   return (labels: DisplayObject[], coordinate) => {
-    const { width, height } = coordinate.getOptions();
+    const { width, height, x = 0, y = 0 } = coordinate.getOptions();
+    console.log(coordinate.getOptions());
 
     labels.forEach((l) => {
       show(l);
@@ -48,8 +49,8 @@ export const ExceedAdjust: LLC<ExceedAdjustOptions> = () => {
           [xMax, yMax],
         ],
         [
-          [0, 0],
-          [width, height],
+          [x, y],
+          [x + width, y + height],
         ],
       );
       l.style.x += changeValue[0];
