@@ -1,6 +1,11 @@
 import { Coordinate, Transformation } from '@antv/coord';
 import EventEmitter from '@antv/event-emitter';
-import { DisplayObject, IAnimation as GAnimation, IDocument } from '@antv/g';
+import {
+  DisplayObject,
+  IAnimation as GAnimation,
+  IDocument,
+  Canvas,
+} from '@antv/g';
 import {
   G2Theme,
   G2ViewInstance,
@@ -225,7 +230,10 @@ export type CompositionComponent<O = Record<string, unknown>> = G2BaseComponent<
 
 export type LabelTransform = (
   labels: DisplayObject[],
-  coordinate: Coordinate,
+  contexgt: {
+    coordinate: Coordinate;
+    canvas: Canvas;
+  },
 ) => DisplayObject[];
 export type LabelTransformComponent<O = Record<string, unknown>> =
   G2BaseComponent<LabelTransform, O>;
