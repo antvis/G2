@@ -34,13 +34,15 @@ export type ExceedAdjustOptions = Omit<ExceedAdjustLabel, 'type'>;
  * adjust the label when exceed the plot
  */
 export const ExceedAdjust: LLC<ExceedAdjustOptions> = () => {
-  return (labels: DisplayObject[], coordinate) => {
-    const { width, height, x = 0, y = 0 } = coordinate.getOptions();
+  return (labels: DisplayObject[], { coordinate, canvas }) => {
     console.log(coordinate.getOptions());
+    const { width, height } = canvas.getConfig();
+    const x = 0,
+      y = 0;
 
     labels.forEach((l) => {
       show(l);
-      const { max, min } = l.getLocalBounds();
+      const { max, min } = l.getRenderBounds();
       const [xMax, yMax] = max,
         [xMin, yMin] = min;
       const changeValue = adjustPosition(
