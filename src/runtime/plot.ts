@@ -1221,15 +1221,20 @@ function plotLabel(
     labelDescriptor.get(d.__data__),
   );
   const { coordinate } = view;
+
+  const labelTransformContext = {
+    canvas: context.canvas,
+    coordinate,
+  };
   for (const [label, shapes] of labelGroups) {
     const { transform = [] } = label;
     const transformFunction = compose(transform.map(useLabelTransform));
-    transformFunction(shapes, coordinate);
+    transformFunction(shapes, labelTransformContext);
   }
 
   // Apply view-level transform.
   if (labelTransform) {
-    labelTransform(labelShapes, coordinate);
+    labelTransform(labelShapes, labelTransformContext);
   }
 }
 
