@@ -35,7 +35,6 @@ export type ExceedAdjustOptions = Omit<ExceedAdjustLabel, 'type'>;
  */
 export const ExceedAdjust: LLC<ExceedAdjustOptions> = () => {
   return (labels: DisplayObject[], { coordinate, canvas }) => {
-    console.log(coordinate.getOptions());
     const { width, height } = canvas.getConfig();
     const x = 0,
       y = 0;
