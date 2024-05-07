@@ -1,5 +1,5 @@
 ---
-title: overflowHide
+title: exceedAdjust
 order: 1
 ---
 
