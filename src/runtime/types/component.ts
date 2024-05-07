@@ -230,7 +230,7 @@ export type CompositionComponent<O = Record<string, unknown>> = G2BaseComponent<
 
 export type LabelTransform = (
   labels: DisplayObject[],
-  contexgt: {
+  context: {
     coordinate: Coordinate;
     canvas: Canvas;
   },
