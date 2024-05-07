@@ -3,7 +3,6 @@ import { G2Spec } from '../../../src';
 export function stocksLineLabelExceedAdjust(): G2Spec {
   return {
     type: 'line',
-    insetLeft: 100,
     data: {
       type: 'fetch',
       value: 'data/stocks.csv',
