@@ -253,6 +253,7 @@ export { alphabetIntervalViewStyle } from './alphabet-interval-view-style';
 export { vennBasic } from './venn-basic';
 export { vennHollow } from './venn-hollow';
 export { stocksLineVarSize } from './stocks-line-var-size';
+export { stocksLineLabelExceedAdjust } from './stocks-line-label-exceed-adjust';
 export { barleyLineTrail } from './barley-line-trail';
 export { mockAxisX } from './mock-axisX';
 export { mockAxisY } from './mock-axisY';

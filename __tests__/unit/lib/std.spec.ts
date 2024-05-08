@@ -176,6 +176,7 @@ import {
   ContrastReverse,
   OverlapHide,
   OverlapDodgeY,
+  ExceedAdjust,
 } from '../../../src/label-transform';
 
 describe('stdlib', () => {
@@ -343,6 +344,7 @@ describe('stdlib', () => {
       'composition.timingKeyframe': TimingKeyframe,
       'labelTransform.overlapHide': OverlapHide,
       'labelTransform.overlapDodgeY': OverlapDodgeY,
+      'labelTransform.exceedAdjust': ExceedAdjust,
       'labelTransform.overflowHide': OverflowHide,
       'labelTransform.contrastReverse': ContrastReverse,
       'composition.geoView': GeoView,
