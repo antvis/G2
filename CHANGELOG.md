@@ -1,3 +1,20 @@
+## [5.1.20](https://github.com/antvis/g2/compare/5.1.19...5.1.20) (2024-05-08)
+
+
+### Bug Fixes
+
+* **label:** display error ([#6172](https://github.com/antvis/g2/issues/6172)) ([51d1c51](https://github.com/antvis/g2/commit/51d1c51edb95e926a60808cc201e46e2bb785b41))
+* skip animation if fromPath equals toPath ([#6193](https://github.com/antvis/g2/issues/6193)) ([fee3397](https://github.com/antvis/g2/commit/fee3397880167d3f1730d7fa14803d92181c3b58))
+* update docs words ([#6211](https://github.com/antvis/g2/issues/6211)) ([8ecb185](https://github.com/antvis/g2/commit/8ecb1854b884723d0dc862573e440daabc8e7a91))
+
+
+### Features
+
+* add context for customize label transform ([#6222](https://github.com/antvis/g2/issues/6222)) ([acc0fc0](https://github.com/antvis/g2/commit/acc0fc0ce36bd5ed63aa793568ce55590b619882))
+* **label:** add label transform feature exceedAdjust ([#6209](https://github.com/antvis/g2/issues/6209)) ([fefd4ea](https://github.com/antvis/g2/commit/fefd4ea46b0cb8232730179b13cab8064560d224))
+
+
+
 ## [5.1.19](https://github.com/antvis/g2/compare/5.1.17...5.1.19) (2024-04-19)
 
 
