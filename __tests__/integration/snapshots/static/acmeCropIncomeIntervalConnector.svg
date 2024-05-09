@@ -1034,7 +1034,7 @@
                   <path
                     id="g-svg-122"
                     fill="rgba(65,97,128,1)"
-                    class="marker"
+                    class="marker path-marker"
                     d="M 0,0 L 6,-3 L 6,3 Z"
                     fill-opacity="0.95"
                   />
