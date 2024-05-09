@@ -10,7 +10,12 @@ const chart = new Chart({
 });
 
 chart
-  .theme({ type: 'classicDark' }) // Apply dark theme.
+  .theme({
+    type: 'classicDark',
+    view: {
+      viewFill: '#141414',
+    },
+  }) // Apply dark theme.
   .coordinate({ type: 'theta', innerRadius: 0.25, outerRadius: 0.8 });
 
 chart

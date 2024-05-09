@@ -334,3 +334,4 @@ export { flareElementPointMovePie } from './flare-element-point-move-pie';
 export { flareElementPointMoveArea } from './flare-element-point-move-area';
 export { flareElementPointMoveAreaNormalizeY } from './flare-element-point-move-area-normalizeY';
 export { stackBarAnnotationStyleText } from './stack-bar-annotation-style-text';
+export { githubStarIntervalDarkThemeTransparent } from './github-star-interval-dark-theme-transparent';
