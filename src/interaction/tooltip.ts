@@ -311,10 +311,13 @@ function updateRuleY(
     strokeOpacity: 0.5,
     ...rest,
   };
+
+  console.log(points);
   const Y = points.map((p) => p[1]);
   const X = points.map((p) => p[0]);
   const y = mean(Y);
   const x = mean(X);
+  console.log(y);
   const pointsOf = () => {
     if (polar) {
       const r = Math.min(mainWidth, mainHeight) / 2;
@@ -328,8 +331,11 @@ function updateRuleY(
     if (transposed) return [startX, startX + plotWidth, y + startY, y + startY];
     return [x + startX, x + startX, startY, startY + plotHeight];
   };
+
   const [x1, x2, y1, y2] = pointsOf();
+  console.log(x1, x2, y1, y2);
   const createLine = () => {
+    console.log('create');
     const line = new Line({
       style: {
         x1,
@@ -662,6 +668,7 @@ export function seriesTooltip(
         });
       }
 
+      // TODO 十字辅助线的修改之地
       if (crosshairs) {
         const points = filteredSeriesData.map((d) => d[1]);
         const ruleStyle = subObject(style, 'crosshairs');
@@ -945,6 +952,7 @@ export function Tooltip(options) {
     facet = false,
     ...rest
   } = options;
+  console.log(options);
   return (target, viewInstances, emitter) => {
     const { container, view } = target;
     const { scale, markState, coordinate, theme } = view;

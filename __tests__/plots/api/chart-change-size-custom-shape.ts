@@ -51,7 +51,8 @@ export function chartChangeSizeCustomShape(context) {
     .encode('y', 'sold')
     .encode('color', 'genre')
     .style('shape', 'triangle')
-    .animate(false);
+    .animate(false)
+    .tooltip({});
 
   const finished = chart.render();
 

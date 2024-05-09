@@ -16,5 +16,6 @@ export function aaplLineAxisYHide(): G2Spec {
       x: false,
       y: { labelFormatter: (d) => `${d}000`, transform: [{ type: 'hide' }] },
     },
+    tooltip: {},
   };
 }
