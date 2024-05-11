@@ -1,11 +1,11 @@
 import { Circle, DisplayObject, IElement, Line } from '@antv/g';
-import { sort, group, mean, bisector, minIndex } from 'd3-array';
-import { deepMix, lowerFirst, throttle } from '@antv/util';
+import { sort, group, mean, bisector, minIndex, cross } from 'd3-array';
+import { deepMix, lowerFirst, throttle, hasKey } from '@antv/util';
 import { Tooltip as TooltipComponent } from '@antv/component';
 import { Constant, Band } from '@antv/scale';
 import { defined, subObject } from '../utils/helper';
 import { isTranspose, isPolar } from '../utils/coordinate';
-import { angle, sub } from '../utils/vector';
+import { angle, sub, dist } from '../utils/vector';
 import { invert } from '../utils/scale';
 import { BBox } from '../runtime';
 import {
@@ -288,6 +288,108 @@ function groupItems(
   };
 }
 
+function updateRuleX(
+  root,
+  points,
+  mouse,
+  {
+    plotWidth,
+    plotHeight,
+    mainWidth,
+    mainHeight,
+    startX,
+    startY,
+    transposed,
+    polar,
+    insetLeft,
+    insetTop,
+    ...rest
+  },
+) {
+  const defaults = {
+    lineWidth: 1,
+    stroke: '#1b1e23',
+    strokeOpacity: 0.5,
+    ...rest,
+  };
+
+  console.log('defaults', defaults);
+
+  const createCircle = (cx, cy, r) => {
+    const circle = new Circle({
+      style: {
+        cx,
+        cy,
+        r,
+        ...defaults,
+      },
+    });
+    root.appendChild(circle);
+    return circle;
+  };
+
+  const createLine = (x1, x2, y1, y2) => {
+    const line = new Line({
+      style: {
+        x1,
+        x2,
+        y1,
+        y2,
+        ...defaults,
+      },
+    });
+    root.appendChild(line);
+    return line;
+  };
+
+  const minDistPoint = (mouse, points) => {
+    // only one point do not need compute
+    if (points.length === 1) {
+      return points[0];
+    }
+    const dists = points.map((p) => dist(p, mouse));
+    const minDistIndex = minIndex(dists, (d) => d);
+    return points[minDistIndex];
+  };
+
+  const target = minDistPoint(mouse, points);
+
+  const pointsOf = () => {
+    if (transposed)
+      return [
+        startX + target[0],
+        startX + target[0],
+        startY,
+        startY + plotHeight,
+      ];
+    return [startX, startX + plotWidth, target[1] + startY, target[1] + startY];
+  };
+
+  const pointsOfPolar = () => {
+    const cx = startX + insetLeft + mainWidth / 2;
+    const cy = startY + insetTop + mainHeight / 2;
+    const cdist = dist([cx, cy], target);
+    return [cx, cy, cdist];
+  };
+
+  if (polar) {
+    const [cx, cy, r] = pointsOfPolar();
+    const ruleX = root.ruleX || createCircle(cx, cy, r);
+    ruleX.style.cx = cx;
+    ruleX.style.cy = cy;
+    ruleX.style.r = r;
+    root.ruleX = ruleX;
+  } else {
+    const [x1, x2, y1, y2] = pointsOf();
+    const ruleX = root.ruleX || createLine(x1, x2, y1, y2);
+    ruleX.style.x1 = x1;
+    ruleX.style.x2 = x2;
+    ruleX.style.y1 = y1;
+    ruleX.style.y2 = y2;
+    root.ruleX = ruleX;
+  }
+}
+
 function updateRuleY(
   root,
   points,
@@ -312,12 +414,11 @@ function updateRuleY(
     ...rest,
   };
 
-  console.log(points);
   const Y = points.map((p) => p[1]);
   const X = points.map((p) => p[0]);
   const y = mean(Y);
   const x = mean(X);
-  console.log(y);
+
   const pointsOf = () => {
     if (polar) {
       const r = Math.min(mainWidth, mainHeight) / 2;
@@ -333,9 +434,7 @@ function updateRuleY(
   };
 
   const [x1, x2, y1, y2] = pointsOf();
-  console.log(x1, x2, y1, y2);
   const createLine = () => {
-    console.log('create');
     const line = new Line({
       style: {
         x1,
@@ -363,6 +462,13 @@ function hideRuleY(root) {
   if (root.ruleY) {
     root.ruleY.remove();
     root.ruleY = undefined;
+  }
+}
+
+function hideRuleX(root) {
+  if (root.ruleX) {
+    root.ruleX.remove();
+    root.ruleX = undefined;
   }
 }
 
@@ -448,6 +554,8 @@ export function seriesTooltip(
     scale,
     coordinate,
     crosshairs,
+    crosshairsX = {},
+    crosshairsY = {},
     render,
     groupName,
     emitter,
@@ -475,6 +583,9 @@ export function seriesTooltip(
   const transposed = isTranspose(coordinate);
   const polar = isPolar(coordinate);
   const style = deepMix(_style, rest);
+
+  console.log('crosshairs', crosshairs);
+
   const {
     innerWidth: plotWidth,
     innerHeight: plotHeight,
@@ -538,6 +649,18 @@ export function seriesTooltip(
   const abstractX = (focus) => {
     const [normalizedX] = coordinate.invert(focus);
     return normalizedX - offsetX;
+  };
+
+  const crosshairsSetting = (type: 'xy' | 'x' | 'y' | 'none') => {
+    if (type === 'xy') {
+      return [true, true];
+    } else if (type === 'x') {
+      return [true, false];
+    } else if (type === 'y') {
+      return [false, true];
+    } else {
+      return [false, false];
+    }
   };
 
   const indexByFocus = (focus, I, X) => {
@@ -651,6 +774,10 @@ export function seriesTooltip(
         return;
       }
 
+      const [crosshairsXSetting, crosshairsYSetting] = crosshairsSetting(
+        crosshairs.type,
+      );
+
       if (body) {
         showTooltip({
           root,
@@ -668,23 +795,53 @@ export function seriesTooltip(
         });
       }
 
-      // TODO 十字辅助线的修改之地
-      if (crosshairs) {
+      if (crosshairs.type !== 'none') {
+        const crosshairsGenStyle = {
+          ...crosshairs,
+        };
+        delete crosshairsGenStyle.type;
+        const xStyle = {
+          ...crosshairsGenStyle,
+          ...crosshairsX,
+        };
+        const yStyle = {
+          ...crosshairsGenStyle,
+          ...crosshairsY,
+        };
+
+        console.log(xStyle, yStyle);
         const points = filteredSeriesData.map((d) => d[1]);
-        const ruleStyle = subObject(style, 'crosshairs');
-        updateRuleY(root, points, {
-          ...ruleStyle,
-          plotWidth,
-          plotHeight,
-          mainWidth,
-          mainHeight,
-          insetLeft,
-          insetTop,
-          startX,
-          startY,
-          transposed,
-          polar,
-        });
+        if (crosshairsXSetting) {
+          updateRuleX(root, points, mouse, {
+            ...xStyle,
+            plotWidth,
+            plotHeight,
+            mainWidth,
+            mainHeight,
+            insetLeft,
+            insetTop,
+            startX,
+            startY,
+            transposed,
+            polar,
+          });
+        }
+
+        if (crosshairsYSetting) {
+          updateRuleY(root, points, {
+            ...yStyle,
+            plotWidth,
+            plotHeight,
+            mainWidth,
+            mainHeight,
+            insetLeft,
+            insetTop,
+            startX,
+            startY,
+            transposed,
+            polar,
+          });
+        }
       }
 
       if (marker) {
@@ -708,13 +865,20 @@ export function seriesTooltip(
 
   const hide = (event: MouseEvent) => {
     hideTooltip({ root, single, emitter, event });
-    if (crosshairs) hideRuleY(root);
+    // TODO 这里的逻辑要更改
+    if (crosshairs.type !== 'none') {
+      hideRuleY(root);
+      hideRuleX(root);
+    }
     if (marker) hideMarker(root);
   };
 
   const destroy = () => {
     destroyTooltip({ root, single });
-    if (crosshairs) hideRuleY(root);
+    if (crosshairs.type !== 'none') {
+      hideRuleY(root);
+      hideRuleX(root);
+    }
     if (marker) hideMarker(root);
   };
 
@@ -946,13 +1110,16 @@ export function Tooltip(options) {
   const {
     shared,
     crosshairs,
+    crosshairsX,
+    crosshairsY,
     series,
     name,
     item = () => ({}),
     facet = false,
     ...rest
   } = options;
-  console.log(options);
+
+  console.log('options', rest);
   return (target, viewInstances, emitter) => {
     const { container, view } = target;
     const { scale, markState, coordinate, theme } = view;
@@ -970,7 +1137,15 @@ export function Tooltip(options) {
         elements: selectG2Elements,
         scale,
         coordinate,
-        crosshairs: maybeValue(crosshairs, defaultShowCrosshairs),
+        crosshairs: maybeValue(
+          {
+            type: 'xy',
+            ...crosshairs,
+          },
+          defaultShowCrosshairs ? { type: 'xy' } : { type: 'none' },
+        ),
+        crosshairsX,
+        crosshairsY,
         item,
         emitter,
       });
@@ -999,7 +1174,15 @@ export function Tooltip(options) {
         elements: () => elements,
         scale,
         coordinate,
-        crosshairs: maybeValue(crosshairs, defaultShowCrosshairs),
+        crosshairs: maybeValue(
+          {
+            type: 'xy',
+            ...crosshairs,
+          },
+          defaultShowCrosshairs ? { type: 'xy' } : { type: 'none' },
+        ),
+        crosshairsX,
+        crosshairsY,
         item,
         startX,
         startY,
