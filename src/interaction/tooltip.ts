@@ -313,8 +313,6 @@ function updateRuleX(
     ...rest,
   };
 
-  console.log('defaults', defaults);
-
   const createCircle = (cx, cy, r) => {
     const circle = new Circle({
       style: {
@@ -584,8 +582,6 @@ export function seriesTooltip(
   const polar = isPolar(coordinate);
   const style = deepMix(_style, rest);
 
-  console.log('crosshairs', crosshairs);
-
   const {
     innerWidth: plotWidth,
     innerHeight: plotHeight,
@@ -796,20 +792,19 @@ export function seriesTooltip(
       }
 
       if (crosshairs.type !== 'none') {
-        const crosshairsGenStyle = {
+        const crosshairsStyle = {
           ...crosshairs,
         };
-        delete crosshairsGenStyle.type;
+        delete crosshairsStyle.type;
         const xStyle = {
-          ...crosshairsGenStyle,
+          ...crosshairsStyle,
           ...crosshairsX,
         };
         const yStyle = {
-          ...crosshairsGenStyle,
+          ...crosshairsStyle,
           ...crosshairsY,
         };
 
-        console.log(xStyle, yStyle);
         const points = filteredSeriesData.map((d) => d[1]);
         if (crosshairsXSetting) {
           updateRuleX(root, points, mouse, {
@@ -865,7 +860,6 @@ export function seriesTooltip(
 
   const hide = (event: MouseEvent) => {
     hideTooltip({ root, single, emitter, event });
-    // TODO 这里的逻辑要更改
     if (crosshairs.type !== 'none') {
       hideRuleY(root);
       hideRuleX(root);
@@ -1119,7 +1113,6 @@ export function Tooltip(options) {
     ...rest
   } = options;
 
-  console.log('options', rest);
   return (target, viewInstances, emitter) => {
     const { container, view } = target;
     const { scale, markState, coordinate, theme } = view;

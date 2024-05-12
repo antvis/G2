@@ -46,8 +46,9 @@ chart.render();
 | position                  | tooltip 位置                                                      | `TooltipPosition`                           | -                     |
 | mount                     | tooltip 渲染的 dom 节点                                           | `string` \| `HTMLElement`                   | 图表容器              |
 | bounding                  | tooltip 渲染的限制区域，超出会自动调整位置                        | `BBox`                                      | 图表区域大小          |
-| crosshairs                | 是否展示指示线                                                    | `boolean`                                   | -                     |
-| `crosshairs${StyleAttrs}` | 指示线的样式                                                      | `number \| string`                          | -                     |
+| crosshairs                | 十字指示线设置                                                     | `Record<string, any>`                                   | -                     |
+| crosshairsX               | X方向指示线样式设置                                                  | `Record<string, any>`                                   | -                     |
+| crosshairsY               | Y方向指示线样式设置                                                  | `Record<string, any>`                                   | -                     |
 | `marker${StyleAttrs}`     | marker 的样式                                                     | `number \| string`                          | -                     |
 | render                    | 自定义 tooltip 渲染函数                                           | `(event, options) => HTMLElement \| string` | -                     |
 | sort                      | item 排序器                                                       | `(d: TooltipItemValue) => any`              | -                     |
@@ -173,4 +174,54 @@ chart.emit('tooltip:hide');
 ```js
 chart.emit('tooltip:disable'); // 禁用 tooltip
 chart.emit('tooltip:enable'); // 启用交互
+```
+
+
+### 十字辅助线设置
+默认情况下，`crosshairs`默认开启，`tooltip.crosshairs`下的`type`属性用于指定十字辅助线的类型。
+```js
+chart.interaction("tooltip", {
+  crosshairs: {
+    type: 'xy' // 默认情况，开启十字辅助线
+  }
+})
+
+chart.interaction("tooltip", {
+  crosshairs: {
+    type: 'x' // 只开启X方向辅助线
+  }
+})
+
+chart.interaction("tooltip", {
+  crosshairs: {
+    type: 'y' // 只开启Y方向辅助线
+  }
+})
+
+chart.interaction("tooltip", {
+  crosshairs: {
+    type: 'none' // 关闭十字辅助线
+  }
+})
+
+```
+`tooltip.crosshairsX`和`tooltip.crosshairsY`则用于分别设置X方向辅助线和Y方向辅助线的样式，`tooltip.crosshairs`也具有设置样式的功能，但优先级低于前两者。
+
+```js
+chart.interaction("tooltip", {
+  crosshairs: {
+    type: "xy",
+    stroke: "red"
+    // other style attrs
+  },
+  crosshairsX: {
+    stroke: "blue" // X方向辅助线最终表现为蓝色
+    // other style attrs
+  },
+  crosshairsY: {
+    stroke: "yellow" // Y方向辅助线最终表现为黄色
+    // other style attrs
+  }
+})
+
 ```

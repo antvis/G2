@@ -39,15 +39,6 @@ export function chartChangeSizePolar(context) {
         style: { lineWidth: 2 },
       },
     ],
-    interaction: {
-      tooltip: {
-        crosshairs: {
-          type: 'y',
-          stroke: 'red',
-          strokeWidth: 4,
-        },
-      },
-    },
   });
 
   const finished = chart.render();

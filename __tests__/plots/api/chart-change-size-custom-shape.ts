@@ -52,10 +52,7 @@ export function chartChangeSizeCustomShape(context) {
     .encode('color', 'genre')
     .style('shape', 'triangle')
     .animate(false)
-    .interaction('tooltip', {
-      crosshairsStroke: 'red',
-      crosshairsStrokeWidth: 4,
-    });
+    .tooltip({});
 
   const finished = chart.render();
 

@@ -5,6 +5,18 @@ export function weatherLineMultiSlider(): G2Spec {
   return {
     type: 'view',
     data: weather,
+    interaction: {
+      tooltip: {
+        crosshairs: {
+          type: 'xy',
+        },
+        crosshairsX: {},
+        crosshairsY: {
+          stroke: 'red',
+          strokeWidth: 4,
+        },
+      },
+    },
     children: [
       {
         type: 'line',
