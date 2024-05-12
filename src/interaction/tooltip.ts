@@ -842,7 +842,7 @@ export function seriesTooltip(
 
   const hide = (event: MouseEvent) => {
     hideTooltip({ root, single, emitter, event });
-    if (crosshairs.type !== 'none') {
+    if (crosshairs) {
       hideRuleY(root);
       hideRuleX(root);
     }
@@ -851,7 +851,7 @@ export function seriesTooltip(
 
   const destroy = () => {
     destroyTooltip({ root, single });
-    if (crosshairs.type !== 'none') {
+    if (crosshairs) {
       hideRuleY(root);
       hideRuleX(root);
     }
