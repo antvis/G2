@@ -30,7 +30,9 @@ export function pointsPointTooltipMarker(): G2Spec {
     interaction: {
       tooltip: {
         body: false,
-        crosshairs: false,
+        crosshairs: {
+          type: 'none',
+        },
         markerR: 20,
         markerLineWidth: 5,
         markerStroke: 'yellow',
