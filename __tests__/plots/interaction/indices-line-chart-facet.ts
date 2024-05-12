@@ -38,8 +38,10 @@ export async function indicesLineChartFacet(): Promise<G2Spec> {
         series: true,
         facet: true,
         body: false,
-        crosshairs: true,
-        crosshairsLineWidth: 30,
+        crosshairs: {
+          type: 'y',
+          lineWidth: 30,
+        },
         marker: false,
       },
     },

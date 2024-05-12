@@ -1,4 +1,5 @@
-import { G2Spec } from '../../../src';
+import { G2Spec, PLOT_CLASS_NAME } from '../../../src';
+import { step } from './utils';
 
 export async function changeSizePolarCrosshairsXY(): Promise<G2Spec> {
   const data = [
@@ -89,3 +90,20 @@ export async function changeSizePolarCrosshairsXY(): Promise<G2Spec> {
     ],
   };
 }
+
+changeSizePolarCrosshairsXY.tooltip = true;
+
+changeSizePolarCrosshairsXY.steps = ({ canvas }) => {
+  const { document } = canvas;
+  const [plot] = document.getElementsByClassName(PLOT_CLASS_NAME);
+  return [
+    step(plot, 'pointermove', {
+      offsetX: 100,
+      offsetY: 350,
+    }),
+    step(plot, 'pointermove', {
+      offsetX: 176,
+      offsetY: 350,
+    }),
+  ];
+};

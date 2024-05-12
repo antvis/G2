@@ -20,8 +20,11 @@ export function scoreByItemAreaRadar(): G2Spec {
       tooltip: {
         body: false,
         marker: false,
-        crosshairsLineDash: [4, 4],
-        crosshairsLineWidth: 10,
+        crosshairs: {
+          type: 'y',
+          lineDash: [4, 4],
+          lineWidth: 10,
+        },
       },
     },
     children: [

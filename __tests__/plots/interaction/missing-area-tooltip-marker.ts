@@ -32,6 +32,9 @@ export function missingAreaTooltipMarker(): G2Spec {
         markerR: 10,
         markerLineWidth: 5,
         markerStroke: '#aaa',
+        crosshairs: {
+          type: 'y',
+        },
       },
     },
   };

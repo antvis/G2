@@ -16,7 +16,14 @@ export function pointsPointRegressionQuadTranspose(): G2Spec {
     scale: { x: { domain: [-4, 4] }, y: { domain: [-2, 14] } },
     axis: { x: { title: false }, y: { title: false } },
     interaction: {
-      tooltip: { body: false, crosshairsLineWidth: 30, marker: false },
+      tooltip: {
+        body: false,
+        crosshairs: {
+          type: 'y',
+          lineWidth: 30,
+        },
+        marker: false,
+      },
     },
     coordinate: { transform: [{ type: 'transpose' }] },
     children: [

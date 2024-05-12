@@ -1,7 +1,7 @@
 import { csv } from 'd3-fetch';
 import { autoType } from 'd3-dsv';
 import { G2Spec, PLOT_CLASS_NAME } from '../../../src';
-import { brush } from './penguins-point-brush';
+import { step } from './utils';
 
 export async function indicesLineCrosshairsXY(): Promise<G2Spec> {
   const data = await csv('data/indices.csv', autoType);
@@ -43,3 +43,20 @@ export async function indicesLineCrosshairsXY(): Promise<G2Spec> {
     },
   };
 }
+
+indicesLineCrosshairsXY.tooltip = true;
+
+indicesLineCrosshairsXY.steps = ({ canvas }) => {
+  const { document } = canvas;
+  const [plot] = document.getElementsByClassName(PLOT_CLASS_NAME);
+  return [
+    step(plot, 'pointermove', {
+      offsetX: 100,
+      offsetY: 350,
+    }),
+    step(plot, 'pointermove', {
+      offsetX: 176,
+      offsetY: 350,
+    }),
+  ];
+};
