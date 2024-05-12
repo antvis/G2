@@ -40,11 +40,8 @@ export async function changeSizePolarCrosshairsXY(): Promise<G2Spec> {
       legendFilter: false,
       elementPointMove: true,
       tooltip: {
-        crosshairs: {
-          type: 'xy',
-          stroke: 'red',
-          lineDash: [4, 4],
-        },
+        crosshairsStroke: 'red',
+        crosshairsLineDash: [4, 4],
       },
     },
     axis: {

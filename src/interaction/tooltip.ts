@@ -1,6 +1,6 @@
 import { Circle, DisplayObject, IElement, Line } from '@antv/g';
-import { sort, group, mean, bisector, minIndex, cross } from 'd3-array';
-import { deepMix, lowerFirst, throttle, hasKey } from '@antv/util';
+import { sort, group, mean, bisector, minIndex } from 'd3-array';
+import { deepMix, lowerFirst, throttle } from '@antv/util';
 import { Tooltip as TooltipComponent } from '@antv/component';
 import { Constant, Band } from '@antv/scale';
 import { defined, subObject } from '../utils/helper';
@@ -552,8 +552,8 @@ export function seriesTooltip(
     scale,
     coordinate,
     crosshairs,
-    crosshairsX = {},
-    crosshairsY = {},
+    crosshairsX,
+    crosshairsY,
     render,
     groupName,
     emitter,
@@ -645,18 +645,6 @@ export function seriesTooltip(
   const abstractX = (focus) => {
     const [normalizedX] = coordinate.invert(focus);
     return normalizedX - offsetX;
-  };
-
-  const crosshairsSetting = (type: 'xy' | 'x' | 'y' | 'none') => {
-    if (type === 'xy') {
-      return [true, true];
-    } else if (type === 'x') {
-      return [true, false];
-    } else if (type === 'y') {
-      return [false, true];
-    } else {
-      return [false, false];
-    }
   };
 
   const indexByFocus = (focus, I, X) => {
@@ -770,10 +758,6 @@ export function seriesTooltip(
         return;
       }
 
-      const [crosshairsXSetting, crosshairsYSetting] = crosshairsSetting(
-        crosshairs.type,
-      );
-
       if (body) {
         showTooltip({
           root,
@@ -791,24 +775,22 @@ export function seriesTooltip(
         });
       }
 
-      if (crosshairs.type !== 'none') {
-        const crosshairsStyle = {
-          ...crosshairs,
+      if (crosshairs) {
+        const ruleStyle = subObject(style, 'crosshairs');
+
+        const ruleStyleX = {
+          ...ruleStyle,
+          ...subObject(style, 'crosshairsX'),
         };
-        delete crosshairsStyle.type;
-        const xStyle = {
-          ...crosshairsStyle,
-          ...crosshairsX,
-        };
-        const yStyle = {
-          ...crosshairsStyle,
-          ...crosshairsY,
+        const ruleStyleY = {
+          ...ruleStyle,
+          ...subObject(style, 'crosshairsY'),
         };
 
         const points = filteredSeriesData.map((d) => d[1]);
-        if (crosshairsXSetting) {
+        if (crosshairsX) {
           updateRuleX(root, points, mouse, {
-            ...xStyle,
+            ...ruleStyleX,
             plotWidth,
             plotHeight,
             mainWidth,
@@ -822,9 +804,9 @@ export function seriesTooltip(
           });
         }
 
-        if (crosshairsYSetting) {
+        if (crosshairsY) {
           updateRuleY(root, points, {
-            ...yStyle,
+            ...ruleStyleY,
             plotWidth,
             plotHeight,
             mainWidth,
@@ -1121,6 +1103,7 @@ export function Tooltip(options) {
     const defaultShowCrosshairs = interactionKeyof(markState, 'crosshairs');
     const plotArea = selectPlotArea(container);
     const isSeries = maybeValue(series, defaultSeries);
+    const crosshairsSetting = maybeValue(crosshairs, defaultShowCrosshairs);
 
     // For non-facet and series tooltip.
     if (isSeries && hasSeries(markState) && !facet) {
@@ -1130,15 +1113,10 @@ export function Tooltip(options) {
         elements: selectG2Elements,
         scale,
         coordinate,
-        crosshairs: maybeValue(
-          {
-            type: 'xy',
-            ...crosshairs,
-          },
-          defaultShowCrosshairs ? { type: 'xy' } : { type: 'none' },
-        ),
-        crosshairsX,
-        crosshairsY,
+        crosshairs: crosshairsSetting,
+        // crosshairsX,Y default config depend on crosshairs
+        crosshairsX: maybeValue(crosshairsX, crosshairsSetting),
+        crosshairsY: maybeValue(crosshairsY, crosshairsSetting),
         item,
         emitter,
       });
@@ -1167,15 +1145,9 @@ export function Tooltip(options) {
         elements: () => elements,
         scale,
         coordinate,
-        crosshairs: maybeValue(
-          {
-            type: 'xy',
-            ...crosshairs,
-          },
-          defaultShowCrosshairs ? { type: 'xy' } : { type: 'none' },
-        ),
-        crosshairsX,
-        crosshairsY,
+        crosshairs: maybeValue(crosshairs, defaultShowCrosshairs),
+        crosshairsX: maybeValue(crosshairsX, crosshairsSetting),
+        crosshairsY: maybeValue(crosshairsY, crosshairsSetting),
         item,
         startX,
         startY,

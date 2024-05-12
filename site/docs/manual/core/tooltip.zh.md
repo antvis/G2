@@ -206,11 +206,8 @@ G2 默认打开 Tooltip 交互 ，如果需要配置 Tooltip 属性，可以通�
     .encode('x', 'year')
     .encode('y', 'value')
     .interaction('tooltip', {
-      crosshairs: {
-        type: "xy",
-        stroke: 'red',
-        strokeWidth: 4
-      },
+      crosshairsStroke: 'red',
+      crosshairsStrokeWidth: 4,
     });
 
   chart.render();

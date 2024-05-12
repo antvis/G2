@@ -29,16 +29,9 @@ export async function indicesLineCrosshairsXY(): Promise<G2Spec> {
     ],
     interaction: {
       tooltip: {
-        crosshairs: {
-          type: 'xy',
-          stroke: 'green',
-        },
-        crosshairsX: {
-          stroke: 'red',
-        },
-        crosshairsY: {
-          stroke: 'blue',
-        },
+        crosshairs: true,
+        crosshairsXStroke: 'red',
+        crosshairsYStroke: 'blue',
       },
     },
   };

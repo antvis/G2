@@ -18,10 +18,8 @@ export function pointsPointRegressionQuad(): G2Spec {
     interaction: {
       tooltip: {
         body: false,
-        crosshairs: {
-          type: 'y',
-          lineWidth: 30,
-        },
+        crosshairsX: false,
+        crosshairsLineWidth: 30,
         marker: false,
       },
     },
