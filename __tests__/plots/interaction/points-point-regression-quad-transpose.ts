@@ -19,7 +19,6 @@ export function pointsPointRegressionQuadTranspose(): G2Spec {
       tooltip: {
         body: false,
         crosshairsLineWidth: 30,
-        crosshairsX: false,
         marker: false,
       },
     },

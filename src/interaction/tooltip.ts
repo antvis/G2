@@ -775,7 +775,7 @@ export function seriesTooltip(
         });
       }
 
-      if (crosshairs) {
+      if (crosshairs || crosshairsX || crosshairsY) {
         const ruleStyle = subObject(style, 'crosshairs');
 
         const ruleStyleX = {
@@ -1114,8 +1114,10 @@ export function Tooltip(options) {
         scale,
         coordinate,
         crosshairs: crosshairsSetting,
-        // crosshairsX,Y default config depend on crosshairs
-        crosshairsX: maybeValue(crosshairsX, crosshairsSetting),
+        // the crosshairsX settings level: crosshairsX > crosshairs > false
+        // it means crosshairsX default is false
+        crosshairsX: maybeValue(maybeValue(crosshairsX, crosshairs), false),
+        // crosshairsY default depend on the crossharisSettings
         crosshairsY: maybeValue(crosshairsY, crosshairsSetting),
         item,
         emitter,
@@ -1146,7 +1148,9 @@ export function Tooltip(options) {
         scale,
         coordinate,
         crosshairs: maybeValue(crosshairs, defaultShowCrosshairs),
-        crosshairsX: maybeValue(crosshairsX, crosshairsSetting),
+        // the crosshairsX settings level: crosshairsX > crosshairs > false
+        // it means crosshairsX default is false
+        crosshairsX: maybeValue(maybeValue(crosshairsX, crosshairs), false),
         crosshairsY: maybeValue(crosshairsY, crosshairsSetting),
         item,
         startX,

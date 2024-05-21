@@ -28,7 +28,6 @@ export function stocksLineSlider(): G2Spec {
     ],
     interaction: {
       tooltip: {
-        crosshairsX: false,
         crosshairsLineWidth: 10,
         body: false,
       },
