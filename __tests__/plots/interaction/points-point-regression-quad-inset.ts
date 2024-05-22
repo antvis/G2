@@ -17,7 +17,11 @@ export function pointsPointRegressionQuadInset(): G2Spec {
     scale: { x: { domain: [-4, 4] }, y: { domain: [-2, 14] } },
     axis: { x: { title: false }, y: { title: false } },
     interaction: {
-      tooltip: { body: false, crosshairsLineWidth: 30, marker: false },
+      tooltip: {
+        body: false,
+        crosshairsLineWidth: 30,
+        marker: false,
+      },
     },
     children: [
       {

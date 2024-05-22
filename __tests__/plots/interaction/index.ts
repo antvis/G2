@@ -78,3 +78,5 @@ export { profitIntervalLegendFilterElementHighlight } from './profit-interval-le
 export { stocksLineSlider } from './stocks-line-slider';
 export { alphabetIntervalCustom } from './alphabet-interval-custom';
 export { mockIntervalTooltipBackground } from './mock-interval-tooltip-background';
+export { indicesLineCrosshairsXY } from './indices-line-crosshairs-xy';
+export { changeSizePolarCrosshairsXY } from './change-size-polar-crosshairs-xy';

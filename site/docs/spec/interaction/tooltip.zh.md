@@ -46,8 +46,12 @@ chart.render();
 | position                  | tooltip 位置                                                      | `TooltipPosition`                           | -                     |
 | mount                     | tooltip 渲染的 dom 节点                                           | `string` \| `HTMLElement`                   | 图表容器              |
 | bounding                  | tooltip 渲染的限制区域，超出会自动调整位置                        | `BBox`                                      | 图表区域大小          |
-| crosshairs                | 是否展示指示线                                                    | `boolean`                                   | -                     |
-| `crosshairs${StyleAttrs}` | 指示线的样式                                                      | `number \| string`                          | -                     |
+| crosshairs                | 是否展示指示线                                                     | `boolean`                                   | -                     |
+| crosshairsX               | 是否展示X方向指示线                                            | `boolean`                                   | -                     |
+| crosshairsY               | 是否展示Y方向指示线                                                  | `boolean`                                   | -                     |
+| `crosshairs${StyleAttrs}`               | 指示线的样式                                                  | `number \| string`                                   | -                     |
+| `crosshairsX${StyleAttrs}`               | X方向指示线的样式（优先级更高）                                                  | `number \| string`                                   | -                     |
+| `crosshairsY${StyleAttrs}`              | Y方向指示线的样式 （优先级很高）                                                 | `number \| string`                                   | -                     |
 | `marker${StyleAttrs}`     | marker 的样式                                                     | `number \| string`                          | -                     |
 | render                    | 自定义 tooltip 渲染函数                                           | `(event, options) => HTMLElement \| string` | -                     |
 | sort                      | item 排序器                                                       | `(d: TooltipItemValue) => any`              | -                     |
