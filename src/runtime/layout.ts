@@ -29,11 +29,11 @@ import {
 } from './coordinate';
 
 export function processAxisZ(components: G2GuideComponentOptions[]) {
+  const axisX = components.find(({ type }) => type === 'axisX');
+  const axisY = components.find(({ type }) => type === 'axisY');
   const axisZ = components.find(({ type }) => type === 'axisZ');
-  if (axisZ) {
-    const axisX = components.find(({ type }) => type === 'axisX');
+  if (axisX && axisY && axisZ) {
     axisX.plane = 'xy';
-    const axisY = components.find(({ type }) => type === 'axisY');
     axisY.plane = 'xy';
     axisZ.plane = 'yz';
     axisZ.origin = [axisX.bbox.x, axisX.bbox.y, 0];
