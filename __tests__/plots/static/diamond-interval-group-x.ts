@@ -13,13 +13,13 @@ export function diamondIntervalGroupX(): G2Spec {
     },
     labels: [
       {
-        text: (_, index, __, channels) => channels.y[index],
+        text: (_, index, __, { channel }) => channel.y[index],
       },
     ],
     transform: [{ type: 'groupX', y: 'max' }],
     style: {
-      fill: (_, index, __, channels) =>
-        channels.y[index] < 11700 ? 'red' : 'blue',
+      fill: (_, index, __, { channel }) =>
+        channel.y[index] < 11700 ? 'red' : 'blue',
     },
   };
 }

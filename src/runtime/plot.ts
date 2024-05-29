@@ -1334,7 +1334,7 @@ function createLabelShapeFunction(
   const { data: abstractData, encode } = mark;
   const { data: visualData, defaultLabelShape } = state;
   const point2d = visualData.map((d) => d.points);
-  const channels = mapObject(encode, (d) => d.value);
+  const channel = mapObject(encode, (d) => d.value);
 
   // Assemble Context.
   const { theme, coordinate } = view;
@@ -1358,7 +1358,7 @@ function createLabelShapeFunction(
     } = options;
     const visualOptions = mapObject(
       { ...abstractOptions, ...abstractStyle } as Record<string, any>,
-      (d) => valueOf(d, datum, index, abstractData, channels),
+      (d) => valueOf(d, datum, index, abstractData, { channel }),
     );
     const { shape = defaultLabelShape, text, ...style } = visualOptions;
     const f = typeof formatter === 'string' ? format(formatter) : formatter;
@@ -1382,9 +1382,9 @@ function valueOf(
   datum: Record<string, any>,
   i: number,
   data: Record<string, any>,
-  channels: Record<string, any>,
+  options: { channel: Record<string, any> },
 ) {
-  if (typeof value === 'function') return value(datum, i, data, channels);
+  if (typeof value === 'function') return value(datum, i, data, options);
   if (typeof value !== 'string') return value;
   if (isStrictObject(datum) && datum[value] !== undefined) return datum[value];
   return value;
@@ -1501,7 +1501,7 @@ function createMarkShapeFunction(
   );
   const { data: abstractData, encode } = mark;
   const { defaultShape, data, shape: shapeLibrary } = state;
-  const channels = mapObject(encode, (d) => d.value);
+  const channel = mapObject(encode, (d) => d.value);
   const point2d = data.map((d) => d.points);
   const { theme, coordinate } = view;
   const { type: markType, style = {} } = mark;
@@ -1527,7 +1527,7 @@ function createMarkShapeFunction(
 
     const I = seriesIndex ? seriesIndex : i;
     const visualStyle = mapObject(style, (d) =>
-      valueOf(d, abstractDatum, I, abstractData, channels),
+      valueOf(d, abstractDatum, I, abstractData, { channel }),
     );
 
     // Try get shape from mark first, then from library.
