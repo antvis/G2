@@ -29,6 +29,14 @@
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ZMTCT50nmwcAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
+      "filename": "bar-aggregated-with-label.ts",
+      "title": {
+        "zh": "带数据标签的聚合条形图",
+        "en": "Aggregated Stacked Bar Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*_LuoT6SEmbQAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
       "filename": "bar-aggregated-stacked.ts",
       "title": {
         "zh": "聚合堆叠条形图",

@@ -98,12 +98,38 @@ Label 继承 G Text 所有属性样式配置，此外还有 `position`, `selecto
 
 数据标签支持使用 HTML 自定义标签，具体配置为：
 
-| 参数                 | 说明                                             | 类型       | 默认值 |
-| -------------------- | ------------------------------------------------ | ---------- | ------ |
-| render               | 返回 HTML string 或者 HTMElement，使用 HTML 自定义复杂标签  | `RenderFunc`   | -      |
+| 参数   | 说明                                                       | 类型         | 默认值 |
+| ------ | ---------------------------------------------------------- | ------------ | ------ |
+| render | 返回 HTML string 或者 HTMElement，使用 HTML 自定义复杂标签 | `RenderFunc` | -      |
 
 ```ts
-type RenderFunc = (text: string, datum: object, index: number) => String | HTMLElement;
+type RenderFunc = (text: string, datum: object, index: number, {channel: Record<string, Channel>}) => String | HTMLElement;
+```
+
+```js
+chart
+  .interval()
+  .data({
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
+  })
+  .transform({
+    type: 'groupX',
+    y: 'max',
+  })
+  .encode('x', 'clarity')
+  .encode('y', 'price')
+  .axis('y', { labelFormatter: '~s' })
+  .label({ text: (d, i, data, { channel }) => channel.y[i] }) // 聚合图形的数据标签
+  .style(
+    'fill',
+    (
+      d,
+      i,
+      data,
+      { channel }, // 聚合图形的样式
+    ) => (channel.y[i] < 11700 ? '#E49361' : '#4787F7'),
+  );
 ```
 
 ## FAQ
