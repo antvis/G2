@@ -23,10 +23,11 @@ const chart = new Chart({
   width: 720,
   height: 720,
 });
+
 chart.coordinate({ type: 'polar', innerRadius: 0.1 });
+
 chart
   .interval()
-  // .line()
   .data({
     value: data,
     transform: [
@@ -69,11 +70,13 @@ chart
   })
   .state('active', { stroke: 'black', lineWidth: 1, zIndex: 101 })
   .state('inactive', { opacity: 0.5, zIndex: 100 });
+
 chart.interaction('tooltip', {
   body: false,
   crosshairsStroke: 'red',
   crosshairsStrokeWidth: 4,
 });
+
 chart.interaction('elementHighlight', true);
 
 chart.render();

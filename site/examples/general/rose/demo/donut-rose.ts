@@ -20,7 +20,9 @@ const chart = new Chart({
   width: 720,
   height: 720,
 });
+
 chart.coordinate({ type: 'polar', innerRadius: 0.2 });
+
 chart
   .interval()
   .data(data)
@@ -54,5 +56,7 @@ chart
     lineWidth: 1,
     stroke: '#fff',
   });
+
 chart.interaction('elementHighlight', true);
+
 chart.render();

@@ -20,6 +20,7 @@ const chart = new Chart({
   width: 720,
 });
 chart.coordinate({ type: 'polar' });
+
 chart
   .interval()
   .data(data)
@@ -44,5 +45,7 @@ chart
     zIndex: 101,
   })
   .state('inactive', { opacity: 0.5, zIndex: 100 });
+
 chart.interaction('elementHighlight', true);
+
 chart.render();

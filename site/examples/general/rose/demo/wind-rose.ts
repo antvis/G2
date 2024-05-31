@@ -131,6 +131,7 @@ const chart = new Chart({
   height: 720,
   padding: 50,
 });
+
 chart.coordinate({ type: 'polar' });
 
 chart
@@ -166,4 +167,5 @@ chart
     line: true,
     gridLineWidth: 1,
   });
+
 chart.render();
