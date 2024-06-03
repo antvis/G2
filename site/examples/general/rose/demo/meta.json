@@ -27,6 +27,38 @@
         "en": "Rose Chart, Label"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*rS9YT4GTFLgAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "wind-rose.ts",
+      "title": {
+        "en": "Wind Rose",
+        "zh": "Wind Rose"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*pu1LTrmzMyUAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "nightingale-rose.ts",
+      "title": {
+        "zh": "南丁格尔玫瑰图",
+        "en": "Nightingale Rose"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dHw7RYx7V3cAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "donut-rose.ts",
+      "title": {
+        "zh": "南丁格尔玫瑰环图",
+        "en": ""
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*FZtzRbGNkRMAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "polar-stack.ts",
+      "title": {
+        "en": "stacked column chart in polar coordinate",
+        "zh": "极坐标下的层叠柱状图"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*JWPuSIRzU_MAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }
