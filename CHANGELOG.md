@@ -1,3 +1,26 @@
+## [5.1.21](https://github.com/antvis/g2/compare/5.1.19...5.1.21) (2024-06-04)
+
+
+### Bug Fixes
+
+* arrow with lineWidth ([#6225](https://github.com/antvis/g2/issues/6225)) ([afd3b77](https://github.com/antvis/g2/commit/afd3b77db9b8b3adeb8c035ca9d22ce3a9292b7c))
+* hide axisZ when axis disabled ([#6246](https://github.com/antvis/g2/issues/6246)) ([b11be1f](https://github.com/antvis/g2/commit/b11be1f7f9a833cd6a993fa93750b2a596521e02))
+* label rotate ([#6261](https://github.com/antvis/g2/issues/6261)) ([45227fa](https://github.com/antvis/g2/commit/45227fa3f5c93af105b49d6174e21fb7547c9193))
+* **label:** display error ([#6172](https://github.com/antvis/g2/issues/6172)) ([51d1c51](https://github.com/antvis/g2/commit/51d1c51edb95e926a60808cc201e46e2bb785b41))
+* skip animation if fromPath equals toPath ([#6193](https://github.com/antvis/g2/issues/6193)) ([fee3397](https://github.com/antvis/g2/commit/fee3397880167d3f1730d7fa14803d92181c3b58))
+* **theme:** change the dark theme default background color to transparent ([#6226](https://github.com/antvis/g2/issues/6226)) ([f444a74](https://github.com/antvis/g2/commit/f444a7496f7849daa7d49b23ffeb50d8aebfc6e8))
+* update docs words ([#6211](https://github.com/antvis/g2/issues/6211)) ([8ecb185](https://github.com/antvis/g2/commit/8ecb1854b884723d0dc862573e440daabc8e7a91))
+
+
+### Features
+
+* add channels to style and label callback ([#6250](https://github.com/antvis/g2/issues/6250)) ([3c003d0](https://github.com/antvis/g2/commit/3c003d08417d88eecd4995783c721a633ce19d8e))
+* add context for customize label transform ([#6222](https://github.com/antvis/g2/issues/6222)) ([acc0fc0](https://github.com/antvis/g2/commit/acc0fc0ce36bd5ed63aa793568ce55590b619882))
+* **interaction.tooltip:** add crosshairs, crosshairsX, crosshairsY setting ([#6229](https://github.com/antvis/g2/issues/6229)) ([0f7dc62](https://github.com/antvis/g2/commit/0f7dc62a6dd971d1c6abae9f6eaa50822107bc83))
+* **label:** add label transform feature exceedAdjust ([#6209](https://github.com/antvis/g2/issues/6209)) ([fefd4ea](https://github.com/antvis/g2/commit/fefd4ea46b0cb8232730179b13cab8064560d224))
+
+
+
 ## [5.1.20](https://github.com/antvis/g2/compare/5.1.19...5.1.20) (2024-05-08)
 
 
