@@ -9,28 +9,20 @@ chart
   .data({
     type: 'fetch',
     value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/stock-03.json',
-    transform: [
-      {
-        type: 'sort',
-        callback: (a, b) => {
-          return a.date - b.date;
-        },
-      },
-      {
-        type: 'map',
-        callback: (obj) => {
-          obj.date = new Date(obj.date).toLocaleDateString();
-          return obj;
-        },
-      },
-    ],
   })
+  .encode('x', 'date')
   .scale('color', {
     domain: ['down', 'up'],
     range: ['#4daf4a', '#e41a1c'],
   })
+  .scale('x', {
+    compare: (a, b) => new Date(a).getTime() - new Date(b).getTime(),
+  })
   .scale('y', {
     domain: [20, 35],
+  })
+  .axis('x', {
+    labelFormatter: (d) => new Date(d).toLocaleDateString(),
   });
 
 chart.interaction('tooltip', {
@@ -39,7 +31,6 @@ chart.interaction('tooltip', {
 
 chart
   .area()
-  .encode('x', 'date')
   .encode('y', 'range')
   .style('fillOpacity', 0.3)
   .style('fill', '#64b5f6')
@@ -47,7 +38,6 @@ chart
 
 chart
   .link()
-  .encode('x', 'date')
   .encode('y', ['lowest', 'highest'])
   .encode('color', 'trend')
   .animate('enter', {
@@ -56,7 +46,6 @@ chart
 
 chart
   .interval()
-  .encode('x', 'date')
   .encode('y', ['start', 'end'])
   .encode('color', 'trend')
   .style('fillOpacity', 1)

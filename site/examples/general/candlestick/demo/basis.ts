@@ -184,7 +184,7 @@ const data = [
   {
     time: '2015-10-22',
     start: 6.38,
-    max: 6.75,
+    max: 6.67,
     min: 6.34,
     end: 6.65,
     volumn: 2225.88,
@@ -198,26 +198,14 @@ const chart = new Chart({
 });
 
 chart
-  .data({
-    value: data,
-    transform: [
-      {
-        type: 'sort',
-        callback: (a, b) => {
-          return new Date(a.time).getTime() - new Date(b.time).getTime();
-        },
-      },
-      {
-        type: 'map',
-        callback: (obj) => {
-          const trend = Math.sign(obj.start - obj.end);
-          obj.trend = trend > 0 ? '下跌' : trend === 0 ? '不变' : '上涨';
-          obj.link = [obj.min, obj.max];
-          obj.interval = [obj.start, obj.end];
-          return obj;
-        },
-      },
-    ],
+  .data(data)
+  .encode('x', 'time')
+  .encode('color', (d) => {
+    const trend = Math.sign(d.start - d.end);
+    return trend > 0 ? '下跌' : trend === 0 ? '不变' : '上涨';
+  })
+  .scale('x', {
+    compare: (a, b) => new Date(a).getTime() - new Date(b).getTime(),
   })
   .scale('color', {
     domain: ['下跌', '不变', '上涨'],
@@ -226,9 +214,7 @@ chart
 
 chart
   .link()
-  .encode('x', 'time')
   .encode('y', ['min', 'max'])
-  .encode('color', 'trend')
   .tooltip({
     title: 'time',
     items: [
@@ -241,12 +227,10 @@ chart
 
 chart
   .interval()
-  .encode('x', 'time')
   .encode('y', ['start', 'end'])
-  .encode('color', 'trend')
   .style('fillOpacity', 1)
   .style('stroke', (d) => {
-    if (d.trend === '不变') return '#999999';
+    if (d.start === d.end) return '#999999';
   })
   .axis('y', {
     title: false,

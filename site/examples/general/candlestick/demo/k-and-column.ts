@@ -16,33 +16,22 @@ KChart.data({
   type: 'fetch',
   value:
     'https://gw.alipayobjects.com/os/antvdemo/assets/data/candle-sticks.json',
-  transform: [
-    {
-      type: 'sort',
-      callback: (a, b) => {
-        return new Date(a.time).getTime() - new Date(b.time).getTime();
-      },
-    },
-    {
-      type: 'map',
-      callback: (obj) => {
-        const trend = Math.sign(obj.start - obj.end);
-        obj.trend = trend > 0 ? '下跌' : trend === 0 ? '不变' : '上涨';
-        obj.link = [obj.min, obj.max];
-        obj.interval = [obj.start, obj.end];
-        return obj;
-      },
-    },
-  ],
-}).scale('color', {
-  domain: ['下跌', '不变', '上涨'],
-  range: ['#4daf4a', '#999999', '#e41a1c'],
-});
+})
+  .encode('x', 'time')
+  .encode('color', (d) => {
+    const trend = Math.sign(d.start - d.end);
+    return trend > 0 ? '下跌' : trend === 0 ? '不变' : '上涨';
+  })
+  .scale('x', {
+    compare: (a, b) => new Date(a).getTime() - new Date(b).getTime(),
+  })
+  .scale('color', {
+    domain: ['下跌', '不变', '上涨'],
+    range: ['#4daf4a', '#999999', '#e41a1c'],
+  });
 
 KChart.link()
-  .encode('x', 'time')
   .encode('y', ['min', 'max'])
-  .encode('color', 'trend')
   .tooltip({
     title: 'time',
     items: [
@@ -54,12 +43,10 @@ KChart.link()
   });
 
 KChart.interval()
-  .encode('x', 'time')
   .encode('y', ['start', 'end'])
-  .encode('color', 'trend')
   .style('fillOpacity', 1)
   .style('stroke', (d) => {
-    if (d.trend === '不变') return '#999999';
+    if (d.start === d.end) return '#999999';
   })
   .axis('x', {
     title: false,
@@ -90,33 +77,22 @@ ColumnChart.data({
   type: 'fetch',
   value:
     'https://gw.alipayobjects.com/os/antvdemo/assets/data/candle-sticks.json',
-  transform: [
-    {
-      type: 'sort',
-      callback: (a, b) => {
-        return new Date(a.time).getTime() - new Date(b.time).getTime();
-      },
-    },
-    {
-      type: 'map',
-      callback: (obj) => {
-        const trend = Math.sign(obj.start - obj.end);
-        obj.trend = trend > 0 ? '下跌' : trend === 0 ? '不变' : '上涨';
-        obj.link = [obj.min, obj.max];
-        obj.interval = [obj.start, obj.end];
-        return obj;
-      },
-    },
-  ],
-}).scale('color', {
-  domain: ['下跌', '不变', '上涨'],
-  range: ['#4daf4a', '#999999', '#e41a1c'],
 });
 
 ColumnChart.interval()
   .encode('x', 'time')
   .encode('y', 'volumn')
-  .encode('color', 'trend')
+  .encode('color', (d) => {
+    const trend = Math.sign(d.start - d.end);
+    return trend > 0 ? '下跌' : trend === 0 ? '不变' : '上涨';
+  })
+  .scale('x', {
+    compare: (a, b) => new Date(a).getTime() - new Date(b).getTime(),
+  })
+  .scale('color', {
+    domain: ['下跌', '不变', '上涨'],
+    range: ['#4daf4a', '#999999', '#e41a1c'],
+  })
   .axis('x', false)
   .axis('y', {
     title: false,
