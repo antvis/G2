@@ -601,7 +601,9 @@ export function seriesTooltip(
     else if (title || items) itemElements.push(element);
   }
 
-  const isBandScale = !!(transposed ? scale.y : scale.x).getBandWidth;
+  // For band scale x, find the closest series element to focus,
+  // useful for interval + line mark.
+  const isBandScale = !!scale.x.getBandWidth;
   const closest = isBandScale && itemElements.length > 0;
 
   // Sorted elements from top to bottom visually,
