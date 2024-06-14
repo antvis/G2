@@ -19,14 +19,25 @@ export function seriesTooltipSteps(...points) {
   };
 }
 
+export function dispatchPointermove(element) {
+  const bounds = element.getRenderBounds() ?? element.getBounds();
+  const {
+    min: [x0, y0],
+    max: [x1, y1],
+  } = bounds;
+  const mx = (x0 + x1) / 2;
+  const my = (y0 + y1) / 2;
+  element.dispatchEvent(
+    new CustomEvent('pointermove', { offsetX: mx, offsetY: my }),
+  );
+}
+
 export function tooltipSteps(...index) {
   return ({ canvas }) => {
     const { document } = canvas;
     const elements = document.getElementsByClassName(ELEMENT_CLASS_NAME);
     const steps = index.map((i) => ({
-      changeState: async () => {
-        elements[i].dispatchEvent(new CustomEvent('pointermove'));
-      },
+      changeState: async () => dispatchPointermove(elements[i]),
     }));
     return steps;
   };

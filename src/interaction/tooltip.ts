@@ -533,13 +533,6 @@ function hasSeries(markState): boolean {
   );
 }
 
-function findElement(node: DisplayObject) {
-  return maybeRoot(node, (node) => {
-    if (!node.classList) return false;
-    return node.classList.includes('element');
-  });
-}
-
 /**
  * Show tooltip for series item.
  */
@@ -929,6 +922,7 @@ export function tooltip(
   root: DisplayObject,
   {
     elements: elementsof,
+    coordinate,
     scale,
     render,
     groupName,
@@ -956,11 +950,36 @@ export function tooltip(
 ) {
   const elements = elementsof(root);
   const keyGroup = group(elements, groupKey);
+  const inInterval = (d) => d.markType === 'interval';
+  const isBar = elements.every(inInterval) && !isPolar(coordinate);
+  const xof = (d) => d.__data__.x;
+  const scaleX = scale.x;
+
+  // Sort for bisector search.
+  if (isBar) elements.sort((a, b) => xof(a) - xof(b));
+
+  const findElement = isBar
+    ? (event) => {
+        const mouse = mousePosition(root, event);
+        if (!mouse) return;
+        const offsetX = scaleX?.getBandWidth ? scaleX.getBandWidth() / 2 : 0;
+        const [normalizedX] = coordinate.invert(mouse);
+        const abstractX = normalizedX - offsetX;
+        const search = bisector(xof).center;
+        const i = search(elements, abstractX);
+        return elements[i];
+      }
+    : (event) => {
+        const { target } = event;
+        return maybeRoot(target, (node) => {
+          if (!node.classList) return false;
+          return node.classList.includes('element');
+        });
+      };
 
   const pointermove = throttle(
     (event) => {
-      const { target } = event;
-      const element = findElement(target);
+      const element = findElement(event);
       if (!element) {
         hideTooltip({ root, single, emitter, event });
         return;

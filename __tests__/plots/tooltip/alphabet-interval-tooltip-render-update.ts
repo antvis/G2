@@ -3,6 +3,7 @@ import { G2Spec, ELEMENT_CLASS_NAME } from '../../../src';
 import { LEGEND_ITEMS_CLASS_NAME } from '../../../src/interaction/legendFilter';
 import { sleep } from '../../integration/utils/sleep';
 import { Slice } from '../../../src/data';
+import { dispatchPointermove } from './utils';
 
 export function alphabetIntervalTooltipRenderUpdate(): G2Spec {
   return {
@@ -41,14 +42,14 @@ alphabetIntervalTooltipRenderUpdate.steps = ({ canvas }) => {
         await sleep(100);
         const elements = document.getElementsByClassName(ELEMENT_CLASS_NAME);
         const [e0] = elements;
-        e0.dispatchEvent(new CustomEvent('pointermove'));
+        dispatchPointermove(e0);
       },
     },
     {
       changeState: async () => {
         const elements = document.getElementsByClassName(ELEMENT_CLASS_NAME);
         const [e0] = elements;
-        e0.dispatchEvent(new CustomEvent('pointermove'));
+        dispatchPointermove(e0);
       },
     },
   ];
