@@ -51,8 +51,9 @@ chart.render();
 | crosshairsY               | 是否展示Y方向指示线                                                  | `boolean`                                   | -                     |
 | `crosshairs${StyleAttrs}`               | 指示线的样式                                                  | `number \| string`                                   | -                     |
 | `crosshairsX${StyleAttrs}`               | X方向指示线的样式（优先级更高）                                                  | `number \| string`                                   | -                     |
-| `crosshairsY${StyleAttrs}`              | Y方向指示线的样式 （优先级很高）                                                 | `number \| string`                                   | -                     |
+| `crosshairsY${StyleAttrs}`              | Y方向指示线的样式 （优先级更高）                                                 | `number \| string`                                   | -                     |
 | `marker${StyleAttrs}`     | marker 的样式                                                     | `number \| string`                          | -                     |
+| markerType          | marker 的类型                                                     | `'hollow' \| undefined`                          | undefined                    |
 | render                    | 自定义 tooltip 渲染函数                                           | `(event, options) => HTMLElement \| string` | -                     |
 | sort                      | item 排序器                                                       | `(d: TooltipItemValue) => any`              | -                     |
 | filter                    | item 筛选器                                                       | `(d: TooltipItemValue) => any`              | -                     |
