@@ -442,6 +442,7 @@ function updateRuleY(
         ...defaults,
       },
     });
+
     root.appendChild(line);
     return line;
   };
@@ -472,6 +473,8 @@ function hideRuleX(root) {
 
 function updateMarker(root, { data, style, theme }) {
   if (root.markers) root.markers.forEach((d) => d.remove());
+  const { type = '' } = style;
+
   const markers = data
     .filter((d) => {
       const [{ x, y }] = d;
@@ -479,19 +482,20 @@ function updateMarker(root, { data, style, theme }) {
     })
     .map((d) => {
       const [{ color, element }, point] = d;
-      const fill =
+      const originColor =
         color || // encode value
         element.style.fill ||
         element.style.stroke ||
         theme.color;
-
+      const fill = type === 'hollow' ? 'transparent' : originColor;
+      const stroke = type === 'hollow' ? originColor : '#fff';
       const shape = new Circle({
         style: {
           cx: point[0],
           cy: point[1],
           fill,
           r: 4,
-          stroke: '#fff',
+          stroke,
           lineWidth: 2,
           ...style,
         },

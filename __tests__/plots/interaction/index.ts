@@ -80,3 +80,4 @@ export { alphabetIntervalCustom } from './alphabet-interval-custom';
 export { mockIntervalTooltipBackground } from './mock-interval-tooltip-background';
 export { indicesLineCrosshairsXY } from './indices-line-crosshairs-xy';
 export { changeSizePolarCrosshairsXY } from './change-size-polar-crosshairs-xy';
+export { alphabetIntervalActiveMarkerType } from './alphabet-interval-activate-line-marker-type';
