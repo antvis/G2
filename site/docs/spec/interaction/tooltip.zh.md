@@ -201,6 +201,10 @@ chart.interaction("tooltip", {
 ```
 `crosshairsX`的优先级大于`crosshairs`的优先级。
 
+<img alt="example" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*_LFDT7p6hRQAAAAAAAAAAAAADmJ7AQ/original" width="640">
+
+
+
 
 ### 设置提示点为空心圆
 
@@ -209,3 +213,5 @@ chart.interaction("tooltip", {
   markerType: "hollow", // 设置提示点的样式为空心圆
 })
 ```
+
+<img alt="example" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*s8KjQLiSyTwAAAAAAAAAAAAADmJ7AQ/original" width="640">
