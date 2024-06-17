@@ -179,3 +179,33 @@ chart.emit('tooltip:hide');
 chart.emit('tooltip:disable'); // 禁用 tooltip
 chart.emit('tooltip:enable'); // 启用交互
 ```
+
+### 设置十字辅助线
+默认情况下，`crossharisY`是开启的，`crosshairsX`是关闭的，所以如果要开启十字辅助线，有以下两种方式。
+1. 设置`crosshairs`为`true`。
+```js
+chart.interaction("tooltip", {
+  crosshairs: true, // 开启十字辅助线
+  crosshairsXStroke: 'red', // 设置 X 轴辅助线颜色为'red'
+  crosshairsYStroke: 'blue',// 设置 Y 轴辅助线颜色为'blue'
+})
+```
+
+2. 设置`crosshairsX`为`true`。
+```js
+chart.interaction("tooltip", {
+  crosshairsX: true, // 开启crosshairsX辅助线
+  crosshairsXStroke: 'red', // 设置 X 轴辅助线颜色为'red'
+  crosshairsYStroke: 'blue',// 设置 Y 轴辅助线颜色为'blue'
+})
+```
+`crosshairsX`的优先级大于`crosshairs`的优先级。
+
+
+### 设置提示点为空心圆
+
+```js
+chart.interaction("tooltip", {
+  markerType: "hollow", // 设置提示点的样式为空心圆
+})
+```
