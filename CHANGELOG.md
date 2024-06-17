@@ -1,3 +1,17 @@
+## [5.1.22](https://github.com/antvis/g2/compare/5.1.21...5.1.22) (2024-06-17)
+
+
+### Bug Fixes
+
+* **tooltip:** items for transposed interval + line ([#6286](https://github.com/antvis/g2/issues/6286)) ([65e09b0](https://github.com/antvis/g2/commit/65e09b0f1f69cdf76a6a88ba37c1cbd3a62d420b))
+
+
+### Features
+
+* **tooltip:** show tooltip for small interval ([#6289](https://github.com/antvis/g2/issues/6289)) ([e9ac6e0](https://github.com/antvis/g2/commit/e9ac6e0b97f083d4c3687b0a7d53e1f1e428327e))
+
+
+
 ## [5.1.21](https://github.com/antvis/g2/compare/5.1.19...5.1.21) (2024-06-04)
 
 
