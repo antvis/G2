@@ -1,6 +1,6 @@
 import { G2Spec } from '../../../src';
 
-export function alphabetIntervalEnterable(): G2Spec {
+export function alphabetLineEnterable(): G2Spec {
   return {
     type: 'interval',
     padding: 0,
@@ -23,4 +23,4 @@ export function alphabetIntervalEnterable(): G2Spec {
   };
 }
 
-alphabetIntervalEnterable.skip = true;
+alphabetLineEnterable.skip = true;

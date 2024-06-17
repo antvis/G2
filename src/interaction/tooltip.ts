@@ -905,7 +905,11 @@ export function seriesTooltip(
     if (!disableNative) {
       root.addEventListener('pointerenter', update);
       root.addEventListener('pointermove', update);
-      root.addEventListener('pointerleave', hide);
+      // Only emit pointerleave event when the pointer is not in the root area.
+      root.addEventListener('pointerleave', (e) => {
+        if (mousePosition(root, e)) return;
+        hide(e);
+      });
     }
   };
 
