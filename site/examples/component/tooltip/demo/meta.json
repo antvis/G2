@@ -59,6 +59,22 @@
         "en": "Custom style"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*2uARSYuGfPgAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "tooltip-crosshairs.ts",
+      "title": {
+        "zh": "十字辅助线",
+        "en": "Crosshairs"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*_LFDT7p6hRQAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "tooltip-marker.ts",
+      "title": {
+        "zh": "空心提示点",
+        "en": "Hollow Marker"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*s8KjQLiSyTwAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }
