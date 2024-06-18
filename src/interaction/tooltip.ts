@@ -164,6 +164,9 @@ function hideTooltip({
     // Must be clientX, clientY.
     tooltipElement.hide(event?.clientX, event?.clientY);
   }
+  hideRuleY(root);
+  hideRuleX(root);
+  hideMarker(root);
 }
 
 function destroyTooltip({ root, single }) {
@@ -175,6 +178,9 @@ function destroyTooltip({ root, single }) {
     tooltipElement.destroy();
     parent.tooltipElement = undefined;
   }
+  hideRuleY(root);
+  hideRuleX(root);
+  hideMarker(root);
 }
 
 function showUndefined(item) {
@@ -860,20 +866,10 @@ export function seriesTooltip(
 
   const hide = (event: MouseEvent) => {
     hideTooltip({ root, single, emitter, event });
-    if (crosshairs) {
-      hideRuleY(root);
-      hideRuleX(root);
-    }
-    if (marker) hideMarker(root);
   };
 
   const destroy = () => {
     destroyTooltip({ root, single });
-    if (crosshairs) {
-      hideRuleY(root);
-      hideRuleX(root);
-    }
-    if (marker) hideMarker(root);
   };
 
   const onTooltipShow = ({ nativeEvent, data }) => {
@@ -905,7 +901,11 @@ export function seriesTooltip(
     if (!disableNative) {
       root.addEventListener('pointerenter', update);
       root.addEventListener('pointermove', update);
-      root.addEventListener('pointerleave', hide);
+      // Only emit pointerleave event when the pointer is not in the root area.
+      root.addEventListener('pointerleave', (e) => {
+        if (mousePosition(root, e)) return;
+        hide(e);
+      });
     }
   };
 
