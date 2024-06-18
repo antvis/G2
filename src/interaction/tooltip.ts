@@ -597,6 +597,12 @@ export function seriesTooltip(
     if (seriesX) seriesElements.push(element);
     else if (title || items) itemElements.push(element);
   }
+  const inInterval = (d) => d.markType === 'interval';
+  const isBar =
+    itemElements.length &&
+    itemElements.every(inInterval) &&
+    !isPolar(coordinate);
+  const xof = (d) => d.__data__.x;
 
   // For band scale x, find the closest series element to focus,
   // useful for interval + line mark.
@@ -616,14 +622,18 @@ export function seriesTooltip(
     const { min, max } = d.getLocalBounds();
     return sort([min[index], max[index]]);
   };
-  // Sort itemElements by x or y.
-  itemElements.sort((a, b) => {
-    const [minA, maxA] = extent(a);
-    const [minB, maxB] = extent(b);
-    const midA = (minA + maxA) / 2;
-    const midB = (minB + maxB) / 2;
-    return transposed ? midB - midA : midA - midB;
-  });
+
+  // Sort itemElements for bisector search.
+  if (isBar) elements.sort((a, b) => xof(a) - xof(b));
+  else {
+    itemElements.sort((a, b) => {
+      const [minA, maxA] = extent(a);
+      const [minB, maxB] = extent(b);
+      const midA = (minA + maxA) / 2;
+      const midB = (minB + maxB) / 2;
+      return transposed ? midB - midA : midA - midB;
+    });
+  }
 
   // Get sortedIndex and X for each series elements
   const elementSortedX = new Map(
@@ -662,24 +672,33 @@ export function seriesTooltip(
     return I[i];
   };
 
-  const elementsByFocus = (focus, elements) => {
-    const index = transposed ? 1 : 0;
-    const x = focus[index];
-    const filtered = elements.filter((element) => {
-      const [min, max] = extent(element);
-      return x >= min && x <= max;
-    });
-    // If closet is true, always find at least one element.
-    if (!closest || filtered.length > 0) return filtered;
+  const elementsByFocus = isBar
+    ? (focus, elements) => {
+        const search = bisector(xof).center;
+        const i = search(elements, abstractX(focus));
+        const find = elements[i];
+        const groups = group(elements, xof);
+        const selected = groups.get(xof(find));
+        return selected;
+      }
+    : (focus, elements) => {
+        const index = transposed ? 1 : 0;
+        const x = focus[index];
+        const filtered = elements.filter((element) => {
+          const [min, max] = extent(element);
+          return x >= min && x <= max;
+        });
+        // If closet is true, always find at least one element.
+        if (!closest || filtered.length > 0) return filtered;
 
-    // Search the closet element to the focus.
-    const search = bisector((element) => {
-      const [min, max] = extent(element);
-      return (min + max) / 2;
-    }).center;
-    const i = search(elements, x);
-    return [elements[i]].filter(defined);
-  };
+        // Search the closet element to the focus.
+        const search = bisector((element) => {
+          const [min, max] = extent(element);
+          return (min + max) / 2;
+        }).center;
+        const i = search(elements, x);
+        return [elements[i]].filter(defined);
+      };
 
   const seriesData = (element, index) => {
     const { __data__: data } = element;
