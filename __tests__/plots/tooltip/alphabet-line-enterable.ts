@@ -2,7 +2,7 @@ import { G2Spec } from '../../../src';
 
 export function alphabetLineEnterable(): G2Spec {
   return {
-    type: 'interval',
+    type: 'line',
     padding: 0,
     data: {
       type: 'fetch',

@@ -22,14 +22,14 @@ describe('chart.emit', () => {
     clear();
 
     // chart.emit("tooltip:show", options) should show tooltip.
-    await expect(canvas).toMatchDOMSnapshot(dir, 'step0', {
+    expect(canvas).toMatchDOMSnapshot(dir, 'step0', {
       fileFormat: 'html',
       selector: '.g2-tooltip',
     });
 
     // chart.emit("tooltip:hide") should hide tooltip.
     chart.emit('tooltip:hide');
-    await expect(canvas).toMatchDOMSnapshot(dir, 'step1', {
+    expect(canvas).toMatchDOMSnapshot(dir, 'step1', {
       fileFormat: 'html',
       selector: '.g2-tooltip',
     });
@@ -51,7 +51,7 @@ describe('chart.emit', () => {
     // chart.on("tooltip:hide") should be called when hiding tooltip.
     const [tooltipHided, resolveHide] = createPromise();
     chart.on('tooltip:hide', receiveExpectData(resolveHide, null));
-    dispatchPlotEvent(canvas, 'pointerleave');
+    dispatchPlotEvent(canvas, 'pointerleave', { offsetX: -20, offsetY: -20 });
     await tooltipHided;
   });
 
