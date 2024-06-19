@@ -1,6 +1,3 @@
-/**
- * A recreation of this demo: https://vega.github.io/vega-lite/examples/layer_falkensee.html
- */
 import { Chart } from '@antv/g2';
 
 const data = [
