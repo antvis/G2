@@ -19,6 +19,14 @@
         "en": "Line, Range Annotation"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*OCgJSIpz7KMAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "bar-range.ts",
+      "title": {
+        "zh": "区间标注的柱状图",
+        "en": "bar, Range Annotation"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*OCgJSIpz7KMAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }
