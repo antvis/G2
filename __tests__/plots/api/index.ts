@@ -51,3 +51,4 @@ export { chartOnScrollbarFilter } from './chart-on-scrollbar-filter';
 export { chartAutoFitHeight } from './chart-auto-fit-height';
 export { chartAutoFitWidth } from './chart-auto-fit-width';
 export { chartOnLabelClick } from './chart-on-label-click';
+export { chartChangeSizeLabelRotate } from './chart-change-size-label-rotate';

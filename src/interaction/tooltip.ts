@@ -164,6 +164,9 @@ function hideTooltip({
     // Must be clientX, clientY.
     tooltipElement.hide(event?.clientX, event?.clientY);
   }
+  hideRuleY(root);
+  hideRuleX(root);
+  hideMarker(root);
 }
 
 function destroyTooltip({ root, single }) {
@@ -175,6 +178,9 @@ function destroyTooltip({ root, single }) {
     tooltipElement.destroy();
     parent.tooltipElement = undefined;
   }
+  hideRuleY(root);
+  hideRuleX(root);
+  hideMarker(root);
 }
 
 function showUndefined(item) {
@@ -442,6 +448,7 @@ function updateRuleY(
         ...defaults,
       },
     });
+
     root.appendChild(line);
     return line;
   };
@@ -472,6 +479,8 @@ function hideRuleX(root) {
 
 function updateMarker(root, { data, style, theme }) {
   if (root.markers) root.markers.forEach((d) => d.remove());
+  const { type = '' } = style;
+
   const markers = data
     .filter((d) => {
       const [{ x, y }] = d;
@@ -479,19 +488,20 @@ function updateMarker(root, { data, style, theme }) {
     })
     .map((d) => {
       const [{ color, element }, point] = d;
-      const fill =
+      const originColor =
         color || // encode value
         element.style.fill ||
         element.style.stroke ||
         theme.color;
-
+      const fill = type === 'hollow' ? 'transparent' : originColor;
+      const stroke = type === 'hollow' ? originColor : '#fff';
       const shape = new Circle({
         style: {
           cx: point[0],
           cy: point[1],
           fill,
           r: 4,
-          stroke: '#fff',
+          stroke,
           lineWidth: 2,
           ...style,
         },
@@ -531,13 +541,6 @@ function hasSeries(markState): boolean {
     // @ts-ignore
     (d) => d.interaction?.seriesTooltip && d.tooltip,
   );
-}
-
-function findElement(node: DisplayObject) {
-  return maybeRoot(node, (node) => {
-    if (!node.classList) return false;
-    return node.classList.includes('element');
-  });
 }
 
 /**
@@ -600,8 +603,16 @@ export function seriesTooltip(
     if (seriesX) seriesElements.push(element);
     else if (title || items) itemElements.push(element);
   }
+  const inInterval = (d) => d.markType === 'interval';
+  const isBar =
+    itemElements.length &&
+    itemElements.every(inInterval) &&
+    !isPolar(coordinate);
+  const xof = (d) => d.__data__.x;
 
-  const isBandScale = !!(transposed ? scale.y : scale.x).getBandWidth;
+  // For band scale x, find the closest series element to focus,
+  // useful for interval + line mark.
+  const isBandScale = !!scale.x.getBandWidth;
   const closest = isBandScale && itemElements.length > 0;
 
   // Sorted elements from top to bottom visually,
@@ -617,14 +628,18 @@ export function seriesTooltip(
     const { min, max } = d.getLocalBounds();
     return sort([min[index], max[index]]);
   };
-  // Sort itemElements by x or y.
-  itemElements.sort((a, b) => {
-    const [minA, maxA] = extent(a);
-    const [minB, maxB] = extent(b);
-    const midA = (minA + maxA) / 2;
-    const midB = (minB + maxB) / 2;
-    return transposed ? midB - midA : midA - midB;
-  });
+
+  // Sort itemElements for bisector search.
+  if (isBar) elements.sort((a, b) => xof(a) - xof(b));
+  else {
+    itemElements.sort((a, b) => {
+      const [minA, maxA] = extent(a);
+      const [minB, maxB] = extent(b);
+      const midA = (minA + maxA) / 2;
+      const midB = (minB + maxB) / 2;
+      return transposed ? midB - midA : midA - midB;
+    });
+  }
 
   // Get sortedIndex and X for each series elements
   const elementSortedX = new Map(
@@ -663,24 +678,33 @@ export function seriesTooltip(
     return I[i];
   };
 
-  const elementsByFocus = (focus, elements) => {
-    const index = transposed ? 1 : 0;
-    const x = focus[index];
-    const filtered = elements.filter((element) => {
-      const [min, max] = extent(element);
-      return x >= min && x <= max;
-    });
-    // If closet is true, always find at least one element.
-    if (!closest || filtered.length > 0) return filtered;
+  const elementsByFocus = isBar
+    ? (focus, elements) => {
+        const search = bisector(xof).center;
+        const i = search(elements, abstractX(focus));
+        const find = elements[i];
+        const groups = group(elements, xof);
+        const selected = groups.get(xof(find));
+        return selected;
+      }
+    : (focus, elements) => {
+        const index = transposed ? 1 : 0;
+        const x = focus[index];
+        const filtered = elements.filter((element) => {
+          const [min, max] = extent(element);
+          return x >= min && x <= max;
+        });
+        // If closet is true, always find at least one element.
+        if (!closest || filtered.length > 0) return filtered;
 
-    // Search the closet element to the focus.
-    const search = bisector((element) => {
-      const [min, max] = extent(element);
-      return (min + max) / 2;
-    }).center;
-    const i = search(elements, x);
-    return [elements[i]].filter(defined);
-  };
+        // Search the closet element to the focus.
+        const search = bisector((element) => {
+          const [min, max] = extent(element);
+          return (min + max) / 2;
+        }).center;
+        const i = search(elements, x);
+        return [elements[i]].filter(defined);
+      };
 
   const seriesData = (element, index) => {
     const { __data__: data } = element;
@@ -842,20 +866,10 @@ export function seriesTooltip(
 
   const hide = (event: MouseEvent) => {
     hideTooltip({ root, single, emitter, event });
-    if (crosshairs) {
-      hideRuleY(root);
-      hideRuleX(root);
-    }
-    if (marker) hideMarker(root);
   };
 
   const destroy = () => {
     destroyTooltip({ root, single });
-    if (crosshairs) {
-      hideRuleY(root);
-      hideRuleX(root);
-    }
-    if (marker) hideMarker(root);
   };
 
   const onTooltipShow = ({ nativeEvent, data }) => {
@@ -887,7 +901,11 @@ export function seriesTooltip(
     if (!disableNative) {
       root.addEventListener('pointerenter', update);
       root.addEventListener('pointermove', update);
-      root.addEventListener('pointerleave', hide);
+      // Only emit pointerleave event when the pointer is not in the root area.
+      root.addEventListener('pointerleave', (e) => {
+        if (mousePosition(root, e)) return;
+        hide(e);
+      });
     }
   };
 
@@ -927,6 +945,7 @@ export function tooltip(
   root: DisplayObject,
   {
     elements: elementsof,
+    coordinate,
     scale,
     render,
     groupName,
@@ -954,11 +973,36 @@ export function tooltip(
 ) {
   const elements = elementsof(root);
   const keyGroup = group(elements, groupKey);
+  const inInterval = (d) => d.markType === 'interval';
+  const isBar = elements.every(inInterval) && !isPolar(coordinate);
+  const xof = (d) => d.__data__.x;
+  const scaleX = scale.x;
+
+  // Sort for bisector search.
+  if (isBar) elements.sort((a, b) => xof(a) - xof(b));
+
+  const findElement = isBar
+    ? (event) => {
+        const mouse = mousePosition(root, event);
+        if (!mouse) return;
+        const offsetX = scaleX?.getBandWidth ? scaleX.getBandWidth() / 2 : 0;
+        const [normalizedX] = coordinate.invert(mouse);
+        const abstractX = normalizedX - offsetX;
+        const search = bisector(xof).center;
+        const i = search(elements, abstractX);
+        return elements[i];
+      }
+    : (event) => {
+        const { target } = event;
+        return maybeRoot(target, (node) => {
+          if (!node.classList) return false;
+          return node.classList.includes('element');
+        });
+      };
 
   const pointermove = throttle(
     (event) => {
-      const { target } = event;
-      const element = findElement(target);
+      const element = findElement(event);
       if (!element) {
         hideTooltip({ root, single, emitter, event });
         return;

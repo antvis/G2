@@ -2,7 +2,10 @@ import './utils/useSnapshotMatchers';
 import { Chart } from '../../src';
 import { createNodeGCanvas } from './utils/createNodeGCanvas';
 import { sleep } from './utils/sleep';
-import { dispatchFirstElementEvent, dispatchPlotEvent } from './utils/event';
+import {
+  dispatchFirstElementPointerMoveEvent,
+  dispatchPlotEvent,
+} from './utils/event';
 import { kebabCase } from './utils/kebabCase';
 
 const data = [
@@ -57,7 +60,7 @@ describe('chart.emit', () => {
     chart.emit('tooltip:disable');
     await sleep(20);
 
-    dispatchFirstElementEvent(barCanvas, 'pointermove');
+    dispatchFirstElementPointerMoveEvent(barCanvas);
     await expect(barCanvas).toMatchDOMSnapshot(dir, 'step0', {
       fileFormat: 'html',
       selector: '.g2-tooltip',
@@ -65,7 +68,7 @@ describe('chart.emit', () => {
 
     chart.emit('tooltip:enable');
 
-    dispatchFirstElementEvent(barCanvas, 'pointermove');
+    dispatchFirstElementPointerMoveEvent(barCanvas);
     await expect(barCanvas).toMatchDOMSnapshot(dir, 'step1', {
       fileFormat: 'html',
       selector: '.g2-tooltip',

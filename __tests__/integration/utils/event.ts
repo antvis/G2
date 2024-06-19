@@ -35,6 +35,20 @@ export function dispatchFirstElementEvent(canvas, event, params?) {
   element.dispatchEvent(new CustomEvent(event, params));
 }
 
+export function dispatchFirstElementPointerMoveEvent(canvas) {
+  const [element] = canvas.document.getElementsByClassName('element');
+  const bounds = element.getRenderBounds() ?? element.getBounds();
+  const {
+    min: [x0, y0],
+    max: [x1, y1],
+  } = bounds;
+  const mx = (x0 + x1) / 2;
+  const my = (y0 + y1) / 2;
+  element.dispatchEvent(
+    new CustomEvent('pointermove', { offsetX: mx, offsetY: my }),
+  );
+}
+
 export function dispatchPlotEvent(canvas, event, params?) {
   const [plot] = canvas.document.getElementsByClassName('plot');
   plot.dispatchEvent(new CustomEvent(event, params));
