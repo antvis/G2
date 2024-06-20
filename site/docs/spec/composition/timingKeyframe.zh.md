@@ -54,7 +54,7 @@ fetch(
 
 | 属性           | 描述                                                          | 类型     | 默认值     |
 | -------------- | ------------------------------------------------------------- | -------- | ---------- |
-| duration       | 每一视图的动画过度事件                                        | `number` | 1000       |
+| duration       | 每一视图的动画过渡时间                                        | `number` | 1000       |
 | iterationCount | `'infinite' \| number`                                        |          | 1          |
 | direction      | `'normal' \| 'reverse' \| 'alternate' \| 'reverse-alternate'` | `number` | `'normal'` |
 | children       | 执行动画的视图节点                                            | `Node[]` | `[]`       |

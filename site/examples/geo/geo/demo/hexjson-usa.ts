@@ -17,12 +17,12 @@ function processRow(row) {
 }
 
 register('data.hexbin', ({ width = 1, height = 1 }) => {
-  return (data) => renderHexJSON(data, width, height).map(processRow);
+  return (data) => renderHexJSON(data.value, width, height).map(processRow);
 });
 
 register('data.hexgird', ({ width = 1, height = 1 }) => {
   return (data) =>
-    renderHexJSON(getGridForHexJSON(data), width, height).map(processRow);
+    renderHexJSON(getGridForHexJSON(data.value), width, height).map(processRow);
 });
 
 const chart = new Chart({

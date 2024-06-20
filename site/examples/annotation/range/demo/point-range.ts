@@ -16,7 +16,7 @@ chart
   .axis('x', false)
   .axis('y', false)
   .style('mainStroke', '#5B8FF9')
-  .style('mainStrokeWidth', 2);
+  .style('mainLineWidth', 2);
 
 chart
   .range()
@@ -29,7 +29,7 @@ chart
   .scale('x', { independent: true, domain: [0, 1] })
   .scale('y', { independent: true, domain: [0, 1] })
   .style('stroke', '#5B8FF9')
-  .style('strokeWidth', 1)
+  .style('lineWidth', 1)
   .style('fillOpacity', 0.15)
   .animate(false)
   .tooltip(false);

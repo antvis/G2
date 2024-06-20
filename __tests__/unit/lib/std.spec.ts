@@ -96,6 +96,7 @@ import {
   ElementSelect,
   ElementSelectByColor,
   ElementSelectByX,
+  ElementPointMove,
   Fisheye as ChartFisheye,
   ChartIndex,
   Tooltip,
@@ -168,12 +169,14 @@ import {
   Cluster,
   Arc,
   Log as DataLog,
+  WordCloud,
 } from '../../../src/data';
 import {
   OverflowHide,
   ContrastReverse,
   OverlapHide,
   OverlapDodgeY,
+  ExceedAdjust,
 } from '../../../src/label-transform';
 
 describe('stdlib', () => {
@@ -193,6 +196,7 @@ describe('stdlib', () => {
       'data.join': Join,
       'data.kde': KDE,
       'data.venn': Venn,
+      'data.wordCloud': WordCloud,
       'data.cluster': Cluster,
       'data.arc': Arc,
       'data.log': DataLog,
@@ -315,6 +319,7 @@ describe('stdlib', () => {
       'interaction.elementSelect': ElementSelect,
       'interaction.elementSelectByX': ElementSelectByX,
       'interaction.elementSelectByColor': ElementSelectByColor,
+      'interaction.elementPointMove': ElementPointMove,
       'interaction.fisheye': ChartFisheye,
       'interaction.chartIndex': ChartIndex,
       'interaction.tooltip': Tooltip,
@@ -339,6 +344,7 @@ describe('stdlib', () => {
       'composition.timingKeyframe': TimingKeyframe,
       'labelTransform.overlapHide': OverlapHide,
       'labelTransform.overlapDodgeY': OverlapDodgeY,
+      'labelTransform.exceedAdjust': ExceedAdjust,
       'labelTransform.overflowHide': OverflowHide,
       'labelTransform.contrastReverse': ContrastReverse,
       'composition.geoView': GeoView,

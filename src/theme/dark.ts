@@ -9,7 +9,7 @@ export const tokens = {
   colorWhite: '#000',
   colorStroke: '#416180',
   colorDefault: '#1783FF',
-  colorBackground: '#141414',
+  colorBackground: 'transparent',
   category10: [
     '#1783FF',
     '#00C9C9',

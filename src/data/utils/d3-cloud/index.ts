@@ -357,6 +357,7 @@ export function tagCloud() {
     const context = canvas.getContext('2d') as CanvasRenderingContext2D;
     context.fillStyle = context.strokeStyle = 'red';
     context.textAlign = 'center';
+    context.textBaseline = 'middle';
     return { context, ratio };
   }
 

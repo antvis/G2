@@ -7,10 +7,10 @@
     {
       "filename": "bar-basic.ts",
       "title": {
-        "zh": "简单柱状图",
+        "zh": "简单柱形图",
         "en": "Simple Column"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*fNFMRb3DlokAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*kvZLSLxjnkIAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "bar-basic-transposed.ts",
@@ -23,7 +23,7 @@
     {
       "filename": "bar-basic-stacked.ts",
       "title": {
-        "zh": "简单堆叠柱状图",
+        "zh": "简单堆叠柱形图",
         "en": "Simple Stacked Column"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*69WQTY8YrWgAAAAAAAAAAAAADmJ7AQ/original"
@@ -31,18 +31,18 @@
     {
       "filename": "bar-basic-grouped.ts",
       "title": {
-        "zh": "简单分组柱状图",
+        "zh": "简单分组柱形图",
         "en": "Simple Grouped Column"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*kqGUT4wRYrsAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
-      "filename": "column.ts",
+      "filename": "column-interactive.ts",
       "title": {
-        "zh": "柱形图",
-        "en": "Column Chart"
+        "zh": "可交互柱形图",
+        "en": "Interactive Column Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*kvZLSLxjnkIAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*QdN3S6Zi4SUAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "column-maxwidth.ts",

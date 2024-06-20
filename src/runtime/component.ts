@@ -741,6 +741,7 @@ function computeAxisSize(
         component.labelTransform = 'rotate(90)';
         component.size = maxLabelWidth + paddingTick;
       } else {
+        component.labelTransform = component.labelTransform ?? 'rotate(0)';
         component.size = maxLabelHeight + paddingTick;
       }
     }

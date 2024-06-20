@@ -260,8 +260,8 @@ export function addGuideToScale(
   };
   const axisChannels =
     typeof axis === 'object'
-      ? Array.from(new Set(['x', 'y', ...Object.keys(axis)]))
-      : ['x', 'y'];
+      ? Array.from(new Set(['x', 'y', 'z', ...Object.keys(axis)]))
+      : ['x', 'y', 'z'];
 
   deepMix(mark, {
     scale: {

@@ -73,3 +73,8 @@ export { aaplLineOverflow } from './aapl-line-overflow';
 export { moviesIntervalScaleKeyScrollbar } from './movies-interval-scale-key-scrollbar';
 export { oneElementLine } from './one-element-line';
 export { disastersPointSlider } from './disasters-point-slider';
+export { alphabetText } from './alphabet-text';
+export { mockLineFlex } from './mock-line-flex';
+export { mockTooltipClosestTransposed } from './mock-tooltip-closest-transposed';
+export { mockDualBarShareTooltip } from './mock-dual-bar-share-tooltip';
+export { alphabetLineEnterable } from './alphabet-line-enterable';

@@ -4,6 +4,7 @@ import {
   dispatchFirstElementEvent,
   createPromise,
   receiveExpectData,
+  dispatchFirstElementPointerMoveEvent,
 } from './utils/event';
 import './utils/useSnapshotMatchers';
 import { createNodeGCanvas } from './utils/createNodeGCanvas';
@@ -37,7 +38,7 @@ describe('chart.emit', () => {
     // chart.on("tooltip:show", callback) should revive selected data.
     const [tooltipShowed, resolveShow] = createPromise();
     chart.on('tooltip:show', receiveExpectData(resolveShow));
-    dispatchFirstElementEvent(canvas, 'pointermove');
+    dispatchFirstElementPointerMoveEvent(canvas);
     await tooltipShowed;
 
     // chart.on("tooltip:hide") should be called when hiding tooltip.

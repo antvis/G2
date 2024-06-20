@@ -113,8 +113,7 @@ const ResizableMask = createElement((g) => {
 
   const renderHandle = (g, renderNode) => {
     const { id } = g;
-    const { x, y, ...style } = g.attributes;
-    const handle = renderNode(g, { x: 0, y: 0, ...style }, document);
+    const handle = renderNode(g, g.attributes, document);
     handle.id = id;
     handle.style.draggable = true;
   };
@@ -128,15 +127,19 @@ const ResizableMask = createElement((g) => {
 
   const container = select(g)
     .attr('className', className)
-    .style('x', x)
-    .style('y', y)
+    .style('transform', `translate(${x}, ${y})`)
     .style('draggable', true);
 
   container
     .maybeAppend('selection', 'rect')
     .style('draggable', true)
     .style('fill', 'transparent')
-    .call(applyStyle, { width, height, ...omitPrefixObject(style, 'handle') });
+    .call(applyStyle, {
+      width,
+      height,
+      ...omitPrefixObject(style, 'handle'),
+      transform: undefined,
+    });
 
   container
     .maybeAppend('handle-n', appendHandle(handleNRender))
@@ -610,16 +613,21 @@ export function brushHighlight(
       clonedElement.set(element, cloned);
       return cloned;
     };
+
+    // Create a clipPath shared between all children.
+    const clipPath = new Rect({
+      style: {
+        x: x + ordinalX,
+        y: y + ordinalY,
+        width: x1 - x,
+        height: y1 - y,
+      },
+    });
+    root.appendChild(clipPath);
+
     for (const element of elements) {
       const cloned = clonedElement.get(element) || clone(element);
-      cloned.style.clipPath = new Rect({
-        style: {
-          x: x + ordinalX,
-          y: y + ordinalY,
-          width: x1 - x,
-          height: y1 - y,
-        },
-      });
+      cloned.style.clipPath = clipPath;
       setState(element, 'inactive');
       setState(cloned, 'active');
     }

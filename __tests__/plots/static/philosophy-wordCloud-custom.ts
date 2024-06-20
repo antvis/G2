@@ -9,7 +9,6 @@ export function philosophyWordCloudCustom(): G2Spec {
       padding: 4,
       spiral: 'rectangular',
       random,
-      rotate: 0,
     },
     data: {
       type: 'fetch',
@@ -20,4 +19,5 @@ export function philosophyWordCloudCustom(): G2Spec {
     },
   };
 }
+
 philosophyWordCloudCustom.skip = true;

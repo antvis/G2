@@ -14,7 +14,7 @@ export function scoreByItemAreaRadarSize(): G2Spec {
         zIndex: 1,
         title: false,
         direction: 'center',
-        gridStrokeWidth: 10,
+        gridLineWidth: 10,
       },
     },
     scale: {

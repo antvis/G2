@@ -101,7 +101,7 @@ export function rect(
     .padAngle((inset * Math.PI) / 180);
 
   return select(document.createElement('path', {}))
-    .style('path', path(arcObject))
+    .style('d', path(arcObject))
     .style('transform', `translate(${center[0]}, ${center[1]})`)
     .style('radius', radius)
     .style('inset', inset)

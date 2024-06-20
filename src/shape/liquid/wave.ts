@@ -214,7 +214,7 @@ export function addWave(
     // Create wave path.
     const wave = document.createElement('path', {
       style: {
-        path,
+        d: path,
         fill,
         opacity: lerp(0.2, 0.9, factor) * Number(opacity || fillOpacity),
       },
@@ -230,7 +230,7 @@ export function addWave(
           transform: 'translate(0, 0)',
         },
         {
-          transform: `translate(${waveLength * 2}px, 0)`,
+          transform: `translate(${waveLength * 2}, 0)`,
         },
       ];
 

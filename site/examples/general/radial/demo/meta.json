@@ -27,6 +27,30 @@
         "en": "Apple Activity"
       },
       "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*o3j-SZCiTZwAAAAAAAAAAAAADmJ7AQ"
+    },
+    {
+      "filename": "radial-bar-with-background.ts",
+      "title": {
+        "zh": "带背景的玉珏图",
+        "en": "Radial bar chart with background"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*9FxwQIEcoDMAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "radial-stacked.ts",
+      "title": {
+        "en": "Radial stacked bar chart",
+        "zh": "径向堆叠条形图"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*T3NtSLBLc0sAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "radial-line.ts",
+      "title": {
+        "en": "Radial bar chart",
+        "zh": "径向条形图"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*h3MESLqnM4QAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }

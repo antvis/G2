@@ -18,7 +18,7 @@ export function mockSquareRadar(): G2Spec {
       y: {
         titleOpacity: '0',
         gridConnect: 'line',
-        gridStrokeWidth: 1,
+        gridLineWidth: 1,
         gridLineDash: [0, 0],
         gridAreaFill: 'rgba(0, 0, 0, 0.04)',
       },
@@ -26,7 +26,7 @@ export function mockSquareRadar(): G2Spec {
         grid: true,
         zIndex: 1,
         title: false,
-        gridStrokeWidth: 1,
+        gridLineWidth: 1,
         gridLineDash: null,
       },
     },
@@ -39,7 +39,7 @@ export function mockSquareRadar(): G2Spec {
       x: { padding: 0.5, align: 0 },
       y: { domainMin: 0, domainMax: 80 },
     },
-    style: { zIndex: 0, strokeWidth: 5, lineJoin: 'round' },
+    style: { zIndex: 0, lineWidth: 5, lineJoin: 'round' },
     tooltip: false,
   };
 }

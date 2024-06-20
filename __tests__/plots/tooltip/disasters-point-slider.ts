@@ -1,6 +1,4 @@
-import { CustomEvent } from '@antv/g';
-import { G2Spec, PLOT_CLASS_NAME } from '../../../src';
-import { SLIDER_CLASS_NAME } from '../../../src/interaction/sliderFilter';
+import { G2Spec } from '../../../src';
 import { tooltipSteps } from './utils';
 
 export function disastersPointSlider(): G2Spec {

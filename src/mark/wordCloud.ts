@@ -1,7 +1,6 @@
 import { deepMix } from '@antv/util';
 import { CompositeMarkComponent as CC } from '../runtime';
 import { WordCloudMark } from '../spec';
-import { WordCloud as WordCloudTransform } from '../data';
 
 export type WordCloudOptions = Omit<WordCloudMark, 'type'>;
 
@@ -14,11 +13,7 @@ function initializeData(data, encode) {
   }));
 }
 
-const GET_DEFAULT_LAYOUT_OPTIONS = (width, height) => ({
-  size: [width, height],
-});
-
-const GET_DEFAULT_OPTIONS = (width, height) => ({
+const GET_DEFAULT_OPTIONS = () => ({
   axis: false,
   type: 'text',
   encode: {
@@ -27,15 +22,14 @@ const GET_DEFAULT_OPTIONS = (width, height) => ({
     text: 'text',
     rotate: 'rotate',
     fontSize: 'size',
+    shape: 'tag',
   },
   scale: {
-    x: { domain: [0, width], range: [0, 1] },
-    y: { domain: [0, height], range: [0, 1] },
-    fontSize: { type: 'identity' },
-    rotate: { type: 'identity' },
+    x: { range: [0, 1] },
+    y: { range: [0, 1] },
   },
   style: {
-    textAlign: 'center',
+    fontFamily: (d) => d.fontFamily,
   },
 });
 
@@ -53,13 +47,17 @@ export const WordCloud: CC<WordCloudOptions> = async (options, context) => {
 
   const initializedData = initializeData(data, encode);
 
-  const transformData = await WordCloudTransform({
-    ...GET_DEFAULT_LAYOUT_OPTIONS(width, height),
-    ...layout,
-  })(initializedData);
-
-  return deepMix({}, GET_DEFAULT_OPTIONS(width, height), {
-    data: transformData,
+  return deepMix({}, GET_DEFAULT_OPTIONS(), {
+    data: {
+      value: initializedData,
+      transform: [
+        {
+          type: 'wordCloud',
+          size: [width, height],
+          ...layout,
+        },
+      ],
+    },
     encode,
     scale,
     style,

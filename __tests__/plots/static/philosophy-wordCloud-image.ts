@@ -6,7 +6,6 @@ export function philosophyWordCloudImage(): G2Spec {
   return {
     type: 'wordCloud',
     layout: {
-      padding: 4,
       imageMask: 'data/wordCloud.png',
       random,
       rotate: 0,

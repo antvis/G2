@@ -46,9 +46,14 @@ chart.render();
 | position                  | tooltip 位置                                                      | `TooltipPosition`                           | -                     |
 | mount                     | tooltip 渲染的 dom 节点                                           | `string` \| `HTMLElement`                   | 图表容器              |
 | bounding                  | tooltip 渲染的限制区域，超出会自动调整位置                        | `BBox`                                      | 图表区域大小          |
-| crosshairs                | 是否暂时指示线                                                    | `boolean`                                   | -                     |
-| `crosshairs${StyleAttrs}` | 指示线的样式                                                      | `number \| string`                          | -                     |
+| crosshairs                | 是否展示指示线                                                     | `boolean`                                   | -                     |
+| crosshairsX               | 是否展示X方向指示线                                            | `boolean`                                   | -                     |
+| crosshairsY               | 是否展示Y方向指示线                                                  | `boolean`                                   | -                     |
+| `crosshairs${StyleAttrs}`               | 指示线的样式                                                  | `number \| string`                                   | -                     |
+| `crosshairsX${StyleAttrs}`               | X方向指示线的样式（优先级更高）                                                  | `number \| string`                                   | -                     |
+| `crosshairsY${StyleAttrs}`              | Y方向指示线的样式 （优先级更高）                                                 | `number \| string`                                   | -                     |
 | `marker${StyleAttrs}`     | marker 的样式                                                     | `number \| string`                          | -                     |
+| markerType          | marker 的类型                                                     | `'hollow' \| undefined`                          | undefined                    |
 | render                    | 自定义 tooltip 渲染函数                                           | `(event, options) => HTMLElement \| string` | -                     |
 | sort                      | item 排序器                                                       | `(d: TooltipItemValue) => any`              | -                     |
 | filter                    | item 筛选器                                                       | `(d: TooltipItemValue) => any`              | -                     |
@@ -174,3 +179,39 @@ chart.emit('tooltip:hide');
 chart.emit('tooltip:disable'); // 禁用 tooltip
 chart.emit('tooltip:enable'); // 启用交互
 ```
+
+### 设置十字辅助线
+默认情况下，`crossharisY`是开启的，`crosshairsX`是关闭的，所以如果要开启十字辅助线，有以下两种方式。
+1. 设置`crosshairs`为`true`。
+```js
+chart.interaction("tooltip", {
+  crosshairs: true, // 开启十字辅助线
+  crosshairsXStroke: 'red', // 设置 X 轴辅助线颜色为'red'
+  crosshairsYStroke: 'blue',// 设置 Y 轴辅助线颜色为'blue'
+})
+```
+
+2. 设置`crosshairsX`为`true`。
+```js
+chart.interaction("tooltip", {
+  crosshairsX: true, // 开启crosshairsX辅助线
+  crosshairsXStroke: 'red', // 设置 X 轴辅助线颜色为'red'
+  crosshairsYStroke: 'blue',// 设置 Y 轴辅助线颜色为'blue'
+})
+```
+`crosshairsX`的优先级大于`crosshairs`的优先级。
+
+<img alt="example" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*_LFDT7p6hRQAAAAAAAAAAAAADmJ7AQ/original" width="640">
+
+
+
+
+### 设置提示点为空心圆
+
+```js
+chart.interaction("tooltip", {
+  markerType: "hollow", // 设置提示点的样式为空心圆
+})
+```
+
+<img alt="example" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*s8KjQLiSyTwAAAAAAAAAAAAADmJ7AQ/original" width="640">

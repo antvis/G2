@@ -38,7 +38,7 @@ WebFont.load({
       })
       .style('fill', 'black')
       .style('stroke', 'black')
-      .style('strokeWidth', '4')
+      .style('lineWidth', '4')
       .style('colorAttribute', 'fillStyle')
       .legend(false)
       .label({
