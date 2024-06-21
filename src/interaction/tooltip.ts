@@ -854,10 +854,17 @@ export function seriesTooltip(
         });
       }
 
+      // X in focus may related multiple points when dataset is large,
+      // so we need to find the first x to show tooltip.
+      const firstX = filteredSeriesData[0]?.[0].x;
+      const transformedX = firstX ?? abstractX(focus);
+
       emitter.emit('tooltip:show', {
         ...event,
         nativeEvent: true,
-        data: { data: { x: invert(scale.x, abstractX(focus), true) } },
+        data: {
+          data: { x: invert(scale.x, transformedX, true) },
+        },
       });
     },
     wait,
