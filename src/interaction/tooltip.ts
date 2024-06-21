@@ -662,8 +662,10 @@ export function seriesTooltip(
     return normalizedX - offsetX;
   };
 
-  const indexByFocus = (focus, I, X) => {
-    const finalX = abstractX(focus);
+  const indexByFocus = (event, focus, I, X) => {
+    // _x is from emit event, to find the right element.
+    const { _x } = event;
+    const finalX = _x !== undefined ? scaleX.map(_x) : abstractX(focus);
     const DX = X.filter(defined);
     const [minX, maxX] = sort([DX[0], DX[DX.length - 1]]);
     // If only has one element(minX == maxX), show tooltip when hover whole chart
@@ -735,7 +737,7 @@ export function seriesTooltip(
       const selectedSeriesData = [];
       for (const element of seriesElements) {
         const [sortedIndex, X] = elementSortedX.get(element);
-        const index = indexByFocus(focus, sortedIndex, X);
+        const index = indexByFocus(event, focus, sortedIndex, X);
         if (index !== null) {
           selectedSeriesElements.push(element);
           const d = seriesData(element, index);
@@ -888,7 +890,8 @@ export function seriesTooltip(
     const {
       min: [minX, minY],
     } = root.getRenderBounds();
-    update({ offsetX: x2 + minX, offsetY: y2 + minY });
+    // _x is a hint, to lookup for the right element if multiple element in the same abstractX.
+    update({ offsetX: x2 + minX, offsetY: y2 + minY, _x: x });
   };
 
   const onTooltipHide = () => {
