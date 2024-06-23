@@ -3,11 +3,12 @@ import {
   DisplayObject,
   IAnimation as GAnimation,
   Path,
+  Shape,
 } from '@antv/g';
 import { AnimationComponent as AC } from '../runtime';
 import { copyAttributes } from '../utils/helper';
 import { Animation } from './types';
-import { attributeKeys, attributeOf } from './utils';
+import { attributeKeys, attributeOf, GEOMETRY_ATTRIBUTES } from './utils';
 
 export type MorphingOptions = Animation & { split: 'pack' | SplitFunction };
 
@@ -66,38 +67,44 @@ function normalizeSplit(
 }
 
 /**
- * Translate and scale.
+ * Use attributes relative to geometry to do shape to shape animation.
+ *
+ * For example, the x, y, width, height of `Rect`, the cx, cy, r of `Circle`.
+ * And for `Group`, it will use the bbox of the group.
  */
 function shapeToShape(
   from: DisplayObject,
   to: DisplayObject,
   timeEffect: Record<string, any>,
 ): GAnimation {
-  const [x0, y0, w0, h0] = localBBoxOf(from);
-  const { transform: fromTransform } = from.style;
+  let { transform: fromTransform } = from.style;
   const { transform: toTransform } = to.style;
 
   // Replace first to get right bbox after mounting.
   replaceChild(to, from);
 
-  // Apply translate and scale transform.
-  const [x1, y1, w1, h1] = localBBoxOf(to);
-  const dx = x0 - x1;
-  const dy = y0 - y1;
-  const sx = w0 / w1;
-  const sy = h0 / h1;
+  let keys = attributeKeys;
+  if (from.nodeName === Shape.GROUP) {
+    // Apply translate and scale transform.
+    const [x0, y0, w0, h0] = localBBoxOf(from);
+    const [x1, y1, w1, h1] = localBBoxOf(to);
+    const dx = x0 - x1;
+    const dy = y0 - y1;
+    const sx = w0 / w1;
+    const sy = h0 / h1;
+    fromTransform = `translate(${dx}, ${dy}) scale(${sx}, ${sy})`;
+  } else {
+    keys = keys.concat(GEOMETRY_ATTRIBUTES[from.nodeName] || []);
+  }
+
   const keyframes = [
     {
-      transform: `${
-        fromTransform ? fromTransform + ' ' : ''
-      }translate(${dx}, ${dy}) scale(${sx}, ${sy})`,
-      ...attributeOf(from, attributeKeys),
+      transform: fromTransform ?? 'none',
+      ...attributeOf(from, keys, true),
     },
     {
-      transform: `${
-        toTransform ? toTransform + ' ' : ''
-      }translate(0, 0) scale(1, 1)`,
-      ...attributeOf(to, attributeKeys),
+      transform: toTransform ?? 'none',
+      ...attributeOf(to, keys, true),
     },
   ];
   const animation = to.animate(keyframes, timeEffect);
@@ -172,27 +179,35 @@ function oneToOne(
   const pathShape = maybePath(shape, fromPath);
   // Convert Path will take transform, anchor, etc into account,
   // so there is no need to specify these attributes in keyframes.
-  const keyframes = [
+  const keyframes: Keyframe[] = [
     {
-      path: fromPath,
       ...attributeOf(from, attributeKeys),
     },
     {
-      path: toPath,
       ...attributeOf(to, attributeKeys),
     },
   ];
-  const animation = pathShape.animate(keyframes, timeEffect);
+  if (fromPath !== toPath) {
+    keyframes[0].d = fromPath;
+    keyframes[1].d = toPath;
 
-  animation.onfinish = () => {
+    const animation = pathShape.animate(keyframes, timeEffect);
+    animation.onfinish = () => {
+      // Should keep the original path definition.
+      const d = pathShape.style.d;
+      copyAttributes(pathShape, to);
+      pathShape.style.d = d;
+      pathShape.style.transform = 'none';
+    };
+
+    // Remove transform because it already applied in path
+    // converted by convertToPath.
     pathShape.style.transform = 'none';
-    copyAttributes(pathShape, to);
-  };
+    return animation;
+  }
 
-  // Remove transform because it already applied in path
-  // converted by convertToPath.
-  pathShape.style.transform = 'none';
-  return animation;
+  // No need to apply animation since fromPath equals toPath.
+  return null;
 }
 
 function oneToMultiple(
@@ -207,7 +222,7 @@ function oneToMultiple(
   return to.map((shape, i) => {
     const path = new Path({
       style: {
-        path: D[i],
+        d: D[i],
         ...attributeOf(from, attributeKeys),
       },
     });
@@ -236,7 +251,7 @@ function multipleToOne(
   const animations = from.map((shape, i) => {
     const path = new Path({
       style: {
-        path: D[i],
+        d: D[i],
         fill: to.style.fill,
       },
     });

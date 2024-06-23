@@ -35,7 +35,7 @@ function Scatterplot(
     yFormat, // a format specifier string for the y-axis
     fill = 'none', // fill color for dots
     stroke = 'currentColor', // stroke color for the dots
-    strokeWidth = 1.5, // stroke width for dots
+    lineWidth = 1.5, // stroke width for dots
     halo = '#fff', // color of label halo
     haloWidth = 3, // padding around the labels
   } = {},
@@ -131,7 +131,7 @@ function Scatterplot(
     .append('g')
     .attr('fill', fill)
     .attr('stroke', stroke)
-    .attr('stroke-width', strokeWidth)
+    .attr('stroke-width', lineWidth)
     .selectAll('circle')
     .data(I)
     .join('circle')

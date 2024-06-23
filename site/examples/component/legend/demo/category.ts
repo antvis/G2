@@ -112,7 +112,7 @@ chart
           style: {
             width: 20,
             height: 20,
-            anchor: '0.5 0.5',
+            transform: `translate(-10, -10)`,
             src: logo[index][1],
           },
         });

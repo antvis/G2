@@ -37,6 +37,15 @@
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*0xE1T7W2Oq4AAAAAAAAAAAAADmJ7AQ/original"
     },
     {
+      "filename": "wordCloud-english.ts",
+      "title": {
+        "zh": "英文字符词云图",
+        "en": "English WordCloud"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*H6BoRoDMolwAAAAAAAAAAAAADmJ7AQ/fmt.webp"
+    },
+    
+    {
       "filename": "wordCloud-mask.ts",
       "title": {
         "zh": "带图片遮罩的词云图",

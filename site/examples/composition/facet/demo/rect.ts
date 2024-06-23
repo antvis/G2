@@ -40,7 +40,7 @@ facetRect
   .encode('x', 'culmen_depth_mm')
   .encode('y', 'culmen_length_mm')
   .style('fill', '#ddd')
-  .style('strokeWidth', 0);
+  .style('lineWidth', 0);
 
 facetRect
   .point()

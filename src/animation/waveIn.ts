@@ -1,5 +1,5 @@
 import { arc } from 'd3-shape';
-import { Path, CSS, PropertySyntax, convertToPath } from '@antv/g';
+import { CSS, PropertySyntax } from '@antv/g';
 import { G2Element } from '../utils/selection';
 import { AnimationComponent as AC } from '../runtime';
 import { getArcObject } from '../shape/utils';
@@ -33,7 +33,6 @@ export const WaveIn: AC<WaveInOptions> = (options, context) => {
       return ScaleInX(options, context)(from, to, defaults);
     }
 
-    const center = coordinate.getCenter();
     const { __data__, style } = shape as G2Element;
     const {
       radius = 0,
@@ -50,22 +49,6 @@ export const WaveIn: AC<WaveInOptions> = (options, context) => {
       .padAngle((inset * Math.PI) / 180);
     const arcObject = getArcObject(coordinate, points, [y, y1]);
     const { startAngle, endAngle } = arcObject;
-    const pathForConversion = new Path({});
-
-    const createArcPath = (arcParams: {
-      startAngle: number;
-      endAngle: number;
-      innerRadius: number;
-      outerRadius: number;
-    }) => {
-      pathForConversion.attr({
-        d: path(arcParams),
-        transform: `translate(${center[0]}, ${center[1]})`,
-      });
-      const convertedPathDefinition = convertToPath(pathForConversion);
-      pathForConversion.style.transform = '';
-      return convertedPathDefinition;
-    };
 
     const keyframes = [
       // Use custom interpolable CSS property.
@@ -92,13 +75,13 @@ export const WaveIn: AC<WaveInOptions> = (options, context) => {
     const animation = shape.animate(keyframes, { ...defaults, ...options });
 
     animation.onframe = function () {
-      shape.style.path = createArcPath({
+      shape.style.d = path({
         ...arcObject,
         endAngle: Number(shape.style.waveInArcAngle),
       });
     };
     animation.onfinish = function () {
-      shape.style.path = createArcPath({
+      shape.style.d = path({
         ...arcObject,
         endAngle: endAngle,
       });

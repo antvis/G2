@@ -34,7 +34,7 @@ Promise.all([
     .data(london)
     .style('fill', 'lightgray')
     .style('stroke', 'white')
-    .style('strokeWidth', 2);
+    .style('lineWidth', 2);
 
   geoView
     .text()

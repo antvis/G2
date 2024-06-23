@@ -26,9 +26,8 @@ export const Vector: SC<VectorOptions> = (options, context) => {
     if (arrow) {
       // Calculate arrow end point.
       const [arrow1, arrow2] = arrowPoints(from, to, { arrowSize });
-      path.moveTo(...to);
-      path.lineTo(...arrow1);
-      path.moveTo(...to);
+      path.moveTo(...arrow1);
+      path.lineTo(...to);
       path.lineTo(...arrow2);
     }
 

@@ -27,7 +27,7 @@ facetRect
   .style('stroke', '#000')
   .attr('frame', false) // Hide the default frame.
   .viewStyle('plotStroke', 'red') // Customize the plot area to mock a frame.
-  .viewStyle('plotStrokeWidth', 2)
+  .viewStyle('plotLineWidth', 2)
   .viewStyle('plotOpacity', 0.5);
 
 chart.render();

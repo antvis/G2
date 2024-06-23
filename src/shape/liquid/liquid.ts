@@ -46,7 +46,7 @@ export const Liquid: SC<LiquidOptions> = (options, context) => {
     if (Object.keys(backgroundStyle).length) {
       const backgroundShape = document.createElement('path', {
         style: {
-          path: shapePath,
+          d: shapePath,
           fill: '#fff',
           ...backgroundStyle,
         },
@@ -60,7 +60,7 @@ export const Liquid: SC<LiquidOptions> = (options, context) => {
       // 3. Clip create.
       const clipShape = document.createElement('path', {
         style: {
-          path: shapePath,
+          d: shapePath,
         },
       });
 
@@ -86,7 +86,7 @@ export const Liquid: SC<LiquidOptions> = (options, context) => {
     // 5. Draw distance.
     const distanceShape = document.createElement('path', {
       style: {
-        path: shapePath,
+        d: shapePath,
         fill: 'transparent',
         lineWidth: border + 2 * distance,
         stroke: '#fff',
@@ -96,7 +96,7 @@ export const Liquid: SC<LiquidOptions> = (options, context) => {
     // 6. Draw border.
     const borderShape = document.createElement('path', {
       style: {
-        path: shapePath,
+        d: shapePath,
         stroke: color,
         strokeOpacity: fillOpacity,
         lineWidth: border,

@@ -37,3 +37,7 @@ export type ContrastReverseLabelTransform = {
 export type OverflowHideLabelTransform = {
   type: 'overflowHide';
 };
+
+export type ExceedAdjustLabel = {
+  type: 'exceedAdjust';
+};

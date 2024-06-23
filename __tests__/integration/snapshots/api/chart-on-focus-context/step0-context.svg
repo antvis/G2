@@ -6,56 +6,57 @@
   color-interpolation-filters="sRGB"
 >
   <defs>
-    <path
-      
-      fill="none"
-      d="M 0,0 l 200.50000000040365,0 l 0,88 l-200.50000000040365 0 z"
-      width="200.50000000040365"
-      height="88"
-    />
     <clipPath transform="matrix(1,0,0,1,-16,-16)" >
-      <use href="#g-svg-56" transform="matrix(1,0,0,1,100,16)" />
+      <use href="#g-svg-55" transform="matrix(1,0,0,1,16,16)" />
     </clipPath>
   </defs>
-  <g  transform="matrix(1,0,0,1,0,0)">
-    <g  fill="none" transform="matrix(1,0,0,1,0,0)">
-      <g  fill="none" transform="matrix(1,0,0,1,0,0)" class="view">
-        <g transform="matrix(1,0,0,1,0,0)">
+  <g >
+    <g  fill="none">
+      <g  fill="none" class="view">
+        <g>
           <path
             
             fill="rgba(0,0,0,0)"
             class="area"
             d="M 0,0 l 640,0 l 0,120 l-640 0 z"
+            x="0"
+            y="0"
             width="640"
             height="120"
           />
         </g>
-        <g transform="matrix(1,0,0,1,16,16)">
+        <g>
           <path
             
             fill="rgba(0,0,0,0)"
             class="area"
-            d="M 0,0 l 608,0 l 0,88 l-608 0 z"
+            d="M 16,16 l 608,0 l 0,88 l-608 0 z"
+            x="16"
+            y="16"
             width="608"
             height="88"
           />
         </g>
-        <g transform="matrix(1,0,0,1,16,16)">
+        <g>
           <path
             
             fill="rgba(0,0,0,0)"
             class="area"
-            d="M 0,0 l 608,0 l 0,88 l-608 0 z"
+            d="M 16,16 l 608,0 l 0,88 l-608 0 z"
+            x="16"
+            y="16"
             width="608"
             height="88"
           />
         </g>
-        <g transform="matrix(1,0,0,1,16,16)">
+        <g>
           <path
             
             fill="rgba(0,0,0,0)"
             class="area"
-            d="M 0,0 l 608,0 l 0,88 l-608 0 z"
+            d="M 16,16 l 608,0 l 0,88 l-608 0 z"
+            x="16"
+            y="16"
             width="608"
             height="88"
           />
@@ -69,13 +70,8 @@
             width="608"
             height="88"
           />
-          <g
-            
-            fill="none"
-            transform="matrix(1,0,0,1,0,0)"
-            class="main-layer"
-          >
-            <g transform="matrix(1,0,0,1,0,0)">
+          <g  fill="none" class="main-layer">
+            <g>
               <path
                 
                 fill="rgba(23,131,255,1)"
@@ -87,10 +83,7 @@
                 opacity="0.5"
               />
             </g>
-            <g
-              transform="matrix(1,0,0,1,0,0)"
-              
-            >
+            <g >
               <path
                 
                 fill="rgba(255,0,0,1)"
@@ -102,21 +95,18 @@
               />
             </g>
           </g>
-          <g
-            
-            fill="none"
-            transform="matrix(1,0,0,1,0,0)"
-            class="label-layer"
-          />
+          <g  fill="none" class="label-layer" />
           <g
             
             fill="none"
             class="mask"
+            x="83.99999999939449"
+            y="0"
             transform="matrix(1,0,0,1,84,0)"
             width="200.50000000040365"
             height="88"
           >
-            <g transform="matrix(1,0,0,1,0,0)">
+            <g>
               <path
                 
                 fill="rgba(119,119,119,1)"
@@ -130,15 +120,18 @@
             <g
               
               fill="none"
-              transform="matrix(1,0,0,1,5,-5)"
+              x="5"
+              y="-5"
               width="190.50000000040365"
               height="10"
             >
-              <g transform="matrix(1,0,0,1,0,0)">
+              <g>
                 <path
                   
                   fill="rgba(0,0,0,0)"
-                  d="M 0,0 l 190.50000000040365,0 l 0,10 l-190.50000000040365 0 z"
+                  d="M 5,-5 l 190.50000000040365,0 l 0,10 l-190.50000000040365 0 z"
+                  x="5"
+                  y="-5"
                   width="190.50000000040365"
                   height="10"
                 />
@@ -147,15 +140,18 @@
             <g
               
               fill="none"
-              transform="matrix(1,0,0,1,195.500000,5)"
+              x="195.50000000040365"
+              y="5"
               width="10"
               height="78"
             >
-              <g transform="matrix(1,0,0,1,0,0)">
+              <g>
                 <path
                   
                   fill="rgba(0,0,0,0)"
-                  d="M 0,0 l 10,0 l 0,78 l-10 0 z"
+                  d="M 195.50000000040365,5 l 10,0 l 0,78 l-10 0 z"
+                  x="195.50000000040365"
+                  y="5"
                   width="10"
                   height="78"
                 />
@@ -164,49 +160,44 @@
             <g
               
               fill="none"
-              transform="matrix(1,0,0,1,5,83)"
+              x="5"
+              y="83"
               width="190.50000000040365"
               height="10"
             >
-              <g transform="matrix(1,0,0,1,0,0)">
+              <g>
                 <path
                   
                   fill="rgba(0,0,0,0)"
-                  d="M 0,0 l 190.50000000040365,0 l 0,10 l-190.50000000040365 0 z"
+                  d="M 5,83 l 190.50000000040365,0 l 0,10 l-190.50000000040365 0 z"
+                  x="5"
+                  y="83"
                   width="190.50000000040365"
                   height="10"
                 />
               </g>
             </g>
-            <g
-              
-              fill="none"
-              transform="matrix(1,0,0,1,-5,5)"
-              width="10"
-              height="78"
-            >
-              <g transform="matrix(1,0,0,1,0,0)">
+            <g  fill="none" x="-5" y="5" width="10" height="78">
+              <g>
                 <path
                   
                   fill="rgba(0,0,0,0)"
-                  d="M 0,0 l 10,0 l 0,78 l-10 0 z"
+                  d="M -5,5 l 10,0 l 0,78 l-10 0 z"
+                  x="-5"
+                  y="5"
                   width="10"
                   height="78"
                 />
               </g>
             </g>
-            <g
-              
-              fill="none"
-              transform="matrix(1,0,0,1,-5,-5)"
-              width="10"
-              height="10"
-            >
-              <g transform="matrix(1,0,0,1,0,0)">
+            <g  fill="none" x="-5" y="-5" width="10" height="10">
+              <g>
                 <path
                   
                   fill="rgba(0,0,0,0)"
-                  d="M 0,0 l 10,0 l 0,10 l-10 0 z"
+                  d="M -5,-5 l 10,0 l 0,10 l-10 0 z"
+                  x="-5"
+                  y="-5"
                   width="10"
                   height="10"
                 />
@@ -215,15 +206,18 @@
             <g
               
               fill="none"
-              transform="matrix(1,0,0,1,195.500000,-5)"
+              x="195.50000000040365"
+              y="-5"
               width="10"
               height="10"
             >
-              <g transform="matrix(1,0,0,1,0,0)">
+              <g>
                 <path
                   
                   fill="rgba(0,0,0,0)"
-                  d="M 0,0 l 10,0 l 0,10 l-10 0 z"
+                  d="M 195.50000000040365,-5 l 10,0 l 0,10 l-10 0 z"
+                  x="195.50000000040365"
+                  y="-5"
                   width="10"
                   height="10"
                 />
@@ -232,37 +226,47 @@
             <g
               
               fill="none"
-              transform="matrix(1,0,0,1,195.500000,83)"
+              x="195.50000000040365"
+              y="83"
               width="10"
               height="10"
             >
-              <g transform="matrix(1,0,0,1,0,0)">
+              <g>
                 <path
                   
                   fill="rgba(0,0,0,0)"
-                  d="M 0,0 l 10,0 l 0,10 l-10 0 z"
+                  d="M 195.50000000040365,83 l 10,0 l 0,10 l-10 0 z"
+                  x="195.50000000040365"
+                  y="83"
                   width="10"
                   height="10"
                 />
               </g>
             </g>
-            <g
+            <g  fill="none" x="-5" y="83" width="10" height="10">
+              <g>
+                <path
+                  
+                  fill="rgba(0,0,0,0)"
+                  d="M -5,83 l 10,0 l 0,10 l-10 0 z"
+                  x="-5"
+                  y="83"
+                  width="10"
+                  height="10"
+                />
+              </g>
+            </g>
+          </g>
+          <g>
+            <path
               
               fill="none"
-              transform="matrix(1,0,0,1,-5,83)"
-              width="10"
-              height="10"
-            >
-              <g transform="matrix(1,0,0,1,0,0)">
-                <path
-                  
-                  fill="rgba(0,0,0,0)"
-                  d="M 0,0 l 10,0 l 0,10 l-10 0 z"
-                  width="10"
-                  height="10"
-                />
-              </g>
-            </g>
+              d="M 83.99999999939449,0 l 200.50000000040365,0 l 0,88 l-200.50000000040365 0 z"
+              x="83.99999999939449"
+              y="0"
+              width="200.50000000040365"
+              height="88"
+            />
           </g>
         </g>
       </g>

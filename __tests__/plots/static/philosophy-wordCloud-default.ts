@@ -11,8 +11,8 @@ export function philosophyWordCloudDefault(): G2Spec {
     },
     layout: {
       random,
-      rotate: 0,
     },
   };
 }
+
 philosophyWordCloudDefault.skip = true;

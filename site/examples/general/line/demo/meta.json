@@ -133,6 +133,14 @@
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*rHYnQ5-S6twAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
+      "filename": "line-area-clip-path.ts",
+      "title": {
+        "zh": "面积标注折线图",
+        "en": "Line with Area Annotation"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*GK8rQY5srTgAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
       "filename": "line-slope.ts",
       "title": {
         "zh": "斜率图",

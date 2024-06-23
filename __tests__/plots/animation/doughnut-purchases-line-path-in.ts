@@ -54,7 +54,7 @@ export function doughnutPurchasesLinePathIn(): G2Spec {
           enterDuration: 300,
         },
         style: {
-          strokeWidth: 5,
+          lineWidth: 5,
           stroke: '#fff',
           textAlign: 'center',
           dy: -12,

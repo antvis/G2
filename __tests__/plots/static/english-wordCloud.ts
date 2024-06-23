@@ -11,7 +11,6 @@ export function englishWordCloud(): G2Spec {
       {
         type: 'wordCloud',
         layout: {
-          rotate: 0,
           random,
         },
         data: {
@@ -21,4 +20,5 @@ export function englishWordCloud(): G2Spec {
     ],
   };
 }
+
 englishWordCloud.skip = true;

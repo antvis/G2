@@ -151,6 +151,8 @@ export const Advance = createElement((g) => {
     ...rest
   } = g.attributes as TextShapeStyleProps;
 
+  g.style.transform = `translate(${x}, ${y})`;
+
   // Position is invalid, do not render the UI,
   // or clear previous elements.
   if ([x, y, x0, y0].some((v) => !isNumber(v))) {
@@ -220,7 +222,7 @@ export const Advance = createElement((g) => {
   select(g)
     .maybeAppend('connector', 'path')
     .style('zIndex', 0)
-    .style('path', connectorPath)
+    .style('d', connectorPath)
     .style('markerStart', markerStart)
     .style('markerEnd', markerEnd)
     .call(applyStyle, connector ? connectorStyle : {});

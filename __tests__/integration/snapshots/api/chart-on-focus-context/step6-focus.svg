@@ -9,93 +9,111 @@
     <path
       
       fill="none"
-      d="M 0,0 l 608,0 l 0,328 l-608 0 z"
+      d="M 16,16 l 608,0 l 0,328 l-608 0 z"
+      x="16"
+      y="16"
       width="608"
       height="328"
     />
     <clipPath transform="matrix(1,0,0,1,-16,-16)" >
-      <use href="#g-svg-57" transform="matrix(1,0,0,1,16,16)" />
+      <use href="#g-svg-57" />
     </clipPath>
     <path
       
       fill="none"
-      d="M 0,0 l 608,0 l 0,328 l-608 0 z"
+      d="M 16,16 l 608,0 l 0,328 l-608 0 z"
+      x="16"
+      y="16"
       width="608"
       height="328"
     />
     <clipPath transform="matrix(1,0,0,1,-16,-16)" >
-      <use href="#g-svg-78" transform="matrix(1,0,0,1,16,16)" />
+      <use href="#g-svg-78" />
     </clipPath>
     <path
       
       fill="none"
-      d="M 0,0 l 608,0 l 0,328 l-608 0 z"
+      d="M 16,16 l 608,0 l 0,328 l-608 0 z"
+      x="16"
+      y="16"
       width="608"
       height="328"
     />
     <clipPath transform="matrix(1,0,0,1,-16,-16)" >
-      <use href="#g-svg-80" transform="matrix(1,0,0,1,16,16)" />
+      <use href="#g-svg-80" />
     </clipPath>
     <path
       
       fill="none"
-      d="M 0,0 l 608,0 l 0,328 l-608 0 z"
+      d="M 16,16 l 608,0 l 0,328 l-608 0 z"
+      x="16"
+      y="16"
       width="608"
       height="328"
     />
     <clipPath transform="matrix(1,0,0,1,-16,-16)" >
-      <use href="#g-svg-120" transform="matrix(1,0,0,1,16,16)" />
+      <use href="#g-svg-120" />
     </clipPath>
     <path
       
       fill="none"
-      d="M 0,0 l 608,0 l 0,328 l-608 0 z"
+      d="M 16,16 l 608,0 l 0,328 l-608 0 z"
+      x="16"
+      y="16"
       width="608"
       height="328"
     />
     <clipPath transform="matrix(1,0,0,1,-16,-16)" >
-      <use href="#g-svg-122" transform="matrix(1,0,0,1,16,16)" />
+      <use href="#g-svg-122" />
     </clipPath>
   </defs>
-  <g  transform="matrix(1,0,0,1,0,0)">
-    <g  fill="none" transform="matrix(1,0,0,1,0,0)">
-      <g  fill="none" transform="matrix(1,0,0,1,0,0)" class="view">
-        <g transform="matrix(1,0,0,1,0,0)">
+  <g >
+    <g  fill="none">
+      <g  fill="none" class="view">
+        <g>
           <path
             
             fill="rgba(0,0,0,0)"
             class="area"
             d="M 0,0 l 640,0 l 0,360 l-640 0 z"
+            x="0"
+            y="0"
             width="640"
             height="360"
           />
         </g>
-        <g transform="matrix(1,0,0,1,16,16)">
+        <g>
           <path
             
             fill="rgba(0,0,0,0)"
             class="area"
-            d="M 0,0 l 608,0 l 0,328 l-608 0 z"
+            d="M 16,16 l 608,0 l 0,328 l-608 0 z"
+            x="16"
+            y="16"
             width="608"
             height="328"
           />
         </g>
-        <g transform="matrix(1,0,0,1,16,16)">
+        <g>
           <path
             
             fill="rgba(0,0,0,0)"
             class="area"
-            d="M 0,0 l 608,0 l 0,328 l-608 0 z"
+            d="M 16,16 l 608,0 l 0,328 l-608 0 z"
+            x="16"
+            y="16"
             width="608"
             height="328"
           />
         </g>
-        <g transform="matrix(1,0,0,1,16,16)">
+        <g>
           <path
             
             fill="rgba(0,0,0,0)"
             class="area"
-            d="M 0,0 l 608,0 l 0,328 l-608 0 z"
+            d="M 16,16 l 608,0 l 0,328 l-608 0 z"
+            x="16"
+            y="16"
             width="608"
             height="328"
           />
@@ -109,13 +127,8 @@
             width="608"
             height="328"
           />
-          <g
-            
-            fill="none"
-            transform="matrix(1,0,0,1,0,0)"
-            class="main-layer"
-          >
-            <g transform="matrix(1,0,0,1,0,0)">
+          <g  fill="none" class="main-layer">
+            <g>
               <path
                 
                 fill="rgba(23,131,255,1)"
@@ -127,12 +140,7 @@
               />
             </g>
           </g>
-          <g
-            
-            fill="none"
-            transform="matrix(1,0,0,1,0,0)"
-            class="label-layer"
-          />
+          <g  fill="none" class="label-layer" />
         </g>
       </g>
     </g>

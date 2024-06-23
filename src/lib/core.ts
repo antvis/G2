@@ -32,6 +32,7 @@ import {
   Shape,
   Density,
   Heatmap,
+  WordCloud as WordCloudGeometry,
 } from '../mark';
 import { Category10, Category20 } from '../palette';
 import {
@@ -101,6 +102,7 @@ import {
   Poptip,
   ScrollbarFilter,
   TreemapDrillDown,
+  ElementPointMove,
 } from '../interaction';
 import {
   SpaceLayer,
@@ -152,12 +154,14 @@ import {
   Sort as DataSort,
   KDE as DataKDE,
   Log as DataLog,
+  WordCloud,
 } from '../data';
 import {
   OverlapDodgeY,
   OverflowHide,
   ContrastReverse,
   OverlapHide,
+  ExceedAdjust,
 } from '../label-transform';
 
 export function corelib() {
@@ -176,6 +180,7 @@ export function corelib() {
     'data.join': DataJoin,
     'data.kde': DataKDE,
     'data.log': DataLog,
+    'data.wordCloud': WordCloud,
     'transform.stackY': StackY,
     'transform.binX': BinX,
     'transform.bin': Bin,
@@ -235,6 +240,7 @@ export function corelib() {
     'mark.shape': Shape,
     'mark.density': Density,
     'mark.heatmap': Heatmap,
+    'mark.wordCloud': WordCloudGeometry,
     'palette.category10': Category10,
     'palette.category20': Category20,
     'scale.linear': ScaleLinear,
@@ -301,6 +307,7 @@ export function corelib() {
     'interaction.scrollbarFilter': ScrollbarFilter,
     'interaction.poptip': Poptip,
     'interaction.treemapDrillDown': TreemapDrillDown,
+    'interaction.elementPointMove': ElementPointMove,
     'composition.spaceLayer': SpaceLayer,
     'composition.spaceFlex': SpaceFlex,
     'composition.facetRect': FacetRect,
@@ -311,5 +318,6 @@ export function corelib() {
     'labelTransform.overlapDodgeY': OverlapDodgeY,
     'labelTransform.overflowHide': OverflowHide,
     'labelTransform.contrastReverse': ContrastReverse,
+    'labelTransform.exceedAdjust': ExceedAdjust,
   } as const;
 }

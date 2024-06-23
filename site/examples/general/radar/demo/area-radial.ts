@@ -33,7 +33,7 @@ chart
     labelFormatter: (d, i, array) =>
       i === array.length - 1 ? `${d}°F` : `${d}`,
     labelStroke: '#fff',
-    labelStrokeWidth: 5,
+    labelLineWidth: 5,
   })
   .axis('x', {
     grid: true,
@@ -60,7 +60,7 @@ chart
   .encode('x', 'date')
   .encode('y', 'avg')
   .style('stroke', 'steelblue')
-  .style('strokeWidth', 1.5)
+  .style('lineWidth', 1.5)
   .tooltip({ channel: 'y', valueFormatter: '.1f' });
 
 chart.render();

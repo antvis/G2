@@ -1,3 +1,110 @@
+## [5.1.22](https://github.com/antvis/g2/compare/5.1.21...5.1.22) (2024-06-17)
+
+
+### Bug Fixes
+
+* **tooltip:** items for transposed interval + line ([#6286](https://github.com/antvis/g2/issues/6286)) ([65e09b0](https://github.com/antvis/g2/commit/65e09b0f1f69cdf76a6a88ba37c1cbd3a62d420b))
+
+
+### Features
+
+* **tooltip:** show tooltip for small interval ([#6289](https://github.com/antvis/g2/issues/6289)) ([e9ac6e0](https://github.com/antvis/g2/commit/e9ac6e0b97f083d4c3687b0a7d53e1f1e428327e))
+
+
+
+## [5.1.21](https://github.com/antvis/g2/compare/5.1.19...5.1.21) (2024-06-04)
+
+
+### Bug Fixes
+
+* arrow with lineWidth ([#6225](https://github.com/antvis/g2/issues/6225)) ([afd3b77](https://github.com/antvis/g2/commit/afd3b77db9b8b3adeb8c035ca9d22ce3a9292b7c))
+* hide axisZ when axis disabled ([#6246](https://github.com/antvis/g2/issues/6246)) ([b11be1f](https://github.com/antvis/g2/commit/b11be1f7f9a833cd6a993fa93750b2a596521e02))
+* label rotate ([#6261](https://github.com/antvis/g2/issues/6261)) ([45227fa](https://github.com/antvis/g2/commit/45227fa3f5c93af105b49d6174e21fb7547c9193))
+* **label:** display error ([#6172](https://github.com/antvis/g2/issues/6172)) ([51d1c51](https://github.com/antvis/g2/commit/51d1c51edb95e926a60808cc201e46e2bb785b41))
+* skip animation if fromPath equals toPath ([#6193](https://github.com/antvis/g2/issues/6193)) ([fee3397](https://github.com/antvis/g2/commit/fee3397880167d3f1730d7fa14803d92181c3b58))
+* **theme:** change the dark theme default background color to transparent ([#6226](https://github.com/antvis/g2/issues/6226)) ([f444a74](https://github.com/antvis/g2/commit/f444a7496f7849daa7d49b23ffeb50d8aebfc6e8))
+* update docs words ([#6211](https://github.com/antvis/g2/issues/6211)) ([8ecb185](https://github.com/antvis/g2/commit/8ecb1854b884723d0dc862573e440daabc8e7a91))
+
+
+### Features
+
+* add channels to style and label callback ([#6250](https://github.com/antvis/g2/issues/6250)) ([3c003d0](https://github.com/antvis/g2/commit/3c003d08417d88eecd4995783c721a633ce19d8e))
+* add context for customize label transform ([#6222](https://github.com/antvis/g2/issues/6222)) ([acc0fc0](https://github.com/antvis/g2/commit/acc0fc0ce36bd5ed63aa793568ce55590b619882))
+* **interaction.tooltip:** add crosshairs, crosshairsX, crosshairsY setting ([#6229](https://github.com/antvis/g2/issues/6229)) ([0f7dc62](https://github.com/antvis/g2/commit/0f7dc62a6dd971d1c6abae9f6eaa50822107bc83))
+* **label:** add label transform feature exceedAdjust ([#6209](https://github.com/antvis/g2/issues/6209)) ([fefd4ea](https://github.com/antvis/g2/commit/fefd4ea46b0cb8232730179b13cab8064560d224))
+
+
+
+## [5.1.20](https://github.com/antvis/g2/compare/5.1.19...5.1.20) (2024-05-08)
+
+
+### Bug Fixes
+
+* **label:** display error ([#6172](https://github.com/antvis/g2/issues/6172)) ([51d1c51](https://github.com/antvis/g2/commit/51d1c51edb95e926a60808cc201e46e2bb785b41))
+* skip animation if fromPath equals toPath ([#6193](https://github.com/antvis/g2/issues/6193)) ([fee3397](https://github.com/antvis/g2/commit/fee3397880167d3f1730d7fa14803d92181c3b58))
+* update docs words ([#6211](https://github.com/antvis/g2/issues/6211)) ([8ecb185](https://github.com/antvis/g2/commit/8ecb1854b884723d0dc862573e440daabc8e7a91))
+
+
+### Features
+
+* add context for customize label transform ([#6222](https://github.com/antvis/g2/issues/6222)) ([acc0fc0](https://github.com/antvis/g2/commit/acc0fc0ce36bd5ed63aa793568ce55590b619882))
+* **label:** add label transform feature exceedAdjust ([#6209](https://github.com/antvis/g2/issues/6209)) ([fefd4ea](https://github.com/antvis/g2/commit/fefd4ea46b0cb8232730179b13cab8064560d224))
+
+
+
+## [5.1.19](https://github.com/antvis/g2/compare/5.1.17...5.1.19) (2024-04-19)
+
+
+### Features
+
+* refactor word cloud mark ([#6180](https://github.com/antvis/g2/issues/6180)) ([4982b46](https://github.com/antvis/G2/commit/4982b46720dcfc5fe3eba7c78dc6b7ddfb48e2fa))
+
+
+
+## [5.1.18](https://github.com/antvis/g2/compare/5.1.17...5.1.18) (2024-04-08)
+
+
+### Features
+
+* update to g@6.0 for better performance ([#6149](https://github.com/antvis/g2/issues/6149)) ([72012e8](https://github.com/antvis/g2/commit/72012e8713afbd898322887d404d4b61d2b1d423))
+
+
+
+## [5.1.17](https://github.com/antvis/g2/compare/5.1.16...5.1.17) (2024-03-21)
+
+
+### Bug Fixes
+
+* **pointmove:** 修复 pointmove 事件的两个问题 ([#6136](https://github.com/antvis/g2/issues/6136)) ([3dfb9e7](https://github.com/antvis/g2/commit/3dfb9e7adc071703be2c04221902f065f6a74554))
+* tooltip for custom element ([#6140](https://github.com/antvis/g2/issues/6140)) ([72d8900](https://github.com/antvis/g2/commit/72d8900b59cb0b6e1016fdf2c8ab2cd2e5fe767c))
+* tooltip for multi view ([#6142](https://github.com/antvis/g2/issues/6142)) ([411e1f4](https://github.com/antvis/g2/commit/411e1f49ad6829728b63400058d4796eb4ab33b6))
+
+
+### Features
+
+* **interaction:** add elementpointmove interaction ([#6110](https://github.com/antvis/g2/issues/6110)) ([e36ce30](https://github.com/antvis/g2/commit/e36ce302ceaff101a37519c9d587ab59cf428cab))
+
+
+
+## [5.1.16](https://github.com/antvis/g2/compare/5.1.15...5.1.16) (2024-03-14)
+
+
+### Bug Fixes
+
+* **ci:** add update coverall action ([#6072](https://github.com/antvis/g2/issues/6072)) ([ffac8f8](https://github.com/antvis/g2/commit/ffac8f8d39e671f8097601ce5c81ad02ae3e2df7))
+* **docs:** add axis missing property  `labelOpacity` ([#6059](https://github.com/antvis/g2/issues/6059)) ([9e35333](https://github.com/antvis/g2/commit/9e3533307e8923eaa6d7f2959ccce4595c684b32))
+* quantile scale  domain calculate ([#6126](https://github.com/antvis/g2/issues/6126)) ([e8192d2](https://github.com/antvis/g2/commit/e8192d234a9396f08d45781350d20e89aba5c6be))
+* scale options rangeMax and rangeMax ([#6125](https://github.com/antvis/g2/issues/6125)) ([f11e9f9](https://github.com/antvis/g2/commit/f11e9f909d6500c6995b36493f4cfa958668c67b))
+
+
+### Features
+
+* add interactive column ([#6083](https://github.com/antvis/g2/issues/6083)) ([f8a3a8d](https://github.com/antvis/g2/commit/f8a3a8d7ca8bf509f6cb69ddda58abbe2b740148))
+* **shape:** add gauge shape round ([#6069](https://github.com/antvis/g2/issues/6069)) ([e0cefbb](https://github.com/antvis/g2/commit/e0cefbb5f1d4904092fc27e2e6e7b46cbd443ec0))
+* **vite:** update vite configuration ([#6102](https://github.com/antvis/g2/issues/6102)) ([042c638](https://github.com/antvis/g2/commit/042c63883c46b943e81077ec77c0cd1bb08c4d8a))
+
+
+
 ## [5.1.15](https://github.com/antvis/g2/compare/5.1.14...5.1.15) (2024-01-16)
 
 

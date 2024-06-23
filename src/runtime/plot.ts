@@ -6,6 +6,7 @@ import { format } from 'd3-format';
 import { mapObject } from '../utils/array';
 import { ChartEvent } from '../utils/event';
 import {
+  isStrictObject,
   appendTransform,
   compose,
   copyAttributes,
@@ -1220,15 +1221,20 @@ function plotLabel(
     labelDescriptor.get(d.__data__),
   );
   const { coordinate } = view;
+
+  const labelTransformContext = {
+    canvas: context.canvas,
+    coordinate,
+  };
   for (const [label, shapes] of labelGroups) {
     const { transform = [] } = label;
     const transformFunction = compose(transform.map(useLabelTransform));
-    transformFunction(shapes, coordinate);
+    transformFunction(shapes, labelTransformContext);
   }
 
   // Apply view-level transform.
   if (labelTransform) {
-    labelTransform(labelShapes, coordinate);
+    labelTransform(labelShapes, labelTransformContext);
   }
 }
 
@@ -1325,9 +1331,10 @@ function createLabelShapeFunction(
     'shape',
     library,
   );
-  const { data: abstractData } = mark;
+  const { data: abstractData, encode } = mark;
   const { data: visualData, defaultLabelShape } = state;
   const point2d = visualData.map((d) => d.points);
+  const channel = mapObject(encode, (d) => d.value);
 
   // Assemble Context.
   const { theme, coordinate } = view;
@@ -1351,7 +1358,7 @@ function createLabelShapeFunction(
     } = options;
     const visualOptions = mapObject(
       { ...abstractOptions, ...abstractStyle } as Record<string, any>,
-      (d) => valueOf(d, datum, index, abstractData),
+      (d) => valueOf(d, datum, index, abstractData, { channel }),
     );
     const { shape = defaultLabelShape, text, ...style } = visualOptions;
     const f = typeof formatter === 'string' ? format(formatter) : formatter;
@@ -1371,14 +1378,15 @@ function createLabelShapeFunction(
 }
 
 function valueOf(
-  value: Primitive | ((d: any, i: number, array: any) => any),
+  value: Primitive | ((d: any, i: number, array: any, channel: any) => any),
   datum: Record<string, any>,
   i: number,
   data: Record<string, any>,
+  options: { channel: Record<string, any> },
 ) {
-  if (typeof value === 'function') return value(datum, i, data);
+  if (typeof value === 'function') return value(datum, i, data, options);
   if (typeof value !== 'string') return value;
-  if (datum[value] !== undefined) return datum[value];
+  if (isStrictObject(datum) && datum[value] !== undefined) return datum[value];
   return value;
 }
 
@@ -1491,8 +1499,9 @@ function createMarkShapeFunction(
     'shape',
     library,
   );
-  const { data: abstractData } = mark;
+  const { data: abstractData, encode } = mark;
   const { defaultShape, data, shape: shapeLibrary } = state;
+  const channel = mapObject(encode, (d) => d.value);
   const point2d = data.map((d) => d.points);
   const { theme, coordinate } = view;
   const { type: markType, style = {} } = mark;
@@ -1518,7 +1527,7 @@ function createMarkShapeFunction(
 
     const I = seriesIndex ? seriesIndex : i;
     const visualStyle = mapObject(style, (d) =>
-      valueOf(d, abstractDatum, I, abstractData),
+      valueOf(d, abstractDatum, I, abstractData, { channel }),
     );
 
     // Try get shape from mark first, then from library.
@@ -1694,8 +1703,13 @@ async function applyTransform<T extends G2ViewTree>(
 
 function updateBBox(selection: Selection) {
   selection
-    .style('x', (d) => d.paddingLeft + d.marginLeft)
-    .style('y', (d) => d.paddingTop + d.marginTop)
+    .style(
+      'transform',
+      (d) =>
+        `translate(${d.paddingLeft + d.marginLeft}, ${
+          d.paddingTop + d.marginTop
+        })`,
+    )
     .style('width', (d) => d.innerWidth)
     .style('height', (d) => d.innerHeight);
 }
@@ -1703,7 +1717,7 @@ function updateBBox(selection: Selection) {
 function animateBBox(selection: Selection, extent: [number, number]) {
   const [delay, duration] = extent;
   selection.transition(function (data, i, element) {
-    const { x, y, width, height } = element.style;
+    const { transform, width, height } = element.style;
     const {
       paddingLeft,
       paddingTop,
@@ -1714,14 +1728,14 @@ function animateBBox(selection: Selection, extent: [number, number]) {
     } = data;
     const keyframes = [
       {
-        x,
-        y,
+        transform,
         width,
         height,
       },
       {
-        x: paddingLeft + marginLeft,
-        y: paddingTop + marginTop,
+        transform: `translate(${paddingLeft + marginLeft}, ${
+          paddingTop + marginTop
+        })`,
         width: innerWidth,
         height: innerHeight,
       },

@@ -8,17 +8,17 @@ const axis = {
   titlePosition: 'right',
   line: true,
   labelStroke: '#fff',
-  labelStrokeWidth: 5,
+  labelLineWidth: 5,
   labelFontSize: 10,
   labelStrokeLineJoin: 'round',
   titleStroke: '#fff',
   titleFontSize: 10,
-  titleStrokeWidth: 5,
+  titleLineWidth: 5,
   titleStrokeLineJoin: 'round',
   titleTransform: 'translate(-50%, 0) rotate(-90)',
   lineStroke: 'black',
   tickStroke: 'black',
-  lineStrokeWidth: 1,
+  lineLineWidth: 1,
 };
 
 const chart = new Chart({
@@ -44,7 +44,7 @@ chart
     'year',
   ])
   .encode('color', 'weight (lb)')
-  .style('strokeWidth', 1.5)
+  .style('lineWidth', 1.5)
   .style('strokeOpacity', 0.4)
   .scale('color', {
     palette: 'brBG',

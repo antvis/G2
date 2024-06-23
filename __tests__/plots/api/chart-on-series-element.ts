@@ -13,7 +13,7 @@ export function chartOnSeriesElement(context) {
     .encode('x', 'month')
     .encode('y', 'temperature')
     .encode('color', 'city')
-    .style('strokeWidth', 10);
+    .style('lineWidth', 10);
 
   chart.on('line:click', (e) => {
     console.log(e.data.data);

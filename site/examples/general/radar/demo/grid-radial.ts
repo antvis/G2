@@ -36,7 +36,7 @@ chart
   .scale('y', { tickCount: 5, domainMax: 80 })
   .axis('x', {
     grid: true,
-    gridStrokeWidth: 1,
+    gridLineWidth: 1,
     tick: false,
     gridLineDash: [0, 0],
   })
@@ -44,7 +44,7 @@ chart
     zIndex: 1,
     title: false,
     gridConnect: 'line',
-    gridStrokeWidth: 1,
+    gridLineWidth: 1,
     gridLineDash: [0, 0],
   });
 

@@ -30,7 +30,7 @@ export function missingAreaTooltipMarker(): G2Spec {
       tooltip: {
         body: false,
         markerR: 10,
-        markerStrokeWidth: 5,
+        markerLineWidth: 5,
         markerStroke: '#aaa',
       },
     },

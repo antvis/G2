@@ -2,6 +2,7 @@ import { CustomEvent } from '@antv/g';
 import { G2Spec, ELEMENT_CLASS_NAME } from '../../../src';
 import { LEGEND_ITEMS_CLASS_NAME } from '../../../src/interaction/legendFilter';
 import { profit } from '../../data/profit';
+import { dispatchPointermove } from './utils';
 
 export function profitIntervalLegendFilterOrdinal(): G2Spec {
   return {
@@ -37,7 +38,7 @@ profitIntervalLegendFilterOrdinal.steps = ({ canvas }) => {
       changeState: async () => {
         const elements = document.getElementsByClassName(ELEMENT_CLASS_NAME);
         const [e0] = elements;
-        e0.dispatchEvent(new CustomEvent('pointermove'));
+        dispatchPointermove(e0);
       },
     },
   ];

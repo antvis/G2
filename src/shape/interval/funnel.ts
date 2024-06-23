@@ -51,7 +51,7 @@ export const Funnel: SC<FunnelOptions> = (options, context) => {
     const b = line().curve(curveLinearClosed)([p0, p1, p2, p3]);
     return select(document.createElement('path', {}))
       .call(applyStyle, rest)
-      .style('path', b)
+      .style('d', b)
       .style('fill', color)
       .style('fillOpacity', opacity)
       .call(applyStyle, style)

@@ -31,7 +31,7 @@ export function stateAgesIntervalHighlightLinkTranspose(): G2Spec {
       active: {
         linkFill: (d) => (d.state === 'CA' ? 'red' : undefined),
         stroke: '#000',
-        strokeWidth: 1,
+        lineWidth: 1,
         linkFillOpacity: 0.5,
       },
       inactive: {
