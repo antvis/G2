@@ -29,6 +29,14 @@
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xvGZQY7sKhIAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
+      "filename": "line-zero-values.ts",
+      "title": {
+        "zh": "零值折线图",
+        "en": "Line with Zero Values"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*FXVWSISFZhcAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
       "filename": "line-basic.ts",
       "title": {
         "zh": "普通折线图",
