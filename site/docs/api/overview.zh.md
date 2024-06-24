@@ -102,7 +102,7 @@ order: 1
 
 - [mark.**attr**](/api/mark#markattr) - 设置或获取 mark 的属性。
 - [mark.**data**](/api/mark#markdata) - 设置或获取 mark 的 data。
-- [mark.**encode**](/papi/mark#markecode) - 设置或获取 mark 的 encode。
+- [mark.**encode**](/api/mark#markecode) - 设置或获取 mark 的 encode。
 - [mark.**transform**](/api/mark#marktransform) - 设置或获取 mark 的 transform。
 - [mark.**scale**](/api/mark#markscale) - 设置或获取 mark 的 scale。
 - [mark.**interaction**](/api/mark#markinteraction) - 设置或获取 mark 的 interaction。
