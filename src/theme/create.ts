@@ -434,5 +434,12 @@ export function create({
       subtitleFontWeight: 'normal',
       subtitleTextBaseline: 'top',
     },
+    tooltip: {
+      css: {
+        '.g2-tooltip': {
+          'font-family': 'sans-serif',
+        },
+      },
+    },
   };
 }
