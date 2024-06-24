@@ -63,7 +63,7 @@ Promise.all([
 
 ### 如何绘制一个中国地图？
 
-地图最终是由 geojson 数据决定，所以需要找到一个中国行政地图的 geojson，去掉然后放到当前示例 DEMO 中。
+地图最终是由 geojson 数据决定，所以需要找到一个中国行政地图的 geojson，并将此数据应用于当前的示例 DEMO 中。
 
 ```ts
 chart
