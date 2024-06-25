@@ -81,9 +81,10 @@ export const Slider: GCC<SliderOptions> = (options) => {
 function markValue(markState, channels: string[]) {
   const [value] = Array.from(markState.entries())
     .filter(([mark]) => mark.type === 'line' || mark.type === 'area')
+    .filter(([mark]) => mark.slider)
     .map(([mark]) => {
       const { encode, slider } = mark;
-      if (slider?.x && Object.keys(slider.x).length === 0) {
+      if (slider?.x) {
         const channel = (name) => {
           const channel = encode[name];
           return [name, channel ? channel.value : undefined];
