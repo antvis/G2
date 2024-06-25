@@ -37,6 +37,14 @@
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*tELLRr-YVa8AAAAAAAAAAAAADmJ7AQ/original"
     },
     {
+      "filename": "tooltip-two.ts",
+      "title": {
+        "zh": "两个 tooltip",
+        "en": "Two Tooltip"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*yHjTR6GNM7kAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
       "filename": "tooltip-render.ts",
       "title": {
         "zh": "自定义渲染内容",
