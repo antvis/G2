@@ -101,10 +101,8 @@ chart
 
 chart.on('element:click', ({ data }) =>
   chart.emit('tooltip:show', {
-    data: {
-      data: data.data,
-      offsetY: 0,
-    },
+    data,
+    offsetY: 0,
   }),
 );
 

@@ -142,10 +142,10 @@ chart
 
 chart.render().then((chart) =>
   chart.emit('tooltip:show', {
+    offsetX: 10, // 相对于 plot 区域的位置
+    offsetX: 20, // 相对于 plot 区域的位置
     data: {
       data: { genre: 'Sports' }, // 会找从原始数据里面找到匹配的数据
-      offsetX: 10, // 相对于 plot 区域的位置
-      offsetX: 20, // 相对于 plot 区域的位置
     },
   }),
 );
@@ -160,11 +160,20 @@ chart
   .encode('x', 'date')
   .encode('y', 'close');
 
+// 根据数据拾取
 chart.render((chart) =>
   chart.emit('tooltip:show', {
     data: {
       data: { x: new Date('2010-11-16') },
     },
+  }),
+);
+
+// 根据像素拾取
+chart.render((chart) =>
+  chart.emit('tooltip:show', {
+    offsetX: 200,
+    offsetY: 200,
   }),
 );
 ```
