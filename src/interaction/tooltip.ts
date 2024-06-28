@@ -991,30 +991,43 @@ export function tooltip(
   const keyGroup = group(elements, groupKey);
   const inInterval = (d) => d.markType === 'interval';
   const isBar = elements.every(inInterval) && !isPolar(coordinate);
-  const xof = (d) => d.__data__.x;
   const scaleX = scale.x;
+  const scaleSeries = scale.series;
+  const bandWidth = scaleX?.getBandWidth?.() ?? 0;
+  const xof = scaleSeries
+    ? (d) => d.__data__.x + d.__data__.series * bandWidth
+    : (d) => d.__data__.x + bandWidth / 2;
 
   // Sort for bisector search.
   if (isBar) elements.sort((a, b) => xof(a) - xof(b));
+
+  const findElementByTarget = (event) => {
+    const { target } = event;
+    return maybeRoot(target, (node) => {
+      if (!node.classList) return false;
+      return node.classList.includes('element');
+    });
+  };
 
   const findElement = isBar
     ? (event) => {
         const mouse = mousePosition(root, event);
         if (!mouse) return;
-        const offsetX = scaleX?.getBandWidth ? scaleX.getBandWidth() / 2 : 0;
         const [normalizedX] = coordinate.invert(mouse);
-        const abstractX = normalizedX - offsetX;
+        const abstractX = normalizedX;
         const search = bisector(xof).center;
         const i = search(elements, abstractX);
-        return elements[i];
+        const target = elements[i];
+        if (!shared) {
+          // For grouped bar chart without shared options.
+          const isGrouped = elements.find(
+            (d) => d !== target && xof(d) === xof(target),
+          );
+          if (isGrouped) return findElementByTarget(event);
+        }
+        return target;
       }
-    : (event) => {
-        const { target } = event;
-        return maybeRoot(target, (node) => {
-          if (!node.classList) return false;
-          return node.classList.includes('element');
-        });
-      };
+    : findElementByTarget;
 
   const pointermove = throttle(
     (event) => {
