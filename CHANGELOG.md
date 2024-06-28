@@ -1,3 +1,18 @@
+# [5.2.0](https://github.com/antvis/g2/compare/5.1.23...5.2.0) (2024-06-28)
+
+
+### Bug Fixes
+
+* **slider:** update show sparkline condition and fix test ([#6317](https://github.com/antvis/g2/issues/6317)) ([1589404](https://github.com/antvis/g2/commit/15894048ee4ef8dd32a9d646404fe66cd9f602b1))
+* **tooltip:** group tooltip ([#6323](https://github.com/antvis/g2/issues/6323)) ([c2e7023](https://github.com/antvis/g2/commit/c2e7023d96678b806e736b2a8e9f76169a1b41d0))
+
+
+### Features
+
+* **tooltip:** click to show line tooltip ([#6330](https://github.com/antvis/g2/issues/6330)) ([08c66db](https://github.com/antvis/g2/commit/08c66db2fc7b2d3749896c00345dee601fbcfe5d))
+
+
+
 ## [5.1.23](https://github.com/antvis/g2/compare/5.1.22...5.1.23) (2024-06-24)
 
 
