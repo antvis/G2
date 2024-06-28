@@ -33,13 +33,21 @@ export function chartEmitItemTooltip(context) {
     ])
     .encode('x', 'genre')
     .encode('y', 'sold')
-    .encode('color', 'genre');
+    .encode('color', 'genre')
+    .interaction('tooltip', {
+      offset: [0, 0],
+      css: {
+        '.g2-tooltip': {
+          transform: 'translate(-50%, -100%)',
+        },
+      },
+    });
 
   const finished = chart.render();
 
   finished.then((chart) =>
     chart.emit('tooltip:show', {
-      data: { data: { sold: 115 } },
+      data: { data: { sold: 115 }, offsetY: 0 },
     }),
   );
 

@@ -69,6 +69,7 @@ function createTooltip(
   bounding,
   containerOffset,
   css = {},
+  offset: [number, number] = [10, 10],
 ) {
   const defaults = {
     '.g2-tooltip': {},
@@ -89,7 +90,7 @@ function createTooltip(
       position,
       enterable,
       title: '',
-      offset: [10, 10],
+      offset,
       template: {
         prefixCls: 'g2-',
       },
@@ -113,6 +114,7 @@ function showTooltip({
   css,
   mount,
   bounding,
+  offset,
 }) {
   const container = getContainer(root, mount);
   const canvasContainer = getContainer(root);
@@ -130,6 +132,7 @@ function showTooltip({
       b,
       containerOffset,
       css,
+      offset,
     ),
   } = parent as any;
   const { items, title = '' } = data;
@@ -572,6 +575,7 @@ export function seriesTooltip(
     mount,
     bounding,
     theme,
+    offset,
     disableNative = false,
     marker = true,
     preserve = false,
@@ -798,6 +802,7 @@ export function seriesTooltip(
           mount,
           bounding,
           css,
+          offset,
         });
       }
 
@@ -974,6 +979,7 @@ export function tooltip(
     mount,
     bounding,
     theme,
+    offset,
     shared = false,
     body = true,
     disableNative = false,
@@ -1055,6 +1061,7 @@ export function tooltip(
           mount,
           bounding,
           css,
+          offset,
         });
       }
 
@@ -1090,16 +1097,18 @@ export function tooltip(
     }
   };
 
-  const onTooltipShow = ({ nativeEvent, data }) => {
+  const onTooltipShow = ({ nativeEvent, data: raw }) => {
     if (nativeEvent) return;
-    const element = selectElementByData(elements, data.data, datum);
+    const { data, offsetX, offsetY } = raw;
+    const element = selectElementByData(elements, data, datum);
     if (!element) return;
     const bbox = element.getBBox();
     const { x, y, width, height } = bbox;
+    const rootBBox = root.getBBox();
     pointermove({
       target: element,
-      offsetX: x + width / 2,
-      offsetY: y + height / 2,
+      offsetX: offsetX !== undefined ? offsetX + rootBBox.x : x + width / 2,
+      offsetY: offsetY !== undefined ? offsetY + rootBBox.y : y + height / 2,
     });
   };
 
