@@ -47,7 +47,8 @@ export function chartEmitItemTooltip(context) {
 
   finished.then((chart) =>
     chart.emit('tooltip:show', {
-      data: { data: { sold: 115 }, offsetY: 0 },
+      offsetY: 0,
+      data: { data: { sold: 115 } },
     }),
   );
 

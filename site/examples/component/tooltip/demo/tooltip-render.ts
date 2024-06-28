@@ -38,9 +38,10 @@ chart.interaction('tooltip', {
     >
       Letter: ${title}
     </h2>
-    ${items.map(
-      (item) =>
-        `<div style="font-size: 16px; color: #666">name: ${item.name}
+    ${items
+      .map(
+        (item) =>
+          `<div style="font-size: 16px; color: #666">name: ${item.name}
           <br/>
           value: 
           <div style="width:${
@@ -48,7 +49,8 @@ chart.interaction('tooltip', {
           }px;height:10px;display:inline-block;background:${item.color}"></div>
           ${item.value}
         </div>`,
-    )}
+      )
+      .join('')}
   </div>
   `,
 });

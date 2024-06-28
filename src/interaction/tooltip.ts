@@ -886,17 +886,21 @@ export function seriesTooltip(
     destroyTooltip({ root, single });
   };
 
-  const onTooltipShow = ({ nativeEvent, data }) => {
+  const onTooltipShow = ({ nativeEvent, data, offsetX, offsetY, ...rest }) => {
     if (nativeEvent) return;
-    const { x } = data.data;
-    const { x: scaleX } = scale;
+    const x = data?.data?.x;
+    const scaleX = scale.x;
     const x1 = scaleX.map(x);
     const [x2, y2] = coordinate.map([x1, 0.5]);
-    const {
-      min: [minX, minY],
-    } = root.getRenderBounds();
-    // _x is a hint, to lookup for the right element if multiple element in the same abstractX.
-    update({ offsetX: x2 + minX, offsetY: y2 + minY, _x: x });
+    const rootBounds = root.getRenderBounds();
+    const minX = rootBounds.min[0];
+    const minY = rootBounds.min[1];
+    update({
+      ...rest,
+      offsetX: offsetX !== undefined ? offsetX : minX + x2,
+      offsetY: offsetY !== undefined ? offsetY : minY + y2,
+      _x: x, // a hint, to lookup for the right element if multiple element in the same abstractX.
+    });
   };
 
   const onTooltipHide = () => {
@@ -1110,9 +1114,9 @@ export function tooltip(
     }
   };
 
-  const onTooltipShow = ({ nativeEvent, data: raw }) => {
+  const onTooltipShow = ({ nativeEvent, offsetX, offsetY, data: raw }) => {
     if (nativeEvent) return;
-    const { data, offsetX, offsetY } = raw;
+    const { data } = raw;
     const element = selectElementByData(elements, data, datum);
     if (!element) return;
     const bbox = element.getBBox();
