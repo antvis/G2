@@ -37,6 +37,14 @@
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*tELLRr-YVa8AAAAAAAAAAAAADmJ7AQ/original"
     },
     {
+      "filename": "tooltip-two.ts",
+      "title": {
+        "zh": "两个 tooltip",
+        "en": "Two Tooltip"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*yHjTR6GNM7kAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
       "filename": "tooltip-render.ts",
       "title": {
         "zh": "自定义渲染内容",
@@ -50,7 +58,15 @@
         "zh": "点击提示",
         "en": "Click Tooltip"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*OZz0RZle0tsAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*8lsAQ5dCO-IAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "tooltip-click-line.ts",
+      "title": {
+        "zh": "点击系列图提示",
+        "en": "Click Series Tooltip"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*CoxhR4vstEQAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "tooltip-style.ts",

@@ -69,6 +69,7 @@ function createTooltip(
   bounding,
   containerOffset,
   css = {},
+  offset: [number, number] = [10, 10],
 ) {
   const defaults = {
     '.g2-tooltip': {},
@@ -89,7 +90,7 @@ function createTooltip(
       position,
       enterable,
       title: '',
-      offset: [10, 10],
+      offset,
       template: {
         prefixCls: 'g2-',
       },
@@ -113,6 +114,7 @@ function showTooltip({
   css,
   mount,
   bounding,
+  offset,
 }) {
   const container = getContainer(root, mount);
   const canvasContainer = getContainer(root);
@@ -130,6 +132,7 @@ function showTooltip({
       b,
       containerOffset,
       css,
+      offset,
     ),
   } = parent as any;
   const { items, title = '' } = data;
@@ -572,6 +575,7 @@ export function seriesTooltip(
     mount,
     bounding,
     theme,
+    offset,
     disableNative = false,
     marker = true,
     preserve = false,
@@ -662,8 +666,10 @@ export function seriesTooltip(
     return normalizedX - offsetX;
   };
 
-  const indexByFocus = (focus, I, X) => {
-    const finalX = abstractX(focus);
+  const indexByFocus = (event, focus, I, X) => {
+    // _x is from emit event, to find the right element.
+    const { _x } = event;
+    const finalX = _x !== undefined ? scaleX.map(_x) : abstractX(focus);
     const DX = X.filter(defined);
     const [minX, maxX] = sort([DX[0], DX[DX.length - 1]]);
     // If only has one element(minX == maxX), show tooltip when hover whole chart
@@ -735,7 +741,7 @@ export function seriesTooltip(
       const selectedSeriesData = [];
       for (const element of seriesElements) {
         const [sortedIndex, X] = elementSortedX.get(element);
-        const index = indexByFocus(focus, sortedIndex, X);
+        const index = indexByFocus(event, focus, sortedIndex, X);
         if (index !== null) {
           selectedSeriesElements.push(element);
           const d = seriesData(element, index);
@@ -796,6 +802,7 @@ export function seriesTooltip(
           mount,
           bounding,
           css,
+          offset,
         });
       }
 
@@ -854,10 +861,17 @@ export function seriesTooltip(
         });
       }
 
+      // X in focus may related multiple points when dataset is large,
+      // so we need to find the first x to show tooltip.
+      const firstX = filteredSeriesData[0]?.[0].x;
+      const transformedX = firstX ?? abstractX(focus);
+
       emitter.emit('tooltip:show', {
         ...event,
         nativeEvent: true,
-        data: { data: { x: invert(scale.x, abstractX(focus), true) } },
+        data: {
+          data: { x: invert(scale.x, transformedX, true) },
+        },
       });
     },
     wait,
@@ -872,16 +886,21 @@ export function seriesTooltip(
     destroyTooltip({ root, single });
   };
 
-  const onTooltipShow = ({ nativeEvent, data }) => {
+  const onTooltipShow = ({ nativeEvent, data, offsetX, offsetY, ...rest }) => {
     if (nativeEvent) return;
-    const { x } = data.data;
-    const { x: scaleX } = scale;
+    const x = data?.data?.x;
+    const scaleX = scale.x;
     const x1 = scaleX.map(x);
     const [x2, y2] = coordinate.map([x1, 0.5]);
-    const {
-      min: [minX, minY],
-    } = root.getRenderBounds();
-    update({ offsetX: x2 + minX, offsetY: y2 + minY });
+    const rootBounds = root.getRenderBounds();
+    const minX = rootBounds.min[0];
+    const minY = rootBounds.min[1];
+    update({
+      ...rest,
+      offsetX: offsetX !== undefined ? offsetX : minX + x2,
+      offsetY: offsetY !== undefined ? offsetY : minY + y2,
+      _x: x, // a hint, to lookup for the right element if multiple element in the same abstractX.
+    });
   };
 
   const onTooltipHide = () => {
@@ -964,6 +983,7 @@ export function tooltip(
     mount,
     bounding,
     theme,
+    offset,
     shared = false,
     body = true,
     disableNative = false,
@@ -975,30 +995,43 @@ export function tooltip(
   const keyGroup = group(elements, groupKey);
   const inInterval = (d) => d.markType === 'interval';
   const isBar = elements.every(inInterval) && !isPolar(coordinate);
-  const xof = (d) => d.__data__.x;
   const scaleX = scale.x;
+  const scaleSeries = scale.series;
+  const bandWidth = scaleX?.getBandWidth?.() ?? 0;
+  const xof = scaleSeries
+    ? (d) => d.__data__.x + d.__data__.series * bandWidth
+    : (d) => d.__data__.x + bandWidth / 2;
 
   // Sort for bisector search.
   if (isBar) elements.sort((a, b) => xof(a) - xof(b));
+
+  const findElementByTarget = (event) => {
+    const { target } = event;
+    return maybeRoot(target, (node) => {
+      if (!node.classList) return false;
+      return node.classList.includes('element');
+    });
+  };
 
   const findElement = isBar
     ? (event) => {
         const mouse = mousePosition(root, event);
         if (!mouse) return;
-        const offsetX = scaleX?.getBandWidth ? scaleX.getBandWidth() / 2 : 0;
         const [normalizedX] = coordinate.invert(mouse);
-        const abstractX = normalizedX - offsetX;
+        const abstractX = normalizedX;
         const search = bisector(xof).center;
         const i = search(elements, abstractX);
-        return elements[i];
+        const target = elements[i];
+        if (!shared) {
+          // For grouped bar chart without shared options.
+          const isGrouped = elements.find(
+            (d) => d !== target && xof(d) === xof(target),
+          );
+          if (isGrouped) return findElementByTarget(event);
+        }
+        return target;
       }
-    : (event) => {
-        const { target } = event;
-        return maybeRoot(target, (node) => {
-          if (!node.classList) return false;
-          return node.classList.includes('element');
-        });
-      };
+    : findElementByTarget;
 
   const pointermove = throttle(
     (event) => {
@@ -1045,6 +1078,7 @@ export function tooltip(
           mount,
           bounding,
           css,
+          offset,
         });
       }
 
@@ -1080,16 +1114,18 @@ export function tooltip(
     }
   };
 
-  const onTooltipShow = ({ nativeEvent, data }) => {
+  const onTooltipShow = ({ nativeEvent, offsetX, offsetY, data: raw }) => {
     if (nativeEvent) return;
-    const element = selectElementByData(elements, data.data, datum);
+    const { data } = raw;
+    const element = selectElementByData(elements, data, datum);
     if (!element) return;
     const bbox = element.getBBox();
     const { x, y, width, height } = bbox;
+    const rootBBox = root.getBBox();
     pointermove({
       target: element,
-      offsetX: x + width / 2,
-      offsetY: y + height / 2,
+      offsetX: offsetX !== undefined ? offsetX + rootBBox.x : x + width / 2,
+      offsetY: offsetY !== undefined ? offsetY + rootBBox.y : y + height / 2,
     });
   };
 

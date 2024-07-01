@@ -1,3 +1,36 @@
+# [5.2.0](https://github.com/antvis/g2/compare/5.1.23...5.2.0) (2024-06-28)
+
+
+### Bug Fixes
+
+* **slider:** update show sparkline condition and fix test ([#6317](https://github.com/antvis/g2/issues/6317)) ([1589404](https://github.com/antvis/g2/commit/15894048ee4ef8dd32a9d646404fe66cd9f602b1))
+* **tooltip:** group tooltip ([#6323](https://github.com/antvis/g2/issues/6323)) ([c2e7023](https://github.com/antvis/g2/commit/c2e7023d96678b806e736b2a8e9f76169a1b41d0))
+
+
+### Features
+
+* **tooltip:** click to show line tooltip ([#6330](https://github.com/antvis/g2/issues/6330)) ([08c66db](https://github.com/antvis/g2/commit/08c66db2fc7b2d3749896c00345dee601fbcfe5d))
+
+
+
+## [5.1.23](https://github.com/antvis/g2/compare/5.1.22...5.1.23) (2024-06-24)
+
+
+### Bug Fixes
+
+* **tooltip:** dual axes with mult-series bar ([#6295](https://github.com/antvis/g2/issues/6295)) ([a5db4cc](https://github.com/antvis/g2/commit/a5db4cc4593b7e5fc5e5ec09168d181d7af6c1a2))
+* **tooltip:** emit show in large dataset ([#6310](https://github.com/antvis/g2/issues/6310)) ([1542db5](https://github.com/antvis/g2/commit/1542db53a74ce7539611c4b9f84ab876f4d77d52))
+* **tooltip:** font-family default to sans-serif ([#6314](https://github.com/antvis/g2/issues/6314)) ([20f4d71](https://github.com/antvis/g2/commit/20f4d716660115041ae0a86ab1b18bb32fb36846))
+* **tooltip:** series enterable ([#6296](https://github.com/antvis/g2/issues/6296)) ([d4c9a28](https://github.com/antvis/g2/commit/d4c9a28f161d6bf2efb49282fa9925d9c1914561))
+* **tooltip:** show error data if dataset if large ([#6307](https://github.com/antvis/g2/issues/6307)) ([1571ad4](https://github.com/antvis/g2/commit/1571ad477494cdc43a981d73cd43f6f83f4fefcf))
+
+
+### Features
+
+* add tooltip markerType ([#6292](https://github.com/antvis/g2/issues/6292)) ([2dd53ee](https://github.com/antvis/g2/commit/2dd53ee8ff5254caea673b8e4437e79c551d9d0e))
+
+
+
 ## [5.1.22](https://github.com/antvis/g2/compare/5.1.21...5.1.22) (2024-06-17)
 
 

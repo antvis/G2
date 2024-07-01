@@ -177,6 +177,8 @@ export type TooltipInteraction = {
   crosshairs?: boolean;
   marker?: boolean;
   groupName?: boolean;
+  disableNative?: boolean;
+  offset?: [number, number];
   position?: TooltipStyleProps['position'];
   bounding?: BBox;
   mount?: string | HTMLElement;

@@ -33,6 +33,7 @@ export function chartEmitSeriesTooltip(context) {
 
   finished.then((chart) =>
     chart.emit('tooltip:show', {
+      offsetY: 20,
       data: { data: { x: new Date('2010-11-16') } },
     }),
   );
