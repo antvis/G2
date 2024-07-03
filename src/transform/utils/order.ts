@@ -34,14 +34,16 @@ export function createGroups(
   return Array.from(group(I, key).values());
 }
 
-export function normalizeComparator(order: Order): IndexComparatorFactory {
+export function normalizeComparator(
+  order: Order,
+): IndexComparatorFactory | null {
   if (Array.isArray(order)) return createFieldsOrder(order);
   if (typeof order === 'function') return createFunctionOrder(order);
   if (order === 'series') return createSeriesOrder;
   if (order === 'value') return createValueOrder;
   if (order === 'sum') return createSumOrder;
   if (order === 'maxIndex') return createMaxIndexOrder;
-  return () => null;
+  return null;
 }
 
 export function applyOrder(groups: number[][], comparator: IndexComparator) {

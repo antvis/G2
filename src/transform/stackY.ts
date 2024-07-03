@@ -35,7 +35,7 @@ export const StackY: TC<StackYOptions> = (options = {}) => {
 
     // Create groups and apply specified order for each group.
     const groups = createGroups(groupBy, I, mark);
-    const createComparator = normalizeComparator(orderBy);
+    const createComparator = normalizeComparator(orderBy) ?? (() => null);
     const comparator = createComparator(data, Y, S);
     if (comparator) applyOrder(groups, comparator);
 

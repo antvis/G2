@@ -336,3 +336,4 @@ export { flareElementPointMoveAreaNormalizeY } from './flare-element-point-move-
 export { stackBarAnnotationStyleText } from './stack-bar-annotation-style-text';
 export { githubStarIntervalDarkThemeTransparent } from './github-star-interval-dark-theme-transparent';
 export { diamondIntervalGroupX } from './diamond-interval-group-x';
+export { mockIntervalSeriesOrder } from './mock-interval-series-order';
