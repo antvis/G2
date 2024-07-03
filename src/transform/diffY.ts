@@ -2,7 +2,7 @@ import { deepMix } from '@antv/util';
 import { TransformComponent as TC } from '../runtime';
 import { DiffYTransform } from '../spec';
 import { column, columnOf, maybeColumnOf } from './utils/helper';
-import { normalizeComparator, createGroups, applyOrder } from './utils/order';
+import { createGroups } from './utils/order';
 
 export type DiffYOptions = Omit<DiffYTransform, 'type'>;
 
@@ -34,7 +34,7 @@ export const DiffY: TC<DiffYOptions> = (options = {}) => {
         // Get the max Y of current group with current Y exclude.
         const max = Math.max(...YG.filter((_, _i) => _i !== idx));
         // Diff Y value.
-        newY1[i] = Y[i] > max ? max : Y[i];
+        newY1[i] = +Y[i] > max ? max : Y[i];
       }
     }
 

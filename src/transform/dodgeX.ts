@@ -24,14 +24,26 @@ export const DodgeX: TC<DodgeXOptions> = (options = {}) => {
     const [Y] = columnOf(encode, 'y');
     const [S] = maybeColumnOf(encode, 'series', 'color');
     const domainSeries = domainOf(S, scaleSeries);
+    const newMark = deepMix({}, mark, {
+      scale: {
+        series: {
+          domain: domainSeries,
+          paddingInner: padding,
+        },
+      },
+    });
 
     // Create groups and apply specified order for each group.
     const groups = createGroups(groupBy, I, mark);
     const createComparator = normalizeComparator(orderBy);
+
+    if (!createComparator) {
+      return [I, deepMix(newMark, { encode: { series: column(S) } })];
+    }
+
+    // Sort and Update series for each mark related to series domain.
     const comparator = createComparator(data, Y, S);
     if (comparator) applyOrder(groups, comparator);
-
-    // Update series for each mark related to series domain.
     const newS = new Array(I.length);
     for (const G of groups) {
       if (reverse) G.reverse();
@@ -42,15 +54,9 @@ export const DodgeX: TC<DodgeXOptions> = (options = {}) => {
 
     return [
       I,
-      deepMix({}, mark, {
-        scale: {
-          series: {
-            domain: domainSeries,
-            paddingInner: padding,
-          },
-        },
+      deepMix(newMark, {
         encode: {
-          series: column(newS),
+          series: column(orderBy ? newS : S),
         },
       }),
     ];
