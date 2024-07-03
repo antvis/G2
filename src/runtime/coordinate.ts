@@ -46,7 +46,12 @@ export function createCoordinate(
 
 export function coordinate2Transform(node: G2View, library: G2Library): G2View {
   // @ts-ignore
-  const { coordinate = {}, ...rest } = node;
+  const { coordinate = {}, coordinates, ...rest } = node;
+
+  // If coordinates are already set, it means that the coordinate has been processed
+  // during the initialization. There is not need to process it during update.
+  if (coordinates) return node;
+
   const { type, transform = [], ...options } = coordinate;
   if (!type) return { ...rest, coordinates: transform };
   const [, createCoordinate] = useLibrary<

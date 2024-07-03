@@ -81,3 +81,4 @@ export { mockIntervalTooltipBackground } from './mock-interval-tooltip-backgroun
 export { indicesLineCrosshairsXY } from './indices-line-crosshairs-xy';
 export { changeSizePolarCrosshairsXY } from './change-size-polar-crosshairs-xy';
 export { alphabetIntervalActiveMarkerType } from './alphabet-interval-activate-line-marker-type';
+export { mockPieLegendFilter } from './mock-pie-legend-filter';
