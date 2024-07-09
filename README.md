@@ -24,7 +24,7 @@ G2 is named after Leland Wilkinson’s book _The Grammar of Graphics_ and was pr
 - [Examples](https://g2.antv.antgroup.com/examples) - a large number of demos to learn from and copy-paste
 - [Tutorials](https://g2.antv.antgroup.com/manual/introduction/getting-started) - interactive case-driven guides of G2's core concepts
 - [API Reference](https://g2.antv.antgroup.com/api/overview) - complete documentation for all visualization components
-- [AI Tool](https://editor.antv.antgroup.com/) - Online question answering tool
+- [AntV Editor](https://editor.antv.antgroup.com/) - AntV Editor is an intelligent generation tool based on AntV. It utilizes AI to reduce the development cost of data visualization, and can quickly generate visual charts through natural language.
 
 ## ✨ Features
 
