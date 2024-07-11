@@ -77,6 +77,7 @@ export function render<T extends G2ViewTree = G2ViewTree>(
     emitter = new EventEmitter(),
     library,
   } = context;
+
   context.canvas = canvas;
   context.emitter = emitter;
 

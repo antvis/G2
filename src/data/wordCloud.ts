@@ -160,9 +160,11 @@ export function normalizeFontSize(fontSize: any, range?: [number, number]) {
   return () => fontSize;
 }
 
-export const WordCloud: DC<Partial<WordCloudOptions>> = (options) => {
+export const WordCloud: DC<Partial<WordCloudOptions>> = (options, context) => {
   return async (data) => {
-    const cloudOptions = Object.assign({}, DEFAULT_OPTIONS, options);
+    const cloudOptions = Object.assign({}, DEFAULT_OPTIONS, options, {
+      canvas: context.createCanvas,
+    });
     const layout = tagCloud();
 
     await flow(layout, cloudOptions)

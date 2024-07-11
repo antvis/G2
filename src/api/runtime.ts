@@ -32,6 +32,7 @@ export type RuntimeOptions = ViewComposition & {
   plugins?: RendererPlugin[];
   theme?: string;
   lib?: G2Library;
+  createCanvas?: () => HTMLCanvasElement;
 };
 
 export class Runtime<Spec extends G2Spec = G2Spec> extends CompositionNode {
@@ -53,7 +54,8 @@ export class Runtime<Spec extends G2Spec = G2Spec> extends CompositionNode {
   private _compositions: Record<string, new () => Node>;
 
   constructor(options: RuntimeOptions) {
-    const { container, canvas, renderer, plugins, lib, ...rest } = options;
+    const { container, canvas, renderer, plugins, lib, createCanvas, ...rest } =
+      options;
     super(rest, 'view');
     this._renderer = renderer || new CanvasRenderer();
     this._plugins = plugins || [];
@@ -63,6 +65,7 @@ export class Runtime<Spec extends G2Spec = G2Spec> extends CompositionNode {
       library: { ...lib, ...library },
       emitter: this._emitter,
       canvas,
+      createCanvas,
     };
     this._create();
   }

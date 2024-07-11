@@ -3,6 +3,7 @@ import { G2Library, G2Mark } from './options';
 
 export type TransformContext = {
   library: G2Library;
+  createCanvas: () => HTMLCanvasElement;
 };
 
 export type TransformOptions = Record<string, any>;

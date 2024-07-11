@@ -34,9 +34,10 @@ export async function initializeMark(
   partialMark: G2Mark,
   partialProps: MarkProps,
   library: G2Library,
+  createCanvas: () => HTMLCanvasElement,
 ): Promise<[G2Mark, G2MarkState]> {
   // Apply transform to mark to derive indices, data, encode, etc,.
-  const context = { library };
+  const context = { library, createCanvas };
   const [I, transformedMark] = await applyMarkTransform(
     partialMark,
     partialProps,

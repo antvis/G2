@@ -43,14 +43,13 @@ chart.render();
 
 ## layout
 
-| 属性      | 描述          | 类型                             | 默认值                                   |
-| --------- | ------------- | -------------------------------- | ---------------------------------------- |
-| padding   | 内间距        | `number`                         | `1`                                      |
-| rotate    | 文字旋转角度  | `number \| (word => number)`     | -                                        |
-| random    | 随机方式      | `number \| (word => number)`     | -                                        |
-| spiral    | 外观图形      | `'archimedean' \| 'rectangular'` | -                                        |
-| imageMask | 图片蒙层      | `'HTMLImageElement \| string`    | -                                        |
-| canvas    | 自定义 canvas | `() => CanvasElement`            | `() => document.createElement('canvas')` |
+| 属性      | 描述         | 类型                             | 默认值 |
+| --------- | ------------ | -------------------------------- | ------ |
+| padding   | 内间距       | `number`                         | `1`    |
+| rotate    | 文字旋转角度 | `number \| (word => number)`     | -      |
+| random    | 随机方式     | `number \| (word => number)`     | -      |
+| spiral    | 外观图形     | `'archimedean' \| 'rectangular'` | -      |
+| imageMask | 图片蒙层     | `'HTMLImageElement \| string`    | -      |
 
 ## style
 

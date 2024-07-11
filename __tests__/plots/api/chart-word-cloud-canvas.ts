@@ -3,24 +3,22 @@ import { Chart } from '../../../src';
 export function chartWordCloudCanvas(context) {
   const { container, canvas } = context;
 
+  const ref = { called: false };
+
   const chart = new Chart({
     container,
     canvas,
+    createCanvas: () => {
+      ref.called = true;
+      return document.createElement('canvas');
+    },
   });
-
-  const ref = { called: false };
 
   chart.options({
     type: 'wordCloud',
     data: {
       type: 'fetch',
       value: 'data/philosophyWord.json',
-    },
-    layout: {
-      canvas: () => {
-        ref.called = true;
-        return document.createElement('canvas');
-      },
     },
   });
 

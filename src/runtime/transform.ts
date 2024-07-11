@@ -40,7 +40,7 @@ export async function applyDataTransform(
   const descriptor = normalizedDataSource(data);
   const { transform: T = [], ...connector } = descriptor;
   const transform = [connector, ...T];
-  const transformFunctions = transform.map(useData);
+  const transformFunctions = transform.map((t) => useData(t, context));
   const transformedData = await composeAsync(transformFunctions)(data);
 
   // Maintain the consistency of shape between input and output data.
