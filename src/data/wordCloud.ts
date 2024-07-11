@@ -90,7 +90,16 @@ export type WordCloudOptions = {
    * If not specified, returns the current random number generator, which defaults to Math.random.
    */
   random: () => number;
+
+  /**
+   * If specified, sets the spiral used for positioning words.
+   */
   spiral: any;
+
+  /**
+   * If specified, sets the image mask used for positioning words.
+   */
+  canvas: HTMLCanvasElement;
 };
 
 const DEFAULT_OPTIONS = {
@@ -172,6 +181,7 @@ export const WordCloud: DC<Partial<WordCloudOptions>> = (options) => {
       .set('random')
       .set('text')
       .set('on')
+      .set('canvas')
       .setAsync('imageMask', processImageMask, layout.createMask);
 
     layout.words([...data]);
