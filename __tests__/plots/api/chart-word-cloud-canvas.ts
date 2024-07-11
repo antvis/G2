@@ -17,7 +17,6 @@ export function chartWordCloudCanvas(context) {
       value: 'data/philosophyWord.json',
     },
     layout: {
-      // random,
       canvas: () => {
         ref.called = true;
         return document.createElement('canvas');
