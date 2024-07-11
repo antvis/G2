@@ -7,15 +7,11 @@ import {
   G2Mark,
   G2TransformOptions,
   G2EncodeOptions,
+  G2Context,
 } from './types/options';
 import { MarkProps } from './types/mark';
 import { NormalizedEncodeSpec, EncodeComponent, Encode } from './types/encode';
-import {
-  ColumnOf,
-  TransformContext,
-  Transform,
-  TransformComponent,
-} from './types/transform';
+import { ColumnOf, Transform, TransformComponent } from './types/transform';
 import {
   applyDefaults,
   applyDataTransform,
@@ -33,10 +29,9 @@ import {
 export async function initializeMark(
   partialMark: G2Mark,
   partialProps: MarkProps,
-  library: G2Library,
+  context: G2Library,
 ): Promise<[G2Mark, G2MarkState]> {
   // Apply transform to mark to derive indices, data, encode, etc,.
-  const context = { library };
   const [I, transformedMark] = await applyMarkTransform(
     partialMark,
     partialProps,
@@ -143,7 +138,7 @@ export function createColumnOf(library: G2Library): ColumnOf {
 async function applyMarkTransform(
   mark: G2Mark,
   props: MarkProps,
-  context: TransformContext,
+  context: G2Context,
 ): Promise<[number[], G2Mark]> {
   const { library } = context;
   const [useTransform] = useLibrary<

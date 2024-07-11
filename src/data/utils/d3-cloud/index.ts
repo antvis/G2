@@ -256,10 +256,10 @@ export function tagCloud() {
     event = cloudDispatch,
     words = [],
     timer = null,
-    timeInterval = Infinity;
+    timeInterval = Infinity,
+    canvas = cloudCanvas;
 
   const fontStyle = cloudFontNormal;
-  const canvas = cloudCanvas;
   const cloud: any = {};
 
   cloud.start = function () {
@@ -474,6 +474,10 @@ export function tagCloud() {
 
   cloud.rotate = function (_) {
     rotate = functor(_);
+  };
+
+  cloud.canvas = function (_) {
+    canvas = functor(_);
   };
 
   cloud.spiral = function (_) {
