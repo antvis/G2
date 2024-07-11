@@ -1,5 +1,5 @@
 import { Vector2 } from '@antv/coord';
-import { DisplayObject, IAnimation as GAnimation, HTML, Rect } from '@antv/g';
+import { DisplayObject, IAnimation as GAnimation, Rect } from '@antv/g';
 import { deepMix, upperFirst, isArray } from '@antv/util';
 import { group, groups } from 'd3-array';
 import { format } from 'd3-format';
@@ -96,9 +96,10 @@ type Store = Map<any, (options: G2ViewTree) => G2ViewTree>;
 export async function plot<T extends G2ViewTree>(
   options: T,
   selection: Selection,
-  library: G2Library,
   context: G2Context,
 ): Promise<any> {
+  const { library } = context;
+
   const [useComposition] = useLibrary<
     G2CompositionOptions,
     CompositionComponent,
@@ -121,8 +122,6 @@ export async function plot<T extends G2ViewTree>(
       .map((d) => /component\.(.*)/.exec(d)?.[1])
       .filter(defined),
   );
-
-  const { createCanvas } = context;
 
   const typeOf = (node: G2ViewTree) => {
     const { type } = node;
@@ -170,7 +169,7 @@ export async function plot<T extends G2ViewTree>(
       const state = nodeState.get(node);
       const [view, children] = state
         ? initializeState(state, node, library)
-        : await initializeView(node, library, createCanvas);
+        : await initializeView(node, context);
       viewNode.set(view, node);
       views.push(view);
 
@@ -185,9 +184,7 @@ export async function plot<T extends G2ViewTree>(
       // should sync position scales among facets normally.
       if (transformedNodes.every(isStandardView)) {
         const states = await Promise.all(
-          transformedNodes.map((d) =>
-            initializeMarks(d, library, createCanvas),
-          ),
+          transformedNodes.map((d) => initializeMarks(d, context)),
         );
         // Note!!!
         // This will mutate scales for marks.
@@ -202,9 +199,7 @@ export async function plot<T extends G2ViewTree>(
       // Apply transform to get data in advance for non-mark composition
       // node, which makes sure that composition node can preprocess the
       // data to produce more nodes based on it.
-      const n = isMark(node)
-        ? node
-        : await applyTransform(node, library, createCanvas);
+      const n = isMark(node) ? node : await applyTransform(node, context);
       const N = transform(n);
       if (Array.isArray(N)) discovered.push(...N);
       else if (typeof N === 'function') nodeGenerators.push(N());
@@ -228,12 +223,12 @@ export async function plot<T extends G2ViewTree>(
           .attr('id', (view) => view.key)
           .call(applyTranslate)
           .each(function (view, i, element) {
-            plotView(view, select(element), transitions, library, context);
+            plotView(view, select(element), transitions, context);
             enterContainer.set(view, element);
           }),
       (update) =>
         update.call(applyTranslate).each(function (view, i, element) {
-          plotView(view, select(element), transitions, library, context);
+          plotView(view, select(element), transitions, context);
           updateContainer.set(view, element);
         }),
       (exit) =>
@@ -266,12 +261,7 @@ export async function plot<T extends G2ViewTree>(
         oldStore || new Map<any, (options: G2ViewTree) => G2ViewTree>();
       const setState = (key, reducer = (x) => x) => store.set(key, reducer);
       const options = viewNode.get(view);
-      const update = createUpdateView(
-        select(container),
-        options,
-        library,
-        context,
-      );
+      const update = createUpdateView(select(container), options, context);
       return {
         view,
         container,
@@ -378,7 +368,7 @@ export async function plot<T extends G2ViewTree>(
     const keyframe = new Promise<void>(async (resolve) => {
       for (const node of nodeGenerator) {
         const sizedNode = { width, height, ...node };
-        await plot(sizedNode, selection, library, context);
+        await plot(sizedNode, selection, context);
       }
       resolve();
     });
@@ -430,9 +420,9 @@ function definedInteraction(library: G2Library) {
 function createUpdateView(
   selection: Selection,
   options: G2ViewTree,
-  library: G2Library,
   context: G2Context,
 ): G2ViewInstance['update'] {
+  const { library } = context;
   const createDefinedInteraction = definedInteraction(library);
   const filter = (d) => d[1] && d[1].props && d[1].props.reapplyWhenUpdate;
   const interactions = inferInteraction(options);
@@ -443,20 +433,16 @@ function createUpdateView(
 
   return async (newOptions, source, callback) => {
     const transitions = [];
-    const [newView, newChildren] = await initializeView(
-      newOptions,
-      library,
-      context.createCanvas,
-    );
-    plotView(newView, selection, transitions, library, context);
+    const [newView, newChildren] = await initializeView(newOptions, context);
+    plotView(newView, selection, transitions, context);
 
     // Update interaction need to reapply when update.
     for (const name of updates.filter((d) => d !== source)) {
-      updateInteraction(name, selection, newOptions, newView, library, context);
+      updateInteraction(name, selection, newOptions, newView, context);
     }
 
     for (const child of newChildren) {
-      plot(child, selection, library, context);
+      plot(child, selection, context);
     }
     callback();
     return { options: newOptions, view: newView };
@@ -468,9 +454,10 @@ function updateInteraction(
   selection: Selection,
   options: G2ViewTree,
   view: G2ViewDescriptor,
-  library: G2Library,
   context: G2Context,
 ) {
+  const { library } = context;
+
   const [useInteraction] = useLibrary<
     G2InteractionOptions,
     InteractionComponent,
@@ -510,10 +497,11 @@ function updateInteraction(
 
 async function initializeView(
   options: G2View,
-  library: G2Library,
-  createCanvas: () => HTMLCanvasElement,
+  context: G2Context,
 ): Promise<[G2ViewDescriptor, G2ViewTree[]]> {
-  const flattenOptions = await transformMarks(options, library, createCanvas);
+  const { library } = context;
+
+  const flattenOptions = await transformMarks(options, context);
 
   const mergedOptions = bubbleOptions(flattenOptions);
 
@@ -526,7 +514,7 @@ async function initializeView(
   options.marks = [...mergedOptions.marks, ...mergedOptions.components];
 
   const transformedOptions = coordinate2Transform(mergedOptions, library);
-  const state = await initializeMarks(transformedOptions, library);
+  const state = await initializeMarks(transformedOptions, context);
   return initializeState(state, transformedOptions, library);
 }
 
@@ -564,9 +552,10 @@ function bubbleOptions(options: G2View): G2View {
 
 async function transformMarks(
   options: G2View,
-  library: G2Library,
-  createCanvas: () => HTMLCanvasElement,
+  context: G2Context,
 ): Promise<G2View> {
+  const { library } = context;
+
   const [useMark, createMark] = useLibrary<G2MarkOptions, MarkComponent, Mark>(
     'mark',
     library,
@@ -582,13 +571,13 @@ async function transformMarks(
   const components = [];
   const discovered = [...marks];
   const { width, height } = computeRoughPlotSize(options);
-  const context = { options, width, height };
+  const markOptions = { options, width, height };
 
   // Pre order traversal.
   while (discovered.length) {
     const [node] = discovered.splice(0, 1);
     // Apply data transform to get data.
-    const mark = (await applyTransform(node, library, createCanvas)) as G2Mark;
+    const mark = (await applyTransform(node, context)) as G2Mark;
     const { type = error('G2Mark type is required.'), key } = mark;
 
     // For components.
@@ -607,7 +596,7 @@ async function transformMarks(
         };
 
         // Convert composite mark to marks.
-        const marks = await useMark(newMark, context);
+        const marks = await useMark(newMark, markOptions);
         const M = Array.isArray(marks) ? marks : [marks];
         discovered.unshift(...M.map((d, i) => ({ ...d, key: `${key}-${i}` })));
       }
@@ -619,9 +608,10 @@ async function transformMarks(
 
 async function initializeMarks(
   options: G2View,
-  library: G2Library,
-  createCanvas?: () => HTMLCanvasElement,
+  context: G2Context,
 ): Promise<Map<G2Mark, G2MarkState>> {
+  const { library } = context;
+
   const [useTheme] = useLibrary<G2ThemeOptions, ThemeComponent, Theme>(
     'theme',
     library,
@@ -643,12 +633,7 @@ async function initializeMarks(
   for (const markOptions of partialMarks) {
     const { type } = markOptions;
     const { props = {} } = createMark(type);
-    const markAndState = await initializeMark(
-      markOptions,
-      props,
-      library,
-      createCanvas,
-    );
+    const markAndState = await initializeMark(markOptions, props, context);
     if (markAndState) {
       const [initializedMark, state] = markAndState;
       markState.set(initializedMark, state);
@@ -880,9 +865,9 @@ async function plotView(
   view: G2ViewDescriptor,
   selection: Selection,
   transitions: GAnimation[],
-  library: G2Library,
   context: G2Context,
 ): Promise<void> {
+  const { library } = context;
   const {
     components,
     theme,
@@ -1040,13 +1025,7 @@ async function plotView(
     const { data } = state;
     const { key, class: cls, type } = mark;
     const viewNode = selection.select(`#${key}`);
-    const shapeFunction = createMarkShapeFunction(
-      mark,
-      state,
-      view,
-      library,
-      context,
-    );
+    const shapeFunction = createMarkShapeFunction(mark, state, view, context);
     const enterFunction = createEnterFunction(mark, state, view, library);
     const updateFunction = createUpdateFunction(mark, state, view, library);
     const exitFunction = createExitFunction(mark, state, view, library);
@@ -1506,13 +1485,14 @@ function createMarkShapeFunction(
   mark: G2Mark,
   state: G2MarkState,
   view: G2ViewDescriptor,
-  library: G2Library,
   context: G2Context,
 ): (
   data: Record<string, any>,
   index: number,
   element?: DisplayObject,
 ) => DisplayObject {
+  const { library } = context;
+
   const [useShape] = useLibrary<G2ShapeOptions, ShapeComponent, Shape>(
     'shape',
     library,
@@ -1710,10 +1690,8 @@ function inferInteraction(
 
 async function applyTransform<T extends G2ViewTree>(
   node: T,
-  library: G2Library,
-  createCanvas: () => HTMLCanvasElement,
+  context: G2Context,
 ): Promise<G2ViewTree> {
-  const context = { library, createCanvas };
   const { data, ...rest } = node;
   if (data == undefined) return node;
   const [, { data: newData }] = await applyDataTransform([], { data }, context);

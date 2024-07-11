@@ -92,9 +92,7 @@ export function render<T extends G2ViewTree = G2ViewTree>(
   // Make sure that plot chart after container is ready for every time.
   const selection = select(canvas.document.documentElement);
   canvas.ready
-    .then(() =>
-      plot<T>({ ...keyed, width, height, depth }, selection, library, context),
-    )
+    .then(() => plot<T>({ ...keyed, width, height, depth }, selection, context))
     .then(() => {
       // Place the center of whole scene at z axis' origin.
       if (depth) {
@@ -147,7 +145,7 @@ export function renderToMountedElement<T extends G2ViewTree = G2ViewTree>(
   emitter.emit(ChartEvent.BEFORE_RENDER);
   // Plot the chart and mutate context.
   // Make sure that plot chart after container is ready for every time.
-  plot<T>({ ...keyed, width, height }, selection, library, context)
+  plot<T>({ ...keyed, width, height }, selection, context)
     .then(() => {
       context.canvas?.requestAnimationFrame(() => {
         emitter.emit(ChartEvent.AFTER_RENDER);

@@ -12,15 +12,14 @@ import { isFullTooltip } from '../utils/mark';
 import { useLibrary } from './library';
 import { createColumnOf } from './mark';
 import { Data, DataComponent } from './types/data';
-import { G2Mark, G2DataOptions } from './types/options';
-import { TransformContext } from './types/transform';
+import { G2Mark, G2DataOptions, G2Context } from './types/options';
 import { isPosition } from './scale';
 
 // @todo Add more defaults.
 export function applyDefaults(
   I: number[],
   mark: G2Mark,
-  context: TransformContext,
+  context: G2Context,
 ): [number[], G2Mark] {
   const { encode = {}, scale = {}, transform = [], ...rest } = mark;
   return [I, { ...rest, encode, scale, transform }];
@@ -29,7 +28,7 @@ export function applyDefaults(
 export async function applyDataTransform(
   I: number[],
   mark: G2Mark,
-  context: TransformContext,
+  context: G2Context,
 ): Promise<[number[], G2Mark]> {
   const { library } = context;
   const { data } = mark;
@@ -62,7 +61,7 @@ export async function applyDataTransform(
 export function flatEncode(
   I: number[],
   mark: G2Mark,
-  context: TransformContext,
+  context: G2Context,
 ): [number[], G2Mark] {
   const { encode } = mark;
   if (!encode) return [I, mark];
@@ -83,7 +82,7 @@ export function flatEncode(
 export function inferChannelsType(
   I: number[],
   mark: G2Mark,
-  context: TransformContext,
+  context: G2Context,
 ): [number[], G2Mark] {
   const { encode, data } = mark;
   if (!encode) return [I, mark];
@@ -98,7 +97,7 @@ export function inferChannelsType(
 export function maybeVisualChannel(
   I: number[],
   mark: G2Mark,
-  context: TransformContext,
+  context: G2Context,
 ): [number[], G2Mark] {
   const { encode } = mark;
   if (!encode) return [I, mark];
@@ -113,7 +112,7 @@ export function maybeVisualChannel(
 export function extractColumns(
   I: number[],
   mark: G2Mark,
-  context: TransformContext,
+  context: G2Context,
 ): [number[], G2Mark] {
   const { encode, data } = mark;
   if (!encode) return [I, mark];
@@ -129,7 +128,7 @@ export function extractColumns(
 export function normalizeTooltip(
   I: number[],
   mark: G2Mark,
-  context: TransformContext,
+  context: G2Context,
 ): [number[], G2Mark] {
   const { tooltip = {} } = mark;
   if (isUnset(tooltip)) return [I, mark];
@@ -145,7 +144,7 @@ export function normalizeTooltip(
 export function extractTooltip(
   I: number[],
   mark: G2Mark,
-  context: TransformContext,
+  context: G2Context,
 ): [number[], G2Mark] {
   const { data, encode, tooltip = {} } = mark;
   if (isUnset(tooltip)) return [I, mark];
@@ -212,7 +211,7 @@ export function extractTooltip(
 export function maybeArrayField(
   I: number[],
   mark: G2Mark,
-  context: TransformContext,
+  context: G2Context,
 ): [number[], G2Mark] {
   const { encode, ...rest } = mark;
   if (!encode) return [I, mark];
@@ -250,7 +249,7 @@ export function maybeArrayField(
 export function addGuideToScale(
   I: number[],
   mark: G2Mark,
-  context: TransformContext,
+  context: G2Context,
 ): [number[], G2Mark] {
   const { axis = {}, legend = {}, slider = {}, scrollbar = {} } = mark;
   const normalize = (guide: boolean | Record<string, any>, channel: string) => {
@@ -298,7 +297,7 @@ export function addGuideToScale(
 export function maybeNonAnimate(
   I: number[],
   mark: G2Mark,
-  context: TransformContext,
+  context: G2Context,
 ): [number[], G2Mark] {
   const { animate } = mark;
   if (animate || animate === undefined) return [I, mark];

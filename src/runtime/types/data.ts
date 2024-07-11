@@ -1,11 +1,11 @@
-import { TransformContext } from './transform';
+import { G2Context } from './options';
 
 export type DataOptions = Record<string, any>;
 
 export type DataProps = Record<string, never>;
 
 export type DataComponent<O extends DataOptions = DataOptions> = {
-  (options?: O, context?: TransformContext): Data;
+  (options?: O, context?: G2Context): Data;
   props: DataProps;
 };
 
