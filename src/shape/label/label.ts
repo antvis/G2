@@ -29,6 +29,7 @@ function getDefaultStyle(
   coordinate: Coordinate,
   theme: G2Theme,
   options: LabelOptions,
+  labels: Vector2[][],
 ): Record<string, any> {
   // For non-series mark, calc position for label based on
   // position and the bounds of shape.
@@ -48,7 +49,7 @@ function getDefaultStyle(
   }
   return {
     ...t,
-    ...processor(p, points, v, coordinate, options),
+    ...processor(p, points, v, coordinate, options, labels),
   };
 }
 
@@ -59,7 +60,7 @@ function getDefaultStyle(
 export const Label: SC<LabelOptions> = (options, context) => {
   const { coordinate, theme } = context;
   const { render } = options;
-  return (points, value) => {
+  return (points, value, style, labels) => {
     const {
       text,
       x,
@@ -73,7 +74,7 @@ export const Label: SC<LabelOptions> = (options, context) => {
       rotate = 0,
       transform = '',
       ...defaultStyle
-    } = getDefaultStyle(points, value, coordinate, theme, options);
+    } = getDefaultStyle(points, value, coordinate, theme, options, labels);
 
     return select(new Advance())
       .call(applyStyle, defaultStyle)

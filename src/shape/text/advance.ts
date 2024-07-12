@@ -95,7 +95,9 @@ function inferConnectorPath(
   shape: DisplayObject,
   points: Vector2[],
   controlPoints: Vector2[],
-  coordCenter,
+  coordCenter: Vector2,
+  labelOffset: number,
+  left = true,
 ) {
   const [[x0, y0], [x1, y1]] = points;
   const [x, y] = getConnectorPoint(shape);
@@ -125,6 +127,12 @@ function inferConnectorPath(
     P.splice(1, 1, [x2, 0]);
   }
 
+  if (labelOffset) {
+    const prev = P[P.length - 1];
+    const prevX = prev[0];
+    prev[0] += left ? 4 : -4;
+    P.push([prevX, labelOffset], [x + (left ? 4 : -4), labelOffset]);
+  }
   return line()(P);
 }
 
@@ -169,6 +177,8 @@ export const Advance = createElement((g) => {
 
   let textShape;
   // Use html to customize advance text.
+  const labelOffset = rest['labelOffsetY'] || 0;
+  const dy = (rest.dy || 0) + labelOffset;
   if (innerHTML) {
     textShape = select(g)
       .maybeAppend('html', 'html', className)
@@ -178,6 +188,7 @@ export const Advance = createElement((g) => {
         transform: labelTransform,
         transformOrigin: labelTransformOrigin,
         ...rest,
+        dy,
       })
       .node();
   } else {
@@ -190,6 +201,7 @@ export const Advance = createElement((g) => {
         transform: labelTransform,
         transformOrigin: labelTransformOrigin,
         ...rest,
+        dy,
       })
       .node();
   }
@@ -201,11 +213,14 @@ export const Advance = createElement((g) => {
     .call(applyStyle, background ? backgroundStyle : {})
     .node();
 
+  const left = +x < coordCenter[0];
   const connectorPath = inferConnectorPath(
     rect,
     endPoints,
     points,
     coordCenter,
+    labelOffset,
+    left,
   );
   const markerStart =
     startMarker &&
