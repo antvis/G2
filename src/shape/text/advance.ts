@@ -9,7 +9,7 @@ import {
 } from '@antv/g';
 import { isNumber } from '@antv/util';
 import { Marker } from '@antv/component';
-import { line } from 'd3-shape';
+import { line, curveBasis } from 'd3-shape';
 import { WithPrefix } from '../../runtime';
 import { createElement } from '../../utils/createElement';
 import { applyStyle } from '../utils';
@@ -98,6 +98,7 @@ function inferConnectorPath(
   coordCenter: Vector2,
   labelOffset: number,
   left = true,
+  top = true,
 ) {
   const [[x0, y0], [x1, y1]] = points;
   const [x, y] = getConnectorPoint(shape);
@@ -129,9 +130,14 @@ function inferConnectorPath(
 
   if (labelOffset) {
     const prev = P[P.length - 1];
-    const prevX = prev[0];
-    prev[0] += left ? 4 : -4;
-    P.push([prevX, labelOffset], [x + (left ? 4 : -4), labelOffset]);
+    if (top) {
+      const prevX = prev[0];
+      prev[0] += left ? 4 : -4;
+      P.push([prevX, labelOffset], [x + (left ? 4 : -4), labelOffset]);
+    } else {
+      prev[1] = labelOffset;
+      P.splice(2, 0, [P[1][0], labelOffset]);
+    }
   }
   return line()(P);
 }
@@ -214,6 +220,7 @@ export const Advance = createElement((g) => {
     .node();
 
   const left = +x < coordCenter[0];
+  const top = +y < coordCenter[1];
   const connectorPath = inferConnectorPath(
     rect,
     endPoints,
@@ -221,6 +228,7 @@ export const Advance = createElement((g) => {
     coordCenter,
     labelOffset,
     left,
+    top,
   );
   const markerStart =
     startMarker &&
