@@ -9,7 +9,7 @@ import {
 } from '@antv/g';
 import { isNumber } from '@antv/util';
 import { Marker } from '@antv/component';
-import { line, curveBasis } from 'd3-shape';
+import { line } from 'd3-shape';
 import { WithPrefix } from '../../runtime';
 import { createElement } from '../../utils/createElement';
 import { applyStyle } from '../utils';
@@ -50,7 +50,7 @@ type TextShapeStyleProps = Omit<TextStyleProps, 'text'> &
     text?: string;
   };
 
-function getConnectorPoint(shape: GText | Rect) {
+function getConnectorPoint(shape: GText | Rect): [number, number] {
   const {
     min: [x0, y0],
     max: [x1, y1],
@@ -61,7 +61,6 @@ function getConnectorPoint(shape: GText | Rect) {
   if (x1 < 0) x = x1;
   if (y0 > 0) y = y0;
   if (y1 < 0) y = y1;
-
   return [x, y];
 }
 
@@ -91,55 +90,76 @@ const cos = (p0: Vector2, p1: Vector2, p2: Vector2) => {
   return (a ** 2 + b ** 2 - c ** 2) / (2 * a * b);
 };
 
+// A path from element to label.
+// Adapted drawLabelLine from https://github.com/antvis/G2/blob/master/src/geometry/label/layout/pie/spider.ts
 function inferConnectorPath(
   shape: DisplayObject,
-  points: Vector2[],
-  controlPoints: Vector2[],
+  end: Vector2,
+  control: Vector2[],
   coordCenter: Vector2,
-  labelOffset: number,
   left = true,
   top = true,
 ) {
-  const [[x0, y0], [x1, y1]] = points;
-  const [x, y] = getConnectorPoint(shape);
-  // Straight connector line.
-  if (x0 === x1 && y0 === y1) {
-    return line()([
-      [0, 0],
-      [x, y],
-    ]);
-  }
+  const path = (points) => line()(points);
 
-  const P: any = [[x0 - x1, y0 - y1]].concat(
-    controlPoints.length ? controlPoints : [[0, 0]],
-  );
+  if (!end[0] && !end[1]) return path([getConnectorPoint(shape), end]);
+  if (!control.length) return path([[0, 0], end]);
 
-  const p0 = [coordCenter[0] - x1, coordCenter[1] - y1] as Vector2;
-  const [p1, p2] = P;
-  // If angle is smaller than 90, which will cause connector overlap with element.
-  if (cos(p0, p1, p2) > 0) {
-    const x2 = (() => {
-      const { min, max } = shape.getLocalBounds();
-      // A(x1,y2) perpendicular to B(x2,y2) => x1*x2 + y1*y2 = 0
-      const vx = p1[0] + ((p1[1] - p0[1]) * (p1[1] - 0)) / (p1[0] - p0[0]);
-      if (max[0] < p0[0]) return Math.min(max[0], vx);
-      return Math.max(min[0], vx);
-    })();
-    P.splice(1, 1, [x2, 0]);
-  }
+  const [inflection, start] = control;
+  const p1 = [...start];
+  const p2 = [...inflection];
 
-  if (labelOffset) {
-    const prev = P[P.length - 1];
-    if (top) {
-      const prevX = prev[0];
-      prev[0] += left ? 4 : -4;
-      P.push([prevX, labelOffset], [x + (left ? 4 : -4), labelOffset]);
-    } else {
-      prev[1] = labelOffset;
-      P.splice(2, 0, [P[1][0], labelOffset]);
+  // Label has been adjusted, so add offset to the label.
+  if (start[0] !== inflection[0]) {
+    const offset = left ? -4 : 4;
+    p1[1] = start[1];
+
+    // For the label in the first quadrant.
+    if (top && !left) {
+      p1[0] = Math.max(inflection[0], start[0] - offset);
+      if (start[1] < inflection[1]) {
+        p2[1] = p1[1];
+      } else {
+        p2[1] = inflection[1];
+        p2[0] = Math.max(p2[0], p1[0] - offset);
+      }
+    }
+
+    // For the label in the second quadrant.
+    if (!top && !left) {
+      p1[0] = Math.max(inflection[0], start[0] - offset);
+      if (start[1] > inflection[1]) {
+        p2[1] = p1[1];
+      } else {
+        p2[1] = inflection[1];
+        p2[0] = Math.max(p2[0], p1[0] - offset);
+      }
+    }
+
+    // For the label in the third quadrant.
+    if (!top && left) {
+      p1[0] = Math.min(inflection[0], start[0] - offset);
+      if (start[1] > inflection[1]) {
+        p2[1] = p1[1];
+      } else {
+        p2[1] = inflection[1];
+        p2[0] = Math.min(p2[0], p1[0] - offset);
+      }
+    }
+
+    // For the label in the fourth quadrant.
+    if (top && left) {
+      p1[0] = Math.min(inflection[0], start[0] - offset);
+      if (start[1] < inflection[1]) {
+        p2[1] = p1[1];
+      } else {
+        p2[1] = inflection[1];
+        p2[0] = Math.min(p2[0], p1[0] - offset);
+      }
     }
   }
-  return line()(P);
+
+  return path([start, p1, p2, inflection, end]);
 }
 
 export const Advance = createElement((g) => {
@@ -175,16 +195,12 @@ export const Advance = createElement((g) => {
   }
 
   const { padding, ...backgroundStyle } = subObject(rest, 'background');
-  const { points = [], ...connectorStyle } = subObject(rest, 'connector');
-  const endPoints: Vector2[] = [
-    [+x0, +y0],
-    [+x, +y],
-  ];
+  const { points: controlPoints = [], ...connectorStyle } = subObject(
+    rest,
+    'connector',
+  );
 
   let textShape;
-  // Use html to customize advance text.
-  const labelOffset = rest['labelOffsetY'] || 0;
-  const dy = (rest.dy || 0) + labelOffset;
   if (innerHTML) {
     textShape = select(g)
       .maybeAppend('html', 'html', className)
@@ -194,7 +210,6 @@ export const Advance = createElement((g) => {
         transform: labelTransform,
         transformOrigin: labelTransformOrigin,
         ...rest,
-        dy,
       })
       .node();
   } else {
@@ -207,7 +222,6 @@ export const Advance = createElement((g) => {
         transform: labelTransform,
         transformOrigin: labelTransformOrigin,
         ...rest,
-        dy,
       })
       .node();
   }
@@ -219,17 +233,18 @@ export const Advance = createElement((g) => {
     .call(applyStyle, background ? backgroundStyle : {})
     .node();
 
-  const left = +x < coordCenter[0];
-  const top = +y < coordCenter[1];
+  const left = +x0 < coordCenter[0];
+  const top = +y0 < coordCenter[1];
+  const end: [number, number] = [+x0 - +x, +y0 - +y];
   const connectorPath = inferConnectorPath(
     rect,
-    endPoints,
-    points,
+    end,
+    controlPoints,
     coordCenter,
-    labelOffset,
     left,
     top,
   );
+
   const markerStart =
     startMarker &&
     new Marker({

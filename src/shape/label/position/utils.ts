@@ -45,11 +45,33 @@ export function dodgeY(
   let i = 0;
   for (const box of boxes) {
     const { y, labels } = box;
-    let prevY = y - labelHeight * 1.5;
-    for (const label of labels) {
+    let prevY = y - labelHeight;
+    for (const curY of labels) {
+      const label = sortedLabels[i++];
       const expectedY = prevY + labelHeight;
-      sortedLabels[i++].labelOffsetY = Math.max(0, expectedY - label);
+      const dy = expectedY - curY;
+      label.connectorPoints[0][1] -= dy;
+      label.y = prevY + labelHeight;
       prevY += labelHeight;
     }
   }
+}
+
+export function hideAndDodgeY(
+  unsorted: Record<string, any>[],
+  options: Record<string, any>,
+) {
+  const labels = sort(unsorted, (d) => d.y);
+  const { height, labelHeight = 14 } = options;
+  const maxCount = Math.ceil(height / labelHeight);
+  if (labels.length <= maxCount) return dodgeY(labels, options);
+  const filtered = [];
+  for (let i = 0; i < labels.length; i++) {
+    // Hide labels out of range.
+    if (i < labels.length - maxCount) {
+      labels[i].opacity = 0;
+      labels[i].connector = false;
+    } else filtered.push(labels[i]);
+  }
+  dodgeY(filtered, options);
 }

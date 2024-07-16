@@ -3,7 +3,7 @@ import { Vector2 } from '../../../runtime';
 import { isCircular } from '../../../utils/coordinate';
 import { LabelPosition } from './default';
 import { inferOutsideCircularStyle, radiusOf, angleOf } from './outside';
-import { dodgeY } from './utils';
+import { hideAndDodgeY } from './utils';
 
 const styleByPoints = new WeakMap();
 
@@ -50,8 +50,9 @@ export function spider(
   const { width, height } = coordinate.getOptions();
   const left = computed.filter((d) => d.x < width / 2);
   const right = computed.filter((d) => d.x >= width / 2);
-  dodgeY(left, { ...options, height });
-  dodgeY(right, { ...options, height });
+  const extendedOptions = { ...options, height };
+  hideAndDodgeY(left, extendedOptions);
+  hideAndDodgeY(right, extendedOptions);
   computed.forEach((style, i) => styleByPoints.set(labels[i], style));
   return styleByPoints.get(points);
 }
