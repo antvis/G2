@@ -974,7 +974,7 @@
                 </text>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,0 L 0,10.382" />
+                <path id="connector" fill="none" d="M 0,10.382 L 0,0" />
               </g>
             </g>
             <g
@@ -1013,7 +1013,7 @@
                 </text>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,0 L 0,10.595" />
+                <path id="connector" fill="none" d="M 0,10.595 L 0,0" />
               </g>
             </g>
             <g
@@ -1052,7 +1052,7 @@
                 </text>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,0 L 0,9.958" />
+                <path id="connector" fill="none" d="M 0,9.958 L 0,0" />
               </g>
             </g>
             <g
@@ -1091,7 +1091,7 @@
                 </text>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,0 L 0,9.852" />
+                <path id="connector" fill="none" d="M 0,9.852 L 0,0" />
               </g>
             </g>
             <g
@@ -1130,7 +1130,7 @@
                 </text>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,0 L 0,11.231" />
+                <path id="connector" fill="none" d="M 0,11.231 L 0,0" />
               </g>
             </g>
           </g>

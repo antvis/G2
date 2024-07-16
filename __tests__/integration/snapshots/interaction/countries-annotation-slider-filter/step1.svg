@@ -2070,7 +2070,7 @@
                 </text>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,0 L -6,-8" />
+                <path id="connector" fill="none" d="M -6,-8 L 0,0" />
               </g>
             </g>
           </g>

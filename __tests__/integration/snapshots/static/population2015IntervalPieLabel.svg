@@ -307,7 +307,7 @@
                 <path
                   id="connector"
                   fill="none"
-                  d="M -14.356,11.766 L -12,0 L -4,0"
+                  d="M -4,0 L -8,0 L -12,0 L -12,0 L -14.356,11.766"
                   stroke="rgba(29,33,41,1)"
                   stroke-opacity="0.45"
                   stroke-width="1"
@@ -355,7 +355,7 @@
                 <path
                   id="connector"
                   fill="none"
-                  d="M -18.764,9.912 L -12,0 L -4,0"
+                  d="M -4,0 L -8,0 L -12,0 L -12,0 L -18.764,9.912"
                   stroke="rgba(29,33,41,1)"
                   stroke-opacity="0.45"
                   stroke-width="1"
@@ -403,7 +403,7 @@
                 <path
                   id="connector"
                   fill="none"
-                  d="M -22.146,6.407 L -12,0 L -4,0"
+                  d="M -4,0 L -8,0 L -12,0 L -12,0 L -22.146,6.407"
                   stroke="rgba(29,33,41,1)"
                   stroke-opacity="0.45"
                   stroke-width="1"
@@ -451,7 +451,7 @@
                 <path
                   id="connector"
                   fill="none"
-                  d="M -23.872,1.746 L -12,0 L -4,0"
+                  d="M -4,0 L -8,0 L -12,0 L -12,0 L -23.872,1.746"
                   stroke="rgba(29,33,41,1)"
                   stroke-opacity="0.45"
                   stroke-width="1"
@@ -499,7 +499,7 @@
                 <path
                   id="connector"
                   fill="none"
-                  d="M -23.498,-3.434 L -12,0 L -4,0"
+                  d="M -4,0 L -8,0 L -12,0 L -12,0 L -23.498,-3.434"
                   stroke="rgba(29,33,41,1)"
                   stroke-opacity="0.45"
                   stroke-width="1"
@@ -547,7 +547,7 @@
                 <path
                   id="connector"
                   fill="none"
-                  d="M -20.942,-8.002 L -12,0 L -4,0"
+                  d="M -4,0 L -8,0 L -12,0 L -12,0 L -20.942,-8.002"
                   stroke="rgba(29,33,41,1)"
                   stroke-opacity="0.45"
                   stroke-width="1"
@@ -595,7 +595,7 @@
                 <path
                   id="connector"
                   fill="none"
-                  d="M -16.84,-10.98 L -12,0 L -4,0"
+                  d="M -4,0 L -8,0 L -12,0 L -12,0 L -16.84,-10.98"
                   stroke="rgba(29,33,41,1)"
                   stroke-opacity="0.45"
                   stroke-width="1"
@@ -643,7 +643,7 @@
                 <path
                   id="connector"
                   fill="none"
-                  d="M -12.094,-12 L -12,0 L -4,0"
+                  d="M -4,0 L -8,0 L -12,0 L -12,0 L -12.094,-12"
                   stroke="rgba(29,33,41,1)"
                   stroke-opacity="0.45"
                   stroke-width="1"
@@ -691,7 +691,7 @@
                 <path
                   id="connector"
                   fill="none"
-                  d="M 16.625,-11.073 L 12,0 L 4,0"
+                  d="M 4,0 L 8,0 L 12,0 L 12,0 L 16.625,-11.073"
                   stroke="rgba(29,33,41,1)"
                   stroke-opacity="0.45"
                   stroke-width="1"
@@ -739,7 +739,7 @@
                 <path
                   id="connector"
                   fill="none"
-                  d="M 20.726,-8.238 L 12,0 L 4,0"
+                  d="M 4,0 L 8,0 L 12,0 L 12,0 L 20.726,-8.238"
                   stroke="rgba(29,33,41,1)"
                   stroke-opacity="0.45"
                   stroke-width="1"
@@ -787,7 +787,7 @@
                 <path
                   id="connector"
                   fill="none"
-                  d="M 23.387,-3.785 L 12,0 L 4,0"
+                  d="M 4,0 L 8,0 L 12,0 L 12,0 L 23.387,-3.785"
                   stroke="rgba(29,33,41,1)"
                   stroke-opacity="0.45"
                   stroke-width="1"
@@ -835,7 +835,7 @@
                 <path
                   id="connector"
                   fill="none"
-                  d="M 23.926,1.33 L 12,0 L 4,0"
+                  d="M 4,0 L 8,0 L 12,0 L 12,0 L 23.926,1.33"
                   stroke="rgba(29,33,41,1)"
                   stroke-opacity="0.45"
                   stroke-width="1"
@@ -883,7 +883,7 @@
                 <path
                   id="connector"
                   fill="none"
-                  d="M 22.517,5.778 L 12,0 L 4,0"
+                  d="M 4,0 L 8,0 L 12,0 L 12,0 L 22.517,5.778"
                   stroke="rgba(29,33,41,1)"
                   stroke-opacity="0.45"
                   stroke-width="1"
@@ -931,7 +931,7 @@
                 <path
                   id="connector"
                   fill="none"
-                  d="M 20.103,8.851 L 12,0 L 4,0"
+                  d="M 4,0 L 8,0 L 12,0 L 12,0 L 20.103,8.851"
                   stroke="rgba(29,33,41,1)"
                   stroke-opacity="0.45"
                   stroke-width="1"
@@ -979,7 +979,7 @@
                 <path
                   id="connector"
                   fill="none"
-                  d="M 17.667,10.578 L 12,0 L 4,0"
+                  d="M 4,0 L 8,0 L 12,0 L 12,0 L 17.667,10.578"
                   stroke="rgba(29,33,41,1)"
                   stroke-opacity="0.45"
                   stroke-width="1"
@@ -1027,7 +1027,7 @@
                 <path
                   id="connector"
                   fill="none"
-                  d="M 15.66,11.428 L 12,0 L 4,0"
+                  d="M 4,0 L 8,0 L 12,0 L 12,0 L 15.66,11.428"
                   stroke="rgba(29,33,41,1)"
                   stroke-opacity="0.45"
                   stroke-width="1"
@@ -1075,7 +1075,7 @@
                 <path
                   id="connector"
                   fill="none"
-                  d="M 14.096,11.816 L 12,0 L 4,0"
+                  d="M 4,0 L 8,0 L 12,0 L 12,0 L 14.096,11.816"
                   stroke="rgba(29,33,41,1)"
                   stroke-opacity="0.45"
                   stroke-width="1"
@@ -1123,7 +1123,7 @@
                 <path
                   id="connector"
                   fill="none"
-                  d="M 12.707,11.979 L 12,0 L 4,0"
+                  d="M 4,0 L 8,0 L 12,0 L 12,0 L 12.707,11.979"
                   stroke="rgba(29,33,41,1)"
                   stroke-opacity="0.45"
                   stroke-width="1"
