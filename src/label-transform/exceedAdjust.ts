@@ -52,6 +52,11 @@ export const ExceedAdjust: LLC<ExceedAdjustOptions> = () => {
           [width, height],
         ],
       );
+      // For label with connectorPoints
+      if (l.style.connector && l.style.connectorPoints) {
+        l.style.connectorPoints[0][0] -= changeValue[0];
+        l.style.connectorPoints[0][1] -= changeValue[1];
+      }
       l.style.x += changeValue[0];
       l.style.y += changeValue[1];
     });
