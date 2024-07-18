@@ -342,3 +342,4 @@ export { mockPieSpiderRight } from './mock-pie-spider-right';
 export { mockPieSpiderMany } from './mock-pie-spider-many';
 export { mockPieSpiderHide } from './mock-pie-spider-hide';
 export { mockPieSpiderExceed } from './mock-pie-spider-exceed';
+export { mockFacetPieLegend } from './mock-facet-pie-legend';

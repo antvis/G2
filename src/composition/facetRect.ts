@@ -90,6 +90,7 @@ export const inferColor = useDefaultAdaptor<G2ViewTree>(
 
     const title = typeof encodeColor === 'string' ? encodeColor : '';
     const [domain, type] = domainColor();
+
     return {
       encode: { color: encodeColor },
       scale: { color: deepMix({}, scaleColor, { domain, type }) },
