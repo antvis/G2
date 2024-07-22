@@ -24,6 +24,7 @@ G2 is named after Leland Wilkinson’s book _The Grammar of Graphics_ and was pr
 - [Examples](https://g2.antv.antgroup.com/examples) - a large number of demos to learn from and copy-paste
 - [Tutorials](https://g2.antv.antgroup.com/manual/introduction/getting-started) - interactive case-driven guides of G2's core concepts
 - [API Reference](https://g2.antv.antgroup.com/api/overview) - complete documentation for all visualization components
+- [Editor](https://editor.antv.antgroup.com/) - an intelligent generation tool based on AntV. It utilizes AI to reduce the development cost of data visualization, and can quickly generate visual charts through natural language.
 
 ## ✨ Features
 
@@ -70,11 +71,11 @@ const chart = new Chart({
 
 // Specify visualization.
 chart
-  .interval()                   // Create an interval mark and add it to the chart.
-  .data(data)                   // Bind data for this mark.
-  .encode('x', 'genre')         // Assign genre column to x position channel.
-  .encode('y', 'sold')          // Assign sold column to y position channel.
-  .encode('color', 'genre');    // Assign genre column to color channel.
+  .interval() // Create an interval mark and add it to the chart.
+  .data(data) // Bind data for this mark.
+  .encode('x', 'genre') // Assign genre column to x position channel.
+  .encode('y', 'sold') // Assign sold column to y position channel.
+  .encode('color', 'genre'); // Assign genre column to color channel.
 
 // Render visualization.
 chart.render();

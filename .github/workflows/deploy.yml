@@ -11,8 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: yarn install
-      - run: cd site && yarn install
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.1.5
+        with:
+          node-version: '20'
+      - run: npm install
+      - run: cd site && npm install
       - run: cd site && npm run build
       - run: cp ./site/CNAME ./site/dist/CNAME
       - run: |

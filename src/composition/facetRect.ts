@@ -56,9 +56,9 @@ const setScale = useDefaultAdaptor<G2ViewTree>((options) => {
  * color encoding, but it also can be override with explicity
  * encode and scale specification.
  */
-export const inferColor = useDefaultAdaptor<G2ViewTree>(
+export const inferColor = useOverrideAdaptor<G2ViewTree>(
   (options: G2ViewTree) => {
-    const { data, scale } = options;
+    const { data, scale, legend } = options;
     const discovered = [options];
     let encodeColor;
     let scaleColor;
@@ -90,10 +90,13 @@ export const inferColor = useDefaultAdaptor<G2ViewTree>(
 
     const title = typeof encodeColor === 'string' ? encodeColor : '';
     const [domain, type] = domainColor();
+
     return {
-      encode: { color: encodeColor },
+      encode: { color: { type: 'column', value: domain ?? [] } },
       scale: { color: deepMix({}, scaleColor, { domain, type }) },
-      legend: { color: deepMix({ title }, legendColor) },
+      ...(legend === undefined && {
+        legend: { color: deepMix({ title }, legendColor) },
+      }),
     };
   },
 );

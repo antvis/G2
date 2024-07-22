@@ -40,7 +40,7 @@ export function incomeStatementByRegionIntervalCustom() {
     },
     scale: {
       color: {
-        domain: ['Texas', 'Oklahoma', 'Iowa'],
+        domain: ['Texas', 'Oklahoma', 'Iowa', 'Total'],
         range: ['#3c5e79', '#5686ad', '#7bc0f7', '#d6d6d6'],
       },
       x: {

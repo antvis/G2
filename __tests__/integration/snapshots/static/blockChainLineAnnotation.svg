@@ -957,7 +957,7 @@
                 <path
                   id="connector"
                   fill="none"
-                  d="M 0,0 L -7.5,10"
+                  d="M -7.5,10 L 0,0"
                   stroke="rgba(65,97,128,1)"
                   stroke-opacity="0.45"
                   stroke-width="1"
@@ -967,7 +967,7 @@
                   fill="none"
                   x="0"
                   y="0"
-                  transform="matrix(-0.600000,0.800000,-0.800000,-0.600000,0,0)"
+                  transform="matrix(0.600000,-0.800000,0.800000,0.600000,-7.500000,10)"
                 >
                   <g>
                     <path

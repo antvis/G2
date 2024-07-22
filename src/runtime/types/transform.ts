@@ -1,9 +1,5 @@
 import { ColumnValue, NormalizedEncodeSpec } from './encode';
-import { G2Library, G2Mark } from './options';
-
-export type TransformContext = {
-  library: G2Library;
-};
+import { G2Context, G2Mark } from './options';
 
 export type TransformOptions = Record<string, any>;
 
@@ -18,7 +14,7 @@ export type TransformComponent<O extends TransformOptions = TransformOptions> =
 export type Transform = (
   I: number[],
   mark: G2Mark,
-  context: TransformContext,
+  context: G2Context,
 ) => [number[], G2Mark] | Promise<[number[], G2Mark]>;
 
 export type TransformSpec = {

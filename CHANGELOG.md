@@ -1,3 +1,18 @@
+## [5.2.1](https://github.com/antvis/g2/compare/5.2.0...5.2.1) (2024-07-11)
+
+
+### Bug Fixes
+
+* **dodgeX:** do not update series channel if groupBy is invalid ([#6344](https://github.com/antvis/g2/issues/6344)) ([87c39da](https://github.com/antvis/g2/commit/87c39dae8ec04edc6e17940acfeacd1ba1549a1b))
+* **legend-filter:** filter facet pie ([#6346](https://github.com/antvis/g2/issues/6346)) ([b7bb946](https://github.com/antvis/g2/commit/b7bb946e40cb9c117eafbdb86f9912d43d94e3e9))
+
+
+### Features
+
+* **wordcloud:** accept custom canvas ([#6354](https://github.com/antvis/g2/issues/6354)) ([759ee3f](https://github.com/antvis/g2/commit/759ee3f7cd427152a115f969a5651903eaef5f8a))
+
+
+
 # [5.2.0](https://github.com/antvis/g2/compare/5.1.23...5.2.0) (2024-06-28)
 
 

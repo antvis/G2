@@ -61,6 +61,14 @@
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*gC20SLxWVicAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
+      "filename": "spider-label-overlap.ts",
+      "title": {
+        "zh": "调整蜘蛛布局",
+        "en": "Adjust Spider Layout"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*JuJwSJRS4yQAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
       "filename": "point-jitter-radial.ts",
       "title": {
         "zh": "径向扰动散点图",

@@ -12,7 +12,8 @@
   <a href="https://g2.antv.antgroup.com/manual/introduction/what-is-g2">介绍</a> •
   <a href="https://g2.antv.antgroup.com/examples">案例</a> •
   <a href="https://g2.antv.antgroup.com/manual/introduction/getting-started">教程</a> •
-  <a href="https://g2.antv.antgroup.com/api/overview">API</a>
+  <a href="https://g2.antv.antgroup.com/api/overview">API</a> •
+  <a href="https://editor.antv.antgroup.com/">Editor</a>
 </p>
 
 [![Build Status](https://github.com/antvis/g2/workflows/build/badge.svg?branch=v5)](https://github.com/antvis//actions)
