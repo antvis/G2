@@ -331,7 +331,7 @@
                   <g id="g-svg-39" fill="none">
                     <g>
                       <path
-                        id="g-svg-292"
+                        id="g-svg-43"
                         fill="none"
                         class="line"
                         stroke="rgba(131,218,173,1)"
@@ -341,7 +341,7 @@
                     </g>
                     <g>
                       <path
-                        id="g-svg-293"
+                        id="g-svg-44"
                         fill="rgba(131,218,173,1)"
                         class="area"
                         d=""
@@ -408,10 +408,10 @@
                 class="slider-handle start-handle"
               >
                 <g id="g-svg-53" fill="none" class="handle-icon-group">
-                  <g id="g-svg-296" fill="none" x="0" y="0" class="handle-icon">
+                  <g id="g-svg-54" fill="none" x="0" y="0" class="handle-icon">
                     <g>
                       <path
-                        id="g-svg-297"
+                        id="g-svg-55"
                         fill="rgba(247,247,247,1)"
                         class="handle-icon-rect"
                         stroke-width="1"
@@ -425,7 +425,7 @@
                       />
                       <g>
                         <line
-                          id="g-svg-298"
+                          id="g-svg-56"
                           fill="rgba(247,247,247,1)"
                           x1="-1.666666666666667"
                           y1="-6"
@@ -439,7 +439,7 @@
                       </g>
                       <g>
                         <line
-                          id="g-svg-299"
+                          id="g-svg-57"
                           fill="rgba(247,247,247,1)"
                           x1="1.666666666666666"
                           y1="-6"
@@ -484,10 +484,10 @@
                 class="slider-handle end-handle"
               >
                 <g id="g-svg-63" fill="none" class="handle-icon-group">
-                  <g id="g-svg-302" fill="none" x="0" y="0" class="handle-icon">
+                  <g id="g-svg-64" fill="none" x="0" y="0" class="handle-icon">
                     <g>
                       <path
-                        id="g-svg-303"
+                        id="g-svg-65"
                         fill="rgba(247,247,247,1)"
                         class="handle-icon-rect"
                         stroke-width="1"
@@ -501,7 +501,7 @@
                       />
                       <g>
                         <line
-                          id="g-svg-304"
+                          id="g-svg-66"
                           fill="rgba(247,247,247,1)"
                           x1="-1.666666666666667"
                           y1="-6"
@@ -515,7 +515,7 @@
                       </g>
                       <g>
                         <line
-                          id="g-svg-305"
+                          id="g-svg-67"
                           fill="rgba(247,247,247,1)"
                           x1="1.666666666666666"
                           y1="-6"
@@ -660,7 +660,7 @@
                         >
                           <g>
                             <line
-                              id="g-svg-338"
+                              id="g-svg-159"
                               fill="none"
                               x1="0"
                               y1="0"
@@ -681,7 +681,7 @@
                         >
                           <g>
                             <line
-                              id="g-svg-339"
+                              id="g-svg-160"
                               fill="none"
                               x1="0"
                               y1="0"
@@ -702,7 +702,7 @@
                         >
                           <g>
                             <line
-                              id="g-svg-340"
+                              id="g-svg-161"
                               fill="none"
                               x1="0"
                               y1="0"
@@ -723,7 +723,7 @@
                         >
                           <g>
                             <line
-                              id="g-svg-341"
+                              id="g-svg-162"
                               fill="none"
                               x1="0"
                               y1="0"
@@ -744,7 +744,7 @@
                         >
                           <g>
                             <line
-                              id="g-svg-342"
+                              id="g-svg-163"
                               fill="none"
                               x1="0"
                               y1="0"
@@ -765,7 +765,7 @@
                         >
                           <g>
                             <line
-                              id="g-svg-343"
+                              id="g-svg-164"
                               fill="none"
                               x1="0"
                               y1="0"
@@ -786,7 +786,7 @@
                         >
                           <g>
                             <line
-                              id="g-svg-344"
+                              id="g-svg-165"
                               fill="none"
                               x1="0"
                               y1="0"
@@ -809,7 +809,7 @@
                         >
                           <g>
                             <text
-                              id="g-svg-345"
+                              id="g-svg-166"
                               fill="rgba(29,33,41,1)"
                               dominant-baseline="central"
                               paint-order="stroke"
@@ -838,7 +838,7 @@
                         >
                           <g>
                             <text
-                              id="g-svg-346"
+                              id="g-svg-167"
                               fill="rgba(29,33,41,1)"
                               dominant-baseline="central"
                               paint-order="stroke"
@@ -867,7 +867,7 @@
                         >
                           <g>
                             <text
-                              id="g-svg-347"
+                              id="g-svg-168"
                               fill="rgba(29,33,41,1)"
                               dominant-baseline="central"
                               paint-order="stroke"
@@ -896,7 +896,7 @@
                         >
                           <g>
                             <text
-                              id="g-svg-348"
+                              id="g-svg-169"
                               fill="rgba(29,33,41,1)"
                               dominant-baseline="central"
                               paint-order="stroke"
@@ -925,7 +925,7 @@
                         >
                           <g>
                             <text
-                              id="g-svg-349"
+                              id="g-svg-170"
                               fill="rgba(29,33,41,1)"
                               dominant-baseline="central"
                               paint-order="stroke"
@@ -954,7 +954,7 @@
                         >
                           <g>
                             <text
-                              id="g-svg-350"
+                              id="g-svg-171"
                               fill="rgba(29,33,41,1)"
                               dominant-baseline="central"
                               paint-order="stroke"
@@ -983,7 +983,7 @@
                         >
                           <g>
                             <text
-                              id="g-svg-351"
+                              id="g-svg-172"
                               fill="rgba(29,33,41,1)"
                               dominant-baseline="central"
                               paint-order="stroke"
@@ -1022,7 +1022,7 @@
                   >
                     <g id="g-svg-128" fill="none" class="handle-icon-group">
                       <g
-                        id="g-svg-352"
+                        id="g-svg-173"
                         fill="none"
                         x="0"
                         y="0"
@@ -1030,7 +1030,7 @@
                       >
                         <g>
                           <path
-                            id="g-svg-353"
+                            id="g-svg-174"
                             fill="rgba(255,255,255,1)"
                             class="handle-icon-rect"
                             stroke-width="1"
@@ -1043,7 +1043,7 @@
                           />
                           <g>
                             <line
-                              id="g-svg-354"
+                              id="g-svg-175"
                               fill="rgba(255,255,255,1)"
                               x1="-1.1111111111111112"
                               y1="-3.9999999999999996"
@@ -1056,7 +1056,7 @@
                           </g>
                           <g>
                             <line
-                              id="g-svg-355"
+                              id="g-svg-176"
                               fill="rgba(255,255,255,1)"
                               x1="1.1111111111111107"
                               y1="-3.9999999999999996"
@@ -1084,7 +1084,7 @@
                   >
                     <g id="g-svg-135" fill="none" class="handle-icon-group">
                       <g
-                        id="g-svg-356"
+                        id="g-svg-177"
                         fill="none"
                         x="0"
                         y="0"
@@ -1092,7 +1092,7 @@
                       >
                         <g>
                           <path
-                            id="g-svg-357"
+                            id="g-svg-178"
                             fill="rgba(255,255,255,1)"
                             class="handle-icon-rect"
                             stroke-width="1"
@@ -1105,7 +1105,7 @@
                           />
                           <g>
                             <line
-                              id="g-svg-358"
+                              id="g-svg-179"
                               fill="rgba(255,255,255,1)"
                               x1="-1.1111111111111112"
                               y1="-3.9999999999999996"
@@ -1118,7 +1118,7 @@
                           </g>
                           <g>
                             <line
-                              id="g-svg-359"
+                              id="g-svg-180"
                               fill="rgba(255,255,255,1)"
                               x1="1.1111111111111107"
                               y1="-3.9999999999999996"
@@ -1190,7 +1190,7 @@
                 >
                   <g>
                     <line
-                      id="g-svg-361"
+                      id="g-svg-194"
                       fill="none"
                       x1="0"
                       y1="0"
@@ -1211,7 +1211,7 @@
                 >
                   <g>
                     <line
-                      id="g-svg-362"
+                      id="g-svg-195"
                       fill="none"
                       x1="0"
                       y1="0"
@@ -1232,7 +1232,7 @@
                 >
                   <g>
                     <line
-                      id="g-svg-363"
+                      id="g-svg-196"
                       fill="none"
                       x1="0"
                       y1="0"
@@ -1253,7 +1253,7 @@
                 >
                   <g>
                     <line
-                      id="g-svg-364"
+                      id="g-svg-197"
                       fill="none"
                       x1="0"
                       y1="0"
@@ -1274,7 +1274,7 @@
                 >
                   <g>
                     <line
-                      id="g-svg-365"
+                      id="g-svg-198"
                       fill="none"
                       x1="0"
                       y1="0"
@@ -1295,7 +1295,7 @@
                 >
                   <g>
                     <line
-                      id="g-svg-366"
+                      id="g-svg-199"
                       fill="none"
                       x1="0"
                       y1="0"
@@ -1316,7 +1316,7 @@
                 >
                   <g>
                     <line
-                      id="g-svg-367"
+                      id="g-svg-200"
                       fill="none"
                       x1="0"
                       y1="0"
@@ -1339,7 +1339,7 @@
                 >
                   <g>
                     <text
-                      id="g-svg-368"
+                      id="g-svg-209"
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
@@ -1368,7 +1368,7 @@
                 >
                   <g>
                     <text
-                      id="g-svg-369"
+                      id="g-svg-210"
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
@@ -1397,7 +1397,7 @@
                 >
                   <g>
                     <text
-                      id="g-svg-370"
+                      id="g-svg-211"
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
@@ -1426,7 +1426,7 @@
                 >
                   <g>
                     <text
-                      id="g-svg-371"
+                      id="g-svg-212"
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
@@ -1455,7 +1455,7 @@
                 >
                   <g>
                     <text
-                      id="g-svg-372"
+                      id="g-svg-213"
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
@@ -1484,7 +1484,7 @@
                 >
                   <g>
                     <text
-                      id="g-svg-373"
+                      id="g-svg-214"
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
@@ -1513,7 +1513,7 @@
                 >
                   <g>
                     <text
-                      id="g-svg-374"
+                      id="g-svg-215"
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
@@ -1659,7 +1659,7 @@
                 >
                   <g>
                     <line
-                      id="g-svg-376"
+                      id="g-svg-240"
                       fill="none"
                       x1="0"
                       y1="0"
@@ -1680,7 +1680,7 @@
                 >
                   <g>
                     <line
-                      id="g-svg-377"
+                      id="g-svg-241"
                       fill="none"
                       x1="0"
                       y1="0"
@@ -1701,7 +1701,7 @@
                 >
                   <g>
                     <line
-                      id="g-svg-378"
+                      id="g-svg-242"
                       fill="none"
                       x1="0"
                       y1="0"
@@ -1722,7 +1722,7 @@
                 >
                   <g>
                     <line
-                      id="g-svg-379"
+                      id="g-svg-243"
                       fill="none"
                       x1="0"
                       y1="0"
@@ -1743,7 +1743,7 @@
                 >
                   <g>
                     <line
-                      id="g-svg-380"
+                      id="g-svg-244"
                       fill="none"
                       x1="0"
                       y1="0"
@@ -1764,7 +1764,7 @@
                 >
                   <g>
                     <line
-                      id="g-svg-381"
+                      id="g-svg-245"
                       fill="none"
                       x1="0"
                       y1="0"
@@ -1785,7 +1785,7 @@
                 >
                   <g>
                     <line
-                      id="g-svg-382"
+                      id="g-svg-246"
                       fill="none"
                       x1="0"
                       y1="0"
@@ -1808,7 +1808,7 @@
                 >
                   <g>
                     <text
-                      id="g-svg-383"
+                      id="g-svg-255"
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
@@ -1836,7 +1836,7 @@
                 >
                   <g>
                     <text
-                      id="g-svg-384"
+                      id="g-svg-256"
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
@@ -1864,7 +1864,7 @@
                 >
                   <g>
                     <text
-                      id="g-svg-385"
+                      id="g-svg-257"
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
@@ -1892,7 +1892,7 @@
                 >
                   <g>
                     <text
-                      id="g-svg-386"
+                      id="g-svg-258"
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
@@ -1920,7 +1920,7 @@
                 >
                   <g>
                     <text
-                      id="g-svg-387"
+                      id="g-svg-259"
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
@@ -1948,7 +1948,7 @@
                 >
                   <g>
                     <text
-                      id="g-svg-388"
+                      id="g-svg-260"
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
@@ -1976,7 +1976,7 @@
                 >
                   <g>
                     <text
-                      id="g-svg-389"
+                      id="g-svg-261"
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"

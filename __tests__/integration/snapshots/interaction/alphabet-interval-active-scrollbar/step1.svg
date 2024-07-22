@@ -7,7 +7,7 @@
 >
   <defs>
     <path
-      id="g-svg-120"
+      id="g-svg-81"
       fill="none"
       d="M 16,16 l 608,0 l 0,412 l-608 0 z"
       x="16"
@@ -15,8 +15,8 @@
       width="608"
       height="412"
     />
-    <clipPath transform="matrix(1,0,0,1,-16,-16)" id="clip-path-120-40">
-      <use href="#g-svg-120" />
+    <clipPath transform="matrix(1,0,0,1,-16,-16)" id="clip-path-81-40">
+      <use href="#g-svg-81" />
     </clipPath>
   </defs>
   <g id="g-svg-camera">
@@ -171,10 +171,10 @@
                 class="slider-handle start-handle"
               >
                 <g id="g-svg-23" fill="none" class="handle-icon-group">
-                  <g id="g-svg-110" fill="none" x="0" y="0" class="handle-icon">
+                  <g id="g-svg-71" fill="none" x="0" y="0" class="handle-icon">
                     <g>
                       <path
-                        id="g-svg-111"
+                        id="g-svg-72"
                         fill="rgba(247,247,247,1)"
                         class="handle-icon-rect"
                         stroke-width="1"
@@ -188,7 +188,7 @@
                       />
                       <g>
                         <line
-                          id="g-svg-112"
+                          id="g-svg-73"
                           fill="rgba(247,247,247,1)"
                           x1="-1.666666666666667"
                           y1="-6"
@@ -202,7 +202,7 @@
                       </g>
                       <g>
                         <line
-                          id="g-svg-113"
+                          id="g-svg-74"
                           fill="rgba(247,247,247,1)"
                           x1="1.666666666666666"
                           y1="-6"
@@ -247,10 +247,10 @@
                 class="slider-handle end-handle"
               >
                 <g id="g-svg-33" fill="none" class="handle-icon-group">
-                  <g id="g-svg-116" fill="none" x="0" y="0" class="handle-icon">
+                  <g id="g-svg-77" fill="none" x="0" y="0" class="handle-icon">
                     <g>
                       <path
-                        id="g-svg-117"
+                        id="g-svg-78"
                         fill="rgba(247,247,247,1)"
                         class="handle-icon-rect"
                         stroke-width="1"
@@ -264,7 +264,7 @@
                       />
                       <g>
                         <line
-                          id="g-svg-118"
+                          id="g-svg-79"
                           fill="rgba(247,247,247,1)"
                           x1="-1.666666666666667"
                           y1="-6"
@@ -278,7 +278,7 @@
                       </g>
                       <g>
                         <line
-                          id="g-svg-119"
+                          id="g-svg-80"
                           fill="rgba(247,247,247,1)"
                           x1="1.666666666666666"
                           y1="-6"
@@ -317,7 +317,7 @@
             </g>
           </g>
         </g>
-        <g transform="matrix(1,0,0,1,16,16)" clip-path="url(#clip-path-120-40)">
+        <g transform="matrix(1,0,0,1,16,16)" clip-path="url(#clip-path-81-40)">
           <path
             id="g-svg-40"
             fill="rgba(0,0,0,0)"
@@ -328,7 +328,7 @@
           />
           <g>
             <path
-              id="g-svg-135"
+              id="g-svg-96"
               fill="rgba(204,214,236,1)"
               d="M 555.6071724137933,0 l 41.889103448275705,0 l 0,412 l-41.889103448275705 0 z"
               x="555.6071724137933"
