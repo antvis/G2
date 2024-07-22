@@ -19,7 +19,7 @@ export const incomeStatementByRegion = [
   { x: 'Variable Costs', type: 'Iowa', start: 447050, end: 391890 },
   { x: 'Variable Costs', type: 'Oklahoma', start: 391890, end: 342280 },
   { x: 'Variable Costs', type: 'Texas', start: 342280, end: 226780 },
-  { x: 'Total', isTotal: true, start: 0, end: 226780 },
+  { x: 'Total', type: 'Total', isTotal: true, start: 0, end: 226780 },
   { x: 'Texas', type: 'Texas', isTotal: true, start: 160890, end: 226780 },
   {
     x: 'Oklahoma',

@@ -671,6 +671,7 @@ async function initializeMarks(
     const values = channels.flatMap(({ values }) => values.map((d) => d.value));
     const scale = {
       ...inferScale(name, values, options, coordinates, theme, library),
+      uid: Symbol('scale'),
       key: scaleKey,
     };
     channels.forEach((channel) => (channel.scale = scale));
@@ -745,6 +746,17 @@ function initializeState(
   // AxisZ need a copy of axisX and axisY to show grids in X-Z & Y-Z planes.
   processAxisZ(components);
 
+  // Index scale instance by uid.
+  const uidScale = new Map(
+    Array.from(markState.values()).flatMap((state) => {
+      const { channels } = state;
+      return channels.map(({ scale }) => [
+        scale.uid,
+        useRelationScale(scale, library),
+      ]);
+    }),
+  );
+
   // Scale from marks and components.
   const scaleInstance: Record<string, Scale> = {};
 
@@ -753,8 +765,8 @@ function initializeState(
     const { scales: scaleDescriptors = [] } = component;
     const scales = [];
     for (const descriptor of scaleDescriptors) {
-      const { name } = descriptor;
-      const scale = useRelationScale(descriptor, library);
+      const { name, uid } = descriptor;
+      const scale = uidScale.get(uid) ?? useRelationScale(descriptor, library);
       scales.push(scale);
       // Delivery the scale of axisX to the AxisY,
       // in order to calculate the angle of axisY component when rendering radar chart.
@@ -766,7 +778,6 @@ function initializeState(
       }
       assignScale(scaleInstance, { [name]: scale });
     }
-
     component.scaleInstances = scales;
   }
 
@@ -791,9 +802,7 @@ function initializeState(
       channels.map(({ name, scale }) => [name, scale]),
     );
     // Transform abstract value to visual value by scales.
-    const markScaleInstance = mapObject(scale, (options) => {
-      return useRelationScale(options, library);
-    });
+    const markScaleInstance = mapObject(scale, ({ uid }) => uidScale.get(uid));
     assignScale(scaleInstance, markScaleInstance);
     const value = applyScale(channels, markScaleInstance);
 

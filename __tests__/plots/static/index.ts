@@ -343,3 +343,4 @@ export { mockPieSpiderMany } from './mock-pie-spider-many';
 export { mockPieSpiderHide } from './mock-pie-spider-hide';
 export { mockPieSpiderExceed } from './mock-pie-spider-exceed';
 export { mockFacetPieLegend } from './mock-facet-pie-legend';
+export { weatherLineMultiAxesSync } from './weather-line-multi-axes-sync';
