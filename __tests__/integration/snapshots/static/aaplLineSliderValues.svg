@@ -7,7 +7,7 @@
 >
   <defs>
     <path
-      id="g-svg-271"
+      id="g-svg-237"
       fill="none"
       d="M 96,16 l 528,0 l 0,381 l-528 0 z"
       x="96"
@@ -15,8 +15,8 @@
       width="528"
       height="381"
     />
-    <clipPath transform="matrix(1,0,0,1,-96,-16)" id="clip-path-271-157">
-      <use href="#g-svg-271" />
+    <clipPath transform="matrix(1,0,0,1,-96,-16)" id="clip-path-237-157">
+      <use href="#g-svg-237" />
     </clipPath>
   </defs>
   <g id="g-svg-camera">
@@ -682,7 +682,7 @@
                 >
                   <g>
                     <line
-                      id="g-svg-240"
+                      id="g-svg-203"
                       fill="none"
                       x1="0"
                       y1="0"
@@ -703,7 +703,7 @@
                 >
                   <g>
                     <line
-                      id="g-svg-241"
+                      id="g-svg-204"
                       fill="none"
                       x1="0"
                       y1="0"
@@ -724,7 +724,7 @@
                 >
                   <g>
                     <line
-                      id="g-svg-242"
+                      id="g-svg-205"
                       fill="none"
                       x1="0"
                       y1="0"
@@ -745,7 +745,7 @@
                 >
                   <g>
                     <line
-                      id="g-svg-243"
+                      id="g-svg-206"
                       fill="none"
                       x1="0"
                       y1="0"
@@ -766,7 +766,7 @@
                 >
                   <g>
                     <line
-                      id="g-svg-244"
+                      id="g-svg-207"
                       fill="none"
                       x1="0"
                       y1="0"
@@ -787,7 +787,7 @@
                 >
                   <g>
                     <line
-                      id="g-svg-245"
+                      id="g-svg-208"
                       fill="none"
                       x1="0"
                       y1="0"
@@ -808,7 +808,7 @@
                 >
                   <g>
                     <line
-                      id="g-svg-246"
+                      id="g-svg-209"
                       fill="none"
                       x1="0"
                       y1="0"
@@ -829,7 +829,7 @@
                 >
                   <g>
                     <line
-                      id="g-svg-247"
+                      id="g-svg-210"
                       fill="none"
                       x1="0"
                       y1="0"
@@ -852,7 +852,7 @@
                 >
                   <g>
                     <text
-                      id="g-svg-248"
+                      id="g-svg-211"
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
@@ -881,7 +881,7 @@
                 >
                   <g>
                     <text
-                      id="g-svg-249"
+                      id="g-svg-212"
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
@@ -910,7 +910,7 @@
                 >
                   <g>
                     <text
-                      id="g-svg-250"
+                      id="g-svg-213"
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
@@ -939,7 +939,7 @@
                 >
                   <g>
                     <text
-                      id="g-svg-251"
+                      id="g-svg-214"
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
@@ -968,7 +968,7 @@
                 >
                   <g>
                     <text
-                      id="g-svg-252"
+                      id="g-svg-215"
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
@@ -997,7 +997,7 @@
                 >
                   <g>
                     <text
-                      id="g-svg-253"
+                      id="g-svg-216"
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
@@ -1026,7 +1026,7 @@
                 >
                   <g>
                     <text
-                      id="g-svg-254"
+                      id="g-svg-217"
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
@@ -1055,7 +1055,7 @@
                 >
                   <g>
                     <text
-                      id="g-svg-255"
+                      id="g-svg-218"
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
@@ -1201,7 +1201,7 @@
                 >
                   <g>
                     <line
-                      id="g-svg-257"
+                      id="g-svg-223"
                       fill="none"
                       x1="0"
                       y1="0"
@@ -1222,7 +1222,7 @@
                 >
                   <g>
                     <line
-                      id="g-svg-258"
+                      id="g-svg-224"
                       fill="none"
                       x1="0"
                       y1="0"
@@ -1243,7 +1243,7 @@
                 >
                   <g>
                     <line
-                      id="g-svg-259"
+                      id="g-svg-225"
                       fill="none"
                       x1="0"
                       y1="0"
@@ -1264,7 +1264,7 @@
                 >
                   <g>
                     <line
-                      id="g-svg-260"
+                      id="g-svg-226"
                       fill="none"
                       x1="0"
                       y1="0"
@@ -1285,7 +1285,7 @@
                 >
                   <g>
                     <line
-                      id="g-svg-261"
+                      id="g-svg-227"
                       fill="none"
                       x1="0"
                       y1="0"
@@ -1306,7 +1306,7 @@
                 >
                   <g>
                     <line
-                      id="g-svg-262"
+                      id="g-svg-228"
                       fill="none"
                       x1="0"
                       y1="0"
@@ -1327,7 +1327,7 @@
                 >
                   <g>
                     <line
-                      id="g-svg-263"
+                      id="g-svg-222"
                       fill="none"
                       x1="0"
                       y1="0"
@@ -1350,7 +1350,7 @@
                 >
                   <g>
                     <text
-                      id="g-svg-264"
+                      id="g-svg-231"
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
@@ -1378,7 +1378,7 @@
                 >
                   <g>
                     <text
-                      id="g-svg-265"
+                      id="g-svg-232"
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
@@ -1406,7 +1406,7 @@
                 >
                   <g>
                     <text
-                      id="g-svg-266"
+                      id="g-svg-233"
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
@@ -1434,7 +1434,7 @@
                 >
                   <g>
                     <text
-                      id="g-svg-267"
+                      id="g-svg-234"
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
@@ -1462,7 +1462,7 @@
                 >
                   <g>
                     <text
-                      id="g-svg-268"
+                      id="g-svg-235"
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
@@ -1490,7 +1490,7 @@
                 >
                   <g>
                     <text
-                      id="g-svg-269"
+                      id="g-svg-236"
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
@@ -1518,7 +1518,7 @@
                 >
                   <g>
                     <text
-                      id="g-svg-270"
+                      id="g-svg-230"
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
@@ -1545,7 +1545,7 @@
         </g>
         <g
           transform="matrix(1,0,0,1,96,16)"
-          clip-path="url(#clip-path-271-157)"
+          clip-path="url(#clip-path-237-157)"
         >
           <path
             id="g-svg-157"
