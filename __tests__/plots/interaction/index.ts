@@ -82,3 +82,5 @@ export { indicesLineCrosshairsXY } from './indices-line-crosshairs-xy';
 export { changeSizePolarCrosshairsXY } from './change-size-polar-crosshairs-xy';
 export { alphabetIntervalActiveMarkerType } from './alphabet-interval-activate-line-marker-type';
 export { mockPieLegendFilter } from './mock-pie-legend-filter';
+export { commitIntervalFixedCornerFilterNoElement } from './commit-interval-fixed-corner-filter-no-element';
+export { speciesViolinBasicPolarNoElements } from './species-violin-basic-polar-filter-no-element';
