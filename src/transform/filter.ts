@@ -88,7 +88,6 @@ export const Filter: TC<FilterOptions> = (options = {}) => {
     const FI = I.filter(totalFilter);
     const newIndex = FI.map((_, i) => i);
 
-    // Skip empty filters.
     if (filters.length === 0) {
       const targetMark = filterWhenNoElements(mark);
       return [I, targetMark];
