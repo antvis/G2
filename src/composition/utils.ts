@@ -1,4 +1,4 @@
-import { deepMix } from '@antv/util';
+import { deepMix, isNumber } from '@antv/util';
 
 type Adapter<T> = (options: T, ...rest: any[]) => T;
 
@@ -17,11 +17,12 @@ export function useOverrideAdaptor<T>(adaptor: Adapter<T>): Adapter<T> {
 }
 
 export function mergeData(
-  dataDescriptor: any[] | { value: any; [key: string]: any },
+  dataDescriptor: any[] | { value: any; [key: string]: any } | number,
   dataValue: any[],
 ) {
   if (!dataDescriptor) return dataValue;
   if (Array.isArray(dataDescriptor)) return dataDescriptor;
+  if (isNumber(dataDescriptor)) return dataDescriptor;
   const { value = dataValue, ...rest } = dataDescriptor;
   return { ...rest, value };
 }

@@ -5,7 +5,7 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.liquid().data({ value: 0.581 }).style({
+chart.liquid().data(0.581).style({
   contentFill: '#000',
   contentText: 'center text',
   contentStroke: '#fff',

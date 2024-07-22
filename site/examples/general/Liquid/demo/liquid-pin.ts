@@ -5,7 +5,7 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.liquid().data({ value: 0.581 }).style({
+chart.liquid().data(0.581).style({
   shape: 'pin', // Build-in shapes: rect, circle, pin, diamond, triangle.
   contentFill: '#fff',
   outlineBorder: 4,

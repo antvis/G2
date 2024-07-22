@@ -20,7 +20,7 @@ const chart = new Chart({
 
 chart
   .liquid()
-  .data({value:.3})
+  .data(0.3)
   .style({
     outlineBorder: 4,
     outlineDistance: 8,
