@@ -20,6 +20,7 @@ export function isObject(d) {
   if (d instanceof Date) return false;
   return typeof d === 'object';
 }
+
 export function mergeData(
   dataDescriptor: any[] | { value: any; [key: string]: any },
   dataValue: any[],
@@ -28,7 +29,7 @@ export function mergeData(
   if (Array.isArray(dataDescriptor)) return dataDescriptor;
   if (isObject(dataDescriptor)) {
     const { value, ...rest } = dataDescriptor;
-    return { ...rest, value: dataValue };
+    return { ...rest, value };
   }
   return dataDescriptor;
 }
