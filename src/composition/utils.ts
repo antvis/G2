@@ -16,12 +16,20 @@ export function useOverrideAdaptor<T>(adaptor: Adapter<T>): Adapter<T> {
   return (options?, ...rest) => deepMix({}, options, adaptor(options, ...rest));
 }
 
+export function isObject(d) {
+  if (d instanceof Date) return false;
+  return typeof d === 'object';
+}
+
 export function mergeData(
   dataDescriptor: any[] | { value: any; [key: string]: any },
   dataValue: any[],
 ) {
   if (!dataDescriptor) return dataValue;
   if (Array.isArray(dataDescriptor)) return dataDescriptor;
-  const { value = dataValue, ...rest } = dataDescriptor;
-  return { ...rest, value };
+  if (isObject(dataDescriptor)) {
+    const { value = dataValue, ...rest } = dataDescriptor;
+    return { ...rest, value };
+  }
+  return dataDescriptor;
 }

@@ -5,7 +5,7 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.liquid().data({ value: 0.3 }).style({
+chart.liquid().data(0.3).style({
   backgroundFill: 'pink',
 });
 

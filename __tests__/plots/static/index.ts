@@ -301,6 +301,7 @@ export { liquidDiamond } from './liquid-diamond';
 export { liquidContent } from './liquid-content';
 export { liquidTriangle } from './liquid-triangle';
 export { liquidCustomShape } from './liquid-custom-shape';
+export { liquidNumber } from './liquid-number';
 export { alphabetIntervalAxisOptions } from './alphabet-interval-axis-options';
 export { profitIntervalAxisTransform } from './profit-interval-axis-transform';
 export { intervalPointBullet } from './interval-point-bullet';
