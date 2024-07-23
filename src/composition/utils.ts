@@ -28,7 +28,7 @@ export function mergeData(
   if (!dataDescriptor) return dataValue;
   if (Array.isArray(dataDescriptor)) return dataDescriptor;
   if (isObject(dataDescriptor)) {
-    const { value, ...rest } = dataDescriptor;
+    const { value = dataValue, ...rest } = dataDescriptor;
     return { ...rest, value };
   }
   return dataDescriptor;
