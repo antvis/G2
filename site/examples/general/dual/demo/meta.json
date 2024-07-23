@@ -67,6 +67,14 @@
         "en": "Dual Axis Stacked Group Bar Chart"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*lfupS49PdxAAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "multi-line-sync.ts",
+      "title": {
+        "zh": "多轴图同步刻度",
+        "en": "Sync Multi Axis Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*8gQaSIiwhDkAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }
