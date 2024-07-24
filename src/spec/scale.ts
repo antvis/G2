@@ -71,7 +71,7 @@ export type BaseScale<T extends ScaleTypes, O> = {
   zero?: boolean;
   offset?: (t: number) => number;
   relations?: [any, any][];
-  syncTicks?: (scales: QuantitativeScale[]) => void;
+  groupTransform?: (scales: QuantitativeScale[]) => void;
 } & O;
 
 export type LinearScale = BaseScale<'linear', LinearOptions>;

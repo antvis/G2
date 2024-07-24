@@ -72,7 +72,7 @@ export function applyScale(
   return scaledValue;
 }
 
-export function syncTicks(
+export function groupTransform(
   markState: Map<G2Mark, G2MarkState>,
   uidScale: Map<symbol, Scale>,
 ) {
@@ -85,14 +85,16 @@ export function syncTicks(
   )
     .filter(
       ([, scales]) =>
-        scales.some((d) => typeof d.getOptions().syncTicks === 'function') && // only sync scales with syncTicks options
+        scales.some(
+          (d) => typeof d.getOptions().groupTransform === 'function',
+        ) && // only sync scales with groupTransform options
         scales.every((d) => d.getTicks), // only sync quantitative scales
     )
     .map((d) => d[1]);
 
   scaleGroups.forEach((group) => {
-    const syncTicks = group.map((d) => d.getOptions().syncTicks)[0];
-    syncTicks(group);
+    const groupTransform = group.map((d) => d.getOptions().groupTransform)[0];
+    groupTransform(group);
   });
 }
 

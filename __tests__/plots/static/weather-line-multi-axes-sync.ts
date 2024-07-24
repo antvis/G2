@@ -30,7 +30,7 @@ export function weatherLineMultiAxesSync(): G2Spec {
           shape: 'smooth',
         },
         scale: {
-          y: { independent: true, syncTicks: syncTicksOfDomainsFromZero },
+          y: { independent: true, groupTransform: syncTicksOfDomainsFromZero },
         },
         axis: {
           y: {

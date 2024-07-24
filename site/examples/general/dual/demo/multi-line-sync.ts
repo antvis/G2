@@ -105,7 +105,7 @@ chart
   .encode('shape', 'smooth')
   .scale('y', {
     independent: true,
-    syncTicks: syncTicksOfDomainsFromZero,
+    groupTransform: syncTicksOfDomainsFromZero,
   })
   .axis('y', {
     title: 'Temperature (°C)',
