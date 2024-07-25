@@ -126,7 +126,6 @@ function legendFilterOrdinal(
       const index = selectedValues.indexOf(value);
       if (index === -1) selectedValues.push(value);
       else selectedValues.splice(index, 1);
-      if (selectedValues.length === 0) selectedValues.push(...items.map(datum));
       await filter(selectedValues);
       updateLegendState();
 
