@@ -1,3 +1,24 @@
+## [5.2.2](https://github.com/antvis/g2/compare/5.2.1...5.2.2) (2024-07-25)
+
+
+### Bug Fixes
+
+* **deploy:** use npm@20 to fix error ([#6356](https://github.com/antvis/g2/issues/6356)) ([bf13fe8](https://github.com/antvis/g2/commit/bf13fe8a3d8006393b9e89843e050ea2fcb5b7eb))
+* **facet:** legend color do not match pie color ([#6369](https://github.com/antvis/g2/issues/6369)) ([eadad96](https://github.com/antvis/g2/commit/eadad96ede90e8032aef66f10434856b8c11cbdb))
+* liquid data is not in object form antvis [#6145](https://github.com/antvis/g2/issues/6145) ([#6379](https://github.com/antvis/g2/issues/6379)) ([1aabab7](https://github.com/antvis/g2/commit/1aabab7da9df2b9609529e3eaca5d24b18bf7c17)), closes [#5900](https://github.com/antvis/g2/issues/5900) [#6276](https://github.com/antvis/g2/issues/6276)
+* **slider:** wrong position for labels ([#6378](https://github.com/antvis/g2/issues/6378)) ([633b291](https://github.com/antvis/g2/commit/633b291a563e3a61e534b225378af2a5d1a6f464))
+* **spider:** work with exceedAdjust ([#6365](https://github.com/antvis/g2/issues/6365)) ([14283dd](https://github.com/antvis/g2/commit/14283dd4debf3e4af8dffe8e9f2e93a618db15f4))
+
+
+### Features
+
+* **filter:** add no selected elements display for itme-filter ([#6374](https://github.com/antvis/g2/issues/6374)) ([27dfc5e](https://github.com/antvis/g2/commit/27dfc5e62bee9fd1c7ce7fa641af52431c620175))
+* **pie:** optimize spider ([#6357](https://github.com/antvis/g2/issues/6357)) ([d07be48](https://github.com/antvis/g2/commit/d07be486b2357713ab1b22ea2d3f8c109b05dee7))
+* **scale:** add groupTransform for scales to support sync dual axes ([#6380](https://github.com/antvis/g2/issues/6380)) ([af17247](https://github.com/antvis/g2/commit/af1724713925aea6162dfab2c43c79e29ea29033))
+* **tooltip:** custom marker tooltip ([#6384](https://github.com/antvis/g2/issues/6384)) ([1d43dd4](https://github.com/antvis/g2/commit/1d43dd481342ea0cd5d2adf4348f63fdb60bd6ea))
+
+
+
 ## [5.2.1](https://github.com/antvis/g2/compare/5.2.0...5.2.1) (2024-07-11)
 
 
