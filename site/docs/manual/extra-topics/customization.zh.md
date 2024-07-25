@@ -141,7 +141,7 @@ register('symbol.customTriangle', triangle);
 ```js
 legend: { 
   color: {
-    itemMarker: 'triangle'
+    itemMarker: 'customTriangle'
   } 
 }
 ```
