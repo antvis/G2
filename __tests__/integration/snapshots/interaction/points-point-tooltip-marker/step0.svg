@@ -84,6 +84,7 @@
             <circle
               id="g-svg-10"
               fill="rgba(48,191,120,1)"
+              class="g2-tooltip-marker"
               cx="433.5078125"
               cy="213.82725524902344"
               r="20"
