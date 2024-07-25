@@ -2,6 +2,7 @@ import { Coordinate } from '@antv/coord';
 import { Vector2 } from '../../../runtime';
 import { getArcObject } from '../../../shape/utils';
 import { isCircular, isRadial } from '../../../utils/coordinate';
+import { hideAndDodgeYAndMoveX } from './utils';
 
 import type { LabelPosition } from './default';
 import {
@@ -32,7 +33,6 @@ export function radiusOf(points, value, coordinate) {
 export function angleOf(points, value, coordinate) {
   const arcObject = getArcObject(coordinate, points, [value.y, value.y1]);
   const { startAngle, endAngle } = arcObject;
-
   return (startAngle + endAngle) / 2;
 }
 
@@ -93,7 +93,35 @@ export function inferOutsideCircularStyle(
     y: y2,
     ...textStyle,
     ...connectorStyle,
+    angle,
+    radius,
   };
+}
+
+const styleByPoints = new WeakMap();
+
+export function inferOutsideForPie(
+  position: LabelPosition,
+  points: Vector2[],
+  value: Record<string, any>,
+  coordinate: Coordinate,
+  options: Record<string, any>,
+  labels: Vector2[][],
+) {
+  if (!isCircular(coordinate)) return {};
+  if (styleByPoints.has(points)) return styleByPoints.get(points);
+  const computed = labels.map((points) =>
+    inferOutsideCircularStyle('outside', points, value, coordinate),
+  );
+  const { width, height } = coordinate.getOptions();
+  const left = computed.filter((d) => d.x < width / 2);
+  const right = computed.filter((d) => d.x >= width / 2);
+  const center = coordinate.getCenter();
+  const extendedOptions = { ...options, height, center };
+  hideAndDodgeYAndMoveX(left, { ...extendedOptions, left: true });
+  hideAndDodgeYAndMoveX(right, { ...extendedOptions, left: false });
+  computed.forEach((style, i) => styleByPoints.set(labels[i], style));
+  return styleByPoints.get(points);
 }
 
 export function outside(
@@ -101,6 +129,8 @@ export function outside(
   points: Vector2[],
   value: Record<string, any>,
   coordinate: Coordinate,
+  options: Record<string, any>,
+  labels: Vector2[][],
 ) {
   const { bounds } = value;
   // When bounds.length = 1
@@ -111,10 +141,19 @@ export function outside(
     return inferIdentityStyle(position, points, value, coordinate);
   }
 
+  if (isCircular(coordinate)) {
+    return inferOutsideForPie(
+      position,
+      points,
+      value,
+      coordinate,
+      options,
+      labels,
+    );
+  }
+
   const inferDefaultStyle = isRadial(coordinate)
     ? inferRadialStyle
-    : isCircular(coordinate)
-    ? inferOutsideCircularStyle
     : inferNonCircularStyle;
 
   return inferDefaultStyle(position, points, value, coordinate);

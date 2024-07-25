@@ -75,3 +75,27 @@ export function hideAndDodgeY(
   }
   dodgeY(filtered, options);
 }
+
+export function hideAndDodgeYAndMoveX(
+  unsorted: Record<string, any>[],
+  options: Record<string, any>,
+) {
+  hideAndDodgeY(unsorted, options);
+  const { left, center } = options;
+  for (const item of unsorted) {
+    const r = item.radius + 4;
+    const dy = item.y - center[1]; // (x - cx)^2 + (y - cy)^2 = totalR^2
+    const rPow2 = Math.pow(r, 2);
+    const dyPow2 = Math.pow(dy, 2);
+    const dxPow2 = Math.abs(rPow2 - dyPow2);
+    const dx = Math.sqrt(dxPow2);
+    if (left) {
+      // const newX = center[0] - dx;
+      // const offsetX = newX - item.x;
+      // item.connectorPoints[0][0] -= offsetX;
+      item.x = center[0] - dx;
+    } else {
+      item.x = center[0] + dx;
+    }
+  }
+}
