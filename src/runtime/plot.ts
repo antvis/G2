@@ -49,6 +49,7 @@ import {
   inferScale,
   syncFacetsScales,
   useRelationScale,
+  groupTransform,
 } from './scale';
 import { applyDataTransform } from './transform';
 import {
@@ -756,6 +757,8 @@ function initializeState(
       ]);
     }),
   );
+
+  groupTransform(markState, uidScale);
 
   // Scale from marks and components.
   const scaleInstance: Record<string, Scale> = {};

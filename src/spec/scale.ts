@@ -13,6 +13,11 @@ import {
   SqrtOptions,
   SequentialOptions,
   ConstantOptions,
+  Linear,
+  Log,
+  Pow,
+  Sqrt,
+  Time,
 } from '@antv/scale';
 import { ScaleComponent } from '../runtime';
 import { Palette } from './palette';
@@ -51,6 +56,8 @@ export type ScaleTypes =
   | 'constant'
   | ScaleComponent;
 
+type QuantitativeScale = Linear | Log | Pow | Sqrt | Time;
+
 export type BaseScale<T extends ScaleTypes, O> = {
   type?: T;
   palette?: Palette['type'] | string;
@@ -64,6 +71,7 @@ export type BaseScale<T extends ScaleTypes, O> = {
   zero?: boolean;
   offset?: (t: number) => number;
   relations?: [any, any][];
+  groupTransform?: (scales: QuantitativeScale[]) => void;
 } & O;
 
 export type LinearScale = BaseScale<'linear', LinearOptions>;

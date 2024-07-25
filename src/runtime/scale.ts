@@ -1,5 +1,5 @@
 import { Linear, createInterpolateValue } from '@antv/scale';
-import { extent, max } from 'd3-array';
+import { extent, max, rollups } from 'd3-array';
 import * as d3ScaleChromatic from 'd3-scale-chromatic';
 import { deepMix, omit, upperFirst } from '@antv/util';
 import { firstOf, lastOf, unique } from '../utils/array';
@@ -70,6 +70,32 @@ export function applyScale(
     }
   }
   return scaledValue;
+}
+
+export function groupTransform(
+  markState: Map<G2Mark, G2MarkState>,
+  uidScale: Map<symbol, Scale>,
+) {
+  const channels = Array.from(markState.values()).flatMap((d) => d.channels);
+
+  const scaleGroups = rollups(
+    channels,
+    (channels) => channels.map((d) => uidScale.get(d.scale.uid)),
+    (d) => d.name,
+  )
+    .filter(
+      ([, scales]) =>
+        scales.some(
+          (d) => typeof d.getOptions().groupTransform === 'function',
+        ) && // only sync scales with groupTransform options
+        scales.every((d) => d.getTicks), // only sync quantitative scales
+    )
+    .map((d) => d[1]);
+
+  scaleGroups.forEach((group) => {
+    const groupTransform = group.map((d) => d.getOptions().groupTransform)[0];
+    groupTransform(group);
+  });
 }
 
 export function collectScales(states: G2MarkState[], options: G2View) {
