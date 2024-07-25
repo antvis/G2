@@ -1,15 +1,5 @@
 import { Chart } from '@antv/g2';
 
-function css(...styles) {
-  return styles
-    .map((obj) =>
-      Object.entries(obj)
-        .map(([k, v]) => k + ':' + v)
-        .join(';'),
-    )
-    .join(';');
-}
-
 const chart = new Chart({
   container: 'container',
   autoFit: true,

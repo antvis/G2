@@ -380,6 +380,7 @@
             <circle
               id="g-svg-53"
               fill="rgba(23,131,255,1)"
+              class="g2-tooltip-marker"
               cx="230.35256101939407"
               cy="230.42950350191"
               r="4"
@@ -391,6 +392,7 @@
             <circle
               id="g-svg-54"
               fill="rgba(23,131,255,1)"
+              class="g2-tooltip-marker"
               cx="230.35256101939407"
               cy="230.42950350191"
               r="4"
@@ -402,6 +404,7 @@
             <circle
               id="g-svg-55"
               fill="rgba(0,201,201,1)"
+              class="g2-tooltip-marker"
               cx="205.80341469252542"
               cy="238.40600466921336"
               r="4"
@@ -413,6 +416,7 @@
             <circle
               id="g-svg-56"
               fill="rgba(0,201,201,1)"
+              class="g2-tooltip-marker"
               cx="205.80341469252542"
               cy="238.40600466921336"
               r="4"

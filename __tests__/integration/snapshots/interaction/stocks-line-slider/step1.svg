@@ -7114,6 +7114,7 @@
             <circle
               id="g-svg-1265"
               fill="rgba(120,99,255,1)"
+              class="g2-tooltip-marker"
               cx="35.285714285714306"
               cy="373.96154230204127"
               r="4"
@@ -7125,6 +7126,7 @@
             <circle
               id="g-svg-1266"
               fill="rgba(0,201,201,1)"
+              class="g2-tooltip-marker"
               cx="35.285714285714306"
               cy="372.600958589504"
               r="4"
@@ -7136,6 +7138,7 @@
             <circle
               id="g-svg-1267"
               fill="rgba(240,136,77,1)"
+              class="g2-tooltip-marker"
               cx="35.285714285714306"
               cy="325.16875169393603"
               r="4"
@@ -7147,6 +7150,7 @@
             <circle
               id="g-svg-1268"
               fill="rgba(23,131,255,1)"
+              class="g2-tooltip-marker"
               cx="35.285714285714306"
               cy="364.2384776685734"
               r="4"

@@ -106,6 +106,7 @@
             <circle
               id="g-svg-13"
               fill="rgba(23,131,255,1)"
+              class="g2-tooltip-marker"
               cx="160.0348773841962"
               cy="314.45347259203277"
               r="10"
