@@ -499,6 +499,7 @@ function updateMarker(root, { data, style, theme }) {
       const fill = type === 'hollow' ? 'transparent' : originColor;
       const stroke = type === 'hollow' ? originColor : '#fff';
       const shape = new Circle({
+        className: 'g2-tooltip-marker',
         style: {
           cx: point[0],
           cy: point[1],

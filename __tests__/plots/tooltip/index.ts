@@ -79,3 +79,4 @@ export { mockTooltipClosestTransposed } from './mock-tooltip-closest-transposed'
 export { mockDualBarShareTooltip } from './mock-dual-bar-share-tooltip';
 export { alphabetLineEnterable } from './alphabet-line-enterable';
 export { mockGroupInterval } from './mock-group-interval';
+export { temperatureLineMarker } from './temperatures-line-marker';

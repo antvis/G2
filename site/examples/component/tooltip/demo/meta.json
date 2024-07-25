@@ -53,6 +53,14 @@
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*seQRQrEFOBoAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
+      "filename": "tooltip-line-marker.ts",
+      "title": {
+        "zh": "自定义 marker 的 tooltip",
+        "en": "Custom Marker Tooltip"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*TgQ-TI-8Jj4AAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
       "filename": "tooltip-click.ts",
       "title": {
         "zh": "点击提示",
