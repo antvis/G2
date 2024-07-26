@@ -1,11 +1,14 @@
 import { G2ComponentNamespaces, G2Component } from '../runtime';
+import { registerSymbol, type SymbolFactor } from '../utils/marker';
 
 export const library = {};
 
 // @todo Warn if override existing key.
 export function register(
-  key: `${G2ComponentNamespaces}.${any}`,
-  component: G2Component,
+  key: `${G2ComponentNamespaces | 'symbol'}.${any}`,
+  component: G2Component | SymbolFactor,
 ) {
-  Object.assign(library, { [key]: component });
+  if (key.startsWith('symbol.'))
+    registerSymbol(key.split('.').pop(), component as SymbolFactor);
+  else Object.assign(library, { [key]: component });
 }

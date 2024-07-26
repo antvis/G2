@@ -345,3 +345,4 @@ export { mockPieSpiderHide } from './mock-pie-spider-hide';
 export { mockPieSpiderExceed } from './mock-pie-spider-exceed';
 export { mockFacetPieLegend } from './mock-facet-pie-legend';
 export { weatherLineMultiAxesSync } from './weather-line-multi-axes-sync';
+export { mockIntervalLegendMarker } from './mock-interval-legend-marker';

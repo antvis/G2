@@ -103,6 +103,49 @@ chart.interval().style('shape', 'triangle');
 })();
 ```
 
+## 自定义符号（Symbol）
+
+每一个符号都可以自定义，主要分为三步：
+
+- 定义符号路径。
+- 注册符号。
+- 使用符号。
+
+首先我们来看看如何定义符号路径。一个符号路径是一个函数，该函数接受起始点的横向坐标 x、纵向坐标 y 和绘制半径，返回一个路径。
+
+```js
+import { type SymbolFactor } from '@antv/g2';
+
+const triangle: SymbolFactor = (x, y, r) => {
+  const diffY = r * Math.sin((1 / 3) * Math.PI);
+  return [
+    ['M', x - r, y + diffY],
+    ['L', x, y - diffY],
+    ['L', x + r, y + diffY],
+    ['Z'],
+  ];
+};
+triangle.style = ['fill'];
+```
+
+接下来就是注册符号，通过调用 `G2.register('symbol.${symbol}', Symbol)` 来完成注册。其中 `symbol` 是符号的名字，`Symbol` 是定义好的符号路径。比如注册一个三角形的符号：
+
+```js
+import { register } from '@antv/g2';
+
+register('symbol.customTriangle', triangle);
+```
+
+最后就是使用该符号了
+
+```js
+legend: { 
+  color: {
+    itemMarker: 'customTriangle'
+  } 
+}
+```
+
 ## 自定义提示（Tooltip）
 
 有时候内置的 Tooltip 无法满足需求，这时候可以通过 `mark.interaction.tooltip.render` 或者 `view.interaction.tooltip.render` 的 _render_ 函数来渲染自定义的提示。
