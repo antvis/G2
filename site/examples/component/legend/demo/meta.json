@@ -27,6 +27,14 @@
         "en": "Custom Legend"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*mZFvTZtdBEUAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "symbol.ts",
+      "title": {
+        "zh": "自定义符号",
+        "en": "Custom Symbol"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*UM2yQKYXczEAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }
