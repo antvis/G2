@@ -1,3 +1,17 @@
+## [5.2.3](https://github.com/antvis/g2/compare/5.2.2...5.2.3) (2024-08-12)
+
+
+### Bug Fixes
+
+* **tooltip:** replaceChildren compatible with lower versions ([#321](https://github.com/antvis/component/pull/321))
+
+
+### Features
+
+* export registerSymbol ([#6381](https://github.com/antvis/g2/issues/6381)) ([38b6711](https://github.com/antvis/g2/commit/38b6711619ef741be2604b41f0526867d38cb80d))
+
+
+
 ## [5.2.2](https://github.com/antvis/g2/compare/5.2.1...5.2.2) (2024-07-25)
 
 
