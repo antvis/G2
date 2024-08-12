@@ -1,6 +1,6 @@
 // Installing third-party modules by tnpm or cnpm will name modules with underscore as prefix.
 // In this case _{module} is also necessary.
-const esm = ['internmap', 'd3-*', 'lodash-es']
+const esm = ['internmap', 'd3-*', 'lodash-es', 'chroma-js']
   .map((d) => `_${d}|${d}`)
   .join('|');
 
