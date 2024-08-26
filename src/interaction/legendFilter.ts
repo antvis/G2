@@ -226,15 +226,17 @@ async function filterView(
       if (mark.type === 'legends') return mark;
 
       // Inset after aggregate transform, such as group, and bin.
-      const { transform = [] } = mark;
+      const { transform = [], data = [] } = mark;
       const index = transform.findIndex(
         ({ type }) => type.startsWith('group') || type.startsWith('bin'),
       );
       const newTransform = [...transform];
-      newTransform.splice(index + 1, 0, {
-        type: 'filter',
-        [channel]: { value, ordinal },
-      });
+      if (data.length) {
+        newTransform.splice(index + 1, 0, {
+          type: 'filter',
+          [channel]: { value, ordinal },
+        });
+      }
 
       // Set domain of scale to preserve encoding.
       const newScale = Object.fromEntries(
