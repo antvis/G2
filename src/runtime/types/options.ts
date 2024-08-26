@@ -101,6 +101,7 @@ export type G2View = {
   style?: Record<string, any>;
   tooltip?: boolean;
   clip?: boolean;
+  children?: G2Mark[];
 };
 
 export type G2Mark = {
