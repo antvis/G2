@@ -84,3 +84,4 @@ export { alphabetIntervalActiveMarkerType } from './alphabet-interval-activate-l
 export { mockPieLegendFilter } from './mock-pie-legend-filter';
 export { commitIntervalFixedCornerFilterNoElement } from './commit-interval-fixed-corner-filter-no-element';
 export { changeSizePolarCrosshairsXYNoElements } from './change-size-polar-crosshairsXY-no-elements';
+export { intervalLegendFilterWithText } from './interval-legend-filter-with-text';
