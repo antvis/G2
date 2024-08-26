@@ -28,6 +28,7 @@ export const VIEW_KEYS = [
   'autoFit',
   'theme',
   'title',
+  'interaction',
 ];
 
 export const REMOVE_FLAG = '__remove__';
