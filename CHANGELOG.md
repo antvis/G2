@@ -1,3 +1,13 @@
+## [5.2.4](https://github.com/antvis/g2/compare/5.2.3...5.2.4) (2024-08-26)
+
+
+### Bug Fixes
+
+* legend filter text ([#6413](https://github.com/antvis/g2/issues/6413)) ([4def026](https://github.com/antvis/g2/commit/4def026ea83fddeded4b592f711442f6dff3e970))
+* tooltip interaction in api mode ([#6411](https://github.com/antvis/g2/issues/6411)) ([decb91f](https://github.com/antvis/g2/commit/decb91f117ca64445f71ec6b91e79d1388b2e0a8))
+
+
+
 ## [5.2.3](https://github.com/antvis/g2/compare/5.2.2...5.2.3) (2024-08-12)
 
 
