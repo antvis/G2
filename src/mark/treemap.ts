@@ -1,4 +1,4 @@
-import { deepMix, get, last } from '@antv/util';
+import { deepMix, get, last, find } from '@antv/util';
 import { subObject } from '../utils/helper';
 import { CompositionComponent as CC } from '../runtime';
 import { TreemapMark } from '../spec';
@@ -82,10 +82,15 @@ export const Treemap: CC<TreemapOptions> = (options, context) => {
     ...resOptions
   } = options;
 
-  const treemapDrillDown = get(markOptions, [
-    'interaction',
-    'treemapDrillDown',
-  ]);
+  const mark = find(
+    get(markOptions, ['children']),
+    ({ type }) => type === 'treemap',
+  );
+
+  const treemapDrillDown =
+    get(markOptions, ['interaction', 'treemapDrillDown']) ||
+    get(resOptions, ['interaction', 'treemapDrillDown']) ||
+    get(mark, ['interaction', 'treemapDrillDown']);
 
   // Layout
   const layoutOptions = deepMix(
@@ -134,13 +139,11 @@ export const Treemap: CC<TreemapOptions> = (options, context) => {
       ? {
           interaction: {
             ...resOptions.interaction,
-            treemapDrillDown: treemapDrillDown
-              ? {
-                  ...treemapDrillDown,
-                  originData: transformedDataAll,
-                  layout: layoutOptions,
-                }
-              : undefined,
+            treemapDrillDown: {
+              ...treemapDrillDown,
+              originData: transformedDataAll,
+              layout: layoutOptions,
+            },
           },
           encode: {
             color: (d) => last(d.path),
