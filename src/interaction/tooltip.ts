@@ -1000,7 +1000,7 @@ export function tooltip(
   const scaleSeries = scale.series;
   const bandWidth = scaleX?.getBandWidth?.() ?? 0;
   const xof = scaleSeries
-    ? (d) => d.__data__.x + d.__data__.series * bandWidth
+    ? (d) => d.__data__.x
     : (d) => d.__data__.x + bandWidth / 2;
 
   // Sort for bisector search.
@@ -1018,8 +1018,7 @@ export function tooltip(
     ? (event) => {
         const mouse = mousePosition(root, event);
         if (!mouse) return;
-        const [normalizedX] = coordinate.invert(mouse);
-        const abstractX = normalizedX;
+        const [abstractX] = coordinate.invert(mouse);
         const search = bisector(xof).center;
         const i = search(elements, abstractX);
         const target = elements[i];
