@@ -44,7 +44,7 @@ describe('chart.emit', () => {
   const dir = `${__dirname}/snapshots/api/${kebabCase('chartEmitShowTooltip')}`;
   const columnCanvas = createNodeGCanvas(640, 480);
 
-  it('chart.emit enable item tooltip.', async () => {
+  it('chart.emit tooltip', async () => {
     const { finished, chart } = renderColumn({
       canvas: columnCanvas,
       container: document.createElement('div'),
@@ -54,10 +54,9 @@ describe('chart.emit', () => {
     chart.emit('tooltip:show', {
       offsetY: 0,
       data: { data: { name: 'Berlin', 月份: 'Aug.', 月均降雨量: 42.4 } },
-    }),
-      await sleep(20);
+    });
+    await sleep(20);
 
-    dispatchFirstElementPointerMoveEvent(columnCanvas);
     await expect(columnCanvas).toMatchDOMSnapshot(dir, 'step0', {
       fileFormat: 'html',
       selector: '.g2-tooltip',
