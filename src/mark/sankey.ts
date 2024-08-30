@@ -68,6 +68,7 @@ export const Sankey: CC<SankeyOptions> = (options) => {
     linkLabels = [],
     animate = {},
     tooltip = {},
+    interaction,
   } = options;
 
   // Initialize data, generating nodes by link if is not specified.
@@ -129,6 +130,7 @@ export const Sankey: CC<SankeyOptions> = (options) => {
       tooltip: nodeTooltip,
       animate: maybeAnimation(animate, 'node'),
       axis: false,
+      interaction,
     }),
     deepMix({}, DEFAULT_LINK_OPTIONS, {
       data: linkData,
@@ -141,6 +143,7 @@ export const Sankey: CC<SankeyOptions> = (options) => {
       },
       tooltip: linkTooltip,
       animate: maybeAnimation(animate, 'link'),
+      interaction,
     }),
   ];
 };
