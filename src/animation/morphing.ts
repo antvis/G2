@@ -160,7 +160,7 @@ function shape2path(shape: DisplayObject): string {
   return path;
 }
 // Check if the path has a markerEnd | markerStart
-function isHasMarker(shape: DisplayObject): boolean {
+function hasMarker(shape: DisplayObject): boolean {
   const { nodeName } = shape;
   if (nodeName === 'path') {
     const attributes = get(shape, 'attributes');
@@ -185,7 +185,7 @@ function oneToOne(
   const isSameNodes = fromName === toName && fromName !== 'path';
   const hasNonPathNode = fromPath === undefined || toPath === undefined;
   // Path with mark can not use animate like ordinary path.
-  const isPathWithMarker = isHasMarker(from) || isHasMarker(to);
+  const isPathWithMarker = hasMarker(from) || hasMarker(to);
   if (isSameNodes || hasNonPathNode || isPathWithMarker)
     return shapeToShape(from, to, timeEffect);
   const pathShape = maybePath(shape, fromPath);
