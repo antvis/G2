@@ -1,3 +1,13 @@
+## [5.2.5](https://github.com/antvis/g2/compare/5.2.4...5.2.5) (2024-08-30)
+
+
+### Bug Fixes
+
+* sankey tooltip interaction when type is view ([#6417](https://github.com/antvis/g2/issues/6417)) ([8e3538c](https://github.com/antvis/g2/commit/8e3538ca65908112c60588097bfc1d811bbee468))
+* the mouse position is offset of dodgeX tooltip event ([#6418](https://github.com/antvis/g2/issues/6418)) ([f003001](https://github.com/antvis/g2/commit/f003001b475367d2a3bfe8610eee78b2fc2b1db2))
+
+
+
 ## [5.2.4](https://github.com/antvis/g2/compare/5.2.3...5.2.4) (2024-08-26)
 
 
