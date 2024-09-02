@@ -1,0 +1,32 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "histogram.ts",
+      "title": {
+        "zh": "直方图",
+        "en": "Histogram"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Tq2YSbmmRcUAAAAAAAAAAAAADmJ7AQ/fmt.webp"
+    },
+    {
+      "filename": "histogram-binwidth.ts",
+      "title": {
+        "zh": "直方图范围刻度",
+        "en": "Histogram with range tick"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*EfmuR67lL24AAAAAAAAAAAAADmJ7AQ/fmt.webp"
+    },
+    {
+      "filename": "histogram-stacked.ts",
+      "title": {
+        "zh": "层叠直方图",
+        "en": "Stacked histogram"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Z873S5jGYD0AAAAAAAAAAAAADmJ7AQ/fmt.webp"
+    }
+  ]
+}
