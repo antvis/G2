@@ -5,6 +5,7 @@ import {
   Path,
   Shape,
 } from '@antv/g';
+import { get } from '@antv/util';
 import { AnimationComponent as AC } from '../runtime';
 import { copyAttributes } from '../utils/helper';
 import { Animation } from './types';
@@ -158,6 +159,15 @@ function shape2path(shape: DisplayObject): string {
   if (hasSubPath(path)) return;
   return path;
 }
+// Check if the path has a markerEnd | markerStart
+function hasMarker(shape: DisplayObject): boolean {
+  const { nodeName } = shape;
+  if (nodeName === 'path') {
+    const attributes = get(shape, 'attributes');
+    return attributes.markerEnd || attributes.markerStart;
+  }
+  return false;
+}
 
 function oneToOne(
   shape: DisplayObject,
@@ -174,8 +184,10 @@ function oneToOne(
   const toPath = shape2path(to);
   const isSameNodes = fromName === toName && fromName !== 'path';
   const hasNonPathNode = fromPath === undefined || toPath === undefined;
-  if (isSameNodes || hasNonPathNode) return shapeToShape(from, to, timeEffect);
-
+  // Path with mark can not use animate like ordinary path.
+  const isPathWithMarker = hasMarker(from) || hasMarker(to);
+  if (isSameNodes || hasNonPathNode || isPathWithMarker)
+    return shapeToShape(from, to, timeEffect);
   const pathShape = maybePath(shape, fromPath);
   // Convert Path will take transform, anchor, etc into account,
   // so there is no need to specify these attributes in keyframes.
