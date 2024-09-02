@@ -3,7 +3,7 @@ import { createNodeGCanvas } from './utils/createNodeGCanvas';
 import { sleep } from './utils/sleep';
 import './utils/useSnapshotMatchers';
 
-describe('facetCircle.options.autoFit', () => {
+describe('issue6396', () => {
   const canvas = createNodeGCanvas(800, 500);
 
   it('issue6396.render() should render expected lineXY with arrow', async () => {
