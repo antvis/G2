@@ -10,7 +10,7 @@
         "zh": "直方图",
         "en": "Histogram"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*EHpuTqn-M2cAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Tq2YSbmmRcUAAAAAAAAAAAAADmJ7AQ/fmt.webp"
     },
     {
       "filename": "histogram-binwidth.ts",
@@ -18,7 +18,7 @@
         "zh": "直方图范围刻度",
         "en": "Histogram with range tick"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*gF1PSq6H2GQAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*EfmuR67lL24AAAAAAAAAAAAADmJ7AQ/fmt.webp"
     },
     {
       "filename": "histogram-stacked.ts",
@@ -26,7 +26,7 @@
         "zh": "层叠直方图",
         "en": "Stacked histogram"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*0S7fQI2CHHoAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Z873S5jGYD0AAAAAAAAAAAAADmJ7AQ/fmt.webp"
     }
   ]
 }
