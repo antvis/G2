@@ -1,4 +1,4 @@
-import { Chart } from '../../src';
+import { Chart } from '../../../src';
 
 export function issue6396(context) {
   const { container, canvas } = context;
@@ -6,7 +6,6 @@ export function issue6396(context) {
   const chart = new Chart({
     container: container,
     canvas,
-    autoFit: true,
   });
 
   let i = 1;
@@ -59,6 +58,9 @@ export function issue6396(context) {
 
   const intervalId = setInterval(() => {
     i++;
+    if (i > 2) {
+      clearInterval(intervalId);
+    }
     lineY.data([i * 100]).label([
       {
         text: `value = ${i * 100}`,
@@ -76,7 +78,7 @@ export function issue6396(context) {
       },
     ]);
     chart.render();
-  }, 1000 * 5);
+  }, 10);
   const finished = chart.render();
   return {
     chart,

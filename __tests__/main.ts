@@ -10,7 +10,7 @@ import * as interactions from './plots/interaction';
 import * as animations from './plots/animation';
 import * as tooltips from './plots/tooltip';
 import * as apis from './plots/api';
-import * as bugfix from './bugfix';
+import * as bugfix from './plots/bugfix';
 
 const tests = {
   ...createSpecRender(namespace(statics, 'static')),
