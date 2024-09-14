@@ -65,8 +65,8 @@ chart.render();
 
 | 属性                             | 描述                     | 类型                      | 默认值 |
 | -------------------------------- | ------------------------ | ------------------------- | ------ |
-| handle                           | 是否显示拖动手柄         | `boolean`                 | true   |
-| label                            | 是否显示拖动手柄文本     | `boolean`                 | true   |
+| showHandle                           | 是否显示拖动手柄         | `boolean`                 | true   |
+| showLabel                            | 是否显示拖动手柄文本     | `boolean`                 | true   |
 | formatter                        | 拖动手柄标签格式化       | `(value: number)=>string` | -      |
 | `style.`handleIconSize           | 缩略轴手柄大小           | `number`                  | 10     |
 | `style.`handleIconFill           | 缩略轴手柄填充色         | `string`                  | -      |
