@@ -143,6 +143,7 @@ function showTooltip({
     title,
     position,
     enterable,
+    container: containerOffset,
     ...(render !== undefined && {
       content: render(event, { items, title }),
     }),
