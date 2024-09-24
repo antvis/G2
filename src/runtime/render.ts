@@ -73,8 +73,8 @@ export function render<T extends G2ViewTree = G2ViewTree>(
   // Initialize the context if it is not provided.
   const { width = 640, height = 480, depth = 0 } = options;
   // Preprocessing here, such as syntactic sugar.
-  const optionsPre = optionPreprocess(options);
-  const keyed = inferKeys(optionsPre);
+  const preprocessOptions = optionPreprocess(options);
+  const keyed = inferKeys(preprocessOptions);
   const {
     canvas = Canvas(width, height),
     emitter = new EventEmitter(),
