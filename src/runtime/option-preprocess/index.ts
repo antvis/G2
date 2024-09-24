@@ -2,14 +2,14 @@ import { G2ViewTree } from '../types/options';
 import { flow } from '../../utils/flow';
 import { columnWidthRatio } from './style';
 
-export function optionPreprocess<T extends G2ViewTree = G2ViewTree>(
+export function preprocessOption<T extends G2ViewTree = G2ViewTree>(
   options: T,
 ): T {
-  const convertedOptions = preprocess(options);
+  const convertedOptions = adapter(options);
   // If there are children, recursively convert each child node.
   if (convertedOptions.children && Array.isArray(convertedOptions.children)) {
     convertedOptions.children = convertedOptions.children.map((child) =>
-      optionPreprocess(child),
+      preprocessOption(child),
     );
   }
 
@@ -17,7 +17,7 @@ export function optionPreprocess<T extends G2ViewTree = G2ViewTree>(
 }
 
 // Entry point for all syntactic sugar functions.
-export function preprocess<T extends G2ViewTree = G2ViewTree>(options: T): T {
+function adapter<T extends G2ViewTree = G2ViewTree>(options: T): T {
   //@todo define a type for params of flow
   return flow(columnWidthRatio)(options);
 }
