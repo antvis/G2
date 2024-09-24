@@ -9,6 +9,7 @@ import { error } from '../utils/helper';
 import { G2Context, G2ViewTree } from './types/options';
 import { plot } from './plot';
 import { VIEW_CLASS_NAME } from './constant';
+import { preprocessOption } from './option-preprocess';
 
 /**
  * Infer key for each node of view tree.
@@ -71,7 +72,9 @@ export function render<T extends G2ViewTree = G2ViewTree>(
 ): HTMLElement {
   // Initialize the context if it is not provided.
   const { width = 640, height = 480, depth = 0 } = options;
-  const keyed = inferKeys(options);
+  // Preprocessing here, such as syntactic sugar.
+  const preprocessedOption = preprocessOption(options);
+  const keyed = inferKeys(preprocessedOption);
   const {
     canvas = Canvas(width, height),
     emitter = new EventEmitter(),

@@ -348,3 +348,4 @@ export { mockFacetPieLegend } from './mock-facet-pie-legend';
 export { weatherLineMultiAxesSync } from './weather-line-multi-axes-sync';
 export { mockIntervalLegendMarker } from './mock-interval-legend-marker';
 export { energySankeyViewCustomTooltip } from './energy-sankey-view-custom-tooltip';
+export { alphabetIntervalColumnWidthRatio } from './alphabet-interval-column-width-ratio';
