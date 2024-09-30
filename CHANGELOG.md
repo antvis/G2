@@ -1,3 +1,19 @@
+## [5.2.6](https://github.com/antvis/g2/compare/5.2.5...5.2.6) (2024-09-30)
+
+
+### Bug Fixes
+
+* update the  position of lineXY with arrow ([#6442](https://github.com/antvis/g2/issues/6442)) ([3d426cc](https://github.com/antvis/g2/commit/3d426cc8a8937b94e21b8e92d72a9ae2e2a77b89))
+* when update the position of tooltip, calculate the containerOffset ([#6469](https://github.com/antvis/g2/issues/6469)) ([ed5a1d6](https://github.com/antvis/g2/commit/ed5a1d6b9148b78c86bdbeaa4d36ce0ecab09c53))
+* 订正slider组件属性文件 ([#6467](https://github.com/antvis/g2/issues/6467)) ([5c5f97a](https://github.com/antvis/g2/commit/5c5f97a6fc7c3f3407d67024bf49934d42ac4d28))
+
+
+### Features
+
+* add columnWidthRatio configuration to the style of the interval ([#6474](https://github.com/antvis/g2/issues/6474)) ([ff5bbc0](https://github.com/antvis/g2/commit/ff5bbc0f660efb9af870fcc0d5581639606e887f))
+
+
+
 ## [5.2.5](https://github.com/antvis/g2/compare/5.2.4...5.2.5) (2024-08-30)
 
 
