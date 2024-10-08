@@ -1001,7 +1001,14 @@ export function tooltip(
   const scaleSeries = scale.series;
   const bandWidth = scaleX?.getBandWidth?.() ?? 0;
   const xof = scaleSeries
-    ? (d) => d.__data__.x
+    ? (d) => {
+        const seriesCount = Math.round(1 / scaleSeries.valueBandWidth);
+        return (
+          d.__data__.x +
+          d.__data__.series * bandWidth +
+          bandWidth / (seriesCount * 2)
+        );
+      }
     : (d) => d.__data__.x + bandWidth / 2;
 
   // Sort for bisector search.
@@ -1023,6 +1030,7 @@ export function tooltip(
         const search = bisector(xof).center;
         const i = search(elements, abstractX);
         const target = elements[i];
+
         if (!shared) {
           // For grouped bar chart without shared options.
           const isGrouped = elements.find(
