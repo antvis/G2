@@ -1229,11 +1229,12 @@ function plotLabel(
   const labelGroups = group(labelShapes, (d) =>
     labelDescriptor.get(d.__data__),
   );
-  const { coordinate } = view;
+  const { coordinate, layout } = view;
 
   const labelTransformContext = {
     canvas: context.canvas,
     coordinate,
+    layout,
   };
   for (const [label, shapes] of labelGroups) {
     const { transform = [] } = label;

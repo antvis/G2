@@ -34,9 +34,7 @@ export type ExceedAdjustOptions = Omit<ExceedAdjustLabel, 'type'>;
  * adjust the label when exceed the plot
  */
 export const ExceedAdjust: LLC<ExceedAdjustOptions> = () => {
-  return (labels: DisplayObject[], { canvas }) => {
-    const { width, height } = canvas.getConfig();
-
+  return (labels: DisplayObject[], { canvas, layout }) => {
     labels.forEach((l) => {
       show(l);
       const { max, min } = l.getRenderBounds();
@@ -47,9 +45,10 @@ export const ExceedAdjust: LLC<ExceedAdjustOptions> = () => {
           [xMin, yMin],
           [xMax, yMax],
         ],
+        // Prevent label overlap in multiple charts by calculating layouts separately to avoid collisions.
         [
-          [0, 0],
-          [width, height],
+          [layout.x, layout.y],
+          [layout.x + layout.width, layout.y + layout.height],
         ],
       );
       // For label with connectorPoints

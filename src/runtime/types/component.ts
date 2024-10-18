@@ -15,6 +15,7 @@ import {
   Vector2,
   G2MarkState,
   GuideComponentPlane,
+  Layout,
 } from './common';
 import { DataComponent } from './data';
 import { Encode, EncodeComponent } from './encode';
@@ -233,6 +234,7 @@ export type LabelTransform = (
   context: {
     coordinate: Coordinate;
     canvas: Canvas;
+    layout: Layout;
   },
 ) => DisplayObject[];
 export type LabelTransformComponent<O = Record<string, unknown>> =
