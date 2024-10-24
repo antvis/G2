@@ -6,7 +6,7 @@
   color-interpolation-filters="sRGB"
 >
   <defs>
-    <clipPath transform="matrix(1,0,0,1,-16,-16)" id="clip-path-67-23">
+    <clipPath transform="matrix(1,0,0,1,-16,-29.500000)" id="clip-path-67-23">
       <use href="#g-svg-67" transform="matrix(1,0,0,1,16,16)" />
     </clipPath>
   </defs>

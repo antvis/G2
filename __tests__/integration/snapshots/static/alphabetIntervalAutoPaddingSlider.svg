@@ -423,7 +423,7 @@
                   </g>
                 </g>
                 <g id="g-svg-94" fill="none" class="handle-label-group">
-                  <g transform="matrix(0,1,-1,0,12,12)">
+                  <g transform="matrix(0,1,-1,0,0,0)">
                     <text
                       id="g-svg-95"
                       fill="rgba(29,33,41,1)"
@@ -499,7 +499,7 @@
                   </g>
                 </g>
                 <g id="g-svg-104" fill="none" class="handle-label-group">
-                  <g transform="matrix(0,1,-1,0,-11,-13)">
+                  <g transform="matrix(0,1,-1,0,0,0)">
                     <text
                       id="g-svg-105"
                       fill="rgba(29,33,41,1)"
