@@ -12,7 +12,16 @@
       "types": "./lib/index.d.ts",
       "import": "./esm/index.js",
       "require": "./lib/index.js"
-    }
+    },
+    "./lib/*": {
+      "types": "./lib/*.d.ts",
+      "require": "./lib/*.js"
+    },
+    "./esm/*": {
+      "types": "./lib/*.d.ts",
+      "import": "./esm/*.js"
+    },
+    "./package.json": "./package.json"
   },
   "sideEffects": [
     "./esm/exports.js"
