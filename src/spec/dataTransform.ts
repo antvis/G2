@@ -188,3 +188,9 @@ export type CustomTransform = {
   type?: DataComponent;
   [key: string]: any;
 };
+
+export type EMADataTransform = {
+  type?: 'ema';
+  field: string;
+  alpha: number; // smooth factor
+};
