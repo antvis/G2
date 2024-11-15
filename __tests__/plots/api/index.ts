@@ -53,3 +53,4 @@ export { chartAutoFitWidth } from './chart-auto-fit-width';
 export { chartOnLabelClick } from './chart-on-label-click';
 export { chartChangeSizeLabelRotate } from './chart-change-size-label-rotate';
 export { chartWordCloudCanvas } from './chart-word-cloud-canvas';
+export { chartStackYPoint } from './chart-stackY-point';
