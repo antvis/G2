@@ -10,9 +10,13 @@ export function ema(values: number[], alpha: number): number[] {
   }
 
   let last = values[0];
-  const smoothed: number[] = [];
+  let smoothed: number[] = [];
 
   for (const point of values) {
+    if (point === null || point === undefined) {
+      smoothed = values.map(() => null);
+      break;
+    }
     const smoothedVal = last * alpha + (1 - alpha) * point;
     smoothed.push(smoothedVal);
     last = smoothedVal;
@@ -30,7 +34,8 @@ export type EMAOptions = Omit<EMADataTransform, 'type'>;
  */
 
 export const EMA: DC<EMAOptions> = (options) => {
-  const { field = 'y', alpha = 0.6 } = options;
+  const { field = 'y', alpha = 0.6, as = field } = options;
+
   return (data) => {
     const values = data.map((d) => {
       return d[field];
@@ -41,7 +46,7 @@ export const EMA: DC<EMAOptions> = (options) => {
     return data.map((d, i) => {
       return {
         ...d,
-        [field]: out[i],
+        [as]: out[i],
       };
     });
   };

@@ -13,7 +13,8 @@ export type DataTransform =
   | KDEDataTransform
   | VennDataTransform
   | LogDataTransform
-  | CustomTransform;
+  | CustomTransform
+  | EMADataTransform;
 
 export type DataTransformTypes =
   | 'sortBy'
@@ -29,6 +30,7 @@ export type DataTransformTypes =
   | 'venn'
   | 'log'
   | 'custom'
+  | 'ema'
   | DataComponent;
 
 export type SortByTransform = {
@@ -191,6 +193,7 @@ export type CustomTransform = {
 
 export type EMADataTransform = {
   type?: 'ema';
-  field: string;
-  alpha: number; // smooth factor
+  field?: string; // The field to be smoothed, default: 'y'
+  alpha?: number; // smooth factor, default: 0.6
+  as?: string; // Set the generated field, default: 'y'
 };
