@@ -156,6 +156,7 @@ import {
   KDE,
   Log as DataLog,
   WordCloud,
+  EMA,
 } from '../../../src/data';
 import {
   OverflowHide,
@@ -182,6 +183,7 @@ describe('corelib', () => {
       'data.join': Join,
       'data.kde': KDE,
       'data.log': DataLog,
+      'data.ema': EMA,
       'data.wordCloud': WordCloud,
       'transform.stackY': StackY,
       'transform.binX': BinX,
