@@ -66,8 +66,11 @@ describe('EMA', () => {
 
   it('should handle missing field values', function () {
     const data = [{ x: 1 }, { y: 2 }, { y: 3 }, { x: 4 }];
-    const result = EMA({ field: 'y', alpha: 0.5 })(data);
-    expect(result[0].y).toBe(null);
+    const result = EMA({ field: 'y' })(data);
+    expect(result[0].y).toBe(undefined);
+    expect(result[1].y).not.toBe(undefined);
+    expect(result[2].y).not.toBe(undefined);
+    expect(result[3].y).toBe(undefined);
   });
 
   it('should handle missing alpha value', function () {
@@ -84,10 +87,10 @@ describe('EMA', () => {
   it('The value of alpha should be greater than zero and less than one', function () {
     const data = [{ y: 1 }, { y: 2 }, { y: 3 }];
     let alpha = 1.1;
-    expect(EMA({ field: 'y', alpha })(data)).toThrow();
+    expect(() => EMA({ field: 'y', alpha })(data)).toThrowError();
 
     alpha = -0.1;
-    expect(EMA({ field: 'y', alpha })(data)).toThrow();
+    expect(() => EMA({ field: 'y', alpha })(data)).toThrowError();
   });
 
   it('Returns an empty array if entered', function () {

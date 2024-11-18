@@ -10,13 +10,20 @@ export function ema(values: number[], alpha: number): number[] {
   }
 
   let last = values[0];
-  let smoothed: number[] = [];
+  const smoothed: number[] = [];
 
   for (const point of values) {
     if (point === null || point === undefined) {
-      smoothed = values.map(() => null);
-      break;
+      // 如果没有数据的话，使用最近的值
+      smoothed.push(point);
+      console.warn('EMA：The value is null or undefined', values);
+      continue;
     }
+
+    if (last === null || last === undefined) {
+      last = point;
+    }
+
     const smoothedVal = last * alpha + (1 - alpha) * point;
     smoothed.push(smoothedVal);
     last = smoothedVal;
