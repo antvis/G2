@@ -1,8 +1,6 @@
-import { Chart } from '../../../src';
+import { G2Spec } from '../../../src';
 
-export function chartStackYPoint(context) {
-  const { container } = context;
-
+export function stackPointCoincide(): G2Spec {
   const data = [
     { month: 'Jan', city: 'Tokyo', temperature: 7 },
     { month: 'Jan', city: 'London', temperature: 3.9 },
@@ -29,30 +27,46 @@ export function chartStackYPoint(context) {
     { month: 'Dec', city: 'Tokyo', temperature: 9.6 },
     { month: 'Dec', city: 'London', temperature: 4.8 },
   ];
-
-  const chart = new Chart({
-    container,
-  });
-
-  chart
-    .data(data)
-    .transform([{ type: 'stackY' }])
-    .encode('x', 'month')
-    .encode('y', 'temperature')
-    .encode('color', 'city')
-    .scale('x', {
-      range: [0, 1],
-    })
-    .scale('y', {
-      nice: true,
-    })
-    .axis('y', { labelFormatter: (d) => d + '°C' });
-
-  chart.line().encode('shape', 'smooth');
-
-  chart.point().encode('shape', 'point').tooltip(false);
-
-  chart.render();
-
-  return { chart };
+  return {
+    type: 'view',
+    transform: [
+      {
+        type: 'stackY',
+      },
+    ],
+    data,
+    encode: {
+      x: 'month',
+      y: 'temperature',
+      color: 'city',
+    },
+    scale: {
+      x: {
+        range: [0, 1],
+      },
+      y: {
+        nice: true,
+      },
+    },
+    axis: {
+      y: {
+        labelFormatter: (d) => d + '°C',
+      },
+    },
+    children: [
+      {
+        type: 'line',
+        encode: {
+          shape: 'smooth',
+        },
+      },
+      {
+        type: 'point',
+        encode: {
+          shape: 'point',
+        },
+        tooltip: false,
+      },
+    ],
+  };
 }
