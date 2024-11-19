@@ -154,6 +154,7 @@ import {
   Sort as DataSort,
   KDE as DataKDE,
   Log as DataLog,
+  EMA as DataEMA,
   WordCloud,
 } from '../data';
 import {
@@ -181,6 +182,7 @@ export function corelib() {
     'data.kde': DataKDE,
     'data.log': DataLog,
     'data.wordCloud': WordCloud,
+    'data.ema': DataEMA,
     'transform.stackY': StackY,
     'transform.binX': BinX,
     'transform.bin': Bin,
