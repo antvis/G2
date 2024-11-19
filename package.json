@@ -86,7 +86,7 @@
     "d3-scale-chromatic": "^3.0.0",
     "d3-shape": "^3.2.0",
     "flru": "^1.0.2",
-    "fmin": "^0.0.2",
+    "fmin": "^0.0.4",
     "pdfast": "^0.2.0"
   },
   "devDependencies": {
