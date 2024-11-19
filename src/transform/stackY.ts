@@ -95,13 +95,26 @@ export const StackY: TC<StackYOptions> = (options = {}) => {
     // Choose new y or y1 channel as the new y channel.
     const V = fromY === 'y' ? newY : newY1;
     const V1 = fromY1 === 'y' ? newY : newY1;
+    let newEncode: Record<string, any>;
+    // mark point will compute the actural Y = (y + y1) / 2 if y1 exists
+    if (mark.type === 'point') {
+      newEncode = {
+        y0: inferredColumn(Y, fy), // Store original Y.
+        y: column(V, fy),
+      };
+    } else {
+      newEncode = {
+        y0: inferredColumn(Y, fy), // Store original Y.
+        y: column(V, fy),
+        y1: column(V1, fy1),
+      };
+    }
+
     return [
       I,
       deepMix({}, mark, {
         encode: {
-          y0: inferredColumn(Y, fy), // Store original Y.
-          y: column(V, fy),
-          y1: column(V1, fy1),
+          ...newEncode,
         },
         style: {
           first: (_, i) => FS.has(i),
