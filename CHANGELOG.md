@@ -1,3 +1,13 @@
+## [5.2.8](https://github.com/antvis/g2/compare/5.2.6...5.2.8) (2024-10-18)
+
+
+### Bug Fixes
+
+*  prevent label overlap in multiple charts ([#6490](https://github.com/antvis/g2/issues/6490)) ([6013d72](https://github.com/antvis/g2/commit/6013d72881276aca9d17d93908d33b21194979c6))
+* tooptip position offset in dodgeX ([#6483](https://github.com/antvis/g2/issues/6483)) ([df4920f](https://github.com/antvis/g2/commit/df4920f7305966b00a3ae252b11f7f7df94136d1))
+
+
+
 ## [5.2.7](https://github.com/antvis/g2/compare/5.2.6...5.2.7) (2024-10-08)
 
 
