@@ -870,6 +870,7 @@ export function seriesTooltip(
         ...event,
         nativeEvent: true,
         data: {
+          ...tooltipData,
           data: { x: invert(scale.x, transformedX, true) },
         },
       });
