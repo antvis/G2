@@ -121,8 +121,6 @@
             <g
               id="g-svg-35"
               fill="none"
-              x="274"
-              y="56"
               transform="matrix(1,0,0,1,274,56)"
               class="label"
             >
@@ -159,8 +157,6 @@
             <g
               id="g-svg-39"
               fill="none"
-              x="274"
-              y="168"
               transform="matrix(1,0,0,1,274,168)"
               class="label"
             >
@@ -197,8 +193,6 @@
             <g
               id="g-svg-43"
               fill="none"
-              x="274.0005"
-              y="280"
               transform="matrix(1,0,0,1,274.000488,280)"
               class="label"
             >
@@ -235,8 +229,6 @@
             <g
               id="g-svg-47"
               fill="none"
-              x="274.0005"
-              y="392"
               transform="matrix(1,0,0,1,274.000488,392)"
               class="label"
             >
@@ -273,9 +265,6 @@
             <g
               id="g-svg-51"
               fill="none"
-              x="548"
-              y="0"
-              innerHTML=""
               transform="matrix(1,0,0,1,548,0)"
               class="label"
             >
@@ -309,9 +298,6 @@
             <g
               id="g-svg-55"
               fill="none"
-              x="497.767"
-              y="112"
-              innerHTML='&lt;div style="height:1px;width:30px;background:#aaa;margin:0 5px;"&gt;&lt;/div&gt;'
               transform="matrix(1,0,0,1,497.766998,112)"
               class="label"
             >
@@ -344,9 +330,6 @@
             <g
               id="g-svg-59"
               fill="none"
-              x="429.01599999999996"
-              y="224"
-              innerHTML='&lt;div style="height:1px;width:30px;background:#aaa;margin:0 5px;"&gt;&lt;/div&gt;'
               transform="matrix(1,0,0,1,429.015991,224)"
               class="label"
             >
@@ -379,9 +362,6 @@
             <g
               id="g-svg-63"
               fill="none"
-              x="378.326"
-              y="336"
-              innerHTML='&lt;div style="height:1px;width:30px;background:#aaa;margin:0 5px;"&gt;&lt;/div&gt;'
               transform="matrix(1,0,0,1,378.325989,336)"
               class="label"
             >
@@ -414,8 +394,6 @@
             <g
               id="g-svg-67"
               fill="none"
-              x="548"
-              y="0"
               transform="matrix(1,0,0,1,548,0)"
               class="label"
             >
@@ -450,8 +428,6 @@
             <g
               id="g-svg-71"
               fill="none"
-              x="497.767"
-              y="112"
               transform="matrix(1,0,0,1,497.766998,112)"
               class="label"
             >
@@ -489,8 +465,6 @@
             <g
               id="g-svg-75"
               fill="none"
-              x="429.01599999999996"
-              y="224"
               transform="matrix(1,0,0,1,429.015991,224)"
               class="label"
             >
@@ -528,8 +502,6 @@
             <g
               id="g-svg-79"
               fill="none"
-              x="378.326"
-              y="336"
               transform="matrix(1,0,0,1,378.325989,336)"
               class="label"
             >
@@ -567,8 +539,6 @@
             <g
               id="g-svg-83"
               fill="none"
-              x="548"
-              y="0"
               transform="matrix(1,0,0,1,548,0)"
               class="label"
             >
@@ -603,8 +573,6 @@
             <g
               id="g-svg-87"
               fill="none"
-              x="497.767"
-              y="112"
               transform="matrix(1,0,0,1,497.766998,112)"
               class="label"
             >
@@ -642,8 +610,6 @@
             <g
               id="g-svg-91"
               fill="none"
-              x="429.01599999999996"
-              y="224"
               transform="matrix(1,0,0,1,429.015991,224)"
               class="label"
             >
@@ -681,8 +647,6 @@
             <g
               id="g-svg-95"
               fill="none"
-              x="378.326"
-              y="336"
               transform="matrix(1,0,0,1,378.325989,336)"
               class="label"
             >
@@ -720,8 +684,6 @@
             <g
               id="g-svg-99"
               fill="none"
-              x="-12"
-              y="224"
               transform="matrix(1,0,0,1,-12,224)"
               class="label"
             >
@@ -759,8 +721,6 @@
             <g
               id="g-svg-103"
               fill="none"
-              x="-12"
-              y="224"
               transform="matrix(1,0,0,1,-12,224)"
               class="label"
             >

@@ -103,11 +103,7 @@
             
             fill="none"
             class="mask"
-            x="144.67763157795943"
-            y="0"
             transform="matrix(1,0,0,1,144.677628,0)"
-            width="65.95394736683824"
-            height="88"
           >
             <g>
               <path
@@ -120,14 +116,7 @@
                 stroke="rgba(255,255,255,1)"
               />
             </g>
-            <g
-              
-              fill="none"
-              x="5"
-              y="-5"
-              width="55.953947366838236"
-              height="10"
-            >
+            <g  fill="none">
               <g>
                 <path
                   
@@ -140,14 +129,7 @@
                 />
               </g>
             </g>
-            <g
-              
-              fill="none"
-              x="60.953947366838236"
-              y="5"
-              width="10"
-              height="78"
-            >
+            <g  fill="none">
               <g>
                 <path
                   
@@ -160,14 +142,7 @@
                 />
               </g>
             </g>
-            <g
-              
-              fill="none"
-              x="5"
-              y="83"
-              width="55.953947366838236"
-              height="10"
-            >
+            <g  fill="none">
               <g>
                 <path
                   
@@ -180,7 +155,7 @@
                 />
               </g>
             </g>
-            <g  fill="none" x="-5" y="5" width="10" height="78">
+            <g  fill="none">
               <g>
                 <path
                   
@@ -193,7 +168,7 @@
                 />
               </g>
             </g>
-            <g  fill="none" x="-5" y="-5" width="10" height="10">
+            <g  fill="none">
               <g>
                 <path
                   
@@ -206,14 +181,7 @@
                 />
               </g>
             </g>
-            <g
-              
-              fill="none"
-              x="60.953947366838236"
-              y="-5"
-              width="10"
-              height="10"
-            >
+            <g  fill="none">
               <g>
                 <path
                   
@@ -226,14 +194,7 @@
                 />
               </g>
             </g>
-            <g
-              
-              fill="none"
-              x="60.953947366838236"
-              y="83"
-              width="10"
-              height="10"
-            >
+            <g  fill="none">
               <g>
                 <path
                   
@@ -246,7 +207,7 @@
                 />
               </g>
             </g>
-            <g  fill="none" x="-5" y="83" width="10" height="10">
+            <g  fill="none">
               <g>
                 <path
                   

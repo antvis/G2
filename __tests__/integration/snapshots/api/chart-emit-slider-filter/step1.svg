@@ -89,13 +89,7 @@
           />
         </g>
         <g id="g-svg-14" fill="none" class="component">
-          <g
-            id="g-svg-18"
-            fill="none"
-            class="slider"
-            x="119.28000029436546"
-            y="440"
-          >
+          <g id="g-svg-18" fill="none" class="slider">
             <g>
               <path
                 id="g-svg-19"
@@ -110,15 +104,7 @@
               />
             </g>
             <g id="g-svg-20" fill="none" class="slider-sparkline-group">
-              <g
-                id="g-svg-21"
-                fill="none"
-                x="119.28000029436546"
-                y="440"
-                width="504.71999970563456"
-                height="16"
-                class="slider-sparkline"
-              >
+              <g id="g-svg-21" fill="none" class="slider-sparkline">
                 <g>
                   <path id="g-svg-22" fill="none" class="container" />
                 </g>
@@ -126,8 +112,6 @@
                   id="g-svg-23"
                   fill="none"
                   class="spark sparkline"
-                  x="119.28000029436546"
-                  y="440"
                   transform="matrix(1,0,0,1,119.279999,440)"
                 >
                   <g id="g-svg-24" fill="none" />
@@ -189,13 +173,11 @@
               <g
                 id="g-svg-33"
                 fill="none"
-                x="0"
-                y="0"
                 transform="matrix(1,0,0,1,121.790985,448)"
                 class="slider-handle start-handle"
               >
                 <g id="g-svg-34" fill="none" class="handle-icon-group">
-                  <g id="g-svg-240" fill="none" x="0" y="0" class="handle-icon">
+                  <g id="g-svg-240" fill="none" class="handle-icon">
                     <g>
                       <path
                         id="g-svg-241"
@@ -265,13 +247,11 @@
               <g
                 id="g-svg-43"
                 fill="none"
-                x="0"
-                y="0"
                 transform="matrix(1,0,0,1,197.107819,448)"
                 class="slider-handle end-handle"
               >
                 <g id="g-svg-44" fill="none" class="handle-icon-group">
-                  <g id="g-svg-246" fill="none" x="0" y="0" class="handle-icon">
+                  <g id="g-svg-246" fill="none" class="handle-icon">
                     <g>
                       <path
                         id="g-svg-247"
@@ -342,7 +322,7 @@
           </g>
         </g>
         <g id="g-svg-15" fill="none" class="component">
-          <g id="g-svg-51" fill="none" class="slider" x="24" y="16">
+          <g id="g-svg-51" fill="none" class="slider">
             <g>
               <path
                 id="g-svg-52"
@@ -411,13 +391,11 @@
               <g
                 id="g-svg-61"
                 fill="none"
-                x="0"
-                y="0"
                 transform="matrix(1,0,0,1,32,41.998959)"
                 class="slider-handle start-handle"
               >
                 <g id="g-svg-62" fill="none" class="handle-icon-group">
-                  <g id="g-svg-278" fill="none" x="0" y="0" class="handle-icon">
+                  <g id="g-svg-278" fill="none" class="handle-icon">
                     <g transform="matrix(0,1,-1,0,0,0)">
                       <path
                         id="g-svg-279"
@@ -487,13 +465,11 @@
               <g
                 id="g-svg-71"
                 fill="none"
-                x="0"
-                y="0"
                 transform="matrix(1,0,0,1,32,302.010406)"
                 class="slider-handle end-handle"
               >
                 <g id="g-svg-72" fill="none" class="handle-icon-group">
-                  <g id="g-svg-284" fill="none" x="0" y="0" class="handle-icon">
+                  <g id="g-svg-284" fill="none" class="handle-icon">
                     <g transform="matrix(0,1,-1,0,0,0)">
                       <path
                         id="g-svg-285"

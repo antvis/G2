@@ -204,11 +204,7 @@
             id="g-svg-14"
             fill="none"
             class="mask"
-            x="385.4142135623731"
-            y="285.4142135623731"
             transform="matrix(1,0,0,1,385.414215,285.414215)"
-            width="200"
-            height="100"
           >
             <g>
               <path
@@ -221,7 +217,7 @@
                 stroke="rgba(255,255,255,1)"
               />
             </g>
-            <g id="handle-n" fill="none" x="5" y="-5" width="190" height="10">
+            <g id="handle-n" fill="none">
               <g>
                 <path
                   id="g-svg-17"
@@ -234,7 +230,7 @@
                 />
               </g>
             </g>
-            <g id="handle-e" fill="none" x="195" y="5" width="10" height="90">
+            <g id="handle-e" fill="none">
               <g>
                 <path
                   id="g-svg-19"
@@ -247,7 +243,7 @@
                 />
               </g>
             </g>
-            <g id="handle-s" fill="none" x="5" y="95" width="190" height="10">
+            <g id="handle-s" fill="none">
               <g>
                 <path
                   id="g-svg-21"
@@ -260,7 +256,7 @@
                 />
               </g>
             </g>
-            <g id="handle-w" fill="none" x="-5" y="5" width="10" height="90">
+            <g id="handle-w" fill="none">
               <g>
                 <path
                   id="g-svg-23"
@@ -273,7 +269,7 @@
                 />
               </g>
             </g>
-            <g id="handle-nw" fill="none" x="-5" y="-5" width="10" height="10">
+            <g id="handle-nw" fill="none">
               <g>
                 <path
                   id="g-svg-25"
@@ -286,7 +282,7 @@
                 />
               </g>
             </g>
-            <g id="handle-ne" fill="none" x="195" y="-5" width="10" height="10">
+            <g id="handle-ne" fill="none">
               <g>
                 <path
                   id="g-svg-27"
@@ -299,7 +295,7 @@
                 />
               </g>
             </g>
-            <g id="handle-se" fill="none" x="195" y="95" width="10" height="10">
+            <g id="handle-se" fill="none">
               <g>
                 <path
                   id="g-svg-29"
@@ -312,7 +308,7 @@
                 />
               </g>
             </g>
-            <g id="handle-sw" fill="none" x="-5" y="95" width="10" height="10">
+            <g id="handle-sw" fill="none">
               <g>
                 <path
                   id="g-svg-31"

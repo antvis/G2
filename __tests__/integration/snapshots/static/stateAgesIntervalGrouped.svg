@@ -62,15 +62,7 @@
           />
         </g>
         <g id="g-svg-32" fill="none" class="component">
-          <g
-            id="g-svg-36"
-            fill="none"
-            x="16"
-            y="16"
-            width="608"
-            height="62"
-            transform="matrix(1,0,0,1,16,16)"
-          >
+          <g id="g-svg-36" fill="none" transform="matrix(1,0,0,1,16,16)">
             <g>
               <text
                 id="g-svg-37"
@@ -112,48 +104,14 @@
           </g>
         </g>
         <g id="g-svg-33" fill="none" class="component">
-          <g
-            id="g-svg-39"
-            fill="none"
-            x="16"
-            y="98"
-            width="608"
-            height="23"
-            transform="matrix(1,0,0,1,16,98)"
-          >
-            <g
-              id="g-svg-40"
-              fill="none"
-              class="legend-category"
-              width="564.84"
-              height="23"
-            >
+          <g id="g-svg-39" fill="none" transform="matrix(1,0,0,1,16,98)">
+            <g id="g-svg-40" fill="none" class="legend-category">
               <g id="g-svg-41" fill="none" class="legend-title-group">
-                <g
-                  id="g-svg-42"
-                  fill="none"
-                  width="564.84"
-                  height="23"
-                  class="legend-title"
-                />
+                <g id="g-svg-42" fill="none" class="legend-title" />
               </g>
               <g id="g-svg-43" fill="none" class="legend-items-group">
-                <g
-                  id="g-svg-44"
-                  fill="none"
-                  width="564.84"
-                  height="23"
-                  x="0"
-                  y="0"
-                  class="legend-items"
-                >
-                  <g
-                    id="g-svg-45"
-                    fill="none"
-                    x="0"
-                    y="0"
-                    class="items-navigator"
-                  >
+                <g id="g-svg-44" fill="none" class="legend-items">
+                  <g id="g-svg-45" fill="none" class="items-navigator">
                     <g
                       id="g-svg-46"
                       fill="none"
@@ -166,15 +124,7 @@
                         class="navigator-play-window"
                       >
                         <g id="g-svg-121" fill="none" class="items-item-page">
-                          <g
-                            id="g-svg-49"
-                            fill="none"
-                            class="items-item"
-                            x="0"
-                            y="0"
-                            width="42.44"
-                            height="23"
-                          >
+                          <g id="g-svg-49" fill="none" class="items-item">
                             <g
                               id="g-svg-55"
                               fill="none"
@@ -248,10 +198,6 @@
                             fill="none"
                             transform="matrix(1,0,0,1,54.439999,0)"
                             class="items-item"
-                            x="54.44"
-                            y="0"
-                            width="49.75999999999999"
-                            height="23"
                           >
                             <g
                               id="g-svg-63"
@@ -326,10 +272,6 @@
                             fill="none"
                             transform="matrix(1,0,0,1,116.199997,0)"
                             class="items-item"
-                            x="116.19999999999999"
-                            y="0"
-                            width="53.120000000000005"
-                            height="23"
                           >
                             <g
                               id="g-svg-71"
@@ -404,10 +346,6 @@
                             fill="none"
                             transform="matrix(1,0,0,1,181.320007,0)"
                             class="items-item"
-                            x="181.32"
-                            y="0"
-                            width="53.599999999999994"
-                            height="23"
                           >
                             <g
                               id="g-svg-79"
@@ -482,10 +420,6 @@
                             fill="none"
                             transform="matrix(1,0,0,1,246.919998,0)"
                             class="items-item"
-                            x="246.92"
-                            y="0"
-                            width="54.08"
-                            height="23"
                           >
                             <g
                               id="g-svg-87"
@@ -560,10 +494,6 @@
                             fill="none"
                             transform="matrix(1,0,0,1,313,0)"
                             class="items-item"
-                            x="313"
-                            y="0"
-                            width="53.36"
-                            height="23"
                           >
                             <g
                               id="g-svg-95"
@@ -638,10 +568,6 @@
                             fill="none"
                             transform="matrix(1,0,0,1,378.359985,0)"
                             class="items-item"
-                            x="378.36"
-                            y="0"
-                            width="53.84"
-                            height="23"
                           >
                             <g
                               id="g-svg-103"
@@ -716,10 +642,6 @@
                             fill="none"
                             transform="matrix(1,0,0,1,444.200012,0)"
                             class="items-item"
-                            x="444.20000000000005"
-                            y="0"
-                            width="52.16"
-                            height="23"
                           >
                             <g
                               id="g-svg-111"
@@ -794,10 +716,6 @@
                             fill="none"
                             transform="matrix(1,0,0,1,508.359985,0)"
                             class="items-item"
-                            x="508.36"
-                            y="0"
-                            width="44.480000000000004"
-                            height="23"
                           >
                             <g
                               id="g-svg-119"
