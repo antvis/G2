@@ -105,9 +105,12 @@ export function render<T extends G2ViewTree = G2ViewTree>(
       }
 
       // Wait for the next tick.
+      // FIXME: Use `rendered?` event instead of `requestAnimationFrame`.
       canvas.requestAnimationFrame(() => {
-        emitter.emit(ChartEvent.AFTER_RENDER);
-        resolve?.();
+        canvas.requestAnimationFrame(() => {
+          emitter.emit(ChartEvent.AFTER_RENDER);
+          resolve?.();
+        });
       });
     })
     .catch((e) => {

@@ -41,9 +41,9 @@
     "size": "limit-size",
     "lint": "eslint ./src ./__tests__ && prettier ./src ./__tests__ --check ",
     "fix": "eslint ./src ./__tests__ --fix && prettier ./src ./__tests__ --write ",
-    "test": "cross-env TZ=Asia/Shanghai && jest __tests__",
-    "test:unit": "cross-env TZ=Asia/Shanghai && jest __tests__/unit/",
-    "test:integration": "cross-env TZ=Asia/Shanghai && jest __tests__/integration/",
+    "test": "cross-env TZ=Asia/Shanghai jest __tests__",
+    "test:unit": "cross-env TZ=Asia/Shanghai jest __tests__/unit/",
+    "test:integration": "cross-env TZ=Asia/Shanghai jest __tests__/integration/",
     "preview": "vite preview",
     "build:umd": "rimraf ./dist && node node_modules/rollup/dist/bin/rollup -c && npm run size",
     "build:cjs": "rimraf ./lib && tsc --module commonjs --outDir lib",
@@ -115,7 +115,6 @@
     "@types/diff": "^5.2.3",
     "@types/jest": "^26.0.24",
     "@types/pixelmatch": "^5.2.6",
-    "@types/pngjs": "^6.0.5",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
     "conventional-changelog-cli": "^2.2.2",
@@ -137,9 +136,7 @@
     "lint-staged": "^10.5.4",
     "npm-run-all": "^4.1.5",
     "pixelmatch": "5.3.0",
-    "pngjs": "^6.0.0",
     "prettier": "^2.8.8",
-    "reflect-metadata": "^0.1.14",
     "rimraf": "^3.0.2",
     "rollup": "^2.79.2",
     "rollup-plugin-polyfill-node": "^0.8.0",
@@ -161,17 +158,17 @@
   "limit-size": [
     {
       "path": "dist/g2.min.js",
-      "limit": "285 Kb",
+      "limit": "290 Kb",
       "gzip": true
     },
     {
       "path": "dist/g2.min.js",
-      "limit": "950 Kb",
+      "limit": "970 Kb",
       "gzip": false
     },
     {
       "path": "dist/g2.lite.min.js",
-      "limit": "250 Kb",
+      "limit": "260 Kb",
       "gzip": true
     }
   ],

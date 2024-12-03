@@ -473,8 +473,8 @@
                 <path
                   id="selection"
                   fill="rgba(119,119,119,1)"
-                  d="M 0,0 l 350.5,0 l 0,54 l-350.5 0 z"
-                  width="350.5"
+                  d="M 0,0 l 350,0 l 0,54 l-350 0 z"
+                  width="350"
                   height="54"
                   fill-opacity="0.3"
                   stroke="rgba(255,255,255,1)"
@@ -485,10 +485,10 @@
                   <path
                     id="g-svg-551"
                     fill="rgba(0,0,0,0)"
-                    d="M 5,-5 l 340.5,0 l 0,10 l-340.5 0 z"
+                    d="M 5,-5 l 340,0 l 0,10 l-340 0 z"
                     x="5"
                     y="-5"
-                    width="340.5"
+                    width="340"
                     height="10"
                   />
                 </g>
@@ -498,8 +498,8 @@
                   <path
                     id="g-svg-553"
                     fill="rgba(0,0,0,0)"
-                    d="M 345.5,5 l 10,0 l 0,44 l-10 0 z"
-                    x="345.5"
+                    d="M 345,5 l 10,0 l 0,44 l-10 0 z"
+                    x="345"
                     y="5"
                     width="10"
                     height="44"
@@ -511,10 +511,10 @@
                   <path
                     id="g-svg-555"
                     fill="rgba(0,0,0,0)"
-                    d="M 5,49 l 340.5,0 l 0,10 l-340.5 0 z"
+                    d="M 5,49 l 340,0 l 0,10 l-340 0 z"
                     x="5"
                     y="49"
-                    width="340.5"
+                    width="340"
                     height="10"
                   />
                 </g>
@@ -550,8 +550,8 @@
                   <path
                     id="g-svg-561"
                     fill="rgba(0,0,0,0)"
-                    d="M 345.5,-5 l 10,0 l 0,10 l-10 0 z"
-                    x="345.5"
+                    d="M 345,-5 l 10,0 l 0,10 l-10 0 z"
+                    x="345"
                     y="-5"
                     width="10"
                     height="10"
@@ -563,8 +563,8 @@
                   <path
                     id="g-svg-563"
                     fill="rgba(0,0,0,0)"
-                    d="M 345.5,49 l 10,0 l 0,10 l-10 0 z"
-                    x="345.5"
+                    d="M 345,49 l 10,0 l 0,10 l-10 0 z"
+                    x="345"
                     y="49"
                     width="10"
                     height="10"
@@ -771,8 +771,8 @@
                 <path
                   id="selection"
                   fill="rgba(119,119,119,1)"
-                  d="M 0,0 l 100.5,0 l 0,54 l-100.5 0 z"
-                  width="100.5"
+                  d="M 0,0 l 100,0 l 0,54 l-100 0 z"
+                  width="100"
                   height="54"
                   fill-opacity="0.3"
                   stroke="rgba(255,255,255,1)"
@@ -783,10 +783,10 @@
                   <path
                     id="g-svg-569"
                     fill="rgba(0,0,0,0)"
-                    d="M 5,-5 l 90.5,0 l 0,10 l-90.5 0 z"
+                    d="M 5,-5 l 90,0 l 0,10 l-90 0 z"
                     x="5"
                     y="-5"
-                    width="90.5"
+                    width="90"
                     height="10"
                   />
                 </g>
@@ -796,8 +796,8 @@
                   <path
                     id="g-svg-571"
                     fill="rgba(0,0,0,0)"
-                    d="M 95.5,5 l 10,0 l 0,44 l-10 0 z"
-                    x="95.5"
+                    d="M 95,5 l 10,0 l 0,44 l-10 0 z"
+                    x="95"
                     y="5"
                     width="10"
                     height="44"
@@ -809,10 +809,10 @@
                   <path
                     id="g-svg-573"
                     fill="rgba(0,0,0,0)"
-                    d="M 5,49 l 90.5,0 l 0,10 l-90.5 0 z"
+                    d="M 5,49 l 90,0 l 0,10 l-90 0 z"
                     x="5"
                     y="49"
-                    width="90.5"
+                    width="90"
                     height="10"
                   />
                 </g>
@@ -848,8 +848,8 @@
                   <path
                     id="g-svg-579"
                     fill="rgba(0,0,0,0)"
-                    d="M 95.5,-5 l 10,0 l 0,10 l-10 0 z"
-                    x="95.5"
+                    d="M 95,-5 l 10,0 l 0,10 l-10 0 z"
+                    x="95"
                     y="-5"
                     width="10"
                     height="10"
@@ -861,8 +861,8 @@
                   <path
                     id="g-svg-581"
                     fill="rgba(0,0,0,0)"
-                    d="M 95.5,49 l 10,0 l 0,10 l-10 0 z"
-                    x="95.5"
+                    d="M 95,49 l 10,0 l 0,10 l-10 0 z"
+                    x="95"
                     y="49"
                     width="10"
                     height="10"

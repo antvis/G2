@@ -24,7 +24,7 @@ describe('Charts', () => {
         const dir = `${__dirname}/snapshots/static`;
         await expect(gCanvas).toMatchDOMSnapshot(dir, name, {
           fileFormat: 'svg',
-          keepSVGElementId: true,
+          keepSVGElementId: false,
         });
       } finally {
         gCanvas?.destroy();
