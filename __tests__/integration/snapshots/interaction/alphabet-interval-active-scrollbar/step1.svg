@@ -71,7 +71,7 @@
           />
         </g>
         <g id="g-svg-6" fill="none" class="component">
-          <g id="g-svg-7" fill="none" class="slider" x="16" y="440">
+          <g id="g-svg-7" fill="none" class="slider">
             <g>
               <path
                 id="g-svg-8"
@@ -86,15 +86,7 @@
               />
             </g>
             <g id="g-svg-9" fill="none" class="slider-sparkline-group">
-              <g
-                id="g-svg-10"
-                fill="none"
-                x="16"
-                y="440"
-                width="608"
-                height="16"
-                class="slider-sparkline"
-              >
+              <g id="g-svg-10" fill="none" class="slider-sparkline">
                 <g>
                   <path id="g-svg-11" fill="none" class="container" />
                 </g>
@@ -102,8 +94,6 @@
                   id="g-svg-12"
                   fill="none"
                   class="spark sparkline"
-                  x="16"
-                  y="440"
                   transform="matrix(1,0,0,1,16,440)"
                 >
                   <g id="g-svg-13" fill="none" />
@@ -165,13 +155,11 @@
               <g
                 id="g-svg-22"
                 fill="none"
-                x="0"
-                y="0"
                 transform="matrix(1,0,0,1,168,448)"
                 class="slider-handle start-handle"
               >
                 <g id="g-svg-23" fill="none" class="handle-icon-group">
-                  <g id="g-svg-71" fill="none" x="0" y="0" class="handle-icon">
+                  <g id="g-svg-71" fill="none" class="handle-icon">
                     <g>
                       <path
                         id="g-svg-72"
@@ -241,13 +229,11 @@
               <g
                 id="g-svg-32"
                 fill="none"
-                x="0"
-                y="0"
                 transform="matrix(1,0,0,1,472,448)"
                 class="slider-handle end-handle"
               >
                 <g id="g-svg-33" fill="none" class="handle-icon-group">
-                  <g id="g-svg-77" fill="none" x="0" y="0" class="handle-icon">
+                  <g id="g-svg-77" fill="none" class="handle-icon">
                     <g>
                       <path
                         id="g-svg-78"

@@ -89,20 +89,8 @@
           />
         </g>
         <g id="g-svg-12" fill="none" class="component">
-          <g
-            id="g-svg-16"
-            fill="none"
-            class="g2-scrollbar"
-            x="101.28000029436546"
-            y="458"
-          >
-            <g
-              id="g-svg-17"
-              fill="none"
-              x="101.28000029436546"
-              y="458"
-              class="scrollbar"
-            >
+          <g id="g-svg-16" fill="none" class="g2-scrollbar">
+            <g id="g-svg-17" fill="none" class="scrollbar">
               <g>
                 <path
                   id="g-svg-18"
@@ -118,15 +106,7 @@
                 />
               </g>
               <g id="g-svg-19" fill="none" class="slider-sparkline-group">
-                <g
-                  id="g-svg-20"
-                  fill="none"
-                  x="101.28000029436546"
-                  y="458"
-                  width="282.71999970563456"
-                  height="6"
-                  class="slider-sparkline"
-                >
+                <g id="g-svg-20" fill="none" class="slider-sparkline">
                   <g>
                     <path id="g-svg-21" fill="none" class="container" />
                   </g>
@@ -134,8 +114,6 @@
                     id="g-svg-22"
                     fill="none"
                     class="spark sparkline"
-                    x="101.28000029436546"
-                    y="458"
                     transform="matrix(1,0,0,1,101.279999,458)"
                   >
                     <g id="g-svg-23" fill="none" />
@@ -199,8 +177,8 @@
           </g>
         </g>
         <g id="g-svg-13" fill="none" class="component">
-          <g id="g-svg-30" fill="none" class="g2-scrollbar" x="16" y="16">
-            <g id="g-svg-31" fill="none" x="16" y="16" class="scrollbar">
+          <g id="g-svg-30" fill="none" class="g2-scrollbar">
+            <g id="g-svg-31" fill="none" class="scrollbar">
               <g>
                 <path
                   id="g-svg-32"

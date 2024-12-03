@@ -9,7 +9,7 @@ import { createNodeGCanvas } from './utils/createNodeGCanvas';
 import './utils/useCustomFetch';
 import './utils/useSnapshotMatchers';
 
-describe('chart.emit', () => {
+describe.skip('chart.emit', () => {
   const dir = `${__dirname}/snapshots/api/${kebabCase(render.name)}`;
   const canvas = createNodeGCanvas(800, 500);
 

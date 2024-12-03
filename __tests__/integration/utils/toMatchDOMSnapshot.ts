@@ -9,11 +9,28 @@ export type ToMatchDOMSnapshotOptions = {
   fileFormat?: string;
   keepSVGElementId?: boolean;
 };
-const formatSVG = (svg: string, keepSVGElementId: boolean) => {
+function formatSVG(svg: string, keepSVGElementId: boolean) {
   return keepSVGElementId
     ? svg
-    : svg.replace(/id="[^"]*"/g, '').replace(/clip-path="[^"]*"/g, '');
-};
+    : svg
+        .replace(/id="[^"]*"/g, '')
+        .replace(/clip-path="[^"]*"/g, '')
+        .replace(/<use href="[^"]*"/g, '<use');
+}
+
+/**
+ * Compare two SVG strings, should isgnore some attributes.
+ */
+function isSVGEqual(
+  actual: string,
+  expected: string,
+  keepSVGElementId = false,
+) {
+  return keepSVGElementId
+    ? actual === expected
+    : formatSVG(actual, keepSVGElementId) ===
+        formatSVG(expected, keepSVGElementId);
+}
 
 // @see https://jestjs.io/docs/26.x/expect#expectextendmatchers
 export async function toMatchDOMSnapshot(
@@ -22,7 +39,7 @@ export async function toMatchDOMSnapshot(
   name: string,
   options: ToMatchDOMSnapshotOptions = {},
 ): Promise<{ message: () => string; pass: boolean }> {
-  const { selector, fileFormat = 'svg', keepSVGElementId = true } = options;
+  const { selector, fileFormat = 'svg', keepSVGElementId = false } = options;
   const namePath = path.join(dir, name);
   const actualPath = path.join(dir, `${name}-actual.${fileFormat}`);
   const expectedPath = path.join(dir, `${name}.${fileFormat}`);
@@ -34,12 +51,9 @@ export async function toMatchDOMSnapshot(
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 
     actual = dom
-      ? formatSVG(
-          format(xmlserializer.serializeToString(dom), {
-            parser: 'babel',
-          }),
-          keepSVGElementId,
-        )
+      ? format(xmlserializer.serializeToString(dom), {
+          parser: 'babel',
+        })
       : 'null';
 
     // Remove ';' after format by babel.
@@ -60,7 +74,7 @@ export async function toMatchDOMSnapshot(
         encoding: 'utf8',
         flag: 'r',
       });
-      if (actual === expected) {
+      if (isSVGEqual(actual, expected, keepSVGElementId)) {
         if (fs.existsSync(actualPath)) fs.unlinkSync(actualPath);
         return {
           message: () => `match ${namePath}`,

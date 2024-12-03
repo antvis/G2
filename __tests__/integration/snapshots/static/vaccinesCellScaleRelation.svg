@@ -271,29 +271,9 @@
           />
         </g>
         <g id="g-svg-75" fill="none" class="component">
-          <g
-            id="g-svg-78"
-            fill="none"
-            x="16"
-            y="16"
-            width="1268"
-            height="69"
-            transform="matrix(1,0,0,1,16,16)"
-          >
-            <g
-              id="g-svg-79"
-              fill="none"
-              class="legend-continuous"
-              width="200"
-              height="69"
-            >
-              <g
-                id="g-svg-80"
-                fill="none"
-                width="200"
-                height="69"
-                class="legend-title"
-              >
+          <g id="g-svg-78" fill="none" transform="matrix(1,0,0,1,16,16)">
+            <g id="g-svg-79" fill="none" class="legend-continuous">
+              <g id="g-svg-80" fill="none" class="legend-title">
                 <g>
                   <text
                     id="g-svg-81"
@@ -679,21 +659,11 @@
                   <g
                     id="g-svg-129"
                     fill="none"
-                    x="0"
-                    y="0"
-                    height="12"
-                    width="10"
                     transform="matrix(1,0,0,1,15.680000,6)"
                     class="legend-handle legend-start-handle"
                   >
                     <g id="g-svg-130" fill="none" class="handle-icon-group">
-                      <g
-                        id="g-svg-173"
-                        fill="none"
-                        x="0"
-                        y="0"
-                        class="handle-icon"
-                      >
+                      <g id="g-svg-173" fill="none" class="handle-icon">
                         <g>
                           <path
                             id="g-svg-174"
@@ -741,21 +711,11 @@
                   <g
                     id="g-svg-136"
                     fill="none"
-                    x="0"
-                    y="0"
-                    height="12"
-                    width="10"
                     transform="matrix(1,0,0,1,184.320007,6)"
                     class="legend-handle legend-end-handle"
                   >
                     <g id="g-svg-137" fill="none" class="handle-icon-group">
-                      <g
-                        id="g-svg-177"
-                        fill="none"
-                        x="0"
-                        y="0"
-                        class="handle-icon"
-                      >
+                      <g id="g-svg-177" fill="none" class="handle-icon">
                         <g>
                           <path
                             id="g-svg-178"
@@ -68938,8 +68898,6 @@
             <g
               id="g-svg-4781"
               fill="none"
-              x="488.28700000000003"
-              y="711"
               transform="matrix(1,0,0,1,488.286987,711)"
               class="label"
             >
@@ -68978,8 +68936,6 @@
             <g
               id="g-svg-4785"
               fill="none"
-              x="488.28700000000003"
-              y="711"
               transform="matrix(1,0,0,1,488.286987,711)"
               class="label"
             >

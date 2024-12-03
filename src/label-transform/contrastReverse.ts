@@ -25,6 +25,7 @@ function getL(r: number, g: number, b: number) {
  * @param background
  */
 function contrast(foreground, background): number {
+  if (!foreground || !background || foreground === background) return 1;
   const { r, g, b } = foreground;
   const { r: rb, g: gb, b: bb } = background;
   const L1 = getL(r, g, b);

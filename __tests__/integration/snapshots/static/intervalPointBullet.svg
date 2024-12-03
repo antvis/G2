@@ -617,7 +617,6 @@
                 id="g-svg-77"
                 fill="rgba(0,0,0,0)"
                 d="M 478.54999999999995,199 L 478.54999999999995,183"
-                r="3"
                 stroke-opacity="0.95"
                 stroke-width="1"
                 stroke="rgba(61,118,221,1)"
@@ -629,8 +628,6 @@
             <g
               id="g-svg-79"
               fill="none"
-              x="450.4000000000001"
-              y="191"
               transform="matrix(1,0,0,1,450.399994,191)"
               class="label"
             >

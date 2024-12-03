@@ -467,84 +467,59 @@
               id="g-svg-548"
               fill="none"
               class="mask"
-              x="37.84000015258789"
-              y="0"
               transform="matrix(1,0,0,1,37.840000,0)"
-              width="350.5"
-              height="54"
             >
               <g>
                 <path
                   id="selection"
                   fill="rgba(119,119,119,1)"
-                  d="M 0,0 l 350.5,0 l 0,54 l-350.5 0 z"
-                  width="350.5"
+                  d="M 0,0 l 350,0 l 0,54 l-350 0 z"
+                  width="350"
                   height="54"
                   fill-opacity="0.3"
                   stroke="rgba(255,255,255,1)"
                 />
               </g>
-              <g
-                id="handle-n"
-                fill="none"
-                x="5"
-                y="-5"
-                width="340.5"
-                height="10"
-              >
+              <g id="handle-n" fill="none">
                 <g>
                   <path
                     id="g-svg-551"
                     fill="rgba(0,0,0,0)"
-                    d="M 5,-5 l 340.5,0 l 0,10 l-340.5 0 z"
+                    d="M 5,-5 l 340,0 l 0,10 l-340 0 z"
                     x="5"
                     y="-5"
-                    width="340.5"
+                    width="340"
                     height="10"
                   />
                 </g>
               </g>
-              <g
-                id="handle-e"
-                fill="none"
-                x="345.5"
-                y="5"
-                width="10"
-                height="44"
-              >
+              <g id="handle-e" fill="none">
                 <g>
                   <path
                     id="g-svg-553"
                     fill="rgba(0,0,0,0)"
-                    d="M 345.5,5 l 10,0 l 0,44 l-10 0 z"
-                    x="345.5"
+                    d="M 345,5 l 10,0 l 0,44 l-10 0 z"
+                    x="345"
                     y="5"
                     width="10"
                     height="44"
                   />
                 </g>
               </g>
-              <g
-                id="handle-s"
-                fill="none"
-                x="5"
-                y="49"
-                width="340.5"
-                height="10"
-              >
+              <g id="handle-s" fill="none">
                 <g>
                   <path
                     id="g-svg-555"
                     fill="rgba(0,0,0,0)"
-                    d="M 5,49 l 340.5,0 l 0,10 l-340.5 0 z"
+                    d="M 5,49 l 340,0 l 0,10 l-340 0 z"
                     x="5"
                     y="49"
-                    width="340.5"
+                    width="340"
                     height="10"
                   />
                 </g>
               </g>
-              <g id="handle-w" fill="none" x="-5" y="5" width="10" height="44">
+              <g id="handle-w" fill="none">
                 <g>
                   <path
                     id="g-svg-557"
@@ -557,14 +532,7 @@
                   />
                 </g>
               </g>
-              <g
-                id="handle-nw"
-                fill="none"
-                x="-5"
-                y="-5"
-                width="10"
-                height="10"
-              >
+              <g id="handle-nw" fill="none">
                 <g>
                   <path
                     id="g-svg-559"
@@ -577,54 +545,33 @@
                   />
                 </g>
               </g>
-              <g
-                id="handle-ne"
-                fill="none"
-                x="345.5"
-                y="-5"
-                width="10"
-                height="10"
-              >
+              <g id="handle-ne" fill="none">
                 <g>
                   <path
                     id="g-svg-561"
                     fill="rgba(0,0,0,0)"
-                    d="M 345.5,-5 l 10,0 l 0,10 l-10 0 z"
-                    x="345.5"
+                    d="M 345,-5 l 10,0 l 0,10 l-10 0 z"
+                    x="345"
                     y="-5"
                     width="10"
                     height="10"
                   />
                 </g>
               </g>
-              <g
-                id="handle-se"
-                fill="none"
-                x="345.5"
-                y="49"
-                width="10"
-                height="10"
-              >
+              <g id="handle-se" fill="none">
                 <g>
                   <path
                     id="g-svg-563"
                     fill="rgba(0,0,0,0)"
-                    d="M 345.5,49 l 10,0 l 0,10 l-10 0 z"
-                    x="345.5"
+                    d="M 345,49 l 10,0 l 0,10 l-10 0 z"
+                    x="345"
                     y="49"
                     width="10"
                     height="10"
                   />
                 </g>
               </g>
-              <g
-                id="handle-sw"
-                fill="none"
-                x="-5"
-                y="49"
-                width="10"
-                height="10"
-              >
+              <g id="handle-sw" fill="none">
                 <g>
                   <path
                     id="g-svg-565"

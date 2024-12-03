@@ -8,5 +8,5 @@ export type Color = {
 
 export function parseToRGB(c: string | Color): Color {
   if (typeof c === 'object') return c;
-  return parseColor(c);
+  return parseColor(c) as Color;
 }

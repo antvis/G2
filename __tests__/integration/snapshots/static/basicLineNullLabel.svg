@@ -644,8 +644,6 @@
             <g
               id="g-svg-80"
               fill="none"
-              x="67.85999996320432"
-              y="0"
               transform="matrix(1,0,0,1,67.860001,0)"
               class="label"
             >
@@ -681,8 +679,6 @@
             <g
               id="g-svg-84"
               fill="none"
-              x="203.57999988961296"
-              y="123.08888888888887"
               transform="matrix(1,0,0,1,203.580002,123.088890)"
               class="label"
             >
@@ -718,8 +714,6 @@
             <g
               id="g-svg-88"
               fill="none"
-              x="339.29999981602157"
-              y="382"
               transform="matrix(1,0,0,1,339.299988,382)"
               class="label"
             >
@@ -752,7 +746,7 @@
                 <path id="connector" fill="none" d="M 0,0 L 0,0" />
               </g>
             </g>
-            <g id="g-svg-92" fill="none" x="475.01999974243023" class="label" />
+            <g id="g-svg-92" fill="none" class="label" />
           </g>
         </g>
       </g>

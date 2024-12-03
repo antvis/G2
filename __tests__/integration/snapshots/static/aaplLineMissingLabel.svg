@@ -855,8 +855,6 @@
             <g
               id="g-svg-101"
               fill="none"
-              x="38.94857138671483"
-              y="191"
               transform="matrix(1,0,0,1,38.948570,191)"
               class="label"
             >
@@ -900,8 +898,6 @@
             <g
               id="g-svg-105"
               fill="none"
-              x="116.84571416014445"
-              y="0"
               transform="matrix(1,0,0,1,116.845711,0)"
               class="label"
             >
@@ -942,17 +938,10 @@
                 />
               </g>
             </g>
-            <g
-              id="g-svg-109"
-              fill="none"
-              x="194.74285693357407"
-              class="label"
-            />
+            <g id="g-svg-109" fill="none" class="label" />
             <g
               id="g-svg-110"
               fill="none"
-              x="272.6399997070037"
-              y="382"
               transform="matrix(1,0,0,1,272.640015,382)"
               class="label"
             >
@@ -996,8 +985,6 @@
             <g
               id="g-svg-114"
               fill="none"
-              x="350.5371424804333"
-              y="0"
               transform="matrix(1,0,0,1,350.537140,0)"
               class="label"
             >
@@ -1041,8 +1028,6 @@
             <g
               id="g-svg-118"
               fill="none"
-              x="428.4342852538629"
-              y="382"
               transform="matrix(1,0,0,1,428.434296,382)"
               class="label"
             >
@@ -1086,8 +1071,6 @@
             <g
               id="g-svg-122"
               fill="none"
-              x="506.33142802729265"
-              y="191"
               transform="matrix(1,0,0,1,506.331421,191)"
               class="label"
             >
