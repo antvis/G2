@@ -1,5 +1,4 @@
 import { Chart } from '../../../src';
-import indices from '../../data/indices.json';
 
 export function issue6020(context) {
   const { container, canvas } = context;
@@ -16,7 +15,8 @@ export function issue6020(context) {
   chart
     .line()
     .data({
-      value: indices,
+      type: 'fetch',
+      value: 'data/indices.csv',
     })
     .transform({ type: 'normalizeY', basis: 'first', groupBy: 'color' })
     .encode('x', (d) => new Date(d.Date))
@@ -28,8 +28,7 @@ export function issue6020(context) {
       text: 'Symbol',
       selector: (data) => {
         if (data.length) {
-          // 对于每个系列的数据，只保留索引等于 2 的标签
-          return data.filter((d, index) => index === 2);
+          return data.filter((d, index) => index === 500);
         }
         return data;
       },
