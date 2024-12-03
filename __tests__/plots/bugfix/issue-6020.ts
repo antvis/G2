@@ -1,4 +1,5 @@
 import { Chart } from '../../../src';
+import indices from '../../data/indices.json';
 
 export function issue6020(context) {
   const { container, canvas } = context;
@@ -15,8 +16,7 @@ export function issue6020(context) {
   chart
     .line()
     .data({
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/indices.json',
+      value: indices,
     })
     .transform({ type: 'normalizeY', basis: 'first', groupBy: 'color' })
     .encode('x', (d) => new Date(d.Date))
