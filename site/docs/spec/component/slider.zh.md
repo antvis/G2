@@ -67,6 +67,8 @@ chart.render();
 | -------------------------------- | ------------------------ | ------------------------- | ------ |
 | showHandle                           | 是否显示拖动手柄         | `boolean`                 | true   |
 | showLabel                            | 是否显示拖动手柄文本     | `boolean`                 | true   |
+| showLabelOnInteraction           | 在调整手柄或刷选时才显示手柄文本，在 showLabel 为 false 时生效 | `boolean` | false   |
+| autoFitLabel                     | 是否自动调整拖动手柄文本位置   | `boolean`             | true   |
 | formatter                        | 拖动手柄标签格式化       | `(value: number)=>string` | -      |
 | `style.`handleIconSize           | 缩略轴手柄大小           | `number`                  | 10     |
 | `style.`handleIconFill           | 缩略轴手柄填充色         | `string`                  | -      |
