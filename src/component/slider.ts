@@ -11,6 +11,10 @@ import { invert } from '../utils/scale';
 
 export type SliderOptions = {
   orientation: 'horizontal' | 'vertical';
+  showHandle?: boolean;
+  showLabel?: boolean;
+  showLabelOnInteraction?: boolean;
+  autoFitLabel?: boolean;
   [key: string]: any;
 };
 
