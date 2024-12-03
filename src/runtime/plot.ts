@@ -1364,6 +1364,7 @@ function createLabelShapeFunction(
       transform,
       style: abstractStyle,
       render,
+      selector,
       ...abstractOptions
     } = options;
     const visualOptions = mapObject(
