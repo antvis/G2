@@ -123,6 +123,7 @@ const DEFAULT_TEXT_OPTIONS = {
     fontWeight: 800,
     fill: '#888',
   },
+  tooltip: false,
 };
 
 export type GaugeData =
@@ -212,7 +213,7 @@ export const Gauge: CC<GaugeOptions> = (options) => {
     total,
     scale: newScale,
   } = dataTransform(data, scale);
-  const textStyle = subObject(style, 'text');
+  const { tooltip, ...textStyle } = subObject(style, 'text');
   // pointer + pin
   const indicatorStyle = filterPrefixObject(style, ['pointer', 'pin']);
 
@@ -244,6 +245,7 @@ export const Gauge: CC<GaugeOptions> = (options) => {
         text: getTextContent(textStyle, { target, total }),
         ...textStyle,
       },
+      tooltip,
       animate:
         typeof animate === 'object' ? subObject(animate, 'text') : animate,
     }),
