@@ -1376,7 +1376,7 @@ function createLabelShapeFunction(
       (d) =>
         valueOf(d, datum, index, abstractData, {
           channel: { ...channel },
-          elementStyle: elementStyle,
+          elementStyle,
         }),
     );
     const { shape = defaultLabelShape, text, ...style } = visualOptions;
