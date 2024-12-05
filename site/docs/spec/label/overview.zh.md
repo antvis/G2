@@ -127,7 +127,7 @@ chart
       d,
       i,
       data,
-      { channel }, // 聚合图形的样式
+      { channel, elementStyle }, // 聚合图形的样式 & label依赖元素的样式
     ) => (channel.y[i] < 11700 ? '#E49361' : '#4787F7'),
   );
 ```

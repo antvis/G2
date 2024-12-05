@@ -1198,7 +1198,7 @@ function plotLabel(
         const L = getLabels(options, i, e);
         L.forEach((l) => {
           labelShapeFunction.set(l, (data) =>
-            shapeFunction({ ...data, elementStyle: e.style }),
+            shapeFunction({ ...data, elementStyle: e.attributes }),
           );
           labelDescriptor.set(l, labelOption);
         });
@@ -1376,14 +1376,7 @@ function createLabelShapeFunction(
       (d) =>
         valueOf(d, datum, index, abstractData, {
           channel: { ...channel },
-          style: new Proxy(elementStyle, {
-            get: (target, prop) => {
-              if (typeof prop === 'string') {
-                return target.getPropertyValue(prop);
-              }
-              return undefined;
-            },
-          }),
+          elementStyle: elementStyle,
         }),
     );
     const { shape = defaultLabelShape, text, ...style } = visualOptions;
@@ -1408,7 +1401,7 @@ function valueOf(
   datum: Record<string, any>,
   i: number,
   data: Record<string, any>,
-  options: { channel: Record<string, any>; style?: Record<string, any> },
+  options: { channel: Record<string, any>; elementStyle?: Record<string, any> },
 ) {
   if (typeof value === 'function') return value(datum, i, data, options);
   if (typeof value !== 'string') return value;
