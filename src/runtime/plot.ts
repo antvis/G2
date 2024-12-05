@@ -1197,7 +1197,9 @@ function plotLabel(
       return elements.flatMap((e) => {
         const L = getLabels(options, i, e);
         L.forEach((l) => {
-          labelShapeFunction.set(l, shapeFunction);
+          labelShapeFunction.set(l, (data) =>
+            shapeFunction({ ...data, elementStyle: e.style }),
+          );
           labelDescriptor.set(l, labelOption);
         });
         return L;
@@ -1365,11 +1367,24 @@ function createLabelShapeFunction(
       style: abstractStyle,
       render,
       selector,
+      elementStyle,
       ...abstractOptions
     } = options;
+
     const visualOptions = mapObject(
       { ...abstractOptions, ...abstractStyle } as Record<string, any>,
-      (d) => valueOf(d, datum, index, abstractData, { channel }),
+      (d) =>
+        valueOf(d, datum, index, abstractData, {
+          channel: { ...channel },
+          style: new Proxy(elementStyle, {
+            get: (target, prop) => {
+              if (typeof prop === 'string') {
+                return target.getPropertyValue(prop);
+              }
+              return undefined;
+            },
+          }),
+        }),
     );
     const { shape = defaultLabelShape, text, ...style } = visualOptions;
     const f = typeof formatter === 'string' ? format(formatter) : formatter;
@@ -1393,7 +1408,7 @@ function valueOf(
   datum: Record<string, any>,
   i: number,
   data: Record<string, any>,
-  options: { channel: Record<string, any> },
+  options: { channel: Record<string, any>; style?: Record<string, any> },
 ) {
   if (typeof value === 'function') return value(datum, i, data, options);
   if (typeof value !== 'string') return value;
