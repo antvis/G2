@@ -1,3 +1,20 @@
+## [5.2.9](https://github.com/antvis/g2/compare/5.2.8...5.2.9) (2024-12-06)
+
+
+### Bug Fixes
+
+* **label:** correct label selector parameter handling and test case ([#6532](https://github.com/antvis/g2/issues/6532)) ([f8ce4ee](https://github.com/antvis/g2/commit/f8ce4ee574069fe1d36cd0b3cccb152a515af127))
+* remove unnecessary structure and update label attributes ([#6538](https://github.com/antvis/g2/issues/6538)) ([9d66375](https://github.com/antvis/g2/commit/9d66375cc42f99c2b35257f77d33938ee0cfaab8))
+
+
+### Features
+
+* **gauge:** add custom text tooltip support for gauge chart ([#6533](https://github.com/antvis/g2/issues/6533)) ([9e57dfe](https://github.com/antvis/g2/commit/9e57dfe520e98e6d3434df19184e0de02e683297))
+* **label:** implement label color inheritance from dependent elements ([#6536](https://github.com/antvis/g2/issues/6536)) ([56c0a3e](https://github.com/antvis/g2/commit/56c0a3ed9b3d5a7cfa17da04bb0851d3e4027c1b))
+* **transform:** add exponential smoothing data transform methods ([#6522](https://github.com/antvis/g2/issues/6522)) ([0ec584c](https://github.com/antvis/g2/commit/0ec584cd01332c6431147f759d2163d37831afc9))
+
+
+
 ## [5.2.8](https://github.com/antvis/g2/compare/5.2.6...5.2.8) (2024-10-18)
 
 
