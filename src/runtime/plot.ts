@@ -1198,7 +1198,7 @@ function plotLabel(
         const L = getLabels(options, i, e);
         L.forEach((l) => {
           labelShapeFunction.set(l, (data) =>
-            shapeFunction({ ...data, elementStyle: e.attributes }),
+            shapeFunction({ ...data, element: e }),
           );
           labelDescriptor.set(l, labelOption);
         });
@@ -1367,7 +1367,7 @@ function createLabelShapeFunction(
       style: abstractStyle,
       render,
       selector,
-      elementStyle,
+      element,
       ...abstractOptions
     } = options;
 
@@ -1375,8 +1375,8 @@ function createLabelShapeFunction(
       { ...abstractOptions, ...abstractStyle } as Record<string, any>,
       (d) =>
         valueOf(d, datum, index, abstractData, {
-          channel: { ...channel },
-          elementStyle,
+          channel,
+          element,
         }),
     );
     const { shape = defaultLabelShape, text, ...style } = visualOptions;
@@ -1401,7 +1401,7 @@ function valueOf(
   datum: Record<string, any>,
   i: number,
   data: Record<string, any>,
-  options: { channel: Record<string, any>; elementStyle?: Record<string, any> },
+  options: { channel: Record<string, any>; element?: G2Element },
 ) {
   if (typeof value === 'function') return value(datum, i, data, options);
   if (typeof value !== 'string') return value;

@@ -27,7 +27,7 @@ export function issue5474(context) {
       .encode('color', 'genre')
       .label({
         text: 'genre',
-        fill: (_, i, array, d) => d.elementStyle.fill,
+        fill: (_, i, array, d) => d.element.attributes.fill,
       });
   }
 
