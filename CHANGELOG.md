@@ -1,3 +1,22 @@
+## [5.2.9](https://github.com/antvis/g2/compare/5.2.6...5.2.9) (2024-12-06)
+
+
+### Bug Fixes
+
+*  prevent label overlap in multiple charts ([#6490](https://github.com/antvis/g2/issues/6490)) ([6013d72](https://github.com/antvis/g2/commit/6013d72881276aca9d17d93908d33b21194979c6))
+* **label:** correct label selector parameter handling and test case ([#6532](https://github.com/antvis/g2/issues/6532)) ([f8ce4ee](https://github.com/antvis/g2/commit/f8ce4ee574069fe1d36cd0b3cccb152a515af127))
+* remove unnecessary structure and update label attributes ([#6538](https://github.com/antvis/g2/issues/6538)) ([9d66375](https://github.com/antvis/g2/commit/9d66375cc42f99c2b35257f77d33938ee0cfaab8))
+* tooptip position offset in dodgeX ([#6483](https://github.com/antvis/g2/issues/6483)) ([df4920f](https://github.com/antvis/g2/commit/df4920f7305966b00a3ae252b11f7f7df94136d1))
+
+
+### Features
+
+* **gauge:** add custom text tooltip support for gauge chart ([#6533](https://github.com/antvis/g2/issues/6533)) ([9e57dfe](https://github.com/antvis/g2/commit/9e57dfe520e98e6d3434df19184e0de02e683297))
+* **label:** implement label color inheritance from dependent elements ([#6536](https://github.com/antvis/g2/issues/6536)) ([56c0a3e](https://github.com/antvis/g2/commit/56c0a3ed9b3d5a7cfa17da04bb0851d3e4027c1b))
+* **transform:** add exponential smoothing data transform methods ([#6522](https://github.com/antvis/g2/issues/6522)) ([0ec584c](https://github.com/antvis/g2/commit/0ec584cd01332c6431147f759d2163d37831afc9))
+
+
+
 ## [5.2.8](https://github.com/antvis/g2/compare/5.2.6...5.2.8) (2024-10-18)
 
 
