@@ -36,7 +36,8 @@
     "dirichlet": "^1.0.1",
     "dumi": "^2.2.14",
     "fecha": "^4.2.3",
-
+    "lodash": "^4.17.21",
+    "fmin": "0.0.2",
     "react-color": "^2.19.3",
     "topojson": "^3.0.2",
     "webfontloader": "1.6.28"
