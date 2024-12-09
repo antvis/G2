@@ -7,6 +7,7 @@ import {
   Fisheye,
   Radial,
   Radar,
+  Helix,
 } from '../coordinate';
 import { Constant, Field, Transform, Column } from '../encode';
 import {
@@ -216,6 +217,7 @@ export function corelib() {
     'coordinate.fisheye': Fisheye,
     'coordinate.radial': Radial,
     'coordinate.radar': Radar,
+    'coordinate.helix': Helix,
     'encode.constant': Constant,
     'encode.field': Field,
     'encode.transform': Transform,

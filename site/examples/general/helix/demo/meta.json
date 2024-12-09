@@ -1,0 +1,16 @@
+{
+    "title": {
+        "zh": "中文分类",
+        "en": "Category"
+    },
+    "demos": [
+        {
+            "filename": "helix.ts",
+            "title": {
+                "zh": "螺旋坐标系",
+                "en": "Helix"
+            },
+            "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*pohxT40PSroAAAAAAAAAAAAADmJ7AQ/original"
+        }
+    ]
+}
