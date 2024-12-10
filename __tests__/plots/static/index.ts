@@ -353,3 +353,4 @@ export { energySankeyViewCustomTooltip } from './energy-sankey-view-custom-toolt
 export { alphabetIntervalColumnWidthRatio } from './alphabet-interval-column-width-ratio';
 export { stackPointCoincide } from './stack-point-coincide';
 export { helixBasic } from './helix-basic';
+export { helixGene } from './helix-gene';

@@ -4,9 +4,15 @@ import { Chart } from '@antv/g2';
 const data = [];
 const n = 31;
 for (let i = 0; i < 372; i++) {
-  const now = Date();
+  const now = new Date();
+  const currentTime = new Date(now.getTime() + i * 1000 * 3600 * 24);
+  const formattedTime = `${currentTime.getFullYear()}.${String(
+    currentTime.getMonth() + 1,
+  ).padStart(2, '0')}.${String(currentTime.getDate()).padStart(2, '0')}`;
+
   data[i] = {};
-  data[i].time = new Date(now).getTime() + i * 1000 * 3600 * 24;
+  data[i].time = formattedTime;
+
   const random = Math.floor(Math.random() * 10);
   if ((i % n > 2 && i % n < 4) || (i % n >= 6 && i % n < 7)) {
     data[i].value = 30 + random * 7;
@@ -25,21 +31,6 @@ const chart = new Chart({
 
 chart.data({
   value: data,
-  transform: [
-    {
-      type: 'map',
-      callback: (d) => {
-        const date = new Date(d.time);
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-        return {
-          time: `${year}.${month}.${day}`,
-          value: d.value,
-        };
-      },
-    },
-  ],
 });
 
 chart.coordinate({

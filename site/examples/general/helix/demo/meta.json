@@ -10,7 +10,15 @@
                 "zh": "螺旋坐标系",
                 "en": "Helix"
             },
-            "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*pohxT40PSroAAAAAAAAAAAAADmJ7AQ/original"
+            "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dLT0TpvlFd4AAAAAAAAAAAAADmJ7AQ/fmt.webp"
+        },
+        {
+            "filename": "helix-gene.ts",
+            "title": {
+                "zh": "基因螺旋图",
+                "en": "Gene helix"
+            },
+            "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*oTCKSYpIWBwAAAAAAAAAAAAADmJ7AQ/fmt.webp"
         }
     ]
 }
