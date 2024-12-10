@@ -226,6 +226,7 @@ export { mockPointLogTicks } from './mock-point-log-ticks';
 export { alphabetIntervalLabelRotate } from './alphabet-interval-label-rotate';
 export { aaplLineBasicTranspose } from './aapl-line-basic-transpose';
 export { alphabetIntervalSortXDomain } from './alphabet-interval-sort-x-domain';
+export { alphabetLineSortX } from './alphabet-line-sort-x';
 export { basicIntervalZeroDomainMin } from './basic-interval-zero-domain-min';
 export { aaplLineAxisYHide } from './aapl-line-axis-y-hide';
 export { alphabetIntervalAutoPadding } from './alphabet-interval-auto-padding';
