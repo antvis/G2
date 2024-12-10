@@ -872,6 +872,7 @@ export function seriesTooltip(
         ...event,
         nativeEvent: true,
         data: {
+          ...tooltipData,
           data: { x: invert(scale.x, transformedX, true) },
         },
       });
@@ -1095,6 +1096,7 @@ export function tooltip(
         ...event,
         nativeEvent: true,
         data: {
+          ...data,
           data: dataOf(element, view),
         },
       });
