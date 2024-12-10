@@ -352,3 +352,5 @@ export { mockIntervalLegendMarker } from './mock-interval-legend-marker';
 export { energySankeyViewCustomTooltip } from './energy-sankey-view-custom-tooltip';
 export { alphabetIntervalColumnWidthRatio } from './alphabet-interval-column-width-ratio';
 export { stackPointCoincide } from './stack-point-coincide';
+export { helixBasic } from './helix-basic';
+export { helixGene } from './helix-gene';

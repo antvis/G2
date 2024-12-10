@@ -8,6 +8,7 @@ import {
   Theta,
   Radial,
   Radar,
+  Helix,
 } from '../../../src/coordinate';
 import { Constant, Field, Transform, Column } from '../../../src/encode';
 import {
@@ -235,6 +236,7 @@ describe('stdlib', () => {
       'coordinate.radar': Radar,
       'coordinate.fisheye': Fisheye,
       'coordinate.radial': Radial,
+      'coordinate.helix': Helix,
       'encode.constant': Constant,
       'encode.field': Field,
       'encode.transform': Transform,
