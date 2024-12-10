@@ -1,3 +1,17 @@
+## [5.2.10](https://github.com/antvis/g2/compare/5.2.9...5.2.10) (2024-12-10)
+
+
+### Bug Fixes
+
+* site dev error & lodash ghost dependency ([#6543](https://github.com/antvis/g2/issues/6543)) ([71fd89d](https://github.com/antvis/g2/commit/71fd89dc4325ea81035cec656654b3c1932b8296))
+
+
+### Features
+
+* add tooltip data to tooltip event callback ([#6529](https://github.com/antvis/g2/issues/6529)) ([c04318f](https://github.com/antvis/g2/commit/c04318f6e4f2ea1064305ac44618b2087e297788))
+
+
+
 ## [5.2.9](https://github.com/antvis/g2/compare/5.2.8...5.2.9) (2024-12-06)
 
 
