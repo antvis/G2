@@ -9,9 +9,11 @@ order: 4
 
 When using AntV G2 to render charts, manually setting the `padding` can cause the chart title to not render properly or disappear entirely.
 
+Related issue: [Title is not displayed after setting](https://github.com/antvis/G2/issues/6549)
+
 ### Cause Analysis
 
-When manually setting `padding`, it overrides G2's automatic layout system. G2 dynamically calculates the space required for all components by default, but once a fixed `padding` value is specified, this automatic adjustment logic is skipped, which may lead to incomplete rendering of the components.
+G2 dynamically calculates the space required for all components by default, but once a fixed `padding` value is specified, this automatic adjustment logic is skipped, which may lead to incomplete rendering of the components.
 
 ### Solutions
 
