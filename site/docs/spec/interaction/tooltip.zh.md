@@ -58,8 +58,8 @@ chart.render();
 | render                     | 自定义 tooltip 渲染函数                                           | `(event, options) => HTMLElement \| string` | -                     |
 | sort                       | item 排序器                                                       | `(d: TooltipItemValue) => any`              | -                     |
 | filter                     | item 筛选器                                                       | `(d: TooltipItemValue) => any`              | -                     |
-| disableNative              | 是否响应原生事件（pointerover 和 pointerout）                     | true                                        | `boolean`             |
-| css                        | 设置容器的 [css](/examples/component/tooltip/#tooltip-style) 样式 | -                                           | `Record<string, any>` |
+| disableNative              | 是否响应原生事件（pointerover 和 pointerout）                     | `boolean`                                       | true              |
+| css                        | 设置容器的 [css](/examples/component/tooltip/#tooltip-style) 样式 | `Record<string, any>`                                           | - |
 
 ```ts
 type TooltipPosition =
