@@ -39,13 +39,36 @@ function defineObjectProp(
   { key: k = name }: NodePropertyDescriptor,
 ) {
   Node.prototype[name] = function (key, value) {
-    if (arguments.length === 0) return this.attr(k);
-    if (arguments.length === 1 && typeof key !== 'string') {
-      return this.attr(k, key);
+    const currentObj = this.attr(k) || {};
+
+    switch (arguments.length) {
+      case 0:
+        return this.attr(k);
+
+      case 1:
+        if (key === null || key === undefined) {
+          return this.attr(k, key);
+        }
+
+        if (typeof key === 'object') {
+          Object.assign(currentObj, key);
+          return this.attr(k, currentObj);
+        }
+
+        if (typeof key !== 'string') {
+          return this.attr(k, key);
+        }
+
+        currentObj[key] = true;
+        return this.attr(k, currentObj);
+
+      case 2:
+        currentObj[key] = value;
+        return this.attr(k, currentObj);
+
+      default:
+        throw new Error('Invalid number of arguments');
     }
-    const obj = this.attr(k) || {};
-    obj[key] = arguments.length === 1 ? true : value;
-    return this.attr(k, obj);
   };
 }
 
