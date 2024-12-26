@@ -107,7 +107,7 @@ chart.render();
 
 ### `timingKeyFrame.connector`
 
-添加 connector 图形，具体见 [mark](/spec/mark/connector)。
+添加 connector 图形。
 
 ### `timingKeyFrame.sankey`
 
@@ -123,7 +123,7 @@ chart.render();
 
 ### `timingKeyFrame.shape`
 
-添加 shape 图形，具体见 [mark](/spec/mark/shape)。
+添加自定义图形，具体见 [mark](/spec/mark/shape)。
 
 ### `timingKeyFrame.pack`
 
@@ -139,7 +139,7 @@ chart.render();
 
 ### `timingKeyFrame.wordCloud`
 
-添加 wordCloud 图形，具体见 [mark](/spec/mark/word-cloud)。
+添加 wordCloud 图形，具体见 [mark](/spec/mark/wordcloud)。
 
 ### `timingKeyFrame.gauge`
 

@@ -113,7 +113,7 @@ chart.render();
 
 <!-- 暂缺 -->
 
-添加 connector 图形，具体见 [mark](/spec/mark/connector)。
+添加 connector 图形。
 
 ### `chart.sankey`
 
@@ -137,7 +137,7 @@ chart.render();
 
 ### `chart.shape`
 
-添加 shape 图形，具体见 [mark](/spec/mark/shape)。
+添加自定义图形，具体见 [mark](/spec/mark/shape)。
 
 ### `chart.pack`
 
@@ -153,7 +153,7 @@ chart.render();
 
 ### `chart.wordCloud`
 
-添加 wordCloud 图形，具体见 [mark](/spec/mark/word-cloud)。
+添加 wordCloud 图形，具体见 [mark](/spec/mark/wordcloud)。
 
 ### `chart.gauge`
 
@@ -211,15 +211,15 @@ chart.render();
 
 ### `chart.width`
 
-设置或获取图表的 width。
+设置或获取图表的宽度。
 
 ### `chart.height`
 
-设置或获取图表的 height。
+设置或获取图表的高度。
 
 ### `chart.title`
 
-设置或获取图表的 title。
+设置或获取图表的标题。
 
 ### `chart.options`
 
@@ -231,9 +231,7 @@ chart.render();
 
 ### `chart.encode`
 
-<!-- 暂缺 -->
-
-设置图形每个通道的字段名称，具体见 [encode](/api/encode/overview)。
+设置图形每个通道的字段名称，具体见 [encode](/manual/core/encode)。
 
 ### `chart.scale`
 
@@ -247,7 +245,7 @@ chart.render();
 
 ### `chart.tooltip`
 
-设置图形的 Tooltip，具体见 [tooltip](/spec/component/tooltip)。
+设置图形的提示，具体见 [tooltip](/spec/component/tooltip)。
 
 ### `chart.axis`
 
@@ -255,7 +253,7 @@ chart.render();
 
 ### `chart.slider`
 
-设置图形的坐标轴，具体见 [slider](/spec/component/slider)。
+设置图形的缩略轴，具体见 [slider](/spec/component/slider)。
 
 ### `chart.label`
 
@@ -269,13 +267,13 @@ chart.render();
 
 ### `chart.theme`
 
-设置图形的主题，具体见 [theme](/spec/theme/academy)。
+设置图形的主题，具体见 [theme](/spec/overview#theme)。
 
 ### `chart.labelTransform`
 
 <!-- 缺失 -->
 
-设置图形的 labelTransform，具体见 [label](/spec/label/overview)
+设置图形的 labelTransform，具体见 [label](/spec/label/overview)里的transform配置。
 
 ## 渲染图表
 
@@ -359,7 +357,7 @@ chart.render();
 
 ### `chart.off`
 
-写在 chart 上的监听事件。
+卸载 chart 上的监听事件。
 
 ### `chart.getNodesByType`
 
