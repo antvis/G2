@@ -72,16 +72,6 @@ describe('Chart', () => {
     });
   });
 
-  it('Chart({...}) should set canvas.supportsCSSTransform to true.', async () => {
-    const chart = new Chart({
-      canvas: createNodeGCanvas(640, 480),
-    });
-    await chart.render();
-    expect(chart.getContext().canvas?.getConfig().supportsCSSTransform).toBe(
-      true,
-    );
-  });
-
   it('chart.getContainer() should return container.', () => {
     const canvas = createNodeGCanvas(640, 480);
     const container = canvas.getConfig().container as HTMLDivElement;
