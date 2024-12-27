@@ -50,7 +50,7 @@ export default defineConfig({
     navs: [
       // 头部的菜单列表
       {
-        slug: 'docs/manual/introduction',
+        slug: 'docs/manual/introduction/what-is-g2',
         title: {
           zh: '文档',
           en: 'Docs',
