@@ -109,11 +109,11 @@ fetch('https://assets.antv.antgroup.com/g2/countries-50m.json')
 
 ### `geoView.connector`
 
-添加 connector 图形，具体见 [mark](/spec/mark/connector)。
+添加 connector 图形。
 
 ### `geoView.sankey`
 
-添加 sankey 图形，具体见 [mark](/spec/mark/sankey)。
+添加 sankey 图形，具体见 [graph](/spec/graph/sankey)。
 
 ### `geoView.treemap`
 
@@ -125,7 +125,7 @@ fetch('https://assets.antv.antgroup.com/g2/countries-50m.json')
 
 ### `geoView.shape`
 
-添加 shape 图形，具体见 [mark](/spec/mark/shape)。
+添加自定义图形，具体见 [mark](/spec/mark/shape)。
 
 ### `geoView.pack`
 
@@ -141,7 +141,7 @@ fetch('https://assets.antv.antgroup.com/g2/countries-50m.json')
 
 ### `geoView.wordCloud`
 
-添加 wordCloud 图形，具体见 [mark](/spec/mark/word-cloud)。
+添加 wordCloud 图形，具体见 [mark](/spec/mark/wordcloud)。
 
 ### `geoView.gauge`
 
@@ -159,7 +159,7 @@ fetch('https://assets.antv.antgroup.com/g2/countries-50m.json')
 
 ### `geoView.encode`
 
-设置图形每个通道的字段名称，具体见 [encode](/api/encode/overview)。
+设置图形每个通道的字段名称，具体见 [encode](/manual/core/encode)。
 
 ### `geoView.scale`
 
@@ -171,7 +171,7 @@ fetch('https://assets.antv.antgroup.com/g2/countries-50m.json')
 
 ### `geoView.tooltip`
 
-设置图形的 Tooltip，具体见 [tooltip](/spec/component/tooltip)。
+设置图形的提示，具体见 [tooltip](/spec/component/tooltip)。
 
 ### `geoView.axis`
 
@@ -187,4 +187,4 @@ fetch('https://assets.antv.antgroup.com/g2/countries-50m.json')
 
 ### `geoView.theme`
 
-设置图形的主题，具体见 [theme](/spec/theme/overview)。
+设置图形的主题，具体见 [theme](/spec/overview#theme)。

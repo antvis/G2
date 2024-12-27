@@ -114,7 +114,7 @@ chart.render();
 
 ### `view.connector`
 
-添加 connector 图形，具体见 [mark](/spec/mark/connector)。
+添加 connector 图形。
 
 ### `view.sankey`
 
@@ -138,7 +138,7 @@ chart.render();
 
 ### `view.shape`
 
-添加 shape 图形，具体见 [mark](/spec/mark/shape)。
+添加自定义图形，具体见 [mark](/spec/mark/shape)。
 
 ### `view.pack`
 
@@ -154,7 +154,7 @@ chart.render();
 
 ### `view.wordCloud`
 
-添加 wordCloud 图形，具体见 [mark](/spec/mark/word-cloud)。
+添加 wordCloud 图形，具体见 [mark](/spec/mark/wordcloud)。
 
 ### `view.gauge`
 
@@ -172,7 +172,7 @@ chart.render();
 
 ### `view.encode`
 
-设置图形每个通道的字段名称，具体见 [encode](/api/encode/overview)。
+设置图形每个通道的字段名称，具体见 [encode](/manual/core/encode)。
 
 ### `view.scale`
 
@@ -184,7 +184,7 @@ chart.render();
 
 ### `view.tooltip`
 
-设置图形的 Tooltip，具体见 [tooltip](/spec/component/tooltip)。
+设置图形的提示，具体见 [tooltip](/spec/component/tooltip)。
 
 ### `view.axis`
 
@@ -192,7 +192,7 @@ chart.render();
 
 ### `view.slider`
 
-设置图形的坐标轴，具体见 [slider](/spec/component/slider)。
+设置图形的缩略轴，具体见 [slider](/spec/component/slider)。
 
 ### `view.label`
 
@@ -204,7 +204,7 @@ chart.render();
 
 ### `view.theme`
 
-设置图形的主题，具体见 [theme](/spec/theme/overview)。
+设置图形的主题，具体见 [theme](/spec/overview#theme)。
 
 ## 获取实例
 

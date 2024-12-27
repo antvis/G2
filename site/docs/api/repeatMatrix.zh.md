@@ -107,7 +107,7 @@ chart.render();
 
 ### `repeatMatrix.connector`
 
-添加 connector 图形，具体见 [mark](/spec/mark/connector)。
+添加 connector 图形。
 
 ### `repeatMatrix.sankey`
 
@@ -123,7 +123,7 @@ chart.render();
 
 ### `repeatMatrix.shape`
 
-添加 shape 图形，具体见 [mark](/spec/mark/shape)。
+添加自定义图形，具体见 [mark](/spec/mark/shape)。
 
 ### `repeatMatrix.pack`
 
@@ -139,7 +139,7 @@ chart.render();
 
 ### `repeatMatrix.wordCloud`
 
-添加 wordCloud 图形，具体见 [mark](/spec/mark/word-cloud)。
+添加 wordCloud 图形，具体见 [mark](/spec/mark/wordcloud)。
 
 ### `repeatMatrix.gauge`
 
@@ -157,7 +157,7 @@ chart.render();
 
 ### `repeatMatrix.encode`
 
-设置图形每个通道的字段名称，具体见 [encode](/api/encode/overview)。
+设置图形每个通道的字段名称，具体见 [encode](/manual/core/encode)。
 
 ### `repeatMatrix.scale`
 
@@ -169,7 +169,7 @@ chart.render();
 
 ### `repeatMatrix.tooltip`
 
-设置图形的 Tooltip，具体见 [tooltip](/spec/component/tooltip)。
+设置图形的提示 [tooltip](/spec/component/tooltip)。
 
 ### `repeatMatrix.axis`
 
@@ -177,7 +177,7 @@ chart.render();
 
 ### `repeatMatrix.slider`
 
-设置图形的坐标轴，具体见 [slider](/spec/component/slider)。
+设置图形的缩略轴，具体见 [slider](/spec/component/slider)。
 
 ### `repeatMatrix.label`
 
@@ -189,4 +189,4 @@ chart.render();
 
 ### `repeatMatrix.theme`
 
-设置图形的主题，具体见 [theme](/spec/theme/overview)。
+设置图形的主题，具体见 [theme](/spec/overview#theme)。

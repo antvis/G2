@@ -112,7 +112,7 @@ chart.render();
 
 ### `facetCircle.connector`
 
-添加 connector 图形，具体见 [mark](/spec/mark/connector)。
+添加 connector 图形。
 
 ### `facetCircle.sankey`
 
@@ -128,7 +128,7 @@ chart.render();
 
 ### `facetCircle.shape`
 
-添加 shape 图形，具体见 [mark](/spec/mark/shape)。
+添加自定义图形，具体见 [mark](/spec/mark/shape)。
 
 ### `facetCircle.pack`
 
@@ -144,7 +144,7 @@ chart.render();
 
 ### `facetCircle.wordCloud`
 
-添加 wordCloud 图形，具体见 [mark](/spec/mark/word-cloud)。
+添加 wordCloud 图形，具体见 [mark](/spec/mark/wordcloud)。
 
 ### `facetCircle.gauge`
 
@@ -178,4 +178,4 @@ chart.render();
 
 ### `facetCircle.theme`
 
-设置图形的主题，具体见 [theme](/spec/theme/overview)。
+设置图形的主题，具体见 [theme](/spec/overview#theme)。

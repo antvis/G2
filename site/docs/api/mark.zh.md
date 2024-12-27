@@ -30,78 +30,78 @@ chart.render();
 
 ## Mark API
 
-### 设置属性
+## 设置属性
 
-#### `mark.attr`
+### `mark.attr`
 
 获取或设置图表的配置项。
 
-#### `mark.data`
+### `mark.data`
 
 设置图形的数据，支持多种数据来源和数据变换，具体见 [data](/spec/data/overview)。
 
-### `chart.changeData`
+### `mark.changeData`
 
 更改图形的数据并重新渲染图表。
 
-#### `mark.encode`
+### `mark.encode`
 
-设置图形每个通道的字段名称，具体见 [encode](/api/encode/overview)。
+设置图形每个通道的字段名称，具体见 [encode](/manual/core/encode)。
 
-#### `mark.scale`
+### `mark.scale`
 
 设置图形每个通道的比例尺，具体见 [scale](/spec/overview#scale)。
 
-#### `mark.label`
+### `mark.label`
 
 设置图形的标签，具体见 [label](/spec/label/overview)。
 
-#### `mark.style`
+### `mark.style`
 
 设置图形的样式，具体见 [style](/spec/common/style)。
 
-#### `mark.theme`
+### `mark.theme`
 
-设置图形的主题，具体见 [theme](/spec/theme/overview)。
+设置图形的主题，具体见 [theme](/spec/overview#theme)。
 
-#### `mark.animate`
+### `mark.animate`
 
-设置图形的动画，具体见 [style](/api/animate/overview)。
+设置图形的动画，具体见 [animation](/spec/animation/overview)。
 
-#### `mark.axis`
+### `mark.axis`
 
-设置图形的坐标轴 [style](/api/axis/overview)。
+设置图形的坐标轴，具体见 [axis](/spec/component/axis)。
 
-#### `mark.legend`
+### `mark.legend`
 
-设置图形的图例，具体见 [style](/api/legend/overview)。
+设置图形的图例，具体见 [legend](/spec/component/legend)。
 
-#### `mark.slider`
+### `mark.slider`
 
-设置图形的缩略轴，具体见 [style](/api/slider/overview)。
+设置图形的缩略轴，具体见 [slider](/spec/component/slider)。
 
-#### `mark.scrollbar`
+### `mark.scrollbar`
 
-设置图形的滚动条，具体见 [style](/api/scrollbar/overview)。
+设置图形的滚动条，具体见 [scrollbar](/spec/component/scrollbar)。
 
-#### `mark.state`
+### `mark.state`
 
-设置图形的状态样式，具体见 [style](/api/state/overview)。
+设置图形的状态样式，具体见 [state](/manual/core/state)。
 
-#### `mark.tooltip`
+### `mark.tooltip`
 
-设置图形的 Tooltip，具体见 [style](/api/tooltip/overview)。
+设置图形的提示，具体见 [tooltip](/spec/component/tooltip)。
 
-### 获取实例
+## 获取实例
 
-#### `chart.getGroup`
+### `mark.getGroup`
 
-返回 chart 渲染时的 canvas group 实例。
+返回 mark 渲染时的 canvas group 实例。
 
-#### `chart.getScale`
+### `mark.getScale`
 
-返回 chart 渲染时所有的 scale 实例。
+返回 mark 渲染时所有的 scale 实例。
 
-#### `chart.getScaleByChannel`
+### `mark.getScaleByChannel`
 
-通过通道名称查找返回 chart 渲染时对应的 scale 实例。
+通过通道名称查找返回 mark 渲染时对应的 scale 实例。

@@ -133,7 +133,7 @@ chart.render();
 
 ### `spaceFlex.connector`
 
-添加 connector 图形，具体见 [mark](/spec/mark/connector)。
+添加 connector 图形。
 
 ### `spaceFlex.sankey`
 
@@ -149,7 +149,7 @@ chart.render();
 
 ### `spaceFlex.shape`
 
-添加 shape 图形，具体见 [mark](/spec/mark/shape)。
+添加自定义图形，具体见 [mark](/spec/mark/shape)。
 
 ### `spaceFlex.pack`
 
@@ -165,7 +165,7 @@ chart.render();
 
 ### `spaceFlex.wordCloud`
 
-添加 wordCloud 图形，具体见 [mark](/spec/mark/word-cloud)。
+添加 wordCloud 图形，具体见 [mark](/spec/mark/wordcloud)。
 
 ### `spaceFlex.gauge`
 
