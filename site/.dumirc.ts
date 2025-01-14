@@ -37,6 +37,7 @@ export default defineConfig({
     showSpecTab: true, // 是否展示 Spec 页面
     es5: false, // 案例代码是否编译到 es5
     petercat: {
+      // 官网接入petercat
       show: true,
       token: '26c62f06-1155-4b2c-8f4b-aa443d4af2c6',
     },
