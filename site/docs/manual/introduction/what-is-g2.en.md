@@ -34,7 +34,7 @@ In the documentation on the G2 official website, specific code blocks will mount
 })();
 ```
 
-This is the syntax for a specific operating environment on the G2 official website. Please refer to G2 when using it in actual projects.[start using](/manual/introduction/getting-started)。
+This is the syntax for a specific operating environment on the G2 official website. Please refer to G2 when using it in actual projects.[Get Started](/manual/quick-start)。
 :::
 
 ## Mark
@@ -291,4 +291,4 @@ Interactions can explore data on demand.
 
 ## More capabilities
 
-Because G2's tags can be combined, it also provides **composite mark** mechanism to extend G2, so you can basically draw any visualization quickly. exist[Case page](/examples)You can get more inspiration by[Options page](/spec/overview)Get a comprehensive look at what G2 is capable of.
+Because G2's marks are composable and provide a mechanism for creating composite marks to extend G2, you can quickly create virtually any visualization. On the [Case page](/examples), you can find more inspiration, and the documentation offers a comprehensive understanding of G2's capabilities.  

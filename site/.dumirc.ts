@@ -118,7 +118,7 @@ export default defineConfig({
           zh: '简介',
           en: 'Introduction',
         },
-        order: 1,
+        order: 2,
       },
       {
         slug: 'manual/core',
@@ -126,7 +126,95 @@ export default defineConfig({
           zh: '核心概念',
           en: 'Core Concepts',
         },
+        order: 3,
+      },
+      {
+        slug: 'manual/core/mark',
+        title: {
+          zh: '标记（Mark）',
+          en: 'Mark',
+        },
         order: 2,
+      },
+      {
+        slug: 'manual/core/data',
+        title: {
+          zh: '数据（Data）',
+          en: 'Data',
+        },
+        order: 2,
+      },
+      {
+        slug: 'manual/core/scale',
+        title: {
+          zh: '比例尺（Scale）',
+          en: 'Scale',
+        },
+        order: 2,
+      },
+      {
+        slug: 'manual/core/transform',
+        title: {
+          zh: '转换（Transform）',
+          en: 'Transform',
+        },
+        order: 2,
+      },
+      {
+        slug: 'manual/core/coordinate',
+        title: {
+          zh: '坐标系（Coordinate）',
+          en: 'Coordinate',
+        },
+        order: 2,
+      },
+      {
+        slug: 'manual/core/animate',
+        title: {
+          zh: '动画（Animate）',
+          en: 'Animate',
+        },
+        order: 2,
+      },
+      {
+        slug: 'manual/core/label',
+        title: {
+          zh: '数据标签（Label）',
+          en: 'Label',
+        },
+        order: 2,
+      },
+      {
+        slug: 'manual/core/interaction',
+        title: {
+          zh: '交互（Interaction）',
+          en: 'Interaction',
+        },
+        order: 2,
+      },
+      {
+        slug: 'manual/core/composition',
+        title: {
+          zh: '复合（Composition）',
+          en: 'Composition',
+        },
+        order: 2,
+      },
+      {
+        slug: 'manual/core/theme',
+        title: {
+          zh: '主题（Theme）',
+          en: 'Theme',
+        },
+        order: 2,
+      },
+      {
+        slug: 'manual/component',
+        title: {
+          zh: '图表组件',
+          en: 'Chart Component',
+        },
+        order: 4,
       },
       {
         slug: 'manual/extra-topics',
@@ -134,7 +222,39 @@ export default defineConfig({
           zh: '进阶主题',
           en: 'Extra Topics',
         },
-        order: 3,
+        order: 5,
+      },
+      {
+        slug: 'manual/extra-topics/graph',
+        title: {
+          zh: '关系图（Graph）',
+          en: 'Graph',
+        },
+        order: 5,
+      },
+      {
+        slug: 'manual/extra-topics/geo',
+        title: {
+          zh: '地图（Geo）',
+          en: 'Geo',
+        },
+        order: 5,
+      },
+      {
+        slug: 'manual/extra-topics/three-dimensional',
+        title: {
+          zh: '3D 图表（3D）',
+          en: '3D',
+        },
+        order: 5,
+      },
+      {
+        slug: 'manual/extra-topics/plugin',
+        title: {
+          zh: '插件扩展（Plugin）',
+          en: 'Plugin',
+        },
+        order: 5,
       },
       // docs
       {
