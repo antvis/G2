@@ -1,5 +1,5 @@
 import { DisplayObject } from '@antv/g';
-import { group } from 'd3-array';
+import { group } from '@antv/vendor/d3-array';
 import { deepMix } from '@antv/util';
 import { subObject } from '../utils/helper';
 import {

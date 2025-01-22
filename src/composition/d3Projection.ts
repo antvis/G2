@@ -30,4 +30,4 @@ export {
   geoStereographicRaw,
   geoTransverseMercator,
   geoTransverseMercatorRaw,
-} from 'd3-geo';
+} from '@antv/vendor/d3-geo';

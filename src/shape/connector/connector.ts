@@ -2,7 +2,7 @@ import { Coordinate } from '@antv/coord';
 import type { PathArray } from '@antv/util';
 import { PathStyleProps, Path } from '@antv/g';
 import { Marker } from '@antv/component';
-import { line as d3line } from 'd3-shape';
+import { line as d3line } from '@antv/vendor/d3-shape';
 import { ShapeComponent as SC, Vector2, WithPrefix } from '../../runtime';
 import { isTranspose } from '../../utils/coordinate';
 import { subObject } from '../../utils/helper';

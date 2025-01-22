@@ -1,8 +1,8 @@
 import { Coordinate } from '@antv/coord';
 import { Linear } from '@antv/scale';
 import { isNumber, lowerFirst } from '@antv/util';
-import { extent } from 'd3-array';
-import { Path as D3Path } from 'd3-path';
+import { extent } from '@antv/vendor/d3-array';
+import { Path as D3Path } from '@antv/vendor/d3-path';
 import { Primitive, Vector2, Vector3 } from '../runtime';
 import { indexOf } from '../utils/array';
 import { isPolar, isTranspose } from '../utils/coordinate';

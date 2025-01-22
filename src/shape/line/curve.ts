@@ -1,4 +1,9 @@
-import { line, lineRadial, CurveFactory, CurveFactoryLineOnly } from 'd3-shape';
+import {
+  line,
+  lineRadial,
+  CurveFactory,
+  CurveFactoryLineOnly,
+} from '@antv/vendor/d3-shape';
 import { Vector2 } from '@antv/coord';
 import { isPolar, isTranspose } from '../../utils/coordinate';
 import { select } from '../../utils/selection';

@@ -1,4 +1,9 @@
-import { min as d3Min, max as d3Max, quantile, group } from 'd3-array';
+import {
+  min as d3Min,
+  max as d3Max,
+  quantile,
+  group,
+} from '@antv/vendor/d3-array';
 import { CompositeMarkComponent as CC } from '../runtime';
 import { BoxPlotMark } from '../spec';
 import { subObject } from '../utils/helper';

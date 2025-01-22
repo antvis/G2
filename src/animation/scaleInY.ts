@@ -1,4 +1,4 @@
-import { arc } from 'd3-shape';
+import { arc } from '@antv/vendor/d3-shape';
 import {
   Path,
   convertToPath,

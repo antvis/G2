@@ -1,6 +1,6 @@
 import { Linear, createInterpolateValue } from '@antv/scale';
-import { extent, max, rollups } from 'd3-array';
-import * as d3ScaleChromatic from 'd3-scale-chromatic';
+import { extent, max, rollups } from '@antv/vendor/d3-array';
+import * as d3ScaleChromatic from '@antv/vendor/d3-scale-chromatic';
 import { deepMix, omit, upperFirst } from '@antv/util';
 import { firstOf, lastOf, unique } from '../utils/array';
 import { defined, identity, isStrictObject } from '../utils/helper';

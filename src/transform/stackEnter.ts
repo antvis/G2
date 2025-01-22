@@ -1,5 +1,5 @@
 import { deepMix } from '@antv/util';
-import { group, max } from 'd3-array';
+import { group, max } from '@antv/vendor/d3-array';
 import { TransformComponent as TC } from '../runtime';
 import { StackEnterTransform } from '../spec';
 import {

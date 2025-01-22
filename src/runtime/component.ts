@@ -3,7 +3,7 @@
  */
 import { Coordinate } from '@antv/coord';
 import { deepMix, isEqual } from '@antv/util';
-import { groups, max, sum } from 'd3-array';
+import { groups, max, sum } from '@antv/vendor/d3-array';
 import { format } from 'd3-format';
 import { DisplayObject, Text } from '@antv/g';
 import {

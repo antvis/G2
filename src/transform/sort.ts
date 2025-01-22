@@ -8,7 +8,7 @@ import {
   mean,
   median,
   sort,
-} from 'd3-array';
+} from '@antv/vendor/d3-array';
 import { G2Mark, TransformComponent as TC } from '../runtime';
 import { columnOf } from './utils/helper';
 

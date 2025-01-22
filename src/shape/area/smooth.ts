@@ -2,7 +2,7 @@ import {
   curveCatmullRomClosed,
   curveMonotoneX,
   curveMonotoneY,
-} from 'd3-shape';
+} from '@antv/vendor/d3-shape';
 import { isPolar, isTranspose } from '../../utils/coordinate';
 import { ShapeComponent as SC } from '../../runtime';
 import { Curve } from './curve';

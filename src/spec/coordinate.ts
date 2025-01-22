@@ -77,7 +77,7 @@ export type ParallelCoordinate = BaseCoordinate<{
 
 export type GeoCoordinate = BaseCoordinate<{
   type: string;
-  [key: string]: any; // @todo d3-geo types
+  [key: string]: any; // @todo @antv/vendor/d3-geo types
 }>;
 
 export type CustomCoordinate = BaseCoordinate<{

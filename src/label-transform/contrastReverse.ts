@@ -1,5 +1,5 @@
 import { DisplayObject } from '@antv/g';
-import { maxIndex } from 'd3-array';
+import { maxIndex } from '@antv/vendor/d3-array';
 import { ContrastReverseLabelTransform } from '../spec';
 import { LabelTransformComponent as LLC } from '../runtime';
 import { parseToRGB } from '../utils/color';

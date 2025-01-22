@@ -1,5 +1,5 @@
 import { deepMix } from '@antv/util';
-import { extent, group, max } from 'd3-array';
+import { extent, group, max } from '@antv/vendor/d3-array';
 import {
   CompositionComponent as CC,
   G2MarkChildrenCallback,

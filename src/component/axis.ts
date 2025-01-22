@@ -3,7 +3,7 @@ import type { DisplayObject } from '@antv/g';
 import { Axis as AxisComponent } from '@antv/component';
 import { Linear as LinearScale } from '@antv/scale';
 import { deepMix, omit, upperFirst } from '@antv/util';
-import { extent } from 'd3-array';
+import { extent } from '@antv/vendor/d3-array';
 import { format } from 'd3-format';
 import {
   BBox,

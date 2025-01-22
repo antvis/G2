@@ -1,4 +1,4 @@
-import { maxIndex, minIndex } from 'd3-array';
+import { maxIndex, minIndex } from '@antv/vendor/d3-array';
 import { TransformComponent as TC } from '../runtime';
 import { SelectTransform, Selector } from '../spec';
 import { columnOf } from './utils/helper';

@@ -1,4 +1,4 @@
-import { group, ascending, maxIndex, Primitive } from 'd3-array';
+import { group, ascending, maxIndex, Primitive } from '@antv/vendor/d3-array';
 import { defined } from '../../utils/helper';
 import { TabularData, G2Mark } from '../../runtime';
 import { indexOf } from '../../utils/array';

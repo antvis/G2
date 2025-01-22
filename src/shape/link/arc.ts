@@ -1,4 +1,4 @@
-import { path as d3path } from 'd3-path';
+import { path as d3path } from '@antv/vendor/d3-path';
 import { appendArc, applyStyle } from '../utils';
 import { select } from '../../utils/selection';
 import { isPolar } from '../../utils/coordinate';

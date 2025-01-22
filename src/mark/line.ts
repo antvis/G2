@@ -1,5 +1,5 @@
 import { Vector } from '@antv/coord';
-import { group } from 'd3-array';
+import { group } from '@antv/vendor/d3-array';
 import { isParallel } from '../utils/coordinate';
 import { Mark, MarkComponent as MC, SingleMark, Vector2 } from '../runtime';
 import { LineMark } from '../spec';

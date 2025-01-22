@@ -1,4 +1,4 @@
-import { sum, max, min } from 'd3-array';
+import { sum, max, min } from '@antv/vendor/d3-array';
 import { justify } from './align';
 import { constant } from './constant';
 

@@ -8,7 +8,7 @@ import {
   bisectCenter,
   bisector,
   group,
-} from 'd3-array';
+} from '@antv/vendor/d3-array';
 import { G2Element } from 'utils/selection';
 import { subObject } from '../utils/helper';
 import {

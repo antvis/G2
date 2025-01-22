@@ -1,5 +1,5 @@
 import { Coordinate } from '@antv/coord';
-import { path as d3path } from 'd3-path';
+import { path as d3path } from '@antv/vendor/d3-path';
 import { isPolar } from '../../utils/coordinate';
 import { applyStyle, appendPolygon, appendArc } from '../utils';
 import { select } from '../../utils/selection';

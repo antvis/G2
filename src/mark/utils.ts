@@ -1,5 +1,5 @@
 import { Band } from '@antv/scale';
-import { Primitive } from 'd3-array';
+import { Primitive } from '@antv/vendor/d3-array';
 import { Vector2 } from '@antv/coord';
 import { Scale } from '../runtime/types/component';
 import { Channel } from '../runtime';

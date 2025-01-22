@@ -76,6 +76,7 @@
     "@antv/g-plugin-dragndrop": "^2.0.22",
     "@antv/scale": "^0.4.16",
     "@antv/util": "^3.3.10",
+    "@antv/vendor": "1.0.2",
     "d3-array": "^3.2.4",
     "d3-dsv": "^3.0.1",
     "d3-force": "^3.0.0",

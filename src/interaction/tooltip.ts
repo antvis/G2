@@ -1,5 +1,5 @@
 import { Circle, DisplayObject, IElement, Line } from '@antv/g';
-import { sort, group, mean, bisector, minIndex } from 'd3-array';
+import { sort, group, mean, bisector, minIndex } from '@antv/vendor/d3-array';
 import { deepMix, lowerFirst, throttle } from '@antv/util';
 import { Tooltip as TooltipComponent } from '@antv/component';
 import { Constant, Band } from '@antv/scale';

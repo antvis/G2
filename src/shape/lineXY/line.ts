@@ -1,6 +1,6 @@
 import { IDocument } from '@antv/g';
 import { Coordinate } from '@antv/coord';
-import { arc, line } from 'd3-shape';
+import { arc, line } from '@antv/vendor/d3-shape';
 import { isPolar } from '../../utils/coordinate';
 import { select } from '../../utils/selection';
 import { dist } from '../../utils/vector';
