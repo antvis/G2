@@ -1,5 +1,9 @@
 import { deepMix, isArray } from '@antv/util';
-import { stratify, hierarchy, pack as packLayout } from 'd3-hierarchy';
+import {
+  stratify,
+  hierarchy,
+  pack as packLayout,
+} from '@antv/vendor/d3-hierarchy';
 import { CompositionComponent as CC } from '../runtime';
 import { subObject } from '../utils/helper';
 import { PackMark } from '../spec';

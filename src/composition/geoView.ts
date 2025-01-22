@@ -66,7 +66,7 @@ function normalizeGeoJSON(gj) {
 
 /**
  * Specify the options for d3 projection
- * @see https://github.com/d3/@antv/vendor/d3-geo#projections
+ * @see https://github.com/d3/d3-geo#projections
  * @todo Specify key each by each.
  */
 function setProjectionOptions(projection, options) {
