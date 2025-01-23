@@ -1,4 +1,4 @@
-import { schemeTableau10 } from 'd3-scale-chromatic';
+import { schemeTableau10 } from '@antv/vendor/d3-scale-chromatic';
 import { CustomEvent, DisplayObject } from '@antv/g';
 import { G2Spec, PLOT_CLASS_NAME } from '../../../src';
 

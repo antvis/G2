@@ -1,4 +1,4 @@
-import { arc } from 'd3-shape';
+import { arc } from '@antv/vendor/d3-shape';
 import { CSS, PropertySyntax } from '@antv/g';
 import { G2Element } from '../utils/selection';
 import { AnimationComponent as AC } from '../runtime';

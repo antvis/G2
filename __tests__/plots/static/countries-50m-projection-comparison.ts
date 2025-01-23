@@ -1,5 +1,9 @@
 import { feature } from 'topojson';
-import { geoPolyconic, geoRectangularPolyconic } from 'd3-geo-projection';
+import {
+  geoPolyconic,
+  geoRectangularPolyconic,
+  // @ts-ignore
+} from '@antv/vendor/d3-geo-projection';
 import { G2Spec } from '../../../src';
 
 export async function countries50mProjectionComparison(): Promise<G2Spec> {

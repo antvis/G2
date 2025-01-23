@@ -1,5 +1,5 @@
-import { csv } from 'd3-fetch';
-import { autoType } from 'd3-dsv';
+import { csv } from '@antv/vendor/d3-fetch';
+import { autoType } from '@antv/vendor/d3-dsv';
 import { G2Spec } from '../../../src';
 
 export async function energySankeyCustomTooltip(): Promise<G2Spec> {

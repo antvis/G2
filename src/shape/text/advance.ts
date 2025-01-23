@@ -9,7 +9,7 @@ import {
 } from '@antv/g';
 import { isNumber } from '@antv/util';
 import { Marker } from '@antv/component';
-import { line } from 'd3-shape';
+import { line } from '@antv/vendor/d3-shape';
 import { WithPrefix } from '../../runtime';
 import { createElement } from '../../utils/createElement';
 import { applyStyle } from '../utils';

@@ -5,7 +5,7 @@ import {
   sum as d3Sum,
   min as d3Min,
   median as d3Median,
-} from 'd3-array';
+} from '@antv/vendor/d3-array';
 import { TransformComponent as TC, Primitive, G2Mark } from '../runtime';
 import { GroupTransform, Reducer } from '../spec';
 import { indexOf } from '../utils/array';

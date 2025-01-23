@@ -1,5 +1,5 @@
 import { Coordinate, Vector2 } from '@antv/coord';
-import { Primitive } from 'd3-array';
+import { Primitive } from '@antv/vendor/d3-array';
 import { Channel } from './common';
 import { Scale } from './component';
 import { TransformSpec } from './transform';

@@ -1,4 +1,4 @@
-import { tree } from 'd3-hierarchy';
+import { tree } from '@antv/vendor/d3-hierarchy';
 import { DataComponent as DC } from '../runtime';
 import { hierarchyFunction } from './cluster';
 

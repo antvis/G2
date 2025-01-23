@@ -1,4 +1,4 @@
-import { area, areaRadial, CurveFactory } from 'd3-shape';
+import { area, areaRadial, CurveFactory } from '@antv/vendor/d3-shape';
 import { select } from '../../utils/selection';
 import { isPolar, isTranspose } from '../../utils/coordinate';
 import { Vector2, ShapeComponent as SC } from '../../runtime';

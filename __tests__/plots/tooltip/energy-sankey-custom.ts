@@ -1,11 +1,11 @@
-import { csv } from 'd3-fetch';
-import { autoType } from 'd3-dsv';
-import { schemeTableau10 } from 'd3-scale-chromatic';
+import { csv } from '@antv/vendor/d3-fetch';
+import { autoType } from '@antv/vendor/d3-dsv';
+import { schemeTableau10 } from '@antv/vendor/d3-scale-chromatic';
 import { G2Spec } from '../../../src';
 import { tooltipSteps } from './utils';
 
 export async function energySankeyCustom(): Promise<G2Spec> {
-  const links = await csv('data/energy.csv', autoType);
+  const links = await csv<any>('data/energy.csv', autoType);
 
   const mockData = () => {
     const LS = links.map((d) => d.source);

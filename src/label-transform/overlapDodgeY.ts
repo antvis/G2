@@ -1,5 +1,5 @@
 import { DisplayObject } from '@antv/g';
-import { ascending } from 'd3-array';
+import { ascending } from '@antv/vendor/d3-array';
 import { OverlapDodgeYLabelTransform } from '../spec';
 import { LabelTransformComponent as LLC } from '../runtime';
 

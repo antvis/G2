@@ -1,4 +1,4 @@
-import { bisectLeft, sort } from 'd3-array';
+import { bisectLeft, sort } from '@antv/vendor/d3-array';
 
 function constrain(x, lo, hi) {
   return Math.min(hi, Math.max(lo, x));

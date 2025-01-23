@@ -1,13 +1,13 @@
-import { csv } from 'd3-fetch';
+import { csv } from '@antv/vendor/d3-fetch';
 import { feature, mesh } from 'topojson';
-import { autoType } from 'd3-dsv';
+import { autoType } from '@antv/vendor/d3-dsv';
 import { G2Spec } from '../../../src';
 
 export async function haleChoroplethWorld(): Promise<G2Spec> {
   const world = await fetch('data/countries-50m.json').then((res) =>
     res.json(),
   );
-  const hale = (await csv('data/hale.csv', autoType)).map((d) => ({
+  const hale = (await csv<any>('data/hale.csv', autoType)).map((d) => ({
     ...d,
     hale: Number.isNaN(d.hale) ? d.hale : d.hale,
   }));

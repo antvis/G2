@@ -1,6 +1,6 @@
-import { csv } from 'd3-fetch';
+import { csv } from '@antv/vendor/d3-fetch';
 import { feature } from 'topojson';
-import { autoType } from 'd3-dsv';
+import { autoType } from '@antv/vendor/d3-dsv';
 import { G2Spec } from '../../../src';
 
 export async function airportsPointChoropleth(): Promise<G2Spec> {

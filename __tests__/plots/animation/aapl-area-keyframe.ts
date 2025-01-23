@@ -1,9 +1,9 @@
-import { csv } from 'd3-fetch';
-import { autoType } from 'd3-dsv';
+import { csv } from '@antv/vendor/d3-fetch';
+import { autoType } from '@antv/vendor/d3-dsv';
 import { G2Spec } from '../../../src';
 
 export async function aaplAreaKeyframe(): Promise<G2Spec> {
-  const data = await csv('data/aapl.csv', autoType);
+  const data = await csv<any>('data/aapl.csv', autoType);
   const missing = data.map((d) => ({
     ...d,
     close: d.date.getUTCMonth() <= 3 ? NaN : d.close,
@@ -24,6 +24,7 @@ export async function aaplAreaKeyframe(): Promise<G2Spec> {
       connectFillOpacity: 0.15,
     },
   };
+  // @ts-ignore
   return {
     type: 'timingKeyframe',
     width: 800,

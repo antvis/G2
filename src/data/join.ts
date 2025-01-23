@@ -1,4 +1,4 @@
-import { rollup } from 'd3-array';
+import { rollup } from '@antv/vendor/d3-array';
 import { DataComponent as DC } from '../runtime';
 import { JoinTransform } from '../spec';
 

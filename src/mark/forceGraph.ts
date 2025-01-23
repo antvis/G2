@@ -5,7 +5,7 @@ import {
   forceX,
   forceY,
   forceCenter,
-} from 'd3-force';
+} from '@antv/vendor/d3-force';
 import { deepMix } from '@antv/util';
 import { subObject } from '../utils/helper';
 import { CompositeMarkComponent as CC } from '../runtime';

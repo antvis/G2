@@ -1,6 +1,6 @@
-import { Primitive } from 'd3-array';
+import { Primitive } from '@antv/vendor/d3-array';
 import { deepMix, isNumber } from '@antv/util';
-import { format } from 'd3-format';
+import { format } from '@antv/vendor/d3-format';
 import { indexOf, mapObject } from '../utils/array';
 import {
   composeAsync,

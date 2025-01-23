@@ -1,4 +1,4 @@
-import { randomUniform, randomLcg } from 'd3-random';
+import { randomUniform, randomLcg } from '@antv/vendor/d3-random';
 import { G2Spec } from '../../../src';
 
 export function philosophyWordCloudImage(): G2Spec {

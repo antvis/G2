@@ -1,4 +1,4 @@
-import { dsvFormat, autoType as d3AutoType } from 'd3-dsv';
+import { dsvFormat, autoType as d3AutoType } from '@antv/vendor/d3-dsv';
 import { FetchConnector } from '../spec';
 import { DataComponent as DC } from '../runtime';
 import { identity } from '../utils/helper';

@@ -1,6 +1,6 @@
 import { Linear } from '@antv/scale';
 import { upperFirst } from '@antv/util';
-import { geoPath, geoGraticule10 } from 'd3-geo';
+import { geoPath, geoGraticule10 } from '@antv/vendor/d3-geo';
 import { maybeTooltip } from '../utils/mark';
 import { CompositionComponent as CC } from '../runtime';
 import { GeoViewComposition } from '../spec';

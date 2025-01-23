@@ -1,4 +1,9 @@
-import { bin as d3Bin, group, thresholdScott, extent } from 'd3-array';
+import {
+  bin as d3Bin,
+  group,
+  thresholdScott,
+  extent,
+} from '@antv/vendor/d3-array';
 import { defined, subObject } from '../utils/helper';
 import { TransformComponent as TC } from '../runtime';
 import { BinTransform } from '../spec';

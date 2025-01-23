@@ -1,4 +1,4 @@
-import { curveStep } from 'd3-shape';
+import { curveStep } from '@antv/vendor/d3-shape';
 import { ShapeComponent as SC } from '../../runtime';
 import { Curve } from './curve';
 

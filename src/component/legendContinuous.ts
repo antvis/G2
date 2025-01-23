@@ -1,7 +1,7 @@
 import { DisplayObject, parseColor } from '@antv/g';
 import { Continuous } from '@antv/component';
 import { Constant, Quantile, Quantize, Threshold } from '@antv/scale';
-import { format } from 'd3-format';
+import { format } from '@antv/vendor/d3-format';
 import type {
   FlexLayout,
   G2Theme,

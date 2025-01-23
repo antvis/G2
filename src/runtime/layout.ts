@@ -1,5 +1,5 @@
 import { Coordinate } from '@antv/coord';
-import { ascending, group, max, min, sum } from 'd3-array';
+import { ascending, group, max, min, sum } from '@antv/vendor/d3-array';
 import { deepMix } from '@antv/util';
 import { isParallel, isPolar, isRadar, radiusOf } from '../utils/coordinate';
 import { capitalizeFirst, defined } from '../utils/helper';

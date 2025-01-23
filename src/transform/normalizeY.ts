@@ -1,5 +1,5 @@
 import { deepMix } from '@antv/util';
-import { mean, deviation, median, sum, max, min } from 'd3-array';
+import { mean, deviation, median, sum, max, min } from '@antv/vendor/d3-array';
 import { isUnset } from '../utils/helper';
 import { TransformComponent as TC } from '../runtime';
 import { NormalizeYTransform } from '../spec';

@@ -1,4 +1,4 @@
-import { maxIndex } from 'd3-array';
+import { maxIndex } from '@antv/vendor/d3-array';
 import { Coordinate } from '@antv/coord';
 import { Vector2 } from '../../../runtime';
 import { sub, angle } from '../../../utils/vector';

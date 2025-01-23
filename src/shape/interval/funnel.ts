@@ -1,4 +1,4 @@
-import { line, curveLinearClosed } from 'd3-shape';
+import { line, curveLinearClosed } from '@antv/vendor/d3-shape';
 import { Coordinate } from '@antv/coord';
 import { isTranspose } from '../../utils/coordinate';
 import { ShapeComponent as SC, Vector2 } from '../../runtime';

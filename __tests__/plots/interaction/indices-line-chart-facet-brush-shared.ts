@@ -1,5 +1,5 @@
-import { csv } from 'd3-fetch';
-import { autoType } from 'd3-dsv';
+import { csv } from '@antv/vendor/d3-fetch';
+import { autoType } from '@antv/vendor/d3-dsv';
 import { G2Spec, PLOT_CLASS_NAME } from '../../../src';
 import { brush } from './penguins-point-brush';
 

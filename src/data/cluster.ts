@@ -1,4 +1,4 @@
-import { cluster, hierarchy } from 'd3-hierarchy';
+import { cluster, hierarchy } from '@antv/vendor/d3-hierarchy';
 import { DataComponent as DC } from '../runtime';
 
 export type ClusterOptions = Omit<Record<string, any>, 'type'>;

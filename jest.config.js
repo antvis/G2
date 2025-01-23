@@ -1,6 +1,6 @@
 // Installing third-party modules by tnpm or cnpm will name modules with underscore as prefix.
 // In this case _{module} is also necessary.
-const esm = ['internmap', 'd3-*', 'lodash-es', 'chroma-js']
+const esm = ['internmap', 'd3-*', 'lodash-es', 'chroma-js', '@antv/*']
   .map((d) => `_${d}|${d}`)
   .join('|');
 
@@ -21,5 +21,5 @@ module.exports = {
   collectCoverage: false,
   testRegex: '(/__tests__/.*\\.(test|spec))\\.(ts|tsx|js)$',
   // Transform esm to cjs.
-  transformIgnorePatterns: [`<rootDir>/node_modules/(?!(?:.pnpm/)?(${esm}))`]
+  transformIgnorePatterns: [`<rootDir>/node_modules/(?!(?:.pnpm/)?(${esm}))`],
 };

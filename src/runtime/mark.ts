@@ -1,4 +1,4 @@
-import { rollups } from 'd3-array';
+import { rollups } from '@antv/vendor/d3-array';
 import { defined } from '../utils/helper';
 import { useLibrary } from './library';
 import { G2MarkState } from './types/common';

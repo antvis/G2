@@ -1,4 +1,4 @@
-import { arc } from 'd3-shape';
+import { arc } from '@antv/vendor/d3-shape';
 import { Vector2, ShapeComponent as SC } from '../../runtime';
 import { isPolar, isHelix, isTranspose } from '../../utils/coordinate';
 import { select } from '../../utils/selection';

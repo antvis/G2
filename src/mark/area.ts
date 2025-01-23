@@ -1,4 +1,4 @@
-import { group } from 'd3-array';
+import { group } from '@antv/vendor/d3-array';
 import { MarkComponent as MC } from '../runtime';
 import { AreaMark } from '../spec';
 import { AreaShape, AreaHV, AreaHVH, AreaSmooth, AreaVH } from '../shape';

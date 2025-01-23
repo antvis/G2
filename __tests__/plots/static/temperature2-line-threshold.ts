@@ -1,6 +1,6 @@
-import { csv } from 'd3-fetch';
-import { autoType } from 'd3-dsv';
-import { median } from 'd3-array';
+import { csv } from '@antv/vendor/d3-fetch';
+import { autoType } from '@antv/vendor/d3-dsv';
+import { median } from '@antv/vendor/d3-array';
 import { G2Spec } from '../../../src';
 
 export async function temperature2LineThreshold(): Promise<G2Spec> {

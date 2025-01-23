@@ -1,5 +1,5 @@
 import pdf from 'pdfast';
-import { group } from 'd3-array';
+import { group } from '@antv/vendor/d3-array';
 import { DataComponent as DC } from '../runtime';
 import { KDEDataTransform } from '../spec';
 

@@ -1,5 +1,5 @@
 import { deepMix } from '@antv/util';
-import { rollups, sum, Primitive } from 'd3-array';
+import { rollups, sum, Primitive } from '@antv/vendor/d3-array';
 import { TransformComponent as TC } from '../runtime';
 import { FlexXTransform } from '../spec';
 import { columnOf } from './utils/helper';

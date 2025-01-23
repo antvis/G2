@@ -1,4 +1,4 @@
-import { min, max } from 'd3-array';
+import { min, max } from '@antv/vendor/d3-array';
 import { DataComponent as DC } from '../runtime';
 import { flow } from './utils/flow';
 import { tagCloud } from './utils/d3-cloud';

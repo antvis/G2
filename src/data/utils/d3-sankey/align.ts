@@ -1,4 +1,4 @@
-import { min } from 'd3-array';
+import { min } from '@antv/vendor/d3-array';
 
 function targetDepth(d) {
   return d.target.depth;

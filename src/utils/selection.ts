@@ -15,7 +15,7 @@ import {
   HTML,
   IAnimation as GAnimation,
 } from '@antv/g';
-import { group } from 'd3-array';
+import { group } from '@antv/vendor/d3-array';
 import { error } from './helper';
 
 export type G2Element = DisplayObject & {

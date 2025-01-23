@@ -1,4 +1,4 @@
-import { group } from 'd3-array';
+import { group } from '@antv/vendor/d3-array';
 import { subObject } from '../utils/helper';
 import {
   mergeState,

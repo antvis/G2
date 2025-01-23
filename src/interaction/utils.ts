@@ -1,6 +1,6 @@
 import { DisplayObject, Path, AABB } from '@antv/g';
-import { path as d3Path } from 'd3-path';
-import { sort } from 'd3-array';
+import { path as d3Path } from '@antv/vendor/d3-path';
+import { sort } from '@antv/vendor/d3-array';
 import { Vector2 } from '@antv/coord';
 import { filter } from '@antv/util';
 import type { PathArray } from '@antv/util';

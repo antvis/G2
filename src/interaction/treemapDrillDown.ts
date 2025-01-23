@@ -1,11 +1,10 @@
 import { Text, Group } from '@antv/g';
 import { get, deepMix, pick, keys, find, size, last } from '@antv/util';
-import type { Node } from 'd3-hierarchy';
 import type { DisplayObject } from '@antv/g';
 import { subObject } from '../utils/helper';
 import { PLOT_CLASS_NAME } from '../runtime';
 import { select } from '../utils/selection';
-import { treeDataTransform } from '../utils/treeDataTransform';
+import { Node, treeDataTransform } from '../utils/treeDataTransform';
 import { legendClearSetState } from './legendFilter';
 import { getElements } from './utils';
 
@@ -14,7 +13,7 @@ function selectPlotArea(root: DisplayObject): DisplayObject {
 }
 
 export type DrillDownOptions = {
-  originData?: Node[];
+  originData?: Node<any>[];
   layout?: any;
   [key: string]: any;
 };
