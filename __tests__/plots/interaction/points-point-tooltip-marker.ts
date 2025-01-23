@@ -1,4 +1,4 @@
-import { regressionQuad } from 'd3-regression';
+import { regressionQuad } from '@antv/vendor/d3-regression';
 import { G2Spec, PLOT_CLASS_NAME } from '../../../src';
 import { points } from '../../data/points';
 import { step } from './utils';

@@ -1,4 +1,4 @@
-// @ts-ignore medianIndex exist in @antv/vendor/d3-array@3.2.0, but @types/@antv/vendor/d3-array Expired.
+// @ts-ignore medianIndex exist in d3-array@3.2.0, but @types/d3-array Expired.
 import { maxIndex, minIndex, medianIndex } from '@antv/vendor/d3-array';
 import { TransformComponent as TC, Primitive } from '../runtime';
 import { SampleTransform, SampleFunction } from '../spec';

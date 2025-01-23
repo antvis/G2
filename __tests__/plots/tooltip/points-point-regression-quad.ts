@@ -1,4 +1,4 @@
-import { regressionQuad } from 'd3-regression';
+import { regressionQuad } from '@antv/vendor/d3-regression';
 import { G2Spec } from '../../../src';
 import { points } from '../../data/points';
 import { seriesTooltipSteps } from './utils';

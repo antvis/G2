@@ -1,6 +1,6 @@
-import { tsv } from 'd3-fetch';
+import { tsv } from '@antv/vendor/d3-fetch';
 import { feature } from 'topojson';
-import { autoType } from 'd3-dsv';
+import { autoType } from '@antv/vendor/d3-dsv';
 import { G2Spec } from '../../../src';
 import { tooltipSteps } from './utils';
 

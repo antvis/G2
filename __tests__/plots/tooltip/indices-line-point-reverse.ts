@@ -1,10 +1,14 @@
-import { csv } from 'd3-fetch';
-import { autoType } from 'd3-dsv';
+import { csv } from '@antv/vendor/d3-fetch';
+import { autoType } from '@antv/vendor/d3-dsv';
 import { G2Spec } from '../../../src';
 import { seriesTooltipSteps } from './utils';
 
+interface Row {
+  Date: string;
+  Symbol: string;
+}
 export async function indicesLinePointReverse(): Promise<G2Spec> {
-  const raw = await csv('data/indices.csv', autoType);
+  const raw = await csv<Row>('data/indices.csv', autoType);
   const symbols = ['AAPL', 'AMZN'];
   const data = raw.filter((d) => {
     const date = new Date(d.Date);

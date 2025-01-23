@@ -1,4 +1,4 @@
-import * as d3 from 'd3-random';
+import * as d3 from '@antv/vendor/d3-random';
 import { G2Spec } from '../../../src';
 
 export function monthIntervalFacetCircle(): G2Spec {

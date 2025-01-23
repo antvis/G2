@@ -1,4 +1,4 @@
-import { interpolateHcl } from 'd3-interpolate';
+import { interpolateHcl } from '@antv/vendor/d3-interpolate';
 import { G2Spec } from '../../../src';
 import { tooltipSteps } from './utils';
 

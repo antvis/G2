@@ -1,9 +1,14 @@
-import { csv } from 'd3-fetch';
-import { autoType } from 'd3-dsv';
+import { csv } from '@antv/vendor/d3-fetch';
+import { autoType } from '@antv/vendor/d3-dsv';
 import { G2Spec } from '../../../src';
 
+interface Row {
+  distance: number;
+  name: string;
+}
+
 export async function tranLineMultiAxes(): Promise<G2Spec> {
-  const data = await csv('data/train.csv', autoType);
+  const data = await csv<Row>('data/train.csv', autoType);
   const distanceName = new Map(data.map((d) => [d.distance, d.name]));
   const xAxis = {
     tickMethod: () => Array.from(distanceName.keys()),
