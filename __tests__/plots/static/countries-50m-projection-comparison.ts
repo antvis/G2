@@ -2,6 +2,7 @@ import { feature } from 'topojson';
 import {
   geoPolyconic,
   geoRectangularPolyconic,
+  // @ts-ignore
 } from '@antv/vendor/d3-geo-projection';
 import { G2Spec } from '../../../src';
 

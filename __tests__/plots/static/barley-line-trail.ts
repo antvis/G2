@@ -1,6 +1,6 @@
 import { csv } from '@antv/vendor/d3-fetch';
 import { autoType } from '@antv/vendor/d3-dsv';
-import { rollup } from 'd3-array';
+import { rollup } from '@antv/vendor/d3-array';
 import { G2Spec } from '../../../src';
 
 export async function barleyLineTrail(): Promise<G2Spec> {

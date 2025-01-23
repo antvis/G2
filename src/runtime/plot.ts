@@ -2,7 +2,7 @@ import { Vector2 } from '@antv/coord';
 import { DisplayObject, IAnimation as GAnimation, Rect } from '@antv/g';
 import { deepMix, upperFirst, isArray } from '@antv/util';
 import { group, groups } from '@antv/vendor/d3-array';
-import { format } from 'd3-format';
+import { format } from '@antv/vendor/d3-format';
 import { mapObject } from '../utils/array';
 import { ChartEvent } from '../utils/event';
 import {

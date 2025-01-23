@@ -1,3 +1,4 @@
+// @ts-ignore
 import { regressionQuad } from '@antv/vendor/d3-regression';
 import { G2Spec } from '../../../src';
 import { points } from '../../data/points';

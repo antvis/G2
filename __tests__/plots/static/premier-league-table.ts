@@ -1,4 +1,4 @@
-import { median } from 'd3-array';
+import { median } from '@antv/vendor/d3-array';
 import { G2Spec } from '../../../src';
 
 const logos = {

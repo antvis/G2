@@ -1,6 +1,6 @@
 import { csv } from '@antv/vendor/d3-fetch';
 import { autoType } from '@antv/vendor/d3-dsv';
-import { groupSort, median } from 'd3-array';
+import { groupSort, median } from '@antv/vendor/d3-array';
 import { G2Spec } from '../../../src';
 
 export async function barleyPointFacetRectColZIndex(): Promise<G2Spec> {

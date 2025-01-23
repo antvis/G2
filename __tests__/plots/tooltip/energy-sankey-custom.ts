@@ -1,6 +1,6 @@
 import { csv } from '@antv/vendor/d3-fetch';
 import { autoType } from '@antv/vendor/d3-dsv';
-import { schemeTableau10 } from 'd3-scale-chromatic';
+import { schemeTableau10 } from '@antv/vendor/d3-scale-chromatic';
 import { G2Spec } from '../../../src';
 import { tooltipSteps } from './utils';
 
