@@ -1,6 +1,5 @@
 import EventEmitter from '@antv/event-emitter';
 import { Canvas } from '@antv/g';
-// import { deepMix } from '@antv/util';
 import { G2Context } from '../../src';
 import * as chartTests from '../plots/animation';
 import { filterTests } from './utils/filterTests';

@@ -5,6 +5,9 @@ type Min = Vector2;
 type Max = Vector2;
 export type Bounds = [Min, Max];
 
+// There is a certain error in the calculation of text bounds.
+const EPSILON = 1e-2;
+
 export function parseAABB(min2: AABB): Bounds {
   const { min, max } = min2;
   return [
@@ -17,21 +20,36 @@ export function parseAABB(min2: AABB): Bounds {
  * Whether the `point` in `bounds`.
  * @param point
  * @param bounds
+ * @param threshold
  */
-export function isInBounds(point: Vector2, bounds: Bounds): boolean {
+export function isInBounds(
+  point: Vector2,
+  bounds: Bounds,
+  threshold = EPSILON,
+): boolean {
   const [x, y] = point;
   const [min, max] = bounds;
-  return x >= min[0] && x <= max[0] && y >= min[1] && y <= max[1];
+  return (
+    x >= min[0] - threshold &&
+    x <= max[0] + threshold &&
+    y >= min[1] - threshold &&
+    y <= max[1] + threshold
+  );
 }
 
 /**
  * Whether `b1` is overflow from `b2`.
  * @param b1
  * @param b2
+ * @param threshold The threshold to determine whether the bounds is overflowed, default is 0.
  */
-export function isOverflow(b1: Bounds, b2: Bounds): boolean {
+export function isOverflow(
+  b1: Bounds,
+  b2: Bounds,
+  threshold = EPSILON,
+): boolean {
   const [min, max] = b1;
-  return !(isInBounds(min, b2) && isInBounds(max, b2));
+  return !(isInBounds(min, b2, threshold) && isInBounds(max, b2, threshold));
 }
 
 /**
