@@ -56,6 +56,7 @@ export function chart3d(context) {
         direction: [-1, 0, 1],
       },
     });
+    // @ts-ignore
     canvas!.appendChild(light);
   });
 

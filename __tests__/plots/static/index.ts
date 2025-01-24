@@ -116,6 +116,7 @@ export { salaryHeatmapScaleLinear } from './salary-heatmap-scale-linear';
 export { salaryHeatmapScaleThreshold } from './salary-heatmap-scale-threshold';
 export { salaryHeatmapScaleQuantize } from './salary-heatmap-scale-quantize';
 export { salaryHeatmapScaleQuantile } from './salary-heatmap-scale-quantile';
+export { salesIntervalLabelOverlapHide } from './sales-interval-label-overlap-hide';
 export { monthIntervalFacetCircle } from './month-interval-facet-circle';
 export { titanicPointPack } from './titanic-point-pack';
 export { titanicPointPackSharedData } from './titanic-point-pack-shared-data';
