@@ -61,14 +61,14 @@ export default defineConfig({
         },
         order: 3,
       },
-      {
-        slug: 'docs/spec/overview',
-        title: {
-          zh: '选项',
-          en: 'Spec',
-        },
-        order: 2,
-      },
+      // {
+      //   slug: 'docs/spec/overview',
+      //   title: {
+      //     zh: '选项',
+      //     en: 'Spec',
+      //   },
+      //   order: 2,
+      // },
       {
         slug: 'docs/api/overview',
         title: {
@@ -243,7 +243,7 @@ export default defineConfig({
       {
         slug: 'manual/extra-topics/three-dimensional',
         title: {
-          zh: '3D 图表（3D）',
+          zh: '3D 图表（3D Chart）',
           en: '3D',
         },
         order: 5,

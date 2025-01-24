@@ -1,6 +1,6 @@
 ---
-title: 色板 - Palette
-order: 15
+title: 色板（Palette）
+order: 5
 ---
 
 G2 提供了一些内置的色板，可以直接使用，并支持 [d3-scale-chromatic](https://github.com/d3/d3-scale-chromatic)的色板。

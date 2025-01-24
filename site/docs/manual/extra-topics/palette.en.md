@@ -1,6 +1,6 @@
 ---
 title: Palette
-order: 15
+order: 5
 ---
 
 <embed src="@/docs/spec/palette.zh.md"></embed>

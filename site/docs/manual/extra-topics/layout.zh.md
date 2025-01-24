@@ -1,10 +1,9 @@
 ---
 title: 布局（Layout）
-order: 6.1
+order: 5.1
 ---
 
-**Layout** in G2 is used to specify some parameters of layout methods marked by specific layout functions, such as Snakey, WordCloud, ForceGraph, etc.
-
+G2 中**布局（Layout）** 用于指定一些有特定布局函数标记的布局方法的参数，比如 Snakey, WordCloud, ForceGraph 等。
 ```js
 ({
   type: 'sankey',
