@@ -1,6 +1,6 @@
 ---
 title: jitter
-order: 1
+order: 2
 ---
 
 根据离散的 x 和 离散的 y 比例尺，生成 dy 和 dx 通道，实现在某个区域散开的效果。

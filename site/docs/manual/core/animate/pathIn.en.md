@@ -1,6 +1,6 @@
 ---
 title: pathIn
-order: 1
+order: 2
 ---
 
 <embed src="@/docs/spec/animation/pathIn.zh.md"></embed>

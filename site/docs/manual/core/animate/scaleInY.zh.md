@@ -1,6 +1,6 @@
 ---
 title: scaleInY
-order: 1
+order: 2
 ---
 
 `scaleInY` 单个图形沿着 y 方向的生长动画。影响 `transform.scale` 属性。

@@ -1,6 +1,6 @@
 ---
 title: fold
-order: 1
+order: 2
 ---
 
 将多个字段展开成按照指定的 key value 组织形式。

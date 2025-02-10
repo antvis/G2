@@ -1,6 +1,6 @@
 ---
 title: rename
-order: 1
+order: 2
 ---
 
 重命名数据中的一些字段。

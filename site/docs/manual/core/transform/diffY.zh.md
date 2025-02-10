@@ -1,6 +1,6 @@
 ---
 title: diffY
-order: 1
+order: 2
 ---
 
 对 y 和 y1 通道求差集。

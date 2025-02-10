@@ -1,6 +1,6 @@
 ---
 title: time
-order: 1
+order: 2
 ---
 
 <embed src="@/docs/spec/scale/time.zh.md"></embed>

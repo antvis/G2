@@ -1,6 +1,6 @@
 ---
 title: inline
-order: 1
+order: 2
 ---
 
 使用内联数据。

@@ -1,6 +1,6 @@
 ---
 title: fadeOut
-order: 1
+order: 2
 ---
 
 <embed src="@/docs/spec/animation/fadeOut.zh.md"></embed>

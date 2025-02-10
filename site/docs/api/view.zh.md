@@ -62,7 +62,7 @@ chart.render();
 
 ### `view.point`
 
-添加 point 图形，具体见 [mark](/spec/mark/point)。
+添加 point 图形，具体见 [mark](/manual/core/mark/point)。
 
 ### `view.area`
 
@@ -126,7 +126,7 @@ chart.render();
 
 ### `view.boxplot`
 
-添加 boxplot 图形，具体见 [mark](/spec/mark/boxplot)。
+添加 boxplot 图形，具体见 [mark](/manual/core/mark/boxplot)。
 
 ### `chart.density`
 

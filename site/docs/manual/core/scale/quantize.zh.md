@@ -1,9 +1,9 @@
 ---
 title: quantize
-order: 1
+order: 2
 ---
 
-quantize 类似于 [threshold](/spec/scale/threshold)，但是计算切片的方式是基于元素的数据值。
+quantize 类似于 [threshold](/manual/core/scale/threshold)，但是计算切片的方式是基于元素的数据值。
 
 ## 开始使用
 

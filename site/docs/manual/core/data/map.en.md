@@ -1,6 +1,6 @@
 ---
 title: map
-order: 1
+order: 2
 ---
 
 <embed src="@/docs/spec/data/map.zh.md"></embed>

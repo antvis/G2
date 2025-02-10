@@ -59,7 +59,7 @@ const gCanvas = new Canvas({
 });
 ```
 
-Then, proceed to create a G2 Chart as usual by providing the previously created canvas and container. For more details, refer to the documentation under [getting started](/manual/introduction/getting-started)：
+Then, proceed to create a G2 Chart as usual by providing the previously created canvas and container. For more details, refer to the documentation under [quick start](/manual/quick-start)：
 
 ```js
 const { Chart } = require('@antv/g2');

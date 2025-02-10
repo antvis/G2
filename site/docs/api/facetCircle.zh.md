@@ -60,7 +60,7 @@ chart.render();
 
 ### `facetCircle.point`
 
-添加 point 图形，具体见 [mark](/spec/mark/point)。
+添加 point 图形，具体见 [mark](/manual/core/mark/point)。
 
 ### `facetCircle.area`
 
@@ -124,7 +124,7 @@ chart.render();
 
 ### `facetCircle.boxplot`
 
-添加 boxplot 图形，具体见 [mark](/spec/mark/boxplot)。
+添加 boxplot 图形，具体见 [mark](/manual/core/mark/boxplot)。
 
 ### `facetCircle.shape`
 

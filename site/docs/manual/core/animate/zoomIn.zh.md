@@ -1,6 +1,6 @@
 ---
 title: zoomIn
-order: 1
+order: 2
 ---
 
 `zoomIn` 沿着图形中心点的放大动画。影响 `transform.scale` 属性。

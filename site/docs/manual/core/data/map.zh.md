@@ -1,6 +1,6 @@
 ---
 title: map
-order: 1
+order: 2
 ---
 
 对数据进行过滤。类似于 [Array.prototypo.map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)。

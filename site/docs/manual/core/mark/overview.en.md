@@ -1,5 +1,5 @@
 ---
-title: Overview
+title: overview
 order: 1
 ---
 
@@ -47,25 +47,25 @@ chart.point();
 
 Marks are the leaf nodes in the view tree and are the "first-class citizens" in G2: the most important concept in G2, a mark is composed of the following core concepts:
 
-- [**data**](/manual/core/data) - visual data
+- [**data**](/manual/core/data/overview/overview) - visual data
 - [**encode**](/manual/core/encode) - encoding information
-- [**scale**](/manual/core/encode) - mapping rules
-- [**transform**](/manual/core/transform) - transformation channel values
+- [**scale**](/manual/core/scale/overview) - mapping rules
+- [**transform**](/manual/core/transform/overview) - transformation channel values
 - [**layout**](/manual/core/layout) - configuration of layout algorithms
-- [**coordinate**](/manual/core/coordinate) - transformation of coordinate systems
+- [**coordinate**](/manual/core/coordinate/overview) - transformation of coordinate systems
 - [**style**](/manual/core/style) - visual styles
 - [**viewStyle**](/manual/core/style) - visual styles of the view
 - [**animate**](/manual/core/animate) - animation properties
 - [**state**](/manual/core/state) - style of state
-- [**label**](/manual/core/label) - data labels
-- [**title**](/manual/core/title) - chart title
-- [**axis**](/manual/core/axis) - coordinate axes
-- [**legend**](/manual/core/legend) - legend
+- [**label**](/manual/core/label/overview) - data labels
+- [**title**](/manual/component/title) - chart title
+- [**axis**](/manual/component/axis) - coordinate axes
+- [**legend**](/manual/component/legend) - legend
 - [**tooltip**](/manual/core/tooltip) - prompt information
-- [**scrollbar**](/manual/core/scrollbar) - scrollbar
-- [**slider**](/manual/core/slider) - drag axis
-- [**interaction**](/manual/core/interaction) - interaction
-- [**theme**](/manual/core/theme) - theme
+- [**scrollbar**](/manual/component/scrollbar) - scrollbar
+- [**slider**](/manual/component/slider) - drag axis
+- [**interaction**](/manual/core/interaction/overview) - interaction
+- [**theme**](/manual/core/theme/overview) - theme
 
 ```js
 ({

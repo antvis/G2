@@ -1,6 +1,6 @@
 ---
 title: sqrt
-order: 1
+order: 2
 ---
 
 <embed src="@/docs/spec/scale/sqrt.zh.md"></embed>

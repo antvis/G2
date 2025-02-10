@@ -1,6 +1,6 @@
 ---
 title: growInY
-order: 1
+order: 2
 ---
 
 <embed src="@/docs/spec/animation/growInY.zh.md"></embed>

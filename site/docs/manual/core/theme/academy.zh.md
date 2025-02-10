@@ -1,6 +1,6 @@
 ---
 title: academy
-order: 1
+order: 2
 ---
 
 学术风格的主题。

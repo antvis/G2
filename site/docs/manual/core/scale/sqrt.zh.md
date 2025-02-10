@@ -1,9 +1,9 @@
 ---
 title: sqrt
-order: 1
+order: 2
 ---
 
-sqrt 是指数固定为 `0.5` 的 [pow](/spec/scale/pow) 比例尺，它的映射函数为 `y = x ^ 0.5 + b`。
+sqrt 是指数固定为 `0.5` 的 [pow](/manual/core/scale/pow) 比例尺，它的映射函数为 `y = x ^ 0.5 + b`。
 
 ## 开始使用
 

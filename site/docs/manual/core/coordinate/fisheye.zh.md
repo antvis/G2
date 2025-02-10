@@ -1,6 +1,6 @@
 ---
 title: fisheye
-order: 1
+order: 2
 ---
 
 鱼眼坐标系变换对输入的维度应用笛卡尔鱼眼效果。

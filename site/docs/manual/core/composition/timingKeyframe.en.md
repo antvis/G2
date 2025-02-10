@@ -1,6 +1,6 @@
 ---
 title: timingKeyframe
-order: 1
+order: 2
 ---
 
 <embed src="@/docs/spec/composition/timingKeyframe.zh.md"></embed>

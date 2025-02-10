@@ -81,7 +81,7 @@ chart.render();
 
 ### `spaceFlex.point`
 
-添加 point 图形，具体见 [mark](/spec/mark/point)。
+添加 point 图形，具体见 [mark](/manual/core/mark/point)。
 
 ### `spaceFlex.area`
 
@@ -145,7 +145,7 @@ chart.render();
 
 ### `spaceFlex.boxplot`
 
-添加 boxplot 图形，具体见 [mark](/spec/mark/boxplot)。
+添加 boxplot 图形，具体见 [mark](/manual/core/mark/boxplot)。
 
 ### `spaceFlex.shape`
 

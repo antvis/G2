@@ -55,7 +55,7 @@ chart.render();
 
 ### `repeatMatrix.point`
 
-添加 point 图形，具体见 [mark](/spec/mark/point)。
+添加 point 图形，具体见 [mark](/manual/core/mark/point)。
 
 ### `repeatMatrix.area`
 
@@ -119,7 +119,7 @@ chart.render();
 
 ### `repeatMatrix.boxplot`
 
-添加 boxplot 图形，具体见 [mark](/spec/mark/boxplot)。
+添加 boxplot 图形，具体见 [mark](/manual/core/mark/boxplot)。
 
 ### `repeatMatrix.shape`
 

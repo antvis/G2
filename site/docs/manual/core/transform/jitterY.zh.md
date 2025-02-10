@@ -1,6 +1,6 @@
 ---
 title: jitterY
-order: 1
+order: 2
 ---
 
 根据离散的 y 比例尺，生成 dy 通道，实现在某个区域的 y 方向散开的效果。

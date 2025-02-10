@@ -55,7 +55,7 @@ chart.render();
 
 ### `timingKeyFrame.point`
 
-添加 point 图形，具体见 [mark](/spec/mark/point)。
+添加 point 图形，具体见 [mark](/manual/core/mark/point)。
 
 ### `timingKeyFrame.area`
 
@@ -119,7 +119,7 @@ chart.render();
 
 ### `timingKeyFrame.boxplot`
 
-添加 boxplot 图形，具体见 [mark](/spec/mark/boxplot)。
+添加 boxplot 图形，具体见 [mark](/manual/core/mark/boxplot)。
 
 ### `timingKeyFrame.shape`
 

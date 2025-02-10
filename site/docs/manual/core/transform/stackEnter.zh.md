@@ -1,6 +1,6 @@
 ---
 title: stackEnter
-order: 1
+order: 2
 ---
 
 对 enterDuration 和 enterDelay 通道进行堆叠，实现分组动画的效果。

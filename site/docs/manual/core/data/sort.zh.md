@@ -1,6 +1,6 @@
 ---
 title: sort
-order: 1
+order: 2
 ---
 
 对数据按照指定的 callback 进行排序。类似于 [Array.prototypo.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)。

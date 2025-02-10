@@ -1,6 +1,6 @@
 ---
 title: flexX
-order: 1
+order: 2
 ---
 
 根据指定通道设置 x 比例尺的 flex 属性，实现不等宽矩形的效果。

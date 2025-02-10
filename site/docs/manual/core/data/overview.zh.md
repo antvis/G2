@@ -234,4 +234,4 @@ node.data({
 });
 ```
 
-更多统计回归线案例见 [数据分析-regression](/examples#analysis-regression)。
+更多统计回归线案例见 [数据分析-回归线](/examples#analysis-regression)。

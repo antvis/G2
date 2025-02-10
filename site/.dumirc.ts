@@ -54,7 +54,7 @@ export default defineConfig({
     navs: [
       // 头部的菜单列表
       {
-        slug: 'docs/manual/introduction/what-is-g2',
+        slug: 'docs/manual/quick-start',
         title: {
           zh: '文档',
           en: 'Docs',
@@ -129,6 +129,14 @@ export default defineConfig({
         order: 3,
       },
       {
+        slug: 'manual/core/chart',
+        title: {
+          zh: '图表（Chart）',
+          en: 'Chart',
+        },
+        order: 1,
+      },
+      {
         slug: 'manual/core/mark',
         title: {
           zh: '标记（Mark）',
@@ -142,7 +150,7 @@ export default defineConfig({
           zh: '数据（Data）',
           en: 'Data',
         },
-        order: 2,
+        order: 4,
       },
       {
         slug: 'manual/core/scale',
@@ -150,7 +158,7 @@ export default defineConfig({
           zh: '比例尺（Scale）',
           en: 'Scale',
         },
-        order: 2,
+        order: 6,
       },
       {
         slug: 'manual/core/transform',
@@ -158,7 +166,7 @@ export default defineConfig({
           zh: '转换（Transform）',
           en: 'Transform',
         },
-        order: 2,
+        order: 7,
       },
       {
         slug: 'manual/core/coordinate',
@@ -166,7 +174,7 @@ export default defineConfig({
           zh: '坐标系（Coordinate）',
           en: 'Coordinate',
         },
-        order: 2,
+        order: 8,
       },
       {
         slug: 'manual/core/animate',
@@ -174,7 +182,7 @@ export default defineConfig({
           zh: '动画（Animate）',
           en: 'Animate',
         },
-        order: 2,
+        order: 10,
       },
       {
         slug: 'manual/core/label',
@@ -182,7 +190,7 @@ export default defineConfig({
           zh: '数据标签（Label）',
           en: 'Label',
         },
-        order: 2,
+        order: 12,
       },
       {
         slug: 'manual/core/interaction',
@@ -190,7 +198,7 @@ export default defineConfig({
           zh: '交互（Interaction）',
           en: 'Interaction',
         },
-        order: 2,
+        order: 13,
       },
       {
         slug: 'manual/core/composition',
@@ -198,7 +206,7 @@ export default defineConfig({
           zh: '复合（Composition）',
           en: 'Composition',
         },
-        order: 2,
+        order: 14,
       },
       {
         slug: 'manual/core/theme',
@@ -206,7 +214,7 @@ export default defineConfig({
           zh: '主题（Theme）',
           en: 'Theme',
         },
-        order: 2,
+        order: 15,
       },
       {
         slug: 'manual/component',
@@ -577,7 +585,7 @@ export default defineConfig({
             zh: '开始使用',
             en: 'Getting Started',
           },
-          link: `/manual/introduction/getting-started`,
+          link: `/manual/quick-start`,
         },
         {
           text: {

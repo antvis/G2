@@ -1,6 +1,6 @@
 ---
 title: binX
-order: 1
+order: 2
 ---
 
 <embed src="@/docs/spec/transform/binX.zh.md"></embed>

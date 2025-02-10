@@ -1,6 +1,6 @@
 ---
 title: filter
-order: 1
+order: 2
 ---
 
 对数据进行指定条件的过滤。类似于 [Array.prototypo.filter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)。

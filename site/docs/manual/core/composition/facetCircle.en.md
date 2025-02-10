@@ -1,6 +1,6 @@
 ---
 title: facetCircle
-order: 1
+order: 2
 ---
 
 <embed src="@/docs/spec/composition/facetCircle.zh.md"></embed>

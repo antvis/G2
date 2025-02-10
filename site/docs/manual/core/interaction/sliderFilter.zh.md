@@ -3,7 +3,7 @@ title: sliderFilter
 order: 21
 ---
 
-缩略轴筛选是一个默认交互，当设置了 slider 默认就会有这个交互。
+缩略轴筛选是一个默认交互，当设置了 slider 默认就会有这个交互。关于 slider 组件的配置，见文档 [component/slider](/manual/component/slider)。
 
 ## 开始使用
 

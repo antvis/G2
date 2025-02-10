@@ -1,9 +1,9 @@
 ---
 title: point
-order: 1
+order: 2
 ---
 
-point 是一个特殊 [band](/spec/scale/band) 比例尺，固定配置 `bandWith = 0`。
+point 是一个特殊 [band](/manual/core/scale/band) 比例尺，固定配置 `bandWith = 0`。
 
 ## 开始使用
 

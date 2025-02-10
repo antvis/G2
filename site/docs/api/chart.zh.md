@@ -59,7 +59,7 @@ chart.render();
 
 ### `chart.point`
 
-添加 point 图形，具体见 [mark](/spec/mark/point)。
+添加 point 图形，具体见 [mark](/manual/core/mark/point)。
 
 ### `chart.area`
 
@@ -125,7 +125,7 @@ chart.render();
 
 ### `chart.boxplot`
 
-添加 boxplot 图形，具体见 [mark](/spec/mark/boxplot)。
+添加 boxplot 图形，具体见 [mark](/manual/core/mark/boxplot)。
 
 ### `chart.density`
 
@@ -197,7 +197,7 @@ chart.render();
 
 ### `chart.point3D`
 
-添加 point3D 图形，具体见 [3d](/spec/threed/point-threed)。
+添加 point3D 图形，具体见 [3d](/manual/extra-topics/three-dimensional/point-threed)。
 
 ### `chart.interval3D`
 

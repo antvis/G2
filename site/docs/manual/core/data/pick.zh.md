@@ -1,6 +1,6 @@
 ---
 title: pick
-order: 1
+order: 2
 ---
 
 从数据中，按照字段抽取一个数据子集。

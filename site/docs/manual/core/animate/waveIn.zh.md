@@ -1,6 +1,6 @@
 ---
 title: waveIn
-order: 1
+order: 2
 ---
 
 `waveIn` 划入入场动画效果，不同坐标系下效果不同。在直角坐标系下，影响 `transform.scale` 属性，在 polar 坐标系下，影响圆弧的 Path 属性。

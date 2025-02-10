@@ -1,6 +1,6 @@
 ---
 title: band
-order: 1
+order: 2
 ---
 
 <embed src="@/docs/spec/scale/band.zh.md"></embed>

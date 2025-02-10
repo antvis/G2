@@ -1,6 +1,6 @@
 ---
 title: scaleOutY
-order: 1
+order: 2
 ---
 
 `scaleOutY` 单个图形沿着 y 方向的消失动画。影响 `transform.scale` 属性。

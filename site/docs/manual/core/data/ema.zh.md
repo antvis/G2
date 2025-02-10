@@ -1,6 +1,6 @@
 ---
 title: ema
-order: 1
+order: 2
 ---
 
 
@@ -8,12 +8,11 @@ EMA（Exponential Moving Average）是一种常用的平滑算法，用于计算
 
 在模型训练中，可以使用EMA来平滑数据，观察数据变化趋势。
 
-如下公式显示，α越大平滑效果更明显
+如下公式显示，α越大平滑效果更明显：
 
+<img alt="ema" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*3EIiS59AD8AAAAAAAAAAAAAAemJ7AQ/original"/>
 
-$EMA_t =  (1 - \alpha) \cdot P_t +  \alpha \cdot EMA_{t-1}$
-
-具体细节可参考[文档](https://en.wikipedia.org/wiki/Exponential_smoothing)  
+具体细节可参考[文档](https://en.wikipedia.org/wiki/Exponential_smoothing)。
 
 
 

@@ -1,13 +1,13 @@
 ---
 title: sortColor
-order: 1
+order: 2
 ---
 
 对离散的 color 比例尺的定义域根据指定通道排序。
 
 ## 开始使用
 
-案例可以参考 [sortX](/spec/transform/sortX)，下面是伪代码示意。
+案例可以参考 [sortX](/manual/core/transform/sort-x)，下面是伪代码示意。
 
 ```ts
 chart

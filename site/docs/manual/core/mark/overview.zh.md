@@ -47,25 +47,24 @@ chart.point();
 
 标记是视图树中叶子节点，也是 G2 中的“一等公民”：G2 中最重要的概念，一个标记由如下核心概念构成：
 
-- [**data**](/manual/core/data) - 可视化的数据
+- [**data**](/manual/core/data/overview/overview) - 可视化的数据
 - [**encode**](/manual/core/encode) - 编码信息
-- [**scale**](/manual/core/encode) - 映射规则
-- [**transform**](/manual/core/transform) - 转化通道值
-- [**layout**](/manual/core/layout) - 布局算法配置
-- [**coordinate**](/manual/core/coordinate) - 坐标系变换
+- [**scale**](/manual/core/scale/overview) - 映射规则
+- [**transform**](/manual/core/transform/overview) - 转化通道值
+- [**coordinate**](/manual/core/coordinate/overview) - 坐标系变换
 - [**style**](/manual/core/style) - 视觉样式
 - [**viewStyle**](/manual/core/style) - 视图的视觉样式
 - [**animate**](/manual/core/animate) - 动画属性
 - [**state**](/manual/core/state) - 状态样式
-- [**label**](/manual/core/label) - 数据标签
-- [**title**](/manual/core/title) - 图表标题
-- [**axis**](/manual/core/axis) - 坐标轴
-- [**legend**](/manual/core/legend) - 图例
+- [**label**](/manual/core/label/overview) - 数据标签
+- [**title**](/manual/component/title) - 图表标题
+- [**axis**](/manual/component/axis) - 坐标轴
+- [**legend**](/manual/component/legend) - 图例
 - [**tooltip**](/manual/core/tooltip) - 提示信息
-- [**scrollbar**](/manual/core/scrollbar) - 滚动条
-- [**slider**](/manual/core/slider) - 拖拽轴
-- [**interaction**](/manual/core/interaction) - 交互
-- [**theme**](/manual/core/theme) - 主题
+- [**scrollbar**](/manual/component/scrollbar) - 滚动条
+- [**slider**](/manual/component/slider) - 拖拽轴
+- [**interaction**](/manual/core/interaction/overview) - 交互
+- [**theme**](/manual/core/theme/overview) - 主题
 
 ```js
 ({

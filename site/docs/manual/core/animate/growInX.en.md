@@ -1,6 +1,6 @@
 ---
 title: growInX
-order: 1
+order: 2
 ---
 
 <embed src="@/docs/spec/animation/growInX.zh.md"></embed>

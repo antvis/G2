@@ -1,6 +1,6 @@
 ---
 title: log
-order: 1
+order: 2
 ---
 
 将当前数据变换（Data Transform）流中的片面数据打印到控制台，用于开发者调试数据处理过程。

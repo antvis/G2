@@ -1,6 +1,6 @@
 ---
 title: parallel
-order: 1
+order: 2
 ---
 
 <embed src="@/docs/spec/coordinate/parallel.zh.md"></embed>

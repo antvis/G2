@@ -1,6 +1,6 @@
 ---
 title: pow
-order: 1
+order: 2
 ---
 
 <embed src="@/docs/spec/scale/pow.zh.md"></embed>

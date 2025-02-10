@@ -1,6 +1,6 @@
 ---
 title: spaceFlex
-order: 1
+order: 2
 ---
 
 使用类似 css flex 的布局方式来划分空间区域，常用于多图表对比的视图。

@@ -1,6 +1,6 @@
 ---
 title: quantile
-order: 1
+order: 2
 ---
 
 <embed src="@/docs/spec/scale/quantile.zh.md"></embed>

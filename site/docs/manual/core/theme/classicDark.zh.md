@@ -1,6 +1,6 @@
 ---
 title: classicDark
-order: 1
+order: 2
 ---
 
 经典暗黑主题。

@@ -1,6 +1,6 @@
 ---
 title: Encode
-order: 6
+order: 5
 ---
 
 In G2, **encoding** is mainly used to specify the relationship between visual element attributes and data. You can specify encoding at the mark level:

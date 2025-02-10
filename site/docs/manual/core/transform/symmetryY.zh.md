@@ -1,6 +1,6 @@
 ---
 title: symmetryY
-order: 1
+order: 2
 ---
 
 按照指定通道分组，给每组的 y 和 y1 通道添加偏移，实现对称效果。

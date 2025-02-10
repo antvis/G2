@@ -1,6 +1,6 @@
 ---
 title: linear
-order: 1
+order: 2
 ---
 
 <embed src="@/docs/spec/scale/linear.zh.md"></embed>

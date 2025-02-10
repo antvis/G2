@@ -1,6 +1,6 @@
 ---
 title: fetch
-order: 1
+order: 2
 ---
 
 Load data from a `url` specified by the `value` option. G2 will infer the data type from the file extension by default. The format of input data can also be specified by the `format` option.

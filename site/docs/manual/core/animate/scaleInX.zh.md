@@ -1,6 +1,6 @@
 ---
 title: scaleInX
-order: 1
+order: 2
 ---
 
 `scaleInX` 单个图形沿着 x 方向的生长动画。影响 `transform.scale` 属性。

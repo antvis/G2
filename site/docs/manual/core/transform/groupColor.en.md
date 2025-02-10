@@ -1,6 +1,6 @@
 ---
 title: groupColor
-order: 1
+order: 2
 ---
 
 <embed src="@/docs/spec/transform/groupColor.zh.md"></embed>

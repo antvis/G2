@@ -1,6 +1,6 @@
 ---
 title: polar
-order: 1
+order: 2
 ---
 
 <embed src="@/docs/spec/coordinate/polar.zh.md"></embed>

@@ -1,6 +1,6 @@
 ---
 title: join
-order: 1
+order: 2
 ---
 
 类似 SQL 的方式，将两份数据连接到一起。

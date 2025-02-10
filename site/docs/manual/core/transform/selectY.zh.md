@@ -1,13 +1,13 @@
 ---
 title: selectY
-order: 1
+order: 2
 ---
 
 按照指定的通道进行分组，根据 y 通道和 selector 从每组选择出数据。
 
 ## 开始使用
 
-具体案例可以参考 [select](/spec/transform/select)，下面伪代码示意一下。
+具体案例可以参考 [select](/manual/core/transform/select)，下面伪代码示意一下。
 
 ```ts
 chart

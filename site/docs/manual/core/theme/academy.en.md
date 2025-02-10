@@ -1,6 +1,6 @@
 ---
 title: Academy
-order: 1
+order: 2
 ---
 
 <embed src="@/docs/spec/theme/academy.zh.md"></embed>

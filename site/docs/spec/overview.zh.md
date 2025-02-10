@@ -32,15 +32,15 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
 绘制数据驱动的图形。
 
 - [interval](/spec/mark/interval) - 通常用来绘制柱、条形图，饼图等相关图表。
-- [point](/spec/mark/point) - 主要用于绘制散点图，利用点的粒度来分析数据的分布情况。
+- [point](/manual/core/mark/point) - 主要用于绘制散点图，利用点的粒度来分析数据的分布情况。
 - [line](/spec/mark/line) - 根据一系列的点，绘制折线，通常用来绘制折线图。
 - [area](/spec/mark/area) - 通常用来绘制我们常见的面积图，通过填充，可以更好突出趋势堆积信息。
 - [cell](/spec/mark/cell) - 根据 x, y 将空间划分成一个子空间，然后进行可视化绘制，常见于一些方块图，如日历图、聚合热力图等。
 - [rect](/spec/mark/rect) - 使用两组 x，两组 y 来定位一个矩形区域，常用于直方图、矩阵树图等。
 - [link](/spec/mark/link) - 标记使用两个用 (x, y) 定位的点，绘制一条带方向的直线。通过指定 `x`，`y` 通道为长度为 2 的字段数组即可。
 - [vector](/spec/mark/vector) - 用 `start`，`end` 两个点来表示一个向量，通常用于绘制具备向量含义的数据，比如风向量场等。
-- [box](/spec/mark/box) - 用来绘制箱线图，通常用来展示一组数据分布情况的统计图。
-- [boxplot](/spec/mark/boxplot) - 用来绘制箱线图，并且内置数据的聚合操作。
+- [box](/manual/core/mark/box) - 用来绘制箱线图，通常用来展示一组数据分布情况的统计图。
+- [boxplot](/manual/core/mark/boxplot) - 用来绘制箱线图，并且内置数据的聚合操作。
 - [text](/spec/mark/text) - 通过指定文本的样式通道，可以在画布上绘制和数据绑定的文本字符。
 - [image](/spec/mark/image) - 利用 `src` 通道在画布上绘制图片。
 - [shape](/spec/mark/shape) - 使用自定义函数灵活绘制自定义图形。
@@ -63,7 +63,7 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
 - [diffY](/spec/transform/diff-y) - 对 y 和 y1 通道求差集。
 - [dodgeX](/spec/transform/dodge-x) - 生成 series 通道值为 color 通道的值，根据 series 通道实现分组效果。
 - [flexX](/spec/transform/flex-x) - 根据指定通道设置 x 比例尺的 flex 属性，实现不等宽矩形的效果。
-- [group](/spec/transform/group) - 对离散的 x 和 连续的 y 通道进行分组，并且对通道根据指定的 Reducer 进行聚合。
+- [group](/manual/core/transform/group) - 对离散的 x 和 连续的 y 通道进行分组，并且对通道根据指定的 Reducer 进行聚合。
 - [groupColor](/spec/transform/group-color) - 对离散的 color 通道进行分组，并且对通道根据指定的 Reducer 进行聚合。
 - [groupX](/spec/transform/group-x) - 对离散的 x 通道进行分组，并且对通道根据指定的 Reducer 进行聚合。
 - [groupY](/spec/transform/group-y) - 对离散的 y 通道进行分组，并且对通道根据指定的 Reducer 进行聚合。
@@ -71,13 +71,13 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
 - [jitterX](/spec/transform/jitter-x) - 根据离散的 x 比例尺，生成 dx 通道，实现在某个区域的 x 方向散开的效果。
 - [jitterY](/spec/transform/jitter-y) - 根据离散的 y 比例尺，生成 dy 通道，实现在某个区域的 y 方向散开的效果。
 - [normalizeY](/spec/transform/normalize-y) - 对 y 和 y1 通道根据指定的 basis 进行归一化处理。
-- [select](/spec/transform/select) - 按照指定通道进行分组，根据指定通道和 selector 从每组选择出数据。
+- [select](/manual/core/transform/select) - 按照指定通道进行分组，根据指定通道和 selector 从每组选择出数据。
 - [selectX](/spec/transform/select-x) - 按照指定通道进行分组，根据 x 通道和 selector 从每组选择出数据。
 - [selectY](/spec/transform/select-y) - 按照指定的通道进行分组，根据 y 通道和 selector 从每组选择出数据。
 - [pack](/spec/transform/pack) - 生成 transform 和 scale 属性，从而让图形在空间中紧凑排列。
 - [sample](/spec/transform/sample) - 当数据量远大于屏幕像素的时候，开启一些内置的采样策略，提升图表绘制性能。
 - [sortColor](/spec/transform/sort-color) - 对离散的 color 比例尺的定义域根据指定通道排序。
-- [sortX](/spec/transform/sort-x) - 对离散的 x 比例尺的定义域根据指定通道排序。
+- [sortX](/manual/core/transform/sort-x) - 对离散的 x 比例尺的定义域根据指定通道排序。
 - [sortY](/spec/transform/sort-y) - 对离散的 y 比例尺的定义域根据指定通道排序。
 - [stackEnter](/spec/transform/stack-enter) - 对 enterDuration 和 enterDelay 通道进行堆叠，实现分组动画的效果。
 - [stackY](/spec/transform/stack-y) - 按照指定通道分组，对每组的 y 和 y1 通道进行堆叠，实现堆叠效果。
@@ -87,17 +87,17 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
 
 将抽象的数据映射为视觉数据。
 
-- [band](/spec/scale/band) - 特殊的 [ordinal](/spec/scale/ordinal) 比例尺，它的值域范围是一个连续的范围。
-- [linear](/spec/scale/linear) - 针对连续数据，对数据进行连续映射的比例尺。
+- [band](/manual/core/scale/band) - 特殊的 [ordinal](/manual/core/scale/ordinal) 比例尺，它的值域范围是一个连续的范围。
+- [linear](/manual/core/scale/linear) - 针对连续数据，对数据进行连续映射的比例尺。
 - [sqrt](/spec/scale/sqrt) - 指数固定为 `0.5` 的 `pow` 比例尺。
-- [pow](/spec/scale/pow) - 类似于 `linear` 比例尺，但是映射函数为指数函数（exponential）。
+- [pow](/manual/core/scale/pow) - 类似于 `linear` 比例尺，但是映射函数为指数函数（exponential）。
 - [log](/spec/scale/log) - 类似于 `linear` 比例尺，但是映射函数为对数函数（logarithmic）。
-- [ordinal](/spec/scale/ordinal) - 将离散的数据映射到另外一个离散数据中。
-- [point](/spec/scale/point) - 特殊 [band](/spec/scale/band) 比例尺，固定配置 `bandWith = 0`。
+- [ordinal](/manual/core/scale/ordinal) - 将离散的数据映射到另外一个离散数据中。
+- [point](/spec/scale/point) - 特殊 [band](/manual/core/scale/band) 比例尺，固定配置 `bandWith = 0`。
 - [quantize](/spec/scale/quantize) - 类似于 `threshold`，但是计算切片的方式是基于元素的数据值。
 - [quantile](/spec/scale/quantile) - 类似于 `threshold`， 但是计算切片的方式是基于元素在数据中的索引。
-- [threshold](/spec/scale/threshold) - 将连续的值域范围划分为多个切片，并将这些切片映射到一个离散的数据中。
-- [time](/spec/scale/time) - 特殊的 [linear](/spec/scale/linear) 比例尺，它的值域是一组有时间顺序的数据。
+- [threshold](/manual/core/scale/threshold) - 将连续的值域范围划分为多个切片，并将这些切片映射到一个离散的数据中。
+- [time](/spec/scale/time) - 特殊的 [linear](/manual/core/scale/linear) 比例尺，它的值域是一组有时间顺序的数据。
 
 ## Coordinate
 
@@ -128,10 +128,10 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
 
 绘制辅助视觉元素。
 
-- [title](/spec/component/title) - 绘制图表标题和副标题。
+- [title](/manual/component/title) - 绘制图表标题和副标题。
 - [axis](/spec/component/axis) - 绘制坐标轴。
 - [legend](/spec/component/legend) - 绘制图例。
-- [scrollbar](/spec/component/scrollbar) - 绘制滚动条。
+- [scrollbar](/manual/component/scrollbar) - 绘制滚动条。
 - [slider](/spec/component/slider) - 绘制拖动条。
 
 ## [Label](/spec/label/overview)

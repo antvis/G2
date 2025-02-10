@@ -1,6 +1,6 @@
 ---
 title: transpose
-order: 1
+order: 2
 ---
 
 <embed src="@/docs/spec/coordinate/transpose.zh.md"></embed>

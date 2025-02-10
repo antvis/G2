@@ -1,6 +1,6 @@
 ---
 title: radial
-order: 1
+order: 2
 ---
 
 Radial 是一种特殊的极坐标系，常用于绘制玉钰图。

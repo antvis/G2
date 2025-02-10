@@ -1,6 +1,6 @@
 ---
 title: log
-order: 1
+order: 2
 ---
 
 log 是使用对数函数进行数据映射，它的映射函数为 `y = log(x) + b`。

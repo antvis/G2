@@ -1,6 +1,6 @@
 ---
 title: timingKeyframe
-order: 1
+order: 2
 ---
 
 在不同视图之间执行连续的过渡动画。通过 `mark.key` 和 `mark.groupKey` 去关联图形。

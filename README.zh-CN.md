@@ -11,7 +11,7 @@
 <p align="center">
   <a href="https://g2.antv.antgroup.com/manual/introduction/what-is-g2">介绍</a> •
   <a href="https://g2.antv.antgroup.com/examples">案例</a> •
-  <a href="https://g2.antv.antgroup.com/manual/introduction/getting-started">教程</a> •
+  <a href="https://g2.antv.antgroup.com/manual/quick-start">教程</a> •
   <a href="https://g2.antv.antgroup.com/api/overview">API</a> •
   <a href="https://editor.antv.antgroup.com/">Editor</a>
 </p>

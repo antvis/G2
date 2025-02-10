@@ -1,6 +1,6 @@
 ---
 title: dodgeX
-order: 1
+order: 2
 ---
 
 <embed src="@/docs/spec/transform/dodgeX.zh.md"></embed>

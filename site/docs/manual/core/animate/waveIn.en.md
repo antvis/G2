@@ -1,6 +1,6 @@
 ---
 title: waveIn
-order: 1
+order: 2
 ---
 
 <embed src="@/docs/spec/animation/waveIn.zh.md"></embed>

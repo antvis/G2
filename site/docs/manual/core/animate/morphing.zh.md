@@ -1,6 +1,6 @@
 ---
 title: morphing
-order: 1
+order: 2
 ---
 
 `morphing` 图形之间的形变动画，通过 SVG Path 之间的过渡形成的动画。

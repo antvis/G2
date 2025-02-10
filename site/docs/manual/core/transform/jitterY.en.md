@@ -1,6 +1,6 @@
 ---
 title: jitterY
-order: 1
+order: 2
 ---
 
 <embed src="@/docs/spec/transform/jitterY.zh.md"></embed>

@@ -1,6 +1,6 @@
 ---
 title: sortColor
-order: 1
+order: 2
 ---
 
 <embed src="@/docs/spec/transform/sortColor.zh.md"></embed>

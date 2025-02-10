@@ -1,6 +1,6 @@
 ---
 title: classic
-order: 1
+order: 2
 ---
 
 经典主题。

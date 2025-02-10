@@ -1,9 +1,9 @@
 ---
 title: time
-order: 1
+order: 2
 ---
 
-time 是特殊的 [linear](/spec/scale/linear) 比例尺，它的值域是一组时间顺序的数据，映射函数为 `y = x.getTime() + b`。
+time 是特殊的 [linear](/manual/core/scale/linear) 比例尺，它的值域是一组时间顺序的数据，映射函数为 `y = x.getTime() + b`。
 
 ## 开始使用
 

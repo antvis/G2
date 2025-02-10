@@ -1,6 +1,6 @@
 ---
 title: fisheye
-order: 1
+order: 2
 ---
 
 <embed src="@/docs/spec/coordinate/fisheye.zh.md"></embed>

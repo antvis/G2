@@ -1,6 +1,6 @@
 ---
 title: pathIn
-order: 1
+order: 2
 ---
 
 `pathIn` 是 SVG Path 路径入场动画。通过影响 `lineDash` 属性来实现。

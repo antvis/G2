@@ -42,4 +42,4 @@ Titles can also be configured at the level of view:
 chart.title({ title: 'hello', subtitle: 'world' });
 ```
 
-More options about title, see the API document of [title](/spec/component/title).
+More options about title, see the API document of [title](/manual/component/title).

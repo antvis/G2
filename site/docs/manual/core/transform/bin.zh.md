@@ -1,6 +1,6 @@
 ---
 title: bin
-order: 1
+order: 2
 ---
 
 对连续的 x 和 连续的 y 通道进行分箱，并且对通道根据指定的 reducer 进行聚合。

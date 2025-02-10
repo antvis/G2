@@ -1,6 +1,6 @@
 ---
 title: parallel
-order: 1
+order: 2
 ---
 
 Parallel 是平行坐标系变换，将笛卡尔直角坐标系坐标变换为平行坐标系下的坐标。

@@ -1,6 +1,6 @@
 ---
 title: 状态（State）
-order: 6.9
+order: 11
 ---
 
 State in G2 is mainly used to control the state style of mark. These states will be interactively triggered and the attributes are style attributes supported by @antv/g.

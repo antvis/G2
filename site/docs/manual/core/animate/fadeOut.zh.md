@@ -1,6 +1,6 @@
 ---
 title: fadeOut
-order: 1
+order: 2
 ---
 
 `fadeOut` 是渐现动画，影响 `opacity` 透明度属性。

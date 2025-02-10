@@ -67,7 +67,7 @@ chart.render();
 
 ### `spaceLayer.point`
 
-添加 point 图形，具体见 [mark](/spec/mark/point)。
+添加 point 图形，具体见 [mark](/manual/core/mark/point)。
 
 ### `spaceLayer.area`
 
@@ -131,7 +131,7 @@ chart.render();
 
 ### `spaceLayer.boxplot`
 
-添加 boxplot 图形，具体见 [mark](/spec/mark/boxplot)。
+添加 boxplot 图形，具体见 [mark](/manual/core/mark/boxplot)。
 
 ### `spaceLayer.shape`
 

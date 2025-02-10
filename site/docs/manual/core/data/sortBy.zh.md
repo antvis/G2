@@ -1,6 +1,6 @@
 ---
 title: sortBy
-order: 1
+order: 2
 ---
 
 对数据按照指定的字段进行排序。

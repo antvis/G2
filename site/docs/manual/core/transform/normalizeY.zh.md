@@ -1,6 +1,6 @@
 ---
 title: normalizeY
-order: 1
+order: 2
 ---
 
 对 y 和 y1 通道根据指定的 basis 进行归一化处理。

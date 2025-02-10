@@ -1,6 +1,6 @@
 ---
 title: transpose
-order: 1
+order: 2
 ---
 
 Transpose 是坐标系的转置变换，将 (x, y) 变换成 (y, x)，常用于条形图和柱状图之间的转换。

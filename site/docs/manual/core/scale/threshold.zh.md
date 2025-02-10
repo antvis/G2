@@ -1,6 +1,6 @@
 ---
 title: threshold
-order: 1
+order: 2
 ---
 
 threshold 是将连续的值域范围划分为多个切片，并将这些切片映射到一个离散的数据中。

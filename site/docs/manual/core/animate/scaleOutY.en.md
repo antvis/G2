@@ -1,6 +1,6 @@
 ---
 title: scaleOutY
-order: 1
+order: 2
 ---
 
 <embed src="@/docs/spec/animation/scaleOutY.zh.md"></embed>

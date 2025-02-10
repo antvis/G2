@@ -1,6 +1,6 @@
 ---
 title: stackEnter
-order: 1
+order: 2
 ---
 
 <embed src="@/docs/spec/transform/stackEnter.zh.md"></embed>

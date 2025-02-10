@@ -1,6 +1,6 @@
 ---
 title: ema
-order: 1
+order: 2
 ---
 
 <embed src="@/docs/spec/data/ema.zh.md"></embed>

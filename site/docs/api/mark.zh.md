@@ -82,7 +82,7 @@ chart.render();
 
 ### `mark.scrollbar`
 
-设置图形的滚动条，具体见 [scrollbar](/spec/component/scrollbar)。
+设置图形的滚动条，具体见 [scrollbar](/manual/component/scrollbar)。
 
 ### `mark.state`
 

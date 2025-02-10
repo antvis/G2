@@ -1,6 +1,6 @@
 ---
 title: kde
-order: 1
+order: 2
 ---
 
 对指定的数据，进行核密度算法（Kernel Density Estimation）处理，底层使用开源库 [pdfast](https://www.npmjs.com/package/pdfast)。

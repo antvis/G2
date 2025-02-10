@@ -1,6 +1,6 @@
 ---
 title: pow
-order: 1
+order: 2
 ---
 
 pow 是使用指数函数进行数据映射，它的映射函数为 `y = x ^ exp + b`。

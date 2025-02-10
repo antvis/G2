@@ -1,6 +1,6 @@
 ---
 title: select
-order: 1
+order: 2
 ---
 
 按照指定通道进行分组，根据指定通道和 selector 从每组选择出数据。

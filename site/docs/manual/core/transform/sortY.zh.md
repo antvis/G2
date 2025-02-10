@@ -1,6 +1,6 @@
 ---
 title: sortY
-order: 1
+order: 2
 ---
 
 对离散的 y 比例尺的定义域根据指定通道排序。

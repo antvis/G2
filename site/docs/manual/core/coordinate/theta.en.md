@@ -1,6 +1,6 @@
 ---
 title: theta
-order: 1
+order: 2
 ---
 
 <embed src="@/docs/spec/coordinate/theta.zh.md"></embed>

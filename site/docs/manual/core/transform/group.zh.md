@@ -1,6 +1,6 @@
 ---
 title: group
-order: 1
+order: 2
 ---
 
 对离散的 x 和 连续的 y 通道进行分组，并且对通道根据指定的 Reducer 进行聚合。

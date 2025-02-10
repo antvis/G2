@@ -1,6 +1,6 @@
 ---
 title: symmetryY
-order: 1
+order: 2
 ---
 
 <embed src="@/docs/spec/transform/symmetryY.zh.md"></embed>

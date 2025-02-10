@@ -1,6 +1,6 @@
 ---
 title: select
-order: 1
+order: 2
 ---
 
 <embed src="@/docs/spec/transform/select.zh.md"></embed>

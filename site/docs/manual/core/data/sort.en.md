@@ -1,6 +1,6 @@
 ---
 title: sort
-order: 1
+order: 2
 ---
 
 <embed src="@/docs/spec/data/sort.zh.md"></embed>

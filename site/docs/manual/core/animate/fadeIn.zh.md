@@ -1,6 +1,6 @@
 ---
 title: fadeIn
-order: 1
+order: 2
 ---
 
 `fadeIn` 是渐现动画，影响 `opacity` 透明度属性。

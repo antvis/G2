@@ -1,6 +1,6 @@
 ---
 title: group
-order: 1
+order: 2
 ---
 
 <embed src="@/docs/spec/transform/group.zh.md"></embed>

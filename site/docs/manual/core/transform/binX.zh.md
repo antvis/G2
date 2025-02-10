@@ -1,6 +1,6 @@
 ---
 title: binX
-order: 1
+order: 2
 ---
 
 对 x 通道进行分箱，如果希望对 y 通道进行分箱，使用 binX + transpose 坐标系。

@@ -1,6 +1,6 @@
 ---
 title: sample
-order: 1
+order: 2
 ---
 
 <embed src="@/docs/spec/transform/sample.zh.md"></embed>

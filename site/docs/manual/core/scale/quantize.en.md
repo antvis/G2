@@ -1,6 +1,6 @@
 ---
 title: quantize
-order: 1
+order: 2
 ---
 
 <embed src="@/docs/spec/scale/quantize.zh.md"></embed>

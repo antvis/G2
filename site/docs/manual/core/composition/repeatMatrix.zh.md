@@ -1,6 +1,6 @@
 ---
 title: repeatMatrix
-order: 1
+order: 2
 ---
 
 根据字段的数量对空间进行划分，然后利用数据在这些子空间可视化。
@@ -55,7 +55,7 @@ repeatMatrix 的底层实现和 mark 一致，所以在配置上有很多是一�
 
 | 属性          | 描述                                         | 类型     | 默认值 |
 | ------------- | -------------------------------------------- | -------- | ------ |
-| data          | 参考 [data](/spec/data) 相关介绍             | `Data`   |        |
+| data          | 参考 [data](/manual/core/data/overview) 相关介绍             | `Data`   |        |
 | encode        | 通道设置，见下表                             |          |        |
 | padding       | padding 大小                                 | `number` | 0      |
 | paddingLeft   |                                              | `number` | 0      |
@@ -67,8 +67,8 @@ repeatMatrix 的底层实现和 mark 一致，所以在配置上有很多是一�
 | marginRight   |                                              | `number` | 0      |
 | marginTop     |                                              | `number` | 0      |
 | marginBottom  |                                              | `number` | 0      |
-| title         | 参考 [title](/spec/component/title) 相关介绍 |          |        |
-| scale         | 参考 [scale](/spec/scale/linear) 相关介绍    |          |        |
+| title         | 参考 [title](/manual/component/title) 相关介绍 |          |        |
+| scale         | 参考 [scale](/manual/core/scale/overview) 相关介绍    |          |        |
 
 `repeatMatrix` 对应的配置都可以使用 API 进行设置，例如：
 

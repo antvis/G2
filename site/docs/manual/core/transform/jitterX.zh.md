@@ -1,6 +1,6 @@
 ---
 title: jitterX
-order: 1
+order: 2
 ---
 
 根据离散的 x 比例尺，生成 dx 通道，实现在某个区域的 x 方向散开的效果。

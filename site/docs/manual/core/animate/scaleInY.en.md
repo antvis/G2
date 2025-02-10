@@ -1,6 +1,6 @@
 ---
 title: scaleInY
-order: 1
+order: 2
 ---
 
 <embed src="@/docs/spec/animation/scaleInY.zh.md"></embed>

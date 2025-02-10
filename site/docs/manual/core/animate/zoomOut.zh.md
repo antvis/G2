@@ -1,6 +1,6 @@
 ---
 title: zoomOut
-order: 1
+order: 2
 ---
 
 `zoomOut` 沿着图形中心点的缩小动画。影响 `transform.scale` 属性。

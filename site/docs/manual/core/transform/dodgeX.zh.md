@@ -1,6 +1,6 @@
 ---
 title: dodgeX
-order: 1
+order: 2
 ---
 
 生成 series 通道值为 color 通道的值，根据 series 通道实现分组效果。

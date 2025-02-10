@@ -1,6 +1,6 @@
 ---
 title: fetch
-order: 1
+order: 2
 ---
 
 根据 `value` 指定的 `url` 获取远程的数据。可以通过 `format` 去指定数据类型，G2 默认会根据 `value` 指定的文件后缀名去推断数据类型。
