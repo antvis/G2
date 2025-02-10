@@ -1,0 +1,209 @@
+name: Manage Labeled Issue
+
+on:
+  issues:
+    types: [labeled]
+
+permissions: {}
+
+jobs:
+  manage-labels:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      # 当添加分类标签时，移除 'waiting for maintainer' 标签
+      - name: Remove `waiting for maintainer` label when other triage labels are added
+        uses: actions/github-script@v7.0.1
+        with:
+          script: |
+            const labelsToCheck = ['waiting for author', 'need improvement', 'bug 🐛', 'documentation 📖', 'feature 💡', 'question 💬', 'notabug', 'stale', 'wontfix', 'duplicate'];
+
+            const labelToRemove = 'waiting for maintainer';
+            const newLabel = context.payload.label.name;
+
+            if (labelsToCheck.includes(newLabel)) {
+                const { data: labels } = await github.rest.issues.listLabelsOnIssue({
+                  issue_number: context.issue.number,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                });
+                if (labels.some(label => label.name === labelToRemove)) {
+                  await github.rest.issues.removeLabel({
+                    issue_number: context.issue.number,
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    name: labelToRemove,
+                  });
+                }
+            }
+
+      # 当添加 'need improvement' 标签时，同时添加 'waiting for author' 标签
+      - name: Append label if `need improvement` is added
+        if: github.event.label.name == 'need improvement'
+        uses: actions-cool/issues-helper@v3.6.0
+        with:
+          actions: "add-labels"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.issue.number }}
+          labels: "waiting for author"
+
+      # 当添加 'need improvement' 标签时，发送提醒评论
+      - name: Warn bad issue when `need improvement` label is added
+        if: github.event.label.name == 'need improvement'
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: "create-comment"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            📝 To help us better understand and address your issue, **please provide more information, or use the standard format**, otherwise we will not process this issue.
+
+            Reference document: 
+
+              - [Creating an issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/creating-an-issue)
+              - [Basic writing and formatting syntax](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
+
+            ---
+
+            📝 为了帮助我们更好地理解和解决你的问题，**请提供更多信息，或者使用规范的格式**，否则我们不会处理这个 issue。
+
+            参考文档：
+
+              - [创建议题](https://docs.github.com/zh/issues/tracking-your-work-with-issues/using-issues/creating-an-issue)
+              - [基本撰写和格式语法](https://docs.github.com/zh/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
+          emoji: "heart"
+
+      # 处理 stale 标签
+      - name: Add stale issue comment before closing
+        if: github.event.label.name == 'stale'
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: "create-comment"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            ⚠️ This issue has been automatically closed due to inactivity. 
+
+            - If the issue is still relevant and important to you, feel free to:
+              1. Reopen with additional information
+              2. Create a new issue with updated context
+              3. Reference any related issues or discussions
+
+            We close inactive issues to keep our backlog manageable and focused on active issues.
+
+            Your contribution makes our project better! 🌟
+
+            ---
+
+            ⚠️ 由于长期无活动，此 issue 已被自动关闭。
+
+            - 如果这个问题对您来说仍然重要，您可以：
+              1. 重新打开并提供补充信息
+              2. 创建一个新的 issue 并更新相关背景
+              3. 关联相关的 issue 或讨论
+
+            为了更好地维护项目，我们需要定期清理不活跃的问题。
+
+            感谢您为开源添砖加瓦！🌟
+          emoji: "heart"
+
+      - name: Close stale issue
+        if: github.event.label.name == 'stale'
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: "close-issue"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.issue.number }}
+
+      # 处理 wontfix 标签
+      - name: Add wontfix issue comment before closing
+        if: github.event.label.name == 'wontfix'
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: "create-comment"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            🚫 This issue has been marked as "Won't Fix". Here's why:
+
+            - The described behavior is working as intended
+            - The request falls outside our project scope/goals
+            - The cost/benefit ratio doesn't justify the change
+
+            If you have new information that might change this decision, feel free to:
+            1. Share your additional context
+            2. Propose alternative solutions
+            3. Start a discussion to explore different approaches
+
+            Thank you for your understanding and engagement! 🙏
+
+            ---
+
+            🚫 此 issue 被标记为"不予修复"，原因如下：
+
+            - 当前行为符合设计预期
+            - 该请求超出项目范围/目标
+            - 投入产出比不足以支持此变更
+
+            如果您有任何新的想法或建议，欢迎：
+            1. 分享更多上下文
+            2. 提出替代方案
+            3. 发起讨论以探索不同思路
+
+            感谢理解与支持！🙏
+          emoji: "heart"
+
+      - name: Close wontfix issue
+        if: github.event.label.name == 'wontfix'
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: "close-issue"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.issue.number }}
+
+      # 处理 notabug 标签
+      - name: Add notabug issue comment before closing
+        if: github.event.label.name == 'notabug'
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: "create-comment"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            ✅ After careful review, we've determined this is not a bug. Here's why:
+
+            - The current behavior is working as designed
+            - This might be a misunderstanding of the feature
+            - The issue cannot be reproduced with the provided information
+
+            If you still believe this is a bug, please:
+            1. Provide a minimal reproduction
+            2. Share your expected behavior
+            3. Include more detailed environment information
+
+            Thank you for helping us improve our project! 💫
+
+            ---
+
+            ✅ 经过仔细核查，这并非一个 bug，原因如下：
+
+            - 当前表现符合设计预期
+            - 可能是对功能理解有所偏差
+            - 基于已提供信息无法复现问题
+
+            如果您仍认为这是一个 bug，建议：
+            1. 提供最小复现示例
+            2. 说明您期望的表现
+            3. 补充更详细的环境信息
+
+            期待您的反馈！💫
+          emoji: "heart"
+
+      - name: Close notabug issue
+        if: github.event.label.name == 'notabug'
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: "close-issue"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.issue.number }}

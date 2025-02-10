@@ -1,0 +1,123 @@
+name: Sync Issue Labels
+
+on:
+  # 手动触发
+  workflow_dispatch:
+
+jobs:
+  sync-labels:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create default labels
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const labels = [
+              {
+                name: 'waiting for maintainer',
+                description: 'Triage or intervention needed from a maintainer',
+                color: 'bcf5db'
+              },
+              {
+                name: 'waiting for author',
+                description: 'Further information is requested from the author',
+                color: 'fef2c0'
+              },
+              {
+                name: 'need improvement',
+                description: 'Lack of information or incorrect format',
+                color: 'fbca04'
+              },
+              {
+                name: 'bug 🐛',
+                description: "Something isn't working",
+                color: 'ee0701'
+              },
+              {
+                name: 'documentation 📖',
+                description: 'Improvements or additions to documentation',
+                color: 'd4c5f9'
+              },
+              {
+                name: 'feature 💡',
+                description: 'A new feature request or an enhancement proposal',
+                color: 'a2eeef'
+              },
+              {
+                name: 'question 💬',
+                description: 'This issue is just a question. It will be converted into discussion automatically',
+                color: 'cc317c'
+              },
+              {
+                name: 'duplicate',
+                description: 'This issue or PR already exists and may be closed with a reference to the original',
+                color: 'eeeeee'
+              },
+              {
+                name: 'good first issue',
+                description: 'Good for newcomers',
+                color: '7057ff'
+              },
+              {
+                name: 'help wanted',
+                description: "Anyone can help, whether you're a seasoned developer or new to the project",
+                color: '008672'
+              },
+              {
+                name: 'resolved',
+                description: 'This issue has been resolved and is now available in the latest release',
+                color: '0E8A16'
+              },
+              {
+                name: 'resolved pending release',
+                description: 'This issue has been resolved and is pending release',
+                color: '0E8A16'
+              },
+              {
+                name: 'stale',
+                description: 'This issue has not had recent activity or appears to be solved. It will be automatically closed',
+                color: 'eeeeee'
+              },
+              {
+                name: 'wontfix',
+                description: 'This issue will not be fixed or otherwise handled. It will be automatically closed',
+                color: 'eeeeee'
+              },
+              {
+                name: 'notabug',
+                description: 'This issue reported is not a bug (e.g., misreported, not reproducible) and will be automatically closed',
+                color: 'eeeeee'
+              }
+            ];
+
+            for (const label of labels) {
+              try {
+                // 先检查标签是否存在
+                try {
+                  await github.rest.issues.getLabel({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    name: label.name
+                  });
+                  console.log(`跳过已存在的标签: ${label.name}`);
+                  continue; // 如果标签存在，跳过创建
+                } catch (error) {
+                  if (error.status !== 404) {
+                    throw error; // 如果不是 404 错误，抛出异常
+                  }
+                  // 标签不存在，继续创建
+                }
+
+                // 创建新标签
+                await github.rest.issues.createLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  name: label.name,
+                  color: label.color,
+                  description: label.description
+                });
+                console.log(`成功创建标签: ${label.name}`);
+              } catch (error) {
+                console.error(`处理标签 ${label.name} 时出错:`, error);
+              }
+            }

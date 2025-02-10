@@ -1,0 +1,27 @@
+name: Resolved Pending Release
+
+on:
+  release:
+    types: [published]
+
+permissions: {}
+
+jobs:
+  comment-on-issues:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Check this repository out, otherwise the script won't be available,
+          # as it otherwise checks out the repository where the workflow caller is located
+          repository: antvis/github-config
+
+      - name: Comment on issues
+        uses: actions/github-script@v7.0.1
+        with:
+          script: |
+            const script = require('./.github/workflows/scripts/closeOnRelease.js');
+            await script({core, github, context});

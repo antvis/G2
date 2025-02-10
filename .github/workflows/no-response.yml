@@ -1,0 +1,60 @@
+name: No Response
+
+# `issues`.`closed`, `issue_comment`.`created`, and `scheduled` event types are required for this Action
+# to work properly.
+on:
+  issues:
+    types:
+      - closed
+  issue_comment:
+    types:
+      - created
+  schedule:
+    # These runs in our repos are spread evenly throughout the day to avoid hitting rate limits.
+    # If you change this schedule, consider changing the remaining repositories as well.
+    # Runs at 12 am, 12 pm
+    - cron: "0 0,12 * * *"
+
+permissions: {}
+
+jobs:
+  noResponse:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: MBilalShafi/no-response-add-label@v0.0.6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # Number of days of inactivity before an Issue is closed for lack of response
+          daysUntilClose: 7
+          # Label requiring a response
+          responseRequiredLabel: "waiting for author"
+          # Label to add back when required label is removed
+          optionalFollowupLabel: "waiting for maintainer"
+          # Comment to post when closing an Issue for lack of response. Set to `false` to disable
+          closeComment: |
+            ⚠️ This issue has been automatically closed due to inactivity. 
+
+            - If the issue is still relevant and important to you, feel free to:
+              1. Reopen with additional information
+              2. Create a new issue with updated context
+              3. Reference any related issues or discussions
+
+            We close inactive issues to keep our backlog manageable and focused on active issues. 
+
+            Your contribution makes our project better! 🌟
+
+            ---
+
+            ⚠️ 由于长期无活动，此 issue 已被自动关闭。
+
+            - 如果这个问题对您来说仍然重要，您可以：
+              1. 重新打开并提供补充信息
+              2. 创建一个新的 issue 并更新相关背景
+              3. 关联相关的 issue 或讨论
+
+            为了更好地维护项目，我们需要定期清理不活跃的问题。
+
+            感谢您为开源添砖加瓦！🌟

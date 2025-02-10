@@ -1,0 +1,9 @@
+# Ref: https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository#configuring-the-template-chooser
+blank_issues_enabled: false
+contact_links:
+  - name: 📝 Question / 问题咨询
+    url: https://github.com/antvis/github-config/discussions/new?category=q-a
+    about: Ask the community for help / 向社区寻求帮助
+  - name: 💬 Join Discussion Group / 加入讨论群
+    url: https://qr.dingtalk.com/action/joingroup?code=v1,k1,rQHsK/OOTPX8ixM/DaXcL3goIYpnpKr/AFIonmA1SOM=&_dt_no_comment=1&origin=11?
+    about: Join DingTalk discussion group / 加入钉钉讨论群

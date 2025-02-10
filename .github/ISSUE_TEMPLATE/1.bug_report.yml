@@ -1,0 +1,84 @@
+name: '🐞 Bug Report'
+description: Create a report to help us improve, Ask questions in Discussions / 创建一个问题报告以帮助我们改进，提问请到 Discussions
+title: '[Bug]: '
+labels: ['waiting for maintainer']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Report errors and exceptions found in the project.
+
+        Before submitting a new bug/issue, please check the links below to see if there is a solution or question posted there already:
+
+        ---
+
+        反馈在项目中发现的错误、异常。
+
+        在提交新 issue 之前，先通过以下链接检查是否存在相同问题:
+
+        > [Issues](../issues) | [Closed Issues](../issues?q=is:issue+is:closed) | [Discussions](../discussions)
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the bug / 问题描述
+      placeholder: |
+        If there is a code block, please use Markdown syntax, such as:
+        如包含代码块，请使用 Markdown 语法，如：
+
+        ```javascript
+        // Your code here
+        ```
+    validations:
+      required: true
+  - type: input
+    id: link
+    attributes:
+      label: Reproduction link / 复现链接
+      placeholder: |
+        CodeSandbox / StackBlitz / ...
+      description: |
+        可以使用 CodeSandbox(https://codesandbox.io/s/antv-g2-5-0-template-z2gsmn?file=/src/index.js) 或者 StackBlitz(https://stackblitz.com/) 重现你的问题。
+    validations:
+      required: false
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce the Bug or Issue / 重现步骤
+    validations:
+      required: false
+  - type: dropdown
+    id: version
+    attributes:
+      label: Version / 版本
+      options:
+        - Please select / 请选择
+        - 🆕 5.x
+        - 4.x
+        - 3.x
+    validations:
+      required: true
+  - type: checkboxes
+    id: OS
+    attributes:
+      label: OS / 操作系统
+      options:
+        - label: macOS
+        - label: Windows
+        - label: Linux
+        - label: Others / 其他
+    validations:
+      required: true
+  - type: checkboxes
+    id: Browser
+    attributes:
+      label: Browser / 浏览器
+      options:
+        - label: Chrome
+        - label: Edge
+        - label: Firefox
+        - label: Safari (Limited support / 有限支持)
+        - label: IE (Nonsupport / 不支持)
+        - label: Others / 其他
+    validations:
+      required: true
