@@ -1,0 +1,82 @@
+name: '📖 Docs Feedback'
+description: 'Help us make our docs better! Share your thoughts and suggestions / 帮助我们改进文档！分享您的想法和建议'
+labels: ['waiting for maintainer']
+title: '[docs]: '
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### 👋 Hello there! / 您好！
+
+        Thank you for helping us improve our documentation! Your feedback is invaluable to us and will help make our docs better for everyone.
+
+        感谢您帮助我们改进文档！您的反馈对我们来说非常宝贵，这将帮助我们为所有人提供更好的文档体验。
+
+  - type: input
+    id: page-url
+    attributes:
+      label: '📍 Which page are you reading?'
+      description: "Please share the URL of the page you'd like to give feedback on / 请分享您想要反馈的页面链接"
+      placeholder: 'https://docs.example.com/'
+    validations:
+      required: true
+
+  - type: dropdown
+    id: feedback-type
+    attributes:
+      label: "💭 What's on your mind?"
+      description: 'What kind of feedback would you like to share? / 您想分享什么类型的反馈？'
+      options:
+        - 'Could be clearer / 需要更清晰的解释'
+        - 'Missing information / 信息不完整'
+        - 'Example needs fixing / 示例需要修复'
+        - 'Content needs updating / 内容需要更新'
+        - 'Other suggestions / 其他建议'
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: '🤔 Tell us more'
+      description: |
+        Let us know what went wrong when you were using this documentation and what we could do to improve it | 请告知您在使用此文档时遇到的问题以及我们可以改进的地方
+      placeholder: |
+        Share your experience:
+        - What confused you?
+        - What were you looking for?
+        - What would have helped you understand better?
+
+        分享您的体验：
+        - 哪里让您感到困惑？
+        - 您在寻找什么信息？
+        - 什么样的改进能帮助您更好地理解？
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: '💡 Got any suggestions?'
+      description: |
+        What are you trying to accomplish? Providing context helps us come up with a solution that is more useful in the real world | 您希望实现什么目标？提供上下文有助于我们提出更实用的解决方案
+      placeholder: |
+        Some ideas you might share:
+        - Adding more examples
+        - Including screenshots
+        - Providing step-by-step guides
+
+        您可以建议：
+        - 添加更多示例
+        - 包含截图说明
+        - 提供步骤指南
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        💝 Thanks for taking the time to fill out this form! Your feedback helps make our documentation better for everyone.
+
+        感谢您抽出宝贵时间填写这份反馈！您的建议将帮助我们为所有人提供更好的文档。

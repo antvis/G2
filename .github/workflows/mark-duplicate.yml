@@ -1,0 +1,23 @@
+name: Mark Duplicate Issue
+
+on:
+  issue_comment:
+    types: [created, edited]
+
+permissions: {}
+
+jobs:
+  mark-duplicate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - name: Mark duplicate issue
+        uses: actions-cool/issues-helper@v3.6.0
+        with:
+          actions: "mark-duplicate"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          duplicate-labels: "duplicate"
+          remove-labels: "waiting for maintainer"
+          close-issue: true
