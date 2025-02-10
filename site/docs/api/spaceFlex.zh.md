@@ -73,11 +73,11 @@ chart.render();
 
 ### `spaceFlex.interval`
 
-添加 interval 图形，具体见 [mark](/spec/mark/interval)。
+添加 interval 图形，具体见 [mark](/manual/core/mark/interval)。
 
 ### `spaceFlex.rect`
 
-添加 rect 图形，具体见 [mark](/spec/mark/rect)。
+添加 rect 图形，具体见 [mark](/manual/core/mark/rect)。
 
 ### `spaceFlex.point`
 
@@ -85,51 +85,51 @@ chart.render();
 
 ### `spaceFlex.area`
 
-添加 area 图形，具体见 [mark](/spec/mark/area)。
+添加 area 图形，具体见 [mark](/manual/core/mark/area)。
 
 ### `spaceFlex.line`
 
-添加 line 图形，具体见 [mark](/spec/mark/line)。
+添加 line 图形，具体见 [mark](/manual/core/mark/line)。
 
 ### `spaceFlex.vector`
 
-添加 vector 图形，具体见 [mark](/spec/mark/vector)。
+添加 vector 图形，具体见 [mark](/manual/core/mark/vector)。
 
 ### `spaceFlex.link`
 
-添加 link 图形，具体见 [mark](/spec/mark/link)。
+添加 link 图形，具体见 [mark](/manual/core/mark/link)。
 
 ### `spaceFlex.polygon`
 
-添加 polygon 图形，具体见 [mark](/spec/mark/polygon)。
+添加 polygon 图形，具体见 [mark](/manual/core/mark/polygon)。
 
 ### `spaceFlex.image`
 
-添加 image 图形，具体见 [mark](/spec/mark/image)。
+添加 image 图形，具体见 [mark](/manual/core/mark/image)。
 
 ### `spaceFlex.text`
 
-添加 text 图形，具体见 [mark](/spec/mark/text)。
+添加 text 图形，具体见 [mark](/manual/core/mark/text)。
 
 ### `spaceFlex.lineX`
 
-添加 lineX 图形，具体见 [mark](/spec/mark/line-x)。
+添加 lineX 图形，具体见 [mark](/manual/core/mark/line-x)。
 
 ### `spaceFlex.lineY`
 
-添加 lineY 图形，具体见 [mark](/spec/mark/line-y)。
+添加 lineY 图形，具体见 [mark](/manual/core/mark/line-y)。
 
 ### `spaceFlex.range`
 
-添加 range 图形，具体见 [mark](/spec/mark/range)。
+添加 range 图形，具体见 [mark](/manual/core/mark/range)。
 
 ### `spaceFlex.rangeX`
 
-添加 rangeX 图形，具体见 [mark](/spec/mark/range-x)。
+添加 rangeX 图形，具体见 [mark](/manual/core/mark/range-x)。
 
 ### `spaceFlex.rangeY`
 
-添加 rangeY 图形，具体见 [mark](/spec/mark/range-y)。
+添加 rangeY 图形，具体见 [mark](/manual/core/mark/range-y)。
 
 ### `spaceFlex.connector`
 
@@ -137,11 +137,11 @@ chart.render();
 
 ### `spaceFlex.sankey`
 
-添加 sankey 图形，具体见 [graph](/spec/graph/sankey)。
+添加 sankey 图形，具体见 [graph](/manual/extra-topics/graph/sankey)。
 
 ### `spaceFlex.treemap`
 
-添加 treemap 图形，具体见 [graph](/spec/graph/treemap)。
+添加 treemap 图形，具体见 [graph](/manual/extra-topics/graph/treemap)。
 
 ### `spaceFlex.boxplot`
 
@@ -149,27 +149,27 @@ chart.render();
 
 ### `spaceFlex.shape`
 
-添加自定义图形，具体见 [mark](/spec/mark/shape)。
+添加自定义图形，具体见 [mark](/manual/core/mark/shape)。
 
 ### `spaceFlex.pack`
 
-添加 pack 图形，具体见 [graph](/spec/graph/pack)。
+添加 pack 图形，具体见 [graph](/manual/extra-topics/graph/pack)。
 
 ### `spaceFlex.forceGraph`
 
-添加 forceGraph 图形，具体见 [graph](/spec/graph/force-graph)。
+添加 forceGraph 图形，具体见 [graph](/manual/extra-topics/graph/force-graph)。
 
 ### `spaceFlex.tree`
 
-添加 tree 图形，具体见 [graph](/spec/graph/tree)。
+添加 tree 图形，具体见 [graph](/manual/extra-topics/graph/tree)。
 
 ### `spaceFlex.wordCloud`
 
-添加 wordCloud 图形，具体见 [mark](/spec/mark/wordcloud)。
+添加 wordCloud 图形，具体见 [mark](/manual/core/mark/wordcloud)。
 
 ### `spaceFlex.gauge`
 
-添加 gauge 图形，具体见 [mark](/spec/mark/gauge)。
+添加 gauge 图形，具体见 [mark](/manual/core/mark/gauge)。
 
 ### 设置属性
 
@@ -179,4 +179,4 @@ chart.render();
 
 #### `spaceFlex.data`
 
-设置图形的数据，支持多种数据来源和数据变换，具体见 [data](/spec/data/overview)。
+设置图形的数据，支持多种数据来源和数据变换，具体见 [data](/manual/core/data/overview)。

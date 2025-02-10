@@ -5,7 +5,7 @@ order: 1
 
 G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的顺序去分别介绍每一个模块，你可以把它当做一个字典去搜索和查询。
 
-## [Data](/spec/data/overview)
+## [Data](/manual/core/data/overview)
 
 获得和转换数据。
 
@@ -31,28 +31,28 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
 
 绘制数据驱动的图形。
 
-- [interval](/spec/mark/interval) - 通常用来绘制柱、条形图，饼图等相关图表。
+- [interval](/manual/core/mark/interval) - 通常用来绘制柱、条形图，饼图等相关图表。
 - [point](/manual/core/mark/point) - 主要用于绘制散点图，利用点的粒度来分析数据的分布情况。
-- [line](/spec/mark/line) - 根据一系列的点，绘制折线，通常用来绘制折线图。
-- [area](/spec/mark/area) - 通常用来绘制我们常见的面积图，通过填充，可以更好突出趋势堆积信息。
+- [line](/manual/core/mark/line) - 根据一系列的点，绘制折线，通常用来绘制折线图。
+- [area](/manual/core/mark/area) - 通常用来绘制我们常见的面积图，通过填充，可以更好突出趋势堆积信息。
 - [cell](/spec/mark/cell) - 根据 x, y 将空间划分成一个子空间，然后进行可视化绘制，常见于一些方块图，如日历图、聚合热力图等。
-- [rect](/spec/mark/rect) - 使用两组 x，两组 y 来定位一个矩形区域，常用于直方图、矩阵树图等。
-- [link](/spec/mark/link) - 标记使用两个用 (x, y) 定位的点，绘制一条带方向的直线。通过指定 `x`，`y` 通道为长度为 2 的字段数组即可。
-- [vector](/spec/mark/vector) - 用 `start`，`end` 两个点来表示一个向量，通常用于绘制具备向量含义的数据，比如风向量场等。
+- [rect](/manual/core/mark/rect) - 使用两组 x，两组 y 来定位一个矩形区域，常用于直方图、矩阵树图等。
+- [link](/manual/core/mark/link) - 标记使用两个用 (x, y) 定位的点，绘制一条带方向的直线。通过指定 `x`，`y` 通道为长度为 2 的字段数组即可。
+- [vector](/manual/core/mark/vector) - 用 `start`，`end` 两个点来表示一个向量，通常用于绘制具备向量含义的数据，比如风向量场等。
 - [box](/manual/core/mark/box) - 用来绘制箱线图，通常用来展示一组数据分布情况的统计图。
 - [boxplot](/manual/core/mark/boxplot) - 用来绘制箱线图，并且内置数据的聚合操作。
-- [text](/spec/mark/text) - 通过指定文本的样式通道，可以在画布上绘制和数据绑定的文本字符。
-- [image](/spec/mark/image) - 利用 `src` 通道在画布上绘制图片。
-- [shape](/spec/mark/shape) - 使用自定义函数灵活绘制自定义图形。
-- [lineX](/spec/mark/line-x) - 指定 `x` 通道来绘制垂直于 x 轴的辅助线，常用于绘制平均值或其他聚合数据辅助线。
-- [lineY](/spec/mark/line-y) - 指定 `y` 通道来绘制垂直于 y 轴的辅助线，常用于绘制平均值或其他聚合数据辅助线。
-- [range](/spec/mark/range) - 使用一组 `x`(x1, x2) 和一组 `y`(y1, y2) 来定位一个矩形区域，常用于绘制高亮指定区域的辅助区域。
-- [rangeX](/spec/mark/range-x) - 使用一组 `x`(x1, x2) 来定位一个垂直于 x 轴的矩形区域，常用于绘制高亮指定区域的辅助区域。
-- [rangeY](/spec/mark/range-y) - 使用一组 `y`(y1, y2) 来定位一个垂直于 y 轴的矩形区域，常用于绘制高亮指定区域的辅助区域。
-- [polygon](/spec/mark/polygon) - 利用多组 (x, y) 数据点，在画布中绘制闭合的多边形，通常结合一些社区布局算法使用。
+- [text](/manual/core/mark/text) - 通过指定文本的样式通道，可以在画布上绘制和数据绑定的文本字符。
+- [image](/manual/core/mark/image) - 利用 `src` 通道在画布上绘制图片。
+- [shape](/manual/core/mark/shape) - 使用自定义函数灵活绘制自定义图形。
+- [lineX](/manual/core/mark/line-x) - 指定 `x` 通道来绘制垂直于 x 轴的辅助线，常用于绘制平均值或其他聚合数据辅助线。
+- [lineY](/manual/core/mark/line-y) - 指定 `y` 通道来绘制垂直于 y 轴的辅助线，常用于绘制平均值或其他聚合数据辅助线。
+- [range](/manual/core/mark/range) - 使用一组 `x`(x1, x2) 和一组 `y`(y1, y2) 来定位一个矩形区域，常用于绘制高亮指定区域的辅助区域。
+- [rangeX](/manual/core/mark/range-x) - 使用一组 `x`(x1, x2) 来定位一个垂直于 x 轴的矩形区域，常用于绘制高亮指定区域的辅助区域。
+- [rangeY](/manual/core/mark/range-y) - 使用一组 `y`(y1, y2) 来定位一个垂直于 y 轴的矩形区域，常用于绘制高亮指定区域的辅助区域。
+- [polygon](/manual/core/mark/polygon) - 利用多组 (x, y) 数据点，在画布中绘制闭合的多边形，通常结合一些社区布局算法使用。
 - [wordCloud](/spec/mark/word-cloud) - 绘制词云图。
-- [density](/spec/mark/density) - 渲染核密度数据，多用于小提琴图。
-- [heatmap](/spec/mark/heatmap) - 接受热力数据，多用于绘制热力图。
+- [density](/manual/core/mark/density) - 渲染核密度数据，多用于小提琴图。
+- [heatmap](/manual/core/mark/heatmap) - 接受热力数据，多用于绘制热力图。
 
 ## Transform
 
@@ -117,24 +117,24 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
 
 视图复合相关的内容。
 
-- [spaceLayer](/spec/composition/space-layer) - 对空间不做任何划分，多个视图使用同一个空间区域，常用于视图的层叠。
-- [spaceFlex](/spec/composition/space-flex) - 使用类似 css flex 的布局方式来划分空间区域，常用于多图表对比的视图。
-- [facetRect](/spec/composition/facet-rect) - 用 row、column 字段维值对空间和数据进行划分，在各个子空间可视化数据片段。
-- [facetCircle](/spec/composition/facet-circle) - 根据字段分片数据，利用圆形划分空间，然就进行各个分面的数据可视化。
-- [repeatMatrix](/spec/composition/repeat-matrix) - 根据字段的数量对空间进行划分和可视化。
-- [timingKeyframe](/spec/composition/timing-keyframe) - 在不同时间片之间播放不同的可视化视图帧。
+- [spaceLayer](/manual/core/composition/space-layer) - 对空间不做任何划分，多个视图使用同一个空间区域，常用于视图的层叠。
+- [spaceFlex](/manual/core/composition/space-flex) - 使用类似 css flex 的布局方式来划分空间区域，常用于多图表对比的视图。
+- [facetRect](/manual/core/composition/facet-rect) - 用 row、column 字段维值对空间和数据进行划分，在各个子空间可视化数据片段。
+- [facetCircle](/manual/core/composition/facet-circle) - 根据字段分片数据，利用圆形划分空间，然就进行各个分面的数据可视化。
+- [repeatMatrix](/manual/core/composition/repeat-matrix) - 根据字段的数量对空间进行划分和可视化。
+- [timingKeyframe](/manual/core/composition/timing-keyframe) - 在不同时间片之间播放不同的可视化视图帧。
 
 ## Component
 
 绘制辅助视觉元素。
 
 - [title](/manual/component/title) - 绘制图表标题和副标题。
-- [axis](/spec/component/axis) - 绘制坐标轴。
-- [legend](/spec/component/legend) - 绘制图例。
+- [axis](/manual/component/axis) - 绘制坐标轴。
+- [legend](/manual/component/legend) - 绘制图例。
 - [scrollbar](/manual/component/scrollbar) - 绘制滚动条。
-- [slider](/spec/component/slider) - 绘制拖动条。
+- [slider](/manual/component/slider) - 绘制拖动条。
 
-## [Label](/spec/label/overview)
+## [Label](/manual/core/label/overview)
 
 绘制数据标签和标签属性的变换。
 
@@ -143,7 +143,7 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
 - [overlapDodgeY](/spec/label/overlap-dodge-y) - 对位置碰撞的标签在 y 方向上进行调整，防止标签重叠。
 - [overlapHide](/spec/label/overlap-hide) - 对位置碰撞的标签进行隐藏，默认保留前一个，隐藏后一个。
 
-## [Animation](/spec/animation/overview)
+## [Animation](/manual/core/animate/overview)
 
 数据驱动的动画和连续的形变动画。
 
@@ -190,18 +190,18 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
 
 关系图相关的绘制。
 
-- [sankey](/spec/graph/sankey) - 绘制桑基图。
-- [treemap](/spec/graph/treemap) - 绘制矩阵树图。
-- [pack](/spec/graph/pack) - 绘制打包图。
-- [forceGraph](/spec/graph/force-graph) - 绘制力导向图。
-- [tree](/spec/graph/tree) - 绘制树图。
+- [sankey](/manual/extra-topics/graph/sankey) - 绘制桑基图。
+- [treemap](/manual/extra-topics/graph/treemap) - 绘制矩阵树图。
+- [pack](/manual/extra-topics/graph/pack) - 绘制打包图。
+- [forceGraph](/manual/extra-topics/graph/force-graph) - 绘制力导向图。
+- [tree](/manual/extra-topics/graph/tree) - 绘制树图。
 
 ## Geo
 
 地图相关的图形绘制。
 
-- [geoPath](/spec/geo/geo-path) - 可以用来结合 geojson 绘制地图。
-- [geoView](/spec/geo/geo-view) - 绘制地图的容器，用于多 geoPath 图层叠加。
+- [geoPath](/manual/extra-topics/geo/geo-path) - 可以用来结合 geojson 绘制地图。
+- [geoView](/manual/extra-topics/geo/geo-view) - 绘制地图的容器，用于多 geoPath 图层叠加。
 
 ## [Theme](/spec/theme/theme)
 
@@ -224,4 +224,4 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
 
 公共配置。
 
-- [style](/spec/common/style) - 绘制图表标题和副标题。
+- [style](/manual/core/style) - 绘制图表标题和副标题。

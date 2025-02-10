@@ -38,7 +38,7 @@ chart.render();
 
 ### `mark.data`
 
-设置图形的数据，支持多种数据来源和数据变换，具体见 [data](/spec/data/overview)。
+设置图形的数据，支持多种数据来源和数据变换，具体见 [data](/manual/core/data/overview)。
 
 ### `mark.changeData`
 
@@ -50,35 +50,35 @@ chart.render();
 
 ### `mark.scale`
 
-设置图形每个通道的比例尺，具体见 [scale](/spec/overview#scale)。
+设置图形每个通道的比例尺，具体见 [scale](/manual/core/scale/overview)。
 
 ### `mark.label`
 
-设置图形的标签，具体见 [label](/spec/label/overview)。
+设置图形的标签，具体见 [label](/manual/core/label/overview)。
 
 ### `mark.style`
 
-设置图形的样式，具体见 [style](/spec/common/style)。
+设置图形的样式，具体见 [style](/manual/core/style)。
 
 ### `mark.theme`
 
-设置图形的主题，具体见 [theme](/spec/overview#theme)。
+设置图形的主题，具体见 [theme](/manual/core/theme/overview)。
 
 ### `mark.animate`
 
-设置图形的动画，具体见 [animation](/spec/animation/overview)。
+设置图形的动画，具体见 [animation](/manual/core/animate/overview)。
 
 ### `mark.axis`
 
-设置图形的坐标轴，具体见 [axis](/spec/component/axis)。
+设置图形的坐标轴，具体见 [axis](/manual/component/axis)。
 
 ### `mark.legend`
 
-设置图形的图例，具体见 [legend](/spec/component/legend)。
+设置图形的图例，具体见 [legend](/manual/component/legend)。
 
 ### `mark.slider`
 
-设置图形的缩略轴，具体见 [slider](/spec/component/slider)。
+设置图形的缩略轴，具体见 [slider](/manual/component/slider)。
 
 ### `mark.scrollbar`
 
@@ -90,7 +90,7 @@ chart.render();
 
 ### `mark.tooltip`
 
-设置图形的提示，具体见 [tooltip](/spec/component/tooltip)。
+设置图形的提示，具体见 [tooltip](/manual/component/tooltip)。
 
 ## 获取实例
 
