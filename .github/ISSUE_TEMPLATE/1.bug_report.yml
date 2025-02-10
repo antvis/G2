@@ -37,6 +37,8 @@ body:
       label: Reproduction link / 复现链接
       placeholder: |
         CodeSandbox / StackBlitz / ...
+      description: |
+        可以使用 CodeSandbox(https://codesandbox.io/s/antv-g2-5-0-template-z2gsmn?file=/src/index.js) 或者 StackBlitz(https://stackblitz.com/) 重现你的问题。
     validations:
       required: false
   - type: textarea
@@ -51,9 +53,9 @@ body:
       label: Version / 版本
       options:
         - Please select / 请选择
-        - Latest / 最新版
-        - Stable / 稳定版
-        - Legacy / 旧版本
+        - 🆕 5.x
+        - 4.x
+        - 3.x
     validations:
       required: true
   - type: checkboxes
