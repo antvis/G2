@@ -1,9 +1,9 @@
 ---
-title: 概览
-order: 1
+title: 选项一览
+order: 2
 ---
 
-G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的顺序去分别介绍每一个模块，你可以把它当做一个字典去搜索和查询。
+接下来的文档将按顺序去分别介绍每一个模块，你可以把本页面当做一个字典去搜索和查询。
 
 ## [Data](/manual/core/data/overview)
 
@@ -147,19 +147,19 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
 
 数据驱动的动画和连续的形变动画。
 
-- [fadeIn](/manual/core/animation/fade-in) - 渐现动画。
-- [fadeOut](/manual/core/animation/fade-out) - 渐隐动画。
-- [growInX](/manual/core/animation/grow-in-x) - 容器沿着 x 方向放大的矩阵动画，多用于 G.Group 容器类进行动画。
-- [growInY](/manual/core/animation/grow-in-y) - 容器沿着 y 方向放大的矩阵动画，多用于 G.Group 容器类进行动画。
-- [morphing](/manual/core/animation/morphing) - 图形之间的形变动画。
-- [pathIn](/manual/core/animation/pathin) - Path 路径入场动画。
-- [scaleInX](/manual/core/animation/scale-in-x) - 单个图形沿着 x 方向的生长动画。
-- [scaleInY](/manual/core/animation/scale-in-y) - 单个图形沿着 y 方向的生长动画。
-- [scaleOutX](/manual/core/animation/scale-out-x) - 单个图形沿着 x 方向的消退动画。
-- [scaleOutY](/manual/core/animation/scale-out-y) - 单个图形沿着 y 方向的消退动画。
-- [waveIn](/manual/core/animation/wave-in) - 划入入场动画效果，不同坐标系下效果不同。
-- [zoomIn](/manual/core/animation/zoom-in) - 沿着图形中心点的放大动画。
-- [zoomOut](/manual/core/animation/zoom-out) - 沿着图形中心点的缩小动画。
+- [fadeIn](/manual/core/animate/fade-in) - 渐现动画。
+- [fadeOut](/manual/core/animate/fade-out) - 渐隐动画。
+- [growInX](/manual/core/animate/grow-in-x) - 容器沿着 x 方向放大的矩阵动画，多用于 G.Group 容器类进行动画。
+- [growInY](/manual/core/animate/grow-in-y) - 容器沿着 y 方向放大的矩阵动画，多用于 G.Group 容器类进行动画。
+- [morphing](/manual/core/animate/morphing) - 图形之间的形变动画。
+- [pathIn](/manual/core/animate/pathin) - Path 路径入场动画。
+- [scaleInX](/manual/core/animate/scale-in-x) - 单个图形沿着 x 方向的生长动画。
+- [scaleInY](/manual/core/animate/scale-in-y) - 单个图形沿着 y 方向的生长动画。
+- [scaleOutX](/manual/core/animate/scale-out-x) - 单个图形沿着 x 方向的消退动画。
+- [scaleOutY](/manual/core/animate/scale-out-y) - 单个图形沿着 y 方向的消退动画。
+- [waveIn](/manual/core/animate/wave-in) - 划入入场动画效果，不同坐标系下效果不同。
+- [zoomIn](/manual/core/animate/zoom-in) - 沿着图形中心点的放大动画。
+- [zoomOut](/manual/core/animate/zoom-out) - 沿着图形中心点的缩小动画。
 
 ## Interaction
 
@@ -218,7 +218,6 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
 - [renderer](/manual/extra-topics/plugin/renderer) - `Canvas`、`SVG` 两大渲染器。
 - [rough](/manual/extra-topics/plugin/rough) - 绘制手绘图的插件。
 - [lottie](/manual/extra-topics/plugin/lottie) - 可以在图表中播放 lottie 动画的插件。
-
 
 ## Common
 
