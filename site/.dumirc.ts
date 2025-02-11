@@ -39,7 +39,8 @@ export default defineConfig({
     petercat: {
       show: true,
       token: '26c62f06-1155-4b2c-8f4b-aa443d4af2c6',
-    },
+    }, // 开启petercat辅助答疑机器人
+    feedback: true, // 开启文档用户反馈
     versions: {
       // 历史版本以及切换下拉菜单
       [version]: 'https://g2.antv.antgroup.com',
