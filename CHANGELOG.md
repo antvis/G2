@@ -1,3 +1,21 @@
+## [5.2.11](https://github.com/antvis/g2/compare/5.2.10...5.2.11) (2025-02-11)
+
+
+### Bug Fixes
+
+*  g版本升级，supportsCSSTransform=true是默认设置 ([#6567](https://github.com/antvis/g2/issues/6567)) ([21efda5](https://github.com/antvis/g2/commit/21efda5572d207d9a9309417ace1acaee2ff2ead))
+* heatmap render error ([#6557](https://github.com/antvis/g2/issues/6557)) ([b9ca90b](https://github.com/antvis/g2/commit/b9ca90baa8a25d58bb1c25edd6f594ce44839b41))
+* overflowHide error in some case ([#6597](https://github.com/antvis/g2/issues/6597)) ([d67f6df](https://github.com/antvis/g2/commit/d67f6df64cc8a46ddcb01612951c8ed43aa1d50f))
+
+
+### Features
+
+* add helix coordinate and related examples/tests ([#6545](https://github.com/antvis/g2/issues/6545)) ([48dcd69](https://github.com/antvis/g2/commit/48dcd69b0dd832b69ea8907b5cc1b850a1fcf148))
+* add petercat ([#6579](https://github.com/antvis/g2/issues/6579)) ([8a310b7](https://github.com/antvis/g2/commit/8a310b71338712679cff192a1b955130a1460790)), closes [#6587](https://github.com/antvis/g2/issues/6587)
+* use @antv/vendor to replace d3 package ([#6594](https://github.com/antvis/g2/issues/6594)) ([dac27dd](https://github.com/antvis/g2/commit/dac27dd3c6cb5f4cd081322d417c9685921aa4b3))
+
+
+
 ## [5.2.10](https://github.com/antvis/g2/compare/5.2.9...5.2.10) (2024-12-10)
 
 
