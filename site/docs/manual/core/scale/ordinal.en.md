@@ -3,4 +3,4 @@ title: ordinal
 order: 2
 ---
 
-<embed src="@/docs/spec/scale/ordinal.zh.md"></embed>
+<embed src="@/docs/manual/core/scale/ordinal.zh.md"></embed>

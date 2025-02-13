@@ -3,4 +3,4 @@ title: group
 order: 2
 ---
 
-<embed src="@/docs/spec/transform/group.zh.md"></embed>
+<embed src="@/docs/manual/core/transform/group.zh.md"></embed>

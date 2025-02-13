@@ -3,4 +3,4 @@ title: dodgeX
 order: 2
 ---
 
-<embed src="@/docs/spec/transform/dodgeX.zh.md"></embed>
+<embed src="@/docs/manual/core/transform/dodgeX.zh.md"></embed>

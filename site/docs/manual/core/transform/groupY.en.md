@@ -3,4 +3,4 @@ title: groupY
 order: 2
 ---
 
-<embed src="@/docs/spec/transform/groupY.zh.md"></embed>
+<embed src="@/docs/manual/core/transform/groupY.zh.md"></embed>

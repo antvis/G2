@@ -3,4 +3,4 @@ title: log
 order: 2
 ---
 
-<embed src="@/docs/spec/scale/log.zh.md"></embed>
+<embed src="@/docs/manual/core/scale/log.zh.md"></embed>

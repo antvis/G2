@@ -72,7 +72,7 @@ chart.sankey().layout({ nodeAlign: 'center', nodePadding: 0.03 });
 | nodeLabels | 自定义节点数据标签的配置   | label[]           | []     |
 | linkLabels | 自定义连接线数据标签的配置 | label[]           | []     |
 
-## layout
+### layout
 
 | 属性        | 描述                                   | 类型                                                                               | 默认值   |
 | ----------- | -------------------------------------- | ---------------------------------------------------------------------------------- | -------- |
@@ -87,7 +87,7 @@ chart.sankey().layout({ nodeAlign: 'center', nodePadding: 0.03 });
 
 更多 `layout` 配置，详见 [d3-sankey](https://github.com/d3/d3-sankey)
 
-## style
+### style
 
 复合图形标记需要通过不同的前缀来区分图形的配置。
 

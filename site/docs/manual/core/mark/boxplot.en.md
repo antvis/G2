@@ -3,4 +3,4 @@ title: boxplot
 order: 4
 ---
 
-<embed src="@/docs/spec/mark/boxplot.zh.md"></embed>
+<embed src="@/docs/manual/core/mark/boxplot.zh.md"></embed>

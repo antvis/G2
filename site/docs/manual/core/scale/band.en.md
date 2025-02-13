@@ -3,4 +3,4 @@ title: band
 order: 2
 ---
 
-<embed src="@/docs/spec/scale/band.zh.md"></embed>
+<embed src="@/docs/manual/core/scale/band.zh.md"></embed>

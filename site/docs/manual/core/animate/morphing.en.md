@@ -3,4 +3,4 @@ title: morphing
 order: 2
 ---
 
-<embed src="@/docs/spec/animation/morphing.zh.md"></embed>
+<embed src="@/docs/manual/core/animate/morphing.zh.md"></embed>

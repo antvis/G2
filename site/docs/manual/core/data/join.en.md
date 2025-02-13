@@ -3,4 +3,4 @@ title: join
 order: 2
 ---
 
-<embed src="@/docs/spec/data/join.zh.md"></embed>
+<embed src="@/docs/manual/core/data/join.zh.md"></embed>

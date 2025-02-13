@@ -3,4 +3,4 @@ title: pack
 order: 1
 ---
 
-<embed src="@/docs/spec/graph/pack.zh.md"></embed>
+<embed src="@/docs/manual/extra-topics/graph/pack.zh.md"></embed>

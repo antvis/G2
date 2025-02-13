@@ -3,4 +3,4 @@ title: point
 order: 18
 ---
 
-<embed src="@/docs/spec/mark/point.zh.md"></embed>
+<embed src="@/docs/manual/core/mark/point.zh.md"></embed>

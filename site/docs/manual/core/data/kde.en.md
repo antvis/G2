@@ -3,4 +3,4 @@ title: kde
 order: 2
 ---
 
-<embed src="@/docs/spec/data/kde.zh.md"></embed>
+<embed src="@/docs/manual/core/data/kde.zh.md"></embed>

@@ -3,4 +3,4 @@ title: brushXFilter
 order: 5
 ---
 
-<embed src="@/docs/spec/interaction/brushXFilter.zh.md"></embed>
+<embed src="@/docs/manual/core/interaction/brushXFilter.zh.md"></embed>

@@ -3,4 +3,4 @@ title: map
 order: 2
 ---
 
-<embed src="@/docs/spec/data/map.zh.md"></embed>
+<embed src="@/docs/manual/core/data/map.zh.md"></embed>

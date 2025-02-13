@@ -3,4 +3,4 @@ title: box
 order: 3
 ---
 
-<embed src="@/docs/spec/mark/box.zh.md"></embed>
+<embed src="@/docs/manual/core/mark/box.zh.md"></embed>

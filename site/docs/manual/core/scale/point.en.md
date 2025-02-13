@@ -3,4 +3,4 @@ title: point
 order: 2
 ---
 
-<embed src="@/docs/spec/scale/point.zh.md"></embed>
+<embed src="@/docs/manual/core/scale/point.zh.md"></embed>

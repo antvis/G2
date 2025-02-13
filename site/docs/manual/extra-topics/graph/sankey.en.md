@@ -3,4 +3,4 @@ title: sankey
 order: 1
 ---
 
-<embed src="@/docs/spec/graph/sankey.zh.md"></embed>
+<embed src="@/docs/manual/extra-topics/graph/sankey.zh.md"></embed>

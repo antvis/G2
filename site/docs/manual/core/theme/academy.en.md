@@ -3,4 +3,4 @@ title: Academy
 order: 2
 ---
 
-<embed src="@/docs/spec/theme/academy.zh.md"></embed>
+<embed src="@/docs/manual/core/theme/academy.zh.md"></embed>

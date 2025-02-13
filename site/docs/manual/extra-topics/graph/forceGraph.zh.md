@@ -38,7 +38,7 @@ chart.render();
 | nodeLabels | 自定义节点数据标签的配置   | label[]          | []     |
 | linkLabels | 自定义连接线数据标签的配置 | label[]          | []     |
 
-## layout
+### layout
 
 | 属性         | 描述                 | 类型                      | 默认值 |
 | ------------ | -------------------- | ------------------------- | ------ |
@@ -46,7 +46,7 @@ chart.render();
 | nodeStrength | 节点引力             | `number \| (d => number)` | -      |
 | linkStrength | 连接线间引力         | `number \| (d => number)` | -      |
 
-## style
+### style
 
 复合图形标记需要通过不同的前缀来区分图形的配置。
 

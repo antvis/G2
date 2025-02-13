@@ -3,4 +3,4 @@ title: repeatMatrix
 order: 2
 ---
 
-<embed src="@/docs/spec/composition/repeatMatrix.zh.md"></embed>
+<embed src="@/docs/manual/core/composition/repeatMatrix.zh.md"></embed>

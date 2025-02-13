@@ -3,4 +3,4 @@ title: liquid
 order: 16
 ---
 
-<embed src="@/docs/spec/mark/liquid.zh.md"></embed>
+<embed src="@/docs/manual/core/mark/liquid.zh.md"></embed>

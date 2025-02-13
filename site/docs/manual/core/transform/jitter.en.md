@@ -3,4 +3,4 @@ title: jitter
 order: 2
 ---
 
-<embed src="@/docs/spec/transform/jitter.zh.md"></embed>
+<embed src="@/docs/manual/core/transform/jitter.zh.md"></embed>

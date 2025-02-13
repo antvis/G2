@@ -3,4 +3,4 @@ title: renderer
 order: 1
 ---
 
-<embed src="@/docs/spec/plugin/renderer.zh.md"></embed>
+<embed src="@/docs/manual/extra-topics/plugin/renderer.zh.md"></embed>

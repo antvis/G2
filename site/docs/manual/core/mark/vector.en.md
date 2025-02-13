@@ -3,4 +3,4 @@ title: vector
 order: 26
 ---
 
-<embed src="@/docs/spec/mark/vector.zh.md"></embed>
+<embed src="@/docs/manual/core/mark/vector.zh.md"></embed>

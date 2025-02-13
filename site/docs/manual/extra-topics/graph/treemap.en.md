@@ -3,4 +3,4 @@ title: treemap
 order: 1
 ---
 
-<embed src="@/docs/spec/graph/treemap.zh.md"></embed>
+<embed src="@/docs/manual/extra-topics/graph/treemap.zh.md"></embed>

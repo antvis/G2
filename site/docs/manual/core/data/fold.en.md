@@ -3,4 +3,4 @@ title: fold
 order: 2
 ---
 
-<embed src="@/docs/spec/data/fold.zh.md"></embed>
+<embed src="@/docs/manual/core/data/fold.zh.md"></embed>

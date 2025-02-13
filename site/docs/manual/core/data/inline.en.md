@@ -3,4 +3,4 @@ title: inline
 order: 2
 ---
 
-<embed src="@/docs/spec/data/inline.zh.md"></embed>
+<embed src="@/docs/manual/core/data/inline.zh.md"></embed>

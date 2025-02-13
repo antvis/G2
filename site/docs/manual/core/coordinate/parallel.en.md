@@ -3,4 +3,4 @@ title: parallel
 order: 2
 ---
 
-<embed src="@/docs/spec/coordinate/parallel.zh.md"></embed>
+<embed src="@/docs/manual/core/coordinate/parallel.zh.md"></embed>

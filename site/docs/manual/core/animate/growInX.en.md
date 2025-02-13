@@ -3,4 +3,4 @@ title: growInX
 order: 2
 ---
 
-<embed src="@/docs/spec/animation/growInX.zh.md"></embed>
+<embed src="@/docs/manual/core/animate/growInX.zh.md"></embed>

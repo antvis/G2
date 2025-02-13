@@ -82,7 +82,7 @@ chart
 chart.render();
 ```
 
-## 自定义拖动轴（Slider）
+## 自定义滑动条（Slider）
 
 如果不希望使用 G2 默认的坐标轴，就可以按照以下几步自定义拖拽轴：
 
@@ -187,7 +187,7 @@ chart.render();
 
 ### 迷你图
 
-<embed src="@/docs/spec/common/sparkline.zh.md"></embed>
+<embed src="@/docs/manual/core/common/sparkline.zh.md"></embed>
 
 ### 事件
 

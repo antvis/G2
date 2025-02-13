@@ -165,7 +165,7 @@ chart.labelTransform([{ type: 'overlapHide' }, { type: 'contrastReverse' }]);
 })();
 ```
 
-## 标签转换
+## 标签转换（Label Transform）
 
 当标签的展示不符合预期的时候，比如重叠、颜色不明显，我们可以使用**标签转换（Label Transform）** 来优化标签的展示。
 

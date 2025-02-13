@@ -3,4 +3,4 @@ title: area
 order: 2
 ---
 
-<embed src="@/docs/spec/mark/area.zh.md"></embed>
+<embed src="@/docs/manual/core/mark/area.zh.md"></embed>

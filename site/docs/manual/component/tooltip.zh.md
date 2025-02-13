@@ -269,7 +269,7 @@ chart.interval().tooltip(false);
 chart.interaction('tooltip', false);
 ```
 
-## 设置 Tooltip 样式
+## 设置 Tooltip CSS 样式
 
 ```js | ob
 (() => {
@@ -337,7 +337,7 @@ chart.interaction('tooltip', false);
 })();
 ```
 
-## 自定义Tooltip
+## 自定义 Tooltip
 
 有时候内置的 Tooltip 无法满足需求，这时候可以通过 `mark.interaction.tooltip.render` 或者 `view.interaction.tooltip.render` 的 _render_ 函数来渲染自定义的提示。
 

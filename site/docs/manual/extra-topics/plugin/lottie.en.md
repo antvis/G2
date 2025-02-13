@@ -3,4 +3,4 @@ title: lottie
 order: 2
 ---
 
-<embed src="@/docs/spec/plugin/lottie.zh.md"></embed>
+<embed src="@/docs/manual/extra-topics/plugin/lottie.zh.md"></embed>

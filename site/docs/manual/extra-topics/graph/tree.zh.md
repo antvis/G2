@@ -51,7 +51,7 @@ chart.render();
 | nodeLabels | 自定义节点数据标签的配置   | label[]         | []     |
 | linkLabels | 自定义连接线数据标签的配置 | label[]         | []     |
 
-## layout
+### layout
 
 | 属性       | 描述         | 类型                    | 默认值                                   |
 | ---------- | ------------ | ----------------------- | ---------------------------------------- |
@@ -59,7 +59,7 @@ chart.render();
 | sortBy     | 排序方式     | `((a, b) => number)`    | `(a, b) => b.value - a.value`            |
 | separation | 相邻节点间距 | `(a, b) => number`      | `(a, b) => a.parent == b.parent ? 1 : 2` |
 
-## style
+### style
 
 复合图形标记需要通过不同的前缀来区分图形的配置。
 

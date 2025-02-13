@@ -3,4 +3,4 @@ title: elementHighlight
 order: 10
 ---
 
-<embed src="@/docs/spec/interaction/elementHighlight.zh.md"></embed>
+<embed src="@/docs/manual/core/interaction/elementHighlight.zh.md"></embed>

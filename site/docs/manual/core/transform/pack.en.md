@@ -3,4 +3,4 @@ title: pack
 order: 2
 ---
 
-<embed src="@/docs/spec/transform/pack.zh.md"></embed>
+<embed src="@/docs/manual/core/transform/pack.zh.md"></embed>

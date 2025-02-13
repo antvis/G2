@@ -3,4 +3,4 @@ title: lineX
 order: 13
 ---
 
-<embed src="@/docs/spec/mark/lineX.zh.md"></embed>
+<embed src="@/docs/manual/core/mark/lineX.zh.md"></embed>

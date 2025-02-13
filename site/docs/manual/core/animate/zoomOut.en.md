@@ -3,4 +3,4 @@ title: zoomOut
 order: 2
 ---
 
-<embed src="@/docs/spec/animation/zoomOut.zh.md"></embed>
+<embed src="@/docs/manual/core/animate/zoomOut.zh.md"></embed>

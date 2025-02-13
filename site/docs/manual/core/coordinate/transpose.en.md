@@ -3,4 +3,4 @@ title: transpose
 order: 2
 ---
 
-<embed src="@/docs/spec/coordinate/transpose.zh.md"></embed>
+<embed src="@/docs/manual/core/coordinate/transpose.zh.md"></embed>

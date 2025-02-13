@@ -3,4 +3,4 @@ title: scaleInX
 order: 2
 ---
 
-<embed src="@/docs/spec/animation/scaleInX.zh.md"></embed>
+<embed src="@/docs/manual/core/animate/scaleInX.zh.md"></embed>

@@ -3,4 +3,4 @@ title: normalizeY
 order: 2
 ---
 
-<embed src="@/docs/spec/transform/normalizeY.zh.md"></embed>
+<embed src="@/docs/manual/core/transform/normalizeY.zh.md"></embed>

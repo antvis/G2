@@ -3,4 +3,4 @@ title: sort
 order: 2
 ---
 
-<embed src="@/docs/spec/data/sort.zh.md"></embed>
+<embed src="@/docs/manual/core/data/sort.zh.md"></embed>

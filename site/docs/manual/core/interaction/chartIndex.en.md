@@ -3,4 +3,4 @@ title: chartIndex
 order: 9
 ---
 
-<embed src="@/docs/spec/interaction/chartIndex.zh.md"></embed>
+<embed src="@/docs/manual/core/interaction/chartIndex.zh.md"></embed>

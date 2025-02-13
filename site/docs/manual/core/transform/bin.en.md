@@ -3,4 +3,4 @@ title: bin
 order: 2
 ---
 
-<embed src="@/docs/spec/transform/bin.zh.md"></embed>
+<embed src="@/docs/manual/core/transform/bin.zh.md"></embed>

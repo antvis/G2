@@ -3,4 +3,4 @@ title: threshold
 order: 2
 ---
 
-<embed src="@/docs/spec/scale/threshold.zh.md"></embed>
+<embed src="@/docs/manual/core/scale/threshold.zh.md"></embed>

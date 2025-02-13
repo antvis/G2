@@ -3,4 +3,4 @@ title: selectX
 order: 2
 ---
 
-<embed src="@/docs/spec/transform/selectX.zh.md"></embed>
+<embed src="@/docs/manual/core/transform/selectX.zh.md"></embed>

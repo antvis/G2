@@ -3,4 +3,4 @@ title: scaleOutX
 order: 2
 ---
 
-<embed src="@/docs/spec/animation/scaleOutX.zh.md"></embed>
+<embed src="@/docs/manual/core/animate/scaleOutX.zh.md"></embed>

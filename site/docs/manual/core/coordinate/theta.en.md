@@ -3,4 +3,4 @@ title: theta
 order: 2
 ---
 
-<embed src="@/docs/spec/coordinate/theta.zh.md"></embed>
+<embed src="@/docs/manual/core/coordinate/theta.zh.md"></embed>

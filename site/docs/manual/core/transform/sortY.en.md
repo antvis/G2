@@ -3,4 +3,4 @@ title: sortY
 order: 2
 ---
 
-<embed src="@/docs/spec/transform/sortY.zh.md"></embed>
+<embed src="@/docs/manual/core/transform/sortY.zh.md"></embed>

@@ -3,4 +3,4 @@ title: scaleOutY
 order: 2
 ---
 
-<embed src="@/docs/spec/animation/scaleOutY.zh.md"></embed>
+<embed src="@/docs/manual/core/animate/scaleOutY.zh.md"></embed>

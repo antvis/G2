@@ -3,4 +3,4 @@ title: geoView
 order: 1
 ---
 
-<embed src="@/docs/spec/geo/geoView.zh.md"></embed>
+<embed src="@/docs/manual/extra-topics/geo/geoView.zh.md"></embed>

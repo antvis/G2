@@ -3,4 +3,4 @@ title: sample
 order: 2
 ---
 
-<embed src="@/docs/spec/transform/sample.zh.md"></embed>
+<embed src="@/docs/manual/core/transform/sample.zh.md"></embed>

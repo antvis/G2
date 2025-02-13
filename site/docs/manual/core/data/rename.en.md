@@ -3,4 +3,4 @@ title: rename
 order: 2
 ---
 
-<embed src="@/docs/spec/data/rename.zh.md"></embed>
+<embed src="@/docs/manual/core/data/rename.zh.md"></embed>

@@ -3,4 +3,4 @@ title: tree
 order: 1
 ---
 
-<embed src="@/docs/spec/graph/tree.zh.md"></embed>
+<embed src="@/docs/manual/extra-topics/graph/tree.zh.md"></embed>

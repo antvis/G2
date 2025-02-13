@@ -3,4 +3,4 @@ title: rough
 order: 1
 ---
 
-<embed src="@/docs/spec/plugin/rough.zh.md"></embed>
+<embed src="@/docs/manual/extra-topics/plugin/rough.zh.md"></embed>

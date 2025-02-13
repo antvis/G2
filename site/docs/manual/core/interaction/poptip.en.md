@@ -3,4 +3,4 @@ title: poptip
 order: 19
 ---
 
-<embed src="@/docs/spec/interaction/poptip.zh.md"></embed>
+<embed src="@/docs/manual/core/interaction/poptip.zh.md"></embed>

@@ -3,4 +3,4 @@ title: filter
 order: 2
 ---
 
-<embed src="@/docs/spec/data/filter.zh.md"></embed>
+<embed src="@/docs/manual/core/data/filter.zh.md"></embed>

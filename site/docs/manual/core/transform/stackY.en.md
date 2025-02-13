@@ -3,4 +3,4 @@ title: stackY
 order: 2
 ---
 
-<embed src="@/docs/spec/transform/stackY.zh.md"></embed>
+<embed src="@/docs/manual/core/transform/stackY.zh.md"></embed>

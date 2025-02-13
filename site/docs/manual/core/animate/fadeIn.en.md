@@ -3,4 +3,4 @@ title: fadeIn
 order: 2
 ---
 
-<embed src="@/docs/spec/animation/fadeIn.zh.md"></embed>
+<embed src="@/docs/manual/core/animate/fadeIn.zh.md"></embed>

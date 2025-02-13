@@ -177,7 +177,7 @@ chart.interval().legend('x', {}).legend('y', {});
 
 图例项分页显示时能够控制分页器的行为。
 
-<embed src="@/docs/spec/common/navigator.zh.md"></embed>
+<embed src="@/docs/manual/core/common/navigator.zh.md"></embed>
 
 ### 事件
 
@@ -665,7 +665,7 @@ function legendColor(chart) {
 
 ### 标题
 
-<embed src="@/docs/spec/common/componentTitle.zh.md"></embed>
+<embed src="@/docs/manual/core/common/componentTitle.zh.md"></embed>
 
 ### 布局
 

@@ -3,4 +3,4 @@ title: rangeX
 order: 21
 ---
 
-<embed src="@/docs/spec/mark/rangeX.zh.md"></embed>
+<embed src="@/docs/manual/core/mark/rangeX.zh.md"></embed>
