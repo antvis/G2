@@ -38,7 +38,7 @@ view.point();
 - [**transform**](/manual/core/transform/overview) - 转化通道值
 - [**coordinate**](/manual/core/coordinate/overview) - 坐标系变换
 - [**style**](/manual/core/style) - 视觉样式
-- [**labelTransform**](/manual/core/label/overview) - 数据标签转换
+- [**labelTransform**](/manual/component/label) - 数据标签转换
 - [**title**](/manual/component/title) - 图表标题
 - [**axis**](/manual/component/axis) - 坐标轴
 - [**legend**](/manual/component/legend) - 图例

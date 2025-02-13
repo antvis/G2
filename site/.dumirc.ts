@@ -186,14 +186,6 @@ export default defineConfig({
         order: 10,
       },
       {
-        slug: 'manual/core/label',
-        title: {
-          zh: '数据标签（Label）',
-          en: 'Label',
-        },
-        order: 12,
-      },
-      {
         slug: 'manual/core/interaction',
         title: {
           zh: '交互（Interaction）',
@@ -262,6 +254,14 @@ export default defineConfig({
         title: {
           zh: '插件扩展（Plugin）',
           en: 'Plugin',
+        },
+        order: 5,
+      },
+      {
+        slug: 'manual/whats-new',
+        title: {
+          zh: '版本特性',
+          en: 'Whats New',
         },
         order: 5,
       },

@@ -1,6 +1,6 @@
 ---
-title: Listen and emit events
-order: 9
+title: event
+order: 17
 ---
 
 G2 exposes some events to get the chart life cycle and interaction information. G2 exports a `ChartEvent` type, used to define the type of event.

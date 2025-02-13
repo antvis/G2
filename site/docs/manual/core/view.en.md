@@ -38,7 +38,7 @@ view.point();
 - [**transform**](/manual/core/transform/overview) - Transform channel values
 - [**coordinate**](/manual/core/coordinate/overview) - Coordinate transformation
 - [**style**](/manual/core/style) - Visual style
-- [**labelTransform**](/manual/core/label/overview) - Data label transformation
+- [**labelTransform**](/manual/component/label) - Data label transformation
 - [**title**](/manual/component/title) - Chart title
 - [**axis**](/manual/component/axis) - Axes
 - [**legend**](/manual/component/legend) - Legend

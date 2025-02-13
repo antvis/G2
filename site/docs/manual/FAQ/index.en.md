@@ -1,6 +1,6 @@
 ---
 title: 'Frequently Asked Questions (FAQ)'
-order: 6
+order: 7
 ---
 
 ## Title Not Rendering After Manually Setting Padding

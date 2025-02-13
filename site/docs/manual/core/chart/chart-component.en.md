@@ -8,7 +8,7 @@ To effectively use G2 for data visualization, it's important to understand the c
 
 Here's a simple example:
 
-<img alt="built-in-tooltip" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ZHFsRpdpnwwAAAAAAAAAAAAAemJ7AQ/original"/>
+<img alt="built-in-tooltip" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*-8XRSYHZ8S8AAAAAAAAAAAAAemJ7AQ/original"/>
 
 ## Title
 

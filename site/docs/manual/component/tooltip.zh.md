@@ -189,9 +189,9 @@ type Item = {
 });
 ```
 
-### 自定义
+### 个性化配置
 
-当然对于 title 和 item 还提供了回调去获得最大的自定义能力。
+当然对于 title 和 item 还提供了回调去获得最大的个性化配置能力。
 
 ```js
 ({
@@ -330,6 +330,52 @@ chart.interaction('tooltip', false);
       },
     },
   });
+
+  chart.render();
+
+  return chart.getContainer();
+})();
+```
+
+## 自定义Tooltip
+
+有时候内置的 Tooltip 无法满足需求，这时候可以通过 `mark.interaction.tooltip.render` 或者 `view.interaction.tooltip.render` 的 _render_ 函数来渲染自定义的提示。
+
+该 _render_ 函数接受事件对象 _event_ 和提示数据 _tooltipData_，返回一个 string 或者 DOM 对象。其中 _event_ 是 [@antv/g](https://g.antv.antgroup.com/) 抛出的鼠标对象，_tooltipData_ 是通过 `mark.tooltip` 声明的 title 和 items 数据。如果返回值是一个 string，那么会作为 tooltip 容器的 innerHTML，否则会挂载该返回值。一个提示的 render 函数的定义大概如下：
+
+```js
+function render(event, tooltipData) {
+  const { title, items } = tooltipData;
+  return `<div></div>`;
+}
+```
+
+下面是一个简单的例子：
+
+```js | ob
+(() => {
+  const chart = new G2.Chart();
+
+  chart
+    .interval()
+    .data({
+      type: 'fetch',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
+    })
+    .transform([{ type: 'sortX', by: 'y', reverse: true }])
+    .encode('x', 'letter')
+    .encode('y', 'frequency')
+    .interaction('tooltip', {
+      // render 回调方法返回一个innerHTML 或者 DOM
+      render: (event, { title, items }) => `<div>
+      <h3 style="padding:0;margin:0">${title}</h3>
+      <ul>${items.map(
+        (d) =>
+          `<li><span style="color: ${d.color}">${d.name}</span> ${d.value}</li>`,
+      )}</ul>
+      </div>`,
+    });
 
   chart.render();
 

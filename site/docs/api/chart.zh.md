@@ -267,7 +267,7 @@ chart.render();
 
 ### `chart.label`
 
-设置图形的标签，具体见 [label](/manual/core/label/overview)。
+设置图形的标签，具体见 [label](/manual/component/label)。
 
 ### `chart.style`
 
@@ -283,7 +283,7 @@ chart.render();
 
 <!-- 缺失 -->
 
-设置图形的 labelTransform，具体见 [label](/manual/core/label/overview)里的transform配置。
+设置图形的 labelTransform，具体见 [label](/manual/component/label)里的transform配置。
 
 ## 渲染图表
 

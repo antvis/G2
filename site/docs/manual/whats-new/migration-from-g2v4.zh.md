@@ -1,6 +1,6 @@
 ---
 title: v4 升级 v5 指南
-order: 5
+order: 2
 ---
 
 > G2 栈团队还会继续维护 v4 版本，针对 Bug 发布 Patch 版本修复，但是此后不再接收新的 Feature Request，截止日期为 2023 年年底。原 v4 官网迁移至 https://g2-v4.antv.vision/ 。

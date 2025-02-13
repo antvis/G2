@@ -57,7 +57,7 @@ Marks are the leaf nodes in the view tree and are the "first-class citizens" in 
 - [**viewStyle**](/manual/core/style) - visual styles of the view
 - [**animate**](/manual/core/animate) - animation properties
 - [**state**](/manual/core/state) - style of state
-- [**label**](/manual/core/label/overview) - data labels
+- [**label**](/manual/component/label) - data labels
 - [**title**](/manual/component/title) - chart title
 - [**axis**](/manual/component/axis) - coordinate axes
 - [**legend**](/manual/component/legend) - legend
@@ -253,7 +253,7 @@ The composability feature of marks provides a simple yet powerful way to extend 
 })();
 ```
 
-## Can be used as a mark
+## Can be used as a annotation
 
 **Annotation** is mainly used to annotate the places that need attention in the visualized chart. In G2, annotation is also a mark. In other words, some marks can also be used for annotation, such as Text, Images and others.
 

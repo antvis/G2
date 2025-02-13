@@ -56,7 +56,7 @@ chart.point();
 - [**viewStyle**](/manual/core/style) - 视图的视觉样式
 - [**animate**](/manual/core/animate) - 动画属性
 - [**state**](/manual/core/state) - 状态样式
-- [**label**](/manual/core/label/overview) - 数据标签
+- [**label**](/manual/component/label) - 数据标签
 - [**title**](/manual/component/title) - 图表标题
 - [**axis**](/manual/component/axis) - 坐标轴
 - [**legend**](/manual/component/legend) - 图例
@@ -251,7 +251,7 @@ G2 里面的标记可以通过一种机制复合成一个标记，然后使用�
 })();
 ```
 
-## 可作为标记
+## 可作为标注
 
 **标注（Annotation）** 主要用来标注可视化图表中需要注意的地方。在 G2 中，标注也是一种标记，或者说某些标记也也可以用来做标注，比如 Text，Image 等标记。
 
@@ -459,6 +459,104 @@ Select 标记转换提供了从一组图形中选择图形的能力。比如在�
     fontSize: 60,
     textBaseline: 'middle',
   });
+  chart.render();
+
+  return chart.getContainer();
+})();
+```
+
+## 自定义形状（Shape）
+
+每一个标记都可以自定义形状，形状决定了标记最后的展现形式。自定义形状主要分为三步：
+
+- 定义形状组件。
+- 注册形状。
+- 使用形状。
+
+首先我们来看看如何定义形状组件。一个形状组件是一个函数，该函数接受图形的样式 _style_ 和上下文 _context_，返回一个绘制函数 _render_ 。其中 _style_ 是通过 `mark.style` 指定的经过处理的选项，_context_ 包含了 [@antv/g](https://g.antv.antgroup.com/) 创建图形的 _document_ 。
+
+返回的 _render_ 函数接受图形的控制点 _P_，映射值 _value_ 和默认值 _defaults_，返回 @antv/g 的图形。其中 _P_ 是一系列画布坐标构成的数组，_value_ 是通过 `mark.encode` 处理后的值，_defaults_ 是主题中 `theme.mark.shape` 指定的值。一个形状组件的定义大概如下：
+
+```js
+function ShapeTriangle(style, context) {
+  const { document } = context;
+  return (P, value, defaults) => {
+    return document.createElement('rect', {
+      //...
+    });
+  };
+}
+```
+
+接下来就是注册形状，通过调用 `G2.register('shape.${mark}.${shape}', Shape)` 来完成注册该形状。其中 _mark_ 是标记的名字，_shape_ 是形状的名字，_Shape_ 是定义好的形状组件。比如给 Interval 标记注册一个三角形的形状：
+
+```js
+import { register } from '@antv/g2';
+
+register('shape.interval.triangle', ShapeTriangle);
+```
+
+最后就是使用该形状了，可以通过 `mark.encode` 指定，也可以通过 `mark.style` 指定.
+
+```js
+({
+  type: 'interval',
+  encode: { shape: 'triangle' },
+  // 或者
+  style: { shape: 'triangle' },
+});
+```
+
+```js
+// API
+chart.interval().encode('shape', 'triangle');
+
+// 或者
+chart.interval().style('shape', 'triangle');
+```
+
+下面是一个完整的例子，展示了如何自定义形状。
+
+```js | ob
+(() => {
+  // 定义图形组件
+  function ShapeTriangle(style, context) {
+    const { document } = context;
+    return (P, value, defaults) => {
+      const { color: defaultColor } = defaults;
+      const [p0, p1, p2, p3] = P;
+      const pm = [(p0[0] + p1[0]) / 2, p0[1]];
+      const { color = defaultColor } = value;
+      return document.createElement('polygon', {
+        style: {
+          ...style,
+          fill: color,
+          points: [pm, p2, p3],
+        },
+      });
+    };
+  }
+
+  // 注册该三角形
+  G2.register('shape.interval.triangle', ShapeTriangle);
+
+  // 初始化图表
+  const chart = new G2.Chart();
+
+  chart
+    .interval()
+    .data([
+      { genre: 'Sports', sold: 275 },
+      { genre: 'Strategy', sold: 115 },
+      { genre: 'Action', sold: 120 },
+      { genre: 'Shooter', sold: 350 },
+      { genre: 'Other', sold: 150 },
+    ])
+    .encode('x', 'genre')
+    .encode('y', 'sold')
+    .encode('color', 'genre')
+    .encode('shape', 'triangle'); // 使用这个形状
+
   chart.render();
 
   return chart.getContainer();

@@ -134,7 +134,7 @@ G2 是一个简洁的、渐进式的可视化语法。文档将按照下面的�
 - [scrollbar](/manual/component/scrollbar) - 绘制滚动条。
 - [slider](/manual/component/slider) - 绘制拖动条。
 
-## [Label](/manual/core/label/overview)
+## [Label](/manual/component/label)
 
 绘制数据标签和标签属性的变换。
 

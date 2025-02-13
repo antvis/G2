@@ -1,6 +1,6 @@
 ---
 title: Migration from v4 to v5
-order: 5
+order: 2
 ---
 
 > The G2 stack team will continue to maintain the v4 version and release patch version fixes for bugs, but will no longer receive new Feature Requests until the end of 2023. The original v4 official website has been migrated to https://g2-v4.antv.vision/.

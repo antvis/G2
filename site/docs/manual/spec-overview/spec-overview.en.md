@@ -134,7 +134,7 @@ Draw auxiliary visual elements.
 - [scrollbar](/manual/component/scrollbar) - Draw scrollbars.
 - [slider](/manual/component/slider) - Draw sliders.
 
-## [Label](/manual/core/label/overview)
+## [Label](/manual/component/label)
 
 Draw data labels and transform label properties.
 

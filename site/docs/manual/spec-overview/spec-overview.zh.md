@@ -134,7 +134,7 @@ order: 2
 - [scrollbar](/manual/component/scrollbar) - 绘制滚动条。
 - [slider](/manual/component/slider) - 绘制拖动条。
 
-## [Label](/manual/core/label/overview)
+## [Label](/manual/component/label)
 
 绘制数据标签和标签属性的变换。
 

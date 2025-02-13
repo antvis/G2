@@ -347,6 +347,320 @@ chart.render();
 | valuechange | 滑动窗口选取范围改变时触发 | `(range: [number, number])=>void`                |
 | indicate    | 指示器值改变时触发         | `(value: number, range: [number, number])=>void` |
 
+## 自定义图例项图标
+
+在具体开发过程中，内置的图例项图标可能无法满足你的要求，不用担心，G2提供了强大的自定义功能。
+
+### 自定义符号（Symbol）
+
+每一个符号都可以自定义，主要分为三步：
+
+- 定义符号路径。
+- 注册符号。
+- 使用符号。
+
+首先我们来看看如何定义符号路径。一个符号路径是一个函数，该函数接受起始点的横向坐标 x、纵向坐标 y 和绘制半径，返回一个路径。
+
+```js
+import { type SymbolFactor } from '@antv/g2';
+
+const triangle: SymbolFactor = (x, y, r) => {
+  const diffY = r * Math.sin((1 / 3) * Math.PI);
+  return [
+    ['M', x - r, y + diffY],
+    ['L', x, y - diffY],
+    ['L', x + r, y + diffY],
+    ['Z'],
+  ];
+};
+triangle.style = ['fill'];
+```
+
+接下来就是注册符号，通过调用 `G2.register('symbol.${symbol}', Symbol)` 来完成注册。其中 `symbol` 是符号的名字，`Symbol` 是定义好的符号路径。比如注册一个三角形的符号：
+
+```js
+import { register } from '@antv/g2';
+
+register('symbol.customTriangle', triangle);
+```
+
+最后就是使用该符号了
+
+```js
+legend: { 
+  color: {
+    itemMarker: 'customTriangle'
+  } 
+}
+```
+
+### 使用图片
+
+```js | ob
+(() => {
+  const chart = new G2.Chart();
+
+  const logo = [
+  [
+    '抖音',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*8IXHQLvx9QkAAAAAAAAAAAAADmJ7AQ/original',
+  ],
+  [
+    '快手',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*swueRrrKvbcAAAAAAAAAAAAADmJ7AQ/original',
+  ],
+  [
+    '小米',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*79G3TIt3mBoAAAAAAAAAAAAADmJ7AQ/original',
+  ],
+  [
+    '微信',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*_ELBTJLp0dQAAAAAAAAAAAAADmJ7AQ/original',
+  ],
+  [
+    'Keep',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*JzbKRpFhR14AAAAAAAAAAAAADmJ7AQ/original',
+  ],
+  [
+    'Chrome',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xLnYTaZfdh8AAAAAAAAAAAAADmJ7AQ/original',
+  ],
+  [
+    'QQ',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*AbGNTpA5JLwAAAAAAAAAAAAADmJ7AQ/original',
+  ],
+  [
+    '优酷',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*UL6lS4jw9lUAAAAAAAAAAAAADmJ7AQ/original',
+  ],
+  [
+    '百度地图',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*I6nrTITAxcoAAAAAAAAAAAAADmJ7AQ/original',
+  ],
+  [
+    '腾讯视频',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*zwVvT5OFnuYAAAAAAAAAAAAADmJ7AQ/original',
+  ],
+  [
+    '哔哩哔哩',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*6jkAQayTiMMAAAAAAAAAAAAADmJ7AQ/original',
+  ],
+  [
+    'Word',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*FbkXT6K6mVEAAAAAAAAAAAAADmJ7AQ/original',
+  ],
+  [
+    'Excel',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*CKb-R6ZAFpYAAAAAAAAAAAAADmJ7AQ/original',
+  ],
+  [
+    'PowerPoint',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*K7-FT4RYRqIAAAAAAAAAAAAADmJ7AQ/original',
+  ],
+  [
+    '腾讯会议',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xbPXR7snu44AAAAAAAAAAAAADmJ7AQ/original',
+  ],
+  [
+    '网易云音乐',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*upKlRJ9QB4cAAAAAAAAAAAAADmJ7AQ/original',
+  ],
+  [
+    'Safari',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*kjDHRbiW734AAAAAAAAAAAAADmJ7AQ/original',
+  ],
+  [
+    '地图',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*tl-2QIB8LKIAAAAAAAAAAAAADmJ7AQ/original',
+  ],
+  [
+    'Docker',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*iJ4dS49yrJ4AAAAAAAAAAAAADmJ7AQ/original',
+  ],
+  [
+    'VSCode',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*rR6nRInEcz4AAAAAAAAAAAAADmJ7AQ/original',
+  ],
+  [
+    '百度网盘',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*futaTbIAkG4AAAAAAAAAAAAADmJ7AQ/original',
+  ],
+  [
+    '印象笔记',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Skh1S4BfL9oAAAAAAAAAAAAADmJ7AQ/original',
+  ],
+];
+
+chart
+  .interval()
+  .data(logo)
+  .encode('x', (d) => d[0])
+  .encode('y', () => Math.random())
+  .encode('color', (d) => d[1])
+  .scale('y', { nice: true })
+  .legend({
+    color: {
+      itemMarker: (_, index) => () => {
+        const { document } = chart.getContext().canvas;
+        const image = document.createElement('image', {
+          style: {
+            width: 20,
+            height: 20,
+            transform: `translate(-10, -10)`,
+            src: logo[index][1],
+          },
+        });
+        return image;
+      },
+      itemMarkerSize: 40,
+      itemLabelText: (_, index) => logo[index][0],
+      maxRows: 1,
+    },
+  })
+  .tooltip(false);
+
+  chart.render();
+
+  return chart.getContainer();
+})();
+```
+
+## 自定义图例（Legend）
+
+G2 内置的图例是用 canvas 或者 svg 绘制的，如果希望能用 HTML 渲染图例，就可以按照如下几步自定义图例：
+
+- 关闭内置图例并且渲染图表。
+- 等待图表渲染完成，根据 scale 数据渲染 HTML 图例。
+- 添加交互（如果需要）。
+
+首先是关闭内置图例，同时渲染图表。
+
+```js
+chart.options({ legend: false });
+```
+
+然后是等待图表渲染完成，并且调用 `legendColor` 渲染 HTML 图例：
+
+```js
+chart.render().then(legendColor);
+```
+
+在 `legendColor` 里我们首先需要把图例画出来，下面这个例子把图例画出来后，添加到了画布前面：
+
+```js
+function legendColor(chart) {
+  const node = chart.getContainer();
+  const legend = document.createElement('div');
+  node.insertBefore(legend, node.childNodes[0]);
+
+  // ...
+}
+```
+
+画出了图例之后，我们需要绘制图例项，这个数据从对应通道的比例尺获得：`chart.getScale().color`，并且通过 scale 的 domain 和 range 获得对应的名字和值。
+
+```js
+function legendColor(chart) {
+  // ...
+  const scale = chart.getScale().color;
+  const { domain } = scale.getOptions();
+  const items = domain.map(() => {});
+  // ...
+}
+```
+
+绘制完图例项之后我们就应该给每个图例项通过 `item.onclick` 添加交互，收集当前选中的值，并且根据这个值去给图表的声明添加 Filter 转换，最后重新渲染图表。最后完整的实现如下：
+
+```js | ob
+(() => {
+  // 添加图例
+  function legendColor(chart) {
+    // 创建 Legend 并且挂载图例
+    const node = chart.getContainer();
+    const legend = document.createElement('div');
+    legend.style.display = 'flex';
+    node.insertBefore(legend, node.childNodes[0]);
+
+    // 创建并挂载 Items
+    const { color: scale } = chart.getScale();
+    const { domain } = scale.getOptions();
+    const items = domain.map((value) => {
+      const item = document.createElement('div');
+      const color = scale.map(value);
+      item.style.marginLeft = '1em';
+      item.innerHTML = `
+      <span style="
+        background-color:${color};
+        display:inline-block;
+        width:10px;
+        height:10px;"
+      ></span>
+      <span>${value}</span>
+      `;
+      return item;
+    });
+    items.forEach((d) => legend.append(d));
+
+    // 监听事件
+    const selectedValues = [...domain];
+    const options = chart.options();
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+      const value = domain[i];
+      item.style.cursor = 'pointer';
+      item.onclick = () => {
+        const index = selectedValues.indexOf(value);
+        if (index !== -1) {
+          selectedValues.splice(index, 1);
+          item.style.opacity = 0.5;
+        } else {
+          selectedValues.push(value);
+          item.style.opacity = 1;
+        }
+        changeColor(selectedValues);
+      };
+    }
+
+    // 重新渲染视图
+    function changeColor(value) {
+      const { transform = [] } = options;
+      const newTransform = [{ type: 'filter', color: { value } }, ...transform];
+      chart.options({
+        ...options,
+        transform: newTransform, // 指定新的 transform
+        scale: { color: { domain } },
+      });
+      chart.render(); // 重新渲染图表
+    }
+  }
+
+  // 绘制图表
+  const container = document.createElement('div');
+
+  const chart = new G2.Chart({
+    
+    container,
+  });
+
+  chart.options({
+    type: 'interval',
+    data: [
+      { genre: 'Sports', sold: 275 },
+      { genre: 'Strategy', sold: 115 },
+      { genre: 'Action', sold: 120 },
+      { genre: 'Shooter', sold: 350 },
+      { genre: 'Other', sold: 150 },
+    ],
+    encode: { x: 'genre', y: 'sold', color: 'genre' },
+    legend: false,
+  });
+
+  chart.render().then(legendColor);
+
+  return chart.getContainer();
+})();
+```
+
 ## 通用选项
 
 ### 标题

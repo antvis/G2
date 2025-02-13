@@ -181,7 +181,7 @@ chart.render();
 
 ### `repeatMatrix.label`
 
-设置图形的标签，具体见 [label](/manual/core/label/overview)。
+设置图形的标签，具体见 [label](/manual/component/label)。
 
 ### `repeatMatrix.style`
 

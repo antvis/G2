@@ -1,6 +1,6 @@
 ---
-title: 概览
-order: 1
+title: 数据标签（Label）
+order: 7.6
 ---
 
 G2 中**数据标签（Label）** 是给图表添加标注的手段之一。可以给标记添加多个标签：
@@ -535,10 +535,6 @@ selector 选择器可以对系列数据进行过滤索引。
   };
 }
 ```
-
-### 支持哪些 transform？
-
-所有的 transform 有单独具体的文档，具体参考 [Label.transform](/spec/overview#label)。
 
 ### 怎么使用 HTML 自定义数据标签？
 

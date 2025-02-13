@@ -179,7 +179,7 @@ fetch('https://assets.antv.antgroup.com/g2/countries-50m.json')
 
 ### `geoView.label`
 
-设置图形的标签，具体见 [label](/manual/core/label/overview)。
+设置图形的标签，具体见 [label](/manual/component/label)。
 
 ### `geoView.style`
 

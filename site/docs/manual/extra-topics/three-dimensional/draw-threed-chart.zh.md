@@ -1,30 +1,30 @@
 ---
-title: Draw 3D Chart
+title: 绘制 3D 图表
 order: 1
 ---
 
-Taking a 3D scatter plot as an example, creating the chart requires the following steps:
+以 3D 散点图为例，创建图表需要以下步骤：
 
-- Create WebGL renderers and plugin.
-- Extend threedlib.
-- Set z-channel, scale and axes.
-- Set up the camera in the scene.
-- Add light source.
-- Add custom legend.
-- Using camera interaction and animation.
+- 创建 WebGL 渲染器和插件
+- 扩展 threedlib
+- 设置 z 通道、比例尺和坐标轴
+- 在场景中设置相机
+- 添加光源
+- 添加自定义图例
+- 使用相机交互与动画
 
-## Create WebGL renderers and plugin
+## 创建 WebGL 渲染器和插件
 
-First install the dependencies:
+首先安装依赖：
 
 ```bash
 $ npm install @antv/g-webgl @antv/g-plugin-3d @antv/g-plugin-control --save
 ```
 
-and then use [@antv/g-webgl](https://g.antv.antgroup.com/api/renderer/webgl) as a renderer and register the following two plugins:
+然后使用 [@antv/g-webgl](https://g.antv.antgroup.com/api/renderer/webgl) 作为渲染器并注册以下两个插件：
 
-- [g-plugin-3d](https://g.antv.antgroup.com/plugins/3d) Provide geometry, materials and lighting in 3D scenes.
-- [g-plugin-control](https://g.antv.antgroup.com/plugins/control) Provide camera interaction in 3D scenes.
+- [g-plugin-3d](https://g.antv.antgroup.com/plugins/3d) 提供 3D 场景下的几何、材质和光照
+- [g-plugin-control](https://g.antv.antgroup.com/plugins/control) 提供 3D 场景下的相机交互
 
 ```ts
 import { Renderer as WebGLRenderer } from '@antv/g-webgl';
@@ -36,9 +36,9 @@ renderer.registerPlugin(new ThreeDPlugin());
 renderer.registerPlugin(new ControlPlugin());
 ```
 
-## Extend threedlib
+## 扩展 threedlib
 
-Due to the huge size of 3D-related functional code, we separated it into [threedlib](/manual/extra-topics/bundle#g2threedlib), extend it and customize the Chart object at runtime:
+由于 3D 相关的功能代码体积巨大，我们将其分离到 [threedlib](/manual/extra-topics/bundle#g2threedlib) 中，在运行时扩展它并自定义 Chart 对象：
 
 ```ts
 import { Runtime, corelib, extend } from '@antv/g2';
@@ -47,9 +47,9 @@ import { threedlib } from '@antv/g2-extension-3d';
 const Chart = extend(Runtime, { ...corelib(), ...threedlib() });
 ```
 
-## Set z-channel, scale and axes
+## 设置 z 通道、比例尺和坐标轴
 
-Using `depth` to specified depth when creating the Chart
+在创建 Chart 时通过 `depth` 指定深度：
 
 ```ts
 const chart = new Chart({
@@ -59,8 +59,8 @@ const chart = new Chart({
 });
 ```
 
-We use [point3D](/specs/thread/point-thread) mark and select cube as the shape to draw.
-Then set the z channel, scale and axes.
+我们使用 [point3D](/manual/extra-topics/three-dimensional/point-threed) Mark 并选择 cube 作为 shape 进行绘制。
+随后设置 z 通道、比例尺和坐标轴。
 
 ```ts
 chart
@@ -84,21 +84,21 @@ chart
   .axis('z', { gridLineWidth: 2 });
 ```
 
-## Set up camera
+## 设置相机
 
-In a 3D scene we can use orthographic or perspective projection, and the camera can be get from the Chart context after the first rendering is completed. You can then use the [camera API](https://g.antv.antgroup.com/api/camera/intro) provide by G to complete the settings of projection mode and camera type. In the example below, we use perspective projection,
+在 3D 场景中我们可以使用正交或者透视投影，在首次渲染完成后可以从 Chart 上下文中获取相机。随后可以使用 G 提供的[相机 API](https://g.antv.antgroup.com/api/camera/intro) 完成投影模式、相机类型的设置。在下面的例子中，我们使用了透视投影，
 
 ```ts
 chart.render().then(() => {
   const { canvas } = chart.getContext();
-  const camera = canvas.getCamera(); // get camera
+  const camera = canvas.getCamera(); // 获取相机
 
   camera.setPerspective(0.1, 5000, 45, 500 / 500);
   camera.setType(CameraType.ORBITING);
 });
 ```
 
-The effect is as follows:
+效果如下：
 
 ```js | ob { pin: false }
 (() => {
@@ -111,7 +111,7 @@ The effect is as follows:
     ...g2Extension3d.threedlib(),
   });
 
-  // initialize Chart instance
+  // 初始化图表实例
   const chart = new Chart({
     renderer,
     width: 500,
@@ -160,7 +160,7 @@ The effect is as follows:
 })();
 ```
 
-We can also let the camera fix the viewpoint and rotate it at a certain angle. Here we use [rotate](https://g.antv.antgroup.com/api/camera/action#rotate)：
+我们还可以让相机固定视点进行一定角度的旋转，这里使用了 [rotate](https://g.antv.antgroup.com/api/camera/action#rotate)：
 
 ```ts
 camera.rotate(-20, -20, 0);
@@ -177,7 +177,7 @@ camera.rotate(-20, -20, 0);
     ...g2Extension3d.threedlib(),
   });
 
-  // initialize Chart instance
+  // 初始化图表实例
   const chart = new Chart({
     renderer,
     width: 500,
@@ -226,9 +226,9 @@ camera.rotate(-20, -20, 0);
 })();
 ```
 
-## Add light source
+## 添加光源
 
-The material needs to match the light source to present a certain "three-dimensional feeling". Here we use what G provides [directional light source](https://g.antv.antgroup.com/api/3d/light)：
+材质需要配合光源呈现出某种“立体感”。这里我们使用 G 提供的[平行光源](https://g.antv.antgroup.com/api/3d/light)：
 
 ```ts
 import { DirectionalLight } from '@antv/g-plugin-3d';
@@ -243,7 +243,7 @@ const light = new DirectionalLight({
 canvas.appendChild(light);
 ```
 
-we can use `intensity` to increase the intensity of the light source:
+我们可以通过 `intensity` 增大光源的强度：
 
 ```js | ob { pin: false }
 (() => {
@@ -256,7 +256,7 @@ we can use `intensity` to increase the intensity of the light source:
     ...g2Extension3d.threedlib(),
   });
 
-  // initialize Chart instance
+  // 初始化图表实例
   const chart = new Chart({
     renderer,
     width: 500,
@@ -305,27 +305,27 @@ we can use `intensity` to increase the intensity of the light source:
 })();
 ```
 
-## Add custom legend
+## 添加自定义图例
 
-You may notice that in the example above we intentionally turned off the legend:
+你可能注意到在上面的例子中我们刻意关闭了图例：
 
 ```ts
 chart.legend(false);
 ```
 
-This is because graphics in a 3D scene are all affected by the camera, but HUD components like legends are better suited to being drawn independently. refer to [Custom legend](</manual/extra-topics/customization#Custom legend legend>), we can customize the legend using HTML:
+这是由于 3D 场景中的图形都会受到相机影响，但像图例这样的 HUD 组件更适合独立绘制。参考[自定义图例](/manual/extra-topics/customization#自定义图例legend)，我们可以使用 HTML 自定义图例：
 
 ```js | ob { pin: false }
 (() => {
-  // add legend
+  // 添加图例
   function legendColor(chart) {
-    // create and mound legend
+    // 创建 Legend 并且挂在图例
     const node = chart.getContainer();
     const legend = document.createElement('div');
     legend.style.display = 'flex';
     node.insertBefore(legend, node.childNodes[0]);
 
-    // create and mount Items
+    // 创建并挂载 Items
     const { color: scale } = chart.getScale();
     const { domain } = scale.getOptions();
     const items = domain.map((value) => {
@@ -345,7 +345,7 @@ This is because graphics in a 3D scene are all affected by the camera, but HUD c
     });
     items.forEach((d) => legend.append(d));
 
-    // event listener
+    // 监听事件
     const selectedValues = [...domain];
     const options = chart.options();
     for (let i = 0; i < items.length; i++) {
@@ -365,16 +365,16 @@ This is because graphics in a 3D scene are all affected by the camera, but HUD c
       };
     }
 
-    // rerender view
+    // 重新渲染视图
     function changeColor(value) {
       const { transform = [] } = options;
       const newTransform = [{ type: 'filter', color: { value } }, ...transform];
       chart.options({
         ...options,
-        transform: newTransform, // set new transform
+        transform: newTransform, // 指定新的 transform
         scale: { color: { domain } },
       });
-      chart.render(); // rerender chart
+      chart.render(); // 重新渲染图表
     }
   }
 
@@ -387,7 +387,7 @@ This is because graphics in a 3D scene are all affected by the camera, but HUD c
     ...g2Extension3d.threedlib(),
   });
 
-  // initialize Chart instance
+  // 初始化图表实例
   const chart = new Chart({
     renderer,
     width: 500,
@@ -438,11 +438,11 @@ This is because graphics in a 3D scene are all affected by the camera, but HUD c
 })();
 ```
 
-## Using camera interaction and animation
+## 使用相机交互与动画
 
-Interaction in 3D scenes is very different from 2D scenes. [g-plugin-control](https://g.antv.antgroup.com/plugins/control) provides camera-based interaction in 3D scenes. When we drag the canvas, the camera will be controlled to rotate around the viewpoint, and the zoom of the mouse wheel will cause the camera to perform a dolly operation. It should be noted that the scaling operation has no effect under orthogonal projection, but the rotation operation is still effective.
+3D 场景下的交互和 2D 场景有很大的不同，[g-plugin-control](https://g.antv.antgroup.com/plugins/control) 提供了 3D 场景下基于相机的交互。当我们拖拽画布时，会控制相机绕视点进行旋转操作，而鼠标滚轮的缩放会让相机进行 dolly 操作。需要注意的是缩放操作在正交投影下是没有效果的，但旋转操作依然有效。
 
-When users go through some camera operations, they sometimes want to return to the initial state, for example [plot.ly](https://plotly.com/javascript/3d-line-plots/) provides “Reset camera to default” button in the operation toolbar. Use what G provides [Camera animation API](https://g.antv.antgroup.com/api/camera/animation), we can achieve smooth transition between any camera positions:
+当用户经过了一番相机操作，有时想回到初始状态，例如 [plot.ly](https://plotly.com/javascript/3d-line-plots/) 在操作工具栏中就提供了 “Reset camera to default” 按钮。使用 G 提供的[相机动画 API](https://g.antv.antgroup.com/api/camera/animation)，我们可以实现在任意相机位置间平滑过渡：
 
 ```ts
 const camera = canvas.getCamera();
@@ -483,15 +483,15 @@ button.onclick = () => {
       });
     };
   }
-  // add legend
+  // 添加图例
   function legendColor(chart) {
-    // create and mount legend 并且挂在图例
+    // 创建 Legend 并且挂在图例
     const node = chart.getContainer();
     const legend = document.createElement('div');
     legend.style.display = 'flex';
     node.insertBefore(legend, node.childNodes[0]);
 
-    // create and mount Items
+    // 创建并挂载 Items
     const { color: scale } = chart.getScale();
     const { domain } = scale.getOptions();
     const items = domain.map((value) => {
@@ -511,7 +511,7 @@ button.onclick = () => {
     });
     items.forEach((d) => legend.append(d));
 
-    // event listeners
+    // 监听事件
     const selectedValues = [...domain];
     const options = chart.options();
     for (let i = 0; i < items.length; i++) {
@@ -531,16 +531,16 @@ button.onclick = () => {
       };
     }
 
-    // rerender view
+    // 重新渲染视图
     function changeColor(value) {
       const { transform = [] } = options;
       const newTransform = [{ type: 'filter', color: { value } }, ...transform];
       chart.options({
         ...options,
-        transform: newTransform, // set new transform
+        transform: newTransform, // 指定新的 transform
         scale: { color: { domain } },
       });
-      chart.render(); // rerender chart
+      chart.render(); // 重新渲染图表
     }
   }
 
@@ -553,7 +553,7 @@ button.onclick = () => {
     ...g2Extension3d.threedlib(),
   });
 
-  // initialize Chart instance
+  // 初始化图表实例
   const chart = new Chart({
     renderer,
     width: 500,

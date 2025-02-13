@@ -47,6 +47,22 @@ chart
 chart.render();
 ```
 
+G2 中**布局（Layout）** 用于指定一些有特定布局函数标记的布局方法的参数，比如 Snakey, WordCloud, ForceGraph 等。
+```js
+({
+  type: 'sankey',
+  layout: {
+    nodeAlign: 'center',
+    nodePadding: 0.03,
+  },
+});
+```
+
+```js
+// API
+chart.sankey().layout({ nodeAlign: 'center', nodePadding: 0.03 });
+```
+
 ## 选项
 
 | 属性       | 描述                       | 类型              | 默认值 |
