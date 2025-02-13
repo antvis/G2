@@ -1,11 +1,4 @@
-import { arc } from '@antv/vendor/d3-shape';
-import {
-  Path,
-  convertToPath,
-  CSS,
-  PropertySyntax,
-  DisplayObject,
-} from '@antv/g';
+import { CSS, PropertySyntax, DisplayObject } from '@antv/g';
 import { G2Element } from 'utils/selection';
 import { AnimationComponent as AC } from '../runtime';
 import { isTranspose, isPolar } from '../utils/coordinate';
@@ -37,32 +30,10 @@ export const ScaleInY: AC<ScaleInYOptions> = (options, context) => {
     const [shape] = from;
     const PolarScaleInY = (shape: DisplayObject) => {
       const { __data__, style } = shape as G2Element;
-      const {
-        radius = 0,
-        inset = 0,
-        fillOpacity = 1,
-        strokeOpacity = 1,
-        opacity = 1,
-      } = style;
+      const { fillOpacity = 1, strokeOpacity = 1, opacity = 1 } = style;
       const { points, y, y1 } = __data__;
       const arcObject = getArcObject(coordinate, points, [y, y1]);
       const { innerRadius, outerRadius } = arcObject;
-      const path = arc()
-        .cornerRadius(radius as number)
-        .padAngle((inset * Math.PI) / 180);
-      const pathForConversion = new Path({});
-      const createArcPath = (arcParams: {
-        startAngle: number;
-        endAngle: number;
-        innerRadius: number;
-        outerRadius: number;
-      }) => {
-        pathForConversion.attr({
-          d: path(arcParams),
-        });
-        const convertedPathDefinition = convertToPath(pathForConversion);
-        return convertedPathDefinition;
-      };
 
       const keyframes = [
         {
@@ -87,20 +58,6 @@ export const ScaleInY: AC<ScaleInYOptions> = (options, context) => {
       ];
 
       const animation = shape.animate(keyframes, { ...defaults, ...options });
-      animation.onframe = function () {
-        shape.style.d = createArcPath({
-          ...arcObject,
-          outerRadius: Number(shape.style.scaleInYRadius),
-        });
-      };
-
-      animation.onfinish = function () {
-        shape.style.d = createArcPath({
-          ...arcObject,
-          outerRadius: outerRadius,
-        });
-      };
-
       return animation;
     };
 
